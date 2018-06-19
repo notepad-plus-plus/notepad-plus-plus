@@ -149,7 +149,7 @@ bool findStrNoCase(const generic_string & strHaystack, const generic_string & st
 
 bool PluginsAdminDlg::isFoundInAvailableListFromIndex(int index, generic_string str2search, bool inWhichPart) const
 {
-	PluginUpdateInfo* pui = _availableList.getPluginInfoFromIndex(index);
+	PluginUpdateInfo* pui = _availableList.getPluginInfoFromUiIndex(index);
 	generic_string searchIn;
 	if (inWhichPart == _inNames)
 		searchIn = pui->_displayName;
@@ -337,9 +337,24 @@ void PluginsAdminDlg::collectNppCurrentStatusInfos()
 
 }
 
+vector<PluginUpdateInfo*> PluginViewList::fromUiIndexesToPluginInfos(const std::vector<size_t>& uiIndexes) const
+{
+	std::vector<PluginUpdateInfo*> r;
+
+	for (auto i : uiIndexes)
+	{
+		if (i < _ui.nbItem())
+		{
+			r.push_back(getPluginInfoFromUiIndex(i));
+		}
+	}
+	return r;
+}
+
 bool PluginsAdminDlg::installPlugins()
 {
 	vector<size_t> indexes = _availableList.getCheckedIndexes();
+	vector<PluginUpdateInfo*> puis = _availableList.fromUiIndexesToPluginInfos(indexes);
 
 	NppParameters *pNppParameters = NppParameters::getInstance();
 	generic_string updaterDir = pNppParameters->getNppPath();
@@ -348,22 +363,34 @@ bool PluginsAdminDlg::installPlugins()
 	generic_string updaterFullPath = updaterDir + TEXT("gup.exe");
 	generic_string updaterParams = TEXT("-unzipTo ");
 
-	for (auto i : indexes)
+	for (auto i : puis)
 	{
-		//printStr(_availablePluginList[i]._name .c_str());
-
 		// add folder to operate
 		generic_string destFolder = pNppParameters->getAppDataNppDir();
-		PathAppend(destFolder, _availableList.getPluginInfoFromIndex(i)->_folderName);
+		PathAppend(destFolder, i->_folderName);
 		
 		updaterParams += destFolder;
 
 		// add zipFile's url
 		updaterParams += TEXT(" ");
-		updaterParams += _availableList.getPluginInfoFromIndex(i)->_repository;
+		updaterParams += i->_repository;
 
 		Process updater(updaterFullPath.c_str(), updaterParams.c_str(), updaterDir.c_str());
-		updater.run();
+		int result = updater.runSync();
+		if (result == 0) // wingup return 0 -> OK
+		{
+			// Remove (Hide) installed plugin from available list
+			_availableList.hideFromPluginInfoPtr(i);
+
+			// Add installed plugin into insttalled list
+			PluginUpdateInfo* installedPui = new PluginUpdateInfo(*i);
+			installedPui->_isVisible = true;
+			_installedList.pushBack(installedPui);
+		}
+		else // wingup return non-zero (-1) -> Not OK
+		{
+			// just move on
+		}
 	}
 
 	return true;
@@ -372,6 +399,7 @@ bool PluginsAdminDlg::installPlugins()
 bool PluginsAdminDlg::updatePlugins()
 {
 	vector<size_t> indexes = _updateList.getCheckedIndexes();
+	vector<PluginUpdateInfo*> puis = _updateList.fromUiIndexesToPluginInfos(indexes);
 
 	NppParameters *pNppParameters = NppParameters::getInstance();
 	generic_string updaterDir = pNppParameters->getNppPath();
@@ -380,20 +408,30 @@ bool PluginsAdminDlg::updatePlugins()
 	generic_string updaterFullPath = updaterDir + TEXT("gup.exe");
 	generic_string updaterParams = TEXT("-unzipTo ");
 
-	for (auto i : indexes)
+	for (auto i : puis)
 	{
 		// add folder to operate
 		generic_string destFolder = pNppParameters->getAppDataNppDir();
-		PathAppend(destFolder, _availableList.getPluginInfoFromIndex(i)->_folderName);
+		PathAppend(destFolder, i->_folderName);
 
 		updaterParams += destFolder;
 
 		// add zipFile's url
 		updaterParams += TEXT(" ");
-		updaterParams += _availableList.getPluginInfoFromIndex(i)->_repository;
+		updaterParams += i->_repository;
 
 		Process updater(updaterFullPath.c_str(), updaterParams.c_str(), updaterDir.c_str());
-		updater.run();
+		int result = updater.runSync();
+		if (result == 0) // wingup return 0 -> OK
+		{
+			// Remove updated plugin from update list
+			_updateList.removeFromPluginInfoPtr(i);
+
+		}
+		else // wingup return non-zero (-1) -> Not OK
+		{
+			// just move on
+		}
 	}
 
 	return true;
@@ -402,6 +440,7 @@ bool PluginsAdminDlg::updatePlugins()
 bool PluginsAdminDlg::removePlugins()
 {
 	vector<size_t> indexes = _installedList.getCheckedIndexes();
+	vector<PluginUpdateInfo*> puis = _updateList.fromUiIndexesToPluginInfos(indexes);
 
 	NppParameters *pNppParameters = NppParameters::getInstance();
 	generic_string updaterDir = pNppParameters->getNppPath();
@@ -410,21 +449,60 @@ bool PluginsAdminDlg::removePlugins()
 	generic_string updaterFullPath = updaterDir + TEXT("gup.exe");
 	generic_string updaterParams = TEXT("-clean ");
 
-	for (auto i : indexes)
+	for (auto i : puis)
 	{
-		//printStr(_installedPluginList[i]._fullFilePath.c_str());
-
 		// add folder to operate
 		generic_string destFolder = pNppParameters->getAppDataNppDir();
-		PathAppend(destFolder, _availableList.getPluginInfoFromIndex(i)->_folderName); 
+		PathAppend(destFolder, i->_folderName); 
 
 		updaterParams += destFolder;
 
 		Process updater(updaterFullPath.c_str(), updaterParams.c_str(), updaterDir.c_str());
-		updater.run();
+		int result = updater.runSync();
+		if (result == 0) // wingup return 0 -> OK
+		{
+			// Remove removed plugin from installed list
+			_installedList.removeFromPluginInfoPtr(i);
+
+			// Remove removed plugin from update list eventually
+			_updateList.removeFromFolderName(i->_folderName);
+
+			// Add removed plugin back to available list (if available)
+			_availableList.restore(i->_folderName);
+
+		}
+		else // wingup return non-zero (-1) -> Not OK
+		{
+			// just move on
+
+		}
 	}
 
 	return true;
+}
+
+bool PluginViewList::removeFromFolderName(const generic_string& folderName)
+{
+
+	for (size_t i = 0; i < _ui.nbItem(); ++i)
+	{
+		PluginUpdateInfo* pi = getPluginInfoFromUiIndex(i);
+		if (pi->_folderName == folderName)
+		{
+			if (!_ui.removeFromIndex(i))
+				return false;
+
+			for (size_t j = 0; j < _list.size(); ++j)
+			{
+				if (_list[j] == pi)
+				{
+					_list.erase(_list.begin() + j);
+					return true;
+				}
+			}
+		}
+	}
+	return false;
 }
 
 void PluginViewList::pushBack(PluginUpdateInfo* pi)
@@ -556,8 +634,8 @@ bool PluginsAdminDlg::loadFromPluginInfos()
 		lstrcpy(fnNoExt, i._fileName.c_str());
 		::PathRemoveExtension(fnNoExt);
 
-		int index;
-		PluginUpdateInfo* foundInfo = _availableList.findPluginInfoFromFolderName(fnNoExt, index);
+		int listIndex;
+		PluginUpdateInfo* foundInfo = _availableList.findPluginInfoFromFolderName(fnNoExt, listIndex);
 		if (!foundInfo)
 		{
 			PluginUpdateInfo* pui = new PluginUpdateInfo(i._fullFilePath, i._fileName);
@@ -565,14 +643,14 @@ bool PluginsAdminDlg::loadFromPluginInfos()
 		}
 		else
 		{
-			// add new updated info to installed list
+			// Add new updated info to installed list
 			PluginUpdateInfo* pui = new PluginUpdateInfo(*foundInfo);
 			pui->_fullFilePath = i._fullFilePath;
 			pui->_version.setVersionFrom(i._fullFilePath);
 			_installedList.pushBack(pui);
 
-			// remove it from the available list
-			_availableList.removeFromIndex(index);
+			// Hide it from the available list
+			_availableList.hideFromListIndex(listIndex);
 		}
 	}
 
@@ -592,7 +670,14 @@ PluginUpdateInfo* PluginViewList::findPluginInfoFromFolderName(const generic_str
 	return nullptr;
 }
 
-bool PluginViewList::removeFromIndex(size_t index2remove)
+bool PluginViewList::removeFromUiIndex(size_t index2remove)
+{
+	if (index2remove >= _ui.nbItem())
+		return false;
+	return _ui.removeFromIndex(index2remove);
+}
+
+bool PluginViewList::removeFromListIndex(size_t index2remove)
 {
 	if (index2remove >= _list.size())
 		return false;
@@ -607,6 +692,91 @@ bool PluginViewList::removeFromIndex(size_t index2remove)
 	}
 	
 	_list.erase(_list.begin() + index2remove);
+
+	return true;
+}
+
+bool PluginViewList::removeFromPluginInfoPtr(PluginUpdateInfo* pluginInfo2hide)
+{
+	for (size_t i = 0; i < _ui.nbItem(); ++i)
+	{
+		if (_ui.getLParamFromIndex(i) == reinterpret_cast<LPARAM>(pluginInfo2hide))
+		{
+			if (!_ui.removeFromIndex(i))
+			{
+				return false;
+			}
+		}
+	}
+
+	for (size_t j = 0; j < _list.size(); ++j)
+	{
+		if (_list[j] == pluginInfo2hide)
+		{
+			_list.erase(_list.begin() + j);
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool PluginViewList::hideFromPluginInfoPtr(PluginUpdateInfo* pluginInfo2hide)
+{
+	for (size_t i = 0; i < _ui.nbItem(); ++i)
+	{
+		if (_ui.getLParamFromIndex(i) == reinterpret_cast<LPARAM>(pluginInfo2hide))
+		{
+			if (!_ui.removeFromIndex(i))
+			{
+				return false;
+			}
+			else
+			{
+				pluginInfo2hide->_isVisible = false;
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+bool PluginViewList::restore(const generic_string& folderName)
+{
+	for (auto i : _list)
+	{
+		if (i->_folderName == folderName)
+		{
+			vector<generic_string> values2Add;
+			values2Add.push_back(i->_displayName);
+			Version v = i->_version;
+			values2Add.push_back(v.toString());
+			values2Add.push_back(TEXT("Yes"));
+			_ui.addLine(values2Add, reinterpret_cast<LPARAM>(i));
+
+			i->_isVisible = true;
+
+			return true;
+		}
+	}
+	return false;
+}
+
+bool PluginViewList::hideFromListIndex(size_t index2hide)
+{
+	if (index2hide >= _list.size())
+		return false;
+
+	for (size_t i = 0; i < _ui.nbItem(); ++i)
+	{
+		if (_ui.getLParamFromIndex(i) == reinterpret_cast<LPARAM>(_list[index2hide]))
+		{
+			if (!_ui.removeFromIndex(i))
+				return false;
+		}
+	}
+
+	_list[index2hide]->_isVisible = false;
 
 	return true;
 }
@@ -651,7 +821,7 @@ void PluginsAdminDlg::switchDialog(int indexToSwitch)
 
 			long infoIndex = _availableList.getSelectedIndex();
 			if (infoIndex != -1 && infoIndex < static_cast<long>(_availableList.nbItem()))
-				desc = _availableList.getPluginInfoFromIndex(infoIndex)->describe();
+				desc = _availableList.getPluginInfoFromUiIndex(infoIndex)->describe();
 		}
 		break;
 
@@ -663,7 +833,7 @@ void PluginsAdminDlg::switchDialog(int indexToSwitch)
 			
 			long infoIndex = _updateList.getSelectedIndex();
 			if (infoIndex != -1 && infoIndex < static_cast<long>(_updateList.nbItem()))
-				desc = _updateList.getPluginInfoFromIndex(infoIndex)->describe();
+				desc = _updateList.getPluginInfoFromUiIndex(infoIndex)->describe();
 		}
 		break;
 
@@ -675,7 +845,7 @@ void PluginsAdminDlg::switchDialog(int indexToSwitch)
 
 			long infoIndex = _installedList.getSelectedIndex();
 			if (infoIndex != -1 && infoIndex < static_cast<long>(_installedList.nbItem()))
-				desc = _installedList.getPluginInfoFromIndex(infoIndex)->describe();
+				desc = _installedList.getPluginInfoFromUiIndex(infoIndex)->describe();
 		}
 		break;
 
@@ -825,7 +995,7 @@ INT_PTR CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 						}
 						else if (pnmv->uNewState & LVIS_SELECTED)
 						{
-							PluginUpdateInfo* pui = pViewList->getPluginInfoFromIndex(pnmv->iItem);
+							PluginUpdateInfo* pui = pViewList->getPluginInfoFromUiIndex(pnmv->iItem);
 							generic_string desc = pui->describe();
 							::SetDlgItemText(_hSelf, IDC_PLUGINADM_EDIT, desc.c_str());
 						}

@@ -60,6 +60,7 @@ struct PluginUpdateInfo
 	generic_string _md5;
 	generic_string _id;
 	generic_string _repository;
+	bool _isVisible = true;     // if false then it should not be displayed 
 
 	generic_string describe();
 	PluginUpdateInfo() {};
@@ -100,6 +101,7 @@ public:
 	HWND getViewHwnd() { return _ui.getHSelf(); };
 	void displayView(bool doShow) const { _ui.display(doShow); };
 	std::vector<size_t> getCheckedIndexes() const { return _ui.getCheckedIndexes(); };
+	std::vector<PluginUpdateInfo*> fromUiIndexesToPluginInfos(const std::vector<size_t>& ) const;
 	long getSelectedIndex() const { return _ui.getSelectedIndex(); };
 	void setSelection(int index) const { _ui.setSelection(index); };
 	void initView(HINSTANCE hInst, HWND parent) { _ui.init(hInst, parent); };
@@ -107,9 +109,15 @@ public:
 	void reSizeView(RECT & rc) { _ui.reSizeTo(rc); }
 	void setViewStyleOption(int32_t extraStyle) { _ui.setStyleOption(extraStyle); };
 	size_t nbItem() const { return _ui.nbItem(); };
-	PluginUpdateInfo* getPluginInfoFromIndex(int index) const { return reinterpret_cast<PluginUpdateInfo*>(_ui.getLParamFromIndex(index)); };
+	PluginUpdateInfo* getPluginInfoFromUiIndex(int index) const { return reinterpret_cast<PluginUpdateInfo*>(_ui.getLParamFromIndex(index)); };
 	PluginUpdateInfo* findPluginInfoFromFolderName(const generic_string& folderName, int& index) const;
-	bool removeFromIndex(size_t index2remove);
+	bool removeFromListIndex(size_t index2remove);
+	bool hideFromListIndex(size_t index2Hide);
+	bool removeFromFolderName(const generic_string& folderName);
+	bool removeFromUiIndex(size_t index2remove);
+	bool hideFromPluginInfoPtr(PluginUpdateInfo* pluginInfo2hide);
+	bool restore(const generic_string& folderName);
+	bool removeFromPluginInfoPtr(PluginUpdateInfo* pluginInfo2hide);
 
 private:
 	std::vector<PluginUpdateInfo*> _list;
@@ -156,9 +164,9 @@ protected:
 private :
 	TabBar _tab;
 
-	PluginViewList _availableList; // All plugins (pluginList.json) - installed plugins 
-	PluginViewList _updateList;    // A list returned by gitup.exe
-	PluginViewList _installedList; // for each installed plugin, check its json file
+	PluginViewList _availableList; // A permanent list, once it's loaded (no removal - only hide or show) 
+	PluginViewList _updateList;    // A dynamical list, items are removable
+	PluginViewList _installedList; // A dynamical list, items are removable
 
 	PluginsManager *_pPluginsManager = nullptr;
 	NppCurrentStatus _nppCurrentStatus;

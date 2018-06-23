@@ -42,9 +42,7 @@ FileDialog::FileDialog(HWND hwnd, HINSTANCE hInst)
 	staticThis = this;
     //for (int i = 0 ; i < nbExtMax ; i++)
     //    _extArray[i][0] = '\0';
-
-	_fileName[0] = '\0';
- 
+        memset(_fileName, 0, sizeof(_fileName));
 	_winVersion = (NppParameters::getInstance())->getWinVersion();
 
 	_ofn.lStructSize = sizeof(_ofn);

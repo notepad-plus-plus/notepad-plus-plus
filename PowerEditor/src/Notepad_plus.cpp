@@ -6835,6 +6835,5 @@ bool Notepad_plus::undoStreamComment(bool tryBlockComment)
 		}
 	}
 	while(1); //do as long as stream-comments are within selection
-	//return retVal;
 }
 

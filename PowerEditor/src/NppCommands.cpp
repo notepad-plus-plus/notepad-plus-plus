@@ -1913,7 +1913,7 @@ void Notepad_plus::command(int id)
 			generic_string characterNumber = TEXT("");
 
 			Buffer * curBuf = _pEditView->getCurrentBuffer();
-			int fileLen = curBuf->getFileLength();
+			int64_t fileLen = curBuf->getFileLength();
 
 			if (fileLen != -1)
 			{
@@ -1935,7 +1935,7 @@ void Notepad_plus::command(int id)
 				characterNumber += TEXT("\r");
 
 				characterNumber += fileLenLabel;
-				characterNumber += commafyInt(static_cast<UINT64>(fileLen)).c_str();
+				characterNumber += commafyInt(static_cast<size_t>(fileLen)).c_str();
 				characterNumber += TEXT("\r");
 				characterNumber += TEXT("\r");
 			}

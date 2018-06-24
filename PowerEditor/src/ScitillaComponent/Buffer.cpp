@@ -357,25 +357,14 @@ generic_string Buffer::getFileTime(fileTimeType ftt) const
 			FileTimeToSystemTime(&rawtime, &utcSystemTime);
 			SystemTimeToTzSpecificLocalTime(nullptr, &utcSystemTime, &localSystemTime);
 
-			int cbSize = GetDateFormat(LOCALE_USER_DEFAULT, 0, &localSystemTime, nullptr, nullptr, 0);
-			if (cbSize != 0)
-			{
-				TCHAR* buf = new TCHAR[cbSize];
-				GetDateFormat(LOCALE_USER_DEFAULT, 0, &localSystemTime, nullptr, buf, cbSize);
-				result += buf;
-				delete[] buf;
-			}
-
+			TCHAR bufDate[MAX_PATH];
+			GetDateFormat(LOCALE_USER_DEFAULT, 0, &localSystemTime, nullptr, bufDate, MAX_PATH);
+			result += bufDate;
 			result += ' ';
 
-			cbSize = GetTimeFormat(LOCALE_USER_DEFAULT, 0, &localSystemTime, nullptr, nullptr, 0);
-			if (cbSize != 0)
-			{
-				TCHAR* buf = new TCHAR[cbSize];
-				GetTimeFormat(LOCALE_USER_DEFAULT, 0, &localSystemTime, nullptr, buf, cbSize);
-				result += buf;
-				delete[] buf;
-			}
+			TCHAR bufTime[MAX_PATH];
+			GetTimeFormat(LOCALE_USER_DEFAULT, 0, &localSystemTime, nullptr, bufTime, MAX_PATH);
+			result += bufTime;
 		}
 	}
 	return result;

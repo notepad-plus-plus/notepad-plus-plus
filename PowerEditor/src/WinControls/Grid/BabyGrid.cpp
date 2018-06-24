@@ -118,7 +118,7 @@ int         FindGrid(HMENU);
 void		ShowVscroll(HWND,int);
 void		ShowHscroll(HWND,int);
 int         BinarySearchListBox(HWND,TCHAR*);
-void        DisplayEditString(HWND ,int ,TCHAR*);
+void        DisplayEditString(HWND ,int , const TCHAR*);
 int         CountGrids();
 
 
@@ -1157,7 +1157,7 @@ void CloseEdit(HWND hWnd,int SI)
      NotifyEditEnd(hWnd,SI);
     }
 
-void DisplayEditString(HWND hWnd,int SI,TCHAR* tstring)
+void DisplayEditString(HWND hWnd,int SI, const TCHAR* tstring)
     {
        int r,c;
        HFONT holdfont;

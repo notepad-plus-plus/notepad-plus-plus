@@ -32,7 +32,7 @@
 
 void Process::run() const
 {
-	TCHAR *opVerb = TEXT("open");
+	const TCHAR *opVerb = TEXT("open");
 	::ShellExecute(NULL, opVerb, _command.c_str(), _args.c_str(), _curDir.c_str(), SW_SHOWNORMAL);
 }
 

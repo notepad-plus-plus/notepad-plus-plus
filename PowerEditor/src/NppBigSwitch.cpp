@@ -124,7 +124,7 @@ LRESULT Notepad_plus_Window::runProc(HWND hwnd, UINT message, WPARAM wParam, LPA
 }
 
 // Used by NPPM_GETFILENAMEATCURSOR
-int CharacterIs(TCHAR c, TCHAR *any)
+int CharacterIs(TCHAR c, const TCHAR *any)
 {
 	int i;
 	for (i = 0; any[i] != 0; i++)
@@ -755,7 +755,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				// it's not a full file name so try to find the beginning and ending of it
 				int start;
 				int end;
-				TCHAR *delimiters;
+				const TCHAR *delimiters;
 
 				lineNumber = _pEditView->getCurrentLineNumber();
 				col = _pEditView->getCurrentColumnNumber();

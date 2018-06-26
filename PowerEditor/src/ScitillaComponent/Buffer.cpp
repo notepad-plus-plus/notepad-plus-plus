@@ -342,28 +342,29 @@ generic_string Buffer::getFileTime(fileTimeType ftt) const
 			FILETIME rawtime;
 			switch (ftt)
 			{
-			case ft_created:
-				rawtime = attributes.ftCreationTime;
-				break;
-			case ft_modified:
-				rawtime = attributes.ftLastWriteTime;
-				break;
-			default:
-				rawtime = attributes.ftLastAccessTime;
-				break;
+				case ft_created:
+					rawtime = attributes.ftCreationTime;
+					break;
+				case ft_modified:
+					rawtime = attributes.ftLastWriteTime;
+					break;
+				default:
+					rawtime = attributes.ftLastAccessTime;
+					break;
 			}
 
 			SYSTEMTIME utcSystemTime, localSystemTime;
 			FileTimeToSystemTime(&rawtime, &utcSystemTime);
 			SystemTimeToTzSpecificLocalTime(nullptr, &utcSystemTime, &localSystemTime);
 
-			TCHAR bufDate[MAX_PATH];
-			GetDateFormat(LOCALE_USER_DEFAULT, 0, &localSystemTime, nullptr, bufDate, MAX_PATH);
+			const size_t dateTimeStrLen = 256;
+			TCHAR bufDate[dateTimeStrLen] = {'\0'};
+			GetDateFormat(LOCALE_USER_DEFAULT, 0, &localSystemTime, nullptr, bufDate, dateTimeStrLen);
 			result += bufDate;
 			result += ' ';
 
-			TCHAR bufTime[MAX_PATH];
-			GetTimeFormat(LOCALE_USER_DEFAULT, 0, &localSystemTime, nullptr, bufTime, MAX_PATH);
+			TCHAR bufTime[dateTimeStrLen] = {'\0'};
+			GetTimeFormat(LOCALE_USER_DEFAULT, 0, &localSystemTime, nullptr, bufTime, dateTimeStrLen);
 			result += bufTime;
 		}
 	}

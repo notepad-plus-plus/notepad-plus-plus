@@ -1,0 +1,22 @@
+=== 2018-06-27 ===
+
+Project Panel
+- Caption displays "Project 1", "Project 2", "Project 3" instead of "Project", "Project", "Project"
+- Root node displays workspace file name instead of "Workspace".
+- Root node has new context menu command: Find in Files.
+- If more than one Project Panel is open, then the Tabs display "1", "2", "3" instead of "Project", "Project", "Project".
+- Tab sizing improved.
+
+Find in Files Dialog
+- Added Checkbox for each project panel.
+- If Project Panel checkbox(es) are set, then "Find in Files" will search Project Panel files instead of directory.
+- Checking a project Panel checkbox will clear search directory and search directory releated checkboxes.
+- Specifying a directory or checking any directory related checkboxes will clear all Project Panel checkboxes.
+
+Behaviour change
+Old: If a Workspace file is specified as command line parameter, then Notepad++ opens this workspace file in Project Panel 1. But if more than one Project Panel is already open, then the view shows the last Project Panel, and not the Project Panel with the Workspace file specified in the command line.
+New: If a Workspace file is specified as parameter, then always Project Panel 1 will be displayed.
+
+Bugfix
+- If the NativeLanguageSpeaker class fails to initialize because the language files are missing, then a problem occured while it attempted to translate its own "... not found" message.
+

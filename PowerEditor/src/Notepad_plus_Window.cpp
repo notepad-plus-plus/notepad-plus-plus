@@ -237,6 +237,11 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	for (size_t i = 0, len = _notepad_plus_plus_core._internalFuncIDs.size() ; i < len ; ++i)
 		::SendMessage(_hSelf, WM_COMMAND, _notepad_plus_plus_core._internalFuncIDs[i], 0);
 
+	if (_notepad_plus_plus_core._WorkspaceFileLoadedFromCommandLine)
+	{
+		::SendMessage(_hSelf, WM_COMMAND, IDM_VIEW_PROJECT_PANEL_1, 0);
+	}
+
 	// Notify plugins that Notepad++ is ready
 	SCNotification scnN;
 	scnN.nmhdr.code = NPPN_READY;

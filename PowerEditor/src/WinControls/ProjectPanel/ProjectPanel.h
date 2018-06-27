@@ -44,6 +44,7 @@
 #define PM_SAVEASWORKSPACE         TEXT("Save As...")
 #define PM_SAVEACOPYASWORKSPACE    TEXT("Save a Copy As...")
 #define PM_NEWPROJECTWORKSPACE     TEXT("Add New Project")
+#define PM_FINDINFILESWORKSPACE    TEXT("Find in Files...")
 
 #define PM_EDITRENAME              TEXT("Rename")
 #define PM_EDITNEWFOLDER           TEXT("Add Folder")
@@ -70,17 +71,18 @@ public:
 	ProjectPanel(): DockingDlgInterface(IDD_PROJECTPANEL) {};
 
 
-	void init(HINSTANCE hInst, HWND hPere) {
+	void init(HINSTANCE hInst, HWND hPere, int panelID) {
 		DockingDlgInterface::init(hInst, hPere);
+		_panelID = panelID;
 	}
 
-    virtual void display(bool toShow = true) const {
-        DockingDlgInterface::display(toShow);
-    };
+	virtual void display(bool toShow = true) const {
+		DockingDlgInterface::display(toShow);
+	};
 
-    void setParent(HWND parent2set){
-        _hParent = parent2set;
-    };
+	void setParent(HWND parent2set){
+		_hParent = parent2set;
+	};
 
 	void newWorkSpace();
 	bool openWorkSpace(const TCHAR *projectFileName);
@@ -99,10 +101,12 @@ public:
 
 	virtual void setBackgroundColor(COLORREF bgColour) {
 		TreeView_SetBkColor(_treeView.getHSelf(), bgColour);
-    };
+	};
 	virtual void setForegroundColor(COLORREF fgColour) {
 		TreeView_SetTextColor(_treeView.getHSelf(), fgColour);
-    };
+	};
+	bool enumWorkSpaceFiles(HTREEITEM tvFrom, std::vector<generic_string> & fileNames);
+
 
 protected:
 	TreeView _treeView;
@@ -115,6 +119,7 @@ protected:
 	generic_string _workSpaceFilePath;
 	generic_string _selDirOfFilesFromDirDlg;
 	bool _isDirty = false;
+    int _panelID = 0;
 
 	void initMenus();
 	void destroyMenus();

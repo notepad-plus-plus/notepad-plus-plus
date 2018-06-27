@@ -1658,28 +1658,48 @@ bool Notepad_plus::findInFiles()
 {
 	const TCHAR *dir2Search = _findReplaceDlg.getDir2Search();
 
-	if (not dir2Search[0] || not ::PathFileExists(dir2Search))
+	vector<generic_string> fileNames;
+
+	if (not dir2Search[0])
+	{ // search workspace files
+		if (_findReplaceDlg.isProjectPanel_1() && _pProjectPanel_1)
+		{
+			_pProjectPanel_1->enumWorkSpaceFiles (NULL, fileNames);
+		}
+		if (_findReplaceDlg.isProjectPanel_2() && _pProjectPanel_2)
+		{
+			_pProjectPanel_2->enumWorkSpaceFiles (NULL, fileNames);
+		}
+		if (_findReplaceDlg.isProjectPanel_3() && _pProjectPanel_3)
+		{
+			_pProjectPanel_3->enumWorkSpaceFiles (NULL, fileNames);
+		}
+		if (fileNames.size() == 0) return false;
+	}
+	else if (not ::PathFileExists(dir2Search))
 	{
 		return false;
 	}
+	else
+	{
+		bool isRecursive = _findReplaceDlg.isRecursive();
+		bool isInHiddenDir = _findReplaceDlg.isInHiddenDir();
 
-	bool isRecursive = _findReplaceDlg.isRecursive();
-	bool isInHiddenDir = _findReplaceDlg.isInHiddenDir();
+		vector<generic_string> patterns2Match;
+		_findReplaceDlg.getPatterns(patterns2Match);
+		if (patterns2Match.size() == 0)
+		{
+			_findReplaceDlg.setFindInFilesDirFilter(NULL, TEXT("*.*"));
+			_findReplaceDlg.getPatterns(patterns2Match);
+		}
+
+		getMatchedFileNames(dir2Search, patterns2Match, fileNames, isRecursive, isInHiddenDir);
+	}
+
 	int nbTotal = 0;
 	ScintillaEditView *pOldView = _pEditView;
 	_pEditView = &_invisibleEditView;
 	Document oldDoc = _invisibleEditView.execute(SCI_GETDOCPOINTER);
-
-	vector<generic_string> patterns2Match;
-	_findReplaceDlg.getPatterns(patterns2Match);
-	if (patterns2Match.size() == 0)
-	{
-		_findReplaceDlg.setFindInFilesDirFilter(NULL, TEXT("*.*"));
-		_findReplaceDlg.getPatterns(patterns2Match);
-	}
-
-	vector<generic_string> fileNames;
-	getMatchedFileNames(dir2Search, patterns2Match, fileNames, isRecursive, isInHiddenDir);
 
 	_findReplaceDlg.beginNewFilesSearch();
 
@@ -5865,7 +5885,7 @@ void Notepad_plus::launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int
 		NppParameters *pNppParam = NppParameters::getInstance();
 
 		(*pProjPanel) = new ProjectPanel;
-		(*pProjPanel)->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf());
+		(*pProjPanel)->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), panelID);
 		(*pProjPanel)->setWorkSpaceFilePath(pNppParam->getWorkSpaceFilePath(panelID));
 
 		tTbData	data;
@@ -5885,14 +5905,18 @@ void Notepad_plus::launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int
 		data.dlgID = cmdID;
 
 		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
-		generic_string title_temp = pNativeSpeaker->getAttrNameStr(PM_PROJECTPANELTITLE, "ProjectManager", "PanelTitle");
+		generic_string title_no = to_wstring (panelID + 1);
+		generic_string title_temp = pNativeSpeaker->getAttrNameStr(PM_PROJECTPANELTITLE, "ProjectManager", "PanelTitle") + TEXT(" ") + title_no;
 
-		static TCHAR title[32];
-		if (title_temp.length() < 32)
-		{
-			lstrcpy(title, title_temp.c_str());
-			data.pszName = title;
-		}
+		static TCHAR title[4][32]; // 3 Project panels, 1 garbage can
+		int idx = ((panelID >= 0) && (panelID < (_countof(title)-1))) ? panelID : (_countof(title)-1);
+		generic_strncpy(title[idx], title_temp.c_str(), _countof(title[idx]));
+		data.pszName = title[idx];
+
+		static TCHAR tab[4][12];
+		generic_strncpy(tab[idx], title_no.c_str(), _countof(tab[idx]));
+		data.pszShortName = tab[idx];
+
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
 
 		COLORREF fgColor = (NppParameters::getInstance())->getCurrentDefaultFgColor();

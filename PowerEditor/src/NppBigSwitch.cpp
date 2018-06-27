@@ -268,6 +268,24 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_LAUNCHFINDINWORKSPACEDLG:
+		{
+			const int strSize = FINDREPLACE_MAXLENGTH;
+			TCHAR str[strSize];
+
+			bool isFirstTime = not _findReplaceDlg.isCreated();
+			_findReplaceDlg.doDialog(FIND_DLG, _nativeLangSpeaker.isRTL());
+
+			_pEditView->getGenericSelectedText(str, strSize);
+			_findReplaceDlg.setSearchText(str);
+			if (isFirstTime)
+				_nativeLangSpeaker.changeDlgLang(_findReplaceDlg.getHSelf(), "Find");
+			_findReplaceDlg.launchFindInFilesDlg();
+			_findReplaceDlg.setFindInFilesDirFilter(L"", L"*.*");
+			_findReplaceDlg.setProjectCheckmarks(NULL, (int) wParam);
+			return TRUE;
+		}
+
 		case NPPM_INTERNAL_FINDINFINDERDLG:
 		{
 			const int strSize = FINDREPLACE_MAXLENGTH;

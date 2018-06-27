@@ -834,8 +834,9 @@ void DockingCont::drawTabItem(DRAWITEMSTRUCT *pDrawItemStruct)
 	if (!tcItem.lParam)
 		return;
 
-	const TCHAR *text = reinterpret_cast<tTbData*>(tcItem.lParam)->pszName;
-	int		length = lstrlen(reinterpret_cast<tTbData*>(tcItem.lParam)->pszName);
+	tTbData *TbData = (tTbData*) (tcItem.lParam);
+	const TCHAR *text = (TbData->pszShortName) ? TbData->pszShortName : TbData->pszName;
+	int length = lstrlen(text);
 
 
 	// get drawing context
@@ -865,10 +866,11 @@ void DockingCont::drawTabItem(DRAWITEMSTRUCT *pDrawItemStruct)
 	}
 
 	// draw icon if enabled
-	if (((tTbData*)tcItem.lParam)->uMask & DWS_ICONTAB)
+
+	if (TbData->uMask & DWS_ICONTAB)
 	{
 		HIMAGELIST	hImageList	= (HIMAGELIST)::SendMessage(_hParent, DMM_GETIMAGELIST, 0, 0);
-		int iPosImage = static_cast<int32_t>(::SendMessage(_hParent, DMM_GETICONPOS, 0, reinterpret_cast<LPARAM>(reinterpret_cast<tTbData*>(tcItem.lParam)->hClient)));
+		int iPosImage = static_cast<int32_t>(::SendMessage(_hParent, DMM_GETICONPOS, 0, reinterpret_cast<LPARAM>(TbData->hClient)));
 
 		if ((hImageList != NULL) && (iPosImage >= 0))
 		{
@@ -877,27 +879,24 @@ void DockingCont::drawTabItem(DRAWITEMSTRUCT *pDrawItemStruct)
 			RECT &		imageRect	= info.rcImage;
 			
 			ImageList_GetImageInfo(hImageList, iPosImage, &info);
-
+			rc.left += 3;
 			int iconDpiDynamicalY = NppParameters::getInstance()->_dpiManager.scaleY(7);
-			ImageList_Draw(hImageList, iPosImage, hDc, rc.left + 3, iconDpiDynamicalY, ILD_NORMAL);
-
-			if (isSelected)
-			{
-				rc.left += imageRect.right - imageRect.left + 5;
-			}
+			ImageList_Draw(hImageList, iPosImage, hDc, rc.left, iconDpiDynamicalY, ILD_NORMAL);
+			rc.left += imageRect.right - imageRect.left + 5;
 		}
 	}
-
-	if (isSelected)
+	else
 	{
-		COLORREF _unselectedColor = RGB(0, 0, 0);
-		::SetTextColor(hDc, _unselectedColor);
-
-		// draw text
-		rc.top -= ::GetSystemMetrics(SM_CYEDGE);
-		::SelectObject(hDc, _hFont);
-		::DrawText(hDc, text, length, &rc, DT_SINGLELINE | DT_VCENTER | DT_NOPREFIX);
+		rc.left += 8;
 	}
+
+	COLORREF _unselectedColor = RGB(0, 0, 0);
+	::SetTextColor(hDc, _unselectedColor);
+
+	// draw text
+	rc.top -= ::GetSystemMetrics(SM_CYEDGE);
+	::SelectObject(hDc, _hFont);
+	::DrawText(hDc, text, length, &rc, DT_SINGLELINE | DT_VCENTER | DT_NOPREFIX);
 
 	::RestoreDC(hDc, nSavedDC);
 }
@@ -1024,9 +1023,9 @@ void DockingCont::onSize()
 	{
 		// resize to docked window
 		int tabDpiDynamicalHeight = NppParameters::getInstance()->_dpiManager.scaleY(24);
-		if (_isFloating == false)
+		if (!_isFloating)
 		{
-			// draw caption
+			// resize caption
 			if (_isTopCaption == TRUE)
 			{
 				::SetWindowPos(_hCaption, NULL, rc.left, rc.top, rc.right, _captionHeightDynamic, SWP_NOZORDER | SWP_NOACTIVATE);
@@ -1046,8 +1045,8 @@ void DockingCont::onSize()
 				// resize tab
 				rcTemp = rc;
 				rcTemp.top = (rcTemp.bottom + rcTemp.top) - (tabDpiDynamicalHeight + _captionGapDynamic);
-				rcTemp.bottom	= tabDpiDynamicalHeight;
-				iTabOff			= tabDpiDynamicalHeight;
+				rcTemp.bottom = tabDpiDynamicalHeight;
+				iTabOff = tabDpiDynamicalHeight;
 
 				::SetWindowPos(_hContTab, NULL,
 								rcTemp.left, rcTemp.top, rcTemp.right, rcTemp.bottom, 
@@ -1302,10 +1301,8 @@ void DockingCont::selectTab(int iTab)
 {
 	if (iTab != -1)
 	{
-		const TCHAR	*pszMaxTxt	= NULL;
 		TCITEM tcItem = {0};
 		SIZE size = {0};
-		int maxWidth = 0;
 		int iItemCnt = static_cast<int32_t>(::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0));
 
 		// get data of new active dialog
@@ -1342,46 +1339,55 @@ void DockingCont::selectTab(int iTab)
 			::SendMessage(((tTbData*)tcItem.lParam)->hClient, WM_NOTIFY, nmhdr.idFrom, reinterpret_cast<LPARAM>(&nmhdr));
 		}
 
-		// resize tab item
+		// Resize tab items:
+		// Windows sets the width of each tab depending on the width of the text to be shown in it.
+		// Since notepadPlus draws the tabs by itself, and since it includes icons, we need to construct
+		// a text which is at least as wide as the drawing provided by DockingCont::drawTabItem.
+		// Then we give Windows this constructed tab sizing text, while DockingCont::drawTabItem
+		// uses the text from the TbData structure.
 
-		// get at first largest item ...
 		HDC		hDc	= ::GetDC(_hContTab);
 		SelectObject(hDc, _hFont);
 
 		for (int iItem = 0; iItem < iItemCnt; ++iItem)
 		{
-			const TCHAR *pszTabTxt = NULL;
-
+			tcItem.mask = TCIF_PARAM;
 			::SendMessage(_hContTab, TCM_GETITEM, iItem, reinterpret_cast<LPARAM>(&tcItem));
 			if (!tcItem.lParam)
 				continue;
-			pszTabTxt = reinterpret_cast<tTbData*>(tcItem.lParam)->pszName;
 
-			// get current font width
-			GetTextExtentPoint32(hDc, pszTabTxt, lstrlen(pszTabTxt), &size);
-
-			if (maxWidth < size.cx) 
+			tTbData *TbData = (tTbData*)tcItem.lParam;
+			TCHAR tabSizingText [64] = TEXT(".");
+			int tabSizingTextLen = 1;
+			if (TbData->uMask & DWS_ICONTAB)
 			{
-				maxWidth	= size.cx;
-				pszMaxTxt	= pszTabTxt;
-			}
-		}
-		::ReleaseDC(_hSelf, hDc);
+				HIMAGELIST	hImageList	= (HIMAGELIST)::SendMessage(_hParent, DMM_GETIMAGELIST, 0, 0);
+				int iPosImage = static_cast<int32_t>(::SendMessage(_hParent, DMM_GETICONPOS, 0, reinterpret_cast<LPARAM>(TbData->hClient)));
 
-		tcItem.mask	= TCIF_TEXT;
-
-		for (int iItem = 0; iItem < iItemCnt; ++iItem)
-		{
-			generic_string szText;
-			if (iItem == iTab && pszMaxTxt)
-			{
-				// fake here an icon before text ...
-				szText = TEXT("    ");
-				szText += pszMaxTxt;
+				if ((hImageList != NULL) && (iPosImage >= 0))
+				{
+					IMAGEINFO info = {0};
+					ImageList_GetImageInfo(hImageList, iPosImage, &info);
+					int iconSize = info.rcImage.right - info.rcImage.left;
+					while (true)
+					{
+						GetTextExtentPoint32(hDc, tabSizingText, tabSizingTextLen, &size);
+						int tabSizingTextSize = size.cx;
+						if (tabSizingTextSize > iconSize) break;
+						if (tabSizingTextLen == _countof (tabSizingText)) break;
+						tabSizingText [tabSizingTextLen++] = tabSizingText [0];
+						tabSizingText [tabSizingTextLen] = 0;
+					}
+				}
 			}
-			tcItem.pszText = (TCHAR *)szText.c_str();
+			const TCHAR *text = (TbData->pszShortName) ? TbData->pszShortName : TbData->pszName;
+			generic_strncat (tabSizingText, TEXT(" "), _countof (tabSizingText));
+			generic_strncat (tabSizingText, text,      _countof (tabSizingText));
+			tcItem.pszText = tabSizingText;
+			tcItem.mask = TCIF_TEXT;
 			::SendMessage(_hContTab, TCM_SETITEM, iItem, reinterpret_cast<LPARAM>(&tcItem));
 		}
+		::ReleaseDC(_hSelf, hDc);
 
 		// selects the pressed tab and store previous tab
 		::SendMessage(_hContTab, TCM_SETCURSEL, iTab, 0);

@@ -200,6 +200,7 @@ void ProjectPanel::initMenus()
 	generic_string saveas_workspace = pNativeSpeaker->getProjectPanelLangMenuStr("WorkspaceMenu", IDM_PROJECT_SAVEASWS, PM_SAVEASWORKSPACE);
 	generic_string saveacopyas_workspace = pNativeSpeaker->getProjectPanelLangMenuStr("WorkspaceMenu", IDM_PROJECT_SAVEACOPYASWS, PM_SAVEACOPYASWORKSPACE);
 	generic_string newproject_workspace = pNativeSpeaker->getProjectPanelLangMenuStr("WorkspaceMenu", IDM_PROJECT_NEWPROJECT, PM_NEWPROJECTWORKSPACE);
+    generic_string findinfiles_workspace = pNativeSpeaker->getProjectPanelLangMenuStr("WorkspaceMenu", IDM_PROJECT_FINDINFILESWS, PM_FINDINFILESWORKSPACE);
 
 	::InsertMenu(_hWorkSpaceMenu, 0, MF_BYCOMMAND, IDM_PROJECT_NEWWS, new_workspace.c_str());
 	::InsertMenu(_hWorkSpaceMenu, 0, MF_BYCOMMAND, IDM_PROJECT_OPENWS, open_workspace.c_str());
@@ -209,6 +210,8 @@ void ProjectPanel::initMenus()
 	::InsertMenu(_hWorkSpaceMenu, 0, MF_BYCOMMAND, IDM_PROJECT_SAVEACOPYASWS, saveacopyas_workspace.c_str());
 	::InsertMenu(_hWorkSpaceMenu, 0, MF_BYCOMMAND, static_cast<UINT>(-1), 0);
 	::InsertMenu(_hWorkSpaceMenu, 0, MF_BYCOMMAND, IDM_PROJECT_NEWPROJECT, newproject_workspace.c_str());
+	::InsertMenu(_hWorkSpaceMenu, 0, MF_BYCOMMAND, static_cast<UINT>(-1), 0);
+	::InsertMenu(_hWorkSpaceMenu, 0, MF_BYCOMMAND, IDM_PROJECT_FINDINFILESWS, findinfiles_workspace.c_str());
 
 	generic_string edit_moveup = pNativeSpeaker->getProjectPanelLangMenuStr("ProjectMenu", IDM_PROJECT_MOVEUP, PM_MOVEUPENTRY);
 	generic_string edit_movedown = pNativeSpeaker->getProjectPanelLangMenuStr("ProjectMenu", IDM_PROJECT_MOVEDOWN, PM_MOVEDOWNENTRY);
@@ -367,9 +370,10 @@ bool ProjectPanel::openWorkSpace(const TCHAR *projectFileName)
 	_treeView.removeAllItems();
 	_workSpaceFilePath = projectFileName;
 
-	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
-	generic_string workspace = pNativeSpeaker->getAttrNameStr(PM_WORKSPACEROOTNAME, "ProjectManager", "WorkspaceRootName");
-	HTREEITEM rootItem = _treeView.addItem(workspace.c_str(), TVI_ROOT, INDEX_CLEAN_ROOT);
+//	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+//	generic_string workspace = pNativeSpeaker->getAttrNameStr(PM_WORKSPACEROOTNAME, "ProjectManager", "WorkspaceRootName");
+	TCHAR * FileName = PathFindFileName (projectFileName);
+	HTREEITEM rootItem = _treeView.addItem(FileName, TVI_ROOT, INDEX_CLEAN_ROOT);
 
 	for ( ; childNode ; childNode = childNode->NextSibling(TEXT("Project")))
 	{
@@ -469,6 +473,36 @@ void ProjectPanel::buildProjectXml(TiXmlNode *node, HTREEITEM hItem, const TCHAR
 			buildProjectXml(folderNode, hItemNode, fn2write);
 		}
 	}
+}
+
+bool ProjectPanel::enumWorkSpaceFiles(HTREEITEM tvFrom, std::vector<generic_string> & fileNames)
+{
+	TCHAR textBuffer[MAX_PATH];
+	TVITEM tvItem;
+	tvItem.mask = TVIF_TEXT | TVIF_PARAM;
+	tvItem.pszText = textBuffer;
+	tvItem.cchTextMax = MAX_PATH;
+
+	HTREEITEM tvRoot = tvFrom ? tvFrom : _treeView.getRoot();
+	if (!tvRoot) return false;
+
+	for (HTREEITEM tvProj = _treeView.getChildFrom(tvRoot);
+		tvProj != NULL;
+		tvProj = _treeView.getNextSibling(tvProj))
+	{
+		tvItem.hItem = tvProj;
+		SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
+		if (tvItem.lParam)
+		{
+			generic_string *fn = (generic_string *)tvItem.lParam;
+			fileNames.push_back (*fn);
+		}
+		else
+		{
+			if (!enumWorkSpaceFiles (tvProj, fileNames)) return false;
+		}
+	}
+	return true;
 }
 
 generic_string ProjectPanel::getRelativePath(const generic_string & filePath, const TCHAR *workSpaceFileName)
@@ -1016,6 +1050,12 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 		case IDM_PROJECT_SAVEASWS:
 		{
 			saveWorkSpaceAs(cmdID == IDM_PROJECT_SAVEACOPYASWS);
+		}
+		break;
+
+		case IDM_PROJECT_FINDINFILESWS:
+		{
+			::SendMessage(_hParent, NPPM_LAUNCHFINDINWORKSPACEDLG, (WPARAM) 1 << _panelID, 0);
 		}
 		break;
 

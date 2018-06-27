@@ -373,6 +373,8 @@ private:
 	bool _isFileOpening = false;
 	bool _isAdministrator = false;
 
+    bool _WorkspaceFileLoadedFromCommandLine = false;
+
 	ScintillaCtrls _scintillaCtrls4Plugins;
 
 	std::vector<std::pair<int, int> > _hideLinesMarks;

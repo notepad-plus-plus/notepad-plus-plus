@@ -71,6 +71,7 @@ typedef struct {
 	RECT		rcFloat;		// floating position
 	int			iPrevCont;		// stores the privious container (toggling between float and dock)
 	const TCHAR*	pszModuleName;	// it's the plugin file name. It's used to identify the plugin
+	const TCHAR*	pszShortName;	// displayed in tabs if available
 } tTbData;
 
 

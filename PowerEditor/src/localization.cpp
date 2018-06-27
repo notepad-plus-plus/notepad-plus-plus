@@ -1150,6 +1150,10 @@ generic_string NativeLangSpeaker::getAttrNameStr(const TCHAR *defaultStr, const 
 
 int NativeLangSpeaker::messageBox(const char *msgBoxTagName, HWND hWnd, const TCHAR *defaultMessage, const TCHAR *defaultTitle, int msgBoxType, int intInfo, const TCHAR *strInfo)
 {
+	if (!this)
+	{
+		return ::MessageBox(hWnd, defaultMessage, defaultTitle, msgBoxType);
+	}
 	generic_string msg, title;
 	if (!getMsgBoxLang(msgBoxTagName, title, msg))
 	{

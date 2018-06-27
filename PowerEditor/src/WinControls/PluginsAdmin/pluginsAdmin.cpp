@@ -684,7 +684,7 @@ bool PluginViewList::removeFromListIndex(size_t index2remove)
 
 	for (size_t i = 0; i < _ui.nbItem(); ++i)
 	{
-		if (_ui.getLParamFromIndex(i) == reinterpret_cast<LPARAM>(_list[index2remove]))
+		if (_ui.getLParamFromIndex(static_cast<int>(i)) == reinterpret_cast<LPARAM>(_list[index2remove]))
 		{
 			if (!_ui.removeFromIndex(i))
 				return false;
@@ -700,9 +700,9 @@ bool PluginViewList::removeFromPluginInfoPtr(PluginUpdateInfo* pluginInfo2hide)
 {
 	for (size_t i = 0; i < _ui.nbItem(); ++i)
 	{
-		if (_ui.getLParamFromIndex(i) == reinterpret_cast<LPARAM>(pluginInfo2hide))
+		if (_ui.getLParamFromIndex(static_cast<int>(i)) == reinterpret_cast<LPARAM>(pluginInfo2hide))
 		{
-			if (!_ui.removeFromIndex(i))
+			if (!_ui.removeFromIndex(static_cast<int>(i)))
 			{
 				return false;
 			}
@@ -725,9 +725,9 @@ bool PluginViewList::hideFromPluginInfoPtr(PluginUpdateInfo* pluginInfo2hide)
 {
 	for (size_t i = 0; i < _ui.nbItem(); ++i)
 	{
-		if (_ui.getLParamFromIndex(i) == reinterpret_cast<LPARAM>(pluginInfo2hide))
+		if (_ui.getLParamFromIndex(static_cast<int>(i)) == reinterpret_cast<LPARAM>(pluginInfo2hide))
 		{
-			if (!_ui.removeFromIndex(i))
+			if (!_ui.removeFromIndex(static_cast<int>(i)))
 			{
 				return false;
 			}
@@ -769,9 +769,9 @@ bool PluginViewList::hideFromListIndex(size_t index2hide)
 
 	for (size_t i = 0; i < _ui.nbItem(); ++i)
 	{
-		if (_ui.getLParamFromIndex(i) == reinterpret_cast<LPARAM>(_list[index2hide]))
+		if (_ui.getLParamFromIndex(static_cast<int>(i)) == reinterpret_cast<LPARAM>(_list[index2hide]))
 		{
-			if (!_ui.removeFromIndex(i))
+			if (!_ui.removeFromIndex(static_cast<int>(i)))
 				return false;
 		}
 	}

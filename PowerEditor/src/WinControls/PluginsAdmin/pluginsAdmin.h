@@ -109,7 +109,7 @@ public:
 	void reSizeView(RECT & rc) { _ui.reSizeTo(rc); }
 	void setViewStyleOption(int32_t extraStyle) { _ui.setStyleOption(extraStyle); };
 	size_t nbItem() const { return _ui.nbItem(); };
-	PluginUpdateInfo* getPluginInfoFromUiIndex(int index) const { return reinterpret_cast<PluginUpdateInfo*>(_ui.getLParamFromIndex(index)); };
+	PluginUpdateInfo* getPluginInfoFromUiIndex(size_t index) const { return reinterpret_cast<PluginUpdateInfo*>(_ui.getLParamFromIndex(static_cast<int>(index))); };
 	PluginUpdateInfo* findPluginInfoFromFolderName(const generic_string& folderName, int& index) const;
 	bool removeFromListIndex(size_t index2remove);
 	bool hideFromListIndex(size_t index2Hide);

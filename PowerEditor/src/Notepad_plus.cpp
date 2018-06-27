@@ -3594,16 +3594,28 @@ void Notepad_plus::docOpenInNewInstance(FileTransferMode mode, int x, int y)
 {
 	BufferID bufferID = _pEditView->getCurrentBufferID();
 	Buffer * buf = MainFileManager->getBufferByID(bufferID);
-	if (buf->isUntitled() || buf->isDirty())
-		return;
+	bool isUntitledOrDirty = (buf->isUntitled() || buf->isDirty());
+	if (isUntitledOrDirty)
+	{
+		buf->setBackupFileName(buf->getFileName());
+		MainFileManager->backupCurrentBuffer();
+	}
 
 	TCHAR nppName[MAX_PATH];
 	::GetModuleFileName(NULL, nppName, MAX_PATH);
 	generic_string command = TEXT("\"");
 	command += nppName;
 	command += TEXT("\"");
-	command += TEXT(" \"$(FULL_CURRENT_PATH)\" -multiInst -nosession");
 
+	command += TEXT(" \"$(CURRENT_DIRECTORY)");
+	if (isUntitledOrDirty) {
+		command += buf->getBackupFileName();
+	}
+	else {
+		command += TEXT("\\$(FILE_NAME)");
+	}
+	command += TEXT("\" -multiInst -nosession");
+	
 	if (x) {
 		TCHAR pX[10];
 		generic_itoa(x, pX, 10);

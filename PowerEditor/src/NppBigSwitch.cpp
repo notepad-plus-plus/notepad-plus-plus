@@ -1766,6 +1766,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					//User cancelled the shutdown
 					scnN.nmhdr.code = NPPN_CANCELSHUTDOWN;
 					_pluginsManager.notify(&scnN);
+					
+					if (isSnapshotMode)
+						::LockWindowUpdate(NULL);
 					return FALSE;
 				}
 

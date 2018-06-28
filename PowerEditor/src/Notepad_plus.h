@@ -196,8 +196,6 @@ public:
 	bool fileDelete(BufferID id = BUFFER_INVALID);
 	bool fileRename(BufferID id = BUFFER_INVALID);
 
-	bool addBufferToView(BufferID id, int whichOne);
-	bool moveBuffer(BufferID id, int whereTo);	//assumes whereFrom is otherView(whereTo)
 	bool switchToFile(BufferID buffer);			//find buffer in active view then in other view.
 	//@}
 
@@ -295,6 +293,7 @@ private:
 	// Dialog
 	FindReplaceDlg _findReplaceDlg;
 	FindInFinderDlg _findInFinderDlg;
+	FindReplaceResultDlg _FindReplaceResultDlg;
 
 	FindIncrementDlg _incrementFindDlg;
     AboutDlg _aboutDlg;
@@ -556,6 +555,7 @@ private:
 	bool replaceInOpenedFiles();
 	bool findInOpenedFiles();
 	bool findInCurrentFile();
+	void showIgnoredFilesMessage(size_t totalFiles, const std::vector<generic_string> & ignoredFiles);
 
 	void getMatchedFileNames(const TCHAR *dir, const std::vector<generic_string> & patterns, std::vector<generic_string> & fileNames, bool isRecursive, bool isInHiddenDir);
 	void doSynScorll(HWND hW);

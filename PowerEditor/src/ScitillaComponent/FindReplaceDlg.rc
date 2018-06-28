@@ -134,4 +134,21 @@ BEGIN
 	PUSHBUTTON      "Close",IDCANCEL,268,38,90,14
 END
 
+
+IDD_FINDREPLACE_RESULT_DLG DIALOGEX 0, 0, 420, 225
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_TOOLWINDOW
+CAPTION "Result for Find/Replace in Files..."
+FONT 8, "Ms Shell Dlg"
+BEGIN
+    GROUPBOX        "",ID_GB_DESCRIPTION,5,5,410,30
+    LTEXT           "Some of the file(s) was/were excluded in the performed operation due to either large file size or some other technical reason. Refer the below table for details.",ID_STATICTEXT_DESCRIPTION,9,10,402,22
+    LTEXT           "Total Processed File Count:",ID_STATICTEXT_TOTAL_NAME, 5,45,130,8
+    RTEXT           "9999",ID_STATICTEXT_TOTAL_VALUE, 145,45,40,8
+    LTEXT           "Ignored File(s):",ID_STATICTEXT_IGNORED_NAME, 230,45,130,8
+    RTEXT           "100",ID_STATICTEXT_IGNORED_VALUE, 375,45,40,8
+    CONTROL         "", IDC_LV_PROGESSDLG, "SysListView32", LVS_REPORT | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP, 5, 60, 410, 135
+    PUSHBUTTON      "OK", IDOK, 365, 200, 50, 14
+END
+
 #endif //FIND_REPLACE_DLG_RC

@@ -442,6 +442,32 @@ private :
 	void markSelectedTextInc(bool enable, FindOption *opt = NULL);
 };
 
+class FindReplaceResultDlg : public StaticDialog
+{
+public:
+	FindReplaceResultDlg() : StaticDialog() {};
+
+	void doDialog(const std::vector<generic_string>& ignoredFiles, const TCHAR* pszTitle = nullptr, size_t fileCount = 0, bool bAppend = false, bool isRTL = false);
+
+protected:
+	virtual void create(int dialogID, bool isRTL = false, bool msgDestParent = true);
+	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	void updateColumnNames();
+	void fitColumnsToSize();
+
+private:
+	void resetDlgUI();
+
+	void initializeListView();
+	void setControlText(HWND hWnd, const TCHAR* pszText = nullptr);
+	void setControlText(HWND hWnd, size_t value);
+
+	void addToIngoredList(generic_string File);
+
+	HWND		_hList = nullptr;
+	size_t		_nTotalProcessedCount = 0;
+	size_t		_nIgnoredCount = 0;
+};
 
 class Progress
 {

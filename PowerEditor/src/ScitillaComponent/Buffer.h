@@ -87,7 +87,7 @@ public:
 
 	void addBufferReference(BufferID id, ScintillaEditView * identifer);	//called by Scintilla etc indirectly
 
-	BufferID loadFile(const TCHAR * filename, Document doc = NULL, int encoding = -1, const TCHAR *backupFileName = NULL, FILETIME fileNameTimestamp = {});	//ID == BUFFER_INVALID on failure. If Doc == NULL, a new file is created, otherwise data is loaded in given document
+	BufferID loadFile(const TCHAR * filename, Document doc = NULL, int encoding = -1, const TCHAR *backupFileName = NULL, FILETIME fileNameTimestamp = {}, bool bIgnoreLargeFileMessage = false);	//ID == BUFFER_INVALID on failure. If Doc == NULL, a new file is created, otherwise data is loaded in given document
 	BufferID newEmptyDocument();
 	//create Buffer from existing Scintilla, used from new Scintillas. If dontIncrease = true, then the new document number isnt increased afterwards.
 	//usefull for temporary but neccesary docs
@@ -116,7 +116,7 @@ public:
 private:
 	~FileManager();
 	int detectCodepage(char* buf, size_t len);
-	bool loadFileData(Document doc, const TCHAR* filename, char* buffer, Utf8_16_Read* UnicodeConvertor, LangType & language, int & encoding, EolType & eolFormat);
+	bool loadFileData(Document doc, const TCHAR* filename, char* buffer, Utf8_16_Read* UnicodeConvertor, LangType & language, int & encoding, EolType & eolFormat, bool bIgnoreLargeFileMessage = false);
 	LangType detectLanguageFromTextBegining(const unsigned char *data, size_t dataLen);
 
 

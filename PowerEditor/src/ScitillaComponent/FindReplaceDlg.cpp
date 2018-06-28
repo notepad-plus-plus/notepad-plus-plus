@@ -3583,6 +3583,189 @@ void FindIncrementDlg::addToRebar(ReBar * rebar)
 	_pRebar->setGrayBackground(_rbBand.wID);
 }
 
+
+#define WD_ROOTNODE					"WindowsDlg"
+#define WD_CLMNNAME					"ColumnName"
+#define WD_CLMNPATH					"ColumnPath"
+
+INT_PTR CALLBACK FindReplaceResultDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /*lParam*/)
+{
+	switch (message)
+	{
+	case WM_INITDIALOG:
+	{
+		initializeListView();
+		return TRUE;
+	}
+	case WM_COMMAND:
+	{
+		switch (wParam)
+		{
+		case IDOK:
+		case IDCANCEL:
+			display(false);
+			return TRUE;
+
+		default:
+			break;
+		}
+	}
+	}
+	return FALSE;
+}
+
+void FindReplaceResultDlg::initializeListView()
+{
+	_hList = ::GetDlgItem(_hSelf, IDC_LV_PROGESSDLG);
+	DWORD exStyle = ListView_GetExtendedListViewStyle(_hList);
+	exStyle |= LVS_EX_HEADERDRAGDROP | LVS_EX_FULLROWSELECT | LVS_EX_DOUBLEBUFFER;
+	ListView_SetExtendedListViewStyle(_hList, exStyle);
+
+	LVCOLUMN lvColumn;
+	memset(&lvColumn, 0, sizeof(lvColumn));
+	lvColumn.mask = LVCF_WIDTH | LVCF_TEXT | LVCF_SUBITEM | LVCF_FMT;
+	lvColumn.fmt = LVCFMT_LEFT;
+
+	generic_string columnText;
+	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+
+	columnText = pNativeSpeaker->getAttrNameStr(TEXT("Name"), WD_ROOTNODE, WD_CLMNNAME);
+	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
+	lvColumn.cx = 200;
+	::SendMessage(_hList, LVM_INSERTCOLUMN, 0, LPARAM(&lvColumn));
+
+	columnText = pNativeSpeaker->getAttrNameStr(TEXT("Path"), WD_ROOTNODE, WD_CLMNPATH);
+	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
+	lvColumn.cx = 250;
+	::SendMessage(_hList, LVM_INSERTCOLUMN, 1, LPARAM(&lvColumn));
+
+	fitColumnsToSize();
+}
+
+void FindReplaceResultDlg::resetDlgUI()
+{
+	_nTotalProcessedCount = 0;
+	_nIgnoredCount = 0;
+
+	// reset UI
+	setControlText(GetDlgItem(_hSelf, ID_STATICTEXT_TOTAL_VALUE), _nTotalProcessedCount);
+	setControlText(GetDlgItem(_hSelf, ID_STATICTEXT_IGNORED_VALUE), _nIgnoredCount);
+
+	// Remove items from the listview
+	ListView_DeleteAllItems(_hList);
+}
+
+void FindReplaceResultDlg::create(int dialogID, bool isRTL, bool msgDestParent)
+{
+	StaticDialog::create(dialogID, isRTL, msgDestParent);
+	updateColumnNames();
+
+	ETDTProc enableDlgTheme = (ETDTProc)::SendMessage(_hParent, NPPM_GETENABLETHEMETEXTUREFUNC, 0, 0);
+	if (enableDlgTheme)
+		enableDlgTheme(_hSelf, ETDT_ENABLETAB);
+
+	resetDlgUI();
+
+	// Adjust the position in the center
+	goToCenter();
+}
+
+void FindReplaceResultDlg::doDialog(const std::vector<generic_string>& ignoredFiles, const TCHAR* pszTitle, size_t fileCount, bool bAppend, bool isRTL)
+{
+	if (!isCreated())
+		create(IDD_FINDREPLACE_RESULT_DLG, isRTL);
+
+	if (bAppend)
+	{
+		_nTotalProcessedCount += fileCount;
+		_nIgnoredCount += ignoredFiles.size();
+	}
+	else
+	{
+		resetDlgUI();
+		_nTotalProcessedCount = fileCount;
+		_nIgnoredCount = ignoredFiles.size();
+	}
+
+	// Show total file count and ignored file count
+	setControlText(GetDlgItem(_hSelf, ID_STATICTEXT_TOTAL_VALUE), _nTotalProcessedCount);
+	setControlText(GetDlgItem(_hSelf, ID_STATICTEXT_IGNORED_VALUE), _nIgnoredCount);
+
+	// set title if needed
+	setControlText(_hSelf, pszTitle);
+
+	// Fill the listview
+	for (auto const& file : ignoredFiles)
+		addToIngoredList(file);
+
+	// Show dialog
+	display(true);
+}
+
+void FindReplaceResultDlg::updateColumnNames()
+{
+	LVCOLUMN lvColumn;
+	memset(&lvColumn, 0, sizeof(lvColumn));
+	lvColumn.mask = LVCF_WIDTH | LVCF_TEXT | LVCF_SUBITEM | LVCF_FMT;
+	lvColumn.fmt = LVCFMT_LEFT;
+
+	generic_string columnText;
+	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+
+	columnText = pNativeSpeaker->getAttrNameStr(TEXT("Name"), WD_ROOTNODE, WD_CLMNNAME);
+	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
+	lvColumn.cx = static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 0, 0));
+	SendMessage(_hList, LVM_SETCOLUMN, 0, LPARAM(&lvColumn));
+
+	columnText = pNativeSpeaker->getAttrNameStr(TEXT("Path"), WD_ROOTNODE, WD_CLMNPATH);
+	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
+	lvColumn.cx = static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 1, 0));
+	SendMessage(_hList, LVM_SETCOLUMN, 1, LPARAM(&lvColumn));
+}
+
+void FindReplaceResultDlg::fitColumnsToSize()
+{
+	// perhaps make the path column auto size
+	RECT rc;
+	if (GetClientRect(_hList, &rc))
+	{
+		int len = (rc.right - rc.left);
+		len -= static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 0, 0));
+		len -= GetSystemMetrics(SM_CXVSCROLL);
+		SendMessage(_hList, LVM_SETCOLUMNWIDTH, 1, len);
+	}
+}
+
+void FindReplaceResultDlg::setControlText(HWND hWnd, const TCHAR* pszText)
+{
+	if (pszText != nullptr and _tcslen(pszText))
+	{
+		::SendMessage(hWnd, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(pszText));
+	}
+}
+
+void FindReplaceResultDlg::setControlText(HWND hWnd, size_t value)
+{
+	std::wstring ctrlText = std::to_wstring(value);
+	::SendMessage(hWnd, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(ctrlText.c_str()));
+}
+
+void FindReplaceResultDlg::addToIngoredList(generic_string File)
+{
+	int itemCount = ListView_GetItemCount(_hList);
+	LVITEM item={};
+	item.mask = LVIF_TEXT;
+
+	item.pszText = const_cast<TCHAR *>(File.c_str());
+	item.iItem = itemCount;
+	item.iSubItem = 0;
+	ListView_InsertItem(_hList, &item);
+
+	ListView_SetItemText(_hList, itemCount, 0, ::PathFindFileName(File.c_str()));
+	ListView_SetItemText(_hList, itemCount, 1, const_cast<TCHAR *>(File.c_str()));
+}
+
+
 const TCHAR Progress::cClassName[] = TEXT("NppProgressClass");
 const TCHAR Progress::cDefaultHeader[] = TEXT("Operation progress...");
 const int Progress::cBackgroundColor = COLOR_3DFACE;

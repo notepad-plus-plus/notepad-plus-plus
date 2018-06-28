@@ -574,7 +574,7 @@ void FileManager::closeBuffer(BufferID id, ScintillaEditView * identifier)
 
 
 // backupFileName is sentinel of backup mode: if it's not NULL, then we use it (load it). Otherwise we use filename
-BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encoding, const TCHAR *backupFileName, FILETIME fileNameTimestamp)
+BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encoding, const TCHAR *backupFileName, FILETIME fileNameTimestamp, bool bIgnoreLargeFileMessage)
 {
 	bool ownDoc = false;
 	if (doc == NULL)
@@ -601,7 +601,7 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 	char data[blockSize + 8]; // +8 for incomplete multibyte char
 	EolType bkformat = EolType::unknown;
 	LangType detectedLang = L_TEXT;
-	bool res = loadFileData(doc, backupFileName ? backupFileName : fullpath, data, &UnicodeConvertor, detectedLang, encoding, bkformat);
+	bool res = loadFileData(doc, backupFileName ? backupFileName : fullpath, data, &UnicodeConvertor, detectedLang, encoding, bkformat, bIgnoreLargeFileMessage);
 	if (res)
 	{
 		Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_REGULAR, fullpath);
@@ -1345,7 +1345,7 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 	return L_TEXT;
 }
 
-bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data, Utf8_16_Read * unicodeConvertor, LangType & language, int & encoding, EolType & eolFormat)
+bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data, Utf8_16_Read * unicodeConvertor, LangType & language, int & encoding, EolType & eolFormat, bool bIgnoreLargeFileMessage)
 {
 	FILE *fp = generic_fopen(filename, TEXT("rb"));
 	if (not fp)
@@ -1360,12 +1360,15 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 	// As a 32bit application, we cannot allocate 2 buffer of more than INT_MAX size (it takes the whole address space)
 	if (bufferSizeRequested > INT_MAX)
 	{
-		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
-		pNativeSpeaker->messageBox("FileTooBigToOpen",
-										NULL,
-										TEXT("File is too big to be opened by Notepad++"),
-										TEXT("File size problem"),
-										MB_OK|MB_APPLMODAL);
+		if (false == bIgnoreLargeFileMessage)
+		{
+			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+			pNativeSpeaker->messageBox("FileTooBigToOpen",
+				NULL,
+				TEXT("File is too big to be opened by Notepad++"),
+				TEXT("File size problem"),
+				MB_OK | MB_APPLMODAL);
+		}
 
 		fclose(fp);
 		return false;
@@ -1481,12 +1484,15 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 	}
 	__except(EXCEPTION_EXECUTE_HANDLER) //TODO: should filter correctly for other exceptions; the old filter(GetExceptionCode(), GetExceptionInformation()) was only catching access violations
 	{
-		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
-		pNativeSpeaker->messageBox("FileTooBigToOpen",
-			NULL,
-			TEXT("File is too big to be opened by Notepad++"),
-			TEXT("File size problem"),
-			MB_OK | MB_APPLMODAL);
+		if (false == bIgnoreLargeFileMessage)
+		{
+			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+			pNativeSpeaker->messageBox("FileTooBigToOpen",
+				NULL,
+				TEXT("File is too big to be opened by Notepad++"),
+				TEXT("File size problem"),
+				MB_OK | MB_APPLMODAL);
+		}
 		success = false;
 	}
 

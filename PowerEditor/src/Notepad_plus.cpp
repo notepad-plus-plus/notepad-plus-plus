@@ -633,6 +633,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	//--Init dialogs--//
     _findReplaceDlg.init(_pPublicInterface->getHinst(), hwnd, &_pEditView);
 	_findInFinderDlg.init(_pPublicInterface->getHinst(), hwnd);
+	_FindReplaceResultDlg.init(_pPublicInterface->getHinst(), hwnd);
 	_incrementFindDlg.init(_pPublicInterface->getHinst(), hwnd, &_findReplaceDlg, _nativeLangSpeaker.isRTL());
 	_incrementFindDlg.addToRebar(&_rebarBottom);
     _goToLineDlg.init(_pPublicInterface->getHinst(), hwnd, &_pEditView);
@@ -1513,6 +1514,7 @@ bool Notepad_plus::replaceInFiles()
 		progress.open(_findReplaceDlg.getHSelf(), TEXT("Replace In Files progress..."));
 	}
 
+	vector<generic_string> ignoredFiles;
 	for (size_t i = 0, updateOnCount = filesPerPercent; i < filesCount; ++i)
 	{
 		if (progress.isCancelled()) break;
@@ -1522,7 +1524,7 @@ bool Notepad_plus::replaceInFiles()
 		BufferID id = MainFileManager->getBufferFromName(fileNames.at(i).c_str());
 		if (id == BUFFER_INVALID)
 		{
-			id = MainFileManager->loadFile(fileNames.at(i).c_str());
+			id = MainFileManager->loadFile(fileNames.at(i).c_str(), NULL, -1, NULL, {}, true);
 			closeBuf = true;
 		}
 
@@ -1546,6 +1548,10 @@ bool Notepad_plus::replaceInFiles()
 			if (closeBuf)
 				MainFileManager->closeBuffer(id, _pEditView);
 		}
+		else
+		{
+			ignoredFiles.push_back(fileNames.at(i));
+		}
 		if (i == updateOnCount)
 		{
 			updateOnCount += filesPerPercent;
@@ -1558,6 +1564,11 @@ bool Notepad_plus::replaceInFiles()
 	}
 
 	progress.close();
+
+	// Show large ignored files which could not be opened for find/replace in folder
+	// It is just to intimate user about the ingored file details
+	if (ignoredFiles.size() > 0)
+		showIgnoredFilesMessage(filesCount, ignoredFiles);
 
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, oldDoc);
 	_invisibleEditView.setCurrentBuffer(oldBuf);
@@ -1695,6 +1706,7 @@ bool Notepad_plus::findInFiles()
 		progress.open(_findReplaceDlg.getHSelf(), TEXT("Find In Files progress..."));
 	}
 
+	vector<generic_string> ignoredFiles;
 	for (size_t i = 0, updateOnCount = filesPerPercent; i < filesCount; ++i)
 	{
 		if (progress.isCancelled()) break;
@@ -1703,7 +1715,7 @@ bool Notepad_plus::findInFiles()
 		BufferID id = MainFileManager->getBufferFromName(fileNames.at(i).c_str());
 		if (id == BUFFER_INVALID)
 		{
-			id = MainFileManager->loadFile(fileNames.at(i).c_str());
+			id = MainFileManager->loadFile(fileNames.at(i).c_str(), NULL, -1, NULL, {}, true);
 			closeBuf = true;
 		}
 
@@ -1719,6 +1731,10 @@ bool Notepad_plus::findInFiles()
 			if (closeBuf)
 				MainFileManager->closeBuffer(id, _pEditView);
 		}
+		else
+		{
+			ignoredFiles.push_back(fileNames.at(i));
+		}
 		if (i == updateOnCount)
 		{
 			updateOnCount += filesPerPercent;
@@ -1731,6 +1747,11 @@ bool Notepad_plus::findInFiles()
 	}
 
 	progress.close();
+
+	// Show large ignored files which could not be opened for find/replace in folder
+	// It is just to intimate user about the ingored file details
+	if (ignoredFiles.size() > 0)
+		showIgnoredFilesMessage(filesCount, ignoredFiles);
 
 	_findReplaceDlg.finishFilesSearch(nbTotal);
 
@@ -1831,6 +1852,11 @@ bool Notepad_plus::findInCurrentFile()
 	if (nbTotal && !findHistory._isDlgAlwaysVisible)
 		_findReplaceDlg.display(false);
 	return true;
+}
+
+void Notepad_plus::showIgnoredFilesMessage(size_t totalFiles, const std::vector<generic_string>& ignoredFiles)
+{
+	_FindReplaceResultDlg.doDialog(ignoredFiles, nullptr, totalFiles, false, false);
 }
 
 void Notepad_plus::filePrint(bool showDialog)

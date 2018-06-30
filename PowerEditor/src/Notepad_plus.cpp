@@ -2592,7 +2592,7 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 			{
 				if (nextChar == '}')
 				{
-					char *eolChars;
+					const char *eolChars;
 					if (eolMode == SC_EOL_CRLF)
 						eolChars = "\r\n";
 					else if (eolMode == SC_EOL_LF)
@@ -4952,7 +4952,7 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session, bool includUntitledD
 
 			generic_string	languageName = getLangFromMenu(buf);
 			const TCHAR *langName = languageName.c_str();
-			sessionFileInfo sfi(buf->getFullPathName(), langName, buf->getEncoding(), buf->getPosition(editView), buf->getBackupFileName().c_str(), int(buf->getLastModifiedTimestamp()), buf->getMapPosition());
+			sessionFileInfo sfi(buf->getFullPathName(), langName, buf->getEncoding(), buf->getPosition(editView), buf->getBackupFileName().c_str(), buf->getLastModifiedTimestamp(), buf->getMapPosition());
 
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
 			size_t maxLine = static_cast<size_t>(_invisibleEditView.execute(SCI_GETLINECOUNT));
@@ -6233,7 +6233,7 @@ static const QuoteParams quotes[] =
 
 
 const int nbWtf = 5;
-wchar_t* wtf[nbWtf] =
+const wchar_t* wtf[nbWtf] =
 {
 	TEXT("WTF?!"),
 	TEXT("lol"),
@@ -6835,6 +6835,5 @@ bool Notepad_plus::undoStreamComment(bool tryBlockComment)
 		}
 	}
 	while(1); //do as long as stream-comments are within selection
-	//return retVal;
 }
 

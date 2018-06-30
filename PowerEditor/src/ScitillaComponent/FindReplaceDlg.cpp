@@ -2197,6 +2197,7 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		_pFinder->_scintView.execute(SCI_USEPOPUP, FALSE);
 		_pFinder->_scintView.execute(SCI_SETUNDOCOLLECTION, false);	//dont store any undo information
 		_pFinder->_scintView.execute(SCI_SETCARETLINEVISIBLE, 1);
+		_pFinder->_scintView.execute(SCI_SETCARETLINEVISIBLEALWAYS, true);
 		_pFinder->_scintView.execute(SCI_SETCARETWIDTH, 0);
 		_pFinder->_scintView.showMargin(ScintillaEditView::_SC_MARGE_FOLDER, true);
 
@@ -2288,6 +2289,7 @@ Finder * FindReplaceDlg::createFinder()
 	pFinder->_scintView.execute(SCI_USEPOPUP, FALSE);
 	pFinder->_scintView.execute(SCI_SETUNDOCOLLECTION, false);	//dont store any undo information
 	pFinder->_scintView.execute(SCI_SETCARETLINEVISIBLE, 1);
+	pFinder->_scintView.execute(SCI_SETCARETLINEVISIBLEALWAYS, true);
 	pFinder->_scintView.execute(SCI_SETCARETWIDTH, 0);
 	pFinder->_scintView.showMargin(ScintillaEditView::_SC_MARGE_FOLDER, true);
 
@@ -2920,7 +2922,7 @@ void FindReplaceDlg::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 {
 	//printStr(TEXT("OK"));
 	COLORREF fgColor = RGB(0, 0, 0); // black by default
-	PTSTR ptStr =(PTSTR)lpDrawItemStruct->itemData;
+	PCTSTR ptStr =(PCTSTR)lpDrawItemStruct->itemData;
 
 	if (_statusbarFindStatus == FSNotFound)
 	{
@@ -2992,7 +2994,7 @@ void Finder::addFileHitCount(int count)
 
 void Finder::addSearchHitCount(int count, bool isMatchLines)
 {
-	TCHAR *moreInfo = isMatchLines ? TEXT(" - Line Filter Mode: only display the filtered results") :TEXT("");
+	const TCHAR *moreInfo = isMatchLines ? TEXT(" - Line Filter Mode: only display the filtered results") :TEXT("");
 	TCHAR text[100];
 	if(count == 1 && _nbFoundFiles == 1)
 		wsprintf(text, TEXT(" (1 hit in 1 file%s)"), moreInfo);
@@ -3530,7 +3532,7 @@ void FindIncrementDlg::markSelectedTextInc(bool enable, FindOption *opt)
 void FindIncrementDlg::setFindStatus(FindStatus iStatus, int nbCounted)
 {
 	static TCHAR findCount[128] = TEXT("");
-	static TCHAR *findStatus[] = { findCount, // FSFound
+	static const TCHAR * const findStatus[] = { findCount, // FSFound
 	                               TEXT("Phrase not found"), //FSNotFound
 	                               TEXT("Reached top of page, continued from bottom"), // FSTopReached
 	                               TEXT("Reached end of page, continued from top")}; // FSEndReached

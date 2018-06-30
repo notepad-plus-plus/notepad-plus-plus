@@ -501,7 +501,6 @@ BEGIN
         MENUITEM "Word wrap",                   IDM_VIEW_WRAP
         MENUITEM "Focus on Another View",         IDM_VIEW_SWITCHTO_OTHER_VIEW
         MENUITEM "Hide Lines",                  IDM_VIEW_HIDELINES
-        //MENUITEM "User-Defined Dialogue...",    IDM_VIEW_USER_DLG
         MENUITEM SEPARATOR
         MENUITEM "Fold All",                    IDM_VIEW_TOGGLE_FOLDALL
         MENUITEM "Unfold All",                  IDM_VIEW_TOGGLE_UNFOLDALL
@@ -592,7 +591,6 @@ BEGIN
 
             POPUP "Central European"
             BEGIN
-                //MENUITEM "ISO 8859-16",         IDM_FORMAT_ISO_8859_16
                 MENUITEM "OEM 852",             IDM_FORMAT_DOS_852
                 MENUITEM "Windows-1250",        IDM_FORMAT_WIN_1250
             END
@@ -642,8 +640,7 @@ BEGIN
 
             POPUP "Thai"
             BEGIN
-            //MENUITEM "ISO 8859-11",             IDM_FORMAT_ISO_8859_11
-            MENUITEM "TIS-620",                 IDM_FORMAT_TIS_620
+			    MENUITEM "TIS-620",                 IDM_FORMAT_TIS_620
             END
 
             POPUP "Turkish"
@@ -953,12 +950,10 @@ BEGIN
 
     POPUP "&?"
     BEGIN
-        //MENUITEM "Help Contents",              IDM_HELP
         MENUITEM "Command Line Arguments...",      IDM_CMDLINEARGUMENTS
         MENUITEM SEPARATOR
         MENUITEM "Notepad++ Home",            IDM_HOMESWEETHOME
         MENUITEM "Notepad++ Project Page",    IDM_PROJECTPAGE
-        //MENUITEM "Online Documentation",      IDM_ONLINEHELP
         MENUITEM "Notepad++ Community (Forum)",                     IDM_FORUM
 		MENUITEM "Live Support",				IDM_ONLINESUPPORT
         MENUITEM "Get More Plugins",          IDM_PLUGINSHOME

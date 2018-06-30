@@ -199,7 +199,7 @@ HINSTANCE Command::run(HWND hWnd)
 	// As per MSDN (https://msdn.microsoft.com/en-us/library/windows/desktop/bb762153(v=vs.85).aspx)
 	// If the function succeeds, it returns a value greater than 32.
 	// If the function fails, it returns an error value that indicates the cause of the failure.
-	int retResult = reinterpret_cast<int>(res);
+	int retResult = static_cast<int>(reinterpret_cast<INT_PTR>(res));
 	if (retResult <= 32)
 	{
 		generic_string errorMsg;
@@ -244,7 +244,7 @@ INT_PTR CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 					_cmdLine = cmd;
 
 					HINSTANCE hInst = run(_hParent);
-					if (int(hInst) > 32)
+					if (reinterpret_cast<INT_PTR>(hInst) > 32)
 					{
 						addTextToCombo(_cmdLine.c_str());
 						display(false);

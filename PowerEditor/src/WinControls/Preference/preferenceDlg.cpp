@@ -2833,7 +2833,7 @@ INT_PTR CALLBACK AutoCompletionDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 				case IDD_AUTOC_QUOTESCHECK :
 				{
 					bool isChecked = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, static_cast<int32_t>(wParam), BM_GETCHECK, 0, 0));
-					TCHAR *label;
+					const TCHAR *label;
 					if (wParam == IDD_AUTOCPARENTHESES_CHECK)
 					{
 						nppGUI._matchedPairConf._doParentheses = isChecked;

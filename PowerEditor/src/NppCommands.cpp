@@ -114,7 +114,7 @@ void Notepad_plus::command(int id)
 			// As per MSDN (https://msdn.microsoft.com/en-us/library/windows/desktop/bb762153(v=vs.85).aspx)
 			// If the function succeeds, it returns a value greater than 32.
 			// If the function fails, it returns an error value that indicates the cause of the failure.
-			int retResult = reinterpret_cast<int>(res);
+			int retResult = static_cast<int>(reinterpret_cast<INT_PTR>(res));
 			if (retResult <= 32)
 			{
 				generic_string errorMsg;
@@ -1913,14 +1913,14 @@ void Notepad_plus::command(int id)
 			generic_string characterNumber = TEXT("");
 
 			Buffer * curBuf = _pEditView->getCurrentBuffer();
-			int fileLen = curBuf->getFileLength();
+			int64_t fileLen = curBuf->getFileLength();
 
 			if (fileLen != -1)
 			{
-				TCHAR *filePathLabel = TEXT("Full file path: ");
-				TCHAR *fileCreateTimeLabel = TEXT("Created: ");
-				TCHAR *fileModifyTimeLabel = TEXT("Modified: ");
-				TCHAR *fileLenLabel = TEXT("File length (in byte): ");
+				const TCHAR *filePathLabel = TEXT("Full file path: ");
+				const TCHAR *fileCreateTimeLabel = TEXT("Created: ");
+				const TCHAR *fileModifyTimeLabel = TEXT("Modified: ");
+				const TCHAR *fileLenLabel = TEXT("File length (in byte): ");
 
 				characterNumber += filePathLabel;
 				characterNumber += curBuf->getFullPathName();
@@ -1935,17 +1935,17 @@ void Notepad_plus::command(int id)
 				characterNumber += TEXT("\r");
 
 				characterNumber += fileLenLabel;
-				characterNumber += commafyInt(static_cast<UINT64>(fileLen)).c_str();
+				characterNumber += commafyInt(static_cast<size_t>(fileLen)).c_str();
 				characterNumber += TEXT("\r");
 				characterNumber += TEXT("\r");
 			}
-			TCHAR *nbCharLabel = TEXT("Characters (without blanks): ");
-			TCHAR *nbWordLabel = TEXT("Words: ");
-			TCHAR *nbLineLabel = TEXT("Lines: ");
-			TCHAR *nbByteLabel = TEXT("Current document length: ");
-			TCHAR *nbSelLabel1 = TEXT(" selected characters (");
-			TCHAR *nbSelLabel2 = TEXT(" bytes) in ");
-			TCHAR *nbRangeLabel = TEXT(" ranges");
+			const TCHAR *nbCharLabel = TEXT("Characters (without blanks): ");
+			const TCHAR *nbWordLabel = TEXT("Words: ");
+			const TCHAR *nbLineLabel = TEXT("Lines: ");
+			const TCHAR *nbByteLabel = TEXT("Current document length: ");
+			const TCHAR *nbSelLabel1 = TEXT(" selected characters (");
+			const TCHAR *nbSelLabel2 = TEXT(" bytes) in ");
+			const TCHAR *nbRangeLabel = TEXT(" ranges");
 
 			UniMode um = _pEditView->getCurrentBuffer()->getUnicodeMode();
 			auto nbChar = getCurrentDocCharCount(um);
@@ -2169,12 +2169,9 @@ void Notepad_plus::command(int id)
         case IDM_FORMAT_ISO_8859_7  :
         case IDM_FORMAT_ISO_8859_8  :
         case IDM_FORMAT_ISO_8859_9  :
-        //case IDM_FORMAT_ISO_8859_10 :
-        //case IDM_FORMAT_ISO_8859_11 :
         case IDM_FORMAT_ISO_8859_13 :
         case IDM_FORMAT_ISO_8859_14 :
         case IDM_FORMAT_ISO_8859_15 :
-        //case IDM_FORMAT_ISO_8859_16 :
         case IDM_FORMAT_DOS_437 :
         case IDM_FORMAT_DOS_720 :
         case IDM_FORMAT_DOS_737 :
@@ -2421,9 +2418,9 @@ void Notepad_plus::command(int id)
 		case IDM_SETTING_IMPORTPLUGIN :
         {
             // get plugin source path
-            TCHAR *extFilterName = TEXT("Notepad++ plugin");
-            TCHAR *extFilter = TEXT(".dll");
-            TCHAR *destDir = TEXT("plugins");
+            const TCHAR *extFilterName = TEXT("Notepad++ plugin");
+            const TCHAR *extFilter = TEXT(".dll");
+            const TCHAR *destDir = TEXT("plugins");
 
             vector<generic_string> copiedFiles = addNppComponents(destDir, extFilterName, extFilter);
 
@@ -2444,9 +2441,9 @@ void Notepad_plus::command(int id)
         case IDM_SETTING_IMPORTSTYLETHEMS :
         {
             // get plugin source path
-            TCHAR *extFilterName = TEXT("Notepad++ style theme");
-            TCHAR *extFilter = TEXT(".xml");
-            TCHAR *destDir = TEXT("themes");
+            const TCHAR *extFilterName = TEXT("Notepad++ style theme");
+            const TCHAR *extFilter = TEXT(".xml");
+            const TCHAR *destDir = TEXT("themes");
 
             // load styler
             NppParameters *pNppParams = NppParameters::getInstance();
@@ -2637,7 +2634,7 @@ void Notepad_plus::command(int id)
 				{
 					if (_nativeLangSpeaker.getLangEncoding() == NPP_CP_BIG5)
 					{
-						char *authorName = "«J¤µ§^";
+						const char *authorName = "«J¤µ§^";
 						HWND hItem = ::GetDlgItem(_aboutDlg.getHSelf(), IDC_AUTHOR_NAME);
 
 						WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();

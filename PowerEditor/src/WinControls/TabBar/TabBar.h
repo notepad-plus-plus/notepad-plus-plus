@@ -98,7 +98,7 @@ public:
         return _nbItem;
     }
 
-	void setFont(TCHAR *fontName, int fontSize);
+	void setFont(const TCHAR *fontName, int fontSize);
 
 	void setVertical(bool b) {
 		_isVertical = b;

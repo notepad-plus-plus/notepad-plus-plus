@@ -29,7 +29,7 @@ HFONT holdfont;
 
 struct _gridhandlestruct
 	{
-        UINT gridmenu;
+        HMENU gridmenu;
 		HWND hlist1;
 		TCHAR protect[2];
         TCHAR title[305];
@@ -113,12 +113,12 @@ TCHAR data[1000];
 CREATESTRUCT cs,*lpcs;
 
 
-int         AddGrid(UINT);
-int         FindGrid(UINT);
+int         AddGrid(HMENU);
+int         FindGrid(HMENU);
 void		ShowVscroll(HWND,int);
 void		ShowHscroll(HWND,int);
 int         BinarySearchListBox(HWND,TCHAR*);
-void        DisplayEditString(HWND ,int ,TCHAR*);
+void        DisplayEditString(HWND ,int , const TCHAR*);
 int         CountGrids();
 
 
@@ -149,7 +149,7 @@ void RefreshGrid(HWND hWnd)
      int SI;
 	 GetClientRect(hWnd,&rect);
 	 InvalidateRect(hWnd,&rect,FALSE);
-	 SI=FindGrid((UINT)GetMenu(hWnd));
+	 SI=FindGrid(GetMenu(hWnd));
      if(BGHS[SI].EDITING)
          {
           DisplayEditString(hWnd, SI, TEXT(""));
@@ -609,7 +609,7 @@ void DisplayColumn(HWND hWnd,int SI,int c,int offset,HFONT hfont,HFONT hcolumnhe
 			   WPARAM wParam;
                buffer[0]=0x20;
                BGHS[SI].ownerdrawitem = generic_atoi(buffer);
-			   wParam=MAKEWPARAM((UINT)::GetMenu(hWnd),BGN_OWNERDRAW);
+			   wParam=MAKEWPARAM(::GetMenu(hWnd),BGN_OWNERDRAW);
 			   SendMessage(GetParent(hWnd), WM_COMMAND, wParam, reinterpret_cast<LPARAM>(&rect));
 			 }
 
@@ -892,9 +892,9 @@ void NotifyRowChanged(HWND hWnd,int SI)
 	 WPARAM wParam;
 	 LPARAM lParam;
 	   lParam = MAKELPARAM(BGHS[SI].cursorrow,BGHS[SI].cursorcol);
-       wParam=MAKEWPARAM((UINT)BGHS[SI].gridmenu,BGN_ROWCHANGED);
+       wParam=MAKEWPARAM(BGHS[SI].gridmenu,BGN_ROWCHANGED);
        SendMessage(GetParent(hWnd),WM_COMMAND,wParam,lParam);
-	   wParam=MAKEWPARAM((UINT)BGHS[SI].gridmenu,BGN_SELCHANGE);
+	   wParam=MAKEWPARAM(BGHS[SI].gridmenu,BGN_SELCHANGE);
 	   SendMessage(GetParent(hWnd),WM_COMMAND,wParam,lParam);
 	}
 
@@ -904,9 +904,9 @@ void NotifyColChanged(HWND hWnd,int SI)
 	 WPARAM wParam;
 	 LPARAM lParam;
 	   lParam = MAKELPARAM(BGHS[SI].cursorrow,BGHS[SI].cursorcol);
-       wParam=MAKEWPARAM((UINT)BGHS[SI].gridmenu,BGN_COLCHANGED);
+       wParam=MAKEWPARAM(BGHS[SI].gridmenu,BGN_COLCHANGED);
        SendMessage(GetParent(hWnd),WM_COMMAND,wParam,lParam);
-       wParam=MAKEWPARAM((UINT)BGHS[SI].gridmenu,BGN_SELCHANGE);
+       wParam=MAKEWPARAM(BGHS[SI].gridmenu,BGN_SELCHANGE);
        SendMessage(GetParent(hWnd),WM_COMMAND,wParam,lParam);
 
 	}
@@ -917,7 +917,7 @@ void NotifyEndEdit(HWND hWnd,int SI)
 	 WPARAM wParam;
 	 LPARAM lParam;
 	   lParam = MAKELPARAM(BGHS[SI].cursorrow,BGHS[SI].cursorcol);
-       wParam=MAKEWPARAM((UINT)BGHS[SI].gridmenu,BGN_EDITEND);
+       wParam=MAKEWPARAM(BGHS[SI].gridmenu,BGN_EDITEND);
        SendMessage(GetParent(hWnd),WM_COMMAND,wParam,lParam);
 
 	}
@@ -928,7 +928,7 @@ void NotifyDelete(HWND hWnd,int SI)
 	 WPARAM wParam;
 	 LPARAM lParam;
 	   lParam = MAKELPARAM(BGHS[SI].cursorrow,BGHS[SI].cursorcol);
-       wParam=MAKEWPARAM((UINT)BGHS[SI].gridmenu,BGN_DELETECELL);
+       wParam=MAKEWPARAM(BGHS[SI].gridmenu,BGN_DELETECELL);
        SendMessage(GetParent(hWnd),WM_COMMAND,wParam,lParam);
 
 	}
@@ -939,7 +939,7 @@ void NotifyEditBegin(HWND hWnd,int SI)
 	 WPARAM wParam;
 	 LPARAM lParam;
 	   lParam = MAKELPARAM(BGHS[SI].cursorrow,BGHS[SI].cursorcol);
-       wParam=MAKEWPARAM((UINT)BGHS[SI].gridmenu,BGN_EDITBEGIN);
+       wParam=MAKEWPARAM(BGHS[SI].gridmenu,BGN_EDITBEGIN);
        SendMessage(GetParent(hWnd),WM_COMMAND,wParam,lParam);
 
 	}
@@ -949,7 +949,7 @@ void NotifyEditEnd(HWND hWnd,int SI)
 	 WPARAM wParam;
 	 LPARAM lParam;
 	   lParam = MAKELPARAM(BGHS[SI].cursorrow,BGHS[SI].cursorcol);
-       wParam=MAKEWPARAM((UINT)BGHS[SI].gridmenu,BGN_EDITEND);
+       wParam=MAKEWPARAM(BGHS[SI].gridmenu,BGN_EDITEND);
        SendMessage(GetParent(hWnd),WM_COMMAND,wParam,lParam);
 
 	}
@@ -1080,7 +1080,7 @@ void NotifyCellClicked(HWND hWnd,int SI)
 	 WPARAM wParam;
 	 LPARAM lParam;
 	   lParam = MAKELPARAM(BGHS[SI].cursorrow,BGHS[SI].cursorcol);
-       wParam=MAKEWPARAM((UINT)BGHS[SI].gridmenu,BGN_CELLCLICKED);
+       wParam=MAKEWPARAM(BGHS[SI].gridmenu,BGN_CELLCLICKED);
        SendMessage(GetParent(hWnd),WM_COMMAND,wParam,lParam);
 
 	}
@@ -1090,7 +1090,7 @@ void NotifyCellDbClicked(HWND hWnd,int SI)
 	 WPARAM wParam;
 	 LPARAM lParam;
 	   lParam = MAKELPARAM(BGHS[SI].cursorrow,BGHS[SI].cursorcol);
-       wParam=MAKEWPARAM((UINT)BGHS[SI].gridmenu,BGN_CELLDBCLICKED);
+       wParam=MAKEWPARAM(BGHS[SI].gridmenu,BGN_CELLDBCLICKED);
        SendMessage(GetParent(hWnd),WM_COMMAND,wParam,lParam);
 	}
 
@@ -1099,7 +1099,7 @@ void NotifyCellRClicked(HWND hWnd,int SI)
 	 WPARAM wParam;
 	 LPARAM lParam;
 	   lParam = MAKELPARAM(BGHS[SI].cursorrow,BGHS[SI].cursorcol);
-       wParam=MAKEWPARAM((UINT)BGHS[SI].gridmenu,BGN_CELLRCLICKED);
+       wParam=MAKEWPARAM(BGHS[SI].gridmenu,BGN_CELLRCLICKED);
        SendMessage(GetParent(hWnd),WM_COMMAND,wParam,lParam);
 	}
 void GetVisibleColumns(HWND hWnd,int SI)
@@ -1157,7 +1157,7 @@ void CloseEdit(HWND hWnd,int SI)
      NotifyEditEnd(hWnd,SI);
     }
 
-void DisplayEditString(HWND hWnd,int SI,TCHAR* tstring)
+void DisplayEditString(HWND hWnd,int SI, const TCHAR* tstring)
     {
        int r,c;
        HFONT holdfont;
@@ -1326,13 +1326,13 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	TCHAR buffer[1000];
 	int SelfIndex;
 	int ReturnValue;
-    UINT SelfMenu;
+    HMENU SelfMenu;
 	HINSTANCE hInst;
     int iDataType;
     static int ASCII;
 
 
-	SelfIndex=FindGrid((UINT)GetMenu(hWnd));
+	SelfIndex=FindGrid(GetMenu(hWnd));
     SelfMenu=BGHS[SelfIndex].gridmenu;
 
 	//update the grid width and height variable
@@ -1544,7 +1544,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
               LPBGcell=(_BGCELL*)wParam;
               if(OutOfRange(LPBGcell))
                   {
-                   wParam=MAKEWPARAM((UINT)GetMenu(hWnd),BGN_OUTOFRANGE);
+                   wParam=MAKEWPARAM(GetMenu(hWnd),BGN_OUTOFRANGE);
                    lParam = 0;
                    SendMessage(GetParent(hWnd),WM_COMMAND,wParam,lParam);
 				   ReturnValue = -1;
@@ -1628,7 +1628,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
               LPBGcell=(_BGCELL*)wParam;
               if(OutOfRange(LPBGcell))
                   {
-                   wParam=MAKEWPARAM((UINT)GetMenu(hWnd),BGN_OUTOFRANGE);
+                   wParam=MAKEWPARAM(GetMenu(hWnd),BGN_OUTOFRANGE);
                    lParam = 0;
                    SendMessage(GetParent(hWnd),WM_COMMAND,wParam,lParam);
 				   ReturnValue = -1;
@@ -1767,7 +1767,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
               LPBGcell=(_BGCELL*)wParam;
               if(OutOfRange(LPBGcell))
                   {
-					  wParam = MAKEWPARAM(reinterpret_cast<UINT>(GetMenu(hWnd)), BGN_OUTOFRANGE);
+					  wParam = MAKEWPARAM(GetMenu(hWnd), BGN_OUTOFRANGE);
                    lParam = 0;
                    SendMessage(GetParent(hWnd),WM_COMMAND,wParam,lParam);
 				   ReturnValue = -1;
@@ -1831,7 +1831,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
               LPBGcell=(_BGCELL*)wParam;
               if(OutOfRange(LPBGcell))
                   {
-                   wParam=MAKEWPARAM((UINT)GetMenu(hWnd),BGN_OUTOFRANGE);
+                   wParam=MAKEWPARAM(GetMenu(hWnd),BGN_OUTOFRANGE);
                    lParam = 0;
                    SendMessage(GetParent(hWnd),WM_COMMAND,wParam,lParam);
 				   ReturnValue = -1;
@@ -1923,7 +1923,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
               LPBGcell=(_BGCELL*)wParam;
               if(OutOfRange(LPBGcell))
                   {
-                   wParam=MAKEWPARAM((UINT)GetMenu(hWnd),BGN_OUTOFRANGE);
+                   wParam=MAKEWPARAM(GetMenu(hWnd),BGN_OUTOFRANGE);
                    lParam = 0;
                    SendMessage(GetParent(hWnd),WM_COMMAND,wParam,lParam);
 				   ReturnValue = -1;
@@ -1951,7 +1951,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
               LPBGcell=(_BGCELL*)wParam;
               if(OutOfRange(LPBGcell))
                   {
-                   wParam=MAKEWPARAM((UINT)GetMenu(hWnd),BGN_OUTOFRANGE);
+                   wParam=MAKEWPARAM(GetMenu(hWnd),BGN_OUTOFRANGE);
                    lParam = 0;
                    SendMessage(GetParent(hWnd),WM_COMMAND,wParam,lParam);
 				   ReturnValue = -1;
@@ -2926,7 +2926,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                SetHomeRow(hWnd,SelfIndex,BGHS[SelfIndex].cursorrow,BGHS[SelfIndex].cursorcol);
                SetHomeCol(hWnd,SelfIndex,BGHS[SelfIndex].cursorrow,BGHS[SelfIndex].cursorcol);
 
-               wParam=MAKEWPARAM((UINT)GetMenu(hWnd),BGN_GOTFOCUS);
+               wParam=MAKEWPARAM(GetMenu(hWnd),BGN_GOTFOCUS);
                lParam = 0;
                SendMessage(GetParent(hWnd),WM_COMMAND,wParam,lParam);
                    {TEXTMETRIC tm;
@@ -2944,7 +2944,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			   DrawCursor(hWnd,SelfIndex);
 			   BGHS[SelfIndex].GRIDHASFOCUS	= FALSE;
 
-               wParam=MAKEWPARAM((UINT)GetMenu(hWnd),BGN_LOSTFOCUS);
+               wParam=MAKEWPARAM(GetMenu(hWnd),BGN_LOSTFOCUS);
                lParam = 0;
                SendMessage(GetParent(hWnd),WM_COMMAND,wParam,lParam);
                RefreshGrid(hWnd);
@@ -3026,7 +3026,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			  hInst = lpcs->hInstance;
 
 
-              BG_GridIndex = AddGrid((UINT)GetMenu(hWnd));
+              BG_GridIndex = AddGrid(GetMenu(hWnd));
 
               if(CountGrids()==1)
                   {
@@ -3047,7 +3047,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
               if((BG_GridIndex >= 0)&&(BG_GridIndex < MAX_GRIDS))//if you aren't over the MAX_GRIDS limit, add a grid
                   {
 
-			          BGHS[BG_GridIndex].gridmenu = (UINT)GetMenu(hWnd);
+			          BGHS[BG_GridIndex].gridmenu = GetMenu(hWnd);
 
 			          BGHS[BG_GridIndex].hlist1=CreateWindowEx(WS_EX_CLIENTEDGE, TEXT("LISTBOX"), TEXT(""),
 				          WS_CHILD|LBS_STANDARD,50,150,200,100,hWnd,NULL,hInst,NULL);
@@ -3084,7 +3084,7 @@ int CountGrids()
 	}
 
 
-int AddGrid( UINT menuid)
+int AddGrid( HMENU menuid)
     {
      //if grid doesn't exist, add it.  otherwise return existing index + MAX_GRIDS
      //if trying to add more than MAX_GRIDS, return -1;
@@ -3123,7 +3123,7 @@ int AddGrid( UINT menuid)
 
     }
 
-int FindGrid( UINT menuid)
+int FindGrid( HMENU menuid)
     {
      //if grid doesn't exist, return -1, else return gridindex
      int returnvalue;

@@ -130,11 +130,11 @@
 					<Item id = "45006" name = "UCS-2 &amp;Big Endian"/>
 					<Item id = "45007" name = "UCS-2 &amp;Little Endian"/>
 					<Item id = "45008" name = "UTF-8 &amp;ouni BOM"/>
-					<Item id = "45009" name = "Zu ANSI Ko&amp;nvertéieren"/>
-					<Item id = "45010" name = "Zu UTF-8 ouni BOM kon&amp;vertéieren"/>
-					<Item id = "45011" name = "Zu UTF-8 konv&amp;ertéieren"/>
-					<Item id = "45012" name = "Zu UCS-2 Big Endian konve&amp;rtéieren"/>
-					<Item id = "45013" name = "Zu UCS-2 Little Endian konver&amp;téieren"/>
+					<Item id = "45012" name = "Zu ANSI Ko&amp;nvertéieren"/>
+					<Item id = "45013" name = "Zu UTF-8 ouni BOM kon&amp;vertéieren"/>
+					<Item id = "45014" name = "Zu UTF-8 konv&amp;ertéieren"/>
+					<Item id = "45015" name = "Zu UCS-2 Big Endian konve&amp;rtéieren"/>
+					<Item id = "45016" name = "Zu UCS-2 Little Endian konver&amp;téieren"/>
 					<Item id = "10001" name = "An déi z&amp;weet Usiicht réckelen"/>
 					<Item id = "10002" name = "An der zweeter Usiicht k&amp;opéieren"/>
 					<Item id = "10003" name = "An eng &amp;nei Instanz réckelen"/>

@@ -155,11 +155,11 @@
                     <Item id = "45006" name = "UCS-2 Big Endian formatga kodirovka qilish"/>
                     <Item id = "45007" name = "UCS-2 Little Endian formatga kodirovka qilish"/>
                     <Item id = "45008" name = "(BOM siz) UTF-8 formatga kodirovka qilish"/>
-					<Item id = "45009" name = "ANSI formatga o‘tkazish"/>
-					<Item id = "45010" name = "(BOM siz) UTF-8 formatga o‘tkazish"/>
-					<Item id = "45011" name = "UTF-8 formatga o‘tkazish"/>
-					<Item id = "45012" name = "UCS-2 Big Endian formatga o‘tkazish"/>
-					<Item id = "45013" name = "UCS-2 Little Endian formatga o‘tkazish"/>
+					<Item id = "45012" name = "ANSI formatga o‘tkazish"/>
+					<Item id = "45013" name = "(BOM siz) UTF-8 formatga o‘tkazish"/>
+					<Item id = "45014" name = "UTF-8 formatga o‘tkazish"/>
+					<Item id = "45015" name = "UCS-2 Big Endian formatga o‘tkazish"/>
+					<Item id = "45016" name = "UCS-2 Little Endian formatga o‘tkazish"/>
 
                     <Item id = "10001" name = "Ikkinchi oyna sifatida"/>
                     <Item id = "10002" name = "Ikkinchi oynaga nusxa olish"/>

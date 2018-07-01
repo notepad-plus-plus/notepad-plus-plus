@@ -211,11 +211,11 @@
                     <Item id="45006" name="Kodiraj u UCS-2 Big-Endian"/>
                     <Item id="45007" name="Kodiraj u UCS-2 Little-Endian"/>
                     <Item id="45008" name="Kodiraj u UTF-8 bez BOM-a"/>
-			<Item id="45009" name="Promijeni u ANSI"/>
-			<Item id="45010" name="Promijeni u UTF-8 bez BOM-a"/>
-			<Item id="45011" name="Promijeni u UTF-8"/>
-			<Item id="45012" name="Promijeni u UCS-2 Big-Endian"/>
-			<Item id="45013" name="Promijeni u UCS-2 Little-Endian"/>
+			<Item id="45012" name="Promijeni u ANSI"/>
+			<Item id="45013" name="Promijeni u UTF-8 bez BOM-a"/>
+			<Item id="45014" name="Promijeni u UTF-8"/>
+			<Item id="45015" name="Promijeni u UCS-2 Big-Endian"/>
+			<Item id="45016" name="Promijeni u UCS-2 Little-Endian"/>
 
                     <Item id="10001" name="Premjesti u drugi prikaz"/>
                     <Item id="10002" name="Dvostruki prikaz"/>

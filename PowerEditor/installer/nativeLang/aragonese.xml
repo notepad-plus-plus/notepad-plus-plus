@@ -224,11 +224,11 @@ By ChesÃƒÂºs D. Trigo [xuxinho7@gmail.com] & softaragones [softaragones@soft
                     <Item id="45006" name="Cod&amp;ificar en UCS-2 Big Endian"/>
                     <Item id="45007" name="Co&amp;dificar en UCS-2 Little Endian"/>
                     <Item id="45008" name="Codificar en UTF-8 s&amp;in BOM"/>
-                    <Item id="45009" name="Convertir ta &amp;ANSI"/>
-                    <Item id="45010" name="Convertir ta UTF-8 &amp;sin BOM"/>
-                    <Item id="45011" name="Convertir ta &amp;UTF-8"/>
-                    <Item id="45012" name="Convertir ta UCS-2 &amp;Big Endian"/>
-                    <Item id="45013" name="Convertir ta UCS-2 &amp;Little Endian"/>
+                    <Item id="45012" name="Convertir ta &amp;ANSI"/>
+                    <Item id="45013" name="Convertir ta UTF-8 &amp;sin BOM"/>
+                    <Item id="45014" name="Convertir ta &amp;UTF-8"/>
+                    <Item id="45015" name="Convertir ta UCS-2 &amp;Big Endian"/>
+                    <Item id="45016" name="Convertir ta UCS-2 &amp;Little Endian"/>
 
                     <Item id="10001" name="Mover ta l'atra &amp;vista"/>
                     <Item id="10002" name="&amp;Clonar en l'atra vista"/>

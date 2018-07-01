@@ -269,11 +269,11 @@ https://github.com/AndresTraks/
                     <Item id="45006" name="Kodeeri UCS-2 jämedaotsalisse vormingusse"/>
                     <Item id="45007" name="Kodeeri UCS-2 peeneotsalisse vormingusse"/>
                     <Item id="45008" name="Kodeeri UTF-8 baidijärjestuse tähiseta vormingusse"/>
-                    <Item id="45009" name="Konverteeri ANSI vormingusse"/>
-                    <Item id="45010" name="Konverteeri UTF-8 baidijärjestuse tähiseta vormingusse"/>
-                    <Item id="45011" name="Konverteeri UTF-8 vormingusse"/>
-                    <Item id="45012" name="Konverteeri UCS-2 jämedaotsalisse vormingusse"/>
-                    <Item id="45013" name="Konverteeri UCS-2 peeneotsalisse vormingusse"/>
+                    <Item id="45012" name="Konverteeri ANSI vormingusse"/>
+                    <Item id="45013" name="Konverteeri UTF-8 baidijärjestuse tähiseta vormingusse"/>
+                    <Item id="45014" name="Konverteeri UTF-8 vormingusse"/>
+                    <Item id="45015" name="Konverteeri UCS-2 jämedaotsalisse vormingusse"/>
+                    <Item id="45016" name="Konverteeri UCS-2 peeneotsalisse vormingusse"/>
 
                     <Item id="10001" name="Liiguta teise vaatesse"/>
                     <Item id="10002" name="Klooni teise vaatesse"/>

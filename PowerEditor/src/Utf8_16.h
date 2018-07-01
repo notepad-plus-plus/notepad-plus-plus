@@ -108,10 +108,10 @@ protected:
 enum u78 {utf8NoBOM=0, ascii7bits=1, ascii8bits=2};
 class Utf8_16_Read : public Utf8_16 {
 public:
-	Utf8_16_Read();
+	Utf8_16_Read(bool forceEncodeMode = false, UniMode encoding = uni8Bit);
 	~Utf8_16_Read();
 
-	size_t convert(char* buf, size_t len);
+	size_t convert(char* buf, size_t len, bool forceUnicodeMode = false);
 	const char* getNewBuf() const { return (const char*) m_pNewBuf; }
 	size_t getNewSize() const { return m_nNewBufSize; }
 
@@ -121,6 +121,7 @@ public:
 
 protected:
 	void determineEncoding();
+    void ForceEncoding(UniMode unicodeMode);
 
 	u78 utf8_7bits_8bits();
 private:

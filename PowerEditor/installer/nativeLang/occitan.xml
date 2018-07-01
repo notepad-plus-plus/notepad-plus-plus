@@ -272,11 +272,11 @@
 					<Item id="45006" name="Codar en UCS-2 Big Endian"/>
 					<Item id="45007" name="Codar en UCS-2 Little Endian"/>
 					<Item id="45008" name="Codar en UTF-8 sens BOM"/>
-					<Item id="45009" name="Convertir en ANSI"/>
-					<Item id="45010" name="Convertir en UTF-8 sens BOM"/>
-					<Item id="45011" name="Convertir en UTF-8"/>
-					<Item id="45012" name="Convertir en UCS-2 Big Endian"/>
-					<Item id="45013" name="Convertir en UCS-2 Little Endian"/>
+					<Item id="45012" name="Convertir en ANSI"/>
+					<Item id="45013" name="Convertir en UTF-8 sens BOM"/>
+					<Item id="45014" name="Convertir en UTF-8"/>
+					<Item id="45015" name="Convertir en UCS-2 Big Endian"/>
+					<Item id="45016" name="Convertir en UCS-2 Little Endian"/>
 
 					<Item id="10001" name="Anar a una autra visualizacion"/>
 					<Item id="10002" name="Clonar dins una autra visualizacion"/>

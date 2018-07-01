@@ -175,7 +175,7 @@ public:
 	//@{
 	//The doXXX functions apply to a single buffer and dont need to worry about views, with the excpetion of doClose, since closing one view doesnt have to mean the document is gone
 	BufferID doOpen(const generic_string& fileName, bool isRecursive = false, bool isReadOnly = false, int encoding = -1, const TCHAR *backupFileName = NULL, FILETIME fileNameTimestamp = {});
-	bool doReload(BufferID id, bool alert = true);
+	bool doReload(BufferID id, bool alert = true, bool forceEncodeMode = false, UniMode encodeMode = uniEnd, int encoding = -1);
 	bool doSave(BufferID, const TCHAR * filename, bool isSaveCopy = false);
 	void doClose(BufferID, int whichOne, bool doDeleteBackup = false);
 	//bool doDelete(const TCHAR *fileName) const {return ::DeleteFile(fileName) != 0;};
@@ -183,6 +183,7 @@ public:
 	void fileOpen();
 	void fileNew();
     bool fileReload();
+	bool fileReloadWithSpecificEncode(UniMode EncodeMode, int Encoding);
 	bool fileClose(BufferID id = BUFFER_INVALID, int curView = -1);	//use curView to override view to close from
 	bool fileCloseAll(bool doDeleteBackup, bool isSnapshotMode = false);
 	bool fileCloseAllButCurrent();

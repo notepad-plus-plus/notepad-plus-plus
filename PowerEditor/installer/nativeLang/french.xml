@@ -266,16 +266,20 @@
                     <Item id="45001" name="Convertir en format Windows (CR+LF)"/>
                     <Item id="45002" name="Convertir en format UNIX (LF)"/>
                     <Item id="45003" name="Convertir en format Mac (CR)"/>
-                    <Item id="45004" name="Encoder en ANSI"/>
-                    <Item id="45005" name="Encoder en UTF-8 (avec BOM)"/>
-                    <Item id="45006" name="Encoder en UTF-16BE"/>
-                    <Item id="45007" name="Encoder en UTF-16LE"/>
-                    <Item id="45008" name="Encoder en UTF-8"/>
-                    <Item id="45009" name="Convertir en ANSI"/>
-                    <Item id="45010" name="Convertir en UTF-8"/>
-                    <Item id="45011" name="Convertir en UTF-8-BOM"/>
-                    <Item id="45012" name="Convertir en UTF-16BE"/>
-                    <Item id="45013" name="Convertir en UTF-16LE"/>
+                    <Item id="45004" name="Encodé en ANSI"/>
+                    <Item id="45005" name="Encodé en UTF-8 BOM"/>
+                    <Item id="45006" name="Encodé en UCS-2 BE BOM"/>
+                    <Item id="45007" name="Encodé en UCS-2 LE BOM"/>
+                    <Item id="45008" name="Encodé en UTF-8"/>
+                    <Item id="45009" name="Encodé en UCS-2 BE"/>
+                    <Item id="45010" name="Encodé en UCS-2 LE"/>
+                    <Item id="45012" name="Convertir en ANSI"/>
+                    <Item id="45013" name="Convertir en UTF-8"/>
+                    <Item id="45014" name="Convertir en UTF-8 BOM"/>
+                    <Item id="45015" name="Convertir en UCS-2 BE BOM"/>
+                    <Item id="45016" name="Convertir en UCS-2 LE BOM"/>
+                    <Item id="45017" name="Convertir en UCS-2 BE"/>
+                    <Item id="45018" name="Convertir en UCS-2 LE"/>
                     <Item id="46001" name="Configurateur de coloration syntaxique..."/>
                     <Item id="46250" name="Définir votre langage..."/>
                     <Item id="46180" name="Langage utilisateur"/>

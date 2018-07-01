@@ -645,11 +645,11 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 }
 
 
-bool FileManager::reloadBuffer(BufferID id)
+bool FileManager::reloadBuffer(BufferID id, bool forceEncodeMode)
 {
 	Buffer* buf = getBufferByID(id);
 	Document doc = buf->getDocument();
-	Utf8_16_Read UnicodeConvertor;
+	Utf8_16_Read UnicodeConvertor(forceEncodeMode, buf->getUnicodeMode());
 	buf->_canNotify = false;	//disable notify during file load, we dont want dirty to be triggered
 	int encoding = buf->getEncoding();
 	char data[blockSize + 8]; // +8 for incomplete multibyte char
@@ -660,7 +660,7 @@ bool FileManager::reloadBuffer(BufferID id)
 	buf->setLoadedDirty(false);	// Since the buffer will be reloaded from the disk, and it will be clean (not dirty), we can set _isLoadedDirty false safetly.
 								// Set _isLoadedDirty false before calling "_pscratchTilla->execute(SCI_CLEARALL);" in loadFileData() to avoid setDirty in SCN_SAVEPOINTREACHED / SCN_SAVEPOINTLEFT
 
-	bool res = loadFileData(doc, buf->getFullPathName(), data, &UnicodeConvertor, lang, encoding, bkformat);
+	bool res = loadFileData(doc, buf->getFullPathName(), data, &UnicodeConvertor, lang, encoding, bkformat, forceEncodeMode);
 	buf->_canNotify = true;
 
 	if (res)
@@ -1345,7 +1345,7 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 	return L_TEXT;
 }
 
-bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data, Utf8_16_Read * unicodeConvertor, LangType & language, int & encoding, EolType & eolFormat)
+bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data, Utf8_16_Read * unicodeConvertor, LangType & language, int & encoding, EolType & eolFormat, bool forceEncodeMode)
 {
 	FILE *fp = generic_fopen(filename, TEXT("rb"));
 	if (not fp)
@@ -1417,7 +1417,11 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 			lenFile = fread(data+incompleteMultibyteChar, 1, blockSize-incompleteMultibyteChar, fp) + incompleteMultibyteChar;
 			if (lenFile == 0) break;
 
-            if (isFirstTime)
+			if (forceEncodeMode)
+			{
+				//isFirstTime = false;
+			}
+            else if (isFirstTime)
             {
 				// check if file contain any BOM
                 if (Utf8_16_Read::determineEncoding((unsigned char *)data, lenFile) != uni8Bit)
@@ -1461,7 +1465,7 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 			}
 			else
 			{
-				lenConvert = unicodeConvertor->convert(data, lenFile);
+				lenConvert = unicodeConvertor->convert(data, lenFile, forceEncodeMode);
 				_pscratchTilla->execute(SCI_APPENDTEXT, lenConvert, reinterpret_cast<LPARAM>(unicodeConvertor->getNewBuf()));
 				if (format == EolType::unknown)
 					format = getEOLFormatForm(unicodeConvertor->getNewBuf(), unicodeConvertor->getNewSize(), EolType::unknown);

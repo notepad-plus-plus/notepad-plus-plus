@@ -236,11 +236,11 @@
                     <Item id = "45006" name = "Codìfica in UCS-2 Big Endian"/>
                     <Item id = "45007" name = "Codìfica in UCS-2 Little Endian"/>
                     <Item id = "45008" name = "Codìfica in UTF-8 (sena BOM)"/>
-					<Item id = "45009" name = "Cunverte in ANSI"/>
-					<Item id = "45010" name = "Cunverte in UTF-8 (sena BOM)"/>
-					<Item id = "45011" name = "Cunverte in UTF-8"/>
-					<Item id = "45012" name = "Cunverte in UCS-2 Big Endian"/>
-					<Item id = "45013" name = "Cunverte in UCS-2 Little Endian"/>
+					<Item id = "45012" name = "Cunverte in ANSI"/>
+					<Item id = "45013" name = "Cunverte in UTF-8 (sena BOM)"/>
+					<Item id = "45014" name = "Cunverte in UTF-8"/>
+					<Item id = "45015" name = "Cunverte in UCS-2 Big Endian"/>
+					<Item id = "45016" name = "Cunverte in UCS-2 Little Endian"/>
 					<Item id = "10001" name = "Move a s'àtera bista"/>
                     <Item id = "10002" name = "Còpia in s'àtera bista"/>
 					<Item id = "10003" name = "Move a una ventana noa"/>

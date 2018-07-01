@@ -271,11 +271,11 @@
                     <Item id="45006" name="UCS-2 Big Endian -га кодларга"/>
                     <Item id="45007" name="UCS-2 Little Endian -га кодларга"/>
                     <Item id="45008" name="UTF-8 (BOM -сыз)"/>
-                    <Item id="45009" name="ANSI -га үзгәртергә"/>
-                    <Item id="45010" name="UTF-8 BOM -сызга үзгәртергә"/>
-                    <Item id="45011" name="UTF-8 -гә үзгәртергә"/>
-                    <Item id="45012" name="UCS-2 Big Endian -га үзгәртергә"/>
-                    <Item id="45013" name="UCS-2 Little Endian -га үзгәртергә"/>
+                    <Item id="45012" name="ANSI -га үзгәртергә"/>
+                    <Item id="45013" name="UTF-8 BOM -сызга үзгәртергә"/>
+                    <Item id="45014" name="UTF-8 -гә үзгәртергә"/>
+                    <Item id="45015" name="UCS-2 Big Endian -га үзгәртергә"/>
+                    <Item id="45016" name="UCS-2 Little Endian -га үзгәртергә"/>
                     <Item id="46001" name="Стильләрне билгеләү..."/>
                     <Item id="46019" name="MS INI файлы"/>
                     <Item id="46015" name="MS-DOS стиле"/>

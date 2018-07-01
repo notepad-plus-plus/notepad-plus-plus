@@ -2351,15 +2351,15 @@ void Notepad_plus::setUniModeText()
 		switch (um)
 		{
 			case uniUTF8:
-				uniModeTextString = TEXT("UTF-8-BOM"); break;
+				uniModeTextString = TEXT("UTF-8 BOM"); break;
 			case uni16BE:
 				uniModeTextString = TEXT("UCS-2 BE BOM"); break;
 			case uni16LE:
 				uniModeTextString = TEXT("UCS-2 LE BOM"); break;
 			case uni16BE_NoBOM:
-				uniModeTextString = TEXT("UCS-2 Big Endian"); break;
+				uniModeTextString = TEXT("UCS-2 BE"); break;
 			case uni16LE_NoBOM:
-				uniModeTextString = TEXT("UCS-2 Little Endian"); break;
+				uniModeTextString = TEXT("UCS-2 LE"); break;
 			case uniCookie:
 				uniModeTextString = TEXT("UTF-8"); break;
 			default :
@@ -3866,6 +3866,8 @@ void Notepad_plus::checkUnicodeMenuItems() const
 		case uni16LE   : id = IDM_FORMAT_UCS_2LE; break;
 		case uniCookie : id = IDM_FORMAT_AS_UTF_8; break;
 		case uni8Bit   : id = IDM_FORMAT_ANSI; break;
+		case uni16BE_NoBOM : id = IDM_FORMAT_AS_UCS_2BE; break;
+		case uni16LE_NoBOM : id = IDM_FORMAT_AS_UCS_2LE; break;
 	}
 
 	if (encoding == -1)
@@ -3877,12 +3879,12 @@ void Notepad_plus::checkUnicodeMenuItems() const
 		if (id == -1) //um == uni16BE_NoBOM || um == uni16LE_NoBOM
 		{
 			// Uncheck all in the main encoding menu
-			::CheckMenuRadioItem(_mainMenuHandle, IDM_FORMAT_ANSI, IDM_FORMAT_AS_UTF_8, IDM_FORMAT_ANSI, MF_BYCOMMAND);
+			::CheckMenuRadioItem(_mainMenuHandle, IDM_FORMAT_ANSI, IDM_FORMAT_AS_UCS_2LE, IDM_FORMAT_ANSI, MF_BYCOMMAND);
 			::CheckMenuItem(_mainMenuHandle, IDM_FORMAT_ANSI, MF_UNCHECKED | MF_BYCOMMAND);
 		}
 		else
 		{
-			::CheckMenuRadioItem(_mainMenuHandle, IDM_FORMAT_ANSI, IDM_FORMAT_AS_UTF_8, id, MF_BYCOMMAND);
+			::CheckMenuRadioItem(_mainMenuHandle, IDM_FORMAT_ANSI, IDM_FORMAT_AS_UCS_2LE, id, MF_BYCOMMAND);
 		}
 	}
 	else

@@ -264,11 +264,11 @@
                     <Item id="45006" name="UCS-2 BE BOM"/>
                     <Item id="45007" name="UCS-2 LE BOM"/>
                     <Item id="45008" name="UTF-8"/>
-                    <Item id="45009" name="ANSI に変換"/>
-                    <Item id="45010" name="UTF-8 に変換"/>
-                    <Item id="45011" name="UTF-8-BOM に変換"/>
-                    <Item id="45012" name="UCS-2 BE BOM に変換"/>
-                    <Item id="45013" name="UCS-2 LE BOM に変換"/>
+                    <Item id="45012" name="ANSI に変換"/>
+                    <Item id="45013" name="UTF-8 に変換"/>
+                    <Item id="45014" name="UTF-8-BOM に変換"/>
+                    <Item id="45015" name="UCS-2 BE BOM に変換"/>
+                    <Item id="45016" name="UCS-2 LE BOM に変換"/>
 
                     <Item id="10001" name="別のビューへ移動"/>
                     <Item id="10002" name="別のビューへ複製"/>

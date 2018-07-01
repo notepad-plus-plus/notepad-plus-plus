@@ -150,11 +150,11 @@
                     <Item id = "45006" name = "Enkodeer in UCS-2 Big Endian"/>
                     <Item id = "45007" name = "Enkodeer in UCS-2 Little Endian"/>
                     <Item id = "45008" name = "Enkodeer in UTF-8 sonder BOM"/>
-			<Item id = "45009" name = "Verander na ANSI"/>
-			<Item id = "45010" name = "Verander na UTF-8 sonder BOM"/>
-			<Item id = "45011" name = "Verander na UTF-8"/>
-			<Item id = "45012" name = "Verander na UCS-2 Big Endian"/>
-			<Item id = "45013" name = "Verander na UCS-2 Little Endian"/>
+			<Item id = "45012" name = "Verander na ANSI"/>
+			<Item id = "45013" name = "Verander na UTF-8 sonder BOM"/>
+			<Item id = "45014" name = "Verander na UTF-8"/>
+			<Item id = "45015" name = "Verander na UCS-2 Big Endian"/>
+			<Item id = "45016" name = "Verander na UCS-2 Little Endian"/>
 
                     <Item id = "10001" name = "Skyf na ander sig"/>
                     <Item id = "10002" name = "Kloon na ander sig"/>

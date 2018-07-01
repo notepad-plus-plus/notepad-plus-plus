@@ -267,11 +267,11 @@
                     <Item id="45006" name="使用 UCS-2 Big Endian 编码" />
                     <Item id="45007" name="使用 UCS-2 Little Endian 编码" />
                     <Item id="45008" name="使用 UTF-8 编码" />
-                    <Item id="45009" name="转为 ANSI 编码" />
-                    <Item id="45010" name="转为 UTF-8 编码" />
-                    <Item id="45011" name="转为 UTF-8-BOM 编码" />
-                    <Item id="45012" name="转为 UCS-2 Big Endian 编码" />
-                    <Item id="45013" name="转为 UCS-2 Little Endian 编码" />
+                    <Item id="45012" name="转为 ANSI 编码" />
+                    <Item id="45013" name="转为 UTF-8 编码" />
+                    <Item id="45014" name="转为 UTF-8-BOM 编码" />
+                    <Item id="45015" name="转为 UCS-2 Big Endian 编码" />
+                    <Item id="45016" name="转为 UCS-2 Little Endian 编码" />
                     <Item id="10001" name="移动到另一视图" />
                     <Item id="10002" name="复制到另一视图" />
                     <Item id="10003" name="移动到新窗口" />

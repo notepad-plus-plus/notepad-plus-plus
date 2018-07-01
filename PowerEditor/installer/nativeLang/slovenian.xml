@@ -269,11 +269,11 @@
                     <Item id="45006" name="Kodiraj v UCS-2 Big Endian"/>
                     <Item id="45007" name="Kodiraj v UCS-2 Little Endian"/>
                     <Item id="45008" name="Kodiraj v UTF-8 brez BOM"/>
-						<Item id="45009" name="Pretvori v ANSI"/>
-						<Item id="45010" name="Pretvori v UTF-8 brez BOM"/>
-						<Item id="45011" name="Pretvori v UTF-8"/>
-						<Item id="45012" name="Pretvori v UCS-2 Big Endian"/>
-						<Item id="45013" name="Pretvori v UCS-2 Little Endian"/>
+						<Item id="45012" name="Pretvori v ANSI"/>
+						<Item id="45013" name="Pretvori v UTF-8 brez BOM"/>
+						<Item id="45014" name="Pretvori v UTF-8"/>
+						<Item id="45015" name="Pretvori v UCS-2 Big Endian"/>
+						<Item id="45016" name="Pretvori v UCS-2 Little Endian"/>
 
 						<Item id="10001" name="Premakni v drugi pogled"/>
                     <Item id="10002" name="Kloniraj v drugi pogled"/>

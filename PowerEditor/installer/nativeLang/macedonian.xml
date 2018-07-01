@@ -155,11 +155,11 @@
                     <Item id = "45006" name = "Кодирај во UCS-2 Big Endian"/>
                     <Item id = "45007" name = "Кодирај во UCS-2 Little Endian"/>
                     <Item id = "45008" name = "Кодирај во UTF-8 без BOM"/>
-			<Item id = "45009" name = "Промени во ANSI"/>
-			<Item id = "45010" name = "Промени во UTF-8 без BOM"/>
-			<Item id = "45011" name = "Промени во UTF-8"/>
-			<Item id = "45012" name = "Промени во UCS-2 Big Endian"/>
-			<Item id = "45013" name = "Промени во UCS-2 Little Endian"/>
+			<Item id = "45012" name = "Промени во ANSI"/>
+			<Item id = "45013" name = "Промени во UTF-8 без BOM"/>
+			<Item id = "45014" name = "Промени во UTF-8"/>
+			<Item id = "45015" name = "Промени во UCS-2 Big Endian"/>
+			<Item id = "45016" name = "Промени во UCS-2 Little Endian"/>
 
                     <Item id = "10001" name = "Промена во друг поглед"/>
                     <Item id = "10002" name = "Клонирај во друг поглед"/>

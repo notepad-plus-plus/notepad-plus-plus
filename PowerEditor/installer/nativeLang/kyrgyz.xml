@@ -190,11 +190,11 @@
 					<Item id = "45006" name = "UCS-2 Big Endian'да ко&amp;дула"/>
 					<Item id = "45007" name = "UCS-2 Little Endian'да код&amp;ула"/>
 					<Item id = "45008" name = "UTF-8'де (BOM'&amp;суз) кодула"/>
-			<Item id = "45009" name = "ANSI'ге ө&amp;згөрт"/>
-			<Item id = "45010" name = "UTF-8'ге (BOM'&amp;суз) өзгөрт"/>
-			<Item id = "45011" name = "UTF-&amp;8'ге өзгөрт"/>
-			<Item id = "45012" name = "UCS-&amp;2 Big Endian'га өзгөрт"/>
-			<Item id = "45013" name = "UCS-2 Little Endian'га өз&amp;гөрт"/>
+			<Item id = "45012" name = "ANSI'ге ө&amp;згөрт"/>
+			<Item id = "45013" name = "UTF-8'ге (BOM'&amp;суз) өзгөрт"/>
+			<Item id = "45014" name = "UTF-&amp;8'ге өзгөрт"/>
+			<Item id = "45015" name = "UCS-&amp;2 Big Endian'га өзгөрт"/>
+			<Item id = "45016" name = "UCS-2 Little Endian'га өз&amp;гөрт"/>
                     <Item id = "10001" name = "Экинчи бөлүмгө жылдыр"/>
                     <Item id = "10002" name = "Экинчи бөлүмгө көчүр"/>
 					<Item id = "10003" name = "Жаңы терезеге жылдыр"/>

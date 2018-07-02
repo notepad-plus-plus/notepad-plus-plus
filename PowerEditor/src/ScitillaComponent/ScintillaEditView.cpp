@@ -1788,6 +1788,7 @@ void ScintillaEditView::restoreCurrentPos()
 		execute(SCI_SETXOFFSET, pos._xOffset);
 	}
 	execute(SCI_CHOOSECARETX); // choose current x position
+	execute(SCI_ENSUREVISIBLE); //Make sure the caret is visible (this will also fix wrapping problems)
 
 	int lineToShow = static_cast<int32_t>(execute(SCI_VISIBLEFROMDOCLINE, pos._firstVisibleLine));
 	scroll(0, lineToShow);

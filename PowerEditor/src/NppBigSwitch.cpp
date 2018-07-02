@@ -558,9 +558,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			{
 				case COPYDATA_PARAMS:
 				{
-					CmdLineParams *cmdLineParam = static_cast<CmdLineParams *>(pCopyData->lpData); // CmdLineParams object from another instance
-					auto cmdLineParamsSize = static_cast<size_t>(pCopyData->cbData);  // CmdLineParams size from another instance
-					if (sizeof(CmdLineParams) == cmdLineParamsSize) // make sure the structure is the same
+					const CmdLineParamsDTO *cmdLineParam = static_cast<const CmdLineParamsDTO *>(pCopyData->lpData); // CmdLineParams object from another instance
+					const DWORD cmdLineParamsSize = pCopyData->cbData;  // CmdLineParams size from another instance
+					if (sizeof(CmdLineParamsDTO) == cmdLineParamsSize) // make sure the structure is the same
 					{
 						pNppParam->setCmdlineParam(*cmdLineParam);
 					}
@@ -579,7 +579,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				case COPYDATA_FILENAMESA:
 				{
 					char *fileNamesA = static_cast<char *>(pCopyData->lpData);
-					CmdLineParams & cmdLineParams = pNppParam->getCmdLineParams();
+					const CmdLineParamsDTO & cmdLineParams = pNppParam->getCmdLineParams();
 					WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 					const wchar_t *fileNamesW = wmc->char2wchar(fileNamesA, CP_ACP);
 					loadCommandlineParams(fileNamesW, &cmdLineParams);
@@ -589,7 +589,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				case COPYDATA_FILENAMESW:
 				{
 					wchar_t *fileNamesW = static_cast<wchar_t *>(pCopyData->lpData);
-					CmdLineParams & cmdLineParams = pNppParam->getCmdLineParams();
+					const CmdLineParamsDTO & cmdLineParams = pNppParam->getCmdLineParams();
 					loadCommandlineParams(fileNamesW, &cmdLineParams);
 					break;
 				}

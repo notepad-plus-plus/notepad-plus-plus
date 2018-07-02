@@ -483,10 +483,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 
 			if (params.size() > 0)	//if there are files to open, use the WM_COPYDATA system
 			{
+				CmdLineParamsDTO dto = CmdLineParamsDTO::FromCmdLineParams(cmdLineParams);
+
 				COPYDATASTRUCT paramData;
 				paramData.dwData = COPYDATA_PARAMS;
-				paramData.lpData = &cmdLineParams;
-				paramData.cbData = sizeof(cmdLineParams);
+				paramData.lpData = &dto;
+				paramData.cbData = sizeof(dto);
 
 				COPYDATASTRUCT fileNamesData;
 				fileNamesData.dwData = COPYDATA_FILENAMES;

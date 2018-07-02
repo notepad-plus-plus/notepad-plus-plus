@@ -90,6 +90,27 @@ ParamVector parseCommandLine(const TCHAR* commandLine)
 	return result;
 }
 
+// Looks for -z arguments and strips command line arguments following those, if any
+void stripIgnoredParams(ParamVector & params)
+{
+	for ( auto it = params.begin(); it != params.end(); )
+	{
+		if (lstrcmp(it->c_str(), TEXT("-z")) == 0)
+		{
+			auto nextIt = std::next(it);
+			if ( nextIt != params.end() )
+			{
+				params.erase(nextIt);
+			}
+			it = params.erase(it);
+		}
+		else
+		{
+			++it;
+		}
+	}
+}
+
 bool isInList(const TCHAR *token2Find, ParamVector& params, bool eraseArg = true)
 {
 	for (auto it = params.begin(); it != params.end(); ++it)
@@ -258,6 +279,7 @@ void doException(Notepad_plus_Window & notepad_plus_plus)
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 {
 	ParamVector params = parseCommandLine(::GetCommandLine());
+	stripIgnoredParams(params);
 
 	MiniDumper mdump;	//for debugging purposes.
 

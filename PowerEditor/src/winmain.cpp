@@ -76,122 +76,27 @@ void allowWmCopydataMessages(Notepad_plus_Window& notepad_plus_plus, const NppPa
 	}
 }
 
-
-bool checkSingleFile(const TCHAR *commandLine)
-{
-	if (!commandLine || commandLine[0] == TEXT('\0'))
-		return false;
-
-	TCHAR fullpath[MAX_PATH] = {0};
-	const DWORD fullpathResult = ::GetFullPathName(commandLine, MAX_PATH, fullpath, NULL);
-
-	if (fullpathResult == 0)
-		return false;
-
-	if (fullpathResult > MAX_PATH)
-		return false;
-
-	if (::PathFileExists(fullpath))
-		return true;
-
-	return false;
-}
-
 //commandLine should contain path to n++ executable running
-void parseCommandLine(const TCHAR* commandLine, ParamVector& paramVector)
+ParamVector parseCommandLine(const TCHAR* commandLine)
 {
-	if (!commandLine)
-		return;
-
-	TCHAR* cmdLine = new TCHAR[lstrlen(commandLine) + 1];
-	lstrcpy(cmdLine, commandLine);
-
-	TCHAR* cmdLinePtr = cmdLine;
-
-	//remove the first element, since thats the path the the executable (GetCommandLine does that)
-	TCHAR stopChar = TEXT(' ');
-	if (cmdLinePtr[0] == TEXT('\"'))
+	ParamVector result;
+	int numArgs = 0;
+	LPWSTR* tokenizedCmdLine = CommandLineToArgvW( commandLine, &numArgs );
+	if ( tokenizedCmdLine != nullptr )
 	{
-		stopChar = TEXT('\"');
-		++cmdLinePtr;
+		result.assign( tokenizedCmdLine+1, tokenizedCmdLine+numArgs ); // If numArgs == 1, it will do nothing
+		LocalFree( tokenizedCmdLine );
 	}
-	//while this is not really DBCS compliant, space and quote are in the lower 127 ASCII range
-	while(cmdLinePtr[0] && cmdLinePtr[0] != stopChar)
-    {
-		++cmdLinePtr;
-    }
-
-    // For unknown reason, the following command :
-    // c:\NppDir>notepad++
-    // (without quote) will give string "notepad++\0notepad++\0"
-    // To avoid the unexpected behaviour we check the end of string before increasing the pointer
-    if (cmdLinePtr[0] != '\0')
-	    ++cmdLinePtr;	//advance past stopChar
-
-	//kill remaining spaces
-	while(cmdLinePtr[0] == TEXT(' '))
-		++cmdLinePtr;
-
-	bool isFile = checkSingleFile(cmdLinePtr);	//if the commandline specifies only a file, open it as such
-	if (isFile)
-	{
-		paramVector.push_back(cmdLinePtr);
-		delete[] cmdLine;
-		return;
-	}
-	bool isInFile = false;
-	bool isInWhiteSpace = true;
-	size_t commandLength = lstrlen(cmdLinePtr);
-	std::vector<TCHAR *> args;
-	for (size_t i = 0; i < commandLength; ++i)
-	{
-		switch(cmdLinePtr[i])
-		{
-			case '\"': //quoted filename, ignore any following whitespace
-			{
-				if (!isInFile)	//" will always be treated as start or end of param, in case the user forgot to add an space
-				{
-					args.push_back(cmdLinePtr+i+1);	//add next param(since zero terminated original, no overflow of +1)
-				}
-				isInFile = !isInFile;
-				isInWhiteSpace = false;
-				//because we dont want to leave in any quotes in the filename, remove them now (with zero terminator)
-				cmdLinePtr[i] = 0;
-			}
-			break;
-
-			case '\t': //also treat tab as whitespace
-			case ' ': 
-			{
-				isInWhiteSpace = true;
-				if (!isInFile)
-					cmdLinePtr[i] = 0;		//zap spaces into zero terminators, unless its part of a filename	
-			}
-			break;
-
-			default: //default TCHAR, if beginning of word, add it
-			{
-				if (!isInFile && isInWhiteSpace)
-				{
-					args.push_back(cmdLinePtr+i);	//add next param
-					isInWhiteSpace = false;
-				}
-			}
-		}
-	}
-	paramVector.assign(args.begin(), args.end());
-	delete [] cmdLine;
+	return result;
 }
 
-bool isInList(const TCHAR *token2Find, ParamVector & params)
+bool isInList(const TCHAR *token2Find, ParamVector& params, bool eraseArg = true)
 {
-	size_t nbItems = params.size();
-
-	for (size_t i = 0; i < nbItems; ++i)
+	for (auto it = params.begin(); it != params.end(); ++it)
 	{
-		if (!lstrcmp(token2Find, params.at(i).c_str()))
+		if (lstrcmp(token2Find, it->c_str()) == 0)
 		{
-			params.erase(params.begin() + i);
+			if (eraseArg) params.erase(it);
 			return true;
 		}
 	}
@@ -352,9 +257,7 @@ void doException(Notepad_plus_Window & notepad_plus_plus)
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 {
-	LPTSTR cmdLine = ::GetCommandLine();
-	ParamVector params;
-	parseCommandLine(cmdLine, params);
+	ParamVector params = parseCommandLine(::GetCommandLine());
 
 	MiniDumper mdump;	//for debugging purposes.
 

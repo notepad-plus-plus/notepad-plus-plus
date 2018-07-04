@@ -134,6 +134,7 @@ struct Position
 	int _xOffset = 0;
 	int _selMode = 0;
 	int _scrollWidth = 1;
+	int _offset = 0;
 };
 
 

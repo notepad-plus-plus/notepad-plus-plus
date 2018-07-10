@@ -475,7 +475,7 @@ void ProjectPanel::buildProjectXml(TiXmlNode *node, HTREEITEM hItem, const TCHAR
 	}
 }
 
-bool ProjectPanel::enumWorkSpaceFiles(HTREEITEM tvFrom, std::vector<generic_string> & fileNames)
+bool ProjectPanel::enumWorkSpaceFiles(HTREEITEM tvFrom, const std::vector<generic_string> & patterns, std::vector<generic_string> & fileNames)
 {
 	TCHAR textBuffer[MAX_PATH];
 	TVITEM tvItem;
@@ -494,12 +494,15 @@ bool ProjectPanel::enumWorkSpaceFiles(HTREEITEM tvFrom, std::vector<generic_stri
 		SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 		if (tvItem.lParam)
 		{
-			generic_string *fn = (generic_string *)tvItem.lParam;
-			fileNames.push_back (*fn);
+			if (matchInList(tvItem.pszText, patterns))
+			{
+				generic_string *fn = (generic_string *)tvItem.lParam;
+				fileNames.push_back (*fn);
+			}
 		}
 		else
 		{
-			if (!enumWorkSpaceFiles (tvProj, fileNames)) return false;
+			if (!enumWorkSpaceFiles (tvProj, patterns, fileNames)) return false;
 		}
 	}
 	return true;

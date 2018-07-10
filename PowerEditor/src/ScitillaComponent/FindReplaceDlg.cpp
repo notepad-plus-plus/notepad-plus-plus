@@ -313,6 +313,12 @@ void FindReplaceDlg::fillFindHistory()
     ::SendDlgItemMessage(_hSelf, IDD_FINDINFILES_PROJECT2_CHECK, BM_SETCHECK, findHistory._isFifProjectPanel_2, 0);
     ::SendDlgItemMessage(_hSelf, IDD_FINDINFILES_PROJECT3_CHECK, BM_SETCHECK, findHistory._isFifProjectPanel_3, 0);
 
+	if (findHistory._isFifProjectPanel_1 || findHistory._isFifProjectPanel_2 || findHistory._isFifProjectPanel_3)
+	{
+		// Clear directory, since it doesn't record empty strings in its history
+		::SetDlgItemText(_hSelf, IDD_FINDINFILES_DIR_COMBO, L"");
+	}
+
 	::SendDlgItemMessage(_hSelf, IDNORMAL, BM_SETCHECK, findHistory._searchMode == FindHistory::normal, 0);
 	::SendDlgItemMessage(_hSelf, IDEXTENDED, BM_SETCHECK, findHistory._searchMode == FindHistory::extended, 0);
 	::SendDlgItemMessage(_hSelf, IDREGEXP, BM_SETCHECK, findHistory._searchMode == FindHistory::regExpr, 0);
@@ -1518,11 +1524,22 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				{
 					if (_currentStatus == FINDINFILES_DLG)
 					{
-						TCHAR dir [MAX_PATH];
-						::GetDlgItemText(_hSelf, IDD_FINDINFILES_DIR_COMBO, dir, _countof (dir));
-						if (dir [0])
+						if (HIWORD (wParam) == CBN_SELCHANGE)
+						{	// CBN_SELCHANGE is sent before the dialog item text is actually updated.
+							// No CBN_EDIT* message is sent after CBN_SELCHANGE immediatly, so that
+							// selecting a directory from history does not uncheck the Project Panel
+							// checkmarks immediatly. Workaround:
+							PostMessage (_hSelf, WM_COMMAND, IDD_FINDINFILES_DIR_COMBO | (CBN_EDITCHANGE << 16), lParam);
+							// At the time this message arrives, the dialog item text is updated.
+						}
+						else
 						{
-							setProjectCheckmarks (& findHistory, 0);
+							TCHAR dir [MAX_PATH];
+							::GetDlgItemText(_hSelf, IDD_FINDINFILES_DIR_COMBO, dir, _countof (dir));
+							if (dir [0])
+							{
+								setProjectCheckmarks (& findHistory, 0);
+							}
 						}
 					}
 				}

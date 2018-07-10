@@ -1659,20 +1659,28 @@ bool Notepad_plus::findInFiles()
 	const TCHAR *dir2Search = _findReplaceDlg.getDir2Search();
 
 	vector<generic_string> fileNames;
+	vector<generic_string> patterns2Match;
+
+	_findReplaceDlg.getPatterns(patterns2Match);
+	if (patterns2Match.size() == 0)
+	{
+		_findReplaceDlg.setFindInFilesDirFilter(NULL, TEXT("*.*"));
+		_findReplaceDlg.getPatterns(patterns2Match);
+	}
 
 	if (not dir2Search[0])
 	{ // search workspace files
 		if (_findReplaceDlg.isProjectPanel_1() && _pProjectPanel_1)
 		{
-			_pProjectPanel_1->enumWorkSpaceFiles (NULL, fileNames);
+			_pProjectPanel_1->enumWorkSpaceFiles (NULL, patterns2Match, fileNames);
 		}
 		if (_findReplaceDlg.isProjectPanel_2() && _pProjectPanel_2)
 		{
-			_pProjectPanel_2->enumWorkSpaceFiles (NULL, fileNames);
+			_pProjectPanel_2->enumWorkSpaceFiles (NULL, patterns2Match, fileNames);
 		}
 		if (_findReplaceDlg.isProjectPanel_3() && _pProjectPanel_3)
 		{
-			_pProjectPanel_3->enumWorkSpaceFiles (NULL, fileNames);
+			_pProjectPanel_3->enumWorkSpaceFiles (NULL, patterns2Match, fileNames);
 		}
 		if (fileNames.size() == 0) return false;
 	}
@@ -1684,15 +1692,6 @@ bool Notepad_plus::findInFiles()
 	{
 		bool isRecursive = _findReplaceDlg.isRecursive();
 		bool isInHiddenDir = _findReplaceDlg.isInHiddenDir();
-
-		vector<generic_string> patterns2Match;
-		_findReplaceDlg.getPatterns(patterns2Match);
-		if (patterns2Match.size() == 0)
-		{
-			_findReplaceDlg.setFindInFilesDirFilter(NULL, TEXT("*.*"));
-			_findReplaceDlg.getPatterns(patterns2Match);
-		}
-
 		getMatchedFileNames(dir2Search, patterns2Match, fileNames, isRecursive, isInHiddenDir);
 	}
 

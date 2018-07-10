@@ -105,7 +105,7 @@ public:
 	virtual void setForegroundColor(COLORREF fgColour) {
 		TreeView_SetTextColor(_treeView.getHSelf(), fgColour);
 	};
-	bool enumWorkSpaceFiles(HTREEITEM tvFrom, std::vector<generic_string> & fileNames);
+	bool enumWorkSpaceFiles(HTREEITEM tvFrom, const std::vector<generic_string> & patterns, std::vector<generic_string> & fileNames);
 
 
 protected:

@@ -91,7 +91,6 @@ enum ChangeDetect {cdDisabled=0, cdEnabled=1, cdAutoUpdate=2, cdGo2end=3, cdAuto
 enum BackupFeature {bak_none = 0, bak_simple = 1, bak_verbose = 2};
 enum OpenSaveDirSetting {dir_followCurrent = 0, dir_last = 1, dir_userDef = 2};
 enum MultiInstSetting {monoInst = 0, multiInstOnSession = 1, multiInst = 2};
-//enum CloudChoice {noCloud = 0, dropbox = 1, oneDrive = 2, googleDrive = 3};
 
 const int LANG_INDEX_INSTR = 0;
 const int LANG_INDEX_INSTR2 = 1;
@@ -163,7 +162,7 @@ private:
 
 struct sessionFileInfo : public Position
 {
-	sessionFileInfo(const TCHAR *fn, const TCHAR *ln, int encoding, Position pos, const TCHAR *backupFilePath, int originalFileLastModifTimestamp, const MapPosition & mapPos) :
+	sessionFileInfo(const TCHAR *fn, const TCHAR *ln, int encoding, Position pos, const TCHAR *backupFilePath, FILETIME originalFileLastModifTimestamp, const MapPosition & mapPos) :
 		_encoding(encoding), Position(pos), _originalFileLastModifTimestamp(originalFileLastModifTimestamp), _mapPos(mapPos)
 	{
 		if (fn) _fileName = fn;
@@ -180,7 +179,7 @@ struct sessionFileInfo : public Position
 	int	_encoding = -1;
 
 	generic_string _backupFilePath;
-	time_t _originalFileLastModifTimestamp = 0;
+	FILETIME _originalFileLastModifTimestamp = {};
 
 	MapPosition _mapPos;
 };
@@ -1130,15 +1129,15 @@ friend class NppParameters;
 public:
 	struct LocalizationDefinition
 	{
-		wchar_t *_langName;
-		wchar_t *_xmlFileName;
+		const wchar_t *_langName;
+		const wchar_t *_xmlFileName;
 	};
 
 	bool addLanguageFromXml(std::wstring xmlFullPath);
 	std::wstring getLangFromXmlFileName(const wchar_t *fn) const;
 
 	std::wstring getXmlFilePathFromLangName(const wchar_t *langName) const;
-	bool switchToLang(wchar_t *lang2switch) const;
+	bool switchToLang(const wchar_t *lang2switch) const;
 
 	size_t size() const
 	{

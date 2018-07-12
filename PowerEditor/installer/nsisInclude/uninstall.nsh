@@ -170,6 +170,7 @@ FunctionEnd
 		SetShellVarContext all
 	
 	Delete "$DESKTOP\Notepad++.lnk"
+	Delete "$SMPROGRAMS\Notepad++.lnk"
 	Delete "$SMPROGRAMS\Notepad++\Notepad++.lnk"
 	Delete "$SMPROGRAMS\Notepad++\readme.lnk"
 
@@ -203,6 +204,7 @@ Section Uninstall
 		SetShellVarContext all ; make context for all user
 	
 	Delete "$DESKTOP\Notepad++.lnk"
+	Delete "$SMPROGRAMS\Notepad++.lnk"
 	Delete "$SMPROGRAMS\${APPNAME}\Notepad++.lnk"
 	Delete "$SMPROGRAMS\${APPNAME}\readme.lnk"
 	

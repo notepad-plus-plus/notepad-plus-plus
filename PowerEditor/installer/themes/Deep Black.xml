@@ -383,6 +383,10 @@ http://sourceforge.net/donate/index.php?group_id=95717
             <WordsStyle name="MACRO" styleID="12" fgColor="800000" bgColor="000000" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="STRING VAR" styleID="13" fgColor="BCFF80" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="NUMBER" styleID="14" fgColor="99CC99" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
+	    <WordsStyle name="SECTIONGROUP" styleID="15" fgColor="FF8080" bgColor="000000" fontName="" fontStyle="1" fontSize="" />
+	    <WordsStyle name="PAGE EX" styleID="16" fgColor="FFFFFF" bgColor="000000" fontName="" fontStyle="1" fontSize="" />
+	    <WordsStyle name="FUNCTION DEFINITIONS" styleID="17" fgColor="FFFFFF" bgColor="000000" fontName="" fontStyle="1" fontSize="" />
+	    <WordsStyle name="COMMENT" styleID="18" fgColor="00FF00" bgColor="000000" fontName="" fontStyle="2" fontSize="" />
         </LexerType>
         <LexerType name="actionscript" desc="ActionScript" ext="">
             <!--

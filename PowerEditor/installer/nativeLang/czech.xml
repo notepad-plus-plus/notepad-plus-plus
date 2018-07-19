@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 7.5.6  11/Mar/2018  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 7.5.7  6/Jul/2018  by Ondřej Müller (mullero@email.cz)
 	- N++ Community:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz)
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="7.5.6">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="7.5.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1037,7 +1037,7 @@
 			<ColumnModeTip title = "Tip k sloupcovému režimu" message = "Použijte prosím &quot;výběr ALT+Myš&quot; nebo &quot;Alt+Shift+KurzorováŠipka&quot; k zapnutí sloupcového režimu."/>
 			<BufferInvalidWarning title = "Ukládání selhalo" message = "Nelze uložit: Neplatná vyrovnávací paměť."/>
 			<DoSaveOrNot title = "Ukládání" message = "Uložit soubor &quot;$STR_REPLACE$&quot; ?"/>
-			<DoCloseOrNot title = "Zachování neexistujícího souboru" message = "Soubor &quot;$STR_REPLACE$&quot; již neexistuje. Keep this file in editor?"/>
+			<DoCloseOrNot title = "Zachování neexistujícího souboru" message = "Soubor &quot;$STR_REPLACE$&quot; již neexistuje (na disku). Chcete zachovat tento soubor v editoru?"/>
 			<DoDeleteOrNot title = "Smazání souboru" message = "Soubor &quot;$STR_REPLACE$&quot; bude přemístěn do Koše a tento dokument bude uzavřen. Pokračovat?"/>
 			<NoBackupDoSaveFile title = "Ukládání" message = "Váš soubor pro zálohu není k nalezení (byl smazán z vnějšku). Vytvořte zálohu, jinak budou Vaše data ztracena. Chcete uložit soubor &quot;$STR_REPLACE$&quot; ?"/>
 			<DoReloadOrNot title = "Znovuotevření" message = "&quot;$STR_REPLACE$&quot;  Tento soubor byl změněn jiným programem. Chcete jej znovu načíst?"/>

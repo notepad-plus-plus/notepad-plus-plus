@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++ 7.5.6
-	last modified: 2018-04-26 by schnurlos (schnurlos@gmail.com)
+	last modified: 2018-05-31 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -364,7 +364,7 @@
 				<Item id="1605" name="&amp;Reguläre Ausdrücke"/>
 				<Item id="1606" name="Am Ende von vorne &amp;beginnen"/>
 				<Item id="1614" name="Z&amp;ählen"/>
-				<Item id="1615" name="&amp;Alle markieren"/>
+				<Item id="1615" name="&amp;Alle hervorheben"/>
 				<Item id="1616" name="&amp;Lesezeichen setzen"/>
 				<Item id="1618" name="Für &amp;jede Suche löschen"/>
 				<Item id="1611" name="Erset&amp;zen durch:"/>
@@ -373,7 +373,7 @@
 				<Item id="1687" name="Wenn inaktiv"/>
 				<Item id="1688" name="Immer"/>
 				<Item id="1632" name="In &amp;Auswahl"/>
-				<Item id="1633" name="Markierungen zurücksetzen"/>
+				<Item id="1633" name="Hervorhebung zurücksetzen"/>
 				<Item id="1635" name="Alle Funde in allen offenen Dateien ersetzen"/>
 				<Item id="1636" name="In &amp;offenen Dateien suchen"/>
 				<Item id="1654" name="Filter:"/>
@@ -385,7 +385,7 @@
 				<Item id="1625" name="Norma&amp;l"/>
 				<Item id="1626" name="Erwe&amp;itert (\n, \r, \t, \0, \x…)"/>
 				<Item id="1660" name="Ersetzen in Dateien"/>
-				<Item id="1661" name="&amp;Ordner der akt. Datei"/>
+				<Item id="1661" name="&amp;Ordner aktueller Datei"/>
 				<Item id="1641" name="Alle in aktiver &amp;Datei suchen"/>
 				<Item id="1686" name="Transparenz"/>
 				<Item id="1703" name="&amp;. findet \r und \n"/>
@@ -772,7 +772,7 @@
 					<Item id="6332" name="Groß-/Kleinschreibung beachten"/>
 					<Item id="6338" name="Übereinstimmung mit ganzem Wort"/>
 					<Item id="6339" name="Sucheinstellungen benutzen"/>
-					<Item id="6340" name="Andere Hervorhebung"/>
+					<Item id="6340" name="Hervorhebung auch in zweiter Ansicht"/>
 					<Item id="6329" name="HTML-Hervorhebung"/>
 					<Item id="6327" name="Tags hervorheben"/>
 					<Item id="6328" name="Attribute hervorheben"/>

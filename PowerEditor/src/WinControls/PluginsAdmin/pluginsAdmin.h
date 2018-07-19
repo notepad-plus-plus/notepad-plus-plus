@@ -148,6 +148,8 @@ public :
 	    display();
     };
 
+	bool listExist();
+
 	void switchDialog(int indexToSwitch);
 	void setPluginsManager(PluginsManager *pluginsManager) { _pPluginsManager = pluginsManager; };
 

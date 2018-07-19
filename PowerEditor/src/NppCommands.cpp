@@ -70,17 +70,6 @@ void Notepad_plus::command(int id)
 		case IDM_FILE_NEW:
 		{
 			fileNew();
-
-			/*
-			bool isFirstTime = ! _pluginsAdminDlg.isCreated();
-			_pluginsAdminDlg.setPluginsManager(&_pluginsManager);
-			_pluginsAdminDlg.doDialog(_nativeLangSpeaker.isRTL());
-			if (isFirstTime)
-			{
-				_nativeLangSpeaker.changeConfigLang(_pluginsAdminDlg.getHSelf());
-				_pluginsAdminDlg.updateListAndLoadFromJson();
-			}
-			*/
 		}
 		break;
 
@@ -2464,6 +2453,18 @@ void Notepad_plus::command(int id)
             }
             break;
         }
+
+		case IDM_SETTING_PLUGINADM:
+		{
+			bool isFirstTime = !_pluginsAdminDlg.isCreated();
+			_pluginsAdminDlg.doDialog(_nativeLangSpeaker.isRTL());
+			if (isFirstTime)
+			{
+				_nativeLangSpeaker.changeConfigLang(_pluginsAdminDlg.getHSelf());
+				_pluginsAdminDlg.updateListAndLoadFromJson();
+			}
+			break;
+		}
 
 		case IDM_SETTING_SHORTCUT_MAPPER :
 		case IDM_SETTING_SHORTCUT_MAPPER_MACRO :

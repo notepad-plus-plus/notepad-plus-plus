@@ -536,7 +536,10 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	}
 
 	//Plugin menu
-	_pluginsManager.setMenu(_mainMenuHandle, NULL);
+	bool enablePluginAdmin = _pluginsAdminDlg.listExist();
+	_pluginsAdminDlg.setPluginsManager(&_pluginsManager);
+	_pluginsManager.setMenu(_mainMenuHandle, NULL, enablePluginAdmin);
+
 
 	//Main menu is loaded, now load context menu items
 	pNppParam->getContextMenuFromXmlTree(_mainMenuHandle, _pluginsManager.getMenuHandle());

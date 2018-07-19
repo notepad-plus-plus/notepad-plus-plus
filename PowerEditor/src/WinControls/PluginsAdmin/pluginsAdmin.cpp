@@ -580,42 +580,105 @@ PluginUpdateInfo::PluginUpdateInfo(const generic_string& fullFilePath, const gen
 
 }
 
+typedef const char * (__cdecl * PFUNCGETPLUGINLIST)();
+
+bool PluginsAdminDlg::listExist()
+{
+#ifdef DEBUG // if not debug, then it's release
+
+	// load from nppPluginList.json instead of nppPluginList.dll
+	generic_string nppPluginListPath = TEXT("C:\\tmp\\nppPluginList.json");
+
+#else //RELEASE
+
+#ifdef _WIN64
+	generic_string nppPluginListPath = TEXT("C:\\sources\\nppPluginList\\vcxproj\\x64\\Debug\\nppPluginList.dll");
+#else
+	generic_string nppPluginListPath = TEXT("C:\\sources\\nppPluginList\\vcxproj\\Debug\\nppPluginList.dll");
+#endif
+
+#endif
+	return ::PathFileExists(nppPluginListPath.c_str()) == TRUE;
+}
+
 bool PluginsAdminDlg::updateListAndLoadFromJson()
 {
-	// check on default location : %APPDATA%\Notepad++\plugins\config\pl\pl.json or NPP_INST_DIR\plugins\config\pl\pl.json
+	try {
+		json j;
+
+#ifdef DEBUG // if not debug, then it's release
+
+		// load from nppPluginList.json instead of nppPluginList.dll
+		generic_string nppPluginListJsonPath = TEXT("C:\\tmp\\nppPluginList.json");
+
+		if (!::PathFileExists(nppPluginListJsonPath.c_str()))
+		{
+			::MessageBox(NULL, TEXT("The file doesn't exist"), nppPluginListJsonPath.c_str(), MB_OK);
+			return false;
+		}
+
+		ifstream nppPluginListJson(nppPluginListJsonPath);
+		nppPluginListJson >> j;
+
+#else //RELEASE
+
+#ifdef _WIN64
+		generic_string nppPluginListDllPath = TEXT("C:\\sources\\nppPluginList\\vcxproj\\x64\\Debug\\nppPluginList.dll");
+#else
+		generic_string nppPluginListDllPath = TEXT("C:\\sources\\nppPluginList\\vcxproj\\Debug\\nppPluginList.dll");
+#endif
+
+		// check the signature on default location : %APPDATA%\Notepad++\plugins\config\pl\nppPluginList.dll or NPP_INST_DIR\plugins\config\pl\nppPluginList.dll
+
+		HINSTANCE hLib = ::LoadLibrary(nppPluginListDllPath.c_str());
+		if (!hLib)
+		{
+			// Error treatment
+			//printStr(TEXT("LoadLibrary PB!!!"));
+			return false;
+		}
+
+		PFUNCGETPLUGINLIST pGetListFunc = (PFUNCGETPLUGINLIST)GetProcAddress(hLib, "getList");
+		if (!pGetListFunc)
+		{
+			// Error treatment
+			//printStr(TEXT("getList PB!!!"));
+			return false;
+		}
+
+		const char* pl = pGetListFunc();
+		//MessageBoxA(NULL, pl, "", MB_OK);
+
+		j = j.parse(pl);
+
+#endif
+		// if absent then download it
 
 
-	// if absent then download it
+		// check the update for nppPluginList.json
 
 
-	// check the update of pl.json
+		// download update if present
 
 
-	// download update if present
+		// load pl.json
+		// 
 
-	// check integrity of pl.json
+		loadFromJson(_availableList, j);
 
-	// load pl.json
-	// 
-	generic_string nppPluginListJsonPath = TEXT("C:\\tmp\\nppPluginList.json");
+		// initialize update list view
+		checkUpdates();
 
-	if (!::PathFileExists(nppPluginListJsonPath.c_str()))
+		// initialize installed list view
+		loadFromPluginInfos();
+
+		return true;
+	}
+	catch (...)
+	{
+		// whichever exception
 		return false;
-
-	ifstream nppPluginListJson(nppPluginListJsonPath);
-	json pluginsJson;
-	nppPluginListJson >> pluginsJson;
-
-	// initialize available list view
-	loadFromJson(_availableList, pluginsJson);
-
-	// initialize update list view
-	checkUpdates();
-
-	// initialize installed list view
-	loadFromPluginInfos();
-
-	return true;
+	}
 }
 
 

@@ -122,6 +122,7 @@ void VerticalFileSwitcherListView::initList()
 		{
 			// resize "Name" column when "exts" won't fit
 			LVCOLUMN lvc;
+			lvc.mask = LVCF_WIDTH;
 			SendMessage(_hSelf, LVM_GETCOLUMN, 0, reinterpret_cast<LPARAM>(&lvc));
 			
 			if (lvc.cx + 50 > totalWidth)

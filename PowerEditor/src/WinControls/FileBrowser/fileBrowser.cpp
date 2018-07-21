@@ -670,7 +670,7 @@ void FileBrowser::popupMenuCmd(int cmdID)
 			if (::PathFileExists(path.c_str()))
 			{
 				TCHAR cmdStr[1024];
-				wsprintf(cmdStr, TEXT("explorer /select,%s"), path.c_str());
+				wsprintf(cmdStr, TEXT("explorer /select,\"%s\""), path.c_str());
 				Command cmd(cmdStr);
 				cmd.run(nullptr);
 			}

@@ -158,26 +158,15 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 		case FB_ADDFILE:
 		{
 			const std::vector<generic_string> file2Change = *(std::vector<generic_string> *)lParam;
-			generic_string separator = TEXT("\\\\");
+			std::vector<DirChangeInfo> changes = getDirChangeInfo(file2Change);
 
-			size_t sepPos = file2Change[0].find(separator);
-			if (sepPos == generic_string::npos)
-				return false;
-
-			generic_string pathSuffix = file2Change[0].substr(sepPos + separator.length(), file2Change[0].length() - 1);
-
-			// remove prefix of file/folder in changeInfo, splite the remained path
-			vector<generic_string> linarPathArray = split(pathSuffix, '\\');
-
-			generic_string rootPath = file2Change[0].substr(0, sepPos);
-			generic_string path = rootPath;
-
-			generic_string addedFilePath = file2Change[0].substr(0, sepPos + 1);
-			addedFilePath += pathSuffix;
-			bool isAdded = addInTree(rootPath, addedFilePath, nullptr, linarPathArray);
-			if (not isAdded)
+			// However at a time only one item will come here,
+			// So for loop is not required, using 0th index will serve the purpose
+			// But just keep it future ready handle all the items from vector
+			for (const auto& change : changes)
 			{
-				//MessageBox(NULL, addedFilePath.c_str(), TEXT("file/folder is not added"), MB_OK);
+				generic_string addedFilePath = change.rootPath + TEXT("\\") + change.childItem;
+				addInTree(change.rootPath, addedFilePath, nullptr, { change.childItem });
 			}
 			break;
 		}
@@ -185,24 +174,14 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 		case FB_RMFILE:
 		{
 			const std::vector<generic_string> file2Change = *(std::vector<generic_string> *)lParam;
-			generic_string separator = TEXT("\\\\");
+			std::vector<DirChangeInfo> changes = getDirChangeInfo(file2Change);
 
-			size_t sepPos = file2Change[0].find(separator);
-			if (sepPos == generic_string::npos)
-				return false;
-
-			generic_string pathSuffix = file2Change[0].substr(sepPos + separator.length(), file2Change[0].length() - 1);
-
-			// remove prefix of file/folder in changeInfo, splite the remained path
-			vector<generic_string> linarPathArray = split(pathSuffix, '\\');
-
-			generic_string rootPath = file2Change[0].substr(0, sepPos);
-			// search recursively and modify the tree structure
-
-			bool isRemoved = deleteFromTree(rootPath, nullptr, linarPathArray);
-			if (not isRemoved)
+			// However at a time only one item will come here,
+			// So for loop is not required, using 0th index will serve the purpose
+			// But just keep it future ready handle all the items from vector
+			for (const auto& change : changes)
 			{
-				//MessageBox(NULL, file2Change[0].c_str(), TEXT("file/folder is not removed"), MB_OK);
+				deleteFromTree(change.rootPath, nullptr, { change.childItem });
 			}
 			break;
 		}
@@ -210,32 +189,12 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 		case FB_RNFILE:
 		{
 			const std::vector<generic_string> file2Change = *(std::vector<generic_string> *)lParam;
-			generic_string separator = TEXT("\\\\");
+			std::vector<DirChangeInfo> changes = getDirChangeInfo(file2Change);
 
-			size_t sepPos = file2Change[0].find(separator);
-			if (sepPos == generic_string::npos)
-				return false;
-
-			generic_string pathSuffix = file2Change[0].substr(sepPos + separator.length(), file2Change[0].length() - 1);
-
-			// remove prefix of file/folder in changeInfo, splite the remained path
-			vector<generic_string> linarPathArray = split(pathSuffix, '\\');
-
-			generic_string rootPath = file2Change[0].substr(0, sepPos);
-
-			size_t sepPos2 = file2Change[1].find(separator);
-			if (sepPos2 == generic_string::npos)
-				return false;
-
-			generic_string pathSuffix2 = file2Change[1].substr(sepPos2 + separator.length(), file2Change[1].length() - 1);
-			vector<generic_string> linarPathArray2 = split(pathSuffix2, '\\');
-
-			bool isRenamed = renameInTree(rootPath, nullptr, linarPathArray, linarPathArray2[linarPathArray2.size() - 1]);
-			if (not isRenamed)
-			{
-				//MessageBox(NULL, file2Change[0].c_str(), TEXT("file/folder is not removed"), MB_OK);
-			}
-			break;
+			// Here first item in vector contains old name and 
+			// Second item contains new name
+			renameInTree(changes[0].rootPath, nullptr, { changes[0].childItem }, changes[1].childItem);
+			break; 
 		}
 
         default :
@@ -952,6 +911,30 @@ HTREEITEM FileBrowser::createFolderItemsFromDirStruct(HTREEITEM hParentItem, con
 	_treeView.fold(hParentItem);
 
 	return hFolderItem;
+}
+
+std::vector<FileBrowser::DirChangeInfo> FileBrowser::getDirChangeInfo(const std::vector<generic_string>& changedItems)
+{
+	std::vector<FileBrowser::DirChangeInfo> changeInfo;
+
+	for (const auto& item : changedItems)
+	{
+		generic_string root, child;
+		
+		// Get the position of slash (\) from reverse
+		generic_string separator = TEXT("\\");
+		auto sepPos = item.find_last_of(separator);
+
+		if (sepPos != generic_string::npos)
+		{
+			root = item.substr(0, sepPos);
+			child = item.substr(sepPos + separator.length(), item.length() - 1);
+		}
+
+		changeInfo.push_back({ root, child });
+	}
+	
+	return changeInfo;
 }
 
 HTREEITEM FileBrowser::getRootFromFullPath(const generic_string & rootPath) const

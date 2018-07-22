@@ -178,6 +178,14 @@ protected:
 	void openSelectFile();
 	void getDirectoryStructure(const TCHAR *dir, const std::vector<generic_string> & patterns, FolderInfo & directoryStructure, bool isRecursive, bool isInHiddenDir); 
 	HTREEITEM createFolderItemsFromDirStruct(HTREEITEM hParentItem, const FolderInfo & directoryStructure);
+
+private:
+	using DirChangeInfo = struct
+	{
+		generic_string rootPath, childItem;
+	};
+
+	std::vector<DirChangeInfo> getDirChangeInfo(const std::vector<generic_string>& changeInfo);
 };
 
 #endif // FILEBROWSER_H

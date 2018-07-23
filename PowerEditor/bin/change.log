@@ -1,14 +1,10 @@
-Notepad++ v7.5.7 bug-fixes:
+Notepad++ v7.5.8 bug-fixes:
 
-1.  Fix hanging problem while shutdown and backup file is absent.
-2.  Fix Sort Lines as Integers issue: use Natural Sort algorithm.
-3.  Fix JavaScript not working regression in Function list.
-4.  Fix Open File Dialog error for a long path.
-5.  Fix document map display bug when the view is scrolled past the end of the file.
-6.  Fix tool bar display bug in big icon mode issue.
-7.  Make caret line always visible on click from Finder panel.
-8.  Fix UDL export extension issue.
-9.  Fix Run Macro multiple times dialog display glitch after deleting a Macro.
+1.  Remove annoying "no update" notification.
+2.  Fix Folder as Workspace not updating regression.
+3.  Fixed crash issue by checking & unchecking "Disable extension column" option in preferences dialog.
+4.  Fixed a crash when trying to launch a secondary instance with command line arguments.
+5.  Fix "Explorer Here" from "Folder as Workspace" problem if folder name contains comma.
 
 
 Included plugins:
@@ -21,4 +17,4 @@ Included plugins:
 
 Updater (Installer only):
 
-* WinGup (for Notepad++) v5.0.1
+* WinGup (for Notepad++) v5.0.2

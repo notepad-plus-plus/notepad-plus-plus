@@ -9,15 +9,15 @@ PySide and ScintillaEditPy currently only support Python 2.x.
 
 CMake may be used to rebuild PySide and is required on Windows.
 It can be downloaded from
-http://www.cmake.org/cmake/resources/software.html
+https://cmake.org/download/
 
 On Windows, PySide only supports Visual C++ 2008. The "Visual Studio 2008
 Command Prompt" should be used to run all build commands.
 Visual C++ 2008 Express Edition can be downloaded from
-http://msdn.microsoft.com/en-us/express/future/bb421473
+https://www.microsoft.com/en-us/download/details.aspx?id=7873
 
 Download and install PySide. Instructions are on the PySide web site
-http://developer.qt.nokia.com/wiki/Category:LanguageBindings::PySide::Downloads
+https://pypi.org/project/PySide/#files
 
 For Linux, there may be both PySide library packages and PySide development
 files. Both should be installed as ScintillaEditPy needs the headers and

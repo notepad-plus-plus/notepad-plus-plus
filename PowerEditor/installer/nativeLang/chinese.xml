@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-	<Native-Langue name="繁体中文/正體中文" filename="chinese.xml" version="7.5.5">
+	<Native-Langue name="繁體中文/正體中文" filename="chinese.xml" version="7.5.5">
 		<Menu>
 			<Main>
 				<Entries>
@@ -842,7 +842,7 @@
 					<Item id="6262" name="雲端上儲存讀取設定"/>
 					<Item id="6263" name="不使用雲端"/>
 					<Item id="6267" name="在此設定雲端路徑："/>
-					<!-- <Item id="6261" name="（重新啟動 Notepad++ 後生效）"/> -->
+				   <!-- <Item id="6261" name="（重新啟動 Notepad++ 後生效）"/> -->
 				</Cloud>
 				<SearchEngine title="搜索引擎">
 					<Item id="6271" name="搜索引擎（對於「上網搜尋」選單指令）"/>

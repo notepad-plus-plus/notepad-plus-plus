@@ -40,6 +40,7 @@
 #include "Processus.h"
 #include "PluginsManager.h"
 #include "md5.h"
+#include "verifySignedFile.h"
 
 using namespace std;
 using nlohmann::json;
@@ -582,55 +583,45 @@ PluginUpdateInfo::PluginUpdateInfo(const generic_string& fullFilePath, const gen
 
 typedef const char * (__cdecl * PFUNCGETPLUGINLIST)();
 
-bool PluginsAdminDlg::listExist()
-{
-#ifdef DEBUG // if not debug, then it's release
 
-	// load from nppPluginList.json instead of nppPluginList.dll
-	generic_string nppPluginListPath = TEXT("C:\\tmp\\nppPluginList.json");
+bool PluginsAdminDlg::isListValide()
+{
+	if (!::PathFileExists(NPP_PLUGIN_LIST_PATH))
+	{
+		return false;
+	}
+
+#ifdef DEBUG // if not debug, then it's release
+	
+	return true;
 
 #else //RELEASE
 
-#ifdef _WIN64
-	generic_string nppPluginListPath = TEXT("C:\\sources\\nppPluginList\\vcxproj\\x64\\Debug\\nppPluginList.dll");
-#else
-	generic_string nppPluginListPath = TEXT("C:\\sources\\nppPluginList\\vcxproj\\Debug\\nppPluginList.dll");
-#endif
+	// check the signature on default location : %APPDATA%\Notepad++\plugins\config\pl\nppPluginList.dll or NPP_INST_DIR\plugins\config\pl\nppPluginList.dll
+	
+	bool isOK = VerifySignedLibrary(NPP_PLUGIN_LIST_PATH, NPP_COMPONENT_SIGNER_KEY_ID, NPP_COMPONENT_SIGNER_SUBJECT, NPP_COMPONENT_SIGNER_DISPLAY_NAME, false, false, false);
 
+	return isOK;
 #endif
-	return ::PathFileExists(nppPluginListPath.c_str()) == TRUE;
 }
 
 bool PluginsAdminDlg::updateListAndLoadFromJson()
 {
 	try {
+		if (!isListValide())
+			return false;
+
 		json j;
 
 #ifdef DEBUG // if not debug, then it's release
 
 		// load from nppPluginList.json instead of nppPluginList.dll
-		generic_string nppPluginListJsonPath = TEXT("C:\\tmp\\nppPluginList.json");
-
-		if (!::PathFileExists(nppPluginListJsonPath.c_str()))
-		{
-			::MessageBox(NULL, TEXT("The file doesn't exist"), nppPluginListJsonPath.c_str(), MB_OK);
-			return false;
-		}
-
-		ifstream nppPluginListJson(nppPluginListJsonPath);
+		ifstream nppPluginListJson(NPP_PLUGIN_LIST_PATH);
 		nppPluginListJson >> j;
 
 #else //RELEASE
 
-#ifdef _WIN64
-		generic_string nppPluginListDllPath = TEXT("C:\\sources\\nppPluginList\\vcxproj\\x64\\Debug\\nppPluginList.dll");
-#else
-		generic_string nppPluginListDllPath = TEXT("C:\\sources\\nppPluginList\\vcxproj\\Debug\\nppPluginList.dll");
-#endif
-
-		// check the signature on default location : %APPDATA%\Notepad++\plugins\config\pl\nppPluginList.dll or NPP_INST_DIR\plugins\config\pl\nppPluginList.dll
-
-		HINSTANCE hLib = ::LoadLibrary(nppPluginListDllPath.c_str());
+		HINSTANCE hLib = ::LoadLibrary(NPP_PLUGIN_LIST_PATH);
 		if (!hLib)
 		{
 			// Error treatment

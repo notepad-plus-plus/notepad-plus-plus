@@ -28,6 +28,21 @@
 
 #pragma once
 
+#ifdef DEBUG // if not debug, then it's release
+
+// load from nppPluginList.json instead of nppPluginList.dll
+#define NPP_PLUGIN_LIST_PATH TEXT("C:\\tmp\\nppPluginList.json")
+
+#else //RELEASE
+
+#ifdef _WIN64
+#define NPP_PLUGIN_LIST_PATH TEXT("C:\\sources\\nppPluginList\\vcxproj\\x64\\Debug\\nppPluginList.dll")
+#else
+#define NPP_PLUGIN_LIST_PATH TEXT("C:\\sources\\nppPluginList\\vcxproj\\Debug\\nppPluginList.dll")
+#endif
+
+#endif
+
 #include "StaticDialog.h"
 #include "pluginsAdminRes.h"
 #include "TabBar.h"
@@ -148,7 +163,7 @@ public :
 	    display();
     };
 
-	bool listExist();
+	bool isListValide();
 
 	void switchDialog(int indexToSwitch);
 	void setPluginsManager(PluginsManager *pluginsManager) { _pPluginsManager = pluginsManager; };

@@ -351,7 +351,7 @@
                 <Item id="1605" name="規則運算式(&amp;E)"/>
                 <Item id="1606" name="循環(&amp;D)"/>
                 <Item id="1614" name="數量"/>
-                <Item id="1615" name="全部尋找"/>
+                <Item id="1615" name="全部標記"/>
                 <Item id="1616" name="標記該行"/>
                 <Item id="1618" name="每次搜尋都重新標記"/>
                 <Item id="1611" name="取代為： "/>
@@ -360,7 +360,7 @@
                 <Item id="1687" name="當視窗失焦"/>
                 <Item id="1688" name="始終"/>
                 <Item id="1632" name="選取範圍內"/>
-                <Item id="1633" name="清除"/>
+                <Item id="1633" name="清除所有標記"/>
                 <Item id="1635" name="在所有開啟文件中取代"/>
                 <Item id="1636" name="在所有開啟文件中尋找"/>
                 <Item id="1654" name="過濾:"/>

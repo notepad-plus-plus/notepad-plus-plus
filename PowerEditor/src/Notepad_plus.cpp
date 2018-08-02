@@ -1479,6 +1479,8 @@ void Notepad_plus::getMatchedFileNames(const TCHAR *dir, const vector<generic_st
 
 bool Notepad_plus::replaceInFiles()
 {
+	LongRunningOperation op;
+
 	const TCHAR *dir2Search = _findReplaceDlg.getDir2Search();
 	if (!dir2Search[0] || !::PathFileExists(dir2Search))
 	{
@@ -6633,7 +6635,7 @@ DWORD WINAPI Notepad_plus::backupDocument(void * /*param*/)
 		if (!isSnapshotMode)
 			break;
 
-		MainFileManager->backupCurrentBuffer();
+		::PostMessage(Notepad_plus_Window::gNppHWND, NPPM_INTERNAL_SAVEBACKUP, 0, 0);
 	}
 	return TRUE;
 }

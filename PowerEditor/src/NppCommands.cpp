@@ -1464,23 +1464,35 @@ void Notepad_plus::command(int id)
 			break;
 
 		case IDM_EDIT_TRIMTRAILING:
+		{
+			LongRunningOperation op;
+
 			_pEditView->execute(SCI_BEGINUNDOACTION);
 			doTrim(lineTail);
 			_pEditView->execute(SCI_ENDUNDOACTION);
 			break;
+		}
 
 		case IDM_EDIT_TRIMLINEHEAD:
+		{
+			LongRunningOperation op;
+
 			_pEditView->execute(SCI_BEGINUNDOACTION);
 			doTrim(lineHeader);
 			_pEditView->execute(SCI_ENDUNDOACTION);
 			break;
+		}
 
 		case IDM_EDIT_TRIM_BOTH:
+		{
+			LongRunningOperation op;
+
 			_pEditView->execute(SCI_BEGINUNDOACTION);
 			doTrim(lineTail);
 			doTrim(lineHeader);
 			_pEditView->execute(SCI_ENDUNDOACTION);
 			break;
+		}
 
 		case IDM_EDIT_EOL2WS:
 			_pEditView->execute(SCI_BEGINUNDOACTION);
@@ -1490,6 +1502,9 @@ void Notepad_plus::command(int id)
 			break;
 
 		case IDM_EDIT_TRIMALL:
+		{
+			LongRunningOperation op;
+
 			_pEditView->execute(SCI_BEGINUNDOACTION);
 			doTrim(lineTail);
 			doTrim(lineHeader);
@@ -1497,6 +1512,7 @@ void Notepad_plus::command(int id)
 			_pEditView->execute(SCI_LINESJOIN);
 			_pEditView->execute(SCI_ENDUNDOACTION);
 			break;
+		}
 
 		case IDM_EDIT_TAB2SW:
 			wsTabConvert(tab2Space);

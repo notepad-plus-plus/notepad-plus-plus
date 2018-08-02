@@ -623,7 +623,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_INTERNAL_SAVECURRENTSESSION:
 		{
 			NppParameters *nppParam = NppParameters::getInstance();
-			const NppGUI nppGui = nppParam->getNppGUI();
+			const NppGUI& nppGui = nppParam->getNppGUI();
 
 			if (nppGui._rememberLastSession && !nppGui._isCmdlineNosessionActivated)
 			{
@@ -631,6 +631,16 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				getCurrentOpenedFiles(currentSession, true);
 				nppParam->writeSession(currentSession);
 			}
+			return TRUE;
+		}
+
+		case NPPM_INTERNAL_SAVEBACKUP:
+		{
+			if (NppParameters::getInstance()->getNppGUI().isSnapshotMode())
+			{
+				MainFileManager->backupCurrentBuffer();
+			}
+
 			return TRUE;
 		}
 

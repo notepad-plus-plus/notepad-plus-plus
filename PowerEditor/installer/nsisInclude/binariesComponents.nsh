@@ -100,6 +100,7 @@ ${MementoSection} "Auto-Updater" AutoUpdater
 	File "..\bin\updater\LICENSE"
 	File "..\bin\updater\README.md"
 !endif
+	File /oname=$INSTDIR\updater\npp_updater.ico ".\images\npp_inst.ico"
 ${MementoSectionEnd}
 
 ;Uninstall section
@@ -151,5 +152,6 @@ Section un.AutoUpdater
 	Delete "$INSTDIR\updater\readme.txt"
 	Delete "$INSTDIR\updater\README.md"
 	Delete "$INSTDIR\updater\getDownLoadUrl.php"
+	Delete "$INSTDIR\updater\npp_updater.ico"
 	RMDir "$INSTDIR\updater"
 SectionEnd 

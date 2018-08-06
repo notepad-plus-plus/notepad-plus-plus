@@ -618,7 +618,7 @@ void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup)
 		((_mainWindowStatus & WindowSubActive) == WindowSubActive ? _subDocTab.nbItem() : 0);
 
 	if (doDeleteBackup)
-		MainFileManager->deleteCurrentBufferBackup();
+		MainFileManager->deleteBufferBackup(id);
 
 	Buffer * buf = MainFileManager->getBufferByID(id);
 

@@ -25,23 +25,7 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-
 #pragma once
-
-#ifdef DEBUG // if not debug, then it's release
-
-// load from nppPluginList.json instead of nppPluginList.dll
-#define NPP_PLUGIN_LIST_PATH TEXT("C:\\tmp\\nppPluginList.json")
-
-#else //RELEASE
-
-#ifdef _WIN64
-#define NPP_PLUGIN_LIST_PATH TEXT("C:\\sources\\nppPluginList\\vcxproj\\x64\\Debug\\nppPluginList.dll")
-#else
-#define NPP_PLUGIN_LIST_PATH TEXT("C:\\sources\\nppPluginList\\vcxproj\\Debug\\nppPluginList.dll")
-#endif
-
-#endif
 
 #include "StaticDialog.h"
 #include "pluginsAdminRes.h"
@@ -142,7 +126,7 @@ private:
 class PluginsAdminDlg final : public StaticDialog
 {
 public :
-	PluginsAdminDlg() {};
+	PluginsAdminDlg();
 	~PluginsAdminDlg() {}
     void init(HINSTANCE hInst, HWND parent)	{
         Window::init(hInst, parent);
@@ -163,7 +147,7 @@ public :
 	    display();
     };
 
-	bool isListValide();
+	bool isValide();
 
 	void switchDialog(int indexToSwitch);
 	void setPluginsManager(PluginsManager *pluginsManager) { _pPluginsManager = pluginsManager; };
@@ -179,6 +163,10 @@ protected:
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 private :
+	generic_string _updaterDir;
+	generic_string _updaterFullPath;
+	generic_string _pluginListFullPath;
+
 	TabBar _tab;
 
 	PluginViewList _availableList; // A permanent list, once it's loaded (no removal - only hide or show) 

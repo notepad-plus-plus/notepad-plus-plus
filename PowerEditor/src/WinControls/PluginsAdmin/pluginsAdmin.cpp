@@ -352,22 +352,51 @@ vector<PluginUpdateInfo*> PluginViewList::fromUiIndexesToPluginInfos(const std::
 	return r;
 }
 
+PluginsAdminDlg::PluginsAdminDlg()
+{
+	NppParameters *pNppParameters = NppParameters::getInstance();
+	_updaterDir = pNppParameters->getNppPath();
+	PathAppend(_updaterDir, TEXT("updater"));
+
+	_updaterFullPath = _updaterDir;
+	PathAppend(_updaterFullPath, TEXT("gup.exe"));
+
+#ifdef DEBUG // if not debug, then it's release
+
+	// load from nppPluginList.json instead of nppPluginList.dll
+	_pluginListFullPath = TEXT("C:\\tmp\\nppPluginList.json");
+
+#else //RELEASE
+
+#ifdef _WIN64
+	_pluginListFullPath = TEXT("C:\\sources\\nppPluginList\\vcxproj\\x64\\Debug\\nppPluginList.dll");
+#else
+	_pluginListFullPath = TEXT("C:\\sources\\nppPluginList\\vcxproj\\Debug\\nppPluginList.dll");
+#endif
+
+#endif
+	;
+}
+
 bool PluginsAdminDlg::installPlugins()
 {
 	vector<size_t> indexes = _availableList.getCheckedIndexes();
 	vector<PluginUpdateInfo*> puis = _availableList.fromUiIndexesToPluginInfos(indexes);
 
-	NppParameters *pNppParameters = NppParameters::getInstance();
-	generic_string updaterDir = pNppParameters->getNppPath();
-	updaterDir += TEXT("\\updater\\");
-
-	generic_string updaterFullPath = updaterDir + TEXT("gup.exe");
 	generic_string updaterParams = TEXT("-unzipTo ");
+
+	generic_string nppPluginsDir = NppParameters::getInstance()->getUserPath();
+	PathAppend(nppPluginsDir, TEXT("plugins"));
+
+	if (!::PathFileExists(nppPluginsDir.c_str()))
+	{
+		::CreateDirectory(nppPluginsDir.c_str(), NULL);
+	}
 
 	for (auto i : puis)
 	{
 		// add folder to operate
-		generic_string destFolder = pNppParameters->getAppDataNppDir();
+		generic_string destFolder = nppPluginsDir;
 		PathAppend(destFolder, i->_folderName);
 		
 		updaterParams += destFolder;
@@ -376,7 +405,10 @@ bool PluginsAdminDlg::installPlugins()
 		updaterParams += TEXT(" ");
 		updaterParams += i->_repository;
 
-		Process updater(updaterFullPath.c_str(), updaterParams.c_str(), updaterDir.c_str());
+		Process updater(_updaterFullPath.c_str(), updaterParams.c_str(), _updaterDir.c_str());
+
+		printStr(updaterParams.c_str());
+		printStr(_updaterDir.c_str());
 		int result = updater.runSync();
 		if (result == 0) // wingup return 0 -> OK
 		{
@@ -584,9 +616,15 @@ PluginUpdateInfo::PluginUpdateInfo(const generic_string& fullFilePath, const gen
 typedef const char * (__cdecl * PFUNCGETPLUGINLIST)();
 
 
-bool PluginsAdminDlg::isListValide()
+bool PluginsAdminDlg::isValide()
 {
-	if (!::PathFileExists(NPP_PLUGIN_LIST_PATH))
+	if (!::PathFileExists(_pluginListFullPath.c_str()))
+	{
+		return false;
+	}
+
+	generic_string gupPath;
+	if (!::PathFileExists(_updaterFullPath.c_str()))
 	{
 		return false;
 	}
@@ -599,8 +637,11 @@ bool PluginsAdminDlg::isListValide()
 
 	// check the signature on default location : %APPDATA%\Notepad++\plugins\config\pl\nppPluginList.dll or NPP_INST_DIR\plugins\config\pl\nppPluginList.dll
 	
-	bool isOK = VerifySignedLibrary(NPP_PLUGIN_LIST_PATH, NPP_COMPONENT_SIGNER_KEY_ID, NPP_COMPONENT_SIGNER_SUBJECT, NPP_COMPONENT_SIGNER_DISPLAY_NAME, false, false, false);
+	bool isOK = VerifySignedLibrary(_pluginListFullPath.c_str(), NPP_COMPONENT_SIGNER_KEY_ID, NPP_COMPONENT_SIGNER_SUBJECT, NPP_COMPONENT_SIGNER_DISPLAY_NAME, false, false, false);
+	if (!isOK)
+		return isOK;
 
+	isOK = VerifySignedLibrary(_updaterFullPath.c_str(), NPP_COMPONENT_SIGNER_KEY_ID, NPP_COMPONENT_SIGNER_SUBJECT, NPP_COMPONENT_SIGNER_DISPLAY_NAME, false, false, false);
 	return isOK;
 #endif
 }
@@ -608,7 +649,7 @@ bool PluginsAdminDlg::isListValide()
 bool PluginsAdminDlg::updateListAndLoadFromJson()
 {
 	try {
-		if (!isListValide())
+		if (!isValide())
 			return false;
 
 		json j;
@@ -616,12 +657,12 @@ bool PluginsAdminDlg::updateListAndLoadFromJson()
 #ifdef DEBUG // if not debug, then it's release
 
 		// load from nppPluginList.json instead of nppPluginList.dll
-		ifstream nppPluginListJson(NPP_PLUGIN_LIST_PATH);
+		ifstream nppPluginListJson(_pluginListFullPath);
 		nppPluginListJson >> j;
 
 #else //RELEASE
 
-		HINSTANCE hLib = ::LoadLibrary(NPP_PLUGIN_LIST_PATH);
+		HINSTANCE hLib = ::LoadLibrary(_pluginListFullPath.c_str());
 		if (!hLib)
 		{
 			// Error treatment

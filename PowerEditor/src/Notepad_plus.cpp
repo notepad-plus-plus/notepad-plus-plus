@@ -536,7 +536,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	}
 
 	//Plugin menu
-	bool enablePluginAdmin = _pluginsAdminDlg.isListValide();
+	bool enablePluginAdmin = _pluginsAdminDlg.isValide();
 	_pluginsAdminDlg.setPluginsManager(&_pluginsManager);
 	_pluginsManager.setMenu(_mainMenuHandle, NULL, enablePluginAdmin);
 

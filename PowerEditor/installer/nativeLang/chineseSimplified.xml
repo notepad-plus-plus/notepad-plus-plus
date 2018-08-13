@@ -346,7 +346,7 @@
                 <Item id="1605" name="正则表达式(&amp;E)" />
                 <Item id="1606" name="循环查找(&amp;D)" />
                 <Item id="1614" name="计数" />
-                <Item id="1615" name="查找全部" />
+                <Item id="1615" name="标记全部" />
                 <Item id="1616" name="标记所在行" />
                 <Item id="1618" name="清除上次标记" />
                 <Item id="1611" name="替换为(&amp;P) :" />
@@ -356,7 +356,7 @@
                 <Item id="1687" name="失去焦点后" />
                 <Item id="1688" name="始终" />
                 <Item id="1632" name="选取范围内" />
-                <Item id="1633" name="清除" />
+                <Item id="1633" name="清除所有标记" />
                 <Item id="1635" name="替换所有打开文件" />
                 <Item id="1636" name="查找所有打开文件" />
                 <Item id="1654" name="文件类型 :" />

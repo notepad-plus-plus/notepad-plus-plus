@@ -92,9 +92,11 @@ bool VerifySignedLibrary(const wstring& filepath,
 		oci.dwSize = sizeof(oci);
 		CONST TCHAR* msftTEXTest_site = TEXT("http://www.msftncsi.com/ncsi.txt");
 		bool online = false;
+		#ifndef __MINGW32__
 		online = (0 != IsNetworkAlive(&netstatus));
 		online = online && (0 == GetLastError());
 		online = online && (0 == IsDestinationReachable(msftTEXTest_site, &oci));
+		#endif
 		if (!online)
 		{
 			winTEXTrust_data.fdwRevocationChecks = WTD_REVOKE_NONE;
@@ -106,11 +108,19 @@ bool VerifySignedLibrary(const wstring& filepath,
 	{
 		// Verify signature and cert-chain validity
 		GUID policy = WINTRUST_ACTION_GENERIC_VERIFY_V2;
+		#ifdef __MINGW32__
+		LONG vtrust = 1;
+		#else
 		LONG vtrust = ::WinVerifyTrust(NULL, &policy, &winTEXTrust_data);
+		#endif
 
 		// Post check cleanup
 		winTEXTrust_data.dwStateAction = WTD_STATEACTION_CLOSE;
+		#ifdef __MINGW32__
+		LONG t2 = 1;
+		#else
 		LONG t2 = ::WinVerifyTrust(NULL, &policy, &winTEXTrust_data);
+		#endif
 
 		if (vtrust)
 		{

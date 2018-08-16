@@ -295,8 +295,12 @@ bool FunctionListPanel::serialize(const generic_string & outputFilename)
 		}
 	}
 
+	#ifdef __MINGW32__
+	return false;
+	#else
 	std::ofstream file(fname2write);
 	file << j;
+	#endif
 
 	return true;
 }

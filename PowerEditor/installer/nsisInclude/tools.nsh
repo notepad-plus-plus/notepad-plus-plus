@@ -183,3 +183,55 @@ Function writeInstallInfoInRegistry
 	WriteUninstaller "$INSTDIR\uninstall.exe"
 FunctionEnd
 
+; Recommendation: Don't use below function directly
+; as it requires filename as parameter so to avoid Push statements (multiple times)
+; use 'safeDeleteFile' just to simplify parameter passing
+!macro safeDelete un
+Function ${un}safeDelete
+	/*
+	Author: Rajendra Singh (singh.rajen15@gmail.com)
+	Usage:
+		Syntax: ${safeFileDelete} "FilePath (without trailing slash)" "FileName"
+		Example: ${safeFileDelete} "C:\Program Files\Notepad++" "NppShell_06.dll"
+	Description:
+		This macro tries to delete the file safely. First it will try to delete the file directly using API 'Delete'.
+		If this API fails due to any reason (e.g. file is in use), then move the file in %temp% folder.
+		To Move file API 'Rename' is used. Refer http://nsis.sourceforge.net/Docs/Chapter4.html for details.
+		API 'Rename' is more or less similar to Win API 'MoveFile' or 'MoveFileEx'.
+		After moving file to temp, hand over the file to OS by putting in pending items, so file will be deleted on next reboot
+	*/
+
+	Pop $R0
+
+	IfFileExists $R0 0 NotExistOrDeleted				; Check if file exists or not. If file does not exist, then exit
+	ClearErrors											; Before trying to delete clear previous error
+	Delete $R0											; Try to delete the file directly
+	IfErrors 0 NotExistOrDeleted						; If file not deleted error flag will be set
+		${GetTime} "" "L" $0 $1 $2 $3 $4 $5 $6			; Get current time stamp(dd mm yyyy day hh mm ss)
+		StrCpy $R1 "$TEMP\npp_$2$1$0$4$5$6.tmp"			; get the temp name of a file (yyyymmddhhmmss)
+		;MessageBox MB_OK "Old Name: $R0$\nNew Name: $R1"
+		DetailPrint "Trying to move: $R0"
+		Rename "$R0" "$R1"								; Move the file to %temp%.
+														; API 'Rename' fails if same file exists in the dest folder.
+														; This is avoided by adding current time stamp
+		Delete /REBOOTOK $R1							; Ask OS to delete the file on next reboot
+		DetailPrint '"$R1" will be deleted on reboot.'
+
+	NotExistOrDeleted:
+FunctionEnd
+!macroend
+
+; Want to use for both installer and uninstaller function. Here we go -
+!insertmacro safeDelete ""
+!insertmacro safeDelete "un."
+
+; User below helper macro to pass parameter to function (safeDelete)
+!macro CallsafeDelete paramFileName
+	Push "${paramFileName}"
+	!ifdef __UNINSTALL__
+		Call un.safeDelete
+	!else
+		Call safeDelete
+	!endif
+!macroend
+!define safeDeleteFile "!insertmacro CallsafeDelete"

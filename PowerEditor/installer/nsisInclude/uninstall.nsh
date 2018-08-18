@@ -64,12 +64,13 @@ Section un.explorerContextMenu
 	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_04.dll"'
 	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_05.dll"'
 	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_06.dll"'
-	Delete "$INSTDIR\NppShell_01.dll"
-	Delete "$INSTDIR\NppShell_02.dll"
-	Delete "$INSTDIR\NppShell_03.dll"
-	Delete "$INSTDIR\NppShell_04.dll"
-	Delete "$INSTDIR\NppShell_05.dll"
-	Delete "$INSTDIR\NppShell_06.dll"
+
+	${safeDeleteFile} "$INSTDIR\NppShell_01.dll"
+	${safeDeleteFile} "$INSTDIR\NppShell_02.dll"
+	${safeDeleteFile} "$INSTDIR\NppShell_03.dll"
+	${safeDeleteFile} "$INSTDIR\NppShell_04.dll"
+	${safeDeleteFile} "$INSTDIR\NppShell_05.dll"
+	${safeDeleteFile} "$INSTDIR\NppShell_06.dll"
 SectionEnd
 
 Section un.UnregisterFileExt

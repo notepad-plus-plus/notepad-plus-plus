@@ -107,16 +107,19 @@ SectionGroup un.Plugins
 	Section un.NppExport
 		Delete "$INSTDIR\plugins\NppExport.dll"
 		Delete "$INSTDIR\plugins\NppExport\NppExport.dll"
+		RMDir "$INSTDIR\plugins\NppExport"
 	SectionEnd
 	
 	Section un.Converter
 		Delete "$INSTDIR\plugins\NppConverter.dll"
 		Delete "$INSTDIR\plugins\NppConverter\NppConverter.dll"
+		RMDir "$INSTDIR\plugins\NppConverter"
 	SectionEnd
 	
 	Section un.MimeTools
 		Delete "$INSTDIR\plugins\mimeTools.dll"
 		Delete "$INSTDIR\plugins\mimeTools\mimeTools.dll"
+		RMDir "$INSTDIR\plugins\mimeTools"
 	SectionEnd
 
 	Section un.PluginManager
@@ -133,6 +136,7 @@ SectionGroup un.Plugins
 		Delete "$INSTDIR\plugins\Config\Hunspell\en_US.aff"
 		Delete "$INSTDIR\plugins\Config\Hunspell\en_US.dic"
 		RMDir /r "$INSTDIR\plugins\Config"			; Remove Config folder recursively only if empty
+		RMDir "$INSTDIR\plugins\DSpellCheck"
 	SectionEnd
 
 SectionGroupEnd
@@ -147,5 +151,5 @@ Section un.AutoUpdater
 	Delete "$INSTDIR\updater\readme.txt"
 	Delete "$INSTDIR\updater\README.md"
 	Delete "$INSTDIR\updater\getDownLoadUrl.php"
-	RMDir "$INSTDIR\updater\"
+	RMDir "$INSTDIR\updater"
 SectionEnd 

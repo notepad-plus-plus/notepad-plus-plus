@@ -2263,10 +2263,10 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return _pFileSwitcherPanel->isVisible();
 		}
 
-		case NPPM_GETAPPDATAPLUGINSALLOWED:
-		{
+		case NPPM_GETAPPDATAPLUGINSALLOWED: // if doLocal, it's always false - having doLocal environment cannot load plugins outside
+		{                                   // the presence of file "allowAppDataPlugins.xml" will be checked only when not doLocal
 			const TCHAR *appDataNpp = pNppParam->getAppDataNppDir();
-			if (appDataNpp[0])
+			if (appDataNpp[0]) // if not doLocal
 			{
 				generic_string allowAppDataPluginsPath(pNppParam->getNppPath());
 				PathAppend(allowAppDataPluginsPath, allowAppDataPluginsFile);

@@ -384,8 +384,18 @@ bool PluginsAdminDlg::installPlugins()
 	vector<PluginUpdateInfo*> puis = _availableList.fromUiIndexesToPluginInfos(indexes);
 
 	generic_string updaterParams = TEXT("-unzipTo ");
+	NppParameters *pNppParameters = NppParameters::getInstance();
+	generic_string nppPluginsDir;
 
-	generic_string nppPluginsDir = NppParameters::getInstance()->getUserPath();
+	if (pNppParameters->isLocal())
+	{
+		nppPluginsDir = pNppParameters->getNppPath();
+	}
+	else
+	{
+		nppPluginsDir = pNppParameters->getLocalAppDataNppDir();
+	}
+
 	PathAppend(nppPluginsDir, TEXT("plugins"));
 
 	if (!::PathFileExists(nppPluginsDir.c_str()))
@@ -393,13 +403,13 @@ bool PluginsAdminDlg::installPlugins()
 		::CreateDirectory(nppPluginsDir.c_str(), NULL);
 	}
 
+	generic_string quoted_nppPluginsDir = TEXT("\"");
+	quoted_nppPluginsDir += nppPluginsDir;
+	quoted_nppPluginsDir += TEXT("\"");
+
 	for (auto i : puis)
 	{
-		// add folder to operate
-		generic_string destFolder = nppPluginsDir;
-		PathAppend(destFolder, i->_folderName);
-		
-		updaterParams += destFolder;
+		updaterParams += quoted_nppPluginsDir;
 
 		// add zipFile's url
 		updaterParams += TEXT(" ");
@@ -407,8 +417,6 @@ bool PluginsAdminDlg::installPlugins()
 
 		Process updater(_updaterFullPath.c_str(), updaterParams.c_str(), _updaterDir.c_str());
 
-		printStr(updaterParams.c_str());
-		printStr(_updaterDir.c_str());
 		int result = updater.runSync();
 		if (result == 0) // wingup return 0 -> OK
 		{

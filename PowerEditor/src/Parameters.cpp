@@ -890,14 +890,20 @@ bool NppParameters::reloadStylers(TCHAR* stylePath)
 	bool loadOkay = _pXmlUserStylerDoc->LoadFile();
 	if (!loadOkay)
 	{
-		_pNativeLangSpeaker->messageBox("LoadStylersFailed",
-			NULL,
-			TEXT("Load \"$STR_REPLACE$\" failed!"),
-			TEXT("Load stylers.xml failed"),
-			MB_OK,
-			0,
-			stylePathToLoad);
-
+		if (!_pNativeLangSpeaker)
+		{
+			::MessageBox(NULL, stylePathToLoad, TEXT("Load stylers.xml failed"), MB_OK);
+		}
+		else
+		{
+			_pNativeLangSpeaker->messageBox("LoadStylersFailed",
+				NULL,
+				TEXT("Load \"$STR_REPLACE$\" failed!"),
+				TEXT("Load stylers.xml failed"),
+				MB_OK,
+				0,
+				stylePathToLoad);
+		}
 		delete _pXmlUserStylerDoc;
 		_pXmlUserStylerDoc = NULL;
 		return false;
@@ -1079,12 +1085,23 @@ bool NppParameters::load()
 		WIN32_FILE_ATTRIBUTE_DATA attributes;
 
 		if (GetFileAttributesEx(langs_xml_path.c_str(), GetFileExInfoStandard, &attributes) != 0)
+		{
 			if (attributes.nFileSizeLow == 0 && attributes.nFileSizeHigh == 0)
-				doRecover = _pNativeLangSpeaker->messageBox("LoadLangsFailed",
-					NULL,
-					TEXT("Load langs.xml failed!\rDo you want to recover your langs.xml?"),
-					TEXT("Configurator"),
-					MB_YESNO);
+			{
+				if (_pNativeLangSpeaker)
+				{
+					doRecover = _pNativeLangSpeaker->messageBox("LoadLangsFailed",
+						NULL,
+						TEXT("Load langs.xml failed!\rDo you want to recover your langs.xml?"),
+						TEXT("Configurator"),
+						MB_YESNO);
+				}
+				else
+				{
+					doRecover = ::MessageBox(NULL, TEXT("Load langs.xml failed!\rDo you want to recover your langs.xml?"), TEXT("Configurator"), MB_YESNO);
+				}
+			}
+		}
 	}
 	else
 		doRecover = true;
@@ -1102,11 +1119,18 @@ bool NppParameters::load()
 	bool loadOkay = _pXmlDoc->LoadFile();
 	if (!loadOkay)
 	{
-		_pNativeLangSpeaker->messageBox("LoadLangsFailedFinal",
-			NULL,
-			TEXT("Load langs.xml failed!"),
-			TEXT("Configurator"),
-			MB_OK);
+		if (_pNativeLangSpeaker)
+		{
+			_pNativeLangSpeaker->messageBox("LoadLangsFailedFinal",
+				NULL,
+				TEXT("Load langs.xml failed!"),
+				TEXT("Configurator"),
+				MB_OK);
+		}
+		else
+		{
+			::MessageBox(NULL, TEXT("Load langs.xml failed!"), TEXT("Configurator"), MB_OK);
+		}
 
 		delete _pXmlDoc;
 		_pXmlDoc = nullptr;
@@ -1163,14 +1187,20 @@ bool NppParameters::load()
 	loadOkay = _pXmlUserStylerDoc->LoadFile();
 	if (!loadOkay)
 	{
-		_pNativeLangSpeaker->messageBox("LoadStylersFailed",
-			NULL,
-			TEXT("Load \"$STR_REPLACE$\" failed!"),
-			TEXT("Load stylers.xml failed"),
-			MB_OK,
-			0,
-			_stylerPath.c_str());
-
+		if (_pNativeLangSpeaker)
+		{
+			_pNativeLangSpeaker->messageBox("LoadStylersFailed",
+				NULL,
+				TEXT("Load \"$STR_REPLACE$\" failed!"),
+				TEXT("Load stylers.xml failed"),
+				MB_OK,
+				0,
+				_stylerPath.c_str());
+		}
+		else
+		{
+			::MessageBox(NULL, _stylerPath.c_str(), TEXT("Load stylers.xml failed"), MB_OK);
+		}
 		delete _pXmlUserStylerDoc;
 		_pXmlUserStylerDoc = NULL;
 		isAllLaoded = false;

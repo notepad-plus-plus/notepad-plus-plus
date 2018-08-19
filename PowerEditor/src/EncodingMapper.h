@@ -26,8 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef ENCODINGMAPPER_H
-#define ENCODINGMAPPER_H
+#pragma once
 
 struct EncodingUnit {
    int _codePage;
@@ -48,4 +47,3 @@ private:
     EncodingUnit *_encodings;
 };
 
-#endif // ENCODINGMAPPER_H

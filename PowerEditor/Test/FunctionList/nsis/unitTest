@@ -302,15 +302,15 @@ Function ExtraOptions
 		Abort
 	${EndIf}
 
-	${NSD_CreateCheckbox} 0 0 100% 30u "Don't use %APPDATA%$\nEnable this option to make Notepad++ load/write the configuration files from/to its install directory. Check it if you use Notepad++ in an USB device."
+	${NSD_CreateCheckbox} 0 0 100% 30u "Don't use %APPDATA%$\nEnable this option to make Notepad++ load/write configuration files from/to its install directory. Check this if you use Notepad++ from a USB device."
 	Pop $NoUserDataCheckboxHandle
 	${NSD_OnClick} $NoUserDataCheckboxHandle OnChange_NoUserDataCheckBox
 	
-	${NSD_CreateCheckbox} 0 50 100% 30u "Allow plugins to be loaded from %APPDATA%\notepad++\plugins$\nIt could cause a security issue. Turn it on if you know what you are doing."
+	${NSD_CreateCheckbox} 0 50 100% 30u "Allow plugins to be loaded from %APPDATA%\Notepad++\plugins$\nThis could cause a security issue. Only enable this if you know what you are doing."
 	Pop $PluginLoadFromUserDataCheckboxHandle
 	${NSD_OnClick} $PluginLoadFromUserDataCheckboxHandle OnChange_PluginLoadFromUserDataCheckBox
 	
-	${NSD_CreateCheckbox} 0 110 100% 30u "Create Shortcut on Desktop"
+	${NSD_CreateCheckbox} 0 110 100% 30u "Create shortcut on Desktop"
 	Pop $ShortcutCheckboxHandle
 	StrCmp $WinVer "8" 0 +2
 	${NSD_Check} $ShortcutCheckboxHandle

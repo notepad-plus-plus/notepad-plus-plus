@@ -14,7 +14,7 @@
         <Entries>
           <Item menuId="file" name="&amp;फाईल"/>
           <Item menuId="edit" name="&amp;एडिट"/>
-          <Item menuId="search" name="&amp;खोज "/>
+          <Item menuId="search" name="&amp;खोजें  "/>
           <Item menuId="view" name="&amp;व्यू"/>
           <Item menuId="encoding" name="&amp;एन्कोडिंग"/>
           <Item menuId="language" name="&amp;भाषा"/>

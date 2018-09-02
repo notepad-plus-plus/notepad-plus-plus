@@ -85,7 +85,7 @@
 					<Item id="41011" name="&amp;Avsluta"/>
 					<Item id="41012" name="Ladda session..."/>
 					<Item id="41013" name="Spara session..."/>
-					<Item id="41014" name="Återställ från disk"/>
+					<Item id="41014" name="&amp;Återställ från disk"/>
 					<Item id="41015" name="Spara en kopia som..."/>
 					<Item id="41016" name="Flytta till Papperskorgen"/>
 					<Item id="41017" name="Byt namn..."/>
@@ -111,24 +111,24 @@
 					<Item id="42060" name="Sortera rader lexikografiskt fallande"/>
 					<Item id="42061" name="Sortera rader som heltal stigande"/>
 					<Item id="42062" name="Sortera rader som heltal fallande"/>
-					<Item id="42063" name="Sortera rader som decimaltal (komma) stigande "/>
+					<Item id="42063" name="Sortera rader som decimaltal (komma) stigande"/>
 					<Item id="42064" name="Sortera rader som decimaltal (komma) fallande"/>
 					<Item id="42065" name="Sortera rader som decimaltal (punkt) stigande"/>
 					<Item id="42066" name="Sortera rader som decimaltal (punkt) fallande"/>
-					<Item id="42016" name="VERSALER"/>
-					<Item id="42017" name="gemener"/>
+					<Item id="42016" name="&amp;VERSALER"/>
+					<Item id="42017" name="&amp;gemener"/>
 					<Item id="42067" name="Versal Enbart Första Bokstav I Varje Ord - Proper Case"/>
 					<Item id="42068" name="VERSAL Första Bokstav I Varje Ord - Proper Case (blandad)"/>
-					<Item id="42069" name="Versal enbart första bokstav i varje mening - Sentence case"/>
+					<Item id="42069" name="Versal enbart första bokstav i varje mening - &amp;Sentence case"/>
 					<Item id="42070" name="VERSAL första bokstav i varje mening - Sentence case (blandad)"/>
-					<Item id="42071" name="iNVERTERA sKIFTLÄGE"/>
-					<Item id="42072" name="sLUmpmäSSiGt SkifTLÄge"/> 
+					<Item id="42071" name="&amp;iNVERTERA sKIFTLÄGE"/>
+					<Item id="42072" name="&amp;sLUmpmäSSiGt SkifTLÄge"/> 
 					<Item id="42073" name="Öppna fil"/>
 					<Item id="42074" name="Öppna innehållande mapp i Explorer"/>
 					<Item id="42075" name="Sök på Internet"/>
 					<Item id="42076" name="Ändra sökmotor..."/>
 					<Item id="42018" name="Starta &amp;inspelning"/>
-					<Item id="42019" name="&amp;Stoppa inspelning"/>
+					<Item id="42019" name="S&amp;toppa inspelning"/>
 					<Item id="42021" name="Spela &amp;upp"/>
 					<Item id="42022" name="Växla kommentar textavsnitt"/>
 					<Item id="42023" name="Kommentera block"/>
@@ -150,14 +150,14 @@
 					<Item id="42034" name="Kolumnredigerare..."/>
 					<Item id="42051" name="Teckenpanel"/>
 					<Item id="42052" name="Urklippshistorik"/>
-					<Item id="42025" name="Spara inspelat makro..."/>
+					<Item id="42025" name="&amp;Spara inspelat makro..."/>
 					<Item id="42026" name="Textriktning höger till vänster"/>
 					<Item id="42027" name="Textriktning vänster till höger"/>
 					<Item id="42028" name="Gör skrivskyddad"/>
 					<Item id="42029" name="Kopiera full sökväg till Urklipp"/>
 					<Item id="42030" name="Kopiera filnamn till Urklipp"/>
 					<Item id="42031" name="Kopiera mappsökväg till Urklipp"/>
-					<Item id="42032" name="Kör ett makro flera gånger..."/>
+					<Item id="42032" name="&amp;Kör ett makro flera gånger..."/>
 					<Item id="42033" name="Ta bort skrivskydd"/>
 					<Item id="42035" name="Kommentera textrad"/>
 					<Item id="42036" name="Avkommentera textrad"/>
@@ -182,8 +182,8 @@
 					<Item id="43052" name="Hitta tecken i ett intervall..."/>
 					<Item id="43053" name="Markera allt mellan matchande klamrar"/>
 					<Item id="43009" name="Gå till matchande klamrar"/>
-					<Item id="43010" name="Sök föregående"/>
-					<Item id="43011" name="&amp;Stegvis sökning..."/>
+					<Item id="43010" name="Sök &amp;föregående"/>
+					<Item id="43011" name="S&amp;tegvis sökning..."/>
 					<Item id="43013" name="Sök i filer"/>
 					<Item id="43014" name="Sök nästa (flyktig)"/>
 					<Item id="43015" name="Sök föregående (flyktig)"/>
@@ -215,7 +215,7 @@
 					<Item id="43047" name="Föregående sökträff"/>
 					<Item id="43048" name="Markera och sök nästa"/>
 					<Item id="43049" name="Markera och sök föregående"/>
-					<Item id="43054" name="Markera..."/>
+					<Item id="43054" name="&amp;Markera..."/>
 					<Item id="44009" name="Post-it"/>
 					<Item id="44010" name="Minimera alla"/>
 					<Item id="44019" name="Visa alla tecken"/>
@@ -343,49 +343,49 @@
 				<Item id="1"    name="Sök nästa"/>
 				<Item id="1722" name="Sök föregående"/>
 				<Item id="2"    name="Stäng"/>
-				<Item id="1620" name="Sök efter:"/>
+				<Item id="1620" name="Sök &amp;efter:"/>
 				<Item id="1603" name="Matcha &amp;hela ord"/>
 				<Item id="1604" name="&amp;Matcha små/STORA bokstäver"/>
 				<Item id="1605" name="&amp;Reguljärt uttryck"/>
 				<Item id="1606" name="&amp;Loopa"/>
-				<Item id="1614" name="Antal sökträffar"/>
+				<Item id="1614" name="&amp;Antal sökträffar"/>
 				<Item id="1615" name="Hitta alla"/>
-				<Item id="1616" name="Bokmärk rad"/>
+				<Item id="1616" name="&amp;Bokmärk rad"/>
 				<Item id="1618" name="Rensa tidigare markering vid varje sökning"/>
-				<Item id="1611" name="Ersätt med:"/>
+				<Item id="1611" name="Ers&amp;ätt med:"/>
 				<Item id="1608" name="&amp;Ersätt"/>
 				<Item id="1609" name="Ersätt &amp;alla"/>
 				<Item id="1687" name="Vid förlorat fokus"/>
 				<Item id="1688" name="Alltid"/>
 				<Item id="1632" name="I mar&amp;kering"/>
 				<Item id="1633" name="Rensa alla markeringar"/>
-				<Item id="1635" name="Ersätt allt i alla öppna dokument"/>
-				<Item id="1636" name="Sök allt i alla öppna dokument"/>
-				<Item id="1654" name="Filter:"/>
-				<Item id="1655" name="Mapp:"/>
+				<Item id="1635" name="Ersätt allt i alla &amp;öppna dokument"/>
+				<Item id="1636" name="Sök allt i alla ö&amp;ppna dokument"/>
+				<Item id="1654" name="&amp;Filter:"/>
+				<Item id="1655" name="Ma&amp;pp:"/>
 				<Item id="1656" name="Sök alla"/>
-				<Item id="1658" name="I alla undermappar"/>
-				<Item id="1659" name="I dolda mappar"/>
+				<Item id="1658" name="I alla un&amp;dermappar"/>
+				<Item id="1659" name="I &amp;dolda mappar"/>
 				<Item id="1624" name="Sökläge"/>
 				<Item id="1625" name="&amp;Normal"/>
 				<Item id="1626" name="&amp;Utökat (\n, \r, \t, \0, \x...)"/>
-				<Item id="1660" name="Ersätt i filer"/>
+				<Item id="1660" name="Ersätt i &amp;filer"/>
 				<Item id="1661" name="Följ aktuellt dok."/>
 				<Item id="1641" name="Sök alla i aktuellt dokument"/>
-				<Item id="1686" name="Transparens"/>
+				<Item id="1686" name="&amp;Transparens"/>
 				<Item id="1703" name="&amp;. matchar ny rad"/>
 			</Find>
 
 			<FindCharsInRange title="Hitta tecken i intervall...">
 				<Item id="2"    name="Stäng"/>
 				<Item id="2901" name="Icke ASCII-tecken (128-255)"/>
-				<Item id="2902" name="ASCII-tecken (0 - 127)"/>
+				<Item id="2902" name="ASCII-tecken (0-127)"/>
 				<Item id="2903" name="Mitt intervall:"/>
-				<Item id="2906" name="Upp"/>
-				<Item id="2907" name="Ned"/>
+				<Item id="2906" name="&amp;Upp"/>
+				<Item id="2907" name="&amp;Ned"/>
 				<Item id="2908" name="Riktning"/>
-				<Item id="2909" name="Loopa"/>
-				<Item id="2910" name="Sök"/>
+				<Item id="2909" name="&amp;Loopa"/>
+				<Item id="2910" name="&amp;Sök"/>
 			</FindCharsInRange>
 
 			<GoToLine title="Gå till...">
@@ -419,7 +419,7 @@
 
 			<StyleConfig title="Stilinställningar för programspråk">
 				<Item id="2" name="Avbryt"/>
-				<Item id="2301" name="Spara och stäng"/>
+				<Item id="2301" name="&amp;Spara &amp;&amp; stäng"/>
 				<Item id="2303" name="Transparens"/>
 				<Item id="2306" name="Välj tema: "/>
 				<SubDialog>
@@ -482,7 +482,7 @@
 				<Item id="20003" name="Skapa nytt..."/>
 				<Item id="20004" name="Ta bort"/>
 				<Item id="20005" name="Spara som..."/>
-				<Item id="20007" name="Användarspråk:"/>
+				<Item id="20007" name="Användarspråk: "/>
 				<Item id="20009" name="Filtillägg:"/>
 				<Item id="20012" name="Ignorera skiftläge"/>
 				<Item id="20011" name="Transparens"/>
@@ -522,26 +522,26 @@
 					<Item id="1" name="OK"/>
 					<Item id="2" name="Avbryt"/>
 				</StylerDialog>
-				<Folder title="Gruppering">
+				<Folder title="Gruppering &amp;&amp; standard">
 					<Item id="21101" name="Standardformat"/>
 					<Item id="21102" name="Format"/>
 					<Item id="21105" name="Dokumentation:"/>
-					<Item id="21104" name="Tillfällig dokumentation: "/>
+					<Item id="21104" name="Tillfällig dokumentation:"/>
 					<Item id="21106" name="Gruppering &amp;kompakt (gruppera även tomma rader)"/>
 					<Item id="21220" name="Stil för gruppering i kod 1:"/>
-					<Item id="21224" name="Början: "/>
-					<Item id="21225" name="Mitten: "/>
-					<Item id="21226" name="Slutet: "/>
+					<Item id="21224" name="Början:"/>
+					<Item id="21225" name="Mitten:"/>
+					<Item id="21226" name="Slutet:"/>
 					<Item id="21227" name="Format"/>
 					<Item id="21320" name="Stil för gruppering i kod 2 (avgränsare behövs):"/>
-					<Item id="21324" name="Början: "/>
-					<Item id="21325" name="Mitten: "/>
-					<Item id="21326" name="Slutet: "/>
+					<Item id="21324" name="Början:"/>
+					<Item id="21325" name="Mitten:"/>
+					<Item id="21326" name="Slutet:"/>
 					<Item id="21327" name="Format"/>
-					<Item id="21420" name="Stil för gruppering i kommentarer: "/>
+					<Item id="21420" name="Stil för gruppering i kommentarer:"/>
 					<Item id="21424" name="Början:"/>
-					<Item id="21425" name="Mitten: "/>
-					<Item id="21426" name="Slutet: "/>
+					<Item id="21425" name="Mitten:"/>
+					<Item id="21426" name="Slutet:"/>
 					<Item id="21427" name="Format"/>
 				</Folder>
 				<Keywords title="Nyckelordslista">
@@ -570,7 +570,7 @@
 					<Item id="22572" name="Format"/>
 					<Item id="22622" name="Format"/>
 				</Keywords>
-				<Comment title="Kommentar &amp;&amp; siffra">
+				<Comment title="Kommentarer &amp;&amp; siffror">
 					<Item id="23003" name="Position radkommentar"/>
 					<Item id="23004" name="Tillåt var som helst"/>
 					<Item id="23005" name="Tvinga vid början av rad"/>
@@ -593,7 +593,7 @@
 					<Item id="23236" name="Extra 2:"/>
 					<Item id="23238" name="Suffix 1:"/>
 					<Item id="23240" name="Suffix 2:"/>
-					<Item id="23242" name="Intervall: "/>
+					<Item id="23242" name="Intervall:"/>
 					<Item id="23244" name="Decimaltecken"/>
 					<Item id="23245" name="Punkt"/>
 					<Item id="23246" name="Komma"/>
@@ -605,44 +605,44 @@
 					<Item id="24116" name="Operatorer 1"/>
 					<Item id="24117" name="Operatorer 2 (avgränsare behövs)"/>
 					<Item id="24201" name="Stil för avgränsare 1"/>
-					<Item id="24220" name="Början: "/>
-					<Item id="24221" name="Escape: "/>
-					<Item id="24222" name="Slutet: "/>
+					<Item id="24220" name="Början:"/>
+					<Item id="24221" name="Escape:"/>
+					<Item id="24222" name="Slutet:"/>
 					<Item id="24223" name="Format"/>
 					<Item id="24301" name="Stil för avgränsare 2"/>
-					<Item id="24320" name="Början: "/>
-					<Item id="24321" name="Escape: "/>
-					<Item id="24322" name="Slutet: "/>
+					<Item id="24320" name="Början:"/>
+					<Item id="24321" name="Escape:"/>
+					<Item id="24322" name="Slutet:"/>
 					<Item id="24323" name="Format"/>
 					<Item id="24401" name="Stil för avgränsare 3"/>
-					<Item id="24420" name="Början: "/>
-					<Item id="24421" name="Escape: "/>
-					<Item id="24422" name="Slutet: "/>
+					<Item id="24420" name="Början:"/>
+					<Item id="24421" name="Escape:"/>
+					<Item id="24422" name="Slutet:"/>
 					<Item id="24423" name="Format"/>
 					<Item id="24451" name="Stil för avgränsare 4"/>
-					<Item id="24470" name="Början: "/>
-					<Item id="24471" name="Escape: "/>
-					<Item id="24472" name="Slutet: "/>
+					<Item id="24470" name="Början:"/>
+					<Item id="24471" name="Escape:"/>
+					<Item id="24472" name="Slutet:"/>
 					<Item id="24473" name="Format"/>
 					<Item id="24501" name="Stil för avgränsare 5"/>
-					<Item id="24520" name="Början: "/>
-					<Item id="24521" name="Escape: "/>
-					<Item id="24522" name="Slutet: "/>
+					<Item id="24520" name="Början:"/>
+					<Item id="24521" name="Escape:"/>
+					<Item id="24522" name="Slutet:"/>
 					<Item id="24523" name="Format"/>
 					<Item id="24551" name="Stil för avgränsare 6"/>
-					<Item id="24570" name="Början: "/>
-					<Item id="24571" name="Escape: "/>
-					<Item id="24572" name="Slutet: "/>
+					<Item id="24570" name="Början:"/>
+					<Item id="24571" name="Escape:"/>
+					<Item id="24572" name="Slutet:"/>
 					<Item id="24573" name="Format"/>
 					<Item id="24601" name="Stil för avgränsare 7"/>
-					<Item id="24620" name="Början: "/>
-					<Item id="24621" name="Escape: "/>
-					<Item id="24622" name="Slutet: "/>
+					<Item id="24620" name="Början:"/>
+					<Item id="24621" name="Escape:"/>
+					<Item id="24622" name="Slutet:"/>
 					<Item id="24623" name="Format"/>
 					<Item id="24651" name="Stil för avgränsare 8"/>
-					<Item id="24670" name="Början: "/>
-					<Item id="24671" name="Escape: "/>
-					<Item id="24672" name="Slutet: "/>
+					<Item id="24670" name="Början:"/>
+					<Item id="24671" name="Escape:"/>
+					<Item id="24672" name="Slutet:"/>
 					<Item id="24673" name="Format"/>
 				</Operator>
 			</UserDefine>
@@ -669,7 +669,7 @@
 					<Item id="6120" name="Vertikal"/>
 					<Item id="6121" name="Avsluta när sista fliken stängs"/>
 
-					<Item id="6122" name="Dölj menyrad (använd Alt eller F10 för att växla mellan dold och synlig)"/>
+					<Item id="6122" name="Dölj menyrad (använd Alt eller F10 för att växla)"/>
 					<Item id="6123" name="Språk"/>
 
 					<Item id="6125" name="Dokumentbläddrare"/>
@@ -699,7 +699,7 @@
 					<Item id="6206" name="Visa radnummer"/>
 					<Item id="6207" name="Visa bokmärke"/>
 					<Item id="6208" name="Visa vertikal kant"/>
-					<Item id="6209" name="Antal kolumner: "/>
+					<Item id="6209" name="Antal kolumner:"/>
 					<Item id="6234" name="Inaktivera utökade bläddringfunktioner 
 (om du har problem med pekplattan)"/>
 
@@ -733,7 +733,7 @@
 					<Item id="6413" name="Standardmapp (öppna/spara)"/>
 					<Item id="6414" name="Använd det aktuella dokumentet"/>
 					<Item id="6415" name="Kom ihåg senast använd mapp"/>
-					<Item id="6430" name="Använd modern stil på dialogrutor (utan funktion för filtillägg &amp;&amp; möjlighet för sökvägar i Unix-stil)"/>
+					<Item id="6430" name="Använd moderna dialogrutor (utan hantering av filtillägg &amp;&amp; möjlighet för sökvägar i Unix-format)"/>
 					<Item id="6431" name="Öppna alla filer i mapp istället för att starta en mapp som en arbetsyta när en mapp dras in"/> 
 				</DefaultDir>
 
@@ -934,7 +934,7 @@
 			<FindInFinder title="Sök i sökresultat">
 				<Item id="1"    name="Hitta alla"/>
 				<Item id="2"    name="Stäng"/>
-				<Item id="1711" name="Hitta vad:"/>
+				<Item id="1711" name="Hitta &amp;vad:"/>
 				<Item id="1713" name="Sök bara i hittade rader"/>
 				<Item id="1714" name="Matcha bara &amp;hela ord"/>
 				<Item id="1715" name="Matcha &amp;STOR/liten bokstav"/>

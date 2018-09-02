@@ -14,7 +14,7 @@
         <Entries>
           <Item menuId="file" name="&amp;फाईल"/>
           <Item menuId="edit" name="&amp;एडिट"/>
-          <Item menuId="search" name="&amp;सर्च"/>
+          <Item menuId="search" name="&amp;खोजें  "/>
           <Item menuId="view" name="&amp;व्यू"/>
           <Item menuId="encoding" name="&amp;एन्कोडिंग"/>
           <Item menuId="language" name="&amp;भाषा"/>
@@ -24,13 +24,16 @@
           <Item menuId="run" name="चलाये"/>
           <Item idName="Plugins" name="प्लगिन्स"/>
           <Item idName="Window" name="विन्डों"/>
+	  <Item idName="?" name="?"/>
         </Entries>
 
         <!-- Sub Menu Entries -->
         <SubEntries>
           <Item subMenuId="file-openFolder" name="धारक फोल्डर खोलें"/>
           <Item subMenuId="file-closeMore" name="और बंद करें"/>
+	  <Item subMenuId="file-closeAll" name="सब बंद करें"/>
           <Item subMenuId="file-recentFiles" name="रीसेंट फाइल्स"/>
+	  <Item subMenuId="file-emptyRecentFilesList" name="रीसेंट फाइल्स लिस्ट  खाली करें"/>
           <Item subMenuId="edit-copyToClipboard" name="क्लिपबोर्ड पर कॉपी करें"/>
           <Item subMenuId="edit-indent" name="इंडेन्ट"/>
           <Item subMenuId="edit-convertCaseTo" name="कैस को एसे बदलें"/>

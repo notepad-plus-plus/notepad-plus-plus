@@ -922,9 +922,9 @@ bool FileManager::backupCurrentBuffer()
 	return result;
 }
 
-bool FileManager::deleteCurrentBufferBackup()
+bool FileManager::deleteBufferBackup(BufferID id)
 {
-	Buffer* buffer = _pNotepadPlus->getCurrentBuffer();
+	Buffer* buffer = getBufferByID(id);
 	bool result = true;
 	generic_string backupFilePath = buffer->getBackupFileName();
 	if (not backupFilePath.empty())

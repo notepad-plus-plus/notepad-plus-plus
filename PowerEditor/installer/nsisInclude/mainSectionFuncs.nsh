@@ -81,6 +81,7 @@ Function copyCommonFiles
 	SetOverwrite on
 	File "..\..\LICENSE"
 	File "..\bin\change.log"
+	File "..\bin\notepad++.VisualElementsManifest.xml"
 	File "..\bin\readme.txt"
 	
 !ifdef ARCH64

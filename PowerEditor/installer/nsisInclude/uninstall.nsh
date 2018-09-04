@@ -212,6 +212,7 @@ Section Uninstall
 	; Clean up Notepad++
 	Delete "$INSTDIR\SciLexer.dll"
 	Delete "$INSTDIR\change.log"
+	Delete "$INSTDIR\notepad++.VisualElementsManifest.xml"
 	Delete "$INSTDIR\LICENSE"
 
 	Delete "$INSTDIR\notepad++.exe"

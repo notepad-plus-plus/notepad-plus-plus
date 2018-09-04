@@ -83,6 +83,8 @@ copy /Y ..\bin\readme.txt .\minimalist\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\change.log .\minimalist\
 If ErrorLevel 1 goto End
+copy /Y ..\bin\notepad++.VisualElementsManifest.xml .\minimalist\
+If ErrorLevel 1 goto End
 copy /Y ..\src\langs.model.xml .\minimalist\
 If ErrorLevel 1 goto End
 copy /Y ..\src\stylers.model.xml .\minimalist\
@@ -106,6 +108,8 @@ If ErrorLevel 1 goto End
 copy /Y ..\bin\readme.txt .\minimalist64\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\change.log .\minimalist64\
+If ErrorLevel 1 goto End
+copy /Y ..\bin\notepad++.VisualElementsManifest.xml .\minimalist64\
 If ErrorLevel 1 goto End
 copy /Y ..\src\langs.model.xml .\minimalist64\
 If ErrorLevel 1 goto End
@@ -160,6 +164,8 @@ copy /Y ..\bin\readme.txt .\zipped.package.release\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\change.log .\zipped.package.release\
 If ErrorLevel 1 goto End
+copy /Y ..\bin\notepad++.VisualElementsManifest.xml .\zipped.package.release\
+If ErrorLevel 1 goto End
 copy /Y ..\src\langs.model.xml .\zipped.package.release\
 If ErrorLevel 1 goto End
 copy /Y ..\src\stylers.model.xml .\zipped.package.release\
@@ -183,6 +189,8 @@ If ErrorLevel 1 goto End
 copy /Y ..\bin\readme.txt .\zipped.package.release64\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\change.log .\zipped.package.release64\
+If ErrorLevel 1 goto End
+copy /Y ..\bin\notepad++.VisualElementsManifest.xml .\zipped.package.release64\
 If ErrorLevel 1 goto End
 copy /Y ..\src\langs.model.xml .\zipped.package.release64\
 If ErrorLevel 1 goto End

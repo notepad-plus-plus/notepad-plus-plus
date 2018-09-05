@@ -1,0 +1,969 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<NotepadPlus>
+    <Native-Langue name="انگريزي" filename="sindhi.xml" version="7.0">
+        <Menu>
+            <Main>
+                <!-- Main Menu Entries -->
+                <Entries>
+                    <Item menuId="file" name="&amp;عڪس"/>
+                    <Item menuId="edit" name="&amp;تبديلي آڻيو"/>
+                    <Item menuId="search" name="&amp;ڳولا"/>
+                    <Item menuId="view" name="&amp;ڏسو"/>
+                    <Item menuId="encoding" name="&amp;نسخي"/>
+                    <Item menuId="language" name="&amp;لئنگئيج"/>
+                    <Item menuId="settings" name="&amp;جوڙ"/>
+                    <Item menuId="macro" name="Macro"/>
+                    <Item menuId="run" name="هلائي"/>
+                    <Item idName="Plugins" name="Plugins"/>
+                    <Item idName="Window" name="دري"/>
+                </Entries>
+                <!-- Sub Menu Entries -->
+                <SubEntries>
+                    <Item subMenuId="file-openFolder" name="فولڊر آھن کلي"/>
+                    <Item subMenuId="file-closeMore" name="بند وڌيڪ"/>
+                    <Item subMenuId="file-recentFiles" name="موجوده فائلون"/>
+                    <Item subMenuId="edit-copyToClipboard"  name="Clipboard کي نقل"/>
+                    <Item subMenuId="edit-indent" name="Indent"/>
+                    <Item subMenuId="edit-convertCaseTo" name="ڪيس بدلائڻ"/>
+                    <Item subMenuId="edit-lineOperations" name="لائين آپريشنز"/>
+                    <Item subMenuId="edit-comment" name="تبصرو / Uncomment"/>
+                    <Item subMenuId="edit-autoCompletion" name="خود-تڪميل"/>
+                    <Item subMenuId="edit-eolConversion" name="EOL تبديل ڪرڻ"/>
+                    <Item subMenuId="edit-blankOperations" name="خالي آپريشنز"/>
+                    <Item subMenuId="edit-pasteSpecial" name="پيسٽ خاص"/>
+                    <Item subMenuId="edit-onSelection" name="سليڪشن تي"/>
+                    <Item subMenuId="search-markAll" name="مارڪ سڀ"/>
+                    <Item subMenuId="search-unmarkAll" name="ھٽايو سڀ"/>
+                    <Item subMenuId="search-jumpUp" name="مٿي ٽپو ڏي"/>
+                    <Item subMenuId="search-jumpDown" name="ھيٺ وڃو"/>
+                    <Item subMenuId="search-bookmark" name="سنڌ"/>
+                    <Item subMenuId="view-showSymbol"  name="نظر نشان"/>
+                    <Item subMenuId="view-zoom"  name="ويجهو"/>
+                    <Item subMenuId="view-moveCloneDocument"  name="لهر / نقل موجوده سند"/>
+                    <Item subMenuId="view-tab"  name="ٽئب"/>
+                    <Item subMenuId="view-collapseLevel" name="خاتمو سطح"/>
+                    <Item subMenuId="view-uncollapseLevel" name="Uncollapse سطح"/>
+                    <Item subMenuId="view-project" name="پروجيڪٽ"/>
+                    <Item subMenuId="encoding-characterSets"  name="لپيء"/>
+                    <Item subMenuId="encoding-arabic"  name="عربي"/>
+                    <Item subMenuId="encoding-baltic"  name="Baltic"/>
+                    <Item subMenuId="encoding-celtic"  name="Celtic"/>
+                    <Item subMenuId="encoding-cyrillic"  name="سيريلي"/>
+                    <Item subMenuId="encoding-centralEuropean"  name="مرڪزي يورپي"/>
+                    <Item subMenuId="encoding-chinese"  name="چيني"/>
+                    <Item subMenuId="encoding-easternEuropean"  name="مشرقي يورپ جي"/>
+                    <Item subMenuId="encoding-greek"  name="يوناني"/>
+                    <Item subMenuId="encoding-hebrew"  name="عبراني"/>
+                    <Item subMenuId="encoding-japanese"  name="جاپاني"/>
+                    <Item subMenuId="encoding-korean" name="ڪورين"/>
+                    <Item subMenuId="encoding-northEuropean" name="اتر يورپ جي"/>
+                    <Item subMenuId="encoding-thai" name="ٿائي ٻولي"/>
+                    <Item subMenuId="encoding-turkish" name="ترڪ"/>
+                    <Item subMenuId="encoding-westernEuropean" name="مغربي يورپي"/>
+                    <Item subMenuId="encoding-vietnamese" name="ويٽنامي"/>
+                    <Item subMenuId="settings-import"  name="آمد"/>
+                </SubEntries>
+
+                <!-- all menu item -->
+                <Commands>
+                    <Item id="41001" name="&amp;نئون"/>
+                    <Item id="41002" name="&amp;کوليو"/>
+                    <Item id="41019" name="Explorer"/>
+                    <Item id="41020" name="cmd"/>
+                    <Item id="41003" name="بند ڪيو"/>
+                    <Item id="41004" name="&amp;بند ڪيو سڀ"/>
+                    <Item id="41005" name="سڀ پر موجوده سند بند"/>
+                    <Item id="41009" name="بند ڪيو سڀ رهجي ويو"/>
+                    <Item id="41018" name="بند ڪيو سڀ حق"/>
+                    <Item id="41006" name="&amp;سانڍيو"/>
+                    <Item id="41007" name="&amp;سڀ محفوظ ڪريو"/>
+                    <Item id="41008" name="&amp;سيو ايز..."/>
+                    <Item id="41010" name="پرنٽ ڪيو ..."/>
+                    <Item id="1001"  name="پرنٽ هاڻي"/>
+                    <Item id="41011" name="&amp;خارجي"/>
+                    <Item id="41012" name="سيشن لوڊ ..."/>
+                    <Item id="41013" name="سيشن محفوظ ڪريو ..."/>
+                    <Item id="41014" name="Disk کان پني"/>
+                    <Item id="41015" name="ڪاپي محفوظ جيئن ..."/>
+                    <Item id="41016" name="Disk مان خارج ڪريو"/>
+                    <Item id="41017" name="نالو مٽائي ..."/>
+                    <Item id="41021" name="ويجهڙائي ۾ بند عڪس بحال"/>
+                    <Item id="41022" name="&amp;ڪم جي طور تي کوليو فولڊر"/>
+
+                    <Item id="42001" name="&amp;پٽي"/>
+                    <Item id="42002" name="&amp;ڪاپي"/>
+                    <Item id="42003" name="&amp;واپس آڻيو"/>
+                    <Item id="42004" name="&amp;وري"/>
+                    <Item id="42005" name="&amp;پيسٽ"/>
+                    <Item id="42006" name="&amp;خارج ڪريو"/>
+                    <Item id="42007" name="&amp;سڀ چونڊيو"/>
+                    <Item id="42020" name="شروع / آخر منتخب"/>
+                    <Item id="42008" name="لائين Indent وڌاء"/>
+                    <Item id="42009" name="ضايع لائين Indent"/>
+                    <Item id="42010" name="ورجايل موجوده لائين"/>
+                    <Item id="42012" name="۾ ورهايو ويو ليڪون"/>
+                    <Item id="42013" name="ليڪون شامل ٿيڻ جي"/>
+                    <Item id="42014" name="موجوده لائين مٿي چر"/>
+                    <Item id="42015" name="موجوده لائين نازل منتقل"/>
+                    <Item id="42059" name="جي حساب سان ليڪون Lexicographically سڌي"/>
+                    <Item id="42060" name="جي حساب سان ليڪون Lexicographically ابتي"/>
+                    <Item id="42061" name="جي حساب سان ليڪون Integers سڌي جيئن"/>
+                    <Item id="42062" name="جي حساب سان ليڪون Integers ابتي جيئن"/>
+                    <Item id="42063" name="جي حساب سان ليڪون جيئن Decimals (ڪاما) سڌي"/>
+                    <Item id="42064" name="جي حساب سان ليڪون جيئن Decimals (ڪاما) ابتي"/>
+                    <Item id="42065" name="جي حساب سان ليڪون جيئن Decimals (Dot) سڌي"/>
+                    <Item id="42066" name="جي حساب سان ليڪون جيئن Decimals (Dot) ابتي"/>
+                    <Item id="42016" name="وڏن"/>
+                    <Item id="42017" name="ننڍو"/>
+                    <Item id="42067" name="عنوان ڪيس"/>
+                    <Item id="42068" name="عنوان ڪيس (اسلوب)"/>
+                    <Item id="42069" name="سزا صورت"/>
+                    <Item id="42070" name="سزا صورت (اسلوب)"/>
+                    <Item id="42071" name="iNVERT صورت"/>
+                    <Item id="42072" name="بي ترتيبي صورت"/>
+					<Item id="42073" name="اوپن عڪس"/>
+					<Item id="42074" name="Explorer ۾ فولڊر آھن کلي"/>
+					<Item id="42075" name="انٽرنيٽ تي ڳولا"/>
+					<Item id="42076" name="ڳولا انجڻ جي تبديلي ..."/>
+                    <Item id="42018" name="&amp;شروع ريڪارڊنگ"/>
+                    <Item id="42019" name="&amp;ريڪارڊنگ کي روڪيو"/>
+                    <Item id="42021" name="&amp;Playback"/>
+                    <Item id="42022" name="ٽوگل واحد لائين ڪمينٽ"/>
+                    <Item id="42023" name="بلاڪ ڪمينٽ"/>
+                    <Item id="42047" name="بلاڪ Uncomment"/>
+                    <Item id="42024" name="Trim Trailing جاء"/>
+                    <Item id="42042" name="ڇوڙ واري جاء Trim"/>
+                    <Item id="42043" name="ڇوڙ Trim ۽ Trailing جاء"/>
+                    <Item id="42044" name="EOL جاء کي"/>
+                    <Item id="42045" name="ضروري خالي هٽائي ڇڏيو ۽ EOL"/>
+                    <Item id="42046" name="جاء کي ٽئب"/>
+                    <Item id="42054" name="ٽئب ڪرڻ جي جاء (سڀ)"/>
+                    <Item id="42053" name="ٽئب ڪرڻ جي جاء (ڇوڙ)"/>
+                    <Item id="42038" name="پيسٽ HTML مواد"/>
+                    <Item id="42039" name="پيسٽ RTF مواد"/>
+                    <Item id="42048" name="انگن مواد نقل"/>
+                    <Item id="42049" name="انگن مواد ڪٽيو"/>
+                    <Item id="42050" name="انگن مواد پيسٽ ڪريو"/>
+                    <Item id="42037" name="ڪالمن جو موڊ ..."/>
+                    <Item id="42034" name="ڪالمن ايڊيٽر ..."/>
+                    <Item id="42051" name="شخصيت پينل"/>
+                    <Item id="42052" name="Clipboard جي تاريخ"/>
+                    <Item id="42025" name="في الحال محفوظ رڪارڊ Macro"/>
+                    <Item id="42026" name="متن طرف RTL"/>
+                    <Item id="42027" name="متن طرف LTR"/>
+                    <Item id="42028" name="سيٽ پڙهڻ-رڳو"/>
+                    <Item id="42029" name="Clipboard کي موجوده عڪس واٽ"/>
+                    <Item id="42030" name="Clipboard کي موجوده Filename"/>
+                    <Item id="42031" name="موجوده آيو. Clipboard کي واٽ"/>
+                    <Item id="42032" name="هڪ Macro رستن وقت هلائي ..."/>
+                    <Item id="42033" name="واضح پڙهو-رڳو ناھي"/>
+                    <Item id="42035" name="هڪ لائين ڪمينٽ"/>
+                    <Item id="42036" name="هڪ لائين Uncomment"/>
+                    <Item id="42055" name="خالي ليڪون هٽائي ڇڏيو"/>
+                    <Item id="42056" name="خالي ليڪون (رئو جي ڪردارن آھن) هٽائي ڇڏيو"/>
+                    <Item id="42057" name="موجوده مٿان خالي لائين داخل"/>
+                    <Item id="42058" name="موجوده هيٺ خالي لائين داخل"/>
+                    <Item id="43001" name="&amp;مان ڳولا ڪريو ..."/>
+                    <Item id="43002" name="&amp;مان ڳولا ڪريو اڳيون"/>
+                    <Item id="43003" name="مٽائي ..."/>
+                    <Item id="43004" name="وڃڻ..."/>
+                    <Item id="43005" name="ٽوگل: فهد ميمڻ"/>
+                    <Item id="43006" name="اڳيون: فهد ميمڻ"/>
+                    <Item id="43007" name="نظارو: فهد ميمڻ"/>
+                    <Item id="43008" name="واضح سڀ بوڪ"/>
+                    <Item id="43018" name="پٽي Bookmarked ليڪون"/>
+                    <Item id="43019" name="ڪاپي Bookmarked ليڪون"/>
+                    <Item id="43020" name="(مٽائي) Bookmarked ليڪون ڪري پيسٽ ڪريو"/>
+                    <Item id="43021" name="Bookmarked ليڪون هٽائي ڇڏيو"/>
+                    <Item id="43051" name="نشان نه ليڪون هٽائي ڇڏيو"/>
+                    <Item id="43050" name="Inverse: فهد ميمڻ"/>
+                    <Item id="43052" name="حد ۾ ڪردارن جي ڳولا ڪريو ..."/>
+                    <Item id="43053" name="سڀ سميلن Braces جي وچ منتخب ڪريو"/>
+                    <Item id="43009" name="Brace سميلن ڏانھن وڃو"/>
+                    <Item id="43010" name="نظارو مان ڳولا ڪريو"/>
+                    <Item id="43011" name="&amp;Incremental ڳولا"/>
+                    <Item id="43013" name="فائلون ۾ ڳولا ڪريو"/>
+                    <Item id="43014" name="مان ڳولا ڪريو (ڏیٹو) اڳيون"/>
+                    <Item id="43015" name="مان ڳولا ڪريو (ڏیٹو) نظارو"/>
+                    <Item id="43022" name="1st منچ استعمال"/>
+                    <Item id="43023" name="واضح 1st منچ"/>
+                    <Item id="43024" name="2nd منچ استعمال"/>
+                    <Item id="43025" name="واضح 2nd منچ"/>
+                    <Item id="43026" name="3rd منچ استعمال"/>
+                    <Item id="43027" name="واضح 3rd منچ"/>
+                    <Item id="43028" name="4th منچ استعمال"/>
+                    <Item id="43029" name="واضح 4th منچ"/>
+                    <Item id="43030" name="5th منچ استعمال"/>
+                    <Item id="43031" name="واضح 5th منچ"/>
+                    <Item id="43032" name="سڀ جو انداز صاف"/>
+                    <Item id="43033" name="1st انداز"/>
+                    <Item id="43034" name="2nd انداز"/>
+                    <Item id="43035" name="3rd انداز"/>
+                    <Item id="43036" name="4th انداز"/>
+                    <Item id="43037" name="5th انداز"/>
+                    <Item id="43038" name="انداز مان ڳولا ڪريو"/>
+                    <Item id="43039" name="1st انداز"/>
+                    <Item id="43040" name="2nd انداز"/>
+                    <Item id="43041" name="3rd انداز"/>
+                    <Item id="43042" name="4th انداز"/>
+                    <Item id="43043" name="5th انداز"/>
+                    <Item id="43044" name="انداز مان ڳولا ڪريو"/>
+                    <Item id="43045" name="ڳولا جا نتيجا دري"/>
+                    <Item id="43046" name="اڳيون ڳولا جا نتيجا"/>
+                    <Item id="43047" name="نظارو ڳولا جا نتيجا"/>
+                    <Item id="43048" name="منتخب ڪريو ۽ مان ڳولا ڪريو اڳيون"/>
+                    <Item id="43049" name="منتخب ڪريو ۽ نظارو مان ڳولا ڪريو"/>
+					<Item id="43054" name="مارڪ ..."/>
+                    <Item id="44009" name="پوسٽ-ان"/>
+                    <Item id="44010" name="سڀ ٻٽو"/>
+                    <Item id="44019" name="سڀئي اکر ڏيکاريو"/>
+                    <Item id="44020" name="نظر Indent ھدايت"/>
+                    <Item id="44022" name="لپيٽڻ"/>
+                    <Item id="44023" name="&amp;ويجهو تان Ctrl + مائوس ڦيٿي ۾"/>
+                    <Item id="44024" name="&amp;پري ڪري ڏسو تان Ctrl + مائوس ڦيٿي نازل"/>
+                    <Item id="44025" name="نظر Whitespace ۽ ٽئب"/>
+                    <Item id="44026" name="لائين جي نظر آخر"/>
+                    <Item id="44029" name="سڀ کرد"/>
+                    <Item id="44030" name="بند موجوده سطح"/>
+                    <Item id="44031" name="Uncollapse موجوده سطح"/>
+                    <Item id="44049" name="خلاصو ..."/>
+                    <Item id="44080" name="سند نقشو"/>
+                    <Item id="44084" name="فعل لسٽ"/>
+                    <Item id="44085" name="&amp;ڪم ته جيئن فولڊر"/>
+                    <Item id="44086" name="1st ٽئب"/>
+                    <Item id="44087" name="2nd ٽئب"/>
+                    <Item id="44088" name="3rd ٽئب"/>
+                    <Item id="44089" name="4th ٽئب"/>
+                    <Item id="44090" name="5th ٽئب"/>
+                    <Item id="44091" name="6th ٽئب"/>
+                    <Item id="44092" name="7th ٽئب"/>
+                    <Item id="44093" name="8th ٽئب"/>
+                    <Item id="44094" name="9th ٽئب"/>
+                    <Item id="44095" name="اڳيون ٽئب"/>
+                    <Item id="44096" name="نظارو ٽئب"/>
+                    <Item id="44097" name="ملندي (دم -f)"/>
+                    <Item id="44098" name="ٽئب اڳتي"/>
+                    <Item id="44099" name="ٽئب پٺتي منتقل"/>
+                    <Item id="44032" name="چرپر مڪمل اسڪرين موڊ"/>
+                    <Item id="44033" name="بحال ھونئن ويجهو"/>
+                    <Item id="44034" name="هميشه مٿي تي"/>
+                    <Item id="44035" name="Synchronise Vertical Scrolling"/>
+                    <Item id="44036" name="Synchronise Horizontal Scrolling"/>
+                    <Item id="44041" name="نظر لپيٽڻ نشان"/>
+                    <Item id="44072" name="هڪ ٻيو قول تي زور"/>
+                    <Item id="44081" name="پروجيڪٽ پينل 1"/>
+                    <Item id="44082" name="پروجيڪٽ پينل 2"/>
+                    <Item id="44083" name="پروجيڪٽ پينل 3"/>
+                    <Item id="45001" name="ونڊوز فارميٽ کي تبديل ڪريو"/>
+                    <Item id="45002" name="UNIX فارميٽ کي تبديل ڪريو"/>
+                    <Item id="45003" name="Mac فارميٽ کي تبديل ڪريو"/>
+                    <Item id="45004" name="ANSI ۾ Encode"/>
+                    <Item id="45005" name="۾ UTF-8 ۾ Encode"/>
+                    <Item id="45006" name="UCS2 بگ Endian ۾ Encode"/>
+                    <Item id="45007" name="UCS2 ٿوري Endian ۾ Encode"/>
+                    <Item id="45008" name="۾ UTF-8 ۾ Encode BOM کان سواء"/>
+                    <Item id="45009" name="ANSI کي تبديل ڪريو"/>
+                    <Item id="45010" name="BOM کان سواء ۾ UTF-8 کي تبديل ڪريو"/>
+                    <Item id="45011" name="۾ UTF-8 کي تبديل ڪريو"/>
+                    <Item id="45012" name="UCS2 بگ Endian کي تبديل ڪريو"/>
+                    <Item id="45013" name="UCS2 ٿوري Endian کي تبديل ڪريو"/>
+
+                    <Item id="10001" name="هڪ ٻيو قول ڏانهن منتقل"/>
+                    <Item id="10002" name="ٻيو نظارو ڪرڻ جو نقل"/>
+                    <Item id="10003" name="نئون مثال ڏانهن منتقل"/>
+                    <Item id="10004" name="نئون مثال ۾ کوليو"/>
+
+                    <Item id="46001" name="منچ Configurator ..."/>
+                    <Item id="46150" name="پنهنجي ٻوليء جي وصف بيان ..."/>
+                    <Item id="46080" name="استعمال ڪندڙ-بيان ڪيو ويو آهي"/>
+                    <Item id="47000" name="Notepad ++ بابت ..."/>
+                    <Item id="47010" name="حڪم لائين دليل ..."/>
+                    <Item id="47001" name="Notepad ++ شڪارپور"/>
+                    <Item id="47002" name="++ پروجيڪٽ صفحي کي Notepad"/>
+                    <Item id="47003" name="آن لائن دستاويزي"/>
+					<Item id="47004" name="Notepad ++ ڪميونٽي (فورم)"/>
+                    <Item id="47011" name="لائيو حمايت"/>
+                    <Item id="47012" name="Debug جي ڄاڻ ..."/>
+                    <Item id="47005" name="وڌيڪ Plugins حاصل ڪريو"/>
+                    <Item id="47006" name="ڪاري Notepad ++"/>
+                    <Item id="47009" name="Updater Proxy سيٽ ..."/>
+                    <Item id="48005" name="آمد Plugins) ..."/>
+                    <Item id="48006" name="آمد ٿيم (جي) ..."/>
+                    <Item id="48018" name="Popup ContextMenu ۾ تبديلي آڻيو"/>
+                    <Item id="48009" name="ٺهيل ٺڪيل ۽ ميپر ..."/>
+                    <Item id="48011" name="ترجيحات ..."/>
+                    <Item id="49000" name="&amp;هلائي ..."/>
+
+                    <Item id="50000" name="فعل تڪميل"/>
+                    <Item id="50001" name="ڪلام تڪميل"/>
+                    <Item id="50002" name="فعل جي پيراميٽر سڱ"/>
+                    <Item id="50006" name="واٽ تڪميل"/>
+                    <Item id="44042" name="ليڪون لڪايو"/>
+                    <Item id="42040" name="سڀ موجوده فائيلون کولڻ"/>
+                    <Item id="42041" name="خالي موجوده فائلون لسٽ"/>
+                    <Item id="48016" name="ٺهيل ٺڪيل ۽ تبديل ڪريو / Macro کي ختم ڪريو ..."/>
+                    <Item id="48017" name="ٺهيل ٺڪيل ۽ تبديل ڪريو / حڪم کي ختم ڪريو ..."/>
+                </Commands>
+            </Main>
+            <Splitter>
+            </Splitter>
+            <TabBar>
+                    <Item CMID="0" name="بند ڪيو"/>
+                    <Item CMID="1" name="بند ڪيو سڀ پر هن"/>
+                    <Item CMID="2" name="سانڍيو"/>
+                    <Item CMID="3" name="سيو ايز..."/>
+                    <Item CMID="4" name="پرنٽ"/>
+                    <Item CMID="5" name="هڪ ٻيو قول ڏانهن منتقل"/>
+                    <Item CMID="6" name="ٻيو نظارو ڪرڻ جو نقل"/>
+                    <Item CMID="7" name="Clipboard کي مڪمل عڪس واٽ"/>
+                    <Item CMID="8" name="Clipboard کي Filename"/>
+                    <Item CMID="9" name="موجوده آيو. Clipboard کي واٽ"/>
+                    <Item CMID="10" name="نالو مٽائي"/>
+                    <Item CMID="11" name="بن Recycle ڏانهن منتقل"/>
+                    <Item CMID="12" name="صرف پڙهو"/>
+                    <Item CMID="13" name="واضح پڙهو-رڳو ناھي"/>
+                    <Item CMID="14" name="نئون مثال ڏانهن منتقل"/>
+                    <Item CMID="15" name="نئون مثال ۾ کوليو"/>
+                    <Item CMID="16" name="لوڊ"/>
+                    <Item CMID="17" name="بند ڪيو سڀ رهجي ويو"/>
+                    <Item CMID="18" name="بند ڪيو سڀ حق"/>
+                    <Item CMID="19" name="Explorer ۾ فولڊر آھن کلي"/>
+                    <Item CMID="20" name="اوپن فولڊر آھن cmd ۾"/>
+            </TabBar>
+        </Menu>
+
+        <Dialog>
+            <Find title="" titleFind="مان ڳولا ڪريو" titleReplace="مٽائي" titleFindInFiles="فائلون ۾ ڳولا ڪريو" titleMark="نشان">
+                <Item id="1"    name="مان ڳولا ڪريو اڳيون"/>
+                <Item id="2"    name="بند ڪيو"/>
+                <Item id="1620" name="مان ڳولا ڪريو جيڪي:"/>
+                <Item id="1603" name="&amp;صرف سڄي لفظ ميچ"/>
+                <Item id="1604" name="&amp;شاديء جي صورت"/>
+                <Item id="1605" name="&amp;بار بار اظهار"/>
+                <Item id="1606" name="&amp;چوڌاري لپيٽڻ"/>
+                <Item id="1612" name="&amp;مٿي"/>
+                <Item id="1613" name="&amp;نازل"/>
+                <Item id="1614" name="ڳڻپ"/>
+                <Item id="1615" name="سڀ مان ڳولا ڪريو"/>
+                <Item id="1616" name="مارڪ لائن"/>
+                <Item id="1618" name="هر ڳولا لاء پاڪ"/>
+                <Item id="1621" name="رخ"/>
+                <Item id="1611" name="&amp;سان مٽائي:"/>
+                <Item id="1608" name="&amp;مٽائي"/>
+                <Item id="1609" name="&amp;سڀ مٽائي"/>
+                <Item id="1687" name="وڌائڻ مھر ھنئي تي"/>
+                <Item id="1688" name="هميشه"/>
+                <Item id="1632" name="چونڊ ۾"/>
+                <Item id="1633" name="Clearچونڊ ۾"/>
+                <Item id="1635" name="تمام ڪشادو ڪاغر ۾ سڀ مٽائي"/>
+                <Item id="1636" name="تمام ڪشادو سند ۾ سڀ مان ڳولا ڪريوs"/>
+                <Item id="1654" name="فلٽر:"/>
+                <Item id="1655" name="فھرست:"/>
+                <Item id="1656" name="سڀ مان ڳولا ڪريو"/>
+                <Item id="1658" name="سڀ subfolders ۾"/>
+                <Item id="1659" name="لڪل فولڊرن ۾"/>
+                <Item id="1624" name="ڳولا صورت"/>
+                <Item id="1625" name="عام"/>
+                <Item id="1626" name="پکڙيل (\ ن، \ ر، \ دبي، \ 0، \ x ...)"/>
+                <Item id="1660" name="فائلون ۾ مٽائي"/>
+                <Item id="1661" name="موجوده صفحي جون جي تابعداري ڪريو."/>
+                <Item id="1641" name="موجوده سند ۾ سڀ مان ڳولا ڪريو"/>
+                <Item id="1686" name="شفافيت"/>
+                <Item id="1703" name="&amp;. newline ملي"/>
+            </Find>
+
+            <FindCharsInRange title="حد ڪردارن جي پاڻ ۾ ڳولا ڪريو ...">
+                <Item id="2" name="بند ڪيو"/>
+                <Item id="2901" name="غير ASCII اکر (128-255)"/>
+                <Item id="2902" name="ASCII اکر (0-127)"/>
+                <Item id="2903" name="منهنجي حد تائين:"/>
+                <Item id="2906" name="&amp;مٿي"/>
+                <Item id="2907" name="&amp;نازل"/>
+                <Item id="2908" name="رخ"/>
+                <Item id="2909" name="&amp;چوڌاري لپيٽڻ"/>
+                <Item id="2910" name="مان ڳولا ڪريو"/>
+            </FindCharsInRange>
+
+            <GoToLine title="وڃڻ...">
+                <Item id="2007" name="لائين"/>
+                <Item id="2008" name="واپاز"/>
+                <Item id="1"    name="&amp;وڃ"/>
+                <Item id="2"    name="مون کي ويران بيابان وڃي رهيو آهيان"/>
+                <Item id="2004" name="اوهان هتي آهيو:"/>
+                <Item id="2005" name="توهان کي وڃڻ چاهيو ٿا:"/>
+                <Item id="2006" name="توهان کان وڌيڪ نه وڃڻ ڪري سگهو ٿا:"/>
+            </GoToLine>
+
+            <Run title="هلائي ...">
+                <Item id="1903" name="هن پروگرام هلائڻ لاء"/>
+                <Item id="1"    name="هلائي"/>
+                <Item id="2"    name="رد"/>
+                <Item id="1904" name="محفوظ ڪريو ..."/>
+            </Run>
+
+            <StyleConfig title="منچ Configurator">
+                <Item id="2"    name="رد"/>
+                <Item id="2301" name="&amp;&amp;بند محفوظ"/>
+                <Item id="2303" name="شفافيت"/>
+                <Item id="2306" name="موضوع چونڊيو:"/>
+                <SubDialog>
+                    <Item id="2204" name="شوخ"/>
+                    <Item id="2205" name="Italic"/>
+                    <Item id="2206" name="منطر رنگ"/>
+                    <Item id="2207" name="پس منظر جو رنگ"/>
+                    <Item id="2208" name="اکرن جو نالو:"/>
+                    <Item id="2209" name="اکرن جي سائيز:"/>
+                    <Item id="2211" name="منچ:"/>
+                    <Item id="2212" name="Colour منچ"/>
+                    <Item id="2213" name="اکرن ۾ رنگ منچ"/>
+                    <Item id="2214" name="ھونئن ext:"/>
+                    <Item id="2216" name="استعمال ڪندڙ جي نڪرڻ:"/>
+                    <Item id="2218" name="Underline"/>
+                    <Item id="2219" name="ھونئن لفظ"/>
+                    <Item id="2221" name="استعمال ڪندڙ-بيان ڪيو ويو آهي لفظ"/>
+                    <Item id="2225" name="زبان:"/>
+                    <Item id="2226" name="عالمي منطر رنگ کي کوليو"/>
+                    <Item id="2227" name="عالمي پس منظر جو رنگ کي کوليو"/>
+                    <Item id="2228" name="عالمي اکرن کي کوليو"/>
+                    <Item id="2229" name="عالمي اکرن جي سائيز کي کوليو."/>
+                    <Item id="2230" name="عالمي شوخ اکرن انداز کي کوليو"/>
+                    <Item id="2231" name="عالمي italic اکرن انداز کي کوليو"/>
+                    <Item id="2232" name="عالمي underline اکرن انداز کي کوليو"/>
+                </SubDialog>
+
+            </StyleConfig>
+
+            <UserDefine title="استعمال ڪندڙ-بيان ڪيو ويو آهي">
+                <Item id="20001" name="بندرگاه"/>
+                <Item id="20002" name="نالو مٽائي"/>
+                <Item id="20003" name="نئون ٺاهيو..."/>
+                <Item id="20004" name="هٽائي ڇڏيو"/>
+                <Item id="20005" name="سيو ايز..."/>
+                <Item id="20007" name="استعمال ڪندڙ جي ٻولي: "/>
+                <Item id="20009" name="Ext:"/>
+                <Item id="20012" name="صورت کي نظرانداز ڪري"/>
+                <Item id="20011" name="شفافيت"/>
+                <Item id="20015" name="آمد ..."/>
+                <Item id="20016" name="ٻاھر موڪليو ..."/>
+                <StylerDialog title="منچ Dialog">
+                    <Item id="25030" name="اکرن ۾ اختيارن:"/>
+                    <Item id="25006" name="منطر رنگ"/>
+                    <Item id="25007" name="پس منظر جو رنگ"/>
+                    <Item id="25031" name="نالو:"/>
+                    <Item id="25032" name="ڪرائون سائيز:"/>
+                    <Item id="25001" name="شوخ"/>
+                    <Item id="25002" name="Italic"/>
+                    <Item id="25003" name="Underline"/>
+                    <Item id="25029" name="Nesting:"/>
+                    <Item id="25008" name="Delimiter 1"/>
+                    <Item id="25009" name="Delimiter 2"/>
+                    <Item id="25010" name="Delimiter 3"/>
+                    <Item id="25011" name="Delimiter 4"/>
+                    <Item id="25012" name="Delimiter 5"/>
+                    <Item id="25013" name="Delimiter 6"/>
+                    <Item id="25014" name="Delimiter 7"/>
+                    <Item id="25015" name="Delimiter 8"/>
+                    <Item id="25018" name="لفظ 1"/>
+                    <Item id="25019" name="لفظ 2"/>
+                    <Item id="25020" name="لفظ 3"/>
+                    <Item id="25021" name="لفظ 4"/>
+                    <Item id="25022" name="لفظ 5"/>
+                    <Item id="25023" name="لفظ 6"/>
+                    <Item id="25024" name="لفظ 7"/>
+                    <Item id="25025" name="لفظ 8"/>
+                    <Item id="25016" name="تبصرو"/>
+                    <Item id="25017" name="تبصرو لائن"/>
+                    <Item id="25026" name="ڇوڪريء 1"/>
+                    <Item id="25027" name="ڇوڪريء 2"/>
+                    <Item id="25028" name="انگ"/>
+					<Item id="1" name="ٺيڪ"/>
+                    <Item id="2" name="رد"/>
+                </StylerDialog>
+                <Folder title="&amp;&amp;ھونئن فولڊر">
+                    <Item id="21101" name="رٿيل انداز"/>
+                    <Item id="21102" name="Styler"/>
+                    <Item id="21105" name="دستاويزي:"/>
+                    <Item id="21104" name="ٿوري وقت صفحي جون ويب سائيٽ:"/>
+                    <Item id="21106" name="(توريت) (خالي ٻٽو سٽون به) ٻٽو"/>
+                    <Item id="21220" name="انداز ڪوڊ 1 ۾ تہ:"/>
+                    <Item id="21224" name="کلي:"/>
+                    <Item id="21225" name="وچ:"/>
+                    <Item id="21226" name="بند ڪيو:"/>
+                    <Item id="21227" name="Styler"/>
+                    <Item id="21320" name="ڪوڊ 2 انداز ۾ تہ (separators جي ضرورت آهي):"/>
+                    <Item id="21324" name="کوليو:"/>
+                    <Item id="21325" name="وچ:"/>
+                    <Item id="21326" name="بند ڪيو:"/>
+                    <Item id="21327" name="Styler"/>
+                    <Item id="21420" name="طرز جو رايو ۾ تہ:"/>
+                    <Item id="21424" name="کوليو:"/>
+                    <Item id="21425" name="وچ:"/>
+                    <Item id="21426" name="بند ڪيو:"/>
+                    <Item id="21427" name="Styler"/>
+                </Folder>
+                <Keywords title="لفظ فهرستون بلحاظ">
+                    <Item id="22101" name="1st گروپ"/>
+                    <Item id="22201" name="2nd گروپ"/>
+                    <Item id="22301" name="3rd گروپ"/>
+                    <Item id="22401" name="4th گروپ"/>
+                    <Item id="22451" name="5th گروپ"/>
+                    <Item id="22501" name="6th گروپ"/>
+                    <Item id="22551" name="7th گروپ"/>
+                    <Item id="22601" name="8th گروپ"/>
+                    <Item id="22121" name="(پريفڪس) موڊ"/>
+                    <Item id="22221" name="(پريفڪس) موڊ"/>
+                    <Item id="22321" name="(پريفڪس) موڊ"/>
+                    <Item id="22421" name="(پريفڪس) موڊ"/>
+                    <Item id="22471" name="(پريفڪس) موڊ"/>
+                    <Item id="22521" name="(پريفڪس) موڊ"/>
+                    <Item id="22571" name="(پريفڪس) موڊ"/>
+                    <Item id="22621" name="(پريفڪس) موڊ"/>
+                    <Item id="22122" name="Styler"/>
+                    <Item id="22222" name="Styler"/>
+                    <Item id="22322" name="Styler"/>
+                    <Item id="22422" name="Styler"/>
+                    <Item id="22472" name="Styler"/>
+                    <Item id="22522" name="Styler"/>
+                    <Item id="22572" name="Styler"/>
+                    <Item id="22622" name="Styler"/>
+                </Keywords>
+                <Comment title="&amp;&amp;تبصرو تعداد">
+                    <Item id="23003" name="لائين جو رايو آهي پوزيشن"/>
+                    <Item id="23004" name="ڪٿي جي اجازت"/>
+                    <Item id="23005" name="ليڪ جي شروعات تي نافذ"/>
+                    <Item id="23006" name="whitespace اڳيون جي اجازت"/>
+                    <Item id="23001" name="راين جي تہ جي اجازت"/>
+                    <Item id="23326" name="Styler"/>
+                    <Item id="23323" name="کوليو"/>
+                    <Item id="23324" name="شخصيت جاري رکو"/>
+                    <Item id="23325" name="بند ڪيو"/>
+                    <Item id="23301" name="تبصرو ليڪ انداز"/>
+                    <Item id="23124" name="Styler"/>
+                    <Item id="23122" name="کوليو"/>
+                    <Item id="23123" name="بند ڪيو"/>
+                    <Item id="23101" name="تبصرو انداز"/>
+                    <Item id="23201" name="تعداد انداز"/>
+                    <Item id="23220" name="Styler"/>
+                    <Item id="23230" name="(پريفڪس) 1"/>
+                    <Item id="23232" name="(پريفڪس) 2"/>
+                    <Item id="23234" name="احمد 1"/>
+                    <Item id="23236" name="احمد 2"/>
+                    <Item id="23238" name="Suffix 1"/>
+                    <Item id="23240" name="Suffix 2"/>
+                    <Item id="23242" name="جي حد:"/>
+                    <Item id="23244" name="اعشاري فاصل"/>
+                    <Item id="23245" name="Dot"/>
+                    <Item id="23246" name="۾ ڪاما"/>
+                    <Item id="23247" name="ٻئي"/>
+                </Comment>
+                <Operator title="&amp;&amp;آپريٽر Delimiter">
+                    <Item id="24101" name="آپريٽر انداز"/>
+                    <Item id="24113" name="Styler"/>
+                    <Item id="24116" name="آپريٽر 1"/>
+                    <Item id="24117" name="آپريٽر 2 (separators جي ضرورت)"/>
+                    <Item id="24201" name="Delimiter 1 انداز"/>
+                    <Item id="24220" name="کوليو:"/>
+                    <Item id="24221" name="فرار:"/>
+                    <Item id="24222" name="بند ڪيو:"/>
+                    <Item id="24223" name="Styler"/>
+                    <Item id="24301" name="Delimiter 2 انداز"/>
+                    <Item id="24320" name="کوليو:"/>
+                    <Item id="24321" name="فرار:"/>
+                    <Item id="24322" name="بند ڪيو:"/>
+                    <Item id="24323" name="Styler"/>
+                    <Item id="24401" name="Delimiter 3 انداز"/>
+                    <Item id="24420" name="کوليو:"/>
+                    <Item id="24421" name="فرار:"/>
+                    <Item id="24422" name="بند ڪيو:"/>
+                    <Item id="24423" name="Styler"/>
+                    <Item id="24451" name="Delimiter 4 انداز"/>
+                    <Item id="24470" name="کوليو:"/>
+                    <Item id="24471" name="فرار:"/>
+                    <Item id="24472" name="بند ڪيو:"/>
+                    <Item id="24473" name="Styler"/>
+                    <Item id="24501" name="Delimiter 5 انداز"/>
+                    <Item id="24520" name="کوليو:"/>
+                    <Item id="24521" name="فرار:"/>
+                    <Item id="24522" name="بند ڪيو:"/>
+                    <Item id="24523" name="Styler"/>
+                    <Item id="24551" name="Delimiter 6 انداز"/>
+                    <Item id="24570" name="کوليو:"/>
+                    <Item id="24571" name="فرار:"/>
+                    <Item id="24572" name="بند ڪيو:"/>
+                    <Item id="24573" name="Styler"/>
+                    <Item id="24601" name="Delimiter 7 انداز"/>
+                    <Item id="24620" name="کوليو:"/>
+                    <Item id="24621" name="فرار:"/>
+                    <Item id="24622" name="بند ڪيو:"/>
+                    <Item id="24623" name="Styler"/>
+                    <Item id="24651" name="Delimiter 8 انداز"/>
+                    <Item id="24670" name="کوليو:"/>
+                    <Item id="24671" name="فرار:"/>
+                    <Item id="24672" name="بند ڪيو:"/>
+                    <Item id="24673" name="Styler"/>
+                </Operator>
+            </UserDefine>
+            <Preference title="ترجيحات">
+                <Item id="6001" name="بند ڪيو"/>
+                <Global title="جنرل">
+                    <Item id="6101" name="ٽول بار"/>
+                    <Item id="6102" name="لڪايو"/>
+                    <Item id="6103" name="ننڍي icons"/>
+                    <Item id="6104" name="وڏي icons"/>
+                    <Item id="6105" name="معياري icons"/>
+
+                    <Item id="6106" name="ٽئب بار"/>
+                    <Item id="6107" name="جي خاتمي"/>
+                    <Item id="6108" name="لاک (ڪو ڇڪيو ۽ بوند)"/>
+                    <Item id="6109" name="غير فعال tabs Darken"/>
+                    <Item id="6110" name="سرگرم ٽئب تي هڪ رنگ برنگي بار ٺاھيو"/>
+
+                    <Item id="6111" name="نظر حيثيت بار"/>
+                    <Item id="6112" name="هر ٽئب تي بند بٽڻ تي ڏيکاريو"/>
+                    <Item id="6113" name="اڻ سند بند ڪرڻ لاء ڪلڪ ڪريو"/>
+                    <Item id="6118" name="لڪايو"/>
+                    <Item id="6119" name="مليل-ليڪ"/>
+                    <Item id="6120" name="عمودي"/>
+                    <Item id="6121" name="بند جي آخري ٽئب تي خارجي"/>
+
+                    <Item id="6122" name="لڪايو (چرپر کي ھن يا F10 اهم استعمال)"/>
+                    <Item id="6123" name="Localization"/>
+
+                    <Item id="6125" name="سند لسٽ پينل"/>
+                    <Item id="6126" name="نظر"/>
+                    <Item id="6127" name="واڌ ڪالمن کي بند ڪريو"/>
+                </Global>
+                <Scintillas title="آڻيندي">
+                    <Item id="6216" name="جزم ٺاھ جوڙ"/>
+                    <Item id="6217" name="ويڪر:"/>
+                    <Item id="6219" name="موٽڻ شرح:"/>
+                    <Item id="6221" name="ف"/>
+                    <Item id="6222" name="آيس"/>
+                    <Item id="6224" name="مليل-آڻيندي ٺاھ جوڙ"/>
+                    <Item id="6225" name="(تان Ctrl + مائوس ڪلڪ / چونڊ) کي کوليو"/>
+                    <Item id="6201" name="فولڊر حاشيہ منچ"/>
+                    <Item id="6202" name="سادي"/>
+                    <Item id="6203" name="تير"/>
+                    <Item id="6204" name="جو دائرو وڻ"/>
+                    <Item id="6205" name="دٻي جي وڻ"/>
+                    <Item id="6226" name="ڪو"/>
+
+                    <Item id="6227" name="لائين لپيٽڻ"/>
+                    <Item id="6228" name="ھونئن"/>
+                    <Item id="6229" name="اتحاد"/>
+                    <Item id="6230" name="Indent"/>
+
+                    <Item id="6206" name="ظاهر ليڪ انگ"/>
+                    <Item id="6207" name="ظاهر بوڪ"/>
+                    <Item id="6208" name="عمودي پاسيري ڏيکاريو"/>
+                    <Item id="6209" name="شاخن جو تعداد: "/>
+                    <Item id="6234" name="ترقي يافته scrolling خاصيت بند(جيڪڏھن اوھين touchpad مسئلو آهي)"/>
+
+                    <Item id="6211" name="عمودي پاسيري ٺاھ جوڙ"/>
+                    <Item id="6212" name="لائين جي صورت ۾"/>
+                    <Item id="6213" name="پس منظر صورت"/>
+                    <Item id="6214" name="موجوده ليڪ چونڊيندي کي کوليو"/>
+					<Item id="6215" name="ڇڏيندو اکرن کي کوليو"/>
+                    <Item id="6231" name="سرحد ويڪر"/>
+                    <Item id="6235" name="ڪو به برتري"/>
+                    <Item id="6236" name="آخري دفعو لڪير کان scrolling کي کوليو"/>
+                </Scintillas>
+
+                <NewDoc title="نئون سند">
+                    <Item id="6401" name="فارميٽ"/>
+                    <Item id="6402" name="ونڊوز"/>
+                    <Item id="6403" name="يونڪس"/>
+                    <Item id="6404" name="ڳوڙهي"/>
+                    <Item id="6405" name="نسخي"/>
+                    <Item id="6406" name="ANSI"/>
+                    <Item id="6407" name="۾ UTF-8"/>
+                    <Item id="6408" name="UTF-8 جي BOM سان"/>
+                    <Item id="6409" name="BOM سان UCS2 بگ Endian"/>
+                    <Item id="6410" name="BOM سان UCS2 ٿوري Endian"/>
+                    <Item id="6411" name="ھونئن ٻولي:"/>
+                    <Item id="6419" name="نئون سند"/>
+                    <Item id="6420" name="ANSI فائيلون کولڻ تي لاڳو"/>
+                </NewDoc>
+
+                <DefaultDir title="ھونئن نامو">
+                    <Item id="6413" name="ھونئن نامو (اوپن / سانڍيو)"/>
+                    <Item id="6414" name="موجوده سند جي تابعداري ڪريو"/>
+                    <Item id="6415" name="آخري دفعو استعمال ڊاريڪٽري ياد"/>
+                    <Item id="6430" name="dialog کانسواء نئين انداز ۾ استعمال (فائيل واڌ خاصيت کان سواء)"/>
+                    <Item id="6431" name="فولڊر جو سڀ فائلون کولڻ بجاء جو فولڊر گر تي ڪم جيئن فولڊر شروع"/>
+                </DefaultDir>
+
+                <FileAssoc title="عڪس انجمن">
+                    <Item id="4009" name="سهائتا ملان:"/>
+                    <Item id="4010" name="داخل ملان:"/>
+                </FileAssoc>
+                <Language title="لئنگئيج">
+                    <Item id="6505" name="موجود شيون"/>
+                    <Item id="6506" name="معذور شيون"/>
+                    <Item id="6507" name="زبان نامو انجام ڪر"/>
+                    <Item id="6508" name="ٻوليء جي پروجيڪٽ"/>
+					<Item id="6301" name="ٽئب ٺاھ جوڙ"/>
+                    <Item id="6302" name="تارن جي مٽائي"/>
+                    <Item id="6303" name="ٽئب سائيز:"/>
+                    <Item id="6510" name="ھونئن قدر استعمال ڪريو"/>
+                </Language>
+
+                <Highlighting title="چونڊيندي">
+                    <Item id="6333" name="جوابي چونڊيندي"/>
+                    <Item id="6326" name="جوابي چونڊيندي کي کوليو"/>
+					<Item id="6332" name="شاديء جي صورت"/>
+					<Item id="6338" name="صرف سڄي لفظ ميچ"/>
+					<Item id="6339" name="استعمال dialog جوڙ مان ڳولا ڪريو"/>
+                    <Item id="6340" name="هڪ ٻيو قول کي نمايان"/>
+                    <Item id="6329" name="نمايان سميلن ٽيگ"/>
+                    <Item id="6327" name="کوليو"/>
+                    <Item id="6328" name="نمايان ڳولهي صفتون"/>
+                    <Item id="6330" name="نمايان جو رايو آهي / پي PHP حفاظتي / asp زون"/>
+                </Highlighting>
+
+                <Print title="پرنٽ">
+                    <Item id="6601" name="پرنٽ ليڪ جو تعداد"/>
+                    <Item id="6602" name="Colour اختيار"/>
+                    <Item id="6603" name="WYSIWYG"/>
+                    <Item id="6604" name="Invert"/>
+                    <Item id="6605" name="اڇو تي ڪارو"/>
+                    <Item id="6606" name="نه پس منظر جو رنگ"/>
+                    <Item id="6607" name="Marge جوڙ (يونٽ: ميلي)"/>
+                    <Item id="6612" name="کاٻي"/>
+                    <Item id="6613" name="مٿي"/>
+                    <Item id="6614" name="حق"/>
+                    <Item id="6615" name="تري ۾"/>
+                    <Item id="6706" name="شوخ"/>
+                    <Item id="6707" name="Italic"/>
+                    <Item id="6708" name="وڏي"/>
+                    <Item id="6709" name="کاٻو حصو"/>
+                    <Item id="6710" name="وچ حصو"/>
+                    <Item id="6711" name="حق حصو"/>
+                    <Item id="6717" name="شوخ"/>
+                    <Item id="6718" name="Italic"/>
+                    <Item id="6719" name="فوٽر"/>
+                    <Item id="6720" name="کاٻو حصو"/>
+                    <Item id="6721" name="وچ حصو"/>
+                    <Item id="6722" name="حق حصو"/>
+                    <Item id="6723" name="شامل ڪريو"/>
+                    <Item id="6725" name="Variable:"/>
+                    <Item id="6727" name="هتي Variable پنهنجي ڊسپلي جوڙ"/>
+                    <Item id="6728" name="وڏي ۽ فوٽر"/>
+                </Print>
+
+                <RecentFilesHistory title="موجوده تاريخ فائلون">
+                    <Item id="6304" name="موجوده تاريخ فائلون"/>
+                    <Item id="6306" name="وڌ. تنيجن جو تعداد:"/>
+                    <Item id="6305" name="لانچ وقت تي چيڪ نه ڪريو"/>
+                    <Item id="6429" name="ڊسپلي"/>
+                    <Item id="6424" name="Submenu ۾"/>
+                    <Item id="6425" name="صرف Filename"/>
+                    <Item id="6426" name="مڪمل فائيل جي نالي سان واٽ"/>
+                    <Item id="6427" name="پنهنجي مرضي مطابق وڌ ۾ وڌ ڊگھائي:"/>
+                </RecentFilesHistory>
+
+                <Backup title="بيڪ اپ">
+                    <Item id="6817" name="سيشن periodic عڪس آهي ۽ بيڪ اپ"/>
+                    <Item id="6818" name="سيشن ۽ آء عڪس بيڪ اپ کي کوليو"/>
+                    <Item id="6819" name="هر ۾ بيڪ اپ"/>
+                    <Item id="6821" name="سيڪنڊ"/>
+                    <Item id="6822" name="بيڪ اپ واٽ:"/>
+                    <Item id="6309" name="ايندڙ لانچ لاء موجوده سيشن جي ياد"/>
+                    <Item id="6801" name="بيڪ اپ"/>
+                    <Item id="6315" name="ڪو"/>
+                    <Item id="6316" name="سادي بيڪ اپ"/>
+                    <Item id="6317" name="verbose بيڪ اپ"/>
+                    <Item id="6804" name="مطابق بيڪ نامو"/>
+                    <Item id="6803" name="فھرست:"/>
+                </Backup>
+
+                <AutoCompletion title="خود-تڪميل">
+                    <Item id="6807" name="خود-تڪميل"/>
+                    <Item id="6808" name="هر پٽ تي خود-مڪمل کوليو"/>
+                    <Item id="6809" name="فعل مڪمل"/>
+                    <Item id="6810" name="ڪلام مڪمل"/>
+                    <Item id="6816" name="فعل ۽ لفظ مڪمل"/>
+                    <Item id="6824" name="انگ کي نظرانداز"/>
+                    <Item id="6811" name="کان"/>
+                    <Item id="6813" name="هين ڪردار"/>
+                    <Item id="6814" name="صحيح قيمت: 1 - 9"/>
+                    <Item id="6815" name="فعل جي حراست ۾ پٽ تي سڱ"/>
+                    <Item id="6851" name="خود-داخل"/>
+                    <Item id="6857" name=" HTML / كل ڳولهي بند"/>
+                    <Item id="6858" name="کوليو"/>
+                    <Item id="6859" name="بند ڪيو"/>
+                    <Item id="6860" name="ملائي ڏنيون 1:"/>
+                    <Item id="6863" name="ملائي ڏنيون 2:"/>
+                    <Item id="6866" name="ملائي ڏنيون 3:"/>
+                </AutoCompletion>
+
+                <MultiInstance title="مليل-مثال">
+                    <Item id="6151" name="مليل-مثال جوڙ"/>
+                    <Item id="6152" name="Notepad جو هڪ نئون مثال ۾ اوپن سيشن ++"/>
+                    <Item id="6153" name="هميشه گھڻ-مثال صورت ۾"/>
+                    <Item id="6154" name="ھونئن (مونو-مثال)"/>
+                    <Item id="6155" name="* esta لھڻ جي ترميمي Notepad وري هلايو ڪرڻ جي ضرورت ++"/>
+                </MultiInstance>
+
+                <Delimiter title="Delimiter">
+                    <Item id="6251" name="Delimiter چونڊ جوڙ (تان Ctrl + مائوس ڊبل ڪلڪ ڪريو)"/>
+                    <Item id="6252" name="کوليو"/>
+                    <Item id="6255" name="بند ڪيو"/>
+                    <Item id="6256" name="ڪيترن سٽون تي جي اجازت"/>
+                </Delimiter>
+
+                <Cloud title="ڪڪر">
+                    <Item id="6262" name="ڪڪر تي ٺاھ جوڙ"/>
+                    <Item id="6263" name="ڪو به ابر"/>
+                    <Item id="6267" name="توهان جي ڇانو هنڌ واٽ هتي سيٽ:"/>
+                </Cloud>
+				
+                <SearchEngine title="ڳولا انجڻ">
+                    <Item id="6271" name="ڳولا انجڻ جي (حڪم & quot لاء؛ انٽرنيٽ ۽ quot تي ڳولا؛)"/>
+                    <Item id="6272" name="DuckDuckGo"/>
+                    <Item id="6273" name="گوگل"/>
+                    <Item id="6274" name="Bing جي"/>
+                    <Item id="6275" name="ياهو!"/>
+                    <Item id="6276" name="توهان جي ڳولا انجڻ هتي سيٽ:"/>
+                    <!-- Don't change anything after Example: -->
+                    <Item id="6278" name="مثال طور: https://www.google.com/search؟q=$(CURRENT_WORD)"/>
+                </SearchEngine>
+
+                <MISC title="MISC.">
+                    <Item id="6307" name="کوليو"/>
+                    <Item id="6308" name="نظام ٿال کي گھٽ"/>
+                    <Item id="6312" name="عڪس اسٽيٽس خود-ڳولا"/>
+                    <Item id="6313" name="خاموشي سان تازه"/>
+                    <Item id="6318" name="clickable لنڪ ٺاھ جوڙ"/>
+                    <Item id="6325" name="ڪاري کان پوء آخري لڪير کي ڏسو"/>
+                    <Item id="6319" name="کوليو"/>
+                    <Item id="6320" name="في underline"/>
+                    <Item id="6322" name="سيشن فائيل ext.:"/>
+                    <Item id="6323" name="خود-updater Notepad کي کوليو ++"/>
+                    <Item id="6324" name="سند Switcher (تان Ctrl + ٽئب)"/>
+                    <Item id="6331" name="عنوان بار ۾ صرف filename ڏيکاريو"/>
+                    <Item id="6334" name="گاڏين جي ڪردار نسخي ۾ لڳائڻ"/>
+                    <Item id="6335" name="وارو SQL ايس لاء backslash فرار ڪردار جي حيثيت ۾ ڏسجي"/>
+                    <Item id="6337" name="ڪم فائيل ext.:"/>
+                    <Item id="6114" name="کوليو"/>
+                    <Item id="6115" name="خود-indent"/>
+                    <Item id="6117" name="MRU Behaviour کي کوليو"/>
+                </MISC>
+            </Preference>
+            <MultiMacro title="Macro هلائي رستن وقت">
+                <Item id="1" name="هلائي"/>
+                <Item id="2" name="رد"/>
+                <Item id="8006" name="هلائڻ لاء Macro:"/>
+                <Item id="8001" name="هلائي"/>
+                <Item id="8005" name="ڀيرا"/>
+                <Item id="8002" name="فائيل جو آخر تائين هلائيندا"/>
+            </MultiMacro>
+            <Window title="ونڊوز">
+                <Item id="1" name="ايڪٽيويٽ"/>
+                <Item id="2" name="ٺيڪ/>
+                <Item id="7002" name="سانڍيو"/>
+                <Item id="7003" name="بند دري (ص)"/>
+                <Item id="7004" name="جي حساب سان tabs"/>
+            </Window>
+            <ColumnEditor title="ڪالمن ايڊيٽر">
+                <Item id="2023" name="شامل ڪرڻ جي متن"/>
+                <Item id="2033" name="شامل ڪرڻ تعداد"/>
+                <Item id="2030" name="ابتدائي انگ:"/>
+                <Item id="2031" name="جي وڌاء:"/>
+                <Item id="2035" name="ڇوڙ zeros"/>
+                <Item id="2036" name="ورجائي:"/>
+                <Item id="2032" name="فارميٽ"/>
+                <Item id="2024" name="کهڙو"/>
+                <Item id="2025" name="آڪٽوبر"/>
+                <Item id="2026" name="Hex"/>
+                <Item id="2027" name="بن"/>
+                <Item id="1" name="ٺيڪ"/>
+                <Item id="2" name="رد"/>
+            </ColumnEditor>
+        </Dialog>
+        <MessageBox>
+            <ContextMenuXmlEditWarning title="آڻيندي سلسلي پروجيڪٽ" message="آڻيندي سلسلي Menu.xml اوھان Popup سلسلي نامو ++ پنهنجي Notepad کي بهتر ڪرڻ جي اجازت ڏئي ٿو. \ rYou contextMenu.xml تبديل کان پوء اثر وٺي ++ پنهنجي Notepad وري هلايو آهن."/>
+            <NppHelpAbsentWarning title="فائل موجود نه آهي" message="\موجود ناهي. مهرباني ڪري ان کي Notepad ++ سائيٽ تي ڊائون لوڊ."/>
+            <SaveCurrentModifWarning title="موجوده ترميم محفوظ ڪريو" message="توهان جي موجوده ترميمي بچائي وڃي. \ سڀ بچايو ردوبدل واپس نه ٿي ڪري سگهي ٿو. \ ٻيهر جاري رکو؟"/>
+            <LoseUndoAbilityWarning title="وڃائي واپس آڻيو سگهه خبردار" message="توهان جي موجوده ترميمي بچائي وڃي. \ سڀ بچايو ردوبدل واپس نه ٿي ڪري سگهي ٿو. \ ٻيهر جاري رکو؟"/>
+            <CannotMoveDoc title="نئين Notepad ++ مثال ڏانهن منتقل" message="سند ترميميو ويو، ان کان پوء ان کي محفوظ ٻيهر ڪوشش آهي."/>
+            <DocReloadWarning title="لوڊ" message="اوھان کي پڪ آھي ته اوھان جي موجوده فائيل لوڊ ۽ Notepad ++ ۾ ڪيو تبديليون محروم ڪرڻ چاھيو ٿا؟"/>
+            <FileLockedWarning title="ناڪام محفوظ ڪريو" message="مهرباني ڪري چيڪ هن فائيل هڪ ٻئي پروگرام ۾ کوليو ويو آهي ته ڇا"/>
+            <FileAlreadyOpenedInNpp title="" message="هن فائل اڳ ۾ ئي Notepad ++ ۾ لياري آهي."/>
+            <DeleteFileFailed title="عڪس کي ختم ڪريو" message="ناڪام عڪس کي ختم ڪريو"/>
+
+            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <NbFileToOpenImportantWarning title="فائلون جي رقم کولڻ لاء تمام وڏو آهي" message="$ INT_REPLACE $ فائلون جي باري ۾ پيدا ٿيا وڃي آهن. \ اوھين انھن کي کولڻ لاء پڪ آھن؟"/>
+			<SettingsOnCloudError title="ابر تي ٺاھ جوڙ" message="اها لڳي ڪڪر تي ٺاھ جوڙ جي واٽ هڪ پڙهڻ رڳو بيوس، هڪ فولڊر جي ضرورت آهي جو شرف حاصل تي \ ror حق رسائي writting لاء. \ ڪڪر تي rYour جوڙ منسوخ ڪيو ويندو تي قائم آهي. ترجيح dialog ذريعي هڪ coherent قدر ري سيٽ ڪريو."/>
+			<FilePathNotFoundWarning title="اوپن ڪرائڻ" message="هن فائل توهان کي کولڻ جي ڪوشش ڪري رهيا آهيو موجود نه رکندو آھي."/>
+        </MessageBox>
+        <ClipboardHistory>
+            <PanelTitle name="Clipboard جي تاريخ"/>
+        </ClipboardHistory>
+        <DocSwitcher>
+            <PanelTitle name="دستاويزي Switcher"/>
+            <ColumnName name="نالو"/>
+            <ColumnExt name="Ext."/>
+        </DocSwitcher>
+        <AsciiInsertion>
+            <PanelTitle name="ASCII اضافو ڪيو پينل"/>
+            <ColumnVal name="قدر"/>
+            <ColumnHex name="Hex"/>
+            <ColumnChar name="ڪردار"/>
+        </AsciiInsertion>
+        <DocumentMap>
+            <PanelTitle name="سند نقشو"/>
+        </DocumentMap>
+        <FunctionList>
+            <PanelTitle name="فعل لسٽ"/>
+            <SortTip name="جي حساب سان" />
+            <ReloadTip name="لوڊ" />
+        </FunctionList>
+        <ProjectManager>
+            <PanelTitle name="پروجيڪٽ"/>
+            <WorkspaceRootName name="ڪم"/>
+            <NewProjectName name="پروجيڪٽ جي نالي سان"/>
+            <NewFolderName name="فولڊر جو نالو"/>
+            <Menus>
+                <Entries>
+                    <Item id="0" name="ڪم"/>
+                    <Item id="1" name="تبديلي آڻيو"/>
+                </Entries>
+                <WorkspaceMenu>
+                    <Item id="3122" name="نئون ڪم"/>
+                    <Item id="3123" name="اوپن ڪم"/>
+                    <Item id="3124" name="لوڊ ڪم"/>
+                    <Item id="3125" name="سيو ايز..."/>
+                    <Item id="3126" name="سيو ايز..."/>
+                    <Item id="3127" name="ڪاپي محفوظ جيئن ..."/>
+                    <Item id="3121" name="نئين پروجيڪٽ شامل ڪريو"/>
+                </WorkspaceMenu>
+                <ProjectMenu>
+                    <Item id="3111" name="نالو مٽائي"/>
+                    <Item id="3112" name="فولڊر شامل ڪريو"/>
+                    <Item id="3113" name="فائلون شامل ڪريو ..."/>
+                    <Item id="3117" name="فائلون فھرست مان شامل ڪريو ..."/>
+                    <Item id="3114" name="هٽائي ڇڏيو"/>
+                    <Item id="3118" name="مٿي چر"/>
+                    <Item id="3119" name="نازل منتقل"/>
+                </ProjectMenu>
+                <FolderMenu>
+                    <Item id="3111" name="نالو مٽائي"/>
+                    <Item id="3112" name="فولڊر شامل ڪريو"/>
+                    <Item id="3113" name="فائلون شامل ڪريو ..."/>
+                    <Item id="3117" name="فائلون فھرست مان شامل ڪريو ..."/>
+                    <Item id="3114" name="هٽائي ڇڏيو"/>
+                    <Item id="3118" name="مٿي چر"/>
+                    <Item id="3119" name="نازل منتقل"/>
+                </FolderMenu>
+                <FileMenu>
+                    <Item id="3111" name="نالو مٽائي"/>
+                    <Item id="3115" name="هٽائي ڇڏيو"/>
+                    <Item id="3116" name="عڪس واٽ تبديل ڪريو"/>
+                    <Item id="3118" name="مٿي چر"/>
+                    <Item id="3119" name="نازل منتقل"/>
+                </FileMenu>
+            </Menus>
+        </ProjectManager>
+    </Native-Langue>
+</NotepadPlus>

@@ -975,7 +975,7 @@ private:
 	HANDLE _h;
 };
 
-bool FileManager::deleteCurrentBufferBackup()
+bool FileManager::deleteBufferBackup(BufferID id)
 {
 	HANDLE writeEvent = ::OpenEvent(EVENT_ALL_ACCESS, TRUE, TEXT("nppWrittingEvent"));
 	if (!writeEvent)
@@ -988,7 +988,7 @@ bool FileManager::deleteCurrentBufferBackup()
 		if (::WaitForSingleObject(writeEvent, INFINITE) != WAIT_OBJECT_0)
 		{
 			// problem!!!
-			printStr(TEXT("WaitForSingleObject problem in deleteCurrentBufferBackup()!"));
+			printStr(TEXT("WaitForSingleObject problem in deleteBufferBackup()!"));
 			return false;
 		}
 
@@ -998,7 +998,7 @@ bool FileManager::deleteCurrentBufferBackup()
 
 	EventReset reset(writeEvent); // Will reset event in destructor.
 
-	Buffer* buffer = _pNotepadPlus->getCurrentBuffer();
+	Buffer* buffer = getBufferByID(id);
 	bool result = true;
 	generic_string backupFilePath = buffer->getBackupFileName();
 	if (not backupFilePath.empty())

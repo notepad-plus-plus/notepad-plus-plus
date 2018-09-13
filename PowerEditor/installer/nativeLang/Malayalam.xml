@@ -698,12 +698,12 @@ College Name: Shrimad Rajchandra Institute of Management & Computer Application(
                     <Item id="4009" name="പിന്തുണയുള്ള വിപുലീകരണങ്ങൾ:"/>
                     <Item id="4010" name="രജിസ്റ്റർ വിപുലീകരണങ്ങൾ:"/>
                 </FileAssoc>
-                <LangMenu title="ഭാഷാ മെനു">
+                <Language title="ഭാഷാ മെനു">
                     <Item id="6505" name="ലഭ്യമായ ഇനങ്ങൾ"/>
                     <Item id="6506" name="അപ്രാപ്തമാക്കി ഇനങ്ങൾ"/>
                     <Item id="6507" name="ഭാഷ മെനുവിൽ ഒതുക്കമുള്ള വരുത്തുക"/>
                     <Item id="6508" name="ഭാഷ മെനു"/>
-                </LangMenu>
+                </Language>
 
                 <TabSettings title="ടാബ് ക്രമീകരണങ്ങൾ">
                     <Item id="6301" name="ടാബ് ക്രമീകരണങ്ങൾ"/>

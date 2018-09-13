@@ -608,7 +608,7 @@ College Name: Shrimad Rajchandra Institute of Management & Computer Application(
                     <Item id="24673" name="സ്ടിലെർ"/>
                 </Operator>
             </UserDefine>
-            <Preference title="Preferences">
+            <Preference title="മുൻഗണനകൾ">
                 <Item id="6001" name="Closeഅടയ്ക്കുക"/>
                 <Global title="General">
                     <Item id="6101" name="ടൂൾബാർ"/>
@@ -637,7 +637,7 @@ College Name: Shrimad Rajchandra Institute of Management & Computer Application(
                     <Item id="6126" name="കാണിക്കുക"/>
                     <Item id="6127" name="വിപുലീകരണം കോളം അപ്രാപ്തമാക്കുക"/>
                 </Global>
-                <Scintillas title="Editing">
+                <Scintillas title="എഡിറ്റിംഗ്">
                     <Item id="6216" name="കാരറ്റ് ക്രമീകരണങ്ങൾ"/>
                     <Item id="6217" name="വീതി:"/>
                     <Item id="6219" name="ബ്ലിങ്ക് നിരക്ക്:"/>
@@ -672,7 +672,7 @@ College Name: Shrimad Rajchandra Institute of Management & Computer Application(
                     <Item id="6231" name="ബോർഡർ വീതി"/>
                 </Scintillas>
 
-                <NewDoc title="New Document">
+                <NewDoc title="പുതിയ പ്രമാണം">
                     <Item id="6401" name="ഫോർമാറ്റ്"/>
                     <Item id="6402" name="വിൻഡോസ്"/>
                     <Item id="6403" name="യുണിക്സ്"/>
@@ -688,31 +688,31 @@ College Name: Shrimad Rajchandra Institute of Management & Computer Application(
                     <Item id="6420" name="ആൻസി ഫയലുകൾ തുറക്കാൻ പ്രയോഗിക്കുക"/>
                 </NewDoc>
 
-                <DefaultDir title="Default Directory">
+                <DefaultDir title="സ്ഥിരസ്ഥിതി ഡയറക്ടറി">
                     <Item id="6413" name="സ്വതേ ഡയറക്ടറി (തുറക്കുക / സൂക്ഷിക്കുക))"/>
                     <Item id="6414" name="നിലവിലുള്ള രേഖ പിന്തുടരുക"/>
                     <Item id="6415" name="അവസാനം ഉപയോഗിച്ചത് ഡയറക്ടറി ഓർക്കുക"/>
                 </DefaultDir>
 
-                <FileAssoc title="File Association">
+                <FileAssoc title="ഫയൽ അസോസിയേഷൻ">
                     <Item id="4009" name="പിന്തുണയുള്ള വിപുലീകരണങ്ങൾ:"/>
                     <Item id="4010" name="രജിസ്റ്റർ വിപുലീകരണങ്ങൾ:"/>
                 </FileAssoc>
-                <LangMenu title="Language Menu">
+                <LangMenu title="ഭാഷാ മെനു">
                     <Item id="6505" name="ലഭ്യമായ ഇനങ്ങൾ"/>
                     <Item id="6506" name="അപ്രാപ്തമാക്കി ഇനങ്ങൾ"/>
                     <Item id="6507" name="ഭാഷ മെനുവിൽ ഒതുക്കമുള്ള വരുത്തുക"/>
                     <Item id="6508" name="ഭാഷ മെനു"/>
                 </LangMenu>
 
-                <TabSettings title="Tab Settings">
+                <TabSettings title="ടാബ് ക്രമീകരണങ്ങൾ">
                     <Item id="6301" name="ടാബ് ക്രമീകരണങ്ങൾ"/>
                     <Item id="6302" name="സ്പെയിസ് മാറ്റിസ്ഥാപിക്കുക"/>
                     <Item id="6303" name="ടാബ് വലുപ്പം: "/>
                     <Item id="6510" name="സ്ഥിരസ്ഥിതി മൂല്യം ഉപയോഗിക്കുക"/>
                 </TabSettings>
 
-                <Print title="Print">
+                <Print title="പ്രിന്റ് ചെയ്യുക">
                     <Item id="6601" name="വരിയുടെ നമ്പർ"/>
                     <Item id="6602" name="വർണ്ണ ഓപ്ഷനുകൾ"/>
                     <Item id="6603" name="വിസിവിഗ്"/>
@@ -742,7 +742,7 @@ College Name: Shrimad Rajchandra Institute of Management & Computer Application(
                     <Item id="6728" name="തലക്കെട്ടും അടിക്കുറിപ്പും"/>
                 </Print>
 
-                <RecentFilesHistory title="Recent Files History">
+                <RecentFilesHistory title="സമീപകാല ഫയലുകൾ ചരിത്രം">
                     <Item id="6304" name="സമീപകാല ഫയലുകൾ ചരിത്രം"/>
                     <Item id="6306" name="മാക്സ്. എൻട്രികൾ എണ്ണം:"/>
                     <Item id="6305" name="ലോഞ്ച് സമയത്ത് പരിശോധിക്കരുത്"/>
@@ -753,7 +753,7 @@ College Name: Shrimad Rajchandra Institute of Management & Computer Application(
                     <Item id="6427" name="പരമാവധി ദൈർഘ്യം ഇഷ്ടാനുസൃതമാക്കുക:"/>
                 </RecentFilesHistory>
 
-                <Backup title="Backup">
+                <Backup title="ബാക്കപ്പ്">
                     <Item id="6817" name="സെഷൻ സ്നാപ്ഷോട്ട് ആനുകാലികവുമായി ബാക്കപ്പ്"/>
                     <Item id="6818" name="സെഷൻ സ്നാപ്ഷോട്ട് ആനുകാലികവുമായി ബാക്കപ്പ് പ്രാപ്തമാക്കുക"/>
                     <Item id="6819" name="ഓരോ ലെ ബാക്കപ്പ്"/>
@@ -768,7 +768,7 @@ College Name: Shrimad Rajchandra Institute of Management & Computer Application(
                     <Item id="6803" name="ഡയറക്ടറി:"/>
                 </Backup>
 
-                <AutoCompletion title="Auto-Completion">
+                <AutoCompletion title="യാന്ത്രിക പൂർത്തിയാക്കൽ">
                     <Item id="6807" name="ഓട്ടോ-പൂർത്തിയാക്കൽ"/>
                     <Item id="6808" name="ഓരോ ഇൻപുട്ട് യാന്ത്രികമായി പൂർത്തിയാക്കൽ പ്രവർത്തനക്ഷമമാക്കുക"/>
                     <Item id="6809" name="ഫംഗ്ഷൻ പൂർത്തീകരണം"/>
@@ -787,7 +787,7 @@ College Name: Shrimad Rajchandra Institute of Management & Computer Application(
                     <Item id="6866" name="സെർച്ചിൽ ജോഡി 3:"/>
                 </AutoCompletion>
 
-                <MultiInstance title="Multi-Instance">
+                <MultiInstance title="മൾട്ടി-ഇൻസ്റ്റൻസ്">
                     <Item id="6151" name="മൾട്ടി-ഉദാഹരണത്തിന് ക്രമീകരണങ്ങൾ"/>
                     <Item id="6152" name="നോട്ട്പാഡ് ഒരു പുതിയ ഉദാഹരണത്തിന് തുറക്കുക സെഷൻ ++"/>
                     <Item id="6153" name="എല്ലായ്പ്പോഴും മൾട്ടി-ഇൻസ്റ്റൻസ് മോഡിൽ"/>
@@ -795,21 +795,21 @@ College Name: Shrimad Rajchandra Institute of Management & Computer Application(
                     <Item id="6155" name="* ഈ ക്രമീകരണം പരിഷ്ക്കരണം നോട്ട്പാഡ് പുനരാരംഭിക്കേണ്ടതുണ്ട് ++"/>
                 </MultiInstance>
 
-                <Delimiter title="Delimiter">
+                <Delimiter title="ഡിലിമിറ്റർ">
                     <Item id="6251" name="DELIMITER തിരഞ്ഞെടുപ്പ് ക്രമീകരണങ്ങൾ (കണ്ട്രോൾ + മൗസ് ഡബിൾ ക്ലിക്കിൽ)"/>
                     <Item id="6252" name="തുറക്കുക"/>
                     <Item id="6255" name="അടയ്ക്കുക"/>
                     <Item id="6256" name="നിരവധി ലൈനുകളിൽ അനുവദിക്കുക"/>
                 </Delimiter>
 
-                 <Cloud title="Cloud">
+                 <Cloud title="മേഘം">
                     <Item id="6262" name="മേഘത്തിന്മേൽ ക്രമീകരണങ്ങൾ"/>
                     <Item id="6263" name="ഇല്ല ക്ലൗഡ്"/>
                     <Item id="6267" name="നിങ്ങളുടെ ക്ലൗഡ് ലൊക്കേഷൻ പാത്ത് ഇവിടെ സജ്ജമാക്കുക:"/>
                     <!--Item id="6261" name="Please restart Notepad++ to take effect."/-->
                 </Cloud>
 
-                <MISC title="MISC.">
+                <MISC title="മിസിസ്.">
                     <Item id="6307" name="പ്രാപ്തമാക്കുക"/>
                     <Item id="6308" name="സിസ്റ്റം ട്രേയിൽ ചുരുക്കുക"/>
                     <Item id="6312" name="ഫയൽ നില യാന്ത്രിക-രോഗനിർണയം"/>
@@ -836,7 +836,7 @@ College Name: Shrimad Rajchandra Institute of Management & Computer Application(
                     <Item id="6117" name="MRU ൽ പെരുമാറ്റം പ്രാപ്തമാക്കുകr"/>
                 </MISC>
             </Preference>
-            <MultiMacro title="Run a Macro Multiple Times">
+            <MultiMacro title="ഒരു മാക്രോ ഒന്നിലധികം ടൈം പ്രവർത്തിപ്പിക്കുക">
                 <Item id="1" name="ഓട്ടം"/>
                 <Item id="2" name="റദ്ദാക്കുക"/>
                 <Item id="8006" name="പ്രവർത്തിപ്പിക്കാൻ മാക്രോ:"/>
@@ -844,14 +844,14 @@ College Name: Shrimad Rajchandra Institute of Management & Computer Application(
                 <Item id="8005" name="തവണ"/>
                 <Item id="8002" name="ഫയലിന്റെ അവസാനം വരെ പ്രവർത്തിപ്പിക്കുക"/>
             </MultiMacro>
-            <Window title="Windows">
+            <Window title="വിൻഡോസ്">
                 <Item id="1" name="സജീവമാക്കുക"/>
                 <Item id="2" name="ശരി"/>
                 <Item id="7002" name="രക്ഷിക്കും"/>
                 <Item id="7003" name="വിൻഡോ അടയ്ക്കുക (ങ്ങൾ))"/>
                 <Item id="7004" name="അടുക്കുക ടാബുകൾ"/>
             </Window>
-            <ColumnEditor title="Column Editor">
+            <ColumnEditor title="നിര എഡിറ്റർr">
                 <Item id="2023" name="ഇടയ്ക്കു്ചേര്ക്കുന്നതിനായിഫയല്തെരഞ്ഞെടുക്കുക ടെക്സ്റ്റ്"/>
                 <Item id="2033" name="ഇടയ്ക്കു്ചേര്ക്കുന്നതിനായിഫയല്തെരഞ്ഞെടുക്കുക നമ്പർ"/>
                 <Item id="2030" name="പ്രാരംഭ നമ്പർ:"/>

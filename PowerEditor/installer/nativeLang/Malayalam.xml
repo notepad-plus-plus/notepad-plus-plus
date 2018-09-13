@@ -703,14 +703,11 @@ College Name: Shrimad Rajchandra Institute of Management & Computer Application(
                     <Item id="6506" name="അപ്രാപ്തമാക്കി ഇനങ്ങൾ"/>
                     <Item id="6507" name="ഭാഷ മെനുവിൽ ഒതുക്കമുള്ള വരുത്തുക"/>
                     <Item id="6508" name="ഭാഷ മെനു"/>
-                </Language>
-
-                <TabSettings title="ടാബ് ക്രമീകരണങ്ങൾ">
-                    <Item id="6301" name="ടാബ് ക്രമീകരണങ്ങൾ"/>
+	            <Item id="6301" name="ടാബ് ക്രമീകരണങ്ങൾ"/>
                     <Item id="6302" name="സ്പെയിസ് മാറ്റിസ്ഥാപിക്കുക"/>
                     <Item id="6303" name="ടാബ് വലുപ്പം: "/>
-                    <Item id="6510" name="സ്ഥിരസ്ഥിതി മൂല്യം ഉപയോഗിക്കുക"/>
-                </TabSettings>
+                    <Item id="6510" name="സ്ഥിരസ്ഥിതി മൂല്യം ഉപയോഗിക്കുക"/>		
+                </Language>              
 
                 <Print title="പ്രിന്റ് ചെയ്യുക">
                     <Item id="6601" name="വരിയുടെ നമ്പർ"/>

@@ -1832,6 +1832,13 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				//Sends WM_DESTROY, Notepad++ will end
 				if (message == WM_CLOSE)
 					::DestroyWindow(hwnd);
+
+				generic_string updaterFullPath = pNppParam->getWingupFullPath();
+				if (!updaterFullPath.empty())
+				{
+					Process updater(updaterFullPath.c_str(), pNppParam->getWingupParams().c_str(), pNppParam->getWingupDir().c_str());
+					updater.run();
+				}
 			}
 			return TRUE;
 		}

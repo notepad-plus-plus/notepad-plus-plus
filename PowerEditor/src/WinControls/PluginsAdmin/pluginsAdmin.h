@@ -154,6 +154,7 @@ public :
 
 	bool updateListAndLoadFromJson();
 	void setAdminMode(bool isAdm) { _nppCurrentStatus._isAdminMode = isAdm; };
+	generic_string getPluginsPath() const;
 
 	bool installPlugins();
 	bool updatePlugins();
@@ -192,5 +193,6 @@ private :
 
 	bool loadFromPluginInfos();
 	bool checkUpdates();
+	bool exitToUpdateRemovePlugins(bool isUpdate, const std::vector<PluginUpdateInfo*>& puis);
 };
 

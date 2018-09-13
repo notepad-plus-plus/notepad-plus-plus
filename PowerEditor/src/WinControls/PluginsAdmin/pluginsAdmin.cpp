@@ -341,10 +341,11 @@ void PluginsAdminDlg::collectNppCurrentStatusInfos()
 vector<PluginUpdateInfo*> PluginViewList::fromUiIndexesToPluginInfos(const std::vector<size_t>& uiIndexes) const
 {
 	std::vector<PluginUpdateInfo*> r;
+	size_t nb = _ui.nbItem();
 
 	for (auto i : uiIndexes)
 	{
-		if (i < _ui.nbItem())
+		if (i < nb)
 		{
 			r.push_back(getPluginInfoFromUiIndex(i));
 		}
@@ -378,12 +379,8 @@ PluginsAdminDlg::PluginsAdminDlg()
 	;
 }
 
-bool PluginsAdminDlg::installPlugins()
+generic_string PluginsAdminDlg::getPluginsPath() const
 {
-	vector<size_t> indexes = _availableList.getCheckedIndexes();
-	vector<PluginUpdateInfo*> puis = _availableList.fromUiIndexesToPluginInfos(indexes);
-
-	generic_string updaterParams = TEXT("-unzipTo ");
 	NppParameters *pNppParameters = NppParameters::getInstance();
 	generic_string nppPluginsDir;
 
@@ -402,6 +399,18 @@ bool PluginsAdminDlg::installPlugins()
 	{
 		::CreateDirectory(nppPluginsDir.c_str(), NULL);
 	}
+
+	return nppPluginsDir;
+}
+
+bool PluginsAdminDlg::installPlugins()
+{
+	vector<size_t> indexes = _availableList.getCheckedIndexes();
+	vector<PluginUpdateInfo*> puis = _availableList.fromUiIndexesToPluginInfos(indexes);
+
+	generic_string updaterParams = TEXT("-unzipTo ");
+	
+	generic_string nppPluginsDir = getPluginsPath();
 
 	generic_string quoted_nppPluginsDir = TEXT("\"");
 	quoted_nppPluginsDir += nppPluginsDir;
@@ -437,52 +446,8 @@ bool PluginsAdminDlg::installPlugins()
 	return true;
 }
 
-bool PluginsAdminDlg::updatePlugins()
+bool PluginsAdminDlg::exitToUpdateRemovePlugins(bool isUpdate, const vector<PluginUpdateInfo*>& puis)
 {
-	vector<size_t> indexes = _updateList.getCheckedIndexes();
-	vector<PluginUpdateInfo*> puis = _updateList.fromUiIndexesToPluginInfos(indexes);
-
-	NppParameters *pNppParameters = NppParameters::getInstance();
-	generic_string updaterDir = pNppParameters->getNppPath();
-	updaterDir += TEXT("\\updater\\");
-
-	generic_string updaterFullPath = updaterDir + TEXT("gup.exe");
-	generic_string updaterParams = TEXT("-unzipTo ");
-
-	for (auto i : puis)
-	{
-		// add folder to operate
-		generic_string destFolder = pNppParameters->getAppDataNppDir();
-		PathAppend(destFolder, i->_folderName);
-
-		updaterParams += destFolder;
-
-		// add zipFile's url
-		updaterParams += TEXT(" ");
-		updaterParams += i->_repository;
-
-		Process updater(updaterFullPath.c_str(), updaterParams.c_str(), updaterDir.c_str());
-		int result = updater.runSync();
-		if (result == 0) // wingup return 0 -> OK
-		{
-			// Remove updated plugin from update list
-			_updateList.removeFromPluginInfoPtr(i);
-
-		}
-		else // wingup return non-zero (-1) -> Not OK
-		{
-			// just move on
-		}
-	}
-
-	return true;
-}
-
-bool PluginsAdminDlg::removePlugins()
-{
-	vector<size_t> indexes = _installedList.getCheckedIndexes();
-	vector<PluginUpdateInfo*> puis = _updateList.fromUiIndexesToPluginInfos(indexes);
-
 	NppParameters *pNppParameters = NppParameters::getInstance();
 	generic_string updaterDir = pNppParameters->getNppPath();
 	updaterDir += TEXT("\\updater\\");
@@ -490,36 +455,81 @@ bool PluginsAdminDlg::removePlugins()
 	generic_string updaterFullPath = updaterDir + TEXT("gup.exe");
 	generic_string updaterParams = TEXT("-clean ");
 
+	if (isUpdate) // not clean
+		updaterParams += TEXT("-unzipTo ");
+
+	TCHAR nppFullPath[MAX_PATH];
+	::GetModuleFileName(NULL, nppFullPath, MAX_PATH);
+	updaterParams += nppFullPath;
+	updaterParams += TEXT("\" ");
+
+	updaterParams += TEXT("\"");
+	updaterParams += getPluginsPath();
+	updaterParams += TEXT("\"");
+
 	for (auto i : puis)
 	{
-		// add folder to operate
-		generic_string destFolder = pNppParameters->getAppDataNppDir();
-		PathAppend(destFolder, i->_folderName); 
-
-		updaterParams += destFolder;
-
-		Process updater(updaterFullPath.c_str(), updaterParams.c_str(), updaterDir.c_str());
-		int result = updater.runSync();
-		if (result == 0) // wingup return 0 -> OK
+		if (isUpdate)
 		{
-			// Remove removed plugin from installed list
-			_installedList.removeFromPluginInfoPtr(i);
-
-			// Remove removed plugin from update list eventually
-			_updateList.removeFromFolderName(i->_folderName);
-
-			// Add removed plugin back to available list (if available)
-			_availableList.restore(i->_folderName);
-
+			// add folder to operate
+			updaterParams += TEXT(" \"");
+			updaterParams += i->_folderName;
+			updaterParams += TEXT(" ");
+			updaterParams += i->_repository;
+			updaterParams += TEXT("\"");
 		}
-		else // wingup return non-zero (-1) -> Not OK
+		else // clean
 		{
-			// just move on
-
+			// add folder to operate
+			updaterParams += TEXT(" \"");
+			updaterParams += i->_folderName;
+			updaterParams += TEXT("\"");
 		}
 	}
 
+	// Ask user's confirmation
+	auto res = ::MessageBox(NULL, TEXT("If you click YES, you will quit Notepad++ to continue the operations.\nNotepad++ will be restarted after all the operations are terminated.\nContinue?"), TEXT("Notepad++ is about to exit"), MB_YESNO);
+	if (res == IDYES)
+	{
+		NppParameters *pNppParam = NppParameters::getInstance();
+
+		// gup path: makes trigger ready
+		pNppParam->setWingupFullPath(updaterFullPath);
+
+		// op: -clean or "-clean -unzip"
+		// application path: Notepad++ path to be relaunched
+		// plugin global path
+		// plugin names or "plugin names + download url"
+		pNppParam->setWingupParams(updaterParams);
+
+		// gup folder path
+		pNppParam->setWingupDir(updaterDir);
+
+		// Quite Notepad++ so just before quitting Notepad++ launches gup with needed arguments  
+		::PostMessage(_hParent, WM_COMMAND, IDM_FILE_EXIT, 0);
+	}
+
 	return true;
+}
+
+bool PluginsAdminDlg::updatePlugins()
+{
+	// Need to exit Notepad++
+
+	vector<size_t> indexes = _updateList.getCheckedIndexes();
+	vector<PluginUpdateInfo*> puis = _updateList.fromUiIndexesToPluginInfos(indexes);
+
+	return exitToUpdateRemovePlugins(true, puis);
+}
+
+bool PluginsAdminDlg::removePlugins()
+{
+	// Need to exit Notepad++
+
+	vector<size_t> indexes = _installedList.getCheckedIndexes();
+	vector<PluginUpdateInfo*> puis = _installedList.fromUiIndexesToPluginInfos(indexes);
+
+	return exitToUpdateRemovePlugins(false, puis);
 }
 
 bool PluginViewList::removeFromFolderName(const generic_string& folderName)

@@ -1745,6 +1745,19 @@ private:
 
 	generic_string _initialCloudChoice;
 
+	generic_string _wingupFullPath;
+	generic_string _wingupParams;
+	generic_string _wingupDir;
+
+public:
+	generic_string getWingupFullPath() const { return _wingupFullPath; };
+	generic_string getWingupParams() const { return _wingupParams; };
+	generic_string getWingupDir() const { return _wingupDir; };
+	void setWingupFullPath(const generic_string& val2set) { _wingupFullPath = val2set; };
+	void setWingupParams(const generic_string& val2set) { _wingupParams = val2set; };
+	void setWingupDir(const generic_string& val2set) { _wingupDir = val2set; };
+
+private:
 	void getLangKeywordsFromXmlTree();
 	bool getUserParametersFromXmlTree();
 	bool getUserStylersFromXmlTree();
@@ -1803,4 +1816,5 @@ private:
 	int getCmdIdFromMenuEntryItemName(HMENU mainMenuHadle, generic_string menuEntryName, generic_string menuItemName); // return -1 if not found
 	int getPluginCmdIdFromMenuEntryItemName(HMENU pluginsMenu, generic_string pluginName, generic_string pluginCmdName); // return -1 if not found
 	winVer getWindowsVersion();
+
 };

@@ -14,499 +14,546 @@ College Name: Shrimad Rajchandra Institute of Management & Computer Application(
             <Main>
                 <!-- Main Menu Entries -->
                 <Entries>
-                    <Item menuId="file" name="&amp;ഫയല്"/>
-                    <Item menuId="edit" name="&amp;തിരുത്തുക"/>
-                    <Item menuId="search" name="&amp;തിരയൽ"/>
+                    <Item menuId="file" name="&amp;ഫയൽ"/>
+                    <Item menuId="edit" name="&amp;എഡിറ്റുചെയ്യുക"/>
+                    <Item menuId="search" name="&amp;തിരയുക"/>
                     <Item menuId="view" name="&amp;കാണുക"/>
-                    <Item menuId="encoding" name="&amp;എൻകോഡിംഗ്"/>
+                    <Item menuId="encoding" name="E&amp;ncoding"/>
                     <Item menuId="language" name="&amp;ഭാഷ"/>
-                    <Item menuId="settings" name="&amp;ക്രമീകരണങ്ങൾ"/>
-                    <Item menuId="macro" name="മാക്രോ"/>
-                    <Item menuId="run" name="ഓട്ടം"/>
-                    <Item idName="Plugins" name="പ്ലഗിനുകള്തെരയുക"/>
-                    <Item idName="Window" name="ജാലകം"/>
+                    <Item menuId="settings" name="Se&amp;ttings"/>
+                    <Item menuId="tools" name="To&amp;ols"/>
+                    <Item menuId="macro" name="&amp;മാക്രോ"/>
+                    <Item menuId="run" name="&amp;പ്രവർത്തിപ്പിക്കുക"/>
+                    <Item idName="Plugins" name="&amp;പ്ലഗിനുകൾ"/>
+                    <Item idName="Window" name="&amp;ജാലകം"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item subMenuId="file-openFolder" name="അടങ്ങിയിരിക്കുന്ന ഫോൾഡർ തുറക്കുക"/>
-                    <Item subMenuId="file-closeMore" name="അടയ്ക്കുക കൂടുതൽ"/>
-                    <Item subMenuId="file-recentFiles" name="സമീപകാല ഫയലുകൾ"/>
+                    <Item subMenuId="file-openFolder" name="ഉൾക്കൊള്ളുന്ന ഫോൾഡർ തുറക്കുക"/>
+                    <Item subMenuId="file-closeMore" name="കൂടുതൽ അടയ്ക്കുക"/>
+                    <Item subMenuId="file-recentFiles" name="&amp;സമീപകാല ഫയലുകൾ"/>
                     <Item subMenuId="edit-copyToClipboard"  name="ക്ലിപ്പ്ബോർഡിലേയ്ക്ക് പകർത്തുക"/>
-                    <Item subMenuId="edit-indent" name="ഇൻഡന്റ്"/>
-                    <Item subMenuId="edit-convertCaseTo" name="കേസ് പരിവർത്തനം"/>
-                    <Item subMenuId="edit-lineOperations" name="ലൈൻ ഓപ്പറേഷൻ"/>
-                    <Item subMenuId="edit-comment" name="അഭിപ്രായം / ഉൾപ്പെടുത്തുക"/>
-                    <Item subMenuId="edit-autoCompletion" name="ഓട്ടോ-പൂർത്തിയാക്കൽ"/>
-                    <Item subMenuId="edit-eolConversion" name="എന്താ പരിവർത്തന"/>
-                    <Item subMenuId="edit-blankOperations" name="ശൂന്യ ഓപ്പറേഷൻ"/>
-                    <Item subMenuId="edit-pasteSpecial" name="പ്രത്യേകം ഒട്ടിക്കുക"/>
-                    <Item subMenuId="search-markAll" name="മാർക്ക് എല്ലാ"/>
-                    <Item subMenuId="search-unmarkAll" name="അടയാളപ്പെടുത്തിയത് എല്ലാ"/>
-                    <Item subMenuId="search-jumpUp" name="അപ് പോവുക"/>
-                    <Item subMenuId="search-jumpDown" name="ഡൗൺ പോവുക"/>
+                    <Item subMenuId="edit-indent" name="ഇൻഡന്റ് ചെയ്യുക"/>
+                    <Item subMenuId="edit-convertCaseTo" name="കെയ്സ് ആയി മാറ്റുക"/>
+                    <Item subMenuId="edit-lineOperations" name="ലൈൻ ഓപ്പറേഷൻസ്"/>
+                    <Item subMenuId="edit-comment" name="അഭിപ്രായം / ഏകീകരണം"/>
+                    <Item subMenuId="edit-autoCompletion" name="യാന്ത്രിക പൂർത്തിയാക്കൽ"/>
+                    <Item subMenuId="edit-eolConversion" name="EOL പരിവർത്തനം"/>
+                    <Item subMenuId="edit-blankOperations" name="ശൂന്യ പ്രവർത്തനങ്ങൾ"/>
+                    <Item subMenuId="edit-pasteSpecial" name="സവിശേഷ ഒട്ടിക്കുക"/>
+                    <Item subMenuId="edit-onSelection" name="തിരഞ്ഞെടുപ്പിൽ"/>
+                    <Item subMenuId="search-markAll" name="എല്ലാം അടയാളപ്പെടുത്തുക"/>
+                    <Item subMenuId="search-unmarkAll" name="എല്ലാം അടയാളപ്പെടുത്തുക"/>
+                    <Item subMenuId="search-jumpUp" name="മുകളിലേയ്ക്ക് പോകുക"/>
+                    <Item subMenuId="search-jumpDown" name="താഴേക്ക് ചാടുക"/>
                     <Item subMenuId="search-bookmark" name="ബുക്ക്മാർക്ക്"/>
-                    <Item subMenuId="view-showSymbol"  name="പ്രതീക കാണിക്കുക"/>
-                    <Item subMenuId="view-zoom"  name="സൂം"/>
-                    <Item subMenuId="view-moveCloneDocument"  name="നീക്കുക / ക്ലോൺ നിലവിൽ പ്രമാണം"/>
+                    <Item subMenuId="view-showSymbol"  name="ചിഹ്നം കാണിക്കുക"/>
+                    <Item subMenuId="view-zoom"  name="സൂം ചെയ്യുക"/>
+                    <Item subMenuId="view-moveCloneDocument"  name="നിലവിലെ പ്രമാണം നീക്കുക / ക്ലോൺ ചെയ്യുക"/>
                     <Item subMenuId="view-tab"  name="ടാബ്"/>
-                    <Item subMenuId="view-collapseLevel" name="ചുരുക്കുക ലെവൽ"/>
+                    <Item subMenuId="view-collapseLevel" name="നില ചുരുക്കുക"/>
                     <Item subMenuId="view-uncollapseLevel" name="Uncollapse ലെവൽ"/>
-                    <Item subMenuId="view-project" name="പദ്ധതി"/>
-                    <Item subMenuId="encoding-characterSets"  name="പ്രതീക ഗണം"/>
-                    <Item subMenuId="encoding-arabic"  name="അറബിക്"/>
+                    <Item subMenuId="view-project" name="പ്രോജക്ട്"/>
+                    <Item subMenuId="encoding-characterSets"  name="പ്രതീക സെറ്റ്"/>
+                    <Item subMenuId="encoding-arabic"  name="അറബിക്ക്"/>
                     <Item subMenuId="encoding-baltic"  name="ബാൾട്ടിക്"/>
                     <Item subMenuId="encoding-celtic"  name="കെൽറ്റിക്"/>
                     <Item subMenuId="encoding-cyrillic"  name="സിറിലിക്"/>
-                    <Item subMenuId="encoding-centralEuropean"  name="മധ്യ യൂറോപ്യൻ"/>
+                    <Item subMenuId="encoding-centralEuropean"  name="മധ്യ യൂറോപ്യൻ"/>
                     <Item subMenuId="encoding-chinese"  name="ചൈനീസ്"/>
-                    <Item subMenuId="encoding-easternEuropean"  name="കിഴക്കൻ യൂറോപ്യൻ"/>
+                    <Item subMenuId="encoding-easternEuropean"  name="കിഴക്കൻ യൂറോപ്യൻ"/>
                     <Item subMenuId="encoding-greek"  name="ഗ്രീക്ക്"/>
                     <Item subMenuId="encoding-hebrew"  name="ഹീബ്രു"/>
                     <Item subMenuId="encoding-japanese"  name="ജാപ്പനീസ്"/>
-                    <Item subMenuId="encoding-korean" name="കൊറിയൻ"/>
-                    <Item subMenuId="encoding-northEuropean" name="നോർത്ത് യൂറോപ്യൻ"/>
+                    <Item subMenuId="encoding-korean" name="കൊറിയൻ"/>
+                    <Item subMenuId="encoding-northEuropean" name="വടക്കൻ യൂറോപ്യൻ"/>
                     <Item subMenuId="encoding-thai" name="തായ്"/>
-                    <Item subMenuId="encoding-turkish" name="ഷ്"/>
-                    <Item subMenuId="encoding-westernEuropean" name="പടിഞ്ഞാറൻ യൂറോപ്യൻ"/>
+                    <Item subMenuId="encoding-turkish" name="ടർക്കിഷ്"/>
+                    <Item subMenuId="encoding-westernEuropean" name="പടിഞ്ഞാറൻ യൂറോപ്യൻ"/>
                     <Item subMenuId="encoding-vietnamese" name="വിയറ്റ്നാമീസ്"/>
-                    <Item subMenuId="settings-import"  name="ഇംപോർട്ട്"/>
+                    <Item subMenuId="settings-import"  name="ഇമ്പോർട്ടുചെയ്യുക"/>
+                    <Item subMenuId="tools-md5"  name="MD5"/>
                 </SubEntries>
 
                 <!-- all menu item -->
                 <Commands>
-                    <Item id="41001" name="&amp;പുതിയ"/>
+                    <Item id="41001" name="&amp;പുതിയത്"/>
                     <Item id="41002" name="&amp;തുറക്കുക"/>
-                    <Item id="41019" name="പരവേക്ഷകന്"/>
-                    <Item id="41020" name="സിഎംഡി"/>
-                    <Item id="41003" name="അടയ്ക്കുക"/>
-                    <Item id="41004" name="&amp;എല്ലാം അടയ്ക്കുക"/>
-                    <Item id="41005" name="എല്ലാ എന്നാൽ ഇപ്പോഴത്തെ പ്രമാണം അടയ്ക്കുക"/>
-                    <Item id="41009" name="അടയ്ക്കുക എല്ലാ ഇടതുപക്ഷ ലേക്ക്"/>
-                    <Item id="41018" name="അടയ്ക്കുക എല്ലാ അവകാശങ്ങളും ലേക്ക്"/>
+                    <Item id="41019" name="എക്സ്പ്ലോറർ"/>
+                    <Item id="41020" name="cmd"/>
+                    <Item id="41003" name="&amp;അടയ്ക്കുക"/>
+                    <Item id="41004" name="അടയ്ക്കുക&amp;e എല്ലാം"/>
+                    <Item id="41005" name="എല്ലാ പക്ഷെ നിലവിലുള്ള പ്രമാണം അടയ്ക്കുക"/>
+                    <Item id="41009" name="എല്ലാം ഇടതുവശത്തേക്ക് അടയ്ക്കുക"/>
+                    <Item id="41018" name="എല്ലാം വലതുവശത്തേക്ക് അടയ്ക്കുക"/>
                     <Item id="41006" name="&amp;രക്ഷിക്കും"/>
-                    <Item id="41007" name="&amp;എല്ലാം സംരക്ഷിക്കുക"/>
-                    <Item id="41008" name=" &amp;ഇതായി സംരക്ഷിക്കുക ..."/>
-                    <Item id="41010" name="അച്ചടിക്കുക ..."/>
-                    <Item id="1001"  name="ഇപ്പോൾ പ്രിന്റ്"/>
-                    <Item id="41011" name="&amp;പുറത്ത്"/>
-                    <Item id="41012" name="സെഷൻ ലോഡുചെയ്യുക ..."/>
-                    <Item id="41013" name="സെഷൻ സംരക്ഷിക്കുക ..."/>
-                    <Item id="41014" name="ഡിസ്കിൽ നിന്നും ലോഡുചെയ്യുക"/>
-                    <Item id="41015" name="പോലെ ഒരു പകർപ്പ് സംരക്ഷിക്കുക ..."/>
-                    <Item id="41016" name="ഡിസ്ക് നിന്ന് ഇല്ലാതാക്കുക"/>
-                    <Item id="41017" name="പുനർനാമകരണം ..."/>
-                    <Item id="41021" name="സമീപകാലത്ത് അടച്ച ഫയൽ പുനഃസ്ഥാപിക്കുക"/>
-
-                    <Item id="42001" name="&amp;മുറിക്കുക"/>
-                    <Item id="42002" name="&amp;പകര്പ്പ്"/>
+                    <Item id="41007" name="Sav&amp;e എല്ലാം"/>
+                    <Item id="41008" name="രക്ഷിക്കും &amp;അതുപോലെ..."/>
+                    <Item id="41010" name="പ്രിന്റ് ചെയ്യുക..."/>
+                    <Item id="1001"  name="ഇപ്പോൾ അച്ചടിക്കുക"/>
+                    <Item id="41011" name="ഇ&amp;ഹിറ്റുകൾ"/>
+                    <Item id="41012" name="സെഷൻ ലോഡ് ചെയ്യുക..."/>
+                    <Item id="41013" name="സെഷൻ സംരക്ഷിക്കുക..."/>
+                    <Item id="41014" name="റീ&amp;ഡിസ്കിൽ നിന്ന് ലോഡ് ചെയ്യുക"/>
+                    <Item id="41015" name="ഒരു പകർപ്പ് സംരക്ഷിക്കുക..."/>
+                    <Item id="41016" name="റീസൈക്കിൾ ബിൻ ആയി നീങ്ങുക"/>
+                    <Item id="41017" name="പേരുമാറ്റുക..."/>
+                    <Item id="41021" name="സമീപകാല അടച്ച ഫയൽ പുനഃസ്ഥാപിക്കുക"/>
+                    <Item id="41022" name="വർക്ക് സ്പെയ്സ് ആയി ഫോൾഡർ തുറക്കുക..."/>
+                    <Item id="41023" name="സ്ഥിരസ്ഥിതി വ്യൂവറിൽ തുറക്കുക"/>
+                    <Item id="42001" name="Cu&amp;t"/>
+                    <Item id="42002" name="&amp;പകർത്തുക"/>
                     <Item id="42003" name="&amp;പഴയപടിയാക്കുക"/>
                     <Item id="42004" name="&amp;വീണ്ടും ചെയ്യുക"/>
                     <Item id="42005" name="&amp;പേസ്റ്റ്"/>
                     <Item id="42006" name="&amp;ഇല്ലാതാക്കുക"/>
-                    <Item id="42007" name="&amp;എല്ലാം തിരഞ്ഞെടുക്കുക"/>
-                    <Item id="42020" name="തുടങ്ങുക / അവസാനിപ്പിക്കുക തിരഞ്ഞെടുക്കുക"/>
-                    <Item id="42008" name="വരി ഇൻഡന്റ് വർദ്ധിപ്പിക്കുക"/>
-                    <Item id="42009" name="വരി ഇൻഡന്റ് കുറയ്ക്കുക"/>
-                    <Item id="42010" name="നിലവിൽ ലൈൻ ഡ്യൂപ്ലിക്കേറ്റ്"/>
-                    <Item id="42012" name="സ്പ്ലിട് ലൈൻസ്"/>
-                    <Item id="42013" name="ലൈനുകൾ ചേരുക"/>
-                    <Item id="42014" name="നിലവിൽ വരി മുകളിലേക്ക് നീക്കുക"/>
-                    <Item id="42015" name="നിലവിൽ വരി താഴേക്ക് നീക്കുക"/>
-                    <Item id="42059" name="അടുക്കുക ലൈൻസ് ളെക്സിചൊഗ്രഫിചല്ല്യ് ആരോഹണ"/>
-                    <Item id="42060" name="അടുക്കുക ലൈൻസ് ളെക്സിചൊഗ്രഫിചല്ല്യ് അവരോഹണ"/>
-                    <Item id="42061" name="പൂർണ്ണസംഖ്യകളാണ് ആരോഹണ നിലയിൽ അടുക്കുക ലൈൻസ്"/>
-                    <Item id="42062" name="പൂർണ്ണസംഖ്യകളാണ് അവരോഹണ നിലയിൽ അടുക്കുക ലൈൻസ്"/>
-                    <Item id="42063" name="ദശാംശസംഖ്യ (കോമ) ആരോഹണ നിലയിൽ അടുക്കുക ലൈൻസ്"/>
-                    <Item id="42064" name="ദശാംശസംഖ്യ (കോമ) അവരോഹണ പോലെ അടുക്കുക ലൈൻസ്"/>
-                    <Item id="42065" name="ദശാംശസംഖ്യ ഡോട്ട് ആരോഹണ നിലയിൽ അടുക്കുക ലൈൻസ്"/>
-                    <Item id="42066" name="ദശാംശസംഖ്യ ഡോട്ട് അവരോഹണ പോലെ അടുക്കുക ലൈൻസ്"/>
-                    <Item id="42016" name="അപ്പർകേസ്"/>
-                    <Item id="42017" name="ചെറിയക്ഷരം"/>
-                    <Item id="42018" name="&amp;റെക്കോർഡിംഗ് ആരംഭിക്കുക"/>
-                    <Item id="42019" name="&amp;റെക്കോർഡിംഗ് നിർത്തുക"/>
+                    <Item id="42007" name="തിരഞ്ഞെടുക്കുക  തിരഞ്ഞെടുക്കുക&amp;വാ"/>
+                    <Item id="42020" name="തിരഞ്ഞെടുക്കുക / അവസാനിക്കുക തിരഞ്ഞെടുക്കുക"/>
+                    <Item id="42008" name="ഇൻഡന്റ് ഇൻറന്റ് വർദ്ധിപ്പിക്കുക"/>
+                    <Item id="42009" name="ഇൻഡന്റ് ഇൻഡന്റ് കുറയ്ക്കുക"/>
+                    <Item id="42010" name="ഡ്യൂപ്ലിക്കേറ്റ് നിലവിലെ ലൈൻ"/>
+                    <Item id="42012" name="സ്പ്ലിറ്റ് ലൈനുകൾ"/>
+                    <Item id="42013" name="വരികളിൽ ചേരുക"/>
+                    <Item id="42014" name="നിലവിലെ ലൈൻ മുകളിലേക്ക് നീക്കുക"/>
+                    <Item id="42015" name="താഴേക്ക് നീക്കുക ഇപ്പോഴത്തെ വരി"/>
+                    <Item id="42059" name="വരികൾ വരയ്ക്കുക"/>
+                    <Item id="42060" name="വരികൾ രേഖപ്പെടുത്തുക"/>
+                    <Item id="42061" name="വരികൾ സമഗ്രമായി കയറുന്നു"/>
+                    <Item id="42062" name="വരികൾ താഴേക്ക് എഴുന്നെണ്ണം എന്ന് അടുക്കുക"/>
+                    <Item id="42063" name="ഡെസിമൽസ് (കോമ) അസൻഡിംഗ് ആയി രേഖകൾ അടുക്കുക"/>
+                    <Item id="42064" name="ഡെസിമൽസ് (കോമ) അഭേദ്യമായ രീതിയിൽ വരികൾ അടുക്കുക"/>
+                    <Item id="42065" name="ഡെസിമലുകൾ (ഡോട്ട്) ആരോഹണമായി അടുക്കുക"/>
+                    <Item id="42066" name="ഡെസിമൽസ് (ഡോട്ട്) ഡെർസീംഗായി വരികൾ അടുക്കുക"/>
+                    <Item id="42016" name="&amp;UPPERCASE"/>
+                    <Item id="42017" name="&amp;ചെറിയക്ഷരം"/>
+                    <Item id="42067" name="&amp;ശരിയായ കേസ്"/>
+                    <Item id="42068" name="ശരിയായ കേസ് (മിശ്രിതം)"/>
+                    <Item id="42069" name="&amp;ശിക്ഷയുടെ കേസ്"/>
+                    <Item id="42070" name="ഉച്ചകോടി കേസ് (മിശ്രിതം)"/>
+                    <Item id="42071" name="&amp;iNVERT cASE"/>
+                    <Item id="42072" name="&amp;ranDOm CasE"/>
+                    <Item id="42073" name="ഫയൽ തുറക്കുക"/>
+                    <Item id="42074" name="എക്സ്പ്ലോററിൽ ഉൾക്കൊള്ളുന്ന ഫോൾഡർ തുറക്കുക"/>
+                    <Item id="42075" name="ഇന്റർനെറ്റിൽ തിരയുക"/>
+                    <Item id="42076" name="തിരയൽ എഞ്ചിൻ മാറ്റുക..."/>
+                    <Item id="42018" name="ആരംഭിക്കുക Re&amp;cording"/>
+                    <Item id="42019" name="S&amp;top റെക്കോർഡുചെയ്യുന്നു"/>
                     <Item id="42021" name="&amp;പ്ലേബാക്ക്"/>
-                    <Item id="42022" name="ടോഗിൾ ഒറ്റവര അഭിപ്രായം"/>
-                    <Item id="42023" name="തടയുക അഭിപ്രായം"/>
-                    <Item id="42047" name="ബ്ലോക്ക് ഉൾപ്പെടുത്തുക"/>
-                    <Item id="42024" name="ട്രെയിലിംഗ് സ്പെയ്സ് ട്രിം"/>
-                    <Item id="42042" name="മുൻപിലായിരിക്കുന്നതും സ്പെയ്സ് ട്രിം"/>
-                    <Item id="42043" name="മുൻനിര ട്രിം പിന്നിലുമുള്ള സ്പെയ്സ്"/>
-                    <Item id="42044" name="സ്പെയ്സ് ലേക്കുള്ള എന്താ"/>
-                    <Item id="42045" name="അനാവശ്യമായ ശൂന്യ നീക്കംചെയ്ത് എന്താ"/>
-                    <Item id="42046" name="സ്പെയ്സ് ടാബ്"/>
-                    <Item id="42054" name="ടാബിൽ സ്പേസ് (എല്ലാ)"/>
-                    <Item id="42053" name="ടാബിൽ സ്പേസ് (മുൻപിലായിരിക്കുന്നതും)"/>
-                    <Item id="42038" name="HTML ഒട്ടിക്കുക ഉള്ളടക്ക"/>
-                    <Item id="42039" name="ഒട്ടിക്കുക RTF ഉള്ളടക്കം"/>
+                    <Item id="42022" name="ഏക വരി അഭിപ്രായം ടോഗിൾ ചെയ്യുക"/>
+                    <Item id="42023" name="അഭിപ്രായം തടയുക"/>
+                    <Item id="42047" name="ബ്ലോക്ക് യൂണിറ്റ്മെന്റ്"/>
+                    <Item id="42024" name="ട്രെയിലിംഗ് സ്പെയ്സ് ട്രിം ചെയ്യുക"/>
+                    <Item id="42042" name="മുഖ്യ ഇടം ട്രിം ചെയ്യുക"/>
+                    <Item id="42043" name="ലീഡിംഗും ട്രെയിലിംഗ് സ്പെയ്സും ട്രിം ചെയ്യുക"/>
+                    <Item id="42044" name="EOL മുതൽ സ്പെയ്സ് വരെ"/>
+                    <Item id="42045" name="അനാവശ്യ ശൂന്യമായതും EOL ഉം നീക്കം ചെയ്യുക"/>
+                    <Item id="42046" name="TAB സ്പെയ്സിലേക്ക്"/>
+                    <Item id="42054" name="TAB- ലേക്കുള്ള സ്പെയ്സ് (എല്ലാം)"/>
+                    <Item id="42053" name="TAB- ലേക്കുള്ള സ്പെയ്സ് (നേതൃത്വം)"/>
+                    <Item id="42038" name="HTML ഉള്ളടക്കം ഒട്ടിക്കുക"/>
+                    <Item id="42039" name="RTF ഉള്ളടക്കം ഒട്ടിക്കുക"/>
                     <Item id="42048" name="ബൈനറി ഉള്ളടക്കം പകർത്തുക"/>
-                    <Item id="42049" name="ബൈനറി ഉള്ളടക്കം പകർത്തുകt"/>
+                    <Item id="42049" name="ബൈനറി ഉള്ളടക്കം മുറിക്കുക"/>
                     <Item id="42050" name="ബൈനറി ഉള്ളടക്കം ഒട്ടിക്കുക"/>
-                    <Item id="42037" name="നിര മോഡ് ..."/>
-                    <Item id="42034" name="നിരയുടെ എഡിറ്റർ ..."/>
-                    <Item id="42051" name="കഥാപാത്രം പാനൽ"/>
-                    <Item id="42052" name="ക്ലിപ്ബോർഡ് ചരിത്രം"/>
-                    <Item id="42025" name="നിലവിൽ റെക്കോർഡ് മാക്രോ സംരക്ഷിക്കുക"/>
-                    <Item id="42026" name="വാചക ദിശ ഇവരുടെ"/>
-                    <Item id="42027" name="വാചക ദിശ LTR"/>
-                    <Item id="42028" name="വായന മാത്രം സജ്ജമാക്കുക"/>
-                    <Item id="42029" name="ക്ലിപ്ബോർഡ് നിലവിലെ ഫയൽ പാത"/>
-                    <Item id="42030" name="ക്ലിപ്ബോർഡ് നിലവിലെ ഫയലിന്റെ"/>
-                    <Item id="42031" name="നിലവിൽ ദിശ. ക്ലിപ്ബോർഡ് പാത"/>
-                    <Item id="42032" name="ഒരു മാക്രോ ഒന്നിലേറെ തവണ പ്രവർത്തിപ്പിക്കുക ..."/>
-                    <Item id="42033" name="തെളിഞ്ഞ വായന മാത്രം ഫ്ലാഗ്"/>
+                    <Item id="42037" name="നിര മോഡ്..."/>
+                    <Item id="42034" name="നിര എഡിറ്റർ..."/>
+                    <Item id="42051" name="പ്രതീകം പാനൽ"/>
+                    <Item id="42052" name="ക്ലിപ്ബോർഡ് ചരിത്രം"/>
+                    <Item id="42025" name="&amp;നിലവിൽ റെക്കോർഡുചെയ്ത മാക്രോ സംരക്ഷിക്കുക..."/>
+                    <Item id="42026" name="വാചക ഡയറക്ടർ RTL"/>
+                    <Item id="42027" name="പാഠ ദിശയിലേക്ക് LTR"/>
+                    <Item id="42028" name="റീഡ്-ഒൺലി സജ്ജമാക്കുക"/>
+                    <Item id="42029" name="ക്ലിപ്ബോർഡിലെ നിലവിലുള്ള ഫയൽ പാത്ത്"/>
+                    <Item id="42030" name="നിലവിലെ ഫയൽനാമം ക്ലിപ്പ്ബോർഡിലേക്ക്"/>
+                    <Item id="42031" name="ഇപ്പോഴത്തെ ഡ്രാഫ്റ്റ്. ക്ലിപ്ബോർഡിലേക്കുള്ള പാഥ്"/>
+                    <Item id="42032" name="&amp;ഒരു മാക്രോ ഒന്നിലധികം ടൈം പ്രവർത്തിപ്പിക്കുക..."/>
+                    <Item id="42033" name="വായന-മാത്രം ഫ്ലാഗുകൾ മായ്ക്കുക"/>
                     <Item id="42035" name="സിംഗിൾ ലൈൻ അഭിപ്രായം"/>
-                    <Item id="42036" name="സിംഗിൾ ലൈൻ ഉൾപ്പെടുത്തുക"/>
-                    <Item id="42055" name="ശൂന്യ നീക്കം"/>
-                    <Item id="42056" name="ശൂന്യ വരി (ശൂന്യം അക്ഷരങ്ങൾ അടങ്ങിയ) നീക്കംചെയ്യുക"/>
-                    <Item id="42057" name="നിലവിൽ മുകളിൽ ഒഴിഞ്ഞ വരി ഉൾപ്പെടുത്തുക"/>
-                    <Item id="42058" name="നിലവിൽ താഴെ ഒഴിഞ്ഞ വരി ഉൾപ്പെടുത്തുക"/>
-                    <Item id="43001" name="&amp;കണ്ടെത്തുക ..."/>
-                    <Item id="43002" name=" &amp;അടുത്തത് കണ്ടെത്തുക"/>
-                    <Item id="43003" name="മാറ്റിസ്ഥാപിക്കുക ..."/>
-                    <Item id="43004" name="പോകുക ..."/>
-                    <Item id="43005" name="ടോഗിൾ ബുക്ക്മാർക്ക്"/>
+                    <Item id="42036" name="സിംഗിൾ ലൈൻ യൂണിക്മെന്റ്"/>
+                    <Item id="42055" name="ശൂന്യമായ ലൈനുകൾ നീക്കം ചെയ്യുക"/>
+                    <Item id="42056" name="ശൂന്യമായ ലൈനുകൾ നീക്കം ചെയ്യുക (ശൂന്യ പശ്ചാത്തലങ്ങൾ)"/>
+                    <Item id="42057" name="നിലവിലുള്ളതിന് വലതുവശത്തുള്ള വരി നൽകുക"/>
+                    <Item id="42058" name="നിലവിൽ താഴെയുള്ള വലതുവശത്തെ വരി ചേർക്കുക"/>
+                    <Item id="43001" name="&amp;കണ്ടെത്തുക..."/>
+                    <Item id="43002" name="കണ്ടെത്തുക &amp;അടുത്തത്"/>
+                    <Item id="43003" name="&amp;മാറ്റിസ്ഥാപിക്കുക..."/>
+                    <Item id="43004" name="&amp;പോകുക..."/>
+                    <Item id="43005" name="ബുക്ക്മാർക്ക് ടോഗിൾ ചെയ്യുക"/>
                     <Item id="43006" name="അടുത്ത ബുക്ക്മാർക്ക്"/>
-                    <Item id="43007" name="മുമ്പുള്ളഓര്മ്മക്കുറിപ്പു്"/>
-                    <Item id="43008" name="എല്ലാ ബുക്ക്മാർക്കുകളും"/>
-                    <Item id="43018" name="മുറിക്കുക ബുക്ക്മാർക്കുചെയ്തു ലൈനുകൾ"/>
-                    <Item id="43019" name="പകർത്തുക ഈദിന് ലൈൻസ്"/>
-                    <Item id="43020" name="(മാറ്റിസ്ഥാപിക്കുക) ബുക്ക്മാർക്കുചെയ്തു ലുള്ള ലേക്ക് ഒട്ടിക്കുക"/>
-                    <Item id="43021" name="ഈദിന് നീക്കം"/>
-                    <Item id="43051" name="അടയാളപ്പെടുത്താത്ത നീക്കം"/>
-                    <Item id="43050" name="വിപരീത ബുക്ക്മാർക്ക്"/>
-                    <Item id="43052" name="ശ്രേണിയിലെ പ്രതീകങ്ങൾ കണ്ടെത്തുക ..."/>
-                    <Item id="43053" name="മാച്ചിങ് ബ്രേസുകൾ തമ്മിലുള്ള തിരഞ്ഞെടുക്കുക"/>
-                    <Item id="43009" name="വലയം മാച്ചിങ് പോകുക"/>
-                    <Item id="43010" name="മുമ്പത്തെ കണ്ടെത്തുക"/>
-                    <Item id="43011" name="&amp;ഒന്നൊന്നായി തിരയൽ"/>
-                    <Item id="43013" name="ഫയലുകളിൽ കണ്ടെത്തുക"/>
-                    <Item id="43014" name="(വൊളാറ്റൈല്) അടുത്തത് കണ്ടെത്തുക"/>
-                    <Item id="43015" name="കണ്ടെത്തുക (വൊളാറ്റൈല്) മുമ്പത്തെ"/>
-                    <Item id="43022" name="1st ശൈലി ഉപയോഗിച്ച്"/>
-                    <Item id="43023" name="തെളിഞ്ഞ 1st ശൈലി"/>
-                    <Item id="43024" name="2nd ശൈലി ഉപയോഗിച്ച്"/>
-                    <Item id="43025" name="തെളിഞ്ഞ 2nd ശൈലി"/>
-                    <Item id="43026" name="3rd ശൈലി ഉപയോഗിച്ച്"/>
-                    <Item id="43027" name="തെളിഞ്ഞ 3rd ശൈലി"/>
-                    <Item id="43028" name="4th ശൈലി ഉപയോഗിച്ച്"/>
-                    <Item id="43029" name="തെളിഞ്ഞ 4th ശൈലി"/>
-                    <Item id="43030" name="5 ശൈലി ഉപയോഗിച്ച്"/>
-                    <Item id="43031" name="തെളിഞ്ഞ 5 ശൈലി"/>
+                    <Item id="43007" name="മുമ്പത്തെ ബുക്ക്മാർക്ക്"/>
+                    <Item id="43008" name="എല്ലാ ബുക്ക്മാർക്കുകളും മായ്ക്കുക"/>
+                    <Item id="43018" name="ബുക്ക്മാർക്ക് രേഖകൾ മുറിക്കുക"/>
+                    <Item id="43019" name="ബുക്ക്മാർക്ക് ചെയ്ത വരികൾ പകർത്തുക"/>
+                    <Item id="43020" name="ഓണാക്കുക (മാറ്റിസ്ഥാപിക്കുക) ബുക്ക്മാർക്ക് ചെയ്ത ലൈനുകൾ"/>
+                    <Item id="43021" name="ബുക്ക്മാർക്ക് ചെയ്ത ലൈനുകൾ നീക്കംചെയ്യുക"/>
+                    <Item id="43051" name="അടയാളപ്പെടുത്തിയ വരികൾ നീക്കം ചെയ്യുക"/>
+                    <Item id="43050" name="വിപരീത ഓർമ്മക്കുറിപ്പ്"/>
+                    <Item id="43052" name="ശ്രേണിയിലെ പ്രതീകങ്ങൾ കണ്ടെത്തുക..."/>
+                    <Item id="43053" name="പൊരുത്തപ്പെടുന്ന ബ്രെയ്ക്കുകൾക്കിടയിൽ എല്ലാം തിരഞ്ഞെടുക്കുക"/>
+                    <Item id="43009" name="പൊരുത്തമുള്ള ബ്രെയ്സിലേക്ക് പോകുക"/>
+                    <Item id="43010" name="കണ്ടെത്തുക &amp;മുമ്പത്തെ"/>
+                    <Item id="43011" name="&amp;വർദ്ധിപ്പിച്ച തിരയൽ"/>
+                    <Item id="43013" name="ഫയലുകൾ കണ്ടെത്തുക"/>
+                    <Item id="43014" name="കണ്ടെത്തുക (അസ്ഥിരമായി) അടുത്തത്"/>
+                    <Item id="43015" name="കണ്ടെത്തുക (അസ്ഥിരമായി) മുമ്പത്തെ"/>
+                    <Item id="43022" name="ആദ്യ ശൈലി ഉപയോഗിക്കുന്നു"/>
+                    <Item id="43023" name="1st സ്റ്റൈൽ മായ്ക്കുക"/>
+                    <Item id="43024" name="രണ്ടാം ശൈലിയാണ് ഉപയോഗിക്കുന്നത്"/>
+                    <Item id="43025" name="രണ്ടാം ശൈലി മായ്ക്കുക"/>
+                    <Item id="43026" name="3 മൂന്നാം ശൈലി ഉപയോഗിക്കുന്നു"/>
+                    <Item id="43027" name="3rd സ്റ്റൈൽ മായ്ക്കുക"/>
+                    <Item id="43028" name="നാലാം സ്റ്റൈൽ ഉപയോഗിക്കുന്നു"/>
+                    <Item id="43029" name="നാലാമത്തെ സ്റ്റൈൽ മായ്ക്കുക"/>
+                    <Item id="43030" name="അഞ്ചാം സ്റ്റൈൽ ഉപയോഗിക്കുന്നു"/>
+                    <Item id="43031" name="അഞ്ചാമത്തെ സ്റ്റൈൽ മായ്ക്കുക"/>
                     <Item id="43032" name="എല്ലാ ശൈലികളും മായ്ക്കുക"/>
-                    <Item id="43033" name="1st രീതിയിൽ"/>
-                    <Item id="43034" name="2nd രീതിയിൽ"/>
-                    <Item id="43035" name="3rd രീതിയിൽ"/>
-                    <Item id="43036" name="4th രീതിയിൽ"/>
-                    <Item id="43037" name="5 രീതിയിൽ"/>
+                    <Item id="43033" name="ഒന്നാം ശൈലി"/>
+                    <Item id="43034" name="രണ്ടാമത്തെ ശൈലി"/>
+                    <Item id="43035" name="മൂന്നാമത്തെ ശൈലി"/>
+                    <Item id="43036" name="നാലാമത്തെ ശൈലി"/>
+                    <Item id="43037" name="അഞ്ചാം തരം"/>
                     <Item id="43038" name="ശൈലി കണ്ടെത്തുക"/>
-                    <Item id="43039" name="1st രീതിയിൽ"/>
-                    <Item id="43040" name="2nd രീതിയിൽ"/>
-                    <Item id="43041" name="3rd രീതിയിൽ"/>
-                    <Item id="43042" name="4th രീതിയിൽ"/>
-                    <Item id="43043" name="5 രീതിയിൽ"/>
+                    <Item id="43039" name="ഒന്നാം ശൈലി"/>
+                    <Item id="43040" name="രണ്ടാമത്തെ ശൈലി"/>
+                    <Item id="43041" name="മൂന്നാമത്തെ ശൈലി"/>
+                    <Item id="43042" name="നാലാമത്തെ ശൈലി"/>
+                    <Item id="43043" name="അഞ്ചാം തരം"/>
                     <Item id="43044" name="ശൈലി കണ്ടെത്തുക"/>
-                    <Item id="43045" name="തിരയൽ ഫലങ്ങൾ വിൻഡോ"/>
+                    <Item id="43045" name="തിരയൽ ഫലങ്ങളുടെ വിൻഡോ"/>
                     <Item id="43046" name="അടുത്ത തിരയൽ ഫലം"/>
-                    <Item id="43047" name="മുൻ തിരയൽ ഫലം"/>
-                    <Item id="43048" name="തിരഞ്ഞെടുത്ത് അടുത്തത് കണ്ടെത്തുക"/>
-                    <Item id="43049" name="തിരഞ്ഞെടുത്ത് മുമ്പത്തെ കണ്ടെത്തുക"/>
-					<Item id="43054" name="അടയാളപ്പെടുത്തുക ..."/>
+                    <Item id="43047" name="മുമ്പത്തെ തിരയൽ ഫലം"/>
+                    <Item id="43048" name="അടുത്തത് കണ്ടെത്തുകയും കണ്ടെത്തുകയും ചെയ്യുക"/>
+                    <Item id="43049" name="മുമ്പത്തേത് കണ്ടെത്തുകയും കണ്ടെത്തുകയും ചെയ്യുക"/>
+                    <Item id="43054" name="മാർ&amp;കെ..."/>
                     <Item id="44009" name="ഇതിനെ അയക്കൂ"/>
-                    <Item id="44010" name="എല്ലാം മടക്കുക"/>
-                    <Item id="44019" name="എല്ലാഅക്ഷരങ്ങളും കാണിക്കുക"/>
+                    <Item id="44010" name="എല്ലാം മടക്കിക്കളയുന്നു"/>
+                    <Item id="44019" name="എല്ലാ പ്രതീകങ്ങളും കാണിക്കുക"/>
                     <Item id="44020" name="ഇൻഡന്റ് ഗൈഡ് കാണിക്കുക"/>
-                    <Item id="44022" name="പൊതിയുക"/>
-                    <Item id="44023" name="സൂം &amp; കണ്ട്രോൾ + മൌസ് ചക്രം യുപിയിൽ"/>
-                    <Item id="44024" name="സൂം &amp; ഔട്ട് കണ്ട്രോൾ + മൌസ് ചക്രം താഴേക്കുള്ള"/>
-                    <Item id="44025" name="കാണിക്കുക വൈറ്റ്സ്പെയ്സും ടാബ്"/>
-                    <Item id="44026" name="വരിയുടെഅവസാനത്തേക്കു്നീങ്ങുക കാണിക്കുക"/>
-                    <Item id="44029" name="എല്ലാ മടക്കാത്ത"/>
-                    <Item id="44030" name="നിലവിൽ ലെവൽ ചുരുക്കുക"/>
-                    <Item id="44031" name="Uncollapse നിലവിൽ ലെവൽ"/>
-                    <Item id="44049" name="ചുരുക്കം ..."/>
-                    <Item id="44080" name="ഡോക്യുമെന്റ് മാപ്പ്"/>
-                    <Item id="44084" name="പ്രവർത്തന ലിസ്റ്റ്"/>
+                    <Item id="44022" name="വേഡ് റാപ്"/>
+                    <Item id="44023" name="സൂം ചെയ്യുക &amp;ഇൻ (Ctrl + മൌസ് വീൽ അപ്)"/>
+                    <Item id="44024" name="സൂം ചെയ്യുക &amp;ഔട്ട് ചെയ്യുക (Ctrl + Mouse Wheel Down)"/>
+                    <Item id="44025" name="വൈറ്റ് സ്പെയ്സും ടാബും കാണിക്കുക"/>
+                    <Item id="44026" name="വരിയുടെ അവസാനഭാഗം കാണിക്കുക"/>
+                    <Item id="44029" name="എല്ലാം വിഭജിച്ചു"/>
+                    <Item id="44030" name="നിലവിലെ നില ചുരുക്കുക"/>
+                    <Item id="44031" name="Uncollapse നിലവിലെ നില"/>
+                    <Item id="44049" name="സംഗ്രഹം..."/>
+                    <Item id="44080" name="പ്രമാണ മാപ്പ്"/>
+                    <Item id="44084" name="ഫംഗ്ഷൻ ലിസ്റ്റ്"/>
+                    <Item id="44085" name="ജോലിസ്ഥലത്തെ ഫോൾഡർ"/>
                     <Item id="44086" name="1st ടാബ്"/>
                     <Item id="44087" name="2nd ടാബ്"/>
                     <Item id="44088" name="3rd ടാബ്"/>
                     <Item id="44089" name="4th ടാബ്"/>
-                    <Item id="44090" name="5 ടാബ്"/>
-                    <Item id="44091" name="6 ടാബ്"/>
-                    <Item id="44092" name="7 ടാബ്"/>
-                    <Item id="44093" name="8 ടാബ്"/>
-                    <Item id="44094" name="9 ടാബ്"/>
-                    <Item id="44095" name="അടുത്ത ടാബ്"/>
+                    <Item id="44090" name="5th ടാബ്"/>
+                    <Item id="44091" name="6th ടാബ്"/>
+                    <Item id="44092" name="7th ടാബ്"/>
+                    <Item id="44093" name="8th ടാബ്"/>
+                    <Item id="44094" name="9th ടാബ്"/>
+                    <Item id="44095" name="അടുത്തത് ടാബ്"/>
                     <Item id="44096" name="മുമ്പത്തെ ടാബ്"/>
-                    <Item id="44032" name="പൂർണ്ണ സ്ക്രീൻ മോഡ് ടോഗിൾ"/>
+                    <Item id="44097" name="നിരീക്ഷിക്കൽ (വാൽ- f)"/>
+                    <Item id="44098" name="ടാബ് മുന്നോട്ട് നീക്കുക"/>
+                    <Item id="44099" name="ടാബ് പിന്നിലേക്ക് നീക്കുക"/>
+                    <Item id="44032" name="പൂർണ്ണ സ്ക്രീൻ മോഡ് ടോഗിൾ ചെയ്യുക"/>
                     <Item id="44033" name="സ്ഥിര സൂം പുനഃസ്ഥാപിക്കുക"/>
                     <Item id="44034" name="എപ്പോഴും മുകളില്"/>
-                    <Item id="44035" name="ലംബ സ്ക്രോളിംഗ് സമന്വയിപ്പിക്കുക"/>
-                    <Item id="44036" name="താളാത്മക തിരശ്ചീന സ്ക്രോളിംഗ്"/>
-                    <Item id="44041" name="റാപ് ചിഹ്നം കാണിക്കുകയും"/>
-                    <Item id="44072" name="മറ്റൊരു കാഴ്ച കേന്ദ്രീകരിക്കുക"/>
-                    <Item id="44081" name="പദ്ധതി പാനൽ 1"/>
-                    <Item id="44082" name="പദ്ധതി പാനൽ 2"/>
-                    <Item id="44083" name="പദ്ധതി പാനൽ 3"/>
-                    <Item id="45001" name="വിൻഡോസ് ഫോർമാറ്റ് പരിവർത്തനം"/>
-                    <Item id="45002" name="യുണിക്സ് ഫോർമാറ്റിലേക്ക് പരിവർത്തനം"/>
-                    <Item id="45003" name="മാക് ഫോർമാറ്റിലേക്ക് പരിവർത്തനം"/>
-                    <Item id="45004" name="ആൻസി എൻകോഡ്"/>
-                    <Item id="45005" name="യുട്ടിഎഫ് 8 എൻകോഡ്"/>
-                    <Item id="45006" name="UCS2 ബിഗ് എൻഡ്യൻ എൻകോഡ്"/>
-                    <Item id="45007" name="UCS2 ലിറ്റിൽ എൻഡ്യൻ എൻകോഡ്"/>
-                    <Item id="45008" name="BOM ലേക്ക് ഇല്ലാതെ യുട്ടിഎഫ് 8 എൻകോഡ്"/>
-                    <Item id="45009" name="ആൻസി പരിവർത്തനം"/>
-                    <Item id="45010" name="BOM ലേക്ക് ഇല്ലാതെ യുട്ടിഎഫ് 8 പരിവർത്തനം"/>
-                    <Item id="45011" name="യുട്ടിഎഫ് 8 പരിവർത്തനം"/>
-                    <Item id="45012" name="UCS2 ബിഗ് എൻഡ്യൻ പരിവർത്തനം"/>
-                    <Item id="45013" name="UCS2 ലിറ്റിൽ എൻഡ്യൻ പരിവർത്തനം"/>
+                    <Item id="44035" name="ലംബ സ്ക്രോളിംഗ് സമന്വയിപ്പിക്കുക"/>
+                    <Item id="44036" name="തിരശ്ചീന സ്ക്രോളിംഗ് സമന്വയിപ്പിക്കുക"/>
+                    <Item id="44041" name="റാപ്പ് ചിഹ്നം കാണിക്കുക"/>
+                    <Item id="44072" name="മറ്റൊരു കാഴ്ചയിൽ ശ്രദ്ധ കേന്ദ്രീകരിക്കുക"/>
+                    <Item id="44081" name="പ്രോജക്ട് പാനൽ 1"/>
+                    <Item id="44082" name="പ്രോജക്ട് പാനൽ 2"/>
+                    <Item id="44083" name="പ്രോജക്ട് പാനൽ 3"/>
+                    <Item id="45001" name="വിൻഡോസ് (CR LF)"/>
+                    <Item id="45002" name="യുണിക്സ് (LF)"/>
+                    <Item id="45003" name="മാക്കിന്റോഷ് (സി.ആർ)"/>
+                    <Item id="45004" name="ANSI ലെ എൻകോഡ് ചെയ്യുക"/>
+                    <Item id="45005" name="UTF-8-BOM ൽ എൻകോഡ് ചെയ്യുക"/>
+                    <Item id="45006" name="UCS-2 BE- യിൽ എൻകോഡ് ചെയ്യുക"/>
+                    <Item id="45007" name="UCS-2 LE BOM ൽ എൻകോഡ് ചെയ്യുക"/>
+                    <Item id="45008" name="UCF-8 ലെ എൻകോഡ് ചെയ്യുക"/>
+                    <Item id="45009" name="ANSI ആയി പരിവർത്തനം ചെയ്യുക"/>
+                    <Item id="45010" name="UTF-8 ലേക്ക് പരിവർത്തനം ചെയ്യുക"/>
+                    <Item id="45011" name="UTF-8-BOM ലേക്ക് പരിവർത്തനം ചെയ്യുക"/>
+                    <Item id="45012" name="UCS-2 BOM- യിലേക്ക് മാറ്റുക"/>
+                    <Item id="45013" name="UCS-2 LE GOOD- ലേക്ക് പരിവർത്തനം ചെയ്യുക"/>
 
-                    <Item id="10001" name="മറ്റൊരു കാഴ്ച നീക്കുക"/>
-                    <Item id="10002" name="മറ്റൊരു കാഴ്ച ലേക്ക് ക്ലോൺ"/>
-                    <Item id="10003" name="ന്യൂ ഇൻസ്റ്റൻസ് നീക്കുക"/>
-                    <Item id="10004" name="ന്യൂ ഇൻസ്റ്റൻസ് തുറക്കുക"/>
+                    <Item id="10001" name="മറ്റ് കാഴ്ചയിലേക്ക് നീക്കുക"/>
+                    <Item id="10002" name="മറ്റ് കാഴ്ചയിലേക്ക് ക്ലോൺ ചെയ്യുക"/>
+                    <Item id="10003" name="പുതിയ ഇൻസ്റ്റൻസിലേക്ക് നീക്കുക"/>
+                    <Item id="10004" name="പുതിയ ഇൻസ്റ്റൻസിൽ തുറക്കുക"/>
 
-                    <Item id="45060" name="ബിഗ് 5 (പരമ്പരാഗതം)"/>
-                    <Item id="45061" name="GB2312 (ലഘൂകരിച്ചത്)"/>
-                    <Item id="45054" name="ഒഇഎം 861: ഐസ്ലാൻഡിക്"/>
-                    <Item id="45057" name="ഒഇഎം 865: നോർഡിക്"/>
-                    <Item id="45053" name="ഒഇഎം 860: ഗീസ്"/>
-                    <Item id="45056" name="ഒഇഎം 863: ഫ്രഞ്ച്"/>
+                    <Item id="46001" name="ശൈലി കോൺഫിഗറേറ്റർ..."/>
+                    <Item id="46250" name="നിങ്ങളുടെ ഭാഷയെ നിർവചിക്കുക..."/>
+                    <Item id="46180" name="ഉപയോക്താവ്-നിർവ്വചിച്ചു"/>
+                    <Item id="47000" name="നോട്ട്പാഡ് ++ നെക്കുറിച്ച്"/>
+                    <Item id="47010" name="കമാൻഡ് ലൈൻ ആർഗ്യുമെന്റുകൾ..."/>
+                    <Item id="47001" name="നോട്ട്പാഡ് ++ ഹോം"/>
+                    <Item id="47002" name="നോട്ട്പാഡ് ++ പ്രോജക്ട് പേജ്"/>
+                    <Item id="47003" name="ഓൺലൈൻ ഡോക്യുമെന്റേഷൻ"/>
+                    <Item id="47004" name="നോട്ട്പാഡ് ++ കമ്മ്യൂണിറ്റി (ഫോറം)"/>
+                    <Item id="47011" name="ലൈവ് സപ്പോർട്ട്"/>
+                    <Item id="47012" name="ഡീബഗ് വിവരം..."/>
+                    <Item id="47005" name="കൂടുതൽ പ്ലഗിനുകൾ നേടുക"/>
+                    <Item id="47006" name="നോട്ട്പാഡ് ++ അപ്ഡേറ്റുചെയ്യുക"/>
+                    <Item id="47009" name="അപ്ഡേറ്റർ പ്രോക്സി സജ്ജീകരിക്കുക..."/>
+                    <Item id="48005" name="പ്ലഗ്-ഇൻ ഇറക്കുമതി ചെയ്യുക..."/>
+                    <Item id="48006" name="ഇംപോർട്ട് സ്റ്റൈൽ തീം (കൾ)..."/>
+                    <Item id="48018" name="പോപ്പ്അപ്പ് സന്ദർഭം എഡിറ്റുചെയ്യുക"/>
+                    <Item id="48009" name="കുറുക്കുവഴി മാപ്പർ..."/>
+                    <Item id="48011" name="മുൻഗണനകൾ..."/>
+                    <Item id="48501" name="ജനറേറ്റുചെയ്യുക..."/>
+                    <Item id="48502" name="ഫയലുകളിൽ നിന്ന് സൃഷ്ടിക്കുക..."/>
+                    <Item id="48503" name="ക്ലിപ്പ്ബോർഡിലേക്ക് ജനറേറ്റുചെയ്യുക"/>
+                    <Item id="49000" name="&amp;പ്രവർത്തിപ്പിക്കുക..."/>
 
-                    <Item id="46033" name="നിയമസഭാ"/>
-                    <Item id="46019" name="എം.എസ് എൻ ഫയൽ"/>
-                    <Item id="46015" name="എം.എസ്-ഡോസ് സ്റ്റൈൽ"/>
-                    <Item id="46016" name="സാധാരണ വാചകം"/>
-                    <Item id="46017" name="ഉറവിട ഫയൽ"/>
-
-                    <Item id="46001" name="സ്റ്റൈൽ കോണ്ഫിഗറേറ്റര് ..."/>
-                    <Item id="46150" name="നിങ്ങളുടെ ഭാഷ നിർവചിക്കുക ..."/>
-                    <Item id="46080" name="ഉപയോക്താവ് നിർവ്വചിച്ച"/>
-                    <Item id="47000" name="Aനോട്ട്പാഡ് ++ കുറിച്ച് ..."/>
-                    <Item id="47010" name="കമാൻഡ് ലൈൻ ആർഗ്യുമെന്റുകൾ ..."/>
-                    <Item id="47001" name="നോട്ട്പാഡ് ++ ഹോം"/>
-                    <Item id="47002" name="++ പദ്ധതി താൾ നോട്ട്പാഡ്"/>
-                    <Item id="47003" name="ഓൺലൈൻ വിവരണക്കുറിപ്പു്"/>
-					<Item id="47004" name="നോട്ട്പാഡ് ++ കമ്മ്യൂണിറ്റി (ഫോറം)"/>
-                    <Item id="47011" name="തത്സമയ പിന്തുണ"/>
-                    <Item id="47005" name="കൂടുതൽ പ്ലഗിനുകള്തെരയുക നേടുക"/>
-                    <Item id="47006" name="അപ്ഡേറ്റ് നോട്ട്പാഡ് ++"/>
-                    <Item id="47009" name="അപ്ഡേറ്റർ പ്രോക്സി സജ്ജീകരിക്കുക ..."/>
-                    <Item id="48005" name="ഇംപോർട്ട് പ്ലഗിനുകള്ക്കായി) ..."/>
-                    <Item id="48006" name="ഇംപോർട്ട് പ്രമേയം (ങ്ങൾ) ..."/>
-                    <Item id="48018" name="പോപ്പപ്പ്ജാലകംവിഘ്നപ്പെടുത്തിയിരിക്കുന്നു സന്ദർഭ മെനു എഡിറ്റ്"/>
-                    <Item id="48009" name="കുറുക്കുവഴി മാപ്പർ ..."/>
-                    <Item id="48011" name="മുൻഗണനകൾ ..."/>
-                    <Item id="49000" name="&amp;റൺ ..."/>
-
-                    <Item id="50000" name="ഫംഗ്ഷൻ പൂർത്തീകരണവും"/>
-                    <Item id="50001" name="വാക്ക് പൂർത്തീകരണവും"/>
-                    <Item id="50002" name="ഫംഗ്ഷൻ പരാമീറ്ററുകൾ ദുസ്സൂചന"/>
-                    <Item id="50006" name="പാത പൂർത്തീകരണവും"/>
-                    <Item id="44042" name="ലൈനുകൾ മറയ്ക്കുക"/>
-                    <Item id="42040" name="എല്ലാ സമീപകാല ഫയലുകൾ തുറക്കുക"/>
-                    <Item id="42041" name="ശൂന്യ സമീപകാല ഫയലുകൾ പട്ടിക"/>
-                    <Item id="48016" name="ശൂന്യ സമീപകാല ഫയലുകൾ പട്ടിക..."/>
-                    <Item id="48017" name="കുറുക്കുവഴി പരിഷ്ക്കരിക്കുക / കമാൻഡ് ഇല്ലാതാക്കുക ..."/>
+                    <Item id="50000" name="ഫംഗ്ഷൻ പൂർത്തീകരണം"/>
+                    <Item id="50001" name="വാക്ക് പൂർത്തീകരണം"/>
+                    <Item id="50002" name="പ്രവർത്തനം പരാമീറ്ററുകൾ സൂചന"/>
+                    <Item id="50006" name="പാത പൂർത്തിയാക്കുക"/>
+                    <Item id="44042" name="വരികൾ മറയ്ക്കുക"/>
+                    <Item id="42040" name="എല്ലാ പുതിയ ഫയലുകളും തുറക്കുക"/>
+                    <Item id="42041" name="ശൂന്യമായ പുതിയ ഫയലുകളുടെ ലിസ്റ്റ്"/>
+                    <Item id="48016" name="കുറുക്കുവഴി / മാക്രോ നീക്കം ചെയ്യുക..."/>
+                    <Item id="48017" name="കുറുക്കുവഴി പരിഷ്കരിക്കുക / കമാൻഡ് ഇല്ലാതാക്കുക..."/>
                 </Commands>
             </Main>
             <Splitter>
             </Splitter>
             <TabBar>
                     <Item CMID="0" name="അടയ്ക്കുക"/>
-                    <Item CMID="1" name="അടയ്ക്കുക എല്ലാ എന്നാൽ ഈ"/>
+                    <Item CMID="1" name="എല്ലാം അടയ്ക്കുക"/>
                     <Item CMID="2" name="രക്ഷിക്കും"/>
-                    <Item CMID="3" name="ഇതായി സംരക്ഷിക്കുക ..."/>
-                    <Item CMID="4" name="അച്ചടിക്കുക"/>
-                    <Item CMID="5" name="മറ്റൊരു കാഴ്ച നീക്കുക"/>
-                    <Item CMID="6" name="മറ്റൊരു കാഴ്ച ലേക്ക് ക്ലോൺ"/>
-                    <Item CMID="7" name="ക്ലിപ്ബോർഡ് പൂർണ്ണ ഫയൽ പാത"/>
-                    <Item CMID="8" name="ക്ലിപ്പ്ബോർഡിലേക്ക് ഫയലിന്റെ"/>
-                    <Item CMID="9" name="നിലവിൽ ദിശ. ക്ലിപ്ബോർഡ് പാത"/>
-                    <Item CMID="10" name="പുനർനാമകരണം"/>
-                    <Item CMID="11" name="ചവറ്റുകുട്ട നീക്കുക"/>
+                    <Item CMID="3" name="സംരക്ഷിക്കുക..."/>
+                    <Item CMID="4" name="പ്രിന്റ് ചെയ്യുക"/>
+                    <Item CMID="5" name="മറ്റ് കാഴ്ചയിലേക്ക് നീക്കുക"/>
+                    <Item CMID="6" name="മറ്റ് കാഴ്ചയിലേക്ക് ക്ലോൺ ചെയ്യുക"/>
+                    <Item CMID="7" name="ക്ലിപ്ബോർഡിലേക്കുള്ള പൂർണ്ണ ഫയൽ പാത്ത്"/>
+                    <Item CMID="8" name="ഫയല്നാമം ക്ലിപ്പ്ബോർഡിലേക്ക്"/>
+                    <Item CMID="9" name="ഇപ്പോഴത്തെ ഡ്രാഫ്റ്റ്. ക്ലിപ്ബോർഡിലേക്കുള്ള പാഥ്"/>
+                    <Item CMID="10" name="പേരുമാറ്റുക"/>
+                    <Item CMID="11" name="റീസൈക്കിൾ ബിൻ ആയി നീങ്ങുക"/>
                     <Item CMID="12" name="വായിക്കാൻ മാത്രം"/>
-                    <Item CMID="13" name="തെളിഞ്ഞ വായന മാത്രം ഫ്ലാഗ്"/>
-                    <Item CMID="14" name="ന്യൂ ഇൻസ്റ്റൻസ് നീക്കുക"/>
-                    <Item CMID="15" name="ന്യൂ ഇൻസ്റ്റൻസ് തുറക്കുക"/>
-                    <Item CMID="16" name="ലോഡുചെയ്യുക"/>
-                    <Item CMID="17" name="അടയ്ക്കുക എല്ലാ ഇടതുപക്ഷ ലേക്ക്"/>
-                    <Item CMID="18" name="അടയ്ക്കുക എല്ലാ അവകാശങ്ങളും ലേക്ക്"/>
-                    <Item CMID="19" name="Explorer ൽ അടങ്ങിയിരിക്കുന്ന ഫോൾഡർ തുറക്കുക"/>
-                    <Item CMID="20" name="അടങ്ങിയിരിക്കുന്ന ഫോൾഡർ തുറക്കുക സിഎംഡി ലെ"/>
+                    <Item CMID="13" name="വായന-മാത്രം ഫ്ലാഗുകൾ മായ്ക്കുക"/>
+                    <Item CMID="14" name="പുതിയ ഇൻസ്റ്റൻസിലേക്ക് നീക്കുക"/>
+                    <Item CMID="15" name="പുതിയ ഇൻസ്റ്റൻസിൽ തുറക്കുക"/>
+                    <Item CMID="16" name="വീണ്ടും ലോഡുചെയ്യുക"/>
+                    <Item CMID="17" name="എല്ലാം ഇടതുവശത്തേക്ക് അടയ്ക്കുക"/>
+                    <Item CMID="18" name="എല്ലാം വലതുവശത്തേക്ക് അടയ്ക്കുക"/>
+                    <Item CMID="19" name="എക്സ്പ്ലോററിൽ ഉൾക്കൊള്ളുന്ന ഫോൾഡർ തുറക്കുക"/>
+                    <Item CMID="20" name="Cmd -ൽ സൂക്ഷിക്കുന്ന ഫോൾഡർ തുറക്കുക"/>
+                    <Item CMID="21" name="സ്ഥിരസ്ഥിതി വ്യൂവറിൽ തുറക്കുക"/>
             </TabBar>
         </Menu>
 
         <Dialog>
-            <Find title="" titleFind="കണ്ടെത്തുക" titleReplace="മാറ്റിസ്ഥാപിക്കുക" titleFindInFiles="ഫയലുകളിൽ കണ്ടെത്തുക" titleMark="അടയാളം">
-                <Item id="1"    name="അടുത്തത് കണ്ടെത്തുക"/>
+            <Find title="" titleFind="കണ്ടെത്തുക" titleReplace="മാറ്റിസ്ഥാപിക്കുക" titleFindInFiles="ഫയലുകൾ കണ്ടെത്തുക" titleMark="അടയാളപ്പെടുത്തുക">
+                <Item id="1"    name="അടുത്തത് കണ്ടു പിടിക്കുക"/>
+                <Item id="1722" name="പിന്നിലേക്ക് നയിക്കുന്നു"/>
                 <Item id="2"    name="അടയ്ക്കുക"/>
-                <Item id="1620" name="എന്താണ് കണ്ടെത്തുക:"/>
-                <Item id="1603" name=" &amp;മുഴുവൻ വാക്കും പൊരുത്തമാകുന്നവ"/>
-                <Item id="1604" name=" &amp;പൊരുത്തപ്പെടുന്നവ"/>
-                <Item id="1605" name=" &amp;റെഗുലർ എക്സ്പ്രഷൻ"/>
-                <Item id="1606" name="&amp;ചുറ്റും റാപ്"/>
-                <Item id="1612" name="&amp;മുകളിലേക്കുള്ള"/>
-                <Item id="1613" name="&amp;ഡൗൺ"/>
-                <Item id="1614" name="എണ്ണം"/>
-                <Item id="1615" name="എല്ലാം കണ്ടെത്തുക"/>
-                <Item id="1616" name="അടയാളപ്പെടുത്തുക ലൈൻ"/>
-                <Item id="1618" name="ഓരോ തിരയൽ വേണ്ടി ശുദ്ധമാക്കുക"/>
-                <Item id="1621" name="സംവിധാനം"/>
-                <Item id="1611" name="&amp;ഇതുപയോഗിച്ച് പകരം:"/>
+                <Item id="1620" name="&amp;എന്താണ് കണ്ടെത്തുക :"/>
+                <Item id="1603" name="മത്സരം &amp; മുഴുവൻ വാക്കും മാത്രം"/>
+                <Item id="1604" name="മത്സരം &amp;കേസ്"/>
+                <Item id="1605" name="റീ&amp;ഗൂൾ എക്സ്പ്രഷൻ"/>
+                <Item id="1606" name="വ്രണം&amp;പി ചുറ്റും"/>
+                <Item id="1614" name="Coun&amp;t"/>
+                <Item id="1615" name="എല്ലാം അടയാളപ്പെടുത്തുക"/>
+                <Item id="1616" name="പുസ്തകം&amp;അടയാള രേഖ"/>
+                <Item id="1618" name="ഓരോ തിരച്ചിലിനും മധുരം എടുക്കുക"/>
+                <Item id="1611" name="റിപ്പ&amp;നാട കൂടെ :"/>
                 <Item id="1608" name="&amp;മാറ്റിസ്ഥാപിക്കുക"/>
-                <Item id="1609" name=" &amp;എല്ലാം മാറ്റി"/>
-                <Item id="1687" name="ഫോക്കസ് നഷ്ടമാക്കി ന്"/>
-                <Item id="1688" name="എല്ലായിപ്പോഴും"/>
-                <Item id="1632" name="തിരഞ്ഞെടുപ്പിൽ"/>
-                <Item id="1633" name="Clear"/>
-                <Item id="1635" name="എല്ലാ തുറന്ന പ്രമാണങ്ങൾ എല്ലാ മാറ്റിസ്ഥാപിക്കുക"/>
-                <Item id="1636" name="എല്ലാ തുറന്ന പ്രമാണങ്ങൾ എല്ലാ കണ്ടെത്തുക"/>
-                <Item id="1654" name="ഫിൽട്ടറുകൾ:"/>
-                <Item id="1655" name="ഡയറക്ടറി:"/>
+                <Item id="1609" name="മാറ്റിസ്ഥാപിക്കുക &amp;എല്ലാം"/>
+                <Item id="1687" name="ഫോക്കസ് നഷ്ടപ്പെടുമ്പോൾ"/>
+                <Item id="1688" name="എല്ലായ്പ്പോഴും"/>
+                <Item id="1632" name="തിരഞ്ഞെടുപ്പിൽ&amp;അയോൺ"/>
+                <Item id="1633" name="എല്ലാ മാർക്കും മായ്ക്കുക"/>
+                <Item id="1635" name="എല്ലാത്തിലും എല്ലാം മാറ്റി എഴുതുക &amp;തുറന്ന രേഖകൾ"/>
+                <Item id="1636" name="എല്ലാം എല്ലാം കണ്ടെത്തുക &amp;തുറന്ന രേഖകൾ"/>
+                <Item id="1654" name="ഫിൽറ്റർ ചെയ്യുക&amp;s :"/>
+                <Item id="1655" name="Dir&amp;ectory :"/>
                 <Item id="1656" name="എല്ലാം കണ്ടെത്തുക"/>
-                <Item id="1658" name="എല്ലാ അറകൾ ൽ"/>
-                <Item id="1659" name="മറച്ച ഫോൾഡറുകളിൽ"/>
-                <Item id="1624" name="തിരയൽ മോഡ്"/>
-                <Item id="1625" name="നോർമൽ"/>
-                <Item id="1626" name="വിപുലീകരിച്ച (\ n \ R, \ T, \ 0, \ X ...)"/>
-                <Item id="1660" name="ഫയലുകളിൽ മാറ്റിസ്ഥാപിക്കുക"/>
-                <Item id="1661" name="നിലവിലെ ഡോക് പിന്തുടരുക."/>
-                <Item id="1641" name="നിലവിലെ പ്രമാണത്തിൽ എല്ലാ കണ്ടെത്തുക"/>
-                <Item id="1686" name="സുതാര്യത"/>
-                <Item id="1703" name="&amp;. നെവ്ലിനെ പൊരുത്തപ്പെടുന്നു"/>
+                <Item id="1658" name="എല്ലാറ്റിനിലും&amp;b- ഫോൾഡറുകൾ"/>
+                <Item id="1659" name="ഇൻ &amp;മറച്ച ഫോൾഡറുകൾ"/>
+                <Item id="1624" name="തിരയൽ മോഡ്"/>
+                <Item id="1625" name="&amp;സാധാരണ"/>
+                <Item id="1626" name="E&amp;xtended (\n, \r, \t, \0, \x...)"/>
+                <Item id="1660" name="&amp;ഫയലുകളിൽ മാറ്റി എഴുതുക"/>
+                <Item id="1661" name="നിലവിലെ പ്രമാണത്തെ പിന്തുടരുക."/>
+                <Item id="1641" name="നിലവിലുള്ള പ്രമാണത്തിൽ എല്ലാം കണ്ടെത്തുക"/>
+                <Item id="1686" name="സുതാര്യത&amp;ഒപ്പം"/>
+                <Item id="1703" name="&amp;. പുതിയ വരി പൊരുത്തപ്പെടുന്നു"/>
             </Find>
 
-            <FindCharsInRange title="റേഞ്ച് പ്രതീകങ്ങൾ കണ്ടെത്തുക ...">
+            <FindCharsInRange title="ശ്രേണിയിലെ പ്രതീകങ്ങൾ കണ്ടെത്തുക...">
                 <Item id="2" name="അടയ്ക്കുക"/>
-                <Item id="2901" name="ASCII അല്ലാത്ത പ്രതീകങ്ങൾ (128-255)"/>
-                <Item id="2902" name="ആസ്കി അക്ഷരങ്ങൾ (0-127)"/>
+                <Item id="2901" name="ആസ്കിയല്ലാത്ത പ്രതീകങ്ങൾ (128-255)"/>
+                <Item id="2902" name="ASCII പ്രതീകങ്ങൾ (0-127)"/>
                 <Item id="2903" name="എന്റെ ശ്രേണി:"/>
-                <Item id="2906" name="&amp;മുകളിലേക്കുള്ള"/>
-                <Item id="2907" name="&amp;ഡൗൺ"/>
+                <Item id="2906" name="&amp;മുകളിലേക്ക്"/>
+                <Item id="2907" name="&amp;താഴേക്ക്"/>
                 <Item id="2908" name="സംവിധാനം"/>
-                <Item id="2909" name="&amp;ചുറ്റും റാപ്"/>
+                <Item id="2909" name="വ്രണം&amp;പി ചുറ്റും"/>
                 <Item id="2910" name="കണ്ടെത്തുക"/>
             </FindCharsInRange>
 
-            <GoToLine title="പോകുക ...">
-                <Item id="2007" name="വര"/>
-                <Item id="2008" name="ഓഫ്സെറ്റ്"/>
-                <Item id="1"    name="&amp;പോകു"/>
-                <Item id="2"    name="ഞാൻ ഒരിടത്തും പോകുന്നു"/>
+            <GoToLine title="പോകുക...">
+                <Item id="2007" name="&amp;ലൈൻ"/>
+                <Item id="2008" name="&amp;ഓഫ്സെറ്റ്"/>
+                <Item id="1"    name="പോകുക"/>
+                <Item id="2"    name="ഞാൻ പോകുന്നില്ല"/>
                 <Item id="2004" name="നീ ഇവിടെയാണ്:"/>
-                <Item id="2005" name="നിങ്ങൾ പോവേണ്ട:"/>
-                <Item id="2006" name="നിങ്ങൾ കൂടുതൽ അപ്പുറം കഴിയില്ല:"/>
+                <Item id="2005" name="നിങ്ങൾ പോകാൻ ആഗ്രഹിക്കുന്നു:"/>
+                <Item id="2006" name="നിങ്ങൾക്ക് കൂടുതലായി പോകാൻ കഴിയില്ല:"/>
             </GoToLine>
 
-            <Run title="Run...">
-                <Item id="1903" name="പ്രവർത്തിപ്പിക്കാൻ പ്രോഗ്രാം"/>
-                <Item id="1"    name="ഓട്ടം"/>
+            <Run title="പ്രവർത്തിപ്പിക്കുക...">
+                <Item id="1903" name="പ്രവർത്തിപ്പിക്കാനുള്ള പ്രോഗ്രാം"/>
+                <Item id="1"    name="പ്രവർത്തിപ്പിക്കുക"/>
                 <Item id="2"    name="റദ്ദാക്കുക"/>
                 <Item id="1904" name="രക്ഷിക്കും..."/>
             </Run>
 
-            <StyleConfig title="സ്റ്റൈൽ കോണ്ഫിഗറേറ്റര്">
+            <MD5FromFilesDlg title="ഫയലുകളിൽ നിന്നും MD5 ഡൈജസ്റ്റ് ഉണ്ടാക്കുക">
+                <Item id="1922" name="MD5 സൃഷ്ടിക്കുന്നതിനുള്ള ഫയലുകൾ തിരഞ്ഞെടുക്കുക..."/>
+                <Item id="1924" name="ക്ലിപ്പ്ബോർഡിലേയ്ക്ക് പകർത്തുക"/>
+                <Item id="2"    name="അടയ്ക്കുക"/>
+            </MD5FromFilesDlg>
+
+            <MD5FromTextDlg title="MD5 ഡൈജസ്റ്റ് സൃഷ്ടിക്കുക">
+                <Item id="1932" name="ഓരോ വരിയും ഒരു പ്രത്യേക സ്ട്രിങായി കണക്കാക്കുക"/>
+                <Item id="1934" name="ക്ലിപ്പ്ബോർഡിലേയ്ക്ക് പകർത്തുക"/>
+                <Item id="2"    name="അടയ്ക്കുക"/>
+            </MD5FromTextDlg>
+
+            <StyleConfig title="ശൈലി കോൺഫിഗറേറ്റർ">
                 <Item id="2"    name="റദ്ദാക്കുക"/>
-                <Item id="2301" name=" &amp;&amp;അടയ്ക്കുക സംരക്ഷിക്കുക"/>
+                <Item id="2301" name="രക്ഷിക്കും &amp;&amp; അടയ്ക്കുക"/>
                 <Item id="2303" name="സുതാര്യത"/>
                 <Item id="2306" name="തീം തിരഞ്ഞെടുക്കുക: "/>
                 <SubDialog>
                     <Item id="2204" name="ധീരമായ"/>
-                    <Item id="2205" name="ചരിഞ്ഞ"/>
-                    <Item id="2206" name="മുൻഭാഗത്തെ"/>
-                    <Item id="2207" name="പശ്ചാത്തല നിറം"/>
-                    <Item id="2208" name="ഫോണ്ട് പേര്:"/>
+                    <Item id="2205" name="ഇറ്റാലിക്ക്"/>
+                    <Item id="2206" name="ഫോർഗ്രൗണ്ട് കളർ"/>
+                    <Item id="2207" name="പശ്ചാത്തല വർണ്ണം"/>
+                    <Item id="2208" name="ഫോണ്ട് പേര്:"/>
                     <Item id="2209" name="അക്ഷര വലിപ്പം:"/>
                     <Item id="2211" name="ശൈലി:"/>
-                    <Item id="2212" name="വർണ്ണ സ്റ്റൈൽ"/>
-                    <Item id="2213" name="ഫോണ്ട് ശൈലി"/>
-                    <Item id="2214" name="സ്വതേ എസ്.:"/>
-                    <Item id="2216" name="ഉപയോക്തൃ എസ്.:"/>
+                    <Item id="2212" name="കളർ ശൈലി"/>
+                    <Item id="2213" name="അക്ഷര രൂപം"/>
+                    <Item id="2214" name="സ്ഥിരമായ ext.:"/>
+                    <Item id="2216" name="ഉപയോക്താവ് ext.:"/>
                     <Item id="2218" name="അടിവരയിടുക"/>
-                    <Item id="2219" name="സ്വതേ കീവേഡുകൾ"/>
-                    <Item id="2221" name="ഉപയോക്താവ് നിർവചിക്കപ്പെട്ട കീവേഡുകൾ"/>
+                    <Item id="2219" name="സ്ഥിര കീവേഡുകൾ"/>
+                    <Item id="2221" name="ഉപയോക്തൃ നിർവ്വചിച്ച കീവേഡുകൾ"/>
                     <Item id="2225" name="ഭാഷ:"/>
-                    <Item id="2226" name="ആഗോള മുൻഭാഗത്തെ പ്രാപ്തമാക്കുക"/>
-                    <Item id="2227" name="ആഗോള പശ്ചാത്തല വർണ്ണം പ്രാപ്തമാക്കുക"/>
-                    <Item id="2228" name="ആഗോള ഫോണ്ട് പ്രാപ്തമാക്കുക"/>
-                    <Item id="2229" name="ആഗോള ഫോണ്ട് വലുപ്പം പ്രാപ്തമാക്കുക"/>
-                    <Item id="2230" name="ആഗോള ബോൾഡ് ഫോണ്ട് ശൈലി പ്രാപ്തമാക്കുക"/>
-                    <Item id="2231" name="ആഗോള ഇറ്റാലിക്അക്ഷരസഞ്ചയം ശൈലി പ്രാപ്തമാക്കുക"/>
-                    <Item id="2232" name="ആഗോള അടിവര ഫോണ്ട് ശൈലി പ്രാപ്തമാക്കുക"/>
+                    <Item id="2226" name="ആഗോള മുൻഭാഗത്തെ വർണ്ണം പ്രവർത്തനക്ഷമമാക്കുക"/>
+                    <Item id="2227" name="ആഗോള പശ്ചാത്തല വർണ്ണം പ്രവർത്തനക്ഷമമാക്കുക"/>
+                    <Item id="2228" name="ഗ്ലോബൽ ഫോണ്ട് പ്രാപ്തമാക്കുക"/>
+                    <Item id="2229" name="ഗ്ലോബൽ ഫോണ്ട് സൈസ് പ്രാപ്തമാക്കുക"/>
+                    <Item id="2230" name="ആഗോള ബോൾഡ് ഫോണ്ട് ശൈലി പ്രവർത്തനക്ഷമമാക്കുക"/>
+                    <Item id="2231" name="ആഗോള ഇറ്റാലിക് ഫോണ്ട് ശൈലി പ്രവർത്തനക്ഷമമാക്കുക"/>
+                    <Item id="2232" name="ആഗോള അടിവരയിടുന്ന ഫോണ്ട് ശൈലി പ്രാപ്തമാക്കുക"/>
                 </SubDialog>
-
             </StyleConfig>
 
-            <UserDefine title="ഉപയോക്താവ് നിർവ്വചിച്ച">
+            <ShortcutMapper title="കുറുക്കുവഴി മാപ്പർ">
+                <Item id="2602" name="പരിഷ്ക്കരിക്കുക"/>
+                <Item id="2603" name="ഇല്ലാതാക്കുക"/>
+                <Item id="2606" name="തെളിഞ്ഞത്"/>
+                <Item id="2607" name="ഫിൽറ്റർ ചെയ്യുക: "/>
+                <Item id="1" name="അടയ്ക്കുക"/>
+                <ColumnName name="പേര്"/>
+                <ColumnShortcut name="കുറുക്കുവഴി"/>
+                <ColumnCategory name="വിഭാഗം"/>
+                <ColumnPlugin name="പ്ലഗിൻ"/>
+                <MainMenuTab name="പ്രധാന മെനു"/>
+                <MacrosTab name="മാക്രോകൾ"/>
+                <RunCommandsTab name="കമാൻഡുകൾ പ്രവർത്തിപ്പിക്കുക"/>
+                <PluginCommandsTab name="പ്ലഗിൻ കമാൻഡുകൾ"/>
+                <ScintillaCommandsTab name="Scintilla കമാൻഡുകൾ"/>
+                <ConflictInfoOk name="ഈ ഇനത്തിനുള്ള കുറുക്കുവഴികളുമായി പൊരുത്തമില്ല."/>
+                <ConflictInfoEditing name="വൈരുദ്ധ്യങ്ങളൊന്നുമില്ല . . ."/>
+            </ShortcutMapper>
+            <ShortcutMapperSubDialg title="കുറുക്കുവഴി">
+                <Item id="1" name="ശരി"/>
+                <Item id="2" name="റദ്ദാക്കുക"/>
+                <Item id="5006" name="പേര്"/>
+                <Item id="5008" name="ചേർക്കുക"/>
+                <Item id="5009" name="നീക്കംചെയ്യുക"/>
+                <Item id="5010" name="പ്രയോഗിക്കുക"/>
+                <Item id="5007" name="ഇത് ഈ കമാൻഡിൽ നിന്നും കുറുക്കുവഴികളെ നീക്കംചെയ്യും"/>
+                <Item id="5012" name="കൺഫഌക്റ്റ് ഫൌണ്ട്!"/>
+            </ShortcutMapperSubDialg>
+            <UserDefine title="ഉപയോക്താവ്-നിർവ്വചിച്ചു">
                 <Item id="20001" name="മുറിവാല്"/>
-                <Item id="20002" name="പുനർനാമകരണം"/>
-                <Item id="20003" name="പുതിയത് സൃഷ്ടിക്കുക ..."/>
+                <Item id="20002" name="പേരുമാറ്റുക"/>
+                <Item id="20003" name="പുതിയത് സൃഷ്ടിക്കുക..."/>
                 <Item id="20004" name="നീക്കംചെയ്യുക"/>
-                <Item id="20005" name="ഇതായി സംരക്ഷിക്കുക ..."/>
-                <Item id="20007" name="ഉപയോക്താവിന്റെ ഭാഷ: "/>
-                <Item id="20009" name="എസ്.:"/>
+                <Item id="20005" name="സംരക്ഷിക്കുക..."/>
+                <Item id="20007" name="ഉപയോക്തൃ ഭാഷ: "/>
+                <Item id="20009" name="അധികമുള്ളത്.:"/>
                 <Item id="20012" name="കേസ് അവഗണിക്കുക"/>
-                <Item id="20011" name="സുതാര്യത"/>
-                <Item id="20015" name="ഇറക്കുമതി ചെയ്യുക ..."/>
-                <Item id="20016" name="കയറ്റുമതി ചെയ്യുക ..."/>
-                <StylerDialog title="ശൈലി ഡയലോഗ്">
-                    <Item id="25030" name="ഫോണ്ട് ഓപ്ഷനുകൾ:"/>
-                    <Item id="25006" name="മുൻഭാഗത്തെ"/>
-                    <Item id="25007" name="പശ്ചാത്തല നിറം"/>
+                <Item id="20011" name="Transparency"/>
+                <Item id="20015" name="ഇമ്പോർട്ടുചെയ്യുക..."/>
+                <Item id="20016" name="കയറ്റുമതി ചെയ്യുക..."/>
+                <StylerDialog title="സ്റ്റൈലർ ഡയലോഗ്">
+                    <Item id="25030" name="ഫോണ്ട് ഓപ്ഷനുകൾ:"/>
+                    <Item id="25006" name="ഫോർഗ്രൗണ്ട് കളർ"/>
+                    <Item id="25007" name="പശ്ചാത്തല വർണ്ണം"/>
                     <Item id="25031" name="പേര്:"/>
-                    <Item id="25032" name="വലിപ്പം:"/>
+                    <Item id="25032" name="വലുപ്പം:"/>
                     <Item id="25001" name="ധീരമായ"/>
-                    <Item id="25002" name="ചരിഞ്ഞ"/>
+                    <Item id="25002" name="ഇറ്റാലിക്ക്"/>
                     <Item id="25003" name="അടിവരയിടുക"/>
-                    <Item id="25029" name="കൂടുകെട്ടി:"/>
-                    <Item id="25008" name="ഡെലിമീറ്ററിന്റെ1"/>
-                    <Item id="25009" name="ഡെലിമീറ്ററിന്റെ 2"/>
-                    <Item id="25010" name="ഡെലിമീറ്ററിന്റെ 3"/>
-                    <Item id="25011" name="ഡെലിമീറ്ററിന്റെ 4"/>
-                    <Item id="25012" name="ഡെലിമീറ്ററിന്റെ 5"/>
-                    <Item id="25013" name="ഡെലിമീറ്ററിന്റെ 6"/>
-                    <Item id="25014" name="ഡെലിമീറ്ററിന്റെ 7"/>
-                    <Item id="25015" name="ഡെലിമീറ്ററിന്റെ 8"/>
+                    <Item id="25029" name="നെസ്റ്റിംഗ്:"/>
+                    <Item id="25008" name="ഡിലിമിറ്റർ 1"/>
+                    <Item id="25009" name="ഡിലിമിറ്റർ 2"/>
+                    <Item id="25010" name="ഡിലിമിറ്റർ 3"/>
+                    <Item id="25011" name="ഡിലിമിറ്റർ 4"/>
+                    <Item id="25012" name="ഡിലിമിറ്റർ 5"/>
+                    <Item id="25013" name="ഡിലിമിറ്റർ 6"/>
+                    <Item id="25014" name="ഡിലിമിറ്റർ 7"/>
+                    <Item id="25015" name="ഡിലിമിറ്റർ 8"/>
                     <Item id="25018" name="കീവേഡ് 1"/>
-                    <Item id="25019" name="കീവേഡ്  2"/>
-                    <Item id="25020" name="കീവേഡ്  3"/>
-                    <Item id="25021" name="കീവേഡ്  4"/>
-                    <Item id="25022" name="കീവേഡ്  5"/>
-                    <Item id="25023" name="കീവേഡ്  6"/>
-                    <Item id="25024" name="കീവേഡ്  7"/>
-                    <Item id="25025" name="കീവേഡ്  8"/>
+                    <Item id="25019" name="കീവേഡ് 2"/>
+                    <Item id="25020" name="കീവേഡ് 3"/>
+                    <Item id="25021" name="കീവേഡ് 4"/>
+                    <Item id="25022" name="കീവേഡ് 5"/>
+                    <Item id="25023" name="കീവേഡ് 6"/>
+                    <Item id="25024" name="കീവേഡ് 7"/>
+                    <Item id="25025" name="കീവേഡ് 8"/>
                     <Item id="25016" name="അഭിപ്രായം"/>
                     <Item id="25017" name="അഭിപ്രായം ലൈൻ"/>
                     <Item id="25026" name="ഓപ്പറേറ്റർ 1"/>
                     <Item id="25027" name="ഓപ്പറേറ്റർ 2"/>
-                    <Item id="25028" name="സംഖ്യാപുസ്തകം"/>
-					<Item id="1" name="ശരി"/>
+                    <Item id="25028" name="സംഖ്യകൾ"/>
+                    <Item id="1" name="ശരി"/>
                     <Item id="2" name="റദ്ദാക്കുക"/>
                 </StylerDialog>
-                <Folder title=" &amp;&amp;ഫോൾഡർ സ്വതേ">
-                    <Item id="21101" name="സ്ഥിരസ്ഥിതി സ്റ്റൈൽ"/>
-                    <Item id="21102" name="സ്ടിലെർ"/>
-                    <Item id="21105" name="ഡോക്യുമെന്റേഷൻ:"/>
-                    <Item id="21104" name="താൽക്കാലികമായ ഡോക് സൈറ്റ്:"/>
-                    <Item id="21106" name="(വളരെ ശൂന്യമായ വരികൾ മടക്കിക്കളയുന്നു) കോംപാക്ട് മടക്കുക"/>
-                    <Item id="21220" name="കോഡ് 1 രീതിയിൽ നിദ്ര"/>
+                <Folder title="ഫോൾഡർ &amp;&amp; സ്ഥിരസ്ഥിതി">
+                    <Item id="21101" name="സ്ഥിരസ്ഥിതി ശൈലി"/>
+                    <Item id="21102" name="സ്റ്റൈലർ"/>
+                    <Item id="21105" name="ഡോക്യുമെന്റേഷൻ:"/>
+                    <Item id="21104" name="താൽക്കാലിക ഡോക് സൈറ്റ്:"/>
+                    <Item id="21106" name="മടക്കിക്കളയുന്നു &amp;ഒതുക്കമുള്ളത് (ശൂന്യമായ ലൈനുകളും കൂടി)"/>
+                    <Item id="21220" name="കോഡ് 1 രീതിയിൽ ഫോൾ ചെയ്യുന്നു:"/>
                     <Item id="21224" name="തുറക്കുക:"/>
-                    <Item id="21225" name="മിഡിൽ:"/>
+                    <Item id="21225" name="മധ്യത്തിൽ:"/>
                     <Item id="21226" name="അടയ്ക്കുക:"/>
-                    <Item id="21227" name="സ്ടിലെർ"/>
-                    <Item id="21320" name="കോഡ് 2 രീതിയിൽ നിദ്ര (വിഭാജികൾ needed):"/>
+                    <Item id="21227" name="സ്റ്റൈലർ"/>
+                    <Item id="21320" name="കോഡ് 2 രീതിയിൽ പൂരിപ്പിക്കൽ (വേർതിരിക്കേണ്ടതുണ്ട്):"/>
                     <Item id="21324" name="തുറക്കുക:"/>
-                    <Item id="21325" name="മിഡിൽ:"/>
+                    <Item id="21325" name="മധ്യത്തിൽ:"/>
                     <Item id="21326" name="അടയ്ക്കുക:"/>
-                    <Item id="21327" name="സ്ടിലെർ"/>
-                    <Item id="21420" name="അഭിപ്രായം രീതിയിൽ നിദ്ര"/>
+                    <Item id="21327" name="സ്റ്റൈലർ"/>
+                    <Item id="21420" name="അഭിപ്രായ ശൈലിയിൽ പൂശുന്നു:"/>
                     <Item id="21424" name="തുറക്കുക:"/>
-                    <Item id="21425" name="മിഡിൽ:"/>
+                    <Item id="21425" name="മധ്യത്തിൽ:"/>
                     <Item id="21426" name="അടയ്ക്കുക:"/>
-                    <Item id="21427" name="സ്ടിലെർ"/>
+                    <Item id="21427" name="സ്റ്റൈലർ"/>
                 </Folder>
-                <Keywords title="അടയാളവാക്കുകൾ ലിസ്റ്റുകൾ">
+                <Keywords title="കീവേഡ് പട്ടികകൾ">
                     <Item id="22101" name="1st ഗ്രൂപ്പ്"/>
                     <Item id="22201" name="2nd ഗ്രൂപ്പ്"/>
                     <Item id="22301" name="3rd ഗ്രൂപ്പ്"/>
@@ -515,437 +562,615 @@ College Name: Shrimad Rajchandra Institute of Management & Computer Application(
                     <Item id="22501" name="6th ഗ്രൂപ്പ്"/>
                     <Item id="22551" name="7th ഗ്രൂപ്പ്"/>
                     <Item id="22601" name="8th ഗ്രൂപ്പ്"/>
-                    <Item id="22121" name="പ്രിഫിക്സ് മോഡ്"/>
-                    <Item id="22221" name="പ്രിഫിക്സ് മോഡ്"/>
-                    <Item id="22321" name="പ്രിഫിക്സ് മോഡ്"/>
-                    <Item id="22421" name="പ്രിഫിക്സ് മോഡ്"/>
-                    <Item id="22471" name="പ്രിഫിക്സ് മോഡ്"/>
-                    <Item id="22521" name="പ്രിഫിക്സ് മോഡ്"/>
-                    <Item id="22571" name="പ്രിഫിക്സ് മോഡ്"/>
-                    <Item id="22621" name="പ്രിഫിക്സ് മോഡ്"/>
-                    <Item id="22122" name="സ്ടിലെർ"/>
-                    <Item id="22222" name="സ്ടിലെർ"/>
-                    <Item id="22322" name="സ്ടിലെർ"/>
-                    <Item id="22422" name="സ്ടിലെർ"/>
-                    <Item id="22472" name="സ്ടിലെർ"/>
-                    <Item id="22522" name="സ്ടിലെർ"/>
-                    <Item id="22572" name="സ്ടിലെർ"/>
-                    <Item id="22622" name="സ്ടിലെർ"/>
+                    <Item id="22121" name="പ്രിഫിക്സ് മോഡ്"/>
+                    <Item id="22221" name="പ്രിഫിക്സ് മോഡ്"/>
+                    <Item id="22321" name="പ്രിഫിക്സ് മോഡ്"/>
+                    <Item id="22421" name="പ്രിഫിക്സ് മോഡ്"/>
+                    <Item id="22471" name="പ്രിഫിക്സ് മോഡ്"/>
+                    <Item id="22521" name="പ്രിഫിക്സ് മോഡ്"/>
+                    <Item id="22571" name="പ്രിഫിക്സ് മോഡ്"/>
+                    <Item id="22621" name="പ്രിഫിക്സ് മോഡ്"/>
+                    <Item id="22122" name="സ്റ്റൈലർ"/>
+                    <Item id="22222" name="സ്റ്റൈലർ"/>
+                    <Item id="22322" name="സ്റ്റൈലർ"/>
+                    <Item id="22422" name="സ്റ്റൈലർ"/>
+                    <Item id="22472" name="സ്റ്റൈലർ"/>
+                    <Item id="22522" name="സ്റ്റൈലർ"/>
+                    <Item id="22572" name="സ്റ്റൈലർ"/>
+                    <Item id="22622" name="സ്റ്റൈലർ"/>
                 </Keywords>
-                <Comment title=" &amp;&amp; അഭിപ്രായം നമ്പർ">
-                    <Item id="23003" name="ലൈൻ അഭിപ്രായം സ്ഥാനം"/>
+                <Comment title="അഭിപ്രായം &amp;&amp; സംഖ്യ">
+                    <Item id="23003" name="വരി കമന്റ് സ്ഥാനം"/>
                     <Item id="23004" name="എവിടെയും അനുവദിക്കുക"/>
-                    <Item id="23005" name="വരിയുടെ തുടക്കത്തിൽ ഫോഴ്സ്"/>
-                    <Item id="23006" name="ആദ്യവും തൊട്ടുമുൻപത്തെ അനുവദിക്കുക"/>
-                    <Item id="23001" name="അഭിപ്രായങ്ങൾ ഏടുകൾ അനുവദിക്കുക"/>
-                    <Item id="23326" name="സ്ടിലെർ"/>
+                    <Item id="23005" name="ലൈൻ ആരംഭത്തിൽ ആരംഭിക്കുക"/>
+                    <Item id="23006" name="വൈറ്റ്സ്പെയ്സിനു മുമ്പ് അനുവദിക്കുക"/>
+                    <Item id="23001" name="അഭിപ്രായങ്ങൾ മടക്കിക്കളയുന്നത് അനുവദിക്കുക"/>
+                    <Item id="23326" name="സ്റ്റൈലർ"/>
                     <Item id="23323" name="തുറക്കുക"/>
                     <Item id="23324" name="പ്രതീകം തുടരുക"/>
                     <Item id="23325" name="അടയ്ക്കുക"/>
-                    <Item id="23301" name="അഭിപ്രായം ലൈൻ ശൈലി"/>
-                    <Item id="23124" name="സ്ടിലെർ"/>
+                    <Item id="23301" name="അഭിപ്രായ ലൈൻ ശൈലി"/>
+                    <Item id="23124" name="സ്റ്റൈലർ"/>
                     <Item id="23122" name="തുറക്കുക"/>
                     <Item id="23123" name="അടയ്ക്കുക"/>
-                    <Item id="23101" name="അഭിപ്രായം രീതിയിൽ"/>
-                    <Item id="23201" name="നമ്പർ രീതിയിൽ"/>
-                    <Item id="23220" name="സ്ടിലെർ"/>
+                    <Item id="23101" name="അഭിപ്രായ ശൈലി"/>
+                    <Item id="23201" name="നമ്പർ ശൈലി"/>
+                    <Item id="23220" name="സ്റ്റൈലർ"/>
                     <Item id="23230" name="പ്രിഫിക്സ് 1"/>
                     <Item id="23232" name="പ്രിഫിക്സ് 2"/>
-                    <Item id="23234" name="എക്സ്ട്രാസ് 1"/>
-                    <Item id="23236" name="എക്സ്ട്രാസ് 2"/>
-                    <Item id="23238" name="സഫിക്സും 1"/>
-                    <Item id="23240" name="സഫിക്സും 2"/>
+                    <Item id="23234" name="എക്സ്ട്രാകൾ 1"/>
+                    <Item id="23236" name="എക്സ്ട്രാകൾ 2"/>
+                    <Item id="23238" name="സഫിക്സ് 1"/>
+                    <Item id="23240" name="സഫിക്സ് 2"/>
                     <Item id="23242" name="ശ്രേണി:"/>
-                    <Item id="23244" name="ദശാംശ"/>
-                    <Item id="23245" name="ഡോട്ട്"/>
-                    <Item id="23246" name="അര്ധവിരാമചിഹ്നം"/>
+                    <Item id="23244" name="ഡെസിമൽ വേർതിരിക്കൽ"/>
+                    <Item id="23245" name="ഡോട്ട്"/>
+                    <Item id="23246" name="കോമ"/>
                     <Item id="23247" name="രണ്ടും"/>
                 </Comment>
-                <Operator title=" &amp;&amp;ഓപ്പറേറററുകളും ഡിലിമിറ്റർ">
-                    <Item id="24101" name="ഓപ്പറേറററുകളും രീതിയിൽ"/>
-                    <Item id="24113" name="സ്ടിലെർ"/>
-                    <Item id="24116" name="ഓപ്പറേറററുകളും 1"/>
-                    <Item id="24117" name="ഓപ്പറേറ്റേഴ്സ് 2 (വിഭാജികൾ ആവശ്യമാണ്)"/>
-                    <Item id="24201" name="ഡെലിമീറ്ററിന്റെ 1 ശൈലി"/>
+                <Operator title="ഓപ്പറേറ്റർമാർ &amp;&amp; ഡിലിമിറ്റർ">
+                    <Item id="24101" name="ഓപ്പറേറ്റർമാരുടെ ശൈലി"/>
+                    <Item id="24113" name="സ്റ്റൈലർ"/>
+                    <Item id="24116" name="ഓപ്പറേറ്റർമാർ 1"/>
+                    <Item id="24117" name="ഓപ്പറേറ്റർമാർ 2 (വേർതിരിക്കേണ്ടതുണ്ട്)"/>
+                    <Item id="24201" name="ഡിലിമിറ്റർ 1 സ്റ്റൈൽ"/>
                     <Item id="24220" name="തുറക്കുക:"/>
                     <Item id="24221" name="എസ്കേപ്പ്:"/>
                     <Item id="24222" name="അടയ്ക്കുക:"/>
-                    <Item id="24223" name="സ്ടിലെർ"/>
-                    <Item id="24301" name="ഡെലിമീറ്ററിന്റെ 2 രീതിയിൽ"/>
+                    <Item id="24223" name="സ്റ്റൈലർ"/>
+                    <Item id="24301" name="ഡിലിമിറ്റർ 2 ശൈലി"/>
                     <Item id="24320" name="തുറക്കുക:"/>
                     <Item id="24321" name="എസ്കേപ്പ്:"/>
                     <Item id="24322" name="അടയ്ക്കുക:"/>
-                    <Item id="24323" name="സ്ടിലെർ"/>
-                    <Item id="24401" name="ഡെലിമീറ്ററിന്റെ 3 രീതിയിൽ"/>
-                    <Item id="24420" name="തുറക്കുക:"/>
-                    <Item id="24421" name="എസ്കേപ്പ്:"/>
-                    <Item id="24422" name="അടയ്ക്കുക:"/>
-                    <Item id="24423" name="സ്ടിലെർ"/>
-                    <Item id="24451" name="ഡെലിമീറ്ററിന്റെ 4 ശൈലി"/>
-                    <Item id="24470" name="തുറക്കുക:"/>
-                    <Item id="24471" name="എസ്കേപ്പ്:"/>
-                    <Item id="24472" name="അടയ്ക്കുക:"/>
-                    <Item id="24473" name="സ്ടിലെർ"/>
-                    <Item id="24501" name="ഡെലിമീറ്ററിന്റെ 5 രീതിയിൽ"/>
+                    <Item id="24323" name="സ്റ്റൈലർ"/>
+                    <Item id="24401" name="ഡിലിമിറ്റർ 3 ശൈലി"/>
+                    <Item id="24420" name="തുറക്കുക :"/>
+                    <Item id="24421" name="എസ്കേപ്പ് :"/>
+                    <Item id="24422" name="അടയ്ക്കുക :"/>
+                    <Item id="24423" name="സ്റ്റൈലർ"/>
+                    <Item id="24451" name="ഡിലിമിറ്റർ 4 ശൈലി"/>
+                    <Item id="24470" name="തുറക്കുക :"/>
+                    <Item id="24471" name="എസ്കേപ്പ് :"/>
+                    <Item id="24472" name="അടയ്ക്കുക :"/>
+                    <Item id="24473" name="സ്റ്റൈലർ"/>
+                    <Item id="24501" name="ഡിലിമിറ്റർ 5 ശൈലി"/>
                     <Item id="24520" name="തുറക്കുക:"/>
-                    <Item id="24521" name="എസ്കേപ്പ്:"/>
-                    <Item id="24522" name="അടയ്ക്കുക:"/>
-                    <Item id="24523" name="സ്ടിലെർ"/>
-                    <Item id="24551" name="ഡെലിമീറ്ററിന്റെ 6 രീതിയിൽ"/>
-                    <Item id="24570" name="തുറക്കുക:"/>
-                    <Item id="24571" name="എസ്കേപ്പ്:"/>
-                    <Item id="24572" name="അടയ്ക്കുക:"/>
-                    <Item id="24573" name="സ്ടിലെർ"/>
-                    <Item id="24601" name="ഡെലിമീറ്ററിന്റെ 7 രീതിയിൽ"/>
-                    <Item id="24620" name="തുറക്കുക:"/>
-                    <Item id="24621" name="എസ്കേപ്പ്:"/>
-                    <Item id="24622" name="അടയ്ക്കുക:"/>
-                    <Item id="24623" name="സ്ടിലെർ"/>
-                    <Item id="24651" name="ഡെലിമീറ്ററിന്റെ 8 രീതിയിൽ"/>
+                    <Item id="24521" name="എസ്കേപ്പ് :"/>
+                    <Item id="24522" name="അടയ്ക്കുക :"/>
+                    <Item id="24523" name="സ്റ്റൈലർ"/>
+                    <Item id="24551" name="ഡെലിമീറ്റർ 6 ശൈലി"/>
+                    <Item id="24570" name="തുറക്കുക :"/>
+                    <Item id="24571" name="എസ്കേപ്പ് :"/>
+                    <Item id="24572" name="അടയ്ക്കുക :"/>
+                    <Item id="24573" name="സ്റ്റൈലർ"/>
+                    <Item id="24601" name="ഡെലിമീറ്റർ 7 ശൈലി"/>
+                    <Item id="24620" name="തുറക്കുക :"/>
+                    <Item id="24621" name="എസ്കേപ്പ് :"/>
+                    <Item id="24622" name="അടയ്ക്കുക :"/>
+                    <Item id="24623" name="സ്റ്റൈലർ"/>
+                    <Item id="24651" name="ഡിലിമിറ്റർ 8 ശൈലി"/>
                     <Item id="24670" name="തുറക്കുക:"/>
                     <Item id="24671" name="എസ്കേപ്പ്:"/>
                     <Item id="24672" name="അടയ്ക്കുക:"/>
-                    <Item id="24673" name="സ്ടിലെർ"/>
+                    <Item id="24673" name="സ്റ്റൈലർ"/>
                 </Operator>
             </UserDefine>
             <Preference title="മുൻഗണനകൾ">
-                <Item id="6001" name="Closeഅടയ്ക്കുക"/>
-                <Global title="General">
+                <Item id="6001" name="അടയ്ക്കുക"/>
+                <Global title="ജനറൽ">
                     <Item id="6101" name="ടൂൾബാർ"/>
-                    <Item id="6102" name="മറയ്ക്കുക"/>
-                    <Item id="6103" name="ചെറിയചിഹ്നങ്ങള്"/>
-                    <Item id="6104" name="ബിഗ് ഐക്കണുകൾ"/>
-                    <Item id="6105" name="ബിഗ് ഐക്കണുകൾ..."/>
+                    <Item id="6102" name="മറയ്ക്കൂ"/>
+                    <Item id="6103" name="ചെറിയ ഐക്കണുകൾ"/>
+                    <Item id="6104" name="വലിയ ഐക്കണുകൾ"/>
+                    <Item id="6105" name="സ്റ്റാൻഡേർഡ് ഐക്കണുകൾ"/>
 
                     <Item id="6106" name="ടാബ് ബാർ"/>
                     <Item id="6107" name="കുറയ്ക്കുക"/>
-                    <Item id="6108" name="ലോക്ക് (യാതൊരു വലിച്ചിടുന്നത്)"/>
-                    <Item id="6109" name="നിഷ്ക്രിയ ടാബുകളുടെ ഇരുണ്ട്"/>
-                    <Item id="6110" name="സജീവ ടാബിൽ നിറമുള്ള ബാർ വരയ്ക്കുക"/>
+                    <Item id="6108" name="ലോക്ക് ചെയ്യുക (വലിച്ചിടുക)"/>
+                    <Item id="6109" name="നിർജ്ജീവമായ ടാബുകൾ കറുപ്പിക്കുക"/>
+                    <Item id="6110" name="സജീവ ടാബിൽ ഒരു നിറമുള്ള ബാർ വരയ്ക്കുക"/>
 
                     <Item id="6111" name="സ്റ്റാറ്റസ് ബാർ കാണിക്കുക"/>
-                    <Item id="6112" name="ഓരോ ടാബിൽ അടയ്ക്കൂ ബട്ടൺ കാണിക്കുക"/>
-                    <Item id="6113" name="ഇരട്ട പ്രമാണം അടയ്ക്കാൻ ക്ലിക്ക്"/>
-                    <Item id="6118" name="മറയ്ക്കുക"/>
+                    <Item id="6112" name="ഓരോ ടാബിലും അടയ്ക്കുക ബട്ടൺ കാണിക്കുക"/>
+                    <Item id="6113" name="പ്രമാണം അടയ്ക്കുന്നതിന് ഇരട്ട ക്ലിക്കുചെയ്യുക"/>
+                    <Item id="6118" name="മറയ്ക്കൂ"/>
                     <Item id="6119" name="മൾട്ടി-ലൈൻ"/>
-                    <Item id="6120" name="ലംബമായ"/>
+                    <Item id="6120" name="ലംബമായത്"/>
+                    <Item id="6121" name="അവസാന ടാബ് അടച്ച് എക്സിറ്റ് ചെയ്യുക"/>
 
-                    <Item id="6122" name="മറയ്ക്കുക (ടോഗിൾ Alt അല്ലെങ്കിൽ F10 കീ ഉപയോഗിക്കുക)"/>
-                    <Item id="6123" name="ലോക്കലൈസേഷൻ"/>
+                    <Item id="6122" name="മെനു ബാർ മറയ്ക്കുക (ടോഗിൾ ചെയ്യുന്നതിന് Alt അല്ലെങ്കിൽ F10 കീ ഉപയോഗിക്കുക)"/>
+                    <Item id="6123" name="ലോക്കലൈസേഷൻ"/>
 
-                    <Item id="6125" name="ഡോക്യുമെന്റ് പട്ടിക പാനൽ"/>
+                    <Item id="6125" name="പ്രമാണ ലിസ്റ്റ് പാനൽ"/>
                     <Item id="6126" name="കാണിക്കുക"/>
-                    <Item id="6127" name="വിപുലീകരണം കോളം അപ്രാപ്തമാക്കുക"/>
+                    <Item id="6127" name="വിപുലീകരണ നിര അപ്രാപ്തമാക്കുക"/>
                 </Global>
                 <Scintillas title="എഡിറ്റിംഗ്">
-                    <Item id="6216" name="കാരറ്റ് ക്രമീകരണങ്ങൾ"/>
-                    <Item id="6217" name="വീതി:"/>
-                    <Item id="6219" name="ബ്ലിങ്ക് നിരക്ക്:"/>
+                    <Item id="6216" name="കാരറ്റ് ക്രമീകരണം"/>
+                    <Item id="6217" name="വീതി :"/>
+                    <Item id="6219" name="ബ്ലിങ്ക് നിരക്ക് :"/>
                     <Item id="6221" name="എഫ്"/>
                     <Item id="6222" name="എസ്"/>
-                    <Item id="6224" name="മൾട്ടി-എഡിറ്റിംഗ് ക്രമീകരണങ്ങൾ"/>
-                    <Item id="6225" name="(കണ്ട്രോൾ + മൗസ് ക്ലിക്കിൽ / നിരക്കു) പ്രാപ്തമാക്കുക)"/>
-                    <Item id="6201" name="ഫോൾഡർ മാർജിൻ സ്റ്റൈൽ"/>
-                    <Item id="6202" name="ലഘുവായ"/>
+                    <Item id="6224" name="ഒന്നിലധികം എഡിറ്റിംഗ് ക്രമീകരണം"/>
+                    <Item id="6225" name="(Ctrl + മൗസ് ക്ലിക്കുചെയ്യുക / തിരഞ്ഞെടുപ്പ്) പ്രവർത്തനക്ഷമമാക്കുക"/>
+                    <Item id="6201" name="ഫോൾഡർ മാർജിൻ ശൈലി"/>
+                    <Item id="6202" name="ലളിതം"/>
                     <Item id="6203" name="അമ്പടയാളം"/>
-                    <Item id="6204" name="സർക്കിൾ വൃക്ഷം"/>
-                    <Item id="6205" name="ബോക്സ് വൃക്ഷം"/>
+                    <Item id="6204" name="സർക്കിൾ ട്രീ"/>
+                    <Item id="6205" name="ബോക്സ് ട്രീ"/>
                     <Item id="6226" name="ഒന്നുമില്ല"/>
 
-                    <Item id="6227" name="വരി റാപ്"/>
-                    <Item id="6228" name="സ്വതേ"/>
-                    <Item id="6229" name="ചേരിചേരാ"/>
-                    <Item id="6230" name="ഇൻഡന്റ്"/>
+                    <Item id="6227" name="ലൈൻ റാപ്"/>
+                    <Item id="6228" name="സ്ഥിരസ്ഥിതി"/>
+                    <Item id="6229" name="വിന്യസിച്ചു"/>
+                    <Item id="6230" name="ഇൻഡന്റ് ചെയ്യുക"/>
 
-                    <Item id="6206" name="പ്രദർശിപ്പിക്കുക ലൈൻ നമ്പറുകൾ"/>
-                    <Item id="6207" name="ബുക്ക്മാർക്കുകൾ പ്രദർശിപ്പിക്കുക"/>
-                    <Item id="6208" name="ലംബമായ എഡ്ജ് കാണിക്കുക"/>
-                    <Item id="6209" name="നിരകൾ എണ്ണം: "/>
-                    <Item id="6234" name="വിപുലമായ സ്ക്രോളിംഗ് സവിശേഷത അപ്രാപ്തമാക്കുക
-(നിങ്ങൾ ടച്ച്പാഡ് പ്രശ്നം ഉണ്ടെങ്കിൽ)"/>
+                    <Item id="6206" name="ലൈൻ നമ്പർ പ്രദർശിപ്പിക്കുക"/>
+                    <Item id="6207" name="ബുക്ക്മാർക്ക് പ്രദർശിപ്പിക്കുക"/>
+                    <Item id="6208" name="ലംബ എഡ്ജ് കാണിക്കുക"/>
+                    <Item id="6209" name="നിരകളുടെ എണ്ണം :"/>
+                    <Item id="6234" name="വിപുലമായ സ്ക്രോളിംഗ് സവിശേഷത അപ്രാപ്തമാക്കുക (നിങ്ങൾക്ക് ടച്ച്പാഡ് പ്രശ്നം ഉണ്ടെങ്കിൽ)"/>
 
-                    <Item id="6211" name="ലംബമായ എഡ്ജ് ക്രമീകരണങ്ങൾ"/>
-                    <Item id="6212" name="ലൈൻ മോഡിൽ"/>
-                    <Item id="6213" name="പശ്ചാത്തല മോഡ്"/>
-                    <Item id="6214" name="നിലവിലെ വരി ഹൈലൈറ്റിംഗ് പ്രാപ്തമാക്കുക"/>
-					<Item id="6215" name="മിനുസമുള്ള ഫോണ്ട് പ്രാപ്തമാക്കുക"/>
-                    <Item id="6231" name="ബോർഡർ വീതി"/>
+                    <Item id="6211" name="ലംബ എഡ്ജ് ക്രമീകരണങ്ങൾ"/>
+                    <Item id="6212" name="ലൈൻ മോഡ്"/>
+                    <Item id="6213" name="പശ്ചാത്തല മോഡ്"/>
+                    <Item id="6214" name="നിലവിലെ വരി ഹൈലൈറ്റ് ചെയ്യൽ പ്രാപ്തമാക്കുക"/>
+                    <Item id="6215" name="സുഗമമായ ഫോണ്ട് പ്രവർത്തനക്ഷമമാക്കുക"/>
+                    <Item id="6231" name="ബോർഡർ വീതി"/>
+                    <Item id="6235" name="അറ്റമില്ല"/>
+                    <Item id="6236" name="അവസാന വരിയ്ക്ക് മുകളിലുള്ള സ്ക്രോളിംഗ് പ്രാപ്തമാക്കുക"/>
                 </Scintillas>
 
                 <NewDoc title="പുതിയ പ്രമാണം">
-                    <Item id="6401" name="ഫോർമാറ്റ്"/>
-                    <Item id="6402" name="വിൻഡോസ്"/>
-                    <Item id="6403" name="യുണിക്സ്"/>
-                    <Item id="6404" name="മാക്"/>
-                    <Item id="6405" name="എൻകോഡിംഗ്"/>
+                    <Item id="6401" name="ഫോർമാറ്റ് (ലൈൻ എൻഡ്)"/>
+                    <Item id="6402" name="വിൻഡോസ് (CR LF)"/>
+                    <Item id="6403" name="യുണിക്സ്  (LF)"/>
+                    <Item id="6404" name="മക്കിന്റോഷ് (CR)"/>
+                    <Item id="6405" name="എൻകോഡിംഗ്"/>
                     <Item id="6406" name="ആൻസി"/>
                     <Item id="6407" name="UTF-8"/>
-                    <Item id="6408" name="യുട്ടിഎഫ് 8 BOM ൽ ഉപയോഗിച്ച്"/>
-                    <Item id="6409" name="നന്മ UCS2 ബിഗ് എൻഡ്യൻ"/>
-                    <Item id="6410" name="നന്മ UCS2 ലിറ്റിൽ എൻഡ്യൻ"/>
-                    <Item id="6411" name="സ്ഥിര ഭാഷ:"/>
+                    <Item id="6408" name="BOM- നൊപ്പം UTF-8"/>
+                    <Item id="6409" name="ബോംസുള്ള UCS-2 വലിയ എൻഡ്യൻ"/>
+                    <Item id="6410" name="ബോംസുമായി UCS-2 ലിന്റ എൻഡ്യൻ"/>
+                    <Item id="6411" name="സ്ഥിരസ്ഥിതി ഭാഷ :"/>
                     <Item id="6419" name="പുതിയ പ്രമാണം"/>
-                    <Item id="6420" name="ആൻസി ഫയലുകൾ തുറക്കാൻ പ്രയോഗിക്കുക"/>
+                    <Item id="6420" name="തുറന്ന ANSI ഫയലുകളിൽ പ്രയോഗിക്കുക"/>
                 </NewDoc>
 
                 <DefaultDir title="സ്ഥിരസ്ഥിതി ഡയറക്ടറി">
-                    <Item id="6413" name="സ്വതേ ഡയറക്ടറി (തുറക്കുക / സൂക്ഷിക്കുക))"/>
-                    <Item id="6414" name="നിലവിലുള്ള രേഖ പിന്തുടരുക"/>
-                    <Item id="6415" name="അവസാനം ഉപയോഗിച്ചത് ഡയറക്ടറി ഓർക്കുക"/>
+                    <Item id="6413" name="സ്ഥിരസ്ഥിതി ഡയറക്ടറി (തുറക്കുക / സൂക്ഷിക്കുക)"/>
+                    <Item id="6414" name="നിലവിലെ പ്രമാണം പിന്തുടരുക"/>
+                    <Item id="6415" name="അവസാനം ഉപയോഗിച്ച ഡയറക്ടറി ഓർമ്മിക്കുക"/>
+                    <Item id="6430" name="പുതിയ ശൈലി ഡയലോഗ് ഉപയോഗിക്കുക (ഫയൽ എക്സ്റ്റൻഷൻ സവിശേഷത കൂടാതെ) &amp;&amp; യൂണിക്സ് സ്റ്റൈൽ പാഥിന്റെ ശേഷി)"/>
+                    <Item id="6431" name="ഫോൾഡർ ഡ്രോയിംഗിൽ വർക്ക് സ്പെയ്സ് ആയി ഫോൾഡർ സമാരംഭിക്കുന്നതിനുപകരം ഫോൾഡറിന്റെ എല്ലാ ഫയലുകളും തുറക്കുക"/>
                 </DefaultDir>
 
                 <FileAssoc title="ഫയൽ അസോസിയേഷൻ">
-                    <Item id="4009" name="പിന്തുണയുള്ള വിപുലീകരണങ്ങൾ:"/>
-                    <Item id="4010" name="രജിസ്റ്റർ വിപുലീകരണങ്ങൾ:"/>
+                    <Item id="4009" name="പിന്തുണയുള്ള എക്സ്റ്റൻഷനുകൾ :"/>
+                    <Item id="4010" name="രജിസ്റ്റർ ചെയ്ത വിപുലീകരണങ്ങൾ:"/>
                 </FileAssoc>
-                <Language title="ഭാഷാ മെനു">
+                <Language title="ഭാഷ">
                     <Item id="6505" name="ലഭ്യമായ ഇനങ്ങൾ"/>
-                    <Item id="6506" name="അപ്രാപ്തമാക്കി ഇനങ്ങൾ"/>
-                    <Item id="6507" name="ഭാഷ മെനുവിൽ ഒതുക്കമുള്ള വരുത്തുക"/>
-                    <Item id="6508" name="ഭാഷ മെനു"/>
-	            <Item id="6301" name="ടാബ് ക്രമീകരണങ്ങൾ"/>
-                    <Item id="6302" name="സ്പെയിസ് മാറ്റിസ്ഥാപിക്കുക"/>
+                    <Item id="6506" name="പ്രവർത്തനരഹിതമാക്കിയ ഇനങ്ങൾ"/>
+                    <Item id="6507" name="ഭാഷാ മെനു കോംപാക്റ്റ് ഉണ്ടാക്കുക"/>
+                    <Item id="6508" name="ഭാഷാ മെനു"/>
+                    <Item id="6301" name="ടാബ് ക്രമീകരണങ്ങൾ"/>
+                    <Item id="6302" name="സ്പെയ്സ് ഉപയോഗിച്ച് മാറ്റിസ്ഥാപിക്കുക"/>
                     <Item id="6303" name="ടാബ് വലുപ്പം: "/>
-                    <Item id="6510" name="സ്ഥിരസ്ഥിതി മൂല്യം ഉപയോഗിക്കുക"/>		
-                </Language>              
+                    <Item id="6510" name="സ്ഥിര മൂല്യം ഉപയോഗിക്കുക"/>
+                </Language>
+
+                <Highlighting title="ഹൈലൈറ്റ് ചെയ്യുന്നു">
+                    <Item id="6333" name="സ്മാർട്ട് ഹൈലൈറ്റ് ചെയ്യൽ"/>
+                    <Item id="6326" name="പ്രാപ്തമാക്കുക"/>
+                    <Item id="6332" name="മാച്ച് കേസ്"/>
+                    <Item id="6338" name="മുഴുവൻ വാക്കും മാത്രം യോജിപ്പിക്കുക"/>
+                    <Item id="6339" name="ഡയലോഗ് ക്രമീകരണങ്ങൾ കണ്ടെത്തുക ഉപയോഗിക്കുക"/>
+                    <Item id="6340" name="മറ്റൊരു കാഴ്ച ഹൈലൈറ്റ് ചെയ്യുക"/>
+                    <Item id="6329" name="പൊരുത്തപ്പെടുത്തുന്ന ടാഗുകൾ ഹൈലൈറ്റ് ചെയ്യുക"/>
+                    <Item id="6327" name="പ്രാപ്തമാക്കുക"/>
+                    <Item id="6328" name="ടാഗ് ആട്രിബ്യൂട്ടുകൾ ഹൈലൈറ്റ് ചെയ്യുക"/>
+                    <Item id="6330" name="അഭിപ്രായം / php / asp സോണി ഹൈലൈറ്റ് ചെയ്യുക"/>
+                </Highlighting>
 
                 <Print title="പ്രിന്റ് ചെയ്യുക">
-                    <Item id="6601" name="വരിയുടെ നമ്പർ"/>
+                    <Item id="6601" name="രേഖ നമ്പർ പ്രിന്റ് ചെയ്യുക"/>
                     <Item id="6602" name="വർണ്ണ ഓപ്ഷനുകൾ"/>
-                    <Item id="6603" name="വിസിവിഗ്"/>
+                    <Item id="6603" name="WYSIWYG"/>
                     <Item id="6604" name="വിപരീതം"/>
-                    <Item id="6605" name="വെള്ളയിൽ കറുപ്പ്"/>
-                    <Item id="6606" name="പശ്ചാത്തല നിറം"/>
-                    <Item id="6607" name="താങ്ക്സ് ക്രമീകരണങ്ങൾ (യൂണിറ്റ്: മില്ലീമീറ്റർ)"/>
+                    <Item id="6605" name="വെളുത്ത കറുപ്പ്"/>
+                    <Item id="6606" name="പശ്ചാത്തല വർണ്ണം ഒന്നുമില്ല"/>
+                    <Item id="6607" name="മാർജിൻ ക്രമീകരണങ്ങൾ (യൂണിറ്റ്: മില്ലീമീറ്റർ)"/>
                     <Item id="6612" name="ഇടത്തെ"/>
-                    <Item id="6613" name="ടോപ്പ്"/>
-                    <Item id="6614" name="വലത്"/>
-                    <Item id="6615" name="അടിത്തട്ട്"/>
+                    <Item id="6613" name="മുകളിൽ"/>
+                    <Item id="6614" name="ശരി"/>
+                    <Item id="6615" name="താഴെ"/>
                     <Item id="6706" name="ധീരമായ"/>
-                    <Item id="6707" name="ചരിഞ്ഞ"/>
+                    <Item id="6707" name="ഇറ്റാലിക്ക്"/>
                     <Item id="6708" name="ഹെഡ്ഡർ"/>
                     <Item id="6709" name="ഇടത് ഭാഗം"/>
-                    <Item id="6710" name="മിഡിൽ ഭാഗം"/>
-                    <Item id="6711" name="വലതു"/>
+                    <Item id="6710" name="മദ്ധ്യ ഭാഗം"/>
+                    <Item id="6711" name="വലത് ഭാഗം"/>
                     <Item id="6717" name="ധീരമായ"/>
-                    <Item id="6718" name="ചരിഞ്ഞ"/>
-                    <Item id="6719" name="അടിക്കുറിപ്പ്"/>
+                    <Item id="6718" name="ഇറ്റാലിക്ക്"/>
+                    <Item id="6719" name="ഫൂട്ടർ"/>
                     <Item id="6720" name="ഇടത് ഭാഗം"/>
-                    <Item id="6721" name="മിഡിൽ ഭാഗം"/>
-                    <Item id="6722" name="വലതു"/>
+                    <Item id="6721" name="മദ്ധ്യ ഭാഗം"/>
+                    <Item id="6722" name="വലത് ഭാഗം"/>
                     <Item id="6723" name="ചേർക്കുക"/>
                     <Item id="6725" name="വേരിയബിൾ:"/>
-                    <Item id="6727" name="ഇതാ നിങ്ങളുടെ വേരിയബിൾ സജ്ജീകരണങ്ങൾ പ്രദർശിപ്പിക്കാൻ"/>
-                    <Item id="6728" name="തലക്കെട്ടും അടിക്കുറിപ്പും"/>
+                    <Item id="6727" name="ഇവിടെ നിങ്ങളുടെ വേരിയബിൾ ക്രമീകരണങ്ങൾ പ്രദർശിപ്പിക്കുക"/>
+                    <Item id="6728" name="തലക്കെട്ടും അടിക്കുറുപ്പും"/>
                 </Print>
 
                 <RecentFilesHistory title="സമീപകാല ഫയലുകൾ ചരിത്രം">
                     <Item id="6304" name="സമീപകാല ഫയലുകൾ ചരിത്രം"/>
-                    <Item id="6306" name="മാക്സ്. എൻട്രികൾ എണ്ണം:"/>
-                    <Item id="6305" name="ലോഞ്ച് സമയത്ത് പരിശോധിക്കരുത്"/>
-                    <Item id="6429" name="പ്രദർശിപ്പിക്കുക"/>
-                    <Item id="6424" name="പുതിയഉപമെനു ൽ"/>
-                    <Item id="6425" name="മാത്രം ഫയലിന്റെ"/>
-                    <Item id="6426" name="പൂർണ്ണ ഫയല്നാമംവളരെവലുതാണു് പാത"/>
-                    <Item id="6427" name="പരമാവധി ദൈർഘ്യം ഇഷ്ടാനുസൃതമാക്കുക:"/>
+                    <Item id="6306" name="പരമാവധി എൻട്രികളുടെ എണ്ണം :"/>
+                    <Item id="6305" name="സമാരംഭസമയത്ത് പരിശോധിക്കരുത്"/>
+                    <Item id="6429" name="പ്രദർശനം"/>
+                    <Item id="6424" name="സുമേമനയിൽ"/>
+                    <Item id="6425" name="ഫയൽ നാമം മാത്രം"/>
+                    <Item id="6426" name="പൂർണ്ണ ഫയൽ നാമം പാത്ത്"/>
+                    <Item id="6427" name="പരമാവധി ദൈർഘ്യം ഇഷ്ടാനുസൃതമാക്കുക :"/>
                 </RecentFilesHistory>
 
                 <Backup title="ബാക്കപ്പ്">
-                    <Item id="6817" name="സെഷൻ സ്നാപ്ഷോട്ട് ആനുകാലികവുമായി ബാക്കപ്പ്"/>
-                    <Item id="6818" name="സെഷൻ സ്നാപ്ഷോട്ട് ആനുകാലികവുമായി ബാക്കപ്പ് പ്രാപ്തമാക്കുക"/>
-                    <Item id="6819" name="ഓരോ ലെ ബാക്കപ്പ്"/>
-                    <Item id="6821" name="നിമിഷങ്ങൾ"/>
+                    <Item id="6817" name="സെഷൻ സ്നാപ്പ്ഷോട്ട്, ആവർത്തന ബാക്കപ്പ്"/>
+                    <Item id="6818" name="സെഷൻ സ്നാപ്പ്ഷോട്ട്, ആവർത്തന ബാക്കപ്പ് എന്നിവ പ്രാപ്തമാക്കുക"/>
+                    <Item id="6819" name="ബാക്കപ്പ് എല്ലാം"/>
+                    <Item id="6821" name="സെക്കൻഡ്"/>
                     <Item id="6822" name="ബാക്കപ്പ് പാത:"/>
-                    <Item id="6309" name="അടുത്ത ലോഞ്ച് നിലവിലെ സെഷൻ ഓർക്കുക"/>
-                    <Item id="6801" name="ബാക്കപ്പ്"/>
+                    <Item id="6309" name="അടുത്ത സമാരംഭത്തിനായി ബാക്കപ്പ് പാസ്സാക്കുക നിലവിലെ സെഷൻ"/>
+                    <Item id="6801" name="ബാക്കപ്പ് സംരക്ഷിക്കുക"/>
                     <Item id="6315" name="ഒന്നുമില്ല"/>
-                    <Item id="6316" name="ലളിത ബാക്കപ്പ്"/>
-                    <Item id="6317" name="വാചാലത ബാക്കപ്പ്"/>
-                    <Item id="6804" name="കസ്റ്റം ബാക്കപ്പ് ഡയറക്ടറി"/>
-                    <Item id="6803" name="ഡയറക്ടറി:"/>
+                    <Item id="6316" name="ലളിതമായ ബാക്കപ്പ്"/>
+                    <Item id="6317" name="വെർബോസ് ബാക്കപ്പ്"/>
+                    <Item id="6804" name="ഇഷ്ടാനുസൃത ബാക്കപ്പ് ഡയറക്ടറി"/>
+                    <Item id="6803" name="ഡയറക്ടറി :"/>
                 </Backup>
 
                 <AutoCompletion title="യാന്ത്രിക പൂർത്തിയാക്കൽ">
-                    <Item id="6807" name="ഓട്ടോ-പൂർത്തിയാക്കൽ"/>
-                    <Item id="6808" name="ഓരോ ഇൻപുട്ട് യാന്ത്രികമായി പൂർത്തിയാക്കൽ പ്രവർത്തനക്ഷമമാക്കുക"/>
+                    <Item id="6807" name="യാന്ത്രിക പൂർത്തിയാക്കൽ"/>
+                    <Item id="6808" name="ഓരോ ഇൻപുട്ടിലും ഓട്ടോമാറ്റിക് പൂർത്തിയാക്കൽ പ്രാപ്തമാക്കുക"/>
                     <Item id="6809" name="ഫംഗ്ഷൻ പൂർത്തീകരണം"/>
                     <Item id="6810" name="വാക്ക് പൂർത്തീകരണം"/>
-                    <Item id="6816" name="പ്രവർത്തനം വാക്ക് പൂർത്തീകരണം"/>
-                    <Item id="6811" name="നിന്നും"/>
-                    <Item id="6813" name="ആം പ്രതീകം"/>
-                    <Item id="6814" name="സാധുവായ മൂല്യം: 1 - 9"/>
-                    <Item id="6815" name="ഫംഗ്ഷൻ പാരാമീറ്ററുകൾ ഇൻപുട്ട് ദുസ്സൂചന"/>
-                    <Item id="6851" name="ഓട്ടോ-തിരുകുക"/>
-                    <Item id="6857" name="HTML / XML അടയ്ക്കൂ ടാഗ്"/>
+                    <Item id="6816" name="ഫംഗ്ഷൻ, പദ പൂർത്തീകരണം"/>
+                    <Item id="6824" name="അവ ഉപേക്ഷിക്കുക"/>
+                    <Item id="6811" name="മുതൽ"/>
+                    <Item id="6813" name="th കഥാപാത്രം"/>
+                    <Item id="6814" name="സാധുതയുള്ള മൂല്യം  : 1 - 9"/>
+                    <Item id="6815" name="ഫംഗ്ഷൻ പാരാമീറ്ററുകൾ ഇൻപുട്ടിനെ സൂചിപ്പിക്കുന്നു"/>
+                    <Item id="6851" name="യാന്ത്രിക ഇൻസേർട്ട്"/>
+                    <Item id="6857" name=" html / xml അടഞ്ഞ ടാഗ്"/>
                     <Item id="6858" name="തുറക്കുക"/>
                     <Item id="6859" name="അടയ്ക്കുക"/>
-                    <Item id="6860" name="സെർച്ചിൽ ജോഡി 1:"/>
-                    <Item id="6863" name="സെർച്ചിൽ ജോഡി 2:"/>
-                    <Item id="6866" name="സെർച്ചിൽ ജോഡി 3:"/>
+                    <Item id="6860" name="പൊരുത്തപ്പെട്ട ജോഡി 1:"/>
+                    <Item id="6863" name="പൊരുത്തപ്പെട്ട ജോഡി 2:"/>
+                    <Item id="6866" name="പൊരുത്തപ്പെട്ട ജോഡി 3:"/>
                 </AutoCompletion>
 
                 <MultiInstance title="മൾട്ടി-ഇൻസ്റ്റൻസ്">
-                    <Item id="6151" name="മൾട്ടി-ഉദാഹരണത്തിന് ക്രമീകരണങ്ങൾ"/>
-                    <Item id="6152" name="നോട്ട്പാഡ് ഒരു പുതിയ ഉദാഹരണത്തിന് തുറക്കുക സെഷൻ ++"/>
-                    <Item id="6153" name="എല്ലായ്പ്പോഴും മൾട്ടി-ഇൻസ്റ്റൻസ് മോഡിൽ"/>
-                    <Item id="6154" name="സ്വതേ (മോങ്കോ-ഉദാഹരണത്തിന്)"/>
-                    <Item id="6155" name="* ഈ ക്രമീകരണം പരിഷ്ക്കരണം നോട്ട്പാഡ് പുനരാരംഭിക്കേണ്ടതുണ്ട് ++"/>
+                    <Item id="6151" name="മൾട്ടി-ഇൻസ്റ്റൻസ് ക്രമീകരണങ്ങൾ"/>
+                    <Item id="6152" name="നോട്ട്പാഡിന്റെ + ഒരു പുതിയ ഉദാഹരണത്തിൽ സെഷൻ തുറക്കുക"/>
+                    <Item id="6153" name="എല്ലായ്പ്പോഴും മൾട്ടി-ഇൻസ്റ്റൻസ് മോഡിൽ"/>
+                    <Item id="6154" name="സ്ഥിരസ്ഥിതി (മോണോ-ഘട്ടം)"/>
+                    <Item id="6155" name="* ഈ സജ്ജീകരണത്തിന്റെ പരിഷ്ക്കരണം നോട്ട്പാഡ് ++ പുനരാരംഭിക്കേണ്ടതുണ്ട്"/>
                 </MultiInstance>
 
                 <Delimiter title="ഡിലിമിറ്റർ">
-                    <Item id="6251" name="DELIMITER തിരഞ്ഞെടുപ്പ് ക്രമീകരണങ്ങൾ (കണ്ട്രോൾ + മൗസ് ഡബിൾ ക്ലിക്കിൽ)"/>
+                    <Item id="6251" name="ഡെലിമീറ്റർ തിരഞ്ഞെടുക്കൽ ക്രമീകരണങ്ങൾ (Ctrl + മൗസ് ഡബിൾ ക്ലിക്കിൽ)"/>
                     <Item id="6252" name="തുറക്കുക"/>
                     <Item id="6255" name="അടയ്ക്കുക"/>
-                    <Item id="6256" name="നിരവധി ലൈനുകളിൽ അനുവദിക്കുക"/>
+                    <Item id="6256" name="നിരവധി വരികളിൽ അനുവദിക്കുക"/>
+                    <Item id="6161" name="വേഡ് കഥാപാത്രം ലിസ്റ്റ്"/>
+                    <Item id="6162" name="അതുപോലെ സ്വതവേയുള്ള അക്ഷരങ്ങളുടെ പട്ടിക ഉപയോഗിയ്ക്കുക"/>
+                    <Item id="6163" name="വാക്കിന്റെ ഭാഗമായി നിങ്ങളുടെ പ്രതീകം ചേർക്കുക
+(നിങ്ങൾ എന്ത് ചെയ്യുന്നുവെന്ന് അറിയാതെ അല്ലാതെ അത് തിരഞ്ഞെടുക്കരുത്)"/>
                 </Delimiter>
 
-                 <Cloud title="മേഘം">
-                    <Item id="6262" name="മേഘത്തിന്മേൽ ക്രമീകരണങ്ങൾ"/>
-                    <Item id="6263" name="ഇല്ല ക്ലൗഡ്"/>
-                    <Item id="6267" name="നിങ്ങളുടെ ക്ലൗഡ് ലൊക്കേഷൻ പാത്ത് ഇവിടെ സജ്ജമാക്കുക:"/>
-                    <!--Item id="6261" name="Please restart Notepad++ to take effect."/-->
+                <Cloud title="മേഘം">
+                    <Item id="6262" name="ക്ലൗഡിൽ ക്രമീകരണം"/>
+                    <Item id="6263" name="ക്ലൗഡ് ഇല്ല"/>
+                    <Item id="6267" name="നിങ്ങളുടെ ക്ലൗഡ് ലൊക്കേഷൻ പാത ഇവിടെ സജ്ജമാക്കുക :"/>
                 </Cloud>
+                
+                <SearchEngine title="തിരയല് യന്ത്രം">
+                    <Item id="6271" name="തിരയൽ എഞ്ചിൻ (കമാൻഡ് & quot; ഇൻറർനെറ്റിൽ തിരയുക & quot;)"/>
+                    <Item id="6272" name="ഡക്ക്ഡക്ഗോ"/>
+                    <Item id="6273" name="Google"/>
+                    <Item id="6274" name="Bing"/>
+                    <Item id="6275" name="Yahoo!"/>
+                    <Item id="6276" name="നിങ്ങളുടെ തിരയൽ എഞ്ചിൻ ഇവിടെ സജ്ജമാക്കുക :"/>
+                    <!-- Don't change anything after Example: -->
+                    <Item id="6278" name="ഉദാഹരണം: https://www.google.com/search?q=$(CURRENT_WORD)"/>
+                </SearchEngine>
 
                 <MISC title="മിസിസ്.">
                     <Item id="6307" name="പ്രാപ്തമാക്കുക"/>
-                    <Item id="6308" name="സിസ്റ്റം ട്രേയിൽ ചുരുക്കുക"/>
-                    <Item id="6312" name="ഫയൽ നില യാന്ത്രിക-രോഗനിർണയം"/>
-                    <Item id="6313" name="നിശ്ശബ്ദമായി അപ്ഡേറ്റ്"/>
+                    <Item id="6308" name="സിസ്റ്റം ട്രേയിലേക്ക് ചെറുതാക്കുക"/>
+                    <Item id="6312" name="ഫയൽ നില യാന്ത്രിക-കണ്ടെത്തൽ"/>
+                    <Item id="6313" name="നിശബ്ദമായി അപ്ഡേറ്റുചെയ്യുക"/>
                     <Item id="6318" name="ക്ലിക്കുചെയ്യാനാകുന്ന ലിങ്ക് ക്രമീകരണങ്ങൾ"/>
-                    <Item id="6325" name="അപ്ഡേറ്റ് ശേഷം അവസാന വരി സ്ക്രോൾ"/>
+                    <Item id="6325" name="അപ്ഡേറ്റിനുശേഷം അവസാന വരിയിലേക്ക് സ്ക്രോൾ ചെയ്യുക"/>
                     <Item id="6319" name="പ്രാപ്തമാക്കുക"/>
-                    <Item id="6320" name="അടിവരയൊന്നുമില്ല"/>
-                    <Item id="6322" name="സെഷൻ ഫയൽ EXT.:"/>
-                    <Item id="6323" name="നോട്ട്പാഡ് ++ യാന്ത്രിക-അപ്ഡേറ്റർ പ്രാപ്തമാക്കുക"/>
-                    <Item id="6324" name="ഡോക്യുമെന്റ് സ്വിച്ചർ (CTRL + TAB)"/>
-                    <Item id="6326" name="സ്മാർട്ട് ഹൈലൈറ്റിംഗ് പ്രാപ്തമാക്കുക"/>
-                    <Item id="6329" name="മാച്ചിങ് ടാഗുകൾ ഹൈലൈറ്റ്"/>
-                    <Item id="6327" name="പ്രാപ്തമാക്കുക"/>
-                    <Item id="6328" name="ഹൈലൈറ്റ് ടാഗ് ആട്രിബ്യൂട്ടുകൾ"/>
-                    <Item id="6330" name="ഹൈലൈറ്റ് അഭിപ്രായം / PHP / സർപ്പത്തിന്റെ മേഖല"/>
-                    <Item id="6331" name="ടൈറ്റിൽ ബാറിലെ മാത്രം ഫയൽനാമം കാണിക്കുക"/>
-                    <Item id="6332" name="പൊരുത്തപ്പെടുന്നവ"/>
-                    <Item id="6333" name="സ്മാർട്ട് ഹൈലൈറ്റ്"/>
-                    <Item id="6334" name="ഓട്ടോ അക്ഷരങ്ങള് തിരിച്ചറിയുക"/>
-                    <Item id="6335" name="എസ്.ക്യു.എൽ. വേണ്ടി എസ്കേപ്പ് കാരക്ടർ ആയി ബാക്ക്സ്ലാഷ് പരിഗണിക്കുക"/>
+                    <Item id="6320" name="അടിവരയിടുകയില്ല"/>
+                    <Item id="6322" name="സെഷൻ ഫയൽ ext.:"/>
+                    <Item id="6323" name="നോട്ട്പാഡ് ++ ഓട്ടോ-അപ്ഡേറ്റർ പ്രാപ്തമാക്കുക"/>
+                    <Item id="6324" name="പ്രമാണ സ്വിച്ചർ (Ctrl + TAB)"/>
+                    <Item id="6331" name="ടൈറ്റിൽ ബാറിൽ ഫയൽ നെയിം കാണിക്കുക"/>
+                    <Item id="6334" name="പ്രതീകകോഡ് എൻകോഡിംഗ് ഓട്ടോഡിറ്റക്റ്റ് ചെയ്യുക"/>
+                    <Item id="6335" name="എസ്ക്ലക്സിനുള്ള escape escape പ്രതീകമായി ബക്സ്ലാഷ് നോക്കുക"/>
+                    <Item id="6337" name="വർക്ക്സ്പെയ്സ് ഫയൽ ext.:"/>
                     <Item id="6114" name="പ്രാപ്തമാക്കുക"/>
-                    <Item id="6115" name="Auto-indent"/>
-                    <Item id="6117" name="MRU ൽ പെരുമാറ്റം പ്രാപ്തമാക്കുകr"/>
+                    <Item id="6115" name="സ്വപ്രേരിത ഇൻഡന്റ്"/>
+                    <Item id="6117" name="MRU പെരുമാറ്റം പ്രവർത്തനക്ഷമമാക്കുക"/>
+                    <Item id="6344" name="പീക്കർ പ്രമാണം"/>
+                    <Item id="6345" name="ടാബിൽ പീക്ക് ചെയ്യുക"/>
+                    <Item id="6346" name="പ്രമാണ ഭൂപടത്തിലെ പീക്ക്"/>
                 </MISC>
             </Preference>
             <MultiMacro title="ഒരു മാക്രോ ഒന്നിലധികം ടൈം പ്രവർത്തിപ്പിക്കുക">
-                <Item id="1" name="ഓട്ടം"/>
-                <Item id="2" name="റദ്ദാക്കുക"/>
-                <Item id="8006" name="പ്രവർത്തിപ്പിക്കാൻ മാക്രോ:"/>
-                <Item id="8001" name="ഓട്ടം"/>
+                <Item id="1" name="&amp;പ്രവർത്തിപ്പിക്കുക"/>
+                <Item id="2" name="&amp;റദ്ദാക്കുക"/>
+                <Item id="8006" name="പ്രവർത്തിക്കാൻ മാക്രോ :"/>
+                <Item id="8001" name="പ്രവർത്തിപ്പിക്കുക"/>
                 <Item id="8005" name="തവണ"/>
-                <Item id="8002" name="ഫയലിന്റെ അവസാനം വരെ പ്രവർത്തിപ്പിക്കുക"/>
+                <Item id="8002" name="വരെ പ്രവർത്തിപ്പിക്കുക  &amp;ഫയലിന്റെ അവസാനം"/>
             </MultiMacro>
             <Window title="വിൻഡോസ്">
-                <Item id="1" name="സജീവമാക്കുക"/>
-                <Item id="2" name="ശരി"/>
-                <Item id="7002" name="രക്ഷിക്കും"/>
-                <Item id="7003" name="വിൻഡോ അടയ്ക്കുക (ങ്ങൾ))"/>
-                <Item id="7004" name="അടുക്കുക ടാബുകൾ"/>
+                <Item id="1" name="&amp;സജീവമാക്കുക"/>
+                <Item id="2" name="&amp;ശരി"/>
+                <Item id="7002" name="&amp;രക്ഷിക്കും"/>
+                <Item id="7003" name="&amp;വിൻഡോ (കൾ) അടയ്ക്കുക"/>
+                <Item id="7004" name="അടുക്കുക &amp;അടുക്കുക"/>
             </Window>
-            <ColumnEditor title="നിര എഡിറ്റർr">
-                <Item id="2023" name="ഇടയ്ക്കു്ചേര്ക്കുന്നതിനായിഫയല്തെരഞ്ഞെടുക്കുക ടെക്സ്റ്റ്"/>
-                <Item id="2033" name="ഇടയ്ക്കു്ചേര്ക്കുന്നതിനായിഫയല്തെരഞ്ഞെടുക്കുക നമ്പർ"/>
-                <Item id="2030" name="പ്രാരംഭ നമ്പർ:"/>
-                <Item id="2031" name="കൂട്ടുകയോ:"/>
-                <Item id="2035" name="മുന്നിൽ പൂജ്യങ്ങൾ"/>
+            <ColumnEditor title="നിര എഡിറ്റർ">
+                <Item id="2023" name="ഉൾപ്പെടുത്താനുള്ള വാചകം"/>
+                <Item id="2033" name="ഉൾപ്പെടുത്താനുള്ള നമ്പർ"/>
+                <Item id="2030" name="പ്രാരംഭ നമ്പർ :"/>
+                <Item id="2031" name="വർദ്ധിപ്പിക്കുക :"/>
+                <Item id="2035" name="മുൻനിര പൂജ്യം"/>
                 <Item id="2036" name="ആവർത്തിച്ച് :"/>
-                <Item id="2032" name="ഫോർമാറ്റ്"/>
+                <Item id="2032" name="ഫോർമാറ്റ് ചെയ്യുക"/>
                 <Item id="2024" name="ഡിസംബർ"/>
-                <Item id="2025" name="ഒക്ടോബർ"/>
+                <Item id="2025" name="ഒക്ടോബർ"/>
                 <Item id="2026" name="ഹെക്സ്"/>
                 <Item id="2027" name="ബിൻ"/>
                 <Item id="1" name="ശരി"/>
                 <Item id="2" name="റദ്ദാക്കുക"/>
             </ColumnEditor>
+            <FindInFinder title="ഫൈൻഡറിൽ കണ്ടെത്തുക">
+                <Item id="1"    name="എല്ലാം കണ്ടെത്തുക"/>
+                <Item id="2"    name="അടയ്ക്കുക"/>
+                <Item id="1711" name="&amp;എന്താണ് കണ്ടെത്തുക :"/>
+                <Item id="1713" name="കണ്ടെത്തിയ വരികളിൽ മാത്രം തിരയുക"/>
+                <Item id="1714" name="മത്സരം &amp;മുഴുവൻ വാക്കും മാത്രം"/>
+                <Item id="1715" name="മത്സരം &amp;കേസ്"/>
+                <Item id="1716" name="തിരയൽ മോഡ്"/>
+                <Item id="1717" name="&amp;സാധാരണ"/>
+                <Item id="1719" name="Re&amp;gular എക്സ്പ്രഷൻ"/>
+                <Item id="1718" name="E&amp;xtended (\n, \r, \t, \0, \x...)"/>
+                <Item id="1720" name="&amp;. പുതിയ വരി പൊരുത്തപ്പെടുന്നു"/>
+            </FindInFinder>
         </Dialog>
-        <MessageBox>
-            <ContextMenuXmlEditWarning title="എഡിറ്റ് എഡിറ്റ് മെൻ" message="എഡിറ്റിംഗ് സന്ദർഭ Menu.xml നിങ്ങൾ പോപപ്പ് സന്ദർഭ മെനു ++ നിങ്ങളുടെ നോട്ട്പാഡ് പരിഷ്ക്കരിക്കുക അനുവദിക്കുന്നു. \ സമയമാകുമ്പോഴുള്ള contextMenu.xml പരിഷ്ക്കരിക്കുന്നതായി ശേഷം പ്രാബല്യത്തിൽ നിങ്ങളുടെ നോട്ട്പാഡ് പുനരാരംഭിക്കുന്നതിന് ++ ഞങ്ങൾക്കുണ്ട്."/>
-            <NppHelpAbsentWarning title="ഫയൽ നിലവിലില്ല" message="\നിലവിലില്ല. നോട്ട്പാഡ് ++ സൈറ്റിൽ ഡൗൺലോഡ് ചെയ്യുക."/>
-            <SaveCurrentModifWarning title="നിലവിലെ പരിഷ്ക്കരണം സംരക്ഷിക്കുക" message="നിലവിലെ പരിഷ്കരണത്തിന് സംരക്ഷിക്കുകയോ ചെയ്യണം. \ എല്ലാ സംരക്ഷിത പരിഷ്കാരങ്ങൾക്കോ പഴയപടിയാക്കാനാവില്ല കഴിയുന്നില്ല. \ റീ തുടരണോ?"/>
-            <LoseUndoAbilityWarning title="അൺഡോ പ്രവർത്തനക്ഷമത മുന്നറിയിപ്പ്" message="നിലവിലെ പരിഷ്കരണത്തിന് സംരക്ഷിക്കുകയോ ചെയ്യണം. \ എല്ലാ സംരക്ഷിത പരിഷ്കാരങ്ങൾക്കോ പഴയപടിയാക്കാനാവില്ല കഴിയുന്നില്ല. \ റീ തുടരണോ?"/>
-            <CannotMoveDoc title="പുതിയ നോട്ട്പാഡ് ++ ഇൻസ്റ്റൻസ് എന്നതിലേക്ക് നീക്കുക" message="രേഖ സേവ് വീണ്ടും ശ്രമിക്കുക, പരിഷ്ക്കരിച്ചു."/>
-            <DocReloadWarning title="വീണ്ടും ലോഡുചെയ്യുക" message="നിങ്ങൾക്ക് ഉറപ്പാണോ നിലവിലെ ഫയൽ റീലോഡുചെയ്യേണ്ടതും നോട്ട്പാഡ് ++ ൽ ഉണ്ടാക്കിയ മാറ്റങ്ങൾ നഷ്ടപ്പെടും തീർച്ചയാണോ?"/>
-            <FileLockedWarning title="സംരക്ഷിക്കുന്നത് പരാജയപ്പെട്ടു" message="ഈ ഫയൽ മറ്റൊരു പ്രോഗ്രാം തുറക്കുകയാണെങ്കിൽ എന്ന് പരിശോധിക്കുക"/>
-            <FileAlreadyOpenedInNpp title="" message="ഫയൽ ഇതിനകം നോട്ട്പാഡ് ++ ൽ തുറന്നു നോക്കും."/>
-            <DeleteFileFailed title="ഫയൽ ഇല്ലാതാക്കുക" message="ഫയൽ പരാജയപ്പെട്ടു ഇല്ലാതാക്കുക"/>
+        <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <ContextMenuXmlEditWarning title="എഡിറ്റ് എഡിറ്റ് മെൻ" message="എഡിറ്റിംഗ് contextMenu.xml നിങ്ങളുടെ നോട്ട്പാഡ് ++ പോപ്പ്അപ്പ് കോൺടെക്സ്റ്റ് മെനു പരിഷ്കരിക്കാൻ അനുവദിക്കുന്നു .
+നിങ്ങൾ contextNenu.xml പരിഷ്ക്കരിച്ചതിന് ശേഷം പ്രാബല്യത്തിൽ വരുന്നതിന് നിങ്ങളുടെ നോട്ട്പാഡ് ++ പുനഃരാരംഭിക്കേണ്ടതുണ്ട്."/>
+            <NppHelpAbsentWarning title="ഫയൽ നിലവിലില്ല" message="
+നിലവിലില്ല. നോട്ട്പാഡ് ++ സൈറ്റിൽ ഇത് ഡൌൺലോഡ് ചെയ്യുക ."/>
+            <SaveCurrentModifWarning title="നിലവിലെ പരിഷ്ക്കരണം സംരക്ഷിക്കുക" message="നിലവിലുള്ള പരിഷ്ക്കരണം നിങ്ങൾ സംരക്ഷിക്കണം.
+സംരക്ഷിച്ച എല്ലാ മാറ്റങ്ങളും പൂർവാവസ്ഥയിലാക്കാൻ കഴിയില്ല.
+തുടരുക?"/>
+            <LoseUndoAbilityWarning title="അൺഡോ പ്രവർത്തനക്ഷമത മുന്നറിയിപ്പ്" message="നിലവിലുള്ള പരിഷ്ക്കരണം നിങ്ങൾ സംരക്ഷിക്കണം.
+സംരക്ഷിച്ച എല്ലാ മാറ്റങ്ങളും പൂർവാവസ്ഥയിലാക്കാൻ കഴിയില്ല.
+തുടരുക?"/>
+            <CannotMoveDoc title="പുതിയ നോട്ട്പാഡ് ++ ഇൻസ്റ്റൻസ് എന്നതിലേക്ക് നീക്കുക" message="പ്രമാണം പരിഷ്ക്കരിച്ചു, സംരക്ഷിക്കുക, തുടർന്ന് വീണ്ടും ശ്രമിക്കുക ."/>
+            <DocReloadWarning title="വീണ്ടും ലോഡുചെയ്യുക" message="നിലവിലുള്ള ഫയൽ റീലോഡ് ചെയ്ത് നോട്ട്പാഡ് ++ ലെ മാറ്റങ്ങൾ നഷ്ടപ്പെടുമെന്നുറപ്പാണോ?"/>
+            <FileLockedWarning title="സംരക്ഷിക്കുന്നത് പരാജയപ്പെട്ടു" message="ഈ ഫയൽ മറ്റൊരു പ്രോഗ്രാമിൽ തുറന്നിട്ടുണ്ടോ എന്ന് പരിശോധിക്കുക"/>
+            <FileAlreadyOpenedInNpp title="" message="നോട്ട്പാഡ് ++ ൽ ഫയൽ തുറന്നിരിക്കുന്നു ."/>
+            <DeleteFileFailed title="ഫയൽ ഇല്ലാതാക്കുക" message="ഫയൽ ഇല്ലാതാക്കൽ പരാജയപ്പെട്ടു"/>
+            
+            <NbFileToOpenImportantWarning title="തുറക്കുന്ന ഫയലുകൾ വളരെ വലുതാണ്" message="$ INT_REPLACE $ ഫയലുകൾ തുറക്കപ്പെടും.
+അവ തുറക്കാൻ നിങ്ങൾക്ക് ഉറപ്പാണോ?"/>
+            <SettingsOnCloudError title="ക്ലൗഡിൽ ക്രമീകരണം" message="വായന മാത്രമുള്ള ഡ്രൈവ് അടിസ്ഥാനത്തിൽ ക്ലൗഡിൽ സജ്ജീകരണ ക്രമീകരണങ്ങൾ ഏർപ്പെടുമെന്ന് തോന്നുന്നു,
+അല്ലെങ്കിൽ ഫോൾഡറിൽ ആവശ്യമായ ആക്സസ് എഴുതാൻ അവകാശം വേണം .
+ക്ലൗഡിൽ നിങ്ങൾക്കുള്ള ക്രമീകരണങ്ങൾ റദ്ദാക്കപ്പെടും. മുൻഗണന എന്ന ഡയലോഗിലൂടെ ഒരു സഹജമായ മൂല്യം ദയവായി പുനഃസജ്ജീകരിക്കുക ."/>
+            <FilePathNotFoundWarning title="ഫയൽ തുറക്കുക" message="നിങ്ങൾ തുറക്കാൻ ശ്രമിക്കുന്ന ഫയൽ നിലവിലില്ല ."/>
+            <SessionFileInvalidError title="സെഷൻ ലോഡുചെയ്യാൻ കഴിഞ്ഞില്ല" message="ഒന്നുകിൽ സെഷൻ ഫയൽ കേടായി അല്ലെങ്കിൽ സാധുതയുള്ളതല്ല ."/>
+            <DroppingFolderAsProjectModeWarning title="അസാധുവായ പ്രവർത്തനം" message="നിങ്ങൾക്ക് ഫോൾഡർ പ്രോജക്ട് മോഡ് ആയി ഉപേക്ഷിക്കുന്നതിനാൽ, നിങ്ങൾക്ക് ഫയലുകളും ഫോൾഡറുകളും മാത്രമേ ഡ്രോപ്പ് ചെയ്യാൻ കഴിയൂ .
+നിങ്ങൾ & quot; ഫോൾഡർ ഡ്രോയിംഗ് & quot; വർക്ക് സ്പെയ്സ് ആയി ഫോൾഡർ സമാരംഭിക്കുന്നതിനുപകരം & quot; ഫോൾഡറിന്റെ എല്ലാ ഫയലുകളും തുറക്കുക & quot; & quot; സ്ഥിരസ്ഥിതി ഡയറക്ടറി & quot; ഈ ഓപ്പറേഷൻ പ്രവർത്തിക്കുന്നതിന് മുൻഗണനകളുടെ ഡയലോഗിന്റെ വിഭാഗം ."/>
+            <SortingError title="സോർട്ടിംഗ് പിശക്" message="$ INT_REPLACE $ എന്ന വരിമൂലമുള്ള സാംഖിക തരം ക്രമീകരിക്കാൻ കഴിഞ്ഞില്ല ."/>
+            <ColumnModeTip title="നിര മോഡ് ടിപ്പ്" message="ദയവായി & quot; ALT + മൗസ് തിരഞ്ഞെടുക്കൽ & quot; ഉപയോഗിക്കുക അല്ലെങ്കിൽ & quot; Alt + Shift + അമ്പടയാളം കീ & quot; കോളം മോഡിലേക്ക് മാറുന്നതിന് ."/>
+            <BufferInvalidWarning title="സംരക്ഷിക്കുന്നത് പരാജയപ്പെട്ടു" message="സംരക്ഷിക്കാനാവില്ല: ബുഫർ അസാധുവാണ് ."/>
+            <DoSaveOrNot title="രക്ഷിക്കും" message="ഫയൽ & quot; $ STR_REPLACE $ & quot; ?"/>
+            <DoCloseOrNot title="നിലവിലില്ലാത്ത ഫയൽ സൂക്ഷിക്കുക" message="ഫയൽ & quot; $ STR_REPLACE $ & quot; ഇനി മുതൽ ഇല്ല .
+എഡിറ്ററിൽ ഈ ഫയൽ സൂക്ഷിക്കണോ?"/>
+            <DoDeleteOrNot title="ഫയൽ ഇല്ലാതാക്കുക" message="ഫയൽ & quot; $ STR_REPLACE $ & quot;
+നിങ്ങളുടെ റീസൈക്കിൾ ബിൻ ആയി മാറ്റപ്പെടും, ഈ പ്രമാണം അടയ്ക്കും .
+തുടരുക?"/>
+            <NoBackupDoSaveFile title="രക്ഷിക്കും" message="നിങ്ങളുടെ ബാക്കപ്പ് ഫയൽ കണ്ടെത്താനായില്ല (പുറത്തു നിന്ന് ഇല്ലാതാക്കിയത്).
+ഇത് സംരക്ഷിക്കുക അല്ലെങ്കിൽ നിങ്ങളുടെ ഡാറ്റ നഷ്ടമാകും
+നിങ്ങൾ & quot; $ STR_REPLACE $ & quot ഫയൽ സംരക്ഷിക്കാൻ ആഗ്രഹിക്കുന്നുണ്ടോ?; ?"/>
+            <DoReloadOrNot title="വീണ്ടും ലോഡുചെയ്യുക" message="& quot; $ STR_REPLACE $ & quot;
+മറ്റൊരു ഫയൽ ഈ ഫയൽ പരിഷ്ക്കരിച്ചു.
+നിങ്ങൾക്ക് ഇത് വീണ്ടും ലോഡുചെയ്യണോ?"/>
+            <DoReloadOrNotAndLooseChange title="വീണ്ടും ലോഡുചെയ്യുക" message="& quot; $ STR_REPLACE $ & quot;
+മറ്റൊരു ഫയൽ ഈ ഫയൽ പരിഷ്ക്കരിച്ചു.
+നോട്ട്പാഡ് ++ ലെ മാറ്റങ്ങൾ വരുത്തുവാനോ അത് റീലോഡ് ചെയ്യണോ?"/>
+            <PrehistoricSystemDetected title="ചരിത്രാധിഷ്ഠിത സിസ്റ്റം കണ്ടെത്തി" message="നിങ്ങൾ ഇപ്പോഴും ചരിത്രാധിഷ്ഠിതമായ സിസ്റ്റം ഉപയോഗിക്കുന്നതായി തോന്നുന്നു. ക്ഷമിക്കൂ, ഈ സവിശേഷത ആധുനിക സിസ്റ്റത്തിൽ മാത്രം പ്രവർത്തിക്കുന്നു ."/>
+            <XpUpdaterProblem title="നോട്ട്പാഡ് ++ അപ്ഡേറ്റർ" message="XP- ൽ കാലഹരണപ്പെട്ട സുരക്ഷാ പാളി കാരണം നോട്ട്പാഡ് ++ അപ്ഡേറ്റർ XP- ന് അനുയോജ്യമല്ല.
+ഏറ്റവും പുതിയ പതിപ്പ് ഡൗൺലോഡുചെയ്യാൻ നോട്ട്പാഡ് ++ പേജിലേക്ക് പോകണോ?"/>
+            <DocTooDirtyToMonitor title="മോണിറ്ററിംഗ് പ്രശ്നം" message="പ്രമാണം വൃത്തികെട്ടതാണ്. ഇത് നിരീക്ഷിക്കുന്നതിന് മുമ്പ് പരിഷ്കരിക്കുക ."/>
+            <DocNoExistToMonitor title="മോണിറ്ററിംഗ് പ്രശ്നം" message="ഫയൽ നിരീക്ഷിക്കപ്പെടേണ്ടതുണ്ടായിരിക്കണം ."/>
+            <FileTooBigToOpen title="ഫയൽ വലുപ്പ പ്രശ്നം" message="Notepad ++ തുറക്കാൻ ഫയൽ വളരെ വലുതാണ്"/>
+            <CreateNewFileOrNot title="പുതിയ ഫയൽ സൃഷ്ടിക്കുക" message="& quot; $ STR_REPLACE $ & quot; നിലവിലില്ല. ഇത് ഉണ്ടാക്കണോ?"/>
+            <CreateNewFileError title="പുതിയ ഫയൽ സൃഷ്ടിക്കുക" message="& Quot; $ STR_REPLACE $ & quot; എന്ന ഫയൽ സൃഷ്ടിക്കാൻ കഴിയില്ല ."/>
+            <OpenFileError title="പിശക്" message="ഫയൽ & quot; $ STR_REPLACE $ & quot; തുറക്കാൻ കഴിയില്ല ."/>
+            <FileBackupFailed title="ഫയൽ ബാക്കപ്പ് പരാജയപ്പെട്ടു" message="& Quot; $ STR_REPLACE $ & quot; ലെ ബാക്കപ്പ് ഡയറക്ടറിയിലേക്ക് ഫയൽ മുമ്പത്തെ പതിപ്പ് സംരക്ഷിക്കാൻ കഴിഞ്ഞില്ല.
+നിലവിലുള്ള ഫയൽ സേവ് ചെയ്യണമെന്നുണ്ടോ?"/>
+            <LoadStylersFailed title="Stylers.xml ലോഡുചെയ്യാൻ പരാജയപ്പെട്ടു" message="& Quot; $ STR_REPLACE $ & quot; ലോഡുചെയ്യുക പരാജയപ്പെട്ടു!"/>
+            <LoadLangsFailed title="കോൺഫിഗറേറ്റർ" message="Langs.xml ലോഡുചെയ്യാൻ പരാജയപ്പെട്ടു!
+നിങ്ങളുടെ langs.xml വീണ്ടെടുക്കാൻ ആഗ്രഹമുണ്ടോ?"/>
+            <LoadLangsFailedFinal title="കോൺഫിഗറേറ്റർ" message="Langs.xml ലോഡുചെയ്യാൻ പരാജയപ്പെട്ടു!"/>
+            <FolderAsWorspaceSubfolderExists title="ഫോൾഡർ ഫോൾഡർ പ്രശ്നം ചേർക്കുന്നു" message="നിങ്ങൾ ചേർക്കാൻ ആഗ്രഹിക്കുന്ന ഫോൾഡറിന്റെ സബ് ഫോൾഡർ നിലവിലുണ്ട്.
+നിങ്ങൾ ഫോൾഡർ & quot; $ STR_REPLACE $ & quot; ചേർക്കുന്നതിന് മുമ്പ് അതിന്റെ റൂട്ട് പാനലിൽ നിന്ന് നീക്കംചെയ്യുക ."/>
 
-            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
-            <NbFileToOpenImportantWarning title="തുറക്കുന്ന ഫയലുകൾ വളരെ വലുതാണ്" message="$ INT_REPLACE $ ഫയലുകൾ തുറക്കും പോകുകയാണ്. \ നിങ്ങൾ അവരെ തുറക്കുന്നതിന് ഉറപ്പാണോ?"/>
-			<SettingsOnCloudError title="ക്ലൗഡിൽ ക്രമീകരണം" message="തോന്നുന്നു മേഘം ക്രമീകരണങ്ങൾ പാതയിൽ ഒരു വായന മാത്രം ശരിയായ ആക്സസ് വാദ്യര് വേണ്ടി, ഡ്രൈവ് ഒരു ഫോൾഡർ ആവശ്യമായ പദവിയെ \ ROR. \ മേഘത്തിന്മേൽ r നിങ്ങളുടെ ക്രമീകരണങ്ങൾ റദ്ദാക്കപ്പെടും സജ്ജമാക്കുമ്പോൾ. മുൻഗണന ഡയലോഗ് വഴി കഥയെ മൂല്യം പുനഃസജ്ജമാക്കുക."/>
+            <ProjectPanelChanged title="$STR_REPLACE$" message="വർക്ക്സ്പെയ്സ് പരിഷ്കരിച്ചു. നിങ്ങൾക്കത് സംരക്ഷിക്കണോ?"/>
+            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="നിങ്ങളുടെ പ്രവർത്തിസ്ഥലം സംരക്ഷിക്കപ്പെട്ടിട്ടില്ല ."/>
+            <ProjectPanelOpenDoSaveDirtyWsOrNot title="ജോലിസ്ഥലത്തെ തുറക്കുക" message="നിലവിലുള്ള വർക്ക്സ്പെയ്സ് പരിഷ്ക്കരിച്ചു. നിലവിലുള്ള പ്രോജക്റ്റ് സംരക്ഷിക്കണോ?"/>
+            <ProjectPanelNewDoSaveDirtyWsOrNot title="പുതിയ വർക്ക്സ്പെയ്സ്" message="നിലവിലുള്ള വർക്ക്സ്പെയ്സ് പരിഷ്ക്കരിച്ചു. നിലവിലുള്ള പ്രോജക്റ്റ് സംരക്ഷിക്കണോ?"/>
+            <ProjectPanelOpenFailed title="ജോലിസ്ഥലത്തെ തുറക്കുക" message="പ്രവർത്തനസ്ഥലം തുറക്കാനായില്ല.
+തുറക്കുന്നതിനുള്ള ഫയൽ ഒരു സാധുവായ പ്രോജക്റ്റ് ഫയലല്ലെന്ന് തോന്നുന്നു ."/>
+            <ProjectPanelRemoveFolderFromProject title="പ്രോജക്ടിൽ നിന്ന് ഫോൾഡർ നീക്കംചെയ്യുക" message="എല്ലാ ഉപ-ഇനങ്ങളും നീക്കംചെയ്യപ്പെടും.
+പ്രോജക്റ്റിൽ നിന്ന് ഈ ഫോൾഡർ നീക്കംചെയ്യണമെന്ന് നിങ്ങൾക്ക് തീർച്ചയാണോ?"/>
+            <ProjectPanelRemoveFileFromProject title="പ്രോജക്റ്റിൽ നിന്നും ഫയൽ നീക്കം ചെയ്യുക" message="പ്രോജക്റ്റിൽ നിന്ന് ഈ ഫയൽ നീക്കംചെയ്യണമെന്ന് നിങ്ങൾക്ക് തീർച്ചയാണോ?"/>
+            <ProjectPanelReloadError title="ജോലിസ്ഥലത്തെ വീണ്ടും ലോഡുചെയ്യുക" message="വീണ്ടും ലോഡുചെയ്യാൻ ഫയൽ കണ്ടെത്താനായില്ല ."/>
+            <ProjectPanelReloadDirty title="ജോലിസ്ഥലത്തെ വീണ്ടും ലോഡുചെയ്യുക" message="നിലവിലുള്ള വർക്ക്സ്പെയ്സ് പരിഷ്ക്കരിച്ചു. റീലോഡിംഗ് എല്ലാ മാറ്റങ്ങളും നിരാകരിക്കും.
+നിങ്ങൾ തുടരാൻ ആഗ്രഹിക്കുന്നുവോ?"/>
+            <UDLNewNameError title="യുഡിഎൽ തെറ്റു്" message="മറ്റൊരു പേര് ഈ പേര് ഉപയോഗിക്കുന്നത്,
+മറ്റൊന്ന് തരൂ ."/>
+            <UDLRemoveCurrentLang title="നിലവിലെ ഭാഷ നീക്കംചെയ്യുക" message="നിങ്ങള്ക്ക് ഉറപ്പാണോ?"/>
+            <SCMapperDoDeleteOrNot title="നിങ്ങള്ക്ക് ഉറപ്പാണോ?" message="ഈ കുറുക്കുവഴി ഇല്ലാതാക്കണമെന്ന് നിങ്ങൾക്ക് ഉറപ്പാണോ?"/>
+            <FindCharRangeValueError title="ശ്രേണി മൂല്യ പ്രശ്നം" message="നിങ്ങൾ 0 മുതൽ 255 വരെ ടൈപ്പുചെയ്യണം ."/>
+            <OpenInAdminMode title="സംരക്ഷിക്കുന്നത് പരാജയപ്പെട്ടു" message="ഫയൽ സംരക്ഷിക്കാനാകില്ല, അത് പരിരക്ഷിക്കപ്പെടും.
+അഡ്മിനിസ്ട്രേറ്റർ മോഡിൽ നോട്ട്പാഡ് ++ സമാരംഭിക്കണോ?"/>
+            <OpenInAdminModeWithoutCloseCurrent title="സംരക്ഷിക്കുന്നത് പരാജയപ്പെട്ടു" message="ഫയൽ സംരക്ഷിക്കാനാകില്ല, അത് പരിരക്ഷിക്കപ്പെടും.
+അഡ്മിനിസ്ട്രേറ്റർ മോഡിൽ നോട്ട്പാഡ് ++ സമാരംഭിക്കണോ?"/>
+            <OpenInAdminModeFailed title="അഡ്മിനിസ്ട്രേറ്റർ മോഡിൽ തുറക്കുക പരാജയപ്പെട്ടു" message="നോട്ട്പാഡ് ++ അഡ്മിനിസ്ട്രേറ്റർ മോഡിൽ തുറക്കാൻ കഴിയില്ല ."/>
         </MessageBox>
         <ClipboardHistory>
-            <PanelTitle name="ക്ലിപ്ബോർഡ് ചരിത്രം"/>
+            <PanelTitle name="ക്ലിപ്ബോർഡ് ചരിത്രം"/>
         </ClipboardHistory>
         <DocSwitcher>
-            <PanelTitle name="ഡോക് സ്വിച്ചർ"/>
+            <PanelTitle name="ഡോക് സ്വിച്ചർ"/>
             <ColumnName name="പേര്"/>
-            <ColumnExt name="എസ്."/>
+            <ColumnExt name="അധികമുള്ളത്."/>
         </DocSwitcher>
+        <WindowsDlg>
+            <ColumnName name="പേര്"/>
+            <ColumnPath name="പാത"/>
+            <ColumnType name="ടൈപ്പ് ചെയ്യുക"/>
+        </WindowsDlg>
         <AsciiInsertion>
-            <PanelTitle name="ആസ്കി ചേർക്കൽ പാനൽ"/>
-            <ColumnVal name="വില"/>
+            <PanelTitle name="ASCII ഇൻസേർഷൻ പാനൽ"/>
+            <ColumnVal name="മൂല്യം"/>
             <ColumnHex name="ഹെക്സ്"/>
-            <ColumnChar name="കഥാപാത്രം"/>
+            <ColumnChar name="പ്രതീകം"/>
         </AsciiInsertion>
         <DocumentMap>
-            <PanelTitle name="ഡോക്യുമെന്റ് മാപ്പ്"/>
+            <PanelTitle name="പ്രമാണ മാപ്പ്"/>
         </DocumentMap>
         <FunctionList>
-            <PanelTitle name="പ്രവർത്തന ലിസ്റ്റ്"/>
+            <PanelTitle name="ഫംഗ്ഷൻ ലിസ്റ്റ്"/>
             <SortTip name="അടുക്കുക" />
-            <ReloadTip name="ലോഡുചെയ്യുക" />
+            <ReloadTip name="വീണ്ടും ലോഡുചെയ്യുക" />
         </FunctionList>
+        <FolderAsWorkspace>
+            <PanelTitle name="ജോലിസ്ഥലത്തെ ഫോൾഡർ"/>
+            <SelectFolderFromBrowserString name="വർക്ക്സ്പെയ്സ് പാനലായി ഫോൾഡറിൽ ചേർക്കാൻ ഒരു ഫോൾഡർ തിരഞ്ഞെടുക്കുക"/>
+            <Menus>
+                <Item id="3511" name="നീക്കംചെയ്യുക"/>
+                <Item id="3512" name="എല്ലാം നീക്കം ചെയ്യുക"/>
+                <Item id="3513" name="ചേർക്കുക"/>
+                <Item id="3514" name="സിസ്റ്റം വഴി പ്രവർത്തിപ്പിക്കുക"/>
+                <Item id="3515" name="തുറക്കുക"/>
+                <Item id="3516" name="പാത്ത് പകർത്തുക"/>
+                <Item id="3517" name="ഫയലുകൾ കണ്ടെത്തുക..."/>
+                <Item id="3518" name="ഇവിടെ എക്സ്പ്ലോറർ"/>
+                <Item id="3519" name="ഇവിടെ സിഎംഡി"/>
+            </Menus>
+        </FolderAsWorkspace>
         <ProjectManager>
-            <PanelTitle name="പദ്ധതി"/>
-            <WorkspaceRootName name="വർക്ക്സ്പെയ്സിൽ"/>
+            <PanelTitle name="പ്രോജക്ട്"/>
+            <WorkspaceRootName name="ജോലിസ്ഥലത്ത്"/>
             <NewProjectName name="പദ്ധതിയുടെ പേര്"/>
-            <NewFolderName name="ഫോൾഡർ പേര്"/>
+            <NewFolderName name="ഫോൾഡർ നാമം"/>
             <Menus>
                 <Entries>
-                    <Item id="0" name="വർക്ക്സ്പെയ്സിൽ"/>
-                    <Item id="1" name="തിരുത്തുക"/>
+                    <Item id="0" name="ജോലിസ്ഥലത്ത്"/>
+                    <Item id="1" name="എഡിറ്റുചെയ്യുക"/>
                 </Entries>
                 <WorkspaceMenu>
-                    <Item id="3122" name="പുതിയ വർക്ക്സ്പെയ്സിൽ"/>
-                    <Item id="3123" name="സ്ഥലം തുറക്കുക"/>
-                    <Item id="3124" name="വീണ്ടും ലോഡ് വർക്ക്സ്പെയ്സിൽ"/>
+                    <Item id="3122" name="പുതിയ വർക്ക്സ്പെയ്സ്"/>
+                    <Item id="3123" name="ജോലിസ്ഥലത്തെ തുറക്കുക"/>
+                    <Item id="3124" name="ജോലിസ്ഥലത്തെ വീണ്ടും ലോഡുചെയ്യുക"/>
                     <Item id="3125" name="രക്ഷിക്കും"/>
-                    <Item id="3126" name="ഇതായി സംരക്ഷിക്കുക ..."/>
-                    <Item id="3127" name="പോലെ ഒരു പകർപ്പ് സംരക്ഷിക്കുക ..."/>
-                    <Item id="3121" name="പുതിയ പദ്ധതി ചേർക്കുക"/>
+                    <Item id="3126" name="സംരക്ഷിക്കുക..."/>
+                    <Item id="3127" name="ഒരു പകർപ്പ് സംരക്ഷിക്കുക..."/>
+                    <Item id="3121" name="പുതിയ പ്രോജക്റ്റ് ചേർക്കുക"/>
                 </WorkspaceMenu>
                 <ProjectMenu>
-                    <Item id="3111" name="പുനർനാമകരണം"/>
-                    <Item id="3112" name="ഫോൾഡർ ചേർക്കുക"/>
+                    <Item id="3111" name="പേരുമാറ്റുക"/>
+                    <Item id="3112" name="ഫോൾഡർ ചേർക്കുക"/>
                     <Item id="3113" name="ഫയലുകൾ ചേർക്കുക..."/>
-                    <Item id="3117" name="ഡയറക്ടറി നിന്ന് ഫയലുകൾ ചേർക്കുക ..."/>
+                    <Item id="3117" name="ഡയറക്ടറിയിൽ നിന്നും ഫയലുകൾ ചേർക്കുക..."/>
                     <Item id="3114" name="നീക്കംചെയ്യുക"/>
                     <Item id="3118" name="സ്ഥിതി മെച്ചപ്പെടുത്തുക"/>
                     <Item id="3119" name="താഴേക്ക് നീക്കുക"/>
                 </ProjectMenu>
                 <FolderMenu>
-                    <Item id="3111" name="പുനർനാമകരണം"/>
-                    <Item id="3112" name="ഫോൾഡർ ചേർക്കുക"/>
+                    <Item id="3111" name="പേരുമാറ്റുക"/>
+                    <Item id="3112" name="ഫോൾഡർ ചേർക്കുക"/>
                     <Item id="3113" name="ഫയലുകൾ ചേർക്കുക..."/>
-                    <Item id="3117" name="ഫയലുകൾ ഡയറക്ടറി നിന്ന് ചേർക്കുക ..."/>
+                    <Item id="3117" name="ഡയറക്ടറിയിൽ നിന്നും ഫയലുകൾ ചേർക്കുക..."/>
                     <Item id="3114" name="നീക്കംചെയ്യുക"/>
                     <Item id="3118" name="സ്ഥിതി മെച്ചപ്പെടുത്തുക"/>
                     <Item id="3119" name="താഴേക്ക് നീക്കുക"/>
                 </FolderMenu>
                 <FileMenu>
-                    <Item id="3111" name="പുനർനാമകരണം"/>
+                    <Item id="3111" name="പേരുമാറ്റുക"/>
                     <Item id="3115" name="നീക്കംചെയ്യുക"/>
-                    <Item id="3116" name="ഫയൽ പാത പരിഷ്ക്കരിക്കുക"/>
+                    <Item id="3116" name="ഫയൽ പാത്ത് പരിഷ്കരിക്കുക"/>
                     <Item id="3118" name="സ്ഥിതി മെച്ചപ്പെടുത്തുക"/>
                     <Item id="3119" name="താഴേക്ക് നീക്കുക"/>
                 </FileMenu>
             </Menus>
         </ProjectManager>
+        <MiscStrings>
+            <!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
+            <word-chars-list-tip value="തിരഞ്ഞെടുത്ത പദത്തിൽ ഇരട്ട ക്ലിക്കുചെയ്യുക അല്ലെങ്കിൽ & quot; മുഴുവൻ വാക്കും മാത്രം ഉപയോഗിക്കുക & quot; ഉപയോഗിച്ച് തിരയുന്നതിനൊപ്പം, ഇപ്പോഴത്തെ പദ പ്രതീകങ്ങളിൽ അധിക പ്രതീകം ഉൾപ്പെടുത്താൻ ഇത് നിങ്ങളെ അനുവദിക്കുന്നു. ഓപ്ഷൻ പരിശോധിച്ചു ."/>
+            <word-chars-list-warning-begin value="അറിഞ്ഞിരിക്കുക : "/>
+            <word-chars-list-space-warning value="$ INT_REPLACE $ സ്പെയ്സ് (കൾ)"/>
+            <word-chars-list-tab-warning value="$ INT_REPLACE $ TAB (കൾ)"/>
+            <word-chars-list-warning-end value="  നിങ്ങളുടെ പ്രതീകങ്ങളുടെ പട്ടികയിൽ ."/>
+            <cloud-invalid-warning value="പാത്ത് അസാധുവാണ് ."/>
+            <cloud-restart-warning value="പ്രാബല്യത്തിൽ വരുന്നതിന് നോട്ട്പാഡ് ++ വീണ്ടും ആരംഭിക്കുക ."/>
+            <cloud-select-folder value="നോട്ട്പാഡ് ++ അതിന്റെ ക്രമീകരണങ്ങൾ വായിക്കുന്നതിനോ / എഴുതുന്നതിനോ എവിടെനിന്ന് / എവിടെ നിന്നും ഒരു ഫോൾഡർ തിരഞ്ഞെടുക്കുക"/>
+            <shift-change-direction-tip value="വിപരീത ദിശയിൽ തിരയാൻ Shift + Enter ഉപയോഗിക്കുക"/>
+            <two-find-buttons-tip value="2 ബട്ടണുകൾ മോഡ് കണ്ടുപിടിക്കുക"/>
+            <find-status-top-reached value="കണ്ടെത്തുക: താഴെ നിന്ന് ആദ്യ സംഭവം കണ്ടെത്തി. പ്രമാണത്തിൻറെ തുടക്കം എത്തിച്ചേർന്നു ."/>
+            <find-status-end-reached value="കണ്ടെത്തുക: മുകളിൽ നിന്ന് ആദ്യ സംഭവം കണ്ടെത്തി. പ്രമാണത്തിന്റെ അവസാനത്തെത്തി ."/>
+            <find-status-replaceinfiles-1-replaced value="ഫയലുകളിൽ മാറ്റിസ്ഥാപിക്കുക: 1 സംഭവം മാറ്റി സ്ഥാപിക്കപ്പെട്ടു"/>
+            <find-status-replaceinfiles-nb-replaced value="ഫയലുകളിൽ പ്രതിസ്ഥാപിക്കുക: $ INT_REPLACE $ സംഭവങ്ങൾ മാറ്റിയിരിക്കുന്നു"/>
+            <find-status-replaceinfiles-re-malformed value="തുറക്കപ്പെട്ട ഫയലുകൾ മാറ്റിസ്ഥാപിക്കുക: റെഗുലർ എക്സ്പ്രഷൻ വികലമാക്കപ്പെട്ടതാണ്"/>
+            <find-status-replaceinopenedfiles-1-replaced value="തുറന്ന ഫയലുകളിൽ പ്രതിസ്ഥാപിക്കുക: $ INT_REPLACE $ സംഭവങ്ങൾ മാറ്റി"/>
+            <find-status-replaceinopenedfiles-nb-replaced value="തുറന്ന ഫയലുകളിൽ പ്രതിസ്ഥാപിക്കുക: $ INT_REPLACE $ സംഭവങ്ങൾ മാറ്റി"/>
+            <find-status-mark-re-malformed value="അടയാളപ്പെടുത്തുക: തിരയുന്നതിനുള്ള സാധാരണ എക്സ്പ്രെഷൻ കേടായതാണ്"/>
+            <find-status-invalid-re value="കണ്ടെത്തുക: അസാധുവായ റെഗുലർ എക്സ്പ്രഷൻ"/>
+            <find-status-mark-1-match value="1 മത്സരം"/>
+            <find-status-mark-nb-matches value="$ INT_REPLACE $ പൊരുത്തങ്ങൾ"/>
+            <find-status-count-re-malformed value="കണക്കുകൂട്ടൽ: തിരയുന്ന റെഗുലർ എക്സ്പ്രഷൻ കേടായതാണ്"/>
+            <find-status-count-1-match value="കൗണ്ട്: 1 പൊരുത്തം"/>
+            <find-status-count-nb-matches value="കൗണ്ട്: $ INT_REPLACE $ പൊരുത്തങ്ങൾ"/>
+            <find-status-replaceall-re-malformed value="എല്ലാം മാറ്റി എഴുതുക: റെഗുലർ എക്സ്പ്രഷൻ കേടായതാണ്"/>
+            <find-status-replaceall-1-replaced value="എല്ലാം മാറ്റിസ്ഥാപിക്കുക: 1 സംഭവം മാറ്റി സ്ഥാപിച്ചു"/>
+            <find-status-replaceall-nb-replaced value="എല്ലാം മാറ്റി പകരം വയ്ക്കുക: $ INT_REPLACE $ സംഭവങ്ങൾ മാറ്റിയിരിക്കുന്നു"/>
+            <find-status-replaceall-readonly value="എല്ലാം മാറ്റി എഴുതുക: വാചകം മാറ്റിസ്ഥാപിക്കാൻ കഴിയില്ല. നിലവിലെ പ്രമാണം വായന മാത്രം"/>
+            <find-status-replace-end-reached value="പകരം വയ്ക്കുക: മുകളിൽ നിന്ന് ആദ്യ സംഭവം മാറ്റി. രേഖയുടെ അവസാനം എത്തിയിരിക്കുന്നു"/>
+            <find-status-replace-top-reached value="പകരം വയ്ക്കുക: ചുവടെ നിന്ന് ആദ്യ സംഭവം മാറ്റി. രേഖയുടെ തുടക്കം എത്തിയിരിക്കുന്നു"/>
+            <find-status-relaced-next-found value="പകരം വയ്ക്കുക: 1 സംഭവം മാറ്റി സ്ഥാപിക്കപ്പെട്ടു. അടുത്ത സംഭവം കണ്ടെത്തി"/>
+            <find-status-relaced-next-not-found value="പകരം വയ്ക്കുക: 1 സംഭവം മാറ്റി സ്ഥാപിക്കപ്പെട്ടു. അടുത്ത സംഭവം കണ്ടെത്തിയില്ല"/>
+            <find-status-replace-not-found value="മാറ്റിസ്ഥാപിക്കുക: സംഭവമൊന്നും കണ്ടെത്തിയില്ല"/>
+            <find-status-replace-readonly value="പകരം വയ്ക്കുക: വാചകം മാറ്റിസ്ഥാപിക്കാൻ കഴിയില്ല. നിലവിലെ പ്രമാണം വായന മാത്രം"/>
+            <find-status-cannot-find value="കണ്ടെത്തുക: ടെക്സ്റ്റ് & quot; $ STR_REPLACE $ & quot കണ്ടെത്താൻ കഴിയില്ല;"/>
+            <finder-find-in-finder value="ഈ കണ്ടെത്തിയ ഫലങ്ങളിൽ കണ്ടെത്തുക..."/>
+            <finder-close-this value="ഈ ഫൈൻഡർ അടയ്ക്കുക"/>
+            <finder-collapse-all value="എല്ലാം സങ്കോചിപ്പിക്കുക"/>
+            <finder-uncollapse-all value="എല്ലാം ഒഴിവാക്കുക"/>
+            <finder-copy value="പകർത്തുക"/>
+            <finder-select-all value="എല്ലാം തിരഞ്ഞെടുക്കുക"/>
+            <finder-clear-all value="എല്ലാം മായ്ക്കുക"/>
+            <finder-open-all value="എല്ലാം തുറക്കുക"/>
+        </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

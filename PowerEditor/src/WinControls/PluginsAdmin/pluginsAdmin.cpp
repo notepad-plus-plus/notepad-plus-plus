@@ -45,6 +45,36 @@
 using namespace std;
 using nlohmann::json;
 
+Version::Version(const generic_string& versionStr)
+{
+	try {
+		auto ss = tokenizeString(versionStr, '.');
+
+		if (ss.size() > 4)
+			throw generic_string(TEXT("The string to parse is not a valid version format. Let's make it default value in catch block."));
+		
+		int i = 0;
+		vector<unsigned long*> v = {&_major, &_minor, &_patch, &_build};
+		for (const auto& s : ss)
+		{
+			if (!isNumber(s))
+			{
+				throw generic_string(TEXT("The string to parse is not a valid version format. Let's make it default value in catch block."));
+			}
+			*(v[i]) = std::stoi(s);
+
+			++i;
+		}
+	}
+	catch (...)
+	{
+		_major = 0;
+		_minor = 0;
+		_patch = 0;
+		_build = 0;
+	}
+}
+
 void Version::setVersionFrom(generic_string filePath)
 {
 	if (not filePath.empty() && ::PathFileExists(filePath.c_str()))
@@ -108,6 +138,39 @@ generic_string Version::toString()
 	ver += std::to_wstring(_build);
 
 	return ver;
+}
+
+int Version::compareTo(const Version& v2c) const
+{
+	if (_major > v2c._major)
+		return 1;
+	else if (_major < v2c._major)
+		return -1;
+	else // (_major == v2c._major)
+	{
+		if (_minor > v2c._minor)
+			return 1;
+		else if (_minor < v2c._minor)
+			return -1;
+		else // (_minor == v2c._minor)
+		{
+			if (_patch > v2c._patch)
+				return 1;
+			else if (_patch < v2c._patch)
+				return -1;
+			else // (_patch == v2c._patch)
+			{
+				if (_build > v2c._build)
+					return 1;
+				else if (_build < v2c._build)
+					return -1;
+				else // (_build == v2c._build)
+				{
+					return 0;
+				}
+			}
+		}
+	}
 }
 
 generic_string PluginUpdateInfo::describe()
@@ -460,6 +523,7 @@ bool PluginsAdminDlg::exitToUpdateRemovePlugins(bool isUpdate, const vector<Plug
 
 	TCHAR nppFullPath[MAX_PATH];
 	::GetModuleFileName(NULL, nppFullPath, MAX_PATH);
+	updaterParams += TEXT("\"");
 	updaterParams += nppFullPath;
 	updaterParams += TEXT("\" ");
 
@@ -596,6 +660,10 @@ bool loadFromJson(PluginViewList & pl, const json& j)
 
 			valStr = i.at("description").get<std::string>();
 			pi->_description = wmc->char2wchar(valStr.c_str(), CP_ACP);
+
+			valStr = i.at("version").get<std::string>();
+			generic_string newValStr(valStr.begin(), valStr.end());
+			pi->_version = Version(newValStr);
 
 			valStr = i.at("repository").get<std::string>();
 			pi->_repository = wmc->char2wchar(valStr.c_str(), CP_ACP);
@@ -737,6 +805,8 @@ bool PluginsAdminDlg::loadFromPluginInfos()
 	if (!_pPluginsManager)
 		return false;
 
+	// Search from loaded plugins, if loaded plugins are in the available list,
+	// add them into installed plugins list, and hide them from the available list
 	for (const auto& i : _pPluginsManager->_loadedDlls)
 	{
 		if (i._fileName.length() >= MAX_PATH)
@@ -764,6 +834,14 @@ bool PluginsAdminDlg::loadFromPluginInfos()
 
 			// Hide it from the available list
 			_availableList.hideFromListIndex(listIndex);
+
+			// if the installed plugin version is smaller than the one on the available list,
+			// put it in the update list as well.
+			if (pui->_version < foundInfo->_version)
+			{
+				PluginUpdateInfo* pui2 = new PluginUpdateInfo(*foundInfo);
+				_updateList.pushBack(pui2);
+			}
 		}
 	}
 

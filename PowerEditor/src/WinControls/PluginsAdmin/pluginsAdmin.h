@@ -27,6 +27,8 @@
 
 #pragma once
 
+#include <cwctype>
+#include <algorithm>
 #include "StaticDialog.h"
 #include "pluginsAdminRes.h"
 #include "TabBar.h"
@@ -41,8 +43,34 @@ struct Version
 	unsigned long _minor = 0;
 	unsigned long _patch = 0;
 	unsigned long _build = 0;
+
+	Version() {};
+	Version(const generic_string& versionStr);
+
 	void setVersionFrom(generic_string filePath);
 	generic_string toString();
+	bool isNumber(const generic_string& s) const {
+		return !s.empty() && 
+			find_if(s.begin(), s.end(), [](char c) { return !isdigit(c); }) == s.end();
+	};
+
+	int compareTo(const Version& v2c) const;
+
+	bool operator < (const Version& v2c) const {
+		return compareTo(v2c) == -1;
+	};
+
+	bool operator > (const Version& v2c) const {
+		return compareTo(v2c) == 1;
+	};
+
+	bool operator == (const Version& v2c) const {
+		return compareTo(v2c) == 0;
+	};
+
+	bool operator != (const Version& v2c) const {
+		return compareTo(v2c) != 0;
+	};
 };
 
 struct PluginUpdateInfo

@@ -499,6 +499,15 @@ bool PluginsAdminDlg::installPlugins()
 			PluginUpdateInfo* installedPui = new PluginUpdateInfo(*i);
 			installedPui->_isVisible = true;
 			_installedList.pushBack(installedPui);
+
+			// Load installed plugin
+			generic_string installedPluginPath = nppPluginsDir;
+			PathAppend(installedPluginPath, i->_folderName);
+			PathAppend(installedPluginPath, i->_folderName + TEXT(".dll"));
+
+			vector<generic_string> dll2Remove;
+			int index = _pPluginsManager->loadPlugin(installedPluginPath.c_str(), dll2Remove);
+			_pPluginsManager->addInMenuFromPMIndex(index);
 		}
 		else // wingup return non-zero (-1) -> Not OK
 		{

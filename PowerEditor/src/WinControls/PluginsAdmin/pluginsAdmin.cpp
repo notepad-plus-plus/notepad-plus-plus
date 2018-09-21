@@ -418,28 +418,48 @@ vector<PluginUpdateInfo*> PluginViewList::fromUiIndexesToPluginInfos(const std::
 
 PluginsAdminDlg::PluginsAdminDlg()
 {
+	// Get wingup path
 	NppParameters *pNppParameters = NppParameters::getInstance();
 	_updaterDir = pNppParameters->getNppPath();
 	PathAppend(_updaterDir, TEXT("updater"));
-
 	_updaterFullPath = _updaterDir;
 	PathAppend(_updaterFullPath, TEXT("gup.exe"));
 
+	// get plugin-list path
+	_pluginListFullPath = getPluginConfigPath();
+
 #ifdef DEBUG // if not debug, then it's release
-
 	// load from nppPluginList.json instead of nppPluginList.dll
-	_pluginListFullPath = TEXT("C:\\tmp\\nppPluginList.json");
-
+	PathAppend(_pluginListFullPath, TEXT("nppPluginList.json"));
 #else //RELEASE
-
-#ifdef _WIN64
-	_pluginListFullPath = TEXT("C:\\sources\\nppPluginList\\vcxproj\\x64\\Debug\\nppPluginList.dll");
-#else
-	_pluginListFullPath = TEXT("C:\\sources\\nppPluginList\\vcxproj\\Debug\\nppPluginList.dll");
-#endif
-
+	PathAppend(_pluginListFullPath, TEXT("nppPluginList.dll"));
 #endif
 	;
+}
+
+generic_string PluginsAdminDlg::getPluginConfigPath() const
+{
+	NppParameters *pNppParameters = NppParameters::getInstance();
+	generic_string nppPluginsConfDir;
+
+	if (pNppParameters->isLocal())
+	{
+		nppPluginsConfDir = pNppParameters->getNppPath();
+	}
+	else
+	{
+		nppPluginsConfDir = pNppParameters->getAppDataNppDir();
+	}
+
+	PathAppend(nppPluginsConfDir, TEXT("plugins"));
+	PathAppend(nppPluginsConfDir, TEXT("Config"));
+
+	if (!::PathFileExists(nppPluginsConfDir.c_str()))
+	{
+		::CreateDirectory(nppPluginsConfDir.c_str(), NULL);
+	}
+
+	return nppPluginsConfDir;
 }
 
 generic_string PluginsAdminDlg::getPluginsPath() const

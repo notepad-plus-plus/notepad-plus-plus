@@ -801,13 +801,31 @@ void Notepad_plus::command(int id)
 		break;
 
 		case IDM_VIEW_TAB_NEXT:
+		{
+			_isFolding = true;
+			const int current_index = _pDocTab->getCurrentTabIndex();
+			const int last_index = _pDocTab->getItemCount() - 1;
+			if(current_index < last_index)
+				switchToFile(_pDocTab->getBufferByIndex(current_index + 1));
+			else
+			{
+				switchToFile(_pDocTab->getBufferByIndex(0)); // Loop around.
+			}
+			_isFolding = false;
+		}
+		break;
+
 		case IDM_VIEW_TAB_PREV:
 		{
 			_isFolding = true;
-			const int current = _pDocTab->getCurrentTabIndex();
-			const int direction = (id == IDM_VIEW_TAB_NEXT) ? +1 : -1;
-			const int count = _pDocTab->getItemCount();
-			switchToFile(_pDocTab->getBufferByIndex((current + direction + count) % count));
+			const int current_index = _pDocTab->getCurrentTabIndex();
+			if(current_index > 0)
+				switchToFile(_pDocTab->getBufferByIndex(current_index - 1));
+			else
+			{
+				const int last_index = _pDocTab->getItemCount() - 1;
+				switchToFile(_pDocTab->getBufferByIndex(last_index)); // Loop around.
+			}
 			_isFolding = false;
 		}
 		break;

@@ -1556,7 +1556,9 @@ void Notepad_plus::loadLastSession()
 	const NppGUI & nppGui = nppParams->getNppGUI();
 	Session lastSession = nppParams->getSession();
 	bool isSnapshotMode = nppGui.isSnapshotMode();
+	_isFolding = true;
     loadSession(lastSession, isSnapshotMode);
+	_isFolding = false;
 }
 
 bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode)

@@ -771,6 +771,7 @@ void Notepad_plus::command(int id)
 		case IDM_VIEW_TAB8:
 		case IDM_VIEW_TAB9:
 		{
+			_isFolding = true;
 			const int index = id - IDM_VIEW_TAB1;
 			BufferID buf = _pDocTab->getBufferByIndex(index);
 			if(buf == BUFFER_INVALID)
@@ -781,23 +782,31 @@ void Notepad_plus::command(int id)
 					switchToFile(_pDocTab->getBufferByIndex(last_index));
 			}
 			else
+			{
 				switchToFile(buf);
+			}
+			_isFolding = false;
 		}
 		break;
 
 		case IDM_VIEW_TAB_NEXT:
 		{
+			_isFolding = true;
 			const int current_index = _pDocTab->getCurrentTabIndex();
 			const int last_index = _pDocTab->getItemCount() - 1;
 			if(current_index < last_index)
 				switchToFile(_pDocTab->getBufferByIndex(current_index + 1));
 			else
+			{
 				switchToFile(_pDocTab->getBufferByIndex(0)); // Loop around.
+			}
+			_isFolding = false;
 		}
 		break;
 
 		case IDM_VIEW_TAB_PREV:
 		{
+			_isFolding = true;
 			const int current_index = _pDocTab->getCurrentTabIndex();
 			if(current_index > 0)
 				switchToFile(_pDocTab->getBufferByIndex(current_index - 1));
@@ -806,6 +815,7 @@ void Notepad_plus::command(int id)
 				const int last_index = _pDocTab->getItemCount() - 1;
 				switchToFile(_pDocTab->getBufferByIndex(last_index)); // Loop around.
 			}
+			_isFolding = false;
 		}
 		break;
 
@@ -2884,6 +2894,7 @@ void Notepad_plus::command(int id)
         case IDC_PREV_DOC :
         case IDC_NEXT_DOC :
         {
+			_isFolding = true;
 			size_t nbDoc = viewVisible(MAIN_VIEW) ? _mainDocTab.nbItem() : 0;
 			nbDoc += viewVisible(SUB_VIEW)?_subDocTab.nbItem():0;
 
@@ -2907,6 +2918,7 @@ void Notepad_plus::command(int id)
 				}
 			}
 			_linkTriggered = true;
+			_isFolding = false;
 		}
         break;
 

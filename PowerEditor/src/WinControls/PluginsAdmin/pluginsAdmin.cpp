@@ -491,8 +491,6 @@ bool PluginsAdminDlg::installPlugins()
 	vector<size_t> indexes = _availableList.getCheckedIndexes();
 	vector<PluginUpdateInfo*> puis = _availableList.fromUiIndexesToPluginInfos(indexes);
 
-	generic_string updaterParams = TEXT("-unzipTo ");
-	
 	generic_string nppPluginsDir = getPluginsPath();
 
 	generic_string quoted_nppPluginsDir = TEXT("\"");
@@ -501,6 +499,7 @@ bool PluginsAdminDlg::installPlugins()
 
 	for (auto i : puis)
 	{
+		generic_string updaterParams = TEXT("-unzipTo ");
 		updaterParams += quoted_nppPluginsDir;
 
 		// add zipFile's url

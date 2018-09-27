@@ -58,20 +58,20 @@ INT_PTR CALLBACK MD5FromFilesDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					if (stringVector *pfns = fDlg.doOpenMultiFilesDlg())
 					{
 						std::wstring files2check, md5resultStr;
-						for (auto it = pfns->begin(); it != pfns->end(); ++it)
+						for (const auto& it : *pfns)
 						{
 							WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-							const char *path = wmc->wchar2char(it->c_str(), CP_ACP);
+							const char *path = wmc->wchar2char(it.c_str(), CP_ACP);
 							
 							MD5 md5;
 							char *md5Result = md5.digestFile(path);
 
 							if (md5Result)
 							{
-								files2check += *it;
+								files2check += it;
 								files2check += TEXT("\r\n");
 
-								wchar_t* fileName = ::PathFindFileName(it->c_str());
+								wchar_t* fileName = ::PathFindFileName(it.c_str());
 								md5resultStr += wmc->char2wchar(md5Result, CP_ACP);
 								md5resultStr += TEXT("  ");
 								md5resultStr += fileName;

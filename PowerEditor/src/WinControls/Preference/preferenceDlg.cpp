@@ -399,8 +399,7 @@ INT_PTR CALLBACK BarsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			if (pNppParam->getNativeLangA()) // if nativeLangA is not NULL, then we can be sure the default language (English) is not used
 			{
 				string fn = localizationSwitcher.getFileName();
-				wstring fnW(fn.begin(), fn.end());
-				fnW.assign(fn.begin(), fn.end());
+				wstring fnW = s2ws(fn);
 				lang = localizationSwitcher.getLangFromXmlFileName(fnW.c_str());
 			}
 			auto index = ::SendDlgItemMessage(_hSelf, IDC_COMBO_LOCALIZATION, CB_FINDSTRINGEXACT, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(lang.c_str()));

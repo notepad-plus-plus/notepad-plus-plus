@@ -30,6 +30,8 @@
 #include <shlobj.h>
 #include <uxtheme.h>
 #include <cassert>
+#include <codecvt>
+
 #include "StaticDialog.h"
 
 #include "Common.h"
@@ -1193,4 +1195,44 @@ bool isAssoCommandExisting(LPCTSTR FullPathName)
         
 	}
 	return isAssoCommandExisting;
+}
+
+std::wstring s2ws(const std::string& str)
+{
+	using convert_typeX = std::codecvt_utf8<wchar_t>;
+	std::wstring_convert<convert_typeX, wchar_t> converterX;
+
+	return converterX.from_bytes(str);
+}
+
+std::string ws2s(const std::wstring& wstr)
+{
+	using convert_typeX = std::codecvt_utf8<wchar_t>;
+	std::wstring_convert<convert_typeX, wchar_t> converterX;
+
+	return converterX.to_bytes(wstr);
+}
+
+bool deleteFileOrFolder(const generic_string& f2delete)
+{
+	auto len = f2delete.length();
+	TCHAR* actionFolder = new TCHAR[len + 2];
+	lstrcpy(actionFolder, f2delete.c_str());
+	actionFolder[len] = 0;
+	actionFolder[len + 1] = 0;
+
+	SHFILEOPSTRUCT fileOpStruct = { 0 };
+	fileOpStruct.hwnd = NULL;
+	fileOpStruct.pFrom = actionFolder;
+	fileOpStruct.pTo = NULL;
+	fileOpStruct.wFunc = FO_DELETE;
+	fileOpStruct.fFlags = FOF_NOCONFIRMATION | FOF_SILENT | FOF_ALLOWUNDO;
+	fileOpStruct.fAnyOperationsAborted = false;
+	fileOpStruct.hNameMappings = NULL;
+	fileOpStruct.lpszProgressTitle = NULL;
+
+	int res = SHFileOperation(&fileOpStruct);
+
+	delete[] actionFolder;
+	return (res == 0);
 }

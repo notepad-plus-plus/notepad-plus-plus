@@ -511,22 +511,45 @@ bool PluginsAdminDlg::installPlugins()
 		int result = updater.runSync();
 		if (result == 0) // wingup return 0 -> OK
 		{
-			// Remove (Hide) installed plugin from available list
-			_availableList.hideFromPluginInfoPtr(i);
+			generic_string installedPluginFolder = nppPluginsDir;
+			PathAppend(installedPluginFolder, i->_folderName);
 
-			// Add installed plugin into insttalled list
-			PluginUpdateInfo* installedPui = new PluginUpdateInfo(*i);
-			installedPui->_isVisible = true;
-			_installedList.pushBack(installedPui);
-
-			// Load installed plugin
-			generic_string installedPluginPath = nppPluginsDir;
-			PathAppend(installedPluginPath, i->_folderName);
+			generic_string installedPluginPath = installedPluginFolder;
 			PathAppend(installedPluginPath, i->_folderName + TEXT(".dll"));
 
-			vector<generic_string> dll2Remove;
-			int index = _pPluginsManager->loadPlugin(installedPluginPath.c_str(), dll2Remove);
-			_pPluginsManager->addInMenuFromPMIndex(index);
+			// check installed id to prevent from MITMA
+			MD5 md5;
+			char *md5Result = md5.digestFile(ws2s(installedPluginPath).c_str());
+			if (ws2s(i->_id) == md5Result)
+			{
+				// Remove (Hide) installed plugin from available list
+				_availableList.hideFromPluginInfoPtr(i);
+
+				// Add installed plugin into insttalled list
+				PluginUpdateInfo* installedPui = new PluginUpdateInfo(*i);
+				installedPui->_isVisible = true;
+				_installedList.pushBack(installedPui);
+
+				// Load installed plugin
+				vector<generic_string> dll2Remove;
+				int index = _pPluginsManager->loadPlugin(installedPluginPath.c_str(), dll2Remove);
+				_pPluginsManager->addInMenuFromPMIndex(index);
+			}
+			else
+			{
+				// Remove installed plugin
+				NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+				pNativeSpeaker->messageBox("PluginIdNotMatchedWillBeRemoved",
+											NULL,
+											TEXT("The plugin \"$STR_REPLACE$\" ID is not correct. This plugin will be uninstalled."),
+											TEXT("Plugin ID missmathed"),
+											MB_OK | MB_APPLMODAL,
+											0,
+											i->_displayName.c_str());
+
+				deleteFileOrFolder(installedPluginFolder);
+			}
+			
 		}
 		else // wingup return non-zero (-1) -> Not OK
 		{
@@ -688,6 +711,9 @@ bool loadFromJson(PluginViewList & pl, const json& j)
 
 			valStr = i.at("description").get<std::string>();
 			pi->_description = wmc->char2wchar(valStr.c_str(), CP_ACP);
+
+			valStr = i.at("id").get<std::string>();
+			pi->_id = wmc->char2wchar(valStr.c_str(), CP_ACP);
 
 			valStr = i.at("version").get<std::string>();
 			generic_string newValStr(valStr.begin(), valStr.end());

@@ -41,6 +41,7 @@
 #include "PluginsManager.h"
 #include "md5.h"
 #include "verifySignedFile.h"
+#include "LongRunningOperation.h"
 
 using namespace std;
 using nlohmann::json;
@@ -486,6 +487,71 @@ generic_string PluginsAdminDlg::getPluginsPath() const
 	return nppPluginsDir;
 }
 
+
+DWORD WINAPI PluginsAdminDlg::launchPluginInstallerThread(void* params)
+{
+	auto lwp = static_cast<LaunchWingupParams*>(params);
+
+	Process updater(lwp->_updaterFullPath.c_str(), lwp->_updaterParams.c_str(), lwp->_updaterDir.c_str());
+
+	int result = updater.runSync();
+
+	if (result == 0) // wingup return 0 -> OK
+	{
+		generic_string installedPluginFolder = lwp->_nppPluginsDir;
+		PathAppend(installedPluginFolder, lwp->_pluginUpdateInfo->_folderName);
+
+		generic_string installedPluginPath = installedPluginFolder;
+		PathAppend(installedPluginPath, lwp->_pluginUpdateInfo->_folderName + TEXT(".dll"));
+
+		// check installed id to prevent from MITMA
+		MD5 md5;
+		char *md5Result = md5.digestFile(ws2s(installedPluginPath).c_str());
+
+		if (ws2s(lwp->_pluginUpdateInfo->_id) == md5Result)
+		{
+			// Critical section
+			WaitForSingleObject(lwp->_mutex, INFINITE);
+
+			// Remove (Hide) installed plugin from available list
+			lwp->_uiAvailableList->hideFromPluginInfoPtr(lwp->_pluginUpdateInfo);
+
+			// Add installed plugin into insttalled list
+			PluginUpdateInfo* installedPui = new PluginUpdateInfo(*(lwp->_pluginUpdateInfo));
+			installedPui->_isVisible = true;
+			lwp->_uiInstalledList->pushBack(installedPui);
+
+			// Load installed plugin
+			vector<generic_string> dll2Remove;
+			int index = lwp->_pPluginsManager->loadPlugin(installedPluginPath.c_str(), dll2Remove);
+			lwp->_pPluginsManager->addInMenuFromPMIndex(index);
+
+			// End of Critical section
+			ReleaseMutex(lwp->_mutex);
+		}
+		else
+		{
+			// Remove installed plugin
+			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+			pNativeSpeaker->messageBox("PluginIdNotMatchedWillBeRemoved",
+				NULL,
+				TEXT("The plugin \"$STR_REPLACE$\" ID is not correct. This plugin will be uninstalled."),
+				TEXT("Plugin ID missmathed"),
+				MB_OK | MB_APPLMODAL,
+				0,
+				lwp->_pluginUpdateInfo->_displayName.c_str());
+
+			deleteFileOrFolder(installedPluginFolder);
+		}
+	}
+	else // wingup return non-zero (-1) -> Not OK
+	{
+		// just move on
+	}
+
+	return TRUE;
+}
+
 bool PluginsAdminDlg::installPlugins()
 {
 	vector<size_t> indexes = _availableList.getCheckedIndexes();
@@ -497,6 +563,8 @@ bool PluginsAdminDlg::installPlugins()
 	quoted_nppPluginsDir += nppPluginsDir;
 	quoted_nppPluginsDir += TEXT("\"");
 
+	HANDLE mutex = ::CreateMutex(NULL, false, TEXT("nppPluginInstaller"));
+
 	for (auto i : puis)
 	{
 		generic_string updaterParams = TEXT("-unzipTo ");
@@ -506,57 +574,24 @@ bool PluginsAdminDlg::installPlugins()
 		updaterParams += TEXT(" ");
 		updaterParams += i->_repository;
 
-		Process updater(_updaterFullPath.c_str(), updaterParams.c_str(), _updaterDir.c_str());
+		LaunchWingupParams* lwp = new LaunchWingupParams;
+		lwp->_nppPluginsDir = nppPluginsDir;
+		lwp->_pluginUpdateInfo = i;
+		lwp->_pPluginsManager = _pPluginsManager;
+		lwp->_uiAvailableList = &_availableList;
+		lwp->_uiInstalledList = &_installedList;
+		lwp->_updaterDir = _updaterDir;
+		lwp->_updaterFullPath = _updaterFullPath;
+		lwp->_updaterParams = updaterParams;
+		lwp->_mutex = mutex;
 
-		int result = updater.runSync();
-		if (result == 0) // wingup return 0 -> OK
-		{
-			generic_string installedPluginFolder = nppPluginsDir;
-			PathAppend(installedPluginFolder, i->_folderName);
+		_lwps.push_back(lwp);
 
-			generic_string installedPluginPath = installedPluginFolder;
-			PathAppend(installedPluginPath, i->_folderName + TEXT(".dll"));
+		//ReleaseMutex(mutex);
 
-			// check installed id to prevent from MITMA
-			MD5 md5;
-			char *md5Result = md5.digestFile(ws2s(installedPluginPath).c_str());
-			if (ws2s(i->_id) == md5Result)
-			{
-				// Remove (Hide) installed plugin from available list
-				_availableList.hideFromPluginInfoPtr(i);
-
-				// Add installed plugin into insttalled list
-				PluginUpdateInfo* installedPui = new PluginUpdateInfo(*i);
-				installedPui->_isVisible = true;
-				_installedList.pushBack(installedPui);
-
-				// Load installed plugin
-				vector<generic_string> dll2Remove;
-				int index = _pPluginsManager->loadPlugin(installedPluginPath.c_str(), dll2Remove);
-				_pPluginsManager->addInMenuFromPMIndex(index);
-			}
-			else
-			{
-				// Remove installed plugin
-				NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
-				pNativeSpeaker->messageBox("PluginIdNotMatchedWillBeRemoved",
-											NULL,
-											TEXT("The plugin \"$STR_REPLACE$\" ID is not correct. This plugin will be uninstalled."),
-											TEXT("Plugin ID missmathed"),
-											MB_OK | MB_APPLMODAL,
-											0,
-											i->_displayName.c_str());
-
-				deleteFileOrFolder(installedPluginFolder);
-			}
-			
-		}
-		else // wingup return non-zero (-1) -> Not OK
-		{
-			// just move on
-		}
+		HANDLE hThread = ::CreateThread(NULL, 0, launchPluginInstallerThread, lwp, 0, NULL);
+		::CloseHandle(hThread);
 	}
-
 	return true;
 }
 

@@ -2001,8 +2001,8 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 		return false;
 
 	TiXmlElement *actView = sessionRoot->ToElement();
-	size_t index;
-	const TCHAR *str = actView->Attribute(TEXT("activeView"), reinterpret_cast<int *>(&index));
+	int index = 0;
+	const TCHAR *str = actView->Attribute(TEXT("activeView"), &index);
 	if (str)
 	{
 		(*ptrSession)._activeView = index;
@@ -2016,9 +2016,9 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 	{
 		if (viewRoots[k])
 		{
-			size_t index2;
+			int index2 = 0;
 			TiXmlElement *actIndex = viewRoots[k]->ToElement();
-			str = actIndex->Attribute(TEXT("activeIndex"), reinterpret_cast<int *>(&index2));
+			str = actIndex->Attribute(TEXT("activeIndex"), &index2);
 			if (str)
 			{
 				if (k == 0)

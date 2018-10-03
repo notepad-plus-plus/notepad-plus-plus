@@ -6848,3 +6848,17 @@ bool Notepad_plus::undoStreamComment(bool tryBlockComment)
 	while(1); //do as long as stream-comments are within selection
 }
 
+void Notepad_plus::monitoringStartOrStopAndUpdateUI(Buffer* pBuf, bool isStarting)
+{
+	if (pBuf)
+	{
+		if (isStarting)
+			pBuf->startMonitoring();
+		else
+			pBuf->stopMonitoring();
+
+		checkMenuItem(IDM_VIEW_MONITORING, isStarting);
+		_toolBar.setCheck(IDM_VIEW_MONITORING, isStarting);
+		pBuf->setUserReadOnly(isStarting);
+	}
+}

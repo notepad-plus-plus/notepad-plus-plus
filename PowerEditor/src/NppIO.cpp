@@ -100,8 +100,7 @@ DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 						else if ((dwAction == FILE_ACTION_REMOVED) || (dwAction == FILE_ACTION_RENAMED_OLD_NAME))
 						{
 							// File is deleted or renamed - quit monitoring thread and close file
-							::PostMessage(h, NPPM_MENUCOMMAND, 0, IDM_VIEW_MONITORING);
-							::PostMessage(h, NPPM_INTERNAL_CHECKDOCSTATUS, 0, 0);
+							::PostMessage(h, NPPM_INTERNAL_STOPMONITORING, reinterpret_cast<WPARAM>(buf), 0);
 						}
 					}
 				}
@@ -662,11 +661,7 @@ void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup)
 	if (buf->isMonitoringOn())
 	{
 		// turn off monitoring
-		//command(IDM_VIEW_MONITORING);
-		buf->stopMonitoring();
-		checkMenuItem(IDM_VIEW_MONITORING, false);
-		_toolBar.setCheck(IDM_VIEW_MONITORING, false);
-		buf->setUserReadOnly(false);
+		monitoringStartOrStopAndUpdateUI(buf, false);
 	}
 
 	//Do all the works

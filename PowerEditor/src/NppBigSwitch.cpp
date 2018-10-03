@@ -1564,6 +1564,13 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_INTERNAL_STOPMONITORING:
+		{
+			Buffer *buf = reinterpret_cast<Buffer *>(wParam);
+			monitoringStartOrStopAndUpdateUI(buf, false);
+			return TRUE;
+		}
+
 		case NPPM_INTERNAL_GETCHECKDOCOPT:
 		{
 			return (LRESULT)(pNppParam->getNppGUI())._fileAutoDetection;

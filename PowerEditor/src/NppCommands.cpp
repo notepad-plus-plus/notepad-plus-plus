@@ -1994,10 +1994,7 @@ void Notepad_plus::command(int id)
 			Buffer * curBuf = _pEditView->getCurrentBuffer();
 			if (curBuf->isMonitoringOn())
 			{
-				curBuf->stopMonitoring();
-				checkMenuItem(IDM_VIEW_MONITORING, false);
-				_toolBar.setCheck(IDM_VIEW_MONITORING, false);
-				curBuf->setUserReadOnly(false);
+				monitoringStartOrStopAndUpdateUI(curBuf, false);
 			}
 			else
 			{
@@ -2014,14 +2011,12 @@ void Notepad_plus::command(int id)
 					}
 					else
 					{
-						curBuf->startMonitoring(); // monitoring firstly for making monitoring icon 
-						curBuf->setUserReadOnly(true);
+						// Monitoring firstly for making monitoring icon
+						monitoringStartOrStopAndUpdateUI(curBuf, true);
 						
 						MonitorInfo *monitorInfo = new MonitorInfo(curBuf, _pPublicInterface->getHSelf());
 						HANDLE hThread = ::CreateThread(NULL, 0, monitorFileOnChange, (void *)monitorInfo, 0, NULL); // will be deallocated while quitting thread
 						::CloseHandle(hThread);
-						checkMenuItem(IDM_VIEW_MONITORING, true);
-						_toolBar.setCheck(IDM_VIEW_MONITORING, true);
 					}
 				}
 				else

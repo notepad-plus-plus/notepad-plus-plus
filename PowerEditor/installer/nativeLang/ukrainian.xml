@@ -1150,8 +1150,8 @@
             <find-status-replaceall-readonly value="Замінити все: Неможливо замінити текст. Цей документ призначений тільки для читання"/>
             <find-status-replace-end-reached value="Замінити: Замінено 1-й збіг згори. Було досягнуто кінця документа"/>
             <find-status-replace-top-reached value="Замінити: Замінено 1-й збіг знизу. Було досягнуто початку документа"/>
-            <find-status-relaced-next-found value="Замінити: Виконано 1 заміну. Знайдено наступний збіг"/>
-            <find-status-relaced-next-not-found value="Замінити: Виконано 1 заміну. Наступного збігу не знайдено"/>
+            <find-status-replaced-next-found value="Замінити: Виконано 1 заміну. Знайдено наступний збіг"/>
+            <find-status-replaced-next-not-found value="Замінити: Виконано 1 заміну. Наступного збігу не знайдено"/>
             <find-status-replace-not-found value="Замінити: Жодного збігу не знайдено"/>
             <find-status-replace-readonly value="Замінити: Неможливо замінити текст. Цей документ призначений тільки для читання"/>
             <find-status-cannot-find value="Знайти: Неможливо знайти текст &quot;$STR_REPLACE$&quot;"/>

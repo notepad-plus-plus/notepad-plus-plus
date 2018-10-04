@@ -1139,8 +1139,8 @@
             <find-status-replaceall-readonly value="Nahradiť všetko: Text nie je možné nahradiť. Aktuálny dokument je iba na čítanie."/>
             <find-status-replace-end-reached value="Nahradiť: Bol nahradený prvý prípad hľadaného výrazu. Dospeli ste na koniec dokumentu."/>
             <find-status-replace-top-reached value="Nahradiť: Bol nahradený posledný prípad hľadaného výrazu. Dospeli ste na začiatok dokumentu."/>
-            <find-status-relaced-next-found value="Nahradiť: Bol nahradený 1 prípad hľadaného výrazu. Našla sa ďalšia zhoda."/>
-            <find-status-relaced-next-not-found value="Nahradiť: Bol nahradený 1 prípad hľadaného výrazu. Ďalšia zhoda sa nenašla."/>
+            <find-status-replaced-next-found value="Nahradiť: Bol nahradený 1 prípad hľadaného výrazu. Našla sa ďalšia zhoda."/>
+            <find-status-replaced-next-not-found value="Nahradiť: Bol nahradený 1 prípad hľadaného výrazu. Ďalšia zhoda sa nenašla."/>
             <find-status-replace-not-found value="Nahradiť: Nenašla sa žiadna zhoda."/>
             <find-status-replace-readonly value="Nahradiť: Text nie je možné nahradiť. Aktuálny dokument je iba na čítanie."/>
             <find-status-cannot-find value="Hľadať: Text &quot;$STR_REPLACE$&quot; sa nepodarilo nájsť."/>

@@ -1149,8 +1149,8 @@
 		<find-status-replaceall-readonly value="सभी बदलें: टेक्स्ट नहीं बदल सके। वर्तमान डॉक्यूमेंट रीड-ओनली है।"/>
 		<find-status-replace-end-reached value="बदलें: ऊपर से 1st मिलान बदल दिया गया है। डॉक्यूमेंट के अंत पर पहुँच चुकें हैं।"/>
 		<find-status-replace-top-reached value="बदलें: नीचे से 1st मिलान बदल दिया गया है। डॉक्यूमेंट की शुरुआत पर पहुँच चुकें हैं।"/>
-		<find-status-relaced-next-found value="बदलें: 1 मिलान को बदल दिया गया है। अगला मिलान मिला।"/>
-		<find-status-relaced-next-not-found value="बदलें: 1 मिलान को बदल दिया गया है। अगला मिलान नहीं मिला।"/>
+		<find-status-replaced-next-found value="बदलें: 1 मिलान को बदल दिया गया है। अगला मिलान मिला।"/>
+		<find-status-replaced-next-not-found value="बदलें: 1 मिलान को बदल दिया गया है। अगला मिलान नहीं मिला।"/>
 		<find-status-replace-not-found value="बदलें: कोई मिलान नहीं मिला।"/>
 		<find-status-replace-readonly value="बदलें: Text नहीं बदल सके। वर्तमान डॉक्यूमेंट रीड-ओनली है।"/>
 		<find-status-cannot-find value="खोज: Text नहीं ढूंढ सके &quot;$STR_REPLACE$&quot;।"/>

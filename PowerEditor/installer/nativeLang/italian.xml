@@ -1169,8 +1169,8 @@ Vuoi avviare Notepad++ come amministratore?" />
             <find-status-replaceall-readonly value = "Sostituisci tutti: impossibile sostituire il testo. Il documento corrente è in sola lettura" />
             <find-status-replace-end-reached value = "Sostituisci: sostituita la prima occorrenza dall'&apos;alto. È stata raggiunta la fine del documento " />
             <find-status-replace-top-reached value = "Sostituisci: sostituita la prima occorrenza dal basso. È stato raggiunto l&apos;inizio del documento" />
-            <find-status-relaced-next-found value = "Sostituisci: 1 occorrenza è stata sostituita. Trovata l'occorrenza successiva" />
-            <find-status-relaced-next-not-found value = "Sostituisci:1 occorrenza è stata sostituita. Nessuna occorrenza successiva" />
+            <find-status-replaced-next-found value = "Sostituisci: 1 occorrenza è stata sostituita. Trovata l'occorrenza successiva" />
+            <find-status-replaced-next-not-found value = "Sostituisci:1 occorrenza è stata sostituita. Nessuna occorrenza successiva" />
             <find-status-replace-not-found value = "Sostituisci: nessuna occorrenza trovata" />
             <find-status-replace-readonly value = "Sostituisci: impossibile sostituire il testo. Il documento corrente è in sola lettura" />
             <find-status-cannot-find value = "Cerca: impossibile trovare il testo &quot;$STR_REPLACE$&quot;" />

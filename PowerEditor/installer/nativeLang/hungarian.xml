@@ -1167,8 +1167,8 @@ Elindítja a Notepad++-t rendszergazdaként?"/>
             <find-status-replaceall-readonly value="Összes cseréje: A szöveg nem cserélhető. A jelenlegi dokumentum írásvédett."/>
             <find-status-replace-end-reached value="Csere: Első előfordulás cserélve felülről. A dokumentum végét elértük."/>
             <find-status-replace-top-reached value="Csere: Első előfordulás cserélve alulról. A dokumentum elejét elértük."/>
-            <find-status-relaced-next-found value="Csere: 1 találat cserélve. A következő találatot elértük."/>
-            <find-status-relaced-next-not-found value="Csere: 1 találat cserélve. A következő előfordulás nem található."/>
+            <find-status-replaced-next-found value="Csere: 1 találat cserélve. A következő találatot elértük."/>
+            <find-status-replaced-next-not-found value="Csere: 1 találat cserélve. A következő előfordulás nem található."/>
             <find-status-replace-not-found value="Csere: Nem található előfordulás"/>
             <find-status-replace-readonly value="Csere: A szöveg nem cserélhető. A jelenlegi dokumentum írásvédett."/>
             <find-status-cannot-find value="Keresés: Nem található ez a szöveg: &quot;$STR_REPLACE$&quot;"/>

@@ -1050,8 +1050,8 @@
             <find-status-replaceall-readonly value="Замена всего: Невозможно заменить текст. Текущий документ доступен только для чтения"/>
             <find-status-replace-end-reached value="Замена: Заменено первое совпадение сверху. Достигнут конец документа"/>
             <find-status-replace-top-reached value="Замена: Заменено первое совпадение снизу. Достигнуто начало документа"/>
-            <find-status-relaced-next-found value="Замена: 1 совпадение заменено. Найдено следующее совпадение"/>
-            <find-status-relaced-next-not-found value="Замена: 1 совпадение заменено. Следующее совпадение не найдено"/>
+            <find-status-replaced-next-found value="Замена: 1 совпадение заменено. Найдено следующее совпадение"/>
+            <find-status-replaced-next-not-found value="Замена: 1 совпадение заменено. Следующее совпадение не найдено"/>
             <find-status-replace-not-found value="Замена: ничего не найдено"/>
             <find-status-replace-readonly value="Замена: Невозможно заменить текст. Текущий документ доступен только для чтения"/>
             <find-status-cannot-find value="Поиск: Не удается найти текст &quot;$STR_REPLACE$&quot;"/>

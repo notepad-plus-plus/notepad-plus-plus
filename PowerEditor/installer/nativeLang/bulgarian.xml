@@ -1135,8 +1135,8 @@
 			<find-status-replaceall-readonly value="Замяна на всичко: Текста не може да се замени. Текущият документ е само за четене"/>
 			<find-status-replace-end-reached value="Замяна: Заменено е първото съвпадение от началото. Краят на документа е достигнат"/>
 			<find-status-replace-top-reached value="Замяна: Заменено е първото съвпадение от краят. Началото на документа е достигнато"/>
-			<find-status-relaced-next-found value="Замяна: беше заменено 1 съвпадение. Намерено е следващото съвпадение"/>
-			<find-status-relaced-next-not-found value="Замяна: беше заменено 1 съвпадение. Следващото съвпадение не е намерено"/>
+			<find-status-replaced-next-found value="Замяна: беше заменено 1 съвпадение. Намерено е следващото съвпадение"/>
+			<find-status-replaced-next-not-found value="Замяна: беше заменено 1 съвпадение. Следващото съвпадение не е намерено"/>
 			<find-status-replace-not-found value="Замяна: не беше намерено съвпадение"/>
 			<find-status-replace-readonly value="Замяна: Текста не може да се замени. Текущият документ е само за четене"/>
 			<find-status-cannot-find value="Търсене: Текстът &quot;$STR_REPLACE$&quot; не може да се намери"/>

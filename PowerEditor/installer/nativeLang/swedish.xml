@@ -1155,8 +1155,8 @@ Vill du starta Notepad++ i administratörsläge?"/>
 			<find-status-replaceall-readonly value="Ersätt alla: Kan inte ersätta text. Aktuellt dokument är skrivskyddat"/>
 			<find-status-replace-end-reached value="Ersätt: Ersatte första förekomsten från början. Slutet av dokumentet har passerats"/>
 			<find-status-replace-top-reached value="Ersätt: Ersatte första förekomsten från slutet. Början av dokumentet har passerats"/>
-			<find-status-relaced-next-found value="Ersätt: 1 förekomst har ersatts. Nästa förekomst har hittats"/>
-			<find-status-relaced-next-not-found value="Ersätt: 1 förekomst har ersatts. Hittade inte nästa förekomst"/>
+			<find-status-replaced-next-found value="Ersätt: 1 förekomst har ersatts. Nästa förekomst har hittats"/>
+			<find-status-replaced-next-not-found value="Ersätt: 1 förekomst har ersatts. Hittade inte nästa förekomst"/>
 			<find-status-replace-not-found value="Ersätt: Inga förekomster hittades"/>
 			<find-status-replace-readonly value="Ersätt: Kan inte ersätta text. Aktuellt dokument är skrivskyddat"/>
 			<find-status-cannot-find value="Sök: Kan inte hitta texten &quot;$STR_REPLACE$&quot;"/>

@@ -1342,10 +1342,10 @@
 			<find-status-replace-top-reached
 				value="Vervangen: Tekst is op 1 locatie vervangen. Start van het document is gepasseerd"
 			/>
-			<find-status-relaced-next-found
+			<find-status-replaced-next-found
 				value="Vervangen: Tekst is op 1 locatie vervangen. Nieuwe locatie gevonden"
 			/>
-			<find-status-relaced-next-not-found
+			<find-status-replaced-next-not-found
 				value="Vervangen: Tekst is op 1 locatie vervangen. Geen nieuwe locatie gevonden"
 			/>
 			<find-status-replace-not-found

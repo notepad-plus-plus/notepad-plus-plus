@@ -1074,8 +1074,8 @@
             <find-status-replaceall-readonly value="Ganti Semua: Tidak dapat mengganti teks. Dokumen ini hanya bisa dibaca"/>
             <find-status-replace-end-reached value="Ganti: Mengganti kejadian pertama dari atas. Akhir dokumen telah tercapai"/>
             <find-status-replace-top-reached value="Ganti: Mengganti kejadian pertama dari bawah. Awal dokumen telah tercapai"/>
-            <find-status-relaced-next-found value="Ganti: 1 kejadian diganti. Kejadian selanjutnya ditemukan"/>
-            <find-status-relaced-next-not-found value="Ganti: 1 kejadian diganti. Kejadian selanjutnya tidak ditemukan"/>
+            <find-status-replaced-next-found value="Ganti: 1 kejadian diganti. Kejadian selanjutnya ditemukan"/>
+            <find-status-replaced-next-not-found value="Ganti: 1 kejadian diganti. Kejadian selanjutnya tidak ditemukan"/>
             <find-status-replace-not-found value="Ganti: tidak ada kejadian yang ditemukan"/>
             <find-status-replace-readonly value="Ganti: Tidak dapat mengganti teks. Dokumen ini hanya bisa dibaca"/>
             <find-status-cannot-find value="Cari: Tidak dapat menemukan teks &quot;$STR_REPLACE$&quot;"/>

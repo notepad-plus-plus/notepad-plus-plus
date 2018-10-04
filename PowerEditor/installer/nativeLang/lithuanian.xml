@@ -1161,8 +1161,8 @@ Ar norite paleisti Notepad++ administratoriaus teisėmis?"/>
             <find-status-replaceall-readonly value="Keitimas visų: Keitimas nepavyko. Dokumentas tik skaitomas"/>
             <find-status-replace-end-reached value="Keitimas: Pakeistas pirmas atitikmuo nuo pradžios. Buvo pasiekta dokumento pabaiga"/>
             <find-status-replace-top-reached value="Keitimas: Pakeistas pirmas atitikmuo nuo galo. Buvo pasiekta dokumento pradžia"/>
-            <find-status-relaced-next-found value="Keitimas: 1 atitikmuo buvo pakeistas. Rastas kitas atitikmuo"/>
-            <find-status-relaced-next-not-found value="Keitimas: 1 atitikmuo buvo pakeistas. Kitas atitikmuo nerastas"/>
+            <find-status-replaced-next-found value="Keitimas: 1 atitikmuo buvo pakeistas. Rastas kitas atitikmuo"/>
+            <find-status-replaced-next-not-found value="Keitimas: 1 atitikmuo buvo pakeistas. Kitas atitikmuo nerastas"/>
             <find-status-replace-not-found value="Keitimas: atitikimų nerasta"/>
             <find-status-replace-readonly value="Keitimas: Keitimas nepavyko. Dokumentas tik skaitomas"/>
             <find-status-cannot-find value="Paieška: Nepavyko rasti teksto &quot;$STR_REPLACE$&quot;"/>

@@ -1168,8 +1168,8 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <find-status-replaceall-readonly value="すべて置換：置換できません。この文書は読み取り専用です"/>
             <find-status-replace-end-reached value="置換：先頭からの最初の一致を置換しました。文書の末尾を通過しました"/>
             <find-status-replace-top-reached value="置換：末尾からの最初の一致を置換しました。文書の先頭を通過しました"/>
-            <find-status-relaced-next-found value="置換：1 件を置換しました。次の一致が見つかりました"/>
-            <find-status-relaced-next-not-found value="置換：1 件を置換しました。一致するものはありません"/>
+            <find-status-replaced-next-found value="置換：1 件を置換しました。次の一致が見つかりました"/>
+            <find-status-replaced-next-not-found value="置換：1 件を置換しました。一致するものはありません"/>
             <find-status-replace-not-found value="置換：一致するものはありません"/>
             <find-status-replace-readonly value="置換：置換できません。この文書は読み取り専用です"/>
             <find-status-cannot-find value="検索：見つかりません。&quot;$STR_REPLACE$&quot;"/>

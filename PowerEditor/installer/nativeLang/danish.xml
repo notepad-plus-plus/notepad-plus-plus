@@ -1133,8 +1133,8 @@ giv venligst et andet."/>
             <find-status-replaceall-readonly value="Erstat alle: Kan ikke erstatte tekst. Det nuværende dokument er skrivebeskyttet"/>
             <find-status-replace-end-reached value="Erstat: Erstattet den første forekomst fra toppen. Slutningen af dokumentet er nået"/>
             <find-status-replace-top-reached value="Erstat: Erstattet den første forekomst fra bunden. Begyndelsen af dokumentet er nået"/>
-            <find-status-relaced-next-found value="Erstat: 1 forekomst blev erstattet. Den næste forekomst blev fundet"/>
-            <find-status-relaced-next-not-found value="Erstat: 1 forekomst blev erstattet. Den næste forekomst blev ikke fundet"/>
+            <find-status-replaced-next-found value="Erstat: 1 forekomst blev erstattet. Den næste forekomst blev fundet"/>
+            <find-status-replaced-next-not-found value="Erstat: 1 forekomst blev erstattet. Den næste forekomst blev ikke fundet"/>
             <find-status-replace-not-found value="Erstat: ingen forekomster blev fundet"/>
             <find-status-replace-readonly value="Erstat: Kan ikke erstatte tekst. Det nuværende dokument er skrivebeskyttet"/>
             <find-status-cannot-find value="Søg: Kan ikke finde teksten &quot;$STR_REPLACE$&quot;"/>

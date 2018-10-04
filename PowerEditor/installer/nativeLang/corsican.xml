@@ -1167,8 +1167,8 @@ Vulete dimarrà Notepad++ in modu Amministratore ?"/>
             <find-status-replaceall-readonly value="Rimpiazzà Tutti : Ùn si pò rimpiazzà u testu. U ducumentu attuale pò solu si leghje"/>
             <find-status-replace-end-reached value="Rimpiazzà : 1a occurrenza rimpiazzata da u principiu. A fine di u ducumentu hè stata tocca"/>
             <find-status-replace-top-reached value="Rimpiazzà : 1a occurrenza rimpiazzata da a fine. U principiu di u ducumentu hè statu toccu"/>
-            <find-status-relaced-next-found value="Rimpiazzà : 1 occurrenza hè stata rimpiazzata. A prossima occurrenza trova"/>
-            <find-status-relaced-next-not-found value="Rimpiazzà : 1 occurrenza hè stata rimpiazzata. A prossima occurrenza micca trova"/>
+            <find-status-replaced-next-found value="Rimpiazzà : 1 occurrenza hè stata rimpiazzata. A prossima occurrenza trova"/>
+            <find-status-replaced-next-not-found value="Rimpiazzà : 1 occurrenza hè stata rimpiazzata. A prossima occurrenza micca trova"/>
             <find-status-replace-not-found value="Rimpiazzà : alcuna occurrenza trova"/>
             <find-status-replace-readonly value="Rimpiazzà : Ùn si pò rimpiazzà u testu. U ducumentu attuale pò solu si leghje"/>
             <find-status-cannot-find value="Circà : Ùn si pò truvà u testu &quot;$STR_REPLACE$&quot;"/>

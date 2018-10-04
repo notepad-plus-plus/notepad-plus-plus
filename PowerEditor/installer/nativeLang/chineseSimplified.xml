@@ -1143,8 +1143,8 @@
             <find-status-replaceall-readonly value="全部替换：无法替换文本，当前文件只读。"/>
             <find-status-replace-end-reached value="替换：替换到从上到下的首个匹配项。已查找至文档最底部。"/>
             <find-status-replace-top-reached value="替换：替换到从下到上的首个匹配项。已查找至文档最顶部。"/>
-            <find-status-relaced-next-found value="替换：已替换1个匹配项，并找到了下一个。"/>
-            <find-status-relaced-next-not-found value="替换：已替换1个匹配项，没有找到下一个。"/>
+            <find-status-replaced-next-found value="替换：已替换1个匹配项，并找到了下一个。"/>
+            <find-status-replaced-next-not-found value="替换：已替换1个匹配项，没有找到下一个。"/>
             <find-status-replace-not-found value="替换：没有找到匹配项。"/>
             <find-status-replace-readonly value="替换：无法替换文本，当前文件只读。"/>
             <find-status-cannot-find value="查找：无法找到文本“$STR_REPLACE$”"/>

@@ -452,6 +452,31 @@ bool PluginsManager::getShortcutByCmdID(int cmdID, ShortcutKey *sk)
 	return false;
 }
 
+// returns false if cmdID not provided, true otherwise
+bool PluginsManager::removeShortcutByCmdID(int cmdID)
+{
+	if (cmdID == 0) { return false; }
+
+	NppParameters *nppParam = NppParameters::getInstance();
+	vector<PluginCmdShortcut> & pluginCmdSCList = nppParam->getPluginCommandList();
+
+	for (size_t i = 0, len = pluginCmdSCList.size(); i < len; ++i)
+	{
+		if (pluginCmdSCList[i].getID() == (unsigned long)cmdID)
+		{
+			//remove shortcut
+			pluginCmdSCList[i].clear();
+
+			// inform accelerator instance
+			nppParam->getAccelerator()->updateShortcuts();
+
+			// set dirty flag to force writing shortcuts.xml on shutdown
+			nppParam->setShortcutDirty();
+			break;
+		}
+	}
+	return true;
+}
 
 void PluginsManager::addInMenuFromPMIndex(int i)
 {

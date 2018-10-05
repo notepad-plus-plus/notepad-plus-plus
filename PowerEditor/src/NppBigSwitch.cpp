@@ -2299,6 +2299,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return FALSE;
 		}
 
+		case NPPM_REMOVESHORTCUTBYCMDID:
+		{
+			int cmdID = static_cast<int32_t>(wParam);
+			return _pluginsManager.removeShortcutByCmdID(cmdID);
+		}
+
 		//
 		// These are sent by Preferences Dialog
 		//

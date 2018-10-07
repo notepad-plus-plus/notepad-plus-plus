@@ -978,7 +978,7 @@
 			<SortingError title="Sortier-Fehler" message="Konnte nicht nummerisch sortieren wegen Zeile $INT_REPLACE$."/>
 			<ColumnModeTip title="Tip zum Spalten-Modus" message="Bitte &quot;ALT+Mauswahl&quot; oder &quot;Alt+Shift+Pfeiltaste&quot; verwenden um in den Spalten-Modus zu wechseln."/>
 			<BufferInvalidWarning title="Speichern fehlgeschlagen" message="Konnte nicht speichern: Ungültiger Puffer."/>
-			<DoSaveOrNot title="Speichern" message="Speichere Datei &quot;$STR_REPLACE$&quot; ?"/>
+			<DoSaveOrNot title="Speichern" message="Speichere Datei &quot;$STR_REPLACE$&quot;?"/>
 			<DoCloseOrNot title="Nicht existierende Datei behalten" message="Die Datei &quot;$STR_REPLACE$&quot; existiert nicht mehr.&#x0A;Soll die Datei im Editor behalten werden?"/>
 			<DoDeleteOrNot title="Datei löschen" message="Die Datei &quot;$STR_REPLACE$&quot;&#x0A;wird in den Papierkorb verschoben und diese Dokument wird geschlossen.&#x0A;Fortfahren?"/>
 			<NoBackupDoSaveFile title="Speichern" message="Die Sicherungsdatei konnte nicht gefunden werden (wurde anderwärtig gelöscht).&#x0A;Speichern oder die Daten gehen verloren.&#x0A;Soll die Datei &quot;$STR_REPLACE$&quot; gespeichert werden?"/>
@@ -1131,7 +1131,7 @@
 			<find-status-replaceinopenedfiles-1-replaced value="Ersetzen in geöffneten Dateien: 1 Vorkommen wurde ersetzt"/>
 			<find-status-replaceinopenedfiles-nb-replaced value="Ersetzen in geöffneten Dateien: $INT_REPLACE$ Vorkommen wurden ersetzt"/>
 			<find-status-mark-re-malformed value="Achtung: Der Ausdruck für die Suche ist nicht passend"/>
-			<find-status-invalid-re value="Suche: Üngültiger Ausdruck"/>
+			<find-status-invalid-re value="Suche: Ungültiger Ausdruck"/>
 			<find-status-mark-1-match value="1 Treffer"/>
 			<find-status-mark-nb-matches value="$INT_REPLACE$ Treffer"/>
 			<find-status-count-re-malformed value="Zähler: Der Ausdruck für die Suche ist nicht passend"/>
@@ -1149,7 +1149,7 @@
 			<find-status-replace-readonly value="Ersetzen: Konnte Text wegen schreibgeschützter Datei nicht ersetzen"/>
 			<find-status-cannot-find value="Suche: Konnte Text &quot;$STR_REPLACE$&quot; nicht finden"/>
 			<finder-find-in-finder value="Finde in diesen Suchergebnissen …"/>
-			<finder-close-this value="Schliesse diese Suche"/>
+			<finder-close-this value="Schließe diese Suche"/>
 			<finder-collapse-all value="Alles einklappen"/>
 			<finder-uncollapse-all value="Alles aufmachen"/>
 			<finder-copy value="Kopiere"/>

@@ -111,6 +111,41 @@ void stripIgnoredParams(ParamVector & params)
 	}
 }
 
+// 1. Converts /p to -quickPrint if it exists as the first parameter
+// 2. Concatenates all remaining parameters to form a file path, adding appending .txt extension if necessary
+// This seems to mirror Notepad's behaviour
+void convertParamsToNotepadStyle(ParamVector & params)
+{
+	ParamVector newParams;
+	auto it = params.begin();
+	if ( it != params.end() && lstrcmpi(TEXT("/p"), it->c_str()) == 0 ) // Notepad accepts both /p and /P, so compare case insensitively
+	{
+		++it;
+		newParams.emplace_back(TEXT("-quickPrint"));
+	}
+
+	bool ssHasContents = false;
+	generic_stringstream ss;
+	for ( ; it != params.end(); ++it )
+	{
+		ssHasContents = true;
+		ss << *it;
+		if ( std::next(it) != params.end() ) ss << TEXT(" ");
+	}
+	
+	if ( ssHasContents )
+	{
+		generic_string str = ss.str();
+		if ( *PathFindExtension(str.c_str()) == '\0' )
+		{
+			str.append(TEXT(".txt")); // If joined path has no extension, Notepad adds a .txt extension
+		}
+		newParams.push_back(std::move(str));
+	}
+
+	params = std::move(newParams);
+}
+
 bool isInList(const TCHAR *token2Find, ParamVector& params, bool eraseArg = true)
 {
 	for (auto it = params.begin(); it != params.end(); ++it)
@@ -247,6 +282,7 @@ const TCHAR FLAG_OPENSESSIONFILE[] = TEXT("-openSession");
 const TCHAR FLAG_RECURSIVE[] = TEXT("-r");
 const TCHAR FLAG_FUNCLSTEXPORT[] = TEXT("-export=functionList");
 const TCHAR FLAG_PRINTANDQUIT[] = TEXT("-quickPrint");
+const TCHAR FLAG_NOTEPAD_COMPATIBILITY[] = TEXT("-notepadStyleCmdline");
 
 
 void doException(Notepad_plus_Window & notepad_plus_plus)
@@ -288,6 +324,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 	::CreateMutex(NULL, false, TEXT("nppInstance"));
 	if (::GetLastError() == ERROR_ALREADY_EXISTS)
 		TheFirstOne = false;
+
+	// Convert commandline to notepad-compatible format, if applicable
+	if ( isInList(FLAG_NOTEPAD_COMPATIBILITY, params) )
+	{
+		convertParamsToNotepadStyle(params);
+	}
 
 	bool isParamePresent;
 	bool showHelp = isInList(FLAG_HELP, params);

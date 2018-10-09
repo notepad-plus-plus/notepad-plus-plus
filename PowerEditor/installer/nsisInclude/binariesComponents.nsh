@@ -102,54 +102,143 @@ ${MementoSection} "Auto-Updater" AutoUpdater
 !endif
 ${MementoSectionEnd}
 
-;Uninstall section
-SectionGroup un.Plugins
-	Section un.NppExport
+!macro RemoveAutoUpdater un
+	Function ${un}removeAutoUpdater
+		DetailPrint "Removing AutoUpdater files..."
+		Delete "$INSTDIR\updater\GUP.exe"
+		Delete "$INSTDIR\updater\libcurl.dll"
+		Delete "$INSTDIR\updater\gup.xml"
+		Delete "$INSTDIR\updater\License.txt"
+		Delete "$INSTDIR\updater\LICENSE"
+		Delete "$INSTDIR\updater\gpl.txt"
+		Delete "$INSTDIR\updater\readme.txt"
+		Delete "$INSTDIR\updater\README.md"
+		Delete "$INSTDIR\updater\getDownLoadUrl.php"
+		RMDir "$INSTDIR\updater"
+	FunctionEnd
+!macroend
+!insertmacro RemoveAutoUpdater ""
+!insertmacro RemoveAutoUpdater "un."
+
+!macro RemoveNppExport un
+	Function ${un}removeNppExport
+		DetailPrint "Removing NppExport plugin files..."
 		Delete "$INSTDIR\plugins\NppExport.dll"
 		Delete "$INSTDIR\plugins\NppExport\NppExport.dll"
 		RMDir "$INSTDIR\plugins\NppExport"
-	SectionEnd
-	
-	Section un.Converter
+	FunctionEnd
+!macroend
+!ifndef ARCH64
+!insertmacro RemoveNppExport ""
+!endif
+!insertmacro RemoveNppExport "un."
+
+!macro RemoveConverter un
+	Function ${un}removeConverter
+		DetailPrint "Removing Converter plugin files..."
 		Delete "$INSTDIR\plugins\NppConverter.dll"
 		Delete "$INSTDIR\plugins\NppConverter\NppConverter.dll"
 		RMDir "$INSTDIR\plugins\NppConverter"
-	SectionEnd
-	
-	Section un.MimeTools
+	FunctionEnd
+!macroend
+!insertmacro RemoveConverter ""
+!insertmacro RemoveConverter "un."
+
+!macro RemoveMimeTools un
+	Function ${un}removeMimeTools
+		DetailPrint "Removing MimeTools plugin files..."
 		Delete "$INSTDIR\plugins\mimeTools.dll"
 		Delete "$INSTDIR\plugins\mimeTools\mimeTools.dll"
 		RMDir "$INSTDIR\plugins\mimeTools"
-	SectionEnd
+	FunctionEnd
+!macroend
+!insertmacro RemoveMimeTools ""
+!insertmacro RemoveMimeTools "un."
 
-	Section un.PluginManager
+!macro RemovePluginManager un
+	Function ${un}removePluginManager
+		DetailPrint "Removing PluginManager plugin files..."
 		Delete "$INSTDIR\plugins\PluginManager.dll"
 		Delete "$UPDATE_PATH\plugins\Config\PluginManager.ini"
 		Delete "$INSTDIR\updater\gpup.exe"
-		RMDir "$INSTDIR\updater\"
-	SectionEnd
-	
- 	Section un.DSpellCheck
+		RMDir "$INSTDIR\updater"
+	FunctionEnd
+!macroend
+;!insertmacro RemovePluginManager "" # To remove nsis "not referenced" warning, should be uncommented when PluginManager is ready
+!insertmacro RemovePluginManager "un."
+
+!macro RemoveDSpellCheck un
+	Function ${un}removeDSpellCheck
+		DetailPrint "Removing DSpellCheck plugin files..."
 		Delete "$INSTDIR\plugins\DSpellCheck.dll"
 		Delete "$INSTDIR\plugins\DSpellCheck\DSpellCheck.dll"
 		Delete "$UPDATE_PATH\plugins\Config\DSpellCheck.ini"
 		Delete "$INSTDIR\plugins\Config\Hunspell\en_US.aff"
 		Delete "$INSTDIR\plugins\Config\Hunspell\en_US.dic"
-		RMDir /r "$INSTDIR\plugins\Config"			; Remove Config folder recursively only if empty
 		RMDir "$INSTDIR\plugins\DSpellCheck"
+		RMDir /r "$INSTDIR\plugins\Config"			; Remove Config folder recursively (even if not empty)
+	FunctionEnd
+!macroend
+!insertmacro RemoveDSpellCheck ""
+!insertmacro RemoveDSpellCheck "un."
+
+Section # This is hidden section (will not be visible on installer UI)
+	; This will remove previously installed section during reinstall/update
+	; if a particular section is unchecked this time.
+	; e.g. user installed DSpellCheck last time and to uninstall it.
+	; Then s/he has to re-run installer while DSpellCheck should be unchecked
+
+	${IfNot} ${SectionIsSelected} ${AutoUpdater}
+		call removeAutoUpdater
+	${EndIf}
+
+!ifndef ARCH64
+	${IfNot} ${SectionIsSelected} ${NppExport}
+		call removeNppExport
+	${EndIf}
+!endif
+
+	${IfNot} ${SectionIsSelected} ${Converter}
+		call removeConverter
+	${EndIf}
+
+	${IfNot} ${SectionIsSelected} ${MimeTools}
+		call removeMimeTools
+	${EndIf}
+
+	; ${IfNot} ${SectionIsSelected} ${PluginManager}
+		; call removePluginManager
+	; ${EndIf}
+
+	${IfNot} ${SectionIsSelected} ${DSpellCheck}
+		call removeDSpellCheck
+	${EndIf}
+SectionEnd
+
+;Uninstall section
+SectionGroup un.Plugins
+	Section un.NppExport
+		Call un.removeNppExport
+	SectionEnd
+
+	Section un.Converter
+		Call un.removeConverter
+	SectionEnd
+
+	Section un.MimeTools
+		Call un.removeMimeTools
+	SectionEnd
+
+	Section un.PluginManager
+		Call un.removePluginManager
+	SectionEnd
+
+	Section un.DSpellCheck
+		Call un.removeDSpellCheck
 	SectionEnd
 
 SectionGroupEnd
 
 Section un.AutoUpdater
-	Delete "$INSTDIR\updater\GUP.exe"
-	Delete "$INSTDIR\updater\libcurl.dll"
-	Delete "$INSTDIR\updater\gup.xml"
-	Delete "$INSTDIR\updater\License.txt"
-	Delete "$INSTDIR\updater\LICENSE"
-	Delete "$INSTDIR\updater\gpl.txt"
-	Delete "$INSTDIR\updater\readme.txt"
-	Delete "$INSTDIR\updater\README.md"
-	Delete "$INSTDIR\updater\getDownLoadUrl.php"
-	RMDir "$INSTDIR\updater"
+	Call un.removeAutoUpdater
 SectionEnd 

@@ -20,7 +20,7 @@ echo on
 if %SIGN% == 0 goto NoSign
 
 rem retrieve GUP release from website while doing Notepad++ release
-set WINGUP_VER=5.0.2
+set WINGUP_VER=5.0.3
 IF EXIST ".\bin\wingup\GUP.exe" (
 	cd .\bin\wingup
 	GUP.exe -unzipTo %~dp0\..\bin\updater https://github.com/notepad-plus-plus/wingup/releases/download/v%WINGUP_VER%/wingup.v%WINGUP_VER%.bin.zip

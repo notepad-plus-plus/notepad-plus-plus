@@ -3512,12 +3512,8 @@ int Notepad_plus::switchEditViewTo(int gid)
 
 	_activeView = newView;
 	//Good old switcheroo
-	DocTabView * tempTab = _pDocTab;
-	_pDocTab = _pNonDocTab;
-	_pNonDocTab = tempTab;
-	ScintillaEditView * tempView = _pEditView;
-	_pEditView = _pNonEditView;
-	_pNonEditView = tempView;
+	std::swap(_pDocTab, _pNonDocTab);
+	std::swap(_pEditView, _pNonEditView);
 
 	_pEditView->beSwitched();
     _pEditView->getFocus();	//set the focus

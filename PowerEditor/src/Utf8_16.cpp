@@ -58,44 +58,57 @@ u78 Utf8_16_Read::utf8_7bits_8bits()
 
 	while (sx<endx)
 	{
-		if (!*sx)
+		if (*sx == '\0')
 		{											// For detection, we'll say that NUL means not UTF8
 			ASCII7only = 0;
 			rv = 0;
 			break;
 		} 
-		else if (*sx < 0x80)
+		else if ((*sx & 0x80) == 0x0)
 		{			// 0nnnnnnn If the byte's first hex code begins with 0-7, it is an ASCII character.
 			++sx;
 		} 
-		else if (*sx < (0x80 + 0x40)) 
+		else if ((*sx & (0x80+0x40)) == 0x80) 
 		{											  // 10nnnnnn 8 through B cannot be first hex codes
 			ASCII7only=0;
 			rv=0;
 			break;
 		} 
-		else if (*sx < (0x80 + 0x40 + 0x20))
-		{					  // 110xxxvv 10nnnnnn  If it begins with C or D, it is an 11 bit character
+		else if ((*sx & (0x80+0x40+0x20)) == (0x80+0x40))
+		{					  // 110xxxvv 10nnnnnn, 11 bit character
 			ASCII7only=0;
-			if (sx>=endx-1) 
-				break;
-			if ((*sx & 0xC0) != 0xC0 || (sx[1]&(0x80+0x40)) != 0x80) {
+			if (std::distance(sx, endx) < 2) {
+				rv=0; break;
+			}
+			if ( (sx[1]&(0x80+0x40)) != 0x80) {
 				rv=0; break;
 			}
 			sx+=2;
 		} 
-		else if (*sx < (0x80 + 0x40 + 0x20 + 0x10))
-		{								// 1110qqqq 10xxxxvv 10nnnnnn If it begins with E, it is 16 bit
+		else if ((*sx & (0x80+0x40+0x20+0x10)) == (0x80+0x40+0x20))
+		{								// 1110qqqq 10xxxxvv 10nnnnnn, 16 bit character
 			ASCII7only=0;
-			if (sx>=endx-2) 
-				break;
-			if ((*sx & 0xE0) != 0xE0 || (sx[1]&(0x80+0x40)) != 0x80 || (sx[2]&(0x80+0x40)) != 0x80) {
+			if (std::distance(sx, endx) < 3) {
+				rv=0; break;
+			}
+			if ((sx[1]&(0x80+0x40)) != 0x80 || (sx[2]&(0x80+0x40)) != 0x80) {
 				rv=0; break;
 			}
 			sx+=3;
 		} 
+		else if ((*sx & (0x80+0x40+0x20+0x10+0x8)) == (0x80+0x40+0x20+0x10))
+		{								// 11110qqq 10xxxxvv 10nnnnnn 10mmmmmm, 21 bit character
+			ASCII7only=0;
+			if (std::distance(sx, endx) < 4) {
+				rv=0; break;
+			}
+			if ((sx[1]&(0x80+0x40)) != 0x80 || (sx[2]&(0x80+0x40)) != 0x80 || (sx[3]&(0x80+0x40)) != 0x80) {
+				rv=0; break;
+			}
+			sx+=4;
+		} 
 		else 
-		{													  // more than 16 bits are not allowed here
+		{
 			ASCII7only=0;
 			rv=0;
 			break;

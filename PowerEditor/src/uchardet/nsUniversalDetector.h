@@ -72,6 +72,7 @@ protected:
    virtual void Report(const char* aCharset) = 0;
    virtual void Reset();
    nsInputState  mInputState;
+   PRBool  mNbspFound;
    PRBool  mDone;
    PRBool  mInTag;
    PRBool  mStart;
@@ -86,4 +87,3 @@ protected:
 };
 
 #endif
-

@@ -40,27 +40,42 @@
 
 #include "nsCharSetProber.h"
 
-#define SAMPLE_SIZE 64
+/** Codepoints **/
+
+/* Illegal codepoints.*/
+#define ILL 255
+/* Control character. */
+#define CTR 254
+/* Symbols and punctuation that does not belong to words. */
+#define SYM 253
+/* Return/Line feeds. */
+#define RET 252
+/* Numbers 0-9. */
+#define NUM 251
+
 #define SB_ENOUGH_REL_THRESHOLD  1024
 #define POSITIVE_SHORTCUT_THRESHOLD  (float)0.95
 #define NEGATIVE_SHORTCUT_THRESHOLD  (float)0.05
 #define SYMBOL_CAT_ORDER  250
+
 #define NUMBER_OF_SEQ_CAT 4
 #define POSITIVE_CAT   (NUMBER_OF_SEQ_CAT-1)
+#define PROBABLE_CAT   (NUMBER_OF_SEQ_CAT-2)
+#define NEUTRAL_CAT    (NUMBER_OF_SEQ_CAT-3)
 #define NEGATIVE_CAT   0
 
-struct SequenceModel
+typedef struct
 {
-  const unsigned char* const charToOrderMap;    // [256] table use to find a char's order
-  const PRUint8* const precedenceMatrix;  // [SAMPLE_SIZE][SAMPLE_SIZE]; table to find a 2-char sequence's frequency
-  float  mTypicalPositiveRatio;     // = freqSeqs / totalSeqs 
+  /* [256] table mapping codepoints to chararacter orders. */
+  const unsigned char* const charToOrderMap;
+  /* freqCharCount x freqCharCount table of 2-char sequence's frequencies. */
+  const PRUint8* const precedenceMatrix;
+  /* The count of frequent characters. */
+  int freqCharCount;
+  float  mTypicalPositiveRatio;     // = freqSeqs / totalSeqs
   PRBool keepEnglishLetter;         // says if this script contains English characters (not implemented)
   const char* const charsetName;
-  SequenceModel(void);
-  SequenceModel(const unsigned char* const a, const PRUint8* const  b,float c,PRBool d,const char* const e) 
-	  : charToOrderMap(a), precedenceMatrix(b), mTypicalPositiveRatio(c), keepEnglishLetter(d), charsetName(e){}
-  SequenceModel& operator=(const SequenceModel&);
-} ;
+} SequenceModel;
 
 
 class nsSingleByteCharSetProber : public nsCharSetProber{
@@ -69,7 +84,7 @@ public:
     :mModel(model), mReversed(PR_FALSE), mNameProber(0) { Reset(); }
   nsSingleByteCharSetProber(const SequenceModel *model, PRBool reversed, nsCharSetProber* nameProber)
     :mModel(model), mReversed(reversed), mNameProber(nameProber) { Reset(); }
-  nsSingleByteCharSetProber(): mModel(0), mReversed(0){};
+
   virtual const char* GetCharSetName();
   virtual nsProbingState HandleData(const char* aBuf, PRUint32 aLen);
   virtual nsProbingState GetState(void) {return mState;}
@@ -84,7 +99,6 @@ public:
   // prober has a hard-coded call to FilterWithoutEnglishLetters which gets rid
   // of the English letters.
   PRBool KeepEnglishLetters() {return mModel->keepEnglishLetter;} // (not implemented)
-  nsSingleByteCharSetProber operator=(const nsSingleByteCharSetProber&) = delete;
 
 #ifdef DEBUG_chardet
   virtual void  DumpStatus();
@@ -102,6 +116,7 @@ protected:
   PRUint32 mSeqCounters[NUMBER_OF_SEQ_CAT];
 
   PRUint32 mTotalChar;
+  PRUint32 mCtrlChar;
   //characters that fall in our sampling range
   PRUint32 mFreqChar;
   
@@ -110,21 +125,52 @@ protected:
 
 };
 
+extern const SequenceModel Windows_1256ArabicModel;
+extern const SequenceModel Iso_8859_6ArabicModel;
 
-extern const SequenceModel Koi8rModel;
-extern const SequenceModel Win1251Model;
-extern const SequenceModel Latin5Model;
-extern const SequenceModel MacCyrillicModel;
-extern const SequenceModel Ibm866Model;
-extern const SequenceModel Ibm855Model;
-extern const SequenceModel Latin7Model;
-extern const SequenceModel Win1253Model;
+extern const SequenceModel Koi8rRussianModel;
+extern const SequenceModel Win1251RussianModel;
+extern const SequenceModel Latin5RussianModel;
+extern const SequenceModel MacCyrillicRussianModel;
+extern const SequenceModel Ibm866RussianModel;
+extern const SequenceModel Ibm855RussianModel;
+
+extern const SequenceModel Iso_8859_7GreekModel;
+extern const SequenceModel Windows_1253GreekModel;
+
 extern const SequenceModel Latin5BulgarianModel;
 extern const SequenceModel Win1251BulgarianModel;
-extern const SequenceModel Latin2HungarianModel;
-extern const SequenceModel Win1250HungarianModel;
+
+extern const SequenceModel Iso_8859_2HungarianModel;
+extern const SequenceModel Windows_1250HungarianModel;
+
 extern const SequenceModel Win1255Model;
-extern const SequenceModel TIS620ThaiModel;
+
+extern const SequenceModel Tis_620ThaiModel;
+extern const SequenceModel Iso_8859_11ThaiModel;
+
+extern const SequenceModel Iso_8859_15FrenchModel;
+extern const SequenceModel Iso_8859_1FrenchModel;
+extern const SequenceModel Windows_1252FrenchModel;
+
+extern const SequenceModel Iso_8859_15SpanishModel;
+extern const SequenceModel Iso_8859_1SpanishModel;
+extern const SequenceModel Windows_1252SpanishModel;
+
+extern const SequenceModel Iso_8859_1GermanModel;
+extern const SequenceModel Windows_1252GermanModel;
+
+extern const SequenceModel Iso_8859_3EsperantoModel;
+
+extern const SequenceModel Iso_8859_3TurkishModel;
+extern const SequenceModel Iso_8859_9TurkishModel;
+
+extern const SequenceModel VisciiVietnameseModel;
+extern const SequenceModel Windows_1258VietnameseModel;
+
+extern const SequenceModel Iso_8859_15DanishModel;
+extern const SequenceModel Iso_8859_1DanishModel;
+extern const SequenceModel Windows_1252DanishModel;
 
 #endif /* nsSingleByteCharSetProber_h__ */
 

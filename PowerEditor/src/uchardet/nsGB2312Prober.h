@@ -42,7 +42,7 @@
 #include "nsCodingStateMachine.h"
 #include "CharDistribution.h"
 
-// We use gb18030 to replace gb2312, because 18030 is a superset. 
+// We use GB18030 to replace GB2312, because 18030 is a superset.
 
 class nsGB18030Prober: public nsCharSetProber {
 public:
@@ -52,7 +52,7 @@ public:
     Reset();}
   virtual ~nsGB18030Prober(void){delete mCodingSM;}
   nsProbingState HandleData(const char* aBuf, PRUint32 aLen);
-  const char* GetCharSetName() {return "gb18030";}
+  const char* GetCharSetName() {return "GB18030";}
   nsProbingState GetState(void) {return mState;}
   void      Reset(void);
   float     GetConfidence(void);

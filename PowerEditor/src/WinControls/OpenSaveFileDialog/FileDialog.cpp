@@ -464,6 +464,16 @@ BOOL APIENTRY FileDialog::run(HWND hWnd, UINT uMsg, WPARAM, LPARAM lParam)
 						::PostMessage(hFileDlg, WM_COMMAND, IDOK, 0);
 						::SetWindowLongPtr(hWnd, 0 /*DWL_MSGRESULT*/, 1);
 					}
+					else
+					{
+						// don't close this dialog if filename is a wildcard pattern
+						TCHAR* fileNameOnly = ::PathFindFileName(fileName);
+						if ((fileNameOnly != NULL) &&
+							((::StrStr(fileNameOnly, TEXT("*")) != NULL) || (::StrStr(fileNameOnly, TEXT("?")) != NULL)))
+						{
+							::SetWindowLongPtr(hWnd, 0 /*DWL_MSGRESULT*/, 1);
+						}
+					}
 					return TRUE;
 				}
 

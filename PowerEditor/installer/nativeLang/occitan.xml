@@ -1143,8 +1143,8 @@ Deuretz tornar lançar Notepad++ per que siá efectiu."/>
 			<find-status-replaceall-readonly value="Remplaçar tot : Impossible de remplaçar lo tèxt. Lo document actiu es en lectura sola"/>
 			<find-status-replace-end-reached value="Remplaçar : 1èra ocurréncia dempuèi lo naut remplaçada. Fin del document atenguda"/>
 			<find-status-replace-top-reached value="Remplaçar : 1èra ocurréncia dempuèi lo bas remplaçada. Debuta del document atenguda."/>
-			<find-status-relaced-next-found value="Remplaçar : 1 occurrence was replaced. Ocurréncia seguenta trobada"/>
-			<find-status-relaced-next-not-found value="Remplaçar : 1 occurrence was replaced. Ocurréncia seguenta pas trobada"/>
+			<find-status-replaced-next-found value="Remplaçar : 1 occurrence was replaced. Ocurréncia seguenta trobada"/>
+			<find-status-replaced-next-not-found value="Remplaçar : 1 occurrence was replaced. Ocurréncia seguenta pas trobada"/>
 			<find-status-replace-not-found value="Remplaçar : cap d'ocurrénia trobada"/>
 			<find-status-replace-readonly value="Remplaçar : Impossible de remplaçar lo tèxt. Lo document actiu es en lectura sola"/>
 			<find-status-cannot-find value="Recèrca : Impossible de trobar lo tèxt &quot;$STR_REPLACE$&quot;"/>

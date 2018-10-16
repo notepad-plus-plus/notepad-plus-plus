@@ -173,10 +173,6 @@ LanguageName ScintillaEditView::langNames[L_EXTERNAL+1] = {
 //const int MASK_GREEN = 0x00FF00;
 //const int MASK_BLUE  = 0x0000FF;
 
-#define SCINTILLA_SIGNER_DISPLAY_NAME TEXT("Notepad++")
-#define SCINTILLA_SIGNER_SUBJECT TEXT("C=FR, S=Ile-de-France, L=Saint Cloud, O=\"Notepad++\", CN=\"Notepad++\"")
-#define SCINTILLA_SIGNER_KEY_ID TEXT("42C4C5846BB675C74E2B2C90C69AB44366401093")
-
 
 int getNbDigits(int aNum, int base)
 {
@@ -210,7 +206,7 @@ HMODULE loadSciLexerDll()
 	// This is helpful for developers to skip signature checking
 	// while analyzing issue or modifying the lexer dll
 #ifndef _DEBUG
-	bool isOK = VerifySignedLibrary(sciLexerPath, SCINTILLA_SIGNER_KEY_ID, SCINTILLA_SIGNER_SUBJECT, SCINTILLA_SIGNER_DISPLAY_NAME, false, false);
+	bool isOK = VerifySignedLibrary(sciLexerPath, NPP_COMPONENT_SIGNER_KEY_ID, NPP_COMPONENT_SIGNER_SUBJECT, NPP_COMPONENT_SIGNER_DISPLAY_NAME, false, false);
 
 	if (!isOK)
 	{
@@ -1759,7 +1755,7 @@ void ScintillaEditView::saveCurrentPos()
 	//Save data so, that the current topline becomes visible again after restoring.
 	int32_t displayedLine = static_cast<int32_t>(execute(SCI_GETFIRSTVISIBLELINE));
 	int32_t docLine = static_cast<int32_t>(execute(SCI_DOCLINEFROMVISIBLE, displayedLine));		//linenumber of the line displayed in the top
-	//int offset = displayedLine - execute(SCI_VISIBLEFROMDOCLINE, docLine);		//use this to calc offset of wrap. If no wrap this should be zero
+	int32_t offset = displayedLine - static_cast<int32_t>(execute(SCI_VISIBLEFROMDOCLINE, docLine));		//use this to calc offset of wrap. If no wrap this should be zero
 
 	Buffer * buf = MainFileManager->getBufferByID(_currentBufferID);
 
@@ -1771,6 +1767,7 @@ void ScintillaEditView::saveCurrentPos()
 	pos._xOffset = static_cast<int>(execute(SCI_GETXOFFSET));
 	pos._selMode = static_cast<int32_t>(execute(SCI_GETSELECTIONMODE));
 	pos._scrollWidth = static_cast<int32_t>(execute(SCI_GETSCROLLWIDTH));
+	pos._offset = offset;
 
 	buf->setPosition(pos, this);
 }
@@ -1792,8 +1789,11 @@ void ScintillaEditView::restoreCurrentPos()
 		execute(SCI_SETXOFFSET, pos._xOffset);
 	}
 	execute(SCI_CHOOSECARETX); // choose current x position
+	execute(SCI_ENSUREVISIBLE); //Make sure the caret is visible (this will also fix wrapping problems)
 
 	int lineToShow = static_cast<int32_t>(execute(SCI_VISIBLEFROMDOCLINE, pos._firstVisibleLine));
+	lineToShow += pos._offset;
+
 	scroll(0, lineToShow);
 }
 

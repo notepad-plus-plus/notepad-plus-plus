@@ -1157,8 +1157,8 @@ Notepad++ı Yönetici olarak başlatmak ister misiniz?"/>
 			<find-status-replaceall-readonly value="Tümünü Değiştir: Yazı değiştirilemez. Şu anki dosya yalnızca okunabilir"/>
 			<find-status-replace-end-reached value="Değiştir: Baştan 1. eşleşme değiştirildi. Dosyanın sonuna ulaşıldı"/>
 			<find-status-replace-top-reached value="Değiştir: Sondan 1. eşleşme değiştirildi. Dosyanın başına ulaşıldı"/>
-			<find-status-relaced-next-found value="Değiştir: 1 eşleşme değiştirildi. Sonraki eşleşme bulundu"/>
-			<find-status-relaced-next-not-found value="Değiştir: 1 eşleşme değiştirildi. Sonraki eşleşme bulunamadı"/>
+			<find-status-replaced-next-found value="Değiştir: 1 eşleşme değiştirildi. Sonraki eşleşme bulundu"/>
+			<find-status-replaced-next-not-found value="Değiştir: 1 eşleşme değiştirildi. Sonraki eşleşme bulunamadı"/>
 			<find-status-replace-not-found value="Değiştir: hiçbir eşleşme bulunamadı"/>
 			<find-status-replace-readonly value="Değiştir: Yazı değiştirilemez. Şu anki dosya yalnızca okunabilir"/>
 			<find-status-cannot-find value="Bulma: &quot;$STR_REPLACE$&quot; yazısı bulunamadı"/>

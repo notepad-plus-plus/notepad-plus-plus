@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="7.5.6">
+	<Native-Langue name="Русский" filename="russian.xml" version="7.5.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -266,15 +266,15 @@
 					<Item id="45002" name="Преобразовать в UNIX-формат (LF)"/>
 					<Item id="45003" name="Преобразовать в MAC-формат (CR)"/>
 					<Item id="45004" name="Кодировка в ANSI"/>
-					<Item id="45005" name="Кодировка в UTF-8"/>
-					<Item id="45006" name="Кодировка в UCS-2 Big Endian"/>
-					<Item id="45007" name="Кодировка в UCS-2 Little Endian"/>
-					<Item id="45008" name="Кодировка в UTF-8 без BOM"/>
+					<Item id="45005" name="Кодировка в UTF-8 с BOM"/>
+					<Item id="45006" name="Кодировка в UCS-2 BE с BOM"/>
+					<Item id="45007" name="Кодировка в UCS-2 LE с BOM"/>
+					<Item id="45008" name="Кодировка в UTF-8"/>
 					<Item id="45009" name="Преобразовать в ANSI"/>
-					<Item id="45010" name="Преобразовать в UTF-8 без BOM"/>
-					<Item id="45011" name="Преобразовать в UTF-8"/>
-					<Item id="45012" name="Преобразовать в UCS-2 Big Endian"/>
-					<Item id="45013" name="Преобразовать в UCS-2 Little Endian"/>
+					<Item id="45010" name="Преобразовать в UTF-8"/>
+					<Item id="45011" name="Преобразовать в UTF-8 с BOM"/>
+					<Item id="45012" name="Преобразовать в UCS-2 BE с BOM"/>
+					<Item id="45013" name="Преобразовать в UCS-2 LE с BOM"/>
 					<Item id="46001" name="Определение стилей..."/>
 					<Item id="46019" name="INI файл"/>
 					<Item id="46015" name="MS-DOS стиль"/>
@@ -693,8 +693,8 @@
 					<Item id="6406" name="ANSI"/>
 					<Item id="6407" name="UTF-8"/>
 					<Item id="6408" name="UTF-8 c BOM"/>
-					<Item id="6409" name="UCS2 Big Endian c BOM"/>
-					<Item id="6410" name="UCS2 Small Endian c BOM"/>
+					<Item id="6409" name="UCS-2 Big Endian c BOM"/>
+					<Item id="6410" name="UCS-2 Small Endian c BOM"/>
 					<Item id="6411" name="Синтаксис по умолч.:"/>
 					<Item id="6419" name="Новый Документ"/>
 					<Item id="6420" name="Применить к откр. ANSI файлам"/>
@@ -1050,8 +1050,8 @@
             <find-status-replaceall-readonly value="Замена всего: Невозможно заменить текст. Текущий документ доступен только для чтения"/>
             <find-status-replace-end-reached value="Замена: Заменено первое совпадение сверху. Достигнут конец документа"/>
             <find-status-replace-top-reached value="Замена: Заменено первое совпадение снизу. Достигнуто начало документа"/>
-            <find-status-relaced-next-found value="Замена: 1 совпадение заменено. Найдено следующее совпадение"/>
-            <find-status-relaced-next-not-found value="Замена: 1 совпадение заменено. Следующее совпадение не найдено"/>
+            <find-status-replaced-next-found value="Замена: 1 совпадение заменено. Найдено следующее совпадение"/>
+            <find-status-replaced-next-not-found value="Замена: 1 совпадение заменено. Следующее совпадение не найдено"/>
             <find-status-replace-not-found value="Замена: ничего не найдено"/>
             <find-status-replace-readonly value="Замена: Невозможно заменить текст. Текущий документ доступен только для чтения"/>
             <find-status-cannot-find value="Поиск: Не удается найти текст &quot;$STR_REPLACE$&quot;"/>

@@ -558,9 +558,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			{
 				case COPYDATA_PARAMS:
 				{
-					CmdLineParams *cmdLineParam = static_cast<CmdLineParams *>(pCopyData->lpData); // CmdLineParams object from another instance
-					auto cmdLineParamsSize = static_cast<size_t>(pCopyData->cbData);  // CmdLineParams size from another instance
-					if (sizeof(CmdLineParams) == cmdLineParamsSize) // make sure the structure is the same
+					const CmdLineParamsDTO *cmdLineParam = static_cast<const CmdLineParamsDTO *>(pCopyData->lpData); // CmdLineParams object from another instance
+					const DWORD cmdLineParamsSize = pCopyData->cbData;  // CmdLineParams size from another instance
+					if (sizeof(CmdLineParamsDTO) == cmdLineParamsSize) // make sure the structure is the same
 					{
 						pNppParam->setCmdlineParam(*cmdLineParam);
 					}
@@ -579,7 +579,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				case COPYDATA_FILENAMESA:
 				{
 					char *fileNamesA = static_cast<char *>(pCopyData->lpData);
-					CmdLineParams & cmdLineParams = pNppParam->getCmdLineParams();
+					const CmdLineParamsDTO & cmdLineParams = pNppParam->getCmdLineParams();
 					WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 					const wchar_t *fileNamesW = wmc->char2wchar(fileNamesA, CP_ACP);
 					loadCommandlineParams(fileNamesW, &cmdLineParams);
@@ -589,7 +589,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				case COPYDATA_FILENAMESW:
 				{
 					wchar_t *fileNamesW = static_cast<wchar_t *>(pCopyData->lpData);
-					CmdLineParams & cmdLineParams = pNppParam->getCmdLineParams();
+					const CmdLineParamsDTO & cmdLineParams = pNppParam->getCmdLineParams();
 					loadCommandlineParams(fileNamesW, &cmdLineParams);
 					break;
 				}
@@ -623,7 +623,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_INTERNAL_SAVECURRENTSESSION:
 		{
 			NppParameters *nppParam = NppParameters::getInstance();
-			const NppGUI nppGui = nppParam->getNppGUI();
+			const NppGUI& nppGui = nppParam->getNppGUI();
 
 			if (nppGui._rememberLastSession && !nppGui._isCmdlineNosessionActivated)
 			{
@@ -631,6 +631,16 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				getCurrentOpenedFiles(currentSession, true);
 				nppParam->writeSession(currentSession);
 			}
+			return TRUE;
+		}
+
+		case NPPM_INTERNAL_SAVEBACKUP:
+		{
+			if (NppParameters::getInstance()->getNppGUI().isSnapshotMode())
+			{
+				MainFileManager->backupCurrentBuffer();
+			}
+
 			return TRUE;
 		}
 
@@ -1554,6 +1564,13 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_INTERNAL_STOPMONITORING:
+		{
+			Buffer *buf = reinterpret_cast<Buffer *>(wParam);
+			monitoringStartOrStopAndUpdateUI(buf, false);
+			return TRUE;
+		}
+
 		case NPPM_INTERNAL_GETCHECKDOCOPT:
 		{
 			return (LRESULT)(pNppParam->getNppGUI())._fileAutoDetection;
@@ -1832,6 +1849,13 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				//Sends WM_DESTROY, Notepad++ will end
 				if (message == WM_CLOSE)
 					::DestroyWindow(hwnd);
+
+				generic_string updaterFullPath = pNppParam->getWingupFullPath();
+				if (!updaterFullPath.empty())
+				{
+					Process updater(updaterFullPath.c_str(), pNppParam->getWingupParams().c_str(), pNppParam->getWingupDir().c_str());
+					updater.run();
+				}
 			}
 			return TRUE;
 		}
@@ -2263,16 +2287,22 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return _pFileSwitcherPanel->isVisible();
 		}
 
-		case NPPM_GETAPPDATAPLUGINSALLOWED:
-		{
+		case NPPM_GETAPPDATAPLUGINSALLOWED: // if doLocal, it's always false - having doLocal environment cannot load plugins outside
+		{                                   // the presence of file "allowAppDataPlugins.xml" will be checked only when not doLocal
 			const TCHAR *appDataNpp = pNppParam->getAppDataNppDir();
-			if (appDataNpp[0])
+			if (appDataNpp[0]) // if not doLocal
 			{
 				generic_string allowAppDataPluginsPath(pNppParam->getNppPath());
 				PathAppend(allowAppDataPluginsPath, allowAppDataPluginsFile);
 				return ::PathFileExists(allowAppDataPluginsPath.c_str());
 			}
 			return FALSE;
+		}
+
+		case NPPM_REMOVESHORTCUTBYCMDID:
+		{
+			int cmdID = static_cast<int32_t>(wParam);
+			return _pluginsManager.removeShortcutByCmdID(cmdID);
 		}
 
 		//

@@ -134,6 +134,7 @@ struct Position
 	int _xOffset = 0;
 	int _selMode = 0;
 	int _scrollWidth = 1;
+	int _offset = 0;
 };
 
 
@@ -232,6 +233,38 @@ struct CmdLineParams
 	bool isPointValid() const
 	{
 		return _isPointXValid && _isPointYValid;
+	}
+};
+
+// A POD class to send CmdLineParams through WM_COPYDATA and to Notepad_plus::loadCommandlineParams
+struct CmdLineParamsDTO
+{
+	bool _isReadOnly;
+	bool _isNoSession;
+	bool _isSessionFile;
+	bool _isRecursive;
+
+	int _line2go;
+	int _column2go;
+	int _pos2go;
+
+	LangType _langType;
+
+	static CmdLineParamsDTO FromCmdLineParams(const CmdLineParams& params)
+	{
+		CmdLineParamsDTO dto;
+		dto._isReadOnly = params._isReadOnly;
+		dto._isNoSession = params._isNoSession;
+		dto._isSessionFile = params._isSessionFile;
+		dto._isRecursive = params._isRecursive;
+
+		dto._line2go = params._line2go;
+		dto._column2go = params._column2go;
+		dto._pos2go = params._pos2go;
+		
+		dto._langType = params._langType;
+
+		return dto;
 	}
 };
 
@@ -1423,11 +1456,11 @@ public:
 
 	void removeTransparent(HWND hwnd);
 
-	void setCmdlineParam(const CmdLineParams & cmdLineParams)
+	void setCmdlineParam(const CmdLineParamsDTO & cmdLineParams)
 	{
 		_cmdLineParams = cmdLineParams;
 	}
-	CmdLineParams & getCmdLineParams() {return _cmdLineParams;};
+	const CmdLineParamsDTO & getCmdLineParams() const {return _cmdLineParams;};
 
 	void setFileSaveDlgFilterIndex(int ln) {_fileSaveDlgFilterIndex = ln;};
 	int getFileSaveDlgFilterIndex() const {return _fileSaveDlgFilterIndex;};
@@ -1639,7 +1672,7 @@ private:
 	ExternalLangContainer *_externalLangArray[NB_MAX_EXTERNAL_LANG];
 	int _nbExternalLang = 0;
 
-	CmdLineParams _cmdLineParams;
+	CmdLineParamsDTO _cmdLineParams;
 
 	int _fileSaveDlgFilterIndex = -1;
 
@@ -1713,6 +1746,19 @@ private:
 
 	generic_string _initialCloudChoice;
 
+	generic_string _wingupFullPath;
+	generic_string _wingupParams;
+	generic_string _wingupDir;
+
+public:
+	generic_string getWingupFullPath() const { return _wingupFullPath; };
+	generic_string getWingupParams() const { return _wingupParams; };
+	generic_string getWingupDir() const { return _wingupDir; };
+	void setWingupFullPath(const generic_string& val2set) { _wingupFullPath = val2set; };
+	void setWingupParams(const generic_string& val2set) { _wingupParams = val2set; };
+	void setWingupDir(const generic_string& val2set) { _wingupDir = val2set; };
+
+private:
 	void getLangKeywordsFromXmlTree();
 	bool getUserParametersFromXmlTree();
 	bool getUserStylersFromXmlTree();
@@ -1771,4 +1817,5 @@ private:
 	int getCmdIdFromMenuEntryItemName(HMENU mainMenuHadle, generic_string menuEntryName, generic_string menuItemName); // return -1 if not found
 	int getPluginCmdIdFromMenuEntryItemName(HMENU pluginsMenu, generic_string pluginName, generic_string pluginCmdName); // return -1 if not found
 	winVer getWindowsVersion();
+
 };

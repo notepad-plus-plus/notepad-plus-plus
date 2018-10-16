@@ -68,6 +68,7 @@ namespace // anonymous
 
 		return defvalue; // fallback unknown
 	}
+
 } // anonymous namespace
 
 
@@ -795,35 +796,6 @@ bool FileManager::backupCurrentBuffer()
 	{
 		if (buffer->isModified()) // buffer dirty and modified, write the backup file
 		{
-			// Synchronization
-			// This method is called from 2 differents place, so synchronization is important
-			HANDLE writeEvent = ::OpenEvent(EVENT_ALL_ACCESS, TRUE, TEXT("nppWrittingEvent"));
-			if (not writeEvent)
-			{
-				// no thread yet, create a event with non-signaled, to block all threads
-				writeEvent = ::CreateEvent(NULL, TRUE, FALSE, TEXT("nppWrittingEvent"));
-				if (not writeEvent)
-				{
-					printStr(TEXT("CreateEvent problem in backupCurrentBuffer()!"));
-					return false;
-				}
-			}
-			else
-			{
-				if (::WaitForSingleObject(writeEvent, INFINITE) != WAIT_OBJECT_0)
-				{
-					printStr(TEXT("WaitForSingleObject problem in backupCurrentBuffer()!"));
-					return false;
-				}
-
-				// unlocled here, set to non-signaled state, to block all threads
-				if (not ::ResetEvent(writeEvent))
-				{
-					printStr(TEXT("ResetEvent problem in backupCurrentBuffer()!"));
-					return false;
-				}
-			}
-
 			UniMode mode = buffer->getUnicodeMode();
 			if (mode == uniCookie)
 				mode = uni8Bit;	//set the mode to ANSI to prevent converter from adding BOM and performing conversions, Scintilla's data can be copied directly
@@ -918,13 +890,6 @@ bool FileManager::backupCurrentBuffer()
 					result = true;	//all done
 				}
 			}
-			// set to signaled state
-			if (::SetEvent(writeEvent) == NULL)
-			{
-				printStr(TEXT("oups!"));
-			}
-			// printStr(TEXT("Event released!"));
-			::CloseHandle(writeEvent);
 		}
 		else // buffer dirty but unmodified
 		{
@@ -957,48 +922,9 @@ bool FileManager::backupCurrentBuffer()
 	return result;
 }
 
-class EventReset final
+bool FileManager::deleteBufferBackup(BufferID id)
 {
-public:
-	explicit EventReset(HANDLE h)
-	{
-		_h = h;
-	}
-
-	~EventReset()
-	{
-		::SetEvent(_h);
-		::CloseHandle(_h);
-	}
-
-private:
-	HANDLE _h;
-};
-
-bool FileManager::deleteCurrentBufferBackup()
-{
-	HANDLE writeEvent = ::OpenEvent(EVENT_ALL_ACCESS, TRUE, TEXT("nppWrittingEvent"));
-	if (!writeEvent)
-	{
-		// no thread yet, create a event with non-signaled, to block all threads
-		writeEvent = ::CreateEvent(NULL, TRUE, FALSE, TEXT("nppWrittingEvent"));
-	}
-	else
-	{
-		if (::WaitForSingleObject(writeEvent, INFINITE) != WAIT_OBJECT_0)
-		{
-			// problem!!!
-			printStr(TEXT("WaitForSingleObject problem in deleteCurrentBufferBackup()!"));
-			return false;
-		}
-
-		// unlocled here, set to non-signaled state, to block all threads
-		::ResetEvent(writeEvent);
-	}
-
-	EventReset reset(writeEvent); // Will reset event in destructor.
-
-	Buffer* buffer = _pNotepadPlus->getCurrentBuffer();
+	Buffer* buffer = getBufferByID(id);
 	bool result = true;
 	generic_string backupFilePath = buffer->getBackupFileName();
 	if (not backupFilePath.empty())
@@ -1008,33 +934,13 @@ bool FileManager::deleteCurrentBufferBackup()
 		result = (::DeleteFile(backupFilePath.c_str()) != 0);
 	}
 
-	// set to signaled state via destructor EventReset.
 	return result;
 }
 
-
 bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, generic_string * error_msg)
 {
-	HANDLE writeEvent = ::OpenEvent(EVENT_ALL_ACCESS, TRUE, TEXT("nppWrittingEvent"));
-	if (!writeEvent)
-	{
-		// no thread yet, create a event with non-signaled, to block all threads
-		writeEvent = ::CreateEvent(NULL, TRUE, FALSE, TEXT("nppWrittingEvent"));
-	}
-	else
-	{		//printStr(TEXT("Locked. I wait."));
-		if (::WaitForSingleObject(writeEvent, INFINITE) != WAIT_OBJECT_0)
-		{
-			// problem!!!
-			printStr(TEXT("WaitForSingleObject problem in saveBuffer()!"));
-			return false;
-		}
+	LongRunningOperation op;
 
-		// unlocled here, set to non-signaled state, to block all threads
-		::ResetEvent(writeEvent);
-	}
-
-	EventReset reset(writeEvent); // Will reset event in destructor.
 	Buffer* buffer = getBufferByID(id);
 	bool isHiddenOrSys = false;
 	DWORD attrib = 0;
@@ -1100,7 +1006,7 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 			if (lengthDoc == 0)
 				items_written = 1;
 		}
-		
+
 		// check the language du fichier
 		LangType language = detectLanguageFromTextBegining((unsigned char *)buf, lengthDoc);
 
@@ -1113,7 +1019,6 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 			if(error_msg != NULL)
 				*error_msg = TEXT("Failed to save file.\nNot enough space on disk to save file?");
 
-			// set to signaled state via destructor EventReset.
 			return false;
 		}
 
@@ -1135,7 +1040,6 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 			}
 			*/
 
-			// set to signaled state via destructor EventReset.
 			return true;	//all done
 		}
 
@@ -1154,10 +1058,9 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 			::DeleteFile(backupFilePath.c_str());
 		}
 
-		// set to signaled state via destructor EventReset.
 		return true;
 	}
-	// set to signaled state via destructor EventReset.
+
 	return false;
 }
 
@@ -1499,7 +1402,7 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 		const NewDocDefaultSettings & ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings(); // for ndds._format
 		eolFormat = ndds._format;
 
-		//for empty files, if the default for new files is UTF8, and "Apply to opened ANSI files" is set, apply it 
+		//for empty files, if the default for new files is UTF8, and "Apply to opened ANSI files" is set, apply it
 		if (fileSize == 0)
 		{
 			if (ndds._unicodeMode == uniCookie && ndds._openAnsiAsUtf8)

@@ -25,9 +25,10 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-
 #pragma once
 
+#include <cwctype>
+#include <algorithm>
 #include "StaticDialog.h"
 #include "pluginsAdminRes.h"
 #include "TabBar.h"
@@ -42,8 +43,34 @@ struct Version
 	unsigned long _minor = 0;
 	unsigned long _patch = 0;
 	unsigned long _build = 0;
+
+	Version() {};
+	Version(const generic_string& versionStr);
+
 	void setVersionFrom(generic_string filePath);
 	generic_string toString();
+	bool isNumber(const generic_string& s) const {
+		return !s.empty() && 
+			find_if(s.begin(), s.end(), [](char c) { return !isdigit(c); }) == s.end();
+	};
+
+	int compareTo(const Version& v2c) const;
+
+	bool operator < (const Version& v2c) const {
+		return compareTo(v2c) == -1;
+	};
+
+	bool operator > (const Version& v2c) const {
+		return compareTo(v2c) == 1;
+	};
+
+	bool operator == (const Version& v2c) const {
+		return compareTo(v2c) == 0;
+	};
+
+	bool operator != (const Version& v2c) const {
+		return compareTo(v2c) != 0;
+	};
 };
 
 struct PluginUpdateInfo
@@ -124,11 +151,35 @@ private:
 	ListView _ui;
 };
 
+//
+// The parameters used for plugin installer thread
+//
+struct LaunchWingupParams
+{
+	generic_string _updaterFullPath;
+	generic_string _updaterDir;
+	generic_string _updaterParams;
+
+	generic_string _nppPluginsDir;
+	PluginUpdateInfo* _pluginUpdateInfo;
+
+	PluginViewList* _uiAvailableList;
+	PluginViewList* _uiInstalledList;
+
+	PluginsManager *_pPluginsManager;
+
+	HANDLE _mutex;
+};
+
 class PluginsAdminDlg final : public StaticDialog
 {
 public :
-	PluginsAdminDlg() {};
-	~PluginsAdminDlg() {}
+	PluginsAdminDlg();
+	~PluginsAdminDlg() {
+		for (auto i : _lwps)
+			delete i;
+	};
+
     void init(HINSTANCE hInst, HWND parent)	{
         Window::init(hInst, parent);
 	};
@@ -148,11 +199,15 @@ public :
 	    display();
     };
 
+	bool isValide();
+
 	void switchDialog(int indexToSwitch);
 	void setPluginsManager(PluginsManager *pluginsManager) { _pPluginsManager = pluginsManager; };
 
 	bool updateListAndLoadFromJson();
 	void setAdminMode(bool isAdm) { _nppCurrentStatus._isAdminMode = isAdm; };
+	generic_string getPluginsPath() const;
+	generic_string getPluginConfigPath() const;
 
 	bool installPlugins();
 	bool updatePlugins();
@@ -162,6 +217,10 @@ protected:
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 private :
+	generic_string _updaterDir;
+	generic_string _updaterFullPath;
+	generic_string _pluginListFullPath;
+
 	TabBar _tab;
 
 	PluginViewList _availableList; // A permanent list, once it's loaded (no removal - only hide or show) 
@@ -170,6 +229,8 @@ private :
 
 	PluginsManager *_pPluginsManager = nullptr;
 	NppCurrentStatus _nppCurrentStatus;
+
+	std::vector<LaunchWingupParams*> _lwps; // Add each new instanciate plugin installer parameter object of the thread for cleaning up afterward
 
 	void collectNppCurrentStatusInfos();
 	bool searchInPlugins(bool isNextMode) const;
@@ -185,7 +246,10 @@ private :
 		return searchFromCurrentSel(str2search, _inDescs, isNextMode);
 	};
 
+	static DWORD WINAPI launchPluginInstallerThread(void *params);
+
 	bool loadFromPluginInfos();
 	bool checkUpdates();
+	bool exitToUpdateRemovePlugins(bool isUpdate, const std::vector<PluginUpdateInfo*>& puis);
 };
 

@@ -890,14 +890,20 @@ bool NppParameters::reloadStylers(TCHAR* stylePath)
 	bool loadOkay = _pXmlUserStylerDoc->LoadFile();
 	if (!loadOkay)
 	{
-		_pNativeLangSpeaker->messageBox("LoadStylersFailed",
-			NULL,
-			TEXT("Load \"$STR_REPLACE$\" failed!"),
-			TEXT("Load stylers.xml failed"),
-			MB_OK,
-			0,
-			stylePathToLoad);
-
+		if (!_pNativeLangSpeaker)
+		{
+			::MessageBox(NULL, stylePathToLoad, TEXT("Load stylers.xml failed"), MB_OK);
+		}
+		else
+		{
+			_pNativeLangSpeaker->messageBox("LoadStylersFailed",
+				NULL,
+				TEXT("Load \"$STR_REPLACE$\" failed!"),
+				TEXT("Load stylers.xml failed"),
+				MB_OK,
+				0,
+				stylePathToLoad);
+		}
 		delete _pXmlUserStylerDoc;
 		_pXmlUserStylerDoc = NULL;
 		return false;
@@ -1079,12 +1085,23 @@ bool NppParameters::load()
 		WIN32_FILE_ATTRIBUTE_DATA attributes;
 
 		if (GetFileAttributesEx(langs_xml_path.c_str(), GetFileExInfoStandard, &attributes) != 0)
+		{
 			if (attributes.nFileSizeLow == 0 && attributes.nFileSizeHigh == 0)
-				doRecover = _pNativeLangSpeaker->messageBox("LoadLangsFailed",
-					NULL,
-					TEXT("Load langs.xml failed!\rDo you want to recover your langs.xml?"),
-					TEXT("Configurator"),
-					MB_YESNO);
+			{
+				if (_pNativeLangSpeaker)
+				{
+					doRecover = _pNativeLangSpeaker->messageBox("LoadLangsFailed",
+						NULL,
+						TEXT("Load langs.xml failed!\rDo you want to recover your langs.xml?"),
+						TEXT("Configurator"),
+						MB_YESNO);
+				}
+				else
+				{
+					doRecover = ::MessageBox(NULL, TEXT("Load langs.xml failed!\rDo you want to recover your langs.xml?"), TEXT("Configurator"), MB_YESNO);
+				}
+			}
+		}
 	}
 	else
 		doRecover = true;
@@ -1102,11 +1119,18 @@ bool NppParameters::load()
 	bool loadOkay = _pXmlDoc->LoadFile();
 	if (!loadOkay)
 	{
-		_pNativeLangSpeaker->messageBox("LoadLangsFailedFinal",
-			NULL,
-			TEXT("Load langs.xml failed!"),
-			TEXT("Configurator"),
-			MB_OK);
+		if (_pNativeLangSpeaker)
+		{
+			_pNativeLangSpeaker->messageBox("LoadLangsFailedFinal",
+				NULL,
+				TEXT("Load langs.xml failed!"),
+				TEXT("Configurator"),
+				MB_OK);
+		}
+		else
+		{
+			::MessageBox(NULL, TEXT("Load langs.xml failed!"), TEXT("Configurator"), MB_OK);
+		}
 
 		delete _pXmlDoc;
 		_pXmlDoc = nullptr;
@@ -1163,14 +1187,20 @@ bool NppParameters::load()
 	loadOkay = _pXmlUserStylerDoc->LoadFile();
 	if (!loadOkay)
 	{
-		_pNativeLangSpeaker->messageBox("LoadStylersFailed",
-			NULL,
-			TEXT("Load \"$STR_REPLACE$\" failed!"),
-			TEXT("Load stylers.xml failed"),
-			MB_OK,
-			0,
-			_stylerPath.c_str());
-
+		if (_pNativeLangSpeaker)
+		{
+			_pNativeLangSpeaker->messageBox("LoadStylersFailed",
+				NULL,
+				TEXT("Load \"$STR_REPLACE$\" failed!"),
+				TEXT("Load stylers.xml failed"),
+				MB_OK,
+				0,
+				_stylerPath.c_str());
+		}
+		else
+		{
+			::MessageBox(NULL, _stylerPath.c_str(), TEXT("Load stylers.xml failed"), MB_OK);
+		}
 		delete _pXmlUserStylerDoc;
 		_pXmlUserStylerDoc = NULL;
 		isAllLaoded = false;
@@ -1971,8 +2001,8 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 		return false;
 
 	TiXmlElement *actView = sessionRoot->ToElement();
-	size_t index;
-	const TCHAR *str = actView->Attribute(TEXT("activeView"), reinterpret_cast<int *>(&index));
+	int index = 0;
+	const TCHAR *str = actView->Attribute(TEXT("activeView"), &index);
 	if (str)
 	{
 		(*ptrSession)._activeView = index;
@@ -1986,9 +2016,9 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 	{
 		if (viewRoots[k])
 		{
-			size_t index2;
+			int index2 = 0;
 			TiXmlElement *actIndex = viewRoots[k]->ToElement();
-			str = actIndex->Attribute(TEXT("activeIndex"), reinterpret_cast<int *>(&index2));
+			str = actIndex->Attribute(TEXT("activeIndex"), &index2);
 			if (str)
 			{
 				if (k == 0)
@@ -2010,7 +2040,7 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 					(childNode->ToElement())->Attribute(TEXT("endPos"), &position._endPos);
 					(childNode->ToElement())->Attribute(TEXT("selMode"), &position._selMode);
 					(childNode->ToElement())->Attribute(TEXT("scrollWidth"), &position._scrollWidth);
-
+					(childNode->ToElement())->Attribute(TEXT("offset"), &position._offset);
 					MapPosition mapPosition;
 					int32_t mapPosVal;
 					const TCHAR *mapPosStr = (childNode->ToElement())->Attribute(TEXT("mapFirstVisibleDisplayLine"), &mapPosVal);
@@ -6586,7 +6616,9 @@ Date::Date(const TCHAR *dateStr)
 {
 	// timeStr should be Notepad++ date format : YYYYMMDD
 	assert(dateStr);
-	if (lstrlen(dateStr) == 8)
+	int D = lstrlen(dateStr);
+
+	if ( 8==D )
 	{
 		generic_string ds(dateStr);
 		generic_string yyyy(ds, 0, 4);

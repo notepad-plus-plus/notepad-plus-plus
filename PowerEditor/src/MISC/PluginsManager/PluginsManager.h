@@ -109,8 +109,9 @@ public:
 	void runPluginCommand(const TCHAR *pluginName, int commandID);
 
     void addInMenuFromPMIndex(int i);
-	HMENU setMenu(HMENU hMenu, const TCHAR *menuName);
+	HMENU setMenu(HMENU hMenu, const TCHAR *menuName, bool enablePluginAdmin = false);
 	bool getShortcutByCmdID(int cmdID, ShortcutKey *sk);
+	bool removeShortcutByCmdID(int cmdID);
 
 	void notify(const SCNotification *notification);
 	void relayNppMessages(UINT Message, WPARAM wParam, LPARAM lParam);

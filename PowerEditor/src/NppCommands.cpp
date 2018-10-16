@@ -70,17 +70,6 @@ void Notepad_plus::command(int id)
 		case IDM_FILE_NEW:
 		{
 			fileNew();
-
-			/*
-			bool isFirstTime = ! _pluginsAdminDlg.isCreated();
-			_pluginsAdminDlg.setPluginsManager(&_pluginsManager);
-			_pluginsAdminDlg.doDialog(_nativeLangSpeaker.isRTL());
-			if (isFirstTime)
-			{
-				_nativeLangSpeaker.changeConfigLang(_pluginsAdminDlg.getHSelf());
-				_pluginsAdminDlg.updateListAndLoadFromJson();
-			}
-			*/
 		}
 		break;
 
@@ -784,6 +773,7 @@ void Notepad_plus::command(int id)
 		{
 			const int index = id - IDM_VIEW_TAB1;
 			BufferID buf = _pDocTab->getBufferByIndex(index);
+			_isFolding = true;
 			if(buf == BUFFER_INVALID)
 			{
 				// No buffer at chosen index, select the very last buffer instead.
@@ -792,7 +782,10 @@ void Notepad_plus::command(int id)
 					switchToFile(_pDocTab->getBufferByIndex(last_index));
 			}
 			else
+			{
 				switchToFile(buf);
+			}
+			_isFolding = false;
 		}
 		break;
 
@@ -800,16 +793,21 @@ void Notepad_plus::command(int id)
 		{
 			const int current_index = _pDocTab->getCurrentTabIndex();
 			const int last_index = _pDocTab->getItemCount() - 1;
+			_isFolding = true;
 			if(current_index < last_index)
 				switchToFile(_pDocTab->getBufferByIndex(current_index + 1));
 			else
+			{
 				switchToFile(_pDocTab->getBufferByIndex(0)); // Loop around.
+			}
+			_isFolding = false;
 		}
 		break;
 
 		case IDM_VIEW_TAB_PREV:
 		{
 			const int current_index = _pDocTab->getCurrentTabIndex();
+			_isFolding = true;
 			if(current_index > 0)
 				switchToFile(_pDocTab->getBufferByIndex(current_index - 1));
 			else
@@ -817,6 +815,7 @@ void Notepad_plus::command(int id)
 				const int last_index = _pDocTab->getItemCount() - 1;
 				switchToFile(_pDocTab->getBufferByIndex(last_index)); // Loop around.
 			}
+			_isFolding = false;
 		}
 		break;
 
@@ -1475,23 +1474,35 @@ void Notepad_plus::command(int id)
 			break;
 
 		case IDM_EDIT_TRIMTRAILING:
+		{
+			LongRunningOperation op;
+
 			_pEditView->execute(SCI_BEGINUNDOACTION);
 			doTrim(lineTail);
 			_pEditView->execute(SCI_ENDUNDOACTION);
 			break;
+		}
 
 		case IDM_EDIT_TRIMLINEHEAD:
+		{
+			LongRunningOperation op;
+
 			_pEditView->execute(SCI_BEGINUNDOACTION);
 			doTrim(lineHeader);
 			_pEditView->execute(SCI_ENDUNDOACTION);
 			break;
+		}
 
 		case IDM_EDIT_TRIM_BOTH:
+		{
+			LongRunningOperation op;
+
 			_pEditView->execute(SCI_BEGINUNDOACTION);
 			doTrim(lineTail);
 			doTrim(lineHeader);
 			_pEditView->execute(SCI_ENDUNDOACTION);
 			break;
+		}
 
 		case IDM_EDIT_EOL2WS:
 			_pEditView->execute(SCI_BEGINUNDOACTION);
@@ -1501,6 +1512,9 @@ void Notepad_plus::command(int id)
 			break;
 
 		case IDM_EDIT_TRIMALL:
+		{
+			LongRunningOperation op;
+
 			_pEditView->execute(SCI_BEGINUNDOACTION);
 			doTrim(lineTail);
 			doTrim(lineHeader);
@@ -1508,6 +1522,7 @@ void Notepad_plus::command(int id)
 			_pEditView->execute(SCI_LINESJOIN);
 			_pEditView->execute(SCI_ENDUNDOACTION);
 			break;
+		}
 
 		case IDM_EDIT_TAB2SW:
 			wsTabConvert(tab2Space);
@@ -1989,10 +2004,7 @@ void Notepad_plus::command(int id)
 			Buffer * curBuf = _pEditView->getCurrentBuffer();
 			if (curBuf->isMonitoringOn())
 			{
-				curBuf->stopMonitoring();
-				checkMenuItem(IDM_VIEW_MONITORING, false);
-				_toolBar.setCheck(IDM_VIEW_MONITORING, false);
-				curBuf->setUserReadOnly(false);
+				monitoringStartOrStopAndUpdateUI(curBuf, false);
 			}
 			else
 			{
@@ -2009,14 +2021,12 @@ void Notepad_plus::command(int id)
 					}
 					else
 					{
-						curBuf->startMonitoring(); // monitoring firstly for making monitoring icon 
-						curBuf->setUserReadOnly(true);
+						// Monitoring firstly for making monitoring icon
+						monitoringStartOrStopAndUpdateUI(curBuf, true);
 						
 						MonitorInfo *monitorInfo = new MonitorInfo(curBuf, _pPublicInterface->getHSelf());
 						HANDLE hThread = ::CreateThread(NULL, 0, monitorFileOnChange, (void *)monitorInfo, 0, NULL); // will be deallocated while quitting thread
 						::CloseHandle(hThread);
-						checkMenuItem(IDM_VIEW_MONITORING, true);
-						_toolBar.setCheck(IDM_VIEW_MONITORING, true);
 					}
 				}
 				else
@@ -2465,6 +2475,18 @@ void Notepad_plus::command(int id)
             break;
         }
 
+		case IDM_SETTING_PLUGINADM:
+		{
+			bool isFirstTime = !_pluginsAdminDlg.isCreated();
+			_pluginsAdminDlg.doDialog(_nativeLangSpeaker.isRTL());
+			if (isFirstTime)
+			{
+				_nativeLangSpeaker.changeConfigLang(_pluginsAdminDlg.getHSelf());
+				_pluginsAdminDlg.updateListAndLoadFromJson();
+			}
+			break;
+		}
+
 		case IDM_SETTING_SHORTCUT_MAPPER :
 		case IDM_SETTING_SHORTCUT_MAPPER_MACRO :
         case IDM_SETTING_SHORTCUT_MAPPER_RUN :
@@ -2887,6 +2909,7 @@ void Notepad_plus::command(int id)
 			nbDoc += viewVisible(SUB_VIEW)?_subDocTab.nbItem():0;
 
 			bool doTaskList = ((NppParameters::getInstance())->getNppGUI())._doTaskList;
+			_isFolding = true;
 			if (nbDoc > 1)
 			{
 				bool direction = (id == IDC_NEXT_DOC)?dirDown:dirUp;
@@ -2905,6 +2928,7 @@ void Notepad_plus::command(int id)
 					}
 				}
 			}
+			_isFolding = false;
 			_linkTriggered = true;
 		}
         break;

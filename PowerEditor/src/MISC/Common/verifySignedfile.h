@@ -60,9 +60,14 @@
 
 #include <string>
 
+#define NPP_COMPONENT_SIGNER_DISPLAY_NAME TEXT("Notepad++")
+#define NPP_COMPONENT_SIGNER_SUBJECT TEXT("C=FR, S=Ile-de-France, L=Saint Cloud, O=\"Notepad++\", CN=\"Notepad++\"")
+#define NPP_COMPONENT_SIGNER_KEY_ID TEXT("42C4C5846BB675C74E2B2C90C69AB44366401093")
+
 bool VerifySignedLibrary(const std::wstring& filepath,
                          const std::wstring& key_id_hex,
                          const std::wstring& cert_subject,
                          const std::wstring& display_name,
                          bool doCheckRevocation,
-                         bool doCheckChainOfTrust);
+                         bool doCheckChainOfTrust,
+                         bool displayErrorMessage = true);

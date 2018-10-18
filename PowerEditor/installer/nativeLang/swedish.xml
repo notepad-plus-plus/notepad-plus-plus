@@ -275,7 +275,7 @@
 					<Item id="10003" name="Flytta till ny instans"/>
 					<Item id="10004" name="Klona till ny instans"/>
 
-					<Item id="46001" name="Konfigurera programspråk"/>
+					<Item id="46001" name="Stilkonfiguration"/>
 					<Item id="46250" name="Definiera ditt språk..."/>
 					<Item id="46180" name="Användardefinierad"/>
 					<Item id="47000" name="Om Notepad++"/>

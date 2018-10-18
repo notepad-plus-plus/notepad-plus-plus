@@ -455,8 +455,8 @@
                 <Item id="20015" name="Import"/>
                 <Item id="20016" name="Eksport"/>
                 <StylerDialog title="Okno Styler">
-                    <Item id="1" name="&OK"/>
-                    <Item id="2" name="&Anuluj"/>
+                    <Item id="1" name="&amp;OK"/>
+                    <Item id="2" name="&amp;Anuluj"/>
                     <Item id="25030" name="Opcje czcionki:"/>
                     <Item id="25006" name="Kolor czcionki"/>
                     <Item id="25007" name="Kolor tła"/>

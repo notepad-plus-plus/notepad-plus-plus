@@ -1127,8 +1127,8 @@
             <ind-status-replaceall-readonly value="Замяніць усе: немагчыма замяніць тэкст. Бягучы дакумент мае правы толькі не чытанне"/>
             <find-status-replace-end-reached value="Замяніць: заменена першае супадзенне зверху. Быў дасягнуты канец дакумента"/>
             <find-status-replace-top-reached value="Замяніць: заменена першае супадзенне знізу. Быў дасягнуты пачатак дакумента"/>
-            <find-status-relaced-next-found value="Замяніць: выканана адна замена. Знойдзена наступнае супадзенне"/>
-            <find-status-relaced-next-not-found value="Замяніць: выканана адна замена. Наступнае супадзенне не знойдзена"/>
+            <find-status-replaced-next-found value="Замяніць: выканана адна замена. Знойдзена наступнае супадзенне"/>
+            <find-status-replaced-next-not-found value="Замяніць: выканана адна замена. Наступнае супадзенне не знойдзена"/>
             <find-status-replace-not-found value="Замяніць: наступнае супадзенне не знойдзена"/>
             <find-status-replace-readonly value="Замяніць: немагчыма замяніць тэкст. Бягучы дакумент мае правы толькі на чытанне"/>
             <find-status-cannot-find value="Знайсці: не магчыма знайсці тэкст &quot;$STR_REPLACE$&quot;"/>

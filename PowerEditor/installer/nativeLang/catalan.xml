@@ -1109,8 +1109,8 @@ By Hiro5 <groccat at gmail>
 			<find-status-replaceall-readonly value="Reemplaça-ho tot: No es pot reemplaçar el text. El document actual és de només lectura"/>
 			<find-status-replace-end-reached value="Reemplaça: Reemplaçat el 1er resultat des de dalt. S'ha arribat al final del document"/>
 			<find-status-replace-top-reached value="Reemplaça: Reemplaçat el 1er resultat des de baix. S'ha arribat al principi del document"/>
-			<find-status-relaced-next-found value="Reemplaça: 1 resultat reemplaçat. Següent resultat trobat"/>
-			<find-status-relaced-next-not-found value="Reemplaça: 1 resultat reemplaçat. Següent resultat no trobat"/>
+			<find-status-replaced-next-found value="Reemplaça: 1 resultat reemplaçat. Següent resultat trobat"/>
+			<find-status-replaced-next-not-found value="Reemplaça: 1 resultat reemplaçat. Següent resultat no trobat"/>
 			<find-status-replace-not-found value="Reemplaça: cap resultat trobat"/>
 			<find-status-replace-readonly value="Reemplaça: No es pot reemplaçar el text. El document actual és de només lectura"/>
 			<find-status-cannot-find value="Cerca: No s'ha trobat el text &quot;$STR_REPLACE$&quot;"/>

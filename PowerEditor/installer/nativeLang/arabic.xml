@@ -1126,8 +1126,8 @@
             <find-status-replaceall-readonly value="استبدال الكل: لا يمكن استبدال النص. المستند الحالي للقراءة فقط."/>
             <find-status-replace-end-reached value="الاستبدال: تم استبدال أول تكرار من أعلى. تم الوصل إلى نهاية المستند."/>
             <find-status-replace-top-reached value="الاستبدال: تم استبدال أول تكرار من أسفل. تم الوصل إلى بداية المستند."/>
-            <find-status-relaced-next-found value="الاستبدال: 1 تكرار تم استبداله. تم العثور على التكرار التالي."/>
-            <find-status-relaced-next-not-found value="الاستبدال: 1 تكرار تم استبداله. لم يتم العثور على التكرار التالي."/>
+            <find-status-replaced-next-found value="الاستبدال: 1 تكرار تم استبداله. تم العثور على التكرار التالي."/>
+            <find-status-replaced-next-not-found value="الاستبدال: 1 تكرار تم استبداله. لم يتم العثور على التكرار التالي."/>
             <find-status-replace-not-found value="الاستبدال: لم يتم العثور على أي تكرار."/>
             <find-status-replace-readonly value="الاستبدال: لا يمكن استبدال النص. المستند الحالي للقراءة فقط."/>
             <find-status-cannot-find value="البحث: لا يمكن العثور على النص &quot;$STR_REPLACE$&quot;"/>

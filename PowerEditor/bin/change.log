@@ -1,10 +1,18 @@
-Notepad++ v7.5.8 bug-fixes:
+Notepad++ v7.5.9 bug-fixes & enhancement:
 
-1.  Remove annoying "no update" notification.
-2.  Fix Folder as Workspace not updating regression.
-3.  Fixed crash issue by checking & unchecking "Disable extension column" option in preferences dialog.
-4.  Fixed a crash when trying to launch a secondary instance with command line arguments.
-5.  Fix "Explorer Here" from "Folder as Workspace" problem if folder name contains comma.
+1.   Fix hanging problem while switching back a fully-folded document by using shortcut (Ctrl-TAB).
+2.   Fix possible file corruption during backup or power loss or other abnormal N++ termination.
+3.   Fix wrong backup file deleted issue.
+4.   Fix backup not fully disabled issue.
+5.   Add 2 command line flags "-notepadStyleCmdline" and "-z" for the replacement of notepad.exe.
+     See https://notepad-plus-plus.org/features/replace-notepad.html
+6.   Add new plugin API NPPM_REMOVESHORTCUTBYCMDID to allows plugins to remove unneeded shortcuts.
+7.   Fix Tail monitoring incoherent status after deleting a monitored file.
+8.   Fix issue with wrong smart highlighting when it is disabled.
+9.   Fix last active tab is ignored on Notepad++ restart issue.
+10.  Fix Tab non-responding by mouse click after dragging bug.
+11.  Fix switching back position restoring issue for wrapped document.
+12.  Add several spiritual quotes and a subtle Easter egg in the source code.
 
 
 Included plugins:
@@ -12,9 +20,9 @@ Included plugins:
 1.  NppExport v0.2.8 (32-bit x86 only)
 2.  Converter 4.2.1
 3.  Mime Tool 2.1
-4.  DSpellCheck 1.3.5
+4.  DSpellCheck 1.4.6
 
 
 Updater (Installer only):
 
-* WinGup (for Notepad++) v5.0.2
+* WinGup (for Notepad++) v5.0.3

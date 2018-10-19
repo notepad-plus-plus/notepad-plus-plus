@@ -1132,8 +1132,8 @@ alegeți altul."/>
             <find-status-replaceall-readonly value="Înlocuire toate: textul nu poate fi înlocuit. Documentul curent are blocată salvarea modificărilor."/>
             <find-status-replace-end-reached value="Înlocuire: s-a înlocuit prima potrivire de sus. S-a atins sfârșitul documentului."/>
             <find-status-replace-top-reached value="Înlocuire: s-a înlocuit prima potrivire de jos. S-a atins începutul documentului."/>
-            <find-status-relaced-next-found value="Înlocuire: s-a înlocuit o potrivire. S-a mai găsit o potrivire."/>
-            <find-status-relaced-next-not-found value="Înlocuire: s-a înlocuit o potrivire. Nu s-au mai găsit potriviri."/>
+            <find-status-replaced-next-found value="Înlocuire: s-a înlocuit o potrivire. S-a mai găsit o potrivire."/>
+            <find-status-replaced-next-not-found value="Înlocuire: s-a înlocuit o potrivire. Nu s-au mai găsit potriviri."/>
             <find-status-replace-not-found value="Înlocuire: nu s-au găsit potriviri"/>
             <find-status-replace-readonly value="Înlocuire: textul nu poate fi înlocuit. Documentul curent are blocată salvarea modificărilor."/>
             <find-status-cannot-find value="Căutare: nu se poate găsi textul &quot;$STR_REPLACE$&quot;."/>

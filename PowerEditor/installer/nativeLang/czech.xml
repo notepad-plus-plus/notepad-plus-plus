@@ -1201,8 +1201,8 @@
 			<find-status-replaceall-readonly value = "Nahrazování všeho: Nemohu nahradit text. Současný dokument je pouze pro čtení"/>
 			<find-status-replace-end-reached value = "Nahrazování: Nahrazen první výskyt od začátku. Bylo dosaženo konce dokumentu"/>
 			<find-status-replace-top-reached value = "Nahrazování: Nahrazen první výskyt od konce. Bylo dosaženo začátku dokumentu"/>
-			<find-status-relaced-next-found value = "Nahrazování: 1 výskyt byl nahrazen. Další výskyt nalezen"/>
-			<find-status-relaced-next-not-found value = "Nahrazování: 1 výskyt byl nahrazen. Další výskyt nenalezen"/>
+			<find-status-replaced-next-found value = "Nahrazování: 1 výskyt byl nahrazen. Další výskyt nalezen"/>
+			<find-status-replaced-next-not-found value = "Nahrazování: 1 výskyt byl nahrazen. Další výskyt nenalezen"/>
 			<find-status-replace-not-found value = "Nahrazování: žádný výskyt nebyl nalezen"/>
 			<find-status-replace-readonly value = "Nahrazování: Nemohu nahradit text. Současný dokument je pouze pro čtení"/>
 			<find-status-cannot-find value = "Vyhledávání: Nemohu nalézt text &quot;$STR_REPLACE$&quot;"/>

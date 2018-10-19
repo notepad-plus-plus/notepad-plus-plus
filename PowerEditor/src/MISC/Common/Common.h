@@ -191,3 +191,8 @@ HWND CreateToolTip(int toolID, HWND hDlg, HINSTANCE hInst, const PTSTR pszText);
 
 bool isCertificateValidated(const generic_string & fullFilePath, const generic_string & subjectName2check);
 bool isAssoCommandExisting(LPCTSTR FullPathName);
+
+std::wstring s2ws(const std::string& str);
+std::string ws2s(const std::wstring& wstr);
+
+bool deleteFileOrFolder(const generic_string& f2delete);

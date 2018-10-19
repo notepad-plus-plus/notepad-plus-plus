@@ -76,122 +76,83 @@ void allowWmCopydataMessages(Notepad_plus_Window& notepad_plus_plus, const NppPa
 	}
 }
 
-
-bool checkSingleFile(const TCHAR *commandLine)
+//commandLine should contain path to n++ executable running
+ParamVector parseCommandLine(const TCHAR* commandLine)
 {
-	if (!commandLine || commandLine[0] == TEXT('\0'))
-		return false;
-
-	TCHAR fullpath[MAX_PATH] = {0};
-	const DWORD fullpathResult = ::GetFullPathName(commandLine, MAX_PATH, fullpath, NULL);
-
-	if (fullpathResult == 0)
-		return false;
-
-	if (fullpathResult > MAX_PATH)
-		return false;
-
-	if (::PathFileExists(fullpath))
-		return true;
-
-	return false;
+	ParamVector result;
+	int numArgs = 0;
+	LPWSTR* tokenizedCmdLine = CommandLineToArgvW( commandLine, &numArgs );
+	if ( tokenizedCmdLine != nullptr )
+	{
+		result.assign( tokenizedCmdLine+1, tokenizedCmdLine+numArgs ); // If numArgs == 1, it will do nothing
+		LocalFree( tokenizedCmdLine );
+	}
+	return result;
 }
 
-//commandLine should contain path to n++ executable running
-void parseCommandLine(const TCHAR* commandLine, ParamVector& paramVector)
+// Looks for -z arguments and strips command line arguments following those, if any
+void stripIgnoredParams(ParamVector & params)
 {
-	if (!commandLine)
-		return;
-
-	TCHAR* cmdLine = new TCHAR[lstrlen(commandLine) + 1];
-	lstrcpy(cmdLine, commandLine);
-
-	TCHAR* cmdLinePtr = cmdLine;
-
-	//remove the first element, since thats the path the the executable (GetCommandLine does that)
-	TCHAR stopChar = TEXT(' ');
-	if (cmdLinePtr[0] == TEXT('\"'))
+	for ( auto it = params.begin(); it != params.end(); )
 	{
-		stopChar = TEXT('\"');
-		++cmdLinePtr;
-	}
-	//while this is not really DBCS compliant, space and quote are in the lower 127 ASCII range
-	while(cmdLinePtr[0] && cmdLinePtr[0] != stopChar)
-    {
-		++cmdLinePtr;
-    }
-
-    // For unknown reason, the following command :
-    // c:\NppDir>notepad++
-    // (without quote) will give string "notepad++\0notepad++\0"
-    // To avoid the unexpected behaviour we check the end of string before increasing the pointer
-    if (cmdLinePtr[0] != '\0')
-	    ++cmdLinePtr;	//advance past stopChar
-
-	//kill remaining spaces
-	while(cmdLinePtr[0] == TEXT(' '))
-		++cmdLinePtr;
-
-	bool isFile = checkSingleFile(cmdLinePtr);	//if the commandline specifies only a file, open it as such
-	if (isFile)
-	{
-		paramVector.push_back(cmdLinePtr);
-		delete[] cmdLine;
-		return;
-	}
-	bool isInFile = false;
-	bool isInWhiteSpace = true;
-	size_t commandLength = lstrlen(cmdLinePtr);
-	std::vector<TCHAR *> args;
-	for (size_t i = 0; i < commandLength; ++i)
-	{
-		switch(cmdLinePtr[i])
+		if (lstrcmp(it->c_str(), TEXT("-z")) == 0)
 		{
-			case '\"': //quoted filename, ignore any following whitespace
+			auto nextIt = std::next(it);
+			if ( nextIt != params.end() )
 			{
-				if (!isInFile)	//" will always be treated as start or end of param, in case the user forgot to add an space
-				{
-					args.push_back(cmdLinePtr+i+1);	//add next param(since zero terminated original, no overflow of +1)
-				}
-				isInFile = !isInFile;
-				isInWhiteSpace = false;
-				//because we dont want to leave in any quotes in the filename, remove them now (with zero terminator)
-				cmdLinePtr[i] = 0;
+				params.erase(nextIt);
 			}
-			break;
-
-			case '\t': //also treat tab as whitespace
-			case ' ': 
-			{
-				isInWhiteSpace = true;
-				if (!isInFile)
-					cmdLinePtr[i] = 0;		//zap spaces into zero terminators, unless its part of a filename	
-			}
-			break;
-
-			default: //default TCHAR, if beginning of word, add it
-			{
-				if (!isInFile && isInWhiteSpace)
-				{
-					args.push_back(cmdLinePtr+i);	//add next param
-					isInWhiteSpace = false;
-				}
-			}
+			it = params.erase(it);
+		}
+		else
+		{
+			++it;
 		}
 	}
-	paramVector.assign(args.begin(), args.end());
-	delete [] cmdLine;
 }
 
-bool isInList(const TCHAR *token2Find, ParamVector & params)
+// 1. Converts /p to -quickPrint if it exists as the first parameter
+// 2. Concatenates all remaining parameters to form a file path, adding appending .txt extension if necessary
+// This seems to mirror Notepad's behaviour
+void convertParamsToNotepadStyle(ParamVector & params)
 {
-	size_t nbItems = params.size();
-
-	for (size_t i = 0; i < nbItems; ++i)
+	ParamVector newParams;
+	auto it = params.begin();
+	if ( it != params.end() && lstrcmpi(TEXT("/p"), it->c_str()) == 0 ) // Notepad accepts both /p and /P, so compare case insensitively
 	{
-		if (!lstrcmp(token2Find, params.at(i).c_str()))
+		++it;
+		newParams.emplace_back(TEXT("-quickPrint"));
+	}
+
+	bool ssHasContents = false;
+	generic_stringstream ss;
+	for ( ; it != params.end(); ++it )
+	{
+		ssHasContents = true;
+		ss << *it;
+		if ( std::next(it) != params.end() ) ss << TEXT(" ");
+	}
+	
+	if ( ssHasContents )
+	{
+		generic_string str = ss.str();
+		if ( *PathFindExtension(str.c_str()) == '\0' )
 		{
-			params.erase(params.begin() + i);
+			str.append(TEXT(".txt")); // If joined path has no extension, Notepad adds a .txt extension
+		}
+		newParams.push_back(std::move(str));
+	}
+
+	params = std::move(newParams);
+}
+
+bool isInList(const TCHAR *token2Find, ParamVector& params, bool eraseArg = true)
+{
+	for (auto it = params.begin(); it != params.end(); ++it)
+	{
+		if (lstrcmp(token2Find, it->c_str()) == 0)
+		{
+			if (eraseArg) params.erase(it);
 			return true;
 		}
 	}
@@ -321,6 +282,7 @@ const TCHAR FLAG_OPENSESSIONFILE[] = TEXT("-openSession");
 const TCHAR FLAG_RECURSIVE[] = TEXT("-r");
 const TCHAR FLAG_FUNCLSTEXPORT[] = TEXT("-export=functionList");
 const TCHAR FLAG_PRINTANDQUIT[] = TEXT("-quickPrint");
+const TCHAR FLAG_NOTEPAD_COMPATIBILITY[] = TEXT("-notepadStyleCmdline");
 
 
 void doException(Notepad_plus_Window & notepad_plus_plus)
@@ -352,9 +314,8 @@ void doException(Notepad_plus_Window & notepad_plus_plus)
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 {
-	LPTSTR cmdLine = ::GetCommandLine();
-	ParamVector params;
-	parseCommandLine(cmdLine, params);
+	ParamVector params = parseCommandLine(::GetCommandLine());
+	stripIgnoredParams(params);
 
 	MiniDumper mdump;	//for debugging purposes.
 
@@ -363,6 +324,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 	::CreateMutex(NULL, false, TEXT("nppInstance"));
 	if (::GetLastError() == ERROR_ALREADY_EXISTS)
 		TheFirstOne = false;
+
+	// Convert commandline to notepad-compatible format, if applicable
+	if ( isInList(FLAG_NOTEPAD_COMPATIBILITY, params) )
+	{
+		convertParamsToNotepadStyle(params);
+	}
 
 	bool isParamePresent;
 	bool showHelp = isInList(FLAG_HELP, params);

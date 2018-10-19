@@ -27,12 +27,12 @@
 
 #pragma once
 
-#define NOTEPAD_PLUS_VERSION TEXT("Notepad++ v7.5.8")
+#define NOTEPAD_PLUS_VERSION TEXT("Notepad++ v7.5.9")
 
 // should be X.Y : ie. if VERSION_DIGITALVALUE == 4, 7, 1, 0 , then X = 4, Y = 71
 // ex : #define VERSION_VALUE TEXT("5.63\0")
-#define VERSION_VALUE TEXT("7.58\0")
-#define VERSION_DIGITALVALUE 7, 5, 8, 0
+#define VERSION_VALUE TEXT("7.59\0")
+#define VERSION_DIGITALVALUE 7, 5, 9, 0
 
 
 
@@ -431,6 +431,8 @@
 	#define NPPM_INTERNAL_SETWORDCHARS              (NOTEPADPLUS_USER_INTERNAL + 45)
 	#define NPPM_INTERNAL_EXPORTFUNCLISTANDQUIT     (NOTEPADPLUS_USER_INTERNAL + 46)
 	#define NPPM_INTERNAL_PRNTANDQUIT               (NOTEPADPLUS_USER_INTERNAL + 47)
+	#define NPPM_INTERNAL_SAVEBACKUP        		(NOTEPADPLUS_USER_INTERNAL + 48)
+	#define NPPM_INTERNAL_STOPMONITORING            (NOTEPADPLUS_USER_INTERNAL + 49) // Used by Monitoring feature
 
     //wParam: 0
     //lParam: document new index

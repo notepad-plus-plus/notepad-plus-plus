@@ -952,7 +952,6 @@ bool str2Clipboard(const generic_string &str2cpy, HWND hwnd)
 	unsigned int clipBoardFormat = CF_UNICODETEXT;
 	if (::SetClipboardData(clipBoardFormat, hglbCopy) == NULL)
 	{
-		::GlobalUnlock(hglbCopy);
 		::GlobalFree(hglbCopy);
 		::CloseClipboard();
 		return false;

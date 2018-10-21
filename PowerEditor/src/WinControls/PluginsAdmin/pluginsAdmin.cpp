@@ -79,7 +79,7 @@ void Version::setVersionFrom(generic_string filePath)
 {
 	if (not filePath.empty() && ::PathFileExists(filePath.c_str()))
 	{
-		DWORD handle;
+		DWORD handle = 0;
 		DWORD bufferSize = ::GetFileVersionInfoSize(filePath.c_str(), &handle);
 
 		if (bufferSize <= 0)
@@ -88,9 +88,9 @@ void Version::setVersionFrom(generic_string filePath)
 		unsigned char* buffer = new unsigned char[bufferSize];
 		::GetFileVersionInfo(filePath.c_str(), handle, bufferSize, buffer);
 
-		VS_FIXEDFILEINFO* lpFileInfo;
+		VS_FIXEDFILEINFO* lpFileInfo = nullptr;
 		UINT cbFileInfo = 0;
-		VerQueryValue(buffer, TEXT("\\"), (LPVOID*)&lpFileInfo, &cbFileInfo);
+		VerQueryValue(buffer, TEXT("\\"), reinterpret_cast<LPVOID*>(&lpFileInfo), &cbFileInfo);
 		if (cbFileInfo)
 		{
 			_major = (lpFileInfo->dwFileVersionMS & 0xFFFF0000) >> 16;
@@ -98,6 +98,7 @@ void Version::setVersionFrom(generic_string filePath)
 			_patch = (lpFileInfo->dwFileVersionLS & 0xFFFF0000) >> 16;
 			_build = lpFileInfo->dwFileVersionLS & 0x0000FFFF;
 		}
+		delete[] buffer;
 	}
 }
 
@@ -714,7 +715,10 @@ bool PluginsAdminDlg::isValide()
 
 bool PluginsAdminDlg::updateListAndLoadFromJson()
 {
-	try {
+	HMODULE hLib = NULL;
+
+	try
+	{
 		if (!isValide())
 			return false;
 
@@ -728,7 +732,7 @@ bool PluginsAdminDlg::updateListAndLoadFromJson()
 
 #else //RELEASE
 
-		HINSTANCE hLib = ::LoadLibrary(_pluginListFullPath.c_str());
+		hLib = ::LoadLibrary(_pluginListFullPath.c_str());
 		if (!hLib)
 		{
 			// Error treatment
@@ -741,6 +745,7 @@ bool PluginsAdminDlg::updateListAndLoadFromJson()
 		{
 			// Error treatment
 			//printStr(TEXT("getList PB!!!"));
+			::FreeLibrary(hLib);
 			return false;
 		}
 
@@ -770,11 +775,14 @@ bool PluginsAdminDlg::updateListAndLoadFromJson()
 		// initialize installed list view
 		loadFromPluginInfos();
 
+		::FreeLibrary(hLib);
 		return true;
 	}
 	catch (...)
 	{
 		// whichever exception
+		if (hLib)
+			::FreeLibrary(hLib);
 		return false;
 	}
 }

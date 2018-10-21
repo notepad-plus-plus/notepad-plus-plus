@@ -345,7 +345,13 @@ bool PluginsManager::loadPluginsV2(const TCHAR* dir)
 			generic_string  dllName2 = foundData.cFileName;
 			dllName2 += TEXT(".dll");
 			PathAppend(pluginsFullPathFilter2, dllName2);
+
 			// get plugin
+			if (hFindDll)
+			{
+				::FindClose(hFindDll);
+				hFindDll = INVALID_HANDLE_VALUE;
+			}
 			hFindDll = ::FindFirstFile(pluginsFullPathFilter2.c_str(), &foundData);
 			if (hFindDll != INVALID_HANDLE_VALUE && !(foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
 			{

@@ -1978,19 +1978,13 @@ void Notepad_plus::checkDocState()
 	enableCommand(IDM_VIEW_LOAD_IN_NEW_INSTANCE, !(isCurrentDirty || isCurrentUntitled), MENU);
 
 	bool isSysReadOnly = curBuf->getFileReadOnly();
-	if (isSysReadOnly)
-	{
-		::CheckMenuItem(_mainMenuHandle, IDM_EDIT_SETREADONLY, MF_BYCOMMAND | MF_UNCHECKED);
-		enableCommand(IDM_EDIT_SETREADONLY, false, MENU);
-		enableCommand(IDM_EDIT_CLEARREADONLY, true, MENU);
-	}
-	else
-	{
-		enableCommand(IDM_EDIT_SETREADONLY, true, MENU);
-		enableCommand(IDM_EDIT_CLEARREADONLY, false, MENU);
-		bool isUserReadOnly = curBuf->getUserReadOnly();
-		::CheckMenuItem(_mainMenuHandle, IDM_EDIT_SETREADONLY, MF_BYCOMMAND | (isUserReadOnly?MF_CHECKED:MF_UNCHECKED));
-	}
+	enableCommand(IDM_EDIT_CLEARREADONLY, isSysReadOnly, MENU);
+
+	bool doEnable = not (curBuf->isMonitoringOn() || isSysReadOnly);
+	enableCommand(IDM_EDIT_SETREADONLY, doEnable, MENU);
+
+	bool isUserReadOnly = curBuf->getUserReadOnly();
+	::CheckMenuItem(_mainMenuHandle, IDM_EDIT_SETREADONLY, MF_BYCOMMAND | (isUserReadOnly ? MF_CHECKED : MF_UNCHECKED));
 
 	enableCommand(IDM_FILE_DELETE, isFileExisting, MENU);
 	//enableCommand(IDM_FILE_RENAME, isFileExisting, MENU);
@@ -2013,7 +2007,6 @@ void Notepad_plus::checkDocState()
 		_pAnsiCharPanel->switchEncoding();
 
 	enableCommand(IDM_VIEW_MONITORING, not curBuf->isUntitled(), MENU | TOOLBAR);
-	enableCommand(IDM_EDIT_SETREADONLY, not curBuf->isMonitoringOn(), MENU);
 	checkMenuItem(IDM_VIEW_MONITORING, curBuf->isMonitoringOn());
 	_toolBar.setCheck(IDM_VIEW_MONITORING, curBuf->isMonitoringOn());
 }

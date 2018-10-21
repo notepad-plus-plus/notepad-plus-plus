@@ -967,16 +967,16 @@
             <SortingError title="排序錯誤" message="第 $INT_REPLACE$ 行無法執行數字排序。"/>
             <ColumnModeTip title="列模式選取提示" message="請使用「ALT + 鼠標選擇」或「Alt + Shift + 箭頭鍵」切換到列模式選取。"/>
             <BufferInvalidWarning title="儲存失敗" message="緩衝區無效"/>
-            <DoSaveOrNot title="儲存檔案" message="您要儲存「$STR_REPLACE」嗎？"/>
-            <DoCloseOrNot title="保留文件" message="檔案「$STR_REPLACE」已不存在。
+            <DoSaveOrNot title="儲存檔案" message="您要儲存「$STR_REPLACE$」嗎？"/>
+            <DoCloseOrNot title="保留文件" message="檔案「$STR_REPLACE$」已不存在。
 您在 Notepad++ 中保存這個文件嗎？"/>
-            <DoDeleteOrNot title="刪除檔案" message="您確定要刪除並關閉「$STR_REPLACE」嗎？"/>
+            <DoDeleteOrNot title="刪除檔案" message="您確定要刪除並關閉「$STR_REPLACE$」嗎？"/>
             <NoBackupDoSaveFile title="儲存" message="您的備份文件已從外部刪除。
 建議您儲存它，否則您的數據將會遺失。
-是否要儲存「$STR_REPLACE」？"/>
-            <DoReloadOrNot title="重新載入" message="「$STR_REPLACE」已被其他程式修改。
+是否要儲存「$STR_REPLACE$」？"/>
+            <DoReloadOrNot title="重新載入" message="「$STR_REPLACE$」已被其他程式修改。
 您要重新載入此文件嗎？"/>
-            <DoReloadOrNotAndLooseChange title="重新載入" message="「$STR_REPLACE」已被其他程式修改。
+            <DoReloadOrNotAndLooseChange title="重新載入" message="「$STR_REPLACE$」已被其他程式修改。
 您要重新載入並捨棄在 Notepad++ 中所做的修改嗎？"/>
             <PrehistoricSystemDetected title="系統過舊" message="不好意思，此功能不適用於過舊的系統。"/>
             <XpUpdaterProblem title="Notepad++ 更新程式" message="更新程式與 XP 的保全系統不兼容。
@@ -984,16 +984,16 @@
             <DocTooDirtyToMonitor title="監控錯誤" message="文件已被修改，請在監視之前儲存它。"/>
             <DocNoExistToMonitor title="監控錯誤" message="此文件必須存在以進行監視。"/>
             <FileTooBigToOpen title="文件太大" message="文件太大，無法用 Notepad++ 打開。"/>
-            <CreateNewFileOrNot title="開新檔案" message="「$STR_REPLACE」不存在。您要開新檔案嗎？"/>
-            <CreateNewFileError title="開新檔案" message="無法創建新檔「$STR_REPLACE」。"/>
-            <OpenFileError title="錯誤" message="無法開啟「$STR_REPLACE」"/>
-            <FileBackupFailed title="文件備份失敗" message="以前版本的檔案無法儲存到「$STR_REPLACE」的備份目錄中。您要儲存此文件嗎？"/>
-            <LoadStylersFailed title="載入失敗" message="載入「$STR_REPLACE」失敗。"/>
+            <CreateNewFileOrNot title="開新檔案" message="「$STR_REPLACE$」不存在。您要開新檔案嗎？"/>
+            <CreateNewFileError title="開新檔案" message="無法創建新檔「$STR_REPLACE$」。"/>
+            <OpenFileError title="錯誤" message="無法開啟「$STR_REPLACE$」"/>
+            <FileBackupFailed title="文件備份失敗" message="以前版本的檔案無法儲存到「$STR_REPLACE$」的備份目錄中。您要儲存此文件嗎？"/>
+            <LoadStylersFailed title="載入失敗" message="載入「$STR_REPLACE$」失敗。"/>
             <LoadLangsFailed title="載入失敗" message="載入 langs.xml 失敗。
 您要回復它嗎？"/>
             <LoadLangsFailedFinal title="載入失敗" message="載入 langs.xml 失敗。"/>
             <FolderAsWorspaceSubfolderExists title="加入錯誤" message="您想要添加的目錄已以子目錄型態存在中。
-如您欲添加「$STR_REPLACE」，請先將其根目錄從資料夾工作區中移除。"/>
+如您欲添加「$STR_REPLACE$」，請先將其根目錄從資料夾工作區中移除。"/>
 
             <ProjectPanelChanged title="$STR_REPLACE$" message="工作區已被修改。您要儲存它嗎？"/>
             <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="工作區儲存失敗。"/>
@@ -1130,7 +1130,7 @@
             <find-status-replaced-next-not-found value="取代：取代了 1 個字串。找不到下一個字串。"/>
             <find-status-replace-not-found value="取代：找不到搜尋字串。"/>
             <find-status-replace-readonly value="取代：檔案唯讀，無法取代字串。"/>
-            <find-status-cannot-find value="搜尋：找不到搜尋字串「$STR_REPLACE」。"/>
+            <find-status-cannot-find value="搜尋：找不到搜尋字串「$STR_REPLACE$」。"/>
             <finder-find-in-finder value="在此搜尋結果中尋找..."/>
             <finder-close-this value="關閉這個搜尋結果"/>
             <finder-collapse-all value="層數全部收折"/>

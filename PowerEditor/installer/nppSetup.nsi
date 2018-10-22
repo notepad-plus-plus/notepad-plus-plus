@@ -37,6 +37,9 @@ Unicode true			; Generate a Unicode installer. It can only be used outside of se
 SetCompressor /SOLID lzma	; This reduces installer size by approx 30~35%
 ;SetCompressor /FINAL lzma	; This reduces installer size by approx 15~18%
 
+; Installer is DPI-aware: not scaled by the DWM, no blurry text
+ManifestDPIAware true
+
 Var allowAppDataPluginsLoading
 
 !include "nsisInclude\winVer.nsh"

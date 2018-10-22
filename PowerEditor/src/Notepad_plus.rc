@@ -928,9 +928,9 @@ BEGIN
     BEGIN
         POPUP "MD5"
 		BEGIN
-			MENUITEM "Generate...",                         IDM_TOOL_MD5_GENERATE
-			MENUITEM "Generate from files...",              IDM_TOOL_MD5_GENERATEFROMFILE
-			MENUITEM "Generate into clipboard",             IDM_TOOL_MD5_GENERATEINTOCLIPBOARD
+			MENUITEM "Generate...",                            IDM_TOOL_MD5_GENERATE
+			MENUITEM "Generate from files...",                 IDM_TOOL_MD5_GENERATEFROMFILE
+			MENUITEM "Generate from selection into clipboard", IDM_TOOL_MD5_GENERATEINTOCLIPBOARD
         END
     END
 	

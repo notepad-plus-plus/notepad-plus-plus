@@ -1,12 +1,12 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-    Italian translation for Notepad++ 7.5.6
-    Last modified Sat, Mar 31th, 2018 by Luca Leonardi.
+    Italian translation for Notepad++ 7.5.9
+    Last modified Sat, Oct 24th, 2018 by Luca Leonardi.
     Please e-mail errors, suggestions etc. to ices_eyes(at)users.sourceforge.net.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 <NotepadPlus>
-    <Native-Langue name = "Italiano" filename = "italian.xml" version="7.4.2">
+    <Native-Langue name = "Italiano" filename = "italian.xml" version="7.5.9">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -1001,7 +1001,7 @@ o in una cartella che necessità dei privilegi di scrittura per poterci accedere
 Le tue impostazioni nel cloud saranno cancellate. Reimposta un valore coerente dalle impostazioni." />
             <FilePathNotFoundWarning title = "Apertura file" message = "Il file che si sta cercando di aprire non esiste." />
             <SessionFileInvalidError title = "Impossibile caricare la sesisone" message = "Il file di sessione è corrotto o non è valido." />
-            <DroppingFolderAsProjetModeWarning title = "Azione non valida" message = "Puoi portare file o cartelle, ma non entrambe, perché sei in modalità rilascia Cartella come Progetto.
+            <DroppingFolderAsProjectModeWarning title = "Azione non valida" message = "Puoi portare file o cartelle, ma non entrambe, perché sei in modalità rilascia Cartella come Progetto.
 devi abilitare &quot;Apri tutti i file della cartella invece di avviare Cartella come Workspace al trascinamento&quot; nella sezione &quot;Cartella predefinita&quot; delle preferenze per attivare questa funzionalità." />
             <SortingError title = "Errore ordinamento" message = "Impossibile effettuare un ordinamento numerico a causa della riga $INT_REPLACE$." />
             <ColumnModeTip title = "Consiglio modalità colonna" message = "Utilizza &quot;ALT+Selezione Mouse&quot; o &quot;Alt+Shift+Tasti frecce&quot; per passare alla modalità colonna." />

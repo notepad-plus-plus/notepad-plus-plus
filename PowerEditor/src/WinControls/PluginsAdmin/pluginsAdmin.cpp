@@ -39,7 +39,7 @@
 #include "localization.h"
 #include "Processus.h"
 #include "PluginsManager.h"
-#include "md5.h"
+#include "sha-256.h"
 #include "verifySignedFile.h"
 #include "LongRunningOperation.h"
 
@@ -505,10 +505,18 @@ DWORD WINAPI PluginsAdminDlg::launchPluginInstallerThread(void* params)
 		PathAppend(installedPluginPath, lwp->_pluginUpdateInfo->_folderName + TEXT(".dll"));
 
 		// check installed id to prevent from MITMA
-		MD5 md5;
-		char *md5Result = md5.digestFile(ws2s(installedPluginPath).c_str());
-
-		if (ws2s(lwp->_pluginUpdateInfo->_id) == md5Result)
+		std::string content = getFileContent(installedPluginPath.c_str());
+		uint8_t sha2hash[32];
+		calc_sha_256(sha2hash, reinterpret_cast<const uint8_t*>(content.c_str()), content.length());
+		char sha2hashStr[65] = {'\0'};
+		
+		for (size_t i = 0; i < 32; i++)
+		{
+			sprintf(sha2hashStr + i*2, "%02x", sha2hash[i]);
+		}
+		string s = ws2s(lwp->_pluginUpdateInfo->_id);
+		std::transform(s.begin(), s.end(), s.begin(), ::tolower);
+		if (s == sha2hashStr)
 		{
 			// Critical section
 			WaitForSingleObject(lwp->_mutex, INFINITE);
@@ -586,8 +594,6 @@ bool PluginsAdminDlg::installPlugins()
 		lwp->_mutex = mutex;
 
 		_lwps.push_back(lwp);
-
-		//ReleaseMutex(mutex);
 
 		HANDLE hThread = ::CreateThread(NULL, 0, launchPluginInstallerThread, lwp, 0, NULL);
 		::CloseHandle(hThread);
@@ -779,11 +785,18 @@ PluginUpdateInfo::PluginUpdateInfo(const generic_string& fullFilePath, const gen
 	_fullFilePath = fullFilePath;
 	_displayName = filename;
 
-	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-	const char *path = wmc->wchar2char(fullFilePath.c_str(), CP_ACP);
-	MD5 md5;
-	_id = wmc->char2wchar(md5.digestFile(path), CP_ACP);
+	std::string content = getFileContent(fullFilePath.c_str());
+	uint8_t sha2hash[32];
+	calc_sha_256(sha2hash, reinterpret_cast<const uint8_t*>(content.c_str()), content.length());
+	char sha2hashStr[65] = {'\0'};
 
+	for (size_t i = 0; i < 32; i++)
+	{
+		sprintf(sha2hashStr + i*2, "%02x", sha2hash[i]);
+	}
+
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	_id = wmc->char2wchar(sha2hashStr, CP_ACP);
 	_version.setVersionFrom(fullFilePath);
 
 }

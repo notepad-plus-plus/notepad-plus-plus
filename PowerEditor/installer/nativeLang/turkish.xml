@@ -22,7 +22,7 @@
 				<SubEntries>
 					<Item subMenuId="file-openFolder" name="Dosya Konumunu Aç"/>
 					<Item subMenuId="file-closeMore" name="Kapatma Seçenekleri"/>
-					<Item subMenuId="file-recentFiles" name="Son Kullanılan Dosyalar"/>
+					<Item subMenuId="file-recentFiles" name="&amp;Son Kullanılan Dosyalar"/>
 					<Item subMenuId="edit-copyToClipboard" name="Panoya Kopyala"/>
 					<Item subMenuId="edit-indent" name="Satır Girintisi"/>
 					<Item subMenuId="edit-convertCaseTo" name="Harfleri Çevir"/>
@@ -72,8 +72,8 @@
 					<Item id="41002" name="&amp;Aç"/>
 					<Item id="41019" name="Windows Gezgini"/>
 					<Item id="41020" name="Komut İstemi"/>
-					<Item id="41003" name="Ka&amp;pat"/>
-					<Item id="41004" name="Tü&amp;münü Kapat"/>
+					<Item id="41003" name="&amp;Kapat"/>
+					<Item id="41004" name="Tümünü Kapa&amp;t"/>
 					<Item id="41005" name="Diğer Sekmeleri Kapat"/>
 					<Item id="41009" name="Soldaki Sekmeleri Kapat"/>
 					<Item id="41018" name="Sağdaki Sekmeleri Kapat"/>
@@ -85,12 +85,12 @@
 					<Item id="41011" name="&amp;Çıkış"/>
 					<Item id="41012" name="Oturum Yükle"/>
 					<Item id="41013" name="Oturumu Kaydet"/>
-					<Item id="41014" name="Diskten Yeniden Yükle"/>
+					<Item id="41014" name="Diskten Ye&amp;niden Yükle"/>
 					<Item id="41015" name="Kopya Olarak Kaydet"/>
-					<Item id="41016" name="Diskten Sil"/>
+					<Item id="41016" name="Çöp Kutusuna Taşı"/>
 					<Item id="41017" name="Yeniden Adlandır"/>
 					<Item id="41021" name="Son Kapatılan Dosyayı Geri Yükle"/>
-					<Item id="41022" name="Klasörü Çalışma Alanı Olarak Aç"/>
+					<Item id="41022" name="Klasörü Çalışma Alanı Olarak Aç..."/>
 					<Item id="41023" name="Varsayılan Görüntüleyicide Aç"/>
 					<Item id="42001" name="K&amp;es"/>
 					<Item id="42002" name="&amp;Kopyala"/>
@@ -115,20 +115,20 @@
 					<Item id="42064" name="Virgüle Göre Ondalıklı Olarak Sırala (Azalan)"/>
 					<Item id="42065" name="Noktaya Göre Ondalıklı Olarak Sırala (Artan)"/>
 					<Item id="42066" name="Noktaya Göre Ondalıklı Olarak Sırala (Azalan)"/>
-					<Item id="42016" name="BÜYÜK HARFLERE ÇEVİR"/>
-					<Item id="42017" name="küçük harflere çevir"/>
-					<Item id="42067" name="Başlığa Çevir"/>
-                    <Item id="42068" name="Başlığa Çevir (Harmanla)"/>
-                    <Item id="42069" name="Cümleye Çevir"/>
+					<Item id="42016" name="&amp;BÜYÜK HARFLERE ÇEVİR"/>
+					<Item id="42017" name="&amp;küçük harflere çevir"/>
+					<Item id="42067" name="&amp;Uygun Harflere Çevir"/>
+                    <Item id="42068" name="Uygun Harflere Çevir (Harmanla)"/>
+                    <Item id="42069" name="&amp;Cümleye Çevir"/>
                     <Item id="42070" name="Cümleye Çevir (Harmanla)"/>
-                    <Item id="42071" name="tERS çEVİR"/>
-                    <Item id="42072" name="rastGELe ÇeviR"/>
+                    <Item id="42071" name="&amp;tERS çEVİR"/>
+                    <Item id="42072" name="&amp;rastGELe ÇeviR"/>
 					<Item id="42073" name="Dosya Aç"/>
 					<Item id="42074" name="Bulunduğu Klasörü Windows Gezgini'nde Aç"/>
 					<Item id="42075" name="İnternette Ara"/>
 					<Item id="42076" name="Arama Motorunu Değiştir…"/>
-					<Item id="42018" name="Kaydı &amp;Başlat"/>
-					<Item id="42019" name="Kaydı &amp;Durdur"/>
+					<Item id="42018" name="Ka&amp;ydı Başlat"/>
+					<Item id="42019" name="Kaydı D&amp;urdur"/>
 					<Item id="42021" name="&amp;Oynat"/>
 					<Item id="42022" name="Tek Satır Yorum Alanı Aç/Kapat"/>
 					<Item id="42023" name="Çoklu Yorum Satırı Aç"/>
@@ -150,14 +150,14 @@
 					<Item id="42034" name="Sütun &amp;Düzenleyici…"/>
 					<Item id="42051" name="K&amp;arakter Paneli"/>
 					<Item id="42052" name="&amp;Pano Geçmişi"/>
-					<Item id="42025" name="Geçerli Makroyu Kaydet"/>
+					<Item id="42025" name="&amp;Geçerli Makroyu Kaydet..."/>
 					<Item id="42026" name="Sağdan Sola Metin Yönü"/>
 					<Item id="42027" name="Soldan Sağa Metin Yönü"/>
 					<Item id="42028" name="Salt Okunur Yap"/>
 					<Item id="42029" name="Geçerli Dosyanın Yolunu Kopyala"/>
 					<Item id="42030" name="Geçerli Dosya Adını Kopyala"/>
 					<Item id="42031" name="Geçerli Dizin Yolunu Kopyala"/>
-					<Item id="42032" name="Makroyu Birden Çok Kez Çalıştır"/>
+					<Item id="42032" name="&amp;Makroyu Birden Çok Kez Çalıştır"/>
 					<Item id="42033" name="Salt Okunur İşaretini Kaldır"/>
 					<Item id="42035" name="Tek Satır Yorum Alanı Aç"/>
 					<Item id="42036" name="Tek Satır Yorum Alanını Kapat"/>
@@ -215,7 +215,7 @@
 					<Item id="43047" name="Önceki Arama Sonucu"/>
 					<Item id="43048" name="Seç ve Sonrakini Bul"/>
 					<Item id="43049" name="Seç ve Öncekini Bul"/>
-					<Item id="43054" name="İşaretle…"/>
+					<Item id="43054" name="İşa&amp;retle…"/>
 					<Item id="44009" name="Pencereyi Ekrana Tuttur"/>
 					<Item id="44010" name="Tüm Blokları Kapat"/>
 					<Item id="44019" name="Tüm Karakterleri Göster"/>
@@ -256,19 +256,19 @@
 					<Item id="44081" name="Proje Paneli 1"/>
 					<Item id="44082" name="Proje Paneli 2"/>
 					<Item id="44083" name="Proje Paneli 3"/>
-					<Item id="45001" name="Windows Biçimine Dönüştür"/>
-					<Item id="45002" name="UNIX Biçimine Dönüştür"/>
-					<Item id="45003" name="Mac OS Biçimine Dönüştür"/>
+					<Item id="45001" name="Windows (CR LF) Biçimine Dönüştür"/>
+					<Item id="45002" name="UNIX (LF)Biçimine Dönüştür"/>
+					<Item id="45003" name="Mac OS (CR)Biçimine Dönüştür"/>
 					<Item id="45004" name="ANSI Olarak Kodla"/>
 					<Item id="45005" name="UTF-8 BOM Olarak Kodla"/>
-					<Item id="45006" name="UCS-2 Big-Endian Olarak Kodla"/>
-					<Item id="45007" name="UCS-2 Little-Endian Olarak Kodla"/>
+					<Item id="45006" name="UCS-2 Big-Endian BOM Olarak Kodla"/>
+					<Item id="45007" name="UCS-2 Little-Endian BOM Olarak Kodla"/>
 					<Item id="45008" name="UTF-8 Olarak Kodla"/>
 					<Item id="45009" name="ANSI'ye Dönüştür"/>
 					<Item id="45010" name="UTF-8'e Dönüştür"/>
 					<Item id="45011" name="UTF-8 BOM'a Dönüştür"/>
-					<Item id="45012" name="UCS-2 Big-Endian'a Dönüştür"/>
-					<Item id="45013" name="UCS-2 Little-Endian'a Dönüştür"/>
+					<Item id="45012" name="UCS-2 Big-Endian BOM'a Dönüştür"/>
+					<Item id="45013" name="UCS-2 Little-Endian BOM'a Dönüştür"/>
 
 					<Item id="10001" name="Diğer Görünüme Taşı"/>
 					<Item id="10002" name="Diğer Görünüme Kopyala"/>
@@ -278,7 +278,7 @@
 					<Item id="46001" name="&amp;Stil Yapılandırıcı…"/>
 					<Item id="46250" name="Dil &amp;Tanımla"/>
 					<Item id="46180" name="Tanımlı Dili &amp;Kullan"/>
-					<Item id="47000" name="Notepad++ &amp;Hakkında…"/>
+					<Item id="47000" name="Notepad++ &amp;Hakkında"/>
 					<Item id="47010" name="Komut Satırı Değişkenleri…"/>
 					<Item id="47001" name="Notepad++ &amp;Ana Sayfası"/>
 					<Item id="47002" name="Notepad++ Proje Sayfası"/>
@@ -294,9 +294,10 @@
 					<Item id="48018" name="Açılır Bağlam Menüsünü Düzenle"/>
 					<Item id="48009" name="Kısayol Eşleyici…"/>
 					<Item id="48011" name="&amp;Tercihler…"/>
+					<Item id="48015" name="Eklentiler Yöneticisi..."/>
                     <Item id="48501" name="Üret..."/>
                     <Item id="48502" name="Dosyalardan üret..."/>
-                    <Item id="48503" name="Panoya üret"/>
+                    <Item id="48503" name="Seçimlerden panoya üret"/>
 					<Item id="49000" name="&amp;Çalıştır…"/>
 
 					<Item id="50000" name="Fonksiyonu Tamamla"/>
@@ -343,39 +344,39 @@
 				<Item id="1" name="&amp;Sonrakini Bul"/>
 				<Item id="1722" name="Geriye Doğru"/>
 				<Item id="2" name="&amp;Kapat"/>
-				<Item id="1620" name="A&amp;ranan:"/>
+				<Item id="1620" name="&amp;Aranan :"/>
 				<Item id="1603" name="Sadece &amp;tam sözcükleri eşleştir"/>
 				<Item id="1604" name="Büyük/küçük harf &amp;eşleştir"/>
 				<Item id="1605" name="Dü&amp;zenli ifade"/>
 				<Item id="1606" name="Aramayı sür&amp;dür"/>
 				
 				
-				<Item id="1614" name="Say"/>
-				<Item id="1615" name="Tümünü &amp;Bul"/>
-				<Item id="1616" name="Satırı işaretle"/>
+				<Item id="1614" name="Sa&amp;y"/>
+				<Item id="1615" name="Tümünü &amp;Seç"/>
+				<Item id="1616" name="Satırı işa&amp;retle"/>
 				<Item id="1618" name="Her arama için temizle"/>
 				
-				<Item id="1611" name="De&amp;ğiştir:"/>
+				<Item id="1611" name="Değ&amp;iştir :"/>
 				<Item id="1608" name="&amp;Değiştir"/>
 				<Item id="1609" name="Tü&amp;münü Değiştir"/>
 			 	<Item id="1687" name="Odak dışındayken"/>
 			 	<Item id="1688" name="Her zaman"/>
-			 	<Item id="1632" name="Seçildiğinde…"/>
-			 	<Item id="1633" name="Temizle"/>
-			 	<Item id="1635" name="Tüm Açık Belgelerde Değiştir"/>
-			 	<Item id="1636" name="Tüm Açık Belgelerde Bul"/>
-			 	<Item id="1654" name="&amp;Filtre:"/>
+			 	<Item id="1632" name="Seç&amp;ildiğinde…"/>
+			 	<Item id="1633" name="Tüm İşaretleri Temizle"/>
+			 	<Item id="1635" name="Tüm &amp;Açık Belgelerde Değiştir"/>
+			 	<Item id="1636" name="Tüm &amp;Açık Belgelerde Bul"/>
+			 	<Item id="1654" name="Filtre&amp;ler:"/>
 			 	<Item id="1655" name="D&amp;izin:"/>
 			 	<Item id="1656" name="Tümünü &amp;Bul"/>
-			 	<Item id="1658" name="Tüm alt klasörlerde"/>
-			 	<Item id="1659" name="Gizli klasörlerde"/>
+			 	<Item id="1658" name="Tüm al&amp;t klasörlerde"/>
+			 	<Item id="1659" name="&amp;Gizli klasörlerde"/>
 			 	<Item id="1624" name="Arama Modu"/>
 			 	<Item id="1625" name="&amp;Normal"/>
 			 	<Item id="1626" name="&amp;Genişletilmiş (\r, \n, \t, \0, \x…)"/>
-			 	<Item id="1660" name="Dosyalarda Değiştir"/>
+			 	<Item id="1660" name="Dosyalarda &amp;Değiştir"/>
 				<Item id="1661" name="Geçerli belgeyi takip et"/>
 			 	<Item id="1641" name="Geçerli Belgede Tümünü Bul"/>
-			 	<Item id="1686" name="Saydamlaştır"/>
+			 	<Item id="1686" name="Saydamlaş&amp;tır"/>
 				<Item id="1703" name="&amp;. yeni satırı eşle"/>
 			</Find>
 
@@ -392,8 +393,8 @@
             </FindCharsInRange>
 
 			<GoToLine title="Git">
-				<Item id="2007" name="Satır"/>
-				<Item id="2008" name="Karakter"/>
+				<Item id="2007" name="&amp;Satır"/>
+				<Item id="2008" name="&amp;Karakter"/>
 				<Item id="1" name="&amp;Git"/>
 				<Item id="2" name="İptal"/>
 				<Item id="2004" name="Bulunulan konum:"/>
@@ -419,6 +420,17 @@
                 <Item id="1934" name="Panoya kopyala"/>
                 <Item id="2"    name="Kapat"/>
             </MD5FromTextDlg>
+			
+			<PluginsAdminDlg title="Eklentiler Yöneticisi" titleAvailable = "Uygun" titleUpdates = "Güncellemeler" titleInstalled = "Yüklü">
+                <ColumnPlugin   name="Eklenti"/>
+                <ColumnVersion  name="Versiyon"/>
+                <Item id="5501" name="Ara:"/>
+                <Item id="5503" name="Yükle"/>
+                <Item id="5504" name="Güncelle"/>
+                <Item id="5505" name="Kaldır"/>
+                <Item id="5508" name="Sonraki"/>
+                <Item id="2"    name="Kapat"/>
+            </PluginsAdminDlg>
 
 			<StyleConfig title="Stil Yapılandırıcı">
 				<Item id="2" name="İptal"/>
@@ -530,7 +542,7 @@
 						<Item id="21102" name="Stilci…"/>
 						<Item id="21105" name="Belgelendirme"/>
 						<Item id="21104" name="Geçici belgelendirme sitesi:"/>
-						<Item id="21106" name="Sıkı kapat (boş satırları da kapat)"/>
+						<Item id="21106" name="&amp;Sıkı kapat (boş satırları da kapat)"/>
 						<Item id="21220" name="Kod 1 Stilinde Kapat"/>
 						<Item id="21224" name="Aç:"/>
 						<Item id="21225" name="Gövde:"/>
@@ -681,8 +693,8 @@
 				</Global>
 				<Scintillas title="Düzenleme">
 					<Item id="6216" name="İmleç Ayarları"/>
-					<Item id="6217" name="Genişlik:"/>
-					<Item id="6219" name="Yenilenme hızı:"/>
+					<Item id="6217" name="Genişlik :"/>
+					<Item id="6219" name="Yenilenme hızı :"/>
 					<Item id="6221" name="H"/>
 					<Item id="6222" name="Y"/>
 					<Item id="6224" name="Çoklu Düzenleme Ayarları"/>
@@ -699,10 +711,10 @@
 					<Item id="6229" name="Hizalanmış"/>
 					<Item id="6230" name="Girintili"/>
 
-					<Item id="6206" name="Satır numaralarını görüntüle"/>
-					<Item id="6207" name="Yer imlerini görüntüle"/>
+					<Item id="6206" name="Satır numarasını görüntüle"/>
+					<Item id="6207" name="Yer imini görüntüle"/>
 					<Item id="6208" name="Dikey kenarlıkları göster"/>
-					<Item id="6209" name="Sütun sayısı:"/>
+					<Item id="6209" name="Sütun sayısı :"/>
 					<Item id="6234" name="Gelişmiş kaydırmayı devre dışı bırak
 (dokunmatik yüzeyde sorun varsa)"/>
 
@@ -717,17 +729,17 @@
 				</Scintillas>
 
 				<NewDoc title="Yeni Belge">
-					<Item id="6401" name="Biçim"/>
-					<Item id="6402" name="Windows"/>
-					<Item id="6403" name="UNIX"/>
-					<Item id="6404" name="macOS"/>
+					<Item id="6401" name="Biçim (Satır sonu)"/>
+					<Item id="6402" name="Windows (CR LF)"/>
+					<Item id="6403" name="UNIX (LF)"/>
+					<Item id="6404" name="macOS (CR)"/>
 					<Item id="6405" name="Kodlama"/>
 					<Item id="6406" name="ANSI"/>
 					<Item id="6407" name="BOM olmadan UTF-8"/>
 					<Item id="6408" name="UTF-8"/>
 					<Item id="6409" name="UCS-2 Big-Endian"/>
 					<Item id="6410" name="UCS-2 Small-Endian"/>
-					<Item id="6411" name="Varsayılan dil:"/>
+					<Item id="6411" name="Varsayılan dil :"/>
 					<Item id="6419" name="Yeni Belge"/>
 					<Item id="6420" name="Açılmış ANSI dosyalarına uygula"/>
 				</NewDoc>
@@ -736,7 +748,7 @@
 					<Item id="6413" name="Varsayılan Dizin (Aç/Kaydet)"/>
 					<Item id="6414" name="Geçerli belgeyi takip et"/>
 					<Item id="6415" name="Son kullanılan dizini hatırla"/>
-					<Item id="6430" name="Yeni stil diyalogunu kullan (&amp;Unix tarzı yol kapasitesi)"/>
+					<Item id="6430" name="Yeni stil diyalogunu kullan (&amp;&amp; Unix tarzı yol kapasitesi)"/>
                     <Item id="6431" name="Klasör taşıyarak Çalışma Alanı Klasörleri başlatıldığında klasörün tüm dosyalarını aç"/>
 				</DefaultDir>
 
@@ -757,7 +769,7 @@
 				
 				<Highlighting title="Vurgulama">
                     <Item id="6333" name="Akıllı Vurgulama"/>
-                    <Item id="6326" name="Akıllı vurgulamayı etkinleştir"/>
+                    <Item id="6326" name="Etkinleştir"/>
 					<Item id="6332" name="Büyük/küçük harf eşleştir"/>
 					<Item id="6338" name="Sadece tam sözcükleri eşleştir"/>
 					<Item id="6339" name="Arama aracı ayarlarını kullan"/>
@@ -800,7 +812,7 @@
 
 				<RecentFilesHistory title="Son Kull. Dosya Geçmişi">
 					<Item id="6304" name="Son Kullanılan Dosya Geçmişi"/>
-					<Item id="6306" name="Maksimum girdi sayısı:"/>
+					<Item id="6306" name="Maksimum girdi sayısı :"/>
 					<Item id="6305" name="Başlatıldığı zaman denetleme"/>
 					<Item id="6429" name="Göster"/>
 					<Item id="6424" name="Alt menüde göster"/>
@@ -816,12 +828,12 @@
 					<Item id="6821" name="saniyede bir yapılsın"/>
 					<Item id="6822" name="Yedekleme yolu:"/>
 					<Item id="6309" name="Geçerli oturumu sonraki açılışta hatırla"/>
-					<Item id="6801" name="Yedekleme"/>
+					<Item id="6801" name="Kayıtta Yedekle"/>
 					<Item id="6315" name="Hiçbiri"/>
 					<Item id="6316" name="Basit yedekleme"/>
 					<Item id="6317" name="Ayrıntılı yedekleme"/>
 					<Item id="6804" name="Özel yedekleme dizini"/>
-					<Item id="6803" name="Dizin:"/>
+					<Item id="6803" name="Dizin :"/>
 				</Backup>
 
 				<AutoCompletion title="Otomatik Tamamlama">
@@ -833,7 +845,7 @@
 					<Item id="6824" name="Sayıları atla"/>
 					<Item id="6811" name="Başlangıç"/>
 					<Item id="6813" name=". karakter"/>
-					<Item id="6814" name="Geçerli değer: 1 - 9"/>
+					<Item id="6814" name="Geçerli değer : 1 - 9"/>
 					<Item id="6815" name="Yazarken fonksiyon parametre ipuçlarını göster"/>
 					<Item id="6851" name="Otomatik Olarak Ekle"/>
 					<Item id="6857" name="html/xml kptma etkti"/>
@@ -853,7 +865,7 @@
 				</MultiInstance>
 
 				<Delimiter title="Sınırlayıcı">
-					<Item id="6251" name="Sınırlayıcı Seçme Ayarları (Ctrl+Fareyle Çift Tıkla)"/>
+					<Item id="6251" name="Sınırlayıcı Seçme Ayarları (Ctrl + Fareyle Çift Tıkla)"/>
 					<Item id="6252" name="Aç"/>
 					<Item id="6255" name="Kapat"/>
 					<Item id="6256" name="Birden çok satıra izin ver"/>
@@ -905,25 +917,25 @@
 				</MISC>
 			</Preference>
 			<MultiMacro title="Makroyu Birden Çok Kez Çalıştır">
-				<Item id="1" name="Çalıştır"/>
-				<Item id="2" name="İptal"/>
-				<Item id="8006" name="Çalıştırılan:"/>
+				<Item id="1" name="&amp;Çalıştır"/>
+				<Item id="2" name="&amp;İptal"/>
+				<Item id="8006" name="Çalıştırılan :"/>
 				<Item id="8001" name="Çalıştır"/>
 				<Item id="8005" name="kez"/>
-				<Item id="8002" name="Dosyanın sonuna kadar çalıştır"/>
+				<Item id="8002" name="Dosyanın &amp;sonuna kadar çalıştır"/>
 			</MultiMacro>
 			<Window title="Pencereler">
-				<Item id="1" name="Etkinleştir"/>
-				<Item id="2" name="Tamam"/>
-				<Item id="7002" name="Kaydet"/>
-				<Item id="7003" name="Pencereleri Kapat"/>
-				<Item id="7004" name="Sekmeleri Sırala"/>
+				<Item id="1" name="&amp;Etkinleştir"/>
+				<Item id="2" name="&amp;Tamam"/>
+				<Item id="7002" name="&amp;Kaydet"/>
+				<Item id="7003" name="&amp;Pencereleri Kapat"/>
+				<Item id="7004" name="&amp;Sekmeleri Sırala"/>
 			</Window>
 			<ColumnEditor title="Sütun Düzenleyici">
 				<Item id="2023" name="Metin ekle"/>
 				<Item id="2033" name="Sayı ekle"/>
-				<Item id="2030" name="Başlangıç sayısı:"/>
-				<Item id="2031" name="Artış miktarı:"/>
+				<Item id="2030" name="Başlangıç sayısı :"/>
+				<Item id="2031" name="Artış miktarı :"/>
 				<Item id="2035" name="Başına sıfır ekle"/>
 				<Item id="2036" name="Tekrar :"/>
 				<Item id="2032" name="Biçim"/>
@@ -937,14 +949,14 @@
             <FindInFinder title="Bulucuda Bul">
                 <Item id="1"    name="Tümünü Bul"/>
                 <Item id="2"    name="Kapat"/>
-                <Item id="1711" name="Ne Bulunsun:"/>
+                <Item id="1711" name="Ne &amp;Bulunsun:"/>
                 <Item id="1713" name="Sadece Bulunmuş Satırlarda Ara"/>
                 <Item id="1714" name="Sadece &amp;Tüm Kelimeyi Eşleştir"/>
                 <Item id="1715" name="&amp;Harf Eşleştir"/>
                 <Item id="1716" name="Arama Modu"/>
-                <Item id="1717" name="Normal"/>
+                <Item id="1717" name="&amp;Normal"/>
                 <Item id="1719" name="Düzenli &amp;İfadeler"/>
-                <Item id="1718" name="Geliştirilmiş (\n, \r, \t, \0, \x...)"/>
+                <Item id="1718" name="G&amp;eliştirilmiş (\n, \r, \t, \0, \x...)"/>
                 <Item id="1720" name="&amp;. Yeni Satır Eşleşiyor"/>
             </FindInFinder>
 		</Dialog>

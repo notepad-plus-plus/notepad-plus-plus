@@ -552,6 +552,13 @@ DWORD WINAPI PluginsAdminDlg::launchPluginInstallerThread(void* params)
 			int index = lwp->_pPluginsManager->loadPlugin(installedPluginPath.c_str(), dll2Remove);
 			lwp->_pPluginsManager->addInMenuFromPMIndex(index);
 
+			// Notify plugin that Notepad++ is ready
+			SCNotification scnN;
+			scnN.nmhdr.code = NPPN_READY;
+			scnN.nmhdr.hwndFrom = lwp->_hwnd;
+			scnN.nmhdr.idFrom = 0;
+			lwp->_pPluginsManager->notify(index, &scnN);
+
 			// End of Critical section
 			ReleaseMutex(lwp->_mutex);
 		}
@@ -609,6 +616,7 @@ bool PluginsAdminDlg::installPlugins()
 		lwp->_updaterDir = _updaterDir;
 		lwp->_updaterFullPath = _updaterFullPath;
 		lwp->_updaterParams = updaterParams;
+		lwp->_hwnd = _hSelf;
 		lwp->_mutex = mutex;
 
 		_lwps.push_back(lwp);

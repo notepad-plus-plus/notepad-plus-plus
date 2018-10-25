@@ -605,7 +605,36 @@ void PluginsManager::runPluginCommand(const TCHAR *pluginName, int commandID)
 	}
 }
 
+// send the notification to a specific plugin
+void PluginsManager::notify(size_t indexPluginInfo, const SCNotification *notification)
+{
+	if (indexPluginInfo >= _pluginInfos.size())
+		return;
 
+	if (_pluginInfos[indexPluginInfo]->_hLib)
+	{
+		// To avoid the plugin change the data in SCNotification
+		// Each notification to pass to a plugin is a copy of SCNotification instance
+		SCNotification scNotif = *notification;
+		try
+		{
+			_pluginInfos[indexPluginInfo]->_pBeNotified(&scNotif);
+		}
+		catch (std::exception& e)
+		{
+			::MessageBoxA(NULL, e.what(), "Exception", MB_OK);
+		}
+		catch (...)
+		{
+			TCHAR funcInfo[256];
+			generic_sprintf(funcInfo, TEXT("notify(SCNotification *notification) : \r notification->nmhdr.code == %d\r notification->nmhdr.hwndFrom == %p\r notification->nmhdr.idFrom == %" PRIuPTR), \
+				scNotif.nmhdr.code, scNotif.nmhdr.hwndFrom, scNotif.nmhdr.idFrom);
+			pluginCrashAlert(_pluginInfos[indexPluginInfo]->_moduleName.c_str(), funcInfo);
+		}
+	}
+}
+
+// broadcast the notification to all plugins
 void PluginsManager::notify(const SCNotification *notification)
 {
 	if (_noMoreNotification) // this boolean should be enabled after NPPN_SHUTDOWN has been sent
@@ -614,27 +643,7 @@ void PluginsManager::notify(const SCNotification *notification)
 
 	for (size_t i = 0, len = _pluginInfos.size() ; i < len ; ++i)
 	{
-        if (_pluginInfos[i]->_hLib)
-        {
-			// To avoid the plugin change the data in SCNotification
-			// Each notification to pass to a plugin is a copy of SCNotification instance
-			SCNotification scNotif = *notification;
-			try
-			{
-				_pluginInfos[i]->_pBeNotified(&scNotif);
-			}
-			catch (std::exception& e)
-			{
-				::MessageBoxA(NULL, e.what(), "Exception", MB_OK);
-			}
-			catch (...)
-			{
-				TCHAR funcInfo[256];
-				generic_sprintf(funcInfo, TEXT("notify(SCNotification *notification) : \r notification->nmhdr.code == %d\r notification->nmhdr.hwndFrom == %p\r notification->nmhdr.idFrom == %" PRIuPTR),\
-					scNotif.nmhdr.code, scNotif.nmhdr.hwndFrom, scNotif.nmhdr.idFrom);
-				pluginCrashAlert(_pluginInfos[i]->_moduleName.c_str(), funcInfo);
-			}
-		}
+		notify(i, notification);
 	}
 }
 

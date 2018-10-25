@@ -113,7 +113,8 @@ public:
 	bool getShortcutByCmdID(int cmdID, ShortcutKey *sk);
 	bool removeShortcutByCmdID(int cmdID);
 
-	void notify(const SCNotification *notification);
+	void notify(size_t indexPluginInfo, const SCNotification *notification); // to a plugin
+	void notify(const SCNotification *notification); // broadcast
 	void relayNppMessages(UINT Message, WPARAM wParam, LPARAM lParam);
 	bool relayPluginMessages(UINT Message, WPARAM wParam, LPARAM lParam);
 

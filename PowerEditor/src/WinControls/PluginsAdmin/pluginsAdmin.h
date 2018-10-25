@@ -168,6 +168,7 @@ struct LaunchWingupParams
 
 	PluginsManager *_pPluginsManager;
 
+	HWND _hwnd = nullptr;
 	HANDLE _mutex;
 };
 

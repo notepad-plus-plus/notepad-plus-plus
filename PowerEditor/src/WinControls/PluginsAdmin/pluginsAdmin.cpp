@@ -505,14 +505,32 @@ DWORD WINAPI PluginsAdminDlg::launchPluginInstallerThread(void* params)
 		PathAppend(installedPluginPath, lwp->_pluginUpdateInfo->_folderName + TEXT(".dll"));
 
 		// check installed id to prevent from MITMA
+		char sha2hashStr[65] = { '\0' };
 		std::string content = getFileContent(installedPluginPath.c_str());
-		uint8_t sha2hash[32];
-		calc_sha_256(sha2hash, reinterpret_cast<const uint8_t*>(content.c_str()), content.length());
-		char sha2hashStr[65] = {'\0'};
-		
-		for (size_t i = 0; i < 32; i++)
+		if (content.empty())
 		{
-			sprintf(sha2hashStr + i*2, "%02x", sha2hash[i]);
+			// Remove installed plugin
+			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+			pNativeSpeaker->messageBox("PluginBuiltWronglyCannotFound",
+				NULL,
+				TEXT("The plugin package is built wrongly. This plugin will be uninstalled."),
+				TEXT("Plugin cannot be found"),
+				MB_OK | MB_APPLMODAL,
+				0,
+				lwp->_pluginUpdateInfo->_displayName.c_str());
+
+			deleteFileOrFolder(installedPluginFolder);
+			return FALSE;
+		}
+		else
+		{
+			uint8_t sha2hash[32];
+			calc_sha_256(sha2hash, reinterpret_cast<const uint8_t*>(content.c_str()), content.length());
+			
+			for (size_t i = 0; i < 32; i++)
+			{
+				sprintf(sha2hashStr + i * 2, "%02x", sha2hash[i]);
+			}
 		}
 		string s = ws2s(lwp->_pluginUpdateInfo->_id);
 		std::transform(s.begin(), s.end(), s.begin(), ::tolower);
@@ -544,7 +562,7 @@ DWORD WINAPI PluginsAdminDlg::launchPluginInstallerThread(void* params)
 			pNativeSpeaker->messageBox("PluginIdNotMatchedWillBeRemoved",
 				NULL,
 				TEXT("The plugin \"$STR_REPLACE$\" ID is not correct. This plugin will be uninstalled."),
-				TEXT("Plugin ID missmathed"),
+				TEXT("Plugin ID mismathed"),
 				MB_OK | MB_APPLMODAL,
 				0,
 				lwp->_pluginUpdateInfo->_displayName.c_str());
@@ -786,6 +804,9 @@ PluginUpdateInfo::PluginUpdateInfo(const generic_string& fullFilePath, const gen
 	_displayName = filename;
 
 	std::string content = getFileContent(fullFilePath.c_str());
+	if (content.empty())
+		return;
+
 	uint8_t sha2hash[32];
 	calc_sha_256(sha2hash, reinterpret_cast<const uint8_t*>(content.c_str()), content.length());
 	char sha2hashStr[65] = {'\0'};
@@ -798,7 +819,6 @@ PluginUpdateInfo::PluginUpdateInfo(const generic_string& fullFilePath, const gen
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 	_id = wmc->char2wchar(sha2hashStr, CP_ACP);
 	_version.setVersionFrom(fullFilePath);
-
 }
 
 typedef const char * (__cdecl * PFUNCGETPLUGINLIST)();

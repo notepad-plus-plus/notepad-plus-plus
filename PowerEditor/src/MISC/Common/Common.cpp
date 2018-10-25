@@ -64,6 +64,9 @@ generic_string commafyInt(size_t n)
 
 std::string getFileContent(const TCHAR *file2read)
 {
+	if (!::PathFileExists(file2read))
+		return "";
+
 	const size_t blockSize = 1024;
 	char data[blockSize];
 	std::string wholeFileContent = "";
@@ -72,7 +75,7 @@ std::string getFileContent(const TCHAR *file2read)
 	size_t lenFile = 0;
 	do
 	{
-		lenFile = fread(data, 1, blockSize - 1, fp);
+		lenFile = fread(data, 1, blockSize, fp);
 		if (lenFile <= 0) break;
 		wholeFileContent.append(data, lenFile);
 	}

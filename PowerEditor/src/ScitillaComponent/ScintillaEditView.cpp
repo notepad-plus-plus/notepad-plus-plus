@@ -47,7 +47,7 @@ TCHAR * getSciLexerFullPathName(TCHAR * moduleFileName, size_t len)
 	return moduleFileName;
 };
 
-HINSTANCE ScintillaEditView::_hLib = loadSciLexerDll();
+HINSTANCE ScintillaEditView::_hLib = NULL;
 int ScintillaEditView::_refCount = 0;
 UserDefineDialog ScintillaEditView::_userDefineDlg;
 
@@ -225,7 +225,11 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 {
 	if (!_hLib)
 	{
-		throw std::runtime_error("ScintillaEditView::init : SCINTILLA ERROR - Can not load the dynamic library");
+		_hLib = loadSciLexerDll();
+		if (!_hLib)
+		{
+			throw std::runtime_error("ScintillaEditView::init : SCINTILLA ERROR - Can not load the dynamic library");
+		}
 	}
 
 	Window::init(hInst, hPere);

@@ -1131,7 +1131,7 @@
 			<find-status-replaceinopenedfiles-1-replaced value="Ersetzen in geöffneten Dateien: 1 Vorkommen wurde ersetzt"/>
 			<find-status-replaceinopenedfiles-nb-replaced value="Ersetzen in geöffneten Dateien: $INT_REPLACE$ Vorkommen wurden ersetzt"/>
 			<find-status-mark-re-malformed value="Achtung: Der Ausdruck für die Suche ist nicht passend"/>
-			<find-status-invalid-re value="Suche: Üngültiger Ausdruck"/>
+			<find-status-invalid-re value="Suche: Ungültiger Ausdruck"/>
 			<find-status-mark-1-match value="1 Treffer"/>
 			<find-status-mark-nb-matches value="$INT_REPLACE$ Treffer"/>
 			<find-status-count-re-malformed value="Zähler: Der Ausdruck für die Suche ist nicht passend"/>

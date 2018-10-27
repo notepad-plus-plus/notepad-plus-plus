@@ -39,7 +39,6 @@
 #include "localization.h"
 #include "Processus.h"
 #include "PluginsManager.h"
-#include "sha-256.h"
 #include "verifySignedFile.h"
 #include "LongRunningOperation.h"
 
@@ -504,10 +503,8 @@ DWORD WINAPI PluginsAdminDlg::launchPluginInstallerThread(void* params)
 		generic_string installedPluginPath = installedPluginFolder;
 		PathAppend(installedPluginPath, lwp->_pluginUpdateInfo->_folderName + TEXT(".dll"));
 
-		// check installed id to prevent from MITMA
-		char sha2hashStr[65] = { '\0' };
-		std::string content = getFileContent(installedPluginPath.c_str());
-		if (content.empty())
+		// check installed dll
+		if (!::PathFileExists(installedPluginPath.c_str()))
 		{
 			// Remove installed plugin
 			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
@@ -522,60 +519,32 @@ DWORD WINAPI PluginsAdminDlg::launchPluginInstallerThread(void* params)
 			deleteFileOrFolder(installedPluginFolder);
 			return FALSE;
 		}
-		else
-		{
-			uint8_t sha2hash[32];
-			calc_sha_256(sha2hash, reinterpret_cast<const uint8_t*>(content.c_str()), content.length());
-			
-			for (size_t i = 0; i < 32; i++)
-			{
-				sprintf(sha2hashStr + i * 2, "%02x", sha2hash[i]);
-			}
-		}
-		string s = ws2s(lwp->_pluginUpdateInfo->_id);
-		std::transform(s.begin(), s.end(), s.begin(), ::tolower);
-		if (s == sha2hashStr)
-		{
-			// Critical section
-			WaitForSingleObject(lwp->_mutex, INFINITE);
 
-			// Remove (Hide) installed plugin from available list
-			lwp->_uiAvailableList->hideFromPluginInfoPtr(lwp->_pluginUpdateInfo);
+		// Critical section
+		WaitForSingleObject(lwp->_mutex, INFINITE);
 
-			// Add installed plugin into insttalled list
-			PluginUpdateInfo* installedPui = new PluginUpdateInfo(*(lwp->_pluginUpdateInfo));
-			installedPui->_isVisible = true;
-			lwp->_uiInstalledList->pushBack(installedPui);
+		// Remove (Hide) installed plugin from available list
+		lwp->_uiAvailableList->hideFromPluginInfoPtr(lwp->_pluginUpdateInfo);
 
-			// Load installed plugin
-			vector<generic_string> dll2Remove;
-			int index = lwp->_pPluginsManager->loadPlugin(installedPluginPath.c_str(), dll2Remove);
-			lwp->_pPluginsManager->addInMenuFromPMIndex(index);
+		// Add installed plugin into insttalled list
+		PluginUpdateInfo* installedPui = new PluginUpdateInfo(*(lwp->_pluginUpdateInfo));
+		installedPui->_isVisible = true;
+		lwp->_uiInstalledList->pushBack(installedPui);
 
-			// Notify plugin that Notepad++ is ready
-			SCNotification scnN;
-			scnN.nmhdr.code = NPPN_READY;
-			scnN.nmhdr.hwndFrom = lwp->_hwnd;
-			scnN.nmhdr.idFrom = 0;
-			lwp->_pPluginsManager->notify(index, &scnN);
+		// Load installed plugin
+		vector<generic_string> dll2Remove;
+		int index = lwp->_pPluginsManager->loadPlugin(installedPluginPath.c_str(), dll2Remove);
+		lwp->_pPluginsManager->addInMenuFromPMIndex(index);
 
-			// End of Critical section
-			ReleaseMutex(lwp->_mutex);
-		}
-		else
-		{
-			// Remove installed plugin
-			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
-			pNativeSpeaker->messageBox("PluginIdNotMatchedWillBeRemoved",
-				NULL,
-				TEXT("The plugin \"$STR_REPLACE$\" ID is not correct. This plugin will be uninstalled."),
-				TEXT("Plugin ID mismathed"),
-				MB_OK | MB_APPLMODAL,
-				0,
-				lwp->_pluginUpdateInfo->_displayName.c_str());
+		// Notify plugin that Notepad++ is ready
+		SCNotification scnN;
+		scnN.nmhdr.code = NPPN_READY;
+		scnN.nmhdr.hwndFrom = lwp->_hwnd;
+		scnN.nmhdr.idFrom = 0;
+		lwp->_pPluginsManager->notify(index, &scnN);
 
-			deleteFileOrFolder(installedPluginFolder);
-		}
+		// End of Critical section
+		ReleaseMutex(lwp->_mutex);
 	}
 	else // wingup return non-zero (-1) -> Not OK
 	{
@@ -606,6 +575,10 @@ bool PluginsAdminDlg::installPlugins()
 		// add zipFile's url
 		updaterParams += TEXT(" ");
 		updaterParams += i->_repository;
+
+		// add zipFile's SHA-256 for checking
+		updaterParams += TEXT(" ");
+		updaterParams += i->_id;
 
 		LaunchWingupParams* lwp = new LaunchWingupParams;
 		lwp->_nppPluginsDir = nppPluginsDir;
@@ -658,6 +631,8 @@ bool PluginsAdminDlg::exitToUpdateRemovePlugins(bool isUpdate, const vector<Plug
 			updaterParams += i->_folderName;
 			updaterParams += TEXT(" ");
 			updaterParams += i->_repository;
+			updaterParams += TEXT(" ");
+			updaterParams += i->_id;
 			updaterParams += TEXT("\"");
 		}
 		else // clean
@@ -815,17 +790,6 @@ PluginUpdateInfo::PluginUpdateInfo(const generic_string& fullFilePath, const gen
 	if (content.empty())
 		return;
 
-	uint8_t sha2hash[32];
-	calc_sha_256(sha2hash, reinterpret_cast<const uint8_t*>(content.c_str()), content.length());
-	char sha2hashStr[65] = {'\0'};
-
-	for (size_t i = 0; i < 32; i++)
-	{
-		sprintf(sha2hashStr + i*2, "%02x", sha2hash[i]);
-	}
-
-	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-	_id = wmc->char2wchar(sha2hashStr, CP_ACP);
 	_version.setVersionFrom(fullFilePath);
 }
 

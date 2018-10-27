@@ -84,10 +84,9 @@ struct PluginUpdateInfo
 	generic_string _sourceUrl;
 	generic_string _description;
 	generic_string _author;
-	generic_string _md5;
-	generic_string _id;
+	generic_string _id;           // Plugin package ID: SHA-256 hash
 	generic_string _repository;
-	bool _isVisible = true;     // if false then it should not be displayed 
+	bool _isVisible = true;       // if false then it should not be displayed 
 
 	generic_string describe();
 	PluginUpdateInfo() {};

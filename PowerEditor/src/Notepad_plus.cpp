@@ -2175,7 +2175,26 @@ void Notepad_plus::deleteMarkedLines(bool isMarked)
 	for (int i = lastLine ; i >= 0 ; i--)
 	{
 		if (bookmarkPresent(i) == isMarked)
-			deleteMarkedline(i);
+		{
+			int last_bookmark = i;
+			int first_bookmark = i;
+
+			while (first_bookmark >= 1 && bookmarkPresent(first_bookmark - 1) == isMarked) first_bookmark--;
+
+			int lineBegin = static_cast<int32_t>(_pEditView->execute(SCI_POSITIONFROMLINE, first_bookmark));
+			int lineLen = 0;
+
+			for (int index = first_bookmark; index <= last_bookmark; index++)
+			{
+				lineLen += static_cast<int32_t>(_pEditView->execute(SCI_LINELENGTH, index));
+				bookmarkDelete(index);
+			}
+
+			TCHAR emptyString[2] = TEXT("");
+			_pEditView->replaceTarget(emptyString, lineBegin, lineBegin + lineLen);
+
+			i = first_bookmark;
+		}
 	}
 	_pEditView->execute(SCI_ENDUNDOACTION);
 }

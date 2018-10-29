@@ -497,16 +497,13 @@ DWORD WINAPI PluginsAdminDlg::launchPluginInstallerThread(void* params)
 
 	if (result == 0) // wingup return 0 -> OK
 	{
-		generic_string installedPluginFolder = lwp->_nppPluginsDir;
-		PathAppend(installedPluginFolder, lwp->_pluginUpdateInfo->_folderName);
-
-		generic_string installedPluginPath = installedPluginFolder;
+		generic_string installedPluginPath = lwp->_nppPluginsDir;
 		PathAppend(installedPluginPath, lwp->_pluginUpdateInfo->_folderName + TEXT(".dll"));
 
 		// check installed dll
 		if (!::PathFileExists(installedPluginPath.c_str()))
 		{
-			// Remove installed plugin
+			// Problem: Remove installed plugin
 			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
 			pNativeSpeaker->messageBox("PluginBuiltWronglyCannotFound",
 				NULL,
@@ -516,7 +513,7 @@ DWORD WINAPI PluginsAdminDlg::launchPluginInstallerThread(void* params)
 				0,
 				lwp->_pluginUpdateInfo->_displayName.c_str());
 
-			deleteFileOrFolder(installedPluginFolder);
+			deleteFileOrFolder(lwp->_nppPluginsDir);
 			return FALSE;
 		}
 
@@ -559,17 +556,18 @@ bool PluginsAdminDlg::installPlugins()
 	vector<size_t> indexes = _availableList.getCheckedIndexes();
 	vector<PluginUpdateInfo*> puis = _availableList.fromUiIndexesToPluginInfos(indexes);
 
-	generic_string nppPluginsDir = getPluginsPath();
-
-	generic_string quoted_nppPluginsDir = TEXT("\"");
-	quoted_nppPluginsDir += nppPluginsDir;
-	quoted_nppPluginsDir += TEXT("\"");
+	generic_string nppPluginsHome = getPluginsPath();
 
 	HANDLE mutex = ::CreateMutex(NULL, false, TEXT("nppPluginInstaller"));
 
 	for (auto i : puis)
 	{
 		generic_string updaterParams = TEXT("-unzipTo ");
+		generic_string nppPluginsDir = nppPluginsHome;
+		PathAppend(nppPluginsDir, i->_folderName);
+		generic_string quoted_nppPluginsDir = TEXT("\"");
+		quoted_nppPluginsDir += nppPluginsDir;
+		quoted_nppPluginsDir += TEXT("\"");
 		updaterParams += quoted_nppPluginsDir;
 
 		// add zipFile's url

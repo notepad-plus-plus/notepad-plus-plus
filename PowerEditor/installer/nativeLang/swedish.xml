@@ -998,7 +998,7 @@ Vill du ladda om den och förlora ändringarna i Notepad++?"/>
 Vill du gå till hemsidan för Notepad++ för att ladda ned den senaste versionen?"/>
 			<DocTooDirtyToMonitor title="Övervakningsproblem" message="Dokumentet är ändrat. Spara ändringarna innan du övervakar den."/>
 			<DocNoExistToMonitor title="Övervakningsproblem" message="Filen måste finnas för att kunna övervakas."/>
-			<FileTooBigToOpen title="Problem med filstorlek" message="Filen är för stor för att öpnnas med Notepad++"/>
+			<FileTooBigToOpen title="Problem med filstorlek" message="Filen är för stor för att öppnas med Notepad++"/>
 			<CreateNewFileOrNot title="Skapa ny fil" message="&quot;$STR_REPLACE$&quot; existerar ej. Skapa den?"/>
 			<CreateNewFileError title="Skapa ny fil" message="Kan inte skapa filen &quot;$STR_REPLACE$&quot;."/>
 			<OpenFileError title="FEL" message="Kan inte öppna filen &quot;$STR_REPLACE$&quot;."/>

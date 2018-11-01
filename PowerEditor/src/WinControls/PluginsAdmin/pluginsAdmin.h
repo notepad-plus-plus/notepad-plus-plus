@@ -150,35 +150,11 @@ private:
 	ListView _ui;
 };
 
-//
-// The parameters used for plugin installer thread
-//
-struct LaunchWingupParams
-{
-	generic_string _updaterFullPath;
-	generic_string _updaterDir;
-	generic_string _updaterParams;
-
-	generic_string _nppPluginsDir;
-	PluginUpdateInfo* _pluginUpdateInfo;
-
-	PluginViewList* _uiAvailableList;
-	PluginViewList* _uiInstalledList;
-
-	PluginsManager *_pPluginsManager;
-
-	HWND _hwnd = nullptr;
-	HANDLE _mutex;
-};
-
 class PluginsAdminDlg final : public StaticDialog
 {
 public :
 	PluginsAdminDlg();
-	~PluginsAdminDlg() {
-		for (auto i : _lwps)
-			delete i;
-	};
+	~PluginsAdminDlg() {};
 
     void init(HINSTANCE hInst, HWND parent)	{
         Window::init(hInst, parent);
@@ -230,8 +206,6 @@ private :
 	PluginsManager *_pPluginsManager = nullptr;
 	NppCurrentStatus _nppCurrentStatus;
 
-	std::vector<LaunchWingupParams*> _lwps; // Add each new instanciate plugin installer parameter object of the thread for cleaning up afterward
-
 	void collectNppCurrentStatusInfos();
 	bool searchInPlugins(bool isNextMode) const;
 	const bool _inNames = true;
@@ -245,11 +219,15 @@ private :
 	long searchInDescsFromCurrentSel(generic_string str2search, bool isNextMode) const {
 		return searchFromCurrentSel(str2search, _inDescs, isNextMode);
 	};
-
-	static DWORD WINAPI launchPluginInstallerThread(void *params);
-
+	
 	bool loadFromPluginInfos();
 	bool checkUpdates();
-	bool exitToUpdateRemovePlugins(bool isUpdate, const std::vector<PluginUpdateInfo*>& puis);
+
+	enum Operation {
+		pa_install = 0,
+		pa_update = 1,
+		pa_remove = 2
+	};
+	bool exitToInstallRemovePlugins(Operation op, const std::vector<PluginUpdateInfo*>& puis);
 };
 

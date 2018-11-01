@@ -1792,7 +1792,8 @@ void ScintillaEditView::saveCurrentPos()
 	//Save data so, that the current topline becomes visible again after restoring.
 	int32_t displayedLine = static_cast<int32_t>(execute(SCI_GETFIRSTVISIBLELINE));
 	int32_t docLine = static_cast<int32_t>(execute(SCI_DOCLINEFROMVISIBLE, displayedLine));		//linenumber of the line displayed in the top
-	//int offset = displayedLine - execute(SCI_VISIBLEFROMDOCLINE, docLine);		//use this to calc offset of wrap. If no wrap this should be zero
+	int32_t offset = displayedLine - static_cast<int32_t>(execute(SCI_VISIBLEFROMDOCLINE, docLine));		//use this to calc offset of wrap. If no wrap this should be zero
+	int wrapCount = static_cast<int32_t>(execute(SCI_WRAPCOUNT, docLine));
 
 	Buffer * buf = MainFileManager.getBufferByID(_currentBufferID);
 
@@ -1804,16 +1805,20 @@ void ScintillaEditView::saveCurrentPos()
 	pos._xOffset = static_cast<int>(execute(SCI_GETXOFFSET));
 	pos._selMode = static_cast<int32_t>(execute(SCI_GETSELECTIONMODE));
 	pos._scrollWidth = static_cast<int32_t>(execute(SCI_GETSCROLLWIDTH));
+	pos._offset = offset;
+	pos._wrapCount = wrapCount;
 
 	buf->setPosition(pos, this);
 }
 
-void ScintillaEditView::restoreCurrentPos()
+void ScintillaEditView::restoreCurrentPosPreStep()
 {
+	// restore current position is executed in two steps:
+	//     - pre  step : restoreCurrentPosPreStep (this function)
+	//     - post step : function restoreCurrentPosPreStep that will be executed after scintilla 
+
 	Buffer * buf = MainFileManager.getBufferByID(_currentBufferID);
 	Position & pos = buf->getPosition(this);
-
-	execute(SCI_GOTOPOS, 0);	//make sure first line visible by setting caret there, will scroll to top of document
 
 	execute(SCI_SETSELECTIONMODE, pos._selMode);	//enable
 	execute(SCI_SETANCHOR, pos._startPos);
@@ -1825,9 +1830,64 @@ void ScintillaEditView::restoreCurrentPos()
 		execute(SCI_SETXOFFSET, pos._xOffset);
 	}
 	execute(SCI_CHOOSECARETX); // choose current x position
-
 	int lineToShow = static_cast<int32_t>(execute(SCI_VISIBLEFROMDOCLINE, pos._firstVisibleLine));
-	scroll(0, lineToShow);
+	execute(SCI_SETFIRSTVISIBLELINE, lineToShow);
+	if (isWrap())
+	{
+		// Enable flag 'positionRestoreNeeded' so that function restoreCurrentPosPostStep get called
+		// once scintilla send SCN_PAITED notification
+		_positionRestoreNeeded = true;
+	}
+	_restorePositionRetryCount = 0;
+
+}
+
+void ScintillaEditView::restoreCurrentPosPostStep()
+{
+	// scintilla can send several SCN_PAINTED notifications before the buffer is ready to be displayed. 
+	// this post step function is therefore iterated several times in a maximum of 8 iterations. 
+	// 8 is an arbitrary number. 2 is a minimum. Maximum value is unknown.
+	static int32_t restoreDone = 0;
+	Buffer * buf = MainFileManager.getBufferByID(_currentBufferID);
+	Position & pos = buf->getPosition(this);
+
+	++_restorePositionRetryCount;
+
+	if (_restorePositionRetryCount > 8)
+	{
+		// Abort the position restoring  process. Buffer topology may have changed
+		_positionRestoreNeeded = false;
+		return;
+	}
+	
+	int32_t displayedLine = static_cast<int32_t>(execute(SCI_GETFIRSTVISIBLELINE));
+	int32_t docLine = static_cast<int32_t>(execute(SCI_DOCLINEFROMVISIBLE, displayedLine));		//linenumber of the line displayed in the 
+	
+
+	// check docLine must equals saved position
+	if (docLine != pos._firstVisibleLine)
+	{
+		
+		// Scintilla has paint the buffer but the position is not correct.
+		int lineToShow = static_cast<int32_t>(execute(SCI_VISIBLEFROMDOCLINE, pos._firstVisibleLine));
+		execute(SCI_SETFIRSTVISIBLELINE, lineToShow);
+	}
+	else if (pos._offset > 0)
+	{
+		// don't scroll anything if the wrap count is different than the saved one.
+		// Buffer update may be in progress (in case wrap is enabled)
+		int wrapCount = static_cast<int32_t>(execute(SCI_WRAPCOUNT, docLine));
+		if (wrapCount == pos._wrapCount)
+		{
+			scroll(0, pos._offset);
+			_positionRestoreNeeded = false;
+		}
+	}
+	else
+	{
+		// Buffer position is correct, and there is no scroll to apply
+		_positionRestoreNeeded = false;
+	}
 }
 
 void ScintillaEditView::restyleBuffer() {
@@ -1882,7 +1942,7 @@ void ScintillaEditView::activateBuffer(BufferID buffer)
 	const std::vector<size_t> & lineStateVectorNew = newBuf->getHeaderLineState(this);
 	syncFoldStateWith(lineStateVectorNew);
 
-	restoreCurrentPos();
+	restoreCurrentPosPreStep();
 
 	bufferUpdated(_currentBuffer, (BufferChangeMask & ~BufferChangeLanguage));	//everything should be updated, but the language (which undoes some operations done here like folding)
 

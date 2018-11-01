@@ -273,7 +273,8 @@ public:
 	void insertNewLineBelowCurrentLine();
 
 	void saveCurrentPos();
-	void restoreCurrentPos();
+	void restoreCurrentPosPreStep();
+	void restoreCurrentPosPostStep();
 
 	void beginOrEndSelect();
 	bool beginEndSelectedIsStarted() const {
@@ -632,6 +633,8 @@ public:
     void setTabSettings(Lang *lang);
 	bool isWrapRestoreNeeded() const {return _wrapRestoreNeeded;};
 	void setWrapRestoreNeeded(bool isWrapRestoredNeeded) {_wrapRestoreNeeded = isWrapRestoredNeeded;};
+	bool isPositionRestoreNeeded() const {return _positionRestoreNeeded;};
+
 
 	bool isCJK() const {
 		return ((_codepage == CP_CHINESE_TRADITIONAL) || (_codepage == CP_CHINESE_SIMPLIFIED) ||
@@ -668,6 +671,8 @@ protected:
 	int _codepage = CP_ACP;
 	bool _lineNumbersShown = false;
 	bool _wrapRestoreNeeded = false;
+	bool _positionRestoreNeeded = false;
+	uint32_t _restorePositionRetryCount = 0;
 
 	typedef std::unordered_map<int, Style> StyleMap;
 	typedef std::unordered_map<BufferID, StyleMap*> BufferStyleMap;

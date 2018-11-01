@@ -946,17 +946,28 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			if (not notifyView)
 				return FALSE;
 
+			// Check if a restore position is needed. 
+			// Restoring a position must done after SCN_PAINTED notification so that it works in every circumstances (including wrapped large file)
+			if (_mainEditView.isPositionRestoreNeeded())
+			{
+				_mainEditView.restoreCurrentPosPostStep();
+			}
+			if (_subEditView.isPositionRestoreNeeded())
+			{
+				_subEditView.restoreCurrentPosPostStep();
+			}
+
 			// ViewMoveAtWrappingDisableFix: Disable wrapping messes up visible lines.
 			// Therefore save view position before in IDM_VIEW_WRAP and restore after SCN_PAINTED, as doc. says
 			if (_mainEditView.isWrapRestoreNeeded())
 			{
-				_mainEditView.restoreCurrentPos();
+				_mainEditView.restoreCurrentPosPreStep();
 				_mainEditView.setWrapRestoreNeeded(false);
 			}
 
 			if (_subEditView.isWrapRestoreNeeded())
 			{
-				_subEditView.restoreCurrentPos();
+				_subEditView.restoreCurrentPosPreStep();
 				_subEditView.setWrapRestoreNeeded(false);
 			}
 			notifyView->updateLineNumberWidth();

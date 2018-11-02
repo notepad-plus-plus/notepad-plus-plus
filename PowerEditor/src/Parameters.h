@@ -216,6 +216,7 @@ struct CmdLineParams
 
 	bool _isSessionFile = false;
 	bool _isRecursive = false;
+	bool _isLoadingWorkspace = false;
 
 	LangType _langType = L_EXTERNAL;
 	generic_string _localizationPath;
@@ -242,6 +243,7 @@ struct CmdLineParamsDTO
 	bool _isNoSession;
 	bool _isSessionFile;
 	bool _isRecursive;
+	bool _isLoadingWorkspace;
 
 	int _line2go;
 	int _column2go;
@@ -256,6 +258,7 @@ struct CmdLineParamsDTO
 		dto._isNoSession = params._isNoSession;
 		dto._isSessionFile = params._isSessionFile;
 		dto._isRecursive = params._isRecursive;
+		dto._isLoadingWorkspace = params._isLoadingWorkspace;
 
 		dto._line2go = params._line2go;
 		dto._column2go = params._column2go;

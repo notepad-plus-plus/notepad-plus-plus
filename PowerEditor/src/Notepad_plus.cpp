@@ -5298,7 +5298,7 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 
 void Notepad_plus::loadCommandlineParams(const TCHAR * commandLine, const CmdLineParamsDTO * pCmdParams)
 {
-	if (!commandLine || ! pCmdParams)
+	if (!commandLine || !pCmdParams)
 		return;
 
 	NppParameters *nppParams = NppParameters::getInstance();
@@ -5315,58 +5315,86 @@ void Notepad_plus::loadCommandlineParams(const TCHAR * commandLine, const CmdLin
 		return;
 	}
 
- 	LangType lt = pCmdParams->_langType;
-	int ln =  pCmdParams->_line2go;
-    int cn = pCmdParams->_column2go;
-    int cpos = pCmdParams->_pos2go;
+	LangType lt = pCmdParams->_langType;
+	int ln = pCmdParams->_line2go;
+	int cn = pCmdParams->_column2go;
+	int cpos = pCmdParams->_pos2go;
 	bool recursive = pCmdParams->_isRecursive;
 	bool readOnly = pCmdParams->_isReadOnly;
+	bool workspace = pCmdParams->_isLoadingWorkspace;
+
+    vector<generic_string> folderPaths;
 
 	BufferID lastOpened = BUFFER_INVALID;
-	for (int i = 0, len = fnss.size(); i < len ; ++i)
+
+	for (int i = 0, len = fnss.size(); i < len; ++i)
 	{
 		const TCHAR *pFn = fnss.getFileName(i);
 		if (!pFn) return;
 
-		BufferID bufID = doOpen(pFn, recursive, readOnly);
-		if (bufID == BUFFER_INVALID)	//cannot open file
-			continue;
+		if (workspace && ::PathIsDirectory(pFn)) {
+			generic_string path = TEXT("");
+			size_t pFnLen = lstrlen(pFn);
+			if (pFnLen > 0)
+			{
+				path += pFn;
+				if (pFn[pFnLen - 1] != TCHAR('\\'))
+				{
+					path += TCHAR('\\');
+				}
+			}
 
-		lastOpened = bufID;
-
-		if (lt != L_EXTERNAL && lt < nppParams->L_END)
-		{
-			Buffer * pBuf = MainFileManager->getBufferByID(bufID);
-			pBuf->setLangType(lt);
+			folderPaths.push_back(path);
 		}
+		else {
 
-		if (ln != -1 || cpos != -1)
-		{	//we have to move the cursor manually
-			int iView = currentView();	//store view since fileswitch can cause it to change
-			switchToFile(bufID);	//switch to the file. No deferred loading, but this way we can easily move the cursor to the right position
+			BufferID bufID = doOpen(pFn, recursive, readOnly);
+			if (bufID == BUFFER_INVALID)	//cannot open file
+				continue;
 
-			if (cpos != -1)
+			lastOpened = bufID;
+
+			if (lt != L_EXTERNAL && lt < nppParams->L_END)
 			{
-				_pEditView->execute(SCI_GOTOPOS, cpos);
+				Buffer * pBuf = MainFileManager->getBufferByID(bufID);
+				pBuf->setLangType(lt);
 			}
-            else
-			if (cn == -1)
-			{
-				_pEditView->execute(SCI_GOTOLINE, ln-1);
+
+			if (ln != -1 || cpos != -1)
+			{	//we have to move the cursor manually
+				int iView = currentView();	//store view since fileswitch can cause it to change
+				switchToFile(bufID);	//switch to the file. No deferred loading, but this way we can easily move the cursor to the right position
+
+				if (cpos != -1)
+				{
+					_pEditView->execute(SCI_GOTOPOS, cpos);
+				}
+				else
+				{
+					if (cn == -1)
+					{
+						_pEditView->execute(SCI_GOTOLINE, ln - 1);
+					}
+					else
+					{
+						auto pos = _pEditView->execute(SCI_FINDCOLUMN, ln - 1, cn - 1);
+						_pEditView->execute(SCI_GOTOPOS, pos);
+					}
+				}
+				_pEditView->scrollPosToCenter(_pEditView->execute(SCI_GETCURRENTPOS));
+
+				switchEditViewTo(iView);	//restore view
 			}
-            else
-            {
-                auto pos = _pEditView->execute(SCI_FINDCOLUMN, ln-1, cn-1);
-                _pEditView->execute(SCI_GOTOPOS, pos);
-            }
-
-			_pEditView->scrollPosToCenter(_pEditView->execute(SCI_GETCURRENTPOS));
-
-			switchEditViewTo(iView);	//restore view
 		}
 	}
+
+	if (workspace)
+	{
+		launchFileBrowser(folderPaths);
+	}
+
 	if (lastOpened != BUFFER_INVALID)
-    {
+	{
 		switchToFile(lastOpened);
 	}
 }

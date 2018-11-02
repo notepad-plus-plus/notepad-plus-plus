@@ -31,7 +31,7 @@
 
 const TCHAR COMMAND_ARG_HELP[] = TEXT("Usage :\r\
 \r\
-notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-LlangCode] [-nLineNumber] [-cColumnNumber] [-pPosition] [-xLeftPos] [-yTopPos] [-nosession] [-notabbar] [-ro] [-systemtray] [-loadingTime] [-alwaysOnTop] [-openSession] [-r] [-qnEasterEggName | -qtText | -qfCntentFileName] [-qSpeed1|2|3] [-quickPrint] [filePath]\r\
+notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-LlangCode] [-nLineNumber] [-cColumnNumber] [-pPosition] [-xLeftPos] [-yTopPos] [-nosession] [-notabbar] [-ro] [-systemtray] [-loadingTime] [-alwaysOnTop] [-openSession] [-r] [-qnEasterEggName | -qtText | -qfCntentFileName] [-qSpeed1|2|3] [-quickPrint] [-dirAsWorkspace] [filePath]\r\
 \r\
 --help : This help message\r\
 -multiInst : Launch another Notepad++ instance\r\
@@ -50,6 +50,8 @@ notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-LlangCode] [-nLineNum
 -loadingTime : Display Notepad++ loading time\r\
 -alwaysOnTop : Make Notepad++ always on top\r\
 -openSession : Open a session. filePath must be a session file\r\
+-dirAsWorkspace : directorys in filePath are opened as a workspace\r\
+                  rather than loading all contained files.\r\
 -r : Open files recursively. This argument will be ignored\r\
      if filePath contain no wildcard character\r\
 -qn : Launch ghost typing to display easter egg via its name\r\

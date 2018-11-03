@@ -384,7 +384,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64 };
 
 	#define NPPM_GETAPPDATAPLUGINSALLOWED    (NPPMSG + 87)
 	// BOOL NPPM_GETAPPDATAPLUGINSALLOWED(0, 0)
-	// Check to see if loading plugins from "%APPDATA%\Notepad++\plugins" is allowed.
+	// Check to see if loading plugins from "%APPDATA%\..\Local\Notepad++\plugins" is allowed.
 
 	#define NPPM_GETCURRENTVIEW    (NPPMSG + 88)
 	// INT NPPM_GETCURRENTVIEW(0, 0)

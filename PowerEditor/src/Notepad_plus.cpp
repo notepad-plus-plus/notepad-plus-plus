@@ -406,19 +406,12 @@ LRESULT Notepad_plus::init(HWND hwnd)
 		PathAppend(localAppDataNppPluginsDir, TEXT("plugins"));
 		_pluginsManager.loadPluginsV2(localAppDataNppPluginsDir.c_str());
 	}
-
-	// obsolet
-	bool isLoadFromAppDataAllow = ::SendMessage(_pPublicInterface->getHSelf(), NPPM_GETAPPDATAPLUGINSALLOWED, 0, 0) == TRUE;
-	const TCHAR *appDataNpp = pNppParam->getAppDataNppDir();
-	if (appDataNpp[0] && isLoadFromAppDataAllow)
-		_pluginsManager.loadPlugins(appDataNpp);
-
-
-	// Load plugins from its installation directory.
-	// All loaded dll will be ignored
-	_pluginsManager.loadPluginsV2();
-	_pluginsManager.loadPlugins(); // obsolet
-
+	else // localConf mode
+	{
+		// Load plugins from its installation directory.
+		// All loaded dll will be ignored
+		_pluginsManager.loadPluginsV2();
+	}
     _restoreButton.init(_pPublicInterface->getHinst(), hwnd);
 
 

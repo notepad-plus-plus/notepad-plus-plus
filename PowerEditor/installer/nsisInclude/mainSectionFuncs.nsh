@@ -49,14 +49,6 @@ initUpdatePath:
 		StrCpy $UPDATE_PATH "$APPDATA\${APPNAME}"
 		CreateDirectory $UPDATE_PATH\plugins\config
 	${EndIf}
-	
-	${If} $allowAppDataPluginsLoading == "true"
-		File "..\bin\allowAppDataPlugins.xml"
-	${ELSE}
-		IfFileExists $INSTDIR\allowAppDataPlugins.xml 0 +2
-		Delete $INSTDIR\allowAppDataPlugins.xml
-	${EndIf}
-    
 alreadyDone:
 FunctionEnd
 	

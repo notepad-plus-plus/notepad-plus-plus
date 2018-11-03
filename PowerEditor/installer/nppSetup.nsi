@@ -37,8 +37,6 @@ Unicode true			; Generate a Unicode installer. It can only be used outside of se
 SetCompressor /SOLID lzma	; This reduces installer size by approx 30~35%
 ;SetCompressor /FINAL lzma	; This reduces installer size by approx 15~18%
 
-Var allowAppDataPluginsLoading
-
 !include "nsisInclude\winVer.nsh"
 !include "nsisInclude\globalDef.nsh"
 !include "nsisInclude\tools.nsh"
@@ -113,15 +111,6 @@ Var noUpdater
 Function .onInit
 
 	${GetParameters} $R0 
-	${GetOptions} $R0 "/allowAppDataPluginsLoading" $R1 ;case insensitive 
-	IfErrors appdataLoadNo appdataLoadYes
-appdataLoadNo:
-	StrCpy $allowAppDataPluginsLoading "false"
-	Goto appdataLoadDone
-appdataLoadYes:
-	StrCpy $allowAppDataPluginsLoading "true"
-appdataLoadDone:
-
 	${GetOptions} $R0 "/noUpdater" $R1 ;case insensitive 
 	IfErrors withUpdater withoutUpdater
 withUpdater:

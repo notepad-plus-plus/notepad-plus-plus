@@ -99,7 +99,13 @@ page Custom ExtraOptions
 
 !include "nsisInclude\mainSectionFuncs.nsh"
 
+Section -"setPathAndOptionsSection" setPathAndOptionsSection
+	Call setPathAndOptions
+SectionEnd
+
 !include "nsisInclude\autoCompletion.nsh"
+
+
 
 !include "nsisInclude\binariesComponents.nsh"
 
@@ -175,8 +181,6 @@ FunctionEnd
 
 
 Section -"Notepad++" mainSection
-    Call setPathAndOptions
-    
 	${If} $diffArchDir2Remove != ""
 		!insertmacro uninstallRegKey
 		!insertmacro uninstallDir $diffArchDir2Remove 

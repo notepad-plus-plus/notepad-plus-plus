@@ -62,7 +62,7 @@ FileDialog::FileDialog(HWND hwnd, HINSTANCE hInst)
 	_ofn.lpfnHook = NULL;
 	_ofn.lpstrDefExt = NULL;  // No default extension
 	_ofn.lCustData = 0;
-	_ofn.Flags = OFN_PATHMUSTEXIST | OFN_EXPLORER | OFN_LONGNAMES | DS_CENTER | OFN_HIDEREADONLY;
+	_ofn.Flags = OFN_PATHMUSTEXIST | OFN_EXPLORER | OFN_LONGNAMES | OFN_HIDEREADONLY;
 	_ofn.pvReserved = NULL;
 	_ofn.dwReserved = 0;
 	_ofn.FlagsEx = 0;

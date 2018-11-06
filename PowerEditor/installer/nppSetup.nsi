@@ -126,10 +126,19 @@ withoutUpdater:
 	StrCpy $noUpdater "true"
 updaterDone:
 
-${If} $noUpdater == "true"
-    !insertmacro UnSelectSection ${AutoUpdater}
-    SectionSetText ${AutoUpdater} ""
-${EndIf}
+	${If} $noUpdater == "true"
+		!insertmacro UnSelectSection ${AutoUpdater}
+		SectionSetText ${AutoUpdater} ""
+		!insertmacro UnSelectSection ${PluginsAdmin}
+		SectionSetText ${PluginsAdmin} ""
+	${EndIf}
+
+	${If} ${SectionIsSelected} ${PluginsAdmin}
+		!insertmacro SetSectionFlag ${AutoUpdater} ${SF_RO}
+		!insertmacro SelectSection ${AutoUpdater}
+	${Else}
+		!insertmacro ClearSectionFlag ${AutoUpdater} ${SF_RO}
+	${EndIf}
 
 	Call SetRoughEstimation		; This is rough estimation of files present in function copyCommonFiles
 	InitPluginsDir			; Initializes the plug-ins dir ($PLUGINSDIR) if not already initialized.
@@ -240,8 +249,10 @@ ${MementoSectionDone}
     !insertmacro MUI_DESCRIPTION_TEXT ${localization} 'To use Notepad++ in your favorite language(s), install all/desired language(s).'
     !insertmacro MUI_DESCRIPTION_TEXT ${Themes} 'The eye-candy to change visual effects. Use Theme selector to switch among them.'
     !insertmacro MUI_DESCRIPTION_TEXT ${AutoUpdater} 'Keep Notepad++ updated: Automatically download and install the latest updates.'
+    !insertmacro MUI_DESCRIPTION_TEXT ${PluginsAdmin} 'Install, Update and Remove any plugin from a list by some clicks. It needs Auto-Updater installed.'
   !insertmacro MUI_FUNCTION_DESCRIPTION_END
 ;--------------------------------
+
 
 
 Function .onInstSuccess

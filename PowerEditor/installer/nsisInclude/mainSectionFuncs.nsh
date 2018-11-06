@@ -47,14 +47,12 @@ initUpdatePath:
 		File "..\bin\doLocalConf.xml"
 		StrCpy $PLUGIN_INST_PATH "$INSTDIR\plugins"
 		StrCpy $PLUGIN_CONF_PATH "$INSTDIR\plugins\Config"
-		MessageBox MB_OK $PLUGIN_INST_PATH
 		CreateDirectory $PLUGIN_INST_PATH\config
 	${ELSE}
 		IfFileExists $INSTDIR\doLocalConf.xml 0 +2
 		Delete $INSTDIR\doLocalConf.xml
 		StrCpy $PLUGIN_INST_PATH "$PROFILE\AppData\Local\${APPNAME}\plugins"
 		StrCpy $PLUGIN_CONF_PATH "$APPDATA\${APPNAME}\plugins\Config"
-		MessageBox MB_OK $PLUGIN_INST_PATH
 		StrCpy $UPDATE_PATH "$APPDATA\${APPNAME}"
 		CreateDirectory $UPDATE_PATH\plugins\config
 	${EndIf}

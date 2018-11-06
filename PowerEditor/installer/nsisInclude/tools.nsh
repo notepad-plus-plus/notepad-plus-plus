@@ -82,7 +82,6 @@ FunctionEnd
 Var Dialog
 Var NoUserDataCheckboxHandle
 Var ShortcutCheckboxHandle
-Var PluginLoadFromUserDataCheckboxHandle
 Var WinVer
 
 Function ExtraOptions
@@ -124,7 +123,6 @@ Function preventInstallInWin9x
 FunctionEnd
 
 Var noUserDataChecked
-Var allowPluginLoadFromUserDataChecked
 Var createShortcutChecked
 
 ; The definition of "OnChange" event for checkbox

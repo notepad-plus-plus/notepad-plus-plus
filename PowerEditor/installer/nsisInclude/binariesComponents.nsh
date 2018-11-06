@@ -34,7 +34,6 @@ SectionGroup "Plugins" Plugins
 		Delete "$INSTDIR\plugins\NppExport.dll"
 		Delete "$INSTDIR\plugins\NppExport\NppExport.dll"
 		Delete "$PLUGIN_INST_PATH\NppExport\NppExport.dll"
-		MessageBox MB_OK "$PLUGIN_INST_PATH\toto"
 		
 		SetOutPath "$PLUGIN_INST_PATH\NppExport"
 		File "..\bin\plugins\NppExport\NppExport.dll"
@@ -113,6 +112,16 @@ ${MementoSection} "Auto-Updater" AutoUpdater
 !endif
 ${MementoSectionEnd}
 
+${MementoSection} "Plugins Admin" PluginsAdmin
+	SetOverwrite on
+	SetOutPath $PLUGIN_CONF_PATH
+!ifdef ARCH64
+	File "..\bin64\nppPluginList.dll"
+!else
+	File "..\bin\nppPluginList.dll"
+!endif
+${MementoSectionEnd}
+
 ;Uninstall section
 SectionGroup un.Plugins
 	Section un.NppExport
@@ -173,4 +182,17 @@ Section un.AutoUpdater
 	Delete "$INSTDIR\updater\README.md"
 	Delete "$INSTDIR\updater\getDownLoadUrl.php"
 	RMDir "$INSTDIR\updater"
-SectionEnd 
+SectionEnd
+
+Function .onSelChange
+${If} ${SectionIsSelected} ${PluginsAdmin}
+    !insertmacro SetSectionFlag ${AutoUpdater} ${SF_RO}
+    !insertmacro SelectSection ${AutoUpdater}
+${Else}
+    !insertmacro ClearSectionFlag ${AutoUpdater} ${SF_RO}
+${EndIf}
+FunctionEnd
+
+Section un.PluginsAdmin
+	Delete "$PLUGIN_CONF_PATH\nppPluginList.dll"
+SectionEnd

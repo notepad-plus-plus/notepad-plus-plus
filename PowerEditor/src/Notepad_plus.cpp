@@ -398,22 +398,8 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_scintillaCtrls4Plugins.init(_pPublicInterface->getHinst(), hwnd);
 	_pluginsManager.init(nppData);
 
-	// If Notepad++ is not in localConf mode, load plugins firstly from "%APPDATA%/Local/Notepad++/plugins"
-	// All the dll loaded are marked.
-	generic_string localAppDataNppPluginsDir = pNppParam->getLocalAppDataNppDir();
-	if (!localAppDataNppPluginsDir.empty() && !pNppParam->isLocal())
-	{
-		PathAppend(localAppDataNppPluginsDir, TEXT("plugins"));
-		_pluginsManager.loadPluginsV2(localAppDataNppPluginsDir.c_str());
-	}
-	else // localConf mode
-	{
-		// Load plugins from its installation directory.
-		// All loaded dll will be ignored
-		_pluginsManager.loadPluginsV2();
-	}
+	_pluginsManager.loadPluginsV2(pNppParam->getPluginRootDir());
     _restoreButton.init(_pPublicInterface->getHinst(), hwnd);
-
 
 	// ------------ //
 	// Menu Section //

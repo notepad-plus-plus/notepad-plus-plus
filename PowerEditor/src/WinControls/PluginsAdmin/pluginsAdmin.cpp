@@ -462,30 +462,6 @@ generic_string PluginsAdminDlg::getPluginConfigPath() const
 	return nppPluginsConfDir;
 }
 
-generic_string PluginsAdminDlg::getPluginsPath() const
-{
-	NppParameters *pNppParameters = NppParameters::getInstance();
-	generic_string nppPluginsDir;
-
-	if (pNppParameters->isLocal())
-	{
-		nppPluginsDir = pNppParameters->getNppPath();
-	}
-	else
-	{
-		nppPluginsDir = pNppParameters->getLocalAppDataNppDir();
-	}
-
-	PathAppend(nppPluginsDir, TEXT("plugins"));
-
-	if (!::PathFileExists(nppPluginsDir.c_str()))
-	{
-		::CreateDirectory(nppPluginsDir.c_str(), NULL);
-	}
-
-	return nppPluginsDir;
-}
-
 bool PluginsAdminDlg::exitToInstallRemovePlugins(Operation op, const vector<PluginUpdateInfo*>& puis)
 {
 	generic_string opStr;
@@ -513,7 +489,7 @@ bool PluginsAdminDlg::exitToInstallRemovePlugins(Operation op, const vector<Plug
 	updaterParams += TEXT("\" ");
 
 	updaterParams += TEXT("\"");
-	updaterParams += getPluginsPath();
+	updaterParams += pNppParameters->getPluginRootDir();
 	updaterParams += TEXT("\"");
 
 	for (auto i : puis)

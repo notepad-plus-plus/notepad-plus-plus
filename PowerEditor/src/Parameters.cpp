@@ -1015,6 +1015,9 @@ bool NppParameters::load()
 	if (_isLocal)
 	{
 		_userPath = _nppPath;
+
+		_pluginRootDir = _nppPath;
+		PathAppend(_pluginRootDir, TEXT("plugins"));
 	}
 	else
 	{
@@ -1032,6 +1035,12 @@ bool NppParameters::load()
 		PathAppend(_localAppdataNppDir, TEXT("Notepad++"));
 		if (!PathFileExists(_localAppdataNppDir.c_str()))
 			::CreateDirectory(_localAppdataNppDir.c_str(), NULL);
+
+		_pluginRootDir = _localAppdataNppDir;
+		PathAppend(_pluginRootDir, TEXT("plugins"));
+
+		if (!PathFileExists(_pluginRootDir.c_str()))
+			::CreateDirectory(_pluginRootDir.c_str(), NULL);
 	}
 	
 

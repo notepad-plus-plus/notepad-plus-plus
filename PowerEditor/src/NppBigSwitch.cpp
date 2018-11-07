@@ -2061,6 +2061,22 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_GETPLUGINHOMEPATH:
+		{
+			generic_string pluginHomePath = pNppParam->getPluginRootDir();
+			if (lParam != 0)
+			{
+				if (pluginHomePath.length() >= static_cast<size_t>(wParam))
+				{
+					// Not message for users so no translation
+					::MessageBox(hwnd, TEXT("Allocated buffer size is not enough to copy the string."), TEXT("NPPM_GETPLUGINHOMEPATH error"), MB_OK);
+					return 0;
+				}
+				lstrcpy(reinterpret_cast<TCHAR *>(lParam), pluginHomePath.c_str());
+			}
+			return pluginHomePath.length();
+		}
+
 		case NPPM_MSGTOPLUGIN :
 		{
 			return _pluginsManager.relayPluginMessages(message, wParam, lParam);

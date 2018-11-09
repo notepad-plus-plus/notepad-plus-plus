@@ -282,4 +282,17 @@ Function shortcutLinkManagement
 	SetShellVarContext current
 FunctionEnd
 
+Function registerApplication
+	; Register progID
+	; using class as "Notepad++_File" as it was used in npp source code as well
+	WriteRegStr HKLM "SOFTWARE\Classes\Notepad++_File" "" "Notepad++ Document"
+	WriteRegStr HKLM "SOFTWARE\Classes\Notepad++_File\DefaultIcon" "" '"$INSTDIR\notepad++.exe", 0'
+	WriteRegStr HKLM "SOFTWARE\Classes\Notepad++_File\shell\open\command" "" '"$INSTDIR\notepad++.exe" "%1"'
+
+	; Register subkeys and values
+	WriteRegStr HKLM "SOFTWARE\Classes\Applications\notepad++.exe\shell\open\command" "" '"$INSTDIR\notepad++.exe" "%1"'
+
+	; Registered Application : no need at this moment
+
+FunctionEnd
 

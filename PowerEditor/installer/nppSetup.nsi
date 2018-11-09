@@ -193,6 +193,7 @@ Section -"Notepad++" mainSection
 	${If} $diffArchDir2Remove != ""
 		!insertmacro uninstallRegKey
 		!insertmacro uninstallDir $diffArchDir2Remove 
+		Call unRregisterApplication
 	${endIf}
 
 	Call copyCommonFiles
@@ -203,6 +204,8 @@ Section -"Notepad++" mainSection
 	
 	Call shortcutLinkManagement
 	
+	Call registerApplication
+
 SectionEnd
 
 ; Please **DONOT** move this function (SetRoughEstimation) anywhere else

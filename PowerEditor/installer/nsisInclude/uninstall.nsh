@@ -126,6 +126,15 @@ Enum_FileExts_Done:
 
 	; Remove "Notepad++_file" file type
 	DeleteRegKey HKCR "Notepad++_file"
+
+	; Refresh shell icons (Reference: http://nsis.sourceforge.net/Refresh_shell_icons)
+	/* As per ShlObj.h
+		#define SHCNE_ASSOCCHANGED        0x08000000L
+		#define SHCNF_IDLIST      0x0000        // LPITEMIDLIST
+	*/
+	!define SHCNE_ASSOCCHANGED 0x08000000
+	!define SHCNF_IDLIST 0
+	System::Call 'shell32.dll::SHChangeNotify(i, i, i, i) v (${SHCNE_ASSOCCHANGED}, ${SHCNF_IDLIST}, 0, 0)'
 SectionEnd
 
 Section un.UserManual
@@ -179,6 +188,23 @@ FunctionEnd
 	
 !macroend
 
+!macro unRegisterApplication un
+	Function ${un}unRregisterApplication
+		; Register progID
+		; using class as "Notepad++_File" as it was used in npp source code as well
+		DeleteRegKey HKLM "SOFTWARE\Classes\Notepad++_File"
+		DeleteRegKey HKCU "SOFTWARE\Classes\Notepad++_File"				; There may exist user specific details, remove them too.
+
+		; Register subkeys and values
+		DeleteRegKey HKLM "SOFTWARE\Classes\Applications\notepad++.exe"
+		DeleteRegKey HKCU "SOFTWARE\Classes\Applications\notepad++.exe"	; There may exist user specific details, remove them too.
+
+		; Registered Application : no need at this moment
+
+	FunctionEnd
+!macroend
+!insertmacro unRegisterApplication ""
+!insertmacro unRegisterApplication "un."
 
 Section Uninstall
 !ifdef ARCH64
@@ -186,6 +212,7 @@ Section Uninstall
 !else
 	SetRegView 32
 !endif
+	Call un.unRregisterApplication
 	;Remove from registry...
 	DeleteRegKey HKLM "${UNINSTALL_REG_KEY}"
 	DeleteRegKey HKLM "SOFTWARE\${APPNAME}"

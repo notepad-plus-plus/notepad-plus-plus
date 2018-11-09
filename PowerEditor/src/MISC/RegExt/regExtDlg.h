@@ -26,8 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef REG_EXT_DLG_H
-#define REG_EXT_DLG_H
+#pragma once
 
 #include "regExtDlgRc.h"
 #include "StaticDialog.h"
@@ -36,34 +35,42 @@ const int extNameLen = 32;
 
 class RegExtDlg : public StaticDialog
 {
-public :
-	RegExtDlg() : _isCustomize(false){};
-	~RegExtDlg(){};
+public:
+	RegExtDlg() = default;
+	~RegExtDlg() = default;
 	void doDialog(bool isRTL = false);
 
 
-private :
-	bool _isCustomize;
+private:
+	bool _isCustomize = false;
 
 	INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 
 	void getRegisteredExts();
 	void getDefSupportedExts();
+
 	void addExt(TCHAR *ext);
+
 	bool deleteExts(const TCHAR *ext2Delete);
-	void writeNppPath();
+	LONG deleteExts(HKEY hRootKey, const generic_string& regPath);
 
-	int getNbSubKey(HKEY hKey) const {
-		int nbSubKey;
-		long result = ::RegQueryInfoKey(hKey, NULL, NULL, NULL, (LPDWORD)&nbSubKey, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-		return (result == ERROR_SUCCESS)?nbSubKey:0;
+	void writeNppPathIfNeeded();
+	bool isNppPathExists(HKEY hRootKey, const generic_string& regPath) const;
+
+	DWORD getNbSubKey(HKEY hKey) const {
+		DWORD dwSubKey = 0;
+		long result = ::RegQueryInfoKey(hKey, NULL, NULL, NULL, &dwSubKey, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+		return (result == ERROR_SUCCESS) ? dwSubKey : 0;
 	}
 
-	int getNbSubValue(HKEY hKey) const {
-		int nbSubValue;
-		long result = ::RegQueryInfoKey(hKey, NULL, NULL, NULL, NULL, NULL, NULL, (LPDWORD)&nbSubValue, NULL, NULL, NULL, NULL);
-		return (result == ERROR_SUCCESS)?nbSubValue:0;
+	DWORD getNbSubValue(HKEY hKey) const {
+		DWORD dwSubValue = 0;
+		long result = ::RegQueryInfoKey(hKey, NULL, NULL, NULL, NULL, NULL, NULL, &dwSubValue, NULL, NULL, NULL, NULL);
+		return (result == ERROR_SUCCESS) ? dwSubValue : 0;
 	}
+
+	generic_string getNppPath() const;
+
+	void NotifyShell() const;
 };
 
-#endif //REG_EXT_DLG_H

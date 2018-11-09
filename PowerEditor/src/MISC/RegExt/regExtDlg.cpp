@@ -27,12 +27,15 @@
 #include "Common.h"
 #include "regExtDlg.h"
 #include "resource.h"
-
+#include <Shlobj.h>
+#include <memory>
 
 
 const TCHAR* nppName   = TEXT("Notepad++_file");
 const TCHAR* nppBackup = TEXT("Notepad++_backup");
 const TCHAR* nppDoc    = TEXT("Notepad++ Document");
+
+const TCHAR* regExtRootKey = TEXT("Software\\Classes\\");
 
 const int nbSupportedLang = 10;
 const int nbExtMax = 27;
@@ -143,7 +146,7 @@ INT_PTR CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 			{
 				case IDC_ADDFROMLANGEXT_BUTTON :
 				{
-					writeNppPath();
+					writeNppPathIfNeeded();
 
 					TCHAR ext2Add[extNameMax] = TEXT("");
 					if (!_isCustomize)
@@ -283,25 +286,25 @@ INT_PTR CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 void RegExtDlg::getRegisteredExts()
 {
 	int nbRegisteredKey = getNbSubKey(HKEY_CLASSES_ROOT);
-	for (int i = 0 ; i < nbRegisteredKey ; ++i)
+	for (int i = 0; i < nbRegisteredKey; ++i)
 	{
-		TCHAR extName[extNameLen];
-		//FILETIME fileTime;
-		int extNameActualLen = extNameLen;
-		int res = ::RegEnumKeyEx(HKEY_CLASSES_ROOT, i, extName, reinterpret_cast<LPDWORD>(&extNameActualLen), nullptr, nullptr, nullptr, nullptr);
+		TCHAR extName[extNameLen] = {};
+		DWORD extNameActualLen = extNameLen;
+
+		int res = ::RegEnumKeyEx(HKEY_CLASSES_ROOT, i, extName, &extNameActualLen, nullptr, nullptr, nullptr, nullptr);
 		if ((res == ERROR_SUCCESS) && (extName[0] == '.'))
 		{
-			//TCHAR valName[extNameLen];
-			TCHAR valData[extNameLen];
-			int valDataLen = extNameLen * sizeof(TCHAR);
-			int valType;
-			HKEY hKey2Check;
-			extNameActualLen = extNameLen;
+			TCHAR valData[extNameLen] = {};
+			DWORD valDataLen = extNameLen * sizeof(TCHAR);
+			DWORD valType = REG_NONE;
+			HKEY hKey2Check = nullptr;
+
 			::RegOpenKeyEx(HKEY_CLASSES_ROOT, extName, 0, KEY_ALL_ACCESS, &hKey2Check);
-			::RegQueryValueEx(hKey2Check, TEXT(""), nullptr, reinterpret_cast<LPDWORD>(&valType), reinterpret_cast<LPBYTE>(valData), reinterpret_cast<LPDWORD>(&valDataLen));
+			::RegQueryValueEx(hKey2Check, TEXT(""), nullptr, &valType, reinterpret_cast<LPBYTE>(valData), &valDataLen);
 
 			if ((valType == REG_SZ) && (!lstrcmp(valData, nppName)))
 				::SendDlgItemMessage(_hSelf, IDC_REGEXT_REGISTEREDEXTS_LIST, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(extName));
+
 			::RegCloseKey(hKey2Check);
 		}
 	}
@@ -310,121 +313,241 @@ void RegExtDlg::getRegisteredExts()
 
 void RegExtDlg::getDefSupportedExts()
 {
-	for (int i = 0 ; i < nbSupportedLang ; ++i)
+	for (int i = 0; i < nbSupportedLang; ++i)
 		::SendDlgItemMessage(_hSelf, IDC_REGEXT_LANG_LIST, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(defExtArray[i][0]));
 }
 
 
 void RegExtDlg::addExt(TCHAR *ext)
 {
-	HKEY  hKey;
-	DWORD dwDisp;
-	long  nRet;
+	HKEY  hKey = nullptr;
+	DWORD dwDisp = 0;
+	long  nRet = 0;
 
-	nRet = ::RegCreateKeyEx(HKEY_CLASSES_ROOT, ext, 0, nullptr, 0, KEY_ALL_ACCESS, nullptr, &hKey, &dwDisp);
+	/*
+		[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Notepad++_File\shell\open\command]
+		@="\"C:\\Program Files\\Notepad++\\notepad++.exe\" \"%1\""
+
+		Above is written by the installer, so no worry.
+		But in wrost case above not present then user specific will be written in method writeNppPath()
+
+		Below will handle the association
+		[HKEY_CURRENT_USER\Software\Classes\.eeexxxttt]
+		@="Notepad++_File"
+	*/
+
+	generic_string regPath = regExtRootKey;
+	regPath += ext;
+
+	nRet = ::RegCreateKeyEx(HKEY_CURRENT_USER, regPath.c_str(), 0, nullptr, 0, KEY_ALL_ACCESS, nullptr, &hKey, &dwDisp);
 
 	if (nRet == ERROR_SUCCESS)
 	{
-		TCHAR valData[MAX_PATH];
-		int valDataLen = MAX_PATH * sizeof(TCHAR);
+		TCHAR valData[MAX_PATH] = {};
+		DWORD valDataLen = MAX_PATH * sizeof(TCHAR);
 
 		if (dwDisp == REG_OPENED_EXISTING_KEY)
 		{
-			int res = ::RegQueryValueEx(hKey, TEXT(""), nullptr, nullptr, reinterpret_cast<LPBYTE>(valData), reinterpret_cast<LPDWORD>(&valDataLen));
+			int res = ::RegQueryValueEx(hKey, TEXT(""), nullptr, nullptr, reinterpret_cast<LPBYTE>(valData), &valDataLen);
 			if (res == ERROR_SUCCESS)
 				::RegSetValueEx(hKey, nppBackup, 0, REG_SZ, reinterpret_cast<LPBYTE>(valData), valDataLen);
 		}
 		::RegSetValueEx(hKey, nullptr, 0, REG_SZ, reinterpret_cast<const BYTE *>(nppName), (lstrlen(nppName) + 1) * sizeof(TCHAR));
 
 		::RegCloseKey(hKey);
+
+		// Notify shell to refresh icons
+		NotifyShell();
 	}
 }
-
 
 bool RegExtDlg::deleteExts(const TCHAR *ext2Delete)
 {
-	HKEY hKey;
-	::RegOpenKeyEx(HKEY_CLASSES_ROOT, ext2Delete, 0, KEY_ALL_ACCESS, &hKey);
+	bool bRetVal = false;
+	if (!ext2Delete || !_tcslen(ext2Delete))
+		return bRetVal;
 
-	int nbValue = getNbSubValue(hKey);
-	int nbSubkey = getNbSubKey(hKey);
+	// Try to remove user specific registry (HKCU\\Software\\Classes\\.eeexxxttt)
+	// If user specific is not found or try to remove
+	// global (HKLM) registry, (HKLM\\Software\\Classes\\.eeexxxttt)
+	// but it may not work for normal user
+	// If npp is running on admin mode, then it will remove
 
-	if ((nbValue <= 1) && (!nbSubkey))
+	generic_string regPath = regExtRootKey;
+	regPath += ext2Delete;
+
+	LONG res = deleteExts(HKEY_CURRENT_USER, regPath);
+	if (res == ERROR_FILE_NOT_FOUND)
+		res = deleteExts(HKEY_LOCAL_MACHINE, regPath);
+
+	if (res == ERROR_SUCCESS)
 	{
-		TCHAR subKey[32] = TEXT("\\");
-		lstrcat(subKey, ext2Delete);
-		::RegDeleteKey(HKEY_CLASSES_ROOT, subKey);
+		// Notify shell to refresh icons
+		NotifyShell();
+		bRetVal = true;
 	}
-	else
-	{
-		TCHAR valData[extNameLen];
-		int valDataLen = extNameLen*sizeof(TCHAR);
-		int valType;
-		int res = ::RegQueryValueEx(hKey, nppBackup, nullptr, (LPDWORD)&valType, (LPBYTE)valData, (LPDWORD)&valDataLen);
+	return bRetVal;
+}
 
-		if (res == ERROR_SUCCESS)
+LONG RegExtDlg::deleteExts(HKEY hRootKey, const generic_string& regPath)
+{
+	HKEY hKey = nullptr;
+	LONG res = ERROR_SUCCESS;
+
+	res = ::RegOpenKeyEx(hRootKey, regPath.c_str(), 0, KEY_ALL_ACCESS, &hKey);
+	if (ERROR_SUCCESS == res)
+	{
+		DWORD dwValue = getNbSubValue(hKey);
+		DWORD dwSubkey = getNbSubKey(hKey);
+
+		if ((dwValue <= 1) && (!dwSubkey))
 		{
-			::RegSetValueEx(hKey, nullptr, 0, valType, (LPBYTE)valData, valDataLen);
-			::RegDeleteValue(hKey, nppBackup);
+			res = ::RegDeleteKey(hRootKey, regPath.c_str());
 		}
 		else
-			::RegDeleteValue(hKey, nullptr);
+		{
+			TCHAR valData[extNameLen] = {};
+			DWORD valDataLen = extNameLen * sizeof(TCHAR);
+			DWORD valType = REG_NONE;
+
+			res = ::RegQueryValueEx(hKey, nppBackup, nullptr, &valType, reinterpret_cast<LPBYTE>(valData), &valDataLen);
+			if (res == ERROR_SUCCESS)
+			{
+				res = ::RegSetValueEx(hKey, nullptr, 0, valType, reinterpret_cast<LPBYTE>(valData), valDataLen);
+				res &= ::RegDeleteValue(hKey, nppBackup);
+			}
+			else
+			{
+				res = ::RegDeleteValue(hKey, nullptr);
+			}
+		}
+		::RegCloseKey(hKey);
 	}
 
-	return true;
+	return res;
 }
 
-
-void RegExtDlg::writeNppPath()
+void RegExtDlg::writeNppPathIfNeeded()
 {
-	HKEY  hKey, hRootKey;
-	DWORD dwDisp;
-	long  nRet;
-	generic_string regStr(nppName);
-	regStr += TEXT("\\shell\\open\\command");
+	generic_string regRootPath = regExtRootKey;
+	regRootPath += nppName;
 
-	nRet = ::RegCreateKeyEx(HKEY_CLASSES_ROOT, regStr.c_str(), 0, nullptr, 0, KEY_ALL_ACCESS, nullptr, &hKey, &dwDisp);
+	generic_string regCommand(TEXT("\\shell\\open\\command"));
+	generic_string regDefaultIcon(TEXT("\\DefaultIcon"));
+
+	/*
+		[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Notepad++_File]
+		@="Notepad++ Document"
+
+		[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Notepad++_File\DefaultIcon]
+		@="C:\Program Files\Notepad++\notepad++.exe",0
+
+		[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Notepad++_File\shell\open\command]
+		@="C:\\Program Files\\Notepad++\\notepad++.exe" "%1"
+
+		Above is written by the installer, so no worry.
+		But in wrost case above not present or user specific registry not present
+		then write user specific registry here
+	*/
+
+	// Check whether npp path (any) exists or not
+	generic_string regPath = regRootPath + regCommand;
+	bool isNppPathAlreadyExist = isNppPathExists(HKEY_LOCAL_MACHINE, regPath) || isNppPathExists(HKEY_CURRENT_USER, regPath);
 
 
-	if (nRet == ERROR_SUCCESS)
+	// Write path to user specific registry
+	if (!isNppPathAlreadyExist)
 	{
-		//if (dwDisp == REG_CREATED_NEW_KEY)
+		HKEY  hKey = nullptr;
+		DWORD dwDisp = 0;
+		long  nRet = 0;
+
+		// Write the value for new document
+		nRet = ::RegCreateKeyEx(HKEY_CURRENT_USER, regRootPath.c_str(), 0, nullptr, 0, KEY_ALL_ACCESS, nullptr, &hKey, &dwDisp);
+		if (nRet == ERROR_SUCCESS)
 		{
-			// Write the value for new document
-			::RegOpenKeyEx(HKEY_CLASSES_ROOT, nppName, 0, KEY_ALL_ACCESS, &hRootKey);
-			::RegSetValueEx(hRootKey, nullptr, 0, REG_SZ, (LPBYTE)nppDoc, (lstrlen(nppDoc)+1)*sizeof(TCHAR));
-			RegCloseKey(hRootKey);
-
-			TCHAR nppPath[MAX_PATH];
-			::GetModuleFileName(_hInst, nppPath, MAX_PATH);
-
-			TCHAR nppPathParam[MAX_PATH] = TEXT("\"");
-			lstrcat(lstrcat(nppPathParam, nppPath), TEXT("\" \"%1\""));
-
-			::RegSetValueEx(hKey, nullptr, 0, REG_SZ, (LPBYTE)nppPathParam, (lstrlen(nppPathParam)+1)*sizeof(TCHAR));
+			::RegSetValueEx(hKey, nullptr, 0, REG_SZ, reinterpret_cast<const BYTE *>(nppDoc), (lstrlen(nppDoc) + 1) * sizeof(TCHAR));
+			RegCloseKey(hKey);
 		}
-		RegCloseKey(hKey);
-	}
 
-	//Set default icon value
-	regStr = nppName;
-	regStr += TEXT("\\DefaultIcon");
-	nRet = ::RegCreateKeyEx(HKEY_CLASSES_ROOT, regStr.c_str(), 0, nullptr, 0, KEY_ALL_ACCESS, nullptr, &hKey, &dwDisp);
+		generic_string nppPath = getNppPath();
 
-	if (nRet == ERROR_SUCCESS)
-	{
-		//if (dwDisp == REG_CREATED_NEW_KEY)
+		// Write the value for default icon
+		regPath = regRootPath + regDefaultIcon;
+		nRet = ::RegCreateKeyEx(HKEY_CURRENT_USER, regPath.c_str(), 0, nullptr, 0, KEY_ALL_ACCESS, nullptr, &hKey, &dwDisp);
+		if (nRet == ERROR_SUCCESS)
 		{
-			TCHAR nppPath[MAX_PATH];
-			::GetModuleFileName(_hInst, nppPath, MAX_PATH);
+			generic_string nppPathParam(TEXT("\""));
+			nppPathParam += nppPath;
+			nppPathParam += TEXT("\", 0");
+			DWORD cbData = static_cast<DWORD>((nppPathParam.length() + 1) * sizeof(nppPathParam[0]));
 
-			TCHAR nppPathParam[MAX_PATH] = TEXT("\"");
-			lstrcat(lstrcat(nppPathParam, nppPath), TEXT("\",0"));
-
-			::RegSetValueEx(hKey, nullptr, 0, REG_SZ, (LPBYTE)nppPathParam, (lstrlen(nppPathParam)+1)*sizeof(TCHAR));
+			::RegSetValueEx(hKey, nullptr, 0, REG_SZ, reinterpret_cast<const BYTE*>(nppPathParam.c_str()), cbData);
+			RegCloseKey(hKey);
 		}
-		RegCloseKey(hKey);
+
+		// Write the value for npp path
+		regPath = regRootPath + regCommand;
+		nRet = ::RegCreateKeyEx(HKEY_CURRENT_USER, regPath.c_str(), 0, nullptr, 0, KEY_ALL_ACCESS, nullptr, &hKey, &dwDisp);
+		if (nRet == ERROR_SUCCESS)
+		{
+			generic_string nppPathParam(TEXT("\""));
+			nppPathParam += nppPath;
+			nppPathParam += TEXT("\", \" %1\"");
+			DWORD cbData = static_cast<DWORD>((nppPathParam.length() + 1) * sizeof(nppPathParam[0]));
+
+			::RegSetValueEx(hKey, nullptr, 0, REG_SZ, reinterpret_cast<const BYTE*>(nppPathParam.c_str()), cbData);
+			RegCloseKey(hKey);
+		}
 	}
 }
 
+bool RegExtDlg::isNppPathExists(HKEY hRootKey, const generic_string& regPath) const
+{
+	bool bRetVal = false;
 
+	if (!hRootKey)
+		return bRetVal;
+
+	HKEY hKey = nullptr;
+	long res = 0;
+
+	res = ::RegOpenKeyEx(hRootKey, regPath.c_str(), 0, KEY_READ, &hKey);
+	if (ERROR_SUCCESS == res)
+	{
+		DWORD valDataLen = 0;
+		DWORD valType = 0;
+
+		res = ::RegQueryValueEx(hKey, TEXT(""), nullptr, &valType, nullptr, &valDataLen);
+		if (ERROR_SUCCESS == res && REG_SZ == valType)
+		{
+			// Check if the path in registry is same as current binary path
+			std::unique_ptr<TCHAR[]> pRegNppPath = std::make_unique<TCHAR[]>(valDataLen + 1);
+
+			res = ::RegQueryValueEx(hKey, TEXT(""), nullptr, &valType, reinterpret_cast<LPBYTE>(pRegNppPath.get()), &valDataLen);
+			if (ERROR_SUCCESS == res && _tcslen(pRegNppPath.get()))
+			{
+				generic_string nppPath = stringToLower(getNppPath());
+				generic_string nppPathFromReg = stringToLower(pRegNppPath.get());
+
+				if (nppPathFromReg.find(nppPath) != generic_string::npos)
+					bRetVal = true;
+			}
+		}
+		RegCloseKey(hKey);
+	}
+
+	return bRetVal;
+}
+
+generic_string RegExtDlg::getNppPath() const
+{
+	TCHAR nppPath[MAX_PATH] = {};
+	::GetModuleFileName(_hInst, nppPath, MAX_PATH);
+	return nppPath;
+}
+
+void RegExtDlg::NotifyShell() const
+{
+	SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_IDLIST, NULL, NULL);
+}

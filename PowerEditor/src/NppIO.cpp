@@ -1661,7 +1661,11 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode)
 		}
 	}
 	if (mainIndex2Update != -1)
+	{
+		_isFolding = true;
 		_mainEditView.syncFoldStateWith(session._mainViewFiles[mainIndex2Update]._foldStates);
+		_isFolding = false;
+	}
 
 
 	showView(SUB_VIEW);
@@ -1772,7 +1776,11 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode)
 		}
 	}
 	if (subIndex2Update != -1)
+	{
+		_isFolding = true;
 		_subEditView.syncFoldStateWith(session._subViewFiles[subIndex2Update]._foldStates);
+		_isFolding = false;
+	}
 
 	_mainEditView.restoreCurrentPos();
 	_subEditView.restoreCurrentPos();

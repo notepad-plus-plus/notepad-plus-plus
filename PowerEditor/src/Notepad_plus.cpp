@@ -3722,14 +3722,22 @@ bool Notepad_plus::activateBuffer(BufferID id, int whichOne)
 	if (whichOne == MAIN_VIEW)
 	{
 		if (_mainDocTab.activateBuffer(id))	//only activate if possible
+		{
+			_isFolding = true;
 			_mainEditView.activateBuffer(id);
+			_isFolding = false;
+		}
 		else
 			return false;
 	}
 	else
 	{
 		if (_subDocTab.activateBuffer(id))
+		{
+			_isFolding = true;
 			_subEditView.activateBuffer(id);
+			_isFolding = false;
+		}
 		else
 			return false;
 	}

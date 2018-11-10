@@ -289,66 +289,10 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath, vector<generic_strin
 	}
 }
 
-
-bool PluginsManager::loadPlugins(const TCHAR *dir)
-{
-	if (_isDisabled)
-		return false;
-
-	vector<generic_string> dllNames;
-	vector<generic_string> dll2Remove;
-	NppParameters * nppParams = NppParameters::getInstance();
-    generic_string nppPath = nppParams->getNppPath();
-	generic_string pluginsFullPathFilter = (dir && dir[0])?dir:nppPath;
-
-	pluginsFullPathFilter += TEXT("\\plugins\\*.dll");
-
-	WIN32_FIND_DATA foundData;
-	HANDLE hFindFile = ::FindFirstFile(pluginsFullPathFilter.c_str(), &foundData);
-	if (hFindFile != INVALID_HANDLE_VALUE)
-	{
-		generic_string plugins1stFullPath = (dir && dir[0])?dir:nppPath;
-		plugins1stFullPath += TEXT("\\plugins\\");
-		plugins1stFullPath += foundData.cFileName;
-		dllNames.push_back(plugins1stFullPath);
-
-		while (::FindNextFile(hFindFile, &foundData))
-		{
-            bool isInBlackList = nppParams->isInBlackList(foundData.cFileName);
-            if (!isInBlackList)
-            {
-			    generic_string fullPath = (dir && dir[0])?dir:nppPath;
-			    fullPath += TEXT("\\plugins\\");
-
-			    fullPath += foundData.cFileName;
-			    dllNames.push_back(fullPath);
-            }
-            PluginList & pl = nppParams->getPluginList();
-            pl.add(foundData.cFileName, isInBlackList);
-		}
-		::FindClose(hFindFile);
-
-
-		for (size_t i = 0, len = dllNames.size(); i < len ; ++i)
-		{
-            loadPlugin(dllNames[i].c_str(),  dll2Remove);
-		}
-
-	}
-
-	for (size_t j = 0, len = dll2Remove.size() ; j < len ; ++j)
-		::DeleteFile(dll2Remove[j].c_str());
-
-	std::sort(_pluginInfos.begin(), _pluginInfos.end(), [](const PluginInfo *a, const PluginInfo *b) { return a->_funcName < b->_funcName; });
-
-	return true;
-}
-
 bool PluginsManager::loadPluginsV2(const TCHAR* dir)
 {
 	if (_isDisabled)
 		return false;
-
 
 	vector<generic_string> dllNames;
 	vector<generic_string> dll2Remove;
@@ -517,10 +461,6 @@ void PluginsManager::addInMenuFromPMIndex(int i)
 		if (_pluginInfos[i]->_funcItems[j]._init2Check)
 			::CheckMenuItem(_hPluginsMenu, cmdID, MF_BYCOMMAND | MF_CHECKED);
 	}
-	/*UNLOAD
-    ::InsertMenu(_pluginInfos[i]->_pluginMenu, j++, MF_BYPOSITION | MF_SEPARATOR, 0, TEXT(""));
-    ::InsertMenu(_pluginInfos[i]->_pluginMenu, j, MF_BYPOSITION, ID_PLUGINS_REMOVING + i, TEXT("Remove this plugin"));
-	*/
 }
 
 HMENU PluginsManager::setMenu(HMENU hMenu, const TCHAR *menuName, bool enablePluginAdmin)
@@ -605,7 +545,36 @@ void PluginsManager::runPluginCommand(const TCHAR *pluginName, int commandID)
 	}
 }
 
+// send the notification to a specific plugin
+void PluginsManager::notify(size_t indexPluginInfo, const SCNotification *notification)
+{
+	if (indexPluginInfo >= _pluginInfos.size())
+		return;
 
+	if (_pluginInfos[indexPluginInfo]->_hLib)
+	{
+		// To avoid the plugin change the data in SCNotification
+		// Each notification to pass to a plugin is a copy of SCNotification instance
+		SCNotification scNotif = *notification;
+		try
+		{
+			_pluginInfos[indexPluginInfo]->_pBeNotified(&scNotif);
+		}
+		catch (std::exception& e)
+		{
+			::MessageBoxA(NULL, e.what(), "Exception", MB_OK);
+		}
+		catch (...)
+		{
+			TCHAR funcInfo[256];
+			generic_sprintf(funcInfo, TEXT("notify(SCNotification *notification) : \r notification->nmhdr.code == %d\r notification->nmhdr.hwndFrom == %p\r notification->nmhdr.idFrom == %" PRIuPTR), \
+				scNotif.nmhdr.code, scNotif.nmhdr.hwndFrom, scNotif.nmhdr.idFrom);
+			pluginCrashAlert(_pluginInfos[indexPluginInfo]->_moduleName.c_str(), funcInfo);
+		}
+	}
+}
+
+// broadcast the notification to all plugins
 void PluginsManager::notify(const SCNotification *notification)
 {
 	if (_noMoreNotification) // this boolean should be enabled after NPPN_SHUTDOWN has been sent
@@ -614,27 +583,7 @@ void PluginsManager::notify(const SCNotification *notification)
 
 	for (size_t i = 0, len = _pluginInfos.size() ; i < len ; ++i)
 	{
-        if (_pluginInfos[i]->_hLib)
-        {
-			// To avoid the plugin change the data in SCNotification
-			// Each notification to pass to a plugin is a copy of SCNotification instance
-			SCNotification scNotif = *notification;
-			try
-			{
-				_pluginInfos[i]->_pBeNotified(&scNotif);
-			}
-			catch (std::exception& e)
-			{
-				::MessageBoxA(NULL, e.what(), "Exception", MB_OK);
-			}
-			catch (...)
-			{
-				TCHAR funcInfo[256];
-				generic_sprintf(funcInfo, TEXT("notify(SCNotification *notification) : \r notification->nmhdr.code == %d\r notification->nmhdr.hwndFrom == %p\r notification->nmhdr.idFrom == %" PRIuPTR),\
-					scNotif.nmhdr.code, scNotif.nmhdr.hwndFrom, scNotif.nmhdr.idFrom);
-				pluginCrashAlert(_pluginInfos[i]->_moduleName.c_str(), funcInfo);
-			}
-		}
+		notify(i, notification);
 	}
 }
 

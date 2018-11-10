@@ -39,7 +39,6 @@
 #include "localization.h"
 #include "Processus.h"
 #include "PluginsManager.h"
-#include "md5.h"
 #include "verifySignedFile.h"
 #include "LongRunningOperation.h"
 
@@ -463,149 +462,25 @@ generic_string PluginsAdminDlg::getPluginConfigPath() const
 	return nppPluginsConfDir;
 }
 
-generic_string PluginsAdminDlg::getPluginsPath() const
+bool PluginsAdminDlg::exitToInstallRemovePlugins(Operation op, const vector<PluginUpdateInfo*>& puis)
 {
-	NppParameters *pNppParameters = NppParameters::getInstance();
-	generic_string nppPluginsDir;
-
-	if (pNppParameters->isLocal())
-	{
-		nppPluginsDir = pNppParameters->getNppPath();
-	}
+	generic_string opStr;
+	if (op == pa_install)
+		opStr = TEXT("-unzipTo ");
+	else if (op == pa_update)
+		opStr = TEXT("-unzipTo -clean ");
+	else if (op == pa_remove)
+		opStr = TEXT("-clean ");
 	else
-	{
-		nppPluginsDir = pNppParameters->getLocalAppDataNppDir();
-	}
+		return false;
 
-	PathAppend(nppPluginsDir, TEXT("plugins"));
-
-	if (!::PathFileExists(nppPluginsDir.c_str()))
-	{
-		::CreateDirectory(nppPluginsDir.c_str(), NULL);
-	}
-
-	return nppPluginsDir;
-}
-
-
-DWORD WINAPI PluginsAdminDlg::launchPluginInstallerThread(void* params)
-{
-	auto lwp = static_cast<LaunchWingupParams*>(params);
-
-	Process updater(lwp->_updaterFullPath.c_str(), lwp->_updaterParams.c_str(), lwp->_updaterDir.c_str());
-
-	int result = updater.runSync();
-
-	if (result == 0) // wingup return 0 -> OK
-	{
-		generic_string installedPluginFolder = lwp->_nppPluginsDir;
-		PathAppend(installedPluginFolder, lwp->_pluginUpdateInfo->_folderName);
-
-		generic_string installedPluginPath = installedPluginFolder;
-		PathAppend(installedPluginPath, lwp->_pluginUpdateInfo->_folderName + TEXT(".dll"));
-
-		// check installed id to prevent from MITMA
-		MD5 md5;
-		char *md5Result = md5.digestFile(ws2s(installedPluginPath).c_str());
-
-		if (ws2s(lwp->_pluginUpdateInfo->_id) == md5Result)
-		{
-			// Critical section
-			WaitForSingleObject(lwp->_mutex, INFINITE);
-
-			// Remove (Hide) installed plugin from available list
-			lwp->_uiAvailableList->hideFromPluginInfoPtr(lwp->_pluginUpdateInfo);
-
-			// Add installed plugin into insttalled list
-			PluginUpdateInfo* installedPui = new PluginUpdateInfo(*(lwp->_pluginUpdateInfo));
-			installedPui->_isVisible = true;
-			lwp->_uiInstalledList->pushBack(installedPui);
-
-			// Load installed plugin
-			vector<generic_string> dll2Remove;
-			int index = lwp->_pPluginsManager->loadPlugin(installedPluginPath.c_str(), dll2Remove);
-			lwp->_pPluginsManager->addInMenuFromPMIndex(index);
-
-			// End of Critical section
-			ReleaseMutex(lwp->_mutex);
-		}
-		else
-		{
-			// Remove installed plugin
-			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
-			pNativeSpeaker->messageBox("PluginIdNotMatchedWillBeRemoved",
-				NULL,
-				TEXT("The plugin \"$STR_REPLACE$\" ID is not correct. This plugin will be uninstalled."),
-				TEXT("Plugin ID missmathed"),
-				MB_OK | MB_APPLMODAL,
-				0,
-				lwp->_pluginUpdateInfo->_displayName.c_str());
-
-			deleteFileOrFolder(installedPluginFolder);
-		}
-	}
-	else // wingup return non-zero (-1) -> Not OK
-	{
-		// just move on
-	}
-
-	return TRUE;
-}
-
-bool PluginsAdminDlg::installPlugins()
-{
-	vector<size_t> indexes = _availableList.getCheckedIndexes();
-	vector<PluginUpdateInfo*> puis = _availableList.fromUiIndexesToPluginInfos(indexes);
-
-	generic_string nppPluginsDir = getPluginsPath();
-
-	generic_string quoted_nppPluginsDir = TEXT("\"");
-	quoted_nppPluginsDir += nppPluginsDir;
-	quoted_nppPluginsDir += TEXT("\"");
-
-	HANDLE mutex = ::CreateMutex(NULL, false, TEXT("nppPluginInstaller"));
-
-	for (auto i : puis)
-	{
-		generic_string updaterParams = TEXT("-unzipTo ");
-		updaterParams += quoted_nppPluginsDir;
-
-		// add zipFile's url
-		updaterParams += TEXT(" ");
-		updaterParams += i->_repository;
-
-		LaunchWingupParams* lwp = new LaunchWingupParams;
-		lwp->_nppPluginsDir = nppPluginsDir;
-		lwp->_pluginUpdateInfo = i;
-		lwp->_pPluginsManager = _pPluginsManager;
-		lwp->_uiAvailableList = &_availableList;
-		lwp->_uiInstalledList = &_installedList;
-		lwp->_updaterDir = _updaterDir;
-		lwp->_updaterFullPath = _updaterFullPath;
-		lwp->_updaterParams = updaterParams;
-		lwp->_mutex = mutex;
-
-		_lwps.push_back(lwp);
-
-		//ReleaseMutex(mutex);
-
-		HANDLE hThread = ::CreateThread(NULL, 0, launchPluginInstallerThread, lwp, 0, NULL);
-		::CloseHandle(hThread);
-	}
-	return true;
-}
-
-bool PluginsAdminDlg::exitToUpdateRemovePlugins(bool isUpdate, const vector<PluginUpdateInfo*>& puis)
-{
 	NppParameters *pNppParameters = NppParameters::getInstance();
 	generic_string updaterDir = pNppParameters->getNppPath();
 	updaterDir += TEXT("\\updater\\");
 
 	generic_string updaterFullPath = updaterDir + TEXT("gup.exe");
-	generic_string updaterParams = TEXT("-clean ");
 
-	if (isUpdate) // not clean
-		updaterParams += TEXT("-unzipTo ");
+	generic_string updaterParams = opStr;
 
 	TCHAR nppFullPath[MAX_PATH];
 	::GetModuleFileName(NULL, nppFullPath, MAX_PATH);
@@ -614,21 +489,23 @@ bool PluginsAdminDlg::exitToUpdateRemovePlugins(bool isUpdate, const vector<Plug
 	updaterParams += TEXT("\" ");
 
 	updaterParams += TEXT("\"");
-	updaterParams += getPluginsPath();
+	updaterParams += pNppParameters->getPluginRootDir();
 	updaterParams += TEXT("\"");
 
 	for (auto i : puis)
 	{
-		if (isUpdate)
+		if (op == pa_install || op == pa_update)
 		{
 			// add folder to operate
 			updaterParams += TEXT(" \"");
 			updaterParams += i->_folderName;
 			updaterParams += TEXT(" ");
 			updaterParams += i->_repository;
+			updaterParams += TEXT(" ");
+			updaterParams += i->_id;
 			updaterParams += TEXT("\"");
 		}
-		else // clean
+		else // op == pa_remove
 		{
 			// add folder to operate
 			updaterParams += TEXT(" \"");
@@ -638,7 +515,13 @@ bool PluginsAdminDlg::exitToUpdateRemovePlugins(bool isUpdate, const vector<Plug
 	}
 
 	// Ask user's confirmation
-	auto res = ::MessageBox(NULL, TEXT("If you click YES, you will quit Notepad++ to continue the operations.\nNotepad++ will be restarted after all the operations are terminated.\nContinue?"), TEXT("Notepad++ is about to exit"), MB_YESNO);
+	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+	auto res = pNativeSpeaker->messageBox("ExitToUpdatePlugins",
+		_hSelf,
+		TEXT("If you click YES, you will quit Notepad++ to continue the operations.\nNotepad++ will be restarted after all the operations are terminated.\nContinue?"),
+		TEXT("Notepad++ is about to exit"),
+		MB_YESNO | MB_APPLMODAL);
+
 	if (res == IDYES)
 	{
 		NppParameters *pNppParam = NppParameters::getInstance();
@@ -662,6 +545,16 @@ bool PluginsAdminDlg::exitToUpdateRemovePlugins(bool isUpdate, const vector<Plug
 	return true;
 }
 
+bool PluginsAdminDlg::installPlugins()
+{
+	// Need to exit Notepad++
+
+	vector<size_t> indexes = _availableList.getCheckedIndexes();
+	vector<PluginUpdateInfo*> puis = _availableList.fromUiIndexesToPluginInfos(indexes);
+
+	return exitToInstallRemovePlugins(pa_install, puis);
+}
+
 bool PluginsAdminDlg::updatePlugins()
 {
 	// Need to exit Notepad++
@@ -669,7 +562,7 @@ bool PluginsAdminDlg::updatePlugins()
 	vector<size_t> indexes = _updateList.getCheckedIndexes();
 	vector<PluginUpdateInfo*> puis = _updateList.fromUiIndexesToPluginInfos(indexes);
 
-	return exitToUpdateRemovePlugins(true, puis);
+	return exitToInstallRemovePlugins(pa_update, puis);
 }
 
 bool PluginsAdminDlg::removePlugins()
@@ -679,7 +572,7 @@ bool PluginsAdminDlg::removePlugins()
 	vector<size_t> indexes = _installedList.getCheckedIndexes();
 	vector<PluginUpdateInfo*> puis = _installedList.fromUiIndexesToPluginInfos(indexes);
 
-	return exitToUpdateRemovePlugins(false, puis);
+	return exitToInstallRemovePlugins(pa_remove, puis);
 }
 
 bool PluginViewList::removeFromFolderName(const generic_string& folderName)
@@ -779,13 +672,11 @@ PluginUpdateInfo::PluginUpdateInfo(const generic_string& fullFilePath, const gen
 	_fullFilePath = fullFilePath;
 	_displayName = filename;
 
-	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-	const char *path = wmc->wchar2char(fullFilePath.c_str(), CP_ACP);
-	MD5 md5;
-	_id = wmc->char2wchar(md5.digestFile(path), CP_ACP);
+	std::string content = getFileContent(fullFilePath.c_str());
+	if (content.empty())
+		return;
 
 	_version.setVersionFrom(fullFilePath);
-
 }
 
 typedef const char * (__cdecl * PFUNCGETPLUGINLIST)();

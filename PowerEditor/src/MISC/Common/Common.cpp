@@ -64,6 +64,9 @@ generic_string commafyInt(size_t n)
 
 std::string getFileContent(const TCHAR *file2read)
 {
+	if (!::PathFileExists(file2read))
+		return "";
+
 	const size_t blockSize = 1024;
 	char data[blockSize];
 	std::string wholeFileContent = "";
@@ -72,22 +75,15 @@ std::string getFileContent(const TCHAR *file2read)
 	size_t lenFile = 0;
 	do
 	{
-		lenFile = fread(data, 1, blockSize - 1, fp);
+		lenFile = fread(data, 1, blockSize, fp);
 		if (lenFile <= 0) break;
-
-		if (lenFile >= blockSize - 1)
-			data[blockSize - 1] = '\0';
-		else
-			data[lenFile] = '\0';
-
-		wholeFileContent += data;
+		wholeFileContent.append(data, lenFile);
 	}
 	while (lenFile > 0);
 
 	fclose(fp);
 	return wholeFileContent;
 }
-
 
 char getDriveLetter()
 {

@@ -34,8 +34,8 @@
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
-#ifndef ___UCHARDET_H___
-#define ___UCHARDET_H___
+#ifndef UCHARDET_H___
+#define UCHARDET_H___
 
 #ifdef __cplusplus
 extern "C" {
@@ -43,13 +43,13 @@ extern "C" {
 
 #include <stddef.h>
 
-typedef void * uchardet_t;
+typedef struct uchardet * uchardet_t;
 
 /**
  * Create an encoding detector.
  * @return a handle of a instance of uchardet
  */
-uchardet_t uchardet_new();
+uchardet_t uchardet_new(void);
 
 /**
  * Delete an encoding detector.
@@ -79,9 +79,9 @@ void uchardet_data_end(uchardet_t ud);
 void uchardet_reset(uchardet_t ud);
 
 /**
- * Get the name of encoding that was detected.
+ * Get an iconv-compatible name of the encoding that was detected.
  * @param ud [in] handle of a instance of uchardet
- * @return name of charset on success and "" on failure or pure ascii.
+ * @return name of charset on success and "" on failure.
  */
 const char * uchardet_get_charset(uchardet_t ud);
 

@@ -2061,6 +2061,22 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_GETPLUGINHOMEPATH:
+		{
+			generic_string pluginHomePath = pNppParam->getPluginRootDir();
+			if (lParam != 0)
+			{
+				if (pluginHomePath.length() >= static_cast<size_t>(wParam))
+				{
+					// Not message for users so no translation
+					::MessageBox(hwnd, TEXT("Allocated buffer size is not enough to copy the string."), TEXT("NPPM_GETPLUGINHOMEPATH error"), MB_OK);
+					return 0;
+				}
+				lstrcpy(reinterpret_cast<TCHAR *>(lParam), pluginHomePath.c_str());
+			}
+			return pluginHomePath.length();
+		}
+
 		case NPPM_MSGTOPLUGIN :
 		{
 			return _pluginsManager.relayPluginMessages(message, wParam, lParam);
@@ -2287,14 +2303,19 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return _pFileSwitcherPanel->isVisible();
 		}
 
-		case NPPM_GETAPPDATAPLUGINSALLOWED: // if doLocal, it's always false - having doLocal environment cannot load plugins outside
-		{                                   // the presence of file "allowAppDataPlugins.xml" will be checked only when not doLocal
+		// OLD BEHAVIOUR:
+		// if doLocal, it's always false - having doLocal environment cannot load plugins outside
+		// the presence of file "allowAppDataPlugins.xml" will be checked only when not doLocal
+		//
+		// NEW BEHAVIOUR:
+		// No more file "allowAppDataPlugins.xml"
+		// if doLocal - not allowed. Otherwise - allowed.
+		case NPPM_GETAPPDATAPLUGINSALLOWED: 
+		{
 			const TCHAR *appDataNpp = pNppParam->getAppDataNppDir();
 			if (appDataNpp[0]) // if not doLocal
 			{
-				generic_string allowAppDataPluginsPath(pNppParam->getNppPath());
-				PathAppend(allowAppDataPluginsPath, allowAppDataPluginsFile);
-				return ::PathFileExists(allowAppDataPluginsPath.c_str());
+				return TRUE;
 			}
 			return FALSE;
 		}

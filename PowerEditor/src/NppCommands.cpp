@@ -39,8 +39,10 @@
 #include "Sorters.h"
 #include "LongRunningOperation.h"
 #include "md5.h"
+#include "sha-256.h"
 
 using namespace std;
+
 
 void Notepad_plus::macroPlayback(Macro macro)
 {

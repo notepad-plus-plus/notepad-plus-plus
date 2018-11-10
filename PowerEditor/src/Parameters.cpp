@@ -1015,6 +1015,9 @@ bool NppParameters::load()
 	if (_isLocal)
 	{
 		_userPath = _nppPath;
+
+		_pluginRootDir = _nppPath;
+		PathAppend(_pluginRootDir, TEXT("plugins"));
 	}
 	else
 	{
@@ -1032,6 +1035,12 @@ bool NppParameters::load()
 		PathAppend(_localAppdataNppDir, TEXT("Notepad++"));
 		if (!PathFileExists(_localAppdataNppDir.c_str()))
 			::CreateDirectory(_localAppdataNppDir.c_str(), NULL);
+
+		_pluginRootDir = _localAppdataNppDir;
+		PathAppend(_pluginRootDir, TEXT("plugins"));
+
+		if (!PathFileExists(_pluginRootDir.c_str()))
+			::CreateDirectory(_pluginRootDir.c_str(), NULL);
 	}
 	
 
@@ -2040,7 +2049,7 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 					(childNode->ToElement())->Attribute(TEXT("endPos"), &position._endPos);
 					(childNode->ToElement())->Attribute(TEXT("selMode"), &position._selMode);
 					(childNode->ToElement())->Attribute(TEXT("scrollWidth"), &position._scrollWidth);
-					(childNode->ToElement())->Attribute(TEXT("offset"), &position._offset);
+
 					MapPosition mapPosition;
 					int32_t mapPosVal;
 					const TCHAR *mapPosStr = (childNode->ToElement())->Attribute(TEXT("mapFirstVisibleDisplayLine"), &mapPosVal);

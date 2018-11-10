@@ -40,8 +40,6 @@ SetCompressor /SOLID lzma	; This reduces installer size by approx 30~35%
 ; Installer is DPI-aware: not scaled by the DWM, no blurry text
 ManifestDPIAware true
 
-Var allowAppDataPluginsLoading
-
 !include "nsisInclude\winVer.nsh"
 !include "nsisInclude\globalDef.nsh"
 !include "nsisInclude\tools.nsh"
@@ -104,7 +102,13 @@ page Custom ExtraOptions
 
 !include "nsisInclude\mainSectionFuncs.nsh"
 
+Section -"setPathAndOptionsSection" setPathAndOptionsSection
+	Call setPathAndOptions
+SectionEnd
+
 !include "nsisInclude\autoCompletion.nsh"
+
+
 
 !include "nsisInclude\binariesComponents.nsh"
 
@@ -116,15 +120,6 @@ Var noUpdater
 Function .onInit
 
 	${GetParameters} $R0 
-	${GetOptions} $R0 "/allowAppDataPluginsLoading" $R1 ;case insensitive 
-	IfErrors appdataLoadNo appdataLoadYes
-appdataLoadNo:
-	StrCpy $allowAppDataPluginsLoading "false"
-	Goto appdataLoadDone
-appdataLoadYes:
-	StrCpy $allowAppDataPluginsLoading "true"
-appdataLoadDone:
-
 	${GetOptions} $R0 "/noUpdater" $R1 ;case insensitive 
 	IfErrors withUpdater withoutUpdater
 withUpdater:
@@ -134,10 +129,19 @@ withoutUpdater:
 	StrCpy $noUpdater "true"
 updaterDone:
 
-${If} $noUpdater == "true"
-    !insertmacro UnSelectSection ${AutoUpdater}
-    SectionSetText ${AutoUpdater} ""
-${EndIf}
+	${If} $noUpdater == "true"
+		!insertmacro UnSelectSection ${AutoUpdater}
+		SectionSetText ${AutoUpdater} ""
+		!insertmacro UnSelectSection ${PluginsAdmin}
+		SectionSetText ${PluginsAdmin} ""
+	${EndIf}
+
+	${If} ${SectionIsSelected} ${PluginsAdmin}
+		!insertmacro SetSectionFlag ${AutoUpdater} ${SF_RO}
+		!insertmacro SelectSection ${AutoUpdater}
+	${Else}
+		!insertmacro ClearSectionFlag ${AutoUpdater} ${SF_RO}
+	${EndIf}
 
 	Call SetRoughEstimation		; This is rough estimation of files present in function copyCommonFiles
 	InitPluginsDir			; Initializes the plug-ins dir ($PLUGINSDIR) if not already initialized.
@@ -189,8 +193,6 @@ FunctionEnd
 
 
 Section -"Notepad++" mainSection
-    Call setPathAndOptions
-    
 	${If} $diffArchDir2Remove != ""
 		!insertmacro uninstallRegKey
 		!insertmacro uninstallDir $diffArchDir2Remove 
@@ -250,8 +252,10 @@ ${MementoSectionDone}
     !insertmacro MUI_DESCRIPTION_TEXT ${localization} 'To use Notepad++ in your favorite language(s), install all/desired language(s).'
     !insertmacro MUI_DESCRIPTION_TEXT ${Themes} 'The eye-candy to change visual effects. Use Theme selector to switch among them.'
     !insertmacro MUI_DESCRIPTION_TEXT ${AutoUpdater} 'Keep Notepad++ updated: Automatically download and install the latest updates.'
+    !insertmacro MUI_DESCRIPTION_TEXT ${PluginsAdmin} 'Install, Update and Remove any plugin from a list by some clicks. It needs Auto-Updater installed.'
   !insertmacro MUI_FUNCTION_DESCRIPTION_END
 ;--------------------------------
+
 
 
 Function .onInstSuccess

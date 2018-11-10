@@ -35,7 +35,7 @@
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
-
+ 
 #include "nsCharSetProber.h"
 #include "prmem.h"
 
@@ -74,9 +74,7 @@ PRBool nsCharSetProber::FilterWithoutEnglishLetters(const char* aBuf, PRUint32 a
   if (meetMSB && curPtr > prevPtr) 
     while (prevPtr < curPtr) *newptr++ = *prevPtr++;  
 
-  auto np = reinterpret_cast<uintptr_t>(newptr);
-  auto nb = reinterpret_cast<uintptr_t>(*newBuf);
-  newLen = static_cast<PRUint32>(np - nb);
+  newLen = static_cast<PRUint32>(newptr - *newBuf);
 
   return PR_TRUE;
 }
@@ -121,9 +119,7 @@ PRBool nsCharSetProber::FilterWithEnglishLetters(const char* aBuf, PRUint32 aLen
     while (prevPtr < curPtr)
       *newptr++ = *prevPtr++;  
 
-  auto np = reinterpret_cast<uintptr_t>(newptr);
-  auto nb = reinterpret_cast<uintptr_t>(*newBuf);
-  newLen = static_cast<PRUint32>(np - nb);
+  newLen = static_cast<PRUint32>(newptr - *newBuf);
 
   return PR_TRUE;
 }

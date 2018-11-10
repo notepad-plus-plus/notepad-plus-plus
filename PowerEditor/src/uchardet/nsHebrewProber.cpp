@@ -59,7 +59,7 @@
 #define MIN_MODEL_DISTANCE (0.01)
 
 #define VISUAL_HEBREW_NAME ("ISO-8859-8")
-#define LOGICAL_HEBREW_NAME ("windows-1255")
+#define LOGICAL_HEBREW_NAME ("WINDOWS-1255")
 
 PRBool nsHebrewProber::isFinal(char c)
 {

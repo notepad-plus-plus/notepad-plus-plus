@@ -2437,10 +2437,9 @@ void Notepad_plus::command(int id)
             vector<generic_string> copiedFiles = addNppComponents(destDir, extFilterName, extFilter);
 
             // load plugin
-            vector<generic_string> dll2Remove;
             for (size_t i = 0, len = copiedFiles.size() ; i < len ; ++i)
             {
-                int index = _pluginsManager.loadPlugin(copiedFiles[i].c_str(), dll2Remove);
+                int index = _pluginsManager.loadPlugin(copiedFiles[i].c_str());
                 if (_pluginsManager.getMenuHandle())
                     _pluginsManager.addInMenuFromPMIndex(index);
             }

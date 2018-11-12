@@ -114,7 +114,7 @@ cleanup: // release all of our handles
 	return machine_type;
 }
 
-int PluginsManager::loadPlugin(const TCHAR *pluginFilePath, vector<generic_string> & dll2Remove)
+int PluginsManager::loadPlugin(const TCHAR *pluginFilePath)
 {
 	const TCHAR *pluginFileName = ::PathFindFileName(pluginFilePath);
 	if (isInLoadedDlls(pluginFileName))
@@ -269,7 +269,7 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath, vector<generic_strin
 		s += USERMSG;
 		if (::MessageBox(NULL, s.c_str(), pluginFilePath, MB_YESNO) == IDYES)
 		{
-			dll2Remove.push_back(pluginFilePath);
+			::DeleteFile(pluginFilePath);
 		}
 		delete pi;
         return -1;
@@ -282,7 +282,7 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath, vector<generic_strin
 		msg += USERMSG;
 		if (::MessageBox(NULL, msg.c_str(), pluginFilePath, MB_YESNO) == IDYES)
 		{
-			dll2Remove.push_back(pluginFilePath);
+			::DeleteFile(pluginFilePath);
 		}
 		delete pi;
         return -1;
@@ -295,7 +295,6 @@ bool PluginsManager::loadPluginsV2(const TCHAR* dir)
 		return false;
 
 	vector<generic_string> dllNames;
-	vector<generic_string> dll2Remove;
 
 	NppParameters * nppParams = NppParameters::getInstance();
 	generic_string nppPath = nppParams->getNppPath();
@@ -363,7 +362,7 @@ bool PluginsManager::loadPluginsV2(const TCHAR* dir)
 
 	for (size_t i = 0, len = dllNames.size(); i < len; ++i)
 	{
-		loadPlugin(dllNames[i].c_str(), dll2Remove);
+		loadPlugin(dllNames[i].c_str());
 	}
 
 	return true;

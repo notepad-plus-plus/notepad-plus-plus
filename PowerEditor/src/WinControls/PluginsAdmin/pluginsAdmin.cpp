@@ -350,11 +350,11 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	NativeLangSpeaker *pNativeSpeaker = nppParam->getNativeLangSpeaker();
 	generic_string pluginStr = pNativeSpeaker->getAttrNameStr(TEXT("Plugin"), "PluginAdmin", "Plugin");
 	generic_string vesionStr = pNativeSpeaker->getAttrNameStr(TEXT("Version"), "PluginAdmin", "Version");
-	generic_string stabilityStr = pNativeSpeaker->getAttrNameStr(TEXT("Stability"), "PluginAdmin", "Stability");
+	//generic_string stabilityStr = pNativeSpeaker->getAttrNameStr(TEXT("Stability"), "PluginAdmin", "Stability");
 
 	_availableList.addColumn(columnInfo(pluginStr, nppParam->_dpiManager.scaleX(200)));
 	_availableList.addColumn(columnInfo(vesionStr, nppParam->_dpiManager.scaleX(100)));
-	_availableList.addColumn(columnInfo(stabilityStr, nppParam->_dpiManager.scaleX(70)));
+	//_availableList.addColumn(columnInfo(stabilityStr, nppParam->_dpiManager.scaleX(70)));
 	_availableList.setViewStyleOption(LVS_EX_CHECKBOXES);
 
 	_availableList.initView(_hInst, _hSelf);
@@ -362,7 +362,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	
 	_updateList.addColumn(columnInfo(pluginStr, nppParam->_dpiManager.scaleX(200)));
 	_updateList.addColumn(columnInfo(vesionStr, nppParam->_dpiManager.scaleX(100)));
-	_updateList.addColumn(columnInfo(stabilityStr, nppParam->_dpiManager.scaleX(70)));
+	//_updateList.addColumn(columnInfo(stabilityStr, nppParam->_dpiManager.scaleX(70)));
 	_updateList.setViewStyleOption(LVS_EX_CHECKBOXES);
 
 	_updateList.initView(_hInst, _hSelf);
@@ -370,7 +370,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 
 	_installedList.addColumn(columnInfo(pluginStr, nppParam->_dpiManager.scaleX(200)));
 	_installedList.addColumn(columnInfo(vesionStr, nppParam->_dpiManager.scaleX(100)));
-	_installedList.addColumn(columnInfo(stabilityStr, nppParam->_dpiManager.scaleX(70)));
+	//_installedList.addColumn(columnInfo(stabilityStr, nppParam->_dpiManager.scaleX(70)));
 	_installedList.setViewStyleOption(LVS_EX_CHECKBOXES);
 
 	_installedList.initView(_hInst, _hSelf);
@@ -607,7 +607,7 @@ void PluginViewList::pushBack(PluginUpdateInfo* pi)
 	values2Add.push_back(pi->_displayName);
 	Version v = pi->_version;
 	values2Add.push_back(v.toString());
-	values2Add.push_back(TEXT("Yes"));
+	//values2Add.push_back(TEXT("Yes"));
 	_ui.addLine(values2Add, reinterpret_cast<LPARAM>(pi));
 }
 

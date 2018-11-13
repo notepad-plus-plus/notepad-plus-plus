@@ -286,7 +286,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 
 	const int topMarge = 42;
 
-	HWND hResearchLabel = ::GetDlgItem(_hSelf, IDC_PLUGINADM_RESEARCH_STATIC);
+	HWND hResearchLabel = ::GetDlgItem(_hSelf, IDC_PLUGINADM_SEARCH_STATIC);
 	RECT researchLabelRect;
 	::GetClientRect(hResearchLabel, &researchLabelRect);
 	researchLabelRect.left = rect.left;
@@ -294,7 +294,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	::MoveWindow(hResearchLabel, researchLabelRect.left, researchLabelRect.top, researchLabelRect.right, researchLabelRect.bottom, TRUE);
 	::InvalidateRect(hResearchLabel, nullptr, TRUE);
 
-	HWND hResearchEdit = ::GetDlgItem(_hSelf, IDC_PLUGINADM_RESEARCH_EDIT);
+	HWND hResearchEdit = ::GetDlgItem(_hSelf, IDC_PLUGINADM_SEARCH_EDIT);
 	RECT researchEditRect;
 	::GetClientRect(hResearchEdit, &researchEditRect);
 	researchEditRect.left = researchLabelRect.right + marge;
@@ -970,7 +970,7 @@ bool PluginsAdminDlg::searchInPlugins(bool isNextMode) const
 {
 	const int maxLen = 256;
 	TCHAR txt2search[maxLen];
-	::GetDlgItemText(_hSelf, IDC_PLUGINADM_RESEARCH_EDIT, txt2search, maxLen);
+	::GetDlgItemText(_hSelf, IDC_PLUGINADM_SEARCH_EDIT, txt2search, maxLen);
 	if (lstrlen(txt2search) < 2)
 		return false;
 
@@ -1083,7 +1083,7 @@ INT_PTR CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			{
 				switch (LOWORD(wParam))
 				{
-					case  IDC_PLUGINADM_RESEARCH_EDIT:
+					case  IDC_PLUGINADM_SEARCH_EDIT:
 					{
 						searchInPlugins(false);
 						return TRUE;

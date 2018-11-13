@@ -273,6 +273,6 @@ Section -FinishSection
   Call writeInstallInfoInRegistry
 SectionEnd
 
-BrandingText "Je code donc je suis"
+BrandingText "Software is like sex: It's better when it's free"
 
 ; eof

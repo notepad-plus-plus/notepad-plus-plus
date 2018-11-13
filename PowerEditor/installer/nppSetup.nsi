@@ -273,6 +273,6 @@ Section -FinishSection
   Call writeInstallInfoInRegistry
 SectionEnd
 
-BrandingText "Software is like sex: It's better when it's free"
+BrandingText "The best things in life are free. Notepad++ is free. So Notepad++ is the best"
 
 ; eof

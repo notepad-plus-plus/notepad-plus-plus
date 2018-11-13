@@ -17,18 +17,8 @@ rem along with this program; if not, write to the Free Software
 rem Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 echo on
-if %SIGN% == 0 goto NoSign
 
-rem retrieve GUP release from website while doing Notepad++ release
-set WINGUP_VER=5.0.3
-IF EXIST ".\bin\wingup\GUP.exe" (
-	cd .\bin\wingup
-	GUP.exe -unzipTo %~dp0\..\bin\updater https://github.com/notepad-plus-plus/wingup/releases/download/v%WINGUP_VER%/wingup.v%WINGUP_VER%.bin.zip ""
-	GUP.exe -unzipTo %~dp0\..\bin64\updater https://github.com/notepad-plus-plus/wingup/releases/download/v%WINGUP_VER%/wingup.v%WINGUP_VER%.bin.x64.zip ""
-	cd ..\..
-) ELSE (
-	echo .\wingup\GUP.exe is absent.
-)
+if %SIGN% == 0 goto NoSign
 
 signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin\notepad++.exe
 If ErrorLevel 1 goto End

@@ -18,6 +18,7 @@
 		<KeyWord name="appendChild" />
 		<KeyWord name="Applet" />
 		<KeyWord name="applets" />
+		<KeyWord name="application" />
 		<KeyWord name="apply" />
 		<KeyWord name="appMinorVersion" />
 		<KeyWord name="appName" />
@@ -111,15 +112,18 @@
 		<KeyWord name="cookieEnabled" />
 		<KeyWord name="cos" />
 		<KeyWord name="cpuClass" />
+		<KeyWord name="createDocumentFragment" />
 		<KeyWord name="createElement" />
 		<KeyWord name="createEventObject" />
 		<KeyWord name="createObjectURL" />
 		<KeyWord name="createPopup" />
 		<KeyWord name="createStyleSheet" />
 		<KeyWord name="createTextNode" />
+		<KeyWord name="credentials" />
 		<KeyWord name="crypto" />
 		<KeyWord name="current" />
 		<KeyWord name="data" />
+		<KeyWord name="dataset" />
 		<KeyWord name="Date" />
 		<KeyWord name="debugger" />
 		<KeyWord name="default" />
@@ -139,6 +143,7 @@
 		<KeyWord name="dir" />
 		<KeyWord name="directories" />
 		<KeyWord name="disableExternalCapture" />
+		<KeyWord name="disconnect" />
 		<KeyWord name="dispatchEvent" />
 		<KeyWord name="display" />
 		<KeyWord name="do" />
@@ -146,6 +151,8 @@
 		<KeyWord name="document" />
 		<KeyWord name="documentElement" />
 		<KeyWord name="domain" />
+		<KeyWord name="DOMContentLoaded" />
+		<KeyWord name="DOMParser" />
 		<KeyWord name="double" />
 		<KeyWord name="dump" />
 		<KeyWord name="E" />
@@ -155,8 +162,11 @@
 		<KeyWord name="embeds" />
 		<KeyWord name="enabledPlugin" />
 		<KeyWord name="enableExternalCapture" />
+		<KeyWord name="encodeURI" />
+		<KeyWord name="encodeURIComponent" />
 		<KeyWord name="encoding" />
 		<KeyWord name="enum" />
+		<KeyWord name="entries" />
 		<KeyWord name="escape" />
 		<KeyWord name="eval" />
 		<KeyWord name="event" />
@@ -192,6 +202,7 @@
 		<KeyWord name="fontSize" />
 		<KeyWord name="fontWeight" />
 		<KeyWord name="for" />
+		<KeyWord name="forEach" />
 		<KeyWord name="Form" />
 		<KeyWord name="form" />
 		<KeyWord name="formName" />
@@ -204,6 +215,7 @@
 		<KeyWord name="fromCharCode" />
 		<KeyWord name="Function" />
 		<KeyWord name="function" />
+		<KeyWord name="getAllResponseHeaders" />
 		<KeyWord name="getAttention" />
 		<KeyWord name="getAttribute" />
 		<KeyWord name="getAttributeNS" />
@@ -226,6 +238,7 @@
 		<KeyWord name="getMonth" />
 		<KeyWord name="getSeconds" />
 		<KeyWord name="getSelection" />
+		<KeyWord name="getResponseHeader" />
 		<KeyWord name="getTime" />
 		<KeyWord name="getTimezoneOffset" />
 		<KeyWord name="getUTCDate" />
@@ -264,6 +277,7 @@
 		<KeyWord name="implements" />
 		<KeyWord name="import" />
 		<KeyWord name="in" />
+		<KeyWord name="includes" />
 		<KeyWord name="index" />
 		<KeyWord name="indexOf" />
 		<KeyWord name="Infinity" />
@@ -272,9 +286,11 @@
 		<KeyWord name="innerText" />
 		<KeyWord name="innerWidth" />
 		<KeyWord name="input" />
+		<KeyWord name="insertBefore" />
 		<KeyWord name="instanceof" />
 		<KeyWord name="int" />
 		<KeyWord name="interface" />
+		<KeyWord name="IntersectionObserver" />
 		<KeyWord name="isFinite" />
 		<KeyWord name="isNaN" />
 		<KeyWord name="italics" />
@@ -285,6 +301,7 @@
 		<KeyWord name="JavaObject" />
 		<KeyWord name="JavaPackage" />
 		<KeyWord name="join" />
+		<KeyWord name="keys" />
 		<KeyWord name="language" />
 		<KeyWord name="lastChild" />
 		<KeyWord name="lastElementChild" />
@@ -299,6 +316,7 @@
 		<KeyWord name="left" />
 		<KeyWord name="leftContext" />
 		<KeyWord name="length" />
+		<KeyWord name="lengthComputable" />
 		<KeyWord name="let" />
 		<KeyWord name="lineHeight" />
 		<KeyWord name="link" />
@@ -309,6 +327,7 @@
 		<KeyWord name="LN10" />
 		<KeyWord name="LN2" />
 		<KeyWord name="load" />
+		<KeyWord name="loaded" />
 		<KeyWord name="localName" />
 		<KeyWord name="Location" />
 		<KeyWord name="location" />
@@ -362,6 +381,7 @@
 		<KeyWord name="null" />
 		<KeyWord name="Number" />
 		<KeyWord name="Object" />
+		<KeyWord name="observe" />
 		<KeyWord name="of" />
 		<KeyWord name="offscreenBuffering" />
 		<KeyWord name="onabort" />
@@ -406,6 +426,7 @@
 		<KeyWord name="onkeyup" />
 		<KeyWord name="onLine" />
 		<KeyWord name="onload" />
+		<KeyWord name="onloadstart" />
 		<KeyWord name="onmousedown" />
 		<KeyWord name="onmousemove" />
 		<KeyWord name="onmouseout" />
@@ -413,6 +434,7 @@
 		<KeyWord name="onmouseup" />
 		<KeyWord name="onpaste" />
 		<KeyWord name="onpropertychange" />
+		<KeyWord name="onprogress" />
 		<KeyWord name="onreadystatechange" />
 		<KeyWord name="onreset" />
 		<KeyWord name="onresize" />
@@ -428,6 +450,7 @@
 		<KeyWord name="onselectstart" />
 		<KeyWord name="onstop" />
 		<KeyWord name="onsubmit" />
+		<KeyWord name="ontimeout" />
 		<KeyWord name="onunload" />
 		<KeyWord name="open" />
 		<KeyWord name="opener" />
@@ -451,11 +474,13 @@
 		<KeyWord name="pageY" />
 		<KeyWord name="pageYOffset" />
 		<KeyWord name="parent" />
+		<KeyWord name="parentElement" />
 		<KeyWord name="parentLayer" />
 		<KeyWord name="parentNode" />
 		<KeyWord name="parentWindow" />
 		<KeyWord name="parse" />
 		<KeyWord name="parseFloat" />
+		<KeyWord name="parseFromString" />
 		<KeyWord name="parseInt" />
 		<KeyWord name="Password" />
 		<KeyWord name="pathname" />
@@ -463,6 +488,7 @@
 		<KeyWord name="PI" />
 		<KeyWord name="pixelDepth" />
 		<KeyWord name="pkcs11" />
+		<KeyWord name="plain" />
 		<KeyWord name="platform" />
 		<KeyWord name="Plugin" />
 		<KeyWord name="plugins" />
@@ -473,6 +499,7 @@
 		<KeyWord name="pow" />
 		<KeyWord name="preference" />
 		<KeyWord name="prefix" />
+		<KeyWord name="preventDefault" />
 		<KeyWord name="previous" />
 		<KeyWord name="previousSibling" />
 		<KeyWord name="print" />
@@ -504,6 +531,7 @@
 		<KeyWord name="removeAttribute" />
 		<KeyWord name="removeAttributeNS" />
 		<KeyWord name="removeAttributeNode" />
+		<KeyWord name="removeChild" />
 		<KeyWord name="removeEventListener" />
 		<KeyWord name="replace" />
 		<KeyWord name="Reset" />
@@ -511,13 +539,17 @@
 		<KeyWord name="resizeBy" />
 		<KeyWord name="resizeTo" />
 		<KeyWord name="response" />
+		<KeyWord name="responseText" />
 		<KeyWord name="responseType" />
+		<KeyWord name="responseXML" />
 		<KeyWord name="return" />
 		<KeyWord name="returnValue" />
 		<KeyWord name="reverse" />
 		<KeyWord name="revokeObjectURL" />
 		<KeyWord name="right" />
 		<KeyWord name="rightContext" />
+		<KeyWord name="root" />
+		<KeyWord name="rootMargin" />
 		<KeyWord name="round" />
 		<KeyWord name="routeEvents" />
 		<KeyWord name="savePreferences" />
@@ -542,6 +574,7 @@
 		<KeyWord name="search" />
 		<KeyWord name="security" />
 		<KeyWord name="securityPolicy" />
+		<KeyWord name="send" />
 		<KeyWord name="Select" />
 		<KeyWord name="select" />
 		<KeyWord name="selected" />
@@ -563,6 +596,7 @@
 		<KeyWord name="setMilliseconds" />
 		<KeyWord name="setMinutes" />
 		<KeyWord name="setMonth" />
+		<KeyWord name="setRequestHeader" />
 		<KeyWord name="setResizable" />
 		<KeyWord name="setSeconds" />
 		<KeyWord name="setTime" />
@@ -620,6 +654,7 @@
 		<KeyWord name="tags" />
 		<KeyWord name="taint" />
 		<KeyWord name="taintEnabled" />
+		<KeyWord name="takeRecords" />
 		<KeyWord name="tan" />
 		<KeyWord name="target" />
 		<KeyWord name="test" />
@@ -627,19 +662,24 @@
 		<KeyWord name="text" />
 		<KeyWord name="textAlign" />
 		<KeyWord name="Textarea" />
+		<KeyWord name="textContent" />
 		<KeyWord name="textDecoration" />
 		<KeyWord name="textIndent" />
 		<KeyWord name="textTransform" />
 		<KeyWord name="then" />
 		<KeyWord name="this" />
+		<KeyWord name="thresholds" />
 		<KeyWord name="throw" />
 		<KeyWord name="throws" />
+		<KeyWord name="time" />
+		<KeyWord name="timeEnd" />
 		<KeyWord name="title" />
 		<KeyWord name="toGMTString" />
 		<KeyWord name="toLocaleString" />
 		<KeyWord name="toLowerCase" />
 		<KeyWord name="toolbar" />
 		<KeyWord name="top" />
+		<KeyWord name="total" />
 		<KeyWord name="toSource" />
 		<KeyWord name="toString" />
 		<KeyWord name="toUpperCase" />
@@ -652,11 +692,13 @@
 		<KeyWord name="undefined" />
 		<KeyWord name="unescape" />
 		<KeyWord name="uniqueID" />
+		<KeyWord name="unobserve" />
 		<KeyWord name="unshift" />
 		<KeyWord name="untaint" />
 		<KeyWord name="unwatch" />
 		<KeyWord name="updateCommands" />
 		<KeyWord name="updateInterval" />
+		<KeyWord name="upload" />
 		<KeyWord name="URL" />
 		<KeyWord name="URLUnencoded" />
 		<KeyWord name="userAgent" />

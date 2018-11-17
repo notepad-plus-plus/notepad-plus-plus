@@ -2429,23 +2429,21 @@ void Notepad_plus::command(int id)
 
 		case IDM_SETTING_IMPORTPLUGIN :
         {
-            // get plugin source path
+			// Copy plugins to Plugins Home
             const TCHAR *extFilterName = TEXT("Notepad++ plugin");
             const TCHAR *extFilter = TEXT(".dll");
-            const TCHAR *destDir = TEXT("plugins");
+            vector<generic_string> copiedFiles = addNppPlugins(extFilterName, extFilter);
 
-            vector<generic_string> copiedFiles = addNppComponents(destDir, extFilterName, extFilter);
-
-            // load plugin
-            for (size_t i = 0, len = copiedFiles.size() ; i < len ; ++i)
-            {
-                int index = _pluginsManager.loadPlugin(copiedFiles[i].c_str());
-                if (_pluginsManager.getMenuHandle())
-                    _pluginsManager.addInMenuFromPMIndex(index);
-            }
-            if (!_pluginsManager.getMenuHandle())
-                _pluginsManager.setMenu(_mainMenuHandle, NULL);
-            ::DrawMenuBar(_pPublicInterface->getHSelf());
+            // Tell users to restart Notepad++ to load plugin
+			if (copiedFiles.size())
+			{
+				NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+				pNativeSpeaker->messageBox("NeedToRestartToLoadPlugins",
+					NULL,
+					TEXT("You have to restart Notepad++ to load plugins you installed."),
+					TEXT("Notepad++ need to be relaunched"),
+					MB_OK | MB_APPLMODAL);
+			}
             break;
         }
 

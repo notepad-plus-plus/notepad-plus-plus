@@ -1956,7 +1956,7 @@ void Notepad_plus::command(int id)
 				characterNumber += TEXT("\r");
 				characterNumber += TEXT("\r");
 			}
-			const TCHAR *nbCharLabel = TEXT("Characters (without blanks): ");
+			const TCHAR *nbCharLabel = TEXT("Characters (without line endings): ");
 			const TCHAR *nbWordLabel = TEXT("Words: ");
 			const TCHAR *nbLineLabel = TEXT("Lines: ");
 			const TCHAR *nbByteLabel = TEXT("Current document length: ");

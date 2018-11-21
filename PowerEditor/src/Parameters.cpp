@@ -995,6 +995,11 @@ bool NppParameters::load()
 	// Test if localConf.xml exist
 	_isLocal = (PathFileExists(localConfPath.c_str()) == TRUE);
 
+	generic_string pluginsForAllUserPath(_nppPath);
+	PathAppend(pluginsForAllUserPath, pluginsForAllUsersFile);
+	if (!PathFileExists(pluginsForAllUserPath.c_str()))
+		pluginsForAllUserPath = TEXT("");
+
 	// Under vista and windows 7, the usage of doLocalConf.xml is not allowed
 	// if Notepad++ is installed in "program files" directory, because of UAC
 	if (_isLocal)
@@ -1012,9 +1017,10 @@ bool NppParameters::load()
 		}
 	}
 
+	generic_string nppPluginRootParent;
 	if (_isLocal)
 	{
-		_userPath = _nppPath;
+		_userPath = nppPluginRootParent = _nppPath;
 
 		_pluginRootDir = _nppPath;
 		PathAppend(_pluginRootDir, TEXT("plugins"));
@@ -1026,24 +1032,32 @@ bool NppParameters::load()
 		PathAppend(_userPath, TEXT("Notepad++"));
 		_appdataNppDir = _userPath;
 
-		// Plugin System V1
 		if (!PathFileExists(_userPath.c_str()))
 			::CreateDirectory(_userPath.c_str(), NULL);
 
-		// Plugin System V2
 		_localAppdataNppDir = getSpecialFolderLocation(CSIDL_LOCAL_APPDATA);
 		PathAppend(_localAppdataNppDir, TEXT("Notepad++"));
-		if (!PathFileExists(_localAppdataNppDir.c_str()))
-			::CreateDirectory(_localAppdataNppDir.c_str(), NULL);
+		nppPluginRootParent = _localAppdataNppDir;
 
 		_pluginRootDir = _localAppdataNppDir;
 		PathAppend(_pluginRootDir, TEXT("plugins"));
-
-		if (!PathFileExists(_pluginRootDir.c_str()))
-			::CreateDirectory(_pluginRootDir.c_str(), NULL);
 	}
-	
 
+	// pluginsForAllUser.xml > doLocalConf.xml
+	// overriding _pluginRootDir
+	if (!pluginsForAllUserPath.empty())
+	{
+		_pluginRootDir = getSpecialFolderLocation(CSIDL_COMMON_APPDATA);
+		PathAppend(_pluginRootDir, TEXT("Notepad++"));
+		nppPluginRootParent = _pluginRootDir;
+
+		PathAppend(_pluginRootDir, TEXT("plugins"));
+	}
+
+	if (!PathFileExists(nppPluginRootParent.c_str()))
+		::CreateDirectory(nppPluginRootParent.c_str(), NULL);
+	if (!PathFileExists(_pluginRootDir.c_str()))
+		::CreateDirectory(_pluginRootDir.c_str(), NULL);
 
 	_sessionPath = _userPath; // Session stock the absolute file path, it should never be on cloud
 

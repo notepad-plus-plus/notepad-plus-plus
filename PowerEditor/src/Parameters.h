@@ -121,6 +121,7 @@ const TCHAR fontSizeStrs[][3] = {TEXT(""), TEXT("5"), TEXT("6"), TEXT("7"), TEXT
 
 const TCHAR localConfFile[] = TEXT("doLocalConf.xml");
 const TCHAR notepadStyleFile[] = TEXT("asNotepad.xml");
+const TCHAR pluginsForAllUsersFile[] = TEXT("pluginsForAllUsers.xml");
 
 void cutString(const TCHAR *str2cut, std::vector<generic_string> & patternVect);
 

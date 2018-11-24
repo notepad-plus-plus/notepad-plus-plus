@@ -56,6 +56,16 @@ initUpdatePath:
 		StrCpy $UPDATE_PATH "$APPDATA\${APPNAME}"
 		CreateDirectory $UPDATE_PATH\plugins\config
 	${EndIf}
+	
+	; override PLUGIN_INST_PATH
+	${If} $arePlugins4AllUsers == "true"
+		ReadEnvStr $0 "ALLUSERSPROFILE"
+		StrCpy $PLUGIN_INST_PATH "$0\Notepad++\plugins"
+		File /oname=$INSTDIR\pluginsForAllUsers.xml "..\bin\pluginsForAllUsers_dummy.xml"
+	${ELSE}
+		Delete $INSTDIR\pluginsForAllUsers.xml
+	${EndIf}
+
 alreadyDone:
 FunctionEnd
 	
@@ -121,7 +131,7 @@ Function removeUnstablePlugins
 		Delete "$INSTDIR\plugins\HexEditorPlugin.dll"
 
 	IfFileExists "$INSTDIR\plugins\HexEditor.dll" 0 +4
-		MessageBox MB_OK "Due to the stability issue,$\nHexEditor.dll will be moved to the directory $\"disabled$\"" /SD IDOK 
+		MessageBox MB_OK "Due to the stability issue,$\nHexEditor.dll will be moved to the directory $\"disabled$\"" /SD IDOK
 		Rename "$INSTDIR\plugins\HexEditor.dll" "$INSTDIR\plugins\disabled\HexEditor.dll" 
 		Delete "$INSTDIR\plugins\HexEditor.dll"
 

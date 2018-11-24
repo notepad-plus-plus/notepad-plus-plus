@@ -1052,6 +1052,9 @@ bool NppParameters::load()
 		nppPluginRootParent = _pluginRootDir;
 
 		PathAppend(_pluginRootDir, TEXT("plugins"));
+
+		// For PluginAdmin to launch the wingup with UAC
+		setElevationRequired(true);
 	}
 
 	if (!PathFileExists(nppPluginRootParent.c_str()))

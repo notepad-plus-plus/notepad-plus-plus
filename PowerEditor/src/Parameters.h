@@ -1751,14 +1751,17 @@ private:
 	generic_string _wingupFullPath;
 	generic_string _wingupParams;
 	generic_string _wingupDir;
+	bool _isElevationRequired = false;
 
 public:
 	generic_string getWingupFullPath() const { return _wingupFullPath; };
 	generic_string getWingupParams() const { return _wingupParams; };
 	generic_string getWingupDir() const { return _wingupDir; };
+	bool shouldDoUAC() const { return _isElevationRequired; };
 	void setWingupFullPath(const generic_string& val2set) { _wingupFullPath = val2set; };
 	void setWingupParams(const generic_string& val2set) { _wingupParams = val2set; };
 	void setWingupDir(const generic_string& val2set) { _wingupDir = val2set; };
+	void setElevationRequired(bool val2set) { _isElevationRequired = val2set; };
 
 private:
 	void getLangKeywordsFromXmlTree();

@@ -1854,7 +1854,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				if (!updaterFullPath.empty())
 				{
 					Process updater(updaterFullPath.c_str(), pNppParam->getWingupParams().c_str(), pNppParam->getWingupDir().c_str());
-					updater.run();
+					updater.run(pNppParam->shouldDoUAC());
 				}
 			}
 			return TRUE;

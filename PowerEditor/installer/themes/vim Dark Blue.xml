@@ -223,7 +223,7 @@
         <LexerType name="nfo" desc="Dos Style" ext="">
             <WordsStyle name="DEFAULT" styleID="32" fgColor="FFFFFF" bgColor="000040" />
         </LexerType>
-        <LexerType name="fortran" desc="Fortran" ext="">
+        <LexerType name="fortran" desc="Fortran (free form)" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT" styleID="1" fgColor="80A0FF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="NUMBER" styleID="2" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />

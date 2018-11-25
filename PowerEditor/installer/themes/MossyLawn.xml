@@ -317,7 +317,7 @@ Installation:
             <WordsStyle name="DELETED" styleID="5" fgColor="561e0f" bgColor="58693D" fontName="" fontStyle="2" fontSize="" />
             <WordsStyle name="ADDED" styleID="6" fgColor="afcf90" bgColor="58693D" fontName="" fontStyle="1" fontSize="" />
         </LexerType>
-        <LexerType name="fortran" desc="Fortran" ext="">
+        <LexerType name="fortran" desc="Fortran (free form)" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="f2c476" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT" styleID="1" fgColor="2a390e" bgColor="58693D" fontName="" fontStyle="2" fontSize="" />
             <WordsStyle name="NUMBER" styleID="2" fgColor="ffdc87" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />

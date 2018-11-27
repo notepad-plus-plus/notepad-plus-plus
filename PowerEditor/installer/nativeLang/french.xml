@@ -15,7 +15,7 @@
                     <Item menuId="tools" name="&amp;Outils"/>
                     <Item menuId="macro" name="&amp;Macro"/>
                     <Item menuId="run" name="E&amp;xécution"/>
-                    <Item idName="Plugins" name="&amp;Compléments"/>
+                    <Item idName="Plugins" name="Modules d'ex&amp;tension"/>
                     <Item idName="Window" name="&amp;Documents"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
@@ -295,6 +295,7 @@
                     <Item id="48006" name="Importer un thème..."/>
                     <Item id="48009" name="Raccourcis clavier..."/>
                     <Item id="48011" name="Préférences..."/>
+                    <Item id="48015" name="Gestionnaire des modules d'extension..."/>
                     <Item id="48501" name="Générer..."/>
                     <Item id="48502" name="Générer depuis les fichiers..."/>
                     <Item id="48503" name="Générer dans le presse-papiers"/>
@@ -412,6 +413,17 @@
                 <Item id="1934" name="Copier dans le presse-papiers"/>
                 <Item id="2"    name="Fermer"/>
             </MD5FromTextDlg>
+
+            <PluginsAdminDlg title="Gestionnaire des modules d'extension" titleAvailable = "Disponibles" titleUpdates = "Mises à jour" titleInstalled = "Installés">
+                <ColumnPlugin   name="Modules d'extension"/>
+                <ColumnVersion  name="Version"/>
+                <Item id="5501" name="Rechercher:"/>
+                <Item id="5503" name="Installer"/>
+                <Item id="5504" name="Mettre à jour"/>
+                <Item id="5505" name="Supprimer"/>
+                <Item id="5508" name="Suivant"/>
+                <Item id="2"    name="Fermer"/>
+            </PluginsAdminDlg>
 
             <StyleConfig title="Configurateur de coloration syntaxique">
                 <Item id="2" name="Annuler"/>
@@ -1002,7 +1014,7 @@ veuillez en donner un autre."/>
             <UDLRemoveCurrentLang title="Remove the current language" message="Are you sure?"/>
             <SCMapperDoDeleteOrNot title="Are you sure?" message="Are you sure you want to delete this shortcut?"/>
             <FindCharRangeValueError title="Range Value problem" message="You should type between from 0 to 255."/>
-			<OpenInAdminMode title="L'enregistrement a échoué" message="Le fichier ne peut pas être enregistré et il est peut-être protégé.
+            <OpenInAdminMode title="L'enregistrement a échoué" message="Le fichier ne peut pas être enregistré et il est peut-être protégé.
 Voulez-vous lancer Notepad++ en mode Administrateur ?"/>
             <OpenInAdminModeWithoutCloseCurrent title="L'enregistrement a échoué" message="Le fichier ne peut pas être enregistré et il est peut-être protégé.
 Voulez-vous lancer Notepad++ en mode Administrateur ?"/>

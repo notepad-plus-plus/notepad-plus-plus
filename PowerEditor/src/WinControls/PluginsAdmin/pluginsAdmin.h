@@ -111,6 +111,8 @@ struct NppCurrentStatus
 	bool shouldLaunchInAdmMode() { return _isInProgramFiles; };
 };
 
+enum COLUMN_TYPE { COLUMN_PLUGIN, COLUMN_VERSION };
+
 class PluginViewList
 {
 public:
@@ -144,11 +146,15 @@ public:
 	bool hideFromPluginInfoPtr(PluginUpdateInfo* pluginInfo2hide);
 	bool restore(const generic_string& folderName);
 	bool removeFromPluginInfoPtr(PluginUpdateInfo* pluginInfo2hide);
+	void changeColumnName(COLUMN_TYPE index, const TCHAR *name2change);
 
 private:
 	std::vector<PluginUpdateInfo*> _list;
 	ListView _ui;
 };
+
+enum LIST_TYPE { AVAILABLE_LIST, UPDATES_LIST, INSTALLED_LIST };
+
 
 class PluginsAdminDlg final : public StaticDialog
 {
@@ -187,6 +193,9 @@ public :
 	bool installPlugins();
 	bool updatePlugins();
 	bool removePlugins();
+
+	void changeTabName(LIST_TYPE index, const TCHAR *name2change);
+	void changeColumnName(COLUMN_TYPE index, const TCHAR *name2change);
 
 protected:
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);

@@ -51,6 +51,13 @@ public:
 		_columnInfos.push_back(column2Add);
 	};
 
+	void setColumnText(size_t i, generic_string txt2Set) {
+		LVCOLUMN lvColumn;
+		lvColumn.mask = LVCF_TEXT;
+		lvColumn.pszText = const_cast<TCHAR *>(txt2Set.c_str());
+		ListView_SetColumn(_hSelf, i, &lvColumn);
+	}
+
 	// setStyleOption() should be called before init()
 	void setStyleOption(int32_t extraStyle) {
 		_extraStyle = extraStyle;

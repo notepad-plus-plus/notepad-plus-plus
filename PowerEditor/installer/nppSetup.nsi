@@ -133,7 +133,7 @@ withoutUpdater:
 	StrCpy $noUpdater "true"
 updaterDone:
 
-	${GetOptions} $R0 "/pliginsForAllUsers" $R1 ;case insensitive
+	${GetOptions} $R0 "/pluginsForAllUsers" $R1 ;case insensitive
 	IfErrors withoutPlugins4AllUsers withPlugins4AllUsers
 withPlugins4AllUsers:
 	StrCpy $arePlugins4AllUsers "true"

@@ -5710,6 +5710,11 @@ bool Notepad_plus::reloadLang()
         _nativeLangSpeaker.changeDlgLang(_colEditorDlg.getHSelf(), "ColumnEditor");
 	}
 
+	if (_pluginsAdminDlg.isCreated())
+	{
+		_nativeLangSpeaker.changePluginsAdminDlgLang(_pluginsAdminDlg);
+	}
+
 	UserDefineDialog *udd = _pEditView->getUserDefineDlg();
 	if (udd->isCreated())
 	{

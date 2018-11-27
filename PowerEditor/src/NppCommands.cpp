@@ -2480,7 +2480,7 @@ void Notepad_plus::command(int id)
 			_pluginsAdminDlg.doDialog(_nativeLangSpeaker.isRTL());
 			if (isFirstTime)
 			{
-				_nativeLangSpeaker.changeConfigLang(_pluginsAdminDlg.getHSelf());
+				_nativeLangSpeaker.changePluginsAdminDlgLang(_pluginsAdminDlg);
 				_pluginsAdminDlg.updateListAndLoadFromJson();
 			}
 			break;

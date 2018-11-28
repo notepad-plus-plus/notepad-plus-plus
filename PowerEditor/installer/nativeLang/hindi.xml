@@ -4,10 +4,10 @@
 
 	** created By:- Rathin A. Dholakia **
 		Email- rathin2j@gmail.com
-	** Last Updated on 05/04/2018 by Rajendra Singh (singh.rajen15@gmail.com) **
+	** Last Updated on 28/11/2018 by Rajendra Singh (singh.rajen15@gmail.com) **
 -->
 <NotepadPlus>
-  <Native-Langue name="हिन्दी" filename="hindi.xml" version="7.5.8">
+  <Native-Langue name="हिन्दी" filename="hindi.xml" version="7.6">
     <Menu>
       <Main>
         <!-- Main Menu Entries -->
@@ -302,9 +302,10 @@
           <Item id="48018" name="एडिट पॉपअप कॉन्टेक्स्ट मेनू"/>
           <Item id="48009" name="शॉर्टकट मेपर..."/>
           <Item id="48011" name="पसंदगी (Preferences)..."/>
+          <Item id="48015" name="प्लगइन एडमिन..."/>
           <Item id="48501" name="जनरेट करें..."/>
           <Item id="48502" name="फाइल्स से जनरेट करें..."/>
-          <Item id="48503" name="क्लिपबोर्ड पर जनरेट करें"/>
+          <Item id="48503" name="क्लिपबोर्ड पर सलेक्शन से जनरेट करें"/>
           <Item id="49000" name="&amp;चलायें (Run)..."/>
 
           <Item id="50000" name="फंक्शन समापन"/>
@@ -423,6 +424,17 @@
 		<Item id="1934" name="क्लिपबोर्ड पर कॉपी करें"/>
 		<Item id="2"    name="बंद करें"/>
 	  </MD5FromTextDlg>
+
+	  <PluginsAdminDlg title="प्लगइन एडमिन" titleAvailable = "अवेलेबल" titleUpdates = "अपडेट्स" titleInstalled = "इन्सटॉल्ड">
+		<ColumnPlugin   name="प्लगइन"/>
+		<ColumnVersion  name="वर्जन"/>
+		<Item id="5501" name="सर्च:"/>
+		<Item id="5503" name="इनस्टॉल"/>
+		<Item id="5504" name="अपडेट"/>
+		<Item id="5505" name="निकालें"/>
+		<Item id="5508" name="अगला"/>
+		<Item id="2"    name="बंद करें"/>
+	  </PluginsAdminDlg>
 
       <StyleConfig title="स्टाइल कोन्फ़िगरेटर">
         <Item id="2" name="रद्द करें"/>

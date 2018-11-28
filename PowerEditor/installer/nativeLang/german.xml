@@ -433,7 +433,7 @@
 				<Item id="2"    name="Schließen"/>
 			</MD5FromTextDlg>
 
-			<PluginsAdminDlg title="Plugins Admin" titleAvailable = "Available" titleUpdates = "Updates" titleInstalled = "Installed">
+			<PluginsAdminDlg title="Plugin-Verwaltung" titleAvailable = "Verfügbar" titleUpdates = "Aktualisierungen" titleInstalled = "Installiert">
 				<ColumnPlugin   name="Plugin"/>
 				<ColumnVersion  name="Version"/>
 				<Item id="5501" name="Suchen:"/>
@@ -443,7 +443,6 @@
 				<Item id="5508" name="Nächstes"/>
 				<Item id="2"    name="Schließen"/>
 			</PluginsAdminDlg>
-
 
 			<StyleConfig title="Stile">
 				<Item id="2"    name="Abbrechen"/>

@@ -51,7 +51,7 @@ struct Version
 	generic_string toString();
 	bool isNumber(const generic_string& s) const {
 		return !s.empty() && 
-			find_if(s.begin(), s.end(), [](char c) { return !isdigit(c); }) == s.end();
+			find_if(s.begin(), s.end(), [](_TCHAR c) { return !_istdigit(c); }) == s.end();
 	};
 
 	int compareTo(const Version& v2c) const;

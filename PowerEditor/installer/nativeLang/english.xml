@@ -297,7 +297,7 @@
                     <Item id="48015" name="Plugins Admin..."/>
                     <Item id="48501" name="Generate..."/>
                     <Item id="48502" name="Generate from files..."/>
-                    <Item id="48503" name="Generate into clipboard"/>
+                    <Item id="48503" name="Generate from selection into clipboard"/>
                     <Item id="49000" name="&amp;Run..."/>
 
                     <Item id="50000" name="Function Completion"/>

@@ -291,7 +291,7 @@ for %%a in (npp.*.Installer.exe) do (
   set nppInstallerVar=%%a
   set nppInstallerVar64=!nppInstallerVar:Installer.exe=Installer.x64.exe!
 
-  rem nppInstallerVar should be the version for exemple: 6.9
+  rem nppInstallerVar should be the version for example: 6.9
   rem we put npp.6.9. + (bin.zip instead of Installer.exe) into var zipvar
   set zipvar=!nppInstallerVar:Installer.exe=bin.zip!
 

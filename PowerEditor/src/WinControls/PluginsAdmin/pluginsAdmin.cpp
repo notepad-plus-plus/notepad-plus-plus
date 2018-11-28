@@ -435,7 +435,6 @@ PluginsAdminDlg::PluginsAdminDlg()
 #else //RELEASE
 	PathAppend(_pluginListFullPath, TEXT("nppPluginList.dll"));
 #endif
-	;
 }
 
 generic_string PluginsAdminDlg::getPluginConfigPath() const
@@ -714,7 +713,6 @@ bool PluginsAdminDlg::isValide()
 		return false;
 	}
 
-	generic_string gupPath;
 	if (!::PathFileExists(_updaterFullPath.c_str()))
 	{
 		return false;

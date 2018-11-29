@@ -283,6 +283,10 @@
 					<Item id="45012" name="Konve&amp;rtiere zu UCS-2 BE-BOM"/>
 					<Item id="45013" name="Konver&amp;tiere zu UCS-2 LE-BOM"/>
 
+					<Item id="44212" name="Verberge Zeilennummernrand"/>
+					<Item id="44213" name="Verberge Lesezeichenrand"/>
+					<Item id="44214" name="Verberge Textblockrand"/>
+
 					<Item id="10001" name="In zweite Ansicht &amp;verschieben"/>
 					<Item id="10002" name="In zweite Ansicht &amp;duplizieren"/>
 					<Item id="10003" name="In &amp;neue Instanz verschieben"/>

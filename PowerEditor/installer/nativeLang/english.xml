@@ -270,6 +270,10 @@
                     <Item id="45012" name="Convert to UCS-2 BE BOM"/>
                     <Item id="45013" name="Convert to UCS-2 LE BOM"/>
 
+                    <Item id="44212" name="Hide Line Number Margin"/>
+                    <Item id="44213" name="Hide Bookmark Margin"/>
+                    <Item id="44214" name="Hide Folder Margin"/>
+
                     <Item id="10001" name="Move to Other View"/>
                     <Item id="10002" name="Clone to Other View"/>
                     <Item id="10003" name="Move to New Instance"/>

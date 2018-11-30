@@ -1125,7 +1125,7 @@ Deseja iniciar o Notepad++ no modo Administrador?"/>
         </ProjectManager>
                <MiscStrings>
             <!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
-            <word-chars-list-tip value="Isso permite que você inclua caracteres adicionais nos caracteres atuais da palavra, enquanto clica duas vezes para seleção ou pesquisa com a opção marcada "Corresponder apenas a palavra inteira"."/>
+            <word-chars-list-tip value="Isso permite que você inclua caracteres adicionais nos caracteres atuais da palavra, enquanto clica duas vezes para seleção ou pesquisa com a opção marcada &quot;Corresponder apenas a palavra inteira&quot;."/>
             <word-chars-list-warning-begin value="Estar ciente "/>
             <word-chars-list-space-warning value="$INT_REPLACE$ espaço(s)"/>
             <word-chars-list-tab-warning value="$INT_REPLACE$ TAB(s)"/>

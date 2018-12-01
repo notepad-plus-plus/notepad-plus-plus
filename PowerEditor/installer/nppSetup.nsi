@@ -41,8 +41,6 @@ SetCompressor /SOLID lzma	; This reduces installer size by approx 30~35%
 ; Installer is DPI-aware: not scaled by the DWM, no blurry text
 ManifestDPIAware true
 
-Var arePlugins4AllUsers
-
 !include "nsisInclude\winVer.nsh"
 !include "nsisInclude\globalDef.nsh"
 !include "nsisInclude\tools.nsh"
@@ -132,16 +130,6 @@ withUpdater:
 withoutUpdater:
 	StrCpy $noUpdater "true"
 updaterDone:
-
-	${GetOptions} $R0 "/pluginsForAllUsers" $R1 ;case insensitive
-	IfErrors withoutPlugins4AllUsers withPlugins4AllUsers
-withPlugins4AllUsers:
-	StrCpy $arePlugins4AllUsers "true"
-	Goto plugins4AllUsersDone
-withoutPlugins4AllUsers:
-	StrCpy $arePlugins4AllUsers "false"
-plugins4AllUsersDone:
-
 
 	${If} $noUpdater == "true"
 		!insertmacro UnSelectSection ${AutoUpdater}

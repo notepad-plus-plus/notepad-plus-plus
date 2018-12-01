@@ -283,7 +283,6 @@ SectionGroup "Localization" localization
 	${MementoUnselectedSection} "Kurdish" kurdish
 		CopyFiles "$PLUGINSDIR\nppLocalization\kurdish.xml" "$INSTDIR\localization\kurdish.xml"
 	${MementoSectionEnd}
-	${MementoSectionEnd}
 	${MementoUnselectedSection} "Piglatin" piglatin
 		CopyFiles "$PLUGINSDIR\nppLocalization\piglatin.xml" "$INSTDIR\localization\piglatin.xml"
 	${MementoSectionEnd}

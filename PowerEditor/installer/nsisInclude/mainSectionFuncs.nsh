@@ -51,19 +51,14 @@ initUpdatePath:
 	${ELSE}
 		IfFileExists $INSTDIR\doLocalConf.xml 0 +2
 		Delete $INSTDIR\doLocalConf.xml
-		StrCpy $PLUGIN_INST_PATH "$PROFILE\AppData\Local\${APPNAME}\plugins"
+		
+		; "%PROGRAMDATA%\Notepad++\plugins"
+		ReadEnvStr $0 "ALLUSERSPROFILE"
+		StrCpy $PLUGIN_INST_PATH "$0\Notepad++\plugins"
+		
 		StrCpy $PLUGIN_CONF_PATH "$APPDATA\${APPNAME}\plugins\Config"
 		StrCpy $UPDATE_PATH "$APPDATA\${APPNAME}"
 		CreateDirectory $UPDATE_PATH\plugins\config
-	${EndIf}
-	
-	; override PLUGIN_INST_PATH
-	${If} $arePlugins4AllUsers == "true"
-		ReadEnvStr $0 "ALLUSERSPROFILE"
-		StrCpy $PLUGIN_INST_PATH "$0\Notepad++\plugins"
-		File /oname=$INSTDIR\pluginsForAllUsers.xml "..\bin\pluginsForAllUsers_dummy.xml"
-	${ELSE}
-		Delete $INSTDIR\pluginsForAllUsers.xml
 	${EndIf}
 
 alreadyDone:

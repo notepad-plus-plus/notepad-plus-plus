@@ -1156,8 +1156,8 @@ Vulete dimarrà Notepad++ in modu Amministratore ?"/>
             <find-status-replaceinopenedfiles-nb-replaced value="Rimpiazzà in Schedarii Aperti : $INT_REPLACE$ occurrenze sò state rimpiazzate"/>
             <find-status-mark-re-malformed value="Marcà : A spressione regulare per ricercà hè mal'cuncilia"/>
             <find-status-invalid-re value="Circà : Espressione regulare inaccettevule"/>
-            <find-status-mark-1-match value="1 cuncurdanza"/>
-            <find-status-mark-nb-matches value="$INT_REPLACE$ cuncurdanze"/>
+            <find-status-mark-1-match value="Marcà : 1 cuncurdanza"/>
+            <find-status-mark-nb-matches value="Marcà : $INT_REPLACE$ cuncurdanze"/>
             <find-status-count-re-malformed value="Cuntà : A spressione regulare per ricercà hè mal'cuncilia"/>
             <find-status-count-1-match value="Cuntà : 1 cuncurdanza"/>
             <find-status-count-nb-matches value="Cuntà : $INT_REPLACE$ cuncurdanze"/>

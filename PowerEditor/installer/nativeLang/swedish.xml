@@ -1144,8 +1144,8 @@ Vill du starta Notepad++ i administratörsläge?"/>
 			<find-status-replaceinopenedfiles-nb-replaced value="Ersätt i öppna filer: $INT_REPLACE$ förekomster ersattes"/>
 			<find-status-mark-re-malformed value="Markering: Det reguljära uttrycket är felaktigt"/>
 			<find-status-invalid-re value="Sök: Felaktigt reguljärt uttryck"/>
-			<find-status-mark-1-match value="1 match"/>
-			<find-status-mark-nb-matches value="$INT_REPLACE$ matchningar"/>
+			<find-status-mark-1-match value="Markering: 1 match"/>
+			<find-status-mark-nb-matches value="Markering: $INT_REPLACE$ matchningar"/>
 			<find-status-count-re-malformed value="Antal: Det reguljära uttrycket för sökning är felaktigt"/>
 			<find-status-count-1-match value="Antal: 1 match"/>
 			<find-status-count-nb-matches value="Antal: $INT_REPLACE$ matchningar"/>

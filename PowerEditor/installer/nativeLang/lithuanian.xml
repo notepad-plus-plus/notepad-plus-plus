@@ -1150,8 +1150,8 @@ Ar norite paleisti Notepad++ administratoriaus teisėmis?"/>
             <find-status-replaceinopenedfiles-nb-replaced value="Keitimas atidarytuose failuose: $INT_REPLACE$ atitikmenys(ų) buvo pakeisti"/>
             <find-status-mark-re-malformed value="Žymėjimas: Reguliari išraiška neteisinga"/>
             <find-status-invalid-re value="Paieška: Reguliari išraiška neteisinga"/>
-            <find-status-mark-1-match value="1 atitikmuo"/>
-            <find-status-mark-nb-matches value="$INT_REPLACE$ atitikmenys(ų)"/>
+            <find-status-mark-1-match value="Žymėjimas: 1 atitikmuo"/>
+            <find-status-mark-nb-matches value="Žymėjimas: $INT_REPLACE$ atitikmenys(ų)"/>
             <find-status-count-re-malformed value="Skaičiavimas: Reguliari išraiška neteisinga"/>
             <find-status-count-1-match value="Skaičiavimas: 1 atitikmuo"/>
             <find-status-count-nb-matches value="Skaičiavimas: $INT_REPLACE$ atitikmenys(ų)"/>

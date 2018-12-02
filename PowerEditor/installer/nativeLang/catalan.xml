@@ -1098,8 +1098,8 @@ By Hiro5 <groccat at gmail>
 			<find-status-replaceinopenedfiles-nb-replaced value="Reemplaça en fitxers oberts: $INT_REPLACE$ resultats reemplaçats"/>
 			<find-status-mark-re-malformed value="Marca: L'expressió regular de cerca està mal formada"/>
 			<find-status-invalid-re value="Cerca: Expressió regular no vàlida"/>
-			<find-status-mark-1-match value="1 coincidència"/>
-			<find-status-mark-nb-matches value="$INT_REPLACE$ coincidències"/>
+			<find-status-mark-1-match value="Marca: 1 coincidència"/>
+			<find-status-mark-nb-matches value="Marca: $INT_REPLACE$ coincidències"/>
 			<find-status-count-re-malformed value="Compta: L'expressió regular de cerca està mal formada"/>
 			<find-status-count-1-match value="Compta: 1 coincidència"/>
 			<find-status-count-nb-matches value="Compta: $INT_REPLACE$ coincidències"/>

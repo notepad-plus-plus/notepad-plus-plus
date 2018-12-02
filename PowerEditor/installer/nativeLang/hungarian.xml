@@ -1156,8 +1156,8 @@ Elindítja a Notepad++-t rendszergazdaként?"/>
             <find-status-replaceinopenedfiles-nb-replaced value="Csere a megnyitott fájlokban: $INT_REPLACE$ találat cserélve"/>
             <find-status-mark-re-malformed value="Kiemelés: A keresés reguláris kifejezése rossz formátumú"/>
             <find-status-invalid-re value="Keresés: Érvénytelen reguláris kifejezés"/>
-            <find-status-mark-1-match value="1 találat"/>
-            <find-status-mark-nb-matches value="$INT_REPLACE$ találat"/>
+            <find-status-mark-1-match value="Kiemelés: 1 találat"/>
+            <find-status-mark-nb-matches value="Kiemelés: $INT_REPLACE$ találat"/>
             <find-status-count-re-malformed value="Számlálás: A keresés reguláris kifejezése rossz formátumú"/>
             <find-status-count-1-match value="Számlálás: 1 találat"/>
             <find-status-count-nb-matches value="Számlálás: $INT_REPLACE$ találat"/>

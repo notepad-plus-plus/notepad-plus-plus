@@ -1144,8 +1144,8 @@ Deseja iniciar o Notepad++ no modo Administrador?"/>
             <find-status-replaceinopenedfiles-nb-replaced value="Substituir em Arquivos Abertos: $INT_REPLACE$ ocorrências foram substituídas."/>
             <find-status-mark-re-malformed value="Marca: A expressão regular da pesquisa está mal formada."/>
             <find-status-invalid-re value="Localizar: Expressão regular inválida."/>
-            <find-status-mark-1-match value="1 correspondência."/>
-            <find-status-mark-nb-matches value="$INT_REPLACE$ correspondências."/>
+            <find-status-mark-1-match value="Marca: 1 correspondência."/>
+            <find-status-mark-nb-matches value="Marca: $INT_REPLACE$ correspondências."/>
             <find-status-count-re-malformed value="Total: A expressão regular da pesquisa está mal formada."/>
             <find-status-count-1-match value="Total: 1 correspondência."/>
             <find-status-count-nb-matches value="Total: $INT_REPLACE$ correspondências."/>

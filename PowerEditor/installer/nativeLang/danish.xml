@@ -1122,8 +1122,8 @@ giv venligst et andet."/>
             <find-status-replaceinopenedfiles-nb-replaced value="Erstat i åbne filer: $INT_REPLACE$ forekomster blev erstattet"/>
             <find-status-mark-re-malformed value="Mærk: Det regulære udtryk som der søges efter er forkert udformet"/>
             <find-status-invalid-re value="Søg: Ugyldigt regulært udtryk"/>
-            <find-status-mark-1-match value="1 forekomst"/>
-            <find-status-mark-nb-matches value="$INT_REPLACE$ forekomster"/>
+            <find-status-mark-1-match value="Mærk: 1 forekomst"/>
+            <find-status-mark-nb-matches value="Mærk: $INT_REPLACE$ forekomster"/>
             <find-status-count-re-malformed value="Tæl: Det regulære udtryk som der søges efter er forkert udformet"/>
             <find-status-count-1-match value="Tæl: 1 forekomst"/>
             <find-status-count-nb-matches value="Tæl: $INT_REPLACE$ forekomster"/>
@@ -1138,7 +1138,6 @@ giv venligst et andet."/>
             <find-status-replace-not-found value="Erstat: ingen forekomster blev fundet"/>
             <find-status-replace-readonly value="Erstat: Kan ikke erstatte tekst. Det nuværende dokument er skrivebeskyttet"/>
             <find-status-cannot-find value="Søg: Kan ikke finde teksten &quot;$STR_REPLACE$&quot;"/>
-            <find-status-mark-nb-matches value="$INT_REPLACE$ forekomster"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

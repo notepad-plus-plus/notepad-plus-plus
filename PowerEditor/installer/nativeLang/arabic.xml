@@ -1115,8 +1115,8 @@
             <find-status-replaceinopenedfiles-nb-replaced value="الاستبدال في الملفات المفتوحة: $INT_REPLACE$ تكرار تم استبداله"/>
             <find-status-mark-re-malformed value="الإشارة: إن regular expression للبحث غير صحيحة."/>
             <find-status-invalid-re value="البحث: إن regular expression غير صالح"/>
-            <find-status-mark-1-match value="1 تطابق"/>
-            <find-status-mark-nb-matches value="$INT_REPLACE$ تطابق"/>
+            <find-status-mark-1-match value="الإشارة: 1 تطابق"/>
+            <find-status-mark-nb-matches value="الإشارة: $INT_REPLACE$ تطابق"/>
             <find-status-count-re-malformed value="المجموع: إن regular expression للبحث غير صحيحة."/>
             <find-status-count-1-match value="المجموع: 1 تطابق"/>
             <find-status-count-nb-matches value="المجموع: $INT_REPLACE$ تطابق."/>

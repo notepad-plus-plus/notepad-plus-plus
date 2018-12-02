@@ -1063,8 +1063,8 @@
             <find-status-replaceinopenedfiles-nb-replaced value="Ganti dalam Berkas Terbuka: $INT_REPLACE$ kejadian diganti"/>
             <find-status-mark-re-malformed value="Tanda: Ekspresi reguler yang dicaari salah format"/>
             <find-status-invalid-re value="Cari: Ekspresi reguler salah format"/>
-            <find-status-mark-1-match value="1 cocok"/>
-            <find-status-mark-nb-matches value="$INT_REPLACE$ cocok"/>
+            <find-status-mark-1-match value="Tanda: 1 cocok"/>
+            <find-status-mark-nb-matches value="Tanda: $INT_REPLACE$ cocok"/>
             <find-status-count-re-malformed value="Jumlah: Ekspresi reguler yang dicari salah format"/>
             <find-status-count-1-match value="Jumlah: 1 cocok"/>
             <find-status-count-nb-matches value="Jumlah: $INT_REPLACE$ cocok"/>

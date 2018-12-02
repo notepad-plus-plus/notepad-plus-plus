@@ -1121,8 +1121,8 @@ alegeți altul."/>
             <find-status-replaceinopenedfiles-nb-replaced value="Înlocuire în fișierele deschise: s-au înlocuit $INT_REPLACE$ potriviri."/>
             <find-status-mark-re-malformed value="Marcare: expresia regulată de căutare este eronată."/>
             <find-status-invalid-re value="Căutare: expresie regulată nevalidă."/>
-            <find-status-mark-1-match value="O potrivire"/>
-            <find-status-mark-nb-matches value="$INT_REPLACE$ potriviri"/>
+            <find-status-mark-1-match value="Marcare: O potrivire"/>
+            <find-status-mark-nb-matches value="Marcare: $INT_REPLACE$ potriviri"/>
             <find-status-count-re-malformed value="Contorizare: expresia regulată de căutare este eronată."/>
             <find-status-count-1-match value="Contorizare: o potrivire."/>
             <find-status-count-nb-matches value="Contorizare: $INT_REPLACE$ potriviri."/>
@@ -1137,7 +1137,6 @@ alegeți altul."/>
             <find-status-replace-not-found value="Înlocuire: nu s-au găsit potriviri"/>
             <find-status-replace-readonly value="Înlocuire: textul nu poate fi înlocuit. Documentul curent are blocată salvarea modificărilor."/>
             <find-status-cannot-find value="Căutare: nu se poate găsi textul &quot;$STR_REPLACE$&quot;."/>
-            <find-status-mark-nb-matches value="$INT_REPLACE$ potriviri"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

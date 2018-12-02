@@ -1154,8 +1154,8 @@
 			<find-status-replaceinopenedfiles-nb-replaced value="Замяна в отворените файлове: бяха заменени $INT_REPLACE$ съвпадения"/>
 			<find-status-mark-re-malformed value="Маркиране: Регулярният израз за търсене е неправилно формиран"/>
 			<find-status-invalid-re value="Търсене: Невалиден регулярен израз"/>
-			<find-status-mark-1-match value="1 съвпадение"/>
-			<find-status-mark-nb-matches value="$INT_REPLACE$ съвпадения"/>
+			<find-status-mark-1-match value="Маркиране: 1 съвпадение"/>
+			<find-status-mark-nb-matches value="Маркиране: $INT_REPLACE$ съвпадения"/>
 			<find-status-count-re-malformed value="Брой: Регулярният израз за търсене е неправилно формиран"/>
 			<find-status-count-1-match value="Брой съвпадения: 1"/>
 			<find-status-count-nb-matches value="Брой съвпадения: $INT_REPLACE$"/>

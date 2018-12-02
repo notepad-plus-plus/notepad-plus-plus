@@ -1185,8 +1185,8 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <find-status-replaceinopenedfiles-nb-replaced value="すべての文書で置換：$INT_REPLACE$ 件を置換しました"/>
             <find-status-mark-re-malformed value="マーク：検索語の正規表現が不正な形式です"/>
             <find-status-invalid-re value="検索：不正な正規表現です"/>
-            <find-status-mark-1-match value="1 件の一致"/>
-            <find-status-mark-nb-matches value="$INT_REPLACE$ 件の一致"/>
+            <find-status-mark-1-match value="マーク：1 件の一致"/>
+            <find-status-mark-nb-matches value="マーク：$INT_REPLACE$ 件の一致"/>
             <find-status-count-re-malformed value="数える：検索語の正規表現が不正な形式です"/>
             <find-status-count-1-match value="数える：1 件の一致"/>
             <find-status-count-nb-matches value="数える：$INT_REPLACE$ 件の一致"/>

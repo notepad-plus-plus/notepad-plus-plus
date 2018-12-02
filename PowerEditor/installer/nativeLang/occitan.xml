@@ -1132,8 +1132,8 @@ Deuretz tornar lançar Notepad++ per que siá efectiu."/>
 			<find-status-replaceinopenedfiles-nb-replaced value="Remplaçar dins los fichièrs dobèrts : $INT_REPLACE$ ocurréncias remplaçadas"/>
 			<find-status-mark-re-malformed value="Marca-paginas : L'expression regulara de cercar es mal formada"/>
 			<find-status-invalid-re value="Recèrca : Expression regulara invalida"/>
-			<find-status-mark-1-match value="1 ocurréncia"/>
-			<find-status-mark-nb-matches value="$INT_REPLACE$ ocurréncias"/>
+			<find-status-mark-1-match value="Marca-paginas : 1 ocurréncia"/>
+			<find-status-mark-nb-matches value="Marca-paginas : $INT_REPLACE$ ocurréncias"/>
 			<find-status-count-re-malformed value="Comptar : Expression regulara invalida"/>
 			<find-status-count-1-match value="Comptar : 1 ocurréncia"/>
 			<find-status-count-nb-matches value="Comptar : $INT_REPLACE$ ocurréncias"/>
@@ -1148,7 +1148,6 @@ Deuretz tornar lançar Notepad++ per que siá efectiu."/>
 			<find-status-replace-not-found value="Remplaçar : cap d'ocurrénia trobada"/>
 			<find-status-replace-readonly value="Remplaçar : Impossible de remplaçar lo tèxt. Lo document actiu es en lectura sola"/>
 			<find-status-cannot-find value="Recèrca : Impossible de trobar lo tèxt &quot;$STR_REPLACE$&quot;"/>
-			<find-status-mark-nb-matches value="$INT_REPLACE$ ocurréncias"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

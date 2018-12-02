@@ -1201,8 +1201,8 @@
 			<find-status-replaceinopenedfiles-nb-replaced value = "Nahrazování v otevřených souborech: $INT_REPLACE$ výskytů nahrazeno"/>
 			<find-status-mark-re-malformed value = "Označování: Regulární výraz pro vyhledávání je vadný"/>
 			<find-status-invalid-re value = "Vyhledávání: Neplatný regulární výraz"/>
-			<find-status-mark-1-match value = "1 nález"/>
-			<find-status-mark-nb-matches value = "$INT_REPLACE$ nálezů"/>
+			<find-status-mark-1-match value = "Označování: 1 nález"/>
+			<find-status-mark-nb-matches value = "Označování: $INT_REPLACE$ nálezů"/>
 			<find-status-count-re-malformed value = "Počet: Regulární výraz pro vyhledávání je vadný"/>
 			<find-status-count-1-match value = "Počet: 1 nález"/>
 			<find-status-count-nb-matches value = "Počet: $INT_REPLACE$ nálezů"/>

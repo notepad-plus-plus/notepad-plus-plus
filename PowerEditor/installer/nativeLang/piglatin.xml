@@ -1144,8 +1144,8 @@ Oday ouyay antway otay aunchlay Notepad++ inyay Administratoryay odemay?"/>
             <find-status-replaceinopenedfiles-nb-replaced value="Eplaceray inyay Openedyay Ilesfay: $INT_REPLACE$ occurrencesyay ereway eplacedray"/>
             <find-status-mark-re-malformed value="Arkmay: Ethay egularray expressionyay otay earchsay isyay alformedmay"/>
             <find-status-invalid-re value="Indfay: Invalidyay egularray expressionyay"/>
-            <find-status-mark-1-match value="1 atchmay"/>
-            <find-status-mark-nb-matches value="$INT_REPLACE$ atchesmay"/>
+            <find-status-mark-1-match value="Arkmay: 1 atchmay"/>
+            <find-status-mark-nb-matches value="Arkmay: $INT_REPLACE$ atchesmay"/>
             <find-status-count-re-malformed value="Ountcay: Ethay egularray expressionyay otay earchsay isyay alformedmay"/>
             <find-status-count-1-match value="Ountcay: 1 atchmay"/>
             <find-status-count-nb-matches value="Ountcay: $INT_REPLACE$ atchesmay"/>

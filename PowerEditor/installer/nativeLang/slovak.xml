@@ -1128,8 +1128,8 @@
             <find-status-replaceinopenedfiles-nb-replaced value="Nahradiť v otvorených súboroch: Bolo nahradených $INT_REPLACE$ prípadov hľadaného výrazu."/>
             <find-status-mark-re-malformed value="Označiť: Neplatný regulárny výraz vyhľadávania"/>
             <find-status-invalid-re value="Hľadať: Neplatný regulárny výraz"/>
-            <find-status-mark-1-match value="1 zhodný výraz"/>
-            <find-status-mark-nb-matches value="$INT_REPLACE$ zhodných výrazov"/>
+            <find-status-mark-1-match value="Označiť: 1 zhodný výraz"/>
+            <find-status-mark-nb-matches value="Označiť: $INT_REPLACE$ zhodných výrazov"/>
             <find-status-count-re-malformed value="Spočítať: Neplatný regulárny výraz vyhľadávania"/>
             <find-status-count-1-match value="Spočítať: 1 zhodný výraz"/>
             <find-status-count-nb-matches value="Spočítať: $INT_REPLACE$ zhodných výrazov"/>

@@ -1132,8 +1132,8 @@
             <find-status-replaceinopenedfiles-nb-replaced value="替换所有打开文件：已替换$INT_REPLACE$个匹配项。"/>
             <find-status-mark-re-malformed value="标记：搜索的正则表达式格式不正确。"/>
             <find-status-invalid-re value="查找：无效的正则表达式。"/>
-            <find-status-mark-1-match value="1次匹配"/>
-            <find-status-mark-nb-matches value="$INT_REPLACE$次匹配"/>
+            <find-status-mark-1-match value="标记：1次匹配"/>
+            <find-status-mark-nb-matches value="标记：$INT_REPLACE$次匹配"/>
             <find-status-count-re-malformed value="计数：搜索的正则表达式格式不正确。"/>
             <find-status-count-1-match value="计数：1次匹配"/>
             <find-status-count-nb-matches value="计数：$INT_REPLACE$次匹配"/>

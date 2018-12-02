@@ -1183,8 +1183,8 @@ Vuoi avviare Notepad++ come amministratore?" />
             <find-status-replaceinopenedfiles-nb-replaced value = "Sostituisci nei file aperti: $INT_REPLACE$ occorrenze sono state sostituite" />
             <find-status-mark-re-malformed value = "Evidenzia: l&apos;espressione regolare da cercare non è valida" />
             <find-status-invalid-re value = "Cerca: espressione regolare non valida" />
-            <find-status-mark-1-match value = "1 corrispondenza trovata" />
-            <find-status-mark-nb-matches value = "$INT_REPLACE$ corrispondenze trovate" />
+            <find-status-mark-1-match value = "Evidenzia: 1 corrispondenza trovata" />
+            <find-status-mark-nb-matches value = "Evidenzia: $INT_REPLACE$ corrispondenze trovate" />
             <find-status-count-re-malformed value = "Conta: l&apos;espressione regolare da cercare non è valida" />
             <find-status-count-1-match value = "Conta: 1 corrispondenza trovata" />
             <find-status-count-nb-matches value = "Conta: $INT_REPLACE$ corrispondenze trovate" />
@@ -1199,7 +1199,6 @@ Vuoi avviare Notepad++ come amministratore?" />
             <find-status-replace-not-found value = "Sostituisci: nessuna occorrenza trovata" />
             <find-status-replace-readonly value = "Sostituisci: impossibile sostituire il testo. Il documento corrente è in sola lettura" />
             <find-status-cannot-find value = "Cerca: impossibile trovare il testo &quot;$STR_REPLACE$&quot;" />
-            <find-status-mark-nb-matches value = "$INT_REPLACE$ corrispondenze trovate" />
             <finder-find-in-finder value = "Cerca in questi risultati..." />
             <finder-close-this value = "Chiudi i risultati" />
             <finder-collapse-all value = "Collassa tutto" />

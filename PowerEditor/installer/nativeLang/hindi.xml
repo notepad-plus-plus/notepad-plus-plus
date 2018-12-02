@@ -1150,8 +1150,8 @@
 		<find-status-replaceinopenedfiles-nb-replaced value="खुली फाइलों में बदलें: $INT_REPLACE$ मिलानों को बदल दिया गया है।"/>
 		<find-status-mark-re-malformed value="निशान: ढूंढने के लिए रेगुलर एक्सप्रेशन गलत है।"/>
 		<find-status-invalid-re value="खोज: अवैध रेगुलर एक्सप्रेशन"/>
-		<find-status-mark-1-match value="1 मिलान"/>
-		<find-status-mark-nb-matches value="$INT_REPLACE$ मिलान"/>
+		<find-status-mark-1-match value="निशान: 1 मिलान"/>
+		<find-status-mark-nb-matches value="निशान: $INT_REPLACE$ मिलान"/>
 		<find-status-count-re-malformed value="गणना: ढूंढने के लिए रेगुलर एक्सप्रेशन गलत है।"/>
 		<find-status-count-1-match value="गणना: 1 मिलान"/>
 		<find-status-count-nb-matches value="गणना: $INT_REPLACE$ मिलान"/>

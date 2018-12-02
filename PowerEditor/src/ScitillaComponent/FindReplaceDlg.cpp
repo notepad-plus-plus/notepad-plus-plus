@@ -1281,11 +1281,11 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						{
 							if (nbMarked == 1)
 							{
-								result = pNativeSpeaker->getLocalizedStrFromID("find-status-mark-1-match", TEXT("1 match."));
+								result = pNativeSpeaker->getLocalizedStrFromID("find-status-mark-1-match", TEXT("Mark: 1 match."));
 							}
 							else
 							{
-								result = pNativeSpeaker->getLocalizedStrFromID("find-status-mark-nb-matches", TEXT("$INT_REPLACE$ matches."));
+								result = pNativeSpeaker->getLocalizedStrFromID("find-status-mark-nb-matches", TEXT("Mark: $INT_REPLACE$ matches."));
 								result = stringReplace(result, TEXT("$INT_REPLACE$"), std::to_wstring(nbMarked));
 							}
 						}
@@ -2715,11 +2715,11 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, generic_string s
 							generic_string msg = pNativeSpeaker->getLocalizedStrFromID("find-status-invalid-re", TEXT("Find: Invalid regular expression"));
 							if (nbMarked <= 1)
 							{
-								result = pNativeSpeaker->getLocalizedStrFromID("find-status-mark-1-match", TEXT("1 match."));
+								result = pNativeSpeaker->getLocalizedStrFromID("find-status-mark-1-match", TEXT("Mark: 1 match."));
 							}
 							else
 							{
-								result = pNativeSpeaker->getLocalizedStrFromID("find-status-mark-nb-matches", TEXT("$INT_REPLACE$ matches."));
+								result = pNativeSpeaker->getLocalizedStrFromID("find-status-mark-nb-matches", TEXT("Mark: $INT_REPLACE$ matches."));
 								result = stringReplace(result, TEXT("$INT_REPLACE$"), std::to_wstring(nbMarked));
 							}
 							result = moreInfo;

@@ -1310,10 +1310,10 @@
 				value="Zoeken: De reguliere expressie is misvormd"
 			/>
 			<find-status-mark-1-match
-				value="1 locatie gevonden"
+				value="Markeren: 1 locatie gevonden"
 			/>
 			<find-status-mark-nb-matches
-				value="$INT_REPLACE$ locaties gevonden"
+				value="Markeren: $INT_REPLACE$ locaties gevonden"
 			/>
 			<find-status-count-re-malformed
 				value="Tellen: De reguliere expressie is misvormd"

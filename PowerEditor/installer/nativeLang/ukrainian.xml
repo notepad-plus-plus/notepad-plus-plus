@@ -1167,8 +1167,8 @@
             <find-status-replaceinopenedfiles-nb-replaced value="Замінити у Відкритих файлах: Виконано $INT_REPLACE$ замін"/>
             <find-status-mark-re-malformed value="Позначити: Неправильний регулярний вираз для пошуку"/>
             <find-status-invalid-re value="Знайти: Неправильний регулярний вираз"/>
-            <find-status-mark-1-match value="1 збіг"/>
-            <find-status-mark-nb-matches value="$INT_REPLACE$ збігів"/>
+            <find-status-mark-1-match value="Позначити: 1 збіг"/>
+            <find-status-mark-nb-matches value="Позначити: $INT_REPLACE$ збігів"/>
             <find-status-count-re-malformed value="Підрахунок: Неправильний регулярний вираз для пошуку"/>
             <find-status-count-1-match value="Підрахунок: 1 збіг"/>
             <find-status-count-nb-matches value="Підрахунок: $INT_REPLACE$ збігів"/>

@@ -1160,8 +1160,8 @@
             <find-status-replaceinopenedfiles-nb-replaced value="Замяніць у адкрытых файлах: выканана замен $INT_REPLACE$"/>
             <find-status-mark-re-malformed value="Пазначыць: няправільны рэгулярны выраз для пошуку"/>
             <find-status-invalid-re value="Знайсці: няправільны рэгулярны выраз"/>
-            <find-status-mark-1-match value="адно супадзенне"/>
-            <find-status-mark-nb-matches value="супадзенняў: $INT_REPLACE$"/>
+            <find-status-mark-1-match value="Пазначыць: адно супадзенне"/>
+            <find-status-mark-nb-matches value="Пазначыць: супадзенняў: $INT_REPLACE$"/>
             <find-status-count-re-malformed value="Падлічыць: няправільны рэгулярны выраз для пошуку"/>
             <find-status-count-1-match value="Падлічыць: адно супадзенне"/>
             <find-status-count-nb-matches value="Падлічыць: супадзенняў $INT_REPLACE$"/>

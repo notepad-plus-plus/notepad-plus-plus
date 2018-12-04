@@ -1019,13 +1019,18 @@ bool NppParameters::load()
 
 		_pluginRootDir = _nppPath;
 		PathAppend(_pluginRootDir, TEXT("plugins"));
+
+		_userPluginConfDir = _pluginRootDir;
+		PathAppend(_userPluginConfDir, TEXT("Config"));
 	}
 	else
 	{
 		_userPath = getSpecialFolderLocation(CSIDL_APPDATA);
 
 		PathAppend(_userPath, TEXT("Notepad++"));
-		_appdataNppDir = _userPath;
+		_appdataNppDir = _userPluginConfDir = _userPath;
+		PathAppend(_userPluginConfDir, TEXT("plugins"));
+		PathAppend(_userPluginConfDir, TEXT("Config"));
 
 		if (!PathFileExists(_userPath.c_str()))
 			::CreateDirectory(_userPath.c_str(), NULL);
@@ -1039,6 +1044,9 @@ bool NppParameters::load()
 		// For PluginAdmin to launch the wingup with UAC
 		setElevationRequired(true);
 	}
+
+	_pluginConfDir = _pluginRootDir;
+	PathAppend(_pluginConfDir, TEXT("Config"));
 
 	if (!PathFileExists(nppPluginRootParent.c_str()))
 		::CreateDirectory(nppPluginRootParent.c_str(), NULL);

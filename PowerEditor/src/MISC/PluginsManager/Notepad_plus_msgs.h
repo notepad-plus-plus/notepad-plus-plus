@@ -180,7 +180,11 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64 };
 	//BOOL NPPM_GETENABLETHEMETEXTUREFUNC(0, 0)
 
 	#define NPPM_GETPLUGINSCONFIGDIR (NPPMSG + 46)
-	//void NPPM_GETPLUGINSCONFIGDIR(int strLen, TCHAR *str)
+	//INT NPPM_GETPLUGINSCONFIGDIR(int strLen, TCHAR *str)
+	// Get user's plugin config directory path. It's useful if plugins want to save/load parameters for the current user
+	// Returns the number of TCHAR copied/to copy.
+	// Users should call it with "str" be NULL to get the required number of TCHAR (not including the terminating nul character),
+	// allocate "str" buffer with the return value + 1, then call it again to get the path.
 
 	#define NPPM_MSGTOPLUGIN (NPPMSG + 47)
 	//BOOL NPPM_MSGTOPLUGIN(TCHAR *destModuleName, CommunicationInfo *info)

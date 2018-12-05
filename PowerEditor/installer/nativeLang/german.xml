@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
 <!--
-	German localization for Notepad++ 7.5.6
-	last modified: 2018-11-28 by schnurlos (schnurlos@gmail.com)
+	German localization for Notepad++ 7.6
+	last modified: 2018-12-05 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="7.5.5">
+	<Native-Langue name="Deutsch" filename="german.xml" version="7.6">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -310,7 +310,7 @@
 					<Item id="48015" name="Plugin-Verwaltung …"/>
 					<Item id="48501" name="Erstelle …"/>
 					<Item id="48502" name="Erstelle aus Dateien …"/>
-					<Item id="48503" name="Erstelle in die Zwischenablage"/>
+					<Item id="48503" name="Erstelle aus Auswahl in die Zwischenablage"/>
 
 					<Item id="49000" name="Externes Programm &amp;ausführen …"/>
 

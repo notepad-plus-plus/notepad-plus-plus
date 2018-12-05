@@ -3125,6 +3125,7 @@ bool Platform::IsDBCSLeadByte(int codePage, char ch) {
 		// Shift_jis
 		return ((uch >= 0x81) && (uch <= 0x9F)) ||
 		       ((uch >= 0xE0) && (uch <= 0xEF));
+	case 54936:
 	case 936:
 		// GBK
 		return (uch >= 0x81) && (uch <= 0xFE);
@@ -3145,16 +3146,20 @@ bool Platform::IsDBCSLeadByte(int codePage, char ch) {
 }
 
 int Platform::DBCSCharLength(int codePage, const char *s) {
-	if (codePage == 932 || codePage == 936 || codePage == 949 ||
+	if (codePage == 932 || codePage == 936 || codePage == 54936 || codePage == 949 ||
 	        codePage == 950 || codePage == 1361) {
 		return Platform::IsDBCSLeadByte(codePage, s[0]) ? 2 : 1;
 	} else {
-		return 1;
+		int bytes = mblen(s, MB_CUR_MAX);
+		if (bytes >= 1)
+			return bytes;
+		else
+			return 1;
 	}
 }
 
 int Platform::DBCSCharMaxLength() {
-	return 2;
+	return MB_CUR_MAX;
 }
 
 // These are utility functions not really tied to a platform

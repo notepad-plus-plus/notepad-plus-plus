@@ -876,6 +876,7 @@ CFStringEncoding EncodingFromCharacterSet(bool unicode, int characterSet)
     return kCFStringEncodingBig5;
   case SC_CHARSET_EASTEUROPE:
     return kCFStringEncodingWindowsLatin2;
+  case SC_CHARSET_GB18030:
   case SC_CHARSET_GB2312:
     return kCFStringEncodingGB_18030_2000;
   case SC_CHARSET_GREEK:
@@ -2110,6 +2111,7 @@ bool Platform::IsDBCSLeadByte(int codePage, char ch)
     return ((uch >= 0x81) && (uch <= 0x9F)) ||
         ((uch >= 0xE0) && (uch <= 0xFC));
         // Lead bytes F0 to FC may be a Microsoft addition.
+  case 54936:
   case 936:
     // GBK
     return (uch >= 0x81) && (uch <= 0xFE);

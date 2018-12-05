@@ -232,6 +232,7 @@ bool ScintillaQt::ValidCodePage(int codePage) const
 	return codePage == 0
 	|| codePage == SC_CP_UTF8
 	|| codePage == 932
+	|| codePage == 54936
 	|| codePage == 936
 	|| codePage == 949
 	|| codePage == 950

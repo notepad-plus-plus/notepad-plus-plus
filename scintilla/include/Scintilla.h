@@ -189,6 +189,7 @@ typedef sptr_t (*SciFnDirect)(sptr_t ptr, unsigned int iMessage, uptr_t wParam, 
 #define SC_CHARSET_CHINESEBIG5 136
 #define SC_CHARSET_EASTEUROPE 238
 #define SC_CHARSET_GB2312 134
+#define SC_CHARSET_GB18030 54936
 #define SC_CHARSET_GREEK 161
 #define SC_CHARSET_HANGUL 129
 #define SC_CHARSET_MAC 77

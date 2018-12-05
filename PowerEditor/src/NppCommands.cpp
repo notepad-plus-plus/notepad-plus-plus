@@ -2201,6 +2201,7 @@ void Notepad_plus::command(int id)
         case IDM_FORMAT_DOS_866 :
         case IDM_FORMAT_DOS_869 :
         case IDM_FORMAT_BIG5 :
+        case IDM_FORMAT_GB18030 :
         case IDM_FORMAT_GB2312 :
         case IDM_FORMAT_SHIFT_JIS :
         case IDM_FORMAT_KOREAN_WIN :

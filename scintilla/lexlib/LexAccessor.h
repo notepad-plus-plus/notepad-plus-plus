@@ -65,6 +65,7 @@ public:
 		case 65001:
 			encodingType = encUnicode;
 			break;
+		case 54936:
 		case 932:
 		case 936:
 		case 949:

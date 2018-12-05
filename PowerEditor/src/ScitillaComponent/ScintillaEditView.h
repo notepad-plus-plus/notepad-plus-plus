@@ -82,6 +82,7 @@ const int NB_FOLDER_STATE = 7;
 // Codepage
 const int CP_CHINESE_TRADITIONAL = 950;
 const int CP_CHINESE_SIMPLIFIED = 936;
+const int CP_CHINESE_GB18030 = 54936;
 const int CP_JAPANESE = 932;
 const int CP_KOREAN = 949;
 const int CP_GREEK = 1253;
@@ -638,7 +639,7 @@ public:
 
 	bool isCJK() const {
 		return ((_codepage == CP_CHINESE_TRADITIONAL) || (_codepage == CP_CHINESE_SIMPLIFIED) ||
-			    (_codepage == CP_JAPANESE) || (_codepage == CP_KOREAN));
+			(_codepage == CP_CHINESE_GB18030) || (_codepage == CP_JAPANESE) || (_codepage == CP_KOREAN));
 	};
 	void scrollPosToCenter(size_t pos);
 	generic_string getEOLString();
@@ -1023,6 +1024,7 @@ protected:
 		{
 			case CP_CHINESE_TRADITIONAL : return SC_CHARSET_CHINESEBIG5;
 			case CP_CHINESE_SIMPLIFIED : return SC_CHARSET_GB2312;
+			case CP_CHINESE_GB18030 : return SC_CHARSET_GB18030;
 			case CP_KOREAN : return SC_CHARSET_HANGUL;
 			case CP_JAPANESE : return SC_CHARSET_SHIFTJIS;
 			case CP_GREEK : return SC_CHARSET_GREEK;

@@ -1040,6 +1040,7 @@ bool ScintillaGTK::ValidCodePage(int codePage) const {
 	|| codePage == SC_CP_UTF8
 	|| codePage == 932
 	|| codePage == 936
+	|| codePage == 54936
 	|| codePage == 949
 	|| codePage == 950
 	|| codePage == 1361;

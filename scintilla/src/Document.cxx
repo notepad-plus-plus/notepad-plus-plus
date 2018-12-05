@@ -863,6 +863,7 @@ bool SCI_METHOD Document::IsDBCSLeadByte(char ch) const {
 			return ((uch >= 0x81) && (uch <= 0x9F)) ||
 				((uch >= 0xE0) && (uch <= 0xFC));
 				// Lead bytes F0 to FC may be a Microsoft addition.
+		case 54936:
 		case 936:
 			// GBK
 			return (uch >= 0x81) && (uch <= 0xFE);

@@ -447,6 +447,8 @@ const char *CharacterSetID(int characterSet) {
 		return "BIG-5";
 	case SC_CHARSET_EASTEUROPE:
 		return "ISO-8859-2";
+	case SC_CHARSET_GB18030:
+		return "CP54936";
 	case SC_CHARSET_GB2312:
 		return "CP936";
 	case SC_CHARSET_GREEK:
@@ -2186,6 +2188,7 @@ bool Platform::IsDBCSLeadByte(int codePage, char ch) {
 			return ((uch >= 0x81) && (uch <= 0x9F)) ||
 				((uch >= 0xE0) && (uch <= 0xFC));
 				// Lead bytes F0 to FC may be a Microsoft addition.
+		case 54936:
 		case 936:
 			// GBK
 			return (uch >= 0x81) && (uch <= 0xFE);
@@ -2198,14 +2201,15 @@ bool Platform::IsDBCSLeadByte(int codePage, char ch) {
 }
 
 int Platform::DBCSCharLength(int codePage, const char *s) {
-	if (codePage == 932 || codePage == 936 || codePage == 950) {
+	if (codePage == 932 || codePage == 936 || codePage == 950 || codePage == 54936) {
 		return IsDBCSLeadByte(codePage, s[0]) ? 2 : 1;
 	} else {
 		int bytes = mblen(s, MB_CUR_MAX);
-		if (bytes >= 1)
+		if (bytes >= 1){
 			return bytes;
-		else
+		}else{
 			return 1;
+		}
 	}
 }
 

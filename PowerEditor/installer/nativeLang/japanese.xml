@@ -276,7 +276,7 @@
                     <Item id="10004" name="新しいウィンドウで開く"/>
 
                     <Item id="45060" name="Big5(繁体字)"/>
-                    <Item id="45061" name="GB2312(簡体字)"/>
+                    <Item id="45061" name="GBK(簡体字)"/>
                     <Item id="45054" name="OEM 861: アイスランド語"/>
                     <Item id="45057" name="OEM 865: ノルウェー語"/>
                     <Item id="45053" name="OEM 860: ポルトガル語"/>

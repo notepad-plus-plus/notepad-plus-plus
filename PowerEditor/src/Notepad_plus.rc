@@ -598,7 +598,7 @@ BEGIN
             POPUP "Chinese"
             BEGIN
                 MENUITEM "Big5 (Traditional)",  IDM_FORMAT_BIG5
-                MENUITEM "GB2312 (Simplified)",     IDM_FORMAT_GB2312
+                MENUITEM "GBK (Simplified)",    IDM_FORMAT_GB2312
             END
 
             POPUP "Eastern European"

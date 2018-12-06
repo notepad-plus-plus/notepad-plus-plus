@@ -250,7 +250,7 @@
                     <Item id="10004" name="Боз кардан дар намунаи ҷадид"/>
 
 					<Item id="45060" name="Big5 (Traditional)"/>
-                    <Item id="45061" name="GB2312 (Simplified)"/>
+                    <Item id="45061" name="GBK (Simplified)"/>
                     <Item id="45054" name="OEM 861: Icelandic"/>
                     <Item id="45057" name="OEM 865: Nordic"/>
                     <Item id="45053" name="OEM 860: Portuguese"/>

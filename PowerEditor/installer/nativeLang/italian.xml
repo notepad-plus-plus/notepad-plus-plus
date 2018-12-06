@@ -287,7 +287,7 @@
                     <Item id = "45012" name = "Converti in UCS-2 BE BOM" />
                     <Item id = "45013" name = "Converti in UCS-2 LE BOM" />
                     <Item id = "45060" name = "Big5 (tradizionale)" />
-                    <Item id = "45061" name = "GB2312 (semplificato)" />
+                    <Item id = "45061" name = "GBK (semplificato)" />
                     <Item id = "45054" name = "OEM 861: Islandese" />
                     <Item id = "45057" name = "OEM 865: Noedico" />
                     <Item id = "45053" name = "OEM 860: Portoghese" />

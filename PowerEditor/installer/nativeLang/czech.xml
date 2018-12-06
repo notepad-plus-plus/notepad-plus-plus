@@ -282,7 +282,7 @@
 					<Item id = "45012" name = "Konvertovat do UCS-2 Big Endian"/>
 					<Item id = "45013" name = "Konvertovat do UCS-2 Little Endian"/>
 					<Item id = "45060" name = "Big5 (tradiční)"/>
-					<Item id = "45061" name = "GB2312 (zjednodušená)"/>
+					<Item id = "45061" name = "GBK (zjednodušená)"/>
 					<Item id = "45054" name = "OEM 861: Islandština"/>
 					<Item id = "45057" name = "OEM 865: Skandinávské jazyky"/>
 					<Item id = "45053" name = "OEM 860: Portugalština"/>

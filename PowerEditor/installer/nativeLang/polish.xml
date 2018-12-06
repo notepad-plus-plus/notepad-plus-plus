@@ -273,7 +273,7 @@
                     <Item id="45013" name="Konwertuj na format UCS-2 Little Endian"/>
 
                     <Item id="45060" name="Big5 (Tradycyjny)"/>
-                    <Item id="45061" name="GB2312 (Uproszczony)"/>
+                    <Item id="45061" name="GBK (Uproszczony)"/>
                     <Item id="45054" name="OEM 861: Islandzki"/>
                     <Item id="45057" name="OEM 865: Nordycki"/>
                     <Item id="45053" name="OEM 860: Portugalski"/>

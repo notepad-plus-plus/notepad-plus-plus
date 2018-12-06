@@ -277,7 +277,7 @@ By Hiro5 <groccat at gmail>
 					<Item id="45006" name="Cod&amp;ifica com UCS-2 Big Endian amb BOM"/>
 					<Item id="45007" name="Co&amp;difica com UCS-2 Little Endian amb BOM"/>
 					<Item id="45060" name="Big5 (Tradicional)"/>
-					<Item id="45061" name="GB2312 (Simplificat)"/>
+					<Item id="45061" name="GBK (Simplificat)"/>
 					<Item id="45054" name="OEM 861: Islandès"/>
 					<Item id="45057" name="OEM 865: Nòrdic"/>
 					<Item id="45048" name="OEM 850: DOS Llatí 1"/>

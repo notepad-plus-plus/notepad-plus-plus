@@ -1070,7 +1070,6 @@ INT_PTR CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 	{
         case WM_INITDIALOG :
 		{
-
 			return TRUE;
 		}
 

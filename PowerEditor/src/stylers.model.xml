@@ -850,7 +850,6 @@
             <WordsStyle name="QUESTION MARK" styleID="18" fgColor="FF0000" bgColor="FDF8E3" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="DEFAULT" styleID="118" fgColor="000000" bgColor="FEFCF5" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="STRING" styleID="119" fgColor="808080" bgColor="FEFCF5" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="COMPLEX VARIABLE" styleID="104" fgColor="808080" bgColor="FEFCF5" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="STRING VARIABLE" styleID="126" fgColor="808080" bgColor="FEFCF5" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="SIMPLESTRING" styleID="120" fgColor="808080" bgColor="FEFCF5" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="WORD" styleID="121" fgColor="0000FF" bgColor="FEFCF5" fontName="" fontStyle="1" fontSize="" keywordClass="instre1" />
@@ -963,7 +962,7 @@
             <WordsStyle name="BINARY ( 16#{1A803F59} )" styleID="11" fgColor="C000C0" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="MONEY" styleID="12" fgColor="003070" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="ISSUE { #123-CD-456 }" styleID="13" fgColor="800000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="TAG { <TITLE HEIGHT=100> }" styleID="14" fgColor="C00000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="TAG { &lt;TITLE HEIGHT=100&gt; }" styleID="14" fgColor="C00000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="FILE { %/C/WINNT/SOME.DLL }" styleID="15" fgColor="0080FF" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="EMAIL { JOE@MAIL.DOM }" styleID="16" fgColor="0080FF" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="URL { FTP://THERE.DOM }" styleID="17" fgColor="0080FF" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />

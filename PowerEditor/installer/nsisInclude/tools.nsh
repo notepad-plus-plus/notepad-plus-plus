@@ -102,6 +102,18 @@ Function ExtraOptions
 	Pop $NoUserDataCheckboxHandle
 	${NSD_OnClick} $NoUserDataCheckboxHandle OnChange_NoUserDataCheckBox
 	
+	StrLen $0 $PROGRAMFILES
+	StrCpy $1 $InstDir $0
+
+	StrLen $0 $PROGRAMFILES64
+	StrCpy $2 $$InstDir "" $0
+	${If} $1 == "$PROGRAMFILES"
+	${ORIF} $2 == "$PROGRAMFILES64"
+		${NSD_Uncheck} $NoUserDataCheckboxHandle
+		EnableWindow $NoUserDataCheckboxHandle 0
+	${Else}
+		EnableWindow $NoUserDataCheckboxHandle 1
+	${EndIf}
 	nsDialogs::Show
 FunctionEnd
 

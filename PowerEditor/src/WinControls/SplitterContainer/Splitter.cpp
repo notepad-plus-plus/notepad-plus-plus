@@ -364,6 +364,29 @@ LRESULT CALLBACK Splitter::spliterWndProc(UINT uMsg, WPARAM wParam, LPARAM lPara
 			return 0;
 		}
 
+		case WM_LBUTTONDBLCLK:
+		{
+			RECT r;
+			::GetClientRect(_hParent, &r);
+
+			if (_dwFlags & SV_HORIZONTAL) 
+			{
+				_rect.top = r.bottom / 2;
+			}
+			else
+			{
+				_rect.left = r.right / 2;
+			}
+
+			_splitPercent = 50;
+			
+			::SendMessage(_hParent, WM_RESIZE_CONTAINER, _rect.left, _rect.top);
+			::MoveWindow(_hSelf, _rect.left, _rect.top, _rect.right, _rect.bottom, FALSE);
+			redraw();
+
+			return 0;
+		}
+
 		case WM_LBUTTONUP:
 		{
 			if (!_isFixed)

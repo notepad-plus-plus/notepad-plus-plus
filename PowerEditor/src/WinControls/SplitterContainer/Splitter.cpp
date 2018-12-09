@@ -371,11 +371,11 @@ LRESULT CALLBACK Splitter::spliterWndProc(UINT uMsg, WPARAM wParam, LPARAM lPara
 
 			if (_dwFlags & SV_HORIZONTAL) 
 			{
-				_rect.top = r.bottom * 0.5;
+				_rect.top = r.bottom / 2;
 			}
 			else
 			{
-				_rect.left = r.right * 0.5;
+				_rect.left = r.right / 2;
 			}
 
 			_splitPercent = 50;

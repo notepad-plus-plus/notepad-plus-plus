@@ -708,8 +708,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			{
 				if (lstrlen(fileStr) >= int(wParam))
 				{
-					// Not message for users so no translation
-					::MessageBox(hwnd, TEXT("Allocated buffer size is not enough to copy the string."), TEXT("NPPM error"), MB_OK);
 					return FALSE;
 				}
 			}
@@ -730,8 +728,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			{
 				if (lstrlen(str) >= int(wParam))	//buffer too small
 				{
-					// Not message for users so no translation
-					::MessageBox(hwnd, TEXT("Allocated buffer size is not enough to copy the string."), TEXT("NPPM_GETCURRENTWORD error"), MB_OK);
 					return FALSE;
 				}
 				else //buffer large enough, perform safe copy
@@ -787,8 +783,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 			if (lstrlen(str) >= int(wParam))	//buffer too small
 			{
-				// Not message for users so no translation
-				::MessageBox(hwnd, TEXT("Allocated buffer size is not enough to copy the string."), TEXT("NPPM_GETFILENAMEATCURSOR error"), MB_OK);
 				return FALSE;
 			}
 			else //buffer large enough, perform safe copy
@@ -815,8 +809,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			{
 				if (lstrlen(str) >= int(wParam))
 				{
-					// Not message for users so no translation
-					::MessageBox(hwnd, TEXT("Allocated buffer size is not enough to copy the string."), TEXT("NPPM_GETNPPDIRECTORY error"), MB_OK);
 					return FALSE;
 				}
 			}
@@ -2045,8 +2037,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			{
 				if (userPluginConfDir.length() >= static_cast<size_t>(wParam))
 				{
-					// Not message for users so no translation
-					::MessageBox(hwnd, TEXT("Allocated buffer size is not enough to copy the string."), TEXT("NPPM_GETPLUGINSCONFIGDIR error"), MB_OK);
 					return 0;
 				}
 				lstrcpy(reinterpret_cast<TCHAR *>(lParam), userPluginConfDir.c_str());
@@ -2064,8 +2054,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			{
 				if (pluginHomePath.length() >= static_cast<size_t>(wParam))
 				{
-					// Not message for users so no translation
-					::MessageBox(hwnd, TEXT("Allocated buffer size is not enough to copy the string."), TEXT("NPPM_GETPLUGINHOMEPATH error"), MB_OK);
 					return 0;
 				}
 				lstrcpy(reinterpret_cast<TCHAR *>(lParam), pluginHomePath.c_str());

@@ -615,7 +615,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				{
 					int urlAction = (NppParameters::getInstance())->getNppGUI()._styleURL;
 					if ((urlAction == 1) || (urlAction == 2))
-						addHotSpot();
+						addHotSpot(urlAction);
 				}
 
 				if (_pDocMap)
@@ -808,7 +808,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			{
 				int urlAction = (NppParameters::getInstance())->getNppGUI()._styleURL;
 				if ((urlAction == 1) || (urlAction == 2))
-					addHotSpot();
+					addHotSpot(urlAction);
 			}
 
 			// if it's searching/replacing, then do nothing
@@ -972,7 +972,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			{
 				int urlAction = (NppParameters::getInstance())->getNppGUI()._styleURL;
 				if ((urlAction == 1) || (urlAction == 2))
-					addHotSpot();
+					addHotSpot(urlAction);
 				_linkTriggered = false;
 			}
 

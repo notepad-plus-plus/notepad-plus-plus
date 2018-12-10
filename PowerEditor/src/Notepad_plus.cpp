@@ -2370,7 +2370,7 @@ void Notepad_plus::setUniModeText()
 }
 
 
-void Notepad_plus::addHotSpot()
+void Notepad_plus::addHotSpot(int urlAction)
 {
 	int startPos = 0;
 	int endPos = -1;
@@ -2458,11 +2458,7 @@ void Notepad_plus::addHotSpot()
 			auto isBold = _pEditView->execute(SCI_STYLEGETBOLD, idStyleMSBunset);
 			auto isItalic = _pEditView->execute(SCI_STYLEGETITALIC, idStyleMSBunset);
 			auto isUnderline = _pEditView->execute(SCI_STYLEGETUNDERLINE, idStyleMSBunset);
-			hotspotStyle._fontStyle = (isBold?FONTSTYLE_BOLD:0) | (isItalic?FONTSTYLE_ITALIC:0) | (isUnderline?FONTSTYLE_UNDERLINE:0);
-
-			int urlAction = (NppParameters::getInstance())->getNppGUI()._styleURL;
-			if (urlAction == 2)
-				hotspotStyle._fontStyle |= FONTSTYLE_UNDERLINE;
+			hotspotStyle._fontStyle = (isBold?FONTSTYLE_BOLD:0) | (isItalic?FONTSTYLE_ITALIC:0) | ((isUnderline || urlAction) ?FONTSTYLE_UNDERLINE:0);
 
 			_pEditView->setHotspotStyle(hotspotStyle);
 

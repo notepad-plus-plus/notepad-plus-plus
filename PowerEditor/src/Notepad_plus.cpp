@@ -2510,6 +2510,12 @@ void Notepad_plus::addHotSpot(int urlAction)
 
 		_pEditView->execute(SCI_SETTARGETRANGE, posFound + foundTextLen, endPos);
 
+		// remove URL style from characters directly after URL match which was potentially set previously
+		unsigned char style;
+		int pos = posFound + foundTextLen;
+		while (pos < endPos && (style = static_cast<unsigned char>(_pEditView->execute(SCI_GETSTYLEAT, pos++))) == (style & mask))
+			_pEditView->execute(SCI_SETSTYLING, 1, style & ~mask);
+
 	}
 
 	_pEditView->execute(SCI_STARTSTYLING, endStyle);

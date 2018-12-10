@@ -2463,13 +2463,8 @@ void Notepad_plus::addHotSpot(int urlAction)
 			}
 		}
 
-		// if we found it then use it to colourize
-		if (fs != -1)
-		{
-			_pEditView->execute(SCI_STARTSTYLING, start, 0xFF);
-			_pEditView->execute(SCI_SETSTYLING, foundTextLen, fs);
-		}
-		else // generalize a new style and add it into a array
+		// if we didn't find it, generalize a new style and add it into a array
+		if (fs == -1)
 		{
 			style_hotspot = idStyle | mask;	// set "hotspot bit"
 			hotspotPairs.push_back(style_hotspot);
@@ -2506,16 +2501,18 @@ void Notepad_plus::addHotSpot(int urlAction)
 			_pEditView->execute(SCI_SETHOTSPOTACTIVEFORE, TRUE, activeFG);
 			_pEditView->execute(SCI_SETHOTSPOTSINGLELINE, style_hotspot, 0);
 
-			// colourize it!
-			_pEditView->execute(SCI_STARTSTYLING, start, 0xFF);
-			_pEditView->execute(SCI_SETSTYLING, foundTextLen, style_hotspot);
+			fs = style_hotspot;
 		}
+
+		// set hotspot style to matching URL characters
+		_pEditView->execute(SCI_STARTSTYLING, start);
+		_pEditView->execute(SCI_SETSTYLING, foundTextLen, fs);
 
 		_pEditView->execute(SCI_SETTARGETRANGE, posFound + foundTextLen, endPos);
 
 	}
 
-	_pEditView->execute(SCI_STARTSTYLING, endStyle, 0xFF);
+	_pEditView->execute(SCI_STARTSTYLING, endStyle);
 	_pEditView->execute(SCI_SETSTYLING, 0, 0);
 }
 

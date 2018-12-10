@@ -61,8 +61,6 @@
 #define MENU 0x01
 #define TOOLBAR 0x02
 
-#define URL_REG_EXPR "[A-Za-z]+://[A-Za-z0-9_\\-\\+~.:?&@=/%#,;\\{\\}\\(\\)\\[\\]\\|\\*\\!\\\\]+"
-
 enum FileTransferMode {
 	TransferClone		= 0x01,
 	TransferMove		= 0x02

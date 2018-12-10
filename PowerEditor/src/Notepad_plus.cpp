@@ -2405,9 +2405,45 @@ void Notepad_plus::addHotSpot(int urlAction)
 	else if (type == L_PS)
 		mask = 16;
 
-	int posFound = static_cast<int32_t>(_pEditView->execute(SCI_SEARCHINTARGET, strlen(URL_REG_EXPR), reinterpret_cast<LPARAM>(URL_REG_EXPR)));
+	// URI specification from RFC3986, references below from https://tools.ietf.org/html/rfc3986
 
-	while (posFound != -1 && posFound != -2)
+#define URL_L				/* letter                  */	"A-Za-z0-9_~&@$*'+=\\-"
+#define URL_P   			/* punctuation             */	",;.:!"
+
+	// optional query and fragment parts:
+#define URL_L_OPT_GRP		/* letter (group)          */	"(?:%[0-9a-fA-F]{2}|[" URL_L URL_P "/?])"
+#define URL_L_TERM_OPT_GRP	/* terminal letter (group) */	"(?:%[0-9a-fA-F]{2}|[" URL_L "])"
+
+	// simplified URI regular expression with the following assumptions:
+	// - hier-part:
+	//   - round and square brackets ('()', '[]') are balanced
+	//   - words must not end with a punctuation character (',;.:!')
+	// - queries and fragments:
+	//   - round brackets ('()') are balanced
+	//   - atomic strings must not end with a puntuation character or '/' or '?'
+
+#define URL_REG_EXPR		/* 3.1:      scheme         */	"[A-Za-z][A-Za-z0-9+.-]*:"												\
+							/* 3.2./3.3: hier-part      */	"(?:/+((?>[" URL_L URL_P "]*[" URL_L "]|\\((?1)?\\)|\\[(?1)?\\]))+)+"	\
+							/* 3.4:      query          */	"(?:/?[?]((?:" URL_L_OPT_GRP "*" URL_L_TERM_OPT_GRP "|\\((?2)\\))+)+)?"	\
+							/* 3.5:      fragment       */	"(?:[#]((?:" URL_L_OPT_GRP "*" URL_L_TERM_OPT_GRP "|\\((?3)\\))+)+)?"
+
+
+	static bool static_vars_inited = false;
+	static size_t url_sz = 0;
+	static LPARAM url_reg_expr = NULL;
+
+	if (static_vars_inited == false)
+	{
+		static_vars_inited = true;
+
+		url_sz = strlen(URL_REG_EXPR);
+		url_reg_expr = reinterpret_cast<LPARAM>(URL_REG_EXPR);
+	}
+
+	int posFound;
+
+	while ((posFound = static_cast<int32_t>(_pEditView->execute(SCI_SEARCHINTARGET, url_sz, url_reg_expr))) != -1
+		     && posFound != -2)
 	{
 		int start = int(_pEditView->execute(SCI_GETTARGETSTART));
 		int end = int(_pEditView->execute(SCI_GETTARGETEND));
@@ -2477,7 +2513,6 @@ void Notepad_plus::addHotSpot(int urlAction)
 
 		_pEditView->execute(SCI_SETTARGETRANGE, posFound + foundTextLen, endPos);
 
-		posFound = static_cast<int32_t>(_pEditView->execute(SCI_SEARCHINTARGET, strlen(URL_REG_EXPR), reinterpret_cast<LPARAM>(URL_REG_EXPR)));
 	}
 
 	_pEditView->execute(SCI_STARTSTYLING, endStyle, 0xFF);

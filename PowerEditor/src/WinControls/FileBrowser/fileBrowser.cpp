@@ -179,6 +179,8 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			{
 				//MessageBox(NULL, addedFilePath.c_str(), TEXT("file/folder is not added"), MB_OK);
 			}
+			// Sort
+			sortTreeByName(rootPath);
 			break;
 		}
 
@@ -235,6 +237,8 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			{
 				//MessageBox(NULL, file2Change[0].c_str(), TEXT("file/folder is not removed"), MB_OK);
 			}
+			// Sort
+			sortTreeByName(rootPath);
 			break;
 		}
 
@@ -583,7 +587,7 @@ BrowserNodeType FileBrowser::getNodeType(HTREEITEM hItem)
 		return browserNodeType_file;
 	}
 	// Root
-	else if (tvItem.lParam != NULL)
+	else if (tvItem.iImage == INDEX_CLOSE_ROOT || tvItem.iImage == INDEX_OPEN_ROOT)
 	{
 		return browserNodeType_root;
 	}
@@ -925,6 +929,8 @@ void FileBrowser::addRootFolder(generic_string rootFolderPath)
 
 HTREEITEM FileBrowser::createFolderItemsFromDirStruct(HTREEITEM hParentItem, const FolderInfo & directoryStructure)
 {
+	TCHAR fullFilePath[MAX_PATH];
+
 	HTREEITEM hFolderItem = nullptr;
 	if (directoryStructure._parent == nullptr && hParentItem == nullptr)
 	{
@@ -937,8 +943,22 @@ HTREEITEM FileBrowser::createFolderItemsFromDirStruct(HTREEITEM hParentItem, con
 	}
 	else
 	{
-		hFolderItem = _treeView.addItem(directoryStructure._name.c_str(), hParentItem, INDEX_CLOSE_NODE);
+		// Get file path of parent
+		generic_string* parentPath = reinterpret_cast<generic_string*>(_treeView.getItemParam(hParentItem));
+		lstrcpy(fullFilePath, parentPath->c_str());
+
+		size_t len = lstrlen(fullFilePath);
+		fullFilePath[len] = '\\';
+		fullFilePath[len + 1] = '\0';
+
+		lstrcat(fullFilePath, directoryStructure._name.c_str());
+
+		hFolderItem = _treeView.addItem(directoryStructure._name.c_str(), hParentItem, INDEX_CLOSE_NODE, fullFilePath);
 	}
+
+	size_t len = lstrlen(fullFilePath);
+	fullFilePath[len] = '\\';
+	fullFilePath[len + 1] = '\0';
 
 	for (size_t i = 0; i < directoryStructure._subFolders.size(); ++i)
 	{
@@ -947,11 +967,47 @@ HTREEITEM FileBrowser::createFolderItemsFromDirStruct(HTREEITEM hParentItem, con
 
 	for (size_t i = 0; i < directoryStructure._files.size(); ++i)
 	{
-		_treeView.addItem(directoryStructure._files[i]._name.c_str(), hFolderItem, INDEX_LEAF);
+		TCHAR newFilePath[MAX_PATH];
+		lstrcpy(newFilePath, fullFilePath);
+		lstrcat(newFilePath, directoryStructure._files[i]._name.c_str());
+		_treeView.addItem(directoryStructure._files[i]._name.c_str(), hFolderItem, INDEX_LEAF, newFilePath);
 	}
 	_treeView.fold(hParentItem);
 
 	return hFolderItem;
+}
+
+int CALLBACK FileBrowser::CompareFunc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort)
+{
+	generic_string node1 = *reinterpret_cast<generic_string*>(lParam1);
+	generic_string node2 = *reinterpret_cast<generic_string*>(lParam2);
+	lParamSort;
+
+	BOOL dir1 = ::PathIsDirectory(node1.c_str());
+	BOOL dir2 = ::PathIsDirectory(node2.c_str());
+
+	node1 = stringToLower(node1);
+	node2 = stringToLower(node2);
+
+	if (dir1 and not dir2) 
+	{
+		return -1;
+	}
+	else if (dir2 and not dir1)
+	{
+		return 1;
+	}
+
+	if (node1 < node2)
+	{
+		return -1;
+	}
+	else if (node1 > node2)
+	{
+		return 1;
+	}
+
+	return 0;
 }
 
 HTREEITEM FileBrowser::getRootFromFullPath(const generic_string & rootPath) const
@@ -967,7 +1023,7 @@ HTREEITEM FileBrowser::getRootFromFullPath(const generic_string & rootPath) cons
 		tvItem.hItem = hItemNode;
 		SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 
-		if (tvItem.lParam != 0 && rootPath == *((generic_string *)tvItem.lParam))
+		if (_treeView.getRoot() == hItemNode && rootPath == *((generic_string *)tvItem.lParam))
 			node = hItemNode;
 	}
 	return node;
@@ -1050,11 +1106,11 @@ bool FileBrowser::addInTree(const generic_string& rootPath, const generic_string
 		// No found, good - Action
 		if (::PathIsDirectory(addItemFullPath.c_str()))
 		{
-			_treeView.addItem(linarPathArray[0].c_str(), node, INDEX_CLOSE_NODE);
+			_treeView.addItem(linarPathArray[0].c_str(), node, INDEX_CLOSE_NODE, addItemFullPath.c_str());
 		}
 		else
 		{
-			_treeView.addItem(linarPathArray[0].c_str(), node, INDEX_LEAF);
+			_treeView.addItem(linarPathArray[0].c_str(), node, INDEX_LEAF, addItemFullPath.c_str());
 		}
 		return true;
 	}
@@ -1142,6 +1198,31 @@ bool FileBrowser::renameInTree(const generic_string& rootPath, HTREEITEM node, s
 		// found it, rename it
 	_treeView.renameItem(foundItem, renameTo.c_str());
 		return true;
+}
+
+void FileBrowser::sortTreeByName(const generic_string& rootPath)
+{
+	HTREEITEM node;
+
+	// Search
+	if ((node = getRootFromFullPath(rootPath)) == nullptr)
+		return;
+
+	sortTree(node);
+}
+
+void FileBrowser::sortTree(HTREEITEM node)
+{
+	TV_SORTCB sorter;
+
+	sorter.hParent = node;
+	sorter.lpfnCompare = CompareFunc;
+	sorter.lParam = 0;
+
+	::SendMessage(_treeView.getHSelf(), TVM_SORTCHILDRENCB, 0, reinterpret_cast<LPARAM>(&sorter));
+
+	for (HTREEITEM hItem = _treeView.getChildFrom(node); hItem != NULL; hItem = _treeView.getNextSibling(hItem))
+		sortTree(hItem);
 }
 
 bool FolderInfo::addToStructure(generic_string & fullpath, std::vector<generic_string> linarPathArray)

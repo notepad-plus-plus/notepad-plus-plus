@@ -136,9 +136,17 @@ bool TreeView::renameItem(HTREEITEM Item2Set, const TCHAR *newName)
 
 	TVITEM tvItem;
 	tvItem.hItem = Item2Set;
-	tvItem.mask = TVIF_TEXT;
+	tvItem.mask = TVIF_TEXT | TVIF_PARAM;;
 	tvItem.pszText = (LPWSTR)newName;
 	tvItem.cchTextMax = MAX_PATH;
+
+	//Get new file path from old one
+	generic_string filePath = *reinterpret_cast<generic_string*>(getItemParam(Item2Set));
+	filePath = filePath.substr(0, filePath.find_last_of('\\') + 1);
+	filePath.append(newName);
+
+	tvItem.lParam = reinterpret_cast<LPARAM>(new generic_string(filePath));
+
 	SendMessage(_hSelf, TVM_SETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 	return true;
 }

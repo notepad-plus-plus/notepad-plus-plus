@@ -151,6 +151,8 @@ public:
 	HTREEITEM findInTree(const generic_string& rootPath, HTREEITEM node, std::vector<generic_string> linarPathArray);
 	bool deleteFromTree(const generic_string& rootPath, HTREEITEM node, std::vector<generic_string> linarPathArray);
 	bool renameInTree(const generic_string& rootPath, HTREEITEM node, std::vector<generic_string> linarPathArrayFrom, const generic_string & renameTo);
+	void sortTreeByName(const generic_string& rootPath);
+	void sortTree(HTREEITEM node);
 
 	std::vector<generic_string> getRoots() const;
 	generic_string getSelectedItemPath() const;
@@ -177,4 +179,6 @@ protected:
 	void openSelectFile();
 	void getDirectoryStructure(const TCHAR *dir, const std::vector<generic_string> & patterns, FolderInfo & directoryStructure, bool isRecursive, bool isInHiddenDir); 
 	HTREEITEM createFolderItemsFromDirStruct(HTREEITEM hParentItem, const FolderInfo & directoryStructure);
+
+	static int CALLBACK CompareFunc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort);
 };

@@ -60,10 +60,11 @@ initUpdatePath:
 		Delete $INSTDIR\doLocalConf.xml
 		
 		; "%PROGRAMDATA%\Notepad++\plugins"
-		ReadEnvStr $0 "ALLUSERSPROFILE"
-		StrCpy $PLUGIN_INST_PATH "$0\Notepad++\plugins"
-		StrCpy $ALLUSERS_PLUGIN_CONF_PATH "$0\Notepad++\plugins\Config"
+		SetShellVarContext all
+		StrCpy $PLUGIN_INST_PATH "$APPDATA\${APPNAME}\plugins"
+		StrCpy $ALLUSERS_PLUGIN_CONF_PATH "$APPDATA\${APPNAME}\plugins\Config"
 		
+		SetShellVarContext current
 		StrCpy $USER_PLUGIN_CONF_PATH "$APPDATA\${APPNAME}\plugins\Config"
 		StrCpy $UPDATE_PATH "$APPDATA\${APPNAME}"
 		CreateDirectory $UPDATE_PATH\plugins\config

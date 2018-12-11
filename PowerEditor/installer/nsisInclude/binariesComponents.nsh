@@ -195,6 +195,6 @@ ${EndIf}
 FunctionEnd
 
 Section un.PluginsAdmin
-	Delete "$PLUGIN_CONF_PATH\nppPluginList.dll" ; delete 7.6 version's left
+	Delete "$USER_PLUGIN_CONF_PATH\nppPluginList.dll" ; delete 7.6 version's left
 	Delete "$ALLUSERS_PLUGIN_CONF_PATH\nppPluginList.dll"
 SectionEnd

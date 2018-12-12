@@ -31,12 +31,10 @@ CXXFLAGS=$(CXXFLAGS) -DSCI_OWNREGEX -arch:IA32
 !ENDIF
 
 !IFDEF DEBUG
-LDFLAGS=$(LDFLAGS) -LIBPATH:$(BOOSTLIBPATH)\debug\link-static\runtime-link-static\threading-multi
+LDFLAGS=$(LDFLAGS) -LIBPATH:$(BOOSTLIBPATH)\debug\link-static\runtime-link-static\threadapi-win32\threading-multi
 !ELSE
-LDFLAGS=$(LDFLAGS) -LIBPATH:$(BOOSTLIBPATH)\release\$(BUILDTARGETPATH)link-static\runtime-link-static\threading-multi
+LDFLAGS=$(LDFLAGS) -LIBPATH:$(BOOSTLIBPATH)\release\$(BUILDTARGETPATH)link-static\runtime-link-static\threadapi-win32\threading-multi
 !ENDIF
-
-
 
 $(DIR_O)\UTF8DocumentIterator.obj:: ../boostregex/UTF8DocumentIterator.cxx
 	$(CC) $(CXXFLAGS) -c ../boostregex/UTF8DocumentIterator.cxx	

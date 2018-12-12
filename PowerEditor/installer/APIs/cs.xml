@@ -442,11 +442,11 @@
 		<KeyWord name="File.AppendAllLines" func="yes">
 			<Overload retVal="void" >
 				<Param name="string path" />
-				<Param name="System.Collections.Generic.IEnumerable<string> contents" />
+				<Param name="System.Collections.Generic.IEnumerable&lt;string&gt; contents" />
 			</Overload>
 			<Overload retVal="void" >
 				<Param name="string path" />
-				<Param name="System.Collections.Generic.IEnumerable<string> contents" />
+				<Param name="System.Collections.Generic.IEnumerable&lt;string&gt; contents" />
 				<Param name="System.Text.Encoding encoding" />
 			</Overload>
 		</KeyWord>
@@ -628,10 +628,10 @@
 			</Overload>
 		</KeyWord>
 		<KeyWord name="File.ReadLines" func="yes">
-			<Overload retVal="System.Collections.Generic.IEnumerable<string>" >
+			<Overload retVal="System.Collections.Generic.IEnumerable&lt;string&gt;" >
 				<Param name="string path" />
 			</Overload>
-			<Overload retVal="System.Collections.Generic.IEnumerable<string>" >
+			<Overload retVal="System.Collections.Generic.IEnumerable&lt;string&gt;" >
 				<Param name="string path" />
 				<Param name="System.Text.Encoding encoding" />
 			</Overload>
@@ -711,7 +711,7 @@
 			<Overload retVal="void" >
 				<Param name="string path" />
 				<Param name="string[] content " />
-				<Param name="System.Collections.Generic.IEnumerable<string> content " />
+				<Param name="System.Collections.Generic.IEnumerable&lt;string&gt; content " />
 			</Overload>
 			<Overload retVal="void" >
 				<Param name="string path" />
@@ -722,7 +722,7 @@
 				<Param name="string path" />
 				<Param name="string[] content " />
 				<Param name="System.Text.Encoding encoding " />
-				<Param name="System.Collections.Generic.IEnumerable<string> content " />
+				<Param name="System.Collections.Generic.IEnumerable&lt;string&gt; content " />
 			</Overload>
 		</KeyWord>
 		<KeyWord name="File.WriteAllText" func="yes">
@@ -996,9 +996,6 @@
 				<Param name="string name"/>
 			</Overload>
 		</KeyWord>
-
-
-
 		<KeyWord name="true" />
 		<KeyWord name="try" />
 		<KeyWord name="typeof" />

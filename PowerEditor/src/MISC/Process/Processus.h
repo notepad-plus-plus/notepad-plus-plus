@@ -39,8 +39,8 @@ public:
     Process(const TCHAR *cmd, const TCHAR *args, const TCHAR *cDir)
 		:_command(cmd), _args(args), _curDir(cDir){}
 
-	void run() const;
-	unsigned long runSync() const;
+	void run(bool isElevationRequired = false) const;
+	unsigned long runSync(bool isElevationRequired = false) const;
 
 protected:
     generic_string _command;

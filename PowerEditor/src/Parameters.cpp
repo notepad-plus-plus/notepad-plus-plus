@@ -1012,29 +1012,46 @@ bool NppParameters::load()
 		}
 	}
 
+	generic_string nppPluginRootParent;
 	if (_isLocal)
 	{
-		_userPath = _nppPath;
+		_userPath = nppPluginRootParent = _nppPath;
+
+		_pluginRootDir = _nppPath;
+		PathAppend(_pluginRootDir, TEXT("plugins"));
+
+		_userPluginConfDir = _pluginRootDir;
+		PathAppend(_userPluginConfDir, TEXT("Config"));
 	}
 	else
 	{
 		_userPath = getSpecialFolderLocation(CSIDL_APPDATA);
 
 		PathAppend(_userPath, TEXT("Notepad++"));
-		_appdataNppDir = _userPath;
+		_appdataNppDir = _userPluginConfDir = _userPath;
+		PathAppend(_userPluginConfDir, TEXT("plugins"));
+		PathAppend(_userPluginConfDir, TEXT("Config"));
 
-		// Plugin System V1
 		if (!PathFileExists(_userPath.c_str()))
 			::CreateDirectory(_userPath.c_str(), NULL);
 
-		// Plugin System V2
-		_localAppdataNppDir = getSpecialFolderLocation(CSIDL_LOCAL_APPDATA);
-		PathAppend(_localAppdataNppDir, TEXT("Notepad++"));
-		if (!PathFileExists(_localAppdataNppDir.c_str()))
-			::CreateDirectory(_localAppdataNppDir.c_str(), NULL);
-	}
-	
+		_pluginRootDir = getSpecialFolderLocation(CSIDL_COMMON_APPDATA);
+		PathAppend(_pluginRootDir, TEXT("Notepad++"));
+		nppPluginRootParent = _pluginRootDir;
 
+		PathAppend(_pluginRootDir, TEXT("plugins"));
+
+		// For PluginAdmin to launch the wingup with UAC
+		setElevationRequired(true);
+	}
+
+	_pluginConfDir = _pluginRootDir;
+	PathAppend(_pluginConfDir, TEXT("Config"));
+
+	if (!PathFileExists(nppPluginRootParent.c_str()))
+		::CreateDirectory(nppPluginRootParent.c_str(), NULL);
+	if (!PathFileExists(_pluginRootDir.c_str()))
+		::CreateDirectory(_pluginRootDir.c_str(), NULL);
 
 	_sessionPath = _userPath; // Session stock the absolute file path, it should never be on cloud
 
@@ -2040,7 +2057,7 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 					(childNode->ToElement())->Attribute(TEXT("endPos"), &position._endPos);
 					(childNode->ToElement())->Attribute(TEXT("selMode"), &position._selMode);
 					(childNode->ToElement())->Attribute(TEXT("scrollWidth"), &position._scrollWidth);
-					(childNode->ToElement())->Attribute(TEXT("offset"), &position._offset);
+
 					MapPosition mapPosition;
 					int32_t mapPosVal;
 					const TCHAR *mapPosStr = (childNode->ToElement())->Attribute(TEXT("mapFirstVisibleDisplayLine"), &mapPosVal);

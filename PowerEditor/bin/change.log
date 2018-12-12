@@ -1,18 +1,18 @@
-Notepad++ v7.5.9 bug-fixes & enhancement:
+Notepad++ v7.6 new feature and bug-fixes:
 
-1.   Fix hanging problem while switching back a fully-folded document by using shortcut (Ctrl-TAB).
-2.   Fix possible file corruption during backup or power loss or other abnormal N++ termination.
-3.   Fix wrong backup file deleted issue.
-4.   Fix backup not fully disabled issue.
-5.   Add 2 command line flags "-notepadStyleCmdline" and "-z" for the replacement of notepad.exe.
-     See https://notepad-plus-plus.org/features/replace-notepad.html
-6.   Add new plugin API NPPM_REMOVESHORTCUTBYCMDID to allows plugins to remove unneeded shortcuts.
-7.   Fix Tail monitoring incoherent status after deleting a monitored file.
-8.   Fix issue with wrong smart highlighting when it is disabled.
-9.   Fix last active tab is ignored on Notepad++ restart issue.
-10.  Fix Tab non-responding by mouse click after dragging bug.
-11.  Fix switching back position restoring issue for wrapped document.
-12.  Add several spiritual quotes and a subtle Easter egg in the source code.
+1.  Add Built-in Plugins Admins. Users can install, update and remove plugins by some clicks via Plugins Admin:
+    https://notepad-plus-plus.org/features/plugin-admin.html
+2.  Change plugin loading method: Remove the legacy plugin loading way and apply only the new plugin loading method.
+3.  Add new message NPPM_GETPLUGINHOMEPATH in Notepad++ API for plugin, so plugin can get its path easily.
+4.  Fix a regression of performance issue while word wrap option is enable.
+5.  Fix a performance issue for switching back to folded document.
+6.  Fix crash issue due to Unix style path input in Open file dialog.
+7.  Fix UTF-8 detection problem: 4 byte characters UTF-8 character can be detected now.
+8.  Enhance/Fix encoding detection/problem.
+9.  Fix auto-indent issue by typing Enter on empty line.
+10. Fix "Close all but this" behaviour if multiple views are present and some files are dirty.
+11. Fix tool tip in document switcher showing the old name issue (after being renamed).
+12. Add autoit and lua autoCompletion
 
 
 Included plugins:
@@ -25,4 +25,4 @@ Included plugins:
 
 Updater (Installer only):
 
-* WinGup (for Notepad++) v5.0.3
+* WinGup (for Notepad++) v5.0.4

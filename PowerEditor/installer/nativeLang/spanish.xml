@@ -332,7 +332,7 @@
 		</Menu>
 		<Dialog>
 			<Find title="" titleFind="Buscar" titleReplace="Reemplazar" titleFindInFiles="Buscar en archivos"  titleMark="Marcar">
-				<Item id="1721" name="< Anterior"/>
+				<Item id="1721" name="&lt; Anterior"/>
 				<Item id="1" name="Siguiente >"/>
 				<Item id="2" name="Cerrar"/>
 				<Item id="1620" name="Buscar:"/>

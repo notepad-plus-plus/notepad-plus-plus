@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="7.5.7">
+	<Native-Langue name="Русский" filename="russian.xml" version="7.6">
 		<Menu>
 			<Main>
-				<!-- Main Menu Entries -->
+
 				<Entries>
 					<Item menuId="file" name="&amp;Файл"/>
 					<Item menuId="edit" name="&amp;Правка"/>
@@ -18,7 +18,7 @@
 					<Item idName="Plugins" name="Плаги&amp;ны"/>
 					<Item idName="Window"  name="Вкл&amp;адки"/>
 				</Entries>
-				<!-- Sub Menu Entries -->
+
 				<SubEntries>
 					<Item subMenuId="file-openFolder" name="&amp;Открыть папку документа"/>
 					<Item subMenuId="file-closeMore" name="Управление вкладками..."/>
@@ -66,7 +66,6 @@
 					<Item subMenuId="tools-md5"  name="MD5"/>
 				</SubEntries>
 
-				<!-- all menu item -->
 				<Commands>
 					<Item id="1001"  name="&amp;Распечатать!"/>
 					<Item id="41001" name="Новый"/>
@@ -296,12 +295,13 @@
 					<Item id="48006" name="Импортировать Тему(ы)"/>
 					<Item id="48009" name="Горячие клавиши..."/>
 					<Item id="48011" name="&amp;Настройки..."/>
+					<Item id="48015" name="Управление Плагинами..."/>
 					<Item id="48016" name="Измен. гор. клав./Удалить макро..."/>
 					<Item id="48017" name="Измен. гор. клав./Удалить команду..."/>
 					<Item id="48018" name="Редакт. Контекстное Меню"/>
 					<Item id="48501" name="Сгенерировать..."/>
 					<Item id="48502" name="Сгенерировать из файлов..."/>
-					<Item id="48503" name="Сгенерировать в буфер"/>
+					<Item id="48503" name="Сген. из копированного в буфер"/>
 					<Item id="49000" name="Запуск..."/>
 					<Item id="50000" name="Завершение функций"/>
 					<Item id="50001" name="Завершение слов"/>
@@ -419,6 +419,17 @@
 				<Item id="1934" name="Копировать в Буфер"/>
 				<Item id="2"    name="Закрыть"/>
             </MD5FromTextDlg>
+
+            <PluginsAdminDlg title="Управление Плагинами" titleAvailable = "Доступные" titleUpdates = "Обновления" titleInstalled = "Удаление">
+                <ColumnPlugin   name="Плагин"/>
+                <ColumnVersion  name="Версия"/>
+                <Item id="5501" name="Поиск:"/>
+                <Item id="5503" name="Установить"/>
+                <Item id="5504" name="Обновить"/>
+                <Item id="5505" name="Удалить"/>
+                <Item id="5508" name="Далее"/>
+                <Item id="2"    name="Закрыть"/>
+            </PluginsAdminDlg>
 
             <StyleConfig    title="Определение стилей">
 				<Item id="2"    name="Отмена"/>
@@ -694,7 +705,7 @@
 					<Item id="6407" name="UTF-8"/>
 					<Item id="6408" name="UTF-8 c BOM"/>
 					<Item id="6409" name="UCS-2 Big Endian c BOM"/>
-					<Item id="6410" name="UCS-2 Small Endian c BOM"/>
+					<Item id="6410" name="UCS-2 Little Endian c BOM"/>
 					<Item id="6411" name="Синтаксис по умолч.:"/>
 					<Item id="6419" name="Новый Документ"/>
 					<Item id="6420" name="Применить к откр. ANSI файлам"/>
@@ -706,7 +717,6 @@
 					<Item id="6430" name="Новый диалог сохранения файла (без запроса расширения файла)"/>
 					<Item id="6431" name="Открывать все файлы папки при перетаскивании в окно np++"/>
 				</DefaultDir>
-
 				<FileAssoc title = "Ассоциация Файлов">
 					<Item id="4009" name="Поддерживаемые:"/>
 					<Item id="4010" name="Зарегистрированные:"/>
@@ -794,7 +804,6 @@
 					<Item id="6344" name="Предосмотр Документа"/>
 					<Item id="6345" name="Миниатюра под Вкладкой"/>
 					<Item id="6346" name="Отображать в Карте Документа"/>
-
 				</MISC>
 				<MultiInstance title = "Режимы Запуска">
 					<Item id="6151" name="Режим Открытия Файлов"/>
@@ -893,6 +902,19 @@
 				<Item id="1"    name="ОК"/>
 				<Item id="2"    name="Отмена"/>
             </ColumnEditor>
+            <FindInFinder title="Поиск в найденном...">
+                <Item id="1"    name="Найти Все"/>
+                <Item id="2"    name="Закрыть"/>
+                <Item id="1711" name="Найти :"/>
+                <Item id="1713" name="Искать только в найденном"/>
+                <Item id="1714" name="Только целые слова"/>
+                <Item id="1715" name="Учитывать регистр"/>
+                <Item id="1716" name="Режим Поиска"/>
+                <Item id="1717" name="Обычный"/>
+                <Item id="1719" name="Регуляр. выражен."/>
+                <Item id="1718" name="Расширенный (\n, \r, \t, \0, \x...)"/>
+                <Item id="1720" name="и новые строки"/>
+            </FindInFinder>
         </Dialog>
         <MessageBox>
             <ContextMenuXmlEditWarning title="Редактирование contextMenu" message="Редактирование contextMenu.xml позволяет настроить свое всплывающее контекстное меню в Notepad++.&#x0A;Вы должны перезапустить Notepad++, чтобы изменения вступили в силу."/>
@@ -913,7 +935,7 @@
             <SortingError title="Ошибка сортировки" message="Невозможно выполнить числовую сортировку из-за строки $INT_REPLACE$."/>
             <ColumnModeTip title="Режим Столбца" message="Пожалуйста, используйте &quot;ALT+Выделение Мышкой&quot; или &quot;Alt+Shift+Клавиши Стрелок&quot; для переключения в режим столбца."/>
             <BufferInvalidWarning title="Ошибка Сохранения" message="Не удается сохранить: Недопустимый буфер."/>
-            <DoSaveOrNot title="Сохранение" message="Сохранить файл &quot;$STR_REPLACE$&quot; ?"/>
+            <DoSaveOrNot title="Сохранение" message="Сохранить файл &quot;$STR_REPLACE$&quot;?"/>
             <DoCloseOrNot title="Удержание несуществующего файла" message="Файла &quot;$STR_REPLACE$&quot; больше не существует.&#x0A;Удержать этот файл в редакторе?"/>
             <DoDeleteOrNot title="Удаление файла" message="Файл &quot;$STR_REPLACE$&quot;&#x0A;будет закрыт и удалён в Корзину.&#x0A;Продолжить?"/>
             <NoBackupDoSaveFile title="Сохранение" message="Файл резервной копии не найден (удалён извне).&#x0A;Сохраните его, иначе ваши данные будут потеряны.&#x0A;Вы хотите сохранить файл &quot;$STR_REPLACE$&quot; ?"/>
@@ -958,6 +980,11 @@
             <ColumnName name="Имя"/>
             <ColumnExt name="Расш."/>
         </DocSwitcher>
+        <WindowsDlg>
+            <ColumnName name="Имя"/>
+            <ColumnPath name="Путь"/>
+            <ColumnType name="Тип"/>
+        </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name="Таблица ASCII символов"/>
             <ColumnVal name="Значение"/>
@@ -972,6 +999,21 @@
             <SortTip name="Упорядочить" />
             <ReloadTip name="Обновить" />
         </FunctionList>
+        <FolderAsWorkspace>
+            <PanelTitle name="Папка как Проект"/>
+            <SelectFolderFromBrowserString name="Выберите папку, чтобы добавить в панель Папка как Проект"/>
+            <Menus>
+                <Item id="3511" name="Убрать"/>
+                <Item id="3512" name="Убрать Всё"/>
+                <Item id="3513" name="Добавить"/>
+                <Item id="3514" name="Запуск системой"/>
+                <Item id="3515" name="Открыть"/>
+                <Item id="3516" name="Копировать путь"/>
+                <Item id="3517" name="Найти в Файлах..."/>
+                <Item id="3518" name="Расположение объекта"/>
+                <Item id="3519" name="Запустить CMD"/>
+            </Menus>
+        </FolderAsWorkspace>
         <ProjectManager>
             <PanelTitle name="Проект"/>
             <WorkspaceRootName name="Рабочая область"/>
@@ -1055,7 +1097,7 @@
             <find-status-replace-not-found value="Замена: ничего не найдено"/>
             <find-status-replace-readonly value="Замена: Невозможно заменить текст. Текущий документ доступен только для чтения"/>
             <find-status-cannot-find value="Поиск: Не удается найти текст &quot;$STR_REPLACE$&quot;"/>
-            <finder-find-in-finder value="Поиск в найденных результатах..."/>
+            <finder-find-in-finder value="Поиск в найденном..."/>
             <finder-close-this value="Закрыть этот поиск"/>
             <finder-collapse-all value="Свернуть всё"/>
             <finder-uncollapse-all value="Развернуть всё"/>

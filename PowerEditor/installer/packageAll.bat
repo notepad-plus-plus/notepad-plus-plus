@@ -17,18 +17,8 @@ rem along with this program; if not, write to the Free Software
 rem Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 echo on
-if %SIGN% == 0 goto NoSign
 
-rem retrieve GUP release from website while doing Notepad++ release
-set WINGUP_VER=5.0.3
-IF EXIST ".\bin\wingup\GUP.exe" (
-	cd .\bin\wingup
-	GUP.exe -unzipTo %~dp0\..\bin\updater https://github.com/notepad-plus-plus/wingup/releases/download/v%WINGUP_VER%/wingup.v%WINGUP_VER%.bin.zip
-	GUP.exe -unzipTo %~dp0\..\bin64\updater https://github.com/notepad-plus-plus/wingup/releases/download/v%WINGUP_VER%/wingup.v%WINGUP_VER%.bin.x64.zip
-	cd ..\..
-) ELSE (
-	echo .\wingup\GUP.exe is absent.
-)
+if %SIGN% == 0 goto NoSign
 
 signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin\notepad++.exe
 If ErrorLevel 1 goto End
@@ -42,6 +32,11 @@ If ErrorLevel 1 goto End
 signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin\NppShell_06.dll
 If ErrorLevel 1 goto End
 signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin\NppShell64_06.dll
+If ErrorLevel 1 goto End
+
+signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin\nppPluginList.dll
+If ErrorLevel 1 goto End
+signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin64\nppPluginList.dll
 If ErrorLevel 1 goto End
 
 signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin\updater\GUP.exe
@@ -123,9 +118,10 @@ copy /Y ..\bin64\SciLexer.dll .\minimalist64\
 If ErrorLevel 1 goto End
 
 
-rem Notepad++ Unicode package
+rem Remove old built Notepad++ 32-bit package
 rmdir /S /Q .\zipped.package.release
 
+rem Re-build Notepad++ 32-bit package folders
 mkdir .\zipped.package.release
 mkdir .\zipped.package.release\updater
 mkdir .\zipped.package.release\localization
@@ -139,8 +135,10 @@ mkdir .\zipped.package.release\plugins\APIs
 mkdir .\zipped.package.release\plugins\Config
 mkdir .\zipped.package.release\plugins\doc
 
+rem Remove old built Notepad++ 64-bit package
 rmdir /S /Q .\zipped.package.release64
 
+rem Re-build Notepad++ 64-bit package folders
 mkdir .\zipped.package.release64
 mkdir .\zipped.package.release64\updater
 mkdir .\zipped.package.release64\localization
@@ -153,7 +151,7 @@ mkdir .\zipped.package.release64\plugins\APIs
 mkdir .\zipped.package.release64\plugins\Config
 mkdir .\zipped.package.release64\plugins\doc
 
-rem 32
+rem Basic: Copy needed files into Notepad++ 32-bit package folders
 copy /Y ..\bin\license.txt .\zipped.package.release\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\readme.txt .\zipped.package.release\
@@ -177,7 +175,7 @@ If ErrorLevel 1 goto End
 copy /Y ..\bin\SciLexer.dll .\zipped.package.release\
 If ErrorLevel 1 goto End
 
-rem 64
+rem Basic Copy needed files into Notepad++ 64-bit package folders
 copy /Y ..\bin\license.txt .\zipped.package.release64\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\readme.txt .\zipped.package.release64\
@@ -202,7 +200,7 @@ copy /Y ..\bin64\SciLexer.dll .\zipped.package.release64\
 If ErrorLevel 1 goto End
 
 
-rem Plugins
+rem Plugins: Copy needed files into Notepad++ 32-bit package folders
 copy /Y "..\bin\plugins\NppExport\NppExport.dll" .\zipped.package.release\plugins\NppExport\
 If ErrorLevel 1 goto End
 copy /Y "..\bin\plugins\mimeTools\mimeTools.dll" .\zipped.package.release\plugins\mimeTools\
@@ -220,6 +218,7 @@ If ErrorLevel 1 goto End
 copy /Y "..\bin\plugins\Config\Hunspell\en_US.dic" .\zipped.package.release\plugins\Config\Hunspell\
 If ErrorLevel 1 goto End
 
+rem Plugins: Copy needed files into Notepad++ 64-bit package folders
 copy /Y "..\bin64\plugins\mimeTools\mimeTools.dll" .\zipped.package.release64\plugins\mimeTools\
 If ErrorLevel 1 goto End
 copy /Y "..\bin64\plugins\NppConverter\NppConverter.dll" .\zipped.package.release64\plugins\NppConverter\
@@ -236,19 +235,19 @@ copy /Y "..\bin64\plugins\Config\Hunspell\en_US.dic" .\zipped.package.release64\
 If ErrorLevel 1 goto End
 
 
-rem localizations
+rem localizations: Copy all files into Notepad++ 32-bit/64-bit package folders
 copy /Y ".\nativeLang\*.xml" .\zipped.package.release\localization\
 If ErrorLevel 1 goto End
 copy /Y ".\nativeLang\*.xml" .\zipped.package.release64\localization\
 If ErrorLevel 1 goto End
 
-rem files API
+rem files API: Copy all files into Notepad++ 32-bit/64-bit package folders
 copy /Y ".\APIs\*.xml" .\zipped.package.release\plugins\APIs\
 If ErrorLevel 1 goto End
 copy /Y ".\APIs\*.xml" .\zipped.package.release64\plugins\APIs\
 If ErrorLevel 1 goto End
 
-rem theme
+rem theme: Copy all files into Notepad++ 32-bit/64-bit package folders
 copy /Y ".\themes\*.xml" .\zipped.package.release\themes\
 If ErrorLevel 1 goto End
 copy /Y ".\themes\*.xml" .\zipped.package.release64\themes\
@@ -270,7 +269,7 @@ rem IF EXIST "%PROGRAMFILES(X86)%" ("%PROGRAMFILES(x86)%\NSIS\Unicode\makensis.e
 IF EXIST "%PROGRAMFILES(X86)%" ("%PROGRAMFILES(x86)%\NSIS\makensis.exe" nppSetup.nsi) ELSE ("%PROGRAMFILES%\NSIS\makensis.exe" nppSetup.nsi)
 IF EXIST "%PROGRAMFILES(X86)%" ("%PROGRAMFILES(x86)%\NSIS\makensis.exe" -DARCH64 nppSetup.nsi) ELSE ("%PROGRAMFILES%\NSIS\makensis.exe" -DARCH64 nppSetup.nsi)
 
-rem Notepad++ Unicode package
+rem Remove old build
 rmdir /S /Q .\zipped.package.release
 
 rem 
@@ -292,7 +291,7 @@ for %%a in (npp.*.Installer.exe) do (
   set nppInstallerVar=%%a
   set nppInstallerVar64=!nppInstallerVar:Installer.exe=Installer.x64.exe!
 
-  rem nppInstallerVar should be the version for exemple: 6.9
+  rem nppInstallerVar should be the version for example: 6.9
   rem we put npp.6.9. + (bin.zip instead of Installer.exe) into var zipvar
   set zipvar=!nppInstallerVar:Installer.exe=bin.zip!
 

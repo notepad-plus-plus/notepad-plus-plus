@@ -180,7 +180,11 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64 };
 	//BOOL NPPM_GETENABLETHEMETEXTUREFUNC(0, 0)
 
 	#define NPPM_GETPLUGINSCONFIGDIR (NPPMSG + 46)
-	//void NPPM_GETPLUGINSCONFIGDIR(int strLen, TCHAR *str)
+	//INT NPPM_GETPLUGINSCONFIGDIR(int strLen, TCHAR *str)
+	// Get user's plugin config directory path. It's useful if plugins want to save/load parameters for the current user
+	// Returns the number of TCHAR copied/to copy.
+	// Users should call it with "str" be NULL to get the required number of TCHAR (not including the terminating nul character),
+	// allocate "str" buffer with the return value + 1, then call it again to get the path.
 
 	#define NPPM_MSGTOPLUGIN (NPPMSG + 47)
 	//BOOL NPPM_MSGTOPLUGIN(TCHAR *destModuleName, CommunicationInfo *info)
@@ -384,7 +388,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64 };
 
 	#define NPPM_GETAPPDATAPLUGINSALLOWED    (NPPMSG + 87)
 	// BOOL NPPM_GETAPPDATAPLUGINSALLOWED(0, 0)
-	// Check to see if loading plugins from "%APPDATA%\Notepad++\plugins" is allowed.
+	// Check to see if loading plugins from "%APPDATA%\..\Local\Notepad++\plugins" is allowed.
 
 	#define NPPM_GETCURRENTVIEW    (NPPMSG + 88)
 	// INT NPPM_GETCURRENTVIEW(0, 0)
@@ -418,6 +422,14 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64 };
 	// BOOL NPPM_REMOVESHORTCUTASSIGNMENT(int cmdID)
 	// removes the assigned shortcut mapped to cmdID
 	// returned value : TRUE if function call is successful, otherwise FALSE
+
+	#define NPPM_GETPLUGINHOMEPATH (NPPMSG + 97)
+	// INT NPPM_GETPLUGINHOMEPATH(size_t strLen, TCHAR *pluginRootPath)
+	// Get plugin home root path. It's useful if plugins want to get its own path
+	// by appending <pluginFolderName> which is the name of plugin without extension part.
+	// Returns the number of TCHAR copied/to copy.
+	// Users should call it with pluginRootPath be NULL to get the required number of TCHAR (not including the terminating nul character),
+	// allocate pluginRootPath buffer with the return value + 1, then call it again to get the path.
 
 #define	RUNCOMMAND_USER    (WM_USER + 3000)
 	#define NPPM_GETFULLCURRENTPATH		(RUNCOMMAND_USER + FULL_CURRENT_PATH)

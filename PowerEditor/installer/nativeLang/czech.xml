@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 7.5.7  6/Jul/2018  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 7.6.0  6/Dec/2018  by Ondřej Müller (mullero@email.cz)
 	- N++ Community:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz)
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="7.5.7">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="7.6.0">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -317,12 +317,14 @@
 					<Item id = "48006" name = "Importovat styl(y) ..."/>
 					<Item id = "48009" name = "Asociace klávesových zkratek..."/>
 					<Item id = "48011" name = "Volby..."/>
+					<Item id = "48015" name = "Správa pluginů..."/>
+					<Item id = "48016" name = "Upravit zástupce / Odstranit makro..."/>
+					<Item id = "48017" name = "Upravit zástupce / Odstranit povel..."/>
 					<Item id = "48018" name = "Upravit vyskakovací kontextové menu..."/>
 					<Item id = "48501" name = "Generovat..."/>
 					<Item id = "48502" name = "Generovat ze souborů..."/>
 					<Item id = "48503" name = "Generovat z dat ve Schránce"/>
 					<Item id = "49000" name = "&amp;Spustit..."/>
-
 					<Item id = "50000" name = "Dokončování funkcí"/>
 					<Item id = "50001" name = "Dokončování slov"/>
 					<Item id = "50002" name = "Nápověda k parametrům funkcí"/>
@@ -331,8 +333,7 @@
 					<Item id = "44042" name = "Skrýt řádky"/>
 					<Item id = "42040" name = "Otevřít všechny nedávné soubory"/>
 					<Item id = "42041" name = "Vymazat seznam nedávno otevřených"/>
-					<Item id = "48016" name = "Upravit zástupce / Odstranit makro..."/>
-					<Item id = "48017" name = "Upravit zástupce / Odstranit povel..."/>
+					
 
 				</Commands>
 			</Main>
@@ -449,7 +450,6 @@
 				<Item id = "1904" name = "Uložit..."/>
 			</Run>
 			
-			
 			<MD5FromFilesDlg title = "Generování unikátního MD5 klíče ze souborů">
 				<Item id = "1922" name = "Vyberte soubory pro generování MD5..."/>
 				<Item id = "1924" name = "Kopírovat do Schránky"/>
@@ -461,6 +461,17 @@
 				<Item id = "1934" name = "Kopírovat do Schránky"/>
 				<Item id = "2"    name = "Zavřít"/>
 			</MD5FromTextDlg>
+			
+			<PluginsAdminDlg title="Správa pluginů" titleAvailable = "Dostupné" titleUpdates = "Aktualizované" titleInstalled = "Instalované">
+                <ColumnPlugin   name="Plugin"/>
+                <ColumnVersion  name="Verze"/>
+                <Item id = "5501" name = "Rešerše:"/>
+                <Item id = "5503" name = "Instalovat"/>
+                <Item id = "5504" name = "Aktualizovat"/>
+                <Item id = "5505" name = "Odstranit"/>
+                <Item id = "5508" name = "Pokračovat"/>
+                <Item id = "2"    name = "Ukončit"/>
+            </PluginsAdminDlg>
 
 			<StyleConfig title = "Upravit styl">
 				<Item id = "2" name = "Storno"/>

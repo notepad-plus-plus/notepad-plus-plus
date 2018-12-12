@@ -1049,7 +1049,7 @@ Deuretz tornar lançar Notepad++ per que siá efectiu."/>
 		<FolderAsWorkspace>
 			<PanelTitle name="Dorsièr coma espaci de trabalh"/>
 			<SelectFolderFromBrowserString name="Seleccionar un dorsièr d'ajustar dins lo panèl Select a folder to add in Dorsièr coma espaci de trabalh"/>
-			<Menús>
+			<Menus>
 				<Item id="3511" name="Tirar"/>
 				<Item id="3512" name="Tirar tot"/>
 				<Item id="3513" name="Ajustar"/>

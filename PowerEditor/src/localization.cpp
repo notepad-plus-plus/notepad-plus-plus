@@ -754,6 +754,66 @@ void NativeLangSpeaker::changeFindReplaceDlgLang(FindReplaceDlg & findReplaceDlg
 	changeDlgLang(findReplaceDlg.getHSelf(), "Find");
 }
 
+void NativeLangSpeaker::changePluginsAdminDlgLang(PluginsAdminDlg & pluginsAdminDlg)
+{
+	if (_nativeLangA)
+	{
+		TiXmlNodeA *dlgNode = _nativeLangA->FirstChild("Dialog");
+		if (dlgNode)
+		{
+			dlgNode = searchDlgNode(dlgNode, "PluginsAdminDlg");
+			if (dlgNode)
+			{
+				WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+
+				TiXmlNodeA *ColumnPluginNode = dlgNode->FirstChild("ColumnPlugin");
+				if (ColumnPluginNode)
+				{
+					const char *name = (ColumnPluginNode->ToElement())->Attribute("name");
+					if (name && name[0])
+					{
+						basic_string<wchar_t> nameW = wmc->char2wchar(name, _nativeLangEncoding);
+						pluginsAdminDlg.changeColumnName(COLUMN_PLUGIN, nameW.c_str());
+					}
+				}
+
+				TiXmlNodeA *ColumnVersionNode = dlgNode->FirstChild("ColumnVersion");
+				if (ColumnVersionNode)
+				{
+					const char *name = (ColumnVersionNode->ToElement())->Attribute("name");
+					if (name && name[0])
+					{
+						basic_string<wchar_t> nameW = wmc->char2wchar(name, _nativeLangEncoding);
+						pluginsAdminDlg.changeColumnName(COLUMN_VERSION, nameW.c_str());
+					}
+				}
+
+				const char *titre1 = (dlgNode->ToElement())->Attribute("titleAvailable");
+				const char *titre2 = (dlgNode->ToElement())->Attribute("titleUpdates");
+				const char *titre3 = (dlgNode->ToElement())->Attribute("titleInstalled");
+
+				if (titre1 && titre1[0])
+				{
+					basic_string<wchar_t> nameW = wmc->char2wchar(titre1, _nativeLangEncoding);
+					pluginsAdminDlg.changeTabName(AVAILABLE_LIST, nameW.c_str());
+				}
+				if (titre2  && titre2[0])
+				{
+					basic_string<wchar_t> nameW = wmc->char2wchar(titre2, _nativeLangEncoding);
+					pluginsAdminDlg.changeTabName(UPDATES_LIST, nameW.c_str());
+				}
+				if (titre3 && titre3[0])
+				{
+					basic_string<wchar_t> nameW = wmc->char2wchar(titre3, _nativeLangEncoding);
+					pluginsAdminDlg.changeTabName(INSTALLED_LIST, nameW.c_str());
+				}
+			}
+
+			changeDlgLang(pluginsAdminDlg.getHSelf(), "PluginsAdminDlg");
+		}
+	}
+}
+
 void NativeLangSpeaker::changePrefereceDlgLang(PreferenceDlg & preference) 
 {
 	auto currentSel = preference.getListSelectedIndex();

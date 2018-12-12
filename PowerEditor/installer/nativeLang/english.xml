@@ -294,9 +294,10 @@
                     <Item id="48018" name="Edit Popup ContextMenu"/>
                     <Item id="48009" name="Shortcut Mapper..."/>
                     <Item id="48011" name="Preferences..."/>
+                    <Item id="48015" name="Plugins Admin..."/>
                     <Item id="48501" name="Generate..."/>
                     <Item id="48502" name="Generate from files..."/>
-                    <Item id="48503" name="Generate into clipboard"/>
+                    <Item id="48503" name="Generate from selection into clipboard"/>
                     <Item id="49000" name="&amp;Run..."/>
 
                     <Item id="50000" name="Function Completion"/>
@@ -416,6 +417,17 @@
                 <Item id="1934" name="Copy to Clipboard"/>
                 <Item id="2"    name="Close"/>
             </MD5FromTextDlg>
+
+            <PluginsAdminDlg title="Plugins Admin" titleAvailable = "Available" titleUpdates = "Updates" titleInstalled = "Installed">
+                <ColumnPlugin   name="Plugin"/>
+                <ColumnVersion  name="Version"/>
+                <Item id="5501" name="Search:"/>
+                <Item id="5503" name="Install"/>
+                <Item id="5504" name="Update"/>
+                <Item id="5505" name="Remove"/>
+                <Item id="5508" name="Next"/>
+                <Item id="2"    name="Close"/>
+            </PluginsAdminDlg>
 
             <StyleConfig title="Style Configurator">
                 <Item id="2"    name="Cancel"/>
@@ -865,7 +877,7 @@
                     <Item id="6263" name="No Cloud"/>
                     <Item id="6267" name="Set your cloud location path here:"/>
                 </Cloud>
-                
+
                 <SearchEngine title="Search Engine">
                     <Item id="6271" name="Search Engine (for command &quot;Search on Internet&quot;)"/>
                     <Item id="6272" name="DuckDuckGo"/>
@@ -963,7 +975,7 @@ Continue?"/>
             <FileLockedWarning title="Save failed" message="Please check whether if this file is opened in another program"/>
             <FileAlreadyOpenedInNpp title="" message="The file is already opened in the Notepad++."/>
             <DeleteFileFailed title="Delete File" message="Delete File failed"/>
-            
+
             <NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.
 Are you sure to open them?"/>
             <SettingsOnCloudError title="Settings on Cloud" message="It seems the path of settings on cloud is set on a read only drive,

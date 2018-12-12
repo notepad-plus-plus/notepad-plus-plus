@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++ 7.5.6
-	last modified: 2018-05-31 by schnurlos (schnurlos@gmail.com)
+	last modified: 2018-11-28 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -136,7 +136,7 @@
 					<Item id="42070" name="Gemischter &amp;Wortstil"/>
 					<Item id="42071" name="iNVERTIERTER wORTSTIL"/>
 					<Item id="42072" name="zUFäLlIGeR WortSTiL"/>
-					<Item id="42073" name="Datei Öffnen"/>
+					<Item id="42073" name="Datei öffnen"/>
 					<Item id="42074" name="Ordner im Explorer öffnen"/>
 					<Item id="42075" name="Suche im Internet"/>
 					<Item id="42076" name="Andere Suchmaschine wählen …"/>
@@ -307,6 +307,7 @@
 					<Item id="48018" name="&amp;Kontextmenü anpassen …"/>
 					<Item id="48009" name="&amp;Tastatur …"/>
 					<Item id="48011" name="&amp;Optionen …"/>
+					<Item id="48015" name="Plugin-Verwaltung …"/>
 					<Item id="48501" name="Erstelle …"/>
 					<Item id="48502" name="Erstelle aus Dateien …"/>
 					<Item id="48503" name="Erstelle in die Zwischenablage"/>
@@ -431,6 +432,17 @@
 				<Item id="1934" name="In die Zwischenablage kopieren"/>
 				<Item id="2"    name="Schließen"/>
 			</MD5FromTextDlg>
+
+			<PluginsAdminDlg title="Plugin-Verwaltung" titleAvailable = "Verfügbar" titleUpdates = "Aktualisierungen" titleInstalled = "Installiert">
+				<ColumnPlugin   name="Plugin"/>
+				<ColumnVersion  name="Version"/>
+				<Item id="5501" name="Suchen:"/>
+				<Item id="5503" name="Installieren"/>
+				<Item id="5504" name="Aktualisieren"/>
+				<Item id="5505" name="Entfernen"/>
+				<Item id="5508" name="Nächstes"/>
+				<Item id="2"    name="Schließen"/>
+			</PluginsAdminDlg>
 
 			<StyleConfig title="Stile">
 				<Item id="2"    name="Abbrechen"/>
@@ -978,7 +990,7 @@
 			<SortingError title="Sortier-Fehler" message="Konnte nicht nummerisch sortieren wegen Zeile $INT_REPLACE$."/>
 			<ColumnModeTip title="Tip zum Spalten-Modus" message="Bitte &quot;ALT+Mauswahl&quot; oder &quot;Alt+Shift+Pfeiltaste&quot; verwenden um in den Spalten-Modus zu wechseln."/>
 			<BufferInvalidWarning title="Speichern fehlgeschlagen" message="Konnte nicht speichern: Ungültiger Puffer."/>
-			<DoSaveOrNot title="Speichern" message="Speichere Datei &quot;$STR_REPLACE$&quot; ?"/>
+			<DoSaveOrNot title="Speichern" message="Speichere Datei &quot;$STR_REPLACE$&quot;?"/>
 			<DoCloseOrNot title="Nicht existierende Datei behalten" message="Die Datei &quot;$STR_REPLACE$&quot; existiert nicht mehr.&#x0A;Soll die Datei im Editor behalten werden?"/>
 			<DoDeleteOrNot title="Datei löschen" message="Die Datei &quot;$STR_REPLACE$&quot;&#x0A;wird in den Papierkorb verschoben und diese Dokument wird geschlossen.&#x0A;Fortfahren?"/>
 			<NoBackupDoSaveFile title="Speichern" message="Die Sicherungsdatei konnte nicht gefunden werden (wurde anderwärtig gelöscht).&#x0A;Speichern oder die Daten gehen verloren.&#x0A;Soll die Datei &quot;$STR_REPLACE$&quot; gespeichert werden?"/>
@@ -1131,7 +1143,7 @@
 			<find-status-replaceinopenedfiles-1-replaced value="Ersetzen in geöffneten Dateien: 1 Vorkommen wurde ersetzt"/>
 			<find-status-replaceinopenedfiles-nb-replaced value="Ersetzen in geöffneten Dateien: $INT_REPLACE$ Vorkommen wurden ersetzt"/>
 			<find-status-mark-re-malformed value="Achtung: Der Ausdruck für die Suche ist nicht passend"/>
-			<find-status-invalid-re value="Suche: Üngültiger Ausdruck"/>
+			<find-status-invalid-re value="Suche: Ungültiger Ausdruck"/>
 			<find-status-mark-1-match value="1 Treffer"/>
 			<find-status-mark-nb-matches value="$INT_REPLACE$ Treffer"/>
 			<find-status-count-re-malformed value="Zähler: Der Ausdruck für die Suche ist nicht passend"/>
@@ -1149,7 +1161,7 @@
 			<find-status-replace-readonly value="Ersetzen: Konnte Text wegen schreibgeschützter Datei nicht ersetzen"/>
 			<find-status-cannot-find value="Suche: Konnte Text &quot;$STR_REPLACE$&quot; nicht finden"/>
 			<finder-find-in-finder value="Finde in diesen Suchergebnissen …"/>
-			<finder-close-this value="Schliesse diese Suche"/>
+			<finder-close-this value="Schließe diese Suche"/>
 			<finder-collapse-all value="Alles einklappen"/>
 			<finder-uncollapse-all value="Alles aufmachen"/>
 			<finder-copy value="Kopiere"/>

@@ -39,6 +39,8 @@ doesExist:
 	StrCpy $doLocalConf "true"
 noneExist:
 	;MessageBox MB_OK "doLocalConf == $doLocalConf"
+
+	Call un.setPathAndOptions
 FunctionEnd
 
 Function un.onUninstSuccess
@@ -245,6 +247,7 @@ Section Uninstall
 	Delete "$INSTDIR\SourceCodePro-BoldIt.ttf"
 	Delete "$INSTDIR\NppHelp.chm"
 	Delete "$INSTDIR\doLocalConf.xml"
+	Delete "$INSTDIR\uninstall.ini"
 	
 	${If} $doLocalConf == "false"
 		Call un.doYouReallyWantToKeepData

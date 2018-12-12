@@ -37,6 +37,7 @@ class FindReplaceDlg;
 class PreferenceDlg;
 class ShortcutMapper;
 class UserDefineDialog;
+class PluginsAdminDlg;
 
 class MenuPosition {
 public:
@@ -65,6 +66,8 @@ public:
 	void changeUserDefineLangPopupDlg(HWND hDlg);
     void changeFindReplaceDlgLang(FindReplaceDlg & findReplaceDlg);
     void changePrefereceDlgLang(PreferenceDlg & preference);
+	void changePluginsAdminDlgLang(PluginsAdminDlg & pluginsAdminDlg);
+
     bool isRTL() const {
         return _isRTL;
     };

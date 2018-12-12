@@ -708,8 +708,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			{
 				if (lstrlen(fileStr) >= int(wParam))
 				{
-					// Not message for users so no translation
-					::MessageBox(hwnd, TEXT("Allocated buffer size is not enough to copy the string."), TEXT("NPPM error"), MB_OK);
 					return FALSE;
 				}
 			}
@@ -730,8 +728,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			{
 				if (lstrlen(str) >= int(wParam))	//buffer too small
 				{
-					// Not message for users so no translation
-					::MessageBox(hwnd, TEXT("Allocated buffer size is not enough to copy the string."), TEXT("NPPM_GETCURRENTWORD error"), MB_OK);
 					return FALSE;
 				}
 				else //buffer large enough, perform safe copy
@@ -787,8 +783,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 			if (lstrlen(str) >= int(wParam))	//buffer too small
 			{
-				// Not message for users so no translation
-				::MessageBox(hwnd, TEXT("Allocated buffer size is not enough to copy the string."), TEXT("NPPM_GETFILENAMEATCURSOR error"), MB_OK);
 				return FALSE;
 			}
 			else //buffer large enough, perform safe copy
@@ -815,8 +809,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			{
 				if (lstrlen(str) >= int(wParam))
 				{
-					// Not message for users so no translation
-					::MessageBox(hwnd, TEXT("Allocated buffer size is not enough to copy the string."), TEXT("NPPM_GETNPPDIRECTORY error"), MB_OK);
 					return FALSE;
 				}
 			}
@@ -1854,7 +1846,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				if (!updaterFullPath.empty())
 				{
 					Process updater(updaterFullPath.c_str(), pNppParam->getWingupParams().c_str(), pNppParam->getWingupDir().c_str());
-					updater.run();
+					updater.run(pNppParam->shouldDoUAC());
 				}
 			}
 			return TRUE;
@@ -2040,25 +2032,33 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_GETPLUGINSCONFIGDIR:
 		{
-			if (!lParam || !wParam)
-				return FALSE;
+			generic_string userPluginConfDir = pNppParam->getUserPluginConfDir();
+			if (lParam != 0)
+			{
+				if (userPluginConfDir.length() >= static_cast<size_t>(wParam))
+				{
+					return 0;
+				}
+				lstrcpy(reinterpret_cast<TCHAR *>(lParam), userPluginConfDir.c_str());
 
-			generic_string pluginsConfigDirPrefix = pNppParam->getAppDataNppDir();
+				// For the retro-compatibility
+				return TRUE;
+			}
+			return userPluginConfDir.length();
+		}
 
-			if (pluginsConfigDirPrefix == TEXT(""))
-				pluginsConfigDirPrefix = pNppParam->getNppPath();
-
-			const TCHAR *secondPart = TEXT("plugins\\Config");
-
-			size_t len = wParam;
-			if (len < pluginsConfigDirPrefix.length() + lstrlen(secondPart))
-				return FALSE;
-
-			TCHAR *pluginsConfigDir = reinterpret_cast<TCHAR *>(lParam);
-			lstrcpy(pluginsConfigDir, pluginsConfigDirPrefix.c_str());
-
-			::PathAppend(pluginsConfigDir, secondPart);
-			return TRUE;
+		case NPPM_GETPLUGINHOMEPATH:
+		{
+			generic_string pluginHomePath = pNppParam->getPluginRootDir();
+			if (lParam != 0)
+			{
+				if (pluginHomePath.length() >= static_cast<size_t>(wParam))
+				{
+					return 0;
+				}
+				lstrcpy(reinterpret_cast<TCHAR *>(lParam), pluginHomePath.c_str());
+			}
+			return pluginHomePath.length();
 		}
 
 		case NPPM_MSGTOPLUGIN :
@@ -2287,14 +2287,19 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return _pFileSwitcherPanel->isVisible();
 		}
 
-		case NPPM_GETAPPDATAPLUGINSALLOWED: // if doLocal, it's always false - having doLocal environment cannot load plugins outside
-		{                                   // the presence of file "allowAppDataPlugins.xml" will be checked only when not doLocal
+		// OLD BEHAVIOUR:
+		// if doLocal, it's always false - having doLocal environment cannot load plugins outside
+		// the presence of file "allowAppDataPlugins.xml" will be checked only when not doLocal
+		//
+		// NEW BEHAVIOUR:
+		// No more file "allowAppDataPlugins.xml"
+		// if doLocal - not allowed. Otherwise - allowed.
+		case NPPM_GETAPPDATAPLUGINSALLOWED: 
+		{
 			const TCHAR *appDataNpp = pNppParam->getAppDataNppDir();
 			if (appDataNpp[0]) // if not doLocal
 			{
-				generic_string allowAppDataPluginsPath(pNppParam->getNppPath());
-				PathAppend(allowAppDataPluginsPath, allowAppDataPluginsFile);
-				return ::PathFileExists(allowAppDataPluginsPath.c_str());
+				return TRUE;
 			}
 			return FALSE;
 		}

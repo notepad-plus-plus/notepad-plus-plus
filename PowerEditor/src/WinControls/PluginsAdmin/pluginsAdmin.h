@@ -51,7 +51,7 @@ struct Version
 	generic_string toString();
 	bool isNumber(const generic_string& s) const {
 		return !s.empty() && 
-			find_if(s.begin(), s.end(), [](char c) { return !isdigit(c); }) == s.end();
+			find_if(s.begin(), s.end(), [](_TCHAR c) { return !_istdigit(c); }) == s.end();
 	};
 
 	int compareTo(const Version& v2c) const;
@@ -84,10 +84,9 @@ struct PluginUpdateInfo
 	generic_string _sourceUrl;
 	generic_string _description;
 	generic_string _author;
-	generic_string _md5;
-	generic_string _id;
+	generic_string _id;           // Plugin package ID: SHA-256 hash
 	generic_string _repository;
-	bool _isVisible = true;     // if false then it should not be displayed 
+	bool _isVisible = true;       // if false then it should not be displayed 
 
 	generic_string describe();
 	PluginUpdateInfo() {};
@@ -111,6 +110,8 @@ struct NppCurrentStatus
 	// 2. gitup launch mode:    ADM             ADM         NOMAL
 	bool shouldLaunchInAdmMode() { return _isInProgramFiles; };
 };
+
+enum COLUMN_TYPE { COLUMN_PLUGIN, COLUMN_VERSION };
 
 class PluginViewList
 {
@@ -145,40 +146,21 @@ public:
 	bool hideFromPluginInfoPtr(PluginUpdateInfo* pluginInfo2hide);
 	bool restore(const generic_string& folderName);
 	bool removeFromPluginInfoPtr(PluginUpdateInfo* pluginInfo2hide);
+	void changeColumnName(COLUMN_TYPE index, const TCHAR *name2change);
 
 private:
 	std::vector<PluginUpdateInfo*> _list;
 	ListView _ui;
 };
 
-//
-// The parameters used for plugin installer thread
-//
-struct LaunchWingupParams
-{
-	generic_string _updaterFullPath;
-	generic_string _updaterDir;
-	generic_string _updaterParams;
+enum LIST_TYPE { AVAILABLE_LIST, UPDATES_LIST, INSTALLED_LIST };
 
-	generic_string _nppPluginsDir;
-	PluginUpdateInfo* _pluginUpdateInfo;
-
-	PluginViewList* _uiAvailableList;
-	PluginViewList* _uiInstalledList;
-
-	PluginsManager *_pPluginsManager;
-
-	HANDLE _mutex;
-};
 
 class PluginsAdminDlg final : public StaticDialog
 {
 public :
 	PluginsAdminDlg();
-	~PluginsAdminDlg() {
-		for (auto i : _lwps)
-			delete i;
-	};
+	~PluginsAdminDlg() {};
 
     void init(HINSTANCE hInst, HWND parent)	{
         Window::init(hInst, parent);
@@ -206,12 +188,13 @@ public :
 
 	bool updateListAndLoadFromJson();
 	void setAdminMode(bool isAdm) { _nppCurrentStatus._isAdminMode = isAdm; };
-	generic_string getPluginsPath() const;
-	generic_string getPluginConfigPath() const;
 
 	bool installPlugins();
 	bool updatePlugins();
 	bool removePlugins();
+
+	void changeTabName(LIST_TYPE index, const TCHAR *name2change);
+	void changeColumnName(COLUMN_TYPE index, const TCHAR *name2change);
 
 protected:
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
@@ -230,8 +213,6 @@ private :
 	PluginsManager *_pPluginsManager = nullptr;
 	NppCurrentStatus _nppCurrentStatus;
 
-	std::vector<LaunchWingupParams*> _lwps; // Add each new instanciate plugin installer parameter object of the thread for cleaning up afterward
-
 	void collectNppCurrentStatusInfos();
 	bool searchInPlugins(bool isNextMode) const;
 	const bool _inNames = true;
@@ -245,11 +226,15 @@ private :
 	long searchInDescsFromCurrentSel(generic_string str2search, bool isNextMode) const {
 		return searchFromCurrentSel(str2search, _inDescs, isNextMode);
 	};
-
-	static DWORD WINAPI launchPluginInstallerThread(void *params);
-
+	
 	bool loadFromPluginInfos();
 	bool checkUpdates();
-	bool exitToUpdateRemovePlugins(bool isUpdate, const std::vector<PluginUpdateInfo*>& puis);
+
+	enum Operation {
+		pa_install = 0,
+		pa_update = 1,
+		pa_remove = 2
+	};
+	bool exitToInstallRemovePlugins(Operation op, const std::vector<PluginUpdateInfo*>& puis);
 };
 

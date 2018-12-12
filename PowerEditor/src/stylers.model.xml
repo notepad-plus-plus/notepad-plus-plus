@@ -962,7 +962,7 @@
             <WordsStyle name="BINARY ( 16#{1A803F59} )" styleID="11" fgColor="C000C0" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="MONEY" styleID="12" fgColor="003070" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="ISSUE { #123-CD-456 }" styleID="13" fgColor="800000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="TAG { <TITLE HEIGHT=100> }" styleID="14" fgColor="C00000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="TAG { &lt;TITLE HEIGHT=100&gt; }" styleID="14" fgColor="C00000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="FILE { %/C/WINNT/SOME.DLL }" styleID="15" fgColor="0080FF" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="EMAIL { JOE@MAIL.DOM }" styleID="16" fgColor="0080FF" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="URL { FTP://THERE.DOM }" styleID="17" fgColor="0080FF" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
@@ -1136,7 +1136,7 @@
             <WordsStyle name="CHECKSUM_WRONG" styleID="17" fgColor="FFFF00" bgColor="FF0000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="GARBAGE" styleID="18" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="2" fontSize="" />
         </LexerType>
-        <LexerType name="swift" desc="SWIFT" ext="">
+        <LexerType name="swift" desc="Swift" ext="">
             <WordsStyle name="PREPROCESSOR" styleID="9" fgColor="804000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="DEFAULT" styleID="11" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="INSTRUCTION WORD" styleID="5" fgColor="0000FF" bgColor="FFFFFF" fontName="" fontStyle="1" fontSize="" keywordClass="instre1" />
@@ -1292,8 +1292,6 @@
             <WordsStyle name="INSTRUCTION" styleID="8" fgColor="0000FF" bgColor="FFFFFF" fontName="" fontStyle="1" fontSize="" keywordClass="instre1" />
             <WordsStyle name="STD OPERATOR" styleID="9" fgColor="0080C0" bgColor="FFFFFF" fontName="" fontStyle="1" fontSize="" keywordClass="instre2" />
             <WordsStyle name="ATTRIBUTE" styleID="10" fgColor="8080FF" bgColor="FFFFCC" fontName="" fontStyle="1" fontSize="" keywordClass="type1" />
-            <WordsStyle name="DIRECTIVE" styleID="9" fgColor="808000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="DIRECTIVE OPERAND" styleID="10" fgColor="000080" bgColor="FFFFFF" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="STD FUNCTION" styleID="11" fgColor="0080FF" bgColor="FFFFFF" fontName="" fontStyle="1" fontSize="" keywordClass="type2" />
             <WordsStyle name="STD PACKAGE" styleID="12" fgColor="800000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" keywordClass="type3" />
             <WordsStyle name="STD TYPE" styleID="13" fgColor="8000FF" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" keywordClass="type4" />

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="7.5.5">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="7.6">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -307,6 +307,7 @@
                     <Item id="48018" name="コンテキストメニューを編集"/>
                     <Item id="48009" name="ショートカット管理..."/>
                     <Item id="48011" name="環境設定..."/>
+                    <Item id="48015" name="プラグイン管理..."/>
                     <Item id="48501" name="生成..."/>
                     <Item id="48502" name="ファイルから生成..."/>
                     <Item id="48503" name="選択範囲から生成しクリップボードへ出力"/>
@@ -429,6 +430,17 @@
                 <Item id="1934" name="クリップボードへコピー"/>
                 <Item id="2"    name="閉じる"/>
             </MD5FromTextDlg>
+
+            <PluginsAdminDlg title="プラグイン管理" titleAvailable = "利用可能" titleUpdates = "アップデート" titleInstalled = "インストール済み">
+                <ColumnPlugin   name="プラグイン"/>
+                <ColumnVersion  name="バージョン"/>
+                <Item id="5501" name="検索："/>
+                <Item id="5503" name="インストール"/>
+                <Item id="5504" name="更新"/>
+                <Item id="5505" name="削除"/>
+                <Item id="5508" name="次を検索"/>
+                <Item id="2"    name="閉じる"/>
+            </PluginsAdminDlg>
 
             <StyleConfig title="スタイル設定">
                 <Item id="2"    name="キャンセル"/>

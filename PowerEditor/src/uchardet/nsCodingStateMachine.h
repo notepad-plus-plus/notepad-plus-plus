@@ -48,17 +48,14 @@ typedef enum {
 #define GETCLASS(c) GETFROMPCK(((unsigned char)(c)), mModel->classTable)
 
 //state machine model
-struct SMModel
+typedef struct 
 {
   nsPkgInt classTable;
   PRUint32 classFactor;
   nsPkgInt stateTable;
   const PRUint32* charLenTable;
   const char* name;
-  SMModel(){};
-  SMModel(nsPkgInt a,PRUint32 b,nsPkgInt c,const PRUint32* d, const char* e):
-	classTable(a), classFactor(b), stateTable(c), charLenTable(d), name(e){};
-} ;
+} SMModel;
 
 class nsCodingStateMachine {
 public:

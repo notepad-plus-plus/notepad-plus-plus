@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
 <!--
-	German localization for Notepad++ 7.6
-	last modified: 2018-12-05 by schnurlos (schnurlos@gmail.com)
+	German localization for Notepad++ 7.6.1
+	last modified: 2018-12-13 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="7.6">
+	<Native-Langue name="Deutsch" filename="german.xml" version="7.6.1">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -374,7 +374,7 @@
 				<Item id="1687" name="Wenn inaktiv"/>
 				<Item id="1688" name="Immer"/>
 				<Item id="1632" name="In &amp;Auswahl"/>
-				<Item id="1633" name="Hervorhebung zurücksetzen"/>
+				<Item id="1633" name="Hervorhebung aufheben"/>
 				<Item id="1635" name="Alle Funde in allen offenen Dateien ersetzen"/>
 				<Item id="1636" name="In &amp;offenen Dateien suchen"/>
 				<Item id="1654" name="Filter:"/>

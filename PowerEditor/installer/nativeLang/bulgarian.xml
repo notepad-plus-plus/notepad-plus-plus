@@ -3,7 +3,7 @@
 	## Bulgarian localization for Notepad++ ##
 
 	Translators:.....: 2007-2012 - Milen Metev (Tragedy); 2014-yyyy - RDD
-	Last revision:...: 10.12.2018 by RDD <astral_86[at]mail[dot]bg>
+	Last revision:...: 13.12.2018 by RDD <astral_86[at]mail[dot]bg>
 	Download:........: https://gist.github.com/rddim/bd37264898c3a17363e7437bcf1b4803
 -->
 <NotepadPlus>
@@ -1029,7 +1029,7 @@
 				<Item id="5503" name="Инсталиране"/>
 				<Item id="5504" name="Обновяване"/>
 				<Item id="5505" name="Премахване"/>
-				<Item id="5508" name="Напред"/>
+				<Item id="5508" name="Следващ"/>
 				<Item id="2"    name="Затваряне"/>
 			</PluginsAdminDlg>
 			<!-- Меню "Прозорци" - "Прозорци..." -->

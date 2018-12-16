@@ -17,14 +17,14 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
 
-#define    IDD_MD5FROMFILES_DLG           1920
-    #define    IDC_MD5_PATH_EDIT                (IDD_MD5FROMFILES_DLG + 1)
-    #define    IDC_MD5_FILEBROWSER_BUTTON       (IDD_MD5FROMFILES_DLG + 2)
-    #define    IDC_MD5_RESULT_EDIT              (IDD_MD5FROMFILES_DLG + 3)
-    #define    IDC_MD5_TOCLIPBOARD_BUTTON       (IDD_MD5FROMFILES_DLG + 4)
+#define    IDD_HASHFROMFILES_DLG           1920
+    #define    IDC_HASH_PATH_EDIT                (IDD_HASHFROMFILES_DLG + 1)
+    #define    IDC_HASH_FILEBROWSER_BUTTON       (IDD_HASHFROMFILES_DLG + 2)
+    #define    IDC_HASH_RESULT_EDIT              (IDD_HASHFROMFILES_DLG + 3)
+    #define    IDC_HASH_TOCLIPBOARD_BUTTON       (IDD_HASHFROMFILES_DLG + 4)
 
-#define    IDD_MD5FROMTEXT_DLG            1930
-    #define    IDC_MD5_TEXT_EDIT                    (IDD_MD5FROMTEXT_DLG + 1)
-    #define    IDC_MD5_EACHLINE_CHECK               (IDD_MD5FROMTEXT_DLG + 2)
-    #define    IDC_MD5_RESULT_FOMTEXT_EDIT          (IDD_MD5FROMTEXT_DLG + 3)
-    #define    IDC_MD5_FROMTEXT_TOCLIPBOARD_BUTTON  (IDD_MD5FROMTEXT_DLG + 4)
+#define    IDD_HASHFROMTEXT_DLG            1930
+    #define    IDC_HASH_TEXT_EDIT                    (IDD_HASHFROMTEXT_DLG + 1)
+    #define    IDC_HASH_EACHLINE_CHECK               (IDD_HASHFROMTEXT_DLG + 2)
+    #define    IDC_HASH_RESULT_FOMTEXT_EDIT          (IDD_HASHFROMTEXT_DLG + 3)
+    #define    IDC_HASH_FROMTEXT_TOCLIPBOARD_BUTTON  (IDD_HASHFROMTEXT_DLG + 4)

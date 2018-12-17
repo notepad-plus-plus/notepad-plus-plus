@@ -1028,12 +1028,17 @@ bool NppParameters::load()
 		_userPath = getSpecialFolderLocation(CSIDL_APPDATA);
 
 		PathAppend(_userPath, TEXT("Notepad++"));
-		_appdataNppDir = _userPluginConfDir = _userPath;
-		PathAppend(_userPluginConfDir, TEXT("plugins"));
-		PathAppend(_userPluginConfDir, TEXT("Config"));
-
 		if (!PathFileExists(_userPath.c_str()))
 			::CreateDirectory(_userPath.c_str(), NULL);
+
+		_appdataNppDir = _userPluginConfDir = _userPath;
+		PathAppend(_userPluginConfDir, TEXT("plugins"));
+		if (!PathFileExists(_userPluginConfDir.c_str()))
+			::CreateDirectory(_userPluginConfDir.c_str(), NULL);
+		PathAppend(_userPluginConfDir, TEXT("Config"));
+		if (!PathFileExists(_userPluginConfDir.c_str()))
+			::CreateDirectory(_userPluginConfDir.c_str(), NULL);
+
 
 		_pluginRootDir = getSpecialFolderLocation(CSIDL_COMMON_APPDATA);
 		PathAppend(_pluginRootDir, TEXT("Notepad++"));

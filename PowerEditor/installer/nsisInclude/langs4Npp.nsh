@@ -286,6 +286,9 @@ SectionGroup "Localization" localization
 	${MementoUnselectedSection} "Piglatin" piglatin
 		CopyFiles "$PLUGINSDIR\nppLocalization\piglatin.xml" "$INSTDIR\localization\piglatin.xml"
 	${MementoSectionEnd}
+        ${MementoUnselectedSection} "ZULU" piglatin
+		CopyFiles "$PLUGINSDIR\nppLocalization\ZULU.xml" "$INSTDIR\localization\ZULU.xml"
+	${MementoSectionEnd}
 SectionGroupEnd
 
 SectionGroup un.localization
@@ -546,5 +549,8 @@ SectionGroup un.localization
 	SectionEnd
 	Section un.piglatin
 		Delete "$INSTDIR\localization\piglatin.xml"
+	SectionEnd
+        Section un.ZULU
+		Delete "$INSTDIR\localization\ZULU.xml"
 	SectionEnd
 SectionGroupEnd

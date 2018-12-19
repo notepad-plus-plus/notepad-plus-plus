@@ -8,7 +8,7 @@
 	
 -->
 <NotepadPlus>
-    <Native-Langue name="IsiNgisi" filename="ZULU.xml" version="7.6.2">
+    <Native-Langue name="zulu" filename="ZULU.xml" version="7.6.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->

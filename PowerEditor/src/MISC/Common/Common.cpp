@@ -30,6 +30,9 @@
 #include <shlobj.h>
 #include <uxtheme.h>
 #include <cassert>
+#include <codecvt>
+#include <locale>
+
 #include "StaticDialog.h"
 
 #include "Common.h"
@@ -61,6 +64,9 @@ generic_string commafyInt(size_t n)
 
 std::string getFileContent(const TCHAR *file2read)
 {
+	if (!::PathFileExists(file2read))
+		return "";
+
 	const size_t blockSize = 1024;
 	char data[blockSize];
 	std::string wholeFileContent = "";
@@ -69,22 +75,15 @@ std::string getFileContent(const TCHAR *file2read)
 	size_t lenFile = 0;
 	do
 	{
-		lenFile = fread(data, 1, blockSize - 1, fp);
+		lenFile = fread(data, 1, blockSize, fp);
 		if (lenFile <= 0) break;
-
-		if (lenFile >= blockSize - 1)
-			data[blockSize - 1] = '\0';
-		else
-			data[lenFile] = '\0';
-
-		wholeFileContent += data;
+		wholeFileContent.append(data, lenFile);
 	}
 	while (lenFile > 0);
 
 	fclose(fp);
 	return wholeFileContent;
 }
-
 
 char getDriveLetter()
 {
@@ -953,7 +952,6 @@ bool str2Clipboard(const generic_string &str2cpy, HWND hwnd)
 	unsigned int clipBoardFormat = CF_UNICODETEXT;
 	if (::SetClipboardData(clipBoardFormat, hglbCopy) == NULL)
 	{
-		::GlobalUnlock(hglbCopy);
 		::GlobalFree(hglbCopy);
 		::CloseClipboard();
 		return false;
@@ -1195,63 +1193,42 @@ bool isAssoCommandExisting(LPCTSTR FullPathName)
 	return isAssoCommandExisting;
 }
 
-#ifndef _WIN64
-static bool IsWindows2000orXP()
+std::wstring s2ws(const std::string& str)
 {
-    bool isWin2kXP = false;
-    switch (NppParameters::getInstance()->getWinVersion())
-    {
-        case WV_W2K:
-        case WV_XP:
-        case WV_S2003:
-            isWin2kXP = true;
-            break;
-    }
-    return isWin2kXP;
+	using convert_typeX = std::codecvt_utf8<wchar_t>;
+	std::wstring_convert<convert_typeX, wchar_t> converterX;
+
+	return converterX.from_bytes(str);
 }
 
-static ULONGLONG filetime_to_time_ull(const FILETIME* ft)
+std::string ws2s(const std::wstring& wstr)
 {
-    ULARGE_INTEGER ull;
-    ull.LowPart = ft->dwLowDateTime;
-    ull.HighPart = ft->dwHighDateTime;
-    return (ull.QuadPart / 10000000ULL - 11644473600ULL);
+	using convert_typeX = std::codecvt_utf8<wchar_t>;
+	std::wstring_convert<convert_typeX, wchar_t> converterX;
+
+	return converterX.to_bytes(wstr);
 }
 
-int custom_wstat(wchar_t const* _FileName, struct _stat* _Stat)
+bool deleteFileOrFolder(const generic_string& f2delete)
 {
-    static bool isWin2kXP = IsWindows2000orXP();
-    if (!isWin2kXP)
-        return _wstat(_FileName, _Stat);
+	auto len = f2delete.length();
+	TCHAR* actionFolder = new TCHAR[len + 2];
+	lstrcpy(actionFolder, f2delete.c_str());
+	actionFolder[len] = 0;
+	actionFolder[len + 1] = 0;
 
-    // In Visual Studio 2015, _wstat always returns -1 in Windows XP.
-    // So here is a WinAPI-based implementation of _wstat.
-    int nResult = -1;
-    HANDLE hFile = ::CreateFile(_FileName, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL);
-    if (hFile != INVALID_HANDLE_VALUE)
-    {
-        LARGE_INTEGER fileSize;
-        FILETIME creationTime, accessTime, writeTime;
-        if (::GetFileSizeEx(hFile, &fileSize) &&
-            ::GetFileTime(hFile, &creationTime, &accessTime, &writeTime))
-        {
-            DWORD dwAttr = ::GetFileAttributes(_FileName);
-            ::ZeroMemory(_Stat, sizeof(struct _stat));
-            _Stat->st_atime = static_cast<decltype(_Stat->st_atime)>(filetime_to_time_ull(&accessTime));
-            _Stat->st_ctime = static_cast<decltype(_Stat->st_ctime)>(filetime_to_time_ull(&creationTime));
-            _Stat->st_mtime = static_cast<decltype(_Stat->st_mtime)>(filetime_to_time_ull(&writeTime));
-            _Stat->st_size = static_cast<decltype(_Stat->st_size)>(fileSize.QuadPart);
-            _Stat->st_mode = _S_IREAD | _S_IEXEC; // S_IEXEC : Execute (for ordinary files) or search (for directories)
-            if ((dwAttr & FILE_ATTRIBUTE_READONLY) == 0)
-                _Stat->st_mode |= _S_IWRITE;
-            if ((dwAttr & FILE_ATTRIBUTE_DIRECTORY) != 0)
-                _Stat->st_mode |= _S_IFDIR;
-            else
-                _Stat->st_mode |= _S_IFREG;
-            nResult = 0;
-        }
-        ::CloseHandle(hFile);
-    }
-    return nResult;
+	SHFILEOPSTRUCT fileOpStruct = { 0 };
+	fileOpStruct.hwnd = NULL;
+	fileOpStruct.pFrom = actionFolder;
+	fileOpStruct.pTo = NULL;
+	fileOpStruct.wFunc = FO_DELETE;
+	fileOpStruct.fFlags = FOF_NOCONFIRMATION | FOF_SILENT | FOF_ALLOWUNDO;
+	fileOpStruct.fAnyOperationsAborted = false;
+	fileOpStruct.hNameMappings = NULL;
+	fileOpStruct.lpszProgressTitle = NULL;
+
+	int res = SHFileOperation(&fileOpStruct);
+
+	delete[] actionFolder;
+	return (res == 0);
 }
-#endif

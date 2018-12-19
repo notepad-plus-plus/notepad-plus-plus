@@ -248,7 +248,7 @@ void DocumentMap::scrollMap()
 			if (lowerY == 0)
 			{
 				auto lineHeight = _pMapView->execute(SCI_TEXTHEIGHT, firstVisibleDocLine);
-				lowerY = nbLine * lineHeight + firstVisibleDocLine;
+				lowerY = nbLine * lineHeight + higherY;
 			}
 		}
 		else

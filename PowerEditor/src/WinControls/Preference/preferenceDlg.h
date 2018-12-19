@@ -142,7 +142,7 @@ private :
 struct strCouple {
 	generic_string _varDesc;
 	generic_string _var;
-	strCouple(TCHAR *varDesc, TCHAR *var): _varDesc(varDesc), _var(var){};
+	strCouple(const TCHAR *varDesc, const TCHAR *var): _varDesc(varDesc), _var(var){};
 };
 
 class PrintSettingsDlg : public StaticDialog

@@ -34,17 +34,13 @@
 #include <algorithm>
 
 FileDialog *FileDialog::staticThis = NULL;
-//int FileDialog::_dialogFileBoxId = (NppParameters::getInstance())->getWinVersion() < WV_W2K?edt1:cmb13;
 
 FileDialog::FileDialog(HWND hwnd, HINSTANCE hInst) 
 	: _nbCharFileExt(0), _nbExt(0), _fileExt(NULL), _extTypeIndex(-1)
 {
 	staticThis = this;
-    //for (int i = 0 ; i < nbExtMax ; i++)
-    //    _extArray[i][0] = '\0';
-
-	_fileName[0] = '\0';
- 
+    
+	memset(_fileName, 0, sizeof(_fileName));
 	_winVersion = (NppParameters::getInstance())->getWinVersion();
 
 	_ofn.lStructSize = sizeof(_ofn);
@@ -66,7 +62,7 @@ FileDialog::FileDialog(HWND hwnd, HINSTANCE hInst)
 	_ofn.lpfnHook = NULL;
 	_ofn.lpstrDefExt = NULL;  // No default extension
 	_ofn.lCustData = 0;
-	_ofn.Flags = OFN_PATHMUSTEXIST | OFN_EXPLORER | OFN_LONGNAMES | DS_CENTER | OFN_HIDEREADONLY;
+	_ofn.Flags = OFN_PATHMUSTEXIST | OFN_EXPLORER | OFN_LONGNAMES | OFN_HIDEREADONLY;
 	_ofn.pvReserved = NULL;
 	_ofn.dwReserved = 0;
 	_ofn.FlagsEx = 0;
@@ -202,7 +198,6 @@ stringVector * FileDialog::doOpenMultiFilesDlg()
 {
 	TCHAR dir[MAX_PATH];
 	::GetCurrentDirectory(MAX_PATH, dir);
-	//_ofn.lpstrInitialDir = dir;
 
 	NppParameters * params = NppParameters::getInstance();
 	_ofn.lpstrInitialDir = params->getWorkingDir();
@@ -259,8 +254,7 @@ stringVector * FileDialog::doOpenMultiFilesDlg()
 TCHAR * FileDialog::doSaveDlg() 
 {
 	TCHAR dir[MAX_PATH];
-	::GetCurrentDirectory(MAX_PATH, dir); 
-	//_ofn.lpstrInitialDir = dir;
+	::GetCurrentDirectory(MAX_PATH, dir);
 
 	NppParameters * params = NppParameters::getInstance();
 	_ofn.lpstrInitialDir = params->getWorkingDir();

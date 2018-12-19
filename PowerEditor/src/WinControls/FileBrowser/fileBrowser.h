@@ -26,8 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef FILEBROWSER_H
-#define  FILEBROWSER_H
+#pragma once
 
 //#include <windows.h>
 #ifndef DOCKINGDLGINTERFACE_H
@@ -179,5 +178,3 @@ protected:
 	void getDirectoryStructure(const TCHAR *dir, const std::vector<generic_string> & patterns, FolderInfo & directoryStructure, bool isRecursive, bool isInHiddenDir); 
 	HTREEITEM createFolderItemsFromDirStruct(HTREEITEM hParentItem, const FolderInfo & directoryStructure);
 };
-
-#endif // FILEBROWSER_H

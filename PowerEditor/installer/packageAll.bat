@@ -126,12 +126,12 @@ mkdir .\zipped.package.release
 mkdir .\zipped.package.release\updater
 mkdir .\zipped.package.release\localization
 mkdir .\zipped.package.release\themes
+mkdir .\zipped.package.release\autoCompletion
 mkdir .\zipped.package.release\plugins
 mkdir .\zipped.package.release\plugins\NppExport
 mkdir .\zipped.package.release\plugins\mimeTools
 mkdir .\zipped.package.release\plugins\NppConverter
 mkdir .\zipped.package.release\plugins\DSpellCheck
-mkdir .\zipped.package.release\plugins\APIs
 mkdir .\zipped.package.release\plugins\Config
 mkdir .\zipped.package.release\plugins\doc
 
@@ -143,11 +143,11 @@ mkdir .\zipped.package.release64
 mkdir .\zipped.package.release64\updater
 mkdir .\zipped.package.release64\localization
 mkdir .\zipped.package.release64\themes
+mkdir .\zipped.package.release64\autoCompletion
 mkdir .\zipped.package.release64\plugins
 mkdir .\zipped.package.release64\plugins\mimeTools
 mkdir .\zipped.package.release64\plugins\NppConverter
 mkdir .\zipped.package.release64\plugins\DSpellCheck
-mkdir .\zipped.package.release64\plugins\APIs
 mkdir .\zipped.package.release64\plugins\Config
 mkdir .\zipped.package.release64\plugins\doc
 
@@ -243,9 +243,9 @@ copy /Y ".\nativeLang\*.xml" .\zipped.package.release64\localization\
 If ErrorLevel 1 goto End
 
 rem files API: Copy all files into Notepad++ 32-bit/64-bit package folders
-copy /Y ".\APIs\*.xml" .\zipped.package.release\plugins\APIs\
+copy /Y ".\APIs\*.xml" .\zipped.package.release\autoCompletion\
 If ErrorLevel 1 goto End
-copy /Y ".\APIs\*.xml" .\zipped.package.release64\plugins\APIs\
+copy /Y ".\APIs\*.xml" .\zipped.package.release64\autoCompletion\
 If ErrorLevel 1 goto End
 
 rem theme: Copy all files into Notepad++ 32-bit/64-bit package folders

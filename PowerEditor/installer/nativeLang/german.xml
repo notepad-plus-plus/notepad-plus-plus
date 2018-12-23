@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++ 7.6.1
-	last modified: 2018-12-13 by schnurlos (schnurlos@gmail.com)
+	last modified: 2018-12-23 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -674,7 +674,7 @@
 			</UserDefine>
 			<Preference title="Optionen">
 				<Item id="6001" name="S&amp;chließen"/>
-				<Global title="Oberfläche 1">
+				<Global title="Allgemein">
 					<Item id="6101" name="Symbolleiste"/>
 					<Item id="6102" name="Ausblenden"/>
 					<Item id="6103" name="Kleine Icons"/>
@@ -702,7 +702,7 @@
 					<Item id="6126" name="Anzeigen"/>
 					<Item id="6127" name="Erweiterungsspalte ausblenden"/>
 				</Global>
-				<Scintillas title="Oberfläche 2">
+				<Scintillas title="Editieren">
 					<Item id="6216" name="Cursoreinstellungen"/>
 					<Item id="6217" name="Breite"/>
 					<Item id="6219" name="Geschwindigkeit"/>
@@ -745,10 +745,10 @@
 					<Item id="6404" name="Macintosh (CR)"/>
 					<Item id="6405" name="Kodierung"/>
 					<Item id="6406" name="ANSI"/>
-					<Item id="6407" name="UTF-8 ohne BOM"/>
-					<Item id="6408" name="UTF-8"/>
-					<Item id="6409" name="UCS-2 Big Endian"/>
-					<Item id="6410" name="UCS-2 Little Endian"/>
+					<Item id="6407" name="UTF-8"/>
+					<Item id="6408" name="UTF-8 mit BOM"/>
+					<Item id="6409" name="UCS-2 Big Endian mit BOM"/>
+					<Item id="6410" name="UCS-2 Little Endian mit BOM"/>
 					<Item id="6411" name="Standardsprache"/>
 					<Item id="6419" name="Format für neue Dateien"/>
 					<Item id="6420" name="Auch beim Öffnen von ANSI-Dateien"/>

@@ -5695,12 +5695,22 @@ bool Notepad_plus::reloadLang()
 
 	if (_md5FromFilesDlg.isCreated())
 	{
-		_nativeLangSpeaker.changeDlgLang(_md5FromFilesDlg.getHSelf(), "HashFromFilesDlg");
+		_nativeLangSpeaker.changeDlgLang(_md5FromFilesDlg.getHSelf(), "MD5FromFilesDlg");
 	}
 
 	if (_md5FromTextDlg.isCreated())
 	{
 		_nativeLangSpeaker.changeDlgLang(_md5FromTextDlg.getHSelf(), "MD5FromTextDlg");
+	}
+
+	if (_sha2FromFilesDlg.isCreated())
+	{
+		_nativeLangSpeaker.changeDlgLang(_sha2FromFilesDlg.getHSelf(), "SHA256FromFilesDlg");
+	}
+
+	if (_sha2FromTextDlg.isCreated())
+	{
+		_nativeLangSpeaker.changeDlgLang(_sha2FromTextDlg.getHSelf(), "SHA256FromTextDlg");
 	}
 
 	if (_runMacroDlg.isCreated())

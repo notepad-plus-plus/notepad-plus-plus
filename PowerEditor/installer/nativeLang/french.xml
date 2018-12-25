@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Français" filename="french.xml" version="7.5.5">
+    <Native-Langue name="Français" filename="french.xml" version="7.6.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -64,6 +64,7 @@
                     <Item subMenuId="encoding-vietnamese" name="Vietnamien"/>
                     <Item subMenuId="settings-import"  name="Importer"/>
                     <Item subMenuId="tools-md5"  name="MD5"/>
+					<Item subMenuId="tools-sha256"  name="SHA-256"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -298,7 +299,10 @@
                     <Item id="48015" name="Gestionnaire des modules d'extension..."/>
                     <Item id="48501" name="Générer..."/>
                     <Item id="48502" name="Générer depuis les fichiers..."/>
-                    <Item id="48503" name="Générer dans le presse-papiers"/>
+                    <Item id="48503" name="Générer dans le presse-papiers depuis la selection"/>
+                    <Item id="48501" name="Générer..."/>
+                    <Item id="48502" name="Générer depuis les fichiers..."/>
+                    <Item id="48503" name="Générer dans le presse-papiers depuis la selection"/>
                     <Item id="48016" name="Modifier/Supprimer une macro..."/>
                     <Item id="48017" name="Modifier/Supprimer une commande..."/>
                     <Item id="48018" name="Éditer le menu contextuel"/>
@@ -402,17 +406,29 @@
                 <Item id="2" name="Annuler"/>
             </Run>
             
-            <MD5FromFilesDlg title="Calculer les empreintes MD5 depuis les fichiers">
+            <MD5FromFilesDlg title="Calculer les empreintes de MD5 depuis les fichiers">
                 <Item id="1922" name="Choisir les fichiers pour générer les empreintes..."/>
                 <Item id="1924" name="Copier dans le presse-papiers"/>
                 <Item id="2"    name="Fermer"/>
             </MD5FromFilesDlg>
 
-            <MD5FromTextDlg title="Calculer l'empreinte MD5">
+            <MD5FromTextDlg title="Calculer l'empreinte de MD5">
                 <Item id="1932" name="Traiter chaque ligne comme une chaine de caractères"/>
                 <Item id="1934" name="Copier dans le presse-papiers"/>
                 <Item id="2"    name="Fermer"/>
             </MD5FromTextDlg>
+
+            <SHA256FromFilesDlg title="Calculer les empreintes de SHA-256 depuis les fichiers">
+                <Item id="1922" name="Choisir les fichiers pour générer les empreintes..."/>
+                <Item id="1924" name="Copier dans le presse-papiers"/>
+                <Item id="2"    name="Fermer"/>
+            </SHA256FromFilesDlg>
+
+            <SHA256FromTextDlg title="Calculer l'empreinte de SHA-256">
+                <Item id="1932" name="Traiter chaque ligne comme une chaine de caractères"/>
+                <Item id="1934" name="Copier dans le presse-papiers"/>
+                <Item id="2"    name="Fermer"/>
+            </SHA256FromTextDlg>
 
             <PluginsAdminDlg title="Gestionnaire des modules d'extension" titleAvailable = "Disponibles" titleUpdates = "Mises à jour" titleInstalled = "Installés">
                 <ColumnPlugin   name="Modules d'extension"/>

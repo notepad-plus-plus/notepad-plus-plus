@@ -59,11 +59,17 @@ initUpdatePath:
 		IfFileExists $INSTDIR\doLocalConf.xml 0 +2
 		Delete $INSTDIR\doLocalConf.xml
 		
-		; "%PROGRAMDATA%\Notepad++\plugins"
+		; "SetShellVarContext all" makes "$APPDATA\${APPNAME}\plugins" to "%PROGRAMDATA%\Notepad++\plugins"
 		SetShellVarContext all
 		StrCpy $PLUGIN_INST_PATH "$APPDATA\${APPNAME}\plugins"
 		StrCpy $ALLUSERS_PLUGIN_CONF_PATH "$APPDATA\${APPNAME}\plugins\Config"
-		
+
+		CreateDirectory $PLUGIN_INST_PATH
+		AccessControl::GrantOnFile "$PLUGIN_INST_PATH" "(S-1-5-32-545)" "ListDirectory + GenericRead + GenericExecute"
+
+		CreateDirectory $ALLUSERS_PLUGIN_CONF_PATH
+		AccessControl::GrantOnFile  "$ALLUSERS_PLUGIN_CONF_PATH" "(S-1-5-32-545)" "FullAccess"
+
 		SetShellVarContext current
 		StrCpy $USER_PLUGIN_CONF_PATH "$APPDATA\${APPNAME}\plugins\Config"
 		StrCpy $UPDATE_PATH "$APPDATA\${APPNAME}"

@@ -444,7 +444,7 @@
 			</SHA256FromFilesDlg>
 			
 			<SHA256FromTextDlg title="Erstelle SHA-256 Hashwert">
-				<Item id="1932" name="Behandle jede Zeile als eigene Zeichenkett"/>
+				<Item id="1932" name="Behandle jede Zeile als eigene Zeichenkette"/>
 				<Item id="1934" name="In die Zwischenablage kopieren"/>
 				<Item id="2"    name="Schließen"/>
 			</SHA256FromTextDlg>

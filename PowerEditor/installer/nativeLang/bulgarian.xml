@@ -3,7 +3,7 @@
 	## Bulgarian localization for Notepad++ ##
 
 	Translators:.....: 2007-2012 - Milen Metev (Tragedy); 2014-yyyy - RDD
-	Last revision:...: 13.12.2018 by RDD <astral_86[at]mail[dot]bg>
+	Last revision:...: 26.12.2018 by RDD <astral_86[at]mail[dot]bg>
 	Download:........: https://gist.github.com/rddim/bd37264898c3a17363e7437bcf1b4803
 -->
 <NotepadPlus>
@@ -78,6 +78,7 @@
 					<Item subMenuId="settings-import"  name="Внасяне"/>
 				<!-- Меню "Инструменти" -->
 					<Item subMenuId="tools-md5" name="MD5"/>
+					<Item subMenuId="tools-sha256"  name="SHA-256"/>
 				</SubEntries>
 				<!-- all menu item -->
 				<Commands>
@@ -347,6 +348,9 @@
 					<Item id="48501" name="Генериране..."/>
 					<Item id="48502" name="Генериране от файлове..."/>
 					<Item id="48503" name="Генериране от селекцията в системния буфер"/>
+					<Item id="48504" name="Генериране..."/>
+                    <Item id="48505" name="Генериране от файлове..."/>
+                    <Item id="48506" name="Генериране от селекцията в системния буфер"/>
 				<!-- Меню "Инструменти" край -->
 				<!-- Меню "Макроси" начало -->
 					<Item id="42018" name="&amp;Начало на запис"/>
@@ -992,19 +996,31 @@
 				<Item id="5007" name="Това ще премахне бързия клавиш от тази команда"/>
 				<Item id="5012" name="ОТКРИТ Е КОНФЛИКТ!"/>
 			</ShortcutMapperSubDialg>
-			<!-- Меню "Инструменти" - "MD5" -->
-				<!-- Генериране... -->
-			<MD5FromTextDlg title="Генериране на MD5 извлечение от текст">
+			<!-- Меню "Инструменти" -->
+				<!-- "MD5" - "Генериране..." -->
+			<MD5FromTextDlg title="Генериране на MD5 извлечение">
 				<Item id="1932" name="Всеки ред като отделен низ"/>
-				<Item id="1934" name="Копиране в системния буфер"/>
+				<Item id="1934" name="Копиране в систем. буфер"/>
 				<Item id="2"	name="Затваряне"/>
 			</MD5FromTextDlg>
-				<!-- Генериране от файлове... -->
+				<!-- "MD5" - "Генериране от файлове..." -->
 			<MD5FromFilesDlg title="Генериране на MD5 извлечение от файлове">
 				<Item id="1922" name="Избор на файлове"/>
-				<Item id="1924" name="Копиране в системния буфер"/>
+				<Item id="1924" name="Копиране в систем. буфер"/>
 				<Item id="2"	name="Затваряне"/>
 			</MD5FromFilesDlg>
+				<!-- "SHA-256" - "Генериране..." -->
+			<SHA256FromTextDlg title="Генериране на SHA-256 извлечение">
+                <Item id="1932" name="Всеки ред като отделен низ"/>
+                <Item id="1934" name="Копиране в систем. буфер"/>
+                <Item id="2"    name="Затваряне"/>
+            </SHA256FromTextDlg>
+				<!--- "SHA-256" - "Генериране от файлове..." -->
+			 <SHA256FromFilesDlg title="Генериране на SHA-256 извлечение от файлове">
+                <Item id="1922" name="Избор на файлове"/>
+                <Item id="1924" name="Копиране в систем. буфер"/>
+                <Item id="2"    name="Затваряне"/>
+            </SHA256FromFilesDlg>
 			<!-- Меню "Макроси" - "Многократно изпълнение..." -->
 			<MultiMacro title="Многократно изпълнение на макрос">
 				<Item id="8006" name="Макрос :"/>

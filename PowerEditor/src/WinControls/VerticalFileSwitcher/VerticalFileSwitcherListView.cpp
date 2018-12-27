@@ -122,6 +122,7 @@ void VerticalFileSwitcherListView::initList()
 		{
 			// resize "Name" column when "exts" won't fit
 			LVCOLUMN lvc;
+			lvc.mask = LVCF_WIDTH;
 			SendMessage(_hSelf, LVM_GETCOLUMN, 0, reinterpret_cast<LPARAM>(&lvc));
 			
 			if (lvc.cx + 50 > totalWidth)
@@ -233,14 +234,15 @@ void VerticalFileSwitcherListView::setItemIconStatus(BufferID bufferID)
 		TaskLstFnStatus *tlfs = (TaskLstFnStatus *)(item.lParam);
 		if (tlfs->_bufID == bufferID)
 		{
+			tlfs->_fn = buf->getFullPathName();
 			item.mask = LVIF_TEXT | LVIF_IMAGE;
 			ListView_SetItem(_hSelf, &item);
 
 			if (isExtColumn)
 			{
 				ListView_SetItemText(_hSelf, i, 1, (LPTSTR)::PathFindExtension(buf->getFileName()));
-
 			}
+			break;
 		}
 	}
 }
@@ -285,7 +287,7 @@ int VerticalFileSwitcherListView::add(BufferID bufferID, int iView)
 	Buffer *buf = static_cast<Buffer *>(bufferID);
 	const TCHAR *fileName = buf->getFileName();
 
-	TaskLstFnStatus *tl = new TaskLstFnStatus(iView, 0, fileName, 0, (void *)bufferID);
+	TaskLstFnStatus *tl = new TaskLstFnStatus(iView, 0, buf->getFullPathName(), 0, (void *)bufferID);
 
 	TCHAR fn[MAX_PATH];
 	lstrcpy(fn, ::PathFindFileName(fileName));

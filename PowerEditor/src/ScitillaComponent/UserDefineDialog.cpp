@@ -1381,6 +1381,7 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
                         FileDialog fDlg(_hSelf, ::GetModuleHandle(NULL));
                         fDlg.setExtFilter(TEXT("UDL"), TEXT(".xml"), NULL);
+						fDlg.setExtIndex(0);		// 0 Default index else file will be saved without extension
                         TCHAR *fn = fDlg.doSaveDlg();
                         if (!fn) break;
                         generic_string fileName2save = fn;

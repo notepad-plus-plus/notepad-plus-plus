@@ -7,7 +7,7 @@
     - &apos; is (')
     - &quot; is (")
     -->
-    <Native-Langue name="Arabic" filename="arabic.xml" RTL="yes" version="7.5">
+    <Native-Langue name="Arabic" filename="arabic.xml" RTL="yes" version="7.5.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -20,39 +20,38 @@
                     <Item menuId="language" name="&amp;لغة"/>
                     <Item menuId="settings" name="إ&amp;عدادات"/>
                     <Item menuId="tools" name="أ&amp;دوات"/>
-                    <Item menuId="macro" name="ماكرو"/>
-                    <Item menuId="run" name="تشغيل"/>
-                    <Item idName="Plugins" name="إضافات"/>
-                    <Item idName="Window" name="نافذة"/>
+                    <Item menuId="macro" name="&amp;ماكرو"/>
+                    <Item menuId="run" name="&amp;تشغيل"/>
+                    <Item idName="Plugins" name="إ&amp;ضافات"/>
+                    <Item idName="Window" name="&amp;نافذة"/>
                 </Entries>
-
                 <!-- Sub Menu Entries -->
                 <SubEntries>
                     <Item subMenuId="file-openFolder" name="فتح مجلد الهدف"/>
-                    <Item subMenuId="file-closeMore" name="إغلاق أكثر"/>
-                    <Item subMenuId="file-recentFiles" name="الملفات الأخيرة"/>
+                    <Item subMenuId="file-closeMore" name="إغلاق المزيد"/>
+                    <Item subMenuId="file-recentFiles" name="الملفات الأ&amp;خيرة"/>
                     <Item subMenuId="edit-copyToClipboard" name="نسخ إلى الذاكرة"/>
-                    <Item subMenuId="edit-indent" name="الإزاحة"/>
+                    <Item subMenuId="edit-indent" name="إزاحة"/>
                     <Item subMenuId="edit-convertCaseTo" name="تحويل حالة الأحرف إلى"/>
-                    <Item subMenuId="edit-lineOperations" name="معاملات السطر"/>
+                    <Item subMenuId="edit-lineOperations" name="عمليات السطر"/>
                     <Item subMenuId="edit-comment" name="تعليق / إلغاء تعليق"/>
                     <Item subMenuId="edit-autoCompletion" name="الإكمال التلقائي"/>
                     <Item subMenuId="edit-eolConversion" name="تحويل نهاية السطر"/>
-                    <Item subMenuId="edit-blankOperations" name="معاملات الفراغ"/>
+                    <Item subMenuId="edit-blankOperations" name="عمليات الفراغ"/>
                     <Item subMenuId="edit-pasteSpecial" name="لصق خاص"/>
                     <Item subMenuId="edit-onSelection" name="على المحدد"/>
-                    <Item subMenuId="search-markAll" name="وضع علامة على الكل"/>
+                    <Item subMenuId="search-markAll" name="تأشير الكل"/>
                     <Item subMenuId="search-unmarkAll" name="إلغاء وضع علامة على الكل"/>
                     <Item subMenuId="search-jumpUp" name="قفز لأعلى"/>
                     <Item subMenuId="search-jumpDown" name="قفز لأسفل"/>
-                    <Item subMenuId="search-bookmark" name="الإشارة المرجعية"/>
+                    <Item subMenuId="search-bookmark" name="إشارة المرجعية"/>
                     <Item subMenuId="view-showSymbol" name="إظهار الرمز"/>
                     <Item subMenuId="view-zoom" name="تكبير"/>
                     <Item subMenuId="view-moveCloneDocument" name="نقل / استنساخ المستند الحالي"/>
                     <Item subMenuId="view-tab" name="علامة التبويب"/>
                     <Item subMenuId="view-collapseLevel" name="مستوى الطي"/>
                     <Item subMenuId="view-uncollapseLevel" name="مستوى إلغاء الطي"/>
-                    <Item subMenuId="view-project" name="المشروع"/>
+                    <Item subMenuId="view-project" name="مشروع"/>
                     <Item subMenuId="encoding-characterSets" name="مجموعة الأحرف"/>
                     <Item subMenuId="encoding-arabic" name="Arabic"/>
                     <Item subMenuId="encoding-baltic" name="Baltic"/>
@@ -71,7 +70,7 @@
                     <Item subMenuId="encoding-westernEuropean" name="Western European"/>
                     <Item subMenuId="encoding-vietnamese" name="Vietnamese"/>
                     <Item subMenuId="settings-import" name="استيراد"/>
-					<Item subMenuId="tools-md5" name="MD5"/>
+                    <Item subMenuId="tools-md5" name="MD5"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -79,9 +78,9 @@
                     <Item id="41001" name="&amp;جديد"/>
                     <Item id="41002" name="&amp;فتح"/>
                     <Item id="41019" name="مستعرض الملفات"/>
-                    <Item id="41020" name="CMD"/>
-                    <Item id="41003" name="إغلاق"/>
-                    <Item id="41004" name="إ&amp;غلاق الكل"/>
+                    <Item id="41020" name="cmd"/>
+                    <Item id="41003" name="إ&amp;غلاق"/>
+                    <Item id="41004" name="إغلاق ال&amp;كل"/>
                     <Item id="41005" name="إغلاق الكل باستثناء المستند الحالي"/>
                     <Item id="41009" name="إغلاق الكل إلى اليسار"/>
                     <Item id="41018" name="إغلاق الكل إلى اليمين"/>
@@ -93,18 +92,18 @@
                     <Item id="41011" name="&amp;خروج"/>
                     <Item id="41012" name="تحميل الجلسة..."/>
                     <Item id="41013" name="حفظ الجلسة..."/>
-                    <Item id="41014" name="إعادة تحميل من القرص"/>
+                    <Item id="41014" name="إ&amp;عادة تحميل من القرص"/>
                     <Item id="41015" name="حفظ نسخة باسم..."/>
-                    <Item id="41016" name="حذف من القرص"/>
+                    <Item id="41016" name="نقل إلى سلة المهملات"/>
                     <Item id="41017" name="إعادة تسمية..."/>
                     <Item id="41021" name="إستعادة الملف الذي تم إغلاقه مؤخراً"/>
-                    <Item id="41022" name="فتح المجلد ك&amp;مساحة عمل"/>
+                    <Item id="41022" name="فتح المجلد كمساحة عمل..."/>
                     <Item id="41023" name="فتح في العارض الافتراضي"/>
                     <Item id="42001" name="&amp;قص"/>
                     <Item id="42002" name="&amp;نسخ"/>
                     <Item id="42003" name="&amp;تراجع"/>
-                    <Item id="42004" name="&amp;إعادة"/>
-                    <Item id="42005" name="&amp;لصق"/>
+                    <Item id="42004" name="إ&amp;عادة"/>
+                    <Item id="42005" name="ل&amp;صق"/>
                     <Item id="42006" name="&amp;حذف"/>
                     <Item id="42007" name="تحديد ال&amp;كل"/>
                     <Item id="42020" name="بدء / إنهاء التحديد"/>
@@ -117,28 +116,28 @@
                     <Item id="42015" name="نقل السطر الحالي إلى أسفل"/>
                     <Item id="42059" name="ترتيب الأسطر بشكل معجمي تصاعدياً"/>
                     <Item id="42060" name="ترتيب الأسطر بشكل معجمي تنازلياً"/>
-                    <Item id="42061" name="ترتيب الأسطر على شكل أعداد صحيحة تصاعدياً"/>
-                    <Item id="42062" name="ترتيب الأسطر على شكل أعداد صحيحة تنازلياً"/>
-                    <Item id="42063" name="ترتيب الأسطر على شكل أعداد عشرية (فاصلة) تصاعدياً"/>
-                    <Item id="42064" name="ترتيب الأسطر على شكل أعداد عشرية (فاصلة) تنازلياً"/>
-                    <Item id="42065" name="ترتيب الأسطر على شكل أعداد عشرية (نقطة) تصاعدياً"/>
-                    <Item id="42066" name="ترتيب الأسطر على شكل أعداد عشرية (نقطة) تنازلياً"/>
-                    <Item id="42016" name="أحرف كبيرة"/>
-                    <Item id="42017" name="أحرف صغيرة"/>
-                    <Item id="42067" name="حالة أحرف العنوان"/>
-                    <Item id="42068" name="حالة أحرف العنوان (مختلط)"/>
-                    <Item id="42069" name="حالة أحرف الجملة"/>
-                    <Item id="42070" name="حالة أحرف الجملة (مختلط)"/>
-                    <Item id="42071" name="عكس حالة الأحرف"/>
-                    <Item id="42072" name="حالة أحرف عشوائية"/>
-					<Item id="42073" name="فتح ملف"/>
-					<Item id="42074" name="فتح مجلد الهدف في مستعرض الملفات"/>
-					<Item id="42075" name="البحث في الإنترنت"/>
-					<Item id="42076" name="تغيير محرك البحث..."/>
+                    <Item id="42061" name="ترتيب الأسطر كأعداد صحيحة تصاعدياً"/>
+                    <Item id="42062" name="ترتيب الأسطر كأعداد صحيحة تنازلياً"/>
+                    <Item id="42063" name="ترتيب الأسطر كأعداد عشرية (فاصلة) تصاعدياً"/>
+                    <Item id="42064" name="ترتيب الأسطر كأعداد عشرية (فاصلة) تنازلياً"/>
+                    <Item id="42065" name="ترتيب الأسطر كأعداد عشرية (نقطة) تصاعدياً"/>
+                    <Item id="42066" name="ترتيب الأسطر كأعداد عشرية (نقطة) تنازلياً"/>
+                    <Item id="42016" name="أحرف &amp;كبيرة"/>
+                    <Item id="42017" name="أحرف &amp;صغيرة"/>
+                    <Item id="42067" name="حالة أحرف &amp;لائقة"/>
+                    <Item id="42068" name="حالة أحرف لائقة (خليط)"/>
+                    <Item id="42069" name="حالة أحرف &amp;جملة"/>
+                    <Item id="42070" name="حالة أحرف جملة (مختلط)"/>
+                    <Item id="42071" name="حالة أحرف &amp;معكوسة"/>
+                    <Item id="42072" name="حالة أحرف &amp;عشوائية"/>
+                    <Item id="42073" name="فتح ملف"/>
+                    <Item id="42074" name="فتح مجلد الهدف في مستعرض الملفات"/>
+                    <Item id="42075" name="بحث في الإنترنت"/>
+                    <Item id="42076" name="تغيير محرك البحث..."/>
                     <Item id="42018" name="&amp;بدء التسجيل"/>
-                    <Item id="42019" name="إ&amp;يقاف التسجيل"/>
+                    <Item id="42019" name="إي&amp;قاف التسجيل"/>
                     <Item id="42021" name="إ&amp;عادة التشغيل"/>
-                    <Item id="42022" name="تبديل تعليق سطر واحد"/>
+                    <Item id="42022" name="تبديل التعليق لسطر واحد"/>
                     <Item id="42023" name="تعليق مقطع"/>
                     <Item id="42047" name="إلغاء تعليق مقطع"/>
                     <Item id="42024" name="تقليم المسافة في النهاية"/>
@@ -158,7 +157,7 @@
                     <Item id="42034" name="محرر العمود..."/>
                     <Item id="42051" name="لوحة الأحرف"/>
                     <Item id="42052" name="سجل الذاكرة"/>
-                    <Item id="42025" name="حفظ الماكرو المسجل حالياً"/>
+                    <Item id="42025" name="&amp;حفظ الماكرو المسجل حالياً..."/>
                     <Item id="42026" name="اتجاه النص من اليمين إلى اليسار"/>
                     <Item id="42027" name="اتجاه النص من اليسار إلى اليمين "/>
                     <Item id="42028" name="تعيين للقراءة فقط"/>
@@ -175,19 +174,19 @@
                     <Item id="42058" name="إدراج سطر فارغ تحت الحالي"/>
                     <Item id="43001" name="&amp;بحث..."/>
                     <Item id="43002" name="بحث عن ال&amp;تالي"/>
-                    <Item id="43003" name="استبدال..."/>
-                    <Item id="43004" name="إذهب إلى..."/>
+                    <Item id="43003" name="ا&amp;ستبدال..."/>
+                    <Item id="43004" name="&amp;ذهاب إلى..."/>
                     <Item id="43005" name="تبديل الإشارة المرجعية"/>
                     <Item id="43006" name="الإشارة المرجعية التالية"/>
                     <Item id="43007" name="الإشارة المرجعية السابقة"/>
                     <Item id="43008" name="إزالة جميع الإشارات المرجعية"/>
-                    <Item id="43018" name="قص السطر المعلم بإشارة مرجعية"/>
-                    <Item id="43019" name="نسخ السطر المعلم بإشارة مرجعية"/>
-                    <Item id="43020" name="لصق إلى (استبدال) السطر المعلم بإشارة مرجعية"/>
-                    <Item id="43021" name="إزالة الأسطر المعلمة بإشارة مرجعية"/>
-                    <Item id="43051" name="إزالة الأسطر الغير معلمة بإشارة مرجعية"/>
+                    <Item id="43018" name="قص الأسطر الحددة بإشارة مرجعية"/>
+                    <Item id="43019" name="نسخ الأسطر المحددة بإشارة مرجعية"/>
+                    <Item id="43020" name="لصق إلى (استبدال) الأسطر المحددة بإشارة مرجعية"/>
+                    <Item id="43021" name="إزالة الأسطر المحددة بإشارة مرجعية"/>
+                    <Item id="43051" name="إزالة الأسطر الغير محددة بإشارة مرجعية"/>
                     <Item id="43050" name="عكس الإشارة المرجعية"/>
-                    <Item id="43052" name="البحث عن أحرف في نطاق..."/>
+                    <Item id="43052" name="بحث عن أحرف في نطاق..."/>
                     <Item id="43053" name="تحديد الكل بين الأقواس المتطابقة"/>
                     <Item id="43009" name="إذهب إلى القوس المطابق"/>
                     <Item id="43010" name="بحث عن السابق"/>
@@ -223,14 +222,14 @@
                     <Item id="43047" name="نتيجة البحث السابقة"/>
                     <Item id="43048" name="تحديد وبحث عن التالي"/>
                     <Item id="43049" name="تحديد وبحث عن السابق"/>
-					<Item id="43054" name="وضع علامة..."/>
+                    <Item id="43054" name="إ&amp;شارة..."/>
                     <Item id="44009" name="تثبيت كملاحظة"/>
                     <Item id="44010" name="طي الكل"/>
                     <Item id="44019" name="إظهار كل الأحرف"/>
                     <Item id="44020" name="إظهار خط إرشادي للإزاحة"/>
-                    <Item id="44022" name="إلتفاف"/>
-                    <Item id="44023" name="ت&amp;كبير Ctrl + عجلة الماوس لأعلى"/>
-                    <Item id="44024" name="ت&amp;صغير Ctrl + عجلة الماوس لأسفل"/>
+                    <Item id="44022" name="التفاف الكلمة"/>
+                    <Item id="44023" name="ت&amp;كبير (Ctrl + عجلة الفأرة لأعلى)"/>
+                    <Item id="44024" name="ت&amp;صغير (Ctrl + عجلة الفأرة لأسفل)"/>
                     <Item id="44025" name="إظهار المسافة البيضاء و TAB"/>
                     <Item id="44026" name="إظهار نهاية السطر"/>
                     <Item id="44029" name="إلغاء طي الكل"/>
@@ -239,7 +238,7 @@
                     <Item id="44049" name="ملخص..."/>
                     <Item id="44080" name="خريطة المستند"/>
                     <Item id="44084" name="قائمة الإقتران"/>
-                    <Item id="44085" name="المجلد كمساحة عمل"/>
+                    <Item id="44085" name="مجلد كمساحة عمل"/>
                     <Item id="44086" name="علامة تبويب 1"/>
                     <Item id="44087" name="علامة تبويب 2"/>
                     <Item id="44088" name="علامة تبويب 3"/>
@@ -259,24 +258,24 @@
                     <Item id="44034" name="دائماً في المقدمة"/>
                     <Item id="44035" name="مزامنة التمرير العمودي"/>
                     <Item id="44036" name="مزامنة التمرير الأفقي"/>
-                    <Item id="44041" name="إظهار رمز الإلتفاف"/>
-                    <Item id="44072" name="التركيز على العرض الآخر"/>
-                    <Item id="44081" name="لوحة المشروع 1"/>
-                    <Item id="44082" name="لوحة المشروع 2"/>
-                    <Item id="44083" name="لوحة المشروع 3"/>
-                    <Item id="45001" name="تحويل إلى تنسيق Windows"/>
-                    <Item id="45002" name="تحويل إلى تنسيق UNIX"/>
-                    <Item id="45003" name="تحويل إلى تنسيق MAC"/>
-                    <Item id="45004" name="ترميز باستخدام ANSI"/>
-                    <Item id="45005" name="ترميز باستخدام UTF-8"/>
-                    <Item id="45006" name="ترميز باستخدام UCS-2 نهاية كبيرة"/>
-                    <Item id="45007" name="ترميز باستخدام UCS-2 نهاية صغيرة"/>
-                    <Item id="45008" name="ترميز باستخدام UTF-8 بدون BOM"/>
+                    <Item id="44041" name="إظهار رمز الالتفاف"/>
+                    <Item id="44072" name="تركيز على العرض الآخر"/>
+                    <Item id="44081" name="لوحة مشروع 1"/>
+                    <Item id="44082" name="لوحة مشروع 2"/>
+                    <Item id="44083" name="لوحة مشروع 3"/>
+                    <Item id="45001" name="Windows (CR LF)"/>
+                    <Item id="45002" name="Unix (LF)"/>
+                    <Item id="45003" name="Macintosh (CR)"/>
+                    <Item id="45004" name="ترميز في ANSI"/>
+                    <Item id="45005" name="الترميز في UTF-8-BOM"/>
+                    <Item id="45006" name="الترميز في UCS-2 BE BOM"/>
+                    <Item id="45007" name="الترميز في UCS-2 LE BOM"/>
+                    <Item id="45008" name="ترميز في UTF-8"/>
                     <Item id="45009" name="تحويل إلى ANSI"/>
-                    <Item id="45010" name="تحويل إلى UTF-8 بدون BOM"/>
-                    <Item id="45011" name="تحويل إلى UTF-8"/>
-                    <Item id="45012" name="تحويل إلى UCS-2 نهاية كبيرة"/>
-                    <Item id="45013" name="تحويل إلى UCS-2 نهاية صغيرة"/>
+                    <Item id="45010" name="تحويل إلى UTF-8"/>
+                    <Item id="45011" name="التحويل إلى UTF-8-BOM"/>
+                    <Item id="45012" name="التحويل إلى UCS-2 BE BOM"/>
+                    <Item id="45013" name="التحويل إلى UCS-2 LE BOM"/>
 
                     <Item id="10001" name="نقل إلى العرض الآخر"/>
                     <Item id="10002" name="استنساخ إلى العرض الآخر"/>
@@ -285,23 +284,23 @@
 
                     <Item id="46001" name="مكون النمط..."/>
                     <Item id="46250" name="تعريف لغتك..."/>
-                    <Item id="46180" name="تعريف المستخدم"/>
-                    <Item id="47000" name="حول Notepad++..."/>
+                    <Item id="46180" name="معرف من قبل المستخدم"/>
+                    <Item id="47000" name="عن Notepad++"/>
                     <Item id="47010" name="متغيرات سطر الأوامر..."/>
                     <Item id="47001" name="الصفحة الرئيسية Notepad++"/>
                     <Item id="47002" name="صفحة المشروع Notepad++"/>
                     <Item id="47003" name="المستندات على الإنترنت"/>
-					<Item id="47004" name="مجتمع Notepad++ (المنتدى)"/>
+                    <Item id="47004" name="مجتمع Notepad++ (المنتدى)"/>
                     <Item id="47011" name="الدعم المباشر"/>
                     <Item id="47012" name="معلومات تصحيح الأخطاء..."/>
                     <Item id="47005" name="الحصول على المزيد من الإضافات"/>
                     <Item id="47006" name="تحديث Notepad++"/>
                     <Item id="47009" name="تعيين Proxy للتحديث..."/>
                     <Item id="48005" name="استيراد إضافات..."/>
-                    <Item id="48006" name="استيراد مظاهر..."/>
+                    <Item id="48006" name="استيراد نمط موضوعات..."/>
                     <Item id="48018" name="تحرير قائمة السياق المنبثقة"/>
                     <Item id="48009" name="مخطط الاختصارات..."/>
-                    <Item id="48011" name="التفضيلات..."/>
+                    <Item id="48011" name="تفضيلات..."/>
                     <Item id="48501" name="توليد..."/>
                     <Item id="48502" name="توليد من ملفات..."/>
                     <Item id="48503" name="توليد في الذاكرة"/>
@@ -309,7 +308,7 @@
 
                     <Item id="50000" name="إكمال الإقتران"/>
                     <Item id="50001" name="إكمال الكلمة"/>
-                    <Item id="50002" name="إقتراح متغيرات الإقتران"/>
+                    <Item id="50002" name="تلميح متغيرات الإقتران"/>
                     <Item id="50006" name="إكمال المسار"/>
                     <Item id="44042" name="إخفاء الأسطر"/>
                     <Item id="42040" name="فتح جميع الملفات الأخيرة"/>
@@ -318,10 +317,8 @@
                     <Item id="48017" name="تعديل الاختصار / حذف الأمر..."/>
                 </Commands>
             </Main>
-
             <Splitter>
             </Splitter>
-
             <TabBar>
                     <Item CMID="0" name="إغلاق"/>
                     <Item CMID="1" name="إغلاق الكل باستثناء هذا"/>
@@ -330,7 +327,7 @@
                     <Item CMID="4" name="طباعة"/>
                     <Item CMID="5" name="نقل إلى العرض الآخر"/>
                     <Item CMID="6" name="استنساخ إلى العرض الآخر"/>
-                    <Item CMID="7" name="المسار الكامل للملف إلى الذاكرة"/>
+                    <Item CMID="7" name="مسار الملف الكامل إلى الذاكرة"/>
                     <Item CMID="8" name="اسم الملف إلى الذاكرة"/>
                     <Item CMID="9" name="مسار المجلد الحالي إلى الذاكرة"/>
                     <Item CMID="10" name="إعادة تسمية"/>
@@ -343,119 +340,50 @@
                     <Item CMID="17" name="إغلاق الكل إلى اليسار"/>
                     <Item CMID="18" name="إغلاق الكل إلى اليمين"/>
                     <Item CMID="19" name="فتح مجلد الهدف في مستعرض الملفات"/>
-                    <Item CMID="20" name="فتح مجلد الهدف في CMD"/>
-					<Item CMID="21" name="فتح في العارض الافتراضي"/>
+                    <Item CMID="20" name="فتح مجلد الهدف في cmd"/>
+                    <Item CMID="21" name="فتح في العارض الافتراضي"/>
             </TabBar>
         </Menu>
 
         <Dialog>
-            <Find title="" titleFind="بحث" titleReplace="استبدال" titleFindInFiles="بحث في الملفات" titleMark="وضع علامة">
+            <Find title="" titleFind="بحث" titleReplace="استبدال" titleFindInFiles="بحث في الملفات" titleMark="إشارة">
                 <Item id="1" name="بحث عن التالي"/>
-                <Item id="1722" name="اتجاه معاكس"/>
+                <Item id="1722" name="الاتجاه إلى الخلف"/>
                 <Item id="2" name="إغلاق"/>
-                <Item id="1620" name="البحث عن:"/>
+                <Item id="1620" name="ال&amp;بحث عن:"/>
                 <Item id="1603" name="مطابقة ال&amp;كلمة بالكامل فقط"/>
                 <Item id="1604" name="مطابقة &amp;حالة الأحرف"/>
-                <Item id="1605" name="Regular &amp;expression"/>
-                <Item id="1606" name="إلتفاف ح&amp;ول"/>
-                <Item id="1614" name="مجموع"/>
-                <Item id="1615" name="بحث عن الكل"/>
-                <Item id="1616" name="وضع علامة على السطر"/>
-                <Item id="1618" name="تطهير لكل عملية بحث"/>
-                <Item id="1611" name="الإ&amp;ستبدال بـ :"/>
+                <Item id="1605" name="Re&amp;gular expression"/>
+                <Item id="1606" name="الت&amp;فاف حول"/>
+                <Item id="1614" name="مجمو&amp;ع"/>
+                <Item id="1615" name="تأشير الكل"/>
+                <Item id="1616" name="سطر الإشارة المر&amp;جعية"/>
+                <Item id="1618" name="تطهير لكل بحث"/>
+                <Item id="1611" name="إ&amp;ستبدال بواسطة :"/>
                 <Item id="1608" name="ا&amp;ستبدال"/>
                 <Item id="1609" name="استبدال ال&amp;كل"/>
                 <Item id="1687" name="عند فقد التركيز"/>
                 <Item id="1688" name="دائماً"/>
-                <Item id="1632" name="في المحدد"/>
-                <Item id="1633" name="مسح"/>
-                <Item id="1635" name="استبدال الكل في جميع المستندات المفتوحة"/>
-                <Item id="1636" name="بحث عن الكل في جميع المستندات المفتوحة"/>
-                <Item id="1654" name="الفلاتر:"/>
-                <Item id="1655" name="الدليل:"/>
+                <Item id="1632" name="في الم&amp;حدد"/>
+                <Item id="1633" name="مسح كل الإشارات"/>
+                <Item id="1635" name="استبدال الكل في جميع المستندات ال&amp;مفتوحة"/>
+                <Item id="1636" name="بحث عن الكل في جميع المستندات ال&amp;مفتوحة"/>
+                <Item id="1654" name="ت&amp;صفيات :"/>
+                <Item id="1655" name="&amp;دليل :"/>
                 <Item id="1656" name="بحث عن الكل"/>
-                <Item id="1658" name="في كل المجلدات الفرعية"/>
-                <Item id="1659" name="في المجلدات المخفية"/>
+                <Item id="1658" name="في كل المجلدات ال&amp;فرعية"/>
+                <Item id="1659" name="في المجلدات الم&amp;خفية"/>
                 <Item id="1624" name="وضع البحث"/>
-                <Item id="1625" name="عادي"/>
-                <Item id="1626" name="موسع (\n, \r, \t, \0, \x...)"/>
-                <Item id="1660" name="استبدال في الملفات"/>
+                <Item id="1625" name="&amp;عادي"/>
+                <Item id="1626" name="مو&amp;سع (\n أو \r أو \t أو \0 أو \x...)"/>
+                <Item id="1660" name="ا&amp;ستبدال في الملفات"/>
                 <Item id="1661" name="اتبع المستند الحالي"/>
                 <Item id="1641" name="بحث عن الكل في المستند الحالي"/>
-                <Item id="1686" name="الشفافية"/>
+                <Item id="1686" name="الشفاف&amp;ية"/>
                 <Item id="1703" name="&amp;. تطابق سطر جديد"/>
-                <Strings>
-                    <FoundBegin name="البحث: تم العثور على أول ظهور من أسفل. تم الوصل إلى بداية المستند."/>
-                    <FoundEnd name="البحث: تم العثور على أول ظهور من أعلى. تم الوصل إلى نهاية المستند."/>
-                    <ReplaceReadOnlyError name="الاستبدال: لا يمكن استبدال النص. المستند الحالي للقراءة فقط."/>
-                    <ReplaceBegin name="الاستبدال: تم استبدال أول ظهور من أسفل. تم الوصل إلى بداية المستند."/>
-                    <ReplaceEnd name="الاستبدال: تم استبدال أول ظهور من أعلى. تم الوصل إلى نهاية المستند."/>
-                    <ReplaceOneReplaced name="الاستبدال: تم استبدال 1 ظهور."/>
-                    <ReplaceNextFound name="تم العثور على الظهور التالي"/>
-                    <ReplaceNoOccurrenceFound name="الاستبدال: لم يتم العثور على أي ظهور."/>
-                    <ReplaceNextNotFound name="لم يتم العثور على الظهور التالي"/>
-                    <ReplaceAllRegexMalformed name="استبدال الكل: إن regular expression غير صحيحة."/>
-                    <ReplaceAllOneReplaced name="استبدال الكل: تم استبدال %d ظهور."/>
-                    <ReplaceAllManyReplaced name="استبدال الكل: تم استبدال %s ظهور."/>
-                    <ReplaceAllReadOnly name="استبدال الكل: لا يمكن استبدال النص. المستند الحالي للقراءة فقط."/>
-                    <CountRegexMalformed name="المجموع: إن regular expression للبحث غير صحيحة."/>
-                    <CountOneMatch name="المجموع: %d تطابق."/>
-                    <CountManyMatchs name="المجموع: %d تطابق."/>
-                    <MarkRegexMalformed name="العلامة: إن regular expression للبحث غير صحيحة."/>
-                    <MarkOneMatch name="العلامة: %d تطابق."/>
-                    <MarkManyMatchs name="العلامة: %d تطابق."/>
-                    <SelectFolderToSearch name="اختار مجلد ليتم البحث منه"/>
-                    <FindError name="البحث: لا يمكن العثور على النص &quot;%s&quot;"/>
-                    <FindRegexInvalid name="البحث: إن regular expression غير صالح"/>
-                    <ReplaceOpenedFilesRegexMalformed name="الاستبدال في الملفات المفتوحة: إن regular expression للبحث تم تنسيقه بشكل سيء"/>
-                    <ReplaceOpenedFiles name="الاستبدال في الملفات المفتوحة: تم استبدال %s ظهور."/>
-                </Strings>
             </Find>
 
-            <Finder>
-                <Strings>
-                    <SearchLine name="البحث &quot;%s&quot;"/>
-                    <FileHit name="(1 إصابة)"/>
-                    <FileHits name="(%i إصابات)"/>
-                    <SearchHitFilter name="- وضع تصفية الخط: قم بعرض النتائج التي تمت تصفيتها"/>
-                    <SearchHitFile name="(1 إصابة في 1 ملف%s)"/>
-                    <SearchHitFiles name="(1 إصابة في %i ملفات%s)"/>
-                    <SearchHitsFile name="(%i إصابات في 1 ملف%s)"/>
-                    <SearchHitsFiles name="(%i1 إصابات في %i2 ملفات%s)"/>
-                </Strings>
-                <Menu>
-                    <Item id="1064" name="البحث في هذا الباحث ..."/>
-                    <Item id="1065" name="إغلاق هذا الباحث"/>
-                    <Item id="1032" name="طي الكل"/>
-                    <Item id="1033" name="إلغاء طي الكل"/>
-                    <Item id="1040" name="نسخ"/>
-                    <Item id="1041" name="تحديد الكل"/>
-                    <Item id="1051" name="مسح الكل"/>
-                    <Item id="1058" name="فتح الكل"/>
-                </Menu>
-            </Finder>
-
-            <FindIncrement>
-                <Strings>
-                    <NotFound name="لم يتم العثور على العبارة"/>
-                    <TopReached name="تم الوصول إلى أعلى الصفحة، الاستمرار من أسفل"/>
-                    <EndReached name="تم الوصول إلى أسفل الصفحة، الاستمرار من أعلى"/>
-                    <FindMatch name="%d تطابق."/>
-                    <FindMatchs name="%s تطابق."/>
-                </Strings>
-            </FindIncrement>
-
-            <Progress>
-                <Strings>
-                    <CancelButton name="إلغاء"/>
-                    <DefaultMessage name="تقدم العملية..."/>
-                    <CancelMessage name="جار إلغاء العملية، يرجى الانتظار..."/>
-                    <FindInFilesMessage name="تقدم البحث في الملفات..."/>
-                    <ReplaceInFilesMessage name="تقدم الاستبدال في الملفات..."/>
-                </Strings>
-            </Progress>
-
-            <FindCharsInRange title="البحث عن أحرف في النطاق...">
+            <FindCharsInRange title="بحث عن أحرف في النطاق...">
                 <Item id="2" name="إغلاق"/>
                 <Item id="2901" name="ليست حروف ASCII (128-255)"/>
                 <Item id="2902" name="حروف ASCII (0-127)"/>
@@ -463,29 +391,15 @@
                 <Item id="2906" name="أ&amp;على"/>
                 <Item id="2907" name="أ&amp;سفل"/>
                 <Item id="2908" name="الاتجاه"/>
-                <Item id="2909" name="إلت&amp;فاف حول"/>
+                <Item id="2909" name="الت&amp;فاف حول"/>
                 <Item id="2910" name="بحث"/>
             </FindCharsInRange>
 
-            <FindInFinder title="البحث في الباحث">
-                <Item id="1" name="البحث عن الكل"/>
-                <Item id="2" name="إغلاق"/>
-                <Item id="1711" name="ال&amp;بحث عن:"/>
-                <Item id="1713" name="البحث فقط في الأسطر التي تم العثور عليها"/>
-                <Item id="1714" name="مطابقة الكلمة &amp;بالكامل فقط"/>
-                <Item id="1715" name="مطابقة &amp;حالة الأحرف"/>
-                <Item id="1716" name="وضع البحث"/>
-                <Item id="1717" name="&amp;عادي"/>
-                <Item id="1718" name="م&amp;وسع (\n, \r, \t, \0, \x...)"/>
-                <Item id="1719" name="Re&amp;gular expression"/>
-                <Item id="1720" name="&amp;. تطابق سطر جديد"/>
-            </FindInFinder>
-
-            <GoToLine title="إذهب إلى...">
-                <Item id="2007" name="سطر"/>
-                <Item id="2008" name="إزاحة"/>
-                <Item id="1" name="إ&amp;ذهب"/>
-                <Item id="2" name="إلغاء"/>
+            <GoToLine title="اذهب إلى...">
+                <Item id="2007" name="&amp;سطر"/>
+                <Item id="2008" name="إ&amp;زاحة"/>
+                <Item id="1" name="اذهب"/>
+                <Item id="2" name="لن أذهب لأي مكان"/>
                 <Item id="2004" name="أنت هنا:"/>
                 <Item id="2005" name="أنت تريد الذهاب إلى:"/>
                 <Item id="2006" name="لا يمكنك الذهاب أبعد من:"/>
@@ -498,13 +412,13 @@
                 <Item id="1904" name="حفظ..."/>
             </Run>
 
-            <MD5FromFilesDlg title="توليد MD5 مختصر من الملفات...">
+            <MD5FromFilesDlg title="توليد ملخص MD5 من الملفات">
                 <Item id="1922" name="اختر الملفات لتوليد MD5..."/>
                 <Item id="1924" name="نسخ إلى الذاكرة"/>
                 <Item id="2" name="إغلاق"/>
             </MD5FromFilesDlg>
 
-            <MD5FromTextDlg title="توليد MD5 مختصر ">
+            <MD5FromTextDlg title="توليد ملخص MD5">
                 <Item id="1932" name="عامل كل سطر كنص منفصل"/>
                 <Item id="1934" name="نسخ إلى الذاكرة"/>
                 <Item id="2" name="إغلاق"/>
@@ -512,8 +426,8 @@
 
             <StyleConfig title="مكون النمط">
                 <Item id="2" name="إلغاء"/>
-                <Item id="2301" name="حفظ &amp;وإغلاق"/>
-                <Item id="2303" name="الشفافية"/>
+                <Item id="2301" name="حفظ وإغلاق"/>
+                <Item id="2303" name="شفافية"/>
                 <Item id="2306" name="اختر مظهر: "/>
                 <SubDialog>
                     <Item id="2204" name="عريض"/>
@@ -522,7 +436,7 @@
                     <Item id="2207" name="لون الخلفية"/>
                     <Item id="2208" name="اسم الخط:"/>
                     <Item id="2209" name="حجم الخط:"/>
-                    <Item id="2211" name="نمط:"/>
+                    <Item id="2211" name="النمط:"/>
                     <Item id="2212" name="نمط اللون"/>
                     <Item id="2213" name="نمط الخط"/>
                     <Item id="2214" name="الامتداد الافتراضي:"/>
@@ -531,16 +445,44 @@
                     <Item id="2219" name="الكلمات المفتاحية الافتراضية"/>
                     <Item id="2221" name="الكلمات المفتاحية المعرفة من قبل المستخدم"/>
                     <Item id="2225" name="اللغة:"/>
-                    <Item id="2226" name="تمكين لون المقدمة العام"/>
-                    <Item id="2227" name="تمكين لون الخلفية العام"/>
-                    <Item id="2228" name="تمكين الخط العام"/>
-                    <Item id="2229" name="تمكين حجم الخط العام"/>
-                    <Item id="2230" name="تمكين النمط العريض العام للخط"/>
-                    <Item id="2231" name="تمكين النمط المائل العام للخط"/>
-                    <Item id="2232" name="تمكين النمط المسطر العام للخط"/>
+                    <Item id="2226" name="تفعيل لون المقدمة العام"/>
+                    <Item id="2227" name="تفعيل لون الخلفية العام"/>
+                    <Item id="2228" name="تفعيل الخط العام"/>
+                    <Item id="2229" name="تفعيل حجم الخط العام"/>
+                    <Item id="2230" name="تفعيل نمط الخط العريض العام"/>
+                    <Item id="2231" name="تفعيل نمط الخط المائل العام"/>
+                    <Item id="2232" name="تفعيل نمط الخط المسطر العام"/>
                 </SubDialog>
             </StyleConfig>
 
+            <ShortcutMapper title="مخطط الاختصارات">
+                <Item id="2602" name="تعديل"/>
+                <Item id="2603" name="حذف"/>
+                <Item id="2606" name="مسح"/>
+                <Item id="2607" name="تصفية: "/>
+                <Item id="1" name="إغلاق"/>
+                <ColumnName name="الاسم"/>
+                <ColumnShortcut name="الاختصار"/>
+                <ColumnCategory name="التصنيف"/>
+                <ColumnPlugin name="إضافة"/>
+                <MainMenuTab name="القائمة الرئيسية"/>
+                <MacrosTab name="الماكرو"/>
+                <RunCommandsTab name="أوامر التشغيل"/>
+                <PluginCommandsTab name="أوامر الإضافات"/>
+                <ScintillaCommandsTab name="أوامر Scintilla"/>
+                <ConflictInfoOk name="لا يوجد تعارض في الاختصار لهذا العنصر."/>
+                <ConflictInfoEditing name="لا يوجد تعارض. . ."/>
+            </ShortcutMapper>
+            <ShortcutMapperSubDialg title="الاختصار">
+                <Item id="1" name="موافق"/>
+                <Item id="2" name="إلغاء"/>
+                <Item id="5006" name="الاسم"/>
+                <Item id="5008" name="إضافة"/>
+                <Item id="5009" name="إزالة"/>
+                <Item id="5010" name="تطبيق"/>
+                <Item id="5007" name="هذا سوف يقوم بإزالة الاختصار من هذا الأمر"/>
+                <Item id="5012" name="العثور على تعارض!"/>
+            </ShortcutMapperSubDialg>
             <UserDefine title="معرفة من قبل المستخدم">
                 <Item id="20001" name="تثبيت"/>
                 <Item id="20002" name="إعادة تسمية"/>
@@ -553,11 +495,6 @@
                 <Item id="20011" name="الشفافية"/>
                 <Item id="20015" name="استيراد..."/>
                 <Item id="20016" name="تصدير..."/>
-                <StringDialog title="مربع حوار نص">
-                    <Item id="1" name="موافق"/>
-                    <Item id="2" name="إلغاء"/>
-                    <Item id="26001" name="الاسم:  "/>
-                </StringDialog>
                 <StylerDialog title="مربع حوار مصمم النمط">
                     <Item id="25030" name="خيارات الخط:"/>
                     <Item id="25006" name="لون المقدمة"/>
@@ -584,12 +521,12 @@
                     <Item id="25023" name="الكلمة المفتاحية 6"/>
                     <Item id="25024" name="الكلمة المفتاحية 7"/>
                     <Item id="25025" name="الكلمة المفتاحية 8"/>
-                    <Item id="25016" name="التعليق"/>
-                    <Item id="25017" name="سطر الأوامر"/>
+                    <Item id="25016" name="تعليق"/>
+                    <Item id="25017" name="تعليق سطر"/>
                     <Item id="25026" name="المعاملات 1"/>
                     <Item id="25027" name="المعاملات 2"/>
                     <Item id="25028" name="الأرقام"/>
-					<Item id="1" name="موافق"/>
+                    <Item id="1" name="موافق"/>
                     <Item id="2" name="إلغاء"/>
                 </StylerDialog>
                 <Folder title="المجلد والأفتراضي">
@@ -597,7 +534,7 @@
                     <Item id="21102" name="مصمم النمط"/>
                     <Item id="21105" name="المستندات:"/>
                     <Item id="21104" name="الموقع المؤقت للمستندات:"/>
-                    <Item id="21106" name="طي مدمج (ثني الأسطر الفارغة أيضاً)"/>
+                    <Item id="21106" name="طي &amp;مدمج (ثني الأسطر الفارغة أيضاً)"/>
                     <Item id="21220" name="الطي في نمط الكود 1:"/>
                     <Item id="21224" name="البداية:"/>
                     <Item id="21225" name="الوسط:"/>
@@ -643,17 +580,17 @@
                 <Comment title="التعليق والرقم">
                     <Item id="23003" name="موقع تعليق السطر"/>
                     <Item id="23004" name="السماح في أي مكان"/>
-                    <Item id="23005" name="الاجبار في بداية السطر"/>
-                    <Item id="23006" name="السماح بالمسافة البيضاء المتقدمة"/>
+                    <Item id="23005" name="الإجبار في بداية السطر"/>
+                    <Item id="23006" name="السماح بالمسافة البيضاء السابقة"/>
                     <Item id="23001" name="السماح بطي التعليقات"/>
                     <Item id="23326" name="مصمم النمط"/>
-                    <Item id="23323" name="البداية:"/>
-                    <Item id="23324" name="حرف المتابعة:"/>
-                    <Item id="23325" name="النهاية:"/>
-                    <Item id="23301" name="نمط سطر الأوامر"/>
+                    <Item id="23323" name="فتح"/>
+                    <Item id="23324" name="حرف المتابعة"/>
+                    <Item id="23325" name="إغلاق"/>
+                    <Item id="23301" name="نمط تعليق السطر"/>
                     <Item id="23124" name="مصمم النمط"/>
-                    <Item id="23122" name="البداية:"/>
-                    <Item id="23123" name="النهاية:"/>
+                    <Item id="23122" name="فتح"/>
+                    <Item id="23123" name="إغلاق"/>
                     <Item id="23101" name="نمط التعليق"/>
                     <Item id="23201" name="نمط الرقم"/>
                     <Item id="23220" name="مصمم النمط"/>
@@ -715,17 +652,8 @@
                     <Item id="24672" name="النهاية:"/>
                     <Item id="24673" name="مصمم النمط"/>
                 </Operator>
-                <Strings>
-                    <Dock name="تثبيت"/>
-                    <UnDock name="إلغاء التثبيت"/>
-                    <Name name="الاسم:  "/>
-                    <RenameTitle name="إعادة تسمية اسم اللغة الحالية"/>
-                    <SaveTitle name="حفظ اسم اللغة الحالية كـ..."/>
-                    <NewTitle name="إنشاء لغة جديدة"/>
-                </Strings>
             </UserDefine>
-            
-            <Preference title="التفضيلات">
+            <Preference title="تفضيلات">
                 <Item id="6001" name="إغلاق"/>
                 <Global title="عام">
                     <Item id="6101" name="شريط الأدوات"/>
@@ -748,14 +676,13 @@
                     <Item id="6120" name="عمودي"/>
                     <Item id="6121" name="الخروج عند إغلاق أخر علامة تبويب"/>
 
-                    <Item id="6122" name="إخفاء (استخدم مفتاح Alt أو F10 للتبديل)"/>
+                    <Item id="6122" name="إخفاء شريط القوائم (استخدم مفتاح Alt أو F10 للتبديل)"/>
                     <Item id="6123" name="ترجمة"/>
 
-                    <Item id="6125" name="لوحة قائمة المستندات"/>
+                    <Item id="6125" name="لوحة قائمة المستند"/>
                     <Item id="6126" name="إظهار"/>
                     <Item id="6127" name="تعطيل العمود الإضافي"/>
                 </Global>
-
                 <Scintillas title="تحرير">
                     <Item id="6216" name="إعدادات مؤشر الكتابة"/>
                     <Item id="6217" name="العرض:"/>
@@ -763,40 +690,40 @@
                     <Item id="6221" name="F"/>
                     <Item id="6222" name="S"/>
                     <Item id="6224" name="إعدادات التعديل المتعدد"/>
-                    <Item id="6225" name="تمكين (Ctrl + نقر / تحديد الفأرة)"/>
-                    <Item id="6201" name="نمط حد الطي"/>
+                    <Item id="6225" name="تفعيل (Ctrl + الفأرة نقر / تحديد)"/>
+                    <Item id="6201" name="نمط هامش المجلد"/>
                     <Item id="6202" name="بسيط"/>
                     <Item id="6203" name="سهم"/>
                     <Item id="6204" name="شجرة دائرية"/>
                     <Item id="6205" name="شجرة مربعة"/>
                     <Item id="6226" name="لا شيء"/>
 
-                    <Item id="6227" name="إلتفاف السطر"/>
+                    <Item id="6227" name="التفاف السطر"/>
                     <Item id="6228" name="الافتراضي"/>
                     <Item id="6229" name="مصطف"/>
                     <Item id="6230" name="إزاحة"/>
 
-                    <Item id="6206" name="عرض أرقام الأسطر"/>
-                    <Item id="6207" name="عرض الإشارات المرجعية"/>
+                    <Item id="6206" name="عرض رقم السطر"/>
+                    <Item id="6207" name="عرض الإشارة المرجعية"/>
                     <Item id="6208" name="إظهار الحافة العمودية"/>
-                    <Item id="6209" name="عدد الأعمدة: "/>
+                    <Item id="6209" name="عدد الأعمدة:"/>
                     <Item id="6234" name="تعطيل ميزة التمرير المتقدمة&#xA;(إذا كان لديك مشكلة في لوحة اللمس)"/>
 
                     <Item id="6211" name="إعدادات الحافة العمودية"/>
                     <Item id="6212" name="وضع السطر"/>
                     <Item id="6213" name="وضع الخلفية"/>
-                    <Item id="6214" name="تمكين تمييز السطر الحالي"/>
-					<Item id="6215" name="تمكين الخط السلس"/>
+                    <Item id="6214" name="تفعيل تمييز السطر الحالي"/>
+                    <Item id="6215" name="تفعيل الخط السلس"/>
                     <Item id="6231" name="عرض الإطار"/>
-                    <Item id="6235" name="إخفاء الحافة"/>
-                    <Item id="6236" name="تمكين التمرير إلى ما بعد السطر الأخير"/>
+                    <Item id="6235" name="بدون حافة"/>
+                    <Item id="6236" name="تفعيل التمرير إلى ما بعد السطر الأخير"/>
                 </Scintillas>
 
                 <NewDoc title="مستند جديد">
-                    <Item id="6401" name="التنسيق"/>
-                    <Item id="6402" name="Windows"/>
-                    <Item id="6403" name="Unix"/>
-                    <Item id="6404" name="Mac"/>
+                    <Item id="6401" name="تنسيق (نهاية السطر)"/>
+                    <Item id="6402" name="Windows (CR LF)"/>
+                    <Item id="6403" name="Unix (LF)"/>
+                    <Item id="6404" name="Macintosh (CR)"/>
                     <Item id="6405" name="الترميز"/>
                     <Item id="6406" name="ANSI"/>
                     <Item id="6407" name="UTF-8"/>
@@ -812,21 +739,20 @@
                     <Item id="6413" name="الدليل الافتراضي (فتح / حفظ)"/>
                     <Item id="6414" name="اتبع المستند الحالي"/>
                     <Item id="6415" name="تذكر آخر دليل تم استخدامه"/>
-                    <Item id="6430" name="استخدام النمط الجديد لمربع حوار الحفظ (بدون ميزة امتداد الملف)"/>
-                    <Item id="6431" name="فتح جميع ملفات المجلد بدلاً من تشغيل المجلد كمساحدة عمل عند إفلات المجلد"/>
+                    <Item id="6430" name="استخدام مربع حوار بالنمط الجديد (بدون ميزة تنسيق الملف وخاصية نمط مسار Unix)"/>
+                    <Item id="6431" name="فتح جميع الملفات في المجلد بدلاً من فتح المجلد كمساحدة عمل عند إفلات المجلد"/>
                 </DefaultDir>
 
                 <FileAssoc title="امتداد الملف">
                     <Item id="4009" name="الامتدادات المدعومة:"/>
                     <Item id="4010" name="الامتدادات المسجلة:"/>
                 </FileAssoc>
-
                 <Language title="اللغة">
                     <Item id="6505" name="العناصر المتوفرة"/>
                     <Item id="6506" name="العناصر المعطلة"/>
-                    <Item id="6507" name="إجعل قائمة اللغة مدمجة"/>
+                    <Item id="6507" name="جعل قائمة اللغة مدمجة"/>
                     <Item id="6508" name="قائمة اللغة"/>
-					<Item id="6301" name="إعدادات Tab"/>
+                    <Item id="6301" name="إعدادات Tab"/>
                     <Item id="6302" name="استبدال بمسافة"/>
                     <Item id="6303" name="حجم Tab: "/>
                     <Item id="6510" name="استخدم القيمة الافتراضية"/>
@@ -834,15 +760,15 @@
 
                 <Highlighting title="التمييز">
                     <Item id="6333" name="التمييز الذكي"/>
-                    <Item id="6326" name="تمكين التمييز الذكي"/>
-					<Item id="6332" name="مطابقة حالة الأحرف"/>
-					<Item id="6338" name="مطابقة الكلمة بالكامل فقط"/>
-					<Item id="6339" name="استخدم إعدادات مرابع حوار بحث"/>
+                    <Item id="6326" name="تفعيل"/>
+                    <Item id="6332" name="مطابقة الحالة"/>
+                    <Item id="6338" name="مطابقة الكلمة بالكامل فقط"/>
+                    <Item id="6339" name="استخدم إعدادات مرابع حوار بحث"/>
                     <Item id="6340" name="تمييز العرض الآخر"/>
                     <Item id="6329" name="تمييز الوسوم المطابقة"/>
-                    <Item id="6327" name="تمكين"/>
+                    <Item id="6327" name="تفعيل"/>
                     <Item id="6328" name="تمييز سمات الوسم"/>
-                    <Item id="6330" name="تمييز منطقة التعليق / PHP / ASP"/>
+                    <Item id="6330" name="تمييز منطقة تعليق / PHP / ASP"/>
                 </Highlighting>
 
                 <Print title="طباعة">
@@ -851,7 +777,7 @@
                     <Item id="6603" name="WYSIWYG"/>
                     <Item id="6604" name="عكس"/>
                     <Item id="6605" name="أسود على أبيض"/>
-                    <Item id="6606" name="لا يوجد لون خلفية"/>
+                    <Item id="6606" name="بدون لون خلفية"/>
                     <Item id="6607" name="إعدادات الهامش (الوحدة:mm)"/>
                     <Item id="6612" name="يسار"/>
                     <Item id="6613" name="فوق"/>
@@ -888,12 +814,12 @@
 
                 <Backup title="النسخ الاحتياطي">
                     <Item id="6817" name="لقطة الجلسة والنسخ الاحتياطي الدوري"/>
-                    <Item id="6818" name="تمكين لقطة الجلسة والنسخ الاحتياطي الدوري"/>
+                    <Item id="6818" name="تفعيل لقطة الجلسة والنسخ الاحتياطي الدوري"/>
                     <Item id="6819" name="نسخ احتياطي كل"/>
                     <Item id="6821" name="ثواني"/>
                     <Item id="6822" name="مسار النسخ الاحتياطي:"/>
                     <Item id="6309" name="تذكر الجلسة الحالية لعملية التشغيل التالي"/>
-                    <Item id="6801" name="النسخ الاحتياطي"/>
+                    <Item id="6801" name="نسخ إحتياطي عند الحفظ"/>
                     <Item id="6315" name="لا شيء"/>
                     <Item id="6316" name="نسخ احتياطي بسيط"/>
                     <Item id="6317" name="نسخ احتياطي عميق"/>
@@ -903,7 +829,7 @@
 
                 <AutoCompletion title="الإكمال التلقائي">
                     <Item id="6807" name="الإكمال التلقائي"/>
-                    <Item id="6808" name="تمكين الإكمال التلقائي لكل إدخال"/>
+                    <Item id="6808" name="تفعيل الإكمال التلقائي لكل إدخال"/>
                     <Item id="6809" name="إكمال الإقتران"/>
                     <Item id="6810" name="إكمال الكلمة"/>
                     <Item id="6816" name="إكمال الإقتران والكلمة"/>
@@ -913,7 +839,7 @@
                     <Item id="6814" name="القيمة المسموح بها: 1 - 9"/>
                     <Item id="6815" name="اقتراح متغيرات الإقتران عند الإدخال"/>
                     <Item id="6851" name="الإدراج التلقائي"/>
-                    <Item id="6857" name=" علامة الإغلاق HTML / XML"/>
+                    <Item id="6857" name=" علامة إغلاق HTML / XML"/>
                     <Item id="6858" name="البداية"/>
                     <Item id="6859" name="النهاية"/>
                     <Item id="6860" name="الزوج المطابق 1:"/>
@@ -930,21 +856,21 @@
                 </MultiInstance>
 
                 <Delimiter title="المحدد">
-                    <Item id="6251" name="إعدادات التحديد المحدد (Ctrl + النقر المزدوج للفأرة)"/>
+                    <Item id="6251" name="إعدادات التحديد المحدد (Ctrl + نقر مزدوج للفأرة)"/>
                     <Item id="6252" name="البداية"/>
                     <Item id="6255" name="النهاية"/>
                     <Item id="6256" name="السماح على عدة أسطر"/>
-					<Item id="6161" name="قائمة أحرف الكلمة"/>
+                    <Item id="6161" name="قائمة أحرف الكلمة"/>
                     <Item id="6162" name="استخدم قائمة أحرف الكلمة الافتراضية كما هي"/>
                     <Item id="6163" name="إضافة الحرف الخاص بك كجزء من الكلمة&#xA;(لا تقم باختيارها إلا إذا كنت تعرف ماذا تفعل)"/>
                 </Delimiter>
 
                 <Cloud title="التخزين السحابي">
-                    <Item id="6262" name="إعدادات التخزين السحابي"/>
+                    <Item id="6262" name="الإعدادات على التخزين السحابي"/>
                     <Item id="6263" name="لا يوجد تخزين سحابي"/>
                     <Item id="6267" name="قم بتعيين مسار موقع التخزين السحابي الخاص بك هنا:"/>
                 </Cloud>
-				
+                
                 <SearchEngine title="محرك البحث">
                     <Item id="6271" name="محرك البحث (للأمر &quot;البحث على الإنترنت&quot;)"/>
                     <Item id="6272" name="DuckDuckGo"/>
@@ -957,47 +883,44 @@
                 </SearchEngine>
 
                 <MISC title="متعدد.">
-                    <Item id="6307" name="تمكين"/>
+                    <Item id="6307" name="تفعيل"/>
                     <Item id="6308" name="تصغير إلى جوار الساعة"/>
                     <Item id="6312" name="التحقق التلقائي من حالة الملف"/>
                     <Item id="6313" name="التحديث بشكل صامت"/>
                     <Item id="6318" name="إعدادات الرابط القابل للنقر"/>
                     <Item id="6325" name="التمرير إلى السطر الأخير بعد التحديث"/>
-                    <Item id="6319" name="تمكين"/>
-                    <Item id="6320" name="لا يوجد تسطير"/>
+                    <Item id="6319" name="تفعيل"/>
+                    <Item id="6320" name="بدون تسطير"/>
                     <Item id="6322" name="امتداد ملف الجلسة:"/>
-                    <Item id="6323" name="تمكين تحديث Notepad++ بشكل تلقائي"/>
-                    <Item id="6324" name="مبدل المستندات (Ctrl+TAB)"/>
+                    <Item id="6323" name="تفعيل تحديث Notepad++ بشكل تلقائي"/>
+                    <Item id="6324" name="مبدل المستندات (Ctrl + TAB)"/>
                     <Item id="6331" name="إظهار اسم الملف فقط في شريط العنوان"/>
                     <Item id="6334" name="كشف ترميز الأحرف بشكل تلقائي"/>
                     <Item id="6335" name="تعامل مع الشرطة المائلة للخلف على أنا حرف إفلات لـ SQL"/>
                     <Item id="6337" name="امتداد ملف مساحة العمل:"/>
-                    <Item id="6114" name="تمكين"/>
+                    <Item id="6114" name="تفعيل"/>
                     <Item id="6115" name="إزاحة تلقائية"/>
-                    <Item id="6117" name="تمكين سلوك MRU"/>
+                    <Item id="6117" name="تفعيل سلوك MRU"/>
                     <Item id="6344" name="النظرة الخاطفة للمستند"/>
                     <Item id="6345" name="نظرة خاطفة على علامة التبويب"/>
                     <Item id="6346" name="نظرة خاطفة على خريطة المستند"/>
                 </MISC>
             </Preference>
-
-            <MultiMacro title="تشغيل الماكرو مرات متعددة">
-                <Item id="1" name="تشغيل"/>
-                <Item id="2" name="إلغاء"/>
+            <MultiMacro title="تشغيل الماكرو أكثر من مرة">
+                <Item id="1" name="&amp;تشغيل"/>
+                <Item id="2" name="إ&amp;لغاء"/>
                 <Item id="8006" name="الماكرو للتشغيل:"/>
                 <Item id="8001" name="تشغيل"/>
-                <Item id="8005" name="أوقات"/>
-                <Item id="8002" name="تشغيل حتى نهاية الملف"/>
+                <Item id="8005" name="الأوقات"/>
+                <Item id="8002" name="تشغيل حتى &amp;نهاية الملف"/>
             </MultiMacro>
-
             <Window title="النوافذ">
-                <Item id="1" name="تفعيل"/>
-                <Item id="2" name="موافق"/>
-                <Item id="7002" name="حفظ"/>
-                <Item id="7003" name="إغلاق النوافذ"/>
-                <Item id="7004" name="ترتيب العلامات"/>
+                <Item id="1" name="&amp;تنشيط"/>
+                <Item id="2" name="&amp;موافق"/>
+                <Item id="7002" name="&amp;حفظ"/>
+                <Item id="7003" name="إ&amp;غلاق النوافذ"/>
+                <Item id="7004" name="ترتيب &amp;علامات التبويب"/>
             </Window>
-
             <ColumnEditor title="محرر العمود">
                 <Item id="2023" name="النص للإدراج"/>
                 <Item id="2033" name="الرقم للإدراج"/>
@@ -1013,103 +936,120 @@
                 <Item id="1" name="موافق"/>
                 <Item id="2" name="إلغاء"/>
             </ColumnEditor>
-
-			<Shortcut title="الاختصار">
-                <Item id="1" name="موافق"/>
-                <Item id="2" name="إلغاء"/>
-                <Item id="5006" name="الاسم :"/>
-                <Item id="5008" name="إضافة"/>
-                <Item id="5009" name="إزالة"/>
-                <Item id="5010" name="تطبيق"/>
-			</Shortcut>
+            <FindInFinder title="البحث في الباحث">
+                <Item id="1" name="بحث عن الكل"/>
+                <Item id="2" name="إغلاق"/>
+                <Item id="1711" name="ال&amp;بحث عن:"/>
+                <Item id="1713" name="البحث فقط في الأسطر التي تم العثور عليها"/>
+                <Item id="1714" name="مطابقة الكلمة &amp;بالكامل فقط"/>
+                <Item id="1715" name="مطابقة ال&amp;حالة"/>
+                <Item id="1716" name="وضع البحث"/>
+                <Item id="1717" name="&amp;عادي"/>
+                <Item id="1719" name="Re&amp;gular expression"/>
+                <Item id="1718" name="م&amp;وسع (\n, \r, \t, \0, \x...)"/>
+                <Item id="1720" name="&amp;. تطابق سطر جديد"/>
+            </FindInFinder>
         </Dialog>
-
-        <MessageBox>
-            <!-- Any word start and end with $ is a place holder, don't translate it -->
-            <ContextMenuXmlEditWarning title="تعديل القائمة المنبثقة" message="إن تحرير contextMenu.xml يسمح لك بتعديل قائمة السياق المنبثقة لـ Notepad++.&#xA; يجب عليك إعادة تشغيل Notepad++ ليتم تطبيق التعديلات التي قمت بها على contextMenu.xml."/>
+        <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <ContextMenuXmlEditWarning title="تحرير القائمة المنبثقة" message="إن تحرير contextMenu.xml يسمح لك بتعديل قائمة السياق المنبثقة لـ Notepad++.&#xA; يجب عليك إعادة تشغيل Notepad++ ليتم تطبيق التعديلات التي قمت بها على contextMenu.xml."/>
             <NppHelpAbsentWarning title="الملف غير موجود" message="&#xA;غير موجود. الرجاء تنزيله من على موقع Notepad++."/>
             <SaveCurrentModifWarning title="حفظ التعديلات الحالية" message="يجب عليك حفظ التعديلات الحالية.&#xA;كل التعديلات التي سوف يتم حفظها لا يمكن التراجع عنها.&#xA;متابعة؟"/>
-            <LoseUndoAbilityWarning title="تحذير فقد القدرة على التراجع" message="يجب عليك حفظ التعديلات الحالية.&#xA;كل التعديلات التي سوف يتم حفظها لا يمكن التراجع عنها.&#xA;&#xA;متابعة؟"/>
+            <LoseUndoAbilityWarning title="تحذير من فقد القدرة على التراجع" message="يجب عليك حفظ التعديلات الحالية.&#xA;كل التعديلات التي سوف يتم حفظها لا يمكن التراجع عنها.&#xA;&#xA;متابعة؟"/>
             <CannotMoveDoc title="نقل إلى مثيل Notepad++ جديد" message="المستند تم تعديله، قم بحفظه ثم حاول مرة آخرى."/>
             <DocReloadWarning title="إعادة تحميل" message="هل تريد بالتأكيد إعادة تحميل الملف الحالي وفقد كل التعديلات التي عملها داخل Notepad++؟"/>
             <FileLockedWarning title="فشل الحفظ" message="الرجاء التحقق من أن هذا الملف مفتوح في برنامج أخر"/>
             <FileAlreadyOpenedInNpp title="" message="هذا الملف مفتوح بالفعل في Notepad++."/>
             <DeleteFileFailed title="حذف الملف" message="فشل حذف الملف"/>
-            <ShortcutMapperDelete title="هل أنت متأكد؟" message="هل تريد بالتأكيد حذف هذا الاختصار؟"/>
-            <FileTooBigWarning title="مشكلة في حجم الملف" message="الملف كبير جداً ليتم فتحه بواسطة Notepad++"/>
-            <FolderBrowserFolderExists title="" message="يوجد مجلد فرعي من المجلد الذي تريد فتحه.&#xA;الرجاء إزالته من اللوحة قبل إضافة هذا المجلد."/>
-            <FindReplaceInFilesWarning title="هل أنت متأكد؟" message="هل أنت متأكد من استبدال جميع التكرارات في: &#xA;$0$&#xA; لنوع الملف: $1$"/>
-            <ClipboardError title="Notepad++" message="حدث خطأ أثناء وضع النص في الحافظة."/>
-            <TransparentWarning title="الشفافية" message="يبدو أنك لا تزال تستخدم نظام ما قبل التاريخ، وهذه الميزة تعمل فقط على نظام حديث، آسف."/>
-            <RangeValueWarning title="مشكلة في قيمة النطاق" message="يجب أن تكتب ما بين 0 إلى 255."/>
-            <MonitoringDirtyWarning title="مشكلة في المراقبة" message="الوثيقة متسخة. الرجاء حفظ التعديل قبل مراقبتها."/>
-            <MonitoringFileError title="مشكلة في المراقبة" message="يجب أن يكون الملف موجوداً ليتم مراقبته."/>
-            <UpdaterCompatible title="محدث Notepad++" message="محدث Notepad++ غير متوافق مع XP بسبب طبقة أمان عفا عليها الزمن ضمن XP.&#xA;هل تريد أن تذهب إلى صفحة Notepad++ لتحميل أحدث إصدار؟"/>
-            <CreateNewFile title="إنشاء ملف جديد" message="$0$ غير موجود. هل تريد إنشائه؟"/>
-            <CreateNewFileError title="إنشاء ملف جديد" message="لا يمكن إنشاء الملف &quot;$0$&quot;"/>
-            <FileOpenError title="خطأ" message="لا يمكن فتح الملف &quot;$0$&quot;"/>
-            <WorkspaceModified title="" message="مساحة العمل تم تعديلها. هل تريد حفظها؟"/>
-            <WorkspaceError title="" message="لم يتم حفظ مساحة العمل."/>
-            <ProjectNewWorkspace title="مساحة عمل جديدة" message="مساحة العمل الحالية تم تعديلها. هل تريد حفظ المشروع الحالي؟"/>
-            <ProjectOpenWorkspace title="فتح مساحة عمل" message="مساحة العمل الحالية تم تعديلها. هل تريد حفظ المشروع الحالي؟"/>
-            <ProjectOpenWorkspaceWarning title="فتح مساحة عمل" message="لا يمكن فتح مساحة العمل.&#xA;يبدو أن الملف المراد فتحه ليس ملف مشروع صالحاً."/>
-            <ProjectReloadWorkspace title="إعادة تحميل مساحة العمل" message="مساحة العمل الحالية تم تعديلها. إعادة التحميل سوف تلغي كل التعديلات.&#xA; هل تريد المتابعة؟"/>
-            <ProjectReloadWorkspaceWarning title="إعادة تحميل مساحة العمل" message="لا يمكن العثور على الملف لإعادة التحميل."/>
-            <ProjectRemoveFolder title="إزالة المجلد من المشروع" message="كل العناصر الفرعية سوف تحذف.&#xA;هل تريد بالتأكيد إزالة هذا المجلد من المشروع؟"/>
-            <ProjectRemoveFile title="إزالة الملف من المشروع" message="هل تريد بالتأكيد إزالة هذا الملف من المشروع؟"/>
-            <ConfiguratorLangXMLWarning title="المكون" message="فشل تحميل langs.xml!  هل تريد استرداد langs.xml الخاص بك؟"/>
-            <ConfiguratorLangXMLError title="المكون" message="فشل تحميل langs.xml!"/>
-            <ConfiguratorStyleXMLError title="" message="فشل تحميل langs.xml!"/>
-            <LanguageRemove title="إزالة اللغة الحالية" message="هل أنت متأكد؟"/>
-            <LanguageNameWarning title="تحذير" message="هذا الاسم تم استخدامه من قبل لغة أخرى،&#xA;الرجاء إعطاء اسم آخر."/>
-            <RecoveryData title="بدء الإستعادة" message="Notepad++ سوف يقوم بمحاولة حفظ أي بيانات لم يتم حفظها. ومع ذلك، فمن المرجح جداً أن يحث فقدان البيانات."/>
-            <RecoverySuccess title="نجحت الإستعادة" message="Notepad++ تمكن بنجاح من استرداد بعض المستندات غير المحفوظة، أو لم يعثر على شيء ليتم حفظه.&#xA;يمكنك العثور على النتائج على:&#xA;$0$"/>
-            <RecoveryFailed title="فشلت الإستعادة" message="للأسف، Notepad++ لم يتمكن من حفظ عملك. نحن نأسف على أي بيانات مفقودة."/>
-            <NppSave title="حفظ" message="حفظ الملف &quot;$0$&quot; ؟"/>
-            <NppSaveBackup title="حفظ" message="لا يمكن العثور على ملف النسخ الاحتياطي الخاص بك (تم حذفه من الخارج).&#xA;قم بحفظه وإلا سيتم فقدان البيانات الخاصة بك&#xA;هل تريد حفظ الملف &quot;$0$&quot; ؟"/>
-            <NppReload title="إعادة تحميل" message="$0$&#xA;&#xA;تم تعديل هذا الملف بواسطة برنامج آخر&#xA;هل تريد إعادة تحميله ؟"/>
-            <NppReloadDirty title="إعادة تحميل" message="$0$&#xA;&#xA;تم تعديل هذا الملف بواسطة برنامج آخر&#xA;هل تريد إعادة تحميله وفقدان التعديلات التي قمت بها في Notepad++؟"/>
-            <NppKeep title="إبقاء الملف الغير موجود" message="الملف &quot;$0$&quot; غير موجود بعد الآن.&#xA;هل تريد الاحتفاظ بهذا الملف في المحرر؟"/>
-            <NppDelete title="حذف الملف" message="سيتم نقل الملف &quot;$0$&quot;&#xA;إلى سلة المحذوفات وسيتم إغلاق هذا المستند.&#xA;متابعة ؟"/>
-            <NppSummary title="الملخص" message="الأحرف (بدون فراغات): $0$&#xA;الكلمات: $1$&#xA;الأسطر: $2$&#xA;طول المستند الحالي: $3$&#xA;$4$ أحرف محددة ($5$ بايت) في $6$ نطاق"/>
-            <NppSummaryFile title="الملخص" message="مسار الملف بالكامل: $0$&#xA;الإنشاء: $1$&#xA;التعديل: $2$&#xA;طول الملف (بايت): $3$&#xA;&#xA;الأحرف (بدون فراغات): $4$&#xA;الكلمات: $5$&#xA;الأسطر: $6$&#xA;طول الملف الحالي: $7$&#xA;$8$ أحرف محددة ($9$ بايت) في $10$ نطاق&#xA;"/>
+            
+            <NbFileToOpenImportantWarning title="عدد الملفات المطلوب فتحها كبير جداً" message="$INT_REPLACE$ ملفات سوف يتم فتحها.&#xA;هل تريد بالتأكيد فتح هذه الملفات؟"/>
+            <SettingsOnCloudError title="الإعدادات على التخزين السحابي" message="يبدو أن مسار الإعدادات على التخزين السحابي تم تعيينه على قرص للقراءة فقط، &#xA;أو على مجلد يحتاج صلاحيات للكتابة. &#xA;سيتم إلغاء إعداداتك على التخزين السحابي. الرجاء إعادة تعيين قيمة أفضل من خلال مربع حوال تفضيلات."/>
+            <FilePathNotFoundWarning title="فتح ملف" message="الملف الذي تحاول فتحه غير موجود."/>
+            <SessionFileInvalidError title="لا يمكن تحميل الجلسة" message="ملف الجلسة إما أنه تالف أو غير صالح."/>
+            <DroppingFolderAsProjectModeWarning title="حدث غير صالح" message="يمكنك إسقاط الملفات أو المجلدات فقط ولكن ليس كلاهما، لأنك في حالة إسقاط المجلد كوضع المشروع.&#xA;يجب عليك تفعيل &quot;فتح جميع الملفات في المجلد بدلاً من فتح المجلد كمساحدة عمل عند إفلات المجلد&quot; في قسم &quot;الدليل الافتراضي&quot; التابع لمربع حوار تفضيلات لجعل هذه العملية تعمل."/>
+            <SortingError title="خطأ في الترتيب" message="غير قادر على إجراء ترتيب رقمي بسبب السطر $INT_REPLACE$."/>
+            <ColumnModeTip title="تلميح وضع العمود" message="الرجاء استخدام &quot;Alt + تحديد الفأرة&quot; أو &quot;Shift + Alt + مفتاح السهم&quot; للتبديل إلى وضع العمود."/>
+            <BufferInvalidWarning title="فشل الحفظ" message="لا يمكن الحفظ: المخزن المؤقت غير صالح."/>
+            <DoSaveOrNot title="حفظ" message="حفظ الملف &quot;$STR_REPLACE$&quot; ؟"/>
+            <DoCloseOrNot title="إبقاء الملف الغير موجود" message="هذا الملف &quot;$STR_REPLACE$&quot; غير موجود بعد الآن.&#xA;إبقاء هذا الملف في المحرر؟"/>
+            <DoDeleteOrNot title="حذف الملف" message="هذا الملف &quot;$STR_REPLACE$&quot;&#xA;سوف يتم نقله إلى سلة المهملات وسوف يتم إغلاق المستند الحالي.&#xA;متابعة؟"/>
+            <NoBackupDoSaveFile title="حفظ" message="لا يمكن العثور على ملف النسخ الاحتياطي الخاص بك (تم حذفه من الخارج).&#xA;قم بحفظه وإلا سيتم فقدان البيانات الخاصة بك&#xA;هل تريد حفظ الملف &quot;$STR_REPLACE$&quot;؟"/>
+            <DoReloadOrNot title="إعادة تحميل" message="&quot;$STR_REPLACE$&quot;&#xA;&#xA;تم تعديل هذا الملف بواسطة برنامج آخر.&#xA;هل تريد إعادة تحميله؟"/>
+            <DoReloadOrNotAndLooseChange title="إعادة تحميل" message="&quot;$STR_REPLACE$&quot;&#xA;&#xA;تم تعديل هذا الملف بواسطة برنامج آخر&#xA;هل تريد إعادة تحميله وفقدان التعديلات التي قمت بها في Notepad++؟"/>
+            <PrehistoricSystemDetected title="تم اكتشاف نظام ما قبل التاريخ" message="يبدو أنك لا تزال تستخدم نظام ما قبل التاريخ. هذه الميزة تعمل فقط على نظام حديث، آسف."/>
+            <XpUpdaterProblem title="محدث Notepad++" message="محدث Notepad++ غير متوافق مع XP بسبب طبقة أمان عفا عليها الزمن ضمن XP.&#xA;هل تريد أن تذهب إلى صفحة Notepad++ لتحميل أحدث إصدار؟"/>
+            <DocTooDirtyToMonitor title="مشكلة في المراقبة" message="الوثيقة متسخة. الرجاء حفظ التعديل قبل مراقبتها."/>
+            <DocNoExistToMonitor title="مشكلة في المراقبة" message="يجب أن يكون الملف موجوداً ليتم مراقبته."/>
+            <FileTooBigToOpen title="مشكلة في حجم الملف" message="الملف كبير جداً ليتم فتحه بواسطة Notepad++"/>
+            <CreateNewFileOrNot title="إنشاء ملف جديد" message="&quot;$STR_REPLACE$&quot; غير موجود. القيام بإنشائه؟"/>
+            <CreateNewFileError title="إنشاء ملف جديد" message="لا يمكن إنشاء الملف &quot;$STR_REPLACE$&quot;."/>
+            <OpenFileError title="خطأ" message="لا يمكن فتح الملف &quot;$STR_REPLACE$&quot;."/>
+            <FileBackupFailed title="فشل النسخ الإحتياطي للملف" message="لا يمكن حفظ الإصدار السابق من الملف في دليل النسخ الاحتياطي على &quot;$STR_REPLACE$&quot;.&#xA;&#xA;هل تريد حفظ الملف الحالي على أي حال؟"/>
+            <LoadStylersFailed title="فشل تحميل stylers.xml" message="فشل تحميل &quot;$STR_REPLACE$&quot;!"/>
+            <LoadLangsFailed title="المكون" message="فشل تحميل langs.xml!  هل تريد استرداد langs.xml الخاص بك؟"/>
+            <LoadLangsFailedFinal title="المكون" message="فشل تحميل langs.xml!"/>
+            <FolderAsWorspaceSubfolderExists title="المجلد كمساحة عمل مشكلة في إضافة المجلد" message="يوجد مجلد فرعي للمجلد الذي تريد إضافته.&#xA;الرجاء حذف جذره من القائمة قبل إضافة المجلد &quot;$STR_REPLACE$&quot;."/>
 
-            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
-            <NbFileToOpenImportantWarning title="حجم الملفات المطلوب فتحها كبير جداً" message="$INT_REPLACE$ ملفات سوف يتم فتحها.&#xA;هل تريد بالتأكيد فتح هذه الملفات؟"/>
-			<SettingsOnCloudError title="إعدادات التخزين السحابي" message="يبدو أن مسار الإعدادات على التخزين السحابي تم تعيينه على قرص للقراءة فقط، &#xA;أو على مجلد يحتاج صلاحيات للكتابة. &#xA;سيتم إلغاء إعداداتك على التخزين السحابي. الرجاء إعادة تعيين قيمة أفضل من خلال مربع حوال تفضيلات."/>
-			<FilePathNotFoundWarning title="فتح ملف" message="الملف الذي تحاول فتحه غير موجود."/>
-	        <SessionFileInvalidError title="لا يمكن تحميل الجلسة" message="ملف الجلسة إما تالم أو غير صالح."/>
+            <ProjectPanelChanged title="$STR_REPLACE$" message="تم تعديل مساحة العمل. هل تريد حفظها؟"/>
+            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="لم يتم حفظ مساحة العمل الخاصة بك."/>
+            <ProjectPanelOpenDoSaveDirtyWsOrNot title="فتح مساحة عمل" message="تم تعديل مساحة العمل الحالية. هل تريد حفظ المشروع الحالي؟"/>
+            <ProjectPanelNewDoSaveDirtyWsOrNot title="مساحة عمل جديدة" message="تم تعديل مساحة العمل الحالية. هل تريد حفظ المشروع الحالي؟"/>
+            <ProjectPanelOpenFailed title="فتح مساحة عمل" message="لا يمكن فتح مساحة العمل.&#xA;يبدو أن الملف المراد فتحه ليس ملف صالح للمشروع."/>
+            <ProjectPanelRemoveFolderFromProject title="إزالة المجلد من المشروع" message="كل العناصر الفرعية سوف يتم حذفها.&#xA;هل بالتأكيد تريد إزالة هذا المجلد من المشروع؟"/>
+            <ProjectPanelRemoveFileFromProject title="إزالة الملف من المشروع" message="هل تريد بالتأكيد إزالة هذا الملف من المشروع؟"/>
+            <ProjectPanelReloadError title="إعادة تحميل مساحة العمل" message="لا يمكن العثور على الملف لإعادة التحميل."/>
+            <ProjectPanelReloadDirty title="إعادة تحميل مساحة العمل" message="تم تعديل مساحة العمل الحالية. إعادة التحميل سوف تلغي كل التعديلات.&#xA; هل تريد المتابعة؟"/>
+            <UDLNewNameError title="خطأ UDL" message="هذا الاسم تم استخدامه من قبل لغة أخرى،&#xA;الرجاء إعطاء اسم آخر."/>
+            <UDLRemoveCurrentLang title="إزالة اللغة الحالية" message="هل أنت متأكد؟"/>
+            <SCMapperDoDeleteOrNot title="هل أنت متأكد؟" message="هل بالتأكيد تريد حذف هذا الاختصار؟"/>
+            <FindCharRangeValueError title="مشكلة في قيمة النطاق" message="يجب أن تكتب بين 0 و 255."/>
+            <OpenInAdminMode title="فشل الحفظ" message="لا يمكن حفظ الملف وقد يكون محمياً.&#xA;هل تريد تشغيل Notepad++ في وضع المسؤول؟"/>
+            <OpenInAdminModeWithoutCloseCurrent title="فشل الحفظ" message="لا يمكن حفظ الملف وقد يكون محمياً.&#xA;هل تريد تشغيل Notepad++ في وضع المسؤول؟"/>
+            <OpenInAdminModeFailed title="فشل الفتح في وضع المسؤول." message="لا يمكن فتح Notepad++ في وضع المسؤول."/>
         </MessageBox>
-
         <ClipboardHistory>
             <PanelTitle name="سجل الذاكرة"/>
         </ClipboardHistory>
-
         <DocSwitcher>
             <PanelTitle name="مبدل المستند"/>
             <ColumnName name="الاسم"/>
             <ColumnExt name="الامتداد"/>
         </DocSwitcher>
-
+        <WindowsDlg>
+            <ColumnName name="الاسم"/>
+            <ColumnPath name="المسار"/>
+            <ColumnType name="النوع"/>
+        </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name="لوحة إدراج ASCII"/>
             <ColumnVal name="القيمة"/>
             <ColumnHex name="Hex"/>
             <ColumnChar name="الحرف"/>
         </AsciiInsertion>
-
         <DocumentMap>
             <PanelTitle name="خريطة المستند"/>
         </DocumentMap>
-
         <FunctionList>
             <PanelTitle name="قائمة الإقتران"/>
             <SortTip name="ترتيب"/>
             <ReloadTip name="إعادة تحميل"/>
         </FunctionList>
-
+        <FolderAsWorkspace>
+            <PanelTitle name="مجلد كمساحة عمل"/>
+            <SelectFolderFromBrowserString name="حدد مجلد ليتم إضافته إلى لوحة المجلد كمساحة عمل"/>
+            <Menus>
+                <Item id="3511" name="إزالة"/>
+                <Item id="3512" name="إزالة الكل"/>
+                <Item id="3513" name="إضافة"/>
+                <Item id="3514" name="تشغيل بواسطة النظام"/>
+                <Item id="3515" name="فتح"/>
+                <Item id="3516" name="نسخ المسار"/>
+                <Item id="3517" name="البحث في الملفات ..."/>
+                <Item id="3518" name="إستعراض هنا"/>
+                <Item id="3519" name="CMD هنا"/>
+            </Menus>
+        </FolderAsWorkspace>
         <ProjectManager>
-            <PanelTitle name="المشروع"/>
+            <PanelTitle name="مشروع"/>
             <WorkspaceRootName name="مساحة العمل"/>
             <NewProjectName name="اسم المشروع"/>
             <NewFolderName name="اسم المجلد"/>
@@ -1154,64 +1094,51 @@
                 </FileMenu>
             </Menus>
         </ProjectManager>
-
-        <FileBrowser>
-            <PanelTitle name="المجلد كمساحة عمل"/>
-            <AddRootMsg name="حدد مجلد ليتم إضافته إلى لوحة المجلد كمساحة عمل"/>
-            <Menus>
-                <Entries>
-                    <Item id="3511" name="إزالة"/>
-                    <Item id="3512" name="إزالة الكل"/>
-                    <Item id="3513" name="إضافة"/>
-                    <Item id="3514" name="تشغيل بواسطة النظام"/>
-                    <Item id="3515" name="فتح"/>
-                    <Item id="3516" name="نسخ المسار"/>
-                    <Item id="3517" name="البحث في الملفات ..."/>
-                    <Item id="3518" name="إستعراض هنا"/>
-                    <Item id="3519" name="CMD هنا"/>
-                </Entries>
-            </Menus>
-        </FileBrowser>
-
-        <ShortcutMapper>
-            <Title name="مخطط الاختصارات"/>
-            <ColumnName name="الاسم"/>
-            <ColumnShortcut name="الاختصار"/>
-            <Conflict name="لا يوجد أي تعارض في الاختصار لهذا العنصر."/>
-            <NoConflict name="لا تعارض. . ."/>
-            <Dialog>
-                <Item id="2602" name="تعديل"/>
-                <Item id="2603" name="حذف"/>
-                <Item id="2606" name="مسح"/>
-                <Item id="1" name="إغلاق"/>
-            </Dialog>
-            <Tabs>
-                <Item id="0" name="القائمة الرئيسية"/>
-                <Item id="1" name="الماكرو"/>
-                <Item id="2" name="أوامر التشغيل"/>
-                <Item id="3" name="أوامر الإضافات"/>
-                <Item id="4" name="أوامر Scintilla"/>
-            </Tabs>
-            <Menu>
-                <Item id="2602" name="تعديل"/>
-				<Item id="2603" name="حذف"/>
-				<Item id="2606" name="مسح"/>
-			</Menu>
-        </ShortcutMapper>
-
         <MiscStrings>
-			<word-chars-list-tip value="تسمح لك بإدراج أحرف إضافية إلى أحرف الكلمة الحالية أثناء النقر المزدوج للتحديد أو البحث عندما تكون &quot;مطابقة الكلمة بالكامل فقط&quot; محددة."/>
+            <!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
+            <word-chars-list-tip value="هذه تسمح لك بإدراج أحرف إضافية إلى أحرف الكلمة الحالية أثناء النقر المزدوج للتحديد أو البحث مع تحديد  &quot;مطابقة الكلمة بالكامل فقط&quot;."/>
             <word-chars-list-warning-begin value="كن حذراً: "/>
-			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <word-chars-list-space-warning value="$INT_REPLACE$ مسافات"/>
-			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <word-chars-list-tab-warning value="$INT_REPLACE$ TAB(s)"/>
-			<word-chars-list-warning-end value="  في قائمة الأحرف الخاصة بك."/>
-			<cloud-invalid-warning value="مسار غير صالح."/>
-			<cloud-restart-warning value="الرجاء إعادة تشغيل Notepad++ لتطبيق التغييرات."/>
-			<shift-change-direction-tip value="استخدم Shift+Enter للبحث في الاتجاه المعاكس."/>
-            <buffer-error-msg name="فشل حفظ الملف.&#xA;لا يوجد مساحة كافية على القرص لحفظ الملف؟"/>
+            <word-chars-list-warning-end value="  في قائمة الأحرف الخاصة بك."/>
+            <cloud-invalid-warning value="مسار غير صالح."/>
+            <cloud-restart-warning value="الرجاء إعادة تشغيل Notepad++ لتطبيق التغييرات."/>
+            <cloud-select-folder value="حدد المجلد من/إلى حيث Notepad++ يقرأ/يكتب إعداداته"/>
+            <shift-change-direction-tip value="استخدم Shift + Enter للبحث في الاتجاه المعاكس."/>
+            <two-find-buttons-tip value="وضع 2 أزرار بحث"/>
+            <find-status-top-reached value="البحث: تم العثور على أول تكرار من أسفل. تم الوصل إلى بداية المستند."/>
+            <find-status-end-reached value="البحث: تم العثور على أول تكرار من أعلى. تم الوصل إلى نهاية المستند."/>
+            <find-status-replaceinfiles-1-replaced value="الاستبدال في الملفات: 1 تكرار تم استبداله"/>
+            <find-status-replaceinfiles-nb-replaced value="الاستبدال في الملفات: $INT_REPLACE$ تكرار تم استبداله"/>
+            <find-status-replaceinfiles-re-malformed value="الاستبدال في الملفات المفتوحة: إن regular expression غير صحيحة"/>
+            <find-status-replaceinopenedfiles-1-replaced value="الاستبدال في الملفات المفتوحة: 1 تكرار تم استبداله"/>
+            <find-status-replaceinopenedfiles-nb-replaced value="الاستبدال في الملفات المفتوحة: $INT_REPLACE$ تكرار تم استبداله"/>
+            <find-status-mark-re-malformed value="الإشارة: إن regular expression للبحث غير صحيحة."/>
+            <find-status-invalid-re value="البحث: إن regular expression غير صالح"/>
+            <find-status-mark-1-match value="1 تطابق"/>
+            <find-status-mark-nb-matches value="$INT_REPLACE$ تطابق"/>
+            <find-status-count-re-malformed value="المجموع: إن regular expression للبحث غير صحيحة."/>
+            <find-status-count-1-match value="المجموع: 1 تطابق"/>
+            <find-status-count-nb-matches value="المجموع: $INT_REPLACE$ تطابق."/>
+            <find-status-replaceall-re-malformed value="استبدال الكل: إن regular expression غير صحيحة."/>
+            <find-status-replaceall-1-replaced value="استبدال الكل: 1 تكرار تم استبداله."/>
+            <find-status-replaceall-nb-replaced value="استبدال الكل: $INT_REPLACE$ تكرار تم استبداله"/>
+            <find-status-replaceall-readonly value="استبدال الكل: لا يمكن استبدال النص. المستند الحالي للقراءة فقط."/>
+            <find-status-replace-end-reached value="الاستبدال: تم استبدال أول تكرار من أعلى. تم الوصل إلى نهاية المستند."/>
+            <find-status-replace-top-reached value="الاستبدال: تم استبدال أول تكرار من أسفل. تم الوصل إلى بداية المستند."/>
+            <find-status-replaced-next-found value="الاستبدال: 1 تكرار تم استبداله. تم العثور على التكرار التالي."/>
+            <find-status-replaced-next-not-found value="الاستبدال: 1 تكرار تم استبداله. لم يتم العثور على التكرار التالي."/>
+            <find-status-replace-not-found value="الاستبدال: لم يتم العثور على أي تكرار."/>
+            <find-status-replace-readonly value="الاستبدال: لا يمكن استبدال النص. المستند الحالي للقراءة فقط."/>
+            <find-status-cannot-find value="البحث: لا يمكن العثور على النص &quot;$STR_REPLACE$&quot;"/>
+            <finder-find-in-finder value="البحث في هذه النتائج التي تم العثور عليها..."/>
+            <finder-close-this value="إغلاق هذا الباحث"/>
+            <finder-collapse-all value="طي الكل"/>
+            <finder-uncollapse-all value="إلغاء طي الكل"/>
+            <finder-copy value="نسخ"/>
+            <finder-select-all value="تحديد الكل"/>
+            <finder-clear-all value="مسح الكل"/>
+            <finder-open-all value="فتح الكل"/>
         </MiscStrings>
-
     </Native-Langue>
 </NotepadPlus>

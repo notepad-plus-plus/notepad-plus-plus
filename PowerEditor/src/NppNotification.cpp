@@ -1067,4 +1067,3 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 	}
 	return FALSE;
 }
-

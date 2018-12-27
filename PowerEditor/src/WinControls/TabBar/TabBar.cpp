@@ -132,7 +132,7 @@ void TabBar::getCurrentTitle(TCHAR *title, int titleLen)
 }
 
 
-void TabBar::setFont(TCHAR *fontName, int fontSize)
+void TabBar::setFont(const TCHAR *fontName, int fontSize)
 {
 	if (_hFont)
 		::DeleteObject(_hFont);
@@ -669,6 +669,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			if (_isDragging)
 			{
                 exchangeItemData(p);
+				::CallWindowProc(_tabBarDefaultProc, hwnd, WM_LBUTTONDOWN, wParam, lParam);
 
 				// Get cursor position of "Screen"
 				// For using the function "WindowFromPoint" afterward!!!
@@ -1187,9 +1188,6 @@ void TabBarPlus::exchangeTabItemData(int oldTab, int newTab)
 
 	// Tell Notepad_plus to notifiy plugins that a D&D operation was done (so doc index has been changed)
 	::SendMessage(_hParent, NPPM_INTERNAL_DOCORDERCHANGED, 0, oldTab);
-
-	//2. set to focus
-	setActiveTab(newTab);
 }
 
 void TabBarPlus::exchangeItemData(POINT point)

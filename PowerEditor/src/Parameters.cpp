@@ -51,7 +51,7 @@ struct WinMenuKeyDefinition //more or less matches accelerator table definition,
 	bool isCtrl;
 	bool isAlt;
 	bool isShift;
-	TCHAR * specialName;		//Used when no real menu name exists (in case of toggle for example)
+	const TCHAR * specialName;		//Used when no real menu name exists (in case of toggle for example)
 };
 
 
@@ -697,7 +697,7 @@ bool LocalizationSwitcher::addLanguageFromXml(wstring xmlFullPath)
 }
 
 
-bool LocalizationSwitcher::switchToLang(wchar_t *lang2switch) const
+bool LocalizationSwitcher::switchToLang(const wchar_t *lang2switch) const
 {
 	wstring langPath = getXmlFilePathFromLangName(lang2switch);
 	if (langPath.empty())
@@ -890,14 +890,20 @@ bool NppParameters::reloadStylers(TCHAR* stylePath)
 	bool loadOkay = _pXmlUserStylerDoc->LoadFile();
 	if (!loadOkay)
 	{
-		_pNativeLangSpeaker->messageBox("LoadStylersFailed",
-			NULL,
-			TEXT("Load \"$STR_REPLACE$\" failed!"),
-			TEXT("Load stylers.xml failed"),
-			MB_OK,
-			0,
-			stylePathToLoad);
-
+		if (!_pNativeLangSpeaker)
+		{
+			::MessageBox(NULL, stylePathToLoad, TEXT("Load stylers.xml failed"), MB_OK);
+		}
+		else
+		{
+			_pNativeLangSpeaker->messageBox("LoadStylersFailed",
+				NULL,
+				TEXT("Load \"$STR_REPLACE$\" failed!"),
+				TEXT("Load stylers.xml failed"),
+				MB_OK,
+				0,
+				stylePathToLoad);
+		}
 		delete _pXmlUserStylerDoc;
 		_pXmlUserStylerDoc = NULL;
 		return false;
@@ -1006,29 +1012,51 @@ bool NppParameters::load()
 		}
 	}
 
+	generic_string nppPluginRootParent;
 	if (_isLocal)
 	{
-		_userPath = _nppPath;
+		_userPath = nppPluginRootParent = _nppPath;
+
+		_pluginRootDir = _nppPath;
+		PathAppend(_pluginRootDir, TEXT("plugins"));
+
+		_userPluginConfDir = _pluginRootDir;
+		PathAppend(_userPluginConfDir, TEXT("Config"));
 	}
 	else
 	{
 		_userPath = getSpecialFolderLocation(CSIDL_APPDATA);
 
 		PathAppend(_userPath, TEXT("Notepad++"));
-		_appdataNppDir = _userPath;
-
-		// Plugin System V1
 		if (!PathFileExists(_userPath.c_str()))
 			::CreateDirectory(_userPath.c_str(), NULL);
 
-		// Plugin System V2
-		_localAppdataNppDir = getSpecialFolderLocation(CSIDL_LOCAL_APPDATA);
-		PathAppend(_localAppdataNppDir, TEXT("Notepad++"));
-		if (!PathFileExists(_localAppdataNppDir.c_str()))
-			::CreateDirectory(_localAppdataNppDir.c_str(), NULL);
-	}
-	
+		_appdataNppDir = _userPluginConfDir = _userPath;
+		PathAppend(_userPluginConfDir, TEXT("plugins"));
+		if (!PathFileExists(_userPluginConfDir.c_str()))
+			::CreateDirectory(_userPluginConfDir.c_str(), NULL);
+		PathAppend(_userPluginConfDir, TEXT("Config"));
+		if (!PathFileExists(_userPluginConfDir.c_str()))
+			::CreateDirectory(_userPluginConfDir.c_str(), NULL);
 
+
+		_pluginRootDir = getSpecialFolderLocation(CSIDL_COMMON_APPDATA);
+		PathAppend(_pluginRootDir, TEXT("Notepad++"));
+		nppPluginRootParent = _pluginRootDir;
+
+		PathAppend(_pluginRootDir, TEXT("plugins"));
+
+		// For PluginAdmin to launch the wingup with UAC
+		setElevationRequired(true);
+	}
+
+	_pluginConfDir = _pluginRootDir;
+	PathAppend(_pluginConfDir, TEXT("Config"));
+
+	if (!PathFileExists(nppPluginRootParent.c_str()))
+		::CreateDirectory(nppPluginRootParent.c_str(), NULL);
+	if (!PathFileExists(_pluginRootDir.c_str()))
+		::CreateDirectory(_pluginRootDir.c_str(), NULL);
 
 	_sessionPath = _userPath; // Session stock the absolute file path, it should never be on cloud
 
@@ -1076,15 +1104,26 @@ bool NppParameters::load()
 	BOOL doRecover = FALSE;
 	if (::PathFileExists(langs_xml_path.c_str()))
 	{
-		struct _stat buf;
+		WIN32_FILE_ATTRIBUTE_DATA attributes;
 
-		if (generic_stat(langs_xml_path.c_str(), &buf)==0)
-			if (buf.st_size == 0)
-				doRecover = _pNativeLangSpeaker->messageBox("LoadLangsFailed",
-					NULL,
-					TEXT("Load langs.xml failed!\rDo you want to recover your langs.xml?"),
-					TEXT("Configurator"),
-					MB_YESNO);
+		if (GetFileAttributesEx(langs_xml_path.c_str(), GetFileExInfoStandard, &attributes) != 0)
+		{
+			if (attributes.nFileSizeLow == 0 && attributes.nFileSizeHigh == 0)
+			{
+				if (_pNativeLangSpeaker)
+				{
+					doRecover = _pNativeLangSpeaker->messageBox("LoadLangsFailed",
+						NULL,
+						TEXT("Load langs.xml failed!\rDo you want to recover your langs.xml?"),
+						TEXT("Configurator"),
+						MB_YESNO);
+				}
+				else
+				{
+					doRecover = ::MessageBox(NULL, TEXT("Load langs.xml failed!\rDo you want to recover your langs.xml?"), TEXT("Configurator"), MB_YESNO);
+				}
+			}
+		}
 	}
 	else
 		doRecover = true;
@@ -1102,11 +1141,18 @@ bool NppParameters::load()
 	bool loadOkay = _pXmlDoc->LoadFile();
 	if (!loadOkay)
 	{
-		_pNativeLangSpeaker->messageBox("LoadLangsFailedFinal",
-			NULL,
-			TEXT("Load langs.xml failed!"),
-			TEXT("Configurator"),
-			MB_OK);
+		if (_pNativeLangSpeaker)
+		{
+			_pNativeLangSpeaker->messageBox("LoadLangsFailedFinal",
+				NULL,
+				TEXT("Load langs.xml failed!"),
+				TEXT("Configurator"),
+				MB_OK);
+		}
+		else
+		{
+			::MessageBox(NULL, TEXT("Load langs.xml failed!"), TEXT("Configurator"), MB_OK);
+		}
 
 		delete _pXmlDoc;
 		_pXmlDoc = nullptr;
@@ -1163,14 +1209,20 @@ bool NppParameters::load()
 	loadOkay = _pXmlUserStylerDoc->LoadFile();
 	if (!loadOkay)
 	{
-		_pNativeLangSpeaker->messageBox("LoadStylersFailed",
-			NULL,
-			TEXT("Load \"$STR_REPLACE$\" failed!"),
-			TEXT("Load stylers.xml failed"),
-			MB_OK,
-			0,
-			_stylerPath.c_str());
-
+		if (_pNativeLangSpeaker)
+		{
+			_pNativeLangSpeaker->messageBox("LoadStylersFailed",
+				NULL,
+				TEXT("Load \"$STR_REPLACE$\" failed!"),
+				TEXT("Load stylers.xml failed"),
+				MB_OK,
+				0,
+				_stylerPath.c_str());
+		}
+		else
+		{
+			::MessageBox(NULL, _stylerPath.c_str(), TEXT("Load stylers.xml failed"), MB_OK);
+		}
 		delete _pXmlUserStylerDoc;
 		_pXmlUserStylerDoc = NULL;
 		isAllLaoded = false;
@@ -1971,8 +2023,8 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 		return false;
 
 	TiXmlElement *actView = sessionRoot->ToElement();
-	size_t index;
-	const TCHAR *str = actView->Attribute(TEXT("activeView"), reinterpret_cast<int *>(&index));
+	int index = 0;
+	const TCHAR *str = actView->Attribute(TEXT("activeView"), &index);
 	if (str)
 	{
 		(*ptrSession)._activeView = index;
@@ -1986,9 +2038,9 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 	{
 		if (viewRoots[k])
 		{
-			size_t index2;
+			int index2 = 0;
 			TiXmlElement *actIndex = viewRoots[k]->ToElement();
-			str = actIndex->Attribute(TEXT("activeIndex"), reinterpret_cast<int *>(&index2));
+			str = actIndex->Attribute(TEXT("activeIndex"), &index2);
 			if (str)
 			{
 				if (k == 0)
@@ -2050,8 +2102,9 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 					const TCHAR *encStr = (childNode->ToElement())->Attribute(TEXT("encoding"), &encoding);
 					const TCHAR *backupFilePath = (childNode->ToElement())->Attribute(TEXT("backupFilePath"));
 
-					int fileModifiedTimestamp = 0;
-					(childNode->ToElement())->Attribute(TEXT("originalFileLastModifTimestamp"), &fileModifiedTimestamp);
+					FILETIME fileModifiedTimestamp;
+					(childNode->ToElement())->Attribute(TEXT("originalFileLastModifTimestamp"), reinterpret_cast<int32_t*>(&fileModifiedTimestamp.dwLowDateTime));
+					(childNode->ToElement())->Attribute(TEXT("originalFileLastModifTimestampHigh"), reinterpret_cast<int32_t*>(&fileModifiedTimestamp.dwHighDateTime));
 
 					sessionFileInfo sfi(fileName, langName, encStr?encoding:-1, position, backupFilePath, fileModifiedTimestamp, mapPosition);
 
@@ -2985,7 +3038,8 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 				(fileNameNode->ToElement())->SetAttribute(TEXT("encoding"), viewSessionFiles[i]._encoding);
 				(fileNameNode->ToElement())->SetAttribute(TEXT("filename"), viewSessionFiles[i]._fileName.c_str());
 				(fileNameNode->ToElement())->SetAttribute(TEXT("backupFilePath"), viewSessionFiles[i]._backupFilePath.c_str());
-				(fileNameNode->ToElement())->SetAttribute(TEXT("originalFileLastModifTimestamp"), static_cast<int32_t>(viewSessionFiles[i]._originalFileLastModifTimestamp));
+				(fileNameNode->ToElement())->SetAttribute(TEXT("originalFileLastModifTimestamp"), static_cast<int32_t>(viewSessionFiles[i]._originalFileLastModifTimestamp.dwLowDateTime));
+				(fileNameNode->ToElement())->SetAttribute(TEXT("originalFileLastModifTimestampHigh"), static_cast<int32_t>(viewSessionFiles[i]._originalFileLastModifTimestamp.dwHighDateTime));
 				
 				// docMap 
 				(fileNameNode->ToElement())->SetAttribute(TEXT("mapFirstVisibleDisplayLine"), viewSessionFiles[i]._mapPos._firstVisibleDisplayLine);
@@ -3179,7 +3233,7 @@ void NppParameters::feedUserKeywordList(TiXmlNode *node)
 		TiXmlNode *valueNode = childNode->FirstChild();
 		if (valueNode)
 		{
-			TCHAR *kwl = nullptr;
+			const TCHAR *kwl = nullptr;
 			if (!lstrcmp(udlVersion, TEXT("")) && !lstrcmp(keywordsName, TEXT("Delimiters")))	// support for old style (pre 2.0)
 			{
 				basic_string<TCHAR> temp;
@@ -5259,7 +5313,7 @@ bool NppParameters::writeScintillaParams()
 	(scintNode->ToElement())->SetAttribute(TEXT("Wrap"), _svp._doWrap?TEXT("yes"):TEXT("no"));
 	(scintNode->ToElement())->SetAttribute(TEXT("borderEdge"), _svp._showBorderEdge ? TEXT("yes") : TEXT("no"));
 
-	TCHAR *edgeStr = NULL;
+	const TCHAR *edgeStr;
 	if (_svp._edgeMode == EDGE_NONE)
 		edgeStr = TEXT("no");
 	else if (_svp._edgeMode == EDGE_LINE)
@@ -6584,7 +6638,9 @@ Date::Date(const TCHAR *dateStr)
 {
 	// timeStr should be Notepad++ date format : YYYYMMDD
 	assert(dateStr);
-	if (lstrlen(dateStr) == 8)
+	int D = lstrlen(dateStr);
+
+	if ( 8==D )
 	{
 		generic_string ds(dateStr);
 		generic_string yyyy(ds, 0, 4);

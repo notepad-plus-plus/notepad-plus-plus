@@ -399,8 +399,7 @@ INT_PTR CALLBACK BarsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			if (pNppParam->getNativeLangA()) // if nativeLangA is not NULL, then we can be sure the default language (English) is not used
 			{
 				string fn = localizationSwitcher.getFileName();
-				wstring fnW(fn.begin(), fn.end());
-				fnW.assign(fn.begin(), fn.end());
+				wstring fnW = s2ws(fn);
 				lang = localizationSwitcher.getLangFromXmlFileName(fnW.c_str());
 			}
 			auto index = ::SendDlgItemMessage(_hSelf, IDC_COMBO_LOCALIZATION, CB_FINDSTRINGEXACT, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(lang.c_str()));
@@ -2833,7 +2832,7 @@ INT_PTR CALLBACK AutoCompletionDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 				case IDD_AUTOC_QUOTESCHECK :
 				{
 					bool isChecked = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, static_cast<int32_t>(wParam), BM_GETCHECK, 0, 0));
-					TCHAR *label;
+					const TCHAR *label;
 					if (wParam == IDD_AUTOCPARENTHESES_CHECK)
 					{
 						nppGUI._matchedPairConf._doParentheses = isChecked;

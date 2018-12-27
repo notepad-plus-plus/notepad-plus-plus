@@ -1,27 +1,23 @@
-Notepad++ 7.5.5 enhancements & bug-fixes:
+Notepad++ v7.6.1 new enhancement and bug-fixes:
 
-1.  Restore 2 buttons "<< Find Previous" & "Find Next >>" in Find dialog (optional).
-2.  Fix monitored (tail -f) file not always updated issue.
-3.  Keep Doc Switcher's ordering in sync with Tab bar.
-4.  Shortcut Mapper enhancements: Add filter capacity and make dialog resizable and maximizable.
-5.  Fix for "Toggle Single Line Comment" malfunctioning with HTML/XML.
-6.  Make Unix style path (slashes) work in open file dialog (optional).
-7.  Fix tab sticks to mouse pointer problem after external update of a opened file.
-8.  Fix encoding not sync (on status bar) after reloading.
-9.  Fix menu items' state is not maintained due to save macro command.
-10. Fix line ending changes are not detected in reloaded changed files issue.
-11. Fix highlighting of <script> tags in XML files issue.
-12. Fix Unicode file name comparison to match Windows behaviour (as opposed to doing a linguistic filename comparison).
-
+1.  Several bug-fixes & enhancement on Plugins Admin.
+2.  Notepad++ will load plugins from %PROGRAMDATA% instead of %LOCALAPPDATA%
+    https://notepad-plus-plus.org/features/plugin-admin.html
+3.  Fix installer's plugins copy issue under Linux (by using WINE).
+4.  Fix Installer HI-DPI GUI glitch.
+5.  Fix "Import plugins" not working issue.
+6.  Fix printer header/footer font issue.
+7.  Make installer more coherent for the option doLocalConf.xml.
+8.  Make text display right in summary panel.
 
 Included plugins:
 
 1.  NppExport v0.2.8 (32-bit x86 only)
 2.  Converter 4.2.1
-3.  Mime Tool 2.1
-4.  DSpellCheck 1.3.5
+3.  Mime Tool 2.2
+4.  DSpellCheck 1.4.6
 
 
 Updater (Installer only):
 
-* WinGup v4.2
+* WinGup (for Notepad++) v5.0.5

@@ -246,7 +246,6 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 
 	if (!cmdLineParams->_easterEggName.empty())
 	{
-		//::MessageBoxA(NULL, destStr.c_str(), "", MB_OK);
 		if (cmdLineParams->_quoteType == 0) // Easter Egg Name
 		{
 			int iQuote = _notepad_plus_plus_core.getQuoteIndexFrom(cmdLineParams->_easterEggName.c_str());

@@ -62,11 +62,6 @@ const bool dirDown = false;
 #define generic_sscanf swscanf
 #define generic_fopen _wfopen
 #define generic_fgets fgetws
-#ifdef _WIN64
-  #define generic_stat _wstat
-#else
-  #define generic_stat custom_wstat
-#endif
 #define COPYDATA_FILENAMES COPYDATA_FILENAMESW
 
 typedef std::basic_string<TCHAR> generic_string;
@@ -197,6 +192,7 @@ HWND CreateToolTip(int toolID, HWND hDlg, HINSTANCE hInst, const PTSTR pszText);
 bool isCertificateValidated(const generic_string & fullFilePath, const generic_string & subjectName2check);
 bool isAssoCommandExisting(LPCTSTR FullPathName);
 
-#ifndef _WIN64
-int custom_wstat(wchar_t const* _FileName, struct _stat* _Stat);
-#endif
+std::wstring s2ws(const std::string& str);
+std::string ws2s(const std::wstring& wstr);
+
+bool deleteFileOrFolder(const generic_string& f2delete);

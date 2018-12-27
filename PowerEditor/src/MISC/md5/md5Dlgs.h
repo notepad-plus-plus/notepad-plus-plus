@@ -19,30 +19,35 @@
 
 #include "StaticDialog.h"
 
+enum hashType {hash_md5, hash_sha256};
 
-class MD5FromFilesDlg : public StaticDialog
+class HashFromFilesDlg : public StaticDialog
 {
 public :
-	MD5FromFilesDlg() : StaticDialog() {};
+	HashFromFilesDlg() : StaticDialog() {};
 
 	void doDialog(bool isRTL = false);
     virtual void destroy() {};
+	void setHashType(hashType hashType2set);
 
 protected :
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	hashType _ht = hash_md5;
 };
 
-class MD5FromTextDlg : public StaticDialog
+class HashFromTextDlg : public StaticDialog
 {
 public :
-	MD5FromTextDlg() : StaticDialog() {};
+	HashFromTextDlg() : StaticDialog() {};
 
 	void doDialog(bool isRTL = false);
     virtual void destroy() {};
-	void generateMD5();
-	void generateMD5PerLine();
+	void generateHash();
+	void generateHashPerLine();
+	void setHashType(hashType hashType2set);
 
 protected :
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	hashType _ht = hash_md5;
 };
 

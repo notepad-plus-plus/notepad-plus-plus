@@ -178,7 +178,7 @@
                     <Item id="43009" name="跳至對應括號"/>
                     <Item id="43010" name="找上一個"/>
                     <Item id="43011" name="遞增搜尋(&amp;I)..."/>
-                    <Item id="43013" name="在檔案中尋找"/>
+                    <Item id="43013" name="在多個檔案中尋找"/>
                     <Item id="43014" name="快速搜尋下一個"/>
                     <Item id="43015" name="快速搜尋上一個"/>
                     <Item id="43018" name="剪下標記行"/>

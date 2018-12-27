@@ -2601,6 +2601,53 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
+		case IDM_TOOL_SHA256_GENERATE:
+		{
+			bool isFirstTime = !_sha2FromTextDlg.isCreated();
+			_sha2FromTextDlg.doDialog(_nativeLangSpeaker.isRTL());
+			if (isFirstTime)
+				_nativeLangSpeaker.changeDlgLang(_sha2FromTextDlg.getHSelf(), "SHA256FromTextDlg");
+		}
+		break;
+
+		case IDM_TOOL_SHA256_GENERATEFROMFILE:
+		{
+			bool isFirstTime = !_sha2FromFilesDlg.isCreated();
+			_sha2FromFilesDlg.doDialog(_nativeLangSpeaker.isRTL());
+			if (isFirstTime)
+				_nativeLangSpeaker.changeDlgLang(_sha2FromFilesDlg.getHSelf(), "SHA256FromFilesDlg");
+		}
+		break;
+
+		case IDM_TOOL_SHA256_GENERATEINTOCLIPBOARD:
+		{
+			if (_pEditView->execute(SCI_GETSELECTIONS) == 1)
+			{
+				size_t selectionStart = _pEditView->execute(SCI_GETSELECTIONSTART);
+				size_t selectionEnd = _pEditView->execute(SCI_GETSELECTIONEND);
+
+				int32_t strLen = static_cast<int32_t>(selectionEnd - selectionStart);
+				if (strLen)
+				{
+					int strSize = strLen + 1;
+					char *selectedStr = new char[strSize];
+					_pEditView->execute(SCI_GETSELTEXT, 0, reinterpret_cast<LPARAM>(selectedStr));
+
+					uint8_t sha2hash[32];
+					calc_sha_256(sha2hash, reinterpret_cast<const uint8_t*>(selectedStr), strlen(selectedStr));
+
+					wchar_t sha2hashStr[65] = { '\0' };
+					for (size_t i = 0; i < 32; i++)
+						wsprintf(sha2hashStr + i * 2, TEXT("%02x"), sha2hash[i]);
+
+					str2Clipboard(sha2hashStr, _pPublicInterface->getHSelf());
+
+					delete[] selectedStr;
+				}
+			}
+		}
+		break;
+
 		case IDM_DEBUGINFO:
 		{
 			_debugInfoDlg.doDialog();

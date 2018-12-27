@@ -1,28 +1,23 @@
-Notepad++ v7.6 new feature and bug-fixes:
+Notepad++ v7.6.1 new enhancement and bug-fixes:
 
-1.  Add Built-in Plugins Admins. Users can install, update and remove plugins by some clicks via Plugins Admin:
+1.  Several bug-fixes & enhancement on Plugins Admin.
+2.  Notepad++ will load plugins from %PROGRAMDATA% instead of %LOCALAPPDATA%
     https://notepad-plus-plus.org/features/plugin-admin.html
-2.  Change plugin loading method: Remove the legacy plugin loading way and apply only the new plugin loading method.
-3.  Add new message NPPM_GETPLUGINHOMEPATH in Notepad++ API for plugin, so plugin can get its path easily.
-4.  Fix a regression of performance issue while word wrap option is enable.
-5.  Fix a performance issue for switching back to folded document.
-6.  Fix crash issue due to Unix style path input in Open file dialog.
-7.  Fix UTF-8 detection problem: 4 byte characters UTF-8 character can be detected now.
-8.  Enhance/Fix encoding detection/problem.
-9.  Fix auto-indent issue by typing Enter on empty line.
-10. Fix "Close all but this" behaviour if multiple views are present and some files are dirty.
-11. Fix tool tip in document switcher showing the old name issue (after being renamed).
-12. Add autoit and lua autoCompletion
-
+3.  Fix installer's plugins copy issue under Linux (by using WINE).
+4.  Fix Installer HI-DPI GUI glitch.
+5.  Fix "Import plugins" not working issue.
+6.  Fix printer header/footer font issue.
+7.  Make installer more coherent for the option doLocalConf.xml.
+8.  Make text display right in summary panel.
 
 Included plugins:
 
 1.  NppExport v0.2.8 (32-bit x86 only)
 2.  Converter 4.2.1
-3.  Mime Tool 2.1
+3.  Mime Tool 2.2
 4.  DSpellCheck 1.4.6
 
 
 Updater (Installer only):
 
-* WinGup (for Notepad++) v5.0.4
+* WinGup (for Notepad++) v5.0.5

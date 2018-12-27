@@ -623,10 +623,18 @@ LRESULT Notepad_plus::init(HWND hwnd)
     _aboutDlg.init(_pPublicInterface->getHinst(), hwnd);
 	_debugInfoDlg.init(_pPublicInterface->getHinst(), hwnd, _isAdministrator, _pluginsManager.getLoadedPluginNames());
 	_runDlg.init(_pPublicInterface->getHinst(), hwnd);
-	_md5FromFilesDlg.init(_pPublicInterface->getHinst(), hwnd);
-	_md5FromTextDlg.init(_pPublicInterface->getHinst(), hwnd);
 	_runMacroDlg.init(_pPublicInterface->getHinst(), hwnd);
 	_documentPeeker.init(_pPublicInterface->getHinst(), hwnd);
+
+	_md5FromFilesDlg.init(_pPublicInterface->getHinst(), hwnd);
+	_md5FromFilesDlg.setHashType(hash_md5);
+	_md5FromTextDlg.init(_pPublicInterface->getHinst(), hwnd);
+	_md5FromTextDlg.setHashType(hash_md5);
+	_sha2FromFilesDlg.init(_pPublicInterface->getHinst(), hwnd);
+	_sha2FromFilesDlg.setHashType(hash_sha256);
+	_sha2FromTextDlg.init(_pPublicInterface->getHinst(), hwnd);
+	_sha2FromTextDlg.setHashType(hash_sha256);
+
 
     //--User Define Dialog Section--//
 	int uddStatus = nppGUI._userDefineDlgStatus;
@@ -5693,6 +5701,16 @@ bool Notepad_plus::reloadLang()
 	if (_md5FromTextDlg.isCreated())
 	{
 		_nativeLangSpeaker.changeDlgLang(_md5FromTextDlg.getHSelf(), "MD5FromTextDlg");
+	}
+
+	if (_sha2FromFilesDlg.isCreated())
+	{
+		_nativeLangSpeaker.changeDlgLang(_sha2FromFilesDlg.getHSelf(), "SHA256FromFilesDlg");
+	}
+
+	if (_sha2FromTextDlg.isCreated())
+	{
+		_nativeLangSpeaker.changeDlgLang(_sha2FromTextDlg.getHSelf(), "SHA256FromTextDlg");
 	}
 
 	if (_runMacroDlg.isCreated())

@@ -768,7 +768,7 @@ bool AutoCompletion::setLanguage(LangType language) {
 	TCHAR path[MAX_PATH];
 	::GetModuleFileName(NULL, path, MAX_PATH);
 	PathRemoveFileSpec(path);
-	lstrcat(path, TEXT("\\plugins\\APIs\\"));
+	lstrcat(path, TEXT("\\autoCompletion\\"));
 	lstrcat(path, getApiFileName());
 	lstrcat(path, TEXT(".xml"));
 

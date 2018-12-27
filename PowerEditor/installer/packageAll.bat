@@ -126,12 +126,12 @@ mkdir .\zipped.package.release
 mkdir .\zipped.package.release\updater
 mkdir .\zipped.package.release\localization
 mkdir .\zipped.package.release\themes
+mkdir .\zipped.package.release\autoCompletion
 mkdir .\zipped.package.release\plugins
 mkdir .\zipped.package.release\plugins\NppExport
 mkdir .\zipped.package.release\plugins\mimeTools
 mkdir .\zipped.package.release\plugins\NppConverter
 mkdir .\zipped.package.release\plugins\DSpellCheck
-mkdir .\zipped.package.release\plugins\APIs
 mkdir .\zipped.package.release\plugins\Config
 mkdir .\zipped.package.release\plugins\doc
 
@@ -143,11 +143,11 @@ mkdir .\zipped.package.release64
 mkdir .\zipped.package.release64\updater
 mkdir .\zipped.package.release64\localization
 mkdir .\zipped.package.release64\themes
+mkdir .\zipped.package.release64\autoCompletion
 mkdir .\zipped.package.release64\plugins
 mkdir .\zipped.package.release64\plugins\mimeTools
 mkdir .\zipped.package.release64\plugins\NppConverter
 mkdir .\zipped.package.release64\plugins\DSpellCheck
-mkdir .\zipped.package.release64\plugins\APIs
 mkdir .\zipped.package.release64\plugins\Config
 mkdir .\zipped.package.release64\plugins\doc
 
@@ -174,6 +174,7 @@ copy /Y ..\bin\"notepad++.exe" .\zipped.package.release\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\SciLexer.dll .\zipped.package.release\
 If ErrorLevel 1 goto End
+
 
 rem Basic Copy needed files into Notepad++ 64-bit package folders
 copy /Y ..\bin\license.txt .\zipped.package.release64\
@@ -242,15 +243,48 @@ copy /Y ".\nativeLang\*.xml" .\zipped.package.release64\localization\
 If ErrorLevel 1 goto End
 
 rem files API: Copy all files into Notepad++ 32-bit/64-bit package folders
-copy /Y ".\APIs\*.xml" .\zipped.package.release\plugins\APIs\
+copy /Y ".\APIs\*.xml" .\zipped.package.release\autoCompletion\
 If ErrorLevel 1 goto End
-copy /Y ".\APIs\*.xml" .\zipped.package.release64\plugins\APIs\
+copy /Y ".\APIs\*.xml" .\zipped.package.release64\autoCompletion\
 If ErrorLevel 1 goto End
 
 rem theme: Copy all files into Notepad++ 32-bit/64-bit package folders
 copy /Y ".\themes\*.xml" .\zipped.package.release\themes\
 If ErrorLevel 1 goto End
 copy /Y ".\themes\*.xml" .\zipped.package.release64\themes\
+If ErrorLevel 1 goto End
+
+rem Plugins Admin
+rem for disabling auto-updater
+copy /Y ..\src\config.4zipPackage.xml .\zipped.package.release\config.xml
+If ErrorLevel 1 goto End
+copy /Y ..\bin\nppPluginList.dll .\zipped.package.release\plugins\Config\
+If ErrorLevel 1 goto End
+copy /Y ..\bin\updater\GUP.exe .\zipped.package.release\updater\
+If ErrorLevel 1 goto End
+copy /Y ..\bin\updater\libcurl.dll .\zipped.package.release\updater\
+If ErrorLevel 1 goto End
+copy /Y ..\bin\updater\gup.xml .\zipped.package.release\updater\
+If ErrorLevel 1 goto End
+copy /Y ..\bin\updater\LICENSE .\zipped.package.release\updater\
+If ErrorLevel 1 goto End
+copy /Y ..\bin\updater\README.md .\zipped.package.release\updater\
+If ErrorLevel 1 goto End
+
+rem For disabling auto-updater
+copy /Y ..\src\config.4zipPackage.xml .\zipped.package.release64\config.xml
+If ErrorLevel 1 goto End
+copy /Y ..\bin64\nppPluginList.dll .\zipped.package.release64\plugins\Config\
+If ErrorLevel 1 goto End
+copy /Y ..\bin64\updater\GUP.exe .\zipped.package.release64\updater\
+If ErrorLevel 1 goto End
+copy /Y ..\bin64\updater\libcurl.dll .\zipped.package.release64\updater\
+If ErrorLevel 1 goto End
+copy /Y ..\bin64\updater\gup.xml .\zipped.package.release64\updater\
+If ErrorLevel 1 goto End
+copy /Y ..\bin64\updater\LICENSE .\zipped.package.release64\updater\
+If ErrorLevel 1 goto End
+copy /Y ..\bin64\updater\README.md .\zipped.package.release64\updater\
 If ErrorLevel 1 goto End
 
 

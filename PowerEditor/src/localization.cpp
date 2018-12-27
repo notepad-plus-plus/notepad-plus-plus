@@ -100,6 +100,7 @@ MenuPosition menuPos[] = {
 	{ 6,  4, -1, "settings-import" },
 
 	{ 7,  0, -1, "tools-md5" },
+	{ 7,  1, -1, "tools-sha256" },
 	{ -1, -1, -1, "" } // End of array
 };
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="7.6">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="7.6.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -64,6 +64,7 @@
                     <Item subMenuId="encoding-vietnamese" name="ベトナム語"/>
                     <Item subMenuId="settings-import" name="インポート"/>
                     <Item subMenuId="tools-md5"  name="MD5"/>
+                    <Item subMenuId="tools-sha256"  name="SHA-256"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -311,6 +312,9 @@
                     <Item id="48501" name="生成..."/>
                     <Item id="48502" name="ファイルから生成..."/>
                     <Item id="48503" name="選択範囲から生成しクリップボードへ出力"/>
+                    <Item id="48504" name="生成..."/>
+                    <Item id="48505" name="ファイルから生成..."/>
+                    <Item id="48506" name="選択範囲から生成しクリップボードへ出力"/>
                     <Item id="49000" name="ファイル名を指定して実行(&amp;R)..."/>
 
                     <Item id="50000" name="関数名補完"/>
@@ -430,6 +434,18 @@
                 <Item id="1934" name="クリップボードへコピー"/>
                 <Item id="2"    name="閉じる"/>
             </MD5FromTextDlg>
+
+            <SHA256FromFilesDlg title="SHA-256値をファイルから生成">
+                <Item id="1922" name="ファイルを選択(複数可)..."/>
+                <Item id="1924" name="クリップボードへコピー"/>
+                <Item id="2"    name="閉じる"/>
+            </SHA256FromFilesDlg>
+
+            <SHA256FromTextDlg title="SHA-256値を生成">
+                <Item id="1932" name="行ごとに生成する"/>
+                <Item id="1934" name="クリップボードへコピー"/>
+                <Item id="2"    name="閉じる"/>
+            </SHA256FromTextDlg>
 
             <PluginsAdminDlg title="プラグイン管理" titleAvailable = "利用可能" titleUpdates = "アップデート" titleInstalled = "インストール済み">
                 <ColumnPlugin   name="プラグイン"/>

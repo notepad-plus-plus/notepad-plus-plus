@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-<Native-Langue name="繁體中文/正體中文" filename="chinese.xml" version="7.6.2"> 
+<Native-Langue name="繁體中文/正體中文" filename="chinese.xml" version="7.6.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->

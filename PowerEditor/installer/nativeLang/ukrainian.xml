@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Українська" filename="ukrainian.xml" version="7.5.5">
+    <Native-Langue name="Українська" filename="ukrainian.xml" version="7.6.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -64,6 +64,7 @@
                     <Item subMenuId="encoding-vietnamese" name="В'єтнамська"/>
                     <Item subMenuId="settings-import"  name="Імпортувати"/>
                     <Item subMenuId="tools-md5"  name="MD5"/>
+                    <Item subMenuId="tools-sha256"  name="SHA-256"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -295,9 +296,12 @@
                     <Item id="48009" name="Гарячі клавіші..."/>
                     <Item id="48011" name="Налаштування..."/>
                     <Item id="48015" name="Адміністрування плагінів..."/>
-                    <Item id="48501" name="Генерувати..."/>
-                    <Item id="48502" name="Генерувати з файлів..."/>
-                    <Item id="48503" name="Генерувати з вибраного в буфер обміну"/>
+                    <Item id="48501" name="Згенерувати..."/>
+                    <Item id="48502" name="Згенерувати з файлів..."/>
+                    <Item id="48503" name="Згенерувати з вибраного в буфер обміну"/>
+                    <Item id="48504" name="Згенерувати..."/>
+                    <Item id="48505" name="Згенерувати з файлів..."/>
+                    <Item id="48506" name="Згенерувати з вибраного в буфер обміну"/>
                     <Item id="49000" name="Виконати..."/>
 
                     <Item id="50000" name="Завершення функцій"/>
@@ -406,18 +410,30 @@
                 <Item id="1904" name="Зберегти..."/>
             </Run>
 
-            <MD5FromFilesDlg title="Згенерувати MD5-дайджест із файлів">
+            <MD5FromFilesDlg title="Згенерувати MD5 з файлів">
                 <Item id="1922" name="Вибрати файли для генерації MD5..."/>
                 <Item id="1924" name="Копіювати в буфер обміну"/>
                 <Item id="2"    name="Закрити"/>
             </MD5FromFilesDlg>
 
-            <MD5FromTextDlg title="Згенерувати MD5-дайджест">
+            <MD5FromTextDlg title="Згенерувати MD5">
                 <Item id="1932" name="Обробити кожен рядок як окремий"/>
                 <Item id="1934" name="Копіювати в буфер обміну"/>
                 <Item id="2"    name="Закрити"/>
             </MD5FromTextDlg>
+			
+            <SHA256FromFilesDlg title="Згенерувати SHA-256 з файлів">
+                <Item id="1922" name="Оберіть файли для генерування SHA-256..."/>
+                <Item id="1924" name="Копіювати в буфер обміну"/>
+                <Item id="2"    name="Закрити"/>
+            </SHA256FromFilesDlg>
 
+            <SHA256FromTextDlg title="Згенерувати SHA-256">
+                <Item id="1932" name="Обробити кожен рядок як окремий"/>
+                <Item id="1934" name="Копіювати в буфер обміну"/>
+                <Item id="2"    name="Закрити"/>
+            </SHA256FromTextDlg>
+			
             <PluginsAdminDlg title="Адміністрування плагінів" titleAvailable = "Доступно" titleUpdates = "Оновлення" titleInstalled = "Встановлено">
                 <ColumnPlugin   name="Плагін"/>
                 <ColumnVersion  name="Версія"/>

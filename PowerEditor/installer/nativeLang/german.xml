@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
 <!--
-	German localization for Notepad++ 7.5.6
-	last modified: 2018-11-28 by schnurlos (schnurlos@gmail.com)
+	German localization for Notepad++ 7.6.2
+	last modified: 2018-12-26 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="7.5.5">
+	<Native-Langue name="Deutsch" filename="german.xml" version="7.6.2">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -76,6 +76,8 @@
 					<Item subMenuId="encoding-vietnamese" name="&amp;Vietnamesisch"/>
 					<Item subMenuId="settings-import" name="&amp;Import"/>
 					<Item subMenuId="tools-md5" name="MD5"/>
+					<Item subMenuId="tools-sha256" name="SHA-256"/>
+
 
 				</SubEntries>
 
@@ -310,8 +312,10 @@
 					<Item id="48015" name="Plugin-Verwaltung …"/>
 					<Item id="48501" name="Erstelle …"/>
 					<Item id="48502" name="Erstelle aus Dateien …"/>
-					<Item id="48503" name="Erstelle in die Zwischenablage"/>
-
+					<Item id="48503" name="Erstelle aus Auswahl in die Zwischenablage"/>
+					<Item id="48504" name="Erstelle …"/>
+					<Item id="48505" name="Erstelle aus Dateien …"/>
+					<Item id="48506" name="Erstelle aus Auswahl in die Zwischenablage"/>
 					<Item id="49000" name="Externes Programm &amp;ausführen …"/>
 
 					<Item id="50000" name="&amp;Funktionsvervollständigung"/>
@@ -374,7 +378,7 @@
 				<Item id="1687" name="Wenn inaktiv"/>
 				<Item id="1688" name="Immer"/>
 				<Item id="1632" name="In &amp;Auswahl"/>
-				<Item id="1633" name="Hervorhebung zurücksetzen"/>
+				<Item id="1633" name="Hervorhebung aufheben"/>
 				<Item id="1635" name="Alle Funde in allen offenen Dateien ersetzen"/>
 				<Item id="1636" name="In &amp;offenen Dateien suchen"/>
 				<Item id="1654" name="Filter:"/>
@@ -432,7 +436,19 @@
 				<Item id="1934" name="In die Zwischenablage kopieren"/>
 				<Item id="2"    name="Schließen"/>
 			</MD5FromTextDlg>
-
+			
+			<SHA256FromFilesDlg title="Erstelle SHA-256 Hashwert aus Dateien">
+				<Item id="1922" name="Wähle Dateien zur Erstellung des SHA-256-Hashwerts …"/>
+				<Item id="1924" name="In die Zwischenablage kopieren"/>
+				<Item id="2"    name="Schließen"/>
+			</SHA256FromFilesDlg>
+			
+			<SHA256FromTextDlg title="Erstelle SHA-256 Hashwert">
+				<Item id="1932" name="Behandle jede Zeile als eigene Zeichenkette"/>
+				<Item id="1934" name="In die Zwischenablage kopieren"/>
+				<Item id="2"    name="Schließen"/>
+			</SHA256FromTextDlg>
+			
 			<PluginsAdminDlg title="Plugin-Verwaltung" titleAvailable = "Verfügbar" titleUpdates = "Aktualisierungen" titleInstalled = "Installiert">
 				<ColumnPlugin   name="Plugin"/>
 				<ColumnVersion  name="Version"/>
@@ -674,7 +690,7 @@
 			</UserDefine>
 			<Preference title="Optionen">
 				<Item id="6001" name="S&amp;chließen"/>
-				<Global title="Oberfläche 1">
+				<Global title="Allgemein">
 					<Item id="6101" name="Symbolleiste"/>
 					<Item id="6102" name="Ausblenden"/>
 					<Item id="6103" name="Kleine Icons"/>
@@ -702,7 +718,7 @@
 					<Item id="6126" name="Anzeigen"/>
 					<Item id="6127" name="Erweiterungsspalte ausblenden"/>
 				</Global>
-				<Scintillas title="Oberfläche 2">
+				<Scintillas title="Editieren">
 					<Item id="6216" name="Cursoreinstellungen"/>
 					<Item id="6217" name="Breite"/>
 					<Item id="6219" name="Geschwindigkeit"/>
@@ -745,10 +761,10 @@
 					<Item id="6404" name="Macintosh (CR)"/>
 					<Item id="6405" name="Kodierung"/>
 					<Item id="6406" name="ANSI"/>
-					<Item id="6407" name="UTF-8 ohne BOM"/>
-					<Item id="6408" name="UTF-8"/>
-					<Item id="6409" name="UCS-2 Big Endian"/>
-					<Item id="6410" name="UCS-2 Little Endian"/>
+					<Item id="6407" name="UTF-8"/>
+					<Item id="6408" name="UTF-8 mit BOM"/>
+					<Item id="6409" name="UCS-2 Big Endian mit BOM"/>
+					<Item id="6410" name="UCS-2 Little Endian mit BOM"/>
 					<Item id="6411" name="Standardsprache"/>
 					<Item id="6419" name="Format für neue Dateien"/>
 					<Item id="6420" name="Auch beim Öffnen von ANSI-Dateien"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Беларуская" filename="belarusian.xml" version="7.5.5">
+    <Native-Langue name="Беларуская" filename="belarusian.xml" version="7.6.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -64,6 +64,7 @@
                     <Item subMenuId="encoding-vietnamese" name="В'етнамская"/>
                     <Item subMenuId="settings-import"  name="Імпарт"/>
                     <Item subMenuId="tools-md5"  name="MD5"/>
+                    <Item subMenuId="tools-sha256"  name="SHA-256"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -298,7 +299,10 @@
                     <Item id="48501" name="Генераваць..."/>
                     <Item id="48502" name="Генераваць з файлаў..."/>
                     <Item id="48503" name="Згенераваць з вылучанага ў буфер абмену"/>
-                    <Item id="49000" name="&amp;Выканаць..."/>
+                    <Item id="48504" name="Генераваць..."/>
+                    <Item id="48505" name="Генераваць з файлаў..."/>
+                    <Item id="48506" name="Згенераваць з вылучанага ў буфер абмену"/>
+                    <Item id="49000" name="Выканаць..."/>
 
                     <Item id="50000" name="Завяршэнне функцый"/>
                     <Item id="50001" name="Завяршэнне слоў"/>
@@ -417,7 +421,19 @@
                 <Item id="1934" name="Скапіяваць у буфер"/>
                 <Item id="2"    name="Закрыць"/>
             </MD5FromTextDlg>
+			
+            <SHA256FromFilesDlg title="Згенераваць SHA-256-дайджэст з файлаў">
+                <Item id="1922" name="Выберыце файлы для генерацыі SHA-256..."/>
+                <Item id="1924" name="Скапіяваць у буфер"/>
+                <Item id="2"    name="Закрыць"/>
+            </SHA256FromFilesDlg>
 
+            <SHA256FromTextDlg title="Згенераваць SHA-256-дайджэст">
+                <Item id="1932" name="Апрацаваць кожны радок як асобны"/>
+                <Item id="1934" name="Скапіяваць у буфер"/>
+                <Item id="2"    name="Закрыць"/>
+            </SHA256FromTextDlg>
+			
             <PluginsAdminDlg title="Адміністраванне ўбудоў" titleAvailable = "Даступна" titleUpdates = "Абнаўленні" titleInstalled = "Усталявана">
                 <ColumnPlugin   name="Убудова"/>
                 <ColumnVersion  name="Версія"/>

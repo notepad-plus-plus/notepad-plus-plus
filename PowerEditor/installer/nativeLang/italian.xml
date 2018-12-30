@@ -1,12 +1,12 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-    Italian translation for Notepad++ 7.5.9
-    Last modified Sat, Oct 24th, 2018 by Luca Leonardi.
+    Italian translation for Notepad++ 7.6.2
+    Last modified Sat, Dec 30th, 2018 by Luca Leonardi.
     Please e-mail errors, suggestions etc. to ices_eyes(at)users.sourceforge.net.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 <NotepadPlus>
-    <Native-Langue name = "Italiano" filename = "italian.xml" version="7.5.9">
+    <Native-Langue name = "Italiano" filename = "italian.xml" version="7.6.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -70,6 +70,7 @@
                     <Item subMenuId = "encoding-vietnamese" name = "Vietnamita" />
                     <Item subMenuId = "settings-import" name = "Importa" />
                     <Item subMenuId = "tools-md5" name = "MD5" />
+                    <Item subMenuId = "tools-sha256" name = "SHA-256" />
                 </SubEntries>
                 <!-- all menu item -->
                 <Commands>
@@ -324,7 +325,7 @@
                     <Item id = "48006" name = "Importa tema..." />
                     <Item id = "48009" name = "Tasti di scelta rapida..." />
                     <Item id = "48011" name = "Preferenze..." />
-                    <Item id = "48015" name = "Gestione plugin..."/>
+                    <Item id = "48015" name = "Gestione plugin..." />
                     <Item id = "48016" name = "Modifica scorciatoie/Elimina macro..." />
                     <Item id = "48017" name = "Modifica scorciatoie/Elimina comando..." />
                     <Item id = "48018" name = "Modifica menu contestuale..." />
@@ -332,6 +333,9 @@
                     <Item id = "48501" name = "Genera..." />
                     <Item id = "48502" name = "Genera da file..." />
                     <Item id = "48503" name = "Genera negli appunti" />
+                    <Item id = "48504" name = "Genera..." />
+                    <Item id = "48505" name = "Genera da file..." />
+                    <Item id = "48506" name = "Genera da selezione negli appunti" />
 
                     <Item id = "49000" name = "E&amp;segui..." />
 
@@ -432,25 +436,35 @@
                 <Item id = "2" name = "Annulla" />
                 <Item id = "1904" name = "Salva..." />
             </Run>
-            <MD5FromFilesDlg title = "Genera MD5 di file">
+            <MD5FromFilesDlg title = "Genera firma MD5 di file">
                 <Item id = "1922" name = "Scegli i file di cui generare MD5..." />
                 <Item id = "1924" name = "Copia negli appunti" />
                 <Item id = "2" name = "Chiudi" />
             </MD5FromFilesDlg>
-            <MD5FromTextDlg title = "Genera MD5">
+            <MD5FromTextDlg title = "Genera firma MD5">
                 <Item id = "1932" name = "Considera ogni riga come una stringa separata" />
                 <Item id = "1934" name = "Copia negli appunti" />
                 <Item id = "2" name = "Chiudi" />
             </MD5FromTextDlg>
-            <PluginsAdminDlg title="Gestione plugin" titleAvailable = "Disponibili" titleUpdates = "Aggiornamenti" titleInstalled = "Installati">
-                <ColumnPlugin   name="Plugin"/>
-                <ColumnVersion  name="Versione"/>
-                <Item id = "5501" name = "Cerca:"/>
-                <Item id = "5503" name = "Installa"/>
-                <Item id = "5504" name = "Aggiorna"/>
-                <Item id = "5505" name = "Rimuovi"/>
-                <Item id = "5508" name = "Avanti"/>
-                <Item id = "2"    name = "Chiudi"/>
+            <SHA256FromFilesDlg title = "Genera firma SHA-256 da file">
+                <Item id = "1922" name = "Scegli i file da cui generare SHA-256..." />
+                <Item id = "1924" name = "Copia negli appunti" />
+                <Item id = "2" name = "Chiudi" />
+            </SHA256FromFilesDlg>
+            <SHA256FromTextDlg title = "Genera firma SHA-256">
+                <Item id = "1932" name = "Considera ogni riga come una stringa separata" />
+                <Item id = "1934" name = "Copia negli appunti" />
+                <Item id = "2" name = "Chiudi" />
+            </SHA256FromTextDlg>
+            <PluginsAdminDlg title = "Gestione plugin" titleAvailable = "Disponibili" titleUpdates = "Aggiornamenti" titleInstalled = "Installati">
+                <ColumnPlugin   name="Plugin" />
+                <ColumnVersion  name="Versione" />
+                <Item id = "5501" name = "Cerca:" />
+                <Item id = "5503" name = "Installa" />
+                <Item id = "5504" name = "Aggiorna" />
+                <Item id = "5505" name = "Rimuovi" />
+                <Item id = "5508" name = "Vai" />
+                <Item id = "2" name = "Chiudi" />
             </PluginsAdminDlg>
             <StyleConfig title = "Configuratore di stili">
                 <Item id = "2" name = "Annulla" />
@@ -800,7 +814,7 @@
                     <Item id = "6302" name = "Sostituisci con spazi" />
                     <Item id = "6303" name = "Dimensione tabulazione:" />
                 </Language>
-                <Highlighting title="Evidenziazione">
+                <Highlighting title = "Evidenziazione">
                     <Item id = "6333" name = "Evidenziazione Intelligente" />
                     <Item id = "6326" name = "Abilita" />
                     <Item id = "6332" name = "L&apos;evidenziazione è case-sensitive" />
@@ -973,7 +987,7 @@
                 <Item id = "1" name = "OK" />
                 <Item id = "2" name = "Annulla" />
             </ColumnEditor>
-            <FindInFinder title="Trova tra i risultati">
+            <FindInFinder title = "Trova tra i risultati">
                 <Item id = "1" name = "Trova tutti" />
                 <Item id = "2" name = "Chiudi" />
                 <Item id = "1711" name = "Cerca:" />

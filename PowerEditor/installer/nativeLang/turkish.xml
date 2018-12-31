@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-	<Native-Langue name="Turkish" filename="turkish.xml" version="7.5.6">
+	<Native-Langue name="Turkish" filename="turkish.xml" version="7.6.2">
 		<Menu>
 			<Main>
 				<!-- Ana Menü Girişleri -->
@@ -64,6 +64,7 @@
 					<Item subMenuId="encoding-vietnamese" name="Vietnamca"/>
 					<Item subMenuId="settings-import" name="İçe Aktar"/>
 					<Item subMenuId="tools-md5"  name="MD5"/>
+					<Item subMenuId="tools-sha256"  name="SHA-256"/>
 				</SubEntries>
 
 				<!-- Tüm Menü Öğeleri -->
@@ -296,8 +297,11 @@
 					<Item id="48011" name="&amp;Tercihler…"/>
 					<Item id="48015" name="Eklentiler Yöneticisi..."/>
                     <Item id="48501" name="Üret..."/>
-                    <Item id="48502" name="Dosyalardan üret..."/>
-                    <Item id="48503" name="Seçimlerden panoya üret"/>
+                    <Item id="48502" name="Dosyalardan Üret..."/>
+                    <Item id="48503" name="Seçimlerden Panoya Üret"/>
+					<Item id="48504" name="Üret..."/>
+                    <Item id="48505" name="Dosyalardan Üret..."/>
+                    <Item id="48506" name="Seçimlerden Panoya Üret"/>
 					<Item id="49000" name="&amp;Çalıştır…"/>
 
 					<Item id="50000" name="Fonksiyonu Tamamla"/>
@@ -420,7 +424,19 @@
                 <Item id="1934" name="Panoya kopyala"/>
                 <Item id="2"    name="Kapat"/>
             </MD5FromTextDlg>
-			
+
+            <SHA256FromFilesDlg title="Dosyalardan SHA-256 Özeti Üret">
+                <Item id="1922" name="SHA-256 üretilecek dosyaları seç..."/>
+                <Item id="1924" name="Panoya Kopyala"/>
+                <Item id="2"    name="Kapat"/>
+            </SHA256FromFilesDlg>
+
+            <SHA256FromTextDlg title="SHA-256 Özeti Üret">
+                <Item id="1932" name="Her bir satıra ayrı bir dize muamelesi yap"/>
+                <Item id="1934" name="Panoya Kopyala"/>
+                <Item id="2"    name="Kapat"/>
+            </SHA256FromTextDlg>
+	
 			<PluginsAdminDlg title="Eklentiler Yöneticisi" titleAvailable = "Uygun" titleUpdates = "Güncellemeler" titleInstalled = "Yüklü">
                 <ColumnPlugin   name="Eklenti"/>
                 <ColumnVersion  name="Versiyon"/>

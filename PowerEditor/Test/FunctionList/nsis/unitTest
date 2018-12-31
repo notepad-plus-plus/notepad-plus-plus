@@ -522,6 +522,7 @@ Section -"Notepad++" mainSection
 	File "..\..\LICENSE"
 	File "..\bin\SciLexer.dll"
 	File "..\bin\change.log"
+	File "..\bin\notepad++.VisualElementsManifest.xml"
 	File "..\bin\notepad++.exe"
 	File "..\bin\readme.txt"
 
@@ -1952,6 +1953,7 @@ Section Uninstall
 	Delete "$INSTDIR\LINEDRAW.TTF"
 	Delete "$INSTDIR\SciLexer.dll"
 	Delete "$INSTDIR\change.log"
+	Delete "$INSTDIR\notepad++.VisualElementsManifest.xml"
 	Delete "$INSTDIR\LICENSE"
 
 	Delete "$INSTDIR\notepad++.exe"

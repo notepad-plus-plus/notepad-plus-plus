@@ -1,14 +1,15 @@
-Notepad++ v7.6.1 new enhancement and bug-fixes:
+Notepad++ v7.6.2 Gilet Jaune (Yellow Vest) Edition 
+Pourquoi Gilet Jaune? https://notepad-plus-plus.org/fr/news/notepad-7.6.2-released.html
+Why Yellow Vest?  https://notepad-plus-plus.org/news/notepad-7.6.2-released.html
 
-1.  Several bug-fixes & enhancement on Plugins Admin.
-2.  Notepad++ will load plugins from %PROGRAMDATA% instead of %LOCALAPPDATA%
-    https://notepad-plus-plus.org/features/plugin-admin.html
-3.  Fix installer's plugins copy issue under Linux (by using WINE).
-4.  Fix Installer HI-DPI GUI glitch.
-5.  Fix "Import plugins" not working issue.
-6.  Fix printer header/footer font issue.
-7.  Make installer more coherent for the option doLocalConf.xml.
-8.  Make text display right in summary panel.
+Notepad++ v7.6.2 Gilet Jaune Edition new enhancement and bug-fixes:
+
+1.  Add generation of SHA-256 hash feature.
+2.  Fix Plugins Admin unzip (0 lengh) bug.
+3.  Add Plugins Admin module into portable version (zipped package).
+4.  Add new feature: double click splitter resets panes to equal size.
+5.  Fix the plugin crash issue due to the inexistent plugin conf path.
+
 
 Included plugins:
 
@@ -20,4 +21,4 @@ Included plugins:
 
 Updater (Installer only):
 
-* WinGup (for Notepad++) v5.0.5
+* WinGup (for Notepad++) v5.1

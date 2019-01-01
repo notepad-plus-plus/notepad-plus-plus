@@ -57,10 +57,11 @@
 	#define    IDM_FILE_RESTORELASTCLOSEDFILE   (IDM_FILE + 21)
 	#define    IDM_FILE_OPENFOLDERASWORSPACE    (IDM_FILE + 22)
     #define    IDM_FILE_OPEN_DEFAULT_VIEWER     (IDM_FILE + 23)
+	#define    IDM_FILE_CLOSEALL_UNCHANGED      (IDM_FILE + 24)
 // IMPORTANT: If list above is modified, you have to change the following values:
  
 // To be updated if new menu item(s) is (are) added in menu "File"
-    #define    IDM_FILEMENU_LASTONE             IDM_FILE_OPEN_DEFAULT_VIEWER
+    #define    IDM_FILEMENU_LASTONE             IDM_FILE_CLOSEALL_UNCHANGED
 
 // 0 based position of command "Exit" including the bars in the file menu
 // and without counting "Recent files history" items

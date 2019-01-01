@@ -94,6 +94,7 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_NULL,    IDM_FILE_CLOSEALL_BUT_CURRENT,                false, false, false, nullptr },
 	{ VK_NULL,    IDM_FILE_CLOSEALL_TOLEFT,                     false, false, false, nullptr },
 	{ VK_NULL,    IDM_FILE_CLOSEALL_TORIGHT,                    false, false, false, nullptr },
+	{ VK_NULL,    IDM_FILE_CLOSEALL_UNCHANGED,                  false, false, false, nullptr },
 	{ VK_NULL,    IDM_FILE_DELETE,                              false, false, false, nullptr },
 	{ VK_NULL,    IDM_FILE_LOADSESSION,                         false, false, false, nullptr },
 	{ VK_NULL,    IDM_FILE_SAVESESSION,                         false, false, false, nullptr },

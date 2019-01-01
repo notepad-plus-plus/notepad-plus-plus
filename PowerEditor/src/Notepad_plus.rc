@@ -249,6 +249,7 @@ BEGIN
 			MENUITEM "Close All but Active Document",    IDM_FILE_CLOSEALL_BUT_CURRENT
 			MENUITEM "Close All to the Left",			 IDM_FILE_CLOSEALL_TOLEFT
 			MENUITEM "Close All to the Right",			 IDM_FILE_CLOSEALL_TORIGHT
+			MENUITEM "Close All Unchanged",				 IDM_FILE_CLOSEALL_UNCHANGED
 		END
         MENUITEM "Move to Recycle Bin",              IDM_FILE_DELETE
         MENUITEM SEPARATOR

@@ -215,6 +215,11 @@ void Notepad_plus::command(int id)
 			checkDocState();
 			break;
 
+		case IDM_FILE_CLOSEALL_UNCHANGED:
+			fileCloseAllUnchanged();
+			checkDocState();
+			break;
+
 		case IDM_FILE_SAVE :
 			fileSave();
 			break;
@@ -3356,6 +3361,7 @@ void Notepad_plus::command(int id)
 			case IDM_FILE_CLOSEALL_BUT_CURRENT :
 			case IDM_FILE_CLOSEALL_TOLEFT :
 			case IDM_FILE_CLOSEALL_TORIGHT :
+			case IDM_FILE_CLOSEALL_UNCHANGED:
 			case IDM_FILE_SAVE :
 			case IDM_FILE_SAVEALL :
 			case IDM_FILE_RELOAD:

@@ -75,14 +75,14 @@ public:
 
 	int getPhisicalSize() const
 	{
-		return _spiltterSize;
+		return _splitterSize;
 	}
 
 
 private:
 	RECT _rect;
 	double _splitPercent = 0.;
-	int _spiltterSize = 0;
+	int _splitterSize = 0;
 	bool _isDraged = false;
 	DWORD _dwFlags = 0;
 	bool _isFixed = false;
@@ -123,12 +123,12 @@ private:
 	int getSplitterFixPosX() const
 	{
 		long result = long(::SendMessage(_hParent, WM_GETSPLITTER_X, 0, 0));
-		return (LOWORD(result) - ((HIWORD(result) == static_cast<std::uint8_t>(SplitterMode::RIGHT_FIX)) ? _spiltterSize : 0));
+		return (LOWORD(result) - ((HIWORD(result) == static_cast<std::uint8_t>(SplitterMode::RIGHT_FIX)) ? _splitterSize : 0));
 	}
 
 	int getSplitterFixPosY() const
 	{
 		long result = long(::SendMessage(_hParent, WM_GETSPLITTER_Y, 0, 0));
-		return (LOWORD(result) - ((HIWORD(result) == static_cast<std::uint8_t>(SplitterMode::RIGHT_FIX)) ? _spiltterSize : 0));
+		return (LOWORD(result) - ((HIWORD(result) == static_cast<std::uint8_t>(SplitterMode::RIGHT_FIX)) ? _splitterSize : 0));
 	}
 };

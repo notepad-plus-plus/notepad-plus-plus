@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 Catalan translation for Notepad++
-Updated 29.05.2018, v7.5.5
+Updated 02.01.2019, v7.6.2
 By Hiro5 <groccat at gmail>
 -->
 <NotepadPlus>
-	<Native-Langue name="Català" filename="catalan.xml" version="7.5.5">
+	<Native-Langue name="Català" filename="catalan.xml" version="7.6.2">
 		<Menu>
 			<Main>
 				<Entries>
@@ -67,6 +67,7 @@ By Hiro5 <groccat at gmail>
 					<Item subMenuId="encoding-vietnamese" name="&amp;Vietnamita"/>
 					<Item subMenuId="settings-import" name="&amp;Importa"/>
 					<Item subMenuId="tools-md5" name="MD5"/>
+					<Item subMenuId="tools-sha256" name="SHA-256"/>
 				</SubEntries>
 				<Commands>
 					<Item id="41001" name="&amp;Nou"/>
@@ -229,8 +230,8 @@ By Hiro5 <groccat at gmail>
 					<Item id="44019" name="Mostra tots els &amp;caràcters"/>
 					<Item id="44020" name="Mostra la &amp;guia del sagnat"/>
 					<Item id="44041" name="Mostra símbol de &amp;tall"/>
-					<Item id="44023" name="&amp;Amplia"/>
-					<Item id="44024" name="&amp;Redueix"/>
+					<Item id="44023" name="&amp;Amplia (Ctrl+Roda del ratolí amunt)"/>
+					<Item id="44024" name="&amp;Redueix (Ctrl+Roda del ratolí avall)"/>
 					<Item id="44033" name="R&amp;ecupera la posició d'apropament"/>
 					<Item id="10001" name="Mou a una altra &amp;vista"/>
 					<Item id="10002" name="&amp;Clona a una altra vista"/>
@@ -299,19 +300,23 @@ By Hiro5 <groccat at gmail>
 					<Item id="46001" name="&amp;Configuració d'estil..."/>
 					<Item id="48009" name="&amp;Editor de tecles de dreceres..."/>
 					<Item id="48005" name="Importa &amp;complements ..."/>
-					<Item id="48006" name="Importa &amp;temes ..."/>
+					<Item id="48006" name="Importa &amp;temes d'estil..."/>
 					<Item id="48018" name="Edita el menú contextual emergent"/>
 					<Item id="48501" name="Genera..."/>
 					<Item id="48502" name="Genera dels fitxers..."/>
 					<Item id="48503" name="Genera de la selecció al porta-retalls"/>
+					<Item id="48504" name="Genera..."/>
+					<Item id="48505" name="Genera dels fitxers..."/>
+					<Item id="48506" name="Genera de la selecció al porta-retalls"/>
 					<Item id="42018" name="&amp;Comença l'enregistrament"/>
 					<Item id="42019" name="&amp;Atura l'enregistrament"/>
 					<Item id="42021" name="&amp;Reprodueix"/>
-					<Item id="42025" name="&amp;Desa la macro actual"/>
+					<Item id="42025" name="&amp;Desa la macro actual..."/>
 					<Item id="42032" name="&amp;Executa una macro diverses vegades..."/>
 					<Item id="48016" name="&amp;Modifica tecla de drecera/Esborra macro..."/>
 					<Item id="49000" name="&amp;Executa..."/>
 					<Item id="48017" name="&amp;Modifica tecla de drecera/Esborra ordre..."/>
+					<Item id="48015" name="Administració de complements..."/>
 					<Item id="47010" name="Ús en &amp;línia d'ordres..."/>
 					<Item id="47001" name="Web de &amp;Notepad++"/>
 					<Item id="47002" name="Pàgina del &amp;projecte Notepad++"/>
@@ -322,7 +327,7 @@ By Hiro5 <groccat at gmail>
 					<Item id="47006" name="Ac&amp;tualitza Notepad++"/>
 					<Item id="47009" name="Confi&amp;gura l'intermediari d'actualització"/>
 					<Item id="47012" name="Informació de depuració..."/>
-					<Item id="47000" name="&amp;Quant a..."/>
+					<Item id="47000" name="&amp;Quant a Notepad++"/>
 				</Commands>
 			</Main>
 			<Splitter>
@@ -373,7 +378,7 @@ By Hiro5 <groccat at gmail>
 				<Item id="1655" name="Directori:"/>
 				<Item id="1616" name="Marca la línia"/>
 				<Item id="1618" name="Neteja a cada recerca"/>
-				<Item id="1615" name="Troba'ls tots"/>
+				<Item id="1615" name="Marca'ls tots"/>
 				<Item id="1632" name="A la selecció"/>
 				<Item id="1633" name="Neteja"/>
 				<Item id="1661" name="Segueix fitxer actual"/>
@@ -428,6 +433,26 @@ By Hiro5 <groccat at gmail>
 				<Item id="1934" name="Copia al porta-retalls"/>
 				<Item id="2"    name="Tanca"/>
 			</MD5FromTextDlg>
+			<SHA256FromFilesDlg title="Genera resums SHA-256 de fitxers">
+				<Item id="1922" name="Tria els fitxers per generar els SHA-256..."/>
+				<Item id="1924" name="Copia al porta-retalls"/>
+				<Item id="2"    name="Tanca"/>
+			</SHA256FromFilesDlg>
+			<SHA256FromTextDlg title="Genera resums SHA-256">
+				<Item id="1932" name="Tracta cada línia com un text per separat"/>
+				<Item id="1934" name="Copia al porta-retalls"/>
+				<Item id="2"    name="Tanca"/>
+			</SHA256FromTextDlg>
+			<PluginsAdminDlg title="Administrador de complements" titleAvailable = "Disponibles" titleUpdates = "Actualitzacions" titleInstalled = "Instal·lats">
+				<ColumnPlugin   name="Complement"/>
+				<ColumnVersion  name="Versió"/>
+				<Item id="5501" name="Cerca:"/>
+				<Item id="5503" name="Instal·la"/>
+				<Item id="5504" name="Actualitza"/>
+				<Item id="5505" name="Esborra"/>
+				<Item id="5508" name="Següent"/>
+				<Item id="2"    name="Tanca"/>
+			</PluginsAdminDlg>
 			<StyleConfig title="Configuració d'estil">
 				<Item id="2" name="Cancel·la"/>
 				<Item id="2301" name="Desa &amp;i tanca"/>
@@ -763,7 +788,7 @@ By Hiro5 <groccat at gmail>
 				</Language>
 				<Highlighting title="Ressaltat">
 					<Item id="6333" name="Ressaltat intel·ligent"/>
-					<Item id="6326" name="Activa ressaltat intel·ligent"/>
+					<Item id="6326" name="Activa el ressaltat intel·ligent"/>
 					<Item id="6332" name="El ressaltat distingeix majúscules."/>
 					<Item id="6338" name="Només paraula sencera"/>
 					<Item id="6339" name="Empra opcions del diàleg de cerca"/>
@@ -809,7 +834,7 @@ By Hiro5 <groccat at gmail>
 					<Item id="6819" name="Copia cada"/>
 					<Item id="6821" name="segons"/>
 					<Item id="6822" name="Directori:"/>
-					<Item id="6801" name="Còpia de seguretat"/>
+					<Item id="6801" name="Còpia de seguretat en desar"/>
 					<Item id="6315" name="Cap còpia"/>
 					<Item id="6316" name="Còpia simple"/>
 					<Item id="6317" name="Còpia complexa"/>

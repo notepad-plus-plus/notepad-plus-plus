@@ -4,16 +4,16 @@ foreach ($language in $languages) {
 
 	echo $language
 
-	Get-ChildItem .\$language -Filter *unitTest | Foreach-Object {
+	Get-ChildItem .\$language\ -exclude *result* | Foreach-Object {
 
-		..\..\bin\notepad++.exe -export=functionList "-l$language" .\$language\$_ | Out-Null
+		..\..\bin\notepad++.exe -export=functionList "-l$language" $_ | Out-Null
 
-		$expectedRes = Get-Content .\$language\$_.expected.result
-		$generatedRes = Get-Content .\$language\$_.result.json
+		$expectedRes = Get-Content "$_.expected.result"
+		$generatedRes = Get-Content "$_.result.json"
 
 		if ($generatedRes -eq $expectedRes)
 		{
-			Remove-Item .\$language\$_.result.json
+			Remove-Item "$_.result.json"
 			echo "OK"
 		}
 		else

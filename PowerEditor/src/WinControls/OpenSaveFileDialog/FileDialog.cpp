@@ -175,21 +175,31 @@ TCHAR* FileDialog::doOpenSingleFileDlg()
 	}
 
 	TCHAR *fn = NULL;
-	try {
-		fn = ::GetOpenFileName(&_ofn)?_fileName:NULL;
-		
+	try
+	{
+		fn = ::GetOpenFileName(&_ofn) ? _fileName : NULL;
+
 		if (params->getNppGUI()._openSaveDir == dir_last)
 		{
 			::GetCurrentDirectory(MAX_PATH, dir);
 			params->setWorkingDir(dir);
 		}
-	} catch(std::exception& e) {
-		::MessageBoxA(NULL, e.what(), "Exception", MB_OK);
-	} catch(...) {
+	}
+	catch (std::exception& e)
+	{
+		generic_string msg = TEXT("An exception occurred while opening file: ");
+		msg += _fileName;
+		msg += TEXT("\r\n\r\nException reason: ");
+		msg += s2ws(e.what());
+
+		::MessageBox(NULL, msg.c_str(), TEXT("File Open Exception"), MB_OK);
+	}
+	catch (...)
+	{
 		::MessageBox(NULL, TEXT("doOpenSingleFileDlg crashes!!!"), TEXT(""), MB_OK);
 	}
 
-	::SetCurrentDirectory(dir); 
+	::SetCurrentDirectory(dir);
 
 	return (fn);
 }
@@ -251,7 +261,7 @@ stringVector * FileDialog::doOpenMultiFilesDlg()
 }
 
 
-TCHAR * FileDialog::doSaveDlg() 
+TCHAR * FileDialog::doSaveDlg()
 {
 	TCHAR dir[MAX_PATH];
 	::GetCurrentDirectory(MAX_PATH, dir);
@@ -268,20 +278,30 @@ TCHAR * FileDialog::doSaveDlg()
 	}
 
 	TCHAR *fn = NULL;
-	try {
-		fn = ::GetSaveFileName(&_ofn)?_fileName:NULL;
+	try
+	{
+		fn = ::GetSaveFileName(&_ofn) ? _fileName : NULL;
 		if (params->getNppGUI()._openSaveDir == dir_last)
 		{
 			::GetCurrentDirectory(MAX_PATH, dir);
 			params->setWorkingDir(dir);
 		}
-	} catch(std::exception& e) {
-		::MessageBoxA(NULL, e.what(), "Exception", MB_OK);
-	} catch(...) {
+	}
+	catch (std::exception& e)
+	{
+		generic_string msg = TEXT("An exception occurred while saving file: ");
+		msg += _fileName;
+		msg += TEXT("\r\n\r\nException reason: ");
+		msg += s2ws(e.what());
+
+		::MessageBox(NULL, msg.c_str(), TEXT("File Save Exception"), MB_OK);
+	}
+	catch (...)
+	{
 		::MessageBox(NULL, TEXT("GetSaveFileName crashes!!!"), TEXT(""), MB_OK);
 	}
 
-	::SetCurrentDirectory(dir); 
+	::SetCurrentDirectory(dir);
 
 	return (fn);
 }

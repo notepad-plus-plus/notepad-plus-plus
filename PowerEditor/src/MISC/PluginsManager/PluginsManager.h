@@ -148,6 +148,16 @@ private:
 		::MessageBox(NULL, msg.c_str(), TEXT("Plugin Crash"), MB_OK|MB_ICONSTOP);
 	}
 
+	void pluginExceptionAlert(const TCHAR *pluginName, const std::exception& e)
+	{
+		generic_string msg = TEXT("An exception occurred due to plugin: ");
+		msg += pluginName;
+		msg += TEXT("\r\n\r\nException reason: ");
+		msg += s2ws(e.what());
+
+		::MessageBox(NULL, msg.c_str(), TEXT("Plugin Exception"), MB_OK);
+	}
+
 	bool isInLoadedDlls(const TCHAR *fn) const
 	{
 		for (size_t i = 0; i < _loadedDlls.size(); ++i)

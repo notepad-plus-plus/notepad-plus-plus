@@ -178,7 +178,7 @@
                     <Item id="43009" name="跳至對應括號"/>
                     <Item id="43010" name="找上一個"/>
                     <Item id="43011" name="遞增搜尋(&amp;I)..."/>
-                    <Item id="43013" name="搜尋目錄"/>
+                    <Item id="43013" name="在多個檔案中尋找"/>
                     <Item id="43014" name="快速搜尋下一個"/>
                     <Item id="43015" name="快速搜尋上一個"/>
                     <Item id="43018" name="剪下標記行"/>
@@ -186,7 +186,7 @@
                     <Item id="43020" name="貼上至標記行"/>
                     <Item id="43021" name="移除標記行"/>
                     <Item id="43051" name="移除未標記行"/>
-                    <Item id="43052" name="搜尋在範圍內的字元..."/>
+                    <Item id="43052" name="以字元編號搜尋字元..."/>
                     <Item id="43053" name="選擇所有在對應括號之間的字元"/>
                     <Item id="43022" name="使用格式一顏色"/>
                     <Item id="43023" name="清除格式一顏色"/>
@@ -287,7 +287,7 @@
                     <Item id="47003" name="網上支援"/>
                     <Item id="47004" name="網上論壇"/>
                     <Item id="47005" name="下載更多外掛模組"/>
-                    <Item id="47006" name="升級 Notepad++"/>
+                    <Item id="47006" name="檢查 Notepad++ 更新"/>
                     <Item id="47008" name="使用說明"/>
                     <Item id="47009" name="設定更新程式代理伺服器..."/>
                     <Item id="47010" name="顯示 CMD 參數..."/>
@@ -383,11 +383,11 @@
                 <Item id="1686" name="透明"/>
                 <Item id="1703" name="「.」包含換行"/>
             </Find>
-            <FindCharsInRange title="搜尋在範圍內的字元">
+            <FindCharsInRange title="以字元編號搜尋字元">
                 <Item id="2"    name="關閉"/>
                 <Item id="2901" name="非 ASCII 字元（128-255）"/>
                 <Item id="2902" name="ASCII 字元（0-127）"/>
-                <Item id="2903" name="自訂範圍（只支援 0-255）:"/>
+                <Item id="2903" name="自訂範圍（只支援 0-255）："/>
                 <Item id="2906" name="向上(&amp;U)"/>
                 <Item id="2907" name="向下(&amp;D)"/>
                 <Item id="2908" name="方向"/>
@@ -400,7 +400,7 @@
                 <Item id="1"    name="前往"/>
                 <Item id="2"    name="取消"/>
                 <Item id="2004" name="游標目前行號/字元位置："/>
-                <Item id="2005" name="要前往的行號/字元位置:"/>
+                <Item id="2005" name="要前往的行號/字元位置："/>
                 <Item id="2006" name="檔案結尾行號/字元位置："/>
             </GoToLine>
 
@@ -438,7 +438,7 @@
             <PluginsAdminDlg title="外掛模組管理" titleAvailable = "可安裝" titleUpdates = "更新" titleInstalled = "已安裝">
                 <ColumnPlugin   name="外掛模組"/>
                 <ColumnVersion  name="版本"/>
-                <Item id="5501" name="搜尋:"/>
+                <Item id="5501" name="搜尋："/>
                 <Item id="5503" name="安裝"/>
                 <Item id="5504" name="更新"/>
                 <Item id="5505" name="移除"/>
@@ -829,10 +829,10 @@
                     <Item id="6304" name="最近使用的檔案"/>
                     <Item id="6306" name="最大數量："/>
                     <Item id="6305" name="程式啟動時不檢查"/>
-                    <Item id="6429" name="顯示"/>
-                    <Item id="6424" name="在子選單"/>
-                    <Item id="6425" name="僅檔案名稱"/>
-                    <Item id="6426" name="資料夾路徑及檔案名稱"/>
+                    <Item id="6429" name="顯示設定"/>
+                    <Item id="6424" name="顯示在子選單中"/>
+                    <Item id="6425" name="僅顯示檔案名稱"/>
+                    <Item id="6426" name="顯示資料夾路徑及檔案名稱"/>
                     <Item id="6427" name="自訂最大長度："/>
                 </RecentFilesHistory>
 
@@ -874,8 +874,8 @@
                     <Item id="6151" name="多重 Notepad++ 實體設定"/>
                     <Item id="6152" name="在新的 Notepad++ 實體開啟工作階段"/>
                     <Item id="6153" name="允許多重實體"/>
-                    <Item id="6154" name="預設（禁止多重實體）"/>
-                    <Item id="6155" name="（重新啟動 Notepad++ 後生效）"/>
+                    <Item id="6154" name="禁止多重實體（預設）"/>
+                    <Item id="6155" name="（重新啟動 Notepad++ 以使變更生效。）"/>
                 </MultiInstance>
 
                 <Delimiter title="分隔字元">
@@ -896,7 +896,7 @@
                 </Cloud>
 
                 <SearchEngine title="搜索引擎">
-                    <Item id="6271" name="搜索引擎（對於「於網上搜尋」選單指令）"/>
+                    <Item id="6271" name="搜索引擎（適用於「於網上搜尋」選單指令）"/>
                     <Item id="6272" name="DuckDuckGo"/>
                     <Item id="6273" name="Google"/>
                     <Item id="6274" name="Bing"/>
@@ -914,13 +914,13 @@
                     <Item id="6325" name="更新後捲動至最後一行"/>
                     <Item id="6319" name="將連結設為可點擊"/>
                     <Item id="6320" name="隱藏連結底線"/>
-                    <Item id="6322" name="工作階段檔案副檔名:"/>
+                    <Item id="6322" name="工作階段檔案副檔名："/>
                     <Item id="6323" name="自動更新 Notepad++"/>
                     <Item id="6324" name="文件切換器"/>
                     <Item id="6331" name="在標題列僅顯示檔案名稱（隱藏資料夾路徑）"/>
                     <Item id="6334" name="自動偵測檔案編碼"/>
                     <Item id="6335" name="在 SQL 中視「\」為逸出字元"/>
-                    <Item id="6337" name="資料夾工作區檔案副檔名:"/>
+                    <Item id="6337" name="資料夾工作區檔案副檔名："/>
                     <Item id="6114" name="啟動"/>
                     <Item id="6115" name="自動縮排"/>
                     <Item id="6117" name="開啟「最近使用的檔案」功能"/>
@@ -975,19 +975,17 @@
             </FindInFinder>
         </Dialog>
         <MessageBox>
-            <ContextMenuXmlEditWarning title="編輯快顯功能表" message="編輯 contextMenu.xml 可以變更 Notepad++ 快顯功能表。
-修改 contextMenu.xml 後必須重新啟動 Notepad++ 才會生效。"/>
+            <ContextMenuXmlEditWarning title="編輯快顯功能表" message="編輯 contextMenu.xml 可以變更 Notepad++ 之快顯功能表。
+請於修改後重新啟動 Notepad++ 以使變更生效。"/>
             <NppHelpAbsentWarning title="檔案不存在" message="
 不存在。請在 Notepad++ 網站上下載。"/>
-            <SaveCurrentModifWarning title="警告" message="您必須儲存目前的修改。
-儲存修改後將無法復原。
+            <SaveCurrentModifWarning title="警告" message="您必須儲存目前的修改，而儲存後將無法復原。
 您確定要繼續嗎？"/>
-            <LoseUndoAbilityWarning title="警告" message="您必須儲存目前的修改。
-儲存修改後將無法復原。
+            <LoseUndoAbilityWarning title="警告" message="您必須儲存目前的修改，而儲存後將無法復原。
 您確定要繼續嗎？"/>
-            <CannotMoveDoc title="移至新 Notepad++ 實體" message="文件已被修改，請在儲存後再試一次。"/>
+            <CannotMoveDoc title="移至新的 Notepad++ 實體" message="文件已被修改，請在儲存後再試一次。"/>
             <DocReloadWarning title="重新載入" message="您確定要重新載入目前文件，並捨棄在 Notepad++ 中所做的修改嗎？"/>
-            <FileLockedWarning title="儲存失敗" message="請確認此檔案是否正由其他程式開啟。"/>
+            <FileLockedWarning title="儲存失敗" message="請檢查其他應用程式是否已開啟此檔案。"/>
             <FileAlreadyOpenedInNpp title="已開啟" message="這個檔案已在 Notepad++ 中開啟。"/>
             <DeleteFileFailed title="刪除失敗" message="檔案刪除失敗。"/>
             <NbFileToOpenImportantWarning title="開啟檔案" message="您確定要開啟全數 $INT_REPLACE$ 個檔案嗎？"/>
@@ -995,10 +993,10 @@
 請在「偏好設定」中重新設定。"/>
             <FilePathNotFoundWarning title="開啟檔案" message="您試圖開啟的文件不存在。"/>
             <SessionFileInvalidError title="無法開啟工作階段" message="工作階段檔案無效或已被損毀。"/>
-            <DroppingFolderAsProjectModeWarning title="操作無效" message="您只能單獨拖放文件或資料夾，但不能同時拖放，因為您在「偏好設定」「預設資料夾」中關閉了「拖放資料夾時開啟資料夾中所有文件，而不啟動資料夾工作區」的選項。
+            <DroppingFolderAsProjectModeWarning title="操作無效" message="由於您在「偏好設定」「預設資料夾」中關閉了「拖放資料夾時開啟資料夾中所有文件，而不啟動資料夾工作區」的選項，您只能拖放文件或資料夾的其中之一。
 請啟用此選項，然後再試一次。"/>
             <SortingError title="排序錯誤" message="第 $INT_REPLACE$ 行無法執行數字排序。"/>
-            <ColumnModeTip title="多欄選取提示" message="請使用「ALT + 鼠標選擇」或「Alt + Shift + 箭頭鍵」以切換到多欄選取。"/>
+            <ColumnModeTip title="多欄選取提示" message="請使用「ALT + 滑鼠選擇」或「Alt + Shift + 方向鍵」以切換到多欄選取。"/>
             <BufferInvalidWarning title="儲存失敗" message="緩衝區無效。"/>
             <DoSaveOrNot title="儲存檔案" message="您要儲存「$STR_REPLACE$」嗎？"/>
             <DoCloseOrNot title="保留文件" message="檔案「$STR_REPLACE$」已不存在。
@@ -1012,35 +1010,35 @@
             <DoReloadOrNotAndLooseChange title="重新載入" message="「$STR_REPLACE$」已被其他程式修改。
 您要重新載入並捨棄在 Notepad++ 中所做的修改嗎？"/>
             <PrehistoricSystemDetected title="系統過舊" message="很抱歉，此功能不適用於過舊的系統。"/>
-            <XpUpdaterProblem title="Notepad++ 更新程式" message="更新程式與 XP 的保全系統不兼容。
-您要直接到 Notepad++ 網頁下載最新版本嗎？"/>
+            <XpUpdaterProblem title="Notepad++ 更新程式" message="由於 XP 的安全機制過舊，更新程式與 XP 並不兼容。
+您要直接到 Notepad++ 網站下載最新版本嗎？"/>
             <DocTooDirtyToMonitor title="監控錯誤" message="文件已被修改，請在監視前儲存文件。"/>
             <DocNoExistToMonitor title="監控錯誤" message="文件不存在，因此無法進行監視。"/>
             <FileTooBigToOpen title="文件太大" message="文件太大，無法使用 Notepad++ 開啟。"/>
             <CreateNewFileOrNot title="開新檔案" message="「$STR_REPLACE$」不存在。您要開新檔案嗎？"/>
             <CreateNewFileError title="開新檔案" message="無法開新檔案「$STR_REPLACE$」。"/>
             <OpenFileError title="錯誤" message="無法開啟「$STR_REPLACE$」"/>
-            <FileBackupFailed title="文件備份失敗" message="以前版本的檔案無法儲存到「$STR_REPLACE$」的備份目錄中。您要儲存此文件嗎？"/>
+            <FileBackupFailed title="文件備份失敗" message="檔案的過往版本無法儲存到「$STR_REPLACE$」的備份資料夾中。您要儲存此文件嗎？"/>
             <LoadStylersFailed title="載入失敗" message="載入「$STR_REPLACE$」失敗。"/>
             <LoadLangsFailed title="載入失敗" message="載入 langs.xml 失敗。
 您要回復它嗎？"/>
             <LoadLangsFailedFinal title="載入失敗" message="載入 langs.xml 失敗。"/>
-            <FolderAsWorspaceSubfolderExists title="加入錯誤" message="您要添加的目錄已以子目錄型態存在中。
-如欲添加「$STR_REPLACE$」，請先將其根目錄從資料夾工作區中移除。"/>
+            <FolderAsWorspaceSubfolderExists title="加入錯誤" message="工作區內的其中一個資料夾已包含您要添加的資料夾。
+您必須從資料夾工作區中刪除該資料夾，才可添加「$STR_REPLACE$」。"/>
 
             <ProjectPanelChanged title="$STR_REPLACE$" message="工作區已被修改。您要儲存它嗎？"/>
             <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="工作區儲存失敗。"/>
             <ProjectPanelOpenDoSaveDirtyWsOrNot title="開啟工作區" message="目前的工作區已被修改。您要儲存目前的專案嗎？"/>
             <ProjectPanelNewDoSaveDirtyWsOrNot title="新工作區" message="目前的工作區已被修改。您要儲存目前的專案嗎？"/>
             <ProjectPanelOpenFailed title="無法開啟工作區" message="工作區檔案無效或已被損毀。"/>
-            <ProjectPanelRemoveFolderFromProject title="從專案中刪除資料夾" message="所有子目錄將被刪除。您確定要從專案中刪除此資料夾嗎？"/>
+            <ProjectPanelRemoveFolderFromProject title="從專案中刪除資料夾" message="此資料夾下的所有子資料夾亦將被刪除。您確定要從專案中刪除此資料夾嗎？"/>
             <ProjectPanelRemoveFileFromProject title="從專案中刪除文件" message="您確定要從專案中刪除此文件嗎？"/>
             <ProjectPanelReloadError title="重新載入工作區" message="找不到要重新載入的檔案。"/>
             <ProjectPanelReloadDirty title="重新載入工作區" message="目前的工作區已被修改。您要重新載入並捨棄所做的修改嗎？"/>
             <UDLNewNameError title="自訂程式語言錯誤" message="此名稱已被另一個程式語言使用。請重新命名。"/>
             <UDLRemoveCurrentLang title="刪除語言" message="您確定要刪除目前的自訂程式語言嗎？"/>
             <SCMapperDoDeleteOrNot title="刪除快速鍵" message="您確定要刪除這個快速鍵嗎？"/>
-            <FindCharRangeValueError title="輸入值範圍錯誤" message="您輸入的值應在 0 到 255 之間。如要搜尋大於 255 的字元，請在「尋找」對話方塊中使用「規則運算式」。"/>
+            <FindCharRangeValueError title="輸入值範圍錯誤" message="您輸入的值應在 0 到 255 之間。如要搜尋字元編號大於 255 的字元，請在「尋找」對話方塊中使用「規則運算式」。"/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="剪貼簿記錄"/>
@@ -1071,7 +1069,7 @@
         </FunctionList>
         <FolderAsWorkspace>
             <PanelTitle name="資料夾工作區"/>
-            <SelectFolderFromBrowserString name="選擇一個目錄以加入資料夾工作區"/>
+            <SelectFolderFromBrowserString name="選擇一個資料夾以加入資料夾工作區"/>
             <Menus>
                 <Item id="3511" name="移除"/>
                 <Item id="3512" name="全部移除"/>

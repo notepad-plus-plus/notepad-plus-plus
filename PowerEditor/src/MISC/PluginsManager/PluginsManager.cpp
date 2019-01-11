@@ -477,31 +477,33 @@ void PluginsManager::addInMenuFromPMIndex(int i)
 
 HMENU PluginsManager::setMenu(HMENU hMenu, const TCHAR *menuName, bool enablePluginAdmin)
 {
-	if (hasPlugins() || enablePluginAdmin)
+	const TCHAR *nom_menu = (menuName && menuName[0])?menuName:TEXT("&Plugins");
+	size_t nbPlugin = _pluginInfos.size();
+
+	if (!_hPluginsMenu)
 	{
-		const TCHAR *nom_menu = (menuName && menuName[0])?menuName:TEXT("&Plugins");
-		size_t nbPlugin = _pluginInfos.size();
+		_hPluginsMenu = ::CreateMenu();
+		::InsertMenu(hMenu,  MENUINDEX_PLUGINS, MF_BYPOSITION | MF_POPUP, (UINT_PTR)_hPluginsMenu, nom_menu);
 
-        if (!_hPluginsMenu)
-        {
-		    _hPluginsMenu = ::CreateMenu();
-		    ::InsertMenu(hMenu,  MENUINDEX_PLUGINS, MF_BYPOSITION | MF_POPUP, (UINT_PTR)_hPluginsMenu, nom_menu);
+		int i = 1;
 
-			if (enablePluginAdmin)
-			{
-				if (nbPlugin > 0)
-					::InsertMenu(_hPluginsMenu, 0, MF_BYPOSITION | MF_SEPARATOR, 0, TEXT(""));
-				::InsertMenu(_hPluginsMenu, 1, MF_BYPOSITION, IDM_SETTING_PLUGINADM, TEXT("Plugins Admin..."));
-			}
-        }
+		if (nbPlugin > 0)
+			::InsertMenu(_hPluginsMenu, 0, MF_BYPOSITION | MF_SEPARATOR, 0, TEXT(""));
 
-		for (size_t i = 0; i < nbPlugin; ++i)
+		if (enablePluginAdmin)
 		{
-			addInMenuFromPMIndex(static_cast<int32_t>(i));
+			::InsertMenu(_hPluginsMenu, i++, MF_BYPOSITION, IDM_SETTING_PLUGINADM, TEXT("Plugins Admin..."));
+			::InsertMenu(_hPluginsMenu, i++, MF_BYPOSITION | MF_SEPARATOR, 0, TEXT(""));
 		}
-        return _hPluginsMenu;
+
+		::InsertMenu(_hPluginsMenu, i, MF_BYPOSITION, IDM_SETTING_OPENPLUGINSDIR, TEXT("Open Plugins Folder..."));
 	}
-	return NULL;
+
+	for (size_t i = 0; i < nbPlugin; ++i)
+	{
+		addInMenuFromPMIndex(static_cast<int32_t>(i));
+	}
+	return _hPluginsMenu;
 }
 
 

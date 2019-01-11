@@ -2499,6 +2499,16 @@ void Notepad_plus::command(int id)
 			break;
 		}
 
+		case IDM_SETTING_OPENPLUGINSDIR:
+		{
+			const TCHAR* pluginHomePath = NppParameters::getInstance()->getPluginRootDir();
+			if (pluginHomePath && pluginHomePath[0])
+			{
+				::ShellExecute(NULL, NULL, pluginHomePath, NULL, NULL, SW_SHOWNORMAL);
+			}
+			break;
+		}
+
 		case IDM_SETTING_SHORTCUT_MAPPER :
 		case IDM_SETTING_SHORTCUT_MAPPER_MACRO :
         case IDM_SETTING_SHORTCUT_MAPPER_RUN :

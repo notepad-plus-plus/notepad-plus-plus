@@ -750,7 +750,7 @@ template <typename Type> class TestH1 {
 	explicit constexpr operator Type() const noexcept;
 	
 	//Assignment operators
-	friend void swap(TestH1 &left, TestH1 &right) noexcept;
+	friend void swap<Type>(TestH1 &left, TestH1 &right) noexcept;
 	
 	TestH1& operator=(TestH1 test) noexcept;
 	
@@ -797,6 +797,16 @@ template <typename Type> inline constexpr const volatile Type TestH1<Type>::test
 template <typename Type> Type TestH1<Type>::test3() const volatile noexcept { return coalesce(n,42); }
 
 template <typename Type> Type TestH1<Type>::test4() const volatile noexcept { return coalesce(n,42); }
+
+/* -------------------- Functions -------------------- */
+
+static inline constexpr const unsigned int test_with_default(const unsigned int n = coalesce(test::n,42)) noexcept { return n; }
+
+static inline constexpr const unsigned int test_with_functor(void (*functor)(unsigned int&, double)) noexcept {
+	unsigned int n = 42;
+	functor(n,3.14);
+	return n;
+}
 
 /* -------------------- Main -------------------- */
 

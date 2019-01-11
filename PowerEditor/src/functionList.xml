@@ -384,7 +384,10 @@
 								)
 							)
 							\s*                                                                    # following whitespace
-							\([^\)\(]*\)                                                           # function parameters
+							\(
+								[^\)\(]*                                                           # function parameters
+								(\([^\)\(]*\)[^\)\(]*)*                                            # default initializations | function pointers
+							\)
 							(\s*(const|final|noexcept|override|volatile)\s*)*                      # right function definition keywords
 							\s*                                                                    # trailing whitespace
 							\{                                                                     # function body
@@ -479,7 +482,10 @@
 							)
 						)
 						\s*                                                                        # following whitespace
-						\([^\)\(]*\)                                                               # function parameters
+						\(
+							[^\)\(]*                                                               # function parameters
+							(\([^\)\(]*\)[^\)\(]*)*                                                # default initializations | function pointers
+						\)
 						(\s*(const|final|noexcept|override|volatile)\s*)*                          # right function definition keywords
 						\s*                                                                        # trailing whitespace
 						\{                                                                         # function body

@@ -135,16 +135,16 @@
                     <Item id="42042" name="移除行首空格" />
                     <Item id="42043" name="移除行首和行尾空格" />
                     <Item id="42044" name="EOL转空格" />
-                    <Item id="42045" name="移除非必需的空白和 EOL" />
-                    <Item id="42046" name="TAB 转空格" />
+                    <Item id="42045" name="移除非必需的空白和EOL" />
+                    <Item id="42046" name="TAB转空格" />
                     <Item id="42047" name="清除区块注释" />
                     <Item id="42048" name="复制二进制" />
                     <Item id="42049" name="剪切二进制" />
                     <Item id="42050" name="粘贴二进制" />
                     <Item id="42051" name="字符面版" />
                     <Item id="42052" name="历史剪切板" />
-                    <Item id="42053" name="空格转 TAB (行首)" />
-                    <Item id="42054" name="空格转 TAB (全部)" />
+                    <Item id="42053" name="空格转TAB(行首)" />
+                    <Item id="42054" name="空格转TAB(全部)" />
                     <Item id="42055" name="移除空行" />
                     <Item id="42056" name="移除空行(包括空白字符)" />
                     <Item id="42057" name="在当前行上方插入空行"/>
@@ -376,8 +376,8 @@
 
             <FindCharsInRange title="查找范围内的字符...">
                 <Item id="2" name="关闭"/>
-                <Item id="2901" name="非 ASCII 字符 (128-255)"/>
-                <Item id="2902" name="ASCII 字符 (0-127)"/>
+                <Item id="2901" name="非ASCII字符(128-255)"/>
+                <Item id="2902" name="ASCII字符(0-127)"/>
                 <Item id="2903" name="自定义范围："/>
                 <Item id="2906" name="向上(&amp;U)"/>
                 <Item id="2907" name="向下(&amp;D)"/>

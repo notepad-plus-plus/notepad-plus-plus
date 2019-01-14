@@ -90,7 +90,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_FILE_OPEN_CMD:
 		{
-			Command cmd(TEXT("cmd /K cd /d $(CURRENT_DIRECTORY)"));
+			Command cmd(TEXT("cmd /K cd /d \"$(CURRENT_DIRECTORY)\""));
 			cmd.run(_pPublicInterface->getHSelf());
 		}
 		break;

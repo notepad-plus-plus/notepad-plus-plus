@@ -607,7 +607,10 @@ void PluginViewList::pushBack(PluginUpdateInfo* pi)
 	Version v = pi->_version;
 	values2Add.push_back(v.toString());
 	//values2Add.push_back(TEXT("Yes"));
-	_ui.addLine(values2Add, reinterpret_cast<LPARAM>(pi));
+
+	// add in order
+	size_t i = _ui.findAlphabeticalOrderPos(pi->_displayName, _sortType == DISPLAY_NAME_ALPHABET_ENCREASE ? _ui.sortEncrease : _ui.sortDecrease);
+	_ui.addLine(values2Add, reinterpret_cast<LPARAM>(pi), i);
 }
 
 bool loadFromJson(PluginViewList & pl, const json& j)

@@ -46,6 +46,10 @@ public:
 	ListView() : Window() {};
 	virtual ~ListView() {};
 
+	enum SortDirection {
+		sortEncrease = 0,
+		sortDecrease = 1
+	};
 	// addColumn() should be called before init()
 	void addColumn(const columnInfo & column2Add) {
 		_columnInfos.push_back(column2Add);
@@ -62,6 +66,8 @@ public:
 	void setStyleOption(int32_t extraStyle) {
 		_extraStyle = extraStyle;
 	};
+
+	size_t findAlphabeticalOrderPos(const generic_string& string2search, SortDirection sortDir);
 
 	void addLine(const std::vector<generic_string> & values2Add, LPARAM lParam = 0, int pos2insert = -1);
 	

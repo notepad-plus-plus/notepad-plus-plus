@@ -29,6 +29,7 @@
 #include "Processus.h"
 #include "Win32Exception.h"	//Win32 exception
 #include "MiniDumper.h"			//Write dump files
+#include "verifySignedFile.h"
 
 typedef std::vector<generic_string> ParamVector;
 
@@ -492,12 +493,16 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 	// wingup doesn't work with the obsolet security layer (API) under xp since downloadings are secured with SSL on notepad_plus_plus.org
 	winVer ver = pNppParameters->getWinVersion();
 	bool isGtXP = ver > WV_XP;
-	if (TheFirstOne && isUpExist && doUpdate && isGtXP)
+
+	bool isSignatureOK = VerifySignedLibrary(updaterFullPath.c_str(), NPP_COMPONENT_SIGNER_KEY_ID, NPP_COMPONENT_SIGNER_SUBJECT, NPP_COMPONENT_SIGNER_DISPLAY_NAME, false, false, false);
+
+	if (TheFirstOne && isUpExist && doUpdate && isGtXP && isSignatureOK)
 	{
 		if (pNppParameters->isx64())
 		{
 			updaterParams += TEXT(" -px64");
 		}
+
 		Process updater(updaterFullPath.c_str(), updaterParams.c_str(), updaterDir.c_str());
 		updater.run();
 

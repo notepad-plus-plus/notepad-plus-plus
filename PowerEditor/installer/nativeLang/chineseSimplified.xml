@@ -300,6 +300,9 @@
                     <Item id="48501" name="生成..."/>
                     <Item id="48502" name="从文件生成..."/>
                     <Item id="48503" name="生成到剪贴板"/>
+                    <Item id="48504" name="生成..."/>
+                    <Item id="48505" name="从文件生成..."/>
+                    <Item id="48506" name="生成到剪贴板"/>
                     <Item id="49000" name="运行(&amp;R)..." />                    
                     <Item id="50000" name="函数自动完成" />
                     <Item id="50001" name="单词自动完成" />

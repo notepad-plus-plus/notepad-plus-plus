@@ -59,11 +59,17 @@ initUpdatePath:
 		IfFileExists $INSTDIR\doLocalConf.xml 0 +2
 		Delete $INSTDIR\doLocalConf.xml
 		
-		; "%PROGRAMDATA%\Notepad++\plugins"
+		; "SetShellVarContext all" makes "$APPDATA\${APPNAME}\plugins" to "%PROGRAMDATA%\Notepad++\plugins"
 		SetShellVarContext all
 		StrCpy $PLUGIN_INST_PATH "$APPDATA\${APPNAME}\plugins"
 		StrCpy $ALLUSERS_PLUGIN_CONF_PATH "$APPDATA\${APPNAME}\plugins\Config"
-		
+
+		CreateDirectory $PLUGIN_INST_PATH
+		AccessControl::GrantOnFile "$PLUGIN_INST_PATH" "(S-1-5-32-545)" "ListDirectory + GenericRead + GenericExecute"
+
+		CreateDirectory $ALLUSERS_PLUGIN_CONF_PATH
+		AccessControl::GrantOnFile  "$ALLUSERS_PLUGIN_CONF_PATH" "(S-1-5-32-545)" "FullAccess"
+
 		SetShellVarContext current
 		StrCpy $USER_PLUGIN_CONF_PATH "$APPDATA\${APPNAME}\plugins\Config"
 		StrCpy $UPDATE_PATH "$APPDATA\${APPNAME}"
@@ -138,115 +144,7 @@ FunctionEnd
 
 	
 Function removeUnstablePlugins
-	; remove unstable plugins
-	CreateDirectory "$INSTDIR\plugins\disabled"
-	
-	IfFileExists "$INSTDIR\plugins\HexEditorPlugin.dll" 0 +4
-		MessageBox MB_OK "Due to the stability issue,$\nHexEditorPlugin.dll is about to be deleted." /SD IDOK
-		Rename "$INSTDIR\plugins\HexEditorPlugin.dll" "$INSTDIR\plugins\disabled\HexEditorPlugin.dll"
-		Delete "$INSTDIR\plugins\HexEditorPlugin.dll"
 
-	IfFileExists "$INSTDIR\plugins\HexEditor.dll" 0 +4
-		MessageBox MB_OK "Due to the stability issue,$\nHexEditor.dll will be moved to the directory $\"disabled$\"" /SD IDOK
-		Rename "$INSTDIR\plugins\HexEditor.dll" "$INSTDIR\plugins\disabled\HexEditor.dll" 
-		Delete "$INSTDIR\plugins\HexEditor.dll"
-
-	IfFileExists "$INSTDIR\plugins\MultiClipboard.dll" 0 +4
-		MessageBox MB_OK "Due to the stability issue,$\nMultiClipboard.dll will be moved to the directory $\"disabled$\"" /SD IDOK
-		Rename "$INSTDIR\plugins\MultiClipboard.dll" "$INSTDIR\plugins\disabled\MultiClipboard.dll"
-		Delete "$INSTDIR\plugins\MultiClipboard.dll"
-		
-	Delete "$INSTDIR\plugins\NppDocShare.dll"
-
-	IfFileExists "$INSTDIR\plugins\FunctionList.dll" 0 +4
-		MessageBox MB_OK "Due to the stability issue,$\nFunctionList.dll will be moved to the directory $\"disabled$\"" /SD IDOK
-		Rename "$INSTDIR\plugins\FunctionList.dll" "$INSTDIR\plugins\disabled\FunctionList.dll"
-		Delete "$INSTDIR\plugins\FunctionList.dll"
-	
-	IfFileExists "$INSTDIR\plugins\docMonitor.unicode.dll" 0 +4
-		MessageBox MB_OK "Due to the stability issue,$\ndocMonitor.unicode.dll will be moved to the directory $\"disabled$\"" /SD IDOK
-		Rename "$INSTDIR\plugins\docMonitor.unicode.dll" "$INSTDIR\plugins\disabled\docMonitor.unicode.dll"
-		Delete "$INSTDIR\plugins\docMonitor.unicode.dll"
-		
-	IfFileExists "$INSTDIR\plugins\NPPTextFX.ini" 0 +1
-		Delete "$INSTDIR\plugins\NPPTextFX.ini"
-		 
-	IfFileExists "$INSTDIR\plugins\NppAutoIndent.dll" 0 +4
-		MessageBox MB_OK "Due to the stability issue,$\nNppAutoIndent.dll will be moved to the directory $\"disabled$\"" /SD IDOK
-		Rename "$INSTDIR\plugins\NppAutoIndent.dll" "$INSTDIR\plugins\disabled\NppAutoIndent.dll"
-		Delete "$INSTDIR\plugins\NppAutoIndent.dll"
-
-	IfFileExists "$INSTDIR\plugins\FTP_synchronize.dll" 0 +4
-		MessageBox MB_OK "Due to the stability issue,$\nFTP_synchronize.dll will be moved to the directory $\"disabled$\"" /SD IDOK
-		Rename "$INSTDIR\plugins\FTP_synchronize.dll" "$INSTDIR\plugins\disabled\FTP_synchronize.dll"
-		Delete "$INSTDIR\plugins\FTP_synchronize.dll"
-
-	IfFileExists "$INSTDIR\plugins\NppPlugin_ChangeMarker.dll" 0 +4
-		MessageBox MB_OK "Due to the stability issue,$\nNppPlugin_ChangeMarker.dll will be moved to the directory $\"disabled$\"" /SD IDOK
-		Rename "$INSTDIR\plugins\NppPlugin_ChangeMarker.dll" "$INSTDIR\plugins\disabled\NppPlugin_ChangeMarker.dll"
-		Delete "$INSTDIR\plugins\NppPlugin_ChangeMarker.dll"
-		
-	IfFileExists "$INSTDIR\plugins\QuickText.UNI.dll" 0 +4
-		MessageBox MB_OK "Due to the stability issue,$\nQuickText.UNI.dll will be moved to the directory $\"disabled$\"" /SD IDOK
-		Rename "$INSTDIR\plugins\QuickText.UNI.dll" "$INSTDIR\plugins\disabled\QuickText.UNI.dll"
-		Delete "$INSTDIR\plugins\QuickText.UNI.dll"
-
-	IfFileExists "$INSTDIR\plugins\AHKExternalLexer.dll" 0 +4
-		MessageBox MB_OK "Due to the compatibility issue,$\nAHKExternalLexer.dll will be moved to the directory $\"disabled$\"" /SD IDOK
-		Rename "$INSTDIR\plugins\AHKExternalLexer.dll" "$INSTDIR\plugins\disabled\AHKExternalLexer.dll"
-		Delete "$INSTDIR\plugins\AHKExternalLexer.dll"
-
-	IfFileExists "$INSTDIR\plugins\NppExternalLexers.dll" 0 +4
-		MessageBox MB_OK "Due to the compatibility issue,$\n\NppExternalLexers.dll will be moved to the directory $\"disabled$\"" /SD IDOK
-		Rename "$INSTDIR\plugins\NppExternalLexers.dll" "$INSTDIR\plugins\disabled\NppExternalLexers.dll"
-		Delete "$INSTDIR\plugins\NppExternalLexers.dll"
-
-	IfFileExists "$INSTDIR\plugins\ExternalLexerKVS.dll" 0 +4
-		MessageBox MB_OK "Due to the compatibility issue,$\n\ExternalLexerKVS.dll will be moved to the directory $\"disabled$\"" /SD IDOK
-		Rename "$INSTDIR\plugins\ExternalLexerKVS.dll" "$INSTDIR\plugins\disabled\ExternalLexerKVS.dll"
-		Delete "$INSTDIR\plugins\ExternalLexerKVS.dll"
-
-	IfFileExists "$INSTDIR\plugins\Oberon2LexerU.dll" 0 +4
-		MessageBox MB_OK "Due to the compatibility issue,$\n\Oberon2LexerU.dll will be moved to the directory $\"disabled$\"" /SD IDOK
-		Rename "$INSTDIR\plugins\Oberon2LexerU.dll" "$INSTDIR\plugins\disabled\Oberon2LexerU.dll"
-		Delete "$INSTDIR\plugins\Oberon2LexerU.dll"
-
-
-	IfFileExists "$INSTDIR\plugins\NotepadSharp.dll" 0 +4
-		MessageBox MB_OK "Due to the stability issue,$\n\NotepadSharp.dll will be moved to the directory $\"disabled$\"" /SD IDOK
-		Rename "$INSTDIR\plugins\NotepadSharp.dll" "$INSTDIR\plugins\disabled\NotepadSharp.dll"
-		Delete "$INSTDIR\plugins\NotepadSharp.dll"
-		
-	IfFileExists "$INSTDIR\plugins\PreviewHTML.dll" 0 +4
-		MessageBox MB_OK "Due to the stability issue,$\nPreviewHTML.dll will be moved to the directory $\"disabled$\"" /SD IDOK
-		Rename "$INSTDIR\plugins\PreviewHTML.dll" "$INSTDIR\plugins\disabled\PreviewHTML.dll"
-		Delete "$INSTDIR\plugins\PreviewHTML.dll"
-		
-	IfFileExists "$INSTDIR\plugins\nppRegEx.dll" 0 +4
-		MessageBox MB_OK "Due to the stability issue,$\nnppRegEx.dll will be moved to the directory $\"disabled$\"" /SD IDOK
-		Rename "$INSTDIR\plugins\nppRegEx.dll" "$INSTDIR\plugins\disabled\nppRegEx.dll"
-		Delete "$INSTDIR\plugins\nppRegEx.dll"
-		
-	IfFileExists "$INSTDIR\plugins\AutoSaveU.dll" 0 +4
-		MessageBox MB_OK "Due to the stability issue,$\nAutoSaveU.dll will be moved to the directory $\"disabled$\"" /SD IDOK
-		Rename "$INSTDIR\plugins\AutoSaveU.dll" "$INSTDIR\plugins\disabled\AutoSaveU.dll"
-		Delete "$INSTDIR\plugins\AutoSaveU.dll"
-		
-	IfFileExists "$INSTDIR\plugins\NppQCP.dll" 0 +4
-		MessageBox MB_OK "Due to the stability issue,$\nNppQCP.dll will be moved to the directory $\"disabled$\"" /SD IDOK
-		Rename "$INSTDIR\plugins\NppQCP.dll" "$INSTDIR\plugins\disabled\NppQCP.dll"
-		Delete "$INSTDIR\plugins\NppQCP.dll"
-	/*
-	IfFileExists "$INSTDIR\plugins\DSpellCheck.dll" 0 +11
-		MessageBox MB_YESNOCANCEL "Due to the stability issue, DSpellCheck.dll will be moved to the directory $\"disabled$\".$\nChoose Cancel to keep it for this installation.$\nChoose No to keep it forever." /SD IDYES IDNO never IDCANCEL donothing ;IDYES remove
-		Rename "$INSTDIR\plugins\DSpellCheck.dll" "$INSTDIR\plugins\disabled\DSpellCheck.dll"
-		Delete "$INSTDIR\plugins\DSpellCheck.dll"
-		Goto donothing
-	never:
-		Rename "$INSTDIR\plugins\DSpellCheck.dll" "$INSTDIR\plugins\DSpellCheck2.dll"
-		Goto donothing
-	donothing:
-	*/
 FunctionEnd
 
 Function removeOldContextMenu

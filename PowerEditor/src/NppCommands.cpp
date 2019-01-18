@@ -90,7 +90,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_FILE_OPEN_CMD:
 		{
-			Command cmd(TEXT("cmd /K cd /d $(CURRENT_DIRECTORY)"));
+			Command cmd(TEXT("cmd /K cd /d \"$(CURRENT_DIRECTORY)\""));
 			cmd.run(_pPublicInterface->getHSelf());
 		}
 		break;
@@ -2572,7 +2572,7 @@ void Notepad_plus::command(int id)
 			bool isFirstTime = !_md5FromFilesDlg.isCreated();
 			_md5FromFilesDlg.doDialog(_nativeLangSpeaker.isRTL());
 			if (isFirstTime)
-				_nativeLangSpeaker.changeDlgLang(_md5FromFilesDlg.getHSelf(), "HashFromFilesDlg");
+				_nativeLangSpeaker.changeDlgLang(_md5FromFilesDlg.getHSelf(), "MD5FromFilesDlg");
 		}
 		break;
 

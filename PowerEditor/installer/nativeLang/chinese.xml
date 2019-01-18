@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="繁體中文/正體中文" filename="chinese.xml" version="7.5.8">
+    <Native-Langue name="繁體中文/正體中文" filename="chinese.xml" version="7.6.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -64,6 +64,7 @@
                     <Item subMenuId="encoding-vietnamese" name="越南文"/>
                     <Item subMenuId="settings-import"  name="匯入"/>
                     <Item subMenuId="tools-md5"  name="MD5"/>
+					<Item subMenuId="tools-sha256"  name="SHA-256"/>
                 </SubEntries>
 
                 <!-- All Menu Items -->
@@ -300,7 +301,10 @@
                     <Item id="48015" name="外掛模組管理..."/>
                     <Item id="48501" name="產生 MD5..."/>
                     <Item id="48502" name="從檔案產生 MD5..."/>
-                    <Item id="48503" name="直接產生並複製 MD5"/>
+                    <Item id="48503" name="直接從選取產生 MD5 並複製到剪貼簿"/>
+                    <Item id="48504" name="產生 SHA-256..."/>
+                    <Item id="48505" name="從檔案產生 SHA-256..."/>
+                    <Item id="48506" name="直接從選取產生 SHA-256 並複製到剪貼板"/>
                     <Item id="49000" name="執行(&amp;R)..."/>
                     <Item id="50000" name="函數自動完成"/>
                     <Item id="50001" name="字詞自動完成"/>
@@ -419,6 +423,18 @@
                 <Item id="2"    name="關閉"/>
             </MD5FromTextDlg>
 
+            <SHA256FromFilesDlg title="從檔案產生 SHA-256">
+                <Item id="1922" name="從檔案產生 SHA-256..."/>
+                <Item id="1924" name="複製到剪貼簿"/>
+                <Item id="2"    name="關閉"/>
+            </SHA256FromFilesDlg>
+
+            <SHA256FromTextDlg title="產生 SHA-256">
+                <Item id="1932" name="將每一行視為獨立的字串"/>
+                <Item id="1934" name="複製到剪貼簿"/>
+                <Item id="2"    name="關閉"/>
+            </SHA256FromTextDlg>
+			
             <PluginsAdminDlg title="外掛模組管理" titleAvailable = "可安裝" titleUpdates = "更新" titleInstalled = "已安裝">
                 <ColumnPlugin   name="外掛模組"/>
                 <ColumnVersion  name="版本"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Українська" filename="ukrainian.xml" version="7.5.5">
+    <Native-Langue name="Українська" filename="ukrainian.xml" version="7.6.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -30,7 +30,7 @@
                     <Item subMenuId="edit-comment" name="Закоментувати/Розкоментувати"/>
                     <Item subMenuId="edit-autoCompletion" name="Автозавершення"/>
                     <Item subMenuId="edit-eolConversion" name="Конвертація в EOL"/>
-                    <Item subMenuId="edit-blankOperations" name="Пусті операції"/>
+                    <Item subMenuId="edit-blankOperations" name="Порожні операції"/>
                     <Item subMenuId="edit-pasteSpecial" name="Спеціальна вставка"/>
                     <Item subMenuId="edit-onSelection" name="У вибраному"/>
                     <Item subMenuId="search-markAll" name="Позначити все"/>
@@ -64,6 +64,7 @@
                     <Item subMenuId="encoding-vietnamese" name="В'єтнамська"/>
                     <Item subMenuId="settings-import"  name="Імпортувати"/>
                     <Item subMenuId="tools-md5"  name="MD5"/>
+                    <Item subMenuId="tools-sha256"  name="SHA-256"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -87,10 +88,10 @@
                     <Item id="41013" name="Зберегти сеанс..."/>
                     <Item id="41014" name="Перезавантажити з диска"/>
                     <Item id="41015" name="Зберегти копію як..."/>
-                    <Item id="41016" name="Видалити з диска"/>
+                    <Item id="41016" name="Перемістити в смітник"/>
                     <Item id="41017" name="Перейменувати..."/>
                     <Item id="41021" name="Відкрити останній закритий файл"/>
-                    <Item id="41022" name="Відкрити теки як робочу область"/>
+                    <Item id="41022" name="Відкрити теку як робочу область..."/>
                     <Item id="41023" name="Відкрити в типовому засобі перегляду"/>
                     <Item id="42001" name="Вирізати"/>
                     <Item id="42002" name="Копіювати"/>
@@ -117,8 +118,8 @@
                     <Item id="42066" name="Сортувати рядки як десяткове (крапка) за спаданням"/>
                     <Item id="42016" name="ВЕЛИКИМИ"/>
                     <Item id="42017" name="маленькими"/>
-                    <Item id="42067" name="Великі літери"/>
-                    <Item id="42068" name="Великі літери (змішані)"/>
+                    <Item id="42067" name="Перші Літери Великі"/>
+                    <Item id="42068" name="Перші Літери Великі (змішані)"/>
                     <Item id="42069" name="Як у реченнях"/>
                     <Item id="42070" name="Як у реченнях (змішані)"/>
                     <Item id="42071" name="зВОРОТНІЙ пОРЯДОК"/>
@@ -150,14 +151,14 @@
                     <Item id="42034" name="Редактор стовпців..."/>
                     <Item id="42051" name="Панель символів"/>
                     <Item id="42052" name="Історія буфера"/>
-                    <Item id="42025" name="Зберегти запис макроса"/>
+                    <Item id="42025" name="Зберегти записаний макрос..."/>
                     <Item id="42026" name="Текст справа наліво"/>
                     <Item id="42027" name="Текст зліва направо"/>
                     <Item id="42028" name="Лише читання"/>
                     <Item id="42029" name="Шлях та назву файлу в буфер обміну"/>
                     <Item id="42030" name="Назву файлу в буфер обміну"/>
                     <Item id="42031" name="Поточний шлях до буфера обміну"/>
-                    <Item id="42032" name="Багаторазовий запуск..."/>
+                    <Item id="42032" name="Багаторазовий запуск макросу..."/>
                     <Item id="42033" name="Прибрати атрибут «Лише читання»"/>
                     <Item id="42035" name="Закоментувати рядок"/>
                     <Item id="42036" name="Розкоментувати рядок"/>
@@ -220,9 +221,9 @@
                     <Item id="44010" name="Згорнути все"/>
                     <Item id="44019" name="Показати всі символи"/>
                     <Item id="44020" name="Значення відступів"/>
-                    <Item id="44022" name="Перенесення рядків"/>
-                    <Item id="44023" name="Збільшити: Ctrl + коліщатко миші вгору"/>
-                    <Item id="44024" name="Зменшити: Ctrl + коліщатко миші вниз"/>
+                    <Item id="44022" name="Перенесення слів"/>
+                    <Item id="44023" name="Збільшити (Ctrl + коліщатко миші вгору)"/>
+                    <Item id="44024" name="Зменшити (Ctrl + коліщатко миші вниз)"/>
                     <Item id="44025" name="Показувати пробіли і Tab"/>
                     <Item id="44026" name="Показувати символ закінчення рядка"/>
                     <Item id="44029" name="Розгорнути все"/>
@@ -256,19 +257,19 @@
                     <Item id="44081" name="Панель проекту 1"/>
                     <Item id="44082" name="Панель проекту 2"/>
                     <Item id="44083" name="Панель проекту 3"/>
-                    <Item id="45001" name="Перетворити в формат Windows"/>
-                    <Item id="45002" name="Перетворити в формат UNIX"/>
-                    <Item id="45003" name="Перетворити в формат MAC"/>
+                    <Item id="45001" name="Windows (CR LF)"/>
+                    <Item id="45002" name="Unix (LF)"/>
+                    <Item id="45003" name="Macintosh (CR)"/>
                     <Item id="45004" name="Кодувати в ANSI"/>
                     <Item id="45005" name="Кодувати в UTF-8-BOM"/>
-                    <Item id="45006" name="Кодувати в UCS-2 Big Endian"/>
-                    <Item id="45007" name="Кодувати в UCS-2 Little Endian"/>
+                    <Item id="45006" name="Кодувати в UCS-2 BE BOM"/>
+                    <Item id="45007" name="Кодувати в UCS-2 LE BOM"/>
                     <Item id="45008" name="Кодувати в UTF-8"/>
                     <Item id="45009" name="Перетворити на ANSI"/>
                     <Item id="45010" name="Перетворити на UTF-8"/>
                     <Item id="45011" name="Перетворити на UTF-8-BOM"/>
-                    <Item id="45012" name="Перетворити на UCS-2 Big Endian"/>
-                    <Item id="45013" name="Перетворити на UCS-2 Little Endian"/>
+                    <Item id="45012" name="Перетворити на UCS-2 BE BOM"/>
+                    <Item id="45013" name="Перетворити на UCS-2 LE BOM"/>
 
                     <Item id="10001" name="Відкрити в іншому вікні"/>
                     <Item id="10002" name="Копіювати в інше вікно"/>
@@ -278,7 +279,7 @@
                     <Item id="46001" name="Конфігуратор стилю..."/>
                     <Item id="46250" name="Визначити мову..."/>
                     <Item id="46180" name="Визначено користувачем"/>
-                    <Item id="47000" name="Про Notepad++..."/>
+                    <Item id="47000" name="Про Notepad++"/>
                     <Item id="47010" name="Аргументи командного рядка..."/>
                     <Item id="47001" name="Домівка Notepad++"/>
                     <Item id="47002" name="Сторінка проекту Notepad++"/>
@@ -289,14 +290,18 @@
                     <Item id="47005" name="Отримати більше плагінів"/>
                     <Item id="47006" name="Оновити Notepad++"/>
                     <Item id="47009" name="Встановити проксі оновлення..."/>
-                    <Item id="48005" name="Імпорт плагінів ..."/>
-                    <Item id="48006" name="Імпорт тем..."/>
+                    <Item id="48005" name="Імпорт плагінів..."/>
+                    <Item id="48006" name="Імпорт тем стилів..."/>
                     <Item id="48018" name="Змінити контекстне меню"/>
                     <Item id="48009" name="Гарячі клавіші..."/>
                     <Item id="48011" name="Налаштування..."/>
+                    <Item id="48015" name="Адміністрування плагінів..."/>
                     <Item id="48501" name="Згенерувати..."/>
-                    <Item id="48502" name="Згенерувати із файлів..."/>
-                    <Item id="48503" name="Згенерувати в буфер обміну"/>
+                    <Item id="48502" name="Згенерувати з файлів..."/>
+                    <Item id="48503" name="Згенерувати з вибраного в буфер обміну"/>
+                    <Item id="48504" name="Згенерувати..."/>
+                    <Item id="48505" name="Згенерувати з файлів..."/>
+                    <Item id="48506" name="Згенерувати з вибраного в буфер обміну"/>
                     <Item id="49000" name="Виконати..."/>
 
                     <Item id="50000" name="Завершення функцій"/>
@@ -304,10 +309,10 @@
                     <Item id="50002" name="Підказка параметрів функцій"/>
                     <Item id="50006" name="Завершення шляху"/>
                     <Item id="44042" name="Приховати рядки"/>
-                    <Item id="42040" name="Відкрити всі нещодавні файли"/>
-                    <Item id="42041" name="Очистити список нещодавніх файлів"/>
-                    <Item id="48016" name="Змінити/Видалити гарячі клавіші макросів..."/>
-                    <Item id="48017" name="Змінити/Видалити гарячі клавіші команд..."/>
+                    <Item id="42040" name="Відкрити всі останні файли"/>
+                    <Item id="42041" name="Очистити список останніх файлів"/>
+                    <Item id="48016" name="Змінити макрос Гарячі клавіші/Видалити..."/>
+                    <Item id="48017" name="Змінити команду Гарячі клавіші/Видалити..."/>
                 </Commands>
             </Main>
             <Splitter>
@@ -349,8 +354,8 @@
                 <Item id="1605" name="Регулярний вираз"/>
                 <Item id="1606" name="Циклічний пошук"/>
                 <Item id="1614" name="Підрахунок"/>
-                <Item id="1615" name="Знайти все!"/>
-                <Item id="1616" name="Позначати рядки"/>
+                <Item id="1615" name="Позначити все"/>
+                <Item id="1616" name="Закладка рядка"/>
                 <Item id="1618" name="Очищати для кожного пошуку"/>
                 <Item id="1611" name="Замінити на:"/>
                 <Item id="1608" name="Замінити"/>
@@ -358,7 +363,7 @@
                 <Item id="1687" name="Вимкнути"/>
                 <Item id="1688" name="Завжди"/>
                 <Item id="1632" name="У вибраному"/>
-                <Item id="1633" name="Очистити"/>
+                <Item id="1633" name="Очистити всі позначки"/>
                 <Item id="1635" name="Замінити все в активних документах"/>
                 <Item id="1636" name="Знайти все у відкритих документах"/>
                 <Item id="1654" name="Фільтри:"/>
@@ -405,17 +410,40 @@
                 <Item id="1904" name="Зберегти..."/>
             </Run>
 
-            <MD5FromFilesDlg title="Згенерувати MD5-дайджест із файлів">
+            <MD5FromFilesDlg title="Згенерувати MD5 з файлів">
                 <Item id="1922" name="Вибрати файли для генерації MD5..."/>
                 <Item id="1924" name="Копіювати в буфер обміну"/>
                 <Item id="2"    name="Закрити"/>
             </MD5FromFilesDlg>
 
-            <MD5FromTextDlg title="Згенерувати MD5-дайджест">
+            <MD5FromTextDlg title="Згенерувати MD5">
                 <Item id="1932" name="Обробити кожен рядок як окремий"/>
                 <Item id="1934" name="Копіювати в буфер обміну"/>
                 <Item id="2"    name="Закрити"/>
             </MD5FromTextDlg>
+			
+            <SHA256FromFilesDlg title="Згенерувати SHA-256 з файлів">
+                <Item id="1922" name="Оберіть файли для генерування SHA-256..."/>
+                <Item id="1924" name="Копіювати в буфер обміну"/>
+                <Item id="2"    name="Закрити"/>
+            </SHA256FromFilesDlg>
+
+            <SHA256FromTextDlg title="Згенерувати SHA-256">
+                <Item id="1932" name="Обробити кожен рядок як окремий"/>
+                <Item id="1934" name="Копіювати в буфер обміну"/>
+                <Item id="2"    name="Закрити"/>
+            </SHA256FromTextDlg>
+			
+            <PluginsAdminDlg title="Адміністрування плагінів" titleAvailable = "Доступно" titleUpdates = "Оновлення" titleInstalled = "Встановлено">
+                <ColumnPlugin   name="Плагін"/>
+                <ColumnVersion  name="Версія"/>
+                <Item id="5501" name="Пошук:"/>
+                <Item id="5503" name="Встановити"/>
+                <Item id="5504" name="Оновити"/>
+                <Item id="5505" name="Вилучити"/>
+                <Item id="5508" name="Далі"/>
+                <Item id="2"    name="Закрити"/>
+            </PluginsAdminDlg>
 
             <StyleConfig title="Визначення стилів">
                 <Item id="2"    name="Скасувати"/>
@@ -696,10 +724,10 @@
                     <Item id="6229" name="Вирівняний"/>
                     <Item id="6230" name="З відступом"/>
 
-                    <Item id="6206" name="Показувати номери рядків"/>
-                    <Item id="6207" name="Показувати закладки"/>
+                    <Item id="6206" name="Показувати номер рядка"/>
+                    <Item id="6207" name="Показувати закладку"/>
                     <Item id="6208" name="Вертикальна межа"/>
-                    <Item id="6209" name="Стовпець: "/>
+                    <Item id="6209" name="Стовпець:"/>
                     <Item id="6234" name="Вимкнути розширену прокрутку
 (якщо є проблеми з тачпадом)"/>
 
@@ -714,10 +742,10 @@
                 </Scintillas>
 
                 <NewDoc title="Створити документ">
-                    <Item id="6401" name="Формат"/>
-                    <Item id="6402" name="Windows"/>
-                    <Item id="6403" name="Unix"/>
-                    <Item id="6404" name="Mac"/>
+                    <Item id="6401" name="Формат (Закінчення рядка)"/>
+                    <Item id="6402" name="Windows (CR LF)"/>
+                    <Item id="6403" name="Unix (LF)"/>
+                    <Item id="6404" name="Macintosh (CR)"/>
                     <Item id="6405" name="Кодування"/>
                     <Item id="6406" name="ANSI"/>
                     <Item id="6407" name="UTF-8 без мітки BOM"/>
@@ -754,7 +782,7 @@
 
                 <Highlighting title="Підсвічування">
                     <Item id="6333" name="Підсвічування однакових слів"/>
-                    <Item id="6326" name="Інтелектуальне підсвічування"/>
+                    <Item id="6326" name="Увімкнути"/>
                     <Item id="6332" name="Враховувати регістр"/>
                     <Item id="6338" name="Лише цілі слова"/>
                     <Item id="6339" name="Викор. налаштув. вікна Знайти"/>
@@ -813,7 +841,7 @@
                     <Item id="6821" name="секунд"/>
                     <Item id="6822" name="Розташування резервної копії:"/>
                     <Item id="6309" name="Пам'ятати поточний сеанс для наступного запуску"/>
-                    <Item id="6801" name="Резервне копіювання"/>
+                    <Item id="6801" name="Резервна копія при збереженні"/>
                     <Item id="6315" name="Немає"/>
                     <Item id="6316" name="Проста резервна копія"/>
                     <Item id="6317" name="Розширена резервна копія"/>
@@ -864,7 +892,7 @@
                     <Item id="6263" name="Без хмари"/>
                     <Item id="6267" name="Шлях до свого хмарного сховища:"/>
                 </Cloud>
-                
+
                 <SearchEngine title="Пошуковий засіб">
                     <Item id="6271" name="Пошуковий засіб (для команди &quot;Пошук в Інтернеті&quot;)"/>
                     <Item id="6272" name="DuckDuckGo"/>
@@ -962,7 +990,7 @@
             <FileLockedWarning title="Збереження невдале" message="Перевірте, чи цей файл не відкритий в іншій програмі"/>
             <FileAlreadyOpenedInNpp title="" message="Файл вже відкрито в Notepad++."/>
             <DeleteFileFailed title="Видалення файлу" message="Не вдалося вилучити файл"/>
-            
+
             <NbFileToOpenImportantWarning title="Надто велика кількість файлів для відкриття" message="$INT_REPLACE$ файлів невдовзі будуть відкриті.
 Ви дійсно хочете відкрити їх?"/>
             <SettingsOnCloudError title="Налаштування в хмарі" message="Схоже, шлях налаштувань в хмарі встановлений на диск лише для читання,

@@ -978,7 +978,7 @@ int Notepad_plus::getHtmlXmlEncoding(const TCHAR *fileName) const
 	_invisibleEditView.execute(SCI_APPENDTEXT, lenFile, reinterpret_cast<LPARAM>(data));
 
 	const char *encodingAliasRegExpr = "[a-zA-Z0-9_-]+";
-
+	const int encodingStrLen = 128;
 	if (langT == L_XML)
 	{
 		// find encoding by RegExpr
@@ -1004,13 +1004,19 @@ int Notepad_plus::getHtmlXmlEncoding(const TCHAR *fileName) const
 
             startPos = int(_invisibleEditView.execute(SCI_GETTARGETSTART));
 			endPos = _invisibleEditView.execute(SCI_GETTARGETEND);
+			
+			int len = endPos - startPos;
+			if (len >= encodingStrLen)
+			{
+				return -1;
+			}
 
-            char encodingStr[128];
+            char encodingStr[encodingStrLen];
             _invisibleEditView.getText(encodingStr, startPos, endPos);
 
 			EncodingMapper *em = EncodingMapper::getInstance();
             int enc = em->getEncodingFromString(encodingStr);
-            return (enc==CP_ACP?-1:enc);
+            return (enc == CP_ACP ? -1 : enc);
 		}
         return -1;
 	}
@@ -1043,12 +1049,18 @@ int Notepad_plus::getHtmlXmlEncoding(const TCHAR *fileName) const
         startPos = int(_invisibleEditView.execute(SCI_GETTARGETSTART));
 		endPos = _invisibleEditView.execute(SCI_GETTARGETEND);
 
-        char encodingStr[128];
+		int len = endPos - startPos;
+		if (len >= encodingStrLen)
+		{
+			return -1;
+		}
+
+        char encodingStr[encodingStrLen];
         _invisibleEditView.getText(encodingStr, startPos, endPos);
 
 		EncodingMapper *em = EncodingMapper::getInstance();
 		int enc = em->getEncodingFromString(encodingStr);
-        return (enc==CP_ACP?-1:enc);
+        return (enc == CP_ACP ? -1 : enc);
 	}
 }
 

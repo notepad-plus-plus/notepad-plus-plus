@@ -761,6 +761,19 @@ void FindReplaceDlg::resizeDialogElements(LONG newWidth)
 	}
 }
 
+int FindReplaceDlg::doReplaceOpenedFilesOrNot()
+{
+	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+	return pNativeSpeaker->messageBox("DoReplaceOpenedFilesOrNot",
+		getHSelf(),
+		TEXT("Replace all in all opened documents?"),
+		TEXT("Replace in all documents"),
+		MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL,
+		0, // not used
+		0  // do I need to put something there?
+	);
+}
+
 INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message) 
@@ -1147,6 +1160,11 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 				case IDC_REPLACE_OPENEDFILES :
 				{
+					if (doReplaceOpenedFilesOrNot() == IDNO)
+					{
+						// user changed his mind and do not want to replace in all opened files
+						return TRUE;
+					}
 					LongRunningOperation op;
 					if (_currentStatus == REPLACE_DLG)
 					{

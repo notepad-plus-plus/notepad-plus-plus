@@ -336,6 +336,7 @@ public :
 
 protected :
 	void resizeDialogElements(LONG newWidth);
+	int doReplaceOpenedFilesOrNot();
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	static LONG_PTR originalFinderProc;
 

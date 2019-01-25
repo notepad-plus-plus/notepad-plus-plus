@@ -10,7 +10,7 @@
 		<!--
 		The following shortcuts are dangerous if your computer is compromised.
 		(But if your computer is compromised, EVERYTHING IS DANGEROUS!)
-		Remove the comment and use them with your own risk!!!
+		Remove the comment and use them at your own risk!!!
 
         <Command name="Launch in Firefox" Ctrl="yes" Alt="yes" Shift="yes" Key="88">firefox &quot;$(FULL_CURRENT_PATH)&quot;</Command>
         <Command name="Launch in IE" Ctrl="yes" Alt="yes" Shift="yes" Key="73">iexplore &quot;$(FULL_CURRENT_PATH)&quot;</Command>

@@ -1012,14 +1012,13 @@ bool NppParameters::load()
 		}
 	}
 
+	_pluginRootDir = _nppPath;
+	PathAppend(_pluginRootDir, TEXT("plugins"));
+
 	generic_string nppPluginRootParent;
 	if (_isLocal)
 	{
 		_userPath = nppPluginRootParent = _nppPath;
-
-		_pluginRootDir = _nppPath;
-		PathAppend(_pluginRootDir, TEXT("plugins"));
-
 		_userPluginConfDir = _pluginRootDir;
 		PathAppend(_userPluginConfDir, TEXT("Config"));
 	}
@@ -1039,18 +1038,11 @@ bool NppParameters::load()
 		if (!PathFileExists(_userPluginConfDir.c_str()))
 			::CreateDirectory(_userPluginConfDir.c_str(), NULL);
 
-
-		_pluginRootDir = getSpecialFolderLocation(CSIDL_COMMON_APPDATA);
-		PathAppend(_pluginRootDir, TEXT("Notepad++"));
-		nppPluginRootParent = _pluginRootDir;
-
-		PathAppend(_pluginRootDir, TEXT("plugins"));
-
 		// For PluginAdmin to launch the wingup with UAC
 		setElevationRequired(true);
 	}
 
-	_pluginConfDir = _pluginRootDir;
+	_pluginConfDir = _pluginRootDir; // for plugin list home
 	PathAppend(_pluginConfDir, TEXT("Config"));
 
 	if (!PathFileExists(nppPluginRootParent.c_str()))

@@ -96,6 +96,7 @@ Function copyCommonFiles
 
 	SetOverwrite off
 	File "..\bin\shortcuts.xml"
+	
 
 	
 	; Set Section Files and Shortcuts
@@ -103,6 +104,10 @@ Function copyCommonFiles
 	File "..\..\LICENSE"
 	File "..\bin\change.log"
 	File "..\bin\readme.txt"
+	
+	IfFileExists "$UPDATE_PATH\userDefineLang.xml" 0 +2
+	File "..\bin\userDefinedLang-markdown.default.modern.xml"
+	File /oname=$INSTDIR\userDefineLang.xml "..\bin\userDefinedLang-markdown.default.modern.xml"
 	
 !ifdef ARCH64
 	File "..\bin64\SciLexer.dll"

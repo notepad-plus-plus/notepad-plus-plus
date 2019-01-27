@@ -661,7 +661,7 @@ bool FileManager::reloadBuffer(BufferID id)
 	buf->setLoadedDirty(false);	// Since the buffer will be reloaded from the disk, and it will be clean (not dirty), we can set _isLoadedDirty false safetly.
 								// Set _isLoadedDirty false before calling "_pscratchTilla->execute(SCI_CLEARALL);" in loadFileData() to avoid setDirty in SCN_SAVEPOINTREACHED / SCN_SAVEPOINTLEFT
 
-	bool res = loadFileData(doc, buf->getFullPathName(), data, &UnicodeConvertor, lang, encoding, bkformat);
+	bool res = loadFileData(doc, buf->getFullPathName(), data, &UnicodeConvertor, lang, encoding, bkformat, /* keepUndo */ true);
 	buf->_canNotify = true;
 
 	if (res)
@@ -1248,7 +1248,7 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 	return L_TEXT;
 }
 
-bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data, Utf8_16_Read * unicodeConvertor, LangType & language, int & encoding, EolType & eolFormat)
+bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data, Utf8_16_Read * unicodeConvertor, LangType & language, int & encoding, EolType & eolFormat, bool keepUndo)
 {
 	FILE *fp = generic_fopen(filename, TEXT("rb"));
 	if (not fp)
@@ -1282,8 +1282,11 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 	{
 		_pscratchTilla->execute(SCI_SETREADONLY, false);
 	}
+	if (keepUndo)
+	{
+		_pscratchTilla->execute(SCI_BEGINUNDOACTION);
+	}
 	_pscratchTilla->execute(SCI_CLEARALL);
-
 
 	if (language < L_EXTERNAL)
 	{
@@ -1414,7 +1417,7 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 		eolFormat = format;
 	}
 
-	_pscratchTilla->execute(SCI_EMPTYUNDOBUFFER);
+	_pscratchTilla->execute(keepUndo ? SCI_ENDUNDOACTION : SCI_EMPTYUNDOBUFFER);
 	_pscratchTilla->execute(SCI_SETSAVEPOINT);
 
 	if (ro)

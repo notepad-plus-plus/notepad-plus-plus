@@ -2184,7 +2184,7 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		data.hIconTab = (HICON)::LoadImage(_hInst, MAKEINTRESOURCE(IDI_FIND_RESULT_ICON), IMAGE_ICON, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 		data.pszAddInfo = _findAllResultStr;
 
-		data.pszModuleName = TEXT("dummy");
+		data.pszModuleName = NPP_INTERNAL_FUCTION_STR;
 
 		// the dlgDlg should be the index of funcItem where the current function pointer is
 		// in this case is DOCKABLE_DEMO_INDEX
@@ -2276,7 +2276,7 @@ Finder * FindReplaceDlg::createFinder()
 	data.hIconTab = (HICON)::LoadImage(_hInst, MAKEINTRESOURCE(IDI_FIND_RESULT_ICON), IMAGE_ICON, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 	data.pszAddInfo = _findAllResultStr;
 
-	data.pszModuleName = TEXT("dummy");
+	data.pszModuleName = NPP_INTERNAL_FUCTION_STR;
 
 	// the dlgDlg should be the index of funcItem where the current function pointer is
 	// in this case is DOCKABLE_DEMO_INDEX

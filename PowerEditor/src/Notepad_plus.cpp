@@ -57,8 +57,6 @@ enum tb_stat {tb_saved, tb_unsaved, tb_ro};
 #define DIR_LEFT true
 #define DIR_RIGHT false
 
-#define NPP_INTERNAL_FUCTION_STR TEXT("Notepad++::InternalFunction")
-
 int docTabIconIDs[] = {IDI_SAVED_ICON, IDI_UNSAVED_ICON, IDI_READONLY_ICON, IDI_MONITORING_ICON};
 
 ToolBarButtonUnit toolBarIcons[] = {

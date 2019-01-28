@@ -45,7 +45,8 @@ FunctionEnd
 
 Function un.onUninstSuccess
 	; make sure all the empty folders are deleted on successful uninstall
-	; These folders will be deleted only if they are emtpy
+	; These folders will be deleted only if they are empty
+	RMDir "$INSTDIR\autoCompletion\"
 	RMDir "$INSTDIR\localization\"
 	RMDir "$INSTDIR\plugins\APIs\"
 	RMDir "$INSTDIR\plugins\disabled\"

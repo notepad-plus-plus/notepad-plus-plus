@@ -510,6 +510,14 @@ void FileManager::init(Notepad_plus * pNotepadPlus, ScintillaEditView * pscratch
 	_pscratchTilla->execute(SCI_ADDREFDOCUMENT, 0, _scratchDocDefault);
 }
 
+void FileManager::checkFilesystemChanges(BufferID buffer_id)
+{
+    if (buffer_id)
+    {
+        buffer_id->checkFileState();	//something has changed. Triggers update automatically
+    }
+
+}
 void FileManager::checkFilesystemChanges()
 {
 	for (int i = int(_nbBufs) - 1; i >= 0 ; i--)

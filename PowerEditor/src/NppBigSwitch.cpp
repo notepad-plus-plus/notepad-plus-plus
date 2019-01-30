@@ -45,12 +45,6 @@ using namespace std;
 #define WM_DPICHANGED 0x02E0
 
 
-DWORD WINAPI CheckModifiedDocumentThread(LPVOID)
-{
-	MainFileManager->checkFilesystemChanges();
-	return 0;
-}
-
 struct SortTaskListPred final
 {
 	DocTabView *_views[2];
@@ -1531,19 +1525,17 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case WM_ACTIVATEAPP:
 		{
-			if (wParam == TRUE) // if npp is about to be activated
-			{
-				::PostMessage(hwnd, NPPM_INTERNAL_CHECKDOCSTATUS, 0, 0);
-			}
+            MainFileManager->checkFilesystemChanges(_pDocTab->getBufferByIndex(_pDocTab->getCurrentTabIndex()));
 			return FALSE;
 		}
 
 		case NPPM_INTERNAL_CHECKDOCSTATUS:
 		{
+            BufferID buf_id = reinterpret_cast<BufferID>(wParam);
 			const NppGUI & nppgui = pNppParam->getNppGUI();
 			if (nppgui._fileAutoDetection != cdDisabled)
 			{
-				checkModifiedDocument();
+				checkModifiedDocument(buf_id);
 				return TRUE;
 			}
 			return FALSE;

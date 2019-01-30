@@ -3308,10 +3308,10 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 	}
 }
 
-void Notepad_plus::checkModifiedDocument()
+void Notepad_plus::checkModifiedDocument(BufferID buff_id)
 {
 	//this will trigger buffer updates. If the status changes, Notepad++ will be informed and can do its magic
-	MainFileManager->checkFilesystemChanges();
+	MainFileManager->checkFilesystemChanges(buff_id);
 }
 
 void Notepad_plus::getMainClientRect(RECT &rc) const
@@ -3730,6 +3730,7 @@ bool Notepad_plus::activateBuffer(BufferID id, int whichOne)
 	bool isSnapshotMode = NppParameters::getInstance()->getNppGUI().isSnapshotMode();
 	if (isSnapshotMode)
 	{
+        MainFileManager->checkFilesystemChanges(id);
 		// Before switching off, synchronize backup file
 		MainFileManager->backupCurrentBuffer();
 	}

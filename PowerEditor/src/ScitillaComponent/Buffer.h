@@ -75,6 +75,7 @@ public:
 
 	//void activateBuffer(int index);
 	void checkFilesystemChanges();
+	void checkFilesystemChanges(BufferID buffer_id);
 
 	size_t getNbBuffers() { return _nbBufs; };
 	int getBufferIndexByID(BufferID id);

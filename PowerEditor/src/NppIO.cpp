@@ -1385,7 +1385,7 @@ bool Notepad_plus::fileSaveAs(BufferID id, bool isSaveCopy)
 	}
 	else // cancel button is pressed
     {
-        checkModifiedDocument();
+        checkModifiedDocument(id);
 		return false;
     }
 }

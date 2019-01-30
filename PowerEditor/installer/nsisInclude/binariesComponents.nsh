@@ -148,16 +148,10 @@ SectionGroup un.Plugins
 		RMDir "$PLUGIN_INST_PATH\mimeTools"
 	SectionEnd
 
-	Section un.PluginManager
-		Delete "$INSTDIR\plugins\PluginManager.dll"
-		Delete "$UPDATE_PATH\plugins\Config\PluginManager.ini"
-		Delete "$INSTDIR\updater\gpup.exe"
-		RMDir "$INSTDIR\updater\"
-	SectionEnd
-	
  	Section un.DSpellCheck
 
 		Delete "$INSTDIR\plugins\DSpellCheck.dll"
+		Delete "$INSTDIR\plugins\DSpellCheck\DSpellCheck.dll"
 		Delete "$PLUGIN_INST_PATH\DSpellCheck\DSpellCheck.dll"
 		Delete "$UPDATE_PATH\plugins\Config\DSpellCheck.ini"
 		Delete "$ALLUSERS_PLUGIN_CONF_PATH\DSpellCheck.ini"

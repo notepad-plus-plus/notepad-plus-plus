@@ -326,11 +326,14 @@ bool isInList(const TCHAR *token, const TCHAR *list)
 	if ((!token) || (!list))
 		return false;
 
-	TCHAR word[64];
+	const size_t wordLen = 64;
+	size_t listLen = lstrlen(list);
+
+	TCHAR word[wordLen];
 	size_t i = 0;
 	size_t j = 0;
 
-	for (size_t len = lstrlen(list); i <= len; ++i)
+	for (; i <= listLen; ++i)
 	{
 		if ((list[i] == ' ')||(list[i] == '\0'))
 		{
@@ -347,6 +350,9 @@ bool isInList(const TCHAR *token, const TCHAR *list)
 		{
 			word[j] = list[i];
 			++j;
+
+			if (j >= wordLen)
+				return false;
 		}
 	}
 	return false;

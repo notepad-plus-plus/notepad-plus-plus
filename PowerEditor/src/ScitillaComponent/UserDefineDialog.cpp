@@ -48,6 +48,55 @@ GlobalMappers & globalMappper()
     return gm;
 }
 
+void convertTo(TCHAR *dest, int destLen, const TCHAR *toConvert, TCHAR *prefix)
+{
+	bool inGroup = false;
+	int index = lstrlen(dest);
+	if (index > 0)
+		dest[index++] = ' ';
+	dest[index++] = prefix[0];
+	dest[index++] = prefix[1];
+
+	for (size_t i = 0, len = lstrlen(toConvert); i < len && index < destLen - 7; ++i)
+	{
+		if (i == 0 && toConvert[i] == '(' && toConvert[i + 1] == '(')
+		{
+			inGroup = true;
+		}
+		else if (toConvert[i] == ' ' && toConvert[i + 1] == '(' && toConvert[i + 2] == '(')
+		{
+			inGroup = true;
+			dest[index++] = ' ';
+			dest[index++] = prefix[0];
+			dest[index++] = prefix[1];
+			++i;    // skip space
+		}
+
+		if (inGroup && toConvert[i - 1] == ')' && toConvert[i - 2] == ')')
+		{
+			inGroup = false;
+		}
+
+		if (toConvert[i] == ' ')
+		{
+			if (toConvert[i + 1] != ' ' && toConvert[i + 1] != '\0')
+			{
+				dest[index++] = ' ';
+				if (!inGroup)
+				{
+					dest[index++] = prefix[0];
+					dest[index++] = prefix[1];
+				}
+			}
+		}
+		else
+		{
+			dest[index++] = toConvert[i];
+		}
+	}
+	dest[index] = '\0';
+};
+
 bool SharedParametersDialog::setPropertyByCheck(HWND hwnd, WPARAM id, bool & bool2set)
 {
     bool2set = (BST_CHECKED == ::SendMessage(::GetDlgItem(hwnd, int(id)), BM_GETCHECK, 0, 0));
@@ -173,54 +222,6 @@ void FolderStyleDialog::updateDlg()
     ::SendDlgItemMessage(_hSelf, IDC_FOLDER_IN_COMMENT_OPEN_EDIT,   WM_SETTEXT, 0, reinterpret_cast<LPARAM>(_pUserLang->_keywordLists[SCE_USER_KWLIST_FOLDERS_IN_COMMENT_OPEN]));
     ::SendDlgItemMessage(_hSelf, IDC_FOLDER_IN_COMMENT_MIDDLE_EDIT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(_pUserLang->_keywordLists[SCE_USER_KWLIST_FOLDERS_IN_COMMENT_MIDDLE]));
     ::SendDlgItemMessage(_hSelf, IDC_FOLDER_IN_COMMENT_CLOSE_EDIT,  WM_SETTEXT, 0, reinterpret_cast<LPARAM>(_pUserLang->_keywordLists[SCE_USER_KWLIST_FOLDERS_IN_COMMENT_CLOSE]));
-}
-
-void FolderStyleDialog::convertTo(TCHAR *dest, const TCHAR *toConvert, TCHAR *prefix) const
-{
-    bool inGroup = false;
-    int index = lstrlen(dest);
-    if (index > 0)
-        dest[index++] = ' ';
-    dest[index++] = prefix[0];
-    dest[index++] = prefix[1];
-
-    for (size_t i = 0, len = lstrlen(toConvert); i < len ; ++i)
-    {
-        if (i == 0 && toConvert[i] == '(' && toConvert[i+1] == '(')
-        {
-            inGroup = true;
-        }
-        else if (toConvert[i] == ' ' && toConvert[i+1] == '(' && toConvert[i+2] == '(')
-        {
-            inGroup = true;
-            dest[index++] = ' ';
-            dest[index++] = prefix[0];
-            dest[index++] = prefix[1];
-            ++i;    // skip space
-        }
-        if (inGroup && toConvert[i-1] == ')' && toConvert[i-2] == ')')
-        {
-            inGroup = false;
-        }
-
-        if (toConvert[i] == ' ')
-        {
-            if (toConvert[i+1] != ' ' && toConvert[i+1] != '\0')
-            {
-                dest[index++] = ' ';
-                if (!inGroup)
-                {
-                    dest[index++] = prefix[0];
-                    dest[index++] = prefix[1];
-                }
-            }
-        }
-        else
-        {
-            dest[index++] = toConvert[i];
-        }
-    }
-    dest[index] = '\0';
 }
 
 void FolderStyleDialog::retrieve(TCHAR *dest, const TCHAR *toRetrieve, TCHAR *prefix) const
@@ -520,59 +521,11 @@ void CommentStyleDialog::setKeywords2List(int id)
         {
             generic_itoa(i, intBuffer+1, 10);
             ::GetDlgItemText(_hSelf, list[i], buffer, max_char);
-            convertTo(newList, buffer, intBuffer);
+			convertTo(newList, max_char, buffer, intBuffer);
         }
 
         lstrcpy(_pUserLang->_keywordLists[index], newList);
     }
-}
-
-void CommentStyleDialog::convertTo(TCHAR *dest, const TCHAR *toConvert, TCHAR *prefix) const
-{
-    bool inGroup = false;
-    int index = lstrlen(dest);
-    if (index > 0)
-        dest[index++] = ' ';
-    dest[index++] = prefix[0];
-    dest[index++] = prefix[1];
-
-    for (size_t i = 0, len = lstrlen(toConvert); i < len ; ++i)
-    {
-        if (i == 0 && toConvert[i] == '(' && toConvert[i+1] == '(')
-        {
-            inGroup = true;
-        }
-        else if (toConvert[i] == ' ' && toConvert[i+1] == '(' && toConvert[i+2] == '(')
-        {
-            inGroup = true;
-            dest[index++] = ' ';
-            dest[index++] = prefix[0];
-            dest[index++] = prefix[1];
-            ++i;    // skip space
-        }
-        if (inGroup && toConvert[i-1] == ')' && toConvert[i-2] == ')')
-        {
-            inGroup = false;
-        }
-
-        if (toConvert[i] == ' ')
-        {
-            if (toConvert[i+1] != ' ' && toConvert[i+1] != '\0')
-            {
-                dest[index++] = ' ';
-                if (!inGroup)
-                {
-                    dest[index++] = prefix[0];
-                    dest[index++] = prefix[1];
-                }
-            }
-        }
-        else
-        {
-            dest[index++] = toConvert[i];
-        }
-    }
-    dest[index] = '\0';
 }
 
 void CommentStyleDialog::retrieve(TCHAR *dest, const TCHAR *toRetrieve, TCHAR *prefix) const
@@ -767,53 +720,6 @@ INT_PTR CALLBACK SymbolsStyleDialog::run_dlgProc(UINT Message, WPARAM wParam, LP
     }
 }
 
-void SymbolsStyleDialog::convertTo(TCHAR *dest, const TCHAR *toConvert, TCHAR *prefix) const
-{
-    bool inGroup = false;
-    int index = lstrlen(dest);
-    if (index > 0)
-        dest[index++] = ' ';
-    dest[index++] = prefix[0];
-    dest[index++] = prefix[1];
-
-    for (size_t i = 0, len = lstrlen(toConvert); i < len ; ++i)
-    {
-        if (i == 0 && toConvert[i] == '(' && toConvert[i+1] == '(')
-        {
-            inGroup = true;
-        }
-        else if (toConvert[i] == ' ' && toConvert[i+1] == '(' && toConvert[i+2] == '(')
-        {
-            inGroup = true;
-            dest[index++] = ' ';
-            dest[index++] = prefix[0];
-            dest[index++] = prefix[1];
-            ++i;    // skip space
-        }
-        if (inGroup && toConvert[i-1] == ')' && toConvert[i-2] == ')')
-        {
-            inGroup = false;
-        }
-
-        if (toConvert[i] == ' ')
-        {
-            if (toConvert[i+1] != ' ' && toConvert[i+1] != '\0')
-            {
-                dest[index++] = ' ';
-                if (!inGroup)
-                {
-                    dest[index++] = prefix[0];
-                    dest[index++] = prefix[1];
-                }
-            }
-        }
-        else
-        {
-            dest[index++] = toConvert[i];
-        }
-    }
-    dest[index] = '\0';
-}
 
 void SymbolsStyleDialog::retrieve(TCHAR *dest, const TCHAR *toRetrieve, TCHAR *prefix) const
 {
@@ -927,7 +833,7 @@ void SymbolsStyleDialog::setKeywords2List(int id)
 
                 int dd = list[i];
                 ::GetDlgItemText(_hSelf, dd, buffer, max_char);
-                convertTo(newList, buffer, intBuffer);
+                convertTo(newList, max_char, buffer, intBuffer);
             }
 
             lstrcpy(_pUserLang->_keywordLists[SCE_USER_KWLIST_DELIMITERS], newList);

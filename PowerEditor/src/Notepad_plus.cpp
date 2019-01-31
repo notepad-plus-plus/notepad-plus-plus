@@ -3952,9 +3952,10 @@ void Notepad_plus::showFunctionComp()
 static generic_string extractSymbol(TCHAR firstChar, TCHAR secondChar, const TCHAR *str2extract)
 {
 	bool found = false;
-	TCHAR extracted[128] = TEXT("");
+	const size_t extractedLen = 128;
+	TCHAR extracted[extractedLen] = {'\0'};
 
-	for (size_t i = 0, j = 0, len = lstrlen(str2extract) ; i < len ; ++i)
+	for (size_t i = 0, j = 0, len = lstrlen(str2extract) ; i < len && j < extractedLen - 1; ++i)
 	{
 		if (found)
 		{
@@ -3964,7 +3965,6 @@ static generic_string extractSymbol(TCHAR firstChar, TCHAR secondChar, const TCH
 				return generic_string(extracted);
 			}
 			extracted[j++] = str2extract[i];
-
 		}
 		else
 		{

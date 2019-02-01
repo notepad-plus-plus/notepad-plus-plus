@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<NotepadPlus>
+    <Languages>
+        <Language name="TlDat" ext="dat hie layout template animation" />
+    </Languages>
+    <LexerStyles>
+        <LexerType name="TlDat" desc="TlDat" ext="" excluded="no">
+            <WordsStyle name="Default" styleID="0" fgColor="808080" bgColor="000000" fontName="" fontStyle="0" fontSize="" colorStyle="0" />
+            <WordsStyle name="Open Tag" styleID="1" fgColor="FFFF80" bgColor="000000" fontName="" fontStyle="1" fontSize="" colorStyle="1" />
+            <WordsStyle name="Close Tag" styleID="2" fgColor="FFFF80" bgColor="000000" fontName="" fontStyle="1" fontSize="" colorStyle="1" />
+            <WordsStyle name="Field Type" styleID="3" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="0" fontSize="" colorStyle="1" />
+            <WordsStyle name="Field Name" styleID="4" fgColor="99CC99" bgColor="000000" fontName="" fontStyle="0" fontSize="" colorStyle="1" />
+            <WordsStyle name="Field Value" styleID="5" fgColor="FFFF00" bgColor="000000" fontName="" fontStyle="0" fontSize="" colorStyle="1" />
+            <WordsStyle name="Field Value - Bool" styleID="6" fgColor="0080FF" bgColor="000000" fontName="" fontStyle="2" fontSize="" colorStyle="1" />
+            <WordsStyle name="Field Value - Number" styleID="7" fgColor="FF00FF" bgColor="000000" fontName="" fontStyle="0" fontSize="" colorStyle="1" />
+            <WordsStyle name="Field Value - Note" styleID="8" fgColor="808080" bgColor="000000" fontName="" fontStyle="0" fontSize="" colorStyle="0" />
+        </LexerType>
+    </LexerStyles>
+</NotepadPlus>

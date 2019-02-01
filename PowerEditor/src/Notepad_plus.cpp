@@ -1406,6 +1406,23 @@ void Notepad_plus::removeEmptyLine(bool isBlankContained)
 	_findReplaceDlg.processAll(ProcessReplaceAll, &env, true);
 }
 
+void Notepad_plus::removeDuplicateLines()
+{
+	// whichPart : line head or line tail
+	FindOption env;
+
+	env._str2Search = TEXT("^(.*\\r?\\n)(\\1)+");
+	env._str4Replace = TEXT("\\1");
+    env._searchType = FindRegex;
+	_findReplaceDlg.processAll(ProcessReplaceAll, &env, true);
+
+	// remove the last line if it's a duplicate line.
+	env._str2Search = TEXT("^(.+)\\r?\\n(\\1)");
+	env._str4Replace = TEXT("\\1");
+    env._searchType = FindRegex;
+	_findReplaceDlg.processAll(ProcessReplaceAll, &env, true);
+}
+
 void Notepad_plus::getMatchedFileNames(const TCHAR *dir, const vector<generic_string> & patterns, vector<generic_string> & fileNames, bool isRecursive, bool isInHiddenDir)
 {
 	generic_string dirFilter(dir);

@@ -930,12 +930,13 @@ void UserDefineDialog::enableLangAndControlsBy(size_t index)
 
 void UserDefineDialog::updateDlg()
 {
-    if (!_isDirty)
-    {
-		int i = static_cast<int32_t>(::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETCURSEL, 0, 0));
-        if (i > 0)
-            _isDirty = true;
-    }
+	int i = static_cast<int32_t>(::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETCURSEL, 0, 0));
+	if (i > 0) // the first menu item is generic UDL
+	{
+		NppParameters *pNppParam = NppParameters::getInstance();
+		pNppParam->setUdlXmlDirtyFromIndex(i - 1);
+	}
+
     ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_IGNORECASE_CHECK, BM_SETCHECK, _pUserLang->_isCaseIgnored, 0);
     _folderStyleDlg.updateDlg();
     _keyWordsStyleDlg.updateDlg();
@@ -1265,7 +1266,6 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
                             auto i = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETCURSEL, 0, 0);
                             reloadLangCombo();
                             ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_SETCURSEL, i, 0);
-                            _isDirty = true;
                             printStr(TEXT("Import successful."));
                         }
                         else

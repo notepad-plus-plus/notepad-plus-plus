@@ -829,11 +829,6 @@ int FileDialog::_dialogFileBoxId = (NppParameters::getInstance())->getWinVersion
 
 NppParameters::NppParameters()
 {
-	// init import UDL array
-	_nbImportedULD = 0;
-	for (int i = 0 ; i < NB_MAX_IMPORTED_UDL ; ++i)
-		_importedULD[i] = nullptr;
-
 	//Get windows version
 	_winVersion = getWindowsVersion();
 
@@ -1229,8 +1224,12 @@ bool NppParameters::load()
 	//-----------------------------------//
 	// userDefineLang.xml : for per user //
 	//-----------------------------------//
-	_userDefineLangPath = _userPath;
+	generic_string userDefineLangsFolderPath = _userDefineLangPath = _userPath;
 	PathAppend(_userDefineLangPath, TEXT("userDefineLang.xml"));
+	PathAppend(userDefineLangsFolderPath, TEXT("userDefineLangs"));
+
+	std::vector<generic_string> udlFiles;
+	getFilesInFolder(udlFiles, TEXT("*.xml"), userDefineLangsFolderPath);
 
 	_pXmlUserLangDoc = new TiXmlDocument(_userDefineLangPath);
 	loadOkay = _pXmlUserLangDoc->LoadFile();
@@ -1241,7 +1240,27 @@ bool NppParameters::load()
 		isAllLaoded = false;
 	}
 	else
-		getUserDefineLangsFromXmlTree();
+	{
+		auto r = addUserDefineLangsFromXmlTree(_pXmlUserLangDoc);
+		if (r.second - r.first > 0)
+			_pXmlUserLangsDoc.push_back(UdlXmlFileState(_pXmlUserLangDoc, false, r));
+	}
+
+	for (const auto& i : udlFiles)
+	{
+		auto udlDoc = new TiXmlDocument(i);
+		loadOkay = udlDoc->LoadFile();
+		if (!loadOkay)
+		{
+			delete udlDoc;
+		}
+		else
+		{
+			auto r = addUserDefineLangsFromXmlTree(udlDoc);
+			if (r.second - r.first > 0)
+				_pXmlUserLangsDoc.push_back(UdlXmlFileState(udlDoc, false, r));
+		}
+	}
 
 	//----------------------------------------------//
 	// nativeLang.xml : for per user				//
@@ -1402,14 +1421,12 @@ void NppParameters::destroyInstance()
 	delete _pXmlDoc;
 	delete _pXmlUserDoc;
 	delete _pXmlUserStylerDoc;
-	delete _pXmlUserLangDoc;
-
-	for (int i = 0 ; i < _nbImportedULD ; ++i)
+	
+	//delete _pXmlUserLangDoc; will be deleted in the vector
+	for (auto l : _pXmlUserLangsDoc)
 	{
-		delete _importedULD[i];
-		_importedULD[i] = nullptr;
+		delete l._udlXmlDoc;
 	}
-	_nbImportedULD = 0;
 
 	delete _pXmlNativeLangDocA;
 	delete _pXmlToolIconsDoc;
@@ -1661,14 +1678,14 @@ bool NppParameters::getUserParametersFromXmlTree()
 }
 
 
-bool NppParameters::getUserDefineLangsFromXmlTree(TiXmlDocument *tixmldoc)
+std::pair<unsigned char, unsigned char> NppParameters::addUserDefineLangsFromXmlTree(TiXmlDocument *tixmldoc)
 {
 	if (!tixmldoc)
-		return false;
+		return std::pair<unsigned char, unsigned char>(0, 0);
 
 	TiXmlNode *root = tixmldoc->FirstChild(TEXT("NotepadPlus"));
 	if (!root)
-		return false;
+		return std::pair<unsigned char, unsigned char>(0, 0);
 
 	return feedUserLang(root);
 }
@@ -2588,10 +2605,9 @@ bool NppParameters::getShortcuts(TiXmlNode *node, Shortcut & sc)
 }
 
 
-bool NppParameters::feedUserLang(TiXmlNode *node)
+std::pair<unsigned char, unsigned char> NppParameters::feedUserLang(TiXmlNode *node)
 {
-	bool isEverythingOK = true;
-	bool hasFoundElement = false;
+	int iBegin = _nbUserLang;
 
 	for (TiXmlNode *childNode = node->FirstChildElement(TEXT("UserLang"));
 		childNode && (_nbUserLang < NB_MAX_USER_LANG);
@@ -2600,7 +2616,6 @@ bool NppParameters::feedUserLang(TiXmlNode *node)
 		const TCHAR *name = (childNode->ToElement())->Attribute(TEXT("name"));
 		const TCHAR *ext = (childNode->ToElement())->Attribute(TEXT("ext"));
 		const TCHAR *udlVersion = (childNode->ToElement())->Attribute(TEXT("udlVersion"));
-		hasFoundElement = true;
 		try {
 			if (!name || !name[0] || !ext)
 				throw std::runtime_error("NppParameters::feedUserLang : UserLang name is missing");
@@ -2639,26 +2654,29 @@ bool NppParameters::feedUserLang(TiXmlNode *node)
 
 		} catch (std::exception e) {
 			delete _userLangArray[--_nbUserLang];
-			isEverythingOK = false;
 		}
 	}
-	if (isEverythingOK)
-		isEverythingOK = hasFoundElement;
-	return isEverythingOK;
+	int iEnd = _nbUserLang;
+	return pair<unsigned char, unsigned char>(iBegin, iEnd);
 }
 
 bool NppParameters::importUDLFromFile(generic_string sourceFile)
 {
-	if (_nbImportedULD >= NB_MAX_IMPORTED_UDL)
-		return false;
-
 	TiXmlDocument *pXmlUserLangDoc = new TiXmlDocument(sourceFile);
 	bool loadOkay = pXmlUserLangDoc->LoadFile();
 	if (loadOkay)
 	{
-		loadOkay = getUserDefineLangsFromXmlTree(pXmlUserLangDoc);
+		auto r = addUserDefineLangsFromXmlTree(pXmlUserLangDoc);
+		loadOkay = (r.second - r.first) != 0;
+		if (loadOkay)
+		{
+			_pXmlUserLangsDoc.push_back(UdlXmlFileState(nullptr, true, r));
+
+			// imported UDL from xml file will be added into default udl, so we should make default udl dirty
+			setUdlXmlDirtyFromXmlDoc(_pXmlUserLangDoc);
+		}
 	}
-	_importedULD[_nbImportedULD++] = pXmlUserLangDoc;
+	delete pXmlUserLangDoc;
 	return loadOkay;
 }
 
@@ -2863,33 +2881,97 @@ bool NppParameters::writeSettingsFilesOnCloudForThe1stTime(const generic_string 
 	return true;
 }
 
+/*
+Default UDL + Created + Imported
 
-void NppParameters::writeUserDefinedLang()
+*/
+void NppParameters::writeDefaultUDL()
 {
-	if (!_pXmlUserLangDoc)
+	bool firstCleanDone = false;
+	for (auto udl : _pXmlUserLangsDoc)
 	{
-		//do the treatment
-		_pXmlUserLangDoc = new TiXmlDocument(_userDefineLangPath);
+		if (!_pXmlUserLangDoc)
+		{
+			_pXmlUserLangDoc = new TiXmlDocument(_userDefineLangPath);
+		}
+
+		bool toDelete = (udl._indexRange.second - udl._indexRange.first) == 0;
+		if ((!udl._udlXmlDoc || udl._udlXmlDoc == _pXmlUserLangDoc) && udl._isDirty && !toDelete) // new created or/and imported UDL plus _pXmlUserLangDoc (if exist)
+		{
+			TiXmlNode *root = _pXmlUserLangDoc->FirstChild(TEXT("NotepadPlus"));
+			if (root && !firstCleanDone)
+			{
+				_pXmlUserLangDoc->RemoveChild(root);
+				_pXmlUserLangDoc->InsertEndChild(TiXmlElement(TEXT("NotepadPlus")));
+				firstCleanDone = true;
+			}
+
+			root = _pXmlUserLangDoc->FirstChild(TEXT("NotepadPlus"));
+
+			for (int i = udl._indexRange.first; i < udl._indexRange.second; ++i)
+			{
+				insertUserLang2Tree(root, _userLangArray[i]);
+			}
+		}
 	}
 
-	//before remove the branch, we allocate and copy the TCHAR * which will be destroyed
+	if (firstCleanDone)
+	{
+		_pXmlUserLangDoc->SaveFile();
+	}
+	else
+	{
+		if (::PathFileExists(_userDefineLangPath.c_str()))
+		{
+			::DeleteFile(_userDefineLangPath.c_str());
+		}
+	}
+}
+
+void NppParameters::writeNonDefaultUDL()
+{
+	for (auto udl : _pXmlUserLangsDoc)
+	{
+		if (udl._isDirty && udl._udlXmlDoc != nullptr && udl._udlXmlDoc != _pXmlUserLangDoc)
+		{
+			if (udl._indexRange.second == udl._indexRange.first) // no more udl for this xmldoc container
+			{
+				// no need to save, delete file
+				const TCHAR* docFilePath = udl._udlXmlDoc->Value();
+				if (docFilePath && ::PathFileExists(docFilePath))
+				{
+					::DeleteFile(docFilePath);
+				}
+			}
+			else
+			{
+				TiXmlNode *root = udl._udlXmlDoc->FirstChild(TEXT("NotepadPlus"));
+				if (root)
+				{
+					udl._udlXmlDoc->RemoveChild(root);
+				}
+
+				udl._udlXmlDoc->InsertEndChild(TiXmlElement(TEXT("NotepadPlus")));
+
+				root = udl._udlXmlDoc->FirstChild(TEXT("NotepadPlus"));
+
+				for (int i = udl._indexRange.first; i < udl._indexRange.second; ++i)
+				{
+					insertUserLang2Tree(root, _userLangArray[i]);
+				}
+				udl._udlXmlDoc->SaveFile();
+			}
+		}
+	}
+}
+
+void NppParameters::writeNeed2SaveUDL()
+{
 	stylerStrOp(DUP);
 
-	TiXmlNode *root = _pXmlUserLangDoc->FirstChild(TEXT("NotepadPlus"));
-	if (root)
-	{
-		_pXmlUserLangDoc->RemoveChild(root);
-	}
-
-	_pXmlUserLangDoc->InsertEndChild(TiXmlElement(TEXT("NotepadPlus")));
-
-	root = _pXmlUserLangDoc->FirstChild(TEXT("NotepadPlus"));
-
-	for (int i = 0 ; i < _nbUserLang ; ++i)
-	{
-		insertUserLang2Tree(root, _userLangArray[i]);
-	}
-	_pXmlUserLangDoc->SaveFile();
+	writeDefaultUDL();
+	writeNonDefaultUDL();
+	
 	stylerStrOp(FREE);
 }
 
@@ -3142,11 +3224,18 @@ int NppParameters::addUserLangToEnd(const UserLangContainer & userLang, const TC
 {
 	if (isExistingUserLangName(newName))
 		return -1;
-
+	unsigned char iBegin = _nbUserLang;
 	_userLangArray[_nbUserLang] = new UserLangContainer();
 	*(_userLangArray[_nbUserLang]) = userLang;
 	_userLangArray[_nbUserLang]->_name = newName;
 	++_nbUserLang;
+	unsigned char iEnd = _nbUserLang;
+
+	_pXmlUserLangsDoc.push_back(UdlXmlFileState(nullptr, true, make_pair(iBegin, iEnd)));
+
+	// imported UDL from xml file will be added into default udl, so we should make default udl dirty
+	setUdlXmlDirtyFromXmlDoc(_pXmlUserLangDoc);
+
 	return _nbUserLang-1;
 }
 
@@ -3160,6 +3249,8 @@ void NppParameters::removeUserLang(size_t index)
 	for (int32_t i = static_cast<int32_t>(index); i < (_nbUserLang - 1); ++i)
 		_userLangArray[i] = _userLangArray[i+1];
 	_nbUserLang--;
+
+	removeIndexFromXmlUdls(index);
 }
 
 
@@ -6625,6 +6716,74 @@ void NppParameters::safeWow64EnableWow64FsRedirection(BOOL Wow64FsEnableRedirect
 	}
 }
 
+void NppParameters::setUdlXmlDirtyFromIndex(size_t i)
+{
+	for (auto& uxfs : _pXmlUserLangsDoc)
+	{
+		if (i >= uxfs._indexRange.first && i < uxfs._indexRange.second)
+		{
+			uxfs._isDirty = true;
+			return;
+		}
+	}
+}
+
+/*
+Considering we have done:
+load default UDL:  3 languges
+load a UDL file:   1 languge
+load a UDL file:   2 languges
+create a UDL:      1 languge
+imported a UDL:    1 languge
+
+the evolution to remove UDL one by one:
+
+0[D1]                        0[D1]                        0[D1]                         [D1]                         [D1]
+1[D2]                        1[D2]                        1[D2]                        0[D2]                         [D2]
+2[D3]  [DUDL, <0,3>]         2[D3]  [DUDL, <0,3>]         2[D3]  [DUDL, <0,3>]         1[D3]  [DUDL, <0,2>]          [D3]  [DUDL, <0,0>]
+3[U1]  [NUDL, <3,4>]         3[U1]  [NUDL, <3,4>]         3[U1]  [NUDL, <3,4>]         2[U1]  [NUDL, <2,3>]          [U1]  [NUDL, <0,0>]
+4[U2]                        4[U2]                         [U2]                         [U2]                         [U2]
+5[U2]  [NUDL, <4,6>]         5[U2]  [NUDL, <4,6>]         4[U2]  [NUDL, <4,5>]         3[U2]  [NUDL, <3,4>]         0[U2]  [NUDL, <0,1>]
+6[C1]  [NULL, <6,7>]          [C1]  [NULL, <6,6>]          [C1]  [NULL, <5,5>]          [C1]  [NULL, <4,4>]          [C1]  [NULL, <1,1>]
+7[I1]  [NULL, <7,8>]         6[I1]  [NULL, <6,7>]         5[I1]  [NULL, <5,6>]         4[I1]  [NULL, <4,5>]         1[I1]  [NULL, <1,2>]
+*/
+void NppParameters::removeIndexFromXmlUdls(size_t i)
+{
+	bool isUpdateBegin = false;
+	for (auto& uxfs : _pXmlUserLangsDoc)
+	{
+		// Find index
+		if (!isUpdateBegin && (i >= uxfs._indexRange.first && i < uxfs._indexRange.second)) // found it
+		{
+			if (uxfs._indexRange.second > 0)
+				uxfs._indexRange.second -= 1;
+			uxfs._isDirty = true;
+
+			isUpdateBegin = true;
+		}
+
+		// Update
+		else if (isUpdateBegin)
+		{
+			if (uxfs._indexRange.first > 0)
+				uxfs._indexRange.first -= 1;
+			if (uxfs._indexRange.second > 0)
+				uxfs._indexRange.second -= 1;
+		}
+	}
+}
+
+void NppParameters::setUdlXmlDirtyFromXmlDoc(const TiXmlDocument* xmlDoc)
+{
+	for (auto& uxfs : _pXmlUserLangsDoc)
+	{
+		if (xmlDoc == uxfs._udlXmlDoc)
+		{
+			uxfs._isDirty = true;
+			return;
+		}
+	}
+}
 
 Date::Date(const TCHAR *dateStr)
 {

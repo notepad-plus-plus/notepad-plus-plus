@@ -196,3 +196,5 @@ std::wstring s2ws(const std::string& str);
 std::string ws2s(const std::wstring& wstr);
 
 bool deleteFileOrFolder(const generic_string& f2delete);
+
+void getFilesInFolder(std::vector<generic_string>& files, const generic_string& extTypeFilter, const generic_string& inFolder);

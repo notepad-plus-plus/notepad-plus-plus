@@ -928,8 +928,7 @@ void Notepad_plus::saveDockingParams()
 
 void Notepad_plus::saveUserDefineLangs()
 {
-	if (ScintillaEditView::getUserDefineDlg()->isDirty())
-		(NppParameters::getInstance())->writeUserDefinedLang();
+	(NppParameters::getInstance())->writeNeed2SaveUDL();
 }
 
 

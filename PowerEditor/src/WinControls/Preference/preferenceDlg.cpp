@@ -258,12 +258,19 @@ int32_t PreferenceDlg::getIndexFromName(const TCHAR *name) const
 	return -1;
 }
 
-void PreferenceDlg::setListSelection(size_t currentSel) const
+bool PreferenceDlg::setListSelection(size_t currentSel) const
 {
 	// Stupid LB API doesn't allow LB_SETSEL to be used on single select listbox, so we do it in a hard way
-	TCHAR selStr[256];
+	const size_t selStrLenMax = 255;
+	TCHAR selStr[selStrLenMax + 1];
+	auto lbTextLen = ::SendMessage(_hSelf, LB_GETTEXTLEN, currentSel, 0);
+
+	if (lbTextLen > selStrLenMax)
+		return false;
+
 	::SendDlgItemMessage(_hSelf, IDC_LIST_DLGTITLE, LB_GETTEXT, currentSel, reinterpret_cast<LPARAM>(selStr));
 	::SendDlgItemMessage(_hSelf, IDC_LIST_DLGTITLE, LB_SELECTSTRING, currentSel, reinterpret_cast<LPARAM>(selStr));
+	return true;
 }
 
 bool PreferenceDlg::renameDialogTitle(const TCHAR *internalName, const TCHAR *newName)
@@ -1755,7 +1762,12 @@ INT_PTR CALLBACK LangMenuDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					if (iRemove == -1)
 						return TRUE;
 
-					TCHAR s[32];
+					const size_t sL = 31;
+					TCHAR s[sL + 1];
+					auto lbTextLen = ::SendDlgItemMessage(_hSelf, list2Remove, LB_GETTEXTLEN, iRemove, 0);
+					if (lbTextLen > sL)
+						return TRUE;
+
 					::SendDlgItemMessage(_hSelf, list2Remove, LB_GETTEXT, iRemove, reinterpret_cast<LPARAM>(s));
 
 					LangMenuItem lmi = pSrcLst->at(iRemove);

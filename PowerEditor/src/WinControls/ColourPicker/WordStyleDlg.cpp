@@ -538,7 +538,7 @@ void WordStyleDlg::updateFontSize()
 	Style & style = getCurrentStyler();
 	auto iFontSizeSel = ::SendMessage(_hFontSizeCombo, CB_GETCURSEL, 0, 0);
 
-	TCHAR intStr[5];
+	TCHAR intStr[32];
 	if (iFontSizeSel != 0)
 	{
 		::SendMessage(_hFontSizeCombo, CB_GETLBTEXT, iFontSizeSel, reinterpret_cast<LPARAM>(intStr));

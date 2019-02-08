@@ -532,7 +532,8 @@ INT_PTR CALLBACK BarsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 								{
 									LocalizationSwitcher & localizationSwitcher = pNppParam->getLocalizationSwitcher();
 									auto index = ::SendDlgItemMessage(_hSelf, IDC_COMBO_LOCALIZATION, CB_GETCURSEL, 0, 0);
-									wchar_t langName[MAX_PATH];
+									auto cbTextLen = ::SendMessage(_hSelf, CB_GETLBTEXTLEN, index, 0);
+									TCHAR * langName = new TCHAR[cbTextLen + 1];
 									::SendDlgItemMessage(_hSelf, IDC_COMBO_LOCALIZATION, CB_GETLBTEXT, index, reinterpret_cast<LPARAM>(langName));
 									if (langName[0])
 									{
@@ -549,6 +550,8 @@ INT_PTR CALLBACK BarsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 											::InvalidateRect(_hParent, NULL, TRUE);
 										}
 									}
+
+									delete[] langName;
 								}
 								return TRUE;
 								default:
@@ -2306,7 +2309,7 @@ INT_PTR CALLBACK PrintSettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 					case IDC_COMBO_HFONTSIZE :
 					case IDC_COMBO_FFONTSIZE :
 					{
-						TCHAR intStr[5];
+						TCHAR intStr[32];
 						::SendDlgItemMessage(_hSelf, LOWORD(wParam), CB_GETLBTEXT, iSel, reinterpret_cast<LPARAM>(intStr));
 
 						int *pVal = (LOWORD(wParam) == IDC_COMBO_HFONTSIZE)?&(nppGUI._printSettings._headerFontSize):&(nppGUI._printSettings._footerFontSize);

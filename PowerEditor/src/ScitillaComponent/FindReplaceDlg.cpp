@@ -401,6 +401,7 @@ void FindReplaceDlg::saveFindHistory()
 
 int FindReplaceDlg::saveComboHistory(int id, int maxcount, vector<generic_string> & strings, bool saveEmpty)
 {
+	TCHAR text[FINDREPLACE_MAXLENGTH];
 	HWND hCombo = ::GetDlgItem(_hSelf, id);
 	int count = static_cast<int32_t>(::SendMessage(hCombo, CB_GETCOUNT, 0, 0));
 	count = min(count, maxcount);
@@ -421,11 +422,11 @@ int FindReplaceDlg::saveComboHistory(int id, int maxcount, vector<generic_string
     for (int i = 0 ; i < count ; ++i)
 	{
 		auto cbTextLen = ::SendMessage(hCombo, CB_GETLBTEXTLEN, i, 0);
-		TCHAR * text = new TCHAR[cbTextLen + 1];
-
-		::SendMessage(hCombo, CB_GETLBTEXT, i, reinterpret_cast<LPARAM>(text));
-        strings.push_back(generic_string(text));
-		delete[] text;
+		if (cbTextLen <= FINDREPLACE_MAXLENGTH - 1)
+		{
+			::SendMessage(hCombo, CB_GETLBTEXT, i, reinterpret_cast<LPARAM>(text));
+			strings.push_back(generic_string(text));
+		}
 	}
     return count;
 }

@@ -1139,8 +1139,12 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
                         if (result == IDYES)
                         {
                             auto i = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETCURSEL, 0, 0);
-							auto cbTextLen = ::SendMessage(_hSelf, CB_GETLBTEXTLEN, i, 0);
-							TCHAR * langName = new TCHAR[cbTextLen + 1];
+							const size_t langNameLen = 256;
+							TCHAR langName[langNameLen + 1];
+							auto cbTextLen = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETLBTEXTLEN, i, 0);
+							if (cbTextLen > langNameLen)
+								return TRUE;
+
 							::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETLBTEXT, i, reinterpret_cast<LPARAM>(langName));
 
                             //remove current language from combobox
@@ -1158,16 +1162,18 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
 							::RemoveMenu(subMenu, static_cast<UINT>(IDM_LANG_USER + i), MF_BYCOMMAND);
                             ::DrawMenuBar(hNpp);
 							::SendMessage(_hParent, WM_REMOVE_USERLANG, 0, reinterpret_cast<LPARAM>(langName));
-
-							delete[] langName;
                         }
                         return TRUE;
                     }
                     case IDC_RENAME_BUTTON :
                     {
                         auto i = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETCURSEL, 0, 0);
+						const size_t langNameLen = 256;
+						TCHAR langName[langNameLen + 1];
 						auto cbTextLen = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETLBTEXTLEN, i, 0);
-						TCHAR * langName = new TCHAR[cbTextLen + 1];
+						if (cbTextLen > langNameLen)
+							return TRUE;
+
 						::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETLBTEXT, i, reinterpret_cast<LPARAM>(langName));
 
                         StringDlg strDlg;
@@ -1203,8 +1209,6 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
                             ::ModifyMenu(hSubM, static_cast<UINT>(IDM_LANG_USER + i), MF_BYCOMMAND, IDM_LANG_USER + i, newName);
                             ::DrawMenuBar(hNpp);
 							::SendMessage(_hParent, WM_RENAME_USERLANG, reinterpret_cast<WPARAM>(newName), reinterpret_cast<LPARAM>(langName));
-
-							delete[] langName;
                         }
 
                         return TRUE;
@@ -1589,9 +1593,14 @@ INT_PTR CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPAR
                 auto i = ::SendDlgItemMessage(hwnd, LOWORD(wParam), CB_GETCURSEL, 0, 0);
                 if (LOWORD(wParam) == IDC_STYLER_COMBO_FONT_SIZE)
                 {
-                    TCHAR intStr[32];
                     if (i != 0)
                     {
+						const size_t intStrLen = 3;
+						TCHAR intStr[intStrLen];
+						auto lbTextLen = ::SendDlgItemMessage(hwnd, LOWORD(wParam), CB_GETLBTEXTLEN, i, 0);
+						if (lbTextLen > intStrLen - 1)
+							return TRUE;
+
 						::SendDlgItemMessage(hwnd, LOWORD(wParam), CB_GETLBTEXT, i, reinterpret_cast<LPARAM>(intStr));
                         if ((!intStr) || (!intStr[0]))
                             style._fontSize = -1;

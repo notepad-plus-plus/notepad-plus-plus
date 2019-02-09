@@ -543,10 +543,17 @@ void WordStyleDlg::updateFontSize()
 	Style & style = getCurrentStyler();
 	auto iFontSizeSel = ::SendMessage(_hFontSizeCombo, CB_GETCURSEL, 0, 0);
 
-	TCHAR intStr[32];
 	if (iFontSizeSel != 0)
 	{
+		const size_t intStrLen = 3;
+		TCHAR intStr[intStrLen];
+
+		auto lbTextLen = ::SendMessage(_hFontSizeCombo, CB_GETLBTEXTLEN, iFontSizeSel, 0);
+		if (lbTextLen >= intStrLen)
+			return;
+
 		::SendMessage(_hFontSizeCombo, CB_GETLBTEXT, iFontSizeSel, reinterpret_cast<LPARAM>(intStr));
+
 		if (!intStr[0])
 			style._fontSize = STYLE_NOT_USED;
 		else
@@ -783,9 +790,10 @@ void WordStyleDlg::setVisualFromStyleList()
 
 	//-- font size
 	isEnable = false;
-	TCHAR intStr[5] = TEXT("");
+	const size_t intStrLen = 3;
+	TCHAR intStr[intStrLen];
 	LRESULT iFontSize = 0;
-	if (style._fontSize != STYLE_NOT_USED)
+	if (style._fontSize != STYLE_NOT_USED && style._fontSize < 100) // style._fontSize has only 2 digits
 	{
 		wsprintf(intStr, TEXT("%d"), style._fontSize);
 		iFontSize = ::SendMessage(_hFontSizeCombo, CB_FINDSTRING, 1, reinterpret_cast<LPARAM>(intStr));

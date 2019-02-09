@@ -2888,14 +2888,17 @@ Default UDL + Created + Imported
 void NppParameters::writeDefaultUDL()
 {
 	bool firstCleanDone = false;
+	std::vector<bool> deleteState;
 	for (auto udl : _pXmlUserLangsDoc)
 	{
 		if (!_pXmlUserLangDoc)
 		{
 			_pXmlUserLangDoc = new TiXmlDocument(_userDefineLangPath);
+			_pXmlUserLangDoc->InsertEndChild(TiXmlElement(TEXT("NotepadPlus")));
 		}
 
 		bool toDelete = (udl._indexRange.second - udl._indexRange.first) == 0;
+		deleteState.push_back(toDelete);
 		if ((!udl._udlXmlDoc || udl._udlXmlDoc == _pXmlUserLangDoc) && udl._isDirty && !toDelete) // new created or/and imported UDL plus _pXmlUserLangDoc (if exist)
 		{
 			TiXmlNode *root = _pXmlUserLangDoc->FirstChild(TEXT("NotepadPlus"));
@@ -2915,17 +2918,28 @@ void NppParameters::writeDefaultUDL()
 		}
 	}
 
-	if (firstCleanDone)
+	bool deleteAll = true;
+	for (bool del : deleteState)
+	{
+		if (!del)
+		{
+			deleteAll = false;
+			break;
+		}
+	}
+
+	if (firstCleanDone) // at least one udl is for saving, the udl to be deleted are ignored
 	{
 		_pXmlUserLangDoc->SaveFile();
 	}
-	else
+	else if (deleteAll)
 	{
 		if (::PathFileExists(_userDefineLangPath.c_str()))
 		{
 			::DeleteFile(_userDefineLangPath.c_str());
 		}
 	}
+	// else nothing to change, do nothing
 }
 
 void NppParameters::writeNonDefaultUDL()

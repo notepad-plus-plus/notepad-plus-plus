@@ -928,8 +928,7 @@ void Notepad_plus::saveDockingParams()
 
 void Notepad_plus::saveUserDefineLangs()
 {
-	if (ScintillaEditView::getUserDefineDlg()->isDirty())
-		(NppParameters::getInstance())->writeUserDefinedLang();
+	(NppParameters::getInstance())->writeNeed2SaveUDL();
 }
 
 
@@ -1403,6 +1402,23 @@ void Notepad_plus::removeEmptyLine(bool isBlankContained)
 	{
 		env._str2Search = TEXT("(\\r\\n|\\r|\\n)^$");
 	}
+	_findReplaceDlg.processAll(ProcessReplaceAll, &env, true);
+}
+
+void Notepad_plus::removeDuplicateLines()
+{
+	// whichPart : line head or line tail
+	FindOption env;
+
+	env._str2Search = TEXT("^(.*\\r?\\n)(\\1)+");
+	env._str4Replace = TEXT("\\1");
+    env._searchType = FindRegex;
+	_findReplaceDlg.processAll(ProcessReplaceAll, &env, true);
+
+	// remove the last line if it's a duplicate line.
+	env._str2Search = TEXT("^(.+)\\r?\\n(\\1)");
+	env._str4Replace = TEXT("\\1");
+    env._searchType = FindRegex;
 	_findReplaceDlg.processAll(ProcessReplaceAll, &env, true);
 }
 
@@ -3952,9 +3968,10 @@ void Notepad_plus::showFunctionComp()
 static generic_string extractSymbol(TCHAR firstChar, TCHAR secondChar, const TCHAR *str2extract)
 {
 	bool found = false;
-	TCHAR extracted[128] = TEXT("");
+	const size_t extractedLen = 128;
+	TCHAR extracted[extractedLen] = {'\0'};
 
-	for (size_t i = 0, j = 0, len = lstrlen(str2extract) ; i < len ; ++i)
+	for (size_t i = 0, j = 0, len = lstrlen(str2extract) ; i < len && j < extractedLen - 1; ++i)
 	{
 		if (found)
 		{
@@ -3964,7 +3981,6 @@ static generic_string extractSymbol(TCHAR firstChar, TCHAR secondChar, const TCH
 				return generic_string(extracted);
 			}
 			extracted[j++] = str2extract[i];
-
 		}
 		else
 		{

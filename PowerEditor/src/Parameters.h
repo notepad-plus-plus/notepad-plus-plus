@@ -1267,15 +1267,20 @@ private:
 };
 
 
+struct UdlXmlFileState final {
+	TiXmlDocument* _udlXmlDoc = nullptr;
+	bool _isDirty = false;
+	std::pair<unsigned char, unsigned char> _indexRange;
+
+	UdlXmlFileState(TiXmlDocument* doc, bool isDirty, std::pair<unsigned char, unsigned char> range) : _udlXmlDoc(doc), _isDirty(isDirty), _indexRange(range) {};
+};
+
 const int NB_LANG = 100;
 const bool DUP = true;
 const bool FREE = false;
 
 const int RECENTFILES_SHOWFULLPATH = -1;
 const int RECENTFILES_SHOWONLYFILENAME = 0;
-
-
-
 
 class NppParameters final
 {
@@ -1414,7 +1419,9 @@ public:
 	void getExternalLexerFromXmlTree(TiXmlDocument *doc);
 	std::vector<TiXmlDocument *> * getExternalLexerDoc() { return &_pXmlExternalLexerDoc; };
 
-	void writeUserDefinedLang();
+	void writeDefaultUDL();
+	void writeNonDefaultUDL();
+	void writeNeed2SaveUDL();
 	void writeShortcuts();
 	void writeSession(const Session & session, const TCHAR *fileName = NULL);
 	bool writeFindHistory();
@@ -1625,6 +1632,9 @@ public:
 
 	generic_string static getSpecialFolderLocation(int folderKind);
 
+	void setUdlXmlDirtyFromIndex(size_t i);
+	void setUdlXmlDirtyFromXmlDoc(const TiXmlDocument* xmlDoc);
+	void removeIndexFromXmlUdls(size_t i);
 
 private:
 	NppParameters();
@@ -1636,19 +1646,14 @@ private:
 	TiXmlDocument *_pXmlUserDoc = nullptr;
 	TiXmlDocument *_pXmlUserStylerDoc = nullptr;
 	TiXmlDocument *_pXmlUserLangDoc = nullptr;
+	std::vector<UdlXmlFileState> _pXmlUserLangsDoc;
 	TiXmlDocument *_pXmlToolIconsDoc = nullptr;
 	TiXmlDocument *_pXmlShortcutDoc = nullptr;
 	TiXmlDocument *_pXmlSessionDoc = nullptr;
 	TiXmlDocument *_pXmlBlacklistDoc = nullptr;
-	
-	TiXmlDocument *_importedULD[NB_MAX_IMPORTED_UDL];
 
 	TiXmlDocumentA *_pXmlNativeLangDocA = nullptr;
 	TiXmlDocumentA *_pXmlContextMenuDocA = nullptr;
-	
-	int _nbImportedULD;
-
-
 
 	std::vector<TiXmlDocument *> _pXmlExternalLexerDoc;
 
@@ -1669,7 +1674,7 @@ private:
 	FindHistory _findHistory;
 
 	UserLangContainer *_userLangArray[NB_MAX_USER_LANG];
-	int _nbUserLang = 0;
+	unsigned char _nbUserLang = 0; // won't be exceeded to 255;
 	generic_string _userDefineLangPath;
 	ExternalLangContainer *_externalLangArray[NB_MAX_EXTERNAL_LANG];
 	int _nbExternalLang = 0;
@@ -1769,11 +1774,7 @@ private:
 	void getLangKeywordsFromXmlTree();
 	bool getUserParametersFromXmlTree();
 	bool getUserStylersFromXmlTree();
-	bool getUserDefineLangsFromXmlTree(TiXmlDocument *tixmldoc);
-	bool getUserDefineLangsFromXmlTree()
-	{
-		return getUserDefineLangsFromXmlTree(_pXmlUserLangDoc);
-	}
+	std::pair<unsigned char, unsigned char> addUserDefineLangsFromXmlTree(TiXmlDocument *tixmldoc);
 
 	bool getShortcutsFromXmlTree();
 
@@ -1793,7 +1794,7 @@ private:
 	void feedProjectPanelsParameters(TiXmlNode *node);
 	void feedFileBrowserParameters(TiXmlNode *node);
 	bool feedStylerArray(TiXmlNode *node);
-	bool feedUserLang(TiXmlNode *node);
+	std::pair<unsigned char, unsigned char> feedUserLang(TiXmlNode *node);
 	void feedUserStyles(TiXmlNode *node);
 	void feedUserKeywordList(TiXmlNode *node);
 	void feedUserSettings(TiXmlNode *node);

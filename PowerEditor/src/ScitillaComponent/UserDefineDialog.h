@@ -353,7 +353,6 @@ public :
     void changeStyle();
     bool isDocked() const {return _status == DOCK;};
     void setDockStatus(bool isDocked) {_status = isDocked;};
-    bool isDirty() const {return _isDirty;};
     HWND getFolderHandle() const {
         return _folderStyleDlg.getHSelf();
     };
@@ -384,7 +383,6 @@ private :
     int _currentHight = 0;
     int _yScrollPos = 0;
     int _prevHightVal = 0;
-    bool _isDirty = false;
     void getActualPosSize() {
         ::GetWindowRect(_hSelf, &_dlgPos);
         _dlgPos.right -= _dlgPos.left;

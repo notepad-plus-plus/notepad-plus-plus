@@ -930,12 +930,13 @@ void UserDefineDialog::enableLangAndControlsBy(size_t index)
 
 void UserDefineDialog::updateDlg()
 {
-    if (!_isDirty)
-    {
-		int i = static_cast<int32_t>(::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETCURSEL, 0, 0));
-        if (i > 0)
-            _isDirty = true;
-    }
+	int i = static_cast<int32_t>(::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETCURSEL, 0, 0));
+	if (i > 0) // the first menu item is generic UDL
+	{
+		NppParameters *pNppParam = NppParameters::getInstance();
+		pNppParam->setUdlXmlDirtyFromIndex(i - 1);
+	}
+
     ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_IGNORECASE_CHECK, BM_SETCHECK, _pUserLang->_isCaseIgnored, 0);
     _folderStyleDlg.updateDlg();
     _keyWordsStyleDlg.updateDlg();
@@ -1138,7 +1139,12 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
                         if (result == IDYES)
                         {
                             auto i = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETCURSEL, 0, 0);
-                            TCHAR langName[256];
+							const size_t langNameLen = 256;
+							TCHAR langName[langNameLen + 1];
+							auto cbTextLen = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETLBTEXTLEN, i, 0);
+							if (cbTextLen > langNameLen)
+								return TRUE;
+
 							::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETLBTEXT, i, reinterpret_cast<LPARAM>(langName));
 
                             //remove current language from combobox
@@ -1161,8 +1167,13 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
                     }
                     case IDC_RENAME_BUTTON :
                     {
-                        TCHAR langName[256];
                         auto i = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETCURSEL, 0, 0);
+						const size_t langNameLen = 256;
+						TCHAR langName[langNameLen + 1];
+						auto cbTextLen = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETLBTEXTLEN, i, 0);
+						if (cbTextLen > langNameLen)
+							return TRUE;
+
 						::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETLBTEXT, i, reinterpret_cast<LPARAM>(langName));
 
                         StringDlg strDlg;
@@ -1265,7 +1276,6 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
                             auto i = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETCURSEL, 0, 0);
                             reloadLangCombo();
                             ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_SETCURSEL, i, 0);
-                            _isDirty = true;
                             printStr(TEXT("Import successful."));
                         }
                         else
@@ -1583,9 +1593,14 @@ INT_PTR CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPAR
                 auto i = ::SendDlgItemMessage(hwnd, LOWORD(wParam), CB_GETCURSEL, 0, 0);
                 if (LOWORD(wParam) == IDC_STYLER_COMBO_FONT_SIZE)
                 {
-                    TCHAR intStr[5];
                     if (i != 0)
                     {
+						const size_t intStrLen = 3;
+						TCHAR intStr[intStrLen];
+						auto lbTextLen = ::SendDlgItemMessage(hwnd, LOWORD(wParam), CB_GETLBTEXTLEN, i, 0);
+						if (lbTextLen > intStrLen - 1)
+							return TRUE;
+
 						::SendDlgItemMessage(hwnd, LOWORD(wParam), CB_GETLBTEXT, i, reinterpret_cast<LPARAM>(intStr));
                         if ((!intStr) || (!intStr[0]))
                             style._fontSize = -1;

@@ -1384,6 +1384,12 @@ void Notepad_plus::command(int id)
 			_pEditView->execute(SCI_LINEDUPLICATE);
 			break;
 
+		case IDM_EDIT_REMOVE_DUP_LINES:
+			_pEditView->execute(SCI_BEGINUNDOACTION);
+			removeDuplicateLines();
+			_pEditView->execute(SCI_ENDUNDOACTION);
+			break;
+
 		case IDM_EDIT_SPLIT_LINES:
 			_pEditView->execute(SCI_TARGETFROMSELECTION);
 			if (_pEditView->execute(SCI_GETEDGEMODE) == EDGE_NONE)

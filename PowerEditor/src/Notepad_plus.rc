@@ -298,6 +298,7 @@ BEGIN
         POPUP "Line Operations"
         BEGIN
             MENUITEM "Duplicate Current Line",    IDM_EDIT_DUP_LINE
+            MENUITEM "Remove Duplicate Lines",    IDM_EDIT_REMOVE_DUP_LINES
             MENUITEM "Split Lines",               IDM_EDIT_SPLIT_LINES
             MENUITEM "Join Lines",                IDM_EDIT_JOIN_LINES
             MENUITEM "Move Up Current Line",      IDM_EDIT_LINE_UP

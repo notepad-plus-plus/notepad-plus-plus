@@ -722,7 +722,7 @@ generic_string Notepad_plus::exts2Filters(generic_string exts) const
 
 	int j = 0;
 	bool stop = false;
-	for (size_t i = 0, len = exts.length(); i < len ; ++i)
+	for (size_t i = 0, len = exts.length(); i < len && j < MAX_PATH - 1; ++i)
 	{
 		if (extStr[i] == ' ')
 		{

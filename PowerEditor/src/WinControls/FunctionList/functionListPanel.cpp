@@ -29,6 +29,7 @@
 #include "functionListPanel.h"
 #include "ScintillaEditView.h"
 #include "localization.h"
+#include "../Preference/functionListVariable.h"
 #include <fstream>
 
 using nlohmann::json;
@@ -650,8 +651,8 @@ bool FunctionListPanel::shouldSort()
 	tbbuttonInfo.dwMask = TBIF_STATE;
 
 	::SendMessage(_hToolbarMenu, TB_GETBUTTONINFO, IDC_SORTBUTTON_FUNCLIST, reinterpret_cast<LPARAM>(&tbbuttonInfo));
-
-	return (tbbuttonInfo.fsState & TBSTATE_CHECKED) != 0;
+	bool value = ((tbbuttonInfo.fsState & TBSTATE_CHECKED) | functionListSort) != 0;
+	return value;
 }
 
 void FunctionListPanel::setSort(bool isEnabled)

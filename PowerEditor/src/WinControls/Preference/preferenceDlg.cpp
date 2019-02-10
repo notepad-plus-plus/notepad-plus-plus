@@ -32,10 +32,13 @@
 #include "lesDlgs.h"
 #include "EncodingMapper.h"
 #include "localization.h"
+#include "functionListVariable.h"
 
 #define MyGetGValue(rgb)      (LOBYTE((rgb)>>8))
 
 using namespace std;
+
+bool functionListSort = true;
 
 const int BLINKRATE_FASTEST = 50;
 const int BLINKRATE_SLOWEST = 2500;
@@ -258,19 +261,12 @@ int32_t PreferenceDlg::getIndexFromName(const TCHAR *name) const
 	return -1;
 }
 
-bool PreferenceDlg::setListSelection(size_t currentSel) const
+void PreferenceDlg::setListSelection(size_t currentSel) const
 {
 	// Stupid LB API doesn't allow LB_SETSEL to be used on single select listbox, so we do it in a hard way
-	const size_t selStrLenMax = 255;
-	TCHAR selStr[selStrLenMax + 1];
-	auto lbTextLen = ::SendMessage(_hSelf, LB_GETTEXTLEN, currentSel, 0);
-
-	if (lbTextLen > selStrLenMax)
-		return false;
-
+	TCHAR selStr[256];
 	::SendDlgItemMessage(_hSelf, IDC_LIST_DLGTITLE, LB_GETTEXT, currentSel, reinterpret_cast<LPARAM>(selStr));
 	::SendDlgItemMessage(_hSelf, IDC_LIST_DLGTITLE, LB_SELECTSTRING, currentSel, reinterpret_cast<LPARAM>(selStr));
-	return true;
 }
 
 bool PreferenceDlg::renameDialogTitle(const TCHAR *internalName, const TCHAR *newName)
@@ -345,6 +341,8 @@ void PreferenceDlg::destroy()
 	_delimiterSettingsDlg.destroy();
 }
 
+
+
 INT_PTR CALLBACK BarsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppParameters *pNppParam = NppParameters::getInstance();
@@ -390,12 +388,15 @@ INT_PTR CALLBACK BarsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			::SendMessage(_hSelf, WM_COMMAND, IDC_CHECK_TAB_HIDE, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_SHOWSTATUSBAR, BM_SETCHECK, showStatus, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_HIDEMENUBAR, BM_SETCHECK, !showMenu, 0);
+			
+			::SendDlgItemMessage(_hSelf, IDC_TEST, BM_SETCHECK, functionListSort, 0);
 
 			bool showDocSwitcher = ::SendMessage(::GetParent(_hParent), NPPM_ISDOCSWITCHERSHOWN, 0, 0) == TRUE;
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_DOCSWITCH, BM_SETCHECK, showDocSwitcher, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_DOCSWITCH_NOEXTCOLUMN, BM_SETCHECK, nppGUI._fileSwitcherWithoutExtColumn, 0);
 
 			LocalizationSwitcher & localizationSwitcher = pNppParam->getLocalizationSwitcher();
+
 
 			for (size_t i = 0, len = localizationSwitcher.size(); i < len ; ++i)
 			{
@@ -445,12 +446,23 @@ INT_PTR CALLBACK BarsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 					getFocus();
 				}
 				return TRUE;
+
 				case IDC_CHECK_DOCSWITCH_NOEXTCOLUMN :
 				{
 					bool isChecked = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_DOCSWITCH_NOEXTCOLUMN, BM_GETCHECK, 0, 0));
 					::SendMessage(::GetParent(_hParent), NPPM_DOCSWITCHERDISABLECOLUMN, 0, isChecked?TRUE:FALSE);
 				}
 				return TRUE;
+				
+				case IDC_TEST:
+				{
+					//bool isChecked = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_TEST, BM_GETCHECK, 0, 0));
+					//::SendMessage(::GetParent(_hParent), NPPM_HIDEMENU, 0, isChecked ? TRUE : FALSE);
+					functionListSort = !functionListSort;
+				}
+				return TRUE;
+
+
 
 				case IDC_CHECK_TAB_HIDE :
 				{
@@ -539,14 +551,11 @@ INT_PTR CALLBACK BarsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 								{
 									LocalizationSwitcher & localizationSwitcher = pNppParam->getLocalizationSwitcher();
 									auto index = ::SendDlgItemMessage(_hSelf, IDC_COMBO_LOCALIZATION, CB_GETCURSEL, 0, 0);
-									TCHAR langName[MAX_PATH];
-									auto cbTextLen = ::SendDlgItemMessage(_hSelf, IDC_COMBO_LOCALIZATION, CB_GETLBTEXTLEN, index, 0);
-									if (cbTextLen > MAX_PATH - 1)
-										return TRUE;
-
+									wchar_t langName[MAX_PATH];
 									::SendDlgItemMessage(_hSelf, IDC_COMBO_LOCALIZATION, CB_GETLBTEXT, index, reinterpret_cast<LPARAM>(langName));
 									if (langName[0])
 									{
+										
 										// Make English as basic language
 										if (localizationSwitcher.switchToLang(TEXT("English")))
 										{
@@ -1762,12 +1771,7 @@ INT_PTR CALLBACK LangMenuDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					if (iRemove == -1)
 						return TRUE;
 
-					const size_t sL = 31;
-					TCHAR s[sL + 1];
-					auto lbTextLen = ::SendDlgItemMessage(_hSelf, list2Remove, LB_GETTEXTLEN, iRemove, 0);
-					if (lbTextLen > sL)
-						return TRUE;
-
+					TCHAR s[32];
 					::SendDlgItemMessage(_hSelf, list2Remove, LB_GETTEXT, iRemove, reinterpret_cast<LPARAM>(s));
 
 					LangMenuItem lmi = pSrcLst->at(iRemove);
@@ -2321,13 +2325,7 @@ INT_PTR CALLBACK PrintSettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 					case IDC_COMBO_HFONTSIZE :
 					case IDC_COMBO_FFONTSIZE :
 					{
-						const size_t intStrLen = 3;
-						TCHAR intStr[intStrLen];
-
-						auto lbTextLen = ::SendDlgItemMessage(_hSelf, LOWORD(wParam), CB_GETLBTEXTLEN, iSel, 0);
-						if (lbTextLen >= intStrLen)
-							return TRUE;
-
+						TCHAR intStr[5];
 						::SendDlgItemMessage(_hSelf, LOWORD(wParam), CB_GETLBTEXT, iSel, reinterpret_cast<LPARAM>(intStr));
 
 						int *pVal = (LOWORD(wParam) == IDC_COMBO_HFONTSIZE)?&(nppGUI._printSettings._headerFontSize):&(nppGUI._printSettings._footerFontSize);

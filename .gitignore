@@ -146,3 +146,9 @@ PowerEditor/src/MISC/md5/RCa06792
 *.db
 *.sln
 *.opendb
+/PowerEditor/src/WinControls/FunctionList/RCa08836
+/PowerEditor/src/WinControls/FunctionList/RCa08940
+/PowerEditor/src/WinControls/Preference/RCa08940
+/PowerEditor/src/WinControls/Preference/RCa08836
+/PowerEditor/src/WinControls/Preference/RCb08940
+/PowerEditor/src/WinControls/Preference/RCb08836

@@ -494,12 +494,7 @@ int WordStyleDlg::whichTabColourIndex()
 	auto i = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETCURSEL, 0, 0);
 	if (i == LB_ERR)
 		return -1;
-	const size_t styleNameLen = 128;
-	TCHAR styleName[styleNameLen + 1];
-	auto lbTextLen = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXTLEN, i, 0);
-	if (lbTextLen > styleNameLen)
-		return -1;
-
+	TCHAR styleName[128];
 	::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXT, i, reinterpret_cast<LPARAM>(styleName));
 
 	if (lstrcmp(styleName, TABBAR_ACTIVEFOCUSEDINDCATOR) == 0)
@@ -543,17 +538,10 @@ void WordStyleDlg::updateFontSize()
 	Style & style = getCurrentStyler();
 	auto iFontSizeSel = ::SendMessage(_hFontSizeCombo, CB_GETCURSEL, 0, 0);
 
+	TCHAR intStr[5];
 	if (iFontSizeSel != 0)
 	{
-		const size_t intStrLen = 3;
-		TCHAR intStr[intStrLen];
-
-		auto lbTextLen = ::SendMessage(_hFontSizeCombo, CB_GETLBTEXTLEN, iFontSizeSel, 0);
-		if (lbTextLen >= intStrLen)
-			return;
-
 		::SendMessage(_hFontSizeCombo, CB_GETLBTEXT, iFontSizeSel, reinterpret_cast<LPARAM>(intStr));
-
 		if (!intStr[0])
 			style._fontSize = STYLE_NOT_USED;
 		else
@@ -721,28 +709,19 @@ void WordStyleDlg::setVisualFromStyleList()
 	//bool showWarning = ((_currentLexerIndex == 0) && (style._styleID == STYLE_DEFAULT));//?SW_SHOW:SW_HIDE;
 
 	COLORREF c = RGB(0x00, 0x00, 0xFF);
-	const size_t strLen = 256;
-	TCHAR str[strLen + 1];
+	TCHAR str[256];
 
 	str[0] = '\0';
 
 	auto i = ::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_GETCURSEL, 0, 0);
 	if (i == LB_ERR)
 		return;
-	auto lbTextLen = ::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_GETTEXTLEN, i, 0);
-	if (lbTextLen > strLen)
-		return;
-
 	::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_GETTEXT, i, reinterpret_cast<LPARAM>(str));
 
 	i = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETCURSEL, 0, 0);
 	if (i == LB_ERR)
 		return;
-	const size_t styleNameLen = 64;
-	TCHAR styleName[styleNameLen + 1];
-	lbTextLen = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXTLEN, i, 0);
-	if (lbTextLen > styleNameLen)
-		return;
+	TCHAR styleName[64];
 	::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXT, i, reinterpret_cast<LPARAM>(styleName));
 
 	lstrcat(lstrcat(str, TEXT(" : ")), styleName);
@@ -790,10 +769,9 @@ void WordStyleDlg::setVisualFromStyleList()
 
 	//-- font size
 	isEnable = false;
-	const size_t intStrLen = 3;
-	TCHAR intStr[intStrLen];
+	TCHAR intStr[5] = TEXT("");
 	LRESULT iFontSize = 0;
-	if (style._fontSize != STYLE_NOT_USED && style._fontSize < 100) // style._fontSize has only 2 digits
+	if (style._fontSize != STYLE_NOT_USED)
 	{
 		wsprintf(intStr, TEXT("%d"), style._fontSize);
 		iFontSize = ::SendMessage(_hFontSizeCombo, CB_FINDSTRING, 1, reinterpret_cast<LPARAM>(intStr));

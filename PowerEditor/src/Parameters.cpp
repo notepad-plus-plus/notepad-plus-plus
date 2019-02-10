@@ -1681,11 +1681,11 @@ bool NppParameters::getUserParametersFromXmlTree()
 std::pair<unsigned char, unsigned char> NppParameters::addUserDefineLangsFromXmlTree(TiXmlDocument *tixmldoc)
 {
 	if (!tixmldoc)
-		return std::pair<unsigned char, unsigned char>(0, 0);
+		return std::pair<unsigned char, unsigned char>('\0', '\0');
 
 	TiXmlNode *root = tixmldoc->FirstChild(TEXT("NotepadPlus"));
 	if (!root)
-		return std::pair<unsigned char, unsigned char>(0, 0);
+		return std::pair<unsigned char, unsigned char>('\0', '\0');
 
 	return feedUserLang(root);
 }
@@ -2607,7 +2607,7 @@ bool NppParameters::getShortcuts(TiXmlNode *node, Shortcut & sc)
 
 std::pair<unsigned char, unsigned char> NppParameters::feedUserLang(TiXmlNode *node)
 {
-	int iBegin = _nbUserLang;
+	unsigned char begin = _nbUserLang;
 
 	for (TiXmlNode *childNode = node->FirstChildElement(TEXT("UserLang"));
 		childNode && (_nbUserLang < NB_MAX_USER_LANG);
@@ -2616,7 +2616,8 @@ std::pair<unsigned char, unsigned char> NppParameters::feedUserLang(TiXmlNode *n
 		const TCHAR *name = (childNode->ToElement())->Attribute(TEXT("name"));
 		const TCHAR *ext = (childNode->ToElement())->Attribute(TEXT("ext"));
 		const TCHAR *udlVersion = (childNode->ToElement())->Attribute(TEXT("udlVersion"));
-		try {
+		try
+		{
 			if (!name || !name[0] || !ext)
 				throw std::runtime_error("NppParameters::feedUserLang : UserLang name is missing");
 
@@ -2652,12 +2653,14 @@ std::pair<unsigned char, unsigned char> NppParameters::feedUserLang(TiXmlNode *n
 					_userLangArray[_nbUserLang - 1]->_styleArray.addStyler(i, globalMappper().styleNameMapper[i].c_str());
 			}
 
-		} catch (std::exception e) {
+		}
+		catch (const std::exception&)
+		{
 			delete _userLangArray[--_nbUserLang];
 		}
 	}
-	int iEnd = _nbUserLang;
-	return pair<unsigned char, unsigned char>(iBegin, iEnd);
+	unsigned char end = _nbUserLang;
+	return pair<unsigned char, unsigned char>(begin, end);
 }
 
 bool NppParameters::importUDLFromFile(generic_string sourceFile)

@@ -1043,7 +1043,7 @@ public:
 			}
 
 			for (int i = 0 ; i < SCE_USER_KWLIST_TOTAL ; ++i)
-				lstrcpy(this->_keywordLists[i], ulc._keywordLists[i]);
+				wcscpy_s(this->_keywordLists[i], ulc._keywordLists[i]);
 
 			for (int i = 0 ; i < SCE_USER_TOTAL_KEYWORD_GROUPS ; ++i)
 				_isPrefix[i] = ulc._isPrefix[i];

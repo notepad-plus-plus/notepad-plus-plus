@@ -1219,7 +1219,7 @@ bool deleteFileOrFolder(const generic_string& f2delete)
 {
 	auto len = f2delete.length();
 	TCHAR* actionFolder = new TCHAR[len + 2];
-	lstrcpy(actionFolder, f2delete.c_str());
+	wcscpy_s(actionFolder, len + 2, f2delete.c_str());
 	actionFolder[len] = 0;
 	actionFolder[len + 1] = 0;
 

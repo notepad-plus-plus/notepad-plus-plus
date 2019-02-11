@@ -882,7 +882,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					if (tipTmp.length() >= 80)
 						return FALSE;
 
-					lstrcpy(lpttt->szText, tipTmp.c_str());
+					wcscpy_s(lpttt->szText, tipTmp.c_str());
 					return TRUE;
 				}
 				else if (hWin == _mainDocTab.getHSelf())
@@ -893,7 +893,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 					if (tipTmp.length() >= tipMaxLen)
 						return FALSE;
-					lstrcpy(docTip, tipTmp.c_str());
+					wcscpy_s(docTip, tipTmp.c_str());
 					lpttt->lpszText = docTip;
 					return TRUE;
 				}
@@ -905,7 +905,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 					if (tipTmp.length() >= tipMaxLen)
 						return FALSE;
-					lstrcpy(docTip, tipTmp.c_str());
+					wcscpy_s(docTip, tipTmp.c_str());
 					lpttt->lpszText = docTip;
 					return TRUE;
 				}

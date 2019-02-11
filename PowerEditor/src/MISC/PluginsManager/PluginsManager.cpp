@@ -211,7 +211,7 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath)
 			}
 
 			TCHAR xmlPath[MAX_PATH];
-            lstrcpy(xmlPath, nppParams->getNppPath().c_str());
+			wcscpy_s(xmlPath, nppParams->getNppPath().c_str());
 			PathAppend(xmlPath, TEXT("plugins\\Config"));
             PathAppend(xmlPath, pi->_moduleName.c_str());
 			PathRemoveExtension(xmlPath);
@@ -220,7 +220,7 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath)
 			if (!PathFileExists(xmlPath))
 			{
 				lstrcpyn(xmlPath, TEXT("\0"), MAX_PATH );
-				lstrcpy(xmlPath, nppParams->getAppDataNppDir() );
+				wcscpy_s(xmlPath, nppParams->getAppDataNppDir() );
 				PathAppend(xmlPath, TEXT("plugins\\Config"));
                 PathAppend(xmlPath, pi->_moduleName.c_str());
 				PathRemoveExtension( xmlPath );

@@ -809,7 +809,7 @@ bool PluginsAdminDlg::loadFromPluginInfos()
 
 		// user file name (without ext. to find whole info in available list
 		TCHAR fnNoExt[MAX_PATH];
-		lstrcpy(fnNoExt, i._fileName.c_str());
+		wcscpy_s(fnNoExt, i._fileName.c_str());
 		::PathRemoveExtension(fnNoExt);
 
 		int listIndex;

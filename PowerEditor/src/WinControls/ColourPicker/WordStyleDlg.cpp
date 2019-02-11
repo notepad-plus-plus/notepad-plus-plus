@@ -643,7 +643,7 @@ void WordStyleDlg::switchToTheme()
 	if (_isThemeDirty)
 	{
 		TCHAR themeFileName[MAX_PATH];
-		lstrcpy(themeFileName, prevThemeName.c_str());
+		wcscpy_s(themeFileName, prevThemeName.c_str());
 		PathStripPath(themeFileName);
 		PathRemoveExtension(themeFileName);
 		int mb_response =

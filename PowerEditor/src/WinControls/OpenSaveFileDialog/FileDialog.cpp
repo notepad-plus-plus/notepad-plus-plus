@@ -146,11 +146,13 @@ int FileDialog::setExtsFilter(const TCHAR *extText, const TCHAR *exts)
 
 	// Append new filter    
     TCHAR *pFileExt = _fileExt + _nbCharFileExt;
-	lstrcpy(pFileExt, extFilter.c_str());
+	int curLen = nbCharNewFileExt - _nbCharFileExt;
+	wcscpy_s(pFileExt, curLen, extFilter.c_str());
 	_nbCharFileExt += static_cast<int32_t>(extFilter.length()) + 1;
     
     pFileExt = _fileExt + _nbCharFileExt;
-	lstrcpy(pFileExt, exts);
+	curLen -= _nbCharFileExt;
+	wcscpy_s(pFileExt, curLen, exts);
     _nbCharFileExt += lstrlen(exts) + 1;
 
 	// Set file dialog pointer
@@ -240,7 +242,7 @@ stringVector * FileDialog::doOpenMultiFilesDlg()
 		}
 		else
 		{
-			lstrcpy(fn, _fileName);
+			wcscpy_s(fn, _fileName);
 			if (fn[lstrlen(fn) - 1] != '\\')
 				lstrcat(fn, TEXT("\\"));
 		}

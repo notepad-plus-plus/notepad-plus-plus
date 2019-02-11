@@ -36,7 +36,7 @@ trayIconControler::trayIconControler(HWND hwnd, UINT uID, UINT uCBMsg, HICON hic
   _nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
   _nid.uCallbackMessage = uCBMsg;
   _nid.hIcon = hicon;
-  lstrcpy(_nid.szTip, tip);
+  wcscpy_s(_nid.szTip, tip);
   
   ::RegisterWindowMessage(TEXT("TaskbarCreated"));
   _isIconShowed = false;

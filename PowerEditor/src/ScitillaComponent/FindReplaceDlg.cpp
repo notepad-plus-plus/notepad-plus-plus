@@ -1496,7 +1496,7 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 
 	int stringSizeFind = lstrlen(txt2find);
 	TCHAR *pText = new TCHAR[stringSizeFind + 1];
-	lstrcpy(pText, txt2find);
+	wcscpy_s(pText, stringSizeFind + 1, txt2find);
 	
 	if (pOptions->_searchType == FindExtended) {
 		stringSizeFind = Searching::convertExtendedToString(txt2find, pText, stringSizeFind);
@@ -1871,13 +1871,13 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 		generic_string str2Search = getTextFromCombo(hFindCombo);
 		stringSizeFind = str2Search.length();
 		pTextFind = new TCHAR[stringSizeFind + 1];
-		lstrcpy(pTextFind, str2Search.c_str());
+		wcscpy_s(pTextFind, stringSizeFind + 1, str2Search.c_str());
 	}
 	else
 	{
 		stringSizeFind = lstrlen(findReplaceInfo._txt2find);
 		pTextFind = new TCHAR[stringSizeFind + 1];
-		lstrcpy(pTextFind, findReplaceInfo._txt2find);
+		wcscpy_s(pTextFind, stringSizeFind + 1, findReplaceInfo._txt2find);
 	}
 
 	if (!pTextFind[0]) 
@@ -1895,13 +1895,13 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 			generic_string str2Replace = getTextFromCombo(hReplaceCombo);
 			stringSizeReplace = str2Replace.length();
 			pTextReplace = new TCHAR[stringSizeReplace + 1];
-			lstrcpy(pTextReplace, str2Replace.c_str());
+			wcscpy_s(pTextReplace, stringSizeReplace + 1, str2Replace.c_str());
 		}
 		else
 		{
 			stringSizeReplace = lstrlen(findReplaceInfo._txt2replace);
 			pTextReplace = new TCHAR[stringSizeReplace + 1];
-			lstrcpy(pTextReplace, findReplaceInfo._txt2replace);
+			wcscpy_s(pTextReplace, stringSizeReplace + 1, findReplaceInfo._txt2replace);
 		}
 	}	
 

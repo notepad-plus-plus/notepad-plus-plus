@@ -402,7 +402,7 @@ void Notepad_plus::command(int id)
 			TCHAR cmd2Exec[CURRENTWORD_MAXLENGTH];
 			if (id == IDM_EDIT_OPENINFOLDER)
 			{
-				lstrcpy(cmd2Exec, TEXT("explorer"));
+				wcscpy_s(cmd2Exec, TEXT("explorer"));
 			}
 			else
 			{

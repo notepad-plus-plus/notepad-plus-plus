@@ -153,7 +153,7 @@ void VerticalFileSwitcherListView::initList()
 		TaskLstFnStatus *tl = new TaskLstFnStatus(fileNameStatus._iView, fileNameStatus._docIndex, fileNameStatus._fn, fileNameStatus._status, (void *)fileNameStatus._bufID);
 
 		TCHAR fn[MAX_PATH];
-		lstrcpy(fn, ::PathFindFileName(fileNameStatus._fn.c_str()));
+		wcscpy_s(fn, ::PathFindFileName(fileNameStatus._fn.c_str()));
 
 		if (isExtColumn)
 		{
@@ -213,7 +213,7 @@ void VerticalFileSwitcherListView::setItemIconStatus(BufferID bufferID)
 	Buffer *buf = static_cast<Buffer *>(bufferID);
 	
 	TCHAR fn[MAX_PATH];
-	lstrcpy(fn, ::PathFindFileName(buf->getFileName()));
+	wcscpy_s(fn, ::PathFindFileName(buf->getFileName()));
 	bool isExtColumn = !(NppParameters::getInstance())->getNppGUI()._fileSwitcherWithoutExtColumn;
 	if (isExtColumn)
 	{
@@ -290,7 +290,7 @@ int VerticalFileSwitcherListView::add(BufferID bufferID, int iView)
 	TaskLstFnStatus *tl = new TaskLstFnStatus(iView, 0, buf->getFullPathName(), 0, (void *)bufferID);
 
 	TCHAR fn[MAX_PATH];
-	lstrcpy(fn, ::PathFindFileName(fileName));
+	wcscpy_s(fn, ::PathFindFileName(fileName));
 	bool isExtColumn = !(NppParameters::getInstance())->getNppGUI()._fileSwitcherWithoutExtColumn;
 	if (isExtColumn)
 	{

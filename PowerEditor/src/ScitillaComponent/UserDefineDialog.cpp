@@ -524,7 +524,7 @@ void CommentStyleDialog::setKeywords2List(int id)
 			convertTo(newList, max_char, buffer, intBuffer);
         }
 
-        lstrcpy(_pUserLang->_keywordLists[index], newList);
+		wcscpy_s(_pUserLang->_keywordLists[index], newList);
     }
 }
 
@@ -836,7 +836,7 @@ void SymbolsStyleDialog::setKeywords2List(int id)
                 convertTo(newList, max_char, buffer, intBuffer);
             }
 
-            lstrcpy(_pUserLang->_keywordLists[SCE_USER_KWLIST_DELIMITERS], newList);
+			wcscpy_s(_pUserLang->_keywordLists[SCE_USER_KWLIST_DELIMITERS], newList);
             break;
         }
         default :

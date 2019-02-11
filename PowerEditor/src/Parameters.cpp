@@ -999,7 +999,7 @@ bool NppParameters::load()
 		{
 			generic_string progPath = getSpecialFolderLocation(CSIDL_PROGRAM_FILES);
 			TCHAR nppDirLocation[MAX_PATH];
-			lstrcpy(nppDirLocation, _nppPath.c_str());
+			wcscpy_s(nppDirLocation, _nppPath.c_str());
 			::PathRemoveFileSpec(nppDirLocation);
 
 			if  (progPath == nppDirLocation)
@@ -3344,7 +3344,7 @@ void NppParameters::feedUserKeywordList(TiXmlNode *node)
 				temp += TEXT(" 08");	if (kwl[5] != '0') temp += kwl[5];
 
 				temp += TEXT(" 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23");
-				lstrcpy(_userLangArray[_nbUserLang - 1]->_keywordLists[SCE_USER_KWLIST_DELIMITERS], temp.c_str());
+				wcscpy_s(_userLangArray[_nbUserLang - 1]->_keywordLists[SCE_USER_KWLIST_DELIMITERS], temp.c_str());
 			}
 			else if (!lstrcmp(keywordsName, TEXT("Comment")))
 			{
@@ -3378,7 +3378,7 @@ void NppParameters::feedUserKeywordList(TiXmlNode *node)
 				if (temp[0] == ' ')
 					temp.erase(0, 1);
 
-				lstrcpy(_userLangArray[_nbUserLang - 1]->_keywordLists[SCE_USER_KWLIST_COMMENTS], temp.c_str());
+				wcscpy_s(_userLangArray[_nbUserLang - 1]->_keywordLists[SCE_USER_KWLIST_COMMENTS], temp.c_str());
 			}
 			else
 			{
@@ -3388,11 +3388,11 @@ void NppParameters::feedUserKeywordList(TiXmlNode *node)
 					id = globalMappper().keywordIdMapper[keywordsName];
 					if (_tcslen(kwl) < max_char)
 					{
-						lstrcpy(_userLangArray[_nbUserLang - 1]->_keywordLists[id], kwl);
+						wcscpy_s(_userLangArray[_nbUserLang - 1]->_keywordLists[id], kwl);
 					}
 					else
 					{
-						lstrcpy(_userLangArray[_nbUserLang - 1]->_keywordLists[id], TEXT("imported string too long, needs to be < max_char(30720)"));
+						wcscpy_s(_userLangArray[_nbUserLang - 1]->_keywordLists[id], TEXT("imported string too long, needs to be < max_char(30720)"));
 					}
 				}
 			}
@@ -6627,12 +6627,16 @@ void NppParameters::stylerStrOp(bool op)
 
 			if (op == DUP)
 			{
-				TCHAR *str = new TCHAR[lstrlen(style._styleDesc) + 1];
-				style._styleDesc = lstrcpy(str, style._styleDesc);
+				const size_t strLen = lstrlen(style._styleDesc) + 1;
+				TCHAR *str = new TCHAR[strLen];
+				wcscpy_s(str, strLen, style._styleDesc);
+				style._styleDesc = str;
 				if (style._fontName)
 				{
-					str = new TCHAR[lstrlen(style._fontName) + 1];
-					style._fontName = lstrcpy(str, style._fontName);
+					const size_t strLen2 = lstrlen(style._fontName) + 1;
+					str = new TCHAR[strLen2];
+					wcscpy_s(str, strLen2, style._fontName);
+					style._fontName = str;
 				}
 				else
 				{

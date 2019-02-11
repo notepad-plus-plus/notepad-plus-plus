@@ -280,7 +280,7 @@ bool FunctionCallTip::getCursorFunction()
 				delete [] _funcName;
 			}
 			_funcName = new TCHAR[funcToken.length+1];
-			lstrcpy(_funcName, funcToken.token);
+			wcscpy_s(_funcName, funcToken.length+1, funcToken.token);
 			res = loadFunction();
 		}
 		else

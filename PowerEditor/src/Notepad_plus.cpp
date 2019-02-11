@@ -2480,11 +2480,12 @@ void Notepad_plus::addHotSpot()
 
 			hotspotStyle._styleID = static_cast<int>(style_hotspot);
 			_pEditView->execute(SCI_STYLEGETFONT, idStyleMSBunset, reinterpret_cast<LPARAM>(fontNameA));
-			TCHAR *generic_fontname = new TCHAR[128];
+			const size_t generic_fontnameLen = 128;
+			TCHAR *generic_fontname = new TCHAR[generic_fontnameLen];
 
 			WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 			const wchar_t * fontNameW = wmc->char2wchar(fontNameA, _nativeLangSpeaker.getLangEncoding());
-			lstrcpy(generic_fontname, fontNameW);
+			wcscpy_s(generic_fontname, generic_fontnameLen, fontNameW);
 			hotspotStyle._fontName = generic_fontname;
 
 			hotspotStyle._fgColor = static_cast<COLORREF>(_pEditView->execute(SCI_STYLEGETFORE, idStyleMSBunset));
@@ -5798,7 +5799,7 @@ void Notepad_plus::launchClipboardHistoryPanel()
 		static TCHAR title[32];
 		if (title_temp.length() < 32)
 		{
-			lstrcpy(title, title_temp.c_str());
+			wcscpy_s(title, title_temp.c_str());
 			data.pszName = title;
 		}
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
@@ -5841,7 +5842,7 @@ void Notepad_plus::launchFileSwitcherPanel()
 		static TCHAR title[32];
 		if (title_temp.length() < 32)
 		{
-			lstrcpy(title, title_temp.c_str());
+			wcscpy_s(title, title_temp.c_str());
 			data.pszName = title;
 		}
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
@@ -5882,7 +5883,7 @@ void Notepad_plus::launchAnsiCharPanel()
 		static TCHAR title[32];
 		if (title_temp.length() < 32)
 		{
-			lstrcpy(title, title_temp.c_str());
+			wcscpy_s(title, title_temp.c_str());
 			data.pszName = title;
 		}
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
@@ -5926,7 +5927,7 @@ void Notepad_plus::launchFileBrowser(const vector<generic_string> & folders)
 		static TCHAR title[32];
 		if (title_temp.length() < 32)
 		{
-			lstrcpy(title, title_temp.c_str());
+			wcscpy_s(title, title_temp.c_str());
 			data.pszName = title;
 		}
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
@@ -5983,7 +5984,7 @@ void Notepad_plus::launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int
 		static TCHAR title[32];
 		if (title_temp.length() < 32)
 		{
-			lstrcpy(title, title_temp.c_str());
+			wcscpy_s(title, title_temp.c_str());
 			data.pszName = title;
 		}
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
@@ -6035,7 +6036,7 @@ void Notepad_plus::launchDocMap()
 		static TCHAR title[32];
 		if (title_temp.length() < 32)
 		{
-			lstrcpy(title, title_temp.c_str());
+			wcscpy_s(title, title_temp.c_str());
 			data.pszName = title;
 		}
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
@@ -6076,7 +6077,7 @@ void Notepad_plus::launchFunctionList()
 		static TCHAR title[32];
 		if (title_temp.length() < 32)
 		{
-			lstrcpy(title, title_temp.c_str());
+			wcscpy_s(title, title_temp.c_str());
 			data.pszName = title;
 		}
 

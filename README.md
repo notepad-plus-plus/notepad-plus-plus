@@ -63,6 +63,9 @@ New version:
 	If you are compiling a 64 bit Scintilla under your *VS2013 x64 Native tool command prompt*, add `-x64` flag.
 	In my case: `BuildBoost2017.bat C:\sources\boost_1_65_1 -x64`
  3. Compile SciLexer.vcxproj with VS.
+ 4. ???
+ 5. Move SciLexer.dll from "\scintilla\bin\" to "\PowerEditor\visual.net\Unicode Debug\".
+ 6. Profit!
 
 
 

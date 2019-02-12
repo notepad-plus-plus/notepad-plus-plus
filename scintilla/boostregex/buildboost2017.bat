@@ -1,0 +1,317 @@
+@ECHO OFF
+:: Perform the pre-steps to build boost and set the boost path for the build file
+SETLOCAL
+SET BOOSTPATH=
+SET MSVCTOOLSET=
+SET TOOLSETCOMMAND=
+SET BOOSTVERSION=
+SET WORKPATH=%~dp0%
+
+SET BUILDTARGETPARAM=
+SET BUILDTARGETPATH=
+
+rem VS2017+support:
+:RECHECKARGS
+IF [%1]==[-x64] (
+	SET BUILDTARGETPARAM=architecture=ia64
+	SET BUILDTARGETPATH=architecture-ia64\
+    SHIFT
+)
+
+IF [%1]==[--toolset] (
+     SET MSVCTOOLSET=%2
+     SHIFT
+     SHIFT
+     GOTO RECHECKARGS
+)
+
+IF [%BOOSTPATH%]==[] (
+    IF NOT [%1]==[] (
+        SET BOOSTPATH=%1
+        SHIFT
+        GOTO RECHECKARGS
+    )
+)
+rem VS2017+support: GMB - Fixed parameter checking with :CHECKARGS
+rem VS2017+support:       auto-detect msvc version for VS2015 and VS2017
+rem VS2017support: One extra change below for 14.1 toolset support
+rem VS2015support: Param loop is REMed out for some reason so hack here to allow -toolset to work properly.
+rem VS2015support: This means that parameter or is important. New usage is... 
+rem VS2015support: BuildBoost-VS2015edit.bat PathToBoost [--toolset ToolsetVersion] [-x64]
+
+rem SHIFT
+rem GOTO PARAMLOOP
+:PARAMCONTINUE
+
+IF [%BOOSTPATH%]==[] (
+   GOTO USAGE
+)
+
+IF NOT [%1]==[] (
+   GOTO USAGE
+)
+
+SET TOOLSETCOMMAND=
+
+IF NOT [%MSVCTOOLSET%]==[] (
+	SET TOOLSETCOMMAND=toolset=%MSVCTOOLSET% 
+)
+
+IF NOT EXIST "%BOOSTPATH%\boost\regex.hpp" (
+   ECHO Not found: %BOOSTPATH%\boost\regex.hpp
+   GOTO BOOSTNOTFOUND
+)
+
+IF NOT EXIST "%BOOSTPATH%\bjam\bin\bjam.exe" (
+	ECHO Building BJAM, the boost build tool
+	rem VS2015support: Boost 1_63_0 has bootstrap.bat & b2.exe in '...tools\build\' instead of '...tools\build\v2\'
+    rem VS2017+support: support old path, too, just in case...
+    IF EXIST "%BOOSTPATH%\tools\build\bootstrap.bat" (
+        PUSHD %BOOSTPATH%\tools\build
+    ) ELSE (
+        PUSHD %BOOSTPATH%\tools\build\v2
+    )
+	CALL bootstrap.bat
+
+	rem VS2015support: Add echo
+	ECHO Starting boost install
+	%BOOSTPATH%\tools\build\b2 --prefix=%BOOSTPATH%\bjam install
+	POPD
+)
+
+IF NOT ERRORLEVEL 0 (
+	GOTO BUILDERROR
+)
+ECHO.
+ECHO ***************************************************************
+ECHO Building tool to check boost version
+ECHO ***************************************************************
+ECHO # Temporary version of auto-generated file > %WORKPATH%\boostpath.mak
+ECHO # If you're seeing this version of the file, and you're not currently building boost, >> %WORKPATH%\boostpath.mak
+ECHO # then your buildboost.bat is failing somewhere.  >> %WORKPATH%\boostpath.mak
+ECHO # Run BuildBoost.bat [absolute_path_to_boost] to generate this file again >> %WORKPATH%\boostpath.mak
+ECHO # And lookout for error messages >> %WORKPATH%\boostpath.mak
+ECHO BOOSTPATH=%BOOSTPATH% >> %WORKPATH%\boostpath.mak
+
+IF NOT EXIST bin md bin
+nmake -f getboostver.mak
+
+IF ERRORLEVEL 1 (
+   ECHO ******************************
+   ECHO ** ERROR building getboostver.exe
+   ECHO ** Please see the error messages above, and post as much as you can to the
+   ECHO ** Notepad++ Open Discussion forum
+   ECHO ** http://sourceforge.net/projects/notepad-plus/forums/forum/331753
+   ECHO.
+   GOTO EOF
+)
+
+for /f "delims=" %%i in ('bin\getboostver.exe') do set BOOSTVERSION=%%i
+
+IF [%BOOSTVERSION%]==[] (
+   ECHO There was an error detecting the boost version.
+   ECHO Please see the error messages above, and post as much as you can to the
+   ECHO Notepad++ Open Discussion forum
+   ECHO http://sourceforge.net/projects/notepad-plus/forums/forum/331753
+   ECHO.
+   GOTO EOF
+)
+ECHO.
+ECHO ***************************************************************
+ECHO Boost version in use: %BOOSTVERSION%
+ECHO ***************************************************************
+ECHO.
+
+ECHO.
+ECHO ***************************************************************
+ECHO Building Boost::regex
+ECHO ***************************************************************
+ECHO.
+
+PUSHD %BOOSTPATH%\libs\regex\build
+
+%BOOSTPATH%\bjam\bin\bjam %TOOLSETCOMMAND% variant=release threading=multi link=static runtime-link=static %BUILDTARGETPARAM%
+IF NOT ERRORLEVEL 0 (
+	GOTO BUILDERROR
+)
+
+%BOOSTPATH%\bjam\bin\bjam %TOOLSETCOMMAND% variant=debug threading=multi link=static runtime-link=static %BUILDTARGETPARAM%
+IF NOT ERRORLEVEL 0 (
+	GOTO BUILDERROR
+)
+
+IF NOT [%MSVCTOOLSET%]==[] (
+    GOTO TOOLSETKNOWN
+)
+
+rem VS2015support: ToDo = add detect here. For now must specify Toolset on BuildBoost command line.
+
+rem VS2017+support: detect VS2017 and VS2015
+:: VS2017
+IF EXIST %BOOSTPATH%\bin.v2\libs\regex\build\msvc-14.1\release\%BUILDTARGETPATH%link-static\runtime-link-static\threading-multi\libboost_regex-vc141-mt-s-%BOOSTVERSION%.lib (
+	SET MSVCTOOLSET=msvc-14.1
+)
+
+rem VS2017+support:
+:: VS2015
+IF EXIST %BOOSTPATH%\bin.v2\libs\regex\build\msvc-14.0\release\%BUILDTARGETPATH%link-static\runtime-link-static\threading-multi\libboost_regex-vc140-mt-s-%BOOSTVERSION%.lib (
+	SET MSVCTOOLSET=msvc-14.0
+)
+
+:: VS2013
+IF EXIST %BOOSTPATH%\bin.v2\libs\regex\build\msvc-12.0\release\%BUILDTARGETPATH%link-static\runtime-link-static\threading-multi\libboost_regex-vc120-mt-s-%BOOSTVERSION%.lib (
+	SET MSVCTOOLSET=msvc-12.0
+)
+
+:: VS2012
+IF EXIST %BOOSTPATH%\bin.v2\libs\regex\build\msvc-11.0\release\link-static\runtime-link-static\threading-multi\libboost_regex-vc110-mt-s-%BOOSTVERSION%.lib (
+	SET MSVCTOOLSET=msvc-11.0
+)
+
+:: VS2010
+IF EXIST %BOOSTPATH%\bin.v2\libs\regex\build\msvc-10.0\release\link-static\runtime-link-static\threading-multi\libboost_regex-vc100-mt-s-%BOOSTVERSION%.lib (
+	SET MSVCTOOLSET=msvc-10.0
+)
+
+:: VS2008
+IF EXIST %BOOSTPATH%\bin.v2\libs\regex\build\msvc-9.0\release\link-static\runtime-link-static\threading-multi\libboost_regex-vc90-mt-s-%BOOSTVERSION%.lib (
+	SET MSVCTOOLSET=msvc-9.0
+)
+
+:: VS2005
+IF EXIST %BOOSTPATH%\bin.v2\libs\regex\build\msvc-8.0\release\link-static\runtime-link-static\threading-multi\libboost_regex-vc80-mt-s-%BOOSTVERSION%.lib (
+	SET MSVCTOOLSET=msvc-8.0
+)
+
+IF [%MSVCTOOLSET%]==[] (
+	ECHO No correctly built boost regex libraries could be found.  
+	ECHO Try specifying the MSVC version on the command line.
+	GOTO USAGE
+)
+ECHO ***********************************************
+ECHO Assuming toolset in use is %MSVCTOOLSET%
+ECHO ***********************************************
+ECHO If this is not correct, specify the version on the command line with --toolset
+ECHO Run buildboost.bat without parameters to see the usage.
+
+
+:TOOLSETKNOWN
+
+rem VS2017+support: the next line replaces all the following REM lines
+SET BOOSTLIBPATH=%BOOSTPATH%\bin.v2\libs\regex\build\%MSVCTOOLSET%
+
+REM rem VS2017support: Add BOOSTLIBPATH case
+REM :: VS2017
+REM IF [%MSVCTOOLSET%]==[msvc-14.1] (
+	REM SET BOOSTLIBPATH=%BOOSTPATH%\bin.v2\libs\regex\build\msvc-14.1
+REM )
+REM rem VS2015support: Add BOOSTLIBPATH case
+REM :: VS2015
+REM IF [%MSVCTOOLSET%]==[msvc-14.0] (
+	REM SET BOOSTLIBPATH=%BOOSTPATH%\bin.v2\libs\regex\build\msvc-14.0
+REM )
+
+REM :: VS2013
+REM IF [%MSVCTOOLSET%]==[msvc-12.0] (
+	REM SET BOOSTLIBPATH=%BOOSTPATH%\bin.v2\libs\regex\build\msvc-12.0
+REM )
+
+REM :: VS2012
+REM IF [%MSVCTOOLSET%]==[msvc-11.0] (
+	REM SET BOOSTLIBPATH=%BOOSTPATH%\bin.v2\libs\regex\build\msvc-11.0
+REM )
+
+REM :: VS2010
+REM IF [%MSVCTOOLSET%]==[msvc-10.0] (
+	REM SET BOOSTLIBPATH=%BOOSTPATH%\bin.v2\libs\regex\build\msvc-10.0
+REM )
+
+REM :: VS2008
+REM IF [%MSVCTOOLSET%]==[msvc-9.0] (
+	REM SET BOOSTLIBPATH=%BOOSTPATH%\bin.v2\libs\regex\build\msvc-9.0
+REM )
+
+REM :: VS2005
+REM IF [%MSVCTOOLSET%]==[msvc-8.0] (
+	REM SET BOOSTLIBPATH=%BOOSTPATH%\bin.v2\libs\regex\build\msvc-8.0
+REM )
+
+:: Error case, so we try to give the user a helpful error message
+IF [%BOOSTLIBPATH%] == [] (
+    ECHO ****************************************
+	ECHO ** ERROR
+	ECHO ** Boost library could not be found.  
+	ECHO ** Make sure you've specified the correct boost path on the command line, 
+	ECHO ** and try adding the toolset version
+	ECHO ****************************************
+	GOTO USAGE
+)
+
+ECHO # Autogenerated file, run BuildBoost.bat [path_to_boost] to generate > %WORKPATH%\boostpath.mak
+ECHO BOOSTPATH=%BOOSTPATH% >> %WORKPATH%\boostpath.mak
+ECHO BOOSTLIBPATH=%BOOSTLIBPATH% >> %WORKPATH%\boostpath.mak
+ECHO BUILDTARGETPATH=%BUILDTARGETPATH% >> %WORKPATH%\boostpath.mak
+POPD
+ECHO.
+ECHO.
+ECHO Boost::regex built.
+ECHO.
+ECHO Now you need to build scintilla.
+ECHO.
+ECHO From the scintilla\win32 directory 
+ECHO.
+ECHO   nmake -f scintilla.mak 
+ECHO.
+ECHO.
+
+GOTO EOF
+
+:BOOSTNOTFOUND
+ECHO Boost Path not valid.  Run BuildBoost.bat with the absolute path to the directory
+ECHO where you unpacked your boost zip.
+ECHO.
+:USAGE
+ECHO.
+ECHO Boost is available free from www.boost.org
+ECHO.
+ECHO Unzip the file downloaded from www.boost.org, and give the absolute path 
+ECHO as the first parameter to buildboost.bat
+ECHO.
+ECHO e.g.
+ECHO buildboost.bat d:\libs\boost_1_55_0           
+
+ECHO.
+ECHO To build 64 bit version, add "-x64" flag after the full file path.
+ECHO e.g.
+ECHO buildboost.bat d:\libs\boost_1_55_0 -x64
+
+ECHO.
+ECHO.
+ECHO You can specify which version of the Visual Studio compiler to use
+ECHO with --toolset.
+ECHO Use:   
+ECHO   --toolset msvc-8.0     for Visual studio 2005
+ECHO   --toolset msvc-9.0     for Visual Studio 2008
+ECHO   --toolset msvc-10.0    for Visual Studio 2010
+ECHO   --toolset msvc-11.0    for Visual Studio 2012
+ECHO   --toolset msvc-12.0    for Visual Studio 2013
+ECHO   --toolset msvc-14.0    for Visual Studio 2015
+ECHO   --toolset msvc-14.1    for Visual Studio 2017
+ECHO.
+ECHO.
+ECHO e.g.  To build with boost in d:\libs\boost_1_55_0 with Visual Studio 2008
+ECHO.
+ECHO         buildboost.bat --toolset msvc-9.0 d:\libs\boost_1_55_0
+ECHO.
+GOTO EOF
+
+
+:BUILDERROR
+ECHO There was an error building boost.  Please see the messages above for details.
+ECHO  - Have you got a clean extract from a recent boost version, such as 1.55?
+ECHO  - Download a fresh copy from www.boost.org and extract it to a directory, 
+ECHO    and run the batch again with the name of that directory
+
+:EOF
+
+ENDLOCAL

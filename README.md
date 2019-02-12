@@ -44,6 +44,8 @@ like to debug Notepad++, but don't have boost.
 
 Here are the instructions to build SciLexer.dll (for both 32-bit & 64-bit) for Notepad++:
 
+Old version:
+
  1. Download the [Boost source code](https://sourceforge.net/projects/boost/files/boost/1.55.0/).
     v1.55 should be used with VS 2013. Then unzip it. In my case, `boost_1_55_0` is copied in `C:\sources\`
  2. Go to `scintilla\boostregex\` then run BuildBoost.bat with your boost path.
@@ -51,6 +53,16 @@ Here are the instructions to build SciLexer.dll (for both 32-bit & 64-bit) for N
 	If you are compiling a 64 bit Scintilla under your *VS2013 x64 Native tool command prompt*, add `-x64` flag.
 	In my case: `BuildBoost.bat C:\sources\boost_1_55_0 -x64`
  3. Go in `scintilla\win32\` then run `nmake -f scintilla.mak`
+
+New version:
+
+ 1. Download the [Boost source code](https://sourceforge.net/projects/boost/files/boost/1.65.1/).
+    v1.55 should be used with VS 2013. Then unzip it. In my case, `boost_1_65_1` is copied in `C:\sources\`
+ 2. Go to `scintilla\boostregex\` then run BuildBoost2017.bat with your boost path.
+    In my case: `BuildBoost.bat C:\sources\boost_1_65_1`
+	If you are compiling a 64 bit Scintilla under your *VS2013 x64 Native tool command prompt*, add `-x64` flag.
+	In my case: `BuildBoost.bat C:\sources\boost_1_65_1 -x64`
+ 3. Compile SciLexer.vcxproj.
 
 
 

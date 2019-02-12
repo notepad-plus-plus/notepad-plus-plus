@@ -57,12 +57,12 @@ Old version:
 New version:
 
  1. Download the [Boost source code](https://sourceforge.net/projects/boost/files/boost/1.65.1/).
-    v1.55 should be used with VS 2013. Then unzip it. In my case, `boost_1_65_1` is copied in `C:\sources\`
+    v1.65.1 should be used with VS 2013. Then unzip it. In my case, `boost_1_65_1` is copied in `C:\sources\`
  2. Go to `scintilla\boostregex\` then run BuildBoost2017.bat with your boost path.
-    In my case: `BuildBoost.bat C:\sources\boost_1_65_1`
+    In my case: `BuildBoost2017.bat C:\sources\boost_1_65_1`
 	If you are compiling a 64 bit Scintilla under your *VS2013 x64 Native tool command prompt*, add `-x64` flag.
-	In my case: `BuildBoost.bat C:\sources\boost_1_65_1 -x64`
- 3. Compile SciLexer.vcxproj.
+	In my case: `BuildBoost2017.bat C:\sources\boost_1_65_1 -x64`
+ 3. Compile SciLexer.vcxproj with VS.
 
 
 

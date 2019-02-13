@@ -37,6 +37,7 @@
 #include "functionListPanel.h"
 #include "fileBrowser.h"
 #include "Sorters.h"
+#include "verifySignedFile.h"
 #include "LongRunningOperation.h"
 #include "md5.h"
 #include "sha-256.h"
@@ -2811,24 +2812,34 @@ void Notepad_plus::command(int id)
 				generic_string updaterFullPath = updaterDir;
 				PathAppend(updaterFullPath, TEXT("gup.exe"));
 
-				generic_string param;
-				if (id == IDM_CONFUPDATERPROXY)
-				{
-					param = TEXT("-options");
-				}
-				else
-				{
-					param = TEXT("-verbose -v");
-					param += VERSION_VALUE;
 
-					if (NppParameters::getInstance()->isx64())
+#ifdef DEBUG // if not debug, then it's release
+				bool isCertifVerified = true;
+#else //RELEASE
+				// check the signature on updater
+				bool isCertifVerified = VerifySignedLibrary(updaterFullPath.c_str(), NPP_COMPONENT_SIGNER_KEY_ID, NPP_COMPONENT_SIGNER_SUBJECT, NPP_COMPONENT_SIGNER_DISPLAY_NAME, false, false, false);
+#endif
+				if (isCertifVerified)
+				{
+					generic_string param;
+					if (id == IDM_CONFUPDATERPROXY)
 					{
-						param += TEXT(" -px64");
+						param = TEXT("-options");
 					}
-				}
-				Process updater(updaterFullPath.c_str(), param.c_str(), updaterDir.c_str());
+					else
+					{
+						param = TEXT("-verbose -v");
+						param += VERSION_VALUE;
 
-				updater.run();
+						if (NppParameters::getInstance()->isx64())
+						{
+							param += TEXT(" -px64");
+						}
+					}
+					Process updater(updaterFullPath.c_str(), param.c_str(), updaterDir.c_str());
+
+					updater.run();
+				}
 			}
 			break;
 		}

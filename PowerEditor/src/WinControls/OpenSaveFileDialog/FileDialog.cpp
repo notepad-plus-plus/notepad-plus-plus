@@ -151,7 +151,7 @@ int FileDialog::setExtsFilter(const TCHAR *extText, const TCHAR *exts)
 	_nbCharFileExt += static_cast<int32_t>(extFilter.length()) + 1;
     
     pFileExt = _fileExt + _nbCharFileExt;
-	curLen -= _nbCharFileExt;
+	curLen = nbCharNewFileExt - _nbCharFileExt;
 	wcscpy_s(pFileExt, curLen, exts);
     _nbCharFileExt += lstrlen(exts) + 1;
 

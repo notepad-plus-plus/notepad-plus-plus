@@ -650,8 +650,10 @@ bool FunctionListPanel::shouldSort()
 	tbbuttonInfo.dwMask = TBIF_STATE;
 
 	::SendMessage(_hToolbarMenu, TB_GETBUTTONINFO, IDC_SORTBUTTON_FUNCLIST, reinterpret_cast<LPARAM>(&tbbuttonInfo));
-
-	return (tbbuttonInfo.fsState & TBSTATE_CHECKED) != 0;
+	
+	NppParameters *pNppParam = NppParameters::getInstance();
+	NppGUI & nppGUI = const_cast<NppGUI &>(pNppParam->getNppGUI());
+	return ((tbbuttonInfo.fsState & TBSTATE_CHECKED) | nppGUI._isFunctionListAlwaysSorted) != 0;
 }
 
 void FunctionListPanel::setSort(bool isEnabled)

@@ -50,7 +50,7 @@ DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 
 	//The folder to watch :
 	WCHAR folderToMonitor[MAX_PATH];
-	lstrcpy(folderToMonitor, fullFileName);
+	wcscpy_s(folderToMonitor, fullFileName);
 
 	::PathRemoveFileSpecW(folderToMonitor);
 	
@@ -153,7 +153,7 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 	bool isSnapshotMode = backupFileName != NULL && PathFileExists(backupFileName);
 	if (isSnapshotMode && !PathFileExists(longFileName)) // UNTITLED
 	{
-		lstrcpy(longFileName, fileName.c_str());
+		wcscpy_s(longFileName, fileName.c_str());
 	}
 
 

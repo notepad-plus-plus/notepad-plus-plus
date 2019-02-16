@@ -163,9 +163,10 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 	generic_string gs_fileName{fileName};
     size_t res = gs_fileName.find_first_of(UNTITLED_STR);
 
-    if (res != string::npos && res == 0)
+    if (res != string::npos && res == 0) // it can happen when a document named "new #", which is dragged from another instance, is dropped into this instance
     {
-        fileName2Find = fileName;
+        // it's meaningless to show empty "new #" document, so just return null
+		return nullptr;
     }
     else
     {

@@ -48,6 +48,55 @@ GlobalMappers & globalMappper()
     return gm;
 }
 
+void convertTo(TCHAR *dest, int destLen, const TCHAR *toConvert, TCHAR *prefix)
+{
+	bool inGroup = false;
+	int index = lstrlen(dest);
+	if (index > 0)
+		dest[index++] = ' ';
+	dest[index++] = prefix[0];
+	dest[index++] = prefix[1];
+
+	for (size_t i = 0, len = lstrlen(toConvert); i < len && index < destLen - 7; ++i)
+	{
+		if (i == 0 && toConvert[i] == '(' && toConvert[i + 1] == '(')
+		{
+			inGroup = true;
+		}
+		else if (toConvert[i] == ' ' && toConvert[i + 1] == '(' && toConvert[i + 2] == '(')
+		{
+			inGroup = true;
+			dest[index++] = ' ';
+			dest[index++] = prefix[0];
+			dest[index++] = prefix[1];
+			++i;    // skip space
+		}
+
+		if (inGroup && toConvert[i - 1] == ')' && toConvert[i - 2] == ')')
+		{
+			inGroup = false;
+		}
+
+		if (toConvert[i] == ' ')
+		{
+			if (toConvert[i + 1] != ' ' && toConvert[i + 1] != '\0')
+			{
+				dest[index++] = ' ';
+				if (!inGroup)
+				{
+					dest[index++] = prefix[0];
+					dest[index++] = prefix[1];
+				}
+			}
+		}
+		else
+		{
+			dest[index++] = toConvert[i];
+		}
+	}
+	dest[index] = '\0';
+};
+
 bool SharedParametersDialog::setPropertyByCheck(HWND hwnd, WPARAM id, bool & bool2set)
 {
     bool2set = (BST_CHECKED == ::SendMessage(::GetDlgItem(hwnd, int(id)), BM_GETCHECK, 0, 0));
@@ -173,54 +222,6 @@ void FolderStyleDialog::updateDlg()
     ::SendDlgItemMessage(_hSelf, IDC_FOLDER_IN_COMMENT_OPEN_EDIT,   WM_SETTEXT, 0, reinterpret_cast<LPARAM>(_pUserLang->_keywordLists[SCE_USER_KWLIST_FOLDERS_IN_COMMENT_OPEN]));
     ::SendDlgItemMessage(_hSelf, IDC_FOLDER_IN_COMMENT_MIDDLE_EDIT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(_pUserLang->_keywordLists[SCE_USER_KWLIST_FOLDERS_IN_COMMENT_MIDDLE]));
     ::SendDlgItemMessage(_hSelf, IDC_FOLDER_IN_COMMENT_CLOSE_EDIT,  WM_SETTEXT, 0, reinterpret_cast<LPARAM>(_pUserLang->_keywordLists[SCE_USER_KWLIST_FOLDERS_IN_COMMENT_CLOSE]));
-}
-
-void FolderStyleDialog::convertTo(TCHAR *dest, const TCHAR *toConvert, TCHAR *prefix) const
-{
-    bool inGroup = false;
-    int index = lstrlen(dest);
-    if (index > 0)
-        dest[index++] = ' ';
-    dest[index++] = prefix[0];
-    dest[index++] = prefix[1];
-
-    for (size_t i = 0, len = lstrlen(toConvert); i < len ; ++i)
-    {
-        if (i == 0 && toConvert[i] == '(' && toConvert[i+1] == '(')
-        {
-            inGroup = true;
-        }
-        else if (toConvert[i] == ' ' && toConvert[i+1] == '(' && toConvert[i+2] == '(')
-        {
-            inGroup = true;
-            dest[index++] = ' ';
-            dest[index++] = prefix[0];
-            dest[index++] = prefix[1];
-            ++i;    // skip space
-        }
-        if (inGroup && toConvert[i-1] == ')' && toConvert[i-2] == ')')
-        {
-            inGroup = false;
-        }
-
-        if (toConvert[i] == ' ')
-        {
-            if (toConvert[i+1] != ' ' && toConvert[i+1] != '\0')
-            {
-                dest[index++] = ' ';
-                if (!inGroup)
-                {
-                    dest[index++] = prefix[0];
-                    dest[index++] = prefix[1];
-                }
-            }
-        }
-        else
-        {
-            dest[index++] = toConvert[i];
-        }
-    }
-    dest[index] = '\0';
 }
 
 void FolderStyleDialog::retrieve(TCHAR *dest, const TCHAR *toRetrieve, TCHAR *prefix) const
@@ -520,59 +521,11 @@ void CommentStyleDialog::setKeywords2List(int id)
         {
             generic_itoa(i, intBuffer+1, 10);
             ::GetDlgItemText(_hSelf, list[i], buffer, max_char);
-            convertTo(newList, buffer, intBuffer);
+			convertTo(newList, max_char, buffer, intBuffer);
         }
 
-        lstrcpy(_pUserLang->_keywordLists[index], newList);
+		wcscpy_s(_pUserLang->_keywordLists[index], newList);
     }
-}
-
-void CommentStyleDialog::convertTo(TCHAR *dest, const TCHAR *toConvert, TCHAR *prefix) const
-{
-    bool inGroup = false;
-    int index = lstrlen(dest);
-    if (index > 0)
-        dest[index++] = ' ';
-    dest[index++] = prefix[0];
-    dest[index++] = prefix[1];
-
-    for (size_t i = 0, len = lstrlen(toConvert); i < len ; ++i)
-    {
-        if (i == 0 && toConvert[i] == '(' && toConvert[i+1] == '(')
-        {
-            inGroup = true;
-        }
-        else if (toConvert[i] == ' ' && toConvert[i+1] == '(' && toConvert[i+2] == '(')
-        {
-            inGroup = true;
-            dest[index++] = ' ';
-            dest[index++] = prefix[0];
-            dest[index++] = prefix[1];
-            ++i;    // skip space
-        }
-        if (inGroup && toConvert[i-1] == ')' && toConvert[i-2] == ')')
-        {
-            inGroup = false;
-        }
-
-        if (toConvert[i] == ' ')
-        {
-            if (toConvert[i+1] != ' ' && toConvert[i+1] != '\0')
-            {
-                dest[index++] = ' ';
-                if (!inGroup)
-                {
-                    dest[index++] = prefix[0];
-                    dest[index++] = prefix[1];
-                }
-            }
-        }
-        else
-        {
-            dest[index++] = toConvert[i];
-        }
-    }
-    dest[index] = '\0';
 }
 
 void CommentStyleDialog::retrieve(TCHAR *dest, const TCHAR *toRetrieve, TCHAR *prefix) const
@@ -767,53 +720,6 @@ INT_PTR CALLBACK SymbolsStyleDialog::run_dlgProc(UINT Message, WPARAM wParam, LP
     }
 }
 
-void SymbolsStyleDialog::convertTo(TCHAR *dest, const TCHAR *toConvert, TCHAR *prefix) const
-{
-    bool inGroup = false;
-    int index = lstrlen(dest);
-    if (index > 0)
-        dest[index++] = ' ';
-    dest[index++] = prefix[0];
-    dest[index++] = prefix[1];
-
-    for (size_t i = 0, len = lstrlen(toConvert); i < len ; ++i)
-    {
-        if (i == 0 && toConvert[i] == '(' && toConvert[i+1] == '(')
-        {
-            inGroup = true;
-        }
-        else if (toConvert[i] == ' ' && toConvert[i+1] == '(' && toConvert[i+2] == '(')
-        {
-            inGroup = true;
-            dest[index++] = ' ';
-            dest[index++] = prefix[0];
-            dest[index++] = prefix[1];
-            ++i;    // skip space
-        }
-        if (inGroup && toConvert[i-1] == ')' && toConvert[i-2] == ')')
-        {
-            inGroup = false;
-        }
-
-        if (toConvert[i] == ' ')
-        {
-            if (toConvert[i+1] != ' ' && toConvert[i+1] != '\0')
-            {
-                dest[index++] = ' ';
-                if (!inGroup)
-                {
-                    dest[index++] = prefix[0];
-                    dest[index++] = prefix[1];
-                }
-            }
-        }
-        else
-        {
-            dest[index++] = toConvert[i];
-        }
-    }
-    dest[index] = '\0';
-}
 
 void SymbolsStyleDialog::retrieve(TCHAR *dest, const TCHAR *toRetrieve, TCHAR *prefix) const
 {
@@ -927,10 +833,10 @@ void SymbolsStyleDialog::setKeywords2List(int id)
 
                 int dd = list[i];
                 ::GetDlgItemText(_hSelf, dd, buffer, max_char);
-                convertTo(newList, buffer, intBuffer);
+                convertTo(newList, max_char, buffer, intBuffer);
             }
 
-            lstrcpy(_pUserLang->_keywordLists[SCE_USER_KWLIST_DELIMITERS], newList);
+			wcscpy_s(_pUserLang->_keywordLists[SCE_USER_KWLIST_DELIMITERS], newList);
             break;
         }
         default :
@@ -1024,12 +930,13 @@ void UserDefineDialog::enableLangAndControlsBy(size_t index)
 
 void UserDefineDialog::updateDlg()
 {
-    if (!_isDirty)
-    {
-		int i = static_cast<int32_t>(::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETCURSEL, 0, 0));
-        if (i > 0)
-            _isDirty = true;
-    }
+	int i = static_cast<int32_t>(::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETCURSEL, 0, 0));
+	if (i > 0) // the first menu item is generic UDL
+	{
+		NppParameters *pNppParam = NppParameters::getInstance();
+		pNppParam->setUdlXmlDirtyFromIndex(i - 1);
+	}
+
     ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_IGNORECASE_CHECK, BM_SETCHECK, _pUserLang->_isCaseIgnored, 0);
     _folderStyleDlg.updateDlg();
     _keyWordsStyleDlg.updateDlg();
@@ -1232,7 +1139,12 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
                         if (result == IDYES)
                         {
                             auto i = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETCURSEL, 0, 0);
-                            TCHAR langName[256];
+							const size_t langNameLen = 256;
+							TCHAR langName[langNameLen + 1];
+							auto cbTextLen = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETLBTEXTLEN, i, 0);
+							if (cbTextLen > langNameLen)
+								return TRUE;
+
 							::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETLBTEXT, i, reinterpret_cast<LPARAM>(langName));
 
                             //remove current language from combobox
@@ -1255,8 +1167,13 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
                     }
                     case IDC_RENAME_BUTTON :
                     {
-                        TCHAR langName[256];
                         auto i = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETCURSEL, 0, 0);
+						const size_t langNameLen = 256;
+						TCHAR langName[langNameLen + 1];
+						auto cbTextLen = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETLBTEXTLEN, i, 0);
+						if (cbTextLen > langNameLen)
+							return TRUE;
+
 						::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETLBTEXT, i, reinterpret_cast<LPARAM>(langName));
 
                         StringDlg strDlg;
@@ -1359,7 +1276,6 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
                             auto i = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETCURSEL, 0, 0);
                             reloadLangCombo();
                             ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_SETCURSEL, i, 0);
-                            _isDirty = true;
                             printStr(TEXT("Import successful."));
                         }
                         else
@@ -1677,9 +1593,14 @@ INT_PTR CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPAR
                 auto i = ::SendDlgItemMessage(hwnd, LOWORD(wParam), CB_GETCURSEL, 0, 0);
                 if (LOWORD(wParam) == IDC_STYLER_COMBO_FONT_SIZE)
                 {
-                    TCHAR intStr[5];
                     if (i != 0)
                     {
+						const size_t intStrLen = 3;
+						TCHAR intStr[intStrLen];
+						auto lbTextLen = ::SendDlgItemMessage(hwnd, LOWORD(wParam), CB_GETLBTEXTLEN, i, 0);
+						if (lbTextLen > intStrLen - 1)
+							return TRUE;
+
 						::SendDlgItemMessage(hwnd, LOWORD(wParam), CB_GETLBTEXT, i, reinterpret_cast<LPARAM>(intStr));
                         if ((!intStr) || (!intStr[0]))
                             style._fontSize = -1;

@@ -2120,7 +2120,7 @@ TCHAR * ScintillaEditView::getGenericWordOnCaretPos(TCHAR * txt, int size)
 	getWordOnCaretPos(txtA, size);
 
 	const TCHAR * txtW = wmc->char2wchar(txtA, cp);
-	lstrcpy(txt, txtW);
+	wcscpy_s(txt, size, txtW);
 	delete [] txtA;
 	return txt;
 }
@@ -2151,7 +2151,7 @@ TCHAR * ScintillaEditView::getGenericSelectedText(TCHAR * txt, int size, bool ex
 	getSelectedText(txtA, size, expand);
 
 	const TCHAR * txtW = wmc->char2wchar(txtA, cp);
-	lstrcpy(txt, txtW);
+	wcscpy_s(txt, size, txtW);
 	delete [] txtA;
 	return txt;
 }
@@ -2824,7 +2824,7 @@ TCHAR * int2str(TCHAR *str, int strLen, int number, int base, int nbChiffre, boo
 			for ( ; *j != '\0' ; ++j)
 				if (*j == '1')
 					break;
-			lstrcpy(str, j);
+			wcscpy_s(str, strLen, j);
 		}
 		else
 		{

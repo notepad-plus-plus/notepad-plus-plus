@@ -928,8 +928,7 @@ void Notepad_plus::saveDockingParams()
 
 void Notepad_plus::saveUserDefineLangs()
 {
-	if (ScintillaEditView::getUserDefineDlg()->isDirty())
-		(NppParameters::getInstance())->writeUserDefinedLang();
+	(NppParameters::getInstance())->writeNeed2SaveUDL();
 }
 
 
@@ -1403,6 +1402,23 @@ void Notepad_plus::removeEmptyLine(bool isBlankContained)
 	{
 		env._str2Search = TEXT("(\\r\\n|\\r|\\n)^$");
 	}
+	_findReplaceDlg.processAll(ProcessReplaceAll, &env, true);
+}
+
+void Notepad_plus::removeDuplicateLines()
+{
+	// whichPart : line head or line tail
+	FindOption env;
+
+	env._str2Search = TEXT("^(.*\\r?\\n)(\\1)+");
+	env._str4Replace = TEXT("\\1");
+    env._searchType = FindRegex;
+	_findReplaceDlg.processAll(ProcessReplaceAll, &env, true);
+
+	// remove the last line if it's a duplicate line.
+	env._str2Search = TEXT("^(.+)\\r?\\n(\\1)");
+	env._str4Replace = TEXT("\\1");
+    env._searchType = FindRegex;
 	_findReplaceDlg.processAll(ProcessReplaceAll, &env, true);
 }
 
@@ -2464,11 +2480,12 @@ void Notepad_plus::addHotSpot()
 
 			hotspotStyle._styleID = static_cast<int>(style_hotspot);
 			_pEditView->execute(SCI_STYLEGETFONT, idStyleMSBunset, reinterpret_cast<LPARAM>(fontNameA));
-			TCHAR *generic_fontname = new TCHAR[128];
+			const size_t generic_fontnameLen = 128;
+			TCHAR *generic_fontname = new TCHAR[generic_fontnameLen];
 
 			WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 			const wchar_t * fontNameW = wmc->char2wchar(fontNameA, _nativeLangSpeaker.getLangEncoding());
-			lstrcpy(generic_fontname, fontNameW);
+			wcscpy_s(generic_fontname, generic_fontnameLen, fontNameW);
 			hotspotStyle._fontName = generic_fontname;
 
 			hotspotStyle._fgColor = static_cast<COLORREF>(_pEditView->execute(SCI_STYLEGETFORE, idStyleMSBunset));
@@ -3952,9 +3969,10 @@ void Notepad_plus::showFunctionComp()
 static generic_string extractSymbol(TCHAR firstChar, TCHAR secondChar, const TCHAR *str2extract)
 {
 	bool found = false;
-	TCHAR extracted[128] = TEXT("");
+	const size_t extractedLen = 128;
+	TCHAR extracted[extractedLen] = {'\0'};
 
-	for (size_t i = 0, j = 0, len = lstrlen(str2extract) ; i < len ; ++i)
+	for (size_t i = 0, j = 0, len = lstrlen(str2extract) ; i < len && j < extractedLen - 1; ++i)
 	{
 		if (found)
 		{
@@ -3964,7 +3982,6 @@ static generic_string extractSymbol(TCHAR firstChar, TCHAR secondChar, const TCH
 				return generic_string(extracted);
 			}
 			extracted[j++] = str2extract[i];
-
 		}
 		else
 		{
@@ -5782,7 +5799,7 @@ void Notepad_plus::launchClipboardHistoryPanel()
 		static TCHAR title[32];
 		if (title_temp.length() < 32)
 		{
-			lstrcpy(title, title_temp.c_str());
+			wcscpy_s(title, title_temp.c_str());
 			data.pszName = title;
 		}
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
@@ -5825,7 +5842,7 @@ void Notepad_plus::launchFileSwitcherPanel()
 		static TCHAR title[32];
 		if (title_temp.length() < 32)
 		{
-			lstrcpy(title, title_temp.c_str());
+			wcscpy_s(title, title_temp.c_str());
 			data.pszName = title;
 		}
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
@@ -5866,7 +5883,7 @@ void Notepad_plus::launchAnsiCharPanel()
 		static TCHAR title[32];
 		if (title_temp.length() < 32)
 		{
-			lstrcpy(title, title_temp.c_str());
+			wcscpy_s(title, title_temp.c_str());
 			data.pszName = title;
 		}
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
@@ -5910,7 +5927,7 @@ void Notepad_plus::launchFileBrowser(const vector<generic_string> & folders)
 		static TCHAR title[32];
 		if (title_temp.length() < 32)
 		{
-			lstrcpy(title, title_temp.c_str());
+			wcscpy_s(title, title_temp.c_str());
 			data.pszName = title;
 		}
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
@@ -5967,7 +5984,7 @@ void Notepad_plus::launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int
 		static TCHAR title[32];
 		if (title_temp.length() < 32)
 		{
-			lstrcpy(title, title_temp.c_str());
+			wcscpy_s(title, title_temp.c_str());
 			data.pszName = title;
 		}
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
@@ -6019,7 +6036,7 @@ void Notepad_plus::launchDocMap()
 		static TCHAR title[32];
 		if (title_temp.length() < 32)
 		{
-			lstrcpy(title, title_temp.c_str());
+			wcscpy_s(title, title_temp.c_str());
 			data.pszName = title;
 		}
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
@@ -6060,7 +6077,7 @@ void Notepad_plus::launchFunctionList()
 		static TCHAR title[32];
 		if (title_temp.length() < 32)
 		{
-			lstrcpy(title, title_temp.c_str());
+			wcscpy_s(title, title_temp.c_str());
 			data.pszName = title;
 		}
 

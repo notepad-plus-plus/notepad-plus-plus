@@ -211,7 +211,7 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath)
 			}
 
 			TCHAR xmlPath[MAX_PATH];
-            lstrcpy(xmlPath, nppParams->getNppPath().c_str());
+			wcscpy_s(xmlPath, nppParams->getNppPath().c_str());
 			PathAppend(xmlPath, TEXT("plugins\\Config"));
             PathAppend(xmlPath, pi->_moduleName.c_str());
 			PathRemoveExtension(xmlPath);
@@ -220,7 +220,7 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath)
 			if (!PathFileExists(xmlPath))
 			{
 				lstrcpyn(xmlPath, TEXT("\0"), MAX_PATH );
-				lstrcpy(xmlPath, nppParams->getAppDataNppDir() );
+				wcscpy_s(xmlPath, nppParams->getAppDataNppDir() );
 				PathAppend(xmlPath, TEXT("plugins\\Config"));
                 PathAppend(xmlPath, pi->_moduleName.c_str());
 				PathRemoveExtension( xmlPath );
@@ -320,7 +320,7 @@ bool PluginsManager::loadPluginsV2(const TCHAR* dir)
 	if (hFindFolder != INVALID_HANDLE_VALUE && (foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
 	{
 		generic_string foundFileName = foundData.cFileName;
-		if (foundFileName != TEXT(".") && foundFileName != TEXT(".."))
+		if (foundFileName != TEXT(".") && foundFileName != TEXT("..") && generic_stricmp(foundFileName.c_str(), TEXT("Config")) != 0)
 		{
 			generic_string pluginsFullPathFilter = pluginsFolder;
 			PathAppend(pluginsFullPathFilter, foundFileName);
@@ -343,7 +343,7 @@ bool PluginsManager::loadPluginsV2(const TCHAR* dir)
 		while (::FindNextFile(hFindFolder, &foundData))
 		{
 			generic_string foundFileName2 = foundData.cFileName;
-			if (foundFileName2 != TEXT(".") && foundFileName2 != TEXT(".."))
+			if (foundFileName2 != TEXT(".") && foundFileName2 != TEXT("..") && generic_stricmp(foundFileName2.c_str(), TEXT("Config")) != 0)
 			{
 				generic_string pluginsFullPathFilter2 = pluginsFolder;
 				PathAppend(pluginsFullPathFilter2, foundFileName2);

@@ -49,7 +49,7 @@ public:
 	void setExtFilter(const TCHAR *, const TCHAR *, ...);
 	
 	int setExtsFilter(const TCHAR *extText, const TCHAR *exts);
-	void setDefFileName(const TCHAR *fn){lstrcpy(_fileName, fn);}
+	void setDefFileName(const TCHAR *fn){ wcscpy_s(_fileName, fn);}
 
 	TCHAR * doSaveDlg();
 	stringVector * doOpenMultiFilesDlg();

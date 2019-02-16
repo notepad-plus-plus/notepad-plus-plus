@@ -589,6 +589,7 @@ private:
 	void wsTabConvert(spaceTab whichWay);
 	void doTrim(trimOp whichPart);
 	void removeEmptyLine(bool isBlankContained);
+	void removeDuplicateLines();
 	void launchAnsiCharPanel();
 	void launchClipboardHistoryPanel();
 	void launchFileSwitcherPanel();

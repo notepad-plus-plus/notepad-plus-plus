@@ -50,7 +50,7 @@ DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 
 	//The folder to watch :
 	WCHAR folderToMonitor[MAX_PATH];
-	lstrcpy(folderToMonitor, fullFileName);
+	wcscpy_s(folderToMonitor, fullFileName);
 
 	::PathRemoveFileSpecW(folderToMonitor);
 	
@@ -153,7 +153,7 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 	bool isSnapshotMode = backupFileName != NULL && PathFileExists(backupFileName);
 	if (isSnapshotMode && !PathFileExists(longFileName)) // UNTITLED
 	{
-		lstrcpy(longFileName, fileName.c_str());
+		wcscpy_s(longFileName, fileName.c_str());
 	}
 
 
@@ -163,9 +163,10 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 	generic_string gs_fileName{fileName};
     size_t res = gs_fileName.find_first_of(UNTITLED_STR);
 
-    if (res != string::npos && res == 0)
+    if (res != string::npos && res == 0) // it can happen when a document named "new #", which is dragged from another instance, is dropped into this instance
     {
-        fileName2Find = fileName;
+        // it's meaningless to show empty "new #" document, so just return null
+		return nullptr;
     }
     else
     {
@@ -722,7 +723,7 @@ generic_string Notepad_plus::exts2Filters(generic_string exts) const
 
 	int j = 0;
 	bool stop = false;
-	for (size_t i = 0, len = exts.length(); i < len ; ++i)
+	for (size_t i = 0, len = exts.length(); i < len && j < MAX_PATH - 1; ++i)
 	{
 		if (extStr[i] == ' ')
 		{

@@ -47,39 +47,28 @@ initUpdatePath:
 		
 	SetOutPath "$INSTDIR\"
 
+	StrCpy $PLUGIN_INST_PATH "$INSTDIR\plugins"
+	StrCpy $ALLUSERS_PLUGIN_CONF_PATH "$PLUGIN_INST_PATH\Config"
+	
 	${If} $noUserDataChecked == ${BST_CHECKED}
 
 		File "..\bin\doLocalConf.xml"
-		StrCpy $PLUGIN_INST_PATH "$INSTDIR\plugins"
-		StrCpy $ALLUSERS_PLUGIN_CONF_PATH "$INSTDIR\plugins\Config"
-		StrCpy $USER_PLUGIN_CONF_PATH "$INSTDIR\plugins\Config"
+		StrCpy $USER_PLUGIN_CONF_PATH "$ALLUSERS_PLUGIN_CONF_PATH"
 		CreateDirectory $PLUGIN_INST_PATH\config
 	${ELSE}
 	
 		IfFileExists $INSTDIR\doLocalConf.xml 0 +2
 		Delete $INSTDIR\doLocalConf.xml
 		
-		; "SetShellVarContext all" makes "$APPDATA\${APPNAME}\plugins" to "%PROGRAMDATA%\Notepad++\plugins"
-		SetShellVarContext all
-		StrCpy $PLUGIN_INST_PATH "$APPDATA\${APPNAME}\plugins"
-		StrCpy $ALLUSERS_PLUGIN_CONF_PATH "$APPDATA\${APPNAME}\plugins\Config"
-
-		CreateDirectory $PLUGIN_INST_PATH
-		AccessControl::GrantOnFile "$PLUGIN_INST_PATH" "(S-1-5-32-545)" "ListDirectory + GenericRead + GenericExecute"
-
-		CreateDirectory $ALLUSERS_PLUGIN_CONF_PATH
-		AccessControl::GrantOnFile  "$ALLUSERS_PLUGIN_CONF_PATH" "(S-1-5-32-545)" "FullAccess"
-
-		SetShellVarContext current
 		StrCpy $USER_PLUGIN_CONF_PATH "$APPDATA\${APPNAME}\plugins\Config"
 		StrCpy $UPDATE_PATH "$APPDATA\${APPNAME}"
 		CreateDirectory $UPDATE_PATH\plugins\config
 	${EndIf}
 	
-	WriteIniStr "$INSTDIR\uninstall.ini" "Uninstall" "UPDATE_PATH" $UPDATE_PATH 
-	WriteIniStr "$INSTDIR\uninstall.ini" "Uninstall" "PLUGIN_INST_PATH" $PLUGIN_INST_PATH 
-	WriteIniStr "$INSTDIR\uninstall.ini" "Uninstall" "USER_PLUGIN_CONF_PATH" $USER_PLUGIN_CONF_PATH 
-	WriteIniStr "$INSTDIR\uninstall.ini" "Uninstall" "ALLUSERS_PLUGIN_CONF_PATH" $ALLUSERS_PLUGIN_CONF_PATH 
+	; WriteIniStr "$INSTDIR\uninstall.ini" "Uninstall" "UPDATE_PATH" $UPDATE_PATH 
+	; WriteIniStr "$INSTDIR\uninstall.ini" "Uninstall" "PLUGIN_INST_PATH" $PLUGIN_INST_PATH 
+	; WriteIniStr "$INSTDIR\uninstall.ini" "Uninstall" "USER_PLUGIN_CONF_PATH" $USER_PLUGIN_CONF_PATH 
+	; WriteIniStr "$INSTDIR\uninstall.ini" "Uninstall" "ALLUSERS_PLUGIN_CONF_PATH" $ALLUSERS_PLUGIN_CONF_PATH 
 
 alreadyDone:
 FunctionEnd
@@ -90,6 +79,7 @@ Function un.setPathAndOptions
     ReadINIStr $USER_PLUGIN_CONF_PATH "$INSTDIR\uninstall.ini" "Uninstall" "USER_PLUGIN_CONF_PATH" 
     ReadINIStr $ALLUSERS_PLUGIN_CONF_PATH "$INSTDIR\uninstall.ini" "Uninstall" "ALLUSERS_PLUGIN_CONF_PATH" 
 FunctionEnd
+
 
 Function copyCommonFiles
 	SetOverwrite off
@@ -106,6 +96,7 @@ Function copyCommonFiles
 
 	SetOverwrite off
 	File "..\bin\shortcuts.xml"
+	
 
 	
 	; Set Section Files and Shortcuts
@@ -113,6 +104,10 @@ Function copyCommonFiles
 	File "..\..\LICENSE"
 	File "..\bin\change.log"
 	File "..\bin\readme.txt"
+	
+	IfFileExists "$UPDATE_PATH\userDefineLang.xml" 0 +2
+	File "..\bin\userDefinedLang-markdown.default.modern.xml"
+	File /oname=$INSTDIR\userDefineLang.xml "..\bin\userDefinedLang-markdown.default.modern.xml"
 	
 !ifdef ARCH64
 	File "..\bin64\SciLexer.dll"

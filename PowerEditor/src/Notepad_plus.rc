@@ -62,9 +62,9 @@ END
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
 IDI_M30ICON                     ICON      "icons/npp.ico"
-//IDI_CHAMELEON                   ICON      "icons/chameleon.ico"
+IDI_CHAMELEON                   ICON      "icons/chameleon.ico"
 //IDI_JESUISCHARLIE               ICON      "icons/Je_suis_Charlie.ico"
-IDI_GILETJAUNE               ICON      "icons/giletJaune.ico"
+//IDI_GILETJAUNE               ICON      "icons/giletJaune.ico"
 IDI_NEW_OFF_ICON                ICON      "icons/new_off.ico"
 IDI_OPEN_OFF_ICON               ICON      "icons/open_off.ico"
 IDI_SAVE_OFF_ICON               ICON      "icons/save_off.ico"
@@ -297,25 +297,26 @@ BEGIN
         END
         POPUP "Line Operations"
         BEGIN
-            MENUITEM "Duplicate Current Line",    IDM_EDIT_DUP_LINE
-            MENUITEM "Split Lines",               IDM_EDIT_SPLIT_LINES
-            MENUITEM "Join Lines",                IDM_EDIT_JOIN_LINES
-            MENUITEM "Move Up Current Line",      IDM_EDIT_LINE_UP
-            MENUITEM "Move Down Current Line",    IDM_EDIT_LINE_DOWN
-			MENUITEM "Remove Empty Lines",        IDM_EDIT_REMOVEEMPTYLINES
-			MENUITEM "Remove Empty Lines (Containing Blank characters)",    IDM_EDIT_REMOVEEMPTYLINESWITHBLANK
-			MENUITEM "Insert Blank Line Above Current",    IDM_EDIT_BLANKLINEABOVECURRENT
-			MENUITEM "Insert Blank Line Below Current",    IDM_EDIT_BLANKLINEBELOWCURRENT
+            MENUITEM "Duplicate Current Line",                           IDM_EDIT_DUP_LINE
+            MENUITEM "Remove Consecutive Duplicate Lines",               IDM_EDIT_REMOVE_DUP_LINES
+            MENUITEM "Split Lines",                                      IDM_EDIT_SPLIT_LINES
+            MENUITEM "Join Lines",                                       IDM_EDIT_JOIN_LINES
+            MENUITEM "Move Up Current Line",                             IDM_EDIT_LINE_UP
+            MENUITEM "Move Down Current Line",                           IDM_EDIT_LINE_DOWN
+			MENUITEM "Remove Empty Lines",                               IDM_EDIT_REMOVEEMPTYLINES
+			MENUITEM "Remove Empty Lines (Containing Blank characters)", IDM_EDIT_REMOVEEMPTYLINESWITHBLANK
+			MENUITEM "Insert Blank Line Above Current",                  IDM_EDIT_BLANKLINEABOVECURRENT
+			MENUITEM "Insert Blank Line Below Current",                  IDM_EDIT_BLANKLINEBELOWCURRENT
 			MENUITEM SEPARATOR
-			MENUITEM "Sort Lines Lexicographically Ascending",		IDM_EDIT_SORTLINES_LEXICOGRAPHIC_ASCENDING
-			MENUITEM "Sort Lines As Integers Ascending",			IDM_EDIT_SORTLINES_INTEGER_ASCENDING
-			MENUITEM "Sort Lines As Decimals (Comma) Ascending",	IDM_EDIT_SORTLINES_DECIMALCOMMA_ASCENDING
-			MENUITEM "Sort Lines As Decimals (Dot) Ascending",		IDM_EDIT_SORTLINES_DECIMALDOT_ASCENDING
+			MENUITEM "Sort Lines Lexicographically Ascending",		     IDM_EDIT_SORTLINES_LEXICOGRAPHIC_ASCENDING
+			MENUITEM "Sort Lines As Integers Ascending",			     IDM_EDIT_SORTLINES_INTEGER_ASCENDING
+			MENUITEM "Sort Lines As Decimals (Comma) Ascending",	     IDM_EDIT_SORTLINES_DECIMALCOMMA_ASCENDING
+			MENUITEM "Sort Lines As Decimals (Dot) Ascending",		     IDM_EDIT_SORTLINES_DECIMALDOT_ASCENDING
 			MENUITEM SEPARATOR
-			MENUITEM "Sort Lines Lexicographically Descending",		IDM_EDIT_SORTLINES_LEXICOGRAPHIC_DESCENDING
-			MENUITEM "Sort Lines As Integers Descending",			IDM_EDIT_SORTLINES_INTEGER_DESCENDING
-			MENUITEM "Sort Lines As Decimals (Comma) Descending",	IDM_EDIT_SORTLINES_DECIMALCOMMA_DESCENDING
-			MENUITEM "Sort Lines As Decimals (Dot) Descending",		IDM_EDIT_SORTLINES_DECIMALDOT_DESCENDING
+			MENUITEM "Sort Lines Lexicographically Descending",		     IDM_EDIT_SORTLINES_LEXICOGRAPHIC_DESCENDING
+			MENUITEM "Sort Lines As Integers Descending",			     IDM_EDIT_SORTLINES_INTEGER_DESCENDING
+			MENUITEM "Sort Lines As Decimals (Comma) Descending",	     IDM_EDIT_SORTLINES_DECIMALCOMMA_DESCENDING
+			MENUITEM "Sort Lines As Decimals (Dot) Descending",		     IDM_EDIT_SORTLINES_DECIMALDOT_DESCENDING
 		END
         POPUP "Comment/Uncomment"
         BEGIN
@@ -995,9 +996,9 @@ STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_BORDER | WS_SYSMENU
 FONT 8, TEXT("MS Shell Dlg"), 0, 0, 0x1
 BEGIN
     EDITTEXT        IDC_BUILD_DATETIME,150,2,150,10, ES_READONLY | NOT WS_BORDER
-    //CONTROL         "",IDI_CHAMELEON,"Static",SS_OWNERDRAW,20,5,64,64
+    CONTROL         "",IDI_CHAMELEON,"Static",SS_OWNERDRAW,20,5,64,64
     //CONTROL         "",IDI_JESUISCHARLIE,"Static",SS_OWNERDRAW,20,5,64,64
-    CONTROL         "",IDI_GILETJAUNE,"Static",SS_OWNERDRAW,20,5,64,64
+    //CONTROL         "",IDI_GILETJAUNE,"Static",SS_OWNERDRAW,20,5,64,64
     LTEXT           NOTEPAD_PLUS_VERSION, IDC_STATIC,70,20,140,11
     LTEXT           "bit",IDC_VERSION_BIT,150,20,140,11
     LTEXT           "Author :",IDC_STATIC,21,45,31,8

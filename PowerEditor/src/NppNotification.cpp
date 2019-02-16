@@ -565,6 +565,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			bool isFileExisting = PathFileExists(buf->getFullPathName()) != FALSE;
 			_tabPopupMenu.enableItem(IDM_FILE_DELETE, isFileExisting);
 			_tabPopupMenu.enableItem(IDM_FILE_RENAME, isFileExisting);
+			_tabPopupMenu.enableItem(IDM_FILE_OPEN_FOLDER, isFileExisting);
+			_tabPopupMenu.enableItem(IDM_FILE_OPEN_CMD, isFileExisting);
 
 			_tabPopupMenu.enableItem(IDM_FILE_OPEN_DEFAULT_VIEWER, isAssoCommandExisting(buf->getFullPathName()));
 
@@ -882,7 +884,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					if (tipTmp.length() >= 80)
 						return FALSE;
 
-					lstrcpy(lpttt->szText, tipTmp.c_str());
+					wcscpy_s(lpttt->szText, tipTmp.c_str());
 					return TRUE;
 				}
 				else if (hWin == _mainDocTab.getHSelf())
@@ -893,7 +895,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 					if (tipTmp.length() >= tipMaxLen)
 						return FALSE;
-					lstrcpy(docTip, tipTmp.c_str());
+					wcscpy_s(docTip, tipTmp.c_str());
 					lpttt->lpszText = docTip;
 					return TRUE;
 				}
@@ -905,7 +907,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 					if (tipTmp.length() >= tipMaxLen)
 						return FALSE;
-					lstrcpy(docTip, tipTmp.c_str());
+					wcscpy_s(docTip, tipTmp.c_str());
 					lpttt->lpszText = docTip;
 					return TRUE;
 				}

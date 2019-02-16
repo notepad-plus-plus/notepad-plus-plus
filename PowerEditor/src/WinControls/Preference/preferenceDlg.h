@@ -249,7 +249,7 @@ public :
 	};
 
 	void showDialogByName(const TCHAR *name) const;
-	void setListSelection(size_t currentSel) const;
+	bool setListSelection(size_t currentSel) const;
 
 	virtual void destroy();
 

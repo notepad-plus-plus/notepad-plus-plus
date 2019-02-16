@@ -910,7 +910,7 @@ void FileBrowser::addRootFolder(generic_string rootFolderPath)
 
 	TCHAR *label = ::PathFindFileName(rootFolderPath.c_str());
 	TCHAR rootLabel[MAX_PATH];
-	lstrcpy(rootLabel, label);
+	wcscpy_s(rootLabel, label);
 	size_t len = lstrlen(rootLabel);
 	if (rootLabel[len - 1] == '\\')
 		rootLabel[len - 1] = '\0';
@@ -929,7 +929,7 @@ HTREEITEM FileBrowser::createFolderItemsFromDirStruct(HTREEITEM hParentItem, con
 	if (directoryStructure._parent == nullptr && hParentItem == nullptr)
 	{
 		TCHAR rootPath[MAX_PATH];
-		lstrcpy(rootPath, directoryStructure._rootPath.c_str());
+		wcscpy_s(rootPath, directoryStructure._rootPath.c_str());
 		size_t len = lstrlen(rootPath);
 		if (rootPath[len - 1] == '\\')
 			rootPath[len - 1] = '\0';

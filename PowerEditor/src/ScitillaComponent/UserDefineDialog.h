@@ -272,7 +272,6 @@ protected :
     INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
     void setKeywords2List(int ctrlID);
 private :
-    void convertTo(TCHAR *dest, const TCHAR *toConvert, TCHAR *prefix) const;
     void retrieve(TCHAR *dest, const TCHAR *toRetrieve, TCHAR *prefix) const;
     URLCtrl _pageLink;
 };
@@ -296,7 +295,6 @@ protected :
     INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
     void setKeywords2List(int id);
 private :
-    void convertTo(TCHAR *dest, const TCHAR *toConvert, TCHAR *prefix) const;
     void retrieve(TCHAR *dest, const TCHAR *toRetrieve, TCHAR *prefix) const;
 };
 
@@ -309,7 +307,6 @@ protected :
     INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
     void setKeywords2List(int id);
 private :
-    void convertTo(TCHAR *dest, const TCHAR *toConvert, TCHAR *prefix) const;
     void retrieve(TCHAR *dest, const TCHAR *toRetrieve, TCHAR *prefix) const;
 };
 
@@ -356,7 +353,6 @@ public :
     void changeStyle();
     bool isDocked() const {return _status == DOCK;};
     void setDockStatus(bool isDocked) {_status = isDocked;};
-    bool isDirty() const {return _isDirty;};
     HWND getFolderHandle() const {
         return _folderStyleDlg.getHSelf();
     };
@@ -387,7 +383,6 @@ private :
     int _currentHight = 0;
     int _yScrollPos = 0;
     int _prevHightVal = 0;
-    bool _isDirty = false;
     void getActualPosSize() {
         ::GetWindowRect(_hSelf, &_dlgPos);
         _dlgPos.right -= _dlgPos.left;

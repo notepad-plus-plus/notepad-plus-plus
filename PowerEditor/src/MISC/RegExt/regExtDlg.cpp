@@ -149,6 +149,10 @@ INT_PTR CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 					if (!_isCustomize)
 					{
 						auto index2Add = ::SendDlgItemMessage(_hSelf, IDC_REGEXT_LANGEXT_LIST, LB_GETCURSEL, 0, 0);
+						auto lbTextLen = ::SendDlgItemMessage(_hSelf, IDC_REGEXT_LANGEXT_LIST, LB_GETTEXTLEN, index2Add, 0);
+						if (lbTextLen > extNameMax - 1)
+							return TRUE;
+
 						::SendDlgItemMessage(_hSelf, IDC_REGEXT_LANGEXT_LIST, LB_GETTEXT, index2Add, reinterpret_cast<LPARAM>(ext2Add));
 						addExt(ext2Add);
 						::SendDlgItemMessage(_hSelf, IDC_REGEXT_LANGEXT_LIST, LB_DELETESTRING, index2Add, 0);
@@ -171,6 +175,10 @@ INT_PTR CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 				{
 					TCHAR ext2Sup[extNameMax] = TEXT("");
 					auto index2Sup = ::SendDlgItemMessage(_hSelf, IDC_REGEXT_REGISTEREDEXTS_LIST, LB_GETCURSEL, 0, 0);
+					auto lbTextLen = ::SendDlgItemMessage(_hSelf, IDC_REGEXT_REGISTEREDEXTS_LIST, LB_GETTEXTLEN, index2Sup, 0);
+					if (lbTextLen > extNameMax - 1)
+						return TRUE;
+
 					::SendDlgItemMessage(_hSelf, IDC_REGEXT_REGISTEREDEXTS_LIST, LB_GETTEXT, index2Sup, reinterpret_cast<LPARAM>(ext2Sup));
 					if (deleteExts(ext2Sup))
 						::SendDlgItemMessage(_hSelf, IDC_REGEXT_REGISTEREDEXTS_LIST, LB_DELETESTRING, index2Sup, 0);
@@ -222,7 +230,12 @@ INT_PTR CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 				{
 					if (i != LB_ERR)
 					{
-						TCHAR itemName[32];
+						const size_t itemNameLen = 32;
+						TCHAR itemName[itemNameLen + 1];
+						auto lbTextLen = ::SendDlgItemMessage(_hSelf, LOWORD(wParam), LB_GETTEXTLEN, i, 0);
+						if (lbTextLen > itemNameLen)
+							return TRUE;
+
 						::SendDlgItemMessage(_hSelf, LOWORD(wParam), LB_GETTEXT, i, reinterpret_cast<LPARAM>(itemName));
 
 						if (!generic_stricmp(defExtArray[nbSupportedLang-1][0], itemName))

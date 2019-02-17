@@ -399,13 +399,14 @@ class StringDlg : public StaticDialog
 {
 public :
     StringDlg() : StaticDialog() {};
-    void init(HINSTANCE hInst, HWND parent, const TCHAR *title, const TCHAR *staticName, const TCHAR *text2Set, int txtLen = 0) {
-        Window::init(hInst, parent);
-        _title = title;
-        _static = staticName;
-        _textValue = text2Set;
-        _txtLen = txtLen;
-    };
+	void init(HINSTANCE hInst, HWND parent, const TCHAR *title, const TCHAR *staticName, const TCHAR *text2Set, int txtLen = 0, bool bGotoCenter = false) {
+		Window::init(hInst, parent);
+		_title = title;
+		_static = staticName;
+		_textValue = text2Set;
+		_txtLen = txtLen;
+		_shouldGotoCenter = bGotoCenter;
+	};
 
     INT_PTR doDialog() {
         return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_STRING_DLG), _hParent,  dlgProc, reinterpret_cast<LPARAM>(this));
@@ -421,6 +422,7 @@ private :
     generic_string _textValue;
     generic_string _static;
     int _txtLen = 0;
+	bool _shouldGotoCenter = false;
 };
 
 class StylerDlg

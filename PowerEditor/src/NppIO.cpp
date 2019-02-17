@@ -1404,17 +1404,52 @@ bool Notepad_plus::fileRename(BufferID id)
 	scnN.nmhdr.idFrom = (uptr_t)bufferID;
 	_pluginsManager.notify(&scnN);
 
-	FileDialog fDlg(_pPublicInterface->getHSelf(), _pPublicInterface->getHinst());
-
-    fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
-	setFileOpenSaveDlgFilters(fDlg);
-
-	fDlg.setDefFileName(buf->getFileName());
-	TCHAR *pfn = fDlg.doSaveDlg();
-
 	bool success = false;
-	if (pfn)
-		success = MainFileManager->moveFile(bufferID, pfn);
+	bool isFileExisting = PathFileExists(buf->getFullPathName()) != FALSE;
+	if (isFileExisting)
+	{
+		FileDialog fDlg(_pPublicInterface->getHSelf(), _pPublicInterface->getHinst());
+
+		fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
+		setFileOpenSaveDlgFilters(fDlg);
+
+		fDlg.setDefFileName(buf->getFileName());
+		TCHAR *pfn = fDlg.doSaveDlg();
+
+		if (pfn)
+			success = MainFileManager->moveFile(bufferID, pfn);
+	}
+	else
+	{
+		// We are just going to rename the tab nothing else
+		// So just rename the tab and rename the backup file too if applicable
+
+		StringDlg strDlg;
+		strDlg.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), TEXT("Rename Current Tab"), TEXT("New Name : "), buf->getFileName(), 0, true);
+
+		TCHAR *tabNewName = reinterpret_cast<TCHAR *>(strDlg.doDialog());
+		if (tabNewName)
+		{
+			success = true;
+			buf->setFileName(tabNewName);
+			bool isSnapshotMode = NppParameters::getInstance()->getNppGUI().isSnapshotMode();
+			if (isSnapshotMode)
+			{
+				generic_string oldBackUpFile = buf->getBackupFileName();
+
+				// Change the backup file name and let MainFileManager decide the new filename
+				buf->setBackupFileName(TEXT(""));
+
+				// Create new backup
+				buf->setModifiedStatus(true);
+				bool bRes = MainFileManager->backupCurrentBuffer();
+
+				// Delete old backup
+				if (bRes)
+					::DeleteFile(oldBackUpFile.c_str());
+			}
+		}
+	}
 
 	scnN.nmhdr.code = success ? NPPN_FILERENAMED : NPPN_FILERENAMECANCEL;
 	_pluginsManager.notify(&scnN);

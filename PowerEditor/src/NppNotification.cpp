@@ -564,7 +564,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 			bool isFileExisting = PathFileExists(buf->getFullPathName()) != FALSE;
 			_tabPopupMenu.enableItem(IDM_FILE_DELETE, isFileExisting);
-			_tabPopupMenu.enableItem(IDM_FILE_RENAME, isFileExisting);
+			//_tabPopupMenu.enableItem(IDM_FILE_RENAME, isFileExisting);
 			_tabPopupMenu.enableItem(IDM_FILE_OPEN_FOLDER, isFileExisting);
 			_tabPopupMenu.enableItem(IDM_FILE_OPEN_CMD, isFileExisting);
 

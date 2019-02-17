@@ -1449,7 +1449,10 @@ INT_PTR CALLBACK StringDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
             if (_txtLen)
                 ::SendDlgItemMessage(_hSelf, IDC_STRING_EDIT, EM_SETLIMITTEXT, _txtLen, 0);
 
-            return TRUE;
+			if (_shouldGotoCenter)
+				goToCenter();
+
+			return TRUE;
         }
 
         case WM_COMMAND :

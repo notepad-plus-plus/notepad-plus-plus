@@ -1443,6 +1443,13 @@ INT_PTR CALLBACK StringDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
     {
         case WM_INITDIALOG :
         {
+			// Re-route to Subclassed the edit control's proc if needed
+			if (_restrictedChars.length())
+			{
+				::SetWindowLongPtr(GetDlgItem(_hSelf, IDC_STRING_EDIT), GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
+				_oldEditProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(GetDlgItem(_hSelf, IDC_STRING_EDIT), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(customEditProc)));
+			}
+
             ::SetWindowText(_hSelf, _title.c_str());
             ::SetDlgItemText(_hSelf, IDC_STRING_STATIC, _static.c_str());
             ::SetDlgItemText(_hSelf, IDC_STRING_EDIT, _textValue.c_str());
@@ -1480,6 +1487,80 @@ INT_PTR CALLBACK StringDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
         default :
             return FALSE;
     }
+}
+
+LRESULT StringDlg::customEditProc(HWND hEdit, UINT msg, WPARAM wParam, LPARAM lParam)
+{
+	StringDlg *pSelf = reinterpret_cast<StringDlg *>(::GetWindowLongPtr(hEdit, GWLP_USERDATA));
+	if (!pSelf)
+	{
+		return 0;
+	}
+
+	switch (msg)
+	{
+	case WM_CHAR:
+		if (0x80 & GetKeyState(VK_CONTROL))
+		{
+			switch (wParam)
+			{
+			case 0x16: // ctrl - V
+				pSelf->HandlePaste(hEdit);
+				return 0;
+
+			case 0x03: // ctrl - C
+			case 0x18: // ctrl - X
+			default:
+				// Let them go to default
+				break;
+			}
+		}
+		else
+		{
+			// If Key pressed not permitted, then return 0
+			if (!pSelf->isAllowed(reinterpret_cast<TCHAR*>(&wParam)))
+				return 0;
+		}
+		break;
+
+	case WM_DESTROY:
+		// Reset the message handler to the original one
+		SetWindowLongPtr(hEdit, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(pSelf->_oldEditProc));
+		return 0;
+	}
+
+	// Process the message using the default handler
+	return CallWindowProc(pSelf->_oldEditProc, hEdit, msg, wParam, lParam);
+}
+
+bool StringDlg::isAllowed(const generic_string & txt)
+{
+	for (auto ch : txt)
+	{
+		if (std::find(_restrictedChars.cbegin(), _restrictedChars.cend(), ch) != _restrictedChars.cend())
+			return false;
+	}
+	return true;
+}
+
+void StringDlg::HandlePaste(HWND hEdit)
+{
+	if (OpenClipboard(hEdit))
+	{
+		HANDLE hClipboardData = GetClipboardData(CF_UNICODETEXT);
+		if (NULL != hClipboardData)
+		{
+			LPTSTR pszText = reinterpret_cast<LPTSTR>(GlobalLock(hClipboardData));
+			if (NULL != pszText && isAllowed(pszText))
+			{
+				SendMessage(hEdit, EM_REPLACESEL, TRUE, reinterpret_cast<LPARAM>(pszText));
+			}
+
+			GlobalUnlock(hClipboardData);
+		}
+
+		CloseClipboard();
+	}
 }
 
 INT_PTR CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)

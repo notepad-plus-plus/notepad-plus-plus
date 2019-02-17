@@ -1408,8 +1408,12 @@ bool Notepad_plus::fileRename(BufferID id)
 		// We are just going to rename the tab nothing else
 		// So just rename the tab and rename the backup file too if applicable
 
+		// https://docs.microsoft.com/en-us/windows/desktop/FileIO/naming-a-file
+		// Reserved characters: < > : " / \ | ? *
+		std::wstring reservedChars = TEXT("<>:\"/\\|\?*");
+
 		StringDlg strDlg;
-		strDlg.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), TEXT("Rename Current Tab"), TEXT("New Name : "), buf->getFileName(), 0, true);
+		strDlg.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), TEXT("Rename Current Tab"), TEXT("New Name : "), buf->getFileName(), 0, reservedChars.c_str(), true);
 
 		TCHAR *tabNewName = reinterpret_cast<TCHAR *>(strDlg.doDialog());
 		if (tabNewName)

@@ -770,9 +770,9 @@ int FindReplaceDlg::doReplaceOpenedFilesOrNot()
 	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
 	return pNativeSpeaker->messageBox("DoReplaceOpenedFilesOrNot",
 		getHSelf(),
-		TEXT("Replace all in all opened documents?"),
-		TEXT("Replace in all documents"),
-		MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL,
+		TEXT("Are you sure you want to replace all occurrences\r in all opened documents?"),
+		TEXT("Are you sure?"),
+		MB_OKCANCEL | MB_ICONQUESTION | MB_APPLMODAL,
 		0, // not used
 		0  // do I need to put something there?
 	);

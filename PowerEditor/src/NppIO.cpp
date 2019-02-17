@@ -155,25 +155,9 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 	{
 		wcscpy_s(longFileName, fileName.c_str());
 	}
-
-
     _lastRecentFileList.remove(longFileName);
 
-    generic_string fileName2Find;
-	generic_string gs_fileName{fileName};
-    size_t res = gs_fileName.find_first_of(UNTITLED_STR);
-
-    if (res != string::npos && res == 0) // it can happen when a document named "new #", which is dragged from another instance, is dropped into this instance
-    {
-        // it's meaningless to show empty "new #" document, so just return null
-		return nullptr;
-    }
-    else
-    {
-        fileName2Find = longFileName;
-    }
-
-    BufferID test = MainFileManager->getBufferFromName(fileName2Find.c_str());
+    BufferID test = MainFileManager->getBufferFromName(longFileName);
     if (test != BUFFER_INVALID && !isSnapshotMode)
     {
         if (_pTrayIco)

@@ -4,10 +4,10 @@
 
 	** created By:- Rathin A. Dholakia **
 		Email- rathin2j@gmail.com
-	** Last Updated on 28/11/2018 by Rajendra Singh (singh.rajen15@gmail.com) **
+	** Last Updated on 18/02/2019 by Rajendra Singh (singh.rajen15@gmail.com) **
 -->
 <NotepadPlus>
-  <Native-Langue name="हिन्दी" filename="hindi.xml" version="7.6">
+  <Native-Langue name="हिन्दी" filename="hindi.xml" version="7.6.3">
     <Menu>
       <Main>
         <!-- Main Menu Entries -->
@@ -19,7 +19,7 @@
           <Item menuId="encoding" name="&amp;एन्कोडिंग"/>
           <Item menuId="language" name="&amp;भाषा"/>
           <Item menuId="settings" name="&amp;सेटिंग"/>
-	  <Item menuId="tools" name="टूल्स"/>
+          <Item menuId="tools" name="टूल्स"/>
           <Item menuId="macro" name="मेक्रो"/>
           <Item menuId="run" name="चलाये"/>
           <Item idName="Plugins" name="प्लगिन्स"/>
@@ -71,7 +71,8 @@
           <Item subMenuId="encoding-westernEuropean" name="पश्चिमी यूरोपियन"/>
           <Item subMenuId="encoding-vietnamese" name="वियतनाम"/>
           <Item subMenuId="settings-import" name="आयात"/>
-		  <Item subMenuId="tools-md5"  name="MD5"/>
+          <Item subMenuId="tools-md5"  name="MD5"/>
+          <Item subMenuId="tools-sha256"  name="SHA-256"/>
         </SubEntries>
 
         <!-- all menu item -->
@@ -307,7 +308,9 @@
           <Item id="48502" name="फाइल्स से जनरेट करें..."/>
           <Item id="48503" name="क्लिपबोर्ड पर सलेक्शन से जनरेट करें"/>
           <Item id="49000" name="&amp;चलायें (Run)..."/>
-
+          <Item id="48504" name="जनरेट करें..."/>
+          <Item id="48505" name="फाइल्स से जनरेट करें..."/>
+          <Item id="48506" name="क्लिपबोर्ड पर सलेक्शन से जनरेट करें"/>
           <Item id="50000" name="फंक्शन समापन"/>
           <Item id="50001" name="शब्द समापन"/>
           <Item id="50002" name="फंक्शन पैरामीटर्स संकेत(हिंट)"/>
@@ -424,6 +427,18 @@
 		<Item id="1934" name="क्लिपबोर्ड पर कॉपी करें"/>
 		<Item id="2"    name="बंद करें"/>
 	  </MD5FromTextDlg>
+
+	  <SHA256FromFilesDlg title="फाइल्स से SHA-256 डाइजेस्ट जनरेट करें">
+		<Item id="1922" name="SHA-256 जनरेट करने के लिए फाइल्स चुनें..."/>
+		<Item id="1924" name="क्लिपबोर्ड पर कॉपी करें"/>
+		<Item id="2"    name="बंद करें"/>
+	  </SHA256FromFilesDlg>
+
+	  <SHA256FromTextDlg title="SHA-256 डाइजेस्ट जनरेट करें">
+		<Item id="1932" name="हरेक लाइन को अलग स्ट्रिंग्स मानें"/>
+		<Item id="1934" name="क्लिपबोर्ड पर कॉपी करें"/>
+		<Item id="2"    name="बंद करें"/>
+	  </SHA256FromTextDlg>
 
 	  <PluginsAdminDlg title="प्लगइन एडमिन" titleAvailable = "अवेलेबल" titleUpdates = "अपडेट्स" titleInstalled = "इन्सटॉल्ड">
 		<ColumnPlugin   name="प्लगइन"/>

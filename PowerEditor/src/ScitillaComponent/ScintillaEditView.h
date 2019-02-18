@@ -223,7 +223,13 @@ public:
 	virtual void init(HINSTANCE hInst, HWND hPere);
 
 	LRESULT execute(UINT Msg, WPARAM wParam=0, LPARAM lParam=0) const {
-		return _pScintillaFunc(_pScintillaPtr, Msg, wParam, lParam);
+		try {
+			return _pScintillaFunc(_pScintillaPtr, Msg, wParam, lParam);
+		}
+		catch (...)
+		{
+			return -1;
+		}
 	};
 
 	void activateBuffer(BufferID buffer);

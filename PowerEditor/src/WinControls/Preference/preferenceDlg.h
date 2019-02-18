@@ -148,13 +148,11 @@ struct strCouple {
 class PrintSettingsDlg : public StaticDialog
 {
 public :
-	PrintSettingsDlg():_focusedEditCtrl(0), _selStart(0), _selEnd(0){};
+	PrintSettingsDlg(){};
 private :
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	std::vector<strCouple> varList;
-	int _focusedEditCtrl;
-	DWORD _selStart;
-	DWORD _selEnd;
+	int _focusedEditCtrl = 0;
 };
 
 class BackupDlg : public StaticDialog

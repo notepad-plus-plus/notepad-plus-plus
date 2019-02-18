@@ -2387,22 +2387,33 @@ INT_PTR CALLBACK PrintSettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
 				case  IDC_BUTTON_ADDVAR:
 				{
-					if (!_focusedEditCtrl)
-						return TRUE;
+					try {
+						if (!_focusedEditCtrl)
+							return TRUE;
 
-					auto iSel = ::SendDlgItemMessage(_hSelf, IDC_COMBO_VARLIST, CB_GETCURSEL, 0, 0);
-					TCHAR *varStr = (TCHAR *)::SendDlgItemMessage(_hSelf, IDC_COMBO_VARLIST, CB_GETITEMDATA, iSel, 0);
+						auto iSel = ::SendDlgItemMessage(_hSelf, IDC_COMBO_VARLIST, CB_GETCURSEL, 0, 0);
+						TCHAR *varStr = (TCHAR *)::SendDlgItemMessage(_hSelf, IDC_COMBO_VARLIST, CB_GETITEMDATA, iSel, 0);
+						DWORD selStart = 0;
+						DWORD selEnd = 0;
+						::SendDlgItemMessage(_hSelf, _focusedEditCtrl, EM_GETSEL, reinterpret_cast<WPARAM>(&selStart), reinterpret_cast<LPARAM>(&selEnd));
 
-					::SendDlgItemMessage(_hSelf, _focusedEditCtrl, EM_GETSEL, reinterpret_cast<WPARAM>(&_selStart), reinterpret_cast<LPARAM>(&_selEnd));
+						const int stringSize = 256;
+						TCHAR str[stringSize];
+						::SendDlgItemMessage(_hSelf, _focusedEditCtrl, WM_GETTEXT, stringSize, reinterpret_cast<LPARAM>(str));
 
-					const int stringSize = 256;
-					TCHAR str[stringSize];
-					::SendDlgItemMessage(_hSelf, _focusedEditCtrl, WM_GETTEXT, stringSize, reinterpret_cast<LPARAM>(str));
+						generic_string str2Set(str);
+						size_t strLen = str2Set.length();
+						if (selStart > strLen || selEnd > strLen)
+							selStart = selEnd = strLen;
 
-					generic_string str2Set(str);
-					str2Set.replace(_selStart, _selEnd - _selStart, varStr);
-					
-					::SetDlgItemText(_hSelf, _focusedEditCtrl, str2Set.c_str());
+						str2Set.replace(selStart, selEnd - selStart, varStr);
+
+						::SetDlgItemText(_hSelf, _focusedEditCtrl, str2Set.c_str());
+					}
+					catch (...)
+					{
+						// Do nothing
+					}
 				}
 				break;
 			}

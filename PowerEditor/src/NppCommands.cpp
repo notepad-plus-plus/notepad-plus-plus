@@ -483,6 +483,10 @@ void Notepad_plus::command(int id)
 			{
 				url = TEXT("https://search.yahoo.com/search?q=$(CURRENT_WORD)");
 			}
+			else if (nppGui._searchEngineChoice == nppGui.se_stackoverflow)
+			{
+				url = TEXT("https://stackoverflow.com/search?q=$(CURRENT_WORD)");
+			}
 
 			Command cmd(url.c_str());
 			cmd.run(_pPublicInterface->getHSelf());	

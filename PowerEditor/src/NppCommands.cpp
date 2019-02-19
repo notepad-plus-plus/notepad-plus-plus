@@ -458,13 +458,15 @@ void Notepad_plus::command(int id)
 			generic_string url;
 			if (nppGui._searchEngineChoice == nppGui.se_custom)
 			{
-				if (nppGui._searchEngineCustom.empty())
+				url = nppGui._searchEngineCustom;
+				remove_if(url.begin(), url.end(), isspace);
+
+				auto httpPos = url.find(TEXT("http://"));
+				auto httpsPos = url.find(TEXT("https://"));
+
+				if (url.empty() || (httpPos != 0 && httpsPos != 0)) // if string is not a url (for launching only browser)
 				{
 					url = TEXT("https://www.google.com/search?q=$(CURRENT_WORD)");
-				}
-				else
-				{
-					url = nppGui._searchEngineCustom.c_str();
 				}
 			}
 			else if (nppGui._searchEngineChoice == nppGui.se_duckDuckGo)

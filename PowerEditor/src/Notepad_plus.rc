@@ -964,7 +964,7 @@ BEGIN
         MENUITEM "Notepad++ Project Page",    IDM_PROJECTPAGE
         MENUITEM "Notepad++ Community (Forum)",                     IDM_FORUM
 		MENUITEM "Live Support",				IDM_ONLINESUPPORT
-        MENUITEM "Get More Plugins",          IDM_PLUGINSHOME
+        //MENUITEM "Get More Plugins",          IDM_PLUGINSHOME
         MENUITEM SEPARATOR
         MENUITEM "Update Notepad++",          IDM_UPDATE_NPP
 		MENUITEM "Set Updater Proxy...",         IDM_CONFUPDATERPROXY

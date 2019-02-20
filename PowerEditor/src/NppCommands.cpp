@@ -2785,13 +2785,13 @@ void Notepad_plus::command(int id)
 			::ShellExecute(NULL, TEXT("open"), TEXT("https://gitter.im/notepad-plus-plus/notepad-plus-plus"), NULL, NULL, SW_SHOWNORMAL);
 			break;
 		}
-
+		/*
 		case IDM_PLUGINSHOME:
 		{
 			::ShellExecute(NULL, TEXT("open"), TEXT("http://docs.notepad-plus-plus.org/index.php/Plugin_Central"), NULL, NULL, SW_SHOWNORMAL);
 			break;
 		}
-
+		*/
 		case IDM_UPDATE_NPP :
 		case IDM_CONFUPDATERPROXY :
 		{

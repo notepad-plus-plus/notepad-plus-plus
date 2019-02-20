@@ -383,7 +383,7 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 //  { VK_NULL,    IDM_ONLINEHELP,                               false, false, false, nullptr },
 	{ VK_NULL,    IDM_FORUM,                                    false, false, false, nullptr },
 	{ VK_NULL,    IDM_ONLINESUPPORT,                            false, false, false, nullptr },
-	{ VK_NULL,    IDM_PLUGINSHOME,                              false, false, false, nullptr },
+//	{ VK_NULL,    IDM_PLUGINSHOME,                              false, false, false, nullptr },
 	{ VK_NULL,    IDM_UPDATE_NPP,                               false, false, false, nullptr },
 	{ VK_NULL,    IDM_CONFUPDATERPROXY,                         false, false, false, nullptr },
 	{ VK_NULL,    IDM_DEBUGINFO,                                false, false, false, nullptr },

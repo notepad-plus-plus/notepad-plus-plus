@@ -357,6 +357,7 @@ void DisplayTitle(HWND hWnd,int SI,HFONT hfont)
      ReleaseDC(hWnd,gdc);
     }
 
+const size_t bufferLen = 1000;
 
 void DisplayColumn(HWND hWnd,int SI,int c,int offset,HFONT hfont,HFONT hcolumnheadingfont)
 {
@@ -364,7 +365,7 @@ void DisplayColumn(HWND hWnd,int SI,int c,int offset,HFONT hfont,HFONT hcolumnhe
 	RECT rect,rectsave;
     HFONT holdfont;
 	int r;
-	TCHAR buffer[1000];
+	TCHAR buffer[bufferLen];
 	int iDataType,iProtection,iProperty;
 	if(BGHS[SI].columnwidths[c]==0){return;}
 
@@ -418,7 +419,7 @@ void DisplayColumn(HWND hWnd,int SI,int c,int offset,HFONT hfont,HFONT hcolumnhe
         }
 
 	 SetCell(&BGcell,r,c);
-	 lstrcpy(buffer, TEXT(""));
+	 wcscpy_s(buffer, TEXT(""));
 	 if(BGHS[SI].COLUMNSNUMBERED)
 	 {
 	  if(c>0)
@@ -467,7 +468,7 @@ void DisplayColumn(HWND hWnd,int SI,int c,int offset,HFONT hfont,HFONT hcolumnhe
 		 rect.bottom = rect.top + BGHS[SI].rowheight;
 		 rectsave=rect;
 		 SetCell(&BGcell,r,c);
-		 lstrcpy(buffer, TEXT(""));
+		 wcscpy_s(buffer, TEXT(""));
 		 if((c==0)&&(BGHS[SI].ROWSNUMBERED))
 		 {
 		  wsprintf(buffer, TEXT("%d"), r);
@@ -1150,7 +1151,7 @@ void CloseEdit(HWND hWnd,int SI)
      cell.row = r;
      cell.col = c;
 	 SendMessage(hWnd, BGM_SETCELLDATA, reinterpret_cast<WPARAM>(&cell), reinterpret_cast<LPARAM>(BGHS[SI].editstring));
-     lstrcpy(BGHS[SI].editstring, TEXT(""));
+	 wcscpy_s(BGHS[SI].editstring, TEXT(""));
      RefreshGrid(hWnd);
      BGHS[SI].EDITING = FALSE;
      HideCaret(hWnd);
@@ -1222,7 +1223,7 @@ ATOM RegisterGridClass(HINSTANCE hInstance)
    {
         BGHS[j].gridmenu = 0;
         BGHS[j].hlist1 = NULL;
-		lstrcpy(BGHS[j].protect, TEXT("U"));
+		wcscpy_s(BGHS[j].protect, TEXT("U"));
 		BGHS[j].rows = 100;
 		BGHS[j].cols = 255;
 		BGHS[j].homerow = 1;
@@ -1261,7 +1262,7 @@ ATOM RegisterGridClass(HINSTANCE hInstance)
         BGHS[j].hcolumnheadingfont = NULL;
         BGHS[j].htitlefont = NULL;
 		BGHS[j].INITIALCONTENT = FALSE;
-        lstrcpy(BGHS[j].editstring, TEXT(""));
+		wcscpy_s(BGHS[j].editstring, TEXT(""));
 
 		for(int k = 0 ; k < MAX_COLS ; k++)
 		{
@@ -1303,7 +1304,7 @@ int FindLongestLine(HDC hdc,TCHAR* text,SIZE* size)
      TCHAR temptext[1000];
      TCHAR *p;
 
-     lstrcpy(temptext,text);
+	 wcscpy_s(temptext,text);
      p = generic_strtok(temptext, TEXT("\n"));
      while(p)
          {
@@ -1323,7 +1324,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	int wmId, wmEvent;
 	PAINTSTRUCT ps;
 	HDC hdc;
-	const size_t bufferLen = 1000;
+	
 	TCHAR buffer[bufferLen];
 	int SelfIndex;
 	int ReturnValue;
@@ -1413,11 +1414,11 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
               HFONT holdfont;
               if(lstrlen((TCHAR*)lParam)>300)
                   {
-                   lstrcpy(BGHS[SelfIndex].title, TEXT("Title too long (300 chars max)"));
+				  wcscpy_s(BGHS[SelfIndex].title, TEXT("Title too long (300 chars max)"));
                   }
               else
                   {
-                    lstrcpy(BGHS[SelfIndex].title,(TCHAR*)lParam);
+				  wcscpy_s(BGHS[SelfIndex].title,(TCHAR*)lParam);
                   }
 
              gdc=GetDC(hWnd);
@@ -1600,11 +1601,11 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		case BGM_SETPROTECT:
 			  if((BOOL)wParam)
                   {
-			       lstrcpy(BGHS[SelfIndex].protect, TEXT("P"));
+				  wcscpy_s(BGHS[SelfIndex].protect, TEXT("P"));
 			      }
 			      else
                   {
-			       lstrcpy(BGHS[SelfIndex].protect, TEXT("U"));
+				  wcscpy_s(BGHS[SelfIndex].protect, TEXT("U"));
 			      }
 			break;
 
@@ -1731,7 +1732,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                            {
                                int count=1;
                                TCHAR tbuffer[255];
-                               lstrcpy(tbuffer,(TCHAR*)lParam);
+							   wcscpy_s(tbuffer,(TCHAR*)lParam);
                                for(int j=0;j<(int)lstrlen(tbuffer);j++)
                                    {
                                    if(tbuffer[j]=='\n'){count++;}
@@ -1808,7 +1809,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				    }
                    int j,k,c;
                    TCHAR tbuffer[1000];
-                   lstrcpy(tbuffer,buffer);
+				   wcscpy_s(tbuffer,buffer);
                    k=lstrlen(tbuffer);
                    c=0;
                    for(j=13;j<k;j++)
@@ -1817,11 +1818,11 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                         c++;
                        }
                    buffer[c]=0x00;
-                   lstrcpy((TCHAR*)lParam,buffer);
+				   wcscpy_s((TCHAR*)lParam, bufferLen, buffer);
                   }
 			  else
 			  {
-			   lstrcpy((TCHAR*)lParam, TEXT(""));
+				  wcscpy_s((TCHAR*)lParam, bufferLen, TEXT(""));
 			  }
             break;
 
@@ -2342,7 +2343,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                    if(BGHS[SelfIndex].EDITING)
                        {
                          BGHS[SelfIndex].EDITING = FALSE;
-                         lstrcpy(BGHS[SelfIndex].editstring, TEXT(""));
+						 wcscpy_s(BGHS[SelfIndex].editstring, TEXT(""));
                          HideCaret(hWnd);
                          RefreshGrid(hWnd);
                          NotifyEditEnd(hWnd,SelfIndex);
@@ -2361,7 +2362,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                    if(BGHS[SelfIndex].EDITING)
                        {
                          BGHS[SelfIndex].EDITING = FALSE;
-                         lstrcpy(BGHS[SelfIndex].editstring, TEXT(""));
+						 wcscpy_s(BGHS[SelfIndex].editstring, TEXT(""));
                          HideCaret(hWnd);
                          RefreshGrid(hWnd);
                          NotifyEditEnd(hWnd,SelfIndex);
@@ -2911,7 +2912,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				BGHS[SelfIndex].gridmenu = 0;
 				BGHS[SelfIndex].hlist1 = NULL;
 				BGHS[SelfIndex].hfont = NULL;
-				lstrcpy(BGHS[SelfIndex].protect, TEXT("U"));
+				wcscpy_s(BGHS[SelfIndex].protect, TEXT("U"));
 				BGHS[SelfIndex].rows = 100;
 				BGHS[SelfIndex].cols = 255;
 				BGHS[SelfIndex].homerow = 1;
@@ -3072,7 +3073,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		              BGHS[BG_GridIndex].hfont = hfontbody;
                       BGHS[BG_GridIndex].htitlefont = hfonttitle;
                       BGHS[BG_GridIndex].hcolumnheadingfont = hfontheader;
-					  lstrcpy(BGHS[BG_GridIndex].title,lpcs->lpszName);
+					  wcscpy_s(BGHS[BG_GridIndex].title,lpcs->lpszName);
 					  SendMessage(hWnd, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(lpcs->lpszName));
 
 

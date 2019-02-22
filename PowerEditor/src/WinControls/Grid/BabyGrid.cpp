@@ -1186,8 +1186,8 @@ void DisplayEditString(HWND hWnd,int SI, const TCHAR* tstring)
 
        if(lstrlen(BGHS[SI].editstring)<=300)
            {
-            lstrcat(BGHS[SI].editstring,tstring);
-            lstrcpy(BGHS[SI].editstringdisplay,BGHS[SI].editstring);
+		   wcscat_s(BGHS[SI].editstring,tstring);
+		   wcscat_s(BGHS[SI].editstringdisplay,BGHS[SI].editstring);
            }
        else
            {
@@ -1577,16 +1577,16 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			  {
 			   //protecting or unprotecting a cell that isn't in the list
 			   //add it as blank;
-				  lstrcat(buffer, TEXT("|"));
+				  wcscat_s(buffer, TEXT("|"));
 				  if((BOOL)lParam)
 				  {
-				   lstrcat(buffer, TEXT("PA"));
+					  wcscat_s(buffer, TEXT("PA"));
 				  }
 				  else
 				  {
-				   lstrcat(buffer, TEXT("UA"));
+					  wcscat_s(buffer, TEXT("UA"));
 				  }
-				  lstrcat(buffer, TEXT("|"));
+				  wcscat_s(buffer, TEXT("|"));
 				  SendMessage(BGHS[SelfIndex].hlist1, LB_ADDSTRING, FindResult, reinterpret_cast<LPARAM>(buffer));
 			  }
 
@@ -1653,20 +1653,20 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			  }
 
               //now add it
-			  lstrcat(buffer, TEXT("|"));
-			  lstrcat(buffer,BGHS[SelfIndex].protect);
+			  wcscat_s(buffer, TEXT("|"));
+			  wcscat_s(buffer,BGHS[SelfIndex].protect);
               //determine data type (text,numeric, or boolean)(1,2,3)
               //iDataType=DetermineDataType((TCHAR*)lParam);
 
 			  iDataType = 1;
-              if(iDataType==1){lstrcat(buffer, TEXT("A"));}
-              if(iDataType==2){lstrcat(buffer, TEXT("N"));}
-              if(iDataType==3){lstrcat(buffer, TEXT("T"));}
-              if(iDataType==4){lstrcat(buffer, TEXT("F"));}
-			  if(iDataType==5){lstrcat(buffer, TEXT("G"));}
+              if(iDataType==1){ wcscat_s(buffer, TEXT("A"));}
+              if(iDataType==2){ wcscat_s(buffer, TEXT("N"));}
+              if(iDataType==3){ wcscat_s(buffer, TEXT("T"));}
+              if(iDataType==4){ wcscat_s(buffer, TEXT("F"));}
+			  if(iDataType==5){ wcscat_s(buffer, TEXT("G"));}
 
-			  lstrcat(buffer, TEXT("|"));
-              lstrcat(buffer, (TCHAR*)lParam);
+			  wcscat_s(buffer, TEXT("|"));
+			  wcscat_s(buffer, (TCHAR*)lParam);
 			  FindResult = static_cast<int32_t>(SendMessage(BGHS[SelfIndex].hlist1, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(buffer)));
 
               if(FindResult==LB_ERR)

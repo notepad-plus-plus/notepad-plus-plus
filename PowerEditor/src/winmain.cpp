@@ -542,7 +542,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 		TCHAR str[50] = TEXT("God Damned Exception : ");
 		TCHAR code[10];
 		wsprintf(code, TEXT("%d"), i);
-		::MessageBox(Notepad_plus_Window::gNppHWND, lstrcat(str, code), TEXT("Int Exception"), MB_OK);
+		wcscat_s(str, code);
+		::MessageBox(Notepad_plus_Window::gNppHWND, str, TEXT("Int Exception"), MB_OK);
 		doException(notepad_plus_plus);
 	}
 	catch (std::runtime_error & ex)

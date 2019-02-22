@@ -336,7 +336,7 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 							{
 								len += lstrlen(readonlyString);
 								if (len <= pLvdi->item.cchTextMax)
-									lstrcat(pLvdi->item.pszText, readonlyString);
+									wcscat_s(pLvdi->item.pszText, pLvdi->item.cchTextMax, readonlyString);
 							}
 						}
 						else if (pLvdi->item.iSubItem == 1) // directory

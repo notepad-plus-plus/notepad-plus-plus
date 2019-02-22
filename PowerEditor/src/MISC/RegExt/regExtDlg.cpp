@@ -365,7 +365,7 @@ bool RegExtDlg::deleteExts(const TCHAR *ext2Delete)
 	if ((nbValue <= 1) && (!nbSubkey))
 	{
 		TCHAR subKey[32] = TEXT("\\");
-		lstrcat(subKey, ext2Delete);
+		wcscat_s(subKey, ext2Delete);
 		::RegDeleteKey(HKEY_CLASSES_ROOT, subKey);
 	}
 	else
@@ -411,8 +411,9 @@ void RegExtDlg::writeNppPath()
 			TCHAR nppPath[MAX_PATH];
 			::GetModuleFileName(_hInst, nppPath, MAX_PATH);
 
-			TCHAR nppPathParam[MAX_PATH] = TEXT("\"");
-			lstrcat(lstrcat(nppPathParam, nppPath), TEXT("\" \"%1\""));
+			TCHAR nppPathParam[MAX_PATH] = TEXT("\""); 
+			wcscat_s(nppPathParam, nppPath);
+			wcscat_s(nppPathParam, TEXT("\" \"%1\""));
 
 			::RegSetValueEx(hKey, nullptr, 0, REG_SZ, (LPBYTE)nppPathParam, (lstrlen(nppPathParam)+1)*sizeof(TCHAR));
 		}
@@ -432,7 +433,8 @@ void RegExtDlg::writeNppPath()
 			::GetModuleFileName(_hInst, nppPath, MAX_PATH);
 
 			TCHAR nppPathParam[MAX_PATH] = TEXT("\"");
-			lstrcat(lstrcat(nppPathParam, nppPath), TEXT("\",0"));
+			wcscat_s(nppPathParam, nppPath);
+			wcscat_s(nppPathParam, TEXT("\",0"));
 
 			::RegSetValueEx(hKey, nullptr, 0, REG_SZ, (LPBYTE)nppPathParam, (lstrlen(nppPathParam)+1)*sizeof(TCHAR));
 		}

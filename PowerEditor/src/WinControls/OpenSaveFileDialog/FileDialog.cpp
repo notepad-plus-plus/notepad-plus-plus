@@ -244,7 +244,7 @@ stringVector * FileDialog::doOpenMultiFilesDlg()
 		{
 			wcscpy_s(fn, _fileName);
 			if (fn[lstrlen(fn) - 1] != '\\')
-				lstrcat(fn, TEXT("\\"));
+				wcscat_s(fn, TEXT("\\"));
 		}
 
 		int term = lstrlen(fn);
@@ -252,7 +252,7 @@ stringVector * FileDialog::doOpenMultiFilesDlg()
 		while (*pFn)
 		{
 			fn[term] = '\0';
-			lstrcat(fn, pFn);
+			wcscat_s(fn, pFn);
 			_fileNames.push_back(generic_string(fn));
 			pFn += lstrlen(pFn) + 1;
 		}

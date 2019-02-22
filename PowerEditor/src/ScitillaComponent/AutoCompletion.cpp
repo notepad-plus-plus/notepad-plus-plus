@@ -768,9 +768,9 @@ bool AutoCompletion::setLanguage(LangType language) {
 	TCHAR path[MAX_PATH];
 	::GetModuleFileName(NULL, path, MAX_PATH);
 	PathRemoveFileSpec(path);
-	lstrcat(path, TEXT("\\autoCompletion\\"));
-	lstrcat(path, getApiFileName());
-	lstrcat(path, TEXT(".xml"));
+	wcscat_s(path, TEXT("\\autoCompletion\\"));
+	wcscat_s(path, getApiFileName());
+	wcscat_s(path, TEXT(".xml"));
 
 	if (_pXmlFile)
 		delete _pXmlFile;

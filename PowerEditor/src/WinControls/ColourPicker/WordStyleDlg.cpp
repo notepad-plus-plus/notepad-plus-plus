@@ -744,11 +744,11 @@ void WordStyleDlg::setVisualFromStyleList()
 	if (lbTextLen > styleNameLen)
 		return;
 	::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXT, i, reinterpret_cast<LPARAM>(styleName));
-
-	lstrcat(lstrcat(str, TEXT(" : ")), styleName);
+	wcscat_s(str, TEXT(" : "));
+	wcscat_s(str, styleName);
 
 	// PAD for fix a display glitch
-	lstrcat(str, TEXT("          "));
+	wcscat_s(str, TEXT("          "));
 	colourHooker.setColour(c);
 	::SetWindowText(_hStyleInfoStaticText, str);
 

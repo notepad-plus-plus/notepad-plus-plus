@@ -54,7 +54,7 @@ void Notepad_plus::macroPlayback(Macro macro)
 
 	for (Macro::iterator step = macro.begin(); step != macro.end(); ++step)
 	{
-		if (step->isPlayable())
+		if (step->isScintillaMacro())
 			step->PlayBack(this->_pPublicInterface, _pEditView);
 		else
 			_findReplaceDlg.execSavedCommand(step->_message, step->_lParameter, step->_sParameter);

@@ -666,26 +666,34 @@ recordedMacroStep::recordedMacroStep(int iMessage, uptr_t wParam, uptr_t lParam,
 
 // code comes from Scintilla's Editor.cxx:
 // void Editor::NotifyMacroRecord(unsigned int iMessage, uptr_t wParam, sptr_t lParam)
-bool recordedMacroStep::isMacroable(unsigned int iMessage)
+bool recordedMacroStep::isMacroable() const
 {
 	// Enumerates all macroable messages
-	switch (iMessage)
+	switch (_message)
 	{
+		case SCI_REPLACESEL: // (<unused>, const char *text)
+		case SCI_ADDTEXT:    // (int length, const char *s)
+		case SCI_INSERTTEXT: // (int pos, const char *text)
+		case SCI_APPENDTEXT: // (int length, const char *s)
+		case SCI_SEARCHNEXT: // (int searchFlags, const char *text)
+		case SCI_SEARCHPREV: // (int searchFlags, const char *text)
+		{
+			if (_macroType == mtUseSParameter)
+				return true;
+			else
+				return false;
+		}
+
+		case SCI_GOTOLINE:   // (int line)
+		case SCI_GOTOPOS:    // (int position)
+		case SCI_SETSELECTIONMODE:  // (int mode)
 		case SCI_CUT:
 		case SCI_COPY:
 		case SCI_PASTE:
 		case SCI_CLEAR:
-		case SCI_REPLACESEL:
-		case SCI_ADDTEXT:
-		case SCI_INSERTTEXT:
-		case SCI_APPENDTEXT:
 		case SCI_CLEARALL:
 		case SCI_SELECTALL:
-		case SCI_GOTOLINE:
-		case SCI_GOTOPOS:
 		case SCI_SEARCHANCHOR:
-		case SCI_SEARCHNEXT:
-		case SCI_SEARCHPREV:
 		case SCI_LINEDOWN:
 		case SCI_LINEDOWNEXTEND:
 		case SCI_PARADOWN:
@@ -761,7 +769,6 @@ bool recordedMacroStep::isMacroable(unsigned int iMessage)
 		case SCI_HOMEDISPLAYEXTEND:
 		case SCI_LINEENDDISPLAY:
 		case SCI_LINEENDDISPLAYEXTEND:
-		case SCI_SETSELECTIONMODE:
 		case SCI_LINEDOWNRECTEXTEND:
 		case SCI_LINEUPRECTEXTEND:
 		case SCI_CHARLEFTRECTEXTEND:
@@ -778,7 +785,12 @@ bool recordedMacroStep::isMacroable(unsigned int iMessage)
 		case SCI_MOVESELECTEDLINESDOWN:
 		case SCI_SCROLLTOSTART:
 		case SCI_SCROLLTOEND:
-			return true;
+		{
+			if (_macroType == mtUseLParameter)
+				return true;
+			else
+				return false;
+		}
 
 		// Filter out all others like display changes. Also, newlines are redundant
 		// with char insert messages.

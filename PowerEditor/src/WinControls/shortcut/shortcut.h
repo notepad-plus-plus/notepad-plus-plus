@@ -300,8 +300,8 @@ struct recordedMacroStep {
 	bool isValid() const {
 		return true;
 	};
-	bool isPlayable() const {return _macroType <= mtMenuCommand;};
-	bool isMacroable(unsigned int iMessage);
+	bool isScintillaMacro() const {return _macroType <= mtMenuCommand;};
+	bool isMacroable() const;
 
 	void PlayBack(Window* pNotepad, ScintillaEditView *pEditView);
 };

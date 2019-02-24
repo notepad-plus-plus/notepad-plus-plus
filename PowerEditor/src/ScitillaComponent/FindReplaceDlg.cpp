@@ -2710,10 +2710,7 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, generic_string s
 						}
 						else
 						{
-							TCHAR moreInfo[128];
-							NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
-							generic_string msg = pNativeSpeaker->getLocalizedStrFromID("find-status-invalid-re", TEXT("Find: Invalid regular expression"));
-							if (nbMarked <= 1)
+							if (nbMarked == 1)
 							{
 								result = pNativeSpeaker->getLocalizedStrFromID("find-status-mark-1-match", TEXT("1 match."));
 							}
@@ -2722,7 +2719,6 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, generic_string s
 								result = pNativeSpeaker->getLocalizedStrFromID("find-status-mark-nb-matches", TEXT("$INT_REPLACE$ matches."));
 								result = stringReplace(result, TEXT("$INT_REPLACE$"), std::to_wstring(nbMarked));
 							}
-							result = moreInfo;
 						}
 
 						setStatusbarMessage(result, FSMessage);
@@ -2741,7 +2737,7 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, generic_string s
 				throw std::runtime_error("Internal error: unknown SnR command!");
 		}
 	}
-	catch (std::runtime_error err)
+	catch (const std::runtime_error& err)
 	{
 		MessageBoxA(NULL, err.what(), "Play Macro Exception", MB_OK);
 	}

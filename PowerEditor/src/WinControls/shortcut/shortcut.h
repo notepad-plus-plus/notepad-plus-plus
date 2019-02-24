@@ -194,7 +194,7 @@ protected :
 		 
 class CommandShortcut : public Shortcut {
 public:
-	CommandShortcut(Shortcut sc, long id);
+	CommandShortcut(const Shortcut& sc, long id);
 	unsigned long getID() const {return _id;};
 	void setID(unsigned long id) { _id = id;};
 	const TCHAR * getCategory() const { return _category.c_str(); };
@@ -207,7 +207,7 @@ private :
 
 class ScintillaKeyMap : public Shortcut {
 public:
-	ScintillaKeyMap(Shortcut sc, unsigned long scintillaKeyID, unsigned long id): Shortcut(sc), _menuCmdID(id), _scintillaKeyID(scintillaKeyID) {
+	ScintillaKeyMap(const Shortcut& sc, unsigned long scintillaKeyID, unsigned long id): Shortcut(sc), _menuCmdID(id), _scintillaKeyID(scintillaKeyID) {
 		_keyCombos.clear();
 		_keyCombos.push_back(_keyCombo);
 		_keyCombo._key = 0;
@@ -311,7 +311,7 @@ typedef std::vector<recordedMacroStep> Macro;
 class MacroShortcut : public CommandShortcut {
 friend class NppParameters;
 public:
-	MacroShortcut(Shortcut sc, Macro macro, int id) : CommandShortcut(sc, id), _macro(macro) {_canModifyName = true;};
+	MacroShortcut(const Shortcut& sc, const Macro& macro, int id) : CommandShortcut(sc, id), _macro(macro) {_canModifyName = true;};
 	Macro & getMacro() {return _macro;};
 private:
 	Macro _macro;
@@ -384,7 +384,7 @@ private:
 	ACCEL *_pAccelArray = nullptr;
 	int _nbAccelItems = 0;
 
-	void updateMenuItemByCommand(CommandShortcut csc);
+	void updateMenuItemByCommand(const CommandShortcut& csc);
 };
 
 class ScintillaAccelerator {	//Handles accelerator keys for scintilla
@@ -398,5 +398,5 @@ private:
 	HWND _hMenuParent = nullptr;
 	std::vector<HWND> _vScintillas;
 
-	void updateMenuItemByID(ScintillaKeyMap skm, int id);
+	void updateMenuItemByID(const ScintillaKeyMap& skm, int id);
 };

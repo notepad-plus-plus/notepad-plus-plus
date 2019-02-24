@@ -1027,7 +1027,7 @@ generic_string FileBrowser::getSelectedItemPath() const
 	return itemPath;
 }
 
-bool FileBrowser::addInTree(generic_string rootPath, generic_string addItemFullPath, HTREEITEM node, vector<generic_string> linarPathArray)
+bool FileBrowser::addInTree(const generic_string& rootPath, const generic_string& addItemFullPath, HTREEITEM node, vector<generic_string> linarPathArray)
 {
 	if (node == nullptr) // it's a root. Search the right root with rootPath
 	{
@@ -1083,7 +1083,7 @@ bool FileBrowser::addInTree(generic_string rootPath, generic_string addItemFullP
 	}
 }
 
-HTREEITEM FileBrowser::findInTree(generic_string rootPath, HTREEITEM node, std::vector<generic_string> linarPathArray)
+HTREEITEM FileBrowser::findInTree(const generic_string& rootPath, HTREEITEM node, std::vector<generic_string> linarPathArray)
 {
 	if (node == nullptr) // it's a root. Search the right root with rootPath
 	{
@@ -1122,7 +1122,7 @@ HTREEITEM FileBrowser::findInTree(generic_string rootPath, HTREEITEM node, std::
 	}
 }
 
-bool FileBrowser::deleteFromTree(generic_string rootPath, HTREEITEM node, std::vector<generic_string> linarPathArray)
+bool FileBrowser::deleteFromTree(const generic_string& rootPath, HTREEITEM node, std::vector<generic_string> linarPathArray)
 	{
 	HTREEITEM foundItem = findInTree(rootPath, node, linarPathArray);
 	if (foundItem == nullptr)
@@ -1133,7 +1133,7 @@ bool FileBrowser::deleteFromTree(generic_string rootPath, HTREEITEM node, std::v
 	return true;
 	}
 
-bool FileBrowser::renameInTree(generic_string rootPath, HTREEITEM node, std::vector<generic_string> linarPathArrayFrom, const generic_string & renameTo)
+bool FileBrowser::renameInTree(const generic_string& rootPath, HTREEITEM node, std::vector<generic_string> linarPathArrayFrom, const generic_string & renameTo)
 	{
 	HTREEITEM foundItem = findInTree(rootPath, node, linarPathArrayFrom);
 	if (foundItem == nullptr)

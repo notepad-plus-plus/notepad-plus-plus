@@ -809,7 +809,7 @@ void recordedMacroStep::PlayBack(Window* pNotepad, ScintillaEditView *pEditView)
 	else
 	{
 		// Ensure it's macroable message before send it
-		if (!isMacroable(_message))
+		if (!isMacroable())
 			return;
 
 		if (_macroType == mtUseSParameter) 

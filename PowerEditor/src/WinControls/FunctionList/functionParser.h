@@ -43,7 +43,7 @@ class FunctionParser
 {
 friend class FunctionParsersManager;
 public:
-	FunctionParser(const TCHAR *id, const TCHAR *displayName, const TCHAR *commentExpr, generic_string functionExpr, std::vector<generic_string> functionNameExprArray, std::vector<generic_string> classNameExprArray): 
+	FunctionParser(const TCHAR *id, const TCHAR *displayName, const TCHAR *commentExpr, const generic_string& functionExpr, const std::vector<generic_string>& functionNameExprArray, const std::vector<generic_string>& classNameExprArray):
 	  _id(id), _displayName(displayName), _commentExpr(commentExpr?commentExpr:TEXT("")), _functionExpr(functionExpr), _functionNameExprArray(functionNameExprArray), _classNameExprArray(classNameExprArray){};
 
 	virtual void parse(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string classStructName = TEXT("")) = 0;
@@ -66,8 +66,8 @@ protected:
 class FunctionZoneParser : public FunctionParser
 {
 public:
-	FunctionZoneParser(const TCHAR *id, const TCHAR *displayName, const TCHAR *commentExpr, generic_string rangeExpr,	generic_string openSymbole,	generic_string closeSymbole,
-		std::vector<generic_string> classNameExprArray, generic_string functionExpr, std::vector<generic_string> functionNameExprArray):
+	FunctionZoneParser(const TCHAR *id, const TCHAR *displayName, const TCHAR *commentExpr, const generic_string& rangeExpr, const generic_string& openSymbole, const generic_string& closeSymbole,
+		const std::vector<generic_string>& classNameExprArray, const generic_string& functionExpr, const std::vector<generic_string>& functionNameExprArray):
 		FunctionParser(id, displayName, commentExpr, functionExpr, functionNameExprArray, classNameExprArray), _rangeExpr(rangeExpr), _openSymbole(openSymbole), _closeSymbole(closeSymbole) {};
 
 	void parse(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string classStructName = TEXT(""));
@@ -89,8 +89,8 @@ class FunctionUnitParser : public FunctionParser
 {
 public:
 	FunctionUnitParser(const TCHAR *id, const TCHAR *displayName, const TCHAR *commentExpr,
-		generic_string mainExpr, std::vector<generic_string> functionNameExprArray, 
-		std::vector<generic_string> classNameExprArray): FunctionParser(id, displayName, commentExpr, mainExpr, functionNameExprArray, classNameExprArray)
+		const generic_string& mainExpr, const std::vector<generic_string>& functionNameExprArray,
+		const std::vector<generic_string>& classNameExprArray): FunctionParser(id, displayName, commentExpr, mainExpr, functionNameExprArray, classNameExprArray)
 	{}
 
 	void parse(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string classStructName = TEXT(""));
@@ -99,8 +99,8 @@ public:
 class FunctionMixParser : public FunctionZoneParser
 {
 public:
-	FunctionMixParser(const TCHAR *id, const TCHAR *displayName, const TCHAR *commentExpr, generic_string rangeExpr,	generic_string openSymbole,	generic_string closeSymbole,
-		std::vector<generic_string> classNameExprArray, generic_string functionExpr, std::vector<generic_string> functionNameExprArray, FunctionUnitParser *funcUnitPaser):
+	FunctionMixParser(const TCHAR *id, const TCHAR *displayName, const TCHAR *commentExpr, const generic_string& rangeExpr, const generic_string& openSymbole, const generic_string& closeSymbole,
+		const std::vector<generic_string>& classNameExprArray, const generic_string& functionExpr, const std::vector<generic_string>& functionNameExprArray, FunctionUnitParser *funcUnitPaser):
 		FunctionZoneParser(id, displayName, commentExpr, rangeExpr,	openSymbole, closeSymbole, classNameExprArray, functionExpr, functionNameExprArray), _funcUnitPaser(funcUnitPaser){};
 		
 	~FunctionMixParser()
@@ -143,7 +143,7 @@ class FunctionParsersManager final
 public:
 	~FunctionParsersManager();
 
-	bool init(generic_string xmlPath, ScintillaEditView ** ppEditView);
+	bool init(const generic_string& xmlPath, ScintillaEditView ** ppEditView);
 	bool parse(std::vector<foundInfo> & foundInfos, const AssociationInfo & assoInfo);
 	void writeFunctionListXml(const TCHAR *destFoder) const;
 	

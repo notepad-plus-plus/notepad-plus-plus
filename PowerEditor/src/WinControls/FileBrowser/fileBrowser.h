@@ -75,11 +75,11 @@ friend class FolderUpdater;
 
 public:
 	FolderInfo(const generic_string & name, FolderInfo *parent) : _name(name), _parent(parent) {};
-	void setRootPath(generic_string rootPath) { _rootPath = rootPath; };
+	void setRootPath(const generic_string& rootPath) { _rootPath = rootPath; };
 	generic_string getRootPath() const { return _rootPath; };
-	void setName(generic_string name) { _name = name; };
+	void setName(const generic_string& name) { _name = name; };
 	generic_string getName() const { return _name; };
-	void addFile(generic_string fn) { _files.push_back(FileInfo(fn, this)); };
+	void addFile(const generic_string& fn) { _files.push_back(FileInfo(fn, this)); };
 	void addSubFolder(FolderInfo subDirectoryStructure) { _subFolders.push_back(subDirectoryStructure); };
 
 	bool addToStructure(generic_string & fullpath, std::vector<generic_string> linarPathArray);
@@ -147,10 +147,10 @@ public:
 	HTREEITEM getRootFromFullPath(const generic_string & rootPath) const;
 	HTREEITEM findChildNodeFromName(HTREEITEM parent, generic_string);
 
-	bool addInTree(generic_string rootPath, generic_string addItemFullPath, HTREEITEM node, std::vector<generic_string> linarPathArray);
-	HTREEITEM findInTree(generic_string rootPath, HTREEITEM node, std::vector<generic_string> linarPathArray);
-	bool deleteFromTree(generic_string rootPath, HTREEITEM node, std::vector<generic_string> linarPathArray);
-	bool renameInTree(generic_string rootPath, HTREEITEM node, std::vector<generic_string> linarPathArrayFrom, const generic_string & renameTo);
+	bool addInTree(const generic_string& rootPath, const generic_string& addItemFullPath, HTREEITEM node, std::vector<generic_string> linarPathArray);
+	HTREEITEM findInTree(const generic_string& rootPath, HTREEITEM node, std::vector<generic_string> linarPathArray);
+	bool deleteFromTree(const generic_string& rootPath, HTREEITEM node, std::vector<generic_string> linarPathArray);
+	bool renameInTree(const generic_string& rootPath, HTREEITEM node, std::vector<generic_string> linarPathArrayFrom, const generic_string & renameTo);
 
 	std::vector<generic_string> getRoots() const;
 	generic_string getSelectedItemPath() const;

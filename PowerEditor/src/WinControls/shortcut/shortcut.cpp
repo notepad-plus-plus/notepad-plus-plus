@@ -611,7 +611,7 @@ void Accelerator::updateFullMenu() {
 	::DrawMenuBar(_hMenuParent);
 }
 
-void Accelerator::updateMenuItemByCommand(CommandShortcut csc)
+void Accelerator::updateMenuItemByCommand(const CommandShortcut& csc)
 {
 	int cmdID = csc.getID();
 	
@@ -887,7 +887,7 @@ void ScintillaAccelerator::updateKeys()
 	}
 }
 
-void ScintillaAccelerator::updateMenuItemByID(ScintillaKeyMap skm, int id) 
+void ScintillaAccelerator::updateMenuItemByID(const ScintillaKeyMap& skm, int id)
 {
 	const int commandSize = 64;
 	TCHAR cmdName[commandSize];
@@ -1107,7 +1107,7 @@ INT_PTR CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPARA
 	//return FALSE;
 }
 
-CommandShortcut::CommandShortcut(Shortcut sc, long id) :	Shortcut(sc), _id(id) {
+CommandShortcut::CommandShortcut(const Shortcut& sc, long id) :	Shortcut(sc), _id(id) {
 	if ( _id < IDM_EDIT)
 		_category = TEXT("File");
 	else if ( _id < IDM_SEARCH)

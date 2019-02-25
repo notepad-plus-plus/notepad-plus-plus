@@ -98,6 +98,7 @@ const int CP_GREEK = 1253;
 
 const bool fold_uncollapse = true;
 const bool fold_collapse = false;
+#define MAX_FOLD_COLLAPSE_LEVEL	8
 
 enum TextCase : UCHAR
 {
@@ -559,6 +560,8 @@ public:
 			::MessageBox(_hSelf, TEXT("This function needs a newer OS version."), TEXT("Change Case Error"), MB_OK | MB_ICONHAND);
 	};
 
+	bool isFoldIndentationBased() const;
+	void collapseFoldIndentationBased(int level2Collapse, bool mode);
 	void collapse(int level2Collapse, bool mode);
 	void foldAll(bool mode);
 	void fold(size_t line, bool mode);

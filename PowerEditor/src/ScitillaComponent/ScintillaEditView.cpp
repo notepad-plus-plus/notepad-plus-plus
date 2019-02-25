@@ -1936,23 +1936,84 @@ void ScintillaEditView::bufferUpdated(Buffer * buffer, int mask)
 	}
 }
 
+bool ScintillaEditView::isFoldIndentationBased() const
+{
+	const auto lexer = execute(SCI_GETLEXER);
+	// search IndentAmount in scintilla\lexers folder
+	return lexer == SCLEX_PYTHON
+		|| lexer == SCLEX_COFFEESCRIPT
+		|| lexer == SCLEX_HASKELL
+		|| lexer == SCLEX_MATLAB		/// TODO: upgrade LexMatlab
+		|| lexer == SCLEX_NIMROD
+		|| lexer == SCLEX_VB
+		|| lexer == SCLEX_YAML
+	;
+}
+
 void ScintillaEditView::collapse(int level2Collapse, bool mode)
 {
 	execute(SCI_COLOURISE, 0, -1);
 
-	int maxLine = static_cast<int32_t>(execute(SCI_GETLINECOUNT));
+	const int maxLine = static_cast<int32_t>(execute(SCI_GETLINECOUNT));
+	int line = 0;
 
-	for (int line = 0; line < maxLine; ++line)
+	if (isFoldIndentationBased())
 	{
-		int level = static_cast<int32_t>(execute(SCI_GETFOLDLEVEL, line));
-		if (level & SC_FOLDLEVELHEADERFLAG)
+		struct FoldLevelStack
 		{
-			level -= SC_FOLDLEVELBASE;
-			if (level2Collapse == (level & SC_FOLDLEVELNUMBERMASK))
-				if (isFolded(line) != mode)
+			int levelCount;
+			int levelStack[MAX_FOLD_COLLAPSE_LEVEL];
+
+			void push(int level)
+			{
+				while (levelCount != 0 && level <= levelStack[levelCount - 1])
 				{
-					fold(line, mode);
+					--levelCount;
 				}
+				levelStack[levelCount++] = level;
+			}
+		};
+
+		++level2Collapse;
+		FoldLevelStack levelStack = { 0, { 0 }};
+		while (line < maxLine)
+		{
+			int level = static_cast<int32_t>(execute(SCI_GETFOLDLEVEL, line));
+			if (level & SC_FOLDLEVELHEADERFLAG)
+			{
+				level &= SC_FOLDLEVELNUMBERMASK;
+				levelStack.push(level);
+				if (level2Collapse == levelStack.levelCount)
+				{
+					if (isFolded(line) != mode)
+					{
+						fold(line, mode);
+					}
+					line = static_cast<int32_t>(execute(SCI_GETLASTCHILD, line, -1));
+				}
+			}
+			++line;
+		}
+	}
+	else
+	{
+		level2Collapse += SC_FOLDLEVELBASE;
+		while (line < maxLine)
+		{
+			int level = static_cast<int32_t>(execute(SCI_GETFOLDLEVEL, line));
+			if (level & SC_FOLDLEVELHEADERFLAG)
+			{
+				level &= SC_FOLDLEVELNUMBERMASK;
+				if (level2Collapse == level)
+				{
+					if (isFolded(line) != mode)
+					{
+						fold(line, mode);
+					}
+					line = static_cast<int32_t>(execute(SCI_GETLASTCHILD, line, -1));
+				}
+			}
+			++line;
 		}
 	}
 

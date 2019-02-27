@@ -714,11 +714,13 @@ bool PluginsAdminDlg::isValide()
 
 	// check the signature on default location : %APPDATA%\Notepad++\plugins\config\pl\nppPluginList.dll or NPP_INST_DIR\plugins\config\pl\nppPluginList.dll
 	
-	bool isOK = VerifySignedLibrary(_pluginListFullPath.c_str(), NPP_COMPONENT_SIGNER_KEY_ID, NPP_COMPONENT_SIGNER_SUBJECT, NPP_COMPONENT_SIGNER_DISPLAY_NAME, false, false, false);
+	SecurityGard securityGard;
+	bool isOK = securityGard.checkModule(_pluginListFullPath, nm_pluginList);
+
 	if (!isOK)
 		return isOK;
 
-	isOK = VerifySignedLibrary(_updaterFullPath.c_str(), NPP_COMPONENT_SIGNER_KEY_ID, NPP_COMPONENT_SIGNER_SUBJECT, NPP_COMPONENT_SIGNER_DISPLAY_NAME, false, false, false);
+	isOK = securityGard.checkModule(_updaterFullPath, nm_gup);
 	return isOK;
 #endif
 }

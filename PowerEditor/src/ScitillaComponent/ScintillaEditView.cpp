@@ -206,12 +206,13 @@ HMODULE loadSciLexerDll()
 	// This is helpful for developers to skip signature checking
 	// while analyzing issue or modifying the lexer dll
 #ifndef _DEBUG
-	bool isOK = VerifySignedLibrary(sciLexerPath, NPP_COMPONENT_SIGNER_KEY_ID, NPP_COMPONENT_SIGNER_SUBJECT, NPP_COMPONENT_SIGNER_DISPLAY_NAME, false, false);
+	SecurityGard securityGard;
+	bool isOK = securityGard.checkModule(sciLexerPath, nm_scilexer);
 
 	if (!isOK)
 	{
 		::MessageBox(NULL,
-			TEXT("Authenticode check failed: signature or signing certificate are not recognized"),
+			TEXT("Authenticode check failed:\rsigning certificate or hash is not recognized"),
 			TEXT("Library verification failed"),
 			MB_OK | MB_ICONERROR);
 		return nullptr;

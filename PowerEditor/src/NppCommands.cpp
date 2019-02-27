@@ -2823,7 +2823,8 @@ void Notepad_plus::command(int id)
 				bool isCertifVerified = true;
 #else //RELEASE
 				// check the signature on updater
-				bool isCertifVerified = VerifySignedLibrary(updaterFullPath.c_str(), NPP_COMPONENT_SIGNER_KEY_ID, NPP_COMPONENT_SIGNER_SUBJECT, NPP_COMPONENT_SIGNER_DISPLAY_NAME, false, false, false);
+				SecurityGard securityGard;
+				bool isCertifVerified = securityGard.checkModule(updaterFullPath, nm_gup);
 #endif
 				if (isCertifVerified)
 				{

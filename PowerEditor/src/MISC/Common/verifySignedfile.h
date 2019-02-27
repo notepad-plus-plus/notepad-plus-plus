@@ -26,9 +26,6 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#pragma once
-
-
 //#define VerifySignedLibrary_DISABLE_REVOCATION_CHECK "Dont check certificat revocation"
 
 /*
@@ -57,17 +54,36 @@
 *  state of the certificates will *not* be checked.
 *
 */
+#pragma once
 
 #include <string>
+#include <vector>
 
-#define NPP_COMPONENT_SIGNER_DISPLAY_NAME TEXT("Notepad++")
-#define NPP_COMPONENT_SIGNER_SUBJECT TEXT("C=FR, S=Ile-de-France, L=Saint Cloud, O=\"Notepad++\", CN=\"Notepad++\"")
-#define NPP_COMPONENT_SIGNER_KEY_ID TEXT("42C4C5846BB675C74E2B2C90C69AB44366401093")
+enum SecurityMode { sm_certif = 0, sm_sha256 = 1 };
+enum NppModule { nm_scilexer = 0, nm_gup = 1, nm_pluginList = 2 };
 
-bool VerifySignedLibrary(const std::wstring& filepath,
-                         const std::wstring& key_id_hex,
-                         const std::wstring& cert_subject,
-                         const std::wstring& display_name,
-                         bool doCheckRevocation,
-                         bool doCheckChainOfTrust,
-                         bool displayErrorMessage = true);
+class SecurityGard final
+{
+public:
+	SecurityGard();
+	bool checkModule(std::wstring filePath, NppModule module2check);
+
+private:
+	// SHA256
+	static SecurityMode _securityMode;
+	std::vector<std::wstring> _scilexerSha256;
+	std::vector<std::wstring> _gupSha256;
+	std::vector<std::wstring> _pluginListSha256;
+
+	bool checkSha256(std::wstring filePath, NppModule module2check);
+
+	// Code signing certificate
+	std::wstring _signer_display_name = TEXT("Notepad++");
+	std::wstring _signer_subject = TEXT("C=FR, S=Ile-de-France, L=Saint Cloud, O=\"Notepad++\", CN=\"Notepad++\"");
+	std::wstring _signer_key_id = TEXT("42C4C5846BB675C74E2B2C90C69AB44366401093");
+	bool _doCheckRevocation = false;
+	bool _doCheckChainOfTrust = false;
+
+	bool verifySignedLibrary(const std::wstring& filepath, NppModule module2check);
+};
+

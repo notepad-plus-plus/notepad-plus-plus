@@ -52,6 +52,9 @@ SecurityGard::SecurityGard()
 
 	_gupSha256.push_back(TEXT("4c8191f511c2ad67148ef809b40c1108aaa074130547157c335a959404d8d6f6")); // v5.1 32 bit
 	_gupSha256.push_back(TEXT("268a65829e86d5c3d324eea79b51e59f0a7d07c69d3ba0f700c9cb3aa772566f")); // v5.1 64 bit
+
+	_pluginListSha256.push_back(TEXT("be9e251a30fd712fd2ff98febd360805df51110b6659de8c9a0000220d7ae535")); // v1.0.7 32 bit
+	_pluginListSha256.push_back(TEXT("3ecd7f9c56bcd659a4126c659eb69b354789c78574a82390749ac751ae539bc6")); // v1.0.7 64 bit
 }
 
 bool SecurityGard::checkModule(std::wstring filePath, NppModule module2check)

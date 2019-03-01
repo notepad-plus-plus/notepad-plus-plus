@@ -47,14 +47,14 @@ SecurityMode SecurityGard::_securityMode = sm_sha256;
 
 SecurityGard::SecurityGard()
 {
-	_scilexerSha256.push_back(TEXT("03c9177631d2b32de3d32c73a8841cf68fc2cb17f306825489dc3df98000db85")); // v3.5.6 32 bit
-	_scilexerSha256.push_back(TEXT("9896c4089275e21412fd80421827912ebd80e357394b05145a613d190462e211")); // v3.5.6 64 bit
+	_scilexerSha256.push_back(TEXT("03c9177631d2b32de3d32c73a8841cf68fc2cb17f306825489dc3df98000db85")); // v3.5.6 32 bit (signed)
+	_scilexerSha256.push_back(TEXT("9896c4089275e21412fd80421827912ebd80e357394b05145a613d190462e211")); // v3.5.6 64 bit (signed)
 
-	_gupSha256.push_back(TEXT("4c8191f511c2ad67148ef809b40c1108aaa074130547157c335a959404d8d6f6")); // v5.1 32 bit
-	_gupSha256.push_back(TEXT("268a65829e86d5c3d324eea79b51e59f0a7d07c69d3ba0f700c9cb3aa772566f")); // v5.1 64 bit
+	_gupSha256.push_back(TEXT("4c8191f511c2ad67148ef809b40c1108aaa074130547157c335a959404d8d6f6")); // v5.1 32 bit (signed)
+	_gupSha256.push_back(TEXT("268a65829e86d5c3d324eea79b51e59f0a7d07c69d3ba0f700c9cb3aa772566f")); // v5.1 64 bit (signed)
 
-	_pluginListSha256.push_back(TEXT("be9e251a30fd712fd2ff98febd360805df51110b6659de8c9a0000220d7ae535")); // v1.0.7 32 bit
-	_pluginListSha256.push_back(TEXT("3ecd7f9c56bcd659a4126c659eb69b354789c78574a82390749ac751ae539bc6")); // v1.0.7 64 bit
+	_pluginListSha256.push_back(TEXT("be9e251a30fd712fd2ff98febd360805df51110b6659de8c9a0000220d7ae535")); // v1.0.7 32 bit (unsigned)
+	_pluginListSha256.push_back(TEXT("3ecd7f9c56bcd659a4126c659eb69b354789c78574a82390749ac751ae539bc6")); // v1.0.7 64 bit (unsigned)
 }
 
 bool SecurityGard::checkModule(std::wstring filePath, NppModule module2check)
@@ -70,7 +70,6 @@ bool SecurityGard::checkModule(std::wstring filePath, NppModule module2check)
 bool SecurityGard::checkSha256(std::wstring filePath, NppModule module2check)
 {
 	std::string content = getFileContent(filePath.c_str());
-
 	uint8_t sha2hash[32];
 	calc_sha_256(sha2hash, reinterpret_cast<const uint8_t*>(content.c_str()), content.length());
 
@@ -89,9 +88,15 @@ bool SecurityGard::checkSha256(std::wstring filePath, NppModule module2check)
 		return false;
 
 	for (auto i : *moduleSha256)
+	{
 		if (i == sha2hashStr)
+		{
+			//::MessageBox(NULL, filePath.c_str(), TEXT("OK"), MB_OK);
 			return true;
+		}
+	}
 
+	//::MessageBox(NULL, filePath.c_str(), TEXT("KO"), MB_OK);
 	return false;
 }
 

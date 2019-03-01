@@ -60,12 +60,6 @@ class WindowsDlg : public SizeableDlg
 {
 	typedef SizeableDlg MyBaseClass;
 
-	class CachedValue
-	{
-		generic_string fullname;
-		int index;
-	};
-
 public :
 	WindowsDlg();
 	int doDialog();

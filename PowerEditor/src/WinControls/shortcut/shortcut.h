@@ -321,7 +321,7 @@ private:
 class UserCommand : public CommandShortcut {
 friend class NppParameters;
 public:
-	UserCommand(Shortcut sc, const TCHAR *cmd, int id) : CommandShortcut(sc, id), _cmd(cmd) {_canModifyName = true;};
+	UserCommand(const Shortcut& sc, const TCHAR *cmd, int id) : CommandShortcut(sc, id), _cmd(cmd) {_canModifyName = true;};
 	const TCHAR* getCmd() const {return _cmd.c_str();};
 private:
 	generic_string _cmd;
@@ -330,7 +330,7 @@ private:
 class PluginCmdShortcut : public CommandShortcut {
 //friend class NppParameters;
 public:
-	PluginCmdShortcut(Shortcut sc, int id, const TCHAR *moduleName, unsigned short internalID) :\
+	PluginCmdShortcut(const Shortcut& sc, int id, const TCHAR *moduleName, unsigned short internalID) :\
 		CommandShortcut(sc, id), _id(id), _moduleName(moduleName), _internalID(internalID) {};
 	bool isValid() const {
 		if (!Shortcut::isValid())

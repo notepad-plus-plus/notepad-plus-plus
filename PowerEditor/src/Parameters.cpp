@@ -2652,7 +2652,9 @@ std::pair<unsigned char, unsigned char> NppParameters::feedUserLang(TiXmlNode *n
 					_userLangArray[_nbUserLang - 1]->_styleArray.addStyler(i, globalMappper().styleNameMapper[i].c_str());
 			}
 
-		} catch (std::exception e) {
+		}
+		catch (const std::exception& /*e*/)
+		{
 			delete _userLangArray[--_nbUserLang];
 		}
 	}

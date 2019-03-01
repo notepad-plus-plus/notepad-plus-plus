@@ -57,7 +57,7 @@ SecurityGard::SecurityGard()
 	_pluginListSha256.push_back(TEXT("3ecd7f9c56bcd659a4126c659eb69b354789c78574a82390749ac751ae539bc6")); // v1.0.7 64 bit (unsigned)
 }
 
-bool SecurityGard::checkModule(std::wstring filePath, NppModule module2check)
+bool SecurityGard::checkModule(const std::wstring& filePath, NppModule module2check)
 {
 	if (_securityMode == sm_certif)
 		return verifySignedLibrary(filePath, module2check);
@@ -67,7 +67,7 @@ bool SecurityGard::checkModule(std::wstring filePath, NppModule module2check)
 		return false;
 }
 
-bool SecurityGard::checkSha256(std::wstring filePath, NppModule module2check)
+bool SecurityGard::checkSha256(const std::wstring& filePath, NppModule module2check)
 {
 	std::string content = getFileContent(filePath.c_str());
 	uint8_t sha2hash[32];

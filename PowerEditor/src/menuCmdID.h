@@ -423,7 +423,8 @@
     #define    IDM_FORMAT_MAC_CYRILLIC      (IDM_FORMAT_ENCODE + 46)
     #define    IDM_FORMAT_KOI8U_CYRILLIC    (IDM_FORMAT_ENCODE + 47)
     #define    IDM_FORMAT_KOI8R_CYRILLIC    (IDM_FORMAT_ENCODE + 48)
-    #define    IDM_FORMAT_ENCODE_END        IDM_FORMAT_KOI8R_CYRILLIC
+    #define    IDM_FORMAT_JOHAB             (IDM_FORMAT_ENCODE + 49)
+    #define    IDM_FORMAT_ENCODE_END        IDM_FORMAT_JOHAB
     
     //#define    IDM_FORMAT_CONVERT           200
 

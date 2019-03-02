@@ -80,7 +80,8 @@ static EncodingUnit encodings[] = {
     {874,   "tis-620"},                                                                         //IDM_FORMAT_TIS_620
     {10007, "x-mac-cyrillic xmaccyrillic"},                                                     //IDM_FORMAT_MAC_CYRILLIC
     {21866, "koi8_u"},                                                                          //IDM_FORMAT_KOI8U_CYRILLIC
-    {20866, "koi8_r csKOI8R"}                                                                   //IDM_FORMAT_KOI8R_CYRILLIC
+    {20866, "koi8_r csKOI8R"},                                                                  //IDM_FORMAT_KOI8R_CYRILLIC
+    {1361,  "johab csJohab"}                                                                    //IDM_FORMAT_JOHAB
 };
 
 EncodingMapper * EncodingMapper::_pSelf = new EncodingMapper;

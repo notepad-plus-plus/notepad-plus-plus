@@ -93,7 +93,8 @@ static int encodings[] = {
 	874,
 	10007,
 	21866,
-	20866
+	20866,
+	1366
 };
 
 INT_PTR CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)

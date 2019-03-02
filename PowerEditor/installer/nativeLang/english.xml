@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="English" filename="english.xml" version="7.6.2">
+    <Native-Langue name="English" filename="english.xml" version="7.6.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -295,6 +295,7 @@
                     <Item id="48018" name="Edit Popup ContextMenu"/>
                     <Item id="48009" name="Shortcut Mapper..."/>
                     <Item id="48011" name="Preferences..."/>
+                    <Item id="48014" name="Open Plugins Folder..."/>
                     <Item id="48015" name="Plugins Admin..."/>
                     <Item id="48501" name="Generate..."/>
                     <Item id="48502" name="Generate from files..."/>

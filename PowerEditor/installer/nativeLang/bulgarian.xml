@@ -3,7 +3,7 @@
 	## Bulgarian localization for Notepad++ ##
 
 	Translators:.....: 2007-2012 - Milen Metev (Tragedy); 2014-yyyy - RDD
-	Last revision:...: 01.03.2019 by RDD <astral_86[at]mail[dot]bg>
+	Last revision:...: 02.03.2019 by RDD <astral_86[at]mail[dot]bg>
 	Download:........: https://gist.github.com/rddim/bd37264898c3a17363e7437bcf1b4803
 -->
 <NotepadPlus>
@@ -366,8 +366,8 @@
 					<Item id="48017" name="Преки пътища и команди..."/>
 				<!-- Меню "Стартиране" край -->
 				<!-- Меню "Добавки" начало -->
-					<Item id="48014" name="Управление на добавки..."/>
-					<Item id="48015" name="Отваряне на папката с добавки..."/>
+					<Item id="48015" name="Управление на добавки..."/>
+					<Item id="48014" name="Отваряне на папката с добавки..."/>
 				<!-- Меню "Добавки" край -->
 				<!-- Меню "?" начало -->
 					<Item id="47010" name="Параметри на командния ред..."/>

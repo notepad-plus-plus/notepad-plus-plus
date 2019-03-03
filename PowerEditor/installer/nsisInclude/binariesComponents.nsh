@@ -115,9 +115,9 @@ ${MementoSection} "Plugins Admin" PluginsAdmin
 	SetOverwrite on
 	SetOutPath $ALLUSERS_PLUGIN_CONF_PATH
 !ifdef ARCH64
-	File "..\bin64\nppPluginList.dll"
+	File "..\bin64\plugins\Config\nppPluginList.dll"
 !else
-	File "..\bin\nppPluginList.dll"
+	File "..\bin\plugins\Config\nppPluginList.dll"
 !endif
 ${MementoSectionEnd}
 

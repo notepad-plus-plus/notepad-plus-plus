@@ -71,12 +71,15 @@ mkdir .\build
 rem Notepad++ minimalist package
 rmdir /S /Q .\minimalist
 mkdir .\minimalist
+mkdir .\minimalist\userDefineLangs
 
 copy /Y ..\bin\license.txt .\minimalist\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\readme.txt .\minimalist\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\change.log .\minimalist\
+If ErrorLevel 1 goto End
+copy /Y "..\bin\userDefineLangs\userDefinedLang-markdown.default.modern.xml" .\minimalist\userDefineLangs\
 If ErrorLevel 1 goto End
 copy /Y ..\src\langs.model.xml .\minimalist\
 If ErrorLevel 1 goto End
@@ -95,12 +98,15 @@ If ErrorLevel 1 goto End
 
 rmdir /S /Q .\minimalist64
 mkdir .\minimalist64
+mkdir .\minimalist64\userDefineLangs
 
 copy /Y ..\bin\license.txt .\minimalist64\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\readme.txt .\minimalist64\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\change.log .\minimalist64\
+If ErrorLevel 1 goto End
+copy /Y "..\bin\userDefineLangs\userDefinedLang-markdown.default.modern.xml" .\minimalist64\userDefineLangs\
 If ErrorLevel 1 goto End
 copy /Y ..\src\langs.model.xml .\minimalist64\
 If ErrorLevel 1 goto End
@@ -117,7 +123,6 @@ If ErrorLevel 1 goto End
 copy /Y ..\bin64\SciLexer.dll .\minimalist64\
 If ErrorLevel 1 goto End
 
-
 rem Remove old built Notepad++ 32-bit package
 rmdir /S /Q .\zipped.package.release
 
@@ -127,6 +132,7 @@ mkdir .\zipped.package.release\updater
 mkdir .\zipped.package.release\localization
 mkdir .\zipped.package.release\themes
 mkdir .\zipped.package.release\autoCompletion
+mkdir .\zipped.package.release\userDefineLangs
 mkdir .\zipped.package.release\plugins
 mkdir .\zipped.package.release\plugins\NppExport
 mkdir .\zipped.package.release\plugins\mimeTools
@@ -144,6 +150,7 @@ mkdir .\zipped.package.release64\updater
 mkdir .\zipped.package.release64\localization
 mkdir .\zipped.package.release64\themes
 mkdir .\zipped.package.release64\autoCompletion
+mkdir .\zipped.package.release64\userDefineLangs
 mkdir .\zipped.package.release64\plugins
 mkdir .\zipped.package.release64\plugins\mimeTools
 mkdir .\zipped.package.release64\plugins\NppConverter
@@ -248,6 +255,12 @@ If ErrorLevel 1 goto End
 copy /Y ".\APIs\*.xml" .\zipped.package.release64\autoCompletion\
 If ErrorLevel 1 goto End
 
+rem Markdown as UserDefineLanguge: Markdown syntax highlighter into Notepad++ 32-bit/64-bit package folders
+copy /Y "..\bin\userDefineLangs\userDefinedLang-markdown.default.modern.xml" .\zipped.package.release\userDefineLangs\
+If ErrorLevel 1 goto End
+copy /Y "..\bin\userDefineLangs\userDefinedLang-markdown.default.modern.xml" .\zipped.package.release64\userDefineLangs\
+If ErrorLevel 1 goto End
+
 rem theme: Copy all files into Notepad++ 32-bit/64-bit package folders
 copy /Y ".\themes\*.xml" .\zipped.package.release\themes\
 If ErrorLevel 1 goto End
@@ -258,7 +271,7 @@ rem Plugins Admin
 rem for disabling auto-updater
 copy /Y ..\src\config.4zipPackage.xml .\zipped.package.release\config.xml
 If ErrorLevel 1 goto End
-copy /Y ..\bin\nppPluginList.dll .\zipped.package.release\plugins\Config\
+copy /Y ..\bin\plugins\Config\nppPluginList.dll .\zipped.package.release\plugins\Config\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\updater\GUP.exe .\zipped.package.release\updater\
 If ErrorLevel 1 goto End
@@ -274,7 +287,7 @@ If ErrorLevel 1 goto End
 rem For disabling auto-updater
 copy /Y ..\src\config.4zipPackage.xml .\zipped.package.release64\config.xml
 If ErrorLevel 1 goto End
-copy /Y ..\bin64\nppPluginList.dll .\zipped.package.release64\plugins\Config\
+copy /Y ..\bin64\plugins\Config\nppPluginList.dll .\zipped.package.release64\plugins\Config\
 If ErrorLevel 1 goto End
 copy /Y ..\bin64\updater\GUP.exe .\zipped.package.release64\updater\
 If ErrorLevel 1 goto End

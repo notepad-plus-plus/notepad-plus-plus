@@ -105,10 +105,6 @@ Function copyCommonFiles
 	File "..\bin\change.log"
 	File "..\bin\readme.txt"
 	
-	IfFileExists "$UPDATE_PATH\userDefineLang.xml" 0 +2
-	File "..\bin\userDefinedLang-markdown.default.modern.xml"
-	File /oname=$INSTDIR\userDefineLang.xml "..\bin\userDefinedLang-markdown.default.modern.xml"
-	
 !ifdef ARCH64
 	File "..\bin64\SciLexer.dll"
 	File "..\bin64\notepad++.exe"
@@ -116,6 +112,11 @@ Function copyCommonFiles
 	File "..\bin\SciLexer.dll"
 	File "..\bin\notepad++.exe"
 !endif
+
+	; Markdown in user defined languages
+	SetOutPath "$UPDATE_PATH\userDefineLangs\"
+	File "..\bin\userDefineLangs\userDefinedLang-markdown.default.modern.xml"
+
 	; Localization
 	; Default language English 
 	SetOutPath "$INSTDIR\localization\"

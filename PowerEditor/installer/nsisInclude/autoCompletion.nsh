@@ -178,6 +178,9 @@ SectionGroup "Auto-completion Files" autoCompletionComponent
 		SetOutPath "$INSTDIR\autoCompletion"
 		File ".\APIs\autoit.xml"
 	${MementoSectionEnd}
+
+	; remove old autoCompletion directory if empty
+	RMDir "$INSTDIR\plugins\APIs\"
 SectionGroupEnd
 
 
@@ -302,7 +305,6 @@ SectionGroup un.autoCompletionComponent
 		Delete "$INSTDIR\plugins\APIs\lua.xml"
 		Delete "$INSTDIR\autoCompletion\lua.xml"
 	SectionEnd
-
 
 	Section un.autoit
 		Delete "$INSTDIR\plugins\APIs\autoit.xml"

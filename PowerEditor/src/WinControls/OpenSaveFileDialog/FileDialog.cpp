@@ -474,15 +474,19 @@ BOOL APIENTRY FileDialog::run(HWND hWnd, UINT uMsg, WPARAM, LPARAM lParam)
 					{
 						// change to backslash, and insert trailing '\' to indicate directory
 						hFileDlg = ::GetParent(hWnd);
-						std::wstring _fnStr(fileName);
-						std::replace(_fnStr.begin(), _fnStr.end(), '/', '\\');
+						std::wstring filePath(fileName);
+						std::replace(filePath.begin(), filePath.end(), '/', '\\');
 
-						if (_fnStr.back() != '\\')
-							_fnStr.insert(_fnStr.end(), '\\');
+						if (filePath.back() != '\\')
+							filePath.insert(filePath.end(), '\\');
+
+						// There are two or more double backslash, then change it to single
+						while (filePath.find(L"\\\\") != std::wstring::npos)
+							filePath.replace(filePath.find(TEXT("\\\\")), 2, TEXT("\\"));
 
 						// change the dialog directory selection
 						::SendMessage(hFileDlg, CDM_SETCONTROLTEXT, edt1,
-									reinterpret_cast<LPARAM>(_fnStr.c_str()));
+							reinterpret_cast<LPARAM>(filePath.c_str()));
 						::PostMessage(hFileDlg, WM_COMMAND, IDOK, 0);
 						::SetWindowLongPtr(hWnd, 0 /*DWL_MSGRESULT*/, 1);
 					}

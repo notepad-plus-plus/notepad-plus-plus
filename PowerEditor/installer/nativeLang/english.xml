@@ -1173,8 +1173,8 @@ Do you want to launch Notepad++ in Administrator mode?"/>
             <find-status-replaceinopenedfiles-nb-replaced value="Replace in Opened Files: $INT_REPLACE$ occurrences were replaced"/>
             <find-status-mark-re-malformed value="Mark: The regular expression to search is malformed"/>
             <find-status-invalid-re value="Find: Invalid regular expression"/>
-            <find-status-mark-1-match value="1 match"/>
-            <find-status-mark-nb-matches value="$INT_REPLACE$ matches"/>
+            <find-status-mark-1-match value="Mark: 1 match"/>
+            <find-status-mark-nb-matches value="Mark: $INT_REPLACE$ matches"/>
             <find-status-count-re-malformed value="Count: The regular expression to search is malformed"/>
             <find-status-count-1-match value="Count: 1 match"/>
             <find-status-count-nb-matches value="Count: $INT_REPLACE$ matches"/>

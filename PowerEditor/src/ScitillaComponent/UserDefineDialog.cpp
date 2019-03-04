@@ -948,6 +948,7 @@ void UserDefineDialog::updateDlg()
 INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
     NppParameters *pNppParam = NppParameters::getInstance();
+	NativeLangSpeaker * pNativeSpeaker = pNppParam->getNativeLangSpeaker();
 
     switch (message)
     {
@@ -1176,8 +1177,11 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
 						::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETLBTEXT, i, reinterpret_cast<LPARAM>(langName));
 
+						generic_string strName = pNativeSpeaker->getLocalizedStrFromID("common-name", TEXT("Name: "));
+						generic_string strTitle = pNativeSpeaker->getLocalizedStrFromID("userdefined-title-rename", TEXT("Rename Current Language Name"));
+
                         StringDlg strDlg;
-                        strDlg.init(_hInst, _hSelf, TEXT("Rename Current Language Name"), TEXT("Name : "), langName, langNameLenMax-1);
+                        strDlg.init(_hInst, _hSelf, strTitle.c_str(), strName.c_str(), langName, langNameLenMax - 1);
 
                         TCHAR *newName = (TCHAR *)strDlg.doDialog();
 
@@ -1221,11 +1225,14 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
                         if (i == 0)
                             wParam = IDC_ADDNEW_BUTTON;
 
+
+						generic_string strName = pNativeSpeaker->getLocalizedStrFromID("common-name", TEXT("Name: "));
+						generic_string strTitle = (wParam == IDC_SAVEAS_BUTTON) ?
+							pNativeSpeaker->getLocalizedStrFromID("userdefined-title-save", TEXT("Save Current Language Name As...")) :
+							pNativeSpeaker->getLocalizedStrFromID("userdefined-title-new", TEXT("Create New Language..."));
+
                         StringDlg strDlg;
-                        if (wParam == IDC_SAVEAS_BUTTON)
-                            strDlg.init(_hInst, _hSelf, TEXT("Save Current Language Name As..."), TEXT("Name : "), TEXT(""), langNameLenMax-1);
-                        else
-                            strDlg.init(_hInst, _hSelf, TEXT("Create New Language..."), TEXT("Name : "), TEXT(""), langNameLenMax-1);
+						strDlg.init(_hInst, _hSelf, strTitle.c_str(), strName.c_str(), TEXT(""), langNameLenMax - 1);
 
                         TCHAR *tmpName = reinterpret_cast<TCHAR *>(strDlg.doDialog());
 
@@ -1236,7 +1243,7 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
                             if (pNppParam->isExistingUserLangName(newName))
                             {
-								pNppParam->getNativeLangSpeaker()->messageBox("UDLNewNameError",
+								pNativeSpeaker->messageBox("UDLNewNameError",
 									_hSelf,
 									TEXT("This name is used by another language,\rplease give another one."),
 									TEXT("UDL Error"),
@@ -1455,6 +1462,17 @@ INT_PTR CALLBACK StringDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
             ::SetDlgItemText(_hSelf, IDC_STRING_EDIT, _textValue.c_str());
             if (_txtLen)
                 ::SendDlgItemMessage(_hSelf, IDC_STRING_EDIT, EM_SETLIMITTEXT, _txtLen, 0);
+
+			// localization for OK and Cancel
+			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+			if (pNativeSpeaker)
+			{
+				generic_string ok = pNativeSpeaker->getLocalizedStrFromID("common-ok", TEXT("OK"));
+				generic_string cancel = pNativeSpeaker->getLocalizedStrFromID("common-cancel", TEXT("Cancel"));
+
+				::SetDlgItemText(_hSelf, IDOK, ok.c_str());
+				::SetDlgItemText(_hSelf, IDCANCEL, cancel.c_str());
+			}
 
 			if (_shouldGotoCenter)
 				goToCenter();

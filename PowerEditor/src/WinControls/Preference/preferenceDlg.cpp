@@ -810,8 +810,11 @@ INT_PTR CALLBACK MarginsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 				{
 					ScintillaViewParams & svp = (ScintillaViewParams &)pNppParam->getSVP();
 
+					NativeLangSpeaker *pNativeSpeaker = pNppParam->getNativeLangSpeaker();
+					generic_string strNbCol = pNativeSpeaker->getLocalizedStrFromID("edit-verticaledge-nb-col", TEXT("Nb of column:"));
+
 					ValueDlg nbColumnEdgeDlg;
-					nbColumnEdgeDlg.init(NULL, _hSelf, svp._edgeNbColumn, TEXT("Nb of column:"));
+					nbColumnEdgeDlg.init(NULL, _hSelf, svp._edgeNbColumn, strNbCol.c_str());
 					nbColumnEdgeDlg.setNBNumber(3);
 
 					POINT p;
@@ -1417,6 +1420,7 @@ INT_PTR CALLBACK RecentFilesHistoryDlg::run_dlgProc(UINT message, WPARAM wParam,
 {
 	NppParameters *pNppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = (NppGUI & )pNppParam->getNppGUI();
+	NativeLangSpeaker *pNativeSpeaker = pNppParam->getNativeLangSpeaker();
 
 	switch (message) 
 	{
@@ -1474,8 +1478,9 @@ INT_PTR CALLBACK RecentFilesHistoryDlg::run_dlgProc(UINT message, WPARAM wParam,
 
 				case IDC_MAXNBFILEVAL_STATIC:
 				{
+					generic_string staticText = pNativeSpeaker->getLocalizedStrFromID("recent-file-history-maxfile", TEXT("Max File: "));
 					ValueDlg nbFileMaxDlg;
-					nbFileMaxDlg.init(NULL, _hSelf, pNppParam->getNbMaxRecentFile(), TEXT("Max File: "));
+					nbFileMaxDlg.init(NULL, _hSelf, pNppParam->getNbMaxRecentFile(), staticText.c_str());
 					
 					POINT p;
 					::GetCursorPos(&p);
@@ -1552,6 +1557,7 @@ INT_PTR CALLBACK LangMenuDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 {
 	NppParameters *pNppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = const_cast<NppGUI &>(pNppParam->getNppGUI());
+	NativeLangSpeaker *pNativeSpeaker = pNppParam->getNativeLangSpeaker();
 
 	switch (message) 
 	{
@@ -1838,8 +1844,9 @@ INT_PTR CALLBACK LangMenuDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				//
 				case IDC_TABSIZEVAL_STATIC:
 				{
+					generic_string staticText = pNativeSpeaker->getLocalizedStrFromID("language-tabsize", TEXT("Tab Size: "));
 					ValueDlg tabSizeDlg;
-					tabSizeDlg.init(_hInst, _hParent, nppGUI._tabSize, TEXT("Tab Size : "));
+					tabSizeDlg.init(_hInst, _hParent, nppGUI._tabSize, staticText.c_str());
 					POINT p;
 					::GetCursorPos(&p);
 					int size = tabSizeDlg.doDialog(p);
@@ -2836,8 +2843,11 @@ INT_PTR CALLBACK AutoCompletionDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 					const int NB_MIN_CHAR = 1;
 					const int NB_MAX_CHAR = 9;
 
+					NativeLangSpeaker *pNativeSpeaker = pNppParam->getNativeLangSpeaker();
+					generic_string strNbChar = pNativeSpeaker->getLocalizedStrFromID("autocomplete-nb-char", TEXT("Nb char : "));
+
 					ValueDlg valDlg;
-					valDlg.init(NULL, _hSelf, static_cast<int32_t>(nppGUI._autocFromLen), TEXT("Nb char : "));
+					valDlg.init(NULL, _hSelf, static_cast<int32_t>(nppGUI._autocFromLen), strNbChar.c_str());
 					valDlg.setNBNumber(1);
 
 					POINT p;

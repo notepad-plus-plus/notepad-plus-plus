@@ -1197,6 +1197,18 @@ Do you want to launch Notepad++ in Administrator mode?"/>
             <finder-select-all value="Select all"/>
             <finder-clear-all value="Clear all"/>
             <finder-open-all value="Open all"/>
+            <common-ok value="OK"/>
+            <common-cancel value="Cancel"/>
+            <common-name value="Name: "/>
+            <tabrename-title value="Rename Current Tab"/>
+            <tabrename-newname value="New Name: "/>
+            <recent-file-history-maxfile value="Max File: "/>
+            <language-tabsize value="Tab Size: "/>
+            <userdefined-title-new value="Create New Language..."/>
+            <userdefined-title-save value="Save Current Language Name As..."/>
+            <userdefined-title-rename value="Rename Current Language Name"/>
+            <autocomplete-nb-char value="Nb char: "/>
+            <edit-verticaledge-nb-col value="Nb of Column:"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

@@ -325,6 +325,7 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClCompile Include="..\src\uchardet\nsEUCTWProber.cpp" />
     <ClCompile Include="..\src\uchardet\nsGB2312Prober.cpp" />
     <ClCompile Include="..\src\uchardet\nsHebrewProber.cpp" />
+    <ClCompile Include="..\src\uchardet\nsJohabProber.cpp" />
     <ClCompile Include="..\src\uchardet\nsLatin1Prober.cpp" />
     <ClCompile Include="..\src\uchardet\nsMBCSGroupProber.cpp" />
     <ClCompile Include="..\src\uchardet\nsMBCSSM.cpp" />
@@ -595,6 +596,7 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClInclude Include="..\src\uchardet\nsEUCTWProber.h" />
     <ClInclude Include="..\src\uchardet\nsGB2312Prober.h" />
     <ClInclude Include="..\src\uchardet\nsHebrewProber.h" />
+    <ClInclude Include="..\src\uchardet\nsJohabProber.h" />
     <ClInclude Include="..\src\uchardet\nsLatin1Prober.h" />
     <ClInclude Include="..\src\uchardet\nsMBCSGroupProber.h" />
     <ClInclude Include="..\src\uchardet\nsPkgInt.h" />

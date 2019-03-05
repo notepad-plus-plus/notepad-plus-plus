@@ -878,7 +878,7 @@ struct NppGUI final
 	size_t _snapshotBackupTiming = 7000;
 	generic_string _cloudPath; // this option will never be read/written from/to config.xml
 	unsigned char _availableClouds = '\0'; // this option will never be read/written from/to config.xml
-	bool _useNewStyleSaveDlg = false;
+	bool _useNewStyleSaveDlg = true;
 
 	enum SearchEngineChoice{ se_custom = 0, se_duckDuckGo = 1, se_google = 2, se_bing = 3, se_yahoo = 4, se_stackoverflow = 5 };
 	SearchEngineChoice _searchEngineChoice = se_google;

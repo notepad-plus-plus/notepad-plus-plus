@@ -51,6 +51,7 @@ const char *ProberName[] =
   "EUC-KR",
   "Big5",
   "EUC-TW",
+  "Johab"
 };
 
 #endif
@@ -68,8 +69,10 @@ nsMBCSGroupProber::nsMBCSGroupProber(PRUint32 aLanguageFilter)
   }
   if (aLanguageFilter & NS_FILTER_CHINESE_SIMPLIFIED)
     mProbers[3] = new nsGB18030Prober(aLanguageFilter == NS_FILTER_CHINESE_SIMPLIFIED);
-  if (aLanguageFilter & NS_FILTER_KOREAN)
+  if (aLanguageFilter & NS_FILTER_KOREAN) {
     mProbers[4] = new nsEUCKRProber(aLanguageFilter == NS_FILTER_KOREAN);
+    mProbers[7] = new nsJohabProber(aLanguageFilter == NS_FILTER_KOREAN);
+  }
   if (aLanguageFilter & NS_FILTER_CHINESE_TRADITIONAL) 
   {
     mProbers[5] = new nsBig5Prober(aLanguageFilter == NS_FILTER_CHINESE_TRADITIONAL);

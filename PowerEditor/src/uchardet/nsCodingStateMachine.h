@@ -90,6 +90,7 @@ extern const SMModel UTF8SMModel;
 extern const SMModel Big5SMModel;
 extern const SMModel EUCJPSMModel;
 extern const SMModel EUCKRSMModel;
+extern const SMModel JohabSMModel;
 extern const SMModel EUCTWSMModel;
 extern const SMModel GB18030SMModel;
 extern const SMModel SJISSMModel;

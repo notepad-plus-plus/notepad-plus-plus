@@ -40,6 +40,7 @@
 #include "JISFreq.tab"
 #include "Big5Freq.tab"
 #include "EUCKRFreq.tab"
+#include "JohabFreq.tab"
 #include "EUCTWFreq.tab"
 #include "GB2312Freq.tab"
 
@@ -77,6 +78,24 @@ EUCKRDistributionAnalysis::EUCKRDistributionAnalysis()
   mCharToFreqOrder = EUCKRCharToFreqOrder;
   mTableSize = EUCKR_TABLE_SIZE;
   mTypicalDistributionRatio = EUCKR_TYPICAL_DISTRIBUTION_RATIO;
+}
+
+JohabDistributionAnalysis::JohabDistributionAnalysis()
+{
+  mCharToFreqOrder = EUCKRCharToFreqOrder;
+  mTableSize = EUCKR_TABLE_SIZE;
+  mTypicalDistributionRatio = EUCKR_TYPICAL_DISTRIBUTION_RATIO;
+}
+
+PRInt32 JohabDistributionAnalysis::JohabToEUCKR(PRUint8 c1, PRUint8 c2)
+{
+  PRUint8 a = JohabCho[(c1 >> 2) & 0x1f];
+  PRUint8 b = JohabJung[((c1 << 3) | (c2 >> 5)) & 0x1f];
+  PRUint8 c = JohabJong[c2 & 0x1f];
+
+  if (a == 0xff || b == 0xff || c == 0xff)
+    return -1;
+  return (PRInt32)JohabToEUCKROrder[a * 21*28 + b * 28 + c];
 }
 
 GB2312DistributionAnalysis::GB2312DistributionAnalysis()

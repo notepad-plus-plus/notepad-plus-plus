@@ -20,7 +20,6 @@
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
- *			Proofpoint, Inc.
  *
  * Alternatively, the contents of this file may be used under the terms of
  * either the GNU General Public License Version 2 or later (the "GPL"), or
@@ -36,46 +35,40 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-#ifndef nsMBCSGroupProber_h__
-#define nsMBCSGroupProber_h__
+#ifndef nsJohabProber_h__
+#define nsJohabProber_h__
 
-#include "nsSJISProber.h"
-#include "nsUTF8Prober.h"
-#include "nsEUCJPProber.h"
-#include "nsGB2312Prober.h"
-#include "nsEUCKRProber.h"
-#include "nsJohabProber.h"
-#include "nsBig5Prober.h"
-#include "nsEUCTWProber.h"
+#include "nsCharSetProber.h"
+#include "nsCodingStateMachine.h"
+#include "CharDistribution.h"
 
-#define NUM_OF_PROBERS    8
-
-class nsMBCSGroupProber: public nsCharSetProber {
+class nsJohabProber: public nsCharSetProber {
 public:
-  nsMBCSGroupProber(PRUint32 aLanguageFilter);
-  virtual ~nsMBCSGroupProber();
+  nsJohabProber(PRBool aIsPreferredLanguage)
+    :mIsPreferredLanguage(aIsPreferredLanguage)
+  {mCodingSM = new nsCodingStateMachine(&JohabSMModel);
+    Reset();
+  }
+  virtual ~nsJohabProber(void){delete mCodingSM;}
   nsProbingState HandleData(const char* aBuf, PRUint32 aLen);
-  const char* GetCharSetName();
+  const char* GetCharSetName() {return "Johab";}
   nsProbingState GetState(void) {return mState;}
   void      Reset(void);
   float     GetConfidence(void);
   void      SetOpion() {}
 
-#ifdef DEBUG_chardet
-  void  DumpStatus();
-#endif
-#ifdef DEBUG_jgmyers
-  void GetDetectorState(nsUniversalDetector::DetectorState (&states)[nsUniversalDetector::NumDetectors], PRUint32 &offset);
-#endif
-
 protected:
+  void      GetDistribution(PRUint32 aCharLen, const char* aStr);
+  
+  nsCodingStateMachine* mCodingSM;
   nsProbingState mState;
-  nsCharSetProber* mProbers[NUM_OF_PROBERS];
-  PRBool          mIsActive[NUM_OF_PROBERS];
-  PRInt32 mBestGuess;
-  PRUint32 mActiveNum;
-  PRUint32 mKeepNext;
+
+  JohabDistributionAnalysis mDistributionAnalyser;
+  char mLastChar[2];
+  PRBool mIsPreferredLanguage;
+
 };
 
-#endif /* nsMBCSGroupProber_h__ */
+
+#endif /* nsEUCKRProber_h__ */
 

@@ -158,6 +158,27 @@ protected:
   }
 };
 
+
+class JohabDistributionAnalysis : public CharDistributionAnalysis
+{
+public:
+  JohabDistributionAnalysis();
+protected:
+  //for Johab encoding, we are interested 
+  //  first  byte range: 0x88 -- 0xd3
+  //  second byte range: 0x41 -- 0xfe
+  //no validation needed here. State machine has done that
+  PRInt32 GetOrder(const char* str)
+  { PRUint8 c = str[0];
+    if ((0x88 <= c) && (c <= 0xd3))
+      return JohabToEUCKR(c, str[1]);
+    return -1;
+  }
+private:
+  PRInt32 JohabToEUCKR(PRUint8 c1, PRUint8 c2);
+};
+
+
 class GB2312DistributionAnalysis : public CharDistributionAnalysis
 {
 public:

@@ -1208,7 +1208,7 @@ Notepad++ı Yönetici olarak başlatmak ister misiniz?"/>
 			<language-tabsize value="Sekme Ölçüsü: "/>
 			<userdefined-title-new value="Yeni Dil Üret..."/>
 			<userdefined-title-save value="Şimdiki Dil İsmini Şöyle Kaydet..."/>
-			<userdefined-title-rename value="Şimdiki Dil Adını Yeniden Adlandır"/>
+			<userdefined-title-rename value="Şimdiki Dil İsmini Yeniden Adlandır"/>
 			<autocomplete-nb-char value="Karakter Sayısı: "/>
 			<edit-verticaledge-nb-col value="Sütun Sayısı:"/>
 		</MiscStrings>

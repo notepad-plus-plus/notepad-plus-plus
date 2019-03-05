@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
 <!--
-	German localization for Notepad++ 7.6.2
-	last modified: 2018-12-26 by schnurlos (schnurlos@gmail.com)
+	German localization for Notepad++ 7.6.3
+	last modified: 2019-03-05 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -309,6 +309,7 @@
 					<Item id="48018" name="&amp;Kontextmenü anpassen …"/>
 					<Item id="48009" name="&amp;Tastatur …"/>
 					<Item id="48011" name="&amp;Optionen …"/>
+					<Item id="48014" name="Öffne Verzeichnis mit Plugins …"/>
 					<Item id="48015" name="Plugin-Verwaltung …"/>
 					<Item id="48501" name="Erstelle …"/>
 					<Item id="48502" name="Erstelle aus Dateien …"/>
@@ -1160,8 +1161,8 @@
 			<find-status-replaceinopenedfiles-nb-replaced value="Ersetzen in geöffneten Dateien: $INT_REPLACE$ Vorkommen wurden ersetzt"/>
 			<find-status-mark-re-malformed value="Achtung: Der Ausdruck für die Suche ist nicht passend"/>
 			<find-status-invalid-re value="Suche: Ungültiger Ausdruck"/>
-			<find-status-mark-1-match value="1 Treffer"/>
-			<find-status-mark-nb-matches value="$INT_REPLACE$ Treffer"/>
+			<find-status-mark-1-match value="Ausdruck: 1 Treffer"/>
+			<find-status-mark-nb-matches value="Ausdruck: $INT_REPLACE$ Treffer"/>
 			<find-status-count-re-malformed value="Zähler: Der Ausdruck für die Suche ist nicht passend"/>
 			<find-status-count-1-match value="Zähler: 1 Treffer"/>
 			<find-status-count-nb-matches value="Zähler: $INT_REPLACE$ Treffer"/>
@@ -1184,6 +1185,18 @@
 			<finder-select-all value="Wähle alles"/>
 			<finder-clear-all value="Alles löschen"/>
 			<finder-open-all value="Alles öffnen"/>
+			<common-ok value="OK"/>
+			<common-cancel value="Abbruch"/>
+			<common-name value="Name: "/>
+			<tabrename-title value="Akt. Register umbenennen"/>
+			<tabrename-newname value="Neuer Name: "/>
+			<recent-file-history-maxfile value="Max. Datei: "/>
+			<language-tabsize value="Registergröße: "/>
+			<userdefined-title-new value="Neue Sprache erstellen …"/>
+			<userdefined-title-save value="Akt. Sprache speichern als …"/>
+			<userdefined-title-rename value="Akt. Sprache umbenennen"/>
+			<autocomplete-nb-char value="Anz. Zeichen: "/>
+			<edit-verticaledge-nb-col value="Anz. Spalten:"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

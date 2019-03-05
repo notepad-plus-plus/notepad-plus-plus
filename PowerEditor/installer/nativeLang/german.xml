@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
 <!--
-	German localization for Notepad++ 7.6.2
-	last modified: 2018-12-26 by schnurlos (schnurlos@gmail.com)
+	German localization for Notepad++ 7.6.5
+	last modified: 2019-03-21 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="7.6.2">
+	<Native-Langue name="Deutsch" filename="german.xml" version="7.6.5">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -50,6 +50,7 @@
 					<Item subMenuId="search-jumpUp" name="Zur vorherigen Hervorhebung s&amp;pringen"/>
 					<Item subMenuId="search-jumpDown" name="Zur &amp;nächsten Hervorhebung springen"/>
 					<Item subMenuId="search-bookmark" name="&amp;Lesezeichen"/>
+					<Item subMenuId="view-currentFileIn" name="Aktuelle Datei betrachten in"/>
 					<Item subMenuId="view-showSymbol" name="Nicht &amp;druckbare Zeichen"/>
 					<Item subMenuId="view-zoom" name="Z&amp;oom"/>
 					<Item subMenuId="view-moveCloneDocument" name="Datei &amp;verschieben/duplizieren"/>
@@ -118,6 +119,7 @@
 					<Item id="42008" name="Zeileneinzug v&amp;ergrößern"/>
 					<Item id="42009" name="Zeileneinzug ver&amp;kleinern"/>
 					<Item id="42010" name="Zeile &amp;duplizieren"/>
+					<Item id="42077" name="Entferne aufeinanderfolgende Zeilenduplikate"/>
 					<Item id="42012" name="Zeile am Fensterrand &amp;teilen"/>
 					<Item id="42013" name="&amp;Zeilen zusammenfassen"/>
 					<Item id="42014" name="Zeile nach &amp;oben verschieben"/>
@@ -163,6 +165,7 @@
 					<Item id="42050" name="Binär-Inhalt &amp;einfügen"/>
 					<Item id="42037" name="Spalten-&amp;Modus …"/>
 					<Item id="42034" name="&amp;Block-Editor …"/>
+					<Item id="42078" name="Nächstes Vorkommen mit Mehrfachauswahl"/>
 					<Item id="42051" name="Zeichen&amp;tabelle"/>
 					<Item id="42052" name="Zwis&amp;chenablage"/>
 					<Item id="42025" name="Aufgenommenes Makro s&amp;peichern"/>
@@ -309,6 +312,7 @@
 					<Item id="48018" name="&amp;Kontextmenü anpassen …"/>
 					<Item id="48009" name="&amp;Tastatur …"/>
 					<Item id="48011" name="&amp;Optionen …"/>
+					<Item id="48014" name="Öffne Verzeichnis mit Plugins …"/>
 					<Item id="48015" name="Plugin-Verwaltung …"/>
 					<Item id="48501" name="Erstelle …"/>
 					<Item id="48502" name="Erstelle aus Dateien …"/>
@@ -919,7 +923,11 @@
 				</SearchEngine>
 
 				<MISC title="Diverses">
-					<Item id="6307" name="Aktivieren"/>
+					<ComboBox id="6347">
+						<Element name="Aktivieren"/>
+						<Element name="Für alle Tabs aktivieren"/>
+						<Element name="Deaktivieren"/>
+					</ComboBox>
 					<Item id="6308" name="In Infobereich (Tray) minimieren"/>
 					<Item id="6312" name="Automatische Änderungserkennung"/>
 					<Item id="6313" name="Ohne Rückfrage aktualisieren"/>
@@ -1041,15 +1049,7 @@
 			<OpenInAdminMode title="Speichern fehlgeschlagen" message="Die Datei konnte nicht gespeichert werden, eventuell wegen vorhandenem Schreibschutz.&#x0A;Soll dazu Notepad++ im Administrator-Modus gestartet werden?"/>
 			<OpenInAdminModeWithoutCloseCurrent title="Speichern fehlgeschlagen" message="Die Datei konnte nicht gespeichert werden, eventuell wegen vorhandenem Schreibschutz.&#x0A;Soll dazu Notepad++ im Administrator-Modus gestartet werden?"/>
 			<OpenInAdminModeFailed title="Öffnen im Administrator-Modus fehlgeschlagen" message="Notepad++ konnte nicht im Administrator-Modus gestartet werden."/>
-			<ColumnModeTip title="Tip für Spalten-Modus" message="Verwende &quot;ALT+Maus Auswahl&quot; oder &quot;Alt+Shift+Pfeiltaste&quot;&#x0A;um in den Spalten-Modus zu wechseln."/>
-
-			<!-- $STR_REPLACE$ is a place holder, don't translate it -->
-			<SortingError title="Sortierung fehlgeschlagen" message="Kann aufgrund der Zeile $STR_REPLACE$ keine numerische Sortierung durchführen."/>
-			<BufferInvalidWarning title="Speichern fehlgeschlagen" message="Kann nicht speichern: Puffer ist ungültig."/>
-			<OpenInAdminMode title="Speichern fehlgeschlagen" message="Die Datei kann nicht gespeichert werden weil sie vielleicht geschützt ist.&#x0A;Soll Notepad++ im Administrator-Modus gestartet werden?"/>
-			<OpenInAdminModeFailed title="Starten im Administrator-Modus fehlgeschlagen" message="Notepad++ kann nicht im Administrator-Modus gestartet werden."/>
-			<OpenInAdminModeWithoutCloseCurrent title="Speichern fehlgeschlagen" message="Die Datei kann nicht gespeichert werden weil sie vielleicht geschützt ist.&#x0A;Soll Notepad++ im Administrator-Modus gestartet werden?"/>
-			<DroppingFolderAsProjectModeWarning title="Ungültige Aktion" message="Es können entweder Dateien oder Verzeichnisse verschoben werden, aber nicht beides zugleich.&#x0A;Dafür muss &quot;Alle Dateien im jeweiligen Verzeichnis öffnen anstelle des Start-Verzeichnisses&quot; im Bereich &quot;Standardverzeichnis&quot; der Einstellungen ausgewählt werden."/>
+			<ViewInBrowser title="Betrachte aktuelle Datei im Browser" message="Die Anwendung konnte nicht gefunden werden."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Zwischenablage"/>
@@ -1160,8 +1160,8 @@
 			<find-status-replaceinopenedfiles-nb-replaced value="Ersetzen in geöffneten Dateien: $INT_REPLACE$ Vorkommen wurden ersetzt"/>
 			<find-status-mark-re-malformed value="Achtung: Der Ausdruck für die Suche ist nicht passend"/>
 			<find-status-invalid-re value="Suche: Ungültiger Ausdruck"/>
-			<find-status-mark-1-match value="1 Treffer"/>
-			<find-status-mark-nb-matches value="$INT_REPLACE$ Treffer"/>
+			<find-status-mark-1-match value="Ausdruck: 1 Treffer"/>
+			<find-status-mark-nb-matches value="Ausdruck: $INT_REPLACE$ Treffer"/>
 			<find-status-count-re-malformed value="Zähler: Der Ausdruck für die Suche ist nicht passend"/>
 			<find-status-count-1-match value="Zähler: 1 Treffer"/>
 			<find-status-count-nb-matches value="Zähler: $INT_REPLACE$ Treffer"/>
@@ -1184,6 +1184,18 @@
 			<finder-select-all value="Wähle alles"/>
 			<finder-clear-all value="Alles löschen"/>
 			<finder-open-all value="Alles öffnen"/>
+			<common-ok value="OK"/>
+			<common-cancel value="Abbruch"/>
+			<common-name value="Name: "/>
+			<tabrename-title value="Akt. Register umbenennen"/>
+			<tabrename-newname value="Neuer Name: "/>
+			<recent-file-history-maxfile value="Max. Datei: "/>
+			<language-tabsize value="Registergröße: "/>
+			<userdefined-title-new value="Neue Sprache erstellen …"/>
+			<userdefined-title-save value="Akt. Sprache speichern als …"/>
+			<userdefined-title-rename value="Akt. Sprache umbenennen"/>
+			<autocomplete-nb-char value="Anz. Zeichen: "/>
+			<edit-verticaledge-nb-col value="Anz. Spalten: "/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

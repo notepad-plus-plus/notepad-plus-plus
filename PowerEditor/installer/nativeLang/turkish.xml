@@ -295,6 +295,7 @@
 					<Item id="48018" name="Açılır Bağlam Menüsünü Düzenle"/>
 					<Item id="48009" name="Kısayol Eşleyici…"/>
 					<Item id="48011" name="&amp;Tercihler…"/>
+					<Item id="48014" name="Eklentiler Klasörünü Aç..."/>
 					<Item id="48015" name="Eklentiler Yöneticisi..."/>
                     <Item id="48501" name="Üret..."/>
                     <Item id="48502" name="Dosyalardan Üret..."/>
@@ -1174,8 +1175,8 @@ Notepad++ı Yönetici olarak başlatmak ister misiniz?"/>
 			<find-status-replaceinopenedfiles-nb-replaced value="Açılmış Dosyalarda Değiştir: $INT_REPLACE$ eşleşme değiştirildi"/>
 			<find-status-mark-re-malformed value="İşaretle: Aramak için kullanılan düzenli ifade kötü biçimlendirilmiş"/>
 			<find-status-invalid-re value="Bulma: Geçersiz düzenli ifade"/>
-			<find-status-mark-1-match value="1 eşleşme"/>
-			<find-status-mark-nb-matches value="$INT_REPLACE$ eşleşme"/>
+			<find-status-mark-1-match value="İşaretle: 1 eşleşme"/>
+			<find-status-mark-nb-matches value="İşaretle: $INT_REPLACE$ eşleşme"/>
 			<find-status-count-re-malformed value="Hesapla: Aramak için düzenli ifade kötü biçimlemdirilmiş"/>
 			<find-status-count-1-match value="Hesapla: 1 eşleşme"/>
 			<find-status-count-nb-matches value="Hesapla: $INT_REPLACE$ eşleşme"/>
@@ -1190,14 +1191,26 @@ Notepad++ı Yönetici olarak başlatmak ister misiniz?"/>
 			<find-status-replace-not-found value="Değiştir: hiçbir eşleşme bulunamadı"/>
 			<find-status-replace-readonly value="Değiştir: Yazı değiştirilemez. Şu anki dosya yalnızca okunabilir"/>
 			<find-status-cannot-find value="Bulma: &quot;$STR_REPLACE$&quot; yazısı bulunamadı"/>
-            <finder-find-in-finder value="Bulunmuş sonuçlar arasında bul..."/>
-            <finder-close-this value="Bu bulucuyu kapat"/>
-            <finder-collapse-all value="Tümünü Daralt"/>
-            <finder-uncollapse-all value="Tümünü Genişlet"/>
-            <finder-copy value="Kopyala"/>
-            <finder-select-all value="Tümünü Seç"/>
-            <finder-clear-all value="Tümünü temizle"/>
-            <finder-open-all value="Tümünü Aç"/>
+			<finder-find-in-finder value="Bulunmuş sonuçlar arasında bul..."/>
+			<finder-close-this value="Bu bulucuyu kapat"/>
+			<finder-collapse-all value="Tümünü Daralt"/>
+			<finder-uncollapse-all value="Tümünü Genişlet"/>
+			<finder-copy value="Kopyala"/>
+			<finder-select-all value="Tümünü Seç"/>
+			<finder-clear-all value="Tümünü temizle"/>
+			<finder-open-all value="Tümünü Aç"/>
+			<common-ok value="Tamam"/>
+			<common-cancel value="İptal"/>
+			<common-name value="İsim: "/>
+			<tabrename-title value="Şimdiki Sekmeyi Yeniden Adlandır"/>
+			<tabrename-newname value="Yeni İsim: "/>
+			<recent-file-history-maxfile value="En Fazla Dosya: "/>
+			<language-tabsize value="Sekme Ölçüsü: "/>
+			<userdefined-title-new value="Yeni Dil Üret..."/>
+			<userdefined-title-save value="Şimdiki Dil İsmini Şöyle Kaydet..."/>
+			<userdefined-title-rename value="Şimdiki Dil Adını Yeniden Adlandır"/>
+			<autocomplete-nb-char value="Karakter Sayısı: "/>
+			<edit-verticaledge-nb-col value="Sütun Sayısı:"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

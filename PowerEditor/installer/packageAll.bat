@@ -57,10 +57,6 @@ If ErrorLevel 1 goto End
 signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin\plugins\NppConverter\NppConverter.dll
 signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin64\plugins\NppConverter\NppConverter.dll
 If ErrorLevel 1 goto End
-signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin\plugins\DSpellCheck\DSpellCheck.dll
-If ErrorLevel 1 goto End
-signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin64\plugins\DSpellCheck\DSpellCheck.dll
-If ErrorLevel 1 goto End
 
 :NoSign
 
@@ -137,7 +133,6 @@ mkdir .\zipped.package.release\plugins
 mkdir .\zipped.package.release\plugins\NppExport
 mkdir .\zipped.package.release\plugins\mimeTools
 mkdir .\zipped.package.release\plugins\NppConverter
-mkdir .\zipped.package.release\plugins\DSpellCheck
 mkdir .\zipped.package.release\plugins\Config
 mkdir .\zipped.package.release\plugins\doc
 
@@ -154,7 +149,6 @@ mkdir .\zipped.package.release64\userDefineLangs
 mkdir .\zipped.package.release64\plugins
 mkdir .\zipped.package.release64\plugins\mimeTools
 mkdir .\zipped.package.release64\plugins\NppConverter
-mkdir .\zipped.package.release64\plugins\DSpellCheck
 mkdir .\zipped.package.release64\plugins\Config
 mkdir .\zipped.package.release64\plugins\doc
 
@@ -215,33 +209,12 @@ copy /Y "..\bin\plugins\mimeTools\mimeTools.dll" .\zipped.package.release\plugin
 If ErrorLevel 1 goto End
 copy /Y "..\bin\plugins\NppConverter\NppConverter.dll" .\zipped.package.release\plugins\NppConverter\
 If ErrorLevel 1 goto End
-copy /Y "..\bin\plugins\DSpellCheck\DSpellCheck.dll" .\zipped.package.release\plugins\DSpellCheck\
-If ErrorLevel 1 goto End
-mkdir .\zipped.package.release\plugins\Config\Hunspell
-If ErrorLevel 1 goto End
-copy /Y "..\bin\plugins\Config\DSpellCheckDefaultDisabled\DSpellCheck.ini" .\zipped.package.release\plugins\Config\
-If ErrorLevel 1 goto End
-copy /Y "..\bin\plugins\Config\Hunspell\en_US.aff" .\zipped.package.release\plugins\Config\Hunspell\
-If ErrorLevel 1 goto End
-copy /Y "..\bin\plugins\Config\Hunspell\en_US.dic" .\zipped.package.release\plugins\Config\Hunspell\
-If ErrorLevel 1 goto End
 
 rem Plugins: Copy needed files into Notepad++ 64-bit package folders
 copy /Y "..\bin64\plugins\mimeTools\mimeTools.dll" .\zipped.package.release64\plugins\mimeTools\
 If ErrorLevel 1 goto End
 copy /Y "..\bin64\plugins\NppConverter\NppConverter.dll" .\zipped.package.release64\plugins\NppConverter\
 If ErrorLevel 1 goto End
-copy /Y "..\bin64\plugins\DSpellCheck\DSpellCheck.dll" .\zipped.package.release64\plugins\DSpellCheck\
-If ErrorLevel 1 goto End
-mkdir .\zipped.package.release64\plugins\Config\Hunspell
-If ErrorLevel 1 goto End
-copy /Y "..\bin\plugins\Config\DSpellCheckDefaultDisabled\DSpellCheck.ini" .\zipped.package.release64\plugins\Config\
-If ErrorLevel 1 goto End
-copy /Y "..\bin64\plugins\Config\Hunspell\en_US.aff" .\zipped.package.release64\plugins\Config\Hunspell\
-If ErrorLevel 1 goto End
-copy /Y "..\bin64\plugins\Config\Hunspell\en_US.dic" .\zipped.package.release64\plugins\Config\Hunspell\
-If ErrorLevel 1 goto End
-
 
 rem localizations: Copy all files into Notepad++ 32-bit/64-bit package folders
 copy /Y ".\nativeLang\*.xml" .\zipped.package.release\localization\

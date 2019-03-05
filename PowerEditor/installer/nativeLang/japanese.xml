@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="7.6.2">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="7.6.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -308,6 +308,7 @@
                     <Item id="48018" name="コンテキストメニューを編集"/>
                     <Item id="48009" name="ショートカット管理..."/>
                     <Item id="48011" name="環境設定..."/>
+                    <Item id="48014" name="プラグインフォルダーを開く..."/>
                     <Item id="48015" name="プラグイン管理..."/>
                     <Item id="48501" name="生成..."/>
                     <Item id="48502" name="ファイルから生成..."/>
@@ -1185,8 +1186,8 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <find-status-replaceinopenedfiles-nb-replaced value="すべての文書で置換：$INT_REPLACE$ 件を置換しました"/>
             <find-status-mark-re-malformed value="マーク：検索語の正規表現が不正な形式です"/>
             <find-status-invalid-re value="検索：不正な正規表現です"/>
-            <find-status-mark-1-match value="1 件の一致"/>
-            <find-status-mark-nb-matches value="$INT_REPLACE$ 件の一致"/>
+            <find-status-mark-1-match value="マーク：1 件の一致"/>
+            <find-status-mark-nb-matches value="マーク：$INT_REPLACE$ 件の一致"/>
             <find-status-count-re-malformed value="数える：検索語の正規表現が不正な形式です"/>
             <find-status-count-1-match value="数える：1 件の一致"/>
             <find-status-count-nb-matches value="数える：$INT_REPLACE$ 件の一致"/>
@@ -1209,6 +1210,18 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <finder-select-all value="すべて選択"/>
             <finder-clear-all value="すべてクリア"/>
             <finder-open-all value="すべて開く"/>
+            <common-ok value="OK"/>
+            <common-cancel value="ｷｬﾝｾﾙ"/>
+            <common-name value="名前: "/>
+            <tabrename-title value="現ﾀﾌﾞのﾌｧｲﾙ名を変更"/>
+            <tabrename-newname value="新ﾌｧｲﾙ名: "/>
+            <recent-file-history-maxfile value="最大数: "/>
+            <language-tabsize value="タブ幅: "/>
+            <userdefined-title-new value="新しい言語定義を作成..."/>
+            <userdefined-title-save value="言語定義に名前をつけて保存..."/>
+            <userdefined-title-rename value="言語定義の名前を変更"/>
+            <autocomplete-nb-char value="数値: "/>
+            <edit-verticaledge-nb-col value="桁位置:"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

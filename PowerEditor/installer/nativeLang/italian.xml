@@ -1199,7 +1199,6 @@ Vuoi avviare Notepad++ come amministratore?" />
             <find-status-replace-not-found value = "Sostituisci: nessuna occorrenza trovata" />
             <find-status-replace-readonly value = "Sostituisci: impossibile sostituire il testo. Il documento corrente è in sola lettura" />
             <find-status-cannot-find value = "Cerca: impossibile trovare il testo &quot;$STR_REPLACE$&quot;" />
-            <find-status-mark-nb-matches value = "$INT_REPLACE$ corrispondenze trovate" />
             <finder-find-in-finder value = "Cerca in questi risultati..." />
             <finder-close-this value = "Chiudi i risultati" />
             <finder-collapse-all value = "Collassa tutto" />

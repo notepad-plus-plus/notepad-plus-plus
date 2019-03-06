@@ -74,7 +74,7 @@ public:
 	void init(Notepad_plus* pNotepadPlus, ScintillaEditView* pscratchTilla);
 
 	//void activateBuffer(int index);
-	void checkFilesystemChanges();
+	void checkFilesystemChanges(bool bCheckOnlyCurrentBuffer);
 
 	size_t getNbBuffers() { return _nbBufs; };
 	int getBufferIndexByID(BufferID id);

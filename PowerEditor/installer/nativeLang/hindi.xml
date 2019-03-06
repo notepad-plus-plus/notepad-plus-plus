@@ -4,10 +4,10 @@
 
 	** created By:- Rathin A. Dholakia **
 		Email- rathin2j@gmail.com
-	** Last Updated on 18/02/2019 by Rajendra Singh (singh.rajen15@gmail.com) **
+	** Last Updated on 06/03/2019 by Rajendra Singh (singh.rajen15@gmail.com) **
 -->
 <NotepadPlus>
-  <Native-Langue name="हिन्दी" filename="hindi.xml" version="7.6.3">
+  <Native-Langue name="हिन्दी" filename="hindi.xml" version="7.6.4">
     <Menu>
       <Main>
         <!-- Main Menu Entries -->
@@ -914,10 +914,11 @@
         </SearchEngine>
 
         <MISC title="विविध (MISC.)">
-          <Item id="6307" name="सक्रिय"/>
+          <Item id="6307" name="सभी टैब के लिए सक्रिय करें"/>
           <Item id="6308" name="सिस्टम ट्रे में छोटा करें"/>
           <Item id="6312" name="फाईल स्टेटस की स्वचालित जांच"/>
           <Item id="6313" name="साइलेंटली अपडेट करें"/>
+          <Item id="6314" name="केवल वर्तमान टैब के लिए सक्रिय करें"/>
           <Item id="6318" name="क्लिक योग्य लिंक की सेटिंग"/>
           <Item id="6325" name="अपडेट के बाद आख़री लाईन पे स्क्रॉल करें"/>
           <Item id="6319" name="सक्रिय"/>
@@ -1166,8 +1167,8 @@
 		<find-status-replaceinopenedfiles-nb-replaced value="खुली फाइलों में बदलें: $INT_REPLACE$ मिलानों को बदल दिया गया है।"/>
 		<find-status-mark-re-malformed value="निशान: ढूंढने के लिए रेगुलर एक्सप्रेशन गलत है।"/>
 		<find-status-invalid-re value="खोज: अवैध रेगुलर एक्सप्रेशन"/>
-		<find-status-mark-1-match value="1 मिलान"/>
-		<find-status-mark-nb-matches value="$INT_REPLACE$ मिलान"/>
+		<find-status-mark-1-match value="निशान: 1 मिलान"/>
+		<find-status-mark-nb-matches value="निशान: $INT_REPLACE$ मिलान"/>
 		<find-status-count-re-malformed value="गणना: ढूंढने के लिए रेगुलर एक्सप्रेशन गलत है।"/>
 		<find-status-count-1-match value="गणना: 1 मिलान"/>
 		<find-status-count-nb-matches value="गणना: $INT_REPLACE$ मिलान"/>

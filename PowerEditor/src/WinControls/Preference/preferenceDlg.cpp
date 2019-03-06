@@ -879,31 +879,29 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 	{
 		case WM_INITDIALOG :
 		{
-			if (nppGUI._fileAutoDetection == cdEnabled)
+			if (nppGUI._fileAutoDetection & cdEnabledAll)
 			{
-				::SendDlgItemMessage(_hSelf, IDC_CHECK_FILEAUTODETECTION, BM_SETCHECK, BST_CHECKED, 0);
+				::SendDlgItemMessage(_hSelf, IDC_CHECK_FILEAUTODETECTION_ALL, BM_SETCHECK, BST_CHECKED, 0);
+				::SendDlgItemMessage(_hSelf, IDC_CHECK_FILEAUTODETECTION_CURRENT, BM_SETCHECK, BST_UNCHECKED, 0);
+				::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_FILEAUTODETECTION_CURRENT), FALSE);
 			}
-			else if (nppGUI._fileAutoDetection == cdAutoUpdate)
+			else if (nppGUI._fileAutoDetection & cdEnabledCurrent)
 			{
-				::SendDlgItemMessage(_hSelf, IDC_CHECK_FILEAUTODETECTION, BM_SETCHECK, BST_CHECKED, 0);
-				::SendDlgItemMessage(_hSelf, IDC_CHECK_UPDATESILENTLY, BM_SETCHECK, BST_CHECKED, 0);
-			}
-			else if (nppGUI._fileAutoDetection == cdGo2end)
-			{
-				::SendDlgItemMessage(_hSelf, IDC_CHECK_FILEAUTODETECTION, BM_SETCHECK, BST_CHECKED, 0);
-				::SendDlgItemMessage(_hSelf, IDC_CHECK_UPDATEGOTOEOF, BM_SETCHECK, BST_CHECKED, 0);
-			}
-			else if (nppGUI._fileAutoDetection == cdAutoUpdateGo2end)
-			{
-				::SendDlgItemMessage(_hSelf, IDC_CHECK_FILEAUTODETECTION, BM_SETCHECK, BST_CHECKED, 0);
-				::SendDlgItemMessage(_hSelf, IDC_CHECK_UPDATESILENTLY, BM_SETCHECK, BST_CHECKED, 0);
-				::SendDlgItemMessage(_hSelf, IDC_CHECK_UPDATEGOTOEOF, BM_SETCHECK, BST_CHECKED, 0);
+				::SendDlgItemMessage(_hSelf, IDC_CHECK_FILEAUTODETECTION_CURRENT, BM_SETCHECK, BST_CHECKED, 0);
+				::SendDlgItemMessage(_hSelf, IDC_CHECK_FILEAUTODETECTION_ALL, BM_SETCHECK, BST_UNCHECKED, 0);
+				::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_FILEAUTODETECTION_ALL), FALSE);
 			}
 			else //cdDisabled
 			{
 				::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_UPDATESILENTLY), FALSE);
 				::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_UPDATEGOTOEOF), FALSE);
 			}
+
+			bool bCheck = (nppGUI._fileAutoDetection & cdAutoUpdate) ? true : false;
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_UPDATESILENTLY, BM_SETCHECK, bCheck? BST_CHECKED: BST_UNCHECKED, 0);
+
+			bCheck = (nppGUI._fileAutoDetection & cdGo2end) ? true : false;
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_UPDATEGOTOEOF, BM_SETCHECK, bCheck ? BST_CHECKED : BST_UNCHECKED, 0);
 
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_MIN2SYSTRAY, BM_SETCHECK, nppGUI._isMinimizedToTray, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_DETECTENCODING, BM_SETCHECK, nppGUI._detectEncoding, 0);
@@ -975,27 +973,35 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			
 			switch (wParam)
 			{
-				case IDC_CHECK_FILEAUTODETECTION:
+				case IDC_CHECK_FILEAUTODETECTION_ALL:
+				case IDC_CHECK_FILEAUTODETECTION_CURRENT:
 				{
-					bool isChecked = isCheckedOrNot(IDC_CHECK_FILEAUTODETECTION);
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_UPDATESILENTLY), isChecked);
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_UPDATEGOTOEOF), isChecked);
+					bool isAllChecked = isCheckedOrNot(IDC_CHECK_FILEAUTODETECTION_ALL);
+					bool isCurrentChecked = isCheckedOrNot(IDC_CHECK_FILEAUTODETECTION_CURRENT);
+
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_UPDATESILENTLY), isAllChecked | isCurrentChecked);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_UPDATEGOTOEOF), isAllChecked | isCurrentChecked);
+
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_FILEAUTODETECTION_ALL), !isCurrentChecked);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_FILEAUTODETECTION_CURRENT), !isAllChecked);
 
 					bool isSilent = isCheckedOrNot(IDC_CHECK_UPDATESILENTLY);
 					bool isGo2End = isCheckedOrNot(IDC_CHECK_UPDATEGOTOEOF);
 
-					ChangeDetect cd;
+					int cd = cdDisabled;
 
-					if (!isChecked)
-						cd = cdDisabled;
-					else if (!isSilent && !isGo2End)
-						cd = cdEnabled;
-					else if (!isSilent && isGo2End)
-						cd = cdGo2end;
-					else if (isSilent && !isGo2End)
-						cd = cdAutoUpdate;
-					else //(isSilent && isGo2End)
-						cd = cdAutoUpdateGo2end;
+					if (isAllChecked | isCurrentChecked)
+					{
+						if (isAllChecked)
+							cd |= cdEnabledAll;
+						else
+							cd |= cdEnabledCurrent;
+
+						if (isSilent)
+							cd |= cdAutoUpdate;
+						if (isGo2End)
+							cd |= cdGo2end;
+					}
 
 					nppGUI._fileAutoDetection = cd;
 				}
@@ -1007,16 +1013,23 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 					bool isSilent = isCheckedOrNot(IDC_CHECK_UPDATESILENTLY);
 					bool isGo2End = isCheckedOrNot(IDC_CHECK_UPDATEGOTOEOF);
 
-					ChangeDetect cd;
+					bool isAllChecked = isCheckedOrNot(IDC_CHECK_FILEAUTODETECTION_ALL);
+					bool isCurrentChecked = isCheckedOrNot(IDC_CHECK_FILEAUTODETECTION_CURRENT);
 
-					if (!isSilent && !isGo2End)
-						cd = cdEnabled;
-					else if (!isSilent && isGo2End)
-						cd = cdGo2end;
-					else if (isSilent && !isGo2End)
-						cd = cdAutoUpdate;
-					else //(isSilent && isGo2End)
-						cd = cdAutoUpdateGo2end;
+					int cd = cdDisabled;
+
+					if (isAllChecked | isCurrentChecked)
+					{
+						if (isAllChecked)
+							cd |= cdEnabledAll;
+						else
+							cd |= cdEnabledCurrent;
+
+						if (isSilent)
+							cd |= cdAutoUpdate;
+						if (isGo2End)
+							cd |= cdGo2end;
+					}
 
 					nppGUI._fileAutoDetection = cd;
 				}

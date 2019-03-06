@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="English" filename="english.xml" version="7.6.3">
+    <Native-Langue name="English" filename="english.xml" version="7.6.4">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -907,10 +907,11 @@
                 </SearchEngine>
 
                 <MISC title="MISC.">
-                    <Item id="6307" name="Enable"/>
+                    <Item id="6307" name="Enable for all tabs"/>
                     <Item id="6308" name="Minimize to system tray"/>
                     <Item id="6312" name="File Status Auto-Detection"/>
                     <Item id="6313" name="Update silently"/>
+                    <Item id="6314" name="Enable only for current tab"/>
                     <Item id="6318" name="Clickable Link Settings"/>
                     <Item id="6325" name="Scroll to the last line after update"/>
                     <Item id="6319" name="Enable"/>

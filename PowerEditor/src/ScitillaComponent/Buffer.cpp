@@ -222,7 +222,7 @@ void Buffer::setFileName(const TCHAR *fn, LangType defaultLang)
 }
 
 
-bool Buffer::checkFileState() //eturns true if the status has been changed (it can change into DOC_REGULAR too). false otherwise
+bool Buffer::checkFileState() // returns true if the status has been changed (it can change into DOC_REGULAR too). false otherwise
 {
  	if (_currentStatus == DOC_UNNAMED)	//unsaved document cannot change by environment
 		return false;
@@ -485,7 +485,7 @@ void Buffer::setHideLineChanged(bool isHide, int location)
 
 void Buffer::setDeferredReload() // triggers a reload on the next Document access
 {
-	_isDirty = false;	//when reloading, just set to false, since it sohuld be marked as clean
+	_isDirty = false;	//when reloading, just set to false, since it should be marked as clean
 	_needReloading = true;
 	doNotify(BufferChangeDirty);
 }
@@ -510,18 +510,26 @@ void FileManager::init(Notepad_plus * pNotepadPlus, ScintillaEditView * pscratch
 	_pscratchTilla->execute(SCI_ADDREFDOCUMENT, 0, _scratchDocDefault);
 }
 
-void FileManager::checkFilesystemChanges()
+void FileManager::checkFilesystemChanges(bool bCheckOnlyCurrentBuffer)
 {
-	for (int i = int(_nbBufs) - 1; i >= 0 ; i--)
-    {
-        if (i >= int(_nbBufs))
-        {
-            if (_nbBufs == 0)
-                return;
+	if (bCheckOnlyCurrentBuffer)
+	{
+		Buffer* buffer = _pNotepadPlus->getCurrentBuffer();
+		buffer->checkFileState();
+	}
+	else
+	{
+		for (int i = int(_nbBufs) - 1; i >= 0; i--)
+		{
+			if (i >= int(_nbBufs))
+			{
+				if (_nbBufs == 0)
+					return;
 
-            i = int(_nbBufs) - 1;
-        }
-        _buffers[i]->checkFileState();	//something has changed. Triggers update automatically
+				i = int(_nbBufs) - 1;
+			}
+			_buffers[i]->checkFileState();	//something has changed. Triggers update automatically
+		}
 	}
 }
 

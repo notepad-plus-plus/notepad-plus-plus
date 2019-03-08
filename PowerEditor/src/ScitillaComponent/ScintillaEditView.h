@@ -538,6 +538,7 @@ public:
 	std::pair<int, int> getSelectionLinesRange() const;
     void currentLinesUp() const;
     void currentLinesDown() const;
+	void multiCursorLeftOrRight(int direction, bool shouldExt = false) const;
 
 	void changeCase(__inout wchar_t * const strWToConvert, const int & nbChars, const TextCase & caseToConvert) const;
 	void convertSelectedTextTo(const TextCase & caseToConvert);

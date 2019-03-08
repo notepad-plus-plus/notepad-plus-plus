@@ -1,12 +1,11 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-    Italian translation for Notepad++ 7.6.2
-    Last modified Sat, Dec 30th, 2018 by Luca Leonardi.
+    Italian translation for Notepad++ 7.6.3
     Please e-mail errors, suggestions etc. to ices_eyes(at)users.sourceforge.net.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 <NotepadPlus>
-    <Native-Langue name = "Italiano" filename = "italian.xml" version="7.6.2">
+    <Native-Langue name = "Italiano" filename = "italian.xml" version="7.6.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -325,6 +324,7 @@
                     <Item id = "48006" name = "Importa tema..." />
                     <Item id = "48009" name = "Tasti di scelta rapida..." />
                     <Item id = "48011" name = "Preferenze..." />
+                    <Item id = "48014" name = "Apri la cartella dei plugin..."/>
                     <Item id = "48015" name = "Gestione plugin..." />
                     <Item id = "48016" name = "Modifica scorciatoie/Elimina macro..." />
                     <Item id = "48017" name = "Modifica scorciatoie/Elimina comando..." />

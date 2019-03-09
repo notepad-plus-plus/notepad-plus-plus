@@ -157,7 +157,25 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 	}
     _lastRecentFileList.remove(longFileName);
 
-    BufferID test = MainFileManager->getBufferFromName(longFileName);
+	generic_string fileName2Find;
+	generic_string gs_fileName{ fileName };
+
+	// The following code is useful while running commands "Find in current doc" & "Find in opened docs" and
+	// if the occurrence is found in untitled documents and user double-clicks the found entries of untitled documents.
+	// "fileName" is "new N" 
+	size_t res = gs_fileName.find_first_of(UNTITLED_STR);
+	if (res != string::npos && res == 0)
+	{
+		fileName2Find = fileName;
+	}
+	else
+	{
+		fileName2Find = longFileName;
+	}
+
+	// If we found the document with fileName2Find, then we don't open the existing doc.
+	// we return the found buffer ID instead.
+    BufferID test = MainFileManager->getBufferFromName(fileName2Find.c_str());
     if (test != BUFFER_INVALID && !isSnapshotMode)
     {
         if (_pTrayIco)

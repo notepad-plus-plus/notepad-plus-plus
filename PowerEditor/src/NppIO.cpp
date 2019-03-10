@@ -160,23 +160,24 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 	generic_string fileName2Find;
 	generic_string gs_fileName{ fileName };
 
-	// The following code is useful while running commands "Find in current doc" & "Find in opened docs" and
-	// if the occurrence is found in untitled documents and user double-clicks the found entries of untitled documents.
-	// "fileName" is "new N" 
-	size_t res = gs_fileName.find_first_of(UNTITLED_STR);
-	if (res != string::npos && res == 0)
-	{
-		fileName2Find = fileName;
-	}
-	else
-	{
-		fileName2Find = longFileName;
-	}
 
-	// If we found the document with fileName2Find, then we don't open the existing doc.
-	// we return the found buffer ID instead.
-    BufferID test = MainFileManager->getBufferFromName(fileName2Find.c_str());
-    if (test != BUFFER_INVALID && !isSnapshotMode)
+	// "fileName" could be:
+	// 1. full file path to open or create
+	// 2. "new N" or whatever renamed from "new N" to switch to (if user double-clicks the found entries of untitled documents, which is the results of running commands "Find in current doc" & "Find in opened docs")
+	// 3. a file name with relative path to open or create
+
+	// Search case 1 & 2 firstly
+	BufferID foundBufID = MainFileManager->getBufferFromName(fileName.c_str());
+
+	if (foundBufID == BUFFER_INVALID)
+		fileName2Find = longFileName;
+
+	// if case 1 & 2 not found, search case 3
+	if (foundBufID == BUFFER_INVALID)
+		foundBufID = MainFileManager->getBufferFromName(fileName2Find.c_str());
+
+	// If we found the document, then we don't open the existing doc. We return the found buffer ID instead.
+    if (foundBufID != BUFFER_INVALID && !isSnapshotMode)
     {
         if (_pTrayIco)
         {
@@ -188,7 +189,7 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
                 ::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
             }
         }
-        return test;
+        return foundBufID;
     }
 
     if (isFileSession(longFileName) && PathFileExists(longFileName))

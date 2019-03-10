@@ -43,6 +43,7 @@ public :
 	explicit Command(TCHAR *cmd) : _cmdLine(cmd){};
 	explicit Command(generic_string cmd) : _cmdLine(cmd){};
 	HINSTANCE run(HWND hWnd);
+	HINSTANCE run(HWND hWnd, const TCHAR* cwd);
 
 protected :
 	generic_string _cmdLine;

@@ -717,6 +717,8 @@ generic_string ThemeSwitcher::getThemeFromXmlFileName(const TCHAR *xmlFullPath) 
 }
 
 
+#pragma warning( push )
+#pragma warning( disable : 4996 ) // GetVersionEx was depreciated in Windows 8.1
 winVer NppParameters::getWindowsVersion()
 {
 	OSVERSIONINFOEX osvi;
@@ -819,6 +821,7 @@ winVer NppParameters::getWindowsVersion()
 
    return WV_UNKNOWN;
 }
+#pragma warning( pop )
 
 
 

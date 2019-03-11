@@ -48,7 +48,7 @@ public :
 protected :
 	generic_string _cmdLine;
 private :
-	void extractArgs(TCHAR *cmd2Exec, TCHAR *args, const TCHAR *cmdEntier);
+	void extractArgs(TCHAR *cmd2Exec, size_t cmd2ExecLen, TCHAR *args, size_t argsLen, const TCHAR *cmdEntier);
 };
 
 class RunDlg : public Command, public StaticDialog

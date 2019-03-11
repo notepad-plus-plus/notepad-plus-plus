@@ -24,14 +24,23 @@
 #include "Notepad_plus.h"
 
 
-void Command::extractArgs(TCHAR *cmd2Exec, TCHAR *args, const TCHAR *cmdEntier)
+void Command::extractArgs(TCHAR* cmd2Exec, size_t cmd2ExecLen, TCHAR* args, size_t argsLen, const TCHAR* cmdEntier)
 {
 	size_t i = 0;
 	bool quoted = false;
-	for (size_t len = lstrlen(cmdEntier); i < len ; ++i)
+
+	size_t cmdEntierLen = lstrlen(cmdEntier);
+
+	size_t shortest = min(cmd2ExecLen, argsLen);
+
+	if (cmdEntierLen > shortest)
+		cmdEntierLen = shortest - 1;
+
+	for (; i < cmdEntierLen; ++i)
 	{
-		if ((cmdEntier[i] == ' ') && (!quoted))
+		if (cmdEntier[i] == ' ' && !quoted)
 			break;
+
 		if (cmdEntier[i]=='"')
 			quoted = !quoted;
 
@@ -39,12 +48,13 @@ void Command::extractArgs(TCHAR *cmd2Exec, TCHAR *args, const TCHAR *cmdEntier)
 	}
 	cmd2Exec[i] = '\0';
 	
-	if (i < size_t(lstrlen(cmdEntier)))
+	if (i < cmdEntierLen)
 	{
-		for (size_t len = size_t(lstrlen(cmdEntier)); (i < len) && (cmdEntier[i] == ' ') ; ++i);
-		if (i < size_t(lstrlen(cmdEntier)))
+		for (size_t len = cmdEntierLen; (i < len) && (cmdEntier[i] == ' ') ; ++i);
+
+		if (i < cmdEntierLen)
 		{
-			for (size_t k = 0, len2 = size_t(lstrlen(cmdEntier)); i <= len2; ++i, ++k)
+			for (size_t k = 0, len2 = cmdEntierLen; i <= len2; ++i, ++k)
 			{
 				args[k] = cmdEntier[i];
 			}
@@ -56,10 +66,11 @@ void Command::extractArgs(TCHAR *cmd2Exec, TCHAR *args, const TCHAR *cmdEntier)
 			for (l -= 2 ; (l > 0) && (args[l] == ' ') ; l--);
 			args[l+1] = '\0';
 		}
-
 	}
 	else
+	{
 		args[0] = '\0';
+	}
 }
 
 
@@ -183,7 +194,7 @@ HINSTANCE Command::run(HWND hWnd, const TCHAR* cwd)
 	TCHAR argsIntermediate[argsIntermediateLen];
 	TCHAR args2Exec[args2ExecLen];
 
-	extractArgs(cmdPure, args, _cmdLine.c_str());
+	extractArgs(cmdPure, MAX_PATH, args, MAX_PATH, _cmdLine.c_str());
 	int nbTchar = ::ExpandEnvironmentStrings(cmdPure, cmdIntermediate, MAX_PATH);
 	if (!nbTchar)
 		wcscpy_s(cmdIntermediate, cmdPure);

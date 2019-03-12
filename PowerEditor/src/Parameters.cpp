@@ -170,7 +170,7 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_NULL,    IDM_EDIT_OPENINFOLDER,                        false, false, false, nullptr },
 	{ VK_NULL,    IDM_EDIT_SEARCHONINTERNET,                    false, false, false, nullptr },
 	{ VK_NULL,    IDM_EDIT_CHANGESEARCHENGINE,                  false, false, false, nullptr },
-//  { VK_NULL,    IDM_EDIT_COLUMNMODETIP,                       false, false, false, nullptr },
+//	{ VK_NULL,    IDM_EDIT_COLUMNMODETIP,                       false, false, false, nullptr },
 	{ VK_C,       IDM_EDIT_COLUMNMODE,                          false, true,  false, nullptr },
 	{ VK_NULL,    IDM_EDIT_CHAR_PANEL,                          false, false, false, nullptr },
 	{ VK_NULL,    IDM_EDIT_CLIPBOARDHISTORY_PANEL,              false, false, false, nullptr },
@@ -216,7 +216,7 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_4,       IDM_SEARCH_GONEXTMARKER4,                     true,  false, false, nullptr },
 	{ VK_5,       IDM_SEARCH_GONEXTMARKER5,                     true,  false, false, nullptr },
 	{ VK_0,       IDM_SEARCH_GONEXTMARKER_DEF,                  true,  false, false, nullptr },
-				 
+
 	{ VK_F2,      IDM_SEARCH_TOGGLE_BOOKMARK,                   true,  false, false, nullptr },
 	{ VK_F2,      IDM_SEARCH_NEXT_BOOKMARK,                     false, false, false, nullptr },
 	{ VK_F2,      IDM_SEARCH_PREV_BOOKMARK,                     false, false, true, nullptr  },
@@ -228,7 +228,7 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_NULL,    IDM_SEARCH_DELETEUNMARKEDLINES,               false, false, false, nullptr },
 	{ VK_NULL,    IDM_SEARCH_INVERSEMARKS,                      false, false, false, nullptr },
 	{ VK_NULL,    IDM_SEARCH_FINDCHARINRANGE,                   false, false, false, nullptr },
-				 
+
 	{ VK_NULL,    IDM_VIEW_ALWAYSONTOP,                         false, false, false, nullptr },
 	{ VK_F11,     IDM_VIEW_FULLSCREENTOGGLE,                    false, false, false, nullptr },
 	{VK_F12,      IDM_VIEW_POSTIT,                              false, false, false, nullptr },
@@ -237,9 +237,9 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_NULL,    IDM_VIEW_ALL_CHARACTERS,                      false, false, false, nullptr },
 	{ VK_NULL,    IDM_VIEW_INDENT_GUIDE,                        false, false, false, nullptr },
 	{ VK_NULL,    IDM_VIEW_WRAP_SYMBOL,                         false, false, false, nullptr },
-//  { VK_NULL,    IDM_VIEW_ZOOMIN,                              false, false, false, nullptr },
-//  { VK_NULL,    IDM_VIEW_ZOOMOUT,                             false, false, false, nullptr },
-//  { VK_NULL,    IDM_VIEW_ZOOMRESTORE,                         false, false, false, nullptr },
+//	{ VK_NULL,    IDM_VIEW_ZOOMIN,                              false, false, false, nullptr },
+//	{ VK_NULL,    IDM_VIEW_ZOOMOUT,                             false, false, false, nullptr },
+//	{ VK_NULL,    IDM_VIEW_ZOOMRESTORE,                         false, false, false, nullptr },
 	{ VK_NULL,    IDM_VIEW_GOTO_ANOTHER_VIEW,                   false, false, false, nullptr },
 	{ VK_NULL,    IDM_VIEW_CLONE_TO_ANOTHER_VIEW,               false, false, false, nullptr },
 	{ VK_NULL,    IDM_VIEW_GOTO_NEW_INSTANCE,                   false, false, false, nullptr },
@@ -340,12 +340,12 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_NULL,    IDM_FORMAT_WIN_1255,                          false, false, false, nullptr },
 	{ VK_NULL,    IDM_FORMAT_SHIFT_JIS,                         false, false, false, nullptr },
 	{ VK_NULL,    IDM_FORMAT_EUC_KR,                            false, false, false, nullptr },
-	//{ VK_NULL,    IDM_FORMAT_ISO_8859_10,                       false, false, false, nullptr },
+//	{ VK_NULL,    IDM_FORMAT_ISO_8859_10,                       false, false, false, nullptr },
 	{ VK_NULL,    IDM_FORMAT_ISO_8859_15,                       false, false, false, nullptr },
 	{ VK_NULL,    IDM_FORMAT_ISO_8859_4,                        false, false, false, nullptr },
-	//{ VK_NULL,    IDM_FORMAT_ISO_8859_16,                       false, false, false, nullptr },
+//	{ VK_NULL,    IDM_FORMAT_ISO_8859_16,                       false, false, false, nullptr },
 	{ VK_NULL,    IDM_FORMAT_ISO_8859_3,                        false, false, false, nullptr },
-	//{ VK_NULL,    IDM_FORMAT_ISO_8859_11,                       false, false, false, nullptr },
+//	{ VK_NULL,    IDM_FORMAT_ISO_8859_11,                       false, false, false, nullptr },
 	{ VK_NULL,    IDM_FORMAT_TIS_620,                           false, false, false, nullptr },
 	{ VK_NULL,    IDM_FORMAT_ISO_8859_9,                        false, false, false, nullptr },
 	{ VK_NULL,    IDM_FORMAT_WIN_1254,                          false, false, false, nullptr },
@@ -380,7 +380,7 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_NULL,    IDM_CMDLINEARGUMENTS,                         false, false, false, nullptr },
 	{ VK_NULL,    IDM_HOMESWEETHOME,                            false, false, false, nullptr },
 	{ VK_NULL,    IDM_PROJECTPAGE,                              false, false, false, nullptr },
-//  { VK_NULL,    IDM_ONLINEHELP,                               false, false, false, nullptr },
+//	{ VK_NULL,    IDM_ONLINEHELP,                               false, false, false, nullptr },
 	{ VK_NULL,    IDM_FORUM,                                    false, false, false, nullptr },
 	{ VK_NULL,    IDM_ONLINESUPPORT,                            false, false, false, nullptr },
 //	{ VK_NULL,    IDM_PLUGINSHOME,                              false, false, false, nullptr },
@@ -388,7 +388,7 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_NULL,    IDM_CONFUPDATERPROXY,                         false, false, false, nullptr },
 	{ VK_NULL,    IDM_DEBUGINFO,                                false, false, false, nullptr },
 	{ VK_F1,      IDM_ABOUT,                                    false, false, false, nullptr }
-//  { VK_F1,      IDM_HELP,                                     false, false, true,  nullptr }
+//	{ VK_F1,      IDM_HELP,                                     false, false, true,  nullptr }
 };
 
 
@@ -736,7 +736,7 @@ winVer NppParameters::getWindowsVersion()
 	}
 
 	pGNSI = (PGNSI) GetProcAddress(GetModuleHandle(TEXT("kernel32.dll")), "GetNativeSystemInfo");
-	if(pGNSI != NULL)
+	if (pGNSI != NULL)
 		pGNSI(&si);
 	else
 		GetSystemInfo(&si);
@@ -909,7 +909,7 @@ bool NppParameters::reloadStylers(TCHAR* stylePath)
 	getUserStylersFromXmlTree();
 
 	//  Reload plugin styles.
-	for( size_t i = 0; i < getExternalLexerDoc()->size(); ++i)
+	for ( size_t i = 0; i < getExternalLexerDoc()->size(); ++i)
 	{
 		getExternalLexerFromXmlTree( getExternalLexerDoc()->at(i) );
 	}
@@ -1777,7 +1777,7 @@ void NppParameters::initMenuKeys()
 {
 	int nbCommands = sizeof(winKeyDefs)/sizeof(WinMenuKeyDefinition);
 	WinMenuKeyDefinition wkd;
-	for(int i = 0; i < nbCommands; ++i)
+	for (int i = 0; i < nbCommands; ++i)
 	{
 		wkd = winKeyDefs[i];
 		Shortcut sc((wkd.specialName ? wkd.specialName : TEXT("")), wkd.isCtrl, wkd.isAlt, wkd.isShift, static_cast<unsigned char>(wkd.vKey));
@@ -1793,7 +1793,7 @@ void NppParameters::initScintillaKeys() {
 	ScintillaKeyDefinition skd;
 	int prevIndex = -1;
 	int prevID = -1;
-	for(int i = 0; i < nbCommands; ++i)
+	for (int i = 0; i < nbCommands; ++i)
 	{
 		skd = scintKeyDefs[i];
 		if (skd.functionId == prevID)
@@ -2364,7 +2364,7 @@ void NppParameters::feedShortcut(TiXmlNode *node)
 		{
 			//find the commandid that matches this Shortcut sc and alter it, push back its index in the modified list, if not present
 			size_t len = _shortcuts.size();
-			for(size_t i = 0; i < len; ++i)
+			for (size_t i = 0; i < len; ++i)
 			{
 				if (_shortcuts[i].getID() == (unsigned long)id)
 				{	//found our match
@@ -2476,7 +2476,7 @@ void NppParameters::feedPluginCustomizedCmds(TiXmlNode *node)
 
 		//Find the corresponding plugincommand and alter it, put the index in the list
 		size_t len = _pluginCommands.size();
-		for(size_t i = 0; i < len; ++i)
+		for (size_t i = 0; i < len; ++i)
 		{
 			PluginCmdShortcut & pscOrig = _pluginCommands[i];
 			if (!generic_strnicmp(pscOrig.getModuleName(), moduleName, lstrlen(moduleName)) && pscOrig.getInternalID() == internalID)
@@ -3743,7 +3743,7 @@ TiXmlNode * NppParameters::getChildElementByAttribut(TiXmlNode *pere, const TCHA
 LangType NppParameters::getLangIDFromStr(const TCHAR *langName)
 {
 	int lang = static_cast<int32_t>(L_TEXT);
-	for(; lang < L_EXTERNAL; ++lang)
+	for (; lang < L_EXTERNAL; ++lang)
 	{
 		const TCHAR * name = ScintillaEditView::langNames[lang].lexerName;
 		if (!lstrcmp(name, langName)) //found lang?
@@ -5029,16 +5029,16 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 		{
 			int leftmost = 0;
 			element->Attribute(TEXT("leftmostDelimiter"), &leftmost);
-			if(leftmost > 0 && leftmost < 256)
+			if (leftmost > 0 && leftmost < 256)
 				_nppGUI._leftmostDelimiter = static_cast<char>(leftmost);
 
 			int rightmost = 0;
 			element->Attribute(TEXT("rightmostDelimiter"), &rightmost);
-			if(rightmost > 0 && rightmost < 256)
+			if (rightmost > 0 && rightmost < 256)
 				_nppGUI._rightmostDelimiter = static_cast<char>(rightmost);
 
 			const TCHAR *delimiterSelectionOnEntireDocument = element->Attribute(TEXT("delimiterSelectionOnEntireDocument"));
-			if(delimiterSelectionOnEntireDocument != NULL && !lstrcmp(delimiterSelectionOnEntireDocument, TEXT("yes")))
+			if (delimiterSelectionOnEntireDocument != NULL && !lstrcmp(delimiterSelectionOnEntireDocument, TEXT("yes")))
 				_nppGUI._delimiterSelectionOnEntireDocument = true;
 			else
 				_nppGUI._delimiterSelectionOnEntireDocument = false;
@@ -6301,7 +6301,7 @@ int NppParameters::langTypeToCommandID(LangType lt) const
 
 
 		default :
-			if(lt >= L_EXTERNAL && lt < L_END)
+			if (lt >= L_EXTERNAL && lt < L_END)
 				id = lt - L_EXTERNAL + IDM_LANG_EXTERNAL;
 			else
 				id = IDM_LANG_TEXT;
@@ -6383,7 +6383,7 @@ void NppParameters::writeStyles(LexerStylerArray & lexersStylers, StyleArray & g
 		}
 	}
 
-	for(size_t x = 0; x < _pXmlExternalLexerDoc.size(); ++x)
+	for (size_t x = 0; x < _pXmlExternalLexerDoc.size(); ++x)
 	{
 		TiXmlNode *lexersRoot = ( _pXmlExternalLexerDoc[x]->FirstChild(TEXT("NotepadPlus")))->FirstChildElement(TEXT("LexerStyles"));
 		for (TiXmlNode *childNode = lexersRoot->FirstChildElement(TEXT("LexerType"));
@@ -6660,7 +6660,7 @@ void NppParameters::addUserModifiedIndex(size_t index)
 {
 	size_t len = _customizedShortcuts.size();
 	bool found = false;
-	for(size_t i = 0; i < len; ++i)
+	for (size_t i = 0; i < len; ++i)
 	{
 		if (_customizedShortcuts[i] == index)
 		{
@@ -6678,7 +6678,7 @@ void NppParameters::addPluginModifiedIndex(size_t index)
 {
 	size_t len = _pluginCustomizedCmds.size();
 	bool found = false;
-	for(size_t i = 0; i < len; ++i)
+	for (size_t i = 0; i < len; ++i)
 	{
 		if (_pluginCustomizedCmds[i] == index)
 		{
@@ -6696,7 +6696,7 @@ void NppParameters::addScintillaModifiedIndex(int index)
 {
 	size_t len = _scintillaModifiedKeyIndices.size();
 	bool found = false;
-	for(size_t i = 0; i < len; ++i)
+	for (size_t i = 0; i < len; ++i)
 	{
 		if (_scintillaModifiedKeyIndices[i] == index)
 		{

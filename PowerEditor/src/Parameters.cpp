@@ -723,17 +723,12 @@ winVer NppParameters::getWindowsVersion()
 	SYSTEM_INFO si;
 	PGNSI pGNSI;
 
-	ZeroMemory(&si, sizeof(SYSTEM_INFO));
 	ZeroMemory(&osvi, sizeof(OSVERSIONINFOEX));
+	ZeroMemory(&si, sizeof(SYSTEM_INFO));
 
 	osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
-	BOOL bOsVersionInfoEx = GetVersionEx ((OSVERSIONINFO *)&osvi);
-	if (!bOsVersionInfoEx)
-	{
-		osvi.dwOSVersionInfoSize = sizeof (OSVERSIONINFO);
-		if (! GetVersionEx ( (OSVERSIONINFO *) &osvi) )
-			return WV_UNKNOWN;
-	}
+	if (!GetVersionEx((LPOSVERSIONINFO)&osvi))
+		return WV_UNKNOWN;
 
 	pGNSI = (PGNSI) GetProcAddress(GetModuleHandle(TEXT("kernel32.dll")), "GetNativeSystemInfo");
 	if(pGNSI != NULL)

@@ -223,7 +223,7 @@ KeyCombo ScintillaKeyMap::getKeyComboByIndex(size_t index) const {
 
 void ScintillaKeyMap::setKeyComboByIndex(int index, KeyCombo combo)
 {
-	if(combo._key == 0 && (_size > 1))
+	if (combo._key == 0 && (_size > 1))
 	{	//remove the item if possible
 		_keyCombos.erase(_keyCombos.begin() + index);
 	}
@@ -837,7 +837,7 @@ void recordedMacroStep::PlayBack(Window* pNotepad, ScintillaEditView *pEditView)
 			scnN.nmhdr.code = SCN_CHARADDED;
 			scnN.nmhdr.hwndFrom = pEditView->getHSelf();
 			scnN.nmhdr.idFrom = 0;
-			if(_sParameter.empty())
+			if (_sParameter.empty())
 				scnN.ch = 0;
 			else
 				scnN.ch = _sParameter.at(0);

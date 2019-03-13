@@ -317,7 +317,7 @@ void TreeView::dragItem(HWND parentHandle, int x, int y)
     hitTestInfo.pt.x = point.x;
     hitTestInfo.pt.y = point.y;
 	HTREEITEM targetItem = reinterpret_cast<HTREEITEM>(::SendMessage(_hSelf, TVM_HITTEST, 0, reinterpret_cast<LPARAM>(&hitTestInfo)));
-    if(targetItem)
+    if (targetItem)
     {
 		::SendMessage(_hSelf, TVM_SELECTITEM, TVGN_DROPHILITE, reinterpret_cast<LPARAM>(targetItem));
     }

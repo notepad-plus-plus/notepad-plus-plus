@@ -349,8 +349,8 @@ size_t Utf8_16_Write::fwrite(const void* p, size_t _size)
                     buf[bufIndex++] = iter8.get();
                 }
 				++iter8;
-				if(bufIndex == bufSize || !iter8) {
-					if(!::fwrite(buf, bufIndex*sizeof(utf16), 1, m_pFile)) return 0;
+				if (bufIndex == bufSize || !iter8) {
+					if (!::fwrite(buf, bufIndex*sizeof(utf16), 1, m_pFile)) return 0;
 					bufIndex = 0;
 				}
             }

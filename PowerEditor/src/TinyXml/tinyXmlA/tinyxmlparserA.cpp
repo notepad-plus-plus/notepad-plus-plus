@@ -522,7 +522,7 @@ TiXmlNodeA* TiXmlNodeA::Identify( const char* p )
 	TiXmlNodeA* returnNode = 0;
 
 	p = SkipWhiteSpace( p );
-	if( !p || !*p || *p != '<' )
+	if ( !p || !*p || *p != '<' )
 	{
 		return 0;
 	}

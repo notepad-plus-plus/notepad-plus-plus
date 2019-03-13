@@ -246,7 +246,8 @@ void ToolBar::setToUglyIcons()
 void ToolBar::reset(bool create) 
 {
 
-	if(create && _hSelf) {
+	if (create && _hSelf)
+	{
 		//Store current button state information
 		TBBUTTON tempBtn;
 		for(size_t i = 0; i < _nbCurrentButtons; ++i)
@@ -258,7 +259,7 @@ void ToolBar::reset(bool create)
 		_hSelf = NULL;
 	}
 
-	if(!_hSelf)
+	if (!_hSelf)
 	{
 		_hSelf = ::CreateWindowEx(
 					WS_EX_PALETTEWINDOW,
@@ -362,7 +363,7 @@ void ToolBar::doPopop(POINT chevPoint)
 	while(start < _nbCurrentButtons)
 	{
 		::SendMessage(_hSelf, TB_GETITEMRECT, start, reinterpret_cast<LPARAM>(&btnRect));
-		if(btnRect.right > width)
+		if (btnRect.right > width)
 			break;
 		++start;
 	}

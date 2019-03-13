@@ -126,7 +126,7 @@ VOID CALLBACK CReadChangesRequest::NotificationCompletion(
 	_ASSERTE(dwNumberOfBytesTransfered >= offsetof(FILE_NOTIFY_INFORMATION, FileName) + sizeof(WCHAR));
 
 	// This might mean overflow? Not sure.
-	if(!dwNumberOfBytesTransfered)
+	if (!dwNumberOfBytesTransfered)
 		return;
 
 	pBlock->BackupBuffer(dwNumberOfBytesTransfered);

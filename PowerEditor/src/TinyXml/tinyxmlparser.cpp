@@ -504,7 +504,7 @@ TiXmlNode* TiXmlNode::Identify( const TCHAR* p )
 	TiXmlNode* returnNode = 0;
 
 	p = SkipWhiteSpace( p );
-	if( !p || !*p || *p != '<' )
+	if ( !p || !*p || *p != '<' )
 	{
 		return 0;
 	}

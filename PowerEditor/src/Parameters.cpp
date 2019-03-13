@@ -736,7 +736,7 @@ winVer NppParameters::getWindowsVersion()
 	}
 
 	pGNSI = (PGNSI) GetProcAddress(GetModuleHandle(TEXT("kernel32.dll")), "GetNativeSystemInfo");
-	if(pGNSI != NULL)
+	if (pGNSI != NULL)
 		pGNSI(&si);
 	else
 		GetSystemInfo(&si);
@@ -5029,16 +5029,16 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 		{
 			int leftmost = 0;
 			element->Attribute(TEXT("leftmostDelimiter"), &leftmost);
-			if(leftmost > 0 && leftmost < 256)
+			if (leftmost > 0 && leftmost < 256)
 				_nppGUI._leftmostDelimiter = static_cast<char>(leftmost);
 
 			int rightmost = 0;
 			element->Attribute(TEXT("rightmostDelimiter"), &rightmost);
-			if(rightmost > 0 && rightmost < 256)
+			if (rightmost > 0 && rightmost < 256)
 				_nppGUI._rightmostDelimiter = static_cast<char>(rightmost);
 
 			const TCHAR *delimiterSelectionOnEntireDocument = element->Attribute(TEXT("delimiterSelectionOnEntireDocument"));
-			if(delimiterSelectionOnEntireDocument != NULL && !lstrcmp(delimiterSelectionOnEntireDocument, TEXT("yes")))
+			if (delimiterSelectionOnEntireDocument != NULL && !lstrcmp(delimiterSelectionOnEntireDocument, TEXT("yes")))
 				_nppGUI._delimiterSelectionOnEntireDocument = true;
 			else
 				_nppGUI._delimiterSelectionOnEntireDocument = false;
@@ -6301,7 +6301,7 @@ int NppParameters::langTypeToCommandID(LangType lt) const
 
 
 		default :
-			if(lt >= L_EXTERNAL && lt < L_END)
+			if (lt >= L_EXTERNAL && lt < L_END)
 				id = lt - L_EXTERNAL + IDM_LANG_EXTERNAL;
 			else
 				id = IDM_LANG_TEXT;

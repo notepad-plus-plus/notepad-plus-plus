@@ -164,7 +164,7 @@ void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beg
 
 static generic_string addTrailingSlash(generic_string path)
 {
-	if(path.length() >=1 && path[path.length() - 1] == '\\')
+	if (path.length() >=1 && path[path.length() - 1] == '\\')
 		return path;
 	else
 		return path + L"\\";
@@ -172,7 +172,7 @@ static generic_string addTrailingSlash(generic_string path)
 
 static generic_string removeTrailingSlash(generic_string path)
 {
-	if(path.length() >= 1 && path[path.length() - 1] == '\\')
+	if (path.length() >= 1 && path[path.length() - 1] == '\\')
 		return path.substr(0, path.length() - 1);
 	else
 		return path;
@@ -204,13 +204,13 @@ static bool getRawPath(generic_string input, generic_string &rawPath_out)
 	// a quotation mark.
 	locale loc;
 	size_t lastOccurrence = input.rfind(L":");
-	if(lastOccurrence == std::string::npos) // No match.
+	if (lastOccurrence == std::string::npos) // No match.
 		return false;
-	else if(lastOccurrence == 0)
+	else if (lastOccurrence == 0)
 		return false;
-	else if(!std::isalpha(input[lastOccurrence - 1], loc))
+	else if (!std::isalpha(input[lastOccurrence - 1], loc))
 		return false;
-	else if(lastOccurrence >= 2 && !isAllowedBeforeDriveLetter(input[lastOccurrence - 2]))
+	else if (lastOccurrence >= 2 && !isAllowedBeforeDriveLetter(input[lastOccurrence - 2]))
 		return false;
 
 	rawPath_out = input.substr(lastOccurrence - 1);
@@ -220,15 +220,15 @@ static bool getRawPath(generic_string input, generic_string &rawPath_out)
 static bool getPathsForPathCompletion(generic_string input, generic_string &rawPath_out, generic_string &pathToMatch_out)
 {
 	generic_string rawPath;
-	if(! getRawPath(input, rawPath))
+	if (! getRawPath(input, rawPath))
 	{
 		return false;
 	}
-	else if(isFile(rawPath) || isFile(removeTrailingSlash(rawPath)))
+	else if (isFile(rawPath) || isFile(removeTrailingSlash(rawPath)))
 	{
 		return false;
 	}
-	else if(isDirectory(rawPath))
+	else if (isDirectory(rawPath))
 	{
 		rawPath_out = rawPath;
 		pathToMatch_out = rawPath;
@@ -237,7 +237,7 @@ static bool getPathsForPathCompletion(generic_string input, generic_string &rawP
 	else
 	{
 		size_t last_occurrence = rawPath.rfind(L"\\");
-		if(last_occurrence == std::string::npos) // No match.
+		if (last_occurrence == std::string::npos) // No match.
 			return false;
 		else
 		{
@@ -270,7 +270,7 @@ void AutoCompletion::showPathCompletion()
 	   exists, this means we should list all files and directories in C:.
 	*/
 	generic_string rawPath, pathToMatch;
-	if(! getPathsForPathCompletion(currentLine, rawPath, pathToMatch))
+	if (! getPathsForPathCompletion(currentLine, rawPath, pathToMatch))
 		return;
 
 	// Get all files and directories in the path.
@@ -281,7 +281,7 @@ void AutoCompletion::showPathCompletion()
 		generic_string pathToMatchPlusSlash = addTrailingSlash(pathToMatch);
 		generic_string searchString = pathToMatchPlusSlash + TEXT("*.*");
 		hFind = ::FindFirstFile(searchString.c_str(), &data);
-		if(hFind != INVALID_HANDLE_VALUE)
+		if (hFind != INVALID_HANDLE_VALUE)
 		{
 			// Maximum number of entries to show. Without this it appears to the user like N++ hangs when autocompleting
 			// some really large directories (c:\windows\winxsys on my system for instance).
@@ -289,18 +289,18 @@ void AutoCompletion::showPathCompletion()
 			unsigned int counter = 0;
 			do
 			{
-				if(++counter > maxEntries)
+				if (++counter > maxEntries)
 					break;
 
-				if(generic_string(data.cFileName) == TEXT(".") || generic_string(data.cFileName) == TEXT(".."))
+				if (generic_string(data.cFileName) == TEXT(".") || generic_string(data.cFileName) == TEXT(".."))
 					continue;
 
-				if(! autoCompleteEntries.empty())
+				if (! autoCompleteEntries.empty())
 					autoCompleteEntries += TEXT("\n");
 
 				autoCompleteEntries += pathToMatchPlusSlash;
 				autoCompleteEntries += data.cFileName;
-				if(data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) // If directory, add trailing slash.
+				if (data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) // If directory, add trailing slash.
 					autoCompleteEntries += TEXT("\\");
 
 			} while(::FindNextFile(hFind, &data));
@@ -796,7 +796,7 @@ bool AutoCompletion::setLanguage(LangType language) {
 		_funcCompletionActive = true;
 	}
 
-	if(_funcCompletionActive) //try setting up environment
+	if (_funcCompletionActive) //try setting up environment
     {
 		//setup defaults
 		_ignoreCase = true;

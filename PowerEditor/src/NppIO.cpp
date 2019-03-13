@@ -908,7 +908,7 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 				{
 					// warning user and save it if user want it.
 					activateBuffer(id, MAIN_VIEW);
-					if(!activateBuffer(id, SUB_VIEW))
+					if (!activateBuffer(id, SUB_VIEW))
 						switchEditViewTo(MAIN_VIEW);
 
 					int res = _nativeLangSpeaker.messageBox("NoBackupDoSaveFile",
@@ -934,7 +934,7 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 			else
 			{
 				activateBuffer(id, MAIN_VIEW);
-				if(!activateBuffer(id, SUB_VIEW))
+				if (!activateBuffer(id, SUB_VIEW))
 					switchEditViewTo(MAIN_VIEW);
 
 				int res = doSaveOrNot(buf->getFullPathName());
@@ -1042,10 +1042,10 @@ bool Notepad_plus::fileCloseAllGiven(const std::vector<int> &krvecBufferIndexes)
 		}
 		else if (buf->isDirty())
 		{
-			if(_activeView == MAIN_VIEW)
+			if (_activeView == MAIN_VIEW)
 			{
 				activateBuffer(id, MAIN_VIEW);
-				if(!activateBuffer(id, SUB_VIEW))
+				if (!activateBuffer(id, SUB_VIEW))
 					switchEditViewTo(MAIN_VIEW);
 			}
 			else
@@ -1120,7 +1120,7 @@ bool Notepad_plus::fileCloseAllButCurrent()
 		else if (buf->isDirty())
 		{
 			activateBuffer(id, MAIN_VIEW);
-			if(!activateBuffer(id, SUB_VIEW))
+			if (!activateBuffer(id, SUB_VIEW))
 				switchEditViewTo(MAIN_VIEW);
 
 			int res = doSaveOrNot(buf->getFullPathName());

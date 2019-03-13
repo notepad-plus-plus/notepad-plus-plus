@@ -600,11 +600,11 @@ void XmlMatchedTagsHighlighter::tagMatch(bool doHiliteAttr)
 		const FindResult startFound = findText(codeBeginTag.c_str(), caret, 0, 0); // This searches backwards from "caret".
 		const FindResult endFound= findText(codeEndTag.c_str(), caret, 0, 0); // This searches backwards from "caret".
 
-		if(startFound.success)
+		if (startFound.success)
 		{
-			if(! endFound.success)
+			if (! endFound.success)
 				return;
-			else if(endFound.success && endFound.start <= startFound.end)
+			else if (endFound.success && endFound.start <= startFound.end)
 				return;
 		}
 	}

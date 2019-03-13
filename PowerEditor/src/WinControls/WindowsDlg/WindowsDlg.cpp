@@ -62,7 +62,7 @@ inline static DWORD GetExStyle(HWND hWnd) {
 inline static BOOL ModifyStyle(HWND hWnd, DWORD dwRemove, DWORD dwAdd) {
 	DWORD dwStyle = (DWORD)::GetWindowLongPtr(hWnd, GWL_STYLE);
 	DWORD dwNewStyle = (dwStyle & ~dwRemove) | dwAdd;
-	if(dwStyle == dwNewStyle)
+	if (dwStyle == dwNewStyle)
 		return FALSE;
 	::SetWindowLongPtr(hWnd, GWL_STYLE, dwNewStyle);
 	return TRUE;
@@ -71,7 +71,7 @@ inline static BOOL ModifyStyle(HWND hWnd, DWORD dwRemove, DWORD dwAdd) {
 inline static BOOL ModifyStyleEx(HWND hWnd, DWORD dwRemove, DWORD dwAdd) {
 	DWORD dwStyle = (DWORD)::GetWindowLongPtr(hWnd, GWL_EXSTYLE);
 	DWORD dwNewStyle = (dwStyle & ~dwRemove) | dwAdd;
-	if(dwStyle == dwNewStyle)
+	if (dwStyle == dwNewStyle)
 		return FALSE;
 	::SetWindowLongPtr(hWnd, GWL_EXSTYLE, dwNewStyle);
 	return TRUE;
@@ -306,7 +306,7 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 				{
 					NMLVDISPINFO *pLvdi = (NMLVDISPINFO *)pNMHDR;
 
-					if(pLvdi->item.mask & LVIF_TEXT)
+					if (pLvdi->item.mask & LVIF_TEXT)
 					{
 						pLvdi->item.pszText[0] = 0;
 						size_t index = pLvdi->item.iItem;

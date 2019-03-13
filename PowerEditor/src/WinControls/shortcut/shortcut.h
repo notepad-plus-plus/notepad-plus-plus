@@ -154,7 +154,7 @@ public:
 	virtual generic_string toString() const;					//the hotkey part
 	generic_string toMenuItemString() const {					//generic_string suitable for menu
 		generic_string str = _menuName;
-		if(isEnabled())
+		if (isEnabled())
 		{
 			str += TEXT("\t");
 			str += toString();

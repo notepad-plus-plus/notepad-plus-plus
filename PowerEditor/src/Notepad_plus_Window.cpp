@@ -130,7 +130,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 		WINDOWPLACEMENT posInfo;
 	    posInfo.length = sizeof(WINDOWPLACEMENT);
 		posInfo.flags = 0;
-		if(_isPrelaunch)
+		if (_isPrelaunch)
 			posInfo.showCmd = SW_HIDE;
 		else
 			posInfo.showCmd = nppGUI._isMaximized ? SW_SHOWMAXIMIZED : SW_SHOWNORMAL;

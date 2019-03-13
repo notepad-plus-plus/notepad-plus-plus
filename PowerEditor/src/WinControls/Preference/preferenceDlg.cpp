@@ -2106,7 +2106,7 @@ void trim(generic_string & str)
 	{
 		str.erase(pos + 1);
 		pos = str.find_first_not_of(' ');
-		if(pos != generic_string::npos) str.erase(0, pos);
+		if (pos != generic_string::npos) str.erase(0, pos);
 	}
 	else str.erase(str.begin(), str.end());
 };

@@ -552,7 +552,7 @@ void ScintillaEditView::setSpecialStyle(const Style & styleToSet)
 void ScintillaEditView::setHotspotStyle(Style& styleToSet)
 {
 	StyleMap* styleMap;
-	if( _hotspotStyles.find(_currentBuffer) == _hotspotStyles.end() )
+	if ( _hotspotStyles.find(_currentBuffer) == _hotspotStyles.end() )
 	{
 		_hotspotStyles[_currentBuffer] = new StyleMap;
 	}
@@ -2283,9 +2283,9 @@ void ScintillaEditView::beginOrEndSelect()
 
 void ScintillaEditView::updateBeginEndSelectPosition(const bool is_insert, const int position, const int length)
 {
-	if(_beginSelectPosition != -1 && position < _beginSelectPosition - 1)
+	if (_beginSelectPosition != -1 && position < _beginSelectPosition - 1)
 	{
-		if(is_insert)
+		if (is_insert)
 			_beginSelectPosition += length;
 		else
 			_beginSelectPosition -= length;
@@ -3332,7 +3332,7 @@ void ScintillaEditView::insertNewLineAboveCurrentLine()
 {
 	generic_string newline = getEOLString();
 	const auto current_line = getCurrentLineNumber();
-	if(current_line == 0)
+	if (current_line == 0)
 	{
 		// Special handling if caret is at first line.
 		insertGenericTextFrom(0, newline.c_str());
@@ -3352,7 +3352,7 @@ void ScintillaEditView::insertNewLineBelowCurrentLine()
 	generic_string newline = getEOLString();
 	const auto line_count = static_cast<size_t>(execute(SCI_GETLINECOUNT));
 	const auto current_line = getCurrentLineNumber();
-	if(current_line == line_count - 1)
+	if (current_line == line_count - 1)
 	{
 		// Special handling if caret is at last line.
 		appandGenericText(newline.c_str());

@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="7.6.2">
+	<Native-Langue name="Deutsch" filename="german.xml" version="7.6.3">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -1196,7 +1196,7 @@
 			<userdefined-title-save value="Akt. Sprache speichern als …"/>
 			<userdefined-title-rename value="Akt. Sprache umbenennen"/>
 			<autocomplete-nb-char value="Anz. Zeichen: "/>
-			<edit-verticaledge-nb-col value="Anz. Spalten:"/>
+			<edit-verticaledge-nb-col value="Anz. Spalten: "/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

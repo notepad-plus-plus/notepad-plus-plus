@@ -1033,7 +1033,8 @@ bool Notepad_plus::fileCloseAllGiven(const std::vector<int> &krvecBufferIndexes)
 
 	std::vector<int>::const_iterator itIndexesEnd = krvecBufferIndexes.end();
 
-	for(std::vector<int>::const_iterator itIndex = krvecBufferIndexes.begin(); itIndex != itIndexesEnd; ++itIndex) {
+	for (std::vector<int>::const_iterator itIndex = krvecBufferIndexes.begin(); itIndex != itIndexesEnd; ++itIndex)
+	{
 		BufferID id = _pDocTab->getBufferByIndex(*itIndex);
 		Buffer * buf = MainFileManager->getBufferByID(id);
 		if (buf->isUntitled() && buf->docLength() == 0)
@@ -1069,7 +1070,8 @@ bool Notepad_plus::fileCloseAllGiven(const std::vector<int> &krvecBufferIndexes)
 
 	// Now we close.
 	bool isSnapshotMode = NppParameters::getInstance()->getNppGUI().isSnapshotMode();
-	for(std::vector<int>::const_iterator itIndex = krvecBufferIndexes.begin(); itIndex != itIndexesEnd; ++itIndex) {
+	for (std::vector<int>::const_iterator itIndex = krvecBufferIndexes.begin(); itIndex != itIndexesEnd; ++itIndex)
+	{
 		doClose(_pDocTab->getBufferByIndex(*itIndex), currentView(), isSnapshotMode);
 	}
 
@@ -1081,7 +1083,8 @@ bool Notepad_plus::fileCloseAllToLeft()
 	// Indexes must go from high to low to deal with the fact that when one index is closed, any remaining
 	// indexes (smaller than the one just closed) will point to the wrong tab.
 	std::vector<int> vecIndexesToClose;
-	for(int i = _pDocTab->getCurrentTabIndex() - 1; i >= 0; i--) {
+	for (int i = _pDocTab->getCurrentTabIndex() - 1; i >= 0; i--)
+	{
 		vecIndexesToClose.push_back(i);
 	}
 	return fileCloseAllGiven(vecIndexesToClose);
@@ -1093,7 +1096,8 @@ bool Notepad_plus::fileCloseAllToRight()
 	// indexes (smaller than the one just closed) will point to the wrong tab.
 	const int kiActive = _pDocTab->getCurrentTabIndex();
 	std::vector<int> vecIndexesToClose;
-	for(int i = int(_pDocTab->nbItem()) - 1; i > kiActive; i--) {
+	for (int i = int(_pDocTab->nbItem()) - 1; i > kiActive; i--)
+	{
 		vecIndexesToClose.push_back(i);
 	}
 	return fileCloseAllGiven(vecIndexesToClose);
@@ -1319,7 +1323,7 @@ bool Notepad_plus::fileSaveAll()
 {
 	if (viewVisible(MAIN_VIEW))
 	{
-		for(size_t i = 0; i < _mainDocTab.nbItem(); ++i)
+		for (size_t i = 0; i < _mainDocTab.nbItem(); ++i)
 		{
 			BufferID idToSave = _mainDocTab.getBufferByIndex(i);
 			fileSave(idToSave);
@@ -1328,7 +1332,7 @@ bool Notepad_plus::fileSaveAll()
 
 	if (viewVisible(SUB_VIEW))
 	{
-		for(size_t i = 0; i < _subDocTab.nbItem(); ++i)
+		for (size_t i = 0; i < _subDocTab.nbItem(); ++i)
 		{
 			BufferID idToSave = _subDocTab.getBufferByIndex(i);
 			fileSave(idToSave);

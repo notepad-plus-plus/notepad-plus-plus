@@ -3101,7 +3101,7 @@ size_t Notepad_plus::getSelectedCharNumber(UniMode u)
 static inline size_t countUtf8Characters(unsigned char *buf, size_t pos, size_t endpos)
 {
 	size_t result = 0;
-	while(pos < endpos)
+	while (pos < endpos)
 	{
 		unsigned char c = buf[pos++];
 		if ((c&0xc0) == 0x80 // do not count unexpected continuation bytes (this handles the case where an UTF-8 character is split in the middle)
@@ -6935,7 +6935,7 @@ bool Notepad_plus::undoStreamComment(bool tryBlockComment)
 			_pEditView->execute(SCI_SETSEL, selectionStart+selectionStartMove, selectionEnd+selectionEndMove);
 		}
 	}
-	while(1); //do as long as stream-comments are within selection
+	while (1); //do as long as stream-comments are within selection
 }
 
 void Notepad_plus::monitoringStartOrStopAndUpdateUI(Buffer* pBuf, bool isStarting)

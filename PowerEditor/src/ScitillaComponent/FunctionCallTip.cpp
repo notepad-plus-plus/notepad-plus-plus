@@ -59,13 +59,16 @@ inline bool match(TCHAR c1, TCHAR c2) {
 
 //test string case insensitive ala Scintilla
 //0 if equal, <0 of before, >0 if after (name1 that is)
-int testNameNoCase(const TCHAR * name1, const TCHAR * name2, int len = -1) {
+int testNameNoCase(const TCHAR * name1, const TCHAR * name2, int len = -1)
+{
 	if (len == -1) {
 		len = 1024;	//magic value, but it probably fails way before it reaches this
 	}
 	int i = 0;
-	while(match(name1[i], name2[i])) {
-		if (name1[i] == 0 || i == len) {
+	while (match(name1[i], name2[i]))
+	{
+		if (name1[i] == 0 || i == len)
+		{
 			return 0;	//equal	
 		}
 		++i;	
@@ -77,7 +80,8 @@ int testNameNoCase(const TCHAR * name1, const TCHAR * name2, int len = -1) {
 	return ( (name1[i]-subs1) - (name2[i]-subs2) );
 }
 
-void FunctionCallTip::setLanguageXML(TiXmlElement * pXmlKeyword) {
+void FunctionCallTip::setLanguageXML(TiXmlElement * pXmlKeyword)
+{
 	if (isVisible())
 		close();
 	_pXmlKeyword = pXmlKeyword;
@@ -108,14 +112,16 @@ bool FunctionCallTip::updateCalltip(int ch, bool needShown)
 	return true;
 }
 
-void FunctionCallTip::showNextOverload() {
+void FunctionCallTip::showNextOverload()
+{
 	if (!isVisible())
 		return;
 	_currentOverload = (_currentOverload+1) % _currentNbOverloads;
 	showCalltip();
 }
 
-void FunctionCallTip::showPrevOverload() {
+void FunctionCallTip::showPrevOverload()
+{
 	if (!isVisible())
 		return;
 	_currentOverload = _currentOverload > 0 ? (_currentOverload-1) : (_currentNbOverloads-1);
@@ -253,7 +259,7 @@ bool FunctionCallTip::getCursorFunction()
 
 	if (curValue.lastFunctionIdentifier == -1)
 	{	//not in direct function. Start popping the stack untill we empty it, or a func IS found
-		while(curValue.lastFunctionIdentifier == -1 && valueVec.size() > 0)
+		while (curValue.lastFunctionIdentifier == -1 && valueVec.size() > 0)
 		{
 			curValue = valueVec.back();
 			valueVec.pop_back();
@@ -388,7 +394,7 @@ void FunctionCallTip::showCalltip()
 	if ((size_t)_currentParam >= psize)
 	{
 		size_t osize = _overloads.size();
-		for(size_t i = 0; i < osize; ++i)
+		for (size_t i = 0; i < osize; ++i)
 		{
 			psize = _overloads.at(i).size()+1;
 			if ((size_t)_currentParam < psize)

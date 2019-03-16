@@ -25,8 +25,6 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-
-
 #include <stdexcept>
 #include "ToolBar.h"
 #include "shortcut.h"
@@ -104,8 +102,7 @@ void ToolBar::initTheme(TiXmlDocument *toolIconsDocRoot)
 	}
 }
 
-bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type, 
-					ToolBarButtonUnit *buttonUnitArray, int arraySize)
+bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type, ToolBarButtonUnit *buttonUnitArray, int arraySize)
 {
 	Window::init(hInst, hPere);
 	_state = type;
@@ -149,7 +146,8 @@ bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type,
 		_pTBB[i].iString = 0;
 	}
 
-	if (_nbDynButtons > 0) {
+	if (_nbDynButtons > 0)
+	{
 		//add separator
 		_pTBB[i].iBitmap = 0;
 		_pTBB[i].idCommand = 0;
@@ -178,8 +176,10 @@ bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type,
 	return true;
 }
 
-void ToolBar::destroy() {
-	if (_pRebar) {
+void ToolBar::destroy()
+{
+	if (_pRebar)
+	{
 		_pRebar->removeBand(_rbBand.wID);
 		_pRebar = NULL;
 	}
@@ -189,17 +189,20 @@ void ToolBar::destroy() {
 	_toolBarIcons.destroy();
 };
 
-int ToolBar::getWidth() const {
+int ToolBar::getWidth() const
+{
 	RECT btnRect;
 	int totalWidth = 0;
-	for(size_t i = 0; i < _nbCurrentButtons; ++i) {
+	for (size_t i = 0; i < _nbCurrentButtons; ++i)
+	{
 		::SendMessage(_hSelf, TB_GETITEMRECT, i, reinterpret_cast<LPARAM>(&btnRect));
 		totalWidth += btnRect.right - btnRect.left;
 	}
 	return totalWidth;
 }
 
-int ToolBar::getHeight() const {
+int ToolBar::getHeight() const
+{
 	DWORD size = static_cast<DWORD>(SendMessage(_hSelf, TB_GETBUTTONSIZE, 0, 0));
 	DWORD padding = static_cast<DWORD>(SendMessage(_hSelf, TB_GETPADDING, 0, 0));
 	int totalHeight = HIWORD(size) + HIWORD(padding) - 3;
@@ -250,7 +253,7 @@ void ToolBar::reset(bool create)
 	{
 		//Store current button state information
 		TBBUTTON tempBtn;
-		for(size_t i = 0; i < _nbCurrentButtons; ++i)
+		for (size_t i = 0; i < _nbCurrentButtons; ++i)
 		{
 			::SendMessage(_hSelf, TB_GETBUTTON, i, reinterpret_cast<LPARAM>(&tempBtn));
 			_pTBB[i].fsState = tempBtn.fsState;
@@ -360,7 +363,7 @@ void ToolBar::doPopop(POINT chevPoint)
 
 	size_t start = 0;
 	RECT btnRect = {0,0,0,0};
-	while(start < _nbCurrentButtons)
+	while (start < _nbCurrentButtons)
 	{
 		::SendMessage(_hSelf, TB_GETITEMRECT, start, reinterpret_cast<LPARAM>(&btnRect));
 		if (btnRect.right > width)
@@ -460,7 +463,7 @@ void ReBar::reNew(int id, REBARBANDINFO * rBand)
 {
 	auto index = SendMessage(_hSelf, RB_IDTOINDEX, id, 0);
 	::SendMessage(_hSelf, RB_SETBANDINFO, index, reinterpret_cast<LPARAM>(rBand));
-};
+}
 
 void ReBar::removeBand(int id) 
 {
@@ -522,7 +525,7 @@ int ReBar::getNewID()
 {
 	int idToUse = REBAR_BAR_EXTERNAL;
 	size_t size = usedIDs.size();
-	for(size_t i = 0; i < size; ++i)
+	for (size_t i = 0; i < size; ++i)
 	{
 		int curVal = usedIDs.at(i);
 		if (curVal < idToUse)
@@ -546,7 +549,7 @@ int ReBar::getNewID()
 void ReBar::releaseID(int id)
 {
 	size_t size = usedIDs.size();
-	for(size_t i = 0; i < size; ++i)
+	for (size_t i = 0; i < size; ++i)
 	{
 		if (usedIDs.at(i) == id)
 		{
@@ -559,7 +562,7 @@ void ReBar::releaseID(int id)
 bool ReBar::isIDTaken(int id)
 {
 	size_t size = usedIDs.size();
-	for(size_t i = 0; i < size; ++i)
+	for (size_t i = 0; i < size; ++i)
 	{
 		if (usedIDs.at(i) == id)
 		{

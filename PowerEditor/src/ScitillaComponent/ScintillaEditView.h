@@ -483,7 +483,7 @@ public:
 		execute(SCI_GETSELTEXT, 0, reinterpret_cast<LPARAM>(selected));
 		char *c = selected;
 		long length = 0;
-		while(*c != '\0')
+		while (*c != '\0')
 		{
 			if ( (*c & 0xC0) != 0x80)
 				++length;
@@ -491,7 +491,7 @@ public:
 		}
 		delete [] selected;
 		return length;
-    }
+	};
 
 
 	long getLineLength(int line) const {

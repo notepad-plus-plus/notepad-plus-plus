@@ -915,7 +915,7 @@ bool NppParameters::reloadStylers(TCHAR* stylePath)
 	getUserStylersFromXmlTree();
 
 	//  Reload plugin styles.
-	for( size_t i = 0; i < getExternalLexerDoc()->size(); ++i)
+	for ( size_t i = 0; i < getExternalLexerDoc()->size(); ++i)
 	{
 		getExternalLexerFromXmlTree( getExternalLexerDoc()->at(i) );
 	}
@@ -1783,7 +1783,7 @@ void NppParameters::initMenuKeys()
 {
 	int nbCommands = sizeof(winKeyDefs)/sizeof(WinMenuKeyDefinition);
 	WinMenuKeyDefinition wkd;
-	for(int i = 0; i < nbCommands; ++i)
+	for (int i = 0; i < nbCommands; ++i)
 	{
 		wkd = winKeyDefs[i];
 		Shortcut sc((wkd.specialName ? wkd.specialName : TEXT("")), wkd.isCtrl, wkd.isAlt, wkd.isShift, static_cast<unsigned char>(wkd.vKey));
@@ -1799,7 +1799,7 @@ void NppParameters::initScintillaKeys() {
 	ScintillaKeyDefinition skd;
 	int prevIndex = -1;
 	int prevID = -1;
-	for(int i = 0; i < nbCommands; ++i)
+	for (int i = 0; i < nbCommands; ++i)
 	{
 		skd = scintKeyDefs[i];
 		if (skd.functionId == prevID)
@@ -2370,7 +2370,7 @@ void NppParameters::feedShortcut(TiXmlNode *node)
 		{
 			//find the commandid that matches this Shortcut sc and alter it, push back its index in the modified list, if not present
 			size_t len = _shortcuts.size();
-			for(size_t i = 0; i < len; ++i)
+			for (size_t i = 0; i < len; ++i)
 			{
 				if (_shortcuts[i].getID() == (unsigned long)id)
 				{	//found our match
@@ -2482,7 +2482,7 @@ void NppParameters::feedPluginCustomizedCmds(TiXmlNode *node)
 
 		//Find the corresponding plugincommand and alter it, put the index in the list
 		size_t len = _pluginCommands.size();
-		for(size_t i = 0; i < len; ++i)
+		for (size_t i = 0; i < len; ++i)
 		{
 			PluginCmdShortcut & pscOrig = _pluginCommands[i];
 			if (!generic_strnicmp(pscOrig.getModuleName(), moduleName, lstrlen(moduleName)) && pscOrig.getInternalID() == internalID)
@@ -3749,7 +3749,7 @@ TiXmlNode * NppParameters::getChildElementByAttribut(TiXmlNode *pere, const TCHA
 LangType NppParameters::getLangIDFromStr(const TCHAR *langName)
 {
 	int lang = static_cast<int32_t>(L_TEXT);
-	for(; lang < L_EXTERNAL; ++lang)
+	for (; lang < L_EXTERNAL; ++lang)
 	{
 		const TCHAR * name = ScintillaEditView::langNames[lang].lexerName;
 		if (!lstrcmp(name, langName)) //found lang?
@@ -6391,7 +6391,7 @@ void NppParameters::writeStyles(LexerStylerArray & lexersStylers, StyleArray & g
 		}
 	}
 
-	for(size_t x = 0; x < _pXmlExternalLexerDoc.size(); ++x)
+	for (size_t x = 0; x < _pXmlExternalLexerDoc.size(); ++x)
 	{
 		TiXmlNode *lexersRoot = ( _pXmlExternalLexerDoc[x]->FirstChild(TEXT("NotepadPlus")))->FirstChildElement(TEXT("LexerStyles"));
 		for (TiXmlNode *childNode = lexersRoot->FirstChildElement(TEXT("LexerType"));
@@ -6668,7 +6668,7 @@ void NppParameters::addUserModifiedIndex(size_t index)
 {
 	size_t len = _customizedShortcuts.size();
 	bool found = false;
-	for(size_t i = 0; i < len; ++i)
+	for (size_t i = 0; i < len; ++i)
 	{
 		if (_customizedShortcuts[i] == index)
 		{
@@ -6686,7 +6686,7 @@ void NppParameters::addPluginModifiedIndex(size_t index)
 {
 	size_t len = _pluginCustomizedCmds.size();
 	bool found = false;
-	for(size_t i = 0; i < len; ++i)
+	for (size_t i = 0; i < len; ++i)
 	{
 		if (_pluginCustomizedCmds[i] == index)
 		{
@@ -6704,7 +6704,7 @@ void NppParameters::addScintillaModifiedIndex(int index)
 {
 	size_t len = _scintillaModifiedKeyIndices.size();
 	bool found = false;
-	for(size_t i = 0; i < len; ++i)
+	for (size_t i = 0; i < len; ++i)
 	{
 		if (_scintillaModifiedKeyIndices[i] == index)
 		{

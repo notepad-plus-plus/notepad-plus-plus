@@ -169,7 +169,7 @@ const TCHAR* TiXmlBase::SkipWhiteSpace( const TCHAR* p )
 #ifdef TIXML_USE_STL
 /*static*/ bool TiXmlBase::StreamWhiteSpace( TIXML_ISTREAM * in, TIXML_STRING * tag )
 {
-	for( ;; )
+	for ( ;; )
 	{
 		if ( !in->good() ) return false;
 
@@ -627,7 +627,7 @@ void TiXmlElement::StreamIn (TIXML_ISTREAM * in, TIXML_STRING * tag)
 			bool closingTag = false;
 			bool firstCharFound = false;
 
-			for( ;; )
+			for ( ;; )
 			{
 				if ( !in->good() )
 					return;

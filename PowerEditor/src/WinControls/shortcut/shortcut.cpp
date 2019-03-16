@@ -167,16 +167,22 @@ generic_string Shortcut::toString() const
 	return sc;
 }
 
-void Shortcut::setName(const TCHAR * name) {
+void Shortcut::setName(const TCHAR * name)
+{
 	lstrcpyn(_menuName, name, nameLenMax);
 	lstrcpyn(_name, name, nameLenMax);
 	int i = 0, j = 0;
-	while(name[j] != 0 && i < nameLenMax) {
-		if (name[j] != '&') {
+	while (name[j] != 0 && i < nameLenMax)
+	{
+		if (name[j] != '&')
+		{
 			_name[i] = name[j];
 			++i;
-		} else {	//check if this ampersand is being escaped
-			if (name[j+1] == '&') {	//escaped ampersand
+		}
+		else //check if this ampersand is being escaped
+		{
+			if (name[j+1] == '&') //escaped ampersand
+			{
 				_name[i] = name[j];
 				++i;
 				++j;	//skip escaped ampersand
@@ -187,10 +193,12 @@ void Shortcut::setName(const TCHAR * name) {
 	_name[i] = 0;
 }
 
-generic_string ScintillaKeyMap::toString() const {
+generic_string ScintillaKeyMap::toString() const
+{
 	generic_string sc = TEXT("");
 	size_t nbCombos = getSize();
-	for (size_t combo = 0; combo < nbCombos; ++combo){
+	for (size_t combo = 0; combo < nbCombos; ++combo)
+	{
 		sc += toString(combo);
 		if (combo < nbCombos - 1)
 			sc += TEXT(" or ");
@@ -198,7 +206,8 @@ generic_string ScintillaKeyMap::toString() const {
 	return sc;
 }
 
-generic_string ScintillaKeyMap::toString(size_t index) const {
+generic_string ScintillaKeyMap::toString(size_t index) const
+{
 	generic_string sc = TEXT("");
 	if (!isEnabled())
 		return sc;
@@ -217,7 +226,8 @@ generic_string ScintillaKeyMap::toString(size_t index) const {
 	return sc;
 }
 
-KeyCombo ScintillaKeyMap::getKeyComboByIndex(size_t index) const {
+KeyCombo ScintillaKeyMap::getKeyComboByIndex(size_t index) const
+{
 	return _keyCombos[index];
 }
 
@@ -248,7 +258,8 @@ int ScintillaKeyMap::addKeyCombo(KeyCombo combo)
 		_keyCombos[0] = combo;
 		return 0;
 	}
-	for(size_t i = 0; i < _size; ++i)
+
+	for (size_t i = 0; i < _size; ++i)
 	{	//if already in the list do not add it
 		KeyCombo & kc = _keyCombos[i];
 		if (combo._key == kc._key && combo._isCtrl == kc._isCtrl && combo._isAlt == kc._isAlt && combo._isShift == kc._isShift)
@@ -259,11 +270,13 @@ int ScintillaKeyMap::addKeyCombo(KeyCombo combo)
 	return static_cast<int32_t>(_size - 1);
 }
 
-bool ScintillaKeyMap::isEnabled() const {
+bool ScintillaKeyMap::isEnabled() const
+{
 	return (_keyCombos[0]._key != 0);
 }
 
-size_t ScintillaKeyMap::getSize() const {
+size_t ScintillaKeyMap::getSize() const
+{
 	return _size;
 }
 
@@ -272,8 +285,10 @@ void getKeyStrFromVal(UCHAR keyVal, generic_string & str)
 	str = TEXT("");
 	bool found = false;
 	int i;
-	for (i = 0; i < nbKeys; ++i) {
-		if (keyVal == namedKeyArray[i].id) {
+	for (i = 0; i < nbKeys; ++i)
+	{
+		if (keyVal == namedKeyArray[i].id)
+		{
 			found = true;
 			break;
 		}
@@ -496,7 +511,7 @@ void Accelerator::updateShortcuts()
 	int offset = 0;
 	size_t i = 0;
 	//no validation performed, it might be that invalid shortcuts are being used by default. Allows user to 'hack', might be a good thing
-	for(i = 0; i < nbMenu; ++i)
+	for (i = 0; i < nbMenu; ++i)
 	{
 		if (shortcuts[i].isEnabled())
 		{
@@ -515,7 +530,7 @@ void Accelerator::updateShortcuts()
 		}
 	}
 
-	for(i = 0; i < nbMacro; ++i)
+	for (i = 0; i < nbMacro; ++i)
 	{
 		if (macros[i].isEnabled()) 
 		{
@@ -526,7 +541,7 @@ void Accelerator::updateShortcuts()
 		}
 	}
 
-	for(i = 0; i < nbUserCmd; ++i)
+	for (i = 0; i < nbUserCmd; ++i)
 	{
 		if (userCommands[i].isEnabled())
 		{
@@ -537,7 +552,7 @@ void Accelerator::updateShortcuts()
 		}
 	}
 
-	for(i = 0; i < nbPluginCmd; ++i)
+	for (i = 0; i < nbPluginCmd; ++i)
 	{
 		if (pluginCommands[i].isEnabled())
 		{
@@ -586,25 +601,30 @@ void Accelerator::updateShortcuts()
 	return;
 }
 
-void Accelerator::updateFullMenu() {
+void Accelerator::updateFullMenu()
+{
 	NppParameters * pNppParam = NppParameters::getInstance();
 	vector<CommandShortcut> commands = pNppParam->getUserShortcuts();
-	for(size_t i = 0; i < commands.size(); ++i) {
+	for (size_t i = 0; i < commands.size(); ++i)
+	{
 		updateMenuItemByCommand(commands[i]);
 	}
 
 	vector<MacroShortcut> mcommands = pNppParam->getMacroList();
-	for(size_t i = 0; i < mcommands.size(); ++i) {
+	for (size_t i = 0; i < mcommands.size(); ++i)
+	{
 		updateMenuItemByCommand(mcommands[i]);
 	}
 
 	vector<UserCommand> ucommands = pNppParam->getUserCommandList();
-	for(size_t i = 0; i < ucommands.size(); ++i) {
+	for (size_t i = 0; i < ucommands.size(); ++i)
+	{
 		updateMenuItemByCommand(ucommands[i]);
 	}
 
 	vector<PluginCmdShortcut> pcommands = pNppParam->getPluginCommandList();
-	for(size_t i = 0; i < pcommands.size(); ++i) {
+	for (size_t i = 0; i < pcommands.size(); ++i)
+	{
 		updateMenuItemByCommand(pcommands[i]);
 	}
 
@@ -868,13 +888,13 @@ void ScintillaAccelerator::updateKeys()
 	for (size_t i = 0; i < nb; ++i)
 	{
 		::SendMessage(_vScintillas[i], SCI_CLEARALLCMDKEYS, 0, 0);
-		for(int32_t j = static_cast<int32_t>(mapSize) - 1; j >= 0; j--) //reverse order, top of the list has highest priority
+		for (int32_t j = static_cast<int32_t>(mapSize) - 1; j >= 0; j--) //reverse order, top of the list has highest priority
 		{	
 			ScintillaKeyMap skm = map[j];
 			if (skm.isEnabled()) 
 			{		//no validating, scintilla accepts more keys
 				size_t size = skm.getSize();
-				for(index = 0; index < size; ++index)
+				for (index = 0; index < size; ++index)
 					::SendMessage(_vScintillas[i], SCI_ASSIGNCMDKEY, skm.toKeyDef(index), skm.getScintillaKeyID());
 			}
 			if (skm.getMenuCmdID() != 0) 
@@ -893,7 +913,7 @@ void ScintillaAccelerator::updateMenuItemByID(const ScintillaKeyMap& skm, int id
 	TCHAR cmdName[commandSize];
 	::GetMenuString(_hAccelMenu, id, cmdName, commandSize, MF_BYCOMMAND);
 	int i = 0;
-	while(cmdName[i] != 0)
+	while (cmdName[i] != 0)
 	{
 		if (cmdName[i] == '\t')
 		{
@@ -985,7 +1005,7 @@ INT_PTR CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPARA
 				::SendDlgItemMessage(_hSelf, IDC_KEY_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(namedKeyArray[i].name));
 			}
 
-			for(size_t i = 0; i < _size; ++i)
+			for (size_t i = 0; i < _size; ++i)
 			{
 				::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(toString(i).c_str()));
 			}

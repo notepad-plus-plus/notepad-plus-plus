@@ -168,7 +168,7 @@ const char* TiXmlBaseA::SkipWhiteSpace( const char* p )
 #ifdef TIXMLA_USE_STL
 /*static*/ bool TiXmlBaseA::StreamWhiteSpace( TIXMLA_ISTREAM * in, TIXMLA_STRING * tag )
 {
-	for( ;; )
+	for ( ;; )
 	{
 		if ( !in->good() ) return false;
 
@@ -203,10 +203,10 @@ const char* TiXmlBaseA::ReadName( const char* p, TIXMLA_STRING * name )
 	// After that, they can be letters, underscores, numbers,
 	// hyphens, or colons. (Colons are valid ony for namespaces,
 	// but tinyxml can't tell namespaces from names.)
-	if (    p && *p 
+	if ( p && *p 
 		&& (isalpha(static_cast<unsigned char>(*p)) || *p == '_'))
 	{
-		while(		p && *p
+		while ( p && *p
 				&&	(		isalnum( (unsigned char ) *p ) 
 						 || *p == '_'
 						 || *p == '-'
@@ -262,7 +262,7 @@ const char* TiXmlBaseA::GetEntity( const char* p, char* value )
 	}
 
 	// Now try to match it.
-	for( i=0; i<NUM_ENTITY; ++i )
+	for ( i=0; i<NUM_ENTITY; ++i )
 	{
 		if ( strncmp( entity[i].str, p, entity[i].strLength ) == 0 )
 		{
@@ -594,7 +594,7 @@ void TiXmlElementA::StreamIn (TIXMLA_ISTREAM * in, TIXMLA_STRING * tag)
 {
 	// We're called with some amount of pre-parsing. That is, some of "this"
 	// element is in "tag". Go ahead and stream to the closing ">"
-	while( in->good() )
+	while ( in->good() )
 	{
 		int c = in->get();
 		(*tag) += static_cast<char>(c);
@@ -645,7 +645,7 @@ void TiXmlElementA::StreamIn (TIXMLA_ISTREAM * in, TIXMLA_STRING * tag)
 			bool closingTag = false;
 			bool firstCharFound = false;
 
-			for( ;; )
+			for ( ;; )
 			{
 				if ( !in->good() )
 					return;
@@ -1145,7 +1145,7 @@ const char* TiXmlDeclarationA::Parse( const char* p, TiXmlParsingDataA* data )
 		else
 		{
 			// Read over whatever it is.
-			while( p && *p && *p != '>' && !isspace( *p ) )
+			while ( p && *p && *p != '>' && !isspace( *p ) )
 				++p;
 		}
 	}

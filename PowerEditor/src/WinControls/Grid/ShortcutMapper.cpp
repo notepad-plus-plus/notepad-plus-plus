@@ -276,7 +276,7 @@ void ShortcutMapper::fillOutBabyGrid()
 		{
 			vector<MacroShortcut> & cshortcuts = nppParam->getMacroList();
 			cs_index = 1;
-			for(size_t i = 0; i < nbItems; ++i)
+			for (size_t i = 0; i < nbItems; ++i)
 			{
 				if (isFilterValid(cshortcuts[i]))
 				{
@@ -305,7 +305,7 @@ void ShortcutMapper::fillOutBabyGrid()
 		{
 			vector<UserCommand> & cshortcuts = nppParam->getUserCommandList();
 			cs_index = 1;
-			for(size_t i = 0; i < nbItems; ++i)
+			for (size_t i = 0; i < nbItems; ++i)
 			{
 				if (isFilterValid(cshortcuts[i]))
 				{
@@ -335,7 +335,7 @@ void ShortcutMapper::fillOutBabyGrid()
 		{
 			vector<PluginCmdShortcut> & cshortcuts = nppParam->getPluginCommandList();
 			cs_index = 1;
-			for(size_t i = 0; i < nbItems; ++i)
+			for (size_t i = 0; i < nbItems; ++i)
 			{
 				if (isFilterValid(cshortcuts[i]))
 				{
@@ -365,7 +365,7 @@ void ShortcutMapper::fillOutBabyGrid()
 		{
 			vector<ScintillaKeyMap> & cshortcuts = nppParam->getScintillaKeyList();
 			cs_index=1;
-			for(size_t i = 0; i < nbItems; ++i)
+			for (size_t i = 0; i < nbItems; ++i)
 			{
 				if (isFilterValid(cshortcuts[i]))
 				{

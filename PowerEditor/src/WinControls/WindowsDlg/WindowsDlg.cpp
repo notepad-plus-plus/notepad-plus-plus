@@ -81,7 +81,10 @@ inline static BOOL ModifyStyleEx(HWND hWnd, DWORD dwRemove, DWORD dwAdd) {
 struct NumericStringEquivalence
 {
 	int operator()(const TCHAR* s1, const TCHAR* s2) const
-	{ return numstrcmp(s1, s2); }
+	{
+		return numstrcmp(s1, s2);
+	}
+
 	static inline int numstrcmp_get(const TCHAR **str, int *length)
 	{
 		const TCHAR *p = *str;
@@ -91,13 +94,15 @@ struct NumericStringEquivalence
 		*str = p;
 		return (value);
 	}
+
 	static int numstrcmp(const TCHAR *str1, const TCHAR *str2)
 	{
 		TCHAR *p1, *p2;
 		int c1, c2, lcmp = 0;
-		for(;;)
+		for (;;)
 		{
-			if (*str1 == 0 || *str2 == 0) {
+			if (*str1 == 0 || *str2 == 0)
+			{
 				if (*str1 != *str2)
 					lcmp = *str1 - *str2;
 				break;
@@ -751,7 +756,8 @@ void WindowsDlg::doClose()
 	nmdlg.Items = new UINT[nmdlg.nItems];
 	vector<int> key;
 	key.resize(n, 0x7fffffff);
-	for(int i=-1, j=0;; ++j) {
+	for (int i=-1, j=0;; ++j)
+	{
 		i = ListView_GetNextItem(_hList, i, LVNI_SELECTED);
 		if (i == -1) break;
 		ListView_SetItemState(_hList, i, 0, LVIS_SELECTED); // deselect
@@ -810,7 +816,7 @@ void WindowsDlg::doSortToTabs()
 	nmdlg.nItems = ListView_GetItemCount(_hList);
 	nmdlg.Items = new UINT[nmdlg.nItems];
 
-	for(int i=-1, j=0;; ++j)
+	for (int i=-1, j=0;; ++j)
 	{
 		i = ListView_GetNextItem(_hList, i, LVNI_ALL);
 		if (i == -1)
@@ -850,7 +856,7 @@ void WindowsMenu::init(HINSTANCE hInst, HMENU hMainMenu, const TCHAR *translatio
 	}
 
 	int32_t pos = 0;
-	for(pos = GetMenuItemCount(hMainMenu) - 1; pos > 0; --pos)
+	for (pos = GetMenuItemCount(hMainMenu) - 1; pos > 0; --pos)
 	{
 		if ((GetMenuState(hMainMenu, pos, MF_BYPOSITION) & MF_POPUP) != MF_POPUP)
 			continue;

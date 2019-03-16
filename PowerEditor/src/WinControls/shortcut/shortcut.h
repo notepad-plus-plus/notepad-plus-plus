@@ -247,7 +247,7 @@ public:
 		if (!equal)
 			return false;
 		size_t i = 0;
-		while(equal && (i < a._size))
+		while (equal && (i < a._size))
 		{
 			equal = 
 				(a._keyCombos[i]._isCtrl	== b._keyCombos[i]._isCtrl) && 

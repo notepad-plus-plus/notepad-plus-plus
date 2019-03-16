@@ -399,7 +399,7 @@ void Buffer::setHeaderLineState(const std::vector<size_t> & folds, ScintillaEdit
 	std::vector<size_t> & local = _foldStates[index];
 	local.clear();
 	size_t size = folds.size();
-	for(size_t i = 0; i < size; ++i)
+	for (size_t i = 0; i < size; ++i)
 		local.push_back(folds[i]);
 }
 
@@ -471,13 +471,13 @@ int Buffer::removeReference(ScintillaEditView * identifier)
 void Buffer::setHideLineChanged(bool isHide, int location)
 {
 	//First run through all docs without removing markers
-	for(int i = 0; i < _references; ++i)
+	for (int i = 0; i < _references; ++i)
 		_referees.at(i)->notifyMarkers(this, isHide, location, false); // (i == _references-1));
 
 	if (!isHide) // no deleting if hiding lines
 	{
 		//Then all docs to remove markers.
-		for(int i = 0; i < _references; ++i)
+		for (int i = 0; i < _references; ++i)
 			_referees.at(i)->notifyMarkers(this, isHide, location, true);
 	}
 }
@@ -528,7 +528,7 @@ void FileManager::checkFilesystemChanges()
 
 int FileManager::getBufferIndexByID(BufferID id)
 {
-	for(size_t i = 0; i < _nbBufs; ++i)
+	for (size_t i = 0; i < _nbBufs; ++i)
 	{
 		if (_buffers[i]->_id == id)
 			return static_cast<int>(i);
@@ -1067,7 +1067,7 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 size_t FileManager::nextUntitledNewNumber() const
 {
 	std::vector<size_t> usedNumbers;
-	for(size_t i = 0; i < _buffers.size(); i++)
+	for (size_t i = 0; i < _buffers.size(); i++)
 	{
 		Buffer *buf = _buffers.at(i);
 		if (buf->isUntitled())
@@ -1087,7 +1087,7 @@ size_t FileManager::nextUntitledNewNumber() const
 	bool found = false;
 	do
 	{
-		for(size_t j = 0; j < usedNumbers.size(); j++)
+		for (size_t j = 0; j < usedNumbers.size(); j++)
 		{
 			numberAvailable = true;
 			found = false;
@@ -1435,7 +1435,7 @@ BufferID FileManager::getBufferFromName(const TCHAR* name)
 		::GetLongPathName(fullpath, fullpath, MAX_PATH);
 	}
 
-	for(size_t i = 0; i < _buffers.size(); i++)
+	for (size_t i = 0; i < _buffers.size(); i++)
 	{
 		if (OrdinalIgnoreCaseCompareStrings(name, _buffers.at(i)->getFullPathName()) == 0)
 			return _buffers.at(i)->getID();

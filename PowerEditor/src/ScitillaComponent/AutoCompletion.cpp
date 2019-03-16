@@ -303,7 +303,7 @@ void AutoCompletion::showPathCompletion()
 				if (data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) // If directory, add trailing slash.
 					autoCompleteEntries += TEXT("\\");
 
-			} while(::FindNextFile(hFind, &data));
+			} while (::FindNextFile(hFind, &data));
 			::FindClose(hFind);
 		}
 		else

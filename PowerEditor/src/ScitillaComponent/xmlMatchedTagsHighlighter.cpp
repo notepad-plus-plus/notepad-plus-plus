@@ -182,7 +182,7 @@ bool XmlMatchedTagsHighlighter::getXmlMatchedTagsPos(XmlMatchedTagsPos &xmlTags)
 				std::string tagName;
 				nextChar = static_cast<int32_t>(_pEditView->execute(SCI_GETCHARAT, position));
 				// Checking for " or ' is actually wrong here, but it means it works better with invalid XML
-				while(position < docLength && !isWhitespace(nextChar) && nextChar != '/' && nextChar != '>' && nextChar != '\"' && nextChar != '\'')
+				while (position < docLength && !isWhitespace(nextChar) && nextChar != '/' && nextChar != '>' && nextChar != '\"' && nextChar != '\'')
 				{
 					tagName.push_back(static_cast<char>(nextChar));
 					++position;
@@ -246,7 +246,7 @@ bool XmlMatchedTagsHighlighter::getXmlMatchedTagsPos(XmlMatchedTagsPos &xmlTags)
 									}
 								}
 
-							} while(inbetweenCloseTag.success);
+							} while (inbetweenCloseTag.success);
 					
 							// If we didn't find any close tags between the open and our close,
 							// and there's no open tags remaining to find
@@ -282,7 +282,7 @@ bool XmlMatchedTagsHighlighter::getXmlMatchedTagsPos(XmlMatchedTagsPos &xmlTags)
 				std::string tagName;
 				nextChar = static_cast<int32_t>(_pEditView->execute(SCI_GETCHARAT, position));
 				// Checking for " or ' is actually wrong here, but it means it works better with invalid XML
-				while(position < docLength && !isWhitespace(nextChar) && nextChar != '/' && nextChar != '>' && nextChar != '\"' && nextChar != '\'' )
+				while (position < docLength && !isWhitespace(nextChar) && nextChar != '/' && nextChar != '>' && nextChar != '\"' && nextChar != '\'' )
 				{
 					tagName.push_back(static_cast<char>(nextChar));
 					++position;
@@ -351,7 +351,7 @@ bool XmlMatchedTagsHighlighter::getXmlMatchedTagsPos(XmlMatchedTagsPos &xmlTags)
 											currentStartPosition = inbetweenOpenTag.end;
 										}
 
-									} while(inbetweenOpenTag.success);
+									} while (inbetweenOpenTag.success);
 					
 									// If we didn't find any open tags between our open and the close,
 									// and there's no close tags remaining to find
@@ -537,7 +537,7 @@ XmlMatchedTagsHighlighter::FindResult XmlMatchedTagsHighlighter::findCloseTag(co
 						++whitespacePoint;
 						nextChar = static_cast<int32_t>(_pEditView->execute(SCI_GETCHARAT, whitespacePoint));
 				
-					} while(isWhitespace(nextChar));
+					} while (isWhitespace(nextChar));
 			
 					if (nextChar == '>')
 					{

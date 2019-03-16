@@ -1063,6 +1063,7 @@ Do you want to launch Notepad++ in Administrator mode?"/>
             <OpenInAdminModeWithoutCloseCurrent title="Save failed" message="The file cannot be saved and it may be protected.
 Do you want to launch Notepad++ in Administrator mode?"/>
             <OpenInAdminModeFailed title="Open in Administrator mode failed" message="Notepad++ cannot be opened in Administrator mode."/>
+			<ViewInBrowser title="View Current File in Browser" message="Application cannot be found in your system."/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Clipboard History"/>

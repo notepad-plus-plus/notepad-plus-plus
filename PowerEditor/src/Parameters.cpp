@@ -231,7 +231,13 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 				 
 	{ VK_NULL,    IDM_VIEW_ALWAYSONTOP,                         false, false, false, nullptr },
 	{ VK_F11,     IDM_VIEW_FULLSCREENTOGGLE,                    false, false, false, nullptr },
-	{VK_F12,      IDM_VIEW_POSTIT,                              false, false, false, nullptr },
+	{ VK_F12,     IDM_VIEW_POSTIT,                              false, false, false, nullptr },
+
+	{ VK_NULL,    IDM_VIEW_IN_FIREFOX,                          false, false, false, nullptr },
+	{ VK_NULL,    IDM_VIEW_IN_CHROME,                           false, false, false, nullptr },
+	{ VK_NULL,    IDM_VIEW_IN_IE,                               false, false, false, nullptr },
+	{ VK_NULL,    IDM_VIEW_IN_EDGE,                             false, false, false, nullptr },
+
 	{ VK_NULL,    IDM_VIEW_TAB_SPACE,                           false, false, false, nullptr },
 	{ VK_NULL,    IDM_VIEW_EOL,                                 false, false, false, nullptr },
 	{ VK_NULL,    IDM_VIEW_ALL_CHARACTERS,                      false, false, false, nullptr },

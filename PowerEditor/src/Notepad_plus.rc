@@ -459,6 +459,14 @@ BEGIN
         MENUITEM "Post-It",                    IDM_VIEW_POSTIT
 
         MENUITEM SEPARATOR
+		POPUP "View Current File in"
+		BEGIN
+			MENUITEM "Firefox", IDM_VIEW_IN_FIREFOX
+			MENUITEM "Chrome", IDM_VIEW_IN_CHROME
+			MENUITEM "Edge", IDM_VIEW_IN_EDGE
+			MENUITEM "IE", IDM_VIEW_IN_IE
+		END
+		MENUITEM SEPARATOR
         POPUP "Show Symbol"
         BEGIN
             MENUITEM "Show White Space and TAB",    IDM_VIEW_TAB_SPACE

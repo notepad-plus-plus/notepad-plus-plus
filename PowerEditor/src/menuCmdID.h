@@ -351,6 +351,10 @@
     #define    IDM_VIEW_MONITORING                (IDM_VIEW + 97)
 	#define	   IDM_VIEW_TAB_MOVEFORWARD			  (IDM_VIEW + 98)
 	#define	   IDM_VIEW_TAB_MOVEBACKWARD		  (IDM_VIEW + 99)
+	#define	   IDM_VIEW_IN_FIREFOX                (IDM_VIEW + 100)
+	#define	   IDM_VIEW_IN_CHROME                 (IDM_VIEW + 101)
+	#define	   IDM_VIEW_IN_EDGE	                  (IDM_VIEW + 102)
+	#define	   IDM_VIEW_IN_IE                     (IDM_VIEW + 103)
 
     #define    IDM_VIEW_GOTO_ANOTHER_VIEW        10001
     #define    IDM_VIEW_CLONE_TO_ANOTHER_VIEW    10002

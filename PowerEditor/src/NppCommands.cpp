@@ -1780,6 +1780,74 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
+		case IDM_VIEW_IN_FIREFOX:
+		case IDM_VIEW_IN_CHROME:
+		case IDM_VIEW_IN_IE:
+		{
+			auto currentBuf = _pEditView->getCurrentBuffer();
+			if (!currentBuf->isUntitled())
+			{
+				generic_string appName;
+
+				if (id == IDM_VIEW_IN_FIREFOX)
+				{
+					appName = TEXT("firefox.exe");
+				}
+				else if (id == IDM_VIEW_IN_CHROME)
+				{
+					appName = TEXT("chrome.exe");
+				}
+				else // if (id == IDM_VIEW_IN_IE)
+				{
+					appName = TEXT("IEXPLORE.EXE");
+				}
+
+				TCHAR valData[MAX_PATH] = {'\0'};
+				int valDataLen = MAX_PATH * sizeof(TCHAR);
+				int valType;
+				HKEY hKey2Check = nullptr;
+				generic_string appEntry = TEXT("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\App Paths\\");
+				appEntry += appName;
+				::RegOpenKeyEx(HKEY_LOCAL_MACHINE, appEntry.c_str(), 0, KEY_READ, &hKey2Check);
+				::RegQueryValueEx(hKey2Check, TEXT(""), nullptr, reinterpret_cast<LPDWORD>(&valType), reinterpret_cast<LPBYTE>(valData), reinterpret_cast<LPDWORD>(&valDataLen));
+
+
+				generic_string fullCurrentPath = TEXT("\"");
+				fullCurrentPath += currentBuf->getFullPathName();
+				fullCurrentPath += TEXT("\"");
+
+				if (hKey2Check && valData[0] != '\0')
+				{
+					::ShellExecute(NULL, TEXT("open"), valData, fullCurrentPath.c_str(), NULL, SW_SHOWNORMAL);
+				}
+				else
+				{
+					_nativeLangSpeaker.messageBox("ViewInBrowser",
+						_pPublicInterface->getHSelf(),
+						TEXT("Application cannot be found in your system."),
+						TEXT("View Current File in Browser"),
+						MB_OK);
+				}
+				::RegCloseKey(hKey2Check);
+			}
+		}
+		break;
+		
+		case IDM_VIEW_IN_EDGE:
+		{
+			auto currentBuf = _pEditView->getCurrentBuffer();
+			if (!currentBuf->isUntitled())
+			{
+				// Don't put the quots for Edge, otherwise it doesn't work
+				//fullCurrentPath = TEXT("\"");
+				generic_string fullCurrentPath = currentBuf->getFullPathName();
+				//fullCurrentPath += TEXT("\"");
+
+				ShellExecute(NULL, TEXT("open"), TEXT("shell:Appsfolder\\Microsoft.MicrosoftEdge_8wekyb3d8bbwe!MicrosoftEdge"), fullCurrentPath.c_str(), NULL, SW_SHOW);
+			}
+		}
+		break;
+
 		case IDM_VIEW_TAB_SPACE:
 		{
 			bool isChecked = !(::GetMenuState(_mainMenuHandle, IDM_VIEW_TAB_SPACE, MF_BYCOMMAND) == MF_CHECKED);

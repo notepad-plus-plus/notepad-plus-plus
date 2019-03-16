@@ -281,7 +281,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	_tab.insertAtEnd(updates);
 	_tab.insertAtEnd(installed);
 
-	rect.bottom -= 100;;
+	rect.bottom -= 50;;
 	_tab.reSizeTo(rect);
 	_tab.display();
 
@@ -292,7 +292,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	HWND hResearchLabel = ::GetDlgItem(_hSelf, IDC_PLUGINADM_SEARCH_STATIC);
 	RECT researchLabelRect;
 	::GetClientRect(hResearchLabel, &researchLabelRect);
-	researchLabelRect.left = rect.left;
+	researchLabelRect.left = rect.left + marge;
 	researchLabelRect.top = topMarge + 2;
 	::MoveWindow(hResearchLabel, researchLabelRect.left, researchLabelRect.top, researchLabelRect.right, researchLabelRect.bottom, TRUE);
 	::InvalidateRect(hResearchLabel, nullptr, TRUE);
@@ -309,7 +309,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	RECT researchNextRect;
 	::GetClientRect(hNextButton, &researchNextRect);
 	researchNextRect.left = researchEditRect.left + researchEditRect.right + marge;
-	researchNextRect.top = topMarge;
+	researchNextRect.top = topMarge - 2;
 	::MoveWindow(hNextButton, researchNextRect.left, researchNextRect.top, researchNextRect.right, researchNextRect.bottom, TRUE);
 	::InvalidateRect(hNextButton, nullptr, TRUE);
 
@@ -318,7 +318,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	::GetClientRect(hActionButton, &actionRect);
 	long w = actionRect.right - actionRect.left;
 	actionRect.left = rect.right - w - marge;
-	actionRect.top = topMarge;
+	actionRect.top = topMarge - 2;
 	::MoveWindow(hActionButton, actionRect.left, actionRect.top, actionRect.right, actionRect.bottom, TRUE);
 	::InvalidateRect(hActionButton, nullptr, TRUE);
 

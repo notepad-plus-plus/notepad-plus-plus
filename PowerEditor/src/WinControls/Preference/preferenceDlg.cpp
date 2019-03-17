@@ -879,13 +879,13 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 	{
 		case WM_INITDIALOG :
 		{
-			if (nppGUI._fileAutoDetection & cdEnabledAll)
+			if (nppGUI._fileAutoDetection & cdEnabledOld)
 			{
 				::SendDlgItemMessage(_hSelf, IDC_CHECK_FILEAUTODETECTION_ALL, BM_SETCHECK, BST_CHECKED, 0);
 				::SendDlgItemMessage(_hSelf, IDC_CHECK_FILEAUTODETECTION_CURRENT, BM_SETCHECK, BST_UNCHECKED, 0);
 				::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_FILEAUTODETECTION_CURRENT), FALSE);
 			}
-			else if (nppGUI._fileAutoDetection & cdEnabledCurrent)
+			else if (nppGUI._fileAutoDetection & cdEnabledNew)
 			{
 				::SendDlgItemMessage(_hSelf, IDC_CHECK_FILEAUTODETECTION_CURRENT, BM_SETCHECK, BST_CHECKED, 0);
 				::SendDlgItemMessage(_hSelf, IDC_CHECK_FILEAUTODETECTION_ALL, BM_SETCHECK, BST_UNCHECKED, 0);
@@ -993,9 +993,9 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 					if (isAllChecked | isCurrentChecked)
 					{
 						if (isAllChecked)
-							cd |= cdEnabledAll;
+							cd |= cdEnabledOld;
 						else
-							cd |= cdEnabledCurrent;
+							cd |= cdEnabledNew;
 
 						if (isSilent)
 							cd |= cdAutoUpdate;
@@ -1021,9 +1021,9 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 					if (isAllChecked | isCurrentChecked)
 					{
 						if (isAllChecked)
-							cd |= cdEnabledAll;
+							cd |= cdEnabledOld;
 						else
-							cd |= cdEnabledCurrent;
+							cd |= cdEnabledNew;
 
 						if (isSilent)
 							cd |= cdAutoUpdate;

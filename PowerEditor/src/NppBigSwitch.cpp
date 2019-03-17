@@ -1538,7 +1538,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			const NppGUI & nppgui = pNppParam->getNppGUI();
 			if (nppgui._fileAutoDetection != cdDisabled)
 			{
-				bool bCheckOnlyCurrentBuffer = (nppgui._fileAutoDetection & cdEnabledCurrent) ? true : false;
+				bool bCheckOnlyCurrentBuffer = (nppgui._fileAutoDetection & cdEnabledNew) ? true : false;
 
 				checkModifiedDocument(bCheckOnlyCurrentBuffer);
 				return TRUE;
@@ -1608,11 +1608,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			if (wParam == CHECKDOCOPT_NONE)
 				nppgui._fileAutoDetection = cdDisabled;
 			else if (wParam == CHECKDOCOPT_UPDATESILENTLY)
-				nppgui._fileAutoDetection = (cdEnabledAll | cdAutoUpdate);
+				nppgui._fileAutoDetection = (cdEnabledOld | cdAutoUpdate);
 			else if (wParam == CHECKDOCOPT_UPDATEGO2END)
-				nppgui._fileAutoDetection = (cdEnabledAll | cdGo2end);
+				nppgui._fileAutoDetection = (cdEnabledOld | cdGo2end);
 			else if (wParam == (CHECKDOCOPT_UPDATESILENTLY | CHECKDOCOPT_UPDATEGO2END))
-				nppgui._fileAutoDetection = (cdEnabledAll | cdGo2end | cdAutoUpdate);
+				nppgui._fileAutoDetection = (cdEnabledOld | cdGo2end | cdAutoUpdate);
 
 			return TRUE;
 		}

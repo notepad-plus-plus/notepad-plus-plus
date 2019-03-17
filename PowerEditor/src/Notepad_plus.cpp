@@ -3783,7 +3783,7 @@ bool Notepad_plus::activateBuffer(BufferID id, int whichOne)
 			return false;
 	}
 
-	bool isCurrBuffDetection = (NppParameters::getInstance()->getNppGUI()._fileAutoDetection & cdEnabledCurrent) ? true : false;
+	bool isCurrBuffDetection = (NppParameters::getInstance()->getNppGUI()._fileAutoDetection & cdEnabledNew) ? true : false;
 
 	if (reload)
 	{

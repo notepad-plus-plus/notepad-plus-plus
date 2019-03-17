@@ -4185,22 +4185,22 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				const TCHAR* val = n->Value();
 				if (val)
 				{
-					if (!lstrcmp(val, TEXT("yesAll")))
-						_nppGUI._fileAutoDetection = cdEnabledAll;
-					else if (!lstrcmp(val, TEXT("autoAll")))
-						_nppGUI._fileAutoDetection = (cdEnabledAll | cdAutoUpdate);
-					else if (!lstrcmp(val, TEXT("Update2EndAll")))
-						_nppGUI._fileAutoDetection = (cdEnabledAll | cdGo2end);
-					else if (!lstrcmp(val, TEXT("autoUpdate2EndAll")))
-						_nppGUI._fileAutoDetection = (cdEnabledAll | cdAutoUpdate | cdGo2end);
-					else if (!lstrcmp(val, TEXT("yesCurrent")))
-						_nppGUI._fileAutoDetection = cdEnabledCurrent;
-					else if (!lstrcmp(val, TEXT("autoCurrent")))
-						_nppGUI._fileAutoDetection = (cdEnabledCurrent | cdAutoUpdate);
-					else if (!lstrcmp(val, TEXT("Update2EndCurrent")))
-						_nppGUI._fileAutoDetection = (cdEnabledCurrent | cdGo2end);
-					else if (!lstrcmp(val, TEXT("autoUpdate2EndCurrent")))
-						_nppGUI._fileAutoDetection = (cdEnabledCurrent | cdAutoUpdate | cdGo2end);
+					if (!lstrcmp(val, TEXT("yesOld")))
+						_nppGUI._fileAutoDetection = cdEnabledOld;
+					else if (!lstrcmp(val, TEXT("autoOld")))
+						_nppGUI._fileAutoDetection = (cdEnabledOld | cdAutoUpdate);
+					else if (!lstrcmp(val, TEXT("Update2EndOld")))
+						_nppGUI._fileAutoDetection = (cdEnabledOld | cdGo2end);
+					else if (!lstrcmp(val, TEXT("autoUpdate2EndOld")))
+						_nppGUI._fileAutoDetection = (cdEnabledOld | cdAutoUpdate | cdGo2end);
+					else if (!lstrcmp(val, TEXT("yes")))
+						_nppGUI._fileAutoDetection = cdEnabledNew;
+					else if (!lstrcmp(val, TEXT("auto")))
+						_nppGUI._fileAutoDetection = (cdEnabledNew | cdAutoUpdate);
+					else if (!lstrcmp(val, TEXT("Update2End")))
+						_nppGUI._fileAutoDetection = (cdEnabledNew | cdGo2end);
+					else if (!lstrcmp(val, TEXT("autoUpdate2End")))
+						_nppGUI._fileAutoDetection = (cdEnabledNew | cdAutoUpdate | cdGo2end);
 					else //(!lstrcmp(val, TEXT("no")))
 						_nppGUI._fileAutoDetection = cdDisabled;
 				}
@@ -5564,38 +5564,38 @@ void NppParameters::createXmlTreeFromGUIParams()
 	{
 		const TCHAR *pStr = TEXT("no");
 
-		if (_nppGUI._fileAutoDetection & cdEnabledAll)
+		if (_nppGUI._fileAutoDetection & cdEnabledOld)
 		{
-			pStr = TEXT("yesAll");
+			pStr = TEXT("yesOld");
 
 			if ((_nppGUI._fileAutoDetection & cdAutoUpdate) && (_nppGUI._fileAutoDetection & cdGo2end))
 			{
-				pStr = TEXT("autoUpdate2EndAll");
+				pStr = TEXT("autoUpdate2EndOld");
 			}
 			else if (_nppGUI._fileAutoDetection & cdAutoUpdate)
 			{
-				pStr = TEXT("autoAll");
+				pStr = TEXT("autoOld");
 			}
 			else if (_nppGUI._fileAutoDetection & cdGo2end)
 			{
-				pStr = TEXT("Update2EndAll");
+				pStr = TEXT("Update2EndOld");
 			}
 		}
-		else if (_nppGUI._fileAutoDetection & cdEnabledCurrent)
+		else if (_nppGUI._fileAutoDetection & cdEnabledNew)
 		{
-			pStr = TEXT("yesCurrent");
+			pStr = TEXT("yes");
 
 			if ((_nppGUI._fileAutoDetection & cdAutoUpdate) && (_nppGUI._fileAutoDetection & cdGo2end))
 			{
-				pStr = TEXT("autoUpdate2EndCurrent");
+				pStr = TEXT("autoUpdate2End");
 			}
 			else if (_nppGUI._fileAutoDetection & cdAutoUpdate)
 			{
-				pStr = TEXT("autoCurrent");
+				pStr = TEXT("auto");
 			}
 			else if (_nppGUI._fileAutoDetection & cdGo2end)
 			{
-				pStr = TEXT("Update2EndCurrent");
+				pStr = TEXT("Update2End");
 			}
 		}
 

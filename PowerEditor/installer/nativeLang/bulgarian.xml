@@ -3,7 +3,7 @@
 	## Bulgarian localization for Notepad++ ##
 
 	Translators:.....: 2007-2012 - Milen Metev (Tragedy); 2014-yyyy - RDD
-	Last revision:...: 04.03.2019 by RDD <astral_86[at]mail[dot]bg>
+	Last revision:...: 17.03.2019 by RDD <astral_86[at]mail[dot]bg>
 	Download:........: https://gist.github.com/rddim/bd37264898c3a17363e7437bcf1b4803
 -->
 <NotepadPlus>
@@ -924,7 +924,8 @@
 					<Item id="6319" name="Включено"/>
 					<Item id="6320" name="Без подчертаване"/>
 					<Item id="6312" name="Авто-проверка за състоянието на файла"/>
-					<Item id="6307" name="Включено"/>
+					<Item id="6307" name="Включено за всички раздели"/>
+					<Item id="6314" name="Включено само за текущия раздел"/>
 					<Item id="6313" name="Тихо обновяване"/>
 					<Item id="6325" name="Превъртане до последният ред"/>
 					<Item id="6334" name="Автоматично определяне кодировката на знаците"/>
@@ -995,7 +996,7 @@
 				<Item id="5008" name="Добавяне"/>
 				<Item id="5009" name="Премахване"/>
 				<Item id="5010" name="Прилагане"/>
-				<Item id="5007" name="Това ще премахне бързия клавиш от тази команда"/>
+				<Item id="5007" name="Това ще премахне бързия клавиш от командата"/>
 				<Item id="5012" name="ОТКРИТ Е КОНФЛИКТ!"/>
 			</ShortcutMapperSubDialg>
 			<!-- Меню "Инструменти" -->

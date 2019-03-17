@@ -1359,7 +1359,7 @@ bool Notepad_plus::fileSaveAs(BufferID id, bool isSaveCopy)
 
 	// Disable file autodetection before opening save dialog to prevent use-after-delete bug.
 	NppParameters *pNppParam = NppParameters::getInstance();
-	ChangeDetect cdBefore = (const_cast<NppGUI &>(pNppParam->getNppGUI()))._fileAutoDetection;
+	auto cdBefore = pNppParam->getNppGUI()._fileAutoDetection;
 	(const_cast<NppGUI &>(pNppParam->getNppGUI()))._fileAutoDetection = cdDisabled;
 
 	TCHAR *pfn = fDlg.doSaveDlg();

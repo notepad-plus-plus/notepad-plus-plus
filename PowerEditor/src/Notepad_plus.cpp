@@ -3783,25 +3783,38 @@ bool Notepad_plus::activateBuffer(BufferID id, int whichOne)
 			return false;
 	}
 
+	bool isFileChangeDetection = (NppParameters::getInstance()->getNppGUI()._fileAutoDetection & cdEnabled) ? true : false;
+
 	if (reload)
 	{
 		performPostReload(whichOne);
+	}
+	else if(isFileChangeDetection)
+	{
+		// Buffer has been activated, now check for file modification
+		// If enabled to change detection
+		pBuf->checkFileState();
 	}
 
 	notifyBufferActivated(id, whichOne);
 	return true;
 }
 
-void Notepad_plus::performPostReload(int whichOne) {
-	NppParameters *pNppParam = NppParameters::getInstance();
-	const NppGUI & nppGUI = pNppParam->getNppGUI();
-	bool toEnd = (nppGUI._fileAutoDetection == cdAutoUpdateGo2end) || (nppGUI._fileAutoDetection == cdGo2end);
+void Notepad_plus::performPostReload(int whichOne)
+{
+	NppParameters* pNppParam = NppParameters::getInstance();
+	const NppGUI& nppGUI = pNppParam->getNppGUI();
+	bool toEnd = (nppGUI._fileAutoDetection & cdGo2end) ? true : false;
 	if (!toEnd)
 		return;
-	if (whichOne == MAIN_VIEW) {
-		_mainEditView.execute(SCI_GOTOLINE, _mainEditView.execute(SCI_GETLINECOUNT) -1);
-	} else {
-		_subEditView.execute(SCI_GOTOLINE, _subEditView.execute(SCI_GETLINECOUNT) -1);
+
+	if (whichOne == MAIN_VIEW)
+	{
+		_mainEditView.execute(SCI_GOTOLINE, _mainEditView.execute(SCI_GETLINECOUNT) - 1);
+	}
+	else
+	{
+		_subEditView.execute(SCI_GOTOLINE, _subEditView.execute(SCI_GETLINECOUNT) - 1);
 	}
 }
 
@@ -5125,7 +5138,7 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 			}
 			case DOC_MODIFIED:	//ask for reloading
 			{
-				bool autoUpdate = (nppGUI._fileAutoDetection == cdAutoUpdate) || (nppGUI._fileAutoDetection == cdAutoUpdateGo2end);
+				bool autoUpdate = (nppGUI._fileAutoDetection & cdAutoUpdate) ? true : false;
 				if (!autoUpdate || buffer->isDirty())
 				{
 					prepareBufferChangedDialog(buffer);

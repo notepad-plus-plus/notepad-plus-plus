@@ -4188,11 +4188,11 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 					if (!lstrcmp(val, TEXT("yes")))
 						_nppGUI._fileAutoDetection = cdEnabled;
 					else if (!lstrcmp(val, TEXT("auto")))
-						_nppGUI._fileAutoDetection = cdAutoUpdate;
+						_nppGUI._fileAutoDetection = (cdEnabled | cdAutoUpdate);
 					else if (!lstrcmp(val, TEXT("Update2End")))
-						_nppGUI._fileAutoDetection = cdGo2end;
+						_nppGUI._fileAutoDetection = (cdEnabled | cdGo2end);
 					else if (!lstrcmp(val, TEXT("autoUpdate2End")))
-						_nppGUI._fileAutoDetection = cdAutoUpdateGo2end;
+						_nppGUI._fileAutoDetection = (cdEnabled | cdAutoUpdate | cdGo2end);
 		 			else //(!lstrcmp(val, TEXT("no")))
 						_nppGUI._fileAutoDetection = cdDisabled;
 
@@ -5556,23 +5556,26 @@ void NppParameters::createXmlTreeFromGUIParams()
 
 	// <GUIConfig name="Auto-detection">yes</GUIConfig>	
 	{
-		const TCHAR *pStr = TEXT("no");
-		switch (_nppGUI._fileAutoDetection)
+		const TCHAR* pStr = TEXT("no");
+		if (_nppGUI._fileAutoDetection & cdEnabled)
 		{
-		case cdEnabled:
 			pStr = TEXT("yes");
-			break;
-		case cdAutoUpdate:
-			pStr = TEXT("auto");
-			break;
-		case cdGo2end:
-			pStr = TEXT("Update2End");
-			break;
-		case cdAutoUpdateGo2end:
-			pStr = TEXT("autoUpdate2End");
-			break;
+
+			if ((_nppGUI._fileAutoDetection & cdAutoUpdate) && (_nppGUI._fileAutoDetection & cdGo2end))
+			{
+				pStr = TEXT("autoUpdate2End");
+			}
+			else if (_nppGUI._fileAutoDetection & cdAutoUpdate)
+			{
+				pStr = TEXT("auto");
+			}
+			else if (_nppGUI._fileAutoDetection & cdGo2end)
+			{
+				pStr = TEXT("Update2End");
+			}
 		}
-		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
+
+		TiXmlElement* GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("Auto-detection"));
 		GUIConfigElement->InsertEndChild(TiXmlText(pStr));
 	}

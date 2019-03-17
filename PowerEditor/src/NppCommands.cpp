@@ -1956,16 +1956,26 @@ void Notepad_plus::command(int id)
 		case IDM_VIEW_ZOOMIN:
 		{
 			_pEditView->execute(SCI_ZOOMIN);
+			int whichOne = (_pEditView == &_mainEditView) ? MAIN_VIEW : SUB_VIEW;
+			setPercentStatus(whichOne, _pEditView->execute(SCI_GETZOOM));
 			break;
 		}
 		case IDM_VIEW_ZOOMOUT:
+		{
 			_pEditView->execute(SCI_ZOOMOUT);
+			int whichOne = (_pEditView == &_mainEditView) ? MAIN_VIEW : SUB_VIEW;
+			setPercentStatus(whichOne, _pEditView->execute(SCI_GETZOOM));
 			break;
+		}
 
 		case IDM_VIEW_ZOOMRESTORE:
+		{
 			//Zoom factor of 0 points means default view
-			_pEditView->execute(SCI_SETZOOM, 0);//_zoomOriginalValue);
+			_pEditView->execute(SCI_SETZOOM, 0);
+			int whichOne = (_pEditView == &_mainEditView) ? MAIN_VIEW : SUB_VIEW;
+			setPercentStatus(whichOne, 0);
 			break;
+		}
 
 		case IDM_VIEW_SYNSCROLLV:
 		{

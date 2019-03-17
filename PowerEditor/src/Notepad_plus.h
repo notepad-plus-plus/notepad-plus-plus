@@ -467,6 +467,7 @@ private:
 	generic_string getLangDesc(LangType langType, bool getName = false);
 
 	void setLangStatus(LangType langType);
+	void setPercentStatus(int whichOne, int percent);
 
 	void setDisplayFormat(EolType f);
 	void setUniModeText();

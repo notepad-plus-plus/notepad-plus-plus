@@ -367,13 +367,18 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
     //--Status Bar Section--//
 	bool willBeShown = nppGUI._statusBarShow;
-    _statusBar.init(_pPublicInterface->getHinst(), hwnd, 6);
+    _statusBar.init(_pPublicInterface->getHinst(), hwnd, 8);
 	_statusBar.setPartWidth(STATUSBAR_DOC_SIZE, pNppParam->_dpiManager.scaleX(200));
 	_statusBar.setPartWidth(STATUSBAR_CUR_POS, pNppParam->_dpiManager.scaleX(260));
 	_statusBar.setPartWidth(STATUSBAR_EOF_FORMAT, pNppParam->_dpiManager.scaleX(110));
 	_statusBar.setPartWidth(STATUSBAR_UNICODE_TYPE, pNppParam->_dpiManager.scaleX(120));
 	_statusBar.setPartWidth(STATUSBAR_TYPING_MODE, pNppParam->_dpiManager.scaleX(30));
+	_statusBar.setPartWidth(STATUSBAR_ZOOM_MAINVIEW, pNppParam->_dpiManager.scaleX(40));
+	_statusBar.setPartWidth(STATUSBAR_ZOOM_SUBVIEW, pNppParam->_dpiManager.scaleX(40));
     _statusBar.display(willBeShown);
+
+	setPercentStatus(MAIN_VIEW, svp1._zoom);
+	setPercentStatus(SUB_VIEW, svp1._zoom2);
 
     _pMainWindow = &_mainDocTab;
 
@@ -2344,6 +2349,28 @@ bool Notepad_plus::braceMatch()
 void Notepad_plus::setLangStatus(LangType langType)
 {
 	_statusBar.setText(getLangDesc(langType).c_str(), STATUSBAR_DOC_TYPE);
+}
+
+void Notepad_plus::setPercentStatus(int whichOne, int percent)
+{
+	generic_string strPercent;		// if view is not visible then don't show zoom percentage
+	if (viewVisible(whichOne))
+	{
+		// Percentage varies between -10 to 20 which mean
+		// -10 = 0%
+		//   0 = 100%
+		//  10 = 200%
+		//  20 = 300%
+
+		percent *= 10;
+		percent += 100;
+
+		strPercent += std::to_wstring(percent);
+		strPercent += TEXT("%");
+	}
+
+	int whichPart = whichOne == SUB_VIEW ? STATUSBAR_ZOOM_SUBVIEW : STATUSBAR_ZOOM_MAINVIEW;
+	_statusBar.setText(strPercent.c_str(), whichPart);
 }
 
 

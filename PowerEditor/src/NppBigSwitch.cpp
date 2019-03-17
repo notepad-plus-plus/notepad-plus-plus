@@ -1560,19 +1560,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
-		case NPPM_INTERNAL_GETCHECKDOCOPT:
-		{
-			return (LRESULT)(pNppParam->getNppGUI())._fileAutoDetection;
-		}
-
-		case NPPM_INTERNAL_SETCHECKDOCOPT:
-		{
-			// If nothing is changed by user, then we allow to set this value
-			if ((const_cast<NppGUI &>(pNppParam->getNppGUI()))._fileAutoDetection == (pNppParam->getNppGUI())._fileAutoDetectionOriginalValue)
-				(const_cast<NppGUI &>(pNppParam->getNppGUI()))._fileAutoDetection = (ChangeDetect)wParam;
-			return TRUE;
-		}
-
 		case NPPM_GETPOSFROMBUFFERID:
 		{
 			int i;

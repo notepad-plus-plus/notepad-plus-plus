@@ -789,7 +789,7 @@ struct NppGUI final
 	bool _tabReplacedBySpace = false;
 
 	int _fileAutoDetection = cdEnabledAll;
-	int _fileAutoDetectionOriginalValue = cdEnabledAll;
+
 	bool _checkHistoryFiles = false;
 
 	RECT _appPos;

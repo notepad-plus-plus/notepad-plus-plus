@@ -4203,8 +4203,6 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 						_nppGUI._fileAutoDetection = (cdEnabledCurrent | cdAutoUpdate | cdGo2end);
 					else //(!lstrcmp(val, TEXT("no")))
 						_nppGUI._fileAutoDetection = cdDisabled;
-
-					_nppGUI._fileAutoDetectionOriginalValue = _nppGUI._fileAutoDetection;
 				}
 			}
 		}

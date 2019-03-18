@@ -1595,12 +1595,14 @@ void Notepad_plus::command(int id)
 			// Find position of next occurence
 			int posFound = _pEditView->searchInTarget(textToFind, textLen, currentPos + 1, docLength);
 
-			if (posFound > currentPos) {
+			if (posFound > currentPos) 
+			{
 				int start = posFound + textLen;
 				int end = posFound;
 
 				// Detect if selection happened the other way
-				if (currentPos != selectonEnd) {
+				if (currentPos != selectonEnd) 
+				{
 					start = posFound;
 					end = posFound + textLen;
 				}
@@ -1638,7 +1640,8 @@ void Notepad_plus::command(int id)
 			std::vector<int> selectionPositions;
 
 			// Loop through each selection
-			for (int i = 0; i < numSelections; i++) {
+			for (int i = 0; i < numSelections; ++i) 
+			{
 				// Get the current caret position of the seleciton
 				int currentPos = int(_pEditView->execute(SCI_GETSELECTIONNCARET, i));
 
@@ -1657,7 +1660,8 @@ void Notepad_plus::command(int id)
 			}
 
 			// Add all of the cursors back where they should be
-			for (int i = 0; i < ((signed int)(selectionPositions.size()) - 1); i++) {
+			for (int i = 0; i < (static_cast<signed int>(selectionPositions.size()) - 1); ++i) 
+			{
 				_pEditView->execute(SCI_ADDSELECTION, selectionPositions[i], selectionPositions[i]);
 			}
 		}

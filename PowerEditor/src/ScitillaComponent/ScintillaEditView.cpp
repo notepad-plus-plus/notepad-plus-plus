@@ -2591,21 +2591,28 @@ void ScintillaEditView::currentLinesDown() const
 
 void ScintillaEditView::multiCursorLeftOrRight(int direction, bool shouldExt) const
 {
+	const int NUM_SELECTIONS_FOR_DEFAULT = 1;
+
     // Get the number of selection
     int numSelections = int(execute(SCI_GETSELECTIONS));
 
     // Use default functions when there is one selection
-    if (numSelections == 1) {
-		if (direction < 0 && !shouldExt) {
+    if (numSelections == NUM_SELECTIONS_FOR_DEFAULT)
+	{
+		if (direction < 0 && !shouldExt) 
+		{
 			execute(SCI_CHARLEFT);
 		}
-		else if (direction < 0 && shouldExt) {
+		else if (direction < 0 && shouldExt) 
+		{
 			execute(SCI_CHARLEFTEXTEND);
 		}
-		else if (direction > 0 && !shouldExt) {
+		else if (direction > 0 && !shouldExt) 
+		{
 			execute(SCI_CHARRIGHT);
 		}
-		else if (direction > 0 && shouldExt) {
+		else if (direction > 0 && shouldExt) 
+		{
 			execute(SCI_CHARRIGHTEXTEND);
 		}
 
@@ -2616,7 +2623,8 @@ void ScintillaEditView::multiCursorLeftOrRight(int direction, bool shouldExt) co
 	execute(SCI_SETCARETPERIOD, 0);
 
 	// Loop through each selection
-	for (int i = 0; i < numSelections; i++) {
+	for (int i = 0; i < numSelections; ++i) 
+	{
 		// Get the current caret position of the seleciton
 		int currentPos = int(execute(SCI_GETSELECTIONNCARET, i));
 		int docEnd = getCurrentDocLen();
@@ -2624,27 +2632,33 @@ void ScintillaEditView::multiCursorLeftOrRight(int direction, bool shouldExt) co
 		int newPos = currentPos + direction;
 
 		// Cursor is at end, use virtual space
-		if ((currentPos >= docEnd && direction > 0)) {
-			if (i == 0) {
+		if ((currentPos >= docEnd && direction > 0)) 
+		{
+			if (i == 0) 
+			{
 				break;
 			}
 
 			// Add virtual space
 			execute(SCI_SETSELECTIONNCARETVIRTUALSPACE, i, execute(SCI_GETSELECTIONNCARETVIRTUALSPACE, i) + 1);
 			
-			if (!shouldExt) {
+			if (!shouldExt) 
+			{
 				execute(SCI_SETSELECTIONNANCHORVIRTUALSPACE, i, execute(SCI_GETSELECTIONNANCHORVIRTUALSPACE, i) + 1);
 			}
 		}
-		else if (currentPos > docEnd) {
+		else if (currentPos > docEnd) 
+		{
 			// Moving back, remove virtual space
 			execute(SCI_SETSELECTIONNCARETVIRTUALSPACE, i, execute(SCI_GETSELECTIONNCARETVIRTUALSPACE, i) - 1);
 
-			if (!shouldExt) {
+			if (!shouldExt) 
+			{
 				execute(SCI_SETSELECTIONNANCHORVIRTUALSPACE, i, execute(SCI_GETSELECTIONNANCHORVIRTUALSPACE, i) - 1);
 			}
 		}
-		else if (currentPos <= 0 && direction < 0) {
+		else if (currentPos <= 0 && direction < 0) 
+		{
 			break;
 		}
 
@@ -2653,17 +2667,20 @@ void ScintillaEditView::multiCursorLeftOrRight(int direction, bool shouldExt) co
 		int lineEnd = int(execute(SCI_POSITIONFROMLINE, int(execute(SCI_LINEFROMPOSITION, currentPos)) + 1)) - 1;
 
 		// Go back or forward another position because of new line
-		if (newPos < lineStart && direction < 0) {
+		if (newPos < lineStart && direction < 0) 
+		{
 			newPos--;
 		}
-		else if (newPos >= lineEnd && lineEnd + 1 != docEnd && direction > 0) {
+		else if (newPos >= lineEnd && lineEnd + 1 != docEnd && direction > 0) 
+		{
 			newPos++;
 		}
 
 		// Set the current caret position to the new position
 		execute(SCI_SETSELECTIONNCARET, i, newPos);
 		
-		if (!shouldExt) {
+		if (!shouldExt) 
+		{
 			execute(SCI_SETSELECTIONNANCHOR, i, newPos);
 		}
 	}

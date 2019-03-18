@@ -3,7 +3,7 @@
 	## Bulgarian localization for Notepad++ ##
 
 	Translators:.....: 2007-2012 - Milen Metev (Tragedy); 2014-yyyy - RDD
-	Last revision:...: 17.03.2019 by RDD <astral_86[at]mail[dot]bg>
+	Last revision:...: 18.03.2019 by RDD <astral_86[at]mail[dot]bg>
 	Download:........: https://gist.github.com/rddim/bd37264898c3a17363e7437bcf1b4803
 -->
 <NotepadPlus>
@@ -49,6 +49,7 @@
 					<Item subMenuId="search-jumpDown" name="Преминаване надолу"/>
 					<Item subMenuId="search-bookmark" name="Отметки"/>
 				<!-- Меню "Изглед" -->
+					<Item subMenuId="view-currentFileIn" name="Преглед на текущия файл в"/>
 					<Item subMenuId="view-showSymbol"  name="Показване на символи"/>
 					<Item subMenuId="view-zoom"  name="Мащабиране"/>
 					<Item subMenuId="view-moveCloneDocument"  name="Текущ документ"/>

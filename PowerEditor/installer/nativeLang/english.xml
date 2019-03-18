@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="English" filename="english.xml" version="7.6.4">
+    <Native-Langue name="English" filename="english.xml" version="7.6.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -38,6 +38,7 @@
                     <Item subMenuId="search-jumpUp" name="Jump Up"/>
                     <Item subMenuId="search-jumpDown" name="Jump Down"/>
                     <Item subMenuId="search-bookmark" name="Bookmark"/>
+					<Item subMenuId="view-currentFileIn" name="View Current File in"/>
                     <Item subMenuId="view-showSymbol"  name="Show Symbol"/>
                     <Item subMenuId="view-zoom"  name="Zoom"/>
                     <Item subMenuId="view-moveCloneDocument"  name="Move/Clone Current Document"/>

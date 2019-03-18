@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="繁體中文/正體中文" filename="chinese.xml" version="7.6.2">
+    <Native-Langue name="繁體中文/正體中文" filename="chinese.xml" version="7.6.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -38,6 +38,7 @@
                     <Item subMenuId="search-jumpUp" name="上個標記"/>
                     <Item subMenuId="search-jumpDown" name="下個標記"/>
                     <Item subMenuId="search-bookmark" name="書籤"/>
+                    <Item subMenuId="view-currentFileIn" name="檢視檔案在"/>
                     <Item subMenuId="view-showSymbol" name="特殊字元"/>
                     <Item subMenuId="view-zoom" name="縮放"/>
                     <Item subMenuId="view-moveCloneDocument" name="移動/複製此檔案至另一個視窗"/>
@@ -906,7 +907,7 @@
                 </SearchEngine>
 
                 <MISC title="其他">
-                    <Item id="6307" name="啟用文件切換器（Ctrl + TAB）"/>
+                    <Item id="6307" name="啟用"/>
                     <Item id="6308" name="最小化至系統匣"/>
                     <Item id="6312" name="自動更新檔案狀態"/>
                     <Item id="6313" name="於背景自動更新"/>
@@ -916,7 +917,7 @@
                     <Item id="6320" name="隱藏連結底線"/>
                     <Item id="6322" name="工作階段檔案副檔名："/>
                     <Item id="6323" name="自動更新 Notepad++"/>
-                    <Item id="6324" name="文件切換器"/>
+                    <Item id="6324" name="文件切換器（Ctrl + TAB）"/>
                     <Item id="6331" name="在標題列僅顯示檔案名稱（隱藏資料夾路徑）"/>
                     <Item id="6334" name="自動偵測檔案編碼"/>
                     <Item id="6335" name="在 SQL 中視「\」為逸出字元"/>

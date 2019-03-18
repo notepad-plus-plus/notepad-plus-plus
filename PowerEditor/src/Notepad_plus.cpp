@@ -3783,20 +3783,20 @@ bool Notepad_plus::activateBuffer(BufferID id, int whichOne)
 			return false;
 	}
 
-	bool isCurrBuffDetection = (NppParameters::getInstance()->getNppGUI()._fileAutoDetection & cdEnabledNew) ? true : false;
-
 	if (reload)
 	{
 		performPostReload(whichOne);
 	}
-	else if(isCurrBuffDetection)
+
+	notifyBufferActivated(id, whichOne);
+
+	bool isCurrBuffDetection = (NppParameters::getInstance()->getNppGUI()._fileAutoDetection & cdEnabledNew) ? true : false;
+	if (!reload && isCurrBuffDetection)
 	{
 		// Buffer has been activated, now check for file modification
 		// If enabled for current buffer
 		pBuf->checkFileState();
 	}
-
-	notifyBufferActivated(id, whichOne);
 	return true;
 }
 

@@ -1804,12 +1804,12 @@ void Notepad_plus::command(int id)
 
 				TCHAR valData[MAX_PATH] = {'\0'};
 				int valDataLen = MAX_PATH * sizeof(TCHAR);
-				int valType;
+				DWORD valType;
 				HKEY hKey2Check = nullptr;
 				generic_string appEntry = TEXT("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\App Paths\\");
 				appEntry += appName;
 				::RegOpenKeyEx(HKEY_LOCAL_MACHINE, appEntry.c_str(), 0, KEY_READ, &hKey2Check);
-				::RegQueryValueEx(hKey2Check, TEXT(""), nullptr, reinterpret_cast<LPDWORD>(&valType), reinterpret_cast<LPBYTE>(valData), reinterpret_cast<LPDWORD>(&valDataLen));
+				::RegQueryValueEx(hKey2Check, TEXT(""), nullptr, &valType, reinterpret_cast<LPBYTE>(valData), reinterpret_cast<LPDWORD>(&valDataLen));
 
 
 				generic_string fullCurrentPath = TEXT("\"");

@@ -307,11 +307,11 @@ void RegExtDlg::getRegisteredExts()
 			//TCHAR valName[extNameLen];
 			TCHAR valData[extNameLen];
 			int valDataLen = extNameLen * sizeof(TCHAR);
-			int valType;
+			DWORD valType;
 			HKEY hKey2Check;
 			extNameActualLen = extNameLen;
 			::RegOpenKeyEx(HKEY_CLASSES_ROOT, extName, 0, KEY_ALL_ACCESS, &hKey2Check);
-			::RegQueryValueEx(hKey2Check, TEXT(""), nullptr, reinterpret_cast<LPDWORD>(&valType), reinterpret_cast<LPBYTE>(valData), reinterpret_cast<LPDWORD>(&valDataLen));
+			::RegQueryValueEx(hKey2Check, TEXT(""), nullptr, &valType, reinterpret_cast<LPBYTE>(valData), reinterpret_cast<LPDWORD>(&valDataLen));
 
 			if ((valType == REG_SZ) && (!lstrcmp(valData, nppName)))
 				::SendDlgItemMessage(_hSelf, IDC_REGEXT_REGISTEREDEXTS_LIST, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(extName));
@@ -372,8 +372,8 @@ bool RegExtDlg::deleteExts(const TCHAR *ext2Delete)
 	{
 		TCHAR valData[extNameLen];
 		int valDataLen = extNameLen*sizeof(TCHAR);
-		int valType;
-		int res = ::RegQueryValueEx(hKey, nppBackup, nullptr, (LPDWORD)&valType, (LPBYTE)valData, (LPDWORD)&valDataLen);
+		DWORD valType;
+		int res = ::RegQueryValueEx(hKey, nppBackup, nullptr, &valType, (LPBYTE)valData, (LPDWORD)&valDataLen);
 
 		if (res == ERROR_SUCCESS)
 		{

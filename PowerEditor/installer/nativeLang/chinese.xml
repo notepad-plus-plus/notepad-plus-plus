@@ -65,7 +65,7 @@
                     <Item subMenuId="encoding-vietnamese" name="越南文"/>
                     <Item subMenuId="settings-import"  name="匯入"/>
                     <Item subMenuId="tools-md5"  name="MD5"/>
-					<Item subMenuId="tools-sha256"  name="SHA-256"/>
+                    <Item subMenuId="tools-sha256"  name="SHA-256"/>
                 </SubEntries>
 
                 <!-- All Menu Items -->
@@ -105,6 +105,7 @@
                     <Item id="42008" name="增加縮排"/>
                     <Item id="42009" name="減少縮排"/>
                     <Item id="42010" name="重複此行"/>
+                    <Item id="42077" name="刪除連續的重複行"/>
                     <Item id="42011" name="調換此行"/>
                     <Item id="42012" name="分割此行"/>
                     <Item id="42013" name="合併選取行"/>
@@ -143,6 +144,7 @@
                     <Item id="42050" name="貼上 Binary 內容（包含 NULL 字元）"/>
                     <Item id="42037" name="多欄選取..."/>
                     <Item id="42034" name="多欄插入..."/>
+                    <Item id="42078" name="多選下一個字串"/>
                     <Item id="42051" name="顯示 ASCII 插入面板"/>
                     <Item id="42052" name="剪貼簿記錄"/>
                     <Item id="42025" name="儲存巨集"/>
@@ -435,7 +437,7 @@
                 <Item id="1934" name="複製到剪貼簿"/>
                 <Item id="2"    name="關閉"/>
             </SHA256FromTextDlg>
-			
+
             <PluginsAdminDlg title="外掛模組管理" titleAvailable = "可安裝" titleUpdates = "更新" titleInstalled = "已安裝">
                 <ColumnPlugin   name="外掛模組"/>
                 <ColumnVersion  name="版本"/>

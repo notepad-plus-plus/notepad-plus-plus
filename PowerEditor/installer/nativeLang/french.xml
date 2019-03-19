@@ -38,7 +38,7 @@
                     <Item subMenuId="search-jumpUp" name="Aller vers le haut"/>
                     <Item subMenuId="search-jumpDown" name="Aller vers le bas"/>
                     <Item subMenuId="search-bookmark" name="Signet"/>
-					<Item subMenuId="view-currentFileIn" name="Afficher le fichier dans"/>
+                    <Item subMenuId="view-currentFileIn" name="Afficher le fichier dans"/>
                     <Item subMenuId="view-showSymbol" name="Symboles spéciaux"/>
                     <Item subMenuId="view-zoom"  name="Zoom"/>
                     <Item subMenuId="view-moveCloneDocument"  name="Déplacer/Cloner le document actuel"/>
@@ -65,7 +65,7 @@
                     <Item subMenuId="encoding-vietnamese" name="Vietnamien"/>
                     <Item subMenuId="settings-import"  name="Importer"/>
                     <Item subMenuId="tools-md5"  name="MD5"/>
-					<Item subMenuId="tools-sha256"  name="SHA-256"/>
+                    <Item subMenuId="tools-sha256"  name="SHA-256"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -109,6 +109,7 @@
                     <Item id="42008" name="Augmenter l’indentation"/>
                     <Item id="42009" name="Réduire l’indentation"/>
                     <Item id="42010" name="Dupliquer la ligne actuelle"/>
+                    <Item id="42077" name="Supprimer la ligne en double consécutives"/>
                     <Item id="42012" name="Séparer en plusieurs lignes"/>
                     <Item id="42013" name="Joindre plusieurs lignes"/>
                     <Item id="42014" name="Déplacer la ligne actuelle vers le haut"/>
@@ -143,6 +144,7 @@
                     <Item id="42033" name="Enlever l'attribut de lecture seule du fichier"/>
                     <Item id="42034" name="Édition en mode colonnes..."/>
                     <Item id="42035" name="Commenter (mode ligne)"/>
+                    <Item id="42078" name="Multi-Selectionner Occurrence Suivante"/>
                     <Item id="42036" name="Décommenter (mode ligne)"/>
                     <Item id="42055" name="Enlever les lignes vides"/>
                     <Item id="42056" name="Enlever les lignes vides (contenant les blancs aussi)"/>

@@ -371,6 +371,7 @@ BEGIN
         MENUITEM SEPARATOR
         MENUITEM "Column Mode...",        IDM_EDIT_COLUMNMODETIP
         MENUITEM "Column Editor...",        IDM_EDIT_COLUMNMODE
+        MENUITEM "Multi-Select Next Occurrence", IDM_EDIT_SELECTNEXTOCCURENCE
         MENUITEM "Character Panel",        IDM_EDIT_CHAR_PANEL
         MENUITEM "Clipboard History",      IDM_EDIT_CLIPBOARDHISTORY_PANEL
         MENUITEM SEPARATOR

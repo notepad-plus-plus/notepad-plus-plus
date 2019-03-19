@@ -9,6 +9,10 @@ editor and Notepad replacement that supports several programming languages and
 natural languages. Running in the MS Windows environment, its use is governed by
 GPL License.
 
+Notepad++ GPG Certificate Public Key Fingerprint
+------------------------------------------------
+`14BCE4362749B2B51F8C71226C429F1D8D84F46E`
+
 Build Status
 ------------
 

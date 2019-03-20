@@ -9,8 +9,8 @@ editor and Notepad replacement that supports several programming languages and
 natural languages. Running in the MS Windows environment, its use is governed by
 GPL License.
 
-Notepad++ GPG Certificate
--------------------------
+Notepad++ Release Key
+---------------------
 _Since the release of version 7.6.5 Notepad++ is signed using GPG with the following key:_
 
 - **Signer:** Notepad++

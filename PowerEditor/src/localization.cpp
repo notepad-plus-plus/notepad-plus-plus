@@ -1090,6 +1090,50 @@ bool NativeLangSpeaker::changeDlgLang(HWND hDlg, const char *dlgTagName, char *t
 			}
 		}
 	}
+
+	// Set the text of child control
+	for (TiXmlNodeA *childNode = dlgNode->FirstChildElement("ComboBox");
+		childNode;
+		childNode = childNode->NextSibling("ComboBox"))
+	{
+		std::vector<generic_string> comboElms;
+		TiXmlElementA *element = childNode->ToElement();
+		int id;
+		element->Attribute("id", &id);
+		HWND hCombo = ::GetDlgItem(hDlg, id);
+
+		if (hCombo)
+		{
+			for (TiXmlNodeA *gChildNode = childNode->FirstChildElement("Element");
+				gChildNode;
+				gChildNode = gChildNode->NextSibling("Element"))
+			{
+				TiXmlElementA *comBoelement = gChildNode->ToElement();
+				const char *name = comBoelement->Attribute("name");
+				const wchar_t *nameW = wmc->char2wchar(name, _nativeLangEncoding);
+				comboElms.push_back(nameW);
+			}
+		}
+
+		size_t count = ::SendMessage(hCombo, CB_GETCOUNT, 0, 0);
+		if (count == comboElms.size())
+		{
+			// get selected index
+			auto selIndex = ::SendMessage(hCombo, CB_GETCURSEL, 0, 0);
+
+			// remove all old items
+			::SendMessage(hCombo, CB_RESETCONTENT, 0, 0);
+
+			// add translated entries
+			for (const auto& i : comboElms)
+			{
+				::SendMessage(hCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(i.c_str()));
+			}
+
+			// restore selected index
+			::SendMessage(hCombo, CB_SETCURSEL, selIndex, 0);
+		}
+	}
 	return true;
 }
 

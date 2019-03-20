@@ -895,6 +895,11 @@
                 </SearchEngine>
 
                 <MISC title="Divers">
+                    <ComboBox id="6347">
+                        <Element name="Activer"/>
+                        <Element name="Activer avec tous les onglets"/>
+                        <Element name="Désactiver"/>
+                    </ComboBox>
                     <Item id="6114" name="Activer"/>
                     <Item id="6115" name="Indentation automatique"/>
                     <Item id="6117" name="Activer la liste de MRU"/>

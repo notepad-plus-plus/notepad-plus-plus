@@ -38,7 +38,7 @@
                     <Item subMenuId="search-jumpUp" name="Jump Up"/>
                     <Item subMenuId="search-jumpDown" name="Jump Down"/>
                     <Item subMenuId="search-bookmark" name="Bookmark"/>
-					<Item subMenuId="view-currentFileIn" name="View Current File in"/>
+                    <Item subMenuId="view-currentFileIn" name="View Current File in"/>
                     <Item subMenuId="view-showSymbol"  name="Show Symbol"/>
                     <Item subMenuId="view-zoom"  name="Zoom"/>
                     <Item subMenuId="view-moveCloneDocument"  name="Move/Clone Current Document"/>
@@ -425,7 +425,7 @@
                 <Item id="1934" name="Copy to Clipboard"/>
                 <Item id="2"    name="Close"/>
             </MD5FromTextDlg>
-			
+            
             <SHA256FromFilesDlg title="Generate SHA-256 digest from files">
                 <Item id="1922" name="Choose files to generate SHA-256..."/>
                 <Item id="1924" name="Copy to Clipboard"/>
@@ -437,7 +437,7 @@
                 <Item id="1934" name="Copy to Clipboard"/>
                 <Item id="2"    name="Close"/>
             </SHA256FromTextDlg>
-			
+            
             <PluginsAdminDlg title="Plugins Admin" titleAvailable = "Available" titleUpdates = "Updates" titleInstalled = "Installed">
                 <ColumnPlugin   name="Plugin"/>
                 <ColumnVersion  name="Version"/>
@@ -910,11 +910,14 @@
                 </SearchEngine>
 
                 <MISC title="MISC.">
-                    <Item id="6307" name="Enable for all tabs"/>
+                    <ComboBox id="6347">
+                        <Element name="Enable"/>
+                        <Element name="Enable for all tabs"/>
+                        <Element name="Disable"/>
+                    </ComboBox>
                     <Item id="6308" name="Minimize to system tray"/>
                     <Item id="6312" name="File Status Auto-Detection"/>
                     <Item id="6313" name="Update silently"/>
-                    <Item id="6314" name="Enable only for current tab"/>
                     <Item id="6318" name="Clickable Link Settings"/>
                     <Item id="6325" name="Scroll to the last line after update"/>
                     <Item id="6319" name="Enable"/>
@@ -1067,7 +1070,7 @@ Do you want to launch Notepad++ in Administrator mode?"/>
             <OpenInAdminModeWithoutCloseCurrent title="Save failed" message="The file cannot be saved and it may be protected.
 Do you want to launch Notepad++ in Administrator mode?"/>
             <OpenInAdminModeFailed title="Open in Administrator mode failed" message="Notepad++ cannot be opened in Administrator mode."/>
-			<ViewInBrowser title="View Current File in Browser" message="Application cannot be found in your system."/>
+            <ViewInBrowser title="View Current File in Browser" message="Application cannot be found in your system."/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Clipboard History"/>

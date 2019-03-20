@@ -3,7 +3,7 @@
 	## Bulgarian localization for Notepad++ ##
 
 	Translators:.....: 2007-2012 - Milen Metev (Tragedy); 2014-yyyy - RDD
-	Last revision:...: 20.03.2019 by RDD <astral_86[at]mail[dot]bg>
+	Last revision:...: 21.03.2019 by RDD <astral_86[at]mail[dot]bg>
 	Download:........: https://gist.github.com/rddim/bd37264898c3a17363e7437bcf1b4803
 -->
 <NotepadPlus>
@@ -926,8 +926,11 @@
 					<Item id="6319" name="Включено"/>
 					<Item id="6320" name="Без подчертаване"/>
 					<Item id="6312" name="Авто-проверка за състоянието на файла"/>
-					<Item id="6307" name="Включено за всички раздели"/>
-					<Item id="6314" name="Включено само за текущия раздел"/>
+					<ComboBox id="6347">
+						<Element name="Включено"/>
+						<Element name="Включено за всички раздели"/>
+						<Element name="Изключено"/>
+					</ComboBox>
 					<Item id="6313" name="Тихо обновяване"/>
 					<Item id="6325" name="Превъртане до последният ред"/>
 					<Item id="6334" name="Автоматично определяне кодировката на знаците"/>
@@ -1337,6 +1340,7 @@
 			<UDLRemoveCurrentLang title="Премахване на синтаксис" message="Сигурни ли сте?"/>
 			<FindCharRangeValueError title="Проблем със стойност на обхвата" message="Трябва да въведете между 0 и 255."/>
 			<SCMapperDoDeleteOrNot title="Сигурни ли сте?" message="Сигурни ли сте, че искате да изтриете този бърз клавиш?"/>
+			<ViewInBrowser title="Преглед на текущия файл в браузър" message="Приложението не може да бъде намерено във вашата система."/>
 		</MessageBox>
 	</Native-Langue>
 </NotepadPlus>

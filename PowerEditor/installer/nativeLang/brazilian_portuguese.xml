@@ -416,25 +416,25 @@
 
             <MD5FromFilesDlg title="Gerar MD5 dos arquivos">
                 <Item id="1922" name="Escolher arquivos para gerar MD5..."/>
-                <Item id="1924" name="Copiar para área de transferência"/>
+                <Item id="1924" name="Copiar para área transfer."/>
                 <Item id="2"    name="Fechar"/>
             </MD5FromFilesDlg>
 
             <MD5FromTextDlg title="Gerar MD5">
                 <Item id="1932" name="Trate cada linha como uma cadeia separada"/>
-                <Item id="1934" name="Copiar para área de transferência"/>
+                <Item id="1934" name="Copiar para área transfer."/>
                 <Item id="2"    name="Fechar"/>
             </MD5FromTextDlg>
 			
             <SHA256FromFilesDlg title="Gerar SHA-256 dos arquivos">
                 <Item id="1922" name="Escolha arquivos para gerar o SHA-256..."/>
-                <Item id="1924" name="Copiar para área de transferência"/>
+                <Item id="1924" name="Copiar para área transfer."/>
                 <Item id="2"    name="Fechar"/>
             </SHA256FromFilesDlg>
 
             <SHA256FromTextDlg title="Gerar SHA-256">
                 <Item id="1932" name="Trate cada linha como uma cadeia separada"/>
-                <Item id="1934" name="Copiar para área de transferência"/>
+                <Item id="1934" name="Copiar para área transfer."/>
                 <Item id="2"    name="Fechar"/>
             </SHA256FromTextDlg>
 			

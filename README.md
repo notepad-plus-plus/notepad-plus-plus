@@ -12,13 +12,14 @@ GPL License.
 Notepad++ GPG Certificate
 -------------------------
 _Since the release of version 7.6.5 Notepad++ is signed using GPG with the following key:_
-**Signer:** Notepad++
-**E-mail:** don.h@free.fr
-**Key ID:** 0x8D84F46E
-**Key fingerprint:** 14BC E436 2749 B2B5 1F8C 7122 6C42 9F1D 8D84 F46E
-**Key type:** RSA 4096/4096
-**Created:** 2019-03-11
-**Expiries:** 2021-03-10
+
+- **Signer:** Notepad++
+- **E-mail:** don.h@free.fr
+- **Key ID:** 0x8D84F46E
+- **Key fingerprint:** 14BC E436 2749 B2B5 1F8C 7122 6C42 9F1D 8D84 F46E
+- **Key type:** RSA 4096/4096
+- **Created:** 2019-03-11
+- **Expiries:** 2021-03-10
 
 Build Status
 ------------

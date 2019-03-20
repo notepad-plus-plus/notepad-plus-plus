@@ -1636,21 +1636,49 @@ void Notepad_plus::command(int id)
 			// Get the number of selection
 			int numSelections = int(_pEditView->execute(SCI_GETSELECTIONS));
 
+			if (numSelections == 0)
+			{
+				_pEditView->execute(SCI_NEWLINE);
+				break;
+			}
+
+			// Assume line endings is CR LF
+			int selectionMultiplier = 2;
+
+			// Check if line endings is LF or CR
+			if (_pEditView->execute(SCI_GETEOLMODE) == SC_EOL_LF || _pEditView->execute(SCI_GETEOLMODE) == SC_EOL_CR)
+			{
+				selectionMultiplier = 1;
+			}
+
+			// Keep an array of the original positions
+			std::vector<int> originalSelectionPositions;
+
+			// Loop through each selection
+			for (int i = 0; i < numSelections; ++i)
+			{
+				// Get the current caret position of the seleciton
+				originalSelectionPositions.push_back(int(_pEditView->execute(SCI_GETSELECTIONNCARET, i)));
+			}
+
+			// Sort the selections so that the new selection is calculated correctly
+			std::sort(originalSelectionPositions.begin(), originalSelectionPositions.end());
+			
 			// Keep an array of the new positions
-			std::vector<int> selectionPositions;
+			std::vector<int> newSelectionPositions;
 
 			// Loop through each selection
 			for (int i = 0; i < numSelections; ++i) 
 			{
 				// Get the current caret position of the seleciton
-				int currentPos = int(_pEditView->execute(SCI_GETSELECTIONNCARET, i));
+				int currentPos = originalSelectionPositions[i];
 
 				// Add the new position to the array
-				selectionPositions.push_back(currentPos + i * 2 + 2);
+				newSelectionPositions.push_back(currentPos + i * selectionMultiplier + selectionMultiplier);
 
 				// New line caret adjustment
-				_pEditView->execute(SCI_SETSELECTIONNCARET, i, currentPos + i * 2);
-				_pEditView->execute(SCI_SETSELECTIONNANCHOR, i, currentPos + i * 2);
+				_pEditView->execute(SCI_SETSELECTIONNCARET, i, currentPos + i * selectionMultiplier);
+				_pEditView->execute(SCI_SETSELECTIONNANCHOR, i, currentPos + i * selectionMultiplier);
 
 				// Set the current selection to main
 				_pEditView->execute(SCI_SETMAINSELECTION, i);
@@ -1660,9 +1688,9 @@ void Notepad_plus::command(int id)
 			}
 
 			// Add all of the cursors back where they should be
-			for (int i = 0; i < (static_cast<signed int>(selectionPositions.size()) - 1); ++i) 
+			for (int i = 0; i < (static_cast<signed int>(newSelectionPositions.size()) - 1); ++i)
 			{
-				_pEditView->execute(SCI_ADDSELECTION, selectionPositions[i], selectionPositions[i]);
+				_pEditView->execute(SCI_ADDSELECTION, newSelectionPositions[i], newSelectionPositions[i]);
 			}
 		}
 			break;

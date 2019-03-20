@@ -2619,69 +2619,86 @@ void ScintillaEditView::multiCursorLeftOrRight(int direction, bool shouldExt) co
 		return;
     }
 
+	// Keep an array of the original positions
+	std::vector<int> originalSelectionPositions;
+
+	int minPosition = INT_MAX;
+
+	// Loop through each selection
+	for (int i = 0; i < numSelections; ++i)
+	{
+		// Get the current caret position of the seleciton
+		originalSelectionPositions.push_back(int(execute(SCI_GETSELECTIONNCARET, i)));
+
+		// Finding the minimum position
+		if (originalSelectionPositions[i] < minPosition)
+		{
+			minPosition = originalSelectionPositions[i];
+		}
+	}
+
 	// Stop the caret blinking so it stays on
 	execute(SCI_SETCARETPERIOD, 0);
 
-	// Loop through each selection
-	for (int i = 0; i < numSelections; ++i) 
+	int docEnd = getCurrentDocLen();
+
+	// Check that the first cursor is not at the beginning or end
+	if (!(minPosition >= docEnd && direction > 0) && !(minPosition <= 0 && direction < 0))
 	{
-		// Get the current caret position of the seleciton
-		int currentPos = int(execute(SCI_GETSELECTIONNCARET, i));
-		int docEnd = getCurrentDocLen();
-
-		int newPos = currentPos + direction;
-
-		// Cursor is at end, use virtual space
-		if ((currentPos >= docEnd && direction > 0)) 
+		// Loop through each selection
+		for (int i = 0; i < numSelections; ++i)
 		{
-			if (i == 0) 
+			// Get the current caret position of the seleciton
+			int currentPos = originalSelectionPositions[i];
+
+			int newPos = currentPos + direction;
+
+			// Cursor is at end, use virtual space
+			if ((currentPos >= docEnd && direction > 0))
 			{
-				break;
+				// Add virtual space
+				execute(SCI_SETSELECTIONNCARETVIRTUALSPACE, i, execute(SCI_GETSELECTIONNCARETVIRTUALSPACE, i) + 1);
+
+				if (!shouldExt)
+				{
+					execute(SCI_SETSELECTIONNANCHORVIRTUALSPACE, i, execute(SCI_GETSELECTIONNANCHORVIRTUALSPACE, i) + 1);
+				}
+			}
+			else if (currentPos > docEnd)
+			{
+				// Moving back, remove virtual space
+				execute(SCI_SETSELECTIONNCARETVIRTUALSPACE, i, execute(SCI_GETSELECTIONNCARETVIRTUALSPACE, i) - 1);
+
+				if (!shouldExt)
+				{
+					execute(SCI_SETSELECTIONNANCHORVIRTUALSPACE, i, execute(SCI_GETSELECTIONNANCHORVIRTUALSPACE, i) - 1);
+				}
 			}
 
-			// Add virtual space
-			execute(SCI_SETSELECTIONNCARETVIRTUALSPACE, i, execute(SCI_GETSELECTIONNCARETVIRTUALSPACE, i) + 1);
-			
-			if (!shouldExt) 
-			{
-				execute(SCI_SETSELECTIONNANCHORVIRTUALSPACE, i, execute(SCI_GETSELECTIONNANCHORVIRTUALSPACE, i) + 1);
+			// Get the starting and ending position of the line
+			int lineStart = int(execute(SCI_POSITIONFROMLINE, int(execute(SCI_LINEFROMPOSITION, currentPos))));
+			int lineEnd = int(execute(SCI_POSITIONFROMLINE, int(execute(SCI_LINEFROMPOSITION, currentPos)) + 1)) - 1;
+
+			// Check if EOL mode is CR LF
+			if (execute(SCI_GETEOLMODE) == SC_EOL_CRLF) {
+				// Go back or forward another position because of new line
+				if (newPos < lineStart && direction < 0)
+				{
+					newPos--;
+				}
+				else if (newPos >= lineEnd && lineEnd + 1 != docEnd && direction > 0)
+				{
+					newPos++;
+				}
 			}
-		}
-		else if (currentPos > docEnd) 
-		{
-			// Moving back, remove virtual space
-			execute(SCI_SETSELECTIONNCARETVIRTUALSPACE, i, execute(SCI_GETSELECTIONNCARETVIRTUALSPACE, i) - 1);
 
-			if (!shouldExt) 
+			// Set the current caret position to the new position
+			execute(SCI_SETSELECTIONNCARET, i, newPos);
+
+			if (!shouldExt)
 			{
-				execute(SCI_SETSELECTIONNANCHORVIRTUALSPACE, i, execute(SCI_GETSELECTIONNANCHORVIRTUALSPACE, i) - 1);
+				execute(SCI_SETSELECTIONNANCHOR, i, newPos);
 			}
-		}
-		else if (currentPos <= 0 && direction < 0) 
-		{
-			break;
-		}
-
-		// Get the starting and ending position of the line
-		int lineStart = int(execute(SCI_POSITIONFROMLINE, int(execute(SCI_LINEFROMPOSITION, currentPos))));
-		int lineEnd = int(execute(SCI_POSITIONFROMLINE, int(execute(SCI_LINEFROMPOSITION, currentPos)) + 1)) - 1;
-
-		// Go back or forward another position because of new line
-		if (newPos < lineStart && direction < 0) 
-		{
-			newPos--;
-		}
-		else if (newPos >= lineEnd && lineEnd + 1 != docEnd && direction > 0) 
-		{
-			newPos++;
-		}
-
-		// Set the current caret position to the new position
-		execute(SCI_SETSELECTIONNCARET, i, newPos);
-		
-		if (!shouldExt) 
-		{
-			execute(SCI_SETSELECTIONNANCHOR, i, newPos);
 		}
 	}
 	

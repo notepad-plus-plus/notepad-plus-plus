@@ -425,7 +425,7 @@
                 <Item id="1934" name="Copiar para área transfer."/>
                 <Item id="2"    name="Fechar"/>
             </MD5FromTextDlg>
-			
+            
             <SHA256FromFilesDlg title="Gerar SHA-256 dos arquivos">
                 <Item id="1922" name="Escolha arquivos para gerar o SHA-256..."/>
                 <Item id="1924" name="Copiar para área transfer."/>
@@ -437,7 +437,7 @@
                 <Item id="1934" name="Copiar para área transfer."/>
                 <Item id="2"    name="Fechar"/>
             </SHA256FromTextDlg>
-			
+            
             <PluginsAdminDlg title="Gerenciador de Plugins" titleAvailable = "Disponível" titleUpdates = "Atualizações" titleInstalled = "Instalados">
                 <ColumnPlugin   name="Plugin"/>
                 <ColumnVersion  name="Versão"/>
@@ -844,7 +844,7 @@
                     <Item id="6819" name="Backup a cada"/>
                     <Item id="6821" name="segundos"/>
                     <Item id="6822" name="Rota para Backup:"/>
-                    <Item id="6309" name="Lembre sessão atual para nova execução"/>
+                    <Item id="6309" name="Lembrar sessão atual para nova execução"/>
                     <Item id="6801" name="Backup"/>
                     <Item id="6315" name="Nenhum"/>
                     <Item id="6316" name="Backup Simples"/>
@@ -910,11 +910,14 @@
                 </SearchEngine>
 
                 <MISC title="Diversos">
-                    <Item id="6307" name="Habilitar"/>
+                    <ComboBox id="6347">
+                        <Element name="Ativar"/>
+                        <Element name="Ativar para todas as abas"/>
+                        <Element name="Desativar"/>
+                    </ComboBox>
                     <Item id="6308" name="Minimizar na bandeja"/>
                     <Item id="6312" name="Auto detectar estado de arquivos"/>
                     <Item id="6313" name="Atualização silenciosa"/>
-                    <Item id="6314" name="Ativar apenas para a aba atual"/>
                     <Item id="6318" name="Configurações de hiperlink"/>
                     <Item id="6325" name="Ir para a última linha depois de atualizar"/>
                     <Item id="6319" name="Habilitar"/>
@@ -999,11 +1002,11 @@ Deseja continuar?"/>
 
             <NbFileToOpenImportantWarning title="A quantidade de arquivos a serem abertos é muito grande" message="$INT_REPLACE$ arquivos estão prestes a serem abertos.
 Tem certeza de que deseja abri-los?"/>
-            <SettingsOnCloudError title="Configurações na Nuvem" message="Parece que o caminho de configurações na nuvem está sdefinido como somente leitura,
+            <SettingsOnCloudError title="Configurações na Nuvem" message="Parece que o caminho de configurações na nuvem está definido como somente leitura,
 ou em uma pasta que necessita de privilégios para escrita.
 Suas configurações na nuvem serão canceladas. Por favor, redefina um valor coerente através da caixa de diálogo Preferências."/>
-            <FilePathNotFoundWarning title="File Open" message="The file you're trying to open doesn't exist."/>
-            <SessionFileInvalidError title="Could not Load Session" message="Session file is either corrupted or not valid."/>
+            <FilePathNotFoundWarning title="Abrir arquivo" message="O arquivo que você está tentando abrir não existe."/>
+            <SessionFileInvalidError title="Não foi possível carregar a sessão" message="O arquivo de sessão está corrompido ou não é válido."/>
             <DroppingFolderAsProjectModeWarning title="Você só pode soltar arquivos ou pastas, mas não ambos, porque você está soltando Pasta como modo Projeto.
 Você tem que habilitar o &quot;Abrir todos os arquivos da pasta em vez de usar a pasta como espaço de trabalho&quot; na seção &quot;Diretório padrão&quot; em Preferências para fazer esta operação funcionar."/>
             <SortingError title="Erro de Classificação" message="Não é possível realizar a classificação numérica devido à linha $INT_REPLACE$."/>
@@ -1015,7 +1018,7 @@ Deseja mantenha este arquivo no editor?"/>
             <DoDeleteOrNot title="Excluir o arquivo" message="O arquivo &quot;$STR_REPLACE$&quot;
 será movido para a sua Lixeira e este documento será fechado.
 Deseja continuar?"/>
-            <NoBackupDoSaveFile title="Salvar" message="Seu arquivo de backup não foi encontrado (deleted from outside).
+            <NoBackupDoSaveFile title="Salvar" message="Seu arquivo de backup não foi encontrado (excluído por fora).
 Salve-o, caso contrário, seus dados serão perdidos
 Você quer salvar o arquivo &quot;$STR_REPLACE$&quot; ?"/>
             <DoReloadOrNot title="Recarregar" message="&quot;$STR_REPLACE$&quot;
@@ -1030,7 +1033,7 @@ Deseja recarregá-lo e perder as alterações feitas no Notepad++?"/>
             <XpUpdaterProblem title="Atualizador do Notepad++" message="O atualizador do Notepad ++ não é compatível com o Windows XP devido à camada de segurança obsoleta dele.
 Você deseja ir para a página do Notepad++ para baixar a última versão?"/>
             <DocTooDirtyToMonitor title="Problema de monitoramento" message="O documento está sujo. Por favor, salve a modificação antes de monitorá-lo."/>
-            <DocNoExistToMonitor title="MProblema de monitoramento" message="O arquivo deve existir para ser monitorado."/>
+            <DocNoExistToMonitor title="Problema de monitoramento" message="O arquivo deve existir para ser monitorado."/>
             <FileTooBigToOpen title="Problema no tamanho do arquivo" message="Arquivo é muito grande para ser aberto pelo Notepad++"/>
             <CreateNewFileOrNot title="Criar novo arquivo" message="&quot;$STR_REPLACE$&quot; não existe. Deseja criá-lo?"/>
             <CreateNewFileError title="Criar novo arquivo" message="Não é possível criar o arquivo &quot;$STR_REPLACE$&quot;."/>
@@ -1042,8 +1045,8 @@ Você quer salvar o arquivo atual de assim mesmo?"/>
             <LoadLangsFailed title="Configurador" message="Falha ao carregar o langs.xml!
 Você quer recuperar seu langs.xml?"/>
             <LoadLangsFailedFinal title="Configurador" message="Falha ao carregar o langs.xml!"/>
-            <FolderAsWorspaceSubfolderExists title="Folder as Workspace adding folder problem" message="A sub-folder of the folder you want to add exists.
-Please remove its root from the panel before you add folder &quot;$STR_REPLACE$&quot;."/>
+            <FolderAsWorspaceSubfolderExists title="Problema ao adicionar Pasta como Espaço de Trabalho" message="Uma sub-pasta da pasta que você deseja adicionar já existe.
+Antes de adicionar uma pasta ao seu painel por favor, remova sua pasta raiz &quot;$STR_REPLACE$&quot;."/>
 
             <ProjectPanelChanged title="$STR_REPLACE$" message="O espaço de trabalho foi modificado. Você quer salvá-lo?"/>
             <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Seu espaço de trabalho não foi salvo."/>

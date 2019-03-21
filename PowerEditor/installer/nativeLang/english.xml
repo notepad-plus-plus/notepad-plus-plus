@@ -912,7 +912,7 @@
                 <MISC title="MISC.">
                     <ComboBox id="6347">
                         <Element name="Enable"/>
-                        <Element name="Enable for all tabs"/>
+                        <Element name="Enable for all opened files"/>
                         <Element name="Disable"/>
                     </ComboBox>
                     <Item id="6308" name="Minimize to system tray"/>

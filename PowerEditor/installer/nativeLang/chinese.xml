@@ -144,7 +144,6 @@
                     <Item id="42050" name="貼上 Binary 內容（包含 NULL 字元）"/>
                     <Item id="42037" name="多欄選取..."/>
                     <Item id="42034" name="多欄插入..."/>
-                    <Item id="42078" name="多選下一個字串"/>
                     <Item id="42051" name="顯示 ASCII 插入面板"/>
                     <Item id="42052" name="剪貼簿記錄"/>
                     <Item id="42025" name="儲存巨集"/>

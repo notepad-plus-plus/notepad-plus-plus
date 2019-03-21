@@ -1,12 +1,12 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-    Italian translation for Notepad++ 7.6.2
-    Last modified Sat, Dec 30th, 2018 by Luca Leonardi.
+    Italian translation for Notepad++ 7.6.4
+    Last modified Sat, Mar 15th, 2019 by Luca Leonardi.
     Please e-mail errors, suggestions etc. to ices_eyes(at)users.sourceforge.net.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 <NotepadPlus>
-    <Native-Langue name = "Italiano" filename = "italian.xml" version="7.6.2">
+    <Native-Langue name = "Italiano" filename = "italian.xml" version="7.6.4">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -44,6 +44,7 @@
                     <Item subMenuId = "search-jumpUp" name = "Salta su" />
                     <Item subMenuId = "search-jumpDown" name = "Salta giù" />
                     <Item subMenuId = "search-bookmark" name = "Segnalibri" />
+                    <Item subMenuId = "view-currentFileIn" name = "Mostra file corrente in" />
                     <Item subMenuId = "view-showSymbol" name = "Simboli" />
                     <Item subMenuId = "view-zoom" name = "Zoom" />
                     <Item subMenuId = "view-moveCloneDocument" name = "Sposta/Clona documento corrente" />
@@ -273,6 +274,12 @@
                     <Item id = "44097" name = "Monitora (tail -f)" />
                     <Item id = "44098" name = "Sposta scheda avanti" />
                     <Item id = "44099" name = "Sposta scheda indietro" />
+                    
+                    <!-- Customize toolbar plugin related entries -->
+                    <Item id = "44212" name = "Nascondi margine con numeri di riga" />
+                    <Item id = "44213" name = "Nascondi margine con i segnalibri" />
+                    <Item id = "44214" name = "Nascondi margine cartelle" />
+                    <!-- End -->
 
                     <Item id = "45001" name = "Formato Windows (CR+LF)" />
                     <Item id = "45002" name = "Formato UNIX (LF)" />
@@ -325,6 +332,7 @@
                     <Item id = "48006" name = "Importa tema..." />
                     <Item id = "48009" name = "Tasti di scelta rapida..." />
                     <Item id = "48011" name = "Preferenze..." />
+                    <Item id = "48014" name = "Apri la cartella dei plugin..." />
                     <Item id = "48015" name = "Gestione plugin..." />
                     <Item id = "48016" name = "Modifica scorciatoie/Elimina macro..." />
                     <Item id = "48017" name = "Modifica scorciatoie/Elimina comando..." />
@@ -928,6 +936,11 @@
                     <Item id = "6278" name = "Esempio: https://www.google.com/search?q=$(CURRENT_WORD)" />
                 </SearchEngine>
                 <MISC title = "Varie">
+                    <ComboBox id="6347">
+                        <Element name = "Attiva" />
+                        <Element name = "Attiva per tutti i tab" />
+                        <Element name = "Disattiva" />
+                    </ComboBox>
                     <Item id = "6324" name = "Cambia Documento (Ctrl+TAB)" />
                     <Item id = "6114" name = "Abilita" />
                     <Item id = "6117" name = "Precedenza ai file più recenti" />
@@ -1183,8 +1196,8 @@ Vuoi avviare Notepad++ come amministratore?" />
             <find-status-replaceinopenedfiles-nb-replaced value = "Sostituisci nei file aperti: $INT_REPLACE$ occorrenze sono state sostituite" />
             <find-status-mark-re-malformed value = "Evidenzia: l&apos;espressione regolare da cercare non è valida" />
             <find-status-invalid-re value = "Cerca: espressione regolare non valida" />
-            <find-status-mark-1-match value = "1 corrispondenza trovata" />
-            <find-status-mark-nb-matches value = "$INT_REPLACE$ corrispondenze trovate" />
+            <find-status-mark-1-match value = "Evidenzia: 1 corrispondenza trovata" />
+            <find-status-mark-nb-matches value = "Evidenzia: $INT_REPLACE$ corrispondenze trovate" />
             <find-status-count-re-malformed value = "Conta: l&apos;espressione regolare da cercare non è valida" />
             <find-status-count-1-match value = "Conta: 1 corrispondenza trovata" />
             <find-status-count-nb-matches value = "Conta: $INT_REPLACE$ corrispondenze trovate" />
@@ -1207,6 +1220,18 @@ Vuoi avviare Notepad++ come amministratore?" />
             <finder-select-all value = "Selezione tutto" />
             <finder-clear-all value = "Pulisci tutto" />
             <finder-open-all value = "Apri tutto" />
+            <common-ok value="OK" />
+            <common-cancel value="Annulla" />
+            <common-name value="Nome: " />
+            <tabrename-title value="Rinomina tab corrente" />
+            <tabrename-newname value="Nuovo nome: " />
+            <recent-file-history-maxfile value="File max: " />
+            <language-tabsize value="Dimensione tab: " />
+            <userdefined-title-new value="Crea nuovo linguaggio..." />
+            <userdefined-title-save value="Salva il linguaggio corrente come..." />
+            <userdefined-title-rename value="Rinomina il linguaggio corrente" />
+            <autocomplete-nb-char value="N. caratteri: " />
+            <edit-verticaledge-nb-col value="N. colonne:" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

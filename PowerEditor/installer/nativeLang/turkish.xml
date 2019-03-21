@@ -38,6 +38,7 @@
 					<Item subMenuId="search-jumpUp" name="Yukarı Atla"/>
 					<Item subMenuId="search-jumpDown" name="Aşağı Atla"/>
 					<Item subMenuId="search-bookmark" name="&amp;Yer İmleri"/>
+					<Item subMenuId="view-currentFileIn" name="Şimdiki Dosyayı İçinde Göster"/>
 					<Item subMenuId="view-showSymbol" name="Simge Göster"/>
 					<Item subMenuId="view-zoom" name="&amp;Yakınlaştır"/>
 					<Item subMenuId="view-moveCloneDocument" name="Geçerli Belgeyi Taşı/Kopyala"/>
@@ -909,8 +910,12 @@
                     <Item id="6278" name="Örnek: https://www.google.com/search?q=$(CURRENT_WORD)"/>
                 </SearchEngine>
 
-				<MISC title="Karışık">
-					<Item id="6307" name="Etkin"/>
+				<MISC title="Çeşitli">
+					<ComboBox id="6347">
+						<Element name="Etkinleştir"/>
+						<Element name="Tüm sekmeler için etkinleştir"/>
+						<Element name="Etkisizleştir"/>
+					</ComboBox>
 					<Item id="6308" name="Sistem tepsisine küçült"/>
 					<Item id="6312" name="Dosya Durumunu Otomatik Algıla"/>
 					<Item id="6313" name="Sessiz güncelle"/>

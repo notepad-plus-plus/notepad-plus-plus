@@ -2622,10 +2622,14 @@ std::pair<unsigned char, unsigned char> NppParameters::feedUserLang(TiXmlNode *n
 		const TCHAR *name = (childNode->ToElement())->Attribute(TEXT("name"));
 		const TCHAR *ext = (childNode->ToElement())->Attribute(TEXT("ext"));
 		const TCHAR *udlVersion = (childNode->ToElement())->Attribute(TEXT("udlVersion"));
-		try {
-			if (!name || !name[0] || !ext)
-				throw std::runtime_error("NppParameters::feedUserLang : UserLang name is missing");
 
+		if (!name || !name[0] || !ext)
+		{
+			// UserLang name is missing, just ignore this entry
+			continue;
+		}
+
+		try {
 			if (!udlVersion)
 				_userLangArray[_nbUserLang] = new UserLangContainer(name, ext, TEXT(""));
 			else

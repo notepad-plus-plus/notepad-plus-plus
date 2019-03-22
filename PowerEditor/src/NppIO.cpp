@@ -218,7 +218,6 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 	{
 		if (!PathFileExists(longFileName) && !globbing)
 		{
-			TCHAR str2display[MAX_PATH*2];
 			generic_string longFileDir(longFileName);
 			PathRemoveFileSpec(longFileDir);
 
@@ -254,8 +253,12 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 			}
 			else
 			{
-				wsprintf(str2display, TEXT("\"%s\" cannot be opened:\nFolder \"%s\" doesn't exist."), longFileName, longFileDir.c_str());
-				::MessageBox(_pPublicInterface->getHSelf(), str2display, TEXT("Cannot open file"), MB_OK);
+				generic_string str2display = TEXT("\"");
+				str2display += longFileName;
+				str2display += TEXT("\" cannot be opened:\nFolder \"");
+				str2display += longFileDir;
+				str2display += TEXT("\" doesn't exist.");
+				::MessageBox(_pPublicInterface->getHSelf(), str2display.c_str(), TEXT("Cannot open file"), MB_OK);
 			}
 
 			if (!isCreateFileSuccessful)

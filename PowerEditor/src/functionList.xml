@@ -110,7 +110,7 @@
 			<parser
 				id         ="php_syntax"
 				displayName="PHP"
-				commentExpr="(?s:/\*.*?\*/)|(?m-s://.*?$)"
+				commentExpr="(?s:/\*.*?\*/)|(?m-s://.*?$)|(?m-s:#.*?$)"
 			>
 				<classRange
 					mainExpr    ="^\s*(class|abstract\s+class|final\s+class|interface|trait)[\t\x20]+[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*(\s*|\s*(extends|implements|(extends\s+(\\|[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*)+\s+implements))\s+(\,\s*|(\\|[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*))+\s*)?\{"
@@ -123,12 +123,12 @@
 						<nameExpr expr="\w+\Z" />
 					</className>
 					<function
-						mainExpr="^\s*((static|public|protected|private|final)*(\s+(static|public|protected|private|final))+\s+)?(function\s+)+(\w+(\s+\w+)?(\s+|\*\s+|\s+\*|\s+\*\s+))?(\w+\s*::)?(?!(if|while|for|switch))[\w~]+\s*\([^\{]*\{"
+						mainExpr="^\s*((static|public|protected|private|final)*(\s+(static|public|protected|private|final))+\s+)?(function\s+)+(\w+(\s+\w+)?(\s+|\*\s+|\s+\*|\s+\*\s+))?(\w+\s*::)?(?!(if|while|for|switch|foreach))[\w~]+\s*\([^\{]*\{"
 					>
 						<functionName>
-							<funcNameExpr expr="(?!(if|while|for|switch))\w+\s*\([^\{]*" />
+							<funcNameExpr expr="(?!(if|while|for|switch|foreach))\w+\s*\([^\{]*" />
 							<!-- comment out the following node to display the method with parameters -->
-							<funcNameExpr expr="(?!(if|while|for|switch))\w+" />
+							<funcNameExpr expr="(?!(if|while|for|switch|foreach))\w+" />
 						</functionName>
 					</function>
 				</classRange>
@@ -136,8 +136,8 @@
 					mainExpr="^\s*function\s+\w+\s*\("
 				>
 					<functionName>
-						<nameExpr expr="(?!(if|while|for))\w+\s*\(" />
-						<nameExpr expr="(?!(if|while|for))\w+" />
+						<nameExpr expr="(?!(if|while|for|foreach))\w+\s*\(" />
+						<nameExpr expr="(?!(if|while|for|foreach))\w+" />
 					</functionName>
 					<className>
 						<nameExpr expr="\w+(?=\s*::)" />

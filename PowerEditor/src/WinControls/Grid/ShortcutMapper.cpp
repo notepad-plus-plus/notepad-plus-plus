@@ -1062,37 +1062,37 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 								case STATE_MENU:
 								{
 									vector<CommandShortcut> & vShortcuts = nppParam->getUserShortcuts();
-									findKeyConflicts(&conflictInfo, vShortcuts[currentIndex].getKeyCombo(), currentIndex);
+									findKeyConflicts(&conflictInfo, vShortcuts[_shortcutIndex[currentIndex]].getKeyCombo(), _shortcutIndex[currentIndex]);
 								}
 								break;
 
 								case STATE_MACRO:
 								{
 									vector<MacroShortcut> & vShortcuts = nppParam->getMacroList();
-									findKeyConflicts(&conflictInfo, vShortcuts[currentIndex].getKeyCombo(), currentIndex);
+									findKeyConflicts(&conflictInfo, vShortcuts[_shortcutIndex[currentIndex]].getKeyCombo(), _shortcutIndex[currentIndex]);
 								}
 								break;
 
 								case STATE_USER:
 								{
 									vector<UserCommand> & vShortcuts = nppParam->getUserCommandList();
-									findKeyConflicts(&conflictInfo, vShortcuts[currentIndex].getKeyCombo(), currentIndex);
+									findKeyConflicts(&conflictInfo, vShortcuts[_shortcutIndex[currentIndex]].getKeyCombo(), _shortcutIndex[currentIndex]);
 								}
 								break;
 
 								case STATE_PLUGIN:
 								{
 									vector<PluginCmdShortcut> & vShortcuts = nppParam->getPluginCommandList();
-									findKeyConflicts(&conflictInfo, vShortcuts[currentIndex].getKeyCombo(), currentIndex);
+									findKeyConflicts(&conflictInfo, vShortcuts[_shortcutIndex[currentIndex]].getKeyCombo(), _shortcutIndex[currentIndex]);
 								}
 								break;
 
 								case STATE_SCINTILLA:
 								{
 									vector<ScintillaKeyMap> & vShortcuts = nppParam->getScintillaKeyList();
-									size_t sciCombos = vShortcuts[currentIndex].getSize();
+									size_t sciCombos = vShortcuts[_shortcutIndex[currentIndex]].getSize();
 									for (size_t sciIndex = 0; sciIndex < sciCombos; ++sciIndex)
-										findKeyConflicts(&conflictInfo, vShortcuts[currentIndex].getKeyComboByIndex(sciIndex), currentIndex);
+										findKeyConflicts(&conflictInfo, vShortcuts[_shortcutIndex[currentIndex]].getKeyComboByIndex(sciIndex), _shortcutIndex[currentIndex]);
 								}
 								break;
 							}

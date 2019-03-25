@@ -36,6 +36,7 @@
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
+
 #include <stdio.h>
 
 #include "nsMBCSGroupProber.h"
@@ -44,13 +45,13 @@
 #if defined(DEBUG_chardet) || defined(DEBUG_jgmyers)
 const char *ProberName[] = 
 {
-  "UTF-8",
+  "UTF8",
   "SJIS",
-  "EUC-JP",
+  "EUCJP",
   "GB18030",
-  "EUC-KR",
+  "EUCKR",
   "Big5",
-  "EUC-TW",
+  "EUCTW",
 };
 
 #endif

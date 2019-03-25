@@ -47,7 +47,6 @@
 
 nsUniversalDetector::nsUniversalDetector(PRUint32 aLanguageFilter)
 {
-  mNbspFound = PR_FALSE;
   mDone = PR_FALSE;
   mBestGuess = -1;   //illegal value as signal
   mInTag = PR_FALSE;
@@ -65,7 +64,7 @@ nsUniversalDetector::nsUniversalDetector(PRUint32 aLanguageFilter)
     mCharSetProbers[i] = nsnull;
 }
 
-nsUniversalDetector::~nsUniversalDetector()
+nsUniversalDetector::~nsUniversalDetector() 
 {
   for (PRInt32 i = 0; i < NUM_OF_CHARSET_PROBERS; i++)
     delete mCharSetProbers[i];
@@ -73,10 +72,9 @@ nsUniversalDetector::~nsUniversalDetector()
   delete mEscCharSetProber;
 }
 
-void
+void 
 nsUniversalDetector::Reset()
 {
-  mNbspFound = PR_FALSE;
   mDone = PR_FALSE;
   mBestGuess = -1;   //illegal value as signal
   mInTag = PR_FALSE;
@@ -98,17 +96,17 @@ nsUniversalDetector::Reset()
 
 //---------------------------------------------------------------------
 #define SHORTCUT_THRESHOLD      (float)0.95
-#define MINIMUM_THRESHOLD      (float)0.20
+#define MINIMUM_THRESHOLD      (float)0.60
 
 nsresult nsUniversalDetector::HandleData(const char* aBuf, PRUint32 aLen)
 {
-  if (mDone)
+  if(mDone) 
     return NS_OK;
 
   if (aLen > 0)
     mGotData = PR_TRUE;
 
-  /* If the data starts with BOM, we know it is UTF. */
+  //If the data starts with BOM, we know it is UTF
   if (mStart)
   {
     mStart = PR_FALSE;
@@ -117,42 +115,20 @@ nsresult nsUniversalDetector::HandleData(const char* aBuf, PRUint32 aLen)
         {
         case '\xEF':
           if (('\xBB' == aBuf[1]) && ('\xBF' == aBuf[2]))
-            /* EF BB BF: UTF-8 encoded BOM. */
+            // EF BB BF  UTF-8 encoded BOM
             mDetectedCharset = "UTF-8";
         break;
         case '\xFE':
           if ('\xFF' == aBuf[1])
-            /* FE FF: UTF-16, big endian BOM. */
+            // FE FF  UTF-16, big endian BOM
             mDetectedCharset = "UTF-16";
         break;
         case '\xFF':
           if ('\xFE' == aBuf[1])
-          {
-            if (aLen > 3          &&
-                aBuf[2] == '\x00' &&
-                aBuf[3] == '\x00')
-            {
-                /* FF FE 00 00: UTF-32 (LE). */
-                mDetectedCharset = "UTF-32";
-            }
-            else
-            {
-                /* FF FE: UTF-16, little endian BOM. */
-                mDetectedCharset = "UTF-16";
-            }
-          }
-          break;
-        case '\x00':
-          if (aLen > 3           &&
-              aBuf[1] == '\x00' &&
-              aBuf[2] == '\xFE' &&
-              aBuf[3] == '\xFF')
-          {
-              /* 00 00 FE FF: UTF-32 (BE). */
-              mDetectedCharset = "UTF-32";
-          }
-          break;
-        }
+            // FF FE  UTF-16, little endian BOM
+            mDetectedCharset = "UTF-16";
+        break;
+      }  // switch
 
       if (mDetectedCharset)
       {
@@ -160,17 +136,14 @@ nsresult nsUniversalDetector::HandleData(const char* aBuf, PRUint32 aLen)
         return NS_OK;
       }
   }
-
+  
   PRUint32 i;
   for (i = 0; i < aLen; i++)
   {
-    /* If every other character is ASCII or 0xA0, we don't run charset
-     * probers.
-     * 0xA0 (NBSP in a few charset) is apparently a rare exception
-     * of non-ASCII character often contained in nearly-ASCII text. */
-    if (aBuf[i] & '\x80' && aBuf[i] != '\xA0')
+    //other than 0xa0, if every othe character is ascii, the page is ascii
+    if (aBuf[i] & '\x80' && aBuf[i] != '\xA0')  //Since many Ascii only page contains NBSP 
     {
-      /* We got a non-ASCII byte (high-byte) */
+      //we got a non-ascii byte (high-byte)
       if (mInputState != eHighbyte)
       {
         //adjust state
@@ -198,7 +171,7 @@ nsresult nsUniversalDetector::HandleData(const char* aBuf, PRUint32 aLen)
         }
         if (nsnull == mCharSetProbers[2])
         {
-          mCharSetProbers[2] = new nsLatin1Prober;
+          mCharSetProbers[2] = new nsLatin1Prober; 
           if (nsnull == mCharSetProbers[2])
             return NS_ERROR_OUT_OF_MEMORY;
         }
@@ -206,19 +179,11 @@ nsresult nsUniversalDetector::HandleData(const char* aBuf, PRUint32 aLen)
     }
     else
     {
-      /* Just pure ASCII or NBSP so far. */
-      if (aBuf[i] == '\xA0')
+      //ok, just pure ascii so far
+      if ( ePureAscii == mInputState &&
+        (aBuf[i] == '\033' || (aBuf[i] == '{' && mLastChar == '~')) )
       {
-        /* ASCII with the only exception of NBSP seems quite common.
-         * I doubt it is really necessary to train a model here, so let's
-         * just make an exception.
-         */
-          mNbspFound = PR_TRUE;
-      }
-      else if (mInputState == ePureAscii &&
-               (aBuf[i] == '\033' || (aBuf[i] == '{' && mLastChar == '~')))
-      {
-        /* We found an escape character or HZ "~{". */
+        //found escape character or HZ "~{"
         mInputState = eEscAscii;
       }
       mLastChar = aBuf[i];
@@ -240,16 +205,6 @@ nsresult nsUniversalDetector::HandleData(const char* aBuf, PRUint32 aLen)
       mDone = PR_TRUE;
       mDetectedCharset = mEscCharSetProber->GetCharSetName();
     }
-    else if (mNbspFound)
-    {
-      mDetectedCharset = "ISO-8859-1";
-    }
-    else
-    {
-      /* ASCII with the ESC character (or the sequence "~{") is still
-       * ASCII until proven otherwise. */
-      mDetectedCharset = "ASCII";
-    }
     break;
   case eHighbyte:
     for (i = 0; i < NUM_OF_CHARSET_PROBERS; i++)
@@ -257,29 +212,18 @@ nsresult nsUniversalDetector::HandleData(const char* aBuf, PRUint32 aLen)
       if (mCharSetProbers[i])
       {
         st = mCharSetProbers[i]->HandleData(aBuf, aLen);
-        if (st == eFoundIt)
+        if (st == eFoundIt) 
         {
           mDone = PR_TRUE;
           mDetectedCharset = mCharSetProbers[i]->GetCharSetName();
           return NS_OK;
         }
-      }
+      } 
     }
     break;
 
-  default:
-    if (mNbspFound)
-    {
-      /* ISO-8859-1 is a good result candidate for ASCII + NBSP.
-       * (though it could have been any ISO-8859 encoding). */
-      mDetectedCharset = "ISO-8859-1";
-    }
-    else
-    {
-      /* Pure ASCII */
-      mDetectedCharset = "ASCII";
-    }
-    break;
+  default:  //pure ascii
+    ;//do nothing here
   }
   return NS_OK;
 }
@@ -290,7 +234,7 @@ void nsUniversalDetector::DataEnd()
 {
   if (!mGotData)
   {
-    // we haven't got any data yet, return immediately
+    // we haven't got any data yet, return immediately 
     // caller program sometimes call DataEnd before anything has been sent to detector
     return;
   }
@@ -301,7 +245,7 @@ void nsUniversalDetector::DataEnd()
     Report(mDetectedCharset);
     return;
   }
-
+  
   switch (mInputState)
   {
   case eHighbyte:

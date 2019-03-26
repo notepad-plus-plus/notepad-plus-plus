@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++ 7.6.5
-	last modified: 2019-03-21 by schnurlos (schnurlos@gmail.com)
+	last modified: 2019-03-26 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -93,6 +93,7 @@
 					<Item id="41005" name="Alle schließen bis auf &amp;aktuelle Datei"/>
 					<Item id="41009" name="Dateien &amp;links schließen"/>
 					<Item id="41018" name="Dateien &amp;rechts schließen"/>
+					<Item id="41024" name="Schließe alle unveränderten Dateien"/>
 					<Item id="41006" name="&amp;Speichern"/>
 					<Item id="41007" name="&amp;Alle speichern"/>
 					<Item id="41008" name="Speichern &amp;unter …"/>
@@ -165,7 +166,6 @@
 					<Item id="42050" name="Binär-Inhalt &amp;einfügen"/>
 					<Item id="42037" name="Spalten-&amp;Modus …"/>
 					<Item id="42034" name="&amp;Block-Editor …"/>
-					<Item id="42078" name="Nächstes Vorkommen mit Mehrfachauswahl"/>
 					<Item id="42051" name="Zeichen&amp;tabelle"/>
 					<Item id="42052" name="Zwis&amp;chenablage"/>
 					<Item id="42025" name="Aufgenommenes Makro s&amp;peichern"/>
@@ -358,7 +358,7 @@
 				<Item CMID="19" name="Ordner im E&amp;xplorer öffnen"/>
 				<Item CMID="20" name="Kommandozeile im aktuellen &amp;Ordner öffnen"/>
 				<Item CMID="21" name="Im Standard-Betrachter öffnen"/>
-
+				<Item CMID="22" name="Schließe alle unveränderten Dateien"/>
 			</TabBar>
 		</Menu>
 
@@ -925,7 +925,7 @@
 				<MISC title="Diverses">
 					<ComboBox id="6347">
 						<Element name="Aktivieren"/>
-						<Element name="Für alle Tabs aktivieren"/>
+						<Element name="Für alle offenen Dateien aktivieren"/>
 						<Element name="Deaktivieren"/>
 					</ComboBox>
 					<Item id="6308" name="In Infobereich (Tray) minimieren"/>

@@ -2086,18 +2086,19 @@ void Notepad_plus::checkLangsMenu(int id) const
 			if (curBuf->isUserDefineLangExt())
 			{
 				const TCHAR *userLangName = curBuf->getUserDefineLangName();
-				const int nbChar = 16;
-				TCHAR menuLangName[nbChar];
+				TCHAR menuLangName[langNameLenMax];
 
 				for (int i = IDM_LANG_USER + 1 ; i <= IDM_LANG_USER_LIMIT ; ++i)
 				{
-					if (::GetMenuString(_mainMenuHandle, i, menuLangName, nbChar-1, MF_BYCOMMAND))
+					if (::GetMenuString(_mainMenuHandle, i, menuLangName, langNameLenMax, MF_BYCOMMAND))
+					{
 						if (!lstrcmp(userLangName, menuLangName))
 						{
 							HMENU _langMenuHandle = ::GetSubMenu(_mainMenuHandle, MENUINDEX_LANGUAGE);
 							doCheck(_langMenuHandle, i);
 							return;
 						}
+					}
 				}
 			}
 		}

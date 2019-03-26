@@ -3,7 +3,7 @@
 	## Bulgarian localization for Notepad++ ##
 
 	Translators:.....: 2007-2012 - Milen Metev (Tragedy); 2014-yyyy - RDD
-	Last revision:...: 21.03.2019 by RDD <astral_86[at]mail[dot]bg>
+	Last revision:...: 26.03.2019 by RDD <astral_86[at]mail[dot]bg>
 	Download:........: https://gist.github.com/rddim/bd37264898c3a17363e7437bcf1b4803
 -->
 <NotepadPlus>
@@ -104,6 +104,7 @@
 					<Item id="41005" name="Всички, без текущия"/>
 					<Item id="41009" name="Всички отляво"/>
 					<Item id="41018" name="Всички отдясно"/>
+					<Item id="41024" name="Всички непроменени"/>
 					<!-- Меню "Файл" -->
 					<Item id="41016" name="Преместване в кошчето"/>
 					<Item id="41012" name="Зареждане на сесия..."/>
@@ -198,7 +199,6 @@
 					<!-- Меню "Редактиране" -->
 					<Item id="42037" name="Колонен режим..."/>
 					<Item id="42034" name="Колонен редактор..."/>
-					<Item id="42078" name="Множествен избор на следващ низ"/>
 					<Item id="42051" name="Панел със знаци"/>
 					<Item id="42052" name="История на системния буфер"/>
 					<Item id="42028" name="Само за четене"/>
@@ -394,6 +394,7 @@
 				<Item CMID="1"  name="Затваряне на всички без този"/>
 				<Item CMID="17" name="Затваряне на всички отляво"/>
 				<Item CMID="18" name="Затваряне на всички отдясно"/>
+				<Item CMID="22" name="Затваряне на всички непроменени"/>
 				<Item CMID="2"  name="Запис"/>
 				<Item CMID="3"  name="Запис като..."/>
 				<Item CMID="10" name="Преименуване"/>

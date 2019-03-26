@@ -79,6 +79,7 @@
                     <Item id="41005" name="Close All BUT Current Document"/>
                     <Item id="41009" name="Close All to the Left"/>
                     <Item id="41018" name="Close All to the Right"/>
+                    <Item id="41024" name="Close All Unchanged"/>
                     <Item id="41006" name="&amp;Save"/>
                     <Item id="41007" name="Sav&amp;e All"/>
                     <Item id="41008" name="Save &amp;As..."/>
@@ -343,6 +344,7 @@
                     <Item CMID="19" name="Open Containing Folder in Explorer"/>
                     <Item CMID="20" name="Open Containing Folder in cmd"/>
                     <Item CMID="21" name="Open in Default Viewer"/>
+                    <Item CMID="22" name="Close All Unchanged"/>
             </TabBar>
         </Menu>
 

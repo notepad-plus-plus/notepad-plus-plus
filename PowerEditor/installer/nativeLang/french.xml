@@ -84,6 +84,7 @@
                     <Item id="41005" name="Fermer tout sauf le document actuel"/>
                     <Item id="41009" name="Fermer tout à gauche"/>
                     <Item id="41018" name="Fermer tout à droite"/>
+                    <Item id="41024" name="Fermer tous les documents non-modifiés"/>
                     <Item id="41006" name="&amp;Enregistrer"/>
                     <Item id="41007" name="En&amp;registrer tout"/>
                     <Item id="41008" name="Enregistrer &amp;sous..."/>
@@ -340,6 +341,7 @@
                     <Item CMID="19" name="Ouvrir le répertoire du fichier en cours dans l'explorateur"/>
                     <Item CMID="20" name="Ouvrir le répertoire du fichier en cours dans l'invite de commande"/>
                     <Item CMID="21" name="Ouvrir dans l'application par défaut"/>
+                    <Item CMID="22" name="Fermer tous les documents non-modifiés"/>
             </TabBar>
         </Menu>
         <Dialog>

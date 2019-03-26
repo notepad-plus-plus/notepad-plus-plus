@@ -1110,7 +1110,8 @@ bool Notepad_plus::fileCloseAllUnchanged()
 {
 	std::vector<int> vecIndexesToClose;
 
-	for (int i = int(_pDocTab->nbItem()) - 1; i >= 0; i--) {
+	for (int i = int(_pDocTab->nbItem()) - 1; i >= 0; i--)
+	{
 		BufferID id = _mainDocTab.getBufferByIndex(i);
 		Buffer* buf = MainFileManager->getBufferByID(id);
 		if ((buf->isUntitled() && buf->docLength() == 0) || !buf->isDirty())

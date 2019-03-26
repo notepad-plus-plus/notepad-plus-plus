@@ -79,6 +79,7 @@
                     <Item id="41005" name="除此檔案外，關閉所有檔案"/>
                     <Item id="41009" name="關閉左側所有檔案"/>
                     <Item id="41018" name="關閉右側所有檔案"/>
+                    <Item id="41024" name="關閉所有已存檔未變更的檔案"/>
                     <Item id="41006" name="儲存此檔案(&amp;S)"/>
                     <Item id="41007" name="儲存所有檔案(&amp;E)"/>
                     <Item id="41008" name="另存新檔(&amp;A)..."/>
@@ -343,9 +344,9 @@
                     <Item CMID="17" name="關閉左側所有檔案"/>
                     <Item CMID="18" name="關閉右側所有檔案"/>
                     <Item CMID="19" name="於檔案總管開啟檔案位置"/>
-
                     <Item CMID="20" name="於 CMD 開啟檔案位置"/>
                     <Item CMID="21" name="在電腦預設顯示器中開啟"/>
+                    <Item CMID="22" name="關閉所有已存檔未變更的檔案"/>
             </TabBar>
         </Menu>
         <Dialog>

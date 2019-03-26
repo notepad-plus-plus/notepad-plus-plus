@@ -93,7 +93,7 @@
 					<Item id="41005" name="Alle schließen bis auf &amp;aktuelle Datei"/>
 					<Item id="41009" name="Dateien &amp;links schließen"/>
 					<Item id="41018" name="Dateien &amp;rechts schließen"/>
-					<Item id="41024" name="Schließe alle unveränderten"/>
+					<Item id="41024" name="Schließe alle unveränderten Dateien"/>
 					<Item id="41006" name="&amp;Speichern"/>
 					<Item id="41007" name="&amp;Alle speichern"/>
 					<Item id="41008" name="Speichern &amp;unter …"/>
@@ -358,7 +358,7 @@
 				<Item CMID="19" name="Ordner im E&amp;xplorer öffnen"/>
 				<Item CMID="20" name="Kommandozeile im aktuellen &amp;Ordner öffnen"/>
 				<Item CMID="21" name="Im Standard-Betrachter öffnen"/>
-				<Item CMID="22" name="Schließe alle unveränderten"/>
+				<Item CMID="22" name="Schließe alle unveränderten Dateien"/>
 			</TabBar>
 		</Menu>
 

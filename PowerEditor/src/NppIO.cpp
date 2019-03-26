@@ -1718,6 +1718,8 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode)
 			if (session._mainViewFiles[i]._encoding != -1)
 				buf->setEncoding(session._mainViewFiles[i]._encoding);
 
+			buf->setUserReadOnly(session._mainViewFiles[i]._isUserReadOnly);
+
 			if (isSnapshotMode && session._mainViewFiles[i]._backupFilePath != TEXT("") && PathFileExists(session._mainViewFiles[i]._backupFilePath.c_str()))
 				buf->setDirty(true);
 
@@ -1831,6 +1833,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode)
 			}
 			buf->setLangType(typeToSet, pLn);
 			buf->setEncoding(session._subViewFiles[k]._encoding);
+			buf->setUserReadOnly(session._mainViewFiles[k]._isUserReadOnly);
 
 			if (isSnapshotMode && session._subViewFiles[k]._backupFilePath != TEXT("") && PathFileExists(session._subViewFiles[k]._backupFilePath.c_str()))
 				buf->setDirty(true);

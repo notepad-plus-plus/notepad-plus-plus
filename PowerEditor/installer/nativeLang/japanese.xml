@@ -79,6 +79,7 @@
                     <Item id="41005" name="現在の文書以外を閉じる"/>
                     <Item id="41009" name="左をすべて閉じる"/>
                     <Item id="41018" name="右をすべて閉じる"/>
+                    <Item id="41024" name="未変更をすべて閉じる"/>
                     <Item id="41006" name="上書き保存(&amp;S)"/>
                     <Item id="41007" name="すべて保存(&amp;E)"/>
                     <Item id="41008" name="名前を付けて保存(&amp;A)..."/>
@@ -356,6 +357,7 @@
                     <Item CMID="19" name="ファイルの場所をエクスプローラーで開く"/>
                     <Item CMID="20" name="ファイルの場所をコマンドプロンプトで開く"/>
                     <Item CMID="21" name="既定のアプリで開く"/>
+                    <Item CMID="22" name="未変更をすべて閉じる"/>
             </TabBar>
         </Menu>
 

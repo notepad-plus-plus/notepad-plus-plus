@@ -608,9 +608,13 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 	Utf8_16_Read UnicodeConvertor;	//declare here so we can get information after loading is done
 
 	char data[blockSize + 8]; // +8 for incomplete multibyte char
-	EolType bkformat = EolType::unknown;
-	LangType detectedLang = L_TEXT;
-	bool res = loadFileData(doc, backupFileName ? backupFileName : fullpath, data, &UnicodeConvertor, detectedLang, encoding, bkformat);
+
+	LoadedFileFormat loadedFileFormat;
+	loadedFileFormat._encoding = encoding;
+	loadedFileFormat._eolFormat = EolType::unknown;
+	loadedFileFormat._language = L_TEXT;
+
+	bool res = loadFileData(doc, backupFileName ? backupFileName : fullpath, data, &UnicodeConvertor, loadedFileFormat);
 	if (res)
 	{
 		Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_REGULAR, fullpath);
@@ -636,10 +640,10 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 		buf->setEncoding(-1);
 
 		// if no file extension, and the language has been detected,  we use the detected value
-		if ((buf->getLangType() == L_TEXT) && (detectedLang != L_TEXT))
-			buf->setLangType(detectedLang);
+		if ((buf->getLangType() == L_TEXT) && (loadedFileFormat._language != L_TEXT))
+			buf->setLangType(loadedFileFormat._language);
 
-		setLoadedBufferEncodingAndEol(buf, UnicodeConvertor, encoding, bkformat);
+		setLoadedBufferEncodingAndEol(buf, UnicodeConvertor, loadedFileFormat._encoding, loadedFileFormat._eolFormat);
 
 		//determine buffer properties
 		++_nextBufferID;
@@ -660,21 +664,22 @@ bool FileManager::reloadBuffer(BufferID id)
 	Document doc = buf->getDocument();
 	Utf8_16_Read UnicodeConvertor;
 	buf->_canNotify = false;	//disable notify during file load, we dont want dirty to be triggered
-	int encoding = buf->getEncoding();
 	char data[blockSize + 8]; // +8 for incomplete multibyte char
-	EolType bkformat = EolType::unknown;
-	LangType lang = buf->getLangType();
 
+	LoadedFileFormat loadedFileFormat;
+	loadedFileFormat._encoding = buf->getEncoding();
+	loadedFileFormat._eolFormat = EolType::unknown;
+	loadedFileFormat._language = buf->getLangType();
 
 	buf->setLoadedDirty(false);	// Since the buffer will be reloaded from the disk, and it will be clean (not dirty), we can set _isLoadedDirty false safetly.
 								// Set _isLoadedDirty false before calling "_pscratchTilla->execute(SCI_CLEARALL);" in loadFileData() to avoid setDirty in SCN_SAVEPOINTREACHED / SCN_SAVEPOINTLEFT
 
-	bool res = loadFileData(doc, buf->getFullPathName(), data, &UnicodeConvertor, lang, encoding, bkformat);
+	bool res = loadFileData(doc, buf->getFullPathName(), data, &UnicodeConvertor, loadedFileFormat);
 	buf->_canNotify = true;
 
 	if (res)
 	{
-		setLoadedBufferEncodingAndEol(buf, UnicodeConvertor, encoding, bkformat);
+		setLoadedBufferEncodingAndEol(buf, UnicodeConvertor, loadedFileFormat._encoding, loadedFileFormat._eolFormat);
 	}
 	return res;
 }
@@ -1256,7 +1261,7 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 	return L_TEXT;
 }
 
-bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data, Utf8_16_Read * unicodeConvertor, LangType & language, int & encoding, EolType & eolFormat)
+bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data, Utf8_16_Read * unicodeConvertor, LoadedFileFormat& fileFormat)
 {
 	FILE *fp = generic_fopen(filename, TEXT("rb"));
 	if (not fp)
@@ -1293,20 +1298,20 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 	_pscratchTilla->execute(SCI_CLEARALL);
 
 
-	if (language < L_EXTERNAL)
+	if (fileFormat._language < L_EXTERNAL)
 	{
-		_pscratchTilla->execute(SCI_SETLEXER, ScintillaEditView::langNames[language].lexerID);
+		_pscratchTilla->execute(SCI_SETLEXER, ScintillaEditView::langNames[fileFormat._language].lexerID);
 	}
 	else
 	{
-		int id = language - L_EXTERNAL;
+		int id = fileFormat._language - L_EXTERNAL;
 		TCHAR * name = NppParameters::getInstance()->getELCFromIndex(id)._name;
 		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 		const char *pName = wmc->wchar2char(name, CP_ACP);
 		_pscratchTilla->execute(SCI_SETLEXERLANGUAGE, 0, reinterpret_cast<LPARAM>(pName));
 	}
 
-	if (encoding != -1)
+	if (fileFormat._encoding != -1)
 		_pscratchTilla->execute(SCI_SETCODEPAGE, SC_CP_UTF8);
 
 	bool success = true;
@@ -1335,26 +1340,26 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
                 {
                     // if file contains any BOM, then encoding will be erased,
                     // and the document will be interpreted as UTF
-                    encoding = -1;
+					fileFormat._encoding = -1;
 				}
-				else if (encoding == -1)
+				else if (fileFormat._encoding == -1)
 				{
 					if (NppParameters::getInstance()->getNppGUI()._detectEncoding)
-						encoding = detectCodepage(data, lenFile);
+						fileFormat._encoding = detectCodepage(data, lenFile);
                 }
 
-				if (language == L_TEXT)
+				if (fileFormat._language == L_TEXT)
 				{
 					// check the language du fichier
-					language = detectLanguageFromTextBegining((unsigned char *)data, lenFile);
+					fileFormat._language = detectLanguageFromTextBegining((unsigned char *)data, lenFile);
 				}
 
                 isFirstTime = false;
             }
 
-			if (encoding != -1)
+			if (fileFormat._encoding != -1)
 			{
-				if (encoding == SC_CP_UTF8)
+				if (fileFormat._encoding == SC_CP_UTF8)
 				{
 					// Pass through UTF-8 (this does not check validity of characters, thus inserting a multi-byte character in two halfs is working)
 					_pscratchTilla->execute(SCI_APPENDTEXT, lenFile, reinterpret_cast<LPARAM>(data));
@@ -1363,7 +1368,7 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 				{
 					WcharMbcsConvertor* wmc = WcharMbcsConvertor::getInstance();
 					int newDataLen = 0;
-					const char *newData = wmc->encode(encoding, SC_CP_UTF8, data, static_cast<int32_t>(lenFile), &newDataLen, &incompleteMultibyteChar);
+					const char *newData = wmc->encode(fileFormat._encoding, SC_CP_UTF8, data, static_cast<int32_t>(lenFile), &newDataLen, &incompleteMultibyteChar);
 					_pscratchTilla->execute(SCI_APPENDTEXT, newDataLen, reinterpret_cast<LPARAM>(newData));
 				}
 
@@ -1408,18 +1413,18 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 	{
 		NppParameters *pNppParamInst = NppParameters::getInstance();
 		const NewDocDefaultSettings & ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings(); // for ndds._format
-		eolFormat = ndds._format;
+		fileFormat._eolFormat = ndds._format;
 
 		//for empty files, if the default for new files is UTF8, and "Apply to opened ANSI files" is set, apply it
 		if (fileSize == 0)
 		{
 			if (ndds._unicodeMode == uniCookie && ndds._openAnsiAsUtf8)
-				encoding = SC_CP_UTF8;
+				fileFormat._encoding = SC_CP_UTF8;
 		}
 	}
 	else
 	{
-		eolFormat = format;
+		fileFormat._eolFormat = format;
 	}
 
 	_pscratchTilla->execute(SCI_EMPTYUNDOBUFFER);

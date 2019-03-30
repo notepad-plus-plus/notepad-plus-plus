@@ -1408,13 +1408,13 @@ void Notepad_plus::removeDuplicateLines()
 	// whichPart : line head or line tail
 	FindOption env;
 
-	env._str2Search = TEXT("^(.*\\r?\\n)(\\1)+");
+	env._str2Search = TEXT("^(.*(\\r?\\n|\\r))(\\1)+");
 	env._str4Replace = TEXT("\\1");
     env._searchType = FindRegex;
 	_findReplaceDlg.processAll(ProcessReplaceAll, &env, true);
 
 	// remove the last line if it's a duplicate line.
-	env._str2Search = TEXT("^(.+)\\r?\\n(\\1)$");
+	env._str2Search = TEXT("^(.+)(\\r?\\n|\\r)(\\1)$");
 	env._str4Replace = TEXT("\\1");
     env._searchType = FindRegex;
 	_findReplaceDlg.processAll(ProcessReplaceAll, &env, true);

@@ -1,33 +1,27 @@
-Notepad++ v7.6.4 new features and bug-fixes:
+Notepad++ v7.6.5 new features and bug-fixes:
 
-1.  Add Markdown in zip packages and fix Markdown not working in installer package of v7.6.3.
-2.  Switch from certificate verification to hashes verification due to "Notepad++" is rejected by certification authority:
-    https://notepad-plus-plus.org/news/notepad-7.6.4-released.html
-3.  Enhance User Defined Language System for supporting more than one UDL file. New behaviour:
-    https://notepad-plus-plus.org/community/topic/17072/new-enhancement-for-user-defined-language-system
-4.  Add "Remove Consecutive Duplicate Lines" feature to remove duplicate consecutive lines from whole document.
-5.  Add new shortcut "shift + scroll" for horizontal scrolling.
-6.  Add Stack Overflow as search engine.
-7.  Add the capacity to rename non-existing document's tab.
-8.  Fixed file open hang issue in old style mode.
-9.  Fix "Find in files" tab translation issue on initial dialog call.
-10. Fixed macro playback junk characters display issue on Find dialog.
-11. Ensure each recorded command is playable before playing to avoid exploit in hacking. (EURO-FOSSA)
-12. Enhance "Search on Internet" command to avoid command hijacked. (EURO-FOSSA)
-13. Fix buffer overrun in Print dialog. (EURO-FOSSA)
-14. Load nppPluginList.dll as resource instead of binary for the sake of security. (EURO-FOSSA)
-15. Check Updater's authenticity before its each launch to prevent from hijacking. (EURO-FOSSA)
-16. Fix stack buffer overflow in WordStyle dialog. (EURO-FOSSA)
-17. Fix stack buffer overflow issue on User Define Language dialog. (EURO-FOSSA)
-18. Prevent eventual DLL hijacking while loading plugins. (EURO-FOSSA) 
-
+0.  Security enhancement: GPG Signature is provided for Notepad++ release.
+1.  Fix a long waiting issue about file auto change detection: enhance "File status Auto-Detection" to avoid switching editing tab off behaviour.
+2.  Fix encoding (language) detection regressions since v7.6.
+3.  Fix a regression: double-clicking on a "find all in current document" result for an unsaved doc prompts to save it.
+4.  Added close all unchanged tabs command.
+5.  Restore deleted "Launch in browser" customized shortcuts in EU-FOSSA bounty program by implementing them in more secure way: Add "View Current File in Browser" for Firefox, Chrome, IE & Edge.
+6.  Retain read only setting state in session.
+7.  Enhancement: after file reload user can still undo.
+8.  Fix a bug in command "Remove Consecutive Duplicate Lines" and make it work with old Macintosh EOL.
+9.  Fix UDL language marker bullet position, if UDL Name exceeds 14 characters, extend UDL names to max 64 characters.
+10. Enhance external call code to avoid eventual arbitrary commands execution. (EURO-FOSSA)
+11. Fix crash issue by command "On Selection->Open File" while the number of selected characters is exceed 2048. (EURO-FOSSA)
+12. Fix crash issue of User Define dialog while deleting a unallocated entry. (EURO-FOSSA)
+13. Fix crash issue on shortcut command while its length exceed 260. (EURO-FOSSA)
+14. Add an enhancement on "Open..." command to prevent from the eventual crash. (EURO-FOSSA)
+15. Fix stack Buffer Overflow in Command::extractArgs. (EURO-FOSSA)
 
 Included plugins:
 
 1.  NppExport v0.2.8 (32-bit x86 only)
 2.  Converter 4.2.1
 3.  Mime Tool 2.5
-
 
 Updater (Installer only):
 

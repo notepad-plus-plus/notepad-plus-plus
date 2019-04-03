@@ -34,9 +34,9 @@ If ErrorLevel 1 goto End
 signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin\NppShell64_06.dll
 If ErrorLevel 1 goto End
 
-signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin\nppPluginList.dll
+signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin\plugins\Config\nppPluginList.dll
 If ErrorLevel 1 goto End
-signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin64\nppPluginList.dll
+signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin64\plugins\Config\nppPluginList.dll
 If ErrorLevel 1 goto End
 
 signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin\updater\GUP.exe

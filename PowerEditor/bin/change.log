@@ -1,3 +1,8 @@
+Notepad++ v7.6.6 bug-fix:
+
+1. Fix crash issue inserted by adding an enhancement for retaining read only setting state in session.
+
+
 Notepad++ v7.6.5 new features and bug-fixes:
 
 0.  Security enhancement: GPG Signature is provided for Notepad++ release.

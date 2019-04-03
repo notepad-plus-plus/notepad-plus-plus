@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-	<Native-Langue name="Turkish" filename="turkish.xml" version="7.6.2">
+	<Native-Langue name="Turkish" filename="turkish.xml" version="7.6.5">
 		<Menu>
 			<Main>
 				<!-- Ana Menü Girişleri -->
@@ -79,6 +79,7 @@
 					<Item id="41005" name="Diğer Sekmeleri Kapat"/>
 					<Item id="41009" name="Soldaki Sekmeleri Kapat"/>
 					<Item id="41018" name="Sağdaki Sekmeleri Kapat"/>
+					<Item id="41024" name="Tüm Değiştirilmemişleri Kapat"/>
 					<Item id="41006" name="&amp;Kaydet"/>
 					<Item id="41007" name="&amp;Tümünü Kaydet"/>
 					<Item id="41008" name="&amp;Farklı Kaydet"/>
@@ -342,6 +343,7 @@
 				<Item CMID="19" name="Dosya Konumunu Windows Gezgini'nde Aç"/>
 				<Item CMID="20" name="Dosya Konumunu Komut İstemi'nde Aç"/>
 				<Item CMID="21" name="Varsayılan Görüntüleyicide Aç"/>
+				<Item CMID="22" name="Tüm Değiştirilmemişleri Kapat"/>
 			</TabBar>
 		</Menu>
 

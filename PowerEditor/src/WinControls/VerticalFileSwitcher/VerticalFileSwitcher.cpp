@@ -121,6 +121,13 @@ INT_PTR CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, 
 				{
 					// Switch to the right document
 					LPNMITEMACTIVATE lpnmitem = (LPNMITEMACTIVATE) lParam;
+
+					if (lpnmitem->hdr.hwndFrom != _fileListView.getHSelf())
+					{
+						// Do nothing
+						return TRUE;
+					}
+
 					int nbItem = ListView_GetItemCount(_fileListView.getHSelf());
 
 					if (nbSelectedFiles() == 1)

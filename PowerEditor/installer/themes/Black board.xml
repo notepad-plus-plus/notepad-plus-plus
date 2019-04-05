@@ -298,7 +298,7 @@ Credits:
         </LexerType>
         <LexerType name="css" desc="CSS" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="F8F8F8" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
-            <WordsStyle name="TAG" styleID="1" fgColor="FF6400" bgColor="0C1021" fontName="Batang" fontStyle="0" fontSize="10" />
+            <WordsStyle name="TAG" styleID="1" fgColor="FF6400" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="CLASS" styleID="2" fgColor="FF6400" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="PSEUDOCLASS" styleID="3" fgColor="FF6400" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="UNKNOWN_PSEUDOCLASS" styleID="4" fgColor="FF6400" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />

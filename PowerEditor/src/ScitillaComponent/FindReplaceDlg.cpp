@@ -233,8 +233,7 @@ const int STYLING_MASK = 255;
 FindReplaceDlg::~FindReplaceDlg()
 {
 	_tab.destroy();
-	if (_pFinder)
-		delete _pFinder;
+	delete _pFinder;
 	for (int n = static_cast<int32_t>(_findersOfFinder.size()) - 1; n >= 0; n--)
 	{
 		delete _findersOfFinder[n];
@@ -1657,8 +1656,6 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 		(*_ppEditView)->execute(SCI_STARTRECORD);
 
 	delete [] pText;
-
-	
 
 	return true;
 }

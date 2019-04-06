@@ -883,8 +883,7 @@ NppParameters::~NppParameters()
 
 bool NppParameters::reloadStylers(TCHAR* stylePath)
 {
-	if (_pXmlUserStylerDoc)
-		delete _pXmlUserStylerDoc;
+	delete _pXmlUserStylerDoc;
 
 	const TCHAR* stylePathToLoad = stylePath != nullptr ? stylePath : _stylerPath.c_str();
 	_pXmlUserStylerDoc = new TiXmlDocument(stylePathToLoad);
@@ -937,8 +936,7 @@ bool NppParameters::reloadLang()
 			return false;
 	}
 
-	if (_pXmlNativeLangDocA)
-		delete _pXmlNativeLangDocA;
+	delete _pXmlNativeLangDocA;
 
 	_pXmlNativeLangDocA = new TiXmlDocumentA();
 

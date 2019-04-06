@@ -360,8 +360,7 @@ public:
 			::DestroyAcceleratorTable(_hIncFindAccTab);
 		if (_hFindAccTab)
 			::DestroyAcceleratorTable(_hFindAccTab);
-		if (_pAccelArray)
-			delete [] _pAccelArray;
+		delete [] _pAccelArray;
 	};
 	void init(HMENU hMenu, HWND menuParent) {
 		_hAccelMenu = hMenu;

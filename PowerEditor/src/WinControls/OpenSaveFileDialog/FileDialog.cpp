@@ -70,11 +70,8 @@ FileDialog::FileDialog(HWND hwnd, HINSTANCE hInst)
 
 FileDialog::~FileDialog()
 {
-	if (_fileExt)
-	{
-		delete[] _fileExt;
-		_fileExt = NULL;
-	}
+	delete[] _fileExt;
+	_fileExt = NULL;
 }
 
 // This function set and concatenate the filter into the list box of FileDialog.

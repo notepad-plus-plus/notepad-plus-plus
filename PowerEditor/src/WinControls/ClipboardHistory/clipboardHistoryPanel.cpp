@@ -263,8 +263,7 @@ INT_PTR CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam,
 							catch (...)
 							{
 								MessageBox(_hSelf,	TEXT("Cannot process this clipboard data in the history:\nThe data is too large to be treated."), TEXT("Clipboard problem"), MB_OK | MB_APPLMODAL);
-								if (c)
-									delete[] c;
+								delete[] c;
 							}
 						}
 					}

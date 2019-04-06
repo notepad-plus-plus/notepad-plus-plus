@@ -502,8 +502,7 @@ void Accelerator::updateShortcuts()
 	size_t nbUserCmd = userCommands.size();
 	size_t nbPluginCmd = pluginCommands.size();
 
-	if (_pAccelArray)
-		delete [] _pAccelArray;
+	delete [] _pAccelArray;
 	_pAccelArray = new ACCEL[nbMenu+nbMacro+nbUserCmd+nbPluginCmd];
 	vector<ACCEL> incrFindAcc;
 

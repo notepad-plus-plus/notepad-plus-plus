@@ -90,8 +90,7 @@ void FunctionCallTip::setLanguageXML(TiXmlElement * pXmlKeyword)
 	reset();
 
 	// Also clear _funcName so that next getCursorFunction will call loadFunction to parse XML structure
-	if (_funcName)
-		delete [] _funcName;
+	delete [] _funcName;
 	_funcName = 0;
 }
 
@@ -281,10 +280,8 @@ bool FunctionCallTip::getCursorFunction()
 		}
 		if (!same)
 		{	//check if we need to reload data
-			if (_funcName)
-			{
-				delete [] _funcName;
-			}
+			delete [] _funcName;
+
 			_funcName = new TCHAR[funcToken.length+1];
 			wcscpy_s(_funcName, funcToken.length+1, funcToken.token);
 			res = loadFunction();
@@ -461,8 +458,7 @@ void FunctionCallTip::reset() {
 
 void FunctionCallTip::cleanup() {
 	reset();
-	if (_funcName)
-		delete [] _funcName;
+	delete [] _funcName;
 	_funcName = 0;
 	_pEditView = NULL;
 }

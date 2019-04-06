@@ -47,8 +47,7 @@ enum
 
 StatusBar::~StatusBar()
 {
-	if (_lpParts != nullptr)
-		delete[] _lpParts;
+	delete[] _lpParts;
 }
 
 

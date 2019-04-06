@@ -772,8 +772,7 @@ bool AutoCompletion::setLanguage(LangType language) {
 	wcscat_s(path, getApiFileName());
 	wcscat_s(path, TEXT(".xml"));
 
-	if (_pXmlFile)
-		delete _pXmlFile;
+	delete _pXmlFile;
 
 	_pXmlFile = new TiXmlDocument(path);
 	_funcCompletionActive = _pXmlFile->LoadFile();

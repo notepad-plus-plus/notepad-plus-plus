@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 Catalan translation for Notepad++
-Updated 02.01.2019, v7.6.2
+Updated 06.04.2019, v7.6.6
 By Hiro5 <groccat at gmail>
 -->
 <NotepadPlus>
-	<Native-Langue name="Català" filename="catalan.xml" version="7.6.2">
+	<Native-Langue name="Català" filename="catalan.xml" version="7.6.6">
 		<Menu>
 			<Main>
 				<Entries>
@@ -41,6 +41,7 @@ By Hiro5 <groccat at gmail>
 					<Item subMenuId="search-jumpUp" name="Cerca &amp;marca anterior"/>
 					<Item subMenuId="search-jumpDown" name="Cerca marca se&amp;güent"/>
 					<Item subMenuId="search-bookmark" name="Operacions amb mar&amp;ques de línia"/>
+					<Item subMenuId="view-currentFileIn" name="Mostra el fitxer actual a"/>
 					<Item subMenuId="view-showSymbol" name="Mostra sím&amp;bol"/>
 					<Item subMenuId="view-zoom" name="&amp;Zoom"/>
 					<Item subMenuId="view-moveCloneDocument" name="M&amp;ou/clona el document actual"/>
@@ -87,6 +88,7 @@ By Hiro5 <groccat at gmail>
 					<Item id="41005" name="Tanca'ls tots &amp;menys l'actiu"/>
 					<Item id="41009" name="Tanca tots els de l'&amp;esquerra"/>
 					<Item id="41018" name="Tanca tots els de la &amp;dreta"/>
+					<Item id="41024" name="Tanca tots els no canviats"/>
 					<Item id="41016" name="Es&amp;borra del disc"/>
 					<Item id="41012" name="Carre&amp;ga Sessió..."/>
 					<Item id="41013" name="Desa &amp;Sessió..."/>
@@ -118,6 +120,7 @@ By Hiro5 <groccat at gmail>
 					<Item id="42071" name="iNVERTEIX mAJ./mIN."/>
 					<Item id="42072" name="MaJ./mIn. ALeATori"/>
 					<Item id="42010" name="&amp;Duplica línia actual"/>
+					<Item id="42077" name="Esborra línies duplicades consecutives"/>
 					<Item id="42012" name="&amp;Talla línies"/>
 					<Item id="42013" name="&amp;Uneix línies"/>
 					<Item id="42059" name="Ordena línies ascendentment"/>
@@ -297,6 +300,7 @@ By Hiro5 <groccat at gmail>
 					<Item id="46180" name="D&amp;efinit per l'usuari"/>
 					<Item id="46250" name="Definiu el llenguatge..."/>
 					<Item id="48011" name="&amp;Preferències..."/>
+					<Item id="48014" name="Obre la carpeta dels complements"/>
 					<Item id="46001" name="&amp;Configuració d'estil..."/>
 					<Item id="48009" name="&amp;Editor de tecles de dreceres..."/>
 					<Item id="48005" name="Importa &amp;complements ..."/>
@@ -337,6 +341,7 @@ By Hiro5 <groccat at gmail>
 				<Item CMID="1"  name="Tanca'ls tots m&amp;enys aquest"/>
 				<Item CMID="17" name="Tanca tots els de l'esquerra"/>
 				<Item CMID="18" name="Tanca tots els de la dreta"/>
+				<Item CMID="22" name="Tanca tots els no canviats"/>
 				<Item CMID="2"  name="&amp;Desa"/>
 				<Item CMID="3"  name="Desa &amp;com a..."/>
 				<Item CMID="10" name="Canvia el &amp;nom..."/>
@@ -882,6 +887,11 @@ By Hiro5 <groccat at gmail>
 					<Item id="6267" name="Indiqueu el directori del núvol aquí:"/>
 				</Cloud>
 				<MISC title="Miscel·lània">
+					<ComboBox id="6347">
+						<Element name="Activa"/>
+						<Element name="Activa a tots els fitxers oberts"/>
+						<Element name="Desactiva"/>
+					</ComboBox>
 					<Item id="6324" name="Canvi de document (Ctrl+Tab)"/>
 					<Item id="6114" name="Habilita"/>
 					<Item id="6117" name="Ordena per l'editat més recent"/>
@@ -1011,6 +1021,7 @@ By Hiro5 <groccat at gmail>
 			<OpenInAdminMode title="Error en desar" message="El fitxer no es pot desar i pot estar protegit.&#xD;Voleu iniciar Notepad++ en mode d'administrador?"/>
 			<OpenInAdminModeWithoutCloseCurrent title="Error en desar" message="El fitxer no es pot desar i pot estar protegit.&#xD;Voleu iniciar Notepad++ en mode d'administrador?"/>
 			<OpenInAdminModeFailed title="Error en obrir en mode d'administrador" message="No es pot obrir Notepad++ en mode d'administrador."/>
+			<ViewInBrowser title="Mostra el fitxer actual al navegador" message="No s'ha trobat l'aplicació al vostre sistema."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historial del porta-retalls"/>
@@ -1123,8 +1134,8 @@ By Hiro5 <groccat at gmail>
 			<find-status-replaceinopenedfiles-nb-replaced value="Reemplaça en fitxers oberts: $INT_REPLACE$ resultats reemplaçats"/>
 			<find-status-mark-re-malformed value="Marca: L'expressió regular de cerca està mal formada"/>
 			<find-status-invalid-re value="Cerca: Expressió regular no vàlida"/>
-			<find-status-mark-1-match value="1 coincidència"/>
-			<find-status-mark-nb-matches value="$INT_REPLACE$ coincidències"/>
+			<find-status-mark-1-match value="1 coincidència marcada"/>
+			<find-status-mark-nb-matches value="$INT_REPLACE$ coincidències marcades"/>
 			<find-status-count-re-malformed value="Compta: L'expressió regular de cerca està mal formada"/>
 			<find-status-count-1-match value="Compta: 1 coincidència"/>
 			<find-status-count-nb-matches value="Compta: $INT_REPLACE$ coincidències"/>
@@ -1147,6 +1158,18 @@ By Hiro5 <groccat at gmail>
 			<finder-select-all value="Selecciona-ho tot"/>
 			<finder-clear-all value="Neteja-ho tot"/>
 			<finder-open-all value="Obre-ho tot"/>
+			<common-ok value="D'acord"/>
+			<common-cancel value="Cancel·la"/>
+			<common-name value="Nom: "/>
+			<tabrename-title value="Canvia el nom de la pestanya actual"/>
+			<tabrename-newname value="Nom nou: "/>
+			<recent-file-history-maxfile value="Màx. fitxers: "/>
+			<language-tabsize value="Mida de Tab.: "/>
+			<userdefined-title-new value="Crea un nou llenguatge..."/>
+			<userdefined-title-save value="Anomena i desa el llenguatge actual..."/>
+			<userdefined-title-rename value="Canvia el nom del llenguatge actual"/>
+			<autocomplete-nb-char value="Nre. car.: "/>
+			<edit-verticaledge-nb-col value="Nre. de columnes:"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

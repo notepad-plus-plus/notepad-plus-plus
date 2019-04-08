@@ -169,7 +169,7 @@ const TCHAR* TiXmlBase::SkipWhiteSpace( const TCHAR* p )
 #ifdef TIXML_USE_STL
 /*static*/ bool TiXmlBase::StreamWhiteSpace( TIXML_ISTREAM * in, TIXML_STRING * tag )
 {
-	for( ;; )
+	for ( ;; )
 	{
 		if ( !in->good() ) return false;
 
@@ -504,7 +504,7 @@ TiXmlNode* TiXmlNode::Identify( const TCHAR* p )
 	TiXmlNode* returnNode = 0;
 
 	p = SkipWhiteSpace( p );
-	if( !p || !*p || *p != '<' )
+	if ( !p || !*p || *p != '<' )
 	{
 		return 0;
 	}
@@ -627,7 +627,7 @@ void TiXmlElement::StreamIn (TIXML_ISTREAM * in, TIXML_STRING * tag)
 			bool closingTag = false;
 			bool firstCharFound = false;
 
-			for( ;; )
+			for ( ;; )
 			{
 				if ( !in->good() )
 					return;

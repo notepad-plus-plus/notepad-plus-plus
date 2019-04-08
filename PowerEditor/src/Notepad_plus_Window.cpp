@@ -130,7 +130,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 		WINDOWPLACEMENT posInfo;
 	    posInfo.length = sizeof(WINDOWPLACEMENT);
 		posInfo.flags = 0;
-		if(_isPrelaunch)
+		if (_isPrelaunch)
 			posInfo.showCmd = SW_HIDE;
 		else
 			posInfo.showCmd = nppGUI._isMaximized ? SW_SHOWMAXIMIZED : SW_SHOWNORMAL;
@@ -311,7 +311,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	bool isSnapshotMode = nppGUI.isSnapshotMode();
 	if (isSnapshotMode)
 	{
-		_notepad_plus_plus_core.checkModifiedDocument();
+		_notepad_plus_plus_core.checkModifiedDocument(false);
 		// Lauch backup task
 		_notepad_plus_plus_core.launchDocumentBackupTask();
 	}

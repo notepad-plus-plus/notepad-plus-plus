@@ -57,7 +57,7 @@ void Splitter::init( HINSTANCE hInst, HWND hPere, int splitterSize, double iSpli
 		throw std::runtime_error("Splitter::init : Parameter iSplitRatio shoulds be 0 < ratio < 100");
 
 	Window::init(hInst, hPere);
-	_spiltterSize = splitterSize;
+	_splitterSize = splitterSize;
 
 	WNDCLASSEX wcex;
 	DWORD dwExStyle = 0L;
@@ -95,13 +95,13 @@ void Splitter::init( HINSTANCE hInst, HWND hPere, int splitterSize, double iSpli
 
 	if (_dwFlags & SV_HORIZONTAL) //Horizontal spliter
 	{
-		_rect.top  = (LONG)((_rect.bottom * _splitPercent)/100);
+		_rect.top  = (LONG)((_rect.bottom * _splitPercent)/100) - _splitterSize / 2;
 		// y axis determined by the split% of the parent windows height
 
 		_rect.left = 0;
 		// x axis is always 0
 
-		_rect.bottom = _spiltterSize;
+		_rect.bottom = _splitterSize;
 		// the height of the spliter
 
 		// the width of the splitter remains the same as the width of the parent window.
@@ -110,10 +110,10 @@ void Splitter::init( HINSTANCE hInst, HWND hPere, int splitterSize, double iSpli
 	{
 		// y axis is 0 always
 
-		_rect.left = (LONG)((_rect.right * _splitPercent)/100);
+		_rect.left = (LONG)((_rect.right * _splitPercent)/100) - _splitterSize / 2;
 		// x axis determined by split% of the parent windows width.
 
-		_rect.right = _spiltterSize;
+		_rect.right = _splitterSize;
 		// width of the spliter.
 
 		//height of the spliter remains the same as the height of the parent window
@@ -218,11 +218,11 @@ void Splitter::destroy()
 int Splitter::getClickZone(WH which)
 {
 	// determinated by (_dwFlags & SV_VERTICAL) && _splitterSize
-	if (_spiltterSize <= 8)
+	if (_splitterSize <= 8)
 	{
 		return isVertical()
-			? (which == WH::width ? _spiltterSize  : HIEGHT_MINIMAL)
-			: (which == WH::width ? HIEGHT_MINIMAL : _spiltterSize);
+			? (which == WH::width ? _splitterSize  : HIEGHT_MINIMAL)
+			: (which == WH::width ? HIEGHT_MINIMAL : _splitterSize);
 	}
 	else // (_spiltterSize > 8)
 	{
@@ -371,11 +371,11 @@ LRESULT CALLBACK Splitter::spliterWndProc(UINT uMsg, WPARAM wParam, LPARAM lPara
 
 			if (_dwFlags & SV_HORIZONTAL) 
 			{
-				_rect.top = r.bottom / 2;
+				_rect.top = (r.bottom - _splitterSize) / 2;
 			}
 			else
 			{
-				_rect.left = r.right / 2;
+				_rect.left = (r.right - _splitterSize) / 2;
 			}
 
 			_splitPercent = 50;
@@ -441,7 +441,7 @@ void Splitter::resizeSpliter(RECT *pRect)
 
 		//if resizeing should be done proportionately.
 		if (_dwFlags & SV_RESIZEWTHPERCNT)
-			_rect.top  = (LONG)((rect.bottom * _splitPercent)/100);
+			_rect.top  = (LONG)((rect.bottom * _splitPercent)/100) - _splitterSize / 2;
 		else // soit la fenetre en haut soit la fenetre en bas qui est fixee
 			_rect.top = getSplitterFixPosY();
 	}
@@ -454,7 +454,7 @@ void Splitter::resizeSpliter(RECT *pRect)
 		//if resizeing should be done proportionately.
 		if (_dwFlags & SV_RESIZEWTHPERCNT)
 		{
-			_rect.left = (LONG)((rect.right * _splitPercent)/100);
+			_rect.left = (LONG)((rect.right * _splitPercent)/100) - _splitterSize / 2;
 		}
 		else // soit la fenetre gauche soit la fenetre droit qui est fixee
 			_rect.left = getSplitterFixPosX();
@@ -503,9 +503,9 @@ void Splitter::gotoRightBouuom()
 		GetClientRect(_hParent,&rt);
 
 		if (_dwFlags & SV_HORIZONTAL)
-			_rect.top   = rt.bottom - _spiltterSize;
+			_rect.top   = rt.bottom - _splitterSize;
 		else
-			_rect.left   = rt.right - _spiltterSize;
+			_rect.left   = rt.right - _splitterSize;
 
 		_splitPercent = 99;
 
@@ -524,7 +524,7 @@ void Splitter::drawSplitter()
 	HDC hdc = ::BeginPaint(_hSelf, &ps);
 	getClientRect(rc);
 
-	if ((_spiltterSize >= 4) && (_dwFlags & SV_RESIZEWTHPERCNT))
+	if ((_splitterSize >= 4) && (_dwFlags & SV_RESIZEWTHPERCNT))
 	{
 		adjustZoneToDraw(TLrc, ZONE_TYPE::topLeft);
 		adjustZoneToDraw(BRrc, ZONE_TYPE::bottomRight);
@@ -590,7 +590,7 @@ void Splitter::drawSplitter()
 		rcToDraw1.bottom += 4;
 	}
 
-	if ((_spiltterSize >= 4) && (_dwFlags & SV_RESIZEWTHPERCNT))
+	if ((_splitterSize >= 4) && (_dwFlags & SV_RESIZEWTHPERCNT))
 		paintArrow(hdc, BRrc, isVertical() ? Arrow::right : Arrow::down);
 
 	::EndPaint(_hSelf, &ps);
@@ -614,7 +614,7 @@ void Splitter::rotate()
 			_dwFlags |= SV_HORIZONTAL;
 		}
 
-		init(_hInst, _hParent, _spiltterSize, _splitPercent, _dwFlags);
+		init(_hInst, _hParent, _splitterSize, _splitPercent, _dwFlags);
 	}
 }
 
@@ -688,12 +688,12 @@ void Splitter::paintArrow(HDC hdc, const RECT &rect, Arrow arrowDir)
 
 void Splitter::adjustZoneToDraw(RECT& rc2def, ZONE_TYPE whichZone)
 {
-	if (_spiltterSize < 4)
+	if (_splitterSize < 4)
 		return;
 
 	int x0, y0, x1, y1, w, h;
 
-	if ((4 <= _spiltterSize) && (_spiltterSize <= 8))
+	if ((4 <= _splitterSize) && (_splitterSize <= 8))
 	{
 		w = (isVertical() ? 4 : 7);
 		h = (isVertical() ? 7 : 4);

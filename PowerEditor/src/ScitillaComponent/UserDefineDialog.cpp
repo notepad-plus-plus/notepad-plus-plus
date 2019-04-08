@@ -948,6 +948,7 @@ void UserDefineDialog::updateDlg()
 INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
     NppParameters *pNppParam = NppParameters::getInstance();
+	NativeLangSpeaker * pNativeSpeaker = pNppParam->getNativeLangSpeaker();
 
     switch (message)
     {
@@ -1176,8 +1177,11 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
 						::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETLBTEXT, i, reinterpret_cast<LPARAM>(langName));
 
+						generic_string strName = pNativeSpeaker->getLocalizedStrFromID("common-name", TEXT("Name: "));
+						generic_string strTitle = pNativeSpeaker->getLocalizedStrFromID("userdefined-title-rename", TEXT("Rename Current Language Name"));
+
                         StringDlg strDlg;
-                        strDlg.init(_hInst, _hSelf, TEXT("Rename Current Language Name"), TEXT("Name : "), langName, langNameLenMax-1);
+                        strDlg.init(_hInst, _hSelf, strTitle.c_str(), strName.c_str(), langName, langNameLenMax - 1);
 
                         TCHAR *newName = (TCHAR *)strDlg.doDialog();
 
@@ -1221,11 +1225,14 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
                         if (i == 0)
                             wParam = IDC_ADDNEW_BUTTON;
 
+
+						generic_string strName = pNativeSpeaker->getLocalizedStrFromID("common-name", TEXT("Name: "));
+						generic_string strTitle = (wParam == IDC_SAVEAS_BUTTON) ?
+							pNativeSpeaker->getLocalizedStrFromID("userdefined-title-save", TEXT("Save Current Language Name As...")) :
+							pNativeSpeaker->getLocalizedStrFromID("userdefined-title-new", TEXT("Create New Language..."));
+
                         StringDlg strDlg;
-                        if (wParam == IDC_SAVEAS_BUTTON)
-                            strDlg.init(_hInst, _hSelf, TEXT("Save Current Language Name As..."), TEXT("Name : "), TEXT(""), langNameLenMax-1);
-                        else
-                            strDlg.init(_hInst, _hSelf, TEXT("Create New Language..."), TEXT("Name : "), TEXT(""), langNameLenMax-1);
+						strDlg.init(_hInst, _hSelf, strTitle.c_str(), strName.c_str(), TEXT(""), langNameLenMax - 1);
 
                         TCHAR *tmpName = reinterpret_cast<TCHAR *>(strDlg.doDialog());
 
@@ -1236,7 +1243,7 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
                             if (pNppParam->isExistingUserLangName(newName))
                             {
-								pNppParam->getNativeLangSpeaker()->messageBox("UDLNewNameError",
+								pNativeSpeaker->messageBox("UDLNewNameError",
 									_hSelf,
 									TEXT("This name is used by another language,\rplease give another one."),
 									TEXT("UDL Error"),
@@ -1443,13 +1450,34 @@ INT_PTR CALLBACK StringDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
     {
         case WM_INITDIALOG :
         {
+			// Re-route to Subclassed the edit control's proc if needed
+			if (_restrictedChars.length())
+			{
+				::SetWindowLongPtr(GetDlgItem(_hSelf, IDC_STRING_EDIT), GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
+				_oldEditProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(GetDlgItem(_hSelf, IDC_STRING_EDIT), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(customEditProc)));
+			}
+
             ::SetWindowText(_hSelf, _title.c_str());
             ::SetDlgItemText(_hSelf, IDC_STRING_STATIC, _static.c_str());
             ::SetDlgItemText(_hSelf, IDC_STRING_EDIT, _textValue.c_str());
             if (_txtLen)
                 ::SendDlgItemMessage(_hSelf, IDC_STRING_EDIT, EM_SETLIMITTEXT, _txtLen, 0);
 
-            return TRUE;
+			// localization for OK and Cancel
+			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+			if (pNativeSpeaker)
+			{
+				generic_string ok = pNativeSpeaker->getLocalizedStrFromID("common-ok", TEXT("OK"));
+				generic_string cancel = pNativeSpeaker->getLocalizedStrFromID("common-cancel", TEXT("Cancel"));
+
+				::SetDlgItemText(_hSelf, IDOK, ok.c_str());
+				::SetDlgItemText(_hSelf, IDCANCEL, cancel.c_str());
+			}
+
+			if (_shouldGotoCenter)
+				goToCenter();
+
+			return TRUE;
         }
 
         case WM_COMMAND :
@@ -1477,6 +1505,80 @@ INT_PTR CALLBACK StringDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
         default :
             return FALSE;
     }
+}
+
+LRESULT StringDlg::customEditProc(HWND hEdit, UINT msg, WPARAM wParam, LPARAM lParam)
+{
+	StringDlg *pSelf = reinterpret_cast<StringDlg *>(::GetWindowLongPtr(hEdit, GWLP_USERDATA));
+	if (!pSelf)
+	{
+		return 0;
+	}
+
+	switch (msg)
+	{
+	case WM_CHAR:
+		if (0x80 & GetKeyState(VK_CONTROL))
+		{
+			switch (wParam)
+			{
+			case 0x16: // ctrl - V
+				pSelf->HandlePaste(hEdit);
+				return 0;
+
+			case 0x03: // ctrl - C
+			case 0x18: // ctrl - X
+			default:
+				// Let them go to default
+				break;
+			}
+		}
+		else
+		{
+			// If Key pressed not permitted, then return 0
+			if (!pSelf->isAllowed(reinterpret_cast<TCHAR*>(&wParam)))
+				return 0;
+		}
+		break;
+
+	case WM_DESTROY:
+		// Reset the message handler to the original one
+		SetWindowLongPtr(hEdit, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(pSelf->_oldEditProc));
+		return 0;
+	}
+
+	// Process the message using the default handler
+	return CallWindowProc(pSelf->_oldEditProc, hEdit, msg, wParam, lParam);
+}
+
+bool StringDlg::isAllowed(const generic_string & txt)
+{
+	for (auto ch : txt)
+	{
+		if (std::find(_restrictedChars.cbegin(), _restrictedChars.cend(), ch) != _restrictedChars.cend())
+			return false;
+	}
+	return true;
+}
+
+void StringDlg::HandlePaste(HWND hEdit)
+{
+	if (OpenClipboard(hEdit))
+	{
+		HANDLE hClipboardData = GetClipboardData(CF_UNICODETEXT);
+		if (NULL != hClipboardData)
+		{
+			LPTSTR pszText = reinterpret_cast<LPTSTR>(GlobalLock(hClipboardData));
+			if (NULL != pszText && isAllowed(pszText))
+			{
+				SendMessage(hEdit, EM_REPLACESEL, TRUE, reinterpret_cast<LPARAM>(pszText));
+			}
+
+			GlobalUnlock(hClipboardData);
+		}
+
+		CloseClipboard();
+	}
 }
 
 INT_PTR CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -1508,7 +1610,7 @@ INT_PTR CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPAR
 
             // for the font size combo
             HWND hFontSizeCombo = ::GetDlgItem(hwnd, IDC_STYLER_COMBO_FONT_SIZE);
-            for(int j = 0 ; j < int(sizeof(fontSizeStrs))/(3*sizeof(TCHAR)) ; ++j)
+            for (int j = 0 ; j < int(sizeof(fontSizeStrs))/(3*sizeof(TCHAR)) ; ++j)
 				::SendMessage(hFontSizeCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(fontSizeStrs[j]));
 
             TCHAR size[10];

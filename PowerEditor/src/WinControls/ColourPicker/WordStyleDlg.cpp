@@ -106,7 +106,7 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 			_currentThemeIndex = -1;
 			int defaultThemeIndex = 0;
 			ThemeSwitcher & themeSwitcher = nppParamInst->getThemeSwitcher();
-			for(size_t i = 0 ; i < themeSwitcher.size() ; ++i)
+			for (size_t i = 0 ; i < themeSwitcher.size() ; ++i)
 			{
 				pair<generic_string, generic_string> & themeInfo = themeSwitcher.getElementFromIndex(i);
 				int j = static_cast<int32_t>(::SendMessage(_hSwitch2ThemeCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(themeInfo.first.c_str())));
@@ -126,7 +126,7 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 			}
 			::SendMessage(_hSwitch2ThemeCombo, CB_SETCURSEL, _currentThemeIndex, 0);
 
-			for(int i = 0 ; i < sizeof(fontSizeStrs)/(3*sizeof(TCHAR)) ; ++i)
+			for (int i = 0 ; i < sizeof(fontSizeStrs)/(3*sizeof(TCHAR)) ; ++i)
 				::SendMessage(_hFontSizeCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(fontSizeStrs[i]));
 
 			const std::vector<generic_string> & fontlist = (NppParameters::getInstance())->getFontList();
@@ -744,11 +744,11 @@ void WordStyleDlg::setVisualFromStyleList()
 	if (lbTextLen > styleNameLen)
 		return;
 	::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXT, i, reinterpret_cast<LPARAM>(styleName));
-
-	lstrcat(lstrcat(str, TEXT(" : ")), styleName);
+	wcscat_s(str, TEXT(" : "));
+	wcscat_s(str, styleName);
 
 	// PAD for fix a display glitch
-	lstrcat(str, TEXT("          "));
+	wcscat_s(str, TEXT("          "));
 	colourHooker.setColour(c);
 	::SetWindowText(_hStyleInfoStaticText, str);
 

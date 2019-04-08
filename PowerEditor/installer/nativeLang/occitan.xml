@@ -1148,7 +1148,6 @@ Deuretz tornar lançar Notepad++ per que siá efectiu."/>
 			<find-status-replace-not-found value="Remplaçar : cap d'ocurrénia trobada"/>
 			<find-status-replace-readonly value="Remplaçar : Impossible de remplaçar lo tèxt. Lo document actiu es en lectura sola"/>
 			<find-status-cannot-find value="Recèrca : Impossible de trobar lo tèxt &quot;$STR_REPLACE$&quot;"/>
-			<find-status-mark-nb-matches value="$INT_REPLACE$ ocurréncias"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

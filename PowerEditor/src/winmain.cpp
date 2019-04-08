@@ -494,7 +494,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 	winVer ver = pNppParameters->getWinVersion();
 	bool isGtXP = ver > WV_XP;
 
-	bool isSignatureOK = VerifySignedLibrary(updaterFullPath.c_str(), NPP_COMPONENT_SIGNER_KEY_ID, NPP_COMPONENT_SIGNER_SUBJECT, NPP_COMPONENT_SIGNER_DISPLAY_NAME, false, false, false);
+	SecurityGard securityGard;
+	bool isSignatureOK = securityGard.checkModule(updaterFullPath, nm_gup);
 
 	if (TheFirstOne && isUpExist && doUpdate && isGtXP && isSignatureOK)
 	{
@@ -542,7 +543,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 		TCHAR str[50] = TEXT("God Damned Exception : ");
 		TCHAR code[10];
 		wsprintf(code, TEXT("%d"), i);
-		::MessageBox(Notepad_plus_Window::gNppHWND, lstrcat(str, code), TEXT("Int Exception"), MB_OK);
+		wcscat_s(str, code);
+		::MessageBox(Notepad_plus_Window::gNppHWND, str, TEXT("Int Exception"), MB_OK);
 		doException(notepad_plus_plus);
 	}
 	catch (std::runtime_error & ex)

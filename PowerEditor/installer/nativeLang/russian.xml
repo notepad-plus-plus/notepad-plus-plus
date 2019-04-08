@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
+<!--
+Russian translation for Notepad++
+Updated to v7.6.2:
+- add tr. SHA-256
+- add tr. ShortcutMapper
+- minor fixes
+-->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="7.6">
+	<Native-Langue name="Русский" filename="russian.xml" version="7.6.2">
 		<Menu>
 			<Main>
 
@@ -64,6 +71,7 @@
 					<Item subMenuId="encoding-vietnamese" name="Вьетнамский"/>
 					<Item subMenuId="settings-import"  name="Импортировать"/>
 					<Item subMenuId="tools-md5"  name="MD5"/>
+                    <Item subMenuId="tools-sha256"  name="SHA-256"/>
 				</SubEntries>
 
 				<Commands>
@@ -141,7 +149,7 @@
 					<Item id="42049" name="Вырезать как Двоичный код"/>
 					<Item id="42050" name="Вставить как Двоичный код"/>
 					<Item id="42051" name="Табл&amp;ица символов"/>
-					<Item id="42052" name="&amp;Панель истории буфера обмена"/>
+					<Item id="42052" name="&amp;Панель истории Буфера"/>
 					<Item id="42053" name="Пробел в Табуляцию (в начале строки)"/>
 					<Item id="42054" name="Пробел в Табуляцию (все)"/>
 					<Item id="42055" name="Удалить Пустые Строки"/>
@@ -289,11 +297,11 @@
 					<Item id="47006" name="Обновить Notepad++"/>
 					<Item id="47009" name="Задать прокси обновления..."/>
 					<Item id="47010" name="Параметры командной строки"/>
-					<Item id="47011" name="Поддержка Онлайн"/>
+					<Item id="47011" name="Онлайн Поддержка"/>
 					<Item id="47012" name="Отладочная информация"/>
 					<Item id="48005" name="Импортировать Плагин(ы)"/>
 					<Item id="48006" name="Импортировать Тему(ы)"/>
-					<Item id="48009" name="Горячие клавиши..."/>
+					<Item id="48009" name="Сочетание клавиш..."/>
 					<Item id="48011" name="&amp;Настройки..."/>
 					<Item id="48015" name="Управление Плагинами..."/>
 					<Item id="48016" name="Измен. гор. клав./Удалить макро..."/>
@@ -302,6 +310,9 @@
 					<Item id="48501" name="Сгенерировать..."/>
 					<Item id="48502" name="Сгенерировать из файлов..."/>
 					<Item id="48503" name="Сген. из копированного в буфер"/>
+					<Item id="48504" name="Сгенерировать..."/>
+					<Item id="48505" name="Сгенерировать из файлов..."/>
+					<Item id="48506" name="Сген. из копированного в буфер"/>
 					<Item id="49000" name="Запуск..."/>
 					<Item id="50000" name="Завершение функций"/>
 					<Item id="50001" name="Завершение слов"/>
@@ -420,8 +431,20 @@
 				<Item id="2"    name="Закрыть"/>
             </MD5FromTextDlg>
 
-            <PluginsAdminDlg title="Управление Плагинами" titleAvailable = "Доступные" titleUpdates = "Обновления" titleInstalled = "Удаление">
-                <ColumnPlugin   name="Плагин"/>
+            <SHA256FromFilesDlg title="Сгенерировать SHA-256 из файлов">
+                <Item id="1922" name="Выбрать файлы для генерации SHA-256..."/>
+                <Item id="1924" name="Копировать в Буфер"/>
+                <Item id="2"    name="Закрыть"/>
+            </SHA256FromFilesDlg>
+
+            <SHA256FromTextDlg title="Сгенерировать SHA-256">
+                <Item id="1932" name="Рассматривать каждую строку как отдельную"/>
+                <Item id="1934" name="Копировать в Буфер"/>
+                <Item id="2"    name="Закрыть"/>
+            </SHA256FromTextDlg>
+
+            <PluginsAdminDlg title="Управление Плагинами" titleAvailable = "Доступные" titleUpdates = "Обновления" titleInstalled = "Установленные">
+                <ColumnPlugin   name="Плагины"/>
                 <ColumnVersion  name="Версия"/>
                 <Item id="5501" name="Поиск:"/>
                 <Item id="5503" name="Установить"/>
@@ -461,6 +484,35 @@
 					<Item id="2232" name="Общее подчёркивание шрифтов"/>
 				</SubDialog>
             </StyleConfig>
+
+            <ShortcutMapper title="Назначение Клавиш Быстрого Доступа">
+                <Item id="2602" name="Изменить"/>
+                <Item id="2603" name="Удалить"/>
+                <Item id="2606" name="Очистить"/>
+                <Item id="2607" name="Фильтр: "/>
+                <Item id="1" name="Закрыть"/>
+                <ColumnName name="Имя"/>
+                <ColumnShortcut name="Клавиши"/>
+                <ColumnCategory name="Категория"/>
+                <ColumnPlugin name="Плагины"/>
+                <MainMenuTab name="Основные"/>
+                <MacrosTab name="Макросы"/>
+                <RunCommandsTab name="Команды Запуска"/>
+                <PluginCommandsTab name="Плагины"/>
+                <ScintillaCommandsTab name="Scintilla"/>
+                <ConflictInfoOk name="Конфликта клавиш этого элемента не обнаружено."/>
+                <ConflictInfoEditing name="Нет конфликтов . . ."/>
+            </ShortcutMapper>
+            <ShortcutMapperSubDialg title="Клавиши Быстрого Доступа">
+                <Item id="1" name="ОК"/>
+                <Item id="2" name="Отмена"/>
+                <Item id="5006" name="Имя"/>
+                <Item id="5008" name="Добавить"/>
+                <Item id="5009" name="Убрать"/>
+                <Item id="5010" name="Применить"/>
+                <Item id="5007" name="Это удалит сочетание клавиш этой команды."/>
+                <Item id="5012" name="НАЙДЕН КОНФЛИКТ!"/>
+            </ShortcutMapperSubDialg>
 
             <UserDefine title="Польз. определение языка">
 				<Item id="20001" name="Стыковать"/>
@@ -835,7 +887,7 @@
 					<Item id="6274" name="Bing"/>
 					<Item id="6275" name="Yahoo!"/>
 					<Item id="6276" name="Задавать свою поисковую систему:"/>
-					<!-- Don't change anything after Example: -->
+					<!-- Не менять ничего после Пример: -->
 					<Item id="6278" name="Пример: https://www.google.com/search?q=$(CURRENT_WORD)"/>
 				</SearchEngine>
 				<Backup title = "Резерв. Копирование">
@@ -872,7 +924,7 @@
 					<Item id="6866" name="Заказная пара 3:"/>
 				</AutoCompletion>
             </Preference>
-				<MultiMacro title = "Запустить многократно...">
+				<MultiMacro title = "Многократный запуск ...">
 				<Item id="1"    name="Запуск"/>
 				<Item id="2"    name="Отмена"/>
 				<Item id="8006" name="Макрос:"/>
@@ -1074,11 +1126,11 @@
             <two-find-buttons-tip value="2 направления поиска"/>
             <find-status-top-reached value="Поиск: Найдено одно совпадение снизу. Достигнуто начало документа."/>
             <find-status-end-reached value="Поиск: Найдено одно совпадение сверху. Достигнут конец документа."/>
-            <find-status-replaceinfiles-1-replaced value="Замена в файлах: 1 совпадение заменено"/>
-            <find-status-replaceinfiles-nb-replaced value="Замена в файлах: $INT_REPLACE$ совпадений заменено"/>
+            <find-status-replaceinfiles-1-replaced value="Замена в файлах: заменено 1 совпадение"/>
+            <find-status-replaceinfiles-nb-replaced value="Замена в файлах: заменено $INT_REPLACE$ совпадений"/>
             <find-status-replaceinfiles-re-malformed value="Замена в открытых файлах: Регулярное выражение искажено"/>
-            <find-status-replaceinopenedfiles-1-replaced value="Замена в открытых файлах: 1 совпадение заменено"/>
-            <find-status-replaceinopenedfiles-nb-replaced value="Замена в открытых файлах: $INT_REPLACE$ совпадений заменено"/>
+            <find-status-replaceinopenedfiles-1-replaced value="Замена в открытых файлах: заменено 1 совпадение"/>
+            <find-status-replaceinopenedfiles-nb-replaced value="Замена в открытых файлах: заменено $INT_REPLACE$ совпадений"/>
             <find-status-mark-re-malformed value="Пометки: Регулярное выражение для поиска искажено"/>
             <find-status-invalid-re value="Поиск: Недопустимое регулярное выражение"/>
             <find-status-mark-1-match value="Пометки: 1 совпадение"/>

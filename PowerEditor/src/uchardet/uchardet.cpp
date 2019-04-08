@@ -34,52 +34,47 @@
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
+
 #include "uchardet.h"
-#include <string.h>
-#include <stdlib.h>
 #include "nscore.h"
 #include "nsUniversalDetector.h"
+#include <string>
+
+using std::string;
 
 class HandleUniversalDetector : public nsUniversalDetector
 {
 protected:
-    char *m_charset;
+	string m_charset;
 
 public:
     HandleUniversalDetector()
     : nsUniversalDetector(NS_FILTER_ALL)
-    , m_charset(0)
     {
+        m_charset = "";
     }
 
     virtual ~HandleUniversalDetector()
-    {
-        if (m_charset)
-            free(m_charset);
-    }
+    {}
 
     virtual void Report(const char* charset)
     {
-        if (m_charset)
-            free(m_charset);
-        m_charset = strdup(charset);
+        m_charset = charset;
     }
 
     virtual void Reset()
     {
         nsUniversalDetector::Reset();
-        if (m_charset)
-            free(m_charset);
-        m_charset = strdup("");
+        m_charset = "";
     }
 
     const char* GetCharset() const
     {
-        return m_charset? m_charset : "";
+        return m_charset.c_str();
     }
 };
 
-uchardet_t uchardet_new(void)
+uchardet_t uchardet_new()
 {
     return reinterpret_cast<uchardet_t> (new HandleUniversalDetector());
 }

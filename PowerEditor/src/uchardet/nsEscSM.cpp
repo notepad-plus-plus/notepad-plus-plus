@@ -34,6 +34,7 @@
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
+
 #include "nsCodingStateMachine.h"
 
 static const PRUint32 HZ_cls[ 256 / 8 ] = {
@@ -83,13 +84,12 @@ PCK4BITS(     4,eItsMe,eStart,eStart,eStart,eStart,eStart,eStart) //28-2f
 
 static const PRUint32 HZCharLenTable[] = {0, 0, 0, 0, 0, 0};
 
-const SMModel HZSMModel = {
-  {eIdxSft4bits, eSftMsk4bits, eBitSft4bits, eUnitMsk4bits, HZ_cls },
+const SMModel HZSMModel(
+  nsPkgInt(eIdxSft4bits, eSftMsk4bits, eBitSft4bits, eUnitMsk4bits, HZ_cls),
    6,
-  {eIdxSft4bits, eSftMsk4bits, eBitSft4bits, eUnitMsk4bits, HZ_st },
+  nsPkgInt(eIdxSft4bits, eSftMsk4bits, eBitSft4bits, eUnitMsk4bits, HZ_st),
   HZCharLenTable,
-  "HZ-GB-2312",
-};
+  "HZ-GB-2312");
 
 
 static const PRUint32 ISO2022CN_cls [ 256 / 8 ] = {
@@ -141,13 +141,12 @@ PCK4BITS(eError,eError,eError,eError,eError,eItsMe,eError,eStart) //38-3f
 
 static const PRUint32 ISO2022CNCharLenTable[] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-const SMModel ISO2022CNSMModel = {
-  {eIdxSft4bits, eSftMsk4bits, eBitSft4bits, eUnitMsk4bits, ISO2022CN_cls },
+const SMModel ISO2022CNSMModel(
+  nsPkgInt(eIdxSft4bits, eSftMsk4bits, eBitSft4bits, eUnitMsk4bits, ISO2022CN_cls),
   9,
-  {eIdxSft4bits, eSftMsk4bits, eBitSft4bits, eUnitMsk4bits, ISO2022CN_st },
+  nsPkgInt(eIdxSft4bits, eSftMsk4bits, eBitSft4bits, eUnitMsk4bits, ISO2022CN_st),
   ISO2022CNCharLenTable,
-  "ISO-2022-CN",
-};
+  "ISO-2022-CN");
 
 static const PRUint32 ISO2022JP_cls [ 256 / 8 ] = {
 PCK4BITS(2,0,0,0,0,0,0,0),  // 00 - 07 
@@ -199,13 +198,12 @@ PCK4BITS(eError,eError,eError,eError,eItsMe,eError,eStart,eStart) //40-47
 
 static const PRUint32 ISO2022JPCharLenTable[] = {0, 0, 0, 0, 0, 0, 0, 0};
 
-const SMModel ISO2022JPSMModel = {
-  {eIdxSft4bits, eSftMsk4bits, eBitSft4bits, eUnitMsk4bits, ISO2022JP_cls },
+const SMModel ISO2022JPSMModel(
+  nsPkgInt(eIdxSft4bits, eSftMsk4bits, eBitSft4bits, eUnitMsk4bits, ISO2022JP_cls),
   10,
-  {eIdxSft4bits, eSftMsk4bits, eBitSft4bits, eUnitMsk4bits, ISO2022JP_st },
+  nsPkgInt(eIdxSft4bits, eSftMsk4bits, eBitSft4bits, eUnitMsk4bits, ISO2022JP_st),
   ISO2022JPCharLenTable,
-  "ISO-2022-JP",
-};
+  "ISO-2022-JP");
 
 static const PRUint32 ISO2022KR_cls [ 256 / 8 ] = {
 PCK4BITS(2,0,0,0,0,0,0,0),  // 00 - 07 
@@ -253,11 +251,10 @@ PCK4BITS(eError,eError,eError,eItsMe,eStart,eStart,eStart,eStart) //20-27
 
 static const PRUint32 ISO2022KRCharLenTable[] = {0, 0, 0, 0, 0, 0};
 
-const SMModel ISO2022KRSMModel = {
-  {eIdxSft4bits, eSftMsk4bits, eBitSft4bits, eUnitMsk4bits, ISO2022KR_cls },
+const SMModel ISO2022KRSMModel(
+  nsPkgInt(eIdxSft4bits, eSftMsk4bits, eBitSft4bits, eUnitMsk4bits, ISO2022KR_cls),
    6,
-  {eIdxSft4bits, eSftMsk4bits, eBitSft4bits, eUnitMsk4bits, ISO2022KR_st },
+  nsPkgInt(eIdxSft4bits, eSftMsk4bits, eBitSft4bits, eUnitMsk4bits, ISO2022KR_st),
   ISO2022KRCharLenTable,
-  "ISO-2022-KR",
-};
+  "ISO-2022-KR");
 

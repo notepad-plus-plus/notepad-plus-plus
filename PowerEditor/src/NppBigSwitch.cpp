@@ -45,12 +45,6 @@ using namespace std;
 #define WM_DPICHANGED 0x02E0
 
 
-DWORD WINAPI CheckModifiedDocumentThread(LPVOID)
-{
-	MainFileManager->checkFilesystemChanges();
-	return 0;
-}
-
 struct SortTaskListPred final
 {
 	DocTabView *_views[2];
@@ -261,7 +255,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			_pEditView->getGenericSelectedText(str, strSize);
 			_findReplaceDlg.setSearchText(str);
 			if (isFirstTime)
-				_nativeLangSpeaker.changeDlgLang(_findReplaceDlg.getHSelf(), "Find");
+				_nativeLangSpeaker.changeFindReplaceDlgLang(_findReplaceDlg);
 			_findReplaceDlg.launchFindInFilesDlg();
 			setFindReplaceFolderFilter(reinterpret_cast<const TCHAR*>(wParam), reinterpret_cast<const TCHAR*>(lParam));
 
@@ -1357,11 +1351,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			if (not wParam || not lParam) // Clean up current session
 			{
-				if (_pShortcutMapper != nullptr)
-				{
-					delete _pShortcutMapper;
-					_pShortcutMapper = nullptr;
-				}
+				delete _pShortcutMapper;
+				_pShortcutMapper = nullptr;
 				return TRUE;
 			}
 
@@ -1544,7 +1535,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			const NppGUI & nppgui = pNppParam->getNppGUI();
 			if (nppgui._fileAutoDetection != cdDisabled)
 			{
-				checkModifiedDocument();
+				bool bCheckOnlyCurrentBuffer = (nppgui._fileAutoDetection & cdEnabledNew) ? true : false;
+
+				checkModifiedDocument(bCheckOnlyCurrentBuffer);
 				return TRUE;
 			}
 			return FALSE;
@@ -1561,19 +1554,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			Buffer *buf = reinterpret_cast<Buffer *>(wParam);
 			monitoringStartOrStopAndUpdateUI(buf, false);
-			return TRUE;
-		}
-
-		case NPPM_INTERNAL_GETCHECKDOCOPT:
-		{
-			return (LRESULT)(pNppParam->getNppGUI())._fileAutoDetection;
-		}
-
-		case NPPM_INTERNAL_SETCHECKDOCOPT:
-		{
-			// If nothing is changed by user, then we allow to set this value
-			if ((const_cast<NppGUI &>(pNppParam->getNppGUI()))._fileAutoDetection == (pNppParam->getNppGUI())._fileAutoDetectionOriginalValue)
-				(const_cast<NppGUI &>(pNppParam->getNppGUI()))._fileAutoDetection = (ChangeDetect)wParam;
 			return TRUE;
 		}
 
@@ -1621,15 +1601,15 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_ENABLECHECKDOCOPT:
 		{
-			NppGUI & nppgui = const_cast<NppGUI &>((pNppParam->getNppGUI()));
+			NppGUI& nppgui = const_cast<NppGUI&>((pNppParam->getNppGUI()));
 			if (wParam == CHECKDOCOPT_NONE)
 				nppgui._fileAutoDetection = cdDisabled;
 			else if (wParam == CHECKDOCOPT_UPDATESILENTLY)
-				nppgui._fileAutoDetection = cdAutoUpdate;
+				nppgui._fileAutoDetection = (cdEnabledOld | cdAutoUpdate);
 			else if (wParam == CHECKDOCOPT_UPDATEGO2END)
-				nppgui._fileAutoDetection = cdGo2end;
+				nppgui._fileAutoDetection = (cdEnabledOld | cdGo2end);
 			else if (wParam == (CHECKDOCOPT_UPDATESILENTLY | CHECKDOCOPT_UPDATEGO2END))
-				nppgui._fileAutoDetection = cdAutoUpdateGo2end;
+				nppgui._fileAutoDetection = (cdEnabledOld | cdGo2end | cdAutoUpdate);
 
 			return TRUE;
 		}
@@ -1855,7 +1835,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case WM_ENDSESSION:
 		{
-			if(wParam == TRUE)
+			if (wParam == TRUE)
 				::DestroyWindow(hwnd);
 			return 0;
 		}

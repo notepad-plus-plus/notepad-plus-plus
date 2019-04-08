@@ -62,8 +62,7 @@ public:
 	};
 
 	~AutoCompletion(){
-		if (_pXmlFile)
-			delete _pXmlFile;
+		delete _pXmlFile;
 	};
 
 	bool setLanguage(LangType language);

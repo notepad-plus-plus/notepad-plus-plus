@@ -249,6 +249,7 @@ BEGIN
 			MENUITEM "Close All but Active Document",    IDM_FILE_CLOSEALL_BUT_CURRENT
 			MENUITEM "Close All to the Left",			 IDM_FILE_CLOSEALL_TOLEFT
 			MENUITEM "Close All to the Right",			 IDM_FILE_CLOSEALL_TORIGHT
+			MENUITEM "Close All Unchanged",				 IDM_FILE_CLOSEALL_UNCHANGED
 		END
         MENUITEM "Move to Recycle Bin",              IDM_FILE_DELETE
         MENUITEM SEPARATOR
@@ -459,6 +460,14 @@ BEGIN
         MENUITEM "Post-It",                    IDM_VIEW_POSTIT
 
         MENUITEM SEPARATOR
+		POPUP "View Current File in"
+		BEGIN
+			MENUITEM "Firefox", IDM_VIEW_IN_FIREFOX
+			MENUITEM "Chrome", IDM_VIEW_IN_CHROME
+			MENUITEM "Edge", IDM_VIEW_IN_EDGE
+			MENUITEM "IE", IDM_VIEW_IN_IE
+		END
+		MENUITEM SEPARATOR
         POPUP "Show Symbol"
         BEGIN
             MENUITEM "Show White Space and TAB",    IDM_VIEW_TAB_SPACE
@@ -913,7 +922,7 @@ BEGIN
 
     POPUP "Se&ttings"
     BEGIN
-        MENUITEM "Preferences...",          IDM_SETTING_PREFERECE
+        MENUITEM "Preferences...",          IDM_SETTING_PREFERENCE
         MENUITEM "Style Configurator...",   IDM_LANGSTYLE_CONFIG_DLG
         MENUITEM "Shortcut Mapper...",      IDM_SETTING_SHORTCUT_MAPPER
         MENUITEM SEPARATOR
@@ -964,7 +973,7 @@ BEGIN
         MENUITEM "Notepad++ Project Page",    IDM_PROJECTPAGE
         MENUITEM "Notepad++ Community (Forum)",                     IDM_FORUM
 		MENUITEM "Live Support",				IDM_ONLINESUPPORT
-        MENUITEM "Get More Plugins",          IDM_PLUGINSHOME
+        //MENUITEM "Get More Plugins",          IDM_PLUGINSHOME
         MENUITEM SEPARATOR
         MENUITEM "Update Notepad++",          IDM_UPDATE_NPP
 		MENUITEM "Set Updater Proxy...",         IDM_CONFUPDATERPROXY

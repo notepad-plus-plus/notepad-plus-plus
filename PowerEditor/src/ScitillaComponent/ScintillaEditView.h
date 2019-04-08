@@ -206,8 +206,7 @@ public:
 			{
 				for (StyleMap::iterator it2(it->second->begin()) ; it2 != it->second->end() ; ++it2)
 				{
-					if (it2->second._fontName != NULL)
-						delete [] it2->second._fontName;
+					delete [] it2->second._fontName;
 				}
 				delete it->second;
 			}
@@ -223,7 +222,13 @@ public:
 	virtual void init(HINSTANCE hInst, HWND hPere);
 
 	LRESULT execute(UINT Msg, WPARAM wParam=0, LPARAM lParam=0) const {
-		return _pScintillaFunc(_pScintillaPtr, Msg, wParam, lParam);
+		try {
+			return _pScintillaFunc(_pScintillaPtr, Msg, wParam, lParam);
+		}
+		catch (...)
+		{
+			return -1;
+		}
 	};
 
 	void activateBuffer(BufferID buffer);
@@ -477,15 +482,15 @@ public:
 		execute(SCI_GETSELTEXT, 0, reinterpret_cast<LPARAM>(selected));
 		char *c = selected;
 		long length = 0;
-		while(*c != '\0')
+		while (*c != '\0')
 		{
-			if( (*c & 0xC0) != 0x80)
+			if ( (*c & 0xC0) != 0x80)
 				++length;
 			++c;
 		}
 		delete [] selected;
 		return length;
-    }
+	};
 
 
 	long getLineLength(int line) const {

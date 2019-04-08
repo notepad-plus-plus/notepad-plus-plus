@@ -361,9 +361,13 @@ bool isInList(const TCHAR *token, const TCHAR *list)
 
 generic_string purgeMenuItemString(const TCHAR * menuItemStr, bool keepAmpersand)
 {
-	TCHAR cleanedName[64] = TEXT("");
+	const size_t cleanedNameLen = 64;
+	TCHAR cleanedName[cleanedNameLen] = TEXT("");
 	size_t j = 0;
 	size_t menuNameLen = lstrlen(menuItemStr);
+	if (menuNameLen >= cleanedNameLen)
+		menuNameLen = cleanedNameLen - 1;
+
 	for (size_t k = 0 ; k < menuNameLen ; ++k)
 	{
 		if (menuItemStr[k] == '\t')
@@ -1151,7 +1155,7 @@ bool isCertificateValidated(const generic_string & fullFilePath, const generic_s
 
 		isOK = true;
 	}
-	catch (generic_string s)
+	catch (const generic_string& s)
 	{
 		// display error message
 		MessageBox(NULL, s.c_str(), TEXT("Certificate checking"), MB_OK);

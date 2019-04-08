@@ -71,13 +71,14 @@ MenuPosition menuPos[] = {
 	{ 2, 21, -1, "search-jumpDown" },
 	{ 2, 23, -1, "search-bookmark" },
 
-	{ 3,  4, -1, "view-showSymbol" },
-	{ 3,  5, -1, "view-zoom" },
-	{ 3,  6, -1, "view-moveCloneDocument" },
-	{ 3,  7, -1, "view-tab" },
-	{ 3, 16, -1, "view-collapseLevel" },
-	{ 3, 17, -1, "view-uncollapseLevel" },
-	{ 3, 21, -1, "view-project" },
+	{ 3,  4, -1, "view-currentFileIn" },
+	{ 3,  6, -1, "view-showSymbol" },
+	{ 3,  7, -1, "view-zoom" },
+	{ 3,  8, -1, "view-moveCloneDocument" },
+	{ 3,  9, -1, "view-tab" },
+	{ 3, 18, -1, "view-collapseLevel" },
+	{ 3, 19, -1, "view-uncollapseLevel" },
+	{ 3, 23, -1, "view-project" },
 
 	{ 4,  5, -1, "encoding-characterSets" },
 	{ 4,  5,  0, "encoding-arabic" },
@@ -238,7 +239,7 @@ MenuPosition & getMenuPosition(const char *id)
 
 	int nbSubMenuPos = sizeof(menuPos)/sizeof(MenuPosition);
 
-	for(int i = 0; i < nbSubMenuPos; ++i) 
+	for (int i = 0; i < nbSubMenuPos; ++i) 
 	{
 		if (strcmp(menuPos[i]._id, id) == 0)
 			return menuPos[i];
@@ -369,29 +370,30 @@ static const int tabContextMenuItemPos[] =
 //  |
 //  |       +------ Number in english.xml (<language>.xml) : <TabBar>
 //  |       |
-	0,   // 0 : Close
-	1,   // 1 : Close ALL BUT This
-	4,   // 2 : Save
-	5,   // 3 : Save As
-	9,   // 4 : Print
-	23,  // 5 : Move to Other View
-	24,  // 6 : Clone to Other View
-	19,  // 7 : Full File Path to Clipboard
-	20,  // 8 : Filename to Clipboard
-	21,  // 9 : Current Dir. Path to Clipboard
-	6,   // 10: Rename
-	7,   // 11: Move to Recycle Bin
-	16,  // 12: Read-Only
-	17,  // 13: Clear Read-Only Flag
-	25,  // 14: Move to New Instance
-	26,  // 15: Open to New Instance
-	8,   // 16: Reload
-	2,   // 17: Close ALL to the Left
-	3,   // 18: Close ALL to the Right
-	11,  // 19: Open Containing Folder in Explorer
-	12,  // 20: Open Containing Folder in cmd
-    14,  // 21: Open in Default Viewer
-	-1   //-------End
+    0,   // 0 : Close
+    1,   // 1 : Close ALL BUT This
+    5,   // 2 : Save
+    6,   // 3 : Save As
+    10,  // 4 : Print
+    24,  // 5 : Move to Other View
+    25,  // 6 : Clone to Other View
+    20,  // 7 : Full File Path to Clipboard
+    21,  // 8 : Filename to Clipboard
+    22,  // 9 : Current Dir. Path to Clipboard
+    7,   // 10: Rename
+    8,   // 11: Move to Recycle Bin
+    17,  // 12: Read-Only
+    18,  // 13: Clear Read-Only Flag
+    26,  // 14: Move to New Instance
+    27,  // 15: Open to New Instance
+    9,   // 16: Reload
+    2,   // 17: Close ALL to the Left
+    3,   // 18: Close ALL to the Right
+    12,  // 19: Open Containing Folder in Explorer
+    13,  // 20: Open Containing Folder in cmd
+    15,  // 21: Open in Default Viewer
+    4,   // 22: Close ALL Unchanged
+    -1   //-------End
 };
 
 
@@ -1087,6 +1089,50 @@ bool NativeLangSpeaker::changeDlgLang(HWND hDlg, const char *dlgTagName, char *t
 				const wchar_t *nameW = wmc->char2wchar(name, _nativeLangEncoding);
 				::SetWindowText(hItem, nameW);
 			}
+		}
+	}
+
+	// Set the text of child control
+	for (TiXmlNodeA *childNode = dlgNode->FirstChildElement("ComboBox");
+		childNode;
+		childNode = childNode->NextSibling("ComboBox"))
+	{
+		std::vector<generic_string> comboElms;
+		TiXmlElementA *element = childNode->ToElement();
+		int id;
+		element->Attribute("id", &id);
+		HWND hCombo = ::GetDlgItem(hDlg, id);
+
+		if (hCombo)
+		{
+			for (TiXmlNodeA *gChildNode = childNode->FirstChildElement("Element");
+				gChildNode;
+				gChildNode = gChildNode->NextSibling("Element"))
+			{
+				TiXmlElementA *comBoelement = gChildNode->ToElement();
+				const char *name = comBoelement->Attribute("name");
+				const wchar_t *nameW = wmc->char2wchar(name, _nativeLangEncoding);
+				comboElms.push_back(nameW);
+			}
+		}
+
+		size_t count = ::SendMessage(hCombo, CB_GETCOUNT, 0, 0);
+		if (count == comboElms.size())
+		{
+			// get selected index
+			auto selIndex = ::SendMessage(hCombo, CB_GETCURSEL, 0, 0);
+
+			// remove all old items
+			::SendMessage(hCombo, CB_RESETCONTENT, 0, 0);
+
+			// add translated entries
+			for (const auto& i : comboElms)
+			{
+				::SendMessage(hCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(i.c_str()));
+			}
+
+			// restore selected index
+			::SendMessage(hCombo, CB_SETCURSEL, selIndex, 0);
 		}
 	}
 	return true;

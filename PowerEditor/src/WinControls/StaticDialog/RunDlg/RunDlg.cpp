@@ -24,14 +24,23 @@
 #include "Notepad_plus.h"
 
 
-void Command::extractArgs(TCHAR *cmd2Exec, TCHAR *args, const TCHAR *cmdEntier)
+void Command::extractArgs(TCHAR* cmd2Exec, size_t cmd2ExecLen, TCHAR* args, size_t argsLen, const TCHAR* cmdEntier)
 {
 	size_t i = 0;
 	bool quoted = false;
-	for (size_t len = lstrlen(cmdEntier); i < len ; ++i)
+
+	size_t cmdEntierLen = lstrlen(cmdEntier);
+
+	size_t shortest = min(cmd2ExecLen, argsLen);
+
+	if (cmdEntierLen > shortest)
+		cmdEntierLen = shortest - 1;
+
+	for (; i < cmdEntierLen; ++i)
 	{
-		if ((cmdEntier[i] == ' ') && (!quoted))
+		if (cmdEntier[i] == ' ' && !quoted)
 			break;
+
 		if (cmdEntier[i]=='"')
 			quoted = !quoted;
 
@@ -39,12 +48,13 @@ void Command::extractArgs(TCHAR *cmd2Exec, TCHAR *args, const TCHAR *cmdEntier)
 	}
 	cmd2Exec[i] = '\0';
 	
-	if (i < size_t(lstrlen(cmdEntier)))
+	if (i < cmdEntierLen)
 	{
-		for (size_t len = size_t(lstrlen(cmdEntier)); (i < len) && (cmdEntier[i] == ' ') ; ++i);
-		if (i < size_t(lstrlen(cmdEntier)))
+		for (size_t len = cmdEntierLen; (i < len) && (cmdEntier[i] == ' ') ; ++i);
+
+		if (i < cmdEntierLen)
 		{
-			for (size_t k = 0, len2 = size_t(lstrlen(cmdEntier)); i <= len2; ++i, ++k)
+			for (size_t k = 0, len2 = cmdEntierLen; i <= len2; ++i, ++k)
 			{
 				args[k] = cmdEntier[i];
 			}
@@ -56,10 +66,11 @@ void Command::extractArgs(TCHAR *cmd2Exec, TCHAR *args, const TCHAR *cmdEntier)
 			for (l -= 2 ; (l > 0) && (args[l] == ' ') ; l--);
 			args[l+1] = '\0';
 		}
-
 	}
 	else
+	{
 		args[0] = '\0';
+	}
 }
 
 
@@ -168,6 +179,11 @@ void expandNppEnvironmentStrs(const TCHAR *strSrc, TCHAR *stringDest, size_t str
 
 HINSTANCE Command::run(HWND hWnd)
 {
+	return run(hWnd, TEXT("."));
+}
+
+HINSTANCE Command::run(HWND hWnd, const TCHAR* cwd)
+{
 	const int argsIntermediateLen = MAX_PATH*2;
 	const int args2ExecLen = CURRENTWORD_MAXLENGTH+MAX_PATH*2;
 
@@ -178,7 +194,7 @@ HINSTANCE Command::run(HWND hWnd)
 	TCHAR argsIntermediate[argsIntermediateLen];
 	TCHAR args2Exec[args2ExecLen];
 
-	extractArgs(cmdPure, args, _cmdLine.c_str());
+	extractArgs(cmdPure, MAX_PATH, args, MAX_PATH, _cmdLine.c_str());
 	int nbTchar = ::ExpandEnvironmentStrings(cmdPure, cmdIntermediate, MAX_PATH);
 	if (!nbTchar)
 		wcscpy_s(cmdIntermediate, cmdPure);
@@ -194,7 +210,10 @@ HINSTANCE Command::run(HWND hWnd)
 	expandNppEnvironmentStrs(cmdIntermediate, cmd2Exec, MAX_PATH, hWnd);
 	expandNppEnvironmentStrs(argsIntermediate, args2Exec, args2ExecLen, hWnd);
 
-	HINSTANCE res = ::ShellExecute(hWnd, TEXT("open"), cmd2Exec, args2Exec, TEXT("."), SW_SHOW);
+	TCHAR cwd2Exec[MAX_PATH];
+	expandNppEnvironmentStrs(cwd, cwd2Exec, MAX_PATH, hWnd);
+	
+	HINSTANCE res = ::ShellExecute(hWnd, TEXT("open"), cmd2Exec, args2Exec, cwd2Exec, SW_SHOW);
 
 	// As per MSDN (https://msdn.microsoft.com/en-us/library/windows/desktop/bb762153(v=vs.85).aspx)
 	// If the function succeeds, it returns a value greater than 32.
@@ -306,7 +325,7 @@ INT_PTR CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 
 					if (const TCHAR *fn = fd.doOpenSingleFileDlg())
 					{
-						if(wcschr(fn, ' ') != NULL)
+						if (wcschr(fn, ' ') != NULL)
 						{
 							generic_string fn_quotes(fn);
 							fn_quotes = TEXT("\"") + fn_quotes + TEXT("\"");

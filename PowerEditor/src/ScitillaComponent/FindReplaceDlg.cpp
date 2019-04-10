@@ -812,6 +812,31 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			 _findClosePos.left = p.x;
 			 _findClosePos.top = p.y + 10;
 
+			 // in selection check
+			 RECT checkRect;
+			 ::GetWindowRect(::GetDlgItem(_hSelf, IDC_IN_SELECTION_CHECK), &checkRect);
+			 _countInSelCheckPos.bottom = _replaceInSelCheckPos.bottom = checkRect.bottom - checkRect.top;
+			 _countInSelCheckPos.right = _replaceInSelCheckPos.right = checkRect.right - checkRect.left;
+
+			 p = getTopPoint(::GetDlgItem(_hSelf, IDC_IN_SELECTION_CHECK), !_isRTL);
+			 _countInSelCheckPos.left = _replaceInSelCheckPos.left = p.x;
+			 _countInSelCheckPos.top = _replaceInSelCheckPos.top = p.y;
+
+			 POINT countP = getTopPoint(::GetDlgItem(_hSelf, IDCCOUNTALL), !_isRTL);
+			 _countInSelCheckPos.top = countP.y + 4;
+
+			 // in selection Frame
+			 RECT frameRect;
+			 ::GetWindowRect(::GetDlgItem(_hSelf, IDC_REPLACEINSELECTION), &frameRect);
+			 _countInSelFramePos.bottom = _replaceInSelFramePos.bottom = frameRect.bottom - frameRect.top;
+			 _countInSelFramePos.right = _replaceInSelFramePos.right = frameRect.right - frameRect.left;
+
+			 p = getTopPoint(::GetDlgItem(_hSelf, IDC_REPLACEINSELECTION), !_isRTL);
+			 _countInSelFramePos.left = _replaceInSelFramePos.left = p.x;
+			 _countInSelFramePos.top = _replaceInSelFramePos.top = p.y;
+
+			 _countInSelFramePos.top = countP.y - 9;
+
 			 NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
 			 generic_string searchButtonTip = pNativeSpeaker->getLocalizedStrFromID("shift-change-direction-tip", TEXT("Use Shift+Enter to search in the opposite direction."));
 
@@ -1387,7 +1412,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 				case IDC_IN_SELECTION_CHECK :
 				{
-					if ((_currentStatus == REPLACE_DLG) || (_currentStatus == MARK_DLG))
+					if ((_currentStatus == FIND_DLG) || (_currentStatus == REPLACE_DLG) || (_currentStatus == MARK_DLG))
 						_options._isInSelection = isCheckedOrNot(IDC_IN_SELECTION_CHECK);
 				}
 				return TRUE;
@@ -1817,10 +1842,18 @@ int FindReplaceDlg::processAll(ProcessOperation op, const FindOption *opt, bool 
 	}
 
 	//then adjust scope if the full document needs to be changed
-	if (pOptions->_isWrapAround || isEntire || (op == ProcessCountAll))	//entire document needs to be scanned
-	{		
-		startPosition = 0;
-		endPosition = docLength;
+	if (op == ProcessCountAll)
+	{
+		if (pOptions->_isInSelection)
+		{
+			startPosition = cr.cpMin;
+			endPosition = cr.cpMax;
+		}
+		else if (pOptions->_isWrapAround || isEntire)	//entire document needs to be scanned
+		{
+			startPosition = 0;
+			endPosition = docLength;
+		}
 	}
 	
 	//then readjust scope if the selection override is active and allowed
@@ -2358,7 +2391,9 @@ void FindReplaceDlg::enableReplaceFunc(bool isEnable)
 {
 	_currentStatus = isEnable?REPLACE_DLG:FIND_DLG;
 	int hideOrShow = isEnable?SW_SHOW:SW_HIDE;
-	RECT *pClosePos = isEnable?&_replaceClosePos:&_findClosePos;
+	RECT *pClosePos = isEnable ? &_replaceClosePos : &_findClosePos;
+	RECT *pInSelectionFramePos = isEnable ? &_replaceInSelFramePos : &_countInSelFramePos;
+	RECT *pInSectionCheckPos = isEnable ? &_replaceInSelCheckPos : &_countInSelCheckPos;
 
 	enableFindInFilesControls(false);
 	enableMarkAllControls(false);
@@ -2369,8 +2404,8 @@ void FindReplaceDlg::enableReplaceFunc(bool isEnable)
 	::ShowWindow(::GetDlgItem(_hSelf, IDREPLACEALL),hideOrShow);
 	::ShowWindow(::GetDlgItem(_hSelf, IDREPLACEINSEL),hideOrShow);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_REPLACE_OPENEDFILES),hideOrShow);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_REPLACEINSELECTION),hideOrShow);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_IN_SELECTION_CHECK), hideOrShow);
+	::ShowWindow(::GetDlgItem(_hSelf, IDC_REPLACEINSELECTION), SW_SHOW);
+	::ShowWindow(::GetDlgItem(_hSelf, IDC_IN_SELECTION_CHECK), SW_SHOW);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_2_BUTTONS_MODE), SW_SHOW);
 	bool is2ButtonMode = isCheckedOrNot(IDC_2_BUTTONS_MODE);
 	::ShowWindow(::GetDlgItem(_hSelf, IDOK), is2ButtonMode ? SW_HIDE : SW_SHOW);
@@ -2386,6 +2421,8 @@ void FindReplaceDlg::enableReplaceFunc(bool isEnable)
 	gotoCorrectTab();
 
 	::MoveWindow(::GetDlgItem(_hSelf, IDCANCEL), pClosePos->left + _deltaWidth, pClosePos->top, pClosePos->right, pClosePos->bottom, TRUE);
+	::MoveWindow(::GetDlgItem(_hSelf, IDC_IN_SELECTION_CHECK), pInSectionCheckPos->left + _deltaWidth, pInSectionCheckPos->top, pInSectionCheckPos->right, pInSectionCheckPos->bottom, TRUE);
+	::MoveWindow(::GetDlgItem(_hSelf, IDC_REPLACEINSELECTION), pInSelectionFramePos->left + _deltaWidth, pInSelectionFramePos->top, pInSelectionFramePos->right, pInSelectionFramePos->bottom, TRUE);
 
 	TCHAR label[MAX_PATH];
 	_tab.getCurrentTitle(label, MAX_PATH);
@@ -2866,6 +2903,9 @@ void FindReplaceDlg::enableMarkFunc()
 	_currentStatus = MARK_DLG;
 	gotoCorrectTab();
 	::MoveWindow(::GetDlgItem(_hSelf, IDCANCEL), _findInFilesClosePos.left + _deltaWidth, _findInFilesClosePos.top, _findInFilesClosePos.right, _findInFilesClosePos.bottom, TRUE);
+	::MoveWindow(::GetDlgItem(_hSelf, IDC_IN_SELECTION_CHECK), _replaceInSelCheckPos.left + _deltaWidth, _replaceInSelCheckPos.top, _replaceInSelCheckPos.right, _replaceInSelCheckPos.bottom, TRUE);
+	::MoveWindow(::GetDlgItem(_hSelf, IDC_REPLACEINSELECTION), _replaceInSelFramePos.left + _deltaWidth, _replaceInSelFramePos.top, _replaceInSelFramePos.right, _replaceInSelFramePos.bottom, TRUE);
+
 	TCHAR label[MAX_PATH];
 	_tab.getCurrentTitle(label, MAX_PATH);
 	::SetWindowText(_hSelf, label);

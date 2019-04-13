@@ -418,23 +418,23 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			if (notification->nmhdr.hwndFrom == _statusBar.getHSelf())
 			{
 				LPNMMOUSE lpnm = (LPNMMOUSE)notification;
-				if (lpnm->dwItemSpec == DWORD(STATUSBAR_CUR_POS))
-				{
-					bool isFirstTime = !_goToLineDlg.isCreated();
-					_goToLineDlg.doDialog(_nativeLangSpeaker.isRTL());
-					if (isFirstTime)
-						_nativeLangSpeaker.changeDlgLang(_goToLineDlg.getHSelf(), "GoToLine");
-				}
-				else if (lpnm->dwItemSpec == DWORD(STATUSBAR_DOC_SIZE))
-				{
-					command(IDM_VIEW_SUMMARY);
-				}
-				else if (lpnm->dwItemSpec == DWORD(STATUSBAR_DOC_TYPE))
+				if (lpnm->dwItemSpec == DWORD(STATUSBAR_DOC_TYPE))
 				{
 					POINT p;
 					::GetCursorPos(&p);
 					HMENU hLangMenu = ::GetSubMenu(_mainMenuHandle, MENUINDEX_LANGUAGE);
 					TrackPopupMenu(hLangMenu, 0, p.x, p.y, 0, _pPublicInterface->getHSelf(), NULL);
+				}
+				else if (lpnm->dwItemSpec == DWORD(STATUSBAR_DOC_SIZE))
+				{
+					command(IDM_VIEW_SUMMARY);
+				}
+				else if (lpnm->dwItemSpec == DWORD(STATUSBAR_CUR_POS))
+				{
+					bool isFirstTime = !_goToLineDlg.isCreated();
+					_goToLineDlg.doDialog(_nativeLangSpeaker.isRTL());
+					if (isFirstTime)
+						_nativeLangSpeaker.changeDlgLang(_goToLineDlg.getHSelf(), "GoToLine");
 				}
 				else if (lpnm->dwItemSpec == DWORD(STATUSBAR_EOF_FORMAT))
 				{

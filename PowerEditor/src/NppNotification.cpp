@@ -449,6 +449,13 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 						return TRUE;
 					TrackPopupMenu(hEolFormatMenu, 0, p.x, p.y, 0, _pPublicInterface->getHSelf(), NULL);
 				}
+				else if (lpnm->dwItemSpec == DWORD(STATUSBAR_UNICODE_TYPE))
+				{
+					POINT p;
+					::GetCursorPos(&p);
+					HMENU hEncodingMenu = ::GetSubMenu(_mainMenuHandle, MENUINDEX_FORMAT);
+					TrackPopupMenu(hEncodingMenu, 0, p.x, p.y, 0, _pPublicInterface->getHSelf(), NULL);
+				}
 			}
 			break;
 		}
@@ -488,6 +495,13 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					if (!hEolFormatMenu)
 						return TRUE;
 					TrackPopupMenu(hEolFormatMenu, 0, p.x, p.y, 0, _pPublicInterface->getHSelf(), NULL);
+				}
+				else if (lpnm->dwItemSpec == DWORD(STATUSBAR_UNICODE_TYPE))
+				{
+					POINT p;
+					::GetCursorPos(&p);
+					HMENU hEncodingMenu = ::GetSubMenu(_mainMenuHandle, MENUINDEX_FORMAT);
+					TrackPopupMenu(hEncodingMenu, 0, p.x, p.y, 0, _pPublicInterface->getHSelf(), NULL);
 				}
 				return TRUE;
 			}

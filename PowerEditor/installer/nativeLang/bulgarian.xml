@@ -3,7 +3,7 @@
 	## Bulgarian localization for Notepad++ ##
 
 	Translators:.....: 2007-2012 - Milen Metev (Tragedy); 2014-yyyy - RDD
-	Last revision:...: 26.03.2019 by RDD <astral_86[at]mail[dot]bg>
+	Last revision:...: 14.04.2019 by RDD <astral_86[at]mail[dot]bg>
 	Download:........: https://gist.github.com/rddim/bd37264898c3a17363e7437bcf1b4803
 -->
 <NotepadPlus>
@@ -711,7 +711,7 @@
 					<Item id="6110" name="Цветна лента върху активния"/>
 					<Item id="6112" name="Бутони за затваряне"/>
 					<Item id="6113" name="Двойно щракане за затваряне"/>
-					<Item id="6121" name="Изход при затв. на последният раздел"/>
+					<Item id="6121" name="Изход при затваряне на последният раздел"/>
 					<Item id="6122" name="Скриване на менютата (Alt или F10 за показване)"/>
 					<Item id="6111" name="Показване лента на състоянието"/>
 				</Global>
@@ -758,7 +758,7 @@
 					<Item id="6405" name="Кодировка"/>
 					<Item id="6406" name="ANSI"/>
 					<Item id="6407" name="UTF-8"/>
-					<Item id="6420" name="Прилагане в отв. ANSI файлове"/>
+					<Item id="6420" name="Прилагане към отворени ANSI файлове"/>
 					<Item id="6408" name="UTF-8-BOM"/>
 					<Item id="6409" name="UCS-2 Big Endian BOM"/>
 					<Item id="6410" name="UCS-2 Little Endian BOM"/>

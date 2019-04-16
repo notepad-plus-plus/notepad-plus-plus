@@ -390,6 +390,7 @@ INT_PTR CALLBACK BarsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			::SendMessage(_hSelf, WM_COMMAND, IDC_CHECK_TAB_HIDE, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_SHOWSTATUSBAR, BM_SETCHECK, showStatus, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_HIDEMENUBAR, BM_SETCHECK, !showMenu, 0);
+			::SendDlgItemMessage(_hSelf, IDC_FUNCTION_LIST, BM_SETCHECK, nppGUI._isFunctionListAlwaysSorted, 0);
 
 			bool showDocSwitcher = ::SendMessage(::GetParent(_hParent), NPPM_ISDOCSWITCHERSHOWN, 0, 0) == TRUE;
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_DOCSWITCH, BM_SETCHECK, showDocSwitcher, 0);
@@ -449,6 +450,13 @@ INT_PTR CALLBACK BarsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 				{
 					bool isChecked = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_DOCSWITCH_NOEXTCOLUMN, BM_GETCHECK, 0, 0));
 					::SendMessage(::GetParent(_hParent), NPPM_DOCSWITCHERDISABLECOLUMN, 0, isChecked?TRUE:FALSE);
+				}
+				return TRUE;
+
+				case IDC_FUNCTION_LIST:
+				{
+					NppGUI & nppGUI = const_cast<NppGUI &>(pNppParam->getNppGUI());
+					nppGUI._isFunctionListAlwaysSorted = !nppGUI._isFunctionListAlwaysSorted;
 				}
 				return TRUE;
 
@@ -916,6 +924,7 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_DETECTENCODING, BM_SETCHECK, nppGUI._detectEncoding, 0);
             ::SendDlgItemMessage(_hSelf, IDC_CHECK_AUTOUPDATE, BM_SETCHECK, nppGUI._autoUpdateOpt._doAutoUpdate, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_BACKSLASHISESCAPECHARACTERFORSQL, BM_SETCHECK, nppGUI._backSlashIsEscapeCharacterForSql, 0);
+			::SendDlgItemMessage(_hSelf, IDC_FUNCTION_LIST, BM_SETCHECK, nppGUI._isFunctionListAlwaysSorted, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLEDOCPEEKER, BM_SETCHECK, nppGUI._isDocPeekOnTab ? BST_CHECKED : BST_UNCHECKED, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLEDOCPEEKONMAP, BM_SETCHECK, nppGUI._isDocPeekOnMap ? BST_CHECKED : BST_UNCHECKED, 0);
 
@@ -1077,6 +1086,12 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 				case IDC_CHECK_BACKSLASHISESCAPECHARACTERFORSQL :
 				{
 					nppGUI._backSlashIsEscapeCharacterForSql = isCheckedOrNot(IDC_CHECK_BACKSLASHISESCAPECHARACTERFORSQL);
+					return TRUE;
+				}
+
+				case IDC_FUNCTION_LIST:
+				{
+					nppGUI._isFunctionListAlwaysSorted = isCheckedOrNot(IDC_FUNCTION_LIST);
 					return TRUE;
 				}
 

@@ -890,6 +890,8 @@ struct NppGUI final
 
 	bool _isDocPeekOnTab = false;
 	bool _isDocPeekOnMap = false;
+
+	bool _isFunctionListAlwaysSorted = false;
 };
 
 struct ScintillaViewParams

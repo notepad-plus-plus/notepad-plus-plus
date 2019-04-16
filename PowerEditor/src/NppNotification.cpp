@@ -1012,6 +1012,11 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			notifyView->execute(SCI_SETCURRENTPOS, endPos);
 
 			generic_string url = notifyView->getGenericTextAsString(startPos, endPos);
+
+			// remove the flickering: it seems a mouse click is missing after SCN_HOTSPOTDOUBLECLICK
+			::PostMessage(notifyView->getHSelf(), WM_LBUTTONDOWN, 0, 0);
+			::PostMessage(notifyView->getHSelf(), WM_LBUTTONUP, 0, 0);
+
 			::ShellExecute(_pPublicInterface->getHSelf(), TEXT("open"), url.c_str(), NULL, NULL, SW_SHOW);
 
 			break;

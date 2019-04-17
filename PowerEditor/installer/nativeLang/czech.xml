@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 7.6.0  6/Dec/2018  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 7.6.6  17/Apr/2019  by Ondřej Müller (mullero@email.cz)
 	- N++ Community:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz)
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="7.6.0">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="7.6.6">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -26,7 +26,7 @@
 
 				<!-- Sub Menu Entries -->
 				<SubEntries>
-					<Item subMenuId="file-openFolder" name="Otevřít složku obsahující akt. soubor v"/>
+					<Item subMenuId="file-openFolder" name = "Otevřít složku obsahující akt. soubor v"/>
 					<Item subMenuId="file-closeMore" name = "Zavřít vícero souborů"/>
 					<Item subMenuId="file-recentFiles" name = "Historie posledních souborů"/>
 					<Item subMenuId="edit-copyToClipboard" name = "Kopírovat do Schránky"/>
@@ -44,6 +44,7 @@
 					<Item subMenuId="search-jumpUp" name = "Skočit nahoru"/>
 					<Item subMenuId="search-jumpDown" name = "Skočit dolů"/>
 					<Item subMenuId="search-bookmark" name = "Záložka"/>
+					<Item subMenuId="view-currentFileIn" name = "Zobrazit aktuální soubor v"/>
 					<Item subMenuId="view-showSymbol" name = "Ukázat symboly"/>
 					<Item subMenuId="view-zoom" name = "Lupa"/>
 					<Item subMenuId="view-moveCloneDocument" name = "Přesunout/duplikovat aktuální dokument"/>
@@ -52,16 +53,16 @@
 					<Item subMenuId="view-uncollapseLevel" name = "Rozbalit úroveň"/>
 					<Item subMenuId="view-project" name = "Projekt"/>
 					<Item subMenuId="encoding-characterSets" name = "Výběr znakové sady"/>
-					<Item subMenuId="encoding-arabic"  name = "arabština"/>
-					<Item subMenuId="encoding-baltic"  name = "baltské jazyky"/>
-					<Item subMenuId="encoding-celtic"  name = "keltština"/>
-					<Item subMenuId="encoding-cyrillic"  name = "azbuka"/>
-					<Item subMenuId="encoding-centralEuropean"  name = "středoevropské jazyky (CE)"/>
-					<Item subMenuId="encoding-chinese"  name = "čínština"/>
+					<Item subMenuId="encoding-arabic" name = "arabština"/>
+					<Item subMenuId="encoding-baltic" name = "baltské jazyky"/>
+					<Item subMenuId="encoding-celtic" name = "keltština"/>
+					<Item subMenuId="encoding-cyrillic" name = "azbuka"/>
+					<Item subMenuId="encoding-centralEuropean" name = "středoevropské jazyky (CE)"/>
+					<Item subMenuId="encoding-chinese" name = "čínština"/>
 					<Item subMenuId="encoding-easternEuropean"  name = "východoevropské jazyky (EE)"/>
-					<Item subMenuId="encoding-greek"  name = "řečtina"/>
-					<Item subMenuId="encoding-hebrew"  name = "hebrejština"/>
-					<Item subMenuId="encoding-japanese"  name = "japonština"/>
+					<Item subMenuId="encoding-greek" name = "řečtina"/>
+					<Item subMenuId="encoding-hebrew" name = "hebrejština"/>
+					<Item subMenuId="encoding-japanese" name = "japonština"/>
 					<Item subMenuId="encoding-korean" name = "korejština"/>
 					<Item subMenuId="encoding-northEuropean" name = "severoevropské jazyky (NE)"/>
 					<Item subMenuId="encoding-thai" name = "thajština"/>
@@ -69,7 +70,8 @@
 					<Item subMenuId="encoding-westernEuropean" name = "západoevropské jazyky (WE)"/>
 					<Item subMenuId="encoding-vietnamese" name = "vietnamština"/>
 					<Item subMenuId="settings-import" name = "Import"/>
-					<Item subMenuId="tools-md5"  name = "MD5"/>
+					<Item subMenuId="tools-md5" name = "MD5"/>
+					<Item subMenuId="tools-sha256" name = "SHA-256"/>
 				</SubEntries>
 
 				<!-- all menu item -->
@@ -98,6 +100,7 @@
 					<Item id = "41021" name = "Znovuotevřít aktuálně zavřený soubor"/>
 					<Item id = "41022" name = "Otevřít složku jako pracovní plochu"/>
 					<Item id = "41023" name = "Otevřít v implicitním prohlížeči"/>
+					<Item id = "41024" name = "Zavřít všechny nezměněné"/>
 					<Item id = "42001" name = "Vyjmou&amp;t"/>
 					<Item id = "42002" name = "&amp;Kopírovat"/>
 					<Item id = "42003" name = "&amp;Zpět"/>
@@ -170,6 +173,7 @@
 					<Item id = "42074" name = "Otevřít obsaženou složku v Průzkumníkovi"/>
 					<Item id = "42075" name = "Vyhledat na Internetu"/>
 					<Item id = "42076" name = "Změnit vyhledávač..."/>
+					<Item id = "42077" name = "Odstranit následující za sebou jdoucí duplicitní řádky"/>
 					<Item id = "43001" name = "&amp;Najít..."/>
 					<Item id = "43002" name = "Najít &amp;další"/>
 					<Item id = "43003" name = "Nahradit..."/>
@@ -317,6 +321,7 @@
 					<Item id = "48006" name = "Importovat styl(y) ..."/>
 					<Item id = "48009" name = "Asociace klávesových zkratek..."/>
 					<Item id = "48011" name = "Volby..."/>
+					<Item id = "48014" name = "Otevřít složku s pluginy..."/>
 					<Item id = "48015" name = "Správa pluginů..."/>
 					<Item id = "48016" name = "Upravit zástupce / Odstranit makro..."/>
 					<Item id = "48017" name = "Upravit zástupce / Odstranit povel..."/>
@@ -324,12 +329,16 @@
 					<Item id = "48501" name = "Generovat..."/>
 					<Item id = "48502" name = "Generovat ze souborů..."/>
 					<Item id = "48503" name = "Generovat z dat ve Schránce"/>
+					<Item id = "48504" name = "Generovat..."/>
+					<Item id = "48505" name = "Generovat ze souborů..."/>
+					<Item id = "48506" name = "Generovat z dat ve Schránce"/>
 					<Item id = "49000" name = "&amp;Spustit..."/>
 					<Item id = "50000" name = "Dokončování funkcí"/>
 					<Item id = "50001" name = "Dokončování slov"/>
 					<Item id = "50002" name = "Nápověda k parametrům funkcí"/>
 					<Item id = "50006" name = "Dokončování cest k souborům a adresářům"/>
 					<Item id = "42034" name = "Editor sloupce..."/>
+					<Item id = "42078" name = "Vícenásobný výběr dalších výskytů"/>
 					<Item id = "44042" name = "Skrýt řádky"/>
 					<Item id = "42040" name = "Otevřít všechny nedávné soubory"/>
 					<Item id = "42041" name = "Vymazat seznam nedávno otevřených"/>
@@ -362,6 +371,7 @@
 					<Item CMID = "19" name = "Otevřít složku obsahující akt. soubor v Exploreru"/>
 					<Item CMID = "20" name = "Otevřít složku obsahující akt. soubor v cmd"/>
 					<Item CMID = "21" name = "Otevřít v implicitním prohlížeči"/>
+					<Item CMID = "22" name = "Zavřít všechny nezměněné"/>
 			</TabBar>
 		</Menu>
 
@@ -890,10 +900,11 @@
 					<Item id = "6114" name = "Povolit přepínání"/>
 					<Item id = "6115" name = "Automatické odsazování"/>
 					<Item id = "6117" name = "Povolit MRU (nedávno použité)"/>
-					<Item id = "6307" name = "Povolit"/>
+					<Item id = "6307" name = "Povolit pro všechny TABy"/>
 					<Item id = "6308" name = "Minimalizovat do oznamovací oblasti"/>
 					<Item id = "6312" name = "Automatická detekce stavu souboru"/>
 					<Item id = "6313" name = "Aktualizovat skrytě"/>
+					<Item id = "6314" name = "Povolit pouze pro aktuální TAB"/>
 					<Item id = "6318" name = "Nastavení hyperlinků"/>
 					<Item id = "6319" name = "Povolit"/>
 					<Item id = "6320" name = "Nepodtrhávat"/>
@@ -1082,6 +1093,7 @@
 			<OpenInAdminMode title = "Uložení selhalo" message = "Soubor nemůže být uložen a může být chráněn proti zápisu. Chcete zkusit spustit Notepad++ s právy administrátora?"/>
 			<OpenInAdminModeWithoutCloseCurrent title = "Uložení selhalo" message = "Soubor nemůže být uložen a může být chráněn proti zápisu. Chcete zkusit spustit Notepad++ s právy administrátora?"/>
 			<OpenInAdminModeFailed title = "Otevření s administrátorskými právy selhalo" message = "Notepad++ nemůže být spuštěn s právy administrátora."/>
+			<ViewInBrowser title = "Zobrazit aktuální soubor v prohlížeči" message="Není možno nalézt aplikaci ve Vašem systému."/>
 		</MessageBox>
 		
 		<ClipboardHistory>
@@ -1201,8 +1213,8 @@
 			<find-status-replaceinopenedfiles-nb-replaced value = "Nahrazování v otevřených souborech: $INT_REPLACE$ výskytů nahrazeno"/>
 			<find-status-mark-re-malformed value = "Označování: Regulární výraz pro vyhledávání je vadný"/>
 			<find-status-invalid-re value = "Vyhledávání: Neplatný regulární výraz"/>
-			<find-status-mark-1-match value = "1 nález"/>
-			<find-status-mark-nb-matches value = "$INT_REPLACE$ nálezů"/>
+			<find-status-mark-1-match value = "Značka: 1 nález"/>
+			<find-status-mark-nb-matches value = "Značka: $INT_REPLACE$ nálezů"/>
 			<find-status-count-re-malformed value = "Počet: Regulární výraz pro vyhledávání je vadný"/>
 			<find-status-count-1-match value = "Počet: 1 nález"/>
 			<find-status-count-nb-matches value = "Počet: $INT_REPLACE$ nálezů"/>

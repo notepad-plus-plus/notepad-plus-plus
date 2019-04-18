@@ -343,12 +343,12 @@
 				<Item id="1"    name="Sök nästa"/>
 				<Item id="1722" name="Sök föregående"/>
 				<Item id="2"    name="Stäng"/>
-				<Item id="1620" name="Sök &amp;efter:"/>
+				<Item id="1620" name="&amp;Sök efter:"/>
 				<Item id="1603" name="Matcha &amp;hela ord"/>
 				<Item id="1604" name="&amp;Matcha små/STORA bokstäver"/>
 				<Item id="1605" name="&amp;Reguljärt uttryck"/>
-				<Item id="1606" name="&amp;Loopa"/>
-				<Item id="1614" name="&amp;Antal sökträffar"/>
+				<Item id="1606" name="L&amp;oopa"/>
+				<Item id="1614" name="Anta&amp;l sökträffar"/>
 				<Item id="1615" name="Hitta alla"/>
 				<Item id="1616" name="&amp;Bokmärk rad"/>
 				<Item id="1618" name="Rensa tidigare markering vid varje sökning"/>
@@ -369,7 +369,7 @@
 				<Item id="1624" name="Sökläge"/>
 				<Item id="1625" name="&amp;Normal"/>
 				<Item id="1626" name="&amp;Utökat (\n, \r, \t, \0, \x...)"/>
-				<Item id="1660" name="Ersätt i &amp;filer"/>
+				<Item id="1660" name="Ersätt i f&amp;iler"/>
 				<Item id="1661" name="Följ aktuellt dok."/>
 				<Item id="1641" name="Sök alla i aktuellt dokument"/>
 				<Item id="1686" name="&amp;Transparens"/>

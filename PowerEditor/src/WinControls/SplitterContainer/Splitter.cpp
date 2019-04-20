@@ -37,17 +37,6 @@ bool Splitter::_isVerticalFixedRegistered = false;
 
 #define SPLITTER_SIZE 8
 
-
-
-Splitter::Splitter()
-{
-	_rect.left   = 0; // x axis
-	_rect.top    = 0; // y axis
-	_rect.right  = 0; // Width of the spliter.
-	_rect.bottom = 0; // Height of the spliter
-}
-
-
 void Splitter::init( HINSTANCE hInst, HWND hPere, int splitterSize, double iSplitRatio, DWORD dwFlags)
 {
 	if (hPere == NULL)
@@ -274,7 +263,7 @@ LRESULT CALLBACK Splitter::spliterWndProc(UINT uMsg, WPARAM wParam, LPARAM lPara
 
 			if ((isInRightBottomZone(p))&&(wParam == MK_LBUTTON))
 			{
-				gotoRightBouuom();
+				gotoRightBottom();
 				return TRUE;
 			}
 
@@ -282,6 +271,7 @@ LRESULT CALLBACK Splitter::spliterWndProc(UINT uMsg, WPARAM wParam, LPARAM lPara
 			{
 				::SetCapture(_hSelf);
 				_isDraged = true;
+				_isLeftButtonDown = true;
 			}
 
 			return 0;
@@ -306,7 +296,7 @@ LRESULT CALLBACK Splitter::spliterWndProc(UINT uMsg, WPARAM wParam, LPARAM lPara
 				return TRUE;
 			}
 
-			if ((!_isFixed) && (wParam == MK_LBUTTON))
+			if ((!_isFixed) && (wParam == MK_LBUTTON) && _isLeftButtonDown)
 			{
 				POINT pt; RECT rt;
 				::GetClientRect(_hParent, &rt);
@@ -389,9 +379,10 @@ LRESULT CALLBACK Splitter::spliterWndProc(UINT uMsg, WPARAM wParam, LPARAM lPara
 
 		case WM_LBUTTONUP:
 		{
-			if (!_isFixed)
+			if (!_isFixed && _isLeftButtonDown)
 			{
 				ReleaseCapture();
+				_isLeftButtonDown = false;
 			}
 			return 0;
 		}
@@ -495,7 +486,7 @@ void Splitter::gotoTopLeft()
 }
 
 
-void Splitter::gotoRightBouuom()
+void Splitter::gotoRightBottom()
 {
 	if ((_dwFlags & SV_ENABLERDBLCLK) && (!_isFixed) && (_splitPercent < 99))
 	{

@@ -565,6 +565,14 @@ LRESULT Notepad_plus::init(HWND hwnd)
 			::GetMenuString(_mainMenuHandle, csc.getID(), menuName, 64, MF_BYCOMMAND);
 			csc.setName(purgeMenuItemString(menuName, true).c_str());
 		}
+		else
+		{
+			// The menu name is already present (e.g. "Restore recent close file")
+			// Now get the localized name if possible
+			generic_string localizedMenuName = _nativeLangSpeaker.getNativeLangMenuString(csc.getID());
+			if(!localizedMenuName.empty())
+				csc.setName(purgeMenuItemString(localizedMenuName.c_str(), true).c_str());
+		}
 	}
 	//Translate non-menu shortcuts
 	_nativeLangSpeaker.changeShortcutLang();
@@ -5698,8 +5706,18 @@ bool Notepad_plus::reloadLang()
 	for (size_t i = 0; i < len; ++i)
 	{
 		CommandShortcut & csc = shortcuts[i];
-		::GetMenuString(_mainMenuHandle, csc.getID(), menuName, 64, MF_BYCOMMAND);
-		csc.setName(purgeMenuItemString(menuName, true).c_str());
+		// If menu item is not present (e.g. "Restore recent close file" might not present initially)
+		// then fill the localized string directly
+		if (::GetMenuString(_mainMenuHandle, csc.getID(), menuName, 64, MF_BYCOMMAND))
+		{
+			csc.setName(purgeMenuItemString(menuName, true).c_str());
+		}
+		else
+		{
+			generic_string localizedMenuName = _nativeLangSpeaker.getNativeLangMenuString(csc.getID());
+			if (!localizedMenuName.empty())
+				csc.setName(purgeMenuItemString(localizedMenuName.c_str(), true).c_str());
+		}
 	}
 	_accelerator.updateFullMenu();
 

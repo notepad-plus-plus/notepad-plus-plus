@@ -425,6 +425,8 @@ static const ScintillaKeyDefinition scintKeyDefs[] =
 	{TEXT(""),                            SCI_NEWLINE,                 false, false, true,  VK_RETURN,   0},
 	{TEXT("SCI_TAB"),                     SCI_TAB,                     false, false, false, VK_TAB,      IDM_EDIT_INS_TAB},
 	{TEXT("SCI_BACKTAB"),                 SCI_BACKTAB,                 false, false, true,  VK_TAB,      IDM_EDIT_RMV_TAB},
+	{TEXT("SCI_TAB"),                     SCI_TAB,                     false, false, false, VK_OEM_6,    IDM_EDIT_INS_TAB}, // CTRL + "]" indents line by 1
+	{TEXT("SCI_BACKTAB"),                 SCI_BACKTAB,                 false, false, false, VK_OEM_4,    IDM_EDIT_RMV_TAB}, // CTRL + "[" unindents line by 1
 	{TEXT("SCI_FORMFEED"),                SCI_FORMFEED,                false, false, false, 0,           0},
 	{TEXT("SCI_ZOOMIN"),                  SCI_ZOOMIN,                  true,  false, false, VK_ADD,      IDM_VIEW_ZOOMIN},
 	{TEXT("SCI_ZOOMOUT"),                 SCI_ZOOMOUT,                 true,  false, false, VK_SUBTRACT, IDM_VIEW_ZOOMOUT},

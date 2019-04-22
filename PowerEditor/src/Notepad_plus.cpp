@@ -815,7 +815,8 @@ bool Notepad_plus::saveFileBrowserParam()
 	{
 		vector<generic_string> rootPaths = _pFileBrowser->getRoots();
 		generic_string selectedItemPath = _pFileBrowser->getSelectedItemPath();
-		return (NppParameters::getInstance())->writeFileBrowserSettings(rootPaths, selectedItemPath);
+        generic_string activeRootPath = _pFileBrowser->getActiveRootPath();
+		return (NppParameters::getInstance())->writeFileBrowserSettings(rootPaths, selectedItemPath, activeRootPath);
 	}
 	return true; // nothing to save so true is returned
 }
@@ -5946,6 +5947,8 @@ void Notepad_plus::launchFileBrowser(const vector<generic_string> & folders)
 		_pFileBrowser->setForegroundColor(fgColor);
 	}
 
+    _pFileBrowser->setActiveRootPath((NppParameters::getInstance())->getFileBrowserActiveRoot());
+
 	for (size_t i = 0; i <folders.size(); ++i)
 	{
 		_pFileBrowser->addRootFolder(folders[i]);
@@ -5956,6 +5959,8 @@ void Notepad_plus::launchFileBrowser(const vector<generic_string> & folders)
 	checkMenuItem(IDM_VIEW_FILEBROWSER, true);
 	_toolBar.setCheck(IDM_VIEW_FILEBROWSER, true);
 	_pFileBrowser->setClosed(false);
+
+    _pEditView->getFocus();
 }
 
 
@@ -6003,6 +6008,8 @@ void Notepad_plus::launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int
 		(*pProjPanel)->setForegroundColor(fgColor);
 	}
 	(*pProjPanel)->display();
+
+    _pEditView->getFocus();
 }
 
 

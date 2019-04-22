@@ -2202,6 +2202,11 @@ void NppParameters::feedProjectPanelsParameters(TiXmlNode *node)
 	TiXmlNode *fileBrowserRoot = node->FirstChildElement(TEXT("FileBrowser"));
 	if (!fileBrowserRoot) return;
 
+    const TCHAR *activeRootPath = (fileBrowserRoot->ToElement())->Attribute(TEXT("activeRoot"));
+    if (activeRootPath) {
+        _fileBrowserActiveRoot = activeRootPath;
+    }
+
 	for (TiXmlNode *childNode = fileBrowserRoot->FirstChildElement(TEXT("root"));
 		childNode;
 		childNode = childNode->NextSibling(TEXT("root")) )
@@ -3675,7 +3680,7 @@ bool NppParameters::writeProjectPanelsSettings() const
 	return true;
 }
 
-bool NppParameters::writeFileBrowserSettings(const vector<generic_string> & rootPaths, const generic_string & latestSelectedItemPath) const
+bool NppParameters::writeFileBrowserSettings(const vector<generic_string> & rootPaths, const generic_string & latestSelectedItemPath, const generic_string & activeRootPath) const
 {
 	if (!_pXmlUserDoc) return false;
 
@@ -3698,6 +3703,7 @@ bool NppParameters::writeFileBrowserSettings(const vector<generic_string> & root
 	if (rootPaths.size() != 0)
 	{
 		fileBrowserRootNode.SetAttribute(TEXT("latestSelectedItem"), latestSelectedItemPath.c_str());
+        fileBrowserRootNode.SetAttribute(TEXT("activeRoot"), activeRootPath.c_str());
 
 		// add roots
 		size_t len = rootPaths.size();

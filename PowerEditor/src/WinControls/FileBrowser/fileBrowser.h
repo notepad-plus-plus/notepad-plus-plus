@@ -46,6 +46,8 @@
 #define FB_CMDHERE            TEXT("CMD here")
 #define FB_OPENINNPP          TEXT("Open")
 #define FB_SHELLEXECUTE       TEXT("Run by system")
+#define FB_REFRESH            TEXT("Refresh")
+#define FB_SETACTIVE          TEXT("Set active")
 
 class TiXmlNode;
 class FileBrowser;
@@ -96,7 +98,10 @@ private:
 };
 
 enum BrowserNodeType {
-	browserNodeType_root = 0, browserNodeType_folder = 2, browserNodeType_file = 3
+	browserNodeType_root = 0,
+    browserNodeType_active_root = 1,
+    browserNodeType_folder = 2,
+    browserNodeType_file = 3
 };
 
 class FolderUpdater {
@@ -142,6 +147,7 @@ public:
     };
 
 	generic_string getNodePath(HTREEITEM node) const;
+    void setActiveRootPath(generic_string activeRootPath);
 	void addRootFolder(generic_string);
 
 	HTREEITEM getRootFromFullPath(const generic_string & rootPath) const;
@@ -154,24 +160,30 @@ public:
 
 	std::vector<generic_string> getRoots() const;
 	generic_string getSelectedItemPath() const;
-
+    generic_string getActiveRootPath() const { return _activeRoot; };
+private:
+    generic_string _activeRoot;
 protected:
 	TreeView _treeView;
 	HIMAGELIST _hImaLst = nullptr;
 
 	HMENU _hGlobalMenu = NULL;
 	HMENU _hRootMenu = NULL;
+    HMENU _hActiveRootMenu = NULL;
 	HMENU _hFolderMenu = NULL;
 	HMENU _hFileMenu = NULL;
 	std::vector<FolderUpdater *> _folderUpdaters;
 
 	void initPopupMenus();
 	void destroyMenus();
-	BOOL setImageList(int root_open_id, int root_close_id, int open_node_id, int closed_node_id, int leaf_id);
+	BOOL setImageList(int open_root_id, int closed_root_id, int open_active_root_id, int closed_active_root_id, int open_node_id, int closed_node_id, int leaf_id);
+    
+    void saveRoots();
+    void updateActiveNode();
 
 	BrowserNodeType getNodeType(HTREEITEM hItem);
 	void popupMenuCmd(int cmdID);
-	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+    virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void notified(LPNMHDR notification);
 	void showContextMenu(int x, int y);
 	void openSelectFile();

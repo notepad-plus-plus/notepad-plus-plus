@@ -81,6 +81,10 @@ public:
 		return TreeView_GetPrevSibling(_hSelf, hItem);
 	};
 	
+    bool getExpanded(HTREEITEM hItem) const {
+        return (TreeView_GetItemState(_hSelf, hItem, TVIS_EXPANDED) & TVIS_EXPANDED) == TRUE;
+    };
+
 	void expand(HTREEITEM hItem) const {
 		TreeView_Expand(_hSelf, hItem, TVE_EXPAND);
 	};

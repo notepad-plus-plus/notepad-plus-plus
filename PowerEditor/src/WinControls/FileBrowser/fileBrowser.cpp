@@ -40,11 +40,13 @@
 #define CX_BITMAP         16
 #define CY_BITMAP         16
 
-#define INDEX_OPEN_ROOT      0
-#define INDEX_CLOSE_ROOT     1
-#define INDEX_OPEN_NODE	     2
-#define INDEX_CLOSE_NODE     3
-#define INDEX_LEAF           4
+#define INDEX_OPEN_ROOT         0
+#define INDEX_CLOSE_ROOT        1
+#define INDEX_OPEN_ACTIVE_ROOT  2
+#define INDEX_CLOSE_ACTIVE_ROOT 3
+#define INDEX_OPEN_NODE	        4
+#define INDEX_CLOSE_NODE        5
+#define INDEX_LEAF              6
 
 
 #define GET_X_LPARAM(lp) static_cast<short>(LOWORD(lp))
@@ -88,16 +90,20 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			FileBrowser::initPopupMenus();
 
 			_treeView.init(_hInst, _hSelf, ID_FILEBROWSERTREEVIEW);
-			setImageList(IDI_FB_ROOTOPEN, IDI_FB_ROOTCLOSE, IDI_PROJECT_FOLDEROPEN, IDI_PROJECT_FOLDERCLOSE, IDI_PROJECT_FILE);
+			setImageList(IDI_FB_ROOTOPEN, IDI_FB_ROOTCLOSE, IDI_FB_ACTIVEROOTOPEN, IDI_FB_ACTIVEROOTCLOSE, IDI_PROJECT_FOLDEROPEN, IDI_PROJECT_FOLDERCLOSE, IDI_PROJECT_FILE);
 
 			_treeView.addCanNotDropInList(INDEX_OPEN_ROOT);
 			_treeView.addCanNotDropInList(INDEX_CLOSE_ROOT);
+            _treeView.addCanNotDropInList(INDEX_OPEN_ACTIVE_ROOT);
+            _treeView.addCanNotDropInList(INDEX_CLOSE_ACTIVE_ROOT);
 			_treeView.addCanNotDropInList(INDEX_OPEN_NODE);
 			_treeView.addCanNotDropInList(INDEX_CLOSE_NODE);
 			_treeView.addCanNotDropInList(INDEX_LEAF);
 
 			_treeView.addCanNotDragOutList(INDEX_OPEN_ROOT);
 			_treeView.addCanNotDragOutList(INDEX_CLOSE_ROOT);
+            _treeView.addCanNotDragOutList(INDEX_OPEN_ACTIVE_ROOT);
+            _treeView.addCanNotDragOutList(INDEX_CLOSE_ACTIVE_ROOT);
 			_treeView.addCanNotDragOutList(INDEX_OPEN_NODE);
 			_treeView.addCanNotDragOutList(INDEX_CLOSE_NODE);
 			_treeView.addCanNotDragOutList(INDEX_LEAF);
@@ -257,12 +263,18 @@ void FileBrowser::initPopupMenus()
 	generic_string cmdHere = pNativeSpeaker->getFileBrowserLangMenuStr(IDM_FILEBROWSER_CMDHERE, FB_CMDHERE);
 	generic_string openInNpp = pNativeSpeaker->getFileBrowserLangMenuStr(IDM_FILEBROWSER_OPENINNPP, FB_OPENINNPP);
 	generic_string shellExecute = pNativeSpeaker->getFileBrowserLangMenuStr(IDM_FILEBROWSER_SHELLEXECUTE, FB_SHELLEXECUTE);
+    generic_string refresh = pNativeSpeaker->getFileBrowserLangMenuStr(IDM_FILEBROWSER_REFRESH, FB_REFRESH);
+    generic_string setActive = pNativeSpeaker->getFileBrowserLangMenuStr(IDM_FILEBROWSER_SETACTIVE, FB_SETACTIVE);
 
 	_hGlobalMenu = ::CreatePopupMenu();
-	::InsertMenu(_hGlobalMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_ADDROOT, addRoot.c_str());
+    ::InsertMenu(_hGlobalMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_REFRESH, refresh.c_str());
+    ::InsertMenu(_hGlobalMenu, 0, MF_BYCOMMAND, static_cast<UINT>(-1), 0);
+    ::InsertMenu(_hGlobalMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_ADDROOT, addRoot.c_str());
 	::InsertMenu(_hGlobalMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_REMOVEALLROOTS, removeAllRoot.c_str());
 
 	_hRootMenu = ::CreatePopupMenu();
+    ::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_SETACTIVE, setActive.c_str());
+    ::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, static_cast<UINT>(-1), 0);
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_REMOVEROOTFOLDER, removeRootFolder.c_str());
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, static_cast<UINT>(-1), 0);
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_COPYEPATH, copyPath.c_str());
@@ -270,6 +282,15 @@ void FileBrowser::initPopupMenus()
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, static_cast<UINT>(-1), 0);
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_EXPLORERHERE, explorerHere.c_str());
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_CMDHERE, cmdHere.c_str());
+
+    _hActiveRootMenu = ::CreatePopupMenu();
+    ::InsertMenu(_hActiveRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_REMOVEROOTFOLDER, removeRootFolder.c_str());
+    ::InsertMenu(_hActiveRootMenu, 0, MF_BYCOMMAND, static_cast<UINT>(-1), 0);
+    ::InsertMenu(_hActiveRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_COPYEPATH, copyPath.c_str());
+    ::InsertMenu(_hActiveRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_FINDINFILES, findInFile.c_str());
+    ::InsertMenu(_hActiveRootMenu, 0, MF_BYCOMMAND, static_cast<UINT>(-1), 0);
+    ::InsertMenu(_hActiveRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_EXPLORERHERE, explorerHere.c_str());
+    ::InsertMenu(_hActiveRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_CMDHERE, cmdHere.c_str());
 
 	_hFolderMenu = ::CreatePopupMenu();
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_COPYEPATH, copyPath.c_str());
@@ -289,7 +310,7 @@ void FileBrowser::initPopupMenus()
 }
 
 
-BOOL FileBrowser::setImageList(int root_clean_id, int root_dirty_id, int open_node_id, int closed_node_id, int leaf_id) 
+BOOL FileBrowser::setImageList(int open_root_id, int closed_root_id, int open_active_root_id, int closed_active_root_id, int open_node_id, int closed_node_id, int leaf_id)
 {
 	HBITMAP hbmp;
 	COLORREF maskColour = RGB(192, 192, 192);
@@ -300,17 +321,29 @@ BOOL FileBrowser::setImageList(int root_clean_id, int root_dirty_id, int open_no
 		return FALSE;
 
 	// Add the bmp in the list
-	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(root_clean_id));
+	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(open_root_id));
 	if (hbmp == NULL)
 		return FALSE;
 	ImageList_AddMasked(_hImaLst, hbmp, maskColour);
 	DeleteObject(hbmp);
 
-	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(root_dirty_id));
+	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(closed_root_id));
 	if (hbmp == NULL)
 		return FALSE;
 	ImageList_AddMasked(_hImaLst, hbmp, maskColour);
 	DeleteObject(hbmp);
+
+    hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(open_active_root_id));
+    if (hbmp == NULL)
+        return FALSE;
+    ImageList_AddMasked(_hImaLst, hbmp, maskColour);
+    DeleteObject(hbmp);
+
+    hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(closed_active_root_id));
+    if (hbmp == NULL)
+        return FALSE;
+    ImageList_AddMasked(_hImaLst, hbmp, maskColour);
+    DeleteObject(hbmp);
 
 	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(open_node_id));
 	if (hbmp == NULL)
@@ -344,6 +377,7 @@ void FileBrowser::destroyMenus()
 {
 	::DestroyMenu(_hGlobalMenu);
 	::DestroyMenu(_hRootMenu);
+    ::DestroyMenu(_hActiveRootMenu);
 	::DestroyMenu(_hFolderMenu);
 	::DestroyMenu(_hFileMenu);
 }
@@ -557,6 +591,17 @@ void FileBrowser::notified(LPNMHDR notification)
 						_treeView.setItemImage(nmtv->itemNew.hItem, INDEX_OPEN_ROOT, INDEX_OPEN_ROOT);
 					}
 				}
+                else if (getNodeType(nmtv->itemNew.hItem) == browserNodeType_active_root)
+                {
+                    if (nmtv->action == TVE_COLLAPSE)
+                    {
+                        _treeView.setItemImage(nmtv->itemNew.hItem, INDEX_CLOSE_ACTIVE_ROOT, INDEX_CLOSE_ACTIVE_ROOT);
+                    }
+                    else if (nmtv->action == TVE_EXPAND)
+                    {
+                        _treeView.setItemImage(nmtv->itemNew.hItem, INDEX_OPEN_ACTIVE_ROOT, INDEX_OPEN_ACTIVE_ROOT);
+                    }
+                }
 			}
 			break;
 
@@ -572,26 +617,27 @@ void FileBrowser::notified(LPNMHDR notification)
 
 BrowserNodeType FileBrowser::getNodeType(HTREEITEM hItem)
 {
+    if (getNodePath(hItem) == _activeRoot)
+        return browserNodeType_active_root;
 	TVITEM tvItem;
 	tvItem.hItem = hItem;
 	tvItem.mask = TVIF_IMAGE | TVIF_PARAM;
 	SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
-
-	// File
-	if (tvItem.iImage == INDEX_LEAF)
-	{
-		return browserNodeType_file;
-	}
-	// Root
-	else if (tvItem.lParam != NULL)
-	{
-		return browserNodeType_root;
-	}
-	// Folder
-	else
-	{
-		return browserNodeType_folder;
-	}
+    switch (tvItem.iImage)
+    {
+        // Root
+        case INDEX_OPEN_ROOT:
+        case INDEX_CLOSE_ROOT:
+            return browserNodeType_root;
+        // Folder
+        case INDEX_OPEN_NODE:
+        case INDEX_CLOSE_NODE:
+            return browserNodeType_folder;
+        // File
+        // case INDEX_LEAF:
+        default:
+            return browserNodeType_file;
+    }
 }
 
 void FileBrowser::showContextMenu(int x, int y)
@@ -620,6 +666,8 @@ void FileBrowser::showContextMenu(int x, int y)
 		HMENU hMenu = NULL;
 		if (nodeType == browserNodeType_root)
 			hMenu = _hRootMenu;
+        else if (nodeType == browserNodeType_active_root)
+            hMenu = _hActiveRootMenu;
 		else if (nodeType == browserNodeType_folder)
 			hMenu = _hFolderMenu;
 		else //nodeType_file
@@ -643,11 +691,26 @@ void FileBrowser::popupMenuCmd(int cmdID)
 		case IDM_FILEBROWSER_REMOVEROOTFOLDER:
 		{
 			if (not selectedNode) return;
-
 			generic_string *rootPath = (generic_string *)_treeView.getItemParam(selectedNode);
 			if (_treeView.getParent(selectedNode) != nullptr || rootPath == nullptr)
 				return;
-
+            if (getNodeType(selectedNode) == browserNodeType_active_root) {
+                // only one item
+                if (_treeView.getPrevSibling(selectedNode) == nullptr && _treeView.getNextSibling(selectedNode) == nullptr)
+                {
+                    _activeRoot.clear();
+                }
+                // first item
+                else if (_treeView.getPrevSibling(selectedNode) == nullptr)
+                {
+                    _activeRoot = getNodePath(_treeView.getNextSibling(selectedNode));
+                }
+                // any other item
+                else
+                {
+                    _activeRoot = getNodePath(_treeView.getRoot());
+                }
+            }
 			size_t nbFolderUpdaters = _folderUpdaters.size();
 			for (size_t i = 0; i < nbFolderUpdaters; ++i)
 			{
@@ -659,6 +722,8 @@ void FileBrowser::popupMenuCmd(int cmdID)
 					break;
 				}
 			}
+            updateActiveNode();
+            saveRoots();
 		}
 		break;
 		
@@ -729,6 +794,8 @@ void FileBrowser::popupMenuCmd(int cmdID)
 
 				_folderUpdaters.erase(_folderUpdaters.begin() + i);
 			}
+            _activeRoot.clear();
+            saveRoots();
 		}
 		break;
 
@@ -741,6 +808,7 @@ void FileBrowser::popupMenuCmd(int cmdID)
 			{
 				addRootFolder(folderPath);
 			}
+            saveRoots();
 		}
 		break;
 
@@ -753,12 +821,82 @@ void FileBrowser::popupMenuCmd(int cmdID)
 				::ShellExecute(NULL, TEXT("open"), path.c_str(), NULL, NULL, SW_SHOWNORMAL);
 		}
 		break;
+
+
+        case IDM_FILEBROWSER_REFRESH:
+        {
+            vector<generic_string> folders = getRoots();
+            for (int i = static_cast<int>(_folderUpdaters.size()) - 1; i >= 0; --i)
+            {
+                _folderUpdaters[i]->stopWatcher();
+                HTREEITEM root = getRootFromFullPath(_folderUpdaters[i]->_rootFolder._rootPath);
+                if (root) {
+                    _treeView.removeItem(root);
+                }
+                _folderUpdaters.erase(_folderUpdaters.begin() + i);
+            }
+            for (size_t i = 0; i < folders.size(); ++i)
+            {
+                addRootFolder(folders[i]);
+            }
+        }
+        break;
+
+        case IDM_FILEBROWSER_SETACTIVE:
+        {
+            generic_string *rootPath = (generic_string *)_treeView.getItemParam(selectedNode);
+            if (_treeView.getParent(selectedNode) != nullptr || rootPath == nullptr)
+                return;
+            _activeRoot = *rootPath;
+            updateActiveNode();
+            saveRoots();
+        }
+        break;
 	}
 }
 
+void FileBrowser::saveRoots() {
+    NppParameters *pNppParam = NppParameters::getInstance();
+    vector<generic_string> rootPaths = getRoots();
+    generic_string selectedItemPath = getSelectedItemPath();
+    generic_string activeRootPath = getActiveRootPath();
+    pNppParam->writeFileBrowserSettings(rootPaths, selectedItemPath, activeRootPath);
+    pNppParam->saveConfig_xml();
+}
 
+void FileBrowser::updateActiveNode()
+{
+    for (HTREEITEM hItemNode = _treeView.getRoot();
+        hItemNode != nullptr;
+        hItemNode = _treeView.getNextSibling(hItemNode))
+    {
+        if (getNodeType(hItemNode) == browserNodeType_active_root)
+        {
+            _treeView.expand(hItemNode);
+            if (_treeView.getExpanded(hItemNode))
+            {
+                _treeView.setItemImage(hItemNode, INDEX_CLOSE_ACTIVE_ROOT, INDEX_CLOSE_ACTIVE_ROOT);
+            }
+            else
+            {
+                _treeView.setItemImage(hItemNode, INDEX_OPEN_ACTIVE_ROOT, INDEX_OPEN_ACTIVE_ROOT);
+            }
+        }
+        else
+        {
+            if (_treeView.getExpanded(hItemNode))
+            {
+                _treeView.setItemImage(hItemNode, INDEX_CLOSE_ROOT, INDEX_CLOSE_ROOT);
+            }
+            else
+            {
+                _treeView.setItemImage(hItemNode, INDEX_OPEN_ROOT, INDEX_OPEN_ROOT);
+            }
+        }
+    }
+}
 
-void FileBrowser::getDirectoryStructure(const TCHAR *dir, const std::vector<generic_string> & patterns, FolderInfo & directoryStructure, bool isRecursive, bool isInHiddenDir)
+void FileBrowser::getDirectoryStructure(const TCHAR *dir, const std::vector<generic_string> & patterns, FolderInfo & directoryStructure, bool isRecursive, bool isInHidden)
 {
 	if (directoryStructure._parent == nullptr) // Root!
 		directoryStructure.setRootPath(dir);
@@ -776,7 +914,7 @@ void FileBrowser::getDirectoryStructure(const TCHAR *dir, const std::vector<gene
 
 		if (foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
 		{
-			if (!isInHiddenDir && (foundData.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN))
+			if (!isInHidden && (foundData.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN))
 			{
 				// do nothing
 			}
@@ -791,17 +929,21 @@ void FileBrowser::getDirectoryStructure(const TCHAR *dir, const std::vector<gene
 					pathDir += TEXT("\\");
 
 					FolderInfo subDirectoryStructure(foundData.cFileName, &directoryStructure);
-					getDirectoryStructure(pathDir.c_str(), patterns, subDirectoryStructure, isRecursive, isInHiddenDir);
+					getDirectoryStructure(pathDir.c_str(), patterns, subDirectoryStructure, isRecursive, isInHidden);
 					directoryStructure.addSubFolder(subDirectoryStructure);
 				}
 			}
 		}
 		else
 		{
-			if (matchInList(foundData.cFileName, patterns))
-			{
-				directoryStructure.addFile(foundData.cFileName);
-			}
+            if (!isInHidden && (foundData.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN))
+            {
+                // do nothing
+            }
+            else if (matchInList(foundData.cFileName, patterns))
+            {
+                directoryStructure.addFile(foundData.cFileName);
+            }
 		}
 	}
 
@@ -809,7 +951,7 @@ void FileBrowser::getDirectoryStructure(const TCHAR *dir, const std::vector<gene
 	{
 		if (foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
 		{
-			if (!isInHiddenDir && (foundData.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN))
+			if (!isInHidden && (foundData.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN))
 			{
 				// do nothing
 			}
@@ -824,14 +966,18 @@ void FileBrowser::getDirectoryStructure(const TCHAR *dir, const std::vector<gene
 					pathDir += TEXT("\\");
 
 					FolderInfo subDirectoryStructure(foundData.cFileName, &directoryStructure);
-					getDirectoryStructure(pathDir.c_str(), patterns, subDirectoryStructure, isRecursive, isInHiddenDir);
+					getDirectoryStructure(pathDir.c_str(), patterns, subDirectoryStructure, isRecursive, isInHidden);
 					directoryStructure.addSubFolder(subDirectoryStructure);
 				}
 			}
 		}
 		else
 		{
-			if (matchInList(foundData.cFileName, patterns))
+            if (!isInHidden && (foundData.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN))
+            {
+                // do nothing
+            }
+            else if (matchInList(foundData.cFileName, patterns))
 			{
 				directoryStructure.addFile(foundData.cFileName);
 			}
@@ -858,6 +1004,11 @@ bool isRelatedRootFolder(const generic_string & relatedRoot, const generic_strin
 	size_t index2Compare = relatedRootArray.size() - 1;
 
 	return relatedRootArray[index2Compare] == subFolderArray[index2Compare];
+}
+
+void FileBrowser::setActiveRootPath(generic_string activeRootPath)
+{
+    _activeRoot = activeRootPath;
 }
 
 void FileBrowser::addRootFolder(generic_string rootFolderPath)
@@ -917,8 +1068,11 @@ void FileBrowser::addRootFolder(generic_string rootFolderPath)
 
 	FolderInfo directoryStructure(rootLabel, nullptr);
 	getDirectoryStructure(rootFolderPath.c_str(), patterns2Match, directoryStructure, true, false);
-	HTREEITEM hRootItem = createFolderItemsFromDirStruct(nullptr, directoryStructure);
-	_treeView.expand(hRootItem);
+    HTREEITEM hRootItem = createFolderItemsFromDirStruct(nullptr, directoryStructure);
+    if (getNodeType(hRootItem) == browserNodeType_active_root) {
+        _treeView.expand(hRootItem);
+        _treeView.selectItem(hRootItem);
+    }
 	_folderUpdaters.push_back(new FolderUpdater(directoryStructure, this));
 	_folderUpdaters[_folderUpdaters.size() - 1]->startWatcher();
 }

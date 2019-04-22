@@ -1384,7 +1384,7 @@ public:
 	bool writeHistory(const TCHAR *fullpath);
 
 	bool writeProjectPanelsSettings() const;
-	bool writeFileBrowserSettings(const std::vector<generic_string> & rootPath, const generic_string & latestSelectedItemPath) const;
+	bool writeFileBrowserSettings(const std::vector<generic_string> & rootPath, const generic_string & latestSelectedItemPath, const generic_string & activeRootPath) const;
 
 	TiXmlNode* getChildElementByAttribut(TiXmlNode *pere, const TCHAR *childName, const TCHAR *attributName, const TCHAR *attributVal) const;
 
@@ -1512,6 +1512,8 @@ public:
 	};
 
 	const std::vector<generic_string> getFileBrowserRoots() const { return _fileBrowserRoot; };
+    const generic_string getFileBrowserActiveRoot() const { return _fileBrowserActiveRoot; };
+
 	void setWorkSpaceFilePath(int i, const TCHAR *wsFile);
 
 	void setWorkingDir(const TCHAR * newPath);
@@ -1740,6 +1742,7 @@ private:
 	generic_string _workSpaceFilePathes[3];
 
 	std::vector<generic_string> _fileBrowserRoot;
+    generic_string _fileBrowserActiveRoot;
 
 	Accelerator *_pAccelerator;
 	ScintillaAccelerator * _pScintAccelerator;

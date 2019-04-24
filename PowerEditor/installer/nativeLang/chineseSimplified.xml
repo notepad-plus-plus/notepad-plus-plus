@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="7.6.2">
+    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="7.6.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -38,6 +38,7 @@
                     <Item subMenuId="search-jumpUp" name="到上一个颜色标记"/>
                     <Item subMenuId="search-jumpDown" name="到下一个颜色标记"/>
                     <Item subMenuId="search-bookmark" name="书签"/>
+                    <Item subMenuId="view-currentFileIn" name="将当前文件显示到"/>
                     <Item subMenuId="view-showSymbol" name="显示符号"/>
                     <Item subMenuId="view-zoom" name="缩放"/>
                     <Item subMenuId="view-moveCloneDocument" name="移动/复制当前文档"/>
@@ -78,6 +79,7 @@
                     <Item id="41005" name="关闭当前以外所有文件"/>
                     <Item id="41009" name="关闭左侧所有文件"/>
                     <Item id="41018" name="关闭右侧所有文件"/>
+                    <Item id="41024" name="关闭所有未修改文件"/>
                     <Item id="41006" name="保存(&amp;S)"/>
                     <Item id="41007" name="全部保存(&amp;E)"/>
                     <Item id="41008" name="另存为(&amp;A)..."/>
@@ -104,6 +106,7 @@
                     <Item id="42008" name="插入制表符(缩进)"/>
                     <Item id="42009" name="删除制表符(退格)"/>
                     <Item id="42010" name="复制当前行"/>
+                    <Item id="42077" name="删除连续的重复行"/>
                     <Item id="42012" name="分割行"/>
                     <Item id="42013" name="合并行"/>
                     <Item id="42014" name="上移当前行"/>
@@ -295,10 +298,11 @@
                     <Item id="48018" name="编辑弹出菜单"/>
                     <Item id="48009" name="管理快捷键..."/>
                     <Item id="48011" name="首选项..."/>
+                    <Item id="48014" name="打开插件文件夹..."/>
                     <Item id="48015" name="插件管理..."/>
                     <Item id="48501" name="生成..."/>
                     <Item id="48502" name="从文件生成..."/>
-                    <Item id="48503" name="生成到剪贴板"/>
+                    <Item id="48503" name="从选区生成并复制到剪贴板"/>
                     <Item id="48504" name="生成..."/>
                     <Item id="48505" name="从文件生成..."/>
                     <Item id="48506" name="从选区生成并复制到剪贴板"/>
@@ -340,6 +344,7 @@
                     <Item CMID="19" name="打开所在文件夹"/>
                     <Item CMID="20" name="打开所在文件夹(命令行)"/>
                     <Item CMID="21" name="使用默认查看器打开"/>
+                    <Item CMID="22" name="关闭所有未修改"/>
             </TabBar>
         </Menu>
 
@@ -354,7 +359,7 @@
                 <Item id="1605" name="正则表达式(&amp;G)"/>
                 <Item id="1606" name="循环查找(&amp;P)"/>
                 <Item id="1614" name="计数(&amp;T)"/>
-                <Item id="1615" name="查找全部"/>
+                <Item id="1615" name="全部标记"/>
                 <Item id="1616" name="标记所在行(&amp;M)"/>
                 <Item id="1618" name="清除上次标记"/>
                 <Item id="1611" name="替换为(&amp;L) :"/>
@@ -705,13 +710,13 @@
                     <Item id="6127" name="隐藏扩展名栏"/>
                 </Global>
                 <Scintillas title="编辑">
-                    <Item id="6216" name="插入符设置"/>
+                    <Item id="6216" name="光标设置"/>
                     <Item id="6217" name="宽度 :"/>
                     <Item id="6219" name="闪烁频率 :"/>
                     <Item id="6221" name="快"/>
                     <Item id="6222" name="慢"/>
                     <Item id="6224" name="多列编辑"/>
-                    <Item id="6225" name="启动 (Ctrl+鼠标点选)"/>
+                    <Item id="6225" name="启用 (Ctrl+鼠标点选)"/>
                     <Item id="6201" name="代码折叠标志"/>
                     <Item id="6202" name="简洁"/>
                     <Item id="6203" name="箭头"/>
@@ -825,7 +830,7 @@
 
                 <RecentFilesHistory title="最近文件记录">
                     <Item id="6304" name="最近文件记录"/>
-                    <Item id="6306" name="最大条数:"/>
+                    <Item id="6306" name="最大记录条数:"/>
                     <Item id="6305" name="不要在启动时检查"/>
                     <Item id="6429" name="显示"/>
                     <Item id="6424" name="在子菜单中"/>
@@ -906,7 +911,11 @@
                 </SearchEngine>
 
                 <MISC title="其他">
-                    <Item id="6307" name="启用"/>
+                    <ComboBox id="6347">
+                        <Element name="启用"/>
+                        <Element name="对所有已打开文件启用"/>
+                        <Element name="禁用"/>
+                    </ComboBox>
                     <Item id="6308" name="最小化到系统托盘"/>
                     <Item id="6312" name="自动检测文件状态"/>
                     <Item id="6313" name="自动更新文件"/>
@@ -1062,6 +1071,7 @@
             <OpenInAdminModeWithoutCloseCurrent title="保存失败" message="文件无法保存，它可能受到保护。
 是否要用管理员模式启动Notepad++？"/>
             <OpenInAdminModeFailed title="管理员模式开启失败" message="Notepad++不能用管理员模式打开。"/>
+            <ViewInBrowser title="在浏览器查看当前文件" message="在您的系统未找到该应用程序。"/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="剪贴板历史记录"/>
@@ -1172,8 +1182,8 @@
             <find-status-replaceinopenedfiles-nb-replaced value="替换所有打开文件：已替换$INT_REPLACE$个匹配项。"/>
             <find-status-mark-re-malformed value="标记：搜索的正则表达式格式不正确。"/>
             <find-status-invalid-re value="查找：无效的正则表达式。"/>
-            <find-status-mark-1-match value="1次匹配"/>
-            <find-status-mark-nb-matches value="$INT_REPLACE$次匹配"/>
+            <find-status-mark-1-match value="标记：1次匹配"/>
+            <find-status-mark-nb-matches value="标记：$INT_REPLACE$次匹配"/>
             <find-status-count-re-malformed value="计数：搜索的正则表达式格式不正确。"/>
             <find-status-count-1-match value="计数：1次匹配"/>
             <find-status-count-nb-matches value="计数：$INT_REPLACE$次匹配"/>
@@ -1196,6 +1206,18 @@
             <finder-select-all value="全部选择"/>
             <finder-clear-all value="全部清除"/>
             <finder-open-all value="全部打开"/>
+            <common-ok value="确定"/>
+            <common-cancel value="取消"/>
+            <common-name value="名称："/>
+            <tabrename-title value="重命名当前文件"/>
+            <tabrename-newname value="新名称："/>
+            <recent-file-history-maxfile value="最大条数："/>
+            <language-tabsize value="宽度："/>
+            <userdefined-title-new value="创建新语言..."/>
+            <userdefined-title-save value="保存当前语言名为..."/>
+            <userdefined-title-rename value="重命名当前语言"/>
+            <autocomplete-nb-char value="字符数: "/>
+            <edit-verticaledge-nb-col value="边界宽度值:"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

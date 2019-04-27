@@ -1234,6 +1234,18 @@ Continue?"/>
             <userdefined-title-rename value="Rename Current Language Name"/>
             <autocomplete-nb-char value="Nb char: "/>
             <edit-verticaledge-nb-col value="Nb of Column:"/>
+            <summary value="Summary"/>
+            <summary-filepath value="Full file path: "/>
+            <summary-filecreatetime value="Created: "/>
+            <summary-filemodifytime value="Modified: "/>
+            <summary-filelen value="File length (in byte): "/>
+            <summary-nbchar value="Characters (without line endings): "/>
+            <summary-nbword value="Words: "/>
+            <summary-nbline value="Lines: "/>
+            <summary-nbbyte value="Current document length: "/>
+            <summary-nbsel1 value=" selected characters ("/>
+            <summary-nbsel2 value=" bytes) in "/>
+            <summary-nbrange value=" ranges"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

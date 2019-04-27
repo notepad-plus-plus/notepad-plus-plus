@@ -1196,6 +1196,18 @@
 			<userdefined-title-rename value="Akt. Sprache umbenennen"/>
 			<autocomplete-nb-char value="Anz. Zeichen: "/>
 			<edit-verticaledge-nb-col value="Anz. Spalten: "/>
+			<summary value="Dateiinfo"/>
+			<summary-filepath value="Kompletter Pfad: "/>
+			<summary-filecreatetime value="Erzeugt: "/>
+			<summary-filemodifytime value="Geändert: "/>
+			<summary-filelen value="Dateigrösse (in Byte): "/>
+			<summary-nbchar value="Zeichen (ohne Zeilenenden): "/>
+			<summary-nbword value="Wörter: "/>
+			<summary-nbline value="Zeilen: "/>
+			<summary-nbbyte value="Aktuelle Dateigrösse: "/>
+			<summary-nbsel1 value=" markierte Zeichen ("/>
+			<summary-nbsel2 value=" Bytes) in "/>
+			<summary-nbrange value=" Abschnitten"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

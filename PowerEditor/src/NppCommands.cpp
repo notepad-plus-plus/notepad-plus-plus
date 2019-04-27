@@ -2018,72 +2018,80 @@ void Notepad_plus::command(int id)
 			Buffer * curBuf = _pEditView->getCurrentBuffer();
 			int64_t fileLen = curBuf->getFileLength();
 
-			if (fileLen != -1)
+			// localization for summary date
+			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+			if (pNativeSpeaker)
 			{
-				const TCHAR *filePathLabel = TEXT("Full file path: ");
-				const TCHAR *fileCreateTimeLabel = TEXT("Created: ");
-				const TCHAR *fileModifyTimeLabel = TEXT("Modified: ");
-				const TCHAR *fileLenLabel = TEXT("File length (in byte): ");
 
-				characterNumber += filePathLabel;
-				characterNumber += curBuf->getFullPathName();
+				if (fileLen != -1)
+				{
+					generic_string filePathLabel = pNativeSpeaker->getLocalizedStrFromID("summary-filepath", TEXT("Full file path: "));
+					generic_string fileCreateTimeLabel = pNativeSpeaker->getLocalizedStrFromID("summary-filecreatetime", TEXT("Created: "));
+					generic_string fileModifyTimeLabel = pNativeSpeaker->getLocalizedStrFromID("summary-filemodifytime", TEXT("Modified: "));
+					generic_string fileLenLabel = pNativeSpeaker->getLocalizedStrFromID("summary-filelen", TEXT("File length (in byte): "));
+
+					characterNumber += filePathLabel;
+					characterNumber += curBuf->getFullPathName();
+					characterNumber += TEXT("\r");
+
+					characterNumber += fileCreateTimeLabel;
+					characterNumber += curBuf->getFileTime(Buffer::ft_created);
+					characterNumber += TEXT("\r");
+
+					characterNumber += fileModifyTimeLabel;
+					characterNumber += curBuf->getFileTime(Buffer::ft_modified);
+					characterNumber += TEXT("\r");
+
+					characterNumber += fileLenLabel;
+					characterNumber += commafyInt(static_cast<size_t>(fileLen)).c_str();
+					characterNumber += TEXT("\r");
+					characterNumber += TEXT("\r");
+				}
+				generic_string nbCharLabel = pNativeSpeaker->getLocalizedStrFromID("summary-nbchar", TEXT("Characters (without line endings): "));
+				generic_string nbWordLabel = pNativeSpeaker->getLocalizedStrFromID("summary-nbword", TEXT("Words: "));
+				generic_string nbLineLabel = pNativeSpeaker->getLocalizedStrFromID("summary-nbline", TEXT("Lines: "));
+				generic_string nbByteLabel = pNativeSpeaker->getLocalizedStrFromID("summary-nbbyte", TEXT("Current document length: "));
+				generic_string nbSelLabel1 = pNativeSpeaker->getLocalizedStrFromID("summary-nbsel1", TEXT(" selected characters ("));
+				generic_string nbSelLabel2 = pNativeSpeaker->getLocalizedStrFromID("summary-nbsel2", TEXT(" bytes) in "));
+				generic_string nbRangeLabel = pNativeSpeaker->getLocalizedStrFromID("summary-nbrange", TEXT(" ranges"));
+
+				UniMode um = _pEditView->getCurrentBuffer()->getUnicodeMode();
+				auto nbChar = getCurrentDocCharCount(um);
+				int nbWord = wordCount();
+				auto nbLine = _pEditView->execute(SCI_GETLINECOUNT);
+				auto nbByte = _pEditView->execute(SCI_GETLENGTH);
+				auto nbSel = getSelectedCharNumber(um);
+				auto nbSelByte = getSelectedBytes();
+				auto nbRange = getSelectedAreas();
+
+				characterNumber += nbCharLabel;
+				characterNumber += commafyInt(nbChar).c_str();
 				characterNumber += TEXT("\r");
 
-				characterNumber += fileCreateTimeLabel;
-				characterNumber += curBuf->getFileTime(Buffer::ft_created);
+				characterNumber += nbWordLabel;
+				characterNumber += commafyInt(nbWord).c_str();
 				characterNumber += TEXT("\r");
 
-				characterNumber += fileModifyTimeLabel;
-				characterNumber += curBuf->getFileTime(Buffer::ft_modified);
+				characterNumber += nbLineLabel;
+				characterNumber += commafyInt(static_cast<int>(nbLine)).c_str();
 				characterNumber += TEXT("\r");
 
-				characterNumber += fileLenLabel;
-				characterNumber += commafyInt(static_cast<size_t>(fileLen)).c_str();
+				characterNumber += nbByteLabel;
+				characterNumber += commafyInt(nbByte).c_str();
 				characterNumber += TEXT("\r");
+
+				characterNumber += commafyInt(nbSel).c_str();
+				characterNumber += nbSelLabel1;
+				characterNumber += commafyInt(nbSelByte).c_str();
+				characterNumber += nbSelLabel2;
+				characterNumber += commafyInt(nbRange).c_str();
+				characterNumber += nbRangeLabel;
 				characterNumber += TEXT("\r");
+
+				generic_string summaryLabel = pNativeSpeaker->getLocalizedStrFromID("summary", TEXT("Summary"));
+
+				::MessageBox(_pPublicInterface->getHSelf(), characterNumber.c_str(), summaryLabel.c_str(), MB_OK|MB_APPLMODAL);
 			}
-			const TCHAR *nbCharLabel = TEXT("Characters (without line endings): ");
-			const TCHAR *nbWordLabel = TEXT("Words: ");
-			const TCHAR *nbLineLabel = TEXT("Lines: ");
-			const TCHAR *nbByteLabel = TEXT("Current document length: ");
-			const TCHAR *nbSelLabel1 = TEXT(" selected characters (");
-			const TCHAR *nbSelLabel2 = TEXT(" bytes) in ");
-			const TCHAR *nbRangeLabel = TEXT(" ranges");
-
-			UniMode um = _pEditView->getCurrentBuffer()->getUnicodeMode();
-			auto nbChar = getCurrentDocCharCount(um);
-			int nbWord = wordCount();
-			auto nbLine = _pEditView->execute(SCI_GETLINECOUNT);
-			auto nbByte = _pEditView->execute(SCI_GETLENGTH);
-			auto nbSel = getSelectedCharNumber(um);
-			auto nbSelByte = getSelectedBytes();
-			auto nbRange = getSelectedAreas();
-
-			characterNumber += nbCharLabel;
-			characterNumber += commafyInt(nbChar).c_str();
-			characterNumber += TEXT("\r");
-
-			characterNumber += nbWordLabel;
-			characterNumber += commafyInt(nbWord).c_str();
-			characterNumber += TEXT("\r");
-
-			characterNumber += nbLineLabel;
-			characterNumber += commafyInt(static_cast<int>(nbLine)).c_str();
-			characterNumber += TEXT("\r");
-
-			characterNumber += nbByteLabel;
-			characterNumber += commafyInt(nbByte).c_str();
-			characterNumber += TEXT("\r");
-
-			characterNumber += commafyInt(nbSel).c_str();
-			characterNumber += nbSelLabel1;
-			characterNumber += commafyInt(nbSelByte).c_str();
-			characterNumber += nbSelLabel2;
-			characterNumber += commafyInt(nbRange).c_str();
-			characterNumber += nbRangeLabel;
-			characterNumber += TEXT("\r");
-
-			::MessageBox(_pPublicInterface->getHSelf(), characterNumber.c_str(), TEXT("Summary"), MB_OK|MB_APPLMODAL);
 		}
 		break;
 

@@ -532,7 +532,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	::DrawMenuBar(hwnd);
 
 
-	if (_pluginsManager.hasPlugins() && pluginsTrans != TEXT(""))
+	if (pluginsTrans != TEXT(""))
 	{
 		::ModifyMenu(_mainMenuHandle, MENUINDEX_PLUGINS, MF_BYPOSITION, 0, pluginsTrans.c_str());
 	}
@@ -5654,7 +5654,7 @@ bool Notepad_plus::reloadLang()
 
 	int indexWindow = ::GetMenuItemCount(_mainMenuHandle) - 3;
 
-	if (_pluginsManager.hasPlugins() && pluginsTrans != TEXT(""))
+	if (pluginsTrans != TEXT(""))
 	{
 		::ModifyMenu(_mainMenuHandle, indexWindow - 1, MF_BYPOSITION, 0, pluginsTrans.c_str());
 	}

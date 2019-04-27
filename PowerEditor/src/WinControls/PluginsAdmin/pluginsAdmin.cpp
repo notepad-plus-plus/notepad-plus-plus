@@ -487,7 +487,17 @@ bool PluginsAdminDlg::exitToInstallRemovePlugins(Operation op, const vector<Plug
 		{
 			// add folder to operate
 			updaterParams += TEXT(" \"");
-			updaterParams += i->_folderName;
+			generic_string folderName = i->_folderName;
+			if (folderName.empty())
+			{
+				auto lastindex = i->_displayName.find_last_of(TEXT("."));
+				if (lastindex != generic_string::npos)
+					folderName = i->_displayName.substr(0, lastindex);
+				else
+					folderName = i->_displayName;	// This case will never occur, but in case if it occurs too
+													// just putting the plugin name, so that whole plugin system is not screewed.
+			}
+			updaterParams += folderName;
 			updaterParams += TEXT("\"");
 		}
 	}

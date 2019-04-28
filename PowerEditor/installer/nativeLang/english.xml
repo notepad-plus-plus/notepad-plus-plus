@@ -1113,6 +1113,7 @@ Do you want to launch Notepad++ in Administrator mode?"/>
                 <Item id="3517" name="Find in Files..."/>
                 <Item id="3518" name="Explorer here"/>
                 <Item id="3519" name="CMD here"/>
+                <Item id="3520" name="Copy file name"/>
             </Menus>
         </FolderAsWorkspace>
         <ProjectManager>

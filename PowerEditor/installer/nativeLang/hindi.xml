@@ -87,6 +87,7 @@
           <Item id="41005" name="वर्तमान दस्तावेज़ के अलावा सभी बंद करें"/>
           <Item id="41009" name="बाएं और सभी बंद करें"/>
           <Item id="41018" name="दाएं और सभी बंद करें"/>
+          <Item id="41024" name="सभी अनचेंज्ड बंद करें"/>
           <Item id="41006" name="&amp;सेव करें"/>
           <Item id="41007" name="&amp;सभी सेव करें"/>
           <Item id="41008" name="&amp;की तरह सेव करें"/>
@@ -349,7 +350,8 @@
         <Item CMID="18" name="दाएं और सभी बंद करें"/>
         <Item CMID="19" name="धारक फोल्डर को एक्स्प्लोरर में खोलें"/>
         <Item CMID="20" name="धारक फोल्डर को cmd में खोलें"/>
-	<Item CMID="21" name="डिफ़ॉल्ट व्यूअर में खोलें"/>
+        <Item CMID="21" name="डिफ़ॉल्ट व्यूअर में खोलें"/>
+        <Item CMID="22" name="सभी अनचेंज्ड बंद करें"/>
       </TabBar>
     </Menu>
 
@@ -1104,6 +1106,7 @@
         <Item id="3517" name="फाइल्स में खोजें..."/>
         <Item id="3518" name="यहाँ Explorer खोलें"/>
         <Item id="3519" name="यहाँ CMD खोलें"/>
+        <Item id="3520" name="फाइल का नाम कॉपी करें"/>
       </Menus>
     </FolderAsWorkspace>
     <ProjectManager>

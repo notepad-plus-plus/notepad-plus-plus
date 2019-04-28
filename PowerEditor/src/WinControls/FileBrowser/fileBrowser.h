@@ -40,7 +40,8 @@
 #define FB_ADDROOT            TEXT("Add")
 #define FB_REMOVEALLROOTS     TEXT("Remove All")
 #define FB_REMOVEROOTFOLDER   TEXT("Remove")
-#define FB_COPYEPATH          TEXT("Copy path")
+#define FB_COPYPATH           TEXT("Copy path")
+#define FB_COPYFILENAME       TEXT("Copy file name")
 #define FB_FINDINFILES        TEXT("Find in Files...")
 #define FB_EXPLORERHERE       TEXT("Explorer here")
 #define FB_CMDHERE            TEXT("CMD here")
@@ -142,6 +143,7 @@ public:
     };
 
 	generic_string getNodePath(HTREEITEM node) const;
+	generic_string getNodeName(HTREEITEM node) const;
 	void addRootFolder(generic_string);
 
 	HTREEITEM getRootFromFullPath(const generic_string & rootPath) const;

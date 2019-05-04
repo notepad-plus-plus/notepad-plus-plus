@@ -5,16 +5,17 @@
 // Copyright 2006 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
 
-#include <stdlib.h>
-#include <ctype.h>
+#include <cstdlib>
+#include <cassert>
 
+#include <stdexcept>
+
+#include "CharacterSet.h"
 #include "CharClassify.h"
 
-#ifdef SCI_NAMESPACE
 using namespace Scintilla;
-#endif
 
-CharClassify::CharClassify() {
+CharClassify::CharClassify() : charClass{} {
 	SetDefaultCharClasses(true);
 }
 
@@ -25,7 +26,7 @@ void CharClassify::SetDefaultCharClasses(bool includeWordClass) {
 			charClass[ch] = ccNewLine;
 		else if (ch < 0x20 || ch == ' ')
 			charClass[ch] = ccSpace;
-		else if (includeWordClass && (ch >= 0x80 || isalnum(ch) || ch == '_'))
+		else if (includeWordClass && (ch >= 0x80 || IsAlphaNumeric(ch) || ch == '_'))
 			charClass[ch] = ccWord;
 		else
 			charClass[ch] = ccPunctuation;
@@ -42,7 +43,7 @@ void CharClassify::SetCharClasses(const unsigned char *chars, cc newCharClass) {
 	}
 }
 
-int CharClassify::GetCharsOfClass(cc characterClass, unsigned char *buffer) {
+int CharClassify::GetCharsOfClass(cc characterClass, unsigned char *buffer) const {
 	// Get characters belonging to the given char class; return the number
 	// of characters (if the buffer is NULL, don't write to it).
 	int count = 0;

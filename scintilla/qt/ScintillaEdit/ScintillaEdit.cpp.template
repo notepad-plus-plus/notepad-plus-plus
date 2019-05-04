@@ -4,9 +4,7 @@
 
 #include "ScintillaEdit.h"
 
-#ifdef SCI_NAMESPACE
 using namespace Scintilla;
-#endif
 
 ScintillaEdit::ScintillaEdit(QWidget *parent) : ScintillaEditBase(parent) {
 }
@@ -25,12 +23,12 @@ QByteArray ScintillaEdit::TextReturner(int message, uptr_t wParam) const {
 }
 
 QPair<int, int>ScintillaEdit::find_text(int flags, const char *text, int cpMin, int cpMax) {
-    struct TextToFind ft = {{0, 0}, 0, {0, 0}};
+    struct Sci_TextToFind ft = {{0, 0}, 0, {0, 0}};
     ft.chrg.cpMin = cpMin;
     ft.chrg.cpMax = cpMax;
     ft.chrgText.cpMin = cpMin;
     ft.chrgText.cpMax = cpMax;
-    ft.lpstrText = const_cast<char *>(text);
+    ft.lpstrText = text;
 
     int start = send(SCI_FINDTEXT, flags, (uptr_t) (&ft));
 
@@ -43,7 +41,7 @@ QByteArray ScintillaEdit::get_text_range(int start, int end) {
 
     int length = end-start;
     QByteArray ba(length+1, '\0');
-    struct TextRange tr = {{start, end}, ba.data()};
+    struct Sci_TextRange tr = {{start, end}, ba.data()};
 
     send(SCI_GETTEXTRANGE, 0, (sptr_t)&tr);
     ba.chop(1); // Remove extra NUL
@@ -59,25 +57,25 @@ void ScintillaEdit::set_doc(ScintillaDocument *pdoc_) {
     send(SCI_SETDOCPOINTER, 0, (sptr_t)(pdoc_->pointer()));
 }
 
-long ScintillaEdit::format_range(bool draw, QPaintDevice* target, QPaintDevice* measure, 
+long ScintillaEdit::format_range(bool draw, QPaintDevice* target, QPaintDevice* measure,
                                  const QRect& print_rect, const QRect& page_rect,
                                  long range_start, long range_end)
 {
     Sci_RangeToFormat to_format;
-    
+
     to_format.hdc = target;
     to_format.hdcTarget = measure;
-    
+
     to_format.rc.left = print_rect.left();
     to_format.rc.top = print_rect.top();
     to_format.rc.right = print_rect.right();
     to_format.rc.bottom = print_rect.bottom();
-    
+
     to_format.rcPage.left = page_rect.left();
     to_format.rcPage.top = page_rect.top();
     to_format.rcPage.right = page_rect.right();
     to_format.rcPage.bottom = page_rect.bottom();
-    
+
     to_format.chrg.cpMin = range_start;
     to_format.chrg.cpMax = range_end;
 

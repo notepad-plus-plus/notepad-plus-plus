@@ -5,24 +5,27 @@
 // Copyright 1998-2003 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
 
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-#include <assert.h>
+#include <cstddef>
+#include <cstdlib>
+#include <cassert>
+#include <cstring>
+#include <cstdio>
 
+#include <stdexcept>
 #include <string>
+#include <string_view>
 #include <vector>
 #include <algorithm>
+#include <memory>
 
 #include "Platform.h"
 
 #include "Scintilla.h"
 #include "CharacterSet.h"
+#include "Position.h"
 #include "AutoComplete.h"
 
-#ifdef SCI_NAMESPACE
 using namespace Scintilla;
-#endif
 
 AutoComplete::AutoComplete() :
 	active(false),
@@ -30,7 +33,6 @@ AutoComplete::AutoComplete() :
 	typesep('?'),
 	ignoreCase(false),
 	chooseSingle(false),
-	lb(0),
 	posStart(0),
 	startLen(0),
 	cancelAtStartPos(true),
@@ -40,23 +42,21 @@ AutoComplete::AutoComplete() :
 	widthLBDefault(100),
 	heightLBDefault(100),
 	autoSort(SC_ORDER_PRESORTED) {
-	lb = ListBox::Allocate();
+	lb.reset(ListBox::Allocate());
 }
 
 AutoComplete::~AutoComplete() {
 	if (lb) {
 		lb->Destroy();
-		delete lb;
-		lb = 0;
 	}
 }
 
-bool AutoComplete::Active() const {
+bool AutoComplete::Active() const noexcept {
 	return active;
 }
 
 void AutoComplete::Start(Window &parent, int ctrlID,
-	int position, Point location, int startLen_,
+	Sci::Position position, Point location, Sci::Position startLen_,
 	int lineHeight, bool unicodeMode, int technology) {
 	if (active) {
 		Cancel();
@@ -72,7 +72,7 @@ void AutoComplete::SetStopChars(const char *stopChars_) {
 	stopChars = stopChars_;
 }
 
-bool AutoComplete::IsStopChar(char ch) {
+bool AutoComplete::IsStopChar(char ch) const noexcept {
 	return ch && (stopChars.find(ch) != std::string::npos);
 }
 
@@ -80,7 +80,7 @@ void AutoComplete::SetFillUpChars(const char *fillUpChars_) {
 	fillUpChars = fillUpChars_;
 }
 
-bool AutoComplete::IsFillUpChar(char ch) {
+bool AutoComplete::IsFillUpChar(char ch) const noexcept {
 	return ch && (fillUpChars.find(ch) != std::string::npos);
 }
 
@@ -88,7 +88,7 @@ void AutoComplete::SetSeparator(char separator_) {
 	separator = separator_;
 }
 
-char AutoComplete::GetSeparator() const {
+char AutoComplete::GetSeparator() const noexcept {
 	return separator;
 }
 
@@ -96,7 +96,7 @@ void AutoComplete::SetTypesep(char separator_) {
 	typesep = separator_;
 }
 
-char AutoComplete::GetTypesep() const {
+char AutoComplete::GetTypesep() const noexcept {
 	return typesep;
 }
 
@@ -129,9 +129,9 @@ struct Sorter {
 	}
 
 	bool operator()(int a, int b) {
-		int lenA = indices[a * 2 + 1] - indices[a * 2];
-		int lenB = indices[b * 2 + 1] - indices[b * 2];
-		int len  = std::min(lenA, lenB);
+		const int lenA = indices[a * 2 + 1] - indices[a * 2];
+		const int lenB = indices[b * 2 + 1] - indices[b * 2];
+		const int len  = std::min(lenA, lenB);
 		int cmp;
 		if (ac->ignoreCase)
 			cmp = CompareNCaseInsensitive(list + indices[a * 2], list + indices[b * 2], len);
@@ -154,7 +154,7 @@ void AutoComplete::SetList(const char *list) {
 
 	Sorter IndexSort(this, list);
 	sortMatrix.clear();
-	for (int i = 0; i < (int)IndexSort.indices.size() / 2; ++i)
+	for (int i = 0; i < static_cast<int>(IndexSort.indices.size()) / 2; ++i)
 		sortMatrix.push_back(i);
 	std::sort(sortMatrix.begin(), sortMatrix.end(), IndexSort);
 	if (autoSort == SC_ORDER_CUSTOM || sortMatrix.size() < 2) {
@@ -184,7 +184,7 @@ void AutoComplete::SetList(const char *list) {
 		item[wordLen] = '\0';
 		sortedList += item;
 	}
-	for (int i = 0; i < (int)sortMatrix.size(); ++i)
+	for (int i = 0; i < static_cast<int>(sortMatrix.size()); ++i)
 		sortMatrix[i] = i;
 	lb->SetList(sortedList.c_str(), separator, typesep);
 }
@@ -215,7 +215,7 @@ void AutoComplete::Cancel() {
 
 
 void AutoComplete::Move(int delta) {
-	int count = lb->Length();
+	const int count = lb->Length();
 	int current = lb->GetSelection();
 	current += delta;
 	if (current >= count)
@@ -226,7 +226,7 @@ void AutoComplete::Move(int delta) {
 }
 
 void AutoComplete::Select(const char *word) {
-	size_t lenWord = strlen(word);
+	const size_t lenWord = strlen(word);
 	int location = -1;
 	int start = 0; // lower bound of the api array block to search
 	int end = lb->Length() - 1; // upper bound of the api array block to search

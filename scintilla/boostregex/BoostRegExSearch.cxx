@@ -4,17 +4,26 @@
  * Converted from boost::xpressive to boost::regex and performance improvements 
  * (principally caching the compiled regex), and support for UTF8 encoded text
  * (c) 2012 Dave Brotherstone - Changes for boost::regex
- * (c) 2013 Francois-R.Boyer@PolyMtl.ca - Empty match modes and best match backward search.
+ * (c) 2013 Francois-R.Boyer@PolyMtl.ca - Empty match modes and best match backward search
+ * (c) 2019 Don Ho - Adapt for upgrading Scitilla (to version 4.1.4) and boost (to version 1.70)
  * 
  */
+
 #include <stdlib.h>
 #include <iterator> 
 #include <vector>
-#include "scintilla.h"
+
+#include "Scintilla.h"
 #include "Platform.h"
+#include "ILoader.h"
+#include "ILexer.h"
+#include "Position.h"
+#include "UniqueString.h"
 #include "SplitVector.h"
 #include "Partitioning.h"
 #include "RunStyles.h"
+#include "ContractionState.h"
+
 #include "CellBuffer.h"
 #include "CharClassify.h"
 #include "Decoration.h"
@@ -29,12 +38,9 @@
 #define CP_UTF8 65001
 #define SC_CP_UTF8 65001
 
+#define _SILENCE_ALL_CXX17_DEPRECATION_WARNI
 
-
-#ifdef SCI_NAMESPACE
 using namespace Scintilla;
-#endif
-
 using namespace boost;
 
 class BoostRegexSearch : public RegexSearchBase
@@ -48,7 +54,7 @@ public:
 		_substituted = NULL;
 	}
 	
-	virtual long FindText(Document* doc, int startPosition, int endPosition, const char *regex,
+	virtual Sci::Position FindText(Document* doc, Sci::Position minPos, Sci::Position maxPos, const char *regex,
                         bool caseSensitive, bool word, bool wordStart, int sciSearchFlags, int *lengthRet);
 	
 	virtual const char *SubstituteByPosition(Document* doc, const char *text, int *length);
@@ -139,7 +145,7 @@ private:
 			}
 		}
 
-		virtual void NotifyDeleted(Document* deletedDocument, void* /*userData*/)
+		virtual void NotifyDeleted(Document* deletedDocument, void* /*userData*/) noexcept
 		{
 			if (deletedDocument == _document)
 			{
@@ -236,28 +242,22 @@ private:
 	int _lastDirection;
 };
 
-#ifdef SCI_NAMESPACE
 namespace Scintilla
 {
-#endif
-
 #ifdef SCI_OWNREGEX
 RegexSearchBase *CreateRegexSearch(CharClassify* /* charClassTable */)
 {
 	return new BoostRegexSearch();
 }
 #endif
-
-#ifdef SCI_NAMESPACE
 }
-#endif
 
 /**
  * Find text in document, supporting both forward and backward
  * searches (just pass startPosition > endPosition to do a backward search).
  */
 
-long BoostRegexSearch::FindText(Document* doc, int startPosition, int endPosition, const char *regexString,
+Sci::Position BoostRegexSearch::FindText(Document* doc, Sci::Position startPosition, Sci::Position endPosition, const char *regexString,
                         bool caseSensitive, bool /*word*/, bool /*wordStart*/, int sciSearchFlags, int *lengthRet) 
 {
 	try {
@@ -453,19 +453,21 @@ char *BoostRegexSearch::EncodingDependent<CharT, CharacterIterator>::SubstituteB
 wchar_t *BoostRegexSearch::utf8ToWchar(const char *utf8)
 {
 	size_t utf8Size = strlen(utf8);
-	size_t wcharSize = UTF16Length(utf8, utf8Size);
+	std::string s(utf8, utf8Size);
+	size_t wcharSize = UTF16Length(s);
 	wchar_t *w = new wchar_t[wcharSize + 1];
-	UTF16FromUTF8(utf8, utf8Size, w, wcharSize + 1);
+	UTF16FromUTF8(s, w, wcharSize + 1);
 	w[wcharSize] = 0;
 	return w;
 }
 
 char *BoostRegexSearch::wcharToUtf8(const wchar_t *w)
 {
-	int wcharSize = static_cast<int>(wcslen(w));
-	int charSize = UTF8Length(w, wcharSize);
+	//int wcharSize = static_cast<int>(wcslen(w));
+	std::wstring ws(w);
+	int charSize = UTF8Length(ws);
 	char *c = new char[charSize + 1];
-	UTF8FromUTF16(w, wcharSize, c, charSize);
+	UTF8FromUTF16(ws, c, charSize);
 	c[charSize] = 0;
 	return c;
 }

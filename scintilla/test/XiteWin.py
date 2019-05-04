@@ -4,7 +4,7 @@
 from __future__ import with_statement
 from __future__ import unicode_literals
 
-import os, sys, unittest
+import os, platform, sys, unittest
 
 import ctypes
 from ctypes import wintypes
@@ -150,6 +150,8 @@ class XiteWin():
 
 		self.appName = "xite"
 
+		self.large = "-large" in sys.argv
+
 		self.cmds = {}
 		self.windowName = "XiteWindow"
 		self.wfunc = WFUNC(self.WndProc)
@@ -158,7 +160,7 @@ class XiteWin():
 			WS_VISIBLE | WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN, \
 			0, 0, 500, 700, 0, 0, hinst, 0)
 
-		args = sys.argv[1:]
+		args = [a for a in sys.argv[1:] if not a.startswith("-")]
 		self.SetMenus()
 		if args:
 			self.GrabFile(args[0])
@@ -182,7 +184,12 @@ class XiteWin():
 	def OnCreate(self, hwnd):
 		self.win = hwnd
 		# Side effect: loads the DLL
-		x = ctypes.windll.SciLexer.Scintilla_DirectFunction
+		try:
+			x = ctypes.windll.SciLexer.Scintilla_DirectFunction
+		except OSError:
+			print("Can't find SciLexer.DLL")
+			print("Python is built for " + " ".join(platform.architecture()))
+			sys.exit()
 		self.sciHwnd = user32.CreateWindowExW(0,
 			"Scintilla", "Source",
 			WS_CHILD | WS_VSCROLL | WS_HSCROLL | WS_CLIPCHILDREN,
@@ -194,6 +201,9 @@ class XiteWin():
 		sciptr = c_char_p(user32.SendMessageW(self.sciHwnd,
 			int(self.face.features["GetDirectPointer"]["Value"], 0), 0,0))
 		self.ed = ScintillaCallable.ScintillaCallable(self.face, scifn, sciptr)
+		if self.large:
+			doc = self.ed.CreateDocument(10, 0x100)
+			self.ed.SetDocPointer(0, doc)
 
 		self.FocusOnEditor()
 
@@ -299,16 +309,16 @@ class XiteWin():
 
 	def Open(self):
 		ofx = OPENFILENAME(self.win, "Open File")
-		opath = "\0" * 1024
-		ofx.lpstrFile = opath
+		opath = ctypes.create_unicode_buffer(1024)
+		ofx.lpstrFile = ctypes.addressof(opath)
 		filters = ["Python (.py;.pyw)|*.py;*.pyw|All|*.*"]
 		filterText = "\0".join([f.replace("|", "\0") for f in filters])+"\0\0"
 		ofx.lpstrFilter = filterText
 		if ctypes.windll.comdlg32.GetOpenFileNameW(ctypes.byref(ofx)):
-			absPath = opath.replace("\0", "")
+			absPath = opath.value.replace("\0", "")
 			self.GrabFile(absPath)
 			self.FocusOnEditor()
-			self.ed.LexerLanguage = "python"
+			self.ed.LexerLanguage = b"python"
 			self.ed.Lexer = self.ed.SCLEX_PYTHON
 			self.ed.SetKeyWords(0, b"class def else for from if import print return while")
 			for style in [k for k in self.ed.k if k.startswith("SCE_P_")]:

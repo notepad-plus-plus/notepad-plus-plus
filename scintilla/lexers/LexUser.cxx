@@ -23,7 +23,7 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #include <assert.h>
 #include <windows.h>
 
-#include "Platform.h"
+//#include "Platform.h"
 #include "ILexer.h"
 #include "LexAccessor.h"
 #include "Accessor.h"
@@ -34,10 +34,7 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #include "LexerModule.h"
 #include "PropSetSimple.h"
 
-
-#ifdef SCI_NAMESPACE
 using namespace Scintilla;
-#endif
 
 #define CL_CURRENT  0x1
 #define CL_PREV     0x2
@@ -141,37 +138,37 @@ typedef vector<vector<string>> vvstring;
 
 struct forwardStruct
 {
-    vvstring * vec;
-    int sceID;
-    int maskID;
+    vvstring * _vec;
+    int _sceID;
+    int _maskID;
 
-    forwardStruct(): vec(0), sceID(0), maskID(0) {};    // constructor, useless but obligatory
+    forwardStruct(): _vec(0), _sceID(0), _maskID(0) {};    // constructor, useless but obligatory
 
     forwardStruct * Set (vvstring * vec, int sceID, int maskID) {
-        this->vec = vec;
-        this->sceID = sceID;
-        this->maskID = maskID;
+        _vec = vec;
+        _sceID = sceID;
+        _maskID = maskID;
         return this;
     }
 
 }FWS;   // just one instance
 
 struct nestedInfo {
-    unsigned int position;
-    int nestedLevel;
-    int index;
-    int state;
-    int opener;
+    size_t _position;
+    int _nestedLevel;
+    int _index;
+    int _state;
+    int _opener;
 
     // constructor, useless but obligatory
-    nestedInfo():position(0), nestedLevel(0), index(0), state(0), opener(0) {};
+    nestedInfo():_position(0), _nestedLevel(0), _index(0), _state(0), _opener(0) {};
 
-    nestedInfo * Set (unsigned int position, int nestedLevel, int index, int state, int opener) {
-        this->position = position;
-        this->nestedLevel = nestedLevel;
-        this->index = index;
-        this->state = state;
-        this->opener = opener;
+    nestedInfo * Set (size_t position, int nestedLevel, int index, int state, int opener) {
+        _position = position;
+        _nestedLevel = nestedLevel;
+        _index = index;
+        _state = state;
+        _opener = opener;
         return this;
     }
 };
@@ -283,7 +280,7 @@ static bool isInListForward2(vvstring * fwEndVectors[], int totalVectors, StyleC
     return false;
 }
 
-static bool isInListForward3(vector<string> * tokens, StyleContext & sc, bool ignoreCase, int offset, int & moveForward)
+static bool isInListForward3(vector<string> * tokens, StyleContext & sc, bool ignoreCase, Sci_Position offset, size_t & moveForward)
 {
     // forward check for vector<string> keywords, with offset
 
@@ -291,7 +288,7 @@ static bool isInListForward3(vector<string> * tokens, StyleContext & sc, bool ig
 
     unsigned char a = 0;
     unsigned char b = 0;
-    int indexb = 0;
+    Sci_Position indexb = 0;
     bool isFound = false;
 
     vector<string>::iterator iter1;
@@ -329,7 +326,7 @@ static inline bool IsADigit(char ch)
 }
 
 static bool IsNumber(StyleContext & sc, vector<string> * numberTokens[], vvstring * fwEndVectors[],
-                     bool ignoreCase, int  decSeparator, int & moveForward )
+                     bool ignoreCase, int  decSeparator, size_t & moveForward )
 {
     moveForward = 0;
 
@@ -342,7 +339,7 @@ static bool IsNumber(StyleContext & sc, vector<string> * numberTokens[], vvstrin
     bool hasRange = false;
     bool hasExp = false;
     bool previousWasRange = false;
-    int offset = 0;
+    Sci_Position offset = 0;
 
     vector<string> * prefixTokens1          = numberTokens[0];
     vector<string> * prefixTokens2          = numberTokens[1];
@@ -383,7 +380,7 @@ static bool IsNumber(StyleContext & sc, vector<string> * numberTokens[], vvstrin
         if (iter != last)
         {
             // prefix2 is styled as number only if followed by an actual number or NBR_EXTRA_CHAR
-            int skipForward = 0;
+            size_t skipForward = 0;
 
             if (isInListForward3(extrasTokens1, sc, ignoreCase, iter->length(), skipForward))
             {
@@ -467,7 +464,7 @@ static bool IsNumber(StyleContext & sc, vector<string> * numberTokens[], vvstrin
             return false;
     }
 
-    int skipForward = 0;
+    size_t skipForward = 0;
     for (;;)
     {
         skipForward = 0;
@@ -626,7 +623,7 @@ static bool IsNumber(StyleContext & sc, vector<string> * numberTokens[], vvstrin
 
 static inline void SubGroup(const char * s, vvstring & vec, bool group=false)
 {
-    unsigned int length = strlen(s);
+    size_t length = strlen(s);
     char * temp = new char[length+1];
     unsigned int index = 0;
     vector<string> subvector;
@@ -698,9 +695,9 @@ static inline void SubGroup(const char * s, vvstring & vec, bool group=false)
     delete [] temp;
 }
 
-static inline void GenerateVector(vvstring & vec, const char * s, char * prefix, int minLength)
+static inline void GenerateVector(vvstring & vec, const char * s, char * prefix, size_t minLength)
 {
-    unsigned int length = strlen(s);
+    size_t length = strlen(s);
     char * temp = new char[length];
     unsigned int index = 0;
     bool copy = false;
@@ -746,7 +743,7 @@ static inline void GenerateVector(vvstring & vec, const char * s, char * prefix,
         SubGroup(temp, vec, inGroup);
 
     vector<string> emptyVector;
-    for (int i = vec.size(); i < minLength; ++i)
+    for (size_t i = vec.size(); i < minLength; ++i)
     {
         vec.push_back(emptyVector);
     }
@@ -786,7 +783,7 @@ static inline void StringToVector(char * original, vector<string> & tokenVector,
     }
 }
 
-static inline void ReColoringCheck(unsigned int & startPos, unsigned int & nestedLevel, int & initStyle, int & openIndex,
+static inline void ReColoringCheck(Sci_PositionU & startPos, int & nestedLevel, int & initStyle, int & openIndex,
                                    int & isCommentLine, bool & isInComment, Accessor & styler, vector<nestedInfo> & lastNestedGroup,
                                    vector<nestedInfo> & nestedVector, /* vector<int> & foldVector, */ int & continueCommentBlock)
 {
@@ -835,7 +832,7 @@ static inline void ReColoringCheck(unsigned int & startPos, unsigned int & neste
     vector<nestedInfo>::iterator iter = nestedVector.begin();
     for (; iter != nestedVector.end(); ++iter)
     {
-        if (iter->position >= startPos)
+        if (iter->_position >= startPos)
         {
             nestedVector.erase(iter, nestedVector.end());
             break;
@@ -847,7 +844,7 @@ static inline void ReColoringCheck(unsigned int & startPos, unsigned int & neste
         // go back to last nesting level '1' (or beginning of vector if no level '1' is found)
         iter = --nestedVector.end();
         lastNestedGroup.clear();
-        while (iter->nestedLevel > 1 && iter != nestedVector.begin())
+        while (iter->_nestedLevel > 1 && iter != nestedVector.begin())
             --iter;
     }
     else
@@ -863,15 +860,15 @@ static inline void ReColoringCheck(unsigned int & startPos, unsigned int & neste
     vector<nestedInfo>::iterator last;
     while (iter != nestedVector.end())
     {
-        if (iter->opener == NI_OPEN)
+        if (iter->_opener == NI_OPEN)
             lastNestedGroup.push_back(*iter);
-        else if (iter->opener == NI_CLOSE && !lastNestedGroup.empty())
+        else if (iter->_opener == NI_CLOSE && !lastNestedGroup.empty())
         {
             last = --lastNestedGroup.end();
-            if (last->opener == NI_OPEN)
-                if (last->nestedLevel == iter->nestedLevel)
-                    if (last->state == iter->state)
-                        if (last->index == iter->index)
+            if (last->_opener == NI_OPEN)
+                if (last->_nestedLevel == iter->_nestedLevel)
+                    if (last->_state == iter->_state)
+                        if (last->_index == iter->_index)
                             lastNestedGroup.erase(last);
         }
         ++iter;
@@ -880,19 +877,19 @@ static inline void ReColoringCheck(unsigned int & startPos, unsigned int & neste
     if (!lastNestedGroup.empty())
     {
         last = --lastNestedGroup.end();
-        initStyle = last->state;
-        openIndex = last->index;
-        nestedLevel = last->nestedLevel;
+        initStyle = last->_state;
+        openIndex = last->_index;
+        nestedLevel = last->_nestedLevel;
 
         // are we nested somewhere in comment?
         for (; ; --last)
         {
-            if (last->state == SCE_USER_STYLE_COMMENT)
+            if (last->_state == SCE_USER_STYLE_COMMENT)
             {
                 isInComment = true;
                 isCommentLine = COMMENTLINE_YES;
             }
-            if (last->state == SCE_USER_STYLE_COMMENTLINE)
+            if (last->_state == SCE_USER_STYLE_COMMENTLINE)
             {
                 isCommentLine = COMMENTLINE_YES;
             }
@@ -925,7 +922,7 @@ static inline void ReColoringCheck(unsigned int & startPos, unsigned int & neste
     // foldVector.erase(foldVector.begin() + lineCurrent, foldVector.end());
 }
 
-static bool isInListForward(vvstring & openVector, StyleContext & sc, bool ignoreCase, int & openIndex, int & skipForward)
+static bool isInListForward(vvstring & openVector, StyleContext & sc, bool ignoreCase, int & openIndex, size_t & skipForward)
 {
     // forward check for standard (sigle part) keywords
 
@@ -951,7 +948,7 @@ static bool isInListForward(vvstring & openVector, StyleContext & sc, bool ignor
 }
 
 static bool isInListBackward(WordList & list, StyleContext & sc, bool specialMode, bool ignoreCase,
-                             int & moveForward, vvstring * fwEndVectors[], int & nlCount, unsigned int docLength)
+                             int & moveForward, vvstring * fwEndVectors[], int & nlCount, size_t docLength)
 {
     // backward search
     // this function compares last identified 'word' (text surrounded by spaces or other forward keywords)
@@ -1115,7 +1112,7 @@ static bool isInListBackward(WordList & list, StyleContext & sc, bool specialMod
 
 static void setBackwards(WordList * kwLists[], StyleContext & sc, bool prefixes[], bool ignoreCase,
                          int nestedKey, vvstring * fwEndVectors[], int & levelMinCurrent,
-                         int & levelNext, int & nlCount, bool & dontMove, unsigned int docLength)
+                         int & levelNext, int & nlCount, bool & dontMove, size_t docLength)
 {
     if (sc.LengthCurrent() == 0)
         return;
@@ -1161,7 +1158,7 @@ static void setBackwards(WordList * kwLists[], StyleContext & sc, bool prefixes[
 }
 
 static bool isInListNested(int nestedKey, vector<forwardStruct> & forwards, StyleContext & sc,
-                           bool ignoreCase, int & openIndex, int & skipForward, int & newState, int pureLC,
+                           bool ignoreCase, int & openIndex, size_t & skipForward, int & newState, int pureLC,
                            bool visibleChars, vector<string> * numberTokens[], vvstring ** numberDelims, int decSeparator)
 {
     // check if some other delimiter is nested within current delimiter
@@ -1172,18 +1169,18 @@ static bool isInListNested(int nestedKey, vector<forwardStruct> & forwards, Styl
 
     for (; iter != forwards.end(); ++iter)
     {
-        if (nestedKey & iter->maskID)
+        if (nestedKey & iter->_maskID)
         {
-            if ((iter->maskID != SCE_USER_MASK_NESTING_COMMENT_LINE) ||
-                (iter->maskID == SCE_USER_MASK_NESTING_COMMENT_LINE &&
+            if ((iter->_maskID != SCE_USER_MASK_NESTING_COMMENT_LINE) ||
+                (iter->_maskID == SCE_USER_MASK_NESTING_COMMENT_LINE &&
                     ((pureLC == PURE_LC_NONE) ||
                      (pureLC == PURE_LC_BOL && (sc.chPrev == '\r' || sc.chPrev == '\n')) ||
                      (pureLC == PURE_LC_WSP && visibleChars == false))))
 
             {
-                if (isInListForward(*(iter->vec), sc, ignoreCase, openIndex, skipForward))
+                if (isInListForward(*(iter->_vec), sc, ignoreCase, openIndex, skipForward))
                 {
-                    newState = iter->sceID;
+                    newState = iter->_sceID;
                     return true;
                 }
             }
@@ -1215,13 +1212,13 @@ static void readLastNested(vector<nestedInfo> & lastNestedGroup, int & newState,
         lastNestedGroup.erase(lastNestedGroup.end()-1);
         if (!lastNestedGroup.empty())
         {
-            newState = (--lastNestedGroup.end())->state;
-            openIndex = (--lastNestedGroup.end())->index;
+            newState = (--lastNestedGroup.end())->_state;
+            openIndex = (--lastNestedGroup.end())->_index;
         }
     }
 }
 
-static void ColouriseUserDoc(unsigned int startPos, int length, int initStyle, WordList *kwLists[], Accessor &styler)
+static void ColouriseUserDoc(Sci_PositionU startPos, Sci_Position length, int initStyle, WordList *kwLists[], Accessor &styler)
 {
     bool foldComments = styler.GetPropertyInt("userDefine.allowFoldOfComments", 0) != 0;
     bool ignoreCase   = styler.GetPropertyInt("userDefine.isCaseIgnored",       0) != 0;
@@ -1604,9 +1601,9 @@ static void ColouriseUserDoc(unsigned int startPos, int length, int initStyle, W
     bool finished = true;
     int checkEOL = EOL_DEFAULT_VALUE;
 
-    unsigned int nestedLevel = 0;
+    int nestedLevel = 0;
     int openIndex = 0;
-    int skipForward = 0;
+    size_t skipForward = 0;
     int prevState = 0;
 
     int isCommentLine = COMMENTLINE_NO;
@@ -1626,7 +1623,7 @@ static void ColouriseUserDoc(unsigned int startPos, int length, int initStyle, W
     vvstring * delimClose  = NULL;
     vvstring ** numberDelims = NULL;
     int delimNesting = 0;
-    unsigned int docLength = startPos + length;
+    size_t docLength = startPos + length;
 
     if (startPos == 0)
     {
@@ -1637,7 +1634,7 @@ static void ColouriseUserDoc(unsigned int startPos, int length, int initStyle, W
     }
     else
     {
-        int oldStartPos = startPos;
+        size_t oldStartPos = startPos;
         ReColoringCheck(startPos, nestedLevel, initStyle, openIndex, isCommentLine, isInComment,
                         styler, lastNestedGroup, nestedVector, /* foldVector, */ continueCommentBlock);
 
@@ -1891,7 +1888,7 @@ static void ColouriseUserDoc(unsigned int startPos, int length, int initStyle, W
                     vector<string>::iterator iter = commentLineContinue[openIndex].begin();
                     for (; iter != commentLineContinue[openIndex].end(); ++iter)
                     {
-                        int length = iter->length();
+                        size_t length = iter->length();
                         if (length == 0)
                         {
                             if (!dontMove)
@@ -1900,7 +1897,7 @@ static void ColouriseUserDoc(unsigned int startPos, int length, int initStyle, W
                         }
 
                         lineContinuation = true;
-                        for (int i=0; i<length; ++i)
+                        for (size_t i = 0; i < length; ++i)
                         {
                             if (ignoreCase)
                             {
@@ -2310,7 +2307,7 @@ static void ColouriseUserDoc(unsigned int startPos, int length, int initStyle, W
     sc.Complete();
 }
 
-static void FoldUserDoc(unsigned int /* startPos */, int /* length */, int /*initStyle*/, WordList *[],  Accessor & /* styler */)
+static void FoldUserDoc(Sci_PositionU /* startPos */, Sci_Position /* length */, int /*initStyle*/, WordList *[],  Accessor & /* styler */)
 {
     // this function will not be used in final version of the code.
     // it should remain commented out as it is useful for debugging purposes !!!

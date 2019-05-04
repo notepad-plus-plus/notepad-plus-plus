@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 import ctypes, os, sys
 
-from ctypes import c_int, c_ulong, c_char_p, c_wchar_p, c_ushort, c_uint, c_long
+from ctypes import c_int, c_ulong, c_char_p, c_wchar_p, c_ushort, c_uint, c_long, c_ssize_t
 
 class TEXTRANGE(ctypes.Structure):
 	_fields_= (\
@@ -42,7 +42,7 @@ class SciCall:
 			ll = ctypes.cast(l, c_char_p)
 			return self._fn(self._ptr, self._msg, ww, ll)
 
-sciFX = ctypes.CFUNCTYPE(c_long, c_char_p, c_int, c_char_p, c_char_p)
+sciFX = ctypes.CFUNCTYPE(c_ssize_t, c_char_p, c_int, c_char_p, c_char_p)
 
 class ScintillaCallable:
 	def __init__(self, face, scifn, sciptr):
@@ -151,7 +151,7 @@ class ScintillaCallable:
 
 	def Contents(self):
 		return self.ByteRange(0, self.Length)
-		
+
 	def SetContents(self, s):
 		self.TargetStart = 0
 		self.TargetEnd = self.Length

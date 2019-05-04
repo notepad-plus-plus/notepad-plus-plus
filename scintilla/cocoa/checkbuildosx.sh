@@ -14,7 +14,7 @@ make test
 cd ../../..
 
 # ************************************************************
-# Target 2: build framework and test app with Xcode targetting OS X 10.n with n from 9 to 5
+# Target 2: build framework and test app with Xcode targeting OS X 10.n with n from 9 to 5
 # Only SDK versions that are installed will be built
 # Clean both then build both -- if perform clean in ScintillaTest, also cleans ScintillaFramework
 # which can cause double build

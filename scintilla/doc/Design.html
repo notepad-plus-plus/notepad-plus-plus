@@ -6,6 +6,7 @@
     <meta name="generator" content="HTML Tidy, see www.w3.org" />
     <meta name="generator" content="SciTE" />
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>
       Scintilla and SciTE
     </title>
@@ -48,14 +49,14 @@
       library and with limited use of templates.
     </p>
     <p>
-       The currently supported platforms, Windows, GTK+/Linux and wxWindows are fairly similar in 
+       The currently supported platforms, Windows, GTK+/Linux, Cocoa and wxWidgets are fairly similar in
       many ways.
       Each has windows, menus and bitmaps. These features generally work in similar ways so each
       has a way to move a window or draw a red line. Sometimes one platform requires a sequence of
       calls rather than a single call. At other times, the differences are more profound. Reading
       the Windows clipboard occurs synchronously but reading the GTK+ clipboard requires a request
       call that will be asynchronously answered with a message containing the clipboard data.
-      The wxWindows platform is available from the <a href="http://wxwindows.org/">wxWindows site</a>
+      The wxWidgets platform is available from the <a href="http://wxwidgets.org/">wxWidgets site</a>
     </p>
     <br />
     <h3>
@@ -86,25 +87,21 @@
       the name of a macro on Windows.
     </p>
     <h4>
-       Colour, ColourPair, Palette
+       ColourDesired
     </h4>
     <p>
-       Colour holds a platform specific colour identifier - COLORREF for Windows and GdkColor for
-      GTK+. The red, green and blue components that make up the colour are limited to the 8 bits of
-      precision available on Windows. ColourPairs are used because not all possible colours are
-      always available. Using an 8 bit colour mode, which is a common setting for both Windows and
-      GTK+, only 256 colours are possible on the display. Thus when an application asks for a dull
-      red, say #400000, it may only be allocated an already available colour such as #800000 or
-      #330000. With 16 or 2 colour modes even less choice is available and the application will
-      have to use the limited set of already available colours.
+       This is a simple class holding an expected colour. It is internally represented as a single
+      32 bit integer in BGR format with 8 bits per colour, but also provides a convenient API to fetch
+      each component separately.
+       As a platform might not be able to represent the exact desired colour if it doesn't have 24 bit
+      depth available, it might not actually represent the exact desired colour but select a best fit
+      that it can actually render.
     </p>
-    A Palette object holds a set of colour pairs and can make the appropriate calls to ask to
-    allocate these colours and to see what the platform has decided will be allowed. 
     <h4>
        Font
     </h4>
     <p>
-       Font holds a platform specific font identifier - HFONT for Windows, GdkFont* for GTK+. It
+       Font holds a platform specific font identifier - HFONT for Windows, PangoFontDescription* for GTK+. It
       does not own the identifier and so will not delete the platform font object in its
       destructor. Client code should call Destroy at appropriate times.
     </p>
@@ -115,8 +112,8 @@
        Surface is an abstraction over each platform's concept of somewhere that graphical drawing
       operations can be done. It may wrap an already created drawing place such as a window or be
       used to create a bitmap that can be drawn into and later copied onto another surface. On
-      Windows it wraps a HDC and possibly a HBITMAP. On GTK+ it wraps a GdkDrawable* and possibly a
-      GdkPixmap*. Other platform specific objects are created (and correctly destroyed) whenever
+      Windows it wraps a HDC and possibly a HBITMAP. On GTK+ it wraps a cairo_surface_t*.
+      Other platform specific objects are created (and correctly destroyed) whenever
       required to perform drawing actions.
     </p>
     <p>
@@ -146,7 +143,7 @@
     </h4>
     <p>
        Menu is a small helper class for constructing popup menus. It contains the platform specific
-      menu identifier - HMENU for Windows, GtkItemFactory* for GTK+. Most of the work in
+      menu identifier - HMENU for Windows, GtkMenu* for GTK+. Most of the work in
       constructing menus requires access to platform events and so is done in the Platform Events
       and API layer.
     </p>
@@ -163,7 +160,7 @@
     </h3>
     <p>
        The bulk of Scintilla's code is platform independent. This is made up of the CellBuffer,
-      ContractionState, Document, Editor, Indicator, LineMarker, Style, ViewStyle, KeyMap, 
+      ContractionState, Document, Editor, Indicator, LineMarker, Style, ViewStyle, KeyMap,
       ScintillaBase, CallTip,
       and AutoComplete primary classes.
     </p>
@@ -203,14 +200,14 @@
     </h4>
     <p>
        The Editor object is central to Scintilla. It is responsible for displaying a document and
-      responding to user actions and requests from the container. It uses ContractionState, Indicator, 
-      LineMarker, Style, and ViewStyle objects to display the document and a KeyMap class to 
-      map key presses to functions. 
-      The visibility of each line is kept in the ContractionState which is also responsible for mapping 
+      responding to user actions and requests from the container. It uses ContractionState, Indicator,
+      LineMarker, Style, and ViewStyle objects to display the document and a KeyMap class to
+      map key presses to functions.
+      The visibility of each line is kept in the ContractionState which is also responsible for mapping
       from display lines to documents lines and vice versa.
     </p>
     <p>
-       There may be multiple Editor objects attached to one Document object. Changes to a 
+       There may be multiple Editor objects attached to one Document object. Changes to a
        document are broadcast to the editors through the DocWatcher mechanism.
     </p>
     <h4>

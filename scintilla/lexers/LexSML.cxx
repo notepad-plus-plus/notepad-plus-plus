@@ -24,17 +24,19 @@
 #include "CharacterSet.h"
 #include "LexerModule.h"
 
+#if defined(__clang__)
+#pragma clang diagnostic ignored "-Wcomma"
+#endif
+
 inline int  issml(int c) {return isalnum(c) || c == '_';}
 inline int issmlf(int c) {return isalpha(c) || c == '_';}
 inline int issmld(int c) {return isdigit(c) || c == '_';}
 
 
-#ifdef SCI_NAMESPACE
 using namespace Scintilla;
-#endif
 
-void ColouriseSMLDoc(
-	unsigned int startPos, int length,
+static void ColouriseSMLDoc(
+	Sci_PositionU startPos, Sci_Position length,
 	int initStyle,
 	WordList *keywordlists[],
 	Accessor &styler)
@@ -46,7 +48,8 @@ void ColouriseSMLDoc(
 	if (sc.state >= SCE_SML_COMMENT)
 		nesting = (sc.state & 0x0f) - SCE_SML_COMMENT;
 
-	int chBase = 0, chToken = 0, chLit = 0;
+	Sci_PositionU chToken = 0;
+	int chBase = 0, chLit = 0;
 	WordList& keywords  = *keywordlists[0];
 	WordList& keywords2 = *keywordlists[1];
 	WordList& keywords3 = *keywordlists[2];
@@ -54,7 +57,7 @@ void ColouriseSMLDoc(
 
 	while (sc.More()) {
 		int state2 = -1;
-		int chColor = sc.currentPos - 1;
+		Sci_Position chColor = sc.currentPos - 1;
 		bool advance = true;
 
 		switch (sc.state & 0x0f) {
@@ -89,10 +92,10 @@ void ColouriseSMLDoc(
 
 		case SCE_SML_IDENTIFIER:
 			if (!(issml(sc.ch) || sc.Match('\''))) {
-				const int n = sc.currentPos - chToken;
+				const Sci_Position n = sc.currentPos - chToken;
 				if (n < 24) {
 					char t[24];
-					for (int i = -n; i < 0; i++)
+					for (Sci_Position i = -n; i < 0; i++)
 						t[n + i] = static_cast<char>(sc.GetRelative(i));
 					t[n] = '\0';
 					if ((n == 1 && sc.chPrev == '_') || keywords.InList(t))
@@ -204,8 +207,8 @@ void ColouriseSMLDoc(
 	sc.Complete();
 }
 
-void FoldSMLDoc(
-	unsigned int, int,
+static void FoldSMLDoc(
+	Sci_PositionU, Sci_Position,
 	int,
 	WordList *[],
 	Accessor &)

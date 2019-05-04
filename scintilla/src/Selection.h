@@ -8,15 +8,13 @@
 #ifndef SELECTION_H
 #define SELECTION_H
 
-#ifdef SCI_NAMESPACE
 namespace Scintilla {
-#endif
 
 class SelectionPosition {
-	int position;
-	int virtualSpace;
+	Sci::Position position;
+	Sci::Position virtualSpace;
 public:
-	explicit SelectionPosition(int position_=INVALID_POSITION, int virtualSpace_=0) : position(position_), virtualSpace(virtualSpace_) {
+	explicit SelectionPosition(Sci::Position position_=INVALID_POSITION, Sci::Position virtualSpace_=0) : position(position_), virtualSpace(virtualSpace_) {
 		PLATFORM_ASSERT(virtualSpace < 800000);
 		if (virtualSpace < 0)
 			virtualSpace = 0;
@@ -25,7 +23,7 @@ public:
 		position = 0;
 		virtualSpace = 0;
 	}
-	void MoveForInsertDelete(bool insertion, int startChange, int length);
+	void MoveForInsertDelete(bool insertion, Sci::Position startChange, Sci::Position length);
 	bool operator ==(const SelectionPosition &other) const {
 		return position == other.position && virtualSpace == other.virtualSpace;
 	}
@@ -33,22 +31,22 @@ public:
 	bool operator >(const SelectionPosition &other) const;
 	bool operator <=(const SelectionPosition &other) const;
 	bool operator >=(const SelectionPosition &other) const;
-	int Position() const {
+	Sci::Position Position() const {
 		return position;
 	}
-	void SetPosition(int position_) {
+	void SetPosition(Sci::Position position_) {
 		position = position_;
 		virtualSpace = 0;
 	}
-	int VirtualSpace() const {
+	Sci::Position VirtualSpace() const {
 		return virtualSpace;
 	}
-	void SetVirtualSpace(int virtualSpace_) {
+	void SetVirtualSpace(Sci::Position virtualSpace_) {
 		PLATFORM_ASSERT(virtualSpace_ < 800000);
 		if (virtualSpace_ >= 0)
 			virtualSpace = virtualSpace_;
 	}
-	void Add(int increment) {
+	void Add(Sci::Position increment) {
 		position = position + increment;
 	}
 	bool IsValid() const {
@@ -90,17 +88,17 @@ struct SelectionRange {
 	}
 	explicit SelectionRange(SelectionPosition single) : caret(single), anchor(single) {
 	}
-	explicit SelectionRange(int single) : caret(single), anchor(single) {
+	explicit SelectionRange(Sci::Position single) : caret(single), anchor(single) {
 	}
 	SelectionRange(SelectionPosition caret_, SelectionPosition anchor_) : caret(caret_), anchor(anchor_) {
 	}
-	SelectionRange(int caret_, int anchor_) : caret(caret_), anchor(anchor_) {
+	SelectionRange(Sci::Position caret_, Sci::Position anchor_) : caret(caret_), anchor(anchor_) {
 	}
 	bool Empty() const {
 		return anchor == caret;
 	}
-	int Length() const;
-	// int Width() const;	// Like Length but takes virtual space into account
+	Sci::Position Length() const;
+	// Sci::Position Width() const;	// Like Length but takes virtual space into account
 	bool operator ==(const SelectionRange &other) const {
 		return caret == other.caret && anchor == other.anchor;
 	}
@@ -115,10 +113,10 @@ struct SelectionRange {
 		anchor.SetVirtualSpace(0);
 		caret.SetVirtualSpace(0);
 	}
-	void MoveForInsertDelete(bool insertion, int startChange, int length);
-	bool Contains(int pos) const;
+	void MoveForInsertDelete(bool insertion, Sci::Position startChange, Sci::Position length);
+	bool Contains(Sci::Position pos) const;
 	bool Contains(SelectionPosition sp) const;
-	bool ContainsCharacter(int posCharacter) const;
+	bool ContainsCharacter(Sci::Position posCharacter) const;
 	SelectionSegment Intersect(SelectionSegment check) const;
 	SelectionPosition Start() const {
 		return (anchor < caret) ? anchor : caret;
@@ -126,6 +124,7 @@ struct SelectionRange {
 	SelectionPosition End() const {
 		return (anchor < caret) ? caret : anchor;
 	}
+	void Swap();
 	bool Trim(SelectionRange range);
 	// If range is all virtual collapse to start of virtual space
 	void MinimizeVirtualSpace();
@@ -145,8 +144,8 @@ public:
 	Selection();
 	~Selection();
 	bool IsRectangular() const;
-	int MainCaret() const;
-	int MainAnchor() const;
+	Sci::Position MainCaret() const;
+	Sci::Position MainAnchor() const;
 	SelectionRange &Rectangular();
 	SelectionSegment Limits() const;
 	// This is for when you want to move the caret in response to a
@@ -165,18 +164,20 @@ public:
 	void SetMoveExtends(bool moveExtends_);
 	bool Empty() const;
 	SelectionPosition Last() const;
-	int Length() const;
-	void MovePositions(bool insertion, int startChange, int length);
+	Sci::Position Length() const;
+	void MovePositions(bool insertion, Sci::Position startChange, Sci::Position length);
 	void TrimSelection(SelectionRange range);
+	void TrimOtherSelections(size_t r, SelectionRange range);
 	void SetSelection(SelectionRange range);
 	void AddSelection(SelectionRange range);
 	void AddSelectionWithoutTrim(SelectionRange range);
 	void DropSelection(size_t r);
+	void DropAdditionalRanges();
 	void TentativeSelection(SelectionRange range);
 	void CommitTentative();
-	int CharacterInSelection(int posCharacter) const;
-	int InSelectionForEOL(int pos) const;
-	int VirtualSpaceFor(int pos) const;
+	int CharacterInSelection(Sci::Position posCharacter) const;
+	int InSelectionForEOL(Sci::Position pos) const;
+	Sci::Position VirtualSpaceFor(Sci::Position pos) const;
 	void Clear();
 	void RemoveDuplicates();
 	void RotateMain();
@@ -186,8 +187,6 @@ public:
 	}
 };
 
-#ifdef SCI_NAMESPACE
 }
-#endif
 
 #endif

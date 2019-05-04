@@ -5,30 +5,34 @@
 // Copyright 1998-2003 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
 
-#include <string.h>
-#include <assert.h>
+#include <cstddef>
+#include <cassert>
+#include <cstring>
 
+#include <stdexcept>
+#include <string_view>
 #include <vector>
 #include <map>
+#include <algorithm>
+#include <memory>
 
 #include "Platform.h"
 
 #include "Scintilla.h"
-#include "SplitVector.h"
-#include "Partitioning.h"
-#include "RunStyles.h"
+#include "Position.h"
+#include "UniqueString.h"
 #include "Indicator.h"
 #include "XPM.h"
 #include "LineMarker.h"
 #include "Style.h"
 #include "ViewStyle.h"
 
-#ifdef SCI_NAMESPACE
-using namespace Scintilla;
-#endif
+#define CARETSTYLE_INS_MASK 0xF
 
-MarginStyle::MarginStyle() :
-	style(SC_MARGIN_SYMBOL), width(0), mask(0), sensitive(false), cursor(SC_CURSORREVERSEARROW) {
+using namespace Scintilla;
+
+MarginStyle::MarginStyle(int style_, int width_, int mask_) :
+	style(style_), width(width_), mask(mask_), sensitive(false), cursor(SC_CURSORREVERSEARROW) {
 }
 
 // A list of the fontnames - avoids wasting space in each style
@@ -40,26 +44,21 @@ FontNames::~FontNames() {
 }
 
 void FontNames::Clear() {
-	for (std::vector<char *>::const_iterator it=names.begin(); it != names.end(); ++it) {
-		delete []*it;
-	}
 	names.clear();
 }
 
 const char *FontNames::Save(const char *name) {
 	if (!name)
-		return 0;
+		return nullptr;
 
-	for (std::vector<char *>::const_iterator it=names.begin(); it != names.end(); ++it) {
-		if (strcmp(*it, name) == 0) {
-			return *it;
+	for (const UniqueString &nm : names) {
+		if (strcmp(nm.get(), name) == 0) {
+			return nm.get();
 		}
 	}
-	const size_t lenName = strlen(name) + 1;
-	char *nameSave = new char[lenName];
-	memcpy(nameSave, name, lenName);
-	names.push_back(nameSave);
-	return nameSave;
+
+	names.push_back(UniqueStringCopy(name));
+	return names.back().get();
 }
 
 FontRealised::FontRealised() {
@@ -75,41 +74,38 @@ void FontRealised::Realise(Surface &surface, int zoomLevel, int technology, cons
 	if (sizeZoomed <= 2 * SC_FONT_SIZE_MULTIPLIER)	// Hangs if sizeZoomed <= 1
 		sizeZoomed = 2 * SC_FONT_SIZE_MULTIPLIER;
 
-	float deviceHeight = static_cast<float>(surface.DeviceHeightFont(sizeZoomed));
-	FontParameters fp(fs.fontName, deviceHeight / SC_FONT_SIZE_MULTIPLIER, fs.weight, fs.italic, fs.extraFontFlag, technology, fs.characterSet);
+	const float deviceHeight = static_cast<float>(surface.DeviceHeightFont(sizeZoomed));
+	const FontParameters fp(fs.fontName, deviceHeight / SC_FONT_SIZE_MULTIPLIER, fs.weight, fs.italic, fs.extraFontFlag, technology, fs.characterSet);
 	font.Create(fp);
 
 	ascent = static_cast<unsigned int>(surface.Ascent(font));
 	descent = static_cast<unsigned int>(surface.Descent(font));
+	capitalHeight = surface.Ascent(font) - surface.InternalLeading(font);
 	aveCharWidth = surface.AverageCharWidth(font);
-	spaceWidth = surface.WidthChar(font, ' ');
+	spaceWidth = surface.WidthText(font, " ");
 }
 
-ViewStyle::ViewStyle() {
+ViewStyle::ViewStyle() : markers(MARKER_MAX + 1), indicators(INDIC_MAX + 1) {
 	Init();
 }
 
-ViewStyle::ViewStyle(const ViewStyle &source) {
+// Copy constructor only called when printing copies the screen ViewStyle so it can be
+// modified for printing styles.
+ViewStyle::ViewStyle(const ViewStyle &source) : markers(MARKER_MAX + 1), indicators(INDIC_MAX + 1) {
 	Init(source.styles.size());
-	for (unsigned int sty=0; sty<source.styles.size(); sty++) {
-		styles[sty] = source.styles[sty];
-		// Can't just copy fontname as its lifetime is relative to its owning ViewStyle
+	styles = source.styles;
+	for (size_t sty=0; sty<source.styles.size(); sty++) {
+		// Can't just copy fontName as its lifetime is relative to its owning ViewStyle
 		styles[sty].fontName = fontNames.Save(source.styles[sty].fontName);
 	}
 	nextExtendedStyle = source.nextExtendedStyle;
-	for (int mrk=0; mrk<=MARKER_MAX; mrk++) {
-		markers[mrk] = source.markers[mrk];
-	}
+	markers = source.markers;
 	CalcLargestMarkerHeight();
-	indicatorsDynamic = 0;
-	indicatorsSetFore = 0;
-	for (int ind=0; ind<=INDIC_MAX; ind++) {
-		indicators[ind] = source.indicators[ind];
-		if (indicators[ind].IsDynamic())
-			indicatorsDynamic++;
-		if (indicators[ind].OverridesTextFore())
-			indicatorsSetFore++;
-	}
+
+	indicators = source.indicators;
+
+	indicatorsDynamic = source.indicatorsDynamic;
+	indicatorsSetFore = source.indicatorsSetFore;
 
 	selColours = source.selColours;
 	selAdditionalForeground = source.selAdditionalForeground;
@@ -133,27 +129,26 @@ ViewStyle::ViewStyle(const ViewStyle &source) {
 	selbarlight = source.selbarlight;
 	caretcolour = source.caretcolour;
 	additionalCaretColour = source.additionalCaretColour;
+	caretLineFrame = source.caretLineFrame;
 	showCaretLineBackground = source.showCaretLineBackground;
 	alwaysShowCaretLineBackground = source.alwaysShowCaretLineBackground;
 	caretLineBackground = source.caretLineBackground;
 	caretLineAlpha = source.caretLineAlpha;
-	edgecolour = source.edgecolour;
-	edgeState = source.edgeState;
 	caretStyle = source.caretStyle;
 	caretWidth = source.caretWidth;
 	someStylesProtected = false;
 	someStylesForceCase = false;
 	leftMarginWidth = source.leftMarginWidth;
 	rightMarginWidth = source.rightMarginWidth;
-	for (int margin=0; margin <= SC_MAX_MARGIN; margin++) {
-		ms[margin] = source.ms[margin];
-	}
+	ms = source.ms;
 	maskInLine = source.maskInLine;
+	maskDrawInText = source.maskDrawInText;
 	fixedColumnWidth = source.fixedColumnWidth;
 	marginInside = source.marginInside;
 	textStart = source.textStart;
 	zoomLevel = source.zoomLevel;
 	viewWhitespace = source.viewWhitespace;
+	tabDrawMode = source.tabDrawMode;
 	whitespaceSize = source.whitespaceSize;
 	viewIndentationGuides = source.viewIndentationGuides;
 	viewEOL = source.viewEOL;
@@ -168,7 +163,9 @@ ViewStyle::ViewStyle(const ViewStyle &source) {
 	braceBadLightIndicatorSet = source.braceBadLightIndicatorSet;
 	braceBadLightIndicator = source.braceBadLightIndicator;
 
+	edgeState = source.edgeState;
 	theEdge = source.theEdge;
+	theMultiEdge = source.theMultiEdge;
 
 	marginNumberPadding = source.marginNumberPadding;
 	ctrlCharPadding = source.ctrlCharPadding;
@@ -183,10 +180,33 @@ ViewStyle::ViewStyle(const ViewStyle &source) {
 
 ViewStyle::~ViewStyle() {
 	styles.clear();
-	for (FontMap::iterator it = fonts.begin(); it != fonts.end(); ++it) {
-		delete it->second;
-	}
 	fonts.clear();
+}
+
+void ViewStyle::CalculateMarginWidthAndMask() {
+	fixedColumnWidth = marginInside ? leftMarginWidth : 0;
+	maskInLine = 0xffffffff;
+	int maskDefinedMarkers = 0;
+	for (const MarginStyle &m : ms) {
+		fixedColumnWidth += m.width;
+		if (m.width > 0)
+			maskInLine &= ~m.mask;
+		maskDefinedMarkers |= m.mask;
+	}
+	maskDrawInText = 0;
+	for (int markBit = 0; markBit < 32; markBit++) {
+		const int maskBit = 1U << markBit;
+		switch (markers[markBit].markType) {
+		case SC_MARK_EMPTY:
+			maskInLine &= ~maskBit;
+			break;
+		case SC_MARK_BACKGROUND:
+		case SC_MARK_UNDERLINE:
+			maskInLine &= ~maskBit;
+			maskDrawInText |= maskDefinedMarkers & maskBit;
+			break;
+		}
+	}
 }
 
 void ViewStyle::Init(size_t stylesSize_) {
@@ -203,8 +223,8 @@ void ViewStyle::Init(size_t stylesSize_) {
 	indicators[2] = Indicator(INDIC_PLAIN, ColourDesired(0xff, 0, 0));
 
 	technology = SC_TECHNOLOGY_DEFAULT;
-	indicatorsDynamic = 0;
-	indicatorsSetFore = 0;
+	indicatorsDynamic = false;
+	indicatorsSetFore = false;
 	lineHeight = 1;
 	lineOverlap = 0;
 	maxAscent = 1;
@@ -235,12 +255,11 @@ void ViewStyle::Init(size_t stylesSize_) {
 	styles[STYLE_LINENUMBER].back = Platform::Chrome();
 	caretcolour = ColourDesired(0, 0, 0);
 	additionalCaretColour = ColourDesired(0x7f, 0x7f, 0x7f);
+	caretLineFrame = 0;
 	showCaretLineBackground = false;
 	alwaysShowCaretLineBackground = false;
 	caretLineBackground = ColourDesired(0xff, 0xff, 0);
 	caretLineAlpha = SC_ALPHA_NOALPHA;
-	edgecolour = ColourDesired(0xc0, 0xc0, 0xc0);
-	edgeState = EDGE_NONE;
 	caretStyle = CARETSTYLE_LINE;
 	caretWidth = 1;
 	someStylesProtected = false;
@@ -253,26 +272,16 @@ void ViewStyle::Init(size_t stylesSize_) {
 
 	leftMarginWidth = 1;
 	rightMarginWidth = 1;
-	ms[0].style = SC_MARGIN_NUMBER;
-	ms[0].width = 0;
-	ms[0].mask = 0;
-	ms[1].style = SC_MARGIN_SYMBOL;
-	ms[1].width = 16;
-	ms[1].mask = ~SC_MASK_FOLDERS;
-	ms[2].style = SC_MARGIN_SYMBOL;
-	ms[2].width = 0;
-	ms[2].mask = 0;
+	ms.resize(SC_MAX_MARGIN + 1);
+	ms[0] = MarginStyle(SC_MARGIN_NUMBER);
+	ms[1] = MarginStyle(SC_MARGIN_SYMBOL, 16, ~SC_MASK_FOLDERS);
+	ms[2] = MarginStyle(SC_MARGIN_SYMBOL);
 	marginInside = true;
-	fixedColumnWidth = marginInside ? leftMarginWidth : 0;
-	maskInLine = 0xffffffff;
-	for (int margin=0; margin <= SC_MAX_MARGIN; margin++) {
-		fixedColumnWidth += ms[margin].width;
-		if (ms[margin].width > 0)
-			maskInLine &= ~ms[margin].mask;
-	}
+	CalculateMarginWidthAndMask();
 	textStart = marginInside ? fixedColumnWidth : leftMarginWidth;
 	zoomLevel = 0;
 	viewWhitespace = wsInvisible;
+	tabDrawMode = tdLongArrow;
 	whitespaceSize = 1;
 	viewIndentationGuides = ivNone;
 	viewEOL = false;
@@ -287,7 +296,8 @@ void ViewStyle::Init(size_t stylesSize_) {
 	braceBadLightIndicatorSet = false;
 	braceBadLightIndicator = 0;
 
-	theEdge = 0;
+	edgeState = EDGE_NONE;
+	theEdge = EdgeProperties(0, ColourDesired(0xc0, 0xc0, 0xc0));
 
 	marginNumberPadding = 3;
 	ctrlCharPadding = 3; // +3 For a blank on front and rounded edge each side
@@ -301,39 +311,39 @@ void ViewStyle::Init(size_t stylesSize_) {
 }
 
 void ViewStyle::Refresh(Surface &surface, int tabInChars) {
-	for (FontMap::iterator it = fonts.begin(); it != fonts.end(); ++it) {
-		delete it->second;
-	}
 	fonts.clear();
 
 	selbar = Platform::Chrome();
 	selbarlight = Platform::ChromeHighlight();
 
-	for (unsigned int i=0; i<styles.size(); i++) {
-		styles[i].extraFontFlag = extraFontFlag;
+	// Apply the extra font flag which controls text drawing quality to each style.
+	for (Style &style : styles) {
+		style.extraFontFlag = extraFontFlag;
 	}
 
+	// Create a FontRealised object for each unique font in the styles.
 	CreateAndAddFont(styles[STYLE_DEFAULT]);
-	for (unsigned int j=0; j<styles.size(); j++) {
-		CreateAndAddFont(styles[j]);
+	for (const Style &style : styles) {
+		CreateAndAddFont(style);
 	}
 
-	for (FontMap::iterator it = fonts.begin(); it != fonts.end(); ++it) {
-		it->second->Realise(surface, zoomLevel, technology, it->first);
+	// Ask platform to allocate each unique font.
+	for (std::pair<const FontSpecification, std::unique_ptr<FontRealised>> &font : fonts) {
+		font.second->Realise(surface, zoomLevel, technology, font.first);
 	}
 
-	for (unsigned int k=0; k<styles.size(); k++) {
-		FontRealised *fr = Find(styles[k]);
-		styles[k].Copy(fr->font, *fr);
+	// Set the platform font handle and measurements for each style.
+	for (Style &style : styles) {
+		FontRealised *fr = Find(style);
+		style.Copy(fr->font, *fr);
 	}
-	indicatorsDynamic = 0;
-	indicatorsSetFore = 0;
-	for (int ind = 0; ind <= INDIC_MAX; ind++) {
-		if (indicators[ind].IsDynamic())
-			indicatorsDynamic++;
-		if (indicators[ind].OverridesTextFore())
-			indicatorsSetFore++;
-	}
+
+	indicatorsDynamic = std::any_of(indicators.cbegin(), indicators.cend(),
+		[](const Indicator &indicator) { return indicator.IsDynamic(); });
+
+	indicatorsSetFore = std::any_of(indicators.cbegin(), indicators.cend(),
+		[](const Indicator &indicator) { return indicator.OverridesTextFore(); });
+
 	maxAscent = 1;
 	maxDescent = 1;
 	FindMaxAscentDescent();
@@ -346,16 +356,11 @@ void ViewStyle::Refresh(Surface &surface, int tabInChars) {
 	if (lineOverlap > lineHeight)
 		lineOverlap = lineHeight;
 
-	someStylesProtected = false;
-	someStylesForceCase = false;
-	for (unsigned int l=0; l<styles.size(); l++) {
-		if (styles[l].IsProtected()) {
-			someStylesProtected = true;
-		}
-		if (styles[l].caseForce != Style::caseMixed) {
-			someStylesForceCase = true;
-		}
-	}
+	someStylesProtected = std::any_of(styles.cbegin(), styles.cend(),
+		[](const Style &style) { return style.IsProtected(); });
+
+	someStylesForceCase = std::any_of(styles.cbegin(), styles.cend(),
+		[](const Style &style) { return style.caseForce != Style::caseMixed; });
 
 	aveCharWidth = styles[STYLE_DEFAULT].aveCharWidth;
 	spaceWidth = styles[STYLE_DEFAULT].spaceWidth;
@@ -363,16 +368,11 @@ void ViewStyle::Refresh(Surface &surface, int tabInChars) {
 
 	controlCharWidth = 0.0;
 	if (controlCharSymbol >= 32) {
-		controlCharWidth = surface.WidthChar(styles[STYLE_CONTROLCHAR].font, static_cast<char>(controlCharSymbol));
+		const char cc[2] = { static_cast<char>(controlCharSymbol), '\0' };
+		controlCharWidth = surface.WidthText(styles[STYLE_CONTROLCHAR].font, cc);
 	}
 
-	fixedColumnWidth = marginInside ? leftMarginWidth : 0;
-	maskInLine = 0xffffffff;
-	for (int margin=0; margin <= SC_MAX_MARGIN; margin++) {
-		fixedColumnWidth += ms[margin].width;
-		if (ms[margin].width > 0)
-			maskInLine &= ~ms[margin].mask;
-	}
+	CalculateMarginWidthAndMask();
 	textStart = marginInside ? fixedColumnWidth : leftMarginWidth;
 }
 
@@ -381,10 +381,10 @@ void ViewStyle::ReleaseAllExtendedStyles() {
 }
 
 int ViewStyle::AllocateExtendedStyles(int numberStyles) {
-	int startRange = static_cast<int>(nextExtendedStyle);
+	const int startRange = nextExtendedStyle;
 	nextExtendedStyle += numberStyles;
 	EnsureStyle(nextExtendedStyle);
-	for (size_t i=startRange; i<nextExtendedStyle; i++) {
+	for (int i=startRange; i<nextExtendedStyle; i++) {
 		styles[i].ClearTo(styles[STYLE_DEFAULT]);
 	}
 	return startRange;
@@ -406,7 +406,7 @@ void ViewStyle::ResetDefaultStyle() {
 
 void ViewStyle::ClearStyles() {
 	// Reset all styles to be like the default style
-	for (unsigned int i=0; i<styles.size(); i++) {
+	for (size_t i=0; i<styles.size(); i++) {
 		if (i != STYLE_DEFAULT) {
 			styles[i].ClearTo(styles[STYLE_DEFAULT]);
 		}
@@ -430,24 +430,44 @@ int ViewStyle::ExternalMarginWidth() const {
 	return marginInside ? 0 : fixedColumnWidth;
 }
 
+int ViewStyle::MarginFromLocation(Point pt) const {
+	int margin = -1;
+	int x = marginInside ? 0 : -fixedColumnWidth;
+	for (size_t i = 0; i < ms.size(); i++) {
+		if ((pt.x >= x) && (pt.x < x + ms[i].width))
+			margin = static_cast<int>(i);
+		x += ms[i].width;
+	}
+	return margin;
+}
+
 bool ViewStyle::ValidStyle(size_t styleIndex) const {
 	return styleIndex < styles.size();
 }
 
 void ViewStyle::CalcLargestMarkerHeight() {
 	largestMarkerHeight = 0;
-	for (int m = 0; m <= MARKER_MAX; ++m) {
-		switch (markers[m].markType) {
+	for (const LineMarker &marker : markers) {
+		switch (marker.markType) {
 		case SC_MARK_PIXMAP:
-			if (markers[m].pxpm && markers[m].pxpm->GetHeight() > largestMarkerHeight)
-				largestMarkerHeight = markers[m].pxpm->GetHeight();
+			if (marker.pxpm && marker.pxpm->GetHeight() > largestMarkerHeight)
+				largestMarkerHeight = marker.pxpm->GetHeight();
 			break;
 		case SC_MARK_RGBAIMAGE:
-			if (markers[m].image && markers[m].image->GetHeight() > largestMarkerHeight)
-				largestMarkerHeight = markers[m].image->GetHeight();
+			if (marker.image && marker.image->GetHeight() > largestMarkerHeight)
+				largestMarkerHeight = marker.image->GetHeight();
 			break;
 		}
 	}
+}
+
+int ViewStyle::GetFrameWidth() const {
+	return std::clamp(caretLineFrame, 1, lineHeight / 3);
+}
+
+bool ViewStyle::IsLineFrameOpaque(bool caretActive, bool lineContainsCaret) const {
+	return caretLineFrame && (caretActive || alwaysShowCaretLineBackground) && showCaretLineBackground &&
+		(caretLineAlpha == SC_ALPHA_NOALPHA) && lineContainsCaret;
 }
 
 // See if something overrides the line background color:  Either if caret is on the line
@@ -458,7 +478,8 @@ void ViewStyle::CalcLargestMarkerHeight() {
 // the color for the highest numbered one is used.
 ColourOptional ViewStyle::Background(int marksOfLine, bool caretActive, bool lineContainsCaret) const {
 	ColourOptional background;
-	if ((caretActive || alwaysShowCaretLineBackground) && showCaretLineBackground && (caretLineAlpha == SC_ALPHA_NOALPHA) && lineContainsCaret) {
+	if (!caretLineFrame && (caretActive || alwaysShowCaretLineBackground) && showCaretLineBackground &&
+		(caretLineAlpha == SC_ALPHA_NOALPHA) && lineContainsCaret) {
 		background = ColourOptional(caretLineBackground, true);
 	}
 	if (!background.isSet && marksOfLine) {
@@ -475,7 +496,7 @@ ColourOptional ViewStyle::Background(int marksOfLine, bool caretActive, bool lin
 		int marksMasked = marksOfLine & maskInLine;
 		if (marksMasked) {
 			for (int markBit = 0; (markBit < 32) && marksMasked; markBit++) {
-				if ((marksMasked & 1) && (markers[markBit].markType != SC_MARK_EMPTY) &&
+				if ((marksMasked & 1) &&
 					(markers[markBit].alpha == SC_ALPHA_NOALPHA)) {
 					background = ColourOptional(markers[markBit].back, true);
 				}
@@ -493,6 +514,12 @@ bool ViewStyle::SelectionBackgroundDrawn() const {
 
 bool ViewStyle::WhitespaceBackgroundDrawn() const {
 	return (viewWhitespace != wsInvisible) && (whitespaceColours.back.isSet);
+}
+
+bool ViewStyle::WhiteSpaceVisible(bool inIndent) const {
+	return (!inIndent && viewWhitespace == wsVisibleAfterIndent) ||
+		(inIndent && viewWhitespace == wsVisibleOnlyInIndent) ||
+		viewWhitespace == wsVisibleAlways;
 }
 
 ColourDesired ViewStyle::WrapColour() const {
@@ -518,33 +545,46 @@ bool ViewStyle::SetWrapState(int wrapState_) {
 		wrapStateWanted = eWrapNone;
 		break;
 	}
-	bool changed = wrapState != wrapStateWanted;
+	const bool changed = wrapState != wrapStateWanted;
 	wrapState = wrapStateWanted;
 	return changed;
 }
 
 bool ViewStyle::SetWrapVisualFlags(int wrapVisualFlags_) {
-	bool changed = wrapVisualFlags != wrapVisualFlags_;
+	const bool changed = wrapVisualFlags != wrapVisualFlags_;
 	wrapVisualFlags = wrapVisualFlags_;
 	return changed;
 }
 
 bool ViewStyle::SetWrapVisualFlagsLocation(int wrapVisualFlagsLocation_) {
-	bool changed = wrapVisualFlagsLocation != wrapVisualFlagsLocation_;
+	const bool changed = wrapVisualFlagsLocation != wrapVisualFlagsLocation_;
 	wrapVisualFlagsLocation = wrapVisualFlagsLocation_;
 	return changed;
 }
 
 bool ViewStyle::SetWrapVisualStartIndent(int wrapVisualStartIndent_) {
-	bool changed = wrapVisualStartIndent != wrapVisualStartIndent_;
+	const bool changed = wrapVisualStartIndent != wrapVisualStartIndent_;
 	wrapVisualStartIndent = wrapVisualStartIndent_;
 	return changed;
 }
 
 bool ViewStyle::SetWrapIndentMode(int wrapIndentMode_) {
-	bool changed = wrapIndentMode != wrapIndentMode_;
+	const bool changed = wrapIndentMode != wrapIndentMode_;
 	wrapIndentMode = wrapIndentMode_;
 	return changed;
+}
+
+bool ViewStyle::IsBlockCaretStyle() const noexcept {
+	return (caretStyle == CARETSTYLE_BLOCK) || (caretStyle & CARETSTYLE_OVERSTRIKE_BLOCK) != 0;
+}
+
+ViewStyle::CaretShape ViewStyle::CaretShapeForMode(bool inOverstrike) const noexcept {
+	if (inOverstrike) {
+		return (caretStyle & CARETSTYLE_OVERSTRIKE_BLOCK) ? CaretShape::block : CaretShape::bar;
+	}
+
+	const int caret = caretStyle & CARETSTYLE_INS_MASK;
+	return (caret <= CARETSTYLE_BLOCK) ? static_cast<CaretShape>(caret) : CaretShape::line;
 }
 
 void ViewStyle::AllocStyles(size_t sizeNew) {
@@ -563,24 +603,24 @@ void ViewStyle::CreateAndAddFont(const FontSpecification &fs) {
 	if (fs.fontName) {
 		FontMap::iterator it = fonts.find(fs);
 		if (it == fonts.end()) {
-			fonts[fs] = new FontRealised();
+			fonts[fs] = std::make_unique<FontRealised>();
 		}
 	}
 }
 
 FontRealised *ViewStyle::Find(const FontSpecification &fs) {
 	if (!fs.fontName)	// Invalid specification so return arbitrary object
-		return fonts.begin()->second;
+		return fonts.begin()->second.get();
 	FontMap::iterator it = fonts.find(fs);
 	if (it != fonts.end()) {
 		// Should always reach here since map was just set for all styles
-		return it->second;
+		return it->second.get();
 	}
-	return 0;
+	return nullptr;
 }
 
 void ViewStyle::FindMaxAscentDescent() {
-	for (FontMap::const_iterator it = fonts.begin(); it != fonts.end(); ++it) {
+	for (FontMap::const_iterator it = fonts.cbegin(); it != fonts.cend(); ++it) {
 		if (maxAscent < it->second->ascent)
 			maxAscent = it->second->ascent;
 		if (maxDescent < it->second->descent)

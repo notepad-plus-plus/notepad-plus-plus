@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Українська" filename="ukrainian.xml" version="7.6.2">
+    <Native-Langue name="Українська" filename="ukrainian.xml" version="7.6.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -38,6 +38,7 @@
                     <Item subMenuId="search-jumpUp" name="Вгору"/>
                     <Item subMenuId="search-jumpDown" name="Вниз"/>
                     <Item subMenuId="search-bookmark" name="Закладка"/>
+                    <Item subMenuId="view-currentFileIn" name="Перегляд поточного файлу в"/>
                     <Item subMenuId="view-showSymbol"  name="Показати символ"/>
                     <Item subMenuId="view-zoom"  name="Масштаб"/>
                     <Item subMenuId="view-moveCloneDocument"  name="Перемістити/Клонувати поточний документ"/>
@@ -62,7 +63,7 @@
                     <Item subMenuId="encoding-turkish" name="Турецька"/>
                     <Item subMenuId="encoding-westernEuropean" name="Західноєвропейська"/>
                     <Item subMenuId="encoding-vietnamese" name="В'єтнамська"/>
-                    <Item subMenuId="settings-import"  name="Імпортувати"/>
+                    <Item subMenuId="settings-import"  name="Імпорт"/>
                     <Item subMenuId="tools-md5"  name="MD5"/>
                     <Item subMenuId="tools-sha256"  name="SHA-256"/>
                 </SubEntries>
@@ -78,6 +79,7 @@
                     <Item id="41005" name="Закрити все, окрім активного"/>
                     <Item id="41009" name="Закрити все зліва"/>
                     <Item id="41018" name="Закрити все справа"/>
+                    <Item id="41024" name="Закрити всі незмінені"/>
                     <Item id="41006" name="Зберегти"/>
                     <Item id="41007" name="Зберегти все"/>
                     <Item id="41008" name="Зберегти як..."/>
@@ -104,6 +106,7 @@
                     <Item id="42008" name="Збільшити відступ рядка"/>
                     <Item id="42009" name="Зменшити відступ рядка"/>
                     <Item id="42010" name="Дублювати рядок"/>
+                    <Item id="42077" name="Вилучити послідовні дублікати рядків"/>
                     <Item id="42012" name="Розділити рядки"/>
                     <Item id="42013" name="Об'єднати рядки"/>
                     <Item id="42014" name="Підняти поточний рядок"/>
@@ -216,7 +219,7 @@
                     <Item id="43047" name="Попередній результат пошуку"/>
                     <Item id="43048" name="Обрати й знайти далі"/>
                     <Item id="43049" name="Обрати й знайти перед"/>
-                    <Item id="43054" name="Знак..."/>
+                    <Item id="43054" name="Позначка..."/>
                     <Item id="44009" name="Текст на все вікно"/>
                     <Item id="44010" name="Згорнути все"/>
                     <Item id="44019" name="Показати всі символи"/>
@@ -232,7 +235,7 @@
                     <Item id="44049" name="Сумарно..."/>
                     <Item id="44080" name="Карта документа"/>
                     <Item id="44084" name="Список функцій"/>
-                    <Item id="44085" name="Тека у вигляді робочої області"/>
+                    <Item id="44085" name="Тека як робоча область"/>
                     <Item id="44086" name="Вкладка 1"/>
                     <Item id="44087" name="Вкладка 2"/>
                     <Item id="44088" name="Вкладка 3"/>
@@ -295,6 +298,7 @@
                     <Item id="48018" name="Змінити контекстне меню"/>
                     <Item id="48009" name="Гарячі клавіші..."/>
                     <Item id="48011" name="Налаштування..."/>
+                    <Item id="48014" name="Відкрити теку плагінів..."/>
                     <Item id="48015" name="Адміністрування плагінів..."/>
                     <Item id="48501" name="Згенерувати..."/>
                     <Item id="48502" name="Згенерувати з файлів..."/>
@@ -340,6 +344,7 @@
                     <Item CMID="19" name="Відкрити теку в провіднику"/>
                     <Item CMID="20" name="Відкрити теку в cmd"/>
                     <Item CMID="21" name="Відкрити в типовому засобі перегляду"/>
+                    <Item CMID="22" name="Закрити всі незмінені"/>
             </TabBar>
         </Menu>
 
@@ -421,7 +426,7 @@
                 <Item id="1934" name="Копіювати в буфер обміну"/>
                 <Item id="2"    name="Закрити"/>
             </MD5FromTextDlg>
-			
+            
             <SHA256FromFilesDlg title="Згенерувати SHA-256 з файлів">
                 <Item id="1922" name="Оберіть файли для генерування SHA-256..."/>
                 <Item id="1924" name="Копіювати в буфер обміну"/>
@@ -433,7 +438,7 @@
                 <Item id="1934" name="Копіювати в буфер обміну"/>
                 <Item id="2"    name="Закрити"/>
             </SHA256FromTextDlg>
-			
+            
             <PluginsAdminDlg title="Адміністрування плагінів" titleAvailable = "Доступно" titleUpdates = "Оновлення" titleInstalled = "Встановлено">
                 <ColumnPlugin   name="Плагін"/>
                 <ColumnVersion  name="Версія"/>
@@ -547,7 +552,7 @@
                     <Item id="25026" name="Оператор 1"/>
                     <Item id="25027" name="Оператор 2"/>
                     <Item id="25028" name="Числа"/>
-                    <Item id="1" name="Гаразд"/>
+                    <Item id="1" name="OK"/>
                     <Item id="2" name="Скасувати"/>
                 </StylerDialog>
                 <Folder title="Стандартний">
@@ -905,7 +910,11 @@
                 </SearchEngine>
 
                 <MISC title="Різне">
-                    <Item id="6307" name="Дозволити"/>
+                    <ComboBox id="6347">
+                        <Element name="Увімкнути"/>
+                        <Element name="Увімкнути для всіх відкритих файлів"/>
+                        <Element name="Вимкнути"/>
+                    </ComboBox>
                     <Item id="6308" name="Згортати в системний трей"/>
                     <Item id="6312" name="Автовизначення стану файла"/>
                     <Item id="6313" name="Оновлювати без запиту"/>
@@ -916,7 +925,7 @@
                     <Item id="6322" name="Розширення файлу сеансу:"/>
                     <Item id="6323" name="Автоматичне оновлення Notepad++"/>
                     <Item id="6324" name="Перемикання документів (Ctrl+Tab)"/>
-                    <Item id="6331" name="Показувати лише назву файлу в рядку заголовка"/>
+                    <Item id="6331" name="Показувати в рядку заголовка лише назву файлу"/>
                     <Item id="6334" name="Автовизначення кодування символів"/>
                     <Item id="6335" name="Зворотній слеш як символ escape для SQL"/>
                     <Item id="6337" name="Розш. файлу робочої області:"/>
@@ -938,7 +947,7 @@
             </MultiMacro>
             <Window title="Вікна">
                 <Item id="1" name="Відкрити"/>
-                <Item id="2" name="Гаразд"/>
+                <Item id="2" name="OK"/>
                 <Item id="7002" name="Зберегти"/>
                 <Item id="7003" name="Закрити"/>
                 <Item id="7004" name="Впорядкувати"/>
@@ -1057,6 +1066,7 @@
             <OpenInAdminModeWithoutCloseCurrent title="Не вдалося зберегти" message="Не вдається зберегти файл, він може бути захищеним.
 Хочете запустити Notepad++ в режимі адміністратора?"/>
             <OpenInAdminModeFailed title="Не вдалося запустити в режимі адміністратора" message="Notepad++ не може бути відкритий в режимі адміністратора."/>
+            <ViewInBrowser title="Перегляд поточного файлу в браузері" message="У вашій системі не вдалося знайти програму."/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Історія буфера"/>
@@ -1167,8 +1177,8 @@
             <find-status-replaceinopenedfiles-nb-replaced value="Замінити у Відкритих файлах: Виконано $INT_REPLACE$ замін"/>
             <find-status-mark-re-malformed value="Позначити: Неправильний регулярний вираз для пошуку"/>
             <find-status-invalid-re value="Знайти: Неправильний регулярний вираз"/>
-            <find-status-mark-1-match value="1 збіг"/>
-            <find-status-mark-nb-matches value="$INT_REPLACE$ збігів"/>
+            <find-status-mark-1-match value="Позначка: 1 збіг"/>
+            <find-status-mark-nb-matches value="Позначка: $INT_REPLACE$ збігів"/>
             <find-status-count-re-malformed value="Підрахунок: Неправильний регулярний вираз для пошуку"/>
             <find-status-count-1-match value="Підрахунок: 1 збіг"/>
             <find-status-count-nb-matches value="Підрахунок: $INT_REPLACE$ збігів"/>
@@ -1191,6 +1201,18 @@
             <finder-select-all value="Вибрати все"/>
             <finder-clear-all value="Очистити все"/>
             <finder-open-all value="Відкрити все"/>
+            <common-ok value="OK"/>
+            <common-cancel value="Скасувати"/>
+            <common-name value="Назва: "/>
+            <tabrename-title value="Перейменувати поточну вкладку"/>
+            <tabrename-newname value="Нова назва: "/>
+            <recent-file-history-maxfile value="Макс. файл: "/>
+            <language-tabsize value="Розм. вкладки: "/>
+            <userdefined-title-new value="Створити нову мову..."/>
+            <userdefined-title-save value="Зберегти назву поточної мови як..."/>
+            <userdefined-title-rename value="Змінити назву поточної мови"/>
+            <autocomplete-nb-char value="К-сть симв.: "/>
+            <edit-verticaledge-nb-col value="К-сть стовп.:"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

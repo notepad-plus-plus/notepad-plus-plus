@@ -243,7 +243,7 @@ SCILEXOBJS=\
 # Otherwise boost's PCRE won't be included in the build
 # For example:
 # nmake BOOSTPATH=C:\sources\boost_1_70_0\ BOOSTREGEXLIBPATH=C:\tmp\scintilla.414\boostregex -f scintilla.mak
-!INCLUDE ../boostregex/nppSpecifics2.mak
+!INCLUDE ../boostregex/nppSpecifics.mak
 
 $(DIR_O)\ScintRes.res : ScintRes.rc
 	$(RC) -fo$@ $**

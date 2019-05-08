@@ -5,6 +5,7 @@
 #include <iterator>
 #include <vector>
 #include "Platform.h"
+#include "Position.h"
 
 namespace Scintilla {
 
@@ -13,17 +14,9 @@ class Document;
 class UTF8DocumentIterator : public std::iterator<std::bidirectional_iterator_tag, wchar_t>
 {
 public:
-        UTF8DocumentIterator() : 
-                m_doc(0), 
-                m_pos(0),
-                m_end(0),
-				m_characterIndex(0),
-				m_utf8Length(0),
-				m_utf16Length(0)
-        {
-        }
+        UTF8DocumentIterator() {};
 
-        UTF8DocumentIterator(Document* doc, int pos, int end);
+        UTF8DocumentIterator(Document* doc, Sci::Position pos, Sci::Position end);
         UTF8DocumentIterator(const UTF8DocumentIterator& copy);
 
         bool operator == (const UTF8DocumentIterator& other) const
@@ -41,7 +34,7 @@ public:
 			return m_character[m_characterIndex];
         }
 
-		UTF8DocumentIterator& operator = (int other)
+		UTF8DocumentIterator& operator = (Sci::Position other)
 		{
 			m_pos = other;
 			return *this;
@@ -50,7 +43,7 @@ public:
         UTF8DocumentIterator& operator ++ ()
         {
                 PLATFORM_ASSERT(m_pos < m_end);
-				if (2 == m_utf16Length && 0 == m_characterIndex)
+				if (m_utf16Length == 2 && m_characterIndex == 0)
 				{
 					m_characterIndex = 1;
 				}
@@ -70,7 +63,7 @@ public:
 
         UTF8DocumentIterator& operator -- ();
 
-        int pos() const
+        Sci::Position pos() const
         {
                 return m_pos;
         }
@@ -84,13 +77,13 @@ private:
                 return m_pos >= m_end;
         }
 
-        int m_pos;
+        Sci::Position m_pos = 0;
 		wchar_t m_character[2];
-		int m_characterIndex;
-        int m_end;
-		int m_utf8Length;
-		int m_utf16Length;
-        Document* m_doc;
+		int m_characterIndex = 0;
+        Sci::Position m_end = 0;
+		int m_utf8Length = 0;
+		int m_utf16Length = 0;
+        Document* m_doc = nullptr;
 		static const unsigned char m_firstByteMask[];
 };
 

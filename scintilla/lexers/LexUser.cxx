@@ -23,7 +23,6 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #include <assert.h>
 #include <windows.h>
 
-//#include "Platform.h"
 #include "ILexer.h"
 #include "LexAccessor.h"
 #include "Accessor.h"

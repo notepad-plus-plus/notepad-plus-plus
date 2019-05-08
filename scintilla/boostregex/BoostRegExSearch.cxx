@@ -38,8 +38,6 @@
 #define CP_UTF8 65001
 #define SC_CP_UTF8 65001
 
-#define _SILENCE_ALL_CXX17_DEPRECATION_WARNI
-
 using namespace Scintilla;
 using namespace boost;
 
@@ -55,9 +53,9 @@ public:
 	}
 	
 	virtual Sci::Position FindText(Document* doc, Sci::Position minPos, Sci::Position maxPos, const char *regex,
-                        bool caseSensitive, bool word, bool wordStart, int sciSearchFlags, int *lengthRet);
+                        bool caseSensitive, bool word, bool wordStart, int sciSearchFlags, Sci::Position *lengthRet);
 	
-	virtual const char *SubstituteByPosition(Document* doc, const char *text, int *length);
+	virtual const char *SubstituteByPosition(Document* doc, const char *text, Sci::Position *length);
 
 private:
 	class SearchParameters;
@@ -66,7 +64,7 @@ private:
 	public:
 		Match() : _document(NULL), _documentModified(false), _position(-1), _endPosition(-1), _endPositionForContinuationCheck(-1)  {}
 		~Match() { setDocument(NULL); }
-		Match(Document* document, int position = -1, int endPosition = -1) : _document(NULL) { set(document, position, endPosition); }
+		Match(Document* document, Sci::Position position = -1, Sci::Position endPosition = -1) : _document(NULL) { set(document, position, endPosition); }
 		Match& operator=(Match& m) {
 			set(m._document, m.position(), m.endPosition());
 			return *this;
@@ -76,14 +74,14 @@ private:
 			return *this;
 		}
 		
-		void set(Document* document = NULL, int position = -1, int endPosition = -1) {
+		void set(Document* document = NULL, Sci::Position position = -1, Sci::Position endPosition = -1) {
 			setDocument(document);
 			_position = position;
 			_endPositionForContinuationCheck = _endPosition = endPosition;
 			_documentModified = false;
 		}
 		
-		bool isContinuationSearch(Document* document, int startPosition, int direction) {
+		bool isContinuationSearch(Document* document, Sci::Position startPosition, int direction) {
 			if (hasDocumentChanged(document))
 				return false;
 			if (direction > 0) 
@@ -94,13 +92,13 @@ private:
 		bool isEmpty() {
 			return _position == _endPosition;
 		}
-		int position() {
+		Sci::Position position() {
 			return _position;
 		}
-		int endPosition() {
+		Sci::Position endPosition() {
 			return _endPosition;
 		}
-		int length() {
+		Sci::Position length() {
 			return _endPosition - _position;
 		}
 		int found() {
@@ -158,14 +156,14 @@ private:
 		}
 		virtual void NotifyModifyAttempt(Document* /*document*/, void* /*userData*/) {}
 		virtual void NotifySavePoint(Document* /*document*/, void* /*userData*/, bool /*atSavePoint*/) {}
-		virtual void NotifyStyleNeeded(Document* /*document*/, void* /*userData*/, int /*endPos*/) {}
+		virtual void NotifyStyleNeeded(Document* /*document*/, void* /*userData*/, Sci::Position /*endPos*/) {}
 		virtual void NotifyLexerChanged(Document* /*document*/, void* /*userData*/) {}
 		virtual void NotifyErrorOccurred(Document* /*document*/, void* /*userData*/, int /*status*/) {}
 		
 		Document* _document;
 		bool _documentModified;
-		int _position, _endPosition;
-		int _endPositionForContinuationCheck;
+		Sci::Position _position, _endPosition;
+		Sci::Position _endPositionForContinuationCheck;
 	};
 	
 	class CharTPtr { // Automatically translatable from utf8 to wchar_t*, if required, with allocation and deallocation on destruction; char* is not deallocated.
@@ -193,7 +191,7 @@ private:
 		EncodingDependent() : _lastCompileFlags(-1) {}
 		void compileRegex(const char *regex, const int compileFlags);
 		Match FindText(SearchParameters& search);
-		char *SubstituteByPosition(const char *text, int *length);
+		char *SubstituteByPosition(const char *text, Sci::Position *length);
 	private:
 		Match FindTextForward(SearchParameters& search);
 		Match FindTextBackward(SearchParameters& search);
@@ -212,15 +210,15 @@ private:
 	
 	class SearchParameters {
 	public:
-		int nextCharacter(int position);
-		bool isLineStart(int position);
-		bool isLineEnd(int position);
+		Sci::Position nextCharacter(Sci::Position position);
+		bool isLineStart(Sci::Position position);
+		bool isLineEnd(Sci::Position position);
 		
 		Document* _document;
 		const char *_regexString;
 		int _compileFlags;
-		int _startPosition;
-		int _endPosition;
+		Sci::Position _startPosition;
+		Sci::Position _endPosition;
 		regex_constants::match_flag_type _boostRegexFlags;
 		int _direction;
 		bool _is_allowed_empty;
@@ -258,7 +256,7 @@ RegexSearchBase *CreateRegexSearch(CharClassify* /* charClassTable */)
  */
 
 Sci::Position BoostRegexSearch::FindText(Document* doc, Sci::Position startPosition, Sci::Position endPosition, const char *regexString,
-                        bool caseSensitive, bool /*word*/, bool /*wordStart*/, int sciSearchFlags, int *lengthRet) 
+                        bool caseSensitive, bool /*word*/, bool /*wordStart*/, int sciSearchFlags, Sci::Position *lengthRet) 
 {
 	try {
 		SearchParameters search;
@@ -345,7 +343,7 @@ template <class CharT, class CharacterIterator>
 BoostRegexSearch::Match BoostRegexSearch::EncodingDependent<CharT, CharacterIterator>::FindTextForward(SearchParameters& search)
 {
 	CharacterIterator endIterator(search._document, search._endPosition, search._endPosition);
-	int next_search_from_position = search._startPosition;
+	Sci::Position next_search_from_position = search._startPosition;
 	bool found = false;
 	bool match_is_valid = false;
 	do {
@@ -355,8 +353,8 @@ BoostRegexSearch::Match BoostRegexSearch::EncodingDependent<CharT, CharacterIter
 		const bool end_reached = next_search_from_position > search._endPosition;
 		found = !end_reached && boost::regex_search(CharacterIterator(search._document, next_search_from_position, search._endPosition), endIterator, _match, _regex, search._boostRegexFlags);
 		if (found) {
-			const int  position = _match[0].first.pos();
-			const int  length   = _match[0].second.pos() - position;
+			const Sci::Position  position = _match[0].first.pos();
+			const Sci::Position  length   = _match[0].second.pos() - position;
 			const bool match_is_non_empty    = length != 0;
 			const bool is_allowed_empty_here = search._is_allowed_empty && (search._is_allowed_empty_at_start_position || position > search._startPosition);
 			match_is_valid = match_is_non_empty || is_allowed_empty_here;
@@ -380,14 +378,14 @@ BoostRegexSearch::Match BoostRegexSearch::EncodingDependent<CharT, CharacterIter
 	search._is_allowed_empty_at_start_position = search._is_allowed_empty;
 	
 	MatchResults bestMatch;
-	int bestPosition = -1;
-	int bestEnd = -1;
+	Sci::Position bestPosition = -1;
+	Sci::Position bestEnd = -1;
 	for (;;) {
 		Match matchRange = FindText(search);
 		if (!matchRange.found())
 			break;
-		int position = matchRange.position();
-		int endPosition = matchRange.endPosition();
+		Sci::Position position = matchRange.position();
+		Sci::Position endPosition = matchRange.endPosition();
 		if (endPosition > bestEnd && (endPosition < search._endPosition || position != endPosition || is_allowed_empty_at_end_position)) // We are searching for the longest match which has the fathest end (but may not accept empty match at end position).
 		{
 			bestMatch = _match;
@@ -413,7 +411,7 @@ void BoostRegexSearch::EncodingDependent<CharT, CharacterIterator>::compileRegex
 	}
 }
 
-int BoostRegexSearch::SearchParameters::nextCharacter(int position)
+Sci::Position BoostRegexSearch::SearchParameters::nextCharacter(Sci::Position position)
 {
 	if (_skip_windows_line_end_as_one_character && _document->CharAt(position) == '\r' && _document->CharAt(position+1) == '\n')
 		return position + 2;
@@ -421,21 +419,21 @@ int BoostRegexSearch::SearchParameters::nextCharacter(int position)
 		return position + 1;
 }
 
-bool BoostRegexSearch::SearchParameters::isLineStart(int position)
+bool BoostRegexSearch::SearchParameters::isLineStart(Sci::Position position)
 {
 	return (position == 0)
 		|| _document->CharAt(position-1) == '\n'
 		|| _document->CharAt(position-1) == '\r' && _document->CharAt(position) != '\n';
 }
 
-bool BoostRegexSearch::SearchParameters::isLineEnd(int position)
+bool BoostRegexSearch::SearchParameters::isLineEnd(Sci::Position position)
 {
 	return (position == _document->Length())
 		|| _document->CharAt(position) == '\r'
 		|| _document->CharAt(position) == '\n' && (position == 0 || _document->CharAt(position-1) != '\n');
 }
 
-const char *BoostRegexSearch::SubstituteByPosition(Document* doc, const char *text, int *length) {
+const char *BoostRegexSearch::SubstituteByPosition(Document* doc, const char *text, Sci::Position *length) {
 	delete[] _substituted;
 	_substituted = (doc->CodePage() == SC_CP_UTF8)
 		? _utf8.SubstituteByPosition(text, length)
@@ -444,7 +442,7 @@ const char *BoostRegexSearch::SubstituteByPosition(Document* doc, const char *te
 }
 
 template <class CharT, class CharacterIterator>
-char *BoostRegexSearch::EncodingDependent<CharT, CharacterIterator>::SubstituteByPosition(const char *text, int *length) {
+char *BoostRegexSearch::EncodingDependent<CharT, CharacterIterator>::SubstituteByPosition(const char *text, Sci::Position *length) {
 	char *substituted = stringToCharPtr(_match.format((const CharT*)CharTPtr(text), boost::format_all));
 	*length = static_cast<int>(strlen(substituted));
 	return substituted;
@@ -465,7 +463,7 @@ char *BoostRegexSearch::wcharToUtf8(const wchar_t *w)
 {
 	//int wcharSize = static_cast<int>(wcslen(w));
 	std::wstring ws(w);
-	int charSize = UTF8Length(ws);
+	size_t charSize = UTF8Length(ws);
 	char *c = new char[charSize + 1];
 	UTF8FromUTF16(ws, c, charSize);
 	c[charSize] = 0;

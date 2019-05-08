@@ -27,8 +27,6 @@
 #include <vector>
 #include <assert.h>
 
-//#include "Platform.h"
-
 #include "ILexer.h"
 #include "LexAccessor.h"
 #include "PropSetSimple.h"
@@ -54,13 +52,7 @@ static const char * const emptyWordListDesc[] = {
 	0
 };
 
-#ifdef  NDEBUG
-#define PLATFORM_ASSERT(c) ((void)0)
-#else
-#define PLATFORM_ASSERT(c) ((c) ? (void)(0) : Scintilla::Platform::Assert(#c, __FILE__, __LINE__))
-#endif
-
-static void ColouriseSearchResultLine(SearchResultMarkings* pMarkings, char *lineBuffer/*, size_t lengthLine*/, size_t startLine, size_t endPos, Accessor &styler, int linenum) 
+static void ColouriseSearchResultLine(SearchResultMarkings* pMarkings, char *lineBuffer, size_t startLine, size_t endPos, Accessor &styler, int linenum) 
 {
 	// startLine and endPos are the absolute positions.
 
@@ -76,21 +68,18 @@ static void ColouriseSearchResultLine(SearchResultMarkings* pMarkings, char *lin
 	{
 		const unsigned int firstTokenLen = 4;
 		unsigned int currentPos;
-		
-		//PLATFORM_ASSERT(lengthLine >= firstTokenLen + 2);
 
 		styler.ColourTo(startLine + firstTokenLen, SCE_SEARCHRESULT_DEFAULT);
 		
 		for (currentPos = firstTokenLen; lineBuffer[currentPos] != ':'; currentPos++)
 		{
-			//PLATFORM_ASSERT(currentPos < lengthLine);
+			// Just make currentPos mover forward
 		}
 
 		styler.ColourTo(startLine + currentPos - 1, SCE_SEARCHRESULT_LINE_NUMBER);
 		
 		int currentStat = SCE_SEARCHRESULT_DEFAULT;
 
-		PLATFORM_ASSERT(linenum < pMarkings->_length);
 		SearchResultMarking mi = pMarkings->_markings[linenum];
 
 		currentPos += 2; // skip ": "
@@ -122,21 +111,20 @@ static void ColouriseSearchResultDoc(Sci_PositionU startPos, Sci_Position length
 
 	SearchResultMarkings* pMarkings = NULL;
 	sscanf(addrMarkingsStruct, "%p", &pMarkings);
-	PLATFORM_ASSERT(pMarkings);
 
 	for (size_t i = startPos; i < startPos + length; i++) {
 		lineBuffer[linePos++] = styler[i];
 		if (AtEOL(styler, i) || (linePos >= sizeof(lineBuffer) - 1)) {
 			// End of line (or of line buffer) met, colourise it
 			lineBuffer[linePos] = '\0';
-			ColouriseSearchResultLine(pMarkings, lineBuffer/*, linePos*/, startLine, i, styler, styler.GetLine(startLine));
+			ColouriseSearchResultLine(pMarkings, lineBuffer, startLine, i, styler, styler.GetLine(startLine));
 			linePos = 0;
 			startLine = i + 1;
 			while (!AtEOL(styler, i)) i++;
 		}
 	}
 	if (linePos > 0) {	// Last line does not have ending characters
-		ColouriseSearchResultLine(pMarkings, lineBuffer/*, linePos*/, startLine, startPos + length - 1, styler, styler.GetLine(startLine));
+		ColouriseSearchResultLine(pMarkings, lineBuffer, startLine, startPos + length - 1, styler, styler.GetLine(startLine));
 	}
 }
 

@@ -21,7 +21,7 @@
 
 using namespace Scintilla;
 
-UTF8DocumentIterator::UTF8DocumentIterator(Document* doc, int pos, int end) : 
+UTF8DocumentIterator::UTF8DocumentIterator(Document* doc, Sci::Position pos, Sci::Position end) : 
                 m_doc(doc),
                 m_pos(pos),
                 m_end(end),
@@ -95,7 +95,7 @@ void UTF8DocumentIterator::readCharacter()
 		} while (currentChar & mask);
 
 		int result = currentChar & m_firstByteMask[nBytes];
-		int pos = m_pos;
+		Sci::Position pos = m_pos;
 		m_utf8Length = 1;
 		// work out the unicode point, and count the actual bytes.
 		// If a byte does not start with 10xxxxxx then it's not part of the 
@@ -112,8 +112,8 @@ void UTF8DocumentIterator::readCharacter()
 			result -= 0x10000;
 			m_utf16Length = 2;
 			// UTF-16 Pair
-			m_character[0] = 0xD800 + (result >> 10);
-			m_character[1] = 0xDC00 + (result & 0x3FF);
+			m_character[0] = static_cast<wchar_t>(0xD800 + (result >> 10));
+			m_character[1] = static_cast<wchar_t>(0xDC00 + (result & 0x3FF));
 				
 		}
 		else

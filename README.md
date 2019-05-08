@@ -58,13 +58,12 @@ like to debug Notepad++, but don't have boost.
 
 Here are the instructions to build SciLexer.dll (for both 32-bit & 64-bit) for Notepad++:
 
- 1. Download the [Boost source code](https://sourceforge.net/projects/boost/files/boost/1.55.0/).
-    v1.55 should be used with VS 2013. Then unzip it. In my case, `boost_1_55_0` is copied in `C:\sources\`
- 2. Go to `scintilla\boostregex\` then run BuildBoost.bat with your boost path.
-    In my case: `BuildBoost.bat C:\sources\boost_1_55_0`
-	If you are compiling a 64 bit Scintilla under your *VS2013 x64 Native tool command prompt*, add `-x64` flag.
-	In my case: `BuildBoost.bat C:\sources\boost_1_55_0 -x64`
- 3. Go in `scintilla\win32\` then run `nmake -f scintilla.mak`
+ 1. Download the [Boost source code](https://www.boost.org/users/history/version_1_70_0.html).
+ 2. Unzip boost. In my case, It's unzipped in `C:\sources\boost_1_70_0`
+ 3. Build regex of boost. With the version 1.70, launch `bootstrap.bat` under the boost root, `bjam.exe` will be generated beside of `bootstrap.bat`. For building boost PCRE lib, go into regex build directory by typing `cd C:\sources\boost_1_70_0\libs\regex\build` then launch `C:\sources\boost_1_70_0\bjam.exe toolset=msvc link=static threading=multi runtime-link=static address-model=64 release stage`.
+ Note that **address-model=64** is optional if you want to build lib in 64 bits. For 32 bits build, just remove **address-model=64** frome the command line.
+ 4. Copy generated message from  `C:\sources\boost_1_70_0\bin.v2\libs\regex\build\msvc-14.1\release\address-model-64\link-static\runtime-link-static\threading-multi\libboost_regex-vc141-mt-s-x64-1_70.lib` to `C:\tmp\boostregexLib\x64\`
+ 5. Go in `scintilla\win32\` then run `nmake -f BOOSTPATH=your_boost_root_path BOOSTREGEXLIBPATH=your_built_lib_path scintilla.mak`. For example `nmake BOOSTPATH=C:\sources\boost_1_70_0\ BOOSTREGEXLIBPATH=C:\tmp\boostregexLib\x64\ -f scintilla.mak`
 
 
 
@@ -74,21 +73,21 @@ This will work with `notepad++.exe`, however some functionality in Notepad++ wil
 
 To build SciLexer.dll without PCRE support (for both 32-bit & 64-bit):
 
- 1. For 32-bit, open a command prompt *for building* ([a.k.a. the *Developer Command Prompt for VS2013*](https://msdn.microsoft.com/en-us/library/f2ccy3wt.aspx))
+ 1. For 32-bit, open a command prompt *for building* ([a.k.a. the *Developer Command Prompt for VS2017*](https://msdn.microsoft.com/en-us/library/f2ccy3wt.aspx))
     - From the IDE, you can do this by right clicking on a file in Solution Explorer,
       and clicking "Open Command Prompt". This will open up a command prompt with all the proper environment variables.
-    - From the Windows Start screen/menu, type `Developer Command Prompt for VS2013`,
+    - From the Windows Start screen/menu, type `Developer Command Prompt for VS2017`,
       and click/select the result.
     - From an *already open* command prompt, run `vcvarsall.bat`
-      (e.g. "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat").
+      (e.g. "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat").
 
-	For 64-bit, open *VS2013 x64 Native tool command prompt*.
+	For 64-bit, open *VS2017 x64 Native tool command prompt*.
 
  2. Change directory (`cd` or `pushd`) to `scintilla\win32\`
 
  3. Build `SciLexer.dll` with one of the following commands:
-    - `nmake NOBOOST=1 -f scintilla.mak`         (normal build)
-    - `nmake NOBOOST=1 DEBUG=1 -f scintilla.mak` (debugging build)
+    - `nmake -f scintilla.mak`         (normal build)
+    - `nmake DEBUG=1 -f scintilla.mak` (debugging build)
 
  4. Copy `SciLexer.dll` from `scintilla\bin\` to the same directory as `notepad++.exe`.
     - For the `Unicode Release` configuration, the output directory

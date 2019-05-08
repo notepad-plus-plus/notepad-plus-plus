@@ -303,9 +303,9 @@
                     <Item id="48501" name="Générer..."/>
                     <Item id="48502" name="Générer depuis les fichiers..."/>
                     <Item id="48503" name="Générer dans le presse-papiers depuis la selection"/>
-                    <Item id="48501" name="Générer..."/>
-                    <Item id="48502" name="Générer depuis les fichiers..."/>
-                    <Item id="48503" name="Générer dans le presse-papiers depuis la selection"/>
+                    <Item id="48504" name="Générer..."/>
+                    <Item id="48505" name="Générer depuis les fichiers..."/>
+                    <Item id="48506" name="Générer dans le presse-papiers depuis la selection"/>
                     <Item id="48016" name="Modifier/Supprimer une macro..."/>
                     <Item id="48017" name="Modifier/Supprimer une commande..."/>
                     <Item id="48018" name="Éditer le menu contextuel"/>

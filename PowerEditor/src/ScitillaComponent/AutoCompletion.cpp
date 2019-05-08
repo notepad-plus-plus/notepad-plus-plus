@@ -749,7 +749,7 @@ void AutoCompletion::update(int character)
 	}
 }
 
-void AutoCompletion::callTipClick(int direction) {
+void AutoCompletion::callTipClick(size_t direction) {
 	if (!_funcCompletionActive)
 		return;
 

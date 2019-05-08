@@ -72,6 +72,14 @@ bool SecurityGard::checkModule(const std::wstring& filePath, NppModule module2ch
 
 bool SecurityGard::checkSha256(const std::wstring& filePath, NppModule module2check)
 {
+	// Uncomment the following code if the components are rebuilt for testing
+	// It should be stay in commenting out
+	/*
+	bool dontCheck = true;
+	if (dontCheck)
+		return true;
+	*/
+
 	std::string content = getFileContent(filePath.c_str());
 	uint8_t sha2hash[32];
 	calc_sha_256(sha2hash, reinterpret_cast<const uint8_t*>(content.c_str()), content.length());

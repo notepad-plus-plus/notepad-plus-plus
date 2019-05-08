@@ -612,7 +612,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		{
 			if ((notification->nmhdr.hwndFrom == _mainEditView.getHSelf()) || (notification->nmhdr.hwndFrom == _subEditView.getHSelf()))
 			{
-				int lineClicked = notification->line;
+				size_t lineClicked = notification->line;
 
 				if (!_isFolding)
 				{
@@ -997,21 +997,21 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			if (not notifyView->execute(SCI_STYLEGETHOTSPOT, style))
 				break;
 
-			int startPos, endPos, docLen;
+			long long startPos, endPos, docLen;
 			startPos = endPos = notification->position;
 			docLen = notifyView->getCurrentDocLen();
 
 			// Walk backwards/forwards to get the contiguous text in the same style
-			while (startPos > 0 && static_cast<uint8_t>(notifyView->execute(SCI_GETSTYLEAT, startPos - 1)) == style)
+			while (startPos > 0 && static_cast<uint8_t>(notifyView->execute(SCI_GETSTYLEAT, static_cast<WPARAM>(startPos - 1))) == style)
 				startPos--;
-			while (endPos < docLen && static_cast<uint8_t>(notifyView->execute(SCI_GETSTYLEAT, endPos)) == style)
+			while (endPos < docLen && static_cast<uint8_t>(notifyView->execute(SCI_GETSTYLEAT, static_cast<WPARAM>(endPos))) == style)
 				endPos++;
 
 			// Select the entire link
-			notifyView->execute(SCI_SETANCHOR, startPos);
-			notifyView->execute(SCI_SETCURRENTPOS, endPos);
+			notifyView->execute(SCI_SETANCHOR, static_cast<WPARAM>(startPos));
+			notifyView->execute(SCI_SETCURRENTPOS, static_cast<WPARAM>(endPos));
 
-			generic_string url = notifyView->getGenericTextAsString(startPos, endPos);
+			generic_string url = notifyView->getGenericTextAsString(static_cast<size_t>(startPos), static_cast<size_t>(endPos));
 
 			// remove the flickering: it seems a mouse left button up is missing after SCN_HOTSPOTDOUBLECLICK
 			::PostMessage(notifyView->getHSelf(), WM_LBUTTONUP, 0, 0);

@@ -349,7 +349,7 @@ private:
 	bool _isFolding = false;
 
 	//For Dynamic selection highlight
-	CharacterRange _prevSelectedRange;
+	Sci_CharacterRange _prevSelectedRange;
 
 	//Synchronized Scolling
 	struct SyncInfo final

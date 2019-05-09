@@ -1,4 +1,0 @@
-cd ..
-rm -f scintilla.tgz
-tar --create --exclude \*.o --exclude \*.obj --exclude \*.dll --exclude \*.exe --exclude \*.a scintilla/* \
-	| gzip -c >scintilla.tgz

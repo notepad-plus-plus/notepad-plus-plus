@@ -1,7 +1,0 @@
-//
-// Prefix header for all source files of the 'Scintilla' target in the 'Scintilla' project.
-//
-
-#ifdef __OBJC__
-    #import <Cocoa/Cocoa.h>
-#endif

@@ -42,8 +42,8 @@
 
 using namespace std;
 
-SecurityMode SecurityGard::_securityMode = sm_sha256;
-//SecurityMode SecurityGard::_securityMode = sm_certif;
+//SecurityMode SecurityGard::_securityMode = sm_sha256;
+SecurityMode SecurityGard::_securityMode = sm_certif;
 
 SecurityGard::SecurityGard()
 {

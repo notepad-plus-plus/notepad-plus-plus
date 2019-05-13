@@ -10,6 +10,8 @@ configuration:
     - Unicode Debug
 
 install:
+    - cd %APPVEYOR_BUILD_FOLDER%
+    - git submodule update --init --recursive
     - if "%platform%"=="x64" set archi=amd64
     - if "%platform%"=="x64" set platform_input=x64
 

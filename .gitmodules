@@ -1,0 +1,4 @@
+[submodule "scintilla"]
+	path = scintilla
+	url = https://github.com/bahusoid/scintilla
+	branch = npp

@@ -1842,18 +1842,15 @@ int FindReplaceDlg::processAll(ProcessOperation op, const FindOption *opt, bool 
 	}
 
 	//then adjust scope if the full document needs to be changed
-	if (op == ProcessCountAll)
+	if (op == ProcessCountAll && pOptions->_isInSelection)
 	{
-		if (pOptions->_isInSelection)
-		{
-			startPosition = cr.cpMin;
-			endPosition = cr.cpMax;
-		}
-		else if (pOptions->_isWrapAround || isEntire)	//entire document needs to be scanned
-		{
-			startPosition = 0;
-			endPosition = docLength;
-		}
+		startPosition = cr.cpMin;
+		endPosition = cr.cpMax;
+	}
+	else if (pOptions->_isWrapAround || isEntire || op == ProcessCountAll)	//entire document needs to be scanned
+	{
+		startPosition = 0;
+		endPosition = docLength;
 	}
 	
 	//then readjust scope if the selection override is active and allowed

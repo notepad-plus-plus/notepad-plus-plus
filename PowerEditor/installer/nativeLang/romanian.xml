@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
  <!--
--    Traducerea în română pentru Notepad++ 7.6.2
+-    Traducerea în română pentru Notepad++ 7.6.6
 -    Ultima modificare 30 Ianuarie 2019 de către Barna Cosmin Marian
      Pentru actualizări vizitați: https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
  -->
 <NotepadPlus>
-    <Native-Langue name="Romanian" filename="romanian.xml" version="7.6.2">
+    <Native-Langue name="Romanian" filename="romanian.xml" version="7.6.6">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -20,7 +20,7 @@
                     <Item menuId="tools" name="&amp;Unelte"/>
                     <Item menuId="macro" name="&amp;Macro"/>
                     <Item menuId="run" name="E&amp;xecutare"/>
-                    <Item idName="Plugins" name="Ex&amp;tensii"/>
+                    <Item idName="Plugins" name="Mo&amp;dule"/>
                     <Item idName="Window" name="Fe&amp;restre"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
@@ -43,6 +43,7 @@
                     <Item subMenuId="search-jumpUp" name="Deplasare în sus"/>
                     <Item subMenuId="search-jumpDown" name="Deplasare în jos"/>
                     <Item subMenuId="search-bookmark" name="Semn de carte"/>
+                    <Item subMenuId="view-currentFileIn" name="Afișare fișier curent în"/>
                     <Item subMenuId="view-showSymbol"  name="Arată simboluri"/>
                     <Item subMenuId="view-zoom"  name="Dimensiune"/>
                     <Item subMenuId="view-moveCloneDocument"  name="Mutare/Clonare document curent"/>
@@ -82,6 +83,7 @@
                     <Item id="41005" name="Închidere toate fără documentul curent"/>
                     <Item id="41009" name="Închidere toate spre stânga"/>
                     <Item id="41018" name="Închidere toate spre dreapta"/>
+                    <Item id="41024" name="Închidere cele nemodificate"/>
                     <Item id="41006" name="&amp;Salvare"/>
                     <Item id="41007" name="Salvar&amp;e toate"/>
                     <Item id="41008" name="S&amp;alvare ca..."/>
@@ -108,6 +110,7 @@
                     <Item id="42008" name="Mărire indentare linie"/>
                     <Item id="42009" name="Reducere indentare linie"/>
                     <Item id="42010" name="Duplicare linie curentă"/>
+                    <Item id="42077" name="Eliminare linii consecutive duplicate"/>
                     <Item id="42012" name="Întrerupere linii"/>
                     <Item id="42013" name="Unire linii"/>
                     <Item id="42014" name="Urcare linie curentă"/>   
@@ -291,15 +294,16 @@
                     <Item id="47004" name="Comunitatea Notepad++ (Forum)"/>
                     <Item id="47011" name="Suport Live"/>
                     <Item id="47012" name="Informații depanare"/>
-                    <Item id="47005" name="Luați mai multe extensii"/>
+                    <Item id="47005" name="Descărcaţi mai multe module"/>
                     <Item id="47006" name="Actualizare Notepad++"/>
                     <Item id="47009" name="Setare proxy actualizare..."/>
-                    <Item id="48005" name="Importare extensie(i) ..."/>
+                    <Item id="48005" name="Importare modul(e) ..."/>
                     <Item id="48006" name="Importare temă(e) afișare..."/>
                     <Item id="48018" name="Editare meniu contextual"/>
                     <Item id="48009" name="Listă combinații taste..."/>
                     <Item id="48011" name="Preferințe..."/>
-                    <Item id="48015" name="Administrare extensii..."/>            		
+                   <Item id="48014" name="Deschidere folder module..."/>
+                    <Item id="48015" name="Administrare module..."/>            		
                     <Item id="48501" name="Generare..."/>
                     <Item id="48502" name="Generare din fișiere..."/>
                     <Item id="48503" name="Generare din selecție în memorie"/>
@@ -343,6 +347,7 @@
                     <Item CMID="19" name="Deschidere folder gazdă în Explorer"/>
                     <Item CMID="20" name="Deschidere folder gazdă în cmd"/>
                     <Item CMID="21" name="Deschidere în vizualizator implicit"/>
+                    <Item CMID="22" name="Închidere toate neschimbate"/>
             </TabBar>
         </Menu>
         <Dialog>
@@ -438,8 +443,8 @@
                 <Item id="2"    name="Închidere"/>
             </SHA256FromTextDlg>
             
-            <PluginsAdminDlg title="Administrare extensii" titleAvailable = "Disponibile" titleUpdates = "Actualizări" titleInstalled = "Instalate">
-                <ColumnPlugin   name="Extensie"/>
+            <PluginsAdminDlg title="Administrare module" titleAvailable = "Disponibile" titleUpdates = "Actualizări" titleInstalled = "Instalate">
+                <ColumnPlugin   name="Modul"/>
                 <ColumnVersion  name="Versiune"/>
                 <Item id="5501" name="Căutare:"/>
                 <Item id="5503" name="Instalare"/>
@@ -489,11 +494,11 @@
                 <ColumnName name="Nume"/>
                 <ColumnShortcut name="Combinație"/>
                 <ColumnCategory name="Categorie"/>
-                <ColumnPlugin name="Extensie"/>
+                <ColumnPlugin name="Modul"/>
                 <MainMenuTab name="Meniu"/>
                 <MacrosTab name="Macro"/>
                 <RunCommandsTab name="Comenzi lansare"/>
-                <PluginCommandsTab name="Comenzi extensii"/>
+                <PluginCommandsTab name="Comenzi module"/>
                 <ScintillaCommandsTab name="Comenzi Scintilla"/>
                 <ConflictInfoOk name="Nu sunt conflicte pentru acest element."/>
                 <ConflictInfoEditing name="Nu sunt conflicte ..."/>
@@ -707,7 +712,7 @@
 
             <Item id="6125" name="Panou listă documente"/>
                     <Item id="6126" name="Afișare"/>
-                    <Item id="6127" name="Dezactivare coloană extensii"/>
+                    <Item id="6127" name="Dezactivare coloană module"/>
                 </Global>
                 <Scintillas title="Editare">
                     <Item id="6216" name="Setări cursor"/>
@@ -766,7 +771,7 @@
                     <Item id="6413" name="Folder implicit (Deschidere/Salvare)"/>
                     <Item id="6414" name="Folder document curent"/>
                     <Item id="6415" name="Memorare ultimul folder folosit"/>
-                    <Item id="6430" name="Utilizare stil nou dialog salvare (fără extensii predefinite &amp;&amp; stil cale tip Unix disponibil)" />
+                    <Item id="6430" name="Utilizare stil nou dialog salvare (fără extensii fişiere predefinite &amp;&amp; stil cale tip Unix disponibil)" />
                     <Item id="6431" name="La plasarea unui folder, se deschid fișierele din el, fără a-l stabili ca spațiu de lucru"/>
                 </DefaultDir>
 
@@ -910,7 +915,11 @@
                 </SearchEngine>
 
                 <MISC title="DIVERSE">
-                    <Item id="6307" name="Activare"/>
+                    <ComboBox id="6347">
+                        <Element name="Activare"/>
+                        <Element name="Activare pentru toate fişierele deschise"/>
+                        <Element name="Dezactivare"/>
+                    </ComboBox>
                     <Item id="6308" name="Micșorare în zona de sistem"/>
                     <Item id="6312" name="Autodetectare stare fișier"/>
                     <Item id="6313" name="Actualizare silențioasă"/>
@@ -1066,6 +1075,7 @@ Doriți să lansați Notepad++ în mod Administrator?"/>
             <OpenInAdminModeWithoutCloseCurrent title="Salvare eșuată" message="Fișierul nu poate fi salvat și s-ar putea să fie protejat.
 Doriți să lansați Notepad++ în mod Administrator?"/>
             <OpenInAdminModeFailed title="Deschidere în mod Administrator eșuat" message="Notepad++ nu poate fi deschis în mod Administrator."/>        
+            <ViewInBrowser title="Afişare fişier curent în navigator" message="Aplicaţia nu poate fi găsită în sistem."/>
 		</MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Istoric Clipboard"/>
@@ -1200,6 +1210,18 @@ Doriți să lansați Notepad++ în mod Administrator?"/>
             <finder-select-all value="Selectare toate"/>
             <finder-clear-all value="Golire toate"/>
             <finder-open-all value="Deschidere toate"/>
+            <common-ok value="OK"/>
+            <common-cancel value="Anulare"/>
+            <common-name value="Nume: "/>
+            <tabrename-title value="Redenumire filă curentă"/>
+            <tabrename-newname value="Nume nou: "/>
+            <recent-file-history-maxfile value="Maxim fişiere: "/>
+            <language-tabsize value="Mărime filă: "/>
+            <userdefined-title-new value="Creare limbaj nou..."/>
+            <userdefined-title-save value="Salvare limbaj curent ca..."/>
+            <userdefined-title-rename value="Redenumire limbaj curent"/>
+            <autocomplete-nb-char value="Nr. car.: "/>
+            <edit-verticaledge-nb-col value="Nr. coloane:"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

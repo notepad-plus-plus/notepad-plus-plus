@@ -1029,6 +1029,8 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 		// Note that fwrite() doesn't return the number of bytes written, but rather the number of ITEMS.
 		if (items_written != 1)
 		{
+			_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
+
 			if (error_msg != NULL)
 				*error_msg = TEXT("Failed to save file.\nNot enough space on disk to save file?");
 

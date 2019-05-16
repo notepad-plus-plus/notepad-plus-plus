@@ -444,26 +444,33 @@ bool Notepad_plus::doReload(BufferID id, bool alert)
 	//an empty Document is inserted during reload if needed.
 	bool mainVisisble = (_mainEditView.getCurrentBufferID() == id);
 	bool subVisisble = (_subEditView.getCurrentBufferID() == id);
-	if (mainVisisble) {
+	if (mainVisisble)
+	{
 		_mainEditView.saveCurrentPos();
 		_mainEditView.execute(SCI_SETDOCPOINTER, 0, 0);
 	}
-	if (subVisisble) {
+
+	if (subVisisble)
+	{
 		_subEditView.saveCurrentPos();
 		_subEditView.execute(SCI_SETDOCPOINTER, 0, 0);
 	}
 
-	if (!mainVisisble && !subVisisble) {
+	if (!mainVisisble && !subVisisble)
+	{
 		return MainFileManager->reloadBufferDeferred(id);
 	}
 
 	bool res = MainFileManager->reloadBuffer(id);
 	Buffer * pBuf = MainFileManager->getBufferByID(id);
-	if (mainVisisble) {
+	if (mainVisisble)
+	{
 		_mainEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
 		_mainEditView.restoreCurrentPos();
 	}
-	if (subVisisble) {
+
+	if (subVisisble)
+	{
 		_subEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
 		_subEditView.restoreCurrentPos();
 	}

@@ -1846,7 +1846,8 @@ void ScintillaEditView::activateBuffer(BufferID buffer)
 
 	setWordChars();
 
-	if (_currentBuffer->getNeedsLexing()) {
+	if (_currentBuffer->getNeedsLexing())
+	{
 		restyleBuffer();
 	}
 

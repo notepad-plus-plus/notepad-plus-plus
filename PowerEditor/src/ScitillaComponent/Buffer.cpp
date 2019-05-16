@@ -1040,7 +1040,7 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 		if (isHiddenOrSys)
 			::SetFileAttributes(fullpath, attrib);
 
-		if (isCopy)
+		if (isCopy) // Save As command
 		{
 			_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
 

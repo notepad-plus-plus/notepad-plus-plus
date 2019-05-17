@@ -3266,7 +3266,13 @@ void ScintillaEditView::runMarkers(bool doHide, size_t searchStart, bool endOfDo
 			if ( ((state & (1 << MARK_HIDELINESEND)) != 0) )
 			{
 				if (doDelete)
+				{
 					execute(SCI_MARKERDELETE, i, MARK_HIDELINESEND);
+					if (!endOfDoc)
+					{
+						return;	//done, only single section requested
+					}	//otherwise keep going
+				}
 				 else if (isInSection)
 				 {
 					if (startShowing >= i)

@@ -60,10 +60,10 @@ Here are the instructions to build SciLexer.dll (for both 32-bit & 64-bit) for N
 
  1. Download the [Boost source code](https://www.boost.org/users/history/version_1_70_0.html).
  2. Unzip boost. In my case, It's unzipped in `C:\sources\boost_1_70_0`
- 3. Build regex of boost. With the version 1.70, launch `bootstrap.bat` under the boost root, `bjam.exe` will be generated beside of `bootstrap.bat`. For building boost PCRE lib, go into regex build directory by typing `cd C:\sources\boost_1_70_0\libs\regex\build` then launch `C:\sources\boost_1_70_0\bjam.exe toolset=msvc link=static threading=multi runtime-link=static address-model=64 release stage`.
+ 3. Build regex of boost. With the version 1.70, launch `bootstrap.bat` under the boost root, `b2.exe` will be generated beside of `bootstrap.bat`. For building boost PCRE lib, go into regex build directory by typing `cd C:\sources\boost_1_70_0\libs\regex\build` then launch `C:\sources\boost_1_70_0\b2.exe toolset=msvc link=static threading=multi runtime-link=static address-model=64 release stage`.
  Note that **address-model=64** is optional if you want to build lib in 64 bits. For 32 bits build, just remove **address-model=64** frome the command line.
  4. Copy generated message from  `C:\sources\boost_1_70_0\bin.v2\libs\regex\build\msvc-14.1\release\address-model-64\link-static\runtime-link-static\threading-multi\libboost_regex-vc141-mt-s-x64-1_70.lib` to `C:\tmp\boostregexLib\x64\`
- 5. Go in `scintilla\win32\` then run `nmake -f BOOSTPATH=your_boost_root_path BOOSTREGEXLIBPATH=your_built_lib_path scintilla.mak`. For example `nmake BOOSTPATH=C:\sources\boost_1_70_0\ BOOSTREGEXLIBPATH=C:\tmp\boostregexLib\x64\ -f scintilla.mak`
+ 5. Go in `scintilla\win32\` then run `nmake BOOSTPATH=your_boost_root_path BOOSTREGEXLIBPATH=your_built_lib_path -f scintilla.mak`. For example `nmake BOOSTPATH=C:\sources\boost_1_70_0\ BOOSTREGEXLIBPATH=C:\tmp\boostregexLib\x64\ -f scintilla.mak`
 
 
 

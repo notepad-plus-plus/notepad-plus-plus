@@ -44,7 +44,7 @@
 #define IDI_CHAMELEON            101
 //#define IDI_JESUISCHARLIE        102
 //#define IDI_GILETJAUNE        102
-
+#define IDI_SAMESEXMARRIAGE        102
 #define IDR_RT_MANIFEST         103
 
 #define IDI_NEW_OFF_ICON      201

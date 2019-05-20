@@ -95,6 +95,8 @@ const int CP_GREEK = 1253;
 #define LIST_4 16
 #define LIST_5 32
 #define LIST_6 64
+#define LIST_7 128
+#define LIST_8 256
 
 const bool fold_uncollapse = true;
 const bool fold_collapse = false;
@@ -885,8 +887,14 @@ protected:
 	};
 
 	void setBaanCLexer() {
-		setLexer(SCLEX_BAAN, L_BAANC, LIST_0 | LIST_1);
-		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("styling.within.preprocessor"), reinterpret_cast<LPARAM>("1"));
+		setLexer(SCLEX_BAAN, L_BAANC, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6 | LIST_7 | LIST_8);
+		execute(SCI_STYLESETEOLFILLED, SCE_BAAN_STRINGEOL, true);
+		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.preprocessor"), reinterpret_cast<LPARAM>("1"));
+		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.baan.syntax.based"), reinterpret_cast<LPARAM>("1"));
+		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.baan.keywords.based"), reinterpret_cast<LPARAM>("1"));
+		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.baan.sections"), reinterpret_cast<LPARAM>("1"));
+		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.baan.inner.level"), reinterpret_cast<LPARAM>("1"));
+		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.baan.styling.within.preprocessor"), reinterpret_cast<LPARAM>("1"));
 	};
 
 	void setSrecLexer() {

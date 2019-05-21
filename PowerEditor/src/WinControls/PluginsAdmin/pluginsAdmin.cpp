@@ -44,6 +44,8 @@
 #define TEXTFILE        256
 #define IDR_PLUGINLISTJSONFILE  101
 
+#define BOTTOM_MARGIN 80
+
 using namespace std;
 using nlohmann::json;
 
@@ -280,7 +282,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	_tab.insertAtEnd(updates);
 	_tab.insertAtEnd(installed);
 
-	rect.bottom -= 100;
+	rect.bottom -= BOTTOM_MARGIN;
 	_tab.reSizeTo(rect);
 	_tab.display();
 
@@ -343,6 +345,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	listRect.bottom = listHeight;
 	listRect.left += marge;
 	listRect.right -= marge * 2;
+	_listRect = listRect;
 
 	descRect.top += listHeight + marge * 3;
 	descRect.bottom = descHeight;
@@ -1113,7 +1116,87 @@ INT_PTR CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 	{
         case WM_INITDIALOG :
 		{
+			RECT rect;
+			Window::getClientRect(rect);
+			_clientWidth = rect.right - rect.left;
+			_clientHeight = rect.bottom - rect.top;
+			_initClientWidth = _clientWidth;
+			_initClientHeight = _clientHeight;
+			_dialogInitDone = true;
 			return TRUE;
+		}
+		case WM_SIZE :
+		{
+			RECT rect;
+			LONG newWidth = LOWORD(lParam);
+			LONG newHeight = HIWORD(lParam);
+			
+			LONG addWidth = newWidth - _clientWidth;
+			LONG addHeight = newHeight - _clientHeight;
+			_clientWidth = newWidth;
+			_clientHeight = newHeight;
+
+			_listRect.bottom += addHeight;
+			_listRect.right += addWidth;
+
+			_availableList.reSizeView(_listRect);
+			_updateList.reSizeView(_listRect);
+			_installedList.reSizeView(_listRect);
+
+			const UINT flags = SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOACTIVATE | SWP_NOCOPYBITS;
+			// resize the tab
+			HWND tabHwnd = _tab.getHSelf();
+			::GetClientRect(tabHwnd, &rect);
+			::SetWindowPos(tabHwnd, NULL, rect.left, rect.top, newWidth, newHeight - BOTTOM_MARGIN, flags);
+
+			//elements that need to be moved (X and Y)
+			
+			Window::getClientRect(rect);
+			HWND moveHwnd = ::GetDlgItem(_hSelf, IDCANCEL);
+			::GetWindowRect(moveHwnd, &rect);
+			::MapWindowPoints(NULL, _hSelf, (LPPOINT)&rect, 2);
+			::SetWindowPos(moveHwnd, NULL, rect.left + addWidth / 2, rect.top + addHeight, 0, 0, SWP_NOSIZE | flags);
+
+
+			//elements that need to be moved (X)
+			auto moveWindowIDs = {
+				IDC_PLUGINADM_INSTALL, IDC_PLUGINADM_UPDATE, IDC_PLUGINADM_REMOVE, IDC_PLUGINADM_RESEARCH_NEXT
+			};
+			Window::getClientRect(rect);
+			for (int moveWndID : moveWindowIDs)
+			{
+				HWND moveHwnd = ::GetDlgItem(_hSelf, moveWndID);
+				::GetWindowRect(moveHwnd, &rect);
+				::MapWindowPoints(NULL, _hSelf, (LPPOINT)&rect, 2);
+				::SetWindowPos(moveHwnd, NULL, rect.left + addWidth, rect.top, 0, 0, SWP_NOSIZE | flags);
+			}
+
+			// Move and resize IDC_PLUGINADM_EDIT
+			// Move the Y position, Resize the width
+			HWND resizeHwnd = ::GetDlgItem(_hSelf, IDC_PLUGINADM_EDIT);
+			::GetWindowRect(resizeHwnd, &rect);
+			::MapWindowPoints(NULL, _hSelf, (LPPOINT)&rect, 2);
+			::SetWindowPos(resizeHwnd, NULL, rect.left, rect.top + addHeight, rect.right - rect.left + addWidth, rect.bottom - rect.top, flags);
+			
+			// resize IDC_PLUGINADM_SEARCH_EDIT
+			Window::getClientRect(rect);
+			resizeHwnd = ::GetDlgItem(_hSelf, IDC_PLUGINADM_SEARCH_EDIT );
+			::GetWindowRect(resizeHwnd, &rect);
+			::MapWindowPoints(NULL, _hSelf, (LPPOINT)&rect, 2);
+			::SetWindowPos(resizeHwnd, NULL, rect.left, rect.top, rect.right - rect.left + addWidth, rect.bottom - rect.top, flags);
+
+			break;
+
+		}
+		case WM_GETMINMAXINFO:
+		{
+			MINMAXINFO* mmi = (MINMAXINFO*)lParam;
+			if (_dialogInitDone)
+			{
+				mmi->ptMinTrackSize.x = _initClientWidth;
+				mmi->ptMinTrackSize.y = _initClientHeight;
+			}
+			return 0;
 		}
 
 		case WM_COMMAND :

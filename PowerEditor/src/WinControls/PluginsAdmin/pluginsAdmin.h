@@ -137,6 +137,7 @@ public:
 
 	void pushBack(PluginUpdateInfo* pi);
 	HWND getViewHwnd() { return _ui.getHSelf(); };
+	void getClientRect(RECT & rc) const { _ui.getClientRect(rc); };
 	void displayView(bool doShow) const { _ui.display(doShow); };
 	std::vector<size_t> getCheckedIndexes() const { return _ui.getCheckedIndexes(); };
 	std::vector<PluginUpdateInfo*> fromUiIndexesToPluginInfos(const std::vector<size_t>& ) const;
@@ -225,6 +226,13 @@ private :
 
 	PluginsManager *_pPluginsManager = nullptr;
 	NppCurrentStatus _nppCurrentStatus;
+
+	LONG _clientWidth;
+	LONG _clientHeight;
+	LONG _initClientWidth;
+	LONG _initClientHeight;
+	RECT _listRect;
+	bool _dialogInitDone;
 
 	void collectNppCurrentStatusInfos();
 	bool searchInPlugins(bool isNextMode) const;

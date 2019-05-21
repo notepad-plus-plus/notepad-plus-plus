@@ -45,7 +45,7 @@ void ListView::init(HINSTANCE hInst, HWND parent)
     InitCommonControlsEx(&icex);
 
     // Create the list-view window in report view with label editing enabled.
-	int listViewStyles = LVS_REPORT | LVS_NOSORTHEADER\
+	int listViewStyles = LVS_REPORT \
 						| LVS_SINGLESEL | LVS_AUTOARRANGE\
 						| LVS_SHAREIMAGELISTS | LVS_SHOWSELALWAYS;
 

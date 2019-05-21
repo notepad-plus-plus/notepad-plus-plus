@@ -34,6 +34,7 @@
 #include "TabBar.h"
 #include "ListView.h"
 #include "tinyxml.h"
+#include "Parameters.h"
 
 class PluginsManager;
 
@@ -86,6 +87,7 @@ struct PluginUpdateInfo
 	generic_string _author;
 	generic_string _id;           // Plugin package ID: SHA-256 hash
 	generic_string _repository;
+	generic_string _releaseDate;
 	bool _isVisible = true;       // if false then it should not be displayed 
 
 	generic_string describe();
@@ -111,17 +113,11 @@ struct NppCurrentStatus
 	bool shouldLaunchInAdmMode() { return _isInProgramFiles; };
 };
 
-enum COLUMN_TYPE { COLUMN_PLUGIN, COLUMN_VERSION };
-enum SORT_TYPE { DISPLAY_NAME_ALPHABET_ENCREASE, DISPLAY_NAME_ALPHABET_DECREASE };
+enum COLUMN_TYPE { COLUMN_PLUGIN, COLUMN_VERSION, COLUMN_DATE };
+enum SORT_TYPE { SORT_ENCREASE, SORT_DECREASE};
+enum SORT_KEY  { SORT_BY_NAME, SORT_BY_DATE};
 
 
-struct SortDisplayNameDecrease final
-{
-	bool operator() (PluginUpdateInfo* l, PluginUpdateInfo* r)
-	{
-		return (l->_displayName.compare(r->_displayName) <= 0);
-	}
-};
 
 class PluginViewList
 {
@@ -137,6 +133,7 @@ public:
 
 	void pushBack(PluginUpdateInfo* pi);
 	HWND getViewHwnd() { return _ui.getHSelf(); };
+	void getClientRect(RECT & rc) const { _ui.getClientRect(rc); };
 	void displayView(bool doShow) const { _ui.display(doShow); };
 	std::vector<size_t> getCheckedIndexes() const { return _ui.getCheckedIndexes(); };
 	std::vector<PluginUpdateInfo*> fromUiIndexesToPluginInfos(const std::vector<size_t>& ) const;
@@ -157,14 +154,19 @@ public:
 	bool restore(const generic_string& folderName);
 	bool removeFromPluginInfoPtr(PluginUpdateInfo* pluginInfo2hide);
 	void changeColumnName(COLUMN_TYPE index, const TCHAR *name2change);
+	void sortList(boolean name_date, boolean increase);
+	void setSortKey(int key_index);
+	void toggleSortType();
+	void sort();
 
 private:
 	std::vector<PluginUpdateInfo*> _list;
 	ListView _ui;
 
-	SORT_TYPE _sortType = DISPLAY_NAME_ALPHABET_ENCREASE;
+	SORT_TYPE _sortType = SORT_ENCREASE;
+	SORT_KEY  _sortKey = SORT_BY_NAME;
 };
-
+bool sort_date_operator(PluginUpdateInfo* l, PluginUpdateInfo* r);
 enum LIST_TYPE { AVAILABLE_LIST, UPDATES_LIST, INSTALLED_LIST };
 
 
@@ -212,6 +214,7 @@ protected:
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 private :
+
 	generic_string _updaterDir;
 	generic_string _updaterFullPath;
 	generic_string _pluginListFullPath;
@@ -224,6 +227,14 @@ private :
 
 	PluginsManager *_pPluginsManager = nullptr;
 	NppCurrentStatus _nppCurrentStatus;
+
+	LONG _clientWidth;
+	LONG _clientHeight;
+	LONG _initClientWidth;
+	LONG _initClientHeight;
+	RECT _tabRect;
+	RECT _listRect;
+	bool _dialogInitDone;
 
 	void collectNppCurrentStatusInfos();
 	bool searchInPlugins(bool isNextMode) const;

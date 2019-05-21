@@ -281,10 +281,11 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	_tab.insertAtEnd(updates);
 	_tab.insertAtEnd(installed);
 
-	rect.bottom -= 100;;
+	rect.bottom -= 100;
 	_tab.reSizeTo(rect);
 	_tab.display();
-
+	_tabRect = rect;
+	
 	const long marge = 10;
 
 	const int topMarge = 42;
@@ -344,6 +345,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	listRect.bottom = listHeight;
 	listRect.left += marge;
 	listRect.right -= marge * 2;
+	_listRect = listRect;
 
 	descRect.top += listHeight + marge * 3;
 	descRect.bottom = descHeight;
@@ -354,10 +356,12 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	NativeLangSpeaker *pNativeSpeaker = nppParam->getNativeLangSpeaker();
 	generic_string pluginStr = pNativeSpeaker->getAttrNameStr(TEXT("Plugin"), "PluginAdmin", "Plugin");
 	generic_string vesionStr = pNativeSpeaker->getAttrNameStr(TEXT("Version"), "PluginAdmin", "Version");
+	generic_string dateStr = pNativeSpeaker->getAttrNameStr(TEXT("Date"), "PluginAdmin", "Date");
 	//generic_string stabilityStr = pNativeSpeaker->getAttrNameStr(TEXT("Stability"), "PluginAdmin", "Stability");
 
 	_availableList.addColumn(columnInfo(pluginStr, nppParam->_dpiManager.scaleX(200)));
 	_availableList.addColumn(columnInfo(vesionStr, nppParam->_dpiManager.scaleX(100)));
+	_availableList.addColumn(columnInfo(dateStr, nppParam->_dpiManager.scaleX(70)));
 	//_availableList.addColumn(columnInfo(stabilityStr, nppParam->_dpiManager.scaleX(70)));
 	_availableList.setViewStyleOption(LVS_EX_CHECKBOXES);
 
@@ -366,6 +370,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	
 	_updateList.addColumn(columnInfo(pluginStr, nppParam->_dpiManager.scaleX(200)));
 	_updateList.addColumn(columnInfo(vesionStr, nppParam->_dpiManager.scaleX(100)));
+	_updateList.addColumn(columnInfo(dateStr, nppParam->_dpiManager.scaleX(70)));
 	//_updateList.addColumn(columnInfo(stabilityStr, nppParam->_dpiManager.scaleX(70)));
 	_updateList.setViewStyleOption(LVS_EX_CHECKBOXES);
 
@@ -374,6 +379,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 
 	_installedList.addColumn(columnInfo(pluginStr, nppParam->_dpiManager.scaleX(200)));
 	_installedList.addColumn(columnInfo(vesionStr, nppParam->_dpiManager.scaleX(100)));
+	_installedList.addColumn(columnInfo(dateStr, nppParam->_dpiManager.scaleX(70)));
 	//_installedList.addColumn(columnInfo(stabilityStr, nppParam->_dpiManager.scaleX(70)));
 	_installedList.setViewStyleOption(LVS_EX_CHECKBOXES);
 
@@ -619,10 +625,11 @@ void PluginViewList::pushBack(PluginUpdateInfo* pi)
 	values2Add.push_back(pi->_displayName);
 	Version v = pi->_version;
 	values2Add.push_back(v.toString());
+	values2Add.push_back(pi->_releaseDate);
 	//values2Add.push_back(TEXT("Yes"));
 
 	// add in order
-	size_t i = _ui.findAlphabeticalOrderPos(pi->_displayName, _sortType == DISPLAY_NAME_ALPHABET_ENCREASE ? _ui.sortEncrease : _ui.sortDecrease);
+	size_t i = _ui.findAlphabeticalOrderPos(pi->_displayName, _sortType == SORT_ENCREASE ? _ui.sortEncrease : _ui.sortDecrease);
 	_ui.addLine(values2Add, reinterpret_cast<LPARAM>(pi), static_cast<int>(i));
 }
 
@@ -664,6 +671,9 @@ bool loadFromJson(PluginViewList & pl, const json& j)
 
 			valStr = i.at("repository").get<std::string>();
 			pi->_repository = wmc->char2wchar(valStr.c_str(), CP_ACP);
+
+			valStr = i.at("release-date").get<std::string>();
+			pi->_releaseDate = wmc->char2wchar(valStr.c_str(), CP_ACP);
 
 			valStr = i.at("homepage").get<std::string>();
 			pi->_homepage = wmc->char2wchar(valStr.c_str(), CP_ACP);
@@ -975,6 +985,84 @@ bool PluginViewList::restore(const generic_string& folderName)
 	return false;
 }
 
+void PluginViewList::setSortKey(int key_index)
+{
+	if (key_index == COLUMN_PLUGIN)
+		_sortKey = SORT_BY_NAME;
+	else if (key_index == COLUMN_DATE)
+		_sortKey = SORT_BY_DATE;
+}
+
+void PluginViewList::toggleSortType()
+{
+	if (_sortType == SORT_ENCREASE)
+		_sortType = SORT_DECREASE;
+	else 
+		_sortType = SORT_ENCREASE;
+}
+
+bool sort_date_operator_encrease(PluginUpdateInfo* l, PluginUpdateInfo* r)
+{
+	generic_string date_tmp = l->_releaseDate;
+	date_tmp.erase(7, 1);
+	date_tmp.erase(4, 1);
+	Date date_l(date_tmp.c_str());
+	date_tmp = r->_releaseDate;
+	date_tmp.erase(7, 1);
+	date_tmp.erase(4, 1);
+	Date date_r(date_tmp.c_str());
+	return date_l < date_r;
+}
+
+bool sort_date_operator_decrease(PluginUpdateInfo* l, PluginUpdateInfo* r)
+{
+	generic_string date_tmp = l->_releaseDate;
+	date_tmp.erase(7, 1);
+	date_tmp.erase(4, 1);
+	Date date_l(date_tmp.c_str());
+	date_tmp = r->_releaseDate;
+	date_tmp.erase(7, 1);
+	date_tmp.erase(4, 1);
+	Date date_r(date_tmp.c_str());
+	return date_l > date_r;
+}
+
+bool sort_by_name_encrease(PluginUpdateInfo* l, PluginUpdateInfo* r)
+{
+	return (l->_displayName.compare(r->_displayName) <= 0);
+}
+
+bool sort_by_name_decrease(PluginUpdateInfo* l, PluginUpdateInfo* r)
+{
+	return (l->_displayName.compare(r->_displayName) > 0);
+}
+
+void PluginViewList::sort()
+{
+	PluginUpdateInfo* pi;
+	if (_sortKey == SORT_BY_DATE && _sortType == SORT_ENCREASE)
+		std::sort(_list.begin(), _list.end(), sort_date_operator_encrease);
+	else if (_sortKey == SORT_BY_DATE && _sortType == SORT_DECREASE)
+		std::sort(_list.begin(), _list.end(), sort_date_operator_decrease);
+	else if (_sortKey == SORT_BY_NAME && _sortType == SORT_ENCREASE)
+		std::sort(_list.begin(), _list.end(), sort_by_name_encrease);
+	else if (_sortKey == SORT_BY_NAME && _sortType == SORT_DECREASE)
+		std::sort(_list.begin(), _list.end(), sort_by_name_decrease);
+
+	_ui.deleteAllItems();
+	for (size_t i = 0; i <_list.size(); i++)
+	{
+		vector<generic_string> values2Add;
+		pi = _list.at(i);
+		values2Add.push_back(pi->_displayName);
+		Version v = pi->_version;
+		values2Add.push_back(v.toString());
+		values2Add.push_back(pi->_releaseDate);
+		//values2Add.push_back(TEXT("Yes"));
+		_ui.addLine(values2Add, reinterpret_cast<LPARAM>(pi), static_cast<int>(i));
+	}
+}
+
 bool PluginViewList::hideFromListIndex(size_t index2hide)
 {
 	if (index2hide >= _list.size())
@@ -1107,7 +1195,87 @@ INT_PTR CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 	{
         case WM_INITDIALOG :
 		{
+			RECT rect;
+			Window::getClientRect(rect);
+			_clientWidth = rect.right - rect.left;
+			_clientHeight = rect.bottom - rect.top;
+			_initClientWidth = _clientWidth;
+			_initClientHeight = _clientHeight;
+			_dialogInitDone = true;
 			return TRUE;
+		}
+		case WM_SIZE :
+		{
+			RECT rect;
+			LONG newWidth = LOWORD(lParam);
+			LONG newHeight = HIWORD(lParam);
+			
+			LONG addWidth = newWidth - _clientWidth;
+			LONG addHeight = newHeight - _clientHeight;
+			_clientWidth = newWidth;
+			_clientHeight = newHeight;
+
+			_listRect.bottom += addHeight;
+			_listRect.right += addWidth;
+
+			_availableList.reSizeView(_listRect);
+			_updateList.reSizeView(_listRect);
+			_installedList.reSizeView(_listRect);
+
+			_tabRect.right += addWidth;
+			_tabRect.top -= 20;
+			_tabRect.bottom += 20;
+
+			_tab.reSizeTo(_tabRect);
+
+			//elements that need to be moved (X and Y)
+			auto moveWindowIDs = {
+				IDCANCEL
+			};
+			const UINT flags = SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOACTIVATE | SWP_NOCOPYBITS;
+			Window::getClientRect(rect);
+
+			for (int moveWndID : moveWindowIDs)
+			{
+				HWND moveHwnd = ::GetDlgItem(_hSelf, moveWndID);
+				::GetWindowRect(moveHwnd, &rect);
+				::MapWindowPoints(NULL, _hSelf, (LPPOINT)&rect, 2);
+				::SetWindowPos(moveHwnd, NULL, rect.left + addWidth / 2, rect.top + addHeight, 0, 0, SWP_NOSIZE | flags);
+			}
+
+
+			//elements that need to be moved (X)
+			moveWindowIDs = {
+				IDC_PLUGINADM_INSTALL, IDC_PLUGINADM_UPDATE, IDC_PLUGINADM_REMOVE
+			};
+			Window::getClientRect(rect);
+			
+			for (int moveWndID : moveWindowIDs)
+			{
+				HWND moveHwnd = ::GetDlgItem(_hSelf, moveWndID);
+				::GetWindowRect(moveHwnd, &rect);
+				::MapWindowPoints(NULL, _hSelf, (LPPOINT)&rect, 2);
+				::SetWindowPos(moveHwnd, NULL, rect.left + addWidth, rect.top, 0, 0, SWP_NOSIZE | flags);
+			}
+			// Move and resize IDC_BABYGRID_INFO
+			// Move the Y position, Resize the width
+			HWND resizeHwnd = ::GetDlgItem(_hSelf, IDC_PLUGINADM_EDIT);
+			::GetWindowRect(resizeHwnd, &rect);
+			::MapWindowPoints(NULL, _hSelf, (LPPOINT)&rect, 2);
+			::SetWindowPos(resizeHwnd, NULL, rect.left, rect.top + addHeight, rect.right - rect.left + addWidth, rect.bottom - rect.top, flags);
+
+			break;
+
+		}
+		case WM_GETMINMAXINFO:
+		{
+			MINMAXINFO* mmi = (MINMAXINFO*)lParam;
+			if (_dialogInitDone)
+			{
+				mmi->ptMinTrackSize.x = _initClientWidth;
+				mmi->ptMinTrackSize.y = _initClientHeight;
+			}
+			return 0;
 		}
 
 		case WM_COMMAND :
@@ -1211,6 +1379,16 @@ INT_PTR CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 							generic_string desc = pui->describe();
 							::SetDlgItemText(_hSelf, IDC_PLUGINADM_EDIT, desc.c_str());
 						}
+					}
+				}
+				else if (pnmh->code == LVN_COLUMNCLICK)
+				{
+					int column_index = pnmv->iSubItem;
+					if (column_index == COLUMN_PLUGIN || column_index == COLUMN_DATE)
+					{
+						pViewList->setSortKey(column_index);
+						pViewList->toggleSortType();
+						pViewList->sort();
 					}
 				}
 			}

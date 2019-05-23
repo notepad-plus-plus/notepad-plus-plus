@@ -180,6 +180,7 @@ Credits:
             <WordsStyle name="COMMENT" styleID="1" fgColor="AEAEAE" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="COMMENT LINE" styleID="2" fgColor="AEAEAE" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="COMMENT DOC" styleID="3" fgColor="AEAEAE" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="Q OPERATOR" styleID="24" fgColor="61CE3C" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
         </LexerType>
         <LexerType name="html" desc="HTML" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="F8F8F8" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />

@@ -643,6 +643,7 @@ Notepad++ Custom Style
             <WordsStyle name="COMMENT" styleID="1" fgColor="66747B" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT LINE" styleID="2" fgColor="66747B" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT DOC" styleID="3" fgColor="66747B" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="Q OPERATOR" styleID="24" fgColor="EC7600" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
         <LexerType name="tcl" desc="TCL" ext="">
             <WordsStyle name="PREPROCESSOR" styleID="9" fgColor="A082BD" bgColor="293134" fontName="" fontStyle="0" fontSize="" />

@@ -155,6 +155,7 @@ http://sourceforge.net/donate/index.php?group_id=95717
             <WordsStyle name="OPERATOR" styleID="10" fgColor="FFCC00" bgColor="000000" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="COMMENT" styleID="1" fgColor="9933CC" bgColor="000000" fontName="" fontStyle="0" fontSize="8" />
             <WordsStyle name="COMMENT LINE" styleID="2" fgColor="9933CC" bgColor="000000" fontName="" fontStyle="0" fontSize="8" />
+            <WordsStyle name="COMMENT DOC" styleID="3" fgColor="9933CC" bgColor="000000" fontName="" fontStyle="0" fontSize="8" />
         </LexerType>
         <LexerType name="html" desc="HTML" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="FFFFFF" bgColor="000000" fontName="" fontStyle="1" fontSize="" />

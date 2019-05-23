@@ -609,6 +609,7 @@
             <WordsStyle name="COMMENT" styleID="1" fgColor="80A0FF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT LINE" styleID="2" fgColor="80A0FF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT DOC" styleID="3" fgColor="80A0FF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="Q OPERATOR" styleID="24" fgColor="FFA0A0" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
         <LexerType name="tcl" desc="TCL" ext="">
             <WordsStyle name="PREPROCESSOR" styleID="9" fgColor="804000" bgColor="000040" fontName="" fontStyle="0" fontSize="" />

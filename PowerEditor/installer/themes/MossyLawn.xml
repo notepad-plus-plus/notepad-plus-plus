@@ -785,6 +785,7 @@ Installation:
             <WordsStyle name="OPERATOR" styleID="10" fgColor="ffee88" bgColor="58693D" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="IDENTIFIER" styleID="11" fgColor="f2c476" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT LINE DOC" styleID="15" fgColor="2a390e" bgColor="58693D" fontName="" fontStyle="2" fontSize="" />
+            <WordsStyle name="Q OPERATOR" styleID="24" fgColor="FFBBAA" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
 		</LexerType>
         <LexerType name="tcl" desc="TCL" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="f2c476" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />

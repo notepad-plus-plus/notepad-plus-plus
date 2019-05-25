@@ -10,8 +10,9 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = ScintillaEdit
 TEMPLATE = lib
 CONFIG += lib_bundle
+CONFIG += c++1z
 
-VERSION = 3.5.6
+VERSION = 4.1.4
 
 SOURCES += \
     ScintillaEdit.cpp \
@@ -39,6 +40,7 @@ SOURCES += \
     ../../src/EditModel.cxx \
     ../../src/Document.cxx \
     ../../src/Decoration.cxx \
+    ../../src/DBCS.cxx \
     ../../src/ContractionState.cxx \
     ../../src/CharClassify.cxx \
     ../../src/CellBuffer.cxx \
@@ -54,10 +56,11 @@ SOURCES += \
     ../../lexlib/LexerNoExceptions.cxx \
     ../../lexlib/LexerModule.cxx \
     ../../lexlib/LexerBase.cxx \
+    ../../lexlib/DefaultLexer.cxx \
     ../../lexlib/CharacterSet.cxx \
     ../../lexlib/CharacterCategory.cxx \
     ../../lexlib/Accessor.cxx \
-    ../../lexers/*.cxx
+    $$files(../../lexers/*.cxx, false)
 
 HEADERS  += \
     ScintillaEdit.h \
@@ -70,6 +73,9 @@ OTHER_FILES +=
 INCLUDEPATH += ../ScintillaEditBase ../../include ../../src ../../lexlib
 
 DEFINES += SCINTILLA_QT=1 MAKING_LIBRARY=1 SCI_LEXER=1 _CRT_SECURE_NO_DEPRECATE=1
+CONFIG(release, debug|release) {
+    DEFINES += NDEBUG=1
+}
 
 DESTDIR = ../../bin
 DLLDESTDIR = ../../bin

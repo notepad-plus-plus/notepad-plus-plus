@@ -513,11 +513,11 @@ void FunctionListPanel::notified(LPNMHDR notification)
 
 		if (notification->idFrom == IDC_SORTBUTTON_FUNCLIST)
 		{
-			lstrcpy(lpttt->szText, _sortTipStr.c_str());
+			wcscpy_s(lpttt->szText, _sortTipStr.c_str());
 		}
 		else if (notification->idFrom == IDC_RELOADBUTTON_FUNCLIST)
 		{
-			lstrcpy(lpttt->szText, _reloadTipStr.c_str());
+			wcscpy_s(lpttt->szText, _reloadTipStr.c_str());
 		}
 	}
 	else if (notification->hwndFrom == _treeView.getHSelf() || notification->hwndFrom == this->_treeViewSearchResult.getHSelf())

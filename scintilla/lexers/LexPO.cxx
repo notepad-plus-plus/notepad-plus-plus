@@ -31,17 +31,15 @@
 #include "CharacterSet.h"
 #include "LexerModule.h"
 
-#ifdef SCI_NAMESPACE
 using namespace Scintilla;
-#endif
 
-static void ColourisePODoc(unsigned int startPos, int length, int initStyle, WordList *[], Accessor &styler) {
+static void ColourisePODoc(Sci_PositionU startPos, Sci_Position length, int initStyle, WordList *[], Accessor &styler) {
 	StyleContext sc(startPos, length, initStyle, styler);
 	bool escaped = false;
-	int curLine = styler.GetLine(startPos);
+	Sci_Position curLine = styler.GetLine(startPos);
 	// the line state holds the last state on or before the line that isn't the default style
 	int curLineState = curLine > 0 ? styler.GetLineState(curLine - 1) : SCE_PO_DEFAULT;
-	
+
 	for (; sc.More(); sc.Forward()) {
 		// whether we should leave a state
 		switch (sc.state) {
@@ -57,19 +55,19 @@ static void ColourisePODoc(unsigned int startPos, int length, int initStyle, Wor
 					// on its own like a keyword rather than changing the whole flags style
 					sc.ChangeState(SCE_PO_FUZZY);
 				break;
-			
+
 			case SCE_PO_MSGCTXT:
 			case SCE_PO_MSGID:
 			case SCE_PO_MSGSTR:
 				if (isspacechar(sc.ch))
 					sc.SetState(SCE_PO_DEFAULT);
 				break;
-			
+
 			case SCE_PO_ERROR:
 				if (sc.atLineEnd)
 					sc.SetState(SCE_PO_DEFAULT);
 				break;
-			
+
 			case SCE_PO_MSGCTXT_TEXT:
 			case SCE_PO_MSGID_TEXT:
 			case SCE_PO_MSGSTR_TEXT:
@@ -92,7 +90,7 @@ static void ColourisePODoc(unsigned int startPos, int length, int initStyle, Wor
 				}
 				break;
 		}
-		
+
 		// whether we should enter a new state
 		if (sc.state == SCE_PO_DEFAULT) {
 			// forward to the first non-white character on the line
@@ -103,11 +101,11 @@ static void ColourisePODoc(unsigned int startPos, int length, int initStyle, Wor
 				// and anyway the styling don't use line state for comments
 				if (curLineState == SCE_PO_COMMENT)
 					curLineState = SCE_PO_DEFAULT;
-				
+
 				while (sc.More() && ! sc.atLineEnd && isspacechar(sc.ch))
 					sc.Forward();
 			}
-			
+
 			if (atLineStart && sc.ch == '#') {
 				if (sc.chNext == '.')
 					sc.SetState(SCE_PO_PROGRAMMER_COMMENT);
@@ -134,11 +132,11 @@ static void ColourisePODoc(unsigned int startPos, int length, int initStyle, Wor
 					sc.SetState(SCE_PO_ERROR);
 			} else if (! isspacechar(sc.ch))
 				sc.SetState(SCE_PO_ERROR);
-			
+
 			if (sc.state != SCE_PO_DEFAULT)
 				curLineState = sc.state;
 		}
-		
+
 		if (sc.atLineEnd) {
 			// Update the line state, so it can be seen by next line
 			curLine = styler.GetLine(sc.currentPos);
@@ -148,9 +146,9 @@ static void ColourisePODoc(unsigned int startPos, int length, int initStyle, Wor
 	sc.Complete();
 }
 
-static int FindNextNonEmptyLineState(unsigned int startPos, Accessor &styler) {
-	unsigned int length = styler.Length();
-	for (unsigned int i = startPos; i < length; i++) {
+static int FindNextNonEmptyLineState(Sci_PositionU startPos, Accessor &styler) {
+	Sci_PositionU length = styler.Length();
+	for (Sci_PositionU i = startPos; i < length; i++) {
 		if (! isspacechar(styler[i])) {
 			return styler.GetLineState(styler.GetLine(i));
 		}
@@ -158,31 +156,31 @@ static int FindNextNonEmptyLineState(unsigned int startPos, Accessor &styler) {
 	return 0;
 }
 
-static void FoldPODoc(unsigned int startPos, int length, int, WordList *[], Accessor &styler) {
+static void FoldPODoc(Sci_PositionU startPos, Sci_Position length, int, WordList *[], Accessor &styler) {
 	if (! styler.GetPropertyInt("fold"))
 		return;
 	bool foldCompact = styler.GetPropertyInt("fold.compact") != 0;
 	bool foldComment = styler.GetPropertyInt("fold.comment") != 0;
-	
-	unsigned int endPos = startPos + length;
-	int curLine = styler.GetLine(startPos);
+
+	Sci_PositionU endPos = startPos + length;
+	Sci_Position curLine = styler.GetLine(startPos);
 	int lineState = styler.GetLineState(curLine);
 	int nextLineState;
 	int level = styler.LevelAt(curLine) & SC_FOLDLEVELNUMBERMASK;
 	int nextLevel;
 	int visible = 0;
 	int chNext = styler[startPos];
-	
-	for (unsigned int i = startPos; i < endPos; i++) {
+
+	for (Sci_PositionU i = startPos; i < endPos; i++) {
 		int ch = chNext;
 		chNext = styler.SafeGetCharAt(i+1);
-		
+
 		if (! isspacechar(ch)) {
 			visible++;
 		} else if ((ch == '\r' && chNext != '\n') || ch == '\n' || i+1 >= endPos) {
 			int lvl = level;
-			int nextLine = curLine + 1;
-			
+			Sci_Position nextLine = curLine + 1;
+
 			nextLineState = styler.GetLineState(nextLine);
 			if ((lineState != SCE_PO_COMMENT || foldComment) &&
 					nextLineState == lineState &&
@@ -190,14 +188,14 @@ static void FoldPODoc(unsigned int startPos, int length, int, WordList *[], Acce
 				nextLevel = SC_FOLDLEVELBASE + 1;
 			else
 				nextLevel = SC_FOLDLEVELBASE;
-			
+
 			if (nextLevel > level)
 				lvl |= SC_FOLDLEVELHEADERFLAG;
 			if (visible == 0 && foldCompact)
 				lvl |= SC_FOLDLEVELWHITEFLAG;
-			
+
 			styler.SetLevel(curLine, lvl);
-			
+
 			lineState = nextLineState;
 			curLine = nextLine;
 			level = nextLevel;

@@ -49,8 +49,7 @@ public:
 	explicit ByteArray(ClipboardData cd);
 	
 	~ByteArray() {
-		if (_pBytes)
-			delete [] _pBytes;
+		delete [] _pBytes;
 		_pBytes = NULL;
 		_length = 0;
 	};

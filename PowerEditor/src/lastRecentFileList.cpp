@@ -61,7 +61,7 @@ void LastRecentFileList::switchMode()
 	::RemoveMenu(_hMenu, IDM_OPEN_ALL_RECENT_FILE, MF_BYCOMMAND);
 	::RemoveMenu(_hMenu, IDM_CLEAN_RECENT_FILE_LIST, MF_BYCOMMAND);
 
-	for(int i = 0; i < _size; ++i)
+	for (int i = 0; i < _size; ++i)
 	{
 		::RemoveMenu(_hMenu, _lrfl.at(i)._id, MF_BYCOMMAND);
 	}
@@ -153,12 +153,12 @@ void LastRecentFileList::updateMenu()
 	_pAccelerator->updateFullMenu();
 
 	//Remove all menu items
-	for(int i = 0; i < _size; ++i) 
+	for (int i = 0; i < _size; ++i) 
 	{
 		::RemoveMenu(_hMenu, _lrfl.at(i)._id, MF_BYCOMMAND);
 	}
 	//Then readd them, so everything stays in sync
-	for(int j = 0; j < _size; ++j)
+	for (int j = 0; j < _size; ++j)
 	{
 		generic_string strBuffer(BuildMenuFileName(pNppParam->getRecentFileCustomLength(), j, _lrfl.at(j)._name));
 		::InsertMenu(_hMenu, _posBase + j, MF_BYPOSITION, _lrfl.at(j)._id, strBuffer.c_str());
@@ -216,7 +216,7 @@ void LastRecentFileList::clear()
 	if (_size == 0)
 		return;
 
-	for(int i = (_size-1); i >= 0; i--) 
+	for (int i = (_size-1); i >= 0; i--) 
 	{
 		::RemoveMenu(_hMenu, _lrfl.at(i)._id, MF_BYCOMMAND);
 		setAvailable(_lrfl.at(i)._id);
@@ -230,7 +230,7 @@ void LastRecentFileList::clear()
 generic_string & LastRecentFileList::getItem(int id) 
 {
 	int i = 0;
-	for(; i < _size; ++i)
+	for (; i < _size; ++i)
 	{
 		if (_lrfl.at(i)._id == id)
 			break;
@@ -252,7 +252,7 @@ void LastRecentFileList::setUserMaxNbLRF(int size)
 	if (_size > _userMax) 
 	{	//start popping items
 		int toPop = _size-_userMax;
-		while(toPop > 0) 
+		while (toPop > 0) 
 		{
 			::RemoveMenu(_hMenu, _lrfl.back()._id, MF_BYCOMMAND);
 			setAvailable(_lrfl.back()._id);
@@ -272,7 +272,7 @@ void LastRecentFileList::saveLRFL()
 	NppParameters *pNppParams = NppParameters::getInstance();
 	if (pNppParams->writeRecentFileHistorySettings(_userMax))
 	{
-		for(int i = _size - 1; i >= 0; i--)	//reverse order: so loading goes in correct order
+		for (int i = _size - 1; i >= 0; i--)	//reverse order: so loading goes in correct order
 		{
 			pNppParams->writeHistory(_lrfl.at(i)._name.c_str());
 		}
@@ -282,7 +282,7 @@ void LastRecentFileList::saveLRFL()
 
 int LastRecentFileList::find(const TCHAR *fn)
 {
-	for(int i = 0; i < _size; ++i)
+	for (int i = 0; i < _size; ++i)
 	{
 		if (OrdinalIgnoreCaseCompareStrings(_lrfl.at(i)._name.c_str(), fn) == 0)
 		{

@@ -332,7 +332,7 @@ void DocumentMap::doMove()
 	::MoveWindow(_vzDlg.getHSelf(), pt.x, pt.y, (rc.right - rc.left), (rc.bottom - rc.top), TRUE);
 }
 
-void DocumentMap::fold(int line, bool foldOrNot)
+void DocumentMap::fold(size_t line, bool foldOrNot)
 {
 	_pMapView->fold(line, foldOrNot);
 }

@@ -64,6 +64,8 @@ END
 IDI_M30ICON                     ICON      "icons/npp.ico"
 IDI_CHAMELEON                   ICON      "icons/chameleon.ico"
 //IDI_JESUISCHARLIE               ICON      "icons/Je_suis_Charlie.ico"
+//IDI_GILETJAUNE               ICON      "icons/giletJaune.ico"
+IDI_SAMESEXMARRIAGE               ICON      "icons/same-sexMarriageTaiwan.ico"
 IDI_NEW_OFF_ICON                ICON      "icons/new_off.ico"
 IDI_OPEN_OFF_ICON               ICON      "icons/open_off.ico"
 IDI_SAVE_OFF_ICON               ICON      "icons/save_off.ico"
@@ -248,6 +250,7 @@ BEGIN
 			MENUITEM "Close All but Active Document",    IDM_FILE_CLOSEALL_BUT_CURRENT
 			MENUITEM "Close All to the Left",			 IDM_FILE_CLOSEALL_TOLEFT
 			MENUITEM "Close All to the Right",			 IDM_FILE_CLOSEALL_TORIGHT
+			MENUITEM "Close All Unchanged",				 IDM_FILE_CLOSEALL_UNCHANGED
 		END
         MENUITEM "Move to Recycle Bin",              IDM_FILE_DELETE
         MENUITEM SEPARATOR
@@ -296,25 +299,26 @@ BEGIN
         END
         POPUP "Line Operations"
         BEGIN
-            MENUITEM "Duplicate Current Line",    IDM_EDIT_DUP_LINE
-            MENUITEM "Split Lines",               IDM_EDIT_SPLIT_LINES
-            MENUITEM "Join Lines",                IDM_EDIT_JOIN_LINES
-            MENUITEM "Move Up Current Line",      IDM_EDIT_LINE_UP
-            MENUITEM "Move Down Current Line",    IDM_EDIT_LINE_DOWN
-			MENUITEM "Remove Empty Lines",        IDM_EDIT_REMOVEEMPTYLINES
-			MENUITEM "Remove Empty Lines (Containing Blank characters)",    IDM_EDIT_REMOVEEMPTYLINESWITHBLANK
-			MENUITEM "Insert Blank Line Above Current",    IDM_EDIT_BLANKLINEABOVECURRENT
-			MENUITEM "Insert Blank Line Below Current",    IDM_EDIT_BLANKLINEBELOWCURRENT
+            MENUITEM "Duplicate Current Line",                           IDM_EDIT_DUP_LINE
+            MENUITEM "Remove Consecutive Duplicate Lines",               IDM_EDIT_REMOVE_DUP_LINES
+            MENUITEM "Split Lines",                                      IDM_EDIT_SPLIT_LINES
+            MENUITEM "Join Lines",                                       IDM_EDIT_JOIN_LINES
+            MENUITEM "Move Up Current Line",                             IDM_EDIT_LINE_UP
+            MENUITEM "Move Down Current Line",                           IDM_EDIT_LINE_DOWN
+			MENUITEM "Remove Empty Lines",                               IDM_EDIT_REMOVEEMPTYLINES
+			MENUITEM "Remove Empty Lines (Containing Blank characters)", IDM_EDIT_REMOVEEMPTYLINESWITHBLANK
+			MENUITEM "Insert Blank Line Above Current",                  IDM_EDIT_BLANKLINEABOVECURRENT
+			MENUITEM "Insert Blank Line Below Current",                  IDM_EDIT_BLANKLINEBELOWCURRENT
 			MENUITEM SEPARATOR
-			MENUITEM "Sort Lines Lexicographically Ascending",		IDM_EDIT_SORTLINES_LEXICOGRAPHIC_ASCENDING
-			MENUITEM "Sort Lines As Integers Ascending",			IDM_EDIT_SORTLINES_INTEGER_ASCENDING
-			MENUITEM "Sort Lines As Decimals (Comma) Ascending",	IDM_EDIT_SORTLINES_DECIMALCOMMA_ASCENDING
-			MENUITEM "Sort Lines As Decimals (Dot) Ascending",		IDM_EDIT_SORTLINES_DECIMALDOT_ASCENDING
+			MENUITEM "Sort Lines Lexicographically Ascending",		     IDM_EDIT_SORTLINES_LEXICOGRAPHIC_ASCENDING
+			MENUITEM "Sort Lines As Integers Ascending",			     IDM_EDIT_SORTLINES_INTEGER_ASCENDING
+			MENUITEM "Sort Lines As Decimals (Comma) Ascending",	     IDM_EDIT_SORTLINES_DECIMALCOMMA_ASCENDING
+			MENUITEM "Sort Lines As Decimals (Dot) Ascending",		     IDM_EDIT_SORTLINES_DECIMALDOT_ASCENDING
 			MENUITEM SEPARATOR
-			MENUITEM "Sort Lines Lexicographically Descending",		IDM_EDIT_SORTLINES_LEXICOGRAPHIC_DESCENDING
-			MENUITEM "Sort Lines As Integers Descending",			IDM_EDIT_SORTLINES_INTEGER_DESCENDING
-			MENUITEM "Sort Lines As Decimals (Comma) Descending",	IDM_EDIT_SORTLINES_DECIMALCOMMA_DESCENDING
-			MENUITEM "Sort Lines As Decimals (Dot) Descending",		IDM_EDIT_SORTLINES_DECIMALDOT_DESCENDING
+			MENUITEM "Sort Lines Lexicographically Descending",		     IDM_EDIT_SORTLINES_LEXICOGRAPHIC_DESCENDING
+			MENUITEM "Sort Lines As Integers Descending",			     IDM_EDIT_SORTLINES_INTEGER_DESCENDING
+			MENUITEM "Sort Lines As Decimals (Comma) Descending",	     IDM_EDIT_SORTLINES_DECIMALCOMMA_DESCENDING
+			MENUITEM "Sort Lines As Decimals (Dot) Descending",		     IDM_EDIT_SORTLINES_DECIMALDOT_DESCENDING
 		END
         POPUP "Comment/Uncomment"
         BEGIN
@@ -457,6 +461,14 @@ BEGIN
         MENUITEM "Post-It",                    IDM_VIEW_POSTIT
 
         MENUITEM SEPARATOR
+		POPUP "View Current File in"
+		BEGIN
+			MENUITEM "Firefox", IDM_VIEW_IN_FIREFOX
+			MENUITEM "Chrome", IDM_VIEW_IN_CHROME
+			MENUITEM "Edge", IDM_VIEW_IN_EDGE
+			MENUITEM "IE", IDM_VIEW_IN_IE
+		END
+		MENUITEM SEPARATOR
         POPUP "Show Symbol"
         BEGIN
             MENUITEM "Show White Space and TAB",    IDM_VIEW_TAB_SPACE
@@ -911,7 +923,7 @@ BEGIN
 
     POPUP "Se&ttings"
     BEGIN
-        MENUITEM "Preferences...",          IDM_SETTING_PREFERECE
+        MENUITEM "Preferences...",          IDM_SETTING_PREFERENCE
         MENUITEM "Style Configurator...",   IDM_LANGSTYLE_CONFIG_DLG
         MENUITEM "Shortcut Mapper...",      IDM_SETTING_SHORTCUT_MAPPER
         MENUITEM SEPARATOR
@@ -962,7 +974,7 @@ BEGIN
         MENUITEM "Notepad++ Project Page",    IDM_PROJECTPAGE
         MENUITEM "Notepad++ Community (Forum)",                     IDM_FORUM
 		MENUITEM "Live Support",				IDM_ONLINESUPPORT
-        MENUITEM "Get More Plugins",          IDM_PLUGINSHOME
+        //MENUITEM "Get More Plugins",          IDM_PLUGINSHOME
         MENUITEM SEPARATOR
         MENUITEM "Update Notepad++",          IDM_UPDATE_NPP
 		MENUITEM "Set Updater Proxy...",         IDM_CONFUPDATERPROXY
@@ -996,6 +1008,8 @@ BEGIN
     EDITTEXT        IDC_BUILD_DATETIME,150,2,150,10, ES_READONLY | NOT WS_BORDER
     CONTROL         "",IDI_CHAMELEON,"Static",SS_OWNERDRAW,20,5,64,64
     //CONTROL         "",IDI_JESUISCHARLIE,"Static",SS_OWNERDRAW,20,5,64,64
+    //CONTROL         "",IDI_GILETJAUNE,"Static",SS_OWNERDRAW,20,5,64,64
+	CONTROL         "", IDI_SAMESEXMARRIAGE,"Static",SS_OWNERDRAW,20,5,64,64
     LTEXT           NOTEPAD_PLUS_VERSION, IDC_STATIC,70,20,140,11
     LTEXT           "bit",IDC_VERSION_BIT,150,20,140,11
     LTEXT           "Author :",IDC_STATIC,21,45,31,8

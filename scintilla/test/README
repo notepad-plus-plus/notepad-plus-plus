@@ -10,8 +10,8 @@ pythonw xite.py
 To run the basic tests:
 python simpleTests.py
 
-There are some lexing tests with simple input files in several languages in the examples 
-subdirectory and their expected lexed states in *.styled where the start of each style 
+There are some lexing tests with simple input files in several languages in the examples
+subdirectory and their expected lexed states in *.styled where the start of each style
 is marked with {styleNumber}, for example:
 {15}<%@{16}language=javas{15}%>{0}
 

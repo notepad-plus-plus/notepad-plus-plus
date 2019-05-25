@@ -5,6 +5,12 @@ from __future__ import unicode_literals
 
 import os, string, sys, time, unittest
 
+try:
+	start = time.perf_counter()
+	timer = time.perf_counter
+except AttributeError:
+	timer = time.time
+
 if sys.platform == "win32":
 	import XiteWin as Xite
 else:
@@ -20,11 +26,11 @@ class TestPerformance(unittest.TestCase):
 
 	def testAddLine(self):
 		data = (string.ascii_letters + string.digits + "\n").encode('utf-8')
-		start = time.time()
+		start = timer()
 		for i in range(1000):
 			self.ed.AddText(len(data), data)
 			self.assertEquals(self.ed.LineCount, i + 2)
-		end = time.time()
+		end = timer()
 		duration = end - start
 		print("%6.3f testAddLine" % duration)
 		self.xite.DoEvents()
@@ -32,11 +38,11 @@ class TestPerformance(unittest.TestCase):
 
 	def testAddLineMiddle(self):
 		data = (string.ascii_letters + string.digits + "\n").encode('utf-8')
-		start = time.time()
+		start = timer()
 		for i in range(1000):
 			self.ed.AddText(len(data), data)
 			self.assertEquals(self.ed.LineCount, i + 2)
-		end = time.time()
+		end = timer()
 		duration = end - start
 		print("%6.3f testAddLineMiddle" % duration)
 		self.xite.DoEvents()
@@ -45,9 +51,9 @@ class TestPerformance(unittest.TestCase):
 	def testHuge(self):
 		data = (string.ascii_letters + string.digits + "\n").encode('utf-8')
 		data = data * 100000
-		start = time.time()
+		start = timer()
 		self.ed.AddText(len(data), data)
-		end = time.time()
+		end = timer()
 		duration = end - start
 		print("%6.3f testHuge" % duration)
 		self.xite.DoEvents()
@@ -58,10 +64,10 @@ class TestPerformance(unittest.TestCase):
 		data = data * 100000
 		insert = (string.digits + "\n").encode('utf-8')
 		self.ed.AddText(len(data), data)
-		start = time.time()
+		start = timer()
 		for i in range(1000):
 			self.ed.InsertText(0, insert)
-		end = time.time()
+		end = timer()
 		duration = end - start
 		print("%6.3f testHugeInserts" % duration)
 		self.xite.DoEvents()
@@ -72,12 +78,12 @@ class TestPerformance(unittest.TestCase):
 		data = oneLine * 100000
 		insert = (string.digits + "\n").encode('utf-8')
 		self.ed.AddText(len(data), data)
-		start = time.time()
+		start = timer()
 		for i in range(1000):
 			self.ed.TargetStart = i * len(insert)
 			self.ed.TargetEnd = self.ed.TargetStart + len(oneLine)
 			self.ed.ReplaceTarget(len(insert), insert)
-		end = time.time()
+		end = timer()
 		duration = end - start
 		print("%6.3f testHugeReplace" % duration)
 		self.xite.DoEvents()
@@ -90,14 +96,14 @@ class TestPerformance(unittest.TestCase):
 		manyLines = manyLines + "φ\n".encode('utf-8')
 		self.ed.AddText(len(manyLines), manyLines)
 		searchString = "φ".encode('utf-8')
-		start = time.time()
+		start = timer()
 		for i in range(10):
 			self.ed.TargetStart = 0
 			self.ed.TargetEnd = self.ed.Length-1
 			self.ed.SearchFlags = self.ed.SCFIND_MATCHCASE
 			pos = self.ed.SearchInTarget(len(searchString), searchString)
 			self.assert_(pos > 0)
-		end = time.time()
+		end = timer()
 		duration = end - start
 		print("%6.3f testUTF8CaseSearches" % duration)
 		self.xite.DoEvents()
@@ -109,14 +115,14 @@ class TestPerformance(unittest.TestCase):
 		manyLines = manyLines + "φ\n".encode('utf-8')
 		self.ed.AddText(len(manyLines), manyLines)
 		searchString = "φ".encode('utf-8')
-		start = time.time()
+		start = timer()
 		for i in range(10):
 			self.ed.TargetStart = 0
 			self.ed.TargetEnd = self.ed.Length-1
 			self.ed.SearchFlags = 0
 			pos = self.ed.SearchInTarget(len(searchString), searchString)
 			self.assert_(pos > 0)
-		end = time.time()
+		end = timer()
 		duration = end - start
 		print("%6.3f testUTF8Searches" % duration)
 		self.xite.DoEvents()

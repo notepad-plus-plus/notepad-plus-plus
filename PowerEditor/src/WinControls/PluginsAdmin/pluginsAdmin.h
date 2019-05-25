@@ -112,6 +112,16 @@ struct NppCurrentStatus
 };
 
 enum COLUMN_TYPE { COLUMN_PLUGIN, COLUMN_VERSION };
+enum SORT_TYPE { DISPLAY_NAME_ALPHABET_ENCREASE, DISPLAY_NAME_ALPHABET_DECREASE };
+
+
+struct SortDisplayNameDecrease final
+{
+	bool operator() (PluginUpdateInfo* l, PluginUpdateInfo* r)
+	{
+		return (l->_displayName.compare(r->_displayName) <= 0);
+	}
+};
 
 class PluginViewList
 {
@@ -151,6 +161,8 @@ public:
 private:
 	std::vector<PluginUpdateInfo*> _list;
 	ListView _ui;
+
+	SORT_TYPE _sortType = DISPLAY_NAME_ALPHABET_ENCREASE;
 };
 
 enum LIST_TYPE { AVAILABLE_LIST, UPDATES_LIST, INSTALLED_LIST };

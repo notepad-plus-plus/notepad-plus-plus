@@ -154,7 +154,7 @@ public:
 	virtual generic_string toString() const;					//the hotkey part
 	generic_string toMenuItemString() const {					//generic_string suitable for menu
 		generic_string str = _menuName;
-		if(isEnabled())
+		if (isEnabled())
 		{
 			str += TEXT("\t");
 			str += toString();
@@ -194,7 +194,7 @@ protected :
 		 
 class CommandShortcut : public Shortcut {
 public:
-	CommandShortcut(Shortcut sc, long id);
+	CommandShortcut(const Shortcut& sc, long id);
 	unsigned long getID() const {return _id;};
 	void setID(unsigned long id) { _id = id;};
 	const TCHAR * getCategory() const { return _category.c_str(); };
@@ -207,7 +207,7 @@ private :
 
 class ScintillaKeyMap : public Shortcut {
 public:
-	ScintillaKeyMap(Shortcut sc, unsigned long scintillaKeyID, unsigned long id): Shortcut(sc), _menuCmdID(id), _scintillaKeyID(scintillaKeyID) {
+	ScintillaKeyMap(const Shortcut& sc, unsigned long scintillaKeyID, unsigned long id): Shortcut(sc), _menuCmdID(id), _scintillaKeyID(scintillaKeyID) {
 		_keyCombos.clear();
 		_keyCombos.push_back(_keyCombo);
 		_keyCombo._key = 0;
@@ -247,7 +247,7 @@ public:
 		if (!equal)
 			return false;
 		size_t i = 0;
-		while(equal && (i < a._size))
+		while (equal && (i < a._size))
 		{
 			equal = 
 				(a._keyCombos[i]._isCtrl	== b._keyCombos[i]._isCtrl) && 
@@ -300,7 +300,8 @@ struct recordedMacroStep {
 	bool isValid() const {
 		return true;
 	};
-	bool isPlayable() const {return _macroType <= mtMenuCommand;};
+	bool isScintillaMacro() const {return _macroType <= mtMenuCommand;};
+	bool isMacroable() const;
 
 	void PlayBack(Window* pNotepad, ScintillaEditView *pEditView);
 };
@@ -310,7 +311,7 @@ typedef std::vector<recordedMacroStep> Macro;
 class MacroShortcut : public CommandShortcut {
 friend class NppParameters;
 public:
-	MacroShortcut(Shortcut sc, Macro macro, int id) : CommandShortcut(sc, id), _macro(macro) {_canModifyName = true;};
+	MacroShortcut(const Shortcut& sc, const Macro& macro, int id) : CommandShortcut(sc, id), _macro(macro) {_canModifyName = true;};
 	Macro & getMacro() {return _macro;};
 private:
 	Macro _macro;
@@ -320,7 +321,7 @@ private:
 class UserCommand : public CommandShortcut {
 friend class NppParameters;
 public:
-	UserCommand(Shortcut sc, const TCHAR *cmd, int id) : CommandShortcut(sc, id), _cmd(cmd) {_canModifyName = true;};
+	UserCommand(const Shortcut& sc, const TCHAR *cmd, int id) : CommandShortcut(sc, id), _cmd(cmd) {_canModifyName = true;};
 	const TCHAR* getCmd() const {return _cmd.c_str();};
 private:
 	generic_string _cmd;
@@ -329,7 +330,7 @@ private:
 class PluginCmdShortcut : public CommandShortcut {
 //friend class NppParameters;
 public:
-	PluginCmdShortcut(Shortcut sc, int id, const TCHAR *moduleName, unsigned short internalID) :\
+	PluginCmdShortcut(const Shortcut& sc, int id, const TCHAR *moduleName, unsigned short internalID) :\
 		CommandShortcut(sc, id), _id(id), _moduleName(moduleName), _internalID(internalID) {};
 	bool isValid() const {
 		if (!Shortcut::isValid())
@@ -359,8 +360,7 @@ public:
 			::DestroyAcceleratorTable(_hIncFindAccTab);
 		if (_hFindAccTab)
 			::DestroyAcceleratorTable(_hFindAccTab);
-		if (_pAccelArray)
-			delete [] _pAccelArray;
+		delete [] _pAccelArray;
 	};
 	void init(HMENU hMenu, HWND menuParent) {
 		_hAccelMenu = hMenu;
@@ -383,7 +383,7 @@ private:
 	ACCEL *_pAccelArray = nullptr;
 	int _nbAccelItems = 0;
 
-	void updateMenuItemByCommand(CommandShortcut csc);
+	void updateMenuItemByCommand(const CommandShortcut& csc);
 };
 
 class ScintillaAccelerator {	//Handles accelerator keys for scintilla
@@ -397,5 +397,5 @@ private:
 	HWND _hMenuParent = nullptr;
 	std::vector<HWND> _vScintillas;
 
-	void updateMenuItemByID(ScintillaKeyMap skm, int id);
+	void updateMenuItemByID(const ScintillaKeyMap& skm, int id);
 };

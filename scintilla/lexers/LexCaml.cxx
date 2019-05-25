@@ -37,6 +37,10 @@
 #include "CharacterSet.h"
 #include "LexerModule.h"
 
+#if defined(__clang__)
+#pragma clang diagnostic ignored "-Wcomma"
+#endif
+
 //	Since the Microsoft __iscsym[f] funcs are not ANSI...
 inline int  iscaml(int c) {return isalnum(c) || c == '_';}
 inline int iscamlf(int c) {return isalpha(c) || c == '_';}
@@ -46,9 +50,7 @@ static const int baseT[24] = {
 	0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0,16	/* M - X */
 };
 
-#ifdef SCI_NAMESPACE
 using namespace Scintilla;
-#endif
 
 #ifdef BUILD_AS_EXTERNAL_LEXER
 /*
@@ -66,18 +68,18 @@ using namespace Scintilla;
 #endif
 
 static void ColouriseCamlDoc(
-	unsigned int startPos, int length,
+	Sci_PositionU startPos, Sci_Position length,
 	int initStyle,
 	WordList *keywordlists[],
 	Accessor &styler);
 
 static void FoldCamlDoc(
-	unsigned int startPos, int length,
+	Sci_PositionU startPos, Sci_Position length,
 	int initStyle,
 	WordList *keywordlists[],
 	Accessor &styler);
 
-static void InternalLexOrFold(int lexOrFold, unsigned int startPos, int length,
+static void InternalLexOrFold(int lexOrFold, Sci_PositionU startPos, Sci_Position length,
 	int initStyle, char *words[], WindowID window, char *props);
 
 static const char* LexerName = "caml";
@@ -109,7 +111,7 @@ long Platform::SendScintillaPointer(WindowID w, unsigned int msg, unsigned long 
 		reinterpret_cast<LPARAM>(lParam));
 }
 
-void EXT_LEXER_DECL Fold(unsigned int lexer, unsigned int startPos, int length,
+void EXT_LEXER_DECL Fold(unsigned int lexer, Sci_PositionU startPos, Sci_Position length,
 	int initStyle, char *words[], WindowID window, char *props)
 {
 	// below useless evaluation(s) to supress "not used" warnings
@@ -138,7 +140,7 @@ void EXT_LEXER_DECL GetLexerName(unsigned int Index, char *name, int buflength)
 	}
 }
 
-void EXT_LEXER_DECL Lex(unsigned int lexer, unsigned int startPos, int length,
+void EXT_LEXER_DECL Lex(unsigned int lexer, Sci_PositionU startPos, Sci_Position length,
 	int initStyle, char *words[], WindowID window, char *props)
 {
 	// below useless evaluation(s) to supress "not used" warnings
@@ -147,7 +149,7 @@ void EXT_LEXER_DECL Lex(unsigned int lexer, unsigned int startPos, int length,
 	InternalLexOrFold(0, startPos, length, initStyle, words, window, props);
 }
 
-static void InternalLexOrFold(int foldOrLex, unsigned int startPos, int length,
+static void InternalLexOrFold(int foldOrLex, Sci_PositionU startPos, Sci_Position length,
 	int initStyle, char *words[], WindowID window, char *props)
 {
 	// create and initialize a WindowAccessor (including contained PropSet)
@@ -180,7 +182,7 @@ static
 #endif	/* BUILD_AS_EXTERNAL_LEXER */
 
 void ColouriseCamlDoc(
-	unsigned int startPos, int length,
+	Sci_PositionU startPos, Sci_Position length,
 	int initStyle,
 	WordList *keywordlists[],
 	Accessor &styler)
@@ -188,7 +190,8 @@ void ColouriseCamlDoc(
 	// initialize styler
 	StyleContext sc(startPos, length, initStyle, styler);
 
-	int chBase = 0, chToken = 0, chLit = 0;
+	Sci_PositionU chToken = 0;
+	int chBase = 0, chLit = 0;
 	WordList& keywords  = *keywordlists[0];
 	WordList& keywords2 = *keywordlists[1];
 	WordList& keywords3 = *keywordlists[2];
@@ -206,7 +209,7 @@ void ColouriseCamlDoc(
 	while (sc.More()) {
 		// set up [per-char] state info
 		int state2 = -1;				// (ASSUME no state change)
-		int chColor = sc.currentPos - 1;// (ASSUME standard coloring range)
+		Sci_Position chColor = sc.currentPos - 1;// (ASSUME standard coloring range)
 		bool advance = true;			// (ASSUME scanner "eats" 1 char)
 
 		// step state machine
@@ -254,11 +257,11 @@ void ColouriseCamlDoc(
 		case SCE_CAML_IDENTIFIER:
 			// [try to] interpret as [additional] identifier char
 			if (!(iscaml(sc.ch) || sc.Match('\''))) {
-				const int n = sc.currentPos - chToken;
+				const Sci_Position n = sc.currentPos - chToken;
 				if (n < 24) {
 					// length is believable as keyword, [re-]construct token
 					char t[24];
-					for (int i = -n; i < 0; i++)
+					for (Sci_Position i = -n; i < 0; i++)
 						t[n + i] = static_cast<char>(sc.GetRelative(i));
 					t[n] = '\0';
 					// special-case "_" token as KEYWORD
@@ -367,6 +370,7 @@ void ColouriseCamlDoc(
 				break;
 			}/* else
 				// fall through for SML char literal (handle like string) */
+			// Falls through.
 
 		case SCE_CAML_STRING:
 			// [try to] interpret as [additional] [SML char/] string literal char
@@ -390,7 +394,7 @@ void ColouriseCamlDoc(
 				state2 = SCE_CAML_STRING, sc.ch = ' ' /* (...\") */, chColor++,
 					styler.ColourTo(chColor, SCE_CAML_WHITE), styler.Flush();
 				// ... then backtrack to determine original SML literal type
-				int p = chColor - 2;
+				Sci_Position p = chColor - 2;
 				for (; p >= 0 && styler.StyleAt(p) == SCE_CAML_WHITE; p--) ;
 				if (p >= 0)
 					state2 = static_cast<int>(styler.StyleAt(p));
@@ -437,7 +441,7 @@ void ColouriseCamlDoc(
 static
 #endif	/* BUILD_AS_EXTERNAL_LEXER */
 void FoldCamlDoc(
-	unsigned int, int,
+	Sci_PositionU, Sci_Position,
 	int,
 	WordList *[],
 	Accessor &)

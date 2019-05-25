@@ -106,7 +106,7 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 			_currentThemeIndex = -1;
 			int defaultThemeIndex = 0;
 			ThemeSwitcher & themeSwitcher = nppParamInst->getThemeSwitcher();
-			for(size_t i = 0 ; i < themeSwitcher.size() ; ++i)
+			for (size_t i = 0 ; i < themeSwitcher.size() ; ++i)
 			{
 				pair<generic_string, generic_string> & themeInfo = themeSwitcher.getElementFromIndex(i);
 				int j = static_cast<int32_t>(::SendMessage(_hSwitch2ThemeCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(themeInfo.first.c_str())));
@@ -126,7 +126,7 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 			}
 			::SendMessage(_hSwitch2ThemeCombo, CB_SETCURSEL, _currentThemeIndex, 0);
 
-			for(int i = 0 ; i < sizeof(fontSizeStrs)/(3*sizeof(TCHAR)) ; ++i)
+			for (int i = 0 ; i < sizeof(fontSizeStrs)/(3*sizeof(TCHAR)) ; ++i)
 				::SendMessage(_hFontSizeCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(fontSizeStrs[i]));
 
 			const std::vector<generic_string> & fontlist = (NppParameters::getInstance())->getFontList();
@@ -494,7 +494,12 @@ int WordStyleDlg::whichTabColourIndex()
 	auto i = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETCURSEL, 0, 0);
 	if (i == LB_ERR)
 		return -1;
-	TCHAR styleName[128];
+	const size_t styleNameLen = 128;
+	TCHAR styleName[styleNameLen + 1];
+	auto lbTextLen = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXTLEN, i, 0);
+	if (lbTextLen > styleNameLen)
+		return -1;
+
 	::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXT, i, reinterpret_cast<LPARAM>(styleName));
 
 	if (lstrcmp(styleName, TABBAR_ACTIVEFOCUSEDINDCATOR) == 0)
@@ -538,10 +543,17 @@ void WordStyleDlg::updateFontSize()
 	Style & style = getCurrentStyler();
 	auto iFontSizeSel = ::SendMessage(_hFontSizeCombo, CB_GETCURSEL, 0, 0);
 
-	TCHAR intStr[5];
 	if (iFontSizeSel != 0)
 	{
+		const size_t intStrLen = 3;
+		TCHAR intStr[intStrLen];
+
+		auto lbTextLen = ::SendMessage(_hFontSizeCombo, CB_GETLBTEXTLEN, iFontSizeSel, 0);
+		if (lbTextLen >= intStrLen)
+			return;
+
 		::SendMessage(_hFontSizeCombo, CB_GETLBTEXT, iFontSizeSel, reinterpret_cast<LPARAM>(intStr));
+
 		if (!intStr[0])
 			style._fontSize = STYLE_NOT_USED;
 		else
@@ -631,7 +643,7 @@ void WordStyleDlg::switchToTheme()
 	if (_isThemeDirty)
 	{
 		TCHAR themeFileName[MAX_PATH];
-		lstrcpy(themeFileName, prevThemeName.c_str());
+		wcscpy_s(themeFileName, prevThemeName.c_str());
 		PathStripPath(themeFileName);
 		PathRemoveExtension(themeFileName);
 		int mb_response =
@@ -709,25 +721,34 @@ void WordStyleDlg::setVisualFromStyleList()
 	//bool showWarning = ((_currentLexerIndex == 0) && (style._styleID == STYLE_DEFAULT));//?SW_SHOW:SW_HIDE;
 
 	COLORREF c = RGB(0x00, 0x00, 0xFF);
-	TCHAR str[256];
+	const size_t strLen = 256;
+	TCHAR str[strLen + 1];
 
 	str[0] = '\0';
 
 	auto i = ::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_GETCURSEL, 0, 0);
 	if (i == LB_ERR)
 		return;
+	auto lbTextLen = ::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_GETTEXTLEN, i, 0);
+	if (lbTextLen > strLen)
+		return;
+
 	::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_GETTEXT, i, reinterpret_cast<LPARAM>(str));
 
 	i = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETCURSEL, 0, 0);
 	if (i == LB_ERR)
 		return;
-	TCHAR styleName[64];
+	const size_t styleNameLen = 64;
+	TCHAR styleName[styleNameLen + 1];
+	lbTextLen = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXTLEN, i, 0);
+	if (lbTextLen > styleNameLen)
+		return;
 	::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXT, i, reinterpret_cast<LPARAM>(styleName));
-
-	lstrcat(lstrcat(str, TEXT(" : ")), styleName);
+	wcscat_s(str, TEXT(" : "));
+	wcscat_s(str, styleName);
 
 	// PAD for fix a display glitch
-	lstrcat(str, TEXT("          "));
+	wcscat_s(str, TEXT("          "));
 	colourHooker.setColour(c);
 	::SetWindowText(_hStyleInfoStaticText, str);
 
@@ -769,9 +790,10 @@ void WordStyleDlg::setVisualFromStyleList()
 
 	//-- font size
 	isEnable = false;
-	TCHAR intStr[5] = TEXT("");
+	const size_t intStrLen = 3;
+	TCHAR intStr[intStrLen];
 	LRESULT iFontSize = 0;
-	if (style._fontSize != STYLE_NOT_USED)
+	if (style._fontSize != STYLE_NOT_USED && style._fontSize < 100) // style._fontSize has only 2 digits
 	{
 		wsprintf(intStr, TEXT("%d"), style._fontSize);
 		iFontSize = ::SendMessage(_hFontSizeCombo, CB_FINDSTRING, 1, reinterpret_cast<LPARAM>(intStr));

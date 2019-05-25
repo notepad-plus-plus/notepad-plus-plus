@@ -136,121 +136,121 @@ SectionGroup un.Themes
 	
 	Section un.BlackBoard
 	${If} $keepUserData == "false"
-		Delete "$themesParentPath\themes\Black board.xml"
+		Delete "$installPath\themes\Black board.xml"
 	${endIf}
 	SectionEnd
 
 	Section un.Choco
 	${If} $keepUserData == "false"
-		Delete "$themesParentPath\themes\Choco.xml"
+		Delete "$installPath\themes\Choco.xml"
 	${endIf}
 	SectionEnd
 	
 	Section un.HelloKitty
 	${If} $keepUserData == "false"
-		Delete "$themesParentPath\themes\Hello Kitty.xml"
+		Delete "$installPath\themes\Hello Kitty.xml"
 	${endIf}
 	SectionEnd
 	
 	Section un.MonoIndustrial
 	${If} $keepUserData == "false"
-		Delete "$themesParentPath\themes\Mono Industrial.xml"
+		Delete "$installPath\themes\Mono Industrial.xml"
 	${endIf}
 	SectionEnd
 	
 	Section un.Monokai
 	${If} $keepUserData == "false"
-		Delete "$themesParentPath\themes\Monokai.xml"
+		Delete "$installPath\themes\Monokai.xml"
 	${endIf}
 	SectionEnd
 	
 	Section un.Obsidian
 	${If} $keepUserData == "false"
-		Delete "$themesParentPath\themes\obsidian.xml"
+		Delete "$installPath\themes\obsidian.xml"
 	${endIf}
 	SectionEnd
 	
 	Section un.PlasticCodeWrap
 	${If} $keepUserData == "false"
-		Delete "$themesParentPath\themes\Plastic Code Wrap.xml"
+		Delete "$installPath\themes\Plastic Code Wrap.xml"
 	${endIf}
 	SectionEnd
 	
 	Section un.RubyBlue
 	${If} $keepUserData == "false"
-		Delete "$themesParentPath\themes\Ruby Blue.xml"
+		Delete "$installPath\themes\Ruby Blue.xml"
 	${endIf}
 	SectionEnd
 	
 	Section un.Twilight
 	${If} $keepUserData == "false"
-		Delete "$themesParentPath\themes\Twilight.xml"
+		Delete "$installPath\themes\Twilight.xml"
 	${endIf}
 	SectionEnd
 	
 	Section un.VibrantInk
 	${If} $keepUserData == "false"
-		Delete "$themesParentPath\themes\Vibrant Ink.xml"
+		Delete "$installPath\themes\Vibrant Ink.xml"
 	${endIf}
 	SectionEnd
 
 	Section un.DeepBlack
 	${If} $keepUserData == "false"
-		Delete "$themesParentPath\themes\Deep Black.xml"
+		Delete "$installPath\themes\Deep Black.xml"
 	${endIf}
 	SectionEnd
 	
 	Section un.vimDarkBlue
 	${If} $keepUserData == "false"
-		Delete "$themesParentPath\themes\vim Dark Blue.xml"
+		Delete "$installPath\themes\vim Dark Blue.xml"
 	${endIf}
 	SectionEnd
 	
 	Section un.Bespin
 	${If} $keepUserData == "false"
-		Delete "$themesParentPath\themes\Bespin.xml"
+		Delete "$installPath\themes\Bespin.xml"
 	${endIf}
 	SectionEnd
 	
 	Section un.Zenburn
 	${If} $keepUserData == "false"
-		Delete "$themesParentPath\themes\Zenburn.xml"
+		Delete "$installPath\themes\Zenburn.xml"
 	${endIf}
 	SectionEnd
 
 	Section un.Solarized
 	${If} $keepUserData == "false"
-		Delete "$themesParentPath\themes\Solarized.xml"
+		Delete "$installPath\themes\Solarized.xml"
 	${endIf}
 	SectionEnd
 
 	Section un.Solarized-light
 	${If} $keepUserData == "false"
-		Delete "$themesParentPath\themes\Solarized-light.xml"
+		Delete "$installPath\themes\Solarized-light.xml"
 	${endIf}
 	SectionEnd
 	
 	Section un.HotFudgeSundae
 	${If} $keepUserData == "false"
-		Delete "$themesParentPath\themes\HotFudgeSundae.xml"
+		Delete "$installPath\themes\HotFudgeSundae.xml"
 	${endIf}
 	SectionEnd
 
 	Section un.khaki
 	${If} $keepUserData == "false"
-		Delete "$themesParentPath\themes\khaki.xml"
+		Delete "$installPath\themes\khaki.xml"
 	${endIf}
 	SectionEnd
 	
 	Section un.MossyLawn
 	${If} $keepUserData == "false"
-		Delete "$themesParentPath\themes\MossyLawn.xml"
+		Delete "$installPath\themes\MossyLawn.xml"
 	${endIf}
 	SectionEnd
 
 	Section un.Navajo
 	${If} $keepUserData == "false"
-		Delete "$themesParentPath\themes\Navajo.xml"
+		Delete "$installPath\themes\Navajo.xml"
 	${endIf}
 	SectionEnd
 	

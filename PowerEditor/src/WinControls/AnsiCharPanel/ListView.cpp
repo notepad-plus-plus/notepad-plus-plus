@@ -120,6 +120,37 @@ void ListView::addLine(const vector<generic_string> & values2Add, LPARAM lParam,
 	}
 }
 
+size_t ListView::findAlphabeticalOrderPos(const generic_string& string2Cmp, SortDirection sortDir)
+{
+	size_t nbItem = ListView_GetItemCount(_hSelf);
+	if (!nbItem)
+		return 0;
+
+	for (size_t i = 0; i < nbItem; ++i)
+	{
+		TCHAR str[MAX_PATH];
+		ListView_GetItemText(_hSelf, i, 0, str, sizeof(str));
+
+		int res = lstrcmp(string2Cmp.c_str(), str);
+
+		if (res < 0) // string2Cmp < str
+		{
+			if (sortDir == sortEncrease)
+			{
+				return i;
+			}
+		}
+		else // str2Cmp >= str
+		{
+			if (sortDir == sortDecrease)
+			{
+				return i;
+			}
+		}
+	}
+	return nbItem;
+}
+
 
 LPARAM ListView::getLParamFromIndex(int itemIndex) const
 {

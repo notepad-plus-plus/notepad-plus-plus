@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Беларуская" filename="belarusian.xml" version="7.5.5">
+    <Native-Langue name="Беларуская" filename="belarusian.xml" version="7.6.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -15,7 +15,7 @@
                     <Item menuId="tools" name="Інструме&amp;нты"/>
                     <Item menuId="macro" name="Макрас"/>
                     <Item menuId="run" name="Выканаць"/>
-                    <Item idName="Plugins" name="Плагіны"/>
+                    <Item idName="Убудовы" name="Убудовы"/>
                     <Item idName="Window" name="Акно"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
@@ -64,6 +64,7 @@
                     <Item subMenuId="encoding-vietnamese" name="В'етнамская"/>
                     <Item subMenuId="settings-import"  name="Імпарт"/>
                     <Item subMenuId="tools-md5"  name="MD5"/>
+                    <Item subMenuId="tools-sha256"  name="SHA-256"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -87,10 +88,10 @@
                     <Item id="41013" name="Захаваць сеанс..."/>
                     <Item id="41014" name="Перазагрузіць з дыска"/>
                     <Item id="41015" name="Захаваць копію як..."/>
-                    <Item id="41016" name="Выдаліць з дыска"/>
+                    <Item id="41016" name="Перамясціць у сметніцу"/>
                     <Item id="41017" name="Перайменаваць..."/>
                     <Item id="41021" name="Аднавіць нядаўна закрыты файл"/>
-                    <Item id="41022" name="Адкрыць папку як працоўную вобласць"/>
+                    <Item id="41022" name="Адкрыць папку як працоўную вобласць..."/>
                     <Item id="41023" name="Адкрыць у аглядальніку па змаўчанні"/>
                     <Item id="42001" name="Выра&amp;заць"/>
                     <Item id="42002" name="&amp;Капіяваць"/>
@@ -117,12 +118,12 @@
                     <Item id="42066" name="Сартаваць радкі як дзесятковыя (кропка) па змяншэнні"/>
                     <Item id="42016" name="ВЯЛІКІМІ"/>
                     <Item id="42017" name="маленькімі"/>
-                    <Item id="42067" name="Вялікія літары"/>
-                    <Item id="42068" name="Вялікія літары (змешаны)"/>
+                    <Item id="42067" name="Першыя літары вялікія"/>
+                    <Item id="42068" name="Першыя літары вялікія (змешаны)"/>
                     <Item id="42069" name="Як у сказах"/>
                     <Item id="42070" name="Як у сказах (змешаны)"/>
                     <Item id="42071" name="аДВАРОТНЫ пАРАДАК"/>
-                    <Item id="42072" name="выПАДковы пАРАдАК"/>
+                    <Item id="42072" name="выПАДковы кІРУнАК"/>
                     <Item id="42073" name="Адкрыць файл"/>
                     <Item id="42074" name="Адкрыць папку дакумента ў правадніку"/>
                     <Item id="42075" name="Шукаць у інтэрнэце"/>
@@ -150,7 +151,7 @@
                     <Item id="42034" name="Рэдактар слупкоў..."/>
                     <Item id="42051" name="Панэль сімвалаў"/>
                     <Item id="42052" name="Гісторыя буфера"/>
-                    <Item id="42025" name="Захаваць бягучы запіс макраса"/>
+                    <Item id="42025" name="Захаваць бягучы запіс макраса..."/>
                     <Item id="42026" name="Тэкст справа налева"/>
                     <Item id="42027" name="Тэкст злева направа"/>
                     <Item id="42028" name="Толькі чытанне"/>
@@ -220,9 +221,9 @@
                     <Item id="44010" name="Згарнуць усе"/>
                     <Item id="44019" name="Паказаць усе сімвалы"/>
                     <Item id="44020" name="Паказваць водступы"/>
-                    <Item id="44022" name="Перанос радкоў"/>
-                    <Item id="44023" name="Павялічы&amp;ць: Ctrl+колца мышкі ўверх"/>
-                    <Item id="44024" name="Паменшы&amp;ць: Ctrl+колца мышкі ўніз"/>
+                    <Item id="44022" name="Перанос па словах"/>
+                    <Item id="44023" name="Павялічыць: Ctrl+колца мышкі ўверх)"/>
+                    <Item id="44024" name="Паменшыць: Ctrl+колца мышкі ўніз)"/>
                     <Item id="44025" name="Паказваць прабелы і табуляцыю"/>
                     <Item id="44026" name="Паказваць сімвал заканчэння радка"/>
                     <Item id="44029" name="Разгарнуць усе"/>
@@ -256,19 +257,19 @@
                     <Item id="44081" name="Панэль праекта 1"/>
                     <Item id="44082" name="Панэль праекта 2"/>
                     <Item id="44083" name="Панэль праекта 3"/>
-                    <Item id="45001" name="Пераўтварыць у фармат Windows"/>
-                    <Item id="45002" name="Пераўтварыць у фармат UNIX"/>
-                    <Item id="45003" name="Пераўтварыць у фармат MAC"/>
+                    <Item id="45001" name="Windows (CR LF)"/>
+                    <Item id="45002" name="Unix (LF)"/>
+                    <Item id="45003" name="Macintosh (CR)"/>
                     <Item id="45004" name="Кадаваць у ANSI"/>
                     <Item id="45005" name="Кадаваць у UTF-8 BOM"/>
-                    <Item id="45006" name="Кадаваць у UCS-2 Big Endian"/>
-                    <Item id="45007" name="Кадаваць у UCS-2 Little Endian"/>
+                    <Item id="45006" name="Кадаваць у UTF-2 BE BOM"/>
+                    <Item id="45007" name="Кадаваць у UTF-2 LE BOM"/>
                     <Item id="45008" name="Кадаваць у UTF-8"/>
                     <Item id="45009" name="Пераўтварыць у ANSI"/>
                     <Item id="45010" name="Пераўтварыць у UTF-8"/>
                     <Item id="45011" name="Пераўтварыць у UTF-8 BOM"/>
-                    <Item id="45012" name="Пераўтварыць у UCS-2 Big Endian"/>
-                    <Item id="45013" name="Пераўтварыць у UCS-2 Little Endian"/>
+                    <Item id="45012" name="Пераўтварыць у UCS-2 BE BOM"/>
+                    <Item id="45013" name="Пераўтварыць у UCS-2 LE BOM"/>
 
                     <Item id="10001" name="Перамясціць у іншую вобласць"/>
                     <Item id="10002" name="Кланаваць у іншую вобласць"/>
@@ -278,7 +279,7 @@
                     <Item id="46001" name="Канфігуратар стылю..."/>
                     <Item id="46250" name="Азначце сваю мову..."/>
                     <Item id="46180" name="Вызначаныя карыстальнікам"/>
-                    <Item id="47000" name="Пра Notepad++..."/>
+                    <Item id="47000" name="Пра Notepad++"/>
                     <Item id="47010" name="Аргументы каманднага радка..."/>
                     <Item id="47001" name="Хатняя старонка Notepad++"/>
                     <Item id="47002" name="Старонка праекта Notepad++"/>
@@ -286,18 +287,22 @@
                     <Item id="47004" name="Супольнасць Notepad++ (Форум)"/>
                     <Item id="47011" name="Тэхнічная падтрымка"/>
                     <Item id="47012" name="Адладачная інфармацыя..."/>
-                    <Item id="47005" name="Атрымаць больш модуляў"/>
+                    <Item id="47005" name="Атрымаць больш убудоў"/>
                     <Item id="47006" name="Абнавіць Notepad++"/>
                     <Item id="47009" name="Прызначыць проксі абнаўлення..."/>
-                    <Item id="48005" name="Імпарт модуля(-ў)..."/>
-                    <Item id="48006" name="Імпарт тэмы(-аў)..."/>
+                    <Item id="48005" name="Імпарт убудоў..."/>
+                    <Item id="48006" name="Імпарт тэм стыляў..."/>
                     <Item id="48018" name="Змяніць кантэкстнае меню"/>
                     <Item id="48009" name="Спалучэнні клавішаў..."/>
                     <Item id="48011" name="Налады..."/>
+                    <Item id="48015" name="Адміністраванне ўбудоў..."/>
                     <Item id="48501" name="Генераваць..."/>
                     <Item id="48502" name="Генераваць з файлаў..."/>
-                    <Item id="48503" name="Генераваць у буфер абмену"/>
-                    <Item id="49000" name="&amp;Выканаць..."/>
+                    <Item id="48503" name="Згенераваць з вылучанага ў буфер абмену"/>
+                    <Item id="48504" name="Генераваць..."/>
+                    <Item id="48505" name="Генераваць з файлаў..."/>
+                    <Item id="48506" name="Згенераваць з вылучанага ў буфер абмену"/>
+                    <Item id="49000" name="Выканаць..."/>
 
                     <Item id="50000" name="Завяршэнне функцый"/>
                     <Item id="50001" name="Завяршэнне слоў"/>
@@ -313,54 +318,52 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                <Item CMID="0" name="Закрыць"/>
-                <Item CMID="1" name="Закрыць усе, акрамя гэтай"/>
-                <Item CMID="2" name="Захаваць"/>
-                <Item CMID="3" name="Захаваць як..."/>
-                <Item CMID="4" name="Друк"/>
-                <Item CMID="5" name="Перамясціць у іншую вобласць"/>
-                <Item CMID="6" name="Дубляваць у іншую вобласць"/>
-                <Item CMID="7" name="Поўны шлях да файла ў буфер абмену"/>
-                <Item CMID="8" name="Назву файла ў буфер абмену"/>
-                <Item CMID="9" name="Шлях у буфер абмену"/>
-                <Item CMID="10" name="Перайменаваць"/>
-                <Item CMID="11" name="Перамясціць у сметніцу"/>
-                <Item CMID="12" name="Толькі чытанне"/>
-                <Item CMID="13" name="Зняць атрыбут толькі на чытанне"/>
-                <Item CMID="14" name="Перамясціць ў новае акно"/>
-                <Item CMID="15" name="Адкрыць у новым акне"/>
-                <Item CMID="16" name="Перазагрузіць"/>
-                <Item CMID="17" name="Закрыць усе злева"/>
-                <Item CMID="18" name="Закрыць усе справа"/>
-                <Item CMID="19" name="Адкрыць папку дакумента ў правадніку"/>
-                <Item CMID="20" name="Адкрыць папку дакумента ў cmd"/>
-                <Item CMID="21" name="Адкрыць у аглядальніку па змаўчанні"/>
+                    <Item CMID="0" name="Закрыць"/>
+                    <Item CMID="1" name="Закрыць усе, акрамя гэтай"/>
+                    <Item CMID="2" name="Захаваць"/>
+                    <Item CMID="3" name="Захаваць як..."/>
+                    <Item CMID="4" name="Друк"/>
+                    <Item CMID="5" name="Перамясціць у іншую вобласць"/>
+                    <Item CMID="6" name="Дубляваць у іншую вобласць"/>
+                    <Item CMID="7" name="Поўны шлях да файла ў буфер абмену"/>
+                    <Item CMID="8" name="Назву файла ў буфер абмену"/>
+                    <Item CMID="9" name="Шлях у буфер абмену"/>
+                    <Item CMID="10" name="Перайменаваць"/>
+                    <Item CMID="11" name="Перамясціць у сметніцу"/>
+                    <Item CMID="12" name="Толькі чытанне"/>
+                    <Item CMID="13" name="Зняць атрыбут толькі на чытанне"/>
+                    <Item CMID="14" name="Перамясціць ў новае акно"/>
+                    <Item CMID="15" name="Адкрыць у новым акне"/>
+                    <Item CMID="16" name="Перазагрузіць"/>
+                    <Item CMID="17" name="Закрыць усе злева"/>
+                    <Item CMID="18" name="Закрыць усе справа"/>
+                    <Item CMID="19" name="Адкрыць папку дакумента ў правадніку"/>
+                    <Item CMID="20" name="Адкрыць папку дакумента ў cmd"/>
+                    <Item CMID="21" name="Адкрыць у аглядальніку па змаўчанні"/>
             </TabBar>
         </Menu>
 
         <Dialog>
             <Find title="" titleFind="Знайсці" titleReplace="Замяніць" titleFindInFiles="Знайсці ў файлах" titleMark="Пазнака">
                 <Item id="1"    name="Знайсці наступны"/>
+                <Item id="1722" name="Адваротны напрамак"/>
                 <Item id="2"    name="Закрыць"/>
                 <Item id="1620" name="Што шукаць:"/>
                 <Item id="1603" name="Толькі &amp;цэлыя словы"/>
                 <Item id="1604" name="Улічваць &amp;рэгістр"/>
                 <Item id="1605" name="Рэгулярны &amp;выраз"/>
                 <Item id="1606" name="Цыклічн&amp;ы пошук"/>
-                <Item id="1612" name="&amp;Уверх"/>
-                <Item id="1613" name="&amp;Уніз"/>
                 <Item id="1614" name="Падлік"/>
-                <Item id="1615" name="Знайсці ўсе"/>
-                <Item id="1616" name="Пазначаць радкі"/>
+                <Item id="1615" name="Пазначыць усё"/>
+                <Item id="1616" name="Закладка радка"/>
                 <Item id="1618" name="Ачышчаць для кожнага пошуку"/>
-                <Item id="1621" name="Накірунак"/>
-                <Item id="1611" name="Змяні&amp;ць на:"/>
+                <Item id="1611" name="Замяніць на:"/>
                 <Item id="1608" name="&amp;Замяніць"/>
                 <Item id="1609" name="Замяніць &amp;усе"/>
                 <Item id="1687" name="Калі не актыўна"/>
                 <Item id="1688" name="Заўсёды"/>
                 <Item id="1632" name="У выбраным"/>
-                <Item id="1633" name="Ачысціць"/>
+                <Item id="1633" name="Ачысціць усе пазнакі"/>
                 <Item id="1635" name="Замяніць ўсе ў актыўных дакументах"/>
                 <Item id="1636" name="Знайсці ўсе ў адкрытых дакументах"/>
                 <Item id="1654" name="Фільтры:"/>
@@ -376,7 +379,6 @@
                 <Item id="1641" name="Знайсці ўсе ў бягучым дакуменце"/>
                 <Item id="1686" name="Празрыстасць"/>
                 <Item id="1703" name="&amp;. адпав. новаму радку"/>
-                <Item id="1722" name="Адваротны напрамак"/>
             </Find>
 
             <FindCharsInRange title="Знайсці сімвалы ў дыяпазоне...">
@@ -419,6 +421,29 @@
                 <Item id="1934" name="Скапіяваць у буфер"/>
                 <Item id="2"    name="Закрыць"/>
             </MD5FromTextDlg>
+			
+            <SHA256FromFilesDlg title="Згенераваць SHA-256-дайджэст з файлаў">
+                <Item id="1922" name="Выберыце файлы для генерацыі SHA-256..."/>
+                <Item id="1924" name="Скапіяваць у буфер"/>
+                <Item id="2"    name="Закрыць"/>
+            </SHA256FromFilesDlg>
+
+            <SHA256FromTextDlg title="Згенераваць SHA-256-дайджэст">
+                <Item id="1932" name="Апрацаваць кожны радок як асобны"/>
+                <Item id="1934" name="Скапіяваць у буфер"/>
+                <Item id="2"    name="Закрыць"/>
+            </SHA256FromTextDlg>
+			
+            <PluginsAdminDlg title="Адміністраванне ўбудоў" titleAvailable = "Даступна" titleUpdates = "Абнаўленні" titleInstalled = "Усталявана">
+                <ColumnPlugin   name="Убудова"/>
+                <ColumnVersion  name="Версія"/>
+                <Item id="5501" name="Пошук:"/>
+                <Item id="5503" name="Усталяваць"/>
+                <Item id="5504" name="Абнавіць"/>
+                <Item id="5505" name="Выдаліць"/>
+                <Item id="5508" name="Наступны"/>
+                <Item id="2"    name="Закрыць"/>
+            </PluginsAdminDlg>
 
             <StyleConfig title="Вызначэнне стыля">
                 <Item id="2"    name="Адмена"/>
@@ -460,11 +485,11 @@
                 <ColumnName name="Назва"/>
                 <ColumnShortcut name="Ярлык"/>
                 <ColumnCategory name="Катэгорыя"/>
-                <ColumnPlugin name="Плагін"/>
+                <ColumnPlugin name="Убудова"/>
                 <MainMenuTab name="Галоўнае меню"/>
                 <MacrosTab name="Макрас"/>
                 <RunCommandsTab name="Выканаць каманды"/>
-                <PluginCommandsTab name="Каманды плагіна"/>
+                <PluginCommandsTab name="Каманды ўбудовы"/>
                 <ScintillaCommandsTab name="Каманды Scintilla"/>
                 <ConflictInfoOk name="Няма канфліктаў гарачых клавішаў для гэта элемента."/>
                 <ConflictInfoEditing name="Няма канфліктаў . . ."/>
@@ -476,7 +501,7 @@
                 <Item id="5008" name="Дадаць"/>
                 <Item id="5009" name="Выдаліць"/>
                 <Item id="5010" name="Ужыць"/>
-                <Item id="5007" name="Гэта выдаліць паскаральнік"/>
+                <Item id="5007" name="Гэта дзеянне прывядзе да выдалення камбінацыі клавіш з гэтай каманды"/>
                 <Item id="5012" name="ЗНОЙДЗЕНЫ КАНФЛІКТ!"/>
             </ShortcutMapperSubDialg>
             <UserDefine title="Вызначаныя карыстальнікам">
@@ -672,7 +697,7 @@
                     <Item id="6120" name="Вертыкальная"/>
                     <Item id="6121" name="Выйсці пры закрыцці апошняй укладкі"/>
 
-                    <Item id="6122" name="Схаваць (каб вярнуць, націсніце Alt ці F10)"/>
+                    <Item id="6122" name="Схаваць панэль меню (каб вярнуць, націсніце Alt ці F10)"/>
                     <Item id="6123" name="Лакалізацыя"/>
 
                     <Item id="6125" name="Панэль са спісам дакументаў"/>
@@ -699,10 +724,10 @@
                     <Item id="6229" name="Выраўнены"/>
                     <Item id="6230" name="З водступам"/>
 
-                    <Item id="6206" name="Паказваць нумары радкоў"/>
-                    <Item id="6207" name="Паказваць закладкі"/>
+                    <Item id="6206" name="Паказваць нумар радка"/>
+                    <Item id="6207" name="Паказваць закладку"/>
                     <Item id="6208" name="Вертыкальная мяжа"/>
-                    <Item id="6209" name="Слупок: "/>
+                    <Item id="6209" name="Слупок:"/>
                     <Item id="6234" name="Адкл. дадатковыя опцыі прагорткі (калі маюцца праблемы з тачпадам)"/>
 
                     <Item id="6211" name="Налады вертыкальнай мяжы"/>
@@ -716,10 +741,10 @@
                 </Scintillas>
 
                 <NewDoc title="Стварыць дакумент">
-                    <Item id="6401" name="Фармат"/>
-                    <Item id="6402" name="Windows"/>
-                    <Item id="6403" name="Unix"/>
-                    <Item id="6404" name="Mac"/>
+                    <Item id="6401" name="Фармат (сканчэнне радка)"/>
+                    <Item id="6402" name="Windows (CR LF)"/>
+                    <Item id="6403" name="Unix (LF)"/>
+                    <Item id="6404" name="Macintosh (CR)"/>
                     <Item id="6405" name="Кадаванне"/>
                     <Item id="6406" name="ANSI"/>
                     <Item id="6407" name="UTF-8 без BOM"/>
@@ -735,7 +760,7 @@
                     <Item id="6413" name="Каталог па змаўчанні (Адкрыць/Захаваць)"/>
                     <Item id="6414" name="Перайсці за бягучым дакументам"/>
                     <Item id="6415" name="Памятаць апошні каталог"/>
-                    <Item id="6430" name="Выкарыстоўваць дыялог захавання новага стылю (без функцый пашырэння файла)"/>
+                    <Item id="6430" name="Выкарыстоўваць новы дыялогавы стыль (без функцый пашырэння файлаў &amp; Unix style path capacity)"/>
                     <Item id="6431" name="Адкрываць усе файлы папкі, замест адкрыцця папкі ў якасці працоўнай прасторы"/>
                 </DefaultDir>
 
@@ -756,7 +781,7 @@
 
                 <Highlighting title="Падсвятленне">
                     <Item id="6333" name="Інтэлектуальнае падсвятленне"/>
-                    <Item id="6326" name="Укл. інтэлектуальнае падсвятл."/>
+                    <Item id="6326" name="Уключыць"/>
                     <Item id="6332" name="Улічваць рэгістр"/>
                     <Item id="6338" name="Толькі цэлае слова"/>
                     <Item id="6339" name="Выкар. налады дыялог. акна Пошук"/>
@@ -774,7 +799,7 @@
                     <Item id="6604" name="Інвертаваць"/>
                     <Item id="6605" name="Чорным па белым"/>
                     <Item id="6606" name="Без колеру фону"/>
-                    <Item id="6607" name="Водступы (у міліметрах)"/>
+                    <Item id="6607" name="Налады водступаў (у мм)"/>
                     <Item id="6612" name="Злева"/>
                     <Item id="6613" name="Уверсе"/>
                     <Item id="6614" name="Справа"/>
@@ -815,7 +840,7 @@
                     <Item id="6821" name="секундаў"/>
                     <Item id="6822" name="Размяшчэнне рэзервовай копіі:"/>
                     <Item id="6309" name="Памятаць бягучы сеанс для наступнага запуску"/>
-                    <Item id="6801" name="Рэзервовыя копіі"/>
+                    <Item id="6801" name="Рэзервовая копія пры захаванні"/>
                     <Item id="6315" name="Няма"/>
                     <Item id="6316" name="Простая рэзервовая копія"/>
                     <Item id="6317" name="Пашыраная рэзервовая копія"/>
@@ -852,7 +877,7 @@
                 </MultiInstance>
 
                 <Delimiter title="Раздзяляльнік">
-                    <Item id="6251" name="Параметры раздзяляльніка (Ctrl + падвоены націск мышы)"/>
+                    <Item id="6251" name="Параметры выбару раздзяляльніка (Ctrl + падвоены націск мышы)"/>
                     <Item id="6252" name="Адкрыць"/>
                     <Item id="6255" name="Закрыць"/>
                     <Item id="6256" name="Дазволіць захоп некалькіх радкоў"/>
@@ -932,6 +957,19 @@
                 <Item id="1" name="Добра"/>
                 <Item id="2" name="Адмена"/>
             </ColumnEditor>
+            <FindInFinder title="Знайсці ў пошукавіку">
+                <Item id="1"    name="Знайсці ўсё"/>
+                <Item id="2"    name="Закрыць"/>
+                <Item id="1711" name="Што шукаць:"/>
+                <Item id="1713" name="Шукаць толькі ў знойдзеных радках"/>
+                <Item id="1714" name="Толькі &amp;цэлыя словы"/>
+                <Item id="1715" name="Улічваць &amp;рэгістр"/>
+                <Item id="1716" name="Рэжым пошуку"/>
+                <Item id="1717" name="Звычайны"/>
+                <Item id="1719" name="Рэгулярны &amp;выраз"/>
+                <Item id="1718" name="Пашыраны (\n, \r, \t, \0, \x...)"/>
+                <Item id="1720" name="&amp;. адпав. новаму радку"/>
+            </FindInFinder>
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title="Рэдагаванне contextMenu" message="Рэдагаванне contextMenu.xml дазволіць вам змяніць усплывальнае меню Notepad++.\rПасля змянення contextMenu.xml неабходна перазапусціць Notepad++, каб змены набылі моц."/>
@@ -949,8 +987,8 @@
             <SettingsOnCloudError title="Налады воблачнага сховішча" message="Відавочна, што налады шляху да воблака ўсталяваныя з пазнакай толькі на чытанне\rці ў папку, якая патрабуе адпаведных правоў на запіс.\rВашы налады ў воблаку будуць скасаваныя. Калі ласка, скіньце адпаведнае значэнне праз дыялог Налады."/>
             <FilePathNotFoundWarning title="Адкрыццё файла" message="Файл, які вы спрабуеце адкрыць не існуе."/>
             <SessionFileInvalidError title="Не атрымалася загрузіць сеанс" message="Файл сеансу пашкоджаны ці з'яўляецца памылковым."/>
-            <DroppingFolderAsProjectModeWarning title="Недапушчальнае дзеянне" message="Вы можаце выключыць толькі файлы або папкі, але не ўсё адразу, паколькі вы знаходзіцеся ў рэжыме &quot;Папка як праект&quot;. Каб гэты параметр пачаў працаваць вам неабходна выключыць &quot;Адкрыць усе файлы папкі, замест адкрыцця папкі ў якасці працоўнай прасторы&quot; ў &quot;Наладах - Каталог па змаўчанні&quot;."/>
-            <SortingError title="Памылка сартавання" message="Не атрымліваецца выканаць сартаванне па чыслах з-за радка $STR_REPLACE$."/>
+            <DroppingFolderAsProjectModeWarning title="Недапушчальнае дзеянне" message="Вы можаце выключыць толькі файлы або толькі папкі, але не ўсё адразу, паколькі вы знаходзіцеся ў рэжыме &quot;Папка як праект&quot;. Каб гэты параметр пачаў працаваць вам неабходна выключыць &quot;Адкрыць усе файлы папкі, замест адкрыцця папкі ў якасці працоўнай прасторы&quot; ў &quot;Наладах - Каталог па змаўчанні&quot;."/>
+            <SortingError title="Памылка сартавання" message="Не атрымліваецца выканаць сартаванне па ліках з-за радка $INT_REPLACE$."/>
             <ColumnModeTip title="Парада для рэжыму слупкоў" message="Калі ласка, выкарыстоўвайце &quot;ALT+вылучэнне мышшу&quot; або &quot;Alt+Shift+клавіша стрэлкі&quot;, каб пераключыць рэжым слупкоў."/>
             <BufferInvalidWarning title="Не атрымалася захаваць" message="Не атрымалася захаваць: няправільны буфер."/>
             <DoSaveOrNot title="Захаваць" message="Захаваць файл &quot;$STR_REPLACE$&quot; ?"/>
@@ -976,19 +1014,19 @@
             <DocTooDirtyToMonitor title="Праблема маніторынгу" message="&quot;Брудны&quot; дакумент. Калі ласка, захавайце змяненні перад пачаткам яго маніторынгу."/>
             <DocNoExistToMonitor title="Праблема маніторынгу" message="Файл павінен існаваць для яго маніторынгу."/>
             <FileTooBigToOpen title="Праблема памеру файла" message="Надта вялікі файл для адкрыцця ў Notepad++"/>
-            <CreateNewFileOrNot title="Стварыць новы файл" message="&quot;$INT_REPLACE$&quot; не існуе. Стварыць яго?"/>
-            <CreateNewFileError title="Стварыць новы файл" message="Не атрымалася стварыць файл &quot;$INT_REPLACE$&quot;."/>
-            <OpenFileError title="ПАМЫЛКА" message="Не атрымалася адкрыць файл &quot;$INT_REPLACE$&quot;."/>
-            <FileBackupFailed title="Не атрымалася зрабіць рэзервовую копію файла" message="Папярэдняя версія файла не была захаваная ў каталог для рэзервовага капіявання &quot;$INT_REPLACE$&quot;.
+            <CreateNewFileOrNot title="Стварыць новы файл" message="&quot;$STR_REPLACE$&quot; не існуе. Стварыць яго?"/>
+            <CreateNewFileError title="Стварыць новы файл" message="Не атрымалася стварыць файл &quot;$STR_REPLACE$&quot;."/>
+            <OpenFileError title="ПАМЫЛКА" message="Не атрымалася адкрыць файл &quot;$STR_REPLACE$&quot;."/>
+            <FileBackupFailed title="Не атрымалася зрабіць рэзервовую копію файла" message="Папярэдняя версія файла не была захаваная ў каталог для рэзервовага капіявання &quot;$STR_REPLACE$&quot;.
 
 
 Усё яшчэ жадаеце захаваць бягучы файл?"/>
-            <LoadStylersFailed title="Не атрымалася запампаваць stylers.xml" message="Не атрымалася запампаваць &quot;$INT_REPLACE$&quot;!"/>
+            <LoadStylersFailed title="Не атрымалася запампаваць stylers.xml" message="Не атрымалася запампаваць &quot;$STR_REPLACE$&amp;quot!"/>
             <LoadLangsFailed title="Канфігуратар" message="Не атрымалася запампаваць langs.xml!
 Жадаеце аднавіць langs.xml?"/>
             <LoadLangsFailedFinal title="Канфігуратар" message="Не атрымалася запампаваць langs.xml!"/>
             <FolderAsWorspaceSubfolderExists title="Праблема дадавання папкі як папкі працоўнай вобласці" message="Падпапка, якую вы спрабуеце дадаць ужо існуе.
-Калі ласка, выдаліце яе з панэлі перад тым, як дадаваць папку &quot;$STR_REPLACE$&quot;."/>
+Калі ласка, выдаліце яе корань з панэлі перад тым, як дадаваць папку &quot;$STR_REPLACE$&quot;."/>
 
             <ProjectPanelChanged title="$STR_REPLACE$" message="Працоўная вобласць была змененая. Жадаеце захаваць яе?"/>
             <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Ваша працоўная вобласць не была захаваная."/>
@@ -1007,6 +1045,11 @@
             <UDLRemoveCurrentLang title="Выдаліць бягучую мову" message="Вы ўпэўненыя?"/>
             <SCMapperDoDeleteOrNot title="Вы ўпэўненыя?" message="Вы ўпэўненыя, што жадаеце выдаліць гэты ярлык?"/>
             <FindCharRangeValueError title="Праблема ў дыяпазоне значэнняў" message="Увядзіце значэнне ад 0 да 255."/>
+            <OpenInAdminMode title="Не атрымалася захаваць" message="Не атрымалася захаваць файл. Магчыма ён абаронены.
+Запусціць Notepad++ у рэжыме адміністратара?"/>
+            <OpenInAdminModeWithoutCloseCurrent title="Не атрымалася захаваць" message="Не атрымалася захаваць файл. Магчыма ён абаронены.
+Запусціць Notepad++ у рэжыме адміністратара?"/>
+            <OpenInAdminModeFailed title="Не атрымалася запусціць у рэжыме адміністратара" message="Notepad++ не можа быць адкрыты ў рэжыме адміністратара."/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Гісторыя буфера"/>
@@ -1016,6 +1059,11 @@
             <ColumnName name="Назва"/>
             <ColumnExt name="Пашыр."/>
         </DocSwitcher>
+        <WindowsDlg>
+            <ColumnName name="Назва"/>
+            <ColumnPath name="Шлях"/>
+            <ColumnType name="Тып"/>
+        </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name="Панэль сімвалаў ASCII"/>
             <ColumnVal name="Значэнне"/>
@@ -1092,11 +1140,10 @@
             </Menus>
         </ProjectManager>
         <MiscStrings>
+            <!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
             <word-chars-list-tip value="Гэта дазваляе вам уключаць дадатковы сімвал у бягучыя сімвалы слова пры падвоеным націску для выбару ці пошуку з дапамогаю &quot;Толькі цэлае слова&quot; опцыі."/>
             <word-chars-list-warning-begin value="Майце на ўвазе: "/>
-            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <word-chars-list-space-warning value="$INT_REPLACE$ прабел(-ы)"/>
-            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <word-chars-list-tab-warning value="$INT_REPLACE$ TAB"/>
             <word-chars-list-warning-end value="  у вашым спісе сімвалаў."/>
             <cloud-invalid-warning value="Памылковы шлях."/>
@@ -1104,11 +1151,8 @@
             <cloud-select-folder value="Выберыце папку, адкуль/куды ў Notepad++ чытаць/запісваць свае налады"/>
             <shift-change-direction-tip value="Выкарыстоўвайце Shift+Enter для пошуку ў адваротным напрамку"/>
             <two-find-buttons-tip value="Рэжым пошуку &quot;дзве кнопкі&quot;"/>
-
             <find-status-top-reached value="Знайсці: знойдзена адно супадзенне зверху. Быў дасягнуты пачатак дакумента."/>
             <find-status-end-reached value="Знайсці: знойдзена адно супадзенне зверху. Быў дасягнуты канец дакумента."/>
-            <find-status-find-from-top-end-reached value="Знайсці: знойдзена адно супадзенне зверху. Быў дасягнуты канец дакумента"/>
-            <find-status-find-from-bottom-begin-reached value="Знайсці: знойдзена адно супадзенне знізу. Быў дасягнуты пачатак дакумента"/>
             <find-status-replaceinfiles-1-replaced value="Замяніць у файлах: адно супадзенне заменена"/>
             <find-status-replaceinfiles-nb-replaced value="Замяніць у файлах: выканана замен $INT_REPLACE$"/>
             <find-status-replaceinfiles-re-malformed value="Замяніць у адкрытых файлах: няправільны рэгулярны выраз"/>
@@ -1124,7 +1168,7 @@
             <find-status-replaceall-re-malformed value="Замяніць усе: няправільны рэгулярны выраз"/>
             <find-status-replaceall-1-replaced value="Замяніць усе: адно супадзенне заменена"/>
             <find-status-replaceall-nb-replaced value="Замяніць усе: выканана замен $INT_REPLACE$"/>
-            <ind-status-replaceall-readonly value="Замяніць усе: немагчыма замяніць тэкст. Бягучы дакумент мае правы толькі не чытанне"/>
+            <find-status-replaceall-readonly value="Замяніць усе: немагчыма замяніць тэкст. Бягучы дакумент мае правы толькі не чытанне"/>
             <find-status-replace-end-reached value="Замяніць: заменена першае супадзенне зверху. Быў дасягнуты канец дакумента"/>
             <find-status-replace-top-reached value="Замяніць: заменена першае супадзенне знізу. Быў дасягнуты пачатак дакумента"/>
             <find-status-replaced-next-found value="Замяніць: выканана адна замена. Знойдзена наступнае супадзенне"/>
@@ -1132,8 +1176,14 @@
             <find-status-replace-not-found value="Замяніць: наступнае супадзенне не знойдзена"/>
             <find-status-replace-readonly value="Замяніць: немагчыма замяніць тэкст. Бягучы дакумент мае правы толькі на чытанне"/>
             <find-status-cannot-find value="Знайсці: не магчыма знайсці тэкст &quot;$STR_REPLACE$&quot;"/>
-            <find-status-mark-re-malformed value="Пазначыць: няправільны рэгулярны выраз для пошуку"/>
-            <find-status-mark-nb-matches value="супадзенняў: $INT_REPLACE$"/>
+            <finder-find-in-finder value="Знайсці ў гэтых знойдзеных выніках..."/>
+            <finder-close-this value="Закрыць гэты пошукавік"/>
+            <finder-collapse-all value="Згарнуць усё"/>
+            <finder-uncollapse-all value="Разгарнуць усё"/>
+            <finder-copy value="Капіяваць"/>
+            <finder-select-all value="Выбраць усё"/>
+            <finder-clear-all value="Ачысціць усё"/>
+            <finder-open-all value="Адчыніць усё"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

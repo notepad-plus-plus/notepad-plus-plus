@@ -201,7 +201,6 @@ void TiXmlString::append( const TCHAR * suffix )
             memcpy (new_string, cstring, 1 + length ());
 
         // append the suffix. It does exist, otherwize we wouldn't be expanding 
-        // lstrcat (new_string, suffix);
         memcpy (new_string + length (), 
                 suffix,
                 lstrlen (suffix) + 1);
@@ -217,7 +216,6 @@ void TiXmlString::append( const TCHAR * suffix )
     else
     {
         // we know we can safely append the new generic_string
-        // lstrcat (cstring, suffix);
         memcpy (cstring + length (), 
                 suffix, 
                 lstrlen (suffix) + 1);

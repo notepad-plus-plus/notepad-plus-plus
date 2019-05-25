@@ -9,10 +9,6 @@
 
 class WatcherHelper;
 
-#ifdef SCI_NAMESPACE
-namespace Scintilla {
-#endif
-
 #ifndef EXPORT_IMPORT_API
 #ifdef WIN32
 #ifdef MAKING_LIBRARY
@@ -63,7 +59,7 @@ public:
     int line_end_position(int pos);
     int length();
     int lines_total();
-    void start_styling(int position, char flags);
+    void start_styling(int position);
     bool set_style_for(int length, char style);
     int get_end_styled();
     void ensure_styled_to(int position);
@@ -77,33 +73,19 @@ public:
     int get_eol_mode();
     void set_eol_mode(int eol_mode);
     int move_position_outside_char(int pos, int move_dir, bool check_line_end);
-    
-    int get_character(int pos); // Calls GetCharacterAndWidth(pos, NULL)
 
-private:
-    void emit_modify_attempt();
-    void emit_save_point(bool atSavePoint);
-    void emit_modified(int position, int modification_type, const QByteArray& text, int length,
-	int linesAdded, int line, int foldLevelNow, int foldLevelPrev);
-    void emit_style_needed(int pos);
-    void emit_lexer_changed();
-    void emit_error_occurred(int status);
+    int get_character(int pos); // Calls GetCharacterAndWidth(pos, NULL)
 
 signals:
     void modify_attempt();
     void save_point(bool atSavePoint);
-    void modified(int position, int modification_type, const QByteArray& text, int length,
-	int linesAdded, int line, int foldLevelNow, int foldLevelPrev);
+    void modified(int position, int modification_type, const QByteArray &text, int length,
+                  int linesAdded, int line, int foldLevelNow, int foldLevelPrev);
     void style_needed(int pos);
     void lexer_changed();
     void error_occurred(int status);
 
     friend class ::WatcherHelper;
-
 };
-
-#ifdef SCI_NAMESPACE
-}
-#endif
 
 #endif // SCINTILLADOCUMENT_H

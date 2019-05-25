@@ -116,5 +116,5 @@ LocalizationSwitcher::LocalizationDefinition localizationDefs[] =
 	{TEXT("Brezhoneg"), TEXT("breton.xml")},
 	{TEXT("کوردی‬"), TEXT("kurdish.xml")},
 	{TEXT("Pig latin"), TEXT("piglatin.xml")},
-        {TEXT("Zulu"), TEXT("zulu.xml")}
+	{TEXT("Zulu"), TEXT("zulu.xml")}
 };

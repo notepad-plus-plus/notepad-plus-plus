@@ -474,7 +474,7 @@ void ProjectPanel::buildProjectXml(TiXmlNode *node, HTREEITEM hItem, const TCHAR
 generic_string ProjectPanel::getRelativePath(const generic_string & filePath, const TCHAR *workSpaceFileName)
 {
 	TCHAR wsfn[MAX_PATH];
-	lstrcpy(wsfn, workSpaceFileName);
+	wcscpy_s(wsfn, workSpaceFileName);
 	::PathRemoveFileSpec(wsfn);
 
 	size_t pos_found = filePath.find(wsfn);
@@ -521,7 +521,7 @@ generic_string ProjectPanel::getAbsoluteFilePath(const TCHAR * relativePath)
 		return relativePath;
 
 	TCHAR absolutePath[MAX_PATH];
-	lstrcpy(absolutePath, _workSpaceFilePath.c_str());
+	wcscpy_s(absolutePath, _workSpaceFilePath.c_str());
 	::PathRemoveFileSpec(absolutePath);
 	::PathAppend(absolutePath, relativePath);
 	return absolutePath;
@@ -1092,7 +1092,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 
 				*fn = newValue;
 				TCHAR *strValueLabel = ::PathFindFileName(fn->c_str());
-				lstrcpy(textBuffer, strValueLabel);
+				wcscpy_s(textBuffer, strValueLabel);
 				int iImage = ::PathFileExists(fn->c_str())?INDEX_LEAF:INDEX_LEAF_INVALID;
 				tvItem.iImage = tvItem.iSelectedImage = iImage;
 				SendMessage(_treeView.getHSelf(), TVM_SETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
@@ -1215,7 +1215,7 @@ void ProjectPanel::addFilesFromDirectory(HTREEITEM hTreeItem)
 	if (_selDirOfFilesFromDirDlg == TEXT("") && _workSpaceFilePath != TEXT(""))
 	{
 		TCHAR dir[MAX_PATH];
-		lstrcpy(dir, _workSpaceFilePath.c_str());
+		wcscpy_s(dir, _workSpaceFilePath.c_str());
 		::PathRemoveFileSpec(dir);
 		_selDirOfFilesFromDirDlg = dir;
 	}

@@ -273,6 +273,9 @@ class TestSimple(unittest.TestCase):
 		self.assertEquals(self.ed.GetLineEndPosition(1), 3)
 		self.assertEquals(self.ed.LineLength(0), 2)
 		self.assertEquals(self.ed.LineLength(1), 1)
+		# Test lines out of range.
+		self.assertEquals(self.ed.LineLength(2), 0)
+		self.assertEquals(self.ed.LineLength(-1), 0)
 		if sys.platform == "win32":
 			self.assertEquals(self.ed.EOLMode, self.ed.SC_EOL_CRLF)
 		else:
@@ -493,13 +496,15 @@ class TestSimple(unittest.TestCase):
 		self.ed.AddText(5, b"a1b2c")
 		self.ed.SetSel(1,3)
 		self.ed.Cut()
-		self.xite.DoEvents()
+		# Clipboard = "1b"
+		self.assertEquals(self.ed.Contents(), b"a2c")
 		self.assertEquals(self.ed.CanPaste(), 1)
 		self.ed.SetSel(0, 0)
 		self.ed.Paste()
 		self.assertEquals(self.ed.Contents(), b"1ba2c")
 		self.ed.SetSel(4,5)
 		self.ed.Copy()
+		# Clipboard = "c"
 		self.ed.SetSel(1,3)
 		self.ed.Paste()
 		self.assertEquals(self.ed.Contents(), b"1c2c")
@@ -508,13 +513,12 @@ class TestSimple(unittest.TestCase):
 		self.assertEquals(self.ed.Contents(), b"1c")
 
 	def testCopyAllowLine(self):
-		self.xite.DoEvents()
 		lineEndType = self.ed.EOLMode
 		self.ed.EOLMode = self.ed.SC_EOL_LF
 		self.ed.AddText(5, b"a1\nb2")
 		self.ed.SetSel(1,1)
 		self.ed.CopyAllowLine()
-		self.xite.DoEvents()
+		# Clipboard = "a1\n"
 		self.assertEquals(self.ed.CanPaste(), 1)
 		self.ed.SetSel(0, 0)
 		self.ed.Paste()
@@ -576,6 +580,14 @@ class TestSimple(unittest.TestCase):
 		self.assertEquals(self.ed.TargetStart, 4)
 		self.assertEquals(self.ed.TargetEnd, 5)
 
+	def testTargetWhole(self):
+		self.ed.SetContents(b"abcd")
+		self.ed.TargetStart = 1
+		self.ed.TargetEnd = 3
+		self.ed.TargetWholeDocument()
+		self.assertEquals(self.ed.TargetStart, 0)
+		self.assertEquals(self.ed.TargetEnd, 4)
+
 	def testTargetEscape(self):
 		# Checks that a literal \ can be in the replacement. Bug #2959876
 		self.ed.SetContents(b"abcd")
@@ -618,6 +630,18 @@ class TestSimple(unittest.TestCase):
 		self.assertEquals(self.ed.WordEndPosition(4, 0), 5)
 		self.assertEquals(self.ed.WordEndPosition(5, 0), 6)
 		self.assertEquals(self.ed.WordEndPosition(6, 0), 8)
+
+	def testWordRange(self):
+		text = b"ab cd\t++"
+		self.ed.AddText(len(text), text)
+		self.assertEquals(self.ed.IsRangeWord(0, 0), 0)
+		self.assertEquals(self.ed.IsRangeWord(0, 1), 0)
+		self.assertEquals(self.ed.IsRangeWord(0, 2), 1)
+		self.assertEquals(self.ed.IsRangeWord(0, 3), 0)
+		self.assertEquals(self.ed.IsRangeWord(0, 4), 0)
+		self.assertEquals(self.ed.IsRangeWord(0, 5), 1)
+		self.assertEquals(self.ed.IsRangeWord(6, 7), 0)
+		self.assertEquals(self.ed.IsRangeWord(6, 8), 1)
 
 MODI = 1
 UNDO = 2
@@ -1107,6 +1131,40 @@ class TestSearch(unittest.TestCase):
 		self.assertEquals(-1, self.ed.FindBytes(0, self.ed.Length, b"\\xAB", flags))
 		self.assertEquals(0, self.ed.FindBytes(0, self.ed.Length, b"\\xAD", flags))
 
+	def testMultipleAddSelection(self):
+		# Find both 'a'
+		self.assertEquals(self.ed.MultipleSelection, 0)
+		self.ed.MultipleSelection = 1
+		self.assertEquals(self.ed.MultipleSelection, 1)
+		self.ed.TargetWholeDocument()
+		self.ed.SearchFlags = 0
+		self.ed.SetSelection(1, 0)
+		self.assertEquals(self.ed.Selections, 1)
+		self.ed.MultipleSelectAddNext()
+		self.assertEquals(self.ed.Selections, 2)
+		self.assertEquals(self.ed.GetSelectionNAnchor(0), 0)
+		self.assertEquals(self.ed.GetSelectionNCaret(0), 1)
+		self.assertEquals(self.ed.GetSelectionNAnchor(1), 8)
+		self.assertEquals(self.ed.GetSelectionNCaret(1), 9)
+		self.ed.MultipleSelection = 0
+
+	def testMultipleAddEachSelection(self):
+		# Find each 'b'
+		self.assertEquals(self.ed.MultipleSelection, 0)
+		self.ed.MultipleSelection = 1
+		self.assertEquals(self.ed.MultipleSelection, 1)
+		self.ed.TargetWholeDocument()
+		self.ed.SearchFlags = 0
+		self.ed.SetSelection(3, 2)
+		self.assertEquals(self.ed.Selections, 1)
+		self.ed.MultipleSelectAddEach()
+		self.assertEquals(self.ed.Selections, 2)
+		self.assertEquals(self.ed.GetSelectionNAnchor(0), 2)
+		self.assertEquals(self.ed.GetSelectionNCaret(0), 3)
+		self.assertEquals(self.ed.GetSelectionNAnchor(1), 6)
+		self.assertEquals(self.ed.GetSelectionNCaret(1), 7)
+		self.ed.MultipleSelection = 0
+
 class TestRepresentations(unittest.TestCase):
 
 	def setUp(self):
@@ -1411,6 +1469,88 @@ class TestMultiSelection(unittest.TestCase):
 		self.ed.DropSelectionN(0)
 		self.assertEquals(self.ed.MainSelection, 2)
 
+class TestModalSelection(unittest.TestCase):
+
+	def setUp(self):
+		self.xite = Xite.xiteFrame
+		self.ed = self.xite.ed
+		self.ed.ClearAll()
+		self.ed.EmptyUndoBuffer()
+		# 3 lines of 3 characters
+		t = b"xxx\nxxx\nxxx"
+		self.ed.AddText(len(t), t)
+
+	def testCharacterSelection(self):
+		self.ed.SetSelection(1, 1)
+		self.assertEquals(self.ed.Selections, 1)
+		self.assertEquals(self.ed.MainSelection, 0)
+		self.assertEquals(self.ed.GetSelectionNCaret(0), 1)
+		self.assertEquals(self.ed.GetSelectionNAnchor(0), 1)
+		self.ed.SelectionMode = self.ed.SC_SEL_STREAM
+		self.assertEquals(self.ed.Selections, 1)
+		self.assertEquals(self.ed.MainSelection, 0)
+		self.assertEquals(self.ed.GetSelectionNCaret(0), 1)
+		self.assertEquals(self.ed.GetSelectionNAnchor(0), 1)
+		self.ed.CharRight()
+		self.assertEquals(self.ed.Selections, 1)
+		self.assertEquals(self.ed.MainSelection, 0)
+		self.assertEquals(self.ed.GetSelectionNCaret(0), 2)
+		self.assertEquals(self.ed.GetSelectionNAnchor(0), 1)
+		self.ed.LineDown()
+		self.assertEquals(self.ed.Selections, 1)
+		self.assertEquals(self.ed.MainSelection, 0)
+		self.assertEquals(self.ed.GetSelectionNCaret(0), 6)
+		self.assertEquals(self.ed.GetSelectionNAnchor(0), 1)
+		self.ed.ClearSelections()
+
+	def testRectangleSelection(self):
+		self.ed.SetSelection(1, 1)
+		self.assertEquals(self.ed.Selections, 1)
+		self.assertEquals(self.ed.MainSelection, 0)
+		self.assertEquals(self.ed.GetSelectionNCaret(0), 1)
+		self.assertEquals(self.ed.GetSelectionNAnchor(0), 1)
+		self.ed.SelectionMode = self.ed.SC_SEL_RECTANGLE
+		self.assertEquals(self.ed.Selections, 1)
+		self.assertEquals(self.ed.MainSelection, 0)
+		self.assertEquals(self.ed.GetSelectionNCaret(0), 1)
+		self.assertEquals(self.ed.GetSelectionNAnchor(0), 1)
+		self.ed.CharRight()
+		self.assertEquals(self.ed.Selections, 1)
+		self.assertEquals(self.ed.MainSelection, 0)
+		self.assertEquals(self.ed.GetSelectionNCaret(0), 2)
+		self.assertEquals(self.ed.GetSelectionNAnchor(0), 1)
+		self.ed.LineDown()
+		self.assertEquals(self.ed.Selections, 2)
+		self.assertEquals(self.ed.MainSelection, 1)
+		self.assertEquals(self.ed.GetSelectionNCaret(0), 2)
+		self.assertEquals(self.ed.GetSelectionNAnchor(0), 1)
+		self.assertEquals(self.ed.GetSelectionNCaret(1), 6)
+		self.assertEquals(self.ed.GetSelectionNAnchor(1), 5)
+		self.ed.ClearSelections()
+
+	def testLinesSelection(self):
+		self.ed.SetSelection(1, 1)
+		self.assertEquals(self.ed.Selections, 1)
+		self.assertEquals(self.ed.MainSelection, 0)
+		self.assertEquals(self.ed.GetSelectionNCaret(0), 1)
+		self.assertEquals(self.ed.GetSelectionNAnchor(0), 1)
+		self.ed.SelectionMode = self.ed.SC_SEL_LINES
+		self.assertEquals(self.ed.Selections, 1)
+		self.assertEquals(self.ed.MainSelection, 0)
+		self.assertEquals(self.ed.GetSelectionNCaret(0), 0)
+		self.assertEquals(self.ed.GetSelectionNAnchor(0), 3)
+		self.ed.CharRight()
+		self.assertEquals(self.ed.Selections, 1)
+		self.assertEquals(self.ed.MainSelection, 0)
+		self.assertEquals(self.ed.GetSelectionNCaret(0), 0)
+		self.assertEquals(self.ed.GetSelectionNAnchor(0), 3)
+		self.ed.LineDown()
+		self.assertEquals(self.ed.Selections, 1)
+		self.assertEquals(self.ed.MainSelection, 0)
+		self.assertEquals(self.ed.GetSelectionNCaret(0), 7)
+		self.assertEquals(self.ed.GetSelectionNAnchor(0), 0)
+		self.ed.ClearSelections()
+
 class TestStyleAttributes(unittest.TestCase):
 	""" These tests are just to ensure that the calls set and retrieve values.
 	They do not check the visual appearance of the style attributes.
@@ -1494,6 +1634,76 @@ class TestStyleAttributes(unittest.TestCase):
 		self.ed.StyleSetHotSpot(self.ed.STYLE_DEFAULT, 1)
 		self.assertEquals(self.ed.StyleGetHotSpot(self.ed.STYLE_DEFAULT), 1)
 
+class TestIndices(unittest.TestCase):
+	def setUp(self):
+		self.xite = Xite.xiteFrame
+		self.ed = self.xite.ed
+		self.ed.ClearAll()
+		self.ed.EmptyUndoBuffer()
+		self.ed.SetCodePage(65001)
+		# Text includes one non-BMP character
+		t = "aå\U00010348ﬂﬔ-\n"
+		self.tv = t.encode("UTF-8")
+
+	def tearDown(self):
+		self.ed.SetCodePage(0)
+
+	def testAllocation(self):
+		self.assertEquals(self.ed.GetLineCharacterIndex(), self.ed.SC_LINECHARACTERINDEX_NONE)
+		self.ed.AllocateLineCharacterIndex(self.ed.SC_LINECHARACTERINDEX_UTF32)
+		self.assertEquals(self.ed.GetLineCharacterIndex(), self.ed.SC_LINECHARACTERINDEX_UTF32)
+		self.ed.ReleaseLineCharacterIndex(self.ed.SC_LINECHARACTERINDEX_UTF32)
+		self.assertEquals(self.ed.GetLineCharacterIndex(), self.ed.SC_LINECHARACTERINDEX_NONE)
+
+	def testUTF32(self):
+		self.assertEquals(self.ed.GetLineCharacterIndex(), self.ed.SC_LINECHARACTERINDEX_NONE)
+		self.ed.SetContents(self.tv)
+		self.ed.AllocateLineCharacterIndex(self.ed.SC_LINECHARACTERINDEX_UTF32)
+		self.assertEquals(self.ed.IndexPositionFromLine(0, self.ed.SC_LINECHARACTERINDEX_UTF32), 0)
+		self.assertEquals(self.ed.IndexPositionFromLine(1, self.ed.SC_LINECHARACTERINDEX_UTF32), 7)
+		self.ed.ReleaseLineCharacterIndex(self.ed.SC_LINECHARACTERINDEX_UTF32)
+		self.assertEquals(self.ed.GetLineCharacterIndex(), self.ed.SC_LINECHARACTERINDEX_NONE)
+
+	def testUTF16(self):
+		self.assertEquals(self.ed.GetLineCharacterIndex(), self.ed.SC_LINECHARACTERINDEX_NONE)
+		t = "aå\U00010348ﬂﬔ-"
+		tv = t.encode("UTF-8")
+		self.ed.SetContents(self.tv)
+		self.ed.AllocateLineCharacterIndex(self.ed.SC_LINECHARACTERINDEX_UTF16)
+		self.assertEquals(self.ed.IndexPositionFromLine(0, self.ed.SC_LINECHARACTERINDEX_UTF16), 0)
+		self.assertEquals(self.ed.IndexPositionFromLine(1, self.ed.SC_LINECHARACTERINDEX_UTF16), 8)
+		self.ed.ReleaseLineCharacterIndex(self.ed.SC_LINECHARACTERINDEX_UTF16)
+		self.assertEquals(self.ed.GetLineCharacterIndex(), self.ed.SC_LINECHARACTERINDEX_NONE)
+
+	def testBoth(self):
+		# Set text before turning indices on
+		self.assertEquals(self.ed.GetLineCharacterIndex(), self.ed.SC_LINECHARACTERINDEX_NONE)
+		self.ed.SetContents(self.tv)
+		self.ed.AllocateLineCharacterIndex(self.ed.SC_LINECHARACTERINDEX_UTF32+self.ed.SC_LINECHARACTERINDEX_UTF16)
+		self.assertEquals(self.ed.IndexPositionFromLine(0, self.ed.SC_LINECHARACTERINDEX_UTF32), 0)
+		self.assertEquals(self.ed.IndexPositionFromLine(1, self.ed.SC_LINECHARACTERINDEX_UTF32), 7)
+		self.assertEquals(self.ed.IndexPositionFromLine(0, self.ed.SC_LINECHARACTERINDEX_UTF16), 0)
+		self.assertEquals(self.ed.IndexPositionFromLine(1, self.ed.SC_LINECHARACTERINDEX_UTF16), 8)
+		# Test the inverse: position->line
+		self.assertEquals(self.ed.LineFromIndexPosition(0, self.ed.SC_LINECHARACTERINDEX_UTF32), 0)
+		self.assertEquals(self.ed.LineFromIndexPosition(7, self.ed.SC_LINECHARACTERINDEX_UTF32), 1)
+		self.assertEquals(self.ed.LineFromIndexPosition(0, self.ed.SC_LINECHARACTERINDEX_UTF16), 0)
+		self.assertEquals(self.ed.LineFromIndexPosition(8, self.ed.SC_LINECHARACTERINDEX_UTF16), 1)
+		self.ed.ReleaseLineCharacterIndex(self.ed.SC_LINECHARACTERINDEX_UTF32+self.ed.SC_LINECHARACTERINDEX_UTF16)
+		self.assertEquals(self.ed.GetLineCharacterIndex(), self.ed.SC_LINECHARACTERINDEX_NONE)
+
+	def testMaintenance(self):
+		# Set text after turning indices on
+		self.assertEquals(self.ed.GetLineCharacterIndex(), self.ed.SC_LINECHARACTERINDEX_NONE)
+		self.ed.AllocateLineCharacterIndex(self.ed.SC_LINECHARACTERINDEX_UTF32+self.ed.SC_LINECHARACTERINDEX_UTF16)
+		self.ed.SetContents(self.tv)
+		self.assertEquals(self.ed.IndexPositionFromLine(0, self.ed.SC_LINECHARACTERINDEX_UTF32), 0)
+		self.assertEquals(self.ed.IndexPositionFromLine(1, self.ed.SC_LINECHARACTERINDEX_UTF32), 7)
+		self.assertEquals(self.ed.IndexPositionFromLine(0, self.ed.SC_LINECHARACTERINDEX_UTF16), 0)
+		self.assertEquals(self.ed.IndexPositionFromLine(1, self.ed.SC_LINECHARACTERINDEX_UTF16), 8)
+		self.ed.ReleaseLineCharacterIndex(self.ed.SC_LINECHARACTERINDEX_UTF32+self.ed.SC_LINECHARACTERINDEX_UTF16)
+		self.assertEquals(self.ed.GetLineCharacterIndex(), self.ed.SC_LINECHARACTERINDEX_NONE)
+
 class TestCharacterNavigation(unittest.TestCase):
 	def setUp(self):
 		self.xite = Xite.xiteFrame
@@ -1523,6 +1733,7 @@ class TestCharacterNavigation(unittest.TestCase):
 		tv = t.encode("UTF-8")
 		self.ed.SetContents(tv)
 		self.assertEquals(self.ed.PositionRelative(1, 2), 6)
+		self.assertEquals(self.ed.CountCharacters(1, 6), 2)
 		self.assertEquals(self.ed.PositionRelative(6, -2), 1)
 		pos = 0
 		previous = 0
@@ -1538,6 +1749,38 @@ class TestCharacterNavigation(unittest.TestCase):
 			self.assert_(after < pos)
 			self.assert_(after < previous)
 			previous = after
+
+	def testRelativeNonBOM(self):
+		# \x61  \xF0\x90\x8D\x88  \xef\xac\x82   \xef\xac\x94   \x2d
+		t = "a\U00010348ﬂﬔ-"
+		tv = t.encode("UTF-8")
+		self.ed.SetContents(tv)
+		self.assertEquals(self.ed.PositionRelative(1, 2), 8)
+		self.assertEquals(self.ed.CountCharacters(1, 8), 2)
+		self.assertEquals(self.ed.CountCodeUnits(1, 8), 3)
+		self.assertEquals(self.ed.PositionRelative(8, -2), 1)
+		self.assertEquals(self.ed.PositionRelativeCodeUnits(8, -3), 1)
+		pos = 0
+		previous = 0
+		for i in range(1, len(t)):
+			after = self.ed.PositionRelative(pos, i)
+			self.assert_(after > pos)
+			self.assert_(after > previous)
+			previous = after
+		pos = len(t)
+		previous = pos
+		for i in range(1, len(t)-1):
+			after = self.ed.PositionRelative(pos, -i)
+			self.assert_(after < pos)
+			self.assert_(after <= previous)
+			previous = after
+
+	def testLineEnd(self):
+		t = "a\r\nb\nc"
+		tv = t.encode("UTF-8")
+		self.ed.SetContents(tv)
+		for i in range(0, len(t)):
+			self.assertEquals(self.ed.CountCharacters(0, i), i)
 
 class TestCaseMapping(unittest.TestCase):
 	def setUp(self):

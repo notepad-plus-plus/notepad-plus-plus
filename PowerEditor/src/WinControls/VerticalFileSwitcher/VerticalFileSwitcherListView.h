@@ -88,8 +88,8 @@ public:
     };
 
 protected:
-	HIMAGELIST _hImaLst;
-	WNDPROC _defaultProc;
+	HIMAGELIST _hImaLst = nullptr;
+	WNDPROC _defaultProc = nullptr;
 	LRESULT runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 
 	static LRESULT CALLBACK staticProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {

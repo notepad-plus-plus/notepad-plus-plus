@@ -72,7 +72,8 @@ OutFile ".\build\npp.${APPVERSION}.Installer.exe"
 !define MUI_UNICON ".\images\npp_inst.ico"
 
 !define MUI_WELCOMEFINISHPAGE_BITMAP ".\images\wizard.bmp"
-;!define MUI_WELCOMEFINISHPAGE_BITMAP_NOSTRETCH
+;!define MUI_WELCOMEFINISHPAGE_BITMAP ".\images\wizard_GiletJaune.bmp"
+
 
 !define MUI_HEADERIMAGE
 !define MUI_HEADERIMAGE_BITMAP ".\images\headerLeft.bmp" ; optional

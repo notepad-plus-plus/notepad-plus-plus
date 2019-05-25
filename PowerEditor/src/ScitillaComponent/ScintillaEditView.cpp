@@ -206,12 +206,13 @@ HMODULE loadSciLexerDll()
 	// This is helpful for developers to skip signature checking
 	// while analyzing issue or modifying the lexer dll
 #ifndef _DEBUG
-	bool isOK = VerifySignedLibrary(sciLexerPath, NPP_COMPONENT_SIGNER_KEY_ID, NPP_COMPONENT_SIGNER_SUBJECT, NPP_COMPONENT_SIGNER_DISPLAY_NAME, false, false);
+	SecurityGard securityGard;
+	bool isOK = securityGard.checkModule(sciLexerPath, nm_scilexer);
 
 	if (!isOK)
 	{
 		::MessageBox(NULL,
-			TEXT("Authenticode check failed: signature or signing certificate are not recognized"),
+			TEXT("Authenticode check failed:\rsigning certificate or hash is not recognized"),
 			TEXT("Library verification failed"),
 			MB_OK | MB_ICONERROR);
 		return nullptr;
@@ -396,6 +397,14 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 				return TRUE;
 			}
 
+			if (LOWORD(wParam) & MK_SHIFT) {
+				// move 3 columns at a time
+				::CallWindowProc(_scintillaDefaultProc, hwnd, WM_HSCROLL, ((short)HIWORD(wParam) < 0) ? SB_LINERIGHT : SB_LINELEFT, NULL);
+				::CallWindowProc(_scintillaDefaultProc, hwnd, WM_HSCROLL, ((short)HIWORD(wParam) < 0) ? SB_LINERIGHT : SB_LINELEFT, NULL);
+				::CallWindowProc(_scintillaDefaultProc, hwnd, WM_HSCROLL, ((short)HIWORD(wParam) < 0) ? SB_LINERIGHT : SB_LINELEFT, NULL);
+				return TRUE;
+			}
+
 			//Have to perform the scroll first, because the first/last line do not get updated untill after the scroll has been parsed
 			LRESULT scrollResult = ::CallWindowProc(_scintillaDefaultProc, hwnd, Message, wParam, lParam);
 			return scrollResult;
@@ -422,7 +431,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 
 				// get the current text selection
 
-				CharacterRange range = getSelection();
+				Sci_CharacterRange range = getSelection();
 				if (range.cpMax == range.cpMin)
 				{
 					// no selection: select the current word instead
@@ -543,7 +552,7 @@ void ScintillaEditView::setSpecialStyle(const Style & styleToSet)
 void ScintillaEditView::setHotspotStyle(Style& styleToSet)
 {
 	StyleMap* styleMap;
-	if( _hotspotStyles.find(_currentBuffer) == _hotspotStyles.end() )
+	if ( _hotspotStyles.find(_currentBuffer) == _hotspotStyles.end() )
 	{
 		_hotspotStyles[_currentBuffer] = new StyleMap;
 	}
@@ -1727,10 +1736,11 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 	    setSpecialStyle(styleLN);
     }
     setTabSettings(_pParameter->getLangFromID(typeDoc));
-
+	/*
 	execute(SCI_SETSTYLEBITS, 8);	// Always use 8 bit mask in Document class (Document::stylingBitsMask),
 									// in that way Editor::PositionIsHotspot will return correct hotspot styleID.
 									// This value has no effect on LexAccessor::mask.
+									*/
 }
 
 BufferID ScintillaEditView::attachDefaultDoc()
@@ -1836,7 +1846,8 @@ void ScintillaEditView::activateBuffer(BufferID buffer)
 
 	setWordChars();
 
-	if (_currentBuffer->getNeedsLexing()) {
+	if (_currentBuffer->getNeedsLexing())
+	{
 		restyleBuffer();
 	}
 
@@ -2015,7 +2026,7 @@ void ScintillaEditView::foldAll(bool mode)
 
 void ScintillaEditView::getText(char *dest, size_t start, size_t end) const
 {
-	TextRange tr;
+	Sci_TextRange tr;
 	tr.chrg.cpMin = static_cast<long>(start);
 	tr.chrg.cpMax = static_cast<long>(end);
 	tr.lpstrText = dest;
@@ -2120,7 +2131,7 @@ TCHAR * ScintillaEditView::getGenericWordOnCaretPos(TCHAR * txt, int size)
 	getWordOnCaretPos(txtA, size);
 
 	const TCHAR * txtW = wmc->char2wchar(txtA, cp);
-	lstrcpy(txt, txtW);
+	wcscpy_s(txt, size, txtW);
 	delete [] txtA;
 	return txt;
 }
@@ -2129,7 +2140,7 @@ char * ScintillaEditView::getSelectedText(char * txt, int size, bool expand)
 {
 	if (!size)
 		return NULL;
-	CharacterRange range = getSelection();
+	Sci_CharacterRange range = getSelection();
 	if (range.cpMax == range.cpMin && expand)
 	{
 		expandWordSelection();
@@ -2151,7 +2162,7 @@ TCHAR * ScintillaEditView::getGenericSelectedText(TCHAR * txt, int size, bool ex
 	getSelectedText(txtA, size, expand);
 
 	const TCHAR * txtW = wmc->char2wchar(txtA, cp);
-	lstrcpy(txt, txtW);
+	wcscpy_s(txt, size, txtW);
 	delete [] txtA;
 	return txt;
 }
@@ -2243,11 +2254,17 @@ generic_string ScintillaEditView::getLine(size_t lineNumber)
 
 void ScintillaEditView::getLine(size_t lineNumber, TCHAR * line, int lineBufferLen)
 {
+	// make sure the buffer length is enough to get the whole line
+	auto lineLen = execute(SCI_LINELENGTH, lineNumber);
+	if (lineLen >= lineBufferLen)
+		return;
+
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 	UINT cp = static_cast<UINT>(execute(SCI_GETCODEPAGE));
 	char *lineA = new char[lineBufferLen];
 	// From Scintilla documentation for SCI_GETLINE: "The buffer is not terminated by a 0 character."
 	memset(lineA, 0x0, sizeof(char) * lineBufferLen);
+	
 	execute(SCI_GETLINE, lineNumber, reinterpret_cast<LPARAM>(lineA));
 	const TCHAR *lineW = wmc->char2wchar(lineA, cp);
 	lstrcpyn(line, lineW, lineBufferLen);
@@ -2267,27 +2284,27 @@ void ScintillaEditView::beginOrEndSelect()
 	}
 	else
 	{
-		execute(SCI_SETANCHOR, _beginSelectPosition);
+		execute(SCI_SETANCHOR, static_cast<WPARAM>(_beginSelectPosition));
 		_beginSelectPosition = -1;
 	}
 }
 
-void ScintillaEditView::updateBeginEndSelectPosition(const bool is_insert, const int position, const int length)
+void ScintillaEditView::updateBeginEndSelectPosition(bool is_insert, size_t position, size_t length)
 {
-	if(_beginSelectPosition != -1 && position < _beginSelectPosition - 1)
+	if (_beginSelectPosition != -1 && static_cast<long long>(position) < _beginSelectPosition - 1)
 	{
-		if(is_insert)
-			_beginSelectPosition += length;
+		if (is_insert)
+			_beginSelectPosition += static_cast<long long>(length);
 		else
-			_beginSelectPosition -= length;
+			_beginSelectPosition -= static_cast<long long>(length);
 
 		assert(_beginSelectPosition >= 0);
 	}
 }
 
-void ScintillaEditView::marginClick(int position, int modifiers)
+void ScintillaEditView::marginClick(Sci_Position position, int modifiers)
 {
-	int lineClick = int(execute(SCI_LINEFROMPOSITION, position, 0));
+	size_t lineClick = execute(SCI_LINEFROMPOSITION, position, 0);
 	int levelClick = int(execute(SCI_GETFOLDLEVEL, lineClick, 0));
 	if (levelClick & SC_FOLDLEVELHEADERFLAG)
     {
@@ -2322,9 +2339,9 @@ void ScintillaEditView::marginClick(int position, int modifiers)
 	}
 }
 
-void ScintillaEditView::expand(int &line, bool doExpand, bool force, int visLevels, int level)
+void ScintillaEditView::expand(size_t& line, bool doExpand, bool force, int visLevels, int level)
 {
-	int lineMaxSubord = int(execute(SCI_GETLASTCHILD, line, level & SC_FOLDLEVELNUMBERMASK));
+	size_t lineMaxSubord = execute(SCI_GETLASTCHILD, line, level & SC_FOLDLEVELNUMBERMASK);
 	++line;
 	while (line <= lineMaxSubord)
     {
@@ -2446,7 +2463,7 @@ void ScintillaEditView::performGlobalStyles()
 void ScintillaEditView::setLineIndent(int line, int indent) const {
 	if (indent < 0)
 		return;
-	CharacterRange crange = getSelection();
+	Sci_CharacterRange crange = getSelection();
 	int posBefore = static_cast<int32_t>(execute(SCI_GETLINEINDENTPOSITION, line));
 	execute(SCI_SETLINEINDENTATION, line, indent);
 	int32_t posAfter = static_cast<int32_t>(execute(SCI_GETLINEINDENTPOSITION, line));
@@ -2824,7 +2841,7 @@ TCHAR * int2str(TCHAR *str, int strLen, int number, int base, int nbChiffre, boo
 			for ( ; *j != '\0' ; ++j)
 				if (*j == '1')
 					break;
-			lstrcpy(str, j);
+			wcscpy_s(str, strLen, j);
 		}
 		else
 		{
@@ -2967,9 +2984,9 @@ void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, int initial, int in
 	{
 		int curNumber = initial;
 		const size_t kiMaxSize = cmi.size();
-		while(numbers.size() < kiMaxSize)
+		while (numbers.size() < kiMaxSize)
 		{
-			for(int i = 0; i < repeat; i++)
+			for (int i = 0; i < repeat; i++)
 			{
 				numbers.push_back(curNumber);
 				if (numbers.size() >= kiMaxSize)
@@ -3035,7 +3052,7 @@ void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, int initial, int in
 }
 
 
-void ScintillaEditView::foldChanged(int line, int levelNow, int levelPrev)
+void ScintillaEditView::foldChanged(size_t line, int levelNow, int levelPrev)
 {
 	if (levelNow & SC_FOLDLEVELHEADERFLAG)		//line can be folded
 	{
@@ -3116,7 +3133,7 @@ void ScintillaEditView::hideLines()
 
 	//remove any markers in between
 	int scope = 0;
-	for(int i = startLine; i <= endLine; ++i)
+	for (int i = startLine; i <= endLine; ++i)
 	{
 		auto state = execute(SCI_MARKERGET, i);
 		bool closePresent = ((state & (1 << MARK_HIDELINESEND)) != 0);	//check close first, then open, since close closes scope
@@ -3159,7 +3176,7 @@ bool ScintillaEditView::markerMarginClick(int lineNumber)
 	if (closePresent)
 	{
 		openPresent = false;
-		for(lineNumber--; lineNumber >= 0 && !openPresent; lineNumber--)
+		for (lineNumber--; lineNumber >= 0 && !openPresent; lineNumber--)
 		{
 			state = execute(SCI_MARKERGET, lineNumber);
 			openPresent = ((state & (1 << MARK_HIDELINESBEGIN | 1 << MARK_HIDELINESUNDERLINE)) != 0);
@@ -3181,7 +3198,7 @@ void ScintillaEditView::notifyMarkers(Buffer * buf, bool isHide, int location, b
 }
 //Run through full document. When switching in or opening folding
 //hide is false only when user click on margin
-void ScintillaEditView::runMarkers(bool doHide, int searchStart, bool endOfDoc, bool doDelete)
+void ScintillaEditView::runMarkers(bool doHide, size_t searchStart, bool endOfDoc, bool doDelete)
 {
 	//Removes markers if opening
 	/*
@@ -3209,12 +3226,12 @@ void ScintillaEditView::runMarkers(bool doHide, int searchStart, bool endOfDoc, 
 				Skip to LASTCHILD
 				Set last start to lastchild
 	*/
-	int maxLines = static_cast<int32_t>(execute(SCI_GETLINECOUNT));
+	size_t maxLines = execute(SCI_GETLINECOUNT);
 	if (doHide)
 	{
-		int startHiding = searchStart;
+		auto startHiding = searchStart;
 		bool isInSection = false;
-		for (int i = searchStart; i < maxLines; ++i)
+		for (auto i = searchStart; i < maxLines; ++i)
 		{
 			auto state = execute(SCI_MARKERGET, i);
 			if ( ((state & (1 << MARK_HIDELINESEND)) != 0) )
@@ -3239,9 +3256,9 @@ void ScintillaEditView::runMarkers(bool doHide, int searchStart, bool endOfDoc, 
 	}
 	else
 	{
-		int startShowing = searchStart;
+		auto startShowing = searchStart;
 		bool isInSection = false;
-		for (int i = searchStart; i < maxLines; ++i)
+		for (auto i = searchStart; i < maxLines; ++i)
 		{
 			auto state = execute(SCI_MARKERGET, i);
 			if ( ((state & (1 << MARK_HIDELINESEND)) != 0) )
@@ -3323,7 +3340,7 @@ void ScintillaEditView::insertNewLineAboveCurrentLine()
 {
 	generic_string newline = getEOLString();
 	const auto current_line = getCurrentLineNumber();
-	if(current_line == 0)
+	if (current_line == 0)
 	{
 		// Special handling if caret is at first line.
 		insertGenericTextFrom(0, newline.c_str());
@@ -3343,7 +3360,7 @@ void ScintillaEditView::insertNewLineBelowCurrentLine()
 	generic_string newline = getEOLString();
 	const auto line_count = static_cast<size_t>(execute(SCI_GETLINECOUNT));
 	const auto current_line = getCurrentLineNumber();
-	if(current_line == line_count - 1)
+	if (current_line == line_count - 1)
 	{
 		// Special handling if caret is at last line.
 		appandGenericText(newline.c_str());

@@ -1,17 +1,17 @@
 // Scintilla source code edit control
 /** @file Catalogue.cxx
- ** Colourise for particular languages.
+ ** Lexer infrastructure.
+ ** Contains a list of LexerModules which can be searched to find a module appropriate for a
+ ** particular language.
  **/
 // Copyright 1998-2002 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
 
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <assert.h>
-#include <ctype.h>
+#include <cstdlib>
+#include <cassert>
+#include <cstring>
 
+#include <stdexcept>
 #include <vector>
 
 #include "ILexer.h"
@@ -21,35 +21,31 @@
 #include "LexerModule.h"
 #include "Catalogue.h"
 
-#ifdef SCI_NAMESPACE
 using namespace Scintilla;
-#endif
 
 static std::vector<LexerModule *> lexerCatalogue;
 static int nextLanguage = SCLEX_AUTOMATIC+1;
 
 const LexerModule *Catalogue::Find(int language) {
 	Scintilla_LinkLexers();
-	for (std::vector<LexerModule *>::iterator it=lexerCatalogue.begin();
-		it != lexerCatalogue.end(); ++it) {
-		if ((*it)->GetLanguage() == language) {
-			return *it;
+	for (const LexerModule *lm : lexerCatalogue) {
+		if (lm->GetLanguage() == language) {
+			return lm;
 		}
 	}
-	return 0;
+	return nullptr;
 }
 
 const LexerModule *Catalogue::Find(const char *languageName) {
 	Scintilla_LinkLexers();
 	if (languageName) {
-		for (std::vector<LexerModule *>::iterator it=lexerCatalogue.begin();
-			it != lexerCatalogue.end(); ++it) {
-			if ((*it)->languageName && (0 == strcmp((*it)->languageName, languageName))) {
-				return *it;
+		for (const LexerModule *lm : lexerCatalogue) {
+			if (lm->languageName && (0 == strcmp(lm->languageName, languageName))) {
+				return lm;
 			}
 		}
 	}
-	return 0;
+	return nullptr;
 }
 
 void Catalogue::AddLexerModule(LexerModule *plm) {
@@ -94,6 +90,7 @@ int Scintilla_LinkLexers() {
 	LINK_LEXER(lmBlitzBasic);
 	LINK_LEXER(lmBullant);
 	LINK_LEXER(lmCaml);
+	LINK_LEXER(lmCIL);
 	LINK_LEXER(lmClw);
 	LINK_LEXER(lmClwNoCase);
 	LINK_LEXER(lmCmake);
@@ -109,6 +106,7 @@ int Scintilla_LinkLexers() {
 	LINK_LEXER(lmDMAP);
 	LINK_LEXER(lmDMIS);
 	LINK_LEXER(lmECL);
+	LINK_LEXER(lmEDIFACT);
 	LINK_LEXER(lmEiffel);
 	LINK_LEXER(lmEiffelkw);
 	LINK_LEXER(lmErlang);
@@ -124,7 +122,9 @@ int Scintilla_LinkLexers() {
 	LINK_LEXER(lmHaskell);
 	LINK_LEXER(lmHTML);
 	LINK_LEXER(lmIHex);
+	LINK_LEXER(lmIndent);
 	LINK_LEXER(lmInno);
+	LINK_LEXER(lmJSON);
 	LINK_LEXER(lmKix);
 	LINK_LEXER(lmKVIrc);
 	LINK_LEXER(lmLatex);
@@ -137,11 +137,13 @@ int Scintilla_LinkLexers() {
 	LINK_LEXER(lmMake);
 	LINK_LEXER(lmMarkdown);
 	LINK_LEXER(lmMatlab);
+	LINK_LEXER(lmMaxima);
 	LINK_LEXER(lmMETAPOST);
 	LINK_LEXER(lmMMIXAL);
 	LINK_LEXER(lmModula);
 	LINK_LEXER(lmMSSQL);
 	LINK_LEXER(lmMySQL);
+	LINK_LEXER(lmNim);
 	LINK_LEXER(lmNimrod);
 	LINK_LEXER(lmNncrontab);
 	LINK_LEXER(lmNsis);
@@ -169,6 +171,7 @@ int Scintilla_LinkLexers() {
 	LINK_LEXER(lmRegistry);
 	LINK_LEXER(lmRuby);
 	LINK_LEXER(lmRust);
+	LINK_LEXER(lmSAS);
 	LINK_LEXER(lmScriptol);
 	LINK_LEXER(lmSearchResult);
 	LINK_LEXER(lmSmalltalk);
@@ -178,6 +181,7 @@ int Scintilla_LinkLexers() {
 	LINK_LEXER(lmSpice);
 	LINK_LEXER(lmSQL);
 	LINK_LEXER(lmSrec);
+	LINK_LEXER(lmStata);
 	LINK_LEXER(lmSTTXT);
 	LINK_LEXER(lmTACL);
 	LINK_LEXER(lmTADS3);

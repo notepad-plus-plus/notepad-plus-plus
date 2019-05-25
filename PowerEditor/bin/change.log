@@ -1,23 +1,23 @@
-Notepad++ v7.6.1 new enhancement and bug-fixes:
+Notepad++ v7.7 new features and bug-fixes:
 
-1.  Several bug-fixes & enhancement on Plugins Admin.
-2.  Notepad++ will load plugins from %PROGRAMDATA% instead of %LOCALAPPDATA%
-    https://notepad-plus-plus.org/features/plugin-admin.html
-3.  Fix installer's plugins copy issue under Linux (by using WINE).
-4.  Fix Installer HI-DPI GUI glitch.
-5.  Fix "Import plugins" not working issue.
-6.  Fix printer header/footer font issue.
-7.  Make installer more coherent for the option doLocalConf.xml.
-8.  Make text display right in summary panel.
+1.  Continue Microsoft binary code signing thanks to the offer from DigiCert (again).
+2.  Upgrade Scintilla from v3.56 to v4.14.
+3.  Fix a regression about memory issue while reloading a file.
+4.  Fix cursor flickering problem after double clicking on URL.
+5.  Make Python files default to using spaces instead of tabs.
+6.  Add "Count in selection" option in Find dialog.
+7.  Add Ctrl + R shortcut for "Reload from disk" command.
+8.  Fix '\' display problem in CSS while using themes (Remove Batang font for CSS tags).
+9.  Fix crash while right clicking on DocSwitcher's column bar.
+10. Fix all plugins being removed problem while Plugin Admin romoves an old plugin (of old system).
+
 
 Included plugins:
 
 1.  NppExport v0.2.8 (32-bit x86 only)
 2.  Converter 4.2.1
-3.  Mime Tool 2.2
-4.  DSpellCheck 1.4.6
-
+3.  Mime Tool 2.5
 
 Updater (Installer only):
 
-* WinGup (for Notepad++) v5.0.5
+* WinGup (for Notepad++) v5.1

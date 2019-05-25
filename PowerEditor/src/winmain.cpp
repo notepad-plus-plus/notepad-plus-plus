@@ -29,6 +29,7 @@
 #include "Processus.h"
 #include "Win32Exception.h"	//Win32 exception
 #include "MiniDumper.h"			//Write dump files
+#include "verifySignedFile.h"
 
 typedef std::vector<generic_string> ParamVector;
 
@@ -492,12 +493,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 	// wingup doesn't work with the obsolet security layer (API) under xp since downloadings are secured with SSL on notepad_plus_plus.org
 	winVer ver = pNppParameters->getWinVersion();
 	bool isGtXP = ver > WV_XP;
-	if (TheFirstOne && isUpExist && doUpdate && isGtXP)
+
+	SecurityGard securityGard;
+	bool isSignatureOK = securityGard.checkModule(updaterFullPath, nm_gup);
+
+	if (TheFirstOne && isUpExist && doUpdate && isGtXP && isSignatureOK)
 	{
 		if (pNppParameters->isx64())
 		{
 			updaterParams += TEXT(" -px64");
 		}
+
 		Process updater(updaterFullPath.c_str(), updaterParams.c_str(), updaterDir.c_str());
 		updater.run();
 
@@ -537,7 +543,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 		TCHAR str[50] = TEXT("God Damned Exception : ");
 		TCHAR code[10];
 		wsprintf(code, TEXT("%d"), i);
-		::MessageBox(Notepad_plus_Window::gNppHWND, lstrcat(str, code), TEXT("Int Exception"), MB_OK);
+		wcscat_s(str, code);
+		::MessageBox(Notepad_plus_Window::gNppHWND, str, TEXT("Int Exception"), MB_OK);
 		doException(notepad_plus_plus);
 	}
 	catch (std::runtime_error & ex)

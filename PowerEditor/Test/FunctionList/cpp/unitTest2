@@ -16,7 +16,7 @@ namespace test {
 	template <typename LType, typename RType> constexpr test::type compare(const LType &left, const RType &right);
 	template <typename Type> constexpr Type divide(const Type &left, const Type &right);
 	template <typename LType, typename RType> constexpr bool equals(const LType &left, const RType &right);
-	template <typename Return, typename Type> constexpr Return eval(const Type &val);
+	template <typename Return, typename Type> constexpr Return cast(const Type &val);
 	template <typename Type> constexpr Type minus(const Type &left, const Type &right);
 	template <typename Type> constexpr Type modulus(const Type &left, const Type &right);
 	template <typename Type> constexpr Type multiply(const Type &left, const Type &right);
@@ -31,6 +31,7 @@ namespace test {
 	class TestA12;
 	template <class Type> struct TestB3;
 	struct TestD3;
+	class TestH3;
 }
 using test::coalesce;
 
@@ -54,7 +55,7 @@ template <typename Type> constexpr Type test::divide(const Type &left, const Typ
 
 template <typename LType, typename RType> constexpr bool test::equals(const LType &left, const RType &right){ return (left==right); }
 
-template <typename Return, typename Type> constexpr Return test::eval(const Type &val){ return Return(val); }
+template <typename Return, typename Type> constexpr Return test::cast(const Type &val){ return (Return)val; }
 
 template <typename Type> constexpr Type test::minus(const Type &left, const Type &right){ return left-right; }
 
@@ -732,15 +733,15 @@ int TestF1::test4() const volatile noexcept { return coalesce(n,42); }
 
 /* -------------------- Template class method outside definitions -------------------- */
 
-template <typename Type> class TestH1 {
+template <typename Type> class TestG1 {
 	Type n;
 	
 	//Constructors
-	constexpr TestH1() noexcept;
+	constexpr TestG1() noexcept;
 	
-	constexpr TestH1(Type n) noexcept;
+	constexpr TestG1(Type n) noexcept;
 	
-	explicit constexpr TestH1(Type a, Type b) noexcept;
+	explicit constexpr TestG1(Type a, Type b) noexcept;
 	
 	//Conversion operators
 	explicit constexpr operator bool() const noexcept;
@@ -750,9 +751,9 @@ template <typename Type> class TestH1 {
 	explicit constexpr operator Type() const noexcept;
 	
 	//Assignment operators
-	friend void swap<Type>(TestH1 &left, TestH1 &right) noexcept;
+	friend void swap<Type>(TestG1 &left, TestG1 &right) noexcept;
 	
-	TestH1& operator=(TestH1 test) noexcept;
+	TestG1& operator=(TestG1 test) noexcept;
 	
 	//Methods
 	inline constexpr const volatile Type test1() const volatile noexcept;
@@ -765,42 +766,65 @@ template <typename Type> class TestH1 {
 };
 
 //Constructors
-template <typename Type> constexpr TestH1<Type>::TestH1() noexcept : n(0) {}
+template <typename Type> constexpr TestG1<Type>::TestG1() noexcept : n(0) {}
 
-template <typename Type> constexpr TestH1<Type>::TestH1(Type n) noexcept : n(n) {}
+template <typename Type> constexpr TestG1<Type>::TestG1(Type n) noexcept : n(n) {}
 
-template <typename Type> constexpr TestH1<Type>::TestH1(Type a, Type b) noexcept : n(a+b) {}
+template <typename Type> constexpr TestG1<Type>::TestG1(Type a, Type b) noexcept : n(a+b) {}
 
 //Conversion operators
-template <typename Type> constexpr TestH1<Type>::operator bool() const noexcept { return !!n; }
+template <typename Type> constexpr TestG1<Type>::operator bool() const noexcept { return !!n; }
 
-template <typename Type> constexpr TestH1<Type>::operator unsigned int() const noexcept { return (n<0)? -n : n; }
+template <typename Type> constexpr TestG1<Type>::operator unsigned int() const noexcept { return (n<0)? -n : n; }
 
-template <typename Type> constexpr TestH1<Type>::operator Type() const noexcept { return n; }
+template <typename Type> constexpr TestG1<Type>::operator Type() const noexcept { return n; }
 
 //Assignment operators
-template <typename Type> void swap(TestH1<Type> &left, TestH1<Type> &right) noexcept {
+template <typename Type> void swap(TestG1<Type> &left, TestG1<Type> &right) noexcept {
 	using std::swap;
 	swap(left.n,right.n);
 }
 
-template <typename Type> TestH1<Type>& TestH1<Type>::operator=(TestH1<Type> test) noexcept {
+template <typename Type> TestG1<Type>& TestG1<Type>::operator=(TestG1<Type> test) noexcept {
 	swap(*this,test);
 	return *this;
 }
 
 //Methods
-template <typename Type> inline constexpr const volatile Type TestH1<Type>::test1() const volatile noexcept { return 42; }
+template <typename Type> inline constexpr const volatile Type TestG1<Type>::test1() const volatile noexcept { return 42; }
 
-template <typename Type> inline constexpr const volatile Type TestH1<Type>::test2() noexcept { return 42; }
+template <typename Type> inline constexpr const volatile Type TestG1<Type>::test2() noexcept { return 42; }
 
-template <typename Type> Type TestH1<Type>::test3() const volatile noexcept { return coalesce(n,42); }
+template <typename Type> Type TestG1<Type>::test3() const volatile noexcept { return coalesce(n,42); }
 
-template <typename Type> Type TestH1<Type>::test4() const volatile noexcept { return coalesce(n,42); }
+template <typename Type> Type TestG1<Type>::test4() const volatile noexcept { return coalesce(n,42); }
 
-/* -------------------- Functions -------------------- */
+/* -------------------- Type attributes -------------------- */
 
-static inline constexpr const unsigned int test_with_default(const unsigned int n = coalesce(test::n,42)) noexcept { return n; }
+#define DEPRECATED __attribute__((deprecated))
+class DEPRECATED TestH1 {
+	int test(){ return 42; }
+};
+
+#if __cplusplus >= 201402L
+struct [[deprecated]] TestH2 {
+	int test(){ return 42; }
+};
+
+class [[gnu::warn_unused]] test::TestH3 : TestH2 {
+	int test(){ return 42; }
+};
+
+struct [[deprecated("[DEPRECATED]")]] [[gnu::warn_unused]] TestH4 {
+	int test(){ return 42; }
+};
+
+class [[deprecated("[DEPRECATED]"), gnu::warn_unused]] TestH5 : TestH4 {
+	int test(){ return 42; }
+};
+#endif
+
+/* -------------------- Functors as parameter -------------------- */
 
 static inline constexpr const unsigned int test_with_functor(void (*functor)(unsigned int&, double)) noexcept {
 	unsigned int n = 42;

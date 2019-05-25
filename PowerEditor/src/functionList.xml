@@ -260,6 +260,7 @@
 						(template\s*&lt;\s*[\w\t\x20\(\)\=\.:,&lt;&gt;]*\s*&gt;\s*)?               # template parameters
 						(class|struct)                                                             # class/struct definition keyword
 						[\t\x20]+                                                                  # following whitespace
+						((\w+|\[\[[^\r\n]*\]\])[\t\x20]+)*                                         # type attributes
 						(
 							\w+                                                                    # namespace identifier
 							(\s*&lt;\s*[\w\t\x20\(\)\=\.:,&lt;&gt;]*\s*&gt;\s*)?                   # template parameters
@@ -300,20 +301,24 @@
 						<nameExpr
 							expr="(?x)                                                             # use inline comments
 								(class|struct)                                                     # class/struct definition keyword
-								[\t\x20]+                                                          # leading whitespace
+								[\t\x20]+                                                          # following whitespace
+								((\w+|\[\[[^\r\n]*\]\])[\t\x20]+)*                                 # type attributes
 								(\w+\s*::\s*)*                                                     # namespace specifier
 								\w+                                                                # class/struct identifier
 								(\s*&lt;\s*[\w\t\x20\(\)\=\.:,&lt;&gt;]*\s*&gt;\s*)?               # template parameters
 								(\s*final\s*)?                                                     # final specifier
 								\s*                                                                # trailing whitespace
-								(:|\{)                                                             # inheritance separator | class/struct body
+								(:\s*\w+|\{)                                                       # inheritance separator | class/struct body
 							"
 						/>
 						<nameExpr
 							expr="(?x)                                                             # use inline comments
-								[\t\x20]+                                                          # leading whitespace
 								(\w+\s*::\s*)*                                                     # namespace specifier
 								\w+                                                                # class/struct identifier
+								(\s*&lt;\s*[\w\t\x20\(\)\=\.:,&lt;&gt;]*\s*&gt;\s*)?               # template parameters
+								(\s*final\s*)?                                                     # final specifier
+								\s*                                                                # trailing whitespace
+								(:\s*\w+|\{)                                                       # inheritance separator | class/struct body
 							"
 						/>
 						<nameExpr
@@ -386,7 +391,7 @@
 							\s*                                                                    # following whitespace
 							\(
 								[^\)\(]*                                                           # function parameters
-								(\([^\)\(]*\)[^\)\(]*)*                                            # default initializations | function pointers
+								(\([^\)\(]*\)[^\)\(]*)*                                            # functors as parameter
 							\)
 							(\s*(const|final|noexcept|override|volatile)\s*)*                      # right function definition keywords
 							\s*                                                                    # trailing whitespace
@@ -484,7 +489,7 @@
 						\s*                                                                        # following whitespace
 						\(
 							[^\)\(]*                                                               # function parameters
-							(\([^\)\(]*\)[^\)\(]*)*                                                # default initializations | function pointers
+							(\([^\)\(]*\)[^\)\(]*)*                                                # functors as parameter
 						\)
 						(\s*(const|final|noexcept|override|volatile)\s*)*                          # right function definition keywords
 						\s*                                                                        # trailing whitespace

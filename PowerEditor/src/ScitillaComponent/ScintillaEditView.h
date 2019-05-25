@@ -477,18 +477,11 @@ public:
 		// return -1 if it's multi-selection or rectangle selection
 		if ((execute(SCI_GETSELECTIONS) > 1) || execute(SCI_SELECTIONISRECTANGLE))
 			return -1;
-		auto size_selected = execute(SCI_GETSELTEXT);
-		char *selected = new char[size_selected + 1];
-		execute(SCI_GETSELTEXT, 0, reinterpret_cast<LPARAM>(selected));
-		char *c = selected;
-		long length = 0;
-		while (*c != '\0')
-		{
-			if ( (*c & 0xC0) != 0x80)
-				++length;
-			++c;
-		}
-		delete [] selected;
+
+		long start = long(execute(SCI_GETSELECTIONSTART));
+		long end = long(execute(SCI_GETSELECTIONEND));
+		long length = long(execute(SCI_COUNTCHARACTERS, start, end));
+
 		return length;
 	};
 

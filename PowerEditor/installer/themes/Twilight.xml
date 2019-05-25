@@ -363,7 +363,11 @@ Credits:
             <WordsStyle name="OPERATOR" styleID="10" fgColor="CDA869" bgColor="141414" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="IDENTIFIER" styleID="11" fgColor="CF6A4C" bgColor="141414" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="COMMENTBLOCK" styleID="12" fgColor="5F5A60" bgColor="141414" fontName="" fontStyle="0" fontSize="10" />
-            <WordsStyle name="STRINGEOL" styleID="12" fgColor="8F9D6A" bgColor="141414" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="STRINGEOL" styleID="13" fgColor="8F9D6A" bgColor="141414" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="F STRING" styleID="16" fgColor="8F9D6A" bgColor="141414" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="F CHARACTER" styleID="17" fgColor="8F9D6A" bgColor="141414" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="F TRIPLE" styleID="18" fgColor="8F9D6A" bgColor="141414" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="F TRIPLEDOUBLE" styleID="19" fgColor="8F9D6A" bgColor="141414" fontName="" fontStyle="0" fontSize="10" />
         </LexerType>
         <LexerType name="batch" desc="Batch" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="F8F8F8" bgColor="141414" fontName="" fontStyle="0" fontSize="10" />

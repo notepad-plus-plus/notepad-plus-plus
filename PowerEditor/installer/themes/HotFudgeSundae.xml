@@ -675,7 +675,11 @@ Installation:
             <WordsStyle name="OPERATOR" styleID="10" fgColor="D6C479" bgColor="2B0F01" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="IDENTIFIER" styleID="11" fgColor="CFBA28" bgColor="2B0F01" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENTBLOCK" styleID="12" fgColor="208008" bgColor="2B0F01" fontName="" fontStyle="2" fontSize="" />
-            <WordsStyle name="STRINGEOL" styleID="12" fgColor="208008" bgColor="2B0F01" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRINGEOL" styleID="13" fgColor="208008" bgColor="2B0F01" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="F STRING" styleID="16" fgColor="BCBB80" bgColor="2B0F01" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="F CHARACTER" styleID="17" fgColor="BCBB80" bgColor="2B0F01" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="F TRIPLE" styleID="18" fgColor="BCBB80" bgColor="2B0F01" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="F TRIPLEDOUBLE" styleID="19" fgColor="BCBB80" bgColor="2B0F01" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
         <LexerType name="r" desc="R" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="B7975D" bgColor="2B0F01" fontName="" fontStyle="0" fontSize="" />

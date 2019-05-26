@@ -1045,7 +1045,7 @@
             <ProjectPanelReloadDirty title="重新載入工作區" message="目前的工作區已被修改。您要重新載入並捨棄所做的修改嗎？"/>
             <UDLNewNameError title="自訂程式語言錯誤" message="此名稱已被另一個程式語言使用。請重新命名。"/>
             <UDLRemoveCurrentLang title="刪除語言" message="您確定要刪除目前的自訂程式語言嗎？"/>
-            <SCMapperDoDeleteOrNot title="刪除快速鍵" message="您確定要刪除這個快速鍵嗎？"/>
+            <SCMapperDoDeleteOrNot title="刪除快捷鍵" message="您確定要刪除這個快捷鍵嗎？"/>
             <FindCharRangeValueError title="輸入值範圍錯誤" message="您輸入的值應在 0 到 255 之間。如要搜尋字元編號大於 255 的字元，請在「尋找」對話方塊中使用「規則運算式」。"/>
         </MessageBox>
         <ClipboardHistory>

@@ -745,6 +745,8 @@ void ScintillaEditView::setEmbeddedAspLexer()
 		keywordList = wstring2string(kwlW, CP_ACP);
 	}
 
+	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("asp.default.language"), reinterpret_cast<LPARAM>("2"));
+
 	execute(SCI_SETKEYWORDS, 2, reinterpret_cast<LPARAM>(getCompleteKeywordList(keywordList, L_VB, LANG_INDEX_INSTR)));
 
     execute(SCI_STYLESETEOLFILLED, SCE_HBA_DEFAULT, true);

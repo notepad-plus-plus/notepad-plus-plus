@@ -1155,7 +1155,7 @@ bool isCertificateValidated(const generic_string & fullFilePath, const generic_s
 
 		isOK = true;
 	}
-	catch (generic_string s)
+	catch (const generic_string& s)
 	{
 		// display error message
 		MessageBox(NULL, s.c_str(), TEXT("Certificate checking"), MB_OK);

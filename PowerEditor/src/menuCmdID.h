@@ -57,10 +57,11 @@
 	#define    IDM_FILE_RESTORELASTCLOSEDFILE   (IDM_FILE + 21)
 	#define    IDM_FILE_OPENFOLDERASWORSPACE    (IDM_FILE + 22)
     #define    IDM_FILE_OPEN_DEFAULT_VIEWER     (IDM_FILE + 23)
+	#define    IDM_FILE_CLOSEALL_UNCHANGED      (IDM_FILE + 24)
 // IMPORTANT: If list above is modified, you have to change the following values:
  
 // To be updated if new menu item(s) is (are) added in menu "File"
-    #define    IDM_FILEMENU_LASTONE             IDM_FILE_OPEN_DEFAULT_VIEWER
+    #define    IDM_FILEMENU_LASTONE             IDM_FILE_CLOSEALL_UNCHANGED
 
 // 0 based position of command "Exit" including the bars in the file menu
 // and without counting "Recent files history" items
@@ -351,6 +352,10 @@
     #define    IDM_VIEW_MONITORING                (IDM_VIEW + 97)
 	#define	   IDM_VIEW_TAB_MOVEFORWARD			  (IDM_VIEW + 98)
 	#define	   IDM_VIEW_TAB_MOVEBACKWARD		  (IDM_VIEW + 99)
+	#define	   IDM_VIEW_IN_FIREFOX                (IDM_VIEW + 100)
+	#define	   IDM_VIEW_IN_CHROME                 (IDM_VIEW + 101)
+	#define	   IDM_VIEW_IN_EDGE	                  (IDM_VIEW + 102)
+	#define	   IDM_VIEW_IN_IE                     (IDM_VIEW + 103)
 
     #define    IDM_VIEW_GOTO_ANOTHER_VIEW        10001
     #define    IDM_VIEW_CLONE_TO_ANOTHER_VIEW    10002
@@ -547,7 +552,8 @@
     #define    IDM_SETTING_TRAYICON                 (IDM_SETTING + 8)
     #define    IDM_SETTING_SHORTCUT_MAPPER          (IDM_SETTING + 9)
     #define    IDM_SETTING_REMEMBER_LAST_SESSION    (IDM_SETTING + 10)
-    #define    IDM_SETTING_PREFERECE                (IDM_SETTING + 11)
+    #define    IDM_SETTING_PREFERENCE               (IDM_SETTING + 11)
+    #define    IDM_SETTING_OPENPLUGINSDIR           (IDM_SETTING + 14)
     #define    IDM_SETTING_PLUGINADM                (IDM_SETTING + 15)
     #define	   IDM_SETTING_SHORTCUT_MAPPER_MACRO	(IDM_SETTING + 16)
 	#define	   IDM_SETTING_SHORTCUT_MAPPER_RUN		(IDM_SETTING + 17)

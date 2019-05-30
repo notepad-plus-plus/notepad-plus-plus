@@ -9,9 +9,7 @@
 #ifndef FONTQUALITY_H
 #define FONTQUALITY_H
 
-#ifdef SCI_NAMESPACE
 namespace Scintilla {
-#endif
 
 // These definitions match Scintilla.h
 #define SC_EFF_QUALITY_MASK            0xF
@@ -24,8 +22,6 @@ namespace Scintilla {
 #define SCWIN_TECH_GDI 0
 #define SCWIN_TECH_DIRECTWRITE 1
 
-#ifdef SCI_NAMESPACE
 }
-#endif
 
 #endif

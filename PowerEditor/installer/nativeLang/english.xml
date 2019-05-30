@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="English" filename="english.xml" version="7.6.2">
+    <Native-Langue name="English" filename="english.xml" version="7.6.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -38,6 +38,7 @@
                     <Item subMenuId="search-jumpUp" name="Jump Up"/>
                     <Item subMenuId="search-jumpDown" name="Jump Down"/>
                     <Item subMenuId="search-bookmark" name="Bookmark"/>
+                    <Item subMenuId="view-currentFileIn" name="View Current File in"/>
                     <Item subMenuId="view-showSymbol"  name="Show Symbol"/>
                     <Item subMenuId="view-zoom"  name="Zoom"/>
                     <Item subMenuId="view-moveCloneDocument"  name="Move/Clone Current Document"/>
@@ -78,6 +79,7 @@
                     <Item id="41005" name="Close All BUT Current Document"/>
                     <Item id="41009" name="Close All to the Left"/>
                     <Item id="41018" name="Close All to the Right"/>
+                    <Item id="41024" name="Close All Unchanged"/>
                     <Item id="41006" name="&amp;Save"/>
                     <Item id="41007" name="Sav&amp;e All"/>
                     <Item id="41008" name="Save &amp;As..."/>
@@ -104,6 +106,7 @@
                     <Item id="42008" name="Increase Line Indent"/>
                     <Item id="42009" name="Decrease Line Indent"/>
                     <Item id="42010" name="Duplicate Current Line"/>
+                    <Item id="42077" name="Remove Consecutive Duplicate Lines"/>
                     <Item id="42012" name="Split Lines"/>
                     <Item id="42013" name="Join Lines"/>
                     <Item id="42014" name="Move Up Current Line"/>
@@ -295,6 +298,7 @@
                     <Item id="48018" name="Edit Popup ContextMenu"/>
                     <Item id="48009" name="Shortcut Mapper..."/>
                     <Item id="48011" name="Preferences..."/>
+                    <Item id="48014" name="Open Plugins Folder..."/>
                     <Item id="48015" name="Plugins Admin..."/>
                     <Item id="48501" name="Generate..."/>
                     <Item id="48502" name="Generate from files..."/>
@@ -340,6 +344,7 @@
                     <Item CMID="19" name="Open Containing Folder in Explorer"/>
                     <Item CMID="20" name="Open Containing Folder in cmd"/>
                     <Item CMID="21" name="Open in Default Viewer"/>
+                    <Item CMID="22" name="Close All Unchanged"/>
             </TabBar>
         </Menu>
 
@@ -421,7 +426,7 @@
                 <Item id="1934" name="Copy to Clipboard"/>
                 <Item id="2"    name="Close"/>
             </MD5FromTextDlg>
-			
+            
             <SHA256FromFilesDlg title="Generate SHA-256 digest from files">
                 <Item id="1922" name="Choose files to generate SHA-256..."/>
                 <Item id="1924" name="Copy to Clipboard"/>
@@ -433,7 +438,7 @@
                 <Item id="1934" name="Copy to Clipboard"/>
                 <Item id="2"    name="Close"/>
             </SHA256FromTextDlg>
-			
+            
             <PluginsAdminDlg title="Plugins Admin" titleAvailable = "Available" titleUpdates = "Updates" titleInstalled = "Installed">
                 <ColumnPlugin   name="Plugin"/>
                 <ColumnVersion  name="Version"/>
@@ -906,7 +911,11 @@
                 </SearchEngine>
 
                 <MISC title="MISC.">
-                    <Item id="6307" name="Enable"/>
+                    <ComboBox id="6347">
+                        <Element name="Enable"/>
+                        <Element name="Enable for all opened files"/>
+                        <Element name="Disable"/>
+                    </ComboBox>
                     <Item id="6308" name="Minimize to system tray"/>
                     <Item id="6312" name="File Status Auto-Detection"/>
                     <Item id="6313" name="Update silently"/>
@@ -1062,6 +1071,7 @@ Do you want to launch Notepad++ in Administrator mode?"/>
             <OpenInAdminModeWithoutCloseCurrent title="Save failed" message="The file cannot be saved and it may be protected.
 Do you want to launch Notepad++ in Administrator mode?"/>
             <OpenInAdminModeFailed title="Open in Administrator mode failed" message="Notepad++ cannot be opened in Administrator mode."/>
+            <ViewInBrowser title="View Current File in Browser" message="Application cannot be found in your system."/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Clipboard History"/>
@@ -1103,6 +1113,7 @@ Do you want to launch Notepad++ in Administrator mode?"/>
                 <Item id="3517" name="Find in Files..."/>
                 <Item id="3518" name="Explorer here"/>
                 <Item id="3519" name="CMD here"/>
+                <Item id="3520" name="Copy file name"/>
             </Menus>
         </FolderAsWorkspace>
         <ProjectManager>
@@ -1172,8 +1183,8 @@ Do you want to launch Notepad++ in Administrator mode?"/>
             <find-status-replaceinopenedfiles-nb-replaced value="Replace in Opened Files: $INT_REPLACE$ occurrences were replaced"/>
             <find-status-mark-re-malformed value="Mark: The regular expression to search is malformed"/>
             <find-status-invalid-re value="Find: Invalid regular expression"/>
-            <find-status-mark-1-match value="1 match"/>
-            <find-status-mark-nb-matches value="$INT_REPLACE$ matches"/>
+            <find-status-mark-1-match value="Mark: 1 match"/>
+            <find-status-mark-nb-matches value="Mark: $INT_REPLACE$ matches"/>
             <find-status-count-re-malformed value="Count: The regular expression to search is malformed"/>
             <find-status-count-1-match value="Count: 1 match"/>
             <find-status-count-nb-matches value="Count: $INT_REPLACE$ matches"/>
@@ -1196,6 +1207,18 @@ Do you want to launch Notepad++ in Administrator mode?"/>
             <finder-select-all value="Select all"/>
             <finder-clear-all value="Clear all"/>
             <finder-open-all value="Open all"/>
+            <common-ok value="OK"/>
+            <common-cancel value="Cancel"/>
+            <common-name value="Name: "/>
+            <tabrename-title value="Rename Current Tab"/>
+            <tabrename-newname value="New Name: "/>
+            <recent-file-history-maxfile value="Max File: "/>
+            <language-tabsize value="Tab Size: "/>
+            <userdefined-title-new value="Create New Language..."/>
+            <userdefined-title-save value="Save Current Language Name As..."/>
+            <userdefined-title-rename value="Rename Current Language Name"/>
+            <autocomplete-nb-char value="Nb char: "/>
+            <edit-verticaledge-nb-col value="Nb of Column:"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

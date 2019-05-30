@@ -494,7 +494,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 	winVer ver = pNppParameters->getWinVersion();
 	bool isGtXP = ver > WV_XP;
 
-	bool isSignatureOK = VerifySignedLibrary(updaterFullPath.c_str(), NPP_COMPONENT_SIGNER_KEY_ID, NPP_COMPONENT_SIGNER_SUBJECT, NPP_COMPONENT_SIGNER_DISPLAY_NAME, false, false, false);
+	SecurityGard securityGard;
+	bool isSignatureOK = securityGard.checkModule(updaterFullPath, nm_gup);
 
 	if (TheFirstOne && isUpExist && doUpdate && isGtXP && isSignatureOK)
 	{

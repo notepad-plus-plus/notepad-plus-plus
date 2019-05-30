@@ -1,7 +1,8 @@
 // Scintilla source code edit control
+// Encoding: UTF-8
 /** @file LexMMIXAL.cxx
  ** Lexer for MMIX Assembler Language.
- ** Written by Christoph Hösler <christoph.hoesler@student.uni-tuebingen.de>
+ ** Written by Christoph HÃ¶sler <christoph.hoesler@student.uni-tuebingen.de>
  ** For information about MMIX visit http://www-cs-faculty.stanford.edu/~knuth/mmix.html
  **/
 // Copyright 1998-2003 by Neil Hodgson <neilh@scintilla.org>
@@ -25,9 +26,7 @@
 #include "CharacterSet.h"
 #include "LexerModule.h"
 
-#ifdef SCI_NAMESPACE
 using namespace Scintilla;
-#endif
 
 
 static inline bool IsAWordChar(const int ch) {
@@ -47,7 +46,7 @@ inline bool isMMIXALOperator(char ch) {
 	return false;
 }
 
-static void ColouriseMMIXALDoc(unsigned int startPos, int length, int initStyle, WordList *keywordlists[],
+static void ColouriseMMIXALDoc(Sci_PositionU startPos, Sci_Position length, int initStyle, WordList *keywordlists[],
                             Accessor &styler) {
 
 	WordList &opcodes = *keywordlists[0];

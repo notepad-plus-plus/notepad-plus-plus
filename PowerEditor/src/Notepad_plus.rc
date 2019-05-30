@@ -65,6 +65,7 @@ IDI_M30ICON                     ICON      "icons/npp.ico"
 IDI_CHAMELEON                   ICON      "icons/chameleon.ico"
 //IDI_JESUISCHARLIE               ICON      "icons/Je_suis_Charlie.ico"
 //IDI_GILETJAUNE               ICON      "icons/giletJaune.ico"
+IDI_SAMESEXMARRIAGE               ICON      "icons/same-sexMarriageTaiwan.ico"
 IDI_NEW_OFF_ICON                ICON      "icons/new_off.ico"
 IDI_OPEN_OFF_ICON               ICON      "icons/open_off.ico"
 IDI_SAVE_OFF_ICON               ICON      "icons/save_off.ico"
@@ -249,6 +250,7 @@ BEGIN
 			MENUITEM "Close All but Active Document",    IDM_FILE_CLOSEALL_BUT_CURRENT
 			MENUITEM "Close All to the Left",			 IDM_FILE_CLOSEALL_TOLEFT
 			MENUITEM "Close All to the Right",			 IDM_FILE_CLOSEALL_TORIGHT
+			MENUITEM "Close All Unchanged",				 IDM_FILE_CLOSEALL_UNCHANGED
 		END
         MENUITEM "Move to Recycle Bin",              IDM_FILE_DELETE
         MENUITEM SEPARATOR
@@ -459,6 +461,14 @@ BEGIN
         MENUITEM "Post-It",                    IDM_VIEW_POSTIT
 
         MENUITEM SEPARATOR
+		POPUP "View Current File in"
+		BEGIN
+			MENUITEM "Firefox", IDM_VIEW_IN_FIREFOX
+			MENUITEM "Chrome", IDM_VIEW_IN_CHROME
+			MENUITEM "Edge", IDM_VIEW_IN_EDGE
+			MENUITEM "IE", IDM_VIEW_IN_IE
+		END
+		MENUITEM SEPARATOR
         POPUP "Show Symbol"
         BEGIN
             MENUITEM "Show White Space and TAB",    IDM_VIEW_TAB_SPACE
@@ -913,7 +923,7 @@ BEGIN
 
     POPUP "Se&ttings"
     BEGIN
-        MENUITEM "Preferences...",          IDM_SETTING_PREFERECE
+        MENUITEM "Preferences...",          IDM_SETTING_PREFERENCE
         MENUITEM "Style Configurator...",   IDM_LANGSTYLE_CONFIG_DLG
         MENUITEM "Shortcut Mapper...",      IDM_SETTING_SHORTCUT_MAPPER
         MENUITEM SEPARATOR
@@ -999,6 +1009,7 @@ BEGIN
     CONTROL         "",IDI_CHAMELEON,"Static",SS_OWNERDRAW,20,5,64,64
     //CONTROL         "",IDI_JESUISCHARLIE,"Static",SS_OWNERDRAW,20,5,64,64
     //CONTROL         "",IDI_GILETJAUNE,"Static",SS_OWNERDRAW,20,5,64,64
+	CONTROL         "", IDI_SAMESEXMARRIAGE,"Static",SS_OWNERDRAW,20,5,64,64
     LTEXT           NOTEPAD_PLUS_VERSION, IDC_STATIC,70,20,140,11
     LTEXT           "bit",IDC_VERSION_BIT,150,20,140,11
     LTEXT           "Author :",IDC_STATIC,21,45,31,8

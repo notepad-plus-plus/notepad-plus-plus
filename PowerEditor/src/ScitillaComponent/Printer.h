@@ -39,7 +39,7 @@ struct NPP_RangeToFormat {
 	HDC hdcTarget;
 	RECT rc;
 	RECT rcPage;
-	CharacterRange chrg;
+	Sci_CharacterRange chrg;
 };
 
 class Printer

@@ -8,9 +8,7 @@
 #ifndef CHARACTERSET_H
 #define CHARACTERSET_H
 
-#ifdef SCI_NAMESPACE
 namespace Scintilla {
-#endif
 
 class CharacterSet {
 	int size;
@@ -48,9 +46,20 @@ public:
 			bset[i] = other.bset[i];
 		}
 	}
+	CharacterSet &operator=(CharacterSet &&other) {
+		if (this != &other) {
+			delete []bset;
+			size = other.size;
+			valueAfter = other.valueAfter;
+			bset = other.bset;
+			other.size = 0;
+			other.bset = nullptr;
+		}
+		return *this;
+	}
 	~CharacterSet() {
 		delete []bset;
-		bset = 0;
+		bset = nullptr;
 		size = 0;
 	}
 	CharacterSet &operator=(const CharacterSet &other) {
@@ -158,20 +167,27 @@ inline bool isoperator(int ch) {
 	return false;
 }
 
-// Simple case functions for ASCII.
+// Simple case functions for ASCII supersets.
 
-inline char MakeUpperCase(char ch) {
+template <typename T>
+inline T MakeUpperCase(T ch) {
 	if (ch < 'a' || ch > 'z')
 		return ch;
 	else
-		return static_cast<char>(ch - 'a' + 'A');
+		return ch - 'a' + 'A';
+}
+
+template <typename T>
+inline T MakeLowerCase(T ch) {
+	if (ch < 'A' || ch > 'Z')
+		return ch;
+	else
+		return ch - 'A' + 'a';
 }
 
 int CompareCaseInsensitive(const char *a, const char *b);
 int CompareNCaseInsensitive(const char *a, const char *b, size_t len);
 
-#ifdef SCI_NAMESPACE
 }
-#endif
 
 #endif

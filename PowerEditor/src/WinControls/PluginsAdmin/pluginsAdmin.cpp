@@ -487,7 +487,17 @@ bool PluginsAdminDlg::exitToInstallRemovePlugins(Operation op, const vector<Plug
 		{
 			// add folder to operate
 			updaterParams += TEXT(" \"");
-			updaterParams += i->_folderName;
+			generic_string folderName = i->_folderName;
+			if (folderName.empty())
+			{
+				auto lastindex = i->_displayName.find_last_of(TEXT("."));
+				if (lastindex != generic_string::npos)
+					folderName = i->_displayName.substr(0, lastindex);
+				else
+					folderName = i->_displayName;	// This case will never occur, but in case if it occurs too
+													// just putting the plugin name, so that whole plugin system is not screewed.
+			}
+			updaterParams += folderName;
 			updaterParams += TEXT("\"");
 		}
 	}
@@ -714,11 +724,13 @@ bool PluginsAdminDlg::isValide()
 
 	// check the signature on default location : %APPDATA%\Notepad++\plugins\config\pl\nppPluginList.dll or NPP_INST_DIR\plugins\config\pl\nppPluginList.dll
 	
-	bool isOK = VerifySignedLibrary(_pluginListFullPath.c_str(), NPP_COMPONENT_SIGNER_KEY_ID, NPP_COMPONENT_SIGNER_SUBJECT, NPP_COMPONENT_SIGNER_DISPLAY_NAME, false, false, false);
+	SecurityGard securityGard;
+	bool isOK = securityGard.checkModule(_pluginListFullPath, nm_pluginList);
+
 	if (!isOK)
 		return isOK;
 
-	isOK = VerifySignedLibrary(_updaterFullPath.c_str(), NPP_COMPONENT_SIGNER_KEY_ID, NPP_COMPONENT_SIGNER_SUBJECT, NPP_COMPONENT_SIGNER_DISPLAY_NAME, false, false, false);
+	isOK = securityGard.checkModule(_updaterFullPath, nm_gup);
 	return isOK;
 #endif
 }

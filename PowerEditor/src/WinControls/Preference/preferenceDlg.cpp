@@ -810,8 +810,11 @@ INT_PTR CALLBACK MarginsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 				{
 					ScintillaViewParams & svp = (ScintillaViewParams &)pNppParam->getSVP();
 
+					NativeLangSpeaker *pNativeSpeaker = pNppParam->getNativeLangSpeaker();
+					generic_string strNbCol = pNativeSpeaker->getLocalizedStrFromID("edit-verticaledge-nb-col", TEXT("Nb of column:"));
+
 					ValueDlg nbColumnEdgeDlg;
-					nbColumnEdgeDlg.init(NULL, _hSelf, svp._edgeNbColumn, TEXT("Nb of column:"));
+					nbColumnEdgeDlg.init(NULL, _hSelf, svp._edgeNbColumn, strNbCol.c_str());
 					nbColumnEdgeDlg.setNBNumber(3);
 
 					POINT p;
@@ -868,6 +871,9 @@ INT_PTR CALLBACK MarginsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 	return FALSE;
 }
 
+const size_t fileUpdateChoiceEnable = 0;
+const size_t fileUpdateChoiceEnable4All = 1;
+const size_t fileUpdateChoiceDisable = 2;
 INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppParameters *pNppParam = NppParameters::getInstance();
@@ -876,31 +882,35 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 	{
 		case WM_INITDIALOG :
 		{
-			if (nppGUI._fileAutoDetection == cdEnabled)
+			::SendDlgItemMessage(_hSelf, IDC_COMBO_FILEUPDATECHOICE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(TEXT("Enable")));
+			::SendDlgItemMessage(_hSelf, IDC_COMBO_FILEUPDATECHOICE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(TEXT("Enable for all opened files")));
+			::SendDlgItemMessage(_hSelf, IDC_COMBO_FILEUPDATECHOICE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(TEXT("Disable")));
+
+			int selIndex = -1;
+			
+			if (nppGUI._fileAutoDetection & cdEnabledOld)
 			{
-				::SendDlgItemMessage(_hSelf, IDC_CHECK_FILEAUTODETECTION, BM_SETCHECK, BST_CHECKED, 0);
+				selIndex = fileUpdateChoiceEnable4All;
 			}
-			else if (nppGUI._fileAutoDetection == cdAutoUpdate)
-			{
-				::SendDlgItemMessage(_hSelf, IDC_CHECK_FILEAUTODETECTION, BM_SETCHECK, BST_CHECKED, 0);
-				::SendDlgItemMessage(_hSelf, IDC_CHECK_UPDATESILENTLY, BM_SETCHECK, BST_CHECKED, 0);
-			}
-			else if (nppGUI._fileAutoDetection == cdGo2end)
-			{
-				::SendDlgItemMessage(_hSelf, IDC_CHECK_FILEAUTODETECTION, BM_SETCHECK, BST_CHECKED, 0);
-				::SendDlgItemMessage(_hSelf, IDC_CHECK_UPDATEGOTOEOF, BM_SETCHECK, BST_CHECKED, 0);
-			}
-			else if (nppGUI._fileAutoDetection == cdAutoUpdateGo2end)
-			{
-				::SendDlgItemMessage(_hSelf, IDC_CHECK_FILEAUTODETECTION, BM_SETCHECK, BST_CHECKED, 0);
-				::SendDlgItemMessage(_hSelf, IDC_CHECK_UPDATESILENTLY, BM_SETCHECK, BST_CHECKED, 0);
-				::SendDlgItemMessage(_hSelf, IDC_CHECK_UPDATEGOTOEOF, BM_SETCHECK, BST_CHECKED, 0);
+			else if (nppGUI._fileAutoDetection & cdEnabledNew)
+			{				
+				selIndex = fileUpdateChoiceEnable;
 			}
 			else //cdDisabled
 			{
 				::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_UPDATESILENTLY), FALSE);
 				::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_UPDATEGOTOEOF), FALSE);
+				
+				selIndex = fileUpdateChoiceDisable;
 			}
+			
+			::SendDlgItemMessage(_hSelf, IDC_COMBO_FILEUPDATECHOICE, CB_SETCURSEL, selIndex, 0);
+
+			bool bCheck = (nppGUI._fileAutoDetection & cdAutoUpdate) ? true : false;
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_UPDATESILENTLY, BM_SETCHECK, bCheck? BST_CHECKED: BST_UNCHECKED, 0);
+
+			bCheck = (nppGUI._fileAutoDetection & cdGo2end) ? true : false;
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_UPDATEGOTOEOF, BM_SETCHECK, bCheck ? BST_CHECKED : BST_UNCHECKED, 0);
 
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_MIN2SYSTRAY, BM_SETCHECK, nppGUI._isMinimizedToTray, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_DETECTENCODING, BM_SETCHECK, nppGUI._detectEncoding, 0);
@@ -972,48 +982,28 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			
 			switch (wParam)
 			{
-				case IDC_CHECK_FILEAUTODETECTION:
-				{
-					bool isChecked = isCheckedOrNot(IDC_CHECK_FILEAUTODETECTION);
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_UPDATESILENTLY), isChecked);
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_UPDATEGOTOEOF), isChecked);
-
-					bool isSilent = isCheckedOrNot(IDC_CHECK_UPDATESILENTLY);
-					bool isGo2End = isCheckedOrNot(IDC_CHECK_UPDATEGOTOEOF);
-
-					ChangeDetect cd;
-
-					if (!isChecked)
-						cd = cdDisabled;
-					else if (!isSilent && !isGo2End)
-						cd = cdEnabled;
-					else if (!isSilent && isGo2End)
-						cd = cdGo2end;
-					else if (isSilent && !isGo2End)
-						cd = cdAutoUpdate;
-					else //(isSilent && isGo2End)
-						cd = cdAutoUpdateGo2end;
-
-					nppGUI._fileAutoDetection = cd;
-				}
-				return TRUE;
-
 				case IDC_CHECK_UPDATESILENTLY:
 				case IDC_CHECK_UPDATEGOTOEOF:
 				{
 					bool isSilent = isCheckedOrNot(IDC_CHECK_UPDATESILENTLY);
 					bool isGo2End = isCheckedOrNot(IDC_CHECK_UPDATEGOTOEOF);
 
-					ChangeDetect cd;
+					auto index = ::SendDlgItemMessage(_hSelf, IDC_COMBO_FILEUPDATECHOICE, CB_GETCURSEL, 0, 0);
 
-					if (!isSilent && !isGo2End)
-						cd = cdEnabled;
-					else if (!isSilent && isGo2End)
-						cd = cdGo2end;
-					else if (isSilent && !isGo2End)
-						cd = cdAutoUpdate;
-					else //(isSilent && isGo2End)
-						cd = cdAutoUpdateGo2end;
+					int cd = cdDisabled;
+
+					if (index == fileUpdateChoiceEnable || index == fileUpdateChoiceEnable4All)
+					{
+						if (index == fileUpdateChoiceEnable4All)
+							cd |= cdEnabledOld;
+						else
+							cd |= cdEnabledNew;
+
+						if (isSilent)
+							cd |= cdAutoUpdate;
+						if (isGo2End)
+							cd |= cdGo2end;
+					}
 
 					nppGUI._fileAutoDetection = cd;
 				}
@@ -1100,6 +1090,49 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 				{
 					nppGUI._isDocPeekOnMap = isCheckedOrNot(IDC_CHECK_ENABLEDOCPEEKONMAP);
 					return TRUE;
+				}
+				
+				default:
+				{
+					if (HIWORD(wParam) == CBN_SELCHANGE)
+					{
+						if (LOWORD(wParam) == IDC_COMBO_FILEUPDATECHOICE)
+						{
+							auto index = ::SendDlgItemMessage(_hSelf, IDC_COMBO_FILEUPDATECHOICE, CB_GETCURSEL, 0, 0);
+							
+							if (index == fileUpdateChoiceEnable || index == fileUpdateChoiceEnable4All)
+							{
+								bool isSilent = isCheckedOrNot(IDC_CHECK_UPDATESILENTLY);
+								bool isGo2End = isCheckedOrNot(IDC_CHECK_UPDATEGOTOEOF);
+
+								int cd = cdDisabled;
+
+								if (index == fileUpdateChoiceEnable4All)
+									cd |= cdEnabledOld;
+								else
+									cd |= cdEnabledNew;
+
+								if (isSilent)
+									cd |= cdAutoUpdate;
+								if (isGo2End)
+									cd |= cdGo2end;
+
+								nppGUI._fileAutoDetection = cd;
+								
+								::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_UPDATESILENTLY), TRUE);
+								::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_UPDATEGOTOEOF), TRUE);
+							}
+							else if (index == fileUpdateChoiceDisable)
+							{
+								::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_UPDATESILENTLY), FALSE);
+								::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_UPDATEGOTOEOF), FALSE);
+								
+								nppGUI._fileAutoDetection = cdDisabled;
+							}
+							
+							return TRUE;
+						}
+					}
 				}
 			}
 		}
@@ -1417,6 +1450,7 @@ INT_PTR CALLBACK RecentFilesHistoryDlg::run_dlgProc(UINT message, WPARAM wParam,
 {
 	NppParameters *pNppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = (NppGUI & )pNppParam->getNppGUI();
+	NativeLangSpeaker *pNativeSpeaker = pNppParam->getNativeLangSpeaker();
 
 	switch (message) 
 	{
@@ -1474,8 +1508,9 @@ INT_PTR CALLBACK RecentFilesHistoryDlg::run_dlgProc(UINT message, WPARAM wParam,
 
 				case IDC_MAXNBFILEVAL_STATIC:
 				{
+					generic_string staticText = pNativeSpeaker->getLocalizedStrFromID("recent-file-history-maxfile", TEXT("Max File: "));
 					ValueDlg nbFileMaxDlg;
-					nbFileMaxDlg.init(NULL, _hSelf, pNppParam->getNbMaxRecentFile(), TEXT("Max File: "));
+					nbFileMaxDlg.init(NULL, _hSelf, pNppParam->getNbMaxRecentFile(), staticText.c_str());
 					
 					POINT p;
 					::GetCursorPos(&p);
@@ -1552,6 +1587,7 @@ INT_PTR CALLBACK LangMenuDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 {
 	NppParameters *pNppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = const_cast<NppGUI &>(pNppParam->getNppGUI());
+	NativeLangSpeaker *pNativeSpeaker = pNppParam->getNativeLangSpeaker();
 
 	switch (message) 
 	{
@@ -1786,7 +1822,7 @@ INT_PTR CALLBACK LangMenuDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					if ((lmi._langType >= L_EXTERNAL) && (lmi._langType < pNppParam->L_END))
 					{
 						bool found(false);
-						for(size_t x = 0; x < pNppParam->getExternalLexerDoc()->size() && !found; ++x)
+						for (size_t x = 0; x < pNppParam->getExternalLexerDoc()->size() && !found; ++x)
 						{
 							TiXmlNode *lexersRoot = pNppParam->getExternalLexerDoc()->at(x)->FirstChild(TEXT("NotepadPlus"))->FirstChildElement(TEXT("LexerStyles"));
 							for (TiXmlNode *childNode = lexersRoot->FirstChildElement(TEXT("LexerType"));
@@ -1838,8 +1874,9 @@ INT_PTR CALLBACK LangMenuDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				//
 				case IDC_TABSIZEVAL_STATIC:
 				{
+					generic_string staticText = pNativeSpeaker->getLocalizedStrFromID("language-tabsize", TEXT("Tab Size: "));
 					ValueDlg tabSizeDlg;
-					tabSizeDlg.init(_hInst, _hParent, nppGUI._tabSize, TEXT("Tab Size : "));
+					tabSizeDlg.init(_hInst, _hParent, nppGUI._tabSize, staticText.c_str());
 					POINT p;
 					::GetCursorPos(&p);
 					int size = tabSizeDlg.doDialog(p);
@@ -2099,7 +2136,7 @@ void trim(generic_string & str)
 	{
 		str.erase(pos + 1);
 		pos = str.find_first_not_of(' ');
-		if(pos != generic_string::npos) str.erase(0, pos);
+		if (pos != generic_string::npos) str.erase(0, pos);
 	}
 	else str.erase(str.begin(), str.end());
 };
@@ -2146,7 +2183,7 @@ INT_PTR CALLBACK PrintSettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			::SetDlgItemText(_hSelf, IDC_EDIT_FRIGHT, nppGUI._printSettings._footerRight.c_str());
 
 			TCHAR intStr[5];
-			for(size_t i = 6 ; i < 15 ; ++i)
+			for (size_t i = 6 ; i < 15 ; ++i)
 			{
 				wsprintf(intStr, TEXT("%d"), i);
 				::SendDlgItemMessage(_hSelf, IDC_COMBO_HFONTSIZE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(intStr));
@@ -2836,8 +2873,11 @@ INT_PTR CALLBACK AutoCompletionDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 					const int NB_MIN_CHAR = 1;
 					const int NB_MAX_CHAR = 9;
 
+					NativeLangSpeaker *pNativeSpeaker = pNppParam->getNativeLangSpeaker();
+					generic_string strNbChar = pNativeSpeaker->getLocalizedStrFromID("autocomplete-nb-char", TEXT("Nb char : "));
+
 					ValueDlg valDlg;
-					valDlg.init(NULL, _hSelf, static_cast<int32_t>(nppGUI._autocFromLen), TEXT("Nb char : "));
+					valDlg.init(NULL, _hSelf, static_cast<int32_t>(nppGUI._autocFromLen), strNbChar.c_str());
 					valDlg.setNBNumber(1);
 
 					POINT p;

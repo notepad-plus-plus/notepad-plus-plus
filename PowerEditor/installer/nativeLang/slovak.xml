@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-	<Native-Langue name="Slovenčina" filename="slovak.xml" version="7.5.6">
+	<Native-Langue name="Slovenčina" filename="slovak.xml" version="7.6.2">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -15,7 +15,7 @@
 					<Item menuId="tools" name="Nás&amp;troje"/>
 					<Item menuId="macro" name="&amp;Makro"/>
 					<Item menuId="run" name="Sp&amp;ustiť"/>
-					<Item idName="Plugins" name="&amp;Rozšírenia"/>
+					<Item idName="Plugins" name="&amp;Doplnky"/>
 					<Item idName="Window" name="&amp;Okná"/>
 				</Entries>
 
@@ -65,6 +65,7 @@
 					<Item subMenuId="encoding-vietnamese" name="Vietnamčina"/>
 					<Item subMenuId="settings-import"  name="Import"/>
 					<Item subMenuId="tools-md5"  name="MD5"/>
+					<Item subMenuId="tools-sha256" name="SHA-256"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -100,7 +101,7 @@
                     <Item id="42005" name="&amp;Prilepiť"/>
 					<Item id="42006" name="&amp;Odstrániť"/>
                     <Item id="42007" name="Vybrať všetko"/>
-                    <Item id="42020" name="Výbrať Začiatok/Koniec"/>
+                    <Item id="42020" name="Vybrať Začiatok/Koniec"/>
                     <Item id="42008" name="Zväčšiť odsadenie riadka"/>
                     <Item id="42009" name="Zmenšiť odsadenie riadka"/>
                     <Item id="42010" name="Duplikovať aktuálny riadok"/>
@@ -292,18 +293,22 @@
                     <Item id="47004" name="Notepad++ komunita (Fórum)"/>
 					<Item id="47011" name="Online podpora"/>
 					<Item id="47012" name="Informácie pre ladenie..."/>
-					<Item id="47005" name="Získať viac rozšírení"/>
+					<Item id="47005" name="Získať viac doplnkov"/>
 					<Item id="47006" name="Aktualizovať Notepad++"/>
 					<Item id="47009" name="Nastaviť proxy server pre aktualizáciu..."/>
 
-                    <Item id="48005" name="Importovať rozšírenie(-ia)..."/>
-                    <Item id="48006" name="Importovať tému(-y)..."/>
-					<Item id="48018" name="Upraviť vyskakovacie kontextové menu"/>
+                    <Item id="48005" name="Importovať doplnky..."/>
+                    <Item id="48006" name="Importovať témy..."/>
+					<Item id="48018" name="Úprava kontextového menu"/>
                     <Item id="48009" name="Nastavenie klávesových skratiek..."/>
                     <Item id="48011" name="Preferencie..."/>
+                    <Item id="48015" name="Správa doplnkov..."/>
                     <Item id="48501" name="Vytvoriť..."/>
                     <Item id="48502" name="Vytvoriť zo súborov..."/>
-                    <Item id="48503" name="Vytvoriť do schránky"/>
+                    <Item id="48503" name="Vytvoriť z výberu do schránky"/>
+                    <Item id="48504" name="Vytvoriť..."/>
+                    <Item id="48505" name="Vytvoriť zo súborov..."/>
+                    <Item id="48506" name="Vytvoriť z výberu do schránky"/>
 
 					<Item id="49000" name="&amp;Spustiť..."/>
 
@@ -427,6 +432,29 @@
                 <Item id="2"    name="Zatvoriť"/>
             </MD5FromTextDlg>
 
+            <SHA256FromFilesDlg title="Vytvoriť SHA-256 kontrolný súčet zo súborov">
+		<Item id="1922" name="Vybrať súbory pre generovanie SHA-256..."/>
+		<Item id="1924" name="Skopírovať do schránky"/>
+		<Item id="2" name="Zatvoriť"/>
+	    </SHA256FromFilesDlg>
+
+	    <SHA256FromTextDlg title="Vytvoriť SHA-256 kontrolný súčet">
+		<Item id="1932" name="Každý riadok ako samostatný textový reťazec"/>
+		<Item id="1934" name="Skopírovať do schránky"/>
+		<Item id="2" name="Zatvoriť"/>
+	    </SHA256FromTextDlg>
+
+	    <PluginsAdminDlg title="Správa doplnkov" titleAvailable = "Dostupné" titleUpdates = "Aktualizácie" titleInstalled = "Nainštalované">
+		<ColumnPlugin name="Doplnok"/>
+		<ColumnVersion name="Verzia"/>
+		<Item id="5501" name="Hľadať:"/>
+		<Item id="5503" name="Inštalovať"/>
+		<Item id="5504" name="Aktualizovať"/>
+		<Item id="5505" name="Odstrániť"/>
+		<Item id="5508" name="Ďalší"/>
+		<Item id="2" name="Zatvoriť"/>
+	    </PluginsAdminDlg>
+
             <StyleConfig title="Nastavenie štýlov">
 				<Item id="2" 	name="Zrušiť"/>
 				<Item id="2301" name="Uložiť a zatvoriť"/>
@@ -467,11 +495,11 @@
                 <ColumnName name="Názov"/>
                 <ColumnShortcut name="Skratka"/>
                 <ColumnCategory name="Kategória"/>
-                <ColumnPlugin name="Rozšírenie"/>
+                <ColumnPlugin name="Doplnok"/>
                 <MainMenuTab name="Hlavné menu"/>
                 <MacrosTab name="Makrá"/>
                 <RunCommandsTab name="Ponuka Spustiť"/>
-                <PluginCommandsTab name="Príkazy rozšírení"/>
+                <PluginCommandsTab name="Príkazy doplnkov"/>
                 <ScintillaCommandsTab name="Príkazy editora Scintilla"/>
                 <ConflictInfoOk name="Žiadne konflikty pre túto položku."/>
                 <ConflictInfoEditing name="Žiadne konflikty . . ."/>

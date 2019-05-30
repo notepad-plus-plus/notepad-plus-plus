@@ -25,17 +25,15 @@
 #include "CharacterSet.h"
 #include "LexerModule.h"
 
-#ifdef SCI_NAMESPACE
 using namespace Scintilla;
-#endif
 
 /*
  * Interface
  */
 
 static void ColouriseDocument(
-    unsigned int startPos,
-    int length,
+    Sci_PositionU startPos,
+    Sci_Position length,
     int initStyle,
     WordList *keywordlists[],
     Accessor &styler);
@@ -222,8 +220,8 @@ static void ColouriseWord(StyleContext& sc, WordList& keywords, bool& apostrophe
 //
 
 static void ColouriseDocument(
-    unsigned int startPos,
-    int length,
+    Sci_PositionU startPos,
+    Sci_Position length,
     int initStyle,
     WordList *keywordlists[],
     Accessor &styler) {
@@ -231,7 +229,7 @@ static void ColouriseDocument(
 
 	StyleContext sc(startPos, length, initStyle, styler);
 
-	int lineCurrent = styler.GetLine(startPos);
+	Sci_Position lineCurrent = styler.GetLine(startPos);
 	bool apostropheStartsAttribute = (styler.GetLineState(lineCurrent) & 1) != 0;
 
 	while (sc.More()) {

@@ -8,15 +8,14 @@
 #ifndef KEYMAP_H
 #define KEYMAP_H
 
-#ifdef SCI_NAMESPACE
 namespace Scintilla {
-#endif
 
 #define SCI_NORM 0
 #define SCI_SHIFT SCMOD_SHIFT
 #define SCI_CTRL SCMOD_CTRL
 #define SCI_ALT SCMOD_ALT
 #define SCI_META SCMOD_META
+#define SCI_SUPER SCMOD_SUPER
 #define SCI_CSHIFT (SCI_CTRL | SCI_SHIFT)
 #define SCI_ASHIFT (SCI_ALT | SCI_SHIFT)
 
@@ -57,10 +56,9 @@ public:
 	void Clear();
 	void AssignCmdKey(int key, int modifiers, unsigned int msg);
 	unsigned int Find(int key, int modifiers) const;	// 0 returned on failure
+	const std::map<KeyModifiers, unsigned int> &GetKeyMap() const;
 };
 
-#ifdef SCI_NAMESPACE
 }
-#endif
 
 #endif

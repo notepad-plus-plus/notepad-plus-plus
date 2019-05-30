@@ -3243,7 +3243,7 @@ int BinarySearchListBox(HWND lbhWnd,TCHAR* searchtext)
 	 FOUND=FALSE;
 
 
-     while((!FOUND)&&((tail-head)>1))
+     while ((!FOUND)&&((tail-head)>1))
          {
                   finger = head + ((tail - head) / 2);
 				  lbTextLen = ::SendMessage(lbhWnd, LB_GETTEXTLEN, finger, 0);

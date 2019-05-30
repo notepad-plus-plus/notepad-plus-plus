@@ -1,8 +1,12 @@
 // Unit Tests for Scintilla internal data structures
 
-#include <string.h>
+#include <cstring>
 
+#include <string_view>
+#include <vector>
 #include <algorithm>
+#include <memory>
+#include <iostream>
 
 #include "Platform.h"
 
@@ -10,14 +14,16 @@
 
 #include "catch.hpp"
 
+using namespace Scintilla;
+
 // Test CharClassify.
 
 class CharClassifyTest {
-	// Avoid warnings, private so never called. 
-	CharClassifyTest(const CharClassifyTest &);
+	// Avoid warnings, deleted so never called.
+	CharClassifyTest(const CharClassifyTest &) = delete;
 protected:
 	CharClassifyTest() {
-		pcc = new CharClassify();
+		pcc.reset(new CharClassify());
 		for (int ch = 0; ch < 256; ch++) {
 			if (ch == '\r' || ch == '\n')
 				charClass[ch] = CharClassify::ccNewLine;
@@ -31,11 +37,9 @@ protected:
 	}
 
 	~CharClassifyTest() {
-		delete pcc;
-		pcc = 0;
 	}
 
-	CharClassify *pcc;
+	std::unique_ptr<CharClassify> pcc;
 	CharClassify::cc charClass[256];
 
 	static const char* GetClassName(CharClassify::cc charClass) {
@@ -92,30 +96,28 @@ TEST_CASE_METHOD(CharClassifyTest, "CharsOfClass") {
 	for (int classVal = 0; classVal < 4; ++classVal) {
 		CharClassify::cc thisClass = CharClassify::cc(classVal % 4);
 		int size = pcc->GetCharsOfClass(thisClass, NULL);
-		unsigned char* buffer = new unsigned char[size + 1];
-		buffer[size] = '\0';
-		pcc->GetCharsOfClass(thisClass, buffer);
+		std::vector<unsigned char> buffer(size+1);
+		pcc->GetCharsOfClass(thisClass, &buffer[0]);
 		for (int i = 1; i < 256; i++) {
 			if (charClass[i] == thisClass) {
-				if (!memchr(reinterpret_cast<char*>(buffer), i, size))
+				if (!memchr(reinterpret_cast<char*>(&buffer[0]), i, size))
 					std::cerr
 					<< "Character " << i
 					<< " should be class " << GetClassName(thisClass)
 					<< ", but was not in GetCharsOfClass;"
 					<< " it is reported to be "
 					<< GetClassName(pcc->GetClass(i)) << std::endl;
-				REQUIRE(memchr(reinterpret_cast<char*>(buffer), i, size));
+				REQUIRE(memchr(reinterpret_cast<char*>(&buffer[0]), i, size));
 			} else {
-				if (memchr(reinterpret_cast<char*>(buffer), i, size))
+				if (memchr(reinterpret_cast<char*>(&buffer[0]), i, size))
 					std::cerr
 					<< "Character " << i
 					<< " should not be class " << GetClassName(thisClass)
 					<< ", but was in GetCharsOfClass"
 					<< " it is reported to be "
 					<< GetClassName(pcc->GetClass(i)) << std::endl;
-				REQUIRE_FALSE(memchr(reinterpret_cast<char*>(buffer), i, size));
+				REQUIRE_FALSE(memchr(reinterpret_cast<char*>(&buffer[0]), i, size));
 			}
 		}
-		delete []buffer;
 	}
 }

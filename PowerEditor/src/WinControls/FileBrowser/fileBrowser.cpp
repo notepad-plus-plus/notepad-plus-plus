@@ -251,7 +251,8 @@ void FileBrowser::initPopupMenus()
 	generic_string addRoot = pNativeSpeaker->getFileBrowserLangMenuStr(IDM_FILEBROWSER_ADDROOT, FB_ADDROOT);
 	generic_string removeAllRoot = pNativeSpeaker->getFileBrowserLangMenuStr(IDM_FILEBROWSER_REMOVEALLROOTS, FB_REMOVEALLROOTS);
 	generic_string removeRootFolder = pNativeSpeaker->getFileBrowserLangMenuStr(IDM_FILEBROWSER_REMOVEROOTFOLDER, FB_REMOVEROOTFOLDER);
-	generic_string copyPath = pNativeSpeaker->getFileBrowserLangMenuStr(IDM_FILEBROWSER_COPYEPATH, FB_COPYEPATH);
+	generic_string copyPath = pNativeSpeaker->getFileBrowserLangMenuStr(IDM_FILEBROWSER_COPYPATH, FB_COPYPATH);
+	generic_string copyFileName = pNativeSpeaker->getFileBrowserLangMenuStr(IDM_FILEBROWSER_COPYFILENAME, FB_COPYFILENAME);
 	generic_string findInFile = pNativeSpeaker->getFileBrowserLangMenuStr(IDM_FILEBROWSER_FINDINFILES, FB_FINDINFILES);
 	generic_string explorerHere = pNativeSpeaker->getFileBrowserLangMenuStr(IDM_FILEBROWSER_EXPLORERHERE, FB_EXPLORERHERE);
 	generic_string cmdHere = pNativeSpeaker->getFileBrowserLangMenuStr(IDM_FILEBROWSER_CMDHERE, FB_CMDHERE);
@@ -265,14 +266,14 @@ void FileBrowser::initPopupMenus()
 	_hRootMenu = ::CreatePopupMenu();
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_REMOVEROOTFOLDER, removeRootFolder.c_str());
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, static_cast<UINT>(-1), 0);
-	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_COPYEPATH, copyPath.c_str());
+	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_COPYPATH, copyPath.c_str());
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_FINDINFILES, findInFile.c_str());
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, static_cast<UINT>(-1), 0);
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_EXPLORERHERE, explorerHere.c_str());
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_CMDHERE, cmdHere.c_str());
 
 	_hFolderMenu = ::CreatePopupMenu();
-	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_COPYEPATH, copyPath.c_str());
+	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_COPYPATH, copyPath.c_str());
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_FINDINFILES, findInFile.c_str());
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, static_cast<UINT>(-1), 0);
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_EXPLORERHERE, explorerHere.c_str());
@@ -281,7 +282,8 @@ void FileBrowser::initPopupMenus()
 	_hFileMenu = ::CreatePopupMenu();
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_OPENINNPP, openInNpp.c_str());
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, static_cast<UINT>(-1), 0);
-	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_COPYEPATH, copyPath.c_str());
+	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_COPYPATH, copyPath.c_str());
+	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_COPYFILENAME, copyFileName.c_str());
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_SHELLEXECUTE, shellExecute.c_str());
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, static_cast<UINT>(-1), 0);
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_EXPLORERHERE, explorerHere.c_str());
@@ -380,6 +382,11 @@ generic_string FileBrowser::getNodePath(HTREEITEM node) const
 	}
 
 	return fullPath;
+}
+
+generic_string FileBrowser::getNodeName(HTREEITEM node) const
+{
+	return node ? _treeView.getItemDisplayName(node) : TEXT("");
 }
 
 void FileBrowser::openSelectFile()
@@ -688,18 +695,26 @@ void FileBrowser::popupMenuCmd(int cmdID)
 			if (::PathFileExists(path.c_str()))
 			{
 				TCHAR cmdStr[1024];
-				wsprintf(cmdStr, TEXT("cmd /K cd /d \"%s\""), path.c_str());
+				wsprintf(cmdStr, TEXT("cmd"));
 				Command cmd(cmdStr);
-				cmd.run(nullptr);
+				cmd.run(nullptr, path.c_str());
 			}
 		}
 		break;
 
-		case IDM_FILEBROWSER_COPYEPATH:
+		case IDM_FILEBROWSER_COPYPATH:
 		{
 			if (not selectedNode) return;
 			generic_string path = getNodePath(selectedNode);
 			str2Clipboard(path, _hParent);
+		}
+		break;
+
+		case IDM_FILEBROWSER_COPYFILENAME:
+		{
+			if (not selectedNode) return;
+			generic_string fileName = getNodeName(selectedNode);
+			str2Clipboard(fileName, _hParent);
 		}
 		break;
 
@@ -1027,7 +1042,7 @@ generic_string FileBrowser::getSelectedItemPath() const
 	return itemPath;
 }
 
-bool FileBrowser::addInTree(generic_string rootPath, generic_string addItemFullPath, HTREEITEM node, vector<generic_string> linarPathArray)
+bool FileBrowser::addInTree(const generic_string& rootPath, const generic_string& addItemFullPath, HTREEITEM node, vector<generic_string> linarPathArray)
 {
 	if (node == nullptr) // it's a root. Search the right root with rootPath
 	{
@@ -1083,7 +1098,7 @@ bool FileBrowser::addInTree(generic_string rootPath, generic_string addItemFullP
 	}
 }
 
-HTREEITEM FileBrowser::findInTree(generic_string rootPath, HTREEITEM node, std::vector<generic_string> linarPathArray)
+HTREEITEM FileBrowser::findInTree(const generic_string& rootPath, HTREEITEM node, std::vector<generic_string> linarPathArray)
 {
 	if (node == nullptr) // it's a root. Search the right root with rootPath
 	{
@@ -1122,7 +1137,7 @@ HTREEITEM FileBrowser::findInTree(generic_string rootPath, HTREEITEM node, std::
 	}
 }
 
-bool FileBrowser::deleteFromTree(generic_string rootPath, HTREEITEM node, std::vector<generic_string> linarPathArray)
+bool FileBrowser::deleteFromTree(const generic_string& rootPath, HTREEITEM node, std::vector<generic_string> linarPathArray)
 	{
 	HTREEITEM foundItem = findInTree(rootPath, node, linarPathArray);
 	if (foundItem == nullptr)
@@ -1133,7 +1148,7 @@ bool FileBrowser::deleteFromTree(generic_string rootPath, HTREEITEM node, std::v
 	return true;
 	}
 
-bool FileBrowser::renameInTree(generic_string rootPath, HTREEITEM node, std::vector<generic_string> linarPathArrayFrom, const generic_string & renameTo)
+bool FileBrowser::renameInTree(const generic_string& rootPath, HTREEITEM node, std::vector<generic_string> linarPathArrayFrom, const generic_string & renameTo)
 	{
 	HTREEITEM foundItem = findInTree(rootPath, node, linarPathArrayFrom);
 	if (foundItem == nullptr)

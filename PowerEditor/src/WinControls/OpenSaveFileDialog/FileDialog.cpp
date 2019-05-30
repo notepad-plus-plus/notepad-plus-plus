@@ -70,11 +70,8 @@ FileDialog::FileDialog(HWND hwnd, HINSTANCE hInst)
 
 FileDialog::~FileDialog()
 {
-	if (_fileExt)
-	{
-		delete[] _fileExt;
-		_fileExt = NULL;
-	}
+	delete[] _fileExt;
+	_fileExt = NULL;
 }
 
 // This function set and concatenate the filter into the list box of FileDialog.
@@ -474,15 +471,19 @@ BOOL APIENTRY FileDialog::run(HWND hWnd, UINT uMsg, WPARAM, LPARAM lParam)
 					{
 						// change to backslash, and insert trailing '\' to indicate directory
 						hFileDlg = ::GetParent(hWnd);
-						std::wstring _fnStr(fileName);
-						std::replace(_fnStr.begin(), _fnStr.end(), '/', '\\');
+						std::wstring filePath(fileName);
+						std::replace(filePath.begin(), filePath.end(), '/', '\\');
 
-						if (_fnStr.back() != '\\')
-							_fnStr.insert(_fnStr.end(), '\\');
+						if (filePath.back() != '\\')
+							filePath.insert(filePath.end(), '\\');
+
+						// There are two or more double backslash, then change it to single
+						while (filePath.find(L"\\\\") != std::wstring::npos)
+							filePath.replace(filePath.find(TEXT("\\\\")), 2, TEXT("\\"));
 
 						// change the dialog directory selection
 						::SendMessage(hFileDlg, CDM_SETCONTROLTEXT, edt1,
-									reinterpret_cast<LPARAM>(_fnStr.c_str()));
+							reinterpret_cast<LPARAM>(filePath.c_str()));
 						::PostMessage(hFileDlg, WM_COMMAND, IDOK, 0);
 						::SetWindowLongPtr(hWnd, 0 /*DWL_MSGRESULT*/, 1);
 					}
@@ -506,7 +507,7 @@ void goToCenter(HWND hwnd)
 	::GetClientRect(hParent, &rc);
 	
 	//If window coordinates are all zero(ie,window is minimised),then assign desktop as the parent window.
- 	if(rc.left == 0 && rc.right == 0 && rc.top == 0 && rc.bottom == 0)
+ 	if (rc.left == 0 && rc.right == 0 && rc.top == 0 && rc.bottom == 0)
  	{
  		//hParent = ::GetDesktopWindow();
 		::ShowWindow(hParent, SW_SHOWNORMAL);

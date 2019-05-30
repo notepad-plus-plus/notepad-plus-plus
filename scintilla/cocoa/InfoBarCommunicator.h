@@ -9,10 +9,10 @@
  */
 
 typedef NS_OPTIONS(NSUInteger, IBDisplay) {
-  IBShowZoom          = 0x01,
-  IBShowCaretPosition = 0x02,
-  IBShowStatusText    = 0x04,
-  IBShowAll           = 0xFF
+	IBShowZoom          = 0x01,
+	IBShowCaretPosition = 0x02,
+	IBShowStatusText    = 0x04,
+	IBShowAll           = 0xFF
 };
 
 /**
@@ -22,14 +22,14 @@ typedef NS_OPTIONS(NSUInteger, IBDisplay) {
  */
 
 typedef NS_ENUM(NSInteger, NotificationType) {
-  IBNZoomChanged,    // The user selected another zoom value.
-  IBNCaretChanged,   // The caret in the editor changed.
-  IBNStatusChanged,  // The application set a new status message.
+	IBNZoomChanged,    // The user selected another zoom value.
+	IBNCaretChanged,   // The caret in the editor changed.
+	IBNStatusChanged,  // The application set a new status message.
 };
 
 @protocol InfoBarCommunicator
-- (void) notify: (NotificationType) type message: (NSString*) message location: (NSPoint) location
-          value: (float) value;
+- (void) notify: (NotificationType) type message: (NSString *) message location: (NSPoint) location
+	  value: (float) value;
 - (void) setCallback: (id <InfoBarCommunicator>) callback;
 @end
 

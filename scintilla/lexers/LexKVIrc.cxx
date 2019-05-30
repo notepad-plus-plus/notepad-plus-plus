@@ -26,9 +26,7 @@
 #include "CharacterSet.h"
 #include "LexerModule.h"
 
-#ifdef SCI_NAMESPACE
 using namespace Scintilla;
-#endif
 
 
 /* KVIrc Script syntactic rules: http://www.kvirc.net/doc/doc_syntactic_rules.html */
@@ -49,7 +47,7 @@ static inline bool IsAWordStart(int ch) {
 
 /* Interface function called by Scintilla to request some text to be
  syntax highlighted */
-static void ColouriseKVIrcDoc(unsigned int startPos, int length,
+static void ColouriseKVIrcDoc(Sci_PositionU startPos, Sci_Position length,
                               int initStyle, WordList *keywordlists[],
                               Accessor &styler)
 {
@@ -313,10 +311,10 @@ static void ColouriseKVIrcDoc(unsigned int startPos, int length,
                      * fetching the current word, NULL-terminated like
                      * the keyword list */
                     char s[100];
-                    int wordLen = sc.currentPos - styler.GetStartSegment();
+                    Sci_Position wordLen = sc.currentPos - styler.GetStartSegment();
                     if (wordLen > 99)
                         wordLen = 99;  /* Include '\0' in buffer */
-                    int i;
+                    Sci_Position i;
                     for( i = 0; i < wordLen; ++i )
                     {
                         s[i] = styler.SafeGetCharAt( styler.GetStartSegment() + i );
@@ -355,21 +353,21 @@ static void ColouriseKVIrcDoc(unsigned int startPos, int length,
     sc.Complete();
 }
 
-static void FoldKVIrcDoc(unsigned int startPos, int length, int /*initStyle - unused*/,
+static void FoldKVIrcDoc(Sci_PositionU startPos, Sci_Position length, int /*initStyle - unused*/,
                       WordList *[], Accessor &styler)
 {
     /* Based on CMake's folder */
-    
+
     /* Exiting if folding isnt enabled */
     if ( styler.GetPropertyInt("fold") == 0 )
         return;
 
     /* Obtaining current line number*/
-    int currentLine = styler.GetLine(startPos);
+    Sci_Position currentLine = styler.GetLine(startPos);
 
     /* Obtaining starting character - indentation is done on a line basis,
      * not character */
-    unsigned int safeStartPos = styler.LineStart( currentLine );
+    Sci_PositionU safeStartPos = styler.LineStart( currentLine );
 
     /* Initialising current level - this is defined as indentation level
      * in the low 12 bits, with flag bits in the upper four bits.
@@ -386,7 +384,7 @@ static void FoldKVIrcDoc(unsigned int startPos, int length, int /*initStyle - un
     int nextLevel = currentLevel;
 
     // Looping for characters in range
-    for (unsigned int i = safeStartPos; i < startPos + length; ++i)
+    for (Sci_PositionU i = safeStartPos; i < startPos + length; ++i)
     {
         /* Folding occurs after syntax highlighting, meaning Scintilla
          * already knows where the comments are

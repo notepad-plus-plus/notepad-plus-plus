@@ -253,7 +253,7 @@ vector<tTbData*> DockingCont::getDataOfVisTb()
 
 	tcItem.mask	= TCIF_PARAM;
 
-	for(int iItem = 0; iItem < iItemCnt; ++iItem)
+	for (int iItem = 0; iItem < iItemCnt; ++iItem)
 	{
 		::SendMessage(_hContTab, TCM_GETITEM, iItem, reinterpret_cast<LPARAM>(&tcItem));
 		vTbData.push_back((tTbData*)tcItem.lParam);
@@ -268,7 +268,7 @@ bool DockingCont::isTbVis(tTbData* data)
 
 	tcItem.mask	= TCIF_PARAM;
 
-	for(int iItem = 0; iItem < iItemCnt; ++iItem)
+	for (int iItem = 0; iItem < iItemCnt; ++iItem)
 	{
 		::SendMessage(_hContTab, TCM_GETITEM, iItem, reinterpret_cast<LPARAM>(&tcItem));
 		if (!tcItem.lParam)

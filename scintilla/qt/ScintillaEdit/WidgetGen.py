@@ -107,7 +107,7 @@ def printHFile(f, options):
 			if feat in ["fun", "get", "set"]:
 				if checkTypes(name, v):
 					constDeclarator = " const" if feat == "get" else ""
-					returnType = cppAlias(v["ReturnType"])					
+					returnType = cppAlias(v["ReturnType"])
 					if returnType == "int":
 						returnType = "sptr_t"
 					stringResult = v["Param2Type"] == "stringresult"
@@ -230,7 +230,7 @@ def main(argv):
 	options = {"qtStyle": qtStyleInterface}
 	f = readInterface(cleanGenerated)
 	try:
-		GenerateFile("ScintillaEdit.cpp.template", "ScintillaEdit.cpp", 
+		GenerateFile("ScintillaEdit.cpp.template", "ScintillaEdit.cpp",
 			"/* ", True, printCPPFile(f, options))
 		GenerateFile("ScintillaEdit.h.template", "ScintillaEdit.h",
 			"/* ", True, printHFile(f, options))
@@ -256,6 +256,6 @@ def main(argv):
 				os.remove(file)
 			except OSError:
 				pass
-		
+
 if __name__ == "__main__":
 	main(sys.argv[1:])

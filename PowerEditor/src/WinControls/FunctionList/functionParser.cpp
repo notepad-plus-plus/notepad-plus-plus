@@ -39,11 +39,10 @@ FunctionParsersManager::~FunctionParsersManager()
 		delete _parsers[i];
 	}
 
-	if (_pXmlFuncListDoc)
-		delete _pXmlFuncListDoc;
+	delete _pXmlFuncListDoc;
 }
 
-bool FunctionParsersManager::init(generic_string xmlPath, ScintillaEditView ** ppEditView)
+bool FunctionParsersManager::init(const generic_string& xmlPath, ScintillaEditView ** ppEditView)
 {
 	_ppEditView = ppEditView;
 	bool loadOkay = false;

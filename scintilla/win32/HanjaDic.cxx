@@ -6,14 +6,15 @@
 // Copyright 2015 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
 
+#include <string>
+#include <string_view>
+
 #include <windows.h>
 
 #include "UniConversion.h"
 #include "HanjaDic.h"
 
-#ifdef SCI_NAMESPACE
 namespace Scintilla {
-#endif
 
 namespace HanjaDict {
 
@@ -110,7 +111,7 @@ int GetHangulOfHanja(wchar_t *inout) {
 			if (dict.IsHanja(static_cast<int>(inout[i]))) { // Pass hanja only!
 				conv[0] = inout[i];
 				BSTR bstrHanja = SysAllocString(conv);
-				HRESULT hr = dict.HJinterface->HanjaToHangul(bstrHanja, &bstrHangul);
+				const HRESULT hr = dict.HJinterface->HanjaToHangul(bstrHanja, &bstrHangul);
 				if (SUCCEEDED(hr)) {
 					inout[i] = static_cast<wchar_t>(bstrHangul[0]);
 					changed += 1;
@@ -124,6 +125,4 @@ int GetHangulOfHanja(wchar_t *inout) {
 }
 
 }
-#ifdef SCI_NAMESPACE
 }
-#endif

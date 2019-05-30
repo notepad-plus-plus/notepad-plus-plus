@@ -83,7 +83,7 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_NULL,    IDM_FILE_OPEN_CMD,                            false, false, false, nullptr },
 	{ VK_NULL,    IDM_FILE_OPEN_DEFAULT_VIEWER,                 false, false, false, nullptr },
 	{ VK_NULL,    IDM_FILE_OPENFOLDERASWORSPACE,                false, false, false, nullptr },
-	{ VK_NULL,    IDM_FILE_RELOAD,                              false, false, false, nullptr },
+	{ VK_R,       IDM_FILE_RELOAD,                              true,  false, false, nullptr },
 	{ VK_S,       IDM_FILE_SAVE,                                true,  false, false, nullptr },
 	{ VK_S,       IDM_FILE_SAVEAS,                              true,  true,  false, nullptr },
 	{ VK_NULL,    IDM_FILE_SAVECOPYAS,                          false, false, false, nullptr },
@@ -94,6 +94,7 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_NULL,    IDM_FILE_CLOSEALL_BUT_CURRENT,                false, false, false, nullptr },
 	{ VK_NULL,    IDM_FILE_CLOSEALL_TOLEFT,                     false, false, false, nullptr },
 	{ VK_NULL,    IDM_FILE_CLOSEALL_TORIGHT,                    false, false, false, nullptr },
+	{ VK_NULL,    IDM_FILE_CLOSEALL_UNCHANGED,                  false, false, false, nullptr },
 	{ VK_NULL,    IDM_FILE_DELETE,                              false, false, false, nullptr },
 	{ VK_NULL,    IDM_FILE_LOADSESSION,                         false, false, false, nullptr },
 	{ VK_NULL,    IDM_FILE_SAVESESSION,                         false, false, false, nullptr },
@@ -231,7 +232,13 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 				 
 	{ VK_NULL,    IDM_VIEW_ALWAYSONTOP,                         false, false, false, nullptr },
 	{ VK_F11,     IDM_VIEW_FULLSCREENTOGGLE,                    false, false, false, nullptr },
-	{VK_F12,      IDM_VIEW_POSTIT,                              false, false, false, nullptr },
+	{ VK_F12,     IDM_VIEW_POSTIT,                              false, false, false, nullptr },
+
+	{ VK_NULL,    IDM_VIEW_IN_FIREFOX,                          false, false, false, nullptr },
+	{ VK_NULL,    IDM_VIEW_IN_CHROME,                           false, false, false, nullptr },
+	{ VK_NULL,    IDM_VIEW_IN_IE,                               false, false, false, nullptr },
+	{ VK_NULL,    IDM_VIEW_IN_EDGE,                             false, false, false, nullptr },
+
 	{ VK_NULL,    IDM_VIEW_TAB_SPACE,                           false, false, false, nullptr },
 	{ VK_NULL,    IDM_VIEW_EOL,                                 false, false, false, nullptr },
 	{ VK_NULL,    IDM_VIEW_ALL_CHARACTERS,                      false, false, false, nullptr },
@@ -361,7 +368,7 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_NULL,    IDM_LANG_USER_DLG,                            false, false, false, nullptr },
 	{ VK_NULL,    IDM_LANG_USER,                                false, false, false, nullptr },
 
-	{ VK_NULL,    IDM_SETTING_PREFERECE,                        false, false, false, nullptr },
+	{ VK_NULL,    IDM_SETTING_PREFERENCE,                       false, false, false, nullptr },
 	{ VK_NULL,    IDM_LANGSTYLE_CONFIG_DLG,                     false, false, false, nullptr },
 	{ VK_NULL,    IDM_SETTING_SHORTCUT_MAPPER,                  false, false, false, nullptr },
 	{ VK_NULL,    IDM_SETTING_IMPORTPLUGIN,                     false, false, false, nullptr },
@@ -736,7 +743,7 @@ winVer NppParameters::getWindowsVersion()
 	}
 
 	pGNSI = (PGNSI) GetProcAddress(GetModuleHandle(TEXT("kernel32.dll")), "GetNativeSystemInfo");
-	if(pGNSI != NULL)
+	if (pGNSI != NULL)
 		pGNSI(&si);
 	else
 		GetSystemInfo(&si);
@@ -876,8 +883,7 @@ NppParameters::~NppParameters()
 
 bool NppParameters::reloadStylers(TCHAR* stylePath)
 {
-	if (_pXmlUserStylerDoc)
-		delete _pXmlUserStylerDoc;
+	delete _pXmlUserStylerDoc;
 
 	const TCHAR* stylePathToLoad = stylePath != nullptr ? stylePath : _stylerPath.c_str();
 	_pXmlUserStylerDoc = new TiXmlDocument(stylePathToLoad);
@@ -909,7 +915,7 @@ bool NppParameters::reloadStylers(TCHAR* stylePath)
 	getUserStylersFromXmlTree();
 
 	//  Reload plugin styles.
-	for( size_t i = 0; i < getExternalLexerDoc()->size(); ++i)
+	for ( size_t i = 0; i < getExternalLexerDoc()->size(); ++i)
 	{
 		getExternalLexerFromXmlTree( getExternalLexerDoc()->at(i) );
 	}
@@ -930,8 +936,7 @@ bool NppParameters::reloadLang()
 			return false;
 	}
 
-	if (_pXmlNativeLangDocA)
-		delete _pXmlNativeLangDocA;
+	delete _pXmlNativeLangDocA;
 
 	_pXmlNativeLangDocA = new TiXmlDocumentA();
 
@@ -1777,7 +1782,7 @@ void NppParameters::initMenuKeys()
 {
 	int nbCommands = sizeof(winKeyDefs)/sizeof(WinMenuKeyDefinition);
 	WinMenuKeyDefinition wkd;
-	for(int i = 0; i < nbCommands; ++i)
+	for (int i = 0; i < nbCommands; ++i)
 	{
 		wkd = winKeyDefs[i];
 		Shortcut sc((wkd.specialName ? wkd.specialName : TEXT("")), wkd.isCtrl, wkd.isAlt, wkd.isShift, static_cast<unsigned char>(wkd.vKey));
@@ -1793,7 +1798,7 @@ void NppParameters::initScintillaKeys() {
 	ScintillaKeyDefinition skd;
 	int prevIndex = -1;
 	int prevID = -1;
-	for(int i = 0; i < nbCommands; ++i)
+	for (int i = 0; i < nbCommands; ++i)
 	{
 		skd = scintKeyDefs[i];
 		if (skd.functionId == prevID)
@@ -2115,7 +2120,12 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 					(childNode->ToElement())->Attribute(TEXT("originalFileLastModifTimestamp"), reinterpret_cast<int32_t*>(&fileModifiedTimestamp.dwLowDateTime));
 					(childNode->ToElement())->Attribute(TEXT("originalFileLastModifTimestampHigh"), reinterpret_cast<int32_t*>(&fileModifiedTimestamp.dwHighDateTime));
 
-					sessionFileInfo sfi(fileName, langName, encStr?encoding:-1, position, backupFilePath, fileModifiedTimestamp, mapPosition);
+					bool isUserReadOnly = false;
+					const TCHAR *boolStrReadOnly = (childNode->ToElement())->Attribute(TEXT("userReadOnly"));
+					if (boolStrReadOnly)
+						isUserReadOnly = _wcsicmp(TEXT("yes"), boolStrReadOnly) == 0;
+
+					sessionFileInfo sfi(fileName, langName, encStr ? encoding : -1, isUserReadOnly, position, backupFilePath, fileModifiedTimestamp, mapPosition);
 
 					for (TiXmlNode *markNode = childNode->FirstChildElement(TEXT("Mark"));
 						markNode ;
@@ -2364,7 +2374,7 @@ void NppParameters::feedShortcut(TiXmlNode *node)
 		{
 			//find the commandid that matches this Shortcut sc and alter it, push back its index in the modified list, if not present
 			size_t len = _shortcuts.size();
-			for(size_t i = 0; i < len; ++i)
+			for (size_t i = 0; i < len; ++i)
 			{
 				if (_shortcuts[i].getID() == (unsigned long)id)
 				{	//found our match
@@ -2476,7 +2486,7 @@ void NppParameters::feedPluginCustomizedCmds(TiXmlNode *node)
 
 		//Find the corresponding plugincommand and alter it, put the index in the list
 		size_t len = _pluginCommands.size();
-		for(size_t i = 0; i < len; ++i)
+		for (size_t i = 0; i < len; ++i)
 		{
 			PluginCmdShortcut & pscOrig = _pluginCommands[i];
 			if (!generic_strnicmp(pscOrig.getModuleName(), moduleName, lstrlen(moduleName)) && pscOrig.getInternalID() == internalID)
@@ -2616,10 +2626,14 @@ std::pair<unsigned char, unsigned char> NppParameters::feedUserLang(TiXmlNode *n
 		const TCHAR *name = (childNode->ToElement())->Attribute(TEXT("name"));
 		const TCHAR *ext = (childNode->ToElement())->Attribute(TEXT("ext"));
 		const TCHAR *udlVersion = (childNode->ToElement())->Attribute(TEXT("udlVersion"));
-		try {
-			if (!name || !name[0] || !ext)
-				throw std::runtime_error("NppParameters::feedUserLang : UserLang name is missing");
 
+		if (!name || !name[0] || !ext)
+		{
+			// UserLang name is missing, just ignore this entry
+			continue;
+		}
+
+		try {
 			if (!udlVersion)
 				_userLangArray[_nbUserLang] = new UserLangContainer(name, ext, TEXT(""));
 			else
@@ -2652,7 +2666,9 @@ std::pair<unsigned char, unsigned char> NppParameters::feedUserLang(TiXmlNode *n
 					_userLangArray[_nbUserLang - 1]->_styleArray.addStyler(i, globalMappper().styleNameMapper[i].c_str());
 			}
 
-		} catch (std::exception e) {
+		}
+		catch (const std::exception& /*e*/)
+		{
 			delete _userLangArray[--_nbUserLang];
 		}
 	}
@@ -3124,6 +3140,7 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 				(fileNameNode->ToElement())->SetAttribute(TEXT("selMode"), viewSessionFiles[i]._selMode);
 				(fileNameNode->ToElement())->SetAttribute(TEXT("lang"), viewSessionFiles[i]._langName.c_str());
 				(fileNameNode->ToElement())->SetAttribute(TEXT("encoding"), viewSessionFiles[i]._encoding);
+				(fileNameNode->ToElement())->SetAttribute(TEXT("userReadOnly"), (viewSessionFiles[i]._isUserReadOnly && !viewSessionFiles[i]._isMonitoring) ? TEXT("yes") : TEXT("no"));
 				(fileNameNode->ToElement())->SetAttribute(TEXT("filename"), viewSessionFiles[i]._fileName.c_str());
 				(fileNameNode->ToElement())->SetAttribute(TEXT("backupFilePath"), viewSessionFiles[i]._backupFilePath.c_str());
 				(fileNameNode->ToElement())->SetAttribute(TEXT("originalFileLastModifTimestamp"), static_cast<int32_t>(viewSessionFiles[i]._originalFileLastModifTimestamp.dwLowDateTime));
@@ -3741,7 +3758,7 @@ TiXmlNode * NppParameters::getChildElementByAttribut(TiXmlNode *pere, const TCHA
 LangType NppParameters::getLangIDFromStr(const TCHAR *langName)
 {
 	int lang = static_cast<int32_t>(L_TEXT);
-	for(; lang < L_EXTERNAL; ++lang)
+	for (; lang < L_EXTERNAL; ++lang)
 	{
 		const TCHAR * name = ScintillaEditView::langNames[lang].lexerName;
 		if (!lstrcmp(name, langName)) //found lang?
@@ -3924,6 +3941,8 @@ generic_string NppParameters::getLocPathFromStr(const generic_string & localizat
 		return TEXT("vietnamese.xml");
 	if (localizationCode == TEXT("cy-gb"))
 		return TEXT("welsh.xml");
+	if (localizationCode == TEXT("zu") || localizationCode == TEXT("zu-za"))
+		return TEXT("zulu.xml");
 
 	return generic_string();
 }
@@ -4175,18 +4194,24 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				const TCHAR* val = n->Value();
 				if (val)
 				{
-					if (!lstrcmp(val, TEXT("yes")))
-						_nppGUI._fileAutoDetection = cdEnabled;
+					if (!lstrcmp(val, TEXT("yesOld")))
+						_nppGUI._fileAutoDetection = cdEnabledOld;
+					else if (!lstrcmp(val, TEXT("autoOld")))
+						_nppGUI._fileAutoDetection = (cdEnabledOld | cdAutoUpdate);
+					else if (!lstrcmp(val, TEXT("Update2EndOld")))
+						_nppGUI._fileAutoDetection = (cdEnabledOld | cdGo2end);
+					else if (!lstrcmp(val, TEXT("autoUpdate2EndOld")))
+						_nppGUI._fileAutoDetection = (cdEnabledOld | cdAutoUpdate | cdGo2end);
+					else if (!lstrcmp(val, TEXT("yes")))
+						_nppGUI._fileAutoDetection = cdEnabledNew;
 					else if (!lstrcmp(val, TEXT("auto")))
-						_nppGUI._fileAutoDetection = cdAutoUpdate;
+						_nppGUI._fileAutoDetection = (cdEnabledNew | cdAutoUpdate);
 					else if (!lstrcmp(val, TEXT("Update2End")))
-						_nppGUI._fileAutoDetection = cdGo2end;
+						_nppGUI._fileAutoDetection = (cdEnabledNew | cdGo2end);
 					else if (!lstrcmp(val, TEXT("autoUpdate2End")))
-						_nppGUI._fileAutoDetection = cdAutoUpdateGo2end;
-		 			else //(!lstrcmp(val, TEXT("no")))
+						_nppGUI._fileAutoDetection = (cdEnabledNew | cdAutoUpdate | cdGo2end);
+					else //(!lstrcmp(val, TEXT("no")))
 						_nppGUI._fileAutoDetection = cdDisabled;
-
-					_nppGUI._fileAutoDetectionOriginalValue = _nppGUI._fileAutoDetection;
 				}
 			}
 		}
@@ -5027,16 +5052,16 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 		{
 			int leftmost = 0;
 			element->Attribute(TEXT("leftmostDelimiter"), &leftmost);
-			if(leftmost > 0 && leftmost < 256)
+			if (leftmost > 0 && leftmost < 256)
 				_nppGUI._leftmostDelimiter = static_cast<char>(leftmost);
 
 			int rightmost = 0;
 			element->Attribute(TEXT("rightmostDelimiter"), &rightmost);
-			if(rightmost > 0 && rightmost < 256)
+			if (rightmost > 0 && rightmost < 256)
 				_nppGUI._rightmostDelimiter = static_cast<char>(rightmost);
 
 			const TCHAR *delimiterSelectionOnEntireDocument = element->Attribute(TEXT("delimiterSelectionOnEntireDocument"));
-			if(delimiterSelectionOnEntireDocument != NULL && !lstrcmp(delimiterSelectionOnEntireDocument, TEXT("yes")))
+			if (delimiterSelectionOnEntireDocument != NULL && !lstrcmp(delimiterSelectionOnEntireDocument, TEXT("yes")))
 				_nppGUI._delimiterSelectionOnEntireDocument = true;
 			else
 				_nppGUI._delimiterSelectionOnEntireDocument = false;
@@ -5547,21 +5572,42 @@ void NppParameters::createXmlTreeFromGUIParams()
 	// <GUIConfig name="Auto-detection">yes</GUIConfig>	
 	{
 		const TCHAR *pStr = TEXT("no");
-		switch (_nppGUI._fileAutoDetection)
+
+		if (_nppGUI._fileAutoDetection & cdEnabledOld)
 		{
-		case cdEnabled:
-			pStr = TEXT("yes");
-			break;
-		case cdAutoUpdate:
-			pStr = TEXT("auto");
-			break;
-		case cdGo2end:
-			pStr = TEXT("Update2End");
-			break;
-		case cdAutoUpdateGo2end:
-			pStr = TEXT("autoUpdate2End");
-			break;
+			pStr = TEXT("yesOld");
+
+			if ((_nppGUI._fileAutoDetection & cdAutoUpdate) && (_nppGUI._fileAutoDetection & cdGo2end))
+			{
+				pStr = TEXT("autoUpdate2EndOld");
+			}
+			else if (_nppGUI._fileAutoDetection & cdAutoUpdate)
+			{
+				pStr = TEXT("autoOld");
+			}
+			else if (_nppGUI._fileAutoDetection & cdGo2end)
+			{
+				pStr = TEXT("Update2EndOld");
+			}
 		}
+		else if (_nppGUI._fileAutoDetection & cdEnabledNew)
+		{
+			pStr = TEXT("yes");
+
+			if ((_nppGUI._fileAutoDetection & cdAutoUpdate) && (_nppGUI._fileAutoDetection & cdGo2end))
+			{
+				pStr = TEXT("autoUpdate2End");
+			}
+			else if (_nppGUI._fileAutoDetection & cdAutoUpdate)
+			{
+				pStr = TEXT("auto");
+			}
+			else if (_nppGUI._fileAutoDetection & cdGo2end)
+			{
+				pStr = TEXT("Update2End");
+			}
+		}
+
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("Auto-detection"));
 		GUIConfigElement->InsertEndChild(TiXmlText(pStr));
@@ -6299,7 +6345,7 @@ int NppParameters::langTypeToCommandID(LangType lt) const
 
 
 		default :
-			if(lt >= L_EXTERNAL && lt < L_END)
+			if (lt >= L_EXTERNAL && lt < L_END)
 				id = lt - L_EXTERNAL + IDM_LANG_EXTERNAL;
 			else
 				id = IDM_LANG_TEXT;
@@ -6381,7 +6427,7 @@ void NppParameters::writeStyles(LexerStylerArray & lexersStylers, StyleArray & g
 		}
 	}
 
-	for(size_t x = 0; x < _pXmlExternalLexerDoc.size(); ++x)
+	for (size_t x = 0; x < _pXmlExternalLexerDoc.size(); ++x)
 	{
 		TiXmlNode *lexersRoot = ( _pXmlExternalLexerDoc[x]->FirstChild(TEXT("NotepadPlus")))->FirstChildElement(TEXT("LexerStyles"));
 		for (TiXmlNode *childNode = lexersRoot->FirstChildElement(TEXT("LexerType"));
@@ -6658,7 +6704,7 @@ void NppParameters::addUserModifiedIndex(size_t index)
 {
 	size_t len = _customizedShortcuts.size();
 	bool found = false;
-	for(size_t i = 0; i < len; ++i)
+	for (size_t i = 0; i < len; ++i)
 	{
 		if (_customizedShortcuts[i] == index)
 		{
@@ -6676,7 +6722,7 @@ void NppParameters::addPluginModifiedIndex(size_t index)
 {
 	size_t len = _pluginCustomizedCmds.size();
 	bool found = false;
-	for(size_t i = 0; i < len; ++i)
+	for (size_t i = 0; i < len; ++i)
 	{
 		if (_pluginCustomizedCmds[i] == index)
 		{
@@ -6694,7 +6740,7 @@ void NppParameters::addScintillaModifiedIndex(int index)
 {
 	size_t len = _scintillaModifiedKeyIndices.size();
 	bool found = false;
-	for(size_t i = 0; i < len; ++i)
+	for (size_t i = 0; i < len; ++i)
 	{
 		if (_scintillaModifiedKeyIndices[i] == index)
 		{

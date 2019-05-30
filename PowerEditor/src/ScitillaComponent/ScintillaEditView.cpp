@@ -1956,7 +1956,6 @@ bool ScintillaEditView::isFoldIndentationBased() const
 	return lexer == SCLEX_PYTHON
 		|| lexer == SCLEX_COFFEESCRIPT
 		|| lexer == SCLEX_HASKELL
-		|| lexer == SCLEX_MATLAB		/// TODO: upgrade LexMatlab
 		|| lexer == SCLEX_NIMROD
 		|| lexer == SCLEX_VB
 		|| lexer == SCLEX_YAML

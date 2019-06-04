@@ -356,10 +356,12 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	NativeLangSpeaker *pNativeSpeaker = nppParam->getNativeLangSpeaker();
 	generic_string pluginStr = pNativeSpeaker->getAttrNameStr(TEXT("Plugin"), "PluginAdmin", "Plugin");
 	generic_string vesionStr = pNativeSpeaker->getAttrNameStr(TEXT("Version"), "PluginAdmin", "Version");
+	generic_string dateStr = pNativeSpeaker->getAttrNameStr(TEXT("Date"), "PluginAdmin", "Date");
 	//generic_string stabilityStr = pNativeSpeaker->getAttrNameStr(TEXT("Stability"), "PluginAdmin", "Stability");
 
 	_availableList.addColumn(columnInfo(pluginStr, nppParam->_dpiManager.scaleX(200)));
 	_availableList.addColumn(columnInfo(vesionStr, nppParam->_dpiManager.scaleX(100)));
+	_availableList.addColumn(columnInfo(dateStr, nppParam->_dpiManager.scaleX(70)));
 	//_availableList.addColumn(columnInfo(stabilityStr, nppParam->_dpiManager.scaleX(70)));
 	_availableList.setViewStyleOption(LVS_EX_CHECKBOXES);
 
@@ -368,6 +370,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	
 	_updateList.addColumn(columnInfo(pluginStr, nppParam->_dpiManager.scaleX(200)));
 	_updateList.addColumn(columnInfo(vesionStr, nppParam->_dpiManager.scaleX(100)));
+	_updateList.addColumn(columnInfo(dateStr, nppParam->_dpiManager.scaleX(70)));
 	//_updateList.addColumn(columnInfo(stabilityStr, nppParam->_dpiManager.scaleX(70)));
 	_updateList.setViewStyleOption(LVS_EX_CHECKBOXES);
 
@@ -376,6 +379,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 
 	_installedList.addColumn(columnInfo(pluginStr, nppParam->_dpiManager.scaleX(200)));
 	_installedList.addColumn(columnInfo(vesionStr, nppParam->_dpiManager.scaleX(100)));
+	_installedList.addColumn(columnInfo(dateStr, nppParam->_dpiManager.scaleX(70)));
 	//_installedList.addColumn(columnInfo(stabilityStr, nppParam->_dpiManager.scaleX(70)));
 	_installedList.setViewStyleOption(LVS_EX_CHECKBOXES);
 
@@ -621,6 +625,7 @@ void PluginViewList::pushBack(PluginUpdateInfo* pi)
 	values2Add.push_back(pi->_displayName);
 	Version v = pi->_version;
 	values2Add.push_back(v.toString());
+	values2Add.push_back(pi->_releaseDate);
 	//values2Add.push_back(TEXT("Yes"));
 
 	// add in order
@@ -666,6 +671,9 @@ bool loadFromJson(PluginViewList & pl, const json& j)
 
 			valStr = i.at("repository").get<std::string>();
 			pi->_repository = wmc->char2wchar(valStr.c_str(), CP_ACP);
+
+			valStr = i.at("release-date").get<std::string>();
+			pi->_releaseDate = wmc->char2wchar(valStr.c_str(), CP_ACP);
 
 			valStr = i.at("homepage").get<std::string>();
 			pi->_homepage = wmc->char2wchar(valStr.c_str(), CP_ACP);

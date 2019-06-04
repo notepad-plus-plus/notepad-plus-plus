@@ -86,6 +86,7 @@ struct PluginUpdateInfo
 	generic_string _author;
 	generic_string _id;           // Plugin package ID: SHA-256 hash
 	generic_string _repository;
+	generic_string _releaseDate;
 	bool _isVisible = true;       // if false then it should not be displayed 
 
 	generic_string describe();
@@ -111,7 +112,7 @@ struct NppCurrentStatus
 	bool shouldLaunchInAdmMode() { return _isInProgramFiles; };
 };
 
-enum COLUMN_TYPE { COLUMN_PLUGIN, COLUMN_VERSION };
+enum COLUMN_TYPE { COLUMN_PLUGIN, COLUMN_VERSION, COMUMN_DATE };
 enum SORT_TYPE { DISPLAY_NAME_ALPHABET_ENCREASE, DISPLAY_NAME_ALPHABET_DECREASE };
 
 

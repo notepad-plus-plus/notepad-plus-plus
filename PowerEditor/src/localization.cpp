@@ -791,6 +791,17 @@ void NativeLangSpeaker::changePluginsAdminDlgLang(PluginsAdminDlg & pluginsAdmin
 					}
 				}
 
+				TiXmlNodeA *ColumnDateNode = dlgNode->FirstChild("ColumnDate");
+				if (ColumnDateNode)
+				{
+					const char *name = (ColumnDateNode->ToElement())->Attribute("name");
+					if (name && name[0])
+					{
+						basic_string<wchar_t> nameW = wmc->char2wchar(name, _nativeLangEncoding);
+						pluginsAdminDlg.changeColumnName(COMUMN_DATE, nameW.c_str());
+					}
+				}
+
 				const char *titre1 = (dlgNode->ToElement())->Attribute("titleAvailable");
 				const char *titre2 = (dlgNode->ToElement())->Attribute("titleUpdates");
 				const char *titre3 = (dlgNode->ToElement())->Attribute("titleInstalled");

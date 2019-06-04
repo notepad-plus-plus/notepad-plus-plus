@@ -442,6 +442,7 @@
             <PluginsAdminDlg title="Plugins Admin" titleAvailable = "Available" titleUpdates = "Updates" titleInstalled = "Installed">
                 <ColumnPlugin   name="Plugin"/>
                 <ColumnVersion  name="Version"/>
+                <ColumnDate name="Date"/>
                 <Item id="5501" name="Search:"/>
                 <Item id="5503" name="Install"/>
                 <Item id="5504" name="Update"/>

@@ -87,6 +87,10 @@ public:
 
 	LPARAM getLParamFromIndex(int itemIndex) const;
 
+	void deleteAllItems() {
+		ListView_DeleteAllItems(_hSelf);
+	}
+
 	bool removeFromIndex(size_t i)	{
 		if (i >= nbItem())
 			return false;

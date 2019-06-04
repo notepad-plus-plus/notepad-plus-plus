@@ -354,10 +354,12 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	NativeLangSpeaker *pNativeSpeaker = nppParam->getNativeLangSpeaker();
 	generic_string pluginStr = pNativeSpeaker->getAttrNameStr(TEXT("Plugin"), "PluginAdmin", "Plugin");
 	generic_string vesionStr = pNativeSpeaker->getAttrNameStr(TEXT("Version"), "PluginAdmin", "Version");
+	generic_string dateStr = pNativeSpeaker->getAttrNameStr(TEXT("Date"), "PluginAdmin", "Date");
 	//generic_string stabilityStr = pNativeSpeaker->getAttrNameStr(TEXT("Stability"), "PluginAdmin", "Stability");
 
 	_availableList.addColumn(columnInfo(pluginStr, nppParam->_dpiManager.scaleX(200)));
 	_availableList.addColumn(columnInfo(vesionStr, nppParam->_dpiManager.scaleX(100)));
+	_availableList.addColumn(columnInfo(dateStr, nppParam->_dpiManager.scaleX(70)));
 	//_availableList.addColumn(columnInfo(stabilityStr, nppParam->_dpiManager.scaleX(70)));
 	_availableList.setViewStyleOption(LVS_EX_CHECKBOXES);
 
@@ -366,6 +368,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	
 	_updateList.addColumn(columnInfo(pluginStr, nppParam->_dpiManager.scaleX(200)));
 	_updateList.addColumn(columnInfo(vesionStr, nppParam->_dpiManager.scaleX(100)));
+	_updateList.addColumn(columnInfo(dateStr, nppParam->_dpiManager.scaleX(70)));
 	//_updateList.addColumn(columnInfo(stabilityStr, nppParam->_dpiManager.scaleX(70)));
 	_updateList.setViewStyleOption(LVS_EX_CHECKBOXES);
 
@@ -374,6 +377,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 
 	_installedList.addColumn(columnInfo(pluginStr, nppParam->_dpiManager.scaleX(200)));
 	_installedList.addColumn(columnInfo(vesionStr, nppParam->_dpiManager.scaleX(100)));
+	_installedList.addColumn(columnInfo(dateStr, nppParam->_dpiManager.scaleX(70)));
 	//_installedList.addColumn(columnInfo(stabilityStr, nppParam->_dpiManager.scaleX(70)));
 	_installedList.setViewStyleOption(LVS_EX_CHECKBOXES);
 
@@ -619,10 +623,11 @@ void PluginViewList::pushBack(PluginUpdateInfo* pi)
 	values2Add.push_back(pi->_displayName);
 	Version v = pi->_version;
 	values2Add.push_back(v.toString());
+	values2Add.push_back(pi->_releaseDate);
 	//values2Add.push_back(TEXT("Yes"));
 
 	// add in order
-	size_t i = _ui.findAlphabeticalOrderPos(pi->_displayName, _sortType == DISPLAY_NAME_ALPHABET_ENCREASE ? _ui.sortEncrease : _ui.sortDecrease);
+	size_t i = _ui.findAlphabeticalOrderPos(pi->_displayName, _sortType == SORT_ENCREASE ? _ui.sortEncrease : _ui.sortDecrease);
 	_ui.addLine(values2Add, reinterpret_cast<LPARAM>(pi), static_cast<int>(i));
 }
 
@@ -664,6 +669,9 @@ bool loadFromJson(PluginViewList & pl, const json& j)
 
 			valStr = i.at("repository").get<std::string>();
 			pi->_repository = wmc->char2wchar(valStr.c_str(), CP_ACP);
+
+			valStr = i.at("release-date").get<std::string>();
+			pi->_releaseDate = wmc->char2wchar(valStr.c_str(), CP_ACP);
 
 			valStr = i.at("homepage").get<std::string>();
 			pi->_homepage = wmc->char2wchar(valStr.c_str(), CP_ACP);
@@ -975,6 +983,84 @@ bool PluginViewList::restore(const generic_string& folderName)
 	return false;
 }
 
+void PluginViewList::setSortKey(int key_index)
+{
+	if (key_index == COLUMN_PLUGIN)
+		_sortKey = SORT_BY_NAME;
+	else if (key_index == COLUMN_DATE)
+		_sortKey = SORT_BY_DATE;
+}
+
+void PluginViewList::toggleSortType()
+{
+	if (_sortType == SORT_ENCREASE)
+		_sortType = SORT_DECREASE;
+	else 
+		_sortType = SORT_ENCREASE;
+}
+
+bool sort_date_operator_encrease(PluginUpdateInfo* l, PluginUpdateInfo* r)
+{
+	generic_string date_tmp = l->_releaseDate;
+	date_tmp.erase(7, 1);
+	date_tmp.erase(4, 1);
+	Date date_l(date_tmp.c_str());
+	date_tmp = r->_releaseDate;
+	date_tmp.erase(7, 1);
+	date_tmp.erase(4, 1);
+	Date date_r(date_tmp.c_str());
+	return date_l < date_r;
+}
+
+bool sort_date_operator_decrease(PluginUpdateInfo* l, PluginUpdateInfo* r)
+{
+	generic_string date_tmp = l->_releaseDate;
+	date_tmp.erase(7, 1);
+	date_tmp.erase(4, 1);
+	Date date_l(date_tmp.c_str());
+	date_tmp = r->_releaseDate;
+	date_tmp.erase(7, 1);
+	date_tmp.erase(4, 1);
+	Date date_r(date_tmp.c_str());
+	return date_l > date_r;
+}
+
+bool sort_by_name_encrease(PluginUpdateInfo* l, PluginUpdateInfo* r)
+{
+	return (l->_displayName.compare(r->_displayName) <= 0);
+}
+
+bool sort_by_name_decrease(PluginUpdateInfo* l, PluginUpdateInfo* r)
+{
+	return (l->_displayName.compare(r->_displayName) > 0);
+}
+
+void PluginViewList::sort()
+{
+	PluginUpdateInfo* pi;
+	if (_sortKey == SORT_BY_DATE && _sortType == SORT_ENCREASE)
+		std::sort(_list.begin(), _list.end(), sort_date_operator_encrease);
+	else if (_sortKey == SORT_BY_DATE && _sortType == SORT_DECREASE)
+		std::sort(_list.begin(), _list.end(), sort_date_operator_decrease);
+	else if (_sortKey == SORT_BY_NAME && _sortType == SORT_ENCREASE)
+		std::sort(_list.begin(), _list.end(), sort_by_name_encrease);
+	else if (_sortKey == SORT_BY_NAME && _sortType == SORT_DECREASE)
+		std::sort(_list.begin(), _list.end(), sort_by_name_decrease);
+
+	_ui.deleteAllItems();
+	for (size_t i = 0; i <_list.size(); i++)
+	{
+		vector<generic_string> values2Add;
+		pi = _list.at(i);
+		values2Add.push_back(pi->_displayName);
+		Version v = pi->_version;
+		values2Add.push_back(v.toString());
+		values2Add.push_back(pi->_releaseDate);
+		//values2Add.push_back(TEXT("Yes"));
+		_ui.addLine(values2Add, reinterpret_cast<LPARAM>(pi), static_cast<int>(i));
+	}
+}
+
 bool PluginViewList::hideFromListIndex(size_t index2hide)
 {
 	if (index2hide >= _list.size())
@@ -1211,6 +1297,16 @@ INT_PTR CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 							generic_string desc = pui->describe();
 							::SetDlgItemText(_hSelf, IDC_PLUGINADM_EDIT, desc.c_str());
 						}
+					}
+				}
+				else if (pnmh->code == LVN_COLUMNCLICK)
+				{
+					int column_index = pnmv->iSubItem;
+					if (column_index == COLUMN_PLUGIN || column_index == COLUMN_DATE)
+					{
+						pViewList->setSortKey(column_index);
+						pViewList->toggleSortType();
+						pViewList->sort();
 					}
 				}
 			}

@@ -437,6 +437,7 @@
             <PluginsAdminDlg title="Gestionnaire des modules d'extension" titleAvailable = "Disponibles" titleUpdates = "Mises à jour" titleInstalled = "Installés">
                 <ColumnPlugin   name="Modules d'extension"/>
                 <ColumnVersion  name="Version"/>
+                <ColumnDate name="Date"/>
                 <Item id="5501" name="Rechercher:"/>
                 <Item id="5503" name="Installer"/>
                 <Item id="5504" name="Mettre à jour"/>

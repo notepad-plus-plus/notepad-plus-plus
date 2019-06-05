@@ -798,7 +798,7 @@ void NativeLangSpeaker::changePluginsAdminDlgLang(PluginsAdminDlg & pluginsAdmin
 					if (name && name[0])
 					{
 						basic_string<wchar_t> nameW = wmc->char2wchar(name, _nativeLangEncoding);
-						pluginsAdminDlg.changeColumnName(COMUMN_DATE, nameW.c_str());
+						pluginsAdminDlg.changeColumnName(COLUMN_DATE, nameW.c_str());
 					}
 				}
 

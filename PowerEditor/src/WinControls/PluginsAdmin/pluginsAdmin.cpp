@@ -629,7 +629,7 @@ void PluginViewList::pushBack(PluginUpdateInfo* pi)
 	//values2Add.push_back(TEXT("Yes"));
 
 	// add in order
-	size_t i = _ui.findAlphabeticalOrderPos(pi->_displayName, _sortType == DISPLAY_NAME_ALPHABET_ENCREASE ? _ui.sortEncrease : _ui.sortDecrease);
+	size_t i = _ui.findAlphabeticalOrderPos(pi->_displayName, _sortType == SORT_ENCREASE ? _ui.sortEncrease : _ui.sortDecrease);
 	_ui.addLine(values2Add, reinterpret_cast<LPARAM>(pi), static_cast<int>(i));
 }
 
@@ -985,6 +985,100 @@ bool PluginViewList::restore(const generic_string& folderName)
 	return false;
 }
 
+void PluginViewList::setSortKey(int key_index)
+{
+	if (key_index == COLUMN_PLUGIN)
+		_sortKey = SORT_BY_NAME;
+	else if (key_index == COLUMN_VERSION)
+		_sortKey = SORT_BY_VERSION;
+	else if (key_index == COLUMN_DATE)
+		_sortKey = SORT_BY_DATE;
+}
+
+void PluginViewList::toggleSortType()
+{
+	if (_sortType == SORT_ENCREASE)
+		_sortType = SORT_DECREASE;
+	else 
+		_sortType = SORT_ENCREASE;
+}
+
+bool sort_date_operator_encrease(PluginUpdateInfo* l, PluginUpdateInfo* r)
+{
+	generic_string date_tmp = l->_releaseDate;
+	date_tmp.erase(7, 1);
+	date_tmp.erase(4, 1);
+	Date date_l(date_tmp.c_str());
+	date_tmp = r->_releaseDate;
+	date_tmp.erase(7, 1);
+	date_tmp.erase(4, 1);
+	Date date_r(date_tmp.c_str());
+	return date_l < date_r;
+}
+
+bool sort_date_operator_decrease(PluginUpdateInfo* l, PluginUpdateInfo* r)
+{
+	generic_string date_tmp = l->_releaseDate;
+	date_tmp.erase(7, 1);
+	date_tmp.erase(4, 1);
+	Date date_l(date_tmp.c_str());
+	date_tmp = r->_releaseDate;
+	date_tmp.erase(7, 1);
+	date_tmp.erase(4, 1);
+	Date date_r(date_tmp.c_str());
+	return date_l > date_r;
+}
+
+bool sort_by_name_encrease(PluginUpdateInfo* l, PluginUpdateInfo* r)
+{
+	return (l->_displayName.compare(r->_displayName) <= 0);
+}
+
+bool sort_by_name_decrease(PluginUpdateInfo* l, PluginUpdateInfo* r)
+{
+	return (l->_displayName.compare(r->_displayName) > 0);
+}
+
+bool sort_by_version_encrease(PluginUpdateInfo* l, PluginUpdateInfo* r)
+{
+	return (l->_version.compareTo(r->_version) < 0);
+}
+
+bool sort_by_version_decrease(PluginUpdateInfo* l, PluginUpdateInfo* r)
+{
+	return (l->_version.compareTo(r->_version) > 0);
+}
+
+void PluginViewList::sort()
+{
+	PluginUpdateInfo* pi;
+	if (_sortKey == SORT_BY_DATE && _sortType == SORT_ENCREASE)
+		std::sort(_list.begin(), _list.end(), sort_date_operator_encrease);
+	else if (_sortKey == SORT_BY_DATE && _sortType == SORT_DECREASE)
+		std::sort(_list.begin(), _list.end(), sort_date_operator_decrease);
+	else if (_sortKey == SORT_BY_NAME && _sortType == SORT_ENCREASE)
+		std::sort(_list.begin(), _list.end(), sort_by_name_encrease);
+	else if (_sortKey == SORT_BY_NAME && _sortType == SORT_DECREASE)
+		std::sort(_list.begin(), _list.end(), sort_by_name_decrease);
+	else if (_sortKey == SORT_BY_VERSION && _sortType == SORT_ENCREASE)
+		std::sort(_list.begin(), _list.end(), sort_by_version_encrease);
+	else if (_sortKey == SORT_BY_VERSION && _sortType == SORT_DECREASE)
+		std::sort(_list.begin(), _list.end(), sort_by_version_decrease);
+
+	_ui.deleteAllItems();
+	for (size_t i = 0; i <_list.size(); i++)
+	{
+		vector<generic_string> values2Add;
+		pi = _list.at(i);
+		values2Add.push_back(pi->_displayName);
+		Version v = pi->_version;
+		values2Add.push_back(v.toString());
+		values2Add.push_back(pi->_releaseDate);
+		//values2Add.push_back(TEXT("Yes"));
+		_ui.addLine(values2Add, reinterpret_cast<LPARAM>(pi), static_cast<int>(i));
+	}
+}
+
 bool PluginViewList::hideFromListIndex(size_t index2hide)
 {
 	if (index2hide >= _list.size())
@@ -1301,6 +1395,16 @@ INT_PTR CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 							generic_string desc = pui->describe();
 							::SetDlgItemText(_hSelf, IDC_PLUGINADM_EDIT, desc.c_str());
 						}
+					}
+				}
+				else if (pnmh->code == LVN_COLUMNCLICK)
+				{
+					int column_index = pnmv->iSubItem;
+					if (column_index == COLUMN_PLUGIN || column_index == COLUMN_VERSION || column_index == COLUMN_DATE)
+					{
+						pViewList->setSortKey(column_index);
+						pViewList->toggleSortType();
+						pViewList->sort();
 					}
 				}
 			}

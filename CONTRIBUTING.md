@@ -21,6 +21,10 @@ Bug reports are appreciated. Following a few guidelines listed below will help s
     * Screen shots (if applicable)
     * ...and any other relevant information
 
+## Triaging issues [![Open Source Helpers](https://www.codetriage.com/notepad-plus-plus/notepad-plus-plus/badges/users.svg)](https://www.codetriage.com/notepad-plus-plus/notepad-plus-plus)
+
+You can contribute by triaging issues which may include reproducing bug reports or asking for vital information, such as version numbers or reproduction instructions. If you would like to start triaging issues, one easy way to get started is to [subscribe to notepad-plus-plus on CodeTriage](https://www.codetriage.com/notepad-plus-plus/notepad-plus-plus).
+
 ## Pull Requests
 
 Your pull requests are welcome; however, they may not be accepted for various reasons. If you want to make some GUI enhancement like renaming some graphic items or fixing typos, please create the issue instead of the pull requests. All Pull Requests, except for translations and user documentation, need to be attached to a issue on GitHub. For Pull Requests regarding enhancements and questions, the issue must first be approved by one of project's administrators before being merged into the project. An approved issue will have the label `Accepted`. For issues that have not been accepted, you may request to be assigned to that issue.

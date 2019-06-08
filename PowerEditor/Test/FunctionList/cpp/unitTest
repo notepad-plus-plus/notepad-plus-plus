@@ -100,7 +100,7 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_P,       IDM_FILE_PRINT,                               true,  false, false, nullptr },
 	{ VK_NULL,    IDM_FILE_PRINTNOW,                            false, false, false, nullptr },
 	{ VK_F4,      IDM_FILE_EXIT,                                false, true,  false, nullptr },
-	{ VK_T,       IDM_FILE_RESTORELASTCLOSEDFILE,               true,  false, true,  TEXT("Restore Recent Closed File")},
+	{ VK_T,       IDM_FILE_RESTORELASTCLOSEDFILE,               true,  false, true,  nullptr },
 
 //	{ VK_NULL,    IDM_EDIT_UNDO,                                false, false, false, nullptr },
 //	{ VK_NULL,    IDM_EDIT_REDO,                                false, false, false, nullptr },
@@ -258,8 +258,8 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_PRIOR,   IDM_VIEW_TAB_PREV,                            true,  false, false, nullptr },
 	{ VK_NEXT,    IDM_VIEW_TAB_MOVEFORWARD,                     true,  false, true,  nullptr },
 	{ VK_PRIOR,   IDM_VIEW_TAB_MOVEBACKWARD,                    true,  false, true,  nullptr },
-	{ VK_TAB,     IDC_PREV_DOC,                                 true,  false, true,  TEXT("Switch to previous document") },
-	{ VK_TAB,     IDC_NEXT_DOC,                                 true,  false, false, TEXT("Switch to next document") },
+	{ VK_TAB,     IDC_PREV_DOC,                                 true,  false, true,  nullptr },
+	{ VK_TAB,     IDC_NEXT_DOC,                                 true,  false, false, nullptr },
 	{ VK_NULL,    IDM_VIEW_WRAP,                                false, false, false, nullptr },
 	{ VK_H,       IDM_VIEW_HIDELINES,                           false, true,  false, nullptr },
 	{ VK_F8,      IDM_VIEW_SWITCHTO_OTHER_VIEW,                 false, false, false, nullptr },
@@ -368,7 +368,7 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_NULL,    IDM_SETTING_IMPORTSTYLETHEMS,                 false, false, false, nullptr },
 	{ VK_NULL,    IDM_SETTING_EDITCONTEXTMENU,                  false, false, false, nullptr },
 
-	{ VK_R,       IDC_EDIT_TOGGLEMACRORECORDING,                true,  false, true,  TEXT("Toggle macro record")},
+	{ VK_R,       IDC_EDIT_TOGGLEMACRORECORDING,                true,  false, true,  nullptr },
 	{ VK_NULL,    IDM_MACRO_STARTRECORDINGMACRO,                false, false, false, nullptr },
 	{ VK_NULL,    IDM_MACRO_STOPRECORDINGMACRO,                 false, false, false, nullptr },
 	{ VK_P,       IDM_MACRO_PLAYBACKRECORDEDMACRO,              true,  false, true,  nullptr },

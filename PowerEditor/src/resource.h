@@ -242,12 +242,12 @@
     //#define IDM_EDIT_AUTOCOMPLETE                (IDCMD+0)
     //#define IDM_EDIT_AUTOCOMPLETE_CURRENTFILE    (IDCMD+1)
 
-	#define IDC_PREV_DOC                    (IDCMD+3)
-	#define IDC_NEXT_DOC                    (IDCMD+4)
-	#define IDC_EDIT_TOGGLEMACRORECORDING    (IDCMD+5)
+	//#define IDC_PREV_DOC                    (IDCMD+3)
+	//#define IDC_NEXT_DOC                    (IDCMD+4)
+	//#define IDC_EDIT_TOGGLEMACRORECORDING   (IDCMD+5)
     //#define IDC_KEY_HOME                    (IDCMD+6)
-    //#define IDC_KEY_END                        (IDCMD+7)
-    //#define IDC_KEY_SELECT_2_HOME            (IDCMD+8)
+    //#define IDC_KEY_END                     (IDCMD+7)
+    //#define IDC_KEY_SELECT_2_HOME           (IDCMD+8)
     //#define IDC_KEY_SELECT_2_END            (IDCMD+9)
 
 #define IDCMD_LIMIT                        (IDCMD+20)

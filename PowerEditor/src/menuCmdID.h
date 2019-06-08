@@ -186,6 +186,13 @@
     #define    IDM_EDIT_AUTOCOMPLETE                (50000 + 0)
     #define    IDM_EDIT_AUTOCOMPLETE_CURRENTFILE    (50000 + 1)
     #define    IDM_EDIT_FUNCCALLTIP                 (50000 + 2)
+
+    //MRU behaviour
+    #define    IDC_PREV_DOC                         (50000 + 3)
+    #define    IDC_NEXT_DOC                         (50000 + 4)
+    //Stop & start macro TOGGLE
+    #define    IDC_EDIT_TOGGLEMACRORECORDING        (50000 + 5)
+
     #define    IDM_EDIT_AUTOCOMPLETE_PATH           (50000 + 6)
     
     //Belong to MENU FILE

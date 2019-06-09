@@ -43,7 +43,16 @@ static bool isInList(generic_string word, const vector<generic_string> & wordArr
 
 static bool isAllDigits(const generic_string &str)
 {
-	return std::all_of(str.begin(), str.end(), ::isdigit);
+	for (const auto& i : str)
+	{
+		if (i < -i || i > 255)
+			return false;
+
+		bool isDigit = ::isdigit(int(i)) != 0;
+		if (!isDigit)
+			return false;
+	}
+	return true;
 }
 
 

@@ -1112,6 +1112,7 @@ Notepad++ı Yönetici olarak başlatmak ister misiniz?"/>
                 <Item id="3517" name="Dosyalarda bul..."/>
                 <Item id="3518" name="Explorer buraya"/>
                 <Item id="3519" name="CMD buraya"/>
+				<Item id="3520" name="Dosya Adını Kopyala"/>
             </Menus>
 		</FolderAsWorkspace>
 		<ProjectManager>

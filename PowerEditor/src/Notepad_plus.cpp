@@ -3328,6 +3328,19 @@ void Notepad_plus::checkModifiedDocument(bool bCheckOnlyCurrentBuffer)
 	MainFileManager->checkFilesystemChanges(bCheckOnlyCurrentBuffer);
 }
 
+void Notepad_plus::checkModifiedDocumentIfMonitoring()
+{
+	// This is an workaround to deal with Microsoft issue in ReadDirectoryChanges notification
+	// If command prompt is used to write file continuously (e.g. ping -t 8.8.8.8 > ping.log)
+	// Then ReadDirectoryChanges does not detect the change
+	// Fortunately, notification is sent if right click or double click happens on that file
+	// Let's leverage this as workaround to enhance npp file monitoring functionality.
+
+	Buffer* currBuf = getCurrentBuffer();
+	if (currBuf && currBuf->isMonitoringOn())
+		::PathFileExists(currBuf->getFullPathName());
+}
+
 void Notepad_plus::getMainClientRect(RECT &rc) const
 {
     _pPublicInterface->getClientRect(rc);
@@ -5129,6 +5142,10 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 			}
 			case DOC_MODIFIED:	//ask for reloading
 			{
+				// Since it is being monitored DOC_NEEDRELOAD is going to handle the change.
+				if (buffer->isMonitoringOn())
+					break;
+
 				bool autoUpdate = (nppGUI._fileAutoDetection & cdAutoUpdate) ? true : false;
 				if (!autoUpdate || buffer->isDirty())
 				{

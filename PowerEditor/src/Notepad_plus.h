@@ -458,6 +458,7 @@ private:
 	void checkSyncState();
 	void dropFiles(HDROP hdrop);
 	void checkModifiedDocument(bool bCheckOnlyCurrentBuffer);
+	void checkModifiedDocumentIfMonitoring();
 
     void getMainClientRect(RECT & rc) const;
 	void staticCheckMenuAndTB() const;

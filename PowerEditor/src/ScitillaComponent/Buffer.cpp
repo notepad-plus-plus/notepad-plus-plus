@@ -224,7 +224,10 @@ void Buffer::setFileName(const TCHAR *fn, LangType defaultLang)
 
 bool Buffer::checkFileState() // returns true if the status has been changed (it can change into DOC_REGULAR too). false otherwise
 {
- 	if (_currentStatus == DOC_UNNAMED)	//unsaved document cannot change by environment
+	// 1. Unsaved document cannot change by environment
+	// 2. Monitoring is sent by NPPM_INTERNAL_RELOADSCROLLTOEND
+	// So no need to check file status for both the above cases
+	if (_currentStatus == DOC_UNNAMED || isMonitoringOn())
 		return false;
 
 	WIN32_FILE_ATTRIBUTE_DATA attributes;

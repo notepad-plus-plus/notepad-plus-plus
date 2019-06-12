@@ -583,4 +583,7 @@
     #define IDM_SYSTRAYPOPUP_OPENFILE         (IDM_SYSTRAYPOPUP + 4)
     #define IDM_SYSTRAYPOPUP_CLOSE            (IDM_SYSTRAYPOPUP + 5)
 
+    #define ROTATION_A_GAUCHE                    (50000 + 7)  // Rotate to left
+    #define ROTATION_A_DROITE                    (50000 + 8)  // Rotate to right
+
 #endif //MENUCMDID_H

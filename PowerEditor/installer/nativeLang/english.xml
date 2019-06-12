@@ -315,6 +315,8 @@
                     <Item id="50004" name="Switch to next document"/>
                     <Item id="50005" name="Toggle macro record"/>
                     <Item id="50006" name="Path Completion"/>
+                    <Item id="50007" name="Rotate to left"/>
+                    <Item id="50008" name="Rotate to right"/>
                     <Item id="44042" name="Hide Lines"/>
                     <Item id="42040" name="Open All Recent Files"/>
                     <Item id="42041" name="Empty Recent Files List"/>
@@ -1075,6 +1077,10 @@ Do you want to launch Notepad++ in Administrator mode?"/>
 Do you want to launch Notepad++ in Administrator mode?"/>
             <OpenInAdminModeFailed title="Open in Administrator mode failed" message="Notepad++ cannot be opened in Administrator mode."/>
             <ViewInBrowser title="View Current File in Browser" message="Application cannot be found in your system."/>
+			<ExitToUpdatePlugins                 title="Notepad++ is about to exit" message="If you click YES, you will quit Notepad++ to continue the operations.
+Notepad++ will be restarted after all the operations are terminated.
+Continue?"/>
+			<NeedToRestartToLoadPluginstitle     title="Notepad++ need to be relaunched" message="You have to restart Notepad++ to load plugins you installed."/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Clipboard History"/>

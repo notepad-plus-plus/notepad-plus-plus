@@ -1187,7 +1187,13 @@ UINT CodePageFromCharSet(DWORD characterSet, UINT documentCodePage) {
 	}
 	switch (characterSet) {
 	case SC_CHARSET_ANSI: return 1252;
-	case SC_CHARSET_DEFAULT: return documentCodePage ? documentCodePage : 1252;
+	
+	// Cyrillic / Turkish or other languages cannot be shown in ANSI mode.
+	// This fixes such problem. For more information about this fix, check:
+	// https://github.com/notepad-plus-plus/notepad-plus-plus/issues/5671
+	//case SC_CHARSET_DEFAULT: return documentCodePage ? documentCodePage : 1252;
+	case SC_CHARSET_DEFAULT: return documentCodePage;
+
 	case SC_CHARSET_BALTIC: return 1257;
 	case SC_CHARSET_CHINESEBIG5: return 950;
 	case SC_CHARSET_EASTEUROPE: return 1250;

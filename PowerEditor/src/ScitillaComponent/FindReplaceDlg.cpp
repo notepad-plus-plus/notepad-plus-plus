@@ -2570,7 +2570,7 @@ void FindReplaceDlg::setStatusbarMessage(const generic_string & msg, FindStatus 
 	}
 }
 
-void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, generic_string stringValue)
+void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const generic_string& stringValue)
 {
 	try
 	{

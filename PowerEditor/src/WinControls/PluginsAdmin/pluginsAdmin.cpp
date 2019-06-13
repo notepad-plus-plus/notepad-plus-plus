@@ -78,7 +78,7 @@ Version::Version(const generic_string& versionStr)
 	}
 }
 
-void Version::setVersionFrom(generic_string filePath)
+void Version::setVersionFrom(const generic_string& filePath)
 {
 	if (not filePath.empty() && ::PathFileExists(filePath.c_str()))
 	{
@@ -215,7 +215,7 @@ bool findStrNoCase(const generic_string & strHaystack, const generic_string & st
 	return (it != strHaystack.end());
 }
 
-bool PluginsAdminDlg::isFoundInAvailableListFromIndex(int index, generic_string str2search, bool inWhichPart) const
+bool PluginsAdminDlg::isFoundInAvailableListFromIndex(int index, const generic_string& str2search, bool inWhichPart) const
 {
 	PluginUpdateInfo* pui = _availableList.getPluginInfoFromUiIndex(index);
 	generic_string searchIn;
@@ -227,7 +227,7 @@ bool PluginsAdminDlg::isFoundInAvailableListFromIndex(int index, generic_string 
 	return (findStrNoCase(searchIn, str2search));
 }
 
-long PluginsAdminDlg::searchFromCurrentSel(generic_string str2search, bool inWhichPart, bool isNextMode) const
+long PluginsAdminDlg::searchFromCurrentSel(const generic_string& str2search, bool inWhichPart, bool isNextMode) const
 {
 	// search from curent selected item or from the beginning
 	long currentIndex = _availableList.getSelectedIndex();

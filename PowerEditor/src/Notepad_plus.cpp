@@ -5026,7 +5026,7 @@ bool Notepad_plus::str2Cliboard(const generic_string & str2cpy)
 
 //ONLY CALL IN CASE OF EMERGENCY: EXCEPTION
 //This function is destructive
-bool Notepad_plus::emergency(generic_string emergencySavedDir)
+bool Notepad_plus::emergency(const generic_string& emergencySavedDir)
 {
     ::CreateDirectory(emergencySavedDir.c_str(), NULL);
 	return dumpFiles(emergencySavedDir.c_str(), TEXT("File"));

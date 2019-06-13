@@ -326,7 +326,7 @@ public:
 	bool isModified() const { return _isModified; }
 	void setModifiedStatus(bool isModified) { _isModified = isModified; }
 	generic_string getBackupFileName() const { return _backupFileName; }
-	void setBackupFileName(generic_string fileName) { _backupFileName = fileName; }
+	void setBackupFileName(const generic_string& fileName) { _backupFileName = fileName; }
 	FILETIME getLastModifiedTimestamp() const { return _timeStamp; }
 
 	bool isLoadedDirty() const

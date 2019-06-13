@@ -36,7 +36,7 @@ struct MenuItemUnit final
 	generic_string _parentFolderName;
 
 	MenuItemUnit() = default;
-	MenuItemUnit(unsigned long cmdID, generic_string itemName, generic_string parentFolderName = generic_string())
+	MenuItemUnit(unsigned long cmdID, const generic_string& itemName, const generic_string& parentFolderName = generic_string())
 		: _cmdID(cmdID), _itemName(itemName), _parentFolderName(parentFolderName){};
 	MenuItemUnit(unsigned long cmdID, const TCHAR *itemName, const TCHAR *parentFolderName = nullptr);
 };

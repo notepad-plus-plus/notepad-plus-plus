@@ -77,7 +77,7 @@ public:
 		return _notepad_plus_plus_core.getAccTable();
 	}
 
-	bool emergency(generic_string emergencySavedDir)
+	bool emergency(const generic_string& emergencySavedDir)
 	{
 		return _notepad_plus_plus_core.emergency(emergencySavedDir);
 	}

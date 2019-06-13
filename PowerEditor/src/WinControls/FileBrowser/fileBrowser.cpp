@@ -990,7 +990,7 @@ HTREEITEM FileBrowser::getRootFromFullPath(const generic_string & rootPath) cons
 	return node;
 }
 
-HTREEITEM FileBrowser::findChildNodeFromName(HTREEITEM parent, generic_string label)
+HTREEITEM FileBrowser::findChildNodeFromName(HTREEITEM parent, const generic_string& label)
 {
 	HTREEITEM childNodeFound = nullptr;
 

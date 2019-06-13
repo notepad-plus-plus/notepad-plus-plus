@@ -197,8 +197,6 @@ public:
 	bool fileDelete(BufferID id = BUFFER_INVALID);
 	bool fileRename(BufferID id = BUFFER_INVALID);
 
-	bool addBufferToView(BufferID id, int whichOne);
-	bool moveBuffer(BufferID id, int whereTo);	//assumes whereFrom is otherView(whereTo)
 	bool switchToFile(BufferID buffer);			//find buffer in active view then in other view.
 	//@}
 
@@ -246,7 +244,7 @@ public:
 	HACCEL getAccTable() const{
 		return _accelerator.getAccTable();
 	}
-	bool emergency(generic_string emergencySavedDir);
+	bool emergency(const generic_string& emergencySavedDir);
 	Buffer* getCurrentBuffer()	{
 		return _pEditView->getCurrentBuffer();
 	}
@@ -447,7 +445,6 @@ private:
 	int doReloadOrNot(const TCHAR *fn, bool dirty);
 	int doCloseOrNot(const TCHAR *fn);
 	int doDeleteOrNot(const TCHAR *fn);
-	int doActionOrNot(const TCHAR *title, const TCHAR *displayText, int type);
 
 	void enableMenu(int cmdID, bool doEnable) const;
 	void enableCommand(int cmdID, bool doEnable, int which) const;
@@ -570,7 +567,7 @@ private:
 	int getLangFromMenuName(const TCHAR * langName);
 	generic_string getLangFromMenu(const Buffer * buf);
 
-    generic_string exts2Filters(generic_string exts) const;
+    generic_string exts2Filters(const generic_string& exts) const;
 	int setFileOpenSaveDlgFilters(FileDialog & fDlg, int langType = -1);
 	Style * getStyleFromName(const TCHAR *styleName);
 	bool dumpFiles(const TCHAR * outdir, const TCHAR * fileprefix = TEXT(""));	//helper func

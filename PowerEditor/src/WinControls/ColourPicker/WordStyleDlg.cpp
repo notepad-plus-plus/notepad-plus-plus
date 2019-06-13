@@ -482,7 +482,7 @@ void WordStyleDlg::loadLangListFromNppParam()
 	setStyleListFromLexer(index2Begin);
 }
 
-void WordStyleDlg::updateThemeName(generic_string themeName)
+void WordStyleDlg::updateThemeName(const generic_string& themeName)
 {
 	NppParameters *pNppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = (NppGUI & )pNppParam->getNppGUI();

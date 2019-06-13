@@ -70,7 +70,7 @@ struct LangID_Name
 {
 	LangType _id;
 	generic_string _name;
-	LangID_Name(LangType id, generic_string name) : _id(id), _name(name){};
+	LangID_Name(LangType id, const generic_string& name) : _id(id), _name(name){};
 };
 
 class DefaultNewDocDlg : public StaticDialog

@@ -47,7 +47,7 @@ struct Version
 	Version() {};
 	Version(const generic_string& versionStr);
 
-	void setVersionFrom(generic_string filePath);
+	void setVersionFrom(const generic_string& filePath);
 	generic_string toString();
 	bool isNumber(const generic_string& s) const {
 		return !s.empty() && 
@@ -229,13 +229,13 @@ private :
 	bool searchInPlugins(bool isNextMode) const;
 	const bool _inNames = true;
 	const bool _inDescs = false;
-	bool isFoundInAvailableListFromIndex(int index, generic_string str2search, bool inWhichPart) const;
-	long searchFromCurrentSel(generic_string str2search, bool inWhichPart, bool isNextMode) const;
-	long searchInNamesFromCurrentSel(generic_string str2search, bool isNextMode) const {
+	bool isFoundInAvailableListFromIndex(int index, const generic_string& str2search, bool inWhichPart) const;
+	long searchFromCurrentSel(const generic_string& str2search, bool inWhichPart, bool isNextMode) const;
+	long searchInNamesFromCurrentSel(const generic_string& str2search, bool isNextMode) const {
 		return searchFromCurrentSel(str2search, _inNames, isNextMode);
 	};
 
-	long searchInDescsFromCurrentSel(generic_string str2search, bool isNextMode) const {
+	long searchInDescsFromCurrentSel(const generic_string& str2search, bool isNextMode) const {
 		return searchFromCurrentSel(str2search, _inDescs, isNextMode);
 	};
 	

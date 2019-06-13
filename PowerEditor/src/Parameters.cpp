@@ -691,7 +691,7 @@ std::wstring LocalizationSwitcher::getXmlFilePathFromLangName(const wchar_t *lan
 }
 
 
-bool LocalizationSwitcher::addLanguageFromXml(wstring xmlFullPath)
+bool LocalizationSwitcher::addLanguageFromXml(const std::wstring& xmlFullPath)
 {
 	wchar_t * fn = ::PathFindFileNameW(xmlFullPath.c_str());
 	wstring foundLang = getLangFromXmlFileName(fn);
@@ -1599,7 +1599,7 @@ void NppParameters::setFontList(HWND hWnd)
 	::EnumFontFamiliesEx(hDC, &lf, EnumFontFamExProc, reinterpret_cast<LPARAM>(&_fontlist), 0);
 }
 
-bool NppParameters::isInFontList(const generic_string fontName2Search) const
+bool NppParameters::isInFontList(const generic_string& fontName2Search) const
 {
 	if (fontName2Search.empty())
 		return false;
@@ -1826,7 +1826,7 @@ bool NppParameters::reloadContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU plug
 	return getContextMenuFromXmlTree(mainMenuHadle, pluginsMenu);
 }
 
-int NppParameters::getCmdIdFromMenuEntryItemName(HMENU mainMenuHadle, generic_string menuEntryName, generic_string menuItemName)
+int NppParameters::getCmdIdFromMenuEntryItemName(HMENU mainMenuHadle, const generic_string& menuEntryName, const generic_string& menuItemName)
 {
 	int nbMenuEntry = ::GetMenuItemCount(mainMenuHadle);
 	for (int i = 0; i < nbMenuEntry; ++i)
@@ -1886,7 +1886,7 @@ int NppParameters::getCmdIdFromMenuEntryItemName(HMENU mainMenuHadle, generic_st
 	return -1;
 }
 
-int NppParameters::getPluginCmdIdFromMenuEntryItemName(HMENU pluginsMenu, generic_string pluginName, generic_string pluginCmdName)
+int NppParameters::getPluginCmdIdFromMenuEntryItemName(HMENU pluginsMenu, const generic_string& pluginName, const generic_string& pluginCmdName)
 {
 	int nbPlugins = ::GetMenuItemCount(pluginsMenu);
 	for (int i = 0; i < nbPlugins; ++i)
@@ -2676,7 +2676,7 @@ std::pair<unsigned char, unsigned char> NppParameters::feedUserLang(TiXmlNode *n
 	return pair<unsigned char, unsigned char>(iBegin, iEnd);
 }
 
-bool NppParameters::importUDLFromFile(generic_string sourceFile)
+bool NppParameters::importUDLFromFile(const generic_string& sourceFile)
 {
 	TiXmlDocument *pXmlUserLangDoc = new TiXmlDocument(sourceFile);
 	bool loadOkay = pXmlUserLangDoc->LoadFile();
@@ -2696,7 +2696,7 @@ bool NppParameters::importUDLFromFile(generic_string sourceFile)
 	return loadOkay;
 }
 
-bool NppParameters::exportUDLToFile(size_t langIndex2export, generic_string fileName2save)
+bool NppParameters::exportUDLToFile(size_t langIndex2export, const generic_string& fileName2save)
 {
 	if (langIndex2export >= NB_MAX_USER_LANG)
 		return false;

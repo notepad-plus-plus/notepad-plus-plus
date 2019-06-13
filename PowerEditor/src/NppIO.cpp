@@ -728,7 +728,7 @@ void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup)
 	return;
 }
 
-generic_string Notepad_plus::exts2Filters(generic_string exts) const
+generic_string Notepad_plus::exts2Filters(const generic_string& exts) const
 {
 	const TCHAR *extStr = exts.c_str();
 	TCHAR aExt[MAX_PATH];

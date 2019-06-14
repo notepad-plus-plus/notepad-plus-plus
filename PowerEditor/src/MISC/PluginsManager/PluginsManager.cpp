@@ -114,6 +114,9 @@ cleanup: // release all of our handles
 	return machine_type;
 }
 
+#define	LOAD_LIBRARY_SEARCH_DLL_LOAD_DIR	0x00000100
+#define	LOAD_LIBRARY_SEARCH_DEFAULT_DIRS	0x00001000
+
 int PluginsManager::loadPlugin(const TCHAR *pluginFilePath)
 {
 	const TCHAR *pluginFileName = ::PathFindFileName(pluginFilePath);
@@ -130,7 +133,8 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath)
 		if (GetBinaryArchitectureType(pluginFilePath) != ARCH_TYPE)
 			throw generic_string(ARCH_ERR_MSG);
 
-	    pi->_hLib = ::LoadLibrary(pluginFilePath);
+        const DWORD dwFlags = GetProcAddress(GetModuleHandle(TEXT("kernel32.dll")), "AddDllDirectory") != NULL ? LOAD_LIBRARY_SEARCH_DLL_LOAD_DIR | LOAD_LIBRARY_SEARCH_DEFAULT_DIRS : 0;
+        pi->_hLib = ::LoadLibraryEx(pluginFilePath, NULL, dwFlags);
         if (!pi->_hLib)
         {
 			generic_string lastErrorMsg = GetLastErrorAsString();

@@ -776,6 +776,8 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			int currentTabOn = getTabIndexAt(xPos, yPos);
             if (_isDragging)
 			{
+				_isDragging = false;
+
 				if (::GetCapture() == _hSelf)
 					::ReleaseCapture();
 

@@ -31,7 +31,6 @@
 #include <uxtheme.h>
 #include <cassert>
 #include <codecvt>
-#include <locale>
 
 #include "StaticDialog.h"
 

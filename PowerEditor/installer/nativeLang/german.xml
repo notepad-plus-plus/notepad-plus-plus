@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++ 7.6.5
-	last modified: 2019-03-26 by schnurlos (schnurlos@gmail.com)
+	last modified: 2019-06-15 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -1091,6 +1091,7 @@
 				<Item id="3517" name="In Dateien suchen …"/>
 				<Item id="3518" name="Hier anzeigen"/>
 				<Item id="3519" name="Kommandozeile hier"/>
+				<Item id="3520" name="Dateinamen kopieren"/>
 			</Menus>
 		</FolderAsWorkspace>
 		<ProjectManager>

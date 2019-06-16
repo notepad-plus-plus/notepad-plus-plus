@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v7.6.6:
-- full revision
+Updated to v7.7:
 - added new lines
 -->
 <NotepadPlus>
@@ -10,67 +9,67 @@ Updated to v7.6.6:
 			<Main>
 				<!-- Главное Меню -->
 				<Entries>
-					<Item menuId="file" name="&amp;Файл"/>
-					<Item menuId="edit" name="&amp;Правка"/>
-					<Item menuId="search" name="По&amp;иск"/>
-					<Item menuId="view" name="&amp;Вид"/>
+					<Item menuId="file"     name="&amp;Файл"/>
+					<Item menuId="edit"     name="&amp;Правка"/>
+					<Item menuId="search"   name="По&amp;иск"/>
+					<Item menuId="view"     name="&amp;Вид"/>
 					<Item menuId="encoding" name="&amp;Кодировки"/>
 					<Item menuId="language" name="&amp;Синтаксисы"/>
 					<Item menuId="settings" name="&amp;Опции"/>
-					<Item menuId="tools" name="Инстр&amp;ументы"/>
-					<Item menuId="macro" name="&amp;Макросы"/>
-					<Item menuId="run" name="&amp;Запуск"/>
-					<Item idName="Plugins" name="Плаги&amp;ны"/>
-					<Item idName="Window"  name="Вкл&amp;адки"/>
+					<Item menuId="tools"    name="Инстр&amp;ументы"/>
+					<Item menuId="macro"    name="&amp;Макросы"/>
+					<Item menuId="run"      name="&amp;Запуск"/>
+					<Item idName="Plugins"  name="Плаги&amp;ны"/>
+					<Item idName="Window"   name="Вкл&amp;адки"/>
 				</Entries>
 
 				<SubEntries>
-					<Item subMenuId="file-openFolder" name="&amp;Открыть папку документа"/>
-					<Item subMenuId="file-closeMore" name="Управление вкладками..."/>
-					<Item subMenuId="file-recentFiles" name="Последние файлы"/>
-					<Item subMenuId="edit-copyToClipboard"  name="Копировать в &amp;Буфер..."/>
-					<Item subMenuId="edit-indent" name="Отступы (табуляция)"/>
-					<Item subMenuId="edit-convertCaseTo" name="Преобразование Регистра"/>
-					<Item subMenuId="edit-lineOperations" name="Операции со Строками"/>
-					<Item subMenuId="edit-comment" name="Комментирование"/>
-					<Item subMenuId="edit-autoCompletion" name="Автозавершение Ввода"/>
-					<Item subMenuId="edit-eolConversion" name="Формат Конца Строк"/>
-					<Item subMenuId="edit-blankOperations" name="Операции с Пробелами"/>
-					<Item subMenuId="edit-pasteSpecial" name="Специальная Вставка"/>
-					<Item subMenuId="edit-onSelection" name="Выделенное"/>
-					<Item subMenuId="search-markAll" name="Пометить выделенное"/>
-					<Item subMenuId="search-unmarkAll" name="Убрать Пометки"/>
-					<Item subMenuId="search-jumpUp" name="Перейти вверх"/>
-					<Item subMenuId="search-jumpDown" name="Перейти вниз"/>
-					<Item subMenuId="search-bookmark" name="&amp;Закладки"/>
-					<Item subMenuId="view-currentFileIn" name="Открыть текущий файл в..."/>
-					<Item subMenuId="view-showSymbol"  name="Отображение символов"/>
-					<Item subMenuId="view-zoom"  name="Масштаб текста"/>
-					<Item subMenuId="view-moveCloneDocument"  name="Окно документа"/>
-					<Item subMenuId="view-tab"  name="Выбор Вкладки..."/>
-					<Item subMenuId="view-collapseLevel" name="Свернуть уровень"/>
-					<Item subMenuId="view-uncollapseLevel" name="Развернуть уровень"/>
-					<Item subMenuId="view-project" name="Проект (панель)"/>
-					<Item subMenuId="encoding-characterSets"  name="Кодировки"/>
-					<Item subMenuId="encoding-arabic"  name="Арабский"/>
-					<Item subMenuId="encoding-baltic"  name="Балтийский"/>
-					<Item subMenuId="encoding-celtic"  name="Кельтский"/>
-					<Item subMenuId="encoding-cyrillic"  name="Кириллица"/>
+					<Item subMenuId="file-openFolder"           name="&amp;Открыть папку документа"/>
+					<Item subMenuId="file-closeMore"            name="Управление вкладками..."/>
+					<Item subMenuId="file-recentFiles"          name="Последние файлы"/>
+					<Item subMenuId="edit-copyToClipboard"      name="Копировать в &amp;Буфер..."/>
+					<Item subMenuId="edit-indent"               name="Отступы (табуляция)"/>
+					<Item subMenuId="edit-convertCaseTo"        name="Преобразование Регистра"/>
+					<Item subMenuId="edit-lineOperations"       name="Операции со Строками"/>
+					<Item subMenuId="edit-comment"              name="Комментирование"/>
+					<Item subMenuId="edit-autoCompletion"       name="Автозавершение Ввода"/>
+					<Item subMenuId="edit-eolConversion"        name="Формат Конца Строк"/>
+					<Item subMenuId="edit-blankOperations"      name="Операции с Пробелами"/>
+					<Item subMenuId="edit-pasteSpecial"         name="Специальная Вставка"/>
+					<Item subMenuId="edit-onSelection"          name="Выделенное"/>
+					<Item subMenuId="search-markAll"            name="Пометить выделенное"/>
+					<Item subMenuId="search-unmarkAll"          name="Убрать Пометки"/>
+					<Item subMenuId="search-jumpUp"             name="Перейти вверх"/>
+					<Item subMenuId="search-jumpDown"           name="Перейти вниз"/>
+					<Item subMenuId="search-bookmark"           name="&amp;Закладки"/>
+					<Item subMenuId="view-currentFileIn"        name="Открыть текущий файл в..."/>
+					<Item subMenuId="view-showSymbol"           name="Отображение символов"/>
+					<Item subMenuId="view-zoom"                 name="Масштаб текста"/>
+					<Item subMenuId="view-moveCloneDocument"    name="Окно документа"/>
+					<Item subMenuId="view-tab"                  name="Выбор Вкладки..."/>
+					<Item subMenuId="view-collapseLevel"        name="Свернуть уровень"/>
+					<Item subMenuId="view-uncollapseLevel"      name="Развернуть уровень"/>
+					<Item subMenuId="view-project"              name="Проект (панель)"/>
+					<Item subMenuId="encoding-characterSets"    name="Кодировки"/>
+					<Item subMenuId="encoding-arabic"           name="Арабский"/>
+					<Item subMenuId="encoding-baltic"           name="Балтийский"/>
+					<Item subMenuId="encoding-celtic"           name="Кельтский"/>
+					<Item subMenuId="encoding-cyrillic"         name="Кириллица"/>
 					<Item subMenuId="encoding-centralEuropean"  name="Центрально-Европейский"/>
-					<Item subMenuId="encoding-chinese"  name="Китайский"/>
+					<Item subMenuId="encoding-chinese"          name="Китайский"/>
 					<Item subMenuId="encoding-easternEuropean"  name="Восточно-Европейский"/>
-					<Item subMenuId="encoding-greek"  name="Греческий"/>
-					<Item subMenuId="encoding-hebrew"  name="Иврит"/>
-					<Item subMenuId="encoding-japanese"  name="Японский"/>
-					<Item subMenuId="encoding-korean" name="Корейский"/>
-					<Item subMenuId="encoding-northEuropean" name="Северо-Европейский"/>
-					<Item subMenuId="encoding-thai" name="Тайский"/>
-					<Item subMenuId="encoding-turkish" name="Турецкий"/>
-					<Item subMenuId="encoding-westernEuropean" name="Западно-Европейский"/>
-					<Item subMenuId="encoding-vietnamese" name="Вьетнамский"/>
-					<Item subMenuId="settings-import"  name="Импортировать"/>
-					<Item subMenuId="tools-md5"  name="MD5"/>
-					<Item subMenuId="tools-sha256"  name="SHA-256"/>
+					<Item subMenuId="encoding-greek"            name="Греческий"/>
+					<Item subMenuId="encoding-hebrew"           name="Иврит"/>
+					<Item subMenuId="encoding-japanese"         name="Японский"/>
+					<Item subMenuId="encoding-korean"           name="Корейский"/>
+					<Item subMenuId="encoding-northEuropean"    name="Северо-Европейский"/>
+					<Item subMenuId="encoding-thai"             name="Тайский"/>
+					<Item subMenuId="encoding-turkish"          name="Турецкий"/>
+					<Item subMenuId="encoding-westernEuropean"  name="Западно-Европейский"/>
+					<Item subMenuId="encoding-vietnamese"       name="Вьетнамский"/>
+					<Item subMenuId="settings-import"           name="Импортировать"/>
+					<Item subMenuId="tools-md5"                 name="MD5"/>
+					<Item subMenuId="tools-sha256"              name="SHA-256"/>
 				</SubEntries>
 
 				<Commands>
@@ -319,6 +318,9 @@ Updated to v7.6.6:
 					<Item id="50000" name="Завершение функций"/>
 					<Item id="50001" name="Завершение слов"/>
 					<Item id="50002" name="Подсказка по функциям"/>
+					<Item id="50003" name="Перекл. на предыдущий док."/>
+					<Item id="50004" name="Перекл. на следующий док."/>
+					<Item id="50005" name="Вкл./Выкл. запись Макро"/>
 					<Item id="50006" name="Завершение пути"/>
 					<Item id="10001" name="Переместить в Другую Область"/>
 					<Item id="10002" name="Дублировать в Другой Области"/>
@@ -1032,6 +1034,8 @@ Updated to v7.6.6:
 			<OpenInAdminModeWithoutCloseCurrent  title="Ошибка сохранения"                          message="Файл не может быть сохранен и может быть защищён.&#x0A;Хотите запустить Notepad++ в режиме администратора?"/>
 			<OpenInAdminModeFailed               title="Не удалось открыть в режиме Администратора" message="Notepad++ не может быть открыто в режиме Администратора."/>
 			<ViewInBrowser                       title="Открыть текущий файл в Браузере"            message="Приложение не найдено в вашей системе."/>
+			<ExitToUpdatePlugins                 title="Завершение работы Notepad++"                message="Notepad++ завершит работу для продолжения операции.&#x0A;Программа будет перезапущена после завершения всех операций.&#x0A;Продолжить?"/>
+			<NeedToRestartToLoadPlugins          title="Необходимо перезапустить Notepad++"         message="Необходимо перезапустить Notepad++ для установки загруженных плагинов."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="История Буфера"/>
@@ -1067,12 +1071,13 @@ Updated to v7.6.6:
 				<Item id="3511" name="Убрать"/>
 				<Item id="3512" name="Убрать Всё"/>
 				<Item id="3513" name="Добавить"/>
-				<Item id="3514" name="Запуск системой"/>
+				<Item id="3514" name="Запустить системой"/>
 				<Item id="3515" name="Открыть"/>
 				<Item id="3516" name="Копировать путь"/>
 				<Item id="3517" name="Найти в Файлах..."/>
 				<Item id="3518" name="Расположение объекта"/>
 				<Item id="3519" name="Запустить CMD"/>
+				<Item id="3520" name="Копировать Имя Файла"/>
 			</Menus>
 		</FolderAsWorkspace>
 		<ProjectManager>

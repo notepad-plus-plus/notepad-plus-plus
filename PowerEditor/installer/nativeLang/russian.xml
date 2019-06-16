@@ -1,76 +1,77 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v7.6.6:
-- full revision
-- added new lines
+Updated to v7.7.2:
+- added new lines of Summary
+- added lines Up and Down
+- added others lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="7.6.6">
+	<Native-Langue name="Русский" filename="russian.xml" version="7.7.2">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
 				<Entries>
-					<Item menuId="file" name="&amp;Файл"/>
-					<Item menuId="edit" name="&amp;Правка"/>
-					<Item menuId="search" name="По&amp;иск"/>
-					<Item menuId="view" name="&amp;Вид"/>
+					<Item menuId="file"     name="&amp;Файл"/>
+					<Item menuId="edit"     name="&amp;Правка"/>
+					<Item menuId="search"   name="По&amp;иск"/>
+					<Item menuId="view"     name="&amp;Вид"/>
 					<Item menuId="encoding" name="&amp;Кодировки"/>
 					<Item menuId="language" name="&amp;Синтаксисы"/>
 					<Item menuId="settings" name="&amp;Опции"/>
-					<Item menuId="tools" name="Инстр&amp;ументы"/>
-					<Item menuId="macro" name="&amp;Макросы"/>
-					<Item menuId="run" name="&amp;Запуск"/>
-					<Item idName="Plugins" name="Плаги&amp;ны"/>
-					<Item idName="Window"  name="Вкл&amp;адки"/>
+					<Item menuId="tools"    name="Инстр&amp;ументы"/>
+					<Item menuId="macro"    name="&amp;Макросы"/>
+					<Item menuId="run"      name="&amp;Запуск"/>
+					<Item idName="Plugins"  name="Плаги&amp;ны"/>
+					<Item idName="Window"   name="Вкл&amp;адки"/>
 				</Entries>
 
 				<SubEntries>
-					<Item subMenuId="file-openFolder" name="&amp;Открыть папку документа"/>
-					<Item subMenuId="file-closeMore" name="Управление вкладками..."/>
-					<Item subMenuId="file-recentFiles" name="Последние файлы"/>
-					<Item subMenuId="edit-copyToClipboard"  name="Копировать в &amp;Буфер..."/>
-					<Item subMenuId="edit-indent" name="Отступы (табуляция)"/>
-					<Item subMenuId="edit-convertCaseTo" name="Преобразование Регистра"/>
-					<Item subMenuId="edit-lineOperations" name="Операции со Строками"/>
-					<Item subMenuId="edit-comment" name="Комментирование"/>
-					<Item subMenuId="edit-autoCompletion" name="Автозавершение Ввода"/>
-					<Item subMenuId="edit-eolConversion" name="Формат Конца Строк"/>
-					<Item subMenuId="edit-blankOperations" name="Операции с Пробелами"/>
-					<Item subMenuId="edit-pasteSpecial" name="Специальная Вставка"/>
-					<Item subMenuId="edit-onSelection" name="Выделенное"/>
-					<Item subMenuId="search-markAll" name="Пометить выделенное"/>
-					<Item subMenuId="search-unmarkAll" name="Убрать Пометки"/>
-					<Item subMenuId="search-jumpUp" name="Перейти вверх"/>
-					<Item subMenuId="search-jumpDown" name="Перейти вниз"/>
-					<Item subMenuId="search-bookmark" name="&amp;Закладки"/>
-					<Item subMenuId="view-currentFileIn" name="Открыть текущий файл в..."/>
-					<Item subMenuId="view-showSymbol"  name="Отображение символов"/>
-					<Item subMenuId="view-zoom"  name="Масштаб текста"/>
-					<Item subMenuId="view-moveCloneDocument"  name="Окно документа"/>
-					<Item subMenuId="view-tab"  name="Выбор Вкладки..."/>
-					<Item subMenuId="view-collapseLevel" name="Свернуть уровень"/>
-					<Item subMenuId="view-uncollapseLevel" name="Развернуть уровень"/>
-					<Item subMenuId="view-project" name="Проект (панель)"/>
-					<Item subMenuId="encoding-characterSets"  name="Кодировки"/>
-					<Item subMenuId="encoding-arabic"  name="Арабский"/>
-					<Item subMenuId="encoding-baltic"  name="Балтийский"/>
-					<Item subMenuId="encoding-celtic"  name="Кельтский"/>
-					<Item subMenuId="encoding-cyrillic"  name="Кириллица"/>
+					<Item subMenuId="file-openFolder"           name="&amp;Открыть папку документа"/>
+					<Item subMenuId="file-closeMore"            name="Управление вкладками..."/>
+					<Item subMenuId="file-recentFiles"          name="Последние файлы"/>
+					<Item subMenuId="edit-copyToClipboard"      name="Копировать в &amp;Буфер..."/>
+					<Item subMenuId="edit-indent"               name="Отступы (табуляция)"/>
+					<Item subMenuId="edit-convertCaseTo"        name="Преобразование Регистра"/>
+					<Item subMenuId="edit-lineOperations"       name="Операции со Строками"/>
+					<Item subMenuId="edit-comment"              name="Комментирование"/>
+					<Item subMenuId="edit-autoCompletion"       name="Автозавершение Ввода"/>
+					<Item subMenuId="edit-eolConversion"        name="Формат Конца Строк"/>
+					<Item subMenuId="edit-blankOperations"      name="Операции с Пробелами"/>
+					<Item subMenuId="edit-pasteSpecial"         name="Специальная Вставка"/>
+					<Item subMenuId="edit-onSelection"          name="Выделенное"/>
+					<Item subMenuId="search-markAll"            name="Пометить выделенное"/>
+					<Item subMenuId="search-unmarkAll"          name="Убрать Пометки"/>
+					<Item subMenuId="search-jumpUp"             name="Перейти вверх"/>
+					<Item subMenuId="search-jumpDown"           name="Перейти вниз"/>
+					<Item subMenuId="search-bookmark"           name="&amp;Закладки"/>
+					<Item subMenuId="view-currentFileIn"        name="Открыть текущий файл в..."/>
+					<Item subMenuId="view-showSymbol"           name="Отображение символов"/>
+					<Item subMenuId="view-zoom"                 name="Масштаб текста"/>
+					<Item subMenuId="view-moveCloneDocument"    name="Окно документа"/>
+					<Item subMenuId="view-tab"                  name="Выбор Вкладки..."/>
+					<Item subMenuId="view-collapseLevel"        name="Свернуть уровень"/>
+					<Item subMenuId="view-uncollapseLevel"      name="Развернуть уровень"/>
+					<Item subMenuId="view-project"              name="Проект (панель)"/>
+					<Item subMenuId="encoding-characterSets"    name="Кодировки"/>
+					<Item subMenuId="encoding-arabic"           name="Арабский"/>
+					<Item subMenuId="encoding-baltic"           name="Балтийский"/>
+					<Item subMenuId="encoding-celtic"           name="Кельтский"/>
+					<Item subMenuId="encoding-cyrillic"         name="Кириллица"/>
 					<Item subMenuId="encoding-centralEuropean"  name="Центрально-Европейский"/>
-					<Item subMenuId="encoding-chinese"  name="Китайский"/>
+					<Item subMenuId="encoding-chinese"          name="Китайский"/>
 					<Item subMenuId="encoding-easternEuropean"  name="Восточно-Европейский"/>
-					<Item subMenuId="encoding-greek"  name="Греческий"/>
-					<Item subMenuId="encoding-hebrew"  name="Иврит"/>
-					<Item subMenuId="encoding-japanese"  name="Японский"/>
-					<Item subMenuId="encoding-korean" name="Корейский"/>
-					<Item subMenuId="encoding-northEuropean" name="Северо-Европейский"/>
-					<Item subMenuId="encoding-thai" name="Тайский"/>
-					<Item subMenuId="encoding-turkish" name="Турецкий"/>
-					<Item subMenuId="encoding-westernEuropean" name="Западно-Европейский"/>
-					<Item subMenuId="encoding-vietnamese" name="Вьетнамский"/>
-					<Item subMenuId="settings-import"  name="Импортировать"/>
-					<Item subMenuId="tools-md5"  name="MD5"/>
-					<Item subMenuId="tools-sha256"  name="SHA-256"/>
+					<Item subMenuId="encoding-greek"            name="Греческий"/>
+					<Item subMenuId="encoding-hebrew"           name="Иврит"/>
+					<Item subMenuId="encoding-japanese"         name="Японский"/>
+					<Item subMenuId="encoding-korean"           name="Корейский"/>
+					<Item subMenuId="encoding-northEuropean"    name="Северо-Европейский"/>
+					<Item subMenuId="encoding-thai"             name="Тайский"/>
+					<Item subMenuId="encoding-turkish"          name="Турецкий"/>
+					<Item subMenuId="encoding-westernEuropean"  name="Западно-Европейский"/>
+					<Item subMenuId="encoding-vietnamese"       name="Вьетнамский"/>
+					<Item subMenuId="settings-import"           name="Импортировать"/>
+					<Item subMenuId="tools-md5"                 name="MD5"/>
+					<Item subMenuId="tools-sha256"              name="SHA-256"/>
 				</SubEntries>
 
 				<Commands>
@@ -148,7 +149,7 @@ Updated to v7.6.6:
 					<Item id="42048" name="Копировать как Двоичный код"/>
 					<Item id="42049" name="Вырезать как Двоичный код"/>
 					<Item id="42050" name="Вставить как Двоичный код"/>
-					<Item id="42051" name="Табл&amp;ица символов"/>
+					<Item id="42051" name="Табл&amp;ица символов ASCII"/>
 					<Item id="42052" name="&amp;Панель истории Буфера"/>
 					<Item id="42053" name="Пробел в Табуляцию (в начале строки)"/>
 					<Item id="42054" name="Пробел в Табуляцию (все)"/>
@@ -273,11 +274,11 @@ Updated to v7.6.6:
 					<Item id="45001" name="Преобразовать в Windows (CR LF)"/>
 					<Item id="45002" name="Преобразовать в Unix (LF)"/>
 					<Item id="45003" name="Преобразовать в Macintosh (CR)"/>
-					<Item id="45004" name="Кодировка в ANSI"/>
-					<Item id="45005" name="Кодировка в UTF-8 с BOM"/>
-					<Item id="45006" name="Кодировка в UCS-2 BE с BOM"/>
-					<Item id="45007" name="Кодировка в UCS-2 LE с BOM"/>
-					<Item id="45008" name="Кодировка в UTF-8"/>
+					<Item id="45004" name="Кодировка ANSI"/>
+					<Item id="45005" name="Кодировка UTF-8 с BOM"/>
+					<Item id="45006" name="Кодировка UCS-2 BE с BOM"/>
+					<Item id="45007" name="Кодировка UCS-2 LE с BOM"/>
+					<Item id="45008" name="Кодировка UTF-8"/>
 					<Item id="45009" name="Преобразовать в ANSI"/>
 					<Item id="45010" name="Преобразовать в UTF-8"/>
 					<Item id="45011" name="Преобразовать в UTF-8 с BOM"/>
@@ -319,6 +320,9 @@ Updated to v7.6.6:
 					<Item id="50000" name="Завершение функций"/>
 					<Item id="50001" name="Завершение слов"/>
 					<Item id="50002" name="Подсказка по функциям"/>
+					<Item id="50003" name="Перекл. на предыдущий док."/>
+					<Item id="50004" name="Перекл. на следующий док."/>
+					<Item id="50005" name="Вкл./Выкл. запись Макро"/>
 					<Item id="50006" name="Завершение пути"/>
 					<Item id="10001" name="Переместить в Другую Область"/>
 					<Item id="10002" name="Дублировать в Другой Области"/>
@@ -391,6 +395,8 @@ Updated to v7.6.6:
 				<Item id="1688" name="Всегда"/>
 				<Item id="1703" name="и новые строки"/>
 				<Item id="1722" name="Обратное направление поиска"/>
+				<Item id="1721" name="▲"/> 
+				<Item id="1723" name="▼"/> 
 			</Find>
 
 			<FindCharsInRange title = "Найти символы в диапазоне....">
@@ -947,7 +953,7 @@ Updated to v7.6.6:
 				<Item id="7003" name="Закрыть Окно(а)"/>
 				<Item id="7004" name="Упорядочить"/>
 			</Window>
-				<ColumnEditor title = "Генератор столбца">
+				<ColumnEditor title = "Генератор Столбца">
 				<Item id="2023" name="Текст для вставки"/>
 				<Item id="2033" name="Числа для вставки"/>
 				<Item id="2030" name="Исходное число:"/>
@@ -975,27 +981,34 @@ Updated to v7.6.6:
 				<Item id="1718" name="Расширенный (\n, \r, \t, \0, \x...)"/>
 				<Item id="1720" name="и новые строки"/>
 			</FindInFinder>
+            <DoSaveOrNot title="Сохранение"> 
+                <Item id="1761" name="Сохранить файл &quot;$STR_REPLACE$&quot; ?"/>
+                <Item id="6" name="Да"/>
+                <Item id="7" name="Нет"/>
+                <Item id="2" name="Отмена"/>
+                <Item id="4" name="Да, для всех"/>
+                <Item id="5" name="Нет, для всех"/>
+            </DoSaveOrNot>
 		</Dialog>
 		<MessageBox>
 			<ContextMenuXmlEditWarning  title="Редактирование contextMenu"   message="Редактирование contextMenu.xml позволяет настроить свое всплывающее контекстное меню в Notepad++.&#x0A;Вы должны перезапустить Notepad++, чтобы изменения вступили в силу."/>
 			<NppHelpAbsentWarning       title="Файла не существует"          message="&#x0A;не существует. Пожалуйста, загрузите его с сайта Notepad++."/>
-			<SaveCurrentModifWarning    title="Сохранение текущих изменений" message="Вы должны сохранить текущие изменения.&#x0A;Все сохраненные изменения не смогут быть отменены.&#x0A;&#x0A;Продолжить?"/>
-			<LoseUndoAbilityWarning     title="Потеря возможности отката"    message="Вы должны сохранить текущие изменения.&#x0A;Все сохраненные изменения не смогут быть отменены.&#x0A;&#x0A;Продолжить?"/>
+			<SaveCurrentModifWarning    title="Сохранение Текущих Изменений" message="Вы должны сохранить текущие изменения.&#x0A;Все сохраненные изменения не смогут быть отменены.&#x0A;&#x0A;Продолжить?"/>
+			<LoseUndoAbilityWarning     title="Потеря Возможности Отката"    message="Вы должны сохранить текущие изменения.&#x0A;Все сохраненные изменения не смогут быть отменены.&#x0A;&#x0A;Продолжить?"/>
 			<CannotMoveDoc              title="Переход к новому экземпляру Notepad++" message="Документ был изменен, сохраните его и повторите попытку."/>
 			<DocReloadWarning           title="Перезагрузка"                          message="Все внесенные изменения будут потеряны!&#x0A;Продолжить?"/>
 			<FileLockedWarning          title="Сохранение не удалось"                 message="Пожалуйста, проверьте открыт ли этот файл в другом приложении."/>
 			<FileAlreadyOpenedInNpp     title=""                                      message="Файл уже открыт в Notepad++."/>
-			<DeleteFileFailed           title="Удаление файла"                        message="Не удалось удалить файл"/>
+			<DeleteFileFailed           title="Удаление Файла"                        message="Не удалось удалить файл"/>
 
 			<NbFileToOpenImportantWarning       title="Очень большое количество файлов" message="Вы точно хотите открыть $INT_REPLACE$ файла(ов)?"/>
-			<SettingsOnCloudError               title="Параметры Облака"                message="Похоже, что путь для облака указан на диск или папку с пометкой только для чтения.&#x0A;Вам необходимо открыть доступ или получить права на запись.&#x0A;Ваши параметры облака будут отменены. Пожалуйста сбросьте значение в окне Настройки..."/>
+			<SettingsOnCloudError               title="Параметры Облака"                message="Похоже, что путь облака указан на диск или папку, с пометкой &quot;Только Чтение&quot;.&#x0A;Вам необходимо открыть доступ или получить права на запись.&#x0A;Ваши параметры облака будут отменены. Пожалуйста, сбросьте значение в окне Настройки..."/>
 			<FilePathNotFoundWarning            title="Открытие Файла"                  message="Файл, который вы пытаетесь открыть, не существует."/>
 			<SessionFileInvalidError            title="Не удалось загрузить Сессию"     message="Файл сессии поврежден или недействителен."/>
-			<DroppingFolderAsProjectModeWarning title="Неправильное действие" message="Вы можете применить только файлы или папки, но не обе, потому что вы перетаскиваете в режиме Папка как Проект.&#x0A;вы должны включить &quot;Открыть все файлы папки при перетаскивании, вместо запуска Папка как Рабочая Область&quot; в &quot;Директорию По Умолчанию&quot;, чтобы эта операция работала зайдите в Настройки."/>
+			<DroppingFolderAsProjectModeWarning title="Неправильное действие" message="Вы можете применить, только одно из двух: файлы или папки, но не оба, потому, что вы перетаскиваете в режиме &quot;Папка как Проект&quot;.&#x0A;вы должны включить &quot;Открыть все файлы папки при перетаскивании, вместо запуска Папка как Рабочая Область&quot; в &quot;Директорию По Умолчанию&quot;, чтобы эта операция работала зайдите в Настройки."/>
 			<SortingError             title="Ошибка сортировки"               message="Невозможно выполнить числовую сортировку из-за строки $INT_REPLACE$."/>
 			<ColumnModeTip            title="Режим Столбца"                   message="Пожалуйста, используйте &quot;ALT+Выделение Мышкой&quot; или &quot;Alt+Shift+Клавиши Стрелок&quot; для переключения в режим столбца."/>
 			<BufferInvalidWarning     title="Ошибка Сохранения"               message="Не удается сохранить: Недопустимый буфер."/>
-			<DoSaveOrNot              title="Сохранение"                      message="Сохранить файл &quot;$STR_REPLACE$&quot;?"/>
 			<DoCloseOrNot             title="Удержание несуществующего файла" message="Файла &quot;$STR_REPLACE$&quot; больше не существует.&#x0A;Удержать этот файл в редакторе?"/>
 			<DoDeleteOrNot            title="Удаление файла"                  message="Файл &quot;$STR_REPLACE$&quot;&#x0A;будет закрыт и удалён в Корзину.&#x0A;Продолжить?"/>
 			<NoBackupDoSaveFile       title="Сохранение"                      message="Файл резервной копии не найден (удалён извне).&#x0A;Сохраните его, иначе ваши данные будут потеряны.&#x0A;Вы хотите сохранить файл &quot;$STR_REPLACE$&quot; ?"/>
@@ -1032,6 +1045,8 @@ Updated to v7.6.6:
 			<OpenInAdminModeWithoutCloseCurrent  title="Ошибка сохранения"                          message="Файл не может быть сохранен и может быть защищён.&#x0A;Хотите запустить Notepad++ в режиме администратора?"/>
 			<OpenInAdminModeFailed               title="Не удалось открыть в режиме Администратора" message="Notepad++ не может быть открыто в режиме Администратора."/>
 			<ViewInBrowser                       title="Открыть текущий файл в Браузере"            message="Приложение не найдено в вашей системе."/>
+			<ExitToUpdatePlugins                 title="Завершение работы Notepad++"                message="Notepad++ завершит работу для продолжения операции.&#x0A;Программа будет перезапущена после завершения всех операций.&#x0A;Продолжить?"/>
+			<NeedToRestartToLoadPlugins          title="Необходимо перезапустить Notepad++"         message="Необходимо перезапустить Notepad++ для установки загруженных плагинов."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="История Буфера"/>
@@ -1047,10 +1062,12 @@ Updated to v7.6.6:
 			<ColumnType name="Тип"/>
 		</WindowsDlg>
 		<AsciiInsertion>
-			<PanelTitle name="Таблица ASCII символов"/>
-			<ColumnVal  name="Значение"/>
+			<PanelTitle name="Таблица символов ASCII"/>
+			<ColumnVal  name="Dec"/>
 			<ColumnHex  name="Hex"/>
 			<ColumnChar name="Символ"/>
+			<ColumnHtmlNumber name="HTML Номер"/> 
+			<ColumnHtmlName name="HTML Код"/> 
 		</AsciiInsertion>
 		<DocumentMap>
 			<PanelTitle name="Карта Документа"/>
@@ -1067,12 +1084,13 @@ Updated to v7.6.6:
 				<Item id="3511" name="Убрать"/>
 				<Item id="3512" name="Убрать Всё"/>
 				<Item id="3513" name="Добавить"/>
-				<Item id="3514" name="Запуск системой"/>
+				<Item id="3514" name="Запустить системой"/>
 				<Item id="3515" name="Открыть"/>
 				<Item id="3516" name="Копировать путь"/>
 				<Item id="3517" name="Найти в Файлах..."/>
 				<Item id="3518" name="Расположение объекта"/>
 				<Item id="3519" name="Запустить CMD"/>
+				<Item id="3520" name="Копировать Имя Файла"/>
 			</Menus>
 		</FolderAsWorkspace>
 		<ProjectManager>
@@ -1123,7 +1141,7 @@ Updated to v7.6.6:
 		</ProjectManager>
 		<MiscStrings>
 			<!-- $INT_REPLACE$ и $STR_REPLACE$ не переводить -->
-			<word-chars-list-tip           value="Это позволяет включать дополнительный символ в текущие символы слова, в то время как двойной клик для выбора или поиска с помощью опции &quot;Только целые слова&quot;."/>
+			<word-chars-list-tip           value="Это позволяет вставлять дополнительный символ в текущие символы слова, а двойной щелчок для выбора или поиска с опцией &quot;Только целые слова&quot;."/>
 			<word-chars-list-warning-begin value="Помните: "/>
 			<word-chars-list-space-warning value="$INT_REPLACE$ пробел(ов)"/>
 			<word-chars-list-tab-warning   value="$INT_REPLACE$ TAB(ов)"/>
@@ -1178,6 +1196,17 @@ Updated to v7.6.6:
 			<userdefined-title-rename    value="Изменить Имя Синтаксиса"/>
 			<autocomplete-nb-char        value="Символ: "/>
 			<edit-verticaledge-nb-col    value="От символа:"/>
+			<summary value="Информация о Файле"/> 
+			<summary-filepath value="Полный путь к файлу: "/> 
+			<summary-filecreatetime value="Создан: "/> 
+			<summary-filemodifytime value="Обновлён: "/> 
+			<summary-nbchar value="Символов (без окончания строки): "/> 
+			<summary-nbword value="Слов: "/> 
+			<summary-nbline value="Строк: "/> 
+			<summary-nbbyte value="Длина документа: "/> 
+			<summary-nbsel1 value=" выделенных символов ("/> 
+			<summary-nbsel2 value=" байт) в "/> 
+			<summary-nbrange value=" диапазоне(ах)"/> 
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

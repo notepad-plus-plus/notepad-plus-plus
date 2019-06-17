@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="7.6.5">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="7.7.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -397,6 +397,8 @@
                 <Item id="1641" name="現在の文書内で検索"/>
                 <Item id="1686" name="透明化(&amp;Y)"/>
                 <Item id="1703" name="&amp;.は改行と一致"/>
+                <Item id="1721" name="▲"/>
+                <Item id="1723" name="▼ 次を検索"/>
             </Find>
 
             <FindCharsInRange title="文字範囲を指定して検索...">
@@ -994,6 +996,14 @@
                 <Item id="1718" name="拡張(\n, \r, \t, \0, \x...) (&amp;X)"/>
                 <Item id="1720" name="&amp;.は改行と一致"/>
             </FindInFinder>
+            <DoSaveOrNot title="保存">
+                <Item id="1761" name="&quot;$STR_REPLACE$&quot; を保存しますか？"/>
+                <Item id="6" name="はい"/>
+                <Item id="7" name="いいえ"/>
+                <Item id="2" name="キャンセル"/>
+                <Item id="4" name="すべて はい"/>
+                <Item id="5" name="すべて いいえ"/>
+            </DoSaveOrNot>
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title="コンテキストメニューの編集" message="これから開く contextMenu.xml を編集することで、Notepad++のポップアップメニューを変更できます。
@@ -1026,7 +1036,6 @@
             <SortingError title="ソートエラー" message="行番号 $INT_REPLACE$ が原因でソートを実行できませんでした。"/>
             <ColumnModeTip title="矩形モード" message="矩形モードに切り替えるには、Altを押しながらマウスで選択するか、Alt+Shift+矢印キー を使用してください。"/>
             <BufferInvalidWarning title="保存に失敗しました" message="バッファーが不正のため保存できませんでした。"/>
-            <DoSaveOrNot title="保存" message="&quot;$STR_REPLACE$&quot; を保存しますか？"/>
             <DoCloseOrNot title="存在しないファイル" message="&quot;$STR_REPLACE$&quot; は存在しません。
 このファイルをエディターで保持し続けますか？"/>
             <DoDeleteOrNot title="ファイルを削除" message="&quot;$STR_REPLACE$&quot;
@@ -1085,6 +1094,10 @@ Notepad++ を管理者権限で立ち上げますか？"/>
 Notepad++ を管理者権限で立ち上げますか？"/>
             <OpenInAdminModeFailed title="管理者権限で立ち上げることに失敗" message="Notepad++ を管理者権限で立ち上げられませんでした。"/>
             <ViewInBrowser title="ブラウザーで開く" message="アプリケーションが見つかりませんでした。"/>
+            <ExitToUpdatePlugins title="Notepad++ を終了しようとしています" message="「はい」を選択すると、Notepad++ を終了して更新作業を行います。
+すべての作業が完了すると Notepad++ は再起動します。
+処理を続けますか？"/>
+            <NeedToRestartToLoadPlugins title="Notepad++ を再起動してください" message="インストールしたプラグインを読み込むには、Notepad++ を再起動してください。"/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="クリップボード履歴"/>
@@ -1104,6 +1117,8 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <ColumnVal name="10進数"/>
             <ColumnHex name="16進数"/>
             <ColumnChar name="文字"/>
+            <ColumnHtmlNumber name="HTML番号"/>
+            <ColumnHtmlName name="HTML名称"/>
         </AsciiInsertion>
         <DocumentMap>
             <PanelTitle name="文書マップ"/>
@@ -1126,6 +1141,7 @@ Notepad++ を管理者権限で立ち上げますか？"/>
                 <Item id="3517" name="複数ファイル内を検索..."/>
                 <Item id="3518" name="エクスプローラーを開く"/>
                 <Item id="3519" name="コマンドプロンプトを開く"/>
+                <Item id="3520" name="ファイル名をコピー"/>
             </Menus>
         </FolderAsWorkspace>
         <ProjectManager>
@@ -1231,6 +1247,17 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <userdefined-title-rename value="言語定義の名前を変更"/>
             <autocomplete-nb-char value="数値: "/>
             <edit-verticaledge-nb-col value="桁位置:"/>
+            <summary value="概要"/>
+            <summary-filepath value="フルパス: "/>
+            <summary-filecreatetime value="作成日時: "/>
+            <summary-filemodifytime value="更新日時: "/>
+            <summary-nbchar value="文字数（改行含まず）: "/>
+            <summary-nbword value="語数: "/>
+            <summary-nbline value="行数: "/>
+            <summary-nbbyte value="文書長さ: "/>
+            <summary-nbsel1 value=" 文字を選択（"/>
+            <summary-nbsel2 value=" バイト）/ "/>
+            <summary-nbrange value=" 個の選択範囲"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

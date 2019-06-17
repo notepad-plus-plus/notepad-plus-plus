@@ -1126,6 +1126,7 @@ Notepad++ を管理者権限で立ち上げますか？"/>
                 <Item id="3517" name="複数ファイル内を検索..."/>
                 <Item id="3518" name="エクスプローラーを開く"/>
                 <Item id="3519" name="コマンドプロンプトを開く"/>
+                <Item id="3520" name="ファイル名をコピー"/>
             </Menus>
         </FolderAsWorkspace>
         <ProjectManager>

@@ -1,15 +1,15 @@
-Notepad++ v7.7 new features and bug-fixes:
+Notepad++ v7.7.1 enhancements and bug-fixes:
 
-1.  Continue Microsoft binary code signing thanks to the offer from DigiCert (again).
-2.  Upgrade Scintilla from v3.56 to v4.14.
-3.  Fix a regression about memory issue while reloading a file.
-4.  Fix cursor flickering problem after double clicking on URL.
-5.  Make Python files default to using spaces instead of tabs.
-6.  Add "Count in selection" option in Find dialog.
-7.  Add Ctrl + R shortcut for "Reload from disk" command.
-8.  Fix '\' display problem in CSS while using themes (Remove Batang font for CSS tags).
-9.  Fix crash while right clicking on DocSwitcher's column bar.
-10. Fix all plugins being removed problem while Plugin Admin romoves an old plugin (of old system).
+1.  Fix drag and drop tab regression: dragging tab is switched to another tab issue.
+2.  Fix an input regression: Cyrillic, Turkish and other languages input issue in ANSI mode.
+3.  Fix an ASP regression: VB looses syntax highlighting in ASP document.
+4.  Fix Reload dialog displaying issue during File Monitoring.
+5.  Fix "unhide lines" markers disappears issue.
+6.  Fix Plugin menu is not localized issue if no plugin installed.
+7.  Add "Copy File Name" command in context menu of "Folder as Workspace".
+8.  Fix crash while sorting lines with numbers longer than 20 digits.
+9.  Enable Scintilla Virtual Space Option change from macro.
+10. Add Tcl, CMake and AutoIt keywords; add Python and SQL new syntax highlighting cathegories.
 
 
 Included plugins:

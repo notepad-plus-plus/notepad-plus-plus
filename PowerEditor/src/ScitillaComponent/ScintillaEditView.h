@@ -95,6 +95,8 @@ const int CP_GREEK = 1253;
 #define LIST_4 16
 #define LIST_5 32
 #define LIST_6 64
+#define LIST_7 128
+#define LIST_8 256
 
 const bool fold_uncollapse = true;
 const bool fold_collapse = false;

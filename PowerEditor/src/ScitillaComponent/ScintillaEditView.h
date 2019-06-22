@@ -561,6 +561,7 @@ public:
 	};
 
 	bool isFoldIndentationBased() const;
+	void collapseFoldIndentationBased(int level2Collapse, bool mode);
 	void collapse(int level2Collapse, bool mode);
 	void foldAll(bool mode);
 	void fold(size_t line, bool mode);

@@ -1962,70 +1962,82 @@ bool ScintillaEditView::isFoldIndentationBased() const
 	;
 }
 
-void ScintillaEditView::collapse(int level2Collapse, bool mode)
+namespace {
+
+struct FoldLevelStack
+{
+	int levelCount = 0; // 1-based level number
+	int levelStack[MAX_FOLD_COLLAPSE_LEVEL]{};
+
+	void push(int level)
+	{
+		while (levelCount != 0 && level <= levelStack[levelCount - 1])
+		{
+			--levelCount;
+		}
+		levelStack[levelCount++] = level;
+	}
+};
+
+}
+
+void ScintillaEditView::collapseFoldIndentationBased(int level2Collapse, bool mode)
 {
 	execute(SCI_COLOURISE, 0, -1);
+
+	FoldLevelStack levelStack;
+	++level2Collapse; // 1-based level number
 
 	const int maxLine = static_cast<int32_t>(execute(SCI_GETLINECOUNT));
 	int line = 0;
 
+	while (line < maxLine)
+	{
+		int level = static_cast<int32_t>(execute(SCI_GETFOLDLEVEL, line));
+		if (level & SC_FOLDLEVELHEADERFLAG)
+		{
+			level &= SC_FOLDLEVELNUMBERMASK;
+			// don't need the actually level number, only the relationship.
+			levelStack.push(level);
+			if (level2Collapse == levelStack.levelCount)
+			{
+				if (isFolded(line) != mode)
+				{
+					fold(line, mode);
+				}
+				// skip all children lines, required to avoid buffer overrun.
+				line = static_cast<int32_t>(execute(SCI_GETLASTCHILD, line, -1));
+			}
+		}
+		++line;
+	}
+
+	runMarkers(true, 0, true, false);
+}
+
+void ScintillaEditView::collapse(int level2Collapse, bool mode)
+{
 	if (isFoldIndentationBased())
 	{
-		struct FoldLevelStack
-		{
-			int levelCount;
-			int levelStack[MAX_FOLD_COLLAPSE_LEVEL];
-
-			void push(int level)
-			{
-				while (levelCount != 0 && level <= levelStack[levelCount - 1])
-				{
-					--levelCount;
-				}
-				levelStack[levelCount++] = level;
-			}
-		};
-
-		++level2Collapse;
-		FoldLevelStack levelStack = { 0, { 0 }};
-		while (line < maxLine)
-		{
-			int level = static_cast<int32_t>(execute(SCI_GETFOLDLEVEL, line));
-			if (level & SC_FOLDLEVELHEADERFLAG)
-			{
-				level &= SC_FOLDLEVELNUMBERMASK;
-				levelStack.push(level);
-				if (level2Collapse == levelStack.levelCount)
-				{
-					if (isFolded(line) != mode)
-					{
-						fold(line, mode);
-					}
-					line = static_cast<int32_t>(execute(SCI_GETLASTCHILD, line, -1));
-				}
-			}
-			++line;
-		}
+		collapseFoldIndentationBased(level2Collapse, mode);
+		return;
 	}
-	else
+
+	execute(SCI_COLOURISE, 0, -1);
+
+	int maxLine = static_cast<int32_t>(execute(SCI_GETLINECOUNT));
+
+	for (int line = 0; line < maxLine; ++line)
 	{
-		level2Collapse += SC_FOLDLEVELBASE;
-		while (line < maxLine)
+		int level = static_cast<int32_t>(execute(SCI_GETFOLDLEVEL, line));
+		if (level & SC_FOLDLEVELHEADERFLAG)
 		{
-			int level = static_cast<int32_t>(execute(SCI_GETFOLDLEVEL, line));
-			if (level & SC_FOLDLEVELHEADERFLAG)
-			{
-				level &= SC_FOLDLEVELNUMBERMASK;
-				if (level2Collapse == level)
+			level -= SC_FOLDLEVELBASE;
+			if (level2Collapse == (level & SC_FOLDLEVELNUMBERMASK))
+				if (isFolded(line) != mode)
 				{
-					if (isFolded(line) != mode)
-					{
-						fold(line, mode);
-					}
-					line = static_cast<int32_t>(execute(SCI_GETLASTCHILD, line, -1));
+					fold(line, mode);
 				}
-			}
-			++line;
 		}
 	}
 

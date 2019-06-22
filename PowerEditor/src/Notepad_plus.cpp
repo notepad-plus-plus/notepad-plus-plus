@@ -5129,6 +5129,10 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 			}
 			case DOC_MODIFIED:	//ask for reloading
 			{
+				// Since it is being monitored DOC_NEEDRELOAD is going to handle the change.
+				if (buffer->isMonitoringOn())
+					break;
+
 				bool autoUpdate = (nppGUI._fileAutoDetection & cdAutoUpdate) ? true : false;
 				if (!autoUpdate || buffer->isDirty())
 				{

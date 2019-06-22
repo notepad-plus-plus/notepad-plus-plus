@@ -1568,7 +1568,7 @@ void Notepad_plus::command(int id)
 			Buffer * buf = _pEditView->getCurrentBuffer();
 
 			DWORD dwFileAttribs = ::GetFileAttributes(buf->getFullPathName());
-			dwFileAttribs ^= FILE_ATTRIBUTE_READONLY;
+			dwFileAttribs &= ~FILE_ATTRIBUTE_READONLY;
 
 			::SetFileAttributes(buf->getFullPathName(), dwFileAttribs);
 			buf->setFileReadOnly(false);

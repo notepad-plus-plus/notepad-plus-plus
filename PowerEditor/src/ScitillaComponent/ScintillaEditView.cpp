@@ -1229,8 +1229,17 @@ void ScintillaEditView::setLexer(int lexerID, LangType langType, int whichList)
 	}
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold"), reinterpret_cast<LPARAM>("1"));
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.compact"), reinterpret_cast<LPARAM>("0"));
-
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.comment"), reinterpret_cast<LPARAM>("1"));
+
+	ScintillaViewParams & svp = (ScintillaViewParams &)_pParameter->getSVP();
+
+	if (svp._indentGuideLineShow)
+	{
+		int currentIndentMode = execute(SCI_GETINDENTATIONGUIDES);
+		int docIndentMode = isFoldIndentationBased() ? SC_IV_LOOKFORWARD : SC_IV_LOOKBOTH;
+		if (currentIndentMode != docIndentMode)
+			execute(SCI_SETINDENTATIONGUIDES, docIndentMode);
+	}
 }
 
 void ScintillaEditView::makeStyle(LangType language, const TCHAR **keywordArray)

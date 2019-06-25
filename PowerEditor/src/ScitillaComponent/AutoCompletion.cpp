@@ -45,11 +45,7 @@ static bool isAllDigits(const generic_string &str)
 {
 	for (const auto& i : str)
 	{
-		if (i < -i || i > 255)
-			return false;
-
-		bool isDigit = ::isdigit(int(i)) != 0;
-		if (!isDigit)
+		if (i < 48 || i > 57)
 			return false;
 	}
 	return true;

@@ -152,6 +152,10 @@ public:
 	bool addInTree(const generic_string& rootPath, const generic_string& addItemFullPath, HTREEITEM node, std::vector<generic_string> linarPathArray);
 	HTREEITEM findInTree(const generic_string& rootPath, HTREEITEM node, std::vector<generic_string> linarPathArray);
 	bool deleteFromTree(const generic_string& rootPath, HTREEITEM node, std::vector<generic_string> linarPathArray);
+	void deleteAllFromTree() {
+		popupMenuCmd(IDM_FILEBROWSER_REMOVEALLROOTS);
+	};
+
 	bool renameInTree(const generic_string& rootPath, HTREEITEM node, std::vector<generic_string> linarPathArrayFrom, const generic_string & renameTo);
 
 	std::vector<generic_string> getRoots() const;

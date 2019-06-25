@@ -218,6 +218,7 @@ struct CmdLineParams
 
 	bool _isSessionFile = false;
 	bool _isRecursive = false;
+	bool _openFoldersAsWorkspace = false;
 
 	LangType _langType = L_EXTERNAL;
 	generic_string _localizationPath;
@@ -240,14 +241,15 @@ struct CmdLineParams
 // A POD class to send CmdLineParams through WM_COPYDATA and to Notepad_plus::loadCommandlineParams
 struct CmdLineParamsDTO
 {
-	bool _isReadOnly;
-	bool _isNoSession;
-	bool _isSessionFile;
-	bool _isRecursive;
+	bool _isReadOnly = false;
+	bool _isNoSession = false;
+	bool _isSessionFile = false;
+	bool _isRecursive = false;
+	bool _openFoldersAsWorkspace = false;
 
-	int _line2go;
-	int _column2go;
-	int _pos2go;
+	int _line2go = 0;
+	int _column2go = 0;
+	int _pos2go = 0;
 
 	LangType _langType;
 
@@ -258,6 +260,7 @@ struct CmdLineParamsDTO
 		dto._isNoSession = params._isNoSession;
 		dto._isSessionFile = params._isSessionFile;
 		dto._isRecursive = params._isRecursive;
+		dto._openFoldersAsWorkspace = params._openFoldersAsWorkspace;
 
 		dto._line2go = params._line2go;
 		dto._column2go = params._column2go;

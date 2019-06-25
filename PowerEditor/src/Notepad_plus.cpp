@@ -5332,10 +5332,10 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 	_linkTriggered = true;
 }
 
-void Notepad_plus::loadCommandlineParams(const TCHAR * commandLine, const CmdLineParamsDTO * pCmdParams)
+std::vector<generic_string> Notepad_plus::loadCommandlineParams(const TCHAR * commandLine, const CmdLineParamsDTO * pCmdParams)
 {
 	if (!commandLine || ! pCmdParams)
-		return;
+		return std::vector<generic_string>();
 
 	NppParameters *nppParams = NppParameters::getInstance();
 	FileNameStringSplitter fnss(commandLine);
@@ -5348,7 +5348,7 @@ void Notepad_plus::loadCommandlineParams(const TCHAR * commandLine, const CmdLin
 		{
 			loadSession(session2Load);
 		}
-		return;
+		return std::vector<generic_string>();
 	}
 
  	LangType lt = pCmdParams->_langType;
@@ -5357,12 +5357,20 @@ void Notepad_plus::loadCommandlineParams(const TCHAR * commandLine, const CmdLin
     int cpos = pCmdParams->_pos2go;
 	bool recursive = pCmdParams->_isRecursive;
 	bool readOnly = pCmdParams->_isReadOnly;
+	bool openFoldersAsWorkspace = pCmdParams->_openFoldersAsWorkspace;
+
+	if (openFoldersAsWorkspace)
+	{
+		// All the filepath in argument will be used as folder in workspace
+		// call launchFileBrowser later with fnss
+		return fnss.getFileNames();
+	}
 
 	BufferID lastOpened = BUFFER_INVALID;
 	for (int i = 0, len = fnss.size(); i < len ; ++i)
 	{
 		const TCHAR *pFn = fnss.getFileName(i);
-		if (!pFn) return;
+		if (!pFn) return std::vector<generic_string>();
 
 		BufferID bufID = doOpen(pFn, recursive, readOnly);
 		if (bufID == BUFFER_INVALID)	//cannot open file
@@ -5405,6 +5413,8 @@ void Notepad_plus::loadCommandlineParams(const TCHAR * commandLine, const CmdLin
     {
 		switchToFile(lastOpened);
 	}
+
+	return fnss.getFileNames();
 }
 
 
@@ -5909,7 +5919,7 @@ void Notepad_plus::launchAnsiCharPanel()
 	_pAnsiCharPanel->display();
 }
 
-void Notepad_plus::launchFileBrowser(const vector<generic_string> & folders)
+void Notepad_plus::launchFileBrowser(const vector<generic_string> & folders, bool fromScratch)
 {
 	if (!_pFileBrowser)
 	{
@@ -5948,6 +5958,11 @@ void Notepad_plus::launchFileBrowser(const vector<generic_string> & folders)
 
 		_pFileBrowser->setBackgroundColor(bgColor);
 		_pFileBrowser->setForegroundColor(fgColor);
+	}
+
+	if (fromScratch)
+	{
+		_pFileBrowser->deleteAllFromTree();
 	}
 
 	for (size_t i = 0; i <folders.size(); ++i)

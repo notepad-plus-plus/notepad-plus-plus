@@ -643,9 +643,8 @@ void FileBrowser::popupMenuCmd(int cmdID)
 
 	switch (cmdID)
 	{
-
 		//
-		// Toolbar menu commands
+		// FileBrowser menu commands
 		//
 		case IDM_FILEBROWSER_REMOVEROOTFOLDER:
 		{
@@ -877,7 +876,10 @@ bool isRelatedRootFolder(const generic_string & relatedRoot, const generic_strin
 
 void FileBrowser::addRootFolder(generic_string rootFolderPath)
 {
-	if (not ::PathFileExists(rootFolderPath.c_str()))
+	if (!::PathFileExists(rootFolderPath.c_str()))
+		return;
+
+	if (!::PathIsDirectory(rootFolderPath.c_str()))
 		return;
 
 	// make sure there's no '\' at the end
@@ -1138,7 +1140,7 @@ HTREEITEM FileBrowser::findInTree(const generic_string& rootPath, HTREEITEM node
 }
 
 bool FileBrowser::deleteFromTree(const generic_string& rootPath, HTREEITEM node, std::vector<generic_string> linarPathArray)
-	{
+{
 	HTREEITEM foundItem = findInTree(rootPath, node, linarPathArray);
 	if (foundItem == nullptr)
 			return false;
@@ -1146,10 +1148,10 @@ bool FileBrowser::deleteFromTree(const generic_string& rootPath, HTREEITEM node,
 	// found it, delete it
 	_treeView.removeItem(foundItem);
 	return true;
-	}
+}
 
 bool FileBrowser::renameInTree(const generic_string& rootPath, HTREEITEM node, std::vector<generic_string> linarPathArrayFrom, const generic_string & renameTo)
-	{
+{
 	HTREEITEM foundItem = findInTree(rootPath, node, linarPathArrayFrom);
 	if (foundItem == nullptr)
 			return false;

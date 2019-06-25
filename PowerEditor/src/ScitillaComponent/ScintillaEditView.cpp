@@ -1235,7 +1235,7 @@ void ScintillaEditView::setLexer(int lexerID, LangType langType, int whichList)
 
 	if (svp._indentGuideLineShow)
 	{
-		int currentIndentMode = execute(SCI_GETINDENTATIONGUIDES);
+		auto currentIndentMode = execute(SCI_GETINDENTATIONGUIDES);
 		int docIndentMode = isFoldIndentationBased() ? SC_IV_LOOKFORWARD : SC_IV_LOOKBOTH;
 		if (currentIndentMode != docIndentMode)
 			execute(SCI_SETINDENTATIONGUIDES, docIndentMode);

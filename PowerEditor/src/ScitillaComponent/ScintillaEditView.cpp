@@ -1235,8 +1235,11 @@ void ScintillaEditView::setLexer(int lexerID, LangType langType, int whichList)
 
 	if (svp._indentGuideLineShow)
 	{
-		auto currentIndentMode = execute(SCI_GETINDENTATIONGUIDES);
-		int docIndentMode = isFoldIndentationBased() ? SC_IV_LOOKFORWARD : SC_IV_LOOKBOTH;
+		const auto currentIndentMode = execute(SCI_GETINDENTATIONGUIDES);
+		// Python like indentation, excludes lexers (Nim, VB, YAML, etc.)
+		// that includes tailing empty or whitespace only lines in folding block.
+		const bool pythonLike = (lexerID == SCLEX_PYTHON || lexerID == SCLEX_COFFEESCRIPT || lexerID == SCLEX_HASKELL);
+		const int docIndentMode = pythonLike ? SC_IV_LOOKFORWARD : SC_IV_LOOKBOTH;
 		if (currentIndentMode != docIndentMode)
 			execute(SCI_SETINDENTATIONGUIDES, docIndentMode);
 	}

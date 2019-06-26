@@ -251,7 +251,7 @@ struct CmdLineParamsDTO
 	int _column2go = 0;
 	int _pos2go = 0;
 
-	LangType _langType;
+	LangType _langType = L_EXTERNAL;
 
 	static CmdLineParamsDTO FromCmdLineParams(const CmdLineParams& params)
 	{

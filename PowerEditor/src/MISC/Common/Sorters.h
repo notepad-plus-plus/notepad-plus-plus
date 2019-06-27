@@ -167,16 +167,7 @@ public:
 						// Maximum value for a variable of type unsigned long long | 18446744073709551615
 						// So take the max length 18 to convert the number
 						const size_t maxLen = 18;
-						size_t aLen = a.length() - i, bLen = b.length() - i;
-						if (aLen > maxLen || bLen > maxLen)
-						{
-							delta = min(min(aLen, bLen), maxLen);
-							compareResult = std::stoll(a.substr(i, delta)) - std::stoll(b.substr(i, delta));
-						}
-						else
-						{
-							compareResult = std::stoll(a.substr(i)) - std::stoll(b.substr(i), &delta);
-						}
+						compareResult = std::stoll(a.substr(i, maxLen)) - std::stoll(b.substr(i, maxLen), &delta);
 						i += delta;
 					}
 					// Both are strings
@@ -231,16 +222,7 @@ public:
 						// Maximum value for a variable of type unsigned long long | 18446744073709551615
 						// So take the max length 18 to convert the number
 						const size_t maxLen = 18;
-						size_t aLen = a.length() - i, bLen = b.length() - i;
-						if (aLen > maxLen || bLen > maxLen)
-						{
-							delta = min(min(aLen, bLen), maxLen);
-							compareResult = std::stoll(a.substr(i, delta)) - std::stoll(b.substr(i, delta));
-						}
-						else
-						{
-							compareResult = std::stoll(a.substr(i)) - std::stoll(b.substr(i), &delta);
-						}
+						compareResult = std::stoll(a.substr(i, maxLen)) - std::stoll(b.substr(i, maxLen), &delta);
 						i += delta;
 					}
 					// Both are strings

@@ -5662,7 +5662,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("useCustumDir"), _nppGUI._useDir ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("dir"), _nppGUI._backupDir.c_str());
 
-		GUIConfigElement->SetAttribute(TEXT("isSnapshotMode"), _nppGUI.isSnapshotMode() ? TEXT("yes") : TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("isSnapshotMode"), _nppGUI._isSnapshotMode ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("snapshotBackupTiming"), static_cast<int32_t>(_nppGUI._snapshotBackupTiming));
 	}
 

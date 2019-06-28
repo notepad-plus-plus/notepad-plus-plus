@@ -451,7 +451,7 @@
                 <Item id="2"    name="關閉"/>
             </PluginsAdminDlg>
 
-            <StyleConfig title="設定程式語言格式">
+            <StyleConfig title="色彩佈景主題設定">
                 <Item id="2"    name="取消"/>
                 <Item id="2301" name="儲存並關閉"/>
                 <Item id="2303" name="透明"/>

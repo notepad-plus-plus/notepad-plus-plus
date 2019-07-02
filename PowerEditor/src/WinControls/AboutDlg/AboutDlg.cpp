@@ -161,13 +161,88 @@ INT_PTR CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /
 			_debugInfoStr += (doLocalConf ? TEXT("ON") : TEXT("OFF"));
 			_debugInfoStr += TEXT("\r\n");
 
-			// OS version
-			_debugInfoStr += TEXT("OS : ");
-			_debugInfoStr += (NppParameters::getInstance())->getWinVersionStr();
+			// OS information
+			HKEY hKey;
+			DWORD dataSize = 0;
+			
+			TCHAR szProductName[96] = {'\0'};
+			TCHAR szCurrentBuildNumber[32] = {'\0'};
+			TCHAR szReleaseId[32] = {'\0'};
+			DWORD dwUBR = 0;
+			TCHAR szUBR[12] = TEXT("0");
+
+			// NOTE: RegQueryValueExW is not guaranteed to return null-terminated strings
+			if (RegOpenKeyExW(HKEY_LOCAL_MACHINE, TEXT("SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion"), 0, KEY_READ, &hKey) == ERROR_SUCCESS)
+			{
+				dataSize = sizeof(szProductName);
+				RegQueryValueExW(hKey, TEXT("ProductName"), NULL, NULL, reinterpret_cast<LPBYTE>(szProductName), &dataSize);
+				szProductName[sizeof(szProductName) / sizeof(TCHAR) - 1] = '\0';
+
+				dataSize = sizeof(szReleaseId);
+				RegQueryValueExW(hKey, TEXT("ReleaseId"), NULL, NULL, reinterpret_cast<LPBYTE>(szReleaseId), &dataSize);
+				szReleaseId[sizeof(szReleaseId) / sizeof(TCHAR) - 1] = '\0';
+				
+				dataSize = sizeof(szCurrentBuildNumber);
+				RegQueryValueExW(hKey, TEXT("CurrentBuildNumber"), NULL, NULL, reinterpret_cast<LPBYTE>(szCurrentBuildNumber), &dataSize);
+				szCurrentBuildNumber[sizeof(szCurrentBuildNumber) / sizeof(TCHAR) - 1] = '\0';
+				
+				dataSize = sizeof(DWORD);
+				if (RegQueryValueExW(hKey, TEXT("UBR"), NULL, NULL, reinterpret_cast<LPBYTE>(&dwUBR), &dataSize) == ERROR_SUCCESS)
+				{
+					generic_sprintf(szUBR, TEXT("%u"), dwUBR);
+				}
+				
+				RegCloseKey(hKey);
+			}
+
+			// Get alternative OS information
+			if (szProductName[0] == '\0')
+			{
+				generic_sprintf(szProductName, TEXT("%s"), (NppParameters::getInstance())->getWinVersionStr().c_str());
+			}
+			if (szCurrentBuildNumber[0] == '\0')
+			{
+				DWORD dwVersion = GetVersion();
+				if (dwVersion < 0x80000000)
+				{
+					generic_sprintf(szCurrentBuildNumber, TEXT("%u"), HIWORD(dwVersion));
+				}
+			}
+			
+			_debugInfoStr += TEXT("OS Name : ");
+			_debugInfoStr += szProductName;
 			_debugInfoStr += TEXT(" (");
 			_debugInfoStr += (NppParameters::getInstance())->getWinVerBitStr();
-			_debugInfoStr += TEXT(")");
+			_debugInfoStr += TEXT(") ");
 			_debugInfoStr += TEXT("\r\n");
+			
+			if (szReleaseId[0] != '\0')
+			{
+				_debugInfoStr += TEXT("OS Version : ");
+				_debugInfoStr += szReleaseId;
+				_debugInfoStr += TEXT("\r\n");
+			}
+
+			if (szCurrentBuildNumber[0] != '\0')
+			{
+				_debugInfoStr += TEXT("OS Build : ");
+				_debugInfoStr += szCurrentBuildNumber;
+				_debugInfoStr += TEXT(".");
+				_debugInfoStr += szUBR;
+				_debugInfoStr += TEXT("\r\n");
+			}
+
+			// Detect WINE
+			PWINEGETVERSION pWGV = (PWINEGETVERSION)GetProcAddress(GetModuleHandle(TEXT("ntdll.dll")), "wine_get_version");
+			if (pWGV != NULL)
+			{
+				TCHAR szWINEVersion[32];
+				generic_sprintf(szWINEVersion, TEXT("%hs"), pWGV());
+
+				_debugInfoStr += TEXT("WINE : ");
+				_debugInfoStr += szWINEVersion;
+				_debugInfoStr += TEXT("\r\n");
+			}
 
 			// Plugins
 			_debugInfoStr += TEXT("Plugins : ");

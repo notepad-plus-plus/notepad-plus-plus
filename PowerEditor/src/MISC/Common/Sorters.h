@@ -48,6 +48,12 @@ protected:
 	{
 		if (isSortingSpecificColumns())
 		{
+			// prevent an std::out_of_range exception
+			if (input.length() < _fromColumn)
+			{
+				return TEXT("");
+			}
+
 			return input.substr(_fromColumn, 1 + _toColumn - _fromColumn);
 		}
 		else

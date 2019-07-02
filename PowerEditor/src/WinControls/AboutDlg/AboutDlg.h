@@ -90,6 +90,7 @@ protected:
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 private:
+	typedef const CHAR * (__cdecl * PWINEGETVERSION)();
 	generic_string _debugInfoStr;
 	bool _isAdmin = false;
 	generic_string _loadedPlugins;

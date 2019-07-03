@@ -966,7 +966,7 @@
                 <Item id="1718" name="Mode étendu (\n, \r, \t, \0, \x...)"/>
                 <Item id="1720" name="&amp;. comprend ligne nouvelle"/>
             </FindInFinder>
-            <DoSaveOrNot title="Saugggvegarder"> 
+            <DoSaveOrNot title="Sauvegarder"> 
                 <Item id="1761" name="Sauvegarder le fichier &quot;$STR_REPLACE$&quot; ?"/>
                 <Item id="6" name="Oui"/>
                 <Item id="7" name="Non"/>

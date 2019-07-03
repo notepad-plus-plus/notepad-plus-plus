@@ -981,6 +981,14 @@
                 <Item id="1718" name="E&amp;xtended (\n, \r, \t, \0, \x...)"/>
                 <Item id="1720" name="&amp;. matches newline"/>
             </FindInFinder>
+            <DoSaveOrNot title="Save"> 
+                <Item id="1761" name="Save file &quot;$STR_REPLACE$&quot; ?"/>
+                <Item id="6" name="Yes"/>
+                <Item id="7" name="No"/>
+                <Item id="2" name="Cancel"/>
+                <Item id="4" name="Yes to all"/>
+                <Item id="5" name="No to all"/>
+            </DoSaveOrNot>
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title="Editing contextMenu" message="Editing contextMenu.xml allows you to modify your Notepad++ popup context menu.
@@ -1013,7 +1021,6 @@ you have to enable &quot;Open all files of folder instead of launching Folder as
             <SortingError title="Sorting Error" message="Unable to perform numeric sorting due to line $INT_REPLACE$."/>
             <ColumnModeTip title="Column Mode Tip" message="Please use &quot;ALT+Mouse Selection&quot; or &quot;Alt+Shift+Arrow key&quot; to switch to column mode."/>
             <BufferInvalidWarning title="Save failed" message="Cannot save: Buffer is invalid."/>
-            <DoSaveOrNot title="Save" message="Save file &quot;$STR_REPLACE$&quot; ?"/>
             <DoCloseOrNot title="Keep non existing file" message="The file &quot;$STR_REPLACE$&quot; doesn't exist anymore.
 Keep this file in editor?"/>
             <DoDeleteOrNot title="Delete file" message="The file &quot;$STR_REPLACE$&quot;

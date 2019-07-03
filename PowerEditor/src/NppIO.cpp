@@ -871,7 +871,6 @@ bool Notepad_plus::fileClose(BufferID id, int curView)
 	}
 	else if (buf->isDirty())
 	{
-
 		res = doSaveOrNot(fileNamePath);
 		if (res == IDYES)
 		{
@@ -899,10 +898,13 @@ bool Notepad_plus::fileClose(BufferID id, int curView)
 
 bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 {
+	bool noSaveToAll = false;
+	bool saveToAll = false;
+
 	//closes all documents, makes the current view the only one visible
 
 	//first check if we need to save any file
-	for (size_t i = 0; i < _mainDocTab.nbItem(); ++i)
+	for (size_t i = 0; i < _mainDocTab.nbItem() && !noSaveToAll; ++i)
 	{
 		BufferID id = _mainDocTab.getBufferByIndex(i);
 		Buffer * buf = MainFileManager->getBufferByID(id);
@@ -929,7 +931,6 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 						0, // not used
 						buf->getFullPathName());
 
-					//int res = doSaveOrNot(buf->getFullPathName());
 					if (res == IDYES)
 					{
 						if (!fileSave(id))
@@ -947,7 +948,16 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 				if (!activateBuffer(id, SUB_VIEW))
 					switchEditViewTo(MAIN_VIEW);
 
-				int res = doSaveOrNot(buf->getFullPathName());
+				int res = -1;
+				if (saveToAll)
+				{
+					res = IDYES;
+				}
+				else
+				{
+					res = doSaveOrNot(buf->getFullPathName(), true);
+				}
+
 				if (res == IDYES)
 				{
 					if (!fileSave(id))
@@ -957,10 +967,22 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 				{
 					return false;
 				}
+				else if (res == IDIGNORE)
+				{
+					noSaveToAll = true;
+				}
+				else if (res == IDRETRY)
+				{
+					if (!fileSave(id))
+						return false;	// Abort entire procedure.
+
+					saveToAll = true;
+				}
 			}
 		}
 	}
-	for (size_t i = 0; i < _subDocTab.nbItem(); ++i)
+
+	for (size_t i = 0; i < _subDocTab.nbItem() && !noSaveToAll; ++i)
 	{
 		BufferID id = _subDocTab.getBufferByIndex(i);
 		Buffer * buf = MainFileManager->getBufferByID(id);
@@ -1002,7 +1024,16 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 				activateBuffer(id, SUB_VIEW);
 				switchEditViewTo(SUB_VIEW);
 
-				int res = doSaveOrNot(buf->getFullPathName());
+				int res = -1;
+				if (saveToAll)
+				{
+					res = IDYES;
+				}
+				else
+				{
+					res = doSaveOrNot(buf->getFullPathName(), true);
+				}
+
 				if (res == IDYES)
 				{
 					if (!fileSave(id))
@@ -1012,6 +1043,17 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 				{
 					return false;
 					//otherwise continue (IDNO)
+				}
+				else if (res == IDIGNORE)
+				{
+					noSaveToAll = true;
+				}
+				else if (res == IDRETRY)
+				{
+					if (!fileSave(id))
+						return false;	// Abort entire procedure.
+
+					saveToAll = true;
 				}
 			}
 		}
@@ -1042,16 +1084,19 @@ bool Notepad_plus::fileCloseAllGiven(const std::vector<int> &krvecBufferIndexes)
 	// First check if we need to save any file.
 
 	std::vector<int>::const_iterator itIndexesEnd = krvecBufferIndexes.end();
+	bool noSaveToAll = false;
+	bool saveToAll = false;
 
 	for (std::vector<int>::const_iterator itIndex = krvecBufferIndexes.begin(); itIndex != itIndexesEnd; ++itIndex)
 	{
 		BufferID id = _pDocTab->getBufferByIndex(*itIndex);
 		Buffer * buf = MainFileManager->getBufferByID(id);
+		
 		if (buf->isUntitled() && buf->docLength() == 0)
 		{
 			// Do nothing.
 		}
-		else if (buf->isDirty())
+		else if (buf->isDirty() && !noSaveToAll)
 		{
 			if (_activeView == MAIN_VIEW)
 			{
@@ -1065,7 +1110,16 @@ bool Notepad_plus::fileCloseAllGiven(const std::vector<int> &krvecBufferIndexes)
 				switchEditViewTo(SUB_VIEW);
 			}
 
-			int res = doSaveOrNot(buf->getFullPathName());
+			int res = -1;
+			if (saveToAll)
+			{
+				res = IDYES;
+			}
+			else
+			{
+				res = doSaveOrNot(buf->getFullPathName(), true);
+			}
+
 			if (res == IDYES)
 			{
 				if (!fileSave(id))
@@ -1073,7 +1127,18 @@ bool Notepad_plus::fileCloseAllGiven(const std::vector<int> &krvecBufferIndexes)
 			}
 			else if (res == IDCANCEL)
 			{
-					return false;
+				return false;
+			}
+			else if (res == IDIGNORE)
+			{
+				noSaveToAll = true;
+			}
+			else if (res == IDRETRY)
+			{
+				if (!fileSave(id))
+					return false;	// Abort entire procedure.
+
+				saveToAll = true;
 			}
 		}
 	}
@@ -1135,10 +1200,13 @@ bool Notepad_plus::fileCloseAllButCurrent()
 	BufferID current = _pEditView->getCurrentBufferID();
 	int active = _pDocTab->getCurrentTabIndex();
 	const int activeViewID = currentView();
+	bool noSaveToAll = false;
+	bool saveToAll = false;
+
 	//closes all documents, makes the current view the only one visible
 
 	//first check if we need to save any file
-	for (size_t i = 0; i < _mainDocTab.nbItem(); ++i)
+	for (size_t i = 0; i < _mainDocTab.nbItem() && !noSaveToAll; ++i)
 	{
 		BufferID id = _mainDocTab.getBufferByIndex(i);
 		if (id == current)
@@ -1154,7 +1222,16 @@ bool Notepad_plus::fileCloseAllButCurrent()
 			if (!activateBuffer(id, SUB_VIEW))
 				switchEditViewTo(MAIN_VIEW);
 
-			int res = doSaveOrNot(buf->getFullPathName());
+			int res = -1;
+			if (saveToAll)
+			{
+				res = IDYES;
+			}
+			else
+			{
+				res = doSaveOrNot(buf->getFullPathName(), true);
+			}
+
 			if (res == IDYES)
 			{
 				if (!fileSave(id))
@@ -1162,11 +1239,22 @@ bool Notepad_plus::fileCloseAllButCurrent()
 			}
 			else if (res == IDCANCEL)
 			{
-					return false;
+				return false;
+			}
+			else if (res == IDIGNORE)
+			{
+				noSaveToAll = true;
+			}
+			else if (res == IDRETRY)
+			{
+				if (!fileSave(id))
+					return false;	// Abort entire procedure.
+
+				saveToAll = true;
 			}
 		}
 	}
-	for (size_t i = 0; i < _subDocTab.nbItem(); ++i)
+	for (size_t i = 0; i < _subDocTab.nbItem() && !noSaveToAll; ++i)
 	{
 		BufferID id = _subDocTab.getBufferByIndex(i);
 		Buffer * buf = MainFileManager->getBufferByID(id);
@@ -1181,7 +1269,16 @@ bool Notepad_plus::fileCloseAllButCurrent()
 			activateBuffer(id, SUB_VIEW);
 			switchEditViewTo(SUB_VIEW);
 
-			int res = doSaveOrNot(buf->getFullPathName());
+			int res = -1;
+			if (saveToAll)
+			{
+				res = IDYES;
+			}
+			else
+			{
+				res = doSaveOrNot(buf->getFullPathName(), true);
+			}
+
 			if (res == IDYES)
 			{
 				if (!fileSave(id))
@@ -1189,7 +1286,18 @@ bool Notepad_plus::fileCloseAllButCurrent()
 			}
 			else if (res == IDCANCEL)
 			{
-					return false;
+				return false;
+			}
+			else if (res == IDIGNORE)
+			{
+				noSaveToAll = true;
+			}
+			else if (res == IDRETRY)
+			{
+				if (!fileSave(id))
+					return false;	// Abort entire procedure.
+
+				saveToAll = true;
 			}
 		}
 	}

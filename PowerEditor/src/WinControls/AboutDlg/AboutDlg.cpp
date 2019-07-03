@@ -32,6 +32,7 @@
 
 #include "AboutDlg.h"
 #include "Parameters.h"
+#include "localization.h"
 
 INT_PTR CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -225,3 +226,95 @@ void DebugInfoDlg::doDialog()
 	goToCenter();
 }
 
+void DoSaveOrNotBox::doDialog(bool isRTL)
+{
+	
+	if (isRTL)
+	{
+		DLGTEMPLATE *pMyDlgTemplate = NULL;
+		HGLOBAL hMyDlgTemplate = makeRTLResource(IDD_DOSAVEORNOTBOX, &pMyDlgTemplate);
+		::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
+		::GlobalFree(hMyDlgTemplate);
+	}
+	else
+		::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_DOSAVEORNOTBOX), _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
+}
+
+void DoSaveOrNotBox::changeLang()
+{
+	generic_string msg;
+	generic_string defaultMessage = TEXT("Save file \"$STR_REPLACE$\" ?");
+	NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance()->getNativeLangSpeaker();
+
+	if (nativeLangSpeaker->changeDlgLang(_hSelf, "DoSaveOrNot"))
+	{
+		const unsigned char len = 255;
+		TCHAR text[len];
+		::GetDlgItemText(_hSelf, IDC_DOSAVEORNOTTEX, text, len);
+		msg = text;
+	}
+
+	if (msg.empty())
+		msg = defaultMessage;
+
+	msg = stringReplace(msg, TEXT("$STR_REPLACE$"), _fn);
+	::SetDlgItemText(_hSelf, IDC_DOSAVEORNOTTEX, msg.c_str());
+}
+
+INT_PTR CALLBACK DoSaveOrNotBox::run_dlgProc(UINT message, WPARAM wParam, LPARAM /*lParam*/)
+{
+	switch (message)
+	{
+		case WM_INITDIALOG :
+		{
+			changeLang();
+			::EnableWindow(::GetDlgItem(_hSelf, IDRETRY), _isMulti);
+			::EnableWindow(::GetDlgItem(_hSelf, IDIGNORE), _isMulti);
+			goToCenter();
+			return TRUE;
+		}
+
+		case WM_COMMAND:
+		{
+			switch (LOWORD(wParam))
+			{
+				case IDCANCEL:
+				{
+					::EndDialog(_hSelf, -1);
+					clickedButtonId = IDCANCEL;
+					return TRUE;
+				}
+
+				case IDYES:
+				{
+					::EndDialog(_hSelf, 0);
+					clickedButtonId = IDYES;
+					return TRUE;
+				}
+
+				case IDNO:
+				{
+					::EndDialog(_hSelf, 0);
+					clickedButtonId = IDNO;
+					return TRUE;
+				}
+
+				case IDIGNORE:
+				{
+					::EndDialog(_hSelf, 0);
+					clickedButtonId = IDIGNORE;
+					return TRUE;
+				}
+
+				case IDRETRY:
+				{
+					::EndDialog(_hSelf, 0);
+					clickedButtonId = IDRETRY;
+					return TRUE;
+				}
+			}
+		}
+		default:
+			return FALSE;
+	}
+}

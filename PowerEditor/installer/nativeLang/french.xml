@@ -966,6 +966,14 @@
                 <Item id="1718" name="Mode étendu (\n, \r, \t, \0, \x...)"/>
                 <Item id="1720" name="&amp;. comprend ligne nouvelle"/>
             </FindInFinder>
+            <DoSaveOrNot title="Saugggvegarder"> 
+                <Item id="1761" name="Sauvegarder le fichier &quot;$STR_REPLACE$&quot; ?"/>
+                <Item id="6" name="Oui"/>
+                <Item id="7" name="Non"/>
+                <Item id="2" name="Annuler"/>
+                <Item id="4" name="Oui pour tout"/>
+                <Item id="5" name="Non pour tout"/>
+            </DoSaveOrNot>
         </Dialog>
         <MessageBox>
             <CannotMoveDoc title="Déplacement vers une nouvelle instance Notepad++" message="Le document est en cours d'utilisation, le sauvegarder puis réessayer."/>
@@ -986,7 +994,6 @@
 vous devez activer &quot;Open all files of folder instead of launching Folder as Workspace on folder dropping&quot; in &quot;Default Directory&quot; section of Preferences dialog to make this operation work."/>
             <SortingError title="Erreur de tri" message="Impossible d'effectuer le tri numérique à cause de la ligne $INT_REPLACE$."/>
             <BufferInvalidWarning title="Échec de sauvegarde" message="Cannot save: Buffer is invalid."/>
-            <DoSaveOrNot title="Sauvegarder" message="Sauvegarder le fichier &quot;$STR_REPLACE$&quot; ?"/>
             <DoCloseOrNot title="Conserver un fichier non existant" message="Le fichier &quot;$STR_REPLACE$&quot; n'existe plus.
 Conserver ce fichier dans l'éditeur ?"/>
             <DoDeleteOrNot title="Supprimer fichier" message="Le fichier &quot;$STR_REPLACE$&quot;

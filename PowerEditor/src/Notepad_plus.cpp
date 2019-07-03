@@ -1862,15 +1862,15 @@ void Notepad_plus::filePrint(bool showDialog)
 	printer.doPrint();
 }
 
-int Notepad_plus::doSaveOrNot(const TCHAR *fn)
+int Notepad_plus::doSaveOrNot(const TCHAR* fn, bool isMulti)
 {
-	return _nativeLangSpeaker.messageBox("DoSaveOrNot",
-		_pPublicInterface->getHSelf(),
-		TEXT("Save file \"$STR_REPLACE$\" ?"),
-		TEXT("Save"),
-		MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL,
-		0, // not used
-		fn);
+	DoSaveOrNotBox doSaveOrNotBox;
+	doSaveOrNotBox.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), fn, isMulti);
+	doSaveOrNotBox.doDialog(_nativeLangSpeaker.isRTL());
+	int buttonID = doSaveOrNotBox.getClickedButtonId();
+	doSaveOrNotBox.destroy();
+
+	return buttonID;
 }
 
 int Notepad_plus::doReloadOrNot(const TCHAR *fn, bool dirty)

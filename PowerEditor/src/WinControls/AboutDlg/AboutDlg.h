@@ -96,3 +96,35 @@ private:
 	URLCtrl _copyToClipboardLink;
 };
 
+class DoSaveOrNotBox : public StaticDialog
+{
+public:
+	DoSaveOrNotBox() : StaticDialog() {};
+
+	void init(HINSTANCE hInst, HWND parent, const TCHAR* fn, bool isMulti) {
+		Window::init(hInst, parent);
+		if (fn)
+			_fn = fn;
+
+		_isMulti = isMulti;
+	};
+
+	void doDialog(bool isRTL = false);
+
+	virtual void destroy() {
+	};
+
+	int getClickedButtonId() const {
+		return clickedButtonId;
+	};
+
+	void changeLang();
+
+protected:
+	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+
+private:
+	int clickedButtonId = -1;
+	generic_string _fn;
+	bool _isMulti = false;
+};

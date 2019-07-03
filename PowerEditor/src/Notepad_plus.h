@@ -441,7 +441,7 @@ private:
 	void performPostReload(int whichOne);
 //END: Document management
 
-	int doSaveOrNot(const TCHAR *fn);
+	int doSaveOrNot(const TCHAR *fn, bool isMulti = false);
 	int doReloadOrNot(const TCHAR *fn, bool dirty);
 	int doCloseOrNot(const TCHAR *fn);
 	int doDeleteOrNot(const TCHAR *fn);

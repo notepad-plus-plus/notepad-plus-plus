@@ -981,6 +981,14 @@
                 <Item id="1718" name="延伸（\n, \r, \t, \0, \x...）"/>
                 <Item id="1720" name="「.」包含換行"/>
             </FindInFinder>
+            <DoSaveOrNot title="儲存檔案"> 
+                <Item id="1761" name="您要儲存「$STR_REPLACE$」嗎？"/>
+                <Item id="6" name="好吧"/>
+                <Item id="7" name="不要啦"/>
+                <Item id="2" name="取消"/>
+                <Item id="4" name="全部存檔"/>
+                <Item id="5" name="全部棄存"/>
+            </DoSaveOrNot>
         </Dialog>
         <MessageBox>
             <ContextMenuXmlEditWarning title="編輯快顯功能表" message="編輯 contextMenu.xml 可以變更 Notepad++ 之快顯功能表。
@@ -1006,7 +1014,6 @@
             <SortingError title="排序錯誤" message="第 $INT_REPLACE$ 行無法執行數字排序。"/>
             <ColumnModeTip title="多欄選取提示" message="請使用「ALT + 滑鼠選擇」或「Alt + Shift + 方向鍵」以切換到多欄選取。"/>
             <BufferInvalidWarning title="儲存失敗" message="緩衝區無效。"/>
-            <DoSaveOrNot title="儲存檔案" message="您要儲存「$STR_REPLACE$」嗎？"/>
             <DoCloseOrNot title="保留文件" message="檔案「$STR_REPLACE$」已不存在。
 您在 Notepad++ 中保存這個文件嗎？"/>
             <DoDeleteOrNot title="刪除檔案" message="您確定要刪除並關閉「$STR_REPLACE$」嗎？"/>

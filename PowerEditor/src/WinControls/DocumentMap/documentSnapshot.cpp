@@ -65,7 +65,7 @@ void DocumentPeeker::doDialog(POINT p, Buffer *pBuf, ScintillaEditView & scintSo
 
 void DocumentPeeker::goTo(POINT p)
 {
-	::SetWindowPos(_hSelf, HWND_TOP, p.x, p.y + 10, _rc.right - _rc.left, _rc.bottom - _rc.top, SWP_SHOWWINDOW);
+	::SetWindowPos(_hSelf, HWND_TOP, p.x, p.y + 10, _rc.right - _rc.left, _rc.bottom - _rc.top, SWP_SHOWWINDOW | SWP_NOACTIVATE);
 }
 
 
@@ -101,7 +101,6 @@ void DocumentPeeker::syncDisplay(Buffer *buf, ScintillaEditView & scintSource)
 		_pPeekerView->showMargin(3, false);
 
 		_pPeekerView->execute(SCI_SETCARETSTYLE, CARETSTYLE_INVISIBLE);
-		Window::display();
 	}
 }
 

@@ -140,43 +140,62 @@ public:
 				generic_string b = getSortKey(bIn);
 
 				long long compareResult = 0;
-				size_t i = 0;
+				size_t aidx = 0;
+				size_t bidx = 0;
 				while (compareResult == 0)
 				{
-					if (i >= a.length() || i >= b.length())
+					if (aidx >= a.length() || bidx >= b.length())
 					{
-						compareResult = a.compare(min(i, a.length()), generic_string::npos, b, min(i, b.length()), generic_string::npos);
+						compareResult = a.compare(min(aidx, a.length()), generic_string::npos, b, min(bidx, b.length()), generic_string::npos);
 						break;
 					}
 
-					bool aChunkIsNum = a[i] >= L'0' && a[i] <= L'9';
-					bool bChunkIsNum = b[i] >= L'0' && b[i] <= L'9';
+					bool aChunkIsNum = a[aidx] >= L'0' && a[aidx] <= L'9';
+					bool bChunkIsNum = b[bidx] >= L'0' && b[bidx] <= L'9';
 
 					// One is number and one is string
 					if (aChunkIsNum != bChunkIsNum)
 					{
-						compareResult = a[i] - b[i];
-						// No need to update i; compareResult != 0
+						// No need to update idx; compareResult != 0
+						compareResult = a[aidx] - b[bidx];
 					}
 					// Both are numbers
 					else if (aChunkIsNum)
 					{
-						size_t delta = 0;
+						size_t aDelta = 0;
+						size_t bDelta = 0;
+						size_t aNumLen = getNumLength(a.substr(aidx), &aDelta);
+						size_t bNumLen = getNumLength(b.substr(bidx), &bDelta);
 
-						// stoll crashes if number exceeds the limit for unsigned long long
-						// Maximum value for a variable of type unsigned long long | 18446744073709551615
-						// So take the max length 18 to convert the number
-						const size_t maxLen = 18;
-						compareResult = std::stoll(a.substr(i, maxLen)) - std::stoll(b.substr(i, maxLen), &delta);
-						i += delta;
+						// Sort in small segments when length is equivalent. Otherwise the longer number is bigger
+						if (aNumLen == bNumLen)
+						{
+							// If we skipped zeros, make sure to align the numbers
+							size_t aZeros = aDelta - aNumLen;
+							size_t bZeros = bDelta - bNumLen;
+
+							// stoll crashes if number exceeds the limit for unsigned long long
+							// Maximum value for a variable of type unsigned long long | 18446744073709551615
+							// So take the max length 18 to convert the number
+							const size_t maxLen = 18;
+							compareResult = std::stoll(a.substr(aidx + aZeros, maxLen), &aDelta) - std::stoll(b.substr(bidx + bZeros, maxLen), &bDelta);
+							aidx += aZeros + aDelta;
+							bidx += bZeros + bDelta;
+						}
+						else
+						{
+							// No need to update idx; compareResult != 0
+							compareResult = aNumLen - bNumLen;
+						}
 					}
 					// Both are strings
 					else
 					{
-						size_t aChunkEnd = a.find_first_of(L"1234567890", i);
-						size_t bChunkEnd = b.find_first_of(L"1234567890", i);
-						compareResult = a.compare(i, aChunkEnd - i, b, i, bChunkEnd - i);
-						i = aChunkEnd;
+						size_t aChunkEnd = a.find_first_of(L"1234567890", aidx);
+						size_t bChunkEnd = b.find_first_of(L"1234567890", bidx);
+						compareResult = a.compare(aidx, aChunkEnd - aidx, b, bidx, bChunkEnd - bidx);
+						aidx = aChunkEnd;
+						bidx = bChunkEnd;
 					}
 				}
 
@@ -195,43 +214,62 @@ public:
 			std::sort(lines.begin(), lines.end(), [this](generic_string a, generic_string b)
 			{
 				long long compareResult = 0;
-				size_t i = 0;
+				size_t aidx = 0;
+				size_t bidx = 0;
 				while (compareResult == 0)
 				{
-					if (i >= a.length() || i >= b.length())
+					if (aidx >= a.length() || bidx >= b.length())
 					{
-						compareResult = a.compare(min(i,a.length()), generic_string::npos, b, min(i,b.length()), generic_string::npos);
+						compareResult = a.compare(min(aidx, a.length()), generic_string::npos, b, min(bidx, b.length()), generic_string::npos);
 						break;
 					}
 
-					bool aChunkIsNum = a[i] >= L'0' && a[i] <= L'9';
-					bool bChunkIsNum = b[i] >= L'0' && b[i] <= L'9';
+					bool aChunkIsNum = a[aidx] >= L'0' && a[aidx] <= L'9';
+					bool bChunkIsNum = b[bidx] >= L'0' && b[bidx] <= L'9';
 
 					// One is number and one is string
 					if (aChunkIsNum != bChunkIsNum)
 					{
-						compareResult = a[i] - b[i];
-						// No need to update i; compareResult != 0
+						// No need to update idx; compareResult != 0
+						compareResult = a[aidx] - b[bidx];
 					}
 					// Both are numbers
 					else if (aChunkIsNum)
 					{
-						size_t delta = 0;
+						size_t aDelta = 0;
+						size_t bDelta = 0;
+						size_t aNumLen = getNumLength(a.substr(aidx), &aDelta);
+						size_t bNumLen = getNumLength(b.substr(bidx), &bDelta);
 
-						// stoll crashes if number exceeds the limit for unsigned long long
-						// Maximum value for a variable of type unsigned long long | 18446744073709551615
-						// So take the max length 18 to convert the number
-						const size_t maxLen = 18;
-						compareResult = std::stoll(a.substr(i, maxLen)) - std::stoll(b.substr(i, maxLen), &delta);
-						i += delta;
+						// Sort in small segments when length is equivalent. Otherwise the longer number is bigger
+						if (aNumLen == bNumLen)
+						{
+							// If we skipped zeros, make sure to align the numbers
+							size_t aZeros = aDelta - aNumLen;
+							size_t bZeros = bDelta - bNumLen;
+
+							// stoll crashes if number exceeds the limit for unsigned long long
+							// Maximum value for a variable of type unsigned long long | 18446744073709551615
+							// So take the max length 18 to convert the number
+							const size_t maxLen = 18;
+							compareResult = std::stoll(a.substr(aidx + aZeros, maxLen), &aDelta) - std::stoll(b.substr(bidx + bZeros, maxLen), &bDelta);
+							aidx += aZeros + aDelta;
+							bidx += bZeros + bDelta;
+						}
+						else
+						{
+							// No need to update idx; compareResult != 0
+							compareResult = aNumLen - bNumLen;
+						}
 					}
 					// Both are strings
 					else
 					{
-						size_t aChunkEnd = a.find_first_of(L"1234567890", i);
-						size_t bChunkEnd = b.find_first_of(L"1234567890", i);
-						compareResult = a.compare(i, aChunkEnd-i, b, i, bChunkEnd-i);
-						i = aChunkEnd;
+						size_t aChunkEnd = a.find_first_of(L"1234567890", aidx);
+						size_t bChunkEnd = b.find_first_of(L"1234567890", bidx);
+						compareResult = a.compare(aidx, aChunkEnd - aidx, b, bidx, bChunkEnd - bidx);
+						aidx = aChunkEnd;
+						bidx = bChunkEnd;
 					}
 				}
 
@@ -246,6 +284,51 @@ public:
 			});
 		}
 		return lines;
+	}
+protected:
+	size_t getNumLength(const generic_string& input, size_t* delta = nullptr)
+	{
+		size_t numLength = 0;
+		bool bSkipLeadingZeros = true;
+
+		size_t inputLength = input.length();
+		size_t idx = 0;
+		for ( ; idx < inputLength; idx++)
+		{
+			if (bSkipLeadingZeros)
+			{
+				if (input[idx] == L'0')
+				{
+					continue;
+				}
+				else
+				{
+					bSkipLeadingZeros = false;
+				}
+			}
+
+			if (input[idx] >= L'0' && input[idx] <= L'9')
+			{
+				numLength++;
+			}
+			else
+			{
+				break;
+			}
+		}
+
+		if (delta != nullptr)
+		{
+			*delta = idx;
+		}
+
+		// All zeros
+		if (numLength == 0 && idx > 0)
+		{
+			numLength = 1;
+		}
+
+		return numLength;
 	}
 };
 

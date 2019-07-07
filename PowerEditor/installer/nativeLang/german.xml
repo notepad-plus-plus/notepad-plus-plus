@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++ 7.6.5
-	last modified: 2019-03-26 by schnurlos (schnurlos@gmail.com)
+	last modified: 2019-07-07 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -993,6 +993,14 @@
 				<Item id="1718" name="Erweitert (\n, \r, \t, \0, \x...)"/>
 				<Item id="1720" name="&amp;. entspricht neuer Zeile"/>
 			</FindInFinder>
+			<DoSaveOrNot title="Speichern">
+				<Item id="1761" name="Datei &quot;$STR_REPLACE$&quot; speichern?"/>
+				<Item id="6" name="Ja"/>
+				<Item id="7" name="Nein"/>
+				<Item id="2" name="Abbruch"/>
+				<Item id="4" name="Ja für alle"/>
+				<Item id="5" name="Nein für alle"/>
+			</DoSaveOrNot>
 
 		</Dialog>
 		<MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
@@ -1014,7 +1022,6 @@
 			<SortingError title="Sortier-Fehler" message="Konnte nicht nummerisch sortieren wegen Zeile $INT_REPLACE$."/>
 			<ColumnModeTip title="Tip zum Spalten-Modus" message="Bitte &quot;ALT+Mauswahl&quot; oder &quot;Alt+Shift+Pfeiltaste&quot; verwenden um in den Spalten-Modus zu wechseln."/>
 			<BufferInvalidWarning title="Speichern fehlgeschlagen" message="Konnte nicht speichern: Ungültiger Puffer."/>
-			<DoSaveOrNot title="Speichern" message="Speichere Datei &quot;$STR_REPLACE$&quot;?"/>
 			<DoCloseOrNot title="Nicht existierende Datei behalten" message="Die Datei &quot;$STR_REPLACE$&quot; existiert nicht mehr.&#x0A;Soll die Datei im Editor behalten werden?"/>
 			<DoDeleteOrNot title="Datei löschen" message="Die Datei &quot;$STR_REPLACE$&quot;&#x0A;wird in den Papierkorb verschoben und diese Dokument wird geschlossen.&#x0A;Fortfahren?"/>
 			<NoBackupDoSaveFile title="Speichern" message="Die Sicherungsdatei konnte nicht gefunden werden (wurde anderwärtig gelöscht).&#x0A;Speichern oder die Daten gehen verloren.&#x0A;Soll die Datei &quot;$STR_REPLACE$&quot; gespeichert werden?"/>
@@ -1091,6 +1098,7 @@
 				<Item id="3517" name="In Dateien suchen …"/>
 				<Item id="3518" name="Hier anzeigen"/>
 				<Item id="3519" name="Kommandozeile hier"/>
+				<Item id="3520" name="Dateinamen kopieren"/>
 			</Menus>
 		</FolderAsWorkspace>
 		<ProjectManager>

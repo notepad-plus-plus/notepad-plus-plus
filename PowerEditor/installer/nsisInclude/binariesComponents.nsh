@@ -26,11 +26,11 @@
 ; Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-SectionGroup "Plugins" Plugins
+SectionGroup ${PluginsSection} Plugins
 	SetOverwrite on
 	
 !ifndef ARCH64
-	${MementoSection} "NppExport" NppExport
+	${MementoSection} ${NppExportItem} NppExport
 		Delete "$INSTDIR\plugins\NppExport.dll"
 		Delete "$INSTDIR\plugins\NppExport\NppExport.dll"
 		Delete "$PLUGIN_INST_PATH\NppExport\NppExport.dll"
@@ -41,7 +41,7 @@ SectionGroup "Plugins" Plugins
 
 !endif
 
-	${MementoSection} "Mime Tools" MimeTools
+	${MementoSection} ${MimeToolsItem} MimeTools
 		Delete "$INSTDIR\plugins\mimeTools.dll"
 		Delete "$INSTDIR\plugins\mimeTools\mimeTools.dll"
 		Delete "$PLUGIN_INST_PATH\mimeTools\mimeTools.dll"
@@ -54,7 +54,7 @@ SectionGroup "Plugins" Plugins
 !endif
 	${MementoSectionEnd}
 	
-	${MementoSection} "Converter" Converter
+	${MementoSection} ${ConverterItem} Converter
 		Delete "$INSTDIR\plugins\NppConverter.dll"
 		Delete "$INSTDIR\plugins\NppConverter\NppConverter.dll"
 		Delete "$PLUGIN_INST_PATH\NppConverter\NppConverter.dll"
@@ -69,7 +69,7 @@ SectionGroup "Plugins" Plugins
 
 SectionGroupEnd
 
-${MementoSection} "Auto-Updater" AutoUpdater
+${MementoSection} ${AutoUpdaterSection} AutoUpdater
 	SetOverwrite on
 	SetOutPath "$INSTDIR\updater"
 !ifdef ARCH64
@@ -87,7 +87,7 @@ ${MementoSection} "Auto-Updater" AutoUpdater
 !endif
 ${MementoSectionEnd}
 
-${MementoSection} "Plugins Admin" PluginsAdmin
+${MementoSection} ${PluginsAdminSection} PluginsAdmin
 	SetOverwrite on
 	SetOutPath $ALLUSERS_PLUGIN_CONF_PATH
 !ifdef ARCH64

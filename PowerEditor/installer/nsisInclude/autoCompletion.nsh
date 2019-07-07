@@ -26,7 +26,7 @@
 ; Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-SectionGroup "Auto-completion Files" autoCompletionComponent
+SectionGroup ${AutoCompletionFilesGroup} autoCompletionComponent
 	SetOverwrite off
 	
 	${MementoSection} "C" C

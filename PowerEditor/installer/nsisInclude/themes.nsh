@@ -26,7 +26,7 @@
 ; Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-SectionGroup "Themes" Themes
+SectionGroup ${ThemesSection} Themes
 	SetOverwrite off
 	; UPDATE_PATH: the value is $INSTDIR if doLocalConf.xml exit,
 	;              otherwise the value is $APPDATA\${APPNAME}

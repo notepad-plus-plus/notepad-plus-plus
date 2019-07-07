@@ -63,9 +63,7 @@ FunctionEnd
 		
 		IntCmp $R0 0 NotRunning
 			System::Call 'kernel32::CloseHandle(i $R0)'
-			MessageBox MB_RETRYCANCEL|MB_DEFBUTTON1|MB_ICONSTOP "Cannot continue the installation: Notepad++ is running.\
-			          $\n$\n\
-                      Please close Notepad++, then click ''Retry''." IDRETRY Retry IDCANCEL Cancel
+			MessageBox MB_RETRYCANCEL|MB_DEFBUTTON1|MB_ICONSTOP ${CannotContinueInstallation} IDRETRY Retry IDCANCEL Cancel
 			Retry:
 				Goto Check
 			
@@ -92,13 +90,13 @@ Function ExtraOptions
 		Abort
 	${EndIf}
 
-	${NSD_CreateCheckbox} 0 0 100% 30u "Create Shortcut on Desktop"
+	${NSD_CreateCheckbox} 0 0 100% 30u ${CreateShortcutonDesktop}
 	Pop $ShortcutCheckboxHandle
 	StrCmp $WinVer "8" 0 +2
 	${NSD_Check} $ShortcutCheckboxHandle
 	${NSD_OnClick} $ShortcutCheckboxHandle OnChange_ShortcutCheckBox
 	
-	${NSD_CreateCheckbox} 0 80 100% 30u "Don't use %APPDATA%$\nEnable this option to make Notepad++ load/write the configuration files from/to its install directory. Check it if you use Notepad++ in a USB device."
+	${NSD_CreateCheckbox} 0 80 100% 30u ${DontUseAppdata}
 	Pop $NoUserDataCheckboxHandle
 	${NSD_OnClick} $NoUserDataCheckboxHandle OnChange_NoUserDataCheckBox
 	
@@ -122,15 +120,15 @@ Function preventInstallInWin9x
 	${GetWindowsVersion} $WinVer
 	
 	StrCmp $WinVer "95" 0 +3
-		MessageBox MB_OK "This version of Notepad++ does not support your OS.$\nPlease download zipped package of version 5.9 and use ANSI version. You can find v5.9 here:$\nhttp://notepad-plus-plus.org/release/5.9"
+		MessageBox MB_OK ${NotepadNotSuportThisOS}
 		Abort
 		
 	StrCmp $WinVer "98" 0 +3
-		MessageBox MB_OK "This version of Notepad++ does not support your OS.$\nPlease download zipped package of version 5.9 and use ANSI version. You can find v5.9 here:$\nhttp://notepad-plus-plus.org/release/5.9"
+		MessageBox MB_OK ${NotepadNotSuportThisOS}
 		Abort
 		
 	StrCmp $WinVer "ME" 0 +3
-		MessageBox MB_OK "This version of Notepad++ does not support your OS.$\nPlease download zipped package of version 5.9 and use ANSI version. You can find v5.9 here:$\nhttp://notepad-plus-plus.org/release/5.9"
+		MessageBox MB_OK ${NotepadNotSuportThisOS}
 		Abort
 FunctionEnd
 

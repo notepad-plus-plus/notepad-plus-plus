@@ -25,6 +25,8 @@
 ; along with this program; if not, write to the Free Software
 ; Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+; Language Strings (English)
+
 
 ; NSIS includes
 !include "x64.nsh"       ; a few simple macros to handle installations on x64 machines
@@ -250,13 +252,13 @@ ${MementoSectionDone}
 
 ;--------------------------------
   !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
-    !insertmacro MUI_DESCRIPTION_TEXT ${explorerContextMenu} 'Explorer context menu entry for Notepad++ : Open whatever you want in Notepad++ from Windows Explorer.'
-    !insertmacro MUI_DESCRIPTION_TEXT ${autoCompletionComponent} 'Install the API files you need for the auto-completion feature (Ctrl+Space).'
-    !insertmacro MUI_DESCRIPTION_TEXT ${Plugins} 'You may need these plugins to extend the capabilities of Notepad++.'
-    !insertmacro MUI_DESCRIPTION_TEXT ${localization} 'To use Notepad++ in your favorite language(s), install all/desired language(s).'
-    !insertmacro MUI_DESCRIPTION_TEXT ${Themes} 'The eye-candy to change visual effects. Use Theme selector to switch among them.'
-    !insertmacro MUI_DESCRIPTION_TEXT ${AutoUpdater} 'Keep Notepad++ updated: Automatically download and install the latest updates.'
-    !insertmacro MUI_DESCRIPTION_TEXT ${PluginsAdmin} 'Install, Update and Remove any plugin from a list by some clicks. It needs Auto-Updater installed.'
+    !insertmacro MUI_DESCRIPTION_TEXT ${explorerContextMenu} ${explorerContextMenuTip}'
+    !insertmacro MUI_DESCRIPTION_TEXT ${autoCompletionComponent} ${autoCompletionComponentTip}
+    !insertmacro MUI_DESCRIPTION_TEXT ${Plugins} ${PluginsTip}
+    !insertmacro MUI_DESCRIPTION_TEXT ${localizationTip} ${localizationTip}
+    !insertmacro MUI_DESCRIPTION_TEXT ${Themes}${ThemesTip}
+    !insertmacro MUI_DESCRIPTION_TEXT ${AutoUpdater}  ${AutoUpdaterTip}
+    !insertmacro MUI_DESCRIPTION_TEXT ${PluginsAdmin} ${PluginsAdminTip}
   !insertmacro MUI_FUNCTION_DESCRIPTION_END
 ;--------------------------------
 

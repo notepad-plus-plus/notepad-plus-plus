@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     History of Corsican translation for Notepad++
+		- Updated on July 7th, 2019 by Patriccollu di Santa Maria è Sichè for version 7.7.1
 		- Updated on March 29th, 2019 by Patriccollu di Santa Maria è Sichè for version 7.6.5
 		- Updated on March 11th, 2018 by Patriccollu di Santa Maria è Sichè for version 7.5.5
 		- Updated on August 19th, 2017 by Patriccollu di Santa Maria è Sichè for version 7.5
@@ -11,7 +12,7 @@
 	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/corsican.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="Corsu" filename="corsican.xml" version="7.6.5">
+    <Native-Langue name="Corsu" filename="corsican.xml" version="7.7.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -995,6 +996,14 @@
                 <Item id="1718" name="&amp;Allungatu (\n, \r, \t, \0, \x…)"/>
                 <Item id="1720" name="&amp;. cum’è nova linea"/>
             </FindInFinder>
+            <DoSaveOrNot title="Arregistrà">
+                <Item id="1761" name="Arregistrà u schedariu « $STR_REPLACE$ » ?"/>
+                <Item id="6" name="Iè"/>
+                <Item id="7" name="Innò"/>
+                <Item id="2" name="Abbandunà"/>
+                <Item id="4" name="Iè per tutti"/>
+                <Item id="5" name="Innò per tutti"/>
+            </DoSaveOrNot>
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title="Mudificazione di contextMenu" message="Mudificà contextMenu.xml permette di cambià u vostru listinu cuntestuale di Notepad++.
@@ -1027,7 +1036,6 @@ Ci vole à attivà l’ozzione « À u depone d’un cartulare, apre tutti i sch
             <SortingError title="Sbagliu di classificazione" message="Impussibule di fà una classificazione numerica per via di a linea $INT_REPLACE$."/>
             <ColumnModeTip title="Minichichja di modu culonna" message="Ci vole à impiegà « ALT+Selez. cù Topu » o « Alt+Maiusc+Fleccia » per permutà ver di u modu culonna."/>
             <BufferInvalidWarning title="Arregistramentu fiascu" message="Ùn pò micca arregistrà : U stampone hè inaccetevule."/>
-            <DoSaveOrNot title="Arregistrà" message="Arregistrà u schedariu « $STR_REPLACE$ » ?"/>
             <DoCloseOrNot title="Cunservà u schedariu inesistente" message="U schedariu « $STR_REPLACE$ » ùn esiste più.
 Cunservà stu schedariu in l’editore ?"/>
             <DoDeleteOrNot title="Squassà u schedariu" message="U schedariu « $STR_REPLACE$ »
@@ -1127,6 +1135,7 @@ Vulete dimarrà Notepad++ in modu Amministratore ?"/>
                 <Item id="3517" name="Circà in schedarii…"/>
                 <Item id="3518" name="Espluratore quì"/>
                 <Item id="3519" name="CMD quì"/>
+                <Item id="3520" name="Cupià u nome di schedariu"/>
             </Menus>
         </FolderAsWorkspace>
         <ProjectManager>

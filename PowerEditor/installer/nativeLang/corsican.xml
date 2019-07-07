@@ -123,8 +123,8 @@
                     <Item id="42013" name="Unisce parechje linee"/>
                     <Item id="42014" name="Dispiazzà insù a linea attuale"/>
                     <Item id="42015" name="Dispiazzà inghjò a linea attuale"/>
-                    <Item id="42059" name="Classificà da una manera lessicugrafica crescente"/>
-                    <Item id="42060" name="Classificà da una manera lessicugrafica discendente"/>
+                    <Item id="42059" name="Classificà e linee da una manera lessicugrafica crescente"/>
+                    <Item id="42060" name="Classificà e linee da una manera lessicugrafica discendente"/>
                     <Item id="42061" name="Classificà e linee cum’è numeri interi crescente"/>
                     <Item id="42062" name="Classificà e linee cum’è numeri interi discendente"/>
                     <Item id="42063" name="Classificà e linee cum’è numeri decimali (virgula) crescente"/>
@@ -143,9 +143,9 @@
                     <Item id="42074" name="Apre cù l’espluratore u cartulare cuntenendu u schedariu"/>
                     <Item id="42075" name="Circà nant’à Internet"/>
                     <Item id="42076" name="Cambià u mutore di ricerca…"/>
-                    <Item id="42018" name="Principià u &amp;ricordu"/>
-                    <Item id="42019" name="&amp;Piantà u ricordu"/>
-                    <Item id="42021" name="&amp;Sunà"/>
+                    <Item id="42018" name="&amp;Principià u ricordu"/>
+                    <Item id="42019" name="&amp;Fermà u ricordu"/>
+                    <Item id="42021" name="&amp;Ripruduce"/>
                     <Item id="42022" name="Attivà/Disattivà u cummentu di linea sola"/>
                     <Item id="42023" name="Mette in cummentu u bloccu selezziunatu"/>
                     <Item id="42047" name="Caccià u cummentu da u bloccu selezziunatu"/>

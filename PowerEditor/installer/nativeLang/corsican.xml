@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     History of Corsican translation for Notepad++
+		- Updated on July 29th, 2019 by Patriccollu di Santa Maria è Sichè for version 7.7.2
 		- Updated on March 29th, 2019 by Patriccollu di Santa Maria è Sichè for version 7.6.5
 		- Updated on March 11th, 2018 by Patriccollu di Santa Maria è Sichè for version 7.5.5
 		- Updated on August 19th, 2017 by Patriccollu di Santa Maria è Sichè for version 7.5
@@ -11,7 +12,7 @@
 	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/corsican.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="Corsu" filename="corsican.xml" version="7.6.5">
+    <Native-Langue name="Corsu" filename="corsican.xml" version="7.7.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -122,8 +123,8 @@
                     <Item id="42013" name="Unisce parechje linee"/>
                     <Item id="42014" name="Dispiazzà insù a linea attuale"/>
                     <Item id="42015" name="Dispiazzà inghjò a linea attuale"/>
-                    <Item id="42059" name="Classificà da una manera lessicugrafica crescente"/>
-                    <Item id="42060" name="Classificà da una manera lessicugrafica discendente"/>
+                    <Item id="42059" name="Classificà e linee da una manera lessicugrafica crescente"/>
+                    <Item id="42060" name="Classificà e linee da una manera lessicugrafica discendente"/>
                     <Item id="42061" name="Classificà e linee cum’è numeri interi crescente"/>
                     <Item id="42062" name="Classificà e linee cum’è numeri interi discendente"/>
                     <Item id="42063" name="Classificà e linee cum’è numeri decimali (virgula) crescente"/>
@@ -142,9 +143,9 @@
                     <Item id="42074" name="Apre cù l’espluratore u cartulare cuntenendu u schedariu"/>
                     <Item id="42075" name="Circà nant’à Internet"/>
                     <Item id="42076" name="Cambià u mutore di ricerca…"/>
-                    <Item id="42018" name="Principià u &amp;ricordu"/>
-                    <Item id="42019" name="&amp;Piantà u ricordu"/>
-                    <Item id="42021" name="&amp;Sunà"/>
+                    <Item id="42018" name="&amp;Principià u ricordu"/>
+                    <Item id="42019" name="&amp;Fermà u ricordu"/>
+                    <Item id="42021" name="&amp;Ripruduce"/>
                     <Item id="42022" name="Attivà/Disattivà u cummentu di linea sola"/>
                     <Item id="42023" name="Mette in cummentu u bloccu selezziunatu"/>
                     <Item id="42047" name="Caccià u cummentu da u bloccu selezziunatu"/>
@@ -274,16 +275,16 @@
                     <Item id="45001" name="Windows (CR LF)"/>
                     <Item id="45002" name="Unix (LF)"/>
                     <Item id="45003" name="Macintosh (CR)"/>
-                    <Item id="45004" name="Cudificà in ANSI"/>
-                    <Item id="45005" name="Cudificà in UTF-8-BOM"/>
-                    <Item id="45006" name="Cudificà in UCS-2 BE BOM"/>
-                    <Item id="45007" name="Cudificà in UCS-2 LE BOM"/>
-                    <Item id="45008" name="Cudificà in UTF-8"/>
+                    <Item id="45004" name="ANSI"/>
+                    <Item id="45005" name="UTF-8 cù BOM"/>
+                    <Item id="45006" name="UCS-2 Big Endian cù BOM"/>
+                    <Item id="45007" name="UCS-2 Little Endian cù BOM"/>
+                    <Item id="45008" name="UTF-8"/>
                     <Item id="45009" name="Cunvertisce ver di ANSI"/>
                     <Item id="45010" name="Cunvertisce ver di UTF-8"/>
-                    <Item id="45011" name="Cunvertisce ver di UTF-8-BOM"/>
-                    <Item id="45012" name="Cunvertisce ver di UCS-2 BE BOM"/>
-                    <Item id="45013" name="Cunvertisce ver di UCS-2 LE BOM"/>
+                    <Item id="45011" name="Cunvertisce ver di UTF-8 cù BOM"/>
+                    <Item id="45012" name="Cunvertisce ver di UCS-2 Big Endian cù BOM"/>
+                    <Item id="45013" name="Cunvertisce ver di UCS-2 Little Endian cù BOM"/>
 
                     <Item id="10001" name="Dispiazzà ver di l’altra vista"/>
                     <Item id="10002" name="Duplicà in l’altra vista"/>
@@ -397,6 +398,8 @@
                 <Item id="1641" name="Circà tutti in ducumentu attuale"/>
                 <Item id="1686" name="&amp;Trasparenza"/>
                 <Item id="1703" name="&amp;. cum’è nova linea"/>
+                <Item id="1721" name="▲"/>
+                <Item id="1723" name="▼ Circà seguente"/>
             </Find>
 
             <FindCharsInRange title="Circà caratteri in una stesa…">
@@ -518,6 +521,7 @@
                 <Item id="5006" name="Nome"/>
                 <Item id="5008" name="Aghjunghje"/>
                 <Item id="5009" name="Caccià"/>
+                <Item id="5010" name="Appiecà"/>
                 <Item id="5007" name="Quessu caccierà l’accurtatoghju per sta cumanda"/>
                 <Item id="5012" name="CUNFLITTU TROVU !"/>
             </ShortcutMapperSubDialg>
@@ -995,6 +999,14 @@
                 <Item id="1718" name="&amp;Allungatu (\n, \r, \t, \0, \x…)"/>
                 <Item id="1720" name="&amp;. cum’è nova linea"/>
             </FindInFinder>
+            <DoSaveOrNot title="Arregistrà">
+                <Item id="1761" name="Arregistrà u schedariu « $STR_REPLACE$ » ?"/>
+                <Item id="6" name="Iè"/>
+                <Item id="7" name="Innò"/>
+                <Item id="2" name="Abbandunà"/>
+                <Item id="4" name="Iè per tutti"/>
+                <Item id="5" name="Innò per tutti"/>
+            </DoSaveOrNot>
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title="Mudificazione di contextMenu" message="Mudificà contextMenu.xml permette di cambià u vostru listinu cuntestuale di Notepad++.
@@ -1027,7 +1039,6 @@ Ci vole à attivà l’ozzione « À u depone d’un cartulare, apre tutti i sch
             <SortingError title="Sbagliu di classificazione" message="Impussibule di fà una classificazione numerica per via di a linea $INT_REPLACE$."/>
             <ColumnModeTip title="Minichichja di modu culonna" message="Ci vole à impiegà « ALT+Selez. cù Topu » o « Alt+Maiusc+Fleccia » per permutà ver di u modu culonna."/>
             <BufferInvalidWarning title="Arregistramentu fiascu" message="Ùn pò micca arregistrà : U stampone hè inaccetevule."/>
-            <DoSaveOrNot title="Arregistrà" message="Arregistrà u schedariu « $STR_REPLACE$ » ?"/>
             <DoCloseOrNot title="Cunservà u schedariu inesistente" message="U schedariu « $STR_REPLACE$ » ùn esiste più.
 Cunservà stu schedariu in l’editore ?"/>
             <DoDeleteOrNot title="Squassà u schedariu" message="U schedariu « $STR_REPLACE$ »
@@ -1086,6 +1097,10 @@ Vulete dimarrà Notepad++ in modu Amministratore ?"/>
 Vulete dimarrà Notepad++ in modu Amministratore ?"/>
             <OpenInAdminModeFailed title="Apertura fiasca in modu Amministratore" message="Notepad++ ùn pò micca esse apertu in modu Amministratore."/>
             <ViewInBrowser title="Fighjà u schedariu attuale in u navigatore" message="L’appiecazione ùn si trova micca in u sistema."/>
+            <ExitToUpdatePlugins title="Notepad++ hè prontu à esce" message="S’è vo cliccate Iè, Notepad++ hà da piantà per cuntinuà l’operazioni.
+Notepad++ serà rilanciatu quandu st’operazioni seranu compie.
+Cuntinuà ?"/>
+            <NeedToRestartToLoadPlugins title="Notepad++ hà bisognu d’esse rilanciatu" message="Ci vole à rilancià Notepad++ per caricà l’estensioni chì sò state installate."/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Crunulugia di u preme’papei"/>
@@ -1101,10 +1116,12 @@ Vulete dimarrà Notepad++ in modu Amministratore ?"/>
             <ColumnType name="Tipu"/>
         </WindowsDlg>
         <AsciiInsertion>
-            <PanelTitle name="Pannellu d’inserzione ASCII"/>
+            <PanelTitle name="Pannellu d’inserzione di codice ASCII"/>
             <ColumnVal name="Valore"/>
             <ColumnHex name="Esadecimale"/>
             <ColumnChar name="Caratteru"/>
+            <ColumnHtmlNumber name="Numeru HTML"/>
+            <ColumnHtmlName name="Codice HTML"/>
         </AsciiInsertion>
         <DocumentMap>
             <PanelTitle name="Cartugrafia di u ducumentu"/>
@@ -1127,6 +1144,7 @@ Vulete dimarrà Notepad++ in modu Amministratore ?"/>
                 <Item id="3517" name="Circà in schedarii…"/>
                 <Item id="3518" name="Espluratore quì"/>
                 <Item id="3519" name="CMD quì"/>
+                <Item id="3520" name="Cupià u nome di schedariu"/>
             </Menus>
         </FolderAsWorkspace>
         <ProjectManager>
@@ -1232,6 +1250,17 @@ Vulete dimarrà Notepad++ in modu Amministratore ?"/>
             <userdefined-title-rename value="Rinumà u nome di linguaghju attuale"/>
             <autocomplete-nb-char value="N° carat. : "/>
             <edit-verticaledge-nb-col value="N° di culonne :"/>
+            <summary value="Statistiche"/>
+            <summary-filepath value="Chjassu d’accessu : "/>
+            <summary-filecreatetime value="Data di creazione : "/>
+            <summary-filemodifytime value="Data di mudificazione : "/>
+            <summary-nbchar value="Caratteri (senza fine di linea) : "/>
+            <summary-nbword value="Parolle : "/>
+            <summary-nbline value="Linee : "/>
+            <summary-nbbyte value="Dimensione di u ducumentu : "/>
+            <summary-nbsel1 value=" caratteri selezziunati ("/>
+            <summary-nbsel2 value=" ottetti) in "/>
+            <summary-nbrange value=" selezzioni"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

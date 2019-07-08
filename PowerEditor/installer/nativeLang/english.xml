@@ -1079,6 +1079,10 @@ Do you want to launch Notepad++ in Administrator mode?"/>
 Do you want to launch Notepad++ in Administrator mode?"/>
             <OpenInAdminModeFailed title="Open in Administrator mode failed" message="Notepad++ cannot be opened in Administrator mode."/>
             <ViewInBrowser title="View Current File in Browser" message="Application cannot be found in your system."/>
+            <ExitToUpdatePlugins title="Notepad++ is about to exit" message="If you click YES, you will quit Notepad++ to continue the operations.
+Notepad++ will be restarted after all the operations are terminated.
+Continue?"/>
+            <NeedToRestartToLoadPlugins title="Notepad++ need to be relaunched" message="You have to restart Notepad++ to load plugins you installed."/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Clipboard History"/>

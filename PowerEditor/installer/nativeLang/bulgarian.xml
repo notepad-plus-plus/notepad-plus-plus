@@ -488,14 +488,14 @@
 				<Item id="1718" name="&amp;Разширен (\n, \r, \t, \0, \x...)"/>
 				<Item id="1720" name=". и &amp;нов ред"/>
 			</FindInFinder>
-            <DoSaveOrNot title="Запис"> 
-                <Item id="1761" name="Запис на файла &quot;$STR_REPLACE$&quot; ?"/>
-                <Item id="6" name="Да"/>
-                <Item id="7" name="Не"/>
-                <Item id="2" name="Отказ"/>
-                <Item id="4" name="Да, за всички"/>
-                <Item id="5" name="Не, за всички"/>
-            </DoSaveOrNot>
+			<DoSaveOrNot title="Запис"> 
+				<Item id="1761" name="Запис на файла &quot;$STR_REPLACE$&quot; ?"/>
+				<Item id="6" name="Да"/>
+				<Item id="7" name="Не"/>
+				<Item id="2" name="Отказ"/>
+				<Item id="4" name="Да, за всички"/>
+				<Item id="5" name="Не, за всички"/>
+			</DoSaveOrNot>
 			<!-- Меню "Търсене" начало -->
 				<!-- "Отиване на..." -->
 			<GoToLine title="Отиване на...">

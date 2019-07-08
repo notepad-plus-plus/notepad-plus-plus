@@ -2836,15 +2836,7 @@ bool NppParameters::writeSettingsFilesOnCloudForThe1stTime(const generic_string 
 		if (!isOK)
 			return false;
 	}
-/*
-	// session.xml: Session stock the absolute file path, it should never be on cloud
-	generic_string cloudSessionPath = cloudSettingsPath;
-	PathAppend(cloudSessionPath, TEXT("session.xml"));
-	if (!::PathFileExists(cloudSessionPath.c_str()) && _pXmlSessionDoc)
-	{
-		_pXmlSessionDoc->SaveFile(cloudSessionPath.c_str());
-	}
-*/
+
 	// userDefineLang.xml
 	generic_string cloudUserLangsPath = cloudSettingsPath;
 	PathAppend(cloudUserLangsPath, TEXT("userDefineLang.xml"));
@@ -2885,15 +2877,6 @@ bool NppParameters::writeSettingsFilesOnCloudForThe1stTime(const generic_string 
 			return false;
 	}
 
-	/*
-	// functionList.xml
-	generic_string cloudFunctionListPath = cloudSettingsPath;
-	PathAppend(cloudFunctionListPath, TEXT("functionList.xml"));
-	if (!::PathFileExists(cloudFunctionListPath.c_str()))
-	{
-
-	}
-	*/
 	return true;
 }
 
@@ -6429,8 +6412,8 @@ void NppParameters::writeStyles(LexerStylerArray & lexersStylers, StyleArray & g
 
 	for (size_t x = 0; x < _pXmlExternalLexerDoc.size(); ++x)
 	{
-		TiXmlNode *lexersRoot = ( _pXmlExternalLexerDoc[x]->FirstChild(TEXT("NotepadPlus")))->FirstChildElement(TEXT("LexerStyles"));
-		for (TiXmlNode *childNode = lexersRoot->FirstChildElement(TEXT("LexerType"));
+		TiXmlNode* lexersRoot2 = ( _pXmlExternalLexerDoc[x]->FirstChild(TEXT("NotepadPlus")))->FirstChildElement(TEXT("LexerStyles"));
+		for (TiXmlNode* childNode = lexersRoot2->FirstChildElement(TEXT("LexerType"));
 			childNode ;
 			childNode = childNode->NextSibling(TEXT("LexerType")))
 		{

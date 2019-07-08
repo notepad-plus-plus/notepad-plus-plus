@@ -983,6 +983,14 @@
                 <Item id="1718" name="G&amp;eliştirilmiş (\n, \r, \t, \0, \x...)"/>
                 <Item id="1720" name="&amp;. Yeni Satır Eşleşiyor"/>
             </FindInFinder>
+            <DoSaveOrNot title="Kaydet"> 
+                <Item id="1761" name=" &quot;$STR_REPLACE$&quot; dosyası kaydedilsin mi?"/>
+                <Item id="6" name="Evet"/>
+                <Item id="7" name="Hayır"/>
+                <Item id="2" name="İptal"/>
+                <Item id="4" name="Tümüne Evet"/>
+                <Item id="5" name="Tümüne Hayır"/>
+            </DoSaveOrNot>
 		</Dialog>
 		<MessageBox><!-- $INT_REPLACE$ bir yer tutucudur, çevirmeyin -->
 			<ContextMenuXmlEditWarning title="contextMenu.xml Dosyasını Düzenle" message="contextMenu.xml dosyasını düzenleyerek Notepad++ sağ tık bağlam menüsü değiştirilebilir.
@@ -1112,6 +1120,7 @@ Notepad++ı Yönetici olarak başlatmak ister misiniz?"/>
                 <Item id="3517" name="Dosyalarda bul..."/>
                 <Item id="3518" name="Explorer buraya"/>
                 <Item id="3519" name="CMD buraya"/>
+                <Item id="3520" name="Dosya Adını Kopyala"/>
             </Menus>
 		</FolderAsWorkspace>
 		<ProjectManager>

@@ -1106,10 +1106,10 @@ void DockingCont::onSize()
 		
 
 		// get active item data
-		size_t iItemCnt = static_cast<size_t>(::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0));
+		size_t iItemCnt2 = static_cast<size_t>(::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0));
 
 		// resize visible plugin windows
-		for (size_t iItem = 0; iItem < iItemCnt; ++iItem)
+		for (size_t iItem = 0; iItem < iItemCnt2; ++iItem)
 		{
 			tcItem.mask		= TCIF_PARAM;
 			::SendMessage(_hContTab, TCM_GETITEM, iItem, reinterpret_cast<LPARAM>(&tcItem));

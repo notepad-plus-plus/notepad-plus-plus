@@ -234,8 +234,8 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 
 				if (res == IDYES)
 				{
-					bool res = MainFileManager->createEmptyFile(longFileName);
-					if (res)
+					bool isOK = MainFileManager->createEmptyFile(longFileName);
+					if (isOK)
 					{
 						isCreateFileSuccessful = true;
 					}
@@ -293,15 +293,15 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 
 		if (buffer != BUFFER_INVALID)
 		{
-			bool isSnapshotMode = (backupFileName != NULL and PathFileExists(backupFileName));
+			isSnapshotMode = (backupFileName != NULL && ::PathFileExists(backupFileName));
 			if (isSnapshotMode)
 			{
 				// To notify plugins that a snapshot dirty file is loaded on startup
-				SCNotification scnN;
-				scnN.nmhdr.hwndFrom = 0;
-				scnN.nmhdr.idFrom = (uptr_t)buffer;
-				scnN.nmhdr.code = NPPN_SNAPSHOTDIRTYFILELOADED;
-				_pluginsManager.notify(&scnN);
+				SCNotification scnN2;
+				scnN2.nmhdr.hwndFrom = 0;
+				scnN2.nmhdr.idFrom = (uptr_t)buffer;
+				scnN2.nmhdr.code = NPPN_SNAPSHOTDIRTYFILELOADED;
+				_pluginsManager.notify(&scnN2);
 
 				buffer->setLoadedDirty(true);
 			}
@@ -535,13 +535,13 @@ bool Notepad_plus::doSave(BufferID id, const TCHAR * filename, bool isCopy)
 					::GetModuleFileName(NULL, nppFullPath, MAX_PATH);
 
 					generic_string args = TEXT("-multiInst");
-					size_t res = (size_t)::ShellExecute(_pPublicInterface->getHSelf(), TEXT("runas"), nppFullPath, args.c_str(), TEXT("."), SW_SHOW);
+					size_t shellExecRes = (size_t)::ShellExecute(_pPublicInterface->getHSelf(), TEXT("runas"), nppFullPath, args.c_str(), TEXT("."), SW_SHOW);
 
 					// If the function succeeds, it returns a value greater than 32. If the function fails,
 					// it returns an error value that indicates the cause of the failure.
 					// https://msdn.microsoft.com/en-us/library/windows/desktop/bb762153%28v=vs.85%29.aspx
 
-					if (res < 32)
+					if (shellExecRes < 32)
 					{
 						_nativeLangSpeaker.messageBox("OpenInAdminModeFailed",
 							_pPublicInterface->getHSelf(),
@@ -579,13 +579,13 @@ bool Notepad_plus::doSave(BufferID id, const TCHAR * filename, bool isCopy)
 					args += TEXT("\"");
 					args += fileNamePath;
 					args += TEXT("\"");
-					size_t res = (size_t)::ShellExecute(_pPublicInterface->getHSelf(), TEXT("runas"), nppFullPath, args.c_str(), TEXT("."), SW_SHOW);
+					size_t shellExecRes = (size_t)::ShellExecute(_pPublicInterface->getHSelf(), TEXT("runas"), nppFullPath, args.c_str(), TEXT("."), SW_SHOW);
 
 					// If the function succeeds, it returns a value greater than 32. If the function fails,
 					// it returns an error value that indicates the cause of the failure.
 					// https://msdn.microsoft.com/en-us/library/windows/desktop/bb762153%28v=vs.85%29.aspx
 
-					if (res < 32)
+					if (shellExecRes < 32)
 					{
 						_nativeLangSpeaker.messageBox("OpenInAdminModeFailed",
 							_pPublicInterface->getHSelf(),

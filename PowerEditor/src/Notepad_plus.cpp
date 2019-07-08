@@ -2677,10 +2677,10 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 			{
 				indentAmountPrevLine = _pEditView->getLineIndent(prevLine);
 
-				auto startPos = _pEditView->execute(SCI_POSITIONFROMLINE, prevLine);
-				auto endPos = _pEditView->execute(SCI_GETLINEENDPOSITION, prevLine);
+				auto startPos2 = _pEditView->execute(SCI_POSITIONFROMLINE, prevLine);
+				auto endPos2 = _pEditView->execute(SCI_GETLINEENDPOSITION, prevLine);
 				_pEditView->execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP | SCFIND_POSIX);
-				_pEditView->execute(SCI_SETTARGETRANGE, startPos, endPos);
+				_pEditView->execute(SCI_SETTARGETRANGE, startPos2, endPos2);
 
 				const char braceExpr[] = "[ \t]*\\{.*";
 
@@ -2688,7 +2688,7 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 				if (posFound != -1 && posFound != -2)
 				{
 					int end = int(_pEditView->execute(SCI_GETTARGETEND));
-					if (end == endPos)
+					if (end == endPos2)
 						indentAmountPrevLine += tabWidth;
 				}
 			}
@@ -3253,7 +3253,6 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 			switchEditViewTo(MAIN_VIEW);
 
 		int filesDropped = ::DragQueryFile(hdrop, 0xffffffff, NULL, 0);
-		BufferID lastOpened = BUFFER_INVALID;
 
 		vector<generic_string> folderPaths;
 		vector<generic_string> filePaths;
@@ -3282,7 +3281,6 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 
 		if (isOldMode || folderPaths.size() == 0) // old mode or new mode + only files
 		{
-
 			BufferID lastOpened = BUFFER_INVALID;
 			for (int i = 0; i < filesDropped; ++i)
 			{
@@ -3313,10 +3311,6 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 			launchFileBrowser(folderPaths);
 		}
 
-		if (lastOpened != BUFFER_INVALID) 
-		{
-			switchToFile(lastOpened);
-		}
 		::DragFinish(hdrop);
 		// Put Notepad_plus to forefront
 		// May not work for Win2k, but OK for lower versions

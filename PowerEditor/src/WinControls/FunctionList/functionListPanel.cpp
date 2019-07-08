@@ -350,7 +350,7 @@ void FunctionListPanel::reload()
 	
 	if (root)
 	{
-		Buffer* currentBuf = (*_ppEditView)->getCurrentBuffer();
+		currentBuf = (*_ppEditView)->getCurrentBuffer();
 		const TCHAR *fullFilePath = currentBuf->getFullPathName();
 		_treeView.setItemParam(root, fullFilePath);
 		TreeParams *previousParams = getFromStateArray(fullFilePath);

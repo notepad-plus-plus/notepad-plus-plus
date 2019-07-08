@@ -218,6 +218,7 @@ struct CmdLineParams
 
 	bool _isSessionFile = false;
 	bool _isRecursive = false;
+	bool _openFoldersAsWorkspace = false;
 
 	LangType _langType = L_EXTERNAL;
 	generic_string _localizationPath;
@@ -240,16 +241,17 @@ struct CmdLineParams
 // A POD class to send CmdLineParams through WM_COPYDATA and to Notepad_plus::loadCommandlineParams
 struct CmdLineParamsDTO
 {
-	bool _isReadOnly;
-	bool _isNoSession;
-	bool _isSessionFile;
-	bool _isRecursive;
+	bool _isReadOnly = false;
+	bool _isNoSession = false;
+	bool _isSessionFile = false;
+	bool _isRecursive = false;
+	bool _openFoldersAsWorkspace = false;
 
-	int _line2go;
-	int _column2go;
-	int _pos2go;
+	int _line2go = 0;
+	int _column2go = 0;
+	int _pos2go = 0;
 
-	LangType _langType;
+	LangType _langType = L_EXTERNAL;
 
 	static CmdLineParamsDTO FromCmdLineParams(const CmdLineParams& params)
 	{
@@ -258,6 +260,7 @@ struct CmdLineParamsDTO
 		dto._isNoSession = params._isNoSession;
 		dto._isSessionFile = params._isSessionFile;
 		dto._isRecursive = params._isRecursive;
+		dto._openFoldersAsWorkspace = params._openFoldersAsWorkspace;
 
 		dto._line2go = params._line2go;
 		dto._column2go = params._column2go;
@@ -617,7 +620,7 @@ struct LangMenuItem final
 	int	_cmdID;
 	generic_string _langName;
 
-	LangMenuItem(LangType lt, int cmdID = 0, generic_string langName = TEXT("")):
+	LangMenuItem(LangType lt, int cmdID = 0, const generic_string& langName = TEXT("")):
 	_langType(lt), _cmdID(cmdID), _langName(langName){};
 };
 
@@ -1167,7 +1170,7 @@ public:
 		const wchar_t *_xmlFileName;
 	};
 
-	bool addLanguageFromXml(std::wstring xmlFullPath);
+	bool addLanguageFromXml(const std::wstring& xmlFullPath);
 	std::wstring getLangFromXmlFileName(const wchar_t *fn) const;
 
 	std::wstring getXmlFilePathFromLangName(const wchar_t *langName) const;
@@ -1208,12 +1211,12 @@ class ThemeSwitcher final
 friend class NppParameters;
 
 public:
-	void addThemeFromXml(generic_string xmlFullPath)
+	void addThemeFromXml(const generic_string& xmlFullPath)
 	{
 		_themeList.push_back(std::pair<generic_string, generic_string>(getThemeFromXmlFileName(xmlFullPath.c_str()), xmlFullPath));
 	}
 
-	void addDefaultThemeFromXml(generic_string xmlFullPath)
+	void addDefaultThemeFromXml(const generic_string& xmlFullPath)
 	{
 		_themeList.push_back(std::pair<generic_string, generic_string>(TEXT("Default (stylers.xml)"), xmlFullPath));
 	}
@@ -1404,7 +1407,7 @@ public:
 	void setCurLineHilitingColour(COLORREF colour2Set);
 
 	void setFontList(HWND hWnd);
-	bool isInFontList(const generic_string fontName2Search) const;
+	bool isInFontList(const generic_string& fontName2Search) const;
 	const std::vector<generic_string>& getFontList() const { return _fontlist; }
 
 	int getNbUserLang() const {return _nbUserLang;}
@@ -1516,7 +1519,7 @@ public:
 
 	void setWorkingDir(const TCHAR * newPath);
 
-	void setStartWithLocFileName(generic_string locPath) {
+	void setStartWithLocFileName(const generic_string& locPath) {
 		_startWithLocFileName = locPath;
 	};
 
@@ -1582,8 +1585,8 @@ public:
 	}
 
 	PluginList & getPluginList() {return _pluginList;};
-	bool importUDLFromFile(generic_string sourceFile);
-	bool exportUDLToFile(size_t langIndex2export, generic_string fileName2save);
+	bool importUDLFromFile(const generic_string& sourceFile);
+	bool exportUDLToFile(size_t langIndex2export, const generic_string& fileName2save);
 	NativeLangSpeaker* getNativeLangSpeaker() {
 		return _pNativeLangSpeaker;
 	}
@@ -1824,8 +1827,8 @@ private:
 	void writePrintSetting(TiXmlElement *element);
 	void initMenuKeys();		//initialise menu keys and scintilla keys. Other keys are initialized on their own
 	void initScintillaKeys();	//these functions have to be called first before any modifications are loaded
-	int getCmdIdFromMenuEntryItemName(HMENU mainMenuHadle, generic_string menuEntryName, generic_string menuItemName); // return -1 if not found
-	int getPluginCmdIdFromMenuEntryItemName(HMENU pluginsMenu, generic_string pluginName, generic_string pluginCmdName); // return -1 if not found
+	int getCmdIdFromMenuEntryItemName(HMENU mainMenuHadle, const generic_string& menuEntryName, const generic_string& menuItemName); // return -1 if not found
+	int getPluginCmdIdFromMenuEntryItemName(HMENU pluginsMenu, const generic_string& pluginName, const generic_string& pluginCmdName); // return -1 if not found
 	winVer getWindowsVersion();
 
 };

@@ -32,6 +32,7 @@
 
 #include "AboutDlg.h"
 #include "Parameters.h"
+#include "localization.h"
 
 INT_PTR CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -160,13 +161,88 @@ INT_PTR CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /
 			_debugInfoStr += (doLocalConf ? TEXT("ON") : TEXT("OFF"));
 			_debugInfoStr += TEXT("\r\n");
 
-			// OS version
-			_debugInfoStr += TEXT("OS : ");
-			_debugInfoStr += (NppParameters::getInstance())->getWinVersionStr();
+			// OS information
+			HKEY hKey;
+			DWORD dataSize = 0;
+			
+			TCHAR szProductName[96] = {'\0'};
+			TCHAR szCurrentBuildNumber[32] = {'\0'};
+			TCHAR szReleaseId[32] = {'\0'};
+			DWORD dwUBR = 0;
+			TCHAR szUBR[12] = TEXT("0");
+
+			// NOTE: RegQueryValueExW is not guaranteed to return null-terminated strings
+			if (RegOpenKeyExW(HKEY_LOCAL_MACHINE, TEXT("SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion"), 0, KEY_READ, &hKey) == ERROR_SUCCESS)
+			{
+				dataSize = sizeof(szProductName);
+				RegQueryValueExW(hKey, TEXT("ProductName"), NULL, NULL, reinterpret_cast<LPBYTE>(szProductName), &dataSize);
+				szProductName[sizeof(szProductName) / sizeof(TCHAR) - 1] = '\0';
+
+				dataSize = sizeof(szReleaseId);
+				RegQueryValueExW(hKey, TEXT("ReleaseId"), NULL, NULL, reinterpret_cast<LPBYTE>(szReleaseId), &dataSize);
+				szReleaseId[sizeof(szReleaseId) / sizeof(TCHAR) - 1] = '\0';
+				
+				dataSize = sizeof(szCurrentBuildNumber);
+				RegQueryValueExW(hKey, TEXT("CurrentBuildNumber"), NULL, NULL, reinterpret_cast<LPBYTE>(szCurrentBuildNumber), &dataSize);
+				szCurrentBuildNumber[sizeof(szCurrentBuildNumber) / sizeof(TCHAR) - 1] = '\0';
+				
+				dataSize = sizeof(DWORD);
+				if (RegQueryValueExW(hKey, TEXT("UBR"), NULL, NULL, reinterpret_cast<LPBYTE>(&dwUBR), &dataSize) == ERROR_SUCCESS)
+				{
+					generic_sprintf(szUBR, TEXT("%u"), dwUBR);
+				}
+				
+				RegCloseKey(hKey);
+			}
+
+			// Get alternative OS information
+			if (szProductName[0] == '\0')
+			{
+				generic_sprintf(szProductName, TEXT("%s"), (NppParameters::getInstance())->getWinVersionStr().c_str());
+			}
+			if (szCurrentBuildNumber[0] == '\0')
+			{
+				DWORD dwVersion = GetVersion();
+				if (dwVersion < 0x80000000)
+				{
+					generic_sprintf(szCurrentBuildNumber, TEXT("%u"), HIWORD(dwVersion));
+				}
+			}
+			
+			_debugInfoStr += TEXT("OS Name : ");
+			_debugInfoStr += szProductName;
 			_debugInfoStr += TEXT(" (");
 			_debugInfoStr += (NppParameters::getInstance())->getWinVerBitStr();
-			_debugInfoStr += TEXT(")");
+			_debugInfoStr += TEXT(") ");
 			_debugInfoStr += TEXT("\r\n");
+			
+			if (szReleaseId[0] != '\0')
+			{
+				_debugInfoStr += TEXT("OS Version : ");
+				_debugInfoStr += szReleaseId;
+				_debugInfoStr += TEXT("\r\n");
+			}
+
+			if (szCurrentBuildNumber[0] != '\0')
+			{
+				_debugInfoStr += TEXT("OS Build : ");
+				_debugInfoStr += szCurrentBuildNumber;
+				_debugInfoStr += TEXT(".");
+				_debugInfoStr += szUBR;
+				_debugInfoStr += TEXT("\r\n");
+			}
+
+			// Detect WINE
+			PWINEGETVERSION pWGV = (PWINEGETVERSION)GetProcAddress(GetModuleHandle(TEXT("ntdll.dll")), "wine_get_version");
+			if (pWGV != NULL)
+			{
+				TCHAR szWINEVersion[32];
+				generic_sprintf(szWINEVersion, TEXT("%hs"), pWGV());
+
+				_debugInfoStr += TEXT("WINE : ");
+				_debugInfoStr += szWINEVersion;
+				_debugInfoStr += TEXT("\r\n");
+			}
 
 			// Plugins
 			_debugInfoStr += TEXT("Plugins : ");
@@ -225,3 +301,95 @@ void DebugInfoDlg::doDialog()
 	goToCenter();
 }
 
+void DoSaveOrNotBox::doDialog(bool isRTL)
+{
+	
+	if (isRTL)
+	{
+		DLGTEMPLATE *pMyDlgTemplate = NULL;
+		HGLOBAL hMyDlgTemplate = makeRTLResource(IDD_DOSAVEORNOTBOX, &pMyDlgTemplate);
+		::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
+		::GlobalFree(hMyDlgTemplate);
+	}
+	else
+		::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_DOSAVEORNOTBOX), _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
+}
+
+void DoSaveOrNotBox::changeLang()
+{
+	generic_string msg;
+	generic_string defaultMessage = TEXT("Save file \"$STR_REPLACE$\" ?");
+	NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance()->getNativeLangSpeaker();
+
+	if (nativeLangSpeaker->changeDlgLang(_hSelf, "DoSaveOrNot"))
+	{
+		const unsigned char len = 255;
+		TCHAR text[len];
+		::GetDlgItemText(_hSelf, IDC_DOSAVEORNOTTEX, text, len);
+		msg = text;
+	}
+
+	if (msg.empty())
+		msg = defaultMessage;
+
+	msg = stringReplace(msg, TEXT("$STR_REPLACE$"), _fn);
+	::SetDlgItemText(_hSelf, IDC_DOSAVEORNOTTEX, msg.c_str());
+}
+
+INT_PTR CALLBACK DoSaveOrNotBox::run_dlgProc(UINT message, WPARAM wParam, LPARAM /*lParam*/)
+{
+	switch (message)
+	{
+		case WM_INITDIALOG :
+		{
+			changeLang();
+			::EnableWindow(::GetDlgItem(_hSelf, IDRETRY), _isMulti);
+			::EnableWindow(::GetDlgItem(_hSelf, IDIGNORE), _isMulti);
+			goToCenter();
+			return TRUE;
+		}
+
+		case WM_COMMAND:
+		{
+			switch (LOWORD(wParam))
+			{
+				case IDCANCEL:
+				{
+					::EndDialog(_hSelf, -1);
+					clickedButtonId = IDCANCEL;
+					return TRUE;
+				}
+
+				case IDYES:
+				{
+					::EndDialog(_hSelf, 0);
+					clickedButtonId = IDYES;
+					return TRUE;
+				}
+
+				case IDNO:
+				{
+					::EndDialog(_hSelf, 0);
+					clickedButtonId = IDNO;
+					return TRUE;
+				}
+
+				case IDIGNORE:
+				{
+					::EndDialog(_hSelf, 0);
+					clickedButtonId = IDIGNORE;
+					return TRUE;
+				}
+
+				case IDRETRY:
+				{
+					::EndDialog(_hSelf, 0);
+					clickedButtonId = IDRETRY;
+					return TRUE;
+				}
+			}
+		}
+		default:
+			return FALSE;
+	}
+}

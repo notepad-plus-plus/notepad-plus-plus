@@ -62,12 +62,21 @@ SecurityGard::SecurityGard()
 
 bool SecurityGard::checkModule(const std::wstring& filePath, NppModule module2check)
 {
+#ifndef _DEBUG
 	if (_securityMode == sm_certif)
 		return verifySignedLibrary(filePath, module2check);
 	else if (_securityMode == sm_sha256)
 		return checkSha256(filePath, module2check);
 	else
 		return false;
+#else
+	// Do not check integrity if npp is running in debug mode
+	// This is helpful for developers to skip signature checking
+	// while analyzing issue or modifying the lexer dll
+	(void)filePath;
+	(void)module2check;
+	return true;
+#endif
 }
 
 bool SecurityGard::checkSha256(const std::wstring& filePath, NppModule module2check)

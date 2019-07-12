@@ -1094,6 +1094,10 @@ Vulete dimarrà Notepad++ in modu Amministratore ?"/>
 Vulete dimarrà Notepad++ in modu Amministratore ?"/>
             <OpenInAdminModeFailed title="Apertura fiasca in modu Amministratore" message="Notepad++ ùn pò micca esse apertu in modu Amministratore."/>
             <ViewInBrowser title="Fighjà u schedariu attuale in u navigatore" message="L’appiecazione ùn si trova micca in u sistema."/>
+            <ExitToUpdatePlugins title="Notepad++ hè prontu à esce" message="S’è vo cliccate Iè, Notepad++ hà da piantà per cuntinuà l’operazioni.
+Notepad++ serà rilanciatu quandu st’operazioni seranu compie.
+Cuntinuà ?"/>
+            <NeedToRestartToLoadPlugins title="Notepad++ hà bisognu d’esse rilanciatu" message="Ci vole à rilancià Notepad++ per caricà l’estensioni chì sò state installate."/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Crunulugia di u preme’papei"/>

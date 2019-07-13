@@ -16,7 +16,7 @@
                     <Item menuId = "search" name = "&amp;Cerca" />
                     <Item menuId = "view" name = "&amp;Visualizza" />
                     <Item menuId = "encoding" name = "Fo&amp;rmato" />
-                    <Item menuId = "language" name = "&amp;Linguaggio" />
+                    <Item menuId = "language" name = "&amp;Lingua" />
                     <Item menuId = "settings" name = "C&amp;onfigurazione" />
                     <Item menuId = "tools" name = "&amp;Strumenti" />
                     <Item menuId = "macro" name = "Macro" />
@@ -29,11 +29,11 @@
                     <Item subMenuId = "file-openFolder" name = "Apri cartella file" />
                     <Item subMenuId = "file-recentFiles" name = "File recenti" />
                     <Item subMenuId = "file-closeMore" name = "Chiudi di più" />
-                    <Item subMenuId = "edit-copyToClipboard" name = "Copia negli appunti" />
+                    <Item subMenuId = "edit-copyToClipboard" name = "Copia negli Appunti" />
                     <Item subMenuId = "edit-indent" name = "Indenta" />
                     <Item subMenuId = "edit-convertCaseTo" name = "Converti caratteri" />
                     <Item subMenuId = "edit-lineOperations" name = "Operazioni sulle linee" />
-                    <Item subMenuId = "edit-comment" name = "Commenta/Decommenta" />
+                    <Item subMenuId = "edit-comment" name = "Commenta/decommenta" />
                     <Item subMenuId = "edit-autoCompletion" name = "Auto-completamento" />
                     <Item subMenuId = "edit-eolConversion" name = "Converti carattere di fine linea" />
                     <Item subMenuId = "edit-blankOperations" name = "Operazioni sugli spazi" />
@@ -41,18 +41,18 @@
                     <Item subMenuId = "edit-onSelection" name = "Testo selezionato" />
                     <Item subMenuId = "search-markAll" name = "Marca tutti" />
                     <Item subMenuId = "search-unmarkAll" name = "Rimuovi marcatura" />
-                    <Item subMenuId = "search-jumpUp" name = "Salta su" />
-                    <Item subMenuId = "search-jumpDown" name = "Salta giù" />
+                    <Item subMenuId = "search-jumpUp" name = "Vai su" />
+                    <Item subMenuId = "search-jumpDown" name = "Vai giù" />
                     <Item subMenuId = "search-bookmark" name = "Segnalibri" />
-                    <Item subMenuId = "view-currentFileIn" name = "Mostra file corrente in" />
+                    <Item subMenuId = "view-currentFileIn" name = "Visualizza file attuale in" />
                     <Item subMenuId = "view-showSymbol" name = "Simboli" />
                     <Item subMenuId = "view-zoom" name = "Zoom" />
-                    <Item subMenuId = "view-moveCloneDocument" name = "Sposta/Clona documento corrente" />
+                    <Item subMenuId = "view-moveCloneDocument" name = "Sposta/clona documento attuale" />
                     <Item subMenuId = "view-tab" name = "Schede" />
-                    <Item subMenuId = "view-collapseLevel" name = "Collassa livello" />
-                    <Item subMenuId = "view-uncollapseLevel" name = "Non collassare livello" />
+                    <Item subMenuId = "view-collapseLevel" name = "Riduci livello" />
+                    <Item subMenuId = "view-uncollapseLevel" name = "Non ridurre livello" />
                     <Item subMenuId = "view-project" name = "Progetti" />
-                    <Item subMenuId = "encoding-characterSets" name = "Set di caratteri" />
+                    <Item subMenuId = "encoding-characterSets" name = "Set caratteri" />
                     <Item subMenuId = "encoding-arabic" name = "Arabo" />
                     <Item subMenuId = "encoding-baltic" name = "Baltico" />
                     <Item subMenuId = "encoding-celtic" name = "Celtico" />
@@ -79,11 +79,11 @@
                     <Item id = "41002" name = "&amp;Apri..." />
                     <Item id = "41003" name = "Chiudi" />
                     <Item id = "41004" name = "C&amp;hiudi tutti" />
-                    <Item id = "41005" name = "Chiudi tutti tranne il documento corrente" />
+                    <Item id = "41005" name = "Chiudi tutti tranne il documento attuale" />
                     <Item id = "41006" name = "&amp;Salva" />
                     <Item id = "41007" name = "Salva t&amp;utto" />
                     <Item id = "41008" name = "S&amp;alva come..." />
-                    <Item id = "41009" name = "Chiudi le schede a sinistra della corrente" />
+                    <Item id = "41009" name = "Chiudi le schede a sinistra della attuale" />
                     <Item id = "41010" name = "Stampa..." />
                     <Item id = "1001"  name = "Stampa subito!" />
                     <Item id = "41011" name = "&amp;Esci" />
@@ -93,9 +93,9 @@
                     <Item id = "41015" name = "Salva una copia come..." />
                     <Item id = "41016" name = "Sposta nel cestino" />
                     <Item id = "41017" name = "Rinomina..." />
-                    <Item id = "41018" name = "Chiudi le schede a destra della corrente" />
+                    <Item id = "41018" name = "Chiudi le schede a destra della attuale" />
                     <Item id = "41019" name = "Esplora risorse" />
-                    <Item id = "41020" name = "Prompt dei comandi" />
+                    <Item id = "41020" name = "Prompt comandi" />
                     <Item id = "41021" name = "Ripristina i file recenti" />
                     <Item id = "41022" name = "Apri cartella come workspace..." />
                     <Item id = "41023" name = "Apri con il visualizzatore predefinito" />
@@ -109,11 +109,11 @@
                     <Item id = "42007" name = "Seleziona t&amp;utto" />
                     <Item id = "42008" name = "Inserisci tabulazione (indent)" />
                     <Item id = "42009" name = "Rimuovi tabulazione (outdent)" />
-                    <Item id = "42010" name = "Duplica la riga corrente" />
+                    <Item id = "42010" name = "Duplica la riga attuale" />
                     <Item id = "42012" name = "Dividi righe" />
                     <Item id = "42013" name = "Unisci righe" />
-                    <Item id = "42014" name = "Sposta in su la riga corrente" />
-                    <Item id = "42015" name = "Sposta in giù la riga corrente" />
+                    <Item id = "42014" name = "Sposta in su la riga attuale" />
+                    <Item id = "42015" name = "Sposta in giù la riga attuale" />
                     <Item id = "42016" name = "TUTTO MAIUSCOLE" />
                     <Item id = "42017" name = "tutto minuscole" />
                     <Item id = "42018" name = "&amp;Inizia registrazione" />
@@ -127,9 +127,9 @@
                     <Item id = "42026" name = "Direzione del testo RTL" />
                     <Item id = "42027" name = "Direzione del testo LTR" />
                     <Item id = "42028" name = "File in sola lettura" />
-                    <Item id = "42029" name = "Percorso file corrente" />
-                    <Item id = "42030" name = "Nome file corrente" />
-                    <Item id = "42031" name = "Cartella corrente" />
+                    <Item id = "42029" name = "Percorso file attuale" />
+                    <Item id = "42030" name = "Nome file attuale" />
+                    <Item id = "42031" name = "Cartella attuale" />
                     <Item id = "42032" name = "Esegui una macro più volte..." />
                     <Item id = "42033" name = "Pulisci il flag di sola lettura" />
                     <Item id = "42034" name = "Editor a colonne..." />
@@ -150,7 +150,7 @@
                     <Item id = "42049" name = "Taglia contenuto binario" />
                     <Item id = "42050" name = "Incolla contenuto binario" />
                     <Item id = "42051" name = "Pannello caratteri" />
-                    <Item id = "42052" name = "Storia appunti" />
+                    <Item id = "42052" name = "Cronologia Appunti" />
                     <Item id = "42053" name = "Converti spazi in tabulazioni (a inizio riga)" />
                     <Item id = "42054" name = "Converti spazi in tabulazioni (ovunque)" />
                     <Item id = "42055" name = "Rimuovi righe vuote" />
@@ -235,22 +235,22 @@
                     <Item id = "44012" name = "Nascondi margine numeri di riga" />
                     <Item id = "44013" name = "Nascondi margine segnalibri" />
                     <Item id = "44014" name = "Nascondi margine cartella" />
-                    <Item id = "44019" name = "Mostra tutti i caratteri" />
-                    <Item id = "44020" name = "Mostra guide di indentazione" />
+                    <Item id = "44019" name = "Visualizza tutti i caratteri" />
+                    <Item id = "44020" name = "Visualizza guide di indentazione" />
                     <Item id = "44022" name = "Attiva a capo automatico" />
                     <Item id = "44023" name = "&amp;Ingrandisci testo" />
                     <Item id = "44024" name = "&amp;Riduci testo" />
-                    <Item id = "44025" name = "Mostra spazi bianchi e tabulazioni" />
-                    <Item id = "44026" name = "Mostra carattere di fine riga" />
+                    <Item id = "44025" name = "Visualizza spazi bianchi e tabulazioni" />
+                    <Item id = "44026" name = "Visualizza carattere di fine riga" />
                     <Item id = "44029" name = "Espandi tutti i livelli" />
-                    <Item id = "44030" name = "Contrai al livello corrente" />
-                    <Item id = "44031" name = "Espandi il livello corrente" />
+                    <Item id = "44030" name = "Contrai al livello attuale" />
+                    <Item id = "44031" name = "Espandi il livello attuale" />
                     <Item id = "44032" name = "Visualizzazione a tutto schermo" />
                     <Item id = "44033" name = "Ripristina lo zoom predefinito" />
                     <Item id = "44034" name = "Sempre in primo piano" />
                     <Item id = "44035" name = "Sincronizza scorrimento verticale" />
                     <Item id = "44036" name = "Sincronizza scorrimento orizzontale" />
-                    <Item id = "44041" name = "Mostra simbolo di a capo automatico" />
+                    <Item id = "44041" name = "Visualizza simbolo di a capo automatico" />
                     <Item id = "44042" name = "Nascondi righe" />
                     <Item id = "44049" name = "Informazioni file..." />
                     <Item id = "44072" name = "Attiva altra vista" />
@@ -340,10 +340,10 @@
                     
                     <Item id = "48501" name = "Genera..." />
                     <Item id = "48502" name = "Genera da file..." />
-                    <Item id = "48503" name = "Genera negli appunti" />
+                    <Item id = "48503" name = "Genera negli Appunti" />
                     <Item id = "48504" name = "Genera..." />
                     <Item id = "48505" name = "Genera da file..." />
-                    <Item id = "48506" name = "Genera da selezione negli appunti" />
+                    <Item id = "48506" name = "Genera da selezione negli Appunti" />
 
                     <Item id = "49000" name = "E&amp;segui..." />
 
@@ -404,14 +404,14 @@
                 <Item id = "1635" name = "Sostituisci tutto nei documenti aperti" />
                 <Item id = "1636" name = "Cerca in tutti i documenti aperti" />
                 <Item id = "1640" name = "Alterna finestra" />
-                <Item id = "1641" name = "Trova tutto nel documento corrente" />
+                <Item id = "1641" name = "Trova tutto nel documento attuale" />
                 <Item id = "1654" name = "Filtri:" />
                 <Item id = "1655" name = "Cartella:" />
                 <Item id = "1656" name = "Trova tutti" />
                 <Item id = "1658" name = "Nelle sottocartelle" />
                 <Item id = "1659" name = "Nelle cartelle nascoste" />
                 <Item id = "1660" name = "&amp;Sostituisci nei file" />
-                <Item id = "1661" name = "Segui documento corrente" />
+                <Item id = "1661" name = "Segui documento attuale" />
                 <Item id = "1686" name = "T&amp;rasparenza" />
                 <Item id = "1687" name = "Se perde il focus" />
                 <Item id = "1688" name = "Sempre" />
@@ -446,22 +446,22 @@
             </Run>
             <MD5FromFilesDlg title = "Genera firma MD5 di file">
                 <Item id = "1922" name = "Scegli i file di cui generare MD5..." />
-                <Item id = "1924" name = "Copia negli appunti" />
+                <Item id = "1924" name = "Copia negli Appunti" />
                 <Item id = "2" name = "Chiudi" />
             </MD5FromFilesDlg>
             <MD5FromTextDlg title = "Genera firma MD5">
                 <Item id = "1932" name = "Considera ogni riga come una stringa separata" />
-                <Item id = "1934" name = "Copia negli appunti" />
+                <Item id = "1934" name = "Copia negli Appunti" />
                 <Item id = "2" name = "Chiudi" />
             </MD5FromTextDlg>
             <SHA256FromFilesDlg title = "Genera firma SHA-256 da file">
                 <Item id = "1922" name = "Scegli i file da cui generare SHA-256..." />
-                <Item id = "1924" name = "Copia negli appunti" />
+                <Item id = "1924" name = "Copia negli Appunti" />
                 <Item id = "2" name = "Chiudi" />
             </SHA256FromFilesDlg>
             <SHA256FromTextDlg title = "Genera firma SHA-256">
                 <Item id = "1932" name = "Considera ogni riga come una stringa separata" />
-                <Item id = "1934" name = "Copia negli appunti" />
+                <Item id = "1934" name = "Copia negli Appunti" />
                 <Item id = "2" name = "Chiudi" />
             </SHA256FromTextDlg>
             <PluginsAdminDlg title = "Gestione plugin" titleAvailable = "Disponibili" titleUpdates = "Aggiornamenti" titleInstalled = "Installati">
@@ -712,17 +712,17 @@
                 <Global title = "Generale">
                     <Item id = "6123" name = "Lingua" />
 
-                    <Item id = "6101" name = "Barra Degli Strumenti" />
+                    <Item id = "6101" name = "Barra strumenti" />
                     <Item id = "6102" name = "Nascondi" />
                     <Item id = "6103" name = "Icone piccole" />
                     <Item id = "6104" name = "Icone grandi" />
                     <Item id = "6105" name = "Icone standard" />
 
-                    <Item id = "6125" name = "Documenti Aperti" />
+                    <Item id = "6125" name = "Documenti aperti" />
                     <Item id = "6126" name = "Visualizza" />
                     <Item id = "6127" name = "Disabilita colonna estensioni" />
 
-                    <Item id = "6106" name = "Barra Delle Schede" />
+                    <Item id = "6106" name = "Barra schede" />
                     <Item id = "6118" name = "Nascondi" />
                     <Item id = "6119" name = "Utilizza più righe" />
                     <Item id = "6120" name = "Verticale" />
@@ -731,11 +731,11 @@
                     <Item id = "6109" name = "Oscura schede inattive" />
                     <Item id = "6110" name = "Evidenzia scheda attiva con una barra" />
                     <Item id = "6112" name = "Pulsante di chiusura su ogni scheda" />
-                    <Item id = "6113" name = "Doppio click chiude una scheda" />
+                    <Item id = "6113" name = "Doppio clic chiude una scheda" />
 
                     <Item id = "6121" name = "Esci alla chiusura dell'ultima scheda" />
 
-                    <Item id = "6122" name = "Nascondi barra dei menu (Alt o F10 per mostrare)" />
+                    <Item id = "6122" name = "Nascondi barra dei menu (Alt o F10 per visualizzare)" />
                     <Item id = "6111" name = "Attiva barra di stato" />
                 </Global>
                 <Scintillas title = "Visualizzazione">
@@ -746,7 +746,7 @@
                     <Item id = "6222" name = "L" />
 
                     <Item id = "6224" name = "Selezione Multipla" />
-                    <Item id = "6225" name = "Abilita (Ctrl+click/selezione)" />
+                    <Item id = "6225" name = "Abilita (Ctrl+clic/selezione)" />
 
                     <Item id = "6201" name = "Stile Raggruppamenti" />
                     <Item id = "6202" name = "Semplice" />
@@ -770,7 +770,7 @@
 
                     <Item id = "6206" name = "Visualizza i numeri di riga" />
                     <Item id = "6207" name = "Visualizza i segnalibri" />
-                    <Item id = "6214" name = "Evidenzia la riga corrente" />
+                    <Item id = "6214" name = "Evidenzia la riga attuale" />
                     <Item id = "6215" name = "Abilita antialising caratteri" />
                     <Item id = "6234" name = "Disabilita scrolling avanzato&#xA;(in caso di problemi con touchpad)" />
                     <Item id = "6235" name = "Nessun bordo" />
@@ -793,7 +793,7 @@
                 </NewDoc>
                 <DefaultDir title = "Cartella predefinita">
                     <Item id = "6413" name = "Cartella Predefinita (Apri/Salva)" />
-                    <Item id = "6414" name = "Secondo il documento corrente" />
+                    <Item id = "6414" name = "Secondo il documento attuale" />
                     <Item id = "6415" name = "Ricorda l&apos;ultima cartella utilizzata" />
                     <Item id = "6430" name = "Non selezionare estensione predefinita nella finestra di salvataggio" />
                     <Item id = "6431" name = "Apri tutti i file della cartella invece di avviare Cartella come Workspace al trascinamento" />
@@ -865,7 +865,7 @@
                 </Print>
                 <Backup title = "Backup">
                     <Item id = "6817" name = "Snapshot Sessione e Backup Periodico" />
-                    <Item id = "6309" name = "Ricorda sessione corrente al prossimo avvio" />
+                    <Item id = "6309" name = "Ricorda sessione attuale al prossimo avvio" />
                     <Item id = "6818" name = "Abilita snapshot di sessione e backup periodici" />
                     <Item id = "6819" name = "Backup ogni" />
                     <Item id = "6821" name = "secondi" />
@@ -961,7 +961,7 @@
                     <Item id = "6334" name = "Rileva automaticamente codifica caratteri" />
                     <Item id = "6115" name = "Indentazione automatica" />
                     <Item id = "6308" name = "Minimizza nell&apos;area di notifica" />
-                    <Item id = "6331" name = "Mostra solo nome file nella barra del titolo" />
+                    <Item id = "6331" name = "Visualizza solo nome file nella barra del titolo" />
                     <Item id = "6335" name = "Backslash è il carattere di escape in SQL" />
 
                     <Item id = "6322" name = "Est. file di sessione:" />
@@ -1081,19 +1081,19 @@ Vuoi ripristinare il file langs.xml?" />
 Rimuovi la cartella dal pannello prima di aggiungere &quot;$STR_REPLACE$&quot;." />
             <ProjectPanelChanged title = "$STR_REPLACE$" message = "Il workspace è stato modificato. Vuoi salvarlo?" />
             <ProjectPanelChangedSaveError title = "$STR_REPLACE$" message = "Il tuo workspace non è stato salvato." />
-            <ProjectPanelOpenDoSaveDirtyWsOrNot title = "Apri Workspace" message = "Il workspace corrente è stato modificato. Vuoi salvare il progetto corrente?" />
-            <ProjectPanelNewDoSaveDirtyWsOrNot title = "Nuovo Workspace" message = "Il workspace corrente è stato modificato. Vuoi salvare il progetto corrente?" />
+            <ProjectPanelOpenDoSaveDirtyWsOrNot title = "Apri Workspace" message = "Il workspace attuale è stato modificato. Vuoi salvare il progetto attuale?" />
+            <ProjectPanelNewDoSaveDirtyWsOrNot title = "Nuovo Workspace" message = "Il workspace attuale è stato modificato. Vuoi salvare il progetto attuale?" />
             <ProjectPanelOpenFailed title = "Apri Workspace" message = "Il workspace non puà essere aperto.
 Sembra che il file da aprire non sia un file di progetto valido." />
             <ProjectPanelRemoveFolderFromProject title = "Rimuovi cartella dal progetto" message = "Tutti i sotto-elementi saranno eliminati.
 Sei sicuro di voler rimuovere questa cartella dal progetto?" />
             <ProjectPanelRemoveFileFromProject title = "Rimuovi file dal progetto" message = "Sei sicuro di voler rimuovere questo file dal progetto?" />
             <ProjectPanelReloadError title = "Ricarica Workspace" message = "Impossibile trovare il file da ricaricare." />
-            <ProjectPanelReloadDirty title = "Ricarica Workspace" message = "Il workspace corrente è stato modificato. Ricaricandolo perderai tutte le modifiche.
+            <ProjectPanelReloadDirty title = "Ricarica Workspace" message = "Il workspace attuale è stato modificato. Ricaricandolo perderai tutte le modifiche.
 Vuoi continuare?" />
             <UDLNewNameError title = "Errore UDL" message = "Questo nome è utilizzato da un altro linguaggio,
 usane un altro." />
-            <UDLRemoveCurrentLang title = "Rimuovi il lingaggio corrente" message = "Sei sicuro?" />
+            <UDLRemoveCurrentLang title = "Rimuovi il lingaggio attuale" message = "Sei sicuro?" />
             <SCMapperDoDeleteOrNot title = "Sei sicuro?" message = "Sei sicuro di voler eliminare questa scorciatoia?" />
             <FindCharRangeValueError title = "Problema nell'intervallo di valori" message = "Devi inserire un valore tra 0 e 255." />
             <OpenInAdminMode title = "Salvataggio fallito" message = "Il file non può essere salvato e potrebbere essere protetto.
@@ -1128,6 +1128,22 @@ Vuoi avviare Notepad++ come amministratore?" />
             <SortTip name = "Ordina" />
             <ReloadTip name = "Ricarica" />
         </FunctionList>
+        <FolderAsWorkspace>
+            <PanelTitle name="cartella come Workspace"/>
+            <SelectFolderFromBrowserString name="Seleziona una cartella da aggiungere nella cartella come pannello workspace"/>
+            <Menus>
+                <Item id="3511" name="Rimuovi"/>
+                <Item id="3512" name="Rimuovi tutto"/>
+                <Item id="3513" name="Aggiungi"/>
+                <Item id="3514" name="Essegui dal sistema"/>
+                <Item id="3515" name="Apri"/>
+                <Item id="3516" name="Copia percorso"/>
+                <Item id="3517" name="Trova nei file..."/>
+                <Item id="3518" name="Sfoglia qui"/>
+                <Item id="3519" name="CMD qui"/>
+                <Item id="3520" name="Copia nome file"/>
+            </Menus>
+        </FolderAsWorkspace>
         <ProjectManager>
             <PanelTitle name = "Progetti" />
             <WorkspaceRootName name = "Workspace" />
@@ -1175,11 +1191,10 @@ Vuoi avviare Notepad++ come amministratore?" />
             </Menus>
         </ProjectManager>
         <MiscStrings>
-            <word-chars-list-tip value = "Ti permette di includere caratteri addizionali nella lista di caratteri considerati una parola, quando effetti un doppio click per selezionare, o effetti una ricerca con l'opzone &quot;Solo parole intere&quot; selezionata" />
+            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <word-chars-list-tip value = "Ti permette di includere caratteri addizionali nella lista di caratteri considerati una parola, quando effetti un doppio clic per selezionare, o effetti una ricerca con l'opzone &quot;Solo parole intere&quot; selezionata" />
             <word-chars-list-warning-begin value = "Attenzione: " />
-            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <word-chars-list-space-warning value = "$INT_REPLACE$ spazi" />
-            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <word-chars-list-tab-warning value = "$INT_REPLACE$ tab" />
             <word-chars-list-warning-end value = " nella tua lista catatteri." />
             <cloud-invalid-warning value = "Percorso non valido." />
@@ -1204,13 +1219,13 @@ Vuoi avviare Notepad++ come amministratore?" />
             <find-status-replaceall-re-malformed value = "Sostituisci tutti: l&apos;espressione regolare non è valida" />
             <find-status-replaceall-1-replaced value = "Sostituisci tutti: 1 occorrenza è stata sostituita" />
             <find-status-replaceall-nb-replaced value = "Sostituisci tutti: $INT_REPLACE$ occorrenze sono state sostituite" />
-            <find-status-replaceall-readonly value = "Sostituisci tutti: impossibile sostituire il testo. Il documento corrente è in sola lettura" />
+            <find-status-replaceall-readonly value = "Sostituisci tutti: impossibile sostituire il testo. Il documento attuale è in sola lettura" />
             <find-status-replace-end-reached value = "Sostituisci: sostituita la prima occorrenza dall'&apos;alto. È stata raggiunta la fine del documento " />
             <find-status-replace-top-reached value = "Sostituisci: sostituita la prima occorrenza dal basso. È stato raggiunto l&apos;inizio del documento" />
             <find-status-replaced-next-found value = "Sostituisci: 1 occorrenza è stata sostituita. Trovata l'occorrenza successiva" />
             <find-status-replaced-next-not-found value = "Sostituisci:1 occorrenza è stata sostituita. Nessuna occorrenza successiva" />
             <find-status-replace-not-found value = "Sostituisci: nessuna occorrenza trovata" />
-            <find-status-replace-readonly value = "Sostituisci: impossibile sostituire il testo. Il documento corrente è in sola lettura" />
+            <find-status-replace-readonly value = "Sostituisci: impossibile sostituire il testo. Il documento attuale è in sola lettura" />
             <find-status-cannot-find value = "Cerca: impossibile trovare il testo &quot;$STR_REPLACE$&quot;" />
             <finder-find-in-finder value = "Cerca in questi risultati..." />
             <finder-close-this value = "Chiudi i risultati" />
@@ -1223,13 +1238,13 @@ Vuoi avviare Notepad++ come amministratore?" />
             <common-ok value="OK" />
             <common-cancel value="Annulla" />
             <common-name value="Nome: " />
-            <tabrename-title value="Rinomina tab corrente" />
+            <tabrename-title value="Rinomina tab attuale" />
             <tabrename-newname value="Nuovo nome: " />
             <recent-file-history-maxfile value="File max: " />
             <language-tabsize value="Dimensione tab: " />
             <userdefined-title-new value="Crea nuovo linguaggio..." />
-            <userdefined-title-save value="Salva il linguaggio corrente come..." />
-            <userdefined-title-rename value="Rinomina il linguaggio corrente" />
+            <userdefined-title-save value="Salva il linguaggio attuale come..." />
+            <userdefined-title-rename value="Rinomina il linguaggio attuale" />
             <autocomplete-nb-char value="N. caratteri: " />
             <edit-verticaledge-nb-col value="N. colonne:" />
         </MiscStrings>

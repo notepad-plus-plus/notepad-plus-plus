@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 7.6.6  17/Apr/2019  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 7.7.1  14/Jul/2019  by Ondřej Müller (mullero@email.cz)
 	- N++ Community:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz)
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="7.6.6">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="7.7.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1093,7 +1093,9 @@
 			<OpenInAdminMode title = "Uložení selhalo" message = "Soubor nemůže být uložen a může být chráněn proti zápisu. Chcete zkusit spustit Notepad++ s právy administrátora?"/>
 			<OpenInAdminModeWithoutCloseCurrent title = "Uložení selhalo" message = "Soubor nemůže být uložen a může být chráněn proti zápisu. Chcete zkusit spustit Notepad++ s právy administrátora?"/>
 			<OpenInAdminModeFailed title = "Otevření s administrátorskými právy selhalo" message = "Notepad++ nemůže být spuštěn s právy administrátora."/>
-			<ViewInBrowser title = "Zobrazit aktuální soubor v prohlížeči" message="Není možno nalézt aplikaci ve Vašem systému."/>
+			<ViewInBrowser title = "Zobrazit aktuální soubor v prohlížeči" message="Není možno nalézt aplikaci ve Vašem systému."/>	
+			<ExitToUpdatePlugins title = "Notepad++ má být ukončen" message="Jestliže kliknete na ANO, Notepad++ bude ukončen, aby naplánované operace mohly pokračovat. Po dokončení všech operací bude Notepad++ restartován. Pokračovat?"/>
+			<NeedToRestartToLoadPlugins title = "Notepad++ musí být znovu spuštěn" message="Musíte restartovat Notepad++, aby mohly být načteny Vámi nainstalované zásuvné moduly."/>
 		</MessageBox>
 		
 		<ClipboardHistory>
@@ -1142,6 +1144,7 @@
 				<Item id="3517" name="Najít v souborech..."/>
 				<Item id="3518" name="Průzkumník zde"/>
 				<Item id="3519" name="CMD zde"/>
+				<Item id="3520" name="Kopírovat jméno souboru"/>
 			</Menus>
 		</FolderAsWorkspace>
 

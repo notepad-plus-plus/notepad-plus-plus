@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="7.6.5">
+    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="7.7.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -981,6 +981,14 @@
                 <Item id="1718" name="扩展(&amp;X) (\n, \r, \t, \0, \x...)"/>
                 <Item id="1720" name="&amp;. 匹配新行"/>
             </FindInFinder>
+            <DoSaveOrNot title="保存"> 
+                <Item id="1761" name="保存文件 &quot;$STR_REPLACE$&quot; ?"/>
+                <Item id="6" name="是"/>
+                <Item id="7" name="否"/>
+                <Item id="2" name="取消"/>
+                <Item id="4" name="全选是"/>
+                <Item id="5" name="全选否"/>
+            </DoSaveOrNot>
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title="编辑快捷菜单" message="您可以通过编辑contextMenu.xml文件来修改Notepad++的快捷菜单。
@@ -1013,7 +1021,6 @@
             <SortingError title="排序错误" message="由于第$INT_REPLACE$行的问题，无法执行数字排序。"/>
             <ColumnModeTip title="列块模式提示" message="请使用“ALT+鼠标点选” or “Alt+Shift+箭头键”切换列块模式。"/>
             <BufferInvalidWarning title="保存失败" message="无法保存：缓冲区无效。"/>
-            <DoSaveOrNot title="保存" message="是否保存文件“$STR_REPLACE$” ？"/>
             <DoCloseOrNot title="保留文件" message="文件“$STR_REPLACE$”不在了。
 是否在编辑器里保留它？"/>
             <DoDeleteOrNot title="删除文件" message="此文件“$STR_REPLACE$”
@@ -1072,6 +1079,10 @@
 是否要用管理员模式启动Notepad++？"/>
             <OpenInAdminModeFailed title="管理员模式开启失败" message="Notepad++不能用管理员模式打开。"/>
             <ViewInBrowser title="在浏览器查看当前文件" message="在您的系统未找到该应用程序。"/>
+            <ExitToUpdatePlugins title="Notepad++将要退出" message="如果您点击确定，Notepad++将退出以继续执行操作。
+Notepad++会在所有操作结束后重新启动。
+是否继续？"/>
+            <NeedToRestartToLoadPlugins title="Notepad++需要重启" message="您必须重启Notepad++才能加载安装好的插件。"/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="剪贴板历史记录"/>
@@ -1113,6 +1124,7 @@
                 <Item id="3517" name="在文件中查找..."/>
                 <Item id="3518" name="文件管理器打开"/>
                 <Item id="3519" name="命令行打开"/>
+                <Item id="3520" name="复制文件名"/>
             </Menus>
         </FolderAsWorkspace>
         <ProjectManager>

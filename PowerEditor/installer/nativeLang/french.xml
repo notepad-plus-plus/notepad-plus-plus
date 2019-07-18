@@ -1070,7 +1070,7 @@ Voulez-vous les poursuivez ?"/>
             <ColumnType name="Type"/>
         </WindowsDlg>
         <AsciiInsertion>
-            <PanelTitle name="Panneau des caractères ASCII/Codes HTML (codage de caractères ANSI ou Windows-1252)"/>
+            <PanelTitle name="Panneau des codes ASCII"/>
             <ColumnVal name="Valeur"/>
             <ColumnHex name="Hexa"/>
             <ColumnChar name="Caractère"/>

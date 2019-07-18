@@ -1098,7 +1098,7 @@ Continue?"/>
             <ColumnType name="Type"/>
         </WindowsDlg>
         <AsciiInsertion>
-            <PanelTitle name="ASCII/HTML Codes (ANSI or Windows-1252 character sets) Insertion Panel"/>
+            <PanelTitle name="ASCII Codes Insertion Panel"/>
             <ColumnVal name="Value"/>
             <ColumnHex name="Hex"/>
             <ColumnChar name="Character"/>

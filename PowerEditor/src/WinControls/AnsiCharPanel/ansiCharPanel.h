@@ -36,7 +36,7 @@
 #include "ListView.h"
 #include "asciiListView.h"
 
-#define AI_PROJECTPANELTITLE		TEXT("ASCII/HTML Codes (ANSI or Windows-1252 character sets) Insertion Panel")
+#define AI_PROJECTPANELTITLE		TEXT("ASCII Codes Insertion Panel")
 
 class ScintillaEditView;
 

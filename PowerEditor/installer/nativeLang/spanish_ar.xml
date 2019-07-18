@@ -826,7 +826,7 @@
 			<ColumnExt name="Ext."/>
         </DocSwitcher>
         <AsciiInsertion>
-			<PanelTitle name="Panel de inserción ASCII/Códigos HTML (páginas de código ANSI o Windows-1252)"/>
+			<PanelTitle name="Panel de inserción Códigos ASCII"/>
 			<ColumnVal name="Valor"/>
 			<ColumnChar name="Carácter"/>
 			<ColumnHtmlNumber name="Número HTML"/>

@@ -385,6 +385,8 @@
                 <Item id="1641" name="在目前文件中全部尋找"/>
                 <Item id="1686" name="透明"/>
                 <Item id="1703" name="「.」包含換行"/>
+                <Item id="1721" name="▲"/>
+                <Item id="1723" name="▼ 找下一個"/>
             </Find>
             <FindCharsInRange title="以字元編號搜尋字元">
                 <Item id="2"    name="關閉"/>

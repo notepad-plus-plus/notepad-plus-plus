@@ -2,15 +2,15 @@
 <!--
 	## Bulgarian localization for Notepad++ ##
 
-	Translators:.....: 2007-2012 - Milen Metev (Tragedy); 2014-yyyy - RDD
-	Last revision:...: 08.07.2019 by RDD <astral_86[at]mail[dot]bg>
+	Translators:.....: 2007–2012 – Milen Metev (Tragedy); 2014–yyyy – Rusi Dimitrov
+	Last revision:...: 27.07.2019 by Rusi Dimitrov <astral_86[at]mail[dot]bg>
 	Download:........: https://gist.github.com/rddim/bd37264898c3a17363e7437bcf1b4803
 -->
 <NotepadPlus>
 	<Native-Langue name="Български" filename="bulgarian.xml">
 		<Menu>
 			<Main>
-				<!-- Main Menu Entries -->
+				<!-- Основни менюта -->
 				<Entries>
 					<Item menuId="file" name="&amp;Файл"/>
 					<Item menuId="edit" name="&amp;Редактиране"/>
@@ -25,7 +25,7 @@
 					<Item idName="Plugins" name="&amp;Добавки"/>
 					<Item idName="Window" name="&amp;Прозорци"/>
 				</Entries>
-				<!-- Sub Menu Entries -->
+				<!-- Подменюта -->
 				<SubEntries>
 				<!-- Меню "Файл" -->
 					<Item subMenuId="file-openFolder" name="Местоположение на файла"/>
@@ -81,7 +81,7 @@
 					<Item subMenuId="tools-md5" name="MD5"/>
 					<Item subMenuId="tools-sha256"  name="SHA-256"/>
 				</SubEntries>
-				<!-- all menu item -->
+				<!-- Всички менюта -->
 				<Commands>
 				<!-- Меню "Файл" начало -->
 					<Item id="41001" name="&amp;Нов"/>
@@ -315,8 +315,8 @@
 					<Item id="44084" name="Списък с функции"/>
 					<Item id="44035" name="Синхрон при вертикално превъртане"/>
 					<Item id="44036" name="Синхрон при хоризонтално превъртане"/>
-					<Item id="42026" name="Посока на текста - отдясно наляво"/>
-					<Item id="42027" name="Посока на текста - отляво надясно"/>
+					<Item id="42026" name="Посока на текста – отдясно наляво"/>
+					<Item id="42027" name="Посока на текста – отляво надясно"/>
 					<Item id="44097" name="Наблюдение (tail -f)"/>
 				<!-- Меню "Изглед" край -->
 				<!-- Меню "Кодировки" начало -->
@@ -456,6 +456,8 @@
 				<Item id="1"	name="Намиране на &amp;следващ"/>
 				<Item id="2"	name="Затваряне"/>
 				<Item id="1620" name="&amp;Търсене на:"/>
+				<Item id="1721" name="▲"/>
+				<Item id="1723" name="▼ Следващ"/>
 				<Item id="1722" name="Обратна посока"/>
 				<Item id="1603" name="Само &amp;цели думи"/>
 				<Item id="1604" name="Главни / малки букви"/>
@@ -509,8 +511,8 @@
 			</GoToLine>
 				<!-- "Търсене на знаци в обхват..." -->
 			<FindCharsInRange title="Търсене на знаци в обхват...">
-				<Item id="2901" name="Не-ASCII знаци (128-255)"/>
-				<Item id="2902" name="ASCII знаци (0 - 127)"/>
+				<Item id="2901" name="Не-ASCII знаци (128 – 255)"/>
+				<Item id="2902" name="ASCII знаци (0 – 127)"/>
 				<Item id="2903" name="Обхват:"/>
 				<Item id="2908" name="Посока"/>
 				<Item id="2906" name="Нагоре"/>
@@ -826,7 +828,7 @@
 					<Item id="6602" name="Опции за цветен печат "/>
 					<Item id="6603" name="Цветно, както се вижда"/>
 					<Item id="6604" name="Обръщане на цветове"/>
-					<Item id="6605" name="Черен текст - бял фон"/>
+					<Item id="6605" name="Черен текст – бял фон"/>
 					<Item id="6606" name="Без фонов цвят"/>
 					<Item id="6607" name="Отстъп (милиметри)"/>
 					<Item id="6612" name="Ляво"/>
@@ -1081,6 +1083,8 @@
 			<ColumnVal name="Стойност"/>
 			<ColumnHex name="Шестнадесетичен"/>
 			<ColumnChar name="Знак"/>
+			<ColumnHtmlNumber name="HTML номер"/>
+			<ColumnHtmlName name="HTML код"/>
 		</AsciiInsertion>
 			<!-- Меню "Редактиране" - "История на системния буфер" -->
 		<ClipboardHistory>
@@ -1171,7 +1175,7 @@
 			<find-status-cannot-find value="Търсене: текстът &quot;$STR_REPLACE$&quot; не може да бъде намерен"/>
 			<find-status-replaceinfiles-1-replaced value="Замяна във Файлове: заменено е 1 съвпадение"/>
 			<find-status-replaceinfiles-nb-replaced value="Замяна във Файлове: заменени са $INT_REPLACE$ съвпадения"/>
-			<find-status-replaceinfiles-re-malformed value="Замяна в отворените файлове: регулярният израз е неправилно  формиран"/>
+			<find-status-replaceinfiles-re-malformed value="Замяна в отворените файлове: регулярният израз е неправилно формиран"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Замяна в отворените файлове: заменено е 1 съвпадение"/>
 			<find-status-replaceinopenedfiles-nb-replaced value="Замяна в отворените файлове: заменени са $INT_REPLACE$ съвпадения"/>
 			<find-status-replaceall-re-malformed value="Замяна на всичко: регулярният израз е неправилно формиран"/>
@@ -1213,6 +1217,18 @@
 			<recent-file-history-maxfile value="Макс. файла:"/>
 			<language-tabsize value="Размер:"/>
 			<autocomplete-nb-char value="Брой знаци:"/>
+				<!-- Меню "Изглед" - "Информация за файла..." -->
+			<summary value="Резюме"/>
+			<summary-filepath value="Пълен път на файла: "/>
+			<summary-filecreatetime value="Създаден: "/>
+			<summary-filemodifytime value="Променен: "/>
+			<summary-nbchar value="Символи (без край на редове): "/>
+			<summary-nbword value="Думи: "/>
+			<summary-nbline value="Редове: "/>
+			<summary-nbbyte value="Големина на файла: "/>
+			<summary-nbsel1 value=" маркиран/и символ/а ("/>
+			<summary-nbsel2 value=" байта) в "/>
+			<summary-nbrange value=" обхват/а"/>
 		</MiscStrings>
 			<!-- Меню "Изглед" - "Карта на документа" -->
 		<DocumentMap>

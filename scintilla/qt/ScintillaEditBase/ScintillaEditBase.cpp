@@ -23,11 +23,10 @@
 
 #define INDIC_INPUTMETHOD 24
 
-#define MAXLENINPUTIME 200
-#define SC_INDICATOR_INPUT INDIC_IME
-#define SC_INDICATOR_TARGET INDIC_IME+1
-#define SC_INDICATOR_CONVERTED INDIC_IME+2
-#define SC_INDICATOR_UNKNOWN INDIC_IME_MAX
+#define SC_INDICATOR_INPUT INDICATOR_IME
+#define SC_INDICATOR_TARGET INDICATOR_IME+1
+#define SC_INDICATOR_CONVERTED INDICATOR_IME+2
+#define SC_INDICATOR_UNKNOWN INDICATOR_IME_MAX
 
 // Q_WS_MAC and Q_WS_X11 aren't defined in Qt5
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
@@ -259,7 +258,7 @@ void ScintillaEditBase::keyPressEvent(QKeyEvent *event)
 		QString text = event->text();
 		if (input && !text.isEmpty() && text[0].isPrint()) {
 			QByteArray utext = sqt->BytesForDocument(text);
-			sqt->AddCharUTF(utext.data(), utext.size());
+			sqt->InsertCharacter(std::string_view(utext.data(), utext.size()), EditModel::CharacterSource::directInput);
 		} else {
 			event->ignore();
 		}
@@ -450,9 +449,9 @@ void ScintillaEditBase::DrawImeIndicator(int indicator, int len)
 {
 	// Emulate the visual style of IME characters with indicators.
 	// Draw an indicator on the character before caret by the character bytes of len
-	// so it should be called after AddCharUTF().
+	// so it should be called after InsertCharacter().
 	// It does not affect caret positions.
-	if (indicator < 8 || indicator > INDIC_MAX) {
+	if (indicator < 8 || indicator > INDICATOR_MAX) {
 		return;
 	}
 	sqt->pdoc->DecorationSetCurrentIndicator(indicator);
@@ -548,16 +547,15 @@ void ScintillaEditBase::inputMethodEvent(QInputMethodEvent *event)
 			const unsigned int ucWidth = commitStr.at(i).isHighSurrogate() ? 2 : 1;
 			const QString oneCharUTF16 = commitStr.mid(i, ucWidth);
 			const QByteArray oneChar = sqt->BytesForDocument(oneCharUTF16);
-			const int oneCharLen = oneChar.length();
 
-			sqt->AddCharUTF(oneChar.data(), oneCharLen);
+			sqt->InsertCharacter(std::string_view(oneChar.data(), oneChar.length()), EditModel::CharacterSource::directInput);
 			i += ucWidth;
 		}
 
 	} else if (!event->preeditString().isEmpty()) {
 		const QString preeditStr = event->preeditString();
 		const unsigned int preeditStrLen = preeditStr.length();
-		if ((preeditStrLen == 0) || (preeditStrLen > MAXLENINPUTIME)) {
+		if (preeditStrLen == 0) {
 			sqt->ShowCaretAtCurrentPosition();
 			return;
 		}
@@ -568,20 +566,17 @@ void ScintillaEditBase::inputMethodEvent(QInputMethodEvent *event)
 
 		std::vector<int> imeIndicator = MapImeIndicators(event);
 
-		const bool recording = sqt->recordingMacro;
-		sqt->recordingMacro = false;
 		for (unsigned int i = 0; i < preeditStrLen;) {
 			const unsigned int ucWidth = preeditStr.at(i).isHighSurrogate() ? 2 : 1;
 			const QString oneCharUTF16 = preeditStr.mid(i, ucWidth);
 			const QByteArray oneChar = sqt->BytesForDocument(oneCharUTF16);
 			const int oneCharLen = oneChar.length();
 
-			sqt->AddCharUTF(oneChar.data(), oneCharLen);
+			sqt->InsertCharacter(std::string_view(oneChar.data(), oneCharLen), EditModel::CharacterSource::tentativeInput);
 
 			DrawImeIndicator(imeIndicator[i], oneCharLen);
 			i += ucWidth;
 		}
-		sqt->recordingMacro = recording;
 
 		// Move IME carets.
 		int imeCaretPos = GetImeCaretPos(event);

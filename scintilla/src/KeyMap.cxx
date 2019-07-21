@@ -33,7 +33,7 @@ KeyMap::~KeyMap() {
 	Clear();
 }
 
-void KeyMap::Clear() {
+void KeyMap::Clear() noexcept {
 	kmap.clear();
 }
 
@@ -46,7 +46,7 @@ unsigned int KeyMap::Find(int key, int modifiers) const {
 	return (it == kmap.end()) ? 0 : it->second;
 }
 
-const std::map<KeyModifiers, unsigned int> &KeyMap::GetKeyMap() const {
+const std::map<KeyModifiers, unsigned int> &KeyMap::GetKeyMap() const noexcept {
 	return kmap;
 }
 

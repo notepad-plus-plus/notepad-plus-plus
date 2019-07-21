@@ -61,7 +61,19 @@ public:
 		return (style >= firstStyle) && (style < (firstStyle + lenStyles));
 	}
 
+	void RemoveStyle(int style) {
+		std::map<std::string, int>::iterator it = wordToStyle.begin();
+		while (it != wordToStyle.end()) {
+			if (it->second == style) {
+				it = wordToStyle.erase(it);
+			} else {
+				++it;
+			}
+		}
+	}
+
 	void SetIdentifiers(int style, const char *identifiers) {
+		RemoveStyle(style);
 		while (*identifiers) {
 			const char *cpSpace = identifiers;
 			while (*cpSpace && !(*cpSpace == ' ' || *cpSpace == '\t' || *cpSpace == '\r' || *cpSpace == '\n'))

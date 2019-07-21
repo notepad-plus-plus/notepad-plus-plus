@@ -10,6 +10,14 @@
 
 namespace Scintilla {
 
+constexpr bool IsDBCSCodePage(int codePage) noexcept {
+	return codePage == 932
+	       || codePage == 936
+	       || codePage == 949
+	       || codePage == 950
+	       || codePage == 1361;
+}
+
 bool DBCSIsLeadByte(int codePage, char ch) noexcept;
 
 }

@@ -29,6 +29,7 @@
 #endif
 
 #include "PropSetSimple.h"
+#include "CharacterCategory.h"
 
 #ifdef SCI_LEXER
 #include "LexerModule.h"
@@ -78,17 +79,21 @@ void ScintillaBase::Finalise() {
 	popup.Destroy();
 }
 
-void ScintillaBase::AddCharUTF(const char *s, unsigned int len, bool treatAsDBCS) {
-	const bool isFillUp = ac.Active() && ac.IsFillUpChar(*s);
+void ScintillaBase::AddCharUTF(const char *s, unsigned int len, bool /*treatAsDBCS*/) {
+	InsertCharacter(std::string_view(s, len), CharacterSource::directInput);
+}
+
+void ScintillaBase::InsertCharacter(std::string_view sv, CharacterSource charSource) {
+	const bool isFillUp = ac.Active() && ac.IsFillUpChar(sv[0]);
 	if (!isFillUp) {
-		Editor::AddCharUTF(s, len, treatAsDBCS);
+		Editor::InsertCharacter(sv, charSource);
 	}
 	if (ac.Active()) {
-		AutoCompleteCharacterAdded(s[0]);
+		AutoCompleteCharacterAdded(sv[0]);
 		// For fill ups add the character after the autocompletion has
 		// triggered so containers see the key so can display a calltip.
 		if (isFillUp) {
-			Editor::AddCharUTF(s, len, treatAsDBCS);
+			Editor::InsertCharacter(sv, charSource);
 		}
 	}
 }
@@ -276,9 +281,7 @@ void ScintillaBase::AutoCompleteStart(Sci::Position lenEntered, const char *list
 		pt = PointMainCaret();
 	}
 	if (wMargin.Created()) {
-		const Point ptOrigin = GetVisibleOriginInMain();
-		pt.x += ptOrigin.x;
-		pt.y += ptOrigin.y;
+		pt = pt + GetVisibleOriginInMain();
 	}
 	PRectangle rcac;
 	rcac.left = pt.x - ac.lb->CaretFromEdge();
@@ -463,9 +466,7 @@ void ScintillaBase::CallTipShow(Point pt, const char *defn) {
 		ct.SetForeBack(vs.styles[STYLE_CALLTIP].fore, vs.styles[STYLE_CALLTIP].back);
 	}
 	if (wMargin.Created()) {
-		const Point ptOrigin = GetVisibleOriginInMain();
-		pt.x += ptOrigin.x;
-		pt.y += ptOrigin.y;
+		pt = pt + GetVisibleOriginInMain();
 	}
 	PRectangle rc = ct.CallTipStart(sel.MainCaret(), pt,
 		vs.lineHeight,

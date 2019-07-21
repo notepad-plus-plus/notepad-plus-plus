@@ -18,3 +18,11 @@
 {3}# Style of 'customIdent' is determined by lexer.nim.raw.strings.highlight.ident. 16 if false, 6 or 10 if true
 {8}let{0} {16}customDoubleLitRawStr{0} {15}={0} {16}customIdent{6}"A string\"{0}
 {8}let{0} {16}customTripleLitRawStr{0} {15}={0} {16}customIdent{10}"""A triple-double raw string\""""{0}
+
+{3}# Feature #1268
+{5}10_000{0}
+{5}10{16}__000{0}
+{5}10{16}_{0}
+{5}1{15}....{5}5{0}
+{5}1{15}.{16}ident{0}
+{5}1{15}.{16}_ident{0}

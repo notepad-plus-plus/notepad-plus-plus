@@ -339,8 +339,8 @@ public :
 	}
 
 	Sci_Position SCI_METHOD WordListSet(int n, const char *wl) override;
-	void SCI_METHOD Lex(Sci_PositionU startPos, Sci_Position lengthDoc, int initStyle, IDocument *pAccess) override;
-	void SCI_METHOD Fold(Sci_PositionU startPos, Sci_Position lengthDoc, int initStyle, IDocument *pAccess) override;
+	void SCI_METHOD Lex(Sci_PositionU startPos, Sci_Position length, int initStyle, IDocument *pAccess) override;
+	void SCI_METHOD Fold(Sci_PositionU startPos, Sci_Position length, int initStyle, IDocument *pAccess) override;
 
 	void * SCI_METHOD PrivateCall(int, void *) override {
 		return 0;
@@ -442,9 +442,8 @@ void SCI_METHOD LexerSQL::Lex(Sci_PositionU startPos, Sci_Position length, int i
 	LexAccessor styler(pAccess);
 	StyleContext sc(startPos, length, initStyle, styler);
 	int styleBeforeDCKeyword = SCE_SQL_DEFAULT;
-	Sci_Position offset = 0;
 
-	for (; sc.More(); sc.Forward(), offset++) {
+	for (; sc.More(); sc.Forward()) {
 		// Determine if the current state should terminate.
 		switch (sc.state) {
 		case SCE_SQL_OPERATOR:
@@ -537,7 +536,7 @@ void SCI_METHOD LexerSQL::Lex(Sci_PositionU startPos, Sci_Position length, int i
 			if (options.sqlBackslashEscapes && sc.ch == '\\') {
 				sc.Forward();
 			} else if (sc.ch == '\'') {
-				if (sc.chNext == '\"') {
+				if (sc.chNext == '\'') {
 					sc.Forward();
 				} else {
 					sc.ForwardSetState(SCE_SQL_DEFAULT);

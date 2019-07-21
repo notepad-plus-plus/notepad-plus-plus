@@ -80,7 +80,7 @@ public:
 	void PenColour(ColourDesired fore) override;
 
 	/** Returns a CGImageRef that represents the surface. Returns NULL if this is not possible. */
-	CGImageRef GetImage();
+	CGImageRef CreateImage();
 	void CopyImageRectangle(Surface &surfaceSource, PRectangle srcRect, PRectangle dstRect);
 
 	int LogPixelsY() override;

@@ -53,7 +53,7 @@ static inline bool IsANumberChar(int ch) {
 	// but probably enough in most cases.
 	return (ch < 0x80) &&
 	        (isdigit(ch) || toupper(ch) == 'E' ||
-             ch == '.' || ch == '-' || ch == '+');
+             ch == '.' || ch == '-' || ch == '+' || ch == '_');
 }
 
 static void ColouriseVBDoc(Sci_PositionU startPos, Sci_Position length, int initStyle,
@@ -197,6 +197,10 @@ static void ColouriseVBDoc(Sci_PositionU startPos, Sci_Position length, int init
 				sc.Forward();
 			} else if (sc.ch == '&' && tolower(sc.chNext) == 'o') {
 				// Octal number
+				sc.SetState(SCE_B_NUMBER);
+				sc.Forward();
+			} else if (sc.ch == '&' && tolower(sc.chNext) == 'b') {
+				// Binary number
 				sc.SetState(SCE_B_NUMBER);
 				sc.Forward();
 			} else if (IsADigit(sc.ch) || (sc.ch == '.' && IsADigit(sc.chNext))) {

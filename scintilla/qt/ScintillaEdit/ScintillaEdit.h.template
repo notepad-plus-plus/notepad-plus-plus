@@ -65,6 +65,9 @@ public:
 
 #if defined(__GNUC__)
 #pragma GCC diagnostic ignored "-Wmissing-field-initializers"
+#if !defined(__clang__) && (__GNUC__ >= 8)
+#pragma GCC diagnostic ignored "-Wcast-function-type"
+#endif
 #endif
 
 #endif /* SCINTILLAEDIT_H */

@@ -40,6 +40,13 @@ struct latexFoldSave {
 	latexFoldSave(const latexFoldSave &save) : structLev(save.structLev) {
 		for (int i = 0; i < 8; ++i) openBegins[i] = save.openBegins[i];
 	}
+	latexFoldSave &operator=(const latexFoldSave &save) {
+		if (this != &save) {
+			structLev = save.structLev;
+			for (int i = 0; i < 8; ++i) openBegins[i] = save.openBegins[i];
+		}
+		return *this;
+	}
 	int openBegins[8];
 	Sci_Position structLev;
 };

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00724A59981D34F11A3D162F /* LexCIL.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 577F46B88F633198B56D088D /* LexCIL.cxx */; };
+		0ED84236A703D57578EBFD2F /* LexNim.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 47814937A6B72D2B0F065B61 /* LexNim.cxx */; };
 		1100F1EB178E393200105727 /* CaseConvert.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 1100F1E6178E393200105727 /* CaseConvert.cxx */; };
 		1100F1EC178E393200105727 /* CaseConvert.h in Headers */ = {isa = PBXBuildFile; fileRef = 1100F1E7178E393200105727 /* CaseConvert.h */; };
 		1100F1ED178E393200105727 /* CaseFolder.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 1100F1E8178E393200105727 /* CaseFolder.cxx */; };
@@ -198,6 +200,7 @@
 		280056FC188DDD2C00F200AE /* StringCopy.h in Headers */ = {isa = PBXBuildFile; fileRef = 280056F9188DDD2C00F200AE /* StringCopy.h */; };
 		280056FD188DDD2C00F200AE /* SubStyles.h in Headers */ = {isa = PBXBuildFile; fileRef = 280056FA188DDD2C00F200AE /* SubStyles.h */; };
 		28064A05190F12E100E6E47F /* LexDMIS.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 28064A04190F12E100E6E47F /* LexDMIS.cxx */; };
+		281225362256DD2D00AFE50C /* UniqueString.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 281225352256DD2D00AFE50C /* UniqueString.cxx */; };
 		282D4A961F53FE270082E4D3 /* ILoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 282D4A951F53FE270082E4D3 /* ILoader.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		28804B2C1EEE232E00C0D154 /* DBCS.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 28804B2B1EEE232E00C0D154 /* DBCS.cxx */; };
 		28A067111A36B42600B4966A /* LexHex.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 28A067101A36B42600B4966A /* LexHex.cxx */; };
@@ -224,19 +227,18 @@
 		28D516DA1830FFCA0047C93D /* mac_cursor_flipped@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28D516D71830FFCA0047C93D /* mac_cursor_flipped@2x.png */; };
 		28FDA42119B6967B00BE27D7 /* LexBibTeX.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 28FDA42019B6967B00BE27D7 /* LexBibTeX.cxx */; };
 		3D994BD7A5EAC4FA5B3CFBDF /* LexMaxima.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 29B042978C1F93EF42F9E4AB /* LexMaxima.cxx */; };
+		5F804AA6B60FE695863A39FE /* LexStata.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 7623427695416AB1270EE023 /* LexStata.cxx */; };
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		F437405F9F32C7DEFCA38C11 /* LexIndent.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 282E41F3B9E2BFEDD6A05BE7 /* LexIndent.cxx */; };
 		FDC7442CAD70B9A67EF1639D /* LexSAS.cxx in Sources */ = {isa = PBXBuildFile; fileRef = A95147A1AB7CADB00DAFE724 /* LexSAS.cxx */; };
-		5F804AA6B60FE695863A39FE /* LexStata.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 7623427695416AB1270EE023 /* LexStata.cxx */; };
-		0ED84236A703D57578EBFD2F /* LexNim.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 47814937A6B72D2B0F065B61 /* LexNim.cxx */; }; 
-		00724A59981D34F11A3D162F /* LexCIL.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 577F46B88F633198B56D088D /* LexCIL.cxx */; };
+		AE894E1CB7328CAE5B2EF47E /* LexX12.cxx in Sources */ = {isa = PBXBuildFile; fileRef = ADA64364A443F3E3F02D294E /* LexX12.cxx */; };
+		902B40FE926FE48538B168F1 /* LexDataflex.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 362E48F5A7F79598CB0B037D /* LexDataflex.cxx */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
-		089C1667FE841158C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		1100F1E6178E393200105727 /* CaseConvert.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CaseConvert.cxx; path = ../../src/CaseConvert.cxx; sourceTree = "<group>"; };
 		1100F1E7178E393200105727 /* CaseConvert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CaseConvert.h; path = ../../src/CaseConvert.h; sourceTree = "<group>"; };
@@ -429,6 +431,7 @@
 		280056F9188DDD2C00F200AE /* StringCopy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringCopy.h; path = ../../lexlib/StringCopy.h; sourceTree = "<group>"; };
 		280056FA188DDD2C00F200AE /* SubStyles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SubStyles.h; path = ../../lexlib/SubStyles.h; sourceTree = "<group>"; };
 		28064A04190F12E100E6E47F /* LexDMIS.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexDMIS.cxx; path = ../../lexers/LexDMIS.cxx; sourceTree = "<group>"; };
+		281225352256DD2D00AFE50C /* UniqueString.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UniqueString.cxx; path = ../../src/UniqueString.cxx; sourceTree = "<group>"; };
 		282D4A951F53FE270082E4D3 /* ILoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ILoader.h; path = ../../include/ILoader.h; sourceTree = "<group>"; };
 		282E41F3B9E2BFEDD6A05BE7 /* LexIndent.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexIndent.cxx; path = ../../lexers/LexIndent.cxx; sourceTree = SOURCE_ROOT; };
 		28804B2B1EEE232E00C0D154 /* DBCS.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DBCS.cxx; path = ../../src/DBCS.cxx; sourceTree = "<group>"; };
@@ -455,16 +458,19 @@
 		28D516D51830FFCA0047C93D /* info_bar_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info_bar_bg@2x.png"; sourceTree = "<group>"; };
 		28D516D61830FFCA0047C93D /* mac_cursor_busy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mac_cursor_busy@2x.png"; sourceTree = "<group>"; };
 		28D516D71830FFCA0047C93D /* mac_cursor_flipped@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mac_cursor_flipped@2x.png"; sourceTree = "<group>"; };
+		28F2653B224C30D7000CF4A3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		28FDA42019B6967B00BE27D7 /* LexBibTeX.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexBibTeX.cxx; path = ../../lexers/LexBibTeX.cxx; sourceTree = "<group>"; };
 		29B042978C1F93EF42F9E4AB /* LexMaxima.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexMaxima.cxx; path = ../../lexers/LexMaxima.cxx; sourceTree = SOURCE_ROOT; };
 		32DBCF5E0370ADEE00C91783 /* Scintilla_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scintilla_Prefix.pch; sourceTree = "<group>"; };
-		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8DC2EF5B0486A6940098B216 /* Scintilla.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Scintilla.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
-		A95147A1AB7CADB00DAFE724 /* LexSAS.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexSAS.cxx; path = ../../lexers/LexSAS.cxx; sourceTree = SOURCE_ROOT; };
-		7623427695416AB1270EE023 /* LexStata.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexStata.cxx; path = ../../lexers/LexStata.cxx; sourceTree = SOURCE_ROOT; };
 		47814937A6B72D2B0F065B61 /* LexNim.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexNim.cxx; path = ../../lexers/LexNim.cxx; sourceTree = SOURCE_ROOT; };
 		577F46B88F633198B56D088D /* LexCIL.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexCIL.cxx; path = ../../lexers/LexCIL.cxx; sourceTree = SOURCE_ROOT; };
+		7623427695416AB1270EE023 /* LexStata.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexStata.cxx; path = ../../lexers/LexStata.cxx; sourceTree = SOURCE_ROOT; };
+		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8DC2EF5B0486A6940098B216 /* Scintilla.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Scintilla.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A95147A1AB7CADB00DAFE724 /* LexSAS.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexSAS.cxx; path = ../../lexers/LexSAS.cxx; sourceTree = SOURCE_ROOT; };
+		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		ADA64364A443F3E3F02D294E /* LexX12.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexX12.cxx; path = ../../lexers/LexX12.cxx; sourceTree = SOURCE_ROOT; };
+		362E48F5A7F79598CB0B037D /* LexDataflex.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexDataflex.cxx; path = ../../lexers/LexDataflex.cxx; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -590,6 +596,7 @@
 				114B6ED111FA7526004FB6AB /* LexCsound.cxx */,
 				114B6ED211FA7526004FB6AB /* LexCSS.cxx */,
 				114B6ED311FA7526004FB6AB /* LexD.cxx */,
+				362E48F5A7F79598CB0B037D /* LexDataflex.cxx */,
 				28B647071B54C0720009DC49 /* LexDiff.cxx */,
 				11FF3FE11810EB3900E13F13 /* LexDMAP.cxx */,
 				28064A04190F12E100E6E47F /* LexDMIS.cxx */,
@@ -671,6 +678,7 @@
 				114B6F0A11FA7526004FB6AB /* LexVerilog.cxx */,
 				114B6F0B11FA7526004FB6AB /* LexVHDL.cxx */,
 				11594BE8155B91DF0099E1FA /* LexVisualProlog.cxx */,
+				ADA64364A443F3E3F02D294E /* LexX12.cxx */,
 				114B6F0C11FA7526004FB6AB /* LexYAML.cxx */,
 			);
 			name = Lexers;
@@ -772,6 +780,7 @@
 				114B6F7311FA7598004FB6AB /* Style.cxx */,
 				114B6F9511FA75BE004FB6AB /* StyleContext.cxx */,
 				114B6F7411FA7598004FB6AB /* UniConversion.cxx */,
+				281225352256DD2D00AFE50C /* UniqueString.cxx */,
 				114B6F7511FA7598004FB6AB /* ViewStyle.cxx */,
 				114B6F9611FA75BE004FB6AB /* WordList.cxx */,
 				114B6F7611FA7598004FB6AB /* XPM.cxx */,
@@ -934,13 +943,11 @@
 			};
 			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "ScintillaFramework" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 1;
 			knownRegions = (
-				English,
-				Japanese,
-				French,
-				German,
+				Base,
+				en,
 			);
 			mainGroup = 0867D691FE84028FC02AAC07 /* Scintilla */;
 			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
@@ -980,6 +987,7 @@
 				2744E5B60FC168C500E85C33 /* ScintillaView.mm in Sources */,
 				28D191A21DEA72C800159938 /* LexEDIFACT.cxx in Sources */,
 				28BDA1221EFB8F7C00EBD3F3 /* DefaultLexer.cxx in Sources */,
+				281225362256DD2D00AFE50C /* UniqueString.cxx in Sources */,
 				114B6F0D11FA7526004FB6AB /* LexAbaqus.cxx in Sources */,
 				114B6F0E11FA7526004FB6AB /* LexAda.cxx in Sources */,
 				28B6470C1B54C0720009DC49 /* LexBatch.cxx in Sources */,
@@ -1128,6 +1136,8 @@
 				5F804AA6B60FE695863A39FE /* LexStata.cxx in Sources */,
 				0ED84236A703D57578EBFD2F /* LexNim.cxx in Sources */,
 				00724A59981D34F11A3D162F /* LexCIL.cxx in Sources */,
+				AE894E1CB7328CAE5B2EF47E /* LexX12.cxx in Sources */,
+				902B40FE926FE48538B168F1 /* LexDataflex.cxx in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1137,7 +1147,7 @@
 		089C1666FE841158C02AAC07 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				089C1667FE841158C02AAC07 /* English */,
+				28F2653B224C30D7000CF4A3 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";

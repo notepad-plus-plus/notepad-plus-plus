@@ -4,10 +4,10 @@
 
 	** created By:- Rathin A. Dholakia **
 		Email- rathin2j@gmail.com
-	** Last Updated on 21/03/2019 by Rajendra Singh (singh.rajen15@gmail.com) **
+	** Last Updated on 29/07/2019 by Rajendra Singh (singh.rajen15@gmail.com) **
 -->
 <NotepadPlus>
-  <Native-Langue name="हिन्दी" filename="hindi.xml" version="7.6.5">
+  <Native-Langue name="हिन्दी" filename="hindi.xml" version="7.7.2">
     <Menu>
       <Main>
         <!-- Main Menu Entries -->
@@ -391,6 +391,8 @@
         <Item id="1641" name="वर्तमान दस्तावेज़ में सब खोजें"/>
         <Item id="1686" name="पारदर्शिता"/>
         <Item id="1703" name="&amp;. न्यू लाइन मैच"/>
+        <Item id="1721" name="▲"/>
+        <Item id="1723" name="▼ अगला खोजें"/>
       </Find>
 
       <FindCharsInRange title="रेंज में अक्षर का पता लगाएं...">
@@ -988,6 +990,14 @@
         <Item id="1718" name="विस्तृत (\n, \r, \t, \0, \x...)"/>
         <Item id="1720" name="्यूलाइन मैच करें"/>
       </FindInFinder>
+      <DoSaveOrNot title="सेव करें">
+        <Item id="1761" name="फाइल &quot;$STR_REPLACE$&quot; सेव करें?"/>
+        <Item id="6" name="हाँ"/>
+        <Item id="7" name="नहीं"/>
+        <Item id="2" name="रद्द करें"/>
+        <Item id="4" name="सभी के लिए हाँ"/>
+        <Item id="5" name="सभी के लिए नहीं"/>
+      </DoSaveOrNot>
     </Dialog>
     <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
       <ContextMenuXmlEditWarning title="Context Menu एडिटिंग" message="ContextMenu.xml एडिट करके आप Notepad++ के पॉपअप कॉन्टेक्स्ट मेनू बदल सकतें हैं| ContextMenu.xml एडिट करने के बाद, बदलाव देखने के लिए Notepad++ को बंद करके पुनः खोलें|"/>
@@ -1000,7 +1010,8 @@
       <FileAlreadyOpenedInNpp title="" message="यह फाइल पहले से ही Notepad++ में खुली हुयी है।"/>
       <DeleteFileFailed title="फाइल नष्ट करें" message="फाइल को नष्ट करना विफल रहा है।"/>
 
-      <NbFileToOpenImportantWarning title="खोलने के लिए फाइलों की राशि बहुत बड़ी है" message="$INT_REPLACE$ फाइलें खुलने ही वाली हैं। आप उन्हें खोलने के लिए सुनिश्चित कर रहे हैं?"/>
+      <NbFileToOpenImportantWarning title="खोलने के लिए फाइलों की राशि बहुत बड़ी है" message="$INT_REPLACE$ फाइलें खुलने ही वाली हैं।
+क्या आप वाकई उन्हें खोलना चाहते हैं?"/>
       <SettingsOnCloudError title="क्लाउड (cloud) की सेटिंग्स" message="ऐसा लगता है कि क्लाउड (cloud) का सेटिंग पाथ रीड ओनली है या फिर आवश्यक फोल्डर पर राइट एक्सेस (write access) चाहिए। आपकी क्लाउड (cloud) की सेटिंग्स को रद्द कर दिया जायेगा। कृप्या प्रैफरेंसेज डायलॉग (preferences dialog) से एक सुसंगत (coherent) मूल्य रीसेट करें।"/>
       <FilePathNotFoundWarning title="फाइल खोलें" message="आप जिस फाइल को खोलने की कोशिश कर रहे हैं, वह मौजूद नहीं है।"/>
       <SessionFileInvalidError title="सत्र लोड नहीं किया जा सका" message="सत्र फाइल या तो अनुपयोगी है या मान्य नहीं है।"/>
@@ -1009,7 +1020,6 @@
       <SortingError title="सॉर्टिंग एरर" message="लाइन $INT_REPLACE$ के कारण न्यूमेरिक सॉर्ट नहीं कर सकते।"/>
       <ColumnModeTip title="कॉलम मोड टिप" message="कॉलम मोड के लिए कृपया &quot;ALT+Mouse Selection&quot; या &quot;Alt+Shift+Arrow key&quot; का प्रयोग करें।"/>
       <BufferInvalidWarning title="सेव फेल्ड" message="सेव नहीं कर सके। बफर इनवैलिड है।"/>
-      <DoSaveOrNot title="सेव" message="फाइल &quot;$STR_REPLACE$&quot; सेव करें?"/>
       <DoCloseOrNot title="गैर मौजूदा फाइल रखें" message="फाइल &quot;$STR_REPLACE$&quot; अब और मौजूद नहीं है।
 इस फाइल को एडिटर में रखें?"/>
       <DoDeleteOrNot title="फाइल डिलीट करें" message="फाइल &quot;$STR_REPLACE$&quot;
@@ -1065,6 +1075,10 @@
 क्या आप Notepad ++ को एडमिन मोड में लॉन्च करना चाहते हैं?"/>
       <OpenInAdminModeFailed title="एडमिन मोड में खोलना विफल हुआ" message="Notepad ++ को एडमिन मोड में नहीं खोला जा सकता।"/>
       <ViewInBrowser title="वर्तमान फाइल को ब्राउज़र में देखें" message="आपके सिस्टम में एप्लीकेशन नहीं मिली।"/>
+      <ExitToUpdatePlugins title="Notepad++ बंद होने वाला है" message="यदि आप YES पर क्लिक करते हैं, तो आप ऑपरेशन जारी रखने के लिए नोटपैड ++ बंद हो जायेगा।
+सभी कार्रवाई समाप्त होने के बाद नोटपैड ++ को फिर से शुरू किया जाएगा।
+चालू रखें ?"/>
+      <NeedToRestartToLoadPlugins title="रीस्टार्ट  Notepad++" message="आपके द्वारा इंस्टॉल किए गए प्लगिन्स को लोड करने के लिए आपको नोटपैड ++ को रीस्टार्ट करना होगा।"/>
     </MessageBox>
     <ClipboardHistory>
       <PanelTitle name="क्लिपबोर्ड हिस्ट्री"/>
@@ -1080,10 +1094,12 @@
       <ColumnType name="प्रकार"/>
     </WindowsDlg>
     <AsciiInsertion>
-      <PanelTitle name="ASCII इंसर्शन पैनल"/>
+      <PanelTitle name="ASCII कोड्स इंसर्शन पैनल"/>
       <ColumnVal name="वैल्यू"/>
       <ColumnHex name="हेक्स"/>
       <ColumnChar name="कैरेक्टर"/>
+      <ColumnHtmlNumber name="HTML नंबर"/>
+      <ColumnHtmlName name="HTML कोड"/>
     </AsciiInsertion>
     <DocumentMap>
       <PanelTitle name="डॉक्यूमेंट मैप"/>
@@ -1212,6 +1228,17 @@
 		<userdefined-title-rename value="वर्तमान भाषा का नाम बदलें"/>
 		<autocomplete-nb-char value="कैरेक्टर संख्या: "/>
 		<edit-verticaledge-nb-col value="कॉलम संख्या:"/>
+		<summary value="समरी"/>
+		<summary-filepath value="फाइल का पूरा पाथ: "/>
+		<summary-filecreatetime value="बनाया गया: "/>
+		<summary-filemodifytime value="मॉडिफाइड: "/>
+		<summary-nbchar value="करेक्टर्स (लाइन अंत के बिना): "/>
+		<summary-nbword value="शब्द: "/>
+		<summary-nbline value="पंक्तियां: "/>
+		<summary-nbbyte value="दस्तावेज़ की लंबाई: "/>
+		<summary-nbsel1 value=" चुने हुए करेक्टर्स ("/>
+		<summary-nbsel2 value=" बाइट्स) में   "/>
+		<summary-nbrange value=" रेंज"/>
 	</MiscStrings>
   </Native-Langue>
 </NotepadPlus>

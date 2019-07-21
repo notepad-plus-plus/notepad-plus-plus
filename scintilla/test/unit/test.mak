@@ -6,7 +6,7 @@ EXE = unitTest.exe
 
 INCLUDEDIRS = /I../../include /I../../src /I../../lexlib
 
-CXXFLAGS = /EHsc /std:c++latest /D_HAS_AUTO_PTR_ETC=1 /wd 4805 $(INCLUDEDIRS)
+CXXFLAGS = /EHsc /std:c++17 /D_HAS_AUTO_PTR_ETC=1 /wd 4805 $(INCLUDEDIRS)
 
 # Files in this directory containing tests
 TESTSRC=test*.cxx
@@ -18,7 +18,8 @@ TESTEDSRC=\
  ../../src/ContractionState.cxx \
  ../../src/Decoration.cxx \
  ../../src/RunStyles.cxx \
- ../../src/UniConversion.cxx
+ ../../src/UniConversion.cxx \
+ ../../src/UniqueString.cxx
 
 TESTS=$(EXE)
 

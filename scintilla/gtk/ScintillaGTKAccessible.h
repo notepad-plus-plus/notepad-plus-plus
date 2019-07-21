@@ -18,11 +18,6 @@ private:
 	GtkAccessible *accessible;
 	ScintillaGTK *sci;
 
-	// cache holding character offset for each line start, see CharacterOffsetFromByteOffset()
-	std::vector<Sci::Position> character_offsets;
-
-	// cached length of the deletion, in characters (see Notify())
-	int deletionLengthChar;
 	// local state for comparing
 	Sci::Position old_pos;
 	std::vector<SelectionRange> old_sels;
@@ -37,6 +32,19 @@ private:
 	}
 
 	Sci::Position ByteOffsetFromCharacterOffset(Sci::Position startByte, int characterOffset) {
+		if (!(sci->pdoc->LineCharacterIndex() & SC_LINECHARACTERINDEX_UTF32)) {
+			return startByte + characterOffset;
+		}
+		if (characterOffset > 0) {
+			// Try and reduce the range by reverse-looking into the character offset cache
+			Sci::Line lineStart = sci->pdoc->LineFromPosition(startByte);
+			Sci::Position posStart = sci->pdoc->IndexLineStart(lineStart, SC_LINECHARACTERINDEX_UTF32);
+			Sci::Line line = sci->pdoc->LineFromPositionIndex(posStart + characterOffset, SC_LINECHARACTERINDEX_UTF32);
+			if (line != lineStart) {
+				startByte += sci->pdoc->LineStart(line) - sci->pdoc->LineStart(lineStart);
+				characterOffset -= sci->pdoc->IndexLineStart(line, SC_LINECHARACTERINDEX_UTF32) - posStart;
+			}
+		}
 		Sci::Position pos = sci->pdoc->GetRelativePosition(startByte, characterOffset);
 		if (pos == INVALID_POSITION) {
 			// clamp invalid positions inside the document
@@ -54,18 +62,12 @@ private:
 	}
 
 	Sci::Position CharacterOffsetFromByteOffset(Sci::Position byteOffset) {
-		const Sci::Line line = sci->pdoc->LineFromPosition(byteOffset);
-		if (character_offsets.size() <= static_cast<size_t>(line)) {
-			if (character_offsets.empty())
-				character_offsets.push_back(0);
-			for (Sci::Position i = character_offsets.size(); i <= line; i++) {
-				const Sci::Position start = sci->pdoc->LineStart(i - 1);
-				const Sci::Position end = sci->pdoc->LineStart(i);
-				character_offsets.push_back(character_offsets[i - 1] + sci->pdoc->CountCharacters(start, end));
-			}
+		if (!(sci->pdoc->LineCharacterIndex() & SC_LINECHARACTERINDEX_UTF32)) {
+			return byteOffset;
 		}
+		const Sci::Line line = sci->pdoc->LineFromPosition(byteOffset);
 		const Sci::Position lineStart = sci->pdoc->LineStart(line);
-		return character_offsets[line] + sci->pdoc->CountCharacters(lineStart, byteOffset);
+		return sci->pdoc->IndexLineStart(line, SC_LINECHARACTERINDEX_UTF32) + sci->pdoc->CountCharacters(lineStart, byteOffset);
 	}
 
 	void CharacterRangeFromByteRange(Sci::Position startByte, Sci::Position endByte, int *startChar, int *endChar) {
@@ -135,7 +137,7 @@ public:
 	// So ScintillaGTK can notify us
 	void ChangeDocument(Document *oldDoc, Document *newDoc);
 	void NotifyReadOnly();
-	void SetAccessibility();
+	void SetAccessibility(bool enabled);
 
 	// Helper GtkWidget methods
 	static AtkObject *WidgetGetAccessibleImpl(GtkWidget *widget, AtkObject **cache, gpointer widget_parent_class);

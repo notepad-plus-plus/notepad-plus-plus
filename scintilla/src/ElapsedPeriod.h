@@ -15,7 +15,7 @@ class ElapsedPeriod {
 	std::chrono::high_resolution_clock::time_point tp;
 public:
 	/// Capture the moment
-	ElapsedPeriod() : tp(std::chrono::high_resolution_clock::now()) {
+	ElapsedPeriod() noexcept : tp(std::chrono::high_resolution_clock::now()) {
 	}
 	/// Return duration as floating point seconds
 	double Duration(bool reset=false) {

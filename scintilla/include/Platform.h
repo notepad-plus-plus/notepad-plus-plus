@@ -108,6 +108,18 @@ public:
 		return Point(static_cast<XYPOSITION>(x_), static_cast<XYPOSITION>(y_));
 	}
 
+	bool operator!=(Point other) const noexcept {
+		return (x != other.x) || (y != other.y);
+	}
+
+	Point operator+(Point other) const noexcept {
+		return Point(x + other.x, y + other.y);
+	}
+
+	Point operator-(Point other) const noexcept {
+		return Point(x - other.x, y - other.y);
+	}
+
 	// Other automatically defined methods (assignment, copy constructor, destructor) are fine
 };
 

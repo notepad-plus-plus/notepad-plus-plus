@@ -28,7 +28,6 @@
 #include "Accessor.h"
 #include "StyleContext.h"
 #include "CharacterSet.h"
-#include "CharacterCategory.h"
 #include "LexerModule.h"
 #include "OptionSet.h"
 #include "DefaultLexer.h"

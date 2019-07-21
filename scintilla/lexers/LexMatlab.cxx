@@ -155,7 +155,7 @@ static void ColouriseMatlabOctaveDoc(
 		} else if (sc.state == SCE_MATLAB_KEYWORD) {
 			if (!isalnum(sc.ch) && sc.ch != '_') {
 				char s[100];
-				sc.GetCurrentLowered(s, sizeof(s));
+				sc.GetCurrent(s, sizeof(s));
 
 				if (keywords.InList(s)) {
 					if (strcmp ("end", s) == 0 && allow_end_op) {

@@ -49,12 +49,12 @@
       library and with limited use of templates.
     </p>
     <p>
-       The currently supported platforms, Windows, GTK+/Linux, Cocoa and wxWidgets are fairly similar in
+       The currently supported platforms, Windows, GTK/Linux, Cocoa and wxWidgets are fairly similar in
       many ways.
       Each has windows, menus and bitmaps. These features generally work in similar ways so each
       has a way to move a window or draw a red line. Sometimes one platform requires a sequence of
       calls rather than a single call. At other times, the differences are more profound. Reading
-      the Windows clipboard occurs synchronously but reading the GTK+ clipboard requires a request
+      the Windows clipboard occurs synchronously but reading the GTK clipboard requires a request
       call that will be asynchronously answered with a message containing the clipboard data.
       The wxWidgets platform is available from the <a href="http://wxwidgets.org/">wxWidgets site</a>
     </p>
@@ -67,7 +67,7 @@
     </p>
     <p>
        The portability library is defined in Platform.h and is implemented once for each platform.
-      PlatWin.cxx defines the Windows variants of the methods and PlatGTK.cxx the GTK+ variants.
+      PlatWin.cxx defines the Windows variants of the methods and PlatGTK.cxx the GTK variants.
     </p>
     <p>
        Several of the classes here hold platform specific object identifiers and act as proxies to
@@ -83,7 +83,7 @@
     <p>
        These are simple classes provided to hold the commonly used geometric primitives. A
       PRectangle follows the Mac / Windows convention of not including its bottom and right sides
-      instead of including all its sides as is normal in GTK+. It is not called Rectangle as this may be
+      instead of including all its sides as is normal in GTK. It is not called Rectangle as this may be
       the name of a macro on Windows.
     </p>
     <h4>
@@ -101,7 +101,7 @@
        Font
     </h4>
     <p>
-       Font holds a platform specific font identifier - HFONT for Windows, PangoFontDescription* for GTK+. It
+       Font holds a platform specific font identifier - HFONT for Windows, PangoFontDescription* for GTK. It
       does not own the identifier and so will not delete the platform font object in its
       destructor. Client code should call Destroy at appropriate times.
     </p>
@@ -112,7 +112,7 @@
        Surface is an abstraction over each platform's concept of somewhere that graphical drawing
       operations can be done. It may wrap an already created drawing place such as a window or be
       used to create a bitmap that can be drawn into and later copied onto another surface. On
-      Windows it wraps a HDC and possibly a HBITMAP. On GTK+ it wraps a cairo_surface_t*.
+      Windows it wraps a HDC and possibly a HBITMAP. On GTK it wraps a cairo_surface_t*.
       Other platform specific objects are created (and correctly destroyed) whenever
       required to perform drawing actions.
     </p>
@@ -129,7 +129,7 @@
     <p>
        Window acts as a proxy to a platform window allowing operations such as showing, moving,
       redrawing, and destroying to be performed. It contains a platform specific window identifier
-      - HWND for Windows, GtkWidget* for GTK+.
+      - HWND for Windows, GtkWidget* for GTK.
     </p>
     <h4>
        ListBox
@@ -143,7 +143,7 @@
     </h4>
     <p>
        Menu is a small helper class for constructing popup menus. It contains the platform specific
-      menu identifier - HMENU for Windows, GtkMenu* for GTK+. Most of the work in
+      menu identifier - HMENU for Windows, GtkMenu* for GTK. Most of the work in
       constructing menus requires access to platform events and so is done in the Platform Events
       and API layer.
     </p>
@@ -224,20 +224,20 @@
     </h3>
     <p>
        Each platform uses different mechanisms for receiving events. On Windows, events are
-      received through messages and COM. On GTK+, callback functions are used.
+      received through messages and COM. On GTK, callback functions are used.
     </p>
     <p>
        For each platform, a class is derived from ScintillaBase (and thus from Editor). This is
-      ScintillaWin on Windows and ScintillaGTK on GTK+. These classes are responsible for
+      ScintillaWin on Windows and ScintillaGTK on GTK. These classes are responsible for
       connecting to the platforms event mechanism and also to implement some virtual methods in
       Editor and ScintillaBase which are different on the platforms. For example, this layer has to
-      support this difference between the synchronous Windows clipboard and the asynchronous GTK+
+      support this difference between the synchronous Windows clipboard and the asynchronous GTK
       clipboard.
     </p>
     <p>
        The external API is defined in this layer as each platform has different preferred styles of
-      API - messages on Windows and function calls on GTK+. This also allows multiple APIs to be
-      defined on a platform. The currently available API on GTK+ is similar to the Windows API and
+      API - messages on Windows and function calls on GTK. This also allows multiple APIs to be
+      defined on a platform. The currently available API on GTK is similar to the Windows API and
       does not follow platform conventions well. A second API could be implemented here that did
       follow platform conventions.
     </p>

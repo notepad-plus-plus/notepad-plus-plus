@@ -32,8 +32,6 @@ protected:
 		idcmdSelectAll=16
 	};
 
-	enum { maxLenInputIME = 200 };
-
 	int displayPopupMenu;
 	Menu popup;
 	AutoComplete ac;
@@ -57,11 +55,15 @@ protected:
 	ScintillaBase(ScintillaBase &&) = delete;
 	ScintillaBase &operator=(const ScintillaBase &) = delete;
 	ScintillaBase &operator=(ScintillaBase &&) = delete;
-	~ScintillaBase() override;
+	// ~ScintillaBase() in public section
 	void Initialise() override {}
 	void Finalise() override;
 
-	void AddCharUTF(const char *s, unsigned int len, bool treatAsDBCS=false) override;
+	[[deprecated]]
+	// This method is deprecated, use InsertCharacter instead. The treatAsDBCS parameter is no longer used.
+	virtual void AddCharUTF(const char *s, unsigned int len, bool treatAsDBCS=false);
+
+	void InsertCharacter(std::string_view sv, CharacterSource charSource) override;
 	void Command(int cmdId);
 	void CancelModes() override;
 	int KeyCommand(unsigned int iMessage) override;
@@ -94,6 +96,8 @@ protected:
 	void NotifyLexerChanged(Document *doc, void *userData) override;
 
 public:
+	~ScintillaBase() override;
+
 	// Public so scintilla_send_message can use it
 	sptr_t WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lParam) override;
 };

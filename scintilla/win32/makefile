@@ -67,8 +67,8 @@ clean:
 analyze:
 	$(CXX) --analyze $(CXXFLAGS) *.cxx ../src/*.cxx ../lexlib/*.cxx ../lexers/*.cxx
 
-deps:
-	$(CXX) -MM $(CXXFLAGS) *.cxx ../src/*.cxx ../lexlib/*.cxx ../lexers/*.cxx >deps.mak
+depend deps.mak:
+	python DepGen.py
 
 LEXOBJS:=$(addsuffix .o,$(basename $(sort $(notdir $(wildcard ../lexers/Lex*.cxx)))))
 
@@ -103,6 +103,7 @@ BASEOBJS = \
 	Selection.o \
 	Style.o \
 	UniConversion.o \
+	UniqueString.o \
 	ViewStyle.o \
 	XPM.o \
 	HanjaDic.o
@@ -140,31 +141,6 @@ $(LIBSCI): ScintillaWin.o $(SCILEXOBJS)
 
 # Automatically generate dependencies for most files with "make deps"
 include deps.mak
-
-# These dependencies are maintained by hand as they do not use the default output name
-
-ScintillaBaseL.o: ScintillaBase.cxx Platform.h \
- ILexer.h Scintilla.h SciLexer.h PropSetSimple.h \
- SplitVector.h Partitioning.h RunStyles.h \
- ContractionState.h CellBuffer.h CallTip.h \
- KeyMap.h Indicator.h XPM.h LineMarker.h \
- Style.h ViewStyle.h AutoComplete.h \
- CharClassify.h Decoration.h Document.h \
- Selection.h PositionCache.h EditModel.h Editor.h EditView.h \
- ScintillaBase.h LexAccessor.h Accessor.h \
- LexerModule.h Catalogue.h CaseFolder.h
-
-ScintillaWinL.o: ScintillaWin.cxx Platform.h \
- ILexer.h Scintilla.h SplitVector.h \
- Partitioning.h RunStyles.h ContractionState.h \
- CellBuffer.h CallTip.h KeyMap.h Indicator.h \
- XPM.h LineMarker.h Style.h AutoComplete.h \
- ViewStyle.h CharClassify.h Decoration.h \
- Document.h Selection.h PositionCache.h \
- EditModel.h Editor.h EditView.h ScintillaBase.h UniConversion.h \
- LexAccessor.h Accessor.h \
- LexerModule.h Catalogue.h CaseConvert.h \
- CaseFolder.h
 
 ScintillaBaseL.o:
 	$(CXX) $(CXXFLAGS) -D SCI_LEXER -c $< -o $@

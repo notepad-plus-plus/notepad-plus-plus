@@ -75,7 +75,6 @@ public:
 	bool HiddenLines() const override;
 
 	const char *GetFoldDisplayText(Sci::Line lineDoc) const override;
-	bool GetFoldDisplayTextShown(Sci::Line lineDoc) const override;
 	bool SetFoldDisplayText(Sci::Line lineDoc, const char *text) override;
 
 	bool GetExpanded(Sci::Line lineDoc) const override;
@@ -211,16 +210,24 @@ Sci::Line ContractionState<LINE>::DocFromDisplay(Sci::Line lineDisplay) const {
 
 template <typename LINE>
 void ContractionState<LINE>::InsertLines(Sci::Line lineDoc, Sci::Line lineCount) {
-	for (Sci::Line l = 0; l < lineCount; l++) {
-		InsertLine(lineDoc + l);
+	if (OneToOne()) {
+		linesInDocument += static_cast<LINE>(lineCount);
+	} else {
+		for (Sci::Line l = 0; l < lineCount; l++) {
+			InsertLine(lineDoc + l);
+		}
 	}
 	Check();
 }
 
 template <typename LINE>
 void ContractionState<LINE>::DeleteLines(Sci::Line lineDoc, Sci::Line lineCount) {
-	for (Sci::Line l = 0; l < lineCount; l++) {
-		DeleteLine(lineDoc);
+	if (OneToOne()) {
+		linesInDocument -= static_cast<LINE>(lineCount);
+	} else {
+		for (Sci::Line l = 0; l < lineCount; l++) {
+			DeleteLine(lineDoc);
+		}
 	}
 	Check();
 }
@@ -278,16 +285,11 @@ const char *ContractionState<LINE>::GetFoldDisplayText(Sci::Line lineDoc) const 
 }
 
 template <typename LINE>
-bool ContractionState<LINE>::GetFoldDisplayTextShown(Sci::Line lineDoc) const {
-	return !GetExpanded(lineDoc) && GetFoldDisplayText(lineDoc);
-}
-
-template <typename LINE>
 bool ContractionState<LINE>::SetFoldDisplayText(Sci::Line lineDoc, const char *text) {
 	EnsureData();
 	const char *foldText = foldDisplayTexts->ValueAt(lineDoc).get();
 	if (!foldText || !text || 0 != strcmp(text, foldText)) {
-		UniqueString uns = UniqueStringCopy(text);
+		UniqueString uns = IsNullOrEmpty(text) ? UniqueString() : UniqueStringCopy(text);
 		foldDisplayTexts->SetValueAt(lineDoc, std::move(uns));
 		Check();
 		return true;

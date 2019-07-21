@@ -32,7 +32,6 @@ public:
 	virtual bool HiddenLines() const=0;
 
 	virtual const char *GetFoldDisplayText(Sci::Line lineDoc) const=0;
-	virtual bool GetFoldDisplayTextShown(Sci::Line lineDoc) const=0;
 	virtual bool SetFoldDisplayText(Sci::Line lineDoc, const char *text)=0;
 
 	virtual bool GetExpanded(Sci::Line lineDoc) const=0;

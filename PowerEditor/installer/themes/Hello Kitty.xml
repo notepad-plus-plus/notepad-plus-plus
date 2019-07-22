@@ -610,6 +610,8 @@ so your enhanced file can be included in Notepad++ future release.
         </LexerType>
         <LexerType name="sql" desc="SQL" ext="">
             <WordsStyle name="KEYWORD" styleID="5" fgColor="0000FF" bgColor="FFB0FF" fontName="" fontStyle="1" fontSize="" keywordClass="instre1" />
+            <WordsStyle name="USER1" styleID="16" fgColor="0000FF" bgColor="FFB0FF" fontName="" fontStyle="1" fontSize="" keywordClass="instre2" />
+            <WordsStyle name="KEYWORD2" styleID="19" fgColor="600080" bgColor="FFB0FF" fontName="" fontStyle="1" fontSize="" keywordClass="type3" />
             <WordsStyle name="NUMBER" styleID="4" fgColor="FF8000" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="STRING" styleID="6" fgColor="808080" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="STRING2" styleID="7" fgColor="808080" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />

@@ -726,7 +726,7 @@ protected:
 
 	void setSqlLexer() {
 		const bool kbBackSlash = NppParameters::getInstance().getNppGUI()._backSlashIsEscapeCharacterForSql;
-		setLexer(SCLEX_SQL, L_SQL, LIST_0);
+		setLexer(SCLEX_SQL, L_SQL, LIST_0 | LIST_1 | LIST_4);
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("sql.backslash.escapes"), reinterpret_cast<LPARAM>(kbBackSlash ? "1" : "0"));
 	};
 

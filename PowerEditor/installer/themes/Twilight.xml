@@ -174,6 +174,8 @@ Credits:
         </LexerType>
         <LexerType name="sql" desc="SQL" ext="">
             <WordsStyle name="KEYWORD" styleID="5" fgColor="CDA869" bgColor="141414" fontName="" fontStyle="0" fontSize="10" keywordClass="instre1" />
+            <WordsStyle name="USER1" styleID="16" fgColor="CDA869" bgColor="141414" fontName="" fontStyle="0" fontSize="10" keywordClass="instre2" />
+            <WordsStyle name="KEYWORD2" styleID="19" fgColor="FF8080" bgColor="141414" fontName="" fontStyle="0" fontSize="10" keywordClass="type3" />
             <WordsStyle name="NUMBER" styleID="4" fgColor="CF6A4C" bgColor="141414" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="STRING" styleID="6" fgColor="8F9D6A" bgColor="141414" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="STRING2" styleID="7" fgColor="8F9D6A" bgColor="141414" fontName="" fontStyle="0" fontSize="10" />

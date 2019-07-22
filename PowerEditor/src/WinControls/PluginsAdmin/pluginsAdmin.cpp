@@ -292,8 +292,8 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	HWND hResearchLabel = ::GetDlgItem(_hSelf, IDC_PLUGINADM_SEARCH_STATIC);
 	RECT researchLabelRect;
 	::GetClientRect(hResearchLabel, &researchLabelRect);
-	researchLabelRect.left = rect.left;
-	researchLabelRect.top = topMarge + 2;
+	researchLabelRect.left = rect.left + 10;
+	researchLabelRect.top = topMarge + 4;
 	::MoveWindow(hResearchLabel, researchLabelRect.left, researchLabelRect.top, researchLabelRect.right, researchLabelRect.bottom, TRUE);
 	::InvalidateRect(hResearchLabel, nullptr, TRUE);
 
@@ -301,7 +301,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	RECT researchEditRect;
 	::GetClientRect(hResearchEdit, &researchEditRect);
 	researchEditRect.left = researchLabelRect.right + marge;
-	researchEditRect.top = topMarge;
+	researchEditRect.top = topMarge + 2;
 	::MoveWindow(hResearchEdit, researchEditRect.left, researchEditRect.top, researchEditRect.right, researchEditRect.bottom, TRUE);
 	::InvalidateRect(hResearchEdit, nullptr, TRUE);
 

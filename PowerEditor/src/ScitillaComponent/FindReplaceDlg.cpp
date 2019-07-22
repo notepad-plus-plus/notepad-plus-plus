@@ -835,7 +835,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			 _countInSelFramePos.left = _replaceInSelFramePos.left = p.x;
 			 _countInSelFramePos.top = _replaceInSelFramePos.top = p.y;
 
-			 _countInSelFramePos.top = countP.y - 14;
+			 _countInSelFramePos.top = countP.y - 9;
 
 			 NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
 			 generic_string searchButtonTip = pNativeSpeaker->getLocalizedStrFromID("shift-change-direction-tip", TEXT("Use Shift+Enter to search in the opposite direction."));

@@ -2426,7 +2426,7 @@ void Notepad_plus::addHotSpot()
 	std::vector<unsigned char> hotspotPairs; //= _pEditView->GetHotspotPairs();
 
 	unsigned char style_hotspot = 0;
-	unsigned char mask = INDIC1_MASK;
+	unsigned char mask = 0x40; // INDIC1_MASK;
 	// INDIC2_MASK == 255 and it represents MSB bit		
 	// only LEX_HTML and LEX_POSTSCRIPT use use INDIC2_MASK bit internally		
 	// LEX_HTML is using INDIC2_MASK bit even though it has only 127 states, so it is safe to overwrite 8th bit		
@@ -2442,7 +2442,7 @@ void Notepad_plus::addHotSpot()
 	LangType type = _pEditView->getCurrentBuffer()->getLangType();
 
 	if (type == L_HTML || type == L_PHP || type == L_ASP || type == L_JSP)
-		mask = INDIC2_MASK;
+		mask = 0x80; // INDIC2_MASK;
 	else if (type == L_PS)
 		mask = 16;
 

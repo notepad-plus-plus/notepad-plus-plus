@@ -781,6 +781,8 @@ Installation:
             <WordsStyle name="COMMENT DOC" styleID="3" fgColor="181880" bgColor="BA9C80" fontName="" fontStyle="2" fontSize="" />
             <WordsStyle name="NUMBER" styleID="4" fgColor="C00058" bgColor="BA9C80" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="KEYWORD" styleID="5" fgColor="804040" bgColor="BA9C80" fontName="" fontStyle="0" fontSize="" keywordClass="instre1" />
+            <WordsStyle name="USER1" styleID="16" fgColor="804040" bgColor="BA9C80" fontName="" fontStyle="0" fontSize="" keywordClass="instre2" />
+            <WordsStyle name="KEYWORD2" styleID="19" fgColor="A00090" bgColor="BA9C80" fontName="" fontStyle="0" fontSize="" keywordClass="type3" />
             <WordsStyle name="STRING" styleID="6" fgColor="106060" bgColor="BA9C80" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="STRING2" styleID="7" fgColor="C00058" bgColor="BA9C80" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="OPERATOR" styleID="10" fgColor="010101" bgColor="BA9C80" fontName="" fontStyle="1" fontSize="" />

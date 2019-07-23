@@ -36,7 +36,11 @@ SectionGroup "Plugins" Plugins
 		Delete "$PLUGIN_INST_PATH\NppExport\NppExport.dll"
 		
 		SetOutPath "$PLUGIN_INST_PATH\NppExport"
+!ifdef ARCH64
+		File "..\bin64\plugins\NppExport\NppExport.dll"
+!else
 		File "..\bin\plugins\NppExport\NppExport.dll"
+!endif
 	${MementoSectionEnd}
 
 !endif

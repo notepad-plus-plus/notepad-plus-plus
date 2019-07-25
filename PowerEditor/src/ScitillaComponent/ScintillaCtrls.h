@@ -43,7 +43,7 @@ public :
 
 	HWND createSintilla(HWND hParent);
 	ScintillaEditView * getScintillaEditViewFrom(HWND handle2Find);
-	bool destroyScintilla(HWND handle2Destroy);
+	//bool destroyScintilla(HWND handle2Destroy);
 	void destroy();
 	
 private:

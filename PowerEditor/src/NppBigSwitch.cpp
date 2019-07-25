@@ -1244,7 +1244,15 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_DESTROYSCINTILLAHANDLE:
 		{
-			return _scintillaCtrls4Plugins.destroyScintilla(reinterpret_cast<HWND>(lParam));
+			//return _scintillaCtrls4Plugins.destroyScintilla(reinterpret_cast<HWND>(lParam));
+
+			// Destroying allocated Scintilla makes Notepad++ crash
+			// because created Scintilla view's pointer is added into _referees of Buffer object automatically.
+			// The deallocated scintilla view in _referees is used in Buffer::nextUntitledNewNumber().
+
+			// So we do nothing here and let Notepad++ destroy allocated Scintilla while it exits
+			// and we keep this message for the sake of compability withe the existing plugins.
+			return true;
 		}
 
 		case NPPM_GETNBUSERLANG:

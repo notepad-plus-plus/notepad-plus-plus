@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Français" filename="french.xml" version="7.6.5">
+    <Native-Langue name="Français" filename="french.xml" version="7.7.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -1192,6 +1192,17 @@ Voulez-vous les poursuivez ?"/>
             <finder-select-all value="Sélectionner tout"/>
             <finder-clear-all value="Effacer tout"/>
             <finder-open-all value="Ouvrir tout"/>
+            <summary value="Statistiques"/>
+            <summary-filepath value="Chemin d'accès : "/>
+            <summary-filecreatetime value="Date de Création : "/>
+            <summary-filemodifytime value="Date de Modification : "/>
+            <summary-nbchar value="Caracters (sans fin de ligne) : "/>
+            <summary-nbword value="Mots : "/>
+            <summary-nbline value="Lignes : "/>
+            <summary-nbbyte value="Taille du document : "/>
+            <summary-nbsel1 value=" caracters sélectionnés ("/>
+            <summary-nbsel2 value=" octets) dans "/>
+            <summary-nbrange value=" sélections"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

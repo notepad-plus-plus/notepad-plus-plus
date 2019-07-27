@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="繁體中文/正體中文" filename="chinese.xml" version="7.6.5">
+    <Native-Langue name="繁體中文/正體中文" filename="chinese.xml" version="7.7.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -1191,6 +1191,18 @@
             <finder-select-all value="全部選取"/>
             <finder-clear-all value="全部清除"/>
             <finder-open-all value="全部開啟"/>
+            <summary value="統計資料"/>
+            <summary-filepath value="完整文件路徑： "/>
+            <summary-filecreatetime value="建檔時間： "/>
+            <summary-filemodifytime value="修改時間： "/>
+            <summary-filelen value="文件長度（以位元為單位）： "/>
+            <summary-nbchar value="字元數（不含行結尾）： "/>
+            <summary-nbword value="字數： "/>
+            <summary-nbline value="行數： "/>
+            <summary-nbbyte value="文件長度： "/>
+            <summary-nbsel1 value=" 個選取字元（ "/>
+            <summary-nbsel2 value=" 位元）在 "/>
+            <summary-nbrange value=" 個選取範圍中"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

@@ -2028,7 +2028,6 @@ void Notepad_plus::command(int id)
 					generic_string filePathLabel = pNativeSpeaker->getLocalizedStrFromID("summary-filepath", TEXT("Full file path: "));
 					generic_string fileCreateTimeLabel = pNativeSpeaker->getLocalizedStrFromID("summary-filecreatetime", TEXT("Created: "));
 					generic_string fileModifyTimeLabel = pNativeSpeaker->getLocalizedStrFromID("summary-filemodifytime", TEXT("Modified: "));
-					generic_string fileLenLabel = pNativeSpeaker->getLocalizedStrFromID("summary-filelen", TEXT("File length (in byte): "));
 
 					characterNumber += filePathLabel;
 					characterNumber += curBuf->getFullPathName();
@@ -2041,16 +2040,11 @@ void Notepad_plus::command(int id)
 					characterNumber += fileModifyTimeLabel;
 					characterNumber += curBuf->getFileTime(Buffer::ft_modified);
 					characterNumber += TEXT("\r");
-
-					characterNumber += fileLenLabel;
-					characterNumber += commafyInt(static_cast<size_t>(fileLen)).c_str();
-					characterNumber += TEXT("\r");
-					characterNumber += TEXT("\r");
 				}
 				generic_string nbCharLabel = pNativeSpeaker->getLocalizedStrFromID("summary-nbchar", TEXT("Characters (without line endings): "));
 				generic_string nbWordLabel = pNativeSpeaker->getLocalizedStrFromID("summary-nbword", TEXT("Words: "));
 				generic_string nbLineLabel = pNativeSpeaker->getLocalizedStrFromID("summary-nbline", TEXT("Lines: "));
-				generic_string nbByteLabel = pNativeSpeaker->getLocalizedStrFromID("summary-nbbyte", TEXT("Current document length: "));
+				generic_string nbByteLabel = pNativeSpeaker->getLocalizedStrFromID("summary-nbbyte", TEXT("Document length: "));
 				generic_string nbSelLabel1 = pNativeSpeaker->getLocalizedStrFromID("summary-nbsel1", TEXT(" selected characters ("));
 				generic_string nbSelLabel2 = pNativeSpeaker->getLocalizedStrFromID("summary-nbsel2", TEXT(" bytes) in "));
 				generic_string nbRangeLabel = pNativeSpeaker->getLocalizedStrFromID("summary-nbrange", TEXT(" ranges"));

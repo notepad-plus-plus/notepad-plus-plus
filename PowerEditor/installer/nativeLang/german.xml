@@ -1200,7 +1200,6 @@
 			<summary-filepath value="Kompletter Pfad: "/>
 			<summary-filecreatetime value="Erzeugt: "/>
 			<summary-filemodifytime value="Geändert: "/>
-			<summary-filelen value="Dateigrösse (in Byte): "/>
 			<summary-nbchar value="Zeichen (ohne Zeilenenden): "/>
 			<summary-nbword value="Wörter: "/>
 			<summary-nbline value="Zeilen: "/>

@@ -50,6 +50,7 @@ signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://not
 If ErrorLevel 1 goto End
 
 signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin\plugins\NppExport\NppExport.dll
+signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin64\plugins\NppExport\NppExport.dll
 If ErrorLevel 1 goto End
 signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin\plugins\mimeTools\mimeTools.dll
 signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin64\plugins\mimeTools\mimeTools.dll
@@ -147,6 +148,7 @@ mkdir .\zipped.package.release64\themes
 mkdir .\zipped.package.release64\autoCompletion
 mkdir .\zipped.package.release64\userDefineLangs
 mkdir .\zipped.package.release64\plugins
+mkdir .\zipped.package.release64\plugins\NppExport
 mkdir .\zipped.package.release64\plugins\mimeTools
 mkdir .\zipped.package.release64\plugins\NppConverter
 mkdir .\zipped.package.release64\plugins\Config
@@ -211,6 +213,8 @@ copy /Y "..\bin\plugins\NppConverter\NppConverter.dll" .\zipped.package.release\
 If ErrorLevel 1 goto End
 
 rem Plugins: Copy needed files into Notepad++ 64-bit package folders
+copy /Y "..\bin\plugins\NppExport\NppExport.dll" .\zipped.package.release64\plugins\NppExport\
+If ErrorLevel 1 goto End
 copy /Y "..\bin64\plugins\mimeTools\mimeTools.dll" .\zipped.package.release64\plugins\mimeTools\
 If ErrorLevel 1 goto End
 copy /Y "..\bin64\plugins\NppConverter\NppConverter.dll" .\zipped.package.release64\plugins\NppConverter\

@@ -11,14 +11,6 @@
 
 namespace Scintilla {
 
-/*
- * The following defines are not meant to be changeable.
- * They are for readability only.
- */
-#define MAXCHR	256
-#define CHRBIT	8
-#define BITBLK	MAXCHR/CHRBIT
-
 class CharacterIndexer {
 public:
 	virtual char CharAt(Sci::Position index) const=0;
@@ -38,7 +30,6 @@ public:
 	int Execute(const CharacterIndexer &ci, Sci::Position lp, Sci::Position endp);
 
 	enum { MAXTAG=10 };
-	enum { MAXNFA=4096 };
 	enum { NOTFOUND=-1 };
 
 	Sci::Position bopat[MAXTAG];
@@ -46,6 +37,14 @@ public:
 	std::string pat[MAXTAG];
 
 private:
+
+	enum { MAXNFA = 4096 };
+	// The following enums are not meant to be changeable.
+	// They are for readability only.
+	enum { MAXCHR = 256 };
+	enum { CHRBIT = 8 };
+	enum { BITBLK = MAXCHR / CHRBIT };
+
 	void ChSet(unsigned char c);
 	void ChSetWithCase(unsigned char c, bool caseSensitive);
 	int GetBackslashExpression(const char *pattern, int &incr);

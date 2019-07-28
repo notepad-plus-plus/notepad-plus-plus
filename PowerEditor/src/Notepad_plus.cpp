@@ -2426,7 +2426,7 @@ void Notepad_plus::addHotSpot()
 	std::vector<unsigned char> hotspotPairs; //= _pEditView->GetHotspotPairs();
 
 	unsigned char style_hotspot = 0;
-	unsigned char mask = INDIC1_MASK;
+	unsigned char mask = 0x40; // INDIC1_MASK;
 	// INDIC2_MASK == 255 and it represents MSB bit		
 	// only LEX_HTML and LEX_POSTSCRIPT use use INDIC2_MASK bit internally		
 	// LEX_HTML is using INDIC2_MASK bit even though it has only 127 states, so it is safe to overwrite 8th bit		
@@ -2442,7 +2442,7 @@ void Notepad_plus::addHotSpot()
 	LangType type = _pEditView->getCurrentBuffer()->getLangType();
 
 	if (type == L_HTML || type == L_PHP || type == L_ASP || type == L_JSP)
-		mask = INDIC2_MASK;
+		mask = 0x80; // INDIC2_MASK;
 	else if (type == L_PS)
 		mask = 16;
 
@@ -2677,10 +2677,10 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 			{
 				indentAmountPrevLine = _pEditView->getLineIndent(prevLine);
 
-				auto startPos = _pEditView->execute(SCI_POSITIONFROMLINE, prevLine);
-				auto endPos = _pEditView->execute(SCI_GETLINEENDPOSITION, prevLine);
+				auto startPos2 = _pEditView->execute(SCI_POSITIONFROMLINE, prevLine);
+				auto endPos2 = _pEditView->execute(SCI_GETLINEENDPOSITION, prevLine);
 				_pEditView->execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP | SCFIND_POSIX);
-				_pEditView->execute(SCI_SETTARGETRANGE, startPos, endPos);
+				_pEditView->execute(SCI_SETTARGETRANGE, startPos2, endPos2);
 
 				const char braceExpr[] = "[ \t]*\\{.*";
 
@@ -2688,7 +2688,7 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 				if (posFound != -1 && posFound != -2)
 				{
 					int end = int(_pEditView->execute(SCI_GETTARGETEND));
-					if (end == endPos)
+					if (end == endPos2)
 						indentAmountPrevLine += tabWidth;
 				}
 			}
@@ -3253,7 +3253,6 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 			switchEditViewTo(MAIN_VIEW);
 
 		int filesDropped = ::DragQueryFile(hdrop, 0xffffffff, NULL, 0);
-		BufferID lastOpened = BUFFER_INVALID;
 
 		vector<generic_string> folderPaths;
 		vector<generic_string> filePaths;
@@ -3282,7 +3281,6 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 
 		if (isOldMode || folderPaths.size() == 0) // old mode or new mode + only files
 		{
-
 			BufferID lastOpened = BUFFER_INVALID;
 			for (int i = 0; i < filesDropped; ++i)
 			{
@@ -3313,10 +3311,6 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 			launchFileBrowser(folderPaths);
 		}
 
-		if (lastOpened != BUFFER_INVALID) 
-		{
-			switchToFile(lastOpened);
-		}
 		::DragFinish(hdrop);
 		// Put Notepad_plus to forefront
 		// May not work for Win2k, but OK for lower versions
@@ -5919,8 +5913,8 @@ void Notepad_plus::launchAnsiCharPanel()
 
 		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
 		generic_string title_temp = pNativeSpeaker->getAttrNameStr(AI_PROJECTPANELTITLE, "AsciiInsertion", "PanelTitle");
-		static TCHAR title[32];
-		if (title_temp.length() < 32)
+		static TCHAR title[85];
+		if (title_temp.length() < 85)
 		{
 			wcscpy_s(title, title_temp.c_str());
 			data.pszName = title;

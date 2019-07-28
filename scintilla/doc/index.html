@@ -9,7 +9,7 @@
     <meta name="keywords" content="Scintilla, SciTE, Editing Component, Text Editor" />
     <meta name="Description"
     content="www.scintilla.org is the home of the Scintilla editing component and SciTE text editor application." />
-    <meta name="Date.Modified" content="20190307" />
+    <meta name="Date.Modified" content="20190705" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type="text/css">
         #versionlist {
@@ -53,11 +53,11 @@
         </td>
         <td width="40%" align="left">
           <font color="#FFCC99" size="4"> A free source code editing component for Win32,
-          GTK+, and OS X</font>
+          GTK, and OS X</font>
         </td>
         <td width="40%" align="right">
-          <font color="#FFCC99" size="3"> Release version 4.1.4<br />
-           Site last modified March 7 2019</font>
+          <font color="#FFCC99" size="3"> Release version 4.2.0<br />
+           Site last modified July 5 2019</font>
         </td>
         <td width="20%">
           &nbsp;
@@ -72,11 +72,12 @@
       </tr>
     </table>
     <ul id="versionlist">
+      <li>Version 4.2.0 adds new types to Scintilla.iface.</li>
+      <li>Version 4.1.7 is just to match a bug-fix release of SciTE and changes nothing in Scintilla.</li>
+      <li>Version 4.1.6 adds an X12 lexer and improves performance on huge files.</li>
+      <li>Version 4.1.5 removes special handling of non-0 wParam to WM_PAINT on Win32 and changes
+      clipboard operations on GTK to avoid flickering.</li>
       <li>Version 4.1.4 makes calltips work on Qt and adds a lexer for .NET's Common Intermediate Language CIL.</li>
-      <li>Version 4.1.3 is compatible with macOS 10.14, improves performance, and adds a new lexer for Nim which will replace the "nimrod" lexer.</li>
-      <li>Version 4.1.2 is a minor release.</li>
-      <li>Version 4.1.1 adds optional indexing of line starts in UTF-8 documents by UTF-32 code points and UTF-16 code units.</li>
-      <li>Version 4.1.0 adds experimental support for bidirectional text as used by Arabic and Hebrew on Win32 and Cocoa.</li>
     </ul>
     <ul id="menu">
       <li id="remote1"><a href="https://www.scintilla.org/SciTEImage.html">Screenshot</a></li>
@@ -133,8 +134,8 @@ if (!IsRemote()) { //if NOT remote...
     </p>
     <p>
        Scintilla and SciTE are currently available for Intel Win32, OS X, and Linux compatible operating
-      systems with GTK+. They have been run on Windows XP, Windows 7, OS X 10.7+, and on Ubuntu 14.04
-      with GTK+ 2.24. <a href="https://www.scintilla.org/SciTEImage.html">Here is a screenshot of
+      systems with GTK. They have been run on Windows XP, Windows 7, OS X 10.7+, and on Ubuntu 14.04
+      with GTK 2.24. <a href="https://www.scintilla.org/SciTEImage.html">Here is a screenshot of
       SciTE.</a><br />
     </p>
     <p>

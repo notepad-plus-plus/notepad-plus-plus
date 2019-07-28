@@ -29,6 +29,7 @@
 #include "Decoration.h"
 #include "ILexer.h"
 #include "CaseFolder.h"
+#include "CharacterCategory.h"
 #include "Document.h"
 #include "UniConversion.h"
 #include "UTF8DocumentIterator.h"

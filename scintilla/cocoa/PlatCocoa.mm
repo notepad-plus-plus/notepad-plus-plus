@@ -17,6 +17,7 @@
 #include <cassert>
 #include <cstring>
 #include <cstdio>
+#include <cmath>
 
 #include <stdexcept>
 #include <string_view>
@@ -251,7 +252,7 @@ void AddToIntervalVector(std::vector<Interval> &vi, XYPOSITION left, XYPOSITION 
 		vi.push_back(interval);
 	} else {
 		Interval &last = vi.back();
-		if (fabs(last.right-interval.left) < 0.01) {
+		if (std::abs(last.right-interval.left) < 0.01) {
 			// If new left is very close to previous right then extend last item
 			last.right = interval.right;
 		} else {
@@ -482,8 +483,8 @@ void SurfaceImpl::FillColour(const ColourDesired &back) {
 
 //--------------------------------------------------------------------------------------------------
 
-CGImageRef SurfaceImpl::GetImage() {
-	// For now, assume that GetImage can only be called on PixMap surfaces.
+CGImageRef SurfaceImpl::CreateImage() {
+	// For now, assume that CreateImage can only be called on PixMap surfaces.
 	if (!bitmapData)
 		return NULL;
 
@@ -628,8 +629,8 @@ void SurfaceImpl::FillRectangle(PRectangle rc, ColourDesired back) {
 	if (gc) {
 		FillColour(back);
 		// Snap rectangle boundaries to nearest int
-		rc.left = lround(rc.left);
-		rc.right = lround(rc.right);
+		rc.left = std::round(rc.left);
+		rc.right = std::round(rc.right);
 		CGRect rect = PRectangleToCGRect(rc);
 		CGContextFillRect(gc, rect);
 	}
@@ -654,7 +655,7 @@ void SurfaceImpl::FillRectangle(PRectangle rc, Surface &surfacePattern) {
 	SurfaceImpl &patternSurface = static_cast<SurfaceImpl &>(surfacePattern);
 
 	// For now, assume that copy can only be called on PixMap surfaces. Shows up black.
-	CGImageRef image = patternSurface.GetImage();
+	CGImageRef image = patternSurface.CreateImage();
 	if (image == NULL) {
 		FillRectangle(rc, ColourDesired(0));
 		return;
@@ -805,8 +806,8 @@ void Scintilla::SurfaceImpl::AlphaRectangle(PRectangle rc, int cornerSize, Colou
 		ColourDesired outline, int alphaOutline, int /*flags*/) {
 	if (gc) {
 		// Snap rectangle boundaries to nearest int
-		rc.left = lround(rc.left);
-		rc.right = lround(rc.right);
+		rc.left = std::round(rc.left);
+		rc.right = std::round(rc.right);
 		// Set the Fill color to match
 		CGContextSetRGBFillColor(gc, fill.GetRed() / 255.0, fill.GetGreen() / 255.0, fill.GetBlue() / 255.0, alphaFill / 255.0);
 		CGContextSetRGBStrokeColor(gc, outline.GetRed() / 255.0, outline.GetGreen() / 255.0, outline.GetBlue() / 255.0, alphaOutline / 255.0);
@@ -969,7 +970,7 @@ void SurfaceImpl::Ellipse(PRectangle rc, ColourDesired fore, ColourDesired back)
 
 void SurfaceImpl::CopyImageRectangle(Surface &surfaceSource, PRectangle srcRect, PRectangle dstRect) {
 	SurfaceImpl &source = static_cast<SurfaceImpl &>(surfaceSource);
-	CGImageRef image = source.GetImage();
+	CGImageRef image = source.CreateImage();
 
 	CGRect src = PRectangleToCGRect(srcRect);
 	CGRect dst = PRectangleToCGRect(dstRect);
@@ -1001,7 +1002,7 @@ void SurfaceImpl::Copy(PRectangle rc, Scintilla::Point from, Surface &surfaceSou
 	SurfaceImpl &source = static_cast<SurfaceImpl &>(surfaceSource);
 
 	// Get the CGImageRef
-	CGImageRef image = source.GetImage();
+	CGImageRef image = source.CreateImage();
 	// If we could not get an image reference, fill the rectangle black
 	if (image == NULL) {
 		FillRectangle(rc, ColourDesired(0));
@@ -1115,7 +1116,7 @@ void SurfaceImpl::DrawTextTransparent(PRectangle rc, Font &font_, XYPOSITION yba
 	CGColorRef color = CGColorCreateGenericRGB(colour.GetRed()/255.0, colour.GetGreen()/255.0, colour.GetBlue()/255.0, 1.0);
 
 	QuartzTextStyle *style = TextStyleFromFont(font_);
-	style->setCTStyleColor(color);
+	style->setCTStyleColour(color);
 
 	CGColorRelease(color);
 
@@ -1232,7 +1233,7 @@ XYPOSITION SurfaceImpl::AverageCharWidth(Font &font_) {
 
 	XYPOSITION width = WidthText(font_, sizeString);
 
-	return round(width / strlen(sizeString));
+	return std::round(width / strlen(sizeString));
 }
 
 void SurfaceImpl::SetClip(PRectangle rc) {
@@ -1470,7 +1471,7 @@ static NSImage *ImageFromXPM(XPM *pxpm) {
 		SurfaceImpl *surfaceIXPM = static_cast<SurfaceImpl *>(surfaceXPM.get());
 		CGContextClearRect(surfaceIXPM->GetContext(), CGRectMake(0, 0, width, height));
 		pxpm->Draw(surfaceXPM.get(), rcxpm);
-		CGImageRef imageRef = surfaceIXPM->GetImage();
+		CGImageRef imageRef = surfaceIXPM->CreateImage();
 		img = [[NSImage alloc] initWithCGImage: imageRef size: NSZeroSize];
 		CGImageRelease(imageRef);
 	}
@@ -1750,7 +1751,7 @@ void ListBoxImpl::SetFont(Font &font_) {
 	font.SetID(new QuartzTextStyle(*style));
 	NSFont *pfont = (__bridge NSFont *)style->getFontRef();
 	[colText.dataCell setFont: pfont];
-	CGFloat itemHeight = ceil(pfont.boundingRectForFont.size.height);
+	CGFloat itemHeight = std::ceil(pfont.boundingRectForFont.size.height);
 	table.rowHeight = itemHeight;
 }
 

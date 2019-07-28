@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Français" filename="french.xml" version="7.6.5">
+    <Native-Langue name="Français" filename="french.xml" version="7.7.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -380,6 +380,8 @@
                 <Item id="1688" name="persistante"/>
                 <Item id="1703" name="&amp;. comprend ligne nouvelle"/>
                 <Item id="2" name="Annuler"/>
+				<Item id="1721" name="▲"/>
+                <Item id="1723" name="▼ Suivant"/>
             </Find>
 
             <FindCharsInRange title="Rechercher des caractères dans une plage">
@@ -1051,6 +1053,10 @@ Voulez-vous lancer Notepad++ en mode Administrateur ?"/>
             <OpenInAdminModeWithoutCloseCurrent title="L'enregistrement a échoué" message="Le fichier ne peut pas être enregistré et il est peut-être protégé.
 Voulez-vous lancer Notepad++ en mode Administrateur ?"/>
             <OpenInAdminModeFailed title="L'ouverture en mode Administrateur a échoué" message="Notepad++ ne peut pas être lancé en mode Administrateur."/>
+			<ExitToUpdatePlugins title="Notepad++ sera fermé" message="Si vous cliquez Oui, vous allez quitter Notepad++ pour poursuivre les operations.
+Notepad++ sera relancé après.
+Voulez-vous les poursuivez ?"/>
+            <NeedToRestartToLoadPlugins title="Vous devez redémarrer Notepad++" message="Vous devez redémarrer Notepad++ pour charger les plugins installés."/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Historique du presse-papiers"/>
@@ -1066,10 +1072,12 @@ Voulez-vous lancer Notepad++ en mode Administrateur ?"/>
             <ColumnType name="Type"/>
         </WindowsDlg>
         <AsciiInsertion>
-            <PanelTitle name="Panneau des caractères ASCII"/>
+            <PanelTitle name="Panneau des codes ASCII"/>
             <ColumnVal name="Valeur"/>
             <ColumnHex name="Hexa"/>
             <ColumnChar name="Caractère"/>
+            <ColumnHtmlNumber name="Numéro HTML"/>
+            <ColumnHtmlName name="Code HTML"/>
         </AsciiInsertion>
         <DocumentMap>
             <PanelTitle name="Plan du Document"/>
@@ -1184,6 +1192,17 @@ Voulez-vous lancer Notepad++ en mode Administrateur ?"/>
             <finder-select-all value="Sélectionner tout"/>
             <finder-clear-all value="Effacer tout"/>
             <finder-open-all value="Ouvrir tout"/>
+            <summary value="Statistiques"/>
+            <summary-filepath value="Chemin d'accès : "/>
+            <summary-filecreatetime value="Date de Création : "/>
+            <summary-filemodifytime value="Date de Modification : "/>
+            <summary-nbchar value="Caracters (sans fin de ligne) : "/>
+            <summary-nbword value="Mots : "/>
+            <summary-nbline value="Lignes : "/>
+            <summary-nbbyte value="Taille du document : "/>
+            <summary-nbsel1 value=" caracters sélectionnés ("/>
+            <summary-nbsel2 value=" octets) dans "/>
+            <summary-nbrange value=" sélections"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

@@ -808,8 +808,6 @@ INT_PTR CALLBACK MarginsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 				
 				case IDC_COLONENUMBER_STATIC:
 				{
-					ScintillaViewParams & svp = (ScintillaViewParams &)pNppParam->getSVP();
-
 					NativeLangSpeaker *pNativeSpeaker = pNppParam->getNativeLangSpeaker();
 					generic_string strNbCol = pNativeSpeaker->getLocalizedStrFromID("edit-verticaledge-nb-col", TEXT("Nb of column:"));
 

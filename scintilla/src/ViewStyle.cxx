@@ -27,42 +27,13 @@
 #include "Style.h"
 #include "ViewStyle.h"
 
-#define CARETSTYLE_INS_MASK 0xF
-
 using namespace Scintilla;
 
-MarginStyle::MarginStyle(int style_, int width_, int mask_) :
+MarginStyle::MarginStyle(int style_, int width_, int mask_) noexcept :
 	style(style_), width(width_), mask(mask_), sensitive(false), cursor(SC_CURSORREVERSEARROW) {
 }
 
-// A list of the fontnames - avoids wasting space in each style
-FontNames::FontNames() {
-}
-
-FontNames::~FontNames() {
-	Clear();
-}
-
-void FontNames::Clear() {
-	names.clear();
-}
-
-const char *FontNames::Save(const char *name) {
-	if (!name)
-		return nullptr;
-
-	for (const UniqueString &nm : names) {
-		if (strcmp(nm.get(), name) == 0) {
-			return nm.get();
-		}
-	}
-
-	names.push_back(UniqueStringCopy(name));
-	return names.back().get();
-}
-
-FontRealised::FontRealised() {
-}
+FontRealised::FontRealised() noexcept = default;
 
 FontRealised::~FontRealised() {
 	font.Release();
@@ -85,13 +56,13 @@ void FontRealised::Realise(Surface &surface, int zoomLevel, int technology, cons
 	spaceWidth = surface.WidthText(font, " ");
 }
 
-ViewStyle::ViewStyle() : markers(MARKER_MAX + 1), indicators(INDIC_MAX + 1) {
+ViewStyle::ViewStyle() : markers(MARKER_MAX + 1), indicators(INDICATOR_MAX + 1) {
 	Init();
 }
 
 // Copy constructor only called when printing copies the screen ViewStyle so it can be
 // modified for printing styles.
-ViewStyle::ViewStyle(const ViewStyle &source) : markers(MARKER_MAX + 1), indicators(INDIC_MAX + 1) {
+ViewStyle::ViewStyle(const ViewStyle &source) : markers(MARKER_MAX + 1), indicators(INDICATOR_MAX + 1) {
 	Init(source.styles.size());
 	styles = source.styles;
 	for (size_t sty=0; sty<source.styles.size(); sty++) {
@@ -376,7 +347,7 @@ void ViewStyle::Refresh(Surface &surface, int tabInChars) {
 	textStart = marginInside ? fixedColumnWidth : leftMarginWidth;
 }
 
-void ViewStyle::ReleaseAllExtendedStyles() {
+void ViewStyle::ReleaseAllExtendedStyles() noexcept {
 	nextExtendedStyle = 256;
 }
 
@@ -422,11 +393,11 @@ void ViewStyle::SetStyleFontName(int styleIndex, const char *name) {
 	styles[styleIndex].fontName = fontNames.Save(name);
 }
 
-bool ViewStyle::ProtectionActive() const {
+bool ViewStyle::ProtectionActive() const noexcept {
 	return someStylesProtected;
 }
 
-int ViewStyle::ExternalMarginWidth() const {
+int ViewStyle::ExternalMarginWidth() const noexcept {
 	return marginInside ? 0 : fixedColumnWidth;
 }
 
@@ -441,7 +412,7 @@ int ViewStyle::MarginFromLocation(Point pt) const {
 	return margin;
 }
 
-bool ViewStyle::ValidStyle(size_t styleIndex) const {
+bool ViewStyle::ValidStyle(size_t styleIndex) const noexcept {
 	return styleIndex < styles.size();
 }
 
@@ -461,21 +432,21 @@ void ViewStyle::CalcLargestMarkerHeight() {
 	}
 }
 
-int ViewStyle::GetFrameWidth() const {
+int ViewStyle::GetFrameWidth() const noexcept {
 	return std::clamp(caretLineFrame, 1, lineHeight / 3);
 }
 
-bool ViewStyle::IsLineFrameOpaque(bool caretActive, bool lineContainsCaret) const {
+bool ViewStyle::IsLineFrameOpaque(bool caretActive, bool lineContainsCaret) const noexcept {
 	return caretLineFrame && (caretActive || alwaysShowCaretLineBackground) && showCaretLineBackground &&
 		(caretLineAlpha == SC_ALPHA_NOALPHA) && lineContainsCaret;
 }
 
-// See if something overrides the line background color:  Either if caret is on the line
-// and background color is set for that, or if a marker is defined that forces its background
-// color onto the line, or if a marker is defined but has no selection margin in which to
+// See if something overrides the line background colour:  Either if caret is on the line
+// and background colour is set for that, or if a marker is defined that forces its background
+// colour onto the line, or if a marker is defined but has no selection margin in which to
 // display itself (as long as it's not an SC_MARK_EMPTY marker).  These are checked in order
 // with the earlier taking precedence.  When multiple markers cause background override,
-// the color for the highest numbered one is used.
+// the colour for the highest numbered one is used.
 ColourOptional ViewStyle::Background(int marksOfLine, bool caretActive, bool lineContainsCaret) const {
 	ColourOptional background;
 	if (!caretLineFrame && (caretActive || alwaysShowCaretLineBackground) && showCaretLineBackground &&
@@ -507,16 +478,16 @@ ColourOptional ViewStyle::Background(int marksOfLine, bool caretActive, bool lin
 	return background;
 }
 
-bool ViewStyle::SelectionBackgroundDrawn() const {
+bool ViewStyle::SelectionBackgroundDrawn() const noexcept {
 	return selColours.back.isSet &&
 		((selAlpha == SC_ALPHA_NOALPHA) || (selAdditionalAlpha == SC_ALPHA_NOALPHA));
 }
 
-bool ViewStyle::WhitespaceBackgroundDrawn() const {
+bool ViewStyle::WhitespaceBackgroundDrawn() const noexcept {
 	return (viewWhitespace != wsInvisible) && (whitespaceColours.back.isSet);
 }
 
-bool ViewStyle::WhiteSpaceVisible(bool inIndent) const {
+bool ViewStyle::WhiteSpaceVisible(bool inIndent) const noexcept {
 	return (!inIndent && viewWhitespace == wsVisibleAfterIndent) ||
 		(inIndent && viewWhitespace == wsVisibleOnlyInIndent) ||
 		viewWhitespace == wsVisibleAlways;
@@ -529,7 +500,7 @@ ColourDesired ViewStyle::WrapColour() const {
 		return styles[STYLE_DEFAULT].fore;
 }
 
-bool ViewStyle::SetWrapState(int wrapState_) {
+bool ViewStyle::SetWrapState(int wrapState_) noexcept {
 	WrapMode wrapStateWanted;
 	switch (wrapState_) {
 	case SC_WRAP_WORD:
@@ -550,32 +521,41 @@ bool ViewStyle::SetWrapState(int wrapState_) {
 	return changed;
 }
 
-bool ViewStyle::SetWrapVisualFlags(int wrapVisualFlags_) {
+bool ViewStyle::SetWrapVisualFlags(int wrapVisualFlags_) noexcept {
 	const bool changed = wrapVisualFlags != wrapVisualFlags_;
 	wrapVisualFlags = wrapVisualFlags_;
 	return changed;
 }
 
-bool ViewStyle::SetWrapVisualFlagsLocation(int wrapVisualFlagsLocation_) {
+bool ViewStyle::SetWrapVisualFlagsLocation(int wrapVisualFlagsLocation_) noexcept {
 	const bool changed = wrapVisualFlagsLocation != wrapVisualFlagsLocation_;
 	wrapVisualFlagsLocation = wrapVisualFlagsLocation_;
 	return changed;
 }
 
-bool ViewStyle::SetWrapVisualStartIndent(int wrapVisualStartIndent_) {
+bool ViewStyle::SetWrapVisualStartIndent(int wrapVisualStartIndent_) noexcept {
 	const bool changed = wrapVisualStartIndent != wrapVisualStartIndent_;
 	wrapVisualStartIndent = wrapVisualStartIndent_;
 	return changed;
 }
 
-bool ViewStyle::SetWrapIndentMode(int wrapIndentMode_) {
+bool ViewStyle::SetWrapIndentMode(int wrapIndentMode_) noexcept {
 	const bool changed = wrapIndentMode != wrapIndentMode_;
 	wrapIndentMode = wrapIndentMode_;
 	return changed;
 }
 
 bool ViewStyle::IsBlockCaretStyle() const noexcept {
-	return (caretStyle == CARETSTYLE_BLOCK) || (caretStyle & CARETSTYLE_OVERSTRIKE_BLOCK) != 0;
+	return ((caretStyle & CARETSTYLE_INS_MASK) == CARETSTYLE_BLOCK) ||
+		(caretStyle & CARETSTYLE_OVERSTRIKE_BLOCK) != 0;
+}
+
+bool ViewStyle::DrawCaretInsideSelection(bool inOverstrike, bool imeCaretBlockOverride) const noexcept {
+	if (caretStyle & CARETSTYLE_BLOCK_AFTER)
+		return false;
+	return ((caretStyle & CARETSTYLE_INS_MASK) == CARETSTYLE_BLOCK) ||
+		(inOverstrike && (caretStyle & CARETSTYLE_OVERSTRIKE_BLOCK) != 0) ||
+		imeCaretBlockOverride;
 }
 
 ViewStyle::CaretShape ViewStyle::CaretShapeForMode(bool inOverstrike) const noexcept {

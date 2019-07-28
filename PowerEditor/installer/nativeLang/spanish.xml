@@ -1041,10 +1041,12 @@ Es necesario darle otro."/>
 			<ColumnType name="Tipo"/>
 		</WindowsDlg>
 		<AsciiInsertion>
-			<PanelTitle name="Panel de entrada ASCII"/>
+			<PanelTitle name="Panel de entrada Códigos ASCII"/>
 			<ColumnVal name="Valor"/>
 			<ColumnHex name="Hex"/>
 			<ColumnChar name="Carácter"/>
+			<ColumnHtmlNumber name="Número HTML"/>
+			<ColumnHtmlName name="Código HTML"/>
 		</AsciiInsertion>
 		<DocumentMap>
 			<PanelTitle name="Mapa de documento"/>

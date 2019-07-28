@@ -26,6 +26,7 @@
 #include <ctype.h>
 
 #include <string>
+#include <vector>
 #include <map>
 
 #include "ILexer.h"

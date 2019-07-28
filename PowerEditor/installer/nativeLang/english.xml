@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="English" filename="english.xml" version="7.6.5">
+    <Native-Langue name="English" filename="english.xml" version="7.7.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -384,6 +384,8 @@
                 <Item id="1641" name="Find All in Current Document"/>
                 <Item id="1686" name="Transparenc&amp;y"/>
                 <Item id="1703" name="&amp;. matches newline"/>
+				<Item id="1721" name="▲"/>
+                <Item id="1723" name="▼ Find Next"/>
             </Find>
 
             <FindCharsInRange title="Find Characters in Range...">
@@ -1010,7 +1012,7 @@ Continue?"/>
             <DeleteFileFailed title="Delete File" message="Delete File failed"/>
 
             <NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.
-Are you sure to open them?"/>
+Are you sure you want to open them?"/>
             <SettingsOnCloudError title="Settings on Cloud" message="It seems the path of settings on cloud is set on a read only drive,
 or on a folder needed privilege right for writing access.
 Your settings on cloud will be canceled. Please reset a coherent value via Preference dialog."/>
@@ -1079,6 +1081,10 @@ Do you want to launch Notepad++ in Administrator mode?"/>
 Do you want to launch Notepad++ in Administrator mode?"/>
             <OpenInAdminModeFailed title="Open in Administrator mode failed" message="Notepad++ cannot be opened in Administrator mode."/>
             <ViewInBrowser title="View Current File in Browser" message="Application cannot be found in your system."/>
+            <ExitToUpdatePlugins title="Notepad++ is about to exit" message="If you click YES, you will quit Notepad++ to continue the operations.
+Notepad++ will be restarted after all the operations are terminated.
+Continue?"/>
+            <NeedToRestartToLoadPlugins title="Notepad++ need to be relaunched" message="You have to restart Notepad++ to load plugins you installed."/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Clipboard History"/>
@@ -1094,10 +1100,12 @@ Do you want to launch Notepad++ in Administrator mode?"/>
             <ColumnType name="Type"/>
         </WindowsDlg>
         <AsciiInsertion>
-            <PanelTitle name="ASCII Insertion Panel"/>
+            <PanelTitle name="ASCII Codes Insertion Panel"/>
             <ColumnVal name="Value"/>
             <ColumnHex name="Hex"/>
             <ColumnChar name="Character"/>
+            <ColumnHtmlNumber name="HTML Number"/>
+            <ColumnHtmlName name="HTML Code"/>
         </AsciiInsertion>
         <DocumentMap>
             <PanelTitle name="Document Map"/>
@@ -1226,6 +1234,17 @@ Do you want to launch Notepad++ in Administrator mode?"/>
             <userdefined-title-rename value="Rename Current Language Name"/>
             <autocomplete-nb-char value="Nb char: "/>
             <edit-verticaledge-nb-col value="Nb of Column:"/>
+            <summary value="Summary"/>
+            <summary-filepath value="Full file path: "/>
+            <summary-filecreatetime value="Created: "/>
+            <summary-filemodifytime value="Modified: "/>
+            <summary-nbchar value="Characters (without line endings): "/>
+            <summary-nbword value="Words: "/>
+            <summary-nbline value="Lines: "/>
+            <summary-nbbyte value="Document length: "/>
+            <summary-nbsel1 value=" selected characters ("/>
+            <summary-nbsel2 value=" bytes) in "/>
+            <summary-nbrange value=" ranges"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

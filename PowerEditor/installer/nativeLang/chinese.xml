@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="繁體中文/正體中文" filename="chinese.xml" version="7.6.5">
+    <Native-Langue name="繁體中文/正體中文" filename="chinese.xml" version="7.7.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -385,6 +385,8 @@
                 <Item id="1641" name="在目前文件中全部尋找"/>
                 <Item id="1686" name="透明"/>
                 <Item id="1703" name="「.」包含換行"/>
+                <Item id="1721" name="▲"/>
+                <Item id="1723" name="▼ 找下一個"/>
             </Find>
             <FindCharsInRange title="以字元編號搜尋字元">
                 <Item id="2"    name="關閉"/>
@@ -1054,6 +1056,10 @@
             <UDLRemoveCurrentLang title="刪除語言" message="您確定要刪除目前的自訂程式語言嗎？"/>
             <SCMapperDoDeleteOrNot title="刪除快捷鍵" message="您確定要刪除這個快捷鍵嗎？"/>
             <FindCharRangeValueError title="輸入值範圍錯誤" message="您輸入的值應在 0 到 255 之間。如要搜尋字元編號大於 255 的字元，請在「尋找」對話方塊中使用「規則運算式」。"/>
+            <ExitToUpdatePlugins title="關閉 Notepad++" message="如果您的回答是肯定的，Notepad ++將自動關閉以進行後置安裝。
+所有的後置安裝終止後，Notepad ++將重新啟動。
+繼續嗎？"/>
+            <NeedToRestartToLoadPlugins title="重新啟動 Notepad++" message="您必須重新啟動 Notepad++ 才能載入已安裝的外掛模組。"/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="剪貼簿記錄"/>
@@ -1185,6 +1191,18 @@
             <finder-select-all value="全部選取"/>
             <finder-clear-all value="全部清除"/>
             <finder-open-all value="全部開啟"/>
+            <summary value="統計資料"/>
+            <summary-filepath value="完整文件路徑： "/>
+            <summary-filecreatetime value="建檔時間： "/>
+            <summary-filemodifytime value="修改時間： "/>
+            <summary-filelen value="文件長度（以位元為單位）： "/>
+            <summary-nbchar value="字元數（不含行結尾）： "/>
+            <summary-nbword value="字數： "/>
+            <summary-nbline value="行數： "/>
+            <summary-nbbyte value="文件長度： "/>
+            <summary-nbsel1 value=" 個選取字元（ "/>
+            <summary-nbsel2 value=" 位元）在 "/>
+            <summary-nbrange value=" 個選取範圍中"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

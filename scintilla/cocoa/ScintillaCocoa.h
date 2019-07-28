@@ -32,6 +32,7 @@
 #include "PropSetSimple.h"
 #endif
 
+#include "CharacterCategory.h"
 #include "Position.h"
 #include "UniqueString.h"
 #include "SplitVector.h"
@@ -196,7 +197,7 @@ public:
 	void ObserverRemove();
 	void IdleWork() override;
 	void QueueIdleWork(WorkNeeded::workItems items, Sci::Position upTo) override;
-	ptrdiff_t InsertText(NSString *input);
+	ptrdiff_t InsertText(NSString *input, CharacterSource charSource);
 	NSRange PositionsFromCharacters(NSRange rangeCharacters) const;
 	NSRange CharactersFromPositions(NSRange rangePositions) const;
 	NSString *RangeTextAsString(NSRange rangePositions) const;

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v7.7.1:
-- added new lines and fix
+Updated to v7.7.2:
+- added new lines of Summary
+- added lines Up and Down
+- added others lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="7.7.1">
+	<Native-Langue name="Русский" filename="russian.xml" version="7.7.2">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -393,6 +395,8 @@ Updated to v7.7.1:
 				<Item id="1688" name="Всегда"/>
 				<Item id="1703" name="и новые строки"/>
 				<Item id="1722" name="Обратное направление поиска"/>
+				<Item id="1721" name="▲"/> 
+				<Item id="1723" name="▼"/> 
 			</Find>
 
 			<FindCharsInRange title = "Найти символы в диапазоне....">
@@ -1005,7 +1009,6 @@ Updated to v7.7.1:
 			<SortingError             title="Ошибка сортировки"               message="Невозможно выполнить числовую сортировку из-за строки $INT_REPLACE$."/>
 			<ColumnModeTip            title="Режим Столбца"                   message="Пожалуйста, используйте &quot;ALT+Выделение Мышкой&quot; или &quot;Alt+Shift+Клавиши Стрелок&quot; для переключения в режим столбца."/>
 			<BufferInvalidWarning     title="Ошибка Сохранения"               message="Не удается сохранить: Недопустимый буфер."/>
-			<!-- <DoSaveOrNot              title="Сохранение"                      message="Сохранить файл &quot;$STR_REPLACE$&quot;?"/> -->
 			<DoCloseOrNot             title="Удержание несуществующего файла" message="Файла &quot;$STR_REPLACE$&quot; больше не существует.&#x0A;Удержать этот файл в редакторе?"/>
 			<DoDeleteOrNot            title="Удаление файла"                  message="Файл &quot;$STR_REPLACE$&quot;&#x0A;будет закрыт и удалён в Корзину.&#x0A;Продолжить?"/>
 			<NoBackupDoSaveFile       title="Сохранение"                      message="Файл резервной копии не найден (удалён извне).&#x0A;Сохраните его, иначе ваши данные будут потеряны.&#x0A;Вы хотите сохранить файл &quot;$STR_REPLACE$&quot; ?"/>
@@ -1059,10 +1062,12 @@ Updated to v7.7.1:
 			<ColumnType name="Тип"/>
 		</WindowsDlg>
 		<AsciiInsertion>
-			<PanelTitle name="Таблица ASCII символов"/>
+			<PanelTitle name="Таблица ASCII кодов"/>
 			<ColumnVal  name="Значение"/>
 			<ColumnHex  name="Hex"/>
 			<ColumnChar name="Символ"/>
+			<ColumnHtmlNumber name="HTML Номер"/> 
+			<ColumnHtmlName name="HTML Код"/> 
 		</AsciiInsertion>
 		<DocumentMap>
 			<PanelTitle name="Карта Документа"/>
@@ -1191,6 +1196,17 @@ Updated to v7.7.1:
 			<userdefined-title-rename    value="Изменить Имя Синтаксиса"/>
 			<autocomplete-nb-char        value="Символ: "/>
 			<edit-verticaledge-nb-col    value="От символа:"/>
+			<summary value="Информация о Файле"/> 
+			<summary-filepath value="Полный путь к файлу: "/> 
+			<summary-filecreatetime value="Создан: "/> 
+			<summary-filemodifytime value="Обновлён: "/> 
+			<summary-nbchar value="Символов (без окончания строки): "/> 
+			<summary-nbword value="Слов: "/> 
+			<summary-nbline value="Строк: "/> 
+			<summary-nbbyte value="Длина документа: "/> 
+			<summary-nbsel1 value=" выделенных символов ("/> 
+			<summary-nbsel2 value=" байт) в "/> 
+			<summary-nbrange value=" диапазоне(ах)"/> 
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

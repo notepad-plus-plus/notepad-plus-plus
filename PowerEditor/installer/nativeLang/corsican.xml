@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     History of Corsican translation for Notepad++
-		- Updated on July 7th, 2019 by Patriccollu di Santa Maria è Sichè for version 7.7.1
+		- Updated on July 29th, 2019 by Patriccollu di Santa Maria è Sichè for version 7.7.2
 		- Updated on March 29th, 2019 by Patriccollu di Santa Maria è Sichè for version 7.6.5
 		- Updated on March 11th, 2018 by Patriccollu di Santa Maria è Sichè for version 7.5.5
 		- Updated on August 19th, 2017 by Patriccollu di Santa Maria è Sichè for version 7.5
@@ -12,7 +12,7 @@
 	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/corsican.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="Corsu" filename="corsican.xml" version="7.7.1">
+    <Native-Langue name="Corsu" filename="corsican.xml" version="7.7.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -398,6 +398,8 @@
                 <Item id="1641" name="Circà tutti in ducumentu attuale"/>
                 <Item id="1686" name="&amp;Trasparenza"/>
                 <Item id="1703" name="&amp;. cum’è nova linea"/>
+                <Item id="1721" name="▲"/>
+                <Item id="1723" name="▼ Circà seguente"/>
             </Find>
 
             <FindCharsInRange title="Circà caratteri in una stesa…">
@@ -1114,10 +1116,12 @@ Cuntinuà ?"/>
             <ColumnType name="Tipu"/>
         </WindowsDlg>
         <AsciiInsertion>
-            <PanelTitle name="Pannellu d’inserzione ASCII"/>
+            <PanelTitle name="Pannellu d’inserzione di codice ASCII"/>
             <ColumnVal name="Valore"/>
             <ColumnHex name="Esadecimale"/>
             <ColumnChar name="Caratteru"/>
+            <ColumnHtmlNumber name="Numeru HTML"/>
+            <ColumnHtmlName name="Codice HTML"/>
         </AsciiInsertion>
         <DocumentMap>
             <PanelTitle name="Cartugrafia di u ducumentu"/>
@@ -1246,6 +1250,17 @@ Cuntinuà ?"/>
             <userdefined-title-rename value="Rinumà u nome di linguaghju attuale"/>
             <autocomplete-nb-char value="N° carat. : "/>
             <edit-verticaledge-nb-col value="N° di culonne :"/>
+            <summary value="Statistiche"/>
+            <summary-filepath value="Chjassu d’accessu : "/>
+            <summary-filecreatetime value="Data di creazione : "/>
+            <summary-filemodifytime value="Data di mudificazione : "/>
+            <summary-nbchar value="Caratteri (senza fine di linea) : "/>
+            <summary-nbword value="Parolle : "/>
+            <summary-nbline value="Linee : "/>
+            <summary-nbbyte value="Dimensione di u ducumentu : "/>
+            <summary-nbsel1 value=" caratteri selezziunati ("/>
+            <summary-nbsel2 value=" ottetti) in "/>
+            <summary-nbrange value=" selezzioni"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

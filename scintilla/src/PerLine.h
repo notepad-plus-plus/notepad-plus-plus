@@ -17,7 +17,7 @@ namespace Scintilla {
 struct MarkerHandleNumber {
 	int handle;
 	int number;
-	MarkerHandleNumber(int handle_, int number_) : handle(handle_), number(number_) {}
+	MarkerHandleNumber(int handle_, int number_) noexcept : handle(handle_), number(number_) {}
 };
 
 /**

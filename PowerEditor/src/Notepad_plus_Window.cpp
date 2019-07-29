@@ -185,8 +185,9 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 		_notepad_plus_plus_core._pTrayIco->doTrayIcon(ADD);
 	}
 
+	std::vector<generic_string> fns;
 	if (cmdLine)
-		_notepad_plus_plus_core.loadCommandlineParams(cmdLine, cmdLineParams);
+		fns = _notepad_plus_plus_core.loadCommandlineParams(cmdLine, cmdLineParams);
 
 	std::vector<generic_string> fileNames;
 	std::vector<generic_string> patterns;
@@ -234,8 +235,16 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 		}
 	}
 
+	// Restore all dockable panels from the last session
 	for (size_t i = 0, len = _notepad_plus_plus_core._internalFuncIDs.size() ; i < len ; ++i)
 		::SendMessage(_hSelf, WM_COMMAND, _notepad_plus_plus_core._internalFuncIDs[i], 0);
+
+	// Launch folder as workspace after all this dockable panel being restored from the last session
+	// To avoid dockable panel toggle problem.
+	if (cmdLineParams->_openFoldersAsWorkspace)
+	{
+		_notepad_plus_plus_core.launchFileBrowser(fns, true);
+	}
 
 	// Notify plugins that Notepad++ is ready
 	SCNotification scnN;

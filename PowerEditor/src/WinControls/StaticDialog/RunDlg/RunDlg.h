@@ -41,7 +41,7 @@ class Command {
 public :
 	Command(){};
 	explicit Command(TCHAR *cmd) : _cmdLine(cmd){};
-	explicit Command(generic_string cmd) : _cmdLine(cmd){};
+	explicit Command(const generic_string& cmd) : _cmdLine(cmd){};
 	HINSTANCE run(HWND hWnd);
 	HINSTANCE run(HWND hWnd, const TCHAR* cwd);
 

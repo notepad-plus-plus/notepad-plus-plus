@@ -39,6 +39,8 @@ def normalisedName(s, options, role=None):
 
 typeAliases = {
 	"position": "int",
+	"line": "int",
+	"pointer": "int",
 	"colour": "int",
 	"keymod": "int",
 	"string": "const char *",
@@ -49,21 +51,26 @@ typeAliases = {
 def cppAlias(s):
 	if s in typeAliases:
 		return typeAliases[s]
+	elif Face.IsEnumeration(s):
+		return "int"
 	else:
 		return s
 
-understoodTypes = ["", "void", "int", "bool", "position",
+understoodTypes = ["", "void", "int", "bool", "position", "line", "pointer",
 	"colour", "keymod", "string", "stringresult", "cells"]
+
+def understoodType(t):
+	return t in understoodTypes or Face.IsEnumeration(t)
 
 def checkTypes(name, v):
 	understandAllTypes = True
-	if v["ReturnType"] not in understoodTypes:
+	if not understoodType(v["ReturnType"]):
 		#~ print("Do not understand", v["ReturnType"], "for", name)
 		understandAllTypes = False
-	if v["Param1Type"] not in understoodTypes:
+	if not understoodType(v["Param1Type"]):
 		#~ print("Do not understand", v["Param1Type"], "for", name)
 		understandAllTypes = False
-	if v["Param2Type"] not in understoodTypes:
+	if not understoodType(v["Param2Type"]):
 		#~ print("Do not understand", v["Param2Type"], "for", name)
 		understandAllTypes = False
 	return understandAllTypes

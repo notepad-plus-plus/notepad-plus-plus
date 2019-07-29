@@ -482,7 +482,7 @@ void WordStyleDlg::loadLangListFromNppParam()
 	setStyleListFromLexer(index2Begin);
 }
 
-void WordStyleDlg::updateThemeName(generic_string themeName)
+void WordStyleDlg::updateThemeName(const generic_string& themeName)
 {
 	NppParameters *pNppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = (NppGUI & )pNppParam->getNppGUI();
@@ -834,9 +834,9 @@ void WordStyleDlg::setVisualFromStyleList()
 		LangType lType = pNppParams->getLangIDFromStr(lexerStyler.getLexerName());
 		if (lType == L_TEXT)
 		{
-			generic_string str = lexerStyler.getLexerName();
-			str += TEXT(" is not defined in NppParameters::getLangIDFromStr()");
-				printStr(str.c_str());
+			generic_string lexerNameStr = lexerStyler.getLexerName();
+			lexerNameStr += TEXT(" is not defined in NppParameters::getLangIDFromStr()");
+				printStr(lexerNameStr.c_str());
 		}
 		const TCHAR *kws = pNppParams->getWordList(lType, style._keywordClass);
 		if (!kws)

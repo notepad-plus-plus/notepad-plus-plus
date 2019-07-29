@@ -182,7 +182,7 @@ private :
 	void updateFontSize();
 	void updateUserKeywords();
 	void switchToTheme();
-	void updateThemeName(generic_string themeName);
+	void updateThemeName(const generic_string& themeName);
 
 	void loadLangListFromNppParam();
 

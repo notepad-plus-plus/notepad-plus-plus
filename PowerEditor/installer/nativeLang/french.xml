@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Français" filename="french.xml" version="7.6.5">
+    <Native-Langue name="Français" filename="french.xml" version="7.7.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -380,6 +380,8 @@
                 <Item id="1688" name="persistante"/>
                 <Item id="1703" name="&amp;. comprend ligne nouvelle"/>
                 <Item id="2" name="Annuler"/>
+				<Item id="1721" name="▲"/>
+                <Item id="1723" name="▼ Suivant"/>
             </Find>
 
             <FindCharsInRange title="Rechercher des caractères dans une plage">
@@ -966,6 +968,14 @@
                 <Item id="1718" name="Mode étendu (\n, \r, \t, \0, \x...)"/>
                 <Item id="1720" name="&amp;. comprend ligne nouvelle"/>
             </FindInFinder>
+            <DoSaveOrNot title="Sauvegarder"> 
+                <Item id="1761" name="Sauvegarder le fichier &quot;$STR_REPLACE$&quot; ?"/>
+                <Item id="6" name="Oui"/>
+                <Item id="7" name="Non"/>
+                <Item id="2" name="Annuler"/>
+                <Item id="4" name="Oui pour tout"/>
+                <Item id="5" name="Non pour tout"/>
+            </DoSaveOrNot>
         </Dialog>
         <MessageBox>
             <CannotMoveDoc title="Déplacement vers une nouvelle instance Notepad++" message="Le document est en cours d'utilisation, le sauvegarder puis réessayer."/>
@@ -983,15 +993,14 @@
             <FilePathNotFoundWarning title="Ouvrir" message="Le fichier que vous essayez d'ouvrir n'existe pas."/>
             <SessionFileInvalidError title="Impossible de charger la session" message="Le fichier de session est endommagé ou non valide."/>
             <DroppingFolderAsProjectModeWarning title="Action invalide" message="Vous ne pouvez déposer que des fichiers ou des dossiers mais pas les deux, car vous êtes en mode Projet.
-vous devez activer &quot;Open all files of folder instead of launching Folder as Workspace on folder dropping&quot; in &quot;Default Directory&quot; section of Preferences dialog to make this operation work."/>
+Pour rendre cette opération possible, vous devez activer &quot;Lors de glisser-déposer d'un dossier, ouvrir tous les fichiers dans le dossier&quot; à la page &quot;Dossier par défaut&quot; du dialogue Préférences."/>
             <SortingError title="Erreur de tri" message="Impossible d'effectuer le tri numérique à cause de la ligne $INT_REPLACE$."/>
             <BufferInvalidWarning title="Échec de sauvegarde" message="Cannot save: Buffer is invalid."/>
-            <DoSaveOrNot title="Sauvegarder" message="Sauvegarder le fichier &quot;$STR_REPLACE$&quot; ?"/>
             <DoCloseOrNot title="Conserver un fichier non existant" message="Le fichier &quot;$STR_REPLACE$&quot; n'existe plus.
 Conserver ce fichier dans l'éditeur ?"/>
             <DoDeleteOrNot title="Supprimer fichier" message="Le fichier &quot;$STR_REPLACE$&quot;
 sera déplacé dans votre corbeille et ce document sera fermé.
-Continue?"/>
+Voulez-vous continuer ?"/>
             <NoBackupDoSaveFile title="Sauvegarde" message="Votre fichier de sauvegarde ne peut pas être trouvé (effacé de l'extérieur).
 Sauvegardez-le sinon vos données seront perdues
 Voulez-vous enregistrer le fichier &quot;$STR_REPLACE$&quot; ?"/>
@@ -1009,13 +1018,13 @@ Do you want to go to Notepad++ page to download the latest version?"/>
             <DocTooDirtyToMonitor title="Monitoring problem" message="The document is dirty. Please save the modification before monitoring it."/>
             <DocNoExistToMonitor title="Monitoring problem" message="The file should exist to be monitored."/>
             <FileTooBigToOpen title="File size problem" message="File is too big to be opened by Notepad++"/>
-            <CreateNewFileOrNot title="Create new file" message="&quot;$INT_REPLACE$&quot; doesn't exist. Create it?."/>
-            <CreateNewFileError title="Create new file" message="Cannot create the file &quot;$INT_REPLACE$&quot;."/>
-            <OpenFileError title="ERREUR" message="Can not open file &quot;$INT_REPLACE$&quot;."/>
-            <FileBackupFailed title="File Backup Failed" message="The previous version of the file could not be saved into the backup directory at &quot;$INT_REPLACE$&quot;.
+            <CreateNewFileOrNot title="Create new file" message="&quot;$STR_REPLACE$&quot; doesn't exist. Create it?."/>
+            <CreateNewFileError title="Create new file" message="Cannot create the file &quot;$STR_REPLACE$&quot;."/>
+            <OpenFileError title="ERREUR" message="Cannot open file &quot;$STR_REPLACE$&quot;."/>
+            <FileBackupFailed title="File Backup Failed" message="The previous version of the file could not be saved into the backup directory at &quot;$STR_REPLACE$&quot;.
 
 Do you want to save the current file anyways?"/>
-            <LoadStylersFailed title="Load stylers.xml failed" message="Load &quot;$INT_REPLACE$&quot; failed!"/>
+            <LoadStylersFailed title="Load stylers.xml failed" message="Load &quot;$STR_REPLACE$&quot; failed!"/>
             <LoadLangsFailed title="Configurator" message="Load langs.xml failed!
 Do you want to recover your langs.xml?"/>
             <LoadLangsFailedFinal title="Configurator" message="Load langs.xml failed!"/>
@@ -1044,6 +1053,10 @@ Voulez-vous lancer Notepad++ en mode Administrateur ?"/>
             <OpenInAdminModeWithoutCloseCurrent title="L'enregistrement a échoué" message="Le fichier ne peut pas être enregistré et il est peut-être protégé.
 Voulez-vous lancer Notepad++ en mode Administrateur ?"/>
             <OpenInAdminModeFailed title="L'ouverture en mode Administrateur a échoué" message="Notepad++ ne peut pas être lancé en mode Administrateur."/>
+			<ExitToUpdatePlugins title="Notepad++ sera fermé" message="Si vous cliquez Oui, vous allez quitter Notepad++ pour poursuivre les operations.
+Notepad++ sera relancé après.
+Voulez-vous les poursuivez ?"/>
+            <NeedToRestartToLoadPlugins title="Vous devez redémarrer Notepad++" message="Vous devez redémarrer Notepad++ pour charger les plugins installés."/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Historique du presse-papiers"/>
@@ -1059,10 +1072,12 @@ Voulez-vous lancer Notepad++ en mode Administrateur ?"/>
             <ColumnType name="Type"/>
         </WindowsDlg>
         <AsciiInsertion>
-            <PanelTitle name="Panneau des caractères ASCII"/>
+            <PanelTitle name="Panneau des codes ASCII"/>
             <ColumnVal name="Valeur"/>
             <ColumnHex name="Hexa"/>
             <ColumnChar name="Caractère"/>
+            <ColumnHtmlNumber name="Numéro HTML"/>
+            <ColumnHtmlName name="Code HTML"/>
         </AsciiInsertion>
         <DocumentMap>
             <PanelTitle name="Plan du Document"/>
@@ -1177,6 +1192,17 @@ Voulez-vous lancer Notepad++ en mode Administrateur ?"/>
             <finder-select-all value="Sélectionner tout"/>
             <finder-clear-all value="Effacer tout"/>
             <finder-open-all value="Ouvrir tout"/>
+            <summary value="Statistiques"/>
+            <summary-filepath value="Chemin d'accès : "/>
+            <summary-filecreatetime value="Date de Création : "/>
+            <summary-filemodifytime value="Date de Modification : "/>
+            <summary-nbchar value="Caracters (sans fin de ligne) : "/>
+            <summary-nbword value="Mots : "/>
+            <summary-nbline value="Lignes : "/>
+            <summary-nbbyte value="Taille du document : "/>
+            <summary-nbsel1 value=" caracters sélectionnés ("/>
+            <summary-nbsel2 value=" octets) dans "/>
+            <summary-nbrange value=" sélections"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

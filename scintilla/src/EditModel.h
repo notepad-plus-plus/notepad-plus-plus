@@ -37,11 +37,12 @@ public:
 	bool primarySelection;
 
 	enum IMEInteraction { imeWindowed, imeInline } imeInteraction;
-
+	enum class CharacterSource { directInput, tentativeInput, imeResult };
 	enum class Bidirectional { bidiDisabled, bidiL2R, bidiR2L  } bidirectional;
 
 	int foldFlags;
 	int foldDisplayTextStyle;
+	UniqueString defaultFoldDisplayText;
 	std::unique_ptr<IContractionState> pcs;
 	// Hotspot support
 	Range hotspot;
@@ -65,6 +66,9 @@ public:
 	virtual Range GetHotSpotRange() const noexcept = 0;
 	bool BidirectionalEnabled() const;
 	bool BidirectionalR2L() const;
+	void SetDefaultFoldDisplayText(const char *text);
+	const char *GetDefaultFoldDisplayText() const noexcept;
+	const char *GetFoldDisplayText(Sci::Line lineDoc) const;
 };
 
 }

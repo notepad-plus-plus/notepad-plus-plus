@@ -179,7 +179,6 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					if (pBuf != currentBufMain && pBuf != currentBufSub) // if hover on other tab
 					{
 						_documentPeeker.doDialog(p, pBuf, *(const_cast<ScintillaEditView*>(pTabDocView->getScintillaEditView())));
-						_pEditView->getFocus();
 					}
 					else  // if hover on current active tab
 					{
@@ -471,15 +470,11 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				LPNMMOUSE lpnm = (LPNMMOUSE)notification;
 				if (lpnm->dwItemSpec == DWORD(STATUSBAR_DOC_TYPE))
 				{
-					POINT p;
-					::GetCursorPos(&p);
 					HMENU hLangMenu = ::GetSubMenu(_mainMenuHandle, MENUINDEX_LANGUAGE);
 					TrackPopupMenu(hLangMenu, 0, p.x, p.y, 0, _pPublicInterface->getHSelf(), NULL);
 				}
 				else if (lpnm->dwItemSpec == DWORD(STATUSBAR_EOF_FORMAT))
 				{
-					POINT p;
-					::GetCursorPos(&p);
 					MenuPosition & menuPos = getMenuPosition("edit-eolConversion");
 					HMENU hEditMenu = ::GetSubMenu(_mainMenuHandle, menuPos._x);
 					if (!hEditMenu)

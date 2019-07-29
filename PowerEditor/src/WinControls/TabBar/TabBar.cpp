@@ -153,7 +153,8 @@ void TabBar::activateAt(int index) const
 {
 	if (getCurrentTabIndex() != index)
 	{
-		// TCS_BUTTONS needs both set or two tabs can appear selected
+		// TCM_SETCURFOCUS is busted on WINE/ReactOS for single line (non-TCS_BUTTONS) tabs...
+		// We need it on Windows for multi-line tabs or multiple tabs can appear pressed.
 		if (::GetWindowLongPtr(_hSelf, GWL_STYLE) & TCS_BUTTONS)
 		{
 			::SendMessage(_hSelf, TCM_SETCURFOCUS, index, 0);
@@ -654,8 +655,9 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 					_nSrcTab = _nTabDragged = tabFocused;
 					_isDragging = true;
 					
-					// ::SetCapture is required for normal non-TLS_BUTTONS.
-					if (!(::GetWindowLongPtr(_hSelf, GWL_STYLE) & TCS_BUTTONS))
+					// TLS_BUTTONS is already captured on Windows and will break on ::SetCapture
+					// However, this is not the case for WINE/ReactOS and must ::SetCapture
+					if (::GetCapture() != _hSelf)
 					{
 						::SetCapture(hwnd);
 					}
@@ -669,7 +671,6 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			if (_isDragging)
 			{
                 exchangeItemData(p);
-				::CallWindowProc(_tabBarDefaultProc, hwnd, WM_LBUTTONDOWN, wParam, lParam);
 
 				// Get cursor position of "Screen"
 				// For using the function "WindowFromPoint" afterward!!!
@@ -775,10 +776,16 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			int xPos = LOWORD(lParam);
 			int yPos = HIWORD(lParam);
 			int currentTabOn = getTabIndexAt(xPos, yPos);
-            if (_isDragging)
+			if (_isDragging)
 			{
 				if (::GetCapture() == _hSelf)
+				{
 					::ReleaseCapture();
+				}
+				else
+				{
+					_isDragging = false;
+				}
 
 				notify(_isDraggingInside?TCN_TABDROPPED:TCN_TABDROPPEDOUTSIDE, currentTabOn);
 				return TRUE;
@@ -1141,14 +1148,15 @@ void TabBarPlus::draggingCursor(POINT screenPoint)
 
 void TabBarPlus::setActiveTab(int tabIndex)
 {
-	::SendMessage(_hSelf, TCM_SETCURFOCUS, tabIndex, 0);
-
-	// the TCS_BUTTONS style does not automatically send TCM_SETCURSEL & TCN_SELCHANGE
+	// TCM_SETCURFOCUS is busted on WINE/ReactOS for single line (non-TCS_BUTTONS) tabs...
+	// We need it on Windows for multi-line tabs or multiple tabs can appear pressed.
 	if (::GetWindowLongPtr(_hSelf, GWL_STYLE) & TCS_BUTTONS)
 	{
-		::SendMessage(_hSelf, TCM_SETCURSEL, tabIndex, 0);
-		notify(TCN_SELCHANGE, tabIndex);
+		::SendMessage(_hSelf, TCM_SETCURFOCUS, tabIndex, 0);
 	}
+
+	::SendMessage(_hSelf, TCM_SETCURSEL, tabIndex, 0);
+	notify(TCN_SELCHANGE, tabIndex);
 }
 
 void TabBarPlus::exchangeTabItemData(int oldTab, int newTab)
@@ -1188,6 +1196,9 @@ void TabBarPlus::exchangeTabItemData(int oldTab, int newTab)
 
 	// Tell Notepad_plus to notifiy plugins that a D&D operation was done (so doc index has been changed)
 	::SendMessage(_hParent, NPPM_INTERNAL_DOCORDERCHANGED, 0, oldTab);
+
+	//2. set to focus
+	setActiveTab(newTab);
 }
 
 void TabBarPlus::exchangeItemData(POINT point)

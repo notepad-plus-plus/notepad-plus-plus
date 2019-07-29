@@ -565,6 +565,14 @@ LRESULT Notepad_plus::init(HWND hwnd)
 			::GetMenuString(_mainMenuHandle, csc.getID(), menuName, 64, MF_BYCOMMAND);
 			csc.setName(purgeMenuItemString(menuName, true).c_str());
 		}
+		else
+		{
+			// The menu name is already present (e.g. "Restore recent close file")
+			// Now get the localized name if possible
+			generic_string localizedMenuName = _nativeLangSpeaker.getNativeLangMenuString(csc.getID());
+			if(!localizedMenuName.empty())
+				csc.setName(purgeMenuItemString(localizedMenuName.c_str(), true).c_str());
+		}
 	}
 	//Translate non-menu shortcuts
 	_nativeLangSpeaker.changeShortcutLang();
@@ -1862,15 +1870,15 @@ void Notepad_plus::filePrint(bool showDialog)
 	printer.doPrint();
 }
 
-int Notepad_plus::doSaveOrNot(const TCHAR *fn)
+int Notepad_plus::doSaveOrNot(const TCHAR* fn, bool isMulti)
 {
-	return _nativeLangSpeaker.messageBox("DoSaveOrNot",
-		_pPublicInterface->getHSelf(),
-		TEXT("Save file \"$STR_REPLACE$\" ?"),
-		TEXT("Save"),
-		MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL,
-		0, // not used
-		fn);
+	DoSaveOrNotBox doSaveOrNotBox;
+	doSaveOrNotBox.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), fn, isMulti);
+	doSaveOrNotBox.doDialog(_nativeLangSpeaker.isRTL());
+	int buttonID = doSaveOrNotBox.getClickedButtonId();
+	doSaveOrNotBox.destroy();
+
+	return buttonID;
 }
 
 int Notepad_plus::doReloadOrNot(const TCHAR *fn, bool dirty)
@@ -2418,7 +2426,7 @@ void Notepad_plus::addHotSpot()
 	std::vector<unsigned char> hotspotPairs; //= _pEditView->GetHotspotPairs();
 
 	unsigned char style_hotspot = 0;
-	unsigned char mask = INDIC1_MASK;
+	unsigned char mask = 0x40; // INDIC1_MASK;
 	// INDIC2_MASK == 255 and it represents MSB bit		
 	// only LEX_HTML and LEX_POSTSCRIPT use use INDIC2_MASK bit internally		
 	// LEX_HTML is using INDIC2_MASK bit even though it has only 127 states, so it is safe to overwrite 8th bit		
@@ -2434,7 +2442,7 @@ void Notepad_plus::addHotSpot()
 	LangType type = _pEditView->getCurrentBuffer()->getLangType();
 
 	if (type == L_HTML || type == L_PHP || type == L_ASP || type == L_JSP)
-		mask = INDIC2_MASK;
+		mask = 0x80; // INDIC2_MASK;
 	else if (type == L_PS)
 		mask = 16;
 
@@ -2669,10 +2677,10 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 			{
 				indentAmountPrevLine = _pEditView->getLineIndent(prevLine);
 
-				auto startPos = _pEditView->execute(SCI_POSITIONFROMLINE, prevLine);
-				auto endPos = _pEditView->execute(SCI_GETLINEENDPOSITION, prevLine);
+				auto startPos2 = _pEditView->execute(SCI_POSITIONFROMLINE, prevLine);
+				auto endPos2 = _pEditView->execute(SCI_GETLINEENDPOSITION, prevLine);
 				_pEditView->execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP | SCFIND_POSIX);
-				_pEditView->execute(SCI_SETTARGETRANGE, startPos, endPos);
+				_pEditView->execute(SCI_SETTARGETRANGE, startPos2, endPos2);
 
 				const char braceExpr[] = "[ \t]*\\{.*";
 
@@ -2680,7 +2688,7 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 				if (posFound != -1 && posFound != -2)
 				{
 					int end = int(_pEditView->execute(SCI_GETTARGETEND));
-					if (end == endPos)
+					if (end == endPos2)
 						indentAmountPrevLine += tabWidth;
 				}
 			}
@@ -3245,7 +3253,6 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 			switchEditViewTo(MAIN_VIEW);
 
 		int filesDropped = ::DragQueryFile(hdrop, 0xffffffff, NULL, 0);
-		BufferID lastOpened = BUFFER_INVALID;
 
 		vector<generic_string> folderPaths;
 		vector<generic_string> filePaths;
@@ -3274,7 +3281,6 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 
 		if (isOldMode || folderPaths.size() == 0) // old mode or new mode + only files
 		{
-
 			BufferID lastOpened = BUFFER_INVALID;
 			for (int i = 0; i < filesDropped; ++i)
 			{
@@ -3305,10 +3311,6 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 			launchFileBrowser(folderPaths);
 		}
 
-		if (lastOpened != BUFFER_INVALID) 
-		{
-			switchToFile(lastOpened);
-		}
 		::DragFinish(hdrop);
 		// Put Notepad_plus to forefront
 		// May not work for Win2k, but OK for lower versions
@@ -5026,7 +5028,7 @@ bool Notepad_plus::str2Cliboard(const generic_string & str2cpy)
 
 //ONLY CALL IN CASE OF EMERGENCY: EXCEPTION
 //This function is destructive
-bool Notepad_plus::emergency(generic_string emergencySavedDir)
+bool Notepad_plus::emergency(const generic_string& emergencySavedDir)
 {
     ::CreateDirectory(emergencySavedDir.c_str(), NULL);
 	return dumpFiles(emergencySavedDir.c_str(), TEXT("File"));
@@ -5332,10 +5334,10 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 	_linkTriggered = true;
 }
 
-void Notepad_plus::loadCommandlineParams(const TCHAR * commandLine, const CmdLineParamsDTO * pCmdParams)
+std::vector<generic_string> Notepad_plus::loadCommandlineParams(const TCHAR * commandLine, const CmdLineParamsDTO * pCmdParams)
 {
 	if (!commandLine || ! pCmdParams)
-		return;
+		return std::vector<generic_string>();
 
 	NppParameters *nppParams = NppParameters::getInstance();
 	FileNameStringSplitter fnss(commandLine);
@@ -5348,7 +5350,7 @@ void Notepad_plus::loadCommandlineParams(const TCHAR * commandLine, const CmdLin
 		{
 			loadSession(session2Load);
 		}
-		return;
+		return std::vector<generic_string>();
 	}
 
  	LangType lt = pCmdParams->_langType;
@@ -5357,12 +5359,20 @@ void Notepad_plus::loadCommandlineParams(const TCHAR * commandLine, const CmdLin
     int cpos = pCmdParams->_pos2go;
 	bool recursive = pCmdParams->_isRecursive;
 	bool readOnly = pCmdParams->_isReadOnly;
+	bool openFoldersAsWorkspace = pCmdParams->_openFoldersAsWorkspace;
+
+	if (openFoldersAsWorkspace)
+	{
+		// All the filepath in argument will be used as folder in workspace
+		// call launchFileBrowser later with fnss
+		return fnss.getFileNames();
+	}
 
 	BufferID lastOpened = BUFFER_INVALID;
 	for (int i = 0, len = fnss.size(); i < len ; ++i)
 	{
 		const TCHAR *pFn = fnss.getFileName(i);
-		if (!pFn) return;
+		if (!pFn) return std::vector<generic_string>();
 
 		BufferID bufID = doOpen(pFn, recursive, readOnly);
 		if (bufID == BUFFER_INVALID)	//cannot open file
@@ -5405,6 +5415,8 @@ void Notepad_plus::loadCommandlineParams(const TCHAR * commandLine, const CmdLin
     {
 		switchToFile(lastOpened);
 	}
+
+	return fnss.getFileNames();
 }
 
 
@@ -5688,8 +5700,18 @@ bool Notepad_plus::reloadLang()
 	for (size_t i = 0; i < len; ++i)
 	{
 		CommandShortcut & csc = shortcuts[i];
-		::GetMenuString(_mainMenuHandle, csc.getID(), menuName, 64, MF_BYCOMMAND);
-		csc.setName(purgeMenuItemString(menuName, true).c_str());
+		// If menu item is not present (e.g. "Restore recent close file" might not present initially)
+		// then fill the localized string directly
+		if (::GetMenuString(_mainMenuHandle, csc.getID(), menuName, 64, MF_BYCOMMAND))
+		{
+			csc.setName(purgeMenuItemString(menuName, true).c_str());
+		}
+		else
+		{
+			generic_string localizedMenuName = _nativeLangSpeaker.getNativeLangMenuString(csc.getID());
+			if (!localizedMenuName.empty())
+				csc.setName(purgeMenuItemString(localizedMenuName.c_str(), true).c_str());
+		}
 	}
 	_accelerator.updateFullMenu();
 
@@ -5891,8 +5913,8 @@ void Notepad_plus::launchAnsiCharPanel()
 
 		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
 		generic_string title_temp = pNativeSpeaker->getAttrNameStr(AI_PROJECTPANELTITLE, "AsciiInsertion", "PanelTitle");
-		static TCHAR title[32];
-		if (title_temp.length() < 32)
+		static TCHAR title[85];
+		if (title_temp.length() < 85)
 		{
 			wcscpy_s(title, title_temp.c_str());
 			data.pszName = title;
@@ -5909,7 +5931,7 @@ void Notepad_plus::launchAnsiCharPanel()
 	_pAnsiCharPanel->display();
 }
 
-void Notepad_plus::launchFileBrowser(const vector<generic_string> & folders)
+void Notepad_plus::launchFileBrowser(const vector<generic_string> & folders, bool fromScratch)
 {
 	if (!_pFileBrowser)
 	{
@@ -5948,6 +5970,11 @@ void Notepad_plus::launchFileBrowser(const vector<generic_string> & folders)
 
 		_pFileBrowser->setBackgroundColor(bgColor);
 		_pFileBrowser->setForegroundColor(fgColor);
+	}
+
+	if (fromScratch)
+	{
+		_pFileBrowser->deleteAllFromTree();
 	}
 
 	for (size_t i = 0; i <folders.size(); ++i)

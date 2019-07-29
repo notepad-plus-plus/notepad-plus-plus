@@ -101,6 +101,10 @@ public:
 		}
 	}
 
+	const stringVector& getFileNames() const {
+		return _fileNames;
+	};
+
 	const TCHAR * getFileName(size_t index) const {
 		if (index >= _fileNames.size())
 			return NULL;

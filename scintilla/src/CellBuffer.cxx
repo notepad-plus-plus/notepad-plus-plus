@@ -140,14 +140,14 @@ class LineVector : public ILineVector {
 public:
 	LineVector() : starts(256), perLine(nullptr) {
 		Init();
- 	}
+	}
 	// Deleted so LineVector objects can not be copied.
 	LineVector(const LineVector &) = delete;
 	LineVector(LineVector &&) = delete;
 	LineVector &operator=(const LineVector &) = delete;
 	LineVector &operator=(LineVector &&) = delete;
 	~LineVector() override {
- 	}
+	}
 	void Init() override {
 		starts.DeleteAll();
 		if (perLine) {
@@ -456,7 +456,7 @@ void UndoHistory::SetSavePoint() {
 	savePoint = currentAction;
 }
 
-bool UndoHistory::IsSavePoint() const {
+bool UndoHistory::IsSavePoint() const noexcept {
 	return savePoint == currentAction;
 }
 
@@ -480,7 +480,7 @@ int UndoHistory::TentativeSteps() {
 		return -1;
 }
 
-bool UndoHistory::CanUndo() const {
+bool UndoHistory::CanUndo() const noexcept {
 	return (currentAction > 0) && (maxAction > 0);
 }
 
@@ -505,7 +505,7 @@ void UndoHistory::CompletedUndoStep() {
 	currentAction--;
 }
 
-bool UndoHistory::CanRedo() const {
+bool UndoHistory::CanRedo() const noexcept {
 	return maxAction > currentAction;
 }
 
@@ -559,8 +559,10 @@ void CellBuffer::GetCharRange(char *buffer, Sci::Position position, Sci::Positio
 	if (position < 0)
 		return;
 	if ((position + lengthRetrieve) > substance.Length()) {
-		Platform::DebugPrintf("Bad GetCharRange %d for %d of %d\n", position,
-		                      lengthRetrieve, substance.Length());
+		Platform::DebugPrintf("Bad GetCharRange %.0f for %.0f of %.0f\n",
+				      static_cast<double>(position),
+				      static_cast<double>(lengthRetrieve),
+				      static_cast<double>(substance.Length()));
 		return;
 	}
 	substance.GetRange(buffer, position, lengthRetrieve);
@@ -580,8 +582,10 @@ void CellBuffer::GetStyleRange(unsigned char *buffer, Sci::Position position, Sc
 		return;
 	}
 	if ((position + lengthRetrieve) > style.Length()) {
-		Platform::DebugPrintf("Bad GetStyleRange %d for %d of %d\n", position,
-		                      lengthRetrieve, style.Length());
+		Platform::DebugPrintf("Bad GetStyleRange %.0f for %.0f of %.0f\n",
+				      static_cast<double>(position),
+				      static_cast<double>(lengthRetrieve),
+				      static_cast<double>(style.Length()));
 		return;
 	}
 	style.GetRange(reinterpret_cast<char *>(buffer), position, lengthRetrieve);
@@ -595,7 +599,7 @@ const char *CellBuffer::RangePointer(Sci::Position position, Sci::Position range
 	return substance.RangePointer(position, rangeLength);
 }
 
-Sci::Position CellBuffer::GapPosition() const {
+Sci::Position CellBuffer::GapPosition() const noexcept {
 	return substance.GapPosition();
 }
 
@@ -678,7 +682,6 @@ void CellBuffer::Allocate(Sci::Position newSize) {
 void CellBuffer::SetUTF8Substance(bool utf8Substance_) {
 	if (utf8Substance != utf8Substance_) {
 		utf8Substance = utf8Substance_;
-		ResetLineEnds();
 	}
 }
 
@@ -691,7 +694,7 @@ void CellBuffer::SetLineEndTypes(int utf8LineEnds_) {
 	}
 }
 
-bool CellBuffer::ContainsLineEnd(const char *s, Sci::Position length) const {
+bool CellBuffer::ContainsLineEnd(const char *s, Sci::Position length) const noexcept {
 	unsigned char chBeforePrev = 0;
 	unsigned char chPrev = 0;
 	for (Sci::Position i = 0; i < length; i++) {
@@ -756,7 +759,7 @@ Sci::Line CellBuffer::LineFromPositionIndex(Sci::Position pos, int lineCharacter
 	return plv->LineFromPositionIndex(pos, lineCharacterIndex);
 }
 
-bool CellBuffer::IsReadOnly() const {
+bool CellBuffer::IsReadOnly() const noexcept {
 	return readOnly;
 }
 
@@ -764,11 +767,11 @@ void CellBuffer::SetReadOnly(bool set) {
 	readOnly = set;
 }
 
-bool CellBuffer::IsLarge() const {
+bool CellBuffer::IsLarge() const noexcept {
 	return largeDocument;
 }
 
-bool CellBuffer::HasStyles() const {
+bool CellBuffer::HasStyles() const noexcept {
 	return hasStyles;
 }
 
@@ -776,7 +779,7 @@ void CellBuffer::SetSavePoint() {
 	uh.SetSavePoint();
 }
 
-bool CellBuffer::IsSavePoint() const {
+bool CellBuffer::IsSavePoint() const noexcept {
 	return uh.IsSavePoint();
 }
 
@@ -792,7 +795,7 @@ int CellBuffer::TentativeSteps() {
 	return uh.TentativeSteps();
 }
 
-bool CellBuffer::TentativeActive() const {
+bool CellBuffer::TentativeActive() const noexcept {
 	return uh.TentativeActive();
 }
 
@@ -806,7 +809,7 @@ void CellBuffer::RemoveLine(Sci::Line line) {
 	plv->RemoveLine(line);
 }
 
-bool CellBuffer::UTF8LineEndOverlaps(Sci::Position position) const {
+bool CellBuffer::UTF8LineEndOverlaps(Sci::Position position) const noexcept {
 	const unsigned char bytes[] = {
 		static_cast<unsigned char>(substance.ValueAt(position-2)),
 		static_cast<unsigned char>(substance.ValueAt(position-1)),
@@ -1134,7 +1137,7 @@ bool CellBuffer::SetUndoCollection(bool collectUndo) {
 	return collectingUndo;
 }
 
-bool CellBuffer::IsCollectingUndo() const {
+bool CellBuffer::IsCollectingUndo() const noexcept {
 	return collectingUndo;
 }
 
@@ -1155,7 +1158,7 @@ void CellBuffer::DeleteUndoHistory() {
 	uh.DeleteUndoHistory();
 }
 
-bool CellBuffer::CanUndo() const {
+bool CellBuffer::CanUndo() const noexcept {
 	return uh.CanUndo();
 }
 
@@ -1181,7 +1184,7 @@ void CellBuffer::PerformUndoStep() {
 	uh.CompletedUndoStep();
 }
 
-bool CellBuffer::CanRedo() const {
+bool CellBuffer::CanRedo() const noexcept {
 	return uh.CanRedo();
 }
 

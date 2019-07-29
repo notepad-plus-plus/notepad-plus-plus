@@ -826,9 +826,11 @@
 			<ColumnExt name="Ext."/>
         </DocSwitcher>
         <AsciiInsertion>
-			<PanelTitle name="Panel de inserción ASCII"/>
+			<PanelTitle name="Panel de inserción Códigos ASCII"/>
 			<ColumnVal name="Valor"/>
-			<ColumnChar name="Caracter"/>
+			<ColumnChar name="Carácter"/>
+			<ColumnHtmlNumber name="Número HTML"/>
+			<ColumnHtmlName name="Código HTML"/>
         </AsciiInsertion>
         <DocumentMap>
 			<PanelTitle name="Mapa del documento"/>

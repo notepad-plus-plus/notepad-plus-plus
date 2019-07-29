@@ -1244,7 +1244,15 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_DESTROYSCINTILLAHANDLE:
 		{
-			return _scintillaCtrls4Plugins.destroyScintilla(reinterpret_cast<HWND>(lParam));
+			//return _scintillaCtrls4Plugins.destroyScintilla(reinterpret_cast<HWND>(lParam));
+
+			// Destroying allocated Scintilla makes Notepad++ crash
+			// because created Scintilla view's pointer is added into _referees of Buffer object automatically.
+			// The deallocated scintilla view in _referees is used in Buffer::nextUntitledNewNumber().
+
+			// So we do nothing here and let Notepad++ destroy allocated Scintilla while it exits
+			// and we keep this message for the sake of compability withe the existing plugins.
+			return true;
 		}
 
 		case NPPM_GETNBUSERLANG:
@@ -1532,6 +1540,17 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_CHECKDOCSTATUS:
 		{
+			// This is an workaround to deal with Microsoft issue in ReadDirectoryChanges notification
+			// If command prompt is used to write file continuously (e.g. ping -t 8.8.8.8 > ping.log)
+			// Then ReadDirectoryChanges does not detect the change.
+			// Fortunately, notification is sent if right click or double click happens on that file
+			// Let's leverage this as workaround to enhance npp file monitoring functionality.
+			// So calling "PathFileExists" is a workaround here.
+
+			Buffer* currBuf = getCurrentBuffer();
+			if (currBuf && currBuf->isMonitoringOn())
+				::PathFileExists(currBuf->getFullPathName());
+
 			const NppGUI & nppgui = pNppParam->getNppGUI();
 			if (nppgui._fileAutoDetection != cdDisabled)
 			{

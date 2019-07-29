@@ -55,7 +55,8 @@ TESTEDSRC=\
  ../../src/ContractionState.cxx \
  ../../src/Decoration.cxx \
  ../../src/RunStyles.cxx \
- ../../src/UniConversion.cxx
+ ../../src/UniConversion.cxx \
+ ../../src/UniqueString.cxx
 
 TESTS=$(EXE)
 

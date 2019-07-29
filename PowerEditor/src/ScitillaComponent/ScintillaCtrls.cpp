@@ -58,6 +58,7 @@ ScintillaEditView * ScintillaCtrls::getScintillaEditViewFrom(HWND handle2Find)
 	return _scintVector[i];
 }
 
+/*
 bool ScintillaCtrls::destroyScintilla(HWND handle2Destroy)
 {
 	int i = getIndexFrom(handle2Destroy);
@@ -71,6 +72,7 @@ bool ScintillaCtrls::destroyScintilla(HWND handle2Destroy)
 	_scintVector.erase(it2delete);
 	return true;
 }
+*/
 
 void ScintillaCtrls::destroy() 
 {

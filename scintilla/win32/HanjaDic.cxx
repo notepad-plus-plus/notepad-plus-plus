@@ -65,10 +65,10 @@ private:
 public:
 	IHanjaDic *HJinterface;
 
-	HanjaDic() : HJinterface(NULL) {
+	HanjaDic() : HJinterface(nullptr) {
 		hr = CLSIDFromProgID(OLESTR("mshjdic.hanjadic"), &CLSID_HanjaDic);
 		if (SUCCEEDED(hr)) {
-			hr = CoCreateInstance(CLSID_HanjaDic, NULL,
+			hr = CoCreateInstance(CLSID_HanjaDic, nullptr,
 					CLSCTX_INPROC_SERVER, IID_IHanjaDic,
 					(LPVOID *)& HJinterface);
 			if (SUCCEEDED(hr)) {

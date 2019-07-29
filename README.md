@@ -1,7 +1,9 @@
 What is Notepad++ ?
 ===================
 
-[![Join the disscussions at https://notepad-plus-plus.org/community/](https://notepad-plus-plus.org/assets/images/NppCommunityBadge.svg)](https://notepad-plus-plus.org/community/)
+[![GitHub release](https://img.shields.io/github/release/notepad-plus-plus/notepad-plus-plus.svg)]()
+&nbsp;&nbsp;&nbsp;&nbsp;[![Appveyor build status](https://ci.appveyor.com/api/projects/status/github/notepad-plus-plus/notepad-plus-plus?branch=master&svg=true)](https://ci.appveyor.com/project/donho/notepad-plus-plus)
+&nbsp;&nbsp;&nbsp;&nbsp;[![Join the disscussions at https://notepad-plus-plus.org/community/](https://notepad-plus-plus.org/assets/images/NppCommunityBadge.svg)](https://notepad-plus-plus.org/community/)
 &nbsp;&nbsp;&nbsp;&nbsp;[![Join the chat at https://gitter.im/notepad-plus-plus/notepad-plus-plus](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/notepad-plus-plus/notepad-plus-plus?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Notepad++ is a free (free as in both "free speech" and "free beer") source code
@@ -22,12 +24,6 @@ _Since the release of version 7.6.5 Notepad++ is signed using GPG with the follo
 - **Expiries:** 2021-03-10
 
 https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/nppGpgPub.asc
-
-Build Status
-------------
-
-[![Appveyor build status](https://ci.appveyor.com/api/projects/status/github/notepad-plus-plus/notepad-plus-plus?branch=master&svg=true)](https://ci.appveyor.com/project/donho/notepad-plus-plus)
-[![GitHub release](https://img.shields.io/github/release/notepad-plus-plus/notepad-plus-plus.svg)]()
 
 To build Notepad++ from source:
 -------------------------------
@@ -50,7 +46,7 @@ like to debug Notepad++, but don't have boost.
 ## To build `notepad++.exe`:
 
  1. Open [`PowerEditor\visual.net\notepadPlus.vcxproj`](https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/visual.net/notepadPlus.vcxproj)
- 2. Build Notepad++ [like a normal Visual Studio project](https://msdn.microsoft.com/en-us/library/7s88b19e.aspx).
+ 2. Build Notepad++ like a normal Visual Studio project.
 
 
 

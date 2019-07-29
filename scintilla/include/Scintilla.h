@@ -135,6 +135,7 @@ typedef sptr_t (*SciFnDirect)(sptr_t ptr, unsigned int iMessage, uptr_t wParam, 
 #define SC_MARK_UNDERLINE 29
 #define SC_MARK_RGBAIMAGE 30
 #define SC_MARK_BOOKMARK 31
+#define SC_MARK_VERTICALBOOKMARK 32
 #define SC_MARK_CHARACTER 10000
 #define SC_MARKNUM_FOLDEREND 25
 #define SC_MARKNUM_FOLDEROPENMID 26
@@ -266,6 +267,8 @@ typedef sptr_t (*SciFnDirect)(sptr_t ptr, unsigned int iMessage, uptr_t wParam, 
 #define SCI_SETCARETPERIOD 2076
 #define SCI_SETWORDCHARS 2077
 #define SCI_GETWORDCHARS 2646
+#define SCI_SETCHARACTERCATEGORYOPTIMIZATION 2720
+#define SCI_GETCHARACTERCATEGORYOPTIMIZATION 2721
 #define SCI_BEGINUNDOACTION 2078
 #define SCI_ENDUNDOACTION 2079
 #define INDIC_PLAIN 0
@@ -290,14 +293,14 @@ typedef sptr_t (*SciFnDirect)(sptr_t ptr, unsigned int iMessage, uptr_t wParam, 
 #define INDIC_POINTCHARACTER 19
 #define INDIC_GRADIENT 20
 #define INDIC_GRADIENTCENTRE 21
+#define INDIC_CONTAINER 8
 #define INDIC_IME 32
 #define INDIC_IME_MAX 35
 #define INDIC_MAX 35
-#define INDIC_CONTAINER 8
-#define INDIC0_MASK 0x20
-#define INDIC1_MASK 0x40
-#define INDIC2_MASK 0x80
-#define INDICS_MASK 0xE0
+#define INDICATOR_CONTAINER 8
+#define INDICATOR_IME 32
+#define INDICATOR_IME_MAX 35
+#define INDICATOR_MAX 35
 #define SCI_INDICSETSTYLE 2080
 #define SCI_INDICGETSTYLE 2081
 #define SCI_INDICSETFORE 2082
@@ -396,6 +399,7 @@ typedef sptr_t (*SciFnDirect)(sptr_t ptr, unsigned int iMessage, uptr_t wParam, 
 #define SC_PRINT_SCREENCOLOURS 5
 #define SCI_SETPRINTCOLOURMODE 2148
 #define SCI_GETPRINTCOLOURMODE 2149
+#define SCFIND_NONE 0x0
 #define SCFIND_WHOLEWORD 0x2
 #define SCFIND_MATCHCASE 0x4
 #define SCFIND_WORDSTART 0x00100000
@@ -490,6 +494,9 @@ typedef sptr_t (*SciFnDirect)(sptr_t ptr, unsigned int iMessage, uptr_t wParam, 
 #define SC_FOLDDISPLAYTEXT_STANDARD 1
 #define SC_FOLDDISPLAYTEXT_BOXED 2
 #define SCI_FOLDDISPLAYTEXTSETSTYLE 2701
+#define SCI_FOLDDISPLAYTEXTGETSTYLE 2707
+#define SCI_SETDEFAULTFOLDDISPLAYTEXT 2722
+#define SCI_GETDEFAULTFOLDDISPLAYTEXT 2723
 #define SC_FOLDACTION_CONTRACT 0
 #define SC_FOLDACTION_EXPAND 1
 #define SC_FOLDACTION_TOGGLE 2
@@ -828,7 +835,9 @@ typedef sptr_t (*SciFnDirect)(sptr_t ptr, unsigned int iMessage, uptr_t wParam, 
 #define CARETSTYLE_LINE 1
 #define CARETSTYLE_BLOCK 2
 #define CARETSTYLE_OVERSTRIKE_BAR 0
-#define CARETSTYLE_OVERSTRIKE_BLOCK 16
+#define CARETSTYLE_OVERSTRIKE_BLOCK 0x10
+#define CARETSTYLE_INS_MASK 0xF
+#define CARETSTYLE_BLOCK_AFTER 0x100
 #define SCI_SETCARETSTYLE 2512
 #define SCI_GETCARETSTYLE 2513
 #define SCI_SETINDICATORCURRENT 2500
@@ -887,6 +896,7 @@ typedef sptr_t (*SciFnDirect)(sptr_t ptr, unsigned int iMessage, uptr_t wParam, 
 #define SCI_ANNOTATIONGETSTYLEOFFSET 2551
 #define SCI_RELEASEALLEXTENDEDSTYLES 2552
 #define SCI_ALLOCATEEXTENDEDSTYLES 2553
+#define UNDO_NONE 0
 #define UNDO_MAY_COALESCE 1
 #define SCI_ADDUNDOACTION 2560
 #define SCI_CHARPOSITIONFROMPOINT 2561
@@ -1020,6 +1030,7 @@ typedef sptr_t (*SciFnDirect)(sptr_t ptr, unsigned int iMessage, uptr_t wParam, 
 #define SCI_NAMEOFSTYLE 4030
 #define SCI_TAGSOFSTYLE 4031
 #define SCI_DESCRIPTIONOFSTYLE 4032
+#define SC_MOD_NONE 0x0
 #define SC_MOD_INSERTTEXT 0x1
 #define SC_MOD_DELETETEXT 0x2
 #define SC_MOD_CHANGESTYLE 0x4
@@ -1082,6 +1093,9 @@ typedef sptr_t (*SciFnDirect)(sptr_t ptr, unsigned int iMessage, uptr_t wParam, 
 #define SC_AC_TAB 3
 #define SC_AC_NEWLINE 4
 #define SC_AC_COMMAND 5
+#define SC_CHARACTERSOURCE_DIRECT_INPUT 0
+#define SC_CHARACTERSOURCE_TENTATIVE_INPUT 1
+#define SC_CHARACTERSOURCE_IME_RESULT 2
 #define SCN_STYLENEEDED 2000
 #define SCN_CHARADDED 2001
 #define SCN_SAVEPOINTREACHED 2002
@@ -1228,6 +1242,7 @@ struct SCNotification {
 	int updated;	/* SCN_UPDATEUI */
 	int listCompletionMethod;
 	/* SCN_AUTOCSELECTION, SCN_AUTOCCOMPLETED, SCN_USERLISTSELECTION, */
+	int characterSource;	/* SCN_CHARADDED */
 };
 
 struct SearchResultMarking {
@@ -1257,6 +1272,11 @@ struct SearchResultMarkings {
 #define SCI_SETSTYLEBITS 2090
 #define SCI_GETSTYLEBITS 2091
 #define SCI_GETSTYLEBITSNEEDED 4011
+
+#define INDIC0_MASK 0x20
+#define INDIC1_MASK 0x40
+#define INDIC2_MASK 0x80
+#define INDICS_MASK 0xE0
 
 #endif
 

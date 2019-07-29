@@ -3,7 +3,7 @@
 	## Bulgarian localization for Notepad++ ##
 
 	Translators:.....: 2007-2012 - Milen Metev (Tragedy); 2014-yyyy - RDD
-	Last revision:...: 05.06.2019 by RDD <astral_86[at]mail[dot]bg>
+	Last revision:...: 08.07.2019 by RDD <astral_86[at]mail[dot]bg>
 	Download:........: https://gist.github.com/rddim/bd37264898c3a17363e7437bcf1b4803
 -->
 <NotepadPlus>
@@ -420,9 +420,9 @@
 			<ColumnEditor title="Колонен редактор">
 				<Item id="2023" name="Текст за вмъкване"/>
 				<Item id="2033" name="Числа за вмъкване"/>
-				<Item id="2030" name="Начално число :"/>
-				<Item id="2031" name="Увеличаване с :"/>
-				<Item id="2036" name="Повтаряне :"/>
+				<Item id="2030" name="Начално число:"/>
+				<Item id="2031" name="Увеличаване с:"/>
+				<Item id="2036" name="Повтаряне:"/>
 				<Item id="2035" name="започване с 0"/>
 				<Item id="2032" name="Формат"/>
 				<Item id="2024" name="Десетичен"/>
@@ -444,8 +444,8 @@
 				<Item id="1635" name="Замяна на всичко във всички &amp;отворени"/>
 				<!-- "Търсене във файлове" -->
 				<Item id="1660" name="&amp;Замяна във файловете"/>
-				<Item id="1654" name="&amp;Филтри :"/>
-				<Item id="1655" name="П&amp;апка :"/>
+				<Item id="1654" name="&amp;Филтри:"/>
+				<Item id="1655" name="П&amp;апка:"/>
 				<Item id="1661" name="Според текущия файл"/>
 				<Item id="1659" name="В &amp;скрити папки"/>
 				<!-- "Маркиране" -->
@@ -455,7 +455,7 @@
 				<!-- Диалог за "Търсене, Замяна, Търсене във файлове, Маркиране" -->
 				<Item id="1"	name="Намиране на &amp;следващ"/>
 				<Item id="2"	name="Затваряне"/>
-				<Item id="1620" name="&amp;Търсене на :"/>
+				<Item id="1620" name="&amp;Търсене на:"/>
 				<Item id="1722" name="Обратна посока"/>
 				<Item id="1603" name="Само &amp;цели думи"/>
 				<Item id="1604" name="Главни / малки букви"/>
@@ -469,7 +469,7 @@
 				<Item id="1688" name="Винаги"/>
 				<Item id="1632" name="В &amp;избраното"/>
 				<Item id="1615" name="Маркиране на всички"/>
-				<Item id="1611" name="З&amp;амяна с :"/>
+				<Item id="1611" name="З&amp;амяна с:"/>
 				<Item id="1656" name="Намиране на всички"/>
 				<Item id="1658" name="Във всички по&amp;дпапки"/>
 				<Item id="1686" name="Прозра&amp;чност"/>
@@ -478,7 +478,7 @@
 			<FindInFinder title="Търсене в намерените резултати">
 				<Item id="1"    name="Намиране на всички"/>
 				<Item id="2"    name="Затваряне"/>
-				<Item id="1711" name="&amp;Търсене на :"/>
+				<Item id="1711" name="&amp;Търсене на:"/>
 				<Item id="1713" name="Търсене само в намерените редове"/>
 				<Item id="1714" name="Само &amp;цели думи"/>
 				<Item id="1715" name="Главни / малки букви"/>
@@ -488,6 +488,14 @@
 				<Item id="1718" name="&amp;Разширен (\n, \r, \t, \0, \x...)"/>
 				<Item id="1720" name=". и &amp;нов ред"/>
 			</FindInFinder>
+			<DoSaveOrNot title="Запис"> 
+				<Item id="1761" name="Запис на файла &quot;$STR_REPLACE$&quot; ?"/>
+				<Item id="6" name="Да"/>
+				<Item id="7" name="Не"/>
+				<Item id="2" name="Отказ"/>
+				<Item id="4" name="Да, за всички"/>
+				<Item id="5" name="Не, за всички"/>
+			</DoSaveOrNot>
 			<!-- Меню "Търсене" начало -->
 				<!-- "Отиване на..." -->
 			<GoToLine title="Отиване на...">
@@ -718,8 +726,8 @@
 					<!-- Редактиране -->
 				<Scintillas title="Редактиране">
 					<Item id="6216" name="Текстов курсор"/>
-					<Item id="6217" name="Ширина :"/>
-					<Item id="6219" name="Премигване :"/>
+					<Item id="6217" name="Ширина:"/>
+					<Item id="6219" name="Премигване:"/>
 					<Item id="6221" name="100"/>
 					<Item id="6222" name="0"/>
 					<Item id="6224" name="Множествено редактиране"/>
@@ -734,7 +742,7 @@
 					<Item id="6208" name="Показване на границата"/>
 					<Item id="6212" name="Линеен режим"/>
 					<Item id="6213" name="Фонов режим"/>
-					<Item id="6209" name="Брой колони : "/>
+					<Item id="6209" name="Брой колони: "/>
 					<Item id="6231" name="Дебелина на рамката на прозореца"/>
 					<Item id="6235" name="Без ръб"/>
 					<Item id="6227" name="Пренасяне на нов ред"/>
@@ -743,7 +751,7 @@
 					<Item id="6230" name="С отстъп"/>
 					<Item id="6206" name="Показване номер на реда"/>
 					<Item id="6207" name="Показване на отметки"/>
-					<Item id="6214" name="Оцветяване на текущия ред"/>
+					<Item id="6214" name="Открояване на текущия ред"/>
 					<Item id="6215" name="Заглаждане на шрифта"/>
 					<Item id="6234" name="Без разширени функции за превъртане"/>
 					<Item id="6236" name="Превъртане след последният ред"/>
@@ -762,7 +770,7 @@
 					<Item id="6408" name="UTF-8-BOM"/>
 					<Item id="6409" name="UCS-2 Big Endian BOM"/>
 					<Item id="6410" name="UCS-2 Little Endian BOM"/>
-					<Item id="6411" name="Основен синтаксис :"/>
+					<Item id="6411" name="Основен синтаксис:"/>
 				</NewDoc>
 					<!-- Път по подразбиране -->
 				<DefaultDir title="Път по подразбиране">
@@ -776,7 +784,7 @@
 				<RecentFilesHistory title="История с отваряния">
 					<Item id="6304" name="История с последно използвани файлове"/>
 					<Item id="6305" name="Без проверка при стартиране"/>
-					<Item id="6306" name="Запомняне на последните :"/>
+					<Item id="6306" name="Запомняне на последните:"/>
 					<Item id="6429" name="Показване"/>
 					<Item id="6424" name="В подменю"/>
 					<Item id="6425" name="Само име на файл"/>
@@ -799,18 +807,18 @@
 					<Item id="6302" name="Замяна с интервали"/>
 					<Item id="6510" name="Стойност по подразбиране"/>
 				</Language>
-					<!-- Оцветяване -->
-				<Highlighting title="Оцветяване">
-					<Item id="6333" name="Интелигентно оцветяване"/>
+					<!-- Открояване -->
+				<Highlighting title="Открояване">
+					<Item id="6333" name="Интелигентно открояване"/>
 					<Item id="6326" name="Включено"/>
 					<Item id="6332" name="Съвпадане с буквения регистър"/>
 					<Item id="6338" name="Само цели думи"/>
 					<Item id="6339" name="Използване на настр. от &quot;Tърсене&quot;"/>
-					<Item id="6340" name="Оцветяване и в съседния изглед"/>
-					<Item id="6329" name="Оцветяване на съвпадащи маркирания"/>
+					<Item id="6340" name="Открояване и в съседния изглед"/>
+					<Item id="6329" name="Открояване на съвпадащи маркирания"/>
 					<Item id="6327" name="Включено"/>
-					<Item id="6328" name="Оцветяване на маркирани атрибути"/>
-					<Item id="6330" name="Оцветяване на comment/php/asp зона"/>
+					<Item id="6328" name="Открояване на маркирани атрибути"/>
+					<Item id="6330" name="Открояване на comment/php/asp зона"/>
 				</Highlighting>
 					<!-- Печат -->
 				<Print title="Печат">
@@ -855,7 +863,7 @@
 					<Item id="6316" name="Обикновен *.bak файл"/>
 					<Item id="6317" name="Подробни *.bak файлове"/>
 					<Item id="6804" name="Потребителска директория за запазване"/>
-					<Item id="6803" name="Папка :"/>
+					<Item id="6803" name="Папка:"/>
 				</Backup>
 					<!-- Автоматично завършване -->
 				<AutoCompletion title="Авто-завършване">
@@ -1032,7 +1040,7 @@
 			</SHA256FromFilesDlg>
 			<!-- Меню "Макроси" - "Многократно изпълнение..." -->
 			<MultiMacro title="Многократно изпълнение на макрос">
-				<Item id="8006" name="Макрос :"/>
+				<Item id="8006" name="Макрос:"/>
 				<Item id="8001" name="&amp;Изпълняване"/>
 				<Item id="8005" name="път(и)"/>
 				<Item id="8002" name="Изпълняване до &amp;края на файла"/>
@@ -1145,7 +1153,7 @@
 		<MiscStrings>
 				<!-- $INT_REPLACE$ е контейнер, не се превежда -->
 				<!-- $STR_REPLACE$ е контейнер, не се превежда -->
-			<word-chars-list-tip value="Позволява добавяне на допълнителни символи към дума, чрез двойно щракане върху нея или при включена опция за търсене на &quot;Само цели думи&quot;."/>
+			<word-chars-list-tip value="Позволява добавяне на допълнителни символи към дума, чрез двойно щракане върху нея или при включена опция за търсене на &quot;Само цели думи&quot;"/>
 			<word-chars-list-warning-begin value="Бъдете внимателни: "/>
 			<word-chars-list-space-warning value="$INT_REPLACE$ интервал(а)"/>
 			<word-chars-list-tab-warning value="$INT_REPLACE$ отстъп(а)"/>
@@ -1269,7 +1277,7 @@
 
 Не забравяйте, че първо трябва да натиснете клавиш Alt."/>
 			<SortingError title="Грешка при сортиране" message="Сортирането на числа не може да се изпълни заради ред $INT_REPLACE$"/>
-			<BufferInvalidWarning title="Неуспешен запис" message="Не може да се запази: Невалиден буфер."/>
+			<BufferInvalidWarning title="Неуспешен запис" message="Не може да се запази: Невалиден буфер"/>
 			<OpenInAdminMode title="Неуспешен запис" message="Файлът може би е защитен и не може да се запази.
 Искате ли Notepad++ да бъде стартиран с администраторски права?"/>
 			<OpenInAdminModeFailed title="Неуспешно стартиране с администраторски права" message="Notepad++ не може да бъде стартиран с администраторски права"/>
@@ -1278,7 +1286,6 @@
 			<DroppingFolderAsProjectModeWarning title="Невалидно действие" message="Тъй като сте в режим &quot;Директория като работно място&quot;, може да се влачат само файлове или папки, но не и двете.
 
 За да се разреши това действие, трябва да се включи опцията &quot;Отваряне на всички файлове от папката при влаченето ѝ в прозореца&quot; в секция &quot;Път по подразбиране&quot; на предпочитаните настройки."/>
-			<DoSaveOrNot title="Запис" message="Запис на файл &quot;$STR_REPLACE$&quot; ?"/>
 			<DoCloseOrNot title="Задържане на несъществуващ файл" message="Файлът &quot;$STR_REPLACE$&quot; вече не съществува.
 
 Задържане в редактора?"/>
@@ -1305,13 +1312,13 @@
 
 Искате ли страницата на Notepad++ да бъде посетена за да се изтегли последната версия?"/>
 			<DocTooDirtyToMonitor title="Проблем с наблюдение" message="Документът е мръсен. Запишете промените преди да го наблюдавате."/>
-			<DocNoExistToMonitor title="Проблем с наблюдение" message="Файлът трябва да съществува за да бъде наблюдаван."/>
+			<DocNoExistToMonitor title="Проблем с наблюдение" message="Файлът трябва да съществува за да бъде наблюдаван"/>
 			<FileTooBigToOpen title="Проблем с размер на файл" message="Файлът е твърде голям за да се отвори от Notepad++"/>
 			<CreateNewFileOrNot title="Създаване на нов файл" message="&quot;$STR_REPLACE$&quot; не съществува.
 
 Създаване?"/>
-			<CreateNewFileError title="Създаване на нов файл" message="Файлът &quot;$STR_REPLACE$&quot; не може да се създаде."/>
-			<OpenFileError title="ГРЕШКА" message="Файлът &quot;$STR_REPLACE$&quot; не може да се отвори."/>
+			<CreateNewFileError title="Създаване на нов файл" message="Файлът &quot;$STR_REPLACE$&quot; не може да се създаде"/>
+			<OpenFileError title="ГРЕШКА" message="Файлът &quot;$STR_REPLACE$&quot; не може да се отвори"/>
 			<FileBackupFailed title="Неуспешно резервно копие" message="Предишната версия на файла не може да бъде запазена в директорията за резервни копия на &quot;$STR_REPLACE$&quot;.
 
 Искате ли текущият файл да бъде запазен така или иначе?"/>
@@ -1324,29 +1331,34 @@
 
 Премахнете я от панела преди да добавите &quot;$STR_REPLACE$&quot;."/>
 			<ProjectPanelChanged title="$STR_REPLACE$" message="Работната област е променена. Искате ли да бъде запазена?"/>
-			<ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Работната област не е запазена."/>
+			<ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Работната област не е запазена"/>
 			<ProjectPanelOpenDoSaveDirtyWsOrNot title="Отваряне на работна област" message="Текущата работна област е променена.
 
-Искате ли текущият проект да бъде запазен?"/>
+Искате ли проекта да бъде запазен?"/>
 			<ProjectPanelNewDoSaveDirtyWsOrNot title="Нова работна област" message="Текущата работна област е променена.
 
-Искате ли текущият проект да бъде запазен?"/>
+Искате ли проекта да бъде запазен?"/>
 			<ProjectPanelOpenFailed title="Отваряне на работна област" message="Работната област не можа да се отвори.
 Изглежда, че файлът за отваряне не е валиден файл на проекта."/>
 			<ProjectPanelRemoveFolderFromProject title="Премахване на папка от проект" message="Всички под-елементи ще бъдат премахнати.
 
 Сигурни ли сте, че искате папката да бъде премахната от проекта?"/>
 			<ProjectPanelRemoveFileFromProject title="Премахване на файл от проект" message="Сигурни ли сте, че искате файлът да бъде премахнат от проекта?"/>
-			<ProjectPanelReloadError title="Презареждане на работна област" message="Файлът за презареждане не може да бъде намерен."/>
+			<ProjectPanelReloadError title="Презареждане на работна област" message="Файлът за презареждане не може да бъде намерен"/>
 			<ProjectPanelReloadDirty title="Презареждане на работна област" message="Текущата работна област е променена.
 Презареждането ще премахне всички промени.
 
-Искате ли да се продължи?"/>
+Продължаване?"/>
 			<UDLNewNameError title="UDL грешка" message="Това име вече се използва, задайте друго."/>
 			<UDLRemoveCurrentLang title="Премахване на синтаксис" message="Сигурни ли сте?"/>
 			<FindCharRangeValueError title="Проблем със стойност на обхвата" message="Трябва да въведете между 0 и 255."/>
 			<SCMapperDoDeleteOrNot title="Сигурни ли сте?" message="Сигурни ли сте, че искате този бърз клавиш да бъде изтрит?"/>
 			<ViewInBrowser title="Преглед на текущия файл в браузър" message="Програмата не може да бъде намерена във вашата система."/>
+			<ExitToUpdatePlugins title="Затваряне на Notepad++" message="Notepad++ ще се затвори за да продължи операциите.
+Програмата ще се рестартира след като всички операции бъдат завършени.
+
+Продължаване?"/>
+			<NeedToRestartToLoadPlugins title="Рестартиране на Notepad++" message="Notepad++ трябва да се рестартира за да зареди инсталираните добавки"/>
 		</MessageBox>
 	</Native-Langue>
 </NotepadPlus>

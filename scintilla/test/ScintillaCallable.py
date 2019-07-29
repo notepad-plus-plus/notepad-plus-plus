@@ -6,6 +6,9 @@ import ctypes, os, sys
 
 from ctypes import c_int, c_ulong, c_char_p, c_wchar_p, c_ushort, c_uint, c_long, c_ssize_t
 
+def IsEnumeration(t):
+	return t[:1].isupper()
+
 class TEXTRANGE(ctypes.Structure):
 	_fields_= (\
 		('cpMin', c_long),
@@ -83,7 +86,8 @@ class ScintillaCallable:
 				not name.startswith("Get") and \
 				not feature["Param1Type"] and \
 				not feature["Param2Type"] and \
-				feature["ReturnType"] in ["bool", "int", "position"]:
+				(feature["ReturnType"] in ["bool", "int", "position", "line", "pointer"] or \
+				IsEnumeration(feature["ReturnType"])):
 				#~ print("property", feature)
 				return self._scifn(self._sciptr, value, None, None)
 		elif name.startswith("SCN_") and name in self.k:
@@ -101,7 +105,7 @@ class ScintillaCallable:
 			value = int(feature["Value"], 0)
 			#~ print("setproperty", feature)
 			if feature["FeatureType"] == "set" and not name.startswith("Set"):
-				if feature["Param1Type"] in ["bool", "int", "position"]:
+				if feature["Param1Type"] in ["bool", "int", "position", "line"] or IsEnumeration(feature["Param1Type"]):
 					return self._scifn(self._sciptr, value, c_char_p(val), None)
 				elif feature["Param2Type"] in ["string"]:
 					return self._scifn(self._sciptr, value, None, c_char_p(val))

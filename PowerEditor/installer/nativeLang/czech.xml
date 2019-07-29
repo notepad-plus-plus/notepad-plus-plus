@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 7.6.6  17/Apr/2019  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 7.7.2  29/Jul/2019  by Ondřej Müller (mullero@email.cz)
 	- N++ Community:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz)
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="7.6.6">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="7.7.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -422,10 +422,9 @@
 				<Item id = "1661" name = "Podle aktuál. dokumentu"/>
 				<Item id = "1686" name = "Průhle&amp;dnost"/>
 				<Item id = "1703" name = "&amp;. označuje nový řádek"/>
-				<!--
-				<Item id = "1721" name = "&lt;&lt; Najít"/>
-				-->
+				<Item id = "1721" name = "▲"/> 
 				<Item id = "1722" name = "Zpětný směr"/>
+				<Item id = "1723" name = "▼ Najít další"/>
 			</Find>
 
 			<FindCharsInRange title = "Najít znaky z rozsahu...">
@@ -473,15 +472,15 @@
 			</MD5FromTextDlg>
 			
 			<PluginsAdminDlg title="Správa pluginů" titleAvailable = "Dostupné" titleUpdates = "Aktualizované" titleInstalled = "Instalované">
-                <ColumnPlugin   name="Plugin"/>
-                <ColumnVersion  name="Verze"/>
-                <Item id = "5501" name = "Rešerše:"/>
-                <Item id = "5503" name = "Instalovat"/>
-                <Item id = "5504" name = "Aktualizovat"/>
-                <Item id = "5505" name = "Odstranit"/>
-                <Item id = "5508" name = "Pokračovat"/>
-                <Item id = "2"    name = "Ukončit"/>
-            </PluginsAdminDlg>
+				<ColumnPlugin   name="Plugin"/>
+				<ColumnVersion  name="Verze"/>
+				<Item id = "5501" name = "Rešerše:"/>
+				<Item id = "5503" name = "Instalovat"/>
+				<Item id = "5504" name = "Aktualizovat"/>
+				<Item id = "5505" name = "Odstranit"/>
+				<Item id = "5508" name = "Pokračovat"/>
+				<Item id = "2"    name = "Ukončit"/>
+			</PluginsAdminDlg>
 
 			<StyleConfig title = "Upravit styl">
 				<Item id = "2" name = "Storno"/>
@@ -897,6 +896,11 @@
 					<Item id = "6429" name = "Zobrazení"/>
 				</RecentFilesHistory>
 				<MISC title = "Různé">
+					<ComboBox id = "6347">
+						<Element name = "Povoleno"/>
+						<Element name = "Povoleno pro všechny otevřené soubory"/>
+						<Element name = "Zakázáno"/>
+					</ComboBox>
 					<Item id = "6114" name = "Povolit přepínání"/>
 					<Item id = "6115" name = "Automatické odsazování"/>
 					<Item id = "6117" name = "Povolit MRU (nedávno použité)"/>
@@ -1036,6 +1040,15 @@
 				<Item id = "1718" name = "Rozšířený (\n, \r, \t, \0, \x...)"/>
 				<Item id = "1720" name = "&amp;. označuje nový řádek"/>
 			</FindInFinder>
+			
+			<DoSaveOrNot title="Ukládání"> 
+				<Item id = "1761" name = "Uložit soubor &quot;$STR_REPLACE$&quot; ?"/>
+				<Item id = "6" name = "Ano"/>
+				<Item id = "7" name = "Ne"/>
+				<Item id = "2" name = "Storno"/>
+				<Item id = "4" name = "Ano pro všechny"/>
+				<Item id = "5" name = "Ne pro všechny"/>
+			</DoSaveOrNot>
 
 		</Dialog>
 
@@ -1094,6 +1107,8 @@
 			<OpenInAdminModeWithoutCloseCurrent title = "Uložení selhalo" message = "Soubor nemůže být uložen a může být chráněn proti zápisu. Chcete zkusit spustit Notepad++ s právy administrátora?"/>
 			<OpenInAdminModeFailed title = "Otevření s administrátorskými právy selhalo" message = "Notepad++ nemůže být spuštěn s právy administrátora."/>
 			<ViewInBrowser title = "Zobrazit aktuální soubor v prohlížeči" message="Není možno nalézt aplikaci ve Vašem systému."/>
+			<ExitToUpdatePlugins title = "Notepad++ má být ukončen" message = "Jestliže kliknete na ANO, ukončíte tím Notepad++ kvůli provedení naplánovaných operací. Notepad++ bude po dokončení všech operací restartován. Pokračovat?"/>
+			<NeedToRestartToLoadPlugins title = "Notepad++ potřebuje být znovu spuštěn" message = "Musíte restartovat Notepad++, aby mohly být zavedeny nainstalované zásuvné moduly."/>
 		</MessageBox>
 		
 		<ClipboardHistory>
@@ -1113,10 +1128,12 @@
 		</WindowsDlg>
 		
 		<AsciiInsertion>
-			<PanelTitle name="Panel ASCII znaků"/>
+			<PanelTitle name="Panel ke vkládání ASCII znaků"/>
 			<ColumnVal name="Dec"/>
 			<ColumnHex name="Hex"/>
 			<ColumnChar name="Znak"/>
+			<ColumnHtmlNumber name="HTML číslo"/>
+			<ColumnHtmlName name="HTML kód"/>
 		</AsciiInsertion>
 		
 		<DocumentMap>
@@ -1142,6 +1159,7 @@
 				<Item id="3517" name="Najít v souborech..."/>
 				<Item id="3518" name="Průzkumník zde"/>
 				<Item id="3519" name="CMD zde"/>
+				<Item id="3520" name="Kopírovat jméno souboru"/>
 			</Menus>
 		</FolderAsWorkspace>
 
@@ -1237,6 +1255,29 @@
 			<finder-select-all value = "Vybrat vše"/>
 			<finder-clear-all value = "Smazat vše"/>
 			<finder-open-all value = "Otevřít vše"/>
+			<common-ok value = "OK"/>
+			<common-cancel value = "Storno"/>
+			<common-name value = "Jméno: "/>
+			<tabrename-title value = "Přejmenovat aktuální záložku (Tab)"/>
+			<tabrename-newname value = "Nové jméno: "/>
+			<recent-file-history-maxfile value = "Max. soubor: "/>
+			<language-tabsize value = "Velikost záložky (Tab): "/>
+			<userdefined-title-new value = "Vytvořit novou syntaxi..."/>
+			<userdefined-title-save value = "Uložit název aktuální syntaxe jako..."/>
+			<userdefined-title-rename value = "Přejmenovat název aktuální syntaxe"/>
+			<autocomplete-nb-char value = "č. znaku: "/>
+			<edit-verticaledge-nb-col value = "č. sloupce: "/>
+			<summary value = "Souhrn"/>
+			<summary-filepath value = "Úplná cesta k souboru: "/>
+			<summary-filecreatetime value = "Vytvořeno: "/>
+			<summary-filemodifytime value = "Modifikováno: "/>
+			<summary-nbchar value = "Znaky (bez konců řádek): "/>
+			<summary-nbword value = "Slova: "/>
+			<summary-nbline value = "Řádky: "/>
+			<summary-nbbyte value = "Délka dokumentu: "/>
+			<summary-nbsel1 value = " vybraných znaků ("/>
+			<summary-nbsel2 value = " bytů) v "/>
+			<summary-nbrange value = " oblastech"/>
 		</MiscStrings>
 
 	</Native-Langue>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Translated by Patryk Skorupa (ppskorupa@outlook.com) and up-to-date as of version 7.7.1 (23/06/2019) -->
+<!-- Translated by Patryk Skorupa (ppskorupa@outlook.com) and up-to-date as of version 7.7.2 (29/07/2019) -->
 <NotepadPlus>
-    <Native-Langue name="polski" filename="polish.xml" version="7.6.5">
+    <Native-Langue name="polski" filename="polish.xml" version="7.7.2">
         <Menu>
             <Main>
                 <!-- Główne menu -->
@@ -385,6 +385,8 @@
                 <Item id="1641" name="Znajdź w bieżącym dokumencie"/>
                 <Item id="1686" name="&amp;Przeźroczystość okna"/>
                 <Item id="1703" name="&amp;. jako nowa linia"/>
+                <Item id="1721" name="▲"/> 
+	  		    <Item id="1723" name="▼ Następne wystąpienie"/> 
             </Find>
 
             <FindCharsInRange title="Zakres zestawu znaków...">
@@ -982,6 +984,14 @@
                 <Item id="1718" name="&amp;Rozszerzony (\n, \r, \t, \0, \x...)"/>
                 <Item id="1720" name="&amp;. jako nowa linia"/>
             </FindInFinder>
+            <DoSaveOrNot title="Zapisywanie">  
+	  		               <Item id="1761" name="Zapisać plik „$STR_REPLACE$”?"/> 
+	  		               <Item id="6" name="Tak"/> 
+	  		               <Item id="7" name="Nie"/> 
+	  		               <Item id="2" name="Anuluj"/> 
+	  		               <Item id="4" name="Zapisz wszystkie"/> 
+	  		               <Item id="5" name="Nie zapisuj żadnego"/> 
+	  		           </DoSaveOrNot> 
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title="Edycja menu kontekstowego" message="Edycja pliku contextMenu.xml pozwala na zmianę menu konteksowego dostępnego w Notepad++ pod prawym przyciskiem myszy.
@@ -1073,6 +1083,10 @@ Czy chcesz uruchomić Notepad++ jako Administrator?"/>
 Czy chcesz uruchomić Notepad++ jako Administrator?"/>
             <OpenInAdminModeFailed title="Błąd uprawnień Administratora" message="Nie udało się otworzyć Notepad++ jako Administrator."/>
             <ViewInBrowser title="Przeglądanie pliku w przeglądarce" message="Nie udało się odnaleźć powiązanego programu w systemie."/>
+            <ExitToUpdatePlugins title="Notepad++ musi zostać zamknięty" message="Kliknięcie TAK zamknie Notepad++.
+	  		Notepad++ uruchomi się ponownie, kiedy tylko wszystkie działania zostaną zakończone.
+	  		Kontynuować?"/> 
+	  		<NeedToRestartToLoadPlugins title="Ponowne uruchomienie Notepad++" message="Notepad++ musi zostać ponownie uruchomiony, aby zainstalowane wtyczki mogły działać."/> 
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Historia schowka"/>
@@ -1092,6 +1106,8 @@ Czy chcesz uruchomić Notepad++ jako Administrator?"/>
             <ColumnVal name="Wartość"/>
             <ColumnHex name="Hex"/>
             <ColumnChar name="Znak"/>
+            <ColumnHtmlNumber name="Numer HTML"/> 
+	  		<ColumnHtmlName name="Kod HTML"/> 
         </AsciiInsertion>
         <DocumentMap>
             <PanelTitle name="Mapa dokumentu"/>
@@ -1220,6 +1236,17 @@ Czy chcesz uruchomić Notepad++ jako Administrator?"/>
             <userdefined-title-rename value="Zmień nazwę biężacego języka"/>
             <autocomplete-nb-char value="Numer znaku: "/>
             <edit-verticaledge-nb-col value="Numer kolumny:"/>
+            <summary value="Podsumowanie"/> 
+            <summary-filepath value="Pełna ścieżka pliku: "/> 
+            <summary-filecreatetime value="Utworzony: "/> 
+            <summary-filemodifytime value="Zmodyfikowany: "/> 
+            <summary-nbchar value="Znaki (without line endings): "/> 
+	  		<summary-nbword value="Słowa: "/> 
+            <summary-nbline value="Wiersze: "/> 
+            <summary-nbbyte value="Długość dokumentu: "/> 
+	  		<summary-nbsel1 value=" zaznaczonych znaków ("/> 
+	  		<summary-nbsel2 value=" bajtów) w "/> 
+	  		<summary-nbrange value=" zakresach"/> 
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

@@ -8,7 +8,7 @@
     - &quot; is (")
     -->
 <NotepadPlus>
-    <Native-Langue name="Arabic" filename="arabic.xml" RTL="yes" version="7.6.5">
+    <Native-Langue name="Arabic" filename="arabic.xml" RTL="yes" version="7.7.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -392,6 +392,8 @@
                 <Item id="1641" name="بحث عن الكل في المستند الحالي"/>
                 <Item id="1686" name="الشفاف&amp;ية"/>
                 <Item id="1703" name="&amp;. تطابق سطر جديد"/>
+				<Item id="1721" name="▲"/>
+                <Item id="1723" name="▼ بحث عن التالي"/>
             </Find>
 
             <FindCharsInRange title="بحث عن أحرف في النطاق...">
@@ -987,6 +989,14 @@
                 <Item id="1718" name="م&amp;وسع (\n, \r, \t, \0, \x...)"/>
                 <Item id="1720" name="&amp;. تطابق سطر جديد"/>
             </FindInFinder>
+            <DoSaveOrNot title="حفظ"> 
+                <Item id="1761" name="حفظ الملف &quot;$STR_REPLACE$&quot; ؟"/>
+                <Item id="6" name="نعم"/>
+                <Item id="7" name="لا"/>
+                <Item id="2" name="إلغاء"/>
+                <Item id="4" name="نعم للكل"/>
+                <Item id="5" name="لا للكل"/>
+            </DoSaveOrNot>
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title="تحرير القائمة المنبثقة" message="إن تحرير contextMenu.xml يسمح لك بتعديل قائمة السياق المنبثقة لـ Notepad++.&#xA; يجب عليك إعادة تشغيل Notepad++ ليتم تطبيق التعديلات التي قمت بها على contextMenu.xml."/>
@@ -999,7 +1009,7 @@
             <FileAlreadyOpenedInNpp title="" message="هذا الملف مفتوح بالفعل في Notepad++."/>
             <DeleteFileFailed title="حذف الملف" message="فشل حذف الملف"/>
 
-            <NbFileToOpenImportantWarning title="عدد الملفات المطلوب فتحها كبير جداً" message="$INT_REPLACE$ ملفات سوف يتم فتحها.&#xA;هل تريد بالتأكيد فتح هذه الملفات؟"/>
+            <NbFileToOpenImportantWarning title="عدد الملفات المطلوب فتحها كبير جداً" message="$INT_REPLACE$ ملفات سوف يتم فتحها.&#xA;هل أنت متأكد أنك تريد فتحها؟"/>
             <SettingsOnCloudError title="الإعدادات على التخزين السحابي" message="يبدو أن مسار الإعدادات على التخزين السحابي تم تعيينه على قرص للقراءة فقط، &#xA;أو على مجلد يحتاج صلاحيات للكتابة. &#xA;سيتم إلغاء إعداداتك على التخزين السحابي. الرجاء إعادة تعيين قيمة أفضل من خلال مربع حوال تفضيلات."/>
             <FilePathNotFoundWarning title="فتح ملف" message="الملف الذي تحاول فتحه غير موجود."/>
             <SessionFileInvalidError title="لا يمكن تحميل الجلسة" message="ملف الجلسة إما أنه تالف أو غير صالح."/>
@@ -1007,7 +1017,6 @@
             <SortingError title="خطأ في الترتيب" message="غير قادر على إجراء ترتيب رقمي بسبب السطر $INT_REPLACE$."/>
             <ColumnModeTip title="تلميح وضع العمود" message="الرجاء استخدام &quot;Alt + تحديد الفأرة&quot; أو &quot;Shift + Alt + مفتاح السهم&quot; للتبديل إلى وضع العمود."/>
             <BufferInvalidWarning title="فشل الحفظ" message="لا يمكن الحفظ: المخزن المؤقت غير صالح."/>
-            <DoSaveOrNot title="حفظ" message="حفظ الملف &quot;$STR_REPLACE$&quot; ؟"/>
             <DoCloseOrNot title="إبقاء الملف الغير موجود" message="هذا الملف &quot;$STR_REPLACE$&quot; غير موجود بعد الآن.&#xA;إبقاء هذا الملف في المحرر؟"/>
             <DoDeleteOrNot title="حذف الملف" message="هذا الملف &quot;$STR_REPLACE$&quot;&#xA;سوف يتم نقله إلى سلة المهملات وسوف يتم إغلاق المستند الحالي.&#xA;متابعة؟"/>
             <NoBackupDoSaveFile title="حفظ" message="لا يمكن العثور على ملف النسخ الاحتياطي الخاص بك (تم حذفه من الخارج).&#xA;قم بحفظه وإلا سيتم فقدان البيانات الخاصة بك&#xA;هل تريد حفظ الملف &quot;$STR_REPLACE$&quot;؟"/>
@@ -1044,6 +1053,8 @@
             <OpenInAdminModeWithoutCloseCurrent title="فشل الحفظ" message="لا يمكن حفظ الملف وقد يكون محمياً.&#xA;هل تريد تشغيل Notepad++ في وضع المسؤول؟"/>
             <OpenInAdminModeFailed title="فشل الفتح في وضع المسؤول." message="لا يمكن فتح Notepad++ في وضع المسؤول."/>
             <ViewInBrowser title="عرض الملف الحالي في المتصفح" message="لا يمكن العثور على التطبيق في نظامك."/>
+            <ExitToUpdatePlugins title="Notepad++ على وشك الخروج" message="إذا قمت بالضغط على نعم، ستقوم بمغادرة Notepad ++ لمتابعة العمليات.&#xA;سيتم إعادة تشغيل Notepad ++ بعد إنهاء جميع العمليات.&#xA;متابعة؟"/>
+            <NeedToRestartToLoadPlugins title="Notepad++ يحتاج لإعادة تشغيل" message="يجب عليك إعادة تشغيل Notepad++ لتحميل الإضافات التي قمت بتثبيتها."/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="سجل الذاكرة"/>
@@ -1059,10 +1070,12 @@
             <ColumnType name="النوع"/>
         </WindowsDlg>
         <AsciiInsertion>
-            <PanelTitle name="لوحة إدراج ASCII"/>
+            <PanelTitle name="لوحة الإدراج رموز ASCII"/>
             <ColumnVal name="القيمة"/>
             <ColumnHex name="Hex"/>
             <ColumnChar name="الحرف"/>
+            <ColumnHtmlNumber name="رقم HTML"/>
+            <ColumnHtmlName name="كود HTML"/>
         </AsciiInsertion>
         <DocumentMap>
             <PanelTitle name="خريطة المستند"/>
@@ -1191,6 +1204,17 @@
             <userdefined-title-rename value="إعادة تسمية اللغة الحالية"/>
             <autocomplete-nb-char value="عدد الحروف: "/>
             <edit-verticaledge-nb-col value="عدد الأعمدة:"/>
+            <summary value="الملخص"/>
+            <summary-filepath value="المسار الكامل للملف: "/>
+            <summary-filecreatetime value="الإنشاء: "/>
+            <summary-filemodifytime value="التعديل: "/>
+            <summary-nbchar value="الأحرف (بدون نهاية السطر): "/>
+            <summary-nbword value="الكلمات: "/>
+            <summary-nbline value="الأسطر: "/>
+            <summary-nbbyte value="طول المستند: "/>
+            <summary-nbsel1 value=" الأحرف المحددة ("/>
+            <summary-nbsel2 value=" بايت) في "/>
+            <summary-nbrange value=" النطاقات"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

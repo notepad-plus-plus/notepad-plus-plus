@@ -25,13 +25,13 @@
                     <Item subMenuId="file-closeMore" name="Zamknij więcej"/>
                     <Item subMenuId="file-recentFiles" name="Ostatnie &amp;pliki"/>
                     <Item subMenuId="edit-copyToClipboard"  name="Kopiuj do schowka"/>
-					<Item subMenuId="edit-indent" name="Wcięcie"/>
+                    <Item subMenuId="edit-indent" name="Wcięcie"/>
                     <Item subMenuId="edit-convertCaseTo" name="Wielkość liter"/>
                     <Item subMenuId="edit-lineOperations" name="Działania na liniach"/>
                     <Item subMenuId="edit-comment" name="Komentarze"/>
                     <Item subMenuId="edit-autoCompletion" name="Autouzupełnianie"/>
                     <Item subMenuId="edit-eolConversion" name="Konwersja znaku końca linii"/>
-                    <Item subMenuId="edit-blankOperations" name="Działania na pustych znakach"/>
+                    <Item subMenuId="edit-blankOperations" name="Działania na białych znakach"/>
                     <Item subMenuId="edit-pasteSpecial" name="Wklej specjalnie"/>
                     <Item subMenuId="edit-onSelection" name="Z zaznaczenia"/>
                     <Item subMenuId="search-markAll" name="Zaznacz wszystko"/>
@@ -185,10 +185,10 @@
                     <Item id="43051" name="Usuń linie bez zakładek"/>
                     <Item id="43050" name="Odwróć przydzielenie zakładek"/>
                     <Item id="43052" name="Szukaj znaków z zakresu..."/>
-                    <Item id="43053" name="Zaznacz wszystko pomiędzy odpowiadającymi nawiasmi"/>
+                    <Item id="43053" name="Zaznacz wszystko pomiędzy odpowiadającymi nawiasami"/>
                     <Item id="43009" name="Przejdź do odpowiadającego nawiasu"/>
                     <Item id="43010" name="&amp;Poprzednie wystąpienie"/>
-                    <Item id="43011" name="Wyszukiwanie przy&amp;rostkowe"/>
+                    <Item id="43011" name="Wyszukiwanie przy&amp;rostowe"/>
                     <Item id="43013" name="Szukaj w plikach"/>
                     <Item id="43014" name="Szukaj zaznaczonego tekstu (w przód)"/>
                     <Item id="43015" name="Szukaj zaznaczonego tekstu (wstecz)"/>
@@ -231,7 +231,7 @@
                     <Item id="44025" name="Pokaż znaki niedrukowane"/>
                     <Item id="44026" name="Pokaż znaki końców linii"/>
                     <Item id="44029" name="Rozwiń wszystko"/>
-                    <Item id="44030" name="Zwiń biężący poziom"/>
+                    <Item id="44030" name="Zwiń bieżący poziom"/>
                     <Item id="44031" name="Rozwiń bieżący poziom"/>
                     <Item id="44049" name="Informacje o pliku..."/>
                     <Item id="44080" name="Mapa dokumentu"/>
@@ -406,7 +406,7 @@
                 <Item id="2"    name="Nigdzie nie idę"/>
                 <Item id="2004" name="Jesteś tutaj:"/>
                 <Item id="2005" name="Chcesz przejść do:"/>
-                <Item id="2006" name="Nie możej przejść dalej niż do:"/>
+                <Item id="2006" name="Nie możesz przejść dalej niż do:"/>
             </GoToLine>
 
             <Run title="Uruchom...">
@@ -552,7 +552,7 @@
                     <Item id="25017" name="Linia komentarza"/>
                     <Item id="25026" name="Operator 1"/>
                     <Item id="25027" name="Operator 2"/>
-                    <Item id="25028" name="Numery"/>
+                    <Item id="25028" name="Liczby"/>
                     <Item id="1" name="OK"/>
                     <Item id="2" name="Zamknij"/>
                 </StylerDialog>
@@ -767,7 +767,7 @@
                     <Item id="6413" name="Domyślna ścieżka odczytu i zapisu"/>
                     <Item id="6414" name="Bieżącego pliku"/>
                     <Item id="6415" name="Pamiętaj ostatnio używaną"/>
-                    <Item id="6430" name="Używaj nowego okna zapisywanie (bez domyślnego rozszerzenia pliku i ścieżki z Unix)"/>
+                    <Item id="6430" name="Używaj nowego okna zapisu (bez domyślnego rozszerzenia pliku i ścieżki z Unix)"/>
                     <Item id="6431" name="Nie traktuj przenoszonego folderu jako obszaru roboczego, tylko ładuj wszystkie jego pliki"/>
                 </DefaultDir>
 
@@ -1114,7 +1114,7 @@ Czy chcesz uruchomić Notepad++ jako Administrator?"/>
                 <Item id="3517" name="Szukaj w plikach..."/>
                 <Item id="3518" name="Otwórz w Eksploratorze"/>
                 <Item id="3519" name="Otwórz w wierszu poleceń"/>
-				<Item id="3520" name="Nazwa pliku do schowka"/>
+                <Item id="3520" name="Nazwa pliku do schowka"/>
             </Menus>
         </FolderAsWorkspace>
         <ProjectManager>

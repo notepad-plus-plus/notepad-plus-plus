@@ -263,11 +263,11 @@
                     <Item id="45001" name="Windows (CR LF)"/>
                     <Item id="45002" name="Unix (LF)"/>
                     <Item id="45003" name="Macintosh (CR)"/>
-                    <Item id="45004" name="Encode in ANSI"/>
-                    <Item id="45005" name="Encode in UTF-8-BOM"/>
-                    <Item id="45006" name="Encode in UCS-2 BE BOM"/>
-                    <Item id="45007" name="Encode in UCS-2 LE BOM"/>
-                    <Item id="45008" name="Encode in UTF-8"/>
+                    <Item id="45004" name="ANSI"/>
+                    <Item id="45005" name="UTF-8-BOM"/>
+                    <Item id="45006" name="UCS-2 BE BOM"/>
+                    <Item id="45007" name="UCS-2 LE BOM"/>
+                    <Item id="45008" name="UTF-8"/>
                     <Item id="45009" name="Convert to ANSI"/>
                     <Item id="45010" name="Convert to UTF-8"/>
                     <Item id="45011" name="Convert to UTF-8-BOM"/>

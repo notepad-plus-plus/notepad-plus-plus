@@ -565,11 +565,11 @@ BEGIN
 
     POPUP "E&ncoding"
     BEGIN
-        MENUITEM "Encode in ANSI",                    IDM_FORMAT_ANSI
-        MENUITEM "Encode in UTF-8",                   IDM_FORMAT_AS_UTF_8
-        MENUITEM "Encode in UTF-8-BOM",               IDM_FORMAT_UTF_8
-        MENUITEM "Encode in UCS-2 BE BOM",            IDM_FORMAT_UCS_2BE
-        MENUITEM "Encode in UCS-2 LE BOM",            IDM_FORMAT_UCS_2LE
+        MENUITEM "ANSI",                    IDM_FORMAT_ANSI
+        MENUITEM "UTF-8",                   IDM_FORMAT_AS_UTF_8
+        MENUITEM "UTF-8-BOM",               IDM_FORMAT_UTF_8
+        MENUITEM "UCS-2 BE BOM",            IDM_FORMAT_UCS_2BE
+        MENUITEM "UCS-2 LE BOM",            IDM_FORMAT_UCS_2LE
         POPUP "Character sets"
         BEGIN
             POPUP "Arabic"

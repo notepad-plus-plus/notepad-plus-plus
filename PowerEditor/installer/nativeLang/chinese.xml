@@ -265,11 +265,11 @@
                     <Item id="45001" name="轉換成 Windows 格式"/>
                     <Item id="45002" name="轉換成 UNIX 格式"/>
                     <Item id="45003" name="轉換成 Mac 格式"/>
-                    <Item id="45004" name="編譯成 ANSI 碼"/>
-                    <Item id="45005" name="編譯成 UTF-8 碼（BOM 檔首）"/>
-                    <Item id="45006" name="編譯成 UCS-2 Big Endian 碼"/>
-                    <Item id="45007" name="編譯成 UCS-2 Little Endian 碼"/>
-                    <Item id="45008" name="編譯成 UTF-8 碼"/>
+                    <Item id="45004" name="ANSI 碼"/>
+                    <Item id="45005" name="UTF-8 碼（BOM 檔首）"/>
+                    <Item id="45006" name="UCS-2 Big Endian 碼"/>
+                    <Item id="45007" name="UCS-2 Little Endian 碼"/>
+                    <Item id="45008" name="UTF-8 碼"/>
                     <Item id="45009" name="轉換至 ANSI 碼格式"/>
                     <Item id="45010" name="轉換至 UTF-8 碼格式"/>
                     <Item id="45011" name="轉換至 UTF-8 碼格式（BOM 檔首）"/>

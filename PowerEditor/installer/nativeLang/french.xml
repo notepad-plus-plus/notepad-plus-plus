@@ -270,11 +270,11 @@
                     <Item id="45001" name="Convertir en format Windows (CR+LF)"/>
                     <Item id="45002" name="Convertir en format UNIX (LF)"/>
                     <Item id="45003" name="Convertir en format Mac (CR)"/>
-                    <Item id="45004" name="Fichier encodé en ANSI"/>
-                    <Item id="45005" name="Fichier encodé en UTF-8 (avec BOM)"/>
-                    <Item id="45006" name="Fichier encodé en UTF-16BE"/>
-                    <Item id="45007" name="Fichier encodé en UTF-16LE"/>
-                    <Item id="45008" name="Fichier encodé en UTF-8"/>
+                    <Item id="45004" name="ANSI"/>
+                    <Item id="45005" name="UTF-8 (avec BOM)"/>
+                    <Item id="45006" name="UTF-16BE"/>
+                    <Item id="45007" name="UTF-16LE"/>
+                    <Item id="45008" name="UTF-8"/>
                     <Item id="45009" name="Convertir en ANSI"/>
                     <Item id="45010" name="Convertir en UTF-8"/>
                     <Item id="45011" name="Convertir en UTF-8-BOM"/>
@@ -411,7 +411,7 @@
                 <Item id="1904" name="Enregistrer..."/>
                 <Item id="2" name="Annuler"/>
             </Run>
-            
+
             <MD5FromFilesDlg title="Calculer les empreintes de MD5 depuis les fichiers">
                 <Item id="1922" name="Choisir les fichiers pour générer les empreintes..."/>
                 <Item id="1924" name="Copier dans le presse-papiers"/>
@@ -968,7 +968,7 @@
                 <Item id="1718" name="Mode étendu (\n, \r, \t, \0, \x...)"/>
                 <Item id="1720" name="&amp;. comprend ligne nouvelle"/>
             </FindInFinder>
-            <DoSaveOrNot title="Sauvegarder"> 
+            <DoSaveOrNot title="Sauvegarder">
                 <Item id="1761" name="Sauvegarder le fichier &quot;$STR_REPLACE$&quot; ?"/>
                 <Item id="6" name="Oui"/>
                 <Item id="7" name="Non"/>

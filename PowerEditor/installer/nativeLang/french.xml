@@ -270,16 +270,16 @@
                     <Item id="45001" name="Convertir en format Windows (CR+LF)"/>
                     <Item id="45002" name="Convertir en format UNIX (LF)"/>
                     <Item id="45003" name="Convertir en format Mac (CR)"/>
-                    <Item id="45004" name="Encoder en ANSI"/>
-                    <Item id="45005" name="Encoder en UTF-8 (avec BOM)"/>
-                    <Item id="45006" name="Encoder en UTF-16BE"/>
-                    <Item id="45007" name="Encoder en UTF-16LE"/>
-                    <Item id="45008" name="Encoder en UTF-8"/>
+                    <Item id="45004" name="ANSI"/>
+                    <Item id="45005" name="UTF-8-BOM"/>
+                    <Item id="45006" name="UCS-2 BE BOM"/>
+                    <Item id="45007" name="UCS-2 LE BOM"/>
+                    <Item id="45008" name="UTF-8"/>
                     <Item id="45009" name="Convertir en ANSI"/>
                     <Item id="45010" name="Convertir en UTF-8"/>
                     <Item id="45011" name="Convertir en UTF-8-BOM"/>
-                    <Item id="45012" name="Convertir en UTF-16BE"/>
-                    <Item id="45013" name="Convertir en UTF-16LE"/>
+                    <Item id="45012" name="Convertir en UCS-2 BE BOM"/>
+                    <Item id="45013" name="Convertir en UCS-2 LE BOM"/>
                     <Item id="46001" name="Configurateur de coloration syntaxique..."/>
                     <Item id="46250" name="Définir votre langage..."/>
                     <Item id="46180" name="Langage utilisateur"/>
@@ -290,7 +290,6 @@
                     <Item id="47004" name="Forum"/>
                     <Item id="47005" name="Obtenir d'autres compléments"/>
                     <Item id="47006" name="Mettre à jour Notepad++"/>
-                    <Item id="47008" name="Aide"/>
                     <Item id="47009" name="Paramétrer le proxy de mise à jour..."/>
                     <Item id="47010" name="Arguments de la ligne de commande..."/>
                     <Item id="47011" name="Support en direct"/>
@@ -299,6 +298,7 @@
                     <Item id="48006" name="Importer un thème..."/>
                     <Item id="48009" name="Raccourcis clavier..."/>
                     <Item id="48011" name="Préférences..."/>
+                    <Item id="48014" name="Ouvrir le dossier des modules d'extension..."/>
                     <Item id="48015" name="Gestionnaire des modules d'extension..."/>
                     <Item id="48501" name="Générer..."/>
                     <Item id="48502" name="Générer depuis les fichiers..."/>
@@ -380,7 +380,7 @@
                 <Item id="1688" name="persistante"/>
                 <Item id="1703" name="&amp;. comprend ligne nouvelle"/>
                 <Item id="2" name="Annuler"/>
-				<Item id="1721" name="▲"/>
+                <Item id="1721" name="▲"/>
                 <Item id="1723" name="▼ Suivant"/>
             </Find>
 
@@ -411,7 +411,7 @@
                 <Item id="1904" name="Enregistrer..."/>
                 <Item id="2" name="Annuler"/>
             </Run>
-            
+
             <MD5FromFilesDlg title="Calculer les empreintes de MD5 depuis les fichiers">
                 <Item id="1922" name="Choisir les fichiers pour générer les empreintes..."/>
                 <Item id="1924" name="Copier dans le presse-papiers"/>
@@ -741,10 +741,10 @@
                     <Item id="6404" name="Mac"/>
                     <Item id="6405" name="Encodage"/>
                     <Item id="6406" name="ANSI"/>
-                    <Item id="6407" name="UTF-8 sans BOM"/>
-                    <Item id="6408" name="UTF-8"/>
-                    <Item id="6409" name="UTF-16BE (Big Endian)"/>
-                    <Item id="6410" name="UTF-16LE (Little Endian)"/>
+                    <Item id="6407" name="UTF-8"/>
+                    <Item id="6408" name="UTF-8-BOM"/>
+                    <Item id="6409" name="UCS-2 BE BOM"/>
+                    <Item id="6410" name="UCS-2 LE BOM"/>
                     <Item id="6411" name="Langage par défaut :"/>
                     <Item id="6419" name="Nouveau document"/>
                     <Item id="6420" name="Appliquer aux fichiers ANSI ouverts"/>
@@ -814,7 +814,7 @@
                     <Item id="6728" name="Entête et pied de page"/>
                 </Print>
 
-                <RecentFilesHistory title="Historique des fichiers récents">
+                <RecentFilesHistory title="Fichiers récents">
                     <Item id="6304" name="Historique des fichiers récents"/>
                     <Item id="6306" name="Nombre maxi. de fichiers récents :"/>
                     <Item id="6305" name="Ne pas vérifier au lancement"/>
@@ -879,11 +879,9 @@
                 </Delimiter>
 
                 <Cloud title="Cloud">
-                    <Item id="6261" name="Chemin invalide"/>
                     <Item id="6262" name="Sauvegarder les paramètres dans le cloud"/>
                     <Item id="6263" name="Par défaut"/>
                     <Item id="6267" name="Chemin d'accès de votre cloud :"/>
-                    <!--Item id="6261" name="Please restart Notepad++ to take effect."/-->
                 </Cloud>
 
                 <SearchEngine title="Moteur de recherche">
@@ -906,7 +904,6 @@
                     <Item id="6114" name="Activer"/>
                     <Item id="6115" name="Indentation automatique"/>
                     <Item id="6117" name="Activer la liste de MRU"/>
-                    <Item id="6307" name="Détection automatique"/>
                     <Item id="6308" name="Réduire dans la barre de notifications"/>
                     <Item id="6312" name="Autodétection de l’état des fichiers"/>
                     <Item id="6313" name="Mise à jour sans alerte"/>
@@ -921,6 +918,9 @@
                     <Item id="6334" name="Détecter l'encodage automatiquement"/>
                     <Item id="6335" name="Backslash : caractère d'échappement pour SQL"/>
                     <Item id="6337" name="Ext. fichier espace de travail :"/>
+                    <Item id="6344" name="Aperçu du document"/>
+                    <Item id="6345" name="Aperçu à onglet"/>
+                    <Item id="6346" name="Aperçu à commutateur des documents"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Exécuter une macro en boucle">
@@ -937,9 +937,6 @@
                 <Item id="7002" name="Enregistrer"/>
                 <Item id="7003" name="Fermer fenêtres"/>
                 <Item id="7004" name="Trier les onglets"/>
-                <Item id="Name" name="Nom"/>
-                <Item id="Path" name="Chemin"/>
-                <Item id="Type" name="Type"/>
             </Window>
             <ColumnEditor title="Édition en colonnes">
                 <Item id="1" name="OK"/>
@@ -954,6 +951,7 @@
                 <Item id="2032" name="Format"/>
                 <Item id="2033" name="Nombre à insérer"/>
                 <Item id="2035" name="Nombre de zéros"/>
+                <Item id="2036" name="Répéter :"/>
             </ColumnEditor>
             <FindInFinder title="Rechercher dans les résultats trouvés">
                 <Item id="1"    name="Rechercher Tout"/>
@@ -968,7 +966,7 @@
                 <Item id="1718" name="Mode étendu (\n, \r, \t, \0, \x...)"/>
                 <Item id="1720" name="&amp;. comprend ligne nouvelle"/>
             </FindInFinder>
-            <DoSaveOrNot title="Sauvegarder"> 
+            <DoSaveOrNot title="Sauvegarder">
                 <Item id="1761" name="Sauvegarder le fichier &quot;$STR_REPLACE$&quot; ?"/>
                 <Item id="6" name="Oui"/>
                 <Item id="7" name="Non"/>
@@ -988,6 +986,9 @@
             <LoseUndoAbilityWarning title="Perte de la capacité d'annulation" message="Vous devez enregistrer la modification en cours. Toutes les modifications enregistrées ne peuvent pas être annulées. Continuer ?"/>
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <NbFileToOpenImportantWarning title="Quantité de fichiers à ouvrir trop grande." message="$INT_REPLACE$ fichiers sont sur le point d'être ouverts. Êtes-vous sûr de les ouvrir ?"/>
+            <SettingsOnCloudError title="Les paramètres dans le cloud" message="Il semble que les paramètres dans le cloud se trouve sur un lecteur en lecture seule,
+ou à un dossier restreint. Votre paramètres dans le cloud seront annulés.
+Veuillez réinitialiser une valeur cohérente au dialogue Préférences."/>
             <NppHelpAbsentWarning title="Le fichier n'existe pas" message=" n'existe pas. Veuillez le télécharger sur le site de Notepad++."/>
             <SaveCurrentModifWarning title="Sauvegarder la modification en cours" message="Vous devez enregistrer la modification en cours. Toutes les modifications enregistrées ne peuvent pas être annulées. Continuer ?"/>
             <FilePathNotFoundWarning title="Ouvrir" message="Le fichier que vous essayez d'ouvrir n'existe pas."/>
@@ -1053,10 +1054,11 @@ Voulez-vous lancer Notepad++ en mode Administrateur ?"/>
             <OpenInAdminModeWithoutCloseCurrent title="L'enregistrement a échoué" message="Le fichier ne peut pas être enregistré et il est peut-être protégé.
 Voulez-vous lancer Notepad++ en mode Administrateur ?"/>
             <OpenInAdminModeFailed title="L'ouverture en mode Administrateur a échoué" message="Notepad++ ne peut pas être lancé en mode Administrateur."/>
-			<ExitToUpdatePlugins title="Notepad++ sera fermé" message="Si vous cliquez Oui, vous allez quitter Notepad++ pour poursuivre les operations.
+            <ViewInBrowser title="Afficher le fichier actuel dans le navigateur" message="Application introuvable sur votre ordinateur."/>
+            <ExitToUpdatePlugins title="Notepad++ sera fermé" message="Si vous cliquez Oui, vous allez quitter Notepad++ pour poursuivre les operations.
 Notepad++ sera relancé après.
 Voulez-vous les poursuivez ?"/>
-            <NeedToRestartToLoadPlugins title="Vous devez redémarrer Notepad++" message="Vous devez redémarrer Notepad++ pour charger les plugins installés."/>
+            <NeedToRestartToLoadPlugins title="Vous devez redémarrer Notepad++" message="Vous devez redémarrer Notepad++ pour charger les modules d'extension installés."/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Historique du presse-papiers"/>
@@ -1100,6 +1102,7 @@ Voulez-vous les poursuivez ?"/>
                 <Item id="3517" name="Rechercher dans les fichiers..."/>
                 <Item id="3518" name="Explorer depuis ici"/>
                 <Item id="3519" name="CMD depuis ici"/>
+                <Item id="3520" name="Copier le nom du fichier"/>
             </Menus>
         </FolderAsWorkspace>
         <ProjectManager>
@@ -1181,6 +1184,8 @@ Voulez-vous les poursuivez ?"/>
             <find-status-replaceall-readonly value="Remplacer tout : l'opération a échoué. Le fichier est en lecture seule"/>
             <find-status-replace-end-reached value="Remplacer : La 1ère occurrence a été remplacée depuis le haut. La fin du document a été atteinte"/>
             <find-status-replace-top-reached value="Remplacer : La 1ère occurrence a été remplacée depuis le bas. Le début du document a été atteint"/>
+            <find-status-replaced-next-found value="Remplacer : 1 occurrence a été remplacée. L'occurrence suivante a été trouvée"/>
+            <find-status-replaced-next-not-found value="Remplacer : 1 occurrence a été remplacée. L'occurrence suivante n'a pas été trouvée"/>
             <find-status-replace-not-found value="Remplacer : aucune occurrence n'a été trouvée"/>
             <find-status-replace-readonly value="Remplacer : l'opération a échoué. Le fichier est en lecture seule"/>
             <find-status-cannot-find value="Rechercher : &quot;$STR_REPLACE$&quot; n'a pas été trouvé"/>
@@ -1192,15 +1197,27 @@ Voulez-vous les poursuivez ?"/>
             <finder-select-all value="Sélectionner tout"/>
             <finder-clear-all value="Effacer tout"/>
             <finder-open-all value="Ouvrir tout"/>
+            <common-ok value="OK"/>
+            <common-cancel value="Annuler"/>
+            <common-name value="Nom : "/>
+            <tabrename-title value="Renommer onglet actuel"/>
+            <tabrename-newname value="Nom nouveau : "/>
+            <recent-file-history-maxfile value="Max. fichier : "/>
+            <language-tabsize value="Taille tabulation : "/>
+            <userdefined-title-new value="Langage nouveau..."/>
+            <userdefined-title-save value="Enregistrer langage actuel sous..."/>
+            <userdefined-title-rename value="Renommer langage actuel"/>
+            <autocomplete-nb-char value="Caractères : "/>
+            <edit-verticaledge-nb-col value="Colonnes : "/>
             <summary value="Statistiques"/>
             <summary-filepath value="Chemin d'accès : "/>
             <summary-filecreatetime value="Date de Création : "/>
             <summary-filemodifytime value="Date de Modification : "/>
-            <summary-nbchar value="Caracters (sans fin de ligne) : "/>
+            <summary-nbchar value="Caractères (sans fin de ligne) : "/>
             <summary-nbword value="Mots : "/>
             <summary-nbline value="Lignes : "/>
             <summary-nbbyte value="Taille du document : "/>
-            <summary-nbsel1 value=" caracters sélectionnés ("/>
+            <summary-nbsel1 value=" caractères sélectionnés ("/>
             <summary-nbsel2 value=" octets) dans "/>
             <summary-nbrange value=" sélections"/>
         </MiscStrings>

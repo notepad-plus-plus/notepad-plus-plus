@@ -81,6 +81,8 @@ FunctionEnd
 ;Installer Functions
 Var Dialog
 Var ShortcutCheckboxHandle
+Var AllUsersRadioHandle
+Var CurrentUserRadioHandle
 Var NoUserDataCheckboxHandle
 Var WinVer
 
@@ -98,7 +100,22 @@ Function ExtraOptions
 	${NSD_Check} $ShortcutCheckboxHandle
 	${NSD_OnClick} $ShortcutCheckboxHandle OnChange_ShortcutCheckBox
 	
-	${NSD_CreateCheckbox} 0 80 100% 30u "Don't use %APPDATA%$\nEnable this option to make Notepad++ load/write the configuration files from/to its install directory. Check it if you use Notepad++ in a USB device."
+	; detect the right of 
+	UserInfo::GetAccountType
+	Pop $1
+	StrCmp $1 "Admin" 0 AllUsersCurrentUserRadios_Done
+		${NSD_CreateRadioButton} 0 50 100% 30u "Create Shortcuts for All Users"
+		Pop $AllUsersRadioHandle
+		${NSD_AddStyle} $AllUsersRadioHandle ${WS_GROUP}
+		${NSD_Check} $AllUsersRadioHandle
+		${NSD_OnClick} $AllUsersRadioHandle OnChange_AllUsersRadio
+
+		${NSD_CreateRadioButton} 0 75 100% 30u "Create Shortcuts for Current User"
+		Pop $CurrentUserRadioHandle
+		${NSD_OnClick} $CurrentUserRadioHandle OnChange_AllUsersRadio
+	AllUsersCurrentUserRadios_Done:
+
+	${NSD_CreateCheckbox} 0 125 100% 30u "Don't use %APPDATA%$\nEnable this option to make Notepad++ load/write the configuration files from/to its install directory. Check it if you use Notepad++ in a USB device."
 	Pop $NoUserDataCheckboxHandle
 	${NSD_OnClick} $NoUserDataCheckboxHandle OnChange_NoUserDataCheckBox
 	
@@ -135,11 +152,18 @@ Function preventInstallInWin9x
 FunctionEnd
 
 Var createShortcutChecked
+Var shortcutsAllUsersSelected
+Var shortcutsCurrentUserSelected
 Var noUserDataChecked
 
-; The definition of "OnChange" event for checkbox
+; The definition of "OnChange" event for checkboxes and radios
 Function OnChange_ShortcutCheckBox
 	${NSD_GetState} $ShortcutCheckboxHandle $createShortcutChecked
+FunctionEnd
+
+Function OnChange_AllUsersRadio
+	${NSD_GetState} $AllUsersRadioHandle $shortcutsAllUsersSelected
+	${NSD_GetState} $CurrentUserRadioHandle $shortcutsCurrentUserSelected
 FunctionEnd
 
 Function OnChange_NoUserDataCheckBox

@@ -183,11 +183,9 @@ Function shortcutLinkManagement
 	Delete "$SMPROGRAMS\${APPNAME}\Uninstall.lnk"
 	RMDir "$SMPROGRAMS\${APPNAME}"
 		
-	; detect the right of 
-	UserInfo::GetAccountType
-	Pop $1
-	StrCmp $1 "Admin" 0 +2
-	SetShellVarContext all
+	${If} $shortcutsAllUsersSelected == ${BST_CHECKED}
+		SetShellVarContext all
+	${EndIf}
 	
 	; set the shortcuts working directory
 	; http://nsis.sourceforge.net/Docs/Chapter4.html#createshortcut

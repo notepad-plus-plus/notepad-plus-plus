@@ -77,8 +77,8 @@
                     <Item id="1001"  name="Imprimer immédiatement"/>
                     <Item id="41001" name="&amp;Nouveau"/>
                     <Item id="41002" name="&amp;Ouvrir..."/>
-                    <Item id="41019" name="Explorer"/>
-                    <Item id="41020" name="cmd"/>
+                    <Item id="41019" name="Explorateur Windows"/>
+                    <Item id="41020" name="Invite de commande (cmd)"/>
                     <Item id="41003" name="Fermer"/>
                     <Item id="41004" name="Fermer tout"/>
                     <Item id="41005" name="Fermer tout sauf le document actuel"/>
@@ -231,8 +231,8 @@
                     <Item id="44019" name="Afficher tous les caractères"/>
                     <Item id="44020" name="Afficher le guide d'indentation"/>
                     <Item id="44022" name="Retour automatique à la ligne"/>
-                    <Item id="44023" name="Zoom &amp;avant  Ctrl+Molette vers le haut"/>
-                    <Item id="44024" name="Zoom &amp;arrière    Ctrl+Molette vers le bas"/>
+                    <Item id="44023" name="Zoom &amp;avant   (Ctrl+Molette vers le haut)"/>
+                    <Item id="44024" name="Zoom a&amp;rrière  (Ctrl+Molette vers le bas)"/>
                     <Item id="44025" name="Afficher les blancs et les tabulations"/>
                     <Item id="44026" name="Afficher les symboles de fin de ligne"/>
                     <Item id="44029" name="Déplier tous les blocs"/>
@@ -240,7 +240,7 @@
                     <Item id="44031" name="Déplier le bloc de la ligne actuelle"/>
                     <Item id="44049" name="Résumé..."/>
                     <Item id="44032" name="Activer/Désactiver le mode plein écran"/>
-                    <Item id="44033" name="Restaurer zoom   Ctrl+/(keypad)"/>
+                    <Item id="44033" name="Restaurer zoom"/>
                     <Item id="44034" name="Toujours devant"/>
                     <Item id="44035" name="Défilement vertical synchrone"/>
                     <Item id="44036" name="Défilement horizontal synchrone"/>
@@ -264,7 +264,7 @@
                     <Item id="44094" name="Onglet 9"/>
                     <Item id="44095" name="Onglet suivant"/>
                     <Item id="44096" name="Onglet précédent"/>
-                    <Item id="44097" name="Surveillance de Log(tail -f)"/>
+                    <Item id="44097" name="Surveillance de Log (tail -f)"/>
                     <Item id="44098" name="Déplacer vers l'avant"/>
                     <Item id="44099" name="Déplacer vers l'arrière"/>
                     <Item id="45001" name="Convertir en format Windows (CR+LF)"/>
@@ -293,7 +293,7 @@
                     <Item id="47009" name="Paramétrer le proxy de mise à jour..."/>
                     <Item id="47010" name="Arguments de la ligne de commande..."/>
                     <Item id="47011" name="Support en direct"/>
-                    <Item id="47012" name="Debug Info..."/>
+                    <Item id="47012" name="Informations de débogage..."/>
                     <Item id="48005" name="Importer un complément..."/>
                     <Item id="48006" name="Importer un thème..."/>
                     <Item id="48009" name="Raccourcis clavier..."/>
@@ -302,10 +302,10 @@
                     <Item id="48015" name="Gestionnaire des modules d'extension..."/>
                     <Item id="48501" name="Générer..."/>
                     <Item id="48502" name="Générer depuis les fichiers..."/>
-                    <Item id="48503" name="Générer dans le presse-papiers depuis la selection"/>
+                    <Item id="48503" name="Générer dans le presse-papiers depuis la sélection"/>
                     <Item id="48504" name="Générer..."/>
                     <Item id="48505" name="Générer depuis les fichiers..."/>
-                    <Item id="48506" name="Générer dans le presse-papiers depuis la selection"/>
+                    <Item id="48506" name="Générer dans le presse-papiers depuis la sélection"/>
                     <Item id="48016" name="Modifier/Supprimer une macro..."/>
                     <Item id="48017" name="Modifier/Supprimer une commande..."/>
                     <Item id="48018" name="Éditer le menu contextuel"/>
@@ -419,7 +419,7 @@
             </MD5FromFilesDlg>
 
             <MD5FromTextDlg title="Calculer l'empreinte de MD5">
-                <Item id="1932" name="Traiter chaque ligne comme une chaine de caractères"/>
+                <Item id="1932" name="Traiter chaque ligne comme une chaîne de caractères"/>
                 <Item id="1934" name="Copier dans le presse-papiers"/>
                 <Item id="2"    name="Fermer"/>
             </MD5FromTextDlg>
@@ -431,7 +431,7 @@
             </SHA256FromFilesDlg>
 
             <SHA256FromTextDlg title="Calculer l'empreinte de SHA-256">
-                <Item id="1932" name="Traiter chaque ligne comme une chaine de caractères"/>
+                <Item id="1932" name="Traiter chaque ligne comme une chaîne de caractères"/>
                 <Item id="1934" name="Copier dans le presse-papiers"/>
                 <Item id="2"    name="Fermer"/>
             </SHA256FromTextDlg>
@@ -439,7 +439,7 @@
             <PluginsAdminDlg title="Gestionnaire des modules d'extension" titleAvailable = "Disponibles" titleUpdates = "Mises à jour" titleInstalled = "Installés">
                 <ColumnPlugin   name="Modules d'extension"/>
                 <ColumnVersion  name="Version"/>
-                <Item id="5501" name="Rechercher:"/>
+                <Item id="5501" name="Recherche : "/>
                 <Item id="5503" name="Installer"/>
                 <Item id="5504" name="Mettre à jour"/>
                 <Item id="5505" name="Supprimer"/>
@@ -712,7 +712,7 @@
                     <Item id="6208" name="Afficher la marge droite"/>
                     <Item id="6209" name="Nombre de colonnes :"/>
                     <Item id="6234" name="Désactiver le défilement avancé
-(en cas de problème du touchpad)"/>
+(en cas de problème du pavé tactile)"/>
                     <Item id="6211" name="Largeur des lignes"/>
                     <Item id="6212" name="Afficher un filet vertical"/>
                     <Item id="6213" name="Colorer l’arrière-plan"/>
@@ -723,7 +723,7 @@
                     <Item id="6219" name="Clignotement :"/>
                     <Item id="6221" name="Vif"/><!-- Rapide -->
                     <Item id="6222" name="Zen"/><!-- Lent -->
-                    <Item id="6224" name="Multiédition"/>
+                    <Item id="6224" name="Multi-édition"/>
                     <Item id="6225" name="Activer (Ctrl+Clic/sélection)"/>
                     <Item id="6226" name="Aucun"/>
                     <Item id="6227" name="Ligne pliée"/>
@@ -905,7 +905,7 @@
                     <Item id="6115" name="Indentation automatique"/>
                     <Item id="6117" name="Activer la liste de MRU"/>
                     <Item id="6308" name="Réduire dans la barre de notifications"/>
-                    <Item id="6312" name="Autodétection de l’état des fichiers"/>
+                    <Item id="6312" name="Surveillance de l’état des fichiers"/>
                     <Item id="6313" name="Mise à jour sans alerte"/>
                     <Item id="6318" name="Paramétrage de lien cliquable"/>
                     <Item id="6319" name="Activer"/>
@@ -916,11 +916,11 @@
                     <Item id="6325" name="Aller à la dernière ligne après mise à jour"/>
                     <Item id="6331" name="Afficher seulement le nom du fichier dans la barre de titre"/>
                     <Item id="6334" name="Détecter l'encodage automatiquement"/>
-                    <Item id="6335" name="Backslash : caractère d'échappement pour SQL"/>
+                    <Item id="6335" name="Contre-oblique : caractère d'échappement pour SQL"/>
                     <Item id="6337" name="Ext. fichier espace de travail :"/>
                     <Item id="6344" name="Aperçu du document"/>
                     <Item id="6345" name="Aperçu à onglet"/>
-                    <Item id="6346" name="Aperçu à commutateur des documents"/>
+                    <Item id="6346" name="Aperçu à commutateur de documents"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Exécuter une macro en boucle">
@@ -977,8 +977,8 @@
         </Dialog>
         <MessageBox>
             <CannotMoveDoc title="Déplacement vers une nouvelle instance Notepad++" message="Le document est en cours d'utilisation, le sauvegarder puis réessayer."/>
-            <ColumnModeTip title="Sélection en mode colonnes" message="Utiliser 'Alt+sélection souris' ou 'Alt+Maj+flêches' pour activer le mode colonne."/>
-            <ContextMenuXmlEditWarning title="Édition du Menu Contextuel" message="L'édition de contextMenu.xml vous permet de modifier la fenêtre de menu contextuel de Notepad++. Vous devez redémarrer votre Notepad++ pour prendre en compte les modifications du fichier."/>
+            <ColumnModeTip title="Sélection en mode colonnes" message="Utiliser 'Alt+sélection souris' ou 'Alt+Maj+flèches' pour activer le mode colonne."/>
+            <ContextMenuXmlEditWarning title="Édition du Menu Contextuel" message="L'édition de &quot;contextMenu.xml&quot; vous permet de modifier la fenêtre de menu contextuel de Notepad++. Vous devez redémarrer votre Notepad++ pour prendre en compte les modifications du fichier."/>
             <DeleteFileFailed title="Suppression du fichier" message="La suppression du fichier a échoué."/>
             <DocReloadWarning title="Recharger" message="Êtes-vous sûr de vouloir recharger le fichier en cours et de perdre les modifications apportées dans Notepad++ ?"/>
             <FileAlreadyOpenedInNpp title="" message="Le fichier est toujours ouvert dans Notepad++."/>
@@ -996,7 +996,7 @@ Veuillez réinitialiser une valeur cohérente au dialogue Préférences."/>
             <DroppingFolderAsProjectModeWarning title="Action invalide" message="Vous ne pouvez déposer que des fichiers ou des dossiers mais pas les deux, car vous êtes en mode Projet.
 Pour rendre cette opération possible, vous devez activer &quot;Lors de glisser-déposer d'un dossier, ouvrir tous les fichiers dans le dossier&quot; à la page &quot;Dossier par défaut&quot; du dialogue Préférences."/>
             <SortingError title="Erreur de tri" message="Impossible d'effectuer le tri numérique à cause de la ligne $INT_REPLACE$."/>
-            <BufferInvalidWarning title="Échec de sauvegarde" message="Cannot save: Buffer is invalid."/>
+            <BufferInvalidWarning title="Échec de sauvegarde" message="Échec de sauvegarde : le tampon des données de fichier est invalide."/>
             <DoCloseOrNot title="Conserver un fichier non existant" message="Le fichier &quot;$STR_REPLACE$&quot; n'existe plus.
 Conserver ce fichier dans l'éditeur ?"/>
             <DoDeleteOrNot title="Supprimer fichier" message="Le fichier &quot;$STR_REPLACE$&quot;
@@ -1014,48 +1014,49 @@ Voulez-vous le recharger ?"/>
 Ce fichier a été modifié par un autre programme.
 Voulez-vous le recharger et perdre les modifications effectuées dans Notepad++ ?"/>
             <PrehistoricSystemDetected title="Système préhistorique détecté" message="Il semble que vous utilisez toujours un système préhistorique, cette fonctionnalité ne fonctionne que sur un système moderne, désolé."/>
-            <XpUpdaterProblem title="Notepad++ Updater" message="Notepad++ updater is not compatible with XP due to the obsolete security layer under XP.
-Do you want to go to Notepad++ page to download the latest version?"/>
-            <DocTooDirtyToMonitor title="Monitoring problem" message="The document is dirty. Please save the modification before monitoring it."/>
-            <DocNoExistToMonitor title="Monitoring problem" message="The file should exist to be monitored."/>
-            <FileTooBigToOpen title="File size problem" message="File is too big to be opened by Notepad++"/>
-            <CreateNewFileOrNot title="Create new file" message="&quot;$STR_REPLACE$&quot; doesn't exist. Create it?."/>
-            <CreateNewFileError title="Create new file" message="Cannot create the file &quot;$STR_REPLACE$&quot;."/>
-            <OpenFileError title="ERREUR" message="Cannot open file &quot;$STR_REPLACE$&quot;."/>
-            <FileBackupFailed title="File Backup Failed" message="The previous version of the file could not be saved into the backup directory at &quot;$STR_REPLACE$&quot;.
+            <XpUpdaterProblem title="Mettre à jour Notepad++" message="Le metteur à jour de Notepad++ est incompatible avec XP en raison de la couche de sécurité obsolète de XP.
+Voulez-vous télécharger la dernière version de Notepad++ sur le site officiel ?"/>
+            <DocTooDirtyToMonitor title="Surveillance de Log" message="Le document a été modifié. Veuillez l'enregistrer d'abord."/>
+            <DocNoExistToMonitor title="Surveillance de Log" message="Le fichier doit exister pour être surveillé."/>
+            <FileTooBigToOpen title="Fichier trop volumineux" message="Ce fichier est trop volumineux pour être ouvert avec Notepad++."/>
+            <CreateNewFileOrNot title="Créer un nouveau fichier" message="Le fichier &quot;$STR_REPLACE$&quot; n'existe pas.
+Voulez-vous le créer maintenant ?"/>
+            <CreateNewFileError title="Créer un nouveau fichier" message="Le fichier &quot;$STR_REPLACE$&quot; n'a pas pu être créé."/>
+            <OpenFileError title="Ouvrir un fichier" message="Le fichier &quot;$STR_REPLACE$&quot; n'a pas pu être ouvert."/>
+            <FileBackupFailed title="Échec de sauvegarde" message="La version précédente du fichier n'a pas pu être enregistré dans le répertoire de sauvegarde à &quot;$STR_REPLACE$&quot;.
 
-Do you want to save the current file anyways?"/>
-            <LoadStylersFailed title="Load stylers.xml failed" message="Load &quot;$STR_REPLACE$&quot; failed!"/>
-            <LoadLangsFailed title="Configurator" message="Load langs.xml failed!
-Do you want to recover your langs.xml?"/>
-            <LoadLangsFailedFinal title="Configurator" message="Load langs.xml failed!"/>
-            <FolderAsWorspaceSubfolderExists title="Folder as Workspace adding folder problem" message="A sub-folder of the folder you want to add exists.
-Please remove its root from the panel before you add folder &quot;$STR_REPLACE$&quot;."/>
+Voulez-vous quand même enregistrer le fichier actuel ?"/>
+            <LoadStylersFailed title="Échec de chargement des styles" message="Échec de chargement du fichier &quot;$STR_REPLACE$&quot; !"/>
+            <LoadLangsFailed title="Configuration" message="Échec de chargement du fichier &quot;langs.xml&quot;.
+Voulez-vous récupérer &quot;langs.xml&quot; ?"/>
+            <LoadLangsFailedFinal title="Configuration" message="Échec de chargement du fichier &quot;langs.xml&quot; !"/>
+            <FolderAsWorspaceSubfolderExists title="Dossier en tant qu'Espace de travail" message="Il existe un sous-dossier du dossier que vous souhaitez ajouter.
+Veuillez supprimer le sous-dossier avant d'ajouter &quot;$STR_REPLACE$&quot;."/>
 
-            <ProjectPanelChanged title="$STR_REPLACE$" message="The workspace was modified. Do you want to save it?"/>
-            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Your workspace has not been saved."/>
-            <ProjectPanelOpenDoSaveDirtyWsOrNot title="Open Workspace" message="The current workspace was modified. Do you want to save the current project?"/>
-            <ProjectPanelNewDoSaveDirtyWsOrNot title="New Workspace" message="The current workspace was modified. Do you want to save the current project?"/>
-            <ProjectPanelOpenFailed title="Open Workspace" message="The workspace could not be opened.
-It seems the file to open is not a valid project file."/>
-            <ProjectPanelRemoveFolderFromProject title="Remove folder from project" message="All the sub-items will be removed.
-Are you sure you want to remove this folder from the project?"/>
-            <ProjectPanelRemoveFileFromProject title="Remove file from project" message="Are you sure you want to remove this file from the project?"/>
+            <ProjectPanelChanged title="$STR_REPLACE$" message="L'espace de travail a été modifié. Voulez-vous l'enregistrer ?"/>
+            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Votre espace de travail n'a pas encore été enregistré."/>
+            <ProjectPanelOpenDoSaveDirtyWsOrNot title="Ouvrir espace de travail" message="L'espace de travail actuel a été modifié. Voulez-vous enregistrer le projet actuel ?"/>
+            <ProjectPanelNewDoSaveDirtyWsOrNot title="Nouvel espace de travail" message="L'espace de travail actuel a été modifié. Voulez-vous enregistrer le projet actuel ?"/>
+            <ProjectPanelOpenFailed title="Ouvrir espace de travail" message="L'espace de travail n'a pas pu être ouvert.
+Il semble que le fichier à ouvrir n'appartient pas au projet."/>
+            <ProjectPanelRemoveFolderFromProject title="Supprimer dossier du projet" message="La totalité du dossier sera supprimée.
+Êtes-vous sûr de vouloir supprimer ce dossier du projet ?"/>
+            <ProjectPanelRemoveFileFromProject title="Supprimer fichier du projet" message="Êtes-vous sûr de vouloir supprimer ce fichier du projet ?"/>
             <ProjectPanelReloadError title="Recharger l'espace de travail" message="Impossible de trouver le fichier à recharger."/>
             <ProjectPanelReloadDirty title="Recharger l'espace de travail" message="L'espace de travail actuel a été modifié. Le rechargement éliminera toutes les modifications.
 Voulez-vous continuer ?"/>
             <UDLNewNameError title="Erreur UDL" message="Ce nom est utilisé par un autre langage,
 veuillez en donner un autre."/>
-            <UDLRemoveCurrentLang title="Remove the current language" message="Are you sure?"/>
-            <SCMapperDoDeleteOrNot title="Are you sure?" message="Are you sure you want to delete this shortcut?"/>
-            <FindCharRangeValueError title="Range Value problem" message="You should type between from 0 to 255."/>
+            <UDLRemoveCurrentLang title="Supprimer la langage actuelle" message="Êtes-vous sûr de vouloir supprimer la langage actuelle ?"/>
+            <SCMapperDoDeleteOrNot title="Supprimer un raccourci clavier" message="Êtes-vous sûr de vouloir supprimer ce raccourci clavier ?"/>
+            <FindCharRangeValueError title="Valeur en dehors des limites" message="Veuillez entrer une valeur entre 0 et 255."/>
             <OpenInAdminMode title="L'enregistrement a échoué" message="Le fichier ne peut pas être enregistré et il est peut-être protégé.
 Voulez-vous lancer Notepad++ en mode Administrateur ?"/>
             <OpenInAdminModeWithoutCloseCurrent title="L'enregistrement a échoué" message="Le fichier ne peut pas être enregistré et il est peut-être protégé.
 Voulez-vous lancer Notepad++ en mode Administrateur ?"/>
             <OpenInAdminModeFailed title="L'ouverture en mode Administrateur a échoué" message="Notepad++ ne peut pas être lancé en mode Administrateur."/>
             <ViewInBrowser title="Afficher le fichier actuel dans le navigateur" message="Application introuvable sur votre ordinateur."/>
-            <ExitToUpdatePlugins title="Notepad++ sera fermé" message="Si vous cliquez Oui, vous allez quitter Notepad++ pour poursuivre les operations.
+            <ExitToUpdatePlugins title="Notepad++ sera fermé" message="Si vous cliquez Oui, vous allez quitter Notepad++ pour poursuivre les opérations.
 Notepad++ sera relancé après.
 Voulez-vous les poursuivez ?"/>
             <NeedToRestartToLoadPlugins title="Vous devez redémarrer Notepad++" message="Vous devez redémarrer Notepad++ pour charger les modules d'extension installés."/>

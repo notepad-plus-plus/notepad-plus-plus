@@ -80,8 +80,8 @@ FunctionEnd
 
 ;Installer Functions
 Var Dialog
-Var NoUserDataCheckboxHandle
 Var ShortcutCheckboxHandle
+Var NoUserDataCheckboxHandle
 Var WinVer
 
 Function ExtraOptions
@@ -134,16 +134,16 @@ Function preventInstallInWin9x
 		Abort
 FunctionEnd
 
-Var noUserDataChecked
 Var createShortcutChecked
+Var noUserDataChecked
 
 ; The definition of "OnChange" event for checkbox
-Function OnChange_NoUserDataCheckBox
-	${NSD_GetState} $NoUserDataCheckboxHandle $noUserDataChecked
-FunctionEnd
-
 Function OnChange_ShortcutCheckBox
 	${NSD_GetState} $ShortcutCheckboxHandle $createShortcutChecked
+FunctionEnd
+
+Function OnChange_NoUserDataCheckBox
+	${NSD_GetState} $NoUserDataCheckboxHandle $noUserDataChecked
 FunctionEnd
 
 

@@ -1331,6 +1331,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				{
 					if (_currentStatus == MARK_DLG)
 					{
+						if (isMacroRecording) saveInMacro(wParam, FR_OP_FIND);
 						(*_ppEditView)->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE);
 						(*_ppEditView)->execute(SCI_MARKERDELETEALL, MARK_BOOKMARK);
 						setStatusbarMessage(TEXT(""), FSNoMessage);
@@ -2509,7 +2510,7 @@ void FindReplaceDlg::saveInMacro(size_t cmd, int cmdType)
 {
 	int booleans = 0;
 	::SendMessage(_hParent, WM_FRSAVE_INT, IDC_FRCOMMAND_INIT, 0);
-	::SendMessage(_hParent, WM_FRSAVE_STR, IDFINDWHAT,  reinterpret_cast<LPARAM>(_options._str2Search.c_str()));
+	::SendMessage(_hParent, WM_FRSAVE_STR, IDFINDWHAT,  reinterpret_cast<LPARAM>(cmd == IDC_CLEAR_ALL ? TEXT("") : _options._str2Search.c_str()));
 	booleans |= _options._isWholeWord?IDF_WHOLEWORD:0;
 	booleans |= _options._isMatchCase?IDF_MATCHCASE:0;
 	booleans |= _options._dotMatchesNewline?IDF_REDOTMATCHNL:0;
@@ -2534,6 +2535,10 @@ void FindReplaceDlg::saveInMacro(size_t cmd, int cmdType)
 		booleans |= _options._isInSelection?IDF_IN_SELECTION_CHECK:0;
 		booleans |= _options._isWrapAround?IDF_WRAP:0;
 		booleans |= _options._whichDirection?IDF_WHICH_DIRECTION:0;
+	}
+	if (cmd == IDC_CLEAR_ALL)
+	{
+		booleans = 0;
 	}
 	::SendMessage(_hParent, WM_FRSAVE_INT, IDC_FRCOMMAND_BOOLEANS, booleans);
 	::SendMessage(_hParent, WM_FRSAVE_INT, IDC_FRCOMMAND_EXEC, cmd);
@@ -2761,6 +2766,13 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const generic_st
 						}
 
 						setStatusbarMessage(result, FSMessage);
+						break;
+					}
+
+					case IDC_CLEAR_ALL:
+					{
+						(*_ppEditView)->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE);
+						(*_ppEditView)->execute(SCI_MARKERDELETEALL, MARK_BOOKMARK);
 						break;
 					}
 

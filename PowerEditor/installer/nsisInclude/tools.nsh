@@ -97,14 +97,14 @@ Function ExtraOptions
 
 	${NSD_CreateCheckbox} 0 0 100% 12u "Create Shortcut in Start Menu"
 	Pop $StartMenuShortcutCheckboxHandle
-	${NSD_Check} $StartMenuShortcutCheckboxHandle
 	${NSD_OnClick} $StartMenuShortcutCheckboxHandle OnChange_StartMenuShortcutCheckBox
+	${NSD_Check} $StartMenuShortcutCheckboxHandle
 	
 	${NSD_CreateCheckbox} 0 15u 100% 12u "Create Shortcut on Desktop"
 	Pop $DesktopShortcutCheckboxHandle
+	${NSD_OnClick} $DesktopShortcutCheckboxHandle OnChange_DesktopShortcutCheckBox
 	StrCmp $WinVer "8" 0 +2
 	${NSD_Check} $DesktopShortcutCheckboxHandle
-	${NSD_OnClick} $DesktopShortcutCheckboxHandle OnChange_DesktopShortcutCheckBox
 	
 	; detect the right of 
 	UserInfo::GetAccountType
@@ -113,8 +113,8 @@ Function ExtraOptions
 		${NSD_CreateRadioButton} 0 35u 100% 12u "Create Shortcuts for All Users"
 		Pop $AllUsersRadioHandle
 		${NSD_AddStyle} $AllUsersRadioHandle ${WS_GROUP}
-		${NSD_Check} $AllUsersRadioHandle
 		${NSD_OnClick} $AllUsersRadioHandle OnChange_AllUsersRadio
+		${NSD_Check} $AllUsersRadioHandle
 
 		${NSD_CreateRadioButton} 0 50u 100% 12u "Create Shortcuts for Current User"
 		Pop $CurrentUserRadioHandle

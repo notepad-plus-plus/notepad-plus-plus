@@ -3383,6 +3383,7 @@ void Notepad_plus::command(int id)
 			case IDM_SEARCH_NEXT_BOOKMARK:
 			case IDM_SEARCH_PREV_BOOKMARK:
 			case IDM_SEARCH_CLEAR_BOOKMARKS:
+			case IDM_SEARCH_INVERSEMARKS:
 			case IDM_EDIT_SELECTALL:
 			case IDM_EDIT_INS_TAB:
 			case IDM_EDIT_RMV_TAB:

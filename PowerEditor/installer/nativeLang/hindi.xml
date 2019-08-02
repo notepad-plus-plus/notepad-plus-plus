@@ -4,7 +4,7 @@
 
 	** created By:- Rathin A. Dholakia **
 		Email- rathin2j@gmail.com
-	** Last Updated on 29/07/2019 by Rajendra Singh (singh.rajen15@gmail.com) **
+	** Last Updated on 02/08/2019 by Rajendra Singh (singh.rajen15@gmail.com) **
 -->
 <NotepadPlus>
   <Native-Langue name="हिन्दी" filename="hindi.xml" version="7.7.2">
@@ -271,11 +271,11 @@
           <Item id="45001" name="Windows (CR LF)"/>
           <Item id="45002" name="Unix (LF)"/>
           <Item id="45003" name="Macintosh (CR)"/>
-          <Item id="45004" name="ANSI में एन्कोड करें"/>
-          <Item id="45005" name="UTF-8-BOM में एन्कोड करें"/>
-          <Item id="45006" name="UCS-2 BE BOM में एन्कोड करें"/>
-          <Item id="45007" name="UCS-2 LE BOM में एन्कोड करें"/>
-          <Item id="45008" name="UTF-8 में एन्कोड करें"/>
+          <Item id="45004" name="ANSI"/>
+          <Item id="45005" name="UTF-8-BOM"/>
+          <Item id="45006" name="UCS-2 BE BOM"/>
+          <Item id="45007" name="UCS-2 LE BOM"/>
+          <Item id="45008" name="UTF-8"/>
           <Item id="45009" name="ANSI में रूपांतरित करें"/>
           <Item id="45010" name="UTF-8 में रूपांतरित करें"/>
           <Item id="45011" name="UTF-8-BOM में रूपांतरित करें"/>

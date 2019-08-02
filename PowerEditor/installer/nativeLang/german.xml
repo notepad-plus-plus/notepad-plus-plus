@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
 <!--
-	German localization for Notepad++ 7.6.5
-	last modified: 2019-03-26 by schnurlos (schnurlos@gmail.com)
+	German localization for Notepad++
+	last modified: 2019-07-28 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="7.6.5">
+	<Native-Langue name="Deutsch" filename="german.xml" version="7.7.2">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -398,6 +398,8 @@
 				<Item id="1641" name="Alle in aktiver &amp;Datei suchen"/>
 				<Item id="1686" name="Transparenz"/>
 				<Item id="1703" name="&amp;. findet \r und \n"/>
+				<Item id="1721" name="▲"/>
+				<Item id="1723" name="▼ Finde Nächstes"/>
 			</Find>
 
 			<FindCharsInRange title="Suche nach Zeichencodes">
@@ -993,6 +995,14 @@
 				<Item id="1718" name="Erweitert (\n, \r, \t, \0, \x...)"/>
 				<Item id="1720" name="&amp;. entspricht neuer Zeile"/>
 			</FindInFinder>
+			<DoSaveOrNot title="Speichern">
+				<Item id="1761" name="Datei &quot;$STR_REPLACE$&quot; speichern?"/>
+				<Item id="6" name="Ja"/>
+				<Item id="7" name="Nein"/>
+				<Item id="2" name="Abbruch"/>
+				<Item id="4" name="Ja für alle"/>
+				<Item id="5" name="Nein für alle"/>
+			</DoSaveOrNot>
 
 		</Dialog>
 		<MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
@@ -1014,7 +1024,6 @@
 			<SortingError title="Sortier-Fehler" message="Konnte nicht nummerisch sortieren wegen Zeile $INT_REPLACE$."/>
 			<ColumnModeTip title="Tip zum Spalten-Modus" message="Bitte &quot;ALT+Mauswahl&quot; oder &quot;Alt+Shift+Pfeiltaste&quot; verwenden um in den Spalten-Modus zu wechseln."/>
 			<BufferInvalidWarning title="Speichern fehlgeschlagen" message="Konnte nicht speichern: Ungültiger Puffer."/>
-			<DoSaveOrNot title="Speichern" message="Speichere Datei &quot;$STR_REPLACE$&quot;?"/>
 			<DoCloseOrNot title="Nicht existierende Datei behalten" message="Die Datei &quot;$STR_REPLACE$&quot; existiert nicht mehr.&#x0A;Soll die Datei im Editor behalten werden?"/>
 			<DoDeleteOrNot title="Datei löschen" message="Die Datei &quot;$STR_REPLACE$&quot;&#x0A;wird in den Papierkorb verschoben und diese Dokument wird geschlossen.&#x0A;Fortfahren?"/>
 			<NoBackupDoSaveFile title="Speichern" message="Die Sicherungsdatei konnte nicht gefunden werden (wurde anderwärtig gelöscht).&#x0A;Speichern oder die Daten gehen verloren.&#x0A;Soll die Datei &quot;$STR_REPLACE$&quot; gespeichert werden?"/>
@@ -1050,6 +1059,8 @@
 			<OpenInAdminModeWithoutCloseCurrent title="Speichern fehlgeschlagen" message="Die Datei konnte nicht gespeichert werden, eventuell wegen vorhandenem Schreibschutz.&#x0A;Soll dazu Notepad++ im Administrator-Modus gestartet werden?"/>
 			<OpenInAdminModeFailed title="Öffnen im Administrator-Modus fehlgeschlagen" message="Notepad++ konnte nicht im Administrator-Modus gestartet werden."/>
 			<ViewInBrowser title="Betrachte aktuelle Datei im Browser" message="Die Anwendung konnte nicht gefunden werden."/>
+			<ExitToUpdatePlugins title="Notepad++ wird beendet" message="Beim Drücken auf 'JA' wird Notepad++ beendet um die Vorgänge abzuschließen.&#x0A;Notepad++ wird neu gestartet.&#x0A;Fortsetzen?"/>
+			<NeedToRestartToLoadPlugins title="Notepad++ muss neu gestartet werden" message="Ein Neustart von Notepad++ zum Laden der Plugins ist erforderlich."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Zwischenablage"/>
@@ -1065,10 +1076,12 @@
 			<ColumnType name="Typ"/>
 		</WindowsDlg>
 		<AsciiInsertion>
-			<PanelTitle name="Zeichentabelle"/>
+			<PanelTitle name="ASCII Zeichentabelle"/>
 			<ColumnVal name="Dezimal"/>
 			<ColumnHex name="Hexadezimal"/>
 			<ColumnChar name="Zeichen"/>
+			<ColumnHtmlNumber name="HTML Zahl"/>
+			<ColumnHtmlName name="HTML Code"/>
 		</AsciiInsertion>
 		<DocumentMap>
 			<PanelTitle name="Miniaturansicht"/>
@@ -1091,6 +1104,7 @@
 				<Item id="3517" name="In Dateien suchen …"/>
 				<Item id="3518" name="Hier anzeigen"/>
 				<Item id="3519" name="Kommandozeile hier"/>
+				<Item id="3520" name="Dateinamen kopieren"/>
 			</Menus>
 		</FolderAsWorkspace>
 		<ProjectManager>
@@ -1196,17 +1210,17 @@
 			<userdefined-title-rename value="Akt. Sprache umbenennen"/>
 			<autocomplete-nb-char value="Anz. Zeichen: "/>
 			<edit-verticaledge-nb-col value="Anz. Spalten: "/>
-			<summary value="Dateiinfo"/>
-			<summary-filepath value="Kompletter Pfad: "/>
-			<summary-filecreatetime value="Erzeugt: "/>
+			<summary value="Übersicht"/>
+			<summary-filepath value="Ganzer Dateipfad: "/>
+			<summary-filecreatetime value="Erstellt: "/>
 			<summary-filemodifytime value="Geändert: "/>
 			<summary-nbchar value="Zeichen (ohne Zeilenenden): "/>
 			<summary-nbword value="Wörter: "/>
 			<summary-nbline value="Zeilen: "/>
-			<summary-nbbyte value="Aktuelle Dateigrösse: "/>
-			<summary-nbsel1 value=" markierte Zeichen ("/>
+			<summary-nbbyte value="Aktuelle Dokumentlänge: "/>
+			<summary-nbsel1 value=" gewählte Zeichen ("/>
 			<summary-nbsel2 value=" Bytes) in "/>
-			<summary-nbrange value=" Abschnitten"/>
+			<summary-nbrange value=" Stufen"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="7.6.5">
+    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="7.7.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -384,6 +384,8 @@
                 <Item id="1641" name="在当前文件中查找"/>
                 <Item id="1686" name="透明度(&amp;Y)"/>
                 <Item id="1703" name="&amp;. 匹配新行"/>
+                <Item id="1721" name="▲"/>
+                <Item id="1723" name="▼ 查找下一个"/>
             </Find>
 
             <FindCharsInRange title="查找范围内的字符...">
@@ -981,6 +983,14 @@
                 <Item id="1718" name="扩展(&amp;X) (\n, \r, \t, \0, \x...)"/>
                 <Item id="1720" name="&amp;. 匹配新行"/>
             </FindInFinder>
+            <DoSaveOrNot title="保存"> 
+                <Item id="1761" name="保存文件 &quot;$STR_REPLACE$&quot; ?"/>
+                <Item id="6" name="是"/>
+                <Item id="7" name="否"/>
+                <Item id="2" name="取消"/>
+                <Item id="4" name="全选是"/>
+                <Item id="5" name="全选否"/>
+            </DoSaveOrNot>
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title="编辑快捷菜单" message="您可以通过编辑contextMenu.xml文件来修改Notepad++的快捷菜单。
@@ -1001,8 +1011,8 @@
             <FileAlreadyOpenedInNpp title="" message="此文件已经在Notepad++中打开。"/>
             <DeleteFileFailed title="删除文件" message="文件删除失败"/>
 
-            <NbFileToOpenImportantWarning title="即将打开的文件过多" message="$INT_REPLACE$ 文件即将打开。
-确定吗？"/>
+            <NbFileToOpenImportantWarning title="即将打开的文件过多" message="即将打开 $INT_REPLACE$ 个文件。
+确定要打开吗？"/>
             <SettingsOnCloudError title="云同步设置" message="云同步路径疑似设于只读存储器，或未给予写入权限的文件夹，
 云同步设置将取消。
 请在首选项中重设相应值。"/>
@@ -1013,7 +1023,6 @@
             <SortingError title="排序错误" message="由于第$INT_REPLACE$行的问题，无法执行数字排序。"/>
             <ColumnModeTip title="列块模式提示" message="请使用“ALT+鼠标点选” or “Alt+Shift+箭头键”切换列块模式。"/>
             <BufferInvalidWarning title="保存失败" message="无法保存：缓冲区无效。"/>
-            <DoSaveOrNot title="保存" message="是否保存文件“$STR_REPLACE$” ？"/>
             <DoCloseOrNot title="保留文件" message="文件“$STR_REPLACE$”不在了。
 是否在编辑器里保留它？"/>
             <DoDeleteOrNot title="删除文件" message="此文件“$STR_REPLACE$”
@@ -1072,6 +1081,10 @@
 是否要用管理员模式启动Notepad++？"/>
             <OpenInAdminModeFailed title="管理员模式开启失败" message="Notepad++不能用管理员模式打开。"/>
             <ViewInBrowser title="在浏览器查看当前文件" message="在您的系统未找到该应用程序。"/>
+            <ExitToUpdatePlugins title="Notepad++将要退出" message="如果您点击确定，Notepad++将退出以执行后续安装操作。
+Notepad++会在所有安装结束后重新启动。
+是否继续？"/>
+            <NeedToRestartToLoadPlugins title="Notepad++需要重启" message="您必须重启Notepad++才能加载安装好的插件。"/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="剪贴板历史记录"/>
@@ -1087,10 +1100,12 @@
             <ColumnType name="类型"/>
         </WindowsDlg>
         <AsciiInsertion>
-            <PanelTitle name="ASCII输入面板"/>
+            <PanelTitle name="ASCII编码输入面板"/>
             <ColumnVal name="数值"/>
             <ColumnHex name="16进制码"/>
             <ColumnChar name="字符"/>
+            <ColumnHtmlNumber name="HTML数值"/>
+            <ColumnHtmlName name="HTML编码"/>
         </AsciiInsertion>
         <DocumentMap>
             <PanelTitle name="文档结构图"/>
@@ -1113,6 +1128,7 @@
                 <Item id="3517" name="在文件中查找..."/>
                 <Item id="3518" name="文件管理器打开"/>
                 <Item id="3519" name="命令行打开"/>
+                <Item id="3520" name="复制文件名"/>
             </Menus>
         </FolderAsWorkspace>
         <ProjectManager>
@@ -1218,6 +1234,17 @@
             <userdefined-title-rename value="重命名当前语言"/>
             <autocomplete-nb-char value="字符数: "/>
             <edit-verticaledge-nb-col value="边界宽度值:"/>
+            <summary value="统计信息"/>
+            <summary-filepath value="完整文件路径："/>
+            <summary-filecreatetime value="创建时间："/>
+            <summary-filemodifytime value="修改时间："/>
+            <summary-nbchar value="字符数（不含换行符）："/>
+            <summary-nbword value="字数："/>
+            <summary-nbline value="行数："/>
+            <summary-nbbyte value="文档长度："/>
+            <summary-nbsel1 value=" 个选中字符（"/>
+            <summary-nbsel2 value=" 字节）在"/>
+            <summary-nbrange value=" 个选取范围中"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

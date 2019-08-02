@@ -114,11 +114,12 @@ Function ExtraOptions
 		Pop $AllUsersRadioHandle
 		${NSD_AddStyle} $AllUsersRadioHandle ${WS_GROUP}
 		${NSD_OnClick} $AllUsersRadioHandle OnChange_AllUsersRadio
-		${NSD_Check} $AllUsersRadioHandle
 
 		${NSD_CreateRadioButton} 0 50u 100% 12u "Create Shortcuts for Current User"
 		Pop $CurrentUserRadioHandle
 		${NSD_OnClick} $CurrentUserRadioHandle OnChange_AllUsersRadio
+
+		${NSD_Check} $AllUsersRadioHandle
 	AllUsersCurrentUserRadios_Done:
 
 	${NSD_CreateCheckbox} 0 80u 100% 30u "Don't use %APPDATA%$\nEnable this option to make Notepad++ load/write the configuration files from/to its install directory. Check it if you use Notepad++ in a USB device."

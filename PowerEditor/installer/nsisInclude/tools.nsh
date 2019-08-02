@@ -80,7 +80,8 @@ FunctionEnd
 
 ;Installer Functions
 Var Dialog
-Var ShortcutCheckboxHandle
+Var StartMenuShortcutCheckboxHandle
+Var DesktopShortcutCheckboxHandle
 Var AllUsersRadioHandle
 Var CurrentUserRadioHandle
 Var NoUserDataCheckboxHandle
@@ -94,28 +95,33 @@ Function ExtraOptions
 		Abort
 	${EndIf}
 
-	${NSD_CreateCheckbox} 0 0 100% 30u "Create Shortcut on Desktop"
-	Pop $ShortcutCheckboxHandle
+	${NSD_CreateCheckbox} 0 0 100% 12u "Create Shortcut in Start Menu"
+	Pop $StartMenuShortcutCheckboxHandle
+	${NSD_Check} $StartMenuShortcutCheckboxHandle
+	${NSD_OnClick} $StartMenuShortcutCheckboxHandle OnChange_StartMenuShortcutCheckBox
+	
+	${NSD_CreateCheckbox} 0 15u 100% 12u "Create Shortcut on Desktop"
+	Pop $DesktopShortcutCheckboxHandle
 	StrCmp $WinVer "8" 0 +2
-	${NSD_Check} $ShortcutCheckboxHandle
-	${NSD_OnClick} $ShortcutCheckboxHandle OnChange_ShortcutCheckBox
+	${NSD_Check} $DesktopShortcutCheckboxHandle
+	${NSD_OnClick} $DesktopShortcutCheckboxHandle OnChange_DesktopShortcutCheckBox
 	
 	; detect the right of 
 	UserInfo::GetAccountType
 	Pop $1
 	StrCmp $1 "Admin" 0 AllUsersCurrentUserRadios_Done
-		${NSD_CreateRadioButton} 0 50 100% 30u "Create Shortcuts for All Users"
+		${NSD_CreateRadioButton} 0 35u 100% 12u "Create Shortcuts for All Users"
 		Pop $AllUsersRadioHandle
 		${NSD_AddStyle} $AllUsersRadioHandle ${WS_GROUP}
 		${NSD_Check} $AllUsersRadioHandle
 		${NSD_OnClick} $AllUsersRadioHandle OnChange_AllUsersRadio
 
-		${NSD_CreateRadioButton} 0 75 100% 30u "Create Shortcuts for Current User"
+		${NSD_CreateRadioButton} 0 50u 100% 12u "Create Shortcuts for Current User"
 		Pop $CurrentUserRadioHandle
 		${NSD_OnClick} $CurrentUserRadioHandle OnChange_AllUsersRadio
 	AllUsersCurrentUserRadios_Done:
 
-	${NSD_CreateCheckbox} 0 125 100% 30u "Don't use %APPDATA%$\nEnable this option to make Notepad++ load/write the configuration files from/to its install directory. Check it if you use Notepad++ in a USB device."
+	${NSD_CreateCheckbox} 0 80u 100% 30u "Don't use %APPDATA%$\nEnable this option to make Notepad++ load/write the configuration files from/to its install directory. Check it if you use Notepad++ in a USB device."
 	Pop $NoUserDataCheckboxHandle
 	${NSD_OnClick} $NoUserDataCheckboxHandle OnChange_NoUserDataCheckBox
 	
@@ -151,14 +157,19 @@ Function preventInstallInWin9x
 		Abort
 FunctionEnd
 
-Var createShortcutChecked
+Var createStartMenuShortcutChecked
+Var createDesktopShortcutChecked
 Var shortcutsAllUsersSelected
 Var shortcutsCurrentUserSelected
 Var noUserDataChecked
 
 ; The definition of "OnChange" event for checkboxes and radios
-Function OnChange_ShortcutCheckBox
-	${NSD_GetState} $ShortcutCheckboxHandle $createShortcutChecked
+Function OnChange_StartMenuShortcutCheckBox
+	${NSD_GetState} $StartMenuShortcutCheckboxHandle $createStartMenuShortcutChecked
+FunctionEnd
+
+Function OnChange_DesktopShortcutCheckBox
+	${NSD_GetState} $DesktopShortcutCheckboxHandle $createDesktopShortcutChecked
 FunctionEnd
 
 Function OnChange_AllUsersRadio

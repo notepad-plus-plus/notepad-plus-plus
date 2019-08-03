@@ -94,8 +94,9 @@ Function ExtraOptions
 
 	${NSD_CreateCheckbox} 0 0 100% 30u "Create Shortcut on Desktop"
 	Pop $ShortcutCheckboxHandle
-	StrCmp $WinVer "8" 0 +2
-	${NSD_Check} $ShortcutCheckboxHandle
+	${If} $WinVer == "8"
+		${NSD_Check} $ShortcutCheckboxHandle
+	${EndIf}
 	${NSD_OnClick} $ShortcutCheckboxHandle OnChange_ShortcutCheckBox
 	
 	${NSD_CreateCheckbox} 0 80 100% 30u "Don't use %APPDATA%$\nEnable this option to make Notepad++ load/write the configuration files from/to its install directory. Check it if you use Notepad++ in a USB device."

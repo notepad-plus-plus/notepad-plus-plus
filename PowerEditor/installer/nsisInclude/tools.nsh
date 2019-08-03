@@ -112,6 +112,7 @@ Function ExtraOptions
 	${If} $1 == "$PROGRAMFILES"
 	${ORIF} $2 == "$PROGRAMFILES64"
 		${NSD_Uncheck} $NoUserDataCheckboxHandle
+		Call OnChange_NoUserDataCheckBox
 		EnableWindow $NoUserDataCheckboxHandle 0
 	${Else}
 		EnableWindow $NoUserDataCheckboxHandle 1

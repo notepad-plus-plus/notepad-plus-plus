@@ -3,7 +3,7 @@
 	## Bulgarian localization for Notepad++ ##
 
 	Translators:.....: 2007–2012 – Milen Metev (Tragedy); 2014–yyyy – Rusi Dimitrov
-	Last revision:...: 27.07.2019 by Rusi Dimitrov <astral_86[at]mail[dot]bg>
+	Last revision:...: 04.08.2019 by Rusi Dimitrov <astral_86[at]mail[dot]bg>
 	Download:........: https://gist.github.com/rddim/bd37264898c3a17363e7437bcf1b4803
 -->
 <NotepadPlus>
@@ -320,11 +320,11 @@
 					<Item id="44097" name="Наблюдение (tail -f)"/>
 				<!-- Меню "Изглед" край -->
 				<!-- Меню "Кодировки" начало -->
-					<Item id="45004" name="Кодиране в ANSI"/>
-					<Item id="45008" name="Кодиране в UTF-8"/>
-					<Item id="45005" name="Кодиране в UTF-8-BOM"/>
-					<Item id="45006" name="Кодиране в UCS-2 BE BOM"/>
-					<Item id="45007" name="Кодиране в UCS-2 LE BOM"/>
+					<Item id="45004" name="ANSI"/>
+					<Item id="45008" name="UTF-8"/>
+					<Item id="45005" name="UTF-8-BOM"/>
+					<Item id="45006" name="UCS-2 BE BOM"/>
+					<Item id="45007" name="UCS-2 LE BOM"/>
 					<!-- Меню "Кодировки" -->
 					<Item id="45009" name="Преобразуване в ANSI"/>
 					<Item id="45010" name="Преобразуване в UTF-8"/>

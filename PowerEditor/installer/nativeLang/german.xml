@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2019-07-28 by schnurlos (schnurlos@gmail.com)
+	last modified: 2019-08-18 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -1032,7 +1032,7 @@
 			<PrehistoricSystemDetected title="Altes Betriebssystem festgestellt" message="Anscheinend wird hier ein veraltetest Betriebssystem verwendet - diese Funktion geht leider nur mit einem modernen Betriebssystem."/>
 			<XpUpdaterProblem title="Automatisches Update" message="Die Update-Funktion von Notepad++ ist mit Windows XP wegen fehlender Sicherheitsebene nicht kompatibel.&#x0A;Soll auf die Homepage von Notepad++ gewechselt werden um die aktuellste Version herunterzuladen?"/>
 			<DocTooDirtyToMonitor title="Überwachungsproblem" message="Die Datei ist unsauber. Bitte vor der Überwachung die Änderungen speichern."/>
-			<DocNoExistToMonitor title="Überwachungsproblem" message="Die Datei muss existieren um übewacht werden zu können."/>
+			<DocNoExistToMonitor title="Überwachungsproblem" message="Die Datei muss existieren um überwacht werden zu können."/>
 			<FileTooBigToOpen title="Problem mit Dateigröße" message="Die Datei ist zu groß um mit Notepad++ geöffnet zu werden."/>
 			<CreateNewFileOrNot title="Neue Datei erstellen" message="&quot;$STR_REPLACE$&quot; existiert nicht. Soll die Datei erstellt werden?"/>
 			<CreateNewFileError title="Neue Datei erstellen" message="Kann Datei &quot;$STR_REPLACE$&quot; nicht erstellen."/>
@@ -1041,7 +1041,7 @@
 			<LoadStylersFailed title="Laden von 'stylers.xml' fehlgeschlagen" message="Das Laden der Datei &quot;$STR_REPLACE$&quot; ist fehlgeschlagen!"/>
 			<LoadLangsFailed title="Konfigurator" message="Laden der Datei 'langs.xml' ist fehlgeschlagen!&#x0A;Soll die Datei 'langs.xml' wieder hergestellt werden?"/>
 			<LoadLangsFailedFinal title="Konfigurator" message="Laden der Datei 'langs.xml' ist fehlgeschlagen!"/>
-			<FolderAsWorspaceSubfolderExists title="'Verzeichnis als Arbeitsbereich'-Problem" message="Ein Unterverzeichnis existiert im Verzeichnis das hinzugefügt werden soll.&#x0A;Bitte diese Verzeichnis vorher entfernen bevor das Verzeichnis &quot;$STR_REPLACE$&quot; hinzugefügt wird."/>
+			<FolderAsWorspaceSubfolderExists title="'Verzeichnis als Arbeitsbereich'-Problem" message="Ein Unterverzeichnis existiert im Verzeichnis das hinzugefügt werden soll.&#x0A;Bitte dieses Verzeichnis vorher entfernen bevor das Verzeichnis &quot;$STR_REPLACE$&quot; hinzugefügt wird."/>
 			<ProjectPanelChanged title="$STR_REPLACE$" message="Der Arbeitsbereich wurde geändert. Soll er jetzt gespeichert werden?"/>
 			<ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Der Arbeitsbereich wurde nicht gespeichert."/>
 			<ProjectPanelOpenDoSaveDirtyWsOrNot title="Offener Arbeitsbereich" message="Der aktuelle Arbeitsbereich wurde geändert. Soll das aktuelle Projekt gespeichert werden?"/>

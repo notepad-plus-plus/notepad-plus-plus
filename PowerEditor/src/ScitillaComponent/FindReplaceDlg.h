@@ -376,6 +376,7 @@ private :
 	StatusBar _statusBar;
 	FindStatus _statusbarFindStatus;
 
+	HFONT _hMonospaceFont = nullptr;
 	
 
 	void enableReplaceFunc(bool isEnable);

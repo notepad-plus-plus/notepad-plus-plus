@@ -2679,7 +2679,7 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const generic_st
 						break;
 					case IDC_FINDALL_CURRENTFILE:
 						nppParamInst->_isFindReplacing = true;
-						findAllIn(FILES_IN_DIR);
+						findAllIn(CURRENT_DOC);
 						nppParamInst->_isFindReplacing = false;
 						break;
 					case IDC_REPLACE_OPENEDFILES:

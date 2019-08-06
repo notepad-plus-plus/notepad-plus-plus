@@ -857,6 +857,8 @@ struct NppGUI final
 	generic_string _definedSessionExt;
 	generic_string _definedWorkspaceExt;
 
+	generic_string _commandLineInterpreter = TEXT("cmd");
+
 	struct AutoUpdateOptions
 	{
 		bool _doAutoUpdate = true;

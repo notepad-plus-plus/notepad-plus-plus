@@ -2076,7 +2076,6 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 					(childNode->ToElement())->Attribute(TEXT("endPos"), &position._endPos);
 					(childNode->ToElement())->Attribute(TEXT("selMode"), &position._selMode);
 					(childNode->ToElement())->Attribute(TEXT("scrollWidth"), &position._scrollWidth);
-
 					MapPosition mapPosition;
 					int32_t mapPosVal;
 					const TCHAR *mapPosStr = (childNode->ToElement())->Attribute(TEXT("mapFirstVisibleDisplayLine"), &mapPosVal);
@@ -5096,7 +5095,16 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			const TCHAR * optDocPeekOnMap = element->Attribute(TEXT("docPeekOnMap"));
 			if (optDocPeekOnMap)
 				_nppGUI._isDocPeekOnMap = (lstrcmp(optDocPeekOnMap, TEXT("yes")) == 0);
-
+		}
+		else if (!lstrcmp(nm, TEXT("commandLineInterpreter")))
+		{
+			TiXmlNode *node = childNode->FirstChild();
+			if (node)
+			{
+				const TCHAR *cli = node->Value();
+				if (cli && cli[0])
+					_nppGUI._commandLineInterpreter.assign(cli);
+			}
 		}
 	}
 }
@@ -5859,6 +5867,14 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("wholeWordOnly"), _nppGUI._smartHiliteWordOnly ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("useFindSettings"), _nppGUI._smartHiliteUseFindSettings ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("onAnotherView"), _nppGUI._smartHiliteOnAnotherView ? TEXT("yes") : TEXT("no"));
+	}
+
+	// <GUIConfig name="commandLineInterpreter">powershell</GUIConfig>
+	if (_nppGUI._commandLineInterpreter.compare(TEXT("cmd")))
+	{
+		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
+		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("commandLineInterpreter"));
+		GUIConfigElement->InsertEndChild(TiXmlText(_nppGUI._commandLineInterpreter.c_str()));
 	}
 
 	// <GUIConfig name="ScintillaPrimaryView" lineNumberMargin="show" bookMarkMargin="show" indentGuideLine="show" folderMarkStyle="box" lineWrapMethod="aligned" currentLineHilitingShow="show" scrollBeyondLastLine="no" disableAdvancedScrolling="no" wrapSymbolShow="hide" Wrap="no" borderEdge="yes" edge="no" edgeNbColumn="80" zoom="0" zoom2="0" whiteSpaceShow="hide" eolShow="hide" borderWidth="2" smoothFont="no" />

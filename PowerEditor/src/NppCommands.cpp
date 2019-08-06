@@ -89,7 +89,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_FILE_OPEN_CMD:
 		{
-			Command cmd(TEXT("cmd"));
+			Command cmd(NppParameters::getInstance().getNppGUI()._commandLineInterpreter.c_str());
 			cmd.run(_pPublicInterface->getHSelf(), TEXT("$(CURRENT_DIRECTORY)"));
 		}
 		break;

@@ -779,9 +779,7 @@ void FileBrowser::popupMenuCmd(int cmdID)
 			generic_string path = getNodePath(selectedNode);
 			if (::PathFileExists(path.c_str()))
 			{
-				TCHAR cmdStr[1024];
-				wsprintf(cmdStr, TEXT("cmd"));
-				Command cmd(cmdStr);
+				Command cmd(NppParameters::getInstance().getNppGUI()._commandLineInterpreter.c_str());
 				cmd.run(nullptr, path.c_str());
 			}
 		}

@@ -2466,8 +2466,6 @@ void FindReplaceDlg::enableMarkAllControls(bool isEnable)
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_PURGE_CHECK),hideOrShow);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_CLEAR_ALL),hideOrShow);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_IN_SELECTION_CHECK), hideOrShow);
-
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_BACKWARDDIRECTION), !hideOrShow);
 }
 
 void FindReplaceDlg::enableFindInFilesControls(bool isEnable)

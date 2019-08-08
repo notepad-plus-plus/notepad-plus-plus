@@ -3388,6 +3388,7 @@ void Notepad_plus::command(int id)
 			case IDM_EDIT_INS_TAB:
 			case IDM_EDIT_RMV_TAB:
 			case IDM_EDIT_DUP_LINE:
+			case IDM_EDIT_REMOVE_DUP_LINES:
 			case IDM_EDIT_TRANSPOSE_LINE:
 			case IDM_EDIT_SPLIT_LINES:
 			case IDM_EDIT_JOIN_LINES:

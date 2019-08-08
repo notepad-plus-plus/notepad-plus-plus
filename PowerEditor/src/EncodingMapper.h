@@ -35,7 +35,10 @@ struct EncodingUnit {
 
 class EncodingMapper {
 public:
-    static EncodingMapper * getInstance() {return _pSelf;};
+    static EncodingMapper * getInstance() {
+        static  EncodingMapper  _pSelf;
+        return &_pSelf;
+    };
     int getEncodingFromIndex(int index) const;
 	int getIndexFromEncoding(int encoding) const;
 	int getEncodingFromString(const char * encodingAlias) const;
@@ -43,7 +46,6 @@ public:
 private:
 	EncodingMapper(){};
 	~EncodingMapper(){};
-    static EncodingMapper *_pSelf;
 	EncodingUnit* _encodings = nullptr;
 };
 

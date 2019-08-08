@@ -83,8 +83,6 @@ static EncodingUnit encodings[] = {
     {20866, "koi8_r csKOI8R"}                                                                   //IDM_FORMAT_KOI8R_CYRILLIC
 };
 
-EncodingMapper * EncodingMapper::_pSelf = new EncodingMapper;
-
 bool isInListA(const char *token, const char *list) {
 	if ((!token) || (!list))
 		return false;

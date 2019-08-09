@@ -1198,8 +1198,8 @@ izberite katerokoli drugo."/>
           <find-status-replaceall-readonly value="Zamenjaj vse: Besedilo ni mogoče zamenjati. Trenutni dokument je samo za branje"/>
           <find-status-replace-end-reached value="Zamenjaj: Zamenjana je 1. pojavitev z vrha. Konec dokumenta je bil dosežen"/>
           <find-status-replace-top-reached value="Zamenjaj: Zamenjana je 1. pojavitev od spodaj. Začetek dokumenta je bil dosežen"/>
-          <find-status-relaced-next-found value="Zamenjaj: 1. pojavitev je bila zamenjana. Naslednja pojavitev je bila najdena"/>
-          <find-status-relaced-next-not-found value="Zamenjaj: 1. pojavitev je bila zamenjana. Naslednja pojavitev ni bila najdena"/>
+          <find-status-replaced-next-found value="Zamenjaj: 1. pojavitev je bila zamenjana. Naslednja pojavitev je bila najdena"/>
+          <find-status-replaced-next-not-found value="Zamenjaj: 1. pojavitev je bila zamenjana. Naslednja pojavitev ni bila najdena"/>
           <find-status-replace-not-found value="Zamenjaj: ni bilo nobene pojavitve"/>
           <find-status-replace-readonly value="Zamenjaj: Besedilo ni mogoče zamenjati. Trenutni dokument je samo za branje"/>
           <find-status-cannot-find value="Najdi: Besedila ni mogoče najti &quot;$STR_REPLACE$&quot;"/>

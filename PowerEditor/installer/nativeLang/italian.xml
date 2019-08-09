@@ -277,7 +277,7 @@
                     <Item id = "44097" name = "Monitora (tail -f)" />
                     <Item id = "44098" name = "Sposta scheda avanti" />
                     <Item id = "44099" name = "Sposta scheda indietro" />
-                    
+
                     <!-- Customize toolbar plugin related entries -->
                     <!-- End -->
 
@@ -320,7 +320,7 @@
                     <Item id = "48016" name = "Modifica scorciatoie/Elimina macro..." />
                     <Item id = "48017" name = "Modifica scorciatoie/Elimina comando..." />
                     <Item id = "48018" name = "Modifica menu contestuale..." />
-                    
+
                     <Item id = "48501" name = "Genera..." />
                     <Item id = "48502" name = "Genera da file..." />
                     <Item id = "48503" name = "Genera negli Appunti" />
@@ -750,7 +750,7 @@
                     <Item id = "6206" name = "Visualizza i numeri di riga" />
                     <Item id = "6207" name = "Visualizza i segnalibri" />
                     <Item id = "6214" name = "Evidenzia la riga attuale" />
-                    <Item id = "6215" name = "Abilita antialising caratteri" />
+                    <Item id = "6215" name = "Abilita antialiasing caratteri" />
                     <Item id = "6234" name = "Disabilita scrolling avanzato&#xA;(in caso di problemi con touchpad)" />
                     <Item id = "6235" name = "Nessun bordo" />
 					<Item id = "6236" name = "Abilita scorrimento oltre l&apos;ultima riga" />
@@ -880,7 +880,7 @@
                     <Item id = "6151" name = "Impostazioni Istanze Multiple" />
                     <Item id = "6152" name = "Apri sessioni in nuova istanza di Notepad++" />
                     <Item id = "6153" name = "Sempre in modalità istanza multipla" />
-                    <Item id = "6154" name = "Predefinito (instanza unica)" />
+                    <Item id = "6154" name = "Predefinito (istanza unica)" />
                     <Item id = "6155" name = "* La modifica di questa impostazione richiede il riavvio di Notepad++" />
                 </MultiInstance>
                 <Delimiter title = "Delimitatori">
@@ -925,7 +925,7 @@
                     <Item id = "6344" name = "Anteprima documenti" />
                     <Item id = "6345" name = "Anteprima sulle schede" />
                     <Item id = "6346" name = "Anteprima sulla mappa documento" />
-                    
+
                     <Item id = "6318" name = "Link Cliccabili" />
                     <Item id = "6319" name = "Abilita" />
                     <Item id = "6320" name = "Non sottolineare" />
@@ -985,11 +985,11 @@
                 <Item id = "1715" name = "Distingui tra maiuscole e minuscole" />
                 <Item id = "1716" name = "Tipo ricerca" />
                 <Item id = "1717" name = "Normale" />
-                <Item id = "1719" name = "Espresssione regolare" />
+                <Item id = "1719" name = "Espressione regolare" />
                 <Item id = "1718" name = "Estesa (\n, \r, \t, \0, \x...)" />
                 <Item id = "1720" name = "&amp;. significa a capo" />
             </FindInFinder>
-            <DoSaveOrNot title="Salva"> 
+            <DoSaveOrNot title="Salva">
                 <Item id="1761" name="Salva file &quot;$STR_REPLACE$&quot; ?"/>
                 <Item id="6" name="Sì"/>
                 <Item id="7" name="No"/>
@@ -1000,7 +1000,7 @@
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title = "Modifica menu contestuale" message = "La modifica del file contextMenu.xml permette di modificare il menu contestuale di Notepad++.
-È necessario riavviare Notepad++ affinché le mofiche apportate al file contextMenu.xml abbiano effetto." />
+È necessario riavviare Notepad++ affinché le modifiche apportate al file contextMenu.xml abbiano effetto." />
             <NppHelpAbsentWarning title = "Il file non esiste" message = "
 non esiste. Scarica il file dal sito di Notepad++." />
             <SaveCurrentModifWarning title = "Salva modifiche correnti" message = "Devi salvare le modifiche correnti.
@@ -1018,7 +1018,7 @@ Continuare?" />
             <DeleteFileFailed title = "Eliminazione file" message = "Eliminazione del file fallita." />
             <NbFileToOpenImportantWarning title = "Il numero di file da aprire è troppo grande" message = "Si stanno aprendo $INT_REPLACE$ file.
 Sicuro di volerli aprire?" />
-            <SettingsOnCloudError title = "Impostazioni Cloud" message = "Sembra che il percorso per le impostazion nel cloud sia impostato su una cartella in sola lettura,
+            <SettingsOnCloudError title = "Impostazioni Cloud" message = "Sembra che il percorso per le impostazioni nel cloud sia impostato su una cartella in sola lettura,
 o in una cartella che necessità dei privilegi di scrittura per poterci accedere.
 Le tue impostazioni nel cloud saranno cancellate. Reimposta un valore coerente dalle impostazioni." />
             <FilePathNotFoundWarning title = "Apertura file" message = "Il file che si sta cercando di aprire non esiste." />
@@ -1044,8 +1044,8 @@ Vuoi ricaricarlo?" />
 
 Questo file è stato modificato da un altro programma.
 Vuoi ricaricarlo e perdere tutte le modifiche apportate in Notepad++?" />
-            <PrehistoricSystemDetected title = "Sistema preistorico trovato" message = "Sembra tu stia usando un sistema preistorico. Questa funzionalità necessità di un sistema più modermo, scusaci." />
-            <XpUpdaterProblem title = "Aggionamento Notepad++" message = "L'aggiornamento automatico di Notepad++ non è compatibile con XP a causa di un sistema di permessi obsoleto.
+            <PrehistoricSystemDetected title = "Sistema preistorico trovato" message = "Sembra tu stia usando un sistema preistorico. Questa funzionalità necessità di un sistema più moderno, scusaci." />
+            <XpUpdaterProblem title = "Aggiornamento Notepad++" message = "L'aggiornamento automatico di Notepad++ non è compatibile con XP a causa di un sistema di permessi obsoleto.
 Vuoi andare nella pagina di Notepad++ per scaricare l'aggiornamento manualmente?" />
             <DocTooDirtyToMonitor title = "Problema monitoraggio" message = "Il documento è sporco. Salva le modifiche prima di avviare il monitoraggio." />
             <DocNoExistToMonitor title = "Problema monitoraggio" message = "Il file deve esistere per essere monitorato." />
@@ -1053,14 +1053,14 @@ Vuoi andare nella pagina di Notepad++ per scaricare l'aggiornamento manualmente?
             <CreateNewFileOrNot title = "Crea nuovo file" message = "&quot;$STR_REPLACE$&quot; non esiste. Crearlo??" />
             <CreateNewFileError title = "Crea nuovo file" message = "Impossibile creare il file &quot;$STR_REPLACE$&quot;." />
             <OpenFileError title = "ERRORE" message = "Impossibile aprire il file &quot;$STR_REPLACE$&quot;." />
-            <FileBackupFailed title = "Backup File Fallito" message = "La versione percedente del file non puà essere salvata nella cartella di backup &quot;$STR_REPLACE$&quot;.
+            <FileBackupFailed title = "Backup File Fallito" message = "La versione precedente del file non può essere salvata nella cartella di backup &quot;$STR_REPLACE$&quot;.
 
 Vuoi salvare il file ugualmente?" />
             <LoadStylersFailed title = "Caricamento stylers.xml fallito" message = "Il caricamento di &quot;$STR_REPLACE$&quot; è fallito!" />
             <LoadLangsFailed title = "Configurazione" message = "Il caricamento di langs.xml è fallito!
 Vuoi ripristinare il file langs.xml?" />
             <LoadLangsFailedFinal title = "Configurazione" message = "Il caricamento di langs.xml è fallito!" />
-            <FolderAsWorspaceSubfolderExists title = "Problema per Cartella come Workspace" message = "Una sottocartella della cartella che vuoi aggiungere esiste già.
+            <FolderAsWorspaceSubfolderExists title = "Problema per Cartella come Workspace" message = "Una sotto cartella della cartella che vuoi aggiungere esiste già.
 Rimuovi la cartella dal pannello prima di aggiungere &quot;$STR_REPLACE$&quot;." />
             <ProjectPanelChanged title = "$STR_REPLACE$" message = "Il workspace è stato modificato. Vuoi salvarlo?" />
             <ProjectPanelChangedSaveError title = "$STR_REPLACE$" message = "Il tuo workspace non è stato salvato." />
@@ -1076,12 +1076,12 @@ Sei sicuro di voler rimuovere questa cartella dal progetto?" />
 Vuoi continuare?" />
             <UDLNewNameError title = "Errore UDL" message = "Questo nome è utilizzato da un altro lingua,
 usane un altro." />
-            <UDLRemoveCurrentLang title = "Rimuovi il lingaggio attuale" message = "Sei sicuro?" />
+            <UDLRemoveCurrentLang title = "Rimuovi il linguaggio attuale" message = "Sei sicuro?" />
             <SCMapperDoDeleteOrNot title = "Sei sicuro?" message = "Sei sicuro di voler eliminare questa scorciatoia?" />
             <FindCharRangeValueError title = "Problema nell'intervallo di valori" message = "Devi inserire un valore tra 0 e 255." />
-            <OpenInAdminMode title = "Salvataggio fallito" message = "Il file non può essere salvato e potrebbere essere protetto.
+            <OpenInAdminMode title = "Salvataggio fallito" message = "Il file non può essere salvato e potrebbe essere protetto.
 Vuoi avviare Notepad++ come amministratore?" />
-            <OpenInAdminModeWithoutCloseCurrent title = "Salvataggio fallito" message = "Il file non può essere salvato e potrebbere essere protetto.
+            <OpenInAdminModeWithoutCloseCurrent title = "Salvataggio fallito" message = "Il file non può essere salvato e potrebbe essere protetto.
 Vuoi avviare Notepad++ come amministratore?" />
             <OpenInAdminModeFailed title = "Apertura come amministratore fallita" message = "Notepad++ non può essere aperto come amministratore." />
             <ViewInBrowser title="Visualiza file attuale nel browser" message="Applicazione non trovata nel sistema."/>
@@ -1183,16 +1183,16 @@ Vuoi continuare?"/>
         </ProjectManager>
         <MiscStrings>
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
-            <word-chars-list-tip value = "Permette di includere caratteri addizionali nell'elenco caratteri considerati come una parola, quando effetti un doppio clic per selezionare, o effetti una ricerca con l'opzone &quot;Solo parole intere&quot; selezionata" />
+            <word-chars-list-tip value = "Permette di includere caratteri addizionali nella lista di caratteri considerati una parola, quando effetti un doppio clic per selezionare, o effetti una ricerca con l'opzione &quot;Solo parole intere&quot; selezionata" />
             <word-chars-list-warning-begin value = "Attenzione: " />
             <word-chars-list-space-warning value = "$INT_REPLACE$ spazi" />
             <word-chars-list-tab-warning value = "$INT_REPLACE$ tab" />
-            <word-chars-list-warning-end value = " nella tua lista catatteri." />
+            <word-chars-list-warning-end value = " nella tua lista caratteri." />
             <cloud-invalid-warning value = "Percorso non valido." />
             <cloud-restart-warning value = "Riavvia Notepad++ per applicare le modifiche." />
-            <cloud-select-folder value = "Seleziona una cartella da dove Notepad++ possa leggere o scrivere le proprie impostaizoni" />
+            <cloud-select-folder value = "Seleziona una cartella da dove Notepad++ possa leggere o scrivere le proprie impostazioni" />
             <shift-change-direction-tip value = "Utilizza Shift+Invio per cercare nella direzione opposta" />
-            <two-find-buttons-tip value = "Modalita ricerca a 2 pulsanti" />
+            <two-find-buttons-tip value = "Modalità ricerca a 2 pulsanti" />
             <find-status-top-reached value = "Cerca: trovata la prima occorrenza dal basso. È stato raggiunto l&apos;inizio del documento." />
             <find-status-end-reached value = "Cerca: trovata la prima occorrenza dall&apos;alto. È stata raggiunta la fine del documento." />
             <find-status-replaceinfiles-1-replaced value = "Sostituisci: 1 occorrenza è stata sostituita" />

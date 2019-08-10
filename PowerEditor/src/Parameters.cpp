@@ -827,10 +827,6 @@ winVer NppParameters::getWindowsVersion()
    return WV_UNKNOWN;
 }
 
-
-
-NppParameters * NppParameters::_pSelf = new NppParameters;
-
 int FileDialog::_dialogFileBoxId = (NppParameters::getInstance())->getWinVersion() < WV_W2K?edt1:cmb13;
 
 
@@ -1439,8 +1435,6 @@ void NppParameters::destroyInstance()
 	delete _pXmlContextMenuDocA;
 	delete _pXmlSessionDoc;
 	delete _pXmlBlacklistDoc;
-	delete _pSelf;
-	_pSelf = nullptr;
 }
 
 
@@ -3755,7 +3749,7 @@ LangType NppParameters::getLangIDFromStr(const TCHAR *langName)
 	LangType l = (LangType)lang;
 	if (l == L_EXTERNAL) //try find external lexer
 	{
-		int id = _pSelf->getExternalLangIndexFromName(langName);
+		int id = NppParameters::getInstance()->getExternalLangIndexFromName(langName);
 		if (id != -1) return (LangType)(id + L_EXTERNAL);
 	}
 

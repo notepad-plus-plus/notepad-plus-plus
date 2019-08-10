@@ -36,8 +36,8 @@ struct EncodingUnit {
 class EncodingMapper {
 public:
     static EncodingMapper * getInstance() {
-        static  EncodingMapper  _pSelf;
-        return &_pSelf;
+        static  EncodingMapper  instance;
+        return &instance;
     };
     int getEncodingFromIndex(int index) const;
 	int getIndexFromEncoding(int encoding) const;

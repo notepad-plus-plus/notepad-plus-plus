@@ -1290,7 +1290,10 @@ const int RECENTFILES_SHOWONLYFILENAME = 0;
 class NppParameters final
 {
 public:
-	static NppParameters * getInstance() {return _pSelf;};
+	static NppParameters* getInstance() {
+		static NppParameters instance;
+		return &instance;
+	};
 	static LangType getLangIDFromStr(const TCHAR *langName);
 	static generic_string getLocPathFromStr(const generic_string & localizationCode);
 
@@ -1644,8 +1647,6 @@ public:
 private:
 	NppParameters();
 	~NppParameters();
-
-	static NppParameters *_pSelf;
 
 	TiXmlDocument *_pXmlDoc = nullptr;
 	TiXmlDocument *_pXmlUserDoc = nullptr;

@@ -184,8 +184,6 @@ Notepad_plus::~Notepad_plus()
 	// its children windows' handles will be destroyed automatically!
 
 	(NppParameters::getInstance())->destroyInstance();
-	MainFileManager->destroyInstance();
-	(WcharMbcsConvertor::getInstance())->destroyInstance();
 
 	delete _pTrayIco;
 	delete _pAnsiCharPanel;

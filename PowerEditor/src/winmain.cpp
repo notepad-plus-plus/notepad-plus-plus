@@ -479,7 +479,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
         {
 			// First of all, destroy static object NppParameters
 			pNppParameters->destroyInstance();
-			MainFileManager->destroyInstance();
 
 			int sw = 0;
 

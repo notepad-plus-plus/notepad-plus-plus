@@ -38,8 +38,6 @@
 #include "uchardet.h"
 #include "LongRunningOperation.h"
 
-FileManager * FileManager::_pSelf = new FileManager();
-
 static const int blockSize = 128 * 1024 + 4;
 static const int CR = 0x0D;
 static const int LF = 0x0A;

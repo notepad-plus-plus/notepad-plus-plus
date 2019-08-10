@@ -106,8 +106,10 @@ public:
 	bool deleteFile(BufferID id);
 	bool moveFile(BufferID id, const TCHAR * newFilename);
 	bool createEmptyFile(const TCHAR * path);
-	static FileManager * getInstance() {return _pSelf;};
-	void destroyInstance() { delete _pSelf; };
+	static FileManager * getInstance() {
+		static FileManager instance;
+		return &instance;
+	};
 	int getFileNameFromBuffer(BufferID id, TCHAR * fn2copy);
 	int docLength(Buffer * buffer) const;
 	size_t nextUntitledNewNumber() const;
@@ -127,8 +129,6 @@ private:
 
 
 private:
-	static FileManager *_pSelf;
-
 	Notepad_plus* _pNotepadPlus = nullptr;
 	ScintillaEditView* _pscratchTilla = nullptr;
 	Document _scratchDocDefault;

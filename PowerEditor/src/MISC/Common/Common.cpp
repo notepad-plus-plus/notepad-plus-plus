@@ -38,8 +38,6 @@
 #include "../Utf8.h"
 #include <Parameters.h>
 
-WcharMbcsConvertor* WcharMbcsConvertor::_pSelf = new WcharMbcsConvertor;
-
 void printInt(int int2print)
 {
 	TCHAR str[32];

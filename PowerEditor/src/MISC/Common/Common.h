@@ -96,8 +96,10 @@ bool matchInList(const TCHAR *fileName, const std::vector<generic_string> & patt
 class WcharMbcsConvertor final
 {
 public:
-	static WcharMbcsConvertor * getInstance() {return _pSelf;}
-	static void destroyInstance() {delete _pSelf;}
+	static WcharMbcsConvertor* getInstance() {
+		static WcharMbcsConvertor instance;
+		return &instance;
+	}
 
 	const wchar_t * char2wchar(const char *mbStr, UINT codepage, int lenIn=-1, int *pLenOut=NULL, int *pBytesNotProcessed=NULL);
 	const wchar_t * char2wchar(const char *mbcs2Convert, UINT codepage, int *mstart, int *mend);
@@ -119,8 +121,6 @@ protected:
 	// Since these are marked as deleted does not matter under which access specifier are kept
 	WcharMbcsConvertor(const WcharMbcsConvertor&) = delete;
 	WcharMbcsConvertor& operator= (const WcharMbcsConvertor&) = delete;
-
-	static WcharMbcsConvertor* _pSelf;
 
 	template <class T>
 	class StringBuffer final

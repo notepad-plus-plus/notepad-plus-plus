@@ -114,13 +114,17 @@ public:
     }
 
 protected:
-	WcharMbcsConvertor() {}
-	~WcharMbcsConvertor() {}
+	WcharMbcsConvertor() = default;
+	~WcharMbcsConvertor() = default;
 
 	// Since there's no public ctor, we need to void the default assignment operator and copy ctor.
 	// Since these are marked as deleted does not matter under which access specifier are kept
 	WcharMbcsConvertor(const WcharMbcsConvertor&) = delete;
 	WcharMbcsConvertor& operator= (const WcharMbcsConvertor&) = delete;
+
+	// No move ctor and assignment
+	WcharMbcsConvertor(WcharMbcsConvertor&&) = delete;
+	WcharMbcsConvertor& operator= (WcharMbcsConvertor&&) = delete;
 
 	template <class T>
 	class StringBuffer final

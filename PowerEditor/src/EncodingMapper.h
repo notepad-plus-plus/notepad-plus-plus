@@ -35,17 +35,24 @@ struct EncodingUnit {
 
 class EncodingMapper {
 public:
-    static EncodingMapper * getInstance() {
-        static  EncodingMapper  instance;
-        return &instance;
-    };
+	static EncodingMapper* getInstance() {
+		static  EncodingMapper  instance;
+		return &instance;
+	}
     int getEncodingFromIndex(int index) const;
 	int getIndexFromEncoding(int encoding) const;
 	int getEncodingFromString(const char * encodingAlias) const;
 
 private:
-	EncodingMapper(){};
-	~EncodingMapper(){};
-	EncodingUnit* _encodings = nullptr;
+	EncodingMapper() = default;
+	~EncodingMapper() = default;
+
+	// No copy ctor and assignment
+	EncodingMapper(const EncodingMapper&) = delete;
+	EncodingMapper& operator=(const EncodingMapper&) = delete;
+
+	// No move ctor and assignment
+	EncodingMapper(EncodingMapper&&) = delete;
+	EncodingMapper& operator=(EncodingMapper&&) = delete;
 };
 

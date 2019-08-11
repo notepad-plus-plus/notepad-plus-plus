@@ -1648,6 +1648,14 @@ private:
 	NppParameters();
 	~NppParameters();
 
+	// No copy ctor and assignment
+	NppParameters(const NppParameters&) = delete;
+	NppParameters& operator=(const NppParameters&) = delete;
+
+	// No move ctor and assignment
+	NppParameters(NppParameters&&) = delete;
+	NppParameters& operator=(NppParameters&&) = delete;
+
 	TiXmlDocument *_pXmlDoc = nullptr;
 	TiXmlDocument *_pXmlUserDoc = nullptr;
 	TiXmlDocument *_pXmlUserStylerDoc = nullptr;

@@ -2137,10 +2137,15 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 				if (_env->_doMarkLine)
 				{
 					auto lineNumber = pEditView->execute(SCI_LINEFROMPOSITION, targetStart);
-					auto state = pEditView->execute(SCI_MARKERGET, lineNumber);
+					auto lineNumberEnd = pEditView->execute(SCI_LINEFROMPOSITION, targetEnd - 1);
 
-					if (!(state & (1 << MARK_BOOKMARK)))
-						pEditView->execute(SCI_MARKERADD, lineNumber, MARK_BOOKMARK);
+					for (auto i = lineNumber; i <= lineNumberEnd; ++i)
+					{
+						auto state = pEditView->execute(SCI_MARKERGET, i);
+
+						if (!(state & (1 << MARK_BOOKMARK)))
+							pEditView->execute(SCI_MARKERADD, i, MARK_BOOKMARK);
+					}
 				}
 				break; 
 			}

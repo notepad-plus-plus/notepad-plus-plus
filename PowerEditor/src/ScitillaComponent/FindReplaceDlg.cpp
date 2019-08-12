@@ -1359,7 +1359,10 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					{
 						if (isMacroRecording) saveInMacro(wParam, FR_OP_FIND);
 						(*_ppEditView)->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE);
-						(*_ppEditView)->execute(SCI_MARKERDELETEALL, MARK_BOOKMARK);
+						if (_options._doMarkLine)
+						{
+							(*_ppEditView)->execute(SCI_MARKERDELETEALL, MARK_BOOKMARK);
+						}
 						setStatusbarMessage(TEXT(""), FSNoMessage);
 					}
 				}
@@ -2562,7 +2565,7 @@ void FindReplaceDlg::saveInMacro(size_t cmd, int cmdType)
 	}
 	if (cmd == IDC_CLEAR_ALL)
 	{
-		booleans = 0;
+		booleans = _options._doMarkLine ? IDF_MARKLINE_CHECK : 0;
 	}
 	::SendMessage(_hParent, WM_FRSAVE_INT, IDC_FRCOMMAND_BOOLEANS, booleans);
 	::SendMessage(_hParent, WM_FRSAVE_INT, IDC_FRCOMMAND_EXEC, cmd);
@@ -2796,7 +2799,11 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const generic_st
 					case IDC_CLEAR_ALL:
 					{
 						(*_ppEditView)->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE);
-						(*_ppEditView)->execute(SCI_MARKERDELETEALL, MARK_BOOKMARK);
+						if (_env->_doMarkLine)
+						{
+							(*_ppEditView)->execute(SCI_MARKERDELETEALL, MARK_BOOKMARK);
+						}
+						setStatusbarMessage(TEXT(""), FSNoMessage);
 						break;
 					}
 

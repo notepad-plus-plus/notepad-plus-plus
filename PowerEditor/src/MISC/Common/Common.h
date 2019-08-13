@@ -96,9 +96,9 @@ bool matchInList(const TCHAR *fileName, const std::vector<generic_string> & patt
 class WcharMbcsConvertor final
 {
 public:
-	static WcharMbcsConvertor* getInstance() {
+	static WcharMbcsConvertor& getInstance() {
 		static WcharMbcsConvertor instance;
-		return &instance;
+		return instance;
 	}
 
 	const wchar_t * char2wchar(const char *mbStr, UINT codepage, int lenIn=-1, int *pLenOut=NULL, int *pBytesNotProcessed=NULL);

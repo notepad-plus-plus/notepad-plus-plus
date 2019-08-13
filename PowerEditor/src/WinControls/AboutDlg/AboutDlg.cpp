@@ -43,10 +43,10 @@ INT_PTR CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 			HWND compileDateHandle = ::GetDlgItem(_hSelf, IDC_BUILD_DATETIME);
 			generic_string buildTime = TEXT("Build time : ");
 
-			WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-			buildTime +=  wmc->char2wchar(__DATE__, CP_ACP);
+			WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+			buildTime +=  wmc.char2wchar(__DATE__, CP_ACP);
 			buildTime += TEXT(" - ");
-			buildTime +=  wmc->char2wchar(__TIME__, CP_ACP);
+			buildTime +=  wmc.char2wchar(__TIME__, CP_ACP);
 
 			NppParameters *pNppParam = NppParameters::getInstance();
 			LPCTSTR bitness = pNppParam ->isx64() ? TEXT("(64-bit)") : TEXT("(32-bit)");
@@ -136,10 +136,10 @@ INT_PTR CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /
 			// Build time
 			_debugInfoStr += TEXT("Build time : ");
 			generic_string buildTime;
-			WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-			buildTime += wmc->char2wchar(__DATE__, CP_ACP);
+			WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+			buildTime += wmc.char2wchar(__DATE__, CP_ACP);
 			buildTime += TEXT(" - ");
-			buildTime += wmc->char2wchar(__TIME__, CP_ACP);
+			buildTime += wmc.char2wchar(__TIME__, CP_ACP);
 			_debugInfoStr += buildTime;
 			_debugInfoStr += TEXT("\r\n");
 

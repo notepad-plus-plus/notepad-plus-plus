@@ -259,18 +259,18 @@ bool FunctionListPanel::serialize(const generic_string & outputFilename)
 	const char* leavesLabel = "leaves";
 	const char* nameLabel = "name";
 
-	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	json j;
-	j[rootLabel] = wmc->wchar2char(fileNameLabel, CP_ACP);
+	j[rootLabel] = wmc.wchar2char(fileNameLabel, CP_ACP);
 
 	for (const auto & info : _foundFuncInfos)
 	{
-		std::string leafName = wmc->wchar2char(info._data.c_str(), CP_ACP);
+		std::string leafName = wmc.wchar2char(info._data.c_str(), CP_ACP);
 
 		if (!info._data2.empty()) // node
 		{
 			bool isFound = false;
-			std::string nodeName = wmc->wchar2char(info._data2.c_str(), CP_ACP);
+			std::string nodeName = wmc.wchar2char(info._data2.c_str(), CP_ACP);
 
 			for (auto & i : j[nodesLabel])
 			{

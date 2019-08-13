@@ -525,7 +525,7 @@ void ScintillaEditView::setSpecialStyle(const Style & styleToSet)
 
     if (styleToSet._fontName && lstrcmp(styleToSet._fontName, TEXT("")) != 0)
 	{
-		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 
 		if (not _pParameter->isInFontList(styleToSet._fontName))
 		{
@@ -533,7 +533,7 @@ void ScintillaEditView::setSpecialStyle(const Style & styleToSet)
 		}
 		else
 		{
-			const char * fontNameA = wmc->wchar2char(styleToSet._fontName, CP_UTF8);
+			const char * fontNameA = wmc.wchar2char(styleToSet._fontName, CP_UTF8);
 			execute(SCI_STYLESETFONT, styleID, reinterpret_cast<LPARAM>(fontNameA));
 		}
 	}
@@ -657,8 +657,8 @@ void ScintillaEditView::setXmlLexer(LangType type)
         execute(SCI_SETLEXER, SCLEX_HTML);
         const TCHAR *htmlKeyWords_generic =_pParameter->getWordList(L_HTML, LANG_INDEX_INSTR);
 
-		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-		const char *htmlKeyWords = wmc->wchar2char(htmlKeyWords_generic, CP_ACP);
+		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+		const char *htmlKeyWords = wmc.wchar2char(htmlKeyWords_generic, CP_ACP);
 		execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(htmlKeyWords?htmlKeyWords:""));
 		makeStyle(L_HTML);
 
@@ -790,8 +790,8 @@ void ScintillaEditView::setUserLexer(const TCHAR *userLangName)
 
 	for (int i = 0 ; i < SCE_USER_KWLIST_TOTAL ; ++i)
 	{
-		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-		const char * keyWords_char = wmc->wchar2char(userLangContainer->_keywordLists[i], codepage);
+		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+		const char * keyWords_char = wmc.wchar2char(userLangContainer->_keywordLists[i], codepage);
 
 		if (globalMappper().setLexerMapper.find(i) != globalMappper().setLexerMapper.end())
 		{
@@ -887,8 +887,8 @@ void ScintillaEditView::setExternalLexer(LangType typeDoc)
 	int id = typeDoc - L_EXTERNAL;
 	TCHAR * name = _pParameter->getELCFromIndex(id)._name;
 
-	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-	const char *pName = wmc->wchar2char(name, CP_ACP);
+	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+	const char *pName = wmc.wchar2char(name, CP_ACP);
 
 	execute(SCI_SETLEXERLANGUAGE, 0, reinterpret_cast<LPARAM>(pName));
 
@@ -926,8 +926,8 @@ void ScintillaEditView::setCppLexer(LangType langType)
     {
         if (doxygenKeyWords)
 		{
-			WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-			const char * doxygenKeyWords_char = wmc->wchar2char(doxygenKeyWords, CP_ACP);
+			WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+			const char * doxygenKeyWords_char = wmc.wchar2char(doxygenKeyWords, CP_ACP);
 			execute(SCI_SETKEYWORDS, 2, reinterpret_cast<LPARAM>(doxygenKeyWords_char));
 		}
     }
@@ -975,8 +975,8 @@ void ScintillaEditView::setJsLexer()
 
 	if (doxygenKeyWords)
 	{
-		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-		const char * doxygenKeyWords_char = wmc->wchar2char(doxygenKeyWords, CP_ACP);
+		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+		const char * doxygenKeyWords_char = wmc.wchar2char(doxygenKeyWords, CP_ACP);
 		execute(SCI_SETKEYWORDS, 2, reinterpret_cast<LPARAM>(doxygenKeyWords_char));
 	}
 
@@ -1184,47 +1184,47 @@ void ScintillaEditView::setLexer(int lexerID, LangType langType, int whichList)
 
 	makeStyle(langType, pKwArray);
 
-	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 
 	if (whichList & LIST_0)
 	{
-		const char * keyWords_char = wmc->wchar2char(pKwArray[LANG_INDEX_INSTR], CP_ACP);
+		const char * keyWords_char = wmc.wchar2char(pKwArray[LANG_INDEX_INSTR], CP_ACP);
 		setKeywords(langType, keyWords_char, LANG_INDEX_INSTR);
 	}
 
 	if (whichList & LIST_1)
 	{
-		const char * keyWords_char = wmc->wchar2char(pKwArray[LANG_INDEX_INSTR2], CP_ACP);
+		const char * keyWords_char = wmc.wchar2char(pKwArray[LANG_INDEX_INSTR2], CP_ACP);
 		setKeywords(langType, keyWords_char, LANG_INDEX_INSTR2);
 	}
 
 	if (whichList & LIST_2)
 	{
-		const char * keyWords_char = wmc->wchar2char(pKwArray[LANG_INDEX_TYPE], CP_ACP);
+		const char * keyWords_char = wmc.wchar2char(pKwArray[LANG_INDEX_TYPE], CP_ACP);
 		setKeywords(langType, keyWords_char, LANG_INDEX_TYPE);
 	}
 
 	if (whichList & LIST_3)
 	{
-		const char * keyWords_char = wmc->wchar2char(pKwArray[LANG_INDEX_TYPE2], CP_ACP);
+		const char * keyWords_char = wmc.wchar2char(pKwArray[LANG_INDEX_TYPE2], CP_ACP);
 		setKeywords(langType, keyWords_char, LANG_INDEX_TYPE2);
 	}
 
 	if (whichList & LIST_4)
 	{
-		const char * keyWords_char = wmc->wchar2char(pKwArray[LANG_INDEX_TYPE3], CP_ACP);
+		const char * keyWords_char = wmc.wchar2char(pKwArray[LANG_INDEX_TYPE3], CP_ACP);
 		setKeywords(langType, keyWords_char, LANG_INDEX_TYPE3);
 	}
 
 	if (whichList & LIST_5)
 	{
-		const char * keyWords_char = wmc->wchar2char(pKwArray[LANG_INDEX_TYPE4], CP_ACP);
+		const char * keyWords_char = wmc.wchar2char(pKwArray[LANG_INDEX_TYPE4], CP_ACP);
 		setKeywords(langType, keyWords_char, LANG_INDEX_TYPE4);
 	}
 
 	if (whichList & LIST_6)
 	{
-		const char * keyWords_char = wmc->wchar2char(pKwArray[LANG_INDEX_TYPE5], CP_ACP);
+		const char * keyWords_char = wmc.wchar2char(pKwArray[LANG_INDEX_TYPE5], CP_ACP);
 		setKeywords(langType, keyWords_char, LANG_INDEX_TYPE5);
 	}
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold"), reinterpret_cast<LPARAM>("1"));
@@ -2132,11 +2132,11 @@ generic_string ScintillaEditView::getGenericTextAsString(size_t start, size_t en
 
 void ScintillaEditView::getGenericText(TCHAR *dest, size_t destlen, size_t start, size_t end) const
 {
-	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	char *destA = new char[end - start + 1];
 	getText(destA, start, end);
 	UINT cp = static_cast<UINT>(execute(SCI_GETCODEPAGE));
-	const TCHAR *destW = wmc->char2wchar(destA, cp);
+	const TCHAR *destW = wmc.char2wchar(destA, cp);
 	_tcsncpy_s(dest, destlen, destW, _TRUNCATE);
 	delete [] destA;
 }
@@ -2146,20 +2146,20 @@ void ScintillaEditView::getGenericText(TCHAR *dest, size_t destlen, size_t start
 
 void ScintillaEditView::getGenericText(TCHAR *dest, size_t destlen, int start, int end, int *mstart, int *mend) const
 {
-	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	char *destA = new char[end - start + 1];
 	getText(destA, start, end);
 	UINT cp = static_cast<UINT>(execute(SCI_GETCODEPAGE))    ;
-	const TCHAR *destW = wmc->char2wchar(destA, cp, mstart, mend);
+	const TCHAR *destW = wmc.char2wchar(destA, cp, mstart, mend);
 	_tcsncpy_s(dest, destlen, destW, _TRUNCATE);
 	delete [] destA;
 }
 
 void ScintillaEditView::insertGenericTextFrom(size_t position, const TCHAR *text2insert) const
 {
-	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	UINT cp = static_cast<UINT>(execute(SCI_GETCODEPAGE));
-	const char *text2insertA = wmc->wchar2char(text2insert, cp);
+	const char *text2insertA = wmc.wchar2char(text2insert, cp);
 	execute(SCI_INSERTTEXT, position, reinterpret_cast<LPARAM>(text2insertA));
 }
 
@@ -2211,12 +2211,12 @@ char * ScintillaEditView::getWordOnCaretPos(char * txt, int size)
 
 TCHAR * ScintillaEditView::getGenericWordOnCaretPos(TCHAR * txt, int size)
 {
-	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	UINT cp = static_cast<UINT>(execute(SCI_GETCODEPAGE));
 	char *txtA = new char[size + 1];
 	getWordOnCaretPos(txtA, size);
 
-	const TCHAR * txtW = wmc->char2wchar(txtA, cp);
+	const TCHAR * txtW = wmc.char2wchar(txtA, cp);
 	wcscpy_s(txt, size, txtW);
 	delete [] txtA;
 	return txt;
@@ -2242,12 +2242,12 @@ char * ScintillaEditView::getSelectedText(char * txt, int size, bool expand)
 
 TCHAR * ScintillaEditView::getGenericSelectedText(TCHAR * txt, int size, bool expand)
 {
-	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	UINT cp = static_cast<UINT>(execute(SCI_GETCODEPAGE));
 	char *txtA = new char[size + 1];
 	getSelectedText(txtA, size, expand);
 
-	const TCHAR * txtW = wmc->char2wchar(txtA, cp);
+	const TCHAR * txtW = wmc.char2wchar(txtA, cp);
 	wcscpy_s(txt, size, txtW);
 	delete [] txtA;
 	return txt;
@@ -2257,9 +2257,9 @@ int ScintillaEditView::searchInTarget(const TCHAR * text2Find, size_t lenOfText2
 {
 	execute(SCI_SETTARGETRANGE, fromPos, toPos);
 
-	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	UINT cp = static_cast<UINT>(execute(SCI_GETCODEPAGE));
-	const char *text2FindA = wmc->wchar2char(text2Find, cp);
+	const char *text2FindA = wmc.wchar2char(text2Find, cp);
 	size_t text2FindALen = strlen(text2FindA);
    	size_t len = (lenOfText2Find > text2FindALen) ? lenOfText2Find : text2FindALen;
 	return static_cast<int32_t>(execute(SCI_SEARCHINTARGET, len, reinterpret_cast<LPARAM>(text2FindA)));
@@ -2267,25 +2267,25 @@ int ScintillaEditView::searchInTarget(const TCHAR * text2Find, size_t lenOfText2
 
 void ScintillaEditView::appandGenericText(const TCHAR * text2Append) const
 {
-	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	UINT cp = static_cast<UINT>(execute(SCI_GETCODEPAGE));
-	const char *text2AppendA =wmc->wchar2char(text2Append, cp);
+	const char *text2AppendA =wmc.wchar2char(text2Append, cp);
 	execute(SCI_APPENDTEXT, strlen(text2AppendA), reinterpret_cast<LPARAM>(text2AppendA));
 }
 
 void ScintillaEditView::addGenericText(const TCHAR * text2Append) const
 {
-	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	UINT cp = static_cast<UINT>(execute(SCI_GETCODEPAGE));
-	const char *text2AppendA =wmc->wchar2char(text2Append, cp);
+	const char *text2AppendA =wmc.wchar2char(text2Append, cp);
 	execute(SCI_ADDTEXT, strlen(text2AppendA), reinterpret_cast<LPARAM>(text2AppendA));
 }
 
 void ScintillaEditView::addGenericText(const TCHAR * text2Append, long *mstart, long *mend) const
 {
-	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	UINT cp = static_cast<UINT>(execute(SCI_GETCODEPAGE));
-	const char *text2AppendA =wmc->wchar2char(text2Append, cp, mstart, mend);
+	const char *text2AppendA =wmc.wchar2char(text2Append, cp, mstart, mend);
 	execute(SCI_ADDTEXT, strlen(text2AppendA), reinterpret_cast<LPARAM>(text2AppendA));
 }
 
@@ -2295,9 +2295,9 @@ int32_t ScintillaEditView::replaceTarget(const TCHAR * str2replace, int fromTarg
 	{
 		execute(SCI_SETTARGETRANGE, fromTargetPos, toTargetPos);
 	}
-	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	UINT cp = static_cast<UINT>(execute(SCI_GETCODEPAGE));
-	const char *str2replaceA = wmc->wchar2char(str2replace, cp);
+	const char *str2replaceA = wmc.wchar2char(str2replace, cp);
 	return static_cast<int32_t>(execute(SCI_REPLACETARGET, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(str2replaceA)));
 }
 
@@ -2307,25 +2307,25 @@ int ScintillaEditView::replaceTargetRegExMode(const TCHAR * re, int fromTargetPo
 	{
 		execute(SCI_SETTARGETRANGE, fromTargetPos, toTargetPos);
 	}
-	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	UINT cp = static_cast<UINT>(execute(SCI_GETCODEPAGE));
-	const char *reA = wmc->wchar2char(re, cp);
+	const char *reA = wmc.wchar2char(re, cp);
 	return static_cast<int32_t>(execute(SCI_REPLACETARGETRE, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(reA)));
 }
 
 void ScintillaEditView::showAutoComletion(size_t lenEntered, const TCHAR* list)
 {
-	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	UINT cp = static_cast<UINT>(execute(SCI_GETCODEPAGE));
-	const char *listA = wmc->wchar2char(list, cp);
+	const char *listA = wmc.wchar2char(list, cp);
 	execute(SCI_AUTOCSHOW, lenEntered, reinterpret_cast<LPARAM>(listA));
 }
 
 void ScintillaEditView::showCallTip(int startPos, const TCHAR * def)
 {
-	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	UINT cp = static_cast<UINT>(execute(SCI_GETCODEPAGE));
-	const char *defA = wmc->wchar2char(def, cp);
+	const char *defA = wmc.wchar2char(def, cp);
 	execute(SCI_CALLTIPSHOW, startPos, reinterpret_cast<LPARAM>(defA));
 }
 
@@ -2345,14 +2345,14 @@ void ScintillaEditView::getLine(size_t lineNumber, TCHAR * line, int lineBufferL
 	if (lineLen >= lineBufferLen)
 		return;
 
-	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	UINT cp = static_cast<UINT>(execute(SCI_GETCODEPAGE));
 	char *lineA = new char[lineBufferLen];
 	// From Scintilla documentation for SCI_GETLINE: "The buffer is not terminated by a 0 character."
 	memset(lineA, 0x0, sizeof(char) * lineBufferLen);
 	
 	execute(SCI_GETLINE, lineNumber, reinterpret_cast<LPARAM>(lineA));
-	const TCHAR *lineW = wmc->char2wchar(lineA, cp);
+	const TCHAR *lineW = wmc.char2wchar(lineA, cp);
 	lstrcpyn(line, lineW, lineBufferLen);
 	delete [] lineA;
 }
@@ -2626,8 +2626,8 @@ const char * ScintillaEditView::getCompleteKeywordList(std::basic_string<char> &
 	kwl += " ";
 	const TCHAR *defKwl_generic = _pParameter->getWordList(langType, keywordIndex);
 
-	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-	const char * defKwl = wmc->wchar2char(defKwl_generic, CP_ACP);
+	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+	const char * defKwl = wmc.wchar2char(defKwl_generic, CP_ACP);
 	kwl += defKwl?defKwl:"";
 
 	return kwl.c_str();
@@ -3009,9 +3009,9 @@ void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, const TCHAR *str)
 
 			execute(SCI_SETTARGETRANGE, cmi[i]._selLpos, cmi[i]._selRpos);
 
-			WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+			WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 			UINT cp = static_cast<UINT>(execute(SCI_GETCODEPAGE));
-			const char *strA = wmc->wchar2char(str, cp);
+			const char *strA = wmc.wchar2char(str, cp);
 			execute(SCI_REPLACETARGET, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(strA));
 
 			if (hasVirtualSpc)
@@ -3116,9 +3116,9 @@ void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, int initial, int in
 			}
 			execute(SCI_SETTARGETRANGE, cmi[i]._selLpos, cmi[i]._selRpos);
 
-			WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+			WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 			UINT cp = static_cast<UINT>(execute(SCI_GETCODEPAGE));
-			const char *strA = wmc->wchar2char(str, cp);
+			const char *strA = wmc.wchar2char(str, cp);
 			execute(SCI_REPLACETARGET, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(strA));
 
 			if (hasVirtualSpc)

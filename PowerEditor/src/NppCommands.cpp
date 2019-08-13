@@ -2766,8 +2766,8 @@ void Notepad_plus::command(int id)
 			{
 				char author[maxSelLen+1] = "";
 				_pEditView->getSelectedText(author, maxSelLen + 1);
-				WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-				const wchar_t * authorW = wmc->char2wchar(author, _nativeLangSpeaker.getLangEncoding());
+				WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+				const wchar_t * authorW = wmc.char2wchar(author, _nativeLangSpeaker.getLangEncoding());
 				int iQuote = getQuoteIndexFrom(authorW);
 
 				if (iQuote == -1)
@@ -2803,8 +2803,8 @@ void Notepad_plus::command(int id)
 						const char *authorName = "«J¤µ§^";
 						HWND hItem = ::GetDlgItem(_aboutDlg.getHSelf(), IDC_AUTHOR_NAME);
 
-						WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-						const wchar_t *authorNameW = wmc->char2wchar(authorName, NPP_CP_BIG5);
+						WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+						const wchar_t *authorNameW = wmc.char2wchar(authorName, NPP_CP_BIG5);
 						::SetWindowText(hItem, authorNameW);
 					}
 				}

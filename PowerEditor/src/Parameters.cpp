@@ -1057,8 +1057,8 @@ bool NppParameters::load()
 	{
 		// Read cloud choice
 		std::string cloudChoiceStr = getFileContent(cloudChoicePath.c_str());
-		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-		std::wstring cloudChoiceStrW = wmc->char2wchar(cloudChoiceStr.c_str(), SC_CP_UTF8);
+		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+		std::wstring cloudChoiceStrW = wmc.char2wchar(cloudChoiceStr.c_str(), SC_CP_UTF8);
 
 		if (not cloudChoiceStrW.empty() and ::PathFileExists(cloudChoiceStrW.c_str()))
 		{
@@ -1913,7 +1913,7 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU plugins
 	if (!root)
 		return false;
 
-	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 
 	TiXmlNodeA *contextMenuRoot = root->FirstChildElement("ScintillaContextMenu");
 	if (contextMenuRoot)
@@ -1927,8 +1927,8 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU plugins
 
 			generic_string folderName;
 			generic_string displayAs;
-			folderName = folderNameA?wmc->char2wchar(folderNameA, SC_CP_UTF8):TEXT("");
-			displayAs = displayAsA?wmc->char2wchar(displayAsA, SC_CP_UTF8):TEXT("");
+			folderName = folderNameA?wmc.char2wchar(folderNameA, SC_CP_UTF8):TEXT("");
+			displayAs = displayAsA?wmc.char2wchar(displayAsA, SC_CP_UTF8):TEXT("");
 
 			int id;
 			const char *idStr = (childNode->ToElement())->Attribute("id", &id);
@@ -1943,8 +1943,8 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU plugins
 
 				generic_string menuEntryName;
 				generic_string menuItemName;
-				menuEntryName = menuEntryNameA?wmc->char2wchar(menuEntryNameA, SC_CP_UTF8):TEXT("");
-				menuItemName = menuItemNameA?wmc->char2wchar(menuItemNameA, SC_CP_UTF8):TEXT("");
+				menuEntryName = menuEntryNameA?wmc.char2wchar(menuEntryNameA, SC_CP_UTF8):TEXT("");
+				menuItemName = menuItemNameA?wmc.char2wchar(menuItemNameA, SC_CP_UTF8):TEXT("");
 
 				if (not menuEntryName.empty() and not menuItemName.empty())
 				{
@@ -1959,8 +1959,8 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU plugins
 
 					generic_string pluginName;
 					generic_string pluginCmdName;
-					pluginName = pluginNameA?wmc->char2wchar(pluginNameA, SC_CP_UTF8):TEXT("");
-					pluginCmdName = pluginCmdNameA?wmc->char2wchar(pluginCmdNameA, SC_CP_UTF8):TEXT("");
+					pluginName = pluginNameA?wmc.char2wchar(pluginNameA, SC_CP_UTF8):TEXT("");
+					pluginCmdName = pluginCmdNameA?wmc.char2wchar(pluginCmdNameA, SC_CP_UTF8):TEXT("");
 
 					// if plugin menu existing plls the value of PluginEntryName and PluginCommandItemName are valid
 					if (pluginsMenu && not pluginName.empty() && not pluginCmdName.empty())
@@ -2752,8 +2752,8 @@ void NppParameters::setCloudChoice(const TCHAR *pathChoice)
 	}
 	cloudChoicePath += TEXT("choice");
 
-	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-	std::string cloudPathA = wmc->wchar2char(pathChoice, SC_CP_UTF8);
+	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+	std::string cloudPathA = wmc.wchar2char(pathChoice, SC_CP_UTF8);
 
 	writeFileContent(cloudChoicePath.c_str(), cloudPathA.c_str());
 }
@@ -5021,8 +5021,8 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			const TCHAR *charsAddedW = element->Attribute(TEXT("charsAdded"));
 			if (charsAddedW)
 			{
-				WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-				_nppGUI._customWordChars = wmc->wchar2char(charsAddedW, SC_CP_UTF8);
+				WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+				_nppGUI._customWordChars = wmc.wchar2char(charsAddedW, SC_CP_UTF8);
 			}
 		}
 		else if (!lstrcmp(nm, TEXT("delimiterSelection")))
@@ -5799,8 +5799,8 @@ void NppParameters::createXmlTreeFromGUIParams()
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("wordCharList"));
 		GUIConfigElement->SetAttribute(TEXT("useDefault"), _nppGUI._isWordCharDefault ? TEXT("yes") : TEXT("no"));
-		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-		const wchar_t* charsAddStr = wmc->char2wchar(_nppGUI._customWordChars.c_str(), SC_CP_UTF8);
+		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+		const wchar_t* charsAddStr = wmc.char2wchar(_nppGUI._customWordChars.c_str(), SC_CP_UTF8);
 		GUIConfigElement->SetAttribute(TEXT("charsAdded"), charsAddStr);
 	}
 

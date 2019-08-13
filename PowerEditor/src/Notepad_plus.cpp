@@ -2486,8 +2486,8 @@ void Notepad_plus::addHotSpot()
 			const size_t generic_fontnameLen = 128;
 			TCHAR *generic_fontname = new TCHAR[generic_fontnameLen];
 
-			WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-			const wchar_t * fontNameW = wmc->char2wchar(fontNameA, _nativeLangSpeaker.getLangEncoding());
+			WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+			const wchar_t * fontNameW = wmc.char2wchar(fontNameA, _nativeLangSpeaker.getLangEncoding());
 			wcscpy_s(generic_fontname, generic_fontnameLen, fontNameW);
 			hotspotStyle._fontName = generic_fontname;
 

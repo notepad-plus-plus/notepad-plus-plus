@@ -285,8 +285,8 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 			if (::PathFileExists(cmdLineParams->_easterEggName.c_str()))
 			{
 				std::string content = getFileContent(cmdLineParams->_easterEggName.c_str());
-				WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-				_userQuote = wmc->char2wchar(content.c_str(), SC_CP_UTF8);
+				WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+				_userQuote = wmc.char2wchar(content.c_str(), SC_CP_UTF8);
 				if (!_userQuote.empty())
 				{
 					_quoteParams.reset();

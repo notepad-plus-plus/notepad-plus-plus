@@ -631,7 +631,7 @@ bool loadFromJson(PluginViewList & pl, const json& j)
 	if (j.empty())
 		return false;
 
-	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 
 	json jArray = j["npp-plugins"];
 	if (jArray.empty() || jArray.type() != json::value_t::array)
@@ -644,29 +644,29 @@ bool loadFromJson(PluginViewList & pl, const json& j)
 			PluginUpdateInfo* pi = new PluginUpdateInfo();
 
 			string valStr = i.at("folder-name").get<std::string>();
-			pi->_folderName = wmc->char2wchar(valStr.c_str(), CP_ACP);
+			pi->_folderName = wmc.char2wchar(valStr.c_str(), CP_ACP);
 
 			valStr = i.at("display-name").get<std::string>();
-			pi->_displayName = wmc->char2wchar(valStr.c_str(), CP_ACP);
+			pi->_displayName = wmc.char2wchar(valStr.c_str(), CP_ACP);
 
 			valStr = i.at("author").get<std::string>();
-			pi->_author = wmc->char2wchar(valStr.c_str(), CP_ACP);
+			pi->_author = wmc.char2wchar(valStr.c_str(), CP_ACP);
 
 			valStr = i.at("description").get<std::string>();
-			pi->_description = wmc->char2wchar(valStr.c_str(), CP_ACP);
+			pi->_description = wmc.char2wchar(valStr.c_str(), CP_ACP);
 
 			valStr = i.at("id").get<std::string>();
-			pi->_id = wmc->char2wchar(valStr.c_str(), CP_ACP);
+			pi->_id = wmc.char2wchar(valStr.c_str(), CP_ACP);
 
 			valStr = i.at("version").get<std::string>();
 			generic_string newValStr(valStr.begin(), valStr.end());
 			pi->_version = Version(newValStr);
 
 			valStr = i.at("repository").get<std::string>();
-			pi->_repository = wmc->char2wchar(valStr.c_str(), CP_ACP);
+			pi->_repository = wmc.char2wchar(valStr.c_str(), CP_ACP);
 
 			valStr = i.at("homepage").get<std::string>();
-			pi->_homepage = wmc->char2wchar(valStr.c_str(), CP_ACP);
+			pi->_homepage = wmc.char2wchar(valStr.c_str(), CP_ACP);
 
 
 			pl.pushBack(pi);

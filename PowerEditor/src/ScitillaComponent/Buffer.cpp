@@ -878,7 +878,7 @@ bool FileManager::backupCurrentBuffer()
 				}
 				else
 				{
-					WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+					WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 					int grabSize;
 					for (int i = 0; i < lengthDoc; i += grabSize)
 					{
@@ -888,7 +888,7 @@ bool FileManager::backupCurrentBuffer()
 
 						int newDataLen = 0;
 						int incompleteMultibyteChar = 0;
-						const char *newData = wmc->encode(SC_CP_UTF8, encoding, buf+i, grabSize, &newDataLen, &incompleteMultibyteChar);
+						const char *newData = wmc.encode(SC_CP_UTF8, encoding, buf+i, grabSize, &newDataLen, &incompleteMultibyteChar);
 						grabSize -= incompleteMultibyteChar;
 						items_written = UnicodeConvertor.fwrite(newData, newDataLen);
 					}
@@ -1003,7 +1003,7 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 		}
 		else
 		{
-			WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+			WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 			int grabSize;
 			for (int i = 0; i < lengthDoc; i += grabSize)
 			{
@@ -1013,7 +1013,7 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 
 				int newDataLen = 0;
 				int incompleteMultibyteChar = 0;
-				const char *newData = wmc->encode(SC_CP_UTF8, encoding, buf+i, grabSize, &newDataLen, &incompleteMultibyteChar);
+				const char *newData = wmc.encode(SC_CP_UTF8, encoding, buf+i, grabSize, &newDataLen, &incompleteMultibyteChar);
 				grabSize -= incompleteMultibyteChar;
 				items_written = UnicodeConvertor.fwrite(newData, newDataLen);
 			}
@@ -1309,8 +1309,8 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 	{
 		int id = fileFormat._language - L_EXTERNAL;
 		TCHAR * name = NppParameters::getInstance()->getELCFromIndex(id)._name;
-		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-		const char *pName = wmc->wchar2char(name, CP_ACP);
+		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+		const char *pName = wmc.wchar2char(name, CP_ACP);
 		_pscratchTilla->execute(SCI_SETLEXERLANGUAGE, 0, reinterpret_cast<LPARAM>(pName));
 	}
 
@@ -1369,9 +1369,9 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 				}
 				else
 				{
-					WcharMbcsConvertor* wmc = WcharMbcsConvertor::getInstance();
+					WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 					int newDataLen = 0;
-					const char *newData = wmc->encode(fileFormat._encoding, SC_CP_UTF8, data, static_cast<int32_t>(lenFile), &newDataLen, &incompleteMultibyteChar);
+					const char *newData = wmc.encode(fileFormat._encoding, SC_CP_UTF8, data, static_cast<int32_t>(lenFile), &newDataLen, &incompleteMultibyteChar);
 					_pscratchTilla->execute(SCI_APPENDTEXT, newDataLen, reinterpret_cast<LPARAM>(newData));
 				}
 

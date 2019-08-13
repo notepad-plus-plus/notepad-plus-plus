@@ -64,8 +64,8 @@ INT_PTR CALLBACK HashFromFilesDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 						{
 							if (_ht == hashType::hash_md5)
 							{
-								WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-								const char *path = wmc->wchar2char(it.c_str(), CP_ACP);
+								WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+								const char *path = wmc.wchar2char(it.c_str(), CP_ACP);
 
 								MD5 md5;
 								char *md5Result = md5.digestFile(path);
@@ -76,7 +76,7 @@ INT_PTR CALLBACK HashFromFilesDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 									files2check += TEXT("\r\n");
 
 									wchar_t* fileName = ::PathFindFileName(it.c_str());
-									hashResultStr += wmc->char2wchar(md5Result, CP_ACP);
+									hashResultStr += wmc.char2wchar(md5Result, CP_ACP);
 									hashResultStr += TEXT("  ");
 									hashResultStr += fileName;
 									hashResultStr += TEXT("\r\n");
@@ -173,8 +173,8 @@ void HashFromTextDlg::generateHash()
 		// So we get the result of UTF8 text (tested with Chinese).
 		wchar_t *text = new wchar_t[len + 1];
 		::GetDlgItemText(_hSelf, IDC_HASH_TEXT_EDIT, text, len + 1);
-		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-		const char *newText = wmc->wchar2char(text, SC_CP_UTF8);
+		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+		const char *newText = wmc.wchar2char(text, SC_CP_UTF8);
 		if (_ht == hash_md5)
 		{
 			MD5 md5;
@@ -212,7 +212,7 @@ void HashFromTextDlg::generateHashPerLine()
 		std::wstring aLine;
 		std::string result;
 		MD5 md5;
-		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 		while (std::getline(ss, aLine))
 		{
 			// getline() detect only '\n' but not "\r\n" under windows
@@ -224,7 +224,7 @@ void HashFromTextDlg::generateHashPerLine()
 				result += "\r\n";
 			else
 			{
-				const char *newText = wmc->wchar2char(aLine.c_str(), SC_CP_UTF8);
+				const char *newText = wmc.wchar2char(aLine.c_str(), SC_CP_UTF8);
 
 				if (_ht == hash_md5)
 				{

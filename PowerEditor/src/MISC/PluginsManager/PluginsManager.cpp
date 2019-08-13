@@ -202,12 +202,12 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath)
 
 			ExternalLangContainer *containers[30];
 
-			WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+			WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 			for (int x = 0; x < numLexers; ++x)
 			{
 				GetLexerName(x, lexName, MAX_EXTERNAL_LEXER_NAME_LEN);
 				GetLexerStatusText(x, lexDesc, MAX_EXTERNAL_LEXER_DESC_LEN);
-				const TCHAR *pLexerName = wmc->char2wchar(lexName, CP_ACP);
+				const TCHAR *pLexerName = wmc.char2wchar(lexName, CP_ACP);
 				if (!nppParams->isExistingExternalLangName(pLexerName) && nppParams->ExternalLangHasRoom())
 					containers[x] = new ExternalLangContainer(pLexerName, lexDesc);
 				else
@@ -253,7 +253,7 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath)
 
 			nppParams->getExternalLexerFromXmlTree(pXmlDoc);
 			nppParams->getExternalLexerDoc()->push_back(pXmlDoc);
-			const char *pDllName = wmc->wchar2char(pluginFilePath, CP_ACP);
+			const char *pDllName = wmc.wchar2char(pluginFilePath, CP_ACP);
 			::SendMessage(_nppData._scintillaMainHandle, SCI_LOADLEXERLIBRARY, 0, reinterpret_cast<LPARAM>(pDllName));
 
 		}

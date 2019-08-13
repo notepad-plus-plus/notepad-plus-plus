@@ -574,8 +574,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				{
 					char *fileNamesA = static_cast<char *>(pCopyData->lpData);
 					const CmdLineParamsDTO & cmdLineParams = pNppParam->getCmdLineParams();
-					WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-					const wchar_t *fileNamesW = wmc->char2wchar(fileNamesA, CP_ACP);
+					WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+					const wchar_t *fileNamesW = wmc.char2wchar(fileNamesA, CP_ACP);
 					loadCommandlineParams(fileNamesW, &cmdLineParams);
 					break;
 				}

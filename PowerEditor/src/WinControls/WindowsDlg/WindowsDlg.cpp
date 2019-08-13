@@ -159,8 +159,8 @@ struct BufferEquivalent
 		{
 			BufferID bid1 = _pTab->getBufferByIndex(i1);
 			BufferID bid2 = _pTab->getBufferByIndex(i2);
-			Buffer * b1 = MainFileManager->getBufferByID(bid1);
-			Buffer * b2 = MainFileManager->getBufferByID(bid2);
+			Buffer * b1 = MainFileManager.getBufferByID(bid1);
+			Buffer * b2 = MainFileManager.getBufferByID(bid2);
 			
 			if (_iColumn == 0)
 			{
@@ -321,7 +321,7 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 
 						//const Buffer& buffer = _pView->getBufferAt(index);
 						BufferID bufID = _pTab->getBufferByIndex(index);
-						Buffer * buf = MainFileManager->getBufferByID(bufID);
+						Buffer * buf = MainFileManager.getBufferByID(bufID);
 						if (pLvdi->item.iSubItem == 0) // file name
 						{
 							int len = pLvdi->item.cchTextMax;
@@ -888,7 +888,7 @@ void WindowsMenu::initPopupMenu(HMENU hMenu, DocTabView *pTab)
 		for (id = IDM_WINDOW_MRU_FIRST, pos = 0; id < IDM_WINDOW_MRU_FIRST + static_cast<int32_t>(nDoc); ++id, ++pos)
 		{
 			BufferID bufID = pTab->getBufferByIndex(pos);
-			Buffer * buf = MainFileManager->getBufferByID(bufID);
+			Buffer * buf = MainFileManager.getBufferByID(bufID);
 
 			MENUITEMINFO mii;
 			memset(&mii, 0, sizeof(mii));

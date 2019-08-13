@@ -109,18 +109,18 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				BufferID id = BUFFER_INVALID;
 				if (notification->nmhdr.hwndFrom == _invisibleEditView.getHSelf())
 				{
-					id = MainFileManager->getBufferFromDocument(_invisibleEditView.execute(SCI_GETDOCPOINTER));
+					id = MainFileManager.getBufferFromDocument(_invisibleEditView.execute(SCI_GETDOCPOINTER));
 				}
 				else if (notification->nmhdr.hwndFrom == _fileEditView.getHSelf())
 				{
-					id = MainFileManager->getBufferFromDocument(_fileEditView.execute(SCI_GETDOCPOINTER));
+					id = MainFileManager.getBufferFromDocument(_fileEditView.execute(SCI_GETDOCPOINTER));
 				}
 				else
 					break;	//wrong scintilla
 
 				if (id != BUFFER_INVALID)
 				{
-					buf = MainFileManager->getBufferByID(id);
+					buf = MainFileManager.getBufferByID(id);
 				}
 				else
 					break;
@@ -164,7 +164,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				if (pTabDocView)
 				{
 					BufferID id = pTabDocView->getBufferByIndex(tbHdr->_tabOrigin);
-					Buffer *pBuf = MainFileManager->getBufferByID(id);
+					Buffer *pBuf = MainFileManager.getBufferByID(id);
 
 					Buffer *currentBufMain = _mainEditView.getCurrentBuffer();
 					Buffer *currentBufSub = _subEditView.getCurrentBuffer();
@@ -194,7 +194,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				if (pTabDocView)
 				{
 					BufferID id = pTabDocView->getBufferByIndex(tbHdr->_tabOrigin);
-					Buffer *pBuf = MainFileManager->getBufferByID(id);
+					Buffer *pBuf = MainFileManager.getBufferByID(id);
 
 					Buffer *currentBufMain = _mainEditView.getCurrentBuffer();
 					Buffer *currentBufSub = _subEditView.getCurrentBuffer();
@@ -294,7 +294,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					{
 						int index = _pDocTab->getCurrentTabIndex();
 						BufferID bufferToClose = notifyDocTab->getBufferByIndex(index);
-						Buffer * buf = MainFileManager->getBufferByID(bufferToClose);
+						Buffer * buf = MainFileManager.getBufferByID(bufferToClose);
 						int iView = isFromPrimary?MAIN_VIEW:SUB_VIEW;
 						if (buf->isDirty())
 						{
@@ -332,7 +332,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		{
 			int index = tabNotification->_tabOrigin;
 			BufferID bufferToClose = notifyDocTab->getBufferByIndex(index);
-			Buffer * buf = MainFileManager->getBufferByID(bufferToClose);
+			Buffer * buf = MainFileManager.getBufferByID(bufferToClose);
 			int iView = isFromPrimary?MAIN_VIEW:SUB_VIEW;
 			if (buf->isDirty())
 			{
@@ -392,7 +392,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				if (isSnapshotMode)
 				{
 					// Before switching off, synchronize backup file
-					MainFileManager->backupCurrentBuffer();
+					MainFileManager.backupCurrentBuffer();
 				}
 				// Switch off
 				switchEditViewTo(MAIN_VIEW);
@@ -403,7 +403,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				if (isSnapshotMode)
 				{
 					// Before switching off, synchronize backup file
-					MainFileManager->backupCurrentBuffer();
+					MainFileManager.backupCurrentBuffer();
 				}
 				// Switch off
 				switchEditViewTo(SUB_VIEW);
@@ -886,7 +886,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				else if (hWin == _mainDocTab.getHSelf())
 				{
 					BufferID idd = _mainDocTab.getBufferByIndex(id);
-					Buffer * buf = MainFileManager->getBufferByID(idd);
+					Buffer * buf = MainFileManager.getBufferByID(idd);
 					tipTmp = buf->getFullPathName();
 
 					if (tipTmp.length() >= tipMaxLen)
@@ -898,7 +898,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				else if (hWin == _subDocTab.getHSelf())
 				{
 					BufferID idd = _subDocTab.getBufferByIndex(id);
-					Buffer * buf = MainFileManager->getBufferByID(idd);
+					Buffer * buf = MainFileManager.getBufferByID(idd);
 					tipTmp = buf->getFullPathName();
 
 					if (tipTmp.length() >= tipMaxLen)

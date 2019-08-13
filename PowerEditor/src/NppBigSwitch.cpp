@@ -58,8 +58,8 @@ struct SortTaskListPred final
 	bool operator()(const TaskLstFnStatus &l, const TaskLstFnStatus &r) const {
 		BufferID lID = _views[l._iView]->getBufferByIndex(l._docIndex);
 		BufferID rID = _views[r._iView]->getBufferByIndex(r._docIndex);
-		Buffer * bufL = MainFileManager->getBufferByID(lID);
-		Buffer * bufR = MainFileManager->getBufferByID(rID);
+		Buffer * bufL = MainFileManager.getBufferByID(lID);
+		Buffer * bufR = MainFileManager.getBufferByID(rID);
 		return bufL->getRecentTag() > bufR->getRecentTag();
 	}
 };
@@ -171,9 +171,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			generic_string name{userLangName};
 
 			//loop through buffers and reset the language (L_USER, TEXT("")) if (L_USER, name)
-			for (size_t i = 0; i < MainFileManager->getNbBuffers(); ++i)
+			for (size_t i = 0; i < MainFileManager.getNbBuffers(); ++i)
 			{
-				Buffer* buf = MainFileManager->getBufferByIndex(i);
+				Buffer* buf = MainFileManager.getBufferByIndex(i);
 				if (buf->getLangType() == L_USER && name == buf->getUserDefineLangName())
 					buf->setLangType(L_USER, TEXT(""));
 			}
@@ -189,9 +189,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			generic_string newName{ reinterpret_cast<TCHAR *>(wParam) };
 
 			//loop through buffers and reset the language (L_USER, newName) if (L_USER, oldName)
-			for (size_t i = 0; i < MainFileManager->getNbBuffers(); ++i)
+			for (size_t i = 0; i < MainFileManager.getNbBuffers(); ++i)
 			{
-				Buffer* buf = MainFileManager->getBufferByIndex(i);
+				Buffer* buf = MainFileManager.getBufferByIndex(i);
 				if (buf->getLangType() == L_USER && oldName == buf->getUserDefineLangName())
 					buf->setLangType(L_USER, newName.c_str());
 			}
@@ -296,7 +296,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			if (!lParam && !wParam)
 				return FALSE;
 			BufferID id = (BufferID)wParam;
-			Buffer * b = MainFileManager->getBufferByID(id);
+			Buffer * b = MainFileManager.getBufferByID(id);
 			if (b && b->getStatus() == DOC_UNNAMED) {
 				b->setFileName(reinterpret_cast<const TCHAR*>(lParam));
 				return TRUE;
@@ -309,7 +309,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			if (!wParam)
 				return -1;
 			BufferID id = (BufferID)wParam;
-			Buffer * b = MainFileManager->getBufferByID(id);
+			Buffer * b = MainFileManager.getBufferByID(id);
 			return b->getLangType();
 		}
 
@@ -321,7 +321,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				return FALSE;
 
 			BufferID id = (BufferID)wParam;
-			Buffer * b = MainFileManager->getBufferByID(id);
+			Buffer * b = MainFileManager.getBufferByID(id);
 			b->setLangType((LangType)lParam);
 			return TRUE;
 		}
@@ -331,7 +331,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			if (!wParam)
 				return -1;
 			BufferID id = (BufferID)wParam;
-			Buffer * b = MainFileManager->getBufferByID(id);
+			Buffer * b = MainFileManager.getBufferByID(id);
 			return b->getUnicodeMode();
 		}
 
@@ -343,7 +343,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				return FALSE;
 
 			BufferID id = (BufferID)wParam;
-			Buffer * b = MainFileManager->getBufferByID(id);
+			Buffer * b = MainFileManager.getBufferByID(id);
 			if (b->getStatus() != DOC_UNNAMED || b->isDirty())	//do not allow to change the encoding if the file has any content
 				return FALSE;
 			b->setUnicodeMode((UniMode)lParam);
@@ -355,7 +355,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			if (!wParam)
 				return -1;
 			BufferID id = (BufferID)wParam;
-			Buffer * b = MainFileManager->getBufferByID(id);
+			Buffer * b = MainFileManager.getBufferByID(id);
 			return static_cast<LRESULT>(b->getEolFormat());
 		}
 
@@ -372,7 +372,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			}
 
 			BufferID id = (BufferID)wParam;
-			Buffer * b = MainFileManager->getBufferByID(id);
+			Buffer * b = MainFileManager.getBufferByID(id);
 			b->setEolFormat(newFormat);
 			return TRUE;
 		}
@@ -407,7 +407,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_RELOADFILE:
 		{
-			BufferID id = MainFileManager->getBufferFromName(reinterpret_cast<const TCHAR *>(lParam));
+			BufferID id = MainFileManager.getBufferFromName(reinterpret_cast<const TCHAR *>(lParam));
 			if (id != BUFFER_INVALID)
 				doReload(id, wParam != 0);
 			break;
@@ -415,7 +415,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_SWITCHTOFILE :
 		{
-			BufferID id = MainFileManager->getBufferFromName(reinterpret_cast<const TCHAR *>(lParam));
+			BufferID id = MainFileManager.getBufferFromName(reinterpret_cast<const TCHAR *>(lParam));
 			if (id != BUFFER_INVALID)
 				return switchToFile(id);
 			return false;
@@ -632,7 +632,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			if (NppParameters::getInstance()->getNppGUI().isSnapshotMode())
 			{
-				MainFileManager->backupCurrentBuffer();
+				MainFileManager.backupCurrentBuffer();
 			}
 
 			return TRUE;
@@ -874,7 +874,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				for (size_t i = 0; i < _mainDocTab.nbItem() && j < nbFileNames; ++i)
 				{
 					BufferID id = _mainDocTab.getBufferByIndex(i);
-					Buffer * buf = MainFileManager->getBufferByID(id);
+					Buffer * buf = MainFileManager.getBufferByID(id);
 					lstrcpy(fileNames[j++], buf->getFullPathName());
 				}
 			}
@@ -884,7 +884,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				for (size_t i = 0; i < _subDocTab.nbItem() && j < nbFileNames; ++i)
 				{
 					BufferID id = _subDocTab.getBufferByIndex(i);
-					Buffer * buf = MainFileManager->getBufferByID(id);
+					Buffer * buf = MainFileManager.getBufferByID(id);
 					lstrcpy(fileNames[j++], buf->getFullPathName());
 				}
 			}
@@ -1615,7 +1615,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_GETFULLPATHFROMBUFFERID:
 		{
-			return MainFileManager->getFileNameFromBuffer(reinterpret_cast<BufferID>(wParam), reinterpret_cast<TCHAR *>(lParam));
+			return MainFileManager.getFileNameFromBuffer(reinterpret_cast<BufferID>(wParam), reinterpret_cast<TCHAR *>(lParam));
 		}
 
 		case NPPM_INTERNAL_ENABLECHECKDOCOPT:
@@ -1752,7 +1752,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				if (isSnapshotMode)
 				{
 					::LockWindowUpdate(hwnd);
-					MainFileManager->backupCurrentBuffer();
+					MainFileManager.backupCurrentBuffer();
 				}
 
 				Session currentSession;

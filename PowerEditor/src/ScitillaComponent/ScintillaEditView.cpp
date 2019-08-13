@@ -1524,7 +1524,7 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 			setSpecialStyle(nfoStyle);
 			execute(SCI_STYLECLEARALL);
 
-			Buffer * buf = MainFileManager->getBufferByID(_currentBufferID);
+			Buffer * buf = MainFileManager.getBufferByID(_currentBufferID);
 
 			if (buf->getEncoding() != NPP_CP_DOS_437)
 			{
@@ -1762,10 +1762,10 @@ BufferID ScintillaEditView::attachDefaultDoc()
 	// get the doc pointer attached (by default) on the view Scintilla
 	Document doc = execute(SCI_GETDOCPOINTER, 0, 0);
 	execute(SCI_ADDREFDOCUMENT, 0, doc);
-	BufferID id = MainFileManager->bufferFromDocument(doc, false, true);//true, true);	//keep counter on 1
-	Buffer * buf = MainFileManager->getBufferByID(id);
+	BufferID id = MainFileManager.bufferFromDocument(doc, false, true);//true, true);	//keep counter on 1
+	Buffer * buf = MainFileManager.getBufferByID(id);
 
-	MainFileManager->addBufferReference(id, this);	//add a reference. Notepad only shows the buffer in tabbar
+	MainFileManager.addBufferReference(id, this);	//add a reference. Notepad only shows the buffer in tabbar
 
 	_currentBufferID = id;
 	_currentBuffer = buf;
@@ -1781,7 +1781,7 @@ void ScintillaEditView::saveCurrentPos()
 	int32_t docLine = static_cast<int32_t>(execute(SCI_DOCLINEFROMVISIBLE, displayedLine));		//linenumber of the line displayed in the top
 	//int offset = displayedLine - execute(SCI_VISIBLEFROMDOCLINE, docLine);		//use this to calc offset of wrap. If no wrap this should be zero
 
-	Buffer * buf = MainFileManager->getBufferByID(_currentBufferID);
+	Buffer * buf = MainFileManager.getBufferByID(_currentBufferID);
 
 	Position pos;
 	// the correct visible line number
@@ -1797,7 +1797,7 @@ void ScintillaEditView::saveCurrentPos()
 
 void ScintillaEditView::restoreCurrentPos()
 {
-	Buffer * buf = MainFileManager->getBufferByID(_currentBufferID);
+	Buffer * buf = MainFileManager.getBufferByID(_currentBufferID);
 	Position & pos = buf->getPosition(this);
 
 	execute(SCI_GOTOPOS, 0);	//make sure first line visible by setting caret there, will scroll to top of document
@@ -1834,7 +1834,7 @@ void ScintillaEditView::activateBuffer(BufferID buffer)
 		return;
 	if (buffer == _currentBuffer)
 		return;
-	Buffer * newBuf = MainFileManager->getBufferByID(buffer);
+	Buffer * newBuf = MainFileManager.getBufferByID(buffer);
 
 	// before activating another document, we get the current position
 	// from the Scintilla view then save it to the current document

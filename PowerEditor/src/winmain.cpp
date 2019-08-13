@@ -410,12 +410,13 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 
 	NppParameters *pNppParameters = NppParameters::getInstance();
 	NppGUI & nppGui = const_cast<NppGUI &>(pNppParameters->getNppGUI());
-	bool doUpdate = nppGui._autoUpdateOpt._doAutoUpdate;
+	bool doUpdateNpp = nppGui._autoUpdateOpt._doAutoUpdate;
+	bool doUpdatePluginList = nppGui._autoUpdateOpt._doAutoUpdate;
 
 	if (doFunctionListExport || doPrintAndQuit) // export functionlist feature will serialize fuctionlist on the disk, then exit Notepad++. So it's important to not launch into existing instance, and keep it silent.
 	{
 		isMultiInst = true;
-		doUpdate = false;
+		doUpdateNpp = doUpdatePluginList = false;
 		cmdLineParams._isNoSession = true;
 	}
 
@@ -525,13 +526,18 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 
 	bool isUpExist = nppGui._doesExistUpdater = (::PathFileExists(updaterFullPath.c_str()) == TRUE);
 
-    if (doUpdate) // check more detail
+    if (doUpdateNpp) // check more detail
     {
         Date today(0);
 
         if (today < nppGui._autoUpdateOpt._nextUpdateDate)
-            doUpdate = false;
+            doUpdateNpp = false;
     }
+
+	if (doUpdatePluginList)
+	{
+		// TODO: detect update frequency
+	}
 
 	// wingup doesn't work with the obsolet security layer (API) under xp since downloadings are secured with SSL on notepad_plus_plus.org
 	winVer ver = pNppParameters->getWinVersion();
@@ -540,20 +546,41 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 	SecurityGard securityGard;
 	bool isSignatureOK = securityGard.checkModule(updaterFullPath, nm_gup);
 
-	if (TheFirstOne && isUpExist && doUpdate && isGtXP && isSignatureOK)
+	if (TheFirstOne && isUpExist && isGtXP && isSignatureOK)
 	{
 		if (pNppParameters->isx64())
 		{
 			updaterParams += TEXT(" -px64");
 		}
 
-		Process updater(updaterFullPath.c_str(), updaterParams.c_str(), updaterDir.c_str());
-		updater.run();
+		if (doUpdateNpp)
+		{
+			Process updater(updaterFullPath.c_str(), updaterParams.c_str(), updaterDir.c_str());
+			updater.run();
 
-        // Update next update date
-        if (nppGui._autoUpdateOpt._intervalDays < 0) // Make sure interval days value is positive
-            nppGui._autoUpdateOpt._intervalDays = 0 - nppGui._autoUpdateOpt._intervalDays;
-        nppGui._autoUpdateOpt._nextUpdateDate = Date(nppGui._autoUpdateOpt._intervalDays);
+			// Update next update date
+			if (nppGui._autoUpdateOpt._intervalDays < 0) // Make sure interval days value is positive
+				nppGui._autoUpdateOpt._intervalDays = 0 - nppGui._autoUpdateOpt._intervalDays;
+			nppGui._autoUpdateOpt._nextUpdateDate = Date(nppGui._autoUpdateOpt._intervalDays);
+		}
+
+		// to be removed
+		doUpdatePluginList = false;
+
+		if (doUpdatePluginList)
+		{
+			// Update Plugin List
+			updaterParams += TEXT(" -upPL");
+
+			// overrided "InfoUrl" in gup.xml
+			updaterParams += TEXT(" https://notepad-plus-plus.org/update/pluginListDownloadUrl.php");
+
+			Process updater(updaterFullPath.c_str(), updaterParams.c_str(), updaterDir.c_str());
+			updater.run();
+
+			// TODO: Update next update date
+
+		}
 	}
 
 	MSG msg;

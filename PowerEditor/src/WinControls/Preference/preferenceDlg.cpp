@@ -1195,10 +1195,10 @@ INT_PTR CALLBACK DefaultNewDocDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
 			int selIndex = -1;
 			generic_string str;
-			EncodingMapper* em = EncodingMapper::getInstance();
+			EncodingMapper& em = EncodingMapper::getInstance();
 			for (size_t i = 0, encodingArraySize = sizeof(encodings)/sizeof(int) ; i < encodingArraySize ; ++i)
 			{
-				int cmdID = em->getIndexFromEncoding(encodings[i]);
+				int cmdID = em.getIndexFromEncoding(encodings[i]);
 				if (cmdID != -1)
 				{
 					cmdID += IDM_FORMAT_ENCODE;

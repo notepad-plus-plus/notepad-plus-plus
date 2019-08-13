@@ -1017,8 +1017,8 @@ int Notepad_plus::getHtmlXmlEncoding(const TCHAR *fileName) const
             char encodingStr[encodingStrLen];
             _invisibleEditView.getText(encodingStr, startPos, endPos);
 
-			EncodingMapper *em = EncodingMapper::getInstance();
-            int enc = em->getEncodingFromString(encodingStr);
+			EncodingMapper& em = EncodingMapper::getInstance();
+            int enc = em.getEncodingFromString(encodingStr);
             return (enc == CP_ACP ? -1 : enc);
 		}
         return -1;
@@ -1061,8 +1061,8 @@ int Notepad_plus::getHtmlXmlEncoding(const TCHAR *fileName) const
         char encodingStr[encodingStrLen];
         _invisibleEditView.getText(encodingStr, startPos, endPos);
 
-		EncodingMapper *em = EncodingMapper::getInstance();
-		int enc = em->getEncodingFromString(encodingStr);
+		EncodingMapper& em = EncodingMapper::getInstance();
+		int enc = em.getEncodingFromString(encodingStr);
         return (enc == CP_ACP ? -1 : enc);
 	}
 }
@@ -2391,8 +2391,8 @@ void Notepad_plus::setUniModeText()
 	}
 	else
 	{
-		EncodingMapper *em = EncodingMapper::getInstance();
-		int cmdID = em->getIndexFromEncoding(encoding);
+		EncodingMapper& em = EncodingMapper::getInstance();
+		int cmdID = em.getIndexFromEncoding(encoding);
 		if (cmdID == -1)
 		{
 			//printStr(TEXT("Encoding problem. Encoding is not added in encoding_table?"));
@@ -3926,8 +3926,8 @@ void Notepad_plus::checkUnicodeMenuItems() const
 	}
 	else
 	{
-		EncodingMapper *em = EncodingMapper::getInstance();
-		int cmdID = em->getIndexFromEncoding(encoding);
+		EncodingMapper& em = EncodingMapper::getInstance();
+		int cmdID = em.getIndexFromEncoding(encoding);
 		if (cmdID == -1)
 		{
 			//printStr(TEXT("Encoding problem. Encoding is not added in encoding_table?"));

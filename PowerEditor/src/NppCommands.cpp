@@ -2300,8 +2300,8 @@ void Notepad_plus::command(int id)
         {
 			int index = id - IDM_FORMAT_ENCODE;
 
-			EncodingMapper *em = EncodingMapper::getInstance();
-			int encoding = em->getEncodingFromIndex(index);
+			EncodingMapper& em = EncodingMapper::getInstance();
+			int encoding = em.getEncodingFromIndex(index);
 			if (encoding == -1)
 			{
 				//printStr(TEXT("Encoding problem. Command is not added in encoding_table?"));

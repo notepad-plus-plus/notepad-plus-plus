@@ -135,8 +135,8 @@ void NativeLangSpeaker::init(TiXmlDocumentA *nativeLangDocRootA, bool loadIfEngl
 				if (declaration)
 				{
 					const char * encodingStr = declaration->Encoding();
-					EncodingMapper *em = EncodingMapper::getInstance();
-                    int enc = em->getEncodingFromString(encodingStr);
+					EncodingMapper& em = EncodingMapper::getInstance();
+                    int enc = em.getEncodingFromString(encodingStr);
                     _nativeLangEncoding = (enc != -1)?enc:CP_ACP;
 				}
 			}	

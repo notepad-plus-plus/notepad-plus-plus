@@ -1168,7 +1168,7 @@ int FileManager::detectCodepage(char* buf, size_t len)
 	uchardet_handle_data(ud, buf, len);
 	uchardet_data_end(ud);
 	const char* cs = uchardet_get_charset(ud);
-	int codepage = EncodingMapper::getInstance()->getEncodingFromString(cs);
+	int codepage = EncodingMapper::getInstance().getEncodingFromString(cs);
 	uchardet_delete(ud);
 	return codepage;
 }

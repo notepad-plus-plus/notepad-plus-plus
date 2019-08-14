@@ -881,12 +881,12 @@ UserDefineDialog::~UserDefineDialog()
 
 void UserDefineDialog::reloadLangCombo()
 {
-    NppParameters *pNppParam = NppParameters::getInstance();
+    NppParameters& nppParam = NppParameters::getInstance();
     ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_RESETCONTENT, 0, 0);
 	::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(TEXT("User Defined Language")));
-    for (int i = 0, nb = pNppParam->getNbUserLang(); i < nb ; ++i)
+    for (int i = 0, nb = nppParam.getNbUserLang(); i < nb ; ++i)
     {
-        UserLangContainer & userLangContainer = pNppParam->getULCFromIndex(i);
+        UserLangContainer & userLangContainer = nppParam.getULCFromIndex(i);
 		::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(userLangContainer.getName()));
     }
 }
@@ -918,7 +918,7 @@ void UserDefineDialog::changeStyle()
 
 void UserDefineDialog::enableLangAndControlsBy(size_t index)
 {
-    _pUserLang = (index == 0)?_pCurrentUserLang:&((NppParameters::getInstance())->getULCFromIndex(index - 1));
+    _pUserLang = (index == 0)?_pCurrentUserLang:&((NppParameters::getInstance()).getULCFromIndex(index - 1));
     if (index != 0)
         ::SetWindowText(::GetDlgItem(_hSelf, IDC_EXT_EDIT), _pUserLang->_ext.c_str());
 
@@ -933,8 +933,8 @@ void UserDefineDialog::updateDlg()
 	int i = static_cast<int32_t>(::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETCURSEL, 0, 0));
 	if (i > 0) // the first menu item is generic UDL
 	{
-		NppParameters *pNppParam = NppParameters::getInstance();
-		pNppParam->setUdlXmlDirtyFromIndex(i - 1);
+		NppParameters& nppParam = NppParameters::getInstance();
+		nppParam.setUdlXmlDirtyFromIndex(i - 1);
 	}
 
     ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_IGNORECASE_CHECK, BM_SETCHECK, _pUserLang->_isCaseIgnored, 0);
@@ -947,8 +947,8 @@ void UserDefineDialog::updateDlg()
 
 INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
-    NppParameters *pNppParam = NppParameters::getInstance();
-	NativeLangSpeaker * pNativeSpeaker = pNppParam->getNativeLangSpeaker();
+    NppParameters& nppParam = NppParameters::getInstance();
+	NativeLangSpeaker * pNativeSpeaker = nppParam.getNativeLangSpeaker();
 
     switch (message)
     {
@@ -957,7 +957,7 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
             _pUserLang = _pCurrentUserLang;
 
             _ctrlTab.init(_hInst, _hSelf, false);
-			int tabDpiDynamicalHeight = pNppParam->_dpiManager.scaleY(13);
+			int tabDpiDynamicalHeight = nppParam._dpiManager.scaleY(13);
             _ctrlTab.setFont(TEXT("Tahoma"), tabDpiDynamicalHeight);
 
             _folderStyleDlg.init(_hInst, _hSelf);
@@ -1008,7 +1008,7 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
             enableLangAndControlsBy(0);
 
-            if (pNppParam->isTransparentAvailable())
+            if (nppParam.isTransparentAvailable())
             {
                 ::ShowWindow(::GetDlgItem(_hSelf, IDC_UD_TRANSPARENT_CHECK), SW_SHOW);
                 ::ShowWindow(::GetDlgItem(_hSelf, IDC_UD_PERCENTAGE_SLIDER), SW_SHOW);
@@ -1059,7 +1059,7 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
             if (reinterpret_cast<HWND>(lParam) == ::GetDlgItem(_hSelf, IDC_UD_PERCENTAGE_SLIDER))
             {
 				int percent = static_cast<int32_t>(::SendDlgItemMessage(_hSelf, IDC_UD_PERCENTAGE_SLIDER, TBM_GETPOS, 0, 0));
-                pNppParam->SetTransparent(_hSelf, percent);
+                nppParam.SetTransparent(_hSelf, percent);
             }
             return TRUE;
         }
@@ -1093,9 +1093,9 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
                         if (_status == UNDOCK)
                         {
-                            if (pNppParam->isTransparentAvailable())
+                            if (nppParam.isTransparentAvailable())
                             {
-                                pNppParam->removeTransparent(_hSelf);
+                                nppParam.removeTransparent(_hSelf);
                                 ::ShowWindow(::GetDlgItem(_hSelf, IDC_UD_TRANSPARENT_CHECK), SW_HIDE);
                                 ::ShowWindow(::GetDlgItem(_hSelf, IDC_UD_PERCENTAGE_SLIDER), SW_HIDE);
                             }
@@ -1106,13 +1106,13 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
                         if (_status == UNDOCK)
                         {
-                            if (pNppParam->isTransparentAvailable())
+                            if (nppParam.isTransparentAvailable())
                             {
                                 bool isChecked = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_UD_TRANSPARENT_CHECK, BM_GETCHECK, 0, 0));
                                 if (isChecked)
                                 {
 									int percent = static_cast<int32_t>(::SendDlgItemMessage(_hSelf, IDC_UD_PERCENTAGE_SLIDER, TBM_GETPOS, 0, 0));
-                                    pNppParam->SetTransparent(_hSelf, percent);
+                                    nppParam.SetTransparent(_hSelf, percent);
                                 }
                                 ::ShowWindow(::GetDlgItem(_hSelf, IDC_UD_TRANSPARENT_CHECK), SW_SHOW);
                                 ::ShowWindow(::GetDlgItem(_hSelf, IDC_UD_PERCENTAGE_SLIDER), SW_SHOW);
@@ -1131,7 +1131,7 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
                     case IDC_REMOVELANG_BUTTON :
                     {
-                        int result = pNppParam->getNativeLangSpeaker()->messageBox("UDLRemoveCurrentLang",
+                        int result = nppParam.getNativeLangSpeaker()->messageBox("UDLRemoveCurrentLang",
 							_hSelf,
 							TEXT("Are you sure?"),
 							TEXT("Remove the current language"),
@@ -1154,7 +1154,7 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
 							::SendMessage(_hSelf, WM_COMMAND, MAKELONG(IDC_LANGNAME_COMBO, CBN_SELCHANGE), reinterpret_cast<LPARAM>(::GetDlgItem(_hSelf, IDC_LANGNAME_COMBO)));
 
                             //remove current language from userLangArray
-                            pNppParam->removeUserLang(i-1);
+                            nppParam.removeUserLang(i-1);
 
                             //remove current language from langMenu
                             HWND hNpp = ::GetParent(_hSelf);
@@ -1187,9 +1187,9 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
                         if (newName)
                         {
-                            if (pNppParam->isExistingUserLangName(newName))
+                            if (nppParam.isExistingUserLangName(newName))
                             {
-								pNppParam->getNativeLangSpeaker()->messageBox("UDLNewNameError",
+								nppParam.getNativeLangSpeaker()->messageBox("UDLNewNameError",
 									_hSelf,
 									TEXT("This name is used by another language,\rplease give another one."),
 									TEXT("UDL Error"),
@@ -1203,7 +1203,7 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
                             ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_SETCURSEL, i, 0);
 
                             //rename current language name in userLangArray
-                            UserLangContainer & userLangContainer = pNppParam->getULCFromIndex(i-1);
+                            UserLangContainer & userLangContainer = nppParam.getULCFromIndex(i-1);
                             userLangContainer._name = newName;
 
                             //rename current language name in langMenu
@@ -1241,7 +1241,7 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
                             generic_string newNameString(tmpName);
                             const TCHAR *newName = newNameString.c_str();
 
-                            if (pNppParam->isExistingUserLangName(newName))
+                            if (nppParam.isExistingUserLangName(newName))
                             {
 								pNativeSpeaker->messageBox("UDLNewNameError",
 									_hSelf,
@@ -1252,8 +1252,8 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
                                 return TRUE;
                             }
                             //add current language in userLangArray at the end as a new lang
-                            UserLangContainer & userLang = (wParam == IDC_SAVEAS_BUTTON)?pNppParam->getULCFromIndex(i-1):*_pCurrentUserLang;
-                            int newIndex = pNppParam->addUserLangToEnd(userLang, newName);
+                            UserLangContainer & userLang = (wParam == IDC_SAVEAS_BUTTON)?nppParam.getULCFromIndex(i-1):*_pCurrentUserLang;
+                            int newIndex = nppParam.addUserLangToEnd(userLang, newName);
 
                             //add new language name in combobox
                             ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_ADDSTRING, 0, LPARAM(newName));
@@ -1277,7 +1277,7 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
                         if (!fn) break;
                         generic_string sourceFile = fn;
 
-                        bool isSuccessful = pNppParam->importUDLFromFile(sourceFile);
+                        bool isSuccessful = nppParam.importUDLFromFile(sourceFile);
                         if (isSuccessful)
                         {
                             auto i = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETCURSEL, 0, 0);
@@ -1311,7 +1311,7 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
                         if (i2Export > 0)
                         {
-                            bool isSuccessful = pNppParam->exportUDLToFile(i2Export - 1, fileName2save);
+                            bool isSuccessful = nppParam.exportUDLToFile(i2Export - 1, fileName2save);
                             if (isSuccessful)
                             {
                                 printStr(TEXT("Export successful"));
@@ -1330,10 +1330,10 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
                         if (isChecked)
                         {
 							int percent = static_cast<int32_t>(::SendDlgItemMessage(_hSelf, IDC_UD_PERCENTAGE_SLIDER, TBM_GETPOS, 0, 0));
-                            pNppParam->SetTransparent(_hSelf, percent);
+                            nppParam.SetTransparent(_hSelf, percent);
                         }
                         else
-                            pNppParam->removeTransparent(_hSelf);
+                            nppParam.removeTransparent(_hSelf);
 
                         ::EnableWindow(::GetDlgItem(_hSelf, IDC_UD_PERCENTAGE_SLIDER), isChecked);
                         return TRUE;
@@ -1464,7 +1464,7 @@ INT_PTR CALLBACK StringDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
                 ::SendDlgItemMessage(_hSelf, IDC_STRING_EDIT, EM_SETLIMITTEXT, _txtLen, 0);
 
 			// localization for OK and Cancel
-			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 			if (pNativeSpeaker)
 			{
 				generic_string ok = pNativeSpeaker->getLocalizedStrFromID("common-ok", TEXT("OK"));
@@ -1584,13 +1584,13 @@ void StringDlg::HandlePaste(HWND hEdit)
 INT_PTR CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     StylerDlg * dlg = (StylerDlg *)::GetProp(hwnd, TEXT("Styler dialog prop"));
-    NppParameters *pNppParam = NppParameters::getInstance();
+    NppParameters& nppParam = NppParameters::getInstance();
 
     switch (message)
     {
         case WM_INITDIALOG :
         {
-            NativeLangSpeaker *pNativeLangSpeaker = pNppParam->getNativeLangSpeaker();
+            NativeLangSpeaker *pNativeLangSpeaker = nppParam.getNativeLangSpeaker();
             pNativeLangSpeaker->changeUserDefineLangPopupDlg(hwnd);
 
             ::SetProp(hwnd, TEXT("Styler dialog prop"), (HANDLE)lParam);
@@ -1625,7 +1625,7 @@ INT_PTR CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPAR
 
             // for the font name combo
             HWND hFontNameCombo = ::GetDlgItem(hwnd, IDC_STYLER_COMBO_FONT_NAME);
-            const std::vector<generic_string> & fontlist = pNppParam->getFontList();
+            const std::vector<generic_string> & fontlist = nppParam.getFontList();
             for (size_t j = 0, len = fontlist.size() ; j < len ; ++j)
             {
 				auto k = ::SendMessage(hFontNameCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(fontlist[j].c_str()));

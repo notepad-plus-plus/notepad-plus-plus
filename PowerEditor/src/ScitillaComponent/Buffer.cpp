@@ -74,8 +74,8 @@ Buffer::Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus 
 	// type must be either DOC_REGULAR or DOC_UNNAMED
 	: _pManager(pManager) , _id(id), _doc(doc), _lang(L_TEXT)
 {
-	NppParameters* pNppParamInst = NppParameters::getInstance();
-	const NewDocDefaultSettings& ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings();
+	NppParameters& nppParamInst = NppParameters::getInstance();
+	const NewDocDefaultSettings& ndds = (nppParamInst.getNppGUI()).getNewDocDefaultSettings();
 
 	_eolFormat = ndds._format;
 	_unicodeMode = ndds._unicodeMode;
@@ -163,7 +163,7 @@ void Buffer::updateTimeStamp()
 // If the ext is not in the list, the defaultLang passed as argument will be set.
 void Buffer::setFileName(const TCHAR *fn, LangType defaultLang)
 {
-	NppParameters *pNppParamInst = NppParameters::getInstance();
+	NppParameters& nppParamInst = NppParameters::getInstance();
 	if (_fullPathName == fn)
 	{
 		updateTimeStamp();
@@ -182,7 +182,7 @@ void Buffer::setFileName(const TCHAR *fn, LangType defaultLang)
 		ext += 1;
 
 		// Define User Lang firstly
-		const TCHAR* langName = pNppParamInst->getUserDefinedLangNameFromExt(ext, _fileName);
+		const TCHAR* langName = nppParamInst.getUserDefinedLangNameFromExt(ext, _fileName);
 		if (langName)
 		{
 			newLang = L_USER;
@@ -191,7 +191,7 @@ void Buffer::setFileName(const TCHAR *fn, LangType defaultLang)
 		else // if it's not user lang, then check if it's supported lang
 		{
 			_userLangExt.clear();
-			newLang = pNppParamInst->getLangFromExt(ext);
+			newLang = nppParamInst.getLangFromExt(ext);
 		}
 	}
 
@@ -230,11 +230,11 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 
 	WIN32_FILE_ATTRIBUTE_DATA attributes;
 	bool isWow64Off = false;
-	NppParameters *pNppParam = NppParameters::getInstance();
+	NppParameters& nppParam = NppParameters::getInstance();
 
 	if (not PathFileExists(_fullPathName.c_str()))
 	{
-		pNppParam->safeWow64EnableWow64FsRedirection(FALSE);
+		nppParam.safeWow64EnableWow64FsRedirection(FALSE);
 		isWow64Off = true;
 	}
 
@@ -299,7 +299,7 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 
 	if (isWow64Off)
 	{
-		pNppParam->safeWow64EnableWow64FsRedirection(TRUE);
+		nppParam.safeWow64EnableWow64FsRedirection(TRUE);
 	}
 	return isOK;
 }
@@ -414,16 +414,16 @@ const std::vector<size_t> & Buffer::getHeaderLineState(const ScintillaEditView *
 
 Lang * Buffer::getCurrentLang() const
 {
-	NppParameters *pNppParam = NppParameters::getInstance();
+	NppParameters& nppParam = NppParameters::getInstance();
 	int i = 0;
-	Lang *l = pNppParam->getLangFromIndex(i);
+	Lang *l = nppParam.getLangFromIndex(i);
 	++i;
 	while (l)
 	{
 		if (l->_langID == _lang)
 			return l;
 
-		l = pNppParam->getLangFromIndex(i);
+		l = nppParam.getLangFromIndex(i);
 		++i;
 	}
 	return nullptr;
@@ -690,8 +690,8 @@ void FileManager::setLoadedBufferEncodingAndEol(Buffer* buf, const Utf8_16_Read&
 {
 	if (encoding == -1)
 	{
-		NppParameters *pNppParamInst = NppParameters::getInstance();
-		const NewDocDefaultSettings & ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings();
+		NppParameters& nppParamInst = NppParameters::getInstance();
+		const NewDocDefaultSettings & ndds = (nppParamInst.getNppGUI()).getNewDocDefaultSettings();
 
 		UniMode um = UnicodeConvertor.getEncoding();
 		if (um == uni7Bit)
@@ -822,7 +822,7 @@ bool FileManager::backupCurrentBuffer()
 			if (backupFilePath.empty())
 			{
 				// Create file
-				backupFilePath = NppParameters::getInstance()->getUserPath();
+				backupFilePath = NppParameters::getInstance().getUserPath();
 				backupFilePath += TEXT("\\backup\\");
 
 				// if "backup" folder doesn't exist, create it.
@@ -1279,7 +1279,7 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 	// As a 32bit application, we cannot allocate 2 buffer of more than INT_MAX size (it takes the whole address space)
 	if (bufferSizeRequested > INT_MAX)
 	{
-		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 		pNativeSpeaker->messageBox("FileTooBigToOpen",
 										NULL,
 										TEXT("File is too big to be opened by Notepad++"),
@@ -1308,7 +1308,7 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 	else
 	{
 		int id = fileFormat._language - L_EXTERNAL;
-		TCHAR * name = NppParameters::getInstance()->getELCFromIndex(id)._name;
+		TCHAR * name = NppParameters::getInstance().getELCFromIndex(id)._name;
 		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 		const char *pName = wmc.wchar2char(name, CP_ACP);
 		_pscratchTilla->execute(SCI_SETLEXERLANGUAGE, 0, reinterpret_cast<LPARAM>(pName));
@@ -1347,7 +1347,7 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 				}
 				else if (fileFormat._encoding == -1)
 				{
-					if (NppParameters::getInstance()->getNppGUI()._detectEncoding)
+					if (NppParameters::getInstance().getNppGUI()._detectEncoding)
 						fileFormat._encoding = detectCodepage(data, lenFile);
                 }
 
@@ -1400,7 +1400,7 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 	}
 	__except(EXCEPTION_EXECUTE_HANDLER) //TODO: should filter correctly for other exceptions; the old filter(GetExceptionCode(), GetExceptionInformation()) was only catching access violations
 	{
-		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 		pNativeSpeaker->messageBox("FileTooBigToOpen",
 			NULL,
 			TEXT("File is too big to be opened by Notepad++"),
@@ -1414,8 +1414,8 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 	// broadcast the format
 	if (format == EolType::unknown)
 	{
-		NppParameters *pNppParamInst = NppParameters::getInstance();
-		const NewDocDefaultSettings & ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings(); // for ndds._format
+		NppParameters& nppParamInst = NppParameters::getInstance();
+		const NewDocDefaultSettings & ndds = (nppParamInst.getNppGUI()).getNewDocDefaultSettings(); // for ndds._format
 		fileFormat._eolFormat = ndds._format;
 
 		//for empty files, if the default for new files is UTF8, and "Apply to opened ANSI files" is set, apply it

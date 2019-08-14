@@ -38,7 +38,7 @@ namespace
 {
 
 
-void allowWmCopydataMessages(Notepad_plus_Window& notepad_plus_plus, const NppParameters* pNppParameters, winVer ver)
+void allowWmCopydataMessages(Notepad_plus_Window& notepad_plus_plus, const NppParameters& nppParameters, winVer ver)
 {
 	#ifndef MSGFLT_ADD
 	const DWORD MSGFLT_ADD = 1;
@@ -55,7 +55,7 @@ void allowWmCopydataMessages(Notepad_plus_Window& notepad_plus_plus, const NppPa
 		{
 			// According to MSDN ChangeWindowMessageFilter may not be supported in future versions of Windows,
 			// that is why we use ChangeWindowMessageFilterEx if it is available (windows version >= Win7).
-			if (pNppParameters->getWinVersion() == WV_VISTA)
+			if (nppParameters.getWinVersion() == WV_VISTA)
 			{
 				typedef BOOL (WINAPI *MESSAGEFILTERFUNC)(UINT message,DWORD dwFlag);
 
@@ -408,8 +408,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 	if (showHelp)
 		::MessageBox(NULL, COMMAND_ARG_HELP, TEXT("Notepad++ Command Argument Help"), MB_OK);
 
-	NppParameters *pNppParameters = NppParameters::getInstance();
-	NppGUI & nppGui = const_cast<NppGUI &>(pNppParameters->getNppGUI());
+	NppParameters& nppParameters = NppParameters::getInstance();
+	NppGUI & nppGui = const_cast<NppGUI &>(nppParameters.getNppGUI());
 	bool doUpdateNpp = nppGui._autoUpdateOpt._doAutoUpdate;
 	bool doUpdatePluginList = nppGui._autoUpdateOpt._doAutoUpdate;
 
@@ -422,15 +422,15 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 
 	if (cmdLineParams._localizationPath != TEXT(""))
 	{
-		pNppParameters->setStartWithLocFileName(cmdLineParams._localizationPath);
+		nppParameters.setStartWithLocFileName(cmdLineParams._localizationPath);
 	}
-	pNppParameters->load();
+	nppParameters.load();
 
-	pNppParameters->setFunctionListExportBoolean(doFunctionListExport);
-	pNppParameters->setPrintAndExitBoolean(doPrintAndQuit);
+	nppParameters.setFunctionListExportBoolean(doFunctionListExport);
+	nppParameters.setPrintAndExitBoolean(doPrintAndQuit);
 
 	// override the settings if notepad style is present
-	if (pNppParameters->asNotepadStyle())
+	if (nppParameters.asNotepadStyle())
 	{
 		isMultiInst = true;
 		cmdLineParams._isNoTab = true;
@@ -438,7 +438,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 	}
 
 	// override the settings if multiInst is choosen by user in the preference dialog
-	const NppGUI & nppGUI = pNppParameters->getNppGUI();
+	const NppGUI & nppGUI = nppParameters.getNppGUI();
 	if (nppGUI._multiInstSetting == multiInst)
 	{
 		isMultiInst = true;
@@ -465,7 +465,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 	}
 
 	//Only after loading all the file paths set the working directory
-	::SetCurrentDirectory(NppParameters::getInstance()->getNppPath().c_str());	//force working directory to path of module, preventing lock
+	::SetCurrentDirectory(NppParameters::getInstance().getNppPath().c_str());	//force working directory to path of module, preventing lock
 
 	if ((!isMultiInst) && (!TheFirstOne))
 	{
@@ -479,7 +479,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
         if (hNotepad_plus)
         {
 			// First of all, destroy static object NppParameters
-			pNppParameters->destroyInstance();
+			nppParameters.destroyInstance();
 
 			int sw = 0;
 
@@ -516,7 +516,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 
 	Notepad_plus_Window notepad_plus_plus;
 
-	generic_string updaterDir = pNppParameters->getNppPath();
+	generic_string updaterDir = nppParameters.getNppPath();
 	updaterDir += TEXT("\\updater\\");
 
 	generic_string updaterFullPath = updaterDir + TEXT("gup.exe");
@@ -540,7 +540,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 	}
 
 	// wingup doesn't work with the obsolet security layer (API) under xp since downloadings are secured with SSL on notepad_plus_plus.org
-	winVer ver = pNppParameters->getWinVersion();
+	winVer ver = nppParameters.getWinVersion();
 	bool isGtXP = ver > WV_XP;
 
 	SecurityGard securityGard;
@@ -548,7 +548,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 
 	if (TheFirstOne && isUpExist && isGtXP && isSignatureOK)
 	{
-		if (pNppParameters->isx64())
+		if (nppParameters.isx64())
 		{
 			updaterParams += TEXT(" -px64");
 		}
@@ -589,7 +589,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 	try
 	{
 		notepad_plus_plus.init(hInstance, NULL, quotFileName.c_str(), &cmdLineParams);
-		allowWmCopydataMessages(notepad_plus_plus, pNppParameters, ver);
+		allowWmCopydataMessages(notepad_plus_plus, nppParameters, ver);
 		bool going = true;
 		while (going)
 		{

@@ -43,7 +43,7 @@ class LastRecentFileList
 {
 public:
 	LastRecentFileList() {
-		_userMax = (NppParameters::getInstance())->getNbMaxRecentFile();
+		_userMax = (NppParameters::getInstance()).getNbMaxRecentFile();
 		for (int i = 0; i < NB_MAX_LRF_FILE; i++)
 			_idFreeArray[i] = false;
 	};

@@ -326,9 +326,9 @@ public:
 		{
 			int width = 3;
 			if (whichMarge == _SC_MARGE_SYBOLE)
-				width = NppParameters::getInstance()->_dpiManager.scaleX(100) >= 150 ? 20 : 16;
+				width = NppParameters::getInstance()._dpiManager.scaleX(100) >= 150 ? 20 : 16;
 			else if (whichMarge == _SC_MARGE_FOLDER)
-				width = NppParameters::getInstance()->_dpiManager.scaleX(100) >= 150 ? 18 : 14;
+				width = NppParameters::getInstance()._dpiManager.scaleX(100) >= 150 ? 18 : 14;
 			execute(SCI_SETMARGINWIDTHN, whichMarge, willBeShowed ? width : 0);
 		}
     };
@@ -538,7 +538,7 @@ public:
 
     void convertSelectedTextToLowerCase() {
 		// if system is w2k or xp
-		if ((NppParameters::getInstance())->isTransparentAvailable())
+		if ((NppParameters::getInstance()).isTransparentAvailable())
 			convertSelectedTextTo(LOWERCASE);
 		else
 			execute(SCI_LOWERCASE);
@@ -546,7 +546,7 @@ public:
 
     void convertSelectedTextToUpperCase() {
 		// if system is w2k or xp
-		if ((NppParameters::getInstance())->isTransparentAvailable())
+		if ((NppParameters::getInstance()).isTransparentAvailable())
 			convertSelectedTextTo(UPPERCASE);
 		else
 			execute(SCI_UPPERCASE);
@@ -554,7 +554,7 @@ public:
 
 	void convertSelectedTextToNewerCase(const TextCase & caseToConvert) {
 		// if system is w2k or xp
-		if ((NppParameters::getInstance())->isTransparentAvailable())
+		if ((NppParameters::getInstance()).isTransparentAvailable())
 			convertSelectedTextTo(caseToConvert);
 		else
 			::MessageBox(_hSelf, TEXT("This function needs a newer OS version."), TEXT("Change Case Error"), MB_OK | MB_ICONHAND);
@@ -570,10 +570,6 @@ public:
 	};
 	void foldCurrentPos(bool mode);
 	int getCodepage() const {return _codepage;};
-
-	NppParameters * getParameter() {
-		return _pParameter;
-	};
 
 	ColumnModeInfos getColumnModeSelectInfo();
 
@@ -669,7 +665,6 @@ protected:
 	BufferID _currentBufferID = nullptr;
 	Buffer * _currentBuffer = nullptr;
 
-    NppParameters *_pParameter = nullptr;
 	int _codepage = CP_ACP;
 	bool _lineNumbersShown = false;
 	bool _wrapRestoreNeeded = false;
@@ -730,7 +725,7 @@ protected:
 
 
 	void setSqlLexer() {
-		const bool kbBackSlash = NppParameters::getInstance()->getNppGUI()._backSlashIsEscapeCharacterForSql;
+		const bool kbBackSlash = NppParameters::getInstance().getNppGUI()._backSlashIsEscapeCharacterForSql;
 		setLexer(SCLEX_SQL, L_SQL, LIST_0);
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("sql.backslash.escapes"), reinterpret_cast<LPARAM>(kbBackSlash ? "1" : "0"));
 	};

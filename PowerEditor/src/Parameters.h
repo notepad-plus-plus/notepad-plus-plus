@@ -1290,9 +1290,9 @@ const int RECENTFILES_SHOWONLYFILENAME = 0;
 class NppParameters final
 {
 public:
-	static NppParameters* getInstance() {
+	static NppParameters& getInstance() {
 		static NppParameters instance;
-		return &instance;
+		return instance;
 	};
 	static LangType getLangIDFromStr(const TCHAR *langName);
 	static generic_string getLocPathFromStr(const generic_string & localizationCode);

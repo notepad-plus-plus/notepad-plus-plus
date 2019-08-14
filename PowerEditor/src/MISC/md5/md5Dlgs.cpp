@@ -30,7 +30,7 @@ INT_PTR CALLBACK HashFromFilesDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 	{
 		case WM_INITDIALOG:
 		{
-			int fontDpiDynamicalHeight = NppParameters::getInstance()->_dpiManager.scaleY(13);
+			int fontDpiDynamicalHeight = NppParameters::getInstance()._dpiManager.scaleY(13);
 			HFONT hFont = ::CreateFontA(fontDpiDynamicalHeight, 0, 0, 0, 0, FALSE, FALSE, FALSE, ANSI_CHARSET,
 				OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
 				DEFAULT_PITCH | FF_DONTCARE, "Courier New");
@@ -261,7 +261,7 @@ INT_PTR CALLBACK HashFromTextDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 	{
 		case WM_INITDIALOG:
 		{
-			int fontDpiDynamicalHeight = NppParameters::getInstance()->_dpiManager.scaleY(13);
+			int fontDpiDynamicalHeight = NppParameters::getInstance()._dpiManager.scaleY(13);
 			HFONT hFont = ::CreateFontA(fontDpiDynamicalHeight, 0, 0, 0, 0, FALSE, FALSE, FALSE, ANSI_CHARSET,
 				OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
 				DEFAULT_PITCH | FF_DONTCARE, "Courier New");

@@ -100,10 +100,10 @@ void VerticalFileSwitcherListView::initList()
 	HWND colHeader = reinterpret_cast<HWND>(SendMessage(_hSelf, LVM_GETHEADER, 0, 0));
 	int columnCount = static_cast<int32_t>(SendMessage(colHeader, HDM_GETITEMCOUNT, 0, 0));
 	
-	NppParameters *nppParams = NppParameters::getInstance();
-	NativeLangSpeaker *pNativeSpeaker = nppParams->getNativeLangSpeaker();
+	NppParameters& nppParams = NppParameters::getInstance();
+	NativeLangSpeaker *pNativeSpeaker = nppParams.getNativeLangSpeaker();
 	
-	bool isExtColumn = !nppParams->getNppGUI()._fileSwitcherWithoutExtColumn;
+	bool isExtColumn = !nppParams.getNppGUI()._fileSwitcherWithoutExtColumn;
 	
 	// check if columns need to be added
 	if (columnCount <= 1)
@@ -214,7 +214,7 @@ void VerticalFileSwitcherListView::setItemIconStatus(BufferID bufferID)
 	
 	TCHAR fn[MAX_PATH];
 	wcscpy_s(fn, ::PathFindFileName(buf->getFileName()));
-	bool isExtColumn = !(NppParameters::getInstance())->getNppGUI()._fileSwitcherWithoutExtColumn;
+	bool isExtColumn = !(NppParameters::getInstance()).getNppGUI()._fileSwitcherWithoutExtColumn;
 	if (isExtColumn)
 	{
 		::PathRemoveExtension(fn);
@@ -291,7 +291,7 @@ int VerticalFileSwitcherListView::add(BufferID bufferID, int iView)
 
 	TCHAR fn[MAX_PATH];
 	wcscpy_s(fn, ::PathFindFileName(fileName));
-	bool isExtColumn = !(NppParameters::getInstance())->getNppGUI()._fileSwitcherWithoutExtColumn;
+	bool isExtColumn = !(NppParameters::getInstance()).getNppGUI()._fileSwitcherWithoutExtColumn;
 	if (isExtColumn)
 	{
 		::PathRemoveExtension(fn);
@@ -370,8 +370,8 @@ void VerticalFileSwitcherListView::insertColumn(const TCHAR *name, int width, in
 
 void VerticalFileSwitcherListView::resizeColumns(int totalWidth)
 {
-	NppParameters *nppParams = NppParameters::getInstance();
-	bool isExtColumn = !nppParams->getNppGUI()._fileSwitcherWithoutExtColumn;
+	NppParameters& nppParams = NppParameters::getInstance();
+	bool isExtColumn = !nppParams.getNppGUI()._fileSwitcherWithoutExtColumn;
 	if (isExtColumn)
 	{
 		ListView_SetColumnWidth(_hSelf, 0, totalWidth - 50);

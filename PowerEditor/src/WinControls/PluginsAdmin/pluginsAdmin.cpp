@@ -270,7 +270,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	RECT rect;
 	getClientRect(rect);
 	_tab.init(_hInst, _hSelf, false, true);
-	int tabDpiDynamicalHeight = NppParameters::getInstance()->_dpiManager.scaleY(13);
+	int tabDpiDynamicalHeight = NppParameters::getInstance()._dpiManager.scaleY(13);
 	_tab.setFont(TEXT("Tahoma"), tabDpiDynamicalHeight);
 
 	const TCHAR *available = TEXT("Available");
@@ -350,31 +350,31 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	descRect.left += marge;
 	descRect.right -= marge * 2;
 
-	NppParameters *nppParam = NppParameters::getInstance();
-	NativeLangSpeaker *pNativeSpeaker = nppParam->getNativeLangSpeaker();
+	NppParameters& nppParam = NppParameters::getInstance();
+	NativeLangSpeaker *pNativeSpeaker = nppParam.getNativeLangSpeaker();
 	generic_string pluginStr = pNativeSpeaker->getAttrNameStr(TEXT("Plugin"), "PluginAdmin", "Plugin");
 	generic_string vesionStr = pNativeSpeaker->getAttrNameStr(TEXT("Version"), "PluginAdmin", "Version");
 	//generic_string stabilityStr = pNativeSpeaker->getAttrNameStr(TEXT("Stability"), "PluginAdmin", "Stability");
 
-	_availableList.addColumn(columnInfo(pluginStr, nppParam->_dpiManager.scaleX(200)));
-	_availableList.addColumn(columnInfo(vesionStr, nppParam->_dpiManager.scaleX(100)));
-	//_availableList.addColumn(columnInfo(stabilityStr, nppParam->_dpiManager.scaleX(70)));
+	_availableList.addColumn(columnInfo(pluginStr, nppParam._dpiManager.scaleX(200)));
+	_availableList.addColumn(columnInfo(vesionStr, nppParam._dpiManager.scaleX(100)));
+	//_availableList.addColumn(columnInfo(stabilityStr, nppParam._dpiManager.scaleX(70)));
 	_availableList.setViewStyleOption(LVS_EX_CHECKBOXES);
 
 	_availableList.initView(_hInst, _hSelf);
 	_availableList.reSizeView(listRect);
 	
-	_updateList.addColumn(columnInfo(pluginStr, nppParam->_dpiManager.scaleX(200)));
-	_updateList.addColumn(columnInfo(vesionStr, nppParam->_dpiManager.scaleX(100)));
-	//_updateList.addColumn(columnInfo(stabilityStr, nppParam->_dpiManager.scaleX(70)));
+	_updateList.addColumn(columnInfo(pluginStr, nppParam._dpiManager.scaleX(200)));
+	_updateList.addColumn(columnInfo(vesionStr, nppParam._dpiManager.scaleX(100)));
+	//_updateList.addColumn(columnInfo(stabilityStr, nppParam._dpiManager.scaleX(70)));
 	_updateList.setViewStyleOption(LVS_EX_CHECKBOXES);
 
 	_updateList.initView(_hInst, _hSelf);
 	_updateList.reSizeView(listRect);
 
-	_installedList.addColumn(columnInfo(pluginStr, nppParam->_dpiManager.scaleX(200)));
-	_installedList.addColumn(columnInfo(vesionStr, nppParam->_dpiManager.scaleX(100)));
-	//_installedList.addColumn(columnInfo(stabilityStr, nppParam->_dpiManager.scaleX(70)));
+	_installedList.addColumn(columnInfo(pluginStr, nppParam._dpiManager.scaleX(200)));
+	_installedList.addColumn(columnInfo(vesionStr, nppParam._dpiManager.scaleX(100)));
+	//_installedList.addColumn(columnInfo(stabilityStr, nppParam._dpiManager.scaleX(70)));
 	_installedList.setViewStyleOption(LVS_EX_CHECKBOXES);
 
 	_installedList.initView(_hInst, _hSelf);
@@ -395,11 +395,11 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 
 void PluginsAdminDlg::collectNppCurrentStatusInfos()
 {
-	NppParameters *pNppParam = NppParameters::getInstance();
-	_nppCurrentStatus._nppInstallPath = pNppParam->getNppPath();
+	NppParameters& nppParam = NppParameters::getInstance();
+	_nppCurrentStatus._nppInstallPath = nppParam.getNppPath();
 
 	_nppCurrentStatus._isAppDataPluginsAllowed = ::SendMessage(_hParent, NPPM_GETAPPDATAPLUGINSALLOWED, 0, 0) == TRUE;
-	_nppCurrentStatus._appdataPath = pNppParam->getAppDataNppDir();
+	_nppCurrentStatus._appdataPath = nppParam.getAppDataNppDir();
 	generic_string programFilesPath = NppParameters::getSpecialFolderLocation(CSIDL_PROGRAM_FILES);
 	_nppCurrentStatus._isInProgramFiles = (_nppCurrentStatus._nppInstallPath.find(programFilesPath) == 0);
 
@@ -423,14 +423,14 @@ vector<PluginUpdateInfo*> PluginViewList::fromUiIndexesToPluginInfos(const std::
 PluginsAdminDlg::PluginsAdminDlg()
 {
 	// Get wingup path
-	NppParameters *pNppParameters = NppParameters::getInstance();
-	_updaterDir = pNppParameters->getNppPath();
+	NppParameters& nppParameters = NppParameters::getInstance();
+	_updaterDir = nppParameters.getNppPath();
 	PathAppend(_updaterDir, TEXT("updater"));
 	_updaterFullPath = _updaterDir;
 	PathAppend(_updaterFullPath, TEXT("gup.exe"));
 
 	// get plugin-list path
-	_pluginListFullPath = pNppParameters->getPluginConfDir();
+	_pluginListFullPath = nppParameters.getPluginConfDir();
 
 #ifdef DEBUG // if not debug, then it's release
 	// load from nppPluginList.json instead of nppPluginList.dll
@@ -452,8 +452,8 @@ bool PluginsAdminDlg::exitToInstallRemovePlugins(Operation op, const vector<Plug
 	else
 		return false;
 
-	NppParameters *pNppParameters = NppParameters::getInstance();
-	generic_string updaterDir = pNppParameters->getNppPath();
+	NppParameters& nppParameters = NppParameters::getInstance();
+	generic_string updaterDir = nppParameters.getNppPath();
 	updaterDir += TEXT("\\updater\\");
 
 	generic_string updaterFullPath = updaterDir + TEXT("gup.exe");
@@ -467,7 +467,7 @@ bool PluginsAdminDlg::exitToInstallRemovePlugins(Operation op, const vector<Plug
 	updaterParams += TEXT("\" ");
 
 	updaterParams += TEXT("\"");
-	updaterParams += pNppParameters->getPluginRootDir();
+	updaterParams += nppParameters.getPluginRootDir();
 	updaterParams += TEXT("\"");
 
 	for (auto i : puis)
@@ -503,7 +503,7 @@ bool PluginsAdminDlg::exitToInstallRemovePlugins(Operation op, const vector<Plug
 	}
 
 	// Ask user's confirmation
-	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+	NativeLangSpeaker *pNativeSpeaker = nppParameters.getNativeLangSpeaker();
 	auto res = pNativeSpeaker->messageBox("ExitToUpdatePlugins",
 		_hSelf,
 		TEXT("If you click YES, you will quit Notepad++ to continue the operations.\nNotepad++ will be restarted after all the operations are terminated.\nContinue?"),
@@ -512,19 +512,19 @@ bool PluginsAdminDlg::exitToInstallRemovePlugins(Operation op, const vector<Plug
 
 	if (res == IDYES)
 	{
-		NppParameters *pNppParam = NppParameters::getInstance();
+		NppParameters& nppParam = NppParameters::getInstance();
 
 		// gup path: makes trigger ready
-		pNppParam->setWingupFullPath(updaterFullPath);
+		nppParam.setWingupFullPath(updaterFullPath);
 
 		// op: -clean or "-clean -unzip"
 		// application path: Notepad++ path to be relaunched
 		// plugin global path
 		// plugin names or "plugin names + download url"
-		pNppParam->setWingupParams(updaterParams);
+		nppParam.setWingupParams(updaterParams);
 
 		// gup folder path
-		pNppParam->setWingupDir(updaterDir);
+		nppParam.setWingupDir(updaterDir);
 
 		// Quite Notepad++ so just before quitting Notepad++ launches gup with needed arguments  
 		::PostMessage(_hParent, WM_COMMAND, IDM_FILE_EXIT, 0);
@@ -700,7 +700,7 @@ typedef const char * (__cdecl * PFUNCGETPLUGINLIST)();
 bool PluginsAdminDlg::isValide()
 {
 	// GUP.exe doesn't work under XP
-	winVer winVersion = (NppParameters::getInstance())->getWinVersion();
+	winVer winVersion = (NppParameters::getInstance()).getWinVersion();
 	if (winVersion <= WV_XP)
 	{
 		return false;

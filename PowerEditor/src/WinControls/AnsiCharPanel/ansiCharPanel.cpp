@@ -42,19 +42,19 @@ INT_PTR CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
     {
         case WM_INITDIALOG :
         {
-			NppParameters *nppParam = NppParameters::getInstance();
-			NativeLangSpeaker *pNativeSpeaker = nppParam->getNativeLangSpeaker();
+			NppParameters& nppParam = NppParameters::getInstance();
+			NativeLangSpeaker *pNativeSpeaker = nppParam.getNativeLangSpeaker();
 			generic_string valStr = pNativeSpeaker->getAttrNameStr(TEXT("Value"), "AsciiInsertion", "ColumnVal");
 			generic_string hexStr = pNativeSpeaker->getAttrNameStr(TEXT("Hex"), "AsciiInsertion", "ColumnHex");
 			generic_string charStr = pNativeSpeaker->getAttrNameStr(TEXT("Character"), "AsciiInsertion", "ColumnChar");
 			generic_string htmlNumberStr = pNativeSpeaker->getAttrNameStr(TEXT("HTML Number"), "AsciiInsertion", "ColumnHtmlNumber");
 			generic_string htmlNameStr = pNativeSpeaker->getAttrNameStr(TEXT("HTML Name"), "AsciiInsertion", "ColumnHtmlName");
 
-			_listView.addColumn(columnInfo(valStr, nppParam->_dpiManager.scaleX(45)));
-			_listView.addColumn(columnInfo(hexStr, nppParam->_dpiManager.scaleX(45)));
-			_listView.addColumn(columnInfo(charStr, nppParam->_dpiManager.scaleX(70)));
-			_listView.addColumn(columnInfo(htmlNumberStr, nppParam->_dpiManager.scaleX(100)));
-			_listView.addColumn(columnInfo(htmlNameStr, nppParam->_dpiManager.scaleX(90)));
+			_listView.addColumn(columnInfo(valStr, nppParam._dpiManager.scaleX(45)));
+			_listView.addColumn(columnInfo(hexStr, nppParam._dpiManager.scaleX(45)));
+			_listView.addColumn(columnInfo(charStr, nppParam._dpiManager.scaleX(70)));
+			_listView.addColumn(columnInfo(htmlNumberStr, nppParam._dpiManager.scaleX(100)));
+			_listView.addColumn(columnInfo(htmlNameStr, nppParam._dpiManager.scaleX(90)));
 
 			_listView.init(_hInst, _hSelf);
 			int codepage = (*_ppEditView)->getCurrentBuffer()->getEncoding();

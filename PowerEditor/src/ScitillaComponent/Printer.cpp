@@ -83,7 +83,7 @@ size_t Printer::doPrint(bool justDoIt)
 			return 0;
 */
 
-	const NppGUI & nppGUI = (NppParameters::getInstance())->getNppGUI();
+	const NppGUI & nppGUI = (NppParameters::getInstance()).getNppGUI();
 
 	POINT ptPage;
 	POINT ptDpi;

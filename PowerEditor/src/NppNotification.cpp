@@ -127,7 +127,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			}
 
 			bool isDirty = notification->nmhdr.code == SCN_SAVEPOINTLEFT;
-			bool isSnapshotMode = NppParameters::getInstance()->getNppGUI().isSnapshotMode();
+			bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
 			if (isSnapshotMode && !isDirty)
 			{
 				bool canUndo = _pEditView->execute(SCI_CANUNDO) == TRUE;
@@ -152,9 +152,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		case TCN_MOUSEHOVERING:
 		case TCN_MOUSEHOVERSWITCHING:
 		{
-			NppParameters *pNppParam = NppParameters::getInstance();
-			bool doPeekOnTab = pNppParam->getNppGUI()._isDocPeekOnTab;
-			bool doPeekOnMap = pNppParam->getNppGUI()._isDocPeekOnMap;
+			NppParameters& nppParam = NppParameters::getInstance();
+			bool doPeekOnTab = nppParam.getNppGUI()._isDocPeekOnTab;
+			bool doPeekOnMap = nppParam.getNppGUI()._isDocPeekOnMap;
 
 			if (doPeekOnTab)
 			{
@@ -218,9 +218,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		case TCN_MOUSELEAVING:
 		{
-			NppParameters *pNppParam = NppParameters::getInstance();
-			bool doPeekOnTab = pNppParam->getNppGUI()._isDocPeekOnTab;
-			bool doPeekOnMap = pNppParam->getNppGUI()._isDocPeekOnMap;
+			NppParameters& nppParam = NppParameters::getInstance();
+			bool doPeekOnTab = nppParam.getNppGUI()._isDocPeekOnTab;
+			bool doPeekOnMap = nppParam.getNppGUI()._isDocPeekOnMap;
 
 			if (doPeekOnTab)
 			{
@@ -388,7 +388,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			}
 			else if (notification->nmhdr.hwndFrom == _mainDocTab.getHSelf() && _activeView == SUB_VIEW)
 			{
-				bool isSnapshotMode = NppParameters::getInstance()->getNppGUI().isSnapshotMode();
+				bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
 				if (isSnapshotMode)
 				{
 					// Before switching off, synchronize backup file
@@ -399,7 +399,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			}
 			else if (notification->nmhdr.hwndFrom == _subDocTab.getHSelf() && _activeView == MAIN_VIEW)
 			{
-				bool isSnapshotMode = NppParameters::getInstance()->getNppGUI().isSnapshotMode();
+				bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
 				if (isSnapshotMode)
 				{
 					// Before switching off, synchronize backup file
@@ -611,7 +611,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 				if (!_isFolding)
 				{
-					int urlAction = (NppParameters::getInstance())->getNppGUI()._styleURL;
+					int urlAction = (NppParameters::getInstance()).getNppGUI()._styleURL;
 					if ((urlAction == 1) || (urlAction == 2))
 						addHotSpot();
 				}
@@ -626,7 +626,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		{
 			if (!_recordingMacro && !_playingBackMacro) // No macro recording or playing back
 			{
-				const NppGUI & nppGui = NppParameters::getInstance()->getNppGUI();
+				const NppGUI & nppGui = NppParameters::getInstance().getNppGUI();
 				bool indentMaintain = nppGui._maitainIndent;
 				if (indentMaintain)
 					maintainIndentation(static_cast<TCHAR>(notification->ch));
@@ -647,7 +647,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 			if (notification->modifiers == SCMOD_CTRL)
 			{
-				const NppGUI & nppGUI = NppParameters::getInstance()->getNppGUI();
+				const NppGUI & nppGUI = NppParameters::getInstance().getNppGUI();
 
 				std::string bufstring;
 
@@ -798,19 +798,19 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			if (not notifyView)
 				return FALSE;
 
-			NppParameters *nppParam = NppParameters::getInstance();
-			NppGUI & nppGui = const_cast<NppGUI &>(nppParam->getNppGUI());
+			NppParameters& nppParam = NppParameters::getInstance();
+			NppGUI & nppGui = const_cast<NppGUI &>(nppParam.getNppGUI());
 
 			// replacement for obsolete custom SCN_SCROLLED
 			if (notification->updated & SC_UPDATE_V_SCROLL)
 			{
-				int urlAction = (NppParameters::getInstance())->getNppGUI()._styleURL;
+				int urlAction = (NppParameters::getInstance()).getNppGUI()._styleURL;
 				if ((urlAction == 1) || (urlAction == 2))
 					addHotSpot();
 			}
 
 			// if it's searching/replacing, then do nothing
-			if (nppParam->_isFindReplacing)
+			if (nppParam._isFindReplacing)
 				break;
 
 			if (notification->nmhdr.hwndFrom != _pEditView->getHSelf()) // notification come from unfocus view - both views ae visible
@@ -963,12 +963,12 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			if (_syncInfo.doSync())
 				doSynScorll(HWND(notification->nmhdr.hwndFrom));
 
-			NppParameters *nppParam = NppParameters::getInstance();
+			NppParameters& nppParam = NppParameters::getInstance();
 
 			// if it's searching/replacing, then do nothing
-			if ((_linkTriggered && !nppParam->_isFindReplacing) || notification->wParam == LINKTRIGGERED)
+			if ((_linkTriggered && !nppParam._isFindReplacing) || notification->wParam == LINKTRIGGERED)
 			{
-				int urlAction = (NppParameters::getInstance())->getNppGUI()._styleURL;
+				int urlAction = (NppParameters::getInstance()).getNppGUI()._styleURL;
 				if ((urlAction == 1) || (urlAction == 2))
 					addHotSpot();
 				_linkTriggered = false;

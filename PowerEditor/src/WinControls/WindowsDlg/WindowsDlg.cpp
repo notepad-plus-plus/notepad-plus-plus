@@ -243,7 +243,7 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 	{
 		case WM_INITDIALOG :
 		{
-			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 			pNativeSpeaker->changeDlgLang(_hSelf, "Window");
 			return MyBaseClass::run_dlgProc(message, wParam, lParam);
 		}
@@ -361,8 +361,8 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 						else if (pLvdi->item.iSubItem == 2) // Type
 						{
 							int len = pLvdi->item.cchTextMax;
-							NppParameters *pNppParameters = NppParameters::getInstance();
-							Lang *lang = pNppParameters->getLangFromID(buf->getLangType());
+							NppParameters& nppParameters = NppParameters::getInstance();
+							Lang *lang = nppParameters.getLangFromID(buf->getLangType());
 							if (NULL != lang)
 							{
 								generic_strncpy(pLvdi->item.pszText, lang->getLangName(), len-1);
@@ -502,7 +502,7 @@ BOOL WindowsDlg::onInitDialog()
 	lvColumn.fmt = LVCFMT_LEFT;
 	
 	generic_string columnText;
-	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 
 	columnText = TEXT("\u21F5 ") + pNativeSpeaker->getAttrNameStr(TEXT("Name"), WD_ROOTNODE, WD_CLMNNAME);
 	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
@@ -544,7 +544,7 @@ void WindowsDlg::updateColumnNames()
 	lvColumn.fmt = LVCFMT_LEFT;
 
 	generic_string columnText;
-	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 	
 	columnText = pNativeSpeaker->getAttrNameStr(TEXT("Name"), WD_ROOTNODE, WD_CLMNNAME);
 	if (_currentColumn != 0)

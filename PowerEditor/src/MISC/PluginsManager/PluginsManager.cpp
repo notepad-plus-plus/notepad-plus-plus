@@ -123,7 +123,7 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath)
 	if (isInLoadedDlls(pluginFileName))
 		return 0;
 
-	NppParameters * nppParams = NppParameters::getInstance();
+	NppParameters& nppParams = NppParameters::getInstance();
 
 	PluginInfo *pi = new PluginInfo;
 	try
@@ -208,14 +208,14 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath)
 				GetLexerName(x, lexName, MAX_EXTERNAL_LEXER_NAME_LEN);
 				GetLexerStatusText(x, lexDesc, MAX_EXTERNAL_LEXER_DESC_LEN);
 				const TCHAR *pLexerName = wmc.char2wchar(lexName, CP_ACP);
-				if (!nppParams->isExistingExternalLangName(pLexerName) && nppParams->ExternalLangHasRoom())
+				if (!nppParams.isExistingExternalLangName(pLexerName) && nppParams.ExternalLangHasRoom())
 					containers[x] = new ExternalLangContainer(pLexerName, lexDesc);
 				else
 					containers[x] = NULL;
 			}
 
 			TCHAR xmlPath[MAX_PATH];
-			wcscpy_s(xmlPath, nppParams->getNppPath().c_str());
+			wcscpy_s(xmlPath, nppParams.getNppPath().c_str());
 			PathAppend(xmlPath, TEXT("plugins\\Config"));
             PathAppend(xmlPath, pi->_moduleName.c_str());
 			PathRemoveExtension(xmlPath);
@@ -224,7 +224,7 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath)
 			if (!PathFileExists(xmlPath))
 			{
 				lstrcpyn(xmlPath, TEXT("\0"), MAX_PATH );
-				wcscpy_s(xmlPath, nppParams->getAppDataNppDir() );
+				wcscpy_s(xmlPath, nppParams.getAppDataNppDir() );
 				PathAppend(xmlPath, TEXT("plugins\\Config"));
                 PathAppend(xmlPath, pi->_moduleName.c_str());
 				PathRemoveExtension( xmlPath );
@@ -248,11 +248,11 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath)
 			for (int x = 0; x < numLexers; ++x) // postpone adding in case the xml is missing/corrupt
 			{
 				if (containers[x] != NULL)
-					nppParams->addExternalLangToEnd(containers[x]);
+					nppParams.addExternalLangToEnd(containers[x]);
 			}
 
-			nppParams->getExternalLexerFromXmlTree(pXmlDoc);
-			nppParams->getExternalLexerDoc()->push_back(pXmlDoc);
+			nppParams.getExternalLexerFromXmlTree(pXmlDoc);
+			nppParams.getExternalLexerDoc()->push_back(pXmlDoc);
 			const char *pDllName = wmc.wchar2char(pluginFilePath, CP_ACP);
 			::SendMessage(_nppData._scintillaMainHandle, SCI_LOADLEXERLIBRARY, 0, reinterpret_cast<LPARAM>(pDllName));
 
@@ -300,8 +300,8 @@ bool PluginsManager::loadPluginsV2(const TCHAR* dir)
 
 	vector<generic_string> dllNames;
 
-	NppParameters * nppParams = NppParameters::getInstance();
-	generic_string nppPath = nppParams->getNppPath();
+	NppParameters& nppParams = NppParameters::getInstance();
+	generic_string nppPath = nppParams.getNppPath();
 	
 	generic_string pluginsFolder;
 	if (dir && dir[0])
@@ -339,7 +339,7 @@ bool PluginsManager::loadPluginsV2(const TCHAR* dir)
 			{
 				dllNames.push_back(pluginsFullPathFilter);
 
-				PluginList & pl = nppParams->getPluginList();
+				PluginList & pl = nppParams.getPluginList();
 				pl.add(foundFileName, false);
 			}
 		}
@@ -367,7 +367,7 @@ bool PluginsManager::loadPluginsV2(const TCHAR* dir)
 				{
 					dllNames.push_back(pluginsFullPathFilter2);
 
-					PluginList & pl = nppParams->getPluginList();
+					PluginList & pl = nppParams.getPluginList();
 					pl.add(foundFileName2, false);
 				}
 			}
@@ -392,7 +392,7 @@ bool PluginsManager::getShortcutByCmdID(int cmdID, ShortcutKey *sk)
 	if (cmdID == 0 || !sk)
 		return false;
 
-	const vector<PluginCmdShortcut> & pluginCmdSCList = (NppParameters::getInstance())->getPluginCommandList();
+	const vector<PluginCmdShortcut> & pluginCmdSCList = (NppParameters::getInstance()).getPluginCommandList();
 
 	for (size_t i = 0, len = pluginCmdSCList.size(); i < len ; ++i)
 	{
@@ -417,8 +417,8 @@ bool PluginsManager::removeShortcutByCmdID(int cmdID)
 {
 	if (cmdID == 0) { return false; }
 
-	NppParameters *nppParam = NppParameters::getInstance();
-	vector<PluginCmdShortcut> & pluginCmdSCList = nppParam->getPluginCommandList();
+	NppParameters& nppParam = NppParameters::getInstance();
+	vector<PluginCmdShortcut> & pluginCmdSCList = nppParam.getPluginCommandList();
 
 	for (size_t i = 0, len = pluginCmdSCList.size(); i < len; ++i)
 	{
@@ -428,10 +428,10 @@ bool PluginsManager::removeShortcutByCmdID(int cmdID)
 			pluginCmdSCList[i].clear();
 
 			// inform accelerator instance
-			nppParam->getAccelerator()->updateShortcuts();
+			nppParam.getAccelerator()->updateShortcuts();
 
 			// set dirty flag to force writing shortcuts.xml on shutdown
-			nppParam->setShortcutDirty();
+			nppParam.setShortcutDirty();
 			break;
 		}
 	}
@@ -440,7 +440,7 @@ bool PluginsManager::removeShortcutByCmdID(int cmdID)
 
 void PluginsManager::addInMenuFromPMIndex(int i)
 {
-    vector<PluginCmdShortcut> & pluginCmdSCList = (NppParameters::getInstance())->getPluginCommandList();
+    vector<PluginCmdShortcut> & pluginCmdSCList = (NppParameters::getInstance()).getPluginCommandList();
 	::InsertMenu(_hPluginsMenu, i, MF_BYPOSITION | MF_POPUP, (UINT_PTR)_pluginInfos[i]->_pluginMenu, _pluginInfos[i]->_funcName.c_str());
 
     unsigned short j = 0;

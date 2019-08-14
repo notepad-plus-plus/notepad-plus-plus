@@ -133,7 +133,7 @@ bool AutoCompletion::showApiAndWordComplete()
 void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beginChars)
 {
 	const size_t bufSize = 256;
-	const NppGUI & nppGUI = NppParameters::getInstance()->getNppGUI();
+	const NppGUI & nppGUI = NppParameters::getInstance().getNppGUI();
 
 	if (nppGUI._autocIgnoreNumbers && isAllDigits(beginChars))
 		return;
@@ -723,7 +723,7 @@ void AutoCompletion::update(int character)
 	if (!character)
 		return;
 
-	const NppGUI & nppGUI = NppParameters::getInstance()->getNppGUI();
+	const NppGUI & nppGUI = NppParameters::getInstance().getNppGUI();
 	if (!_funcCompletionActive && nppGUI._autocStatus == nppGUI.autoc_func)
 		return;
 
@@ -890,8 +890,8 @@ const TCHAR * AutoCompletion::getApiFileName()
 		}
 	}
 
-	if (_curLang >= L_EXTERNAL && _curLang < NppParameters::getInstance()->L_END)
-		return NppParameters::getInstance()->getELCFromIndex(_curLang - L_EXTERNAL)._name;
+	if (_curLang >= L_EXTERNAL && _curLang < NppParameters::getInstance().L_END)
+		return NppParameters::getInstance().getELCFromIndex(_curLang - L_EXTERNAL)._name;
 
 	if (_curLang > L_EXTERNAL)
         _curLang = L_TEXT;

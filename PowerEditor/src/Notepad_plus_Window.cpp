@@ -93,8 +93,8 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 		throw std::runtime_error("Notepad_plus_Window::init : RegisterClass() function failed");
 	}
 
-	NppParameters *pNppParams = NppParameters::getInstance();
-	NppGUI & nppGUI = const_cast<NppGUI &>(pNppParams->getNppGUI());
+	NppParameters& nppParams = NppParameters::getInstance();
+	NppGUI & nppGUI = const_cast<NppGUI &>(nppParams.getNppGUI());
 
 	if (cmdLineParams->_isNoPlugin)
 		_notepad_plus_plus_core._pluginsManager.disable();
@@ -193,9 +193,9 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	std::vector<generic_string> patterns;
 	patterns.push_back(TEXT("*.xml"));
 
-	generic_string nppDir = pNppParams->getNppPath();
+	generic_string nppDir = nppParams.getNppPath();
 
-	LocalizationSwitcher & localizationSwitcher = pNppParams->getLocalizationSwitcher();
+	LocalizationSwitcher & localizationSwitcher = nppParams.getLocalizationSwitcher();
 	std::wstring localizationDir = nppDir;
 	PathAppend(localizationDir, TEXT("localization\\"));
 
@@ -204,15 +204,15 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 		localizationSwitcher.addLanguageFromXml(fileNames[i].c_str());
 
 	fileNames.clear();
-	ThemeSwitcher & themeSwitcher = pNppParams->getThemeSwitcher();
+	ThemeSwitcher & themeSwitcher = nppParams.getThemeSwitcher();
 
 	//  Get themes from both npp install themes dir and app data themes dir with the per user
 	//  overriding default themes of the same name.
 
 	generic_string themeDir;
-    if (pNppParams->getAppDataNppDir() && pNppParams->getAppDataNppDir()[0])
+    if (nppParams.getAppDataNppDir() && nppParams.getAppDataNppDir()[0])
     {
-        themeDir = pNppParams->getAppDataNppDir();
+        themeDir = nppParams.getAppDataNppDir();
 	    PathAppend(themeDir, TEXT("themes\\"));
 	    _notepad_plus_plus_core.getMatchedFileNames(themeDir.c_str(), patterns, fileNames, false, false);
 	    for (size_t i = 0, len = fileNames.size() ; i < len ; ++i)
@@ -328,10 +328,10 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	// Make this call later to take effect
 	::SendMessage(_hSelf, NPPM_INTERNAL_SETWORDCHARS, 0, 0);
 
-	if (pNppParams->doFunctionListExport())
+	if (nppParams.doFunctionListExport())
 		::SendMessage(_hSelf, NPPM_INTERNAL_EXPORTFUNCLISTANDQUIT, 0, 0);
 
-	if (pNppParams->doPrintAndExit())
+	if (nppParams.doPrintAndExit())
 		::SendMessage(_hSelf, NPPM_INTERNAL_PRNTANDQUIT, 0, 0);
 }
 

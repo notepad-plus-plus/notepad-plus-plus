@@ -827,7 +827,7 @@ winVer NppParameters::getWindowsVersion()
    return WV_UNKNOWN;
 }
 
-int FileDialog::_dialogFileBoxId = (NppParameters::getInstance())->getWinVersion() < WV_W2K?edt1:cmb13;
+int FileDialog::_dialogFileBoxId = (NppParameters::getInstance()).getWinVersion() < WV_W2K?edt1:cmb13;
 
 
 NppParameters::NppParameters()
@@ -1381,7 +1381,7 @@ bool NppParameters::load()
 	PathAppend(_sessionPath, TEXT("session.xml"));
 
 	// Don't load session.xml if not required in order to speed up!!
-	const NppGUI & nppGUI = (NppParameters::getInstance())->getNppGUI();
+	const NppGUI & nppGUI = (NppParameters::getInstance()).getNppGUI();
 	if (nppGUI._rememberLastSession)
 	{
 		_pXmlSessionDoc = new TiXmlDocument(_sessionPath);
@@ -3749,7 +3749,7 @@ LangType NppParameters::getLangIDFromStr(const TCHAR *langName)
 	LangType l = (LangType)lang;
 	if (l == L_EXTERNAL) //try find external lexer
 	{
-		int id = NppParameters::getInstance()->getExternalLangIndexFromName(langName);
+		int id = NppParameters::getInstance().getExternalLangIndexFromName(langName);
 		if (id != -1) return (LangType)(id + L_EXTERNAL);
 	}
 

@@ -41,7 +41,7 @@ FileDialog::FileDialog(HWND hwnd, HINSTANCE hInst)
 	staticThis = this;
     
 	memset(_fileName, 0, sizeof(_fileName));
-	_winVersion = (NppParameters::getInstance())->getWinVersion();
+	_winVersion = (NppParameters::getInstance()).getWinVersion();
 
 	_ofn.lStructSize = sizeof(_ofn);
 	if (_winVersion < WV_W2K)
@@ -162,12 +162,12 @@ TCHAR* FileDialog::doOpenSingleFileDlg()
 {
 	TCHAR dir[MAX_PATH];
 	::GetCurrentDirectory(MAX_PATH, dir);
-	NppParameters * params = NppParameters::getInstance();
-	_ofn.lpstrInitialDir = params->getWorkingDir();
+	NppParameters& params = NppParameters::getInstance();
+	_ofn.lpstrInitialDir = params.getWorkingDir();
 
 	_ofn.Flags |= OFN_FILEMUSTEXIST;
 
-	if (!params->useNewStyleSaveDlg())
+	if (!params.useNewStyleSaveDlg())
 	{
 		_ofn.Flags |= OFN_ENABLEHOOK | OFN_NOVALIDATE;
 		_ofn.lpfnHook = OFNHookProc;
@@ -178,10 +178,10 @@ TCHAR* FileDialog::doOpenSingleFileDlg()
 	{
 		fn = ::GetOpenFileName(&_ofn) ? _fileName : NULL;
 
-		if (params->getNppGUI()._openSaveDir == dir_last)
+		if (params.getNppGUI()._openSaveDir == dir_last)
 		{
 			::GetCurrentDirectory(MAX_PATH, dir);
-			params->setWorkingDir(dir);
+			params.setWorkingDir(dir);
 		}
 	}
 	catch (std::exception& e)
@@ -208,22 +208,22 @@ stringVector * FileDialog::doOpenMultiFilesDlg()
 	TCHAR dir[MAX_PATH];
 	::GetCurrentDirectory(MAX_PATH, dir);
 
-	NppParameters * params = NppParameters::getInstance();
-	_ofn.lpstrInitialDir = params->getWorkingDir();
+	NppParameters& params = NppParameters::getInstance();
+	_ofn.lpstrInitialDir = params.getWorkingDir();
 
 	_ofn.Flags |= OFN_FILEMUSTEXIST | OFN_ALLOWMULTISELECT | OFN_ENABLESIZING;
 
-	if (!params->useNewStyleSaveDlg())
+	if (!params.useNewStyleSaveDlg())
 	{
 		_ofn.Flags |= OFN_ENABLEHOOK | OFN_NOVALIDATE;
 		_ofn.lpfnHook = OFNHookProc;
 	}
 
 	BOOL res = ::GetOpenFileName(&_ofn);
-	if (params->getNppGUI()._openSaveDir == dir_last)
+	if (params.getNppGUI()._openSaveDir == dir_last)
 	{
 		::GetCurrentDirectory(MAX_PATH, dir);
-		params->setWorkingDir(dir);
+		params.setWorkingDir(dir);
 	}
 	::SetCurrentDirectory(dir);
 
@@ -265,12 +265,12 @@ TCHAR * FileDialog::doSaveDlg()
 	TCHAR dir[MAX_PATH];
 	::GetCurrentDirectory(MAX_PATH, dir);
 
-	NppParameters * params = NppParameters::getInstance();
-	_ofn.lpstrInitialDir = params->getWorkingDir();
+	NppParameters& params = NppParameters::getInstance();
+	_ofn.lpstrInitialDir = params.getWorkingDir();
 
 	_ofn.Flags |= OFN_OVERWRITEPROMPT | OFN_HIDEREADONLY | OFN_ENABLESIZING;
 
-	if (!params->useNewStyleSaveDlg())
+	if (!params.useNewStyleSaveDlg())
 	{
 		_ofn.Flags |= OFN_ENABLEHOOK | OFN_NOVALIDATE;
 		_ofn.lpfnHook = OFNHookProc;
@@ -280,10 +280,10 @@ TCHAR * FileDialog::doSaveDlg()
 	try
 	{
 		fn = ::GetSaveFileName(&_ofn) ? _fileName : NULL;
-		if (params->getNppGUI()._openSaveDir == dir_last)
+		if (params.getNppGUI()._openSaveDir == dir_last)
 		{
 			::GetCurrentDirectory(MAX_PATH, dir);
-			params->setWorkingDir(dir);
+			params.setWorkingDir(dir);
 		}
 	}
 	catch (std::exception& e)
@@ -387,8 +387,8 @@ UINT_PTR CALLBACK FileDialog::OFNHookProc(HWND hWnd, UINT uMsg, WPARAM wParam, L
     {
         case WM_INITDIALOG :
         {
-			NppParameters *pNppParam = NppParameters::getInstance();
-			int index = pNppParam->getFileSaveDlgFilterIndex();
+			NppParameters& nppParam = NppParameters::getInstance();
+			int index = nppParam.getFileSaveDlgFilterIndex();
 
 			::SetWindowLongPtr(hWnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(staticThis));
 			hFileDlg = ::GetParent(hWnd);
@@ -453,8 +453,8 @@ BOOL APIENTRY FileDialog::run(HWND hWnd, UINT uMsg, WPARAM, LPARAM lParam)
 				{
 					HWND typeControl = ::GetDlgItem(::GetParent(hWnd), cmb1);
 					int index = static_cast<int32_t>(::SendMessage(typeControl, CB_GETCURSEL, 0, 0));
-					NppParameters *pNppParam = NppParameters::getInstance();
-					pNppParam->setFileSaveDlgFilterIndex(index);
+					NppParameters& nppParam = NppParameters::getInstance();
+					nppParam.setFileSaveDlgFilterIndex(index);
 
 					// change forward-slash to back-slash directory paths so dialog can interpret
 					OPENFILENAME* ofn = reinterpret_cast<LPOFNOTIFY>(lParam)->lpOFN;

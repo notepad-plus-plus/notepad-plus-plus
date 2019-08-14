@@ -91,9 +91,9 @@ public :
     };
 
 	void prepare2Cancel() {
-		_styles2restored = (NppParameters::getInstance())->getLStylerArray();
-		_gstyles2restored = (NppParameters::getInstance())->getGlobalStylers();
-		_gOverride2restored = (NppParameters::getInstance())->getGlobalOverrideStyle();
+		_styles2restored = (NppParameters::getInstance()).getLStylerArray();
+		_gstyles2restored = (NppParameters::getInstance()).getGlobalStylers();
+		_gOverride2restored = (NppParameters::getInstance()).getGlobalOverrideStyle();
 	};
 
     virtual void redraw(bool forceUpdate = false) const {
@@ -104,15 +104,15 @@ public :
     };
 	
 	void restoreGlobalOverrideValues() {
-		GlobalOverride & gOverride = (NppParameters::getInstance())->getGlobalOverrideStyle();
+		GlobalOverride & gOverride = (NppParameters::getInstance()).getGlobalOverrideStyle();
 		gOverride = _gOverride2restored;
 	};
 
 	void apply();
 
 	void addLastThemeEntry() {
-        NppParameters *nppParamInst = NppParameters::getInstance();
-        ThemeSwitcher & themeSwitcher = nppParamInst->getThemeSwitcher();
+        NppParameters& nppParamInst = NppParameters::getInstance();
+        ThemeSwitcher & themeSwitcher = nppParamInst.getThemeSwitcher();
 		std::pair<generic_string, generic_string> & themeInfo = themeSwitcher.getElementFromIndex(themeSwitcher.size() - 1);
 	    ::SendMessage(_hSwitch2ThemeCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(themeInfo.first.c_str()));
     };

@@ -239,7 +239,7 @@ bool FunctionListPanel::serialize(const generic_string & outputFilename)
 		const TCHAR *fullFilePath = currentBuf->getFullPathName();
 
 		// Export function list from an existing file 
-		bool exportFuncntionList = (NppParameters::getInstance())->doFunctionListExport();
+		bool exportFuncntionList = (NppParameters::getInstance()).doFunctionListExport();
 		if (exportFuncntionList && ::PathFileExists(fullFilePath))
 		{
 			fname2write = fullFilePath;
@@ -444,16 +444,16 @@ void FunctionListPanel::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **pp
 {
 	DockingDlgInterface::init(hInst, hPere);
 	_ppEditView = ppEditView;
-	bool doLocalConf = (NppParameters::getInstance())->isLocal();
+	bool doLocalConf = (NppParameters::getInstance()).isLocal();
 
 	if (!doLocalConf)
 	{
-		generic_string funcListXmlPath = (NppParameters::getInstance())->getUserPath();
+		generic_string funcListXmlPath = (NppParameters::getInstance()).getUserPath();
 		PathAppend(funcListXmlPath, TEXT("functionList.xml"));
 
 		if (!PathFileExists(funcListXmlPath.c_str()))
 		{
-			generic_string funcListDefaultXmlPath = (NppParameters::getInstance())->getNppPath();
+			generic_string funcListDefaultXmlPath = (NppParameters::getInstance()).getNppPath();
 			PathAppend(funcListDefaultXmlPath, TEXT("functionList.xml"));
 			if (PathFileExists(funcListDefaultXmlPath.c_str()))
 			{
@@ -468,7 +468,7 @@ void FunctionListPanel::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **pp
 	}
 	else
 	{
-		generic_string funcListDefaultXmlPath = (NppParameters::getInstance())->getNppPath();
+		generic_string funcListDefaultXmlPath = (NppParameters::getInstance()).getNppPath();
 		PathAppend(funcListDefaultXmlPath, TEXT("functionList.xml"));
 		if (PathFileExists(funcListDefaultXmlPath.c_str()))
 		{
@@ -695,9 +695,9 @@ INT_PTR CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPA
 
         case WM_INITDIALOG :
         {
-			int editWidth = NppParameters::getInstance()->_dpiManager.scaleX(100);
-			int editWidthSep = NppParameters::getInstance()->_dpiManager.scaleX(105); //editWidth + 5
-			int editHeight = NppParameters::getInstance()->_dpiManager.scaleY(20);
+			int editWidth = NppParameters::getInstance()._dpiManager.scaleX(100);
+			int editWidthSep = NppParameters::getInstance()._dpiManager.scaleX(105); //editWidth + 5
+			int editHeight = NppParameters::getInstance()._dpiManager.scaleY(20);
 
 			// Create toolbar menu
 			int style = WS_CHILD | WS_VISIBLE | CCS_ADJUSTABLE | TBSTYLE_AUTOSIZE | TBSTYLE_FLAT | TBSTYLE_LIST | TBSTYLE_TRANSPARENT | BTNS_AUTOSIZE | BTNS_SEP | TBSTYLE_TOOLTIPS;
@@ -741,7 +741,7 @@ INT_PTR CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPA
 			ShowWindow(_hToolbarMenu, SW_SHOW);
 
 			// tips text for toolbar buttons
-			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 			_sortTipStr = pNativeSpeaker->getAttrNameStr(_sortTipStr.c_str(), FL_FUCTIONLISTROOTNODE, FL_SORTLOCALNODENAME);
 			_reloadTipStr = pNativeSpeaker->getAttrNameStr(_reloadTipStr.c_str(), FL_FUCTIONLISTROOTNODE, FL_RELOADLOCALNODENAME);
 
@@ -810,7 +810,7 @@ INT_PTR CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPA
 		{
 			int width = LOWORD(lParam);
 			int height = HIWORD(lParam);
-			int extraValue = NppParameters::getInstance()->_dpiManager.scaleX(4);
+			int extraValue = NppParameters::getInstance()._dpiManager.scaleX(4);
 
 			RECT toolbarMenuRect;
 			::GetClientRect(_hToolbarMenu, &toolbarMenuRect);

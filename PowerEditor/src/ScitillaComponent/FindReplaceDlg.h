@@ -230,7 +230,7 @@ public :
 	FindReplaceDlg() : StaticDialog(), _pFinder(NULL), _isRTL(false),\
 		_fileNameLenMax(1024) {
 		_uniFileName = new char[(_fileNameLenMax + 3) * 2];
-		_winVer = (NppParameters::getInstance())->getWinVersion();
+		_winVer = (NppParameters::getInstance()).getWinVersion();
 		_env = &_options;
 	};
 	~FindReplaceDlg();

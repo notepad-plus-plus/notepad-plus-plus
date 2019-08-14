@@ -716,7 +716,7 @@ void NativeLangSpeaker::changeFindReplaceDlgLang(FindReplaceDlg & findReplaceDlg
 		TiXmlNodeA *dlgNode = _nativeLangA->FirstChild("Dialog");
 		if (dlgNode)
 		{
-			NppParameters *pNppParam = NppParameters::getInstance();
+			NppParameters& nppParam = NppParameters::getInstance();
 			dlgNode = searchDlgNode(dlgNode, "Find");
 			if (dlgNode)
 			{
@@ -730,26 +730,26 @@ void NativeLangSpeaker::changeFindReplaceDlgLang(FindReplaceDlg & findReplaceDlg
 				if (titre1 && titre1[0])
 				{
 					basic_string<wchar_t> nameW = wmc.char2wchar(titre1, _nativeLangEncoding);
-					pNppParam->getFindDlgTabTitiles()._find = nameW;
-					findReplaceDlg.changeTabName(FIND_DLG, pNppParam->getFindDlgTabTitiles()._find.c_str());
+					nppParam.getFindDlgTabTitiles()._find = nameW;
+					findReplaceDlg.changeTabName(FIND_DLG, nppParam.getFindDlgTabTitiles()._find.c_str());
 				}
 				if (titre2  && titre2[0])
 				{
 					basic_string<wchar_t> nameW = wmc.char2wchar(titre2, _nativeLangEncoding);
-					pNppParam->getFindDlgTabTitiles()._replace = nameW;
-					findReplaceDlg.changeTabName(REPLACE_DLG, pNppParam->getFindDlgTabTitiles()._replace.c_str());
+					nppParam.getFindDlgTabTitiles()._replace = nameW;
+					findReplaceDlg.changeTabName(REPLACE_DLG, nppParam.getFindDlgTabTitiles()._replace.c_str());
 				}
 				if (titre3 && titre3[0])
 				{
 					basic_string<wchar_t> nameW = wmc.char2wchar(titre3, _nativeLangEncoding);
-					pNppParam->getFindDlgTabTitiles()._findInFiles = nameW;
-					findReplaceDlg.changeTabName(FINDINFILES_DLG, pNppParam->getFindDlgTabTitiles()._findInFiles.c_str());
+					nppParam.getFindDlgTabTitiles()._findInFiles = nameW;
+					findReplaceDlg.changeTabName(FINDINFILES_DLG, nppParam.getFindDlgTabTitiles()._findInFiles.c_str());
 				}
 				if (titre4 && titre4[0])
 				{
 					basic_string<wchar_t> nameW = wmc.char2wchar(titre4, _nativeLangEncoding);
-					pNppParam->getFindDlgTabTitiles()._mark = nameW;
-					findReplaceDlg.changeTabName(MARK_DLG, pNppParam->getFindDlgTabTitiles()._mark.c_str());
+					nppParam.getFindDlgTabTitiles()._mark = nameW;
+					findReplaceDlg.changeTabName(MARK_DLG, nppParam.getFindDlgTabTitiles()._mark.c_str());
 				}
 			}
 		}
@@ -941,9 +941,9 @@ void NativeLangSpeaker::changeShortcutLang()
 {
 	if (!_nativeLangA) return;
 
-	NppParameters * pNppParam = NppParameters::getInstance();
-	vector<CommandShortcut> & mainshortcuts = pNppParam->getUserShortcuts();
-	vector<ScintillaKeyMap> & scinshortcuts = pNppParam->getScintillaKeyList();
+	NppParameters& nppParam = NppParameters::getInstance();
+	vector<CommandShortcut> & mainshortcuts = nppParam.getUserShortcuts();
+	vector<ScintillaKeyMap> & scinshortcuts = nppParam.getScintillaKeyList();
 
 	TiXmlNodeA *shortcuts = _nativeLangA->FirstChild("Shortcuts");
 	if (!shortcuts) return;

@@ -94,12 +94,13 @@ static WORD GetBinaryArchitectureType(const TCHAR *filePath)
 	if (addrHeader == NULL)
 		goto cleanup; // couldn't memory map the file
 
-	PIMAGE_NT_HEADERS peHdr = ImageNtHeader(addrHeader);
-	if (peHdr == NULL)
-		goto cleanup; // couldn't read the header
-
-	// Found the binary and architecture type
-	machine_type = peHdr->FileHeader.Machine;
+	{
+		PIMAGE_NT_HEADERS peHdr = ImageNtHeader(addrHeader);
+		if (peHdr == NULL)
+			goto cleanup; // couldn't read the header
+		// Found the binary and architecture type
+		machine_type = peHdr->FileHeader.Machine;
+	}
 
 cleanup: // release all of our handles
 	if (addrHeader != NULL)

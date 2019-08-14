@@ -65,9 +65,9 @@ public:
 	bool findKeyConflicts(__inout_opt generic_string * const keyConflictLocation,
 							const KeyCombo & itemKeyCombo, const size_t & itemIndex) const;
 
-	generic_string ShortcutMapper::getTextFromCombo(HWND hCombo);
-	bool ShortcutMapper::isFilterValid(Shortcut);
-	bool ShortcutMapper::isFilterValid(PluginCmdShortcut sc);
+	generic_string getTextFromCombo(HWND hCombo);
+	bool isFilterValid(Shortcut);
+	bool isFilterValid(PluginCmdShortcut sc);
 
 protected :
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);

@@ -30,6 +30,7 @@
 #define NPP_SORTERS_H
 
 #include <algorithm>
+#include <utility>
 
 // Base interface for line sorting.
 class ISorter
@@ -289,7 +290,7 @@ public:
 			{
 				try
 				{
-					nonEmptyInputAsNumbers.push_back(make_pair(lineIndex, convertStringToNumber(preparedLine)));
+					nonEmptyInputAsNumbers.push_back(std::make_pair(lineIndex, convertStringToNumber(preparedLine)));
 				}
 				catch (...)
 				{

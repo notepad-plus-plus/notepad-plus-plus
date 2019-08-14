@@ -31,6 +31,9 @@
 template <typename C>
 class CThreadSafeQueue : protected std::list<C>
 {
+protected:
+	using Base = std::list<C>;
+
 public:
 	CThreadSafeQueue()
 	{
@@ -51,7 +54,7 @@ public:
 	{
 		{
 			CComCritSecLock<CComAutoCriticalSection> lock(m_Crit, true);
-			push_back(c);
+			Base::push_back(c);
 		}
 		::SetEvent(m_hEvent);
 	}
@@ -59,13 +62,13 @@ public:
 	bool pop(C& c)
 	{
 		CComCritSecLock<CComAutoCriticalSection> lock( m_Crit, true );
-		if (empty())
+		if (Base::empty())
 		{
 			return false;
 		}
 
-		c = front();
-		pop_front();
+		c = Base::front();
+		Base::pop_front();
 
 		return true;
 	}

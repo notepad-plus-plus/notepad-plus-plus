@@ -292,10 +292,10 @@ struct recordedMacroStep {
 	recordedMacroStep(int iMessage, uptr_t wParam, uptr_t lParam, int codepage);
 	explicit recordedMacroStep(int iCommandID): _wParameter(iCommandID) {};
 
-	recordedMacroStep(int iMessage, uptr_t wParam, uptr_t lParam, const TCHAR *sParam, int type)
-		: _message(iMessage), _wParameter(wParam), _lParameter(lParam), _macroType(MacroTypeIndex(type)){
-			_sParameter = (sParam)?generic_string(sParam):TEXT("");	
-	};
+	recordedMacroStep(int iMessage, uptr_t wParam, uptr_t lParam, const TCHAR* sParam, int type)
+		: _message(iMessage), _wParameter(wParam), _lParameter(lParam), _macroType(MacroTypeIndex(type)),
+		_sParameter(sParam ? generic_string(sParam) : TEXT(""))
+	{}
 
 	bool isValid() const {
 		return true;

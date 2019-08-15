@@ -40,8 +40,7 @@ MiniDumper::MiniDumper()
 
 bool MiniDumper::writeDump(EXCEPTION_POINTERS * pExceptionInfo)
 {
-	TCHAR szDumpPath[MAX_PATH];
-	TCHAR szScratch[MAX_PATH];
+	TCHAR szScratch[MAX_PATH] = {};
 	LPCTSTR szResult = NULL;
 	bool retval = false;
 
@@ -52,6 +51,7 @@ bool MiniDumper::writeDump(EXCEPTION_POINTERS * pExceptionInfo)
 		MINIDUMPWRITEDUMP pDump = (MINIDUMPWRITEDUMP)::GetProcAddress( hDll, "MiniDumpWriteDump" );
 		if (pDump)
 		{
+			TCHAR szDumpPath[MAX_PATH] = {};
 			::GetModuleFileName(NULL, szDumpPath, MAX_PATH);
 			::PathRemoveFileSpec(szDumpPath);
 			wcscat_s(szDumpPath, TEXT("\\NppDump.dmp"));

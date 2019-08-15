@@ -227,8 +227,7 @@ friend class FindIncrementDlg;
 public :
 	static FindOption _options;
 	static FindOption* _env;
-	FindReplaceDlg() : StaticDialog(), _pFinder(NULL), _isRTL(false),\
-		_fileNameLenMax(1024) {
+	FindReplaceDlg() : StaticDialog(), _fileNameLenMax(1024) {
 		_uniFileName = new char[(_fileNameLenMax + 3) * 2];
 		_winVer = (NppParameters::getInstance()).getWinVersion();
 		_env = &_options;
@@ -345,17 +344,17 @@ protected :
     void combo2ExtendedMode(int comboID);
 
 private :
-	RECT _initialWindowRect;
-	LONG _deltaWidth;
-	LONG _initialClientWidth;
+	RECT _initialWindowRect = {};
+	LONG _deltaWidth = 0;
+	LONG _initialClientWidth = 0;
 
 	DIALOG_TYPE _currentStatus;
-	RECT _findClosePos, _replaceClosePos, _findInFilesClosePos;
-	RECT _countInSelFramePos, _replaceInSelFramePos;
-	RECT _countInSelCheckPos, _replaceInSelCheckPos;
+	RECT _findClosePos = {}, _replaceClosePos = {}, _findInFilesClosePos = {};
+	RECT _countInSelFramePos = {}, _replaceInSelFramePos = {};
+	RECT _countInSelCheckPos = {}, _replaceInSelCheckPos = {};
 
-	ScintillaEditView **_ppEditView;
-	Finder  *_pFinder;
+	ScintillaEditView** _ppEditView = nullptr;
+	Finder* _pFinder = nullptr;
 
 	std::vector<Finder *> _findersOfFinder;
 
@@ -363,13 +362,13 @@ private :
 	HWND _2ButtonsTip = nullptr;
 
 
-	bool _isRTL;
+	bool _isRTL = false;
 
-	int _findAllResult;
-	TCHAR _findAllResultStr[1024];
+	int _findAllResult = 0;
+	TCHAR _findAllResultStr[1024] = {};
 
 	int _fileNameLenMax;
-	char *_uniFileName;
+	char* _uniFileName = nullptr;
 
 	TabBar _tab;
 	winVer _winVer;
@@ -452,6 +451,10 @@ public:
 	explicit Progress(HINSTANCE hInst);
 	~Progress();
 
+	// Disable copy construction and operator=
+	Progress(const Progress&) = delete;
+	Progress& operator=(const Progress&) = delete;
+
 	HWND open(HWND hCallerWnd = NULL, const TCHAR* header = NULL);
 	void close();
 
@@ -484,22 +487,18 @@ private:
 	static DWORD WINAPI threadFunc(LPVOID data);
 	static LRESULT APIENTRY wndProc(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM lparam);
 
-	// Disable copy construction and operator=
-	Progress(const Progress&);
-	const Progress& operator=(const Progress&);
-
 	int thread();
 	int createProgressWindow();
 	RECT adjustSizeAndPos(int width, int height);
 
-	HINSTANCE _hInst;
-	volatile HWND _hwnd;
-	HWND _hCallerWnd;
-	TCHAR _header[128];
-	HANDLE _hThread;
-	HANDLE _hActiveState;
-	HWND _hPText;
-	HWND _hPBar;
-	HWND _hBtn;
+	HINSTANCE _hInst = nullptr;
+	volatile HWND _hwnd = nullptr;
+	HWND _hCallerWnd = nullptr;
+	TCHAR _header[128] = {};
+	HANDLE _hThread = nullptr;
+	HANDLE _hActiveState = nullptr;
+	HWND _hPText = nullptr;
+	HWND _hPBar = nullptr;
+	HWND _hBtn = nullptr;
 };
 

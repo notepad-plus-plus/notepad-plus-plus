@@ -266,7 +266,7 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath)
 		pluginExceptionAlert(pluginFileName, e);
 		return -1;
 	}
-	catch (generic_string s)
+	catch (generic_string& s)
 	{
 		s += TEXT("\n\n");
 		s += pluginFileName;
@@ -328,7 +328,6 @@ bool PluginsManager::loadPluginsV2(const TCHAR* dir)
 		{
 			generic_string pluginsFullPathFilter = pluginsFolder;
 			PathAppend(pluginsFullPathFilter, foundFileName);
-			generic_string pluginsFolderPath = pluginsFullPathFilter;
 			generic_string  dllName = foundFileName;
 			dllName += TEXT(".dll");
 			PathAppend(pluginsFullPathFilter, dllName);

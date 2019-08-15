@@ -40,7 +40,7 @@ class CReadChangesServer;
 class CReadChangesRequest
 {
 public:
-	CReadChangesRequest(CReadChangesServer* pServer, LPCTSTR sz, BOOL b, DWORD dw, DWORD size);
+	CReadChangesRequest(CReadChangesServer* pServer, LPCTSTR szDir, BOOL bIncludeChild, DWORD dwFilter, DWORD size);
 
 	~CReadChangesRequest();
 
@@ -75,12 +75,12 @@ protected:
 			LPOVERLAPPED lpOverlapped);					// I/O information buffer
 
 	// Parameters from the caller for ReadDirectoryChangesW().
-	DWORD		m_dwFilterFlags;
-	BOOL		m_bIncludeChildren;
+	DWORD		m_dwFilterFlags = 0;
+	BOOL		m_bIncludeChildren = false;
 	CStringW	m_wstrDirectory;
 
 	// Result of calling CreateFile().
-	HANDLE		m_hDirectory;
+	HANDLE		m_hDirectory = nullptr;
 
 	// Required parameter for ReadDirectoryChangesW().
 	OVERLAPPED	m_Overlapped;

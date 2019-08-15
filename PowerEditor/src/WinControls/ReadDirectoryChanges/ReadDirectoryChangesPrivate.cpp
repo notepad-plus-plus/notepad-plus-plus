@@ -38,14 +38,9 @@ namespace ReadDirectoryChangesPrivate
 ///////////////////////////////////////////////////////////////////////////
 // CReadChangesRequest
 
-CReadChangesRequest::CReadChangesRequest(CReadChangesServer* pServer, LPCTSTR sz, BOOL b, DWORD dw, DWORD size)
+CReadChangesRequest::CReadChangesRequest(CReadChangesServer* pServer, LPCTSTR szDir, BOOL bIncludeChild, DWORD dwFilter, DWORD size)
+	:m_pServer(pServer), m_wstrDirectory(szDir), m_bIncludeChildren(bIncludeChild), m_dwFilterFlags(dwFilter)
 {
-	m_pServer		= pServer;
-	m_dwFilterFlags		= dw;
-	m_bIncludeChildren	= b;
-	m_wstrDirectory	= sz;
-	m_hDirectory	= 0;
-
 	::ZeroMemory(&m_Overlapped, sizeof(OVERLAPPED));
 
 	// The hEvent member is not used when there is a completion

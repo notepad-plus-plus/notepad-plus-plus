@@ -44,7 +44,7 @@ struct Version
 	unsigned long _patch = 0;
 	unsigned long _build = 0;
 
-	Version() {};
+	Version() = default;
 	Version(const generic_string& versionStr);
 
 	void setVersionFrom(const generic_string& filePath);

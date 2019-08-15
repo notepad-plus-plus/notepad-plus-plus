@@ -83,7 +83,7 @@ struct TreeParams {
 
 class FunctionListPanel : public DockingDlgInterface {
 public:
-	FunctionListPanel(): DockingDlgInterface(IDD_FUNCLIST_PANEL), _ppEditView(NULL), _pTreeView(&_treeView),
+	FunctionListPanel(): DockingDlgInterface(IDD_FUNCLIST_PANEL), _pTreeView(&_treeView),
 	_reloadTipStr(TEXT("Reload")), _sortTipStr(TEXT("Sort")) {};
 
 	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView);
@@ -118,28 +118,29 @@ protected:
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 private:
-	HWND _hToolbarMenu;
-	HWND _hSearchEdit;
+	HWND _hToolbarMenu = nullptr;
+	HWND _hSearchEdit = nullptr;
 
-	TreeView *_pTreeView;
+	TreeView* _pTreeView = nullptr;
 	TreeView _treeView;
 	TreeView _treeViewSearchResult;
 
 	long _findLine = -1;
 	long _findEndLine = -1;
-	HTREEITEM _findItem;
+	HTREEITEM _findItem = nullptr;
 
 	generic_string _sortTipStr;
 	generic_string _reloadTipStr;
 
 	std::vector<foundInfo> _foundFuncInfos;
 
-	ScintillaEditView **_ppEditView;
+	ScintillaEditView** _ppEditView = nullptr;
 	FunctionParsersManager _funcParserMgr;
 	std::vector< std::pair<int, int> > _skipZones;
 	std::vector<TreeParams> _treeParams;
-	HIMAGELIST _hTreeViewImaLst;
-	generic_string parseSubLevel(size_t begin, size_t end, std::vector< generic_string > dataToSearch, int & foundPos);
+	HIMAGELIST _hTreeViewImaLst = nullptr;
+
+	generic_string parseSubLevel(size_t begin, size_t end, std::vector< generic_string > dataToSearch, int& foundPos);
 	size_t getBodyClosePos(size_t begin, const TCHAR *bodyOpenSymbol, const TCHAR *bodyCloseSymbol);
 	void notified(LPNMHDR notification);
 	void addInStateArray(TreeStateNode tree2Update, const TCHAR *searchText, bool isSorted);

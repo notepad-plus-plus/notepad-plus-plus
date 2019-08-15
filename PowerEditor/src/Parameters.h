@@ -1673,11 +1673,11 @@ private:
 
 	NppGUI _nppGUI;
 	ScintillaViewParams _svp;
-	Lang *_langList[NB_LANG];
+	Lang* _langList[NB_LANG] = {};
 	int _nbLang = 0;
 
 	// Recent File History
-	generic_string *_LRFileList[NB_MAX_LRF_FILE];
+	generic_string* _LRFileList[NB_MAX_LRF_FILE] = {};
 	int _nbRecentFile = 0;
 	int _nbMaxRecentFile = 10;
 	bool _putRecentFileInSubMenu = false;
@@ -1687,10 +1687,10 @@ private:
 
 	FindHistory _findHistory;
 
-	UserLangContainer *_userLangArray[NB_MAX_USER_LANG];
+	UserLangContainer* _userLangArray[NB_MAX_USER_LANG] = {};
 	unsigned char _nbUserLang = 0; // won't be exceeded to 255;
 	generic_string _userDefineLangPath;
-	ExternalLangContainer *_externalLangArray[NB_MAX_EXTERNAL_LANG];
+	ExternalLangContainer* _externalLangArray[NB_MAX_EXTERNAL_LANG] = {};
 	int _nbExternalLang = 0;
 
 	CmdLineParamsDTO _cmdLineParams;
@@ -1709,7 +1709,7 @@ private:
 
 	WNDPROC _transparentFuncAddr = nullptr;
 	WNDPROC _enableThemeDialogTextureFuncAddr = nullptr;
-	bool _isLocal;
+	bool _isLocal = false;
 	bool _isx64 = false; // by default 32-bit
 
 public:
@@ -1753,8 +1753,8 @@ private:
 
 	std::vector<generic_string> _fileBrowserRoot;
 
-	Accelerator *_pAccelerator;
-	ScintillaAccelerator * _pScintAccelerator;
+	Accelerator* _pAccelerator = nullptr;
+	ScintillaAccelerator* _pScintAccelerator = nullptr;
 
 	FindDlgTabTitiles _findDlgTabTitiles;
 	bool _asNotepadStyle = false;
@@ -1764,8 +1764,8 @@ private:
 
 	NativeLangSpeaker *_pNativeLangSpeaker = nullptr;
 
-	COLORREF _currentDefaultBgColor;
-	COLORREF _currentDefaultFgColor;
+	COLORREF _currentDefaultBgColor = 0;
+	COLORREF _currentDefaultFgColor = 0;
 
 	generic_string _initialCloudChoice;
 

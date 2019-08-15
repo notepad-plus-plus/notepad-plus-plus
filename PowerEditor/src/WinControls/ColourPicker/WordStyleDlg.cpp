@@ -791,10 +791,10 @@ void WordStyleDlg::setVisualFromStyleList()
 	//-- font size
 	isEnable = false;
 	const size_t intStrLen = 3;
-	TCHAR intStr[intStrLen];
 	LRESULT iFontSize = 0;
 	if (style._fontSize != STYLE_NOT_USED && style._fontSize < 100) // style._fontSize has only 2 digits
 	{
+		TCHAR intStr[intStrLen] = {};
 		wsprintf(intStr, TEXT("%d"), style._fontSize);
 		iFontSize = ::SendMessage(_hFontSizeCombo, CB_FINDSTRING, 1, reinterpret_cast<LPARAM>(intStr));
 		isEnable = true;

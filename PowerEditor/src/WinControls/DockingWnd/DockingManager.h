@@ -119,7 +119,7 @@ private:
 	std::vector<HWND>			_vImageList;
 	HIMAGELIST					_hImageList = nullptr;
 	std::vector<DockingCont*>	_vContainer;
-	tDockMgr					_dockData;
+	tDockMgr					_dockData = {};
 	static BOOL					_isRegistered;
 	BOOL						_isInitialized = FALSE;
 	int							_iContMap[CONT_MAP_MAX];

@@ -616,7 +616,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_SAVECURRENTSESSION:
 		{
-			NppParameters& nppParam = NppParameters::getInstance();
 			const NppGUI& nppGui = nppParam.getNppGUI();
 
 			if (nppGui._rememberLastSession && !nppGui._isCmdlineNosessionActivated)

@@ -544,27 +544,29 @@ const char * WcharMbcsConvertor::wchar2char(const wchar_t * wcharStr2Convert, UI
 
 std::wstring string2wstring(const std::string & rString, UINT codepage)
 {
+	std::wstring retVal;
 	int len = MultiByteToWideChar(codepage, 0, rString.c_str(), -1, NULL, 0);
 	if (len > 0)
 	{
 		std::vector<wchar_t> vw(len);
 		MultiByteToWideChar(codepage, 0, rString.c_str(), -1, &vw[0], len);
-		return &vw[0];
+		retVal = std::wstring(vw.begin(), vw.end());
 	}
-	return std::wstring();
+	return retVal;
 }
 
 
 std::string wstring2string(const std::wstring & rwString, UINT codepage)
 {
+	std::string retVal;
 	int len = WideCharToMultiByte(codepage, 0, rwString.c_str(), -1, NULL, 0, NULL, NULL);
 	if (len > 0)
 	{
 		std::vector<char> vw(len);
 		WideCharToMultiByte(codepage, 0, rwString.c_str(), -1, &vw[0], len, NULL, NULL);
-		return &vw[0];
+		retVal = std::string(vw.begin(), vw.end());
 	}
-	return std::string();
+	return retVal;
 }
 
 

@@ -37,11 +37,8 @@ enum GridState {STATE_MENU, STATE_MACRO, STATE_USER, STATE_PLUGIN, STATE_SCINTIL
 
 class ShortcutMapper : public StaticDialog {
 public:
-	ShortcutMapper() : _currentState(STATE_MENU), StaticDialog() {
-		_shortcutFilter = TEXT("");
-		_dialogInitDone = false;
-	};
-	~ShortcutMapper() {};
+	ShortcutMapper() : _currentState(STATE_MENU), StaticDialog() {}
+	~ShortcutMapper() = default;
 
 	void init(HINSTANCE hInst, HWND parent, GridState initState = STATE_MENU) {
         Window::init(hInst, parent);
@@ -99,11 +96,11 @@ private:
 		GFONT_ROWS,
 		MAX_GRID_FONTS
 	};
-	LONG _clientWidth;
-	LONG _clientHeight;
-	LONG _initClientWidth;
-	LONG _initClientHeight;
-	bool _dialogInitDone;
+	LONG _clientWidth = 0;
+	LONG _clientHeight = 0;
+	LONG _initClientWidth = 0;
+	LONG _initClientHeight = 0;
+	bool _dialogInitDone = false;;
 
 	void initTabs();
 	void initBabyGrid();

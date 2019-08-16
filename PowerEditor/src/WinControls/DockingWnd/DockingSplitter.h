@@ -45,8 +45,8 @@
 class DockingSplitter : public Window
 {
 public :
-	DockingSplitter() : _isLeftButtonDown(FALSE), _hMessage(NULL) {};
-	~DockingSplitter(){};
+	DockingSplitter() = default;
+	~DockingSplitter() = default;
 
 	virtual void destroy() {};
 
@@ -59,11 +59,11 @@ protected:
 	LRESULT runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 private:
-	HWND				_hMessage;
+	HWND				_hMessage = nullptr;
 
-	BOOL				_isLeftButtonDown;
-	POINT				_ptOldPos;
-	UINT				_flags;
+	BOOL				_isLeftButtonDown = FALSE;
+	POINT				_ptOldPos = {};
+	UINT				_flags = 0;
 
 	static BOOL			_isVertReg;
 	static BOOL			_isHoriReg;

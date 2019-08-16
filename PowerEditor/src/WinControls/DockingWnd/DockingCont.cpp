@@ -68,22 +68,6 @@ static LRESULT CALLBACK hookProcMouse(int nCode, WPARAM wParam, LPARAM lParam)
 
 DockingCont::DockingCont()
 {
-	_isMouseOver		= FALSE;
-	_isMouseClose		= FALSE;
-	_isMouseDown		= FALSE;
-	_isFloating			= false;
-	_isTopCaption		= CAPTION_TOP;
-	_dragFromTab		= FALSE;
-	_hContTab			= NULL;
-	_hDefaultTabProc	= NULL;
-	_beginDrag			= FALSE;
-	_prevItem			= 0;
-	_hFont				= NULL;
-	_bTabTTHover		= FALSE;
-	_bCaptionTT			= FALSE;
-	_bCapTTHover		= FALSE;
-	_hoverMPos			= posClose;
-	_bDrawOgLine		= TRUE;
 	_vTbData.clear();
 
 	_captionHeightDynamic = NppParameters::getInstance()._dpiManager.scaleY(_captionHeightDynamic);

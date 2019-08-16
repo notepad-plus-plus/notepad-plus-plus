@@ -227,8 +227,7 @@ friend class FindIncrementDlg;
 public :
 	static FindOption _options;
 	static FindOption* _env;
-	FindReplaceDlg() : StaticDialog(), _pFinder(NULL), _isRTL(false),\
-		_fileNameLenMax(1024) {
+	FindReplaceDlg() : StaticDialog(), _fileNameLenMax(1024) {
 		_uniFileName = new char[(_fileNameLenMax + 3) * 2];
 		_winVer = (NppParameters::getInstance()).getWinVersion();
 		_env = &_options;
@@ -345,17 +344,17 @@ protected :
     void combo2ExtendedMode(int comboID);
 
 private :
-	RECT _initialWindowRect;
-	LONG _deltaWidth;
-	LONG _initialClientWidth;
+	RECT _initialWindowRect = {};
+	LONG _deltaWidth = 0;
+	LONG _initialClientWidth = 0;
 
 	DIALOG_TYPE _currentStatus;
-	RECT _findClosePos, _replaceClosePos, _findInFilesClosePos;
-	RECT _countInSelFramePos, _replaceInSelFramePos;
-	RECT _countInSelCheckPos, _replaceInSelCheckPos;
+	RECT _findClosePos = {}, _replaceClosePos = {}, _findInFilesClosePos = {};
+	RECT _countInSelFramePos = {}, _replaceInSelFramePos = {};
+	RECT _countInSelCheckPos = {}, _replaceInSelCheckPos = {};
 
-	ScintillaEditView **_ppEditView;
-	Finder  *_pFinder;
+	ScintillaEditView** _ppEditView = nullptr;
+	Finder* _pFinder = nullptr;
 
 	std::vector<Finder *> _findersOfFinder;
 
@@ -363,13 +362,13 @@ private :
 	HWND _2ButtonsTip = nullptr;
 
 
-	bool _isRTL;
+	bool _isRTL = false;
 
-	int _findAllResult;
-	TCHAR _findAllResultStr[1024];
+	int _findAllResult = 0;
+	TCHAR _findAllResultStr[1024] = {};
 
 	int _fileNameLenMax;
-	char *_uniFileName;
+	char* _uniFileName = nullptr;
 
 	TabBar _tab;
 	winVer _winVer;

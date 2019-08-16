@@ -452,6 +452,10 @@ public:
 	explicit Progress(HINSTANCE hInst);
 	~Progress();
 
+	// Disable copy construction and operator=
+	Progress(const Progress&) = delete;
+	Progress& operator=(const Progress&) = delete;
+
 	HWND open(HWND hCallerWnd = NULL, const TCHAR* header = NULL);
 	void close();
 
@@ -484,22 +488,18 @@ private:
 	static DWORD WINAPI threadFunc(LPVOID data);
 	static LRESULT APIENTRY wndProc(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM lparam);
 
-	// Disable copy construction and operator=
-	Progress(const Progress&);
-	const Progress& operator=(const Progress&);
-
 	int thread();
 	int createProgressWindow();
 	RECT adjustSizeAndPos(int width, int height);
 
-	HINSTANCE _hInst;
-	volatile HWND _hwnd;
-	HWND _hCallerWnd;
-	TCHAR _header[128];
-	HANDLE _hThread;
-	HANDLE _hActiveState;
-	HWND _hPText;
-	HWND _hPBar;
-	HWND _hBtn;
+	HINSTANCE _hInst = nullptr;
+	volatile HWND _hwnd = nullptr;
+	HWND _hCallerWnd = nullptr;
+	TCHAR _header[128] = {};
+	HANDLE _hThread = nullptr;
+	HANDLE _hActiveState = nullptr;
+	HWND _hPText = nullptr;
+	HWND _hPBar = nullptr;
+	HWND _hBtn = nullptr;
 };
 

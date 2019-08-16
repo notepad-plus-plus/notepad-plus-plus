@@ -76,40 +76,38 @@ bool PluginsManager::unloadPlugin(int index, HWND nppHandle)
     return true;
 }
 
-static WORD GetBinaryArchitectureType(const TCHAR *filePath)
+static WORD getBinaryArchitectureType(const TCHAR *filePath)
 {
-	WORD machine_type = IMAGE_FILE_MACHINE_UNKNOWN;
-	HANDLE hMapping = NULL;
-	LPVOID addrHeader = NULL;
-
 	HANDLE hFile = CreateFile(filePath, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_READONLY, NULL);
 	if (hFile == INVALID_HANDLE_VALUE)
-		goto cleanup;
+	{
+		return IMAGE_FILE_MACHINE_UNKNOWN;
+	}
 
-	hMapping = CreateFileMapping(hFile, NULL, PAGE_READONLY | SEC_IMAGE, 0, 0, NULL);
+	HANDLE hMapping = CreateFileMapping(hFile, NULL, PAGE_READONLY | SEC_IMAGE, 0, 0, NULL);
 	if (hMapping == NULL)
-		goto cleanup;
+	{
+		CloseHandle(hFile);
+		return IMAGE_FILE_MACHINE_UNKNOWN;
+	}
 
-	addrHeader = MapViewOfFile(hMapping, FILE_MAP_READ, 0, 0, 0);
-	if (addrHeader == NULL)
-		goto cleanup; // couldn't memory map the file
+	LPVOID addrHeader = MapViewOfFile(hMapping, FILE_MAP_READ, 0, 0, 0);
+	if (addrHeader == NULL) // couldn't memory map the file
+	{
+		CloseHandle(hFile);
+		CloseHandle(hMapping);
+		return IMAGE_FILE_MACHINE_UNKNOWN;
+	}
 
 	PIMAGE_NT_HEADERS peHdr = ImageNtHeader(addrHeader);
-	if (peHdr == NULL)
-		goto cleanup; // couldn't read the header
 
-	// Found the binary and architecture type
-	machine_type = peHdr->FileHeader.Machine;
+	// Found the binary and architecture type, if peHdr is !NULL
+	WORD machine_type = (peHdr == NULL) ? IMAGE_FILE_MACHINE_UNKNOWN : peHdr->FileHeader.Machine;
 
-cleanup: // release all of our handles
-	if (addrHeader != NULL)
-		UnmapViewOfFile(addrHeader);
-
-	if (hMapping != NULL)
-		CloseHandle(hMapping);
-
-	if (hFile != INVALID_HANDLE_VALUE)
-		CloseHandle(hFile);
+	// release all of our handles
+	UnmapViewOfFile(addrHeader);
+	CloseHandle(hMapping);
+	CloseHandle(hFile);
 
 	return machine_type;
 }
@@ -130,7 +128,7 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath)
 	{
 		pi->_moduleName = pluginFileName;
 
-		if (GetBinaryArchitectureType(pluginFilePath) != ARCH_TYPE)
+		if (getBinaryArchitectureType(pluginFilePath) != ARCH_TYPE)
 			throw generic_string(ARCH_ERR_MSG);
 
         const DWORD dwFlags = GetProcAddress(GetModuleHandle(TEXT("kernel32.dll")), "AddDllDirectory") != NULL ? LOAD_LIBRARY_SEARCH_DLL_LOAD_DIR | LOAD_LIBRARY_SEARCH_DEFAULT_DIRS : 0;

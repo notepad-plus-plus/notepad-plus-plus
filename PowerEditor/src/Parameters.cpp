@@ -36,6 +36,8 @@
 #include "localizationString.h"
 #include "UserDefineDialog.h"
 
+#pragma warning(disable : 4996) // for GetVersionEx()
+
 using namespace std;
 
 
@@ -1680,11 +1682,11 @@ bool NppParameters::getUserParametersFromXmlTree()
 std::pair<unsigned char, unsigned char> NppParameters::addUserDefineLangsFromXmlTree(TiXmlDocument *tixmldoc)
 {
 	if (!tixmldoc)
-		return std::pair<unsigned char, unsigned char>(0, 0);
+		return std::make_pair(static_cast<unsigned char>(0), static_cast<unsigned char>(0));
 
 	TiXmlNode *root = tixmldoc->FirstChild(TEXT("NotepadPlus"));
 	if (!root)
-		return std::pair<unsigned char, unsigned char>(0, 0);
+		return std::make_pair(static_cast<unsigned char>(0), static_cast<unsigned char>(0));
 
 	return feedUserLang(root);
 }
@@ -2667,7 +2669,7 @@ std::pair<unsigned char, unsigned char> NppParameters::feedUserLang(TiXmlNode *n
 		}
 	}
 	int iEnd = _nbUserLang;
-	return pair<unsigned char, unsigned char>(iBegin, iEnd);
+	return pair<unsigned char, unsigned char>(static_cast<unsigned char>(iBegin), static_cast<unsigned char>(iEnd));
 }
 
 bool NppParameters::importUDLFromFile(const generic_string& sourceFile)

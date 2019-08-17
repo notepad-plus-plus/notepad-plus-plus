@@ -34,6 +34,8 @@
 #include "Parameters.h"
 #include "localization.h"
 
+#pragma warning(disable : 4996) // for GetVersion()
+
 INT_PTR CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)

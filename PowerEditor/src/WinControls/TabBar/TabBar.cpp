@@ -343,18 +343,24 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isMult
 
 	LOGFONT LogFont;
 
-	_hFont = (HFONT)::SendMessage(_hSelf, WM_GETFONT, 0, 0);
+	_hFont = reinterpret_cast<HFONT>(::SendMessage(_hSelf, WM_GETFONT, 0, 0));
 
 	if (_hFont == NULL)
-		_hFont = (HFONT)::GetStockObject(DEFAULT_GUI_FONT);
-
-	if (_hLargeFont == NULL)
-		_hLargeFont = (HFONT)::GetStockObject(SYSTEM_FONT);
-
-	if (::GetObject(_hFont, sizeof(LOGFONT), &LogFont) != 0)
 	{
+		_hFont = reinterpret_cast<HFONT>(::GetStockObject(DEFAULT_GUI_FONT));
+	}
+
+	if (::GetObject(_hFont, sizeof(LogFont), &LogFont) != 0)
+	{
+		LONG const normal_height = LogFont.lfHeight;
+		LONG const large_height = (normal_height * 140) / 100;
+
+		LogFont.lfHeight = large_height;
+		_hLargeFont = CreateFontIndirect(&LogFont);
+
+		LogFont.lfHeight = normal_height;
 		LogFont.lfEscapement  = 900;
-		LogFont.lfOrientation = 900;
+		LogFont.lfOrientation = 900; // The angle, in tenths of degrees, between each character's base line and the x-axis of the device.
 		_hVerticalFont = CreateFontIndirect(&LogFont);
 
 		LogFont.lfWeight = 900;

@@ -106,6 +106,7 @@
 					<Item id="42008" name="Girintiyi Artır"/>
 					<Item id="42009" name="Girintiyi Azalt"/>
 					<Item id="42010" name="Geçerli Satırı Çoğalt"/>
+					<Item id="42077" name="Ardışık Aynı Satırları Kaldır"/>
 					<Item id="42012" name="Satırları Böl"/>
 					<Item id="42013" name="Satırları Birleştir"/>
 					<Item id="42014" name="Geçerli Satırı Yukarı Taşı"/>

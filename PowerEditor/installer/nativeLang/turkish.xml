@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-	<Native-Langue name="Turkish" filename="turkish.xml" version="7.6.5">
+	<Native-Langue name="Turkish" filename="turkish.xml" version="7.7.2">
 		<Menu>
 			<Main>
 				<!-- Ana Menü Girişleri -->
@@ -106,6 +106,7 @@
 					<Item id="42008" name="Girintiyi Artır"/>
 					<Item id="42009" name="Girintiyi Azalt"/>
 					<Item id="42010" name="Geçerli Satırı Çoğalt"/>
+					<Item id="42077" name="Ardışık Aynı Satırları Kaldır"/>
 					<Item id="42012" name="Satırları Böl"/>
 					<Item id="42013" name="Satırları Birleştir"/>
 					<Item id="42014" name="Geçerli Satırı Yukarı Taşı"/>
@@ -262,11 +263,11 @@
 					<Item id="45001" name="Windows (CR LF) Biçimine Dönüştür"/>
 					<Item id="45002" name="UNIX (LF)Biçimine Dönüştür"/>
 					<Item id="45003" name="Mac OS (CR)Biçimine Dönüştür"/>
-					<Item id="45004" name="ANSI Olarak Kodla"/>
-					<Item id="45005" name="UTF-8 BOM Olarak Kodla"/>
-					<Item id="45006" name="UCS-2 Big-Endian BOM Olarak Kodla"/>
-					<Item id="45007" name="UCS-2 Little-Endian BOM Olarak Kodla"/>
-					<Item id="45008" name="UTF-8 Olarak Kodla"/>
+					<Item id="45004" name="ANSI"/>
+					<Item id="45005" name="UTF-8 BOM"/>
+					<Item id="45006" name="UCS-2 Big-Endian BOM"/>
+					<Item id="45007" name="UCS-2 Little-Endian BOM"/>
+					<Item id="45008" name="UTF-8"/>
 					<Item id="45009" name="ANSI'ye Dönüştür"/>
 					<Item id="45010" name="UTF-8'e Dönüştür"/>
 					<Item id="45011" name="UTF-8 BOM'a Dönüştür"/>
@@ -386,6 +387,8 @@
 			 	<Item id="1641" name="Geçerli Belgede Tümünü Bul"/>
 			 	<Item id="1686" name="Saydamlaş&amp;tır"/>
 				<Item id="1703" name="&amp;. yeni satırı eşle"/>
+                <Item id="1721" name="▲"/>
+                <Item id="1723" name="▼ Sonrakini Bul"/>
 			</Find>
 
 			<FindCharsInRange title="Aralıktaki Karakterleri Bul…">
@@ -1024,7 +1027,6 @@ Bu işlemin çalışması için, klasör bırakmada, klasörü Çalışma alanı
             <SortingError title="Sıralama Hatası" message="$INT_REPLACE$ satırındaki hatadan dolayı Numerik sıralanamadı."/>
             <ColumnModeTip title="Sütun Modu İpucu" message="Lütfen &quot;ALT+Fare Seçimi&quot; ya da &quot;Alt+Shift+Ok tuşu&quot; kullanarak sütun moduna geçiş yapın."/>
             <BufferInvalidWarning title="Kayıt Başarısız" message="Kaydedilemiyor: Arabellek geçersiz."/>		
-			<DoSaveOrNot title="Kaydet" message="&quot;$STR_REPLACE$&quot; dosyası kaydedilsin mi?"/>
             <DoCloseOrNot title="Mevcut Olmayan Dosyayı Sakla" message="&quot;$STR_REPLACE$&quot; dosyası artık mevcut değil.
 Editörde saklansın mı?"/>
             <DoDeleteOrNot title="Dosyayı Sil" message="&quot;$STR_REPLACE$&quot; dosyası
@@ -1079,6 +1081,11 @@ Notepad++ı Yönetici olarak başlatmak ister misiniz?"/>
             <OpenInAdminModeWithoutCloseCurrent title="Kayıt Başarısız" message="Dosya kaydedilemedi, korumalı olabilir.
 Notepad++ı Yönetici olarak başlatmak ister misiniz?"/>
             <OpenInAdminModeFailed title="Yönetici Olarak Başlatma Başarısız" message="Notepad++ Yönetici olarak başlatılamaz."/>
+            <ViewInBrowser title="Şimdiki Dosyayı Tarayıcıda GÖrüntüle" message="Sisteminizde uygulama bulunamadı."/>
+            <ExitToUpdatePlugins title="Notepad++ kapanmak üzere" message="Eğer EVET düğmesine basarsanız, Notepad++ kapanacak ve işlemler devam edecek.
+Notepad++ tüm işlemler bitince yeniden başlatılacak.
+Devam edilsin mi?"/>
+            <NeedToRestartToLoadPlugins title="Notepad++ yeniden başlatılmalı" message="Kurduğunuz eklentilerin yüklenmesi için Notepad++ yeniden başlatılmalı."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Pano Geçmişi"/>
@@ -1094,10 +1101,12 @@ Notepad++ı Yönetici olarak başlatmak ister misiniz?"/>
             <ColumnType name="Tür"/>
         </WindowsDlg>
 		<AsciiInsertion>
-			<PanelTitle name="ASCII Ekleme Paneli"/>
+			<PanelTitle name="ASCII Kodu Ekleme Paneli"/>
 			<ColumnVal name="Değer"/>
 			<ColumnHex name="On Altılı"/>
 			<ColumnChar name="Karakter"/>
+			<ColumnHtmlNumber name="HTML Numarası"/>
+			<ColumnHtmlName name="HTML Kodu"/>
 		</AsciiInsertion>
 		<DocumentMap>
 			<PanelTitle name="Belge Haritası"/>
@@ -1227,6 +1236,17 @@ Notepad++ı Yönetici olarak başlatmak ister misiniz?"/>
 			<userdefined-title-rename value="Şimdiki Dil İsmini Yeniden Adlandır"/>
 			<autocomplete-nb-char value="Karakter Sayısı: "/>
 			<edit-verticaledge-nb-col value="Sütun Sayısı:"/>
+			<summary value="Özet"/>
+			<summary-filepath value="Tam dosya yolu: "/>
+			<summary-filecreatetime value="Oluşturuldu: "/>
+			<summary-filemodifytime value="Düzenlendi: "/>
+			<summary-nbchar value="Karakterler (satır sonu olmadan): "/>
+			<summary-nbword value="Kelimeler: "/>
+			<summary-nbline value="Satırlar: "/>
+			<summary-nbbyte value="Dosya uzunluğu: "/>
+			<summary-nbsel1 value=" seçili karakterler ("/>
+			<summary-nbsel2 value=" bayt) içinde "/>
+			<summary-nbrange value=" mesafe"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

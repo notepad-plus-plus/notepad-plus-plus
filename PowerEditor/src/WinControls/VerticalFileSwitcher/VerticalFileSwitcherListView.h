@@ -42,15 +42,17 @@ typedef Buffer * BufferID;	//each buffer has unique ID by which it can be retrie
 struct SwitcherFileInfo {
 	BufferID _bufID;
 	int _iView;
+
+	SwitcherFileInfo() = delete;
 	SwitcherFileInfo(BufferID buf, int view) : _bufID(buf), _iView(view){};
 };
 
 class VerticalFileSwitcherListView : public Window
 {
 public:
-	VerticalFileSwitcherListView() : Window() {};
+	VerticalFileSwitcherListView() = default;
+	virtual ~VerticalFileSwitcherListView() = default;
 
-	virtual ~VerticalFileSwitcherListView() {};
 	virtual void init(HINSTANCE hInst, HWND parent, HIMAGELIST hImaLst);
 	virtual void destroy();
 	void initList();

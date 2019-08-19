@@ -38,8 +38,7 @@ const bool activeNumeric = false;
 class ColumnEditorDlg : public StaticDialog
 {
 public :
-	ColumnEditorDlg() : StaticDialog() {};
-
+	ColumnEditorDlg() = default;
 	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView);
 
 	virtual void create(int dialogID, bool isRTL = false, bool msgDestParent = true) {
@@ -55,18 +54,13 @@ public :
 	};
 
     virtual void display(bool toShow = true) const;
-
 	void switchTo(bool toText);
-
 	UCHAR getFormat();
 
 protected :
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 private :
-
     ScintillaEditView **_ppEditView = nullptr;
-
-
 };
 

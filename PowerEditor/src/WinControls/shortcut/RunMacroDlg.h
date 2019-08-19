@@ -39,9 +39,8 @@
 class RunMacroDlg : public StaticDialog
 {
 public :
-	RunMacroDlg() : StaticDialog() {};
-	~RunMacroDlg() {
-	};
+	RunMacroDlg() = default;
+	~RunMacroDlg() = default;
 
 	void init(HINSTANCE hInst, HWND hPere/*, ScintillaEditView **ppEditView*/) {
 		Window::init(hInst, hPere);

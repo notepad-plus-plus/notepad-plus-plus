@@ -35,8 +35,9 @@
 class BabyGridWrapper : public Window
 {
 public :
-	BabyGridWrapper() : Window(){};
-    ~BabyGridWrapper(){};
+	BabyGridWrapper() = default;
+    ~BabyGridWrapper() = default;
+
 	virtual void init(HINSTANCE hInst, HWND parent, int16_t id);
 	virtual void destroy() {
 		::DestroyWindow(_hSelf);

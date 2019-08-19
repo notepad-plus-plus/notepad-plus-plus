@@ -68,7 +68,7 @@ private :
 class WordStyleDlg : public StaticDialog
 {
 public :
-	WordStyleDlg() {};
+	WordStyleDlg() = default;
 
     void init(HINSTANCE hInst, HWND parent)	{
         Window::init(hInst, parent);
@@ -125,19 +125,18 @@ private :
     int _currentLexerIndex = 0;
 	int _currentThemeIndex = 0;
 
-    HWND _hCheckBold;
-    HWND _hCheckItalic;
-	HWND _hCheckUnderline;
-    HWND _hFontNameCombo;
-    HWND _hFontSizeCombo;
-	HWND _hSwitch2ThemeCombo;
+    HWND _hCheckBold = nullptr;
+    HWND _hCheckItalic = nullptr;
+	HWND _hCheckUnderline = nullptr;
+    HWND _hFontNameCombo = nullptr;
+    HWND _hFontSizeCombo = nullptr;
+	HWND _hSwitch2ThemeCombo = nullptr;
 
-	HWND _hFgColourStaticText;
-	HWND _hBgColourStaticText;
-	HWND _hFontNameStaticText;
-	HWND _hFontSizeStaticText;
-	HWND _hStyleInfoStaticText;
-	//TCHAR _originalWarning[256];
+	HWND _hFgColourStaticText = nullptr;
+	HWND _hBgColourStaticText = nullptr;
+	HWND _hFontNameStaticText = nullptr;
+	HWND _hFontSizeStaticText = nullptr;
+	HWND _hStyleInfoStaticText = nullptr;
 
 	LexerStylerArray _lsArray;
     StyleArray _globalStyles;

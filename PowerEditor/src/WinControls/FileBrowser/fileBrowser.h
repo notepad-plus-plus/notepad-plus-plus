@@ -58,12 +58,12 @@ friend class FileBrowser;
 friend class FolderInfo;
 
 public:
+	FileInfo() = delete; // constructor by default is forbidden
 	FileInfo(const generic_string & name, FolderInfo *parent) : _name(name), _parent(parent) {};
 	generic_string getName() const { return _name; };
 	void setName(generic_string name) { _name = name; };
 
 private:
-	FileInfo(){}; // constructor by default is forbidden
 	FolderInfo *_parent = nullptr;
 	generic_string _name;
 };
@@ -75,6 +75,7 @@ friend class FileBrowser;
 friend class FolderUpdater;
 
 public:
+	FolderInfo() = delete; // constructor by default is forbidden
 	FolderInfo(const generic_string & name, FolderInfo *parent) : _name(name), _parent(parent) {};
 	void setRootPath(const generic_string& rootPath) { _rootPath = rootPath; };
 	generic_string getRootPath() const { return _rootPath; };
@@ -88,7 +89,6 @@ public:
 	bool renameInStructure(std::vector<generic_string> linarPathArrayFrom, std::vector<generic_string> linarPathArrayTo);
 
 private:
-	FolderInfo(){}; // constructor by default is forbidden
 	std::vector<FolderInfo> _subFolders;
 	std::vector<FileInfo> _files;
 	FolderInfo *_parent = nullptr;
@@ -104,8 +104,7 @@ class FolderUpdater {
 friend class FileBrowser;
 public:
 	FolderUpdater(const FolderInfo& fi, FileBrowser *pFileBrowser) : _rootFolder(fi), _pFileBrowser(pFileBrowser) {};
-	~FolderUpdater() {};
-	//bool updateTree(DWORD action, const std::vector<generic_string> & file2Change); // postMessage to FileBrowser to upgrade GUI
+	~FolderUpdater() = default;
 
 	void startWatcher();
 	void stopWatcher();

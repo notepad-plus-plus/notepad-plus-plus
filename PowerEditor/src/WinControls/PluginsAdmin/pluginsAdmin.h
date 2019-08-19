@@ -44,7 +44,7 @@ struct Version
 	unsigned long _patch = 0;
 	unsigned long _build = 0;
 
-	Version() {};
+	Version() = default;
 	Version(const generic_string& versionStr);
 
 	void setVersionFrom(const generic_string& filePath);
@@ -89,7 +89,7 @@ struct PluginUpdateInfo
 	bool _isVisible = true;       // if false then it should not be displayed 
 
 	generic_string describe();
-	PluginUpdateInfo() {};
+	PluginUpdateInfo() = default;
 	PluginUpdateInfo(const generic_string& fullFilePath, const generic_string& fileName);
 };
 
@@ -126,7 +126,7 @@ struct SortDisplayNameDecrease final
 class PluginViewList
 {
 public:
-	PluginViewList() {};
+	PluginViewList() = default;
 	~PluginViewList() {
 		_ui.destroy();
 		for (auto i : _list)
@@ -172,7 +172,7 @@ class PluginsAdminDlg final : public StaticDialog
 {
 public :
 	PluginsAdminDlg();
-	~PluginsAdminDlg() {};
+	~PluginsAdminDlg() = default;
 
     void init(HINSTANCE hInst, HWND parent)	{
         Window::init(hInst, parent);

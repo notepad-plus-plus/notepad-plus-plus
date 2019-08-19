@@ -51,7 +51,7 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.")
 class AboutDlg : public StaticDialog
 {
 public :
-	AboutDlg() : StaticDialog() {};
+	AboutDlg() = default;
 
 	void doDialog();
 
@@ -72,7 +72,7 @@ private :
 class DebugInfoDlg : public StaticDialog
 {
 public:
-	DebugInfoDlg() : StaticDialog() {};
+	DebugInfoDlg() = default;
 
 	void init(HINSTANCE hInst, HWND parent, bool isAdmin, const generic_string& loadedPlugins) {
 		_isAdmin = isAdmin;
@@ -100,7 +100,7 @@ private:
 class DoSaveOrNotBox : public StaticDialog
 {
 public:
-	DoSaveOrNotBox() : StaticDialog() {};
+	DoSaveOrNotBox() = default;
 
 	void init(HINSTANCE hInst, HWND parent, const TCHAR* fn, bool isMulti) {
 		Window::init(hInst, parent);
@@ -112,8 +112,7 @@ public:
 
 	void doDialog(bool isRTL = false);
 
-	virtual void destroy() {
-	};
+	virtual void destroy() {};
 
 	int getClickedButtonId() const {
 		return clickedButtonId;

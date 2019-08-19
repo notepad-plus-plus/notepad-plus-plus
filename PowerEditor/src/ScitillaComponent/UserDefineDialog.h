@@ -252,7 +252,7 @@ class SharedParametersDialog : public StaticDialog
 {
 friend class StylerDlg;
 public:
-    SharedParametersDialog() {};
+    SharedParametersDialog() = default;
     virtual void updateDlg() = 0;
 protected :
     //Shared data
@@ -266,7 +266,7 @@ protected :
 class FolderStyleDialog : public SharedParametersDialog
 {
 public:
-    FolderStyleDialog(): SharedParametersDialog() {};
+    FolderStyleDialog() = default;
     void updateDlg();
 protected :
     INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
@@ -279,7 +279,7 @@ private :
 class KeyWordsStyleDialog : public SharedParametersDialog
 {
 public:
-    KeyWordsStyleDialog(): SharedParametersDialog() {};
+    KeyWordsStyleDialog() = default;
     void updateDlg();
 protected :
     INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
@@ -289,7 +289,7 @@ protected :
 class CommentStyleDialog : public SharedParametersDialog
 {
 public :
-    CommentStyleDialog(): SharedParametersDialog() {};
+    CommentStyleDialog() = default;
     void updateDlg();
 protected :
     INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
@@ -301,7 +301,7 @@ private :
 class SymbolsStyleDialog : public SharedParametersDialog
 {
 public :
-    SymbolsStyleDialog(): SharedParametersDialog() {};
+    SymbolsStyleDialog() = default;
     void updateDlg();
 protected :
     INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
@@ -398,7 +398,7 @@ protected :
 class StringDlg : public StaticDialog
 {
 public :
-    StringDlg() : StaticDialog() {};
+    StringDlg() = default;
 	void init(HINSTANCE hInst, HWND parent, const TCHAR *title, const TCHAR *staticName, const TCHAR *text2Set, int txtLen = 0, const TCHAR* restrictedChars = nullptr, bool bGotoCenter = false) {
 		Window::init(hInst, parent);
 		_title = title;

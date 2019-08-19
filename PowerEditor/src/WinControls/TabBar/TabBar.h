@@ -68,8 +68,8 @@ struct TBHDR
 class TabBar : public Window
 {
 public:
-	TabBar() : Window() {};
-	virtual ~TabBar() {};
+	TabBar() = default;
+	virtual ~TabBar() = default;
 	virtual void destroy();
 	virtual void init(HINSTANCE hInst, HWND hwnd, bool isVertical = false, bool isMultiLine = false);
 	virtual void reSizeTo(RECT & rc2Ajust);
@@ -143,7 +143,7 @@ struct CloseButtonZone
 class TabBarPlus : public TabBar
 {
 public :
-	TabBarPlus() : TabBar() {};
+	TabBarPlus() = default;
 	enum tabColourIndex {
 		activeText, activeFocusedTop, activeUnfocusedTop, inactiveText, inactiveBg
 	};

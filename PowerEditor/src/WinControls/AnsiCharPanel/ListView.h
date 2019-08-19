@@ -43,8 +43,8 @@ struct columnInfo {
 class ListView : public Window
 {
 public:
-	ListView() : Window() {};
-	virtual ~ListView() {};
+	ListView() = default;
+	virtual ~ListView() = default;
 
 	enum SortDirection {
 		sortEncrease = 0,

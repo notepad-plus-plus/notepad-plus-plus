@@ -44,9 +44,9 @@ struct TreeStateNode {
 
 class TreeView : public Window {
 public:
-	TreeView() : Window(), _isItemDragged(false) {};
+	TreeView() = default;
+	virtual ~TreeView() = default;
 
-	virtual ~TreeView() {};
 	virtual void init(HINSTANCE hInst, HWND parent, int treeViewID);
 	virtual void destroy();
 	HTREEITEM addItem(const TCHAR *itemName, HTREEITEM hParentItem, int iImage, const TCHAR *filePath = NULL);
@@ -131,7 +131,7 @@ protected:
 	// Drag and Drop operations
 	HTREEITEM _draggedItem;
 	HIMAGELIST _draggedImageList;
-	bool _isItemDragged;
+	bool _isItemDragged = false;
 	std::vector<int> _canNotDragOutList;
 	std::vector<int> _canNotDropInList;
 	bool canBeDropped(HTREEITEM draggedItem, HTREEITEM targetItem);

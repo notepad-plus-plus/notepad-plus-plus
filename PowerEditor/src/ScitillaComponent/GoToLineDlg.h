@@ -33,7 +33,7 @@
 class GoToLineDlg : public StaticDialog
 {
 public :
-	GoToLineDlg() : StaticDialog() {};
+	GoToLineDlg() = default;
 
 	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView) {
 		Window::init(hInst, hPere);

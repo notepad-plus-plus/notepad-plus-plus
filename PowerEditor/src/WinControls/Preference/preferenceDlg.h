@@ -38,7 +38,7 @@
 class SettingsDlg : public StaticDialog
 {
 public :
-	SettingsDlg() {};
+	SettingsDlg() = default;
 
 private :
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
@@ -47,7 +47,7 @@ private :
 class BarsDlg : public StaticDialog
 {
 public :
-	BarsDlg() {};
+	BarsDlg() = default;
 private :
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
@@ -55,7 +55,7 @@ private :
 class MarginsDlg : public StaticDialog
 {
 public :
-	MarginsDlg() {};
+	MarginsDlg() = default;
 	virtual void destroy() {
 		_verticalEdgeLineNbColVal.destroy();
 	};
@@ -76,7 +76,7 @@ struct LangID_Name
 class DefaultNewDocDlg : public StaticDialog
 {
 public :
-	DefaultNewDocDlg() {};
+	DefaultNewDocDlg() = default;
 
 private :
 	std::vector<LangID_Name> _langList;
@@ -91,7 +91,7 @@ private :
 class DefaultDirectoryDlg : public StaticDialog
 {
 public :
-	DefaultDirectoryDlg() {};
+	DefaultDirectoryDlg() = default;
 
 private :
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
@@ -100,7 +100,7 @@ private :
 class RecentFilesHistoryDlg : public StaticDialog
 {
 public :
-	RecentFilesHistoryDlg() {};
+	RecentFilesHistoryDlg() = default;
 	virtual void destroy() {
 		_nbHistoryVal.destroy();
 		_customLenVal.destroy();
@@ -116,7 +116,7 @@ private :
 class LangMenuDlg : public StaticDialog
 {
 public :
-	LangMenuDlg() {};
+	LangMenuDlg() = default;
 	virtual void destroy() {
 		_tabSizeVal.destroy();
 	};
@@ -131,7 +131,7 @@ private :
 class Highlighting : public StaticDialog
 {
 public :
-	Highlighting() {};
+	Highlighting() = default;
 
 private :
 
@@ -148,7 +148,8 @@ struct strCouple {
 class PrintSettingsDlg : public StaticDialog
 {
 public :
-	PrintSettingsDlg(){};
+	PrintSettingsDlg() = default;
+
 private :
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	std::vector<strCouple> varList;
@@ -158,7 +159,8 @@ private :
 class BackupDlg : public StaticDialog
 {
 public :
-	BackupDlg() {};
+	BackupDlg() = default;
+
 private :
 	void updateBackupGUI();
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
@@ -168,7 +170,7 @@ private :
 class AutoCompletionDlg : public StaticDialog
 {
 public :
-	AutoCompletionDlg() {};
+	AutoCompletionDlg() = default;
 private :
 	URLCtrl _nbCharVal;
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
@@ -177,7 +179,7 @@ private :
 class MultiInstDlg : public StaticDialog
 {
 public :
-	MultiInstDlg() {};
+	MultiInstDlg() = default;
 
 private :
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
@@ -186,7 +188,7 @@ private :
 class DelimiterSettingsDlg : public StaticDialog
 {
 public :
-	DelimiterSettingsDlg() {};
+	DelimiterSettingsDlg() = default;
 	~DelimiterSettingsDlg() {
 		if (_tip)
 			::DestroyWindow(_tip);
@@ -206,7 +208,7 @@ private :
 class SettingsOnCloudDlg : public StaticDialog
 {
 public :
-	SettingsOnCloudDlg() {};
+	SettingsOnCloudDlg() = default;
 
 private :
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
@@ -215,7 +217,7 @@ private :
 class SearchEngineChoiceDlg : public StaticDialog
 {
 public :
-	SearchEngineChoiceDlg() {};
+	SearchEngineChoiceDlg() = default;
 
 private :
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
@@ -226,7 +228,7 @@ class PreferenceDlg : public StaticDialog
 friend class NativeLangSpeaker;
 
 public :
-	PreferenceDlg(){};
+	PreferenceDlg() = default;
 
     void init(HINSTANCE hInst, HWND parent)	{
         Window::init(hInst, parent);

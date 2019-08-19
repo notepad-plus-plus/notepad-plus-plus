@@ -41,7 +41,7 @@ public:
 		_shortcutFilter = TEXT("");
 		_dialogInitDone = false;
 	};
-	~ShortcutMapper() {};
+	~ShortcutMapper() = default;
 
 	void init(HINSTANCE hInst, HWND parent, GridState initState = STATE_MENU) {
         Window::init(hInst, parent);

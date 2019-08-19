@@ -40,7 +40,7 @@
 class FindCharsInRangeDlg : public StaticDialog
 {
 public :
-	FindCharsInRangeDlg() : StaticDialog() {};
+	FindCharsInRangeDlg() = default;
 
 	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView) {
 		Window::init(hInst, hPere);

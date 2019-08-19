@@ -117,10 +117,10 @@ public:
 
 private:
 	struct LoadedFileFormat {
-		LoadedFileFormat() {};
-		LangType _language;
-		int _encoding;
-		EolType _eolFormat;
+		LoadedFileFormat() = default;
+		LangType _language = L_TEXT;
+		int _encoding = 0;
+		EolType _eolFormat = EolType::osdefault;
 	};
 
 	FileManager() = default;

@@ -38,16 +38,14 @@ struct MapPosition;
 
 class DocumentPeeker : public StaticDialog {
 public:
-	DocumentPeeker(): StaticDialog() {};
+	DocumentPeeker() = default;
 
 	void init(HINSTANCE hInst, HWND hPere) {
 		Window::init(hInst, hPere);
 	};
 
 	void doDialog(POINT p, Buffer *buf, ScintillaEditView & scintSource);
-	
 	void syncDisplay(Buffer *buf, ScintillaEditView & scintSource);
-
 
     void setParent(HWND parent2set){
         _hParent = parent2set;

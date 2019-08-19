@@ -46,7 +46,7 @@ public:
 		_rc.bottom = 0;
 	};
 
-	virtual ~TaskList() {};
+	virtual ~TaskList() = default;
 	void init(HINSTANCE hInst, HWND hwnd, HIMAGELIST hImaLst, int nbItem, int index2set);
 	virtual void destroy();
 	void setFont(const TCHAR *fontName, int fontSize);

@@ -36,6 +36,7 @@ const size_t tagMaxLen = 256;
 class ScintillaEditView;
 
 struct MatchedCharInserted {
+	MatchedCharInserted() = delete;
 	char _c;
 	int _pos;
 	MatchedCharInserted(char c, int pos) : _c(c), _pos(pos) {};

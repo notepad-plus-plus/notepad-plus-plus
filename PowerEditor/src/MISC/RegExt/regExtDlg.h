@@ -37,13 +37,13 @@ const int extNameLen = 32;
 class RegExtDlg : public StaticDialog
 {
 public :
-	RegExtDlg() : _isCustomize(false){};
-	~RegExtDlg(){};
+	RegExtDlg() = default;
+	~RegExtDlg() = default;
 	void doDialog(bool isRTL = false);
 
 
 private :
-	bool _isCustomize;
+	bool _isCustomize = false;
 
 	INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 

@@ -24,7 +24,7 @@ enum hashType {hash_md5, hash_sha256};
 class HashFromFilesDlg : public StaticDialog
 {
 public :
-	HashFromFilesDlg() : StaticDialog() {};
+	HashFromFilesDlg() = default;
 
 	void doDialog(bool isRTL = false);
     virtual void destroy() {};
@@ -38,7 +38,7 @@ protected :
 class HashFromTextDlg : public StaticDialog
 {
 public :
-	HashFromTextDlg() : StaticDialog() {};
+	HashFromTextDlg() = default;
 
 	void doDialog(bool isRTL = false);
     virtual void destroy() {};

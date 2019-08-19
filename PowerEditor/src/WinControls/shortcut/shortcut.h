@@ -352,7 +352,7 @@ private :
 class Accelerator { //Handles accelerator keys for Notepad++ menu, including custom commands
 friend class ShortcutMapper;
 public:
-	Accelerator() {};
+	Accelerator() = default;
 	~Accelerator() {
 		if (_hAccTable)
 			::DestroyAcceleratorTable(_hAccTable);
@@ -388,7 +388,7 @@ private:
 
 class ScintillaAccelerator {	//Handles accelerator keys for scintilla
 public:
-	ScintillaAccelerator() {};
+	ScintillaAccelerator() = default;
 	void init(std::vector<HWND> * vScintillas, HMENU hMenu, HWND menuParent);
 	void updateKeys();
 	size_t nbScintillas() { return _vScintillas.size(); };

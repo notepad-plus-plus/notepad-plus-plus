@@ -49,7 +49,8 @@ public:
 	virtual void parse(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string classStructName = TEXT("")) = 0;
 	void funcParse(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string classStructName = TEXT(""), const std::vector< std::pair<int, int> > * commentZones = NULL);
 	bool isInZones(int pos2Test, const std::vector< std::pair<int, int> > & zones);
-	virtual ~FunctionParser() {};
+	virtual ~FunctionParser() = default;
+
 protected:
 	generic_string _id;
 	generic_string _displayName;
@@ -66,6 +67,7 @@ protected:
 class FunctionZoneParser : public FunctionParser
 {
 public:
+	FunctionZoneParser() = delete;
 	FunctionZoneParser(const TCHAR *id, const TCHAR *displayName, const TCHAR *commentExpr, const generic_string& rangeExpr, const generic_string& openSymbole, const generic_string& closeSymbole,
 		const std::vector<generic_string>& classNameExprArray, const generic_string& functionExpr, const std::vector<generic_string>& functionNameExprArray):
 		FunctionParser(id, displayName, commentExpr, functionExpr, functionNameExprArray, classNameExprArray), _rangeExpr(rangeExpr), _openSymbole(openSymbole), _closeSymbole(closeSymbole) {};

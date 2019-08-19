@@ -145,8 +145,8 @@ protected:
 class FileRelocalizerDlg : public StaticDialog
 {
 public :
-	FileRelocalizerDlg() : StaticDialog() {};
-	void init(HINSTANCE hInst, HWND parent){
+	FileRelocalizerDlg() = default;
+	void init(HINSTANCE hInst, HWND parent) {
 		Window::init(hInst, parent);
 	};
 

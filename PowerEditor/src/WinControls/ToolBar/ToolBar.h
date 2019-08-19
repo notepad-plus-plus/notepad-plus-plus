@@ -67,8 +67,8 @@ class TiXmlNode;
 class ToolBar : public Window
 {
 public :
-	ToolBar():Window() {};
-	virtual ~ToolBar(){};
+	ToolBar() = default;
+	virtual ~ToolBar() = default;
 
     void initTheme(TiXmlDocument *toolIconsDocRoot);
 	virtual bool init(HINSTANCE hInst, HWND hPere, toolBarStatusType type, 

@@ -38,7 +38,7 @@ const int nbMax = 45;
 class IconList
 {
 public :
-	IconList() {};
+	IconList() = default;
 	void create(HINSTANCE hInst, int iconSize);
 	void create(int iconSize, HINSTANCE hInst, int *iconIDArray, int iconIDArraySize);
 
@@ -76,7 +76,7 @@ typedef std::vector<IconList> IconListVector;
 class IconLists
 {
 public :
-	IconLists() {};
+	IconLists() = default;
 	HIMAGELIST getImageListHandle(int index) const {
 		return _iconListVector[index].getHandle();
 	};
@@ -92,7 +92,7 @@ const int HLIST_DISABLE = 2;
 class ToolBarIcons : public IconLists
 {
 public :
-	ToolBarIcons() : _nbCmd(0) {};
+	ToolBarIcons() = default;
 
 	void init(ToolBarButtonUnit *buttonUnitArray, int arraySize);
 	void create(HINSTANCE hInst, int iconSize);
@@ -133,6 +133,6 @@ public :
 
 private :
 	ToolBarIconIDs _tbiis;
-	unsigned int _nbCmd;
+	unsigned int _nbCmd = 0;
 };
 

@@ -1802,6 +1802,10 @@ bool Notepad_plus::findInOpenedFiles()
 		for (size_t i = 0, len2 = _subDocTab.nbItem(); i < len2 ; ++i)
 	    {
 			pBuf = MainFileManager.getBufferByID(_subDocTab.getBufferByIndex(i));
+			if (_mainDocTab.getIndexByBuffer(pBuf) != -1)
+			{
+				continue;  // clone was already searched in main; skip re-searching in sub
+			}
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
 			auto cp = _invisibleEditView.execute(SCI_GETCODEPAGE);
 			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? cp : SC_CP_UTF8);

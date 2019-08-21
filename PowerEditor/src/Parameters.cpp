@@ -550,6 +550,8 @@ int getKwClassFromName(const TCHAR *str)
 	if (!lstrcmp(TEXT("type3"), str)) return LANG_INDEX_TYPE3;
 	if (!lstrcmp(TEXT("type4"), str)) return LANG_INDEX_TYPE4;
 	if (!lstrcmp(TEXT("type5"), str)) return LANG_INDEX_TYPE5;
+	if (!lstrcmp(TEXT("type6"), str)) return LANG_INDEX_TYPE6;
+	if (!lstrcmp(TEXT("type7"), str)) return LANG_INDEX_TYPE7;
 
 	if ((str[1] == '\0') && (str[0] >= '0') && (str[0] <= '8')) // up to KEYWORDSET_MAX
 		return str[0] - '0';

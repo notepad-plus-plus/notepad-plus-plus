@@ -1226,6 +1226,19 @@ void ScintillaEditView::setLexer(int lexerID, LangType langType, int whichList)
 		const char * keyWords_char = wmc.wchar2char(pKwArray[LANG_INDEX_TYPE5], CP_ACP);
 		setKeywords(langType, keyWords_char, LANG_INDEX_TYPE5);
 	}
+
+	if (whichList & LIST_7)
+	{
+		const char * keyWords_char = wmc.wchar2char(pKwArray[LANG_INDEX_TYPE6], CP_ACP);
+		setKeywords(langType, keyWords_char, LANG_INDEX_TYPE6);
+	}
+
+	if (whichList & LIST_8)
+	{
+		const char * keyWords_char = wmc.wchar2char(pKwArray[LANG_INDEX_TYPE7], CP_ACP);
+		setKeywords(langType, keyWords_char, LANG_INDEX_TYPE7);
+	}
+
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold"), reinterpret_cast<LPARAM>("1"));
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.compact"), reinterpret_cast<LPARAM>("0"));
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.comment"), reinterpret_cast<LPARAM>("1"));

@@ -99,6 +99,8 @@ const int LANG_INDEX_TYPE2 = 3;
 const int LANG_INDEX_TYPE3 = 4;
 const int LANG_INDEX_TYPE4 = 5;
 const int LANG_INDEX_TYPE5 = 6;
+const int LANG_INDEX_TYPE6 = 7;
+const int LANG_INDEX_TYPE7 = 8;
 
 const int COPYDATA_PARAMS = 0;
 const int COPYDATA_FILENAMESA = 1;

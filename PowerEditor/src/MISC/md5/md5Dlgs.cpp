@@ -148,7 +148,7 @@ INT_PTR CALLBACK HashFromFilesDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 	return FALSE;	
 }
 
-LRESULT HashFromFilesDlg::run_textEditProc(WNDPROC oldEditProc, HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+LRESULT run_textEditProc(WNDPROC oldEditProc, HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
@@ -372,31 +372,6 @@ INT_PTR CALLBACK HashFromTextDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 		}
 	}
 	return FALSE;	
-}
-
-LRESULT HashFromTextDlg::run_textEditProc(WNDPROC oldEditProc, HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
-{
-	switch (message)
-	{
-		case WM_GETDLGCODE:
-		{
-			return DLGC_WANTALLKEYS | ::CallWindowProc(oldEditProc, hwnd, message, wParam, lParam);
-		}
-
-		case WM_CHAR:
-		{
-			if (wParam == 1) // Ctrl+A
-			{
-				::SendMessage(hwnd, EM_SETSEL, 0, -1);
-				return TRUE;
-			}
-			break;
-		}
-
-		default:
-			break;
-	}
-	return ::CallWindowProc(oldEditProc, hwnd, message, wParam, lParam);
 }
 
 void HashFromTextDlg::setHashType(hashType hashType2set)

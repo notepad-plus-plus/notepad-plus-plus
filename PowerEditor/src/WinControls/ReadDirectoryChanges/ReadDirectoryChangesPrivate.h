@@ -75,9 +75,9 @@ protected:
 			LPOVERLAPPED lpOverlapped);					// I/O information buffer
 
 	// Parameters from the caller for ReadDirectoryChangesW().
-	DWORD		m_dwFilterFlags;
-	BOOL		m_bIncludeChildren;
-	CStringW	m_wstrDirectory;
+	DWORD m_dwFilterFlags;
+	BOOL m_bIncludeChildren;
+	std::wstring m_wstrDirectory;
 
 	// Result of calling CreateFile().
 	HANDLE		m_hDirectory;

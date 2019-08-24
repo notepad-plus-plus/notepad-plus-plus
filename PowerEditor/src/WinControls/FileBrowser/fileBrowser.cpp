@@ -1353,7 +1353,7 @@ DWORD WINAPI FolderUpdater::watching(void *params)
 			// We've received a notification in the queue.
 			{
 				DWORD dwAction;
-				CStringW wstrFilename;
+				generic_string wstrFilename;
 				// Process all available changes, ignore User actions
 				while (changes.Pop(dwAction, wstrFilename))
 				{
@@ -1364,14 +1364,14 @@ DWORD WINAPI FolderUpdater::watching(void *params)
 					switch (dwAction)
 					{
 						case FILE_ACTION_ADDED:
-							file2Change.push_back(wstrFilename.GetString());
+							file2Change.push_back(wstrFilename);
 							//thisFolderUpdater->updateTree(dwAction, file2Change);
 							::SendMessage((thisFolderUpdater->_pFileBrowser)->getHSelf(), FB_ADDFILE, reinterpret_cast<WPARAM>(nullptr), reinterpret_cast<LPARAM>(&file2Change));
 							oldName = TEXT("");
 							break;
 
 						case FILE_ACTION_REMOVED:
-							file2Change.push_back(wstrFilename.GetString());
+							file2Change.push_back(wstrFilename);
 							//thisFolderUpdater->updateTree(dwAction, file2Change);
 							::SendMessage((thisFolderUpdater->_pFileBrowser)->getHSelf(), FB_RMFILE, reinterpret_cast<WPARAM>(nullptr), reinterpret_cast<LPARAM>(&file2Change));
 							oldName = TEXT("");
@@ -1382,14 +1382,14 @@ DWORD WINAPI FolderUpdater::watching(void *params)
 							break;
 
 						case FILE_ACTION_RENAMED_OLD_NAME:
-							oldName = wstrFilename.GetString();
+							oldName = wstrFilename;
 							break;
 
 						case FILE_ACTION_RENAMED_NEW_NAME:
 							if (not oldName.empty())
 							{
 								file2Change.push_back(oldName);
-								file2Change.push_back(wstrFilename.GetString());
+								file2Change.push_back(wstrFilename);
 								//thisFolderUpdater->updateTree(dwAction, file2Change);
 								::SendMessage((thisFolderUpdater->_pFileBrowser)->getHSelf(), FB_RNFILE, reinterpret_cast<WPARAM>(nullptr), reinterpret_cast<LPARAM>(&file2Change));
 							}

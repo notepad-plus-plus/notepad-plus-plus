@@ -44,7 +44,6 @@
 #define _ATL_CSTRING_EXPLICIT_CONSTRUCTORS      // some CString constructors will be explicit
 
 #include <atlbase.h>
-#include <atlstr.h>
 
 #include <vector>
 #include <list>
@@ -53,7 +52,7 @@ using namespace std;
 
 #include "ThreadSafeQueue.h"
 
-typedef pair<DWORD,CStringW> TDirectoryChangeNotification;
+typedef pair<DWORD, std::wstring> TDirectoryChangeNotification;
 
 namespace ReadDirectoryChangesPrivate
 {
@@ -98,7 +97,7 @@ namespace ReadDirectoryChangesPrivate
 ///				// We've received a notification in the queue.
 ///				{
 ///					DWORD dwAction;
-///					CStringW wstrFilename;
+///					std::wstring wstrFilename;
 ///					while (changes.Pop(dwAction, wstrFilename))
 ///						wprintf(L"%s %s\n", ExplainAction(dwAction), wstrFilename);
 ///				}
@@ -143,10 +142,10 @@ public:
 	/// </summary>
 	HANDLE GetWaitHandle() { return m_Notifications.GetWaitHandle(); }
 
-	bool Pop(DWORD& dwAction, CStringW& wstrFilename);
+	bool Pop(DWORD& dwAction, std::wstring& wstrFilename);
 
 	// "Push" is for usage by ReadChangesRequest.  Not intended for external usage.
-	void Push(DWORD dwAction, CStringW& wstrFilename);
+	void Push(DWORD dwAction, std::wstring& wstrFilename);
 
 	unsigned int GetThreadId() { return m_dwThreadId; }
 

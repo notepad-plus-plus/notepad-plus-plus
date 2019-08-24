@@ -77,12 +77,10 @@ DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 				// We've received a notification in the queue.
 			{
 				DWORD dwAction;
-				CStringW wstrFilename;
+				generic_string fn;
 				// Process all available changes, ignore User actions
-				while (changes.Pop(dwAction, wstrFilename))
+				while (changes.Pop(dwAction, fn))
 				{
-					generic_string fn = wstrFilename.GetString();
-
 					// Fix monitoring files which are under root problem
 					size_t pos = fn.find(TEXT("\\\\"));
 					if (pos == 2)

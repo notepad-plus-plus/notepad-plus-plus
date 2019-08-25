@@ -272,8 +272,6 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\MISC\Common\LongRunningOperation.cpp" />
-    <ClCompile Include="..\src\MISC\Common\mutex.cpp" />
     <ClCompile Include="..\src\MISC\Common\verifySignedfile.cpp" />
     <ClCompile Include="..\src\MISC\md5\md5Dlgs.cpp" />
     <ClCompile Include="..\src\MISC\sha2\sha-256.cpp" />
@@ -538,9 +536,6 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <None Include="..\src\cursors\drag_plus.cur" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\MISC\Common\LongRunningOperation.h" />
-    <ClInclude Include="..\src\MISC\Common\mutex.h" />
-    <ClInclude Include="..\src\MISC\Common\mutex.hxx" />
     <ClInclude Include="..\src\MISC\Common\verifySignedfile.h" />
     <ClInclude Include="..\src\MISC\md5\md5.h" />
     <ClInclude Include="..\src\MISC\md5\md5Dlgs.h" />

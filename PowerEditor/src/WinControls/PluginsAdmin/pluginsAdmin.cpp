@@ -40,7 +40,6 @@
 #include "Processus.h"
 #include "PluginsManager.h"
 #include "verifySignedFile.h"
-#include "LongRunningOperation.h"
 
 #define TEXTFILE        256
 #define IDR_PLUGINLISTJSONFILE  101

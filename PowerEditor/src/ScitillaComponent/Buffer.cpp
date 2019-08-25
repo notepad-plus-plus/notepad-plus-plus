@@ -36,7 +36,6 @@
 #include "ScintillaEditView.h"
 #include "EncodingMapper.h"
 #include "uchardet.h"
-#include "LongRunningOperation.h"
 
 static const int blockSize = 128 * 1024 + 4;
 static const int CR = 0x0D;
@@ -798,9 +797,12 @@ For untitled document (new  4)
 	In the current session, Notepad++
 	1. track UNTITLED_NAME@CREATION_TIMESTAMP (backup\new  4@198776) in session.xml.
 */
+
+std::mutex backup_mutex;
+
 bool FileManager::backupCurrentBuffer()
 {
-	LongRunningOperation op;
+	std::lock_guard<std::mutex> lock(backup_mutex);
 
 	Buffer* buffer = _pNotepadPlus->getCurrentBuffer();
 	bool result = false;
@@ -951,9 +953,11 @@ bool FileManager::deleteBufferBackup(BufferID id)
 	return result;
 }
 
+std::mutex save_mutex;
+
 bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, generic_string * error_msg)
 {
-	LongRunningOperation op;
+	std::lock_guard<std::mutex> lock(save_mutex);
 
 	Buffer* buffer = getBufferByID(id);
 	bool isHiddenOrSys = false;

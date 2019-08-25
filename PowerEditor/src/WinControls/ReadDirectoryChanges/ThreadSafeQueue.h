@@ -26,7 +26,10 @@
 //	http://qualapps.blogspot.com/2010/05/understanding-readdirectorychangesw.html
 //	See ReadMe.txt for overview information.
 
+#pragma once
+
 #include <list>
+#include <mutex>
 
 template <typename C>
 class CThreadSafeQueue : protected std::list<C>
@@ -53,7 +56,7 @@ public:
 	void push(C& c)
 	{
 		{
-			CComCritSecLock<CComAutoCriticalSection> lock(m_Crit, true);
+			std::lock_guard<std::mutex> lock(m_mutex);
 			Base::push_back(c);
 		}
 		::SetEvent(m_hEvent);
@@ -61,7 +64,7 @@ public:
 
 	bool pop(C& c)
 	{
-		CComCritSecLock<CComAutoCriticalSection> lock( m_Crit, true );
+		std::lock_guard<std::mutex> lock(m_mutex);
 		if (Base::empty())
 		{
 			return false;
@@ -77,6 +80,5 @@ public:
 
 protected:
 	HANDLE m_hEvent;
-
-	CComAutoCriticalSection m_Crit;
+	std::mutex m_mutex;
 };

@@ -26,6 +26,7 @@
 //	http://qualapps.blogspot.com/2010/05/understanding-readdirectorychangesw.html
 //	See ReadMe.txt for overview information.
 
+#include <shlwapi.h>
 #include "ReadDirectoryChanges.h"
 #include "ReadDirectoryChangesPrivate.h"
 
@@ -152,7 +153,7 @@ void CReadChangesRequest::ProcessNotification()
 			wstrFilename = m_wstrDirectory + wstrFilename;
 
 		// If it could be a short filename, expand it.
-		LPCWSTR wszFilename = PathFindFileNameW(wstrFilename.c_str());
+		LPCWSTR wszFilename = ::PathFindFileNameW(wstrFilename.c_str());
 		int len = lstrlenW(wszFilename);
 		// The maximum length of an 8.3 filename is twelve, including the dot.
 		if (len <= 12 && wcschr(wszFilename, L'~'))

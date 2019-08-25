@@ -48,7 +48,6 @@
 #include "documentMap.h"
 #include "functionListPanel.h"
 #include "fileBrowser.h"
-#include "LongRunningOperation.h"
 #include "Common.h"
 
 using namespace std;
@@ -1496,9 +1495,11 @@ void Notepad_plus::getMatchedFileNames(const TCHAR *dir, const vector<generic_st
 	::FindClose(hFile);
 }
 
+std::mutex replaceInFiles_mutex;
+
 bool Notepad_plus::replaceInFiles()
 {
-	LongRunningOperation op;
+	std::lock_guard<std::mutex> lock(replaceInFiles_mutex);
 
 	const TCHAR *dir2Search = _findReplaceDlg.getDir2Search();
 	if (!dir2Search[0] || !::PathFileExists(dir2Search))
@@ -2165,9 +2166,11 @@ void Notepad_plus::copyMarkedLines()
 	str2Cliboard(globalStr);
 }
 
+std::mutex mark_mutex;
+
 void Notepad_plus::cutMarkedLines()
 {
-	LongRunningOperation op;
+	std::lock_guard<std::mutex> lock(mark_mutex);
 
 	int lastLine = _pEditView->lastZeroBasedLineNumber();
 	generic_string globalStr = TEXT("");
@@ -2189,7 +2192,7 @@ void Notepad_plus::cutMarkedLines()
 
 void Notepad_plus::deleteMarkedLines(bool isMarked)
 {
-	LongRunningOperation op;
+	std::lock_guard<std::mutex> lock(mark_mutex);
 
 	int lastLine = _pEditView->lastZeroBasedLineNumber();
 
@@ -2204,7 +2207,7 @@ void Notepad_plus::deleteMarkedLines(bool isMarked)
 
 void Notepad_plus::pasteToMarkedLines()
 {
-	LongRunningOperation op;
+	std::lock_guard<std::mutex> lock(mark_mutex);
 
 	int clipFormat;
 	clipFormat = CF_UNICODETEXT;

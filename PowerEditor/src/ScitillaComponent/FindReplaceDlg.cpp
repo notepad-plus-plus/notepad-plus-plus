@@ -31,7 +31,6 @@
 #include "ScintillaEditView.h"
 #include "Notepad_plus_msgs.h"
 #include "UniConversion.h"
-#include "LongRunningOperation.h"
 #include "localization.h"
 
 using namespace std;
@@ -772,6 +771,8 @@ void FindReplaceDlg::resizeDialogElements(LONG newWidth)
 	}
 }
 
+std::mutex findOps_mutex;
+
 INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message) 
@@ -1086,7 +1087,8 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 				case IDREPLACE :
 				{
-					LongRunningOperation op;
+					std::lock_guard<std::mutex> lock(findOps_mutex);
+
 					if (_currentStatus == REPLACE_DLG)
 					{
 						setStatusbarMessage(TEXT(""), FSNoMessage);
@@ -1169,7 +1171,8 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 				case IDD_FINDINFILES_REPLACEINFILES :
 				{
-					LongRunningOperation op;
+					std::lock_guard<std::mutex> lock(findOps_mutex);
+
 					setStatusbarMessage(TEXT(""), FSNoMessage);
 					const int filterSize = 256;
 					TCHAR filters[filterSize];
@@ -1209,7 +1212,8 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 				case IDC_REPLACE_OPENEDFILES :
 				{
-					LongRunningOperation op;
+					std::lock_guard<std::mutex> lock(findOps_mutex);
+
 					if (_currentStatus == REPLACE_DLG)
 					{
 						setStatusbarMessage(TEXT(""), FSNoMessage);
@@ -1229,7 +1233,8 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 				case IDREPLACEALL :
 				{
-					LongRunningOperation op;
+					std::lock_guard<std::mutex> lock(findOps_mutex);
+
 					if (_currentStatus == REPLACE_DLG)
 					{
 						setStatusbarMessage(TEXT(""), FSNoMessage);

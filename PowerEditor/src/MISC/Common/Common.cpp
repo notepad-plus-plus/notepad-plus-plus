@@ -30,6 +30,7 @@
 #include <shlobj.h>
 #include <uxtheme.h>
 #include <cassert>
+#include <climits>
 #include <codecvt>
 
 #include "StaticDialog.h"
@@ -542,29 +543,63 @@ const char * WcharMbcsConvertor::wchar2char(const wchar_t * wcharStr2Convert, UI
 }
 
 
-std::wstring string2wstring(const std::string & rString, UINT codepage)
+std::wstring string2wstring(char const * const str, size_t const size, UINT const codepage)
 {
-	int len = MultiByteToWideChar(codepage, 0, rString.c_str(), -1, NULL, 0);
-	if (len > 0)
+	assert(str);
+	assert(size <= static_cast<size_t>(INT_MAX));
+	std::wstring result;
+	int const inputStrSize = static_cast<int>(size);
+	int const requiredBufferSize = MultiByteToWideChar(codepage, 0, str, inputStrSize, nullptr, 0);
+	assert(0 <= requiredBufferSize);
+	if (0 < requiredBufferSize)
 	{
-		std::vector<wchar_t> vw(len);
-		MultiByteToWideChar(codepage, 0, rString.c_str(), -1, &vw[0], len);
-		return &vw[0];
+		result.resize(static_cast<size_t>(requiredBufferSize));
+		int const writtenWcharsCount = MultiByteToWideChar(codepage, 0, str, inputStrSize, &result[0], requiredBufferSize);
+		if (0 < writtenWcharsCount)
+		{
+			assert(writtenWcharsCount <= requiredBufferSize);
+			if(writtenWcharsCount < requiredBufferSize)
+			{
+				result.resize(static_cast<size_t>(writtenWcharsCount));
+			}
+		}
+		else
+		{
+			result.clear();
+			result.shrink_to_fit();
+		}
 	}
-	return std::wstring();
+	return result;
 }
 
 
-std::string wstring2string(const std::wstring & rwString, UINT codepage)
+std::string wstring2string(wchar_t const * const str, size_t const size, UINT const codepage)
 {
-	int len = WideCharToMultiByte(codepage, 0, rwString.c_str(), -1, NULL, 0, NULL, NULL);
-	if (len > 0)
+	assert(str);
+	assert(size <= static_cast<size_t>(INT_MAX));
+	std::string result;
+	int const inputStrSize = static_cast<int>(size);
+	int const requiredBufferSize = WideCharToMultiByte(codepage, 0, str, inputStrSize, nullptr, 0, nullptr, nullptr);
+	assert(0 <= requiredBufferSize);
+	if (0 < requiredBufferSize)
 	{
-		std::vector<char> vw(len);
-		WideCharToMultiByte(codepage, 0, rwString.c_str(), -1, &vw[0], len, NULL, NULL);
-		return &vw[0];
+		result.resize(static_cast<size_t>(requiredBufferSize));
+		int const writtenCharsCount = WideCharToMultiByte(codepage, 0, str, inputStrSize, &result[0], requiredBufferSize, nullptr, nullptr);
+		if (0 < writtenCharsCount)
+		{
+			assert(writtenCharsCount <= requiredBufferSize);
+			if(writtenCharsCount < requiredBufferSize)
+			{
+				result.resize(static_cast<size_t>(writtenCharsCount));
+			}
+		}
+		else
+		{
+			result.clear();
+			result.shrink_to_fit();
+		}
 	}
-	return std::string();
+	return result;
 }
 
 

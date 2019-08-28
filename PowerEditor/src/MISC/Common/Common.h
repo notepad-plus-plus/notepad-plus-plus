@@ -30,6 +30,7 @@
 #include <sstream>
 #include <windows.h>
 #include <iso646.h>
+#include <cassert>
 #include <cstdint>
 
 
@@ -83,8 +84,29 @@ std::vector<generic_string> tokenizeString(const generic_string & tokenString, c
 void ClientRectToScreenRect(HWND hWnd, RECT* rect);
 void ScreenRectToClientRect(HWND hWnd, RECT* rect);
 
-std::wstring string2wstring(const std::string & rString, UINT codepage);
-std::string wstring2string(const std::wstring & rwString, UINT codepage);
+std::wstring string2wstring(char const * const str, size_t const size, UINT const codepage);
+inline std::wstring string2wstring(char const * const psz, UINT const codepage)
+{
+	assert(psz);
+	return string2wstring(psz, strlen(psz), codepage);
+}
+inline std::wstring string2wstring(std::string const & str, UINT const codepage)
+{
+	return string2wstring(str.data(), str.size(), codepage);
+}
+
+std::string wstring2string(wchar_t const * const str, size_t const size, UINT const codepage);
+inline std::string wstring2string(wchar_t const * const psz, UINT const codepage)
+{
+	assert(psz);
+	return wstring2string(psz, wcslen(psz), codepage);
+}
+inline std::string wstring2string(std::wstring const & str, UINT const codepage)
+{
+	return wstring2string(str.data(), str.size(), codepage);
+}
+
+
 bool isInList(const TCHAR *token, const TCHAR *list);
 generic_string BuildMenuFileName(int filenameLen, unsigned int pos, const generic_string &filename);
 

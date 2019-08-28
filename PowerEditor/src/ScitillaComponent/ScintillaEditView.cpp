@@ -680,8 +680,7 @@ void ScintillaEditView::setEmbeddedJSLexer()
 	basic_string<char> keywordList("");
 	if (pKwArray[LANG_INDEX_INSTR])
 	{
-		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
-		keywordList = wstring2string(kwlW, CP_ACP);
+		keywordList = wstring2string(pKwArray[LANG_INDEX_INSTR], CP_ACP);
 	}
 
 	execute(SCI_SETKEYWORDS, 1, reinterpret_cast<LPARAM>(getCompleteKeywordList(keywordList, L_JS, LANG_INDEX_INSTR)));
@@ -701,8 +700,7 @@ void ScintillaEditView::setJsonLexer()
 	basic_string<char> keywordList("");
 	if (pKwArray[LANG_INDEX_INSTR])
 	{
-		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
-		keywordList = wstring2string(kwlW, CP_ACP);
+		keywordList = wstring2string(pKwArray[LANG_INDEX_INSTR], CP_ACP);
 	}
 
 	execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(getCompleteKeywordList(keywordList, L_JSON, LANG_INDEX_INSTR)));
@@ -722,8 +720,7 @@ void ScintillaEditView::setEmbeddedPhpLexer()
 	basic_string<char> keywordList("");
 	if (pKwArray[LANG_INDEX_INSTR])
 	{
-		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
-		keywordList = wstring2string(kwlW, CP_ACP);
+		keywordList = wstring2string(pKwArray[LANG_INDEX_INSTR], CP_ACP);
 	}
 
 	execute(SCI_SETKEYWORDS, 4, reinterpret_cast<LPARAM>(getCompleteKeywordList(keywordList, L_PHP, LANG_INDEX_INSTR)));
@@ -740,8 +737,7 @@ void ScintillaEditView::setEmbeddedAspLexer()
 	basic_string<char> keywordList("");
 	if (pKwArray[LANG_INDEX_INSTR])
 	{
-		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
-		keywordList = wstring2string(kwlW, CP_ACP);
+		keywordList = wstring2string(pKwArray[LANG_INDEX_INSTR], CP_ACP);
 	}
 
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("asp.default.language"), reinterpret_cast<LPARAM>("2"));
@@ -938,15 +934,13 @@ void ScintillaEditView::setCppLexer(LangType langType)
 	basic_string<char> keywordListType("");
 	if (pKwArray[LANG_INDEX_INSTR])
 	{
-		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
-		keywordListInstruction = wstring2string(kwlW, CP_ACP);
+		keywordListInstruction = wstring2string(pKwArray[LANG_INDEX_INSTR], CP_ACP);
 	}
 	cppInstrs = getCompleteKeywordList(keywordListInstruction, langType, LANG_INDEX_INSTR);
 
 	if (pKwArray[LANG_INDEX_TYPE])
 	{
-		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_TYPE];
-		keywordListType = wstring2string(kwlW, CP_ACP);
+		keywordListType = wstring2string(pKwArray[LANG_INDEX_TYPE], CP_ACP);
 	}
 	cppTypes = getCompleteKeywordList(keywordListType, langType, LANG_INDEX_TYPE);
 
@@ -995,22 +989,19 @@ void ScintillaEditView::setJsLexer()
 
 		if (pKwArray[LANG_INDEX_INSTR])
 		{
-			basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
-			keywordListInstruction = wstring2string(kwlW, CP_ACP);
+			keywordListInstruction = wstring2string(pKwArray[LANG_INDEX_INSTR], CP_ACP);
 		}
 		const char *jsInstrs = getCompleteKeywordList(keywordListInstruction, L_JAVASCRIPT, LANG_INDEX_INSTR);
 
 		if (pKwArray[LANG_INDEX_TYPE])
 		{
-			basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_TYPE];
-			keywordListType = wstring2string(kwlW, CP_ACP);
+			keywordListType = wstring2string(pKwArray[LANG_INDEX_TYPE], CP_ACP);
 		}
 		const char *jsTypes = getCompleteKeywordList(keywordListType, L_JAVASCRIPT, LANG_INDEX_TYPE);
 
 		if (pKwArray[LANG_INDEX_INSTR2])
 		{
-			basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR2];
-			keywordListInstruction2 = wstring2string(kwlW, CP_ACP);
+			keywordListInstruction2 = wstring2string(pKwArray[LANG_INDEX_INSTR2], CP_ACP);
 		}
 		const char *jsInstrs2 = getCompleteKeywordList(keywordListInstruction2, L_JAVASCRIPT, LANG_INDEX_INSTR2);
 
@@ -1058,8 +1049,7 @@ void ScintillaEditView::setJsLexer()
 		basic_string<char> keywordListInstruction("");
 		if (pKwArray[LANG_INDEX_INSTR])
 		{
-			basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
-			keywordListInstruction = wstring2string(kwlW, CP_ACP);
+			keywordListInstruction = wstring2string(pKwArray[LANG_INDEX_INSTR], CP_ACP);
 		}
 		const char *jsEmbeddedInstrs = getCompleteKeywordList(keywordListInstruction, L_JS, LANG_INDEX_INSTR);
 		execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(jsEmbeddedInstrs));
@@ -1092,15 +1082,13 @@ void ScintillaEditView::setTclLexer()
 	basic_string<char> keywordListType("");
 	if (pKwArray[LANG_INDEX_INSTR])
 	{
-		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
-		keywordListInstruction = wstring2string(kwlW, CP_ACP);
+		keywordListInstruction = wstring2string(pKwArray[LANG_INDEX_INSTR], CP_ACP);
 	}
 	tclInstrs = getCompleteKeywordList(keywordListInstruction, L_TCL, LANG_INDEX_INSTR);
 
 	if (pKwArray[LANG_INDEX_TYPE])
 	{
-		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_TYPE];
-		keywordListType = wstring2string(kwlW, CP_ACP);
+		keywordListType = wstring2string(pKwArray[LANG_INDEX_TYPE], CP_ACP);
 	}
 	tclTypes = getCompleteKeywordList(keywordListType, L_TCL, LANG_INDEX_TYPE);
 

@@ -1199,8 +1199,8 @@ Deseja iniciar o Notepad++ no modo Administrador?"/>
             <find-status-cannot-find value="Localizar: Texto &quot;$STR_REPLACE$&quot; não localizado."/>
             <finder-find-in-finder value="Localizar nos resultados encontrados..."/>
             <finder-close-this value="Feche este localizador."/>
-            <finder-collapse-all value="Expandir tudo"/>
-            <finder-uncollapse-all value="Reduzir tudo"/>
+            <finder-collapse-all value="Reduzir tudo"/>
+            <finder-uncollapse-all value="Expandir tudo"/>
             <finder-copy value="Copiar"/>
             <finder-select-all value="Selecionar tudo"/>
             <finder-clear-all value="Limpar tudo"/>

@@ -34,8 +34,6 @@
 #include "DockingManager.h"
 #include "Parameters.h"
 
-using namespace std;
-
 #ifndef WH_KEYBOARD_LL
 #define WH_KEYBOARD_LL 13
 #endif
@@ -411,7 +409,7 @@ void Gripper::onButtonUp()
 
 void Gripper::doTabReordering(POINT pt)
 {
-	vector<DockingCont*>	vCont		= _pDockMgr->getContainerInfo();
+	std::vector<DockingCont*>	vCont		= _pDockMgr->getContainerInfo();
 	BOOL					inTab		= FALSE;
 	HWND					hTab		= NULL;
 	HWND					hTabOld		= _hTab;
@@ -728,7 +726,7 @@ void Gripper::getMovingRect(POINT pt, RECT *rc)
 
 DockingCont* Gripper::contHitTest(POINT pt)
 {
-	vector<DockingCont*>	vCont	= _pDockMgr->getContainerInfo();
+	std::vector<DockingCont*>	vCont	= _pDockMgr->getContainerInfo();
 	HWND					hWnd	= ::WindowFromPoint(pt);
 
 	for (size_t iCont = 0, len = vCont.size(); iCont < len; ++iCont)
@@ -782,7 +780,7 @@ DockingCont* Gripper::contHitTest(POINT pt)
 DockingCont* Gripper::workHitTest(POINT pt, RECT *rc)
 {
 	RECT					rcCont	= {0};
-	vector<DockingCont*>	vCont	= _pDockMgr->getContainerInfo();
+	std::vector<DockingCont*>	vCont	= _pDockMgr->getContainerInfo();
 
 	/* at first test if cursor points into a visible container */
 	for (size_t iCont = 0, len = vCont.size(); iCont < len; ++iCont)

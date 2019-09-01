@@ -30,8 +30,6 @@
 #include "Notepad_plus.h"
 
 
-using namespace std;
-
 void ShortcutMapper::initTabs()
 {
 	HWND hTab = _hTabCtrl = ::GetDlgItem(_hSelf, IDC_BABYGRID_TABBAR);
@@ -246,7 +244,7 @@ void ShortcutMapper::fillOutBabyGrid()
 	{
 		case STATE_MENU:
 		{
-			vector<CommandShortcut> & cshortcuts = nppParam.getUserShortcuts();
+			std::vector<CommandShortcut> & cshortcuts = nppParam.getUserShortcuts();
 			cs_index = 1;
 			for (size_t i = 0; i < nbItems; ++i)
 			{
@@ -274,7 +272,7 @@ void ShortcutMapper::fillOutBabyGrid()
 
 		case STATE_MACRO:
 		{
-			vector<MacroShortcut> & cshortcuts = nppParam.getMacroList();
+			std::vector<MacroShortcut> & cshortcuts = nppParam.getMacroList();
 			cs_index = 1;
 			for (size_t i = 0; i < nbItems; ++i)
 			{
@@ -303,7 +301,7 @@ void ShortcutMapper::fillOutBabyGrid()
 
 		case STATE_USER:
 		{
-			vector<UserCommand> & cshortcuts = nppParam.getUserCommandList();
+			std::vector<UserCommand> & cshortcuts = nppParam.getUserCommandList();
 			cs_index = 1;
 			for (size_t i = 0; i < nbItems; ++i)
 			{
@@ -333,7 +331,7 @@ void ShortcutMapper::fillOutBabyGrid()
 
 		case STATE_PLUGIN:
 		{
-			vector<PluginCmdShortcut> & cshortcuts = nppParam.getPluginCommandList();
+			std::vector<PluginCmdShortcut> & cshortcuts = nppParam.getPluginCommandList();
 			cs_index = 1;
 			for (size_t i = 0; i < nbItems; ++i)
 			{
@@ -363,7 +361,7 @@ void ShortcutMapper::fillOutBabyGrid()
 
 		case STATE_SCINTILLA:
 		{
-			vector<ScintillaKeyMap> & cshortcuts = nppParam.getScintillaKeyList();
+			std::vector<ScintillaKeyMap> & cshortcuts = nppParam.getScintillaKeyList();
 			cs_index=1;
 			for (size_t i = 0; i < nbItems; ++i)
 			{
@@ -591,7 +589,7 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						case STATE_MENU:
 						{
 							//Get CommandShortcut corresponding to row
-							vector<CommandShortcut> & shortcuts = nppParam.getUserShortcuts();
+							std::vector<CommandShortcut> & shortcuts = nppParam.getUserShortcuts();
 							CommandShortcut csc = shortcuts[shortcutIndex];
 							csc.clear();
 							shortcuts[shortcutIndex] = csc;
@@ -614,7 +612,7 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						case STATE_MACRO: 
 						{
 							//Get MacroShortcut corresponding to row
-							vector<MacroShortcut> & shortcuts = nppParam.getMacroList();
+							std::vector<MacroShortcut> & shortcuts = nppParam.getMacroList();
 							MacroShortcut msc = shortcuts[shortcutIndex];
 							msc.clear();
 							shortcuts[shortcutIndex] = msc;
@@ -634,7 +632,7 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						case STATE_USER: 
 						{
 							//Get UserCommand corresponding to row
-							vector<UserCommand> & shortcuts = nppParam.getUserCommandList();
+							std::vector<UserCommand> & shortcuts = nppParam.getUserCommandList();
 							UserCommand ucmd = shortcuts[shortcutIndex];
 							ucmd.clear();
 
@@ -657,7 +655,7 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						case STATE_PLUGIN: 
 						{
 							//Get PluginCmdShortcut corresponding to row
-							vector<PluginCmdShortcut> & shortcuts = nppParam.getPluginCommandList();
+							std::vector<PluginCmdShortcut> & shortcuts = nppParam.getPluginCommandList();
 							PluginCmdShortcut pcsc = shortcuts[shortcutIndex];
 							pcsc.clear();
 							//shortcut was altered
@@ -714,7 +712,7 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						case STATE_MENU:
 						{
 							//Get CommandShortcut corresponding to row
-							vector<CommandShortcut> & shortcuts = nppParam.getUserShortcuts();
+							std::vector<CommandShortcut> & shortcuts = nppParam.getUserShortcuts();
 							CommandShortcut csc = shortcuts[shortcutIndex], prevcsc = shortcuts[shortcutIndex];
 							csc.init(_hInst, _hSelf);
 							if (csc.doDialog() != -1 && prevcsc != csc)
@@ -740,7 +738,7 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						case STATE_MACRO: 
 						{
 							//Get MacroShortcut corresponding to row
-							vector<MacroShortcut> & shortcuts = nppParam.getMacroList();
+							std::vector<MacroShortcut> & shortcuts = nppParam.getMacroList();
 							MacroShortcut msc = shortcuts[shortcutIndex], prevmsc = shortcuts[shortcutIndex];
 							msc.init(_hInst, _hSelf);
 							if (msc.doDialog() != -1 && prevmsc != msc)
@@ -765,7 +763,7 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						case STATE_USER: 
 						{
 							//Get UserCommand corresponding to row
-							vector<UserCommand> & shortcuts = nppParam.getUserCommandList();
+							std::vector<UserCommand> & shortcuts = nppParam.getUserCommandList();
 							UserCommand ucmd = shortcuts[shortcutIndex];
 							ucmd.init(_hInst, _hSelf);
 							UserCommand prevucmd = ucmd;
@@ -791,7 +789,7 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						case STATE_PLUGIN:
 						{
 							//Get PluginCmdShortcut corresponding to row
-							vector<PluginCmdShortcut> & shortcuts = nppParam.getPluginCommandList();
+							std::vector<PluginCmdShortcut> & shortcuts = nppParam.getPluginCommandList();
 							PluginCmdShortcut pcsc = shortcuts[shortcutIndex];
 							pcsc.init(_hInst, _hSelf);
 							PluginCmdShortcut prevpcsc = pcsc;
@@ -826,7 +824,7 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						case STATE_SCINTILLA:
 						{
 							//Get ScintillaKeyMap corresponding to row
-							vector<ScintillaKeyMap> & shortcuts = nppParam.getScintillaKeyList();
+							std::vector<ScintillaKeyMap> & shortcuts = nppParam.getScintillaKeyList();
 							ScintillaKeyMap skm = shortcuts[shortcutIndex], prevskm = shortcuts[shortcutIndex];
 							skm.init(_hInst, _hSelf);
 							if (skm.doDialog() != -1 && prevskm != skm)
@@ -891,8 +889,8 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 							case STATE_MACRO: 
 							{
-								vector<MacroShortcut> & theMacros = nppParam.getMacroList();
-								vector<MacroShortcut>::iterator it = theMacros.begin();
+								std::vector<MacroShortcut> & theMacros = nppParam.getMacroList();
+								std::vector<MacroShortcut>::iterator it = theMacros.begin();
 								cmdID = theMacros[shortcutIndex].getID();
 								theMacros.erase(it + shortcutIndex);
 
@@ -925,8 +923,8 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 							case STATE_USER: 
 							{
-								vector<UserCommand> & theUserCmds = nppParam.getUserCommandList();
-								vector<UserCommand>::iterator it = theUserCmds.begin();
+								std::vector<UserCommand> & theUserCmds = nppParam.getUserCommandList();
+								std::vector<UserCommand>::iterator it = theUserCmds.begin();
 								cmdID = theUserCmds[shortcutIndex].getID();
 								theUserCmds.erase(it + shortcutIndex);
 
@@ -992,7 +990,7 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 							::GetCursorPos(&p);
 							if (!_rightClickMenu.isCreated())
 							{
-								vector<MenuItemUnit> itemUnitArray;
+								std::vector<MenuItemUnit> itemUnitArray;
 								itemUnitArray.push_back(MenuItemUnit(IDM_BABYGRID_MODIFY, TEXT("Modify")));
 								itemUnitArray.push_back(MenuItemUnit(IDM_BABYGRID_DELETE, TEXT("Delete")));
 								itemUnitArray.push_back(MenuItemUnit(IDM_BABYGRID_CLEAR, TEXT("Clear")));
@@ -1061,35 +1059,35 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 							{
 								case STATE_MENU:
 								{
-									vector<CommandShortcut> & vShortcuts = nppParam.getUserShortcuts();
+									std::vector<CommandShortcut> & vShortcuts = nppParam.getUserShortcuts();
 									findKeyConflicts(&conflictInfo, vShortcuts[currentIndex].getKeyCombo(), currentIndex);
 								}
 								break;
 
 								case STATE_MACRO:
 								{
-									vector<MacroShortcut> & vShortcuts = nppParam.getMacroList();
+									std::vector<MacroShortcut> & vShortcuts = nppParam.getMacroList();
 									findKeyConflicts(&conflictInfo, vShortcuts[currentIndex].getKeyCombo(), currentIndex);
 								}
 								break;
 
 								case STATE_USER:
 								{
-									vector<UserCommand> & vShortcuts = nppParam.getUserCommandList();
+									std::vector<UserCommand> & vShortcuts = nppParam.getUserCommandList();
 									findKeyConflicts(&conflictInfo, vShortcuts[currentIndex].getKeyCombo(), currentIndex);
 								}
 								break;
 
 								case STATE_PLUGIN:
 								{
-									vector<PluginCmdShortcut> & vShortcuts = nppParam.getPluginCommandList();
+									std::vector<PluginCmdShortcut> & vShortcuts = nppParam.getPluginCommandList();
 									findKeyConflicts(&conflictInfo, vShortcuts[currentIndex].getKeyCombo(), currentIndex);
 								}
 								break;
 
 								case STATE_SCINTILLA:
 								{
-									vector<ScintillaKeyMap> & vShortcuts = nppParam.getScintillaKeyList();
+									std::vector<ScintillaKeyMap> & vShortcuts = nppParam.getScintillaKeyList();
 									size_t sciCombos = vShortcuts[currentIndex].getSize();
 									for (size_t sciIndex = 0; sciIndex < sciCombos; ++sciIndex)
 										findKeyConflicts(&conflictInfo, vShortcuts[currentIndex].getKeyComboByIndex(sciIndex), currentIndex);
@@ -1140,7 +1138,7 @@ bool ShortcutMapper::findKeyConflicts(__inout_opt generic_string * const keyConf
 		{
 			case STATE_MENU:
 			{
-				vector<CommandShortcut> & vShortcuts = nppParam.getUserShortcuts();
+				std::vector<CommandShortcut> & vShortcuts = nppParam.getUserShortcuts();
 				size_t nbItems = vShortcuts.size();
 				for (size_t itemIndex = 0; itemIndex < nbItems; ++itemIndex)
 				{
@@ -1174,7 +1172,7 @@ bool ShortcutMapper::findKeyConflicts(__inout_opt generic_string * const keyConf
 			} //case STATE_MENU
 			case STATE_MACRO:
 			{
-				vector<MacroShortcut> & vShortcuts = nppParam.getMacroList();
+				std::vector<MacroShortcut> & vShortcuts = nppParam.getMacroList();
 				size_t nbItems = vShortcuts.size();
 				for (size_t itemIndex = 0; itemIndex < nbItems; ++itemIndex)
 				{
@@ -1208,7 +1206,7 @@ bool ShortcutMapper::findKeyConflicts(__inout_opt generic_string * const keyConf
 			} //case STATE_MACRO
 			case STATE_USER:
 			{
-				vector<UserCommand> & vShortcuts = nppParam.getUserCommandList();
+				std::vector<UserCommand> & vShortcuts = nppParam.getUserCommandList();
 				size_t nbItems = vShortcuts.size();
 				for (size_t itemIndex = 0; itemIndex < nbItems; ++itemIndex)
 				{
@@ -1242,7 +1240,7 @@ bool ShortcutMapper::findKeyConflicts(__inout_opt generic_string * const keyConf
 			} //case STATE_USER
 			case STATE_PLUGIN:
 			{
-				vector<PluginCmdShortcut> & vShortcuts = nppParam.getPluginCommandList();
+				std::vector<PluginCmdShortcut> & vShortcuts = nppParam.getPluginCommandList();
 				size_t nbItems = vShortcuts.size();
 				for (size_t itemIndex = 0; itemIndex < nbItems; ++itemIndex)
 				{
@@ -1276,7 +1274,7 @@ bool ShortcutMapper::findKeyConflicts(__inout_opt generic_string * const keyConf
 			} //case STATE_PLUGIN
 			case STATE_SCINTILLA:
 			{
-				vector<ScintillaKeyMap> & vShortcuts = nppParam.getScintillaKeyList();
+				std::vector<ScintillaKeyMap> & vShortcuts = nppParam.getScintillaKeyList();
 				size_t nbItems = vShortcuts.size();
 				for (size_t itemIndex = 0; itemIndex < nbItems; ++itemIndex)
 				{

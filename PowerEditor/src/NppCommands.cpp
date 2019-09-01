@@ -41,7 +41,6 @@
 #include "md5.h"
 #include "sha-256.h"
 
-using namespace std;
 
 std::mutex command_mutex;
 
@@ -131,7 +130,7 @@ void Notepad_plus::command(int id)
 			{
 				if (_pFileBrowser == nullptr) // first launch, check in params to open folders
 				{
-					vector<generic_string> dummy;
+					std::vector<generic_string> dummy;
 					launchFileBrowser(dummy);
 					if (_pFileBrowser != nullptr)
 					{
@@ -165,7 +164,7 @@ void Notepad_plus::command(int id)
 		case IDM_FILESWITCHER_FILESCLOSEOTHERS:
 			if (_pFileSwitcherPanel)
 			{
-				vector<SwitcherFileInfo> files = _pFileSwitcherPanel->getSelectedFiles(id == IDM_FILESWITCHER_FILESCLOSEOTHERS);
+				std::vector<SwitcherFileInfo> files = _pFileSwitcherPanel->getSelectedFiles(id == IDM_FILESWITCHER_FILESCLOSEOTHERS);
 				for (size_t i = 0, len = files.size(); i < len; ++i)
 				{
 					fileClose((BufferID)files[i]._bufID, files[i]._iView);
@@ -585,7 +584,7 @@ void Notepad_plus::command(int id)
 				hasLineSelection = selStart != selEnd;
 				if (hasLineSelection)
 				{
-					pair<int, int> lineRange = _pEditView->getSelectionLinesRange();
+					std::pair<int, int> lineRange = _pEditView->getSelectionLinesRange();
 					// One single line selection is not allowed.
 					if (lineRange.first == lineRange.second)
 					{
@@ -723,7 +722,7 @@ void Notepad_plus::command(int id)
 				}
 				else
 				{
-					vector<generic_string> dummy;
+					std::vector<generic_string> dummy;
 					launchFileBrowser(dummy);
 					checkMenuItem(IDM_VIEW_FILEBROWSER, true);
 					_toolBar.setCheck(IDM_VIEW_FILEBROWSER, true);
@@ -2520,7 +2519,7 @@ void Notepad_plus::command(int id)
 			// Copy plugins to Plugins Home
             const TCHAR *extFilterName = TEXT("Notepad++ plugin");
             const TCHAR *extFilter = TEXT(".dll");
-            vector<generic_string> copiedFiles = addNppPlugins(extFilterName, extFilter);
+			std::vector<generic_string> copiedFiles = addNppPlugins(extFilterName, extFilter);
 
             // Tell users to restart Notepad++ to load plugin
 			if (copiedFiles.size())
@@ -2546,7 +2545,7 @@ void Notepad_plus::command(int id)
             NppParameters& nppParams = NppParameters::getInstance();
             ThemeSwitcher & themeSwitcher = nppParams.getThemeSwitcher();
 
-            vector<generic_string> copiedFiles = addNppComponents(destDir, extFilterName, extFilter);
+			std::vector<generic_string> copiedFiles = addNppComponents(destDir, extFilterName, extFilter);
             for (size_t i = 0, len = copiedFiles.size(); i < len ; ++i)
             {
                 generic_string themeName(themeSwitcher.getThemeFromXmlFileName(copiedFiles[i].c_str()));
@@ -3320,13 +3319,13 @@ void Notepad_plus::command(int id)
 			else if ((id >= ID_MACRO) && (id < ID_MACRO_LIMIT))
 			{
 				int i = id - ID_MACRO;
-				vector<MacroShortcut> & theMacros = (NppParameters::getInstance()).getMacroList();
+				std::vector<MacroShortcut> & theMacros = (NppParameters::getInstance()).getMacroList();
 				macroPlayback(theMacros[i].getMacro());
 			}
 			else if ((id >= ID_USER_CMD) && (id < ID_USER_CMD_LIMIT))
 			{
 				int i = id - ID_USER_CMD;
-				vector<UserCommand> & theUserCommands = (NppParameters::getInstance()).getUserCommandList();
+				std::vector<UserCommand> & theUserCommands = (NppParameters::getInstance()).getUserCommandList();
 				UserCommand ucmd = theUserCommands[i];
 
 				Command cmd(ucmd.getCmd());

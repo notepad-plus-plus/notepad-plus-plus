@@ -35,8 +35,6 @@
 #include "Notepad_plus_Window.h"
 #include "keys.h"
 
-using namespace std;
-
 const int KEY_STR_LEN = 16;
 
 struct KeyIDNAME {
@@ -303,19 +301,19 @@ void getNameStrFromCmd(DWORD cmd, generic_string & str)
 {
 	if ((cmd >= ID_MACRO) && (cmd < ID_MACRO_LIMIT))
 	{
-		vector<MacroShortcut> & theMacros = (NppParameters::getInstance()).getMacroList();
+		std::vector<MacroShortcut> & theMacros = (NppParameters::getInstance()).getMacroList();
 		int i = cmd - ID_MACRO;
 		str = theMacros[i].getName();
 	}
 	else if ((cmd >= ID_USER_CMD) && (cmd < ID_USER_CMD_LIMIT))
 	{
-		vector<UserCommand> & userCommands = (NppParameters::getInstance()).getUserCommandList();
+		std::vector<UserCommand> & userCommands = (NppParameters::getInstance()).getUserCommandList();
 		int i = cmd - ID_USER_CMD;
 		str = userCommands[i].getName();
 	}
 	else if ((cmd >= ID_PLUGINS_CMD) && (cmd < ID_PLUGINS_CMD_LIMIT))
 	{
-		vector<PluginCmdShortcut> & pluginCmds = (NppParameters::getInstance()).getPluginCommandList();
+		std::vector<PluginCmdShortcut> & pluginCmds = (NppParameters::getInstance()).getPluginCommandList();
 		size_t i = 0;
 		for (size_t j = 0, len = pluginCmds.size(); j < len ; ++j)
 		{
@@ -488,14 +486,14 @@ INT_PTR CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 // return true if one of CommandShortcuts is deleted. Otherwise false.
 void Accelerator::updateShortcuts() 
 {
-	const array<unsigned long, 3> incrFindAccIds = { IDM_SEARCH_FINDNEXT, IDM_SEARCH_FINDPREV, IDM_SEARCH_FINDINCREMENT };
+	const std::array<unsigned long, 3> incrFindAccIds = { IDM_SEARCH_FINDNEXT, IDM_SEARCH_FINDPREV, IDM_SEARCH_FINDINCREMENT };
 
 	NppParameters& nppParam = NppParameters::getInstance();
 
-	vector<CommandShortcut> & shortcuts = nppParam.getUserShortcuts();
-	vector<MacroShortcut> & macros  = nppParam.getMacroList();
-	vector<UserCommand> & userCommands = nppParam.getUserCommandList();
-	vector<PluginCmdShortcut> & pluginCommands = nppParam.getPluginCommandList();
+	std::vector<CommandShortcut> & shortcuts = nppParam.getUserShortcuts();
+	std::vector<MacroShortcut> & macros  = nppParam.getMacroList();
+	std::vector<UserCommand> & userCommands = nppParam.getUserCommandList();
+	std::vector<PluginCmdShortcut> & pluginCommands = nppParam.getPluginCommandList();
 
 	size_t nbMenu = shortcuts.size();
 	size_t nbMacro = macros.size();
@@ -504,7 +502,7 @@ void Accelerator::updateShortcuts()
 
 	delete [] _pAccelArray;
 	_pAccelArray = new ACCEL[nbMenu+nbMacro+nbUserCmd+nbPluginCmd];
-	vector<ACCEL> incrFindAcc;
+	std::vector<ACCEL> incrFindAcc;
 
 	ACCEL *pSearchFindAccel = nullptr;
 	int offset = 0;
@@ -603,25 +601,25 @@ void Accelerator::updateShortcuts()
 void Accelerator::updateFullMenu()
 {
 	NppParameters& nppParam = NppParameters::getInstance();
-	vector<CommandShortcut> commands = nppParam.getUserShortcuts();
+	std::vector<CommandShortcut> commands = nppParam.getUserShortcuts();
 	for (size_t i = 0; i < commands.size(); ++i)
 	{
 		updateMenuItemByCommand(commands[i]);
 	}
 
-	vector<MacroShortcut> mcommands = nppParam.getMacroList();
+	std::vector<MacroShortcut> mcommands = nppParam.getMacroList();
 	for (size_t i = 0; i < mcommands.size(); ++i)
 	{
 		updateMenuItemByCommand(mcommands[i]);
 	}
 
-	vector<UserCommand> ucommands = nppParam.getUserCommandList();
+	std::vector<UserCommand> ucommands = nppParam.getUserCommandList();
 	for (size_t i = 0; i < ucommands.size(); ++i)
 	{
 		updateMenuItemByCommand(ucommands[i]);
 	}
 
-	vector<PluginCmdShortcut> pcommands = nppParam.getPluginCommandList();
+	std::vector<PluginCmdShortcut> pcommands = nppParam.getPluginCommandList();
 	for (size_t i = 0; i < pcommands.size(); ++i)
 	{
 		updateMenuItemByCommand(pcommands[i]);
@@ -867,7 +865,7 @@ void recordedMacroStep::PlayBack(Window* pNotepad, ScintillaEditView *pEditView)
 	}
 }
 
-void ScintillaAccelerator::init(vector<HWND> * vScintillas, HMENU hMenu, HWND menuParent)
+void ScintillaAccelerator::init(std::vector<HWND> * vScintillas, HMENU hMenu, HWND menuParent)
 {
 	_hAccelMenu = hMenu;
 	_hMenuParent = menuParent;
@@ -881,7 +879,7 @@ void ScintillaAccelerator::init(vector<HWND> * vScintillas, HMENU hMenu, HWND me
 void ScintillaAccelerator::updateKeys() 
 {
 	NppParameters& nppParam = NppParameters::getInstance();
-	vector<ScintillaKeyMap> & map = nppParam.getScintillaKeyList();
+	std::vector<ScintillaKeyMap> & map = nppParam.getScintillaKeyList();
 	size_t mapSize = map.size();
 	size_t index;
 	size_t nb = nbScintillas();

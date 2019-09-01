@@ -38,8 +38,6 @@
 
 #pragma warning(disable : 4996) // for GetVersionEx()
 
-using namespace std;
-
 
 namespace // anonymous namespace
 {
@@ -648,7 +646,7 @@ int base64ToAscii(char *dest, const char *base64Str)
 } // anonymous namespace
 
 
-void cutString(const TCHAR* str2cut, vector<generic_string>& patternVect)
+void cutString(const TCHAR* str2cut, std::vector<generic_string>& patternVect)
 {
 	if (str2cut == nullptr) return;
 
@@ -698,10 +696,10 @@ std::wstring LocalizationSwitcher::getXmlFilePathFromLangName(const wchar_t *lan
 bool LocalizationSwitcher::addLanguageFromXml(const std::wstring& xmlFullPath)
 {
 	wchar_t * fn = ::PathFindFileNameW(xmlFullPath.c_str());
-	wstring foundLang = getLangFromXmlFileName(fn);
+	std::wstring foundLang = getLangFromXmlFileName(fn);
 	if (not foundLang.empty())
 	{
-		_localizationList.push_back(pair<wstring, wstring>(foundLang, xmlFullPath));
+		_localizationList.push_back(std::pair<std::wstring, std::wstring>(foundLang, xmlFullPath));
 		return true;
 	}
 	return false;
@@ -710,7 +708,7 @@ bool LocalizationSwitcher::addLanguageFromXml(const std::wstring& xmlFullPath)
 
 bool LocalizationSwitcher::switchToLang(const wchar_t *lang2switch) const
 {
-	wstring langPath = getXmlFilePathFromLangName(lang2switch);
+	std::wstring langPath = getXmlFilePathFromLangName(lang2switch);
 	if (langPath.empty())
 		return false;
 
@@ -1833,7 +1831,7 @@ int NppParameters::getCmdIdFromMenuEntryItemName(HMENU mainMenuHadle, const gene
 		::GetMenuString(mainMenuHadle, i, menuEntryString, 64, MF_BYPOSITION);
 		if (generic_stricmp(menuEntryName.c_str(), purgeMenuItemString(menuEntryString).c_str()) == 0)
 		{
-			vector< pair<HMENU, int> > parentMenuPos;
+			std::vector< std::pair<HMENU, int> > parentMenuPos;
 			HMENU topMenu = ::GetSubMenu(mainMenuHadle, i);
 			int maxTopMenuPos = ::GetMenuItemCount(topMenu);
 			HMENU currMenu = topMenu;
@@ -1846,7 +1844,7 @@ int NppParameters::getCmdIdFromMenuEntryItemName(HMENU mainMenuHadle, const gene
 				if (::GetSubMenu(currMenu, currMenuPos))
 				{
 					//  Go into sub menu
-					parentMenuPos.push_back(::make_pair(currMenu, currMenuPos));
+					parentMenuPos.push_back(std::make_pair(currMenu, currMenuPos));
 					currMenu = ::GetSubMenu(currMenu, currMenuPos);
 					currMenuPos = 0;
 					currMaxMenuPos = ::GetMenuItemCount(currMenu);
@@ -2671,7 +2669,7 @@ std::pair<unsigned char, unsigned char> NppParameters::feedUserLang(TiXmlNode *n
 		}
 	}
 	int iEnd = _nbUserLang;
-	return pair<unsigned char, unsigned char>(static_cast<unsigned char>(iBegin), static_cast<unsigned char>(iEnd));
+	return std::pair<unsigned char, unsigned char>(static_cast<unsigned char>(iBegin), static_cast<unsigned char>(iEnd));
 }
 
 bool NppParameters::importUDLFromFile(const generic_string& sourceFile)
@@ -3092,22 +3090,22 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 
 		struct ViewElem {
 			TiXmlNode *viewNode;
-			vector<sessionFileInfo> *viewFiles;
+			std::vector<sessionFileInfo> *viewFiles;
 			size_t activeIndex;
 		};
 		const int nbElem = 2;
 		ViewElem viewElems[nbElem];
 		viewElems[0].viewNode = sessionNode->InsertEndChild(TiXmlElement(TEXT("mainView")));
 		viewElems[1].viewNode = sessionNode->InsertEndChild(TiXmlElement(TEXT("subView")));
-		viewElems[0].viewFiles = (vector<sessionFileInfo> *)(&(session._mainViewFiles));
-		viewElems[1].viewFiles = (vector<sessionFileInfo> *)(&(session._subViewFiles));
+		viewElems[0].viewFiles = (std::vector<sessionFileInfo> *)(&(session._mainViewFiles));
+		viewElems[1].viewFiles = (std::vector<sessionFileInfo> *)(&(session._subViewFiles));
 		viewElems[0].activeIndex = session._activeMainIndex;
 		viewElems[1].activeIndex = session._activeSubIndex;
 
 		for (size_t k = 0; k < nbElem ; ++k)
 		{
 			(viewElems[k].viewNode->ToElement())->SetAttribute(TEXT("activeIndex"), static_cast<int32_t>(viewElems[k].activeIndex));
-			vector<sessionFileInfo> & viewSessionFiles = *(viewElems[k].viewFiles);
+			std::vector<sessionFileInfo> & viewSessionFiles = *(viewElems[k].viewFiles);
 
 			for (size_t i = 0, len = viewElems[k].viewFiles->size(); i < len ; ++i)
 			{
@@ -3243,7 +3241,7 @@ int NppParameters::addUserLangToEnd(const UserLangContainer & userLang, const TC
 	++_nbUserLang;
 	unsigned char iEnd = _nbUserLang;
 
-	_pXmlUserLangsDoc.push_back(UdlXmlFileState(nullptr, true, make_pair(iBegin, iEnd)));
+	_pXmlUserLangsDoc.push_back(UdlXmlFileState(nullptr, true, std::make_pair(iBegin, iEnd)));
 
 	// imported UDL from xml file will be added into default udl, so we should make default udl dirty
 	setUdlXmlDirtyFromXmlDoc(_pXmlUserLangDoc);
@@ -3331,7 +3329,7 @@ void NppParameters::feedUserKeywordList(TiXmlNode *node)
 			const TCHAR *kwl = nullptr;
 			if (!lstrcmp(udlVersion, TEXT("")) && !lstrcmp(keywordsName, TEXT("Delimiters")))	// support for old style (pre 2.0)
 			{
-				basic_string<TCHAR> temp;
+				generic_string temp;
 				kwl = (valueNode)?valueNode->Value():TEXT("000000");
 
 				temp += TEXT("00");	 if (kwl[0] != '0') temp += kwl[0];	 temp += TEXT(" 01");
@@ -3348,25 +3346,25 @@ void NppParameters::feedUserKeywordList(TiXmlNode *node)
 			{
 				kwl = (valueNode)?valueNode->Value():TEXT("");
 				//int len = _tcslen(kwl);
-				basic_string<TCHAR> temp{TEXT(" ")};
+				generic_string temp{TEXT(" ")};
 
 				temp += kwl;
 				size_t pos = 0;
 
 				pos = temp.find(TEXT(" 0"));
-				while (pos != string::npos)
+				while (pos != generic_string::npos)
 				{
 					temp.replace(pos, 2, TEXT(" 00"));
 					pos = temp.find(TEXT(" 0"), pos+1);
 				}
 				pos = temp.find(TEXT(" 1"));
-				while (pos != string::npos)
+				while (pos != generic_string::npos)
 				{
 					temp.replace(pos, 2, TEXT(" 03"));
 					pos = temp.find(TEXT(" 1"));
 				}
 				pos = temp.find(TEXT(" 2"));
-				while (pos != string::npos)
+				while (pos != generic_string::npos)
 				{
 					temp.replace(pos, 2, TEXT(" 04"));
 					pos = temp.find(TEXT(" 2"));
@@ -3656,7 +3654,7 @@ bool NppParameters::writeProjectPanelsSettings() const
 	return true;
 }
 
-bool NppParameters::writeFileBrowserSettings(const vector<generic_string> & rootPaths, const generic_string & latestSelectedItemPath) const
+bool NppParameters::writeFileBrowserSettings(const std::vector<generic_string> & rootPaths, const generic_string & latestSelectedItemPath) const
 {
 	if (!_pXmlUserDoc) return false;
 
@@ -4931,7 +4929,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 					close = closeVal;
 
 				if (open != -1 && close != -1)
-					_nppGUI._matchedPairConf._matchedPairsInit.push_back(pair<char, char>(char(open), char(close)));
+					_nppGUI._matchedPairConf._matchedPairsInit.push_back(std::pair<char, char>(char(open), char(close)));
 			}
 		}
 		else if (!lstrcmp(nm, TEXT("sessionExt")))

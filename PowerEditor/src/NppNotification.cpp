@@ -36,8 +36,6 @@
 #include "Common.h"
 #include <stack>
 
-using namespace std;
-
 // Only for 2 main Scintilla editors
 BOOL Notepad_plus::notify(SCNotification *notification)
 {
@@ -255,7 +253,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					{
 						TCHAR goToView[32] = TEXT("Move to other view");
 						TCHAR cloneToView[32] = TEXT("Clone to other View");
-						vector<MenuItemUnit> itemUnitArray;
+						std::vector<MenuItemUnit> itemUnitArray;
 						itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_ANOTHER_VIEW, goToView));
 						itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_CLONE_TO_ANOTHER_VIEW, cloneToView));
 						_tabPopupDropMenu.create(_pPublicInterface->getHSelf(), itemUnitArray, _mainMenuHandle);
@@ -494,7 +492,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				{
 					if (!_fileSwitcherMultiFilePopupMenu.isCreated())
 					{
-						vector<MenuItemUnit> itemUnitArray;
+						std::vector<MenuItemUnit> itemUnitArray;
 						itemUnitArray.push_back(MenuItemUnit(IDM_FILESWITCHER_FILESCLOSE, TEXT("Close Selected files")));
 						itemUnitArray.push_back(MenuItemUnit(IDM_FILESWITCHER_FILESCLOSEOTHERS, TEXT("Close others files")));
 

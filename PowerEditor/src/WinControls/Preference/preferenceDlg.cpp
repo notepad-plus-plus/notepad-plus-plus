@@ -35,8 +35,6 @@
 
 #define MyGetGValue(rgb)      (LOBYTE((rgb)>>8))
 
-using namespace std;
-
 const int BLINKRATE_FASTEST = 50;
 const int BLINKRATE_SLOWEST = 2500;
 const int BLINKRATE_INTERVAL = 50;
@@ -399,14 +397,14 @@ INT_PTR CALLBACK BarsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 
 			for (size_t i = 0, len = localizationSwitcher.size(); i < len ; ++i)
 			{
-				pair<wstring, wstring> localizationInfo = localizationSwitcher.getElementFromIndex(i);
+				std::pair<std::wstring, std::wstring> localizationInfo = localizationSwitcher.getElementFromIndex(i);
 				::SendDlgItemMessage(_hSelf, IDC_COMBO_LOCALIZATION, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(localizationInfo.first.c_str()));
 			}
-			wstring lang = TEXT("English"); // Set default language as Englishs
+			std::wstring lang = TEXT("English"); // Set default language as Englishs
 			if (nppParam.getNativeLangA()) // if nativeLangA is not NULL, then we can be sure the default language (English) is not used
 			{
-				string fn = localizationSwitcher.getFileName();
-				wstring fnW = s2ws(fn);
+				std::string fn = localizationSwitcher.getFileName();
+				std::wstring fnW = s2ws(fn);
 				lang = localizationSwitcher.getLangFromXmlFileName(fnW.c_str());
 			}
 			auto index = ::SendDlgItemMessage(_hSelf, IDC_COMBO_LOCALIZATION, CB_FINDSTRINGEXACT, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(lang.c_str()));
@@ -1772,7 +1770,7 @@ INT_PTR CALLBACK LangMenuDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				case IDC_BUTTON_REMOVE :
 				{
 					int list2Remove, list2Add, idButton2Enable, idButton2Disable;
-					vector<LangMenuItem> *pSrcLst, *pDestLst;
+					std::vector<LangMenuItem> *pSrcLst, *pDestLst;
 
 					if (LOWORD(wParam)==IDC_BUTTON_REMOVE)
 					{
@@ -1805,7 +1803,7 @@ INT_PTR CALLBACK LangMenuDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					::SendDlgItemMessage(_hSelf, list2Remove, LB_GETTEXT, iRemove, reinterpret_cast<LPARAM>(s));
 
 					LangMenuItem lmi = pSrcLst->at(iRemove);
-					vector<LangMenuItem>::iterator lang2Remove = pSrcLst->begin() + iRemove;
+					std::vector<LangMenuItem>::iterator lang2Remove = pSrcLst->begin() + iRemove;
 					pSrcLst->erase(lang2Remove);
 
 					auto iAdd = ::SendDlgItemMessage(_hSelf, list2Add, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(s));
@@ -2776,17 +2774,17 @@ INT_PTR CALLBACK AutoCompletionDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 						::SendDlgItemMessage(_hSelf, IDC_MACHEDPAIROPEN_EDIT1, WM_GETTEXT, MAX_PATH, reinterpret_cast<LPARAM>(opener));
 						::SendDlgItemMessage(_hSelf, IDC_MACHEDPAIRCLOSE_EDIT1, WM_GETTEXT, MAX_PATH, reinterpret_cast<LPARAM>(closer));
 						if (opener[0] < 0x80 && opener[0] != '\0' && closer[0] < 0x80 && closer[0] != '\0')
-							nppGUI._matchedPairConf._matchedPairs.push_back(pair<char, char>(static_cast<char>(opener[0]), static_cast<char>(closer[0])));
+							nppGUI._matchedPairConf._matchedPairs.push_back(std::pair<char, char>(static_cast<char>(opener[0]), static_cast<char>(closer[0])));
 
 						::SendDlgItemMessage(_hSelf, IDC_MACHEDPAIROPEN_EDIT2, WM_GETTEXT, MAX_PATH, reinterpret_cast<LPARAM>(opener));
 						::SendDlgItemMessage(_hSelf, IDC_MACHEDPAIRCLOSE_EDIT2, WM_GETTEXT, MAX_PATH, reinterpret_cast<LPARAM>(closer));
 						if (opener[0] < 0x80 && opener[0] != '\0' && closer[0] < 0x80 && closer[0] != '\0')
-							nppGUI._matchedPairConf._matchedPairs.push_back(pair<char, char>(static_cast<char>(opener[0]), static_cast<char>(closer[0])));
+							nppGUI._matchedPairConf._matchedPairs.push_back(std::pair<char, char>(static_cast<char>(opener[0]), static_cast<char>(closer[0])));
 
 						::SendDlgItemMessage(_hSelf, IDC_MACHEDPAIROPEN_EDIT3, WM_GETTEXT, MAX_PATH, reinterpret_cast<LPARAM>(opener));
 						::SendDlgItemMessage(_hSelf, IDC_MACHEDPAIRCLOSE_EDIT3, WM_GETTEXT, MAX_PATH, reinterpret_cast<LPARAM>(closer));
 						if (opener[0] < 0x80 && opener[0] != '\0' && closer[0] < 0x80 && closer[0] != '\0')
-							nppGUI._matchedPairConf._matchedPairs.push_back(pair<char, char>(static_cast<char>(opener[0]), static_cast<char>(closer[0])));
+							nppGUI._matchedPairConf._matchedPairs.push_back(std::pair<char, char>(static_cast<char>(opener[0]), static_cast<char>(closer[0])));
 						 
 						return TRUE;
 					}

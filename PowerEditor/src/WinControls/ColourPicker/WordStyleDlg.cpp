@@ -32,7 +32,6 @@
 #include "WordStyleDlg.h"
 #include "ScintillaEditView.h"
 
-using namespace std;
 
 LRESULT CALLBACK ColourStaticTextHooker::colourStaticProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 {
@@ -108,7 +107,7 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 			ThemeSwitcher & themeSwitcher = nppParamInst.getThemeSwitcher();
 			for (size_t i = 0 ; i < themeSwitcher.size() ; ++i)
 			{
-				pair<generic_string, generic_string> & themeInfo = themeSwitcher.getElementFromIndex(i);
+				std::pair<generic_string, generic_string> & themeInfo = themeSwitcher.getElementFromIndex(i);
 				int j = static_cast<int32_t>(::SendMessage(_hSwitch2ThemeCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(themeInfo.first.c_str())));
 				if (! themeInfo.second.compare( nppParamInst.getNppGUI()._themeName ) )
 				{
@@ -637,7 +636,7 @@ void WordStyleDlg::switchToTheme()
 
 	NppParameters& nppParamInst = NppParameters::getInstance();
 	ThemeSwitcher & themeSwitcher = nppParamInst.getThemeSwitcher();
-	pair<generic_string, generic_string> & themeInfo = themeSwitcher.getElementFromIndex(iSel);
+	std::pair<generic_string, generic_string> & themeInfo = themeSwitcher.getElementFromIndex(iSel);
 	_themeName = themeInfo.second;
 
 	if (_isThemeDirty)

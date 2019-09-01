@@ -44,7 +44,6 @@
 #define TEXTFILE        256
 #define IDR_PLUGINLISTJSONFILE  101
 
-using namespace std;
 using nlohmann::json;
 
 Version::Version(const generic_string& versionStr)
@@ -56,7 +55,7 @@ Version::Version(const generic_string& versionStr)
 			throw generic_string(TEXT("The string to parse is not a valid version format. Let's make it default value in catch block."));
 		
 		int i = 0;
-		vector<unsigned long*> v = {&_major, &_minor, &_patch, &_build};
+		std::vector<unsigned long*> v = {&_major, &_minor, &_patch, &_build};
 		for (const auto& s : ss)
 		{
 			if (!isNumber(s))
@@ -404,7 +403,7 @@ void PluginsAdminDlg::collectNppCurrentStatusInfos()
 
 }
 
-vector<PluginUpdateInfo*> PluginViewList::fromUiIndexesToPluginInfos(const std::vector<size_t>& uiIndexes) const
+std::vector<PluginUpdateInfo*> PluginViewList::fromUiIndexesToPluginInfos(const std::vector<size_t>& uiIndexes) const
 {
 	std::vector<PluginUpdateInfo*> r;
 	size_t nb = _ui.nbItem();
@@ -439,7 +438,7 @@ PluginsAdminDlg::PluginsAdminDlg()
 #endif
 }
 
-bool PluginsAdminDlg::exitToInstallRemovePlugins(Operation op, const vector<PluginUpdateInfo*>& puis)
+bool PluginsAdminDlg::exitToInstallRemovePlugins(Operation op, const std::vector<PluginUpdateInfo*>& puis)
 {
 	generic_string opStr;
 	if (op == pa_install)
@@ -536,8 +535,8 @@ bool PluginsAdminDlg::installPlugins()
 {
 	// Need to exit Notepad++
 
-	vector<size_t> indexes = _availableList.getCheckedIndexes();
-	vector<PluginUpdateInfo*> puis = _availableList.fromUiIndexesToPluginInfos(indexes);
+	std::vector<size_t> indexes = _availableList.getCheckedIndexes();
+	std::vector<PluginUpdateInfo*> puis = _availableList.fromUiIndexesToPluginInfos(indexes);
 
 	return exitToInstallRemovePlugins(pa_install, puis);
 }
@@ -546,8 +545,8 @@ bool PluginsAdminDlg::updatePlugins()
 {
 	// Need to exit Notepad++
 
-	vector<size_t> indexes = _updateList.getCheckedIndexes();
-	vector<PluginUpdateInfo*> puis = _updateList.fromUiIndexesToPluginInfos(indexes);
+	std::vector<size_t> indexes = _updateList.getCheckedIndexes();
+	std::vector<PluginUpdateInfo*> puis = _updateList.fromUiIndexesToPluginInfos(indexes);
 
 	return exitToInstallRemovePlugins(pa_update, puis);
 }
@@ -556,8 +555,8 @@ bool PluginsAdminDlg::removePlugins()
 {
 	// Need to exit Notepad++
 
-	vector<size_t> indexes = _installedList.getCheckedIndexes();
-	vector<PluginUpdateInfo*> puis = _installedList.fromUiIndexesToPluginInfos(indexes);
+	std::vector<size_t> indexes = _installedList.getCheckedIndexes();
+	std::vector<PluginUpdateInfo*> puis = _installedList.fromUiIndexesToPluginInfos(indexes);
 
 	return exitToInstallRemovePlugins(pa_remove, puis);
 }
@@ -614,7 +613,7 @@ void PluginViewList::pushBack(PluginUpdateInfo* pi)
 {
 	_list.push_back(pi);
 
-	vector<generic_string> values2Add;
+	std::vector<generic_string> values2Add;
 	values2Add.push_back(pi->_displayName);
 	Version v = pi->_version;
 	values2Add.push_back(v.toString());
@@ -642,7 +641,7 @@ bool loadFromJson(PluginViewList & pl, const json& j)
 			//std::unique_ptr<PluginUpdateInfo*> pi = make_unique<PluginUpdateInfo*>();
 			PluginUpdateInfo* pi = new PluginUpdateInfo();
 
-			string valStr = i.at("folder-name").get<std::string>();
+			std::string valStr = i.at("folder-name").get<std::string>();
 			pi->_folderName = wmc.char2wchar(valStr.c_str(), CP_ACP);
 
 			valStr = i.at("display-name").get<std::string>();
@@ -748,7 +747,7 @@ bool PluginsAdminDlg::updateListAndLoadFromJson()
 #ifdef DEBUG // if not debug, then it's release
 
 		// load from nppPluginList.json instead of nppPluginList.dll
-		ifstream nppPluginListJson(_pluginListFullPath);
+		std::ifstream nppPluginListJson(_pluginListFullPath);
 		nppPluginListJson >> j;
 
 #else //RELEASE
@@ -959,7 +958,7 @@ bool PluginViewList::restore(const generic_string& folderName)
 	{
 		if (i->_folderName == folderName)
 		{
-			vector<generic_string> values2Add;
+			std::vector<generic_string> values2Add;
 			values2Add.push_back(i->_displayName);
 			Version v = i->_version;
 			values2Add.push_back(v.toString());
@@ -1078,7 +1077,7 @@ void PluginsAdminDlg::switchDialog(int indexToSwitch)
 	::ShowWindow(hInstallButton, showAvailable ? SW_SHOW : SW_HIDE);
 	if (showAvailable)
 	{
-		vector<size_t> checkedArray = _availableList.getCheckedIndexes();
+		std::vector<size_t> checkedArray = _availableList.getCheckedIndexes();
 		showAvailable = checkedArray.size() > 0;
 	}
 	::EnableWindow(hInstallButton, showAvailable);
@@ -1086,7 +1085,7 @@ void PluginsAdminDlg::switchDialog(int indexToSwitch)
 	::ShowWindow(hUpdateButton, showUpdate ? SW_SHOW : SW_HIDE);
 	if (showUpdate)
 	{
-		vector<size_t> checkedArray = _updateList.getCheckedIndexes();
+		std::vector<size_t> checkedArray = _updateList.getCheckedIndexes();
 		showUpdate = checkedArray.size() > 0;
 	}
 	::EnableWindow(hUpdateButton, showUpdate);
@@ -1094,7 +1093,7 @@ void PluginsAdminDlg::switchDialog(int indexToSwitch)
 	::ShowWindow(hRemoveButton, showInstalled ? SW_SHOW : SW_HIDE);
 	if (showInstalled)
 	{
-		vector<size_t> checkedArray = _installedList.getCheckedIndexes();
+		std::vector<size_t> checkedArray = _installedList.getCheckedIndexes();
 		showInstalled = checkedArray.size() > 0;
 	}
 	::EnableWindow(hRemoveButton, showInstalled);
@@ -1199,7 +1198,7 @@ INT_PTR CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 							(pnmv->uNewState & LVIS_STATEIMAGEMASK) == INDEXTOSTATEIMAGEMASK(1))   // unchecked
 						{
 							HWND hButton = ::GetDlgItem(_hSelf, buttonID);
-							vector<size_t> checkedArray = pViewList->getCheckedIndexes();
+							std::vector<size_t> checkedArray = pViewList->getCheckedIndexes();
 							bool showButton = checkedArray.size() > 0;
 
 							::EnableWindow(hButton, showButton);

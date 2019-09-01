@@ -31,9 +31,8 @@
 #include "AutoCompletion.h"
 #include "Notepad_plus_msgs.h"
 
-using namespace std;
 
-static bool isInList(const generic_string& word, const vector<generic_string> & wordArray)
+static bool isInList(const generic_string& word, const std::vector<generic_string> & wordArray)
 {
 	for (size_t i = 0, len = wordArray.size(); i < len; ++i)
 		if (wordArray[i] == word)
@@ -91,7 +90,7 @@ bool AutoCompletion::showApiAndWordComplete()
 		return false;
 
 	// Get word array
-	vector<generic_string> wordArray;
+	std::vector<generic_string> wordArray;
 	_pEditView->getGenericText(beginChars, bufSize, startPos, curPos);
 
 	getWordArray(wordArray, beginChars);
@@ -111,7 +110,7 @@ bool AutoCompletion::showApiAndWordComplete()
 		}
 	}
 
-	sort(wordArray.begin(), wordArray.end());
+	std::sort(wordArray.begin(), wordArray.end());
 
 	// Get word list
 	generic_string words;
@@ -130,7 +129,7 @@ bool AutoCompletion::showApiAndWordComplete()
 }
 
 
-void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beginChars)
+void AutoCompletion::getWordArray(std::vector<generic_string> & wordArray, TCHAR *beginChars)
 {
 	const size_t bufSize = 256;
 	const NppGUI & nppGUI = NppParameters::getInstance().getNppGUI();
@@ -197,7 +196,7 @@ static bool isFile(const generic_string& path)
 
 static bool isAllowedBeforeDriveLetter(TCHAR c)
 {
-	locale loc;
+	std::locale loc;
 	return c == '\'' || c == '"' || c == '(' || std::isspace(c, loc);
 }
 
@@ -207,7 +206,7 @@ static bool getRawPath(const generic_string& input, generic_string &rawPath_out)
 	// Algorithm: look for a colon. The colon must be preceded by an alphabetic character.
 	// The alphabetic character must, in turn, be preceded by nothing, or by whitespace, or by
 	// a quotation mark.
-	locale loc;
+	std::locale loc;
 	size_t lastOccurrence = input.rfind(L":");
 	if (lastOccurrence == std::string::npos) // No match.
 		return false;
@@ -338,7 +337,7 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 		return false;
 
 	// Get word array
-	vector<generic_string> wordArray;
+	std::vector<generic_string> wordArray;
 	_pEditView->getGenericText(beginChars, bufSize, startPos, curPos);
 
 	getWordArray(wordArray, beginChars);
@@ -352,7 +351,7 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 		return true;
 	}
 
-	sort(wordArray.begin(), wordArray.end());
+	std::sort(wordArray.begin(), wordArray.end());
 
 	// Get word list
 	generic_string words(TEXT(""));
@@ -545,7 +544,7 @@ int InsertedMatchedChars::search(char startChar, char endChar, int posToDetect)
 
 void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & matchedPairConf)
 {
-	const vector< pair<char, char> > & matchedPairs = matchedPairConf._matchedPairs;
+	const std::vector< std::pair<char, char> >& matchedPairs = matchedPairConf._matchedPairs;
 	int caretPos = static_cast<int32_t>(_pEditView->execute(SCI_GETCURRENTPOS));
 	const char *matchedChars = NULL;
 

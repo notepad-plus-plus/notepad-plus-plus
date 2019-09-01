@@ -37,7 +37,6 @@
 #include "ReadDirectoryChanges.h"
 #include <tchar.h>
 
-using namespace std;
 
 DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 {
@@ -349,8 +348,8 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
     {
         if (globbing || ::PathIsDirectory(fileName.c_str()))
         {
-            vector<generic_string> fileNames;
-            vector<generic_string> patterns;
+            std::vector<generic_string> fileNames;
+            std::vector<generic_string> patterns;
             if (globbing)
             {
                 const TCHAR * substring = wcsrchr(fileName.c_str(), TCHAR('\\'));
@@ -1767,7 +1766,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode)
 
 		if (isFileSession(pFn) || isFileWorkspace(pFn))
 		{
-			vector<sessionFileInfo>::iterator posIt = session._mainViewFiles.begin() + i;
+			std::vector<sessionFileInfo>::iterator posIt = session._mainViewFiles.begin() + i;
 			session._mainViewFiles.erase(posIt);
 			continue;	//skip session files, not supporting recursive sessions or embedded workspace files
 		}
@@ -1846,7 +1845,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode)
 		}
 		else
 		{
-			vector<sessionFileInfo>::iterator posIt = session._mainViewFiles.begin() + i;
+			std::vector<sessionFileInfo>::iterator posIt = session._mainViewFiles.begin() + i;
 			session._mainViewFiles.erase(posIt);
 			allSessionFilesLoaded = false;
 		}
@@ -1868,7 +1867,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode)
 		const TCHAR *pFn = session._subViewFiles[k]._fileName.c_str();
 
 		if (isFileSession(pFn) || isFileWorkspace(pFn)) {
-			vector<sessionFileInfo>::iterator posIt = session._subViewFiles.begin() + k;
+			std::vector<sessionFileInfo>::iterator posIt = session._subViewFiles.begin() + k;
 			session._subViewFiles.erase(posIt);
 			continue;	//skip session files, not supporting recursive sessions or embedded workspace files
 		}
@@ -1962,7 +1961,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode)
 		}
 		else
 		{
-			vector<sessionFileInfo>::iterator posIt = session._subViewFiles.begin() + k;
+			std::vector<sessionFileInfo>::iterator posIt = session._subViewFiles.begin() + k;
 			session._subViewFiles.erase(posIt);
 			allSessionFilesLoaded = false;
 		}

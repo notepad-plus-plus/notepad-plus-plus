@@ -42,12 +42,11 @@
 #include <windows.h>
 #include <vector>
 #include <list>
-
-using namespace std;
+#include <string>
 
 #include "ThreadSafeQueue.h"
 
-typedef pair<DWORD, std::wstring> TDirectoryChangeNotification;
+typedef std::pair<DWORD, std::wstring> TDirectoryChangeNotification;
 
 namespace ReadDirectoryChangesPrivate
 {

@@ -40,7 +40,6 @@
 #include "Common.h"
 #include "sha-256.h"
 
-using namespace std;
 
 //SecurityMode SecurityGard::_securityMode = sm_sha256;
 SecurityMode SecurityGard::_securityMode = sm_certif;
@@ -122,11 +121,11 @@ bool SecurityGard::checkSha256(const std::wstring& filePath, NppModule module2ch
 
 bool SecurityGard::verifySignedLibrary(const std::wstring& filepath, NppModule module2check)
 {
-	wstring display_name;
-	wstring key_id_hex;
-	wstring subject;
+	std::wstring display_name;
+	std::wstring key_id_hex;
+	std::wstring subject;
 
-	wstring dmsg(TEXT("VerifyLibrary: "));
+	std::wstring dmsg(TEXT("VerifyLibrary: "));
 	dmsg += filepath;
 	dmsg += TEXT("\n");
 
@@ -216,27 +215,27 @@ bool SecurityGard::verifySignedLibrary(const std::wstring& filepath, NppModule m
 
 		if (!result)
 		{
-			throw wstring(TEXT("Checking certificate of ")) + filepath + TEXT(" : ") + GetLastErrorAsString(GetLastError());
+			throw std::wstring(TEXT("Checking certificate of ")) + filepath + TEXT(" : ") + GetLastErrorAsString(GetLastError());
 		}
 
 		// Get signer information size.
 		result = ::CryptMsgGetParam(hMsg, CMSG_SIGNER_INFO_PARAM, 0, NULL, &dwSignerInfo);
 		if (!result)
 		{
-			throw wstring(TEXT("CryptMsgGetParam first call: ")) + GetLastErrorAsString(GetLastError());
+			throw std::wstring(TEXT("CryptMsgGetParam first call: ")) + GetLastErrorAsString(GetLastError());
 		}
 
 		// Get Signer Information.
 		pSignerInfo = (PCMSG_SIGNER_INFO)LocalAlloc(LPTR, dwSignerInfo);
 		if (NULL == pSignerInfo)
 		{
-			throw wstring(TEXT("Failed to allocate memory for signature processing"));
+			throw std::wstring(TEXT("Failed to allocate memory for signature processing"));
 		}
 
 		result = ::CryptMsgGetParam(hMsg, CMSG_SIGNER_INFO_PARAM, 0, (PVOID)pSignerInfo, &dwSignerInfo);
 		if (!result)
 		{
-			throw wstring(TEXT("CryptMsgGetParam: ")) + GetLastErrorAsString(GetLastError());
+			throw std::wstring(TEXT("CryptMsgGetParam: ")) + GetLastErrorAsString(GetLastError());
 		}
 
 		// Get the signer certificate from temporary certificate store.	
@@ -246,20 +245,20 @@ bool SecurityGard::verifySignedLibrary(const std::wstring& filepath, NppModule m
 		PCCERT_CONTEXT context = ::CertFindCertificateInStore(hStore, X509_ASN_ENCODING | PKCS_7_ASN_ENCODING, 0, CERT_FIND_SUBJECT_CERT, (PVOID)&cert_info, NULL);
 		if (!context)
 		{
-			throw wstring(TEXT("Certificate context: ")) + GetLastErrorAsString(GetLastError());
+			throw std::wstring(TEXT("Certificate context: ")) + GetLastErrorAsString(GetLastError());
 		}
 
 		// Getting the full subject				
 		auto subject_sze = ::CertNameToStr(X509_ASN_ENCODING, &context->pCertInfo->Subject, CERT_X500_NAME_STR, NULL, 0);
 		if (subject_sze <= 1)
 		{
-			throw wstring(TEXT("Getting x509 field size problem."));
+			throw std::wstring(TEXT("Getting x509 field size problem."));
 		}
 
 		std::unique_ptr<TCHAR[]> subject_buffer(new TCHAR[subject_sze]);
 		if (::CertNameToStr(X509_ASN_ENCODING, &context->pCertInfo->Subject, CERT_X500_NAME_STR, subject_buffer.get(), subject_sze) <= 1)
 		{
-			throw wstring(TEXT("Failed to get x509 filed infos from certificate."));
+			throw std::wstring(TEXT("Failed to get x509 filed infos from certificate."));
 		}
 		subject = subject_buffer.get();
 
@@ -267,42 +266,42 @@ bool SecurityGard::verifySignedLibrary(const std::wstring& filepath, NppModule m
 		DWORD key_id_sze = 0;
 		if (!::CertGetCertificateContextProperty(context, CERT_KEY_IDENTIFIER_PROP_ID, NULL, &key_id_sze))
 		{
-			throw wstring(TEXT("x509 property not found")) + GetLastErrorAsString(GetLastError());
+			throw std::wstring(TEXT("x509 property not found")) + GetLastErrorAsString(GetLastError());
 		}
 
 		std::unique_ptr<BYTE[]> key_id_buff(new BYTE[key_id_sze]);
 		if (!::CertGetCertificateContextProperty(context, CERT_KEY_IDENTIFIER_PROP_ID, key_id_buff.get(), &key_id_sze))
 		{
-			throw wstring(TEXT("Getting certificate property problem.")) + GetLastErrorAsString(GetLastError());
+			throw std::wstring(TEXT("Getting certificate property problem.")) + GetLastErrorAsString(GetLastError());
 		}
 
-		wstringstream ss;
+		std::wstringstream ss;
 		for (unsigned i = 0; i < key_id_sze; i++)
 		{
 			ss << std::uppercase << std::setfill(TCHAR('0')) << std::setw(2) << std::hex
 				<< key_id_buff[i];
 		}
 		key_id_hex = ss.str();
-		wstring dbg = key_id_hex + TEXT("\n");
+		std::wstring dbg = key_id_hex + TEXT("\n");
 		OutputDebugString(dbg.c_str());
 
 		// Getting the display name			
 		auto sze = ::CertGetNameString(context, CERT_NAME_SIMPLE_DISPLAY_TYPE, 0, NULL, NULL, 0);
 		if (sze <= 1)
 		{
-			throw wstring(TEXT("Getting data size problem.")) + GetLastErrorAsString(GetLastError());
+			throw std::wstring(TEXT("Getting data size problem.")) + GetLastErrorAsString(GetLastError());
 		}
 
 		// Get display name.
 		std::unique_ptr<TCHAR[]> display_name_buffer(new TCHAR[sze]);
 		if (::CertGetNameString(context, CERT_NAME_SIMPLE_DISPLAY_TYPE, 0, NULL, display_name_buffer.get(), sze) <= 1)
 		{
-			throw wstring(TEXT("Cannot get certificate info.")) + GetLastErrorAsString(GetLastError());
+			throw std::wstring(TEXT("Cannot get certificate info.")) + GetLastErrorAsString(GetLastError());
 		}
 		display_name = display_name_buffer.get();
 
 	}
-	catch (const wstring& s) {
+	catch (const std::wstring& s) {
 		if (module2check == nm_scilexer)
 			::MessageBox(NULL, s.c_str(), TEXT("DLL signature verification failed"), MB_ICONERROR);
 		OutputDebugString(TEXT("VerifyLibrary: error while getting certificate informations\n"));
@@ -313,7 +312,7 @@ bool SecurityGard::verifySignedLibrary(const std::wstring& filepath, NppModule m
 		OutputDebugString(TEXT("VerifyLibrary: error while getting certificate informations\n"));
 		if (module2check == nm_scilexer)
 		{
-			wstring errMsg(TEXT("Unknown exception occurred. "));
+			std::wstring errMsg(TEXT("Unknown exception occurred. "));
 			errMsg += GetLastErrorAsString(GetLastError());
 			::MessageBox(NULL, errMsg.c_str(), TEXT("DLL signature verification failed"), MB_ICONERROR);
 		}

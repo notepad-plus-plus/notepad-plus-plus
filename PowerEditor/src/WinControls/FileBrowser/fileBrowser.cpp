@@ -63,9 +63,9 @@ FileBrowser::~FileBrowser()
 	}
 }
 
-vector<generic_string> split(const generic_string & string2split, TCHAR sep)
+std::vector<generic_string> split(const generic_string & string2split, TCHAR sep)
 {
-	vector<generic_string> splitedStrings;
+	std::vector<generic_string> splitedStrings;
 	size_t len = string2split.length();
 	size_t beginPos = 0;
 	for (size_t i = 0; i < len + 1; ++i)
@@ -167,7 +167,7 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			generic_string pathSuffix = file2Change[0].substr(sepPos + separator.length(), file2Change[0].length() - 1);
 
 			// remove prefix of file/folder in changeInfo, splite the remained path
-			vector<generic_string> linarPathArray = split(pathSuffix, '\\');
+			std::vector<generic_string> linarPathArray = split(pathSuffix, '\\');
 
 			generic_string rootPath = file2Change[0].substr(0, sepPos);
 			generic_string path = rootPath;
@@ -194,7 +194,7 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			generic_string pathSuffix = file2Change[0].substr(sepPos + separator.length(), file2Change[0].length() - 1);
 
 			// remove prefix of file/folder in changeInfo, splite the remained path
-			vector<generic_string> linarPathArray = split(pathSuffix, '\\');
+			std::vector<generic_string> linarPathArray = split(pathSuffix, '\\');
 
 			generic_string rootPath = file2Change[0].substr(0, sepPos);
 			// search recursively and modify the tree structure
@@ -219,7 +219,7 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			generic_string pathSuffix = file2Change[0].substr(sepPos + separator.length(), file2Change[0].length() - 1);
 
 			// remove prefix of file/folder in changeInfo, splite the remained path
-			vector<generic_string> linarPathArray = split(pathSuffix, '\\');
+			std::vector<generic_string> linarPathArray = split(pathSuffix, '\\');
 
 			generic_string rootPath = file2Change[0].substr(0, sepPos);
 
@@ -228,7 +228,7 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				return false;
 
 			generic_string pathSuffix2 = file2Change[1].substr(sepPos2 + separator.length(), file2Change[1].length() - 1);
-			vector<generic_string> linarPathArray2 = split(pathSuffix2, '\\');
+			std::vector<generic_string> linarPathArray2 = split(pathSuffix2, '\\');
 
 			bool isRenamed = renameInTree(rootPath, nullptr, linarPathArray, linarPathArray2[linarPathArray2.size() - 1]);
 			if (not isRenamed)
@@ -354,7 +354,7 @@ generic_string FileBrowser::getNodePath(HTREEITEM node) const
 {
 	if (not node) return TEXT("");
 
-	vector<generic_string> fullPathArray;
+	std::vector<generic_string> fullPathArray;
 	generic_string fullPath;
 
 	// go up until to root, then get the full path
@@ -866,8 +866,8 @@ bool isRelatedRootFolder(const generic_string & relatedRoot, const generic_strin
 	if (pos != 0) // pos == 0 is the necessary condition, but not enough
 		return false;
 
-	vector<generic_string> relatedRootArray = split(relatedRoot, '\\');
-	vector<generic_string> subFolderArray = split(subFolder, '\\');
+	std::vector<generic_string> relatedRootArray = split(relatedRoot, '\\');
+	std::vector<generic_string> subFolderArray = split(subFolder, '\\');
 
 	size_t index2Compare = relatedRootArray.size() - 1;
 
@@ -900,7 +900,7 @@ void FileBrowser::addRootFolder(generic_string rootFolderPath)
 				//do nothing, go down to select the dir
 				generic_string rootPath = _folderUpdaters[i]->_rootFolder._rootPath;
 				generic_string pathSuffix = rootFolderPath.substr(rootPath.size() + 1, rootFolderPath.size() - rootPath.size());
-				vector<generic_string> linarPathArray = split(pathSuffix, '\\');
+				std::vector<generic_string> linarPathArray = split(pathSuffix, '\\');
 				
 				HTREEITEM foundItem = findInTree(rootPath, nullptr, linarPathArray);
 				if (foundItem)
@@ -1014,9 +1014,9 @@ HTREEITEM FileBrowser::findChildNodeFromName(HTREEITEM parent, const generic_str
 	return childNodeFound;
 }
 
-vector<generic_string> FileBrowser::getRoots() const
+std::vector<generic_string> FileBrowser::getRoots() const
 {
-	vector<generic_string> roots;
+	std::vector<generic_string> roots;
 
 	for (HTREEITEM hItemNode = _treeView.getRoot();
 		hItemNode != nullptr;
@@ -1044,7 +1044,7 @@ generic_string FileBrowser::getSelectedItemPath() const
 	return itemPath;
 }
 
-bool FileBrowser::addInTree(const generic_string& rootPath, const generic_string& addItemFullPath, HTREEITEM node, vector<generic_string> linarPathArray)
+bool FileBrowser::addInTree(const generic_string& rootPath, const generic_string& addItemFullPath, HTREEITEM node, std::vector<generic_string> linarPathArray)
 {
 	if (node == nullptr) // it's a root. Search the right root with rootPath
 	{

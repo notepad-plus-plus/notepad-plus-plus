@@ -34,7 +34,6 @@
 #include "tchar.h"
 #include "verifySignedFile.h"
 
-using namespace std;
 
 // initialize the static variable
 
@@ -56,7 +55,10 @@ const int ScintillaEditView::_SC_MARGE_SYBOLE = 1;
 const int ScintillaEditView::_SC_MARGE_FOLDER = 2;
 
 WNDPROC ScintillaEditView::_scintillaDefaultProc = NULL;
-string ScintillaEditView::_defaultCharList = "";
+std::string ScintillaEditView::_defaultCharList = "";
+
+using basic_stringA = std::basic_string<char>;
+using basic_stringW = std::basic_string<wchar_t>;
 
 /*
 SC_MARKNUM_*     | Arrow               Plus/minus           Circle tree                 Box tree
@@ -677,10 +679,10 @@ void ScintillaEditView::setEmbeddedJSLexer()
 	const TCHAR *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 	makeStyle(L_JS, pKwArray);
 
-	basic_string<char> keywordList("");
+	basic_stringA keywordList("");
 	if (pKwArray[LANG_INDEX_INSTR])
 	{
-		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
+		basic_stringW kwlW = pKwArray[LANG_INDEX_INSTR];
 		keywordList = wstring2string(kwlW, CP_ACP);
 	}
 
@@ -698,10 +700,10 @@ void ScintillaEditView::setJsonLexer()
 
 	makeStyle(L_JSON, pKwArray);
 
-	basic_string<char> keywordList("");
+	basic_stringA keywordList("");
 	if (pKwArray[LANG_INDEX_INSTR])
 	{
-		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
+		basic_stringW kwlW = pKwArray[LANG_INDEX_INSTR];
 		keywordList = wstring2string(kwlW, CP_ACP);
 	}
 
@@ -719,10 +721,10 @@ void ScintillaEditView::setEmbeddedPhpLexer()
 	const TCHAR *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 	makeStyle(L_PHP, pKwArray);
 
-	basic_string<char> keywordList("");
+	basic_stringA keywordList("");
 	if (pKwArray[LANG_INDEX_INSTR])
 	{
-		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
+		basic_stringW kwlW = pKwArray[LANG_INDEX_INSTR];
 		keywordList = wstring2string(kwlW, CP_ACP);
 	}
 
@@ -737,10 +739,10 @@ void ScintillaEditView::setEmbeddedAspLexer()
 	const TCHAR *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 	makeStyle(L_ASP, pKwArray);
 
-	basic_string<char> keywordList("");
+	basic_stringA keywordList("");
 	if (pKwArray[LANG_INDEX_INSTR])
 	{
-		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
+		basic_stringW kwlW = pKwArray[LANG_INDEX_INSTR];
 		keywordList = wstring2string(kwlW, CP_ACP);
 	}
 
@@ -902,7 +904,7 @@ void ScintillaEditView::setExternalLexer(LangType typeDoc)
 
 			if (style._keywordClass >= 0 && style._keywordClass <= KEYWORDSET_MAX)
 			{
-				basic_string<char> keywordList("");
+				basic_stringA keywordList("");
 				if (style._keywords)
 				{
 					keywordList = wstring2string(*(style._keywords), CP_ACP);
@@ -934,18 +936,18 @@ void ScintillaEditView::setCppLexer(LangType langType)
 	const TCHAR *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 	makeStyle(langType, pKwArray);
 
-	basic_string<char> keywordListInstruction("");
-	basic_string<char> keywordListType("");
+	basic_stringA keywordListInstruction("");
+	basic_stringA keywordListType("");
 	if (pKwArray[LANG_INDEX_INSTR])
 	{
-		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
+		basic_stringW kwlW = pKwArray[LANG_INDEX_INSTR];
 		keywordListInstruction = wstring2string(kwlW, CP_ACP);
 	}
 	cppInstrs = getCompleteKeywordList(keywordListInstruction, langType, LANG_INDEX_INSTR);
 
 	if (pKwArray[LANG_INDEX_TYPE])
 	{
-		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_TYPE];
+		basic_stringW kwlW = pKwArray[LANG_INDEX_TYPE];
 		keywordListType = wstring2string(kwlW, CP_ACP);
 	}
 	cppTypes = getCompleteKeywordList(keywordListType, langType, LANG_INDEX_TYPE);
@@ -989,27 +991,27 @@ void ScintillaEditView::setJsLexer()
 			setStyle(style);
 		}
 
-		basic_string<char> keywordListInstruction("");
-		basic_string<char> keywordListType("");
-		basic_string<char> keywordListInstruction2("");
+		basic_stringA keywordListInstruction("");
+		basic_stringA keywordListType("");
+		basic_stringA keywordListInstruction2("");
 
 		if (pKwArray[LANG_INDEX_INSTR])
 		{
-			basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
+			basic_stringW kwlW = pKwArray[LANG_INDEX_INSTR];
 			keywordListInstruction = wstring2string(kwlW, CP_ACP);
 		}
 		const char *jsInstrs = getCompleteKeywordList(keywordListInstruction, L_JAVASCRIPT, LANG_INDEX_INSTR);
 
 		if (pKwArray[LANG_INDEX_TYPE])
 		{
-			basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_TYPE];
+			basic_stringW kwlW = pKwArray[LANG_INDEX_TYPE];
 			keywordListType = wstring2string(kwlW, CP_ACP);
 		}
 		const char *jsTypes = getCompleteKeywordList(keywordListType, L_JAVASCRIPT, LANG_INDEX_TYPE);
 
 		if (pKwArray[LANG_INDEX_INSTR2])
 		{
-			basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR2];
+			basic_stringW kwlW = pKwArray[LANG_INDEX_INSTR2];
 			keywordListInstruction2 = wstring2string(kwlW, CP_ACP);
 		}
 		const char *jsInstrs2 = getCompleteKeywordList(keywordListInstruction2, L_JAVASCRIPT, LANG_INDEX_INSTR2);
@@ -1055,10 +1057,10 @@ void ScintillaEditView::setJsLexer()
 
 		makeStyle(L_JS, pKwArray);
 
-		basic_string<char> keywordListInstruction("");
+		basic_stringA keywordListInstruction("");
 		if (pKwArray[LANG_INDEX_INSTR])
 		{
-			basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
+			basic_stringW kwlW = pKwArray[LANG_INDEX_INSTR];
 			keywordListInstruction = wstring2string(kwlW, CP_ACP);
 		}
 		const char *jsEmbeddedInstrs = getCompleteKeywordList(keywordListInstruction, L_JS, LANG_INDEX_INSTR);
@@ -1088,18 +1090,18 @@ void ScintillaEditView::setTclLexer()
 	const TCHAR *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 	makeStyle(L_TCL, pKwArray);
 
-	basic_string<char> keywordListInstruction("");
-	basic_string<char> keywordListType("");
+	basic_stringA keywordListInstruction("");
+	basic_stringA keywordListType("");
 	if (pKwArray[LANG_INDEX_INSTR])
 	{
-		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
+		basic_stringW kwlW = pKwArray[LANG_INDEX_INSTR];
 		keywordListInstruction = wstring2string(kwlW, CP_ACP);
 	}
 	tclInstrs = getCompleteKeywordList(keywordListInstruction, L_TCL, LANG_INDEX_INSTR);
 
 	if (pKwArray[LANG_INDEX_TYPE])
 	{
-		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_TYPE];
+		basic_stringW kwlW = pKwArray[LANG_INDEX_TYPE];
 		keywordListType = wstring2string(kwlW, CP_ACP);
 	}
 	tclTypes = getCompleteKeywordList(keywordListType, L_TCL, LANG_INDEX_TYPE);
@@ -1116,21 +1118,21 @@ void ScintillaEditView::setObjCLexer(LangType langType)
 
 	makeStyle(langType, pKwArray);
 
-	basic_string<char> objcInstr1Kwl("");
+	basic_stringA objcInstr1Kwl("");
 	if (pKwArray[LANG_INDEX_INSTR])
 	{
 		objcInstr1Kwl = wstring2string(pKwArray[LANG_INDEX_INSTR], CP_ACP);
 	}
 	const char *objcInstrs = getCompleteKeywordList(objcInstr1Kwl, langType, LANG_INDEX_INSTR);
 
-	basic_string<char> objcInstr2Kwl("");
+	basic_stringA objcInstr2Kwl("");
 	if (pKwArray[LANG_INDEX_INSTR2])
 	{
 		objcInstr2Kwl = wstring2string(pKwArray[LANG_INDEX_INSTR2], CP_ACP);
 	}
 	const char *objCDirective = getCompleteKeywordList(objcInstr2Kwl, langType, LANG_INDEX_INSTR2);
 
-	basic_string<char> objcTypeKwl("");
+	basic_stringA objcTypeKwl("");
 	if (pKwArray[LANG_INDEX_TYPE])
 	{
 		objcTypeKwl = wstring2string(pKwArray[LANG_INDEX_TYPE], CP_ACP);
@@ -1138,7 +1140,7 @@ void ScintillaEditView::setObjCLexer(LangType langType)
 	const char *objcTypes = getCompleteKeywordList(objcTypeKwl, langType, LANG_INDEX_TYPE);
 
 
-	basic_string<char> objcType2Kwl("");
+	basic_stringA objcType2Kwl("");
 	if (pKwArray[LANG_INDEX_TYPE2])
 	{
 		objcType2Kwl = wstring2string(pKwArray[LANG_INDEX_TYPE2], CP_ACP);
@@ -1147,7 +1149,7 @@ void ScintillaEditView::setObjCLexer(LangType langType)
 
 
 
-	basic_string<char> doxygenKeyWordsString("");
+	basic_stringA doxygenKeyWordsString("");
 	const TCHAR *doxygenKeyWordsW = NppParameters::getInstance().getWordList(L_CPP, LANG_INDEX_TYPE2);
 	if (doxygenKeyWordsW)
 	{
@@ -1289,7 +1291,7 @@ void ScintillaEditView::addCustomWordChars()
 	if (nppGUI._customWordChars.empty())
 		return;
 
-	string chars2addStr;
+	std::string chars2addStr;
 	for (size_t i = 0; i < nppGUI._customWordChars.length(); ++i)
 	{
 		bool found = false;
@@ -1311,7 +1313,7 @@ void ScintillaEditView::addCustomWordChars()
 
 	if (not chars2addStr.empty())
 	{
-		string newCharList = _defaultCharList;
+		std::string newCharList = _defaultCharList;
 		newCharList += chars2addStr;
 		execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>(newCharList.c_str()));
 	}
@@ -2217,7 +2219,7 @@ char * ScintillaEditView::getWordOnCaretPos(char * txt, int size)
     if (!size)
 		return NULL;
 
-    pair<int,int> range = getWordRange();
+    std::pair<int,int> range = getWordRange();
     return getWordFromRange(txt, size, range.first, range.second);
 }
 
@@ -2668,9 +2670,9 @@ void ScintillaEditView::setMultiSelections(const ColumnModeInfos & cmi)
 
 // Get selection range : (fromLine, toLine)
 // return (-1, -1) if multi-selection
-pair<int, int> ScintillaEditView::getSelectionLinesRange() const
+std::pair<int, int> ScintillaEditView::getSelectionLinesRange() const
 {
-    pair<int, int> range(-1, -1);
+    std::pair<int, int> range(-1, -1);
     if (execute(SCI_GETSELECTIONS) > 1) // multi-selection
         return range;
 	int32_t start = static_cast<int32_t>(execute(SCI_GETSELECTIONSTART));
@@ -2888,17 +2890,17 @@ void ScintillaEditView::convertSelectedTextTo(const TextCase & caseToConvert)
 
 
 
-pair<int, int> ScintillaEditView::getWordRange()
+std::pair<int, int> ScintillaEditView::getWordRange()
 {
     auto caretPos = execute(SCI_GETCURRENTPOS, 0, 0);
 	int startPos = static_cast<int>(execute(SCI_WORDSTARTPOSITION, caretPos, true));
 	int endPos = static_cast<int>(execute(SCI_WORDENDPOSITION, caretPos, true));
-    return pair<int, int>(startPos, endPos);
+    return std::pair<int, int>(startPos, endPos);
 }
 
 bool ScintillaEditView::expandWordSelection()
 {
-    pair<int, int> wordRange = 	getWordRange();
+    std::pair<int, int> wordRange = 	getWordRange();
     if (wordRange.first != wordRange.second) {
         execute(SCI_SETSELECTIONSTART, wordRange.first);
         execute(SCI_SETSELECTIONEND, wordRange.second);

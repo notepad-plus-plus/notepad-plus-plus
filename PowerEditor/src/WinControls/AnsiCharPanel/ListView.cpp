@@ -32,7 +32,6 @@
 #include "Parameters.h"
 #include "localization.h"
 
-using namespace std;
 
 void ListView::init(HINSTANCE hInst, HWND parent)
 {
@@ -93,7 +92,7 @@ void ListView::destroy()
 	_hSelf = NULL;
 }
 
-void ListView::addLine(const vector<generic_string> & values2Add, LPARAM lParam, int pos2insert)
+void ListView::addLine(const std::vector<generic_string> & values2Add, LPARAM lParam, int pos2insert)
 {
 	if (not values2Add.size())
 		return;
@@ -164,7 +163,7 @@ LPARAM ListView::getLParamFromIndex(int itemIndex) const
 
 std::vector<size_t> ListView::getCheckedIndexes() const
 {
-	vector<size_t> checkedIndexes;
+	std::vector<size_t> checkedIndexes;
 	size_t nbItem = ListView_GetItemCount(_hSelf);
 	for (size_t i = 0; i < nbItem; ++i)
 	{

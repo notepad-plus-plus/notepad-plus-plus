@@ -50,7 +50,6 @@
 #include "fileBrowser.h"
 #include "Common.h"
 
-using namespace std;
 
 enum tb_stat {tb_saved, tb_unsaved, tb_ro};
 #define DIR_LEFT true
@@ -537,7 +536,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_windowsMenu.init(_pPublicInterface->getHinst(), _mainMenuHandle, windowTrans.c_str());
 
 	// Update context menu strings (translated)
-	vector<MenuItemUnit> & tmp = nppParam.getContextMenuItems();
+	std::vector<MenuItemUnit> & tmp = nppParam.getContextMenuItems();
 	size_t len = tmp.size();
 	TCHAR menuName[64];
 	for (size_t i = 0 ; i < len ; ++i)
@@ -551,7 +550,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	//Input all the menu item names into shortcut list
 	//This will automatically do all translations, since menu translation has been done already
-	vector<CommandShortcut> & shortcuts = nppParam.getUserShortcuts();
+	std::vector<CommandShortcut> & shortcuts = nppParam.getUserShortcuts();
 	len = shortcuts.size();
 
 	for (size_t i = 0; i < len; ++i)
@@ -582,7 +581,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	nppParam.setAccelerator(&_accelerator);
 
 	// Scintilla key accelerator
-	vector<HWND> scints;
+	std::vector<HWND> scints;
 	scints.push_back(_mainEditView.getHSelf());
 	scints.push_back(_subEditView.getHSelf());
 	_scintaccelerator.init(&scints, _mainMenuHandle, hwnd);
@@ -818,7 +817,7 @@ bool Notepad_plus::saveFileBrowserParam()
 {
 	if (_pFileBrowser)
 	{
-		vector<generic_string> rootPaths = _pFileBrowser->getRoots();
+		std::vector<generic_string> rootPaths = _pFileBrowser->getRoots();
 		generic_string selectedItemPath = _pFileBrowser->getSelectedItemPath();
 		return (NppParameters::getInstance()).writeFileBrowserSettings(rootPaths, selectedItemPath);
 	}
@@ -839,16 +838,16 @@ void Notepad_plus::saveDockingParams()
 	nppGUI._dockingData._containerTabInfo.clear();
 
 	// create a vector to save the current information
-	vector<PluginDlgDockingInfo>	vPluginDockInfo;
-	vector<FloatingWindowInfo>		vFloatingWindowInfo;
+	std::vector<PluginDlgDockingInfo>	vPluginDockInfo;
+	std::vector<FloatingWindowInfo>		vFloatingWindowInfo;
 
 	// save every container
-	vector<DockingCont*> vCont = _dockingManager.getContainerInfo();
+	std::vector<DockingCont*> vCont = _dockingManager.getContainerInfo();
 
 	for (size_t i = 0, len = vCont.size(); i < len ; ++i)
 	{
 		// save at first the visible Tb's
-		vector<tTbData *>	vDataVis	= vCont[i]->getDataOfVisTb();
+		std::vector<tTbData *>	vDataVis	= vCont[i]->getDataOfVisTb();
 
 		for (size_t j = 0, len2 = vDataVis.size(); j < len2 ; ++j)
 		{
@@ -860,7 +859,7 @@ void Notepad_plus::saveDockingParams()
 		}
 
 		// save the hidden Tb's
-		vector<tTbData *>	vDataAll	= vCont[i]->getDataOfAllTb();
+		std::vector<tTbData *>	vDataAll	= vCont[i]->getDataOfAllTb();
 
 		for (size_t j = 0, len3 = vDataAll.size(); j < len3 ; ++j)
 		{
@@ -1158,8 +1157,8 @@ void Notepad_plus::wsTabConvert(spaceTab whichWay)
     int newCurrentPos = 0;
 	int tabStop = static_cast<int32_t>(tabWidth - 1);   // remember, counting from zero !
     bool onlyLeading = false;
-    vector<int> bookmarks;
-    vector<int> folding;
+    std::vector<int> bookmarks;
+    std::vector<int> folding;
 
     for (int i=0; i<lastLine; ++i)
     {
@@ -1425,7 +1424,7 @@ void Notepad_plus::removeDuplicateLines()
 	_findReplaceDlg.processAll(ProcessReplaceAll, &env, true);
 }
 
-void Notepad_plus::getMatchedFileNames(const TCHAR *dir, const vector<generic_string> & patterns, vector<generic_string> & fileNames, bool isRecursive, bool isInHiddenDir)
+void Notepad_plus::getMatchedFileNames(const TCHAR *dir, const std::vector<generic_string> & patterns, std::vector<generic_string> & fileNames, bool isRecursive, bool isInHiddenDir)
 {
 	generic_string dirFilter(dir);
 	dirFilter += TEXT("*.*");
@@ -1516,14 +1515,14 @@ bool Notepad_plus::replaceInFiles()
 	Document oldDoc = _invisibleEditView.execute(SCI_GETDOCPOINTER);
 	Buffer * oldBuf = _invisibleEditView.getCurrentBuffer();	//for manually setting the buffer, so notifications can be handled properly
 
-	vector<generic_string> patterns2Match;
+	std::vector<generic_string> patterns2Match;
 	_findReplaceDlg.getPatterns(patterns2Match);
 	if (patterns2Match.size() == 0)
 	{
 		_findReplaceDlg.setFindInFilesDirFilter(NULL, TEXT("*.*"));
 		_findReplaceDlg.getPatterns(patterns2Match);
 	}
-	vector<generic_string> fileNames;
+	std::vector<generic_string> fileNames;
 
 	getMatchedFileNames(dir2Search, patterns2Match, fileNames, isRecursive, isInHiddenDir);
 
@@ -1610,7 +1609,7 @@ bool Notepad_plus::findInFinderFiles(FindersInfo *findInFolderInfo)
 	_pEditView = &_invisibleEditView;
 	Document oldDoc = _invisibleEditView.execute(SCI_GETDOCPOINTER);
 
-	vector<generic_string> patterns2Match;
+	std::vector<generic_string> patterns2Match;
 	_findReplaceDlg.getPatterns(patterns2Match);
 	if (patterns2Match.size() == 0)
 	{
@@ -1618,7 +1617,7 @@ bool Notepad_plus::findInFinderFiles(FindersInfo *findInFolderInfo)
 		_findReplaceDlg.getPatterns(patterns2Match);
 	}
 
-	vector<generic_string> fileNames = findInFolderInfo->_pSourceFinder->getResultFilePaths();
+	std::vector<generic_string> fileNames = findInFolderInfo->_pSourceFinder->getResultFilePaths();
 
 	findInFolderInfo->_pDestFinder->beginNewFilesSearch();
 	findInFolderInfo->_pDestFinder->addSearchLine(findInFolderInfo->_findOption._str2Search.c_str());
@@ -1695,7 +1694,7 @@ bool Notepad_plus::findInFiles()
 	_pEditView = &_invisibleEditView;
 	Document oldDoc = _invisibleEditView.execute(SCI_GETDOCPOINTER);
 
-	vector<generic_string> patterns2Match;
+	std::vector<generic_string> patterns2Match;
 	_findReplaceDlg.getPatterns(patterns2Match);
 	if (patterns2Match.size() == 0)
 	{
@@ -1703,7 +1702,7 @@ bool Notepad_plus::findInFiles()
 		_findReplaceDlg.getPatterns(patterns2Match);
 	}
 
-	vector<generic_string> fileNames;
+	std::vector<generic_string> fileNames;
 	getMatchedFileNames(dir2Search, patterns2Match, fileNames, isRecursive, isInHiddenDir);
 
 	_findReplaceDlg.beginNewFilesSearch();
@@ -3259,8 +3258,8 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 
 		int filesDropped = ::DragQueryFile(hdrop, 0xffffffff, NULL, 0);
 
-		vector<generic_string> folderPaths;
-		vector<generic_string> filePaths;
+		std::vector<generic_string> folderPaths;
+		std::vector<generic_string> filePaths;
 		for (int i = 0; i < filesDropped; ++i)
 		{
 			TCHAR pathDropped[MAX_PATH];
@@ -3649,9 +3648,9 @@ void Notepad_plus::docOpenInNewInstance(FileTransferMode mode, int x, int y)
 	command += TEXT(" -l");
 	command += ScintillaEditView::langNames[buf->getLangType()].lexerName;
 	command += TEXT(" -n");
-	command += to_wstring(_pEditView->getCurrentLineNumber() + 1);
+	command += std::to_wstring(_pEditView->getCurrentLineNumber() + 1);
 	command += TEXT(" -c");
-	command += to_wstring(_pEditView->getCurrentColumnNumber() + 1);
+	command += std::to_wstring(_pEditView->getCurrentColumnNumber() + 1);
 
 	Command cmd(command);
 	cmd.run(_pPublicInterface->getHSelf());
@@ -4417,7 +4416,7 @@ void Notepad_plus::saveScintillasZoom()
 bool Notepad_plus::addCurrentMacro()
 {
 	NppParameters& nppParams = NppParameters::getInstance();
-	vector<MacroShortcut> & theMacros = nppParams.getMacroList();
+	std::vector<MacroShortcut> & theMacros = nppParams.getMacroList();
 
 	int nbMacro = static_cast<int32_t>(theMacros.size());
 
@@ -4985,7 +4984,7 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session, bool includUntitledD
 			BufferID bufID = docTab[k]->getBufferByIndex(i);
 			ScintillaEditView *editView = k == 0?&_mainEditView:&_subEditView;
 			size_t activeIndex = k == 0 ? session._activeMainIndex : session._activeSubIndex;
-			vector<sessionFileInfo> *viewFiles = (vector<sessionFileInfo> *)(k == 0?&(session._mainViewFiles):&(session._subViewFiles));
+			std::vector<sessionFileInfo>* viewFiles = (std::vector<sessionFileInfo>*)(k == 0 ? &(session._mainViewFiles) : &(session._subViewFiles));
 
 			Buffer * buf = MainFileManager.getBufferByID(bufID);
 
@@ -5461,7 +5460,7 @@ void Notepad_plus::setFindReplaceFolderFilter(const TCHAR *dir, const TCHAR *fil
 		if (ext && ext[0])
 		{
 			fltr = TEXT("");
-			vector<generic_string> vStr;
+			std::vector<generic_string> vStr;
 			cutString(ext, vStr);
 			for (size_t i = 0 ,len = vStr.size(); i < len; ++i)
 			{
@@ -5478,12 +5477,12 @@ void Notepad_plus::setFindReplaceFolderFilter(const TCHAR *dir, const TCHAR *fil
 	_findReplaceDlg.setFindInFilesDirFilter(dir, filter);
 }
 
-vector<generic_string> Notepad_plus::addNppComponents(const TCHAR *destDir, const TCHAR *extFilterName, const TCHAR *extFilter)
+std::vector<generic_string> Notepad_plus::addNppComponents(const TCHAR *destDir, const TCHAR *extFilterName, const TCHAR *extFilter)
 {
 	FileDialog fDlg(_pPublicInterface->getHSelf(), _pPublicInterface->getHinst());
     fDlg.setExtFilter(extFilterName, extFilter, NULL);
 
-    vector<generic_string> copiedFiles;
+	std::vector<generic_string> copiedFiles;
 
     if (stringVector *pfns = fDlg.doOpenMultiFilesDlg())
     {
@@ -5514,12 +5513,12 @@ vector<generic_string> Notepad_plus::addNppComponents(const TCHAR *destDir, cons
     return copiedFiles;
 }
 
-vector<generic_string> Notepad_plus::addNppPlugins(const TCHAR *extFilterName, const TCHAR *extFilter)
+std::vector<generic_string> Notepad_plus::addNppPlugins(const TCHAR *extFilterName, const TCHAR *extFilter)
 {
 	FileDialog fDlg(_pPublicInterface->getHSelf(), _pPublicInterface->getHinst());
     fDlg.setExtFilter(extFilterName, extFilter, NULL);
 
-    vector<generic_string> copiedFiles;
+	std::vector<generic_string> copiedFiles;
 
     if (stringVector *pfns = fDlg.doOpenMultiFilesDlg())
     {
@@ -5689,7 +5688,7 @@ bool Notepad_plus::reloadLang()
 		::ModifyMenu(_mainMenuHandle, IDM_WINDOW_WINDOWS, MF_BYCOMMAND, IDM_WINDOW_WINDOWS, windowTrans.c_str());
 	}
 	// Update scintilla context menu strings
-	vector<MenuItemUnit> & tmp = nppParam.getContextMenuItems();
+	std::vector<MenuItemUnit> & tmp = nppParam.getContextMenuItems();
 	size_t len = tmp.size();
 	TCHAR menuName[64];
 	for (size_t i = 0 ; i < len ; ++i)
@@ -5701,7 +5700,7 @@ bool Notepad_plus::reloadLang()
 		}
 	}
 
-	vector<CommandShortcut> & shortcuts = nppParam.getUserShortcuts();
+	std::vector<CommandShortcut> & shortcuts = nppParam.getUserShortcuts();
 	len = shortcuts.size();
 
 	for (size_t i = 0; i < len; ++i)
@@ -5938,7 +5937,7 @@ void Notepad_plus::launchAnsiCharPanel()
 	_pAnsiCharPanel->display();
 }
 
-void Notepad_plus::launchFileBrowser(const vector<generic_string> & folders, bool fromScratch)
+void Notepad_plus::launchFileBrowser(const std::vector<generic_string> & folders, bool fromScratch)
 {
 	if (!_pFileBrowser)
 	{
@@ -6410,7 +6409,7 @@ int Notepad_plus::getRandomAction(int ranNum)
 }
 
 
-bool isInList(int elem, vector<int> elemList)
+bool isInList(int elem, const std::vector<int>& elemList)
 {
 	for (size_t i = 0, len = elemList.size(); i < len; ++i)
 	{
@@ -6472,7 +6471,7 @@ DWORD WINAPI Notepad_plus::threadTextPlayer(void *params)
     HWND curScintilla = pCurrentView->getHSelf();
 	const int nbMaxTrolling = 1;
 	int nbTrolling = 0;
-	vector<int> generatedRans;
+	std::vector<int> generatedRans;
 	wchar_t previousChar = '\0';
 
 	for (size_t i = 0, len = lstrlen(text2display); i < len ; ++i)
@@ -6541,9 +6540,9 @@ DWORD WINAPI Notepad_plus::threadTextPlayer(void *params)
 
 	//writeLog(TEXT("c:\\tmp\\log.txt"), "\n\n\n\n");
 	const wchar_t* quoter = qParams->_quoter;
-	wstring quoter_str = quoter;
+	std::wstring quoter_str = quoter;
 	size_t pos = quoter_str.find(TEXT("Anonymous"));
-	if (pos == string::npos)
+	if (pos == std::wstring::npos)
 	{
 		::SendMessage(curScintilla, SCI_APPENDTEXT, 3, reinterpret_cast<LPARAM>("\n- "));
 		::SendMessage(curScintilla, SCI_GOTOPOS, ::SendMessage(curScintilla, SCI_GETLENGTH, 0, 0), 0);

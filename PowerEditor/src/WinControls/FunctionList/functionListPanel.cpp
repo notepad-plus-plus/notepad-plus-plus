@@ -32,7 +32,6 @@
 #include <fstream>
 
 using nlohmann::json;
-using namespace std;
 
 #define CX_BITMAP         16
 #define CY_BITMAP         16

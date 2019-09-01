@@ -31,8 +31,6 @@
 #include "EncodingMapper.h"
 #include "localization.h"
 
-using namespace std;
-
 
 
 MenuPosition menuPos[] = {
@@ -729,25 +727,25 @@ void NativeLangSpeaker::changeFindReplaceDlgLang(FindReplaceDlg & findReplaceDlg
 
 				if (titre1 && titre1[0])
 				{
-					basic_string<wchar_t> nameW = wmc.char2wchar(titre1, _nativeLangEncoding);
+					std::basic_string<wchar_t> nameW = wmc.char2wchar(titre1, _nativeLangEncoding);
 					nppParam.getFindDlgTabTitiles()._find = nameW;
 					findReplaceDlg.changeTabName(FIND_DLG, nppParam.getFindDlgTabTitiles()._find.c_str());
 				}
 				if (titre2  && titre2[0])
 				{
-					basic_string<wchar_t> nameW = wmc.char2wchar(titre2, _nativeLangEncoding);
+					std::basic_string<wchar_t> nameW = wmc.char2wchar(titre2, _nativeLangEncoding);
 					nppParam.getFindDlgTabTitiles()._replace = nameW;
 					findReplaceDlg.changeTabName(REPLACE_DLG, nppParam.getFindDlgTabTitiles()._replace.c_str());
 				}
 				if (titre3 && titre3[0])
 				{
-					basic_string<wchar_t> nameW = wmc.char2wchar(titre3, _nativeLangEncoding);
+					std::basic_string<wchar_t> nameW = wmc.char2wchar(titre3, _nativeLangEncoding);
 					nppParam.getFindDlgTabTitiles()._findInFiles = nameW;
 					findReplaceDlg.changeTabName(FINDINFILES_DLG, nppParam.getFindDlgTabTitiles()._findInFiles.c_str());
 				}
 				if (titre4 && titre4[0])
 				{
-					basic_string<wchar_t> nameW = wmc.char2wchar(titre4, _nativeLangEncoding);
+					std::basic_string<wchar_t> nameW = wmc.char2wchar(titre4, _nativeLangEncoding);
 					nppParam.getFindDlgTabTitiles()._mark = nameW;
 					findReplaceDlg.changeTabName(MARK_DLG, nppParam.getFindDlgTabTitiles()._mark.c_str());
 				}
@@ -775,7 +773,7 @@ void NativeLangSpeaker::changePluginsAdminDlgLang(PluginsAdminDlg & pluginsAdmin
 					const char *name = (ColumnPluginNode->ToElement())->Attribute("name");
 					if (name && name[0])
 					{
-						basic_string<wchar_t> nameW = wmc.char2wchar(name, _nativeLangEncoding);
+						std::basic_string<wchar_t> nameW = wmc.char2wchar(name, _nativeLangEncoding);
 						pluginsAdminDlg.changeColumnName(COLUMN_PLUGIN, nameW.c_str());
 					}
 				}
@@ -786,7 +784,7 @@ void NativeLangSpeaker::changePluginsAdminDlgLang(PluginsAdminDlg & pluginsAdmin
 					const char *name = (ColumnVersionNode->ToElement())->Attribute("name");
 					if (name && name[0])
 					{
-						basic_string<wchar_t> nameW = wmc.char2wchar(name, _nativeLangEncoding);
+						std::basic_string<wchar_t> nameW = wmc.char2wchar(name, _nativeLangEncoding);
 						pluginsAdminDlg.changeColumnName(COLUMN_VERSION, nameW.c_str());
 					}
 				}
@@ -797,17 +795,17 @@ void NativeLangSpeaker::changePluginsAdminDlgLang(PluginsAdminDlg & pluginsAdmin
 
 				if (titre1 && titre1[0])
 				{
-					basic_string<wchar_t> nameW = wmc.char2wchar(titre1, _nativeLangEncoding);
+					std::basic_string<wchar_t> nameW = wmc.char2wchar(titre1, _nativeLangEncoding);
 					pluginsAdminDlg.changeTabName(AVAILABLE_LIST, nameW.c_str());
 				}
 				if (titre2  && titre2[0])
 				{
-					basic_string<wchar_t> nameW = wmc.char2wchar(titre2, _nativeLangEncoding);
+					std::basic_string<wchar_t> nameW = wmc.char2wchar(titre2, _nativeLangEncoding);
 					pluginsAdminDlg.changeTabName(UPDATES_LIST, nameW.c_str());
 				}
 				if (titre3 && titre3[0])
 				{
-					basic_string<wchar_t> nameW = wmc.char2wchar(titre3, _nativeLangEncoding);
+					std::basic_string<wchar_t> nameW = wmc.char2wchar(titre3, _nativeLangEncoding);
 					pluginsAdminDlg.changeTabName(INSTALLED_LIST, nameW.c_str());
 				}
 			}
@@ -942,8 +940,8 @@ void NativeLangSpeaker::changeShortcutLang()
 	if (!_nativeLangA) return;
 
 	NppParameters& nppParam = NppParameters::getInstance();
-	vector<CommandShortcut> & mainshortcuts = nppParam.getUserShortcuts();
-	vector<ScintillaKeyMap> & scinshortcuts = nppParam.getScintillaKeyList();
+	std::vector<CommandShortcut> & mainshortcuts = nppParam.getUserShortcuts();
+	std::vector<ScintillaKeyMap> & scinshortcuts = nppParam.getScintillaKeyList();
 
 	TiXmlNodeA *shortcuts = _nativeLangA->FirstChild("Shortcuts");
 	if (!shortcuts) return;

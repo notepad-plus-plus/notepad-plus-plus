@@ -34,11 +34,10 @@
 #include "xmlMatchedTagsHighlighter.h"
 #include "ScintillaEditView.h"
 
-using namespace std;
 
-vector< pair<int, int> > XmlMatchedTagsHighlighter::getAttributesPos(int start, int end)
+std::vector< std::pair<int, int> > XmlMatchedTagsHighlighter::getAttributesPos(int start, int end)
 {
-	vector< pair<int, int> > attributes;
+	std::vector< std::pair<int, int> > attributes;
 
 	int bufLen = end - start + 1;
 	char *buf = new char[bufLen+1];
@@ -115,12 +114,12 @@ vector< pair<int, int> > XmlMatchedTagsHighlighter::getAttributesPos(int start, 
 
 		if (state == attr_valid)
 		{
-			attributes.push_back(pair<int, int>(start+startPos, start+i+oneMoreChar));
+			attributes.push_back(std::pair<int, int>(start+startPos, start+i+oneMoreChar));
 			state = attr_invalid;
 		}
 	}
 	if (state == attr_value)
-		attributes.push_back(pair<int, int>(start+startPos, start+i-1));
+		attributes.push_back(std::pair<int, int>(start+startPos, start+i-1));
 
 	delete [] buf;
 	return attributes;
@@ -638,7 +637,7 @@ void XmlMatchedTagsHighlighter::tagMatch(bool doHiliteAttr)
         // Colouising its attributs
         if (doHiliteAttr)
 		{
-			vector< pair<int, int> > attributes = getAttributesPos(xmlTags.tagNameEnd, xmlTags.tagOpenEnd - openTagTailLen);
+			std::vector< std::pair<int, int> > attributes = getAttributesPos(xmlTags.tagNameEnd, xmlTags.tagOpenEnd - openTagTailLen);
 			_pEditView->execute(SCI_SETINDICATORCURRENT,  SCE_UNIVERSAL_TAGATTR);
 			for (size_t i = 0, len = attributes.size(); i < len ; ++i)
 			{

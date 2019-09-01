@@ -34,8 +34,6 @@
 #include "EncodingMapper.h"
 #include "localization.h"
 
-using namespace std;
-
 #ifndef _countof
 #define _countof(x) (sizeof(x)/sizeof((x)[0]))
 #endif
@@ -432,7 +430,7 @@ void WindowsDlg::doColumnSort()
 	
 	size_t i;
 	size_t n = _idxMap.size();
-	vector<int> sortMap;
+	std::vector<int> sortMap;
 	sortMap.resize(n);
 	for (i = 0; i < n; ++i)
 		sortMap[_idxMap[i]] = ListView_GetItemState(_hList, i, LVIS_SELECTED);
@@ -683,9 +681,9 @@ void WindowsDlg::resetSelection()
 {
 	auto curSel = _pTab->getCurrentTabIndex();
 	int pos = 0;
-	for (vector<int>::iterator itr = _idxMap.begin(), end = _idxMap.end(); itr != end; ++itr, ++pos)
+	for(auto const& itr: _idxMap)
 	{
-		if (*itr == curSel)
+		if (itr == curSel)
 		{
 			ListView_SetItemState(_hList, pos, LVIS_SELECTED|LVIS_FOCUSED, LVIS_SELECTED|LVIS_FOCUSED)
 		}
@@ -693,6 +691,7 @@ void WindowsDlg::resetSelection()
 		{
 			ListView_SetItemState(_hList, pos, 0, LVIS_SELECTED);
 		}
+		++pos;
 	}
 }
 
@@ -754,7 +753,7 @@ void WindowsDlg::doClose()
 	nmdlg.code = WDN_NOTIFY;
 	UINT n = nmdlg.nItems = ListView_GetSelectedCount(_hList);
 	nmdlg.Items = new UINT[nmdlg.nItems];
-	vector<int> key;
+	std::vector<int> key;
 	key.resize(n, 0x7fffffff);
 	for (int i=-1, j=0;; ++j)
 	{
@@ -768,19 +767,19 @@ void WindowsDlg::doClose()
 	if (nmdlg.processed)
 	{
 		// Trying to retain sort order. fairly sure there is a much better algorithm for this
-		vector<int>::iterator kitr = key.begin();
+		std::vector<int>::iterator kitr = key.begin();
 		for (UINT i=0; i<n; ++i, ++kitr)
 		{
 			if (nmdlg.Items[i] == -1)
 			{
 				int oldVal = _idxMap[*kitr];
 				_idxMap[*kitr] = -1;
-				for (vector<int>::iterator itr = _idxMap.begin(), end = _idxMap.end(); itr != end; ++itr)
+				for (std::vector<int>::iterator itr = _idxMap.begin(), end = _idxMap.end(); itr != end; ++itr)
 					if (*itr > oldVal)
 						--(*itr);
 			}
 		}
-		_idxMap.erase(remove_if(_idxMap.begin(), _idxMap.end(), bind(equal_to<int>(), placeholders::_1, -1)), _idxMap.end());
+		_idxMap.erase(remove_if(_idxMap.begin(), _idxMap.end(), bind(std::equal_to<int>(), std::placeholders::_1, -1)), _idxMap.end());
 	}
 	delete[] nmdlg.Items;
 

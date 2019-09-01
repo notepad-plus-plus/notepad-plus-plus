@@ -42,12 +42,13 @@
 #include <windows.h>
 #include <vector>
 #include <list>
+#include <string>
 
 using namespace std;
 
 #include "ThreadSafeQueue.h"
 
-typedef pair<DWORD, std::wstring> TDirectoryChangeNotification;
+typedef std::pair<DWORD, std::wstring> TDirectoryChangeNotification;
 
 namespace ReadDirectoryChangesPrivate
 {
@@ -140,7 +141,7 @@ public:
 	bool Pop(DWORD& dwAction, std::wstring& wstrFilename);
 
 	// "Push" is for usage by ReadChangesRequest.  Not intended for external usage.
-	void Push(DWORD dwAction, std::wstring& wstrFilename);
+	void Push(DWORD dwAction, const std::wstring& wstrFilename);
 
 	unsigned int GetThreadId() { return m_dwThreadId; }
 

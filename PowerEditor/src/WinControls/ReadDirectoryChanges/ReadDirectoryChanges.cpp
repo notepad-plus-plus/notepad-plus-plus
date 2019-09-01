@@ -86,7 +86,7 @@ void CReadDirectoryChanges::AddDirectory( LPCTSTR szDirectory, BOOL bWatchSubtre
 	QueueUserAPC(CReadChangesServer::AddDirectoryProc, m_hThread, (ULONG_PTR)pRequest);
 }
 
-void CReadDirectoryChanges::Push(DWORD dwAction, std::wstring& wstrFilename)
+void CReadDirectoryChanges::Push(DWORD dwAction, const std::wstring& wstrFilename)
 {
 	TDirectoryChangeNotification dirChangeNotif = TDirectoryChangeNotification(dwAction, wstrFilename);
 	m_Notifications.push(dirChangeNotif);

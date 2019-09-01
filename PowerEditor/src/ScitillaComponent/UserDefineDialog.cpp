@@ -35,7 +35,6 @@
 #include "FileDialog.h"
 #include "Common.h"
 
-using namespace std;
 
 UserLangContainer * SharedParametersDialog::_pUserLang = NULL;
 ScintillaEditView * SharedParametersDialog::_pScintilla = NULL;
@@ -1675,12 +1674,11 @@ INT_PTR CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPAR
             dlg->_pFgColour->display();
             dlg->_pBgColour->display();
 
-            unordered_map<int, int>::iterator iter = globalMappper().nestingMapper.begin();
-            for (; iter != globalMappper().nestingMapper.end(); ++iter)
-            {
-                ::SendDlgItemMessage(hwnd, iter->first, BM_SETCHECK, style._nesting & iter->second, 0);
-                ::EnableWindow(::GetDlgItem(hwnd, iter->first), dlg->_enabledNesters & iter->second);
-            }
+			for (auto const& iter : globalMappper().nestingMapper)
+			{
+				::SendDlgItemMessage(hwnd, iter.first, BM_SETCHECK, style._nesting & iter.second, 0);
+				::EnableWindow(::GetDlgItem(hwnd, iter.first), dlg->_enabledNesters & iter.second);
+			}
             return TRUE;
         }
 
@@ -1772,12 +1770,11 @@ INT_PTR CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPAR
                     style._fontStyle |= FONTSTYLE_UNDERLINE;
 
                 style._nesting = SCE_USER_MASK_NESTING_NONE;
-                unordered_map<int, int>::iterator iter = globalMappper().nestingMapper.begin();
-                for (; iter != globalMappper().nestingMapper.end(); ++iter)
-                {
-                    if (BST_CHECKED == ::SendMessage(::GetDlgItem(hwnd, iter->first), BM_GETCHECK, 0, 0))
-                        style._nesting |= iter->second;
-                }
+				for (auto const& iter : globalMappper().nestingMapper)
+				{
+					if (BST_CHECKED == ::SendMessage(::GetDlgItem(hwnd, iter.first), BM_GETCHECK, 0, 0))
+						style._nesting |= iter.second;
+				}
 
                 // show changes to user, re-color document
                 if (SharedParametersDialog::_pScintilla->getCurrentBuffer()->getLangType() == L_USER)

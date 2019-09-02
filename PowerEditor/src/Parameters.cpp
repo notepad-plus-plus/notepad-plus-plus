@@ -3348,25 +3348,25 @@ void NppParameters::feedUserKeywordList(TiXmlNode *node)
 			{
 				kwl = (valueNode)?valueNode->Value():TEXT("");
 				//int len = _tcslen(kwl);
-				basic_string<TCHAR> temp{TEXT(" ")};
+				generic_string temp{TEXT(" ")};
 
 				temp += kwl;
 				size_t pos = 0;
 
 				pos = temp.find(TEXT(" 0"));
-				while (pos != string::npos)
+				while (pos != generic_string::npos)
 				{
 					temp.replace(pos, 2, TEXT(" 00"));
 					pos = temp.find(TEXT(" 0"), pos+1);
 				}
 				pos = temp.find(TEXT(" 1"));
-				while (pos != string::npos)
+				while (pos != generic_string::npos)
 				{
 					temp.replace(pos, 2, TEXT(" 03"));
 					pos = temp.find(TEXT(" 1"));
 				}
 				pos = temp.find(TEXT(" 2"));
-				while (pos != string::npos)
+				while (pos != generic_string::npos)
 				{
 					temp.replace(pos, 2, TEXT(" 04"));
 					pos = temp.find(TEXT(" 2"));

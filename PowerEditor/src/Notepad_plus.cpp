@@ -6543,7 +6543,7 @@ DWORD WINAPI Notepad_plus::threadTextPlayer(void *params)
 	const wchar_t* quoter = qParams->_quoter;
 	wstring quoter_str = quoter;
 	size_t pos = quoter_str.find(TEXT("Anonymous"));
-	if (pos == string::npos)
+	if (pos == wstring::npos)
 	{
 		::SendMessage(curScintilla, SCI_APPENDTEXT, 3, reinterpret_cast<LPARAM>("\n- "));
 		::SendMessage(curScintilla, SCI_GOTOPOS, ::SendMessage(curScintilla, SCI_GETLENGTH, 0, 0), 0);

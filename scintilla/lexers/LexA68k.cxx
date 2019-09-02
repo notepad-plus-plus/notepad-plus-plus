@@ -290,7 +290,7 @@ static void ColouriseA68kDoc (Sci_PositionU startPos, Sci_Position length, int i
             sc.SetState(SCE_A68K_MACRO_DECLARATION);
         }
         else if ((sc.ch < 0x80) && (sc.ch == ';')) {                            // Default: alert in a comment. If it doesn't match
-            sc.SetState(SCE_A68K_COMMENT);                                      // with an alert, it will be toggle to a normal comment
+            sc.SetState(SCE_A68K_COMMENT);                                      // with an alert, it will be toggled to a normal comment
         }
         else if ((sc.ch < 0x80) && isdigit(sc.ch)) {                            // Decimal numbers haven't prefix
             sc.SetState(SCE_A68K_NUMBER_DEC);

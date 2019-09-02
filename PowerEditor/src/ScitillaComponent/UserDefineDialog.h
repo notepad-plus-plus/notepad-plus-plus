@@ -56,7 +56,6 @@ class GlobalMappers
 		std::unordered_map<int, generic_string> styleNameMapper;
 
 		std::unordered_map<generic_string, int> temp;
-		std::unordered_map<generic_string, int>::iterator iter;
 
 		std::unordered_map<int, int> nestingMapper;
 		std::unordered_map<int, int> dialogMapper;
@@ -75,8 +74,8 @@ class GlobalMappers
             temp[TEXT("Words4")]                        = SCE_USER_KWLIST_KEYWORDS4;
 
             // in case of duplicate entries, newer string should overwrite old one !
-            for (iter = temp.begin(); iter != temp.end(); ++iter)
-                keywordNameMapper[iter->second] = iter->first;
+			for (auto const& iter : temp)
+				keywordNameMapper[iter.second] = iter.first;
             keywordIdMapper.insert(temp.begin(), temp.end());
             temp.clear();
 
@@ -108,8 +107,8 @@ class GlobalMappers
             temp[TEXT("Delimiters")]                    = SCE_USER_KWLIST_DELIMITERS;
 
             // in case of duplicate entries, newer string should overwrite old one !
-            for (iter = temp.begin(); iter != temp.end(); ++iter)
-                keywordNameMapper[iter->second] = iter->first;
+            for (auto const& iter : temp)
+                keywordNameMapper[iter.second] = iter.first;
             keywordIdMapper.insert(temp.begin(), temp.end());
             temp.clear();
 
@@ -123,8 +122,8 @@ class GlobalMappers
             temp[TEXT("Numbers, range")]                = SCE_USER_KWLIST_NUMBER_RANGE;
 
             // in case of duplicate entries, newer string should overwrite old one !
-            for (iter = temp.begin(); iter != temp.end(); ++iter)
-                keywordNameMapper[iter->second] = iter->first;
+			for (auto const& iter : temp)
+                keywordNameMapper[iter.second] = iter.first;
             keywordIdMapper.insert(temp.begin(), temp.end());
             temp.clear();
 
@@ -144,8 +143,8 @@ class GlobalMappers
 	        temp[TEXT("DELIMINER3")]           = SCE_USER_STYLE_DELIMITER3;
 	
 	        // in case of duplicate entries, newer string should overwrite old one !
-	        for (iter = temp.begin(); iter != temp.end(); ++iter)
-		        styleNameMapper[iter->second] = iter->first;
+			for (auto const& iter : temp)
+		        styleNameMapper[iter.second] = iter.first;
 	        styleIdMapper.insert(temp.begin(), temp.end());
 	        temp.clear();
 			
@@ -176,8 +175,8 @@ class GlobalMappers
 	        temp[TEXT("DELIMITERS8")]          = SCE_USER_STYLE_DELIMITER8;
 	
 	        // in case of duplicate entries, newer string should overwrite old one !
-	        for (iter = temp.begin(); iter != temp.end(); ++iter)
-		        styleNameMapper[iter->second] = iter->first;
+			for (auto const& iter : temp)
+		        styleNameMapper[iter.second] = iter.first;
 	        styleIdMapper.insert(temp.begin(), temp.end());
 	        temp.clear();
 

@@ -125,6 +125,8 @@
             <WordsStyle name="MAIN SECTIONS" styleID="13" fgColor="800080" bgColor="FFFFFF" fontName="" fontStyle="1" fontSize="" keywordClass="type3" />
             <WordsStyle name="PREDEFINED VARIABLE" styleID="14" fgColor="800040" bgColor="A5EFF5" fontName="" fontStyle="1" fontSize="" keywordClass="type4" />
             <WordsStyle name="PREDEFINED ATTRIBUTES" styleID="15" fgColor="FF0080" bgColor="98F3A4" fontName="" fontStyle="1" fontSize="" keywordClass="type5" />
+            <WordsStyle name="ENUM DOMAINS" styleID="16" fgColor="000080" bgColor="FFFF80" fontName="" fontStyle="1" fontSize="" keywordClass="type6" />
+            <WordsStyle name="USER DEFINED" styleID="17" fgColor="800040" bgColor="8AFFC5" fontName="" fontStyle="1" fontSize="" keywordClass="type7" />
             <WordsStyle name="TABLE DEFINITIONS" styleID="18" fgColor="9932CC" bgColor="FFFFFF" fontName="" fontStyle="5" fontSize="" />
             <WordsStyle name="TABLE SQL" styleID="19" fgColor="8A2BE2" bgColor="FFFFFF" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="DLL FUNCTIONS" styleID="20" fgColor="000080" bgColor="FFFFFF" fontName="" fontStyle="1" fontSize="" />

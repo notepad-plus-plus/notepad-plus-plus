@@ -96,10 +96,10 @@
 !insertmacro MUI_RESERVEFILE_LANGDLL
 
 !macro USE_LANG_DEFAULT LANGUAGE XML_FILE
-       !define LANG_DEFAULT ${LANGUAGE}
+       !define LANG ${LANGUAGE}
        LangString langFileName ${LANGUAGE} "${XML_FILE}"
-       !include "nsisInclude\lang\Default.nsh"
-       !undef LANG_DEFAULT
+       !include "nsisInclude\lang\English.nsh"
+       !undef LANG
 !macroend
 !define UseLangDefault "!insertmacro USE_LANG_DEFAULT "
 

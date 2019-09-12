@@ -250,13 +250,13 @@ ${MementoSectionDone}
 
 ;--------------------------------
   !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
-    !insertmacro MUI_DESCRIPTION_TEXT ${explorerContextMenu} 'Explorer context menu entry for Notepad++ : Open whatever you want in Notepad++ from Windows Explorer.'
-    !insertmacro MUI_DESCRIPTION_TEXT ${autoCompletionComponent} 'Install the API files you need for the auto-completion feature (Ctrl+Space).'
-    !insertmacro MUI_DESCRIPTION_TEXT ${Plugins} 'You may need these plugins to extend the capabilities of Notepad++.'
-    !insertmacro MUI_DESCRIPTION_TEXT ${localization} 'To use Notepad++ in your favorite language(s), install all/desired language(s).'
-    !insertmacro MUI_DESCRIPTION_TEXT ${Themes} 'The eye-candy to change visual effects. Use Theme selector to switch among them.'
-    !insertmacro MUI_DESCRIPTION_TEXT ${AutoUpdater} 'Keep Notepad++ updated: Automatically download and install the latest updates.'
-    !insertmacro MUI_DESCRIPTION_TEXT ${PluginsAdmin} 'Install, Update and Remove any plugin from a list by some clicks. It needs Auto-Updater installed.'
+    !insertmacro MUI_DESCRIPTION_TEXT ${explorerContextMenu} '$(DescLang_explorerContextMenu)'
+    !insertmacro MUI_DESCRIPTION_TEXT ${autoCompletionComponent} '$(DescLang_autoCompletionComponent)'
+    !insertmacro MUI_DESCRIPTION_TEXT ${Plugins} '$(DescLang_Plugins)'
+    !insertmacro MUI_DESCRIPTION_TEXT ${localization} '$(DescLang_localization)'
+    !insertmacro MUI_DESCRIPTION_TEXT ${Themes} '$(DescLang_Themes)'
+    !insertmacro MUI_DESCRIPTION_TEXT ${AutoUpdater} '$(DescLang_AutoUpdater)'
+    !insertmacro MUI_DESCRIPTION_TEXT ${PluginsAdmin} '$(DescLang_PluginsAdmin)'
   !insertmacro MUI_FUNCTION_DESCRIPTION_END
 ;--------------------------------
 

@@ -6,6 +6,7 @@
     <meta name="generator" content="HTML Tidy, see www.w3.org" />
     <meta name="generator" content="SciTE" />
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>
       Scintilla Usage Notes
     </title>
@@ -190,7 +191,7 @@ SPAN {
     class='S11'>linebuf</span><span class='S10'>)));</span><span class='S0'><br />
      &nbsp;&nbsp;&nbsp;&nbsp;</span> <span class='S10'>}</span><span class='S0'><br />
     </span> <span class='S10'>}</span><br />
-     
+
     <p style="margin-bottom: 0in">
        Of course, fancier handling could be implemented. For example, if the previous line was the
       start of a control construct, the next line could be automatically indented one tab further.
@@ -248,7 +249,7 @@ SPAN {
     class='S11'>endStyled</span><span class='S10'>,</span><span class='S0'>&nbsp;</span> <span
     class='S11'>notification</span><span class='S10'>-&gt;</span><span
     class='S11'>position</span><span class='S10'>);</span><br />
-     
+
     <p>
        Colourize(start, end) retrieves the specified range of text and then calls ColourizeDoc in
       keywords.cxx. It starts the process by calling:
@@ -258,7 +259,7 @@ SPAN {
     class='S11'>SCI_STARTSTYLING</span><span class='S10'>,</span><span class='S0'>&nbsp;</span>
     <span class='S11'>startPos</span><span class='S10'>,</span><span class='S0'>&nbsp;</span> <span
     class='S4'>31</span><span class='S10'>);</span><br />
-     
+
     <p>
        and then for each token of the text, calling:
     </p>
@@ -267,7 +268,7 @@ SPAN {
     class='S11'>SCI_SETSTYLING</span><span class='S10'>,</span><span class='S0'>&nbsp;</span> <span
     class='S11'>length</span><span class='S10'>,</span><span class='S0'>&nbsp;</span> <span
     class='S11'>style</span><span class='S10'>);</span><br />
-     
+
     <p>
        where style is a number from 0 to 31 whose appearance has been defined using the
       SCI_STYLESET... messages.
@@ -323,7 +324,7 @@ SPAN {
     class='S10'>=</span><span class='S0'>&nbsp;</span> <span class='S11'>linebuf</span><span
     class='S0'>&nbsp;</span> <span class='S10'>+</span><span class='S0'>&nbsp;</span> <span
     class='S11'>startword</span><span class='S10'>;</span><br />
-     
+
     <p>
        Then if a calltip is available it can be displayed. The calltip appears immediately below
       the position specified. The calltip can be multiple lines separated by newlines (\n).
@@ -343,7 +344,7 @@ SPAN {
     class='S11'>wordLen</span><span class='S0'>&nbsp;</span> <span class='S10'>-</span><span
     class='S0'>&nbsp;</span> <span class='S4'>1</span><span class='S10'>,</span><span
     class='S0'>&nbsp;</span> <span class='S11'>calltip</span><span class='S10'>);</span><br />
-     
+
     <p>
        The calltip can be removed when a closing parenthesis is entered:
     </p>
@@ -359,7 +360,7 @@ SPAN {
     SCI_CALLTIPCANCEL</span><span class='S10'>,</span><span class='S0'>&nbsp;</span> <span
     class='S4'>0</span><span class='S10'>,</span><span class='S0'>&nbsp;</span> <span class='S4'>
     0</span><span class='S10'>);</span><br />
-     
+
     <p>
        Obviously, it is up the application to look after supplying the appropriate calltip text.
     </p>

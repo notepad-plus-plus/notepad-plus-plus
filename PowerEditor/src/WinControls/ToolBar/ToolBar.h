@@ -56,7 +56,7 @@ struct iconLocator {
 	int iconIndex;
 	generic_string iconLocation;
 
-	iconLocator(int iList, int iIcon, const generic_string iconLoc) 
+	iconLocator(int iList, int iIcon, const generic_string& iconLoc)
 		: listIndex(iList), iconIndex(iIcon), iconLocation(iconLoc){};
 };
 
@@ -67,8 +67,8 @@ class TiXmlNode;
 class ToolBar : public Window
 {
 public :
-	ToolBar():Window() {};
-	virtual ~ToolBar(){};
+	ToolBar() = default;
+	virtual ~ToolBar() = default;
 
     void initTheme(TiXmlDocument *toolIconsDocRoot);
 	virtual bool init(HINSTANCE hInst, HWND hPere, toolBarStatusType type, 

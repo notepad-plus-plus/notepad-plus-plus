@@ -135,6 +135,8 @@ protected:
 	bool buildTreeFrom(TiXmlNode *projectRoot, HTREEITEM hParentItem);
 	void notified(LPNMHDR notification);
 	void showContextMenu(int x, int y);
+	void showContextMenuFromMenuKey(HTREEITEM selectedItem, int x, int y);
+	HMENU getMenuHandler(HTREEITEM selectedItem);
 	generic_string getAbsoluteFilePath(const TCHAR * relativePath);
 	void openSelectFile();
 	void setFileExtFilter(FileDialog & fDlg);
@@ -143,8 +145,8 @@ protected:
 class FileRelocalizerDlg : public StaticDialog
 {
 public :
-	FileRelocalizerDlg() : StaticDialog() {};
-	void init(HINSTANCE hInst, HWND parent){
+	FileRelocalizerDlg() = default;
+	void init(HINSTANCE hInst, HWND parent) {
 		Window::init(hInst, parent);
 	};
 

@@ -27,10 +27,9 @@
 #include "CharacterSet.h"
 #include "LexerModule.h"
 #include "OptionSet.h"
+#include "DefaultLexer.h"
 
-#ifdef SCI_NAMESPACE
 using namespace Scintilla;
-#endif
 
 /* Nested comments require keeping the value of the nesting level for every
    position in the document.  But since scintilla always styles line by line,
@@ -145,7 +144,7 @@ struct OptionSetD : public OptionSet<OptionsD> {
 	}
 };
 
-class LexerD : public ILexer {
+class LexerD : public DefaultLexer {
 	bool caseSensitive;
 	WordList keywords;
 	WordList keywords2;
@@ -162,49 +161,49 @@ public:
 	}
 	virtual ~LexerD() {
 	}
-	void SCI_METHOD Release() {
+	void SCI_METHOD Release() override {
 		delete this;
 	}
-	int SCI_METHOD Version() const {
-		return lvOriginal;
+	int SCI_METHOD Version() const override {
+		return lvRelease4;
 	}
-	const char * SCI_METHOD PropertyNames() {
+	const char * SCI_METHOD PropertyNames() override {
 		return osD.PropertyNames();
 	}
-	int SCI_METHOD PropertyType(const char *name) {
+	int SCI_METHOD PropertyType(const char *name) override {
 		return osD.PropertyType(name);
 	}
-	const char * SCI_METHOD DescribeProperty(const char *name) {
+	const char * SCI_METHOD DescribeProperty(const char *name) override {
 		return osD.DescribeProperty(name);
 	}
-	int SCI_METHOD PropertySet(const char *key, const char *val);
-	const char * SCI_METHOD DescribeWordListSets() {
+	Sci_Position SCI_METHOD PropertySet(const char *key, const char *val) override;
+	const char * SCI_METHOD DescribeWordListSets() override {
 		return osD.DescribeWordListSets();
 	}
-	int SCI_METHOD WordListSet(int n, const char *wl);
-	void SCI_METHOD Lex(unsigned int startPos, int length, int initStyle, IDocument *pAccess);
-	void SCI_METHOD Fold(unsigned int startPos, int length, int initStyle, IDocument *pAccess);
+	Sci_Position SCI_METHOD WordListSet(int n, const char *wl) override;
+	void SCI_METHOD Lex(Sci_PositionU startPos, Sci_Position length, int initStyle, IDocument *pAccess) override;
+	void SCI_METHOD Fold(Sci_PositionU startPos, Sci_Position length, int initStyle, IDocument *pAccess) override;
 
-	void * SCI_METHOD PrivateCall(int, void *) {
+	void * SCI_METHOD PrivateCall(int, void *) override {
 		return 0;
 	}
 
-	static ILexer *LexerFactoryD() {
+	static ILexer4 *LexerFactoryD() {
 		return new LexerD(true);
 	}
-	static ILexer *LexerFactoryDInsensitive() {
+	static ILexer4 *LexerFactoryDInsensitive() {
 		return new LexerD(false);
 	}
 };
 
-int SCI_METHOD LexerD::PropertySet(const char *key, const char *val) {
+Sci_Position SCI_METHOD LexerD::PropertySet(const char *key, const char *val) {
 	if (osD.PropertySet(&options, key, val)) {
 		return 0;
 	}
 	return -1;
 }
 
-int SCI_METHOD LexerD::WordListSet(int n, const char *wl) {
+Sci_Position SCI_METHOD LexerD::WordListSet(int n, const char *wl) {
 	WordList *wordListN = 0;
 	switch (n) {
 	case 0:
@@ -229,7 +228,7 @@ int SCI_METHOD LexerD::WordListSet(int n, const char *wl) {
 		wordListN = &keywords7;
 		break;
 	}
-	int firstModification = -1;
+	Sci_Position firstModification = -1;
 	if (wordListN) {
 		WordList wlNew;
 		wlNew.Set(wl);
@@ -241,14 +240,14 @@ int SCI_METHOD LexerD::WordListSet(int n, const char *wl) {
 	return firstModification;
 }
 
-void SCI_METHOD LexerD::Lex(unsigned int startPos, int length, int initStyle, IDocument *pAccess) {
+void SCI_METHOD LexerD::Lex(Sci_PositionU startPos, Sci_Position length, int initStyle, IDocument *pAccess) {
 	LexAccessor styler(pAccess);
 
 	int styleBeforeDCKeyword = SCE_D_DEFAULT;
 
 	StyleContext sc(startPos, length, initStyle, styler);
 
-	int curLine = styler.GetLine(startPos);
+	Sci_Position curLine = styler.GetLine(startPos);
 	int curNcLevel = curLine > 0? styler.GetLineState(curLine-1): 0;
 	bool numFloat = false; // Float literals have '+' and '-' signs
 	bool numHex = false;
@@ -471,16 +470,16 @@ void SCI_METHOD LexerD::Lex(unsigned int startPos, int length, int initStyle, ID
 // level store to make it easy to pick up with each increment
 // and to make it possible to fiddle the current level for "} else {".
 
-void SCI_METHOD LexerD::Fold(unsigned int startPos, int length, int initStyle, IDocument *pAccess) {
+void SCI_METHOD LexerD::Fold(Sci_PositionU startPos, Sci_Position length, int initStyle, IDocument *pAccess) {
 
 	if (!options.fold)
 		return;
 
 	LexAccessor styler(pAccess);
 
-	unsigned int endPos = startPos + length;
+	Sci_PositionU endPos = startPos + length;
 	int visibleChars = 0;
-	int lineCurrent = styler.GetLine(startPos);
+	Sci_Position lineCurrent = styler.GetLine(startPos);
 	int levelCurrent = SC_FOLDLEVELBASE;
 	if (lineCurrent > 0)
 		levelCurrent = styler.LevelAt(lineCurrent-1) >> 16;
@@ -491,7 +490,7 @@ void SCI_METHOD LexerD::Fold(unsigned int startPos, int length, int initStyle, I
 	int style = initStyle;
 	bool foldAtElse = options.foldAtElseInt >= 0 ? options.foldAtElseInt != 0 : options.foldAtElse;
 	const bool userDefinedFoldMarkers = !options.foldExplicitStart.empty() && !options.foldExplicitEnd.empty();
-	for (unsigned int i = startPos; i < endPos; i++) {
+	for (Sci_PositionU i = startPos; i < endPos; i++) {
 		char ch = chNext;
 		chNext = styler.SafeGetCharAt(i + 1);
 		int stylePrev = style;

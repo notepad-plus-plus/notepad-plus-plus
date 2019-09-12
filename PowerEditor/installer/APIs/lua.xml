@@ -1,0 +1,1957 @@
+<?xml version="1.0" encoding="Windows-1252" ?>
+<NotepadPlus>
+    <Environment ignoreCase="yes" startFunc="(" stopFunc=")" paramSeparator="," terminal=";" additionalWordChar=".:" />
+    <AutoComplete language="LUA">
+        <KeyWord name="and" func="no" />
+        <KeyWord name="assert" func="yes">
+            <Overload retVal="void" descr="
+Issues an error when the value of its argument v is false (i.e., nil or false);
+otherwise, returns all its arguments. message is an error message; when absent, it 
+defaults to 'assertion failed!'">
+                <Param name="Bool:v" />
+                <Param name="String:[message]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="break" func="no" />
+        <KeyWord name="collectgarbage" func="yes">
+            <Overload retVal="void" descr="This function is a generic interface to the garbage collector.
+It performs different functions according to its first argument, opt:
+
+    * 'stop': stops the garbage collector.
+    * 'restart': restarts the garbage collector.
+    * 'collect': performs a full garbage-collection cycle.
+    * 'count': returns the total memory in use by Lua (in Kbytes).
+    * 'step': performs a garbage-collection step. The step 'size' is controlled by arg
+        (larger values mean more steps) in a non-specified way. If you want to control
+        the step size you must experimentally tune the value of arg. Returns true if
+        the step finished a collection cycle.
+    * 'setpause': sets arg as the new value for the pause of the collector (see §2.10).
+        Returns the previous value for pause.
+    * 'setstepmul': sets arg as the new value for the step multiplier of the collector
+        (see §2.10). Returns the previous value for step.
+">
+                <Param name="String:opt" />
+                <Param name="[arg]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="coroutine.create" func="yes">
+            <Overload retVal="void" descr="
+Creates a new coroutine, with body f. f must be a Lua function. Returns this new
+coroutine, an object with type 'thread'.
+">
+                <Param name="Function:f" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="coroutine.resume" func="yes">
+            <Overload retVal="void" descr="
+Starts or continues the execution of coroutine co. The first time you resume a
+coroutine, it starts running its body. The values val1, ··· are passed as the 
+arguments to the body function. If the coroutine has yielded, resume restarts it; the 
+values val1, ··· are passed as the results from the yield.
+
+If the coroutine runs without any errors, resume returns true plus any values passed 
+to yield (if the coroutine yields) or any values returned by the body function (if the
+coroutine terminates). If there is any error, resume returns false plus the error 
+message.
+">
+                <Param name="co" />
+                <Param name="[, val, ...]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="coroutine.running" func="yes">
+            <Overload retVal="void" descr="
+Returns the running coroutine, or nil when called by the main thread. 
+        "></Overload>
+        </KeyWord>
+        <KeyWord name="coroutine.status" func="yes">
+            <Overload retVal="void" descr="
+Returns the status of coroutine co, as a string: 'running', if the coroutine is running (that is, it called status); 
+'suspended', if the coroutine is suspended in a call to yield, or if it has not started running yet; 
+'normal' if the coroutine is active but not running (that is, it has resumed another coroutine); and 
+'dead' if the coroutine has finished its body function, or if it has stopped with an error. 
+        ">
+                <Param name="co" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="coroutine.wrap" func="yes">
+            <Overload retVal="void" descr="
+Creates a new coroutine, with body f. f must be a Lua function. Returns a function that resumes 
+the coroutine each time it is called. Any arguments passed to the function behave as the extra 
+arguments to resume. Returns the same values returned by resume, except the first boolean. In 
+case of error, propagates the error. 
+        ">
+                <Param name="f" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="coroutine.yield" func="yes">
+            <Overload retVal="void" descr="
+Suspends the execution of the calling coroutine. The coroutine cannot be running a C function, a 
+metamethod, or an iterator. Any arguments to yield are passed as extra results to resume. 
+        ">
+                <Param name="..." />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="debug.debug" func="yes">
+            <Overload retVal="void" descr="
+Enters an interactive mode with the user, running each string that the user enters. Using 
+simple commands and other debug facilities, the user can inspect global and local variables, 
+change their values, evaluate expressions, and so on. A line containing only the word cont 
+finishes this function, so that the caller continues its execution.
+
+Note that commands for debug.debug are not lexically nested within any function, and so 
+have no direct access to local variables. 
+        "></Overload>
+        </KeyWord>
+        <KeyWord name="debug.getfenv" func="yes">
+            <Overload retVal="void" descr="
+Returns the environment of object o. 
+        ">
+                <Param name="o" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="debug.gethook" func="yes">
+            <Overload retVal="void" descr="
+Returns the current hook settings of the thread, as three values: the current hook function, the 
+current hook mask, and the current hook count (as set by the debug.sethook function). 
+        ">
+                <Param name="[thread]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="debug.getinfo" func="yes">
+            <Overload retVal="void" descr="
+Returns a table with information about a function. You can give the function directly, or you 
+can give a number as the value of function, which means the function running at level function 
+of the call stack of the given thread: level 0 is the current function (getinfo itself); level 1 
+is the function that called getinfo; and so on. If function is a number larger than the number 
+of active functions, then getinfo returns nil.
+
+The returned table can contain all the fields returned by lua_getinfo, with the string what 
+describing which fields to fill in. The default for what is to get all information available, 
+except the table of valid lines. If present, the option 'f' adds a field named func with the 
+function itself. If present, the option 'L' adds a field named activelines with the table of 
+valid lines.
+
+For instance, the expression debug.getinfo(1,'n').name returns a table with a name for the current 
+function, if a reasonable name can be found, and the expression debug.getinfo(print) returns a table 
+with all available information about the print function. 
+        ">
+                <Param name="[thread,]" />
+                <Param name="function" />
+                <Param name="[, what]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="debug.getlocal" func="yes">
+            <Overload retVal="void" descr="
+This function returns the name and the value of the local variable with index local of the function 
+at level level of the stack. (The first parameter or local variable has index 1, and so on, until the 
+last active local variable.) The function returns nil if there is no local variable with the given index, 
+and raises an error when called with a level out of range. (You can call debug.getinfo to check whether 
+the level is valid.)
+
+Variable names starting with '(' (open parentheses) represent internal variables (loop control variables, 
+temporaries, and C function locals). 
+        ">
+                <Param name="[thread,]" />
+                <Param name="level" />
+                <Param name="local" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="debug.getmetatable" func="yes">
+            <Overload retVal="void" descr="
+Returns the metatable of the given object or nil if it does not have a metatable. 
+        ">
+                <Param name="object" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="debug.getregistry" func="yes">
+            <Overload retVal="void" descr="
+Returns the registry table (see §3.5). 
+        "></Overload>
+        </KeyWord>
+        <KeyWord name="debug.getupvalue" func="yes">
+            <Overload retVal="void" descr="
+This function returns the name and the value of the upvalue with index up of the function 
+func. The function returns nil if there is no upvalue with the given index. 
+        ">
+                <Param name="func" />
+                <Param name="up" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="debug.setfenv" func="yes">
+            <Overload retVal="void" descr="
+Sets the environment of the given object to the given table. Returns object. 
+        ">
+                <Param name="object" />
+                <Param name="table" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="debug.sethook" func="yes">
+            <Overload retVal="void" descr="
+Sets the given function as a hook. The string mask and the number count describe when the hook 
+will be called. The string mask may have the following characters, with the given meaning:
+
+    * 'c': the hook is called every time Lua calls a function;
+    * 'r': the hook is called every time Lua returns from a function;
+    * 'l': the hook is called every time Lua enters a new line of code.
+
+With a count different from zero, the hook is called after every count instructions.
+
+When called without arguments, debug.sethook turns off the hook.
+
+When the hook is called, its first parameter is a string describing the event that has triggered 
+its call: 'call', 'return' (or 'tail return', when simulating a return from a tail call), 'line', 
+and 'count'. For line events, the hook also gets the new line number as its second parameter. 
+Inside a hook, you can call getinfo with level 2 to get more information about the running function 
+(level 0 is the getinfo function, and level 1 is the hook function), unless the event is 'tail return'. 
+In this case, Lua is only simulating the return, and a call to getinfo will return invalid data. 
+        ">
+                <Param name="[thread,]" />
+                <Param name="hook" />
+                <Param name="mask" />
+                <Param name="[, count]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="debug.setlocal" func="yes">
+            <Overload retVal="void" descr="
+This function assigns the value value to the local variable with index local of the function at level 
+level of the stack. The function returns nil if there is no local variable with the given index, and 
+raises an error when called with a level out of range. (You can call getinfo to check whether the level 
+is valid.) Otherwise, it returns the name of the local variable. 
+        ">
+                <Param name="[thread,]" />
+                <Param name="level" />
+                <Param name="local" />
+                <Param name="value" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="debug.setmetatable" func="yes">
+            <Overload retVal="void" descr="
+Sets the metatable for the given object to the given table (which can be nil). 
+        ">
+                <Param name="object" />
+                <Param name="table" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="debug.setupvalue" func="yes">
+            <Overload retVal="void" descr="
+This function assigns the value value to the upvalue with index up of the function func. The function 
+returns nil if there is no upvalue with the given index. Otherwise, it returns the name of the upvalue. 
+        ">
+                <Param name="func" />
+                <Param name="up" />
+                <Param name="value" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="debug.traceback" func="yes">
+            <Overload retVal="void" descr="
+Returns a string with a traceback of the call stack. An optional message string is appended at the 
+beginning of the traceback. An optional level number tells at which level to start the traceback 
+(default is 1, the function calling traceback). 
+        ">
+                <Param name="[thread,]" />
+                <Param name="[message]" />
+                <Param name="[, level]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="do" func="no" />
+        <KeyWord name="dofile" func="yes">
+            <Overload retVal="void" descr="
+Opens the named file and executes its contents as a Lua chunk. When called without arguments, dofile 
+executes the contents of the standard input (stdin). Returns all values returned by the chunk. In case 
+of errors, dofile propagates the error to its caller (that is, dofile does not run in protected mode). 
+        ">
+                <Param name="filename" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="else" func="no" />
+        <KeyWord name="elseif" func="no" />
+        <KeyWord name="end" func="no" />
+        <KeyWord name="error" func="yes">
+            <Overload retVal="void" descr="
+Terminates the last protected function called and returns message as the error message. 
+Function error never returns.
+
+Usually, error adds some information about the error position at the beginning of the message. 
+The level argument specifies how to get the error position. With level 1 (the default), the error 
+position is where the error function was called. Level 2 points the error to where the function 
+that called error was called; and so on. Passing a level 0 avoids the addition of error position 
+information to the message. 
+        ">
+                <Param name="message" />
+                <Param name="[, level]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="false" func="no" />
+        <KeyWord name="file:close" func="yes">
+            <Overload retVal="void" descr="
+Closes file. Note that files are automatically closed when their handles are garbage collected, 
+but that takes an unpredictable amount of time to happen. 
+        "></Overload>
+        </KeyWord>
+        <KeyWord name="file:flush" func="yes">
+            <Overload retVal="void" descr="
+Saves any written data to file. 
+        "></Overload>
+        </KeyWord>
+        <KeyWord name="file:lines" func="yes">
+            <Overload retVal="void" descr="
+Returns an iterator function that, each time it is called, returns a new line from the file. 
+Therefore, the construction
+for line in file:lines() do body end
+will iterate over all lines of the file. (Unlike io.lines, this function does not close the file when the loop ends.) 
+        "></Overload>
+        </KeyWord>
+        <KeyWord name="file:read" func="yes">
+            <Overload retVal="void" descr="
+Reads the file file, according to the given formats, which specify what to read. For each format, 
+the function returns a string (or a number) with the characters read, or nil if it cannot read data 
+with the specified format. When called without formats, it uses a default format that reads the entire 
+next line (see below).
+
+The available formats are
+
+    * '*n': reads a number; this is the only format that returns a number instead of a string.
+    * '*a': reads the whole file, starting at the current position. On end of file, it returns the empty string.
+    * '*l': reads the next line (skipping the end of line), returning nil on end of file. This is the default format.
+    * number: reads a string with up to this number of characters, returning nil on end of file. If number is zero, it 
+            reads nothing and returns an empty string, or nil on end of file.
+
+        ">
+                <Param name="···" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="file:seek" func="yes">
+            <Overload retVal="void" descr="
+Sets and gets the file position, measured from the beginning of the file, to the position given by offset 
+plus a base specified by the string whence, as follows:
+
+    * 'set': base is position 0 (beginning of the file);
+    * 'cur': base is current position;
+    * 'end': base is end of file;
+
+In case of success, function seek returns the final file position, measured in bytes from the beginning of the 
+file. If this function fails, it returns nil, plus a string describing the error.
+
+The default value for whence is 'cur', and for offset is 0. Therefore, the call file:seek() returns the 
+current file position, without changing it; the call file:seek('set') sets the position to the beginning 
+of the file (and returns 0); and the call file:seek('end') sets the position to the end of the file, and 
+returns its size. 
+        ">
+                <Param name="[whence]" />
+                <Param name="[, offset]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="file:setvbuf" func="yes">
+            <Overload retVal="void" descr="
+Sets the buffering mode for an output file. There are three available modes:
+
+    * 'no': no buffering; the result of any output operation appears immediately.
+    * 'full': full buffering; output operation is performed only when the buffer is full 
+            (or when you explicitly flush the file (see io.flush)).
+    * 'line': line buffering; output is buffered until a newline is output or there is any input 
+            from some special files (such as a terminal device).
+
+For the last two cases, size specifies the size of the buffer, in bytes. The default is an appropriate size. 
+        ">
+                <Param name="mode" />
+                <Param name="[, size]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="file:write" func="yes">
+            <Overload retVal="void" descr="
+Writes the value of each of its arguments to the file. The arguments must be strings or numbers. To write 
+other values, use tostring or string.format before write. 
+        ">
+                <Param name="···" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="for" func="no" />
+        <KeyWord name="function" func="no" />
+        <KeyWord name="getfenv" func="yes">
+            <Overload retVal="void" descr="
+Returns the current environment in use by the function. f can be a Lua function or a number that specifies 
+the function at that stack level: Level 1 is the function calling getfenv. If the given function is not a 
+Lua function, or if f is 0, getfenv returns the global environment. The default for f is 1. 
+        ">
+                <Param name="[f]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="getmetatable" func="yes">
+            <Overload retVal="void" descr="
+If object does not have a metatable, returns nil. Otherwise, if the object's metatable has a '__metatable' 
+field, returns the associated value. Otherwise, returns the metatable of the given object. 
+        ">
+                <Param name="object" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="if" func="no" />
+        <KeyWord name="in" func="no" />
+        <KeyWord name="io.close" func="yes">
+            <Overload retVal="void" descr="
+Equivalent to file:close(). Without a file, closes the default output file. 
+        ">
+                <Param name="[file]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="io.flush" func="yes">
+            <Overload retVal="void" descr="
+Equivalent to file:flush over the default output file. 
+        "></Overload>
+        </KeyWord>
+        <KeyWord name="io.input" func="yes">
+            <Overload retVal="void" descr="
+When called with a file name, it opens the named file (in text mode), and sets its handle as the default 
+input file. When called with a file handle, it simply sets this file handle as the default input file. When 
+called without parameters, it returns the current default input file.
+
+In case of errors this function raises the error, instead of returning an error code. 
+        ">
+                <Param name="[file]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="io.lines" func="yes">
+            <Overload retVal="void" descr="
+Opens the given file name in read mode and returns an iterator function that, each time it is called, 
+returns a new line from the file. Therefore, the construction
+
+     for line in io.lines(filename) do body end
+
+will iterate over all lines of the file. When the iterator function detects the end of file, it returns 
+nil (to finish the loop) and automatically closes the file.
+
+The call io.lines() (with no file name) is equivalent to io.input():lines(); that is, it iterates over 
+the lines of the default input file. In this case it does not close the file when the loop ends. 
+        ">
+                <Param name="[filename]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="io.open" func="yes">
+            <Overload retVal="void" descr="
+This function opens a file, in the mode specified in the string mode. It returns a new file handle, 
+or, in case of errors, nil plus an error message.
+
+The mode string can be any of the following:
+
+    * 'r': read mode (the default);
+    * 'w': write mode;
+    * 'a': append mode;
+    * 'r+': update mode, all previous data is preserved;
+    * 'w+': update mode, all previous data is erased;
+    * 'a+': append update mode, previous data is preserved, writing is only allowed at the end of file.
+
+The mode string can also have a 'b' at the end, which is needed in some systems to open the file in 
+binary mode. This string is exactly what is used in the standard C function fopen. 
+        ">
+                <Param name="filename" />
+                <Param name="[, mode]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="io.output" func="yes">
+            <Overload retVal="void" descr="
+Similar to io.input, but operates over the default output file. 
+        ">
+                <Param name="[file]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="io.popen" func="yes">
+            <Overload retVal="void" descr="
+Starts program prog in a separated process and returns a file handle that you can use to read data from 
+this program (if mode is 'r', the default) or to write data to this program (if mode is 'w').
+
+This function is system dependent and is not available on all platforms. 
+        ">
+                <Param name="prog" />
+                <Param name="[, mode]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="io.read" func="yes">
+            <Overload retVal="void" descr="
+Equivalent to io.input():read. 
+        ">
+                <Param name="···" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="io.tmpfile" func="yes">
+            <Overload retVal="void" descr="
+Returns a handle for a temporary file. This file is opened in update mode and it is automatically 
+removed when the program ends. 
+        "></Overload>
+        </KeyWord>
+        <KeyWord name="io.type" func="yes">
+            <Overload retVal="void" descr="
+Checks whether obj is a valid file handle. Returns the string 'file' if obj is an open file handle, 
+'closed file' if obj is a closed file handle, or nil if obj is not a file handle. 
+        ">
+                <Param name="obj" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="io.write" func="yes">
+            <Overload retVal="void" descr="
+Equivalent to io.output():write. 
+        ">
+                <Param name="···" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="ipairs" func="yes">
+            <Overload retVal="void" descr="
+Returns three values: an iterator function, the table t, and 0, so that the construction
+
+     for i,v in ipairs(t) do body end
+
+will iterate over the pairs (1,t[1]), (2,t[2]), ···, up to the first integer key absent from the table. 
+        ">
+                <Param name="t" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="load" func="yes">
+            <Overload retVal="void" descr="
+Loads a chunk using function func to get its pieces. Each call to func must return a string that 
+concatenates with previous results. A return of an empty string, nil, or no value signals the end of 
+the chunk.
+
+If there are no errors, returns the compiled chunk as a function; otherwise, returns nil plus the error 
+message. The environment of the returned function is the global environment.
+
+chunkname is used as the chunk name for error messages and debug information. When absent, 
+it defaults to '=(load)'. 
+        ">
+                <Param name="func" />
+                <Param name="[, chunkname]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="loadfile" func="yes">
+            <Overload retVal="void" descr="
+Similar to load, but gets the chunk from file filename or from the standard input, 
+if no file name is given. 
+        ">
+                <Param name="[filename]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="loadstring" func="yes">
+            <Overload retVal="void" descr="
+Similar to load, but gets the chunk from the given string.
+To load and run a given string, use the idiom
+     assert(loadstring(s))()
+When absent, chunkname defaults to the given string. 
+        ">
+                <Param name="string" />
+                <Param name="[, chunkname]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="local" func="no" />
+        <KeyWord name="math.abs" func="yes">
+            <Overload retVal="void" descr="
+Returns the absolute value of x. 
+        ">
+                <Param name="x" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="math.acos" func="yes">
+            <Overload retVal="void" descr="
+Returns the arc cosine of x (in radians). 
+        ">
+                <Param name="x" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="math.asin" func="yes">
+            <Overload retVal="void" descr="
+Returns the arc sine of x (in radians). 
+        ">
+                <Param name="x" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="math.atan" func="yes">
+            <Overload retVal="void" descr="
+Returns the arc tangent of x (in radians). 
+        ">
+                <Param name="x" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="math.atan2" func="yes">
+            <Overload retVal="void" descr="
+Returns the arc tangent of y/x (in radians), but uses the signs of both parameters to 
+find the quadrant of the result. (It also handles correctly the case of x being zero.) 
+        ">
+                <Param name="y" />
+                <Param name="x" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="math.ceil" func="yes">
+            <Overload retVal="void" descr="
+Returns the smallest integer larger than or equal to x. 
+        ">
+                <Param name="x" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="math.cos" func="yes">
+            <Overload retVal="void" descr="
+Returns the cosine of x (assumed to be in radians). 
+        ">
+                <Param name="x" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="math.cosh" func="yes">
+            <Overload retVal="void" descr="
+Returns the hyperbolic cosine of x. 
+        ">
+                <Param name="x" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="math.deg" func="yes">
+            <Overload retVal="void" descr="
+Returns the angle x (given in radians) in degrees. 
+        ">
+                <Param name="x" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="math.exp" func="yes">
+            <Overload retVal="void" descr="
+Returns the value ex. 
+        ">
+                <Param name="x" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="math.floor" func="yes">
+            <Overload retVal="void" descr="
+Returns the largest integer smaller than or equal to x. 
+        ">
+                <Param name="x" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="math.fmod" func="yes">
+            <Overload retVal="void" descr="
+Returns the remainder of the division of x by y that rounds the quotient towards zero. 
+        ">
+                <Param name="x" />
+                <Param name="y" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="math.frexp" func="yes">
+            <Overload retVal="void" descr="
+Returns m and e such that x = m2e, e is an integer and the absolute value of m is in 
+the range [0.5, 1) (or zero when x is zero). 
+        ">
+                <Param name="x" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="math.huge" func="no" />
+        <KeyWord name="math.ldexp" func="yes">
+            <Overload retVal="void" descr="
+Returns m2e (e should be an integer). 
+        ">
+                <Param name="m" />
+                <Param name="e" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="math.log" func="yes">
+            <Overload retVal="void" descr="
+Returns the natural logarithm of x. 
+        ">
+                <Param name="x" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="math.log10" func="yes">
+            <Overload retVal="void" descr="
+Returns the base-10 logarithm of x. 
+        ">
+                <Param name="x" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="math.max" func="yes">
+            <Overload retVal="void" descr="
+Returns the maximum value among its arguments. 
+        ">
+                <Param name="x" />
+                <Param name="..." />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="math.min" func="yes">
+            <Overload retVal="void" descr="
+Returns the minimum value among its arguments. 
+        ">
+                <Param name="x" />
+                <Param name="..." />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="math.modf" func="yes">
+            <Overload retVal="void" descr="
+Returns two numbers, the integral part of x and the fractional part of x. 
+        ">
+                <Param name="x" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="math.pi" func="no" />
+        <KeyWord name="math.pow" func="yes">
+            <Overload retVal="void" descr="
+Returns xy. (You can also use the expression x^y to compute this value.) 
+        ">
+                <Param name="x" />
+                <Param name="y" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="math.rad" func="yes">
+            <Overload retVal="void" descr="
+Returns the angle x (given in degrees) in radians. 
+        ">
+                <Param name="x" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="math.random" func="yes">
+            <Overload retVal="void" descr="
+This function is an interface to the simple pseudo-random generator function rand 
+provided by ANSI C. (No guarantees can be given for its statistical properties.)
+
+When called without arguments, returns a uniform pseudo-random real number in the 
+range [0,1). When called with an integer number m, math.random returns a uniform 
+pseudo-random integer in the range [1, m]. When called with two integer numbers m and 
+n, math.random returns a uniform pseudo-random integer in the range [m, n]. 
+        ">
+                <Param name="[m [, n]]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="math.randomseed" func="yes">
+            <Overload retVal="void" descr="
+Sets x as the 'seed' for the pseudo-random generator: equal seeds produce equal 
+sequences of numbers. 
+        ">
+                <Param name="x" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="math.sin" func="yes">
+            <Overload retVal="void" descr="
+Returns the sine of x (assumed to be in radians). 
+        ">
+                <Param name="x" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="math.sinh" func="yes">
+            <Overload retVal="void" descr="
+Returns the hyperbolic sine of x. 
+        ">
+                <Param name="x" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="math.sqrt" func="yes">
+            <Overload retVal="void" descr="
+Returns the square root of x. (You can also use the expression x^0.5 to compute this value.) 
+        ">
+                <Param name="x" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="math.tan" func="yes">
+            <Overload retVal="void" descr="
+Returns the tangent of x (assumed to be in radians). 
+        ">
+                <Param name="x" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="math.tanh" func="yes">
+            <Overload retVal="void" descr="
+Returns the hyperbolic tangent of x. 
+        ">
+                <Param name="x" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="module" func="yes">
+            <Overload retVal="void" descr="
+Creates a module. If there is a table in package.loaded[name], this table is the module. 
+Otherwise, if there is a global table t with the given name, this table is the module. 
+Otherwise creates a new table t and sets it as the value of the global name and the value 
+of package.loaded[name]. This function also initializes t._NAME with the given name, t._M 
+with the module (t itself), and t._PACKAGE with the package name (the full module name 
+minus last component; see below). Finally, module sets t as the new environment of the 
+current function and the new value of package.loaded[name], so that require returns t.
+
+If name is a compound name (that is, one with components separated by dots), module creates 
+(or reuses, if they already exist) tables for each component. For instance, if name is a.b.c, 
+then module stores the module table in field c of field b of global a.
+
+This function can receive optional options after the module name, where each option is a 
+function to be applied over the module. 
+        ">
+                <Param name="name" />
+                <Param name="[, ···]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="next" func="yes">
+            <Overload retVal="void" descr="
+Allows a program to traverse all fields of a table. Its first argument is a table and its second 
+argument is an index in this table. next returns the next index of the table and its associated 
+value. When called with nil as its second argument, next returns an initial index and its associated 
+value. When called with the last index, or with nil in an empty table, next returns nil. If the 
+second argument is absent, then it is interpreted as nil. In particular, you can use next(t) to 
+check whether a table is empty.
+
+The order in which the indices are enumerated is not specified, even for numeric indices. (To 
+traverse a table in numeric order, use a numerical for or the ipairs function.)
+
+The behavior of next is undefined if, during the traversal, you assign any value to a non-existent 
+field in the table. You may however modify existing fields. In particular, you may clear existing 
+fields. 
+        ">
+                <Param name="table" />
+                <Param name="[, index]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="nil" func="no" />
+        <KeyWord name="not" func="no" />
+        <KeyWord name="or" func="no" />
+        <KeyWord name="os.clock" func="yes">
+            <Overload retVal="void" descr="
+Returns an approximation of the amount in seconds of CPU time used by the program. 
+        "></Overload>
+        </KeyWord>
+        <KeyWord name="os.date" func="yes">
+            <Overload retVal="void" descr="
+Returns a string or a table containing date and time, formatted according to the given string format.
+
+If the time argument is present, this is the time to be formatted (see the os.time function 
+for a description of this value). Otherwise, date formats the current time.
+
+If format starts with '!', then the date is formatted in Coordinated Universal Time. After this 
+optional character, if format is the string '*t', then date returns a table with the following fields: 
+year (four digits), 
+month (1--12), 
+day (1--31), 
+hour (0--23), 
+min (0--59), 
+sec (0--61), 
+wday (weekday, Sunday is 1), 
+yday (day of the year), and 
+isdst (daylight saving flag, a boolean).
+
+If format is not '*t', then date returns the date as a string, formatted according to the same 
+rules as the C function strftime.
+
+When called without arguments, date returns a reasonable date and time representation that 
+depends on the host system and on the current locale (that is, os.date() is equivalent to os.date('%c')). 
+        ">
+                <Param name="[format [, time]]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="os.difftime" func="yes">
+            <Overload retVal="void" descr="
+Returns the number of seconds from time t1 to time t2. In POSIX, Windows, and some other systems, 
+this value is exactly t2-t1. 
+        ">
+                <Param name="t2" />
+                <Param name="t1" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="os.execute" func="yes">
+            <Overload retVal="void" descr="
+This function is equivalent to the C function system. It passes command to be executed by an operating 
+system shell. It returns a status code, which is system-dependent. If command is absent, then it returns 
+nonzero if a shell is available and zero otherwise. 
+        ">
+                <Param name="[command]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="os.exit" func="yes">
+            <Overload retVal="void" descr="
+Calls the C function exit, with an optional code, to terminate the host program. The default 
+value for code is the success code. 
+        ">
+                <Param name="[code]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="os.getenv" func="yes">
+            <Overload retVal="void" descr="
+Returns the value of the process environment variable varname, or nil if the variable is not defined. 
+        ">
+                <Param name="varname" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="os.remove" func="yes">
+            <Overload retVal="void" descr="
+Deletes the file or directory with the given name. Directories must be empty to be removed. If this 
+function fails, it returns nil, plus a string describing the error. 
+        ">
+                <Param name="filename" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="os.rename" func="yes">
+            <Overload retVal="void" descr="
+Renames file or directory named oldname to newname. If this function fails, it returns nil, plus a 
+string describing the error. 
+        ">
+                <Param name="oldname" />
+                <Param name="newname" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="os.setlocale" func="yes">
+            <Overload retVal="void" descr="
+Sets the current locale of the program. locale is a string specifying a locale; category is an optional 
+string describing which category to change: 'all', 'collate', 'ctype', 'monetary', 'numeric', or 'time'; 
+the default category is 'all'. The function returns the name of the new locale, or nil if the request 
+cannot be honored.
+
+If locale is the empty string, the current locale is set to an implementation-defined native locale. If 
+locale is the string 'C', the current locale is set to the standard C locale.
+
+When called with nil as the first argument, this function only returns the name of the current locale 
+for the given category. 
+        ">
+                <Param name="locale" />
+                <Param name="[, category]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="os.time" func="yes">
+            <Overload retVal="void" descr="
+Returns the current time when called without arguments, or a time representing the date and time specified 
+by the given table. This table must have fields year, month, and day, and may have fields hour, min, sec, 
+and isdst (for a description of these fields, see the os.date function).
+
+The returned value is a number, whose meaning depends on your system. In POSIX, Windows, and some other 
+systems, this number counts the number of seconds since some given start time (the 'epoch'). 
+In other systems, the meaning is not specified, and the number returned by time can be used only as an 
+argument to date and difftime. 
+        ">
+                <Param name="[table]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="os.tmpname" func="yes">
+            <Overload retVal="void" descr="
+Returns a string with a file name that can be used for a temporary file. The file must be explicitly 
+opened before its use and explicitly removed when no longer needed.
+
+On some systems (POSIX), this function also creates a file with that name, to avoid security risks. 
+(Someone else might create the file with wrong permissions in the time between getting the name and 
+creating the file.) You still have to open the file to use it and to remove it (even if you do not use it).
+
+When possible, you may prefer to use io.tmpfile, which automatically removes the file when the program ends. 
+        "></Overload>
+        </KeyWord>
+        <KeyWord name="package.cpath" func="no" />
+        <KeyWord name="package.loaded" func="no" />
+        <KeyWord name="package.loaders" func="no" />
+        <KeyWord name="package.loadlib" func="yes">(libname, funcname)
+            <Overload retVal="void" descr="
+Dynamically links the host program with the C library libname. Inside this library, looks for a function 
+funcname and returns this function as a C function. (So, funcname must follow the protocol (see lua_CFunction)).
+
+This is a low-level function. It completely bypasses the package and module system. Unlike require, it 
+does not perform any path searching and does not automatically adds extensions. libname must be the complete 
+file name of the C library, including if necessary a path and extension. funcname must be the exact name 
+exported by the C library (which may depend on the C compiler and linker used).
+
+This function is not supported by ANSI C. As such, it is only available on some platforms (Windows, 
+Linux, Mac OS X, Solaris, BSD, plus other Unix systems that support the dlfcn standard). 
+        ">
+                <Param name="libname" />
+                <Param name="funcname" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="package.path" func="no" />
+        <KeyWord name="package.preload" func="no" />
+        <KeyWord name="package.seeall" func="yes">(module)
+            <Overload retVal="void" descr="
+Sets a metatable for module with its __index field referring to the global environment, so that this 
+module inherits values from the global environment. To be used as an option to function module. 
+        ">
+                <Param name="module" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="pairs" func="yes">
+            <Overload retVal="void" descr="
+Returns three values: the next function, the table t, and nil, so that the construction
+
+     for k,v in pairs(t) do body end
+
+will iterate over all key–value pairs of table t.
+
+See function next for the caveats of modifying the table during its traversal. 
+        ">
+                <Param name="t" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="pcall" func="yes">
+            <Overload retVal="void" descr="
+Calls function f with the given arguments in protected mode. This means that any error 
+inside f is not propagated; instead, pcall catches the error and returns a status code. 
+Its first result is the status code (a boolean), which is true if the call succeeds without 
+errors. In such case, pcall also returns all results from the call, after this first result. 
+In case of any error, pcall returns false plus the error message. 
+        ">
+                <Param name="f" />
+                <Param name="arg1" />
+                <Param name="···" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="print" func="yes">
+            <Overload retVal="void" descr="
+Receives any number of arguments, and prints their values to stdout, using the tostring 
+function to convert them to strings. print is not intended for formatted output, but only 
+as a quick way to show a value, typically for debugging. For formatted output, use string.format. 
+        ">
+                <Param name="···" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="rawequal" func="yes">
+            <Overload retVal="void" descr="
+Checks whether v1 is equal to v2, without invoking any metamethod. Returns a boolean. 
+        ">
+                <Param name="v1" />
+                <Param name="v2" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="rawget" func="yes">
+            <Overload retVal="void" descr="
+Gets the real value of table[index], without invoking any metamethod. table must be a 
+table; index may be any value. 
+        ">
+                <Param name="table" />
+                <Param name="index" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="rawset" func="yes">
+            <Overload retVal="void" descr="
+Sets the real value of table[index] to value, without invoking any metamethod. table must 
+be a table, index any value different from nil, and value any Lua value.
+
+This function returns table. 
+        ">
+                <Param name="table" />
+                <Param name="index" />
+                <Param name="value" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="repeat" func="no" />
+        <KeyWord name="require" func="yes">
+            <Overload retVal="void" descr="
+Loads the given module. The function starts by looking into the package.loaded table to 
+determine whether modname is already loaded. If it is, then require returns the value stored 
+at package.loaded[modname]. Otherwise, it tries to find a loader for the module.
+
+To find a loader, require is guided by the package.loaders array. By changing this array, 
+we can change how require looks for a module. The following explanation is based on the 
+default configuration for package.loaders.
+
+First require queries package.preload[modname]. If it has a value, this value (which should 
+be a function) is the loader. Otherwise require searches for a Lua loader using the path 
+stored in package.path. If that also fails, it searches for a C loader using the path stored 
+in package.cpath. If that also fails, it tries an all-in-one loader (see package.loaders).
+
+Once a loader is found, require calls the loader with a single argument, modname. If the 
+loader returns any value, require assigns the returned value to package.loaded[modname]. 
+If the loader returns no value and has not assigned any value to package.loaded[modname], 
+then require assigns true to this entry. In any case, require returns the final value of 
+package.loaded[modname].
+
+If there is any error loading or running the module, or if it cannot find any loader for 
+the module, then require signals an error. 
+        ">
+                <Param name="modname" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="return" func="no" />
+        <KeyWord name="select" func="yes">
+            <Overload retVal="void" descr="
+If index is a number, returns all arguments after argument number index. Otherwise, index 
+must be the string '#', and select returns the total number of extra arguments it received. 
+        ">
+                <Param name="index" />
+                <Param name="···" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="setfenv" func="yes">
+            <Overload retVal="void" descr="
+Sets the environment to be used by the given function. f can be a Lua function or a number 
+that specifies the function at that stack level: Level 1 is the function calling setfenv. 
+setfenv returns the given function.
+
+As a special case, when f is 0 setfenv changes the environment of the running thread. 
+In this case, setfenv returns no values. 
+        ">
+                <Param name="f" />
+                <Param name="table" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="setmetatable" func="yes">
+            <Overload retVal="void" descr="
+Sets the metatable for the given table. (You cannot change the metatable of other types 
+from Lua, only from C.) If metatable is nil, removes the metatable of the given table. 
+If the original metatable has a '__metatable' field, raises an error.
+
+This function returns table. 
+        ">
+                <Param name="table" />
+                <Param name="metatable" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="string.byte" func="yes">
+            <Overload retVal="void" descr="
+Returns the internal numerical codes of the characters s[i], s[i+1], ···, s[j]. The default 
+value for i is 1; the default value for j is i.
+
+Note that numerical codes are not necessarily portable across platforms. 
+        ">
+                <Param name="s [, i [, j]]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="string.char" func="yes">
+            <Overload retVal="void" descr="
+Receives zero or more integers. Returns a string with length equal to the number of arguments, 
+in which each character has the internal numerical code equal to its corresponding argument.
+
+Note that numerical codes are not necessarily portable across platforms. 
+        ">
+                <Param name="···" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="string.dump" func="yes">
+            <Overload retVal="void" descr="
+Returns a string containing a binary representation of the given function, so that a later 
+loadstring on this string returns a copy of the function. function must be a Lua function 
+without upvalues. 
+        ">
+                <Param name="function" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="string.find" func="yes">
+            <Overload retVal="void" descr="
+Looks for the first match of pattern in the string s. If it finds a match, then find returns 
+the indices of s where this occurrence starts and ends; otherwise, it returns nil. A third, 
+optional numerical argument init specifies where to start the search; its default value is 1 
+and can be negative. A value of true as a fourth, optional argument plain turns off the 
+pattern matching facilities, so the function does a plain 'find substring' operation, with 
+no characters in pattern being considered 'magic'. Note that if plain is given, then init 
+must be given as well.
+
+If the pattern has captures, then in a successful match the captured values are also returned, 
+after the two indices. 
+        ">
+                <Param name="s" />
+                <Param name="pattern" />
+                <Param name="[, init [, plain]]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="string.format" func="yes">
+            <Overload retVal="void" descr="
+Returns a formatted version of its variable number of arguments following the description 
+given in its first argument (which must be a string). The format string follows the same 
+rules as the printf family of standard C functions. The only differences are that the options/modifiers 
+*, l, L, n, p, and h are not supported and that there is an extra option, q. The q option formats 
+a string in a form suitable to be safely read back by the Lua interpreter: the string is 
+written between double quotes, and all double quotes, newlines, embedded zeros, and backslashes 
+in the string are correctly escaped when written. For instance, the call
+
+     string.format('%q', 'a string with ''quotes'' and \n new line')
+
+will produce the string:
+
+     'a string with \''quotes\'' and \
+      new line'
+
+The options c, d, E, e, f, g, G, i, o, u, X, and x all expect a number as argument, whereas 
+q and s expect a string.
+
+This function does not accept string values containing embedded zeros, except as arguments 
+to the q option. 
+        ">
+                <Param name="formatstring" />
+                <Param name="···" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="string.gmatch" func="yes">
+            <Overload retVal="void" descr="
+Returns an iterator function that, each time it is called, returns the next captures from 
+pattern over string s. If pattern specifies no captures, then the whole match is produced 
+in each call.
+
+As an example, the following loop
+
+     s = 'hello world from Lua'
+     for w in string.gmatch(s, '%a+') do
+       print(w)
+     end
+
+will iterate over all the words from string s, printing one per line. The next example collects 
+all pairs key=value from the given string into a table:
+
+     t = {}
+     s = 'from=world, to=Lua'
+     for k, v in string.gmatch(s, '(%w+)=(%w+)') do
+       t[k] = v
+     end
+
+For this function, a '^' at the start of a pattern does not work as an anchor, as this would 
+prevent the iteration. 
+        ">
+                <Param name="s" />
+                <Param name="pattern" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="string.gsub" func="yes">
+            <Overload retVal="void" descr="
+Returns a copy of s in which all (or the first n, if given) occurrences of the pattern have 
+been replaced by a replacement string specified by repl, which can be a string, a table, or 
+a function. gsub also returns, as its second value, the total number of matches that occurred.
+
+Look at the online documentation for this function.
+">
+                <Param name="s" />
+                <Param name="pattern" />
+                <Param name="repl" />
+                <Param name="[, n]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="string.len" func="yes">
+            <Overload retVal="void" descr="
+Receives a string and returns its length. The empty string '' has length 0. Embedded zeros are 
+counted, so 'a\000bc\000' has length 5. 
+        ">
+                <Param name="s" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="string.lower" func="yes">
+            <Overload retVal="void" descr="
+Receives a string and returns a copy of this string with all uppercase letters changed to 
+lowercase. All other characters are left unchanged. The definition of what an uppercase 
+letter is depends on the current locale. 
+        ">
+                <Param name="s" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="string.match" func="yes">
+            <Overload retVal="void" descr="
+Looks for the first match of pattern in the string s. If it finds one, then match returns the 
+captures from the pattern; otherwise it returns nil. If pattern specifies no captures, then 
+the whole match is returned. A third, optional numerical argument init specifies where to 
+start the search; its default value is 1 and can be negative. 
+        ">
+                <Param name="s" />
+                <Param name="pattern" />
+                <Param name="[, init]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="string.rep" func="yes">
+            <Overload retVal="void" descr="
+Returns a string that is the concatenation of n copies of the string s. 
+        ">
+                <Param name="s" />
+                <Param name="n" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="string.reverse" func="yes">
+            <Overload retVal="void" descr="
+Returns a string that is the string s reversed. 
+        ">
+                <Param name="s" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="string.sub" func="yes">
+            <Overload retVal="void" descr="
+Returns the substring of s that starts at i and continues until j; i and j can be negative. 
+If j is absent, then it is assumed to be equal to -1 (which is the same as the string length). 
+In particular, the call string.sub(s,1,j) returns a prefix of s with length j, and string.sub(s, -i) 
+returns a suffix of s with length i. 
+        ">
+                <Param name="s" />
+                <Param name="i" />
+                <Param name="[, j]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="string.upper" func="yes">
+            <Overload retVal="void" descr="
+Receives a string and returns a copy of this string with all lowercase letters changed to 
+uppercase. All other characters are left unchanged. The definition of what a lowercase letter 
+is depends on the current locale. 
+        ">
+                <Param name="s" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="table.concat" func="yes">
+            <Overload retVal="void" descr="
+Given an array where all elements are strings or numbers, returns table[i]..sep..table[i+1] ··· sep..table[j]. 
+The default value for sep is the empty string, the default for i is 1, and the default for j is the length 
+of the table. If i is greater than j, returns the empty string. 
+        ">
+                <Param name="table" />
+                <Param name="[, sep [, i [, j]]]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="table.insert" func="yes">
+            <Overload retVal="void" descr="
+Inserts element value at position pos in table, shifting up other elements to open space, 
+if necessary. The default value for pos is n+1, where n is the length of the table (see §2.5.5), 
+so that a call table.insert(t,x) inserts x at the end of table t. 
+        ">
+                <Param name="table" />
+                <Param name="[pos,]" />
+                <Param name="value" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="table.maxn" func="yes">
+            <Overload retVal="void" descr="
+Returns the largest positive numerical index of the given table, or zero if the table has no 
+positive numerical indices. (To do its job this function does a linear traversal of the whole table.) 
+        ">
+                <Param name="table" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="table.remove" func="yes">
+            <Overload retVal="void" descr="
+Removes from table the element at position pos, shifting down other elements to close the space, 
+if necessary. Returns the value of the removed element. The default value for pos is n, where n 
+is the length of the table, so that a call table.remove(t) removes the last element of table t. 
+        ">
+                <Param name="table" />
+                <Param name="[, pos]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="table.sort" func="yes">
+            <Overload retVal="void" descr="
+Sorts table elements in a given order, in-place, from table[1] to table[n], where n is the length 
+of the table. If comp is given, then it must be a function that receives two table elements, and 
+returns true when the first is less than the second (so that not comp(a[i+1],a[i]) will be true 
+after the sort). If comp is not given, then the standard Lua operator lessthan is used instead.
+
+The sort algorithm is not stable; that is, elements considered equal by the given order may have 
+their relative positions changed by the sort. 
+        ">
+                <Param name="table" />
+                <Param name="[, comp]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="then" func="no" />
+        <KeyWord name="tonumber" func="yes">
+            <Overload retVal="void" descr="
+Tries to convert its argument to a number. If the argument is already a number or a string 
+convertible to a number, then tonumber returns this number; otherwise, it returns nil.
+
+An optional argument specifies the base to interpret the numeral. The base may be any integer 
+between 2 and 36, inclusive. In bases above 10, the letter 'A' (in either upper or lower case) 
+represents 10, 'B' represents 11, and so forth, with 'Z' representing 35. In base 10 (the default), 
+the number can have a decimal part, as well as an optional exponent part (see §2.1). In other 
+bases, only unsigned integers are accepted. 
+        ">
+                <Param name="e" />
+                <Param name="[, base]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="tostring" func="yes">
+            <Overload retVal="void" descr="
+Receives an argument of any type and converts it to a string in a reasonable format. For complete 
+control of how numbers are converted, use string.format.
+
+If the metatable of e has a '__tostring' field, then tostring calls the corresponding value with 
+e as argument, and uses the result of the call as its result. 
+        ">
+                <Param name="e" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="true" func="no" />
+        <KeyWord name="type" func="yes">
+            <Overload retVal="void" descr="
+Returns the type of its only argument, coded as a string. The possible results of this function 
+are 'nil' (a string, not the value nil), 'number', 'string', 'boolean', 'table', 'function', 'thread', and 'userdata'. 
+        ">
+                <Param name="v" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="unpack" func="yes">
+            <Overload retVal="void" descr="
+Returns the elements from the given table. This function is equivalent to
+
+     return list[i], list[i+1], ···, list[j]
+
+except that the above code can be written only for a fixed number of elements. By default, i is 1 and 
+j is the length of the list, as defined by the length operator (see §2.5.5). 
+        ">
+                <Param name="list" />
+                <Param name="[, i [, j]]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="until" func="no" />
+        <KeyWord name="while" func="no" />
+        <KeyWord name="xpcall" func="yes">
+            <Overload retVal="void" descr="
+This function is similar to pcall, except that you can set a new error handler.
+
+xpcall calls function f in protected mode, using err as the error handler. Any error inside f is 
+not propagated; instead, xpcall catches the error, calls the err function with the original error 
+object, and returns a status code. Its first result is the status code (a boolean), which is true 
+if the call succeeds without errors. In this case, xpcall also returns all results from the call, 
+after this first result. In case of any error, xpcall returns false plus the result from err. 
+        ">
+                <Param name="f" />
+                <Param name="err" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="Bitmap Masks for tableViews and scrollViews" />
+        <KeyWord name="SQLite3" />
+        <KeyWord name="Scene Template" />
+        <KeyWord name="Slider ()" />
+        <KeyWord name="_G" />
+        <KeyWord name="ads.hide()" />
+        <KeyWord name="ads.init()" />
+        <KeyWord name="ads.show()" />
+        <KeyWord name="analytics.init()" />
+        <KeyWord name="analytics.logEvent()" />
+        <KeyWord name="assert()" />
+        <KeyWord name="audio.dispose()" />
+        <KeyWord name="audio.fade()" />
+        <KeyWord name="audio.fadeOut()" />
+        <KeyWord name="audio.findFreeChannel()" />
+        <KeyWord name="audio.freeChannels" />
+        <KeyWord name="audio.getDuration()" />
+        <KeyWord name="audio.getMaxVolume()" />
+        <KeyWord name="audio.getMinVolume()" />
+        <KeyWord name="audio.getVolume()" />
+        <KeyWord name="audio.isChannelActive()" />
+        <KeyWord name="audio.isChannelPaused()" />
+        <KeyWord name="audio.isChannelPlaying()" />
+        <KeyWord name="audio.loadSound()" />
+        <KeyWord name="audio.loadStream()" />
+        <KeyWord name="audio.pause()" />
+        <KeyWord name="audio.play()" />
+        <KeyWord name="audio.reserveChannels()" />
+        <KeyWord name="audio.reservedChannels" />
+        <KeyWord name="audio.resume()" />
+        <KeyWord name="audio.rewind()" />
+        <KeyWord name="audio.seek()" />
+        <KeyWord name="audio.setMaxVolume()" />
+        <KeyWord name="audio.setMinVolume()" />
+        <KeyWord name="audio.setVolume()" />
+        <KeyWord name="audio.stop()" />
+        <KeyWord name="audio.stopWithDelay()" />
+        <KeyWord name="audio.totalChannels" />
+        <KeyWord name="audio.unreservedFreeChannels" />
+        <KeyWord name="audio.unreservedUsedChannels" />
+        <KeyWord name="audio.usedChannels" />
+        <KeyWord name="body.angularDamping" />
+        <KeyWord name="body.angularVelocity" />
+        <KeyWord name="body.bodyType" />
+        <KeyWord name="body.isAwake" />
+        <KeyWord name="body.isBodyActive" />
+        <KeyWord name="body.isBullet" />
+        <KeyWord name="body.isFixedRotation" />
+        <KeyWord name="body.isSensor" />
+        <KeyWord name="body.isSleepingAllowed" />
+        <KeyWord name="body.linearDamping" />
+        <KeyWord name="body:applyAngularImpulse()" />
+        <KeyWord name="body:applyForce()" />
+        <KeyWord name="body:applyLinearImpulse()" />
+        <KeyWord name="body:applyTorque()" />
+        <KeyWord name="body:getLinearVelocity()" />
+        <KeyWord name="body:resetMassData()" />
+        <KeyWord name="body:setLinearVelocity" />
+        <KeyWord name="credits.init()" />
+        <KeyWord name="credits.requestUpdate()" />
+        <KeyWord name="credits.showOffers()" />
+        <KeyWord name="crypto.digest()" />
+        <KeyWord name="crypto.hmac()" />
+        <KeyWord name="crypto.md4" />
+        <KeyWord name="crypto.md5" />
+        <KeyWord name="crypto.sha1" />
+        <KeyWord name="crypto.sha224" />
+        <KeyWord name="crypto.sha256" />
+        <KeyWord name="crypto.sha384" />
+        <KeyWord name="crypto.sha512" />
+        <KeyWord name="display.captureScreen()" />
+        <KeyWord name="display.contentCenterX" />
+        <KeyWord name="display.contentCenterY" />
+        <KeyWord name="display.contentHeight" />
+        <KeyWord name="display.contentScaleX" />
+        <KeyWord name="display.contentScaleY" />
+        <KeyWord name="display.contentWidth" />
+        <KeyWord name="display.getCurrentStage()" />
+        <KeyWord name="display.loadRemoteImage()" />
+        <KeyWord name="display.newCircle()" />
+        <KeyWord name="display.newEmbossedText()" />
+        <KeyWord name="display.newGroup()" />
+        <KeyWord name="display.newImage()" />
+        <KeyWord name="display.newImageRect()" />
+        <KeyWord name="display.newLine()" />
+        <KeyWord name="display.newRect()" />
+        <KeyWord name="display.newRetinaText()" />
+        <KeyWord name="display.newRoundedRect()" />
+        <KeyWord name="display.newText()" />
+        <KeyWord name="display.remove()" />
+        <KeyWord name="display.save()" />
+        <KeyWord name="display.screenOriginX" />
+        <KeyWord name="display.screenOriginY" />
+        <KeyWord name="display.setDefault()" />
+        <KeyWord name="display.setStatusBar()" />
+        <KeyWord name="display.statusBarHeight" />
+        <KeyWord name="display.viewableContentHeight" />
+        <KeyWord name="display.viewableContentWidth" />
+        <KeyWord name="easing.inExpo()" />
+        <KeyWord name="easing.inOutExpo()" />
+        <KeyWord name="easing.inOutQuad()" />
+        <KeyWord name="easing.inQuad()" />
+        <KeyWord name="easing.linear()" />
+        <KeyWord name="easing.outExpo()" />
+        <KeyWord name="easing.outQuad()" />
+        <KeyWord name="error()" />
+        <KeyWord name="event.accuracy" />
+        <KeyWord name="event.action" />
+        <KeyWord name="event.address" />
+        <KeyWord name="event.altitude" />
+        <KeyWord name="event.blob" />
+        <KeyWord name="event.channel" />
+        <KeyWord name="event.city" />
+        <KeyWord name="event.cityDetail" />
+        <KeyWord name="event.completed" />
+        <KeyWord name="event.count" />
+        <KeyWord name="event.country" />
+        <KeyWord name="event.countryCode" />
+        <KeyWord name="event.custom" />
+        <KeyWord name="event.data" />
+        <KeyWord name="event.delta" />
+        <KeyWord name="event.deltaTime" />
+        <KeyWord name="event.deltaTime" />
+        <KeyWord name="event.direction" />
+        <KeyWord name="event.errorCode" />
+        <KeyWord name="event.errorCode" />
+        <KeyWord name="event.errorCode" />
+        <KeyWord name="event.errorMessage" />
+        <KeyWord name="event.errorMessage" />
+        <KeyWord name="event.errorMessage" />
+        <KeyWord name="event.errorMessage" />
+        <KeyWord name="event.force" />
+        <KeyWord name="event.friction" />
+        <KeyWord name="event.geographic" />
+        <KeyWord name="event.handle" />
+        <KeyWord name="event.id" />
+        <KeyWord name="event.index" />
+        <KeyWord name="event.invalidProducts" />
+        <KeyWord name="event.isConnectionOnDemand" />
+        <KeyWord name="event.isConnectionRequired" />
+        <KeyWord name="event.isError" />
+        <KeyWord name="event.isInteractionRequired" />
+        <KeyWord name="event.isReachable" />
+        <KeyWord name="event.isReachableViaCellular" />
+        <KeyWord name="event.isReachableViaWiFi" />
+        <KeyWord name="event.isShake" />
+        <KeyWord name="event.keyName" />
+        <KeyWord name="event.latitude" />
+        <KeyWord name="event.localPlayerScore" />
+        <KeyWord name="event.longitude" />
+        <KeyWord name="event.magnetic" />
+        <KeyWord name="event.name" />
+        <KeyWord name="event.name" />
+        <KeyWord name="event.name" />
+        <KeyWord name="event.name" />
+        <KeyWord name="event.name" />
+        <KeyWord name="event.name" />
+        <KeyWord name="event.name" />
+        <KeyWord name="event.name" />
+        <KeyWord name="event.name" />
+        <KeyWord name="event.name" />
+        <KeyWord name="event.name" />
+        <KeyWord name="event.name" />
+        <KeyWord name="event.name" />
+        <KeyWord name="event.name" />
+        <KeyWord name="event.name" />
+        <KeyWord name="event.name" />
+        <KeyWord name="event.name" />
+        <KeyWord name="event.newCredits" />
+        <KeyWord name="event.numTaps" />
+        <KeyWord name="event.object1" />
+        <KeyWord name="event.object2" />
+        <KeyWord name="event.other" />
+        <KeyWord name="event.other" />
+        <KeyWord name="event.phase" />
+        <KeyWord name="event.phase" />
+        <KeyWord name="event.phase" />
+        <KeyWord name="event.phase" />
+        <KeyWord name="event.postalCode" />
+        <KeyWord name="event.products" />
+        <KeyWord name="event.provider" />
+        <KeyWord name="event.region" />
+        <KeyWord name="event.regionDetail" />
+        <KeyWord name="event.source" />
+        <KeyWord name="event.speed" />
+        <KeyWord name="event.sprite" />
+        <KeyWord name="event.street" />
+        <KeyWord name="event.streetDetail" />
+        <KeyWord name="event.target" />
+        <KeyWord name="event.target" />
+        <KeyWord name="event.time" />
+        <KeyWord name="event.time" />
+        <KeyWord name="event.time" />
+        <KeyWord name="event.time" />
+        <KeyWord name="event.totalCredits" />
+        <KeyWord name="event.transaction" />
+        <KeyWord name="event.type" />
+        <KeyWord name="event.type" />
+        <KeyWord name="event.type" />
+        <KeyWord name="event.type" />
+        <KeyWord name="event.url" />
+        <KeyWord name="event.x" />
+        <KeyWord name="event.x" />
+        <KeyWord name="event.xGravity" />
+        <KeyWord name="event.xInstant" />
+        <KeyWord name="event.xRotation" />
+        <KeyWord name="event.xStart" />
+        <KeyWord name="event.y" />
+        <KeyWord name="event.y" />
+        <KeyWord name="event.yGravity" />
+        <KeyWord name="event.yInstant" />
+        <KeyWord name="event.yRotation" />
+        <KeyWord name="event.yStart" />
+        <KeyWord name="event.zGravity" />
+        <KeyWord name="event.zInstant" />
+        <KeyWord name="event.zRotation" />
+        <KeyWord name="facebook.login()" />
+        <KeyWord name="facebook.logout()" />
+        <KeyWord name="facebook.request()" />
+        <KeyWord name="facebook.showDialog()" />
+        <KeyWord name="file:close()" />
+        <KeyWord name="file:flush()" />
+        <KeyWord name="file:lines()" />
+        <KeyWord name="file:read()" />
+        <KeyWord name="file:seek()" />
+        <KeyWord name="file:setvbuf()" />
+        <KeyWord name="file:write()" />
+        <KeyWord name="gameNetwork.init()" />
+        <KeyWord name="gameNetwork.request()" />
+        <KeyWord name="gameNetwork.show()" />
+        <KeyWord name="getfenv()" />
+        <KeyWord name="getmetatable()" />
+        <KeyWord name="graphics.newGradient()" />
+        <KeyWord name="graphics.newMask()" />
+        <KeyWord name="group.numChildren" />
+        <KeyWord name="group:insert()" />
+        <KeyWord name="group:remove()" />
+        <KeyWord name="io.close()" />
+        <KeyWord name="io.flush()" />
+        <KeyWord name="io.input()" />
+        <KeyWord name="io.lines()" />
+        <KeyWord name="io.open()" />
+        <KeyWord name="io.output()" />
+        <KeyWord name="io.read()" />
+        <KeyWord name="io.tmpfile()" />
+        <KeyWord name="io.type()" />
+        <KeyWord name="io.write()" />
+        <KeyWord name="ipairs()" />
+        <KeyWord name="joint.dampingRatio" />
+        <KeyWord name="joint.frequency" />
+        <KeyWord name="joint.isLimitEnabled" />
+        <KeyWord name="joint.isMotorEnabled" />
+        <KeyWord name="joint.jointAngle" />
+        <KeyWord name="joint.jointSpeed" />
+        <KeyWord name="joint.jointTranslation" />
+        <KeyWord name="joint.length" />
+        <KeyWord name="joint.length1" />
+        <KeyWord name="joint.length2" />
+        <KeyWord name="joint.maxForce" />
+        <KeyWord name="joint.maxMotorForce" />
+        <KeyWord name="joint.maxMotorTorque" />
+        <KeyWord name="joint.maxTorque" />
+        <KeyWord name="joint.motorForce" />
+        <KeyWord name="joint.motorSpeed" />
+        <KeyWord name="joint.motorTorque" />
+        <KeyWord name="joint.ratio" />
+        <KeyWord name="joint.reactionTorque" />
+        <KeyWord name="joint:getAnchorA()" />
+        <KeyWord name="joint:getAnchorB()" />
+        <KeyWord name="joint:getLimits()" />
+        <KeyWord name="joint:getReactionForce()" />
+        <KeyWord name="joint:getRotationLimits()" />
+        <KeyWord name="joint:setLimits()" />
+        <KeyWord name="joint:setRotationLimits()" />
+        <KeyWord name="json.decode()" />
+        <KeyWord name="json.encode()" />
+        <KeyWord name="json.null()" />
+        <KeyWord name="math.abs()" />
+        <KeyWord name="math.acos()" />
+        <KeyWord name="math.asin()" />
+        <KeyWord name="math.atan()" />
+        <KeyWord name="math.atan2()" />
+        <KeyWord name="math.ceil()" />
+        <KeyWord name="math.cos()" />
+        <KeyWord name="math.cosh()" />
+        <KeyWord name="math.deg()" />
+        <KeyWord name="math.exp()" />
+        <KeyWord name="math.floor()" />
+        <KeyWord name="math.fmod()" />
+        <KeyWord name="math.frexp()" />
+        <KeyWord name="math.inf" />
+        <KeyWord name="math.ldexp()" />
+        <KeyWord name="math.log()" />
+        <KeyWord name="math.log10()" />
+        <KeyWord name="math.max()" />
+        <KeyWord name="math.min()" />
+        <KeyWord name="math.modf()" />
+        <KeyWord name="math.pi" />
+        <KeyWord name="math.pow()" />
+        <KeyWord name="math.rad()" />
+        <KeyWord name="math.random()" />
+        <KeyWord name="math.randomseed()" />
+        <KeyWord name="math.round()" />
+        <KeyWord name="math.sin()" />
+        <KeyWord name="math.sinh()" />
+        <KeyWord name="math.sqrt()" />
+        <KeyWord name="math.tan()" />
+        <KeyWord name="math.tanh()" />
+        <KeyWord name="media.getSoundVolume" />
+        <KeyWord name="media.newEventSound()" />
+        <KeyWord name="media.newRecording()" />
+        <KeyWord name="media.pauseSound()" />
+        <KeyWord name="media.playEventSound()" />
+        <KeyWord name="media.playSound()" />
+        <KeyWord name="media.playVideo()" />
+        <KeyWord name="media.setSoundVolume()" />
+        <KeyWord name="media.show()" />
+        <KeyWord name="media.stopSound()" />
+        <KeyWord name="memoryWarning *iOS only*" />
+        <KeyWord name="module()" />
+        <KeyWord name="movieclip.newAnim()" />
+        <KeyWord name="myMap.isLocationVisible" />
+        <KeyWord name="myMap.isScrollEnabled" />
+        <KeyWord name="myMap.isZoomEnabled" />
+        <KeyWord name="myMap.mapType" />
+        <KeyWord name="myMap:addMarker()" />
+        <KeyWord name="myMap:getAddressLocation()" />
+        <KeyWord name="myMap:getUserLocation()" />
+        <KeyWord name="myMap:nearestAddress()" />
+        <KeyWord name="myMap:removeAllMarkers()" />
+        <KeyWord name="myMap:setCenter()" />
+        <KeyWord name="myMap:setRegion()" />
+        <KeyWord name="native.cancelAlert()" />
+        <KeyWord name="native.cancelWebPopup()" />
+        <KeyWord name="native.getFontNames()" />
+        <KeyWord name="native.getSync()" />
+        <KeyWord name="native.newFont()" />
+        <KeyWord name="native.newMapView()" />
+        <KeyWord name="native.newTextBox()" />
+        <KeyWord name="native.newTextField()" />
+        <KeyWord name="native.newVideo()" />
+        <KeyWord name="native.newWebView()" />
+        <KeyWord name="native.setActivityIndicator()" />
+        <KeyWord name="native.setKeyboardFocus()" />
+        <KeyWord name="native.setSync()" />
+        <KeyWord name="native.showAlert()" />
+        <KeyWord name="native.showPopup()" />
+        <KeyWord name="native.showWebPopup()" />
+        <KeyWord name="native.systemFont" />
+        <KeyWord name="network.canDetectNetworkStatusChanges" />
+        <KeyWord name="network.download()" />
+        <KeyWord name="network.request()" />
+        <KeyWord name="network.setStatusListener" />
+        <KeyWord name="next()" />
+        <KeyWord name="object.align" />
+        <KeyWord name="object.align" />
+        <KeyWord name="object.alpha" />
+        <KeyWord name="object.contentBounds" />
+        <KeyWord name="object.contentHeight" />
+        <KeyWord name="object.contentWidth" />
+        <KeyWord name="object.font" />
+        <KeyWord name="object.font" />
+        <KeyWord name="object.hasBackground" />
+        <KeyWord name="object.height" />
+        <KeyWord name="object.inputType" />
+        <KeyWord name="object.isEditable" />
+        <KeyWord name="object.isHitTestMasked" />
+        <KeyWord name="object.isHitTestable" />
+        <KeyWord name="object.isSecure" />
+        <KeyWord name="object.isVisible" />
+        <KeyWord name="object.length **old**" />
+        <KeyWord name="object.maskRotation" />
+        <KeyWord name="object.maskScaleX" />
+        <KeyWord name="object.maskScaleY" />
+        <KeyWord name="object.maskX" />
+        <KeyWord name="object.maskY" />
+        <KeyWord name="object.parent" />
+        <KeyWord name="object.rotation" />
+        <KeyWord name="object.size" />
+        <KeyWord name="object.size" />
+        <KeyWord name="object.size" />
+        <KeyWord name="object.stageBounds **old**" />
+        <KeyWord name="object.stageHeight **old**" />
+        <KeyWord name="object.stageWidth **old**" />
+        <KeyWord name="object.strokeWidth" />
+        <KeyWord name="object.text" />
+        <KeyWord name="object.text" />
+        <KeyWord name="object.text" />
+        <KeyWord name="object.width" />
+        <KeyWord name="object.x" />
+        <KeyWord name="object.xOrigin" />
+        <KeyWord name="object.xReference" />
+        <KeyWord name="object.xScale" />
+        <KeyWord name="object.y" />
+        <KeyWord name="object.yOrigin" />
+        <KeyWord name="object.yReference" />
+        <KeyWord name="object.yScale" />
+        <KeyWord name="object:addEventListener" />
+        <KeyWord name="object:append()" />
+        <KeyWord name="object:contentToLocal()" />
+        <KeyWord name="object:dispatchEvent()" />
+        <KeyWord name="object:getParent() **old**" />
+        <KeyWord name="object:getSampleRate()" />
+        <KeyWord name="object:getTunerFrequency()" />
+        <KeyWord name="object:getTunerVolume()" />
+        <KeyWord name="object:isRecording()" />
+        <KeyWord name="object:localToContent()" />
+        <KeyWord name="object:nextFrame()" />
+        <KeyWord name="object:play()" />
+        <KeyWord name="object:previousFrame()" />
+        <KeyWord name="object:removeEventListener()" />
+        <KeyWord name="object:removeSelf()" />
+        <KeyWord name="object:reverse()" />
+        <KeyWord name="object:rotate()" />
+        <KeyWord name="object:scale()" />
+        <KeyWord name="object:setColor()" />
+        <KeyWord name="object:setDrag()" />
+        <KeyWord name="object:setFillColor()" />
+        <KeyWord name="object:setLabels()" />
+        <KeyWord name="object:setMask()" />
+        <KeyWord name="object:setReferencePoint()" />
+        <KeyWord name="object:setSampleRate()" />
+        <KeyWord name="object:setStrokeColor()" />
+        <KeyWord name="object:setTextColor()" />
+        <KeyWord name="object:setTextColor()" />
+        <KeyWord name="object:setTextColor()" />
+        <KeyWord name="object:startRecording()" />
+        <KeyWord name="object:startTuner()" />
+        <KeyWord name="object:stop()" />
+        <KeyWord name="object:stopAtFrame()" />
+        <KeyWord name="object:stopRecording()" />
+        <KeyWord name="object:stopTuner()" />
+        <KeyWord name="object:toBack()" />
+        <KeyWord name="object:toFront()" />
+        <KeyWord name="object:translate()" />
+        <KeyWord name="openfeint.downloadBlob()" />
+        <KeyWord name="openfeint.init()" />
+        <KeyWord name="openfeint.launchDashboard()" />
+        <KeyWord name="openfeint.setHighScore()" />
+        <KeyWord name="openfeint.unlockAchievement()" />
+        <KeyWord name="openfeint.uploadBlob()" />
+        <KeyWord name="os.clock()" />
+        <KeyWord name="os.date()" />
+        <KeyWord name="os.difftime()" />
+        <KeyWord name="os.execute()" />
+        <KeyWord name="os.exit()" />
+        <KeyWord name="os.remove()" />
+        <KeyWord name="os.rename()" />
+        <KeyWord name="os.time()" />
+        <KeyWord name="package.loaded" />
+        <KeyWord name="package.loaders" />
+        <KeyWord name="package.seeall" />
+        <KeyWord name="pairs()" />
+        <KeyWord name="pcall()" />
+        <KeyWord name="physics.addBody()" />
+        <KeyWord name="physics.getGravity()" />
+        <KeyWord name="physics.newJoint()" />
+        <KeyWord name="physics.pause()" />
+        <KeyWord name="physics.removeBody()" />
+        <KeyWord name="physics.setDrawMode()" />
+        <KeyWord name="physics.setGravity()" />
+        <KeyWord name="physics.setPositionIterations()" />
+        <KeyWord name="physics.setScale()" />
+        <KeyWord name="physics.setVelocityIterations()" />
+        <KeyWord name="physics.start()" />
+        <KeyWord name="physics.stop()" />
+        <KeyWord name="print()" />
+        <KeyWord name="rawequal()" />
+        <KeyWord name="rawget()" />
+        <KeyWord name="rawset()" />
+        <KeyWord name="require()" />
+        <KeyWord name="Runtime:addEventListener()" />
+        <KeyWord name="Runtime:hasEventSource()" />
+        <KeyWord name="Runtime:removeEventListener()" />
+        <KeyWord name="scrollView ()" />
+        <KeyWord name="select()" />
+        <KeyWord name="setfenv()" />
+        <KeyWord name="setmetatable()" />
+        <KeyWord name="sprite.add()" />
+        <KeyWord name="sprite.newSprite()" />
+        <KeyWord name="sprite.newSpriteMultiSet()" />
+        <KeyWord name="sprite.newSpriteSet()" />
+        <KeyWord name="sprite.newSpriteSheet()" />
+        <KeyWord name="sprite.newSpriteSheetFromData()" />
+        <KeyWord name="spriteInstance.animating" />
+        <KeyWord name="spriteInstance.currentFrame" />
+        <KeyWord name="spriteInstance.sequence" />
+        <KeyWord name="spriteInstance.timeScale" />
+        <KeyWord name="spriteInstance:addEventListener()" />
+        <KeyWord name="spriteInstance:pause()" />
+        <KeyWord name="spriteInstance:play()" />
+        <KeyWord name="spriteInstance:prepare()" />
+        <KeyWord name="spriteSheet:dispose()" />
+        <KeyWord name="stage:setFocus()" />
+        <KeyWord name="store.canMakePurchases" />
+        <KeyWord name="store.finishTransaction()" />
+        <KeyWord name="store.init()" />
+        <KeyWord name="store.loadProducts()" />
+        <KeyWord name="store.purchase()" />
+        <KeyWord name="store.restore()" />
+        <KeyWord name="storyboard.disableAutoPurge" />
+        <KeyWord name="storyboard.getCurrentSceneName()" />
+        <KeyWord name="storyboard.getPrevious()" />
+        <KeyWord name="storyboard.getScene()" />
+        <KeyWord name="storyboard.gotoScene()" />
+        <KeyWord name="storyboard.hideOverlay()" />
+        <KeyWord name="storyboard.isDebug" />
+        <KeyWord name="storyboard.loadScene()" />
+        <KeyWord name="storyboard.newScene()" />
+        <KeyWord name="storyboard.printMemUsage()" />
+        <KeyWord name="storyboard.purgeAll()" />
+        <KeyWord name="storyboard.purgeOnSceneChange" />
+        <KeyWord name="storyboard.purgeScene()" />
+        <KeyWord name="storyboard.reloadScene()" />
+        <KeyWord name="storyboard.removeAll()" />
+        <KeyWord name="storyboard.removeScene()" />
+        <KeyWord name="storyboard.showOverlay()" />
+        <KeyWord name="storyboard.stage" />
+        <KeyWord name="string.byte()" />
+        <KeyWord name="string.char()" />
+        <KeyWord name="string.find()" />
+        <KeyWord name="string.format()" />
+        <KeyWord name="string.gmatch()" />
+        <KeyWord name="string.gsub()" />
+        <KeyWord name="string.len()" />
+        <KeyWord name="string.lower()" />
+        <KeyWord name="string.match()" />
+        <KeyWord name="string.rep()" />
+        <KeyWord name="string.reverse()" />
+        <KeyWord name="string.sub()" />
+        <KeyWord name="string.upper()" />
+        <KeyWord name="system.DocumentsDirectory" />
+        <KeyWord name="system.ResourceDirectory" />
+        <KeyWord name="system.TemporaryDirectory" />
+        <KeyWord name="system.activate()" />
+        <KeyWord name="system.cancelNotification()" />
+        <KeyWord name="system.deactivate()" />
+        <KeyWord name="system.getInfo()" />
+        <KeyWord name="system.getPreference()" />
+        <KeyWord name="system.getTimer()" />
+        <KeyWord name="system.openURL()" />
+        <KeyWord name="system.orientation" />
+        <KeyWord name="system.pathForFile()" />
+        <KeyWord name="system.scheduleNotification()" />
+        <KeyWord name="system.setAccelerometerInterval()" />
+        <KeyWord name="system.setGyroscopeInterval()" />
+        <KeyWord name="system.setIdleTimer()" />
+        <KeyWord name="system.setLocationAccuracy()" />
+        <KeyWord name="system.setLocationThreshold()" />
+        <KeyWord name="system.vibrate()" />
+        <KeyWord name="table.concat()" />
+        <KeyWord name="table.copy()" />
+        <KeyWord name="table.indexOf()" />
+        <KeyWord name="table.insert()" />
+        <KeyWord name="table.maxn()" />
+        <KeyWord name="table.remove()" />
+        <KeyWord name="table.sort()" />
+        <KeyWord name="timer.cancel()" />
+        <KeyWord name="timer.pause()" />
+        <KeyWord name="timer.performWithDelay()" />
+        <KeyWord name="timer.resume()" />
+        <KeyWord name="tonumber()" />
+        <KeyWord name="tostring()" />
+        <KeyWord name="transition.cancel()" />
+        <KeyWord name="transition.dissolve()" />
+        <KeyWord name="transition.from()" />
+        <KeyWord name="transition.to()" />
+        <KeyWord name="type()" />
+        <KeyWord name="unpack()" />
+        <KeyWord name="widget.newButton()" />
+        <KeyWord name="widget.newPickerWheel()" />
+        <KeyWord name="widget.newTabBar()" />
+        <KeyWord name="widget.newTableView()" />
+        <KeyWord name="widget.setTheme()" />
+    </AutoComplete>
+</NotepadPlus>

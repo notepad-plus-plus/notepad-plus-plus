@@ -35,21 +35,24 @@
 class Buffer;
 typedef Buffer * BufferID;	//each buffer has unique ID by which it can be retrieved
 
+#define SORT_DIRECTION_NONE     -1
 #define SORT_DIRECTION_UP     0
 #define SORT_DIRECTION_DOWN   1
 
 struct SwitcherFileInfo {
 	BufferID _bufID;
 	int _iView;
+
+	SwitcherFileInfo() = delete;
 	SwitcherFileInfo(BufferID buf, int view) : _bufID(buf), _iView(view){};
 };
 
 class VerticalFileSwitcherListView : public Window
 {
 public:
-	VerticalFileSwitcherListView() : Window() {};
+	VerticalFileSwitcherListView() = default;
+	virtual ~VerticalFileSwitcherListView() = default;
 
-	virtual ~VerticalFileSwitcherListView() {};
 	virtual void init(HINSTANCE hInst, HWND parent, HIMAGELIST hImaLst);
 	virtual void destroy();
 	void initList();
@@ -87,8 +90,8 @@ public:
     };
 
 protected:
-	HIMAGELIST _hImaLst;
-	WNDPROC _defaultProc;
+	HIMAGELIST _hImaLst = nullptr;
+	WNDPROC _defaultProc = nullptr;
 	LRESULT runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 
 	static LRESULT CALLBACK staticProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {

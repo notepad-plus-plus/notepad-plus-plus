@@ -115,6 +115,31 @@ struct VisibleGUIConf final
 	}
 };
 
+struct QuoteParams
+{
+	enum Speed { slow = 0, rapid, speedOfLight };
+
+	QuoteParams() {};
+	QuoteParams(const wchar_t* quoter, Speed speed, bool shouldBeTrolling, int encoding, LangType lang, const wchar_t* quote) :
+		_quoter(quoter), _speed(speed), _shouldBeTrolling(shouldBeTrolling), _encoding(encoding), _lang(lang), _quote(quote) {}
+
+	void reset() {
+		_quoter = nullptr;
+		_speed = rapid;
+		_shouldBeTrolling = false;
+		_encoding = SC_CP_UTF8;
+		_lang = L_TEXT;
+		_quote = nullptr;
+	};
+
+	const wchar_t* _quoter = nullptr;
+	Speed _speed = rapid;
+	bool _shouldBeTrolling = false;
+	int _encoding = SC_CP_UTF8;
+	LangType _lang = L_TEXT;
+	const wchar_t* _quote = nullptr;
+};
+
 class FileDialog;
 class Notepad_plus_Window;
 class AnsiCharPanel;
@@ -124,7 +149,7 @@ class ProjectPanel;
 class DocumentMap;
 class FunctionListPanel;
 class FileBrowser;
-
+struct QuoteParams;
 
 class Notepad_plus final
 {
@@ -149,7 +174,7 @@ public:
 	//! \name File Operations
 	//@{
 	//The doXXX functions apply to a single buffer and dont need to worry about views, with the excpetion of doClose, since closing one view doesnt have to mean the document is gone
-	BufferID doOpen(const generic_string& fileName, bool isRecursive = false, bool isReadOnly = false, int encoding = -1, const TCHAR *backupFileName = NULL, time_t fileNameTimestamp = 0);
+	BufferID doOpen(const generic_string& fileName, bool isRecursive = false, bool isReadOnly = false, int encoding = -1, const TCHAR *backupFileName = NULL, FILETIME fileNameTimestamp = {});
 	bool doReload(BufferID id, bool alert = true);
 	bool doSave(BufferID, const TCHAR * filename, bool isSaveCopy = false);
 	void doClose(BufferID, int whichOne, bool doDeleteBackup = false);
@@ -164,6 +189,7 @@ public:
 	bool fileCloseAllGiven(const std::vector<int>& krvecBufferIndexes);
 	bool fileCloseAllToLeft();
 	bool fileCloseAllToRight();
+	bool fileCloseAllUnchanged();
 	bool fileSave(BufferID id = BUFFER_INVALID);
 	bool fileSaveAll();
 	bool fileSaveSpecific(const generic_string& fileNameToSave);
@@ -171,8 +197,6 @@ public:
 	bool fileDelete(BufferID id = BUFFER_INVALID);
 	bool fileRename(BufferID id = BUFFER_INVALID);
 
-	bool addBufferToView(BufferID id, int whichOne);
-	bool moveBuffer(BufferID id, int whereTo);	//assumes whereFrom is otherView(whereTo)
 	bool switchToFile(BufferID buffer);			//find buffer in active view then in other view.
 	//@}
 
@@ -215,18 +239,19 @@ public:
 	bool replaceInFiles();
 	void setFindReplaceFolderFilter(const TCHAR *dir, const TCHAR *filters);
 	std::vector<generic_string> addNppComponents(const TCHAR *destDir, const TCHAR *extFilterName, const TCHAR *extFilter);
+	std::vector<generic_string> addNppPlugins(const TCHAR *extFilterName, const TCHAR *extFilter);
     int getHtmlXmlEncoding(const TCHAR *fileName) const;
 	HACCEL getAccTable() const{
 		return _accelerator.getAccTable();
 	}
-	bool emergency(generic_string emergencySavedDir);
+	bool emergency(const generic_string& emergencySavedDir);
 	Buffer* getCurrentBuffer()	{
 		return _pEditView->getCurrentBuffer();
 	}
 	void launchDocumentBackupTask();
-	int getQuoteIndexFrom(const char *quoter) const;
+	int getQuoteIndexFrom(const wchar_t* quoter) const;
 	void showQuoteFromIndex(int index) const;
-	void showQuote(const char *quote, const char *quoter, bool doTrolling) const;
+	void showQuote(const QuoteParams* quote) const;
 
 
 private:
@@ -275,8 +300,10 @@ private:
     AboutDlg _aboutDlg;
 	DebugInfoDlg _debugInfoDlg;
 	RunDlg _runDlg;
-	MD5FromFilesDlg _md5FromFilesDlg;
-	MD5FromTextDlg _md5FromTextDlg;
+	HashFromFilesDlg _md5FromFilesDlg;
+	HashFromTextDlg _md5FromTextDlg;
+	HashFromFilesDlg _sha2FromFilesDlg;
+	HashFromTextDlg _sha2FromTextDlg;
     GoToLineDlg _goToLineDlg;
 	ColumnEditorDlg _colEditorDlg;
 	WordStyleDlg _configStyleDlg;
@@ -309,6 +336,7 @@ private:
 	Macro _macro;
 	bool _recordingMacro = false;
 	bool _playingBackMacro = false;
+	bool _recordingSaved = false;
 	RunMacroDlg _runMacroDlg;
 
 	// For conflict detection when saving Macros or RunCommands
@@ -319,7 +347,7 @@ private:
 	bool _isFolding = false;
 
 	//For Dynamic selection highlight
-	CharacterRange _prevSelectedRange;
+	Sci_CharacterRange _prevSelectedRange;
 
 	//Synchronized Scolling
 	struct SyncInfo final
@@ -413,11 +441,10 @@ private:
 	void performPostReload(int whichOne);
 //END: Document management
 
-	int doSaveOrNot(const TCHAR *fn);
+	int doSaveOrNot(const TCHAR *fn, bool isMulti = false);
 	int doReloadOrNot(const TCHAR *fn, bool dirty);
 	int doCloseOrNot(const TCHAR *fn);
 	int doDeleteOrNot(const TCHAR *fn);
-	int doActionOrNot(const TCHAR *title, const TCHAR *displayText, int type);
 
 	void enableMenu(int cmdID, bool doEnable) const;
 	void enableCommand(int cmdID, bool doEnable, int which) const;
@@ -427,7 +454,7 @@ private:
 	void checkMacroState();
 	void checkSyncState();
 	void dropFiles(HDROP hdrop);
-	void checkModifiedDocument();
+	void checkModifiedDocument(bool bCheckOnlyCurrentBuffer);
 
     void getMainClientRect(RECT & rc) const;
 	void staticCheckMenuAndTB() const;
@@ -540,13 +567,18 @@ private:
 	int getLangFromMenuName(const TCHAR * langName);
 	generic_string getLangFromMenu(const Buffer * buf);
 
-    generic_string exts2Filters(generic_string exts) const;
+    generic_string exts2Filters(const generic_string& exts) const;
 	int setFileOpenSaveDlgFilters(FileDialog & fDlg, int langType = -1);
 	Style * getStyleFromName(const TCHAR *styleName);
 	bool dumpFiles(const TCHAR * outdir, const TCHAR * fileprefix = TEXT(""));	//helper func
 	void drawTabbarColoursFromStylerArray();
 
-	void loadCommandlineParams(const TCHAR * commandLine, CmdLineParams * pCmdParams);
+	std::vector<generic_string> loadCommandlineParams(const TCHAR * commandLine, const CmdLineParams * pCmdParams)
+	{
+		const CmdLineParamsDTO dto = CmdLineParamsDTO::FromCmdLineParams(*pCmdParams);
+		return loadCommandlineParams(commandLine, &dto);
+	}
+	std::vector<generic_string> loadCommandlineParams(const TCHAR * commandLine, const CmdLineParamsDTO * pCmdParams);
 	bool noOpenedDoc() const;
 	bool goToPreviousIndicator(int indicID2Search, bool isWrap = true) const;
 	bool goToNextIndicator(int indicID2Search, bool isWrap = true) const;
@@ -555,13 +587,14 @@ private:
 	void wsTabConvert(spaceTab whichWay);
 	void doTrim(trimOp whichPart);
 	void removeEmptyLine(bool isBlankContained);
+	void removeDuplicateLines();
 	void launchAnsiCharPanel();
 	void launchClipboardHistoryPanel();
 	void launchFileSwitcherPanel();
 	void launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int panelID);
 	void launchDocMap();
 	void launchFunctionList();
-	void launchFileBrowser(const std::vector<generic_string> & folders);
+	void launchFileBrowser(const std::vector<generic_string> & folders, bool fromScratch = false);
 	void showAllQuotes() const;
 	static DWORD WINAPI threadTextPlayer(void *text2display);
 	static DWORD WINAPI threadTextTroller(void *params);
@@ -587,6 +620,8 @@ private:
 		Buffer *_buffer = nullptr;
 		HWND _nppHandle = nullptr;
 	};
+
+	void monitoringStartOrStopAndUpdateUI(Buffer* pBuf, bool isStarting);
 };
 
 

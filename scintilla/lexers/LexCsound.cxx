@@ -24,9 +24,7 @@
 #include "CharacterSet.h"
 #include "LexerModule.h"
 
-#ifdef SCI_NAMESPACE
 using namespace Scintilla;
-#endif
 
 static inline bool IsAWordChar(const int ch) {
 	return (ch < 0x80) && (isalnum(ch) || ch == '.' ||
@@ -51,7 +49,7 @@ static inline bool IsCsoundOperator(char ch) {
 	return false;
 }
 
-static void ColouriseCsoundDoc(unsigned int startPos, int length, int initStyle, WordList *keywordlists[],
+static void ColouriseCsoundDoc(Sci_PositionU startPos, Sci_Position length, int initStyle, WordList *keywordlists[],
 				Accessor &styler) {
 
 	WordList &opcode = *keywordlists[0];
@@ -150,17 +148,17 @@ static void ColouriseCsoundDoc(unsigned int startPos, int length, int initStyle,
 	sc.Complete();
 }
 
-static void FoldCsoundInstruments(unsigned int startPos, int length, int /* initStyle */, WordList *[],
+static void FoldCsoundInstruments(Sci_PositionU startPos, Sci_Position length, int /* initStyle */, WordList *[],
 		Accessor &styler) {
-	unsigned int lengthDoc = startPos + length;
+	Sci_PositionU lengthDoc = startPos + length;
 	int visibleChars = 0;
-	int lineCurrent = styler.GetLine(startPos);
+	Sci_Position lineCurrent = styler.GetLine(startPos);
 	int levelPrev = styler.LevelAt(lineCurrent) & SC_FOLDLEVELNUMBERMASK;
 	int levelCurrent = levelPrev;
 	char chNext = styler[startPos];
 	int stylePrev = 0;
 	int styleNext = styler.StyleAt(startPos);
-	for (unsigned int i = startPos; i < lengthDoc; i++) {
+	for (Sci_PositionU i = startPos; i < lengthDoc; i++) {
 		char ch = chNext;
 		chNext = styler.SafeGetCharAt(i + 1);
 		int style = styleNext;

@@ -1,8 +1,84 @@
 ﻿#include "UTF8DocumentIterator.h"
 
-#ifdef SCI_NAMESPACE
+
+
+#include "ILoader.h"
+#include "ILexer.h"
+#include "Scintilla.h"
+
+
+
+#include "CharacterCategory.h"
+#include "Position.h"
+#include "SplitVector.h"
+#include "Partitioning.h"
+#include "RunStyles.h"
+#include "CellBuffer.h"
+#include "CharClassify.h"
+#include "Decoration.h"
+#include "CaseFolder.h"
+#include "Document.h"
+
 using namespace Scintilla;
-#endif
+
+UTF8DocumentIterator::UTF8DocumentIterator(Document* doc, Sci::Position pos, Sci::Position end) : 
+                m_doc(doc),
+                m_pos(pos),
+                m_end(end),
+				m_characterIndex(0)
+{
+		// Check for debug builds
+		PLATFORM_ASSERT(m_pos <= m_end);
+
+		// Ensure for release.
+		if (m_pos > m_end)
+		{
+				m_pos = m_end;
+		}
+		readCharacter();
+}
+
+UTF8DocumentIterator::UTF8DocumentIterator(const UTF8DocumentIterator& copy) :
+		m_doc(copy.m_doc),
+		m_pos(copy.m_pos),
+		m_end(copy.m_end),
+		m_characterIndex(copy.m_characterIndex),
+		m_utf8Length(copy.m_utf8Length),
+		m_utf16Length(copy.m_utf16Length)
+{
+		// Check for debug builds
+		PLATFORM_ASSERT(m_pos <= m_end);
+		m_character[0] = copy.m_character[0];
+		m_character[1] = copy.m_character[1];
+
+		// Ensure for release.
+		if (m_pos > m_end)
+		{
+				m_pos = m_end;
+		}
+}
+
+UTF8DocumentIterator& UTF8DocumentIterator::operator -- ()
+{
+	if (m_utf16Length == 2 && m_characterIndex == 1)
+	{
+		m_characterIndex = 0;
+	}
+	else
+	{
+		--m_pos;
+		// Skip past the UTF-8 extension bytes
+		while (0x80 == (m_doc->CharAt(m_pos) & 0xC0) && m_pos > 0)
+			--m_pos;
+
+		readCharacter();
+		if (m_utf16Length == 2)
+		{
+			m_characterIndex = 1;
+		}
+	}
+	return *this;
+}
 
 void UTF8DocumentIterator::readCharacter()
 {
@@ -19,7 +95,7 @@ void UTF8DocumentIterator::readCharacter()
 		} while (currentChar & mask);
 
 		int result = currentChar & m_firstByteMask[nBytes];
-		int pos = m_pos;
+		Sci::Position pos = m_pos;
 		m_utf8Length = 1;
 		// work out the unicode point, and count the actual bytes.
 		// If a byte does not start with 10xxxxxx then it's not part of the 
@@ -36,8 +112,8 @@ void UTF8DocumentIterator::readCharacter()
 			result -= 0x10000;
 			m_utf16Length = 2;
 			// UTF-16 Pair
-			m_character[0] = 0xD800 + (result >> 10);
-			m_character[1] = 0xDC00 + (result & 0x3FF);
+			m_character[0] = static_cast<wchar_t>(0xD800 + (result >> 10));
+			m_character[1] = static_cast<wchar_t>(0xDC00 + (result & 0x3FF));
 				
 		}
 		else

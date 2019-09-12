@@ -59,8 +59,8 @@ INT_PTR CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			::SendDlgItemMessage(_hSelf, IDC_COL_DEC_RADIO, BM_SETCHECK, TRUE, 0);
 			goToCenter();
 
-			NppParameters *pNppParam = NppParameters::getInstance();
-			ETDTProc enableDlgTheme = (ETDTProc)pNppParam->getEnableThemeDlgTexture();
+			NppParameters& nppParam = NppParameters::getInstance();
+			ETDTProc enableDlgTheme = (ETDTProc)nppParam.getEnableThemeDlgTexture();
 			if (enableDlgTheme)
 			{
 				enableDlgTheme(_hSelf, ETDT_ENABLETAB);
@@ -334,3 +334,4 @@ UCHAR ColumnEditorDlg::getFormat()
 		f = 3;
 	return (f | (isLeadingZeros?MASK_ZERO_LEADING:0));
 }
+

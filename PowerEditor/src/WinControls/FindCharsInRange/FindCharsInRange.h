@@ -40,7 +40,7 @@
 class FindCharsInRangeDlg : public StaticDialog
 {
 public :
-	FindCharsInRangeDlg() : StaticDialog() {};
+	FindCharsInRangeDlg() = default;
 
 	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView) {
 		Window::init(hInst, hPere);
@@ -49,8 +49,8 @@ public :
 		_ppEditView = ppEditView;
 	};
 
-	virtual void create(int dialogID, bool isRTL = false) {
-		StaticDialog::create(dialogID, isRTL);
+	virtual void create(int dialogID, bool isRTL = false, bool msgDestParent = true) {
+		StaticDialog::create(dialogID, isRTL, msgDestParent);
 	};
 
 	void doDialog(bool isRTL = false) {

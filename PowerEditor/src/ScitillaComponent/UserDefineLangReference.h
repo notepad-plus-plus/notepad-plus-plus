@@ -31,7 +31,7 @@
 
 #include "SciLexer.h"
 
-const int langNameLenMax = 33;
+const int langNameLenMax = 64;
 const int extsLenMax = 256;
 const int max_char = 1024*30;
 

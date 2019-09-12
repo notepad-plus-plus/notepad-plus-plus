@@ -40,12 +40,6 @@
 #endif
 
 #include <windows.h>
-
-#define _ATL_CSTRING_EXPLICIT_CONSTRUCTORS      // some CString constructors will be explicit
-
-#include <atlbase.h>
-#include <atlstr.h>
-
 #include <vector>
 #include <list>
 
@@ -53,7 +47,7 @@ using namespace std;
 
 #include "ThreadSafeQueue.h"
 
-typedef pair<DWORD,CStringW> TDirectoryChangeNotification;
+typedef pair<DWORD, std::wstring> TDirectoryChangeNotification;
 
 namespace ReadDirectoryChangesPrivate
 {
@@ -98,9 +92,9 @@ namespace ReadDirectoryChangesPrivate
 ///				// We've received a notification in the queue.
 ///				{
 ///					DWORD dwAction;
-///					CStringW wstrFilename;
-///					changes.Pop(dwAction, wstrFilename);
-///					wprintf(L"%s %s\n", ExplainAction(dwAction), wstrFilename);
+///					std::wstring wstrFilename;
+///					while (changes.Pop(dwAction, wstrFilename))
+///						wprintf(L"%s %s\n", ExplainAction(dwAction), wstrFilename);
 ///				}
 ///				break;
 ///			case WAIT_OBJECT_0 + _countof(handles):
@@ -116,7 +110,7 @@ namespace ReadDirectoryChangesPrivate
 class CReadDirectoryChanges
 {
 public:
-	CReadDirectoryChanges(int nMaxChanges=1000);
+	CReadDirectoryChanges();
 	~CReadDirectoryChanges();
 
 	void Init();
@@ -143,13 +137,10 @@ public:
 	/// </summary>
 	HANDLE GetWaitHandle() { return m_Notifications.GetWaitHandle(); }
 
-	bool Pop(DWORD& dwAction, CStringW& wstrFilename);
+	bool Pop(DWORD& dwAction, std::wstring& wstrFilename);
 
 	// "Push" is for usage by ReadChangesRequest.  Not intended for external usage.
-	void Push(DWORD dwAction, CStringW& wstrFilename);
-
-	// Check if the queue overflowed. If so, clear it and return true.
-	bool CheckOverflow();
+	void Push(DWORD dwAction, std::wstring& wstrFilename);
 
 	unsigned int GetThreadId() { return m_dwThreadId; }
 

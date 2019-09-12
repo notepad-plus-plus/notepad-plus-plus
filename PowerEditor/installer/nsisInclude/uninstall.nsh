@@ -25,35 +25,39 @@
 ; along with this program; if not, write to the Free Software
 ; Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-Var themesParentPath
+Var installPath
 Var doLocalConf
 Var keepUserData
 Function un.onInit
-	StrCpy $keepUserData "false"	; default value(It is must, otherwise few files such as shortcuts.xml, contextMenu.xml etc, will not be removed when $INSTDIR\doLocalConf.xml is not avaliable.)
+	StrCpy $keepUserData "false"	; default value(It is must, otherwise few files such as shortcuts.xml, contextMenu.xml etc, will not be removed when $INSTDIR\doLocalConf.xml is not available.)
 	; determinate theme path for uninstall themes
-	StrCpy $themesParentPath "$APPDATA\${APPNAME}"
+	StrCpy $installPath "$APPDATA\${APPNAME}"
 	StrCpy $doLocalConf "false"
 	IfFileExists $INSTDIR\doLocalConf.xml doesExist noneExist
 doesExist:
-	StrCpy $themesParentPath $INSTDIR
+	StrCpy $installPath $INSTDIR
 	StrCpy $doLocalConf "true"
 noneExist:
 	;MessageBox MB_OK "doLocalConf == $doLocalConf"
+
+	Call un.setPathAndOptions
 FunctionEnd
 
 Function un.onUninstSuccess
 	; make sure all the empty folders are deleted on successful uninstall
-	; These folders will be deleted only if they are emtpy
+	; These folders will be deleted only if they are empty
 	RMDir "$INSTDIR\localization\"
 	RMDir "$INSTDIR\plugins\APIs\"
 	RMDir "$INSTDIR\plugins\disabled\"
 	RMDir "$INSTDIR\plugins\"
 	RMDir "$INSTDIR\updater\"
+	RMDir "$INSTDIR\autoCompletion\"
 	RMDir "$INSTDIR\"
 
 	RMDir "$APPDATA\${APPNAME}\plugins\"
-	RMDir "$themesParentPath\themes\"	; if files are kept because of $keepUserData, this will not be deleted
-	RMDir "$themesParentPath\"
+	RMDir "$installPath\userDefineLangs\"
+	RMDir "$installPath\themes\"	; if files are kept because of $keepUserData, this will not be deleted
+	RMDir "$installPath\"
 FunctionEnd
 
 
@@ -170,12 +174,11 @@ FunctionEnd
 		SetShellVarContext all
 	
 	Delete "$DESKTOP\Notepad++.lnk"
+	Delete "$SMPROGRAMS\Notepad++.lnk"
 	Delete "$SMPROGRAMS\Notepad++\Notepad++.lnk"
 	Delete "$SMPROGRAMS\Notepad++\readme.lnk"
 
-	
 	RMDir /r "${dir2remove}"
-	
 !macroend
 
 
@@ -203,6 +206,7 @@ Section Uninstall
 		SetShellVarContext all ; make context for all user
 	
 	Delete "$DESKTOP\Notepad++.lnk"
+	Delete "$SMPROGRAMS\Notepad++.lnk"
 	Delete "$SMPROGRAMS\${APPNAME}\Notepad++.lnk"
 	Delete "$SMPROGRAMS\${APPNAME}\readme.lnk"
 	
@@ -242,7 +246,10 @@ Section Uninstall
 	Delete "$INSTDIR\SourceCodePro-It.ttf"
 	Delete "$INSTDIR\SourceCodePro-BoldIt.ttf"
 	Delete "$INSTDIR\NppHelp.chm"
+	Delete "$INSTDIR\userDefinedLang-markdown.default.modern.xml"
+	Delete "$INSTDIR\userDefineLangs\userDefinedLang-markdown.default.modern.xml"
 	Delete "$INSTDIR\doLocalConf.xml"
+	Delete "$INSTDIR\uninstall.ini"
 	
 	${If} $doLocalConf == "false"
 		Call un.doYouReallyWantToKeepData
@@ -261,11 +268,11 @@ Section Uninstall
 		Delete "$APPDATA\${APPNAME}\session.xml"
 		Delete "$APPDATA\${APPNAME}\userDefineLang.xml"
 		Delete "$APPDATA\${APPNAME}\insertExt.ini"
-	
+		Delete "$APPDATA\${APPNAME}\userDefineLangs\userDefinedLang-markdown.default.modern.xml"
 		RMDir /r "$APPDATA\${APPNAME}\plugins\"
 		RMDir /r "$APPDATA\${APPNAME}\backup\"	; Remove backup folder recursively if not empty
-		RMDir "$APPDATA\${APPNAME}\themes\"	; has no effect as not empty at this momenet, but it is taken care at un.onUninstSuccess
-		RMDir "$APPDATA\${APPNAME}"		; has no effect as not empty at this momenet, but it is taken care at un.onUninstSuccess
+		RMDir "$APPDATA\${APPNAME}\themes\"	; has no effect as not empty at this moment, but it is taken care at un.onUninstSuccess
+		RMDir "$APPDATA\${APPNAME}"		; has no effect as not empty at this moment, but it is taken care at un.onUninstSuccess
 		
 		StrCmp $1 "Admin" 0 +2
 			SetShellVarContext all ; make context for all user

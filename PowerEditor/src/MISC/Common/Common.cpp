@@ -29,12 +29,14 @@
 #include <shlwapi.h>
 #include <shlobj.h>
 #include <uxtheme.h>
+#include <cassert>
+#include <codecvt>
+
 #include "StaticDialog.h"
 
 #include "Common.h"
 #include "../Utf8.h"
-
-WcharMbcsConvertor* WcharMbcsConvertor::_pSelf = new WcharMbcsConvertor;
+#include <Parameters.h>
 
 void printInt(int int2print)
 {
@@ -59,6 +61,9 @@ generic_string commafyInt(size_t n)
 
 std::string getFileContent(const TCHAR *file2read)
 {
+	if (!::PathFileExists(file2read))
+		return "";
+
 	const size_t blockSize = 1024;
 	char data[blockSize];
 	std::string wholeFileContent = "";
@@ -67,22 +72,15 @@ std::string getFileContent(const TCHAR *file2read)
 	size_t lenFile = 0;
 	do
 	{
-		lenFile = fread(data, 1, blockSize - 1, fp);
+		lenFile = fread(data, 1, blockSize, fp);
 		if (lenFile <= 0) break;
-
-		if (lenFile >= blockSize - 1)
-			data[blockSize - 1] = '\0';
-		else
-			data[lenFile] = '\0';
-
-		wholeFileContent += data;
+		wholeFileContent.append(data, lenFile);
 	}
 	while (lenFile > 0);
 
 	fclose(fp);
 	return wholeFileContent;
 }
-
 
 char getDriveLetter()
 {
@@ -325,11 +323,14 @@ bool isInList(const TCHAR *token, const TCHAR *list)
 	if ((!token) || (!list))
 		return false;
 
-	TCHAR word[64];
+	const size_t wordLen = 64;
+	size_t listLen = lstrlen(list);
+
+	TCHAR word[wordLen];
 	size_t i = 0;
 	size_t j = 0;
 
-	for (size_t len = lstrlen(list); i <= len; ++i)
+	for (; i <= listLen; ++i)
 	{
 		if ((list[i] == ' ')||(list[i] == '\0'))
 		{
@@ -346,6 +347,9 @@ bool isInList(const TCHAR *token, const TCHAR *list)
 		{
 			word[j] = list[i];
 			++j;
+
+			if (j >= wordLen)
+				return false;
 		}
 	}
 	return false;
@@ -354,9 +358,13 @@ bool isInList(const TCHAR *token, const TCHAR *list)
 
 generic_string purgeMenuItemString(const TCHAR * menuItemStr, bool keepAmpersand)
 {
-	TCHAR cleanedName[64] = TEXT("");
+	const size_t cleanedNameLen = 64;
+	TCHAR cleanedName[cleanedNameLen] = TEXT("");
 	size_t j = 0;
 	size_t menuNameLen = lstrlen(menuItemStr);
+	if (menuNameLen >= cleanedNameLen)
+		menuNameLen = cleanedNameLen - 1;
+
 	for (size_t k = 0 ; k < menuNameLen ; ++k)
 	{
 		if (menuItemStr[k] == '\t')
@@ -765,7 +773,15 @@ COLORREF getCtrlBgColor(HWND hWnd)
 
 generic_string stringToUpper(generic_string strToConvert)
 {
-    std::transform(strToConvert.begin(), strToConvert.end(), strToConvert.begin(), ::toupper);
+    std::transform(strToConvert.begin(), strToConvert.end(), strToConvert.begin(), 
+        [](TCHAR ch){ return static_cast<TCHAR>(_totupper(ch)); }
+    );
+    return strToConvert;
+}
+
+generic_string stringToLower(generic_string strToConvert)
+{
+    std::transform(strToConvert.begin(), strToConvert.end(), strToConvert.begin(), ::towlower);
     return strToConvert;
 }
 
@@ -850,6 +866,64 @@ double stodLocale(const generic_string& str, _locale_t loc, size_t* idx)
 	return ans;
 }
 
+// Source: https://blogs.msdn.microsoft.com/greggm/2005/09/21/comparing-file-names-in-native-code/
+// Modified to use TCHAR's instead of assuming Unicode and reformatted to conform with Notepad++ code style
+static TCHAR ToUpperInvariant(TCHAR input)
+{
+	TCHAR result;
+	LONG lres = LCMapString(LOCALE_INVARIANT, LCMAP_UPPERCASE, &input, 1, &result, 1);
+	if (lres == 0)
+	{
+		assert(false and "LCMapString failed to convert a character to upper case");
+		result = input;
+	}
+	return result;
+}
+
+// Source: https://blogs.msdn.microsoft.com/greggm/2005/09/21/comparing-file-names-in-native-code/
+// Modified to use TCHAR's instead of assuming Unicode and reformatted to conform with Notepad++ code style
+int OrdinalIgnoreCaseCompareStrings(LPCTSTR sz1, LPCTSTR sz2)
+{
+	if (sz1 == sz2)
+	{
+		return 0;
+	}
+
+	if (sz1 == nullptr) sz1 = _T("");
+	if (sz2 == nullptr) sz2 = _T("");
+
+	for (;; sz1++, sz2++)
+	{
+		const TCHAR c1 = *sz1;
+		const TCHAR c2 = *sz2;
+
+		// check for binary equality first
+		if (c1 == c2)
+		{
+			if (c1 == 0)
+			{
+				return 0; // We have reached the end of both strings. No difference found.
+			}
+		}
+		else
+		{
+			if (c1 == 0 || c2 == 0)
+			{
+				return (c1-c2); // We have reached the end of one string
+			}
+
+			// IMPORTANT: this needs to be upper case to match the behavior of the operating system.
+			// See http://msdn.microsoft.com/library/default.asp?url=/library/en-us/dndotnet/html/StringsinNET20.asp
+			const TCHAR u1 = ToUpperInvariant(c1);
+			const TCHAR u2 = ToUpperInvariant(c2);
+			if (u1 != u2)
+			{
+				return (u1-u2); // strings are different
+			}
+		}
+	}
+}
+
 bool str2Clipboard(const generic_string &str2cpy, HWND hwnd)
 {
 	size_t len2Allocate = (str2cpy.size() + 1) * sizeof(TCHAR);
@@ -885,7 +959,6 @@ bool str2Clipboard(const generic_string &str2cpy, HWND hwnd)
 	unsigned int clipBoardFormat = CF_UNICODETEXT;
 	if (::SetClipboardData(clipBoardFormat, hglbCopy) == NULL)
 	{
-		::GlobalUnlock(hglbCopy);
 		::GlobalFree(hglbCopy);
 		::CloseClipboard();
 		return false;
@@ -1079,7 +1152,7 @@ bool isCertificateValidated(const generic_string & fullFilePath, const generic_s
 
 		isOK = true;
 	}
-	catch (generic_string s)
+	catch (const generic_string& s)
 	{
 		// display error message
 		MessageBox(NULL, s.c_str(), TEXT("Certificate checking"), MB_OK);
@@ -1126,3 +1199,69 @@ bool isAssoCommandExisting(LPCTSTR FullPathName)
 	}
 	return isAssoCommandExisting;
 }
+
+std::wstring s2ws(const std::string& str)
+{
+	using convert_typeX = std::codecvt_utf8<wchar_t>;
+	std::wstring_convert<convert_typeX, wchar_t> converterX;
+
+	return converterX.from_bytes(str);
+}
+
+std::string ws2s(const std::wstring& wstr)
+{
+	using convert_typeX = std::codecvt_utf8<wchar_t>;
+	std::wstring_convert<convert_typeX, wchar_t> converterX;
+
+	return converterX.to_bytes(wstr);
+}
+
+bool deleteFileOrFolder(const generic_string& f2delete)
+{
+	auto len = f2delete.length();
+	TCHAR* actionFolder = new TCHAR[len + 2];
+	wcscpy_s(actionFolder, len + 2, f2delete.c_str());
+	actionFolder[len] = 0;
+	actionFolder[len + 1] = 0;
+
+	SHFILEOPSTRUCT fileOpStruct = { 0 };
+	fileOpStruct.hwnd = NULL;
+	fileOpStruct.pFrom = actionFolder;
+	fileOpStruct.pTo = NULL;
+	fileOpStruct.wFunc = FO_DELETE;
+	fileOpStruct.fFlags = FOF_NOCONFIRMATION | FOF_SILENT | FOF_ALLOWUNDO;
+	fileOpStruct.fAnyOperationsAborted = false;
+	fileOpStruct.hNameMappings = NULL;
+	fileOpStruct.lpszProgressTitle = NULL;
+
+	int res = SHFileOperation(&fileOpStruct);
+
+	delete[] actionFolder;
+	return (res == 0);
+}
+
+// Get a vector of full file paths in a given folder. File extension type filter should be *.*, *.xml, *.dll... according the type of file you want to get.  
+void getFilesInFolder(std::vector<generic_string>& files, const generic_string& extTypeFilter, const generic_string& inFolder)
+{
+	generic_string filter = inFolder;
+	PathAppend(filter, extTypeFilter);
+
+	WIN32_FIND_DATA foundData;
+	HANDLE hFindFile = ::FindFirstFile(filter.c_str(), &foundData);
+
+	if (hFindFile != INVALID_HANDLE_VALUE && !(foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
+	{
+		generic_string foundFullPath = inFolder;
+		PathAppend(foundFullPath, foundData.cFileName);
+		files.push_back(foundFullPath);
+
+		while (::FindNextFile(hFindFile, &foundData))
+		{
+			generic_string foundFullPath2 = inFolder;
+			PathAppend(foundFullPath2, foundData.cFileName);
+			files.push_back(foundFullPath2);
+		}
+	}
+	::FindClose(hFindFile);
+}
+

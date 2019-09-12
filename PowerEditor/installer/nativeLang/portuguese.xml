@@ -492,7 +492,7 @@
                     <Item id="22572" name="Estilizar"/>
                     <Item id="22622" name="Estilizar"/>
 				</Keywords>
-                <Comment title="Comentário & Número">
+                <Comment title="Comentário &amp; Número">
 					<Item id="23003" name="Posição linha comentário"/>
                     <Item id="23004" name="Permitir em qualquer parte"/>
                     <Item id="23005" name="Forçar no início da linha"/>

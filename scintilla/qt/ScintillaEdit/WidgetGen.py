@@ -39,6 +39,8 @@ def normalisedName(s, options, role=None):
 
 typeAliases = {
 	"position": "int",
+	"line": "int",
+	"pointer": "int",
 	"colour": "int",
 	"keymod": "int",
 	"string": "const char *",
@@ -49,21 +51,26 @@ typeAliases = {
 def cppAlias(s):
 	if s in typeAliases:
 		return typeAliases[s]
+	elif Face.IsEnumeration(s):
+		return "int"
 	else:
 		return s
 
-understoodTypes = ["", "void", "int", "bool", "position",
+understoodTypes = ["", "void", "int", "bool", "position", "line", "pointer",
 	"colour", "keymod", "string", "stringresult", "cells"]
+
+def understoodType(t):
+	return t in understoodTypes or Face.IsEnumeration(t)
 
 def checkTypes(name, v):
 	understandAllTypes = True
-	if v["ReturnType"] not in understoodTypes:
+	if not understoodType(v["ReturnType"]):
 		#~ print("Do not understand", v["ReturnType"], "for", name)
 		understandAllTypes = False
-	if v["Param1Type"] not in understoodTypes:
+	if not understoodType(v["Param1Type"]):
 		#~ print("Do not understand", v["Param1Type"], "for", name)
 		understandAllTypes = False
-	if v["Param2Type"] not in understoodTypes:
+	if not understoodType(v["Param2Type"]):
 		#~ print("Do not understand", v["Param2Type"], "for", name)
 		understandAllTypes = False
 	return understandAllTypes
@@ -107,7 +114,7 @@ def printHFile(f, options):
 			if feat in ["fun", "get", "set"]:
 				if checkTypes(name, v):
 					constDeclarator = " const" if feat == "get" else ""
-					returnType = cppAlias(v["ReturnType"])					
+					returnType = cppAlias(v["ReturnType"])
 					if returnType == "int":
 						returnType = "sptr_t"
 					stringResult = v["Param2Type"] == "stringresult"
@@ -230,7 +237,7 @@ def main(argv):
 	options = {"qtStyle": qtStyleInterface}
 	f = readInterface(cleanGenerated)
 	try:
-		GenerateFile("ScintillaEdit.cpp.template", "ScintillaEdit.cpp", 
+		GenerateFile("ScintillaEdit.cpp.template", "ScintillaEdit.cpp",
 			"/* ", True, printCPPFile(f, options))
 		GenerateFile("ScintillaEdit.h.template", "ScintillaEdit.h",
 			"/* ", True, printHFile(f, options))
@@ -256,6 +263,6 @@ def main(argv):
 				os.remove(file)
 			except OSError:
 				pass
-		
+
 if __name__ == "__main__":
 	main(sys.argv[1:])

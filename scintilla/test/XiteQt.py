@@ -40,7 +40,7 @@ class XiteWin():
 
 		self.ed = ScintillaCallable.ScintillaCallable(self.face, scifn, sciptr)
 		self.form.show()
-		
+
 	def DoStuff(self):
 		print(self.test)
 		self.CmdTest()

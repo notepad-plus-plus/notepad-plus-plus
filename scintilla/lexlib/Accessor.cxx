@@ -1,16 +1,12 @@
 // Scintilla source code edit control
-/** @file KeyWords.cxx
- ** Colourise for particular languages.
+/** @file Accessor.cxx
+ ** Interfaces between Scintilla and lexers.
  **/
 // Copyright 1998-2002 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
 
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <assert.h>
-#include <ctype.h>
+#include <cstdlib>
+#include <cassert>
 
 #include "ILexer.h"
 #include "Scintilla.h"
@@ -21,9 +17,7 @@
 #include "LexAccessor.h"
 #include "Accessor.h"
 
-#ifdef SCI_NAMESPACE
 using namespace Scintilla;
-#endif
 
 Accessor::Accessor(IDocument *pAccess_, PropSetSimple *pprops_) : LexAccessor(pAccess_), pprops(pprops_) {
 }
@@ -32,8 +26,8 @@ int Accessor::GetPropertyInt(const char *key, int defaultValue) const {
 	return pprops->GetInt(key, defaultValue);
 }
 
-int Accessor::IndentAmount(int line, int *flags, PFNIsCommentLeader pfnIsCommentLeader) {
-	int end = Length();
+int Accessor::IndentAmount(Sci_Position line, int *flags, PFNIsCommentLeader pfnIsCommentLeader) {
+	const Sci_Position end = Length();
 	int spaceFlags = 0;
 
 	// Determines the indentation level of the current line and also checks for consistent
@@ -41,14 +35,14 @@ int Accessor::IndentAmount(int line, int *flags, PFNIsCommentLeader pfnIsComment
 	// Indentation is judged consistent when the indentation whitespace of each line lines
 	// the same or the indentation of one line is a prefix of the other.
 
-	int pos = LineStart(line);
+	Sci_Position pos = LineStart(line);
 	char ch = (*this)[pos];
 	int indent = 0;
 	bool inPrevPrefix = line > 0;
-	int posPrev = inPrevPrefix ? LineStart(line-1) : 0;
+	Sci_Position posPrev = inPrevPrefix ? LineStart(line-1) : 0;
 	while ((ch == ' ' || ch == '\t') && (pos < end)) {
 		if (inPrevPrefix) {
-			char chPrev = (*this)[posPrev++];
+			const char chPrev = (*this)[posPrev++];
 			if (chPrev == ' ' || chPrev == '\t') {
 				if (chPrev != ch)
 					spaceFlags |= wsInconsistent;

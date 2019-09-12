@@ -37,6 +37,7 @@ class FindReplaceDlg;
 class PreferenceDlg;
 class ShortcutMapper;
 class UserDefineDialog;
+class PluginsAdminDlg;
 
 class MenuPosition {
 public:
@@ -54,18 +55,19 @@ public:
 	void changeConfigLang(HWND hDlg);
 	void changeLangTabContextMenu(HMENU hCM);
 	TiXmlNodeA * searchDlgNode(TiXmlNodeA *node, const char *dlgTagName);
-	bool changeDlgLang(HWND hDlg, const char *dlgTagName, char *title = NULL);
+	bool changeDlgLang(HWND hDlg, const char *dlgTagName, char *title = NULL, size_t titleMaxSize = 0);
 	void changeLangTabDrapContextMenu(HMENU hCM);
 	generic_string getSpecialMenuEntryName(const char *entryName) const;
 	generic_string getNativeLangMenuString(int itemID) const;
 	void changeMenuLang(HMENU menuHandle, generic_string & pluginsTrans, generic_string & windowTrans);
 	void changeShortcutLang();
-	void changeShortcutmapperLang(ShortcutMapper * sm);
 	void changeStyleCtrlsLang(HWND hDlg, int *idArray, const char **translatedText);
     void changeUserDefineLang(UserDefineDialog *userDefineDlg);
 	void changeUserDefineLangPopupDlg(HWND hDlg);
     void changeFindReplaceDlgLang(FindReplaceDlg & findReplaceDlg);
     void changePrefereceDlgLang(PreferenceDlg & preference);
+	void changePluginsAdminDlgLang(PluginsAdminDlg & pluginsAdminDlg);
+
     bool isRTL() const {
         return _isRTL;
     };
@@ -82,10 +84,11 @@ public:
         return _nativeLangEncoding;
     };
 	bool getMsgBoxLang(const char *msgBoxTagName, generic_string & title, generic_string & message);
+	generic_string getShortcutMapperLangStr(const char *nodeName, const TCHAR *defaultStr) const;
 	generic_string getProjectPanelLangMenuStr(const char * nodeName, int cmdID, const TCHAR *defaultStr) const;
-	//generic_string getFileBrowserLangMenuStr(const char * nodeName, int cmdID, const TCHAR *defaultStr) const;
+	generic_string getFileBrowserLangMenuStr(int cmdID, const TCHAR *defaultStr) const;
 	generic_string getAttrNameStr(const TCHAR *defaultStr, const char *nodeL1Name, const char *nodeL2Name = NULL) const;
-	generic_string getLocalizedStrFromID(const char *strID) const;
+	generic_string getLocalizedStrFromID(const char *strID, const generic_string& defaultString) const;
 
 	int messageBox(const char *msgBoxTagName, HWND hWnd, const TCHAR *message, const TCHAR *title, int msgBoxType, int intInfo = 0, const TCHAR *strInfo = NULL);
 private:

@@ -36,7 +36,7 @@
 #include "ListView.h"
 #include "asciiListView.h"
 
-#define AI_PROJECTPANELTITLE		TEXT("ASCII Insertion Panel")
+#define AI_PROJECTPANELTITLE		TEXT("ASCII Codes Insertion Panel")
 
 class ScintillaEditView;
 
@@ -48,17 +48,14 @@ public:
 		DockingDlgInterface::init(hInst, hPere);
 		_ppEditView = ppEditView;
 	};
-/*
-    virtual void display(bool toShow = true) const {
-        DockingDlgInterface::display(toShow);
-    };
-*/
+
     void setParent(HWND parent2set){
         _hParent = parent2set;
     };
 
 	void switchEncoding();
 	void insertChar(unsigned char char2insert) const;
+	void insertString(LPWSTR string2insert) const;
 
 	virtual void setBackgroundColor(int bgColour) const {
 		ListView_SetBkColor(_listView.getHSelf(), bgColour);

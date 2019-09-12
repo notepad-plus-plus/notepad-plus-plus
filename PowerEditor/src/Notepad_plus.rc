@@ -64,6 +64,8 @@ END
 IDI_M30ICON                     ICON      "icons/npp.ico"
 IDI_CHAMELEON                   ICON      "icons/chameleon.ico"
 //IDI_JESUISCHARLIE               ICON      "icons/Je_suis_Charlie.ico"
+//IDI_GILETJAUNE               ICON      "icons/giletJaune.ico"
+//IDI_SAMESEXMARRIAGE               ICON      "icons/same-sexMarriageTaiwan.ico"
 IDI_NEW_OFF_ICON                ICON      "icons/new_off.ico"
 IDI_OPEN_OFF_ICON               ICON      "icons/open_off.ico"
 IDI_SAVE_OFF_ICON               ICON      "icons/save_off.ico"
@@ -211,6 +213,17 @@ IDI_FUNCLIST_LEAF               BITMAP      "icons/funcList_leaf.bmp"
 IDI_FUNCLIST_SORTBUTTON         BITMAP      "icons/funclstSort.bmp"
 IDI_FUNCLIST_RELOADBUTTON       BITMAP      "icons/funclstReload.bmp"
 
+
+IDI_VIEW_DOC_MAP_ON_ICON        ICON        "icons/docMap_on.ico"
+IDI_VIEW_DOC_MAP_OFF_ICON       ICON        "icons/docMap_off.ico" 
+IDI_VIEW_FUNCLIST_ON_ICON       ICON        "icons/funcList_on.ico" 
+IDI_VIEW_FUNCLIST_OFF_ICON      ICON        "icons/funcList_off.ico" 
+IDI_VIEW_FILEBROWSER_ON_ICON    ICON        "icons/fileBrowser_on.ico" 
+IDI_VIEW_FILEBROWSER_OFF_ICON   ICON        "icons/fileBrowser_off.ico" 
+IDI_VIEW_MONITORING_ON_ICON     ICON        "icons/monitoring_on.ico"
+IDI_VIEW_MONITORING_OFF_ICON    ICON        "icons/monitoring_off.ico"
+
+
 IDR_M30_MENU MENU
 BEGIN
     POPUP "&File"
@@ -237,6 +250,7 @@ BEGIN
 			MENUITEM "Close All but Active Document",    IDM_FILE_CLOSEALL_BUT_CURRENT
 			MENUITEM "Close All to the Left",			 IDM_FILE_CLOSEALL_TOLEFT
 			MENUITEM "Close All to the Right",			 IDM_FILE_CLOSEALL_TORIGHT
+			MENUITEM "Close All Unchanged",				 IDM_FILE_CLOSEALL_UNCHANGED
 		END
         MENUITEM "Move to Recycle Bin",              IDM_FILE_DELETE
         MENUITEM SEPARATOR
@@ -285,25 +299,26 @@ BEGIN
         END
         POPUP "Line Operations"
         BEGIN
-            MENUITEM "Duplicate Current Line",    IDM_EDIT_DUP_LINE
-            MENUITEM "Split Lines",               IDM_EDIT_SPLIT_LINES
-            MENUITEM "Join Lines",                IDM_EDIT_JOIN_LINES
-            MENUITEM "Move Up Current Line",      IDM_EDIT_LINE_UP
-            MENUITEM "Move Down Current Line",    IDM_EDIT_LINE_DOWN
-			MENUITEM "Remove Empty Lines",        IDM_EDIT_REMOVEEMPTYLINES
-			MENUITEM "Remove Empty Lines (Containing Blank characters)",    IDM_EDIT_REMOVEEMPTYLINESWITHBLANK
-			MENUITEM "Insert Blank Line Above Current",    IDM_EDIT_BLANKLINEABOVECURRENT
-			MENUITEM "Insert Blank Line Below Current",    IDM_EDIT_BLANKLINEBELOWCURRENT
+            MENUITEM "Duplicate Current Line",                           IDM_EDIT_DUP_LINE
+            MENUITEM "Remove Consecutive Duplicate Lines",               IDM_EDIT_REMOVE_DUP_LINES
+            MENUITEM "Split Lines",                                      IDM_EDIT_SPLIT_LINES
+            MENUITEM "Join Lines",                                       IDM_EDIT_JOIN_LINES
+            MENUITEM "Move Up Current Line",                             IDM_EDIT_LINE_UP
+            MENUITEM "Move Down Current Line",                           IDM_EDIT_LINE_DOWN
+			MENUITEM "Remove Empty Lines",                               IDM_EDIT_REMOVEEMPTYLINES
+			MENUITEM "Remove Empty Lines (Containing Blank characters)", IDM_EDIT_REMOVEEMPTYLINESWITHBLANK
+			MENUITEM "Insert Blank Line Above Current",                  IDM_EDIT_BLANKLINEABOVECURRENT
+			MENUITEM "Insert Blank Line Below Current",                  IDM_EDIT_BLANKLINEBELOWCURRENT
 			MENUITEM SEPARATOR
-			MENUITEM "Sort Lines Lexicographically Ascending",		IDM_EDIT_SORTLINES_LEXICOGRAPHIC_ASCENDING
-			MENUITEM "Sort Lines As Integers Ascending",			IDM_EDIT_SORTLINES_INTEGER_ASCENDING
-			MENUITEM "Sort Lines As Decimals (Comma) Ascending",	IDM_EDIT_SORTLINES_DECIMALCOMMA_ASCENDING
-			MENUITEM "Sort Lines As Decimals (Dot) Ascending",		IDM_EDIT_SORTLINES_DECIMALDOT_ASCENDING
+			MENUITEM "Sort Lines Lexicographically Ascending",		     IDM_EDIT_SORTLINES_LEXICOGRAPHIC_ASCENDING
+			MENUITEM "Sort Lines As Integers Ascending",			     IDM_EDIT_SORTLINES_INTEGER_ASCENDING
+			MENUITEM "Sort Lines As Decimals (Comma) Ascending",	     IDM_EDIT_SORTLINES_DECIMALCOMMA_ASCENDING
+			MENUITEM "Sort Lines As Decimals (Dot) Ascending",		     IDM_EDIT_SORTLINES_DECIMALDOT_ASCENDING
 			MENUITEM SEPARATOR
-			MENUITEM "Sort Lines Lexicographically Descending",		IDM_EDIT_SORTLINES_LEXICOGRAPHIC_DESCENDING
-			MENUITEM "Sort Lines As Integers Descending",			IDM_EDIT_SORTLINES_INTEGER_DESCENDING
-			MENUITEM "Sort Lines As Decimals (Comma) Descending",	IDM_EDIT_SORTLINES_DECIMALCOMMA_DESCENDING
-			MENUITEM "Sort Lines As Decimals (Dot) Descending",		IDM_EDIT_SORTLINES_DECIMALDOT_DESCENDING
+			MENUITEM "Sort Lines Lexicographically Descending",		     IDM_EDIT_SORTLINES_LEXICOGRAPHIC_DESCENDING
+			MENUITEM "Sort Lines As Integers Descending",			     IDM_EDIT_SORTLINES_INTEGER_DESCENDING
+			MENUITEM "Sort Lines As Decimals (Comma) Descending",	     IDM_EDIT_SORTLINES_DECIMALCOMMA_DESCENDING
+			MENUITEM "Sort Lines As Decimals (Dot) Descending",		     IDM_EDIT_SORTLINES_DECIMALDOT_DESCENDING
 		END
         POPUP "Comment/Uncomment"
         BEGIN
@@ -446,6 +461,14 @@ BEGIN
         MENUITEM "Post-It",                    IDM_VIEW_POSTIT
 
         MENUITEM SEPARATOR
+		POPUP "View Current File in"
+		BEGIN
+			MENUITEM "Firefox", IDM_VIEW_IN_FIREFOX
+			MENUITEM "Chrome", IDM_VIEW_IN_CHROME
+			MENUITEM "Edge", IDM_VIEW_IN_EDGE
+			MENUITEM "IE", IDM_VIEW_IN_IE
+		END
+		MENUITEM SEPARATOR
         POPUP "Show Symbol"
         BEGIN
             MENUITEM "Show White Space and TAB",    IDM_VIEW_TAB_SPACE
@@ -490,7 +513,6 @@ BEGIN
         MENUITEM "Word wrap",                   IDM_VIEW_WRAP
         MENUITEM "Focus on Another View",         IDM_VIEW_SWITCHTO_OTHER_VIEW
         MENUITEM "Hide Lines",                  IDM_VIEW_HIDELINES
-        //MENUITEM "User-Defined Dialogue...",    IDM_VIEW_USER_DLG
         MENUITEM SEPARATOR
         MENUITEM "Fold All",                    IDM_VIEW_TOGGLE_FOLDALL
         MENUITEM "Unfold All",                  IDM_VIEW_TOGGLE_UNFOLDALL
@@ -543,11 +565,11 @@ BEGIN
 
     POPUP "E&ncoding"
     BEGIN
-        MENUITEM "Encode in ANSI",                    IDM_FORMAT_ANSI
-        MENUITEM "Encode in UTF-8",                   IDM_FORMAT_AS_UTF_8
-        MENUITEM "Encode in UTF-8-BOM",               IDM_FORMAT_UTF_8
-        MENUITEM "Encode in UCS-2 BE BOM",            IDM_FORMAT_UCS_2BE
-        MENUITEM "Encode in UCS-2 LE BOM",            IDM_FORMAT_UCS_2LE
+        MENUITEM "ANSI",                    IDM_FORMAT_ANSI
+        MENUITEM "UTF-8",                   IDM_FORMAT_AS_UTF_8
+        MENUITEM "UTF-8-BOM",               IDM_FORMAT_UTF_8
+        MENUITEM "UCS-2 BE BOM",            IDM_FORMAT_UCS_2BE
+        MENUITEM "UCS-2 LE BOM",            IDM_FORMAT_UCS_2LE
         POPUP "Character sets"
         BEGIN
             POPUP "Arabic"
@@ -581,7 +603,6 @@ BEGIN
 
             POPUP "Central European"
             BEGIN
-                //MENUITEM "ISO 8859-16",         IDM_FORMAT_ISO_8859_16
                 MENUITEM "OEM 852",             IDM_FORMAT_DOS_852
                 MENUITEM "Windows-1250",        IDM_FORMAT_WIN_1250
             END
@@ -631,8 +652,7 @@ BEGIN
 
             POPUP "Thai"
             BEGIN
-            //MENUITEM "ISO 8859-11",             IDM_FORMAT_ISO_8859_11
-            MENUITEM "TIS-620",                 IDM_FORMAT_TIS_620
+			    MENUITEM "TIS-620",                 IDM_FORMAT_TIS_620
             END
 
             POPUP "Turkish"
@@ -903,7 +923,7 @@ BEGIN
 
     POPUP "Se&ttings"
     BEGIN
-        MENUITEM "Preferences...",          IDM_SETTING_PREFERECE
+        MENUITEM "Preferences...",          IDM_SETTING_PREFERENCE
         MENUITEM "Style Configurator...",   IDM_LANGSTYLE_CONFIG_DLG
         MENUITEM "Shortcut Mapper...",      IDM_SETTING_SHORTCUT_MAPPER
         MENUITEM SEPARATOR
@@ -920,10 +940,16 @@ BEGIN
     BEGIN
         POPUP "MD5"
 		BEGIN
-			MENUITEM "Generate...",                         IDM_TOOL_MD5_GENERATE
-			MENUITEM "Generate from files...",              IDM_TOOL_MD5_GENERATEFROMFILE
-			MENUITEM "Generate into clipboard",             IDM_TOOL_MD5_GENERATEINTOCLIPBOARD
+			MENUITEM "Generate...",                            IDM_TOOL_MD5_GENERATE
+			MENUITEM "Generate from files...",                 IDM_TOOL_MD5_GENERATEFROMFILE
+			MENUITEM "Generate from selection into clipboard", IDM_TOOL_MD5_GENERATEINTOCLIPBOARD
         END
+		POPUP "SHA-256"
+		BEGIN
+			MENUITEM "Generate...", IDM_TOOL_SHA256_GENERATE
+			MENUITEM "Generate from files...", IDM_TOOL_SHA256_GENERATEFROMFILE
+			MENUITEM "Generate from selection into clipboard", IDM_TOOL_SHA256_GENERATEINTOCLIPBOARD
+		END
     END
 	
 	POPUP "&Macro"
@@ -942,15 +968,13 @@ BEGIN
 
     POPUP "&?"
     BEGIN
-        //MENUITEM "Help Contents",              IDM_HELP
         MENUITEM "Command Line Arguments...",      IDM_CMDLINEARGUMENTS
         MENUITEM SEPARATOR
         MENUITEM "Notepad++ Home",            IDM_HOMESWEETHOME
         MENUITEM "Notepad++ Project Page",    IDM_PROJECTPAGE
-        //MENUITEM "Online Documentation",      IDM_ONLINEHELP
         MENUITEM "Notepad++ Community (Forum)",                     IDM_FORUM
 		MENUITEM "Live Support",				IDM_ONLINESUPPORT
-        MENUITEM "Get More Plugins",          IDM_PLUGINSHOME
+        //MENUITEM "Get More Plugins",          IDM_PLUGINSHOME
         MENUITEM SEPARATOR
         MENUITEM "Update Notepad++",          IDM_UPDATE_NPP
 		MENUITEM "Set Updater Proxy...",         IDM_CONFUPDATERPROXY
@@ -984,6 +1008,8 @@ BEGIN
     EDITTEXT        IDC_BUILD_DATETIME,150,2,150,10, ES_READONLY | NOT WS_BORDER
     CONTROL         "",IDI_CHAMELEON,"Static",SS_OWNERDRAW,20,5,64,64
     //CONTROL         "",IDI_JESUISCHARLIE,"Static",SS_OWNERDRAW,20,5,64,64
+    //CONTROL         "",IDI_GILETJAUNE,"Static",SS_OWNERDRAW,20,5,64,64
+	//CONTROL         "", IDI_SAMESEXMARRIAGE,"Static",SS_OWNERDRAW,20,5,64,64
     LTEXT           NOTEPAD_PLUS_VERSION, IDC_STATIC,70,20,140,11
     LTEXT           "bit",IDC_VERSION_BIT,150,20,140,11
     LTEXT           "Author :",IDC_STATIC,21,45,31,8
@@ -1003,10 +1029,23 @@ CAPTION "Debug Info"
 FONT 8, TEXT("MS Shell Dlg"), 0, 0, 0x1
 BEGIN
     EDITTEXT        IDC_DEBUGINFO_EDIT,31,20,220,96,ES_MULTILINE | ES_AUTOVSCROLL | ES_READONLY | NOT WS_BORDER | WS_VSCROLL
-		LTEXT           "Copy debug info into clipboard",IDC_DEBUGINFO_COPYLINK,31,120,126,8
+    LTEXT           "Copy debug info into clipboard",IDC_DEBUGINFO_COPYLINK,31,120,126,8
     DEFPUSHBUTTON   "OK",IDOK,106,160,50,14,BS_FLAT
 END
 
+IDD_DOSAVEORNOTBOX DIALOGEX 0, 0, 310, 80
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_TOOLWINDOW | WS_EX_WINDOWEDGE
+CAPTION "Save"
+FONT 8, TEXT("MS Shell Dlg"), 0, 0, 0x1
+BEGIN
+    LTEXT           "",IDC_DOSAVEORNOTTEX,7,10,290,40
+    DEFPUSHBUTTON   "Yes",IDYES,10,60,50,14,BS_FLAT
+    PUSHBUTTON   "No",IDNO,65,60,50,14,BS_FLAT
+    PUSHBUTTON   "Cancel",IDCANCEL,120,60,50,14,BS_FLAT
+    PUSHBUTTON   "Yes to all",IDRETRY,175,60,60,14,BS_FLAT
+    PUSHBUTTON   "No to all",IDIGNORE,240,60,60,14,BS_FLAT
+END
 
 IDD_GOLINE DIALOGEX 26, 41, 261, 88
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU

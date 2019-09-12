@@ -32,7 +32,6 @@
 #include "Common.h"
 
 class DocTabView;
-class TiXmlNodeA;
 
 typedef enum {
 	WDT_ACTIVATE = 1,
@@ -61,19 +60,12 @@ class WindowsDlg : public SizeableDlg
 {
 	typedef SizeableDlg MyBaseClass;
 
-	class CachedValue
-	{
-		generic_string fullname;
-		int index;
-	};
-
 public :
 	WindowsDlg();
-	int doDialog(TiXmlNodeA *dlgNode);
+	int doDialog();
 	virtual void init(HINSTANCE hInst, HWND parent, DocTabView *pTab);
 
 	void doRefresh(bool invalidate = false);
-	bool changeDlgLang();
 
 protected :
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
@@ -101,7 +93,6 @@ protected :
 	int _currentColumn = -1;
 	int _lastSort = -1;
 	bool _reverseSort = false;
-	TiXmlNodeA *_dlgNode = nullptr;
 
 private:
 	virtual void init(HINSTANCE hInst, HWND parent);	

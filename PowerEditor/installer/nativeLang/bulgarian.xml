@@ -2,15 +2,15 @@
 <!--
 	## Bulgarian localization for Notepad++ ##
 
-	Translators:.....: 2007-2012 - Milen Metev (Tragedy); 2014-yyyy - RDD
-	Last revision:...: 25.08.2017 by RDD
+	Translators:.....: 2007–2012 – Milen Metev (Tragedy); 2014–yyyy – Rusi Dimitrov
+	Last revision:...: 04.08.2019 by Rusi Dimitrov <astral_86[at]mail[dot]bg>
 	Download:........: https://gist.github.com/rddim/bd37264898c3a17363e7437bcf1b4803
 -->
 <NotepadPlus>
-	<Native-Langue name="Български" filename="bulgarian.xml" >
+	<Native-Langue name="Български" filename="bulgarian.xml">
 		<Menu>
 			<Main>
-				<!-- Main Menu Entries -->
+				<!-- Основни менюта -->
 				<Entries>
 					<Item menuId="file" name="&amp;Файл"/>
 					<Item menuId="edit" name="&amp;Редактиране"/>
@@ -20,17 +20,17 @@
 					<Item menuId="language" name="&amp;Синтаксис"/>
 					<Item menuId="settings" name="&amp;Настройки"/>
 					<Item menuId="tools" name="&amp;Инструменти"/>
-					<Item menuId="macro" name="Макроси"/>
-					<Item menuId="run" name="Стартиране"/>
-					<Item idName="Plugins" name="Добавки"/>
-					<Item idName="Window" name="Прозорци"/>
+					<Item menuId="macro" name="&amp;Макроси"/>
+					<Item menuId="run" name="Ст&amp;артиране"/>
+					<Item idName="Plugins" name="&amp;Добавки"/>
+					<Item idName="Window" name="&amp;Прозорци"/>
 				</Entries>
-				<!-- Sub Menu Entries -->
+				<!-- Подменюта -->
 				<SubEntries>
 				<!-- Меню "Файл" -->
 					<Item subMenuId="file-openFolder" name="Местоположение на файла"/>
 					<Item subMenuId="file-closeMore" name="Затваряне на разделите"/>
-					<Item subMenuId="file-recentFiles" name="Последно използвани"/>
+					<Item subMenuId="file-recentFiles" name="&amp;Последно използвани"/>
 				<!-- Меню "Редактиране" -->
 					<Item subMenuId="edit-copyToClipboard"	name="Копиране в системния буфер"/>
 					<Item subMenuId="edit-indent" name="Табулация"/>
@@ -49,6 +49,7 @@
 					<Item subMenuId="search-jumpDown" name="Преминаване надолу"/>
 					<Item subMenuId="search-bookmark" name="Отметки"/>
 				<!-- Меню "Изглед" -->
+					<Item subMenuId="view-currentFileIn" name="Преглед на текущия файл в"/>
 					<Item subMenuId="view-showSymbol"  name="Показване на символи"/>
 					<Item subMenuId="view-zoom"  name="Мащабиране"/>
 					<Item subMenuId="view-moveCloneDocument"  name="Текущ документ"/>
@@ -78,32 +79,34 @@
 					<Item subMenuId="settings-import"  name="Внасяне"/>
 				<!-- Меню "Инструменти" -->
 					<Item subMenuId="tools-md5" name="MD5"/>
+					<Item subMenuId="tools-sha256"  name="SHA-256"/>
 				</SubEntries>
-				<!-- all menu item -->
+				<!-- Всички менюта -->
 				<Commands>
 				<!-- Меню "Файл" начало -->
 					<Item id="41001" name="&amp;Нов"/>
 					<Item id="41002" name="&amp;Отваряне"/>
 						<!-- Подменю "Местоположение на файла" -->
 					<Item id="41019" name="Отваряне на папката"/>
-					<Item id="41020" name="Отваряне в конзола cmd"/>
+					<Item id="41020" name="Отваряне в cmd конзола"/>
 					<!-- Меню "Файл" -->
 					<Item id="41023" name="Отваряне по подразбиране"/>
-					<Item id="41022" name="Отваряне на &amp;директория"/>
-					<Item id="41014" name="Презареждане от носителя"/>
+					<Item id="41022" name="Отваряне на директория..."/>
+					<Item id="41014" name="&amp;Презареждане от носителя"/>
 					<Item id="41006" name="&amp;Запис"/>
 					<Item id="41008" name="Запис &amp;като..."/>
 					<Item id="41015" name="Запис на копие като..."/>
 					<Item id="41007" name="Запис на &amp;всички"/>
 					<Item id="41017" name="Преименуване..."/>
-					<Item id="41003" name="Затваряне"/>
-					<Item id="41004" name="Затваряне на &amp;всички"/>
+					<Item id="41003" name="З&amp;атваряне"/>
+					<Item id="41004" name="Затваряне на в&amp;сички"/>
 						<!-- Подменю "Затваряне на разделите" -->
 					<Item id="41005" name="Всички, без текущия"/>
 					<Item id="41009" name="Всички отляво"/>
 					<Item id="41018" name="Всички отдясно"/>
+					<Item id="41024" name="Всички непроменени"/>
 					<!-- Меню "Файл" -->
-					<Item id="41016" name="Изтриване от носителя"/>
+					<Item id="41016" name="Преместване в кошчето"/>
 					<Item id="41012" name="Зареждане на сесия..."/>
 					<Item id="41013" name="Запис на сесия..."/>
 					<Item id="41010" name="Печат..."/>
@@ -131,16 +134,17 @@
 					<Item id="42008" name="Увеличаване на отстъпа"/>
 					<Item id="42009" name="Намаляване на отстъпа"/>
 						<!-- Подменю "Смяна на регистъра" -->
-					<Item id="42016" name="ГЛАВНИ БУКВИ"/>
-					<Item id="42017" name="малки букви"/>
-					<Item id="42067" name="Главна Буква На Всяка Дума"/>
+					<Item id="42016" name="&amp;ГЛАВНИ БУКВИ"/>
+					<Item id="42017" name="&amp;малки букви"/>
+					<Item id="42067" name="Главна Буква На &amp;Всяка Дума"/>
 					<Item id="42068" name="Главна Буква На Всяка Дума (смесено)"/>
-					<Item id="42069" name="Изречение"/>
+					<Item id="42069" name="&amp;Изречение"/>
 					<Item id="42070" name="Изречение (смесено)"/>
-					<Item id="42071" name="оБРАТЕН рЕГИСТЪР"/>
-					<Item id="42072" name="прОиЗвоЛНо"/>
+					<Item id="42071" name="&amp;оБРАТЕН рЕГИСТЪР"/>
+					<Item id="42072" name="&amp;прОиЗвоЛНо"/>
 						<!-- Подменю "Редове" -->
 					<Item id="42010" name="Дублиране на текущия ред"/>
+					<Item id="42077" name="Премахване на дублирани последователни редове"/>
 					<Item id="42012" name="Разделяне на редове"/>
 					<Item id="42013" name="Обединяване на редове"/>
 					<Item id="42059" name="Сортиране по възходящ ред"/>
@@ -204,20 +208,20 @@
 					<Item id="43001" name="&amp;Търсене..."/>
 					<Item id="43013" name="Търсене във файлове"/>
 					<Item id="43002" name="Намиране на &amp;следващ"/>
-					<Item id="43010" name="Намиране на предходен"/>
+					<Item id="43010" name="Намиране на &amp;предходен"/>
 					<Item id="43048" name="Маркиране и намиране на следващ"/>
 					<Item id="43049" name="Маркиране и намиране на предходен"/>
 					<Item id="43014" name="Намиране (с регистър) на следващ"/>
 					<Item id="43015" name="Намиране (с регистър) на предходен"/>
-					<Item id="43003" name="Замяна..."/>
+					<Item id="43003" name="&amp;Замяна..."/>
 					<Item id="43011" name="&amp;Търсене, докато се пише"/>
 					<Item id="43045" name="Прозорец с резултати от търсене"/>
 					<Item id="43046" name="Следващ резултат от търсене"/>
 					<Item id="43047" name="Предходен резултат от търсене"/>
-					<Item id="43004" name="Отиване на..."/>
+					<Item id="43004" name="&amp;Отиване на..."/>
 					<Item id="43009" name="Отиване до съответстващата скоба"/>
 					<Item id="43053" name="Маркиране на всичко между скобите"/>
-					<Item id="43054" name="Маркиране..."/>
+					<Item id="43054" name="&amp;Маркиране..."/>
 						<!-- Подменю "Маркиране на всичко" -->
 					<Item id="43022" name="Използване на 1-ви стил"/>
 					<Item id="43024" name="Използване на 2-ри стил"/>
@@ -257,7 +261,7 @@
 					<Item id="43051" name="Премахване на неотметнати редове"/>
 					<Item id="43050" name="Обръщане на отметките"/>
 					<!-- Меню "Търсене" -->
-					<Item id="43052" name="Търсене на знаци в диапазон..."/>
+					<Item id="43052" name="Търсене на знаци в обхват..."/>
 				<!-- Меню "Търсене" край -->
 				<!-- Меню "Изглед" начало -->
 					<Item id="44034" name="Винаги на преден план"/>
@@ -306,21 +310,21 @@
 					<Item id="44082" name="Проектен панел 2"/>
 					<Item id="44083" name="Проектен панел 3"/>
 					<!-- Меню "Изглед" -->
-					<Item id="44085" name="&amp;Директория като работно място"/>
+					<Item id="44085" name="Директория като работно място"/>
 					<Item id="44080" name="Карта на документа"/>
 					<Item id="44084" name="Списък с функции"/>
 					<Item id="44035" name="Синхрон при вертикално превъртане"/>
 					<Item id="44036" name="Синхрон при хоризонтално превъртане"/>
-					<Item id="42026" name="Посока на текста - отдясно наляво"/>
-					<Item id="42027" name="Посока на текста - отляво надясно"/>
+					<Item id="42026" name="Посока на текста – отдясно наляво"/>
+					<Item id="42027" name="Посока на текста – отляво надясно"/>
 					<Item id="44097" name="Наблюдение (tail -f)"/>
 				<!-- Меню "Изглед" край -->
 				<!-- Меню "Кодировки" начало -->
-					<Item id="45004" name="Кодиране в ANSI"/>
-					<Item id="45008" name="Кодиране в UTF-8"/>
-					<Item id="45005" name="Кодиране в UTF-8-BOM"/>
-					<Item id="45006" name="Кодиране в UCS-2 BE BOM"/>
-					<Item id="45007" name="Кодиране в UCS-2 LE BOM"/>
+					<Item id="45004" name="ANSI"/>
+					<Item id="45008" name="UTF-8"/>
+					<Item id="45005" name="UTF-8-BOM"/>
+					<Item id="45006" name="UCS-2 BE BOM"/>
+					<Item id="45007" name="UCS-2 LE BOM"/>
 					<!-- Меню "Кодировки" -->
 					<Item id="45009" name="Преобразуване в ANSI"/>
 					<Item id="45010" name="Преобразуване в UTF-8"/>
@@ -344,63 +348,71 @@
 				<!-- Меню "Настройки" край -->
 				<!-- Меню "Инструменти" начало -->
 						<!-- Подменю "MD5" -->
-					<Item id="48501" name="Генериране от текст..."/>
+					<Item id="48501" name="Генериране..."/>
 					<Item id="48502" name="Генериране от файлове..."/>
-					<Item id="48503" name="Генериране в системния буфер"/>
+					<Item id="48503" name="Генериране от селекцията в системния буфер"/>
+					<Item id="48504" name="Генериране..."/>
+					<Item id="48505" name="Генериране от файлове..."/>
+					<Item id="48506" name="Генериране от селекцията в системния буфер"/>
 				<!-- Меню "Инструменти" край -->
 				<!-- Меню "Макроси" начало -->
 					<Item id="42018" name="&amp;Начало на запис"/>
 					<Item id="42019" name="&amp;Край на запис"/>
 					<Item id="42021" name="&amp;Изпълнение"/>
-					<Item id="42025" name="Запис на текущия макрос"/>
-					<Item id="42032" name="Многократно изпълнение..."/>
+					<Item id="42025" name="Запис на текущия макрос..."/>
+					<Item id="42032" name="&amp;Многократно изпълнение..."/>
 					<Item id="48016" name="Редактиране..."/>
 				<!-- Меню "Макроси" край -->
 				<!-- Меню "Стартиране" начало -->
 					<Item id="49000" name="&amp;Стартиране на програма..."/>
 					<Item id="48017" name="Преки пътища и команди..."/>
 				<!-- Меню "Стартиране" край -->
+				<!-- Меню "Добавки" начало -->
+					<Item id="48015" name="Управление на добавки..."/>
+					<Item id="48014" name="Отваряне на папката с добавки..."/>
+				<!-- Меню "Добавки" край -->
 				<!-- Меню "?" начало -->
 					<Item id="47010" name="Параметри на командния ред..."/>
 					<Item id="47001" name="Notepad++ домашна страница"/>
 					<Item id="47002" name="Notepad++ страница на проекта"/>
 					<Item id="47004" name="Notepad++ общност (Форум)"/>
-					<Item id="47005" name="Още добавки"/>
+					<Item id="47011" name="Поддръжка в реално време"/>
+					<!-- <Item id="47005" name="Още добавки"/> за сега (от v7.6.4) е премахнато -->
 					<Item id="47003" name="Онлайн документация"/>
 					<Item id="47006" name="Обновяване на Notepad++"/>
 					<Item id="47009" name="Задаване на прокси за обновяване..."/>
-					<Item id="47000" name="Относно Notepad++..."/>
-					<Item id="47011" name="Поддръжка в реално време"/>
 					<Item id="47012" name="Инфо за отстраняване на грешки..."/>
+					<Item id="47000" name="Относно Notepad++"/>
 				<!-- Меню "?" край -->
 				</Commands>
 			</Main>
 			<Splitter>
 			</Splitter>
-			<TabBar>
 				<!-- Дясно щракане върху раздел -->
-					<Item CMID="0"  name="Затваряне"/>
-					<Item CMID="1"  name="Затваряне на всички без този"/>
-					<Item CMID="17" name="Затваряне на всички отляво"/>
-					<Item CMID="18" name="Затваряне на всички отдясно"/>
-					<Item CMID="2"  name="Запис"/>
-					<Item CMID="3"  name="Запис като..."/>
-					<Item CMID="10" name="Преименуване"/>
-					<Item CMID="11" name="Преместване в кошчето"/>
-					<Item CMID="16" name="Презареждане"/>
-					<Item CMID="4"  name="Печат"/>
-					<Item CMID="19" name="Отваряне папката на файла"/>
-					<Item CMID="20" name="Отваряне папката на файла в cmd"/>
-					<Item CMID="21" name="Отваряне по подразбиране"/>
-					<Item CMID="12" name="Само за четене"/>
-					<Item CMID="13" name="Премахване на &quot;Само за четене&quot;"/>
-					<Item CMID="7"  name="Копиране пълния път на файла"/>
-					<Item CMID="8"  name="Копиране името на файла"/>
-					<Item CMID="9"  name="Копиране пълния път на папката"/>
-					<Item CMID="5"  name="Преместване в съседен изглед"/>
-					<Item CMID="6"  name="Клониране в съседен изглед"/>
-					<Item CMID="14" name="Преместване в нов прозорец"/>
-					<Item CMID="15" name="Отваряне в нов прозорец"/>
+			<TabBar>
+				<Item CMID="0"  name="Затваряне"/>
+				<Item CMID="1"  name="Затваряне на всички без този"/>
+				<Item CMID="17" name="Затваряне на всички отляво"/>
+				<Item CMID="18" name="Затваряне на всички отдясно"/>
+				<Item CMID="22" name="Затваряне на всички непроменени"/>
+				<Item CMID="2"  name="Запис"/>
+				<Item CMID="3"  name="Запис като..."/>
+				<Item CMID="10" name="Преименуване"/>
+				<Item CMID="11" name="Преместване в кошчето"/>
+				<Item CMID="16" name="Презареждане"/>
+				<Item CMID="4"  name="Печат"/>
+				<Item CMID="19" name="Отваряне папката на файла"/>
+				<Item CMID="20" name="Отваряне папката на файла в cmd"/>
+				<Item CMID="21" name="Отваряне по подразбиране"/>
+				<Item CMID="12" name="Само за четене"/>
+				<Item CMID="13" name="Премахване на &quot;Само за четене&quot;"/>
+				<Item CMID="7"  name="Копиране пълния път на файла"/>
+				<Item CMID="8"  name="Копиране името на файла"/>
+				<Item CMID="9"  name="Копиране пълния път на папката"/>
+				<Item CMID="5"  name="Преместване в съседен изглед"/>
+				<Item CMID="6"  name="Клониране в съседен изглед"/>
+				<Item CMID="14" name="Преместване в нов прозорец"/>
+				<Item CMID="15" name="Отваряне в нов прозорец"/>
 			</TabBar>
 		</Menu>
 		<Dialog>
@@ -423,61 +435,85 @@
 			<!-- Прозорец за търсене -->
 			<Find title="" titleFind="Търсене" titleReplace="Замяна" titleFindInFiles="Търсене във файлове" titleMark="Маркиране">
 				<!-- "Търсене" -->
-				<Item id="1614" name="Брой съвпадения"/>
-				<Item id="1636" name="Намиране на всичко във всички отворени"/>
+				<Item id="1614" name="&amp;Брой съвпадения"/>
+				<Item id="1636" name="Намиране на всичко във всички &amp;отворени"/>
 				<Item id="1641" name="Намиране на всичко в &amp;текущият файл"/>
 				<!-- "Замяна" -->
 				<Item id="1608" name="&amp;Замяна"/>
 				<Item id="1609" name="Замяна на &amp;всичко"/>
-				<Item id="1635" name="Замяна на всичко във всички отворени"/>
+				<Item id="1635" name="Замяна на всичко във всички &amp;отворени"/>
 				<!-- "Търсене във файлове" -->
-				<Item id="1660" name="Замяна във файловете"/>
-				<Item id="1654" name="Филтри:"/>
-				<Item id="1655" name="Папка:"/>
+				<Item id="1660" name="&amp;Замяна във файловете"/>
+				<Item id="1654" name="&amp;Филтри:"/>
+				<Item id="1655" name="П&amp;апка:"/>
 				<Item id="1661" name="Според текущия файл"/>
-				<Item id="1659" name="В скрити папки"/>
+				<Item id="1659" name="В &amp;скрити папки"/>
 				<!-- "Маркиране" -->
-				<Item id="1633" name="Изчистване"/>
-				<Item id="1616" name="Маркиране на реда"/>
+				<Item id="1633" name="Изчистване на всички"/>
+				<Item id="1616" name="&amp;Отметка на реда"/>
 				<Item id="1618" name="Изчистване при всяко търсене"/>
 				<!-- Диалог за "Търсене, Замяна, Търсене във файлове, Маркиране" -->
 				<Item id="1"	name="Намиране на &amp;следващ"/>
 				<Item id="2"	name="Затваряне"/>
-				<Item id="1620" name="Търсене на:"/>
+				<Item id="1620" name="&amp;Търсене на:"/>
+				<Item id="1721" name="▲"/>
+				<Item id="1723" name="▼ Следващ"/>
 				<Item id="1722" name="Обратна посока"/>
 				<Item id="1603" name="Само &amp;цели думи"/>
 				<Item id="1604" name="Главни / малки букви"/>
 				<Item id="1606" name="&amp;Кръгово търсене"/>
 				<Item id="1624" name="Режим на търсене"/>
-				<Item id="1625" name="Нормален"/>
-				<Item id="1626" name="Разширен (\n, \r, \t, \0, \x...)"/>
-				<Item id="1605" name="Регулярен &amp;израз"/>
+				<Item id="1625" name="&amp;Нормален"/>
+				<Item id="1626" name="&amp;Разширен (\n, \r, \t, \0, \x...)"/>
+				<Item id="1605" name="Р&amp;егулярен израз"/>
 				<Item id="1703" name=". и &amp;нов ред"/>
 				<Item id="1687" name="При неактивност"/>
 				<Item id="1688" name="Винаги"/>
-				<Item id="1632" name="В избраното"/>
-				<Item id="1615" name="Намиране на всички"/>
+				<Item id="1632" name="В &amp;избраното"/>
+				<Item id="1615" name="Маркиране на всички"/>
 				<Item id="1611" name="З&amp;амяна с:"/>
 				<Item id="1656" name="Намиране на всички"/>
-				<Item id="1658" name="Във всички подпапки"/>
-				<Item id="1686" name="Прозрачност"/>
+				<Item id="1658" name="Във всички по&amp;дпапки"/>
+				<Item id="1686" name="Прозра&amp;чност"/>
 			</Find>
+			<!-- Прозорец за "Търсене в намерените резултати" -->
+			<FindInFinder title="Търсене в намерените резултати">
+				<Item id="1"    name="Намиране на всички"/>
+				<Item id="2"    name="Затваряне"/>
+				<Item id="1711" name="&amp;Търсене на:"/>
+				<Item id="1713" name="Търсене само в намерените редове"/>
+				<Item id="1714" name="Само &amp;цели думи"/>
+				<Item id="1715" name="Главни / малки букви"/>
+				<Item id="1716" name="Режим на търсене"/>
+				<Item id="1717" name="&amp;Нормален"/>
+				<Item id="1719" name="Р&amp;егулярен израз"/>
+				<Item id="1718" name="&amp;Разширен (\n, \r, \t, \0, \x...)"/>
+				<Item id="1720" name=". и &amp;нов ред"/>
+			</FindInFinder>
+			<DoSaveOrNot title="Запис"> 
+				<Item id="1761" name="Запис на файла &quot;$STR_REPLACE$&quot; ?"/>
+				<Item id="6" name="Да"/>
+				<Item id="7" name="Не"/>
+				<Item id="2" name="Отказ"/>
+				<Item id="4" name="Да, за всички"/>
+				<Item id="5" name="Не, за всички"/>
+			</DoSaveOrNot>
 			<!-- Меню "Търсене" начало -->
 				<!-- "Отиване на..." -->
 			<GoToLine title="Отиване на...">
-				<Item id="2007" name="Ред"/>
-				<Item id="2008" name="Отместване"/>
+				<Item id="2007" name="&amp;Ред"/>
+				<Item id="2008" name="&amp;Отместване"/>
 				<Item id="2004" name="Сега сте на:"/>
 				<Item id="2005" name="Отиване на:"/>
 				<Item id="2006" name="Последен ред:"/>
-				<Item id="1"	name="&amp;Отиване"/>
+				<Item id="1"	name="Отиване"/>
 				<Item id="2"	name="Никъде не отивам"/>
 			</GoToLine>
-				<!-- "Търсене на знаци в диапазон..." -->
-			<FindCharsInRange title="Търсене на знаци в диапазон...">
-				<Item id="2901" name="Не-ASCII знаци (128-255)"/>
-				<Item id="2902" name="ASCII знаци (0 - 127)"/>
-				<Item id="2903" name="Диапазон:"/>
+				<!-- "Търсене на знаци в обхват..." -->
+			<FindCharsInRange title="Търсене на знаци в обхват...">
+				<Item id="2901" name="Не-ASCII знаци (128 – 255)"/>
+				<Item id="2902" name="ASCII знаци (0 – 127)"/>
+				<Item id="2903" name="Обхват:"/>
 				<Item id="2908" name="Посока"/>
 				<Item id="2906" name="Нагоре"/>
 				<Item id="2907" name="Надолу"/>
@@ -509,7 +545,7 @@
 					<Item id="25003" name="Подчертан"/>
 					<Item id="25006" name="Цвят на текста"/>
 					<Item id="25007" name="Фон на текста"/>
-					<Item id="25029" name="Влагане"/>
+					<Item id="25029" name="Вместване"/>
 					<Item id="25008" name="Разграничител 1"/>
 					<Item id="25009" name="Разграничител 2"/>
 					<Item id="25010" name="Разграничител 3"/>
@@ -528,8 +564,8 @@
 					<Item id="25025" name="Ключови думи 8"/>
 					<Item id="25016" name="Блоков коментар"/>
 					<Item id="25017" name="Линеен коментар"/>
-					<Item id="25026" name="Оператори 1"/>
-					<Item id="25027" name="Оператори 2"/>
+					<Item id="25026" name="Оператор 1"/>
+					<Item id="25027" name="Оператор 2"/>
 					<Item id="25028" name="Числа"/>
 				</StylerDialog>
 					<!-- Настройки по подразбиране -->
@@ -538,7 +574,7 @@
 					<Item id="21104" name="Временен сайт:"/>
 					<Item id="21101" name="Стил по подразбиране"/>
 					<Item id="21102" name="Настройки"/>
-					<Item id="21106" name="Компактно свиване (и на празни редове)"/>
+					<Item id="21106" name="&amp;Компактно свиване (и на празни редове)"/>
 					<Item id="21220" name="Свиване на код 1-ви стил"/>
 					<Item id="21224" name="Символ за отваряне:"/>
 					<Item id="21225" name="Символ за среда:"/>
@@ -606,7 +642,7 @@
 					<Item id="23236" name="Допълн. 2"/>
 					<Item id="23238" name="Суфикс 1"/>
 					<Item id="23240" name="Суфикс 2"/>
-					<Item id="23242" name="Диапазон"/>
+					<Item id="23242" name="Обхват"/>
 					<Item id="23244" name="Десетичен разделител"/>
 					<Item id="23245" name="Точка"/>
 					<Item id="23246" name="Запетая"/>
@@ -619,41 +655,41 @@
 					<Item id="24116" name="Оператор 1 (активен)"/>
 					<Item id="24117" name="Оператор 2 (с разделител)"/>
 					<Item id="24223" name="Стил"/>
-					<Item id="24201" name="Символи за разграничител 1"/>
+					<Item id="24201" name="Разграничител 1"/>
 					<Item id="24220" name="Отваряне:"/>
 					<Item id="24221" name="Превключване:"/>
 					<Item id="24222" name="Затваряне:"/>
-					<Item id="24301" name="Символи за разграничител 2"/>
+					<Item id="24301" name="Разграничител 2"/>
 					<Item id="24323" name="Стил"/>
 					<Item id="24320" name="Отваряне:"/>
 					<Item id="24321" name="Превключване:"/>
 					<Item id="24322" name="Затваряне:"/>
-					<Item id="24401" name="Символи за разграничител 3"/>
+					<Item id="24401" name="Разграничител 3"/>
 					<Item id="24423" name="Стил"/>
 					<Item id="24420" name="Отваряне:"/>
 					<Item id="24421" name="Превключване:"/>
 					<Item id="24422" name="Затваряне:"/>
-					<Item id="24451" name="Символи за разграничител 4"/>
+					<Item id="24451" name="Разграничител 4"/>
 					<Item id="24473" name="Стил"/>
 					<Item id="24470" name="Отваряне:"/>
 					<Item id="24471" name="Превключване:"/>
 					<Item id="24472" name="Затваряне:"/>
-					<Item id="24501" name="Символи за разграничител 5"/>
+					<Item id="24501" name="Разграничител 5"/>
 					<Item id="24523" name="Стил"/>
 					<Item id="24520" name="Отваряне:"/>
 					<Item id="24521" name="Превключване:"/>
 					<Item id="24522" name="Затваряне:"/>
-					<Item id="24551" name="Символи за разграничител 6"/>
+					<Item id="24551" name="Разграничител 6"/>
 					<Item id="24573" name="Стил"/>
 					<Item id="24570" name="Отваряне:"/>
 					<Item id="24571" name="Превключване:"/>
 					<Item id="24572" name="Затваряне:"/>
-					<Item id="24601" name="Символи за разграничител 7"/>
+					<Item id="24601" name="Разграничител 7"/>
 					<Item id="24623" name="Стил"/>
 					<Item id="24620" name="Отваряне:"/>
 					<Item id="24621" name="Превключване:"/>
 					<Item id="24622" name="Затваряне:"/>
-					<Item id="24651" name="Символи за разграничител 8"/>
+					<Item id="24651" name="Разграничител 8"/>
 					<Item id="24673" name="Стил"/>
 					<Item id="24670" name="Отваряне:"/>
 					<Item id="24671" name="Превключване:"/>
@@ -685,7 +721,7 @@
 					<Item id="6110" name="Цветна лента върху активния"/>
 					<Item id="6112" name="Бутони за затваряне"/>
 					<Item id="6113" name="Двойно щракане за затваряне"/>
-					<Item id="6121" name="Изход при затв. на последният раздел"/>
+					<Item id="6121" name="Изход при затваряне на последният раздел"/>
 					<Item id="6122" name="Скриване на менютата (Alt или F10 за показване)"/>
 					<Item id="6111" name="Показване лента на състоянието"/>
 				</Global>
@@ -715,24 +751,24 @@
 					<Item id="6228" name="Стандартно"/>
 					<Item id="6229" name="Подравнено"/>
 					<Item id="6230" name="С отстъп"/>
-					<Item id="6206" name="Показване номер на редовете"/>
-					<Item id="6207" name="Показване на лента с отметки"/>
-					<Item id="6214" name="Оцветяване на текущия ред"/>
+					<Item id="6206" name="Показване номер на реда"/>
+					<Item id="6207" name="Показване на отметки"/>
+					<Item id="6214" name="Открояване на текущия ред"/>
 					<Item id="6215" name="Заглаждане на шрифта"/>
-					<Item id="6234" name="Изключване на разширените функции за превъртане"/>
+					<Item id="6234" name="Без разширени функции за превъртане"/>
 					<Item id="6236" name="Превъртане след последният ред"/>
 				</Scintillas>
 					<!-- Нов документ -->
 				<NewDoc title="Нов документ">
 					<Item id="6419" name="Нов документ"/>
-					<Item id="6401" name="Формат за край на ред"/>
+					<Item id="6401" name="Формат (край на ред)"/>
 					<Item id="6402" name="Windows (CR LF)"/>
 					<Item id="6403" name="Unix (LF)"/>
 					<Item id="6404" name="Macintosh (RF)"/>
 					<Item id="6405" name="Кодировка"/>
 					<Item id="6406" name="ANSI"/>
 					<Item id="6407" name="UTF-8"/>
-					<Item id="6420" name="Прилагане в отв. ANSI файлове"/>
+					<Item id="6420" name="Прилагане към отворени ANSI файлове"/>
 					<Item id="6408" name="UTF-8-BOM"/>
 					<Item id="6409" name="UCS-2 Big Endian BOM"/>
 					<Item id="6410" name="UCS-2 Little Endian BOM"/>
@@ -743,7 +779,7 @@
 					<Item id="6413" name="Директория по подразбиране (Отваряне / Запис)"/>
 					<Item id="6414" name="Следване на текущия документ"/>
 					<Item id="6415" name="Запомняне на последно използваната директория"/>
-					<Item id="6430" name="Без избор на файлово разширение в прозореца за &quot;Запис като...&quot;"/>
+					<Item id="6430" name="Без избор на файлово разш. и поддръжка на UNIX път в прозореца за &quot;Запис като..&quot;"/>
 					<Item id="6431" name="Отваряне на всички файлове от папката при влаченето ѝ в прозореца"/>
 				</DefaultDir>
 					<!-- История с отваряния -->
@@ -773,18 +809,18 @@
 					<Item id="6302" name="Замяна с интервали"/>
 					<Item id="6510" name="Стойност по подразбиране"/>
 				</Language>
-					<!-- Оцветяване -->
-				<Highlighting title="Оцветяване">
-					<Item id="6333" name="Интелигентно оцветяване"/>
+					<!-- Открояване -->
+				<Highlighting title="Открояване">
+					<Item id="6333" name="Интелигентно открояване"/>
 					<Item id="6326" name="Включено"/>
 					<Item id="6332" name="Съвпадане с буквения регистър"/>
 					<Item id="6338" name="Само цели думи"/>
 					<Item id="6339" name="Използване на настр. от &quot;Tърсене&quot;"/>
-					<Item id="6340" name="Оцветяване и в съседния изглед"/>
-					<Item id="6329" name="Оцветяване на съвпадащи маркирания"/>
+					<Item id="6340" name="Открояване и в съседния изглед"/>
+					<Item id="6329" name="Открояване на съвпадащи маркирания"/>
 					<Item id="6327" name="Включено"/>
-					<Item id="6328" name="Оцветяване на маркирани атрибути"/>
-					<Item id="6330" name="Оцветяване на comment/php/asp зона"/>
+					<Item id="6328" name="Открояване на маркирани атрибути"/>
+					<Item id="6330" name="Открояване на comment/php/asp зона"/>
 				</Highlighting>
 					<!-- Печат -->
 				<Print title="Печат">
@@ -792,13 +828,13 @@
 					<Item id="6602" name="Опции за цветен печат "/>
 					<Item id="6603" name="Цветно, както се вижда"/>
 					<Item id="6604" name="Обръщане на цветове"/>
-					<Item id="6605" name="Черен текст - бял фон"/>
+					<Item id="6605" name="Черен текст – бял фон"/>
 					<Item id="6606" name="Без фонов цвят"/>
 					<Item id="6607" name="Отстъп (милиметри)"/>
-					<Item id="6612" name="Отляво"/>
-					<Item id="6613" name="Отгоре"/>
-					<Item id="6614" name="Отдясно"/>
-					<Item id="6615" name="Отдолу"/>
+					<Item id="6612" name="Ляво"/>
+					<Item id="6613" name="Горе"/>
+					<Item id="6614" name="Дясно"/>
+					<Item id="6615" name="Долу"/>
 					<Item id="6728" name="Горен и долен колонтитули"/>
 					<Item id="6725" name="Променливи:"/>
 					<Item id="6723" name="Добавяне"/>
@@ -824,7 +860,7 @@
 					<Item id="6819" name="Копие на всеки"/>
 					<Item id="6821" name="секунди"/>
 					<Item id="6822" name="в папка:"/>
-					<Item id="6801" name="Резервно копие (при запис)"/>
+					<Item id="6801" name="Резервно копие при запис"/>
 					<Item id="6315" name="Изключено"/>
 					<Item id="6316" name="Обикновен *.bak файл"/>
 					<Item id="6317" name="Подробни *.bak файлове"/>
@@ -839,7 +875,7 @@
 					<Item id="6810" name="Завършване на думи"/>
 					<Item id="6816" name="Завършване на функции и думи"/>
 					<Item id="6811" name="при"/>
-					<Item id="6813" name="знак/а"/>
+					<Item id="6813" name="знак(а)"/>
 					<Item id="6814" name="(стойност от 1 до 9)"/>
 					<Item id="6815" name="Подсказка при въвеждане на функции"/>
 					<Item id="6824" name="Игнориране на числа"/>
@@ -891,7 +927,7 @@
 				</SearchEngine>
 					<!-- Разни -->
 				<MISC title="Разни">
-					<Item id="6324" name="Превключване между раздели (Ctrl+Tab)"/>
+					<Item id="6324" name="Превключване между раздели (Ctrl + Tab)"/>
 					<Item id="6114" name="Включено"/>
 					<Item id="6117" name="Приоритет на последно използваните"/>
 					<Item id="6344" name="Надникване в документи"/>
@@ -901,7 +937,11 @@
 					<Item id="6319" name="Включено"/>
 					<Item id="6320" name="Без подчертаване"/>
 					<Item id="6312" name="Авто-проверка за състоянието на файла"/>
-					<Item id="6307" name="Включено"/>
+					<ComboBox id="6347">
+						<Element name="Включено"/>
+						<Element name="Включено за всички раздели"/>
+						<Element name="Изключено"/>
+					</ComboBox>
 					<Item id="6313" name="Тихо обновяване"/>
 					<Item id="6325" name="Превъртане до последният ред"/>
 					<Item id="6334" name="Автоматично определяне кодировката на знаците"/>
@@ -945,27 +985,69 @@
 					<Item id="2221" name="Потребителски ключови думи"/>
 				</SubDialog>
 			</StyleConfig>
-			<!-- Меню "Инструменти" - "MD5" -->
-				<!-- Генериране... -->
-			<MD5FromTextDlg title="Генериране на MD5 извлечение от текст">
+				<!-- "Бързи клавиши..." -->
+			<ShortcutMapper title="Бързи клавиши">
+				<Item id="2602" name="Промяна"/>
+				<Item id="2603" name="Изтриване"/>
+				<Item id="2606" name="Изчистване"/>
+				<Item id="2607" name="Филтър: "/>
+				<Item id="1" name="Затваряне"/>
+				<ColumnName name="Име"/>
+				<ColumnShortcut name="Бърз клавиш"/>
+				<ColumnCategory name="Категория"/>
+				<ColumnPlugin name="Добавка"/>
+				<MainMenuTab name="Основно меню"/>
+				<MacrosTab name="Макроси"/>
+				<RunCommandsTab name="Стартиране на команди"/>
+				<PluginCommandsTab name="Команди от добавки"/>
+				<ScintillaCommandsTab name="Scintilla команди"/>
+				<ConflictInfoOk name="Няма конфликти с бързи клавиши за този елемент."/>
+				<ConflictInfoEditing name="Няма конфликти . . ."/>
+			</ShortcutMapper>
+				<!-- "Бързи клавиши" - "Промяна" -->
+			<ShortcutMapperSubDialg title="Бърз клавиш">
+				<Item id="1" name="Добре"/>
+				<Item id="2" name="Отказ"/>
+				<Item id="5006" name="Име"/>
+				<Item id="5008" name="Добавяне"/>
+				<Item id="5009" name="Премахване"/>
+				<Item id="5010" name="Прилагане"/>
+				<Item id="5007" name="Това ще премахне бързия клавиш от командата"/>
+				<Item id="5012" name="ОТКРИТ Е КОНФЛИКТ!"/>
+			</ShortcutMapperSubDialg>
+			<!-- Меню "Инструменти" -->
+				<!-- "MD5" - "Генериране..." -->
+			<MD5FromTextDlg title="Генериране на MD5 извлечение">
 				<Item id="1932" name="Всеки ред като отделен низ"/>
-				<Item id="1934" name="Копиране в системния буфер"/>
+				<Item id="1934" name="Копиране в сист. буфер"/>
 				<Item id="2"	name="Затваряне"/>
 			</MD5FromTextDlg>
-				<!-- Генериране от файлове... -->
+				<!-- "MD5" - "Генериране от файлове..." -->
 			<MD5FromFilesDlg title="Генериране на MD5 извлечение от файлове">
 				<Item id="1922" name="Избор на файлове"/>
-				<Item id="1924" name="Копиране в системния буфер"/>
+				<Item id="1924" name="Копиране в сист. буфер"/>
 				<Item id="2"	name="Затваряне"/>
 			</MD5FromFilesDlg>
+				<!-- "SHA-256" - "Генериране..." -->
+			<SHA256FromTextDlg title="Генериране на SHA-256 извлечение">
+				<Item id="1932" name="Всеки ред като отделен низ"/>
+				<Item id="1934" name="Копиране в сист. буфер"/>
+				<Item id="2"    name="Затваряне"/>
+			</SHA256FromTextDlg>
+				<!--- "SHA-256" - "Генериране от файлове..." -->
+			 <SHA256FromFilesDlg title="Генериране на SHA-256 извлечение от файлове">
+				<Item id="1922" name="Избор на файлове"/>
+				<Item id="1924" name="Копиране в сист. буфер"/>
+				<Item id="2"    name="Затваряне"/>
+			</SHA256FromFilesDlg>
 			<!-- Меню "Макроси" - "Многократно изпълнение..." -->
 			<MultiMacro title="Многократно изпълнение на макрос">
 				<Item id="8006" name="Макрос:"/>
-				<Item id="8001" name="Изпълняване"/>
+				<Item id="8001" name="&amp;Изпълняване"/>
 				<Item id="8005" name="път(и)"/>
-				<Item id="8002" name="Изпълняване до края на файла"/>
+				<Item id="8002" name="Изпълняване до &amp;края на файла"/>
 				<Item id="1"	name="Стартиране"/>
-				<Item id="2"	name="Отказ"/>
+				<Item id="2"	name="&amp;Отказ"/>
 			</MultiMacro>
 			<!-- Меню "Стартиране" - "Стартиране на програма..." -->
 			<Run title="Стартиране на програма...">
@@ -974,13 +1056,24 @@
 				<Item id="1904" name="Запис..."/>
 				<Item id="2"	name="Отказ"/>
 			</Run>
-				<!-- Меню "Прозорци" - "Прозорци..." -->
+			<!-- Меню "Добавки" - "Управление на добавки..." -->
+			<PluginsAdminDlg title="Управление на добавки" titleAvailable = "Налични" titleUpdates = "Актуализации" titleInstalled = "Инсталирани">
+				<ColumnPlugin   name="Добавка"/>
+				<ColumnVersion  name="Версия"/>
+				<Item id="5501" name="Търсене:"/>
+				<Item id="5503" name="Инсталиране"/>
+				<Item id="5504" name="Обновяване"/>
+				<Item id="5505" name="Премахване"/>
+				<Item id="5508" name="Следващ"/>
+				<Item id="2"    name="Затваряне"/>
+			</PluginsAdminDlg>
+			<!-- Меню "Прозорци" - "Прозорци..." -->
 			<Window title="Прозорци">
-				<Item id="1" name="Активиране"/>
-				<Item id="7002" name="Запис"/>
-				<Item id="7003" name="Затв. на пр-ц(и)"/>
-				<Item id="7004" name="Сортиране"/>
-				<Item id="2" 	name="Добре"/>
+				<Item id="1" name="&amp;Активиране"/>
+				<Item id="7002" name="&amp;Запис"/>
+				<Item id="7003" name="&amp;Затв. на пр-ц(и)"/>
+				<Item id="7004" name="&amp;Сортиране"/>
+				<Item id="2" 	name="&amp;Добре"/>
 			</Window>
 		</Dialog>
 		<!-- Панели -->
@@ -990,6 +1083,8 @@
 			<ColumnVal name="Стойност"/>
 			<ColumnHex name="Шестнадесетичен"/>
 			<ColumnChar name="Знак"/>
+			<ColumnHtmlNumber name="HTML номер"/>
+			<ColumnHtmlName name="HTML код"/>
 		</AsciiInsertion>
 			<!-- Меню "Редактиране" - "История на системния буфер" -->
 		<ClipboardHistory>
@@ -1027,7 +1122,7 @@
 				<FolderMenu>
 					<Item id="3118" name="Преместване нагоре"/>
 					<Item id="3119" name="Преместване надолу"/>
-					<Item id="3111" name="Премахване"/>
+					<Item id="3111" name="Преименуване"/>
 					<Item id="3112" name="Добавяне на папка"/>
 					<Item id="3113" name="Добавяне на файлове..."/>
 					<Item id="3117" name="Добавяне на файлове от папка..."/>
@@ -1042,17 +1137,98 @@
 				</FileMenu>
 			</Menus>
 		</ProjectManager>
+			<!-- Меню "Изглед" - "Директория като работно място" -->
+		<FolderAsWorkspace>
+			<PanelTitle name="Директория като работно място"/>
+			<SelectFolderFromBrowserString name="Избор на папка за добавяне в панела &quot;Директория като работно място&quot;"/>
+			<Menus>
+				<Item id="3511" name="Премахване"/>
+				<Item id="3512" name="Премахване на всички"/>
+				<Item id="3513" name="Добавяне"/>
+				<Item id="3514" name="Изпълнение от системата"/>
+				<Item id="3515" name="Отваряне"/>
+				<Item id="3516" name="Копиране на пътя"/>
+				<Item id="3517" name="Търсене във файлове..."/>
+				<Item id="3518" name="Отваряне папката до тук"/>
+				<Item id="3519" name="Отваряне папката в cmd"/>
+				<Item id="3520" name="Копиране името на файла"/>
+			</Menus>
+		</FolderAsWorkspace>
 		<MiscStrings>
-			<word-chars-list-tip value="Позволява добавяне на допълнителни символи към дума, чрез двойно щракане върху нея или при включена опция за търсене на &quot;Само цели думи&quot;."/>
+				<!-- $INT_REPLACE$ е контейнер, не се превежда -->
+				<!-- $STR_REPLACE$ е контейнер, не се превежда -->
+			<word-chars-list-tip value="Позволява добавяне на допълнителни символи към дума, чрез двойно щракане върху нея или при включена опция за търсене на &quot;Само цели думи&quot;"/>
 			<word-chars-list-warning-begin value="Бъдете внимателни: "/>
-				<!-- $INT_REPLACE$ е контейнер, не се превежда -->
 			<word-chars-list-space-warning value="$INT_REPLACE$ интервал(а)"/>
-				<!-- $INT_REPLACE$ е контейнер, не се превежда -->
 			<word-chars-list-tab-warning value="$INT_REPLACE$ отстъп(а)"/>
-			<word-chars-list-warning-end value="  във вашият списък със символи."/>
-			<cloud-invalid-warning value="Невалиден път."/>
-			<cloud-restart-warning value="Промените влизат в сила след рестартиране на Notepad++."/>
-			<shift-change-direction-tip value="Търсене в обратна посока чрез Shift+Enter."/>
+			<word-chars-list-warning-end value="  в списъкa със символи."/>
+				<!-- Меню "Настройки" - "Предпочитания..." - "Облак" -->
+			<cloud-invalid-warning value="Невалиден път"/>
+			<cloud-restart-warning value="Промените влизат в сила след рестартиране на Notepad++"/>
+			<cloud-select-folder value="Избор на папка, от/в която Notepad++ ще чете/пише настройките си"/>
+				<!-- Меню "Търсене - "Търсене", "Замяна", "Търсене във файлове", "Маркиране" -->
+			<shift-change-direction-tip value="Търсене в обратна посока чрез Shift+Enter"/>
+			<two-find-buttons-tip value="Режим за търсене с два бутона"/>
+			<find-status-top-reached value="Търсене: Намерено е първото съвпадение от краят. Началото на документа е достигнато."/>
+			<find-status-end-reached value="Търсене: Намерено е първото съвпадение от началото. Краят на документа е достигнат."/>
+			<find-status-invalid-re value="Търсене: неправилен регулярен израз"/>
+			<find-status-cannot-find value="Търсене: текстът &quot;$STR_REPLACE$&quot; не може да бъде намерен"/>
+			<find-status-replaceinfiles-1-replaced value="Замяна във Файлове: заменено е 1 съвпадение"/>
+			<find-status-replaceinfiles-nb-replaced value="Замяна във Файлове: заменени са $INT_REPLACE$ съвпадения"/>
+			<find-status-replaceinfiles-re-malformed value="Замяна в отворените файлове: регулярният израз е неправилно формиран"/>
+			<find-status-replaceinopenedfiles-1-replaced value="Замяна в отворените файлове: заменено е 1 съвпадение"/>
+			<find-status-replaceinopenedfiles-nb-replaced value="Замяна в отворените файлове: заменени са $INT_REPLACE$ съвпадения"/>
+			<find-status-replaceall-re-malformed value="Замяна на всичко: регулярният израз е неправилно формиран"/>
+			<find-status-replaceall-1-replaced value="Замяна на всичко: заменено е 1 съвпадение"/>
+			<find-status-replaceall-nb-replaced value="Замяна на всичко: заменени са $INT_REPLACE$ съвпадения"/>
+			<find-status-replaceall-readonly value="Замяна на всичко: Текстът не може да бъде заменен. Текущият документ е само за четене"/>
+			<find-status-replace-end-reached value="Замяна: Заменено е първото съвпадение от началото. Краят на документа е достигнат"/>
+			<find-status-replace-top-reached value="Замяна: Заменено е първото съвпадение от краят. Началото на документа е достигнато"/>
+			<find-status-replaced-next-found value="Замяна: Заменено е 1 съвпадение. Намерено е следващото съвпадение"/>
+			<find-status-replaced-next-not-found value="Замяна: Заменено е 1 съвпадение. Следващото съвпадение не е намерено"/>
+			<find-status-replace-not-found value="Замяна: не е намерено съвпадение"/>
+			<find-status-replace-readonly value="Замяна: Текстът не може да бъде заменен. Текущият документ е само за четене"/>
+			<find-status-mark-re-malformed value="Маркиране: регулярният израз за търсене е неправилно формиран"/>
+			<find-status-mark-1-match value="Маркиране: 1 съвпадение"/>
+			<find-status-mark-nb-matches value="Маркиране: $INT_REPLACE$ съвпадения"/>
+			<find-status-count-re-malformed value="Брой: регулярният израз за търсене е неправилно формиран"/>
+			<find-status-count-1-match value="Брой съвпадения: 1"/>
+			<find-status-count-nb-matches value="Брой съвпадения: $INT_REPLACE$"/>
+			<finder-find-in-finder value="Търсене в намерените резултати..."/>
+			<finder-close-this value="Затваряне на това търсене"/>
+			<finder-collapse-all value="Свиване на всички"/>
+			<finder-uncollapse-all value="Разгъване на всички"/>
+			<finder-copy value="Копиране"/>
+			<finder-select-all value="Избиране на всичко"/>
+			<finder-clear-all value="Изчистване на всичко"/>
+			<finder-open-all value="Отваряне на всички"/>
+				<!-- Дясно щракане върху раздел -->
+			<tabrename-title value="Преименуване на текущият раздел"/>
+			<tabrename-newname value="Ново име:"/>
+			<common-ok value="Добре"/>
+			<common-cancel value="Отказ"/>
+				<!-- Меню "Синтаксис" - "Дефиниране на синтаксис..." -->
+			<userdefined-title-new value="Създаване на нов синтаксис..."/>
+			<userdefined-title-save value="Запазване на текущият синтаксис като..."/>
+			<userdefined-title-rename value="Преименуване на синтаксиса"/>
+			<common-name value="Име:"/>
+				<!-- Меню "Настройки" - "Предпочитания..." -->
+			<edit-verticaledge-nb-col value="Брой колони:"/>
+			<recent-file-history-maxfile value="Макс. файла:"/>
+			<language-tabsize value="Размер:"/>
+			<autocomplete-nb-char value="Брой знаци:"/>
+				<!-- Меню "Изглед" - "Информация за файла..." -->
+			<summary value="Резюме"/>
+			<summary-filepath value="Пълен път на файла: "/>
+			<summary-filecreatetime value="Създаден: "/>
+			<summary-filemodifytime value="Променен: "/>
+			<summary-nbchar value="Символи (без край на редове): "/>
+			<summary-nbword value="Думи: "/>
+			<summary-nbline value="Редове: "/>
+			<summary-nbbyte value="Големина на файла: "/>
+			<summary-nbsel1 value=" маркиран/и символ/а ("/>
+			<summary-nbsel2 value=" байта) в "/>
+			<summary-nbrange value=" обхват/а"/>
 		</MiscStrings>
 			<!-- Меню "Изглед" - "Карта на документа" -->
 		<DocumentMap>
@@ -1070,34 +1246,45 @@
 			<ColumnName name="Име"/>
 			<ColumnExt name="Разш."/>
 		</DocSwitcher>
+			<!-- Меню "Прозорци" - "Прозорци..." -->
+		<WindowsDlg>
+			<ColumnName name="Име"/>
+			<ColumnPath name="Път"/>
+			<ColumnType name="Тип"/>
+		</WindowsDlg>
 			<!-- Прозорци със съобщения -->
 		<MessageBox>
+				<!-- $INT_REPLACE$ е контейнер, не се превежда -->
+				<!-- $STR_REPLACE$ е контейнер, не се превежда -->
 			<ContextMenuXmlEditWarning title="Редактиране на контекстното меню" message="Редактирането на файла contextMenu.xml позволява да се промени контекстното меню на Notepad++
 
 Промените влизат в сила, след рестартиране на Notepad++"/>
 			<NppHelpAbsentWarning title="Несъществуващ файл" message="
-не съществува. Моля, изтеглете го от сайта на Notepad++"/>
+не съществува.
+
+Изтеглете го от сайта на Notepad++"/>
 			<SaveCurrentModifWarning title="Запис на текущите промени" message="Текущите промени трябва да бъдат записани.
-Записаните промени не могат да бъдат отменяни
+Записаните промени не могат да бъдат отменяни.
 
 Продължаване?"/>
 			<LoseUndoAbilityWarning title="Загуба на възможността за отмяна" message="Текущите промени трябва да бъдат записани.
-Записаните промени не могат да бъдат отменяни
+Записаните промени не могат да бъдат отменяни.
 
 Продължаване?"/>
-			<CannotMoveDoc title="Преместване в нов прозорец на Notepad++" message="Документа е променен, запишете го и опитайте отново."/>
-			<DocReloadWarning title="Презареждане" message="Сигурни ли сте, че искате да презаредите текущя документ и да загубите промените, направени с Notepad++?"/>
-			<FileLockedWarning title="Неуспешно записване" message="Моля, проверете дали този файл не е отворен от друга програма"/>
+			<CannotMoveDoc title="Преместване в нов прозорец на Notepad++" message="Документът е променен, запишете го и опитайте отново"/>
+			<DocReloadWarning title="Презареждане" message="Сигурни ли сте, че искате текущият документ да бъде презареден и да се загубят направените с Notepad++ промени?"/>
+			<FileLockedWarning title="Неуспешно записване" message="Проверете дали файлът не е отворен от друга програма"/>
 			<FileAlreadyOpenedInNpp title="" message="Файлът вече е отворен в Notepad++"/>
 			<DeleteFileFailed title="Изтриване на файл" message="Изтриването на файла е неуспешно"/>
-				<!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<NbFileToOpenImportantWarning title="Твърде много файлове" message="Ще бъдат отворени $INT_REPLACE$ файла.
+
 Продължаване?"/>
 			<SettingsOnCloudError title="Настройки за облачно синхронизирана папка" message="Изглежда, че пътят на настройките за облака е зададен на устройство &quot;само за четене&quot; или на папка, изискваща права за запис.
-Вашите настройки ще бъдат отменени.
-Моля, върнете в първоначално състояние стойността им чрез опциите в &quot;Предпочитания...&quot;"/>
-			<FilePathNotFoundWarning title="Отваряне на файл" message="Файлът, който се опитвате да отворите не съществува."/>
-			<SessionFileInvalidError title="Неуспешно зареждане на сесия" message="Невалиден или повреден файл за сесия."/>
+Настройките ще бъдат отменени.
+
+Върнете стойността им в първоначално състояние чрез опциите в &quot;Предпочитания...&quot;"/>
+			<FilePathNotFoundWarning title="Отваряне на файл" message="Файлът, който се опитвате да отворите не съществува"/>
+			<SessionFileInvalidError title="Неуспешно зареждане на сесия" message="Невалиден или повреден файл за сесия"/>
 			<ColumnModeTip title="Колонен режим" message="За преминаване в колонен режим използвайте:
 
 &quot;Alt + избор с мишката&quot;
@@ -1105,17 +1292,89 @@
 &quot;Alt + Shift + клавиш стрелка&quot;
 
 Не забравяйте, че първо трябва да натиснете клавиш Alt."/>
-				<!-- $STR_REPLACE$ is a place holder, don't translate it -->
-			<SortingError title="Грешка при сортиране" message="Сортирането на числа не може да се изпълни заради ред $STR_REPLACE$."/>
-			<BufferInvalidWarning title="Неуспешен запис" message="Не може да се запази: Невалиден буфер."/>
+			<SortingError title="Грешка при сортиране" message="Сортирането на числа не може да се изпълни заради ред $INT_REPLACE$"/>
+			<BufferInvalidWarning title="Неуспешен запис" message="Не може да се запази: Невалиден буфер"/>
 			<OpenInAdminMode title="Неуспешен запис" message="Файлът може би е защитен и не може да се запази.
-Искате ли да стартирате Notepad++ с администраторски права?"/>
-			<OpenInAdminModeFailed title="Неуспешно стартиране с администраторски права" message="Notepad++ не може да бъде стартиран с администраторски права."/>
+Искате ли Notepad++ да бъде стартиран с администраторски права?"/>
+			<OpenInAdminModeFailed title="Неуспешно стартиране с администраторски права" message="Notepad++ не може да бъде стартиран с администраторски права"/>
 			<OpenInAdminModeWithoutCloseCurrent title="Неуспешен запис" message="Файлът може би е защитен и не може да се запази.
-Искате ли да стартирате Notepad++ с администраторски права?"/>
-			<DroppingFolderAsProjetModeWarning title="Невалидно действие" message="Тъй като сте в режим &quot;Директория като работно място&quot;, можете да влачите само файлове или само папки, но не и двете.
+Искате ли Notepad++ да бъде стартиран с администраторски права?"/>
+			<DroppingFolderAsProjectModeWarning title="Невалидно действие" message="Тъй като сте в режим &quot;Директория като работно място&quot;, може да се влачат само файлове или папки, но не и двете.
 
-За да разрешите това действие, трябва да включите опцията &quot;Отваряне на всички файлове от папката при влаченето ѝ в прозореца&quot; в секция &quot;Път по подразбиране&quot; на предпочитаните настройки."/>
+За да се разреши това действие, трябва да се включи опцията &quot;Отваряне на всички файлове от папката при влаченето ѝ в прозореца&quot; в секция &quot;Път по подразбиране&quot; на предпочитаните настройки."/>
+			<DoCloseOrNot title="Задържане на несъществуващ файл" message="Файлът &quot;$STR_REPLACE$&quot; вече не съществува.
+
+Задържане в редактора?"/>
+			<DoDeleteOrNot title="Изтриване на файл" message="Файлът &quot;$STR_REPLACE$&quot;
+ще бъде преместен в кошчето и документа ще се затвори.
+
+Продължаване?"/>
+			<NoBackupDoSaveFile title="Запис" message="Резервното копие на файла не може да бъде намерено (изтрито е отвън).
+Запазете го или в противен случай данните ще бъдат загубени.
+
+Искате ли файлът &quot;$STR_REPLACE$&quot; да бъде запазен?"/>
+			<DoReloadOrNot title="Презареждане" message="&quot;$STR_REPLACE$&quot;
+
+Файлът е променен от друга програма.
+
+Искате ли да бъде презареден?"/>
+			<DoReloadOrNotAndLooseChange title="Презареждане" message="&quot;$STR_REPLACE$&quot;
+
+Файлът е променен от друга програма.
+
+Искате ли да бъде презареден и да се загубят направените в Notepad++ промени?"/>
+			<PrehistoricSystemDetected title="Открита праисторическа система" message="Изглежда, че все още използвате праисторическа система. Тази функция работи само на модерна система, съжалявам."/>
+			<XpUpdaterProblem title="Notepad++ обновяване" message="Обновяването на Notepad++ е несъвместимо с Windows XP заради остарелият слой за сигурност.
+
+Искате ли страницата на Notepad++ да бъде посетена за да се изтегли последната версия?"/>
+			<DocTooDirtyToMonitor title="Проблем с наблюдение" message="Документът е мръсен. Запишете промените преди да го наблюдавате."/>
+			<DocNoExistToMonitor title="Проблем с наблюдение" message="Файлът трябва да съществува за да бъде наблюдаван"/>
+			<FileTooBigToOpen title="Проблем с размер на файл" message="Файлът е твърде голям за да се отвори от Notepad++"/>
+			<CreateNewFileOrNot title="Създаване на нов файл" message="&quot;$STR_REPLACE$&quot; не съществува.
+
+Създаване?"/>
+			<CreateNewFileError title="Създаване на нов файл" message="Файлът &quot;$STR_REPLACE$&quot; не може да се създаде"/>
+			<OpenFileError title="ГРЕШКА" message="Файлът &quot;$STR_REPLACE$&quot; не може да се отвори"/>
+			<FileBackupFailed title="Неуспешно резервно копие" message="Предишната версия на файла не може да бъде запазена в директорията за резервни копия на &quot;$STR_REPLACE$&quot;.
+
+Искате ли текущият файл да бъде запазен така или иначе?"/>
+			<LoadStylersFailed title="Неуспешно зареждане на stylers.xml" message="Неуспешно зареждане на &quot;$STR_REPLACE$&quot; !"/>
+			<LoadLangsFailed title="Конфигуриране" message="Неуспешно зареждане на langs.xml!
+
+Искате ли файлът langs.xml да бъде възстановен?"/>
+			<LoadLangsFailedFinal title="Конфигуриране" message="Неуспешно зареждане на langs.xml!"/>
+			<FolderAsWorspaceSubfolderExists title="Проблем с добавяне на директория като работно място" message="Съществува под-директория на директорията, която искате да бъде добавена.
+
+Премахнете я от панела преди да добавите &quot;$STR_REPLACE$&quot;."/>
+			<ProjectPanelChanged title="$STR_REPLACE$" message="Работната област е променена. Искате ли да бъде запазена?"/>
+			<ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Работната област не е запазена"/>
+			<ProjectPanelOpenDoSaveDirtyWsOrNot title="Отваряне на работна област" message="Текущата работна област е променена.
+
+Искате ли проекта да бъде запазен?"/>
+			<ProjectPanelNewDoSaveDirtyWsOrNot title="Нова работна област" message="Текущата работна област е променена.
+
+Искате ли проекта да бъде запазен?"/>
+			<ProjectPanelOpenFailed title="Отваряне на работна област" message="Работната област не можа да се отвори.
+Изглежда, че файлът за отваряне не е валиден файл на проекта."/>
+			<ProjectPanelRemoveFolderFromProject title="Премахване на папка от проект" message="Всички под-елементи ще бъдат премахнати.
+
+Сигурни ли сте, че искате папката да бъде премахната от проекта?"/>
+			<ProjectPanelRemoveFileFromProject title="Премахване на файл от проект" message="Сигурни ли сте, че искате файлът да бъде премахнат от проекта?"/>
+			<ProjectPanelReloadError title="Презареждане на работна област" message="Файлът за презареждане не може да бъде намерен"/>
+			<ProjectPanelReloadDirty title="Презареждане на работна област" message="Текущата работна област е променена.
+Презареждането ще премахне всички промени.
+
+Продължаване?"/>
+			<UDLNewNameError title="UDL грешка" message="Това име вече се използва, задайте друго."/>
+			<UDLRemoveCurrentLang title="Премахване на синтаксис" message="Сигурни ли сте?"/>
+			<FindCharRangeValueError title="Проблем със стойност на обхвата" message="Трябва да въведете между 0 и 255."/>
+			<SCMapperDoDeleteOrNot title="Сигурни ли сте?" message="Сигурни ли сте, че искате този бърз клавиш да бъде изтрит?"/>
+			<ViewInBrowser title="Преглед на текущия файл в браузър" message="Програмата не може да бъде намерена във вашата система."/>
+			<ExitToUpdatePlugins title="Затваряне на Notepad++" message="Notepad++ ще се затвори за да продължи операциите.
+Програмата ще се рестартира след като всички операции бъдат завършени.
+
+Продължаване?"/>
+			<NeedToRestartToLoadPlugins title="Рестартиране на Notepad++" message="Notepad++ трябва да се рестартира за да зареди инсталираните добавки"/>
 		</MessageBox>
 	</Native-Langue>
 </NotepadPlus>

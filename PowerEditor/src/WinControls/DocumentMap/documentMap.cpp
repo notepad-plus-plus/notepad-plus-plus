@@ -248,7 +248,7 @@ void DocumentMap::scrollMap()
 			if (lowerY == 0)
 			{
 				auto lineHeight = _pMapView->execute(SCI_TEXTHEIGHT, firstVisibleDocLine);
-				lowerY = nbLine * lineHeight + firstVisibleDocLine;
+				lowerY = nbLine * lineHeight + higherY;
 			}
 		}
 		else
@@ -332,7 +332,7 @@ void DocumentMap::doMove()
 	::MoveWindow(_vzDlg.getHSelf(), pt.x, pt.y, (rc.right - rc.left), (rc.bottom - rc.top), TRUE);
 }
 
-void DocumentMap::fold(int line, bool foldOrNot)
+void DocumentMap::fold(size_t line, bool foldOrNot)
 {
 	_pMapView->fold(line, foldOrNot);
 }
@@ -377,7 +377,7 @@ INT_PTR CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
 			_vzDlg.init(::GetModuleHandle(NULL), _hSelf);
 			_vzDlg.doDialog();
-			(NppParameters::getInstance())->SetTransparent(_vzDlg.getHSelf(), 50); // 0 <= transparancy < 256
+			(NppParameters::getInstance()).SetTransparent(_vzDlg.getHSelf(), 50); // 0 <= transparancy < 256
 
 			setSyntaxHiliting();
 			

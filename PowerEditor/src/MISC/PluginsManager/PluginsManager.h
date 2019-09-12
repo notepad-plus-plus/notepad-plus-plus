@@ -45,7 +45,7 @@ struct PluginCommand
 
 struct PluginInfo
 {
-	PluginInfo() {}
+	PluginInfo() = default;
 	~PluginInfo()
 	{
 		if (_pluginMenu)
@@ -55,17 +55,17 @@ struct PluginInfo
 			::FreeLibrary(_hLib);
 	}
 
-	HINSTANCE _hLib = NULL;
-	HMENU _pluginMenu = NULL;
+	HINSTANCE _hLib = nullptr;
+	HMENU _pluginMenu = nullptr;
 
-	PFUNCSETINFO _pFuncSetInfo = NULL;
-	PFUNCGETNAME _pFuncGetName = NULL;
-	PBENOTIFIED	_pBeNotified = NULL;
-	PFUNCGETFUNCSARRAY _pFuncGetFuncsArray = NULL;
-	PMESSAGEPROC _pMessageProc = NULL;
-	PFUNCISUNICODE _pFuncIsUnicode = NULL;
+	PFUNCSETINFO _pFuncSetInfo = nullptr;
+	PFUNCGETNAME _pFuncGetName = nullptr;
+	PBENOTIFIED	_pBeNotified = nullptr;
+	PFUNCGETFUNCSARRAY _pFuncGetFuncsArray = nullptr;
+	PMESSAGEPROC _pMessageProc = nullptr;
+	PFUNCISUNICODE _pFuncIsUnicode = nullptr;
 
-	FuncItem *_funcItems = NULL;
+	FuncItem *_funcItems = nullptr;
 	int _nbFuncItem = 0;
 	generic_string _moduleName;
 	generic_string _funcName;
@@ -99,9 +99,8 @@ public:
 		_nppData = nppData;
 	}
 
-    int loadPlugin(const TCHAR *pluginFilePath, std::vector<generic_string> & dll2Remove);
-	bool loadPlugins(const TCHAR *dir = NULL);
-	bool loadPluginsV2(const TCHAR *dir);
+    int loadPlugin(const TCHAR *pluginFilePath);
+	bool loadPluginsV2(const TCHAR *dir = NULL);
 
     bool unloadPlugin(int index, HWND nppHandle);
 
@@ -109,10 +108,12 @@ public:
 	void runPluginCommand(const TCHAR *pluginName, int commandID);
 
     void addInMenuFromPMIndex(int i);
-	HMENU setMenu(HMENU hMenu, const TCHAR *menuName);
+	HMENU setMenu(HMENU hMenu, const TCHAR *menuName, bool enablePluginAdmin = false);
 	bool getShortcutByCmdID(int cmdID, ShortcutKey *sk);
+	bool removeShortcutByCmdID(int cmdID);
 
-	void notify(const SCNotification *notification);
+	void notify(size_t indexPluginInfo, const SCNotification *notification); // to a plugin
+	void notify(const SCNotification *notification); // broadcast
 	void relayNppMessages(UINT Message, WPARAM wParam, LPARAM lParam);
 	bool relayPluginMessages(UINT Message, WPARAM wParam, LPARAM lParam);
 
@@ -137,6 +138,7 @@ private:
 	bool _isDisabled = false;
 	IDAllocator _dynamicIDAlloc;
 	IDAllocator _markerAlloc;
+	bool _noMoreNotification = false;
 
 	void pluginCrashAlert(const TCHAR *pluginName, const TCHAR *funcSignature)
 	{
@@ -144,6 +146,16 @@ private:
 		msg += TEXT(" just crashed in\r");
 		msg += funcSignature;
 		::MessageBox(NULL, msg.c_str(), TEXT("Plugin Crash"), MB_OK|MB_ICONSTOP);
+	}
+
+	void pluginExceptionAlert(const TCHAR *pluginName, const std::exception& e)
+	{
+		generic_string msg = TEXT("An exception occurred due to plugin: ");
+		msg += pluginName;
+		msg += TEXT("\r\n\r\nException reason: ");
+		msg += s2ws(e.what());
+
+		::MessageBox(NULL, msg.c_str(), TEXT("Plugin Exception"), MB_OK);
 	}
 
 	bool isInLoadedDlls(const TCHAR *fn) const

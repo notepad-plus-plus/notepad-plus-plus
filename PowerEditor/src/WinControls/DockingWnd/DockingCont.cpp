@@ -41,26 +41,25 @@ using namespace std;
 static HWND		hWndServer		= NULL;
 static HHOOK	hookMouse		= NULL;
 
-static LRESULT CALLBACK hookProcMouse(UINT nCode, WPARAM wParam, LPARAM lParam)
+static LRESULT CALLBACK hookProcMouse(int nCode, WPARAM wParam, LPARAM lParam)
 {
-    if(nCode < 0)
-    {
-		::CallNextHookEx(hookMouse, nCode, wParam, lParam);
-        return 0;
-    }
-
-    switch (wParam)
-    {
+	if (nCode >= 0)
+	{
+		switch (wParam)
+		{
 		case WM_MOUSEMOVE:
 		case WM_NCMOUSEMOVE:
 			::PostMessage(hWndServer, UINT(wParam), 0, 0);
 			break;
+
 		case WM_LBUTTONUP:
 		case WM_NCLBUTTONUP:
 			::PostMessage(hWndServer, UINT(wParam), 0, 0);
 			break;
-        default: 
+
+		default:
 			break;
+		}
 	}
 
 	return ::CallNextHookEx(hookMouse, nCode, wParam, lParam);
@@ -87,13 +86,13 @@ DockingCont::DockingCont()
 	_bDrawOgLine		= TRUE;
 	_vTbData.clear();
 
-	_captionHeightDynamic = NppParameters::getInstance()->_dpiManager.scaleY(_captionHeightDynamic);
-	_captionGapDynamic = NppParameters::getInstance()->_dpiManager.scaleY(_captionGapDynamic);
-	_closeButtonPosLeftDynamic = NppParameters::getInstance()->_dpiManager.scaleX(_closeButtonPosLeftDynamic);
-	_closeButtonPosTopDynamic = NppParameters::getInstance()->_dpiManager.scaleY(_closeButtonPosTopDynamic);
+	_captionHeightDynamic = NppParameters::getInstance()._dpiManager.scaleY(_captionHeightDynamic);
+	_captionGapDynamic = NppParameters::getInstance()._dpiManager.scaleY(_captionGapDynamic);
+	_closeButtonPosLeftDynamic = NppParameters::getInstance()._dpiManager.scaleX(_closeButtonPosLeftDynamic);
+	_closeButtonPosTopDynamic = NppParameters::getInstance()._dpiManager.scaleY(_closeButtonPosTopDynamic);
 
-	_closeButtonWidth = NppParameters::getInstance()->_dpiManager.scaleX(12); // bitmap image is 12x12
-	_closeButtonHeight = NppParameters::getInstance()->_dpiManager.scaleY(12);
+	_closeButtonWidth = NppParameters::getInstance()._dpiManager.scaleX(12); // bitmap image is 12x12
+	_closeButtonHeight = NppParameters::getInstance()._dpiManager.scaleY(12);
 }
 
 DockingCont::~DockingCont()
@@ -218,7 +217,6 @@ void DockingCont::setActiveTb(tTbData* pTbData)
 
 void DockingCont::setActiveTb(int iItem)
 {
-	//if ((iItem != -1) && (iItem < ::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0)))
 	if (iItem < ::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0))
 	{
 		selectTab(iItem);
@@ -255,7 +253,7 @@ vector<tTbData*> DockingCont::getDataOfVisTb()
 
 	tcItem.mask	= TCIF_PARAM;
 
-	for(int iItem = 0; iItem < iItemCnt; ++iItem)
+	for (int iItem = 0; iItem < iItemCnt; ++iItem)
 	{
 		::SendMessage(_hContTab, TCM_GETITEM, iItem, reinterpret_cast<LPARAM>(&tcItem));
 		vTbData.push_back((tTbData*)tcItem.lParam);
@@ -270,7 +268,7 @@ bool DockingCont::isTbVis(tTbData* data)
 
 	tcItem.mask	= TCIF_PARAM;
 
-	for(int iItem = 0; iItem < iItemCnt; ++iItem)
+	for (int iItem = 0; iItem < iItemCnt; ++iItem)
 	{
 		::SendMessage(_hContTab, TCM_GETITEM, iItem, reinterpret_cast<LPARAM>(&tcItem));
 		if (!tcItem.lParam)
@@ -302,7 +300,7 @@ LRESULT DockingCont::runProcCaption(HWND hwnd, UINT Message, WPARAM wParam, LPAR
 
 				// start hooking
 				hWndServer		= _hCaption;
-				hookMouse = ::SetWindowsHookEx(WH_MOUSE_LL, (HOOKPROC)hookProcMouse, _hInst, 0);
+				hookMouse = ::SetWindowsHookEx(WH_MOUSE_LL, hookProcMouse, _hInst, 0);
 
 				if (!hookMouse)
 				{
@@ -880,7 +878,7 @@ void DockingCont::drawTabItem(DRAWITEMSTRUCT *pDrawItemStruct)
 			
 			ImageList_GetImageInfo(hImageList, iPosImage, &info);
 
-			int iconDpiDynamicalY = NppParameters::getInstance()->_dpiManager.scaleY(7);
+			int iconDpiDynamicalY = NppParameters::getInstance()._dpiManager.scaleY(7);
 			ImageList_Draw(hImageList, iPosImage, hDc, rc.left + 3, iconDpiDynamicalY, ILD_NORMAL);
 
 			if (isSelected)
@@ -935,7 +933,7 @@ INT_PTR CALLBACK DockingCont::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lP
 			_hDefaultTabProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hContTab, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(wndTabProc)));
 
 			// set min tab width
-			int tabDpiDynamicalMinWidth = NppParameters::getInstance()->_dpiManager.scaleY(24);
+			int tabDpiDynamicalMinWidth = NppParameters::getInstance()._dpiManager.scaleY(24);
 			::SendMessage(_hContTab, TCM_SETMINTABWIDTH, 0, tabDpiDynamicalMinWidth);
 
 			break;
@@ -1025,7 +1023,7 @@ void DockingCont::onSize()
 	if (iItemCnt >= 1)
 	{
 		// resize to docked window
-		int tabDpiDynamicalHeight = NppParameters::getInstance()->_dpiManager.scaleY(24);
+		int tabDpiDynamicalHeight = NppParameters::getInstance()._dpiManager.scaleY(24);
 		if (_isFloating == false)
 		{
 			// draw caption
@@ -1079,13 +1077,10 @@ void DockingCont::onSize()
 		else
 		{
 			// update floating size
-			if (_isFloating == true)
+			for (size_t iTb = 0, len = _vTbData.size(); iTb < len; ++iTb)
 			{
-				for (size_t iTb = 0, len = _vTbData.size(); iTb < len; ++iTb)
-				{
-					getWindowRect(_vTbData[iTb]->rcFloat);
-				}
-			}			
+				getWindowRect(_vTbData[iTb]->rcFloat);
+			}
 
 			// draw caption
 			if (iItemCnt >= 2)
@@ -1111,10 +1106,10 @@ void DockingCont::onSize()
 		
 
 		// get active item data
-		size_t iItemCnt = static_cast<size_t>(::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0));
+		size_t iItemCnt2 = static_cast<size_t>(::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0));
 
 		// resize visible plugin windows
-		for (size_t iItem = 0; iItem < iItemCnt; ++iItem)
+		for (size_t iItem = 0; iItem < iItemCnt2; ++iItem)
 		{
 			tcItem.mask		= TCIF_PARAM;
 			::SendMessage(_hContTab, TCM_GETITEM, iItem, reinterpret_cast<LPARAM>(&tcItem));

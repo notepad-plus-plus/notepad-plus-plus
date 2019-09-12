@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 Catalan translation for Notepad++
-Updated 10.07.2017, v7.4.2
+Updated 06.04.2019, v7.6.6
 By Hiro5 <groccat at gmail>
 -->
 <NotepadPlus>
-	<Native-Langue name="Català" filename="catalan.xml" version="7.4.2">
+	<Native-Langue name="Català" filename="catalan.xml" version="7.6.6">
 		<Menu>
 			<Main>
 				<Entries>
@@ -32,15 +32,16 @@ By Hiro5 <groccat at gmail>
 					<Item subMenuId="edit-lineOperations" name="Operacions amb &amp;línies"/>
 					<Item subMenuId="edit-comment" name="Símbols de come&amp;ntaris"/>
 					<Item subMenuId="edit-autoCompletion" name="Autocom&amp;pleció"/>
-					<Item subMenuId="edit-onSelection" name="Operacions amb selecció"/>
 					<Item subMenuId="edit-eolConversion" name="Con&amp;versió dels salts de línia"/>
 					<Item subMenuId="edit-blankOperations" name="Operacions amb &amp;espais en blanc"/>
 					<Item subMenuId="edit-pasteSpecial" name="Engan&amp;xament especial"/>
+					<Item subMenuId="edit-onSelection" name="Operacions amb selecció"/>
 					<Item subMenuId="search-markAll" name="Marca&amp;-ho tot"/>
 					<Item subMenuId="search-unmarkAll" name="Desmarca-&amp;ho tot"/>
 					<Item subMenuId="search-jumpUp" name="Cerca &amp;marca anterior"/>
 					<Item subMenuId="search-jumpDown" name="Cerca marca se&amp;güent"/>
 					<Item subMenuId="search-bookmark" name="Operacions amb mar&amp;ques de línia"/>
+					<Item subMenuId="view-currentFileIn" name="Mostra el fitxer actual a"/>
 					<Item subMenuId="view-showSymbol" name="Mostra sím&amp;bol"/>
 					<Item subMenuId="view-zoom" name="&amp;Zoom"/>
 					<Item subMenuId="view-moveCloneDocument" name="M&amp;ou/clona el document actual"/>
@@ -67,12 +68,14 @@ By Hiro5 <groccat at gmail>
 					<Item subMenuId="encoding-vietnamese" name="&amp;Vietnamita"/>
 					<Item subMenuId="settings-import" name="&amp;Importa"/>
 					<Item subMenuId="tools-md5" name="MD5"/>
+					<Item subMenuId="tools-sha256" name="SHA-256"/>
 				</SubEntries>
 				<Commands>
 					<Item id="41001" name="&amp;Nou"/>
 					<Item id="41002" name="&amp;Obre..."/>
 					<Item id="41019" name="Explorador de Windows"/>
 					<Item id="41020" name="Indicador d'ordres"/>
+					<Item id="41023" name="Obre amb el visualitzador per defecte"/>
 					<Item id="41022" name="Obre carpeta de treball"/>
 					<Item id="41014" name="&amp;Recarrega des del disc"/>
 					<Item id="41006" name="&amp;Desa"/>
@@ -85,6 +88,7 @@ By Hiro5 <groccat at gmail>
 					<Item id="41005" name="Tanca'ls tots &amp;menys l'actiu"/>
 					<Item id="41009" name="Tanca tots els de l'&amp;esquerra"/>
 					<Item id="41018" name="Tanca tots els de la &amp;dreta"/>
+					<Item id="41024" name="Tanca tots els no canviats"/>
 					<Item id="41016" name="Es&amp;borra del disc"/>
 					<Item id="41012" name="Carre&amp;ga Sessió..."/>
 					<Item id="41013" name="Desa &amp;Sessió..."/>
@@ -116,6 +120,7 @@ By Hiro5 <groccat at gmail>
 					<Item id="42071" name="iNVERTEIX mAJ./mIN."/>
 					<Item id="42072" name="MaJ./mIn. ALeATori"/>
 					<Item id="42010" name="&amp;Duplica línia actual"/>
+					<Item id="42077" name="Esborra línies duplicades consecutives"/>
 					<Item id="42012" name="&amp;Talla línies"/>
 					<Item id="42013" name="&amp;Uneix línies"/>
 					<Item id="42059" name="Ordena línies ascendentment"/>
@@ -228,8 +233,8 @@ By Hiro5 <groccat at gmail>
 					<Item id="44019" name="Mostra tots els &amp;caràcters"/>
 					<Item id="44020" name="Mostra la &amp;guia del sagnat"/>
 					<Item id="44041" name="Mostra símbol de &amp;tall"/>
-					<Item id="44023" name="&amp;Amplia"/>
-					<Item id="44024" name="&amp;Redueix"/>
+					<Item id="44023" name="&amp;Amplia (Ctrl+Roda del ratolí amunt)"/>
+					<Item id="44024" name="&amp;Redueix (Ctrl+Roda del ratolí avall)"/>
 					<Item id="44033" name="R&amp;ecupera la posició d'apropament"/>
 					<Item id="10001" name="Mou a una altra &amp;vista"/>
 					<Item id="10002" name="&amp;Clona a una altra vista"/>
@@ -263,7 +268,7 @@ By Hiro5 <groccat at gmail>
 					<Item id="44036" name="Sincronitza el desplaçament &amp;horitzontal"/>
 					<Item id="42026" name="Text de &amp;dreta a esquerra"/>
 					<Item id="42027" name="Text d'&amp;esquerra a dreta"/>
-					<Item id="44097" name="Segueix canvis de fitxer"/>
+					<Item id="44097" name="Monitora canvis del fitxer"/>
 					<Item id="44081" name="Panell de projecte &amp;1"/>
 					<Item id="44082" name="Panell de projecte &amp;2"/>
 					<Item id="44083" name="Panell de projecte &amp;3"/>
@@ -295,32 +300,38 @@ By Hiro5 <groccat at gmail>
 					<Item id="46180" name="D&amp;efinit per l'usuari"/>
 					<Item id="46250" name="Definiu el llenguatge..."/>
 					<Item id="48011" name="&amp;Preferències..."/>
+					<Item id="48014" name="Obre la carpeta dels complements"/>
 					<Item id="46001" name="&amp;Configuració d'estil..."/>
 					<Item id="48009" name="&amp;Editor de tecles de dreceres..."/>
 					<Item id="48005" name="Importa &amp;complements ..."/>
-					<Item id="48006" name="Importa &amp;temes ..."/>
+					<Item id="48006" name="Importa &amp;temes d'estil..."/>
 					<Item id="48018" name="Edita el menú contextual emergent"/>
 					<Item id="48501" name="Genera..."/>
 					<Item id="48502" name="Genera dels fitxers..."/>
 					<Item id="48503" name="Genera de la selecció al porta-retalls"/>
+					<Item id="48504" name="Genera..."/>
+					<Item id="48505" name="Genera dels fitxers..."/>
+					<Item id="48506" name="Genera de la selecció al porta-retalls"/>
 					<Item id="42018" name="&amp;Comença l'enregistrament"/>
 					<Item id="42019" name="&amp;Atura l'enregistrament"/>
 					<Item id="42021" name="&amp;Reprodueix"/>
-					<Item id="42025" name="&amp;Desa la macro actual"/>
+					<Item id="42025" name="&amp;Desa la macro actual..."/>
 					<Item id="42032" name="&amp;Executa una macro diverses vegades..."/>
 					<Item id="48016" name="&amp;Modifica tecla de drecera/Esborra macro..."/>
 					<Item id="49000" name="&amp;Executa..."/>
 					<Item id="48017" name="&amp;Modifica tecla de drecera/Esborra ordre..."/>
+					<Item id="48015" name="Administració de complements..."/>
 					<Item id="47010" name="Ús en &amp;línia d'ordres..."/>
 					<Item id="47001" name="Web de &amp;Notepad++"/>
 					<Item id="47002" name="Pàgina del &amp;projecte Notepad++"/>
+					<Item id="47003" name="Documentació en línia"/>
 					<Item id="47004" name="&amp;Fòrum de Notepad++"/>
 					<Item id="47011" name="&amp;Suport en línia"/>
 					<Item id="47005" name="Aconsegueix més &amp;complements"/>
 					<Item id="47006" name="Ac&amp;tualitza Notepad++"/>
 					<Item id="47009" name="Confi&amp;gura l'intermediari d'actualització"/>
 					<Item id="47012" name="Informació de depuració..."/>
-					<Item id="47000" name="&amp;Quant a..."/>
+					<Item id="47000" name="&amp;Quant a Notepad++"/>
 				</Commands>
 			</Main>
 			<Splitter>
@@ -330,6 +341,7 @@ By Hiro5 <groccat at gmail>
 				<Item CMID="1"  name="Tanca'ls tots m&amp;enys aquest"/>
 				<Item CMID="17" name="Tanca tots els de l'esquerra"/>
 				<Item CMID="18" name="Tanca tots els de la dreta"/>
+				<Item CMID="22" name="Tanca tots els no canviats"/>
 				<Item CMID="2"  name="&amp;Desa"/>
 				<Item CMID="3"  name="Desa &amp;com a..."/>
 				<Item CMID="10" name="Canvia el &amp;nom..."/>
@@ -338,6 +350,7 @@ By Hiro5 <groccat at gmail>
 				<Item CMID="4"  name="&amp;Imprimeix..."/>
 				<Item CMID="19" name="Obre la carpeta contenidora amb l'Explorador"/>
 				<Item CMID="20" name="Obre la carpeta contenidora amb l'Indicador d'ordres"/>
+				<Item CMID="21" name="Obre amb el visualitzador per defecte"/>
 				<Item CMID="12" name="&amp;Mode de Només-Lectura"/>
 				<Item CMID="13" name="Treu m&amp;arca de Només-Lectura"/>
 				<Item CMID="7"  name="Copia el camí sence&amp;r d'aquest fitxer"/>
@@ -353,8 +366,8 @@ By Hiro5 <groccat at gmail>
 			<Find title="" titleFind="Cerca" titleReplace="Reemplaça" titleFindInFiles="Cerca als fitxers" titleMark="Marca">
 				<Item id="1617" name="Estil de símbol trobat"/>
 				<Item id="1637" name="Cerca als fitxers"/>
-				<Item id="1"    name="Cerca >>"/>
-				<Item id="1721" name="<< Cerca"/>
+				<Item id="1"    name="Cerca següent"/>
+				<Item id="1722" name="Inverteix direcció"/>
 				<Item id="1614" name="Compta coincidències"/>
 				<Item id="1636" name="Cerca-ho tot als documents oberts"/>
 				<Item id="1641" name="Cerca-ho tot en el document actual"/>
@@ -370,7 +383,7 @@ By Hiro5 <groccat at gmail>
 				<Item id="1655" name="Directori:"/>
 				<Item id="1616" name="Marca la línia"/>
 				<Item id="1618" name="Neteja a cada recerca"/>
-				<Item id="1615" name="Troba'ls tots"/>
+				<Item id="1615" name="Marca'ls tots"/>
 				<Item id="1632" name="A la selecció"/>
 				<Item id="1633" name="Neteja"/>
 				<Item id="1661" name="Segueix fitxer actual"/>
@@ -384,9 +397,6 @@ By Hiro5 <groccat at gmail>
 				<Item id="1626" name="Estès (\n, \r, \t, \0, \x...)"/>
 				<Item id="1605" name="Expressió regular"/>
 				<Item id="1703" name="&amp;. cerca nova línia"/>
-				<Item id="1621" name="Direcció"/>
-				<Item id="1612" name="Amu&amp;nt"/>
-				<Item id="1613" name="A&amp;vall"/>
 				<Item id="1623" name=" "/>
 				<Item id="1686" name="Transparència"/>
 				<Item id="1687" name="En perdre el focus"/>
@@ -428,6 +438,26 @@ By Hiro5 <groccat at gmail>
 				<Item id="1934" name="Copia al porta-retalls"/>
 				<Item id="2"    name="Tanca"/>
 			</MD5FromTextDlg>
+			<SHA256FromFilesDlg title="Genera resums SHA-256 de fitxers">
+				<Item id="1922" name="Tria els fitxers per generar els SHA-256..."/>
+				<Item id="1924" name="Copia al porta-retalls"/>
+				<Item id="2"    name="Tanca"/>
+			</SHA256FromFilesDlg>
+			<SHA256FromTextDlg title="Genera resums SHA-256">
+				<Item id="1932" name="Tracta cada línia com un text per separat"/>
+				<Item id="1934" name="Copia al porta-retalls"/>
+				<Item id="2"    name="Tanca"/>
+			</SHA256FromTextDlg>
+			<PluginsAdminDlg title="Administrador de complements" titleAvailable = "Disponibles" titleUpdates = "Actualitzacions" titleInstalled = "Instal·lats">
+				<ColumnPlugin   name="Complement"/>
+				<ColumnVersion  name="Versió"/>
+				<Item id="5501" name="Cerca:"/>
+				<Item id="5503" name="Instal·la"/>
+				<Item id="5504" name="Actualitza"/>
+				<Item id="5505" name="Esborra"/>
+				<Item id="5508" name="Següent"/>
+				<Item id="2"    name="Tanca"/>
+			</PluginsAdminDlg>
 			<StyleConfig title="Configuració d'estil">
 				<Item id="2" name="Cancel·la"/>
 				<Item id="2301" name="Desa &amp;i tanca"/>
@@ -458,6 +488,34 @@ By Hiro5 <groccat at gmail>
 					<Item id="2232" name="Habilita estil subratllat global"/>
 				</SubDialog>
 			</StyleConfig>
+			<ShortcutMapper title="Dreceres de teclat">
+				<Item id="2602" name="Modifica"/>
+				<Item id="2603" name="Suprimeix"/>
+				<Item id="2606" name="Neteja"/>
+				<Item id="2607" name="Filtre: "/>
+				<Item id="1" name="Tanca"/>
+				<ColumnName name="Nom"/>
+				<ColumnShortcut name="Drecera"/>
+				<ColumnCategory name="Categoria"/>
+				<ColumnPlugin name="Complement"/>
+				<MainMenuTab name="Menú principal"/>
+				<MacrosTab name="Macros"/>
+				<RunCommandsTab name="Ordres d'execució"/>
+				<PluginCommandsTab name="Ordres de complement"/>
+				<ScintillaCommandsTab name="Ordres Scintilla"/>
+				<ConflictInfoOk name="No hi ha cap conflicte de drecera amb aquest element."/>
+				<ConflictInfoEditing name="Sense conflictes . . ."/>
+			</ShortcutMapper>
+			<ShortcutMapperSubDialg title="Drecera de teclat">
+				<Item id="1" name="D'acord"/>
+				<Item id="2" name="Cancel·la"/>
+				<Item id="5006" name="Nom"/>
+				<Item id="5008" name="Afegeix"/>
+				<Item id="5009" name="Esborra"/>
+				<Item id="5010" name="Aplica"/>
+				<Item id="5007" name="Això esborrarà la drecera d'aquesta ordre"/>
+				<Item id="5012" name="CONFLICTE TROBAT!"/>
+			</ShortcutMapperSubDialg>
 			<UserDefine title="Llenguatge definit per l'usuari">
 				<Item id="20001" name="Acobla"/>
 				<Item id="20007" name="Lleng. d'usuari:"/>
@@ -653,7 +711,7 @@ By Hiro5 <groccat at gmail>
 					<Item id="6112" name="Botó de tancar a cada pestanya"/>
 					<Item id="6113" name="Doble clic per tancar el document"/>
 					<Item id="6121" name="Surt en tancar l'última pestanya"/>
-					<Item id="6122" name="Amaga barra de menú (pitgeu Alt o F10 per accedir)"/>
+					<Item id="6122" name="Amaga la barra de menú (prem Alt o F10 per accedir)"/>
 				</Global>
 				<Scintillas title="Opcions visuals">
 					<Item id="6216" name="Configuració del cursor"/>
@@ -735,7 +793,7 @@ By Hiro5 <groccat at gmail>
 				</Language>
 				<Highlighting title="Ressaltat">
 					<Item id="6333" name="Ressaltat intel·ligent"/>
-					<Item id="6326" name="Activa ressaltat intel·ligent"/>
+					<Item id="6326" name="Activa el ressaltat intel·ligent"/>
 					<Item id="6332" name="El ressaltat distingeix majúscules."/>
 					<Item id="6338" name="Només paraula sencera"/>
 					<Item id="6339" name="Empra opcions del diàleg de cerca"/>
@@ -781,7 +839,7 @@ By Hiro5 <groccat at gmail>
 					<Item id="6819" name="Copia cada"/>
 					<Item id="6821" name="segons"/>
 					<Item id="6822" name="Directori:"/>
-					<Item id="6801" name="Còpia de seguretat"/>
+					<Item id="6801" name="Còpia de seguretat en desar"/>
 					<Item id="6315" name="Cap còpia"/>
 					<Item id="6316" name="Còpia simple"/>
 					<Item id="6317" name="Còpia complexa"/>
@@ -829,11 +887,16 @@ By Hiro5 <groccat at gmail>
 					<Item id="6267" name="Indiqueu el directori del núvol aquí:"/>
 				</Cloud>
 				<MISC title="Miscel·lània">
+					<ComboBox id="6347">
+						<Element name="Activa"/>
+						<Element name="Activa a tots els fitxers oberts"/>
+						<Element name="Desactiva"/>
+					</ComboBox>
 					<Item id="6324" name="Canvi de document (Ctrl+Tab)"/>
 					<Item id="6114" name="Habilita"/>
 					<Item id="6117" name="Ordena per l'editat més recent"/>
 					<Item id="6344" name="Previsualització del document"/>
-					<Item id="6345" name="Previsualitza en la pestaña"/>
+					<Item id="6345" name="Previsualitza en la pestanya"/>
 					<Item id="6346" name="Previsualitza en el mapa del document"/>
 					<Item id="6334" name="Autodetecta codificació de caràcters"/>
 					<Item id="6115" name="Sagnat automàtic"/>
@@ -891,6 +954,19 @@ By Hiro5 <groccat at gmail>
 				<Item id="2026" name="Hexadecimal"/>
 				<Item id="2027" name="Binari"/>
 			</ColumnEditor>
+			<FindInFinder title="Cerca al cercador">
+				<Item id="1"    name="Cerca-ho tot"/>
+				<Item id="2"    name="Tanca"/>
+				<Item id="1711" name="Cerca:"/>
+				<Item id="1713" name="Cerca només en línies trobades"/>
+				<Item id="1714" name="Cerca només &amp;paraula sencera"/>
+				<Item id="1715" name="&amp;Coincideix majúscules"/>
+				<Item id="1716" name="Mode de cerca"/>
+				<Item id="1717" name="Normal"/>
+				<Item id="1719" name="&amp;Expressió regular"/>
+				<Item id="1718" name="Estès (\n, \r, \t, \0, \x...)"/>
+				<Item id="1720" name="&amp;. cerca nova línia"/>
+			</FindInFinder>
 		</Dialog>
 		<MessageBox>
 			<ContextMenuXmlEditWarning title="Editant contextMenu" message="Podeu modificar el menú contextual emergent de Notepad++ editant el fitxer contextMenu.xml.&#xD;Reinicieu Notepad++ després de modificar contextMenu.xml perquè faci efecte."/>
@@ -903,10 +979,49 @@ By Hiro5 <groccat at gmail>
 			<FileAlreadyOpenedInNpp title="" message="El fitxer ja està obert amb Notepad++."/>
 			<DeleteFileFailed title="Esborra fitxer" message="No s'ha pogut esborrar el fitxer"/>
 			<NbFileToOpenImportantWarning title="Massa fitxers per obrir" message="Esteu a punt d'obrir $INT_REPLACE$ fitxers.&#xD;Segur que voleu obrir-los?"/>
-			<ColumnModeTip title="Consell del mode de columna" message="Utilitzeu «Alt+Selecció amb ratolí»&#xD;o «Alt+Maj.+Fletxes del teclat»&#xD;per canviar al mode de columna." />
 			<SettingsOnCloudError title="Opcions al núvol" message="Sembla que el directori indicat a les opcions del núvol es troba en una unitat de només lectura,&#xD;o en una carpeta que demana drets d'accés d'escriptura.&#xD;Els vostres paràmetres del núvol es cancel·laran. Reinicieu a un valor coherent a través del diàleg de Preferències."/>
 			<FilePathNotFoundWarning title="Obre fitxer" message="El fitxer que intenteu obrir no existeix."/>
 			<SessionFileInvalidError title="No s'ha pogut carregar la sessió" message="El fitxer de sessió està malmès o no és vàlid."/>
+			<DroppingFolderAsProjectModeWarning title="Acció no vàlida" message="Podeu arrossegar fitxers o carpetes però no ambdues, perquè s'està arrossegant en mode de Carpeta com a projecte.&#xD;Heu d'activar &quot;Obre els fitxers d'una carpeta arrossegada en comptes d'obrir a Carpetes de treball&quot; a la secció &quot;Directoris&quot; del diàleg de Preferències per fer que aquesta operació funcioni."/>
+			<SortingError title="Error d'ordenació" message="No s'ha pogut realitzar l'ordenació numèrica degut a la línia $INT_REPLACE$."/>
+			<ColumnModeTip title="Consell del mode de columna" message="Utilitzeu «Alt+Selecció amb ratolí»&#xD;o «Alt+Maj.+Fletxes del teclat»&#xD;per canviar al mode de columna." />
+			<BufferInvalidWarning title="El desat ha fallat" message="No es pot desar: El buffer no es vàlid."/>
+			<DoSaveOrNot title="Desa" message="Voleu desar el fitxer &quot;$STR_REPLACE$&quot; ?"/>
+			<DoCloseOrNot title="Manté el fitxer inexistent" message="El fitxer &quot;$STR_REPLACE$&quot; ja no existeix.&#xD;El voleu mantenir en l'editor?"/>
+			<DoDeleteOrNot title="Suprimeix fitxer" message="El fitxer &quot;$STR_REPLACE$&quot;&#xD;es mourà a la Paperera i aquest document es tancarà.&#xD;Voleu continuar?"/>
+			<NoBackupDoSaveFile title="Desa" message="El fitxer de la còpia de seguretat no es pot trobar (suprimit externament).&#xD;Desa-ho o perdreu les vostres dades.&#xD;Voleu desar el fitxer &quot;$STR_REPLACE$&quot; ?"/>
+			<DoReloadOrNot title="Recarrega" message="&quot;$STR_REPLACE$&quot;&#xD;&#xD;Aquest fitxer s'ha modificat amb un altre programa.&#xD;El voleu recarregar?"/>
+			<DoReloadOrNotAndLooseChange title="Recarrega" message="&quot;$STR_REPLACE$&quot;&#xD;&#xD;Aquest fitxer s'ha modificat amb un altre programa.&#xD;El voleu recarregar i perdre els canvis que s'han fet amb Notepad++?"/>
+			<PrehistoricSystemDetected title="Sistema prehistòric detectat" message="Sembla que encara utilitzeu un sistema prehistòric, lamentablement aquesta característica només funciona en un sistema més modern."/>
+			<XpUpdaterProblem title="Actualitzador de Notepad++" message="L'actualitzador de Notepad++ no és compatible amb XP per una capa de seguretat obsoleta sota XP.&#xD;Voleu anar a la web de Notepad++ per baixar l'última versió?"/>
+			<DocTooDirtyToMonitor title="Problema de monitoratge" message="El document està en brut. Deseu la modificació abans de monitorar-lo."/>
+			<DocNoExistToMonitor title="Problema de monitoratge" message="El fitxer hauria d'existir per monitorar-lo."/>
+			<FileTooBigToOpen title="Problema amb mida de fitxer" message="El fitxer és massa gran per obrir-lo amb Notepad++"/>
+			<CreateNewFileOrNot title="Crea nou fitxer" message="&quot;$INT_REPLACE$&quot; no existeix. El voleu crear?."/>
+			<CreateNewFileError title="Crea nou fitxer" message="No es pot crear el fitxer &quot;$INT_REPLACE$&quot;."/>
+			<OpenFileError title="ERROR" message="No es pot obrir el fitxer &quot;$INT_REPLACE$&quot;."/>
+			<FileBackupFailed title="Còpia de seguretat fallida" message="No es pot desar la versió anterior del fitxer al directori de còpia de seguretat a &quot;$INT_REPLACE$&quot;.&#xD;&#xD;Voleu desar el fitxer actual igualment?"/>
+			<LoadStylersFailed title="Error en carregar stylers.xml" message="La càrrega de &quot;$INT_REPLACE$&quot; ha fallat!"/>
+			<LoadLangsFailed title="Configurador" message="Ha fallat la càrrega de langs.xml!&#xD;Voleu recuperar el vostre langs.xml?"/>
+			<LoadLangsFailedFinal title="Configurador" message="Ha fallat la càrrega de langs.xml!"/>
+			<FolderAsWorspaceSubfolderExists title="Problema d'afegir carpeta en Carpeta de treball" message="Existeix una subcarpeta de la carpeta que voleu afegir.&#xD;Esborreu la seva arrel del panell abans d'afegir la carpeta &quot;$STR_REPLACE$&quot;."/>
+			<ProjectPanelChanged title="$STR_REPLACE$" message="L'espai de treball s'ha modificat. Voleu desar-lo?"/>
+			<ProjectPanelChangedSaveError title="$STR_REPLACE$" message="L'espai de treball no s'ha desat."/>
+			<ProjectPanelOpenDoSaveDirtyWsOrNot title="Obre espai de treball" message="L'espai de treball actual s'ha modificat. Voleu desar el projecte actual?"/>
+			<ProjectPanelNewDoSaveDirtyWsOrNot title="Nou espai de treball" message="L'espai de treball actual s'ha modificat. Voleu desar el projecte actual?"/>
+			<ProjectPanelOpenFailed title="Obre espai de treball" message="No s'ha pogut obrir l'espai de treball.&#xD;Sembla que el fitxer a obrir no és un fitxer de projecte vàlid."/>
+			<ProjectPanelRemoveFolderFromProject title="Esborra carpeta del projecte" message="S'esborraran tots els subelements.&#xD;Segur que voleu esborrar aquesta carpeta del projecte?"/>
+			<ProjectPanelRemoveFileFromProject title="Esborra fitxer del projecte" message="Segur que voleu esborrar aquest fitxer del projecte?"/>
+			<ProjectPanelReloadError title="Recarrega l'espai de treball" message="No es pot trobar el fitxer a recarregar."/>
+			<ProjectPanelReloadDirty title="Recarrega l'espai de treball" message="L'espai de treball actual s'ha modificat. Recarregant-lo descartarà totes les modificacions.&#xD;Voleu continuar?"/>
+			<UDLNewNameError title="Error d'UDL" message="Aquest nom l'utilitza un altre llenguatge,&#xD;canvieu el nom si us plau."/>
+			<UDLRemoveCurrentLang title="Esborra el llenguatge actual" message="Esteu segur?"/>
+			<SCMapperDoDeleteOrNot title="Supressió de drecera" message="Segur que voleu suprimir aquesta drecera?"/>
+			<FindCharRangeValueError title="Valor fora de rang" message="Hauríeu d'escriure un valor de 0 a 255."/>
+			<OpenInAdminMode title="Error en desar" message="El fitxer no es pot desar i pot estar protegit.&#xD;Voleu iniciar Notepad++ en mode d'administrador?"/>
+			<OpenInAdminModeWithoutCloseCurrent title="Error en desar" message="El fitxer no es pot desar i pot estar protegit.&#xD;Voleu iniciar Notepad++ en mode d'administrador?"/>
+			<OpenInAdminModeFailed title="Error en obrir en mode d'administrador" message="No es pot obrir Notepad++ en mode d'administrador."/>
+			<ViewInBrowser title="Mostra el fitxer actual al navegador" message="No s'ha trobat l'aplicació al vostre sistema."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historial del porta-retalls"/>
@@ -916,6 +1031,11 @@ By Hiro5 <groccat at gmail>
 			<ColumnName name="Nom"/>
 			<ColumnExt name="Ext."/>
 		</DocSwitcher>
+		<WindowsDlg>
+			<ColumnName name="Nom"/>
+			<ColumnPath name="Camí"/>
+			<ColumnType name="Tipus"/>
+		</WindowsDlg>
 		<AsciiInsertion>
 			<PanelTitle name="Panell d'inserció ASCII"/>
 			<ColumnVal name="Valor"/>
@@ -930,6 +1050,21 @@ By Hiro5 <groccat at gmail>
 			<SortTip name="Ordena" />
 			<ReloadTip name="Recarrega" />
 		</FunctionList>
+		<FolderAsWorkspace>
+			<PanelTitle name="Carpeta com espai de treball"/>
+			<SelectFolderFromBrowserString name="Selecciona una carpeta per afegir al panell de Carpeta com espai de treball"/>
+			<Menus>
+				<Item id="3511" name="Esborra"/>
+				<Item id="3512" name="Esborra-ho tot"/>
+				<Item id="3513" name="Afegeix"/>
+				<Item id="3514" name="Executa pel sistema"/>
+				<Item id="3515" name="Obre"/>
+				<Item id="3516" name="Copia el camí"/>
+				<Item id="3517" name="Cerca als fitxers..."/>
+				<Item id="3518" name="Obre aquí amb l'explorador"/>
+				<Item id="3519" name="Obre aquí amb l'indicador d'ordres"/>
+			</Menus>
+		</FolderAsWorkspace>
 		<FileBrowser>
 			<PanelTitle name="Carpetes de treball"/>
 		</FileBrowser>
@@ -987,7 +1122,54 @@ By Hiro5 <groccat at gmail>
 			<word-chars-list-warning-end value=" en la llista de caràcters."/>
 			<cloud-invalid-warning value="El camí no és vàlid."/>
 			<cloud-restart-warning value="Reinicieu Notepad++ perquè faci efecte."/>
-			<shift-change-direction-tip value="Retorn: Cerca següent&#xD;Maj.+Retorn: Cerca anterior"/>
+			<cloud-select-folder value="Seleccioneu una carpeta des d'on Notepad++ llegirà/escriurà la seva configuració"/>
+			<shift-change-direction-tip value="Utilitza Maj.+Retorn per cercar en direcció contrària"/>
+			<two-find-buttons-tip value="Mode de cerca amb 2 botons"/>
+			<find-status-top-reached value="Cerca: Trobat el 1ª resultat des de baix. S'ha arribat al principi del document."/>
+			<find-status-end-reached value="Cerca: Trobat el 1ª resultat des de dalt. S'ha arribat al final del document."/>
+			<find-status-replaceinfiles-1-replaced value="Reemplaça en fitxers: 1 resultat reemplaçat"/>
+			<find-status-replaceinfiles-nb-replaced value="Reemplaça en fitxers: $INT_REPLACE$ resultats reemplaçats"/>
+			<find-status-replaceinfiles-re-malformed value="Reemplaça en fitxers oberts: L'expressió regular està mal formada"/>
+			<find-status-replaceinopenedfiles-1-replaced value="Reemplaça en fitxers oberts: 1 resultat reemplaçat"/>
+			<find-status-replaceinopenedfiles-nb-replaced value="Reemplaça en fitxers oberts: $INT_REPLACE$ resultats reemplaçats"/>
+			<find-status-mark-re-malformed value="Marca: L'expressió regular de cerca està mal formada"/>
+			<find-status-invalid-re value="Cerca: Expressió regular no vàlida"/>
+			<find-status-mark-1-match value="1 coincidència marcada"/>
+			<find-status-mark-nb-matches value="$INT_REPLACE$ coincidències marcades"/>
+			<find-status-count-re-malformed value="Compta: L'expressió regular de cerca està mal formada"/>
+			<find-status-count-1-match value="Compta: 1 coincidència"/>
+			<find-status-count-nb-matches value="Compta: $INT_REPLACE$ coincidències"/>
+			<find-status-replaceall-re-malformed value="Reemplaça-ho tot: L'expressió regular està mal formada"/>
+			<find-status-replaceall-1-replaced value="Reemplaça-ho tot: 1 resultat reemplaçat"/>
+			<find-status-replaceall-nb-replaced value="Reemplaça-ho tot: $INT_REPLACE$ resultats reemplaçats"/>
+			<find-status-replaceall-readonly value="Reemplaça-ho tot: No es pot reemplaçar el text. El document actual és de només lectura"/>
+			<find-status-replace-end-reached value="Reemplaça: Reemplaçat el 1er resultat des de dalt. S'ha arribat al final del document"/>
+			<find-status-replace-top-reached value="Reemplaça: Reemplaçat el 1er resultat des de baix. S'ha arribat al principi del document"/>
+			<find-status-replaced-next-found value="Reemplaça: 1 resultat reemplaçat. Següent resultat trobat"/>
+			<find-status-replaced-next-not-found value="Reemplaça: 1 resultat reemplaçat. Següent resultat no trobat"/>
+			<find-status-replace-not-found value="Reemplaça: cap resultat trobat"/>
+			<find-status-replace-readonly value="Reemplaça: No es pot reemplaçar el text. El document actual és de només lectura"/>
+			<find-status-cannot-find value="Cerca: No s'ha trobat el text &quot;$STR_REPLACE$&quot;"/>
+			<finder-find-in-finder value="Cerca en aquests resultats..."/>
+			<finder-close-this value="Tanca aquest cercador"/>
+			<finder-collapse-all value="Plega-ho tot"/>
+			<finder-uncollapse-all value="Desplega-ho tot"/>
+			<finder-copy value="Copia"/>
+			<finder-select-all value="Selecciona-ho tot"/>
+			<finder-clear-all value="Neteja-ho tot"/>
+			<finder-open-all value="Obre-ho tot"/>
+			<common-ok value="D'acord"/>
+			<common-cancel value="Cancel·la"/>
+			<common-name value="Nom: "/>
+			<tabrename-title value="Canvia el nom de la pestanya actual"/>
+			<tabrename-newname value="Nom nou: "/>
+			<recent-file-history-maxfile value="Màx. fitxers: "/>
+			<language-tabsize value="Mida de Tab.: "/>
+			<userdefined-title-new value="Crea un nou llenguatge..."/>
+			<userdefined-title-save value="Anomena i desa el llenguatge actual..."/>
+			<userdefined-title-rename value="Canvia el nom del llenguatge actual"/>
+			<autocomplete-nb-char value="Nre. car.: "/>
+			<edit-verticaledge-nb-col value="Nre. de columnes:"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

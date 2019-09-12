@@ -38,7 +38,7 @@
 class SettingsDlg : public StaticDialog
 {
 public :
-	SettingsDlg() {};
+	SettingsDlg() = default;
 
 private :
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
@@ -47,7 +47,7 @@ private :
 class BarsDlg : public StaticDialog
 {
 public :
-	BarsDlg() {};
+	BarsDlg() = default;
 private :
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
@@ -55,7 +55,7 @@ private :
 class MarginsDlg : public StaticDialog
 {
 public :
-	MarginsDlg() {};
+	MarginsDlg() = default;
 	virtual void destroy() {
 		_verticalEdgeLineNbColVal.destroy();
 	};
@@ -70,13 +70,13 @@ struct LangID_Name
 {
 	LangType _id;
 	generic_string _name;
-	LangID_Name(LangType id, generic_string name) : _id(id), _name(name){};
+	LangID_Name(LangType id, const generic_string& name) : _id(id), _name(name){};
 };
 
 class DefaultNewDocDlg : public StaticDialog
 {
 public :
-	DefaultNewDocDlg() {};
+	DefaultNewDocDlg() = default;
 
 private :
 	std::vector<LangID_Name> _langList;
@@ -91,7 +91,7 @@ private :
 class DefaultDirectoryDlg : public StaticDialog
 {
 public :
-	DefaultDirectoryDlg() {};
+	DefaultDirectoryDlg() = default;
 
 private :
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
@@ -100,7 +100,7 @@ private :
 class RecentFilesHistoryDlg : public StaticDialog
 {
 public :
-	RecentFilesHistoryDlg() {};
+	RecentFilesHistoryDlg() = default;
 	virtual void destroy() {
 		_nbHistoryVal.destroy();
 		_customLenVal.destroy();
@@ -116,7 +116,7 @@ private :
 class LangMenuDlg : public StaticDialog
 {
 public :
-	LangMenuDlg() {};
+	LangMenuDlg() = default;
 	virtual void destroy() {
 		_tabSizeVal.destroy();
 	};
@@ -131,7 +131,7 @@ private :
 class Highlighting : public StaticDialog
 {
 public :
-	Highlighting() {};
+	Highlighting() = default;
 
 private :
 
@@ -142,25 +142,25 @@ private :
 struct strCouple {
 	generic_string _varDesc;
 	generic_string _var;
-	strCouple(TCHAR *varDesc, TCHAR *var): _varDesc(varDesc), _var(var){};
+	strCouple(const TCHAR *varDesc, const TCHAR *var): _varDesc(varDesc), _var(var){};
 };
 
 class PrintSettingsDlg : public StaticDialog
 {
 public :
-	PrintSettingsDlg():_focusedEditCtrl(0), _selStart(0), _selEnd(0){};
+	PrintSettingsDlg() = default;
+
 private :
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	std::vector<strCouple> varList;
-	int _focusedEditCtrl;
-	DWORD _selStart;
-	DWORD _selEnd;
+	int _focusedEditCtrl = 0;
 };
 
 class BackupDlg : public StaticDialog
 {
 public :
-	BackupDlg() {};
+	BackupDlg() = default;
+
 private :
 	void updateBackupGUI();
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
@@ -170,7 +170,7 @@ private :
 class AutoCompletionDlg : public StaticDialog
 {
 public :
-	AutoCompletionDlg() {};
+	AutoCompletionDlg() = default;
 private :
 	URLCtrl _nbCharVal;
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
@@ -179,7 +179,7 @@ private :
 class MultiInstDlg : public StaticDialog
 {
 public :
-	MultiInstDlg() {};
+	MultiInstDlg() = default;
 
 private :
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
@@ -188,7 +188,7 @@ private :
 class DelimiterSettingsDlg : public StaticDialog
 {
 public :
-	DelimiterSettingsDlg() {};
+	DelimiterSettingsDlg() = default;
 	~DelimiterSettingsDlg() {
 		if (_tip)
 			::DestroyWindow(_tip);
@@ -208,7 +208,7 @@ private :
 class SettingsOnCloudDlg : public StaticDialog
 {
 public :
-	SettingsOnCloudDlg() {};
+	SettingsOnCloudDlg() = default;
 
 private :
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
@@ -217,7 +217,7 @@ private :
 class SearchEngineChoiceDlg : public StaticDialog
 {
 public :
-	SearchEngineChoiceDlg() {};
+	SearchEngineChoiceDlg() = default;
 
 private :
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
@@ -228,7 +228,7 @@ class PreferenceDlg : public StaticDialog
 friend class NativeLangSpeaker;
 
 public :
-	PreferenceDlg(){};
+	PreferenceDlg() = default;
 
     void init(HINSTANCE hInst, HWND parent)	{
         Window::init(hInst, parent);
@@ -249,7 +249,7 @@ public :
 	};
 
 	void showDialogByName(const TCHAR *name) const;
-	void setListSelection(size_t currentSel) const;
+	bool setListSelection(size_t currentSel) const;
 
 	virtual void destroy();
 

@@ -76,9 +76,9 @@
 			<association id=      "csharp_class"      langID= "4"                          />
 			<association id=        "java_syntax"     langID= "6"                          />
 			<association id=         "xml_node"       langID= "9"                          />
-<!--		<association id="functionlist_syntax"     langID= "9"                          /> -->
 			<association id=       "batch_label"      langID="12"                          />
 			<association id=         "ini_section"    langID="13"                          />
+			<association id=       "plsql_function"   langID="17"                          />
 			<association id=        "perl_function"   langID="21"                          />
 			<association id=      "python_syntax"     langID="22"                          />
 			<association id=        "bash_function"   langID="26"                          />
@@ -87,8 +87,14 @@
 			<association id=        "ruby_syntax"     langID="36"                          />
 			<association id=     "autoit3_function"   langID="40"                          />
 			<association id=   "innosetup_syntax"     langID="46"                          />
+			<!--
+			   As there is currently only one langID for COBOL: change to cobol_section_free
+			   if this is your favourite format
+			-->
+			<association id=  "cobol_section_fixed"   langID="50"                          />
 			<association id=  "powershell_function"   langID="53"                          />
 			<association id=  "javascript_function"   langID="58"                          />
+			<association id=       "baanc_section"    langID="60"                          />
 			<!-- ======================================================================== -->
 			<association id=         "krl_function"   userDefinedLangName="KRL"            />
 			<association id=         "krl_function"   ext=".src"                           />
@@ -102,6 +108,20 @@
 			<!-- ======================================================================== -->
 		</associationMap>
 		<parsers>
+
+			<!-- ========================================================= [ PL/SQL ] -->
+			<parser id="plsql_function" displayName="PL/SQL" commentExpr="((/\*.*?\*)/|(//.*?$))">
+        			<function
+				    mainExpr="((PROCEDURE)|(FUNCTION))[\s]+[A-Za-z][\w_]*([\s]*\([^\)]*\)[\s]*)?(([\s]*;)|([\s]*([ia]s))|([\s]+(RETURN)([\s]+[\w%\.]+)+(([\s]*;)|([\s]+([ia]s)))))"
+				    displayMode="$className->$functionName"
+			 	>
+					<functionName>
+						<nameExpr expr="[\s]+[A-Za-z][\w_]*([\s]*\([^\)]*\))?(([\s]*;)|([\s]*([ia]s))|([\s]+(RETURN)([\s]+[\w%\.]+)+(([\s]*;)|([\s]+([ia]s)))))"/>
+						<nameExpr expr="[A-Za-z][\w_]*([\s]*\([^\)]*\))?(([\s]*;)|([\s]*([ia]s))|([\s]+(RETURN)([\s]+[\w%\.]+)+(([\s]*;)|([\s]+([ia]s)))))"/>
+						<nameExpr expr="[A-Za-z][\w_]*([\s]*\([^\)]*\))?(([\s]+(RETURN)([\s]+[\w%\.]+)+))*"/>
+					</functionName>
+				</function>
+			</parser>
 
 			<!-- ========================================================= [ PHP ] -->
 			<!-- PHP - Personal Home Page / PHP Hypertext Preprocessor             -->
@@ -571,93 +591,7 @@
 					</functionName>
 				</function>
 			</parser>
-			<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-			|   Show each FunctionList `association`-node as a leaf in an
-			|   `assiociationMap` branch and each `parser`-node as a leaf in a
-			|   `parsers` branch of the FunctionList tree
-			\-->
-			<parser
-				displayName="XML of Function List"
-				id         ="functionlist_syntax"
-				commentExpr="(?x)                                               # Utilize inline comments (see `RegEx - Pattern Modifiers`)
-								(?:\x3C!--(?:[^\-]|-(?!-\x3E))*--\x3E)          # Multi Line Comment
-							"
-			>
-				<classRange
-					mainExpr    ="(?xs)                                         # can span multiple lines
-							\x3C(?'COMPOUND'associationMap|parsers)\x3E         # begin of a `associationMap` or `parsers`-node
-							.*?                                                 # include anything between the node`s tags
-							\x3C/\k'COMPOUND'\x3E                               # end of the applicable node
-						"
-				>
-					<!--
-					|   Use the node's name as label for the branch
-					\-->
-					<className>
-						<nameExpr expr="\x3C\w+\x3E" />
-						<nameExpr expr="\w+" />
-					</className>
-					<function
-						mainExpr="(?x)                                          # Utilize inline comments (see `RegEx - Pattern Modifiers`)
-								\x3C(?:association|parser)                      # begin of a `association` or `parser`-node
-								(?:                                             # match attributes
-									\s+\w+                                      # at least one whitespace before attribute-name
-									\h*=\h*                                     # name-value separator can be surrounded by blanks
-									(?:                                         # quoted attribute value, embedded escaped quotes allowed...
-										\x22(?:[^\x22\x5C]|\x5C.)*?\x22         # ...double quoted...
-									|	\x27(?:[^\x27\x5C]|\x5C.)*?\x27         # ...single quoted
-									)
-								)+                                              # only match nodes with at least one attribute
-								\s*/?\x3E                                       # end of the node or node-tag resp.
-							"
-					>
-						<!--
-						|   For `association`-nodes use its `id`-attribute value as its leaf
-						|   name and for `parser`-nodes use its `displayName`-attribute value.
-						|   NOTE: to be able to use the node's `displayName`-attribute,
-						|         make sure it's defined before the `id`-attribute.
-						\-->
-						<functionName>
-							<funcNameExpr expr="(?x)                            # Utilize inline comments (see `RegEx - Pattern Modifiers`)
-									(?:displayName|\bid)
-									\h*=\h*
-									(?:
-										\x22(?:[^\x22\x5C]|\x5C.)*?\x22
-									|	\x27(?:[^\x27\x5C]|\x5C.)*?\x27
-									)
-								"
-							/>
-							<funcNameExpr expr="(?&lt;=[\x22\x27])(?:[^\x22\x27\x5C]|\x5C.)*?(?=[\x22\x27])" />
-						</functionName>
-					</function>
-				</classRange>
-				<!--
-				|   Fallback: show each `parser`-node as a leaf of the root in the FunctionList tree
-				\-->
-				<function
-					mainExpr="(?x)                                              # Utilize inline comments (see `RegEx - Pattern Modifiers`)
-							\x3Cparser                                          # begin of a `parser`-node
-							(?:                                                 # match attributes
-								\s+\w+                                          # at least one whitespace before attribute-name
-								\h*=\h*                                         # name-value separator can be surrounded by blanks
-								(?:                                             # quoted attribute value, embedded escaped quotes allowed..
-									\x22(?:[^\x22\x5C]|\x5C.)*?\x22             # ...double quoted...
-								|	\x27(?:[^\x27\x5C]|\x5C.)*?\x27             # ...single quoted
-								)
-							)+                                                  # only match nodes with at least one attribute
-							\s*/?\x3E                                           # end of the `parser`-node-tag
-						"
-				>
-					<!--
-					|   Use the `displayName`-attribute value as leaf name.
-					\-->
-					<functionName>
-						<nameExpr expr="displayName\h*=\h*(?:\x22(?:[^\x22\x5C]|\x5C.)*?\x22|\x27(?:[^\x27\x5C]|\x5C.)*?\x27)" />
-						<nameExpr expr="(?&lt;=[\x22\x27])(?:[^\x22\x27\x5C]|\x5C.)*?(?=[\x22\x27])" />
-					</functionName>
-				</function>
-			</parser>
-
+			
 			<!-- ================================ [ Batch / Command Shell Script ] -->
 
 			<parser
@@ -1293,6 +1227,227 @@
 							)
 						"
 				/>
+			</parser>
+			
+			<!-- ======================================================= [ BaanC ] -->
+			
+			<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+			|	Based on:
+			|		https://notepad-plus-plus.org/community/topic/14494/functionlist-classrange-question
+			|
+			|	Note(s):
+			|	1.	Boost::Regex 1.58-1.59 do not correctly handle quantifiers on subroutine calls
+			|		therefore the additional non-capturing group i.e. "(?:(?&amp;COMMENT))?" instead
+			|		of simply "(?&amp;COMMENT)?"
+			\-->
+			<parser
+				displayName="BaanC Sections"
+				id         ="baanc_section"
+			>
+				<classRange
+					mainExpr="(?x)                                              # free-spacing (see `RegEx - Pattern Modifiers`)
+							(?im)                                               # case-insensitive, ^ and $ match at line breaks
+							(?(DEFINE)                                          # definition of sub-routines
+								(?'SECTION'
+									^\h*                                        # optional leading whitespace at start-of-line
+									(?:                                         # known section names
+										(?:after|before)\.(?:report\.\d+|\w+(?:\.\w+)*\.\d+)
+									|	(?:field|zoom\.from)\.(?:all|other|\w+(?:\.\w+)*)
+									|	(?:footer|group|header)\.\d+
+									|	choice\.\w+(?:\.\w+)*
+									|	detail\.\d+
+									|	form\.(?:all|other|\d+)
+									|	functions
+									|	main\.table\.io
+									):                                          # end-of-section-header indicator
+								)
+								(?'SECTION_EMPTY'
+									^\h*                                        # optional leading whitespace at start-of-line
+									(?:                                         # known `empty` section names
+										after\.(?:form\.read|program|receive\.data|update\.db\.commit)
+									|	before\.(?:(?:display|new)\.object|program)
+									|	declaration
+									|	on\.(?:display\.total\.line|error)
+									):                                          # end-of-section-header indicator
+								)
+							)
+							(?&amp;SECTION)                                     # section header
+							(?s:.*?)                                            # whatever,
+							(?=                                                 # ...up till
+								\s*
+								(?:
+									(?&amp;SECTION)                             # ...next section header,
+								|   (?&amp;SECTION_EMPTY)                       # ...next `empty` section header
+								|   \Z                                          # ...or end-of-text
+								)
+							)
+						"
+				>
+					<className>
+						<nameExpr expr="^\h*\K\w+(?:\.\w+)*:" />
+					</className>
+					<function
+						mainExpr="(?x)                                          # free-spacing (see `RegEx - Pattern Modifiers`)
+								(?im)                                           # case-insensitive, ^ and $ match at line breaks
+								(?(DEFINE)                                      # definition of sub-routines
+									(?'COMMENT'
+										\s*\x7C[^\r\n]*                         # trailing comment
+										(?:                                     # optional subsequent comment
+											(?:\r?\n|\n?\r)                     # - mandatory line-break
+											\s*\x7C[^\r\n]*                     # - `trailing` comment
+										)*
+									)
+								)
+								^\h*                                            # optional leading whitespace at start-of-line
+								(?:
+									\K                                          # discard text matched so far
+									(?:                                         # known sub-section names
+										after\.(?:choice|d(?:elete|isplay)|f(?:ield|orm)|group|input|layout|re(?:ad|write)|skip\.(?:delete|(?:re)?write)|write|zoom)
+									|	before\.(?:ch(?:ecks|oice)|d(?:elete|isplay)|f(?:ield|orm)|group|input|layout|print|re(?:ad|write)|write|zoom)
+									|	check\.input
+									|	domain\.error
+									|	init\.(?:f(?:ield|orm)|group)
+									|	on\.(?:choice|e(?:ntry|xit)|input)
+									|	read\.view
+									|	ref\.(?:display|input)
+									|	selection\.filter
+									|	when\.field\.changes
+									):                                          # end-of-sub-section-header indicator
+								|
+									function                                    # keyword, start-of-function-header indicator
+									(?:(?&amp;COMMENT))?                        # optional `embedded` comment
+									(?:                                         # optional storage-class specifier
+										\s+extern
+										(?:(?&amp;COMMENT))?                    # ...with optional `embedded` comment
+									)?
+									(?:                                         # optional function type specifier
+										\s+(?:
+											boolean
+										|	double
+										|	long
+										|	string
+										|	void
+										|	domain
+											(?:(?&amp;COMMENT))?                # ...with optional `embedded` comment
+											\s+\w+(?:\.\w+)*
+										)
+										(?:(?&amp;COMMENT))?                    # ...with optional `embedded` comment
+									)?
+									\s+
+									\K                                          # discard text matched so far
+									\w+(?:\.\w+)*                               # function identifier
+									(?:(?&amp;COMMENT)(?:\r?\n|\n?\r))?         # optional `embedded` comment
+									\s*\(                                       # start-of-parameter-list indicator
+								)
+							"
+					>
+						<functionName>
+							<funcNameExpr expr="\w+(?:\.\w+)*(?:\h*:)?" />
+						</functionName>
+					</function>
+				</classRange>
+				<function
+					mainExpr="(?x)                                              # free-spacing (see `RegEx - Pattern Modifiers`)
+							(?im)                                               # case-insensitive, ^ and $ match at line breaks
+							(?(DEFINE)                                          # definition of sub-routines
+								(?'COMMENT'
+									\s*\x7C[^\r\n]*                             # trailing comment
+									(?:                                         # optional subsequent comment
+										(?:\r?\n|\n?\r)                         # - mandatory line-break
+										\s*\x7C[^\r\n]*                         # - `trailing` comment
+									)*
+								)
+							)
+							^\h*                                                # optional leading whitespace at start-of-line
+							(?:
+								\K                                              # discard text matched so far
+								(?:                                             # known `empty` section names
+									after\.(?:form\.read|program|receive\.data|update\.db\.commit)
+								|	before\.(?:display\.object|new\.object|program)
+								|	declaration
+								|	on\.(?:display\.total\.line|error)
+								):                                              # end-of-section-header indicator
+							|
+								function                                        # keyword, start-of-function-header indicator
+								(?:(?&amp;COMMENT))?                            # optional `embedded` comment
+								(?:                                             # optional storage-class specifier
+									\s+extern
+									(?:(?&amp;COMMENT))?                        # ...with optional `embedded` comment
+								)?
+								(?:                                             # optional function type specifier
+									\s+(?:
+										boolean
+									|	double
+									|	long
+									|	string
+									|	void
+									|	domain
+										(?:(?&amp;COMMENT))?                    # ...with optional `embedded` comment
+										\s+\w+(?:\.\w+)*
+									)
+									(?:(?&amp;COMMENT))?                        # ...with optional `embedded` comment
+								)?
+								\s+
+								\K                                              # discard text matched so far
+								\w+(?:\.\w+)*                                   # function identifier
+								(?:(?&amp;COMMENT)(?:\r?\n|\n?\r))?             # optional `embedded` comment
+								\s*\(                                           # start-of-parameter-list indicator
+							)
+						"
+				>
+					<functionName>
+						<nameExpr expr="\w+(?:\.\w+)*(?:\h*:)?" />
+					</functionName>
+				</function>
+			</parser>
+
+			<!-- Variant for COBOL fixed-form reference format -->
+			<parser id="cobol_section_fixed" displayName="COBOL fixed-form reference format">
+				<function
+					mainExpr="(?x)                                             # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+						(?m-s)(^.{6}[ D])                                      # ignore first 6 columns, 7 must be empty or D (debug-line)
+						([\t ]{0,3})                                           # don't start after column 12
+						(?!exit\s)[\w_-]+(\.|((?'seps'([\t ]|\*&gt;.*|([\n\r]+(.{6}([ D]|\*.*)|.{0,6}$)))+)section(\.|((?&amp;seps)(\.|[\w_-]+\.)))))
+						                                                        # all names that come before `section` but not `exit section`
+						"
+				>
+					<functionName>
+						<nameExpr expr="[\w_-]+((?=\.)|((?'seps'([\t ]|\*&gt;.*|([\n\r]+(.{6}([ D]|\*.*)|.{0,6}$)))+)section((?=\.)|(?&amp;seps)((?=\.)|[\w_-]+(?=\.)))))"/>
+					</functionName>
+				</function>
+			</parser>
+
+			<!-- Variant for COBOL free-form reference format -->
+			<parser id="cobol_section_free" displayName="COBOL free-form reference format">
+				<!-- working comment Expression:
+						 commentExpr="(?m-s)(?:\*&gt;).*$"
+					 cannot be used because problems with comment boundaries
+					 in current FunctionList implementation, for details see
+					 https://sourceforge.net/p/notepad-plus/patches/597/
+				-->
+				<!-- Variant with paragraphs (don't work with comment lines
+					 before section/paragraph header, can be activated when
+					 comment boundaries work and the commentExpr is used) -->
+				<!--
+				<function
+					mainExpr="(?m-s)(?<=\.)\s*(?!exit\s)[\w_-]+(\s+section(\s*|(\s+[\w_-]+)?))(?=\.)"
+						"
+				>
+					<functionName>
+						<nameExpr expr="(?m-s)(?<=[\s\.])[\w_-]+(\s*section\s*([\w_-]+)?)?"/>
+					</functionName>
+				</function>
+				-->
+				<!-- Variant without paragraphs (works with comment lines before section header) -->
+				<function
+					mainExpr="(?x)                                                  # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+						[\s\.](?!exit\s)[\w_-]+\s+section(\s*|(\s+[\w_-]+)?)(?=\.)  # all names that come before `section` but not `exit section`
+						"
+				>
+					<functionName>
+						<nameExpr expr="[\w_-]+\s*section"/>
+				   </functionName>
+				</function>
 			</parser>
 
 			<!-- ================================================================= -->

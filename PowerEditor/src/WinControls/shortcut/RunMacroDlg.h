@@ -39,9 +39,8 @@
 class RunMacroDlg : public StaticDialog
 {
 public :
-	RunMacroDlg() : StaticDialog() {};
-	~RunMacroDlg() {
-	};
+	RunMacroDlg() = default;
+	~RunMacroDlg() = default;
 
 	void init(HINSTANCE hInst, HWND hPere/*, ScintillaEditView **ppEditView*/) {
 		Window::init(hInst, hPere);
@@ -51,7 +50,12 @@ public :
 		if (!isCreated())
 			create(IDD_RUN_MACRO_DLG, isRTL);
 		else
+		{
+			// Shortcut might have been updated for current session
+			// So reload the macro list (issue #4526)
+			initMacroList();
 			::ShowWindow(_hSelf, SW_SHOW);
+		}
 	};
 
 	void initMacroList();

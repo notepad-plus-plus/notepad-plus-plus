@@ -1,11 +1,12 @@
 // Scintilla source code edit control
+// Encoding: UTF-8
 // Copyright 1998-2001 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
 /** @file LexErlang.cxx
  ** Lexer for Erlang.
  ** Enhanced by Etienne 'Lenain' Girondel (lenaing@gmail.com)
  ** Originally wrote by Peter-Henry Mander,
- ** based on Matlab lexer by José Fonseca.
+ ** based on Matlab lexer by JosÃ© Fonseca.
  **/
 
 #include <stdlib.h>
@@ -26,9 +27,7 @@
 #include "CharacterSet.h"
 #include "LexerModule.h"
 
-#ifdef SCI_NAMESPACE
 using namespace Scintilla;
-#endif
 
 static int is_radix(int radix, int ch) {
 	int digit;
@@ -75,7 +74,7 @@ static inline bool IsAWordChar(const int ch) {
 	return (ch < 0x80) && (ch != ' ') && (isalnum(ch) || ch == '_');
 }
 
-static void ColouriseErlangDoc(unsigned int startPos, int length, int initStyle,
+static void ColouriseErlangDoc(Sci_PositionU startPos, Sci_Position length, int initStyle,
 								WordList *keywordlists[], Accessor &styler) {
 
 	StyleContext sc(startPos, length, initStyle, styler);
@@ -116,6 +115,7 @@ static void ColouriseErlangDoc(unsigned int startPos, int length, int initStyle,
 					}
 				}
 				// V--- Falling through!
+				// Falls through.
 				case COMMENT_FUNCTION : {
 					if (sc.ch != '%') {
 						to_late_to_comment = true;
@@ -128,6 +128,7 @@ static void ColouriseErlangDoc(unsigned int startPos, int length, int initStyle,
 					}
 				}
 				// V--- Falling through!
+				// Falls through.
 				case COMMENT_MODULE : {
 					if (parse_state != COMMENT) {
 						// Search for comment documentation
@@ -500,7 +501,7 @@ static void ColouriseErlangDoc(unsigned int startPos, int length, int initStyle,
 static int ClassifyErlangFoldPoint(
 	Accessor &styler,
 	int styleNext,
-	int keyword_start
+	Sci_Position keyword_start
 ) {
 	int lev = 0;
 	if (styler.Match(keyword_start,"case")
@@ -521,23 +522,23 @@ static int ClassifyErlangFoldPoint(
 }
 
 static void FoldErlangDoc(
-	unsigned int startPos, int length, int initStyle,
+	Sci_PositionU startPos, Sci_Position length, int initStyle,
 	WordList** /*keywordlists*/, Accessor &styler
 ) {
-	unsigned int endPos = startPos + length;
-	int currentLine = styler.GetLine(startPos);
+	Sci_PositionU endPos = startPos + length;
+	Sci_Position currentLine = styler.GetLine(startPos);
 	int lev;
 	int previousLevel = styler.LevelAt(currentLine) & SC_FOLDLEVELNUMBERMASK;
 	int currentLevel = previousLevel;
 	int styleNext = styler.StyleAt(startPos);
 	int style = initStyle;
 	int stylePrev;
-	int keyword_start = 0;
+	Sci_Position keyword_start = 0;
 	char ch;
 	char chNext = styler.SafeGetCharAt(startPos);
 	bool atEOL;
 
-	for (unsigned int i = startPos; i < endPos; i++) {
+	for (Sci_PositionU i = startPos; i < endPos; i++) {
 		ch = chNext;
 		chNext = styler.SafeGetCharAt(i + 1);
 

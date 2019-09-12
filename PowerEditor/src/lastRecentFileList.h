@@ -43,9 +43,7 @@ class LastRecentFileList
 {
 public:
 	LastRecentFileList() {
-		_userMax = (NppParameters::getInstance())->getNbMaxRecentFile();
-		for (int i = 0; i < NB_MAX_LRF_FILE; i++)
-			_idFreeArray[i] = false;
+		_userMax = (NppParameters::getInstance()).getNbMaxRecentFile();
 	};
 
 	void initMenu(HMENU hMenu, int idBase, int posBase, Accelerator *accelerator, bool doSubMenu = false);
@@ -107,12 +105,11 @@ private:
 	HMENU _hMenu = nullptr;
 	int _posBase = -1;
 	int _idBase = -1;
-	bool _idFreeArray[NB_MAX_LRF_FILE];
+	bool _idFreeArray[NB_MAX_LRF_FILE] = {false};
 	bool _hasSeparators = false;
 	bool _locked = false;
 
 	int find(const TCHAR *fn);
-
 	int popFirstAvailableID();
 	void setAvailable(int id);
 };

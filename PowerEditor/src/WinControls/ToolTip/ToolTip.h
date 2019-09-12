@@ -35,7 +35,7 @@
 class ToolTip : public Window
 {
 public :
-	ToolTip() {};
+	ToolTip() = default;
     
 	void destroy(){
 		::DestroyWindow(_hSelf);

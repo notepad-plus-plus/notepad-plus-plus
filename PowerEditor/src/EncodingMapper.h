@@ -26,26 +26,33 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef ENCODINGMAPPER_H
-#define ENCODINGMAPPER_H
+#pragma once
 
 struct EncodingUnit {
    int _codePage;
-   char *_aliasList;
+   const char *_aliasList;
 };
 
 class EncodingMapper {
 public:
-    static EncodingMapper * getInstance() {return _pSelf;};
+	static EncodingMapper& getInstance() {
+		static  EncodingMapper  instance;
+		return instance;
+	}
     int getEncodingFromIndex(int index) const;
 	int getIndexFromEncoding(int encoding) const;
 	int getEncodingFromString(const char * encodingAlias) const;
 
 private:
-	EncodingMapper(){};
-	~EncodingMapper(){};
-    static EncodingMapper *_pSelf;
-    EncodingUnit *_encodings;
+	EncodingMapper() = default;
+	~EncodingMapper() = default;
+
+	// No copy ctor and assignment
+	EncodingMapper(const EncodingMapper&) = delete;
+	EncodingMapper& operator=(const EncodingMapper&) = delete;
+
+	// No move ctor and assignment
+	EncodingMapper(EncodingMapper&&) = delete;
+	EncodingMapper& operator=(EncodingMapper&&) = delete;
 };
 
-#endif // ENCODINGMAPPER_H

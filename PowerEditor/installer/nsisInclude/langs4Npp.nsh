@@ -26,7 +26,7 @@
 ; Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-SectionGroup "$(SecLocalization)" localization ;Localization
+SectionGroup "Localization" localization
 	SetOverwrite on
 	${MementoUnselectedSection} "Afrikaans" afrikaans
 		CopyFiles "$PLUGINSDIR\nppLocalization\afrikaans.xml" "$INSTDIR\localization\afrikaans.xml"

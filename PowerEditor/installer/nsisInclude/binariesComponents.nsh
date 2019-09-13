@@ -26,7 +26,7 @@
 ; Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-SectionGroup "$(SecPlugins)" Plugins ;Plugins
+SectionGroup "Plugins" Plugins
 	SetOverwrite on
 	
 !ifndef ARCH64
@@ -45,7 +45,7 @@ SectionGroup "$(SecPlugins)" Plugins ;Plugins
 
 !endif
 
-	${MementoSection} "$(SecMimeTools)" MimeTools ;Mime Tools
+	${MementoSection} "Mime Tools" MimeTools
 		Delete "$INSTDIR\plugins\mimeTools.dll"
 		Delete "$INSTDIR\plugins\mimeTools\mimeTools.dll"
 		Delete "$PLUGIN_INST_PATH\mimeTools\mimeTools.dll"
@@ -58,7 +58,7 @@ SectionGroup "$(SecPlugins)" Plugins ;Plugins
 !endif
 	${MementoSectionEnd}
 	
-	${MementoSection} "$(SecConverter)" Converter ;Converter
+	${MementoSection} "Converter" Converter
 		Delete "$INSTDIR\plugins\NppConverter.dll"
 		Delete "$INSTDIR\plugins\NppConverter\NppConverter.dll"
 		Delete "$PLUGIN_INST_PATH\NppConverter\NppConverter.dll"
@@ -73,7 +73,7 @@ SectionGroup "$(SecPlugins)" Plugins ;Plugins
 
 SectionGroupEnd
 
-${MementoSection} "$(SecAutoUpdater)" AutoUpdater ;Auto-Updater
+${MementoSection} "Auto-Updater" AutoUpdater
 	SetOverwrite on
 	SetOutPath "$INSTDIR\updater"
 !ifdef ARCH64
@@ -91,7 +91,7 @@ ${MementoSection} "$(SecAutoUpdater)" AutoUpdater ;Auto-Updater
 !endif
 ${MementoSectionEnd}
 
-${MementoSection} "$(SecPluginsAdmin)" PluginsAdmin ;Plugins Admin
+${MementoSection} "Plugins Admin" PluginsAdmin
 	SetOverwrite on
 	SetOutPath $ALLUSERS_PLUGIN_CONF_PATH
 !ifdef ARCH64

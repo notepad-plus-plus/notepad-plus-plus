@@ -1,0 +1,946 @@
+<?xml version="1.0" encoding="Windows-1252" ?>
+	<!--
+	@author Gregori Gerebtzoff
+	@version 1.2
+	-->
+<NotepadPlus>
+	<AutoComplete>
+		<Environment ignoreCase="no" startFunc="(" stopFunc=")" paramSeparator="," additionalWordChar = "." />
+		<KeyWord name="ArithmeticError" func="yes">
+			<Overload retVal="" descr="Base class for arithmetic errors.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AssertionError" func="yes">
+			<Overload retVal="" descr="Assertion failed.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AttributeError" func="yes">
+			<Overload retVal="" descr="Attribute not found.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="BaseException" func="yes">
+			<Overload retVal="" descr="Common base class for all exceptions">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="BufferError" func="yes">
+			<Overload retVal="" descr="Buffer error.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="BytesWarning" func="yes">
+			<Overload retVal="" descr="Base class for warnings about bytes and buffer related problems, mostly&#x0a;related to conversion from str or comparing to str.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="DeprecationWarning" func="yes">
+			<Overload retVal="" descr="Base class for warnings about deprecated features.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="EOFError" func="yes">
+			<Overload retVal="" descr="Read beyond end of file.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="EnvironmentError" func="yes">
+			<Overload retVal="" descr="Base class for I/O related errors.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Exception" func="yes">
+			<Overload retVal="" descr="Common base class for all non-exit exceptions.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="False" />
+		<KeyWord name="FloatingPointError" func="yes">
+			<Overload retVal="" descr="Floating point operation failed.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="FutureWarning" func="yes">
+			<Overload retVal="" descr="Base class for warnings about constructs that will change semantically&#x0a;in the future.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GeneratorExit" func="yes">
+			<Overload retVal="" descr="Request that a generator exit.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="IOError" func="yes">
+			<Overload retVal="" descr="I/O operation failed.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ImportError" func="yes">
+			<Overload retVal="" descr="Import can't find module, or can't find name in module.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ImportWarning" func="yes">
+			<Overload retVal="" descr="Base class for warnings about probable mistakes in module imports">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="IndentationError" func="yes">
+			<Overload retVal="" descr="Improper indentation.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="IndexError" func="yes">
+			<Overload retVal="" descr="Sequence index out of range.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="KeyError" func="yes">
+			<Overload retVal="" descr="Mapping key not found.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="KeyboardInterrupt" func="yes">
+			<Overload retVal="" descr="Program interrupted by user.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="LookupError" func="yes">
+			<Overload retVal="" descr="Base class for lookup errors.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="MemoryError" func="yes">
+			<Overload retVal="" descr="Out of memory.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="NameError" func="yes">
+			<Overload retVal="" descr="Name not found globally.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="None" />
+		<KeyWord name="NotImplementedError" func="yes">
+			<Overload retVal="" descr="Method or function hasn't been implemented yet.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="OSError" func="yes">
+			<Overload retVal="" descr="OS system call failed.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="OverflowError" func="yes">
+			<Overload retVal="" descr="Result too large to be represented.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="PendingDeprecationWarning" func="yes">
+			<Overload retVal="" descr="Base class for warnings about features which will be deprecated&#x0a;in the future.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ReferenceError" func="yes">
+			<Overload retVal="" descr="Weak ref proxy used after referent went away.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="RuntimeError" func="yes">
+			<Overload retVal="" descr="Unspecified run-time error.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="RuntimeWarning" func="yes">
+			<Overload retVal="" descr="Base class for warnings about dubious runtime behavior.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="StandardError" func="yes">
+			<Overload retVal="" descr="Base class for all standard Python exceptions that do not represent&#x0a;interpreter exiting.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="StopIteration" func="yes">
+			<Overload retVal="" descr="Signal the end from iterator.next().">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SyntaxError" func="yes">
+			<Overload retVal="" descr="Invalid syntax.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SyntaxWarning" func="yes">
+			<Overload retVal="" descr="Base class for warnings about dubious syntax.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SystemError" func="yes">
+			<Overload retVal="" descr="Internal error in the Python interpreter.&#x0a;&#x0a;Please report this to the Python maintainer, along with the traceback,&#x0a;the Python version, and the hardware/OS platform and version.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SystemExit" func="yes">
+			<Overload retVal="" descr="Request to exit from the interpreter.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="TabError" func="yes">
+			<Overload retVal="" descr="Improper mixture of spaces and tabs.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="True" />
+		<KeyWord name="TypeError" func="yes">
+			<Overload retVal="" descr="Inappropriate argument type.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="UnboundLocalError" func="yes">
+			<Overload retVal="" descr="Local name referenced but not bound to a value.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="UnicodeDecodeError" func="yes">
+			<Overload retVal="" descr="Unicode decoding error.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="UnicodeEncodeError" func="yes">
+			<Overload retVal="" descr="Unicode encoding error.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="UnicodeError" func="yes">
+			<Overload retVal="" descr="Unicode related error.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="UnicodeTranslateError" func="yes">
+			<Overload retVal="" descr="Unicode translation error.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="UnicodeWarning" func="yes">
+			<Overload retVal="" descr="Base class for warnings about Unicode related problems, mostly&#x0a;related to conversion problems.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="UserWarning" func="yes">
+			<Overload retVal="" descr="Base class for warnings generated by user code.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ValueError" func="yes">
+			<Overload retVal="" descr="Inappropriate argument value (of correct type).">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Warning" func="yes">
+			<Overload retVal="" descr="Base class for warning categories.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ZeroDivisionError" func="yes">
+			<Overload retVal="" descr="Second argument to a division or modulo operation was zero.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="abs" func="yes">
+			<Overload retVal="" descr="abs(number) -&gt; number&#x0a;&#x0a;Return the absolute value of the argument.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="add" func="yes">
+			<Overload retVal="" descr="Add an element to a set.&#x0a;&#x0a;This has no effect if the element is already present.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="all" func="yes">
+			<Overload retVal="" descr="all(iterable) -&gt; bool&#x0a;&#x0a;Return True if bool(x) is True for all values x in the iterable.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="and" />
+		<KeyWord name="any" func="yes">
+			<Overload retVal="" descr="any(iterable) -&gt; bool&#x0a;&#x0a;Return True if bool(x) is True for any x in the iterable.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="append" func="yes">
+			<Overload retVal="" descr="B.append(int) -&gt; None&#x0a;&#x0a;Append a single item to the end of B.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="apply" func="yes">
+			<Overload retVal="" descr="apply(object[, args[, kwargs]]) -&gt; value&#x0a;&#x0a;Call a callable object with positional arguments taken from the tuple args,&#x0a;and keyword arguments taken from the optional dictionary kwargs.&#x0a;Note that classes are callable, as are instances with a __call__() method.&#x0a;&#x0a;Deprecated since release 2.3. Instead, use the extended call syntax:&#x0a;    function(*args, **keywords).">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="as" />
+		<KeyWord name="as_integer_ratio" func="yes">
+			<Overload retVal="" descr="float.as_integer_ratio() -&gt; (int, int)&#x0a;&#x0a;Returns a pair of integers, whose ratio is exactly equal to the original&#x0a;float and with a positive denominator.&#x0a;Raises OverflowError on infinities and a ValueError on NaNs.&#x0a;&#x0a;&gt;&gt;&gt; (10.0).as_integer_ratio()&#x0a;(10, 1)&#x0a;&gt;&gt;&gt; (0.0).as_integer_ratio()&#x0a;(0, 1)&#x0a;&gt;&gt;&gt; (-.25).as_integer_ratio()&#x0a;(-1, 4)">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="assert" />
+		<KeyWord name="basestring" func="yes">
+			<Overload retVal="" descr="Type basestring cannot be instantiated; it is the base for str and unicode.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="bin" func="yes">
+			<Overload retVal="" descr="bin(number) -&gt; string&#x0a;&#x0a;Return the binary representation of an integer or long integer.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="bit_length" func="yes">
+			<Overload retVal="" descr="long.bit_length() -&gt; int or long&#x0a;&#x0a;Number of bits necessary to represent self in binary.&#x0a;&gt;&gt;&gt; bin(37L)&#x0a;'0b100101'&#x0a;&gt;&gt;&gt; (37L).bit_length()&#x0a;6">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="bool" func="yes">
+			<Overload retVal="" descr="bool(x) -&gt; bool&#x0a;&#x0a;Returns True when the argument x is true, False otherwise.&#x0a;The builtins True and False are the only two instances of the class bool.&#x0a;The class bool is a subclass of the class int, and cannot be subclassed.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="break" />
+		<KeyWord name="buffer" func="yes">
+			<Overload retVal="" descr="buffer(object [, offset[, size]])&#x0a;&#x0a;Create a new buffer object which references the given object.&#x0a;The buffer will reference a slice of the target object from the&#x0a;start of the object (or at the specified offset). The slice will&#x0a;extend to the end of the target object (or with the specified size).">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="bytearray" func="yes">
+			<Overload retVal="" descr="bytearray(iterable_of_ints) -&gt; bytearray.&#x0a;bytearray(string, encoding[, errors]) -&gt; bytearray.&#x0a;bytearray(bytes_or_bytearray) -&gt; mutable copy of bytes_or_bytearray.&#x0a;bytearray(memory_view) -&gt; bytearray.&#x0a;&#x0a;Construct an mutable bytearray object from:&#x0a;  - an iterable yielding integers in range(256)&#x0a;  - a text string encoded using the specified encoding&#x0a;  - a bytes or a bytearray object&#x0a;  - any object implementing the buffer API.&#x0a;&#x0a;bytearray(int) -&gt; bytearray.&#x0a;&#x0a;Construct a zero-initialized bytearray of the given length.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="bytes" func="yes">
+			<Overload retVal="" descr="str(object) -&gt; string&#x0a;&#x0a;Return a nice string representation of the object.&#x0a;If the argument is a string, the return value is the same object.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="callable" func="yes">
+			<Overload retVal="" descr="callable(object) -&gt; bool&#x0a;&#x0a;Return whether the object is callable (i.e., some kind of function).&#x0a;Note that classes are callable, as are instances with a __call__() method.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="capitalize" func="yes">
+			<Overload retVal="" descr="S.capitalize() -&gt; string&#x0a;&#x0a;Return a copy of the string S with only its first character&#x0a;capitalized.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="center" func="yes">
+			<Overload retVal="" descr="B.center(width[, fillchar]) -&gt; copy of B&#x0a;&#x0a;Return B centered in a string of length width.  Padding is&#x0a;done using the specified fill character (default is a space).">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="chr" func="yes">
+			<Overload retVal="" descr="chr(i) -&gt; character&#x0a;&#x0a;Return a string of one character with ordinal i; 0 &lt;= i &lt; 256.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="class" />
+		<KeyWord name="classmethod" func="yes">
+			<Overload retVal="" descr="classmethod(function) -&gt; method&#x0a;&#x0a;Convert a function to be a class method.&#x0a;&#x0a;A class method receives the class as implicit first argument,&#x0a;just like an instance method receives the instance.&#x0a;To declare a class method, use this idiom:&#x0a;&#x0a;  class C:&#x0a;      def f(cls, arg1, arg2, ...): ...&#x0a;      f = classmethod(f)&#x0a;&#x0a;It can be called either on the class (e.g. C.f()) or on an instance&#x0a;(e.g. C().f()).  The instance is ignored except for its class.&#x0a;If a class method is called for a derived class, the derived class&#x0a;object is passed as the implied first argument.&#x0a;&#x0a;Class methods are different than C++ or Java static methods.&#x0a;If you want those, see the staticmethod builtin.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="clear" func="yes">
+			<Overload retVal="" descr="Remove all elements from this set.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="close" func="yes">
+			<Overload retVal="" descr="close() -&gt; None or (perhaps) an integer.  Close the file.&#x0a;&#x0a;Sets data attribute .closed to True.  A closed file cannot be used for&#x0a;further I/O operations.  close() may be called more than once without&#x0a;error.  Some kinds of file objects (for example, opened by popen())&#x0a;may return an exit status upon closing.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="cmp" func="yes">
+			<Overload retVal="" descr="cmp(x, y) -&gt; integer&#x0a;&#x0a;Return negative if x&lt;y, zero if x==y, positive if x&gt;y.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="coerce" func="yes">
+			<Overload retVal="" descr="coerce(x, y) -&gt; (x1, y1)&#x0a;&#x0a;Return a tuple consisting of the two numeric arguments converted to&#x0a;a common type, using the same rules as used by arithmetic operations.&#x0a;If coercion is not possible, raise TypeError.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="compile" func="yes">
+			<Overload retVal="" descr="compile(source, filename, mode[, flags[, dont_inherit]]) -&gt; code object&#x0a;&#x0a;Compile the source string (a Python module, statement or expression)&#x0a;into a code object that can be executed by the exec statement or eval().&#x0a;The filename will be used for run-time error messages.&#x0a;The mode must be 'exec' to compile a module, 'single' to compile a&#x0a;single (interactive) statement, or 'eval' to compile an expression.&#x0a;The flags argument, if present, controls which future statements influence&#x0a;the compilation of the code.&#x0a;The dont_inherit argument, if non-zero, stops the compilation inheriting&#x0a;the effects of any future statements in effect in the code calling&#x0a;compile; if absent or zero these statements do influence the compilation,&#x0a;in addition to any features explicitly specified.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="complex" func="yes">
+			<Overload retVal="" descr="complex(real[, imag]) -&gt; complex number&#x0a;&#x0a;Create a complex number from a real part and an optional imaginary part.&#x0a;This is equivalent to (real + imag*1j) where imag defaults to 0.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="conjugate" func="yes">
+			<Overload retVal="" descr="Returns self, the complex conjugate of any int.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="continue" />
+		<KeyWord name="copy" func="yes">
+			<Overload retVal="" descr="D.copy() -&gt; a shallow copy of D">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="count" func="yes">
+			<Overload retVal="" descr="L.count(value) -&gt; integer -- return number of occurrences of value">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="decode" func="yes">
+			<Overload retVal="" descr="S.decode([encoding[,errors]]) -&gt; object&#x0a;&#x0a;Decodes S using the codec registered for encoding. encoding defaults&#x0a;to the default encoding. errors may be given to set a different error&#x0a;handling scheme. Default is 'strict' meaning that encoding errors raise&#x0a;a UnicodeDecodeError. Other possible values are 'ignore' and 'replace'&#x0a;as well as any other name registered with codecs.register_error that is&#x0a;able to handle UnicodeDecodeErrors.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="def" />
+		<KeyWord name="del" />
+		<KeyWord name="delattr" func="yes">
+			<Overload retVal="" descr="delattr(object, name)&#x0a;&#x0a;Delete a named attribute on an object; delattr(x, 'y') is equivalent to&#x0a;``del x.y''.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="deleter" func="yes">
+			<Overload retVal="" descr="Descriptor to change the deleter on a property.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="dict" func="yes">
+			<Overload retVal="" descr="dict() -&gt; new empty dictionary&#x0a;dict(mapping) -&gt; new dictionary initialized from a mapping object's&#x0a;    (key, value) pairs&#x0a;dict(iterable) -&gt; new dictionary initialized as if via:&#x0a;    d = {}&#x0a;    for k, v in iterable:&#x0a;        d[k] = v&#x0a;dict(**kwargs) -&gt; new dictionary initialized with the name=value pairs&#x0a;    in the keyword argument list.  For example:  dict(one=1, two=2)">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="difference" func="yes">
+			<Overload retVal="" descr="Return the difference of two or more sets as a new set.&#x0a;&#x0a;(i.e. all elements that are in this set but not the others.)">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="difference_update" func="yes">
+			<Overload retVal="" descr="Remove all elements of another set from this set.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="dir" func="yes">
+			<Overload retVal="" descr="dir([object]) -&gt; list of strings&#x0a;&#x0a;If called without an argument, return the names in the current scope.&#x0a;Else, return an alphabetized list of names comprising (some of) the attributes&#x0a;of the given object, and of attributes reachable from it.&#x0a;If the object supplies a method named __dir__, it will be used; otherwise&#x0a;the default dir() logic is used and returns:&#x0a;  for a module object: the module's attributes.&#x0a;  for a class object:  its attributes, and recursively the attributes&#x0a;    of its bases.&#x0a;  for any other object: its attributes, its class's attributes, and&#x0a;    recursively the attributes of its class's base classes.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="discard" func="yes">
+			<Overload retVal="" descr="Remove an element from a set if it is a member.&#x0a;&#x0a;If the element is not a member, do nothing.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="divmod" func="yes">
+			<Overload retVal="" descr="divmod(x, y) -&gt; (div, mod)&#x0a;&#x0a;Return the tuple ((x-x%y)/y, x%y).  Invariant: div*y + mod == x.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="elif" />
+		<KeyWord name="else" />
+		<KeyWord name="encode" func="yes">
+			<Overload retVal="" descr="S.encode([encoding[,errors]]) -&gt; string or unicode&#x0a;&#x0a;Encodes S using the codec registered for encoding. encoding defaults&#x0a;to the default encoding. errors may be given to set a different error&#x0a;handling scheme. Default is 'strict' meaning that encoding errors raise&#x0a;a UnicodeEncodeError. Other possible values are 'ignore', 'replace' and&#x0a;'xmlcharrefreplace' as well as any other name registered with&#x0a;codecs.register_error that can handle UnicodeEncodeErrors.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="endswith" func="yes">
+			<Overload retVal="" descr="B.endswith(suffix [,start [,end]]) -&gt; bool&#x0a;&#x0a;Return True if B ends with the specified suffix, False otherwise.&#x0a;With optional start, test B beginning at that position.&#x0a;With optional end, stop comparing B at that position.&#x0a;suffix can also be a tuple of strings to try.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="enumerate" func="yes">
+			<Overload retVal="" descr="enumerate(iterable[, start]) -&gt; iterator for index, value of iterable&#x0a;&#x0a;Return an enumerate object.  iterable must be another object that supports&#x0a;iteration.  The enumerate object yields pairs containing a count (from&#x0a;start, which defaults to zero) and a value yielded by the iterable argument.&#x0a;enumerate is useful for obtaining an indexed list:&#x0a;    (0, seq[0]), (1, seq[1]), (2, seq[2]), ...">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="eval" func="yes">
+			<Overload retVal="" descr="eval(source[, globals[, locals]]) -&gt; value&#x0a;&#x0a;Evaluate the source in the context of globals and locals.&#x0a;The source may be a string representing a Python expression&#x0a;or a code object as returned by compile().&#x0a;The globals must be a dictionary and locals can be any mapping,&#x0a;defaulting to the current globals and locals.&#x0a;If only globals is given, locals defaults to it.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="except" />
+		<KeyWord name="exec" />
+		<KeyWord name="execfile" func="yes">
+			<Overload retVal="" descr="execfile(filename[, globals[, locals]])&#x0a;&#x0a;Read and execute a Python script from a file.&#x0a;The globals and locals are dictionaries, defaulting to the current&#x0a;globals and locals.  If only globals is given, locals defaults to it.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="expandtabs" func="yes">
+			<Overload retVal="" descr="B.expandtabs([tabsize]) -&gt; copy of B&#x0a;&#x0a;Return a copy of B where all tab characters are expanded using spaces.&#x0a;If tabsize is not given, a tab size of 8 characters is assumed.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="extend" func="yes">
+			<Overload retVal="" descr="B.extend(iterable int) -&gt; None&#x0a;&#x0a;Append all the elements from the iterator or sequence to the&#x0a;end of B.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="file" func="yes">
+			<Overload retVal="" descr="file(name[, mode[, buffering]]) -&gt; file object&#x0a;&#x0a;Open a file.  The mode can be 'r', 'w' or 'a' for reading (default),&#x0a;writing or appending.  The file will be created if it doesn't exist&#x0a;when opened for writing or appending; it will be truncated when&#x0a;opened for writing.  Add a 'b' to the mode for binary files.&#x0a;Add a '+' to the mode to allow simultaneous reading and writing.&#x0a;If the buffering argument is given, 0 means unbuffered, 1 means line&#x0a;buffered, and larger numbers specify the buffer size.  The preferred way&#x0a;to open a file is with the builtin open() function.&#x0a;Add a 'U' to mode to open the file for input with universal newline&#x0a;support.  Any line ending in the input file will be seen as a '\n'&#x0a;in Python.  Also, a file so opened gains the attribute 'newlines';&#x0a;the value for this attribute is one of None (no newline read yet),&#x0a;'\r', '\n', '\r\n' or a tuple containing all the newline types seen.&#x0a;&#x0a;'U' cannot be combined with 'w' or '+' mode.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="fileno" func="yes">
+			<Overload retVal="" descr='fileno() -&gt; integer "file descriptor".&#x0a;&#x0a;This is needed for lower-level file interfaces, such os.read().'>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="filter" func="yes">
+			<Overload retVal="" descr="filter(function or None, sequence) -&gt; list, tuple, or string&#x0a;&#x0a;Return those items of sequence for which function(item) is true.  If&#x0a;function is None, return the items that are true.  If sequence is a tuple&#x0a;or string, return the same type, else return a list.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="finally" />
+		<KeyWord name="find" func="yes">
+			<Overload retVal="" descr="S.find(sub [,start [,end]]) -&gt; int&#x0a;&#x0a;Return the lowest index in S where substring sub is found,&#x0a;such that sub is contained within s[start:end].  Optional&#x0a;arguments start and end are interpreted as in slice notation.&#x0a;&#x0a;Return -1 on failure.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="float" func="yes">
+			<Overload retVal="" descr="float(x) -&gt; floating point number&#x0a;&#x0a;Convert a string or number to a floating point number, if possible.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="flush" func="yes">
+			<Overload retVal="" descr="flush() -&gt; None.  Flush the internal I/O buffer.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="for" />
+		<KeyWord name="format" func="yes">
+			<Overload retVal="" descr="S.format(*args, **kwargs) -&gt; unicode">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="from" />
+		<KeyWord name="fromhex" func="yes">
+			<Overload retVal="" descr="float.fromhex(string) -&gt; float&#x0a;&#x0a;Create a floating-point number from a hexadecimal string.&#x0a;&gt;&gt;&gt; float.fromhex('0x1.ffffp10')&#x0a;2047.984375&#x0a;&gt;&gt;&gt; float.fromhex('-0x1p-1074')&#x0a;-4.9406564584124654e-324">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="fromkeys" func="yes">
+			<Overload retVal="" descr="dict.fromkeys(S[,v]) -&gt; New dict with keys from S and values equal to v.&#x0a;v defaults to None.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="frozenset" func="yes">
+			<Overload retVal="" descr="frozenset() -&gt; empty frozenset object&#x0a;frozenset(iterable) -&gt; frozenset object&#x0a;&#x0a;Build an immutable unordered collection of unique elements.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="get" func="yes">
+			<Overload retVal="" descr="D.get(k[,d]) -&gt; D[k] if k in D, else d.  d defaults to None.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="getattr" func="yes">
+			<Overload retVal="" descr="getattr(object, name[, default]) -&gt; value&#x0a;&#x0a;Get a named attribute from an object; getattr(x, 'y') is equivalent to x.y.&#x0a;When a default argument is given, it is returned when the attribute doesn't&#x0a;exist; without it, an exception is raised in that case.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="getter" func="yes">
+			<Overload retVal="" descr="Descriptor to change the getter on a property.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="global" />
+		<KeyWord name="globals" func="yes">
+			<Overload retVal="" descr="globals() -&gt; dictionary&#x0a;&#x0a;Return the dictionary containing the current scope's global variables.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="has_key" func="yes">
+			<Overload retVal="" descr="D.has_key(k) -&gt; True if D has a key k, else False">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="hasattr" func="yes">
+			<Overload retVal="" descr="hasattr(object, name) -&gt; bool&#x0a;&#x0a;Return whether the object has an attribute with the given name.&#x0a;(This is done by calling getattr(object, name) and catching exceptions.)">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="hash" func="yes">
+			<Overload retVal="" descr="hash(object) -&gt; integer&#x0a;&#x0a;Return a hash value for the object.  Two objects with the same value have&#x0a;the same hash value.  The reverse is not necessarily true, but likely.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="hex" func="yes">
+			<Overload retVal="" descr="float.hex() -&gt; string&#x0a;&#x0a;Return a hexadecimal representation of a floating-point number.&#x0a;&gt;&gt;&gt; (-0.1).hex()&#x0a;'-0x1.999999999999ap-4'&#x0a;&gt;&gt;&gt; 3.14159.hex()&#x0a;'0x1.921f9f01b866ep+1'">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="id" func="yes">
+			<Overload retVal="" descr="id(object) -&gt; integer&#x0a;&#x0a;Return the identity of an object.  This is guaranteed to be unique among&#x0a;simultaneously existing objects.  (Hint: it's the object's memory address.)">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="if" />
+		<KeyWord name="import" />
+		<KeyWord name="in" />
+		<KeyWord name="index" func="yes">
+			<Overload retVal="" descr="S.index(sub [,start [,end]]) -&gt; int&#x0a;&#x0a;Like S.find() but raise ValueError when the substring is not found.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="indices" func="yes">
+			<Overload retVal="" descr="S.indices(len) -&gt; (start, stop, stride)&#x0a;&#x0a;Assuming a sequence of length len, calculate the start and stop&#x0a;indices, and the stride length of the extended slice described by&#x0a;S. Out of bounds indices are clipped in a manner consistent with the&#x0a;handling of normal slices.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="input" func="yes">
+			<Overload retVal="" descr="input([prompt]) -&gt; value&#x0a;&#x0a;Equivalent to eval(raw_input(prompt)).">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="insert" func="yes">
+			<Overload retVal="" descr="B.insert(index, int) -&gt; None&#x0a;&#x0a;Insert a single item into the bytearray before the given index.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="int" func="yes">
+			<Overload retVal="" descr="int(x[, base]) -&gt; integer&#x0a;&#x0a;Convert a string or number to an integer, if possible.  A floating point&#x0a;argument will be truncated towards zero (this does not include a string&#x0a;representation of a floating point number!)  When converting a string, use&#x0a;the optional base.  It is an error to supply a base when converting a&#x0a;non-string.  If base is zero, the proper base is guessed based on the&#x0a;string content.  If the argument is outside the integer range a&#x0a;long object will be returned instead.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="intern" func="yes">
+			<Overload retVal="" descr="intern(string) -&gt; string&#x0a;&#x0a;``Intern'' the given string.  This enters the string in the (global)&#x0a;table of interned strings whose purpose is to speed up dictionary lookups.&#x0a;Return the string itself or the previously interned string object with the&#x0a;same value.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="intersection" func="yes">
+			<Overload retVal="" descr="Return the intersection of two or more sets as a new set.&#x0a;&#x0a;(i.e. elements that are common to all of the sets.)">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="intersection_update" func="yes">
+			<Overload retVal="" descr="Update a set with the intersection of itself and another.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="is" />
+		<KeyWord name="is_integer" func="yes">
+			<Overload retVal="" descr="Returns True if the float is an integer.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="isalnum" func="yes">
+			<Overload retVal="" descr="S.isalnum() -&gt; bool&#x0a;&#x0a;Return True if all characters in S are alphanumeric&#x0a;and there is at least one character in S, False otherwise.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="isalpha" func="yes">
+			<Overload retVal="" descr="S.isalpha() -&gt; bool&#x0a;&#x0a;Return True if all characters in S are alphabetic&#x0a;and there is at least one character in S, False otherwise.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="isatty" func="yes">
+			<Overload retVal="" descr="isatty() -&gt; true or false.  True if the file is connected to a tty device.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="isdecimal" func="yes">
+			<Overload retVal="" descr="S.isdecimal() -&gt; bool&#x0a;&#x0a;Return True if there are only decimal characters in S,&#x0a;False otherwise.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="isdigit" func="yes">
+			<Overload retVal="" descr="S.isdigit() -&gt; bool&#x0a;&#x0a;Return True if all characters in S are digits&#x0a;and there is at least one character in S, False otherwise.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="isdisjoint" func="yes">
+			<Overload retVal="" descr="Return True if two sets have a null intersection.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="isinstance" func="yes">
+			<Overload retVal="" descr="isinstance(object, class-or-type-or-tuple) -&gt; bool&#x0a;&#x0a;Return whether an object is an instance of a class or of a subclass thereof.&#x0a;With a type as second argument, return whether that is the object's type.&#x0a;The form using a tuple, isinstance(x, (A, B, ...)), is a shortcut for&#x0a;isinstance(x, A) or isinstance(x, B) or ... (etc.).">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="islower" func="yes">
+			<Overload retVal="" descr="S.islower() -&gt; bool&#x0a;&#x0a;Return True if all cased characters in S are lowercase and there is&#x0a;at least one cased character in S, False otherwise.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="isnumeric" func="yes">
+			<Overload retVal="" descr="S.isnumeric() -&gt; bool&#x0a;&#x0a;Return True if there are only numeric characters in S,&#x0a;False otherwise.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="isspace" func="yes">
+			<Overload retVal="" descr="S.isspace() -&gt; bool&#x0a;&#x0a;Return True if all characters in S are whitespace&#x0a;and there is at least one character in S, False otherwise.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="issubclass" func="yes">
+			<Overload retVal="" descr="issubclass(C, B) -&gt; bool&#x0a;&#x0a;Return whether class C is a subclass (i.e., a derived class) of class B.&#x0a;When using a tuple as the second argument issubclass(X, (A, B, ...)),&#x0a;is a shortcut for issubclass(X, A) or issubclass(X, B) or ... (etc.).">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="issubset" func="yes">
+			<Overload retVal="" descr="Report whether another set contains this set.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="issuperset" func="yes">
+			<Overload retVal="" descr="Report whether this set contains another set.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="istitle" func="yes">
+			<Overload retVal="" descr="S.istitle() -&gt; bool&#x0a;&#x0a;Return True if S is a titlecased string and there is at least one&#x0a;character in S, i.e. uppercase characters may only follow uncased&#x0a;characters and lowercase characters only cased ones. Return False&#x0a;otherwise.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="isupper" func="yes">
+			<Overload retVal="" descr="S.isupper() -&gt; bool&#x0a;&#x0a;Return True if all cased characters in S are uppercase and there is&#x0a;at least one cased character in S, False otherwise.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="items" func="yes">
+			<Overload retVal="" descr="D.items() -&gt; list of D's (key, value) pairs, as 2-tuples">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="iter" func="yes">
+			<Overload retVal="" descr="iter(collection) -&gt; iterator&#x0a;iter(callable, sentinel) -&gt; iterator&#x0a;&#x0a;Get an iterator from an object.  In the first form, the argument must&#x0a;supply its own iterator, or be a sequence.&#x0a;In the second form, the callable is called until it returns the sentinel.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="iteritems" func="yes">
+			<Overload retVal="" descr="D.iteritems() -&gt; an iterator over the (key, value) items of D">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="iterkeys" func="yes">
+			<Overload retVal="" descr="D.iterkeys() -&gt; an iterator over the keys of D">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="itervalues" func="yes">
+			<Overload retVal="" descr="D.itervalues() -&gt; an iterator over the values of D">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="join" func="yes">
+			<Overload retVal="" descr="S.join(iterable) -&gt; unicode&#x0a;&#x0a;Return a string which is the concatenation of the strings in the&#x0a;iterable.  The separator between elements is S.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="keys" func="yes">
+			<Overload retVal="" descr="D.keys() -&gt; list of D's keys">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="lambda" />
+		<KeyWord name="len" func="yes">
+			<Overload retVal="" descr="len(object) -&gt; integer&#x0a;&#x0a;Return the number of items of a sequence or mapping.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="list" func="yes">
+			<Overload retVal="" descr="list() -&gt; new empty list&#x0a;list(iterable) -&gt; new list initialized from iterable's items">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ljust" func="yes">
+			<Overload retVal="" descr="S.ljust(width[, fillchar]) -&gt; string&#x0a;&#x0a;Return S left-justified in a string of length width. Padding is&#x0a;done using the specified fill character (default is a space).">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="locals" func="yes">
+			<Overload retVal="" descr="locals() -&gt; dictionary&#x0a;&#x0a;Update and return a dictionary containing the current scope's local variables.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="long" func="yes">
+			<Overload retVal="" descr="long(x[, base]) -&gt; integer&#x0a;&#x0a;Convert a string or number to a long integer, if possible.  A floating&#x0a;point argument will be truncated towards zero (this does not include a&#x0a;string representation of a floating point number!)  When converting a&#x0a;string, use the optional base.  It is an error to supply a base when&#x0a;converting a non-string.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="lower" func="yes">
+			<Overload retVal="" descr="S.lower() -&gt; string&#x0a;&#x0a;Return a copy of the string S converted to lowercase.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="lstrip" func="yes">
+			<Overload retVal="" descr="S.lstrip([chars]) -&gt; string or unicode&#x0a;&#x0a;Return a copy of the string S with leading whitespace removed.&#x0a;If chars is given and not None, remove characters in chars instead.&#x0a;If chars is unicode, S will be converted to unicode before stripping">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="map" func="yes">
+			<Overload retVal="" descr="map(function, sequence[, sequence, ...]) -&gt; list&#x0a;&#x0a;Return a list of the results of applying the function to the items of&#x0a;the argument sequence(s).  If more than one sequence is given, the&#x0a;function is called with an argument list consisting of the corresponding&#x0a;item of each sequence, substituting None for missing values when not all&#x0a;sequences have the same length.  If the function is None, return a list of&#x0a;the items of the sequence (or a list of tuples if more than one sequence).">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="max" func="yes">
+			<Overload retVal="" descr="max(iterable[, key=func]) -&gt; value&#x0a;max(a, b, c, ...[, key=func]) -&gt; value&#x0a;&#x0a;With a single iterable argument, return its largest item.&#x0a;With two or more arguments, return the largest argument.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="memoryview" func="yes">
+			<Overload retVal="" descr="memoryview(object)&#x0a;&#x0a;Create a new memoryview object which references the given object.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="min" func="yes">
+			<Overload retVal="" descr="min(iterable[, key=func]) -&gt; value&#x0a;min(a, b, c, ...[, key=func]) -&gt; value&#x0a;&#x0a;With a single iterable argument, return its smallest item.&#x0a;With two or more arguments, return the smallest argument.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="mro" func="yes">
+			<Overload retVal="" descr="mro() -&gt; list&#x0a;return a type's method resolution order">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="next" func="yes">
+			<Overload retVal="" descr="x.next() -&gt; the next value, or raise StopIteration">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="not" />
+		<KeyWord name="object" func="yes">
+			<Overload retVal="" descr="The most base type">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="oct" func="yes">
+			<Overload retVal="" descr="oct(number) -&gt; string&#x0a;&#x0a;Return the octal representation of an integer or long integer.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="open" func="yes">
+			<Overload retVal="" descr="open(name[, mode[, buffering]]) -&gt; file object&#x0a;&#x0a;Open a file using the file() type, returns a file object.  This is the&#x0a;preferred way to open a file.  See file.__doc__ for further information.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="or" />
+		<KeyWord name="ord" func="yes">
+			<Overload retVal="" descr="ord(c) -&gt; integer&#x0a;&#x0a;Return the integer ordinal of a one-character string.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="partition" func="yes">
+			<Overload retVal="" descr="S.partition(sep) -&gt; (head, sep, tail)&#x0a;&#x0a;Search for the separator sep in S, and return the part before it,&#x0a;the separator itself, and the part after it.  If the separator is not&#x0a;found, return S and two empty strings.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="pass" />
+		<KeyWord name="pop" func="yes">
+			<Overload retVal="" descr="L.pop([index]) -&gt; item -- remove and return item at index (default last).&#x0a;Raises IndexError if list is empty or index is out of range.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="popitem" func="yes">
+			<Overload retVal="" descr="D.popitem() -&gt; (k, v), remove and return some (key, value) pair as a&#x0a;2-tuple; but raise KeyError if D is empty.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="pow" func="yes">
+			<Overload retVal="" descr="pow(x, y[, z]) -&gt; number&#x0a;&#x0a;With two arguments, equivalent to x**y.  With three arguments,&#x0a;equivalent to (x**y) % z, but may be more efficient (e.g. for longs).">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="print" />
+		<KeyWord name="property" func="yes">
+			<Overload retVal="" descr="property(fget=None, fset=None, fdel=None, doc=None) -&gt; property attribute&#x0a;&#x0a;fget is a function to be used for getting an attribute value, and likewise&#x0a;fset is a function for setting, and fdel a function for del'ing, an&#x0a;attribute.  Typical use is to define a managed attribute x:&#x0a;class C(object):&#x0a;    def getx(self): return self._x&#x0a;    def setx(self, value): self._x = value&#x0a;    def delx(self): del self._x&#x0a;    x = property(getx, setx, delx, &quot;I'm the 'x' property.&quot;)&#x0a;&#x0a;Decorators make defining new properties or modifying existing ones easy:&#x0a;class C(object):&#x0a;    @property&#x0a;    def x(self): return self._x&#x0a;    @x.setter&#x0a;    def x(self, value): self._x = value&#x0a;    @x.deleter&#x0a;    def x(self): del self._x">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="raise" />
+		<KeyWord name="range" func="yes">
+			<Overload retVal="" descr="range([start,] stop[, step]) -&gt; list of integers&#x0a;&#x0a;Return a list containing an arithmetic progression of integers.&#x0a;range(i, j) returns [i, i+1, i+2, ..., j-1]; start (!) defaults to 0.&#x0a;When step is given, it specifies the increment (or decrement).&#x0a;For example, range(4) returns [0, 1, 2, 3].  The end point is omitted!&#x0a;These are exactly the valid indices for a list of 4 elements.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="raw_input" func="yes">
+			<Overload retVal="" descr="raw_input([prompt]) -&gt; string&#x0a;&#x0a;Read a string from standard input.  The trailing newline is stripped.&#x0a;If the user hits EOF (Unix: Ctl-D, Windows: Ctl-Z+Return), raise EOFError.&#x0a;On Unix, GNU readline is used if enabled.  The prompt string, if given,&#x0a;is printed without a trailing newline before reading.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="read" func="yes">
+			<Overload retVal="" descr="read([size]) -&gt; read at most size bytes, returned as a string.&#x0a;&#x0a;If the size argument is negative or omitted, read until EOF is reached.&#x0a;Notice that when in non-blocking mode, less data than what was requested&#x0a;may be returned, even if no size parameter was given.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="readinto" func="yes">
+			<Overload retVal="" descr="readinto() -&gt; Undocumented.  Don't use this; it may go away.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="readline" func="yes">
+			<Overload retVal="" descr="readline([size]) -&gt; next line from the file, as a string.&#x0a;&#x0a;Retain newline.  A non-negative size argument limits the maximum&#x0a;number of bytes to return (an incomplete line may be returned then).&#x0a;Return an empty string at EOF.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="readlines" func="yes">
+			<Overload retVal="" descr="readlines([size]) -&gt; list of strings, each a line from the file.&#x0a;&#x0a;Call readline() repeatedly and return a list of the lines so read.&#x0a;The optional size argument, if given, is an approximate bound on the&#x0a;total number of bytes in the lines returned.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="reduce" func="yes">
+			<Overload retVal="" descr="reduce(function, sequence[, initial]) -&gt; value&#x0a;&#x0a;Apply a function of two arguments cumulatively to the items of a sequence,&#x0a;from left to right, so as to reduce the sequence to a single value.&#x0a;For example, reduce(lambda x, y: x+y, [1, 2, 3, 4, 5]) calculates&#x0a;((((1+2)+3)+4)+5).  If initial is present, it is placed before the items&#x0a;of the sequence in the calculation, and serves as a default when the&#x0a;sequence is empty.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="reload" func="yes">
+			<Overload retVal="" descr="reload(module) -&gt; module&#x0a;&#x0a;Reload the module.  The module must have been successfully imported before.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="remove" func="yes">
+			<Overload retVal="" descr="Remove an element from a set; it must be a member.&#x0a;&#x0a;If the element is not a member, raise a KeyError.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="replace" func="yes">
+			<Overload retVal="" descr="B.replace(old, new[, count]) -&gt; bytes&#x0a;&#x0a;Return a copy of B with all occurrences of subsection&#x0a;old replaced by new.  If the optional argument count is&#x0a;given, only the first count occurrences are replaced.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="repr" func="yes">
+			<Overload retVal="" descr="repr(object) -&gt; string&#x0a;&#x0a;Return the canonical string representation of the object.&#x0a;For most object types, eval(repr(object)) == object.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="return" />
+		<KeyWord name="reverse" func="yes">
+			<Overload retVal="" descr="L.reverse() -- reverse *IN PLACE*">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="reversed" func="yes">
+			<Overload retVal="" descr="reversed(sequence) -&gt; reverse iterator over values of the sequence&#x0a;&#x0a;Return a reverse iterator">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="rfind" func="yes">
+			<Overload retVal="" descr="B.rfind(sub [,start [,end]]) -&gt; int&#x0a;&#x0a;Return the highest index in B where subsection sub is found,&#x0a;such that sub is contained within s[start,end].  Optional&#x0a;arguments start and end are interpreted as in slice notation.&#x0a;&#x0a;Return -1 on failure.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="rindex" func="yes">
+			<Overload retVal="" descr="S.rindex(sub [,start [,end]]) -&gt; int&#x0a;&#x0a;Like S.rfind() but raise ValueError when the substring is not found.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="rjust" func="yes">
+			<Overload retVal="" descr="B.rjust(width[, fillchar]) -&gt; copy of B&#x0a;&#x0a;Return B right justified in a string of length width. Padding is&#x0a;done using the specified fill character (default is a space)">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="round" func="yes">
+			<Overload retVal="" descr="round(number[, ndigits]) -&gt; floating point number&#x0a;&#x0a;Round a number to a given precision in decimal digits (default 0 digits).&#x0a;This always returns a floating point number.  Precision may be negative.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="rpartition" func="yes">
+			<Overload retVal="" descr="B.rpartition(sep) -&gt; (head, sep, tail)&#x0a;&#x0a;Searches for the separator sep in B, starting at the end of B,&#x0a;and returns the part before it, the separator itself, and the&#x0a;part after it.  If the separator is not found, returns two empty&#x0a;bytearray objects and B.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="rsplit" func="yes">
+			<Overload retVal="" descr="S.rsplit([sep [,maxsplit]]) -&gt; list of strings&#x0a;&#x0a;Return a list of the words in the string S, using sep as the&#x0a;delimiter string, starting at the end of the string and working&#x0a;to the front.  If maxsplit is given, at most maxsplit splits are&#x0a;done. If sep is not specified or is None, any whitespace string&#x0a;is a separator.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="rstrip" func="yes">
+			<Overload retVal="" descr="S.rstrip([chars]) -&gt; string or unicode&#x0a;&#x0a;Return a copy of the string S with trailing whitespace removed.&#x0a;If chars is given and not None, remove characters in chars instead.&#x0a;If chars is unicode, S will be converted to unicode before stripping">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="seek" func="yes">
+			<Overload retVal="" descr="seek(offset[, whence]) -&gt; None.  Move to new file position.&#x0a;&#x0a;Argument offset is a byte count.  Optional argument whence defaults to&#x0a;0 (offset from start of file, offset should be &gt;= 0); other values are 1&#x0a;(move relative to current position, positive or negative), and 2 (move&#x0a;relative to end of file, usually negative, although many platforms allow&#x0a;seeking beyond the end of a file).  If the file is opened in text mode,&#x0a;only offsets returned by tell() are legal.  Use of other offsets causes&#x0a;undefined behavior.&#x0a;Note that not all file objects are seekable.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="set" func="yes">
+			<Overload retVal="" descr="set() -&gt; new empty set object&#x0a;set(iterable) -&gt; new set object&#x0a;&#x0a;Build an unordered collection of unique elements.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="setattr" func="yes">
+			<Overload retVal="" descr="setattr(object, name, value)&#x0a;&#x0a;Set a named attribute on an object; setattr(x, 'y', v) is equivalent to&#x0a;``x.y = v''.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="setdefault" func="yes">
+			<Overload retVal="" descr="D.setdefault(k[,d]) -&gt; D.get(k,d), also set D[k]=d if k not in D">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="setter" func="yes">
+			<Overload retVal="" descr="Descriptor to change the setter on a property.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="slice" func="yes">
+			<Overload retVal="" descr="slice([start,] stop[, step])&#x0a;&#x0a;Create a slice object.  This is used for extended slicing (e.g. a[0:10:2]).">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="sort" func="yes">
+			<Overload retVal="" descr="L.sort(cmp=None, key=None, reverse=False) -- stable sort *IN PLACE*;&#x0a;cmp(x, y) -&gt; -1, 0, 1">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="sorted" func="yes">
+			<Overload retVal="" descr="sorted(iterable, cmp=None, key=None, reverse=False) --&gt; new sorted list">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="split" func="yes">
+			<Overload retVal="" descr="B.split([sep[, maxsplit]]) -&gt; list of bytearray&#x0a;&#x0a;Return a list of the sections in B, using sep as the delimiter.&#x0a;If sep is not given, B is split on ASCII whitespace characters&#x0a;(space, tab, return, newline, formfeed, vertical tab).&#x0a;If maxsplit is given, at most maxsplit splits are done.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="splitlines" func="yes">
+			<Overload retVal="" descr="S.splitlines([keepends]) -&gt; list of strings&#x0a;&#x0a;Return a list of the lines in S, breaking at line boundaries.&#x0a;Line breaks are not included in the resulting list unless keepends&#x0a;is given and true.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="startswith" func="yes">
+			<Overload retVal="" descr="S.startswith(prefix[, start[, end]]) -&gt; bool&#x0a;&#x0a;Return True if S starts with the specified prefix, False otherwise.&#x0a;With optional start, test S beginning at that position.&#x0a;With optional end, stop comparing S at that position.&#x0a;prefix can also be a tuple of strings to try.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="staticmethod" func="yes">
+			<Overload retVal="" descr="staticmethod(function) -&gt; method&#x0a;&#x0a;Convert a function to be a static method.&#x0a;&#x0a;A static method does not receive an implicit first argument.&#x0a;To declare a static method, use this idiom:&#x0a;&#x0a;     class C:&#x0a;     def f(arg1, arg2, ...): ...&#x0a;     f = staticmethod(f)&#x0a;&#x0a;It can be called either on the class (e.g. C.f()) or on an instance&#x0a;(e.g. C().f()).  The instance is ignored except for its class.&#x0a;&#x0a;Static methods in Python are similar to those found in Java or C++.&#x0a;For a more advanced concept, see the classmethod builtin.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="str" func="yes">
+			<Overload retVal="" descr="str(object) -&gt; string&#x0a;&#x0a;Return a nice string representation of the object.&#x0a;If the argument is a string, the return value is the same object.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="strip" func="yes">
+			<Overload retVal="" descr="S.strip([chars]) -&gt; string or unicode&#x0a;&#x0a;Return a copy of the string S with leading and trailing&#x0a;whitespace removed.&#x0a;If chars is given and not None, remove characters in chars instead.&#x0a;If chars is unicode, S will be converted to unicode before stripping">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="sum" func="yes">
+			<Overload retVal="" descr="sum(sequence[, start]) -&gt; value&#x0a;&#x0a;Returns the sum of a sequence of numbers (NOT strings) plus the value&#x0a;of parameter 'start' (which defaults to 0).  When the sequence is&#x0a;empty, returns start.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="super" func="yes">
+			<Overload retVal="" descr="super(type) -&gt; unbound super object&#x0a;super(type, obj) -&gt; bound super object; requires isinstance(obj, type)&#x0a;super(type, type2) -&gt; bound super object; requires issubclass(type2, type)&#x0a;Typical use to call a cooperative superclass method:&#x0a;class C(B):&#x0a;    def meth(self, arg):&#x0a;        super(C, self).meth(arg)">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="swapcase" func="yes">
+			<Overload retVal="" descr="S.swapcase() -&gt; string&#x0a;&#x0a;Return a copy of the string S with uppercase characters&#x0a;converted to lowercase and vice versa.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="symmetric_difference" func="yes">
+			<Overload retVal="" descr="Return the symmetric difference of two sets as a new set.&#x0a;&#x0a;(i.e. all elements that are in exactly one of the sets.)">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="symmetric_difference_update" func="yes">
+			<Overload retVal="" descr="Update a set with the symmetric difference of itself and another.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="tell" func="yes">
+			<Overload retVal="" descr="tell() -&gt; current file position, an integer (may be a long integer).">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="title" func="yes">
+			<Overload retVal="" descr="S.title() -&gt; unicode&#x0a;&#x0a;Return a titlecased version of S, i.e. words start with title case&#x0a;characters, all remaining cased characters have lower case.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="tobytes" />
+		<KeyWord name="tolist" />
+		<KeyWord name="translate" func="yes">
+			<Overload retVal="" descr="B.translate(table[, deletechars]) -&gt; bytearray&#x0a;&#x0a;Return a copy of B, where all characters occurring in the&#x0a;optional argument deletechars are removed, and the remaining&#x0a;characters have been mapped through the given translation&#x0a;table, which must be a bytes object of length 256.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="truncate" func="yes">
+			<Overload retVal="" descr="truncate([size]) -&gt; None.  Truncate the file to at most size bytes.&#x0a;&#x0a;Size defaults to the current file position, as returned by tell().">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="try" />
+		<KeyWord name="tuple" func="yes">
+			<Overload retVal="" descr="tuple() -&gt; empty tuple&#x0a;tuple(iterable) -&gt; tuple initialized from iterable's items&#x0a;&#x0a;If the argument is a tuple, the return value is the same object.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="type" func="yes">
+			<Overload retVal="" descr="type(object) -&gt; the object's type&#x0a;type(name, bases, dict) -&gt; a new type">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="unichr" func="yes">
+			<Overload retVal="" descr="unichr(i) -&gt; Unicode character&#x0a;&#x0a;Return a Unicode string of one character with ordinal i; 0 &lt;= i &lt;= 0x10ffff.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="unicode" func="yes">
+			<Overload retVal="" descr="unicode(string [, encoding[, errors]]) -&gt; object&#x0a;&#x0a;Create a new Unicode object from the given encoded string.&#x0a;encoding defaults to the current default string encoding.&#x0a;errors can be 'strict', 'replace' or 'ignore' and defaults to 'strict'.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="union" func="yes">
+			<Overload retVal="" descr="Return the union of sets as a new set.&#x0a;&#x0a;(i.e. all elements that are in either set.)">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="update" func="yes">
+			<Overload retVal="" descr="D.update(E, **F) -&gt; None.  Update D from dict/iterable E and F.&#x0a;If E has a .keys() method, does:     for k in E: D[k] = E[k]&#x0a;If E lacks .keys() method, does:     for (k, v) in E: D[k] = v&#x0a;In either case, this is followed by: for k in F: D[k] = F[k]">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="upper" func="yes">
+			<Overload retVal="" descr="S.upper() -&gt; unicode&#x0a;&#x0a;Return a copy of S converted to uppercase.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="values" func="yes">
+			<Overload retVal="" descr="D.values() -&gt; list of D's values">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="vars" func="yes">
+			<Overload retVal="" descr="vars([object]) -&gt; dictionary&#x0a;&#x0a;Without arguments, equivalent to locals().&#x0a;With an argument, equivalent to object.__dict__.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="viewitems" func="yes">
+			<Overload retVal="" descr="D.viewitems() -&gt; a set-like object providing a view on D's items">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="viewkeys" func="yes">
+			<Overload retVal="" descr="D.viewkeys() -&gt; a set-like object providing a view on D's keys">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="viewvalues" func="yes">
+			<Overload retVal="" descr="D.viewvalues() -&gt; an object providing a view on D's values">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="while" />
+		<KeyWord name="with" />
+		<KeyWord name="write" func="yes">
+			<Overload retVal="" descr="write(str) -&gt; None.  Write string str to file.&#x0a;&#x0a;Note that due to buffering, flush() or close() may be needed before&#x0a;the file on disk reflects the data written.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="writelines" func="yes">
+			<Overload retVal="" descr="writelines(sequence_of_strings) -&gt; None.  Write the strings to the file.&#x0a;&#x0a;Note that newlines are not added.  The sequence can be any iterable object&#x0a;producing strings. This is equivalent to calling write() for each string.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="xrange" func="yes">
+			<Overload retVal="" descr="xrange([start,] stop[, step]) -&gt; xrange object&#x0a;&#x0a;Like range(), but instead of returning a list, returns an object that&#x0a;generates the numbers in the range on demand.  For looping, this is &#x0a;slightly faster than range() and more memory efficient.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="xreadlines" func="yes">
+			<Overload retVal="" descr="xreadlines() -&gt; returns self.&#x0a;&#x0a;For backward compatibility. File objects now include the performance&#x0a;optimizations previously implemented in the xreadlines module.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="yield" />
+		<KeyWord name="zfill" func="yes">
+			<Overload retVal="" descr="B.zfill(width) -&gt; copy of B&#x0a;&#x0a;Pad a numeric string B with zeros on the left, to fill a field&#x0a;of the specified width.  B is never truncated.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="zip" func="yes">
+			<Overload retVal="" descr="zip(seq1 [, seq2 [...]]) -&gt; [(seq1[0], seq2[0] ...), (...)]&#x0a;&#x0a;Return a list of tuples, where each tuple contains the i-th element&#x0a;from each of the argument sequences.  The returned list is truncated&#x0a;in length to the length of the shortest argument sequence.">
+			</Overload>
+		</KeyWord>
+	</AutoComplete>
+</NotepadPlus>

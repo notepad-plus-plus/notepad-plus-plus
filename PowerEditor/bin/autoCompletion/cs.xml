@@ -1,0 +1,1016 @@
+<?xml version="1.0" encoding="Windows-1252" ?>
+<NotepadPlus>
+	<AutoComplete language="C#">
+		<Environment ignoreCase="no" startFunc="(" stopFunc=")" paramSeparator="," terminal=";" additionalWordChar="."/>
+		<KeyWord name="abstract" />
+		<KeyWord name="as" />
+		<KeyWord name="async" />
+		<KeyWord name="Array.BinarySearch" func="yes">
+			<Overload retVal="int" >
+				<Param name="Array array" />
+				<Param name="object value" />
+			</Overload>
+			<Overload retVal="int" >
+				<Param name="Array array" />
+				<Param name="object value" />
+				<Param name="System.Collections.IComparer comparer" />
+			</Overload>
+			<Overload retVal="int" >
+				<Param name="Array array" />
+				<Param name="int index" />
+				<Param name="int length" />
+				<Param name="object value" />
+			</Overload>
+			<Overload retVal="int" >
+				<Param name="Array array" />
+				<Param name="int index" />
+				<Param name="int length" />
+				<Param name="object value" />
+				<Param name="System.Collections.IComparer comparer" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Array.Clear" func="yes">
+			<Overload retVal="void" >
+				<Param name="Array array" />
+				<Param name="int index" />
+				<Param name="int length" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Array.ConstrainedCopy" func="yes">
+			<Overload retVal="void" >
+				<Param name="Array sourceArray" />
+				<Param name="int sourceIndex" />
+				<Param name="Array destinationArray" />
+				<Param name="int destinationIndex" />
+				<Param name="int length" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Array.Copy" func="yes">
+			<Overload retVal="void" >
+				<Param name="Array sourceArray" />
+				<Param name="Array destinationArray" />
+				<Param name="int length" />
+			</Overload>
+			<Overload retVal="void" >
+				<Param name="Array sourceArray" />
+				<Param name="Array destinationArray" />
+				<Param name="long length" />
+			</Overload>
+			<Overload retVal="void" >
+				<Param name="Array sourceArray" />
+				<Param name="int sourceIndex" />
+				<Param name="Array destinationArray" />
+				<Param name="int destinationIndex" />
+				<Param name="int length" />
+			</Overload>
+			<Overload retVal="void" >
+				<Param name="Array sourceArray" />
+				<Param name="long sourceIndex" />
+				<Param name="Array destinationArray" />
+				<Param name="long destinationIndex" />
+				<Param name="long length" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Array.CreateInstance" func="yes">
+			<Overload retVal="Array" >
+				<Param name="Type elementType" />
+				<Param name="int length" />
+			</Overload>
+			<Overload retVal="Array" >
+				<Param name="Type elementType" />
+				<Param name="params int[] length" />
+			</Overload>
+			<Overload retVal="Array" >
+				<Param name="Type elementType" />
+				<Param name="params long[] length" />
+			</Overload>
+			<Overload retVal="Array" >
+				<Param name="Type elementType" />
+				<Param name="int lenght1" />
+				<Param name="int lenght2" />
+			</Overload>
+			<Overload retVal="Array" >
+				<Param name="Type elementType" />
+				<Param name="int[] lenght1" />
+				<Param name="int[] lenght2" />
+			</Overload>
+			<Overload retVal="Array" >
+				<Param name="Type elementType" />
+				<Param name="int lenght1" />
+				<Param name="int lenght2" />
+				<Param name="int lenght3" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Array.Equals" func="yes">
+			<Overload retVal="bool" >
+				<Param name="object obj1" />
+				<Param name="object obj2" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Array.IndexOf" func="yes">
+			<Overload retVal="int" >
+				<Param name="Array array" />
+				<Param name="object value" />
+			</Overload>
+			<Overload retVal="int" >
+				<Param name="Array array" />
+				<Param name="object value" />
+				<Param name="int startIndex" />
+			</Overload>
+			<Overload retVal="int" >
+				<Param name="Array array" />
+				<Param name="object value" />
+				<Param name="int startIndex" />
+				<Param name="int count" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Array.LastIndexOf" func="yes">
+			<Overload retVal="int" >
+				<Param name="Array array" />
+				<Param name="object value" />
+			</Overload>
+			<Overload retVal="int" >
+				<Param name="Array array" />
+				<Param name="object value" />
+				<Param name="int startIndex" />
+			</Overload>
+			<Overload retVal="int" >
+				<Param name="Array array" />
+				<Param name="object value" />
+				<Param name="int startIndex" />
+				<Param name="int count" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Array.ReferenceEquals" func="yes">
+			<Overload retVal="bool" >
+				<Param name="object objA" />
+				<Param name="object objB" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Array.Reverse" func="yes">
+			<Overload retVal="void" >
+				<Param name="Array array" />
+			</Overload>
+			<Overload retVal="void" >
+				<Param name="Array array" />
+				<Param name="int index" />
+				<Param name="int length" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Array.Sort" func="yes">
+			<Overload retVal="void" >
+				<Param name="Array array" />
+			</Overload>
+			<Overload retVal="void" >
+				<Param name="Array items" />
+				<Param name="Array keys" />
+			</Overload>
+			<Overload retVal="void" >
+				<Param name="Array items" />
+				<Param name="System.Collections.IComparer comparer" />
+			</Overload>
+			<Overload retVal="void" >
+				<Param name="Array array" />
+				<Param name="int index" />
+				<Param name="int length" />
+			</Overload>
+			<Overload retVal="void" >
+				<Param name="Array array" />
+				<Param name="int index" />
+				<Param name="int length" />
+				<Param name="System.Collections.IComparer comparer" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="await" />
+		<KeyWord name="base" />
+		<KeyWord name="bool" />
+		<KeyWord name="break" />
+		<KeyWord name="byte" />
+		<KeyWord name="case" />
+		<KeyWord name="catch" />
+		<KeyWord name="char" />
+		<KeyWord name="checked" />
+		<KeyWord name="class" />
+		<KeyWord name="Comparer" />
+		<KeyWord name="Console" />
+		<KeyWord name="Console.Write" func="yes">
+			<Overload retVal="void" >
+				<Param name="char[] buffer" />
+				<Param name="int index" />
+				<Param name="int count" />
+			</Overload>
+			<Overload retVal="void">
+				<Param name="string format"/>
+				<Param name="params object[] arg" />
+			</Overload>
+			<Overload retVal="void">
+				<Param name="string format" />
+				<Param name="object arg0" />
+			</Overload>
+			<Overload retVal="void">
+				<Param name="string format" />
+				<Param name="object arg0" />
+				<Param name="object arg1" />
+			</Overload>
+			<Overload retVal="void">
+				<Param name="string format" />
+				<Param name="object arg0" />
+				<Param name="object arg1" />
+				<Param name="object arg2" />
+			</Overload>
+			<Overload retVal="void">
+				<Param name="bool value" />
+			</Overload>
+			<Overload retVal="void">
+				<Param name="char value" />
+			</Overload>
+			<Overload retVal="void">
+				<Param name="char[] buffer" />
+			</Overload>
+			<Overload retVal="void">
+				<Param name="decimal value" />
+			</Overload>
+			<Overload retVal="void">
+				<Param name="double value" />
+			</Overload>
+			<Overload retVal="void">
+				<Param name="float value" />
+			</Overload>
+			<Overload retVal="void">
+				<Param name="int value" />
+			</Overload>
+			<Overload retVal="void">
+				<Param name="long value" />
+			</Overload>
+			<Overload retVal="void">
+				<Param name="object value" />
+			</Overload>
+			<Overload retVal="void">
+				<Param name="string value" />
+			</Overload>
+			<Overload retVal="void">
+				<Param name="ulong value" />
+			</Overload>
+			<Overload retVal="void">
+				<Param name="uint value" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Console.WriteLine" func="yes">
+			<Overload retVal="void" >
+				<Param name="..." />
+			</Overload>
+			<Overload retVal="void" >
+				<Param name="char[] buffer" />
+				<Param name="int index" />
+				<Param name="int count" />
+			</Overload>
+			<Overload retVal="void">
+				<Param name="string format"/>
+				<Param name="params object[] arg" />
+			</Overload>
+			<Overload retVal="void">
+				<Param name="string format" />
+				<Param name="object arg0" />
+			</Overload>
+			<Overload retVal="void">
+				<Param name="string format" />
+				<Param name="object arg0" />
+				<Param name="object arg1" />
+			</Overload>
+			<Overload retVal="void">
+				<Param name="string format" />
+				<Param name="object arg0" />
+				<Param name="object arg1" />
+				<Param name="object arg2" />
+			</Overload>
+			<Overload retVal="void">
+				<Param name="bool value" />
+			</Overload>
+			<Overload retVal="void">
+				<Param name="char value" />
+			</Overload>
+			<Overload retVal="void">
+				<Param name="char[] buffer" />
+			</Overload>
+			<Overload retVal="void">
+				<Param name="decimal value" />
+			</Overload>
+			<Overload retVal="void">
+				<Param name="double value" />
+			</Overload>
+			<Overload retVal="void">
+				<Param name="float value" />
+			</Overload>
+			<Overload retVal="void">
+				<Param name="int value" />
+			</Overload>
+			<Overload retVal="void">
+				<Param name="long value" />
+			</Overload>
+			<Overload retVal="void">
+				<Param name="object value" />
+			</Overload>
+			<Overload retVal="void">
+				<Param name="string value" />
+			</Overload>
+			<Overload retVal="void">
+				<Param name="ulong value" />
+			</Overload>
+			<Overload retVal="void">
+				<Param name="uint value" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Console.ResetColor" func="yes">
+			<Overload retVal="void" >
+				<Param name="..."/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Console.Read" func="yes">
+			<Overload retVal="int" >
+				<Param name="..."/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Console.ReadLine" func="yes">
+			<Overload retVal="string" >
+				<Param name="..."/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Console.ReadKey" func="yes">
+			<Overload retVal="ConsoleKeyInfo" >
+				<Param name="..."/>
+			</Overload>
+			<Overload retVal="ConsoleKeyInfo" >
+				<Param name="bool intercept" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Console.Beep" func="yes">
+			<Overload retVal="void" >
+				<Param name="..."/>
+			</Overload>
+			<Overload retVal="void" >
+				<Param name="int frequency" />
+				<Param name="int duration" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Console.SetIn" func="yes">
+			<Overload retVal="void" >
+				<Param name="TextWriter newOut" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Console.SetOut" func="yes">
+			<Overload retVal="void" >
+				<Param name="TextWriter newOut" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Console.SetError" func="yes">
+			<Overload retVal="void" >
+				<Param name="TextWriter newError" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Console.SetWindowPosition" func="yes">
+			<Overload retVal="void" >
+				<Param name="int left" />
+				<Param name="int top" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Console.SetCursorPosition" func="yes">
+			<Overload retVal="void" >
+				<Param name="int left" />
+				<Param name="int top" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Console.SetBufferSize" func="yes">
+			<Overload retVal="void" >
+				<Param name="int width" />
+				<Param name="int height" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Console.SetWindowSize" func="yes">
+			<Overload retVal="void" >
+				<Param name="int width" />
+				<Param name="int height" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Console.OpenStandardOutput" func="yes">
+			<Overload retVal="Stream" >
+				<Param name="..." />
+			</Overload>
+			<Overload retVal="Stream" >
+				<Param name="int bufferSize" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Console.OpenStandardError" func="yes">
+			<Overload retVal="Stream" >
+				<Param name="..." />
+			</Overload>
+			<Overload retVal="Stream" >
+				<Param name="int bufferSize" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Console.OpenStandardInput" func="yes">
+			<Overload retVal="Stream" >
+				<Param name="..." />
+			</Overload>
+			<Overload retVal="Stream" >
+				<Param name="int bufferSize" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="const" />
+		<KeyWord name="continue" />
+		<KeyWord name="DateTime" />
+		<KeyWord name="decimal" />
+		<KeyWord name="default" />
+		<KeyWord name="Delegate" />
+		<KeyWord name="delegate" />
+		<KeyWord name="Dictionary" />
+		<KeyWord name="Dictionary.Enumerator" />
+		<KeyWord name="Dictionary.KeyCollection" />
+		<KeyWord name="Dictionary.KeyCollection.Enumerator" />
+		<KeyWord name="Dictionary.ValueCollection" />
+		<KeyWord name="Dictionary.ValueCollection.Enumerator" />
+		<KeyWord name="do" />
+		<KeyWord name="double" />
+		<KeyWord name="else" />
+		<KeyWord name="enum" />
+		<KeyWord name="EqualityComparer" />
+		<KeyWord name="event" />
+		<KeyWord name="Exception" />
+		<KeyWord name="explicit" />
+		<KeyWord name="extern" />
+		<KeyWord name="false" />
+		<KeyWord name="FileStream" />
+		<KeyWord name="File.AppendAllLines" func="yes">
+			<Overload retVal="void" >
+				<Param name="string path" />
+				<Param name="System.Collections.Generic.IEnumerable&lt;string&gt; contents" />
+			</Overload>
+			<Overload retVal="void" >
+				<Param name="string path" />
+				<Param name="System.Collections.Generic.IEnumerable&lt;string&gt; contents" />
+				<Param name="System.Text.Encoding encoding" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="File.AppendAllText" func="yes">
+			<Overload retVal="void" >
+				<Param name="string path" />
+				<Param name="string contents" />
+			</Overload>
+			<Overload retVal="void" >
+				<Param name="string path" />
+				<Param name="string contents" />
+				<Param name="System.Text.Encoding encoding" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="File.AppendText" func="yes">
+			<Overload retVal="StreamWriter" >
+				<Param name="string path" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="File.Copy" func="yes">
+			<Overload retVal="void" >
+				<Param name="string sourceFileName" />
+				<Param name="string destFileName" />
+			</Overload>
+			<Overload retVal="void" >
+				<Param name="string sourceFileName" />
+				<Param name="string destFileName" />
+				<Param name="bool overwrite" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="File.Create" func="yes">
+			<Overload retVal="FileStream" >
+				<Param name="string path" />
+			</Overload>
+			<Overload retVal="FileStream" >
+				<Param name="string path" />
+				<Param name="int bufferSize" />
+			</Overload>
+			<Overload retVal="FileStream" >
+				<Param name="string path" />
+				<Param name="int bufferSize" />
+				<Param name="FileOptions options" />
+			</Overload>
+			<Overload retVal="FileStream" >
+				<Param name="string path" />
+				<Param name="int bufferSize" />
+				<Param name="FileOptions options" />
+				<Param name="System.Security.AccessControl.FileSecurity FileSecurity" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="File.CreateText" func="yes">
+			<Overload retVal="StreamWriter" >
+				<Param name="string path" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="File.Decrypt" func="yes">
+			<Overload retVal="void" >
+				<Param name="string path" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="File.Delete" func="yes">
+			<Overload retVal="void" >
+				<Param name="string path" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="File.Encrypt" func="yes">
+			<Overload retVal="void" >
+				<Param name="string path" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="File.Exists" func="yes">
+			<Overload retVal="bool" >
+				<Param name="string path" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="File.GetAccessControl" func="yes">
+			<Overload retVal="System.Security.AccessControl.FileSecurity" >
+				<Param name="string path" />
+			</Overload>
+			<Overload retVal="System.Security.AccessControl.FileSecurity" >
+				<Param name="string path" />
+				<Param name="System.Security.AccessControl.AccessControlSections includeSections" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="File.GetAttributes" func="yes">
+			<Overload retVal="FileAttributes" >
+				<Param name="string path" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="File.GetCreationTime" func="yes">
+			<Overload retVal="DateTime" >
+				<Param name="string path" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="File.GetCreationTimeUtc" func="yes">
+			<Overload retVal="DateTime" >
+				<Param name="string path" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="File.GetLastAccessTime" func="yes">
+			<Overload retVal="DateTime" >
+				<Param name="string path" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="File.GetLastAccessTimeUtc" func="yes">
+			<Overload retVal="DateTime" >
+				<Param name="string path" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="File.GetLastWriteTime" func="yes">
+			<Overload retVal="DateTime" >
+				<Param name="string path" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="File.GetLastWriteTimeUtc" func="yes">
+			<Overload retVal="DateTime" >
+				<Param name="string path" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="File.Move" func="yes">
+			<Overload retVal="void" >
+				<Param name="string sourceFileName" />
+				<Param name="string destFileName" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="File.Open" func="yes">
+			<Overload retVal="FileStream" >
+				<Param name="string path" />
+				<Param name="FileMode mode" />
+			</Overload>
+			<Overload retVal="FileStream" >
+				<Param name="string path" />
+				<Param name="FileMode mode" />
+				<Param name="FileAccess access" />
+			</Overload>
+			<Overload retVal="FileStream" >
+				<Param name="string path" />
+				<Param name="FileMode mode" />
+				<Param name="FileAccess access" />
+				<Param name="FileShare share" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="File.OpenRead" func="yes">
+			<Overload retVal="FileStream" >
+				<Param name="string path" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="File.OpenText" func="yes">
+			<Overload retVal="StreamReader" >
+				<Param name="string path" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="File.OpenWrite" func="yes">
+			<Overload retVal="FileStream" >
+				<Param name="string path" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="File.ReadAllBytes" func="yes">
+			<Overload retVal="byte[]" >
+				<Param name="string path" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="File.ReadAllLines" func="yes">
+			<Overload retVal="string[]" >
+				<Param name="string path" />
+			</Overload>
+			<Overload retVal="string[]" >
+				<Param name="string path" />
+				<Param name="System.Text.Encoding encoding" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="File.ReadAllText" func="yes">
+			<Overload retVal="string[]" >
+				<Param name="string path" />
+			</Overload>
+			<Overload retVal="string[]" >
+				<Param name="string path" />
+				<Param name="System.Text.Encoding encoding" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="File.ReadLines" func="yes">
+			<Overload retVal="System.Collections.Generic.IEnumerable&lt;string&gt;" >
+				<Param name="string path" />
+			</Overload>
+			<Overload retVal="System.Collections.Generic.IEnumerable&lt;string&gt;" >
+				<Param name="string path" />
+				<Param name="System.Text.Encoding encoding" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="File.Replace" func="yes">
+			<Overload retVal="void" >
+				<Param name="string sourceFileName" />
+				<Param name="string destFileName" />
+				<Param name="string destBackupFileName" />
+			</Overload>
+			<Overload retVal="void" >
+				<Param name="string sourceFileName" />
+				<Param name="string destFileName" />
+				<Param name="string destBackupFileName" />
+				<Param name="bool ignoreMetaDataErrors" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="File.SetAccessControl" func="yes">
+			<Overload retVal="void" >
+				<Param name="string path" />
+				<Param name="System.Security.AccessControl.FileSecurity fileSecurity" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="File.SetAttributes" func="yes">
+			<Overload retVal="void" >
+				<Param name="string path" />
+				<Param name="FileAttributes fileAttributes " />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="File.SetCreationTime" func="yes">
+			<Overload retVal="void" >
+				<Param name="string path" />
+				<Param name="DateTime creationTime " />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="File.SetCreationTimeUtc" func="yes">
+			<Overload retVal="void" >
+				<Param name="string path" />
+				<Param name="DateTime creationTime " />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="File.SetLastAccessTime" func="yes">
+			<Overload retVal="void" >
+				<Param name="string path" />
+				<Param name="DateTime creationTime " />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="File.SetLastAccessTimeUtc" func="yes">
+			<Overload retVal="void" >
+				<Param name="string path" />
+				<Param name="DateTime creationTime " />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="File.SetLastWriteTime" func="yes">
+			<Overload retVal="void" >
+				<Param name="string path" />
+				<Param name="DateTime creationTime " />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="File.SetLastWriteTimeUtc" func="yes">
+			<Overload retVal="void" >
+				<Param name="string path" />
+				<Param name="DateTime creationTime " />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="File.WriteAllBytes" func="yes">
+			<Overload retVal="void" >
+				<Param name="string path" />
+				<Param name="byte[] bytes " />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="File.WriteAllLines" func="yes">
+			<Overload retVal="void" >
+				<Param name="string path" />
+				<Param name="string[] content " />
+			</Overload>
+			<Overload retVal="void" >
+				<Param name="string path" />
+				<Param name="string[] content " />
+				<Param name="System.Collections.Generic.IEnumerable&lt;string&gt; content " />
+			</Overload>
+			<Overload retVal="void" >
+				<Param name="string path" />
+				<Param name="string[] content " />
+				<Param name="System.Text.Encoding encoding " />
+			</Overload>
+			<Overload retVal="void" >
+				<Param name="string path" />
+				<Param name="string[] content " />
+				<Param name="System.Text.Encoding encoding " />
+				<Param name="System.Collections.Generic.IEnumerable&lt;string&gt; content " />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="File.WriteAllText" func="yes">
+			<Overload retVal="void" >
+				<Param name="string path" />
+				<Param name="string content " />
+			</Overload>
+			<Overload retVal="void" >
+				<Param name="string path" />
+				<Param name="string content " />
+				<Param name="System.Text.Encoding encoding " />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="finally" />
+		<KeyWord name="fixed" />
+		<KeyWord name="float" />
+		<KeyWord name="for" />
+		<KeyWord name="foreach" />
+		<KeyWord name="get" />
+		<KeyWord name="goto" />
+		<KeyWord name="ICollection" />
+		<KeyWord name="IComparer" />
+		<KeyWord name="IDictionary" />
+		<KeyWord name="IEnumerable" />
+		<KeyWord name="IEnumerator" />
+		<KeyWord name="IEqualityComparer" />
+		<KeyWord name="if" />
+		<KeyWord name="IList" />
+		<KeyWord name="implicit" />
+		<KeyWord name="in" />
+		<KeyWord name="int" />
+		<KeyWord name="Int16" />
+		<KeyWord name="Int32" />
+		<KeyWord name="Int64" />
+		<KeyWord name="interface" />
+		<KeyWord name="internal" />
+		<KeyWord name="IntPtr" />
+		<KeyWord name="is" />
+		<KeyWord name="KeyNotFoundException" />
+		<KeyWord name="KeyValuePair" />
+		<KeyWord name="LinkedList" />
+		<KeyWord name="LinkedList.Enumerator" />
+		<KeyWord name="LinkedListNode" />
+		<KeyWord name="List" />
+		<KeyWord name="List.Enumerator" />
+		<KeyWord name="lock" />
+		<KeyWord name="long" />
+		<KeyWord name="Microsoft.CSharp" />
+		<KeyWord name="Microsoft.JScript" />
+		<KeyWord name="Microsoft.VisualBasic" />
+		<KeyWord name="Microsoft.Vsa" />
+		<KeyWord name="Microsoft.Win32" />
+		<KeyWord name="MessageBox.Show" func="yes" >
+			<Overload retVal="DialogResult" >
+				<Param name="string text" />
+			</Overload>
+			<Overload retVal="DialogResult" >
+				<Param name="string text" />
+				<Param name="string caption" />
+			</Overload>
+			<Overload retVal="DialogResult" >
+				<Param name="string text" />
+				<Param name="string caption" />
+				<Param name="MessageBoxButtons buttons" />
+			</Overload>
+			<Overload retVal="DialogResult" >
+				<Param name="string text" />
+				<Param name="string caption" />
+				<Param name="MessageBoxButtons buttons" />
+				<Param name="MessageBoxIcons icons" />
+			</Overload>
+			<Overload retVal="DialogResult" >
+				<Param name="string text" />
+				<Param name="string caption" />
+				<Param name="MessageBoxButtons buttons" />
+				<Param name="MessageBoxIcons icons" />
+			</Overload>
+			<Overload retVal="DialogResult" >
+				<Param name="string text" />
+				<Param name="string caption" />
+				<Param name="MessageBoxButtons buttons" />
+				<Param name="MessageBoxIcons icons" />
+				<Param name="MessageBoxDefaultButtons defaultButtons" />
+			</Overload>
+			<Overload retVal="DialogResult" >
+				<Param name="string text" />
+				<Param name="string caption" />
+				<Param name="MessageBoxButtons buttons" />
+				<Param name="MessageBoxIcons icons" />
+				<Param name="MessageBoxDefaultButtons defaultButtons" />
+				<Param name="MessageBoxOptions options" />
+			</Overload>
+			<Overload retVal="DialogResult" >
+				<Param name="string text" />
+				<Param name="string caption" />
+				<Param name="MessageBoxButtons buttons" />
+				<Param name="MessageBoxIcons icons" />
+				<Param name="MessageBoxDefaultButtons defaultButtons" />
+				<Param name="MessageBoxOptions options" />
+			</Overload>
+			<Overload retVal="DialogResult" >
+				<Param name="string text" />
+				<Param name="string caption" />
+				<Param name="MessageBoxButtons buttons" />
+				<Param name="MessageBoxIcons icons" />
+				<Param name="MessageBoxDefaultButtons defaultButtons" />
+				<Param name="MessageBoxOptions options" />
+				<Param name="string helpFilePath" />
+			</Overload>
+			<Overload retVal="DialogResult" >
+				<Param name="string text" />
+				<Param name="string caption" />
+				<Param name="MessageBoxButtons buttons" />
+				<Param name="MessageBoxIcons icons" />
+				<Param name="MessageBoxDefaultButtons defaultButtons" />
+				<Param name="MessageBoxOptions options" />
+				<Param name="string helpFilePath" />
+				<Param name="string keyword" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="namespace" />
+		<KeyWord name="new" />
+		<KeyWord name="null" />
+		<KeyWord name="object" />
+		<KeyWord name="operator" />
+		<KeyWord name="out" />
+		<KeyWord name="override" />
+		<KeyWord name="params" />
+		<KeyWord name="private" />
+		<KeyWord name="protected" />
+		<KeyWord name="public" />
+		<KeyWord name="Queue" />
+		<KeyWord name="Queue.Enumerator" />
+		<KeyWord name="readonly" />
+		<KeyWord name="ref" />
+		<KeyWord name="return" />
+		<KeyWord name="sbyte" />
+		<KeyWord name="sealed" />
+		<KeyWord name="set" />
+		<KeyWord name="short" />
+		<KeyWord name="sizeof" />
+		<KeyWord name="SortedDictionary" />
+		<KeyWord name="SortedDictionary.Enumerator" />
+		<KeyWord name="SortedDictionary.KeyCollection" />
+		<KeyWord name="SortedDictionary.KeyCollection.Enumerator" />
+		<KeyWord name="SortedDictionary.ValueCollection" />
+		<KeyWord name="SortedDictionary.ValueCollection.Enumerator" />
+		<KeyWord name="SortedList" />
+		<KeyWord name="Stack" />
+		<KeyWord name="Stack.Enumerator" />
+		<KeyWord name="stackalloc" />
+		<KeyWord name="static" />
+		<KeyWord name="STAThread" />
+		<KeyWord name="StreamWriter" />
+		<KeyWord name="string" />
+		<KeyWord name="StringBuilder" />
+		<KeyWord name="struct" />
+		<KeyWord name="switch" />
+		<KeyWord name="System" />
+		<KeyWord name="System.CodeDom" />
+		<KeyWord name="System.CodeDom.Compiler" />
+		<KeyWord name="System.Collections" />
+		<KeyWord name="System.Collections.Specialized" />
+		<KeyWord name="System.ComponentModel" />
+		<KeyWord name="System.ComponentModel.Design" />
+		<KeyWord name="System.ComponentModel.Design.Serialization" />
+		<KeyWord name="System.Configuration" />
+		<KeyWord name="System.Configuration.Assemblies" />
+		<KeyWord name="System.Configuration.Install" />
+		<KeyWord name="System.Data" />
+		<KeyWord name="System.Data.Common" />
+		<KeyWord name="System.Data.OleDb" />
+		<KeyWord name="System.Data.SqlClient" />
+		<KeyWord name="System.Data.SqlTypes" />
+		<KeyWord name="System.Diagnostics" />
+		<KeyWord name="System.Diagnostics.SymbolStore" />
+		<KeyWord name="System.DirectoryServices" />
+		<KeyWord name="System.Drawing" />
+		<KeyWord name="System.Drawing.Design" />
+		<KeyWord name="System.Drawing.Drawing2D" />
+		<KeyWord name="System.Drawing.Imaging" />
+		<KeyWord name="System.Drawing.Printing" />
+		<KeyWord name="System.Drawing.Text" />
+		<KeyWord name="System.EnterpriseServices" />
+		<KeyWord name="System.EnterpriseServices.CompensatingResourceManager" />
+		<KeyWord name="System.Globalization" />
+		<KeyWord name="System.IO" />
+		<KeyWord name="System.IO.IsolatedStorage" />
+		<KeyWord name="System.Management" />
+		<KeyWord name="System.Management.Instrumentation" />
+		<KeyWord name="System.Messaging" />
+		<KeyWord name="System.Net" />
+		<KeyWord name="System.Net.Sockets" />
+		<KeyWord name="System.Reflection" />
+		<KeyWord name="System.Reflection.Emit" />
+		<KeyWord name="System.Resources" />
+		<KeyWord name="System.Runtime.CompilerServices" />
+		<KeyWord name="System.Runtime.InteropServices" />
+		<KeyWord name="System.Runtime.InteropServices.Expando" />
+		<KeyWord name="System.Runtime.Remoting" />
+		<KeyWord name="System.Runtime.Remoting.Activation" />
+		<KeyWord name="System.Runtime.Remoting.Channels" />
+		<KeyWord name="System.Runtime.Remoting.Channels.Http" />
+		<KeyWord name="System.Runtime.Remoting.Channels.Tcp" />
+		<KeyWord name="System.Runtime.Remoting.Contexts" />
+		<KeyWord name="System.Runtime.Remoting.Lifetime" />
+		<KeyWord name="System.Runtime.Remoting.Messaging" />
+		<KeyWord name="System.Runtime.Remoting.Metadata" />
+		<KeyWord name="System.Runtime.Remoting.Metadata.W3cXsd2001" />
+		<KeyWord name="System.Runtime.Remoting.MetadataServices" />
+		<KeyWord name="System.Runtime.Remoting.Proxies" />
+		<KeyWord name="System.Runtime.Remoting.Services" />
+		<KeyWord name="System.Runtime.Serialization" />
+		<KeyWord name="System.Runtime.Serialization.Formatters" />
+		<KeyWord name="System.Runtime.Serialization.Formatters.Binary" />
+		<KeyWord name="System.Runtime.Serialization.Formatters.Soap" />
+		<KeyWord name="System.Security" />
+		<KeyWord name="System.Security.Cryptography" />
+		<KeyWord name="System.Security.Cryptography.X509Certificates" />
+		<KeyWord name="System.Security.Cryptography.Xml" />
+		<KeyWord name="System.Security.Permissions" />
+		<KeyWord name="System.Security.Policy" />
+		<KeyWord name="System.Security.Principal" />
+		<KeyWord name="System.ServiceProcess" />
+		<KeyWord name="System.Text" />
+		<KeyWord name="System.Text.RegularExpressions" />
+		<KeyWord name="System.Threading" />
+		<KeyWord name="System.Timers" />
+		<KeyWord name="System.Web" />
+		<KeyWord name="System.Web.Caching" />
+		<KeyWord name="System.Web.Configuration" />
+		<KeyWord name="System.Web.Hosting" />
+		<KeyWord name="System.Web.Mail" />
+		<KeyWord name="System.Web.Security" />
+		<KeyWord name="System.Web.Services" />
+		<KeyWord name="System.Web.Services.Configuration" />
+		<KeyWord name="System.Web.Services.Description" />
+		<KeyWord name="System.Web.Services.Discovery" />
+		<KeyWord name="System.Web.Services.Protocols" />
+		<KeyWord name="System.Web.SessionState" />
+		<KeyWord name="System.Web.UI" />
+		<KeyWord name="System.Web.UI.Design" />
+		<KeyWord name="System.Web.UI.Design.WebControls" />
+		<KeyWord name="System.Web.UI.HtmlControls" />
+		<KeyWord name="System.Web.UI.WebControls" />
+		<KeyWord name="System.Windows.Forms" />
+		<KeyWord name="System.Windows.Forms.Design" />
+		<KeyWord name="System.Xml" />
+		<KeyWord name="System.Xml.Schema" />
+		<KeyWord name="System.Xml.Serialization" />
+		<KeyWord name="System.Xml.XPath" />
+		<KeyWord name="System.Xml.Xsl" />
+		<KeyWord name="TextWriter" />
+		<KeyWord name="this" />
+		<KeyWord name="throw" />
+		<KeyWord name="Thread.Sleep" func="yes">
+			<Overload retVal="void" >
+				<Param name="int millisecondsTimeout"/>
+			</Overload>
+			<Overload retVal="void" >
+				<Param name="TimeSpan timeout" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Thread.AllocateDataSlot" func="yes">
+			<Overload retVal="LocalDataStoreSlot" >
+				<Param name="..."/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Thread.AllocateNamedDataSlot" func="yes">
+			<Overload retVal="LocalDataStoreSlot" >
+				<Param name="string name"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="true" />
+		<KeyWord name="try" />
+		<KeyWord name="typeof" />
+		<KeyWord name="uint" />
+		<KeyWord name="ulong" />
+		<KeyWord name="unchecked" />
+		<KeyWord name="unsafe" />
+		<KeyWord name="ushort" />
+		<KeyWord name="using" />
+		<KeyWord name="using static" />
+		<KeyWord name="var" />
+		<KeyWord name="value" />
+		<KeyWord name="virtual" />
+		<KeyWord name="void" />
+		<KeyWord name="volatile" />
+		<KeyWord name="while" />
+	</AutoComplete>
+</NotepadPlus>

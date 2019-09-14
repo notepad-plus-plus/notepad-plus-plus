@@ -226,7 +226,7 @@ FunctionEnd
 
 !include "nsisInclude\themes.nsh"
 
-${MementoSection} "Context Menu Entry" explorerContextMenu
+${MementoSection} "$(SecContextMenuEntry)" explorerContextMenu ;Context Menu Entry
 	SetOverwrite try
 	SetOutPath "$INSTDIR\"
 	

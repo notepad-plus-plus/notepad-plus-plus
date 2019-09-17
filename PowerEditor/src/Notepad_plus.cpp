@@ -2005,10 +2005,10 @@ void Notepad_plus::checkDocState()
 
 	enableCommand(IDM_FILE_OPEN_DEFAULT_VIEWER, isAssoCommandExisting(curBuf->getFullPathName()), MENU);
 
-	enableCommand(IDM_VIEW_IN_FIREFOX, isAssoCommandExisting(curBuf->getFullPathName()), MENU);
-	enableCommand(IDM_VIEW_IN_CHROME, isAssoCommandExisting(curBuf->getFullPathName()), MENU);
-	enableCommand(IDM_VIEW_IN_IE, isAssoCommandExisting(curBuf->getFullPathName()), MENU);
-	enableCommand(IDM_VIEW_IN_EDGE, isAssoCommandExisting(curBuf->getFullPathName()), MENU);
+	enableCommand(IDM_VIEW_IN_FIREFOX, isFileExisting, MENU);
+	enableCommand(IDM_VIEW_IN_CHROME, isFileExisting, MENU);
+	enableCommand(IDM_VIEW_IN_IE, isFileExisting, MENU);
+	enableCommand(IDM_VIEW_IN_EDGE, isFileExisting, MENU);
 
 	enableConvertMenuItems(curBuf->getEolFormat());
 	checkUnicodeMenuItems();

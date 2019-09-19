@@ -34,6 +34,7 @@
 
 #include "StaticDialog.h"
 
+#include "FileInterface.h"
 #include "Common.h"
 #include "../Utf8.h"
 #include <Parameters.h>
@@ -124,20 +125,19 @@ generic_string relativeFilePathToFullFilePath(const TCHAR *relativeFilePath)
 
 void writeFileContent(const TCHAR *file2write, const char *content2write)
 {
-	FILE *f = generic_fopen(file2write, TEXT("w+"));
-	fwrite(content2write, sizeof(content2write[0]), strlen(content2write), f);
-	fflush(f);
-	fclose(f);
+	CFile file(file2write, CFile::Mode::WRITE);
+
+	if (file.IsOpened())
+		file.Write(content2write, static_cast<long>(strlen(content2write)));
 }
 
 
 void writeLog(const TCHAR *logFileName, const char *log2write)
 {
-	FILE *f = generic_fopen(logFileName, TEXT("a+"));
-	fwrite(log2write, sizeof(log2write[0]), strlen(log2write), f);
-	fputc('\n', f);
-	fflush(f);
-	fclose(f);
+	CFile file(logFileName, CFile::Mode::APPEND);
+
+	if (file.IsOpened())
+		file.Write(log2write, static_cast<long>(strlen(log2write)));
 }
 
 

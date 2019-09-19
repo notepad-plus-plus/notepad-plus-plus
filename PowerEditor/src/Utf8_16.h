@@ -31,6 +31,10 @@
 #pragma warning(disable: 4514) // nreferenced inline function has been removed
 #endif
 
+#include <memory>
+#include "FileInterface.h"
+
+
 class Utf8_16 {
 public:
 	typedef unsigned short utf16; // 16 bits
@@ -116,7 +120,6 @@ public:
 	size_t getNewSize() const { return m_nNewBufSize; }
 
 	UniMode getEncoding() const { return m_eEncoding; }
-	size_t calcCurPos(size_t pos);
     static UniMode determineEncoding(const unsigned char *buf, size_t bufLen);
 
 protected:
@@ -145,17 +148,16 @@ public:
 
 	void setEncoding(UniMode eType);
 
-	FILE * fopen(const TCHAR *_name, const TCHAR *_type);
-	size_t fwrite(const void* p, size_t _size);
-	void   fclose();
+	bool fopen(const TCHAR *name);
+	long fwrite(const void* p, long _size);
+	void fclose();
 
 	size_t convert(char* p, size_t _size);
 	char* getNewBuf() { return reinterpret_cast<char*>(m_pNewBuf); }
-	size_t calcCurPos(size_t pos);
 
 protected:
 	UniMode m_eEncoding;
-	FILE* m_pFile;
+	std::unique_ptr<CFile> m_pFile;
 	ubyte* m_pNewBuf;
 	size_t m_nBufSize;
 	bool m_bFirstWrite;

@@ -274,7 +274,6 @@ UniMode Utf8_16_Read::determineEncoding(const unsigned char *buf, size_t bufLen)
 Utf8_16_Write::Utf8_16_Write()
 {
 	m_eEncoding = uni8Bit;
-	m_pFile = NULL;
 	m_pNewBuf = NULL;
 	m_bFirstWrite = true;
 	m_nBufSize = 0;
@@ -285,16 +284,25 @@ Utf8_16_Write::~Utf8_16_Write()
 	fclose();
 }
 
-FILE * Utf8_16_Write::fopen(const TCHAR *_name, const TCHAR *_type)
+bool Utf8_16_Write::fopen(const TCHAR *name)
 {
-	m_pFile = ::generic_fopen(_name, _type);
+	m_pFile = std::make_unique<CFile>(name, CFile::Mode::WRITE);
+
+	if (!m_pFile)
+		return false;
+
+	if (!m_pFile->IsOpened())
+	{
+		m_pFile = nullptr;
+		return false;
+	}
 
 	m_bFirstWrite = true;
 
-	return m_pFile;
+	return true;
 }
 
-size_t Utf8_16_Write::fwrite(const void* p, size_t _size)
+long Utf8_16_Write::fwrite(const void* p, long _size)
 {
     // no file open
 	if (!m_pFile)
@@ -302,19 +310,19 @@ size_t Utf8_16_Write::fwrite(const void* p, size_t _size)
 		return 0;
 	}
 
-    size_t  ret = 0;
-    
 	if (m_bFirstWrite)
     {
         switch (m_eEncoding)
         {
             case uniUTF8: {
-                ::fwrite(k_Boms[m_eEncoding], 3, 1, m_pFile);
+                if (!m_pFile->Write(k_Boms[m_eEncoding], 3))
+					return 0;
                 break;
             }    
             case uni16BE:
             case uni16LE:
-                ::fwrite(k_Boms[m_eEncoding], 2, 1, m_pFile);
+                if (!m_pFile->Write(k_Boms[m_eEncoding], 2))
+					return 0;
                 break;
             default:
                 // nothing to do
@@ -322,7 +330,9 @@ size_t Utf8_16_Write::fwrite(const void* p, size_t _size)
         }
 		m_bFirstWrite = false;
     }
-    
+
+    long ret = 0;
+
     switch (m_eEncoding)
     {
 		case uni7Bit:
@@ -330,7 +340,8 @@ size_t Utf8_16_Write::fwrite(const void* p, size_t _size)
         case uniCookie:
         case uniUTF8: {
             // Normal write
-            ret = ::fwrite(p, _size, 1, m_pFile);
+			if (m_pFile->Write(p, _size))
+				ret = 1;
             break;
         }
         case uni16BE_NoBOM:
@@ -350,7 +361,7 @@ size_t Utf8_16_Write::fwrite(const void* p, size_t _size)
                 }
 				++iter8;
 				if (bufIndex == bufSize || !iter8) {
-					if (!::fwrite(buf, bufIndex*sizeof(utf16), 1, m_pFile)) return 0;
+					if (!m_pFile->Write(buf, bufIndex*sizeof(utf16))) return 0;
 					bufIndex = 0;
 				}
             }
@@ -370,6 +381,7 @@ size_t Utf8_16_Write::convert(char* p, size_t _size)
 	if (m_pNewBuf)
     {
 		delete [] m_pNewBuf;
+		m_pNewBuf = NULL;
 	}
 
     switch (m_eEncoding)
@@ -435,10 +447,13 @@ void Utf8_16_Write::setEncoding(UniMode eType)
 void Utf8_16_Write::fclose()
 {
 	if (m_pNewBuf)
+	{
 		delete [] m_pNewBuf;
+		m_pNewBuf = NULL;
+	}
 
 	if (m_pFile)
-		::fclose(m_pFile);
+		m_pFile = nullptr;
 }
 
 
@@ -585,5 +600,3 @@ void Utf16_Iter::operator++()
             break;
     }
 }
-
-

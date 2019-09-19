@@ -212,7 +212,7 @@ public:
     void saveUserDefineLangs();
     void saveShortcuts();
 	void saveSession(const Session & session);
-	void saveCurrentSession();
+	void saveCurrentSession(bool postIt = false);
 	void saveFindHistory();
 
 	void getCurrentOpenedFiles(Session& session, bool includUntitledDoc = false);

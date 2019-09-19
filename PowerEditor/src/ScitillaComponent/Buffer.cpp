@@ -36,6 +36,7 @@
 #include "ScintillaEditView.h"
 #include "EncodingMapper.h"
 #include "uchardet.h"
+#include "FileInterface.h"
 
 static const int blockSize = 128 * 1024 + 4;
 static const int CR = 0x0D;
@@ -866,12 +867,11 @@ bool FileManager::backupCurrentBuffer()
 				::SetFileAttributes(fullpath, dwFileAttribs);
 			}
 
-			FILE *fp = UnicodeConvertor.fopen(fullpath, TEXT("wb"));
-			if (fp)
+			if (UnicodeConvertor.fopen(fullpath))
 			{
 				int lengthDoc = _pNotepadPlus->_pEditView->getCurrentDocLen();
 				char* buf = (char*)_pNotepadPlus->_pEditView->execute(SCI_GETCHARACTERPOINTER);	//to get characters directly from Scintilla buffer
-				size_t items_written = 0;
+				long items_written = 0;
 				if (encoding == -1) //no special encoding; can be handled directly by Utf8_16_Write
 				{
 					items_written = UnicodeConvertor.fwrite(buf, lengthDoc);
@@ -991,14 +991,13 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 
 	int encoding = buffer->getEncoding();
 
-	FILE *fp = UnicodeConvertor.fopen(fullpath, TEXT("wb"));
-	if (fp)
+	if (UnicodeConvertor.fopen(fullpath))
 	{
 		_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, buffer->_doc);	//generate new document
 
 		int lengthDoc = _pscratchTilla->getCurrentDocLen();
 		char* buf = (char*)_pscratchTilla->execute(SCI_GETCHARACTERPOINTER);	//to get characters directly from Scintilla buffer
-		size_t items_written = 0;
+		long items_written = 0;
 		if (encoding == -1) //no special encoding; can be handled directly by Utf8_16_Write
 		{
 			items_written = UnicodeConvertor.fwrite(buf, lengthDoc);
@@ -1477,11 +1476,8 @@ BufferID FileManager::getBufferFromDocument(Document doc)
 
 bool FileManager::createEmptyFile(const TCHAR * path)
 {
-	FILE * file = generic_fopen(path, TEXT("wb"));
-	if (!file)
-		return false;
-	fclose(file);
-	return true;
+	CFile file(path, CFile::Mode::WRITE);
+	return file.IsOpened();
 }
 
 

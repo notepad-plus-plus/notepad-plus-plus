@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Українська" filename="ukrainian.xml" version="7.6.5">
+    <Native-Langue name="Українська" filename="ukrainian.xml" version="7.7.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -263,11 +263,11 @@
                     <Item id="45001" name="Windows (CR LF)"/>
                     <Item id="45002" name="Unix (LF)"/>
                     <Item id="45003" name="Macintosh (CR)"/>
-                    <Item id="45004" name="Кодувати в ANSI"/>
-                    <Item id="45005" name="Кодувати в UTF-8-BOM"/>
-                    <Item id="45006" name="Кодувати в UCS-2 BE BOM"/>
-                    <Item id="45007" name="Кодувати в UCS-2 LE BOM"/>
-                    <Item id="45008" name="Кодувати в UTF-8"/>
+                    <Item id="45004" name="ANSI"/>
+                    <Item id="45005" name="UTF-8-BOM"/>
+                    <Item id="45006" name="UCS-2 BE BOM"/>
+                    <Item id="45007" name="UCS-2 LE BOM"/>
+                    <Item id="45008" name="UTF-8"/>
                     <Item id="45009" name="Перетворити на ANSI"/>
                     <Item id="45010" name="Перетворити на UTF-8"/>
                     <Item id="45011" name="Перетворити на UTF-8-BOM"/>
@@ -384,6 +384,8 @@
                 <Item id="1641" name="Знайти все в поточному документі"/>
                 <Item id="1686" name="Прозорість"/>
                 <Item id="1703" name="&amp;. новий рядок"/>
+				<Item id="1721" name="▲"/>
+                <Item id="1723" name="▼ Знайти далі"/>
             </Find>
 
             <FindCharsInRange title="Знайти символи в діапазоні...">
@@ -753,8 +755,8 @@
                     <Item id="6404" name="Macintosh (CR)"/>
                     <Item id="6405" name="Кодування"/>
                     <Item id="6406" name="ANSI"/>
-                    <Item id="6407" name="UTF-8 без мітки BOM"/>
-                    <Item id="6408" name="UTF-8"/>
+                    <Item id="6407" name="UTF-8"/>
+                    <Item id="6408" name="UTF-8 з BOM"/>
                     <Item id="6409" name="UCS-2 Big Endian"/>
                     <Item id="6410" name="UCS-2 Little Endian"/>
                     <Item id="6411" name="Синтаксис:"/>
@@ -980,6 +982,14 @@
                 <Item id="1718" name="Розширений (\n \r, \t, \0, \x...)"/>
                 <Item id="1720" name="&amp;. відповідає новому рядку"/>
             </FindInFinder>
+            <DoSaveOrNot title="Зберегти"> 
+                <Item id="1761" name="Зберегти файл &quot;$STR_REPLACE$&quot; ?"/>
+                <Item id="6" name="Так"/>
+                <Item id="7" name="Ні"/>
+                <Item id="2" name="Скасувати"/>
+                <Item id="4" name="Так для всього"/>
+                <Item id="5" name="Ні для всіх"/>
+            </DoSaveOrNot>
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title="Зміна contextMenu" message="Зміна contextMenu.xml дозволяє вам змінювати випадаюче меню Notepad++.
@@ -1011,7 +1021,6 @@
             <SortingError title="Помилка впорядкування" message="Не вдається виконати впорядкування за числами, через рядок $INT_REPLACE$."/>
             <ColumnModeTip title="Порада для режиму стовпців" message="Використовуйте &quot;ALT+Вибір мишею&quot; або &quot;Alt+Shift+Клавіша стрілки&quot;, щоб перемкнутися в режим стовпців."/>
             <BufferInvalidWarning title="Не вдалося зберегти" message="Неможливо зберегти: Неправильний буфер."/>
-            <DoSaveOrNot title="Зберегти" message="Зберегти файл &quot;$STR_REPLACE$&quot; ?"/>
             <DoCloseOrNot title="Зберегти неіснуючий файл" message="Файл &quot;$STR_REPLACE$&quot; більше не існує.
 Залишити цей файл в редакторі?"/>
             <DoDeleteOrNot title="Видалити файл" message="Файл &quot;$STR_REPLACE$&quot;
@@ -1067,6 +1076,10 @@
 Хочете запустити Notepad++ в режимі адміністратора?"/>
             <OpenInAdminModeFailed title="Не вдалося запустити в режимі адміністратора" message="Notepad++ не може бути відкритий в режимі адміністратора."/>
             <ViewInBrowser title="Перегляд поточного файлу в браузері" message="У вашій системі не вдалося знайти програму."/>
+            <ExitToUpdatePlugins title="Ви збираєтеся закрити Notepad++" message="Якщо ви оберете ТАК, ви вийдете з Notepad++ для продовження операцій.
+Notepad++ перезапуститься після завершення всіх операцій.
+Продовжити?"/>
+            <NeedToRestartToLoadPlugins title="Необхідно перезапустити Notepad++" message="Необхідно перезапустити Notepad++ для завантаження встановлених плагінів."/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Історія буфера"/>
@@ -1086,6 +1099,8 @@
             <ColumnVal name="Значення"/>
             <ColumnHex name="Hex"/>
             <ColumnChar name="Символ"/>
+            <ColumnHtmlNumber name="HTML число"/>
+            <ColumnHtmlName name="HTML код"/>
         </AsciiInsertion>
         <DocumentMap>
             <PanelTitle name="Карта документа"/>
@@ -1108,6 +1123,7 @@
                 <Item id="3517" name="Знайти у файлах..."/>
                 <Item id="3518" name="Провідник тут"/>
                 <Item id="3519" name="CMD тут"/>
+                <Item id="3520" name="Копіювати назву файлу"/>
             </Menus>
         </FolderAsWorkspace>
         <ProjectManager>
@@ -1213,6 +1229,17 @@
             <userdefined-title-rename value="Змінити назву поточної мови"/>
             <autocomplete-nb-char value="К-сть симв.: "/>
             <edit-verticaledge-nb-col value="К-сть стовп.:"/>
+            <summary value="Підсумок"/>
+            <summary-filepath value="Повний шлях до файлу: "/>
+            <summary-filecreatetime value="Створено: "/>
+            <summary-filemodifytime value="Змінено: "/>
+            <summary-nbchar value="Символи (без закінчення рядка): "/>
+            <summary-nbword value="Слова: "/>
+            <summary-nbline value="Рядки: "/>
+            <summary-nbbyte value="Довжина документа: "/>
+            <summary-nbsel1 value=" обрані символи ("/>
+            <summary-nbsel2 value=" байтів) в "/>
+            <summary-nbrange value=" діапазонах"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

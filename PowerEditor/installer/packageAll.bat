@@ -213,7 +213,7 @@ copy /Y "..\bin\plugins\NppConverter\NppConverter.dll" .\zipped.package.release\
 If ErrorLevel 1 goto End
 
 rem Plugins: Copy needed files into Notepad++ 64-bit package folders
-copy /Y "..\bin\plugins\NppExport\NppExport.dll" .\zipped.package.release64\plugins\NppExport\
+copy /Y "..\bin64\plugins\NppExport\NppExport.dll" .\zipped.package.release64\plugins\NppExport\
 If ErrorLevel 1 goto End
 copy /Y "..\bin64\plugins\mimeTools\mimeTools.dll" .\zipped.package.release64\plugins\mimeTools\
 If ErrorLevel 1 goto End

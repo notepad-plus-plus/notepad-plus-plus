@@ -29,7 +29,6 @@
 SectionGroup "Plugins" Plugins
 	SetOverwrite on
 	
-!ifndef ARCH64
 	${MementoSection} "NppExport" NppExport
 		Delete "$INSTDIR\plugins\NppExport.dll"
 		Delete "$INSTDIR\plugins\NppExport\NppExport.dll"
@@ -43,7 +42,6 @@ SectionGroup "Plugins" Plugins
 !endif
 	${MementoSectionEnd}
 
-!endif
 
 	${MementoSection} "Mime Tools" MimeTools
 		Delete "$INSTDIR\plugins\mimeTools.dll"

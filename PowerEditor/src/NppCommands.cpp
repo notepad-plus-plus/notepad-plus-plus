@@ -47,8 +47,6 @@ std::mutex command_mutex;
 
 void Notepad_plus::macroPlayback(Macro macro)
 {
-	std::lock_guard<std::mutex> lock(command_mutex);
-
 	_playingBackMacro = true;
 	_pEditView->execute(SCI_BEGINUNDOACTION);
 

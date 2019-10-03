@@ -1293,8 +1293,8 @@ class NppParameters final
 {
 public:
 	static NppParameters& getInstance() {
-		static NppParameters instance;
-		return instance;
+		static NppParameters* instance = new NppParameters;
+		return *instance;
 	};
 	static LangType getLangIDFromStr(const TCHAR *langName);
 	static generic_string getLocPathFromStr(const generic_string & localizationCode);
@@ -1657,6 +1657,7 @@ private:
 	// No move ctor and assignment
 	NppParameters(NppParameters&&) = delete;
 	NppParameters& operator=(NppParameters&&) = delete;
+
 
 	TiXmlDocument *_pXmlDoc = nullptr;
 	TiXmlDocument *_pXmlUserDoc = nullptr;

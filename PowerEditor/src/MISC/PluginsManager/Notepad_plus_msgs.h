@@ -54,7 +54,6 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64 };
 
 
 
-//Here you can find how to use these messages : http://docs.notepad-plus-plus.org/index.php/Messages_And_Notifications
 #define NPPMSG  (WM_USER + 1000)
 
 	#define NPPM_GETCURRENTSCINTILLA  (NPPMSG + 4)

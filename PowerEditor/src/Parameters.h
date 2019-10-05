@@ -1291,11 +1291,17 @@ const int RECENTFILES_SHOWONLYFILENAME = 0;
 
 class NppParameters final
 {
+private:
+	static NppParameters* getInstancePointer() {
+		static NppParameters* instance = new NppParameters;
+		return instance;
+	};
+
 public:
 	static NppParameters& getInstance() {
-		static NppParameters* instance = new NppParameters;
-		return *instance;
+		return *getInstancePointer();
 	};
+
 	static LangType getLangIDFromStr(const TCHAR *langName);
 	static generic_string getLocPathFromStr(const generic_string & localizationCode);
 

@@ -1439,6 +1439,7 @@ void NppParameters::destroyInstance()
 	delete _pXmlContextMenuDocA;
 	delete _pXmlSessionDoc;
 	delete _pXmlBlacklistDoc;
+	delete 	getInstancePointer();
 }
 
 

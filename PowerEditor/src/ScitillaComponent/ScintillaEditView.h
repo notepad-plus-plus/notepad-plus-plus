@@ -391,9 +391,7 @@ public:
 		return (execute(SCI_GETVIEWWS) != 0);
 	};
 
-	void showIndentGuideLine(bool willBeShowed = true) {
-		execute(SCI_SETINDENTATIONGUIDES, willBeShowed ? SC_IV_LOOKBOTH : SC_IV_NONE);
-	};
+	void showIndentGuideLine(bool willBeShowed = true);
 
 	bool isShownIndentGuide() const {
 		return (execute(SCI_GETINDENTATIONGUIDES) != 0);

@@ -1242,19 +1242,6 @@ void ScintillaEditView::setLexer(int lexerID, LangType langType, int whichList)
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold"), reinterpret_cast<LPARAM>("1"));
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.compact"), reinterpret_cast<LPARAM>("0"));
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.comment"), reinterpret_cast<LPARAM>("1"));
-
-	ScintillaViewParams & svp = (ScintillaViewParams &)NppParameters::getInstance().getSVP();
-
-	if (svp._indentGuideLineShow)
-	{
-		const auto currentIndentMode = execute(SCI_GETINDENTATIONGUIDES);
-		// Python like indentation, excludes lexers (Nim, VB, YAML, etc.)
-		// that includes tailing empty or whitespace only lines in folding block.
-		const bool pythonLike = (lexerID == SCLEX_PYTHON || lexerID == SCLEX_COFFEESCRIPT || lexerID == SCLEX_HASKELL);
-		const int docIndentMode = pythonLike ? SC_IV_LOOKFORWARD : SC_IV_LOOKBOTH;
-		if (currentIndentMode != docIndentMode)
-			execute(SCI_SETINDENTATIONGUIDES, docIndentMode);
-	}
 }
 
 void ScintillaEditView::makeStyle(LangType language, const TCHAR **keywordArray)
@@ -1762,11 +1749,17 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 	    setSpecialStyle(styleLN);
     }
     setTabSettings(NppParameters::getInstance().getLangFromID(typeDoc));
-	/*
-	execute(SCI_SETSTYLEBITS, 8);	// Always use 8 bit mask in Document class (Document::stylingBitsMask),
-									// in that way Editor::PositionIsHotspot will return correct hotspot styleID.
-									// This value has no effect on LexAccessor::mask.
-									*/
+	
+	if (svp._indentGuideLineShow)
+	{
+		const auto currentIndentMode = execute(SCI_GETINDENTATIONGUIDES);
+		// Python like indentation, excludes lexers (Nim, VB, YAML, etc.)
+		// that includes tailing empty or whitespace only lines in folding block.
+		const bool pythonLike = (typeDoc == L_PYTHON || typeDoc == L_COFFEESCRIPT || typeDoc == L_HASKELL);
+		const int docIndentMode = pythonLike ? SC_IV_LOOKFORWARD : SC_IV_LOOKBOTH;
+		if (currentIndentMode != docIndentMode)
+			execute(SCI_SETINDENTATIONGUIDES, docIndentMode);
+	}
 }
 
 BufferID ScintillaEditView::attachDefaultDoc()
@@ -2558,7 +2551,16 @@ void ScintillaEditView::performGlobalStyles()
 	execute(SCI_SETWHITESPACEFORE, true, wsSymbolFgColor);
 }
 
-void ScintillaEditView::setLineIndent(int line, int indent) const {
+void ScintillaEditView::showIndentGuideLine(bool willBeShowed)
+{
+	auto typeDoc = _currentBuffer->getLangType();
+	const bool pythonLike = (typeDoc == L_PYTHON || typeDoc == L_COFFEESCRIPT || typeDoc == L_HASKELL);
+	const int docIndentMode = pythonLike ? SC_IV_LOOKFORWARD : SC_IV_LOOKBOTH;
+	execute(SCI_SETINDENTATIONGUIDES, willBeShowed ? docIndentMode : SC_IV_NONE);
+}
+
+void ScintillaEditView::setLineIndent(int line, int indent) const
+{
 	if (indent < 0)
 		return;
 	Sci_CharacterRange crange = getSelection();

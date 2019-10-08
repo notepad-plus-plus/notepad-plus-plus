@@ -224,7 +224,7 @@ protected:
     static bool _doDragNDrop;
 	// drag N drop members
 	bool _mightBeDragging = false;
-	int _dragCount = 0;
+	POINT _dragRefPoint = {LONG_MAX, LONG_MAX};
 	bool _isDragging = false;
 	bool _isDraggingInside = false;
     int _nSrcTab = -1;

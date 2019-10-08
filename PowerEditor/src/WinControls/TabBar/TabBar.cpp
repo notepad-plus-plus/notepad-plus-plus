@@ -586,6 +586,9 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 		case WM_LBUTTONDOWN :
 		{
+			_dragRefPoint.x = LOWORD(lParam);
+			_dragRefPoint.y = HIWORD(lParam);
+
 			if (_drawTabCloseButton)
 			{
 				int xPos = LOWORD(lParam);
@@ -633,15 +636,18 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 		case WM_MOUSEMOVE :
 		{
+			POINT p;
+			p.x = LOWORD(lParam);
+			p.y = HIWORD(lParam);
+
 			if (_mightBeDragging && !_isDragging)
 			{
 				// Grrr! Who has stolen focus and eaten the WM_LBUTTONUP?!
 				if (GetKeyState(VK_LBUTTON) >= 0)
 				{
 					_mightBeDragging = false;
-					_dragCount = 0;
 				}
-				else if (++_dragCount > 2)
+				else if (_dragRefPoint.x != p.x || _dragRefPoint.y != p.y)
 				{
 					int tabFocused = static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETCURFOCUS, 0, 0));
 					int tabSelected = static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0));
@@ -663,10 +669,6 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 					}
 				}
 			}
-
-			POINT p;
-			p.x = LOWORD(lParam);
-			p.y = HIWORD(lParam);
 
 			if (_isDragging)
 			{
@@ -771,7 +773,6 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 		case WM_LBUTTONUP :
 		{
 			_mightBeDragging = false;
-			_dragCount = 0;
 
 			int xPos = LOWORD(lParam);
 			int yPos = HIWORD(lParam);

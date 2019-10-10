@@ -1,20 +1,39 @@
-Notepad++ v7.7.1 enhancements and bug-fixes:
+Notepad++ v7.8 enhancements and bug-fixes:
 
-1.  Fix drag and drop tab regression: dragging tab is switched to another tab issue.
-2.  Fix an input regression: Cyrillic, Turkish and other languages input issue in ANSI mode.
-3.  Fix an ASP regression: VB looses syntax highlighting in ASP document.
-4.  Fix Reload dialog displaying issue during File Monitoring.
-5.  Fix "unhide lines" markers disappears issue.
-6.  Fix Plugin menu is not localized issue if no plugin installed.
-7.  Add "Copy File Name" command in context menu of "Folder as Workspace".
-8.  Fix crash while sorting lines with numbers longer than 20 digits.
-9.  Enable Scintilla Virtual Space Option change from macro.
-10. Add Tcl, CMake and AutoIt keywords; add Python and SQL new syntax highlighting cathegories.
+1.  Upgrade Scintilla from 4.1.4 to 4.2.0
+2.  Fix non Unicode encoding problem in non-Western language(Chinese or in Turkish).
+3.  Add "No to All" and "Yes to All" options in Save dialog.
+4.  Add the command line argument "-openFoldersAsWorkspace" to open folders in "folder as workspace" panel.
+    Example: notepad++ -openFoldersAsWorkspace c:\src\myProj01 c:\src\myProj02
+5.  Enhance plugin system: allow any plugin to load private DLL files from the plugin folder.
+6.  Fix File-Rename failing when new name is on a different drive.
+7.  Make "Clear all marks", "Inverse Bookmark", "Remove Consecutive Duplicate Lines" & "Find All Current Document" to be macro recordable.
+8.  Make "Command Argument Help" MessageBox modal. 
+9.  Fix Folder as Workspace crash and "queue overflow" issues.
+10. Make Combobox font monospace in Find dialog.
+11. Fix folding in user-defined languages for non-windows line endings.
+12. Fix crash of Folder as Workspace when too many directory changes happen.   
+13. Fix '-nosession' overwrites config.xml issue.
+14. Fix the crash due to NPPM_DESTROYSCINTILLAHANDLE message.
+15. Improve GUI in Find dialog for Find Previous & Find Next buttons.
+16. Fix Sort Line as Integer regression.
+17. Add more OS information to debug info. 
+18. Fix tab dragging issues under WINE and ReactOS.
+19. Fix indent indicators continue to following code blocks for Python.
+20. Fix Python folding collapse issue.
+21. Fix crash when sorting "out of range" columns.
+22. Fix find 2 times for the same occurrence in both original and cloned documents issue.
+23. Fix command line issues where filenames have multiple white spaces in them.
+24. Fix Document Peeker constantly changing focus problem.
+25. Make backward direction checkbox be also on Find dialog's Mark tab.
+26. Add 2 new columns for HTML Code in the Character Panel.
+27. Fix "clear all marks in find dialog also removes bookmarks" issue.
+28. Enhance supported language (on function list or auto-completion): LISP, BaanC,(PL/)SQL & COBOL.
 
 
 Included plugins:
 
-1.  NppExport v0.2.8 (32-bit x86 only)
+1.  NppExport v0.2.9
 2.  Converter 4.2.1
 3.  Mime Tool 2.5
 

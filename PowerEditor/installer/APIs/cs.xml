@@ -5,6 +5,9 @@
 		<KeyWord name="abstract" />
 		<KeyWord name="as" />
 		<KeyWord name="async" />
+
+		<!-- class : System.Array  -->
+
 		<KeyWord name="Array.BinarySearch" func="yes">
 			<Overload retVal="int" >
 				<Param name="Array array" />
@@ -181,6 +184,7 @@
 				<Param name="System.Collections.IComparer comparer" />
 			</Overload>
 		</KeyWord>
+
 		<KeyWord name="await" />
 		<KeyWord name="base" />
 		<KeyWord name="bool" />
@@ -193,6 +197,9 @@
 		<KeyWord name="class" />
 		<KeyWord name="Comparer" />
 		<KeyWord name="Console" />
+
+		<!-- class : System.Console  -->
+
 		<KeyWord name="Console.Write" func="yes">
 			<Overload retVal="void" >
 				<Param name="char[] buffer" />
@@ -415,6 +422,953 @@
 				<Param name="int bufferSize" />
 			</Overload>
 		</KeyWord>
+
+		<!-- class : System.Convert  -->
+
+		<KeyWord name="Convert.ChangeType" func="yes">
+			<Overload retVal="object" >
+				<Param name="object value" />
+				<Param name="Type conversionType" />
+				<Param name="IFormatProvider provider" />
+			</Overload>
+			<Overload retVal="object" >
+				<Param name="object value" />
+				<Param name="Type conversionType" />
+			</Overload>
+			<Overload retVal="object" >
+				<Param name="object value" />
+				<Param name="TypeCode typeCode" />
+			</Overload>
+			<Overload retVal="object" >
+				<Param name="object value" />
+				<Param name="TypeCode typeCode" />
+				<Param name="IFormatProvider provider" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Convert.FromBase64CharArray" func="yes">
+			<Overload retVal="byte[]" >
+				<Param name="char[] inArray" />
+				<Param name="int offset" />
+				<Param name="int length" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Convert.FromBase64String" func="yes">
+			<Overload retVal="byte[]" >
+				<Param name="string s" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Convert.GetTypeCode" func="yes">
+			<Overload retVal="TypeCode" >
+				<Param name="object value" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Convert.IsDBNull" func="yes">
+			<Overload retVal="bool" >
+				<Param name="object value" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Convert.ToBase64CharArray" func="yes">
+			<Overload retVal="int" >
+				<Param name="byte[] inArray" />
+				<Param name="int offsetIn" />
+				<Param name="int length" />
+				<Param name="char[] outArray" />
+				<Param name="int offsetOut" />
+				<Param name="Base64FormattingOptions options" />
+			</Overload>
+			<Overload retVal="int" >
+				<Param name="byte[] inArray" />
+				<Param name="int offsetIn" />
+				<Param name="int length" />
+				<Param name="char[] outArray" />
+				<Param name="int offsetOut" />
+			</Overload>
+			<Overload retVal="string" >
+				<Param name="byte[] inArray" />
+				<Param name="int offsetIn" />
+				<Param name="int length" />
+				<Param name="Base64FormattingOptions options" />
+			</Overload>
+			<Overload retVal="string" >
+				<Param name="byte[] inArray" />
+				<Param name="int offsetIn" />
+				<Param name="int length" />
+			</Overload>
+			<Overload retVal="string" >
+				<Param name="byte[] inArray" />
+				<Param name="Base64FormattingOptions options" />
+			</Overload>
+			<Overload retVal="string" >
+				<Param name="byte[] inArray" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Convert.ToBoolean" func="yes">
+			<Overload retVal="bool" >
+				<Param name="DateTime value" />
+			</Overload>
+			<Overload retVal="bool" >
+				<Param name="double value" />
+			</Overload>
+			<Overload retVal="bool" >
+				<Param name="string value" />
+				<Param name="IFormatProvider provider" />
+			</Overload>
+			<Overload retVal="bool" >
+				<Param name="float value" />
+			</Overload>
+			<Overload retVal="bool" >
+				<Param name="ulong value" />
+			</Overload>
+			<Overload retVal="bool" >
+				<Param name="object value" />
+			</Overload>
+			<Overload retVal="bool" >
+				<Param name="object value" />
+				<Param name="IFormatProvider provider" />
+			</Overload>
+			<Overload retVal="bool" >
+				<Param name="bool value" />
+			</Overload>
+			<Overload retVal="bool" >
+				<Param name="sbyte value" />
+			</Overload>
+			<Overload retVal="bool" >
+				<Param name="string value" />
+			</Overload>
+			<Overload retVal="bool" >
+				<Param name="byte value" />
+			</Overload>
+			<Overload retVal="bool" >
+				<Param name="char value" />
+			</Overload>
+			<Overload retVal="bool" >
+				<Param name="ushort value" />
+			</Overload>
+			<Overload retVal="bool" >
+				<Param name="int value" />
+			</Overload>
+			<Overload retVal="bool" >
+				<Param name="uint value" />
+			</Overload>
+			<Overload retVal="bool" >
+				<Param name="long value" />
+			</Overload>
+			<Overload retVal="bool" >
+				<Param name="short value" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Convert.ToByte" func="yes">
+			<Overload retVal="byte" >
+				<Param name="DateTime value" />
+			</Overload>
+			<Overload retVal="byte" >
+				<Param name="double value" />
+			</Overload>
+			<Overload retVal="byte" >
+				<Param name="string value" />
+				<Param name="IFormatProvider provider" />
+			</Overload>
+			<Overload retVal="byte" >
+				<Param name="string value" />
+				<Param name="int fromBase" />
+			</Overload>
+			<Overload retVal="byte" >
+				<Param name="float value" />
+			</Overload>
+			<Overload retVal="byte" >
+				<Param name="ulong value" />
+			</Overload>
+			<Overload retVal="byte" >
+				<Param name="object value" />
+			</Overload>
+			<Overload retVal="byte" >
+				<Param name="object value" />
+				<Param name="IFormatProvider provider" />
+			</Overload>
+			<Overload retVal="byte" >
+				<Param name="bool value" />
+			</Overload>
+			<Overload retVal="byte" >
+				<Param name="sbyte value" />
+			</Overload>
+			<Overload retVal="byte" >
+				<Param name="string value" />
+			</Overload>
+			<Overload retVal="byte" >
+				<Param name="byte value" />
+			</Overload>
+			<Overload retVal="byte" >
+				<Param name="char value" />
+			</Overload>
+			<Overload retVal="byte" >
+				<Param name="ushort value" />
+			</Overload>
+			<Overload retVal="byte" >
+				<Param name="int value" />
+			</Overload>
+			<Overload retVal="byte" >
+				<Param name="uint value" />
+			</Overload>
+			<Overload retVal="byte" >
+				<Param name="long value" />
+			</Overload>
+			<Overload retVal="byte" >
+				<Param name="short value" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Convert.ToDateTime" func="yes">
+			<Overload retVal="DateTime" >
+				<Param name="DateTime value" />
+			</Overload>
+			<Overload retVal="DateTime" >
+				<Param name="double value" />
+			</Overload>
+			<Overload retVal="DateTime" >
+				<Param name="string value" />
+				<Param name="IFormatProvider provider" />
+			</Overload>
+			<Overload retVal="DateTime" >
+				<Param name="string value" />
+				<Param name="int fromBase" />
+			</Overload>
+			<Overload retVal="DateTime" >
+				<Param name="float value" />
+			</Overload>
+			<Overload retVal="DateTime" >
+				<Param name="ulong value" />
+			</Overload>
+			<Overload retVal="DateTime" >
+				<Param name="object value" />
+			</Overload>
+			<Overload retVal="DateTime" >
+				<Param name="object value" />
+				<Param name="IFormatProvider provider" />
+			</Overload>
+			<Overload retVal="DateTime" >
+				<Param name="bool value" />
+			</Overload>
+			<Overload retVal="DateTime" >
+				<Param name="sbyte value" />
+			</Overload>
+			<Overload retVal="DateTime" >
+				<Param name="string value" />
+			</Overload>
+			<Overload retVal="DateTime" >
+				<Param name="byte value" />
+			</Overload>
+			<Overload retVal="DateTime" >
+				<Param name="char value" />
+			</Overload>
+			<Overload retVal="DateTime" >
+				<Param name="ushort value" />
+			</Overload>
+			<Overload retVal="DateTime" >
+				<Param name="int value" />
+			</Overload>
+			<Overload retVal="DateTime" >
+				<Param name="uint value" />
+			</Overload>
+			<Overload retVal="DateTime" >
+				<Param name="long value" />
+			</Overload>
+			<Overload retVal="DateTime" >
+				<Param name="short value" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Convert.ToDecimal" func="yes">
+			<Overload retVal="decimal" >
+				<Param name="DateTime value" />
+			</Overload>
+			<Overload retVal="decimal" >
+				<Param name="double value" />
+			</Overload>
+			<Overload retVal="decimal" >
+				<Param name="string value" />
+				<Param name="IFormatProvider provider" />
+			</Overload>
+			<Overload retVal="decimal" >
+				<Param name="string value" />
+				<Param name="int fromBase" />
+			</Overload>
+			<Overload retVal="decimal" >
+				<Param name="float value" />
+			</Overload>
+			<Overload retVal="decimal" >
+				<Param name="ulong value" />
+			</Overload>
+			<Overload retVal="decimal" >
+				<Param name="object value" />
+			</Overload>
+			<Overload retVal="decimal" >
+				<Param name="object value" />
+				<Param name="IFormatProvider provider" />
+			</Overload>
+			<Overload retVal="decimal" >
+				<Param name="bool value" />
+			</Overload>
+			<Overload retVal="decimal" >
+				<Param name="sbyte value" />
+			</Overload>
+			<Overload retVal="decimal" >
+				<Param name="string value" />
+			</Overload>
+			<Overload retVal="decimal" >
+				<Param name="byte value" />
+			</Overload>
+			<Overload retVal="decimal" >
+				<Param name="char value" />
+			</Overload>
+			<Overload retVal="decimal" >
+				<Param name="ushort value" />
+			</Overload>
+			<Overload retVal="decimal" >
+				<Param name="int value" />
+			</Overload>
+			<Overload retVal="decimal" >
+				<Param name="uint value" />
+			</Overload>
+			<Overload retVal="decimal" >
+				<Param name="long value" />
+			</Overload>
+			<Overload retVal="decimal" >
+				<Param name="short value" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Convert.ToDouble" func="yes">
+			<Overload retVal="double" >
+				<Param name="DateTime value" />
+			</Overload>
+			<Overload retVal="double" >
+				<Param name="double value" />
+			</Overload>
+			<Overload retVal="double" >
+				<Param name="string value" />
+				<Param name="IFormatProvider provider" />
+			</Overload>
+			<Overload retVal="double" >
+				<Param name="string value" />
+				<Param name="int fromBase" />
+			</Overload>
+			<Overload retVal="double" >
+				<Param name="float value" />
+			</Overload>
+			<Overload retVal="double" >
+				<Param name="ulong value" />
+			</Overload>
+			<Overload retVal="double" >
+				<Param name="object value" />
+			</Overload>
+			<Overload retVal="double" >
+				<Param name="object value" />
+				<Param name="IFormatProvider provider" />
+			</Overload>
+			<Overload retVal="double" >
+				<Param name="bool value" />
+			</Overload>
+			<Overload retVal="double" >
+				<Param name="sbyte value" />
+			</Overload>
+			<Overload retVal="double" >
+				<Param name="string value" />
+			</Overload>
+			<Overload retVal="double" >
+				<Param name="byte value" />
+			</Overload>
+			<Overload retVal="double" >
+				<Param name="char value" />
+			</Overload>
+			<Overload retVal="double" >
+				<Param name="ushort value" />
+			</Overload>
+			<Overload retVal="double" >
+				<Param name="int value" />
+			</Overload>
+			<Overload retVal="double" >
+				<Param name="uint value" />
+			</Overload>
+			<Overload retVal="double" >
+				<Param name="long value" />
+			</Overload>
+			<Overload retVal="double" >
+				<Param name="short value" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Convert.ToInt16" func="yes">
+			<Overload retVal="short" >
+				<Param name="DateTime value" />
+			</Overload>
+			<Overload retVal="short" >
+				<Param name="double value" />
+			</Overload>
+			<Overload retVal="short" >
+				<Param name="string value" />
+				<Param name="IFormatProvider provider" />
+			</Overload>
+			<Overload retVal="short" >
+				<Param name="string value" />
+				<Param name="int fromBase" />
+			</Overload>
+			<Overload retVal="short" >
+				<Param name="float value" />
+			</Overload>
+			<Overload retVal="short" >
+				<Param name="ulong value" />
+			</Overload>
+			<Overload retVal="short" >
+				<Param name="object value" />
+			</Overload>
+			<Overload retVal="short" >
+				<Param name="object value" />
+				<Param name="IFormatProvider provider" />
+			</Overload>
+			<Overload retVal="short" >
+				<Param name="bool value" />
+			</Overload>
+			<Overload retVal="short" >
+				<Param name="sbyte value" />
+			</Overload>
+			<Overload retVal="short" >
+				<Param name="string value" />
+			</Overload>
+			<Overload retVal="short" >
+				<Param name="string value" />
+				<Param name="int fromBase" />
+			</Overload>
+			<Overload retVal="short" >
+				<Param name="byte value" />
+			</Overload>
+			<Overload retVal="short" >
+				<Param name="char value" />
+			</Overload>
+			<Overload retVal="short" >
+				<Param name="ushort value" />
+			</Overload>
+			<Overload retVal="short" >
+				<Param name="int value" />
+			</Overload>
+			<Overload retVal="short" >
+				<Param name="uint value" />
+			</Overload>
+			<Overload retVal="short" >
+				<Param name="long value" />
+			</Overload>
+			<Overload retVal="short" >
+				<Param name="short value" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Convert.ToInt32" func="yes">
+			<Overload retVal="int" >
+				<Param name="DateTime value" />
+			</Overload>
+			<Overload retVal="int" >
+				<Param name="double value" />
+			</Overload>
+			<Overload retVal="int" >
+				<Param name="string value" />
+				<Param name="IFormatProvider provider" />
+			</Overload>
+			<Overload retVal="int" >
+				<Param name="string value" />
+				<Param name="int fromBase" />
+			</Overload>
+			<Overload retVal="int" >
+				<Param name="float value" />
+			</Overload>
+			<Overload retVal="int" >
+				<Param name="ulong value" />
+			</Overload>
+			<Overload retVal="int" >
+				<Param name="object value" />
+			</Overload>
+			<Overload retVal="int" >
+				<Param name="object value" />
+				<Param name="IFormatProvider provider" />
+			</Overload>
+			<Overload retVal="int" >
+				<Param name="bool value" />
+			</Overload>
+			<Overload retVal="int" >
+				<Param name="sbyte value" />
+			</Overload>
+			<Overload retVal="int" >
+				<Param name="string value" />
+			</Overload>
+			<Overload retVal="int" >
+				<Param name="string value" />
+				<Param name="int fromBase" />
+			</Overload>
+			<Overload retVal="int" >
+				<Param name="byte value" />
+			</Overload>
+			<Overload retVal="int" >
+				<Param name="char value" />
+			</Overload>
+			<Overload retVal="int" >
+				<Param name="ushort value" />
+			</Overload>
+			<Overload retVal="int" >
+				<Param name="int value" />
+			</Overload>
+			<Overload retVal="int" >
+				<Param name="uint value" />
+			</Overload>
+			<Overload retVal="int" >
+				<Param name="long value" />
+			</Overload>
+			<Overload retVal="int" >
+				<Param name="short value" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Convert.ToInt64" func="yes">
+			<Overload retVal="long" >
+				<Param name="DateTime value" />
+			</Overload>
+			<Overload retVal="long" >
+				<Param name="double value" />
+			</Overload>
+			<Overload retVal="long" >
+				<Param name="string value" />
+				<Param name="IFormatProvider provider" />
+			</Overload>
+			<Overload retVal="long" >
+				<Param name="string value" />
+				<Param name="int fromBase" />
+			</Overload>
+			<Overload retVal="long" >
+				<Param name="float value" />
+			</Overload>
+			<Overload retVal="long" >
+				<Param name="ulong value" />
+			</Overload>
+			<Overload retVal="long" >
+				<Param name="object value" />
+			</Overload>
+			<Overload retVal="long" >
+				<Param name="object value" />
+				<Param name="IFormatProvider provider" />
+			</Overload>
+			<Overload retVal="long" >
+				<Param name="bool value" />
+			</Overload>
+			<Overload retVal="long" >
+				<Param name="sbyte value" />
+			</Overload>
+			<Overload retVal="long" >
+				<Param name="string value" />
+			</Overload>
+			<Overload retVal="long" >
+				<Param name="string value" />
+				<Param name="int fromBase" />
+			</Overload>
+			<Overload retVal="long" >
+				<Param name="byte value" />
+			</Overload>
+			<Overload retVal="long" >
+				<Param name="char value" />
+			</Overload>
+			<Overload retVal="long" >
+				<Param name="ushort value" />
+			</Overload>
+			<Overload retVal="long" >
+				<Param name="int value" />
+			</Overload>
+			<Overload retVal="long" >
+				<Param name="uint value" />
+			</Overload>
+			<Overload retVal="long" >
+				<Param name="long value" />
+			</Overload>
+			<Overload retVal="long" >
+				<Param name="short value" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Convert.ToSbyte" func="yes">
+			<Overload retVal="sbyte" >
+				<Param name="DateTime value" />
+			</Overload>
+			<Overload retVal="sbyte" >
+				<Param name="double value" />
+			</Overload>
+			<Overload retVal="sbyte" >
+				<Param name="string value" />
+				<Param name="IFormatProvider provider" />
+			</Overload>
+			<Overload retVal="sbyte" >
+				<Param name="string value" />
+				<Param name="int fromBase" />
+			</Overload>
+			<Overload retVal="sbyte" >
+				<Param name="float value" />
+			</Overload>
+			<Overload retVal="sbyte" >
+				<Param name="ulong value" />
+			</Overload>
+			<Overload retVal="sbyte" >
+				<Param name="object value" />
+			</Overload>
+			<Overload retVal="sbyte" >
+				<Param name="object value" />
+				<Param name="IFormatProvider provider" />
+			</Overload>
+			<Overload retVal="sbyte" >
+				<Param name="bool value" />
+			</Overload>
+			<Overload retVal="sbyte" >
+				<Param name="sbyte value" />
+			</Overload>
+			<Overload retVal="sbyte" >
+				<Param name="string value" />
+			</Overload>
+			<Overload retVal="sbyte" >
+				<Param name="string value" />
+				<Param name="int fromBase" />
+			</Overload>
+			<Overload retVal="sbyte" >
+				<Param name="byte value" />
+			</Overload>
+			<Overload retVal="sbyte" >
+				<Param name="char value" />
+			</Overload>
+			<Overload retVal="sbyte" >
+				<Param name="ushort value" />
+			</Overload>
+			<Overload retVal="sbyte" >
+				<Param name="int value" />
+			</Overload>
+			<Overload retVal="sbyte" >
+				<Param name="uint value" />
+			</Overload>
+			<Overload retVal="sbyte" >
+				<Param name="long value" />
+			</Overload>
+			<Overload retVal="sbyte" >
+				<Param name="short value" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Convert.ToSingle" func="yes">
+			<Overload retVal="float" >
+				<Param name="DateTime value" />
+			</Overload>
+			<Overload retVal="float" >
+				<Param name="double value" />
+			</Overload>
+			<Overload retVal="float" >
+				<Param name="string value" />
+				<Param name="IFormatProvider provider" />
+			</Overload>
+			<Overload retVal="float" >
+				<Param name="string value" />
+				<Param name="int fromBase" />
+			</Overload>
+			<Overload retVal="float" >
+				<Param name="float value" />
+			</Overload>
+			<Overload retVal="float" >
+				<Param name="ulong value" />
+			</Overload>
+			<Overload retVal="float" >
+				<Param name="object value" />
+			</Overload>
+			<Overload retVal="float" >
+				<Param name="object value" />
+				<Param name="IFormatProvider provider" />
+			</Overload>
+			<Overload retVal="float" >
+				<Param name="bool value" />
+			</Overload>
+			<Overload retVal="float" >
+				<Param name="sbyte value" />
+			</Overload>
+			<Overload retVal="float" >
+				<Param name="string value" />
+			</Overload>
+			<Overload retVal="float" >
+				<Param name="string value" />
+				<Param name="int fromBase" />
+			</Overload>
+			<Overload retVal="float" >
+				<Param name="byte value" />
+			</Overload>
+			<Overload retVal="float" >
+				<Param name="char value" />
+			</Overload>
+			<Overload retVal="float" >
+				<Param name="ushort value" />
+			</Overload>
+			<Overload retVal="float" >
+				<Param name="int value" />
+			</Overload>
+			<Overload retVal="float" >
+				<Param name="uint value" />
+			</Overload>
+			<Overload retVal="float" >
+				<Param name="long value" />
+			</Overload>
+			<Overload retVal="float" >
+				<Param name="short value" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Convert.ToString" func="yes">
+			<Overload retVal="string" >
+				<Param name="DateTime value" />
+			</Overload>
+			<Overload retVal="string" >
+				<Param name="DateTime value" />
+			</Overload>
+			<Overload retVal="string" >
+				<Param name="double value" />
+			</Overload>
+			<Overload retVal="string" >
+				<Param name="string value" />
+				<Param name="IFormatProvider provider" />
+			</Overload>
+			<Overload retVal="string" >
+				<Param name="string value" />
+				<Param name="int fromBase" />
+			</Overload>
+			<Overload retVal="string" >
+				<Param name="float value" />
+			</Overload>
+			<Overload retVal="string" >
+				<Param name="ulong value" />
+			</Overload>
+			<Overload retVal="string" >
+				<Param name="object value" />
+			</Overload>
+			<Overload retVal="string" >
+				<Param name="object value" />
+				<Param name="IFormatProvider provider" />
+			</Overload>
+			<Overload retVal="string" >
+				<Param name="bool value" />
+				<Param name="IFormatProvider provider" />
+			</Overload>
+			<Overload retVal="string" >
+				<Param name="sbyte value" />
+				<Param name="IFormatProvider provider" />
+			</Overload>
+			<Overload retVal="string" >
+				<Param name="string value" />
+			</Overload>
+			<Overload retVal="string" >
+				<Param name="string value" />
+				<Param name="int fromBase" />
+			</Overload>
+			<Overload retVal="string" >
+				<Param name="byte value" />
+				<Param name="IFormatProvider provider" />
+			</Overload>
+			<Overload retVal="string" >
+				<Param name="char value" />
+				<Param name="IFormatProvider provider" />
+			</Overload>
+			<Overload retVal="string" >
+				<Param name="ushort value" />
+			</Overload>
+			<Overload retVal="string" >
+				<Param name="int value" />
+			</Overload>
+			<Overload retVal="string" >
+				<Param name="uint value" />
+			</Overload>
+			<Overload retVal="string" >
+				<Param name="long value" />
+			</Overload>
+			<Overload retVal="string" >
+				<Param name="short value" />
+				<Param name="IFormatProvider provider" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Convert.ToInt16" func="yes">
+			<Overload retVal="ushort" >
+				<Param name="DateTime value" />
+			</Overload>
+			<Overload retVal="ushort" >
+				<Param name="double value" />
+			</Overload>
+			<Overload retVal="ushort" >
+				<Param name="string value" />
+				<Param name="IFormatProvider provider" />
+			</Overload>
+			<Overload retVal="ushort" >
+				<Param name="string value" />
+				<Param name="int fromBase" />
+			</Overload>
+			<Overload retVal="ushort" >
+				<Param name="float value" />
+			</Overload>
+			<Overload retVal="ushort" >
+				<Param name="ulong value" />
+			</Overload>
+			<Overload retVal="ushort" >
+				<Param name="object value" />
+			</Overload>
+			<Overload retVal="ushort" >
+				<Param name="object value" />
+				<Param name="IFormatProvider provider" />
+			</Overload>
+			<Overload retVal="ushort" >
+				<Param name="bool value" />
+			</Overload>
+			<Overload retVal="ushort" >
+				<Param name="sbyte value" />
+			</Overload>
+			<Overload retVal="ushort" >
+				<Param name="string value" />
+			</Overload>
+			<Overload retVal="ushort" >
+				<Param name="string value" />
+				<Param name="int fromBase" />
+			</Overload>
+			<Overload retVal="ushort" >
+				<Param name="byte value" />
+			</Overload>
+			<Overload retVal="ushort" >
+				<Param name="char value" />
+			</Overload>
+			<Overload retVal="ushort" >
+				<Param name="ushort value" />
+			</Overload>
+			<Overload retVal="ushort" >
+				<Param name="int value" />
+			</Overload>
+			<Overload retVal="ushort" >
+				<Param name="uint value" />
+			</Overload>
+			<Overload retVal="ushort" >
+				<Param name="long value" />
+			</Overload>
+			<Overload retVal="ushort" >
+				<Param name="short value" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Convert.ToUInt32" func="yes">
+			<Overload retVal="uint" >
+				<Param name="DateTime value" />
+			</Overload>
+			<Overload retVal="uint" >
+				<Param name="double value" />
+			</Overload>
+			<Overload retVal="uint" >
+				<Param name="string value" />
+				<Param name="IFormatProvider provider" />
+			</Overload>
+			<Overload retVal="uint" >
+				<Param name="string value" />
+				<Param name="int fromBase" />
+			</Overload>
+			<Overload retVal="uint" >
+				<Param name="float value" />
+			</Overload>
+			<Overload retVal="uint" >
+				<Param name="ulong value" />
+			</Overload>
+			<Overload retVal="uint" >
+				<Param name="object value" />
+			</Overload>
+			<Overload retVal="uint" >
+				<Param name="object value" />
+				<Param name="IFormatProvider provider" />
+			</Overload>
+			<Overload retVal="uint" >
+				<Param name="bool value" />
+			</Overload>
+			<Overload retVal="uint" >
+				<Param name="sbyte value" />
+			</Overload>
+			<Overload retVal="uint" >
+				<Param name="string value" />
+			</Overload>
+			<Overload retVal="uint" >
+				<Param name="string value" />
+				<Param name="int fromBase" />
+			</Overload>
+			<Overload retVal="uint" >
+				<Param name="byte value" />
+			</Overload>
+			<Overload retVal="uint" >
+				<Param name="char value" />
+			</Overload>
+			<Overload retVal="uint" >
+				<Param name="ushort value" />
+			</Overload>
+			<Overload retVal="uint" >
+				<Param name="int value" />
+			</Overload>
+			<Overload retVal="uint" >
+				<Param name="uint value" />
+			</Overload>
+			<Overload retVal="uint" >
+				<Param name="long value" />
+			</Overload>
+			<Overload retVal="uint" >
+				<Param name="short value" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Convert.ToUInt64" func="yes">
+			<Overload retVal="ulong" >
+				<Param name="DateTime value" />
+			</Overload>
+			<Overload retVal="ulong" >
+				<Param name="double value" />
+			</Overload>
+			<Overload retVal="ulong" >
+				<Param name="string value" />
+				<Param name="IFormatProvider provider" />
+			</Overload>
+			<Overload retVal="ulong" >
+				<Param name="string value" />
+				<Param name="int fromBase" />
+			</Overload>
+			<Overload retVal="ulong" >
+				<Param name="float value" />
+			</Overload>
+			<Overload retVal="ulong" >
+				<Param name="ulong value" />
+			</Overload>
+			<Overload retVal="ulong" >
+				<Param name="object value" />
+			</Overload>
+			<Overload retVal="ulong" >
+				<Param name="object value" />
+				<Param name="IFormatProvider provider" />
+			</Overload>
+			<Overload retVal="ulong" >
+				<Param name="bool value" />
+			</Overload>
+			<Overload retVal="ulong" >
+				<Param name="sbyte value" />
+			</Overload>
+			<Overload retVal="ulong" >
+				<Param name="string value" />
+			</Overload>
+			<Overload retVal="ulong" >
+				<Param name="string value" />
+				<Param name="int fromBase" />
+			</Overload>
+			<Overload retVal="ulong" >
+				<Param name="byte value" />
+			</Overload>
+			<Overload retVal="ulong" >
+				<Param name="char value" />
+			</Overload>
+			<Overload retVal="ulong" >
+				<Param name="ushort value" />
+			</Overload>
+			<Overload retVal="ulong" >
+				<Param name="int value" />
+			</Overload>
+			<Overload retVal="ulong" >
+				<Param name="uint value" />
+			</Overload>
+			<Overload retVal="ulong" >
+				<Param name="long value" />
+			</Overload>
+			<Overload retVal="ulong" >
+				<Param name="short value" />
+			</Overload>
+		</KeyWord>
+
 		<KeyWord name="const" />
 		<KeyWord name="continue" />
 		<KeyWord name="DateTime" />
@@ -439,14 +1393,17 @@
 		<KeyWord name="extern" />
 		<KeyWord name="false" />
 		<KeyWord name="FileStream" />
+
+		<!-- class : System.IO.File  -->
+
 		<KeyWord name="File.AppendAllLines" func="yes">
 			<Overload retVal="void" >
 				<Param name="string path" />
-				<Param name="System.Collections.Generic.IEnumerable&lt;string&gt; contents" />
+				<Param name="System.Collections.Generic.IEnumerable<string> contents" />
 			</Overload>
 			<Overload retVal="void" >
 				<Param name="string path" />
-				<Param name="System.Collections.Generic.IEnumerable&lt;string&gt; contents" />
+				<Param name="System.Collections.Generic.IEnumerable<string> contents" />
 				<Param name="System.Text.Encoding encoding" />
 			</Overload>
 		</KeyWord>
@@ -628,10 +1585,10 @@
 			</Overload>
 		</KeyWord>
 		<KeyWord name="File.ReadLines" func="yes">
-			<Overload retVal="System.Collections.Generic.IEnumerable&lt;string&gt;" >
+			<Overload retVal="System.Collections.Generic.IEnumerable<string>" >
 				<Param name="string path" />
 			</Overload>
-			<Overload retVal="System.Collections.Generic.IEnumerable&lt;string&gt;" >
+			<Overload retVal="System.Collections.Generic.IEnumerable<string>" >
 				<Param name="string path" />
 				<Param name="System.Text.Encoding encoding" />
 			</Overload>
@@ -711,7 +1668,7 @@
 			<Overload retVal="void" >
 				<Param name="string path" />
 				<Param name="string[] content " />
-				<Param name="System.Collections.Generic.IEnumerable&lt;string&gt; content " />
+				<Param name="System.Collections.Generic.IEnumerable<string> content " />
 			</Overload>
 			<Overload retVal="void" >
 				<Param name="string path" />
@@ -722,7 +1679,7 @@
 				<Param name="string path" />
 				<Param name="string[] content " />
 				<Param name="System.Text.Encoding encoding " />
-				<Param name="System.Collections.Generic.IEnumerable&lt;string&gt; content " />
+				<Param name="System.Collections.Generic.IEnumerable<string> content " />
 			</Overload>
 		</KeyWord>
 		<KeyWord name="File.WriteAllText" func="yes">
@@ -736,6 +1693,7 @@
 				<Param name="System.Text.Encoding encoding " />
 			</Overload>
 		</KeyWord>
+
 		<KeyWord name="finally" />
 		<KeyWord name="fixed" />
 		<KeyWord name="float" />
@@ -775,6 +1733,9 @@
 		<KeyWord name="Microsoft.VisualBasic" />
 		<KeyWord name="Microsoft.Vsa" />
 		<KeyWord name="Microsoft.Win32" />
+
+		<!-- class : System.Windows.Forms.MessageBox  -->
+
 		<KeyWord name="MessageBox.Show" func="yes" >
 			<Overload retVal="DialogResult" >
 				<Param name="string text" />
@@ -843,6 +1804,7 @@
 				<Param name="string keyword" />
 			</Overload>
 		</KeyWord>
+
 		<KeyWord name="namespace" />
 		<KeyWord name="new" />
 		<KeyWord name="null" />
@@ -950,6 +1912,7 @@
 		<KeyWord name="System.Text" />
 		<KeyWord name="System.Text.RegularExpressions" />
 		<KeyWord name="System.Threading" />
+		<KeyWord name="System.Threading.Tasks" />
 		<KeyWord name="System.Timers" />
 		<KeyWord name="System.Web" />
 		<KeyWord name="System.Web.Caching" />
@@ -978,6 +1941,300 @@
 		<KeyWord name="TextWriter" />
 		<KeyWord name="this" />
 		<KeyWord name="throw" />
+
+		<!-- class : System.Threading.Tasks  -->
+
+		<KeyWord name="Task.Delay" func="yes">
+			<Overload retVal="Task" >
+				<Param name="TimeSpan delay"/>
+			</Overload>
+			<Overload retVal="Task" >
+				<Param name="TimeSpan delay"/>
+				<Param name="CancellationToken cancellationToken"/>
+			</Overload>
+			<Overload retVal="Task" >
+				<Param name="int millisecondsDelay"/>
+			</Overload>
+			<Overload retVal="Task" >
+				<Param name="int millisecondsDelay"/>
+				<Param name="CancellationToken cancellationToken"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Task.FromResult<TResult>" func="yes">
+			<Overload retVal="Task<TResult>" >
+				<Param name="TResult result"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Task.Run" func="yes">
+			<Overload retVal="Task" >
+				<Param name="Func<Task> function"/>
+				<Param name="CancellationToken cancellationToken"/>
+			</Overload>
+			<Overload retVal="Task" >
+				<Param name="Func<Task> function"/>
+			</Overload>
+			<Overload retVal="Task" >
+				<Param name="Action action"/>
+				<Param name="CancellationToken cancellationToken"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Task.Run<TResult>" func="yes">
+			<Overload retVal="Task<TResult>" >
+				<Param name="Func<Task<TResult>> function"/>
+			</Overload>
+			<Overload retVal="Task<TResult>" >
+				<Param name="Func<Task<TResult>> function"/>
+				<Param name="CancellationToken cancellationToken"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Task.Run" func="yes">
+			<Overload retVal="Task" >
+				<Param name="Action action"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Task.Run<TResult>" func="yes">
+			<Overload retVal="Task<TResult>" >
+				<Param name="Func<TResult> function"/>
+				<Param name="CancellationToken cancellationToken"/>
+			</Overload>
+			<Overload retVal="Task<TResult>" >
+				<Param name="Func<TResult> function"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Task.WaitAll" func="yes">
+			<Overload retVal="void" >
+				<Param name="params Task[] tasks"/>
+			</Overload>
+			<Overload retVal="bool" >
+				<Param name="Task[] tasks"/>
+				<Param name="TimeSpan timeout"/>
+			</Overload>
+			<Overload retVal="bool" >
+				<Param name="Task[] tasks"/>
+				<Param name="int millisecondsTimeout"/>
+			</Overload>
+			<Overload retVal="void" >
+				<Param name="Task[] tasks"/>
+				<Param name="CancellationToken cancellationToken"/>
+			</Overload>
+			<Overload retVal="bool" >
+				<Param name="Task[] tasks"/>
+				<Param name="int millisecondsTimeout"/>
+				<Param name="CancellationToken cancellationToken"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Task.WaitAny" func="yes">
+			<Overload retVal="int" >
+				<Param name="params Task[] tasks"/>
+			</Overload>
+			<Overload retVal="int" >
+				<Param name="Task[] tasks"/>
+				<Param name="TimeSpan timeout"/>
+			</Overload>
+			<Overload retVal="int" >
+				<Param name="Task[] tasks"/>
+				<Param name="int millisecondsTimeout"/>
+			</Overload>
+			<Overload retVal="int" >
+				<Param name="Task[] tasks"/>
+				<Param name="CancellationToken cancellationToken"/>
+			</Overload>
+			<Overload retVal="int" >
+				<Param name="Task[] tasks"/>
+				<Param name="int millisecondsTimeout"/>
+				<Param name="CancellationToken cancellationToken"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Task.WhenAll" func="yes">
+			<Overload retVal="Task" >
+				<Param name="IEnumerable<Task> tasks"/>
+			</Overload>
+			<Overload retVal="Task" >
+				<Param name="params Task[] tasks"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Task.WhenAll<TResult>" func="yes">
+			<Overload retVal="Task<TResult[]>" >
+				<Param name="IEnumerable<Task<TResult>> tasks"/>
+			</Overload>
+			<Overload retVal="Task<TResult[]>" >
+				<Param name="params Task<TResult>[] tasks"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Task.WhenAny" func="yes">
+			<Overload retVal="Task<Task>" >
+				<Param name="params Task[] tasks"/>
+			</Overload>
+			<Overload retVal="Task<TResult[]>" >
+				<Param name="IEnumerable<Task> tasks"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Task.WhenAny<TResult>" func="yes">
+			<Overload retVal="Task<Task<TResult>>" >
+				<Param name="params Task<TResult>[] tasks"/>
+			</Overload>
+			<Overload retVal="Task<Task<TResult>>" >
+				<Param name="IEnumerable<Task<TResult>> tasks"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Thread.Yield" func="yes">
+			<Overload retVal="YieldAwaitable" >
+				<Param name="..."/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Thread.ConfigureAwait" func="yes">
+			<Overload retVal="ConfiguredTaskAwaitable" >
+				<Param name="bool continueOnCapturedContext"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Thread.ContinueWith<TResult>" func="yes">
+			<Overload retVal="Task<TResult>" >
+				<Param name="Func<Task, object, TResult> continuationFunction"/>
+				<Param name="object state"/>
+				<Param name="CancellationToken cancellationToken"/>
+				<Param name="TaskContinuationOptions continuationOptions"/>
+				<Param name="TaskScheduler scheduler"/>
+			</Overload>
+			<Overload retVal="Task<TResult>" >
+				<Param name="Func<Task, object, TResult> continuationFunction"/>
+				<Param name="object state"/>
+				<Param name="TaskContinuationOptions continuationOptions"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Thread.ContinueWith" func="yes">
+			<Overload retVal="Task" >
+				<Param name="Action<Task> continuationAction"/>
+			</Overload>
+			<Overload retVal="Task" >
+				<Param name="Action<Task> continuationAction"/>
+				<Param name="CancellationToken cancellationToken"/>
+			</Overload>
+			<Overload retVal="Task" >
+				<Param name="Action<Task> continuationAction"/>
+				<Param name="TaskScheduler scheduler"/>
+			</Overload>
+			<Overload retVal="Task" >
+				<Param name="Action<Task> continuationAction"/>
+				<Param name="CancellationToken cancellationToken"/>
+				<Param name="TaskContinuationOptions continuationOptions"/>
+				<Param name="TaskScheduler scheduler"/>
+			</Overload>
+			<Overload retVal="Task" >
+				<Param name="Action<Task, object> continuationAction"/>
+				<Param name="object state"/>
+			</Overload>
+			<Overload retVal="Task" >
+				<Param name="Action<Task, object> continuationAction"/>
+				<Param name="object state"/>
+				<Param name="CancellationToken cancellationToken"/>
+			</Overload>
+			<Overload retVal="Task" >
+				<Param name="Action<Task, object> continuationAction"/>
+				<Param name="object state"/>
+				<Param name="TaskScheduler scheduler"/>
+			</Overload>
+			<Overload retVal="Task" >
+				<Param name="Action<Task, object> continuationAction"/>
+				<Param name="object state"/>
+				<Param name="TaskContinuationOptions continuationOptions"/>
+			</Overload>
+			<Overload retVal="Task" >
+				<Param name="Action<Task, object> continuationAction"/>
+				<Param name="object state"/>
+				<Param name="CancellationToken cancellationToken"/>
+				<Param name="TaskContinuationOptions continuationOptions"/>
+				<Param name="TaskScheduler scheduler"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Task.ContinueWith<TResult>" func="yes">
+			<Overload retVal="Task<TResult>" >
+				<Param name="Func<Task, TResult> continuationFunction"/>
+			</Overload>
+			<Overload retVal="Task<TResult>" >
+				<Param name="Func<Task, TResult> continuationFunction"/>
+				<Param name="CancellationToken cancellationToken"/>
+			</Overload>
+			<Overload retVal="Task<TResult>" >
+				<Param name="Func<Task, TResult> continuationFunction"/>
+				<Param name="TaskScheduler scheduler"/>
+			</Overload>
+			<Overload retVal="Task<TResult>" >
+				<Param name="Func<Task, TResult> continuationFunction"/>
+				<Param name="TaskContinuationOptions continuationOptions"/>
+			</Overload>
+			<Overload retVal="Task<TResult>" >
+				<Param name="Func<Task, TResult> continuationFunction"/>
+				<Param name="CancellationToken cancellationToken"/>
+				<Param name="TaskContinuationOptions continuationOptions"/>
+				<Param name="TaskScheduler scheduler"/>
+			</Overload>
+			<Overload retVal="Task<TResult>" >
+				<Param name="Func<Task, object, TResult> continuationFunction"/>
+				<Param name="object state"/>
+			</Overload>
+			<Overload retVal="Task<TResult>" >
+				<Param name="Func<Task, object, TResult> continuationFunction"/>
+				<Param name="object state"/>
+				<Param name="CancellationToken cancellationToken"/>
+			</Overload>
+			<Overload retVal="Task<TResult>" >
+				<Param name="Func<Task, object, TResult> continuationFunction"/>
+				<Param name="object state"/>
+				<Param name="TaskScheduler scheduler"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Task.Dispose" func="yes">
+			<Overload retVal="void" >
+				<Param name="..."/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Task.GetAwaiter" func="yes">
+			<Overload retVal="TaskAwaiter" >
+				<Param name="..."/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Task.RunSynchronously" func="yes">
+			<Overload retVal="void" >
+				<Param name="..."/>
+			</Overload>
+			<Overload retVal="void" >
+				<Param name="TaskScheduler scheduler"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Task.Start" func="yes">
+			<Overload retVal="void" >
+				<Param name="..."/>
+			</Overload>
+			<Overload retVal="void" >
+				<Param name="TaskScheduler scheduler"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Task.Wait" func="yes">
+			<Overload retVal="bool" >
+				<Param name="int millisecondsTimeout"/>
+			</Overload>
+			<Overload retVal="void" >
+				<Param name="CancellationToken cancellationToken"/>
+			</Overload>
+			<Overload retVal="bool" >
+				<Param name="int millisecondsTimeout"/>
+				<Param name="CancellationToken cancellationToken"/>
+			</Overload>
+			<Overload retVal="void" >
+				<Param name="..."/>
+			</Overload>
+			<Overload retVal="void" >
+				<Param name="TimeSpan timeout"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Task.Dispose" func="yes">
+			<Overload retVal="void" >
+				<Param name="bool disposing"/>
+			</Overload>
+		</KeyWord>
+
+		<!-- class : System.Threading.Thread  -->
+
 		<KeyWord name="Thread.Sleep" func="yes">
 			<Overload retVal="void" >
 				<Param name="int millisecondsTimeout"/>
@@ -996,6 +2253,238 @@
 				<Param name="string name"/>
 			</Overload>
 		</KeyWord>
+		<KeyWord name="Thread.BeginCriticalRegion" func="yes">
+			<Overload retVal="void" >
+				<Param name="..."/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Thread.BeginThreadAffinity" func="yes">
+			<Overload retVal="void" >
+				<Param name="..."/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Thread.EndCriticalRegion" func="yes">
+			<Overload retVal="void" >
+				<Param name="..."/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Thread.FreeNamedDataSlot" func="yes">
+			<Overload retVal="void" >
+				<Param name="string name"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Thread.GetData" func="yes">
+			<Overload retVal="object" >
+				<Param name="LocalDataStoreSlot slot"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Thread.GetDomain" func="yes">
+			<Overload retVal="AppDomain" >
+				<Param name="..."/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Thread.GetDomainID" func="yes">
+			<Overload retVal="int" >
+				<Param name="..."/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Thread.GetNamedDataSlot" func="yes">
+			<Overload retVal="LocalDataStoreSlot" >
+				<Param name="string name"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Thread.MemoryBarrier" func="yes">
+			<Overload retVal="void" >
+				<Param name="..."/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Thread.ResetAbort" func="yes">
+			<Overload retVal="void" >
+				<Param name="..."/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Thread.SetData" func="yes">
+			<Overload retVal="void" >
+				<Param name="LocalDataStoreSlot slot"/>
+				<Param name="object data"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Thread.SpinWait" func="yes">
+			<Overload retVal="void" >
+				<Param name="int iterations"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Thread.VolatileRead" func="yes">
+			<Overload retVal="ulong" >
+				<Param name="ref ulong address"/>
+			</Overload>
+			<Overload retVal="double" >
+				<Param name="ref double address"/>
+			</Overload>
+			<Overload retVal="object" >
+				<Param name="ref object address"/>
+			</Overload>
+			<Overload retVal="UIntPtr" >
+				<Param name="ref UIntPtr address"/>
+			</Overload>
+			<Overload retVal="IntPtr" >
+				<Param name="ref IntPtr address"/>
+			</Overload>
+			<Overload retVal="uint" >
+				<Param name="ref uint address"/>
+			</Overload>
+			<Overload retVal="ushort" >
+				<Param name="ref ushort address"/>
+			</Overload>
+			<Overload retVal="float" >
+				<Param name="ref float address"/>
+			</Overload>
+			<Overload retVal="long" >
+				<Param name="ref long address"/>
+			</Overload>
+			<Overload retVal="sbyte" >
+				<Param name="ref sbyte address"/>
+			</Overload>
+			<Overload retVal="byte" >
+				<Param name="ref byte address"/>
+			</Overload>
+			<Overload retVal="short" >
+				<Param name="ref short address"/>
+			</Overload>
+			<Overload retVal="int" >
+				<Param name="ref int address"/>
+			</Overload>
+			<Overload retVal="void" >
+				<Param name="ref double address"/>
+				<Param name="ref double value"/>
+			</Overload>
+			<Overload retVal="void" >
+				<Param name="ref object address"/>
+				<Param name="ref object value"/>
+			</Overload>
+			<Overload retVal="void" >
+				<Param name="ref float address"/>
+				<Param name="ref float value"/>
+			</Overload>
+			<Overload retVal="void" >
+				<Param name="ref UIntPtr address"/>
+				<Param name="ref UIntPtr value"/>
+			</Overload>
+			<Overload retVal="void" >
+				<Param name="ref IntPtr address"/>
+				<Param name="ref IntPtr value"/>
+			</Overload>
+			<Overload retVal="void" >
+				<Param name="ref uint address"/>
+				<Param name="ref uint value"/>
+			</Overload>
+			<Overload retVal="void" >
+				<Param name="ref ushort address"/>
+				<Param name="ref ushort value"/>
+			</Overload>
+			<Overload retVal="void" >
+				<Param name="ref ulong address"/>
+				<Param name="ref ulong value"/>
+			</Overload>
+			<Overload retVal="void" >
+				<Param name="ref long address"/>
+				<Param name="ref long value"/>
+			</Overload>
+			<Overload retVal="void" >
+				<Param name="ref int address"/>
+				<Param name="ref int value"/>
+			</Overload>
+			<Overload retVal="void" >
+				<Param name="ref short address"/>
+				<Param name="ref short value"/>
+			</Overload>
+			<Overload retVal="void" >
+				<Param name="ref byte address"/>
+				<Param name="ref byte value"/>
+			</Overload>
+			<Overload retVal="void" >
+				<Param name="ref sbyte address"/>
+				<Param name="ref sbyte value"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Thread.Yield" func="yes">
+			<Overload retVal="bool" >
+				<Param name="..."/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Thread.Abort" func="yes">
+			<Overload retVal="void" >
+				<Param name="object stateInfo"/>
+			</Overload>
+			<Overload retVal="void" >
+				<Param name="..."/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Thread.DisableComObjectEagerCleanup" func="yes">
+			<Overload retVal="void" >
+				<Param name="..."/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Thread.GetApartmentState" func="yes">
+			<Overload retVal="ApartmentState" >
+				<Param name="..."/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Thread.GetCompressedStack" func="yes">
+			<Overload retVal="CompressedStack" >
+				<Param name="..."/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Thread.Interrupt" func="yes">
+			<Overload retVal="void" >
+				<Param name="..."/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Thread.Join" func="yes">
+			<Overload retVal="bool" >
+				<Param name="int millisecondsTimeout"/>
+			</Overload>
+			<Overload retVal="void" >
+				<Param name="..."/>
+			</Overload>
+			<Overload retVal="bool" >
+				<Param name="TimeSpan timeout"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Thread.Resume" func="yes">
+			<Overload retVal="void" >
+				<Param name="..."/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Thread.SetApartmentState" func="yes">
+			<Overload retVal="void" >
+				<Param name="ApartmentState state"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Thread.SetCompressedStack" func="yes">
+			<Overload retVal="void" >
+				<Param name="CompressedStack stack"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Thread.Start" func="yes">
+			<Overload retVal="void" >
+				<Param name="object parameter"/>
+			</Overload>
+			<Overload retVal="void" >
+				<Param name="..."/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Thread.Suspend" func="yes">
+			<Overload retVal="void" >
+				<Param name="..."/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Thread.TrySetApartmentState" func="yes">
+			<Overload retVal="void" >
+				<Param name="ApartmentState state"/>
+			</Overload>
+		</KeyWord>
+
 		<KeyWord name="true" />
 		<KeyWord name="try" />
 		<KeyWord name="typeof" />

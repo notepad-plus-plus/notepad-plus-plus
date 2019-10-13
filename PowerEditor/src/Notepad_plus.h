@@ -241,18 +241,25 @@ public:
 	std::vector<generic_string> addNppComponents(const TCHAR *destDir, const TCHAR *extFilterName, const TCHAR *extFilter);
 	std::vector<generic_string> addNppPlugins(const TCHAR *extFilterName, const TCHAR *extFilter);
     int getHtmlXmlEncoding(const TCHAR *fileName) const;
+
 	HACCEL getAccTable() const{
 		return _accelerator.getAccTable();
-	}
+	};
+
 	bool emergency(const generic_string& emergencySavedDir);
+
 	Buffer* getCurrentBuffer()	{
 		return _pEditView->getCurrentBuffer();
-	}
+	};
+
 	void launchDocumentBackupTask();
 	int getQuoteIndexFrom(const wchar_t* quoter) const;
 	void showQuoteFromIndex(int index) const;
 	void showQuote(const QuoteParams* quote) const;
 
+	generic_string getPluginListVerStr() const {
+		return _pluginsAdminDlg.getPluginListVerStr();
+	};
 
 private:
 	Notepad_plus_Window *_pPublicInterface = nullptr;

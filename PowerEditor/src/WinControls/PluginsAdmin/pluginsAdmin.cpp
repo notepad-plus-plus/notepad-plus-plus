@@ -439,6 +439,13 @@ PluginsAdminDlg::PluginsAdminDlg()
 #endif
 }
 
+generic_string PluginsAdminDlg::getPluginListVerStr() const
+{
+	Version v;
+	v.setVersionFrom(_pluginListFullPath);
+	return v.toString();
+}
+
 bool PluginsAdminDlg::exitToInstallRemovePlugins(Operation op, const vector<PluginUpdateInfo*>& puis)
 {
 	generic_string opStr;

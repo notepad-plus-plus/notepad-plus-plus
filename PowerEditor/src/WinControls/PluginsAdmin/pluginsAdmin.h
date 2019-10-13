@@ -207,6 +207,7 @@ public :
 
 	void changeTabName(LIST_TYPE index, const TCHAR *name2change);
 	void changeColumnName(COLUMN_TYPE index, const TCHAR *name2change);
+	generic_string getPluginListVerStr() const;
 
 protected:
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);

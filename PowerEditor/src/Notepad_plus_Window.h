@@ -92,6 +92,11 @@ public:
 		_isPrelaunch = val;
 	}
 
+	generic_string getPluginListVerStr() const
+	{
+		return _notepad_plus_plus_core.getPluginListVerStr();
+	}
+
 	virtual void destroy()
 	{
 		::DestroyWindow(_hSelf);

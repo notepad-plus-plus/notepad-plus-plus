@@ -299,8 +299,8 @@ PWSTR advanceCmdLine(PWSTR pCmdLine, const generic_string& string)
 		}
 	
 		// Match the substring only if it matched an entire substring		
-		if ( (ignoredString == pCmdLine || iswspace(*(ignoredString-1)) ) && // Check start
-			 (iswspace(*(ignoredString+len)) || *(ignoredString+len) == '\0') )
+		if ((ignoredString == pCmdLine || iswspace(*(ignoredString - 1))) && // Check start
+			(iswspace(*(ignoredString + len)) || *(ignoredString + len) == '\0' || *(ignoredString + len) == '"'))
 		{
 			ignoredString += len;
 

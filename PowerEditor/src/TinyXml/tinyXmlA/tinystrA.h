@@ -145,7 +145,7 @@ class TiXmlStringA
         if (size)
         {
             allocated = size;
-			TIXMLA_STRING cstring = new char [size];
+			TIXMLA_STRING::cstring = new char [size];
             cstring [0] = 0;
             current_length = 0;
         }

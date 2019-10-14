@@ -48,7 +48,7 @@ void TreeView::init(HINSTANCE hInst, HWND parent, int treeViewID)
                             _hInst,
                             (LPVOID)0);
 
-	int itemHeight = NppParameters::getInstance()->_dpiManager.scaleY(CY_ITEMHEIGHT);
+	int itemHeight = NppParameters::getInstance()._dpiManager.scaleY(CY_ITEMHEIGHT);
 	TreeView_SetItemHeight(_hSelf, itemHeight);
 
 	::SetWindowLongPtr(_hSelf, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
@@ -118,7 +118,7 @@ LPARAM TreeView::getItemParam(HTREEITEM Item2Get) const
 generic_string TreeView::getItemDisplayName(HTREEITEM Item2Set) const
 {
 	if (not Item2Set)
-		return false;
+		return TEXT("");
 	TCHAR textBuffer[MAX_PATH];
 	TVITEM tvItem;
 	tvItem.hItem = Item2Set;
@@ -317,7 +317,7 @@ void TreeView::dragItem(HWND parentHandle, int x, int y)
     hitTestInfo.pt.x = point.x;
     hitTestInfo.pt.y = point.y;
 	HTREEITEM targetItem = reinterpret_cast<HTREEITEM>(::SendMessage(_hSelf, TVM_HITTEST, 0, reinterpret_cast<LPARAM>(&hitTestInfo)));
-    if(targetItem)
+    if (targetItem)
     {
 		::SendMessage(_hSelf, TVM_SELECTITEM, TVGN_DROPHILITE, reinterpret_cast<LPARAM>(targetItem));
     }
@@ -495,16 +495,16 @@ bool TreeView::swapTreeViewItem(HTREEITEM itemGoDown, HTREEITEM itemGoUp)
 	removeItem(itemGoDown);
 
 	// Restore the selection if needed
-	if (itemSelected != 0)
+	switch (itemSelected)
 	{
-		if (itemSelected == 1)
-		{
+		case 1:
 			selectItem(hTreeParent2ndInserted);
-		}
-		else if (itemSelected == 2)
-		{
+			break;
+		case 2:
 			selectItem(hTreeParent1stInserted);
-		}
+			break;
+		default:
+			break;
 	}
 	return true;
 }

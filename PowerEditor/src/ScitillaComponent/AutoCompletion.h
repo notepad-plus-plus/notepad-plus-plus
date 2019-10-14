@@ -36,6 +36,7 @@ const size_t tagMaxLen = 256;
 class ScintillaEditView;
 
 struct MatchedCharInserted {
+	MatchedCharInserted() = delete;
 	char _c;
 	int _pos;
 	MatchedCharInserted(char c, int pos) : _c(c), _pos(pos) {};
@@ -51,21 +52,18 @@ public:
 
 private:
 	std::vector<MatchedCharInserted> _insertedMatchedChars;
-	ScintillaEditView * _pEditView;
+	ScintillaEditView * _pEditView = nullptr;;
 };
 
 class AutoCompletion {
 public:
-	enum ActiveCompletion {CompletionNone = 0, CompletionAuto, CompletionWord, CompletionFunc, CompletionPath};
-
 	explicit AutoCompletion(ScintillaEditView * pEditView): _pEditView(pEditView), _funcCalltip(pEditView) {
 		//Do not load any language yet
 		_insertedMatchedChars.init(_pEditView);
 	};
 
 	~AutoCompletion(){
-		if (_pXmlFile)
-			delete _pXmlFile;
+		delete _pXmlFile;
 	};
 
 	bool setLanguage(LangType language);
@@ -83,7 +81,7 @@ public:
 
 	void insertMatchedChars(int character, const MatchedPairConf & matchedPairConf);
 	void update(int character);
-	void callTipClick(int direction);
+	void callTipClick(size_t direction);
 	void getCloseTag(char *closeTag, size_t closeTagLen, size_t caretPos, bool isHTML);
 
 private:

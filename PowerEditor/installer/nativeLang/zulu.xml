@@ -1,0 +1,1183 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+***********************************************************************************
+	zulu language binary translations file for Notepad++ ::
+	Created By:- Roshan K. Rathod
+	Email id- rathodroshan0137@gmail.com,rkinfoteh28@gmail.com
+************************************************************************************
+	
+-->
+<NotepadPlus>
+    <Native-Langue name="zulu" filename="zulu.xml" version="7.6.2">
+        <Menu>
+            <Main>
+                <!-- Main Menu Entries -->
+                <Entries>
+                    <Item menuId="file" name="&amp;ifayela"/>
+                    <Item menuId="edit" name="&amp;hlela"/>
+                    <Item menuId="search" name="&amp;sesha"/>
+                    <Item menuId="view" name="&amp;buka"/>
+                    <Item menuId="encoding" name="E&amp;ukufaka ikhodi"/>
+                    <Item menuId="language" name="&amp;ulimi"/>
+                    <Item menuId="settings" name="Se&amp;izilungiselelo"/>
+                    <Item menuId="tools" name="To&amp;amathuluzi"/>
+                    <Item menuId="macro" name="&amp;Macro"/>
+                    <Item menuId="run" name="&amp;Run"/>
+                    <Item idName="Plugins" name="&amp;Ama-plugin"/>
+                    <Item idName="Window" name="&amp;Iwindi"/>
+                </Entries>
+                <!-- Sub Menu Entries -->
+                <SubEntries>
+                    <Item subMenuId="file-openFolder" name="Vula Iqukethe Ifolda"/>
+                    <Item subMenuId="file-closeMore" name="Vala okuningi"/>
+                    <Item subMenuId="file-recentFiles" name="&amp;Amafayelawakamuva"/>
+                    <Item subMenuId="edit-copyToClipboard"  name="Kopishaebhodinilokunamathisela"/>
+                    <Item subMenuId="edit-indent" name="Ukungena"/>
+                    <Item subMenuId="edit-convertCaseTo" name="Guqula i-Case"/>
+                    <Item subMenuId="edit-lineOperations" name="Ukusebenza komugqa"/>
+                    <Item subMenuId="edit-comment" name="Amazwana/Ukunciphisa"/>
+                    <Item subMenuId="edit-autoCompletion" name="Ukuqedela ngokuzenzekelayo"/>
+                    <Item subMenuId="edit-eolConversion" name="Ukuguqulwa kwe-EOL"/>
+                    <Item subMenuId="edit-blankOperations" name="Izinyathelo ezingasebenzi"/>
+                    <Item subMenuId="edit-pasteSpecial" name="Namathisela okukhethekile"/>
+                    <Item subMenuId="edit-onSelection" name="Kukhetho"/>
+                    <Item subMenuId="search-markAll" name="Maka konke"/>
+                    <Item subMenuId="search-unmarkAll" name="Faka uphawu konke"/>
+                    <Item subMenuId="search-jumpUp" name="Jump Up"/>
+                    <Item subMenuId="search-jumpDown" name="Jump Down"/>
+                    <Item subMenuId="search-bookmark" name="Ibhukhimakhi"/>
+                    <Item subMenuId="view-showSymbol"  name="Bonisa isibonakaliso"/>
+                    <Item subMenuId="view-zoom"  name="Sondeza"/>
+                    <Item subMenuId="view-moveCloneDocument"  name="Hambisa/IdokhumentiYamanjeYenkampani"/>
+                    <Item subMenuId="view-tab"  name="Ithebhu"/>
+                    <Item subMenuId="view-collapseLevel" name="Yehlisa izinga"/>
+                    <Item subMenuId="view-uncollapseLevel" name="Izinga lokungafinyeleli"/>
+                    <Item subMenuId="view-project" name="Iphrojekthi"/>
+                    <Item subMenuId="encoding-characterSets"  name="Ukusetha komuntu"/>
+                    <Item subMenuId="encoding-arabic"  name="Isi-Arabhu"/>
+                    <Item subMenuId="encoding-baltic"  name="I-Baltic"/>
+                    <Item subMenuId="encoding-celtic"  name="I-Celtic"/>
+                    <Item subMenuId="encoding-cyrillic"  name="I-Cyrillic"/>
+                    <Item subMenuId="encoding-centralEuropean"  name="I-European Central"/>
+                    <Item subMenuId="encoding-chinese"  name="Isi-Chinese"/>
+                    <Item subMenuId="encoding-easternEuropean"  name="Eastern European"/>
+                    <Item subMenuId="encoding-greek"  name="IsiGreki"/>
+                    <Item subMenuId="encoding-hebrew"  name="IsiHebheru"/>
+                    <Item subMenuId="encoding-japanese"  name="IsiJapane"/>
+                    <Item subMenuId="encoding-korean" name="Isi-Korean"/>
+                    <Item subMenuId="encoding-northEuropean" name="ENyakatho Yurophu"/>
+                    <Item subMenuId="encoding-thai" name="Isi-Thai"/>
+                    <Item subMenuId="encoding-turkish" name="Isi-Turkish"/>
+                    <Item subMenuId="encoding-westernEuropean" name="I-Western European"/>
+                    <Item subMenuId="encoding-vietnamese" name="Isi-Vietnamese"/>
+                    <Item subMenuId="settings-import"  name="Ngenisa"/>
+                    <Item subMenuId="tools-md5"  name="MD5"/>
+                </SubEntries>
+
+                <!-- all menu item -->
+                 <!-- all menu item -->
+				 <Commands>
+					 <Item id="41001" name="&amp;Okusha"/>
+					 <Item id="41002" name="&amp;Vula"/>
+					 <Item id="41019" name="I-Explorer"/>
+					 <Item id="41020" name="cmd"/>
+					 <Item id="41003" name="&amp;Vala"/>
+					 <Item id="41004" name="Clos&amp;e Konke"/>
+					 <Item id="41005" name="Vala Konke NOMA UMqulu Wamanje"/>
+					 <Item id="41009" name="Vala konke kuya kwesobunxele"/>
+					 <Item id="41018" name="Vala konke kuya kwesokudla"/>
+					 <Item id="41006" name="&amp;Londoloza"/>
+					 <Item id="41007" name="Sav&amp;e Konke"/>
+					 <Item id="41008" name="Save &amp;Njengoba..."/>
+					 <Item id="41010" name="Phrinta..."/>
+					 <Item id="1001"  name="Phrinta manje"/>
+					 <Item id="41011" name="E&amp;Phuma"/>
+					 <Item id="41012" name="Layisha iSession..."/>
+					 <Item id="41013" name="Londoloza iSession..."/>
+					 <Item id="41014" name="Re&amp;ukulayisha kusuka kuDisk"/>
+					 <Item id="41015" name="Londoloza i-Copy As..."/>
+					 <Item id="41016" name="Hambisa ku-Recycle Bin"/>
+					 <Item id="41017" name="Qamba kabusha..."/>
+					 <Item id="41021" name="Buyisela ifayela elivale lakamuva"/>
+					 <Item id="41022" name="Vula ifolda njengendawo yokusebenzela..."/>
+					 <Item id="41023" name="Vula ku-Viewer Okuzenzakalelayo"/>
+					 <Item id="42001" name="Cu&amp;t"/>
+					 <Item id="42002" name="&amp;Kopisha"/>
+					 <Item id="42003" name="&amp;Hlehlisa"/>
+					 <Item id="42004" name="&amp;Buyisela"/>
+					 <Item id="42005" name="&amp;Namathisela"/>
+					 <Item id="42006" name="&amp;Susa"/>
+					 <Item id="42007" name="Select A&amp;ll"/>
+					 <Item id="42020" name="Qala / Qeda Khetha"/>
+					 <Item id="42008" name="Ukwandisa ukufakwa komugqa"/>
+					 <Item id="42009" name="Nciphisa ukungena komugqa"/>
+					 <Item id="42010" name="Ukuphindaphindiwe Kwamanje"/>
+					 <Item id="42012" name="I-Split Lines"/>
+					 <Item id="42013" name="Joyina imigqa"/>
+					 <Item id="42014" name="Hambisa Ulayini Wamanje"/>
+					 <Item id="42015" name="Hambisa I-Down Current Line"/>
+					 <Item id="42059" name="Hlungaimibalaye-Lexicographicallyekhuphuka"/>
+					 <Item id="42060" name="Hlungaimibala ye-LexicographicallyYehla"/>
+					 <Item id="42061" name="HlungaImithiNjengobai-Integersikhuphuka"/>
+					 <Item id="42062" name="HlungaImigqaNjengoba i-Integers ihla"/>
+					 <Item id="42063" name="Hlungaimibalanjengezinhlawulo(i-Comma) ikhuphuka"/>
+					 <Item id="42064" name="HlungaImithiNjengama-Decimals(Comma) Wehla"/>
+					 <Item id="42065" name="HlungaImithiNjengama-Decimals(Dot) Akhuphuka"/>
+					 <Item id="42066" name="HlungaImigqaNjengama-Decimals (Dot) Wehla"/>
+					 <Item id="42016" name="&amp;UPPERCASE"/>
+					 <Item id="42017" name="&amp;i-lowercase"/>
+					 <Item id="42067" name="&amp;Icala elifanele"/>
+					 <Item id="42068" name="Ikesi elifanele (ukuhlanganiswa)"/>
+					 <Item id="42069" name="&amp;Icala lesigwebo"/>
+					 <Item id="42070" name="Icala lesigwebo (inhlanganisela)"/>
+					 <Item id="42071" name="&amp;NVERT cASE"/>
+					 <Item id="42072" name="&amp;I-ranOm CasE"/>
+					 <Item id="42073" name="Vula Ifayela"/>
+					 <Item id="42074" name="Vula Iqukethe Ifolda Ku-Explorer"/>
+					 <Item id="42075" name="Sesha ku-intanethi"/>
+					 <Item id="42076" name="Shintsha injini yokusesha..."/>
+					 <Item id="42018" name="Start Re&amp;ukubhala"/>
+					 <Item id="42019" name="S&amp;top Ukurekhoda"/>
+					 <Item id="42021" name="&amp;Ukudlala"/>
+					 <Item id="42022" name="Shintsha amazwana we-Single Line"/>
+					 <Item id="42023" name="Vimba amazwana"/>
+					 <Item id="42047" name="Vimbela ukuhlukana"/>
+					 <Item id="42024" name="I-Trim Space Trailing"/>
+					 <Item id="42042" name="Hlola Isikhala Esihamba phambili"/>
+					 <Item id="42043" name="Hlola isikhala esihamba phambili nesilandelayo"/>
+					 <Item id="42044" name="I-EOL ibe Isikhala"/>
+					 <Item id="42045" name="Susa okungadingekile okungadingekile ne-EOL"/>
+					 <Item id="42046" name="I-TAB kuya esikhala"/>
+					 <Item id="42054" name="Isikhala kuya ku-TAB (Konke)"/>
+					 <Item id="42053" name="Isikhala kuya ku-TAB (Ehamba phambili)"/>
+					 <Item id="42038" name="Namathisela okuqukethwe kwe-HTML"/>
+					 <Item id="42039" name="Namathisela okuqukethwe kwe-RTF"/>
+					 <Item id="42048" name="Kopisha okuqukethwe okubhaliwe"/>
+					 <Item id="42049" name="Sika okuqukethwe okubhaliwe"/>
+					 <Item id="42050" name="Namathisela okuqukethwe okubhaliwe"/>
+					 <Item id="42037" name="Imodi yekholomu..."/>
+					 <Item id="42034" name="Umhleli wekholomu..."/>
+					 <Item id="42051" name="Iphaneli lezinhlamvu"/>
+					 <Item id="42052" name="Umlando we-Clipboard"/>
+					 <Item id="42025" name="&amp;Londoloza Okwamanje i-Macro erekhodiwe..."/>
+					 <Item id="42026" name="I-Text Direction RTL"/>
+					 <Item id="42027" name="I-Text Direction LTR"/>
+					 <Item id="42028" name="Setha Kuphela-Okufundiwe"/>
+					 <Item id="42029" name="Inkambo Yefayela Yamanje ku-Clipboard"/>
+					 <Item id="42030" name="Igama lomfanekiso lamanje ku-Clipboard"/>
+					 <Item id="42031" name="Ukushayela okwamanje. Indlela eya ebhodini lokunamathisela"/>
+					 <Item id="42032" name="&amp;Qalisa izikhathi eziningi ze-Macro..."/>
+					 <Item id="42033" name="Sula i-Flag kuphela"/>
+					 <Item id="42035" name="I-Single Line Comment"/>
+					 <Item id="42036" name="Ukungaxhunyiwe kwe-Single Line"/>
+					 <Item id="42055" name="Susa amaLines angenalutho"/>
+					 <Item id="42056" name="Susa ama-Linesangenalutho(aqukethe izinhlamvu ezingenalutho)"/>
+					 <Item id="42057" name="Faka i-Blank Line Ngaphezulu Kwamanje"/>
+					 <Item id="42058" name="Faka umugqa ongenalutho ngezansi yamanje"/>
+					 <Item id="43001" name="&amp;Thola..."/>
+					 <Item id="43002" name="Thola &amp;Olandelayo"/>
+					 <Item id="43003" name="&amp;Faka esikhundleni..."/>
+					 <Item id="43004" name="&amp;Iya ku..."/>
+					 <Item id="43005" name="Guqula ibhukumaka"/>
+					 <Item id="43006" name="Ibhukhimakhi elilandelayo"/>
+					 <Item id="43007" name="Ibhukhimakhi langaphambilini"/>
+					 <Item id="43008" name="Sula Zonke Amabhukumaka"/>
+					 <Item id="43018" name="Sika amaLayibhukhimakhi"/>
+					 <Item id="43019" name="Kopisha Amakhodi E-Bookmark"/>
+					 <Item id="43020" name="Namathisela ku- (Faka esikhundleni) AmaLayibhukhimakhi"/>
+					 <Item id="43021" name="Susa amaLibhukhimakhi"/>
+					 <Item id="43051" name="Susa amaLinki angabonakali"/>
+					 <Item id="43050" name="Ibhulogi engenayo"/>
+					 <Item id="43052" name="Thola izinhlamvu ezikude..."/>
+					 <Item id="43053" name="Khetha konke phakathi kokubambisana kwama-Braces"/>
+					 <Item id="43009" name="Iya ku-Matching Brace"/>
+					 <Item id="43010" name="Thola &amp;Ngaphambilini"/>
+					 <Item id="43011" name="&amp;Ukusesha okungeziwe"/>
+					 <Item id="43013" name="Thola kumafayela"/>
+					 <Item id="43014" name="Thola (okuzenzekelayo) Okulandelayo"/>
+					 <Item id="43015" name="Thola (Okuzenzekelayo) Ngaphambilini"/>
+					 <Item id="43022" name="Ukusebenzisa isitayela sokuqala"/>
+					 <Item id="43023" name="Sula isitayela esingu-1"/>
+					 <Item id="43024" name="Usebenzisa isitayela sesi-2"/>
+					 <Item id="43025" name="Sula isitayela sesi-2"/>
+					 <Item id="43026" name="Ukusebenzisa isitayela sesithathu" />
+				     <Item id="43027" name="Sula isitayela sesithathu" />
+				     <Item id="43028" name="Ukusebenzisa isitayela sesine" />
+				     <Item id="43029" name="Sula isitayela sesine" />
+				     <Item id="43030" name="Ukusebenzisa isitayela sesi-5" />
+					 <Item id = "43031" name = "Sula isitayela sesi-5" />
+					 <Item id = "43032" name = "Sula Zonke Izitayela" />
+					 <Item id = "43033" name = "Isitayela sokuqala" />
+					 <Item id = "43034" name = "Isitayela sesibili" />
+					 <Item id = "43035" name = "isitayela sesithathu" />
+					 <Item id = "43036" name = "isitayela sesine" />
+					 <Item id = "43037" name = "isitayela sesi-5" />
+					 <Item id = "43038" name = "Thola isitayela" />
+					 <Item id = "43039" name = "Isitayela sokuqala" />
+					 <Item id = "43040" name = "Isitayela sesibili" /> 
+					 <Item id="43041" name="Isitayela sesithathu"/>
+					 <Item id="43042" name="Isitayela sesine"/>
+					 <Item id="43043" name="Isitayela sesi-5"/>
+					 <Item id="43044" name="Thola isitayela"/>
+					 <Item id="43045" name="I-Window Results Results"/>
+					 <Item id="43046" name="Umphumela olandelayo wosesho"/>
+					 <Item id="43047" name="Umphumela wokusesha wangaphambilini"/>
+					 <Item id="43048" name="Khetha bese Thola Okulandelayo"/>
+					 <Item id="43049" name="Khetha bese Thola ngaphambilini"/>
+					 <Item id="43054" name="Mar&amp;k..."/>
+					 <Item id="44009" name="I-Post-It"/>
+					 <Item id="44010" name="Gcwalisa konke"/>
+					 <Item id="44019" name="Bonisa zonke izici"/>
+					 <Item id="44020" name="Bonisa Umhlahlandlela Wokuzimela"/>
+					 <Item id="44022" name="Ukugoqa ngezwi"/>
+					 <Item id="44023" name="Sondeza &amp;Ku (I-Ctrl + Mouse Wheel Up)"/>
+					 <Item id="44024" name="Sondeza &amp;Phuma (I-Ctrl + Yegundane Yegundane Phansi)"/>
+					 <Item id="44025" name="Bonisa isikhala esimhlophe ne-TAB"/>
+					 <Item id="44026" name="Bonisa ukuphela komugqa"/>
+					 <Item id="44029" name="Veza konke"/>
+					 <Item id="44030" name="Yehlisa izinga lamanje"/>
+					 <Item id="44031" name="Ungalokothi ulahle izinga lamanje"/>
+					 <Item id="44049" name="Isifingqo..."/>
+					 <Item id="44080" name="Imephu yedokhumenti"/>
+					 <Item id="44084" name="Uhlu lomsebenzi"/>
+					 <Item id="44085" name="Ifolda njengendawo yokusebenzela"/>
+					 <Item id="44086" name="Ithebhu yokuqala"/>
+					 <Item id="44087" name="Ithebhu yesibili"/>
+					 <Item id="44088" name="Ithebhu lesithathu"/>
+					 <Item id="44089" name="Ithebhu ye-4"/>
+					 <Item id="44090" name="Ithebhu yesi-5"/>
+					 <Item id="44091" name="Ithebhu yesithupha"/>
+					 <Item id="44092" name="Ithebhu ye-7"/>
+					 <Item id="44093" name="Ithebhu ye-8"/>
+					 <Item id="44094" name="Ithebhu le-9"/>
+					 <Item id="44095" name="Ithebhu elandelayo"/>
+					 <Item id="44096" name="Ithebhu yangaphambilini"/>
+					 <Item id="44097" name="Ukuqapha (umsila -f)"/>
+					 <Item id="44098" name="Hambisa ithebhu phambili"/>
+					 <Item id="44099" name="Hambisa i-Tab emuva"/>
+					 <Item id="44032" name="Shintsha Imodi Yesikrini Esigcwele"/>
+					 <Item id="44033" name="Buyisela okuzenzakalelayo ukusondeza"/>
+					 <Item id="44034" name="Njalo Kuphezulu"/>
+					 <Item id="44035" name="Vumelanisa Ukuphenya Okuqondile"/>
+					 <Item id="44036" name="Vumelanisa ukuskena okuphelele"/>
+					 <Item id="44041" name="Bonisa uphawu lokugoqa"/>
+					 <Item id="44072" name="Gxila kokubheka okunye"/>
+					 <Item id="44081" name="Iphrojekthi Yephrojekthi 1"/>
+					 <Item id="44082" name="Iphrojekthi Yephrojekthi 2"/>
+					 <Item id="44083" name="Iphrojekthi Yephrojekthi 3"/>
+					 <Item id="45001" name="I-Windows (CR LF)"/>
+					 <Item id="45002" name="Unix (LF)"/>
+					 <Item id="45003" name="I-Macintosh (CR)"/>
+					 <Item id="45004" name="Faka ikhodi ku-ANSI"/>
+					 <Item id="45005" name="Faka ikhodi ku-UTF-8-BOM"/>
+					 <Item id="45006" name="Faka ikhodi ku-UCS-2 BE BE BOM"/>
+					 <Item id="45007" name="Faka ikhodi ku-UCS-2 LE BOM"/>
+					 <Item id="45008" name="Faka ikhodi ku-UTF-8"/>
+					 <Item id="45009" name="Guqula ku-ANSI"/>
+					 <Item id="45010" name="Guqula ku-UTF-8"/>
+					 <Item id="45011" name="Guqula ku-UTF-8-BOM"/>
+					 <Item id="45012" name="Guqula ku-UCS-2 BE BOM"/>
+					 <Item id="45013" name="Guqula ku-UCS-2 LE BOM"/>
+
+					 <Item id="10001" name="Hambisa kwenye Ukubuka"/>
+					 <Item id="10002" name="Clone kwenye Ukubuka Okunye"/>
+					 <Item id="10003" name="Hambisa kusimo esisha"/>
+					 <Item id="10004" name="Vula ku-New Instance"/>
+
+					 <Item id="46001" name="I-Style Configurator..."/>
+					 <Item id="46250" name="Chaza ulimi lwakho..."/>
+					 <Item id="46180" name="Umsebenzisi-Uchazwe"/>
+					 <Item id="47000" name="Mayelana ne-Notepad ++"/>
+					 <Item id="47010" name="I-Arguments Line Lineyalo..."/>
+					 <Item id="47001" name="Ikhaya le-Notepad ++"/>
+					 <Item id="47002" name="Ikhasi lephrojekthi le-Notepad ++"/>
+					 <Item id="47003" name="I-Document Document Online"/>
+					 <Item id="47004" name="Umphakathi we-Notepad ++ (Iforamu)"/>
+					 <Item id="47011" name="Ukusekela okubukhoma"/>
+					 <Item id="47012" name="Ulwazi lokuguqula..."/>
+					 <Item id="47005" name="Thola amaphuzu amaningi"/>
+					 <Item id="47006" name="Buyekeza i-Notepad ++"/>
+					 <Item id="47009" name="Setha ummeleli we-Updater..."/>
+					 <Item id="48005" name="Ngenisa ama-plugin (s)..."/>
+					 <Item id="48006" name="Ngenisa isihloko (s) sesitayela..."/>
+					 <Item id="48018" name="Hlela i-Content ContextMenu"/>
+					 <Item id="48009" name="I-Shortcut Mapper..."/>
+					 <Item id="48011" name="Izintandokazi..."/>
+					 <Item id="48015" name="I-plugins Admin..."/>
+					 <Item id="48501" name="Qalisa..."/>
+					 <Item id="48502" name="Qalisa kusuka kumafayela..."/>
+					 <Item id="48503" name="Yenza kusuka ekukhethweni kubhodi lokunamathisela"/>
+					 <Item id="49000" name="&amp;Qalisa..."/>
+
+					 <Item id="50000" name="Ukuqedela ukusebenza"/>
+					 <Item id="50001" name="Ukugcwaliswa kweZwi"/>
+					 <Item id="50002" name="Umsebenzi weParameters Isihloko"/>
+					 <Item id="50006" name="Indlela Yokuqedela"/>
+					 <Item id="44042" name="Fihla amaLines"/>
+					 <Item id="42040" name="Vula Wonke Amafayela Wamuva"/>
+					 <Item id="42041" name="Uhlu olungenalutho lwamafayela wamanje"/>
+					 <Item id="48016" name="Shintsha isinqamuleli / Sula i-Macro..."/>
+					 <Item id="48017" name="Shintsha isinqamuleli / Susa Umyalo..."/>
+				 </Commands>
+            </Main>
+            <Splitter>
+            </Splitter>
+            <TabBar>
+                    <Item CMID="0" name="Vala"/>
+                    <Item CMID="1" name="Vala konke KULO"/>
+                    <Item CMID="2" name="Londoloza"/>
+                    <Item CMID="3" name="Igcine njenge..."/>
+                    <Item CMID="4" name="Phrinta"/>
+                    <Item CMID="5" name="Hambisa kwenye Ukubuka"/>
+                    <Item CMID="6" name="Clone kwenye Ukubuka Okunye"/>
+                    <Item CMID="7" name="Ifayela eligcwele lefayela ku-clipboard"/>
+                    <Item CMID="8" name="Igama lokufaka ku-Clipboard"/>
+                    <Item CMID="9" name="UkushayelaokwamanjeIndlelaeyaebhodinilokunamathisela"/>
+                    <Item CMID="10" name="Qamba kabusha"/>
+                    <Item CMID="11" name="Hambisa ku-Recycle Bin"/>
+                    <Item CMID="12" name="Funda kuphela"/>
+                    <Item CMID="13" name="Sula i-Flag kuphela"/>
+                    <Item CMID="14" name="Hambisa kusimo esisha"/>
+                    <Item CMID="15" name="Vula ku-New Instance"/>
+                    <Item CMID="16" name="Phinda ulayishe kabusha"/>
+                    <Item CMID="17" name="Vala konke kuya kwesobunxele"/>
+                    <Item CMID="18" name="Vala konke kuya kwesokudla"/>
+                    <Item CMID="19" name="Vula Iqukethe Ifolda Ku-Explorer"/>
+                    <Item CMID="20" name="Vula Iqukethe Ifolda ku-cmd"/>
+                    <Item CMID="21" name="Vula ku-Viewer Okuzenzakalelayo"/>
+            </TabBar>
+        </Menu>
+
+        <Dialog>
+            <Find title="" titleFind="Thola" titleReplace="Faka esikhundleni" titleFindInFiles="Thola kumafayela" titleMark="Maka">
+                <Item id="1"    name="Thola Okulandelayo"/>
+                <Item id="1722" name="Isiqondiso sangemuva"/>
+                <Item id="2"    name="Vala"/>
+                <Item id="1620" name="&amp;Thola ukuthi yini :"/>
+                <Item id="1603" name="Match &amp;igama eliphelele kuphela"/>
+                <Item id="1604" name="Match &amp;case"/>
+                <Item id="1605" name="Re&amp;gular expression"/>
+                <Item id="1606" name="Wra&amp;p around"/>
+                <Item id="1614" name="Coun&amp;t"/>
+                <Item id="1615" name="Maka konke"/>
+                <Item id="1616" name="Ibhuku&amp;uphawu lomugqa"/>
+                <Item id="1618" name="Phenya ngokuseshwa ngalunye"/>
+                <Item id="1611" name="U-Rep&amp;i-lace nge :"/>
+                <Item id="1608" name="&amp;Faka esikhundleni"/>
+                <Item id="1609" name="Faka esikhundleni &amp;All"/>
+                <Item id="1687" name="Ukulahlekelwa ukugxila"/>
+                <Item id="1688" name="Njalo"/>
+                <Item id="1632" name="Uma ukhetha&amp;ion"/>
+                <Item id="1633" name="Sula wonke amamaki"/>
+                <Item id="1635" name="Faka endaweni Yonke Konke &amp;Kuvulwa Amadokhumenti"/>
+                <Item id="1636" name="Faka endaweni Yonke Konke &amp;Kuvulwa Amadokhumenti"/>
+                <Item id="1654" name="Hlunga&amp;s :"/>
+                <Item id="1655" name="isiqondisi :"/>
+                <Item id="1656" name="Thola konke"/>
+                <Item id="1658" name="Kuzo zonke ama-sub-folders"/>
+                <Item id="1659" name="Ngaphakathi &amp;amafolda afihlekile"/>
+                <Item id="1624" name="Imodi yokusesha"/>
+                <Item id="1625" name="&amp;Okujwayelekile"/>
+                <Item id="1626" name="E&amp;xtended (\n, \r, \t, \0, \x...)"/>
+                <Item id="1660" name="&amp;Faka esikhundleni kumafayela"/>
+                <Item id="1661" name="Landela i-doc yamanje."/>
+                <Item id="1641" name="Thola konke kuDokhumenti yamanje"/>
+                <Item id="1686" name="&amp;Ukuphawula"/>
+                <Item id="1703" name="&amp;.ifana ne-lineline entsha"/>
+            </Find>
+
+            <FindCharsInRange title="Thola Abalingiswa Esigabeni...">
+                <Item id="2" name="Vala"/>
+                <Item id="2901" name="Non-ASCII Characters (128-255)"/>
+                <Item id="2902" name="ASCII Characters (0-127)"/>
+                <Item id="2903" name="My range:"/>
+                <Item id="2906" name="&amp;Phezulu"/>
+                <Item id="2907" name="&amp;Ngaphansi"/>
+                <Item id="2908" name="Isiqondiso"/>
+                <Item id="2909" name="&amp;gqoka nxazonke"/>
+                <Item id="2910" name="Thola"/>
+            </FindCharsInRange>
+
+            <GoToLine title="Iya ku...">
+                <Item id="2007" name="&amp;Umugqa"/>
+                <Item id="2008" name="&amp;Ukumiswa"/>
+                <Item id="1"    name="Hamba"/>
+                <Item id="2"    name="Angihambi ndawo"/>
+                <Item id="2004" name="Ulapha:"/>
+                <Item id="2005" name="Ufuna ukuya kuwo:"/>
+                <Item id="2006" name="Awukwazi ukuqhubeka ngaphezu kwalokho:"/>
+            </GoToLine>
+
+            <Run title="Qalisa...">
+                <Item id="1903" name="Uhlelo Lokuqalisa"/>
+                <Item id="1"    name="Qalisa"/>
+                <Item id="2"    name="Khansela"/>
+                <Item id="1904" name="Londoloza..."/>
+            </Run>
+
+            <MD5FromFilesDlg title="Yakha i-MD5 digest kusuka kumafayela">
+                <Item id="1922" name="Khetha amafayela ukudala i-MD5..."/>
+                <Item id="1924" name="Kopisha ebhodini lokunamathisela"/>
+                <Item id="2"    name="Vala"/>
+            </MD5FromFilesDlg>
+
+            <MD5FromTextDlg title="Hlanganisa i-MD5 digest">
+                <Item id="1932" name="Phatha umugqa ngamunye njengezintambo ezihlukile"/>
+                <Item id="1934" name="Kopisha ebhodini lokunamathisela"/>
+                <Item id="2"    name="Vala"/>
+            </MD5FromTextDlg>
+
+            <PluginsAdminDlg title="I-plugins Admin" titleAvailable = "Kuyatholakala" titleUpdates = "Izibuyekezo" titleInstalled = "Isibuyekezo">
+                <ColumnPlugin   name="Xhuma"/>
+                <ColumnVersion  name="Inguqulo"/>
+                <Item id="5501" name="Sesha:"/>
+                <Item id="5503" name="Faka"/>
+                <Item id="5504" name="Ukubuyekeza"/>
+                <Item id="5505" name="Susa"/>
+                <Item id="5508" name="Olandelayo"/>
+                <Item id="2"    name="Vala"/>
+            </PluginsAdminDlg>
+
+            <StyleConfig title="I-Style Configurator">
+                <Item id="2"    name="Khansela"/>
+                <Item id="2301" name="londoloza eduze"/>
+                <Item id="2303" name="Ukuphawula"/>
+                <Item id="2306" name="Khetha isihloko: "/>
+                <SubDialog>
+                    <Item id="2204" name="Bold"/>
+                    <Item id="2205" name="Italic"/>
+                    <Item id="2206" name="Umbala ongaphambili"/>
+                    <Item id="2207" name="Umbala ongemuva"/>
+                    <Item id="2208" name="Igama lefonti:"/>
+                    <Item id="2209" name="Usayizi wefonti:"/>
+                    <Item id="2211" name="Isitayela:"/>
+                    <Item id="2212" name="Isitayela sombala"/>
+                    <Item id="2213" name="Isitayela sefonti"/>
+                    <Item id="2214" name="I-ext.:"/>
+                    <Item id="2216" name="Umsebenzisi ext.:"/>
+                    <Item id="2218" name="Ncika phansi"/>
+                    <Item id="2219" name="Amagama angukhiye okuzenzakalelayo"/>
+                    <Item id="2221" name="Amagama angukhiye ahlongozwa ngumsebenzisi"/>
+                    <Item id="2225" name="Ulimi:"/>
+                    <Item id="2226" name="Nika amandla umbala womhlaba jikelele"/>
+                    <Item id="2227" name="Nika amandla umbala wesizinda sangemuva"/>
+                    <Item id="2228" name="Nika amandla ifonti yomhlaba wonke"/>
+                    <Item id="2229" name="Nika amandla usayizi wefonti jikelele"/>
+                    <Item id="2230" name="Nika amandla isitayela sefonti ngesibindi"/>
+                    <Item id="2231" name="Nika amandla isitayela sefonti ye-italiki jikelele"/>
+                    <Item id="2232" name="Vumela umhlaba wonke ugcizelele isitayela sefonti"/>
+                </SubDialog>
+            </StyleConfig>
+
+            <ShortcutMapper title="I-Shortcut Mapper">
+                <Item id="2602" name="Shintsha"/>
+                <Item id="2603" name="Susa"/>
+                <Item id="2606" name="Sula"/>
+                <Item id="2607" name="Hlunga: "/>
+                <Item id="1" name="Vala"/>
+                <ColumnName name="Igama"/>
+                <ColumnShortcut name="Isinqamuleli"/>
+                <ColumnCategory name="Isigaba"/>
+                <ColumnPlugin name="Xhuma"/>
+                <MainMenuTab name="Imenyu enkulu"/>
+                <MacrosTab name="Macros"/>
+                <RunCommandsTab name="Sebenzisa imiyalo"/>
+                <PluginCommandsTab name="Imiyalo ye-Plugin"/>
+                <ScintillaCommandsTab name="Sscintilla imiyalo"/>
+                <ConflictInfoOk name="Azikho izingxabano zokunqamulela zento."/>
+                <ConflictInfoEditing name="Awekho izingxabano . . ."/>
+            </ShortcutMapper>
+            <ShortcutMapperSubDialg title="Isinqamuleli">
+                <Item id="1" name="KULUNGILE"/>
+                <Item id="2" name="Khansela"/>
+                <Item id="5006" name="Igama"/>
+                <Item id="5008" name="Engeza"/>
+                <Item id="5009" name="Susa"/>
+                <Item id="5010" name="Faka isicelo"/>
+                <Item id="5007" name="Lokhu kuzosusa isinqamuleli kulo myalo"/>
+                <Item id="5012" name="UKUPHUMA KUFANELE!"/>
+            </ShortcutMapperSubDialg>
+            <UserDefine title="Umsebenzisi-Uchazwe">
+                <Item id="20001" name="Idokodo"/>
+                <Item id="20002" name="Qamba kabusha"/>
+                <Item id="20003" name="Dala Okusha..."/>
+                <Item id="20004" name="Susa"/>
+                <Item id="20005" name="Igcine njenge..."/>
+                <Item id="20007" name="Ulimi lomsebenzisi: "/>
+                <Item id="20009" name="I-Ext.:"/>
+                <Item id="20012" name="Yeka icala"/>
+                <Item id="20011" name="Ukuphawula"/>
+                <Item id="20015" name="Ngenisa..."/>
+                <Item id="20016" name="Thumela..."/>
+                <StylerDialog title="Styler Dialog">
+                    <Item id="25030" name="Izinketho zefonti:"/>
+                    <Item id="25006" name="Umbala ongaphambili"/>
+                    <Item id="25007" name="Umbala ongemuva"/>
+                    <Item id="25031" name="Igama:"/>
+                    <Item id="25032" name="Usayizi:"/>
+                    <Item id="25001" name="Bold"/>
+                    <Item id="25002" name="Italic"/>
+                    <Item id="25003" name="Ncika phansi"/>
+                    <Item id="25029" name="Ukuhlalisa:"/>
+                    <Item id="25008" name="Delimiter 1"/>
+                    <Item id="25009" name="Delimiter 2"/>
+                    <Item id="25010" name="Delimiter 3"/>
+                    <Item id="25011" name="Delimiter 4"/>
+                    <Item id="25012" name="Delimiter 5"/>
+                    <Item id="25013" name="Delimiter 6"/>
+                    <Item id="25014" name="Delimiter 7"/>
+                    <Item id="25015" name="Delimiter 8"/>
+                    <Item id="25018" name="Keyword 1"/>
+                    <Item id="25019" name="Keyword 2"/>
+                    <Item id="25020" name="Keyword 3"/>
+                    <Item id="25021" name="Keyword 4"/>
+                    <Item id="25022" name="Keyword 5"/>
+                    <Item id="25023" name="Keyword 6"/>
+                    <Item id="25024" name="Keyword 7"/>
+                    <Item id="25025" name="Keyword 8"/>
+                    <Item id="25016" name="Comment"/>
+                    <Item id="25017" name="Comment line"/>
+                    <Item id="25026" name="Operator 1"/>
+                    <Item id="25027" name="Operator 2"/>
+                    <Item id="25028" name="Izinombolo"/>
+                    <Item id="1" name="KULUNGILE"/>
+                    <Item id="2" name="Khansela"/>
+                </StylerDialog>
+                <Folder title="Ifolda &amp;&amp; Okuzenzakalelayo">
+                    <Item id="21101" name="Isitayela esizenzakalelayo"/>
+                    <Item id="21102" name="I-Styler"/>
+                    <Item id="21105" name="Amadokhumenti:"/>
+                    <Item id="21104" name="Isayithi ye-doc yesikhashana:"/>
+                    <Item id="21106" name="Fold &amp;compact (phinda imigqa engenalutho futhi):"/>
+                    <Item id="21220" name="Ifolda ngesitayela sekhodi 1:"/>
+                    <Item id="21224" name="Vula:"/>
+                    <Item id="21225" name="Ephakathi:"/>
+                    <Item id="21226" name="Vala:"/>
+                    <Item id="21227" name="I-Styler"/>
+                    <Item id="21320" name="Ifolda ngesitayela sesi-2 (abahlukanisi abadingekayo):"/>
+                    <Item id="21324" name="Vula:"/>
+                    <Item id="21325" name="Ephakathi:"/>
+                    <Item id="21326" name="Vala:"/>
+                    <Item id="21327" name="I-Styler"/>
+                    <Item id="21420" name="Ifolda kwisitayela sokuphawula:"/>
+                    <Item id="21424" name="Vula:"/>
+                    <Item id="21425" name="Ephakathi:"/>
+                    <Item id="21426" name="Vala:"/>
+                    <Item id="21427" name="I-Styler"/>
+                </Folder>
+                <Keywords title="Amagama angukhiye Ahluleka">
+                    <Item id="22101" name="Iqembu lokuqala"/>
+                    <Item id="22201" name="Iqembu lesibili"/>
+                    <Item id="22301" name="Iqembu lesithathu"/>
+                    <Item id="22401" name="Iqembu le-4"/>
+                    <Item id="22451" name="Iqembu le-5"/>
+                    <Item id="22501" name="Iqembu le-6"/>
+                    <Item id="22551" name="Iqembu le-7"/>
+                    <Item id="22601" name="Iqembu le-8"/>
+                    <Item id="22121" name="Imodi yokulungiselela"/>
+                    <Item id="22221" name="Imodi yokulungiselela"/>
+                    <Item id="22321" name="Imodi yokulungiselela"/>
+                    <Item id="22421" name="Imodi yokulungiselela"/>
+                    <Item id="22471" name="Imodi yokulungiselela"/>
+                    <Item id="22521" name="Imodi yokulungiselela"/>
+                    <Item id="22571" name="Imodi yokulungiselela"/>
+                    <Item id="22621" name="Imodi yokulungiselela"/>
+                    <Item id="22122" name="I-Styler"/>
+                    <Item id="22222" name="I-Styler"/>
+                    <Item id="22322" name="I-Styler"/>
+                    <Item id="22422" name="I-Styler"/>
+                    <Item id="22472" name="I-Styler"/>
+                    <Item id="22522" name="I-Styler"/>
+                    <Item id="22572" name="I-Styler"/>
+                    <Item id="22622" name="I-Styler"/>
+                </Keywords>
+                <Comment title="Amazwana &amp;&amp; Inombolo">
+                    <Item id="23003" name="Isikhundla sokubeka umugqa"/>
+                    <Item id="23004" name="Vumela noma kuphi"/>
+                    <Item id="23005" name="Qinisekisa ekuqaleni komugqa"/>
+                    <Item id="23006" name="Vumela isikhala sokungena esandulele"/>
+                    <Item id="23001" name="Vumela ukunqwabelana kwamazwana"/>
+                    <Item id="23326" name="I-Styler"/>
+                    <Item id="23323" name="Vula"/>
+                    <Item id="23324" name="Qhubeka uhlamvu"/>
+                    <Item id="23325" name="Vala"/>
+                    <Item id="23301" name="Isitayela somugqa wamazwana"/>
+                    <Item id="23124" name="I-Styler"/>
+                    <Item id="23122" name="Vula"/>
+                    <Item id="23123" name="Vala"/>
+                    <Item id="23101" name="Isitayela samazwana"/>
+                    <Item id="23201" name="Isitayela senombolo"/>
+                    <Item id="23220" name="I-Styler"/>
+                    <Item id="23230" name="Isiqalo 1"/>
+                    <Item id="23232" name="Isiqalo 2"/>
+                    <Item id="23234" name="Okungeziwe okungu-1"/>
+                    <Item id="23236" name="Okungeziwe okungu-2"/>
+                    <Item id="23238" name="Okungafani 1"/>
+                    <Item id="23240" name="Okungafani 2"/>
+                    <Item id="23242" name="Range:"/>
+                    <Item id="23244" name="Isihlukanisi esinqunyiwe"/>
+                    <Item id="23245" name="I-Dot"/>
+                    <Item id="23246" name="Qalisa"/>
+                    <Item id="23247" name="Bobabili"/>
+                </Comment>
+                <Operator title="Operators &amp;&amp; Delimiter">
+					 <Item id="24101" name="Isitayela se-Operators"/>
+					 <Item id="24113" name="I-Styler"/>
+					 <Item id="24116" name="Abasebenzisi 1"/>
+					 <Item id="24117" name="Ama-operators 2 (ama-separator adingekayo)"/>
+					 <Item id="24201" name="Isitayela se-Delimiter 1"/>
+					 <Item id="24220" name="Vula:"/>
+					 <Item id="24221" name="Balekela:"/>
+					 <Item id="24222" name="Vala:"/>
+					 <Item id="24223" name="I-Styler"/>
+					 <Item id="24301" name="Isitayela se-Delimiter 2"/>
+					 <Item id="24320" name="Vula:"/>
+					 <Item id="24321" name="Balekela:"/>
+					 <Item id="24322" name="Vala:"/>
+					 <Item id="24323" name="I-Styler"/>
+					 <Item id="24401" name="Isitayela se-Delimiter 3"/>
+					 <Item id="24420" name="Vula:"/>
+					 <Item id="24421" name="Balekela:"/>
+					 <Item id="24422" name="Vala:"/>
+					 <Item id="24423" name="I-Styler"/>
+					 <Item id="24451" name="Isitayela se-Delimiter 4"/>
+					 <Item id="24470" name="Vula:"/>
+					 <Item id="24471" name="Balekela:"/>
+					 <Item id="24472" name="Vala:"/>
+					 <Item id="24473" name="I-Styler"/>
+					 <Item id="24501" name="Isitayela se-Delimiter 5"/>
+					 <Item id="24520" name="Vula:"/>
+					 <Item id="24521" name="Balekela:"/>
+					 <Item id="24522" name="Vala:"/>
+					 <Item id="24523" name="I-Styler"/>
+					 <Item id="24551" name="Isitayela se-Delimiter 6"/>
+					 <Item id="24570" name="Vula:"/>
+					 <Item id="24571" name="Balekela:"/>
+					 <Item id="24572" name="Vala:"/>
+					 <Item id="24573" name="I-Styler"/>
+					 <Item id="24601" name="Isitayela se-Delimiter 7"/>
+					 <Item id="24620" name="Vula:"/>
+					 <Item id="24621" name="Balekela:"/>
+					 <Item id="24622" name="Vala:"/>
+					 <Item id="24623" name="I-Styler"/>
+					 <Item id="24651" name="Isitayela se-Delimiter 8"/>
+					 <Item id="24670" name="Vula:"/>
+					 <Item id="24671" name="Balekela:"/>
+					 <Item id="24672" name="Vala:"/>
+					 <Item id="24673" name="I-Styler"/>
+				 </Operator>
+				</UserDefine>
+            <Preference title="Izintandokazi">
+                <Item id="6001" name="Vala"/>
+                <Global title="Jikelele">
+                    <Item id="6101" name="Ibha yamathuluzi"/>
+                    <Item id="6102" name="Fihla"/>
+                    <Item id="6103" name="Izithonjana ezincane"/>
+                    <Item id="6104" name="Izithombe ezinkulu"/>
+                    <Item id="6105" name="Izithonjana ezijwayelekile"/>
+
+                    <Item id="6106" name="Ibha yamathebhu"/>
+                    <Item id="6107" name="Nciphisa"/>
+                    <Item id="6108" name="Khiya (akukho ukuhudula nokudonsa)"/>
+                    <Item id="6109" name="Amathebhu angasebenzi"/>
+                    <Item id="6110" name="Dweba ibha enemibala kuthebhu esebenzayo"/>
+
+                    <Item id="6111" name="Bonisa ibha yesimo"/>
+                    <Item id="6112" name="Bonisa inkinobho yokuvala kuthebhu ngayinye"/>
+                    <Item id="6113" name="Chofoza kabili ukuvala idokhumenti"/>
+                    <Item id="6118" name="Fihla"/>
+                    <Item id="6119" name="I-multi-line"/>
+                    <Item id="6120" name="I-vertical"/>
+                    <Item id="6121" name="Phuma ekuvala ithebhu yokugcina"/>
+
+                    <Item id="6122" name="Fihla ibha yemenyu (sebenzisa ukhiye we-Alt noma u-F10 ukuze uguqule)"/>
+                    <Item id="6123" name="Indawo yangakini"/>
+
+                    <Item id="6125" name="Iphaneli Yohlu Lomqulu"/>
+                    <Item id="6126" name="Bonisa"/>
+                    <Item id="6127" name="Khubaza ikholomu yesandiso"/>
+                </Global>
+                <Scintillas title="Ukuhlela">
+                    <Item id="6216" name="Izilungiselelo ze-Caret"/>
+                    <Item id="6217" name="Ububanzi :"/>
+                    <Item id="6219" name="Ukulinganisa kwe-Blink :"/>
+                    <Item id="6221" name="F"/>
+                    <Item id="6222" name="S"/>
+                    <Item id="6224" name="Izilungiselelo eziningi zokuhlela"/>
+                    <Item id="6225" name="Nika amandla (ctrl + chofoza umouse / ukukhetha)"/>
+                    <Item id="6201" name="Isitayela seMargin isilawuli"/>
+                    <Item id="6202" name="Okulula"/>
+                    <Item id="6203" name="Umcibisholo"/>
+                    <Item id="6204" name="Sungeza umuthi"/>
+                    <Item id="6205" name="Ibhokisi lebhokisi"/>
+                    <Item id="6226" name="Akukho"/>
+
+                    <Item id="6227" name="Ukugoqa komugqa"/>
+                    <Item id="6228" name="Okuzenzakalelayo"/>
+                    <Item id="6229" name="Iqondiswe"/>
+                    <Item id="6230" name="Ukungena"/>
+
+                    <Item id="6206" name="Bonisa inombolo yomugqa"/>
+                    <Item id="6207" name="Bonisa ibhukumaka"/>
+                    <Item id="6208" name="Bonisa umkhawulo oqondile"/>
+                    <Item id="6209" name="Inombolo yamakholomu :"/>
+                    <Item id="6234" name="Khubaza isici sokuphenya esiphezulu
+(uma unenkinga ye-touchpad)"/>
+
+                    <Item id="6211" name="Izilungiselelo ze-Edge eziqondile"/>
+                    <Item id="6212" name="Imodi yomugqa"/>
+                    <Item id="6213" name="Imodi yangemuva"/>
+                    <Item id="6214" name="Nika amandla ukugqamisa komugqa wamanje"/>
+                    <Item id="6215" name="Nika amandla ifonti ephathekayo"/>
+                    <Item id="6231" name="Ububanzi bomngcele"/>
+                    <Item id="6235" name="Ayikho inqenqema"/>
+                    <Item id="6236" name="Nika amandla ukupheqa ngaphesheya komugqa wokugcina"/>
+                </Scintillas>
+
+                <NewDoc title="Idokhumenti entsha">
+                    <Item id="6401" name="Ifomethi (Ukuphela komugqa)"/>
+                    <Item id="6402" name="I-Windows (CR LF)"/>
+                    <Item id="6403" name="Unix (LF)"/>
+                    <Item id="6404" name="I-Macintosh (CR)"/>
+                    <Item id="6405" name="Ukubhalisa"/>
+                    <Item id="6406" name="ANSI"/>
+                    <Item id="6407" name="UTF-8"/>
+                    <Item id="6408" name="UTF-8 nge-BOM"/>
+                    <Item id="6409" name="I-UCS-2 i-Big Endian ne-BOM"/>
+                    <Item id="6410" name="I-UCS-2 Endian Encane nge-BOM"/>
+                    <Item id="6411" name="Ulimi oluzenzakalelayo :"/>
+                    <Item id="6419" name="Idokhumenti entsha"/>
+                    <Item id="6420" name="Faka isicelo sokuvula amafayela we-ANSI"/>
+                </NewDoc>
+
+                <DefaultDir title="Okungenayo Okungenayo">
+                    <Item id="6413" name="I-Directory yangaphandle (Vula / Gcina)"/>
+                    <Item id="6414" name="Landela idokhumenti yamanje"/>
+                    <Item id="6415" name="Khumbula isiqondisi sokugcina esasetshenziswa"/>
+                    <Item id="6430" name="Sebenzisaingxoxoyesitayelaesisha(ngaphandle kwesici sokwandiswa kwefayili &amp;umzila wesitayela se-Unix)"/>
+                    <Item id="6431" name="Vula wonke amafolda wefolda esikhundleni sokuqala ifolda njengendawo yokusebenzela kwifolda yehla"/>
+                </DefaultDir>
+
+                <FileAssoc title="Ifayela leFayili">
+                    <Item id="4009" name="Izandiso ezisekelwayo:"/>
+                    <Item id="4010" name="Izandiso ezibhalisiwe:"/>
+                </FileAssoc>
+                <Language title="Ulimi">
+                    <Item id="6505" name="Izinto ezitholakalayo"/>
+                    <Item id="6506" name="Izinto ezikhutshaziwe"/>
+                    <Item id="6507" name="Yenza imenyu yelwimi ehlanganisiwe"/>
+                    <Item id="6508" name="Imenyu yolimi"/>
+                    <Item id="6301" name="Izilungiselelo zeThabhu"/>
+                    <Item id="6302" name="Faka esikhundleni isikhala"/>
+                    <Item id="6303" name="Usayizi wethebhu: "/>
+                    <Item id="6510" name="Sebenzisa inani elizenzakalelayo"/>
+                </Language>
+
+                <Highlighting title="Ukugqamisa">
+                    <Item id="6333" name="Ukukhanyisa okuhlakaniphile"/>
+                    <Item id="6326" name="Nika amandla"/>
+                    <Item id="6332" name="Icala lokufanisa"/>
+                    <Item id="6338" name="Qondanisa igama lonke kuphela"/>
+                    <Item id="6339" name="Sebenzisa Izilungiselelo zokuxoxa"/>
+                    <Item id="6340" name="Qinisekisa omunye umbono"/>
+                    <Item id="6329" name="Qinisekisa ukufanisa Tags"/>
+                    <Item id="6327" name="Nika amandla"/>
+                    <Item id="6328" name="Qinisekisa izimfanelo zamathegi"/>
+                    <Item id="6330" name="Qinisa indawo yamazwana / php / asp"/>
+                </Highlighting>
+
+                <Print title="Phrinta">
+                    <Item id="6601" name="Inombolo yombhalo wokuphrinta"/>
+                    <Item id="6602" name="Izinketho zombala"/>
+                    <Item id="6603" name="WYSIWYG"/>
+                    <Item id="6604" name="Vula"/>
+                    <Item id="6605" name="Umnyama omhlophe"/>
+                    <Item id="6606" name="Ayikho umbala wesizinda"/>
+                    <Item id="6607" name="Izilungiselelo zeMargin (Unit: mm)"/>
+                    <Item id="6612" name="Kwesobunxele"/>
+                    <Item id="6613" name="Phezulu"/>
+                    <Item id="6614" name="Kwesokudla"/>
+                    <Item id="6615" name="Ngezansi"/>
+                    <Item id="6706" name="Bold"/>
+                    <Item id="6707" name="Italic"/>
+                    <Item id="6708" name="Isihloko"/>
+                    <Item id="6709" name="Ingxenye yesobunxele"/>
+                    <Item id="6710" name="Ingaphakathi"/>
+                    <Item id="6711" name="Ingxenye efanele"/>
+                    <Item id="6717" name="Bold"/>
+                    <Item id="6718" name="Italic"/>
+                    <Item id="6719" name="Ngemuva"/>
+                    <Item id="6720" name="Ingxenye yesobunxele"/>
+                    <Item id="6721" name="Ingaphakathi"/>
+                    <Item id="6722" name="Ingxenye efanele"/>
+                    <Item id="6723" name="Engeza"/>
+                    <Item id="6725" name="Kuyahluka:"/>
+                    <Item id="6727" name="Lapha ubonise izilungiselelo zakho eziguquguqukayo"/>
+                    <Item id="6728" name="Isihloko ne-Footer"/>
+                </Print>
+
+                <RecentFilesHistory title="Imibhalo Yamuva Yomlando">
+					 <Item id="6304" name="Imibhalo Yamuva Yomlando"/>
+					 <Item id="6306" name="Isikhulu. inani lokufakiwe :"/>
+					 <Item id="6305" name="Ungahlola ngesikhathi sokuqalisa"/>
+					 <Item id="6429" name="Bonisa"/>
+					 <Item id="6424" name="Ku-Submenu"/>
+					 <Item id="6425" name="Igama lefayela kuphela"/>
+					 <Item id="6426" name="Igama lefayela eligcwele"/>
+					 <Item id="6427" name="Yenza ngokwezifiso Ubude obukhulu:"/>
+				 </RecentFilesHistory>
+
+				 <Backup title="Isipele">
+					 <Item id="6817" name="Isifinyezo se-Session kanye nesipele ngokuzenzakalelayo"/>
+					 <Item id="6818" name="Nika amandla isifinyezo seseshini nokusekela ngezikhathi ezithile"/>
+					 <Item id="6819" name="Isipele kuzo zonke"/>
+					 <Item id="6821" name="imizuzwana"/>
+					 <Item id="6822" name="Indlela yokulondoloza:"/>
+					 <Item id="6309" name="Khumbula iseshini yamanje yokuqaliswa okulandelayo"/>
+					 <Item id="6801" name="Isipele ekulondolozeni"/>
+					 <Item id="6315" name="Akukho"/>
+					 <Item id="6316" name="Isipele esilula"/>
+					 <Item id="6317" name="I-Verbose isipele"/>
+					 <Item id="6804" name="Umlando Wokwenza Isifiso"/>
+					 <Item id="6803" name="Uhlu :"/>
+				 </Backup>
+
+                <AutoCompletion title="Ukuqedela ngokuzenzekelayo">
+                    <Item id="6807" name="Ukuqedela ngokuzenzekelayo"/>
+                    <Item id="6808" name="Nika amandla ukuqedela ngokuzenzakalela kokufakwayo ngalunye"/>
+                    <Item id="6809" name="Ukuqedwa komsebenzi"/>
+                    <Item id="6810" name="Ukuqedwa komsebenzi"/>
+                    <Item id="6816" name="Umsebenzi nokuqedela igama"/>
+                    <Item id="6824" name="Ziba izinombolo"/>
+                    <Item id="6811" name="Kusuka"/>
+                    <Item id="6813" name="umlingiswa"/>
+                    <Item id="6814" name="Inani elivumelekile: 1 - 9"/>
+                    <Item id="6815" name="Imingcele yezinsizakalo ihlose ekufakweni"/>
+                    <Item id="6851" name="Faka ngokuzenzakalela"/>
+                    <Item id="6857" name="I-html / xml ithegi eseduze"/>
+                    <Item id="6858" name="Vula"/>
+                    <Item id="6859" name="Vala"/>
+                    <Item id="6860" name="Ifaniswe ne-pair 1:"/>
+                    <Item id="6863" name="Ifaniswe ne-pair 2:"/>
+                    <Item id="6866" name="Ifaniswe ne-pair 3:"/>
+                </AutoCompletion>
+
+                <MultiInstance title="I-Multi-Instance">
+                    <Item id="6151" name="Izilungiselelo eziningi ze-instance"/>
+                    <Item id="6152" name="Vula iseshini kusibonelo esisha se-Notepad ++"/>
+                    <Item id="6153" name="Njalo kumodi ye-multi-instance"/>
+                    <Item id="6154" name="Okuzenzakalelayo (i-mono-instance)"/>
+                    <Item id="6155" name="* Ukuguqulwa kwalesi silungiselelo kudinga ukuqala kabusha i-Notepad ++"/>
+                </MultiInstance>
+
+                <Delimiter title="Delimiter">
+                    <Item id="6251" name="Izilungiselelo zokukhethwa kwe-Delimiter (Ctrl + Mouse chofoza kabili)"/>
+                    <Item id="6252" name="Vula"/>
+                    <Item id="6255" name="Vala"/>
+                    <Item id="6256" name="Vumela kumigqa eminingana"/>
+                    <Item id="6161" name="Uhlu lomlingiswa wegama"/>
+                    <Item id="6162" name="Sebenzisa uhla lwezinhlamvu zamagama ezizenzakalelayo njengoba kunjalo"/>
+                    <Item id="6163" name="Engeza uhlamvu lwakho njengengxenye yegama
+(ungakhethi ngaphandle kokuthi wazi ukuthi wenzani)"/>
+                </Delimiter>
+
+                <Cloud title="Ifu">
+                    <Item id="6262" name="Izilungiselelo ngefu"/>
+                    <Item id="6263" name="Akukho Cloud"/>
+                    <Item id="6267" name="SSetha indlela yakho yendawo yamafu lapha:"/>
+                </Cloud>
+
+                <SearchEngine title="Injini yokusesha">
+                    <Item id="6271" name="search Engine (ngomyalo &quot; Usesho kwi-Inthanethi &quot;)"/>
+                    <Item id="6272" name="DuckDuckGo"/>
+                    <Item id="6273" name="Google"/>
+                    <Item id="6274" name="Bing"/>
+                    <Item id="6275" name="Yahoo!"/>
+                    <Item id="6276" name="Setha injini yakho yokusesha lapha:"/>
+                    <!-- Don't change anything after Example: -->
+                    <Item id="6278" name="Example: https://www.google.com/search?q=$(CURRENT_WORD)"/>
+                </SearchEngine>
+
+                <MISC title="I-MISC.">
+				 <Item id="6307" name="Nika amandla"/>
+				 <Item id="6308" name="Ncishiswa kwi-tray yesistimu"/>
+				 <Item id="6312" name="Isimo Sefayile Ukutholwa Okuzenzakalelayo"/>
+				 <Item id="6313" name="Buyekeza ngokuthula"/>
+				 <Item id="6318" name="Izilungiselelo Zesixhumanisi Clickable"/>
+				 <Item id="6325" name="Pheqela kulayini lokugcina ngemva kokubuyekeza"/>
+				 <Item id="6319" name="Nika amandla"/>
+				 <Item id="6320" name="Akukho ukugxila"/>
+				 <Item id="6322" name="Ifayela leSession ex.:"/>
+				 <Item id="6323" name="Nika amandla i-Notepad ++ okuzenzakalelayo-updater"/>
+				 <Item id="6324" name="Ishintshi sedokhumenti (Ctrl + TAB)"/>
+				 <Item id="6331" name="Bonisa kuphela igama lomsebenzisi ku-bar yesihloko"/>
+				 <Item id="6334" name="Vumelanisa ikhodi yezinhlamvu ze-Autodetect"/>
+				 <Item id="6335" name="Phatha ukubuyela emuva njengendlela yokuphunyuka kwe-SQL"/>
+				 <Item id="6337" name="Ifayela le-Workspace ext.:"/>
+				 <Item id="6114" name="Nika amandla"/>
+				 <Item id="6115" name="I-self-indent"/>
+				 <Item id="6117" name="Nika amandla ukuziphatha kwe-MRU"/>
+				 <Item id="6344" name="Idokhumenti ye-Document"/>
+				 <Item id="6345" name="Jondisa ithebhu"/>
+				 <Item id="6346" name="Jondisa kumephu yedokhumenti"/>
+			 </MISC>
+            </Preference>
+            <MultiMacro title="Qalisa izikhathi eziningi ze-Macro">
+                <Item id="1" name="&amp;Qalisa"/>
+                <Item id="2" name="&amp;Khansela"/>
+                <Item id="8006" name="Macro ukugijima :"/>
+                <Item id="8001" name="Qalisa"/>
+                <Item id="8005" name="izikhathi"/>
+                <Item id="8002" name="Qalisa kuze kube sekupheleni kwefayela"/>
+            </MultiMacro>
+            <Window title="Windows">
+                <Item id="1" name="&amp;Yenza kusebenze"/>
+                <Item id="2" name="&amp;KULUNGILE"/>
+                <Item id="7002" name="&amp;Londoloza"/>
+                <Item id="7003" name="&amp;Vala iwindi (isb)"/>
+                <Item id="7004" name="Hlunga &amp;amathebhu"/>
+            </Window>
+            <ColumnEditor title="Umhleli wekholomu">
+                <Item id="2023" name="Umbhalo wokufaka"/>
+                <Item id="2033" name="Inombolo yokufaka"/>
+                <Item id="2030" name="Inombolo yokuqala :"/>
+                <Item id="2031" name="Khulisa :"/>
+                <Item id="2035" name="I-zeros ehamba phambili"/>
+                <Item id="2036" name="Phinda :"/>
+                <Item id="2032" name="Fometha"/>
+                <Item id="2024" name="Dec"/>
+                <Item id="2025" name="Oktho"/>
+                <Item id="2026" name="I-Hex"/>
+                <Item id="2027" name="Bin"/>
+                <Item id="1" name="KULUNGILE"/>
+                <Item id="2" name="Khansela"/>
+            </ColumnEditor>
+            <FindInFinder title="Thola kumtholi">
+                <Item id="1"    name="Thola konke"/>
+                <Item id="2"    name="Vala"/>
+                <Item id="1711" name="&amp;Thola ukuthi yini :"/>
+                <Item id="1713" name="Sesha kuphela imigqa etholakalayo"/>
+                <Item id="1714" name="Ukufanisa &amp;igama eliphelele kuphela"/>
+                <Item id="1715" name="Ukufanisa &amp;icala"/>
+                <Item id="1716" name="Imodi yokusesha"/>
+                <Item id="1717" name="&amp;Okujwayelekile"/>
+                <Item id="1719" name="inkulumo ejwayelekile"/>
+                <Item id="1718" name="E&amp;xtended (\n, \r, \t, \0, \x...)"/>
+                <Item id="1720" name="&amp;. ifana ne-lineline entsha"/>
+            </FindInFinder>
+        </Dialog>
+        <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <ContextMenuXmlEditWarning title="Isimo sokuhlelaUmsebenzisi" message="Isimo sokuhlelaMenu.xml ikuvumela ukuba ushintshe imenyu yakho yokuqukethwe yesikhombisi se-Notepad ++. Kufanele uqale kabusha i-Notepad ++ yakho ukuze isebenze ngemva kokuguqula umongoMenu.xml."/>
+            <NppHelpAbsentWarning title="Ifayela alikho" message="ayikho. Sicela ulilande kusayithi le-Notepad ++."/>
+            <SaveCurrentModifWarning title="Londoloza ukuguqulwa kwamanje" message="Kufanele ulondoloze ukuguqulwa kwamanje.Ukuguqulwa okulondoloziwe akukwazi ukuhlehliswa.Qhubeka?"/>
+            <LoseUndoAbilityWarning title="Yehlisa ukuxwayisa amandla okuxwayisa" message="Kufanele ulondoloze ukuguqulwa kwamanje.
+Zonke izinguquko ezilondoloziwe azikwazi ukuhlehliswa.Qhubeka?"/>
+            <CannotMoveDoc title="Hambisa kusikhungo esisha se-Notepad ++" message="Idokhumenti ishintshiwe, yilondoloze bese uzama futhi."/>
+            <DocReloadWarning title="Phinda ulayishe kabusha" message="Ingabe uqinisekile ukuthi ufuna ukulayisha kabusha ifayela lamanje futhi ulahlekelwe izinguquko ezenziwe ku-Notepad ++?"/>
+            <FileLockedWarning title="Ukulondoloza kuhlulekile" message="Sicela uhlole ukuthi ngabe leli fayela livuliwe yini kwenye uhlelo"/>
+            <FileAlreadyOpenedInNpp title="" message="Ifayela selivele livuliwe ku-Notepad ++."/>
+            <DeleteFileFailed title="Susa ifayela" message="Ukususa Ifayela kuhlulekile"/>
+
+            <NbFileToOpenImportantWarning title="Inani lamafayela okuvula likhulu kakhulu" message="$INT_REPLACE$ amafayela aseduze ukuvulwa.
+Uqinisekile ukuthi uzowavula?"/>
+            <SettingsOnCloudError title="Izilungiselelo ku-Cloud" message="Kubonakala sengathi indlela yezilungiselelo efwini ihlelwe ku-drive kuphela efundwayo,noma kwifolda edingekayo ilungelo lokubhala ukufinyelela.Izilungiselelo zakho kwifu zizokhanselwa. Sicela ubuyekeze inani elibumbene nge-Intandokazi yenkulumo."/>
+            <FilePathNotFoundWarning title="Ifayela livuliwe" message="Ifayela ozama ukuyivula alikho."/>
+            <SessionFileInvalidError title="Ayikwazanga ukulayisha iseshini" message="Ifayela leseshini lihlehlisiwe noma alivumelekile."/>
+            <DroppingFolderAsProjectModeWarning title="Isenzo esingavumelekile" message="ungaphonsa amafayela noma amafolda kuphela kodwa hhayi kokubili, ngoba ungaphansi kokushiya ifolda njenge-Project mode.
+kufanele unike amandla &quot; Vula wonke amafolda efolda esikhundleni sokuqala ifolda njenge-Workspace kufolda yehla &quot; ku &quot; Okungenayo Okungenayo &quot; ingxenye yezintandokazi zezingxoxo ukwenza lo msebenzi usebenze."/>
+            <SortingError title="Iphutha lokuhlunga" message="Ayikwazi ukwenza ukuhlunga izinombolo ngenxa yomugqa $INT_REPLACE$."/>
+            <ColumnModeTip title="Imodi yekholomu Ithiphu" message="Sicela usebenzise &quot; ALT + Mouse Ukukhetha &quot; noma &quot; ikhi ye-Alt + Shift + ye-Arrow &quot; ukushintshela kwimodi yekholomu."/>
+            <BufferInvalidWarning title="Ukulondoloza kuhlulekile" message="Ayikwazi ukulondoloza: I-Buffer ayivumelekile."/>
+            <DoSaveOrNot title="Londoloza" message="Londoloza ifayela &quot;$STR_REPLACE$&quot; ?"/>
+            <DoCloseOrNot title="Gcina ifayela elingekho" message="Ifayela &quot;$STR_REPLACE$&quot; ayisekho.
+Gcina le fayela kuhleli?"/>
+            <DoDeleteOrNot title="Delete file" message="Ifayela&quot;$STR_REPLACE$&quot;
+izohanjiswa ku-Recycle Bin yakho futhi le dokhumenti izovalwa.
+Qhubeka?"/>
+            <NoBackupDoSaveFile title="Londoloza" message="Ifayela lakho lokusekelayo alitholakali (lisusiwe ngaphandle).
+Londoloza ngenye indlela idatha yakho izolahleka
+Ufuna ukulondoloza ifayela &quot;$STR_REPLACE$&quot; ?"/>
+            <DoReloadOrNot title="Phinda ulayishe kabusha" message="&quot;$STR_REPLACE$&quot;
+Leli fayela lishintshwe olunye uhlelo.
+Ufuna ukulayisha kabusha?"/>
+            <DoReloadOrNotAndLooseChange title="Phinda ulayishe kabusha" message="&quot;$STR_REPLACE$&quot;
+Leli fayela lishintshwe olunye uhlelo.
+Ingabe ufuna ukulayisha kabusha futhi ulahlekelwe izinguquko ezenziwe ku-Notepad ++?"/>
+            <PrehistoricSystemDetected title="Isistimu ye-prehistoric itholakele" message="Kubonakala sengathi usasebenzisa isimiso sokuqala. Lesi sici sisebenza kuphela ohlelweni lwesimanje, siyaxolisa."/>
+            <XpUpdaterProblem title="Isibuyekezo se-Notepad ++" message="Ukubuyekezwa kwe-Notepad ++ akuhambisani ne-XP ngenxa yocingo lokuphepha elingapheli ngaphansi kwe-XP.
+Ingabe ufuna ukuya ekhasini le-Notepad ++ ukulanda inguqulo yakamuva?"/>
+            <DocTooDirtyToMonitor title="Inkinga yokuqapha" message="Le dokhumenti ingcolile. Sicela ulondoloze ukuguqulwa ngaphambi kokuqapha."/>
+            <DocNoExistToMonitor title="Inkinga yokuqapha" message="Ifayela kufanele libe khona ukuze lihlolwe."/>
+            <FileTooBigToOpen title="Inkinga yesayizi yefayela" message="Ifayela likhulu kakhulu ukuthi lingavulwa yi-Notepad ++"/>
+            <CreateNewFileOrNot title="Dala ifayela elisha" message="&quot;$STR_REPLACE$&quot; ayikho. Yakha?"/>
+            <CreateNewFileError title="Dala ifayela elisha" message="Ayikwazi ukudala ifayela &quot;$STR_REPLACE$&quot;."/>
+            <OpenFileError title="ERROR" message="Ayikwazi ukuvula ifayela &quot;$STR_REPLACE$&quot;."/>
+            <FileBackupFailed title="I-Backup yefayela ayihlulekile" message="Inguqulo yangaphambilini yefayela ayikwazanga ukulondolozwa kumhlahlandlela wokusekelayo ku &quot; $ STR_REPLACE $ &quot;.
+Ingabe ufuna ukusindisa ifayela lamanje noma kunjalo?"/>
+            <LoadStylersFailed title="Ukulayisha i-stylers.xml kuhlulekile" message="Layisha &quot;$STR_REPLACE$&quot; uhlulekile!"/>
+            <LoadLangsFailed title="I-Configurator" message="Ukulayisha langs.xml kuhlulekile!
+Ingabe ufuna ukuthola i-langs.xml yakho?"/>
+            <LoadLangsFailedFinal title="I-Configurator" message="Ukulayisha langs.xml kuhlulekile!"/>
+            <FolderAsWorspaceSubfolderExists title="Ifolda njengenkinga yokufaka i-Workspace inkinga yenkolda" message="Ifolda encane yefolda ofuna ukuyengeza ikhona.
+Sicela ususe impande yawo kusuka kuphaneli ngaphambi kokuthi ungeze ifolda &quot; $ STR_REPLACE $ &quot;."/>
+
+            <ProjectPanelChanged title="$STR_REPLACE$" message="Indawo yokusebenzela yaguqulwa. Ufuna ukuyilondoloza?"/>
+            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Indawo yakho yokusebenzela ayilondoloziwe."/>
+            <ProjectPanelOpenDoSaveDirtyWsOrNot title="Vula indawo yokusebenzela" message="Indawo yokusebenzela yamanje ishintshiwe. Ingabe ufuna ukusindisa iphrojekthi yamanje?"/>
+            <ProjectPanelNewDoSaveDirtyWsOrNot title="Indawo yokusebenzela entsha" message="Indawo yokusebenzela yamanje ishintshiwe. Ingabe ufuna ukusindisa iphrojekthi yamanje?"/>
+            <ProjectPanelOpenFailed title="Vula indawo yokusebenzela" message="Indawo yokusebenzela ayikwazanga ukuvulwa.
+Kubonakala sengathi ifayela lokuvula akuyona ifayela lephrojekthi elivumelekile."/>
+            <ProjectPanelRemoveFolderFromProject title="Susa ifolda kusuka kuphrojekthi" message="Zonke izinto ezingezansi zizosuswa.
+Uqinisekile ukuthi ufuna ukususa le folda kusuka kuphrojekthi?"/>
+            <ProjectPanelRemoveFileFromProject title="Susa ifayela kusuka kuphrojekthi" message="Uqinisekile ukuthi ufuna ukususa leli fayela kusuka kuphrojekthi?"/>
+            <ProjectPanelReloadError title="Phinda ulayishe indawo yokusebenzela" message="Ayikwazi ukuthola ifayela ukuze lilayishe kabusha."/>
+            <ProjectPanelReloadDirty title="Phinda ulayishe indawo yokusebenzela" message="Indawo yokusebenzela yamanje ishintshiwe. Ukulayishwa kabusha kuzolahla konke ukuguqulwa.
+Ufuna ukuqhubeka?"/>
+            <UDLNewNameError title="Iphutha le-UDL" message="Leligama lisetshenziswe ngolunye ulimi,
+sicela unike enye."/>
+            <UDLRemoveCurrentLang title="Susa ulimi lwamanje" message="Uqinisekile?"/>
+            <SCMapperDoDeleteOrNot title="Uqinisekile?" message="Ingabe uqinisekile ukuthi ufuna ukususa lesi sinqamuleli?"/>
+            <FindCharRangeValueError title="Inkinga Yezinga lokulinganisa" message="Kufanele uthayiphe phakathi kuka-0 no-255."/>
+            <OpenInAdminMode title="Ukulondoloza kuhlulekile" message="Ifayela alikwazi ukulondolozwa futhi lingavunyelwa.
+Ingabe ufuna ukuqala i-Notepad ++ kwimodi ye-Administrator?"/>
+            <OpenInAdminModeWithoutCloseCurrent title="Ukulondoloza kuhlulekile" message="Ifayela alikwazi ukulondolozwa futhi lingavunyelwa.
+Ingabe ufuna ukuqala i-Notepad ++ kwimodi ye-Administrator?"/>
+            <OpenInAdminModeFailed title="Kuvulwa kwimodi ye-Administrator kuhlulekile" message="I-Notepad ++ ayikwazi ukuvulwa kwimodi ye-Administrator."/>
+        </MessageBox>
+        <ClipboardHistory>
+            <PanelTitle name="Umlando we-Clipboard"/>
+        </ClipboardHistory>
+        <DocSwitcher>
+            <PanelTitle name="I-Doc Switcher"/>
+            <ColumnName name="Igama"/>
+            <ColumnExt name="I-Ext."/>
+        </DocSwitcher>
+        <WindowsDlg>
+            <ColumnName name="Igama"/>
+            <ColumnPath name="Indlela"/>
+            <ColumnType name="Thayipha"/>
+        </WindowsDlg>
+        <AsciiInsertion>
+            <PanelTitle name="I-ASCII Yokufaka Iphaneli"/>
+            <ColumnVal name="Inani"/>
+            <ColumnHex name="I-Hex"/>
+            <ColumnChar name="Isici"/>
+        </AsciiInsertion>
+        <DocumentMap>
+            <PanelTitle name="Imephu yedokhumenti"/>
+        </DocumentMap>
+        <FunctionList>
+            <PanelTitle name="Uhlu lomsebenzi"/>
+            <SortTip name="Hlunga" />
+            <ReloadTip name="Phinda ulayishe kabusha" />
+        </FunctionList>
+        <FolderAsWorkspace>
+		  <PanelTitle name="Ifolda njengendawo yokusebenzela"/>
+		  <SelectFolderFromBrowserString name="Khetha ifolda ongayifaka kuFolda njengePaneti yokusebenzela"/>
+		  <Menus>
+			  <Item id="3511" name="Susa"/>
+			  <Item id="3512" name="Susa konke"/>
+			  <Item id="3513" name="Engeza"/>
+			  <Item id="3514" name="Qalisa ngesistimu"/>
+			  <Item id="3515" name="Vula"/>
+			  <Item id="3516" name="Kopisha indlela"/>
+			  <Item id="3517" name="Thola kumafayela..."/>
+			  <Item id="3518" name="I-Explorer lapha"/>
+			  <Item id="3519" name="I-CMD lapha"/>
+		  </Menus>
+		</FolderAsWorkspace>
+		<ProjectManager>
+		  <PanelTitle name="Iphrojekthi"/>
+		  <WorkspaceRootName name="Indawo yokusebenzela"/>
+		  <NewProjectName name="Igama lephrojekthi"/>
+		  <NewFolderName name="Igama lefolda"/>
+		  <Menus>
+			  <Entries>
+				  <Item id="0" name="Indawo yokusebenzela"/>
+				  <Item id="1" name="Hlela"/>
+			  </Entries>
+			  <WorkspaceMenu>
+				  <Item id="3122" name="Indawo yokusebenzela entsha"/>
+				  <Item id="3123" name="Vula indawo yokusebenzela"/>
+				  <Item id="3124" name="Phinda ulayishe indawo yokusebenzela"/>
+				  <Item id="3125" name="Londoloza"/>
+				  <Item id="3126" name="Igcine njenge..."/>
+				  <Item id="3127" name="Londoloza i-Copy As..."/>
+				  <Item id="3121" name="Engeza iphrojekthi entsha"/>
+			  </WorkspaceMenu>
+			  <ProjectMenu>
+				  <Item id="3111" name="Qamba kabusha"/>
+				  <Item id="3112" name="Engeza Ifolda"/>
+				  <Item id="3113" name="Engeza Amafayela..."/>
+				  <Item id="3117" name="Engeza Amafayela kusuka ku-Directory..."/>
+				  <Item id="3114" name="Susa"/>
+				  <Item id="3118" name="Hamba uyephezulu"/>
+				  <Item id="3119" name="Hambisa phansi"/>
+			  </ProjectMenu>
+			  <FolderMenu>
+				  <Item id="3111" name="Qamba kabusha"/>
+				  <Item id="3112" name="Engeza Ifolda"/>
+				  <Item id="3113" name="Engeza Amafayela..."/>
+				  <Item id="3117" name="Engeza Amafayela kusuka ku-Directory..."/>
+				  <Item id="3114" name="Susa"/>
+				  <Item id="3118" name="Hamba uyephezulu"/>
+				  <Item id="3119" name="Hambisa phansi"/>
+			  </FolderMenu>
+			  <FileMenu>
+				  <Item id="3111" name="Qamba kabusha"/>
+				  <Item id="3115" name="Susa"/>
+				  <Item id="3116" name="Guqula indlela yefayela"/>
+				  <Item id="3118" name="Hamba uyephezulu"/>
+				  <Item id="3119" name="Hambisa phansi"/>
+			  </FileMenu>
+		  </Menus>
+		</ProjectManager>
+        <MiscStrings>
+            <!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
+            <word-chars-list-tip value="Lokhu kukuvumela ukuba uhlanganise uhlamvu olwengeziwe kumagama abalingiswa bamanje ngenkathi uchofoza kabili ukukhethwa noma ukucinga nge &quot; Ukulinganisa igama lonke kuphela &quot; inketho ihloliwe."/>
+            <word-chars-list-warning-begin value="Qaphela: "/>
+            <word-chars-list-space-warning value="$INT_REPLACE$ space(s)"/>
+            <word-chars-list-tab-warning value="$INT_REPLACE$ TAB(s)"/>
+            <word-chars-list-warning-end value="ohlwini lwakho lomlingiswa."/>
+            <cloud-invalid-warning value="Indlela engavumelekile."/>
+            <cloud-restart-warning value="Sicela uqale kabusha i-Notepad ++ ukuze usebenze."/>
+            <cloud-select-folder value="Khetha ifolda ukusuka / kuya lapho i-Notepad ++ ifunda khona / ibhala izilungiselelo zayo"/>
+            <shift-change-direction-tip value="Sebenzisa i-Shift + Enter ukuze useshe kunhlangothi ehlukile"/>
+            <two-find-buttons-tip value="2 thola izinkinobho zemodi"/>
+            <find-status-top-reached value="Thola: Ithola isenzakalo sokuqala kusuka phansi. Ukuqala kwedokhumenti kufinyelelwe."/>
+            <find-status-end-reached value="Thola: Ithola isenzakalo sokuqala kusuka phezulu. Ukuphela kwedokhumenti kufinyelelwe."/>
+            <find-status-replaceinfiles-1-replaced value="Faka endaweni yamafayela: isenzakalo esingu-1 sishintshiwe"/>
+            <find-status-replaceinfiles-nb-replaced value="Faka esikhundleni kumafayela: $ INT_REPLACE $ okwenzekayo kufakwe esikhundleni"/>
+            <find-status-replaceinfiles-re-malformed value="Faka endaweni yamafayela avuliwe: Inkulumo evamile ayilungile"/>
+            <find-status-replaceinopenedfiles-1-replaced value="Faka endaweni yamafayela avuliwe: ukuvela oku-1 kushintshiwe"/>
+            <find-status-replaceinopenedfiles-nb-replaced value="Faka esikhundlenikumafayela avuliwe: $ INT_REPLACE $ okwenzekayo kufakwe esikhundleni"/>
+            <find-status-mark-re-malformed value="Maka: Inkulumo evamile yokuseshwa ayilungile"/>
+            <find-status-invalid-re value="Thola: inkulumo evamile engavumelekile"/>
+            <find-status-mark-1-match value="Umdlalo ongu-1"/>
+            <find-status-mark-nb-matches value="$INT_REPLACE$ kufanelana"/>
+            <find-status-count-re-malformed value="Ukubala: Inkulumo evamile yokusesha ayilungile"/>
+            <find-status-count-1-match value="Bala: 1 umdlalo"/>
+            <find-status-count-nb-matches value="Bala: $ int_REPLACE $ afanayo"/>
+            <find-status-replaceall-re-malformed value="Buyisela konke: Inkulumo evamile ayilungile"/>
+            <find-status-replaceall-1-replaced value="Buyisela konke: isenzakalo esingu-1 sishintshiwe"/>
+            <find-status-replaceall-nb-replaced value="Buyisela konke: $ INT_REPLACE $ okwenzekayo kufakwe esikhundleni"/>
+            <find-status-replaceall-readonly value="Shintsha konke: Ayikwazi ukufaka umbhalo esikhundleni. Idokhumende yamanje ifundwa kuphela"/>
+            <find-status-replace-end-reached value="Faka esikhundleni: Ushintshe isenzakalo sokuqala kusukela phezulu. Ukuphela komqulu kufinyelelwe"/>
+            <find-status-replace-top-reached value="Faka esikhundleni: Ushintshe isenzakalo sokuqala kusuka phansi. Ukuqala komqulu kufinyelelwe"/>
+            <find-status-replaced-next-found value="Faka esikhundleni: isenzakalo esingu-1 sishintshiwe. Isenzakalo esilandelayo sitholiwe"/>
+            <find-status-replaced-next-not-found value="Faka esikhundleni: isenzakalo esingu-1 sishintshiwe. Isenzakalo esilandelayo asitholakali"/>
+            <find-status-replace-not-found value="Faka esikhundleni: akukho okwenzekayo okutholiwe"/>
+            <find-status-replace-readonly value="Faka esikhundleni: Ayikwazi ukufaka umbhalo esikhundleni. Idokhumende yamanje ifundwa kuphela"/>
+            <find-status-cannot-find value="Thola: Awukwazi ukuthola umbhalo &quot;$STR_REPLACE$&quot;"/>
+            <finder-find-in-finder value="Thola kule miphumela etholakalayo..."/>
+            <finder-close-this value="Vala lo mtholi"/>
+            <finder-collapse-all value="Yehla konke"/>
+            <finder-uncollapse-all value="Ungabuyi konke"/>
+            <finder-copy value="Kopisha"/>
+            <finder-select-all value="Khetha konke"/>
+            <finder-clear-all value="Sula konke"/>
+            <finder-open-all value="Vula konke"/>
+        </MiscStrings>
+
+    </Native-Langue>
+</NotepadPlus>

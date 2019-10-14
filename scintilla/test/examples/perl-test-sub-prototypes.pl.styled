@@ -1,0 +1,239 @@
+{2}# -*- coding: utf-8 -*-{0}
+{2}#--------------------------------------------------------------------------{0}
+{2}# perl-test-sub-prototypes.pl{0}
+{2}#--------------------------------------------------------------------------{0}
+{2}# compiled all relevant subroutine prototype test cases{0}
+{2}#{0}
+{2}#--------------------------------------------------------------------------{0}
+{2}# Kein-Hong Man <keinhong@gmail.com> Public Domain{0}
+{2}#--------------------------------------------------------------------------{0}
+{2}# 20151227	initial document{0}
+{2}#--------------------------------------------------------------------------{0}
+
+{2}#--------------------------------------------------------------------------{0}
+{2}# test cases for sub syntax scanner{0}
+{2}#--------------------------------------------------------------------------{0}
+{2}# sub syntax: simple and with added module notation{0}
+{2}#--------------------------------------------------------------------------{0}
+
+{5}sub{0} {11}fish{40}($){0} {10}{{0} {4}123{10};{0} {10}}{0}
+{5}sub{0} {11}fish{10}::{11}chips{40}($){0} {10}{{0} {4}123{10};{0} {10}}{0}			{2}# module syntax{0}
+{5}sub{0} {11}fish{10}::{11}chips{10}::{11}sauce{40}($){0} {10}{{0} {4}123{10};{0} {10}}{0}		{2}# multiple module syntax{0}
+
+{5}sub{0} {11}fish{0} {10}::{0} {11}chips{0}  {10}::{0}		{11}sauce{0} {40}($){0} {10}{{0} {4}123{10};{0} {10}}{0}	{2}# added whitespace{0}
+
+{5}sub{0} {11}fish{0} {10}::{0} {2}# embedded comment{0}
+{11}chips{0} 	{2}# embedded comment{0}
+ {10}::{0} {11}sauce{0} {40}($){0} {10}{{0} {4}123{10};{0} {10}}{0}
+
+{5}sub{0} {11}fish{0} {10}::{0} {10}({12}$){0} {10}{{0} {4}123{10};{0} {10}}{0}	{2}# incomplete or bad syntax examples{0}
+{5}sub{0} {11}fish{0} {10}::{0} {4}123{0} {10}({12}$){0} {10}{{0} {4}123{10};{0} {10}}{0}
+{5}sub{0} {11}fish{0} {10}::{0} {11}chips{0} {4}123{0} {10}({12}$){0} {10}{{0} {4}123{10};{0} {10}}{0}
+{5}sub{0} {4}123{0} {10}({12}$){0} {10}{{0} {4}123{10};{0} {10}}{0}
+
+{2}#--------------------------------------------------------------------------{0}
+{2}# sub syntax: prototype attributes{0}
+{2}#--------------------------------------------------------------------------{0}
+
+{5}sub{0} {11}fish{10}:{5}prototype{40}($){0} {10}{{0} {4}123{10};{0} {10}}{0}
+{5}sub{0} {11}fish{0} {10}:{0} {5}prototype{0}	{40}($){0} {10}{{0} {4}123{10};{0} {10}}{0}		{2}# added whitespace{0}
+
+{5}sub{0} {11}fish{10}:{11}salted{10}({12}$){0} {10}{{0} {4}123{10};{0} {10}}{0}	{2}# wrong attribute example (must use 'prototype'){0}
+{5}sub{0} {11}fish{0} {10}:{0}  {4}123{10}({12}$){0} {10}{{0} {4}123{10};{0} {10}}{0}	{2}# illegal attribute{0}
+{5}sub{0} {11}fish{10}:{5}prototype{10}:{11}salted{10}({12}$){0} {10}{{0} {4}123{10};{0} {10}}{0}	{2}# wrong 'prototype' position{0}
+{5}sub{0} {11}fish{10}:{11}salted{0} {11}salt{10}:{5}prototype{10}({12}$){0} {10}{{0} {4}123{10};{0} {10}}{0}	{2}# wrong attribute syntax{0}
+
+{5}sub{0} {11}fish{10}:{11}const{10}:{5}prototype{40}($){0} {10}{{0} {4}123{10};{0} {10}}{0}		{2}# extra attributes{0}
+{5}sub{0} {11}fish{10}:{11}const{10}:{11}lvalue{10}:{5}prototype{40}($){0} {10}{{0} {4}123{10};{0} {10}}{0}
+{5}sub{0} {11}fish{10}:{11}const{10}:{5}prototype{40}($){10}:{11}lvalue{10}{{0} {4}123{10};{0} {10}}{0}	{2}# might be legal too{0}
+{5}sub{0} {11}fish{0}  {10}:{11}const{0}	{10}:{5}prototype{40}($){0} {10}{{0} {4}123{10};{0} {10}}{0}	{2}# extra whitespace{0}
+
+{5}sub{0} {11}fish{0}  {10}:{11}const{0}	{2}# embedded comment: a constant sub{0}
+{10}:{5}prototype{0}		{2}# embedded comment{0}
+{40}($){0} {10}{{0} {4}123{10};{0} {10}}{0}
+
+{2}#--------------------------------------------------------------------------{0}
+{2}# sub syntax: mixed{0}
+{2}#--------------------------------------------------------------------------{0}
+
+{5}sub{0} {11}fish{10}::{11}chips{10}:{5}prototype{40}($){0} {10}{{0} {4}123{10};{0} {10}}{0}
+{5}sub{0} {11}fish{10}::{11}chips{10}::{11}sauce{10}:{5}prototype{40}($){0} {10}{{0} {4}123{10};{0} {10}}{0}
+{5}sub{0} {11}fish{0}  {10}::{11}chips{0}  {10}::{11}sauce{0}	{10}:{5}prototype{40}($){0} {10}{{0} {4}123{10};{0} {10}}{0}	{2}# +whitespace{0}
+
+{5}sub{0} {11}fish{10}::{11}chips{10}::{11}sauce{10}:{11}const{10}:{5}prototype{40}($){0} {10}{{0} {4}123{10};{0} {10}}{0}
+{5}sub{0} {11}fish{10}::{11}chips{10}::{11}sauce{0}	{10}:{11}const{0}	{10}:{5}prototype{40}($){0} {10}{{0} {4}123{10};{0} {10}}{0}	{2}# +whitespace{0}
+
+{5}sub{0} {11}fish{0}		{2}# embedded comment{0}
+{10}::{11}chips{0}	{10}::{11}sauce{0}		{2}# embedded comment{0}
+  {10}:{0} {11}const{0}		{2}# embedded comment{0}
+	{10}:{0} {5}prototype{0} {40}($){0} {10}{{0} {4}123{10};{0} {10}}{0}
+
+{2}# wrong syntax examples, parentheses must follow ':prototype'{0}
+{5}sub{0} {11}fish{0} {10}:{5}prototype{0} {10}:{11}const{0} {10}({12}$){0} {10}{{0} {4}123{10};}{0}
+{5}sub{0} {11}fish{0} {10}:{5}prototype{0} {10}::{11}chips{0} {10}({12}$){0} {10}{{0} {4}123{10};}{0}
+
+{2}#--------------------------------------------------------------------------{0}
+{2}# perl-test-5200delta.pl{0}
+{2}#--------------------------------------------------------------------------{0}
+{2}# More consistent prototype parsing{0}
+{2}#--------------------------------------------------------------------------{0}
+{2}# - whitespace now allowed, lexer now allows spaces or tabs{0}
+
+{5}sub{0} {11}foo{0} {40}( $ $ ){0} {10}{}{0}
+{5}sub{0} {11}foo{0} {40}( 			 ){0} {10}{}{0}		{2}# spaces/tabs empty{0}
+{5}sub{0} {11}foo{0} {40}(  *  ){0} {10}{}{0}
+{5}sub{0} {11}foo{0} {40}(@	){0} {10}{}{0}
+{5}sub{0} {11}foo{0} {40}(	%){0} {10}{}{0}
+
+{2}# untested, should probably be \[ but scanner does not check this for now{0}
+{5}sub{0} {11}foo{0} {40}( \ [ $ @ % & * ] ){0} {10}{}{0}
+
+{2}#--------------------------------------------------------------------------{0}
+{2}# perl-test-5140delta.pl{0}
+{2}#--------------------------------------------------------------------------{0}
+{2}# new + prototype character, acts like (\[@%]){0}
+{2}#--------------------------------------------------------------------------{0}
+
+{2}# these samples work as before{0}
+{5}sub{0} {11}mylink{0} {40}($$){0}          {2}# mylink $old, $new{0}
+{5}sub{0} {11}myvec{0} {40}($$$){0}          {2}# myvec $var, $offset, 1{0}
+{5}sub{0} {11}myindex{0} {40}($$;$){0}       {2}# myindex &getstring, "substr"{0}
+{5}sub{0} {11}mysyswrite{0} {40}($$$;$){0}   {2}# mysyswrite $buf, 0, length($buf) - $off, $off{0}
+{5}sub{0} {11}myreverse{0} {40}(@){0}        {2}# myreverse $a, $b, $c{0}
+{5}sub{0} {11}myjoin{0} {40}($@){0}          {2}# myjoin ":", $a, $b, $c{0}
+{5}sub{0} {11}myopen{0} {40}(*;$){0}         {2}# myopen HANDLE, $name{0}
+{5}sub{0} {11}mypipe{0} {40}(**){0}          {2}# mypipe READHANDLE, WRITEHANDLE{0}
+{5}sub{0} {11}mygrep{0} {40}(&@){0}          {2}# mygrep { /foo/ } $a, $b, $c{0}
+{5}sub{0} {11}myrand{0} {40}(;$){0}          {2}# myrand 42{0}
+{5}sub{0} {11}mytime{0} {40}(){0}            {2}# mytime{0}
+
+{2}# backslash group notation to specify more than one allowed argument type{0}
+{5}sub{0} {11}myref{0} {40}(\[$@%&*]){0} {10}{}{0}
+
+{5}sub{0} {11}mysub{0} {40}(_){0}            {2}# underscore can be optionally used FIXED 20151211{0}
+
+{2}# these uses the new '+' prototype character{0}
+{5}sub{0} {11}mypop{0} {40}(+){0}            {2}# mypop @array{0}
+{5}sub{0} {11}mysplice{0} {40}(+$$@){0}      {2}# mysplice @array, 0, 2, @pushme{0}
+{5}sub{0} {11}mykeys{0} {40}(+){0}           {2}# mykeys %{$hashref}{0}
+
+{2}#--------------------------------------------------------------------------{0}
+{2}# perl-test-5200delta.pl{0}
+{2}#--------------------------------------------------------------------------{0}
+{2}# Experimental Subroutine signatures (mostly works){0}
+{2}#--------------------------------------------------------------------------{0}
+{2}# INCLUDED FOR COMPLETENESS ONLY{0}
+{2}# IMPORTANT NOTE the subroutine prototypes lexing implementation has{0}
+{2}# no effect on subroutine signature syntax highlighting{0}
+
+{2}# subroutine signatures mostly looks fine except for the @ and % slurpy{0}
+{2}# notation which are highlighted as operators (all other parameters are{0}
+{2}# highlighted as vars of some sort), a minor aesthetic issue{0}
+
+{5}use{0} {11}feature{0} {7}'signatures'{10};{0}
+
+{5}sub{0} {11}foo{0} {10}({12}$left{10},{0} {12}$right{10}){0} {10}{{0}		{2}# mandatory positional parameters{0}
+    {5}return{0} {12}$left{0} {10}+{0} {12}$right{10};{0}
+{10}}{0}
+{5}sub{0} {11}foo{0} {10}({12}$first{10},{0} {12}$,{0} {12}$third{10}){0} {10}{{0}		{2}# ignore second argument{0}
+    {5}return{0} {6}"first={43}$first{6}, third={43}$third{6}"{10};{0}
+{10}}{0}
+{5}sub{0} {11}foo{0} {10}({12}$left{10},{0} {12}$right{0} {10}={0} {4}0{10}){0} {10}{{0}		{2}# optional parameter with default value{0}
+    {5}return{0} {12}$left{0} {10}+{0} {12}$right{10};{0}
+{10}}{0}
+{5}my{0} {12}$auto_id{0} {10}={0} {4}0{10};{0}			{2}# default value expression, evaluated if default used only{0}
+{5}sub{0} {11}foo{0} {10}({12}$thing{10},{0} {12}$id{0} {10}={0} {12}$auto_id{10}++){0} {10}{{0}
+    {5}print{0} {6}"{43}$thing{6} has ID {43}$id{6}"{10};{0}
+{10}}{0}
+{5}sub{0} {11}foo{0} {10}({12}$first_name{10},{0} {12}$surname{10},{0} {12}$nickname{0} {10}={0} {12}$first_name{10}){0} {10}{{0}	{2}# 3rd parm may depend on 1st parm{0}
+    {5}print{0} {6}"{43}$first_name{6} {43}$surname{6} is known as \"{43}$nickname{6}\""{10};{0}
+{10}}{0}
+{5}sub{0} {11}foo{0} {10}({12}$thing{10},{0} {12}${0} {10}={0} {4}1{10}){0} {10}{{0}		{2}# nameless default parameter{0}
+    {5}print{0} {12}$thing{10};{0}
+{10}}{0}
+{5}sub{0} {11}foo{0} {10}({12}$thing{10},{0} {12}$={10}){0} {10}{{0}			{2}# (this does something, I'm not sure what...){0}
+    {5}print{0} {12}$thing{10};{0}
+{10}}{0}
+{5}sub{0} {11}foo{0} {10}({12}$filter{10},{0} {13}@inputs{10}){0} {10}{{0}		{2}# additional arguments (slurpy parameter){0}
+    {5}print{0} {12}$filter{10}->({12}$_{10}){0} {5}foreach{0} {13}@inputs{10};{0}
+{10}}{0}
+{5}sub{0} {11}foo{0} {10}({12}$thing{10},{0} {10}@){0} {10}{{0}			{2}# nameless slurpy parameter FAILS for now{0}
+    {5}print{0} {12}$thing{10};{0}
+{10}}{0}
+{5}sub{0} {11}foo{0} {10}({12}$filter{10},{0} {14}%inputs{10}){0} {10}{{0}		{2}# slurpy parameter, hash type{0}
+    {5}print{0} {12}$filter{10}->({12}$_{10},{0} {12}$inputs{10}{{12}$_{10}}){0} {5}foreach{0} {5}sort{0} {5}keys{0} {14}%inputs{10};{0}
+{10}}{0}
+{5}sub{0} {11}foo{0} {10}({12}$thing{10},{0} {10}%){0} {10}{{0}			{2}# nameless slurpy parm, hash type FAILS for now{0}
+    {5}print{0} {12}$thing{10};{0}
+{10}}{0}
+{5}sub{0} {11}foo{0} {40}(){0} {10}{{0}				{2}# empty signature no arguments (styled as prototype){0}
+    {5}return{0} {4}123{10};{0}
+{10}}{0}
+
+{2}#--------------------------------------------------------------------------{0}
+{2}# perl-test-5200delta.pl{0}
+{2}#--------------------------------------------------------------------------{0}
+{2}# subs now take a prototype attribute{0}
+{2}#--------------------------------------------------------------------------{0}
+
+{5}sub{0} {11}foo{0} {10}:{5}prototype{40}($){0} {10}{{0} {12}$_{10}[{4}0{10}]{0} {10}}{0}
+
+{5}sub{0} {11}foo{0} {10}:{5}prototype{40}($$){0} {10}({12}$left{10},{0} {12}$right{10}){0} {10}{{0}
+    {5}return{0} {12}$left{0} {10}+{0} {12}$right{10};{0}
+{10}}{0}
+
+{5}sub{0} {11}foo{0} {10}:{0} {5}prototype{40}($$){10}{}{0}		{2}# whitespace allowed{0}
+
+{2}# additional samples from perl-test-cases.pl with ':prototype' added:{0}
+{5}sub{0} {11}mylink{0} {10}:{5}prototype{40}($$){0} {10}{}{0}		{5}sub{0} {11}myvec{0} {10}:{5}prototype{40}($$$){0} {10}{}{0}
+{5}sub{0} {11}myindex{0} {10}:{5}prototype{40}($$;$){0} {10}{}{0}		{5}sub{0} {11}mysyswrite{0} {10}:{5}prototype{40}($$$;$){0} {10}{}{0}
+{5}sub{0} {11}myreverse{0} {10}:{5}prototype{40}(@){0} {10}{}{0}		{5}sub{0} {11}myjoin{0} {10}:{5}prototype{40}($@){0} {10}{}{0}
+{5}sub{0} {11}mypop{0} {10}:{5}prototype{40}(\@){0} {10}{}{0}		{5}sub{0} {11}mysplice{0} {10}:{5}prototype{40}(\@$$@){0} {10}{}{0}
+{5}sub{0} {11}mykeys{0} {10}:{5}prototype{40}(\%){0} {10}{}{0}		{5}sub{0} {11}myopen{0} {10}:{5}prototype{40}(*;$){0} {10}{}{0}
+{5}sub{0} {11}mypipe{0} {10}:{5}prototype{40}(**){0} {10}{}{0}		{5}sub{0} {11}mygrep{0} {10}:{5}prototype{40}(&@){0} {10}{}{0}
+{5}sub{0} {11}myrand{0} {10}:{5}prototype{40}($){0} {10}{}{0}		{5}sub{0} {11}mytime{0} {10}:{5}prototype{40}(){0} {10}{}{0}
+{2}# backslash group notation to specify more than one allowed argument type{0}
+{5}sub{0} {11}myref{0} {10}:{5}prototype{40}(\[$@%&*]){0} {10}{}{0}
+
+{2}# additional attributes may complicate scanning for prototype syntax,{0}
+{2}# for example (from https://metacpan.org/pod/perlsub):{0}
+{2}# Lvalue subroutines{0}
+
+{5}my{0} {12}$val{10};{0}
+{5}sub{0} {11}canmod{0} {10}:{0} {11}lvalue{0} {10}{{0}
+    {12}$val{10};{0}  {2}# or:  return $val;{0}
+{10}}{0}
+{11}canmod{10}(){0} {10}={0} {4}5{10};{0}   {2}# assigns to $val{0}
+
+{2}#--------------------------------------------------------------------------{0}
+{2}# perl-test-5220delta.pl{0}
+{2}#--------------------------------------------------------------------------{0}
+{2}# New :const subroutine attribute{0}
+{2}#--------------------------------------------------------------------------{0}
+
+{5}my{0} {12}$x{0} {10}={0} {4}54321{10};{0}
+{15}*INLINED{0} {10}={0} {5}sub{0} {10}:{0} {11}const{0} {10}{{0} {12}$x{0} {10}};{0}
+{12}$x{10}++;{0}
+
+{2}# more examples of attributes{0}
+{2}# (not 5.22 stuff, but some general examples for study, useful for{0}
+{2}#  handling subroutine signature and subroutine prototype highlighting){0}
+
+{5}sub{0} {11}foo{0} {10}:{0} {11}lvalue{0} {10};{0}
+
+{5}package{0} {11}X{10};{0}
+{5}sub{0} {11}Y{10}::{11}z{0} {10}:{0} {11}lvalue{0} {10}{{0} {4}1{0} {10}}{0}
+
+{5}package{0} {11}X{10};{0}
+{5}sub{0} {11}foo{0} {10}{{0} {4}1{0} {10}}{0}
+{5}package{0} {11}Y{10};{0}
+{5}BEGIN{0} {10}{{0} {15}*bar{0} {10}={0} {10}\&{11}X{10}::{11}foo{10};{0} {10}}{0}
+{5}package{0} {11}Z{10};{0}
+{5}sub{0} {11}Y{10}::{11}bar{0} {10}:{0} {11}lvalue{0} {10};{0}
+
+{2}# built-in attributes for subroutines:{0}
+{11}lvalue{0} {11}method{0} {5}prototype{10}(..){0} {11}locked{0} {11}const{0}
+
+{2}#--------------------------------------------------------------------------{0}
+{2}# end of test file{0}
+{2}#--------------------------------------------------------------------------{0}

@@ -26,24 +26,12 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef PLUGINSMANAGER_H
-#define PLUGINSMANAGER_H
+#pragma once
 
-#ifndef RESOURCE_H
 #include "resource.h"
-#endif //RESOURCE_H
-
-#ifndef PARAMETERS_H
 #include "Parameters.h"
-#endif //PARAMETERS_H
-
-#ifndef PLUGININTERFACE_H
 #include "PluginInterface.h"
-#endif //PLUGININTERFACE_H
-
-#ifndef IDALLOCATOR_H
 #include "IDAllocator.h"
-#endif // IDALLOCATOR_H
 
 typedef BOOL (__cdecl * PFUNCISUNICODE)();
 
@@ -57,7 +45,7 @@ struct PluginCommand
 
 struct PluginInfo
 {
-	PluginInfo() {}
+	PluginInfo() = default;
 	~PluginInfo()
 	{
 		if (_pluginMenu)
@@ -67,24 +55,33 @@ struct PluginInfo
 			::FreeLibrary(_hLib);
 	}
 
-	HINSTANCE _hLib = NULL;
-	HMENU _pluginMenu = NULL;
+	HINSTANCE _hLib = nullptr;
+	HMENU _pluginMenu = nullptr;
 
-	PFUNCSETINFO _pFuncSetInfo = NULL;
-	PFUNCGETNAME _pFuncGetName = NULL;
-	PBENOTIFIED	_pBeNotified = NULL;
-	PFUNCGETFUNCSARRAY _pFuncGetFuncsArray = NULL;
-	PMESSAGEPROC _pMessageProc = NULL;
-	PFUNCISUNICODE _pFuncIsUnicode = NULL;
+	PFUNCSETINFO _pFuncSetInfo = nullptr;
+	PFUNCGETNAME _pFuncGetName = nullptr;
+	PBENOTIFIED	_pBeNotified = nullptr;
+	PFUNCGETFUNCSARRAY _pFuncGetFuncsArray = nullptr;
+	PMESSAGEPROC _pMessageProc = nullptr;
+	PFUNCISUNICODE _pFuncIsUnicode = nullptr;
 
-	FuncItem *_funcItems = NULL;
+	FuncItem *_funcItems = nullptr;
 	int _nbFuncItem = 0;
 	generic_string _moduleName;
 	generic_string _funcName;
 };
 
+struct LoadedDllInfo
+{
+	generic_string _fullFilePath;
+	generic_string _fileName;
+
+	LoadedDllInfo(const generic_string & fullFilePath, const generic_string & fileName) : _fullFilePath(fullFilePath), _fileName(fileName) {};
+};
+
 class PluginsManager
 {
+friend class PluginsAdminDlg;
 public:
 	PluginsManager() : _dynamicIDAlloc(ID_PLUGINS_CMD_DYNAMIC, ID_PLUGINS_CMD_DYNAMIC_LIMIT),
 					   _markerAlloc(MARKER_PLUGINS, MARKER_PLUGINS_LIMIT)	{}
@@ -102,8 +99,8 @@ public:
 		_nppData = nppData;
 	}
 
-    int loadPlugin(const TCHAR *pluginFilePath, std::vector<generic_string> & dll2Remove);
-	bool loadPlugins(const TCHAR *dir = NULL);
+    int loadPlugin(const TCHAR *pluginFilePath);
+	bool loadPluginsV2(const TCHAR *dir = NULL);
 
     bool unloadPlugin(int index, HWND nppHandle);
 
@@ -111,10 +108,12 @@ public:
 	void runPluginCommand(const TCHAR *pluginName, int commandID);
 
     void addInMenuFromPMIndex(int i);
-	HMENU setMenu(HMENU hMenu, const TCHAR *menuName);
+	HMENU setMenu(HMENU hMenu, const TCHAR *menuName, bool enablePluginAdmin = false);
 	bool getShortcutByCmdID(int cmdID, ShortcutKey *sk);
+	bool removeShortcutByCmdID(int cmdID);
 
-	void notify(const SCNotification *notification);
+	void notify(size_t indexPluginInfo, const SCNotification *notification); // to a plugin
+	void notify(const SCNotification *notification); // broadcast
 	void relayNppMessages(UINT Message, WPARAM wParam, LPARAM lParam);
 	bool relayPluginMessages(UINT Message, WPARAM wParam, LPARAM lParam);
 
@@ -135,10 +134,11 @@ private:
 
 	std::vector<PluginInfo *> _pluginInfos;
 	std::vector<PluginCommand> _pluginsCommands;
-	std::vector<generic_string> _loadedDlls;
+	std::vector<LoadedDllInfo> _loadedDlls;
 	bool _isDisabled = false;
 	IDAllocator _dynamicIDAlloc;
 	IDAllocator _markerAlloc;
+	bool _noMoreNotification = false;
 
 	void pluginCrashAlert(const TCHAR *pluginName, const TCHAR *funcSignature)
 	{
@@ -148,16 +148,26 @@ private:
 		::MessageBox(NULL, msg.c_str(), TEXT("Plugin Crash"), MB_OK|MB_ICONSTOP);
 	}
 
+	void pluginExceptionAlert(const TCHAR *pluginName, const std::exception& e)
+	{
+		generic_string msg = TEXT("An exception occurred due to plugin: ");
+		msg += pluginName;
+		msg += TEXT("\r\n\r\nException reason: ");
+		msg += s2ws(e.what());
+
+		::MessageBox(NULL, msg.c_str(), TEXT("Plugin Exception"), MB_OK);
+	}
+
 	bool isInLoadedDlls(const TCHAR *fn) const
 	{
 		for (size_t i = 0; i < _loadedDlls.size(); ++i)
-			if (generic_stricmp(fn, _loadedDlls[i].c_str()) == 0)
+			if (generic_stricmp(fn, _loadedDlls[i]._fileName.c_str()) == 0)
 				return true;
 		return false;
 	}
 
-	void addInLoadedDlls(const TCHAR *fn) {
-		_loadedDlls.push_back(fn);
+	void addInLoadedDlls(const TCHAR *fullPath, const TCHAR *fn) {
+		_loadedDlls.push_back(LoadedDllInfo(fullPath, fn));
 	}
 };
 
@@ -167,5 +177,3 @@ private:
 typedef int (EXT_LEXER_DECL *GetLexerCountFn)();
 typedef void (EXT_LEXER_DECL *GetLexerNameFn)(unsigned int Index, char *name, int buflength);
 typedef void (EXT_LEXER_DECL *GetLexerStatusTextFn)(unsigned int Index, TCHAR *desc, int buflength);
-
-#endif //PLUGINSMANAGER_H

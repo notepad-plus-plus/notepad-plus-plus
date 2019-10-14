@@ -26,66 +26,49 @@
 ; Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-${MementoSection} "Context Menu Entry" explorerContextMenu
-	SetOverwrite try
-	SetOutPath "$INSTDIR\"
-	
-	; There is no need to keep x86 NppShell_06.dll in 64 bit installer
-	; But in 32bit installer both the Dlls are required
-	; 	As user can install 32bit npp version on x64 bit machine, that time x64 bit NppShell is required.
-	
-	!ifdef ARCH64
-		File /oname=$INSTDIR\NppShell_06.dll "..\bin\NppShell64_06.dll"
-	!else
-		${If} ${RunningX64}
-			File /oname=$INSTDIR\NppShell_06.dll "..\bin\NppShell64_06.dll"
-		${Else}
-			File "..\bin\NppShell_06.dll"
-		${EndIf}
-	!endif
-	
-	Exec 'regsvr32 /s "$INSTDIR\NppShell_06.dll"'
-${MementoSectionEnd}
-
 SectionGroup "Plugins" Plugins
 	SetOverwrite on
-!ifndef ARCH64
+	
 	${MementoSection} "NppExport" NppExport
 		Delete "$INSTDIR\plugins\NppExport.dll"
-		SetOutPath "$INSTDIR\plugins"
-		File "..\bin\plugins\NppExport.dll"
+		Delete "$INSTDIR\plugins\NppExport\NppExport.dll"
+		Delete "$PLUGIN_INST_PATH\NppExport\NppExport.dll"
+		
+		SetOutPath "$PLUGIN_INST_PATH\NppExport"
+!ifdef ARCH64
+		File "..\bin64\plugins\NppExport\NppExport.dll"
+!else
+		File "..\bin\plugins\NppExport\NppExport.dll"
+!endif
 	${MementoSectionEnd}
 
-	${MementoSection} "Plugin Manager" PluginManager
-		Delete "$INSTDIR\plugins\PluginManager.dll"
-		SetOutPath "$INSTDIR\plugins"
-		File "..\bin\plugins\PluginManager.dll"
-		SetOutPath "$UPDATE_PATH\plugins\Config"
-		File "..\bin\plugins\Config\PluginManager.ini"
-		SetOutPath "$INSTDIR\updater"
-		File "..\bin\updater\gpup.exe"
-	${MementoSectionEnd}
-!endif
 
 	${MementoSection} "Mime Tools" MimeTools
 		Delete "$INSTDIR\plugins\mimeTools.dll"
-		SetOutPath "$INSTDIR\plugins"
+		Delete "$INSTDIR\plugins\mimeTools\mimeTools.dll"
+		Delete "$PLUGIN_INST_PATH\mimeTools\mimeTools.dll"
+		
+		SetOutPath "$PLUGIN_INST_PATH\mimeTools"
 !ifdef ARCH64
-		File "..\bin64\plugins\mimeTools.dll"
+		File "..\bin64\plugins\mimeTools\mimeTools.dll"
 !else
-		File "..\bin\plugins\mimeTools.dll"
+		File "..\bin\plugins\mimeTools\mimeTools.dll"
 !endif
 	${MementoSectionEnd}
 	
 	${MementoSection} "Converter" Converter
 		Delete "$INSTDIR\plugins\NppConverter.dll"
-		SetOutPath "$INSTDIR\plugins"
+		Delete "$INSTDIR\plugins\NppConverter\NppConverter.dll"
+		Delete "$PLUGIN_INST_PATH\NppConverter\NppConverter.dll"
+		
+		SetOutPath "$PLUGIN_INST_PATH\NppConverter"
 !ifdef ARCH64
-		File "..\bin64\plugins\NppConverter.dll"
+		File "..\bin64\plugins\NppConverter\NppConverter.dll"
 !else
-		File "..\bin\plugins\NppConverter.dll"
+		File "..\bin\plugins\NppConverter\NppConverter.dll"
 !endif
 	${MementoSectionEnd}
+
 SectionGroupEnd
 
 ${MementoSection} "Auto-Updater" AutoUpdater
@@ -96,39 +79,68 @@ ${MementoSection} "Auto-Updater" AutoUpdater
 	File "..\bin64\updater\libcurl.dll"
 	File "..\bin64\updater\gup.xml"
 	File "..\bin64\updater\LICENSE"
-	File "..\bin64\updater\gpl.txt"
 	File "..\bin64\updater\README.md"
 !else
 	File "..\bin\updater\GUP.exe"
 	File "..\bin\updater\libcurl.dll"
 	File "..\bin\updater\gup.xml"
 	File "..\bin\updater\LICENSE"
-	File "..\bin\updater\gpl.txt"
 	File "..\bin\updater\README.md"
 !endif
 ${MementoSectionEnd}
 
+${MementoSection} "Plugins Admin" PluginsAdmin
+	SetOverwrite on
+	SetOutPath $ALLUSERS_PLUGIN_CONF_PATH
+!ifdef ARCH64
+	File "..\bin64\plugins\Config\nppPluginList.dll"
+!else
+	File "..\bin\plugins\Config\nppPluginList.dll"
+!endif
+${MementoSectionEnd}
 
 ;Uninstall section
 SectionGroup un.Plugins
 	Section un.NppExport
 		Delete "$INSTDIR\plugins\NppExport.dll"
+		Delete "$INSTDIR\plugins\NppExport\NppExport.dll"
+		RMDir "$INSTDIR\plugins\NppExport"
+
+		Delete "$PLUGIN_INST_PATH\NppExport\NppExport.dll"
+		RMDir "$PLUGIN_INST_PATH\NppExport"
 	SectionEnd
 	
 	Section un.Converter
 		Delete "$INSTDIR\plugins\NppConverter.dll"
+		Delete "$INSTDIR\plugins\NppConverter\NppConverter.dll"
+		RMDir "$INSTDIR\plugins\NppConverter"
+		Delete "$PLUGIN_INST_PATH\NppConverter\NppConverter.dll"
+		RMDir "$PLUGIN_INST_PATH\NppConverter"
 	SectionEnd
 	
 	Section un.MimeTools
 		Delete "$INSTDIR\plugins\mimeTools.dll"
+		Delete "$INSTDIR\plugins\mimeTools\mimeTools.dll"
+		RMDir "$INSTDIR\plugins\mimeTools"
+		Delete "$PLUGIN_INST_PATH\mimeTools\mimeTools.dll"
+		RMDir "$PLUGIN_INST_PATH\mimeTools"
 	SectionEnd
 
-	Section un.PluginManager
-		Delete "$INSTDIR\plugins\PluginManager.dll"
-		Delete "$UPDATE_PATH\plugins\Config\PluginManager.ini"
-		Delete "$INSTDIR\updater\gpup.exe"
-		RMDir "$INSTDIR\updater\"
-	SectionEnd	
+ 	Section un.DSpellCheck
+
+		Delete "$INSTDIR\plugins\DSpellCheck.dll"
+		Delete "$INSTDIR\plugins\DSpellCheck\DSpellCheck.dll"
+		Delete "$PLUGIN_INST_PATH\DSpellCheck\DSpellCheck.dll"
+		Delete "$UPDATE_PATH\plugins\Config\DSpellCheck.ini"
+		Delete "$ALLUSERS_PLUGIN_CONF_PATH\DSpellCheck.ini"
+		Delete "$INSTDIR\plugins\Config\Hunspell\en_US.aff"
+		Delete "$USER_PLUGIN_CONF_PATH\Hunspell\en_US.aff"
+		Delete "$INSTDIR\plugins\Config\Hunspell\en_US.dic"
+		Delete "$USER_PLUGIN_CONF_PATH\Hunspell\en_US.dic"
+		RMDir /r "$INSTDIR\plugins\Config"			; Remove Config folder recursively only if empty
+		RMDir /r "$ALLUSERS_PLUGIN_CONF_PATH\Config"			; Remove Config folder recursively only if empty
+		RMDir "$INSTDIR\plugins\DSpellCheck"
+	SectionEnd
 
 SectionGroupEnd
 
@@ -142,5 +154,19 @@ Section un.AutoUpdater
 	Delete "$INSTDIR\updater\readme.txt"
 	Delete "$INSTDIR\updater\README.md"
 	Delete "$INSTDIR\updater\getDownLoadUrl.php"
-	RMDir "$INSTDIR\updater\"
-SectionEnd 
+	RMDir "$INSTDIR\updater"
+SectionEnd
+
+Function .onSelChange
+${If} ${SectionIsSelected} ${PluginsAdmin}
+    !insertmacro SetSectionFlag ${AutoUpdater} ${SF_RO}
+    !insertmacro SelectSection ${AutoUpdater}
+${Else}
+    !insertmacro ClearSectionFlag ${AutoUpdater} ${SF_RO}
+${EndIf}
+FunctionEnd
+
+Section un.PluginsAdmin
+	Delete "$USER_PLUGIN_CONF_PATH\nppPluginList.dll" ; delete 7.6 version's left
+	Delete "$ALLUSERS_PLUGIN_CONF_PATH\nppPluginList.dll"
+SectionEnd

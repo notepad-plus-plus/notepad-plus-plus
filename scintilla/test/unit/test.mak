@@ -6,17 +6,20 @@ EXE = unitTest.exe
 
 INCLUDEDIRS = /I../../include /I../../src /I../../lexlib
 
-CXXFLAGS = /EHsc /wd 4805 $(INCLUDEDIRS)
+CXXFLAGS = /EHsc /std:c++17 /D_HAS_AUTO_PTR_ETC=1 /wd 4805 $(INCLUDEDIRS)
 
 # Files in this directory containing tests
 TESTSRC=test*.cxx
 # Files being tested from scintilla/src directory
 TESTEDSRC=\
+ ../../lexlib/WordList.cxx \
  ../../src/CellBuffer.cxx \
  ../../src/CharClassify.cxx \
  ../../src/ContractionState.cxx \
  ../../src/Decoration.cxx \
- ../../src/RunStyles.cxx 
+ ../../src/RunStyles.cxx \
+ ../../src/UniConversion.cxx \
+ ../../src/UniqueString.cxx
 
 TESTS=$(EXE)
 

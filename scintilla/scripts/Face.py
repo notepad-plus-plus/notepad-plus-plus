@@ -9,7 +9,7 @@ def sanitiseLine(line):
 		line = line[:line.find("##")]
 	line = line.strip()
 	return line
-	
+
 def decodeFunction(featureVal):
 	retType, rest = featureVal.split(" ", 1)
 	nameIdent, params = rest.split("(")
@@ -17,13 +17,13 @@ def decodeFunction(featureVal):
 	params, rest = params.split(")")
 	param1, param2 = params.split(",")
 	return retType, name, value, param1, param2
-	
+
 def decodeEvent(featureVal):
 	retType, rest = featureVal.split(" ", 1)
 	nameIdent, params = rest.split("(")
 	name, value = nameIdent.split("=")
 	return retType, name, value
-	
+
 def decodeParam(p):
 	param = p.strip()
 	type = ""
@@ -37,6 +37,9 @@ def decodeParam(p):
 			name = nv
 	return type, name, value
 
+def IsEnumeration(t):
+	return t[:1].isupper()
+
 class Face:
 
 	def __init__(self):
@@ -44,7 +47,8 @@ class Face:
 		self.features = {}
 		self.values = {}
 		self.events = {}
-		
+		self.aliases = {}
+
 	def ReadFromFile(self, name):
 		currentCategory = ""
 		currentComment = []
@@ -70,24 +74,25 @@ class Face:
 							raise
 						p1 = decodeParam(param1)
 						p2 = decodeParam(param2)
-						self.features[name] = { 
-							"FeatureType": featureType, 
+						self.features[name] = {
+							"FeatureType": featureType,
 							"ReturnType": retType,
-							"Value": value, 
-							"Param1Type": p1[0], "Param1Name": p1[1], "Param1Value": p1[2], 
-							"Param2Type": p2[0],	"Param2Name": p2[1], "Param2Value": p2[2],
+							"Value": value,
+							"Param1Type": p1[0], "Param1Name": p1[1], "Param1Value": p1[2],
+							"Param2Type": p2[0], "Param2Name": p2[1], "Param2Value": p2[2],
 							"Category": currentCategory, "Comment": currentComment
 						}
 						if value in self.values:
 							raise Exception("Duplicate value " + value + " " + name)
 						self.values[value] = 1
 						self.order.append(name)
+						currentComment = []
 					elif featureType == "evt":
 						retType, name, value = decodeEvent(featureVal)
-						self.features[name] = { 
-							"FeatureType": featureType, 
+						self.features[name] = {
+							"FeatureType": featureType,
 							"ReturnType": retType,
-							"Value": value, 
+							"Value": value,
 							"Category": currentCategory, "Comment": currentComment
 						}
 						if value in self.events:
@@ -102,16 +107,23 @@ class Face:
 						except ValueError:
 							print("Failure %s" % featureVal)
 							raise Exception()
-						self.features[name] = { 
-							"FeatureType": featureType, 
-							"Category": currentCategory, 
+						self.features[name] = {
+							"FeatureType": featureType,
+							"Category": currentCategory,
 							"Value": value }
 						self.order.append(name)
 					elif featureType == "enu" or featureType == "lex":
 						name, value = featureVal.split("=", 1)
-						self.features[name] = { 
-							"FeatureType": featureType, 
-							"Category": currentCategory, 
-							"Value": value }
+						self.features[name] = {
+							"FeatureType": featureType,
+							"Category": currentCategory,
+							"Value": value,
+							"Comment": currentComment }
 						self.order.append(name)
+						currentComment = []
+					elif featureType == "ali":
+						# Enumeration alias
+						name, value = featureVal.split("=", 1)
+						self.aliases[name] = value
+						currentComment = []
 

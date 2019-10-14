@@ -24,6 +24,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
 #pragma once
 
 #include "tinyxmlA.h"
@@ -86,11 +87,10 @@ EolType convertIntToFormatType(int value, EolType defvalue = EolType::osdefault)
 
 
 enum UniMode {uni8Bit=0, uniUTF8=1, uni16BE=2, uni16LE=3, uniCookie=4, uni7Bit=5, uni16BE_NoBOM=6, uni16LE_NoBOM=7, uniEnd};
-enum ChangeDetect {cdDisabled=0, cdEnabled=1, cdAutoUpdate=2, cdGo2end=3, cdAutoUpdateGo2end=4};
+enum ChangeDetect { cdDisabled = 0x0, cdEnabledOld = 0x01, cdEnabledNew = 0x02, cdAutoUpdate = 0x04, cdGo2end = 0x08 };
 enum BackupFeature {bak_none = 0, bak_simple = 1, bak_verbose = 2};
 enum OpenSaveDirSetting {dir_followCurrent = 0, dir_last = 1, dir_userDef = 2};
 enum MultiInstSetting {monoInst = 0, multiInstOnSession = 1, multiInst = 2};
-//enum CloudChoice {noCloud = 0, dropbox = 1, oneDrive = 2, googleDrive = 3};
 
 const int LANG_INDEX_INSTR = 0;
 const int LANG_INDEX_INSTR2 = 1;
@@ -99,6 +99,8 @@ const int LANG_INDEX_TYPE2 = 3;
 const int LANG_INDEX_TYPE3 = 4;
 const int LANG_INDEX_TYPE4 = 5;
 const int LANG_INDEX_TYPE5 = 6;
+const int LANG_INDEX_TYPE6 = 7;
+const int LANG_INDEX_TYPE7 = 8;
 
 const int COPYDATA_PARAMS = 0;
 const int COPYDATA_FILENAMESA = 1;
@@ -120,8 +122,8 @@ const int COPYDATA_FILENAMESW = 2;
 const TCHAR fontSizeStrs[][3] = {TEXT(""), TEXT("5"), TEXT("6"), TEXT("7"), TEXT("8"), TEXT("9"), TEXT("10"), TEXT("11"), TEXT("12"), TEXT("14"), TEXT("16"), TEXT("18"), TEXT("20"), TEXT("22"), TEXT("24"), TEXT("26"), TEXT("28")};
 
 const TCHAR localConfFile[] = TEXT("doLocalConf.xml");
-const TCHAR allowAppDataPluginsFile[] = TEXT("allowAppDataPlugins.xml");
 const TCHAR notepadStyleFile[] = TEXT("asNotepad.xml");
+const TCHAR pluginsForAllUsersFile[] = TEXT("pluginsForAllUsers.xml");
 
 void cutString(const TCHAR *str2cut, std::vector<generic_string> & patternVect);
 
@@ -137,10 +139,33 @@ struct Position
 };
 
 
+struct MapPosition
+{
+	int32_t _firstVisibleDisplayLine = -1;
+
+	int32_t _firstVisibleDocLine = -1; // map
+	int32_t _lastVisibleDocLine = -1;  // map
+	int32_t _nbLine = -1;              // map
+	int32_t _higherPos = -1;           // map
+	int32_t _width = -1;
+	int32_t _height = -1;
+	int32_t _wrapIndentMode = -1;
+
+	int64_t _KByteInDoc = _maxPeekLenInKB;
+
+	bool _isWrap = false;
+	bool isValid() const { return (_firstVisibleDisplayLine != -1); };
+	bool canScroll() const { return (_KByteInDoc < _maxPeekLenInKB); }; // _nbCharInDoc < _maxPeekLen : Don't scroll the document for the performance issue
+
+private:
+	int64_t _maxPeekLenInKB = 512; // 512 KB
+};
+
+
 struct sessionFileInfo : public Position
 {
-	sessionFileInfo(const TCHAR *fn, const TCHAR *ln, int encoding, Position pos, const TCHAR *backupFilePath, int originalFileLastModifTimestamp) :
-		_encoding(encoding), Position(pos), _originalFileLastModifTimestamp(originalFileLastModifTimestamp)
+	sessionFileInfo(const TCHAR *fn, const TCHAR *ln, int encoding, bool userReadOnly, const Position& pos, const TCHAR *backupFilePath, FILETIME originalFileLastModifTimestamp, const MapPosition & mapPos) :
+		_isUserReadOnly(userReadOnly), _encoding(encoding), Position(pos), _originalFileLastModifTimestamp(originalFileLastModifTimestamp), _mapPos(mapPos)
 	{
 		if (fn) _fileName = fn;
 		if (ln)	_langName = ln;
@@ -154,9 +179,13 @@ struct sessionFileInfo : public Position
 	std::vector<size_t> _marks;
 	std::vector<size_t> _foldStates;
 	int	_encoding = -1;
+	bool _isUserReadOnly = false;
+	bool _isMonitoring = false;
 
 	generic_string _backupFilePath;
-	time_t _originalFileLastModifTimestamp = 0;
+	FILETIME _originalFileLastModifTimestamp = {};
+
+	MapPosition _mapPos;
 };
 
 
@@ -191,11 +220,13 @@ struct CmdLineParams
 
 	bool _isSessionFile = false;
 	bool _isRecursive = false;
+	bool _openFoldersAsWorkspace = false;
 
 	LangType _langType = L_EXTERNAL;
 	generic_string _localizationPath;
 	generic_string _easterEggName;
 	unsigned char _quoteType = '\0';
+	int _ghostTypingSpeed = -1; // -1: initial value  1: slow  2: fast  3: speed of light
 
 	CmdLineParams()
 	{
@@ -206,6 +237,40 @@ struct CmdLineParams
 	bool isPointValid() const
 	{
 		return _isPointXValid && _isPointYValid;
+	}
+};
+
+// A POD class to send CmdLineParams through WM_COPYDATA and to Notepad_plus::loadCommandlineParams
+struct CmdLineParamsDTO
+{
+	bool _isReadOnly = false;
+	bool _isNoSession = false;
+	bool _isSessionFile = false;
+	bool _isRecursive = false;
+	bool _openFoldersAsWorkspace = false;
+
+	int _line2go = 0;
+	int _column2go = 0;
+	int _pos2go = 0;
+
+	LangType _langType = L_EXTERNAL;
+
+	static CmdLineParamsDTO FromCmdLineParams(const CmdLineParams& params)
+	{
+		CmdLineParamsDTO dto;
+		dto._isReadOnly = params._isReadOnly;
+		dto._isNoSession = params._isNoSession;
+		dto._isSessionFile = params._isSessionFile;
+		dto._isRecursive = params._isRecursive;
+		dto._openFoldersAsWorkspace = params._openFoldersAsWorkspace;
+
+		dto._line2go = params._line2go;
+		dto._column2go = params._column2go;
+		dto._pos2go = params._pos2go;
+		
+		dto._langType = params._langType;
+
+		return dto;
 	}
 };
 
@@ -495,7 +560,7 @@ private :
 
 
 
-const int MAX_LEXER_STYLE = 80;
+const int MAX_LEXER_STYLE = 100;
 
 struct LexerStylerArray
 {
@@ -551,41 +616,39 @@ struct NewDocDefaultSettings final
 };
 
 
-struct LangMenuItem
+struct LangMenuItem final
 {
 	LangType _langType;
 	int	_cmdID;
 	generic_string _langName;
 
-	LangMenuItem(LangType lt, int cmdID = 0, generic_string langName = TEXT("")):
+	LangMenuItem(LangType lt, int cmdID = 0, const generic_string& langName = TEXT("")):
 	_langType(lt), _cmdID(cmdID), _langName(langName){};
 };
 
-struct PrintSettings {
-	bool _printLineNumber;
-	int _printOption;
+struct PrintSettings final {
+	bool _printLineNumber = true;
+	int _printOption = SC_PRINT_COLOURONWHITE;
 
 	generic_string _headerLeft;
 	generic_string _headerMiddle;
 	generic_string _headerRight;
 	generic_string _headerFontName;
-	int _headerFontStyle;
-	int _headerFontSize;
+	int _headerFontStyle = 0;
+	int _headerFontSize = 0;
 
 	generic_string _footerLeft;
 	generic_string _footerMiddle;
 	generic_string _footerRight;
 	generic_string _footerFontName;
-	int _footerFontStyle;
-	int _footerFontSize;
+	int _footerFontStyle = 0;
+	int _footerFontSize = 0;
 
 	RECT _marge;
 
-	PrintSettings() : _printLineNumber(true), _printOption(SC_PRINT_NORMAL), _headerLeft(TEXT("")), _headerMiddle(TEXT("")), _headerRight(TEXT("")),\
-		_headerFontName(TEXT("")), _headerFontStyle(0), _headerFontSize(0),  _footerLeft(TEXT("")), _footerMiddle(TEXT("")), _footerRight(TEXT("")),\
-		_footerFontName(TEXT("")), _footerFontStyle(0), _footerFontSize(0) {
-			_marge.left = 0; _marge.top = 0; _marge.right = 0; _marge.bottom = 0;
-		};
+	PrintSettings() {
+		_marge.left = 0; _marge.top = 0; _marge.right = 0; _marge.bottom = 0;
+	};
 
 	bool isHeaderPresent() const {
 		return ((_headerLeft != TEXT("")) || (_headerMiddle != TEXT("")) || (_headerRight != TEXT("")));
@@ -732,8 +795,8 @@ struct NppGUI final
 	int _tabSize = 4;
 	bool _tabReplacedBySpace = false;
 
-	ChangeDetect _fileAutoDetection = cdEnabled;
-	ChangeDetect _fileAutoDetectionOriginalValue = cdEnabled;
+	int _fileAutoDetection = cdEnabledNew;
+
 	bool _checkHistoryFiles = false;
 
 	RECT _appPos;
@@ -762,11 +825,13 @@ struct NppGUI final
 	bool _delimiterSelectionOnEntireDocument = false;
 	bool _backSlashIsEscapeCharacterForSql = true;
 
+	bool _isWordCharDefault = true;
+	std::string _customWordChars;
 
 	// 0 : do nothing
 	// 1 : don't draw underline
 	// 2 : draw underline
-	int _styleURL = 0;
+	int _styleURL = 2;
 
 	NewDocDefaultSettings _newDocDefaultSettings;
 
@@ -774,7 +839,7 @@ struct NppGUI final
 	void setTabReplacedBySpace(bool b) {_tabReplacedBySpace = b;};
 	const NewDocDefaultSettings & getNewDocDefaultSettings() const {return _newDocDefaultSettings;};
 	std::vector<LangMenuItem> _excludedLangList;
-	bool _isLangMenuCompact = false;
+	bool _isLangMenuCompact = true;
 
 	PrintSettings _printSettings;
 	BackupFeature _backup = bak_none;
@@ -786,7 +851,7 @@ struct NppGUI final
 	AutocStatus _autocStatus = autoc_both;
 	size_t  _autocFromLen = 1;
 	bool _autocIgnoreNumbers = true;
-	bool _funcParams = false;
+	bool _funcParams = true;
 	MatchedPairConf _matchedPairConf;
 
 	generic_string _definedSessionExt;
@@ -802,7 +867,7 @@ struct NppGUI final
 	_autoUpdateOpt;
 
 	bool _doesExistUpdater = false;
-	int _caretBlinkRate = 250;
+	int _caretBlinkRate = 600;
 	int _caretWidth = 1;
 	bool _enableMultiSelection = false;
 
@@ -820,13 +885,16 @@ struct NppGUI final
 	size_t _snapshotBackupTiming = 7000;
 	generic_string _cloudPath; // this option will never be read/written from/to config.xml
 	unsigned char _availableClouds = '\0'; // this option will never be read/written from/to config.xml
-	bool _useNewStyleSaveDlg = false;
+	bool _useNewStyleSaveDlg = true;
 
-	enum SearchEngineChoice{ se_custom = 0, se_duckDuckGo = 1, se_google = 2, se_bing = 3, se_yahoo = 4 };
+	enum SearchEngineChoice{ se_custom = 0, se_duckDuckGo = 1, se_google = 2, se_bing = 3, se_yahoo = 4, se_stackoverflow = 5 };
 	SearchEngineChoice _searchEngineChoice = se_google;
 	generic_string _searchEngineCustom;
 
 	bool _isFolderDroppedOpenFiles = false;
+
+	bool _isDocPeekOnTab = false;
+	bool _isDocPeekOnMap = false;
 };
 
 struct ScintillaViewParams
@@ -845,7 +913,7 @@ struct ScintillaViewParams
 	int _zoom = 0;
 	int _zoom2 = 0;
 	bool _whiteSpaceShow = false;
-	bool _eolShow;
+	bool _eolShow = false;
 	int _borderWidth = 2;
 	bool _scrollBeyondLastLine = false;
 	bool _disableAdvancedScrolling = false;
@@ -948,36 +1016,14 @@ struct Lang final
 class UserLangContainer final
 {
 public:
-	UserLangContainer()
+	UserLangContainer() :_name(TEXT("new user define")), _ext(TEXT("")), _udlVersion(TEXT(""))
 	{
-		_name = TEXT("new user define");
-		_ext = TEXT("");
-		_udlVersion = TEXT("");
-		_allowFoldOfComments = false;
-		_forcePureLC = PURE_LC_NONE;
-		_decimalSeparator = DECSEP_DOT;
-		_foldCompact = false;
-		_isCaseIgnored = false;
-
-		for (int i = 0 ; i < SCE_USER_KWLIST_TOTAL ; ++i)
-			*_keywordLists[i] = '\0';
-
-		for (int i = 0 ; i < SCE_USER_TOTAL_KEYWORD_GROUPS ; ++i)
-			_isPrefix[i] = false;
+		init();
 	}
 
 	UserLangContainer(const TCHAR *name, const TCHAR *ext, const TCHAR *udlVer) : _name(name), _ext(ext), _udlVersion(udlVer)
 	{
-		_allowFoldOfComments = false;
-		_forcePureLC = PURE_LC_NONE;
-		_decimalSeparator = DECSEP_DOT;
-		_foldCompact = false;
-
-		for (int i = 0 ; i < SCE_USER_KWLIST_TOTAL ; ++i)
-			*_keywordLists[i] = '\0';
-
-		for (int i = 0 ; i < SCE_USER_TOTAL_KEYWORD_GROUPS ; ++i)
-			_isPrefix[i] = false;
+		init();
 	}
 
 	UserLangContainer & operator = (const UserLangContainer & ulc)
@@ -1004,7 +1050,7 @@ public:
 			}
 
 			for (int i = 0 ; i < SCE_USER_KWLIST_TOTAL ; ++i)
-				lstrcpy(this->_keywordLists[i], ulc._keywordLists[i]);
+				wcscpy_s(this->_keywordLists[i], ulc._keywordLists[i]);
 
 			for (int i = 0 ; i < SCE_USER_TOTAL_KEYWORD_GROUPS ; ++i)
 				_isPrefix[i] = ulc._isPrefix[i];
@@ -1043,6 +1089,21 @@ private:
 	friend class SymbolsStyleDialog;
 	friend class UserDefineDialog;
 	friend class StylerDlg;
+
+	void init()
+	{
+		_forcePureLC = PURE_LC_NONE;
+		_decimalSeparator = DECSEP_DOT;
+		_foldCompact = false;
+		_isCaseIgnored = false;
+		_allowFoldOfComments = false;
+
+		for (int i = 0; i < SCE_USER_KWLIST_TOTAL; ++i)
+			*_keywordLists[i] = '\0';
+
+		for (int i = 0; i < SCE_USER_TOTAL_KEYWORD_GROUPS; ++i)
+			_isPrefix[i] = false;
+	}
 };
 
 #define MAX_EXTERNAL_LEXER_NAME_LEN 16
@@ -1068,6 +1129,8 @@ struct FindHistory final
 {
 	enum searchMode{normal, extended, regExpr};
 	enum transparencyMode{none, onLossingFocus, persistant};
+
+	bool _isSearch2ButtonsMode = false;
 
 	int _nbMaxFindHistoryPath    = 10;
 	int _nbMaxFindHistoryFilter  = 10;
@@ -1105,15 +1168,15 @@ friend class NppParameters;
 public:
 	struct LocalizationDefinition
 	{
-		wchar_t *_langName;
-		wchar_t *_xmlFileName;
+		const wchar_t *_langName;
+		const wchar_t *_xmlFileName;
 	};
 
-	bool addLanguageFromXml(std::wstring xmlFullPath);
+	bool addLanguageFromXml(const std::wstring& xmlFullPath);
 	std::wstring getLangFromXmlFileName(const wchar_t *fn) const;
 
 	std::wstring getXmlFilePathFromLangName(const wchar_t *langName) const;
-	bool switchToLang(wchar_t *lang2switch) const;
+	bool switchToLang(const wchar_t *lang2switch) const;
 
 	size_t size() const
 	{
@@ -1150,12 +1213,12 @@ class ThemeSwitcher final
 friend class NppParameters;
 
 public:
-	void addThemeFromXml(generic_string xmlFullPath)
+	void addThemeFromXml(const generic_string& xmlFullPath)
 	{
 		_themeList.push_back(std::pair<generic_string, generic_string>(getThemeFromXmlFileName(xmlFullPath.c_str()), xmlFullPath));
 	}
 
-	void addDefaultThemeFromXml(generic_string xmlFullPath)
+	void addDefaultThemeFromXml(const generic_string& xmlFullPath)
 	{
 		_themeList.push_back(std::pair<generic_string, generic_string>(TEXT("Default (stylers.xml)"), xmlFullPath));
 	}
@@ -1211,20 +1274,34 @@ private:
 };
 
 
-const int NB_LANG = 80;
+struct UdlXmlFileState final {
+	TiXmlDocument* _udlXmlDoc = nullptr;
+	bool _isDirty = false;
+	std::pair<unsigned char, unsigned char> _indexRange;
+
+	UdlXmlFileState(TiXmlDocument* doc, bool isDirty, std::pair<unsigned char, unsigned char> range) : _udlXmlDoc(doc), _isDirty(isDirty), _indexRange(range) {};
+};
+
+const int NB_LANG = 100;
 const bool DUP = true;
 const bool FREE = false;
 
 const int RECENTFILES_SHOWFULLPATH = -1;
 const int RECENTFILES_SHOWONLYFILENAME = 0;
 
-
-
-
 class NppParameters final
 {
+private:
+	static NppParameters* getInstancePointer() {
+		static NppParameters* instance = new NppParameters;
+		return instance;
+	};
+
 public:
-	static NppParameters * getInstance() {return _pSelf;};
+	static NppParameters& getInstance() {
+		return *getInstancePointer();
+	};
+
 	static LangType getLangIDFromStr(const TCHAR *langName);
 	static generic_string getLocPathFromStr(const generic_string & localizationCode);
 
@@ -1254,7 +1331,7 @@ public:
 	{
 		for (int i = 0 ; i < _nbLang ; ++i)
 		{
-			if ((_langList[i]->_langID == langID) || (!_langList[i]))
+			if ( _langList[i] && _langList[i]->_langID == langID )
 				return _langList[i];
 		}
 		return nullptr;
@@ -1341,7 +1418,7 @@ public:
 	void setCurLineHilitingColour(COLORREF colour2Set);
 
 	void setFontList(HWND hWnd);
-	bool isInFontList(const generic_string fontName2Search) const;
+	bool isInFontList(const generic_string& fontName2Search) const;
 	const std::vector<generic_string>& getFontList() const { return _fontlist; }
 
 	int getNbUserLang() const {return _nbUserLang;}
@@ -1358,7 +1435,9 @@ public:
 	void getExternalLexerFromXmlTree(TiXmlDocument *doc);
 	std::vector<TiXmlDocument *> * getExternalLexerDoc() { return &_pXmlExternalLexerDoc; };
 
-	void writeUserDefinedLang();
+	void writeDefaultUDL();
+	void writeNonDefaultUDL();
+	void writeNeed2SaveUDL();
 	void writeShortcuts();
 	void writeSession(const Session & session, const TCHAR *fileName = NULL);
 	bool writeFindHistory();
@@ -1399,11 +1478,11 @@ public:
 
 	void removeTransparent(HWND hwnd);
 
-	void setCmdlineParam(const CmdLineParams & cmdLineParams)
+	void setCmdlineParam(const CmdLineParamsDTO & cmdLineParams)
 	{
 		_cmdLineParams = cmdLineParams;
 	}
-	CmdLineParams & getCmdLineParams() {return _cmdLineParams;};
+	const CmdLineParamsDTO & getCmdLineParams() const {return _cmdLineParams;};
 
 	void setFileSaveDlgFilterIndex(int ln) {_fileSaveDlgFilterIndex = ln;};
 	int getFileSaveDlgFilterIndex() const {return _fileSaveDlgFilterIndex;};
@@ -1437,20 +1516,37 @@ public:
 	generic_string getNppPath() const {return _nppPath;};
 	generic_string getContextMenuPath() const {return _contextMenuPath;};
 	const TCHAR * getAppDataNppDir() const {return _appdataNppDir.c_str();};
+	const TCHAR * getPluginRootDir() const { return _pluginRootDir.c_str(); };
+	const TCHAR * getPluginConfDir() const { return _pluginConfDir.c_str(); };
+	const TCHAR * getUserPluginConfDir() const { return _userPluginConfDir.c_str(); };
 	const TCHAR * getWorkingDir() const {return _currentDirectory.c_str();};
 	const TCHAR * getWorkSpaceFilePath(int i) const {
 		if (i < 0 || i > 2) return nullptr;
 		return _workSpaceFilePathes[i].c_str();
-	}
+	};
+
 	const std::vector<generic_string> getFileBrowserRoots() const { return _fileBrowserRoot; };
 	void setWorkSpaceFilePath(int i, const TCHAR *wsFile);
 
 	void setWorkingDir(const TCHAR * newPath);
 
-	void setStartWithLocFileName(generic_string locPath)
-	{
+	void setStartWithLocFileName(const generic_string& locPath) {
 		_startWithLocFileName = locPath;
-	}
+	};
+
+	void setFunctionListExportBoolean(bool doIt) {
+		_doFunctionListExport = doIt;
+	};
+	bool doFunctionListExport() const {
+		return _doFunctionListExport;
+	};
+
+	void setPrintAndExitBoolean(bool doIt) {
+		_doPrintAndExit = doIt;
+	};
+	bool doPrintAndExit() const {
+		return _doPrintAndExit;
+	};
 
 	bool loadSession(Session & session, const TCHAR *sessionFileName);
 	int langTypeToCommandID(LangType lt) const;
@@ -1475,6 +1571,7 @@ public:
 	bool reloadContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU pluginsMenu);
 	winVer getWinVersion() const {return _winVersion;};
 	generic_string getWinVersionStr() const;
+	generic_string getWinVerBitStr() const;
 	FindHistory & getFindHistory() {return _findHistory;};
 	bool _isFindReplacing = false; // an on the fly variable for find/replace functions
 	void safeWow64EnableWow64FsRedirection(BOOL Wow64FsEnableRedirection);
@@ -1499,8 +1596,8 @@ public:
 	}
 
 	PluginList & getPluginList() {return _pluginList;};
-	bool importUDLFromFile(generic_string sourceFile);
-	bool exportUDLToFile(size_t langIndex2export, generic_string fileName2save);
+	bool importUDLFromFile(const generic_string& sourceFile);
+	bool exportUDLToFile(size_t langIndex2export, const generic_string& fileName2save);
 	NativeLangSpeaker* getNativeLangSpeaker() {
 		return _pNativeLangSpeaker;
 	}
@@ -1549,30 +1646,37 @@ public:
 	}
 	DPIManager _dpiManager;
 
+	generic_string static getSpecialFolderLocation(int folderKind);
+
+	void setUdlXmlDirtyFromIndex(size_t i);
+	void setUdlXmlDirtyFromXmlDoc(const TiXmlDocument* xmlDoc);
+	void removeIndexFromXmlUdls(size_t i);
 
 private:
 	NppParameters();
 	~NppParameters();
 
-	static NppParameters *_pSelf;
+	// No copy ctor and assignment
+	NppParameters(const NppParameters&) = delete;
+	NppParameters& operator=(const NppParameters&) = delete;
+
+	// No move ctor and assignment
+	NppParameters(NppParameters&&) = delete;
+	NppParameters& operator=(NppParameters&&) = delete;
+
 
 	TiXmlDocument *_pXmlDoc = nullptr;
 	TiXmlDocument *_pXmlUserDoc = nullptr;
 	TiXmlDocument *_pXmlUserStylerDoc = nullptr;
 	TiXmlDocument *_pXmlUserLangDoc = nullptr;
+	std::vector<UdlXmlFileState> _pXmlUserLangsDoc;
 	TiXmlDocument *_pXmlToolIconsDoc = nullptr;
 	TiXmlDocument *_pXmlShortcutDoc = nullptr;
 	TiXmlDocument *_pXmlSessionDoc = nullptr;
 	TiXmlDocument *_pXmlBlacklistDoc = nullptr;
-	
-	TiXmlDocument *_importedULD[NB_MAX_IMPORTED_UDL];
 
 	TiXmlDocumentA *_pXmlNativeLangDocA = nullptr;
 	TiXmlDocumentA *_pXmlContextMenuDocA = nullptr;
-	
-	int _nbImportedULD;
-
-
 
 	std::vector<TiXmlDocument *> _pXmlExternalLexerDoc;
 
@@ -1593,12 +1697,12 @@ private:
 	FindHistory _findHistory;
 
 	UserLangContainer *_userLangArray[NB_MAX_USER_LANG];
-	int _nbUserLang = 0;
+	unsigned char _nbUserLang = 0; // won't be exceeded to 255;
 	generic_string _userDefineLangPath;
 	ExternalLangContainer *_externalLangArray[NB_MAX_EXTERNAL_LANG];
 	int _nbExternalLang = 0;
 
-	CmdLineParams _cmdLineParams;
+	CmdLineParamsDTO _cmdLineParams;
 
 	int _fileSaveDlgFilterIndex = -1;
 
@@ -1633,6 +1737,8 @@ private:
 
 	LocalizationSwitcher _localizationSwitcher;
 	generic_string _startWithLocFileName;
+	bool _doFunctionListExport = false;
+	bool _doPrintAndExit = false;
 
 	ThemeSwitcher _themeSwitcher;
 
@@ -1648,6 +1754,9 @@ private:
 	generic_string _userPath;
 	generic_string _stylerPath;
 	generic_string _appdataNppDir; // sentinel of the absence of "doLocalConf.xml" : (_appdataNppDir == TEXT(""))?"doLocalConf.xml present":"doLocalConf.xml absent"
+	generic_string _pluginRootDir; // plugins root where all the plugins are installed
+	generic_string _pluginConfDir; // plugins config dir where the plugin list is installed
+	generic_string _userPluginConfDir; // plugins config dir for per user where the plugin parameters are saved / loaded
 	generic_string _currentDirectory;
 	generic_string _workSpaceFilePathes[3];
 
@@ -1660,6 +1769,7 @@ private:
 	bool _asNotepadStyle = false;
 
 	winVer _winVersion;
+	Platform _platForm;
 
 	NativeLangSpeaker *_pNativeLangSpeaker = nullptr;
 
@@ -1668,14 +1778,26 @@ private:
 
 	generic_string _initialCloudChoice;
 
+	generic_string _wingupFullPath;
+	generic_string _wingupParams;
+	generic_string _wingupDir;
+	bool _isElevationRequired = false;
+
+public:
+	generic_string getWingupFullPath() const { return _wingupFullPath; };
+	generic_string getWingupParams() const { return _wingupParams; };
+	generic_string getWingupDir() const { return _wingupDir; };
+	bool shouldDoUAC() const { return _isElevationRequired; };
+	void setWingupFullPath(const generic_string& val2set) { _wingupFullPath = val2set; };
+	void setWingupParams(const generic_string& val2set) { _wingupParams = val2set; };
+	void setWingupDir(const generic_string& val2set) { _wingupDir = val2set; };
+	void setElevationRequired(bool val2set) { _isElevationRequired = val2set; };
+
+private:
 	void getLangKeywordsFromXmlTree();
 	bool getUserParametersFromXmlTree();
 	bool getUserStylersFromXmlTree();
-	bool getUserDefineLangsFromXmlTree(TiXmlDocument *tixmldoc);
-	bool getUserDefineLangsFromXmlTree()
-	{
-		return getUserDefineLangsFromXmlTree(_pXmlUserLangDoc);
-	}
+	std::pair<unsigned char, unsigned char> addUserDefineLangsFromXmlTree(TiXmlDocument *tixmldoc);
 
 	bool getShortcutsFromXmlTree();
 
@@ -1694,17 +1816,11 @@ private:
 	void feedFindHistoryParameters(TiXmlNode *node);
 	void feedProjectPanelsParameters(TiXmlNode *node);
 	void feedFileBrowserParameters(TiXmlNode *node);
-
 	bool feedStylerArray(TiXmlNode *node);
-	void getAllWordStyles(TCHAR *lexerName, TiXmlNode *lexerNode);
-
-	bool feedUserLang(TiXmlNode *node);
-
-	int getIndexFromKeywordListName(const TCHAR *name);
+	std::pair<unsigned char, unsigned char> feedUserLang(TiXmlNode *node);
 	void feedUserStyles(TiXmlNode *node);
 	void feedUserKeywordList(TiXmlNode *node);
 	void feedUserSettings(TiXmlNode *node);
-
 	void feedShortcut(TiXmlNode *node);
 	void feedMacros(TiXmlNode *node);
 	void feedUserCmds(TiXmlNode *node);
@@ -1729,6 +1845,8 @@ private:
 	void writePrintSetting(TiXmlElement *element);
 	void initMenuKeys();		//initialise menu keys and scintilla keys. Other keys are initialized on their own
 	void initScintillaKeys();	//these functions have to be called first before any modifications are loaded
-	int getCmdIdFromMenuEntryItemName(HMENU mainMenuHadle, generic_string menuEntryName, generic_string menuItemName); // return -1 if not found
-	int getPluginCmdIdFromMenuEntryItemName(HMENU pluginsMenu, generic_string pluginName, generic_string pluginCmdName); // return -1 if not found
+	int getCmdIdFromMenuEntryItemName(HMENU mainMenuHadle, const generic_string& menuEntryName, const generic_string& menuItemName); // return -1 if not found
+	int getPluginCmdIdFromMenuEntryItemName(HMENU pluginsMenu, const generic_string& pluginName, const generic_string& pluginCmdName); // return -1 if not found
+	winVer getWindowsVersion();
+
 };

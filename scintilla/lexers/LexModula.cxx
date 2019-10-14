@@ -28,13 +28,11 @@
 #include "CharacterSet.h"
 #include "LexerModule.h"
 
-#ifdef SCI_NAMESPACE
 using namespace Scintilla;
-#endif
 
 #ifdef DEBUG_LEX_MODULA
 #define DEBUG_STATE( p, c )\
-		fprintf( stderr, "Unknown state: currentPos = %ud, char = '%c'\n", p, c );
+		fprintf( stderr, "Unknown state: currentPos = %u, char = '%c'\n", static_cast<unsigned int>(p), c );
 #else
 #define DEBUG_STATE( p, c )
 #endif
@@ -79,7 +77,7 @@ static inline unsigned IsOperator( StyleContext & sc, WordList & op ) {
 	return 0;
 }
 
-static inline bool IsEOL( Accessor &styler, unsigned curPos ) {
+static inline bool IsEOL( Accessor &styler, Sci_PositionU curPos ) {
 	unsigned ch = styler.SafeGetCharAt( curPos );
 	if( ( ch == '\r' && styler.SafeGetCharAt( curPos + 1 ) == '\n' ) ||
 		( ch == '\n' ) ) {
@@ -90,7 +88,7 @@ static inline bool IsEOL( Accessor &styler, unsigned curPos ) {
 
 static inline bool checkStatement(
 	Accessor &styler,
-	int &curPos,
+	Sci_Position &curPos,
 	const char *stt, bool spaceAfter = true ) {
 	int len = static_cast<int>(strlen( stt ));
 	int i;
@@ -110,7 +108,7 @@ static inline bool checkStatement(
 
 static inline bool checkEndSemicolon(
 	Accessor &styler,
-	int &curPos, int endPos )
+	Sci_Position &curPos, Sci_Position endPos )
 {
 	const char *stt = "END";
 	int len = static_cast<int>(strlen( stt ));
@@ -134,9 +132,9 @@ static inline bool checkEndSemicolon(
 static inline bool checkKeyIdentOper(
 
 	Accessor &styler,
-	int &curPos, int endPos,
+	Sci_Position &curPos, Sci_Position endPos,
 	const char *stt, const char etk ) {
-	int newPos = curPos;
+	Sci_Position newPos = curPos;
 	if( ! checkStatement( styler, newPos, stt ) )
 		return false;
 	newPos++;
@@ -174,17 +172,17 @@ static inline bool checkKeyIdentOper(
 	return true;
 }
 
-static void FoldModulaDoc( unsigned int startPos,
-						 int length,
+static void FoldModulaDoc( Sci_PositionU startPos,
+						 Sci_Position length,
 						 int , WordList *[],
 						 Accessor &styler)
 {
-	int curLine = styler.GetLine(startPos);
+	Sci_Position curLine = styler.GetLine(startPos);
 	int curLevel = SC_FOLDLEVELBASE;
-	int endPos = startPos + length;
+	Sci_Position endPos = startPos + length;
 	if( curLine > 0 )
 		curLevel = styler.LevelAt( curLine - 1 ) >> 16;
-	int curPos = startPos;
+	Sci_Position curPos = startPos;
 	int style = styler.StyleAt( curPos );
 	int visChars = 0;
 	int nextLevel = curLevel;
@@ -250,9 +248,9 @@ static void FoldModulaDoc( unsigned int startPos,
 				nextLevel++;
 			else
 			if( checkKeyIdentOper( styler, curPos, endPos, "END", ';' ) ) {
-				int cln = curLine;
+				Sci_Position cln = curLine;
 				int clv_old = curLevel;
-				int pos;
+				Sci_Position pos;
 				char ch;
 				int clv_new;
 				while( cln > 0 ) {
@@ -325,8 +323,8 @@ static inline bool skipWhiteSpaces( StyleContext & sc ) {
 	return true;
 }
 
-static void ColouriseModulaDoc(	unsigned int startPos,
-									int length,
+static void ColouriseModulaDoc(	Sci_PositionU startPos,
+									Sci_Position length,
 									int initStyle,
 									WordList *wl[],
 									Accessor &styler ) {
@@ -342,7 +340,7 @@ static void ColouriseModulaDoc(	unsigned int startPos,
 	char	buf[BUFLEN];
 	int		i, kl;
 
-	int  charPos = 0;
+	Sci_Position  charPos = 0;
 
 	StyleContext sc( startPos, length, initStyle, styler );
 

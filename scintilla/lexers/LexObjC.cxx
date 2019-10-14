@@ -13,8 +13,6 @@
 #include <stdarg.h>
 #include <assert.h>
 
-#include "Platform.h"
-
 #include "ILexer.h"
 #include "LexAccessor.h"
 #include "Accessor.h"
@@ -26,6 +24,8 @@
 #define INCLUDE_DEPRECATED_FEATURES
 #include "Scintilla.h"
 #include "SciLexer.h"
+
+using namespace Scintilla;
 
 #define KEYWORD_BOXHEADER 1
 #define KEYWORD_FOLDCONTRACTED 2
@@ -69,7 +69,7 @@ static inline bool IsStateString(const int state) {
 	return ((state == SCE_C_STRING) || (state == SCE_C_VERBATIM));
 }
 
-static void ColouriseObjCDoc(unsigned int startPos, int length, int initStyle, WordList *keywordlists[],
+static void ColouriseObjCDoc(size_t startPos, int length, int initStyle, WordList *keywordlists[],
                             Accessor &styler, bool caseSensitive) {
 
 	WordList &mainInstrsList = *keywordlists[0]; //Commun Instriction
@@ -403,7 +403,7 @@ static bool IsStreamCommentStyle(int style) {
 	       style == SCE_C_COMMENTDOCKEYWORDERROR;
 }
 
-static bool matchKeyword(unsigned int start, WordList &keywords, Accessor &styler, int keywordtype) {
+static bool matchKeyword(size_t start, WordList &keywords, Accessor &styler, int keywordtype) {
 	bool FoundKeyword = false;
 
 	for (unsigned int i = 0;
@@ -437,7 +437,7 @@ static bool IsCommentLine(int line, Accessor &styler) {
 }
 
 
-static void FoldObjCDoc(unsigned int startPos, int length, int initStyle, WordList *keywordlists[],
+static void FoldObjCDoc(Sci_PositionU startPos, Sci_Position length, int initStyle, WordList *keywordlists[],
                        Accessor &styler) {
 	WordList &keywords4 = *keywordlists[3];
 
@@ -445,7 +445,7 @@ static void FoldObjCDoc(unsigned int startPos, int length, int initStyle, WordLi
 	bool foldPreprocessor = styler.GetPropertyInt("fold.preprocessor") != 0;
 	bool foldCompact = styler.GetPropertyInt("fold.compact", 1) != 0;
 	bool firstLine = true;
-	unsigned int endPos = startPos + length;
+	size_t endPos = startPos + length;
 	int visibleChars = 0;
 	int lineCurrent = styler.GetLine(startPos);
 	int levelPrev = styler.LevelAt(lineCurrent) & SC_FOLDLEVELNUMBERMASK;
@@ -462,7 +462,7 @@ static void FoldObjCDoc(unsigned int startPos, int length, int initStyle, WordLi
 		levelPrevPrev = styler.LevelAt(lineCurrent - 1) & SC_FOLDLEVELNUMBERMASK;
 	}
 
-	for (unsigned int i = startPos; i < endPos; i++) {
+	for (size_t i = startPos; i < endPos; i++) {
 		char ch = chNext;
 		chNext = styler.SafeGetCharAt(i + 1);
 		int stylePrev = style;
@@ -481,7 +481,7 @@ static void FoldObjCDoc(unsigned int startPos, int length, int initStyle, WordLi
 		}
 		if (foldPreprocessor && (style == SCE_C_PREPROCESSOR)) {
 			if (ch == '#') {
-				unsigned int j = i + 1;
+				size_t j = i + 1;
 				while ((j < endPos) && IsASpaceOrTab(styler.SafeGetCharAt(j))) {
 					j++;
 				}
@@ -518,7 +518,7 @@ static void FoldObjCDoc(unsigned int startPos, int length, int initStyle, WordLi
 		{
 			if (ch == '@') 
 			{
-				unsigned int j = i + 1;
+				size_t j = i + 1;
 				if (styler.Match(j, "interface") || styler.Match(j, "implementation") || styler.Match(j, "protocol")) 
 				{
 					levelCurrent++;
@@ -605,7 +605,7 @@ static const char * const cppWordLists[] = {
             0,
         };
 
-static void ColouriseObjCDocSensitive(unsigned int startPos, int length, int initStyle, WordList *keywordlists[],
+static void ColouriseObjCDocSensitive(Sci_PositionU startPos, Sci_Position length, int initStyle, WordList *keywordlists[],
                                      Accessor &styler) {
 	ColouriseObjCDoc(startPos, length, initStyle, keywordlists, styler, true);
 }

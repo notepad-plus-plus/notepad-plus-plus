@@ -42,9 +42,7 @@
 #define SET_UPPER "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 #define SET_DIGITS "0123456789"
 
-#ifdef SCI_NAMESPACE
 using namespace Scintilla;
-#endif
 
 static bool IsSpaceEquiv(int state) {
 	switch (state) {
@@ -62,7 +60,7 @@ static bool IsSpaceEquiv(int state) {
 	}
 }
 
-static void ColouriseEclDoc(unsigned int startPos, int length, int initStyle, WordList *keywordlists[],
+static void ColouriseEclDoc(Sci_PositionU startPos, Sci_Position length, int initStyle, WordList *keywordlists[],
                             Accessor &styler) {
 	WordList &keywords0 = *keywordlists[0];
 	WordList &keywords1 = *keywordlists[1];
@@ -90,7 +88,7 @@ static void ColouriseEclDoc(unsigned int startPos, int length, int initStyle, Wo
 
 	if (initStyle == SCE_ECL_PREPROCESSOR) {
 		// Set continuationLine if last character of previous line is '\'
-		int lineCurrent = styler.GetLine(startPos);
+		Sci_Position lineCurrent = styler.GetLine(startPos);
 		if (lineCurrent > 0) {
 			int chBack = styler.SafeGetCharAt(startPos-1, 0);
 			int chBack2 = styler.SafeGetCharAt(startPos-2, 0);
@@ -106,7 +104,7 @@ static void ColouriseEclDoc(unsigned int startPos, int length, int initStyle, Wo
 
 	// look back to set chPrevNonWhite properly for better regex colouring
 	if (startPos > 0) {
-		int back = startPos;
+		Sci_Position back = startPos;
 		while (--back && IsSpaceEquiv(styler.StyleAt(back)))
 			;
 		if (styler.StyleAt(back) == SCE_ECL_OPERATOR) {
@@ -175,7 +173,7 @@ static void ColouriseEclDoc(unsigned int startPos, int length, int initStyle, Wo
 					} else if (keywords5.InList(s)) {
 						sc.ChangeState(SCE_ECL_WORD5);
 					}
-					else	//Data types are of from KEYWORD## 
+					else	//Data types are of from KEYWORD##
 					{
 						int i = static_cast<int>(strlen(s)) - 1;
 						while(i >= 0 && (isdigit(s[i]) || s[i] == '_'))
@@ -186,7 +184,7 @@ static void ColouriseEclDoc(unsigned int startPos, int length, int initStyle, Wo
 						s2[i + 1] = 0;
 						if (keywords3.InList(s2)) {
 							sc.ChangeState(SCE_ECL_WORD3);
-						} 
+						}
 					}
 					sc.SetState(SCE_ECL_DEFAULT);
 				}
@@ -311,7 +309,7 @@ static void ColouriseEclDoc(unsigned int startPos, int length, int initStyle, Wo
 		}
 
 		// Determine if a new state should be entered.
-		int lineCurrent = styler.GetLine(sc.currentPos);
+		Sci_Position lineCurrent = styler.GetLine(sc.currentPos);
 		int lineState = styler.GetLineState(lineCurrent);
 		if (sc.state == SCE_ECL_DEFAULT) {
 			if (lineState) {
@@ -388,12 +386,12 @@ static bool IsStreamCommentStyle(int style) {
 		style == SCE_ECL_COMMENTDOCKEYWORDERROR;
 }
 
-bool MatchNoCase(Accessor & styler, unsigned int & pos, const char *s) {
-	int i=0;
+static bool MatchNoCase(Accessor & styler, Sci_PositionU & pos, const char *s) {
+	Sci_Position i=0;
 	for (; *s; i++) {
 		char compare_char = tolower(*s);
 		char styler_char = tolower(styler.SafeGetCharAt(pos+i));
-		if (compare_char != styler_char) 
+		if (compare_char != styler_char)
 			return false;
 		s++;
 	}
@@ -405,15 +403,15 @@ bool MatchNoCase(Accessor & styler, unsigned int & pos, const char *s) {
 // Store both the current line's fold level and the next lines in the
 // level store to make it easy to pick up with each increment
 // and to make it possible to fiddle the current level for "} else {".
-static void FoldEclDoc(unsigned int startPos, int length, int initStyle, 
+static void FoldEclDoc(Sci_PositionU startPos, Sci_Position length, int initStyle,
 					   WordList *[], Accessor &styler) {
 	bool foldComment = true;
 	bool foldPreprocessor = true;
 	bool foldCompact = true;
 	bool foldAtElse = true;
-	unsigned int endPos = startPos + length;
+	Sci_PositionU endPos = startPos + length;
 	int visibleChars = 0;
-	int lineCurrent = styler.GetLine(startPos);
+	Sci_Position lineCurrent = styler.GetLine(startPos);
 	int levelCurrent = SC_FOLDLEVELBASE;
 	if (lineCurrent > 0)
 		levelCurrent = styler.LevelAt(lineCurrent-1) >> 16;
@@ -422,7 +420,7 @@ static void FoldEclDoc(unsigned int startPos, int length, int initStyle,
 	char chNext = styler[startPos];
 	int styleNext = styler.StyleAt(startPos);
 	int style = initStyle;
-	for (unsigned int i = startPos; i < endPos; i++) {
+	for (Sci_PositionU i = startPos; i < endPos; i++) {
 		char ch = chNext;
 		chNext = styler.SafeGetCharAt(i + 1);
 		int stylePrev = style;
@@ -449,7 +447,7 @@ static void FoldEclDoc(unsigned int startPos, int length, int initStyle,
 		}
 		if (foldPreprocessor && (style == SCE_ECL_PREPROCESSOR)) {
 			if (ch == '#') {
-				unsigned int j = i + 1;
+				Sci_PositionU j = i + 1;
 				while ((j < endPos) && IsASpaceOrTab(styler.SafeGetCharAt(j))) {
 					j++;
 				}
@@ -473,7 +471,7 @@ static void FoldEclDoc(unsigned int startPos, int length, int initStyle,
 			}
 		}
 		if (style == SCE_ECL_WORD2) {
-			if (MatchNoCase(styler, i, "record") || MatchNoCase(styler, i, "transform") || MatchNoCase(styler, i, "type") || MatchNoCase(styler, i, "function") || 
+			if (MatchNoCase(styler, i, "record") || MatchNoCase(styler, i, "transform") || MatchNoCase(styler, i, "type") || MatchNoCase(styler, i, "function") ||
 				MatchNoCase(styler, i, "module") || MatchNoCase(styler, i, "service") || MatchNoCase(styler, i, "interface") || MatchNoCase(styler, i, "ifblock") ||
 				MatchNoCase(styler, i, "macro") || MatchNoCase(styler, i, "beginc++")) {
 				levelNext++;
@@ -497,7 +495,7 @@ static void FoldEclDoc(unsigned int startPos, int length, int initStyle,
 			lineCurrent++;
 			levelCurrent = levelNext;
 			levelMinCurrent = levelCurrent;
-			if (atEOL && (i == static_cast<unsigned int>(styler.Length()-1))) {
+			if (atEOL && (i == static_cast<Sci_PositionU>(styler.Length()-1))) {
 				// There is an empty line at end of file so give it same level and empty
 				styler.SetLevel(lineCurrent, (levelCurrent | levelCurrent << 16) | SC_FOLDLEVELWHITEFLAG);
 			}

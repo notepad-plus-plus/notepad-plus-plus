@@ -8,9 +8,7 @@
 #ifndef AUTOCOMPLETE_H
 #define AUTOCOMPLETE_H
 
-#ifdef SCI_NAMESPACE
 namespace Scintilla {
-#endif
 
 /**
  */
@@ -27,9 +25,9 @@ public:
 
 	bool ignoreCase;
 	bool chooseSingle;
-	ListBox *lb;
-	int posStart;
-	int startLen;
+	std::unique_ptr<ListBox> lb;
+	Sci::Position posStart;
+	Sci::Position startLen;
 	/// Should autocompletion be canceled if editor's currentPos <= startPos?
 	bool cancelAtStartPos;
 	bool autoHide;
@@ -47,27 +45,27 @@ public:
 	~AutoComplete();
 
 	/// Is the auto completion list displayed?
-	bool Active() const;
+	bool Active() const noexcept;
 
 	/// Display the auto completion list positioned to be near a character position
-	void Start(Window &parent, int ctrlID, int position, Point location,
-		int startLen_, int lineHeight, bool unicodeMode, int technology);
+	void Start(Window &parent, int ctrlID, Sci::Position position, Point location,
+		Sci::Position startLen_, int lineHeight, bool unicodeMode, int technology);
 
 	/// The stop chars are characters which, when typed, cause the auto completion list to disappear
 	void SetStopChars(const char *stopChars_);
-	bool IsStopChar(char ch);
+	bool IsStopChar(char ch) const noexcept;
 
 	/// The fillup chars are characters which, when typed, fill up the selected word
 	void SetFillUpChars(const char *fillUpChars_);
-	bool IsFillUpChar(char ch);
+	bool IsFillUpChar(char ch) const noexcept;
 
 	/// The separator character is used when interpreting the list in SetList
 	void SetSeparator(char separator_);
-	char GetSeparator() const;
+	char GetSeparator() const noexcept;
 
 	/// The typesep character is used for separating the word from the type
 	void SetTypesep(char separator_);
-	char GetTypesep() const;
+	char GetTypesep() const noexcept;
 
 	/// The list string contains a sequence of words separated by the separator character
 	void SetList(const char *list);
@@ -88,8 +86,6 @@ public:
 	void Select(const char *word);
 };
 
-#ifdef SCI_NAMESPACE
 }
-#endif
 
 #endif

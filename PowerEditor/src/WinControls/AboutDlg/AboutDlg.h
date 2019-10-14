@@ -26,17 +26,10 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef ABOUT_DLG_H
-#define ABOUT_DLG_H
+#pragma once
 
-#ifndef URLCTRL_INCLUDED
 #include "URLCtrl.h"
-#endif// URLCTRL_INCLUDED
-
-#ifndef RESOURCE_H
 #include "resource.h"
-#endif// RESOURCE_H
-
 #include "StaticDialog.h"
 
 #define LICENCE_TXT \
@@ -58,12 +51,12 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.")
 class AboutDlg : public StaticDialog
 {
 public :
-	AboutDlg() : StaticDialog() {};
+	AboutDlg() = default;
 
 	void doDialog();
 
     virtual void destroy() {
-        _emailLink.destroy();
+        //_emailLink.destroy();
         _pageLink.destroy();
     };
 
@@ -71,7 +64,7 @@ protected :
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 private :
-    URLCtrl _emailLink;
+    //URLCtrl _emailLink;
     URLCtrl _pageLink;
 };
 
@@ -79,9 +72,9 @@ private :
 class DebugInfoDlg : public StaticDialog
 {
 public:
-	DebugInfoDlg() : StaticDialog() {};
+	DebugInfoDlg() = default;
 
-	void init(HINSTANCE hInst, HWND parent, bool isAdmin, generic_string loadedPlugins) {
+	void init(HINSTANCE hInst, HWND parent, bool isAdmin, const generic_string& loadedPlugins) {
 		_isAdmin = isAdmin;
 		_loadedPlugins = loadedPlugins;
 		Window::init(hInst, parent);
@@ -97,11 +90,41 @@ protected:
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 private:
+	typedef const CHAR * (__cdecl * PWINEGETVERSION)();
 	generic_string _debugInfoStr;
 	bool _isAdmin = false;
 	generic_string _loadedPlugins;
 	URLCtrl _copyToClipboardLink;
 };
 
+class DoSaveOrNotBox : public StaticDialog
+{
+public:
+	DoSaveOrNotBox() = default;
 
-#endif //ABOUT_DLG_H
+	void init(HINSTANCE hInst, HWND parent, const TCHAR* fn, bool isMulti) {
+		Window::init(hInst, parent);
+		if (fn)
+			_fn = fn;
+
+		_isMulti = isMulti;
+	};
+
+	void doDialog(bool isRTL = false);
+
+	virtual void destroy() {};
+
+	int getClickedButtonId() const {
+		return clickedButtonId;
+	};
+
+	void changeLang();
+
+protected:
+	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+
+private:
+	int clickedButtonId = -1;
+	generic_string _fn;
+	bool _isMulti = false;
+};

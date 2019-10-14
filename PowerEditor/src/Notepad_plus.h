@@ -25,106 +25,35 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-#ifndef NOTEPAD_PLUS_H
-#define NOTEPAD_PLUS_H
+#pragma once
 
-#ifndef SCINTILLA_EDIT_VIEW_H
 #include "ScintillaEditView.h"
-#endif //SCINTILLA_EDIT_VIEW_H
-
-#ifndef DOCTABVIEW_H
 #include "DocTabView.h"
-#endif //DOCTABVIEW_H
-
-#ifndef SPLITTER_CONTAINER_H
 #include "SplitterContainer.h"
-#endif //SPLITTER_CONTAINER_H
-
-#ifndef FIND_REPLACE_DLG_H
 #include "FindReplaceDlg.h"
-#endif //FIND_REPLACE_DLG_H
-
-#ifndef ABOUT_DLG_H
 #include "AboutDlg.h"
-#endif //ABOUT_DLG_H
-
-#ifndef RUN_DLG_H
 #include "RunDlg.h"
-#endif //RUN_DLG_H
-
-#ifndef STATUS_BAR_H
 #include "StatusBar.h"
-#endif //STATUS_BAR_H
-
-#ifndef LASTRECENTFILELIST_H
 #include "lastRecentFileList.h"
-#endif //LASTRECENTFILELIST_H
-
-#ifndef GOTILINE_DLG_H
 #include "GoToLineDlg.h"
-#endif //GOTILINE_DLG_H
-
-#ifndef FINDCHARSINRANGE_DLG_H
 #include "FindCharsInRange.h"
-#endif //FINDCHARSINRANGE_DLG_H
-
-#ifndef COLUMNEDITOR_H
 #include "columnEditor.h"
-#endif //COLUMNEDITOR_H
-
-#ifndef WORD_STYLE_H
 #include "WordStyleDlg.h"
-#endif //WORD_STYLE_H
-
-#ifndef TRAY_ICON_CONTROLER_H
 #include "trayIconControler.h"
-#endif //TRAY_ICON_CONTROLER_H
-
-#ifndef PLUGINSMANAGER_H
 #include "PluginsManager.h"
-#endif //PLUGINSMANAGER_H
-/*
-#ifndef NOTEPAD_PLUS_MSGS_H
-#include "Notepad_plus_msgs.h"
-#endif //NOTEPAD_PLUS_MSGS_H
-*/
-#ifndef PREFERENCE_DLG_H
 #include "preferenceDlg.h"
-#endif //PREFERENCE_DLG_H
-
-#ifndef WINDOWS_DLG_H
 #include "WindowsDlg.h"
-#endif //WINDOWS_DLG_H
-
-#ifndef RUN_MACRO_DLG_H
 #include "RunMacroDlg.h"
-#endif //RUN_MACRO_DLG_H
-
-#ifndef DOCKINGMANAGER_H
 #include "DockingManager.h"
-#endif //DOCKINGMANAGER_H
-
-#ifndef PROCESSUS_H
 #include "Processus.h"
-#endif //PROCESSUS_H
-
-#ifndef AUTOCOMPLETION_H
 #include "AutoCompletion.h"
-#endif //AUTOCOMPLETION_H
-
-#ifndef SMARTHIGHLIGHTER_H
 #include "SmartHighlighter.h"
-#endif //SMARTHIGHLIGHTER_H
-
-#ifndef SCINTILLACTRLS_H
 #include "ScintillaCtrls.h"
-#endif //SCINTILLACTRLS_H
-
-#ifndef SIZE_DLG_H
 #include "lesDlgs.h"
-#endif //SIZE_DLG_H
-
+#include "pluginsAdmin.h"
 #include "localization.h"
+#include "documentSnapshot.h"
+#include "md5Dlgs.h"
 #include <vector>
 #include <iso646.h>
 
@@ -186,6 +115,31 @@ struct VisibleGUIConf final
 	}
 };
 
+struct QuoteParams
+{
+	enum Speed { slow = 0, rapid, speedOfLight };
+
+	QuoteParams() {};
+	QuoteParams(const wchar_t* quoter, Speed speed, bool shouldBeTrolling, int encoding, LangType lang, const wchar_t* quote) :
+		_quoter(quoter), _speed(speed), _shouldBeTrolling(shouldBeTrolling), _encoding(encoding), _lang(lang), _quote(quote) {}
+
+	void reset() {
+		_quoter = nullptr;
+		_speed = rapid;
+		_shouldBeTrolling = false;
+		_encoding = SC_CP_UTF8;
+		_lang = L_TEXT;
+		_quote = nullptr;
+	};
+
+	const wchar_t* _quoter = nullptr;
+	Speed _speed = rapid;
+	bool _shouldBeTrolling = false;
+	int _encoding = SC_CP_UTF8;
+	LangType _lang = L_TEXT;
+	const wchar_t* _quote = nullptr;
+};
+
 class FileDialog;
 class Notepad_plus_Window;
 class AnsiCharPanel;
@@ -195,7 +149,7 @@ class ProjectPanel;
 class DocumentMap;
 class FunctionListPanel;
 class FileBrowser;
-
+struct QuoteParams;
 
 class Notepad_plus final
 {
@@ -220,7 +174,7 @@ public:
 	//! \name File Operations
 	//@{
 	//The doXXX functions apply to a single buffer and dont need to worry about views, with the excpetion of doClose, since closing one view doesnt have to mean the document is gone
-	BufferID doOpen(const generic_string& fileName, bool isRecursive = false, bool isReadOnly = false, int encoding = -1, const TCHAR *backupFileName = NULL, time_t fileNameTimestamp = 0);
+	BufferID doOpen(const generic_string& fileName, bool isRecursive = false, bool isReadOnly = false, int encoding = -1, const TCHAR *backupFileName = NULL, FILETIME fileNameTimestamp = {});
 	bool doReload(BufferID id, bool alert = true);
 	bool doSave(BufferID, const TCHAR * filename, bool isSaveCopy = false);
 	void doClose(BufferID, int whichOne, bool doDeleteBackup = false);
@@ -235,6 +189,7 @@ public:
 	bool fileCloseAllGiven(const std::vector<int>& krvecBufferIndexes);
 	bool fileCloseAllToLeft();
 	bool fileCloseAllToRight();
+	bool fileCloseAllUnchanged();
 	bool fileSave(BufferID id = BUFFER_INVALID);
 	bool fileSaveAll();
 	bool fileSaveSpecific(const generic_string& fileNameToSave);
@@ -242,8 +197,6 @@ public:
 	bool fileDelete(BufferID id = BUFFER_INVALID);
 	bool fileRename(BufferID id = BUFFER_INVALID);
 
-	bool addBufferToView(BufferID id, int whichOne);
-	bool moveBuffer(BufferID id, int whereTo);	//assumes whereFrom is otherView(whereTo)
 	bool switchToFile(BufferID buffer);			//find buffer in active view then in other view.
 	//@}
 
@@ -271,8 +224,7 @@ public:
 
 	bool doBlockComment(comment_mode currCommentMode);
 	bool doStreamComment();
-	//--FLS: undoStreamComment: New function unDoStreamComment()
-	bool undoStreamComment();
+	bool undoStreamComment(bool tryBlockComment = true);
 
 	bool addCurrentMacro();
 	void macroPlayback(Macro);
@@ -280,25 +232,34 @@ public:
     void loadLastSession();
 	bool loadSession(Session & session, bool isSnapshotMode = false);
 
+	void prepareBufferChangedDialog(Buffer * buffer);
 	void notifyBufferChanged(Buffer * buffer, int mask);
 	bool findInFinderFiles(FindersInfo *findInFolderInfo);
 	bool findInFiles();
 	bool replaceInFiles();
 	void setFindReplaceFolderFilter(const TCHAR *dir, const TCHAR *filters);
 	std::vector<generic_string> addNppComponents(const TCHAR *destDir, const TCHAR *extFilterName, const TCHAR *extFilter);
+	std::vector<generic_string> addNppPlugins(const TCHAR *extFilterName, const TCHAR *extFilter);
     int getHtmlXmlEncoding(const TCHAR *fileName) const;
+
 	HACCEL getAccTable() const{
 		return _accelerator.getAccTable();
-	}
-	bool emergency(generic_string emergencySavedDir);
+	};
+
+	bool emergency(const generic_string& emergencySavedDir);
+
 	Buffer* getCurrentBuffer()	{
 		return _pEditView->getCurrentBuffer();
-	}
-	void launchDocumentBackupTask();
-	int getQuoteIndexFrom(const char *quoter) const;
-	void showQuoteFromIndex(int index) const;
-	void showQuote(const char *quote, const char *quoter, bool doTrolling) const;
+	};
 
+	void launchDocumentBackupTask();
+	int getQuoteIndexFrom(const wchar_t* quoter) const;
+	void showQuoteFromIndex(int index) const;
+	void showQuote(const QuoteParams* quote) const;
+
+	generic_string getPluginListVerStr() const {
+		return _pluginsAdminDlg.getPluginListVerStr();
+	};
 
 private:
 	Notepad_plus_Window *_pPublicInterface = nullptr;
@@ -346,11 +307,17 @@ private:
     AboutDlg _aboutDlg;
 	DebugInfoDlg _debugInfoDlg;
 	RunDlg _runDlg;
+	HashFromFilesDlg _md5FromFilesDlg;
+	HashFromTextDlg _md5FromTextDlg;
+	HashFromFilesDlg _sha2FromFilesDlg;
+	HashFromTextDlg _sha2FromTextDlg;
     GoToLineDlg _goToLineDlg;
 	ColumnEditorDlg _colEditorDlg;
 	WordStyleDlg _configStyleDlg;
 	PreferenceDlg _preference;
 	FindCharsInRangeDlg _findCharsInRangeDlg;
+	PluginsAdminDlg _pluginsAdminDlg;
+	DocumentPeeker _documentPeeker;
 
 	// a handle list of all the Notepad++ dialogs
 	std::vector<HWND> _hModelessDlgs;
@@ -376,6 +343,7 @@ private:
 	Macro _macro;
 	bool _recordingMacro = false;
 	bool _playingBackMacro = false;
+	bool _recordingSaved = false;
 	RunMacroDlg _runMacroDlg;
 
 	// For conflict detection when saving Macros or RunCommands
@@ -386,7 +354,7 @@ private:
 	bool _isFolding = false;
 
 	//For Dynamic selection highlight
-	CharacterRange _prevSelectedRange;
+	Sci_CharacterRange _prevSelectedRange;
 
 	//Synchronized Scolling
 	struct SyncInfo final
@@ -480,11 +448,10 @@ private:
 	void performPostReload(int whichOne);
 //END: Document management
 
-	int doSaveOrNot(const TCHAR *fn);
+	int doSaveOrNot(const TCHAR *fn, bool isMulti = false);
 	int doReloadOrNot(const TCHAR *fn, bool dirty);
 	int doCloseOrNot(const TCHAR *fn);
 	int doDeleteOrNot(const TCHAR *fn);
-	int doActionOrNot(const TCHAR *title, const TCHAR *displayText, int type);
 
 	void enableMenu(int cmdID, bool doEnable) const;
 	void enableCommand(int cmdID, bool doEnable, int which) const;
@@ -494,7 +461,7 @@ private:
 	void checkMacroState();
 	void checkSyncState();
 	void dropFiles(HDROP hdrop);
-	void checkModifiedDocument();
+	void checkModifiedDocument(bool bCheckOnlyCurrentBuffer);
 
     void getMainClientRect(RECT & rc) const;
 	void staticCheckMenuAndTB() const;
@@ -507,13 +474,13 @@ private:
 	void setLangStatus(LangType langType);
 
 	void setDisplayFormat(EolType f);
-	int getCmdIDFromEncoding(int encoding) const;
 	void setUniModeText();
 	void checkLangsMenu(int id) const ;
     void setLanguage(LangType langType);
-	enum LangType menuID2LangType(int cmdID);
+	LangType menuID2LangType(int cmdID);
 
 	BOOL processIncrFindAccel(MSG *msg) const;
+	BOOL processFindAccel(MSG *msg) const;
 
 	void checkMenuItem(int itemID, bool willBeChecked) const {
 		::CheckMenuItem(_mainMenuHandle, itemID, MF_BYCOMMAND | (willBeChecked?MF_CHECKED:MF_UNCHECKED));
@@ -602,20 +569,23 @@ private:
 	void doSynScorll(HWND hW);
 	void setWorkingDir(const TCHAR *dir);
 	bool str2Cliboard(const generic_string & str2cpy);
-	bool bin2Cliboard(const UCHAR *uchar2cpy, size_t length);
 
 	bool getIntegralDockingData(tTbData & dockData, int & iCont, bool & isVisible);
 	int getLangFromMenuName(const TCHAR * langName);
 	generic_string getLangFromMenu(const Buffer * buf);
 
-    generic_string exts2Filters(generic_string exts) const;
+    generic_string exts2Filters(const generic_string& exts) const;
 	int setFileOpenSaveDlgFilters(FileDialog & fDlg, int langType = -1);
-	void markSelectedTextInc(bool enable);
 	Style * getStyleFromName(const TCHAR *styleName);
 	bool dumpFiles(const TCHAR * outdir, const TCHAR * fileprefix = TEXT(""));	//helper func
 	void drawTabbarColoursFromStylerArray();
 
-	void loadCommandlineParams(const TCHAR * commandLine, CmdLineParams * pCmdParams);
+	std::vector<generic_string> loadCommandlineParams(const TCHAR * commandLine, const CmdLineParams * pCmdParams)
+	{
+		const CmdLineParamsDTO dto = CmdLineParamsDTO::FromCmdLineParams(*pCmdParams);
+		return loadCommandlineParams(commandLine, &dto);
+	}
+	std::vector<generic_string> loadCommandlineParams(const TCHAR * commandLine, const CmdLineParamsDTO * pCmdParams);
 	bool noOpenedDoc() const;
 	bool goToPreviousIndicator(int indicID2Search, bool isWrap = true) const;
 	bool goToNextIndicator(int indicID2Search, bool isWrap = true) const;
@@ -624,13 +594,14 @@ private:
 	void wsTabConvert(spaceTab whichWay);
 	void doTrim(trimOp whichPart);
 	void removeEmptyLine(bool isBlankContained);
+	void removeDuplicateLines();
 	void launchAnsiCharPanel();
 	void launchClipboardHistoryPanel();
 	void launchFileSwitcherPanel();
 	void launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int panelID);
 	void launchDocMap();
 	void launchFunctionList();
-	void launchFileBrowser(const std::vector<generic_string> & folders);
+	void launchFileBrowser(const std::vector<generic_string> & folders, bool fromScratch = false);
 	void showAllQuotes() const;
 	static DWORD WINAPI threadTextPlayer(void *text2display);
 	static DWORD WINAPI threadTextTroller(void *params);
@@ -656,7 +627,8 @@ private:
 		Buffer *_buffer = nullptr;
 		HWND _nppHandle = nullptr;
 	};
+
+	void monitoringStartOrStopAndUpdateUI(Buffer* pBuf, bool isStarting);
 };
 
 
-#endif //NOTEPAD_PLUS_H

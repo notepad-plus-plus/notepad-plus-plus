@@ -43,13 +43,13 @@ public :
 
 	HWND createSintilla(HWND hParent);
 	ScintillaEditView * getScintillaEditViewFrom(HWND handle2Find);
-	bool destroyScintilla(HWND handle2Destroy);
+	//bool destroyScintilla(HWND handle2Destroy);
 	void destroy();
 	
 private:
 	std::vector<ScintillaEditView *> _scintVector;
-	HINSTANCE _hInst;
-	HWND _hParent;
+	HINSTANCE _hInst = nullptr;
+	HWND _hParent = nullptr;
 	int getIndexFrom(HWND handle2Find);
 };
 

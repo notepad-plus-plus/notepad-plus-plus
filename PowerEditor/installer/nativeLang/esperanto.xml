@@ -266,8 +266,8 @@
 					<Item id="10004" name="Montru ankaŭ en nova ekzemplo de Notepad++"/>
 
 					<Item id="46001" name="Stilakordilo..."/>
-					<Item id="46150" name="Difinu vian lingvaĵon..."/> <!--estis: 44011-->
-					<Item id="46080" name="Propre difinita lingvaĵo"/>
+					<Item id="46250" name="Difinu vian lingvaĵon..."/> <!--estis: 44011-->
+					<Item id="46180" name="Propre difinita lingvaĵo"/>
 					<Item id="47000" name="Pri Notepad++..."/>
 					<Item id="47001" name="Hejmpaĝo de Notepad++"/>
 					<Item id="47002" name="Projektpaĝo de Notepad++"/>

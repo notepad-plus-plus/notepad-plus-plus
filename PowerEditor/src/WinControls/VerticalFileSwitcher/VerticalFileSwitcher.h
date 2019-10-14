@@ -35,6 +35,12 @@
 
 #define FS_PROJECTPANELTITLE		TEXT("Doc Switcher")
 
+struct sortCompareData {
+  HWND hListView;
+  int columnIndex;
+  int sortDirection;
+};
+
 class VerticalFileSwitcher : public DockingDlgInterface {
 public:
 	VerticalFileSwitcher(): DockingDlgInterface(IDD_FILESWITCHER_PANEL) {};
@@ -75,7 +81,8 @@ public:
 		return _fileListView.getFullFilePath(i);
 	};
 
-	int setHeaderOrder(LPNMLISTVIEW pnm_list_view);
+	int setHeaderOrder(int columnIndex);
+	void updateHeaderArrow();
 
 	int nbSelectedFiles() const {
 		return _fileListView.nbSelectedFiles();
@@ -84,11 +91,18 @@ public:
 	std::vector<SwitcherFileInfo> getSelectedFiles(bool reverse = false) const {
 		return _fileListView.getSelectedFiles(reverse);
 	};
-
+	
+	void startColumnSort();
+	
 	void reload(){
-		_fileListView.deleteColumn(1);
-		_fileListView.deleteColumn(0);
 		_fileListView.reload();
+		startColumnSort();
+	};
+	
+	void updateTabOrder(){
+		if (_lastSortingDirection == SORT_DIRECTION_NONE) {
+			_fileListView.reload();
+		}
 	};
 
 	virtual void setBackgroundColor(COLORREF bgColour) {
@@ -98,12 +112,12 @@ public:
 	virtual void setForegroundColor(COLORREF fgColour) {
 		_fileListView.setForegroundColor(fgColour);
     };
-
 protected:
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
-
 private:
+	int _lastSortingColumn = 0;
+	int _lastSortingDirection = SORT_DIRECTION_NONE;
 	VerticalFileSwitcherListView _fileListView;
-	HIMAGELIST _hImaLst;
+	HIMAGELIST _hImaLst = nullptr;
 };
 #endif // VERTICALFILESWITCHER_H

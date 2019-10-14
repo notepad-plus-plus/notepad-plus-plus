@@ -172,7 +172,7 @@ class SepBuilder:
 		self.qtStyleInterface = True
 
 	def _setPySideBase(self, base):
-		
+
 		self.PySideBase = base
 		def _try_pkgconfig(var, package, *relpath):
 			try:
@@ -209,7 +209,7 @@ class SepBuilder:
 		f = WidgetGen.readInterface(False)
 		os.chdir(os.path.join("..", "ScintillaEditPy"))
 		options = {"qtStyle": self.qtStyleInterface}
-		GenerateFile("typesystem_ScintillaEdit.xml.template", "typesystem_ScintillaEdit.xml", 
+		GenerateFile("typesystem_ScintillaEdit.xml.template", "typesystem_ScintillaEdit.xml",
 			"<!-- ", True, printTypeSystemFile(f, options))
 
 	def runGenerator(self):
@@ -221,7 +221,7 @@ class SepBuilder:
 			if os.path.exists(name):
 				generatorrunner = name
 				break
-				
+
 		args = [
 			generatorrunner,
 			"--generator-set=" + self.ShibokenGenerator,
@@ -263,7 +263,7 @@ class SepBuilder:
 	def cleanEverything(self):
 		self.generateAPI(["--clean"])
 		runProgram([self.MakeCommand, "distclean"], exitOnFailure=False)
-		filesToRemove = [self.ProInclude, "typesystem_ScintillaEdit.xml", 
+		filesToRemove = [self.ProInclude, "typesystem_ScintillaEdit.xml",
 			"../../bin/ScintillaEditPy.so", "../../bin/ScintillaConstants.py"]
 		for file in filesToRemove:
 			try:
@@ -282,7 +282,7 @@ class SepBuilder:
 	def buildEverything(self):
 		cleanGenerated = False
 		opts, args = getopt.getopt(sys.argv[1:], "hcdub",
-					["help", "clean", "debug=", 
+					["help", "clean", "debug=",
 					"underscore-names", "pyside-base="])
 		for opt, arg in opts:
 			if opt in ("-h", "--help"):
@@ -308,18 +308,18 @@ class SepBuilder:
 			self.runGenerator()
 			self.make()
 			self.copyScintillaConstants()
-			
+
 	def copyScintillaConstants(self):
-		
+
 		orig = 'ScintillaConstants.py'
 		dest = '../../bin/' + orig
 		if IsFileNewer(dest, orig):
 			return
-		
+
 		f = open(orig, 'r')
 		contents = f.read()
 		f.close()
-		
+
 		f = open(dest, 'w')
 		f.write(contents)
 		f.close()

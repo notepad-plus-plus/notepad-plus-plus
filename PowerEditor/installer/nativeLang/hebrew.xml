@@ -12,10 +12,11 @@
 					<Item menuId="encoding" name="&amp;פורמט"/>
 					<Item menuId="language" name="&amp;שפה"/>
 					<Item menuId="settings" name="&amp;הגדרות"/>
+					<Item menuId="tools" name="&amp;כלים"/>
 					<Item menuId="macro" name="מאקרו מקשים"/>
 					<Item menuId="run" name="הפעלה"/>
 					<Item idName="Plugins" name="תוספים"/>
-					<Item idName="Window"  name="תמיכה"/>
+					<Item idName="Window"  name="חלון"/>
 
 				</Entries>
 
@@ -221,7 +222,7 @@
 					<Item id="46047" name="אינו"/>
                     <Item id="46048" name="סימייק"/>
 					<Item id="46049" name="יאמל"/>
-					<Item id="46080" name="הגדרת משתמש"/>
+					<Item id="46180" name="הגדרת משתמש"/>
 
 					<Item id="47000" name="אודות התוכנה"/>
 					<Item id="47001" name="דף הבית ++Notepad"/>

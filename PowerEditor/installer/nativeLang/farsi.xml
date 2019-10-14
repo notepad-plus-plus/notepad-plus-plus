@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Farsi" filename="farsi.xml" version="7.0">
+    <Native-Langue name="Farsi" RTL="yes" filename="farsi.xml" version="7.0">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -274,8 +274,8 @@
                     <Item id="10004" name="بازکردن در نمونه جدید"/>
 
                     <Item id="46001" name="پیکربندی کننده سبک..."/>
-                    <Item id="46150" name="زبان خود را تعریف کنید.."/>
-                    <Item id="46080" name="تعریف شده توسط کاربر"/>
+                    <Item id="46250" name="زبان خود را تعریف کنید.."/>
+                    <Item id="46180" name="تعریف شده توسط کاربر"/>
                     <Item id="47000" name="درباره برنامه..."/>
                     <Item id="47010" name="شناسه فرمان خطی..."/>
                     <Item id="47001" name="صفحه خانگی"/>

@@ -1,0 +1,1017 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<NotepadPlus>
+    <Native-Langue name="كوردی" RTL="yes" filename="kurdish.xml" version="7.5">
+        <Menu>
+            <Main>
+                <!-- Main Menu Entries -->
+                <Entries>
+                    <Item menuId="file" name="&amp;پەڕگە"/>
+                    <Item menuId="edit" name="&amp;دەستكاری"/>
+                    <Item menuId="search" name="&amp;گەڕان"/>
+                    <Item menuId="view" name="&amp;بینین"/>
+                    <Item menuId="encoding" name="E&amp;ncoding"/>
+                    <Item menuId="language" name="&amp;زمانەكان"/>
+                    <Item menuId="settings" name="&amp;ڕێكخستنەكان"/>
+                    <Item menuId="tools" name="ئام&amp;رازەكان"/>
+                    <Item menuId="macro" name="ماكرۆ"/>
+                    <Item menuId="run" name="به‌ڕێوه‌به‌ردن"/>
+                    <Item idName="Plugins" name="پێوەكراوەكان"/>
+                    <Item idName="Window" name="پەنجەرە"/>
+                </Entries>
+                <!-- Sub Menu Entries -->
+                <SubEntries>
+                    <Item subMenuId="file-openFolder" name="كردنەوەی بوخچەی لەخۆگرتوو"/>
+                    <Item subMenuId="file-closeMore" name="داخستنی زیاتر"/>
+                    <Item subMenuId="file-recentFiles" name="پەڕگەكانی بەم دوواییە"/>
+                    <Item subMenuId="edit-copyToClipboard"  name="لەبەرگرتنەوە"/>
+                    <Item subMenuId="edit-indent" name="خۆڕاگر"/>
+                    <Item subMenuId="edit-convertCaseTo" name="گۆڕینی حاڵەت بۆ"/>
+                    <Item subMenuId="edit-lineOperations" name="هێلی كردار"/>
+                    <Item subMenuId="edit-comment" name="Comment/Uncomment"/>
+                    <Item subMenuId="edit-autoCompletion" name="خودكار-كۆتایی"/>
+                    <Item subMenuId="edit-eolConversion" name="EOL Conversion"/>
+                    <Item subMenuId="edit-blankOperations" name="كردارە بەتاڵەكان"/>
+                    <Item subMenuId="edit-pasteSpecial" name="لكاندنی تایبەت"/>
+                    <Item subMenuId="edit-onSelection" name="لە هەڵبژاردن"/>
+                    <Item subMenuId="search-markAll" name="دەستنیشانكردنی هەموو"/>
+                    <Item subMenuId="search-unmarkAll" name="لادانی هەموو"/>
+                    <Item subMenuId="search-jumpUp" name="بازدان بۆ سەرەوە"/>
+                    <Item subMenuId="search-jumpDown" name="بازدان بۆ خوارەوە"/>
+                    <Item subMenuId="search-bookmark" name="شوێندۆز"/>
+                    <Item subMenuId="view-showSymbol"  name="بینینی هێما"/>
+                    <Item subMenuId="view-zoom"  name="زووم"/>
+                    <Item subMenuId="view-moveCloneDocument"  name="گواستنەوە/لێكچوونی بەڵگەنامەی ئێستا"/>
+                    <Item subMenuId="view-tab"  name="تاب"/>
+                    <Item subMenuId="view-collapseLevel" name="Collapse Level"/>
+                    <Item subMenuId="view-uncollapseLevel" name="Uncollapse Level"/>
+                    <Item subMenuId="view-project" name="پڕۆژە"/>
+                    <Item subMenuId="encoding-characterSets"  name="Character Set"/>
+                    <Item subMenuId="encoding-arabic"  name="Arabic"/>
+                    <Item subMenuId="encoding-baltic"  name="Baltic"/>
+                    <Item subMenuId="encoding-celtic"  name="Celtic"/>
+                    <Item subMenuId="encoding-cyrillic"  name="Cyrillic"/>
+                    <Item subMenuId="encoding-centralEuropean"  name="Central European"/>
+                    <Item subMenuId="encoding-chinese"  name="Chinese"/>
+                    <Item subMenuId="encoding-easternEuropean"  name="Eastern European"/>
+                    <Item subMenuId="encoding-greek"  name="Greek"/>
+                    <Item subMenuId="encoding-hebrew"  name="Hebrew"/>
+                    <Item subMenuId="encoding-japanese"  name="Japanese"/>
+                    <Item subMenuId="encoding-korean" name="Korean"/>
+                    <Item subMenuId="encoding-northEuropean" name="North European"/>
+                    <Item subMenuId="encoding-thai" name="Thai"/>
+                    <Item subMenuId="encoding-turkish" name="Turkish"/>
+                    <Item subMenuId="encoding-westernEuropean" name="Western European"/>
+                    <Item subMenuId="encoding-vietnamese" name="Vietnamese"/>
+                    <Item subMenuId="settings-import"  name="هاورده‌"/>
+					<Item subMenuId="tools-md5"  name="MD5"/>
+                </SubEntries>
+
+                <!-- all menu item -->
+                <Commands>
+                    <Item id="41001" name="&amp;نوێ"/>
+                    <Item id="41002" name="&amp;كردنەوە"/>
+                    <Item id="41019" name="دۆزه‌ر"/>
+                    <Item id="41020" name="cmd"/>
+                    <Item id="41003" name="داخستن"/>
+                    <Item id="41004" name="د&amp;اخستنی هەموو"/>
+                    <Item id="41005" name="Close All BUT Current Document"/>
+                    <Item id="41009" name="داخستنی هەموو بۆ لای چەپ"/>
+                    <Item id="41018" name="داخستنی هەموو بۆ لای ڕاست"/>
+                    <Item id="41006" name="&amp;پاشەكەوتكردن"/>
+                    <Item id="41007" name="پاشە&amp;كەوتكردنی هەموو"/>
+                    <Item id="41008" name="پاشەكەوتكردن &amp;لە..."/>
+                    <Item id="41010" name="چاپكردن..."/>
+                    <Item id="1001"  name="چاپكردن ئێستا"/>
+                    <Item id="41011" name="د&amp;ەرەوە"/>
+                    <Item id="41012" name="باركردنی وانە(كۆڕ)  ..."/>
+                    <Item id="41013" name="پاشەكەوتكردنی وانە (كۆر)..."/>
+                    <Item id="41014" name="باركردنەوە لە دیسك"/>
+                    <Item id="41015" name="پاشەكەوتكردنی لەبەرگرتنەوە لە..."/>
+                    <Item id="41016" name="سڕینەوە لە دیسك"/>
+                    <Item id="41017" name="ناونانه‌وه‌..."/>
+                    <Item id="41021" name="هێنانەوەی پەڕگە داخراوەكانی ئەم دوواییە"/>
+                    <Item id="41022" name="كردنەوەی بوخچە لە &amp;Workspace"/>
+                    <Item id="41023" name="كردنەوە لە بنەڕەتی بینەر"/>
+                    <Item id="42001" name="بڕ&amp;ین"/>
+                    <Item id="42002" name="&amp;لەبەرگرتنەوە"/>
+                    <Item id="42003" name="&amp;هه‌ڵوه‌شاندنه‌وه‌"/>
+                    <Item id="42004" name="&amp;كردنه‌وه"/>
+                    <Item id="42005" name="&amp;لكاندن"/>
+                    <Item id="42006" name="&amp;سڕینەوە"/>
+                    <Item id="42007" name="دەستنیشانكردنی&amp;هەموو"/>
+                    <Item id="42020" name="دەسپێك/كۆتایی دەستنیشانكردن"/>
+                    <Item id="42008" name="Increase Line Indent"/>
+                    <Item id="42009" name="Decrease Line Indent"/>
+                    <Item id="42010" name="Duplicate Current Line"/>
+                    <Item id="42012" name="Split Lines"/>
+                    <Item id="42013" name="Join Lines"/>
+                    <Item id="42014" name="Move Up Current Line"/>
+                    <Item id="42015" name="Move Down Current Line"/>
+                    <Item id="42059" name="Sort Lines Lexicographically Ascending"/>
+                    <Item id="42060" name="Sort Lines Lexicographically Descending"/>
+                    <Item id="42061" name="Sort Lines As Integers Ascending"/>
+                    <Item id="42062" name="Sort Lines As Integers Descending"/>
+                    <Item id="42063" name="Sort Lines As Decimals (Comma) Ascending"/>
+                    <Item id="42064" name="Sort Lines As Decimals (Comma) Descending"/>
+                    <Item id="42065" name="Sort Lines As Decimals (Dot) Ascending"/>
+                    <Item id="42066" name="Sort Lines As Decimals (Dot) Descending"/>
+                    <Item id="42016" name="UPPERCASE"/>
+                    <Item id="42017" name="lowercase"/>
+                    <Item id="42067" name="Title Case"/>
+                    <Item id="42068" name="Title Case (blend)"/>
+                    <Item id="42069" name="Sentence case"/>
+                    <Item id="42070" name="Sentence case (blend)"/>
+                    <Item id="42071" name="iNVERT cASE"/>
+                    <Item id="42072" name="ranDOm CasE"/>
+					<Item id="42073" name="كردنەوەی پەڕگە"/>
+					<Item id="42074" name="كردنەوەی بوخچەی پەیوەندیدار لە دۆزەر"/>
+					<Item id="42075" name="گەڕان لە ئینتەرنێت"/>
+					<Item id="42076" name="گۆڕینی بزوێنەری گەڕان..."/>
+                    <Item id="42018" name="&amp;دەستپێكردنی تۆماركردن"/>
+                    <Item id="42019" name="&amp;وەستاندنی تۆماركردن"/>
+                    <Item id="42021" name="&amp;دەستپێكردن بۆ دواوە"/>
+                    <Item id="42022" name="Toggle Single Line Comment"/>
+                    <Item id="42023" name="Block Comment"/>
+                    <Item id="42047" name="Block Uncomment"/>
+                    <Item id="42024" name="Trim Trailing Space"/>
+                    <Item id="42042" name="Trim Leading Space"/>
+                    <Item id="42043" name="Trim Leading and Trailing Space"/>
+                    <Item id="42044" name="EOL to Space"/>
+                    <Item id="42045" name="Remove Unnecessary Blank and EOL"/>
+                    <Item id="42046" name="TAB to Space"/>
+                    <Item id="42054" name="Space to TAB (All)"/>
+                    <Item id="42053" name="Space to TAB (Leading)"/>
+                    <Item id="42038" name="Paste HTML Content"/>
+                    <Item id="42039" name="Paste RTF Content"/>
+                    <Item id="42048" name="Copy Binary Content"/>
+                    <Item id="42049" name="Cut Binary Content"/>
+                    <Item id="42050" name="Paste Binary Content"/>
+                    <Item id="42037" name="Column Mode..."/>
+                    <Item id="42034" name="Column Editor..."/>
+                    <Item id="42051" name="Character Panel"/>
+                    <Item id="42052" name="Clipboard History"/>
+                    <Item id="42025" name="Save Currently Recorded Macro"/>
+                    <Item id="42026" name="Text Direction RTL"/>
+                    <Item id="42027" name="Text Direction LTR"/>
+                    <Item id="42028" name="Set Read-Only"/>
+                    <Item id="42029" name="Current File Path to Clipboard"/>
+                    <Item id="42030" name="Current Filename to Clipboard"/>
+                    <Item id="42031" name="Current Dir. Path to Clipboard"/>
+                    <Item id="42032" name="Run a Macro Multiple Times..."/>
+                    <Item id="42033" name="Clear Read-Only Flag"/>
+                    <Item id="42035" name="Single Line Comment"/>
+                    <Item id="42036" name="Single Line Uncomment"/>
+                    <Item id="42055" name="Remove Empty Lines"/>
+                    <Item id="42056" name="Remove Empty Lines (Containing Blank characters)"/>
+                    <Item id="42057" name="Insert Blank Line Above Current"/>
+                    <Item id="42058" name="Insert Blank Line Below Current"/>
+                    <Item id="43001" name="&amp;گەڕان..."/>
+                    <Item id="43002" name="گەڕان &amp;داهاتوو"/>
+                    <Item id="43003" name="گۆڕین..."/>
+                    <Item id="43004" name="بڕۆ بۆ..."/>
+                    <Item id="43005" name="زامنكردنی شوێندۆز"/>
+                    <Item id="43006" name="شوێندۆزی داهاتوو"/>
+                    <Item id="43007" name="شوێندۆزی پێشوو"/>
+                    <Item id="43008" name="پاكردنەوەی هەموو شوێندۆزەكان"/>
+                    <Item id="43018" name="بڕینی هێلەكانی شوێندۆز"/>
+                    <Item id="43019" name="لەبەرگرتنەوەی هێلەكانی شوێندۆز"/>
+                    <Item id="43020" name="لكاندن بۆ (گۆڕین) هێلەكانی شوێندۆز"/>
+                    <Item id="43021" name="سڕینەوەی هێلەكانی شوێندۆز"/>
+                    <Item id="43051" name="Remove Unmarked Lines"/>
+                    <Item id="43050" name="Inverse Bookmark"/>
+                    <Item id="43052" name="Find characters in range..."/>
+                    <Item id="43053" name="Select All Between Matching Braces"/>
+                    <Item id="43009" name="Go to Matching Brace"/>
+                    <Item id="43010" name="Find Previous"/>
+                    <Item id="43011" name="&amp;Incremental Search"/>
+                    <Item id="43013" name="Find in Files"/>
+                    <Item id="43014" name="Find (Volatile) Next"/>
+                    <Item id="43015" name="Find (Volatile) Previous"/>
+                    <Item id="43022" name="Using 1st Style"/>
+                    <Item id="43023" name="Clear 1st Style"/>
+                    <Item id="43024" name="Using 2nd Style"/>
+                    <Item id="43025" name="Clear 2nd Style"/>
+                    <Item id="43026" name="Using 3rd Style"/>
+                    <Item id="43027" name="Clear 3rd Style"/>
+                    <Item id="43028" name="Using 4th Style"/>
+                    <Item id="43029" name="Clear 4th Style"/>
+                    <Item id="43030" name="Using 5th Style"/>
+                    <Item id="43031" name="Clear 5th Style"/>
+                    <Item id="43032" name="Clear All Styles"/>
+                    <Item id="43033" name="1st style"/>
+                    <Item id="43034" name="2nd style"/>
+                    <Item id="43035" name="3rd style"/>
+                    <Item id="43036" name="4th style"/>
+                    <Item id="43037" name="5th style"/>
+                    <Item id="43038" name="Find style"/>
+                    <Item id="43039" name="1st style"/>
+                    <Item id="43040" name="2nd style"/>
+                    <Item id="43041" name="3rd style"/>
+                    <Item id="43042" name="4th style"/>
+                    <Item id="43043" name="5th style"/>
+                    <Item id="43044" name="Find style"/>
+                    <Item id="43045" name="گەڕان لە ئەنجامی پەنجەرە"/>
+                    <Item id="43046" name="گەڕان لە ئەنجامی داهاتوو"/>
+                    <Item id="43047" name="گەڕان لە ئەنجامی پێشوو"/>
+                    <Item id="43048" name="دەستنیشانكردن لەگەڵ گەڕان لە داهاتوو"/>
+                    <Item id="43049" name="دەستنیشانكردن لەگەڵ گەڕان لە پێشوو"/>
+					<Item id="43054" name="نیشانە..."/>
+                    <Item id="44009" name="Post-It"/>
+                    <Item id="44010" name="Fold All"/>
+                    <Item id="44019" name="Show All Characters"/>
+                    <Item id="44020" name="Show Indent Guide"/>
+                    <Item id="44022" name="Wrap"/>
+                    <Item id="44023" name="Zoom &amp;In Ctrl+Mouse Wheel Up"/>
+                    <Item id="44024" name="Zoom &amp;Out    Ctrl+Mouse Wheel Down"/>
+                    <Item id="44025" name="Show White Space and TAB"/>
+                    <Item id="44026" name="Show End of Line"/>
+                    <Item id="44029" name="Unfold All"/>
+                    <Item id="44030" name="Collapse Current Level"/>
+                    <Item id="44031" name="Uncollapse Current Level"/>
+                    <Item id="44049" name="Summary..."/>
+                    <Item id="44080" name="نەخشەی بەڵگەنامە"/>
+                    <Item id="44084" name="لیستی فرمانەكان"/>
+                    <Item id="44085" name="بوخچە لە &amp;Workspace"/>
+                    <Item id="44086" name="1st Tab"/>
+                    <Item id="44087" name="2nd Tab"/>
+                    <Item id="44088" name="3rd Tab"/>
+                    <Item id="44089" name="4th Tab"/>
+                    <Item id="44090" name="5th Tab"/>
+                    <Item id="44091" name="6th Tab"/>
+                    <Item id="44092" name="7th Tab"/>
+                    <Item id="44093" name="8th Tab"/>
+                    <Item id="44094" name="9th Tab"/>
+                    <Item id="44095" name="تابی داهاتوو"/>
+                    <Item id="44096" name="تابی پێشوو"/>
+                    <Item id="44097" name="Monitoring (tail -f)"/>
+                    <Item id="44098" name="گواستنەوەی تاب بۆ پێشەوە"/>
+                    <Item id="44099" name="گواستنەوەی تاب بۆ دواوە"/>
+                    <Item id="44032" name="زامنكردنی شێوازی پڕ بە ڕوونما"/>
+                    <Item id="44033" name="گەڕاندنەوەی بنەڕەتی زووم"/>
+                    <Item id="44034" name="هەمیشە لەسەرەوە"/>
+                    <Item id="44035" name="Synchronise Vertical Scrolling"/>
+                    <Item id="44036" name="Synchronise Horizontal Scrolling"/>
+                    <Item id="44041" name="Show Wrap Symbol"/>
+                    <Item id="44072" name="Focus on Another View"/>
+                    <Item id="44081" name="Project Panel 1"/>
+                    <Item id="44082" name="Project Panel 2"/>
+                    <Item id="44083" name="Project Panel 3"/>
+                    <Item id="45001" name="Convert to Windows Format"/>
+                    <Item id="45002" name="Convert to UNIX Format"/>
+                    <Item id="45003" name="Convert to MAC Format"/>
+                    <Item id="45004" name="Encode in ANSI"/>
+                    <Item id="45005" name="Encode in UTF-8"/>
+                    <Item id="45006" name="Encode in UCS-2 Big Endian"/>
+                    <Item id="45007" name="Encode in UCS-2 Little Endian"/>
+                    <Item id="45008" name="Encode in UTF-8 without BOM"/>
+                    <Item id="45009" name="Convert to ANSI"/>
+                    <Item id="45010" name="Convert to UTF-8 without BOM"/>
+                    <Item id="45011" name="Convert to UTF-8"/>
+                    <Item id="45012" name="Convert to UCS-2 Big Endian"/>
+                    <Item id="45013" name="Convert to UCS-2 Little Endian"/>
+
+                    <Item id="10001" name="Move to Other View"/>
+                    <Item id="10002" name="Clone to Other View"/>
+                    <Item id="10003" name="Move to New Instance"/>
+                    <Item id="10004" name="Open in New Instance"/>
+
+                    <Item id="46001" name="Style Configurator..."/>
+                    <Item id="46250" name="Define your language..."/>
+                    <Item id="46180" name="User-Defined"/>
+                    <Item id="47000" name="دەربارەی Notepad++..."/>
+                    <Item id="47010" name="Command Line Arguments..."/>
+                    <Item id="47001" name="Notepad++ Home"/>
+                    <Item id="47002" name="Notepad++ Project Page"/>
+                    <Item id="47003" name="Online Documentation"/>
+					<Item id="47004" name="Notepad++ Community (Forum)"/>
+                    <Item id="47011" name="پشتگیری ڕاستەوخۆ"/>
+                    <Item id="47012" name="Debug Info..."/>
+                    <Item id="47005" name="پێوەكراوی زیاتر"/>
+                    <Item id="47006" name="نوێكردنەوەی Notepad++"/>
+                    <Item id="47009" name="Set Updater Proxy..."/>
+                    <Item id="48005" name="بەرزكردنەوەی پێوەكراوەكان(s) ..."/>
+                    <Item id="48006" name="هاوردەكردنی قالبەكان(s) ..."/>
+                    <Item id="48018" name="Edit Popup ContextMenu"/>
+                    <Item id="48009" name="Shortcut Mapper..."/>
+                    <Item id="48011" name="بژاردەكان..."/>
+                    <Item id="48501" name="Generate..."/>
+                    <Item id="48502" name="Generate from files..."/>
+                    <Item id="48503" name="Generate into clipboard"/>
+                    <Item id="49000" name="&amp;به‌ڕێوه‌به‌ردن..."/>
+
+                    <Item id="50000" name="Function Completion"/>
+                    <Item id="50001" name="Word Completion"/>
+                    <Item id="50002" name="Function Parameters Hint"/>
+                    <Item id="50006" name="Path Completion"/>
+                    <Item id="44042" name="شاردنەوەی هێلەكان"/>
+                    <Item id="42040" name="كردنەوەی هەموو پەڕگەكانی بەم دوواییە"/>
+                    <Item id="42041" name="لیستی پەڕگەكانی بەم دوواییە بەتاڵە"/>
+                    <Item id="48016" name="Modify Shortcut/Delete Macro..."/>
+                    <Item id="48017" name="Modify Shortcut/Delete Command..."/>
+                </Commands>
+            </Main>
+            <Splitter>
+            </Splitter>
+            <TabBar>
+                    <Item CMID="0" name="داخستن"/>
+                    <Item CMID="1" name="Close All BUT This"/>
+                    <Item CMID="2" name="پاشەكەوتكردن"/>
+                    <Item CMID="3" name="پاشەكەوتكردن لە..."/>
+                    <Item CMID="4" name="چاپكردن"/>
+                    <Item CMID="5" name="گواستنەوە بۆ بینینی زیاتر"/>
+                    <Item CMID="6" name="لێكچوون بۆ بینینی زیاتر"/>
+                    <Item CMID="7" name="Full File Path to Clipboard"/>
+                    <Item CMID="8" name="Filename to Clipboard"/>
+                    <Item CMID="9" name="Current Dir. Path to Clipboard"/>
+                    <Item CMID="10" name="ناونانه‌وه‌"/>
+                    <Item CMID="11" name="گواستنەوە بۆ تەنەكەی خۆڵ"/>
+                    <Item CMID="12" name="Read-Only"/>
+                    <Item CMID="13" name="Clear Read-Only Flag"/>
+                    <Item CMID="14" name="Move to New Instance"/>
+                    <Item CMID="15" name="Open in New Instance"/>
+                    <Item CMID="16" name="باركردنەوە"/>
+                    <Item CMID="17" name="داخستنی هەموو بۆ لای چەپ"/>
+                    <Item CMID="18" name="داخستنی هەموو بۆ لای ڕاست"/>
+                    <Item CMID="19" name="كردنەوەی بوخچەی پەیوەندیدار لە دۆزه‌ر"/>
+                    <Item CMID="20" name="كردنەوەی بوخچەی پەیوەندیدار لە cmd"/>
+					<Item CMID="21" name="كردنەوە لە بنەڕەتی بینین"/>
+            </TabBar>
+        </Menu>
+
+        <Dialog>
+            <Find title="" titleFind="گەڕان" titleReplace="گۆڕین" titleFindInFiles="گەڕان لە پەڕگە" titleMark="نیشانكردن">
+                <Item id="1"    name="گەڕان لە داهاتوو"/>
+                <Item id="1722" name="Backward direction"/>
+                <Item id="2"    name="داخستن"/>
+                <Item id="1620" name="گەڕان لە:"/>
+                <Item id="1603" name="Match &amp;whole word only"/>
+                <Item id="1604" name="Match &amp;case"/>
+                <Item id="1605" name="Regular &amp;expression"/>
+                <Item id="1606" name="Wrap aroun&amp;d"/>
+                <Item id="1614" name="ژماردن"/>
+                <Item id="1615" name="گەڕان لە هەموو"/>
+                <Item id="1616" name="نیشانكردنی هێل"/>
+                <Item id="1618" name="Purge for each search"/>
+                <Item id="1611" name="گۆ&amp;ڕین بۆ:"/>
+                <Item id="1608" name="&amp;گۆڕین"/>
+                <Item id="1609" name="گۆڕینی &amp;هەموو"/>
+                <Item id="1687" name="On losing focus"/>
+                <Item id="1688" name="هەمیشە"/>
+                <Item id="1632" name="لە دیاریكردن"/>
+                <Item id="1633" name="پاكردنەوە"/>
+                <Item id="1635" name="گۆڕینی گشتی لە گشت بەڵگەنامە كراوەكان"/>
+                <Item id="1636" name="گەڕان لە گشتی لە گشت بەڵگەنامە كراوەكان"/>
+                <Item id="1654" name="فلتەرەكان:"/>
+                <Item id="1655" name="پێڕست:"/>
+                <Item id="1656" name="گەڕان لەهەموو"/>
+                <Item id="1658" name="لە هەموو بوخچە لاوەكیەكان"/>
+                <Item id="1659" name="لە هەموو بوخچە شاراوەكان"/>
+                <Item id="1624" name="شێوازی گەڕان"/>
+                <Item id="1625" name="ئاسایی"/>
+                <Item id="1626" name="Extended (\n, \r, \t, \0, \x...)"/>
+                <Item id="1660" name="گۆڕین لە پەڕگە"/>
+                <Item id="1661" name="شوێنكەوتنی بەڵگەنامەی ئێستا."/>
+                <Item id="1641" name="گەڕان لە بەڵگەنامەكانی ئێستا"/>
+                <Item id="1686" name="ڕوونی"/>
+                <Item id="1703" name="&amp;. matches newline"/>
+            </Find>
+
+            <FindCharsInRange title="Find Characters in Range...">
+                <Item id="2" name="داخستن"/>
+                <Item id="2901" name="Non-ASCII Characters (128-255)"/>
+                <Item id="2902" name="ASCII Characters (0-127)"/>
+                <Item id="2903" name="My range:"/>
+                <Item id="2906" name="&amp;سەرەوە"/>
+                <Item id="2907" name="&amp;خوارەوە"/>
+                <Item id="2908" name="ئاڕاستە"/>
+                <Item id="2909" name="Wra&amp;p around"/>
+                <Item id="2910" name="گەڕان"/>
+            </FindCharsInRange>
+
+            <GoToLine title="بڕۆ بۆ...">
+                <Item id="2007" name="هێل"/>
+                <Item id="2008" name="پارسەنگ"/>
+                <Item id="1"    name="&amp;بڕۆ"/>
+                <Item id="2"    name="I'm going nowhere"/>
+                <Item id="2004" name="تۆ لێرەیت:"/>
+                <Item id="2005" name="تۆ دەتەوێت بڕۆیت بۆ:"/>
+                <Item id="2006" name="You can't go further than:"/>
+            </GoToLine>
+
+            <Run title="به‌ڕێوه‌به‌ردن...">
+                <Item id="1903" name="The Program to Run"/>
+                <Item id="1"    name="به‌ڕێوه‌به‌ردن"/>
+                <Item id="2"    name="هه‌ڵوه‌شاندنه‌وه"/>
+                <Item id="1904" name="پاشەكەوتكردن..."/>
+            </Run>
+
+            <MD5FromFilesDlg title="Generate MD5 digest from files">
+                <Item id="1922" name="Choose files to generate MD5..."/>
+                <Item id="1924" name="Copy to Clipboard"/>
+                <Item id="2"    name="داخستن"/>
+            </MD5FromFilesDlg>
+
+            <MD5FromTextDlg title="Generate MD5 digest">
+                <Item id="1932" name="Treat each line as a separate string"/>
+                <Item id="1934" name="Copy to Clipboard"/>
+                <Item id="2"    name="داخستن"/>
+            </MD5FromTextDlg>
+
+            <StyleConfig title="Style Configurator">
+                <Item id="2"    name="هه‌ڵوه‌شاندنه‌وه"/>
+                <Item id="2301" name="پاشەكەوتكردن &amp;&amp; داخستن"/>
+                <Item id="2303" name="ڕوونی"/>
+                <Item id="2306" name="دیاریكردنی قالب: "/>
+                <SubDialog>
+                    <Item id="2204" name="Bold"/>
+                    <Item id="2205" name="Italic"/>
+                    <Item id="2206" name="Foreground colour"/>
+                    <Item id="2207" name="Background colour"/>
+                    <Item id="2208" name="Font name:"/>
+                    <Item id="2209" name="Font size:"/>
+                    <Item id="2211" name="Style:"/>
+                    <Item id="2212" name="Colour Style"/>
+                    <Item id="2213" name="Font Style"/>
+                    <Item id="2214" name="Default ext.:"/>
+                    <Item id="2216" name="User ext.:"/>
+                    <Item id="2218" name="Underline"/>
+                    <Item id="2219" name="Default keywords"/>
+                    <Item id="2221" name="User-defined keywords"/>
+                    <Item id="2225" name="زمان:"/>
+                    <Item id="2226" name="Enable global foreground colour"/>
+                    <Item id="2227" name="Enable global background colour"/>
+                    <Item id="2228" name="Enable global font"/>
+                    <Item id="2229" name="Enable global font size"/>
+                    <Item id="2230" name="Enable global bold font style"/>
+                    <Item id="2231" name="Enable global italic font style"/>
+                    <Item id="2232" name="Enable global underline font style"/>
+                </SubDialog>
+
+            </StyleConfig>
+
+            <UserDefine title="پێناسەی بەكارهێنەر">
+                <Item id="20001" name="Dock"/>
+                <Item id="20002" name="ناونانه‌وه‌"/>
+                <Item id="20003" name="دروستكردنی نوێ..."/>
+                <Item id="20004" name="لابردن"/>
+                <Item id="20005" name="پاشەكەوتكردن لە..."/>
+                <Item id="20007" name="زمانی بەكارهێنەر: "/>
+                <Item id="20009" name="دەرەوە.:"/>
+                <Item id="20012" name="پشتگوێخستنی حاڵەت"/>
+                <Item id="20011" name="ڕوونی"/>
+                <Item id="20015" name="هاورده‌..."/>
+                <Item id="20016" name="هه‌نارده..."/>
+                <StylerDialog title="Styler Dialog">
+                    <Item id="25030" name="Font options:"/>
+                    <Item id="25006" name="Foreground colour"/>
+                    <Item id="25007" name="Background colour"/>
+                    <Item id="25031" name="Name:"/>
+                    <Item id="25032" name="Size:"/>
+                    <Item id="25001" name="Bold"/>
+                    <Item id="25002" name="Italic"/>
+                    <Item id="25003" name="Underline"/>
+                    <Item id="25029" name="Nesting:"/>
+                    <Item id="25008" name="Delimiter 1"/>
+                    <Item id="25009" name="Delimiter 2"/>
+                    <Item id="25010" name="Delimiter 3"/>
+                    <Item id="25011" name="Delimiter 4"/>
+                    <Item id="25012" name="Delimiter 5"/>
+                    <Item id="25013" name="Delimiter 6"/>
+                    <Item id="25014" name="Delimiter 7"/>
+                    <Item id="25015" name="Delimiter 8"/>
+                    <Item id="25018" name="Keyword 1"/>
+                    <Item id="25019" name="Keyword 2"/>
+                    <Item id="25020" name="Keyword 3"/>
+                    <Item id="25021" name="Keyword 4"/>
+                    <Item id="25022" name="Keyword 5"/>
+                    <Item id="25023" name="Keyword 6"/>
+                    <Item id="25024" name="Keyword 7"/>
+                    <Item id="25025" name="Keyword 8"/>
+                    <Item id="25016" name="Comment"/>
+                    <Item id="25017" name="Comment line"/>
+                    <Item id="25026" name="Operator 1"/>
+                    <Item id="25027" name="Operator 2"/>
+                    <Item id="25028" name="ژمارەكان"/>
+					<Item id="1" name="باشە"/>
+                    <Item id="2" name="هەڵوەشاندنەوە"/>
+                </StylerDialog>
+                <Folder title="بوخچەی &amp;&amp; بنەڕەت">
+                    <Item id="21101" name="ستایلی بنەڕەت"/>
+                    <Item id="21102" name="Styler"/>
+                    <Item id="21105" name="Documentation:"/>
+                    <Item id="21104" name="Temporary doc site:"/>
+                    <Item id="21106" name="Fold compact (fold empty lines too)"/>
+                    <Item id="21220" name="Folding in code 1 style:"/>
+                    <Item id="21224" name="Open:"/>
+                    <Item id="21225" name="Middle:"/>
+                    <Item id="21226" name="Close:"/>
+                    <Item id="21227" name="Styler"/>
+                    <Item id="21320" name="Folding in code 2 style (separators needed):"/>
+                    <Item id="21324" name="Open:"/>
+                    <Item id="21325" name="Middle:"/>
+                    <Item id="21326" name="Close:"/>
+                    <Item id="21327" name="Styler"/>
+                    <Item id="21420" name="Folding in comment style:"/>
+                    <Item id="21424" name="Open:"/>
+                    <Item id="21425" name="Middle:"/>
+                    <Item id="21426" name="Close:"/>
+                    <Item id="21427" name="Styler"/>
+                </Folder>
+                <Keywords title="Keywords Lists">
+                    <Item id="22101" name="1st Group"/>
+                    <Item id="22201" name="2nd Group"/>
+                    <Item id="22301" name="3rd Group"/>
+                    <Item id="22401" name="4th Group"/>
+                    <Item id="22451" name="5th Group"/>
+                    <Item id="22501" name="6th Group"/>
+                    <Item id="22551" name="7th Group"/>
+                    <Item id="22601" name="8th Group"/>
+                    <Item id="22121" name="Prefix mode"/>
+                    <Item id="22221" name="Prefix mode"/>
+                    <Item id="22321" name="Prefix mode"/>
+                    <Item id="22421" name="Prefix mode"/>
+                    <Item id="22471" name="Prefix mode"/>
+                    <Item id="22521" name="Prefix mode"/>
+                    <Item id="22571" name="Prefix mode"/>
+                    <Item id="22621" name="Prefix mode"/>
+                    <Item id="22122" name="Styler"/>
+                    <Item id="22222" name="Styler"/>
+                    <Item id="22322" name="Styler"/>
+                    <Item id="22422" name="Styler"/>
+                    <Item id="22472" name="Styler"/>
+                    <Item id="22522" name="Styler"/>
+                    <Item id="22572" name="Styler"/>
+                    <Item id="22622" name="Styler"/>
+                </Keywords>
+                <Comment title="Comment &amp;&amp; Number">
+                    <Item id="23003" name="Line comment position"/>
+                    <Item id="23004" name="Allow anywhere"/>
+                    <Item id="23005" name="Force at beginning of line"/>
+                    <Item id="23006" name="Allow preceding whitespace"/>
+                    <Item id="23001" name="Allow folding of comments"/>
+                    <Item id="23326" name="Styler"/>
+                    <Item id="23323" name="Open"/>
+                    <Item id="23324" name="Continue character"/>
+                    <Item id="23325" name="Close"/>
+                    <Item id="23301" name="Comment line style"/>
+                    <Item id="23124" name="Styler"/>
+                    <Item id="23122" name="Open"/>
+                    <Item id="23123" name="Close"/>
+                    <Item id="23101" name="Comment style"/>
+                    <Item id="23201" name="Number style"/>
+                    <Item id="23220" name="Styler"/>
+                    <Item id="23230" name="Prefix 1"/>
+                    <Item id="23232" name="Prefix 2"/>
+                    <Item id="23234" name="Extras 1"/>
+                    <Item id="23236" name="Extras 2"/>
+                    <Item id="23238" name="Suffix 1"/>
+                    <Item id="23240" name="Suffix 2"/>
+                    <Item id="23242" name="Range:"/>
+                    <Item id="23244" name="Decimal separator"/>
+                    <Item id="23245" name="Dot"/>
+                    <Item id="23246" name="Comma"/>
+                    <Item id="23247" name="Both"/>
+                </Comment>
+                <Operator title="Operators &amp;&amp; Delimiter">
+                    <Item id="24101" name="Operators style"/>
+                    <Item id="24113" name="Styler"/>
+                    <Item id="24116" name="Operators 1"/>
+                    <Item id="24117" name="Operators 2 (separators required)"/>
+                    <Item id="24201" name="Delimiter 1 style"/>
+                    <Item id="24220" name="Open:"/>
+                    <Item id="24221" name="Escape:"/>
+                    <Item id="24222" name="Close:"/>
+                    <Item id="24223" name="Styler"/>
+                    <Item id="24301" name="Delimiter 2 style"/>
+                    <Item id="24320" name="Open:"/>
+                    <Item id="24321" name="Escape:"/>
+                    <Item id="24322" name="Close:"/>
+                    <Item id="24323" name="Styler"/>
+                    <Item id="24401" name="Delimiter 3 style"/>
+                    <Item id="24420" name="Open:"/>
+                    <Item id="24421" name="Escape:"/>
+                    <Item id="24422" name="Close:"/>
+                    <Item id="24423" name="Styler"/>
+                    <Item id="24451" name="Delimiter 4 style"/>
+                    <Item id="24470" name="Open:"/>
+                    <Item id="24471" name="Escape:"/>
+                    <Item id="24472" name="Close:"/>
+                    <Item id="24473" name="Styler"/>
+                    <Item id="24501" name="Delimiter 5 style"/>
+                    <Item id="24520" name="Open:"/>
+                    <Item id="24521" name="Escape:"/>
+                    <Item id="24522" name="Close:"/>
+                    <Item id="24523" name="Styler"/>
+                    <Item id="24551" name="Delimiter 6 style"/>
+                    <Item id="24570" name="Open:"/>
+                    <Item id="24571" name="Escape:"/>
+                    <Item id="24572" name="Close:"/>
+                    <Item id="24573" name="Styler"/>
+                    <Item id="24601" name="Delimiter 7 style"/>
+                    <Item id="24620" name="Open:"/>
+                    <Item id="24621" name="Escape:"/>
+                    <Item id="24622" name="Close:"/>
+                    <Item id="24623" name="Styler"/>
+                    <Item id="24651" name="Delimiter 8 style"/>
+                    <Item id="24670" name="Open:"/>
+                    <Item id="24671" name="Escape:"/>
+                    <Item id="24672" name="Close:"/>
+                    <Item id="24673" name="Styler"/>
+                </Operator>
+            </UserDefine>
+            <Preference title="بژاردەكان">
+                <Item id="6001" name="داخستن"/>
+                <Global title="گشتی">
+                    <Item id="6101" name="تووڵامراز"/>
+                    <Item id="6102" name="شاردنەوە"/>
+                    <Item id="6103" name="ئایكۆنی بچووك"/>
+                    <Item id="6104" name="ئایكۆنی گەورە"/>
+                    <Item id="6105" name="ئایكۆنی ستاندارد"/>
+
+                    <Item id="6106" name="Tab Bar"/>
+                    <Item id="6107" name="Reduce"/>
+                    <Item id="6108" name="Lock (no drag and drop)"/>
+                    <Item id="6109" name="Darken inactive tabs"/>
+                    <Item id="6110" name="Draw a coloured bar on active tab"/>
+
+                    <Item id="6111" name="Show status bar"/>
+                    <Item id="6112" name="Show close button on each tab"/>
+                    <Item id="6113" name="Double click to close document"/>
+                    <Item id="6118" name="Hide"/>
+                    <Item id="6119" name="Multi-line"/>
+                    <Item id="6120" name="Vertical"/>
+                    <Item id="6121" name="Exit on close the last tab"/>
+
+                    <Item id="6122" name="Hide menu bar (use Alt or F10 key to toggle)"/>
+                    <Item id="6123" name="Localization"/>
+
+                    <Item id="6125" name="Document List Panel"/>
+                    <Item id="6126" name="Show"/>
+                    <Item id="6127" name="Disable extension column"/>
+                </Global>
+                <Scintillas title="دەستكاریەكان">
+                    <Item id="6216" name="Caret Settings"/>
+                    <Item id="6217" name="Width:"/>
+                    <Item id="6219" name="Blink Rate:"/>
+                    <Item id="6221" name="F"/>
+                    <Item id="6222" name="S"/>
+                    <Item id="6224" name="Multi-Editing Settings"/>
+                    <Item id="6225" name="Enable (Ctrl+Mouse click/selection)"/>
+                    <Item id="6201" name="Folder Margin Style"/>
+                    <Item id="6202" name="Simple"/>
+                    <Item id="6203" name="Arrow"/>
+                    <Item id="6204" name="Circle tree"/>
+                    <Item id="6205" name="Box tree"/>
+                    <Item id="6226" name="None"/>
+
+                    <Item id="6227" name="Line Wrap"/>
+                    <Item id="6228" name="Default"/>
+                    <Item id="6229" name="Aligned"/>
+                    <Item id="6230" name="Indent"/>
+
+                    <Item id="6206" name="Display line numbers"/>
+                    <Item id="6207" name="Display bookmarks"/>
+                    <Item id="6208" name="Show vertical edge"/>
+                    <Item id="6209" name="Number of columns: "/>
+                    <Item id="6234" name="Disable advanced scrolling feature
+(if you have touchpad problem)"/>
+
+                    <Item id="6211" name="Vertical Edge Settings"/>
+                    <Item id="6212" name="Line mode"/>
+                    <Item id="6213" name="Background mode"/>
+                    <Item id="6214" name="Enable current line highlighting"/>
+					<Item id="6215" name="Enable smooth font"/>
+                    <Item id="6231" name="Border Width"/>
+                    <Item id="6235" name="No edge"/>
+                    <Item id="6236" name="Enable scrolling beyond last line"/>
+                </Scintillas>
+
+                <NewDoc title="بەڵگەنامەی نوێ">
+                    <Item id="6401" name="Format"/>
+                    <Item id="6402" name="Windows"/>
+                    <Item id="6403" name="Unix"/>
+                    <Item id="6404" name="Mac"/>
+                    <Item id="6405" name="Encoding"/>
+                    <Item id="6406" name="ANSI"/>
+                    <Item id="6407" name="UTF-8"/>
+                    <Item id="6408" name="UTF-8 with BOM"/>
+                    <Item id="6409" name="UCS-2 Big Endian with BOM"/>
+                    <Item id="6410" name="UCS-2 Little Endian with BOM"/>
+                    <Item id="6411" name="Default language:"/>
+                    <Item id="6419" name="New Document"/>
+                    <Item id="6420" name="Apply to opened ANSI files"/>
+                </NewDoc>
+
+                <DefaultDir title="ڕێبەری بنەڕەت">
+                    <Item id="6413" name="Default Directory (Open/Save)"/>
+                    <Item id="6414" name="Follow current document"/>
+                    <Item id="6415" name="Remember last used directory"/>
+                    <Item id="6430" name="Use new style save dialog (without file extension feature)"/>
+                    <Item id="6431" name="Open all files of folder instead of launching Folder as Workspace on folder dropping"/>
+                </DefaultDir>
+
+                <FileAssoc title="كۆمەڵە پەڕگەكان">
+                    <Item id="4009" name="Supported extensions:"/>
+                    <Item id="4010" name="Registered extensions:"/>
+                </FileAssoc>
+                <Language title="زمان">
+                    <Item id="6505" name="Available items"/>
+                    <Item id="6506" name="Disabled items"/>
+                    <Item id="6507" name="Make language menu compact"/>
+                    <Item id="6508" name="Language Menu"/>
+					<Item id="6301" name="Tab Settings"/>
+                    <Item id="6302" name="Replace by space"/>
+                    <Item id="6303" name="Tab size: "/>
+                    <Item id="6510" name="Use default value"/>
+                </Language>
+
+                <Highlighting title="Highlighting">
+                    <Item id="6333" name="Smart Highlighting"/>
+                    <Item id="6326" name="Enable smart highlighting"/>
+					<Item id="6332" name="Match case"/>
+					<Item id="6338" name="Match whole word only"/>
+					<Item id="6339" name="Use Find dialog settings"/>
+                    <Item id="6340" name="Highlight another view"/>
+                    <Item id="6329" name="Highlight Matching Tags"/>
+                    <Item id="6327" name="Enable"/>
+                    <Item id="6328" name="Highlight tag attributes"/>
+                    <Item id="6330" name="Highlight comment/php/asp zone"/>
+                </Highlighting>
+
+                <Print title="چاپكردن">
+                    <Item id="6601" name="Print line number"/>
+                    <Item id="6602" name="Colour Options"/>
+                    <Item id="6603" name="WYSIWYG"/>
+                    <Item id="6604" name="Invert"/>
+                    <Item id="6605" name="Black on white"/>
+                    <Item id="6606" name="No background colour"/>
+                    <Item id="6607" name="Marge Settings (Unit:mm)"/>
+                    <Item id="6612" name="Left"/>
+                    <Item id="6613" name="Top"/>
+                    <Item id="6614" name="Right"/>
+                    <Item id="6615" name="Bottom"/>
+                    <Item id="6706" name="Bold"/>
+                    <Item id="6707" name="Italic"/>
+                    <Item id="6708" name="Header"/>
+                    <Item id="6709" name="Left part"/>
+                    <Item id="6710" name="Middle part"/>
+                    <Item id="6711" name="Right part"/>
+                    <Item id="6717" name="Bold"/>
+                    <Item id="6718" name="Italic"/>
+                    <Item id="6719" name="Footer"/>
+                    <Item id="6720" name="Left part"/>
+                    <Item id="6721" name="Middle part"/>
+                    <Item id="6722" name="Right part"/>
+                    <Item id="6723" name="Add"/>
+                    <Item id="6725" name="Variable:"/>
+                    <Item id="6727" name="Here display your variable settings"/>
+                    <Item id="6728" name="Header and Footer"/>
+                </Print>
+
+                <RecentFilesHistory title="مێژووی پەڕگەكانی بەم دوواییە">
+                    <Item id="6304" name="Recent Files History"/>
+                    <Item id="6306" name="Max. number of entries:"/>
+                    <Item id="6305" name="Don't check at launch time"/>
+                    <Item id="6429" name="Display"/>
+                    <Item id="6424" name="In Submenu"/>
+                    <Item id="6425" name="Only File Name"/>
+                    <Item id="6426" name="Full File Name Path"/>
+                    <Item id="6427" name="Customize Maximum Length:"/>
+                </RecentFilesHistory>
+
+                <Backup title="یەدەگ(باك ئەپ)">
+                    <Item id="6817" name="Session snapshot and periodic backup"/>
+                    <Item id="6818" name="Enable session snapshot and periodic backup"/>
+                    <Item id="6819" name="Backup in every"/>
+                    <Item id="6821" name="seconds"/>
+                    <Item id="6822" name="Backup path:"/>
+                    <Item id="6309" name="Remember current session for next launch"/>
+                    <Item id="6801" name="Backup"/>
+                    <Item id="6315" name="None"/>
+                    <Item id="6316" name="Simple backup"/>
+                    <Item id="6317" name="Verbose backup"/>
+                    <Item id="6804" name="Custom Backup Directory"/>
+                    <Item id="6803" name="Directory:"/>
+                </Backup>
+
+                <AutoCompletion title="Auto-Completion">
+                    <Item id="6807" name="Auto-Completion"/>
+                    <Item id="6808" name="Enable auto-completion on each input"/>
+                    <Item id="6809" name="Function completion"/>
+                    <Item id="6810" name="Word completion"/>
+                    <Item id="6816" name="Function and word completion"/>
+                    <Item id="6824" name="Ignore numbers"/>
+                    <Item id="6811" name="From"/>
+                    <Item id="6813" name="th character"/>
+                    <Item id="6814" name="Valid value: 1 - 9"/>
+                    <Item id="6815" name="Function parameters hint on input"/>
+                    <Item id="6851" name="Auto-Insert"/>
+                    <Item id="6857" name=" html/xml close tag"/>
+                    <Item id="6858" name="Open"/>
+                    <Item id="6859" name="Close"/>
+                    <Item id="6860" name="Matched pair 1:"/>
+                    <Item id="6863" name="Matched pair 2:"/>
+                    <Item id="6866" name="Matched pair 3:"/>
+                </AutoCompletion>
+
+                <MultiInstance title="Multi-Instance">
+                    <Item id="6151" name="Multi-instance settings"/>
+                    <Item id="6152" name="Open session in a new instance of Notepad++"/>
+                    <Item id="6153" name="Always in multi-instance mode"/>
+                    <Item id="6154" name="Default (mono-instance)"/>
+                    <Item id="6155" name="* The modification of this setting needs to restart Notepad++"/>
+                </MultiInstance>
+
+                <Delimiter title="Delimiter">
+                    <Item id="6251" name="Delimiter selection settings (Ctrl+Mouse double click)"/>
+                    <Item id="6252" name="Open"/>
+                    <Item id="6255" name="Close"/>
+                    <Item id="6256" name="Allow on several lines"/>
+					<Item id="6161" name="Word character list"/>
+                    <Item id="6162" name="Use default Word character list as it is"/>
+                    <Item id="6163" name="Add your character as part of word
+(don't choose it unless you know what you're doing)"/>
+                </Delimiter>
+
+                <Cloud title="هەوری">
+                    <Item id="6262" name="Settings on cloud"/>
+                    <Item id="6263" name="No Cloud"/>
+                    <Item id="6267" name="Set your cloud location path here:"/>
+                </Cloud>
+				
+                <SearchEngine title="بزوێنەری گەڕان">
+                    <Item id="6271" name="Search Engine (for command &quot;Search on Internet&quot;)"/>
+                    <Item id="6272" name="DuckDuckGo"/>
+                    <Item id="6273" name="Google"/>
+                    <Item id="6274" name="Bing"/>
+                    <Item id="6275" name="Yahoo!"/>
+                    <Item id="6276" name="Set your search engine here:"/>
+                    <!-- Don't change anything after Example: -->
+                    <Item id="6278" name="Example: https://www.google.com/search?q=$(CURRENT_WORD)"/>
+                </SearchEngine>
+
+                <MISC title="MISC.">
+                    <Item id="6307" name="Enable"/>
+                    <Item id="6308" name="Minimize to system tray"/>
+                    <Item id="6312" name="File Status Auto-Detection"/>
+                    <Item id="6313" name="Update silently"/>
+                    <Item id="6318" name="Clickable Link Settings"/>
+                    <Item id="6325" name="Scroll to the last line after update"/>
+                    <Item id="6319" name="Enable"/>
+                    <Item id="6320" name="No underline"/>
+                    <Item id="6322" name="Session file ext.:"/>
+                    <Item id="6323" name="چالاكردنی نوێكردنەوەی Notepad++ بەشێوەیەكی خودكار"/>
+                    <Item id="6324" name="Document Switcher (Ctrl+TAB)"/>
+                    <Item id="6331" name="Show only filename in title bar"/>
+                    <Item id="6334" name="Autodetect character encoding"/>
+                    <Item id="6335" name="Treat backslash as escape character for SQL"/>
+                    <Item id="6337" name="Workspace file ext.:"/>
+                    <Item id="6114" name="Enable"/>
+                    <Item id="6115" name="Auto-indent"/>
+                    <Item id="6117" name="Enable MRU behaviour"/>
+                    <Item id="6344" name="Document Peeker"/>
+                    <Item id="6345" name="Peek on tab"/>
+                    <Item id="6346" name="Peek on document map"/>
+                </MISC>
+            </Preference>
+            <MultiMacro title="Run a Macro Multiple Times">
+                <Item id="1" name="Run"/>
+                <Item id="2" name="Cancel"/>
+                <Item id="8006" name="Macro to run:"/>
+                <Item id="8001" name="Run"/>
+                <Item id="8005" name="times"/>
+                <Item id="8002" name="Run until the end of file"/>
+            </MultiMacro>
+            <Window title="پەنجەرەكان">
+                <Item id="1" name="چالاكردن"/>
+                <Item id="2" name="باشە"/>
+                <Item id="7002" name="پاشەكەوتكردن"/>
+                <Item id="7003" name="داخستنی پەنجەرە(s)"/>
+                <Item id="7004" name="ڕیزكردنی تابەكان"/>
+            </Window>
+            <ColumnEditor title="Column Editor">
+                <Item id="2023" name="Text to Insert"/>
+                <Item id="2033" name="Number to Insert"/>
+                <Item id="2030" name="Initial number:"/>
+                <Item id="2031" name="Increase by:"/>
+                <Item id="2035" name="Leading zeros"/>
+                <Item id="2036" name="Repeat :"/>
+                <Item id="2032" name="Format"/>
+                <Item id="2024" name="Dec"/>
+                <Item id="2025" name="Oct"/>
+                <Item id="2026" name="Hex"/>
+                <Item id="2027" name="Bin"/>
+                <Item id="1" name="باشە"/>
+                <Item id="2" name="هەڵوەشاندنەوە"/>
+            </ColumnEditor>
+        </Dialog>
+        <MessageBox>
+            <ContextMenuXmlEditWarning title="Editing contextMenu" message="Editing contextMenu.xml allows you to modify your Notepad++ popup context menu.
+You have to restart your Notepad++ to take effect after modifying contextMenu.xml."/>
+            <NppHelpAbsentWarning title="File does not exist" message="
+doesn't exist. Please download it on Notepad++ site."/>
+            <SaveCurrentModifWarning title="Save Current Modification" message="You should save the current modification.
+All the saved modifications can not be undone.
+
+Continue?"/>
+            <LoseUndoAbilityWarning title="Lose Undo Ability Warning" message="You should save the current modification.
+All the saved modifications can not be undone.
+
+Continue?"/>
+            <CannotMoveDoc title="Move to new Notepad++ Instance" message="Document is modified, save it then try again."/>
+            <DocReloadWarning title="Reload" message="Are you sure you want to reload the current file and lose the changes made in Notepad++?"/>
+            <FileLockedWarning title="Save failed" message="Please check whether if this file is opened in another program"/>
+            <FileAlreadyOpenedInNpp title="" message="The file is already opened in the Notepad++."/>
+            <DeleteFileFailed title="Delete File" message="Delete File failed"/>
+
+            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.
+Are you sure to open them?"/>
+			<SettingsOnCloudError title="Settings on Cloud" message="It seems the path of settings on cloud is set on a read only drive,
+or on a folder needed privilege right for writing access.
+Your settings on cloud will be canceled. Please reset a coherent value via Preference dialog."/>
+			<FilePathNotFoundWarning title="File Open" message="The file you're trying to open doesn't exist."/>
+	    <SessionFileInvalidError title="Could not Load Session" message="Session file is either corrupted or not valid."/>
+        </MessageBox>
+        <ClipboardHistory>
+            <PanelTitle name="Clipboard History"/>
+        </ClipboardHistory>
+        <DocSwitcher>
+            <PanelTitle name="Doc Switcher"/>
+            <ColumnName name="Name"/>
+            <ColumnExt name="Ext."/>
+        </DocSwitcher>
+        <AsciiInsertion>
+            <PanelTitle name="ASCII Insertion Panel"/>
+            <ColumnVal name="Value"/>
+            <ColumnHex name="Hex"/>
+            <ColumnChar name="Character"/>
+        </AsciiInsertion>
+        <DocumentMap>
+            <PanelTitle name="نەخشەی بەڵگەنامە"/>
+        </DocumentMap>
+        <FunctionList>
+            <PanelTitle name="لیستی فەرمانەكان"/>
+            <SortTip name="ڕیزكردن" />
+            <ReloadTip name="باركردنەوە" />
+        </FunctionList>
+        <ProjectManager>
+            <PanelTitle name="پڕۆژە"/>
+            <WorkspaceRootName name="Workspace"/>
+            <NewProjectName name="ناوی پڕۆژە"/>
+            <NewFolderName name="ناوی بوخچە"/>
+            <Menus>
+                <Entries>
+                    <Item id="0" name="Workspace"/>
+                    <Item id="1" name="دەستكاری"/>
+                </Entries>
+                <WorkspaceMenu>
+                    <Item id="3122" name="New Workspace"/>
+                    <Item id="3123" name="Open Workspace"/>
+                    <Item id="3124" name="Reload Workspace"/>
+                    <Item id="3125" name="پاشەكەوتكردن"/>
+                    <Item id="3126" name="پاشەكەوتكردن لە..."/>
+                    <Item id="3127" name="پاشەكەوتكردنی لەبەرگرتنەوە لە..."/>
+                    <Item id="3121" name="زیادكردنی پڕۆژەیەكی نوێ"/>
+                </WorkspaceMenu>
+                <ProjectMenu>
+                    <Item id="3111" name="ناونانه‌وه‌"/>
+                    <Item id="3112" name="زیادكردنی بوخچە"/>
+                    <Item id="3113" name="زیادكردنی پەڕگە..."/>
+                    <Item id="3117" name="زیادكردنی پەڕگە لە پێرست..."/>
+                    <Item id="3114" name="لابردن"/>
+                    <Item id="3118" name="بۆ سەرەوە"/>
+                    <Item id="3119" name="بۆ خوارەوە"/>
+                </ProjectMenu>
+                <FolderMenu>
+                    <Item id="3111" name="ناونانه‌وه‌"/>
+                    <Item id="3112" name="زیادكردنی بوخچە"/>
+                    <Item id="3113" name="زیادكردنی پەڕگە..."/>
+                    <Item id="3117" name="زیادكردنی پەڕگە لە پێرست..."/>
+                    <Item id="3114" name="لابردن"/>
+                    <Item id="3118" name="بۆ سەرەوە"/>
+                    <Item id="3119" name="بۆ خوارەوە"/>
+                </FolderMenu>
+                <FileMenu>
+                    <Item id="3111" name="ناونانه‌وه‌"/>
+                    <Item id="3115" name="لابردن"/>
+                    <Item id="3116" name="Modify File Path"/>
+                    <Item id="3118" name="بۆ سەرەوە"/>
+                    <Item id="3119" name="بۆ خوارەوە"/>
+                </FileMenu>
+            </Menus>
+        </ProjectManager>
+        <MiscStrings>
+			<word-chars-list-tip value="This allows you to include additional character into current word characters while double clicking for selection or searching with &quot;Match whole word only&quot; option checked."/>
+            <word-chars-list-warning-begin value="Be aware: "/>
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <word-chars-list-space-warning value="$INT_REPLACE$ space(s)"/>
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <word-chars-list-tab-warning value="$INT_REPLACE$ TAB(s)"/>
+			<word-chars-list-warning-end value="  in your character list."/>
+			<cloud-invalid-warning value="Invalid path."/>
+			<cloud-restart-warning value="Please restart Notepad++ to take effect."/>
+			<shift-change-direction-tip value="Use Shift + Enter to search in the opposite direction"/>
+        </MiscStrings>
+    </Native-Langue>
+</NotepadPlus>

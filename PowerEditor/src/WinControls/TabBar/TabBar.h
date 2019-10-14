@@ -43,6 +43,9 @@
 #define TCN_TABDROPPED (TCN_FIRST - 10)
 #define TCN_TABDROPPEDOUTSIDE (TCN_FIRST - 11)
 #define TCN_TABDELETE (TCN_FIRST - 12)
+#define TCN_MOUSEHOVERING (TCN_FIRST - 13)
+#define TCN_MOUSELEAVING (TCN_FIRST - 14)
+#define TCN_MOUSEHOVERSWITCHING (TCN_FIRST - 15)
 
 #define WM_TABSETSTYLE	(WM_APP + 0x024)
 
@@ -56,8 +59,8 @@ const TCHAR TABBAR_INACTIVETEXT[64] = TEXT("Inactive tabs");
 
 struct TBHDR
 {
-	NMHDR hdr;
-	int tabOrigin;
+	NMHDR _hdr;
+	int _tabOrigin;
 };
 
 
@@ -65,10 +68,10 @@ struct TBHDR
 class TabBar : public Window
 {
 public:
-	TabBar() : Window() {};
-	virtual ~TabBar() {};
+	TabBar() = default;
+	virtual ~TabBar() = default;
 	virtual void destroy();
-	virtual void init(HINSTANCE hInst, HWND hwnd, bool isVertical = false, bool isTraditional = false, bool isMultiLine = false);
+	virtual void init(HINSTANCE hInst, HWND hwnd, bool isVertical = false, bool isMultiLine = false);
 	virtual void reSizeTo(RECT & rc2Ajust);
 	int insertAtEnd(const TCHAR *subTabName);
 	void activateAt(int index) const;
@@ -95,7 +98,7 @@ public:
         return _nbItem;
     }
 
-	void setFont(TCHAR *fontName, int fontSize);
+	void setFont(const TCHAR *fontName, int fontSize);
 
 	void setVertical(bool b) {
 		_isVertical = b;
@@ -115,7 +118,6 @@ protected:
 	HFONT _hVerticalLargeFont = nullptr;
 
 	int _ctrlID = 0;
-	bool _isTraditional = false;
 
 	bool _isVertical = false;
 	bool _isMultiLine = false;
@@ -141,7 +143,7 @@ struct CloseButtonZone
 class TabBarPlus : public TabBar
 {
 public :
-	TabBarPlus() : TabBar() {};
+	TabBarPlus() = default;
 	enum tabColourIndex {
 		activeText, activeFocusedTop, activeUnfocusedTop, inactiveText, inactiveBg
 	};
@@ -150,7 +152,7 @@ public :
         _doDragNDrop = justDoIt;
     };
 
-	virtual void init(HINSTANCE hInst, HWND hwnd, bool isVertical = false, bool isTraditional = false, bool isMultiLine = false);
+	virtual void init(HINSTANCE hInst, HWND hwnd, bool isVertical = false, bool isMultiLine = false);
 
 	virtual void destroy();
 
@@ -221,15 +223,18 @@ protected:
     // it's the boss to decide if we do the drag N drop
     static bool _doDragNDrop;
 	// drag N drop members
+	bool _mightBeDragging = false;
+	int _dragCount = 0;
 	bool _isDragging = false;
 	bool _isDraggingInside = false;
     int _nSrcTab = -1;
 	int _nTabDragged = -1;
+	int _previousTabSwapped = -1;
 	POINT _draggingPoint; // coordinate of Screen
 	WNDPROC _tabBarDefaultProc = nullptr;
 
 	RECT _currentHoverTabRect;
-	int _currentHoverTabItem = -1;
+	int _currentHoverTabItem = -1; // -1 : no mouse on any tab
 
 	CloseButtonZone _closeButtonZone;
 	bool _isCloseHover = false;
@@ -242,6 +247,8 @@ protected:
 	static LRESULT CALLBACK TabBarPlus_Proc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
 		return (((TabBarPlus *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA)))->runProc(hwnd, Message, wParam, lParam));
 	};
+	void setActiveTab(int tabIndex);
+	void exchangeTabItemData(int oldTab, int newTab);
 	void exchangeItemData(POINT point);
 
 
@@ -285,4 +292,7 @@ protected:
 	    return (((screenPoint.x >= parentZone.left) && (screenPoint.x <= parentZone.right)) &&
 			    (screenPoint.y >= parentZone.top) && (screenPoint.y <= parentZone.bottom));
     }
+
+	void notify(int notifyCode, int tabIndex);
+	void trackMouseEvent(DWORD event2check);
 };

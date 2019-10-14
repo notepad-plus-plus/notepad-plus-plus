@@ -42,9 +42,9 @@ static HHOOK	hookMouse		= NULL;
 #define WH_MOUSE_LL 14
 #endif
 
-static LRESULT CALLBACK hookProcMouse(UINT nCode, WPARAM wParam, LPARAM lParam)
+static LRESULT CALLBACK hookProcMouse(int nCode, WPARAM wParam, LPARAM lParam)
 {
-    if(nCode >= 0)
+    if (nCode >= 0)
     {
 		switch (wParam)
 		{
@@ -52,10 +52,12 @@ static LRESULT CALLBACK hookProcMouse(UINT nCode, WPARAM wParam, LPARAM lParam)
 			case WM_NCMOUSEMOVE:
 				::PostMessage(hWndMouse, static_cast<UINT>(wParam), 0, 0);
 				break;
+
 			case WM_LBUTTONUP:
 			case WM_NCLBUTTONUP:
 				::PostMessage(hWndMouse, static_cast<UINT>(wParam), 0, 0);
 				return TRUE;
+
 			default:
 				break;
 		}
@@ -151,7 +153,7 @@ LRESULT DockingSplitter::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
 		case WM_LBUTTONDOWN:
 		{
 			hWndMouse = hwnd;
-			hookMouse = ::SetWindowsHookEx(WH_MOUSE_LL, reinterpret_cast<HOOKPROC>(hookProcMouse), _hInst, 0);
+			hookMouse = ::SetWindowsHookEx(WH_MOUSE_LL, hookProcMouse, _hInst, 0);
 			if (!hookMouse)
 			{
 				DWORD dwError = ::GetLastError();
@@ -175,7 +177,7 @@ LRESULT DockingSplitter::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
 			if (hookMouse)
 			{
 				::UnhookWindowsHookEx(hookMouse);
-				::SetCapture(NULL);
+				::ReleaseCapture();
 				hookMouse = NULL;
 			}
 			_isLeftButtonDown = FALSE;

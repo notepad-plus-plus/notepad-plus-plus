@@ -26,8 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef COLOUR_PICKER_H
-#define COLOUR_PICKER_H
+#pragma once
 
 #include "Window.h"
 
@@ -38,8 +37,8 @@ class ColourPopup;
 class ColourPicker : public Window
 {
 public :
-	ColourPicker() : Window(),  _currentColour(RGB(0xFF, 0x00, 0x00)), _pColourPopup(NULL), _isEnabled(true) {};
-    ~ColourPicker(){};
+	ColourPicker() = default;
+    ~ColourPicker() = default;
 	virtual void init(HINSTANCE hInst, HWND parent);
 	virtual void destroy();
     void setColour(COLORREF c) {
@@ -51,10 +50,10 @@ public :
 	void setEnabled(bool enabled) {_isEnabled = enabled;};
 
 private :
-	COLORREF _currentColour;
-    WNDPROC _buttonDefaultProc;
-	ColourPopup *_pColourPopup;
-	bool _isEnabled;
+	COLORREF _currentColour = RGB(0xFF, 0x00, 0x00);
+    WNDPROC _buttonDefaultProc = nullptr;
+	ColourPopup *_pColourPopup = nullptr;
+	bool _isEnabled = true;
 
     static LRESULT CALLBACK staticWinProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
         return (((ColourPicker *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA)))->runProc(Message, wParam, lParam));
@@ -64,4 +63,3 @@ private :
 	void drawBackground(HDC hDC);
 };
 
-#endif // COLOUR_PICKER_H

@@ -1,0 +1,10 @@
+framework module Scintilla {
+  umbrella header "ScintillaView.h"
+  module InfoBar {
+    header "InfoBar.h"
+  }
+  // ILexer.h is not included as Swift doesn't yet interoperate with C++
+  exclude header "ILexer.h"
+  export *
+  module * { export * }
+}

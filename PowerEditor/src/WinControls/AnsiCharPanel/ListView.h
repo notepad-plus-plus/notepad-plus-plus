@@ -26,29 +26,85 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef LISTVIEW_H
-#define LISTVIEW_H
+#pragma once
 
 #include "Window.h"
 #include "Common.h"
 
+#include <Commctrl.h>
+
+struct columnInfo {
+	size_t _width;
+	generic_string _label;
+
+	columnInfo(const generic_string & label, size_t width) : _width(width), _label(label) {};
+};
+
 class ListView : public Window
 {
 public:
-	ListView() : Window() {};
+	ListView() = default;
+	virtual ~ListView() = default;
 
-	virtual ~ListView() {};
+	enum SortDirection {
+		sortEncrease = 0,
+		sortDecrease = 1
+	};
+	// addColumn() should be called before init()
+	void addColumn(const columnInfo & column2Add) {
+		_columnInfos.push_back(column2Add);
+	};
+
+	void setColumnText(size_t i, generic_string txt2Set) {
+		LVCOLUMN lvColumn;
+		lvColumn.mask = LVCF_TEXT;
+		lvColumn.pszText = const_cast<TCHAR *>(txt2Set.c_str());
+		ListView_SetColumn(_hSelf, i, &lvColumn);
+	}
+
+	// setStyleOption() should be called before init()
+	void setStyleOption(int32_t extraStyle) {
+		_extraStyle = extraStyle;
+	};
+
+	size_t findAlphabeticalOrderPos(const generic_string& string2search, SortDirection sortDir);
+
+	void addLine(const std::vector<generic_string> & values2Add, LPARAM lParam = 0, int pos2insert = -1);
+	
+	size_t nbItem() const {
+		return ListView_GetItemCount(_hSelf);
+	};
+
+	long getSelectedIndex() const {
+		return ListView_GetSelectionMark(_hSelf);
+	};
+
+	void setSelection(int itemIndex) const {
+		ListView_SetItemState(_hSelf, itemIndex, LVIS_SELECTED | LVIS_FOCUSED, LVIS_SELECTED | LVIS_FOCUSED);
+		ListView_EnsureVisible(_hSelf, itemIndex, false);
+		ListView_SetSelectionMark(_hSelf, itemIndex);
+	};
+
+	LPARAM getLParamFromIndex(int itemIndex) const;
+
+	bool removeFromIndex(size_t i)	{
+		if (i >= nbItem())
+			return false;
+
+		return (ListView_DeleteItem(_hSelf, i) == TRUE);
+	}
+
+	std::vector<size_t> getCheckedIndexes() const;
+
 	virtual void init(HINSTANCE hInst, HWND hwnd);
 	virtual void destroy();
 
-	void setValues(int codepage = 0);
-	void resetValues(int codepage);
-
-	generic_string getAscii(unsigned char value);
 
 protected:
-	int _codepage = -1;
-	WNDPROC _defaultProc;
+	WNDPROC _defaultProc = nullptr;
+	int32_t _extraStyle = 0;
+	std::vector<columnInfo> _columnInfos;
+
 	LRESULT runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 
 	static LRESULT CALLBACK staticProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
@@ -56,5 +112,3 @@ protected:
 	};
 };
 
-
-#endif // LISTVIEW_H

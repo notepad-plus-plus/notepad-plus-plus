@@ -1,18 +1,42 @@
-Notepad++ 7.2.2 bug-fixes:
+Notepad++ v7.8 enhancements and bug-fixes:
 
-1.  Fix auto-updater setting toggles between startups bug.
-2.  Fix "Replace All" button shortcut accelerator in Replce dialog not working regression.
-3.  Fix unusual plugin update prompt after upgrade to 7.2.1 version.
+1.  Upgrade Scintilla from 4.1.4 to 4.2.0
+2.  Fix non Unicode encoding problem in non-Western language(Chinese or in Turkish).
+3.  Add "No to All" and "Yes to All" options in Save dialog.
+4.  Add the command line argument "-openFoldersAsWorkspace" to open folders in "folder as workspace" panel.
+    Example: notepad++ -openFoldersAsWorkspace c:\src\myProj01 c:\src\myProj02
+5.  Enhance plugin system: allow any plugin to load private DLL files from the plugin folder.
+6.  Fix File-Rename failing when new name is on a different drive.
+7.  Make "Clear all marks", "Inverse Bookmark", "Remove Consecutive Duplicate Lines" & "Find All Current Document" to be macro recordable.
+8.  Make "Command Argument Help" MessageBox modal. 
+9.  Fix Folder as Workspace crash and "queue overflow" issues.
+10. Make Combobox font monospace in Find dialog.
+11. Fix folding in user-defined languages for non-windows line endings.
+12. Fix crash of Folder as Workspace when too many directory changes happen.   
+13. Fix '-nosession' overwrites config.xml issue.
+14. Fix the crash due to NPPM_DESTROYSCINTILLAHANDLE message.
+15. Improve GUI in Find dialog for Find Previous & Find Next buttons.
+16. Fix Sort Line as Integer regression.
+17. Add more OS information to debug info. 
+18. Fix tab dragging issues under WINE and ReactOS.
+19. Fix indent indicators continue to following code blocks for Python.
+20. Fix Python folding collapse issue.
+21. Fix crash when sorting "out of range" columns.
+22. Fix find 2 times for the same occurrence in both original and cloned documents issue.
+23. Fix command line issues where filenames have multiple white spaces in them.
+24. Fix Document Peeker constantly changing focus problem.
+25. Make backward direction checkbox be also on Find dialog's Mark tab.
+26. Add 2 new columns for HTML Code in the Character Panel.
+27. Fix "clear all marks in find dialog also removes bookmarks" issue.
+28. Enhance supported language (on function list or auto-completion): LISP, BaanC,(PL/)SQL & COBOL.
 
 
 Included plugins:
 
-1.  NppExport v0.2.8 (32-bit x86 only)
-2.  Plugin Manager 1.3.5 (32-bit x86 only)
-3.  Converter 4.2
-4.  Mime Tool 2.1
-
+1.  NppExport v0.2.9
+2.  Converter 4.2.1
+3.  Mime Tool 2.5
 
 Updater (Installer only):
 
-* WinGup v4.1
+* WinGup (for Notepad++) v5.1

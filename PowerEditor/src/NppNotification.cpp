@@ -28,14 +28,15 @@
 
 
 #include "Notepad_plus_Window.h"
+#include "functionListPanel.h"
 #include "xmlMatchedTagsHighlighter.h"
 #include "VerticalFileSwitcher.h"
 #include "ProjectPanel.h"
 #include "documentMap.h"
+#include "Common.h"
 #include <stack>
 
 using namespace std;
-
 
 // Only for 2 main Scintilla editors
 BOOL Notepad_plus::notify(SCNotification *notification)
@@ -108,25 +109,25 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				BufferID id = BUFFER_INVALID;
 				if (notification->nmhdr.hwndFrom == _invisibleEditView.getHSelf())
 				{
-					id = MainFileManager->getBufferFromDocument(_invisibleEditView.execute(SCI_GETDOCPOINTER));
+					id = MainFileManager.getBufferFromDocument(_invisibleEditView.execute(SCI_GETDOCPOINTER));
 				}
 				else if (notification->nmhdr.hwndFrom == _fileEditView.getHSelf())
 				{
-					id = MainFileManager->getBufferFromDocument(_fileEditView.execute(SCI_GETDOCPOINTER));
+					id = MainFileManager.getBufferFromDocument(_fileEditView.execute(SCI_GETDOCPOINTER));
 				}
 				else
 					break;	//wrong scintilla
 
 				if (id != BUFFER_INVALID)
 				{
-					buf = MainFileManager->getBufferByID(id);
+					buf = MainFileManager.getBufferByID(id);
 				}
 				else
 					break;
 			}
 
 			bool isDirty = notification->nmhdr.code == SCN_SAVEPOINTLEFT;
-			bool isSnapshotMode = NppParameters::getInstance()->getNppGUI().isSnapshotMode();
+			bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
 			if (isSnapshotMode && !isDirty)
 			{
 				bool canUndo = _pEditView->execute(SCI_CANUNDO) == TRUE;
@@ -145,6 +146,94 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		case SCN_KEY:
 		{
+			break;
+		}
+
+		case TCN_MOUSEHOVERING:
+		case TCN_MOUSEHOVERSWITCHING:
+		{
+			NppParameters& nppParam = NppParameters::getInstance();
+			bool doPeekOnTab = nppParam.getNppGUI()._isDocPeekOnTab;
+			bool doPeekOnMap = nppParam.getNppGUI()._isDocPeekOnMap;
+
+			if (doPeekOnTab)
+			{
+				TBHDR *tbHdr = reinterpret_cast<TBHDR *>(notification);
+				DocTabView *pTabDocView = isFromPrimary ? &_mainDocTab : (isFromSecondary ? &_subDocTab : nullptr);
+
+				if (pTabDocView)
+				{
+					BufferID id = pTabDocView->getBufferByIndex(tbHdr->_tabOrigin);
+					Buffer *pBuf = MainFileManager.getBufferByID(id);
+
+					Buffer *currentBufMain = _mainEditView.getCurrentBuffer();
+					Buffer *currentBufSub = _subEditView.getCurrentBuffer();
+
+					RECT rect;
+					TabCtrl_GetItemRect(pTabDocView->getHSelf(), tbHdr->_tabOrigin, &rect);
+					POINT p;
+					p.x = rect.left;
+					p.y = rect.bottom;
+					::ClientToScreen(pTabDocView->getHSelf(), &p);
+
+					if (pBuf != currentBufMain && pBuf != currentBufSub) // if hover on other tab
+					{
+						_documentPeeker.doDialog(p, pBuf, *(const_cast<ScintillaEditView*>(pTabDocView->getScintillaEditView())));
+					}
+					else  // if hover on current active tab
+					{
+						_documentPeeker.display(false);
+					}
+				}
+			}
+
+			if (doPeekOnMap && _pDocMap && (!_pDocMap->isClosed()) && _pDocMap->isVisible())
+			{
+				TBHDR *tbHdr = reinterpret_cast<TBHDR *>(notification);
+				DocTabView *pTabDocView = isFromPrimary ? &_mainDocTab : (isFromSecondary ? &_subDocTab : nullptr);
+				if (pTabDocView)
+				{
+					BufferID id = pTabDocView->getBufferByIndex(tbHdr->_tabOrigin);
+					Buffer *pBuf = MainFileManager.getBufferByID(id);
+
+					Buffer *currentBufMain = _mainEditView.getCurrentBuffer();
+					Buffer *currentBufSub = _subEditView.getCurrentBuffer();
+
+					if (pBuf != currentBufMain && pBuf != currentBufSub) // if hover on other tab
+					{
+						_pDocMap->showInMapTemporarily(pBuf, notifyView);
+						_pDocMap->setSyntaxHiliting();
+					}
+					else  // if hover on current active tab
+					{
+						_pDocMap->reloadMap();
+						_pDocMap->setSyntaxHiliting();
+					}
+					_pDocMap->setTemporarilyShowing(true);
+				}
+			}
+
+			break;
+		}
+
+		case TCN_MOUSELEAVING:
+		{
+			NppParameters& nppParam = NppParameters::getInstance();
+			bool doPeekOnTab = nppParam.getNppGUI()._isDocPeekOnTab;
+			bool doPeekOnMap = nppParam.getNppGUI()._isDocPeekOnMap;
+
+			if (doPeekOnTab)
+			{
+				_documentPeeker.display(false);
+			}
+
+			if (doPeekOnMap && _pDocMap && (!_pDocMap->isClosed()) && _pDocMap->isVisible())
+			{
+				_pDocMap->reloadMap();
+				_pDocMap->setSyntaxHiliting();
+
+				_pDocMap->setTemporarilyShowing(false);
+			}
 			break;
 		}
 
@@ -205,7 +294,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					{
 						int index = _pDocTab->getCurrentTabIndex();
 						BufferID bufferToClose = notifyDocTab->getBufferByIndex(index);
-						Buffer * buf = MainFileManager->getBufferByID(bufferToClose);
+						Buffer * buf = MainFileManager.getBufferByID(bufferToClose);
 						int iView = isFromPrimary?MAIN_VIEW:SUB_VIEW;
 						if (buf->isDirty())
 						{
@@ -241,9 +330,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		case TCN_TABDELETE:
 		{
-			int index = tabNotification->tabOrigin;
+			int index = tabNotification->_tabOrigin;
 			BufferID bufferToClose = notifyDocTab->getBufferByIndex(index);
-			Buffer * buf = MainFileManager->getBufferByID(bufferToClose);
+			Buffer * buf = MainFileManager.getBufferByID(bufferToClose);
 			int iView = isFromPrimary?MAIN_VIEW:SUB_VIEW;
 			if (buf->isDirty())
 			{
@@ -270,6 +359,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			else
 				break;
 
+			// save map position before switch to a new document
+			_documentPeeker.saveCurrentSnapshot(*_pEditView);
+
 			switchEditViewTo(iView);
 			BufferID bufid = _pDocTab->getBufferByIndex(_pDocTab->getCurrentTabIndex());
 			if (bufid != BUFFER_INVALID)
@@ -278,6 +370,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				activateBuffer(bufid, iView);
 				_isFolding = false;
 			}
+			_documentPeeker.display(false);
 			break;
 		}
 
@@ -295,22 +388,22 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			}
 			else if (notification->nmhdr.hwndFrom == _mainDocTab.getHSelf() && _activeView == SUB_VIEW)
 			{
-				bool isSnapshotMode = NppParameters::getInstance()->getNppGUI().isSnapshotMode();
+				bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
 				if (isSnapshotMode)
 				{
 					// Before switching off, synchronize backup file
-					MainFileManager->backupCurrentBuffer();
+					MainFileManager.backupCurrentBuffer();
 				}
 				// Switch off
 				switchEditViewTo(MAIN_VIEW);
 			}
 			else if (notification->nmhdr.hwndFrom == _subDocTab.getHSelf() && _activeView == MAIN_VIEW)
 			{
-				bool isSnapshotMode = NppParameters::getInstance()->getNppGUI().isSnapshotMode();
+				bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
 				if (isSnapshotMode)
 				{
 					// Before switching off, synchronize backup file
-					MainFileManager->backupCurrentBuffer();
+					MainFileManager.backupCurrentBuffer();
 				}
 				// Switch off
 				switchEditViewTo(SUB_VIEW);
@@ -377,15 +470,11 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				LPNMMOUSE lpnm = (LPNMMOUSE)notification;
 				if (lpnm->dwItemSpec == DWORD(STATUSBAR_DOC_TYPE))
 				{
-					POINT p;
-					::GetCursorPos(&p);
 					HMENU hLangMenu = ::GetSubMenu(_mainMenuHandle, MENUINDEX_LANGUAGE);
 					TrackPopupMenu(hLangMenu, 0, p.x, p.y, 0, _pPublicInterface->getHSelf(), NULL);
 				}
 				else if (lpnm->dwItemSpec == DWORD(STATUSBAR_EOF_FORMAT))
 				{
-					POINT p;
-					::GetCursorPos(&p);
 					MenuPosition & menuPos = getMenuPosition("edit-eolConversion");
 					HMENU hEditMenu = ::GetSubMenu(_mainMenuHandle, menuPos._x);
 					if (!hEditMenu)
@@ -422,11 +511,13 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 			if (!_tabPopupMenu.isCreated())
 			{
-				std::vector<MenuItemUnit> itemUnitArray;
+				// IMPORTANT: If list below is modified, you have to change the value of tabContextMenuItemPos[] in localization.cpp file
+                std::vector<MenuItemUnit> itemUnitArray;
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSE, TEXT("Close")));
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_BUT_CURRENT, TEXT("Close All BUT This")));
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_TOLEFT, TEXT("Close All to the Left")));
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_TORIGHT, TEXT("Close All to the Right")));
+				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_UNCHANGED, TEXT("Close All Unchanged")));
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_SAVE, TEXT("Save")));
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_SAVEAS, TEXT("Save As...")));
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_RENAME, TEXT("Rename")));
@@ -436,6 +527,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				itemUnitArray.push_back(MenuItemUnit(0, NULL));
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_OPEN_FOLDER, TEXT("Open Containing Folder in Explorer")));
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_OPEN_CMD, TEXT("Open Containing Folder in cmd")));
+				itemUnitArray.push_back(MenuItemUnit(0, NULL));
+				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_OPEN_DEFAULT_VIEWER, TEXT("Open in Default Viewer")));
 				itemUnitArray.push_back(MenuItemUnit(0, NULL));
 				itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_SETREADONLY,   TEXT("Read-Only")));
 				itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_CLEARREADONLY, TEXT("Clear Read-Only Flag")));
@@ -448,6 +541,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_CLONE_TO_ANOTHER_VIEW, TEXT("Clone to Other View")));
 				itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_NEW_INSTANCE, TEXT("Move to New Instance")));
 				itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_LOAD_IN_NEW_INSTANCE, TEXT("Open in New Instance")));
+				// IMPORTANT: If list above is modified, you have to change the value of tabContextMenuItemPos[] in localization.cpp file
 
 				_tabPopupMenu.create(_pPublicInterface->getHSelf(), itemUnitArray);
 				_nativeLangSpeaker.changeLangTabContextMenu(_tabPopupMenu.getMenuHandle());
@@ -466,7 +560,11 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 			bool isFileExisting = PathFileExists(buf->getFullPathName()) != FALSE;
 			_tabPopupMenu.enableItem(IDM_FILE_DELETE, isFileExisting);
-			_tabPopupMenu.enableItem(IDM_FILE_RENAME, isFileExisting);
+			//_tabPopupMenu.enableItem(IDM_FILE_RENAME, isFileExisting);
+			_tabPopupMenu.enableItem(IDM_FILE_OPEN_FOLDER, isFileExisting);
+			_tabPopupMenu.enableItem(IDM_FILE_OPEN_CMD, isFileExisting);
+
+			_tabPopupMenu.enableItem(IDM_FILE_OPEN_DEFAULT_VIEWER, isAssoCommandExisting(buf->getFullPathName()));
 
 			bool isDirty = buf->isDirty();
 			bool isUntitled = buf->isUntitled();
@@ -509,11 +607,11 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		{
 			if ((notification->nmhdr.hwndFrom == _mainEditView.getHSelf()) || (notification->nmhdr.hwndFrom == _subEditView.getHSelf()))
 			{
-				int lineClicked = notification->line;
+				size_t lineClicked = notification->line;
 
 				if (!_isFolding)
 				{
-					int urlAction = (NppParameters::getInstance())->getNppGUI()._styleURL;
+					int urlAction = (NppParameters::getInstance()).getNppGUI()._styleURL;
 					if ((urlAction == 1) || (urlAction == 2))
 						addHotSpot();
 				}
@@ -528,7 +626,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		{
 			if (!_recordingMacro && !_playingBackMacro) // No macro recording or playing back
 			{
-				const NppGUI & nppGui = NppParameters::getInstance()->getNppGUI();
+				const NppGUI & nppGui = NppParameters::getInstance().getNppGUI();
 				bool indentMaintain = nppGui._maitainIndent;
 				if (indentMaintain)
 					maintainIndentation(static_cast<TCHAR>(notification->ch));
@@ -549,7 +647,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 			if (notification->modifiers == SCMOD_CTRL)
 			{
-				const NppGUI & nppGUI = NppParameters::getInstance()->getNppGUI();
+				const NppGUI & nppGUI = NppParameters::getInstance().getNppGUI();
 
 				std::string bufstring;
 
@@ -700,19 +798,19 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			if (not notifyView)
 				return FALSE;
 
-			NppParameters *nppParam = NppParameters::getInstance();
-			NppGUI & nppGui = const_cast<NppGUI &>(nppParam->getNppGUI());
+			NppParameters& nppParam = NppParameters::getInstance();
+			NppGUI & nppGui = const_cast<NppGUI &>(nppParam.getNppGUI());
 
 			// replacement for obsolete custom SCN_SCROLLED
 			if (notification->updated & SC_UPDATE_V_SCROLL)
 			{
-				int urlAction = (NppParameters::getInstance())->getNppGUI()._styleURL;
+				int urlAction = (NppParameters::getInstance()).getNppGUI()._styleURL;
 				if ((urlAction == 1) || (urlAction == 2))
 					addHotSpot();
 			}
 
 			// if it's searching/replacing, then do nothing
-			if (nppParam->_isFindReplacing)
+			if (nppParam._isFindReplacing)
 				break;
 
 			if (notification->nmhdr.hwndFrom != _pEditView->getHSelf()) // notification come from unfocus view - both views ae visible
@@ -748,6 +846,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			}
 
 			updateStatusBar();
+			if (_pFuncList && (!_pFuncList->isClosed()) && _pFuncList->isVisible())
+				_pFuncList->markEntry();
 			AutoCompletion * autoC = isFromPrimary?&_autoCompleteMain:&_autoCompleteSub;
 			autoC->update(0);
 
@@ -780,30 +880,30 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					if (tipTmp.length() >= 80)
 						return FALSE;
 
-					lstrcpy(lpttt->szText, tipTmp.c_str());
+					wcscpy_s(lpttt->szText, tipTmp.c_str());
 					return TRUE;
 				}
 				else if (hWin == _mainDocTab.getHSelf())
 				{
 					BufferID idd = _mainDocTab.getBufferByIndex(id);
-					Buffer * buf = MainFileManager->getBufferByID(idd);
+					Buffer * buf = MainFileManager.getBufferByID(idd);
 					tipTmp = buf->getFullPathName();
 
 					if (tipTmp.length() >= tipMaxLen)
 						return FALSE;
-					lstrcpy(docTip, tipTmp.c_str());
+					wcscpy_s(docTip, tipTmp.c_str());
 					lpttt->lpszText = docTip;
 					return TRUE;
 				}
 				else if (hWin == _subDocTab.getHSelf())
 				{
 					BufferID idd = _subDocTab.getBufferByIndex(id);
-					Buffer * buf = MainFileManager->getBufferByID(idd);
+					Buffer * buf = MainFileManager.getBufferByID(idd);
 					tipTmp = buf->getFullPathName();
 
 					if (tipTmp.length() >= tipMaxLen)
 						return FALSE;
-					lstrcpy(docTip, tipTmp.c_str());
+					wcscpy_s(docTip, tipTmp.c_str());
 					lpttt->lpszText = docTip;
 					return TRUE;
 				}
@@ -863,18 +963,18 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			if (_syncInfo.doSync())
 				doSynScorll(HWND(notification->nmhdr.hwndFrom));
 
-			NppParameters *nppParam = NppParameters::getInstance();
+			NppParameters& nppParam = NppParameters::getInstance();
 
 			// if it's searching/replacing, then do nothing
-			if ((_linkTriggered && !nppParam->_isFindReplacing) || notification->wParam == LINKTRIGGERED)
+			if ((_linkTriggered && !nppParam._isFindReplacing) || notification->wParam == LINKTRIGGERED)
 			{
-				int urlAction = (NppParameters::getInstance())->getNppGUI()._styleURL;
+				int urlAction = (NppParameters::getInstance()).getNppGUI()._styleURL;
 				if ((urlAction == 1) || (urlAction == 2))
 					addHotSpot();
 				_linkTriggered = false;
 			}
 
-			if (_pDocMap)
+			if (_pDocMap && (not _pDocMap->isClosed()) && _pDocMap->isVisible() && not _pDocMap->isTemporarilyShowing())
 			{
 				_pDocMap->wrapMap();
 				_pDocMap->scrollMap();
@@ -888,25 +988,31 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				return FALSE;
 
 			// Get the style and make sure it is a hotspot
-			auto style = notifyView->execute(SCI_GETSTYLEAT, notification->position);
+			uint8_t style = static_cast<uint8_t>(notifyView->execute(SCI_GETSTYLEAT, notification->position));
 			if (not notifyView->execute(SCI_STYLEGETHOTSPOT, style))
 				break;
 
-			int startPos, endPos, docLen;
+			long long startPos, endPos, docLen;
 			startPos = endPos = notification->position;
 			docLen = notifyView->getCurrentDocLen();
 
 			// Walk backwards/forwards to get the contiguous text in the same style
-			while (startPos > 0 && notifyView->execute(SCI_GETSTYLEAT, startPos - 1) == style)
+			while (startPos > 0 && static_cast<uint8_t>(notifyView->execute(SCI_GETSTYLEAT, static_cast<WPARAM>(startPos - 1))) == style)
 				startPos--;
-			while (endPos < docLen && notifyView->execute(SCI_GETSTYLEAT, endPos) == style)
+			while (endPos < docLen && static_cast<uint8_t>(notifyView->execute(SCI_GETSTYLEAT, static_cast<WPARAM>(endPos))) == style)
 				endPos++;
 
 			// Select the entire link
-			notifyView->execute(SCI_SETANCHOR, startPos);
-			notifyView->execute(SCI_SETCURRENTPOS, endPos);
+			notifyView->execute(SCI_SETANCHOR, static_cast<WPARAM>(startPos));
+			notifyView->execute(SCI_SETCURRENTPOS, static_cast<WPARAM>(endPos));
 
-			generic_string url = notifyView->getGenericTextAsString(startPos, endPos);
+			generic_string url = notifyView->getGenericTextAsString(static_cast<size_t>(startPos), static_cast<size_t>(endPos));
+
+			// remove the flickering: it seems a mouse left button up is missing after SCN_HOTSPOTDOUBLECLICK
+			::PostMessage(notifyView->getHSelf(), WM_LBUTTONUP, 0, 0);
+			auto curPos = notifyView->execute(SCI_GETCURRENTPOS);
+			notifyView->execute(SCI_SETSEL, curPos, curPos);
+
 			::ShellExecute(_pPublicInterface->getHSelf(), TEXT("open"), url.c_str(), NULL, NULL, SW_SHOW);
 
 			break;
@@ -965,4 +1071,3 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 	}
 	return FALSE;
 }
-

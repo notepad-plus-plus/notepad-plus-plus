@@ -39,14 +39,15 @@ struct NPP_RangeToFormat {
 	HDC hdcTarget;
 	RECT rc;
 	RECT rcPage;
-	CharacterRange chrg;
+	Sci_CharacterRange chrg;
 };
 
 class Printer
 {
 public :
-	Printer(){};
-	void init(HINSTANCE hInst, HWND hwnd, ScintillaEditView *pSEView, bool showDialog, int startPos, int endPos);
+	Printer() = default;
+
+	void init(HINSTANCE hInst, HWND hwnd, ScintillaEditView *pSEView, bool showDialog, int startPos, int endPos, bool isRTL = false);
 	size_t doPrint() {
 		if (!::PrintDlg(&_pdlg))
 				return 0;
@@ -61,6 +62,7 @@ private :
 	size_t _startPos = 0;
 	size_t _endPos = 0;
 	size_t _nbPageTotal =0;
+	bool _isRTL = false;
 };
 
 #endif //PRINTER_H

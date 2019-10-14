@@ -15,15 +15,11 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-#ifndef RUN_DLG_H
-#define RUN_DLG_H
+#pragma once
 
 #include <oleacc.h>
 #include "Common.h"
-
-#ifndef RUN_DLG_RC_H
 #include "RunDlg_rc.h"
-#endif //RUN_DLG_RC_H
 
 #define CURRENTWORD_MAXLENGTH 2048
 
@@ -43,21 +39,22 @@ void expandNppEnvironmentStrs(const TCHAR *strSrc, TCHAR *stringDest, size_t str
 
 class Command {
 public :
-	Command(){};
+	Command() = default;
 	explicit Command(TCHAR *cmd) : _cmdLine(cmd){};
-	explicit Command(generic_string cmd) : _cmdLine(cmd){};
+	explicit Command(const generic_string& cmd) : _cmdLine(cmd){};
 	HINSTANCE run(HWND hWnd);
+	HINSTANCE run(HWND hWnd, const TCHAR* cwd);
 
 protected :
 	generic_string _cmdLine;
 private :
-	void extractArgs(TCHAR *cmd2Exec, TCHAR *args, const TCHAR *cmdEntier);
+	void extractArgs(TCHAR *cmd2Exec, size_t cmd2ExecLen, TCHAR *args, size_t argsLen, const TCHAR *cmdEntier);
 };
 
 class RunDlg : public Command, public StaticDialog
 {
 public :
-	RunDlg() : StaticDialog() {};
+	RunDlg() = default;
 
 	void doDialog(bool isRTL = false);
     virtual void destroy() {};
@@ -70,4 +67,3 @@ private :
 	void removeTextFromCombo(const TCHAR *txt2Remove) const;
 };
 
-#endif //RUN_DLG_H

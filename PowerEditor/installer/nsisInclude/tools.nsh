@@ -26,7 +26,28 @@
 ; Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 Function LaunchNpp
-  Exec '"$INSTDIR\notepad++.exe" "$INSTDIR\change.log" '
+  ; Open notepad instance with same integrity level as explorer,
+  ; so that drag n drop continue to function even
+  ; Once npp is launched, show change.log file (this is to handle issues #2896, #2979, #3014)
+  ; Caveats:
+  ;		1. If launching npp takes more time (which is rare), changelog will not be shown
+  ;		2. If previous npp is configured as "Always in multi-instance mode", then
+  ;			a. Two npp instances will be opened which is not expected
+  ;			b. Second instance may not support drag n drop if current user's integrity level is not as admin
+  Exec '"$WINDIR\explorer.exe" "$INSTDIR\notepad++.exe"'
+
+  ; Max 5 seconds wait here to open change.log
+  ; If npp is not available even after 5 seconds, exit without showing change.log
+
+  ${ForEach} $R1 1 5 + 1				; Loop to find opened Npp instance
+	System::Call 'kernel32::OpenMutex(i 0x100000, b 0, t "nppInstance") i .R0'
+	IntCmp $R0 0 NotYetExecuted
+		System::Call 'kernel32::CloseHandle(i $R0)'
+		Exec '"$INSTDIR\notepad++.exe" "$INSTDIR\change.log" '
+		${Break}
+	NotYetExecuted:
+		Sleep 1000
+  ${Next}
 FunctionEnd
 
 ; Check if Notepad++ is running
@@ -61,7 +82,6 @@ FunctionEnd
 Var Dialog
 Var NoUserDataCheckboxHandle
 Var ShortcutCheckboxHandle
-Var PluginLoadFromUserDataCheckboxHandle
 Var WinVer
 
 Function ExtraOptions
@@ -72,20 +92,28 @@ Function ExtraOptions
 		Abort
 	${EndIf}
 
-	${NSD_CreateCheckbox} 0 0 100% 30u "Don't use %APPDATA%$\nEnable this option to make Notepad++ load/write the configuration files from/to its install directory. Check it if you use Notepad++ in an USB device."
-	Pop $NoUserDataCheckboxHandle
-	${NSD_OnClick} $NoUserDataCheckboxHandle OnChange_NoUserDataCheckBox
-	
-	${NSD_CreateCheckbox} 0 50 100% 30u "Allow plugins to be loaded from %APPDATA%\notepad++\plugins$\nIt could cause a security issue. Turn it on if you know what you are doing."
-	Pop $PluginLoadFromUserDataCheckboxHandle
-	${NSD_OnClick} $PluginLoadFromUserDataCheckboxHandle OnChange_PluginLoadFromUserDataCheckBox
-	
-	${NSD_CreateCheckbox} 0 110 100% 30u "Create Shortcut on Desktop"
+	${NSD_CreateCheckbox} 0 0 100% 30u "Create Shortcut on Desktop"
 	Pop $ShortcutCheckboxHandle
 	StrCmp $WinVer "8" 0 +2
 	${NSD_Check} $ShortcutCheckboxHandle
 	${NSD_OnClick} $ShortcutCheckboxHandle OnChange_ShortcutCheckBox
+	
+	${NSD_CreateCheckbox} 0 80 100% 30u "Don't use %APPDATA%$\nEnable this option to make Notepad++ load/write the configuration files from/to its install directory. Check it if you use Notepad++ in a USB device."
+	Pop $NoUserDataCheckboxHandle
+	${NSD_OnClick} $NoUserDataCheckboxHandle OnChange_NoUserDataCheckBox
+	
+	StrLen $0 $PROGRAMFILES
+	StrCpy $1 $InstDir $0
 
+	StrLen $0 $PROGRAMFILES64
+	StrCpy $2 $$InstDir "" $0
+	${If} $1 == "$PROGRAMFILES"
+	${ORIF} $2 == "$PROGRAMFILES64"
+		${NSD_Uncheck} $NoUserDataCheckboxHandle
+		EnableWindow $NoUserDataCheckboxHandle 0
+	${Else}
+		EnableWindow $NoUserDataCheckboxHandle 1
+	${EndIf}
 	nsDialogs::Show
 FunctionEnd
 
@@ -107,16 +135,11 @@ Function preventInstallInWin9x
 FunctionEnd
 
 Var noUserDataChecked
-Var allowPluginLoadFromUserDataChecked
 Var createShortcutChecked
 
 ; The definition of "OnChange" event for checkbox
 Function OnChange_NoUserDataCheckBox
 	${NSD_GetState} $NoUserDataCheckboxHandle $noUserDataChecked
-FunctionEnd
-
-Function OnChange_PluginLoadFromUserDataCheckBox
-	${NSD_GetState} $PluginLoadFromUserDataCheckboxHandle $allowPluginLoadFromUserDataChecked
 FunctionEnd
 
 Function OnChange_ShortcutCheckBox

@@ -37,7 +37,6 @@
 		<KeyWord name="CodelineIndex" />
 		<KeyWord name="CodelineNumbered" />
 		<KeyWord name="CurrentOption" />
-		<KeyWord name="CurrentOption" />
 		<KeyWord name="DeclareErrorFont" />
 		<KeyWord name="DeclareFixedFont" />
 		<KeyWord name="DeclareFontEncoding" />
@@ -96,7 +95,6 @@
 		<KeyWord name="GlossaryPrologue" />
 		<KeyWord name="HUGE" />
 		<KeyWord name="Huge" />
-		<KeyWord name="Huge" />
 		<KeyWord name="IfFileExists" />
 		<KeyWord name="Im" />
 		<KeyWord name="IndexInput" />
@@ -106,7 +104,6 @@
 		<KeyWord name="InputIfFileExists" />
 		<KeyWord name="Join" />
 		<KeyWord name="LARGE" />
-		<KeyWord name="LARGE" />
 		<KeyWord name="LTcapuidth" />
 		<KeyWord name="LTchunksize" />
 		<KeyWord name="LTleft" />
@@ -114,11 +111,8 @@
 		<KeyWord name="LTpre" />
 		<KeyWord name="LTright" />
 		<KeyWord name="LaTeX" />
-		<KeyWord name="LaTeX" />
-		<KeyWord name="LaTeXe" />
 		<KeyWord name="LaTeXe" />
 		<KeyWord name="Lambda" />
-		<KeyWord name="Large" />
 		<KeyWord name="Large" />
 		<KeyWord name="Leftarrow" />
 		<KeyWord name="Leftrightarrow" />
@@ -145,16 +139,11 @@
 		<KeyWord name="Omega" />
 		<KeyWord name="OnlyDescription" />
 		<KeyWord name="OptionNotUsed" />
-		<KeyWord name="OptionNotUsed" />
 		<KeyWord name="Ovalbox" />
 		<KeyWord name="PScommands" />
 		<KeyWord name="PackageError" />
-		<KeyWord name="PackageError" />
-		<KeyWord name="PackageInfo" />
 		<KeyWord name="PackageInfo" />
 		<KeyWord name="PackageWarning" />
-		<KeyWord name="PackageWarning" />
-		<KeyWord name="PackageWarningNoLine" />
 		<KeyWord name="PackageWarningNoLine" />
 		<KeyWord name="PageIndex" />
 		<KeyWord name="PassOptionsToClass" />
@@ -171,7 +160,6 @@
 		<KeyWord name="PrintDescribeMacro" />
 		<KeyWord name="PrintIndex" />
 		<KeyWord name="PrintMacroName" />
-		<KeyWord name="ProcessOptions" />
 		<KeyWord name="ProcessOptions" />
 		<KeyWord name="ProcessOptions*" />
 		<KeyWord name="ProvideTextCommand" />
@@ -228,7 +216,6 @@
 		<KeyWord name="abovedisplayskip" />
 		<KeyWord name="abovewithdelims" />
 		<KeyWord name="abstract" />
-		<KeyWord name="abstract" />
 		<KeyWord name="abstractname" />
 		<KeyWord name="abstractname{name}" />
 		<KeyWord name="accent" />
@@ -271,11 +258,8 @@
 		<KeyWord name="also" />
 		<KeyWord name="amalg" />
 		<KeyWord name="and" />
-		<KeyWord name="and" />
 		<KeyWord name="angle" />
 		<KeyWord name="annotations" />
-		<KeyWord name="appendix" />
-		<KeyWord name="appendix" />
 		<KeyWord name="appendix" />
 		<KeyWord name="appendixname" />
 		<KeyWord name="approx" />
@@ -744,7 +728,6 @@
 		<KeyWord name="floatingpenalty" />
 		<KeyWord name="floatname" />
 		<KeyWord name="floatpagefraction" />
-		<KeyWord name="floatpagefraction" />
 		<KeyWord name="floatplacement" />
 		<KeyWord name="floatsep" />
 		<KeyWord name="flq" />
@@ -868,7 +851,6 @@
 		<KeyWord name="heartsuit" />
 		<KeyWord name="hei" />
 		<KeyWord name="height" />
-		<KeyWord name="height" />
 		<KeyWord name="help" />
 		<KeyWord name="hfil" />
 		<KeyWord name="hfill" />
@@ -925,7 +907,6 @@
 		<KeyWord name="ifstar" />
 		<KeyWord name="ifthenelse" />
 		<KeyWord name="iftrue" />
-		<KeyWord name="ifundefined" />
 		<KeyWord name="ifundefined" />
 		<KeyWord name="ifvbox" />
 		<KeyWord name="ifvmode" />
@@ -1144,7 +1125,6 @@
 		<KeyWord name="makefntext" />
 		<KeyWord name="makefootline" />
 		<KeyWord name="makeglossary" />
-		<KeyWord name="makeglossary" />
 		<KeyWord name="makeheadline" />
 		<KeyWord name="makeindex" />
 		<KeyWord name="makelabel" />
@@ -1189,8 +1169,6 @@
 		<KeyWord name="mathpunct" />
 		<KeyWord name="mathrel" />
 		<KeyWord name="mathrm" />
-		<KeyWord name="mathrm" />
-		<KeyWord name="mathsf" />
 		<KeyWord name="mathsf" />
 		<KeyWord name="mathsterling" />
 		<KeyWord name="mathstrut" />
@@ -1441,7 +1419,6 @@
 		<KeyWord name="pagefilstretch" />
 		<KeyWord name="pagegoal" />
 		<KeyWord name="pageinsert" />
-		<KeyWord name="pagename" />
 		<KeyWord name="pagename" />
 		<KeyWord name="pageno" />
 		<KeyWord name="pagenumbering" />
@@ -1797,7 +1774,6 @@
 		<KeyWord name="subsetneq" />
 		<KeyWord name="subsetneqq" />
 		<KeyWord name="subsubitem" />
-		<KeyWord name="subsubitem" />
 		<KeyWord name="subsubsection" />
 		<KeyWord name="subsubsection*{title}" />
 		<KeyWord name="subsubsection[short]{title}" />
@@ -1831,8 +1807,6 @@
 		<KeyWord name="tabbing" />
 		<KeyWord name="tabbingsep" />
 		<KeyWord name="tabcolsep" />
-		<KeyWord name="tabcolsep" />
-		<KeyWord name="table" />
 		<KeyWord name="table" />
 		<KeyWord name="tablecaption" />
 		<KeyWord name="tablefirsthead" />
@@ -1848,7 +1822,6 @@
 		<KeyWord name="tabletail" />
 		<KeyWord name="tabs" />
 		<KeyWord name="tabskip" />
-		<KeyWord name="tabularnewline" />
 		<KeyWord name="tabularnewline" />
 		<KeyWord name="tabularxcolumn" />
 		<KeyWord name="tag" />

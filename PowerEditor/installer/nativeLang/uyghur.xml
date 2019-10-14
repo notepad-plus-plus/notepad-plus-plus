@@ -4,7 +4,7 @@
 <!-- If you want to see RTL direction, please rewrite  <Native-Langue name="Uyghurche" RTL="yes" filename="uyghur.xml" > -->
 <!--ئوڭدىن سولغا كۆرمەكچى بولسىڭىز،بۇنى 2-قۇر بىلەن ئالماشتۇرۇڭ <Native-Langue name="Uyghurche" RTL="yes" filename="uyghur.xml" >-->
 <NotepadPlus>
-	<Native-Langue name="Uyghurche"  filename="uyghur.xml" >
+	<Native-Langue name="Uyghurche" RTL="yes" filename="uyghur.xml" >
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -218,7 +218,7 @@
 
 
                     <Item id="46001" name="ئۇسلوب تەڭشىكى..."/>
-                    <Item id="46080" name="ئۆزى بېكىتىش"/>
+                    <Item id="46180" name="ئۆزى بېكىتىش"/>
                     <Item id="47000" name="ھەققىدە Notepad++..."/>
                     <Item id="47001" name=" توربېتى  Notepad++      "/>
                     <Item id="47002" name="ئىشتۈرى توربېتى  Notepad++      "/>

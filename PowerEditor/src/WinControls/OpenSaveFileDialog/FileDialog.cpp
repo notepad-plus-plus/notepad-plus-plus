@@ -31,20 +31,17 @@
 #include "FileDialog.h"
 #include "Parameters.h"
 
+#include <algorithm>
 
 FileDialog *FileDialog::staticThis = NULL;
-//int FileDialog::_dialogFileBoxId = (NppParameters::getInstance())->getWinVersion() < WV_W2K?edt1:cmb13;
 
 FileDialog::FileDialog(HWND hwnd, HINSTANCE hInst) 
 	: _nbCharFileExt(0), _nbExt(0), _fileExt(NULL), _extTypeIndex(-1)
 {
 	staticThis = this;
-    //for (int i = 0 ; i < nbExtMax ; i++)
-    //    _extArray[i][0] = '\0';
-
-	_fileName[0] = '\0';
- 
-	_winVersion = (NppParameters::getInstance())->getWinVersion();
+    
+	memset(_fileName, 0, sizeof(_fileName));
+	_winVersion = (NppParameters::getInstance()).getWinVersion();
 
 	_ofn.lStructSize = sizeof(_ofn);
 	if (_winVersion < WV_W2K)
@@ -65,7 +62,7 @@ FileDialog::FileDialog(HWND hwnd, HINSTANCE hInst)
 	_ofn.lpfnHook = NULL;
 	_ofn.lpstrDefExt = NULL;  // No default extension
 	_ofn.lCustData = 0;
-	_ofn.Flags = OFN_PATHMUSTEXIST | OFN_EXPLORER | OFN_LONGNAMES | DS_CENTER | OFN_HIDEREADONLY;
+	_ofn.Flags = OFN_PATHMUSTEXIST | OFN_EXPLORER | OFN_LONGNAMES | OFN_HIDEREADONLY;
 	_ofn.pvReserved = NULL;
 	_ofn.dwReserved = 0;
 	_ofn.FlagsEx = 0;
@@ -73,11 +70,8 @@ FileDialog::FileDialog(HWND hwnd, HINSTANCE hInst)
 
 FileDialog::~FileDialog()
 {
-	if (_fileExt)
-	{
-		delete[] _fileExt;
-		_fileExt = NULL;
-	}
+	delete[] _fileExt;
+	_fileExt = NULL;
 }
 
 // This function set and concatenate the filter into the list box of FileDialog.
@@ -125,7 +119,7 @@ int FileDialog::setExtsFilter(const TCHAR *extText, const TCHAR *exts)
 	extFilter += TEXT(")");	
 	
 	// Resize filter buffer
-	int nbCharAdditional = static_cast<int32_t>(extFilter.length() + lstrlen(exts) + 3); // 3 additional for nulls
+	int nbCharAdditional = static_cast<int32_t>(extFilter.length() + _tcsclen(exts) + 3); // 3 additional for nulls
 	if (_fileExt)
 	{
 		oldFilter = new TCHAR[_nbCharFileExt];
@@ -149,12 +143,14 @@ int FileDialog::setExtsFilter(const TCHAR *extText, const TCHAR *exts)
 
 	// Append new filter    
     TCHAR *pFileExt = _fileExt + _nbCharFileExt;
-	lstrcpy(pFileExt, extFilter.c_str());
-	_nbCharFileExt += static_cast<int32_t>(extFilter.length()) + 1;
+	auto curLen = extFilter.length() + 1;
+	wcscpy_s(pFileExt, curLen, extFilter.c_str());
+	_nbCharFileExt += static_cast<int32_t>(curLen);
     
     pFileExt = _fileExt + _nbCharFileExt;
-	lstrcpy(pFileExt, exts);
-    _nbCharFileExt += lstrlen(exts) + 1;
+	curLen = _tcsclen(exts) + 1;
+	wcscpy_s(pFileExt, curLen, exts);
+	_nbCharFileExt += static_cast<int32_t>(curLen);
 
 	// Set file dialog pointer
 	_ofn.lpstrFilter = _fileExt;
@@ -166,27 +162,43 @@ TCHAR* FileDialog::doOpenSingleFileDlg()
 {
 	TCHAR dir[MAX_PATH];
 	::GetCurrentDirectory(MAX_PATH, dir);
-	NppParameters * params = NppParameters::getInstance();
-	_ofn.lpstrInitialDir = params->getWorkingDir();
+	NppParameters& params = NppParameters::getInstance();
+	_ofn.lpstrInitialDir = params.getWorkingDir();
 
 	_ofn.Flags |= OFN_FILEMUSTEXIST;
 
-	TCHAR *fn = NULL;
-	try {
-		fn = ::GetOpenFileName(&_ofn)?_fileName:NULL;
-		
-		if (params->getNppGUI()._openSaveDir == dir_last)
-		{
-			::GetCurrentDirectory(MAX_PATH, dir);
-			params->setWorkingDir(dir);
-		}
-	} catch(std::exception e) {
-		::MessageBoxA(NULL, e.what(), "Exception", MB_OK);
-	} catch(...) {
-		::MessageBox(NULL, TEXT("GetSaveFileName crashes!!!"), TEXT(""), MB_OK);
+	if (!params.useNewStyleSaveDlg())
+	{
+		_ofn.Flags |= OFN_ENABLEHOOK | OFN_NOVALIDATE;
+		_ofn.lpfnHook = OFNHookProc;
 	}
 
-	::SetCurrentDirectory(dir); 
+	TCHAR *fn = NULL;
+	try
+	{
+		fn = ::GetOpenFileName(&_ofn) ? _fileName : NULL;
+
+		if (params.getNppGUI()._openSaveDir == dir_last)
+		{
+			::GetCurrentDirectory(MAX_PATH, dir);
+			params.setWorkingDir(dir);
+		}
+	}
+	catch (std::exception& e)
+	{
+		generic_string msg = TEXT("An exception occurred while opening file: ");
+		msg += _fileName;
+		msg += TEXT("\r\n\r\nException reason: ");
+		msg += s2ws(e.what());
+
+		::MessageBox(NULL, msg.c_str(), TEXT("File Open Exception"), MB_OK);
+	}
+	catch (...)
+	{
+		::MessageBox(NULL, TEXT("doOpenSingleFileDlg crashes!!!"), TEXT(""), MB_OK);
+	}
+
+	::SetCurrentDirectory(dir);
 
 	return (fn);
 }
@@ -195,18 +207,23 @@ stringVector * FileDialog::doOpenMultiFilesDlg()
 {
 	TCHAR dir[MAX_PATH];
 	::GetCurrentDirectory(MAX_PATH, dir);
-	//_ofn.lpstrInitialDir = dir;
 
-	NppParameters * params = NppParameters::getInstance();
-	_ofn.lpstrInitialDir = params->getWorkingDir();
+	NppParameters& params = NppParameters::getInstance();
+	_ofn.lpstrInitialDir = params.getWorkingDir();
 
-	_ofn.Flags |= OFN_FILEMUSTEXIST | OFN_ALLOWMULTISELECT;
+	_ofn.Flags |= OFN_FILEMUSTEXIST | OFN_ALLOWMULTISELECT | OFN_ENABLESIZING;
+
+	if (!params.useNewStyleSaveDlg())
+	{
+		_ofn.Flags |= OFN_ENABLEHOOK | OFN_NOVALIDATE;
+		_ofn.lpfnHook = OFNHookProc;
+	}
 
 	BOOL res = ::GetOpenFileName(&_ofn);
-	if (params->getNppGUI()._openSaveDir == dir_last)
+	if (params.getNppGUI()._openSaveDir == dir_last)
 	{
 		::GetCurrentDirectory(MAX_PATH, dir);
-		params->setWorkingDir(dir);
+		params.setWorkingDir(dir);
 	}
 	::SetCurrentDirectory(dir);
 
@@ -222,9 +239,9 @@ stringVector * FileDialog::doOpenMultiFilesDlg()
 		}
 		else
 		{
-			lstrcpy(fn, _fileName);
+			wcscpy_s(fn, _fileName);
 			if (fn[lstrlen(fn) - 1] != '\\')
-				lstrcat(fn, TEXT("\\"));
+				wcscat_s(fn, TEXT("\\"));
 		}
 
 		int term = lstrlen(fn);
@@ -232,7 +249,7 @@ stringVector * FileDialog::doOpenMultiFilesDlg()
 		while (*pFn)
 		{
 			fn[term] = '\0';
-			lstrcat(fn, pFn);
+			wcscat_s(fn, pFn);
 			_fileNames.push_back(generic_string(fn));
 			pFn += lstrlen(pFn) + 1;
 		}
@@ -243,38 +260,47 @@ stringVector * FileDialog::doOpenMultiFilesDlg()
 }
 
 
-TCHAR * FileDialog::doSaveDlg() 
+TCHAR * FileDialog::doSaveDlg()
 {
 	TCHAR dir[MAX_PATH];
-	::GetCurrentDirectory(MAX_PATH, dir); 
-	//_ofn.lpstrInitialDir = dir;
+	::GetCurrentDirectory(MAX_PATH, dir);
 
-	NppParameters * params = NppParameters::getInstance();
-	_ofn.lpstrInitialDir = params->getWorkingDir();
+	NppParameters& params = NppParameters::getInstance();
+	_ofn.lpstrInitialDir = params.getWorkingDir();
 
 	_ofn.Flags |= OFN_OVERWRITEPROMPT | OFN_HIDEREADONLY | OFN_ENABLESIZING;
 
-	if (!params->useNewStyleSaveDlg())
+	if (!params.useNewStyleSaveDlg())
 	{
-		_ofn.Flags |= OFN_ENABLEHOOK;
+		_ofn.Flags |= OFN_ENABLEHOOK | OFN_NOVALIDATE;
 		_ofn.lpfnHook = OFNHookProc;
 	}
 
 	TCHAR *fn = NULL;
-	try {
-		fn = ::GetSaveFileName(&_ofn)?_fileName:NULL;
-		if (params->getNppGUI()._openSaveDir == dir_last)
+	try
+	{
+		fn = ::GetSaveFileName(&_ofn) ? _fileName : NULL;
+		if (params.getNppGUI()._openSaveDir == dir_last)
 		{
 			::GetCurrentDirectory(MAX_PATH, dir);
-			params->setWorkingDir(dir);
+			params.setWorkingDir(dir);
 		}
-	} catch(std::exception e) {
-		::MessageBoxA(NULL, e.what(), "Exception", MB_OK);
-	} catch(...) {
+	}
+	catch (std::exception& e)
+	{
+		generic_string msg = TEXT("An exception occurred while saving file: ");
+		msg += _fileName;
+		msg += TEXT("\r\n\r\nException reason: ");
+		msg += s2ws(e.what());
+
+		::MessageBox(NULL, msg.c_str(), TEXT("File Save Exception"), MB_OK);
+	}
+	catch (...)
+	{
 		::MessageBox(NULL, TEXT("GetSaveFileName crashes!!!"), TEXT(""), MB_OK);
 	}
 
-	::SetCurrentDirectory(dir); 
+	::SetCurrentDirectory(dir);
 
 	return (fn);
 }
@@ -355,15 +381,14 @@ static generic_string addExt(HWND textCtrl, HWND typeCtrl) {
 	return returnExt;
 };
 
-
 UINT_PTR CALLBACK FileDialog::OFNHookProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
     switch(uMsg)
     {
         case WM_INITDIALOG :
         {
-			NppParameters *pNppParam = NppParameters::getInstance();
-			int index = pNppParam->getFileSaveDlgFilterIndex();
+			NppParameters& nppParam = NppParameters::getInstance();
+			int index = nppParam.getFileSaveDlgFilterIndex();
 
 			::SetWindowLongPtr(hWnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(staticThis));
 			hFileDlg = ::GetParent(hWnd);
@@ -374,7 +399,6 @@ UINT_PTR CALLBACK FileDialog::OFNHookProc(HWND hWnd, UINT uMsg, WPARAM wParam, L
 				HWND typeControl = ::GetDlgItem(hFileDlg, cmb1);
 				::SendMessage(typeControl, CB_SETCURSEL, index, 0);
 			}
-
 			// Don't touch the following 3 lines, they are cursed !!!
 			oldProc = reinterpret_cast<WNDPROC>(::GetWindowLongPtr(hFileDlg, GWLP_WNDPROC));
 			if (oldProc)
@@ -429,8 +453,40 @@ BOOL APIENTRY FileDialog::run(HWND hWnd, UINT uMsg, WPARAM, LPARAM lParam)
 				{
 					HWND typeControl = ::GetDlgItem(::GetParent(hWnd), cmb1);
 					int index = static_cast<int32_t>(::SendMessage(typeControl, CB_GETCURSEL, 0, 0));
-					NppParameters *pNppParam = NppParameters::getInstance();
-					pNppParam->setFileSaveDlgFilterIndex(index);
+					NppParameters& nppParam = NppParameters::getInstance();
+					nppParam.setFileSaveDlgFilterIndex(index);
+
+					// change forward-slash to back-slash directory paths so dialog can interpret
+					OPENFILENAME* ofn = reinterpret_cast<LPOFNOTIFY>(lParam)->lpOFN;
+					TCHAR* fileName = ofn->lpstrFile;
+
+					// note: this check is essential, because otherwise we could return True
+					//       with a OFN_NOVALIDATE dialog, which leads to opening every file
+					//       in the specified directory. Multi-select terminator is \0\0.
+					if ((ofn->Flags & OFN_ALLOWMULTISELECT) &&
+						(*(fileName + lstrlen(fileName) + 1) != '\0'))
+						return FALSE;
+
+					if (::PathIsDirectory(fileName))
+					{
+						// change to backslash, and insert trailing '\' to indicate directory
+						hFileDlg = ::GetParent(hWnd);
+						std::wstring filePath(fileName);
+						std::replace(filePath.begin(), filePath.end(), '/', '\\');
+
+						if (filePath.back() != '\\')
+							filePath.insert(filePath.end(), '\\');
+
+						// There are two or more double backslash, then change it to single
+						while (filePath.find(L"\\\\") != std::wstring::npos)
+							filePath.replace(filePath.find(TEXT("\\\\")), 2, TEXT("\\"));
+
+						// change the dialog directory selection
+						::SendMessage(hFileDlg, CDM_SETCONTROLTEXT, edt1,
+							reinterpret_cast<LPARAM>(filePath.c_str()));
+						::PostMessage(hFileDlg, WM_COMMAND, IDOK, 0);
+						::SetWindowLongPtr(hWnd, 0 /*DWL_MSGRESULT*/, 1);
+					}
 					return TRUE;
 				}
 
@@ -451,7 +507,7 @@ void goToCenter(HWND hwnd)
 	::GetClientRect(hParent, &rc);
 	
 	//If window coordinates are all zero(ie,window is minimised),then assign desktop as the parent window.
- 	if(rc.left == 0 && rc.right == 0 && rc.top == 0 && rc.bottom == 0)
+ 	if (rc.left == 0 && rc.right == 0 && rc.top == 0 && rc.bottom == 0)
  	{
  		//hParent = ::GetDesktopWindow();
 		::ShowWindow(hParent, SW_SHOWNORMAL);

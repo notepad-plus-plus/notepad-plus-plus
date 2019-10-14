@@ -277,7 +277,7 @@ public:
 	// Theo - Removed Tracing
 
 protected:
-	WINRECT*	m_map;			// THE window map
+	WINRECT*	m_map = nullptr;			// THE window map
 
 	int  CountWindows();
 	BOOL SendGetSizeInfo(SIZEINFO& szi, HWND hWnd, UINT nID);

@@ -66,9 +66,11 @@ PowerEditor/bin/session.xml
 PowerEditor/bin/functionList.xml
 PowerEditor/bin/shortcuts.xml
 PowerEditor/bin/backup/
-PowerEditor/bin/localization
+PowerEditor/bin/localization/
 PowerEditor/bin/plugins/
+PowerEditor/bin/updater/
 PowerEditor/bin64/
+PowerEditor/installer/bin/wingup/
 PowerEditor/installer/build/
 PowerEditor/installer/minimalist/
 PowerEditor/installer/minimalist64/
@@ -139,3 +141,8 @@ PowerEditor/bin/SourceCodePro-Regular.ttf
 /PowerEditor/bin/libgcc_s_sjlj-1.dll
 /PowerEditor/bin/libstdc++-6.dll
 /PowerEditor/bin/libwinpthread-1.dll
+
+PowerEditor/src/MISC/md5/RCa06792
+*.db
+*.sln
+*.opendb

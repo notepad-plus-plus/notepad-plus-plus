@@ -56,7 +56,7 @@ LocalizationSwitcher::LocalizationDefinition localizationDefs[] =
 	{TEXT("Occitan"), TEXT("occitan.xml")},
 	{TEXT("ไทย"), TEXT("thai.xml")},
 	{TEXT("Furlan"), TEXT("friulian.xml")},
-	{TEXT("الْعَرَبيّة"), TEXT("arabic.xml")},
+	{TEXT("العربية"), TEXT("arabic.xml")},
 	{TEXT("Suomi"), TEXT("finnish.xml")},
 	{TEXT("Lietuvių"), TEXT("lithuanian.xml")},
 	{TEXT("Ελληνικά"), TEXT("greek.xml")},
@@ -112,5 +112,9 @@ LocalizationSwitcher::LocalizationDefinition localizationDefs[] =
 	{TEXT("Тоҷик"), TEXT("tajikCyrillic.xml")},
 	{TEXT("татарча"), TEXT("tatar.xml")},
 	{TEXT("ਪੰਜਾਬੀ"), TEXT("punjabi.xml")},
-	{TEXT("Corsu"), TEXT("corsican.xml")}
+	{TEXT("Corsu"), TEXT("corsican.xml")},
+	{TEXT("Brezhoneg"), TEXT("breton.xml")},
+	{TEXT("کوردی‬"), TEXT("kurdish.xml")},
+	{TEXT("Pig latin"), TEXT("piglatin.xml")},
+	{TEXT("Zulu"), TEXT("zulu.xml")}
 };

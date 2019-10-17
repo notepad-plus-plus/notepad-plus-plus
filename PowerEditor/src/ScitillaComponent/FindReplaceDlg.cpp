@@ -794,28 +794,31 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 		case WM_INITDIALOG :
 		{
-			HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
-			HWND hReplaceCombo = ::GetDlgItem(_hSelf, IDREPLACEWITH);
-			HWND hFiltersCombo = ::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_COMBO);
-			HWND hDirCombo = ::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_COMBO);
+			if ((NppParameters::getInstance()).getNppGUI()._monospacedFontFinfDlg)
+			{
+				HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
+				HWND hReplaceCombo = ::GetDlgItem(_hSelf, IDREPLACEWITH);
+				HWND hFiltersCombo = ::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_COMBO);
+				HWND hDirCombo = ::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_COMBO);
 
-			const TCHAR* fontName = _T("Courier New");
-			const long nFontSize = 8;
+				const TCHAR* fontName = _T("Courier New");
+				const long nFontSize = 8;
 
-			HDC hdc = GetDC(_hSelf);
+				HDC hdc = GetDC(_hSelf);
 
-			LOGFONT logFont = { 0 };
-			logFont.lfHeight = -MulDiv(nFontSize, GetDeviceCaps(hdc, LOGPIXELSY), 72);
-			_tcscpy_s(logFont.lfFaceName, fontName);
+				LOGFONT logFont = { 0 };
+				logFont.lfHeight = -MulDiv(nFontSize, GetDeviceCaps(hdc, LOGPIXELSY), 72);
+				_tcscpy_s(logFont.lfFaceName, fontName);
 
-			_hMonospaceFont = CreateFontIndirect(&logFont);
+				_hMonospaceFont = CreateFontIndirect(&logFont);
 
-			ReleaseDC(_hSelf, hdc);
+				ReleaseDC(_hSelf, hdc);
 
-			SendMessage(hFindCombo, WM_SETFONT, (WPARAM)_hMonospaceFont, MAKELPARAM(true, 0));
-			SendMessage(hReplaceCombo, WM_SETFONT, (WPARAM)_hMonospaceFont, MAKELPARAM(true, 0));
-			SendMessage(hFiltersCombo, WM_SETFONT, (WPARAM)_hMonospaceFont, MAKELPARAM(true, 0));
-			SendMessage(hDirCombo, WM_SETFONT, (WPARAM)_hMonospaceFont, MAKELPARAM(true, 0));
+				SendMessage(hFindCombo, WM_SETFONT, (WPARAM)_hMonospaceFont, MAKELPARAM(true, 0));
+				SendMessage(hReplaceCombo, WM_SETFONT, (WPARAM)_hMonospaceFont, MAKELPARAM(true, 0));
+				SendMessage(hFiltersCombo, WM_SETFONT, (WPARAM)_hMonospaceFont, MAKELPARAM(true, 0));
+				SendMessage(hDirCombo, WM_SETFONT, (WPARAM)_hMonospaceFont, MAKELPARAM(true, 0));
+			}
 
 			RECT arc;
 			::GetWindowRect(::GetDlgItem(_hSelf, IDCANCEL), &arc);

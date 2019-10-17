@@ -913,6 +913,7 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_MIN2SYSTRAY, BM_SETCHECK, nppGUI._isMinimizedToTray, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_DETECTENCODING, BM_SETCHECK, nppGUI._detectEncoding, 0);
             ::SendDlgItemMessage(_hSelf, IDC_CHECK_AUTOUPDATE, BM_SETCHECK, nppGUI._autoUpdateOpt._doAutoUpdate, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_MONOSPACEDFONT_FINDDLG, BM_SETCHECK, nppGUI._monospacedFontFinfDlg, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLEDOCPEEKER, BM_SETCHECK, nppGUI._isDocPeekOnTab ? BST_CHECKED : BST_UNCHECKED, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLEDOCPEEKONMAP, BM_SETCHECK, nppGUI._isDocPeekOnMap ? BST_CHECKED : BST_UNCHECKED, 0);
 
@@ -1068,6 +1069,12 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 					nppGUI._shortTitlebar = !nppGUI._shortTitlebar;
 					HWND grandParent = ::GetParent(_hParent);
 					::SendMessage(grandParent, NPPM_INTERNAL_UPDATETITLEBAR, 0, 0);
+					return TRUE;
+				}
+
+				case IDC_CHECK_MONOSPACEDFONT_FINDDLG:
+				{
+					nppGUI._monospacedFontFinfDlg = isCheckedOrNot(IDC_CHECK_MONOSPACEDFONT_FINDDLG);
 					return TRUE;
 				}
 

@@ -790,6 +790,7 @@ By Hiro5 <groccat at gmail>
 					<Item id="6510" name="Utilitza el predeterminat"/>
 					<Item id="6303" name="Mida de tabulació:"/>
 					<Item id="6302" name="Reemplaça per espais"/>
+					<Item id="6335" name="Tracta \ com a caràcter d'escapada per l'SQL"/>
 				</Language>
 				<Highlighting title="Ressaltat">
 					<Item id="6333" name="Ressaltat intel·ligent"/>
@@ -902,7 +903,6 @@ By Hiro5 <groccat at gmail>
 					<Item id="6115" name="Sagnat automàtic"/>
 					<Item id="6308" name="Minimitza a la safata del sistema"/>
 					<Item id="6331" name="Mostra només el nom de fitxer a la barra de títol"/>
-					<Item id="6335" name="Tracta \ com a caràcter d'escapada per l'SQL"/>
 					<Item id="6323" name="Actualitza Notepad++ automàticament"/>
 					<Item id="6318" name="Configuració dels enllaços clicables"/>
 					<Item id="6319" name="Habilita"/>

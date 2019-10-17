@@ -782,6 +782,7 @@
                     <Item id="6302" name="Substituir por espaço"/>
                     <Item id="6303" name="Tamanho da aba: "/>
                     <Item id="6510" name="Usar valor padrão"/>
+                    <Item id="6335" name="Tratar barra invertida como caractere de escape para SQL"/>
                 </Language>
 
                 <Highlighting title="Destaque">
@@ -927,7 +928,6 @@
                     <Item id="6324" name="Troca de documentos (Ctrl+Tab)"/>
                     <Item id="6331" name="Mostrar somente o nome do arquivo no título"/>
                     <Item id="6334" name="Autodetetar codificação do caractere"/>
-                    <Item id="6335" name="Tratar barra invertida como caractere de escape para SQL"/>
                     <Item id="6337" name="Ext. do arqu. espaço de trab.:"/>
                     <Item id="6114" name="Habilitar"/>
                     <Item id="6115" name="Auto-indentar"/>

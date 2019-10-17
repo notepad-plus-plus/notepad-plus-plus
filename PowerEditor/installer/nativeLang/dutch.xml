@@ -791,6 +791,7 @@
 					<Item id="6302" name="Omzetten in spaties"/>
 					<Item id="6303" name="Tabgrootte:"/>
 					<Item id="6510" name="Standaardwaarde"/>
+					<Item id="6335" name="\ als SQL escape character interpreteren"/>
 				</Language>
 
 				<Highlighting title="Markeren">
@@ -935,7 +936,6 @@
 					<Item id="6324" name="Wisselen tussen documenten (Ctrl+Tab)"/>
 					<Item id="6331" name="Alleen de bestandsnaam in de titelbalk weergeven"/>
 					<Item id="6334" name="Karakterset automatisch detecteren"/>
-					<Item id="6335" name="\ als SQL escape character interpreteren"/>
 					<Item id="6337" name="Bestandsextensie werkomgeving:"/>
 					<Item id="6114" name="Activeren"/>
 					<Item id="6115" name="Insprong automatisch toepassen"/>

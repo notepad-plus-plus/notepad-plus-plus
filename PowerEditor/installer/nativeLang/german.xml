@@ -798,6 +798,7 @@
 					<Item id="6302" name="Durch Leerzeichen ersetzen"/>
 					<Item id="6303" name="Tabulatorbreite:"/>
 					<Item id="6510" name="Standard verwenden"/>
+					<Item id="6335" name="Backslash ist Escapezeichen für SQL"/>
 				</Language>
 
 				<Highlighting title="Hervorhebung">
@@ -942,7 +943,6 @@
 					<Item id="6324" name="Dokumentenumschalter (Strg+Tab)"/>
 					<Item id="6331" name="Nur Dateinamen in Titelleiste anzeigen"/>
 					<Item id="6334" name="Kodierung automatisch erkennen"/>
-					<Item id="6335" name="Backslash ist Escapezeichen für SQL"/>
 					<Item id="6337" name="Arbeitsbereich Dateierw.:"/>
 					<Item id="6114" name="Aktivieren"/>
 					<Item id="6115" name="Automatische Einrückung"/>

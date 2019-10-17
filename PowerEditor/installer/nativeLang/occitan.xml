@@ -779,6 +779,7 @@
 					<Item id="6302" name="Remplaçar per d'espacis"/>
 					<Item id="6303" name="Talha de tabulacion : "/>
 					<Item id="6510" name="Utilizar la valor per dafaut"/>
+					<Item id="6335" name="Considerar backslash coma caractèr d'escapament per SQL"/>
 				</Language>
 				
 				<Highlighting title="Coloracion sintaxica">
@@ -903,7 +904,6 @@
 					<Item id="6324" name="Cambiaire de documents (Ctrl+TAB)"/>
 					<Item id="6331" name="Mostrar sonque lo nom del fichièr dins la barra de títol"/>
 					<Item id="6334" name="Detectar automaticament lo codage de caractèrs"/>
-					<Item id="6335" name="Considerar backslash coma caractèr d'escapament per SQL"/>
 					<Item id="6337" name="Ext. de fichièr de l'espaci de trabalh :"/>
 					<Item id="6114" name="Activar (Ctrl+Tab)"/>
 					<Item id="6115" name="Indentacion automatica"/>

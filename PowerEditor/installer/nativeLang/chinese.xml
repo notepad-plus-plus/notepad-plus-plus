@@ -786,6 +786,7 @@
                     <Item id="6302" name="使用空格"/>
                     <Item id="6303" name="縮排大小："/>
                     <Item id="6510" name="使用預設值"/>
+                    <Item id="6335" name="在 SQL 中視「\」為逸出字元"/>
                 </Language>
 
                 <Highlighting title="醒目提示">
@@ -929,7 +930,6 @@
                     <Item id="6324" name="文件切換器（Ctrl + TAB）"/>
                     <Item id="6331" name="在標題列僅顯示檔案名稱（隱藏資料夾路徑）"/>
                     <Item id="6334" name="自動偵測檔案編碼"/>
-                    <Item id="6335" name="在 SQL 中視「\」為逸出字元"/>
                     <Item id="6337" name="資料夾工作區檔案副檔名："/>
                     <Item id="6114" name="啟動"/>
                     <Item id="6115" name="自動縮排"/>

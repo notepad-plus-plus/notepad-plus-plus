@@ -785,6 +785,7 @@
                     <Item id="6302" name="Nahradiť medzerami"/>
                     <Item id="6303" name="Veľkosť tabulátora: "/>
                     <Item id="6510" name="Použiť predvolenú hodnotu"/>
+                    <Item id="6335" name="V SQL považovať spätné lomítko za escape znak"/>
                 </Language>
 
                 <Highlighting title="Zvýrazňovanie">
@@ -925,7 +926,6 @@
 					<Item id="6324" name="Prepínanie dokumentov (Ctrl+Tab)"/>
 					<Item id="6331" name="Zobrazovať v záhlaví okna iba názov súboru"/>
                     <Item id="6334" name="Automatické zisťovanie kódovania znakov"/>
-                    <Item id="6335" name="V SQL považovať spätné lomítko za escape znak"/>
                     <Item id="6337" name="Prípona súboru prac. priestoru:"/>
 					<Item id="6114" name="Povoliť"/>
 					<Item id="6115" name="Automatické odsadzovanie"/>

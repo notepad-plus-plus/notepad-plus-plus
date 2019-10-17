@@ -785,6 +785,7 @@
                     <Item id="6302" name="Erstat med mellemrum"/>
                     <Item id="6303" name="Tabulatorstørrelse: "/>
                     <Item id="6510" name="Brug standardværdi"/>
+                    <Item id="6335" name="Behandl omvendt skråstreg som undvigetegn for SQL"/>
                 </Language>
 
                 <Highlighting title="Fremhævning">
@@ -930,7 +931,6 @@
                     <Item id="6324" name="Dokumentskifter (Ctrl+Tabulator)"/>
                     <Item id="6331" name="Vis kun filnavn i titellinjen"/>
                     <Item id="6334" name="Automatisk registrering af tegnkodning"/>
-                    <Item id="6335" name="Behandl omvendt skråstreg som undvigetegn for SQL"/>
                     <Item id="6337" name="Filtype for arbejdsområde:"/>
                     <Item id="6114" name="Aktivér"/>
                     <Item id="6115" name="Automatisk indrykning"/>

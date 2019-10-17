@@ -788,6 +788,7 @@
 						<Item id="6302" name="Zamenjaj s presledki"/>
 						<Item id="6303" name="Velikost zavihka: "/>
 						<Item id="6510" name="Uporabi privzeto vrednost"/>
+						<Item id="6335" name="Uporabite poševnico kot ubežni znak za SQL"/>
 			   	</Language>
 
                 <Highlighting title="Poudarjanje">
@@ -933,7 +934,6 @@
 						<Item id="6324" name="Preklopnik dokumentov (Ctrl+TAB)"/>
 						<Item id="6331" name="V naslovni vrstici pokaži le ime datoteke"/>
 						<Item id="6334" name="Samodejno zaznavanje kodiranja znakov"/>
-						<Item id="6335" name="Uporabite poševnico kot ubežni znak za SQL"/>
 						<Item id="6337" name="Delovni prostor pripone datoteke:"/>
 						<Item id="6114" name="Omogoči"/>
 						<Item id="6115" name="Samodejno zamikaj"/>

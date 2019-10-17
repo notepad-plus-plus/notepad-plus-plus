@@ -703,6 +703,7 @@
   <Item id="6302" name="공백으로 바꾸기"/>
   <Item id="6303" name="탭 크기: "/>
   <Item id="6510" name="기본값 사용"/>
+  <Item id="6335" name="SQL에서 백슬래쉬를 이스케이프 문자로 취급"/>
   </Language>
 <Highlighting title="강조 표시">
   <Item id="6333" name="스마트 강조"/>
@@ -835,7 +836,6 @@
   <Item id="6324" name="문서 전환 (Ctrl+Tab)"/> 
   <Item id="6331" name="제목 표시줄에 파일명만 표시"/> 
   <Item id="6334" name="문자 인코딩 자동 검색"/> 
-  <Item id="6335" name="SQL에서 백슬래쉬를 이스케이프 문자로 취급"/>
   <Item id="6337" name="Workspace 파일 확장자:"/>
   <Item id="6114" name="사용"/> 
   <Item id="6115" name="자동 들여쓰기"/> 

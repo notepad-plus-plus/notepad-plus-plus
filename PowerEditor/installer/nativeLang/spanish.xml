@@ -753,6 +753,7 @@
 					<Item id="6302" name="Sustituir por espacios"/>
 					<Item id="6303" name="Tamaño: "/>
 					<Item id="6510" name="Usar valor por defecto"/>
+					<Item id="6335" name="Tratar barra invertida como carácter de escape para SQL"/>
 				</Language>
 				<Highlighting title="Resaltado">
 					<Item id="6333" name="Resaltado inteligente"/>
@@ -884,7 +885,6 @@
 					<Item id="6324" name="Cambiar de documento (Ctrl+TAB)"/>
 					<Item id="6331" name="Mostrar sólo nombre de archivo en el título de la ventana"/>
 					<Item id="6334" name="Autodetectar codificación"/>
-					<Item id="6335" name="Tratar barra invertida como carácter de escape para SQL"/>
 					<Item id="6337" name="Ext. del arch. área de trab.:"/>
 					<Item id="6114" name="Permitir"/>
 					<Item id="6115" name="Auto-indentar"/>

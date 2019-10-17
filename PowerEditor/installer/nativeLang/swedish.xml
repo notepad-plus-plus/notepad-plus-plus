@@ -750,6 +750,7 @@
 					<Item id="6302" name="Ersätt med mellanslag"/>
 					<Item id="6303" name="Tabb-storlek: "/>
 					<Item id="6510" name="Använd standardvärde"/>
+					<Item id="6335" name="Behandla omvänt snedstreck som escape-tecken för SQL"/>
 				</Language>
 
 				<Highlighting title="Markering">
@@ -891,7 +892,6 @@
 					<Item id="6324" name="Dokumentväxling (Ctrl+Tab)"/>
 					<Item id="6331" name="Visa endast filnamn i titelrad"/>
 					<Item id="6334" name="Automatisk igenkänning av teckenkodning"/>
-					<Item id="6335" name="Behandla omvänt snedstreck som escape-tecken för SQL"/>
 					<Item id="6337" name="Filändelse för arbetsytafil:"/>
 					<Item id="6114" name="Aktivera"/>
 					<Item id="6115" name="Automatiskt indrag"/>

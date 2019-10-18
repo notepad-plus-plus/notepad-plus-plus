@@ -362,7 +362,7 @@
                 <Item id="1616" name="Marcar linha"/>
                 <Item id="1618" name="Limpar marcadores"/>
                 <Item id="1611" name="Substituir por :"/>
-		<Item id="1608" name="Substitui&amp;r"/>
+                <Item id="1608" name="Substitui&amp;r"/>
                 <Item id="1609" name="Substituir todos"/>
                 <Item id="1687" name="Ao perder o foco"/>
                 <Item id="1688" name="Sempre"/>
@@ -943,7 +943,7 @@
                 <Item id="8006" name="Macro a executar :"/>
                 <Item id="8001" name="Executar"/>
                 <Item id="8005" name="vez(es)"/>
-                <Item id="8002" name="Executar até o final da linha"/>
+                <Item id="8002" name="Executar até o final do arquivo"/>
             </MultiMacro>
             <Window title="Janelas">
                 <Item id="1" name="Ativar"/>

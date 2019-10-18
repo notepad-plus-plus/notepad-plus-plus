@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v7.7.2:
-- added new lines of Summary
-- added lines Up and Down
-- added others lines
+Updated to v7.8:
+- fix some lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="7.7.2">
+	<Native-Langue name="Русский" filename="russian.xml" version="7.8">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -293,7 +291,7 @@ Updated to v7.7.2:
 					<Item id="47000" name="О программе..."/>
 					<Item id="47001" name="Домашняя страница Notepad++"/>
 					<Item id="47002" name="Страница проекта Notepad++"/>
-					<Item id="47003" name="Интернет документация"/>
+					<Item id="47003" name="Онлайн Документация"/>
 					<Item id="47004" name="Форум"/>
 					<Item id="47005" name="Плагины..."/>
 					<Item id="47006" name="Обновить Notepad++"/>
@@ -719,7 +717,7 @@ Updated to v7.7.2:
 					<Item id="6120" name="Вертикально с левой стороны"/>
 					<Item id="6121" name="Выходить при закр. послед. вкладки"/>
 					<Item id="6122" name="Скрыть Главное Меню (Alt или F10 для выбора)"/>
-					<Item id="6123" name="Язык интерфейса"/>
+					<Item id="6123" name="Язык Интерфейса"/>
 					<Item id="6125" name="Панель Списка Документов"/>
 					<Item id="6126" name="Отображать"/>
 					<Item id="6127" name="Отключить колонку расширения"/>
@@ -739,7 +737,7 @@ Updated to v7.7.2:
 					<Item id="6213" name="Фон текста за границей"/>
 					<Item id="6214" name="Подсветка текущей строки"/>
 					<Item id="6215" name="Сглаживание шрифтов"/>
-					<Item id="6216" name="Текстовый Курсор"/>
+					<Item id="6216" name="Текстовый  Курсор"/>
 					<Item id="6217" name="Ширина"/>
 					<Item id="6219" name="Част. мерц.:"/>
 					<Item id="6221" name="Ч"/>
@@ -822,13 +820,13 @@ Updated to v7.7.2:
 					<Item id="6427" name="Задать макс. длину:"/>
 				</RecentFilesHistory>
 				<Highlighting title="Подсветка">
-					<Item id="6333" name="Подсветка совпадающих слов"/>
+					<Item id="6333" name="Подсветка Совпадающих Слов"/>
 					<Item id="6326" name="Включить"/>
 					<Item id="6332" name="Учитывать регистр"/>
 					<Item id="6338" name="Только целые слова"/>
 					<Item id="6339" name="Исполь. настройки окна Поиска"/>
 					<Item id="6340" name="Подсветка в Другой Области"/>
-					<Item id="6329" name="Подсветка парных тегов"/>
+					<Item id="6329" name="Подсветка Парных Тегов"/>
 					<Item id="6327" name="Разрешить"/>
 					<Item id="6328" name="Подсветка атрибутов тега"/>
 					<Item id="6330" name="Подсветка comment/php/asp зон"/>
@@ -846,12 +844,12 @@ Updated to v7.7.2:
 				</Language>
 				<MISC title = "Разное">
 					<ComboBox id="6347">
-						<Element name="Включено"/>
-						<Element name="Включено для всех открытых файлов"/>
+						<Element name="Только активной вкладки"/>
+						<Element name="Всех открытых файлов"/>
 						<Element name="Отключено"/>
 					</ComboBox>
 					<Item id="6308" name="Сворачивать в трей"/>
-					<Item id="6312" name="Отслеживать изменение файла  (извне)"/>
+					<Item id="6312" name="Отслеживание Изменений в Файлах"/>
 					<Item id="6313" name="Обновлять не спрашивая"/>
 					<Item id="6318" name="Обработка  Веб-ссылок"/>
 					<Item id="6325" name="К последней строке после обновл."/>
@@ -865,6 +863,7 @@ Updated to v7.7.2:
 					<Item id="6115" name="Повторять отступ предыдущей строки"/>
 					<Item id="6117" name="Выстроить список по мере использ."/>
 					<Item id="6334" name="Авто-определение кодировки символов"/>
+					<Item id="6314" name="Моноширинный шрифт в диалоге поиска (требуется перезапуск Notepad++)"/>
 					<Item id="6337" name="Расширение файла проекта:"/>
 					<Item id="6344" name="Предосмотр Документа"/>
 					<Item id="6345" name="Миниатюра под Вкладкой"/>
@@ -884,7 +883,7 @@ Updated to v7.7.2:
 					<Item id="6256" name="Разрешить захват нескольких строк"/>
 					<Item id="6257" name="бла бла бла бла бла бла"/>
 					<Item id="6258" name="бла бла бла бла бла бла бла бла бла бла бла бла"/>
-					<Item id="6161" name="Список символов"/>
+					<Item id="6161" name="Список Символов"/>
 					<Item id="6162" name="Использовать символы по умолчанию"/>
 					<Item id="6163" name="Добавить свои символы, как часть слова&#x0A;(не используйте это, если вы не знаете, что делаете)"/>
 				</Delimiter>
@@ -900,13 +899,13 @@ Updated to v7.7.2:
 					<Item id="6274" name="Bing"/>
 					<Item id="6275" name="Yahoo!"/>
 					<Item id="6279" name="Stack Overflow"/>
-					<Item id="6276" name="Задавать свою поисковую систему:"/>
+					<Item id="6276" name="Задать свою поисковую систему:"/>
 					<!-- Не менять ничего после Пример: -->
 					<Item id="6278" name="Пример: https://www.google.com/search?q=$(CURRENT_WORD)"/>
 				</SearchEngine>
 				<Backup title = "Резерв. Копирование">
 					<Item id="6801" name="Резервное Копирование (при сохранении)"/>
-					<Item id="6817" name="Снимок сессии и периодическое резервное копирование"/>
+					<Item id="6817" name="Снимок Сессии и Периодическое Резервное Копирование"/>
 					<Item id="6309" name="Запоминать текущую сессию для следующего запуска"/>
 					<Item id="6818" name="Включить периодическое резервное копирование"/>
 					<Item id="6821" name="секунд"/>

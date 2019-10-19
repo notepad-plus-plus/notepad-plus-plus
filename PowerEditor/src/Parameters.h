@@ -824,7 +824,7 @@ struct NppGUI final
 	char _rightmostDelimiter = ')';
 	bool _delimiterSelectionOnEntireDocument = false;
 	bool _backSlashIsEscapeCharacterForSql = true;
-
+	bool _monospacedFontFinfDlg = false;
 	bool _isWordCharDefault = true;
 	std::string _customWordChars;
 

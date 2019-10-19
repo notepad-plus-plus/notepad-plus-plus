@@ -869,6 +869,7 @@
                     <Item id="6302" name="Zamijeni razmacima"/>
                     <Item id="6303" name="Veličina uvlaka: "/>
                     <Item id="6510" name="Koristi zadanu vrijednost"/>
+                    <Item id="6335" name="Tretiraj backslash kao escape karakter za SQL"/>
                 </Language>
 
                 <Highlighting title="Označavanje">
@@ -1028,7 +1029,6 @@
                     <Item id="6332" name="Razlikuj mala i velika slova"/>
                     <Item id="6333" name="Inteligentno isticanje"/>
                     <Item id="6334" name="Automatski detektiraj enkoding"/>
-                    <Item id="6335" name="Tretiraj backslash kao escape karakter za SQL"/>
                     <Item id="6337" name="Nastavak datoteke radne površine:"/>
                     <Item id="6114" name="Uključi sklopku"/>
                     <Item id="6115" name="Automatska uvlaka redaka"/>

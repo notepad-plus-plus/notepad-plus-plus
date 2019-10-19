@@ -785,6 +785,7 @@
                     <Item id="6302" name="替换为空格"/>
                     <Item id="6303" name="制表符宽度: "/>
                     <Item id="6510" name="使用默认值"/>
+                    <Item id="6335" name="视反斜杠为 SQL 转义字符"/>
                 </Language>
 
                 <Highlighting title="高亮">
@@ -930,7 +931,6 @@
                     <Item id="6324" name="文档切换 (Ctrl+TAB)"/>
                     <Item id="6331" name="在标题栏仅显示文件名"/>
                     <Item id="6334" name="自动检测字符编码"/>
-                    <Item id="6335" name="视反斜杠为 SQL 转义字符"/>
                     <Item id="6337" name="工作区文件扩展名:"/>
                     <Item id="6114" name="启用"/>
                     <Item id="6115" name="自动缩进"/>

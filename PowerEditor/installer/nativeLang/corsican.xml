@@ -799,6 +799,7 @@
                     <Item id="6302" name="Rimpiazzà cù spaziu"/>
                     <Item id="6303" name="Dimensione : "/>
                     <Item id="6510" name="Impiegà u valore predefinitu"/>
+                    <Item id="6335" name="« \ » hè u caratteru di scappamentu per SQL"/>
                 </Language>
 
                 <Highlighting title="Sopralineamentu">
@@ -946,7 +947,6 @@
                     <Item id="6324" name="Cambiamentu di ducumentu (Ctrl+Tabul.)"/>
                     <Item id="6331" name="Affissà solu u nome di schedariu in a barra di titulu"/>
                     <Item id="6334" name="Detezione autumatica di cudificazione di caratteru"/>
-                    <Item id="6335" name="« \ » hè u caratteru di scappamentu per SQL"/>
                     <Item id="6337" name="Estensione di spaziu di travagliu :"/>
                     <Item id="6114" name="Attivà"/>
                     <Item id="6115" name="Indentazione autumatica"/>

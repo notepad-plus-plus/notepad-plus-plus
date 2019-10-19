@@ -750,6 +750,7 @@
                     <Item id="6302" name="Ordeztu tarte batekin"/>
                     <Item id="6303" name="Hegats neurria: "/>
                     <Item id="6510" name="Erabili berezko balioa"/>
+                    <Item id="6335" name="Tratatu ezkerbarra irten hizki bezala SQL hizki-koderako"/>
                 </Language>
 
 				<Highlighting title="Nabarmentzea">
@@ -909,7 +910,6 @@
                     <Item id="6332" name="Nabarmendu hizki xehe-larri artean"/>
                     <Item id="6333" name="Nabarmentze Adimentsua"/>
 					<Item id="6334" name="Berez-atzeman hizki kodeaketa"/>
- 		            <Item id="6335" name="Tratatu ezkerbarra irten hizki bezala SQL hizki-koderako"/>
 
                 </MISC>
 

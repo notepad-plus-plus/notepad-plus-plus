@@ -774,6 +774,7 @@
                     <Item id="6302" name="Eplaceray ybay acespay"/>
                     <Item id="6303" name="Abtay izesay: "/>
                     <Item id="6510" name="Useyay efaultday aluevay"/>
+                    <Item id="6335" name="Eattray ackslashbay asyay escapeyay aracterchay orfay SQL"/>
                 </Language>
 
                 <Highlighting title="Highlighting">
@@ -913,7 +914,6 @@
                     <Item id="6324" name="Ocumentday Itchersway (Abctrl+tay)"/>
                     <Item id="6331" name="Owshay onlyyay ilenamefay inyay itletay arbay"/>
                     <Item id="6334" name="Autodetectyay aracterchay encodingyay"/>
-                    <Item id="6335" name="Eattray ackslashbay asyay escapeyay aracterchay orfay SQL"/>
                     <Item id="6337" name="Orkspaceway ilefay extyay:."/>
                     <Item id="6114" name="Enableyay"/>
                     <Item id="6115" name="Autoyay-indentyay"/>

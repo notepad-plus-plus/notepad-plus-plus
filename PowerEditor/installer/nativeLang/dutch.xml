@@ -3,11 +3,11 @@
 	Dutch localization for Notepad++ 7.5.6
 	Last modified Mon, Mar 26 2018 by Klaas Nekeman.
 	Please e-mail errors, suggestions etc. to knekeman(at)gmail.com.
-	Dutch localization for Notepad++ 7.7.2
-	Last modified Mon, Jul 29 2019 by xylographe <wr86420@gmail.com>.
+	Dutch localization for Notepad++ 7.8.1
+	Last modified Wed, Oct 23 2019 by xylographe <wr86420@gmail.com>.
 -->
 <NotepadPlus>
-	<Native-Langue name="Nederlands" filename="dutch.xml" version="7.7.2">
+	<Native-Langue name="Nederlands" filename="dutch.xml" version="7.8.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -15,7 +15,7 @@
 					<Item menuId="file"     name="&amp;Bestand"/>
 					<Item menuId="edit"     name="Be&amp;werken"/>
 					<Item menuId="search"   name="&amp;Zoeken"/>
-					<Item menuId="view"     name="Beel&amp;d"/>
+					<Item menuId="view"     name="B&amp;eeld"/>
 					<Item menuId="encoding" name="&amp;Karakterset"/>
 					<Item menuId="language" name="&amp;Syntaxis"/>
 					<Item menuId="settings" name="&amp;Instellingen"/>
@@ -318,6 +318,9 @@
 					<Item id="50000" name="Functie aanvullen"/>
 					<Item id="50001" name="Woord aanvullen"/>
 					<Item id="50002" name="Functie-argumenten weergeven"/>
+					<Item id="50003" name="Vorige document"/>
+					<Item id="50004" name="Volgende document"/>
+					<Item id="50005" name="Macro opname aan/uit"/>
 					<Item id="50006" name="Bestandspad aanvullen"/>
 					<Item id="44042" name="Regels verbergen"/>
 					<Item id="42040" name="Alle recentelijk geopende bestanden openen"/>
@@ -376,18 +379,18 @@
 				<Item id="1688" name="Altijd"/>
 				<Item id="1632" name="In &amp;selectie"/>
 				<Item id="1633" name="Wissen"/>
-				<Item id="1635" name="Vervangen in alle ge&amp;opende bestanden"/>
+				<Item id="1635" name="In alle ge&amp;opende bestanden vervangen"/>
 				<Item id="1636" name="In alle geopende &amp;bestanden zoeken"/>
 				<Item id="1654" name="Filters:"/>
 				<Item id="1655" name="Map:"/>
-				<Item id="1656" name="Bestanden zoeken"/>
+				<Item id="1656" name="Zoeken in bestanden"/>
 				<Item id="1658" name="Submappen doorzoeken"/>
-				<Item id="1659" name="Verborgen bestanden en&#xD;mappen"/>
+				<Item id="1659" name="Verborgen mappen"/>
 				<Item id="1624" name="Zoekmethode"/>
 				<Item id="1625" name="&amp;Normaal"/>
 				<Item id="1626" name="&amp;Uitgebreid (\n, \r, \t, \0, \x...)"/>
 				<Item id="1660" name="Vervangen in bestanden"/>
-				<Item id="1661" name="Huidige bestandsmap&#xD;selecteren"/>
+				<Item id="1661" name="Huidige bestandsmap"/>
 				<Item id="1641" name="In dit document zoeken"/>
 				<Item id="1686" name="Transparantie"/>
 				<Item id="1703" name="&amp;. vindt \n en \r"/>
@@ -448,7 +451,7 @@
 				<Item id="2"    name="Sluiten"/>
 			</SHA256FromTextDlg>
 
-			<PluginsAdminDlg title="Plugin beheer" titleAvailable = "Beschikbaar" titleUpdates = "Updates" titleInstalled = "Geïnstalleerd">
+			<PluginsAdminDlg title="Plugin beheer" titleAvailable="Beschikbaar" titleUpdates="Updates" titleInstalled="Geïnstalleerd">
 				<ColumnPlugin   name="Naam"/>
 				<ColumnVersion  name="Versie"/>
 				<Item id="5501" name="Zoeken:"/>
@@ -791,7 +794,7 @@
 					<Item id="6302" name="Omzetten in spaties"/>
 					<Item id="6303" name="Tabgrootte:"/>
 					<Item id="6510" name="Standaardwaarde"/>
-					<Item id="6335" name="\ als SQL escape character interpreteren"/>
+					<Item id="6335" name="Backslash als SQL escape-teken interpreteren"/>
 				</Language>
 
 				<Highlighting title="Markeren">
@@ -936,6 +939,7 @@
 					<Item id="6324" name="Wisselen tussen documenten (Ctrl+Tab)"/>
 					<Item id="6331" name="Alleen de bestandsnaam in de titelbalk weergeven"/>
 					<Item id="6334" name="Karakterset automatisch detecteren"/>
+					<Item id="6314" name="Monospace-lettertype in Zoeken/Vervangen invoervakken (Notepad++ herstart nodig)"/>
 					<Item id="6337" name="Bestandsextensie werkomgeving:"/>
 					<Item id="6114" name="Activeren"/>
 					<Item id="6115" name="Insprong automatisch toepassen"/>

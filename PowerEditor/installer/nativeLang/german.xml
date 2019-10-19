@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2019-08-18 by schnurlos (schnurlos@gmail.com)
+	last modified: 2019-10-19 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="7.7.2">
+	<Native-Langue name="Deutsch" filename="german.xml" version="7.8">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -799,6 +799,7 @@
 					<Item id="6303" name="Tabulatorbreite:"/>
 					<Item id="6510" name="Standard verwenden"/>
 					<Item id="6335" name="Backslash ist Escapezeichen für SQL"/>
+
 				</Language>
 
 				<Highlighting title="Hervorhebung">
@@ -943,6 +944,7 @@
 					<Item id="6324" name="Dokumentenumschalter (Strg+Tab)"/>
 					<Item id="6331" name="Nur Dateinamen in Titelleiste anzeigen"/>
 					<Item id="6334" name="Kodierung automatisch erkennen"/>
+					<Item id="6314" name="Monospaced-Schriftart im Dialogfeld 'Suchen' verwenden (Neustart von Notepad ++ erforderlich)"/>
 					<Item id="6337" name="Arbeitsbereich Dateierw.:"/>
 					<Item id="6114" name="Aktivieren"/>
 					<Item id="6115" name="Automatische Einrückung"/>

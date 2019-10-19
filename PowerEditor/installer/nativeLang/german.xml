@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2019-08-18 by schnurlos (schnurlos@gmail.com)
+	last modified: 2019-10-27 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="7.7.2">
+	<Native-Langue name="Deutsch" filename="german.xml" version="7.8.1">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -78,8 +78,6 @@
 					<Item subMenuId="settings-import" name="&amp;Import"/>
 					<Item subMenuId="tools-md5" name="MD5"/>
 					<Item subMenuId="tools-sha256" name="SHA-256"/>
-
-
 				</SubEntries>
 
                 <!-- all menu item -->
@@ -325,6 +323,9 @@
 					<Item id="50000" name="&amp;Funktionsvervollständigung"/>
 					<Item id="50001" name="&amp;Wortvervollständigung"/>
 					<Item id="50002" name="Funktions&amp;parameter anzeigen"/>
+					<Item id="50003" name="Zum vorherigen Dokument wechseln"/>
+					<Item id="50004" name="Zum nächsten Dokument wechseln"/>
+					<Item id="50005" name="Umschalten der Makroaufnahme"/>
 					<Item id="50006" name="&amp;Dateipfad vervollständigen"/>
 					<Item id="44042" name="Zeilen &amp;ausblenden"/>
 					<Item id="42040" name="Alle zule&amp;tzt verwendeten Dateien öffnen"/>
@@ -943,6 +944,7 @@
 					<Item id="6324" name="Dokumentenumschalter (Strg+Tab)"/>
 					<Item id="6331" name="Nur Dateinamen in Titelleiste anzeigen"/>
 					<Item id="6334" name="Kodierung automatisch erkennen"/>
+					<Item id="6314" name="Festbreitenschrift im Dialogfeld 'Suchen' verwenden (Neustart von Notepad++ erforderlich)"/>
 					<Item id="6337" name="Arbeitsbereich Dateierw.:"/>
 					<Item id="6114" name="Aktivieren"/>
 					<Item id="6115" name="Automatische Einrückung"/>

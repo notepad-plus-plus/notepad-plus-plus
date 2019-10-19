@@ -788,6 +788,7 @@
                     <Item id="6302" name="Boşlukla değiştir"/>
                     <Item id="6303" name="Sekme boyutu: "/>
                     <Item id="6510" name="Varsayılan değeri kullan"/>
+					<Item id="6335" name="SQL için kaçış karakteri olarak ters eğik çizgi kullan"/>
 				</Language>
 				
 				<Highlighting title="Vurgulama">
@@ -933,7 +934,6 @@
 					<Item id="6324" name="Belge Değiştirici (Ctrl + Tab)"/>
 					<Item id="6331" name="Başlık çubuğunda sadece dosya adını göster"/>
 					<Item id="6334" name="Karakter kodlamasını otomatik olarak algıla"/>
-					<Item id="6335" name="SQL için kaçış karakteri olarak ters eğik çizgi kullan"/>
 					<Item id="6337" name="Çalışma alanı dosya uzantısı:"/>
 					<Item id="6114" name="Etkin"/>
 					<Item id="6115" name="Otomatik olarak girinti bırak"/>

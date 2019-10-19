@@ -787,6 +787,7 @@
                     <Item id="6302" name="Csere szóközre"/>
                     <Item id="6303" name="Tabulátor méret:"/>
                     <Item id="6510" name="Alapértelmezett"/>
+                    <Item id="6335" name="SQL esetén a backslash értelmezése feloldójelként"/>
                 </Language>
 
                 <Highlighting title="Kiemelés">
@@ -931,7 +932,6 @@
                     <Item id="6324" name="Dokumentum váltó (Ctrl+TAB)"/>
                     <Item id="6331" name="Csak a fájlnév megjelenítése a fejlécben"/>
                     <Item id="6334" name="Karakterkódolás automatikus felismerése"/>
-                    <Item id="6335" name="SQL esetén a backslash értelmezése feloldójelként"/>
                     <Item id="6337" name="Munkaterület fájl kiterjesztés:"/>
                     <Item id="6114" name="Engedélyezés"/>
                     <Item id="6115" name="Automatikus behúzás"/>

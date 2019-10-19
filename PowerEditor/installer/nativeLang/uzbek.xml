@@ -837,6 +837,7 @@ Updater: Shamsiddinov Zafar
 					<Item id="6302" name="Probel bilan almashtirmoq"/>
 					<Item id="6303" name="Chekinish o‘lchami.:"/>
 					<Item id="6510" name="Odatiy qiymatdan foyd.."/>
+					<Item id="6335" name="Teskari tutuq belgisi (‘) SQL belgisi ko‘rinishidir"/>
 				</Language>
 				<MISC title = "Boshqalar">
 					<Item id="6307" name="Faollashtirmoq"/>
@@ -855,7 +856,6 @@ Updater: Shamsiddinov Zafar
 					<Item id="6115" name="Oldingi satrdagi chekinishni takrorlamoq"/>
 					<Item id="6117" name="Qo‘llash darajasida ro‘yxat tuzmoq"/>
 					<Item id="6334" name="Avtomatik belgilar kodini aniqlamoq"/>
-					<Item id="6335" name="Teskari tutuq belgisi (‘) SQL belgisi ko‘rinishidir"/>
 					<Item id="6337" name="Kengaytirilgan fayl loyihasi:"/>
 					<Item id="6344" name="Faylni Ko‘rmoq"/>
 					<Item id="6345" name="Xatcho‘plar ostida miniatura"/>

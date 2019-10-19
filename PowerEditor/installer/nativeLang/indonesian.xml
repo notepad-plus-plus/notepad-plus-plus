@@ -754,6 +754,7 @@
                     <Item id="6302" name="Ganti dengan spasi"/>
                     <Item id="6303" name="Besar tab: "/>
                     <Item id="6510" name="Gunakan nilai baku"/>
+                    <Item id="6335" name="Perlakukan backslash sebagai karakter escape untuk SQL"/>
                 </Language>
 
                 <Highlighting title="Penyorotan">
@@ -895,7 +896,6 @@
                     <Item id="6324" name="Penukar Dokumen (Ctrl+TAB)"/>
                     <Item id="6331" name="Tampilkan nama berkas saja di bilah judul"/>
                     <Item id="6334" name="Otomatis deteksi pengodean karakter"/>
-                    <Item id="6335" name="Perlakukan backslash sebagai karakter escape untuk SQL"/>
                     <Item id="6337" name="Ekst. berkas Ruang kerja:"/>
                     <Item id="6114" name="Aktifkan"/>
                     <Item id="6115" name="Indentasi otomatis"/>

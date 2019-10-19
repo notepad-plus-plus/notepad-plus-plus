@@ -792,7 +792,7 @@
                     <Item id="6302" name="Substituir por espaço"/>
                     <Item id="6303" name="Tamanho: "/>
                     <Item id="6510" name="Usar valor padrão"/>
-		    <Item id="6335" name="Tratar a barra invertida como caractere de escape para SQL"/>
+                    <Item id="6335" name="Tratar a barra invertida como caractere de escape para SQL"/>
                 </Language>
 
                 <Highlighting title="Destaque">
@@ -920,7 +920,7 @@
                     <Item id="6278" name="Exemplo: https://www.google.com/search?q=$(CURRENT_WORD)"/>
                 </SearchEngine>
 				
-	        <MISC title="Diversos">
+	             <MISC title="Diversos">
                     <ComboBox id="6347">
                         <Element name="Ativar"/>
                         <Element name="Ativar para todas as abas"/>
@@ -938,7 +938,7 @@
                     <Item id="6324" name="Alternar documentos (Ctrl+Tab)"/>
                     <Item id="6331" name="Mostrar somente o nome do arquivo no título"/>
                     <Item id="6334" name="Autodetectar codificação do caractere"/>
-		    <Item id="6314" name="Usar fonte monoespaçada na caixa de diálogo Localizar (Necessário reiniciar o Notepad++)"/>
+		                <Item id="6314" name="Usar fonte monoespaçada na caixa de diálogo Localizar (Necessário reiniciar o Notepad++)"/>
                     <Item id="6337" name="Extensão do espaço de trabalho:"/>
                     <Item id="6114" name="Habilitar"/>
                     <Item id="6115" name="Auto-indentar"/>
@@ -946,7 +946,7 @@
                     <Item id="6344" name="Espiar documento"/>
                     <Item id="6345" name="Espiar na aba"/>
                     <Item id="6346" name="Espiar no mapa do documento"/>
-                </MISC>
+              </MISC>
             </Preference>
             <MultiMacro title="Executar macro múltiplas vezes">
                 <Item id="1" name="Executar"/>

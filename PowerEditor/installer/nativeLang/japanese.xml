@@ -798,6 +798,7 @@
                     <Item id="6302" name="スペースで置換"/>
                     <Item id="6303" name="タブ幅:"/>
                     <Item id="6510" name="デフォルト値を使用"/>
+                    <Item id="6335" name="バックスラッシュをSQLのエスケープ文字と見なす"/>
                 </Language>
 
                 <Highlighting title="強調表示">
@@ -943,7 +944,6 @@
                     <Item id="6324" name="ビューの切り替え(Ctrl+Tab)"/>
                     <Item id="6331" name="タイトルバーにファイル名のみ表示"/>
                     <Item id="6334" name="文字コードを自動判別"/>
-                    <Item id="6335" name="バックスラッシュをSQLのエスケープ文字と見なす"/>
                     <Item id="6337" name="ワークスペースファイルの拡張子:"/>
                     <Item id="6114" name="有効"/>
                     <Item id="6115" name="自動インデント"/>

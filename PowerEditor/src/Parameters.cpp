@@ -5077,8 +5077,8 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				_nppGUI._backSlashIsEscapeCharacterForSql = false;
 
 			const TCHAR * optNameMonoFont = element->Attribute(TEXT("monospacedFontFinfDlg"));
-			if (optNameMonoFont && !lstrcmp(optNameMonoFont, TEXT("no")))
-				_nppGUI._monospacedFontFinfDlg = false;
+			if (optNameMonoFont)
+				_nppGUI._monospacedFontFinfDlg = (lstrcmp(optNameMonoFont, TEXT("yes")) == 0);
 
 			const TCHAR * optNameNewStyleSaveDlg = element->Attribute(TEXT("newStyleSaveDlg"));
 			if (optNameNewStyleSaveDlg)

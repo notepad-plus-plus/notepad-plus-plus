@@ -3,7 +3,7 @@
 	## Bulgarian localization for Notepad++ ##
 
 	Translators:.....: 2007–2012 – Milen Metev (Tragedy); 2014–yyyy – Rusi Dimitrov
-	Last revision:...: 04.08.2019 by Rusi Dimitrov <astral_86[at]mail[dot]bg>
+	Last revision:...: 23.10.2019 by Rusi Dimitrov <astral_86[at]mail[dot]bg>
 	Download:........: https://gist.github.com/rddim/bd37264898c3a17363e7437bcf1b4803
 -->
 <NotepadPlus>
@@ -126,6 +126,9 @@
 					<Item id="42006" name="Из&amp;триване"/>
 					<Item id="42007" name="Избиране на &amp;всичко"/>
 					<Item id="42020" name="Начало / Край на маркиране"/>
+					<Item id="50003" name="Превключване към предишния документ"/>
+					<Item id="50004" name="Превключване към следващия документ"/>
+					<Item id="50005" name="Превключване записването на макрос"/>
 						<!-- Подменю "Копиране в системния буфер -->
 					<Item id="42029" name="Текущият път на файла"/>
 					<Item id="42030" name="Текущото име на файла"/>
@@ -894,7 +897,7 @@
 					<Item id="6152" name="Отваряне на сесия в нов прозорец"/>
 					<Item id="6153" name="Винаги в отделен прозорец"/>
 					<Item id="6154" name="По подразбиране (един прозорец)"/>
-					<Item id="6155" name="* Промените влизат в сила, след рестартиране на Notepad++"/>
+					<Item id="6155" name="* Изисква се рестартиране на Notepad++"/>
 				</MultiInstance>
 					<!-- Разделител -->
 				<Delimiter title="Разделител">
@@ -950,6 +953,7 @@
 					<Item id="6308" name="Намаляване в системната област"/>
 					<Item id="6331" name="Показване само името на файла в заглавната лента"/>
 					<Item id="6323" name="Автоматично обновяване на Notepad++"/>
+					<Item id="6314" name="Равноширок шрифт в диалога за търсене (Изисква се рестартиране на Notepad++)"/>
 					<Item id="6322" name="Файлово разширение за сесии:"/>
 					<Item id="6337" name="Разширение за работно място:"/>
 				</MISC>
@@ -1164,7 +1168,7 @@
 			<word-chars-list-warning-end value="  в списъкa със символи."/>
 				<!-- Меню "Настройки" - "Предпочитания..." - "Облак" -->
 			<cloud-invalid-warning value="Невалиден път"/>
-			<cloud-restart-warning value="Промените влизат в сила след рестартиране на Notepad++"/>
+			<cloud-restart-warning value="Изисква се рестартиране на Notepad++"/>
 			<cloud-select-folder value="Избор на папка, от/в която Notepad++ ще чете/пише настройките си"/>
 				<!-- Меню "Търсене - "Търсене", "Замяна", "Търсене във файлове", "Маркиране" -->
 			<shift-change-direction-tip value="Търсене в обратна посока чрез Shift+Enter"/>
@@ -1258,7 +1262,7 @@
 				<!-- $STR_REPLACE$ е контейнер, не се превежда -->
 			<ContextMenuXmlEditWarning title="Редактиране на контекстното меню" message="Редактирането на файла contextMenu.xml позволява да се промени контекстното меню на Notepad++
 
-Промените влизат в сила, след рестартиране на Notepad++"/>
+Изисква се рестартиране на Notepad++"/>
 			<NppHelpAbsentWarning title="Несъществуващ файл" message="
 не съществува.
 

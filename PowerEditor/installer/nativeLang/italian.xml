@@ -805,6 +805,7 @@
                     <Item id = "6301" name = "Impostazioni Tabulazioni" />
                     <Item id = "6302" name = "Sostituisci con spazi" />
                     <Item id = "6303" name = "Dimensione tabulazione:" />
+			<Item id = "6335" name = "Backslash è il carattere di escape in SQL" />
                 </Language>
                 <Highlighting title = "Evidenziazione">
                     <Item id = "6333" name = "Evidenziazione Intelligente" />
@@ -943,7 +944,6 @@
                     <Item id = "6115" name = "Indentazione automatica" />
                     <Item id = "6308" name = "Minimizza nell&apos;area di notifica" />
                     <Item id = "6331" name = "Visualizza solo nome file nella barra del titolo" />
-                    <Item id = "6335" name = "Backslash è il carattere di escape in SQL" />
 
                     <Item id = "6322" name = "Est. file di sessione:" />
                     <Item id = "6337" name = "Est. file workspace:" />

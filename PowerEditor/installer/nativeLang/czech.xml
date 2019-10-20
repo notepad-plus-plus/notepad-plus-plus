@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 7.7.2  29/Jul/2019  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 7.8.1  20/Oct/2019  by Ondřej Müller (mullero@email.cz)
 	- N++ Community:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz)
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="7.7.2">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="7.8.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -336,6 +336,9 @@
 					<Item id = "50000" name = "Dokončování funkcí"/>
 					<Item id = "50001" name = "Dokončování slov"/>
 					<Item id = "50002" name = "Nápověda k parametrům funkcí"/>
+					<Item id = "50003" name = "Přejít na předchozí dokument"/>
+					<Item id = "50004" name = "Přejít na další dokument"/>
+					<Item id = "50005" name = "Přepnout záznam makra"/>
 					<Item id = "50006" name = "Dokončování cest k souborům a adresářům"/>
 					<Item id = "42034" name = "Editor sloupce..."/>
 					<Item id = "42078" name = "Vícenásobný výběr dalších výskytů"/>
@@ -843,6 +846,7 @@
 					<Item id = "6302" name = "Zaměnit za mezery"/>
 					<Item id = "6303" name = "Velikost tabulátoru:"/>
 					<Item id = "6510" name = "Použít implicitní"/>
+					<Item id = "6335" name = "Zpětné lomítko je escape znak pro SQL"/>
 				</Language>
 				<Highlighting title = "Zvýrazňování">
 					<Item id = "6333" name = "Inteligentní zvýrazňování"/>
@@ -908,7 +912,7 @@
 					<Item id = "6308" name = "Minimalizovat do oznamovací oblasti"/>
 					<Item id = "6312" name = "Automatická detekce stavu souboru"/>
 					<Item id = "6313" name = "Aktualizovat skrytě"/>
-					<Item id = "6314" name = "Povolit pouze pro aktuální TAB"/>
+					<Item id = "6314" name = "Použít monospace font v dialog. okně Najít (restart N++)"/>
 					<Item id = "6318" name = "Nastavení hyperlinků"/>
 					<Item id = "6319" name = "Povolit"/>
 					<Item id = "6320" name = "Nepodtrhávat"/>
@@ -918,7 +922,6 @@
 					<Item id = "6325" name = "Přejít na poslední řádek po aktualizaci"/>
 					<Item id = "6331" name = "V záhlaví Notepadu++ zobrazovat pouze název souboru"/>
 					<Item id = "6334" name = "Automatická detekce kódóvání znaků"/>
-					<Item id = "6335" name = "Zpětné lomítko je escape znak pro SQL"/>
 					<Item id = "6337" name = "Přípona souboru pracovní plochy:"/>
 					<Item id = "6344" name = "Náhled na neaktivní dokument"/>
 					<Item id = "6345" name = "Na oušku (tab) dokumentu"/>

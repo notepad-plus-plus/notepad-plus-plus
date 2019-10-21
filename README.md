@@ -94,4 +94,4 @@ To build SciLexer.dll without PCRE support (for both 32-bit & 64-bit):
 
 See the [Notepad++ official site](https://notepad-plus-plus.org/) for more information.
 
-[Notepad++ Contributors](https://notepad-plus-plus.org/contributors)
+[Notepad++ Contributors](https://github.com/notepad-plus-plus/notepad-plus-plus/graphs/contributors)

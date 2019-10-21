@@ -794,7 +794,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 		case WM_INITDIALOG :
 		{
-			if ((NppParameters::getInstance()).getNppGUI()._monospacedFontFinfDlg)
+			if ((NppParameters::getInstance()).getNppGUI()._monospacedFontFindDlg)
 			{
 				HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
 				HWND hReplaceCombo = ::GetDlgItem(_hSelf, IDREPLACEWITH);

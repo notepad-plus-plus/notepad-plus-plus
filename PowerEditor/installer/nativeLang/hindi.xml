@@ -4,10 +4,10 @@
 
 	** created By:- Rathin A. Dholakia **
 		Email- rathin2j@gmail.com
-	** Last Updated on 02/08/2019 by Rajendra Singh (singh.rajen15@gmail.com) **
+	** Last Updated on 22/10/2019 by Rajendra Singh (singh.rajen15@gmail.com) **
 -->
 <NotepadPlus>
-  <Native-Langue name="हिन्दी" filename="hindi.xml" version="7.7.2">
+  <Native-Langue name="हिन्दी" filename="hindi.xml" version="7.8.1">
     <Menu>
       <Main>
         <!-- Main Menu Entries -->
@@ -318,6 +318,9 @@
           <Item id="50000" name="फंक्शन समापन"/>
           <Item id="50001" name="शब्द समापन"/>
           <Item id="50002" name="फंक्शन पैरामीटर्स संकेत(हिंट)"/>
+          <Item id="50003" name="पिछले दस्तावेज़ पर जाएँ"/>
+          <Item id="50004" name="अगले दस्तावेज़ पर जाएँ"/>
+          <Item id="50005" name="मैक्रो रिकॉर्ड को टॉगल करें"/>
           <Item id="50006" name="पाथ समापन"/>
           <Item id="44042" name="लाइन छिपायें"/>
           <Item id="42040" name="सभी रीसेंट फ़ाईलें खोलें"/>
@@ -938,6 +941,7 @@
           <Item id="6324" name="डॉकयुमेंट स्वीचर (Ctrl+TAB)"/>
           <Item id="6331" name="टाइटल बार मे सिर्फ फाईल का नाम दिखायें"/>
           <Item id="6334" name="कैरेक्टर एन्डकोडिंग का स्वतः पता लगाएं"/>
+          <Item id="6314" name="फाइंड डायलॉग में मोनोस्पेस फ़ॉन्ट यूज करें (Notepad++ को रीस्टार्ट करना होगा)"/>
           <Item id="6337" name="वर्कस्पेस फाइल ext.:"/>
           <Item id="6114" name="सक्रिय"/>
           <Item id="6115" name="स्वचालित इंडेंट"/>

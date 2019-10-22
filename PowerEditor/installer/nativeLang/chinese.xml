@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="繁體中文/正體中文" filename="chinese.xml" version="7.7.2">
+    <Native-Langue name="繁體中文/正體中文" filename="chinese.xml" version="7.8.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -311,7 +311,10 @@
                     <Item id="49000" name="執行(&amp;R)..."/>
                     <Item id="50000" name="函數自動完成"/>
                     <Item id="50001" name="字詞自動完成"/>
-                    <Item id="50002" name="功能參數提示"/>
+                    <Item id="50002" name="功能參數提示"/>                    
+					<Item id="50003" name="切換到上一文件"/>
+                    <Item id="50004" name="切換到下一文件"/>
+                    <Item id="50005" name="啟動/停止巨集錄製"/>
                     <Item id="50006" name="自動完成文件路徑"/>
                     <Item id="44042" name="隱藏此行"/>
                     <Item id="42040" name="開啟所有最近使用的檔案"/>

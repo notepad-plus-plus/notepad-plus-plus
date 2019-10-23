@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="7.7.2">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="7.8.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -324,6 +324,9 @@
                     <Item id="50000" name="関数名補完"/>
                     <Item id="50001" name="単語補完"/>
                     <Item id="50002" name="関数パラメータのヒント"/>
+                    <Item id="50003" name="前の文書へ切り替え"/>
+                    <Item id="50004" name="次の文書へ切り替え"/>
+                    <Item id="50005" name="マクロの記録を開始・停止"/>
                     <Item id="50006" name="パス補完"/>
                     <Item id="44042" name="行を隠す"/>
                     <Item id="42040" name="最近使用したファイルをすべて開く"/>
@@ -944,6 +947,7 @@
                     <Item id="6324" name="ビューの切り替え(Ctrl+Tab)"/>
                     <Item id="6331" name="タイトルバーにファイル名のみ表示"/>
                     <Item id="6334" name="文字コードを自動判別"/>
+                    <Item id="6314" name="検索画面で固定幅フォントを使用する（Notepad++ の再起動が必要）"/>
                     <Item id="6337" name="ワークスペースファイルの拡張子:"/>
                     <Item id="6114" name="有効"/>
                     <Item id="6115" name="自動インデント"/>

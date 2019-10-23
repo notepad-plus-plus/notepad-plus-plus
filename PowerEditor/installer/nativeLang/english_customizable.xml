@@ -220,7 +220,7 @@
                     <Item id="44010" name="Fold All"/>
                     <Item id="44019" name="Show All Characters"/>
                     <Item id="44020" name="Show Indent Guide"/>
-                    <Item id="44022" name="Word wrap"/>
+                    <Item id="44022" name="Word Wrap"/>
                     <Item id="44023" name="Zoom &amp;In (Ctrl+Mouse Wheel Up)"/>
                     <Item id="44024" name="Zoom &amp;Out (Ctrl+Mouse Wheel Down)"/>
                     <Item id="44025" name="Show White Space and TAB"/>

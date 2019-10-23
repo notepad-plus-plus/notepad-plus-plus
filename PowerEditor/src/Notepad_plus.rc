@@ -510,7 +510,7 @@ BEGIN
 			MENUITEM "Move Tab Forward",		IDM_VIEW_TAB_MOVEFORWARD
 			MENUITEM "Move Tab Backward",		IDM_VIEW_TAB_MOVEBACKWARD
 		END
-        MENUITEM "Word wrap",                   IDM_VIEW_WRAP
+        MENUITEM "Word Wrap",                   IDM_VIEW_WRAP
         MENUITEM "Focus on Another View",         IDM_VIEW_SWITCHTO_OTHER_VIEW
         MENUITEM "Hide Lines",                  IDM_VIEW_HIDELINES
         MENUITEM SEPARATOR

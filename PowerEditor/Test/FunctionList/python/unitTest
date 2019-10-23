@@ -104,7 +104,7 @@ def bfs(G, s):
         Args :  G - Dictionary of edges
                 s - Starting Node
         Vars :  dist - Dictionary storing shortest distance from s to every other node
-                known - Set of knows nodes
+                known - Set of known nodes
                 path - Preceding node in path
 --------------------------------------------------------------------------------
 """
@@ -141,7 +141,7 @@ from collections import deque
 
 def topo(G, ind=None, Q=[1]):
     if ind == None:
-        ind = [0] * (len(G) + 1) 		# SInce oth Index is ignored
+        ind = [0] * (len(G) + 1) 		# Since 0th Index is ignored
         for u in G:
             for v in G[u]:
                 ind[v] += 1

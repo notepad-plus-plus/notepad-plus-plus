@@ -336,6 +336,9 @@
 					<Item id = "50000" name = "Dokončování funkcí"/>
 					<Item id = "50001" name = "Dokončování slov"/>
 					<Item id = "50002" name = "Nápověda k parametrům funkcí"/>
+					<Item id = "50003" name = "Přejít na předchozí dokument"/>
+					<Item id = "50004" name = "Přejít na další dokument"/>
+					<Item id = "50005" name = "Přepnout záznam makra"/>
 					<Item id = "50006" name = "Dokončování cest k souborům a adresářům"/>
 					<Item id = "42034" name = "Editor sloupce..."/>
 					<Item id = "42078" name = "Vícenásobný výběr dalších výskytů"/>

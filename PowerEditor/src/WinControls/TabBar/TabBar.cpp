@@ -599,8 +599,20 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				}
 			}
 
-            ::CallWindowProc(_tabBarDefaultProc, hwnd, Message, wParam, lParam);
-			int currentTabOn = static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0));
+			if (::GetWindowLongPtr(_hSelf, GWL_STYLE) & TCS_BUTTONS)
+			{
+				int nTab = getTabIndexAt(LOWORD(lParam), HIWORD(lParam));
+				if (nTab != -1 && nTab != static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0)))
+				{
+					setActiveTab(nTab); // executes when Multi-line TabBar is enabled
+				}
+			}
+			else
+			{
+				int currentTabOn = static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0));
+				notify(NM_CLICK, currentTabOn);
+			}
+			::CallWindowProc(_tabBarDefaultProc, hwnd, Message, wParam, lParam);
 
 			if (wParam == 2)
 				return TRUE;
@@ -610,9 +622,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				_mightBeDragging = true;
             }
 
-			notify(NM_CLICK, currentTabOn);
-
-            return TRUE;
+			return TRUE;
 		}
 
 		case WM_RBUTTONDOWN :	//rightclick selects tab aswell

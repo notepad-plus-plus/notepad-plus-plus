@@ -586,6 +586,15 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 		case WM_LBUTTONDOWN :
 		{
+			if (::GetWindowLongPtr(_hSelf, GWL_STYLE) & TCS_BUTTONS)
+			{
+				int nTab = getTabIndexAt(LOWORD(lParam), HIWORD(lParam));
+				if (nTab != -1 && nTab != static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0)))
+				{
+					setActiveTab(nTab);
+				}
+			}
+
 			if (_drawTabCloseButton)
 			{
 				int xPos = LOWORD(lParam);
@@ -643,23 +652,19 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				}
 				else if (++_dragCount > 2)
 				{
-					int tabFocused = static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETCURFOCUS, 0, 0));
 					int tabSelected = static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0));
 
-					// make sure the tab they are moving is active.
-					if (tabFocused != tabSelected)
+					if (tabSelected >= 0)
 					{
-						setActiveTab(tabFocused);
-					}
+						_nSrcTab = _nTabDragged = tabSelected;
+						_isDragging = true;
 
-					_nSrcTab = _nTabDragged = tabFocused;
-					_isDragging = true;
-					
-					// TLS_BUTTONS is already captured on Windows and will break on ::SetCapture
-					// However, this is not the case for WINE/ReactOS and must ::SetCapture
-					if (::GetCapture() != _hSelf)
-					{
-						::SetCapture(hwnd);
+						// TLS_BUTTONS is already captured on Windows and will break on ::SetCapture
+						// However, this is not the case for WINE/ReactOS and must ::SetCapture
+						if (::GetCapture() != _hSelf)
+						{
+							::SetCapture(hwnd);
+						}
 					}
 				}
 			}

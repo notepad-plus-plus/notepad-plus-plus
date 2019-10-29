@@ -1013,9 +1013,9 @@ BEGIN
     LTEXT           NOTEPAD_PLUS_VERSION, IDC_STATIC,70,20,140,11
     LTEXT           "bit",IDC_VERSION_BIT,150,20,140,11
     //LTEXT           "Author :",IDC_STATIC,21,45,31,8
-    //LTEXT           "Notepad++ team",IDC_AUTHOR_NAME,78,45,70,8
-    LTEXT           "Home:",IDC_STATIC,21,45,47,8
-    LTEXT           "https://notepad-plus-plus.org/",IDC_HOME_ADDR,50,45,126,8
+    LTEXT           "FREE UYGHUR",IDC_AUTHOR_NAME,70,32,70,8
+    LTEXT           "Home:",IDC_STATIC,21,52,47,8
+    LTEXT           "https://notepad-plus-plus.org/",IDC_HOME_ADDR,50,52,126,8
     GROUPBOX        "GNU General Public Licence",IDC_STATIC,19,75,231,131,BS_CENTER
     DEFPUSHBUTTON   "OK",IDOK,106,215,50,14,BS_FLAT
     // IDC_LICENCE_EDIT should be the last line, don't know why

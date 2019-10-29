@@ -56,7 +56,7 @@ public :
 	void doDialog();
 
     virtual void destroy() {
-        //_emailLink.destroy();
+        _emailLink.destroy();
         _pageLink.destroy();
     };
 
@@ -64,7 +64,7 @@ protected :
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 private :
-    //URLCtrl _emailLink;
+    URLCtrl _emailLink;
     URLCtrl _pageLink;
 };
 

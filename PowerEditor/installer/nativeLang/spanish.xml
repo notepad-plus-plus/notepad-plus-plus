@@ -1172,7 +1172,7 @@ Notepad ++ se reiniciará después de que finalicen todas las operaciones.
 			<find-status-count-nb-matches value="Contar: $INT_REPLACE$ coincidencias"/>
 			<find-status-replaceall-re-malformed value="Reemplazar todo: La expresión regular tiene un formato incorrecto"/>
 			<find-status-replaceall-1-replaced value="Reemplazar todo: 1 coincidencia reemplazada"/>
-			<find-status-replaceall-nb-replaced value="Reemplazar todo: $INT_REPLACE$ coincidencias reemplazdas"/>
+			<find-status-replaceall-nb-replaced value="Reemplazar todo: $INT_REPLACE$ coincidencias reemplazadas"/>
 			<find-status-replaceall-readonly value="Reemplazar todo: No se puede reemplazar el texto. El documento actual es de solo lectura"/>
 			<find-status-replace-end-reached value="Reemplazar: Reemplazada la primera aparición desde el inicio. Se ha llegado al final del documento"/>
 			<find-status-replace-top-reached value="Reemplazar: Reemplazada la primera aparición desde el final. Se ha llegado al inicio del documento"/>

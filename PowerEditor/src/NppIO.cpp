@@ -1074,22 +1074,23 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 	return true;
 }
 
-bool Notepad_plus::fileCloseAllGiven(const std::vector<int> &krvecBufferIndexes)
+bool Notepad_plus::fileCloseAllGiven(const std::vector<int>& krvecBufferIndexes)
 {
 	// First check if we need to save any file.
 
-	std::vector<int>::const_iterator itIndexesEnd = krvecBufferIndexes.end();
 	bool noSaveToAll = false;
 	bool saveToAll = false;
+	std::vector<int> bufferIndexesToClose;
 
-	for (std::vector<int>::const_iterator itIndex = krvecBufferIndexes.begin(); itIndex != itIndexesEnd; ++itIndex)
+	for (const auto& index : krvecBufferIndexes)
 	{
-		BufferID id = _pDocTab->getBufferByIndex(*itIndex);
-		Buffer * buf = MainFileManager.getBufferByID(id);
-		
-		if (buf->isUntitled() && buf->docLength() == 0)
+		BufferID id = _pDocTab->getBufferByIndex(index);
+		Buffer* buf = MainFileManager.getBufferByID(id);
+
+		if ((buf->isUntitled() && buf->docLength() == 0) || noSaveToAll || !buf->isDirty())
 		{
-			// Do nothing.
+			// Do nothing, these documents are already ready to close
+			bufferIndexesToClose.push_back(index);
 		}
 		else if (buf->isDirty() && !noSaveToAll)
 		{
@@ -1105,44 +1106,44 @@ bool Notepad_plus::fileCloseAllGiven(const std::vector<int> &krvecBufferIndexes)
 				switchEditViewTo(SUB_VIEW);
 			}
 
-			int res = -1;
-			if (saveToAll)
-			{
-				res = IDYES;
-			}
-			else
-			{
-				res = doSaveOrNot(buf->getFullPathName(), true);
-			}
+			/* Do you want to save
+			*	IDYES		: Yes
+			*	IDRETRY		: Yes to All
+			*	IDNO		: No
+			*	IDIGNORE	: No To All
+			*	IDCANCEL	: Cancel Opration
+			*/
+			int res = saveToAll ? IDYES : doSaveOrNot(buf->getFullPathName(), true);
 
-			if (res == IDYES)
+			if (res == IDYES || res == IDRETRY)
 			{
 				if (!fileSave(id))
-					return false;	// Abort entire procedure.
+					break;	// Abort entire procedure, but close whatever processed so far
+
+				bufferIndexesToClose.push_back(index);
+
+				if (res == IDRETRY)
+					saveToAll = true;
+			}
+			else if (res == IDNO || res == IDIGNORE)
+			{
+				bufferIndexesToClose.push_back(index);
+
+				if (res == IDIGNORE)
+					noSaveToAll = true;
 			}
 			else if (res == IDCANCEL)
 			{
-				return false;
-			}
-			else if (res == IDIGNORE)
-			{
-				noSaveToAll = true;
-			}
-			else if (res == IDRETRY)
-			{
-				if (!fileSave(id))
-					return false;	// Abort entire procedure.
-
-				saveToAll = true;
+				break;
 			}
 		}
 	}
 
 	// Now we close.
 	bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
-	for (std::vector<int>::const_iterator itIndex = krvecBufferIndexes.begin(); itIndex != itIndexesEnd; ++itIndex)
+	for (const auto& index : bufferIndexesToClose)
 	{
-		doClose(_pDocTab->getBufferByIndex(*itIndex), currentView(), isSnapshotMode);
+		doClose(_pDocTab->getBufferByIndex(index), currentView(), isSnapshotMode);
 	}
 
 	return true;

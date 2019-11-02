@@ -739,7 +739,15 @@ bool FileManager::deleteFile(BufferID id)
 	fileOpStruct.hNameMappings         = NULL;
 	fileOpStruct.lpszProgressTitle     = NULL;
 
-	return SHFileOperation(&fileOpStruct) == 0;
+	try
+	{
+		return SHFileOperation(&fileOpStruct) == 0;
+	}
+	catch (...)
+	{
+		::MessageBox(NULL, TEXT("Move to Recycle Bin exception!"), TEXT(""), MB_OK);
+		return false;
+	}
 }
 
 

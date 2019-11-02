@@ -1629,12 +1629,6 @@ bool Notepad_plus::fileDelete(BufferID id)
 
 		if (!MainFileManager.deleteFile(bufferID))
 		{
-			_nativeLangSpeaker.messageBox("DeleteFileFailed",
-				_pPublicInterface->getHSelf(),
-				TEXT("Delete File failed"),
-				TEXT("Delete File"),
-				MB_OK);
-
 			scnN.nmhdr.code = NPPN_FILEDELETEFAILED;
 			_pluginsManager.notify(&scnN);
 

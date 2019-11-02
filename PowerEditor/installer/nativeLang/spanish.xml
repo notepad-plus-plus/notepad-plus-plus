@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-	<Native-Langue name="Español" filename="spanish.xml" version="7.6.3">
+	<Native-Langue name="Español" filename="spanish.xml" version="7.8.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -38,6 +38,7 @@
 					<Item subMenuId="search-jumpUp" name="Subir"/>
 					<Item subMenuId="search-jumpDown" name="Bajar"/>
 					<Item subMenuId="search-bookmark" name="Marca"/>
+					<Item subMenuId="view-currentFileIn" name="Ver archivo actual en "/>
 					<Item subMenuId="view-showSymbol" name="Mostrar símbolo"/>
 					<Item subMenuId="view-zoom" name="Zoom"/>
 					<Item subMenuId="view-moveCloneDocument" name="Mover/clonar el documento actual"/>
@@ -77,6 +78,7 @@
 					<Item id="41005" name="Cerrar las otras pestañas"/>
 					<Item id="41009" name="Cerrar todo a la izquierda"/>
 					<Item id="41018" name="Cerrar todo a la derecha"/>
+					<Item id="41024" name="Cerrar todo sin cambios"/>
 					<Item id="41006" name="&amp;Guardar"/>
 					<Item id="41007" name="Guardar todo"/>
 					<Item id="41008" name="Guardar como"/>
@@ -103,6 +105,7 @@
 					<Item id="42008" name="Aumentar guion de línea"/>
 					<Item id="42009" name="Reducir guion de línea"/>
 					<Item id="42010" name="Duplicar línea actual"/>
+					<Item id="42077" name="Eliminar lineas consecutivas duplicadas"/>
 					<Item id="42012" name="Dividir líneas"/>
 					<Item id="42013" name="Unir líneas"/>
 					<Item id="42014" name="Subir línea actual"/>
@@ -304,6 +307,9 @@
 					<Item id="50000" name="Función completa"/>
 					<Item id="50001" name="Palabra completa"/>
 					<Item id="50002" name="Parámetros de función"/>
+					<Item id="50003" name="Cambiar al documento anterior"/>
+					<Item id="50004" name="Cambiar al siguiente documento"/>
+					<Item id="50005" name="Alternar registro de macro"/>
 					<Item id="50006" name="Ruta"/>
 					<Item id="44042" name="Ocultar líneas"/>
 					<Item id="42040" name="Abrir los archivos recientes"/>
@@ -336,6 +342,7 @@
 				<Item CMID="19" name="Abrir carpeta en Explorer"/>
 				<Item CMID="20" name="Abrir carpeta en cmd"/>
 				<Item CMID="21" name="Abrir en visor predeterminado"/>
+				<Item CMID="22" name="Cerrar todo sin cambios"/>
 			</TabBar>
 		</Menu>
 		<Dialog>
@@ -374,6 +381,8 @@
 				<Item id="1641" name="Buscar solo en el archivo actual"/>
 				<Item id="1686" name="Transparencia"/>
 				<Item id="1703" name="&amp;. se ajusta a línea nueva"/>
+				<Item id="1721" name="▲"/>
+				<Item id="1723" name="▼ Siguiente"/>
 			</Find>
 			<FindCharsInRange title="Buscar caracteres en rango...">
 				<Item id="2" name="Cerrar"/>
@@ -872,7 +881,11 @@
 					<Item id="6278" name="Ejemplo: https://www.google.com/search?q=$(CURRENT_WORD)"/>
 				</SearchEngine>
 				<MISC title="Otros">
-					<Item id="6307" name="Permitir"/>
+					<ComboBox id="6347">
+						<Element name="Habilitar"/>
+						<Element name="Habilitar para archivos abiertos"/>
+						<Element name="Deshabilitar"/>
+					</ComboBox>
 					<Item id="6308" name="Minimizar a la bandeja del sistema"/>
 					<Item id="6312" name="Auto-detectar estado del archivo"/>
 					<Item id="6313" name="Actualizar sin notificar"/>
@@ -885,6 +898,7 @@
 					<Item id="6324" name="Cambiar de documento (Ctrl+TAB)"/>
 					<Item id="6331" name="Mostrar sólo nombre de archivo en el título de la ventana"/>
 					<Item id="6334" name="Autodetectar codificación"/>
+					<Item id="6314" name="Usar fuente monoespaciada en el cuadro de diálogo Buscar (es necesario reiniciar Notepad ++)"/>
 					<Item id="6337" name="Ext. del arch. área de trab.:"/>
 					<Item id="6114" name="Permitir"/>
 					<Item id="6115" name="Auto-indentar"/>
@@ -937,18 +951,26 @@
 				<Item id="1718" name="Extendido (\n, \r, \t, \0, \x...)"/>
 				<Item id="1720" name="&amp;. coincide con la nueva línea"/>
 			</FindInFinder>
+			<DoSaveOrNot title="Guardar">
+				<Item id="1761" name="Guardar &quot;$STR_REPLACE$&quot; ?"/>
+				<Item id="6" name="Si"/>
+				<Item id="7" name="No"/>
+				<Item id="2" name="Cancelar"/>
+				<Item id="4" name="Si a todo"/>
+				<Item id="5" name="No a todo"/>
+			</DoSaveOrNot>
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<ContextMenuXmlEditWarning title="Editing contextMenu" message="Editing contextMenu.xml le permite modificar el menú contextual emergente de Notepad ++.
 Tiene que reiniciar su Notepad ++ para que surta efecto después de modificarlo."/>
-			<NppHelpAbsentWarning title="File does not exist" message="
+			<NppHelpAbsentWarning title="File does not exist" message="El archivo no existe
 no existe. Descárguelo en el sitio de Notepad ++."/>
-			<SaveCurrentModifWarning title="Save Current Modification" message="You should save the current modification.
+			<SaveCurrentModifWarning title="Save Current Modification" message="Debe guardar la modificación actual.
 Las modificaciones guardadas no se pueden deshacer.
 
 ¿Continuar?"/>
-			<LoseUndoAbilityWarning title="Lose Undo Ability Warning" message="You should save the current modification.
+			<LoseUndoAbilityWarning title="Lose Undo Ability Warning" message="Debe guardar la modificación actual.
 Las modificaciones guardadas no se pueden deshacer.
 
 ¿Continuar?"/>
@@ -969,7 +991,6 @@ debe activar &quot;Abra todos los archivos de la carpeta en lugar de abrir Carpe
 			<SortingError title="Sorting Error" message="No se puede realizar la ordenación numérica debido a la línea $INT_REPLACE$."/>
 			<ColumnModeTip title="Column Mode Tip" message="Use &quot;ALT+Mouse&quot; o &quot;Alt+May+Flecha&quot; para cambiar a modo columna."/>
 			<BufferInvalidWarning title="Save failed" message="No se puede guardar: el búfer no es válido."/>
-			<DoSaveOrNot title="Save" message="Guardar archivo &quot;$STR_REPLACE$&quot; ?"/>
 			<DoCloseOrNot title="Keep non existing file" message="El archivo &quot;$STR_REPLACE$&quot; no existe.
 ¿Mantener este archivo en el editor?"/>
 			<DoDeleteOrNot title="Delete file" message="El archivo &quot;$STR_REPLACE$&quot;
@@ -1026,6 +1047,11 @@ Es necesario darle otro."/>
 			<OpenInAdminModeWithoutCloseCurrent title="Save failed" message="El archivo no se puede guardar y puede estar protegido.
 ¿Desea iniciar Notepad ++ en modo Administrador?"/>
 			<OpenInAdminModeFailed title="Open in Administrator mode failed" message="Notepad ++ no se puede abrir en el modo de administrador."/>
+			<ViewInBrowser title="View Current File in Browser" message="No se puede encontrar la aplicación en su sistema."/>
+			<ExitToUpdatePlugins title="Notepad++ is about to exit" message="Si hace clic en SÍ, saldrá de Notepad ++ para continuar con las operaciones.
+Notepad ++ se reiniciará después de que finalicen todas las operaciones.
+¿Continuar?"/>
+			<NeedToRestartToLoadPlugins title="Notepad++ need to be relaunched" message="Debe reiniciar Notepad ++ para cargar los complementos que instaló."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historial de portapapeles"/>
@@ -1069,6 +1095,7 @@ Es necesario darle otro."/>
 				<Item id="3517" name="Encontrar en archivos..."/>
 				<Item id="3518" name="Explorer aquí"/>
 				<Item id="3519" name="CMD aquí"/>
+				<Item id="3520" name="Copiar nombre de archivo"/>
 			</Menus>
 		</FolderAsWorkspace>
 		<ProjectManager>
@@ -1174,6 +1201,17 @@ Es necesario darle otro."/>
 			<userdefined-title-rename value="Renombrar el archivo de idioma"/>
 			<autocomplete-nb-char value="Nº car.: "/>
 			<edit-verticaledge-nb-col value="Nº columnas:"/>
+			<summary value="Resumen"/>
+			<summary-filepath value="Ruta completa del archivo:: "/>
+			<summary-filecreatetime value="Creado: "/>
+			<summary-filemodifytime value="Modificado: "/>
+			<summary-nbchar value="Caracteres (sin terminaciones de línea): "/>
+			<summary-nbword value="Palabras: "/>
+			<summary-nbline value="Lineas: "/>
+			<summary-nbbyte value="Longitud del documento: "/>
+			<summary-nbsel1 value=" caracteres seleccionados ("/>
+			<summary-nbsel2 value=" bytes) en "/>
+			<summary-nbrange value=" rangos"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

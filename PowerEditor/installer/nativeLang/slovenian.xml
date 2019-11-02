@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-        Slovenian localization for Notepad++ v7.6.5
-        Last modified 11. April 2019 by Vinko Kastelic
+        Slovenian localization for Notepad++ v7.8.1
+        Last modified 29. October 2019 by Vinko Kastelic
         
 -->
 <NotepadPlus>
-    <Native-Langue name="Slovenski jezik" filename="slovenian.xml" version="7.6.5">
+    <Native-Langue name="Slovenski jezik" filename="slovenian.xml" version="7.8.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -268,11 +268,11 @@
                     <Item id="45001" name="Windows (CR LF)"/>
  	                 <Item id="45002" name="Unix (LF)"/>
                     <Item id="45003" name="Macintosh (CR)"/>
-                    <Item id="45004" name="Kodiraj v ANSI"/>
-                    <Item id="45005" name="Kodiraj v UTF-8-BOM"/>
-                    <Item id="45006" name="Kodiraj v UCS-2 BE BOM"/>
-                    <Item id="45007" name="Kodiraj v UCS-2 LE BOM"/>
-                    <Item id="45008" name="Kodiraj v UTF-8"/>
+                    <Item id="45004" name="ANSI"/>
+                    <Item id="45005" name="UTF-8-BOM"/>
+                    <Item id="45006" name="UCS-2 BE BOM"/>
+                    <Item id="45007" name="UCS-2 LE BOM"/>
+                    <Item id="45008" name="UTF-8"/>
 						<Item id="45009" name="Pretvori v ANSI"/>
 						<Item id="45010" name="Pretvori v UTF-8"/>
 						<Item id="45011" name="Pretvori v UTF-8-BOM"/>
@@ -316,6 +316,9 @@
 						<Item id="50000" name="Dopolnjevanje funkcij"/>
                     <Item id="50001" name="Dopolnjevanje besed"/>
                     <Item id="50002" name="Namig za parametre funkcij"/>
+						<Item id="50003" name="Preklopi na predhodni dokument"/>
+                    <Item id="50004" name="Preklopi na naslednji dokument"/>
+                    <Item id="50005" name="Preklop makro zapisa"/>
                      <Item id="50006" name="Pot dopolnitev"/>
                     <Item id="44042" name="Skrij vrstice"/>
                     <Item id="42040" name="Odpri vse nedavne datoteke"/>
@@ -389,6 +392,8 @@
 					<Item id="1641" name="Najdi vse v trenutnem dokumentu"/>
 					<Item id="1686" name="Proso&amp;jnost"/>
 					<Item id="1703" name="&amp;. se ujema z novo vrstico"/>
+					<Item id="1721" name="▲"/>
+                 <Item id="1723" name="▼ Najdi naprej"/>				
 				</Find>
 				
              <FindCharsInRange title="Najdi znake v območju...">
@@ -934,6 +939,7 @@
 						<Item id="6324" name="Preklopnik dokumentov (Ctrl+TAB)"/>
 						<Item id="6331" name="V naslovni vrstici pokaži le ime datoteke"/>
 						<Item id="6334" name="Samodejno zaznavanje kodiranja znakov"/>
+						<Item id="6314" name="Use monospaced font in Find dialog (Need to restart Notepad++)"/>
 						<Item id="6337" name="Delovni prostor pripone datoteke:"/>
 						<Item id="6114" name="Omogoči"/>
 						<Item id="6115" name="Samodejno zamikaj"/>
@@ -986,6 +992,14 @@
               <Item id="1718" name="Ra&amp;zširjen (\n, \r, \t, \0, \x...)"/>
               <Item id="1720" name="&amp;. se ujema z novo vrstico"/> 
           </FindInFinder>
+			<DoSaveOrNot title="Shrani"> 
+                <Item id="1761" name="Shrani datoteko &quot;$STR_REPLACE$&quot; ?"/>
+                <Item id="6" name="Da"/>
+                <Item id="7" name="Ne"/>
+                <Item id="2" name="Prekliči"/>
+                <Item id="4" name="Da za vse"/>
+                <Item id="5" name="Ne za vse"/>
+            </DoSaveOrNot>
        </Dialog>
 		<MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title="Urejanje Kontekstnega menija" message="Urejanje contextMenu.xml vam omogoča, da spremenite Notepad++ pojavni kontekstni meni.
@@ -1007,7 +1021,7 @@ Nadaljujem?"/>
             <DeleteFileFailed title="Brisanje datoteke" message="Brisanje datoteke ni uspelo"/>
 
 			  <NbFileToOpenImportantWarning title="Število datotek za odpiranje je preveliko" message="$INT_REPLACE$ datoteke so na tem, da se odprejo.
-Jih želite res odpreti?"/>
+Ali ste prepričani, da jih želite odpreti?"/>
 			<SettingsOnCloudError title="Nastavitve v oblak" message="Zdi se, da je pot nastavitev v oblaku nastavljena samo na bralnje,
 ali na mapo ki zahteva posebno pooblastilo za pisanje.
 Vaše nastavitve za oblak bodo preklicane. Ponastavite skladno vrednosti preko pogovornega okna Nastavitve."/>        
@@ -1018,7 +1032,6 @@ morate omogočiti &quot;Odpri vse datoteke v mapi, namesto da zaženete Mapa kot
            <SortingError title="Napaka pri razvrščanju" message="Zaradi vrstice ni bilo mogoče izvesti numeričnega razvrščanja $INT_REPLACE$."/>
            <ColumnModeTip title="Način stolpca" message="Za preklop v način stolpca uporabite &quot;ALT+izbiro miške ali Alt+Shift+puščica."/>
            <BufferInvalidWarning title="Shranjevanje ni uspelo" message="Ni mogoče shraniti: Medpomnilnik je neveljaven."/>
-           <DoSaveOrNot title="Shrani" message="Shrani datoteko &quot;$STR_REPLACE$&quot; ?"/>
            <DoCloseOrNot title="Ohrani neobstoječo datoteko" message="Datoteka &quot;$STR_REPLACE$&quot; ne obstaja več.
 Pustim to datoteko v urejevalniku?"/>
            <DoDeleteOrNot title="Brisanje datoteke" message="Datoteka &quot;$STR_REPLACE$&quot;
@@ -1077,6 +1090,10 @@ izberite katerokoli drugo."/>
 Želite zagnati Notepad++ v skrbniškem načinu?"/>
            <OpenInAdminModeFailed title="Odpiranje v skrbniškem načinu ni uspelo" message="Notepad++ ni mogoče odpreti v skrbniškem načinu."/>
 			 <ViewInBrowser title="Ogled trenutne datoteke v brskalniku" message="Aplikacije ni mogoče najti v vašem sistemu."/>
+			 <ExitToUpdatePlugins title="Notepad++ se bo kmalu končal" message="Če kliknete DA, zapustite Notepad++ in nadaljujete z operacijami.
+Po zaključku vseh operacij se bo Notepad++ znova zagnal.
+Nadaljujem?"/>
+            <NeedToRestartToLoadPlugins title="Notepad++ je treba znova zagnati" message="Če želite naložiti vtičnike, morate znova zagnati Notepad++."/>	
 		</MessageBox>        
        <ClipboardHistory>
            <PanelTitle name="Zgodovina odložišča"/>
@@ -1092,10 +1109,12 @@ izberite katerokoli drugo."/>
            <ColumnType name="Vrsta"/>
        </WindowsDlg>
        <AsciiInsertion>
-			<PanelTitle name="ASCII Panel vstavljanja"/>
+			<PanelTitle name="Panel za vstavljanje ASCII kod"/>
 			<ColumnVal name="Vrednost"/>
 			<ColumnHex name="Hex"/>
 			<ColumnChar name="Znak"/>
+			<ColumnHtmlNumber name="HTML število"/>
+           <ColumnHtmlName name="HTML koda"/>
        </AsciiInsertion>
        <DocumentMap>
 			<PanelTitle name="Mapa dokumenta"/>
@@ -1118,6 +1137,7 @@ izberite katerokoli drugo."/>
                 <Item id="3517" name="Najdi v datotekah..."/>
                 <Item id="3518" name="Razišči tukaj"/>
                 <Item id="3519" name="CMD tukaj"/>
+					<Item id="3520" name="Kopiraj ime datoteke"/>
            </Menus>
        </FolderAsWorkspace>
        <ProjectManager>
@@ -1223,6 +1243,17 @@ izberite katerokoli drugo."/>
             <userdefined-title-rename value="Preimenuj ime trenutnega jezika"/>
             <autocomplete-nb-char value="Št. znak: "/>
             <edit-verticaledge-nb-col value="Št. stolpec:"/>
+			  <summary value="Povzetek"/>
+            <summary-filepath value="Celotna pot datoteke: "/>
+            <summary-filecreatetime value="Ustvarjeno: "/>
+            <summary-filemodifytime value="Spremenjeno: "/>
+            <summary-nbchar value="Znaki (brez zaključkov vrstic): "/>
+            <summary-nbword value="Besed: "/>
+            <summary-nbline value="Vrstic: "/>
+            <summary-nbbyte value="Dolžina dokumenta: "/>
+            <summary-nbsel1 value=" izbrani znaki ("/>
+            <summary-nbsel2 value=" bajtov) v "/>
+            <summary-nbrange value=" razponu"/>
 		</MiscStrings>					
     </Native-Langue>
 </NotepadPlus>

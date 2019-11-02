@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     History of Corsican translation for Notepad++
+		- Updated on October 31st, 2019 by Patriccollu di Santa Maria è Sichè for version 7.8.1
 		- Updated on July 29th, 2019 by Patriccollu di Santa Maria è Sichè for version 7.7.2
 		- Updated on March 29th, 2019 by Patriccollu di Santa Maria è Sichè for version 7.6.5
 		- Updated on March 11th, 2018 by Patriccollu di Santa Maria è Sichè for version 7.5.5
@@ -12,7 +13,7 @@
 	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/corsican.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="Corsu" filename="corsican.xml" version="7.7.2">
+    <Native-Langue name="Corsu" filename="corsican.xml" version="7.8.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -323,6 +324,9 @@
                     <Item id="50000" name="Cumpiimentu di funzione"/>
                     <Item id="50001" name="Cumpiimentu di parolla"/>
                     <Item id="50002" name="Sugestione di parametri di funzione"/>
+                    <Item id="50003" name="Andà à u ducumentu precedente"/>
+                    <Item id="50004" name="Andà à u ducumentu seguente"/>
+                    <Item id="50005" name="Attivà/Disattivà l’arregistramentu d’una macro"/>
                     <Item id="50006" name="Cumpiimentu di chjassu"/>
                     <Item id="44042" name="Piattà e linee"/>
                     <Item id="42040" name="Apre tutti i schedarii recenti"/>
@@ -896,7 +900,7 @@
                     <Item id="6152" name="Apre una sessione in una nova finestra di Notepad++"/>
                     <Item id="6153" name="Sempre in modu multi-finestra"/>
                     <Item id="6154" name="Predefinitu (mono-finestra)"/>
-                    <Item id="6155" name="* A mudificazione di sta preferenza richiede di riavvià Notepad++"/>
+                    <Item id="6155" name="* A mudificazione di sta preferenza richiede di rilancià Notepad++"/>
                 </MultiInstance>
 
                 <Delimiter title="Delimitatore">
@@ -947,6 +951,7 @@
                     <Item id="6324" name="Cambiamentu di ducumentu (Ctrl+Tabul.)"/>
                     <Item id="6331" name="Affissà solu u nome di schedariu in a barra di titulu"/>
                     <Item id="6334" name="Detezione autumatica di cudificazione di caratteru"/>
+                    <Item id="6314" name="Impiegà a grafia à spaziamentu fissu in u dialogu di ricerca (Richiede di rilancià Notepad++)"/>
                     <Item id="6337" name="Estensione di spaziu di travagliu :"/>
                     <Item id="6114" name="Attivà"/>
                     <Item id="6115" name="Indentazione autumatica"/>
@@ -1010,7 +1015,7 @@
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title="Mudificazione di contextMenu" message="Mudificà contextMenu.xml permette di cambià u vostru listinu cuntestuale di Notepad++.
-Ci vole à riavvià Notepad++ per piglià in contu e mudificazioni di contextMenu.xml."/>
+Ci vole à rilancià Notepad++ per piglià in contu e mudificazioni di contextMenu.xml."/>
             <NppHelpAbsentWarning title="U schedariu ùn esiste micca" message="
 ùn esiste micca. Ci vole à scaricallu da u situ Notepad++."/>
             <SaveCurrentModifWarning title="Arregistrà a mudificazione currente" message="Ci vuleria à arregistrà e mudificazioni currente.
@@ -1028,7 +1033,7 @@ Cuntinuà ?"/>
             <DeleteFileFailed title="Squassatura di schedariu" message="Fiascu di a squassatura di u schedariu"/>
 
             <NbFileToOpenImportantWarning title="A quantità di schedarii à apre hè troppu maiò" message="$INT_REPLACE$ schedarii devenu esse aperti.
-Site sicuru di aprelli ?"/>
+Site sicuru di vulè aprelli ?"/>
             <SettingsOnCloudError title="Preferenze di nivulu" message="Pare chì u chjassu di e preferenze di nivulu hè definitu nant’à un lettore in
 lettura sola, o in un cartulare chì richiede diritti d’accessu di scrittura.
 E vostre preferenze di nivulu anu da esse abbandunate. Ci vole à rimette un valore accetevule via u dialogu di Preferenze."/>

@@ -152,16 +152,7 @@ void TabBar::setFont(const TCHAR *fontName, int fontSize)
 void TabBar::activateAt(int index) const
 {
 	if (getCurrentTabIndex() != index)
-	{
-		// TCM_SETCURFOCUS is busted on WINE/ReactOS for single line (non-TCS_BUTTONS) tabs...
-		// We need it on Windows for multi-line tabs or multiple tabs can appear pressed.
-		if (::GetWindowLongPtr(_hSelf, GWL_STYLE) & TCS_BUTTONS)
-		{
-			::SendMessage(_hSelf, TCM_SETCURFOCUS, index, 0);
-		}
-
 		::SendMessage(_hSelf, TCM_SETCURSEL, index, 0);
-	}
 
 	TBHDR nmhdr;
 	nmhdr._hdr.hwndFrom = _hSelf;

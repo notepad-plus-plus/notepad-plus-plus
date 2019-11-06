@@ -3497,6 +3497,9 @@ void Notepad_plus::command(int id)
 			case IDM_SEARCH_MARKALLEXT5      :
 			case IDM_SEARCH_UNMARKALLEXT5    :
 			case IDM_SEARCH_CLEARALLMARKS    :
+			case IDM_FORMAT_TODOS  :
+			case IDM_FORMAT_TOUNIX :
+			case IDM_FORMAT_TOMAC  :
 				_macro.push_back(recordedMacroStep(id));
 				break;
 		}

@@ -306,7 +306,11 @@ void DebugInfoDlg::doDialog()
 
 void DoSaveOrNotBox::doDialog(bool isRTL)
 {
-	
+	if (::IsIconic(_hParent))
+	{
+		::ShowWindow(_hParent, SW_RESTORE);
+	}
+
 	if (isRTL)
 	{
 		DLGTEMPLATE *pMyDlgTemplate = NULL;

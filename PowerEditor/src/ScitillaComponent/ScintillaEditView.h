@@ -150,9 +150,9 @@ struct ColumnModeInfo {
 	int _nbVirtualCaretSpc;
 	int _nbVirtualAnchorSpc;
 
-	ColumnModeInfo() : _selLpos(0), _selRpos(0), _order(-1), _direction(L2R), _nbVirtualAnchorSpc(0), _nbVirtualCaretSpc(0){};
+	ColumnModeInfo() : _selLpos(0), _selRpos(0), _order(-1), _direction(L2R), _nbVirtualCaretSpc(0), _nbVirtualAnchorSpc(0){};
 	ColumnModeInfo(int lPos, int rPos, int order, bool dir = L2R, int vAnchorNbSpc = 0, int vCaretNbSpc = 0)
-		: _selLpos(lPos), _selRpos(rPos), _order(order), _direction(dir), _nbVirtualAnchorSpc(vAnchorNbSpc), _nbVirtualCaretSpc(vCaretNbSpc){};
+		: _selLpos(lPos), _selRpos(rPos), _order(order), _direction(dir), _nbVirtualCaretSpc(vCaretNbSpc), _nbVirtualAnchorSpc(vAnchorNbSpc){};
 
 	bool isValid() const {
 		return (_order >= 0 && _selLpos >= 0 && _selRpos >= 0 && _selLpos <= _selRpos);

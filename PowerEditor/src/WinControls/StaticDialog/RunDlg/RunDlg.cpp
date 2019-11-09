@@ -372,4 +372,4 @@ void RunDlg::doDialog(bool isRTL)
     // Adjust the position in the center
 	goToCenter();
 	::SetFocus(::GetDlgItem(_hSelf, IDC_COMBO_RUN_PATH));
-};
+}

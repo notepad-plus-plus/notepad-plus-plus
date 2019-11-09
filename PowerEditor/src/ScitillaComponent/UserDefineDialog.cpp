@@ -95,7 +95,7 @@ void convertTo(TCHAR *dest, int destLen, const TCHAR *toConvert, TCHAR *prefix)
 		}
 	}
 	dest[index] = '\0';
-};
+}
 
 bool SharedParametersDialog::setPropertyByCheck(HWND hwnd, WPARAM id, bool & bool2set)
 {

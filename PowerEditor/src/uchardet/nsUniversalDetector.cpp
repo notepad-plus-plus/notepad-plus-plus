@@ -111,8 +111,9 @@ nsresult nsUniversalDetector::HandleData(const char* aBuf, PRUint32 aLen)
   {
     mStart = PR_FALSE;
     if (aLen > 2)
+    {
       switch (aBuf[0])
-        {
+      {
         case '\xEF':
           if (('\xBB' == aBuf[1]) && ('\xBF' == aBuf[2]))
             // EF BB BF  UTF-8 encoded BOM
@@ -129,12 +130,13 @@ nsresult nsUniversalDetector::HandleData(const char* aBuf, PRUint32 aLen)
             mDetectedCharset = "UTF-16";
         break;
       }  // switch
+    }
 
-      if (mDetectedCharset)
-      {
-        mDone = PR_TRUE;
-        return NS_OK;
-      }
+    if (mDetectedCharset)
+    {
+      mDone = PR_TRUE;
+      return NS_OK;
+    }
   }
   
   PRUint32 i;

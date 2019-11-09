@@ -37,7 +37,7 @@ void IconList::create(HINSTANCE hInst, int iconSize)
 	_hImglst = ImageList_Create(iconSize, iconSize, ILC_COLOR32 | ILC_MASK, 0, nbMax);
 	if (!_hImglst)
 		throw std::runtime_error("IconList::create : ImageList_Create() function return null");
-};
+}
 
 void IconList::create(int iconSize, HINSTANCE hInst, int *iconIDArray, int iconIDArraySize)
 {
@@ -47,7 +47,7 @@ void IconList::create(int iconSize, HINSTANCE hInst, int *iconIDArray, int iconI
 
 	for (int i = 0 ; i < iconIDArraySize ; ++i)
 		addIcon(iconIDArray[i]);
-};
+}
 
 void IconList::addIcon(int iconID) const 
 {
@@ -57,7 +57,7 @@ void IconList::addIcon(int iconID) const
 
 	ImageList_AddIcon(_hImglst, hIcon);
 	::DestroyIcon(hIcon);
-};
+}
 
 bool IconList::changeIcon(int index, const TCHAR *iconLocation) const
 {

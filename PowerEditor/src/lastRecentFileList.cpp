@@ -90,7 +90,7 @@ void LastRecentFileList::switchMode()
 		_hParentMenu = NULL;
 	}
 	_hasSeparators = false;
-};
+}
 
 void LastRecentFileList::updateMenu()
 {
@@ -192,14 +192,14 @@ void LastRecentFileList::add(const TCHAR *fn)
 	}
 	_lrfl.push_front(itemToAdd);
 	updateMenu();
-};
+}
 
 void LastRecentFileList::remove(const TCHAR *fn) 
 { 
 	int index = find(fn);
 	if (index != -1)
 		remove(index);
-};
+}
 
 void LastRecentFileList::remove(size_t index) 
 {
@@ -213,7 +213,7 @@ void LastRecentFileList::remove(size_t index)
 		--_size;
 		updateMenu();
 	}
-};
+}
 
 
 void LastRecentFileList::clear() 
@@ -243,7 +243,7 @@ generic_string & LastRecentFileList::getItem(int id)
 	if (i == _size)
 		i = 0;
 	return _lrfl.at(i)._name;	//if not found, return first
-};
+}
 
 generic_string & LastRecentFileList::getIndex(int index)
 {

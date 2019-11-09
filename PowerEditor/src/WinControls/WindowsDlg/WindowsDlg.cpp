@@ -511,7 +511,7 @@ void WindowsDlg::updateButtonState()
 int WindowsDlg::doDialog()
 {
 	return static_cast<int>(DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_WINDOWS), _hParent, dlgProc, reinterpret_cast<LPARAM>(this)));
-};
+}
 
 BOOL WindowsDlg::onInitDialog()
 {

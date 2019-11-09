@@ -1329,7 +1329,6 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     HMENU SelfMenu;
 	HINSTANCE hInst;
     int iDataType;
-    static int ASCII;
 
 
 	SelfIndex=FindGrid(GetMenu(hWnd));

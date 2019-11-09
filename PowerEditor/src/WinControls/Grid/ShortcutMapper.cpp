@@ -148,7 +148,7 @@ generic_string ShortcutMapper::getTextFromCombo(HWND hCombo)
 	::SendMessage(hCombo, WM_GETTEXT, NB_MAX, reinterpret_cast<LPARAM>(str));
 	generic_string res(str);
 	return stringToLower(res);
-};
+}
 
 bool ShortcutMapper::isFilterValid(Shortcut sc)
 {

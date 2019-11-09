@@ -247,7 +247,7 @@ UNICODE         = -DUNICODE -D_UNICODE
 
 CXX				= $(CROSS_COMPILE)g++
 #CXXFLAGS		= -O2 $(INCLUDESPECIAL)
-CXXFLAGS		= $(INCLUDESPECIAL) -DTIXML_USE_STL -DTIXMLA_USE_STL $(UNICODE) -std=c++17 -fpermissive
+CXXFLAGS		= $(INCLUDESPECIAL) -DTIXML_USE_STL -DTIXMLA_USE_STL $(UNICODE) -std=c++17 -fpermissive -Wall -pedantic
 INCLUDES		= $(patsubst %,-I%,$(DIRS)) -I./include
 LDFLAGS			= -Wl,--subsystem,windows -municode -mwindows
 LIBS			= -lcomdlg32 -lcomctl32 -lgdi32 -lole32 -loleacc -lshell32 -lshlwapi -ldbghelp -lversion -lcrypt32 -lsensapi -lwintrust -lwinmm

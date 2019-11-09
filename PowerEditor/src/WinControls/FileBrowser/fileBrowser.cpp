@@ -85,7 +85,7 @@ vector<generic_string> split(const generic_string & string2split, TCHAR sep)
 		}
 	}
 	return splitedStrings;
-};
+}
 
 bool isRelatedRootFolder(const generic_string & relatedRoot, const generic_string & subFolder)
 {
@@ -1453,7 +1453,7 @@ LPCWSTR explainAction(DWORD dwAction)
 	default:
 		return L"BAD DATA";
 	}
-};
+}
 
 
 DWORD WINAPI FolderUpdater::watching(void *params)

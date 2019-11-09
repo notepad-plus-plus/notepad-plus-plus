@@ -187,7 +187,7 @@ void ToolBar::destroy()
 	::DestroyWindow(_hSelf);
 	_hSelf = NULL;
 	_toolBarIcons.destroy();
-};
+}
 
 int ToolBar::getWidth() const
 {

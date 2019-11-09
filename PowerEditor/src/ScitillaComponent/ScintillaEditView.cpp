@@ -45,7 +45,7 @@ TCHAR * getSciLexerFullPathName(TCHAR * moduleFileName, size_t len)
 	::PathRemoveFileSpec(moduleFileName);
 	::PathAppend(moduleFileName, TEXT("SciLexer.dll"));
 	return moduleFileName;
-};
+}
 
 HINSTANCE ScintillaEditView::_hLib = loadSciLexerDll();
 int ScintillaEditView::_refCount = 0;
@@ -1850,7 +1850,6 @@ void ScintillaEditView::restoreCurrentPosPostStep()
 	if (!_positionRestoreNeeded)
 		return;
 
-	static int32_t restoreDone = 0;
 	Buffer * buf = MainFileManager.getBufferByID(_currentBufferID);
 	Position & pos = buf->getPosition(this);
 
@@ -2146,11 +2145,11 @@ void ScintillaEditView::foldCurrentPos(bool mode)
 
 void ScintillaEditView::fold(size_t line, bool mode)
 {
-    auto endStyled = execute(SCI_GETENDSTYLED);
-    auto len = execute(SCI_GETTEXTLENGTH);
+	auto endStyled = execute(SCI_GETENDSTYLED);
+	auto len = execute(SCI_GETTEXTLENGTH);
 
-    if (endStyled < len)
-        execute(SCI_COLOURISE, 0, -1);
+	if (endStyled < len)
+		execute(SCI_COLOURISE, 0, -1);
 
 	int headerLine;
 	auto level = execute(SCI_GETFOLDLEVEL, line);
@@ -2758,16 +2757,16 @@ void ScintillaEditView::setMultiSelections(const ColumnModeInfos & cmi)
 // return (-1, -1) if multi-selection
 pair<int, int> ScintillaEditView::getSelectionLinesRange() const
 {
-    pair<int, int> range(-1, -1);
-    if (execute(SCI_GETSELECTIONS) > 1) // multi-selection
-        return range;
+	pair<int, int> range(-1, -1);
+	if (execute(SCI_GETSELECTIONS) > 1) // multi-selection
+		return range;
 	int32_t start = static_cast<int32_t>(execute(SCI_GETSELECTIONSTART));
 	int32_t end = static_cast<int32_t>(execute(SCI_GETSELECTIONEND));
 
 	range.first = static_cast<int32_t>(execute(SCI_LINEFROMPOSITION, start));
 	range.second = static_cast<int32_t>(execute(SCI_LINEFROMPOSITION, end));
 
-    return range;
+	return range;
 }
 
 void ScintillaEditView::currentLinesUp() const

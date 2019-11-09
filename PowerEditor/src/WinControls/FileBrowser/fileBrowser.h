@@ -55,7 +55,7 @@ friend class FolderInfo;
 
 public:
 	FileInfo() = delete; // constructor by default is forbidden
-	FileInfo(const generic_string & name, FolderInfo *parent) : _name(name), _parent(parent) {};
+	FileInfo(const generic_string & name, FolderInfo *parent) : _parent(parent), _name(name) {};
 	generic_string getName() const { return _name; };
 	void setName(generic_string name) { _name = name; };
 
@@ -72,7 +72,7 @@ friend class FolderUpdater;
 
 public:
 	FolderInfo() = delete; // constructor by default is forbidden
-	FolderInfo(const generic_string & name, FolderInfo *parent) : _name(name), _parent(parent) {};
+	FolderInfo(const generic_string & name, FolderInfo *parent) : _parent(parent), _name(name) {};
 	void setRootPath(const generic_string& rootPath) { _rootPath = rootPath; };
 	generic_string getRootPath() const { return _rootPath; };
 	void setName(const generic_string& name) { _name = name; };

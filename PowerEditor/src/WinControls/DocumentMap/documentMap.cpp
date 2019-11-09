@@ -514,7 +514,7 @@ void ViewZoneDlg::doDialog()
 	if (!isCreated())
 		create(IDD_VIEWZONE);
 	display();
-};
+}
 
 INT_PTR CALLBACK ViewZoneDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {

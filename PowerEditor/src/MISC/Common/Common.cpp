@@ -149,7 +149,7 @@ static int __stdcall BrowseCallbackProc(HWND hwnd, UINT uMsg, LPARAM, LPARAM pDa
 	if (uMsg == BFFM_INITIALIZED && pData != 0)
 		::SendMessage(hwnd, BFFM_SETSELECTION, TRUE, pData);
 	return 0;
-};
+}
 
 
 generic_string folderBrowser(HWND parent, const generic_string & title, int outputCtrlID, const TCHAR *defaultStr)

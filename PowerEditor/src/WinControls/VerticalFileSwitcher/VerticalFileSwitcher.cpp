@@ -46,7 +46,7 @@ int CALLBACK ListViewCompareProc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSo
 		return result;
 
 	return (0 - result);
-};
+}
 
 void VerticalFileSwitcher::startColumnSort()
 {

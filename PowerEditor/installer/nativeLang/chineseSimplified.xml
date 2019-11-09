@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="7.7.2">
+    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="7.8.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -311,6 +311,9 @@
                     <Item id="50000" name="函数自动完成"/>
                     <Item id="50001" name="单词自动完成"/>
                     <Item id="50002" name="函数参数提示"/>
+                    <Item id="50003" name="切换到上一个文档"/>
+                    <Item id="50004" name="切换到下一个文档"/>
+                    <Item id="50005" name="启动/停止宏录制"/>
                     <Item id="50006" name="路径补全"/>
                     <Item id="44042" name="隐藏行"/>
                     <Item id="42040" name="打开文件列表"/>
@@ -931,6 +934,7 @@
                     <Item id="6324" name="文档切换 (Ctrl+TAB)"/>
                     <Item id="6331" name="在标题栏仅显示文件名"/>
                     <Item id="6334" name="自动检测字符编码"/>
+                    <Item id="6314" name="在查找对话框中使用等宽字体（需要重启Notepad++）"/>
                     <Item id="6337" name="工作区文件扩展名:"/>
                     <Item id="6114" name="启用"/>
                     <Item id="6115" name="自动缩进"/>

@@ -957,8 +957,8 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						_options._isInSelection = true;
 					}
 				}
-				// Searching/replacing in column selection is not allowed 
-				if ((*_ppEditView)->execute(SCI_GETSELECTIONMODE) == SC_SEL_RECTANGLE)
+				// Searching/replacing in multiple selections or column selection is not allowed 
+				if (((*_ppEditView)->execute(SCI_GETSELECTIONMODE) == SC_SEL_RECTANGLE) || ((*_ppEditView)->execute(SCI_GETSELECTIONS) > 1))
 				{
 					checkVal = BST_UNCHECKED;
 					_options._isInSelection = false;

@@ -36,6 +36,7 @@
 #include "functionListPanel.h"
 #include "ReadDirectoryChanges.h"
 #include <tchar.h>
+#include <unordered_set>
 
 using namespace std;
 
@@ -899,32 +900,88 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 	//closes all documents, makes the current view the only one visible
 
 	//first check if we need to save any file
-	for (size_t i = 0; i < _mainDocTab.nbItem() && !noSaveToAll; ++i)
-	{
-		BufferID id = _mainDocTab.getBufferByIndex(i);
-		Buffer * buf = MainFileManager.getBufferByID(id);
-		if (buf->isUntitled() && buf->docLength() == 0)
-		{
-			// Do nothing
-		}
-		else if (buf->isDirty())
-		{
-			if (isSnapshotMode)
-			{
-				if (buf->getBackupFileName() == TEXT("") || !::PathFileExists(buf->getBackupFileName().c_str())) //backup file has been deleted from outside
-				{
-					// warning user and save it if user want it.
-					activateBuffer(id, MAIN_VIEW);
-					if (!activateBuffer(id, SUB_VIEW))
-						switchEditViewTo(MAIN_VIEW);
+	//check in the both view
+	std::unordered_set<BufferID> uniqueBuffers;
 
-					int res = _nativeLangSpeaker.messageBox("NoBackupDoSaveFile",
-						_pPublicInterface->getHSelf(),
-						TEXT("Your backup file cannot be found (deleted from outside).\rSave it otherwise your data will be lost\rDo you want to save file \"$STR_REPLACE$\" ?"),
-						TEXT("Save"),
-						MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL,
-						0, // not used
-						buf->getFullPathName());
+	for (auto whichView : { MAIN_VIEW, SUB_VIEW })
+	{
+		DocTabView& docTabView = whichView == MAIN_VIEW ? _mainDocTab : _subDocTab;
+
+		for (size_t i = 0; i < docTabView.nbItem() && !noSaveToAll; ++i)
+		{
+			BufferID id = docTabView.getBufferByIndex(i);
+
+			// If the buffer present in both view, then no need to ask for save again and again
+			if (uniqueBuffers.find(id) != uniqueBuffers.end())
+				continue;
+			uniqueBuffers.insert(id);
+
+			Buffer* buf = MainFileManager.getBufferByID(id);
+			if (buf->isUntitled() && buf->docLength() == 0)
+			{
+				// Do nothing
+			}
+			else if (buf->isDirty())
+			{
+				if (isSnapshotMode)
+				{
+					if (buf->getBackupFileName() == TEXT("") || !::PathFileExists(buf->getBackupFileName().c_str())) //backup file has been deleted from outside
+					{
+						// warning user and save it if user want it.
+						if (whichView == MAIN_VIEW)
+						{
+							activateBuffer(id, MAIN_VIEW);
+							if (!activateBuffer(id, SUB_VIEW))
+								switchEditViewTo(MAIN_VIEW);
+						}
+						else
+						{
+							activateBuffer(id, SUB_VIEW);
+							switchEditViewTo(SUB_VIEW);
+						}
+
+						int res = _nativeLangSpeaker.messageBox("NoBackupDoSaveFile",
+							_pPublicInterface->getHSelf(),
+							TEXT("Your backup file cannot be found (deleted from outside).\rSave it otherwise your data will be lost\rDo you want to save file \"$STR_REPLACE$\" ?"),
+							TEXT("Save"),
+							MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL,
+							0, // not used
+							buf->getFullPathName());
+
+						if (res == IDYES)
+						{
+							if (!fileSave(id))
+								return false;	//abort entire procedure
+						}
+						else if (res == IDCANCEL)
+						{
+							return false;
+						}
+					}
+				}
+				else
+				{
+					if (whichView == MAIN_VIEW)
+					{
+						activateBuffer(id, MAIN_VIEW);
+						if (!activateBuffer(id, SUB_VIEW))
+							switchEditViewTo(MAIN_VIEW);
+					}
+					else
+					{
+						activateBuffer(id, SUB_VIEW);
+						switchEditViewTo(SUB_VIEW);
+					}
+
+					int res = -1;
+					if (saveToAll)
+					{
+						res = IDYES;
+					}
+					else
+					{
+						res = doSaveOrNot(buf->getFullPathName(), true);
+					}
 
 					if (res == IDYES)
 					{
@@ -935,120 +992,17 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 					{
 						return false;
 					}
-				}
-			}
-			else
-			{
-				activateBuffer(id, MAIN_VIEW);
-				if (!activateBuffer(id, SUB_VIEW))
-					switchEditViewTo(MAIN_VIEW);
-
-				int res = -1;
-				if (saveToAll)
-				{
-					res = IDYES;
-				}
-				else
-				{
-					res = doSaveOrNot(buf->getFullPathName(), true);
-				}
-
-				if (res == IDYES)
-				{
-					if (!fileSave(id))
-						return false;	//abort entire procedure
-				}
-				else if (res == IDCANCEL)
-				{
-					return false;
-				}
-				else if (res == IDIGNORE)
-				{
-					noSaveToAll = true;
-				}
-				else if (res == IDRETRY)
-				{
-					if (!fileSave(id))
-						return false;	// Abort entire procedure.
-
-					saveToAll = true;
-				}
-			}
-		}
-	}
-
-	for (size_t i = 0; i < _subDocTab.nbItem() && !noSaveToAll; ++i)
-	{
-		BufferID id = _subDocTab.getBufferByIndex(i);
-		Buffer * buf = MainFileManager.getBufferByID(id);
-		if (buf->isUntitled() && buf->docLength() == 0)
-		{
-			// Do nothing
-		}
-		else if (buf->isDirty())
-		{
-			if (isSnapshotMode)
-			{
-				if (buf->getBackupFileName() == TEXT("") || !::PathFileExists(buf->getBackupFileName().c_str())) //backup file has been deleted from outside
-				{
-					// warning user and save it if user want it.
-					activateBuffer(id, SUB_VIEW);
-					switchEditViewTo(SUB_VIEW);
-
-					int res = _nativeLangSpeaker.messageBox("NoBackupDoSaveFile",
-						_pPublicInterface->getHSelf(),
-						TEXT("Your backup file cannot be found (deleted from outside).\rSave it otherwise your data will be lost\rDo you want to save file \"$STR_REPLACE$\" ?"),
-						TEXT("Save"),
-						MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL,
-						0, // not used
-						buf->getFullPathName());
-
-					if (res == IDYES)
+					else if (res == IDIGNORE)
+					{
+						noSaveToAll = true;
+					}
+					else if (res == IDRETRY)
 					{
 						if (!fileSave(id))
-							return false;	//abort entire procedure
+							return false;	// Abort entire procedure.
+
+						saveToAll = true;
 					}
-					else if (res == IDCANCEL)
-					{
-						return false;
-					}
-				}
-			}
-			else
-			{
-				activateBuffer(id, SUB_VIEW);
-				switchEditViewTo(SUB_VIEW);
-
-				int res = -1;
-				if (saveToAll)
-				{
-					res = IDYES;
-				}
-				else
-				{
-					res = doSaveOrNot(buf->getFullPathName(), true);
-				}
-
-				if (res == IDYES)
-				{
-					if (!fileSave(id))
-						return false;	//abort entire procedure
-				}
-				else if (res == IDCANCEL)
-				{
-					return false;
-					//otherwise continue (IDNO)
-				}
-				else if (res == IDIGNORE)
-				{
-					noSaveToAll = true;
-				}
-				else if (res == IDRETRY)
-				{
-					if (!fileSave(id))
-						return false;	// Abort entire procedure.
-
-					saveToAll = true;
 				}
 			}
 		}

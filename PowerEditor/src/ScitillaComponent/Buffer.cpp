@@ -734,7 +734,7 @@ bool FileManager::deleteFile(BufferID id)
 	fileOpStruct.pFrom = fileNamePath.c_str();
 	fileOpStruct.pTo = NULL;
 	fileOpStruct.wFunc = FO_DELETE;
-	fileOpStruct.fFlags = FOF_ALLOWUNDO;
+	fileOpStruct.fFlags = FOF_ALLOWUNDO | FOF_NOCONFIRMATION;
 	fileOpStruct.fAnyOperationsAborted = false;
 	fileOpStruct.hNameMappings         = NULL;
 	fileOpStruct.lpszProgressTitle     = NULL;

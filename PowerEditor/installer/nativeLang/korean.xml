@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <NotepadPlus>
     <!-- <localization work version=7.8.1 nick="Sapziller" name="ByungJo Yoon" mail="yunbj@naver.com"/> <localization work version=6.5.3~7.4.2 name="도움돌" mail= "domddol@gmail.com"/> <localization work version=1 and 6.1.5 nick= "taggon" name= "Taegon Kim" mail= "gonom9@gmail.com"/> <localization work version=2 nick= "" name= "JiHui Choi" mail= "jihui.choi@gmail.com"/> <localization work version=5.4R2 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=4 nick= "Sapziller" name= "Byungjo Yoon" mail= "yunbj@naver.com"/> <localization work version=5.8 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=5.9 nick= "Syonsi" name= "Kim JunHo" mail= "syonsi@live.com"/> <localization work version=5.92 nick= "Global DOL+I" name= "Lee Junho" mail= "riifjv@live.com"/> --> 
-<Native-Langue name="한국어" filename="korean.xml" version="7.4">
+<Native-Langue name="한국어" filename="korean.xml" version="7.8.1">
 <Menu>
 <Main>
 <!--  Main Menu Entries --> 
@@ -427,17 +427,17 @@
   <Item id="2"    name="닫기"/>
 </MD5FromFilesDlg>
 
-<MD5FromFilesDlg title="MD5 요약 생성">
+<MD5FromTextDlg title="MD5 요약 생성">
   <Item id="1932" name="각 줄을 분리된 문자열로 처리"/>
   <Item id="1934" name="클립보드로 복사"/>
   <Item id="2"    name="닫기"/>
-</MD5FromFilesDlg>
+</MD5FromTextDlg>
 
-<SHA256FromTextDlg title="파일의 SHA-256 요약 생성">
+<SHA256FromFilesDlg title="파일의 SHA-256 요약 생성">
   <Item id="1922" name="SHA-256을 생성할 파일 선택..."/>
   <Item id="1924" name="클립보드로 복사"/>
   <Item id="2"    name="닫기"/>
-</SHA256FromTextDlg>
+</SHA256FromFilesDlg>
 
 <SHA256FromTextDlg title="파일의 SHA-256 요약 생성">
   <Item id="1932" name="각 줄을 분리된 문자열로 처리"/>
@@ -954,7 +954,7 @@
   <Item id="8002" name="파일끝까지 실행(&amp;e)"/> 
 </MultiMacro>
 <Window title="창 관리">
-  <Item id="1" name="활성화(&mp;A)"/> 
+  <Item id="1" name="활성화(&amp;A)"/>
   <Item id="2" name="확인(&amp;O)"/> 
   <Item id="7002" name="저장(&amp;S)"/> 
   <Item id="7003" name="창 닫기(&amp;C)"/> 

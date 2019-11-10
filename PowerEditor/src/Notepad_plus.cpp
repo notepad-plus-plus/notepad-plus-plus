@@ -1997,7 +1997,7 @@ void Notepad_plus::checkDocState()
 	bool isUserReadOnly = curBuf->getUserReadOnly();
 	::CheckMenuItem(_mainMenuHandle, IDM_EDIT_SETREADONLY, MF_BYCOMMAND | (isUserReadOnly ? MF_CHECKED : MF_UNCHECKED));
 
-	enableCommand(IDM_FILE_DELETE, isFileExisting, MENU);
+	enableCommand(IDM_FILE_DELETE, isFileExisting && not isCurrentDirty, MENU);
 	//enableCommand(IDM_FILE_RENAME, isFileExisting, MENU);
 	enableCommand(IDM_FILE_OPEN_CMD, isFileExisting, MENU);
 	enableCommand(IDM_FILE_OPEN_FOLDER, isFileExisting, MENU);

@@ -369,6 +369,7 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 
 	{ VK_NULL,    IDM_LANG_USER_DLG,                            false, false, false, nullptr },
 	{ VK_NULL,    IDM_LANG_USER,                                false, false, false, nullptr },
+	{ VK_NULL,    IDM_LANG_OPENUDLDIR,                          false, false, false, nullptr },
 
 	{ VK_NULL,    IDM_SETTING_PREFERENCE,                       false, false, false, nullptr },
 	{ VK_NULL,    IDM_LANGSTYLE_CONFIG_DLG,                     false, false, false, nullptr },

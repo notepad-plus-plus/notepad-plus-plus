@@ -3048,6 +3048,13 @@ void Notepad_plus::command(int id)
 			}
 		}
         break;
+		
+		case IDM_LANG_OPENUDLDIR: {
+			generic_string _userPath = NppParameters::getInstance().getUserPath();
+			PathAppend(_userPath, TEXT("userDefineLangs"));
+			::ShellExecute(_pPublicInterface->getHSelf(), TEXT("open"), _userPath.c_str(), NULL, NULL, SW_SHOW);
+			break;
+		}
 
         case IDC_PREV_DOC :
         case IDC_NEXT_DOC :

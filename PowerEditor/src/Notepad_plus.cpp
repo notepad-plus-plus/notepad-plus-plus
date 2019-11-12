@@ -1875,6 +1875,15 @@ void Notepad_plus::filePrint(bool showDialog)
 
 int Notepad_plus::doSaveOrNot(const TCHAR* fn, bool isMulti)
 {
+	// In case Notepad++ is iconized into notification zone
+	if (!::IsWindowVisible(_pPublicInterface->getHSelf()))
+	{
+		::ShowWindow(_pPublicInterface->getHSelf(), SW_SHOW);
+
+		// Send sizing info to make window fit (specially to show tool bar.)
+		::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
+	}
+
 	DoSaveOrNotBox doSaveOrNotBox;
 	doSaveOrNotBox.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), fn, isMulti);
 	doSaveOrNotBox.doDialog(_nativeLangSpeaker.isRTL());

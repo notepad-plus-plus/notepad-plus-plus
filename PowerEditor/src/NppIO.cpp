@@ -36,6 +36,7 @@
 #include "functionListPanel.h"
 #include "ReadDirectoryChanges.h"
 #include <tchar.h>
+#include <unordered_set>
 
 using namespace std;
 
@@ -899,10 +900,18 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 	//closes all documents, makes the current view the only one visible
 
 	//first check if we need to save any file
+	//check in the both view
+	std::unordered_set<BufferID> uniqueBuffers;
+
 	for (size_t i = 0; i < _mainDocTab.nbItem() && !noSaveToAll; ++i)
 	{
 		BufferID id = _mainDocTab.getBufferByIndex(i);
 		Buffer * buf = MainFileManager.getBufferByID(id);
+
+		// Put all the BufferID from main vaiew to hash table
+		// hash table is used for fast searching
+		uniqueBuffers.insert(id);
+
 		if (buf->isUntitled() && buf->docLength() == 0)
 		{
 			// Do nothing
@@ -981,6 +990,11 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 	{
 		BufferID id = _subDocTab.getBufferByIndex(i);
 		Buffer * buf = MainFileManager.getBufferByID(id);
+
+		// Is this buffer already included?
+		if (uniqueBuffers.find(id) != uniqueBuffers.end())
+			continue;
+
 		if (buf->isUntitled() && buf->docLength() == 0)
 		{
 			// Do nothing

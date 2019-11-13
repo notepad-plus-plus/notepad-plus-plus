@@ -36,6 +36,7 @@
 #include "functionListPanel.h"
 #include "ReadDirectoryChanges.h"
 #include <tchar.h>
+#include <unordered_set>
 
 using namespace std;
 
@@ -1199,20 +1200,30 @@ bool Notepad_plus::fileCloseAllButCurrent()
 	bool noSaveToAll = false;
 	bool saveToAll = false;
 
+	std::unordered_set<BufferID> buffersToBeClosed;
+	std::unordered_set<BufferID> buffersUnique;
+
 	//closes all documents, makes the current view the only one visible
 
 	//first check if we need to save any file
 	for (size_t i = 0; i < _mainDocTab.nbItem() && !noSaveToAll; ++i)
 	{
 		BufferID id = _mainDocTab.getBufferByIndex(i);
+		Buffer * buf = MainFileManager.getBufferByID(id);
+
+		// Put all the BufferID from main vaiew to hash table
+		// hash table is used for fast searching
+		buffersUnique.insert(id);
+
 		if (id == current)
 			continue;
-		Buffer * buf = MainFileManager.getBufferByID(id);
-		if (buf->isUntitled() && buf->docLength() == 0)
+
+		if ((buf->isUntitled() && buf->docLength() == 0) || noSaveToAll || !buf->isDirty())
 		{
-			// Do nothing
+			// Do nothing, these documents are already ready to close
+			buffersToBeClosed.insert(id);
 		}
-		else if (buf->isDirty())
+		else if (buf->isDirty() && !noSaveToAll)
 		{
 			activateBuffer(id, MAIN_VIEW);
 			if (!activateBuffer(id, SUB_VIEW))
@@ -1231,22 +1242,30 @@ bool Notepad_plus::fileCloseAllButCurrent()
 			if (res == IDYES)
 			{
 				if (!fileSave(id))
-					return false;	//abort entire procedure
+					break;	//abort entire procedure
+
+				buffersToBeClosed.insert(id);
+			}
+			else if (res == IDNO)
+			{
+				buffersToBeClosed.insert(id);
 			}
 			else if (res == IDCANCEL)
 			{
-				return false;
+				break;
 			}
 			else if (res == IDIGNORE)
 			{
 				noSaveToAll = true;
+				buffersToBeClosed.insert(id);
 			}
 			else if (res == IDRETRY)
 			{
 				if (!fileSave(id))
-					return false;	// Abort entire procedure.
+					break;	// Abort entire procedure.
 
 				saveToAll = true;
+				buffersToBeClosed.insert(id);
 			}
 		}
 	}
@@ -1254,13 +1273,18 @@ bool Notepad_plus::fileCloseAllButCurrent()
 	{
 		BufferID id = _subDocTab.getBufferByIndex(i);
 		Buffer * buf = MainFileManager.getBufferByID(id);
-		if (id == current)
+
+		// If the id is current or if the id already processed in _mainDocTab (as it was cloned)
+		// then ignore it and continue with other buffers
+		if (id == current || buffersUnique.find(id) != buffersUnique.end())
 			continue;
-		if (buf->isUntitled() && buf->docLength() == 0)
+
+		if ((buf->isUntitled() && buf->docLength() == 0) || noSaveToAll || !buf->isDirty())
 		{
-			// Do nothing
+			// Do nothing, these documents are already ready to close
+			buffersToBeClosed.insert(id);
 		}
-		else if (buf->isDirty())
+		else if (buf->isDirty() && !noSaveToAll)
 		{
 			activateBuffer(id, SUB_VIEW);
 			switchEditViewTo(SUB_VIEW);
@@ -1278,22 +1302,30 @@ bool Notepad_plus::fileCloseAllButCurrent()
 			if (res == IDYES)
 			{
 				if (!fileSave(id))
-					return false;	//abort entire procedure
+					break;	//abort entire procedure
+
+				buffersToBeClosed.insert(id);
+			}
+			else if (res == IDNO)
+			{
+				buffersToBeClosed.insert(id);
 			}
 			else if (res == IDCANCEL)
 			{
-				return false;
+				break;
 			}
 			else if (res == IDIGNORE)
 			{
 				noSaveToAll = true;
+				buffersToBeClosed.insert(id);
 			}
 			else if (res == IDRETRY)
 			{
 				if (!fileSave(id))
-					return false;	// Abort entire procedure.
+					break;	// Abort entire procedure.
 
 				saveToAll = true;
+				buffersToBeClosed.insert(id);
 			}
 		}
 	}
@@ -1312,7 +1344,12 @@ bool Notepad_plus::fileCloseAllButCurrent()
 
 		for (int32_t i = static_cast<int32_t>(_pNonDocTab->nbItem()) - 1; i >= 0; i--) 	//close all from right to left
 		{
-			doClose(_pNonDocTab->getBufferByIndex(i), viewNo, isSnapshotMode);
+			BufferID id = _pNonDocTab->getBufferByIndex(i);
+
+			// Are we OK to close?
+			// Yes, if id present in buffersToBeClosed or if current is cloned on nonDocTab (e.g. id == current)
+			if (buffersToBeClosed.find(id) != buffersToBeClosed.end() || id == current)
+				doClose(id, viewNo, isSnapshotMode);
 		}
     }
 
@@ -1324,7 +1361,13 @@ bool Notepad_plus::fileCloseAllButCurrent()
 		{
 			continue;
 		}
-		doClose(_pDocTab->getBufferByIndex(i), viewNo, isSnapshotMode);
+
+		BufferID id = _pDocTab->getBufferByIndex(i);
+
+		// Are we OK to close?
+		// Yes, if id present in buffersToBeClosed
+		if (buffersToBeClosed.find(id) != buffersToBeClosed.end())
+			doClose(id, viewNo, isSnapshotMode);
 	}
 	return true;
 }

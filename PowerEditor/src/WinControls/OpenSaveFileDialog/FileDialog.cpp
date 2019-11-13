@@ -27,6 +27,7 @@
 
 
 #include <shlwapi.h>
+#include <cstdarg>
 
 #include "FileDialog.h"
 #include "Parameters.h"

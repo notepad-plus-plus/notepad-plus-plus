@@ -33,9 +33,7 @@
 #include "findCharsInRange_rc.h"
 #endif //FINDCHARSINRANGE_RC_H
 
-#ifndef SCINTILLA_EDIT_VIEW_H
 #include "ScintillaEditView.h"
-#endif //SCINTILLA_EDIT_VIEW_H
 
 class FindCharsInRangeDlg : public StaticDialog
 {

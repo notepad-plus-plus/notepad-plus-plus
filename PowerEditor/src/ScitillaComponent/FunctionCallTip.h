@@ -28,9 +28,7 @@
 #ifndef FUNCTIONCALLTIP_H
 #define FUNCTIONCALLTIP_H
 
-#ifndef SCINTILLA_EDIT_VIEW_H
 #include "ScintillaEditView.h"
-#endif //SCINTILLA_EDIT_VIEW_H
 
 typedef std::vector<const TCHAR *> stringVec;
 

@@ -29,9 +29,7 @@
 #ifndef PRINTER_H
 #define PRINTER_H
 
-#ifndef SCINTILLA_EDIT_VIEW_H
 #include "ScintillaEditView.h"
-#endif //SCINTILLA_EDIT_VIEW_H
 
 
 struct NPP_RangeToFormat {

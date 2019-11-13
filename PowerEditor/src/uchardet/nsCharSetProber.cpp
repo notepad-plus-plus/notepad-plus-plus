@@ -39,6 +39,8 @@
 #include "nsCharSetProber.h"
 #include "prmem.h"
 
+#include <cstdint> // for uintptr_t
+
 //This filter applies to all scripts which do not use English characters
 PRBool nsCharSetProber::FilterWithoutEnglishLetters(const char* aBuf, PRUint32 aLen, char** newBuf, PRUint32& newLen)
 {

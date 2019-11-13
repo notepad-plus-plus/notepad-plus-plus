@@ -76,7 +76,8 @@ ClipboardData ClipboardHistoryPanel::getClipboadData()
 					clipboardData.push_back(static_cast<unsigned char>(lpchar[i]));
 				}
 			}
-			GlobalUnlock(hglb); 
+			GlobalUnlock(hglb);
+			GlobalUnlock(hglb);
 		}
 	}
 	CloseClipboard();

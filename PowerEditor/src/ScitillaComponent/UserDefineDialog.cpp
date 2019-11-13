@@ -35,6 +35,8 @@
 #include "FileDialog.h"
 #include "Common.h"
 
+#include <algorithm> // for std::find
+
 using namespace std;
 
 UserLangContainer * SharedParametersDialog::_pUserLang = NULL;

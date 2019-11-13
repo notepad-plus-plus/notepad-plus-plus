@@ -1301,26 +1301,6 @@ void FolderUpdater::stopWatcher()
 	::CloseHandle(_EventHandle);
 }
 
-LPCWSTR explainAction(DWORD dwAction)
-{
-	switch (dwAction)
-	{
-	case FILE_ACTION_ADDED:
-		return L"Added";
-	case FILE_ACTION_REMOVED:
-		return L"Deleted";
-	case FILE_ACTION_MODIFIED:
-		return L"Modified";
-	case FILE_ACTION_RENAMED_OLD_NAME:
-		return L"Renamed From";
-	case FILE_ACTION_RENAMED_NEW_NAME:
-		return L"Renamed ";
-	default:
-		return L"BAD DATA";
-	}
-};
-
-
 DWORD WINAPI FolderUpdater::watching(void *params)
 {
 	FolderUpdater *thisFolderUpdater = (FolderUpdater *)params;

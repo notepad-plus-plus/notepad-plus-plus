@@ -675,8 +675,11 @@ void FileBrowser::popupMenuCmd(int cmdID)
 			generic_string path = getNodePath(selectedNode);
 			if (::PathFileExists(path.c_str()))
 			{
-				TCHAR cmdStr[1024];
-				wsprintf(cmdStr, TEXT("explorer /select,\"%s\""), path.c_str());
+				TCHAR cmdStr[1024] = {};
+				if (getNodeType(selectedNode) == browserNodeType_file)
+					wsprintf(cmdStr, TEXT("explorer /select,\"%s\""), path.c_str());
+				else
+					wsprintf(cmdStr, TEXT("explorer \"%s\""), path.c_str());
 				Command cmd(cmdStr);
 				cmd.run(nullptr);
 			}

@@ -280,6 +280,12 @@
 					<Item id="45011" name="Naar UTF-8-BOM converteren"/>
 					<Item id="45012" name="Naar UCS-2 Big Endian converteren"/>
 					<Item id="45013" name="Naar UCS-2 Little Endian converteren"/>
+					<Item id="45060" name="Big5 (Taiwan)" />
+					<Item id="45061" name="GB2312 (China)" />
+					<Item id="45054" name="OEM 861: Ĳslands" />
+					<Item id="45057" name="OEM 865: Deens &amp;&amp; Noors" />
+					<Item id="45053" name="OEM 860: Portugees" />
+					<Item id="45056" name="OEM 863: Canadees-Frans" />
 
 					<Item id="10001" name="Naar deelvenster verplaatsen"/>
 					<Item id="10002" name="Naar deelvenster kopiëren"/>
@@ -994,11 +1000,11 @@
 			</FindInFinder>
 			<DoSaveOrNot title="Bestand opslaan">
 				<Item id="1761" name="Bestand &quot;$STR_REPLACE$&quot; opslaan?"/>
-				<Item id="6" name="Ja"/>
-				<Item id="7" name="Nee"/>
+				<Item id="6" name="&amp;Ja"/>
+				<Item id="7" name="&amp;Nee"/>
 				<Item id="2" name="Annuleren"/>
-				<Item id="4" name="Ja op alles"/>
-				<Item id="5" name="Nee op alles"/>
+				<Item id="4" name="J&amp;a op alles"/>
+				<Item id="5" name="N&amp;ee op alles"/>
 			</DoSaveOrNot>
 		</Dialog>
 

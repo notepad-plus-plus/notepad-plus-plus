@@ -377,7 +377,7 @@ void Notepad_plus::command(int id)
 								_pEditView->execute(SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(""));
 								_pEditView->execute(SCI_ADDTEXT, *lpLen, reinterpret_cast<LPARAM>(lpchar));
 
-								GlobalUnlock(hglb);
+								GlobalUnlock(hglbLen);
 							}
 						}
 					}

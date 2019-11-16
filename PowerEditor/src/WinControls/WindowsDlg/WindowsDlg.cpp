@@ -687,7 +687,7 @@ void WindowsDlg::resetSelection()
 	{
 		if (*itr == curSel)
 		{
-			ListView_SetItemState(_hList, pos, LVIS_SELECTED|LVIS_FOCUSED, LVIS_SELECTED|LVIS_FOCUSED)
+			ListView_SetItemState(_hList, pos, LVIS_SELECTED | LVIS_FOCUSED, LVIS_SELECTED | LVIS_FOCUSED);
 		}
 		else
 		{

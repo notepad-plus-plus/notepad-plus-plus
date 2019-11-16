@@ -28,8 +28,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef IDALLOCATOR_H
-#define IDALLOCATOR_H
+#pragma once
 
 class IDAllocator
 {
@@ -47,4 +46,3 @@ private:
 	int _maximumID;
 };
 
-#endif

@@ -26,8 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef REG_EXT_DLG_H
-#define REG_EXT_DLG_H
+#pragma once
 
 #include "regExtDlgRc.h"
 #include "StaticDialog.h"
@@ -65,5 +64,3 @@ private :
 		return (result == ERROR_SUCCESS)?nbSubValue:0;
 	}
 };
-
-#endif //REG_EXT_DLG_H

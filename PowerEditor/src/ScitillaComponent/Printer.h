@@ -26,12 +26,9 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef PRINTER_H
-#define PRINTER_H
+#pragma once
 
-#ifndef SCINTILLA_EDIT_VIEW_H
 #include "ScintillaEditView.h"
-#endif //SCINTILLA_EDIT_VIEW_H
 
 
 struct NPP_RangeToFormat {
@@ -65,4 +62,3 @@ private :
 	bool _isRTL = false;
 };
 
-#endif //PRINTER_H

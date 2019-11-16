@@ -26,15 +26,10 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef USER_DEFINE_LANG_REFERENCE_H
-#define USER_DEFINE_LANG_REFERENCE_H
+#pragma once
 
 #include "SciLexer.h"
 
 const int langNameLenMax = 64;
 const int extsLenMax = 256;
 const int max_char = 1024*30;
-
-#endif //USER_DEFINE_LANG_REFERENCE_H
-
-

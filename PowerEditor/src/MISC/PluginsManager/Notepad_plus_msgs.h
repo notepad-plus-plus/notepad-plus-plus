@@ -26,8 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef NOTEPAD_PLUS_MSGS_H
-#define NOTEPAD_PLUS_MSGS_H
+#pragma once
 
 #include <windows.h>
 #include <tchar.h>
@@ -611,5 +610,3 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64 };
 	//scnNotification->nmhdr.code = NPPN_FILEDELETED;
 	//scnNotification->nmhdr.hwndFrom = hwndNpp;
 	//scnNotification->nmhdr.idFrom = BufferID;
-
-#endif //NOTEPAD_PLUS_MSGS_H

@@ -25,8 +25,7 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-#ifndef TREE_VIEW_H
-#define TREE_VIEW_H
+#pragma once
 
 #include <windows.h>
 #include <commctrl.h>
@@ -142,5 +141,3 @@ protected:
 	bool canDropIn(HTREEITEM targetItem);
 };
 
-
-#endif // TREE_VIEW_H

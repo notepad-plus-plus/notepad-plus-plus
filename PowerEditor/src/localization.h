@@ -26,8 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef LOCALIZATION_H
-#define LOCALIZATION_H
+#pragma once
 
 #include "Common.h"
 #include "tinyxmlA.h"
@@ -101,4 +100,3 @@ private:
 
 MenuPosition & getMenuPosition(const char *id);
 
-#endif // LOCALIZATION_H

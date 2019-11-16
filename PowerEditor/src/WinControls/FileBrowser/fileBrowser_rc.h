@@ -26,8 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef FILEBROWSER_RC_H
-#define FILEBROWSER_RC_H
+#pragma once
 
 #define	IDD_FILEBROWSER		3500
 
@@ -48,6 +47,3 @@
 #define	IDD_FILEBROWSER_CTRL		(IDD_FILEBROWSER + 30)
   #define	ID_FILEBROWSERTREEVIEW    (IDD_FILEBROWSER_CTRL + 1)
   
-
-#endif // FILEBROWSER_RC_H
-

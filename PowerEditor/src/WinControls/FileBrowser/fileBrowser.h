@@ -28,11 +28,7 @@
 
 #pragma once
 
-//#include <windows.h>
-#ifndef DOCKINGDLGINTERFACE_H
 #include "DockingDlgInterface.h"
-#endif //DOCKINGDLGINTERFACE_H
-
 #include "TreeView.h"
 #include "fileBrowser_rc.h"
 

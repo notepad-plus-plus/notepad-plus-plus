@@ -25,8 +25,7 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-#ifndef SMARTHIGHLIGHTER_H
-#define SMARTHIGHLIGHTER_H
+#pragma once
 
 #include "Common.h"
 
@@ -42,5 +41,3 @@ public:
 private:
 	FindReplaceDlg * _pFRDlg;
 };
-
-#endif //SMARTHIGHLIGHTER_H

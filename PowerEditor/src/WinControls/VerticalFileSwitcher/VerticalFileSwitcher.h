@@ -26,8 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef VERTICALFILESWITCHER_H
-#define  VERTICALFILESWITCHER_H
+#pragma once
 
 #include "DockingDlgInterface.h"
 #include "VerticalFileSwitcher_rc.h"
@@ -120,4 +119,3 @@ private:
 	VerticalFileSwitcherListView _fileListView;
 	HIMAGELIST _hImaLst = nullptr;
 };
-#endif // VERTICALFILESWITCHER_H

@@ -26,8 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef VERTICALFILESWITCHERLISTVIEW_H
-#define VERTICALFILESWITCHERLISTVIEW_H
+#pragma once
 
 #include "Window.h"
 #include "TaskListDlg.h"
@@ -103,6 +102,3 @@ protected:
 	void remove(int index);
 	void removeAll();
 };
-
-
-#endif // VERTICALFILESWITCHERLISTVIEW_H

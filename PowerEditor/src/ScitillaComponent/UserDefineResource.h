@@ -26,8 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef USERDEFINE_RC_H
-#define USERDEFINE_RC_H
+#pragma once
 
 #define    IDD_GLOBAL_USERDEFINE_DLG 20000
     #define    IDC_DOCK_BUTTON                              (IDD_GLOBAL_USERDEFINE_DLG + 1 )
@@ -310,4 +309,3 @@
     #define    IDC_STRING_STATIC                            (IDD_STRING_DLG + 1)
     #define    IDC_STRING_EDIT                              (IDD_STRING_DLG + 2)
 
-#endif //USERDEFIN_RC_H

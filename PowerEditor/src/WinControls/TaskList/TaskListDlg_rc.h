@@ -26,10 +26,8 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef TASKLISTDLGRC_H
-#define TASKLISTDLGRC_H
+#pragma once
 
 #define	IDD_TASKLIST_DLG    2450
 	#define	ID_PICKEDUP     (IDD_TASKLIST_DLG + 1)
 
-#endif // TASKLISTDLGRC_H

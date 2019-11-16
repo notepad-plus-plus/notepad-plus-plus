@@ -26,8 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef TOOL_BAR_H
-#define TOOL_BAR_H
+#pragma once
 
 #include "Common.h"
 #include "Window.h"
@@ -174,5 +173,3 @@ private:
 	void releaseID(int id);
 	bool isIDTaken(int id);
 };
-
-#endif // TOOL_BAR_H

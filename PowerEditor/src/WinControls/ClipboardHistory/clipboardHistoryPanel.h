@@ -26,14 +26,9 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef CLIPBOARDHISTORYPANEL_H
-#define CLIPBOARDHISTORYPANEL_H
+#pragma once
 
-//#include <windows.h>
-#ifndef DOCKINGDLGINTERFACE_H
 #include "DockingDlgInterface.h"
-#endif //DOCKINGDLGINTERFACE_H
-
 #include "clipboardHistoryPanel_rc.h"
 #include <vector>
 
@@ -73,17 +68,11 @@ public:
 		DockingDlgInterface::init(hInst, hPere);
 		_ppEditView = ppEditView;
 	};
-/*
-    virtual void display(bool toShow = true) const {
-        DockingDlgInterface::display(toShow);
-    };
-*/
 
     void setParent(HWND parent2set){
         _hParent = parent2set;
     };
 
-	//void switchEncoding();
 	ClipboardData getClipboadData();
 	void addToClipboadHistory(ClipboardData cbd);
 	int getClipboardDataIndex(ClipboardData cbd);
@@ -108,4 +97,4 @@ private:
 	int _lbFgColor;
 
 };
-#endif // CLIPBOARDHISTORYPANEL_H
+

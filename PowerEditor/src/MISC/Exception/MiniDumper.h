@@ -29,8 +29,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef MDUMP_H
-#define MDUMP_H
+#pragma once
 
 #include <windows.h>
 #include <dbghelp.h>
@@ -49,4 +48,3 @@ public:
 	bool writeDump(EXCEPTION_POINTERS * pExceptionInfo);
 };
 
-#endif //MDUMP_H

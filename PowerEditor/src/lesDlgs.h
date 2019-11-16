@@ -26,8 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef SIZE_DLG_H
-#define SIZE_DLG_H
+#pragma once
 
 #include "StaticDialog.h"
 #include "Common.h"
@@ -94,4 +93,3 @@ protected :
     int _buttonStatus = buttonStatus_nada;
 
 };
-#endif //TABSIZE_DLG_H

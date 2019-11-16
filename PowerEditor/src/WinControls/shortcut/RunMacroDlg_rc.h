@@ -27,8 +27,7 @@
 
 // created by Daniel Volk mordorpost@volkarts.com
 
-#ifndef RUN_MACRO_DLG_RC_H
-#define RUN_MACRO_DLG_RC_H
+#pragma once
 
 #define IDD_RUN_MACRO_DLG					8000
 #define IDC_M_RUN_MULTI						8001
@@ -39,4 +38,3 @@
 #define IDC_TIMES_STATIC					8005
 #define IDC_MACRO2RUN_STATIC				8006
 
-#endif //RUN_MACRO_DLG_RC_H

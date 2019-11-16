@@ -26,8 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef URLCTRL_INCLUDED
-#define URLCTRL_INCLUDED
+#pragma once
 
 #include "Window.h"
 #include "Common.h"
@@ -61,4 +60,3 @@ protected :
     LRESULT runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 };
 
-#endif //URLCTRL_INCLUDED

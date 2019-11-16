@@ -26,8 +26,8 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef FIND_REPLACE_DLG_RC
-#define FIND_REPLACE_DLG_RC
+#pragma once
+
 #include <windows.h>
 #include "FindReplaceDlg_rc.h"
 
@@ -133,5 +133,3 @@ BEGIN
     PUSHBUTTON      "Find All",IDOK,268,20,90,14,WS_GROUP
 	PUSHBUTTON      "Close",IDCANCEL,268,38,90,14
 END
-
-#endif //FIND_REPLACE_DLG_RC

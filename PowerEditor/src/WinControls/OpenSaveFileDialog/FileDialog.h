@@ -26,8 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef FILE_DIALOG_H
-#define FILE_DIALOG_H
+#pragma once
 
 #include "Common.h"
 #include "Notepad_plus_msgs.h"
@@ -78,4 +77,3 @@ private:
     static FileDialog *staticThis;
 };
 
-#endif //FILE_DIALOG_H

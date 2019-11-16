@@ -26,18 +26,11 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef DOCKINGSPLITTER_H
-#define DOCKINGSPLITTER_H
+#pragma once
 
 #include "Window.h"
-
-#ifndef DOCKING_H
 #include "Docking.h"
-#endif //DOCKING_H
-
-#ifndef DOCKING_RESOURCE_H
 #include "dockingResource.h"
-#endif //DOCKING_RESOURCE_H
 
 #define	DMS_VERTICAL		0x00000001
 #define	DMS_HORIZONTAL		0x00000002
@@ -69,4 +62,3 @@ private:
 	static BOOL _isHoriReg;
 };
 
-#endif // DOCKINGSPLITTER_H

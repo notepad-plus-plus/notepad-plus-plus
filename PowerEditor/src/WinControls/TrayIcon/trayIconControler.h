@@ -26,8 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef TRAY_ICON_CONTROLER_H
-#define TRAY_ICON_CONTROLER_H
+#pragma once
 
 #include <windows.h>
 
@@ -50,4 +49,3 @@ private:
   bool              _isIconShowed;
 };
 
-#endif //TRAY_ICON_CONTROLER_H

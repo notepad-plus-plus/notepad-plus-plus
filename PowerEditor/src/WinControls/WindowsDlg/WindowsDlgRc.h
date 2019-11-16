@@ -26,8 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef WINDOWS_DLG_RC_H
-#define WINDOWS_DLG_RC_H
+#pragma once
 
 #ifdef __GNUC__
 #ifndef _WIN32_IE
@@ -51,4 +50,3 @@
 	#define  IDM_WINDOW_MRU_FIRST (IDR_WINDOWS_MENU + 20)
 	#define  IDM_WINDOW_MRU_LIMIT (IDR_WINDOWS_MENU + 29)
 
-#endif //WINDOWS_DLG_RC_H

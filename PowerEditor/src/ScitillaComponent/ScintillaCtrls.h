@@ -26,8 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef SCINTILLACTRLS_H
-#define SCINTILLACTRLS_H
+#pragma once
 
 #include <vector>
 #include <windows.h>
@@ -53,4 +52,3 @@ private:
 	int getIndexFrom(HWND handle2Find);
 };
 
-#endif //SCINTILLACTRLS_H

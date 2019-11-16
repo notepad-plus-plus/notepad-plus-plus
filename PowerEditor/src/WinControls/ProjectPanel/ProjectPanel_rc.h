@@ -26,8 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef PROJECTPANEL_RC_H
-#define PROJECTPANEL_RC_H
+#pragma once
 
 #define	IDD_PROJECTPANEL		3100
 
@@ -60,5 +59,4 @@
 #define	IDD_FILERELOCALIZER_DIALOG  3200
   #define	IDC_EDIT_FILEFULLPATHNAME  (IDD_FILERELOCALIZER_DIALOG + 1)
   
-#endif // PROJECTPANEL_RC_H
 

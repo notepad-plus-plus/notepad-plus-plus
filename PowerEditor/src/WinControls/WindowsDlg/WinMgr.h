@@ -9,8 +9,7 @@
 //
 // Theo - Heavily modified to remove MFC dependencies
 //        Replaced CWnd*/HWND, CRect/RECT, CSize/SIZE, CPoint/POINT
-#ifndef WINMGR_H
-#define WINMGR_H
+
 
 #pragma once
 
@@ -274,7 +273,6 @@ public:
 	// set TOFIT size for all windows from current window sizes
 	void InitToFitSizeFromCurrent(HWND hWnd);
 
-	// Theo - Removed Tracing
 
 protected:
 	WINRECT*	m_map = nullptr;			// THE window map
@@ -292,6 +290,3 @@ protected:
 private:
 	CWinMgr() { assert(FALSE); } // no default constructor
 };
-
-// Theo - Removed CSizerBar and CSizeableDlg
-#endif

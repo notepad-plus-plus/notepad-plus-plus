@@ -26,8 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef XMLMATCHEDTAGSHIGHLIGHTER_H
-#define XMLMATCHEDTAGSHIGHLIGHTER_H
+#pragma once
 
 #include <string>
 #include <vector>
@@ -72,5 +71,4 @@ private:
 	
 };
 
-#endif //XMLMATCHEDTAGSHIGHLIGHTER_H
 

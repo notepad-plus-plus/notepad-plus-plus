@@ -26,8 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef USERDEFINEDIALOG_RC
-#define USERDEFINEDIALOG_RC
+#pragma once
 
 #include <windows.h>
 #include "UserDefineResource.h"
@@ -304,5 +303,3 @@ BEGIN
     CONTROL         "Operators 2",IDC_STYLER_CHECK_NESTING_OPERATORS2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,209,183,76,13
     CONTROL         "Numbers",IDC_STYLER_CHECK_NESTING_NUMBERS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,209,200,76,13
 END
-
-#endif //USERDEFINEDIALOG_RC

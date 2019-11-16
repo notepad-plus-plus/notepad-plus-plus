@@ -31,8 +31,7 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-#ifndef WIN32_EXCEPTION_H
-#define  WIN32_EXCEPTION_H
+#pragma once
 
 #include <exception>
 #include <windows.h>
@@ -75,5 +74,3 @@ private:
 
     friend void Win32Exception::translate(unsigned code, EXCEPTION_POINTERS* info);
 };
-
-#endif // WIN32_EXCEPTION_H

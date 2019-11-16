@@ -26,8 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef IDD_FUNCLISTPANEL_RC_H
-#define IDD_FUNCLISTPANEL_RC_H
+#pragma once
 
 #define	IDD_FUNCLIST_PANEL		3400
 #define	IDC_LIST_FUNCLIST                (IDD_FUNCLIST_PANEL + 1)
@@ -35,6 +34,4 @@
 #define	IDC_SEARCHFIELD_FUNCLIST         (IDD_FUNCLIST_PANEL + 3)
 #define	IDC_RELOADBUTTON_FUNCLIST        (IDD_FUNCLIST_PANEL + 4)
 #define	IDC_SORTBUTTON_FUNCLIST          (IDD_FUNCLIST_PANEL + 5)
-
-#endif //IDD_FUNCLISTPANEL_RC_H
 

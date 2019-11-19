@@ -775,7 +775,7 @@ BEGIN
         MENUITEM "YAML",                    IDM_LANG_YAML
         MENUITEM SEPARATOR
         MENUITEM "Define your language...", IDM_LANG_USER_DLG
-        MENUITEM "Open UDL folder...",      IDM_LANG_OPENUDLDIR
+        MENUITEM "Open User Defined Language folder...",      IDM_LANG_OPENUDLDIR
         MENUITEM "User-Defined",            IDM_LANG_USER
     END
 
@@ -918,8 +918,11 @@ BEGIN
     MENUITEM "XML",                       IDM_LANG_XML
     MENUITEM "YAML",                      IDM_LANG_YAML
     MENUITEM SEPARATOR
-    MENUITEM "Define your language...",   IDM_LANG_USER_DLG
-    MENUITEM "Open UDL folder...",        IDM_LANG_OPENUDLDIR
+	POPUP "User Defined Language"
+	BEGIN
+		MENUITEM "Define your language...",   IDM_LANG_USER_DLG
+		MENUITEM "Open User Defined Language folder...",        IDM_LANG_OPENUDLDIR
+	END
     MENUITEM "User-Defined",              IDM_LANG_USER
     END
 

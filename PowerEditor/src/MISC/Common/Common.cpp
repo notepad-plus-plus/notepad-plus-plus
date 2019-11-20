@@ -973,12 +973,21 @@ bool str2Clipboard(const generic_string &str2cpy, HWND hwnd)
 
 bool matchInList(const TCHAR *fileName, const std::vector<generic_string> & patterns)
 {
+	bool is_matched = false;
 	for (size_t i = 0, len = patterns.size(); i < len; ++i)
 	{
+		if (patterns[i].length() > 1 && patterns[i][0] == '!')
+		{
+			if (PathMatchSpec(fileName, patterns[i].c_str() + 1))
+				return false;
+
+			continue;
+		} 
+
 		if (PathMatchSpec(fileName, patterns[i].c_str()))
-			return true;
+			is_matched = true;
 	}
-	return false;
+	return is_matched;
 }
 
 generic_string GetLastErrorAsString(DWORD errorCode)

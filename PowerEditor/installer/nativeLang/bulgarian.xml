@@ -3,7 +3,7 @@
 	## Bulgarian localization for Notepad++ ##
 
 	Translators:.....: 2007–2012 – Milen Metev (Tragedy); 2014–yyyy – Rusi Dimitrov
-	Last revision:...: 23.10.2019 by Rusi Dimitrov <astral_86[at]mail[dot]bg>
+	Last revision:...: 22.11.2019 by Rusi Dimitrov <astral_86[at]mail[dot]bg>
 	Download:........: https://gist.github.com/rddim/bd37264898c3a17363e7437bcf1b4803
 -->
 <NotepadPlus>
@@ -32,7 +32,7 @@
 					<Item subMenuId="file-closeMore" name="Затваряне на разделите"/>
 					<Item subMenuId="file-recentFiles" name="&amp;Последно използвани"/>
 				<!-- Меню "Редактиране" -->
-					<Item subMenuId="edit-copyToClipboard"	name="Копиране в системния буфер"/>
+					<Item subMenuId="edit-copyToClipboard" name="Копиране в системния буфер"/>
 					<Item subMenuId="edit-indent" name="Табулация"/>
 					<Item subMenuId="edit-convertCaseTo" name="Смяна на регистъра"/>
 					<Item subMenuId="edit-lineOperations" name="Редове"/>
@@ -50,36 +50,38 @@
 					<Item subMenuId="search-bookmark" name="Отметки"/>
 				<!-- Меню "Изглед" -->
 					<Item subMenuId="view-currentFileIn" name="Преглед на текущия файл в"/>
-					<Item subMenuId="view-showSymbol"  name="Показване на символи"/>
-					<Item subMenuId="view-zoom"  name="Мащабиране"/>
-					<Item subMenuId="view-moveCloneDocument"  name="Текущ документ"/>
-					<Item subMenuId="view-tab"  name="Избор на раздел"/>
+					<Item subMenuId="view-showSymbol" name="Показване на символи"/>
+					<Item subMenuId="view-zoom" name="Мащабиране"/>
+					<Item subMenuId="view-moveCloneDocument" name="Текущ документ"/>
+					<Item subMenuId="view-tab" name="Избор на раздел"/>
 					<Item subMenuId="view-collapseLevel" name="Свиване на ниво"/>
 					<Item subMenuId="view-uncollapseLevel" name="Разгъване на ниво"/>
 					<Item subMenuId="view-project" name="Проект"/>
 				<!-- Меню "Кодировки" -->
-					<Item subMenuId="encoding-characterSets"  name="Набор от знаци"/>
-					<Item subMenuId="encoding-arabic"  name="Арабски"/>
-					<Item subMenuId="encoding-baltic"  name="Балтийски"/>
-					<Item subMenuId="encoding-celtic"  name="Келтски"/>
-					<Item subMenuId="encoding-cyrillic"  name="Кирилица"/>
-					<Item subMenuId="encoding-centralEuropean"  name="Централноевропейски"/>
-					<Item subMenuId="encoding-chinese"  name="Китайски"/>
-					<Item subMenuId="encoding-easternEuropean"  name="Източноевропейски"/>
-					<Item subMenuId="encoding-greek"  name="Гръцки"/>
-					<Item subMenuId="encoding-hebrew"  name="Иврит"/>
-					<Item subMenuId="encoding-japanese"  name="Японски"/>
+					<Item subMenuId="encoding-characterSets" name="Набор от знаци"/>
+					<Item subMenuId="encoding-arabic" name="Арабски"/>
+					<Item subMenuId="encoding-baltic" name="Балтийски"/>
+					<Item subMenuId="encoding-celtic" name="Келтски"/>
+					<Item subMenuId="encoding-cyrillic" name="Кирилица"/>
+					<Item subMenuId="encoding-centralEuropean" name="Централноевропейски"/>
+					<Item subMenuId="encoding-chinese" name="Китайски"/>
+					<Item subMenuId="encoding-easternEuropean" name="Източноевропейски"/>
+					<Item subMenuId="encoding-greek" name="Гръцки"/>
+					<Item subMenuId="encoding-hebrew" name="Иврит"/>
+					<Item subMenuId="encoding-japanese" name="Японски"/>
 					<Item subMenuId="encoding-korean" name="Корейски"/>
 					<Item subMenuId="encoding-northEuropean" name="Северноевропейски"/>
 					<Item subMenuId="encoding-thai" name="Тайландски"/>
 					<Item subMenuId="encoding-turkish" name="Турски"/>
 					<Item subMenuId="encoding-westernEuropean" name="Западноевропейски"/>
 					<Item subMenuId="encoding-vietnamese" name="Виетнамски"/>
+				<!-- Меню "Синтаксис" -->
+					<Item subMenuId="language-userDefinedLanguage" name="Потребителски синтаксиси"/>
 				<!-- Меню "Настройки" -->
-					<Item subMenuId="settings-import"  name="Внасяне"/>
+					<Item subMenuId="settings-import" name="Внасяне"/>
 				<!-- Меню "Инструменти" -->
 					<Item subMenuId="tools-md5" name="MD5"/>
-					<Item subMenuId="tools-sha256"  name="SHA-256"/>
+					<Item subMenuId="tools-sha256" name="SHA-256"/>
 				</SubEntries>
 				<!-- Всички менюта -->
 				<Commands>
@@ -126,9 +128,6 @@
 					<Item id="42006" name="Из&amp;триване"/>
 					<Item id="42007" name="Избиране на &amp;всичко"/>
 					<Item id="42020" name="Начало / Край на маркиране"/>
-					<Item id="50003" name="Превключване към предишния документ"/>
-					<Item id="50004" name="Превключване към следващия документ"/>
-					<Item id="50005" name="Превключване записването на макрос"/>
 						<!-- Подменю "Копиране в системния буфер -->
 					<Item id="42029" name="Текущият път на файла"/>
 					<Item id="42030" name="Текущото име на файла"/>
@@ -299,6 +298,8 @@
 					<Item id="44096" name="Предходен"/>
 					<Item id="44098" name="Преместване напред"/>
 					<Item id="44099" name="Преместване назад"/>
+					<Item id="50003" name="Превключване към предишния документ"/>
+					<Item id="50004" name="Превключване към следващия документ"/>
 					<!-- Меню "Изглед" -->
 					<Item id="44022" name="На повече редове"/>
 					<Item id="44072" name="Фокусиране на съседния изглед"/>
@@ -337,6 +338,7 @@
 				<!-- Меню "Кодировки" край -->
 				<!-- Меню "Синтаксис" начало -->
 					<Item id="46250" name="Дефиниране на синтаксис..."/>
+					<Item id="46300" name="Отваряне на папката със синтаксиси..."/>
 					<Item id="46180" name="Дефиниран от потребителя"/>
 				<!-- Меню "Синтаксис" край -->
 				<!-- Меню "Настройки" начало -->
@@ -365,6 +367,7 @@
 					<Item id="42025" name="Запис на текущия макрос..."/>
 					<Item id="42032" name="&amp;Многократно изпълнение..."/>
 					<Item id="48016" name="Редактиране..."/>
+					<Item id="50005" name="Начало / Край на запис на макрос"/>
 				<!-- Меню "Макроси" край -->
 				<!-- Меню "Стартиране" начало -->
 					<Item id="49000" name="&amp;Стартиране на програма..."/>
@@ -432,8 +435,8 @@
 				<Item id="2025" name="Осмичен"/>
 				<Item id="2026" name="Шестнадесетичен"/>
 				<Item id="2027" name="Двоичен"/>
-				<Item id="1"	name="Добре"/>
-				<Item id="2"	name="Отказ"/>
+				<Item id="1"    name="Добре"/>
+				<Item id="2"    name="Отказ"/>
 			</ColumnEditor>
 			<!-- Прозорец за търсене -->
 			<Find title="" titleFind="Търсене" titleReplace="Замяна" titleFindInFiles="Търсене във файлове" titleMark="Маркиране">
@@ -456,8 +459,8 @@
 				<Item id="1616" name="&amp;Отметка на реда"/>
 				<Item id="1618" name="Изчистване при всяко търсене"/>
 				<!-- Диалог за "Търсене, Замяна, Търсене във файлове, Маркиране" -->
-				<Item id="1"	name="Намиране на &amp;следващ"/>
-				<Item id="2"	name="Затваряне"/>
+				<Item id="1"    name="Намиране на &amp;следващ"/>
+				<Item id="2"    name="Затваряне"/>
 				<Item id="1620" name="&amp;Търсене на:"/>
 				<Item id="1721" name="▲"/>
 				<Item id="1723" name="▼ Следващ"/>
@@ -495,11 +498,11 @@
 			</FindInFinder>
 			<DoSaveOrNot title="Запис"> 
 				<Item id="1761" name="Запис на файла &quot;$STR_REPLACE$&quot; ?"/>
-				<Item id="6" name="Да"/>
-				<Item id="7" name="Не"/>
-				<Item id="2" name="Отказ"/>
-				<Item id="4" name="Да, за всички"/>
-				<Item id="5" name="Не, за всички"/>
+				<Item id="6"    name="&amp;Да"/>
+				<Item id="7"    name="&amp;Не"/>
+				<Item id="2"    name="&amp;Отказ"/>
+				<Item id="4"    name="Да, за &amp;всички"/>
+				<Item id="5"    name="Н&amp;е, за всички"/>
 			</DoSaveOrNot>
 			<!-- Меню "Търсене" начало -->
 				<!-- "Отиване на..." -->
@@ -509,8 +512,8 @@
 				<Item id="2004" name="Сега сте на:"/>
 				<Item id="2005" name="Отиване на:"/>
 				<Item id="2006" name="Последен ред:"/>
-				<Item id="1"	name="Отиване"/>
-				<Item id="2"	name="Никъде не отивам"/>
+				<Item id="1"    name="Отиване"/>
+				<Item id="2"    name="Никъде не отивам"/>
 			</GoToLine>
 				<!-- "Търсене на знаци в обхват..." -->
 			<FindCharsInRange title="Търсене на знаци в обхват...">
@@ -522,7 +525,7 @@
 				<Item id="2907" name="Надолу"/>
 				<Item id="2909" name="Кръгово търсене"/>
 				<Item id="2910" name="Търсене"/>
-				<Item id="2"	name="Затваряне"/>
+				<Item id="2"    name="Затваряне"/>
 			</FindCharsInRange>
 			<!-- Меню "Търсене" край -->
 			<!-- Меню "Синтаксис" - "Дефиниране на синтаксис" -->
@@ -962,7 +965,7 @@
 			<StyleConfig title="Конфигуриране на стилове">
 				<Item id="2306" name="Избор на тема: "/>
 				<Item id="2301" name="Запис и затваряне"/>
-				<Item id="2"	name="Отказ"/>
+				<Item id="2"    name="Отказ"/>
 				<Item id="2303" name="Прозрачност"/>
 				<SubDialog>
 					<Item id="2225" name="Език:"/>
@@ -995,7 +998,7 @@
 				<Item id="2603" name="Изтриване"/>
 				<Item id="2606" name="Изчистване"/>
 				<Item id="2607" name="Филтър: "/>
-				<Item id="1" name="Затваряне"/>
+				<Item id="1"    name="Затваряне"/>
 				<ColumnName name="Име"/>
 				<ColumnShortcut name="Бърз клавиш"/>
 				<ColumnCategory name="Категория"/>
@@ -1010,8 +1013,8 @@
 			</ShortcutMapper>
 				<!-- "Бързи клавиши" - "Промяна" -->
 			<ShortcutMapperSubDialg title="Бърз клавиш">
-				<Item id="1" name="Добре"/>
-				<Item id="2" name="Отказ"/>
+				<Item id="1"    name="Добре"/>
+				<Item id="2"    name="Отказ"/>
 				<Item id="5006" name="Име"/>
 				<Item id="5008" name="Добавяне"/>
 				<Item id="5009" name="Премахване"/>
@@ -1024,13 +1027,13 @@
 			<MD5FromTextDlg title="Генериране на MD5 извлечение">
 				<Item id="1932" name="Всеки ред като отделен низ"/>
 				<Item id="1934" name="Копиране в сист. буфер"/>
-				<Item id="2"	name="Затваряне"/>
+				<Item id="2"    name="Затваряне"/>
 			</MD5FromTextDlg>
 				<!-- "MD5" - "Генериране от файлове..." -->
 			<MD5FromFilesDlg title="Генериране на MD5 извлечение от файлове">
 				<Item id="1922" name="Избор на файлове"/>
 				<Item id="1924" name="Копиране в сист. буфер"/>
-				<Item id="2"	name="Затваряне"/>
+				<Item id="2"    name="Затваряне"/>
 			</MD5FromFilesDlg>
 				<!-- "SHA-256" - "Генериране..." -->
 			<SHA256FromTextDlg title="Генериране на SHA-256 извлечение">
@@ -1050,15 +1053,15 @@
 				<Item id="8001" name="&amp;Изпълняване"/>
 				<Item id="8005" name="път(и)"/>
 				<Item id="8002" name="Изпълняване до &amp;края на файла"/>
-				<Item id="1"	name="Стартиране"/>
-				<Item id="2"	name="&amp;Отказ"/>
+				<Item id="1"    name="Стартиране"/>
+				<Item id="2"    name="&amp;Отказ"/>
 			</MultiMacro>
 			<!-- Меню "Стартиране" - "Стартиране на програма..." -->
 			<Run title="Стартиране на програма...">
 				<Item id="1903" name="Избор на програма"/>
-				<Item id="1"	name="Стартиране"/>
+				<Item id="1"    name="Стартиране"/>
 				<Item id="1904" name="Запис..."/>
-				<Item id="2"	name="Отказ"/>
+				<Item id="2"    name="Отказ"/>
 			</Run>
 			<!-- Меню "Добавки" - "Управление на добавки..." -->
 			<PluginsAdminDlg title="Управление на добавки" titleAvailable = "Налични" titleUpdates = "Актуализации" titleInstalled = "Инсталирани">
@@ -1073,11 +1076,11 @@
 			</PluginsAdminDlg>
 			<!-- Меню "Прозорци" - "Прозорци..." -->
 			<Window title="Прозорци">
-				<Item id="1" name="&amp;Активиране"/>
+				<Item id="1"    name="&amp;Активиране"/>
 				<Item id="7002" name="&amp;Запис"/>
 				<Item id="7003" name="&amp;Затв. на пр-ц(и)"/>
 				<Item id="7004" name="&amp;Сортиране"/>
-				<Item id="2" 	name="&amp;Добре"/>
+				<Item id="2"    name="&amp;Добре"/>
 			</Window>
 		</Dialog>
 		<!-- Панели -->
@@ -1206,6 +1209,11 @@
 			<finder-select-all value="Избиране на всичко"/>
 			<finder-clear-all value="Изчистване на всичко"/>
 			<finder-open-all value="Отваряне на всички"/>
+			<find-in-files-filter-tip value="Търсене в cpp, cxx, h, hxx и hpp:
+*.cpp *.cxx *.h *.hxx *.hpp
+
+Търсене във файлове с изключение на exe, obj и log:
+*.* !*.exe !*.obj !*.log"/>
 				<!-- Дясно щракане върху раздел -->
 			<tabrename-title value="Преименуване на текущият раздел"/>
 			<tabrename-newname value="Ново име:"/>
@@ -1230,9 +1238,9 @@
 			<summary-nbword value="Думи: "/>
 			<summary-nbline value="Редове: "/>
 			<summary-nbbyte value="Големина на файла: "/>
-			<summary-nbsel1 value=" маркиран/и символ/а ("/>
+			<summary-nbsel1 value=" маркиран(и) символ(а) ("/>
 			<summary-nbsel2 value=" байта) в "/>
-			<summary-nbrange value=" обхват/а"/>
+			<summary-nbrange value=" обхват(а)"/>
 		</MiscStrings>
 			<!-- Меню "Изглед" - "Карта на документа" -->
 		<DocumentMap>

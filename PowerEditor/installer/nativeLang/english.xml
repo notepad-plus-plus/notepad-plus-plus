@@ -63,9 +63,10 @@
                     <Item subMenuId="encoding-turkish" name="Turkish"/>
                     <Item subMenuId="encoding-westernEuropean" name="Western European"/>
                     <Item subMenuId="encoding-vietnamese" name="Vietnamese"/>
-                    <Item subMenuId="settings-import"  name="Import"/>
-                    <Item subMenuId="tools-md5"  name="MD5"/>
-                    <Item subMenuId="tools-sha256"  name="SHA-256"/>
+                    <Item subMenuId="language-userDefinedLanguage" name="User Defined Language"/>
+                    <Item subMenuId="settings-import" name="Import"/>
+                    <Item subMenuId="tools-md5" name="MD5"/>
+                    <Item subMenuId="tools-sha256" name="SHA-256"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -281,6 +282,7 @@
 
                     <Item id="46001" name="Style Configurator..."/>
                     <Item id="46250" name="Define your language..."/>
+                    <Item id="46300" name="Open User Defined Language folder..."/>
                     <Item id="46180" name="User-Defined"/>
                     <Item id="47000" name="About Notepad++"/>
                     <Item id="47010" name="Command Line Arguments..."/>

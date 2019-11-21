@@ -36,9 +36,9 @@ using namespace std;
 
 
 MenuPosition menuPos[] = {
-	//==============================================
-	//  {L0,  L1,  L2,    id},
-	//==============================================
+//==============================================
+//	{L0, L1, L2, id},
+//==============================================
 	{ 0, -1, -1, "file" },
 	{ 1, -1, -1, "edit" },
 	{ 2, -1, -1, "search" },
@@ -97,6 +97,8 @@ MenuPosition menuPos[] = {
 	{ 4,  5, 13, "encoding-turkish" },
 	{ 4,  5, 14, "encoding-westernEuropean" },
 	{ 4,  5, 15, "encoding-vietnamese" },
+
+	{ 5, 23, -1, "language-userDefinedLanguage" },
 
 	{ 6,  4, -1, "settings-import" },
 

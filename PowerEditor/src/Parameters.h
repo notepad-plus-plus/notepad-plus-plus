@@ -1615,6 +1615,14 @@ public:
 		return _userPath;
 	}
 
+	generic_string getUserDefineLangFolderPath() const {
+		return _userDefineLangsFolderPath;
+	}
+
+	generic_string getUserDefineLangPath() const {
+		return _userDefineLangPath;
+	}
+
 	bool writeSettingsFilesOnCloudForThe1stTime(const generic_string & cloudSettingsPath);
 	void setCloudChoice(const TCHAR *pathChoice);
 	void removeCloudChoice();
@@ -1698,6 +1706,7 @@ private:
 
 	UserLangContainer *_userLangArray[NB_MAX_USER_LANG];
 	unsigned char _nbUserLang = 0; // won't be exceeded to 255;
+	generic_string _userDefineLangsFolderPath;
 	generic_string _userDefineLangPath;
 	ExternalLangContainer *_externalLangArray[NB_MAX_EXTERNAL_LANG];
 	int _nbExternalLang = 0;

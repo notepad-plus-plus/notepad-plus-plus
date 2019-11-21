@@ -63,6 +63,7 @@
                     <Item subMenuId="encoding-turkish" name="土耳其文"/>
                     <Item subMenuId="encoding-westernEuropean" name="西歐語系"/>
                     <Item subMenuId="encoding-vietnamese" name="越南文"/>
+                    <Item subMenuId="language-userDefinedLanguage" name="自訂程式語言"/>
                     <Item subMenuId="settings-import"  name="匯入"/>
                     <Item subMenuId="tools-md5"  name="MD5"/>
                     <Item subMenuId="tools-sha256"  name="SHA-256"/>
@@ -283,6 +284,7 @@
 
                     <Item id="46001" name="設定程式語言格式..."/>
                     <Item id="46250" name="定義程式語言..."/>
+                    <Item id="46300" name="開啟自訂程式語言資料夾..."/>
                     <Item id="46180" name="偏好設定"/>
                     <Item id="47000" name="關於 Notepad++..."/>
                     <Item id="47001" name="Notepad++ 官方網站"/>

@@ -1230,12 +1230,12 @@ bool NppParameters::load()
 	//-----------------------------------//
 	// userDefineLang.xml : for per user //
 	//-----------------------------------//
-	generic_string userDefineLangsFolderPath = _userDefineLangPath = _userPath;
+	_userDefineLangsFolderPath = _userDefineLangPath = _userPath;
 	PathAppend(_userDefineLangPath, TEXT("userDefineLang.xml"));
-	PathAppend(userDefineLangsFolderPath, TEXT("userDefineLangs"));
+	PathAppend(_userDefineLangsFolderPath, TEXT("userDefineLangs"));
 
 	std::vector<generic_string> udlFiles;
-	getFilesInFolder(udlFiles, TEXT("*.xml"), userDefineLangsFolderPath);
+	getFilesInFolder(udlFiles, TEXT("*.xml"), _userDefineLangsFolderPath);
 
 	_pXmlUserLangDoc = new TiXmlDocument(_userDefineLangPath);
 	loadOkay = _pXmlUserLangDoc->LoadFile();

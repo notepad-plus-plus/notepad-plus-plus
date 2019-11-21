@@ -991,11 +991,11 @@
             </FindInFinder>
             <DoSaveOrNot title="Save"> 
                 <Item id="1761" name="Save file &quot;$STR_REPLACE$&quot; ?"/>
-                <Item id="6" name="Yes"/>
-                <Item id="7" name="No"/>
-                <Item id="2" name="Cancel"/>
-                <Item id="4" name="Yes to all"/>
-                <Item id="5" name="No to all"/>
+                <Item id="6" name="&amp;Yes"/>
+                <Item id="7" name="&amp;No"/>
+                <Item id="2" name="&amp;Cancel"/>
+                <Item id="4" name="Yes to &amp;all"/>
+                <Item id="5" name="N&amp;o to all"/>
             </DoSaveOrNot>
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->

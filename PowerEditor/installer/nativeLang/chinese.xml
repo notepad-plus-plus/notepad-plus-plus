@@ -991,11 +991,11 @@
             </FindInFinder>
             <DoSaveOrNot title="儲存檔案"> 
                 <Item id="1761" name="您要儲存「$STR_REPLACE$」嗎？"/>
-                <Item id="6" name="好吧"/>
-                <Item id="7" name="不要啦"/>
-                <Item id="2" name="取消"/>
-                <Item id="4" name="全部存檔"/>
-                <Item id="5" name="全部棄存"/>
+                <Item id="6" name="好吧(&amp;Y)"/>
+                <Item id="7" name="不要啦(&amp;N)"/>
+                <Item id="2" name="取消(&amp;C)"/>
+                <Item id="4" name="全部存檔(&amp;A)"/>
+                <Item id="5" name="全部棄存(&amp;O)"/>
             </DoSaveOrNot>
         </Dialog>
         <MessageBox>

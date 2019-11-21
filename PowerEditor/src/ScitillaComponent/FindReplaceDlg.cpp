@@ -1366,12 +1366,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					if (_currentStatus == MARK_DLG)
 					{
 						if (isMacroRecording) saveInMacro(wParam, FR_OP_FIND);
-						(*_ppEditView)->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE);
-						if (_options._doMarkLine)
-						{
-							(*_ppEditView)->execute(SCI_MARKERDELETEALL, MARK_BOOKMARK);
-						}
-						setStatusbarMessage(TEXT(""), FSNoMessage);
+						clearMarks(_options);
 					}
 				}
 				return TRUE;
@@ -2579,6 +2574,7 @@ void FindReplaceDlg::saveInMacro(size_t cmd, int cmdType)
 	if (cmd == IDC_CLEAR_ALL)
 	{
 		booleans = _options._doMarkLine ? IDF_MARKLINE_CHECK : 0;
+		booleans |= _options._isInSelection ? IDF_IN_SELECTION_CHECK : 0;
 	}
 	::SendMessage(_hParent, WM_FRSAVE_INT, IDC_FRCOMMAND_BOOLEANS, booleans);
 	::SendMessage(_hParent, WM_FRSAVE_INT, IDC_FRCOMMAND_EXEC, cmd);
@@ -2811,12 +2807,7 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const generic_st
 
 					case IDC_CLEAR_ALL:
 					{
-						(*_ppEditView)->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE);
-						if (_env->_doMarkLine)
-						{
-							(*_ppEditView)->execute(SCI_MARKERDELETEALL, MARK_BOOKMARK);
-						}
-						setStatusbarMessage(TEXT(""), FSNoMessage);
+						clearMarks(*_env);
 						break;
 					}
 
@@ -2836,6 +2827,44 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const generic_st
 	{
 		MessageBoxA(NULL, err.what(), "Play Macro Exception", MB_OK);
 	}
+}
+
+void FindReplaceDlg::clearMarks(const FindOption& opt)
+{
+	if (opt._isInSelection)
+	{
+		Sci_CharacterRange cr = (*_ppEditView)->getSelection();
+
+		int startPosition = cr.cpMin;
+		int endPosition = cr.cpMax;
+
+		(*_ppEditView)->execute(SCI_SETINDICATORCURRENT, SCE_UNIVERSAL_FOUND_STYLE);
+		(*_ppEditView)->execute(SCI_INDICATORCLEARRANGE, startPosition, endPosition);
+
+		if (opt._doMarkLine)
+		{
+			auto lineNumber = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, startPosition);
+			auto lineNumberEnd = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, endPosition - 1);
+
+			for (auto i = lineNumber; i <= lineNumberEnd; ++i)
+			{
+				auto state = (*_ppEditView)->execute(SCI_MARKERGET, i);
+
+				if (state & (1 << MARK_BOOKMARK))
+					(*_ppEditView)->execute(SCI_MARKERDELETE, i, MARK_BOOKMARK);
+			}
+		}
+	}
+	else
+	{
+		(*_ppEditView)->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE);
+		if (opt._doMarkLine)
+		{
+			(*_ppEditView)->execute(SCI_MARKERDELETEALL, MARK_BOOKMARK);
+		}
+	}
+
+	setStatusbarMessage(TEXT(""), FSNoMessage);
 }
 
 void FindReplaceDlg::setFindInFilesDirFilter(const TCHAR *dir, const TCHAR *filters)

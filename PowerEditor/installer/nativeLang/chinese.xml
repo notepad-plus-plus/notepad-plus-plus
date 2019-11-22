@@ -1164,6 +1164,11 @@
             <cloud-select-folder value="選擇一個資料夾，以便 Notepad++ 從中讀取/寫入其設定。"/>
             <shift-change-direction-tip value="使用「Shift + Enter」以相反方向進行搜索"/>
             <two-find-buttons-tip value="顯示「找上一個」按鈕"/>
+			<find-in-files-filter-tip value="只在 cpp, cxx, h, hxx &amp;&amp; hpp 中找尋:
+*.cpp *.cxx *.h *.hxx *.hpp
+
+所有檔案除了 exe, obj &amp;&amp; log 之外:
+*.* !*.exe !*.obj !*.log"/>
             <find-status-top-reached value="搜尋：從下面找到相符的字串。搜尋已抵達文件開首。"/>
             <find-status-end-reached value="搜尋：從上面找到相符的字串。搜尋已抵達文件結尾。"/>
             <find-status-replaceinfiles-1-replaced value="在檔案中取代：取代了 1 個字串。"/>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v7.8:
-- fix some lines
+Updated to v7.8.2:
+- add new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="7.8">
+	<Native-Langue name="Русский" filename="russian.xml" version="7.8.2">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -67,6 +67,7 @@ Updated to v7.8:
 					<Item subMenuId="encoding-turkish"          name="Турецкий"/>
 					<Item subMenuId="encoding-westernEuropean"  name="Западно-Европейский"/>
 					<Item subMenuId="encoding-vietnamese"       name="Вьетнамский"/>
+					<Item subMenuId="language-userDefinedLanguage" name="Польз. Определение Синтаксиса"/>
 					<Item subMenuId="settings-import"           name="Импортировать"/>
 					<Item subMenuId="tools-md5"                 name="MD5"/>
 					<Item subMenuId="tools-sha256"              name="SHA-256"/>
@@ -288,6 +289,7 @@ Updated to v7.8:
 					<Item id="46016" name="Обычный Текст"/>
 					<Item id="46180" name="Свои настройки"/>
 					<Item id="46250" name="Задать свой синтаксис..."/>
+					<Item id="46300" name="Открыть папку синтаксисов ..."/>
 					<Item id="47000" name="О программе..."/>
 					<Item id="47001" name="Домашняя страница Notepad++"/>
 					<Item id="47002" name="Страница проекта Notepad++"/>
@@ -371,7 +373,7 @@ Updated to v7.8:
 				<Item id="1614" name="&amp;Подсчитать"/>
 				<Item id="1615" name="Пометить все"/>
 				<Item id="1616" name="Помечат&amp;ь Закладкой"/>
-				<Item id="1618" name="Убирать предыдущие пометки"/>
+				<Item id="1618" name="Убирать пред. Пометки"/>
 				<Item id="1620" name="Найти:"/>
 				<Item id="1624" name="Режим поиска"/>
 				<Item id="1625" name="Обычный"/>
@@ -493,18 +495,18 @@ Updated to v7.8:
 			</StyleConfig>
 
 			<ShortcutMapper title="Назначение Клавиш Быстрого Доступа">
-				<Item id="2602" name="Изменить"/>
-				<Item id="2603" name="Удалить"/>
-				<Item id="2606" name="Очистить"/>
-				<Item id="2607" name="Фильтр: "/>
-				<Item id="1"    name="Закрыть"/>
-				<ColumnName     name="Имя"/>
-				<ColumnShortcut name="Клавиши"/>
-				<ColumnCategory name="Категория"/>
-				<ColumnPlugin   name="Плагины"/>
-				<MainMenuTab    name="Основные"/>
-				<MacrosTab      name="Макросы"/>
-				<RunCommandsTab name="Команды Запуска"/>
+				<Item id="2602"       name="Изменить"/>
+				<Item id="2603"       name="Удалить"/>
+				<Item id="2606"       name="Очистить"/>
+				<Item id="2607"       name="Фильтр: "/>
+				<Item id="1"          name="Закрыть"/>
+				<ColumnName           name="Имя"/>
+				<ColumnShortcut       name="Клавиши"/>
+				<ColumnCategory       name="Категория"/>
+				<ColumnPlugin         name="Плагины"/>
+				<MainMenuTab          name="Основные"/>
+				<MacrosTab            name="Макросы"/>
+				<RunCommandsTab       name="Команды Запуска"/>
 				<PluginCommandsTab    name="Плагины"/>
 				<ScintillaCommandsTab name="Scintilla"/>
 				<ConflictInfoOk       name="Конфликта клавиш не обнаружено."/>
@@ -980,13 +982,13 @@ Updated to v7.8:
 				<Item id="1718" name="Расширенный (\n, \r, \t, \0, \x...)"/>
 				<Item id="1720" name="и новые строки"/>
 			</FindInFinder>
-            <DoSaveOrNot title="Сохранение"> 
+            <DoSaveOrNot title="Сохранение ..."> 
                 <Item id="1761" name="Сохранить файл &quot;$STR_REPLACE$&quot; ?"/>
-                <Item id="6" name="Да"/>
-                <Item id="7" name="Нет"/>
-                <Item id="2" name="Отмена"/>
-                <Item id="4" name="Да, для всех"/>
-                <Item id="5" name="Нет, для всех"/>
+                <Item id="6"    name="&amp;Да"/>
+                <Item id="7"    name="&amp;Нет"/>
+                <Item id="2"    name="&amp;Отмена"/>
+                <Item id="4"    name="Д&amp;а, для всех"/>
+                <Item id="5"    name="Н&amp;ет, для всех"/>
             </DoSaveOrNot>
 		</Dialog>
 		<MessageBox>
@@ -1005,13 +1007,13 @@ Updated to v7.8:
 			<FilePathNotFoundWarning            title="Открытие Файла"                  message="Файл, который вы пытаетесь открыть, не существует."/>
 			<SessionFileInvalidError            title="Не удалось загрузить Сессию"     message="Файл сессии поврежден или недействителен."/>
 			<DroppingFolderAsProjectModeWarning title="Неправильное действие" message="Вы можете применить, только одно из двух: файлы или папки, но не оба, потому, что вы перетаскиваете в режиме &quot;Папка как Проект&quot;.&#x0A;вы должны включить &quot;Открыть все файлы папки при перетаскивании, вместо запуска Папка как Рабочая Область&quot; в &quot;Директорию По Умолчанию&quot;, чтобы эта операция работала зайдите в Настройки."/>
-			<SortingError             title="Ошибка сортировки"               message="Невозможно выполнить числовую сортировку из-за строки $INT_REPLACE$."/>
-			<ColumnModeTip            title="Режим Столбца"                   message="Пожалуйста, используйте &quot;ALT+Выделение Мышкой&quot; или &quot;Alt+Shift+Клавиши Стрелок&quot; для переключения в режим столбца."/>
-			<BufferInvalidWarning     title="Ошибка Сохранения"               message="Не удается сохранить: Недопустимый буфер."/>
-			<DoCloseOrNot             title="Удержание несуществующего файла" message="Файла &quot;$STR_REPLACE$&quot; больше не существует.&#x0A;Удержать этот файл в редакторе?"/>
-			<DoDeleteOrNot            title="Удаление файла"                  message="Файл &quot;$STR_REPLACE$&quot;&#x0A;будет закрыт и удалён в Корзину.&#x0A;Продолжить?"/>
-			<NoBackupDoSaveFile       title="Сохранение"                      message="Файл резервной копии не найден (удалён извне).&#x0A;Сохраните его, иначе ваши данные будут потеряны.&#x0A;Вы хотите сохранить файл &quot;$STR_REPLACE$&quot; ?"/>
-			<DoReloadOrNot            title="Обновление файла"                message="&quot;$STR_REPLACE$&quot;&#x0A;&#x0A;Этот файл был изменен другой программой.&#x0A;Вы хотите обновить его?"/>
+			<SortingError                title="Ошибка сортировки"               message="Невозможно выполнить числовую сортировку из-за строки $INT_REPLACE$."/>
+			<ColumnModeTip               title="Режим Столбца"                   message="Пожалуйста, используйте &quot;ALT+Выделение Мышкой&quot; или &quot;Alt+Shift+Клавиши Стрелок&quot; для переключения в режим столбца."/>
+			<BufferInvalidWarning        title="Ошибка Сохранения"               message="Не удается сохранить: Недопустимый буфер."/>
+			<DoCloseOrNot                title="Удержание несуществующего файла" message="Файла &quot;$STR_REPLACE$&quot; больше не существует.&#x0A;Удержать этот файл в редакторе?"/>
+			<DoDeleteOrNot               title="Удаление файла"                  message="Файл &quot;$STR_REPLACE$&quot;&#x0A;будет закрыт и удалён в Корзину.&#x0A;Продолжить?"/>
+			<NoBackupDoSaveFile          title="Сохранение ..."                  message="Файл резервной копии не найден (удалён извне).&#x0A;Сохраните его, иначе ваши данные будут потеряны.&#x0A;Вы хотите сохранить файл &quot;$STR_REPLACE$&quot; ?"/>
+			<DoReloadOrNot               title="Обновление файла"                message="&quot;$STR_REPLACE$&quot;&#x0A;&#x0A;Этот файл был изменен другой программой.&#x0A;Вы хотите обновить его?"/>
 			<DoReloadOrNotAndLooseChange title="Обновление файла"             message="&quot;$STR_REPLACE$&quot;&#x0A;&#x0A;Этот файл был изменен другой программой.&#x0A;Вы хотите обновить его?&#x0A;Но вы потеряете все внесенные изменения в Notepad++?"/>
 			<PrehistoricSystemDetected   title="Обнаружена доисторическая система"   message="Кажется, вы все еще используете доисторическую систему. Извините, но эта функция работает только на современных системах."/>
 			<XpUpdaterProblem            title="Обновление Notepad++"                message="Обновление Notepad++ не совместимо с XP из-за устаревшего уровня безопасности.&#x0A;Хотите перейти на страницу Notepad++, чтобы загрузить последнюю версию?"/>
@@ -1066,15 +1068,15 @@ Updated to v7.8:
 			<ColumnHex  name="Hex"/>
 			<ColumnChar name="Символ"/>
 			<ColumnHtmlNumber name="HTML Номер"/> 
-			<ColumnHtmlName name="HTML Код"/> 
+			<ColumnHtmlName   name="HTML Код"/> 
 		</AsciiInsertion>
 		<DocumentMap>
 			<PanelTitle name="Карта Документа"/>
 		</DocumentMap>
 		<FunctionList>
 			<PanelTitle name="Список функций"/>
-			<SortTip   name="Упорядочить" />
-			<ReloadTip name="Обновить" />
+			<SortTip    name="Упорядочить" />
+			<ReloadTip  name="Обновить" />
 		</FunctionList>
 		<FolderAsWorkspace>
 			<PanelTitle name="Папка как Проект"/>
@@ -1150,6 +1152,7 @@ Updated to v7.8:
 			<cloud-select-folder           value="Выберите папку, которую Notepad++ будет использовать для чтения/записи своих настроек."/>
 			<shift-change-direction-tip    value="Используйте Shift+Enter для поиска в обратном направлении."/>
 			<two-find-buttons-tip          value="2 направления поиска"/>
+			<find-in-files-filter-tip      value="Найти в файлах с расширением:&#x0A;*.cpp *.cxx *.h *.hxx *.hpp&#x0A;&#x0A;Кроме файлов:&#x0A;*.* !*.exe !*.obj !*.log"/>
 			<find-status-top-reached       value="Поиск: Найдено одно совпадение снизу. Достигнуто начало документа."/>
 			<find-status-end-reached       value="Поиск: Найдено одно совпадение сверху. Достигнут конец документа."/>
 			<find-status-replaceinfiles-1-replaced        value="Замена в файлах: заменено 1 совпадение"/>
@@ -1195,17 +1198,17 @@ Updated to v7.8:
 			<userdefined-title-rename    value="Изменить Имя Синтаксиса"/>
 			<autocomplete-nb-char        value="Символ: "/>
 			<edit-verticaledge-nb-col    value="От символа:"/>
-			<summary value="Информация о Файле"/> 
-			<summary-filepath value="Полный путь к файлу: "/> 
-			<summary-filecreatetime value="Создан: "/> 
-			<summary-filemodifytime value="Обновлён: "/> 
-			<summary-nbchar value="Символов (без окончания строки): "/> 
-			<summary-nbword value="Слов: "/> 
-			<summary-nbline value="Строк: "/> 
-			<summary-nbbyte value="Длина документа: "/> 
-			<summary-nbsel1 value=" выделенных символов ("/> 
-			<summary-nbsel2 value=" байт) в "/> 
-			<summary-nbrange value=" диапазоне(ах)"/> 
+			<summary                     value="Информация о Файле"/> 
+			<summary-filepath            value="Полный путь к файлу: "/> 
+			<summary-filecreatetime      value="Создан: "/> 
+			<summary-filemodifytime      value="Обновлён: "/> 
+			<summary-nbchar              value="Символов (без окончания строки): "/> 
+			<summary-nbword              value="Слов: "/> 
+			<summary-nbline              value="Строк: "/> 
+			<summary-nbbyte              value="Длина документа: "/> 
+			<summary-nbsel1              value=" выделенных символов ("/> 
+			<summary-nbsel2              value=" байт) в "/> 
+			<summary-nbrange             value=" диапазоне(ах)"/> 
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

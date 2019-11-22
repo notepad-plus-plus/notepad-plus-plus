@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v7.8:
-- fix some lines
+Updated to v7.8.2:
+- add new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="7.8">
+	<Native-Langue name="Русский" filename="russian.xml" version="7.8.2">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -67,6 +67,7 @@ Updated to v7.8:
 					<Item subMenuId="encoding-turkish"          name="Турецкий"/>
 					<Item subMenuId="encoding-westernEuropean"  name="Западно-Европейский"/>
 					<Item subMenuId="encoding-vietnamese"       name="Вьетнамский"/>
+					<Item subMenuId="language-userDefinedLanguage" name="Польз. Определение Синтаксиса"/>
 					<Item subMenuId="settings-import"           name="Импортировать"/>
 					<Item subMenuId="tools-md5"                 name="MD5"/>
 					<Item subMenuId="tools-sha256"              name="SHA-256"/>
@@ -288,6 +289,7 @@ Updated to v7.8:
 					<Item id="46016" name="Обычный Текст"/>
 					<Item id="46180" name="Свои настройки"/>
 					<Item id="46250" name="Задать свой синтаксис..."/>
+					<Item id="46300" name="Открыть папку синтаксисов ..."/>
 					<Item id="47000" name="О программе..."/>
 					<Item id="47001" name="Домашняя страница Notepad++"/>
 					<Item id="47002" name="Страница проекта Notepad++"/>
@@ -371,7 +373,7 @@ Updated to v7.8:
 				<Item id="1614" name="&amp;Подсчитать"/>
 				<Item id="1615" name="Пометить все"/>
 				<Item id="1616" name="Помечат&amp;ь Закладкой"/>
-				<Item id="1618" name="Убирать предыдущие пометки"/>
+				<Item id="1618" name="Убирать пред. Пометки"/>
 				<Item id="1620" name="Найти:"/>
 				<Item id="1624" name="Режим поиска"/>
 				<Item id="1625" name="Обычный"/>
@@ -980,7 +982,7 @@ Updated to v7.8:
 				<Item id="1718" name="Расширенный (\n, \r, \t, \0, \x...)"/>
 				<Item id="1720" name="и новые строки"/>
 			</FindInFinder>
-            <DoSaveOrNot title="Сохранение"> 
+            <DoSaveOrNot title="Сохранение ..."> 
                 <Item id="1761" name="Сохранить файл &quot;$STR_REPLACE$&quot; ?"/>
                 <Item id="6" name="Да"/>
                 <Item id="7" name="Нет"/>
@@ -1010,7 +1012,7 @@ Updated to v7.8:
 			<BufferInvalidWarning     title="Ошибка Сохранения"               message="Не удается сохранить: Недопустимый буфер."/>
 			<DoCloseOrNot             title="Удержание несуществующего файла" message="Файла &quot;$STR_REPLACE$&quot; больше не существует.&#x0A;Удержать этот файл в редакторе?"/>
 			<DoDeleteOrNot            title="Удаление файла"                  message="Файл &quot;$STR_REPLACE$&quot;&#x0A;будет закрыт и удалён в Корзину.&#x0A;Продолжить?"/>
-			<NoBackupDoSaveFile       title="Сохранение"                      message="Файл резервной копии не найден (удалён извне).&#x0A;Сохраните его, иначе ваши данные будут потеряны.&#x0A;Вы хотите сохранить файл &quot;$STR_REPLACE$&quot; ?"/>
+			<NoBackupDoSaveFile       title="Сохранение ..."                  message="Файл резервной копии не найден (удалён извне).&#x0A;Сохраните его, иначе ваши данные будут потеряны.&#x0A;Вы хотите сохранить файл &quot;$STR_REPLACE$&quot; ?"/>
 			<DoReloadOrNot            title="Обновление файла"                message="&quot;$STR_REPLACE$&quot;&#x0A;&#x0A;Этот файл был изменен другой программой.&#x0A;Вы хотите обновить его?"/>
 			<DoReloadOrNotAndLooseChange title="Обновление файла"             message="&quot;$STR_REPLACE$&quot;&#x0A;&#x0A;Этот файл был изменен другой программой.&#x0A;Вы хотите обновить его?&#x0A;Но вы потеряете все внесенные изменения в Notepad++?"/>
 			<PrehistoricSystemDetected   title="Обнаружена доисторическая система"   message="Кажется, вы все еще используете доисторическую систему. Извините, но эта функция работает только на современных системах."/>

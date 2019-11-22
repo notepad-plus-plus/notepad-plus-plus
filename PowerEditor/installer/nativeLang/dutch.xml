@@ -3,11 +3,11 @@
 	Dutch localization for Notepad++ 7.5.6
 	Last modified Mon, Mar 26 2018 by Klaas Nekeman.
 	Please e-mail errors, suggestions etc. to knekeman(at)gmail.com.
-	Dutch localization for Notepad++ 7.8.1
-	Last modified Wed, Oct 23 2019 by xylographe <wr86420@gmail.com>.
+	Dutch localization for Notepad++ 7.8.2
+	Last modified Sun, Dec 1 2019 by xylographe <wr86420@gmail.com>.
 -->
 <NotepadPlus>
-	<Native-Langue name="Nederlands" filename="dutch.xml" version="7.8.1">
+	<Native-Langue name="Nederlands" filename="dutch.xml" version="7.8.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -70,6 +70,7 @@
 					<Item subMenuId="encoding-turkish"          name="Turks"/>
 					<Item subMenuId="encoding-westernEuropean"  name="West-Europees"/>
 					<Item subMenuId="encoding-vietnamese"       name="Vietnamees"/>
+					<Item subMenuId="language-userDefinedLanguage" name="Gebruikerssyntaxis"/>
 					<Item subMenuId="settings-import"           name="Importeren"/>
 					<Item subMenuId="tools-md5"                 name="MD5"/>
 					<Item subMenuId="tools-sha256"              name="SHA-256"/>
@@ -294,6 +295,7 @@
 
 					<Item id="46001" name="&amp;Opmaak..."/>
 					<Item id="46250" name="Syntaxismarkering ontwerpen..."/>
+					<Item id="46300" name="Syntaxismarkering map openen..."/>
 					<Item id="46180" name="Aangepast"/>
 					<Item id="47000" name="Over..."/>
 					<Item id="47010" name="Opdrachtregelargumenten..."/>
@@ -1350,6 +1352,9 @@
 			/>
 			<two-find-buttons-tip
 				value="2-zoek-knoppen modus"
+			/>
+			<find-in-files-filter-tip
+				value="In cpp, cxx, hpp en hxx bestanden zoeken:&#xD;*.cpp *.cxx *.hpp *.hxx&#xD;&#xD;In alle bestanden behalve exe, obj en log zoeken:&#xD;*.* !*.exe !*.obj !*.log"
 			/>
 			<find-status-top-reached
 				value="Zoeken: 1ste locatie vanuit document einde gevonden. De start van het document is gepasseerd."

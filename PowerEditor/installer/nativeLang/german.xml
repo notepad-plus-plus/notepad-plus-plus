@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2019-10-27 by schnurlos (schnurlos@gmail.com)
+	last modified: 2019-12-01 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -75,6 +75,7 @@
 					<Item subMenuId="encoding-turkish" name="T&amp;ürkisch"/>
 					<Item subMenuId="encoding-westernEuropean" name="&amp;Westeuropäisch"/>
 					<Item subMenuId="encoding-vietnamese" name="&amp;Vietnamesisch"/>
+					<Item subMenuId="language-userDefinedLanguage" name="Benutzerdefinierte Sprache"/>
 					<Item subMenuId="settings-import" name="&amp;Import"/>
 					<Item subMenuId="tools-md5" name="MD5"/>
 					<Item subMenuId="tools-sha256" name="SHA-256"/>
@@ -293,6 +294,7 @@
 
 					<Item id="46001" name="&amp;Stile …"/>
 					<Item id="46250" name="Eigene Sprache &amp;definieren …"/>
+					<Item id="46300" name="Verzeichnis mit benutzerdefinierte Sprache öffnen …"/>
 					<Item id="46180" name="Benutzerdefiniert"/>
 					<Item id="47000" name="&amp;Info …"/>
 					<Item id="47010" name="&amp;Kommandozeilenparameter …"/>
@@ -319,7 +321,6 @@
 					<Item id="48505" name="Erstelle aus Dateien …"/>
 					<Item id="48506" name="Erstelle aus Auswahl in die Zwischenablage"/>
 					<Item id="49000" name="Externes Programm &amp;ausführen …"/>
-
 					<Item id="50000" name="&amp;Funktionsvervollständigung"/>
 					<Item id="50001" name="&amp;Wortvervollständigung"/>
 					<Item id="50002" name="Funktions&amp;parameter anzeigen"/>
@@ -999,11 +1000,11 @@
 			</FindInFinder>
 			<DoSaveOrNot title="Speichern">
 				<Item id="1761" name="Datei &quot;$STR_REPLACE$&quot; speichern?"/>
-				<Item id="6" name="Ja"/>
-				<Item id="7" name="Nein"/>
-				<Item id="2" name="Abbruch"/>
-				<Item id="4" name="Ja für alle"/>
-				<Item id="5" name="Nein für alle"/>
+				<Item id="6" name="&amp;Ja"/>
+				<Item id="7" name="&amp;Nein"/>
+				<Item id="2" name="&amp;Abbruch"/>
+				<Item id="4" name="Ja für a&amp;lle"/>
+				<Item id="5" name="N&amp;ein für alle"/>
 			</DoSaveOrNot>
 
 		</Dialog>
@@ -1166,7 +1167,13 @@
 			<cloud-restart-warning value="Zum Übernehmen Notepad++ bitte neu starten."/>
 			<cloud-select-folder value="Verzeichnis wählen von wo/wohin Notepad++ seine Einstellungen liest bzw. schreibt"/>
 			<shift-change-direction-tip value="Shift+Enter verwenden um die Suchrichtung umzudrehen."/>
-			<two-find-buttons-tip value="Modus mit 2 Suchknöpfen"/>			
+			<two-find-buttons-tip value="Modus mit 2 Suchknöpfen"/>
+			<find-in-files-filter-tip value="Finde in cpp, cxx, h, hxx &amp;&amp; hpp:
+*.cpp *.cxx *.h *.hxx *.hpp
+
+Finde in allen Dateien außer exe, obj &amp;&amp; log:
+*.* !*.exe !*.obj !*.log"/>
+
 			<find-status-top-reached value="Suche: Erster Treffer von unten. Der Anfang des Dokumentes wurde erreicht."/>
 			<find-status-end-reached value="Suche: Erster Treffer von oben. Das Ende des Dokumentes wurde erreicht."/>			
 			<find-status-replaceinfiles-1-replaced value="Ersetzen in Dateien: 1 Vorkommen wurde ersetzt"/>

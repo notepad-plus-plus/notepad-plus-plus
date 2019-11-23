@@ -1152,6 +1152,7 @@ Updated to v7.8.2:
 			<cloud-select-folder           value="Выберите папку, которую Notepad++ будет использовать для чтения/записи своих настроек."/>
 			<shift-change-direction-tip    value="Используйте Shift+Enter для поиска в обратном направлении."/>
 			<two-find-buttons-tip          value="2 направления поиска"/>
+			<find-in-files-filter-tip value="Найти в файлах с расширением:&#x0A;*.cpp *.cxx *.h *.hxx *.hpp&#x0A;&#x0A;Кроме файлов:&#x0A;*.* !*.exe !*.obj !*.log"/>
 			<find-status-top-reached       value="Поиск: Найдено одно совпадение снизу. Достигнуто начало документа."/>
 			<find-status-end-reached       value="Поиск: Найдено одно совпадение сверху. Достигнут конец документа."/>
 			<find-status-replaceinfiles-1-replaced        value="Замена в файлах: заменено 1 совпадение"/>

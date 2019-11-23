@@ -15,7 +15,7 @@
 	<Native-Langue name="Deutsch" filename="german.xml" version="7.8.1">
 		<Menu>
 			<Main>
-                <!-- Main Menu Entries -->
+				<!-- Main Menu Entries -->
 				<Entries>
 					<Item menuId="file" name="&amp;Datei"/>
 					<Item menuId="edit" name="&amp;Bearbeiten"/>
@@ -30,7 +30,7 @@
 					<Item idName="Plugins" name="Er&amp;weiterungen"/>
 					<Item idName="Window" name="Fe&amp;nster"/>
 				</Entries>
-                <!-- Sub Menu Entries -->
+				<!-- Sub Menu Entries -->
 				<SubEntries>
 					<Item subMenuId="file-openFolder" name="Aktuellen &amp;Ordner öffnen"/>
 					<Item subMenuId="file-closeMore" name="&amp;Mehrere schließen"/>
@@ -80,7 +80,7 @@
 					<Item subMenuId="tools-sha256" name="SHA-256"/>
 				</SubEntries>
 
-                <!-- all menu item -->
+				<!-- all menu item -->
 				<Commands>
 					<Item id="41001" name="&amp;Neu"/>
 					<Item id="41002" name="&amp;Öffnen …"/>
@@ -443,20 +443,20 @@
 				<Item id="1934" name="In die Zwischenablage kopieren"/>
 				<Item id="2"    name="Schließen"/>
 			</MD5FromTextDlg>
-			
+
 			<SHA256FromFilesDlg title="Erstelle SHA-256 Hashwert aus Dateien">
 				<Item id="1922" name="Wähle Dateien zur Erstellung des SHA-256-Hashwerts …"/>
 				<Item id="1924" name="In die Zwischenablage kopieren"/>
 				<Item id="2"    name="Schließen"/>
 			</SHA256FromFilesDlg>
-			
+
 			<SHA256FromTextDlg title="Erstelle SHA-256 Hashwert">
 				<Item id="1932" name="Behandle jede Zeile als eigene Zeichenkette"/>
 				<Item id="1934" name="In die Zwischenablage kopieren"/>
 				<Item id="2"    name="Schließen"/>
 			</SHA256FromTextDlg>
-			
-			<PluginsAdminDlg title="Plugin-Verwaltung" titleAvailable = "Verfügbar" titleUpdates = "Aktualisierungen" titleInstalled = "Installiert">
+
+			<PluginsAdminDlg title="Plugin-Verwaltung" titleAvailable="Verfügbar" titleUpdates="Aktualisierungen" titleInstalled="Installiert">
 				<ColumnPlugin   name="Plugin"/>
 				<ColumnVersion  name="Version"/>
 				<Item id="5501" name="Suchen:"/>
@@ -1007,7 +1007,8 @@
 			</DoSaveOrNot>
 
 		</Dialog>
-		<MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+		<MessageBox>
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<ContextMenuXmlEditWarning title="Kontextmenü anpassen" message="Durch Bearbeiten der Datei contextMenu.xml können Sie&#x0A;das Kontextmenü von Notepad++ anpassen.&#x0A;Nach dem Bearbeiten müssen Sie Notepad++ neu&#x0A;starten, damit die Änderungen wirksam werden."/>
 			<NppHelpAbsentWarning title="Fehlende Hilfedatei" message="&#x0A;wurde nicht gefunden. Bitte laden Sie die Hilfedateien&#x0A;von der Notepad++-Website herunter."/>
 			<SaveCurrentModifWarning title="Änderungen speichern" message="Bitte speichern Sie Ihre Änderungen.&#x0A;&#x0A;Fortfahren?"/>

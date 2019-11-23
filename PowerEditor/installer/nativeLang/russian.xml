@@ -331,29 +331,29 @@ Updated to v7.8:
 			<Splitter>
 			</Splitter>
 			<TabBar>
-					<Item CMID="0"  name="Закрыть"/>
-					<Item CMID="1"  name="Закрыть все Кроме Активной"/>
-					<Item CMID="2"  name="Сохранить"/>
-					<Item CMID="3"  name="Сохранить как..."/>
-					<Item CMID="4"  name="Печать"/>
-					<Item CMID="5"  name="Переместить в Другую Область"/>
-					<Item CMID="6"  name="Дублировать в Другой Области"/>
-					<Item CMID="7"  name="Полный путь к файлу (в буфер)"/>
-					<Item CMID="8"  name="Имя файла (в буфер)"/>
-					<Item CMID="9"  name="Путь к директории файла (в буфер)"/>
-					<Item CMID="10" name="Переименовать"/>
-					<Item CMID="11" name="Удалить файл (в корзину)"/>
-					<Item CMID="12" name="&quot;Только Чтение&quot; вкладки"/>
-					<Item CMID="13" name="Снять &quot;Только Чтение&quot;"/>
-					<Item CMID="14" name="Переместить в Новый Экземпляр"/>
-					<Item CMID="15" name="Открыть в Новом Экземпляре"/>
-					<Item CMID="16" name="Обновить с диска"/>
-					<Item CMID="17" name="Закрыть все Вкладки Слева"/>
-					<Item CMID="18" name="Закрыть все Вкладки Справа"/>
-					<Item CMID="19" name="Открыть папку документа"/>
-					<Item CMID="20" name="Открыть папку документа в cmd"/>
-					<Item CMID="21" name="Открыть стандартным приложением"/>
-					<Item CMID="22" name="Закрыть все Без Изменений"/>
+				<Item CMID="0"  name="Закрыть"/>
+				<Item CMID="1"  name="Закрыть все Кроме Активной"/>
+				<Item CMID="2"  name="Сохранить"/>
+				<Item CMID="3"  name="Сохранить как..."/>
+				<Item CMID="4"  name="Печать"/>
+				<Item CMID="5"  name="Переместить в Другую Область"/>
+				<Item CMID="6"  name="Дублировать в Другой Области"/>
+				<Item CMID="7"  name="Полный путь к файлу (в буфер)"/>
+				<Item CMID="8"  name="Имя файла (в буфер)"/>
+				<Item CMID="9"  name="Путь к директории файла (в буфер)"/>
+				<Item CMID="10" name="Переименовать"/>
+				<Item CMID="11" name="Удалить файл (в корзину)"/>
+				<Item CMID="12" name="&quot;Только Чтение&quot; вкладки"/>
+				<Item CMID="13" name="Снять &quot;Только Чтение&quot;"/>
+				<Item CMID="14" name="Переместить в Новый Экземпляр"/>
+				<Item CMID="15" name="Открыть в Новом Экземпляре"/>
+				<Item CMID="16" name="Обновить с диска"/>
+				<Item CMID="17" name="Закрыть все Вкладки Слева"/>
+				<Item CMID="18" name="Закрыть все Вкладки Справа"/>
+				<Item CMID="19" name="Открыть папку документа"/>
+				<Item CMID="20" name="Открыть папку документа в cmd"/>
+				<Item CMID="21" name="Открыть стандартным приложением"/>
+				<Item CMID="22" name="Закрыть все Без Изменений"/>
 			</TabBar>
 		</Menu>
 
@@ -397,7 +397,7 @@ Updated to v7.8:
 				<Item id="1723" name="▼"/> 
 			</Find>
 
-			<FindCharsInRange title = "Найти символы в диапазоне....">
+			<FindCharsInRange title="Найти символы в диапазоне....">
 				<Item id="2"    name="Закрыть"/>
 				<Item id="2901" name="Не-ASCII символы (128-255)"/>
 				<Item id="2902" name="ASCII символы (0 - 127)"/>
@@ -409,7 +409,7 @@ Updated to v7.8:
 				<Item id="2910" name="Найти"/>
 			</FindCharsInRange>
 
-			<GoToLine title = "Перейти к...">
+			<GoToLine title="Перейти к...">
 				<Item id="1"    name="Вперед!"/>
 				<Item id="2"    name="Отмена"/>
 				<Item id="2004" name="Вы здесь:"/>
@@ -419,7 +419,7 @@ Updated to v7.8:
 				<Item id="2008" name="Символ"/>
 			</GoToLine>
 
-			<Run title = "Запуск...">
+			<Run title="Запуск...">
 				<Item id="1"    name="Запуск!"/>
 				<Item id="2"    name="Отмена"/>
 				<Item id="1904" name="Сохранить..."/>
@@ -450,7 +450,7 @@ Updated to v7.8:
 				<Item id="2"    name="Закрыть"/>
 			</SHA256FromTextDlg>
 
-			<PluginsAdminDlg title="Управление Плагинами" titleAvailable = "Доступные" titleUpdates = "Обновления" titleInstalled = "Установленные">
+			<PluginsAdminDlg title="Управление Плагинами" titleAvailable="Доступные" titleUpdates="Обновления" titleInstalled="Установленные">
 				<ColumnPlugin   name="Плагины"/>
 				<ColumnVersion  name="Версия"/>
 				<Item id="5501" name="Поиск:"/>
@@ -696,9 +696,9 @@ Updated to v7.8:
 					<Item id="24301" name="Разделитель 2"/>
 				</Operator>
 			</UserDefine>
-			<Preference title = "Настройки">
+			<Preference title="Настройки">
 				<Item id="6001" name="Закрыть"/>
-				<Global title = "Основные">
+				<Global title="Основные">
 					<Item id="6101" name="Панель Инструментов"/>
 					<Item id="6102" name="Скрыть"/>
 					<Item id="6103" name="Мелкие иконки"/>
@@ -722,7 +722,7 @@ Updated to v7.8:
 					<Item id="6126" name="Отображать"/>
 					<Item id="6127" name="Отключить колонку расширения"/>
 				</Global>
-				<Scintillas title = "Правка">
+				<Scintillas title="Правка">
 					<Item id="6201" name="Оформление Текст-блока"/>
 					<Item id="6202" name="Обычное"/>
 					<Item id="6203" name="Стрелки"/>
@@ -754,7 +754,7 @@ Updated to v7.8:
 					<Item id="6235" name="Без рамки"/>
 					<Item id="6236" name="Прокрутка за пределы посл. строки"/>
 				</Scintillas>
-				<NewDoc title = "Новый Документ">
+				<NewDoc title="Новый Документ">
 					<Item id="6401" name="Формат Конца Строк"/>
 					<Item id="6402" name="Windows  (CR LF)"/>
 					<Item id="6403" name="Unix  (LF)"/>
@@ -776,11 +776,11 @@ Updated to v7.8:
 					<Item id="6430" name="Новый диалог сохранения файла (без запроса расширения файла)"/>
 					<Item id="6431" name="Открывать все файлы папки при перетаскивании в окно np++"/>
 				</DefaultDir>
-				<FileAssoc title = "Ассоциация Файлов">
+				<FileAssoc title="Ассоциация Файлов">
 					<Item id="4009" name="Поддерживаемые:"/>
 					<Item id="4010" name="Зарегистрированные:"/>
 				</FileAssoc>
-				<Print title = "Печать">
+				<Print title="Печать">
 					<Item id="6601" name="Печатать номера строк"/>
 					<Item id="6602" name="Цветовая схема"/>
 					<Item id="6603" name="Как есть"/>
@@ -842,7 +842,7 @@ Updated to v7.8:
 					<Item id="6510" name="Исп. значение по умолч."/>
 					<Item id="6335" name="Обратный слэш это экранирующий символ для SQL"/>
 				</Language>
-				<MISC title = "Разное">
+				<MISC title="Разное">
 					<ComboBox id="6347">
 						<Element name="Только активной вкладки"/>
 						<Element name="Всех открытых файлов"/>
@@ -869,14 +869,14 @@ Updated to v7.8:
 					<Item id="6345" name="Миниатюра под Вкладкой"/>
 					<Item id="6346" name="Отображать в Карте Документа"/>
 				</MISC>
-				<MultiInstance title = "Режимы Запуска">
+				<MultiInstance title="Режимы Запуска">
 					<Item id="6151" name="Режим Открытия Файлов"/>
 					<Item id="6152" name="Только сессии открываются в новом окне"/>
 					<Item id="6153" name="Каждый файл открываются в новом окне"/>
 					<Item id="6154" name="Все файлы открываются в одном окне (по умолчанию)"/>
 					<Item id="6155" name="* Изменения вступят в силу после перезапуска Notepad++"/>
 				</MultiInstance>
-				<Delimiter title = "Разделитель">
+				<Delimiter title="Разделитель">
 					<Item id="6251" name="Параметры разделителя (Ctrl + 2 щелчка Мыши)"/>
 					<Item id="6252" name="Открытие"/>
 					<Item id="6255" name="Закрытие"/>
@@ -903,7 +903,7 @@ Updated to v7.8:
 					<!-- Не менять ничего после Пример: -->
 					<Item id="6278" name="Пример: https://www.google.com/search?q=$(CURRENT_WORD)"/>
 				</SearchEngine>
-				<Backup title = "Резерв. Копирование">
+				<Backup title="Резерв. Копирование">
 					<Item id="6801" name="Резервное Копирование (при сохранении)"/>
 					<Item id="6817" name="Снимок Сессии и Периодическое Резервное Копирование"/>
 					<Item id="6309" name="Запоминать текущую сессию для следующего запуска"/>
@@ -937,7 +937,7 @@ Updated to v7.8:
 					<Item id="6866" name="Заказная пара 3:"/>
 				</AutoCompletion>
 			</Preference>
-				<MultiMacro title = "Многократный запуск ...">
+			<MultiMacro title="Многократный запуск ...">
 				<Item id="1"    name="Запуск"/>
 				<Item id="2"    name="Отмена"/>
 				<Item id="8006" name="Макрос:"/>
@@ -945,14 +945,14 @@ Updated to v7.8:
 				<Item id="8005" name="раз(а)"/>
 				<Item id="8002" name="Выполнять до конца файла"/>
 			</MultiMacro>
-				<Window title = "Вкладки файлов">
+			<Window title="Вкладки файлов">
 				<Item id="1"    name="Открыть"/>
 				<Item id="2"    name="ОК"/>
 				<Item id="7002" name="Сохранить"/>
 				<Item id="7003" name="Закрыть Окно(а)"/>
 				<Item id="7004" name="Упорядочить"/>
 			</Window>
-				<ColumnEditor title = "Генератор Столбца">
+			<ColumnEditor title="Генератор Столбца">
 				<Item id="2023" name="Текст для вставки"/>
 				<Item id="2033" name="Числа для вставки"/>
 				<Item id="2030" name="Исходное число:"/>
@@ -980,14 +980,14 @@ Updated to v7.8:
 				<Item id="1718" name="Расширенный (\n, \r, \t, \0, \x...)"/>
 				<Item id="1720" name="и новые строки"/>
 			</FindInFinder>
-            <DoSaveOrNot title="Сохранение"> 
-                <Item id="1761" name="Сохранить файл &quot;$STR_REPLACE$&quot; ?"/>
-                <Item id="6" name="Да"/>
-                <Item id="7" name="Нет"/>
-                <Item id="2" name="Отмена"/>
-                <Item id="4" name="Да, для всех"/>
-                <Item id="5" name="Нет, для всех"/>
-            </DoSaveOrNot>
+			<DoSaveOrNot title="Сохранение"> 
+				<Item id="1761" name="Сохранить файл &quot;$STR_REPLACE$&quot; ?"/>
+				<Item id="6" name="Да"/>
+				<Item id="7" name="Нет"/>
+				<Item id="2" name="Отмена"/>
+				<Item id="4" name="Да, для всех"/>
+				<Item id="5" name="Нет, для всех"/>
+			</DoSaveOrNot>
 		</Dialog>
 		<MessageBox>
 			<ContextMenuXmlEditWarning  title="Редактирование contextMenu"   message="Редактирование contextMenu.xml позволяет настроить свое всплывающее контекстное меню в Notepad++.&#x0A;Вы должны перезапустить Notepad++, чтобы изменения вступили в силу."/>

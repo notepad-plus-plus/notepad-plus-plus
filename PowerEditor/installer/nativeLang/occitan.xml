@@ -93,7 +93,7 @@
 					<Item id="41021" name="Tornar dobrir lo darrièr fichièr tampat"/>
 					<Item id="41022" name="Obrir un dorsièr coma espaci de trabalh"/>
 					<Item id="41023" name="Dobrir amb lo visualizador per defaut"/>
-					
+
 					<Item id="42001" name="Co&amp;par"/>
 					<Item id="42002" name="&amp;Copiar"/>
 					<Item id="42003" name="&amp;Anullar"/>
@@ -169,7 +169,7 @@
 					<Item id="42074" name="Dobrir lo dorsièr parent dins l'explorator"/>
 					<Item id="42075" name="Cercar sus Internet"/>
 					<Item id="42076" name="Cambiar lo motor de recèrca..."/>
-					
+
 					<Item id="43001" name="&amp;Recercar..."/>
 					<Item id="43002" name="Recercar lo &amp;seguent"/>
 					<Item id="43003" name="Remplaçar..."/>
@@ -221,7 +221,7 @@
 					<Item id="43052" name="Cercar un interval de caractèrs..."/>
 					<Item id="43053" name="Seleccionar tot entremièg las acoladas"/>
 					<Item id="43054" name="Marcar..."/>
-					
+
 					<Item id="44009" name="Mòde Post-It"/>
 					<Item id="44010" name="Plegar tot"/>
 					<Item id="44019" name="Mostrar totes los caractèrs"/>
@@ -286,7 +286,7 @@
 					<Item id="46001" name="Configurator d'estil..."/>
 					<Item id="46250" name="Definís lo lengage..."/>
 					<Item id="46180" name="Definit per l'utilizaire"/>
-					
+
 					<Item id="47000" name="A prepaus de Notepad++..."/>
 					<Item id="47001" name="Pagina web de Notepad++"/>
 					<Item id="47002" name="Pagina del projècte Notepad++"/>
@@ -298,7 +298,7 @@
 					<Item id="47010" name="Arguments en linha de comandas..."/>
 					<Item id="47011" name="Supòrt en dirècte"/>
 					<Item id="47012" name="Informacions de debug..."/>
-					
+
 					<Item id="48005" name="Importar d'ajustons ..."/>
 					<Item id="48006" name="Importar de tèmas..."/>
 					<Item id="48009" name="Gestionari d'acorchis..."/>
@@ -309,7 +309,7 @@
 					<Item id="48501" name="Generar..."/>
 					<Item id="48502" name="Generar dempuèi los fochièrs..."/>
 					<Item id="48503" name="Generar dins lo quichapapièrs"/>
-					
+
 					<Item id="49000" name="&amp;Executar..."/>
 
 					<Item id="50000" name="Complecion de fonccion"/>
@@ -319,36 +319,36 @@
 
 				</Commands>
 			</Main>
-			
+
 			<Splitter>
 			</Splitter>
-			
+
 			<TabBar>
-					<Item CMID="0" name="Tampar"/>
-					<Item CMID="1" name="Tampar totes levat aqueste"/>
-					<Item CMID="2" name="Salvar"/>
-					<Item CMID="3" name="Salvar coma..."/>
-					<Item CMID="4" name="estampar"/>
-					<Item CMID="5" name="Anar a una autra visualizacion"/>
-					<Item CMID="6" name="Clonar dins una autra visualizacion"/>
-					<Item CMID="7" name="Salvar lo camin de fichièr complet dins lo quichapapièrs"/>
-					<Item CMID="8" name="Salvar lo nom de fichièr dins lo quichapapièrs"/>
-					<Item CMID="9" name="Salvar lo camin del dorsièr dins lo quichapapièrs"/>
-					<Item CMID="10" name="Tornar nomenar"/>
-					<Item CMID="11" name="Suprimir"/>
-					<Item CMID="12" name="Lectura-Sola"/>
-					<Item CMID="13" name="Suprimir l'atribut Lectura-Sola"/>
-					<Item CMID="14" name="Desplaçar dins una novèla fenèstra"/>
-					<Item CMID="15" name="Dobrir dins una novèla fenèstra"/>
-					<Item CMID="16" name="Tornar cargar"/>
-					<Item CMID="17" name="Tampar tot a esquèrra"/>
-					<Item CMID="18" name="Tampar tot a dreita"/>
-					<Item CMID="19" name="Dobrir lo dorsièr parent dins l'explorator"/>
-					<Item CMID="20" name="Dobrir lo dorsièr parent dins cmd"/>
-					<Item CMID="21" name="Dobrir dins la visualizacion per defaut"/>
+				<Item CMID="0" name="Tampar"/>
+				<Item CMID="1" name="Tampar totes levat aqueste"/>
+				<Item CMID="2" name="Salvar"/>
+				<Item CMID="3" name="Salvar coma..."/>
+				<Item CMID="4" name="estampar"/>
+				<Item CMID="5" name="Anar a una autra visualizacion"/>
+				<Item CMID="6" name="Clonar dins una autra visualizacion"/>
+				<Item CMID="7" name="Salvar lo camin de fichièr complet dins lo quichapapièrs"/>
+				<Item CMID="8" name="Salvar lo nom de fichièr dins lo quichapapièrs"/>
+				<Item CMID="9" name="Salvar lo camin del dorsièr dins lo quichapapièrs"/>
+				<Item CMID="10" name="Tornar nomenar"/>
+				<Item CMID="11" name="Suprimir"/>
+				<Item CMID="12" name="Lectura-Sola"/>
+				<Item CMID="13" name="Suprimir l'atribut Lectura-Sola"/>
+				<Item CMID="14" name="Desplaçar dins una novèla fenèstra"/>
+				<Item CMID="15" name="Dobrir dins una novèla fenèstra"/>
+				<Item CMID="16" name="Tornar cargar"/>
+				<Item CMID="17" name="Tampar tot a esquèrra"/>
+				<Item CMID="18" name="Tampar tot a dreita"/>
+				<Item CMID="19" name="Dobrir lo dorsièr parent dins l'explorator"/>
+				<Item CMID="20" name="Dobrir lo dorsièr parent dins cmd"/>
+				<Item CMID="21" name="Dobrir dins la visualizacion per defaut"/>
 			</TabBar>
 		</Menu>
-		
+
 		<Dialog>
 			<Find title="" titleFind="Recercar" titleReplace="Remplaçar" titleFindInFiles="Recercar dins de fichièrs" titleMark="Marca">
 				<Item id="1" name="Seguent"/>
@@ -368,28 +368,28 @@
 				<Item id="1611" name="Rem&amp;plaçar per :"/>
 				<Item id="1608" name="&amp;Remplaçar"/>
 				<Item id="1609" name="Remplaçar &amp;tot"/>
-			 	<Item id="1687" name="A la pèrda del focus"/>
-			 	<Item id="1688" name="Totjorn"/>
-			 	<Item id="1632" name="Dins la seleccion"/>
-			 	<Item id="1633" name="Voidar"/>
-			 	<Item id="1635" name="Remplaçar dins totes los documents dobèrts"/>
-			 	<Item id="1636" name="Recercar dins totes los documents dobèrts"/>
-			 	<Item id="1654" name="Filtres :"/>
-			 	<Item id="1655" name="Dorsièr :"/>
-			 	<Item id="1656" name="Los recercar totes"/>
-			 	<Item id="1658" name="Amb los sos-dorsièrs"/>
-			 	<Item id="1659" name="Dorsièrs amagats"/>
-			 	<Item id="1624" name="Mòde de recèrca"/>
-			 	<Item id="1625" name="Normal"/>
-			 	<Item id="1626" name="Espandit (\n, \r, \t, \0, \x...)"/>
+				<Item id="1687" name="A la pèrda del focus"/>
+				<Item id="1688" name="Totjorn"/>
+				<Item id="1632" name="Dins la seleccion"/>
+				<Item id="1633" name="Voidar"/>
+				<Item id="1635" name="Remplaçar dins totes los documents dobèrts"/>
+				<Item id="1636" name="Recercar dins totes los documents dobèrts"/>
+				<Item id="1654" name="Filtres :"/>
+				<Item id="1655" name="Dorsièr :"/>
+				<Item id="1656" name="Los recercar totes"/>
+				<Item id="1658" name="Amb los sos-dorsièrs"/>
+				<Item id="1659" name="Dorsièrs amagats"/>
+				<Item id="1624" name="Mòde de recèrca"/>
+				<Item id="1625" name="Normal"/>
+				<Item id="1626" name="Espandit (\n, \r, \t, \0, \x...)"/>
 				<Item id="1660" name="Remplaçar dins los fichièrs"/>
 				<Item id="1661" name="Seguir lo document actiu"/>
 				<Item id="1641" name="Trobar tot dins lo document actiu"/>
 				<Item id="1686" name="Transparéncia"/>
 				<Item id="1703" name="&amp;. cerca linhas novèlas"/>
 			</Find>
-			
-			
+
+
 			<FindCharsInRange title="Trobar un interval de caractèrs...">
 				<Item id="2" name="Tampar"/>
 				<Item id="2901" name="Caractèrs non-ASCII (128-255)"/>
@@ -401,7 +401,7 @@
 				<Item id="2909" name="B&amp;oclar"/>
 				<Item id="2910" name="Cercar"/>
 			</FindCharsInRange>
-			
+
 			<GoToLine title="Anar a la linha...">
 				<Item id="2007" name="Linha"/>
 				<Item id="2008" name="Desfasament"/>
@@ -418,8 +418,8 @@
 				<Item id="2" name="Anullar"/>
 				<Item id="1904" name="Salvar..."/>
 			</Run>
-			
-			 <MD5FromFilesDlg title="Generar MD5 dempuèi los fichièrs">
+
+			<MD5FromFilesDlg title="Generar MD5 dempuèi los fichièrs">
 				<Item id="1922" name="Causir los fichièrs per generar lo MD5..."/>
 				<Item id="1924" name="Copiar dins lo quichapapièrs"/>
 				<Item id="2"    name="Tampar"/>
@@ -461,7 +461,7 @@
 					<Item id="2232" name="Activar l'estil de poliça soslinhat global"/>
 				</SubDialog>
 			</StyleConfig>
-			
+
 			<ShortcutMapper title="gestionari d'acorchis">
 				<Item id="2602" name="Mofificar"/>
 				<Item id="2603" name="Suprimir"/>
@@ -691,7 +691,7 @@
 					<Item id="6126" name="Mostrar"/>
 					<Item id="6127" name="Desactivar la colomna d'extension"/>
 				</Global>
-				
+
 				<Scintillas title="Editor">
 					<Item id="6216" name="Cursor"/>
 					<Item id="6217" name="Largor :"/>
@@ -717,7 +717,7 @@
 					<Item id="6208" name="Mostrar la linha verticala"/>
 					<Item id="6209" name="Nombre de colomnas :"/>
 					<Item id="6234" name="Desactivar lo desfilament avançat
-					(se i a un problèma amb lo touchpad)"/>
+						(se i a un problèma amb lo touchpad)"/>
 
 					<Item id="6211" name="Linha verticala de fin de linha"/>
 					<Item id="6212" name="Mòde linha"/>
@@ -728,7 +728,7 @@
 					<Item id="6235" name="Cap bordadura"/>
 					<Item id="6236" name="Activar lo desfilament aprèp la darrièra linha"/>
 				</Scintillas>
-				
+
 				<NewDoc title="Document novèl">
 					<Item id="6401" name="Format"/>
 					<Item id="6402" name="Windows"/>
@@ -745,7 +745,7 @@
 					<Item id="6419" name="Document novèl"/>
 					<Item id="6420" name="Aplicar als fichièrs ANSI dobèrts"/>
 				</NewDoc>
-				
+
 				<DefaultDir title="Dorsièr per defaut">
 					<Item id="6413" name="Dorsièr per default (Dobertura/Enregistrament)"/>
 					<Item id="6414" name="Seguir lo document actiu"/>
@@ -753,7 +753,7 @@
 					<Item id="6430" name="Utilizar la nòva fenèstra d'enregistrement (sens fonccionalitat ext. de fichièr)"/>
 					<Item id="6431" name="Dobrir totes los fichièrs del dorsièr al moment del rebalar-depausar"/>
 				</DefaultDir>
-				
+
 				<RecentFilesHistory title="Ictoric fichièrs recents">
 					<Item id="6304" name="Istoric de fichièrs recents"/>
 					<Item id="6306" name="Nombre max. d'entradas :"/>
@@ -764,12 +764,12 @@
 					<Item id="6426" name="Camin de fichièr entièr"/>
 					<Item id="6427" name="Persolanizar la longor maximala :"/>
 				</RecentFilesHistory>
-				
+
 				<FileAssoc title="Associacion de fichièrs">
 					<Item id="4009" name="Extensions geridas :"/>
 					<Item id="4010" name="Extensions enregistradas :"/>
 				</FileAssoc>
-				
+
 				<Language title="Lengatge">
 					<Item id="6505" name="Elements disponibles"/>
 					<Item id="6506" name="Elements desactivats"/>
@@ -781,7 +781,7 @@
 					<Item id="6510" name="Utilizar la valor per dafaut"/>
 					<Item id="6335" name="Considerar backslash coma caractèr d'escapament per SQL"/>
 				</Language>
-				
+
 				<Highlighting title="Coloracion sintaxica">
 					<Item id="6333" name="Coloracion sintaxica intelligenta"/>
 					<Item id="6326" name="Activa la coloracion sintaxica intelligenta"/>
@@ -794,7 +794,7 @@
 					<Item id="6328" name="Colorar los atributs dels tags"/>
 					<Item id="6330" name="Colorar a zòna comentari/php/asp"/>
 				</Highlighting>
-				
+
 				<Print title="Estampadura">
 					<Item id="6601" name="Estampar los numèros de linha"/>
 					<Item id="6602" name="Opcions de color"/>
@@ -824,7 +824,7 @@
 					<Item id="6727" name="Aquí s'aficha la configuracion de vòstra variabla"/>
 					<Item id="6728" name="Header and Footer"/>
 				</Print>
-				
+
 				<Backup title="Salvagarda">
 					<Item id="6817" name="Captura de session e salvagarda periodica"/>
 					<Item id="6818" name="Activar la captura de session e la salvagarda periodica"/>
@@ -839,7 +839,7 @@
 					<Item id="6804" name="Dorsièr de salvagarda personalizat"/>
 					<Item id="6803" name="Dorsièr :"/>
 				</Backup>
-				
+
 				<AutoCompletion title="Auto-complecion">
 					<Item id="6807" name="Auto-compleion"/>
 					<Item id="6808" name="Activar l'auto-complecion per cada entrada"/>
@@ -859,7 +859,7 @@
 					<Item id="6863" name="Parelh 2 :"/>
 					<Item id="6866" name="Parelh 3 :"/>
 				</AutoCompletion>
-				
+
 				<MultiInstance title="Multi-instància">
 					<Item id="6151" name="Paramètres de multi-instància"/>
 					<Item id="6152" name="Dobrir la session dins una nòva instància de Notepad++"/>
@@ -867,7 +867,7 @@
 					<Item id="6154" name="Defaut (mono-instància)"/>
 					<Item id="6155" name="La modificacion d'aquel paramètre necessita de tornar lançar Notepad++"/>
 				</MultiInstance>
-				
+
 				<Delimiter title="Delimitador">
 					<Item id="6251" name="Paramètres de seleccion del delimitador (Ctrl + clic doble)"/>
 					<Item id="6252" name="Dobrís"/>
@@ -876,9 +876,9 @@
 					<Item id="6161" name="Lista de caractèrs de mot"/>
 					<Item id="6162" name="Utilizar la lista de caractèrs de mot per defaut tal coma es"/>
 					<Item id="6163" name="Apondre un caractèr coma apartenant a un mot
-					(de pas causir se sabètz pas çò qu fasètz)"/>
+						(de pas causir se sabètz pas çò qu fasètz)"/>
 				</Delimiter>
-				
+
 				<SearchEngine title="Motor de recèrca">
 					<Item id="6271" name="Motor de recèrca (Per la comanda &quot;Cercar sus Internet&quot;)"/>
 					<Item id="6272" name="DuckDuckGo"/>
@@ -889,7 +889,7 @@
 					<!-- Don't change anything after Example: -->
 					<Item id="6278" name="Exemple : https://www.google.com/search?q=$(CURRENT_WORD)"/>
 				</SearchEngine>
-				
+
 				<MISC title="Autres">
 					<Item id="6307" name="Activar"/>
 					<Item id="6308" name="Minimizar dins la barra d'estat sistèma"/>
@@ -946,15 +946,15 @@
 		</Dialog>
 		<MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<ContextMenuXmlEditWarning title="Modificacion de contextMenu.xml" message="Modificar contextMenu.xml vos permet de modificar lo menú contextual de Notepad++.
-Deuretz tornar lançar Notepad++ per que siá efectiu."/>
+				Deuretz tornar lançar Notepad++ per que siá efectiu."/>
 			<NppHelpAbsentWarning title="Lo fichièr exista pas" message="
-			exista pas. Mercés de lo descargar sul site de Notepad++."/>
+				exista pas. Mercés de lo descargar sul site de Notepad++."/>
 			<SaveCurrentModifWarning title="Salvar las modificacions" message="Deuriatz salvar la modificacion actuala.
-			Podètz desfar totas las modificacions salvadas.
-			Contunhar ?"/>
+				Podètz desfar totas las modificacions salvadas.
+				Contunhar ?"/>
 			<LoseUndoAbilityWarning title="Avertiment : pèrda de possibilitat de desfar" message="Deuriatz salvar la modificacion actuala.
-			Las modificacions salvadas pòdon pas èsser desfachas.
-			Contunhar ?"/>
+				Las modificacions salvadas pòdon pas èsser desfachas.
+				Contunhar ?"/>
 			<CannotMoveDoc title="Desplaçar dins una nòva instància de Notepad++" message="Lo document es estat modificat, salvatz e tornatz ensajar."/>
 			<DocReloadWarning title="Tornar cargar" message="Sètz segur(a) de voler tornar cargar lo document actiu e pèrdre los cambiaments efectuats dins Notepad++ ?"/>
 			<FileLockedWarning title="Salvar lo fichièr" message="Mercés de verificar s'aquel fichièr es dobèrt dins un autre programa"/>
@@ -962,35 +962,35 @@ Deuretz tornar lançar Notepad++ per que siá efectiu."/>
 			<DeleteFileFailed title="Suprimir lo fichièr" message="La supression del fichièr a pas capitat"/>
 
 			<NbFileToOpenImportantWarning title="I a tròp de fichièrs de dobrir" message="$INT_REPLACE$ fichièrs son a mand d'èsser dobèrts
-			Sètz segur(a) de voler los dobrir ?"/>
+				Sètz segur(a) de voler los dobrir ?"/>
 			<SettingsOnCloudError title="Paramètres del Cloud" message="Sembla que lo paramètre de camin del Cloud mena a un fichièr en lectura sola
-			o dins un dorsièr que necessita de privilègis per i accedir en ecritura.
-			Los vòstres paramètres de Cloud van èsser reïnicializats. Mercés de tornar metre una valor coerenta per la fenèstra Preferéncias."/>
+				o dins un dorsièr que necessita de privilègis per i accedir en ecritura.
+				Los vòstres paramètres de Cloud van èsser reïnicializats. Mercés de tornar metre una valor coerenta per la fenèstra Preferéncias."/>
 			<FilePathNotFoundWarning title="Dobertura de fichièr" message="Lo fichièr qu'ensajatz de dobrir exista pas."/>
 			<SessionFileInvalidError title="Impossible de cargar la session" message="Lo fichièr de session es siá compromés, siá invalid."/>
 			<DroppingFolderAsProjectModeWarning title="Accion invalida" message="Podètz depausar sonque de fichièrs o de dorsièrs, mas pas los dos perqué sètz dins lo mòde Dorsièr coma espaci de trabalh.
-			devètz activar &quot;Dobrir totes los fichièrs del dorsièr al moment del rebalar-depausar&quot; dins la seccion &quot;Dorsièr per defaut&quot; de la fenèstra Preferéncias per que fonccione."/>
+				devètz activar &quot;Dobrir totes los fichièrs del dorsièr al moment del rebalar-depausar&quot; dins la seccion &quot;Dorsièr per defaut&quot; de la fenèstra Preferéncias per que fonccione."/>
 			<SortingError title="Error de triada" message="Impossible d'ordenar numericament a causa de la linha $INT_REPLACE$."/>
 			<ColumnModeTip title="Astúcias per mòde colomna" message="Utilisatz &quot;ALT + Seleccion&quot; o &quot;Alt+Maj.+Sageta&quot; per passar en mòde colomna."/>
 			<BufferInvalidWarning title="L'enregistrament poguèt pas capitar" message="Es impossible de salvar : Lo buffer es invalid."/>
 			<DoSaveOrNot title="Salvar" message="Salvar lo fichièr &quot;$STR_REPLACE$&quot; ?"/>
 			<DoCloseOrNot title="Gardar un fichièr inexistant" message="Lo fichièr &quot;$STR_REPLACE$&quot; exista pas mai.
-			Lo volètz gardar dins l'editor ?"/>
+				Lo volètz gardar dins l'editor ?"/>
 			<DoDeleteOrNot title="Suprimir un fichièr" message="Lo fichièr &quot;$STR_REPLACE$&quot;
-			serà suprimit e aquel document tampat.
-			Contunhar ?"/>
+				serà suprimit e aquel document tampat.
+				Contunhar ?"/>
 			<NoBackupDoSaveFile title="Salvar" message="Lo vòstre fichièr de salvagarda a pas estat trobat (suprimit del defòra).
-			Salvatz-lo, o las donadas seràn perdudas
-			Volètz salvar lo fichièr &quot;$STR_REPLACE$&quot; ?"/>
+				Salvatz-lo, o las donadas seràn perdudas
+				Volètz salvar lo fichièr &quot;$STR_REPLACE$&quot; ?"/>
 			<DoReloadOrNot title="Tornar cargar" message="&quot;$STR_REPLACE$&quot;
-			Aquel fichièr a estat modificat per un autre programa.
-			Lo volètz tornar cargar ?"/>
+				Aquel fichièr a estat modificat per un autre programa.
+				Lo volètz tornar cargar ?"/>
 			<DoReloadOrNotAndLooseChange title="Tornar cargar" message="&quot;$STR_REPLACE$&quot;
-			Aquel fichièr a estat modificat per un autre programa.
-			Lo volètz tornar cargar e pèrdre los cambiaments efectuats dins Notepad++ ?"/>
+				Aquel fichièr a estat modificat per un autre programa.
+				Lo volètz tornar cargar e pèrdre los cambiaments efectuats dins Notepad++ ?"/>
 			<PrehistoricSystemDetected title="Sistèma preistoric detectat" message="Semblariá qu'utilizetz encara un sistèma preistoric. Aquela fonccionalitat marcha pas que sus un sistèma modèrne, excusatz."/>
 			<XpUpdaterProblem title="Actualizador Notepad++" message="L'actualizador Notepad++ es pas compatible amb XP a causa que lo jaç de seguretat jos XP es obsolèt.
-			Volètz anar a la pagina d'acuèlh de Notepad++ per descargar la darrièra version ?"/>
+				Volètz anar a la pagina d'acuèlh de Notepad++ per descargar la darrièra version ?"/>
 			<DocTooDirtyToMonitor title="Problèma de susvelhança" message="Aqueste document a pas estat salvat. Mercés de salvar las modificacions abans de lo susvelhar."/>
 			<DocNoExistToMonitor title="Problèma de susvelhança" message="Lo fichièr deu existar per èsser susvelhat."/>
 			<FileTooBigToOpen title="Problèma de talha de fichièr" message="Lo fichièr es tròp voluminós per èsser dobèrt amb Notepad++"/>
@@ -998,28 +998,28 @@ Deuretz tornar lançar Notepad++ per que siá efectiu."/>
 			<CreateNewFileError title="Crear un fichièr novèl" message="Impossible de crear lo fichièr &quot;$INT_REPLACE$&quot;."/>
 			<OpenFileError title="ERROR" message="Impossible de dobrir lo fichièr &quot;$INT_REPLACE$&quot;."/>
 			<FileBackupFailed title="La recuperacion de fichièr a pas capitat" message="La version precedenta del fichièr poguèt pas èsser salvada dins lo dorsièr de salvagarda a &quot;$INT_REPLACE$&quot;.
-			Volètz salvar lo fichièr actiu çaquelà ?"/>
+				Volètz salvar lo fichièr actiu çaquelà ?"/>
 			<LoadStylersFailed title="Lo cargament de stylers.xml a pas capitat" message="Lo cargament de &quot;$INT_REPLACE$&quot; a pas capitat !"/>
 			<LoadLangsFailed title="Configurator" message="Lo cargament de langs.xml a pas capitat !
-			Volètz recuperar lo vòstre langs.xml ?"/>
+				Volètz recuperar lo vòstre langs.xml ?"/>
 			<LoadLangsFailedFinal title="Configurator" message="Lo cargament de langs.xml a pas capitat !"/>
 			<FolderAsWorspaceSubfolderExists title="Problèma de Dorsièr coma espaci de trabalh" message="Un sos-dorsièr del dorsièr que volètz apondre exista.
-			Mercés de tirar son dorsièr racina del panèl abans d'apondre &quot;$STR_REPLACE$&quot;."/>
+				Mercés de tirar son dorsièr racina del panèl abans d'apondre &quot;$STR_REPLACE$&quot;."/>
 
 			<ProjectPanelChanged title="$STR_REPLACE$" message="L'espaci de trabalh a estat modificat. Lo volètz salvar ?"/>
 			<ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Lo vòstre espaci de trabalh foguèt pas salvat."/>
 			<ProjectPanelOpenDoSaveDirtyWsOrNot title="Dobrir espaci de trabalh" message="L'espaci de trabalh actual a estat modificat. Volètz salvar lo projècte actual ?"/>
 			<ProjectPanelNewDoSaveDirtyWsOrNot title="Novèl espaci de trabalh" message="L'espaci de trabalh actual a estat modificat. Volètz salvar lo projècte actual ?"/>
 			<ProjectPanelOpenFailed title="Dobrir espaci de trabalh" message="L'espaci de trabalh poguèt pas èsser dobèrt.
-			Semblariá que lo fichièr de dobrir foguèsse pas un fichièr de projècte valid."/>
+				Semblariá que lo fichièr de dobrir foguèsse pas un fichièr de projècte valid."/>
 			<ProjectPanelRemoveFolderFromProject title="Tirar lo dorsièr del projècte" message="Totes los sos-elements seràn tirats.
-			Sètz segur(a) de voler tirar aquel dorsièr del projècte ?"/>
+				Sètz segur(a) de voler tirar aquel dorsièr del projècte ?"/>
 			<ProjectPanelRemoveFileFromProject title="Tirar aquel fichièr del projècte" message="Sètz segur(a) de voler tirar aquel fichièr del projècte ?"/>
 			<ProjectPanelReloadError title="Tornar cargar l'espaci de trabalh" message="Impossible de trobar lo fichièr de tornar cargar."/>
 			<ProjectPanelReloadDirty title="Tornar cargar l'espaci de trabalh" message="L'espaci de trabalh actual a estat modificat. Lo tornar cargar anullarà totas las modificacions.
-			Contunhar ?"/>
+				Contunhar ?"/>
 			<UDLNewNameError title="Error UDL" message="Aqueste nom es utilizat per un autre lengatge,
-			mercés de ne donar un autre."/>
+				mercés de ne donar un autre."/>
 			<UDLRemoveCurrentLang title="Tirar lo lengatge actual" message="Sètz segur(a) ?"/>
 			<SCMapperDoDeleteOrNot title="Sètz segur(a) ?" message="Sètz segur(a) de voler suprimir aquel acorchi ?"/>
 			<FindCharRangeValueError title="Marrida valor d'interval" message="Devètz picar una valor entre 0 e 255."/>

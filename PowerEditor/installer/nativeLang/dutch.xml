@@ -12,67 +12,67 @@
 			<Main>
 				<!-- Main Menu Entries -->
 				<Entries>
-					<Item menuId="file"     name="&amp;Bestand"/>
-					<Item menuId="edit"     name="Be&amp;werken"/>
-					<Item menuId="search"   name="&amp;Zoeken"/>
-					<Item menuId="view"     name="B&amp;eeld"/>
+					<Item menuId="file" name="&amp;Bestand"/>
+					<Item menuId="edit" name="Be&amp;werken"/>
+					<Item menuId="search" name="&amp;Zoeken"/>
+					<Item menuId="view" name="B&amp;eeld"/>
 					<Item menuId="encoding" name="&amp;Karakterset"/>
 					<Item menuId="language" name="&amp;Syntaxis"/>
 					<Item menuId="settings" name="&amp;Instellingen"/>
-					<Item menuId="tools"    name="&amp;Gereedschappen"/>
-					<Item menuId="macro"    name="&amp;Macro"/>
-					<Item menuId="run"      name="&amp;Uitvoeren"/>
-					<Item idName="Plugins"  name="&amp;Plugins"/>
-					<Item idName="Window"   name="&amp;Documenten"/>
+					<Item menuId="tools" name="&amp;Gereedschappen"/>
+					<Item menuId="macro" name="&amp;Macro"/>
+					<Item menuId="run" name="&amp;Uitvoeren"/>
+					<Item idName="Plugins" name="&amp;Plugins"/>
+					<Item idName="Window" name="&amp;Documenten"/>
 				</Entries>
 				<!-- Sub Menu Entries -->
 				<SubEntries>
-					<Item subMenuId="file-openFolder"           name="Bestandslocatie openen"/>
-					<Item subMenuId="file-closeMore"            name="Documenten sluiten"/>
-					<Item subMenuId="file-recentFiles"          name="Recent geopende bestanden"/>
-					<Item subMenuId="edit-copyToClipboard"      name="Kopiëren naar het klembord"/>
-					<Item subMenuId="edit-indent"               name="Insprong tekst"/>
-					<Item subMenuId="edit-convertCaseTo"        name="Hoofdlettergebruik"/>
-					<Item subMenuId="edit-lineOperations"       name="Regels bewerken"/>
-					<Item subMenuId="edit-comment"              name="Markeren als commentaar"/>
-					<Item subMenuId="edit-autoCompletion"       name="Automatisch aanvullen"/>
-					<Item subMenuId="edit-eolConversion"        name="Formaat"/>
-					<Item subMenuId="edit-blankOperations"      name="Uitlijnen"/>
-					<Item subMenuId="edit-pasteSpecial"         name="Plakken speciaal"/>
-					<Item subMenuId="edit-onSelection"          name="Voor selectie"/>
-					<Item subMenuId="search-markAll"            name="Alles markeren"/>
-					<Item subMenuId="search-unmarkAll"          name="Markering wissen"/>
-					<Item subMenuId="search-jumpUp"             name="Ga naar vorige markering"/>
-					<Item subMenuId="search-jumpDown"           name="Ga naar volgende markering"/>
-					<Item subMenuId="search-bookmark"           name="Bladwijzers"/>
-					<Item subMenuId="view-currentFileIn"        name="Document bekijken in"/>
-					<Item subMenuId="view-showSymbol"           name="Niet-afdrukbare tekens"/>
-					<Item subMenuId="view-zoom"                 name="In- en uitzoomen"/>
-					<Item subMenuId="view-moveCloneDocument"    name="Documentweergave"/>
-					<Item subMenuId="view-tab"                  name="Documenten"/>
-					<Item subMenuId="view-collapseLevel"        name="Sectie samenvouwen"/>
-					<Item subMenuId="view-uncollapseLevel"      name="Sectie uitvouwen"/>
-					<Item subMenuId="view-project"              name="Project"/>
-					<Item subMenuId="encoding-characterSets"    name="Meer"/>
-					<Item subMenuId="encoding-arabic"           name="Arabisch"/>
-					<Item subMenuId="encoding-baltic"           name="Baltisch"/>
-					<Item subMenuId="encoding-celtic"           name="Keltisch"/>
-					<Item subMenuId="encoding-cyrillic"         name="Cyrillisch"/>
-					<Item subMenuId="encoding-centralEuropean"  name="Centraal-Europees"/>
-					<Item subMenuId="encoding-chinese"          name="Chinees"/>
-					<Item subMenuId="encoding-easternEuropean"  name="Oost-Europees"/>
-					<Item subMenuId="encoding-greek"            name="Grieks"/>
-					<Item subMenuId="encoding-hebrew"           name="Hebreeuws"/>
-					<Item subMenuId="encoding-japanese"         name="Japans"/>
-					<Item subMenuId="encoding-korean"           name="Koreaans"/>
-					<Item subMenuId="encoding-northEuropean"    name="Noord-Europees"/>
-					<Item subMenuId="encoding-thai"             name="Thai"/>
-					<Item subMenuId="encoding-turkish"          name="Turks"/>
-					<Item subMenuId="encoding-westernEuropean"  name="West-Europees"/>
-					<Item subMenuId="encoding-vietnamese"       name="Vietnamees"/>
-					<Item subMenuId="settings-import"           name="Importeren"/>
-					<Item subMenuId="tools-md5"                 name="MD5"/>
-					<Item subMenuId="tools-sha256"              name="SHA-256"/>
+					<Item subMenuId="file-openFolder" name="Bestandslocatie openen"/>
+					<Item subMenuId="file-closeMore" name="Documenten sluiten"/>
+					<Item subMenuId="file-recentFiles" name="Recent geopende bestanden"/>
+					<Item subMenuId="edit-copyToClipboard" name="Kopiëren naar het klembord"/>
+					<Item subMenuId="edit-indent" name="Insprong tekst"/>
+					<Item subMenuId="edit-convertCaseTo" name="Hoofdlettergebruik"/>
+					<Item subMenuId="edit-lineOperations" name="Regels bewerken"/>
+					<Item subMenuId="edit-comment" name="Markeren als commentaar"/>
+					<Item subMenuId="edit-autoCompletion" name="Automatisch aanvullen"/>
+					<Item subMenuId="edit-eolConversion" name="Formaat"/>
+					<Item subMenuId="edit-blankOperations" name="Uitlijnen"/>
+					<Item subMenuId="edit-pasteSpecial" name="Plakken speciaal"/>
+					<Item subMenuId="edit-onSelection" name="Voor selectie"/>
+					<Item subMenuId="search-markAll" name="Alles markeren"/>
+					<Item subMenuId="search-unmarkAll" name="Markering wissen"/>
+					<Item subMenuId="search-jumpUp" name="Ga naar vorige markering"/>
+					<Item subMenuId="search-jumpDown" name="Ga naar volgende markering"/>
+					<Item subMenuId="search-bookmark" name="Bladwijzers"/>
+					<Item subMenuId="view-currentFileIn" name="Document bekijken in"/>
+					<Item subMenuId="view-showSymbol" name="Niet-afdrukbare tekens"/>
+					<Item subMenuId="view-zoom" name="In- en uitzoomen"/>
+					<Item subMenuId="view-moveCloneDocument" name="Documentweergave"/>
+					<Item subMenuId="view-tab" name="Documenten"/>
+					<Item subMenuId="view-collapseLevel" name="Sectie samenvouwen"/>
+					<Item subMenuId="view-uncollapseLevel" name="Sectie uitvouwen"/>
+					<Item subMenuId="view-project" name="Project"/>
+					<Item subMenuId="encoding-characterSets" name="Meer"/>
+					<Item subMenuId="encoding-arabic" name="Arabisch"/>
+					<Item subMenuId="encoding-baltic" name="Baltisch"/>
+					<Item subMenuId="encoding-celtic" name="Keltisch"/>
+					<Item subMenuId="encoding-cyrillic" name="Cyrillisch"/>
+					<Item subMenuId="encoding-centralEuropean" name="Centraal-Europees"/>
+					<Item subMenuId="encoding-chinese" name="Chinees"/>
+					<Item subMenuId="encoding-easternEuropean" name="Oost-Europees"/>
+					<Item subMenuId="encoding-greek" name="Grieks"/>
+					<Item subMenuId="encoding-hebrew" name="Hebreeuws"/>
+					<Item subMenuId="encoding-japanese" name="Japans"/>
+					<Item subMenuId="encoding-korean" name="Koreaans"/>
+					<Item subMenuId="encoding-northEuropean" name="Noord-Europees"/>
+					<Item subMenuId="encoding-thai" name="Thai"/>
+					<Item subMenuId="encoding-turkish" name="Turks"/>
+					<Item subMenuId="encoding-westernEuropean" name="West-Europees"/>
+					<Item subMenuId="encoding-vietnamese" name="Vietnamees"/>
+					<Item subMenuId="settings-import" name="Importeren"/>
+					<Item subMenuId="tools-md5" name="MD5"/>
+					<Item subMenuId="tools-sha256" name="SHA-256"/>
 				</SubEntries>
 
 				<!-- all menu items -->
@@ -91,7 +91,7 @@
 					<Item id="41007" name="Alles opslaan"/>
 					<Item id="41008" name="Ops&amp;laan als..."/>
 					<Item id="41010" name="Af&amp;drukken..."/>
-					<Item id="1001"  name="Direct afdrukken"/>
+					<Item id="1001" name="Direct afdrukken"/>
 					<Item id="41011" name="Af&amp;sluiten"/>
 					<Item id="41012" name="Sessie openen..."/>
 					<Item id="41013" name="Sessie opslaan..."/>
@@ -280,12 +280,12 @@
 					<Item id="45011" name="Naar UTF-8-BOM converteren"/>
 					<Item id="45012" name="Naar UCS-2 Big Endian converteren"/>
 					<Item id="45013" name="Naar UCS-2 Little Endian converteren"/>
-					<Item id="45060" name="Big5 (Taiwan)" />
-					<Item id="45061" name="GB2312 (China)" />
-					<Item id="45054" name="OEM 861: Ĳslands" />
-					<Item id="45057" name="OEM 865: Deens &amp;&amp; Noors" />
-					<Item id="45053" name="OEM 860: Portugees" />
-					<Item id="45056" name="OEM 863: Canadees-Frans" />
+					<Item id="45060" name="Big5 (Taiwan)"/>
+					<Item id="45061" name="GB2312 (China)"/>
+					<Item id="45054" name="OEM 861: Ĳslands"/>
+					<Item id="45057" name="OEM 865: Deens &amp;&amp; Noors"/>
+					<Item id="45053" name="OEM 860: Portugees"/>
+					<Item id="45056" name="OEM 863: Canadees-Frans"/>
 
 					<Item id="10001" name="Naar deelvenster verplaatsen"/>
 					<Item id="10002" name="Naar deelvenster kopiëren"/>
@@ -338,16 +338,16 @@
 			<Splitter>
 			</Splitter>
 			<TabBar>
-				<Item CMID="0"  name="Sluiten"/>
-				<Item CMID="1"  name="Overige documenten sluiten"/>
-				<Item CMID="2"  name="Opslaan"/>
-				<Item CMID="3"  name="Opslaan als..."/>
-				<Item CMID="4"  name="Afdrukken"/>
-				<Item CMID="5"  name="Naar deelvenster verplaatsen"/>
-				<Item CMID="6"  name="Naar deelvenster kopiëren"/>
-				<Item CMID="7"  name="Bestandslocatie kopiëren"/>
-				<Item CMID="8"  name="Bestandsnaam kopiëren"/>
-				<Item CMID="9"  name="Maplocatie kopiëren"/>
+				<Item CMID="0" name="Sluiten"/>
+				<Item CMID="1" name="Overige documenten sluiten"/>
+				<Item CMID="2" name="Opslaan"/>
+				<Item CMID="3" name="Opslaan als..."/>
+				<Item CMID="4" name="Afdrukken"/>
+				<Item CMID="5" name="Naar deelvenster verplaatsen"/>
+				<Item CMID="6" name="Naar deelvenster kopiëren"/>
+				<Item CMID="7" name="Bestandslocatie kopiëren"/>
+				<Item CMID="8" name="Bestandsnaam kopiëren"/>
+				<Item CMID="9" name="Maplocatie kopiëren"/>
 				<Item CMID="10" name="Naam wijzigen"/>
 				<Item CMID="11" name="Verwijderen"/>
 				<Item CMID="12" name="Alleen-lezen"/>
@@ -366,9 +366,9 @@
 
 		<Dialog>
 			<Find title="" titleFind="Zoeken" titleReplace="Vervangen" titleFindInFiles="Zoeken in bestanden" titleMark="Markeren">
-				<Item id="1"    name="&amp;Volgende zoeken"/>
+				<Item id="1" name="&amp;Volgende zoeken"/>
 				<Item id="1722" name="Achteruit"/>
-				<Item id="2"    name="Sluiten"/>
+				<Item id="2" name="Sluiten"/>
 				<Item id="1620" name="Zoeken naar:"/>
 				<Item id="1603" name="Losse &amp;woorden"/>
 				<Item id="1604" name="&amp;Kapitalen onderscheiden"/>
@@ -405,7 +405,7 @@
 			</Find>
 
 			<FindCharsInRange title="Karakter zoeken in bereik...">
-				<Item id="2"    name="Sluiten"/>
+				<Item id="2" name="Sluiten"/>
 				<Item id="2901" name="Extended ASCII (128-255)"/>
 				<Item id="2902" name="ASCII (0-128)"/>
 				<Item id="2903" name="Aangepast:"/>
@@ -419,8 +419,8 @@
 			<GoToLine title="Ga naar regel">
 				<Item id="2007" name="Regelnummer"/>
 				<Item id="2008" name="Karakterpositie"/>
-				<Item id="1"    name="OK"/>
-				<Item id="2"    name="Annuleren"/>
+				<Item id="1" name="OK"/>
+				<Item id="2" name="Annuleren"/>
 				<Item id="2004" name="Huidig regelnummer:"/>
 				<Item id="2005" name="Regelnummer:"/>
 				<Item id="2006" name="Limiet:"/>
@@ -428,48 +428,48 @@
 
 			<Run title="Uitvoeren">
 				<Item id="1903" name="Naam van programma, map of document:"/>
-				<Item id="1"    name="OK"/>
-				<Item id="2"    name="Annuleren"/>
+				<Item id="1" name="OK"/>
+				<Item id="2" name="Annuleren"/>
 				<Item id="1904" name="Opslaan..."/>
 			</Run>
 
 			<MD5FromFilesDlg title="MD5 code voor bestanden genereren">
 				<Item id="1922" name="Bestanden selecteren..."/>
 				<Item id="1924" name="Naar klembord kopiëren"/>
-				<Item id="2"    name="Sluiten"/>
+				<Item id="2" name="Sluiten"/>
 			</MD5FromFilesDlg>
 
 			<MD5FromTextDlg title="MD5 code genereren">
 				<Item id="1932" name="Elke regel als aparte tekst interpreteren"/>
 				<Item id="1934" name="Naar klembord kopiëren"/>
-				<Item id="2"    name="Sluiten"/>
+				<Item id="2" name="Sluiten"/>
 			</MD5FromTextDlg>
 
 			<SHA256FromFilesDlg title="SHA-256 code voor bestanden genereren">
 				<Item id="1922" name="Bestanden selecteren..."/>
 				<Item id="1924" name="Naar klembord kopiëren"/>
-				<Item id="2"    name="Sluiten"/>
+				<Item id="2" name="Sluiten"/>
 			</SHA256FromFilesDlg>
 
 			<SHA256FromTextDlg title="SHA-256 code genereren">
 				<Item id="1932" name="Elke regel als aparte tekst interpreteren"/>
 				<Item id="1934" name="Naar klembord kopiëren"/>
-				<Item id="2"    name="Sluiten"/>
+				<Item id="2" name="Sluiten"/>
 			</SHA256FromTextDlg>
 
 			<PluginsAdminDlg title="Plugin beheer" titleAvailable="Beschikbaar" titleUpdates="Updates" titleInstalled="Geïnstalleerd">
-				<ColumnPlugin   name="Naam"/>
-				<ColumnVersion  name="Versie"/>
+				<ColumnPlugin name="Naam"/>
+				<ColumnVersion name="Versie"/>
 				<Item id="5501" name="Zoeken:"/>
 				<Item id="5503" name="Installeren"/>
 				<Item id="5504" name="Updaten"/>
 				<Item id="5505" name="Verwijderen"/>
 				<Item id="5508" name="Volgende"/>
-				<Item id="2"    name="Sluiten"/>
+				<Item id="2" name="Sluiten"/>
 			</PluginsAdminDlg>
 
 			<StyleConfig title="Opmaak">
-				<Item id="2"    name="&amp;Annuleren"/>
+				<Item id="2" name="&amp;Annuleren"/>
 				<Item id="2301" name="&amp;Opslaan"/>
 				<Item id="2303" name="Transparantie"/>
 				<Item id="2306" name="Thema:"/>
@@ -504,22 +504,22 @@
 				<Item id="2603" name="Verwijderen"/>
 				<Item id="2606" name="Wissen"/>
 				<Item id="2607" name="Filter: "/>
-				<Item id="1"    name="Sluiten"/>
-				<ColumnName             name="Naam"/>
-				<ColumnShortcut         name="Sneltoets"/>
-				<ColumnCategory         name="Categorie"/>
-				<ColumnPlugin           name="Plugin"/>
-				<MainMenuTab            name="Hoofdmenu"/>
-				<MacrosTab              name="Macros"/>
-				<RunCommandsTab         name="Uitvoer commandos"/>
-				<PluginCommandsTab      name="Plugin commandos"/>
-				<ScintillaCommandsTab   name="Scintilla commandos"/>
-				<ConflictInfoOk         name="Geen conflicten voor dit commando."/>
-				<ConflictInfoEditing    name="Geen conflicten ..."/>
+				<Item id="1" name="Sluiten"/>
+				<ColumnName name="Naam"/>
+				<ColumnShortcut name="Sneltoets"/>
+				<ColumnCategory name="Categorie"/>
+				<ColumnPlugin name="Plugin"/>
+				<MainMenuTab name="Hoofdmenu"/>
+				<MacrosTab name="Macros"/>
+				<RunCommandsTab name="Uitvoer commandos"/>
+				<PluginCommandsTab name="Plugin commandos"/>
+				<ScintillaCommandsTab name="Scintilla commandos"/>
+				<ConflictInfoOk name="Geen conflicten voor dit commando."/>
+				<ConflictInfoEditing name="Geen conflicten ..."/>
 			</ShortcutMapper>
 			<ShortcutMapperSubDialg title="Sneltoets">
-				<Item id="1"    name="OK"/>
-				<Item id="2"    name="Annuleren"/>
+				<Item id="1" name="OK"/>
+				<Item id="2" name="Annuleren"/>
 				<Item id="5006" name="Naam"/>
 				<Item id="5008" name="Toevoegen"/>
 				<Item id="5009" name="Verwijderen"/>
@@ -570,8 +570,8 @@
 					<Item id="25026" name="Operatoren (type 1)"/>
 					<Item id="25027" name="Operatoren (type 2)"/>
 					<Item id="25028" name="Getallen"/>
-					<Item id="1"     name="OK"/>
-					<Item id="2"     name="Annuleren"/>
+					<Item id="1" name="OK"/>
+					<Item id="2" name="Annuleren"/>
 				</StylerDialog>
 				<Folder title="Algemeen">
 					<Item id="21101" name="Standaard opmaak"/>
@@ -751,7 +751,7 @@
 					<Item id="6207" name="Bladwijzers weergeven"/>
 					<Item id="6208" name="Regeleinde weergeven"/>
 					<Item id="6209" name="Aantal kolommen:"/>
-					<Item id="6234" name="Geavanceerd scrollen uitschakelen&#xD;(ivm eventuele touchpadproblemen)"/>
+					<Item id="6234" name="Geavanceerd scrollen uitschakelen&#13;(ivm eventuele touchpadproblemen)"/>
 
 					<Item id="6211" name="Regeleinde"/>
 					<Item id="6212" name="Lijn"/>
@@ -907,7 +907,7 @@
 					<Item id="6256" name="Selecteer tekst over meerdere regels"/>
 					<Item id="6161" name="Woordtekenlijst"/>
 					<Item id="6162" name="Gebruik de standaard lijst"/>
-					<Item id="6163" name="Aanvullende woordtekens&#xD;(niet gebruiken, tenzij je weet waar je mee bezig bent)"/>
+					<Item id="6163" name="Aanvullende woordtekens&#13;(niet gebruiken, tenzij je weet waar je mee bezig bent)"/>
 				</Delimiter>
 
 				<Cloud title="Online opslag">
@@ -956,16 +956,16 @@
 				</MISC>
 			</Preference>
 			<MultiMacro title="Macro meerdere keren uitvoeren">
-				<Item id="1"    name="Start"/>
-				<Item id="2"    name="Stop"/>
+				<Item id="1" name="Start"/>
+				<Item id="2" name="Stop"/>
 				<Item id="8006" name="Macro selecteren:"/>
 				<Item id="8001" name="Macro"/>
 				<Item id="8002" name="Uitvoeren tot documenteinde"/>
 				<Item id="8005" name="keer uitvoeren"/>
 			</MultiMacro>
 			<Window title="Documenten">
-				<Item id="1"    name="Activeren"/>
-				<Item id="2"    name="OK"/>
+				<Item id="1" name="Activeren"/>
+				<Item id="2" name="OK"/>
 				<Item id="7002" name="Opslaan"/>
 				<Item id="7003" name="Sluiten"/>
 				<Item id="7004" name="Sorteren"/>
@@ -982,12 +982,12 @@
 				<Item id="2025" name="Octaal"/>
 				<Item id="2026" name="Hexadecimaal"/>
 				<Item id="2027" name="Binair"/>
-				<Item id="1"    name="OK"/>
-				<Item id="2"    name="Annuleren"/>
+				<Item id="1" name="OK"/>
+				<Item id="2" name="Annuleren"/>
 			</ColumnEditor>
 			<FindInFinder title="Zoek in zoekresultaten">
-				<Item id="1"    name="Vind allen"/>
-				<Item id="2"    name="Sluiten"/>
+				<Item id="1" name="Vind allen"/>
+				<Item id="2" name="Sluiten"/>
 				<Item id="1711" name="Zoeken naar:"/>
 				<Item id="1713" name="Alleen zoeken in gevonden regels"/>
 				<Item id="1714" name="Losse &amp;woorden"/>
@@ -1010,222 +1010,60 @@
 
 		<MessageBox>
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
-			<ContextMenuXmlEditWarning
-				title="Contextmenu wijzigen"
-				message="Met het wijzigen van het contextmenu kunt u Notepad++ aan uw persoonlijke voorkeur aanpassen.&#xD;&#xD;Wijzigingen worden zichtbaar na het opnieuw starten van Notepad++."
-			/>
-			<NppHelpAbsentWarning
-				title="Offline documentatie ontbreekt"
-				message="&#xD; is niet gevonden.&#xD;&#xD;Bezoek de website om de online documentatie te raadplegen."
-			/>
-			<SaveCurrentModifWarning
-				title="Bestand is gewijzigd"
-				message="Deze bewerking kan niet ongedaan worden gemaakt. Controleer of wijzigingen moeten worden opgeslagen.&#xD;&#xD;Wilt u toch doorgaan?"
-			/>
-			<LoseUndoAbilityWarning
-				title="Bewerking ongedaan maken niet mogelijk"
-				message="Deze bewerking kan niet ongedaan worden gemaakt.&#xD;&#xD;Doorgaan?"
-			/>
-			<CannotMoveDoc
-				title="Bestand verplaatsen niet mogelijk"
-				message="Dit bestand is gewijzigd. Sla het bestand op en probeer het opnieuw."
-			/>
-			<DocReloadWarning
-				title="Bestand opnieuw openen"
-				message="Weet u zeker dat u dit bestand opnieuw wilt openen?&#xD;&#xD;U verliest aangebrachte wijzigingen!"
-			/>
-			<FileLockedWarning
-				title="Bestand opslaan mislukt"
-				message="Dit bestand is mogelijk in gebruik door een ander programma.&#xD;&#xD;Sluit andere programma's en probeer het opnieuw."
-			/>
-			<FileAlreadyOpenedInNpp
-				title="Bestand is al geopend"
-				message="Dit bestand is al geopend in Notepad++."
-			/>
-			<DeleteFileFailed
-				title="Bestand verwijderen mislukt"
-				message="Er is een fout opgetreden bij het verwijderen van dit bestand."
-			/>
-			<NbFileToOpenImportantWarning
-				title="Bestand openen"
-				message="$INT_REPLACE$ bestanden worden geopend.&#xD;&#xD;Doorgaan?"
-			/>
-			<SettingsOnCloudError
-				title="Online opslaan mislukt"
-				message="Er is een fout opgetreden bij het schrijven naar de online opslaglocatie.&#xD;Controleer of het pad correct is opgegeven onder Voorkeuren."
-			/>
-			<FilePathNotFoundWarning
-				title="Bestand openen"
-				message="Het te openen bestand bestaat niet."
-			/>
-			<SessionFileInvalidError
-				title="Kan sessie niet laden"
-				message="Sessie bestand is beschadigd of ongeldig."
-			/>
-			<DroppingFolderAsProjectModeWarning
-				title="Ongeldige actie"
-				message="Omdat u zich in de Map-als-Werkomgeving modus bevindt, kunt U alleen bestanden of mappen neerzetten, niet allebei.&#xD;U moet &quot;Bij neerzetten alle bestanden uit de map openen ipv de map als werkomgeving te openen&quot; in&#xD;de &quot;Standaardlocatie&quot; sectie van het Voorkeuren dialoogvenster aanvinken om deze operatie te laten werken."
-			/>
-			<SortingError
-				title="Sorteerfout"
-				message="Niet in staat om numerieke sortering uit te voeren door lijn $INT_REPLACE$."
-			/>
-			<ColumnModeTip
-				title="Kolommodus Tip"
-				message="Gebruik &quot;ALT + Mouse Selectie&quot; of &quot;Alt + Shift + pijltjes toets&quot; om over te schakelen naar de kolommodus."
-			/>
-			<BufferInvalidWarning
-				title="Opslaan mislukt"
-				message="Kan niet opslaan: Buffer is ongeldig."
-			/>
-			<DoCloseOrNot
-				title="Bestand sluiten"
-				message="Het bestand &quot;$STR_REPLACE$&quot; bestaat niet meer.&#xD;Bewaar dit bestand in de editor?"
-			/>
-			<DoDeleteOrNot
-				title="Bestand verwijderen"
-				message="Het bestand &quot;$STR_REPLACE$&quot;&#xD; zal naar uw prullenbak worden verplaatst en het document zal worden gesloten.&#xD;Doorgaan?"
-			/>
-			<NoBackupDoSaveFile
-				title="Bestand opslaan"
-				message="Uw bestandsresevekopie kan niet worden gevonden (mogelijk van buitenaf verwijderd).&#xD;Sla het bestand op, anders zullen uw gegevens verloren gaan.&#xD;Wilt u bestand &quot;$STR_REPLACE$&quot; opslaan?"
-			/>
-			<DoReloadOrNot
-				title="Bestand opnieuw openen"
-				message="Het bestand&#xD;&quot;$STR_REPLACE$&quot;&#xD;is gewijzigd door een ander programma.&#xD;Wilt u het opnieuw laden?"
-			/>
-			<DoReloadOrNotAndLooseChange
-				title="Bestand opnieuw openen"
-				message="Het bestand&#xD;&quot;$STR_REPLACE$&quot;&#xD;is gewijzigd door een ander programma.&#xD;Wilt u het opnieuw laden en de wijzigingen die in Notepad++ zijn gemaakt verliezen?"
-			/>
-			<PrehistoricSystemDetected
-				title="Prehistorisch systeem gedetecteerd"
-				message="Het lijkt erop dat je nog steeds een prehistorisch systeem gebruikt. Deze functie werkt alleen op een modern systeem, sorry."
-			/>
-			<XpUpdaterProblem
-				title="Notepad++ Updater"
-				message="Notepad++ updater is niet compatibel met XP vanwege de verouderde beveiligingslaag onder XP.&#xD;Wilt u naar Notepad++ pagina gaan om de nieuwste versie te downloaden?"
-			/>
-			<DocTooDirtyToMonitor
-				title="Bestandswijzigingen bewaak probleem"
-				message="Het document is gewijzigd. Bewaar de wijzigingen voordat u het bewaken van bestandswijzigingen activeert."
-			/>
-			<DocNoExistToMonitor
-				title="Bestandswijzigingen bewaak probleem"
-				message="Het bestand moet bestaan om voor wijzigingen te kunnen worden bewaakt."
-			/>
-			<FileTooBigToOpen
-				title="Bestandsgrootte probleem"
-				message="Bestand is te groot om te openen met Notepad++"
-			/>
-			<CreateNewFileOrNot
-				title="Nieuw bestand"
-				message="&quot;$STR_REPLACE$&quot; bestaat niet. Aanmaken?"
-			/>
-			<CreateNewFileError
-				title="Nieuw bestand"
-				message="Kan het bestand &quot;$STR_REPLACE$&quot; niet aanmaken."
-			/>
-			<OpenFileError
-				title="Bestand openen"
-				message="Kan bestand &quot;$STR_REPLACE$&quot; niet openen."
-			/>
-			<FileBackupFailed
-				title="Bestandsreserviekopie"
-				message="De vorige versie van het bestand kon niet worden opgeslagen in de reservekopiemap &quot;$STR_REPLACE$&quot;.&#xD;&#xD;Wilt u het huidige bestand toch opslaan?"
-			/>
-			<LoadStylersFailed
-				title="Opmaak voorkeuren"
-				message="Laden van &quot;$STR_REPLACE$&quot; mislukt!"
-			/>
-			<LoadLangsFailed
-				title="Taal voorkeuren"
-				message="Laden van &quot;langs.xml&quot; mislukt!&#xD;Wilt u uw &quot;langs.xml&quot; herstellen?"
-			/>
-			<LoadLangsFailedFinal
-				title="Taal voorkeuren"
-				message="Laden van &quot;langs.xml&quot; mislukt!"
-			/>
-			<FolderAsWorspaceSubfolderExists
-				title="Map als Werkomgeving"
-				message="Er bestaat een submap van de map die u wilt toevoegen.&#xD;Verwijder de submap voordat u map &quot;$STR_REPLACE$&quot; toevoegt."
-			/>
-			<ProjectPanelChanged
-				title="$STR_REPLACE$"
-				message="De werkomgeving is aangepast. Wilt u het opslaan?"
-			/>
-			<ProjectPanelChangedSaveError
-				title="$STR_REPLACE$"
-				message="Uw werkomgeving is niet opgeslagen."
-			/>
-			<ProjectPanelOpenDoSaveDirtyWsOrNot
-				title="Werkomgeving openen"
-				message="De huidige werkomgeving is aangepast. Wilt u het huidige project opslaan?"
-			/>
-			<ProjectPanelNewDoSaveDirtyWsOrNot
-				title="Nieuwe werkomgeving"
-				message="De huidige werkomgeving is aangepast. Wilt u het huidige project opslaan?"
-			/>
-			<ProjectPanelOpenFailed
-				title="Werkomgeving openen"
-				message="De werkomgeving kon niet worden geopend.&#xD;Het lijkt erop dat het te openen bestand geen geldig projectbestand is."
-			/>
-			<ProjectPanelRemoveFolderFromProject
-				title="Map uit project verwijderen"
-				message="De werkomgeving kon niet worden geopend.&#xD;Het lijkt erop dat het te openen bestand geen geldig projectbestand is."
-			/>
-			<ProjectPanelRemoveFileFromProject
-				title="Bestand uit project verwijderen"
-				message="Weet u zeker dat u dit bestand uit het project wilt verwijderen?"
-			/>
-			<ProjectPanelReloadError
-				title="Werkomgeving laden"
-				message="Kan het bestand om opnieuw te laden niet vinden."
-			/>
-			<ProjectPanelReloadDirty
-				title="Werkomgeving laden"
-				message="De huidige werkomgeving is aangepast. Herladen zal alle wijzigingen weggooien.&#xD;Wilt u doorgaan?"
-			/>
-			<UDLNewNameError
-				title="UDL Probleem"
-				message="Deze naam wordt gebruikt door een andere taal,&#xD;geef een andere naam."
-			/>
-			<UDLRemoveCurrentLang
-				title="Verwijder huidige taal"
-				message="Weet u het zeker?"
-			/>
-			<SCMapperDoDeleteOrNot
-				title="Weet u het zeker?"
-				message="Weet u zeker dat u deze sneltoets wilt verwijderen?"
-			/>
-			<FindCharRangeValueError
-				title="Waarde bereik probleem"
-				message="U moet een waarde tussen 0 en 255 geven."
-			/>
-			<OpenInAdminMode
-				title="Bestand opslaan"
-				message="Het bestand kan niet worden opgeslagen, het kan zijn beveiligd.&#xD; Wilt u Notepad++ starten in de beheerdersmodus?"
-			/>
-			<OpenInAdminModeWithoutCloseCurrent
-				title="Bestand opslaan"
-				message="Het bestand kan niet worden opgeslagen, het kan zijn beveiligd.&#xD; Wilt u Notepad++ starten in de beheerdersmodus?"
-			/>
-			<OpenInAdminModeFailed
-				title="Openen in beheerdersmodus mislukt"
-				message="Notepad++ kan niet worden geopend in de beheerdersmodus."
-			/>
-			<ViewInBrowser
-				title="Document bekijken in browser"
-				message="Applicatie niet gevonden op uw computer."
-			/>
-			<ExitToUpdatePlugins
-				title="Notepad++ afsluiten"
-				message="Notepad++ moet afsluiten om de update te voltooien.&#xD;Vervolgens zal Notepad++ opnieuw starten.&#xD;&#xD;Wilt u doorgaan?"
-			/>
-			<NeedToRestartToLoadPlugins
-				title="Notepad++ opnieuw starten"
-				message="Start Notepad++ opnieuw op om de geïnstalleerde plug-ins te activeren."
-			/>
+			<ContextMenuXmlEditWarning title="Contextmenu wijzigen" message="Met het wijzigen van het contextmenu kunt u Notepad++ aan uw persoonlijke voorkeur aanpassen.&#13;&#13;Wijzigingen worden zichtbaar na het opnieuw starten van Notepad++."/>
+			<NppHelpAbsentWarning title="Offline documentatie ontbreekt" message="&#13; is niet gevonden.&#13;&#13;Bezoek de website om de online documentatie te raadplegen."/>
+			<SaveCurrentModifWarning title="Bestand is gewijzigd" message="Deze bewerking kan niet ongedaan worden gemaakt. Controleer of wijzigingen moeten worden opgeslagen.&#13;&#13;Wilt u toch doorgaan?"/>
+			<LoseUndoAbilityWarning title="Bewerking ongedaan maken niet mogelijk" message="Deze bewerking kan niet ongedaan worden gemaakt.&#13;&#13;Doorgaan?"/>
+			<CannotMoveDoc title="Bestand verplaatsen niet mogelijk" message="Dit bestand is gewijzigd. Sla het bestand op en probeer het opnieuw."/>
+			<DocReloadWarning title="Bestand opnieuw openen" message="Weet u zeker dat u dit bestand opnieuw wilt openen?&#13;&#13;U verliest aangebrachte wijzigingen!"/>
+			<FileLockedWarning title="Bestand opslaan mislukt" message="Dit bestand is mogelijk in gebruik door een ander programma.&#13;&#13;Sluit andere programma's en probeer het opnieuw."/>
+			<FileAlreadyOpenedInNpp title="Bestand is al geopend" message="Dit bestand is al geopend in Notepad++."/>
+			<DeleteFileFailed title="Bestand verwijderen mislukt" message="Er is een fout opgetreden bij het verwijderen van dit bestand."/>
+			<NbFileToOpenImportantWarning title="Bestand openen" message="$INT_REPLACE$ bestanden worden geopend.&#13;&#13;Doorgaan?"/>
+			<SettingsOnCloudError title="Online opslaan mislukt" message="Er is een fout opgetreden bij het schrijven naar de online opslaglocatie.&#13;Controleer of het pad correct is opgegeven onder Voorkeuren."/>
+			<FilePathNotFoundWarning title="Bestand openen" message="Het te openen bestand bestaat niet."/>
+			<SessionFileInvalidError title="Kan sessie niet laden" message="Sessie bestand is beschadigd of ongeldig."/>
+			<DroppingFolderAsProjectModeWarning title="Ongeldige actie" message="Omdat u zich in de Map-als-Werkomgeving modus bevindt, kunt U alleen bestanden of mappen neerzetten, niet allebei.&#13;U moet &quot;Bij neerzetten alle bestanden uit de map openen ipv de map als werkomgeving te openen&quot; in&#13;de &quot;Standaardlocatie&quot; sectie van het Voorkeuren dialoogvenster aanvinken om deze operatie te laten werken."/>
+			<SortingError title="Sorteerfout" message="Niet in staat om numerieke sortering uit te voeren door lijn $INT_REPLACE$."/>
+			<ColumnModeTip title="Kolommodus Tip" message="Gebruik &quot;ALT + Mouse Selectie&quot; of &quot;Alt + Shift + pijltjes toets&quot; om over te schakelen naar de kolommodus."/>
+			<BufferInvalidWarning title="Opslaan mislukt" message="Kan niet opslaan: Buffer is ongeldig."/>
+			<DoCloseOrNot title="Bestand sluiten" message="Het bestand &quot;$STR_REPLACE$&quot; bestaat niet meer.&#13;Bewaar dit bestand in de editor?"/>
+			<DoDeleteOrNot title="Bestand verwijderen" message="Het bestand &quot;$STR_REPLACE$&quot;&#13; zal naar uw prullenbak worden verplaatst en het document zal worden gesloten.&#13;Doorgaan?"/>
+			<NoBackupDoSaveFile title="Bestand opslaan" message="Uw bestandsresevekopie kan niet worden gevonden (mogelijk van buitenaf verwijderd).&#13;Sla het bestand op, anders zullen uw gegevens verloren gaan.&#13;Wilt u bestand &quot;$STR_REPLACE$&quot; opslaan?"/>
+			<DoReloadOrNot title="Bestand opnieuw openen" message="Het bestand&#13;&quot;$STR_REPLACE$&quot;&#13;is gewijzigd door een ander programma.&#13;Wilt u het opnieuw laden?"/>
+			<DoReloadOrNotAndLooseChange title="Bestand opnieuw openen" message="Het bestand&#13;&quot;$STR_REPLACE$&quot;&#13;is gewijzigd door een ander programma.&#13;Wilt u het opnieuw laden en de wijzigingen die in Notepad++ zijn gemaakt verliezen?"/>
+			<PrehistoricSystemDetected title="Prehistorisch systeem gedetecteerd" message="Het lijkt erop dat je nog steeds een prehistorisch systeem gebruikt. Deze functie werkt alleen op een modern systeem, sorry."/>
+			<XpUpdaterProblem title="Notepad++ Updater" message="Notepad++ updater is niet compatibel met XP vanwege de verouderde beveiligingslaag onder XP.&#13;Wilt u naar Notepad++ pagina gaan om de nieuwste versie te downloaden?"/>
+			<DocTooDirtyToMonitor title="Bestandswijzigingen bewaak probleem" message="Het document is gewijzigd. Bewaar de wijzigingen voordat u het bewaken van bestandswijzigingen activeert."/>
+			<DocNoExistToMonitor title="Bestandswijzigingen bewaak probleem" message="Het bestand moet bestaan om voor wijzigingen te kunnen worden bewaakt."/>
+			<FileTooBigToOpen title="Bestandsgrootte probleem" message="Bestand is te groot om te openen met Notepad++"/>
+			<CreateNewFileOrNot title="Nieuw bestand" message="&quot;$STR_REPLACE$&quot; bestaat niet. Aanmaken?"/>
+			<CreateNewFileError title="Nieuw bestand" message="Kan het bestand &quot;$STR_REPLACE$&quot; niet aanmaken."/>
+			<OpenFileError title="Bestand openen" message="Kan bestand &quot;$STR_REPLACE$&quot; niet openen."/>
+			<FileBackupFailed title="Bestandsreserviekopie" message="De vorige versie van het bestand kon niet worden opgeslagen in de reservekopiemap &quot;$STR_REPLACE$&quot;.&#13;&#13;Wilt u het huidige bestand toch opslaan?"/>
+			<LoadStylersFailed title="Opmaak voorkeuren" message="Laden van &quot;$STR_REPLACE$&quot; mislukt!"/>
+			<LoadLangsFailed title="Taal voorkeuren" message="Laden van &quot;langs.xml&quot; mislukt!&#13;Wilt u uw &quot;langs.xml&quot; herstellen?"/>
+			<LoadLangsFailedFinal title="Taal voorkeuren" message="Laden van &quot;langs.xml&quot; mislukt!"/>
+			<FolderAsWorspaceSubfolderExists title="Map als Werkomgeving" message="Er bestaat een submap van de map die u wilt toevoegen.&#13;Verwijder de submap voordat u map &quot;$STR_REPLACE$&quot; toevoegt."/>
+			<ProjectPanelChanged title="$STR_REPLACE$" message="De werkomgeving is aangepast. Wilt u het opslaan?"/>
+			<ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Uw werkomgeving is niet opgeslagen."/>
+			<ProjectPanelOpenDoSaveDirtyWsOrNot title="Werkomgeving openen" message="De huidige werkomgeving is aangepast. Wilt u het huidige project opslaan?"/>
+			<ProjectPanelNewDoSaveDirtyWsOrNot title="Nieuwe werkomgeving" message="De huidige werkomgeving is aangepast. Wilt u het huidige project opslaan?"/>
+			<ProjectPanelOpenFailed title="Werkomgeving openen" message="De werkomgeving kon niet worden geopend.&#13;Het lijkt erop dat het te openen bestand geen geldig projectbestand is."/>
+			<ProjectPanelRemoveFolderFromProject title="Map uit project verwijderen" message="De werkomgeving kon niet worden geopend.&#13;Het lijkt erop dat het te openen bestand geen geldig projectbestand is."/>
+			<ProjectPanelRemoveFileFromProject title="Bestand uit project verwijderen" message="Weet u zeker dat u dit bestand uit het project wilt verwijderen?"/>
+			<ProjectPanelReloadError title="Werkomgeving laden" message="Kan het bestand om opnieuw te laden niet vinden."/>
+			<ProjectPanelReloadDirty title="Werkomgeving laden" message="De huidige werkomgeving is aangepast. Herladen zal alle wijzigingen weggooien.&#13;Wilt u doorgaan?"/>
+			<UDLNewNameError title="UDL Probleem" message="Deze naam wordt gebruikt door een andere taal,&#13;geef een andere naam."/>
+			<UDLRemoveCurrentLang title="Verwijder huidige taal" message="Weet u het zeker?"/>
+			<SCMapperDoDeleteOrNot title="Weet u het zeker?" message="Weet u zeker dat u deze sneltoets wilt verwijderen?"/>
+			<FindCharRangeValueError title="Waarde bereik probleem" message="U moet een waarde tussen 0 en 255 geven."/>
+			<OpenInAdminMode title="Bestand opslaan" message="Het bestand kan niet worden opgeslagen, het kan zijn beveiligd.&#13; Wilt u Notepad++ starten in de beheerdersmodus?"/>
+			<OpenInAdminModeWithoutCloseCurrent title="Bestand opslaan" message="Het bestand kan niet worden opgeslagen, het kan zijn beveiligd.&#13; Wilt u Notepad++ starten in de beheerdersmodus?"/>
+			<OpenInAdminModeFailed title="Openen in beheerdersmodus mislukt" message="Notepad++ kan niet worden geopend in de beheerdersmodus."/>
+			<ViewInBrowser title="Document bekijken in browser" message="Applicatie niet gevonden op uw computer."/>
+			<ExitToUpdatePlugins title="Notepad++ afsluiten" message="Notepad++ moet afsluiten om de update te voltooien.&#13;Vervolgens zal Notepad++ opnieuw starten.&#13;&#13;Wilt u doorgaan?"/>
+			<NeedToRestartToLoadPlugins title="Notepad++ opnieuw starten" message="Start Notepad++ opnieuw op om de geïnstalleerde plug-ins te activeren."/>
 		</MessageBox>
 
 		<ClipboardHistory>
@@ -1234,7 +1072,7 @@
 		<DocSwitcher>
 			<PanelTitle name="Documentenlijst"/>
 			<ColumnName name="Naam"/>
-			<ColumnExt  name="Ext."/>
+			<ColumnExt name="Ext."/>
 		</DocSwitcher>
 		<WindowsDlg>
 			<ColumnName name="Naam"/>
@@ -1243,8 +1081,8 @@
 		</WindowsDlg>
 		<AsciiInsertion>
 			<PanelTitle name="ASCII-karakters / HTML-entiteiten"/>
-			<ColumnVal  name="Dec"/>
-			<ColumnHex  name="Hex"/>
+			<ColumnVal name="Dec"/>
+			<ColumnHex name="Hex"/>
 			<ColumnChar name="Karakter"/>
 			<ColumnHtmlNumber name="Entiteitnummer"/>
 			<ColumnHtmlName name="Entiteitnaam"/>
@@ -1254,8 +1092,8 @@
 		</DocumentMap>
 		<FunctionList>
 			<PanelTitle name="Functielijst"/>
-			<SortTip    name="Sorteren"/>
-			<ReloadTip  name="Opnieuw laden"/>
+			<SortTip name="Sorteren"/>
+			<ReloadTip name="Opnieuw laden"/>
 		</FunctionList>
 		<FolderAsWorkspace>
 			<PanelTitle name="Map als Werkomgeving"/>
@@ -1274,10 +1112,10 @@
 			</Menus>
 		</FolderAsWorkspace>
 		<ProjectManager>
-			<PanelTitle        name="Project"/>
+			<PanelTitle name="Project"/>
 			<WorkspaceRootName name="Werkmap"/>
-			<NewProjectName    name="Nieuw project"/>
-			<NewFolderName     name="Nieuwe map"/>
+			<NewProjectName name="Nieuw project"/>
+			<NewFolderName name="Nieuwe map"/>
 			<Menus>
 				<Entries>
 					<Item id="0" name="Werkmap"/>
@@ -1321,204 +1159,72 @@
 		</ProjectManager>
 		<MiscStrings>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders -->
-			<word-chars-list-tip
-				value="Hiermee kan een extra teken aan de huidige woordtekenlijst worden toegevoegd. Deze lijst bepaalt wat als woord wordt gezien bij dubbelklik op een selectie en bij het zoeken met de &quot;Losse woorden&quot;-optie aangevinkt."
-			/>
-			<word-chars-list-warning-begin
-				value="Let op: "
-			/>
-			<word-chars-list-space-warning
-				value="$INT_REPLACE$ spatie(s)"
-			/>
-			<word-chars-list-tab-warning
-				value="$INT_REPLACE$ tab(s)"
-			/>
-			<word-chars-list-warning-end
-				value="  in de woordtekenlijst."
-			/>
-			<cloud-invalid-warning
-				value="Ongeldig pad."
-			/>
-			<cloud-restart-warning
-				value="Start Notepad++ opnieuw op om de instellingen te activeren."
-			/>
-			<cloud-select-folder
-				value="Selecteer een map waar Notepad++ instellingen leest en opslaat"
-			/>
-			<shift-change-direction-tip
-				value="Gebruik Shift + Enter om in omgekeerde richting te zoeken"
-			/>
-			<two-find-buttons-tip
-				value="2-zoek-knoppen modus"
-			/>
-			<find-status-top-reached
-				value="Zoeken: 1ste locatie vanuit document einde gevonden. De start van het document is gepasseerd."
-			/>
-			<find-status-end-reached
-				value="Zoeken: 1ste locatie vanuit document begin gevonden. Het einde van het document is gepasseerd."
-			/>
-			<find-status-replaceinfiles-1-replaced
-				value="Vervangen in bestanden: Tekst is op 1 locatie vervangen"
-			/>
-			<find-status-replaceinfiles-nb-replaced
-				value="Vervangen in bestanden: Tekst is op $INT_REPLACE$ locaties vervangen"
-			/>
-			<find-status-replaceinfiles-re-malformed
-				value="Vervangen in geopende bestanden: De reguliere expressie is misvormd"
-			/>
-			<find-status-replaceinopenedfiles-1-replaced
-				value="Vervangen in geopende bestanden: Tekst is op 1 locatie vervangen"
-			/>
-			<find-status-replaceinopenedfiles-nb-replaced
-				value="Vervangen in geopende bestanden: Tekst is op $INT_REPLACE$ locaties vervangen"
-			/>
-			<find-status-mark-re-malformed
-				value="Markeren: De reguliere expressie is misvormd"
-			/>
-			<find-status-invalid-re
-				value="Zoeken: De reguliere expressie is misvormd"
-			/>
-			<find-status-mark-1-match
-				value="1 locatie gevonden"
-			/>
-			<find-status-mark-nb-matches
-				value="$INT_REPLACE$ locaties gevonden"
-			/>
-			<find-status-count-re-malformed
-				value="Tellen: De reguliere expressie is misvormd"
-			/>
-			<find-status-count-1-match
-				value="Tellen: Tekst is op 1 locatie gevonden"
-			/>
-			<find-status-count-nb-matches
-				value="Tellen: Tekst is op $INT_REPLACE$ locaties gevonden"
-			/>
-			<find-status-replaceall-re-malformed
-				value="Alle vervangen: De reguliere expressie is misvormd"
-			/>
-			<find-status-replaceall-1-replaced
-				value="Alle vervangen: Tekst is op 1 locatie vervangen"
-			/>
-			<find-status-replaceall-nb-replaced
-				value="Alle vervangen: Tekst is op $INT_REPLACE$ locaties vervangen"
-			/>
-			<find-status-replaceall-readonly
-				value="Alle vervangen: Kan tekst niet vervangen. Huidige document heeft alleen-lezen modus"
-			/>
-			<find-status-replace-end-reached
-				value="Vervangen: Tekst is op 1 locatie vervangen. Einde van het document is gepasseerd"
-			/>
-			<find-status-replace-top-reached
-				value="Vervangen: Tekst is op 1 locatie vervangen. Start van het document is gepasseerd"
-			/>
-			<find-status-replaced-next-found
-				value="Vervangen: Tekst is op 1 locatie vervangen. Nieuwe locatie gevonden"
-			/>
-			<find-status-replaced-next-not-found
-				value="Vervangen: Tekst is op 1 locatie vervangen. Geen nieuwe locatie gevonden"
-			/>
-			<find-status-replace-not-found
-				value="Vervangen: Tekst niet gevonden"
-			/>
-			<find-status-replace-readonly
-				value="Vervangen: Kan tekst niet vervangen. Huidige document heeft alleen-lezen modus"
-			/>
-			<find-status-cannot-find
-				value="Zoeken: Kan tekst &quot;$STR_REPLACE$&quot; niet vinden"
-			/>
-			<finder-find-in-finder
-				value="Zoek in deze zoekresultaten..."
-			/>
-			<finder-close-this
-				value="Sluit deze zoekresultaten"
-			/>
-			<finder-collapse-all
-				value="Alle samenvouwen"
-			/>
-			<finder-uncollapse-all
-				value="Alle uitvouwen"
-			/>
-			<finder-copy
-				value="Kopiëren"
-			/>
-			<finder-select-all
-				value="Alle selecteren"
-			/>
-			<finder-clear-all
-				value="Alle wissen"
-			/>
-			<finder-open-all
-				value="Alle openen"
-			/>
-			<common-ok
-				value="OK"
-			/>
-			<common-cancel
-				value="Annuleren"
-			/>
-			<common-name
-				value="Naam: "
-			/>
-			<tabrename-title
-				value="Huidige tab hernoemen"
-			/>
-			<tabrename-newname
-				value="Nieuwe naam: "
-			/>
-			<recent-file-history-maxfile
-				value="Max. bestand: "
-			/>
-			<language-tabsize
-				value="Tabgrootte: "
-			/>
-			<userdefined-title-new
-				value="Nieuwe syntaxis aanmaken..."
-			/>
-			<userdefined-title-save
-				value="Huidige syntaxis opslaan als..."
-			/>
-			<userdefined-title-rename
-				value="Huidige syntaxis hernoemen"
-			/>
-			<autocomplete-nb-char
-				value="Karakters: "
-			/>
-			<edit-verticaledge-nb-col
-				value="Kolommen: "
-			/>
-			<summary
-				value="Documentinformatie"
-			/>
-			<summary-filepath
-				value="Bestandsnaam: "
-			/>
-			<summary-filecreatetime
-				value="Gemaakt: "
-			/>
-			<summary-filemodifytime
-				value="Gewijzigd: "
-			/>
-			<summary-nbchar
-				value="Lettertekens: "
-			/>
-			<summary-nbword
-				value="Woorden: "
-			/>
-			<summary-nbline
-				value="Regels: "
-			/>
-			<summary-nbbyte
-				value="Documentgrootte: "
-			/>
-			<summary-nbsel1
-				value=" geselecteerde tekens ("
-			/>
-			<summary-nbsel2
-				value=" bytes) in "
-			/>
-			<summary-nbrange
-				value=" selecties"
-			/>
+			<word-chars-list-tip value="Hiermee kan een extra teken aan de huidige woordtekenlijst worden toegevoegd. Deze lijst bepaalt wat als woord wordt gezien bij dubbelklik op een selectie en bij het zoeken met de &quot;Losse woorden&quot;-optie aangevinkt."/>
+			<word-chars-list-warning-begin value="Let op: "/>
+			<word-chars-list-space-warning value="$INT_REPLACE$ spatie(s)"/>
+			<word-chars-list-tab-warning value="$INT_REPLACE$ tab(s)"/>
+			<word-chars-list-warning-end value="  in de woordtekenlijst."/>
+			<cloud-invalid-warning value="Ongeldig pad."/>
+			<cloud-restart-warning value="Start Notepad++ opnieuw op om de instellingen te activeren."/>
+			<cloud-select-folder value="Selecteer een map waar Notepad++ instellingen leest en opslaat"/>
+			<shift-change-direction-tip value="Gebruik Shift + Enter om in omgekeerde richting te zoeken"/>
+			<two-find-buttons-tip value="2-zoek-knoppen modus"/>
+			<find-status-top-reached value="Zoeken: 1ste locatie vanuit document einde gevonden. De start van het document is gepasseerd."/>
+			<find-status-end-reached value="Zoeken: 1ste locatie vanuit document begin gevonden. Het einde van het document is gepasseerd."/>
+			<find-status-replaceinfiles-1-replaced value="Vervangen in bestanden: Tekst is op 1 locatie vervangen"/>
+			<find-status-replaceinfiles-nb-replaced value="Vervangen in bestanden: Tekst is op $INT_REPLACE$ locaties vervangen"/>
+			<find-status-replaceinfiles-re-malformed value="Vervangen in geopende bestanden: De reguliere expressie is misvormd"/>
+			<find-status-replaceinopenedfiles-1-replaced value="Vervangen in geopende bestanden: Tekst is op 1 locatie vervangen"/>
+			<find-status-replaceinopenedfiles-nb-replaced value="Vervangen in geopende bestanden: Tekst is op $INT_REPLACE$ locaties vervangen"/>
+			<find-status-mark-re-malformed value="Markeren: De reguliere expressie is misvormd"/>
+			<find-status-invalid-re value="Zoeken: De reguliere expressie is misvormd"/>
+			<find-status-mark-1-match value="1 locatie gevonden"/>
+			<find-status-mark-nb-matches value="$INT_REPLACE$ locaties gevonden"/>
+			<find-status-count-re-malformed value="Tellen: De reguliere expressie is misvormd"/>
+			<find-status-count-1-match value="Tellen: Tekst is op 1 locatie gevonden"/>
+			<find-status-count-nb-matches value="Tellen: Tekst is op $INT_REPLACE$ locaties gevonden"/>
+			<find-status-replaceall-re-malformed value="Alle vervangen: De reguliere expressie is misvormd"/>
+			<find-status-replaceall-1-replaced value="Alle vervangen: Tekst is op 1 locatie vervangen"/>
+			<find-status-replaceall-nb-replaced value="Alle vervangen: Tekst is op $INT_REPLACE$ locaties vervangen"/>
+			<find-status-replaceall-readonly value="Alle vervangen: Kan tekst niet vervangen. Huidige document heeft alleen-lezen modus"/>
+			<find-status-replace-end-reached value="Vervangen: Tekst is op 1 locatie vervangen. Einde van het document is gepasseerd"/>
+			<find-status-replace-top-reached value="Vervangen: Tekst is op 1 locatie vervangen. Start van het document is gepasseerd"/>
+			<find-status-replaced-next-found value="Vervangen: Tekst is op 1 locatie vervangen. Nieuwe locatie gevonden"/>
+			<find-status-replaced-next-not-found value="Vervangen: Tekst is op 1 locatie vervangen. Geen nieuwe locatie gevonden"/>
+			<find-status-replace-not-found value="Vervangen: Tekst niet gevonden"/>
+			<find-status-replace-readonly value="Vervangen: Kan tekst niet vervangen. Huidige document heeft alleen-lezen modus"/>
+			<find-status-cannot-find value="Zoeken: Kan tekst &quot;$STR_REPLACE$&quot; niet vinden"/>
+			<finder-find-in-finder value="Zoek in deze zoekresultaten..."/>
+			<finder-close-this value="Sluit deze zoekresultaten"/>
+			<finder-collapse-all value="Alle samenvouwen"/>
+			<finder-uncollapse-all value="Alle uitvouwen"/>
+			<finder-copy value="Kopiëren"/>
+			<finder-select-all value="Alle selecteren"/>
+			<finder-clear-all value="Alle wissen"/>
+			<finder-open-all value="Alle openen"/>
+			<common-ok value="OK"/>
+			<common-cancel value="Annuleren"/>
+			<common-name value="Naam: "/>
+			<tabrename-title value="Huidige tab hernoemen"/>
+			<tabrename-newname value="Nieuwe naam: "/>
+			<recent-file-history-maxfile value="Max. bestand: "/>
+			<language-tabsize value="Tabgrootte: "/>
+			<userdefined-title-new value="Nieuwe syntaxis aanmaken..."/>
+			<userdefined-title-save value="Huidige syntaxis opslaan als..."/>
+			<userdefined-title-rename value="Huidige syntaxis hernoemen"/>
+			<autocomplete-nb-char value="Karakters: "/>
+			<edit-verticaledge-nb-col value="Kolommen: "/>
+			<summary value="Documentinformatie"/>
+			<summary-filepath value="Bestandsnaam: "/>
+			<summary-filecreatetime value="Gemaakt: "/>
+			<summary-filemodifytime value="Gewijzigd: "/>
+			<summary-nbchar value="Lettertekens: "/>
+			<summary-nbword value="Woorden: "/>
+			<summary-nbline value="Regels: "/>
+			<summary-nbbyte value="Documentgrootte: "/>
+			<summary-nbsel1 value=" geselecteerde tekens ("/>
+			<summary-nbsel2 value=" bytes) in "/>
+			<summary-nbrange value=" selecties"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

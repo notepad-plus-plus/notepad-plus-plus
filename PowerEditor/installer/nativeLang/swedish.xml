@@ -446,7 +446,7 @@
 				<Item id="2"  name="Stäng"/>
 			</SHA256FromTextDlg>
 
-			<PluginsAdminDlg title="Plugins Admin" titleAvailable = "Available" titleUpdates = "Updates" titleInstalled = "Installed">
+			<PluginsAdminDlg title="Plugins Admin" titleAvailable="Available" titleUpdates="Updates" titleInstalled="Installed">
 				<ColumnPlugin   name="Plugin"/>
 				<ColumnVersion  name="Version"/>
 				<Item id="5501" name="Sök:"/>
@@ -1008,8 +1008,6 @@ Inga sparade ändringar kan ångras.
 
 Fortsätt?"/>
 			<LoseUndoAbilityWarning title="Varning, förlorad förmåga att ångra" message="Du bör spara ändringarna.&#x0A;Inga sparade ändringar kan ångras.&#x0A;&#x0A;Fortsätt?"/>
-
-
 
 			<CannotMoveDoc title="Flytta till en ny instans av Notepad++" message="Dokumentet är ändrat, spara det och försök igen."/>
 			<DocReloadWarning title="Ladda om" message="Är det säkert att du vill ladda om aktuell fil och förlora de ändringar som gjorts i Notepad++?"/>

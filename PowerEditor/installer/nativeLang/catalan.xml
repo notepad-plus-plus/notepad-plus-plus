@@ -24,7 +24,7 @@ By Hiro5 <groccat at gmail>
 				</Entries>
 				<SubEntries>
 					<Item subMenuId="file-openFolder" name="Obre la carpeta contenidora"/>
-					<Item subMenuId="file-closeMore" name = "&amp;Més tancaments"/>
+					<Item subMenuId="file-closeMore" name="&amp;Més tancaments"/>
 					<Item subMenuId="file-recentFiles" name="&amp;Fitxers recents"/>
 					<Item subMenuId="edit-copyToClipboard" name="Copia al porta&amp;-retalls"/>
 					<Item subMenuId="edit-indent" name="Tab&amp;ulació"/>
@@ -45,7 +45,7 @@ By Hiro5 <groccat at gmail>
 					<Item subMenuId="view-showSymbol" name="Mostra sím&amp;bol"/>
 					<Item subMenuId="view-zoom" name="&amp;Zoom"/>
 					<Item subMenuId="view-moveCloneDocument" name="M&amp;ou/clona el document actual"/>
-					<Item subMenuId="view-tab" name = "Pestanyes"/>
+					<Item subMenuId="view-tab" name="Pestanyes"/>
 					<Item subMenuId="view-collapseLevel" name="P&amp;lega el nivell..."/>
 					<Item subMenuId="view-uncollapseLevel" name="De&amp;splega el nivell..."/>
 					<Item subMenuId="view-project" name="Pro&amp;jectes"/>
@@ -402,7 +402,7 @@ By Hiro5 <groccat at gmail>
 				<Item id="1687" name="En perdre el focus"/>
 				<Item id="1688" name="Sempre"/>
 			</Find>
-			<FindCharsInRange title = "Cerca interval de caràcters...">
+			<FindCharsInRange title="Cerca interval de caràcters...">
 				<Item id="2910" name="Cerca"/>
 				<Item id="2" name="Tanca"/>
 				<Item id="2901" name="Caràcters no-ASCII (128-255)"/>
@@ -448,7 +448,7 @@ By Hiro5 <groccat at gmail>
 				<Item id="1934" name="Copia al porta-retalls"/>
 				<Item id="2"    name="Tanca"/>
 			</SHA256FromTextDlg>
-			<PluginsAdminDlg title="Administrador de complements" titleAvailable = "Disponibles" titleUpdates = "Actualitzacions" titleInstalled = "Instal·lats">
+			<PluginsAdminDlg title="Administrador de complements" titleAvailable="Disponibles" titleUpdates="Actualitzacions" titleInstalled="Instal·lats">
 				<ColumnPlugin   name="Complement"/>
 				<ColumnVersion  name="Versió"/>
 				<Item id="5501" name="Cerca:"/>

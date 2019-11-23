@@ -27,7 +27,7 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 				</Entries>
 				<!-- Sub Menu Entries -->
 				<SubEntries>
-				        <Item subMenuId="file-openFolder" name="Avaa kansio"/>
+					<Item subMenuId="file-openFolder" name="Avaa kansio"/>
 					<Item subMenuId="file-recentFiles" name="Viimeisimmät tiedostot"/>
 					<Item subMenuId="file-closeMore" name="Sulje useita" />
 					<Item subMenuId="edit-copyToClipboard" name="Kopioi leikepöydälle"/>
@@ -37,37 +37,37 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 					<Item subMenuId="edit-comment" name="Kommentit"/>
 					<Item subMenuId="edit-autoCompletion" name="Automaattiset täydennykset"/>
 					<Item subMenuId="edit-eolConversion" name="Rivin loppumerkit (EOL)"/>
-                    			<Item subMenuId="edit-blankOperations" name="Välilyöntien käsittely"/>
+					<Item subMenuId="edit-blankOperations" name="Välilyöntien käsittely"/>
 					<Item subMenuId="edit-pasteSpecial" name="Liitä erikoistekstiä"/>
 					<Item subMenuId="search-markAll" name="Samanlaisten korostaminen"/>
-                    			<Item subMenuId="search-unmarkAll" name="Korostusten poistaminen"/>
-                    			<Item subMenuId="search-jumpUp" name="Eteenpäin korostustyyliin"/>
-                    			<Item subMenuId="search-jumpDown" name="Taaksepäin korostustyyliin"/>
-                    			<Item subMenuId="search-bookmark" name="Kirjanmerkit"/>
+					<Item subMenuId="search-unmarkAll" name="Korostusten poistaminen"/>
+					<Item subMenuId="search-jumpUp" name="Eteenpäin korostustyyliin"/>
+					<Item subMenuId="search-jumpDown" name="Taaksepäin korostustyyliin"/>
+					<Item subMenuId="search-bookmark" name="Kirjanmerkit"/>
 					<Item subMenuId="view-showSymbol" name="Erityismerkit"/>
-                    			<Item subMenuId="view-zoom" name="Suurennus"/>
-                    			<Item subMenuId="view-moveCloneDocument" name="Näkymät ja istunnot"/>
-                    			<Item subMenuId="view-collapseLevel" name="Sulje lohkot tasolle"/>
-                    			<Item subMenuId="view-uncollapseLevel" name="Avaa lohkot tasolle"/>
+					<Item subMenuId="view-zoom" name="Suurennus"/>
+					<Item subMenuId="view-moveCloneDocument" name="Näkymät ja istunnot"/>
+					<Item subMenuId="view-collapseLevel" name="Sulje lohkot tasolle"/>
+					<Item subMenuId="view-uncollapseLevel" name="Avaa lohkot tasolle"/>
 					<Item subMenuId="view-project" name="Projekti" />
 					<Item subMenuId="encoding-characterSets" name="Merkistökoodaus"/>
-          		          	<Item subMenuId="encoding-arabic"  name="Arabialainen"/>
-     		               	<Item subMenuId="encoding-baltic"  name="Balttilainen"/>
-     		               	<Item subMenuId="encoding-celtic"  name="Kelttiläinen"/>
-      		              	<Item subMenuId="encoding-cyrillic"  name="Kyrillinen"/>
-           		         	<Item subMenuId="encoding-centralEuropean"  name="Keskieurooppalainen"/>
-		                    	<Item subMenuId="encoding-chinese"  name="Kiinalainen"/>
-              		      	<Item subMenuId="encoding-easternEuropean"  name="Itäeurooppalainen"/>
-                    			<Item subMenuId="encoding-greek"  name="Kreikkalainen"/>
-                    			<Item subMenuId="encoding-hebrew"  name="Heprealainen"/>
-                    			<Item subMenuId="encoding-japanese"  name="Japanilainen"/>
-                    			<Item subMenuId="encoding-korean" name="Korealainen"/>
-                    			<Item subMenuId="encoding-northEuropean" name="Pohjoismaalainen"/>
-                    			<Item subMenuId="encoding-thai" name="Thaimaalainen"/>
-                    			<Item subMenuId="encoding-turkish" name="Turkkilainen"/>
-                    			<Item subMenuId="encoding-westernEuropean" name="Länsimainen"/>
-                    			<Item subMenuId="encoding-vietnamese" name="Vietnamilainen"/>
-                    			<Item subMenuId="settings-import" name="Tuonti" />
+					<Item subMenuId="encoding-arabic"  name="Arabialainen"/>
+					<Item subMenuId="encoding-baltic"  name="Balttilainen"/>
+					<Item subMenuId="encoding-celtic"  name="Kelttiläinen"/>
+					<Item subMenuId="encoding-cyrillic"  name="Kyrillinen"/>
+					<Item subMenuId="encoding-centralEuropean"  name="Keskieurooppalainen"/>
+					<Item subMenuId="encoding-chinese"  name="Kiinalainen"/>
+					<Item subMenuId="encoding-easternEuropean"  name="Itäeurooppalainen"/>
+					<Item subMenuId="encoding-greek"  name="Kreikkalainen"/>
+					<Item subMenuId="encoding-hebrew"  name="Heprealainen"/>
+					<Item subMenuId="encoding-japanese"  name="Japanilainen"/>
+					<Item subMenuId="encoding-korean" name="Korealainen"/>
+					<Item subMenuId="encoding-northEuropean" name="Pohjoismaalainen"/>
+					<Item subMenuId="encoding-thai" name="Thaimaalainen"/>
+					<Item subMenuId="encoding-turkish" name="Turkkilainen"/>
+					<Item subMenuId="encoding-westernEuropean" name="Länsimainen"/>
+					<Item subMenuId="encoding-vietnamese" name="Vietnamilainen"/>
+					<Item subMenuId="settings-import" name="Tuonti" />
 
 					<Item subMenuId="view-tab" name="Välilehdet" />
 
@@ -286,31 +286,31 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 					<Item id="50001" name="Sanan täydennys"/>
 					<Item id="50002" name="Funktion parametriohje"/>
 					<Item id="50006" name="Polun täydennys"/>
-					</Commands>
+				</Commands>
 			</Main>
 			<Splitter />
 			<TabBar>
-					<Item CMID="0" name="&amp;Sulje"/>
-					<Item CMID="1" name="Sulje kaikki paitsi &amp;aktiivinen"/>
-					<Item CMID="2" name="&amp;Tallenna"/>
-					<Item CMID="3" name="Tallenna &amp;nimellä..."/>
-					<Item CMID="4" name="T&amp;ulosta"/>
-					<Item CMID="5" name="&amp;Vaihda näkymää"/>
-					<Item CMID="6" name="&amp;Kahdenna näkymä"/>
-					<Item CMID="7" name="Kopioi tiedostopolku ja -nimi"/>
-					<Item CMID="8" name="Kopioi tiedostonimi"/>
-					<Item CMID="9" name="Kopioi tiedostopolku"/>
-					<Item CMID="10" name="Nimeä uudelleen"/>
-					<Item CMID="11" name="Poista"/>
-					<Item CMID="12" name="Lukutila"/>
-					<Item CMID="13" name="Muokkaustila"/>
-					<Item CMID="14" name="Luo uusi istunto"/>
-					<Item CMID="15" name="Avaa uudessa istunnossa"/>
-					<Item CMID="16" name="Avaa" />
-					<Item CMID="17" name="Sulje kaikki vasemmanpuoleiset" />
-					<Item CMID="18" name="Sulje kaikki oikeanpuoleiset"  />
-					<Item CMID="19" name="Avaa kansio resurssienhallinnassa"/>
-					<Item CMID="20" name="Avaa kansio komentokehotteessa"/>
+				<Item CMID="0" name="&amp;Sulje"/>
+				<Item CMID="1" name="Sulje kaikki paitsi &amp;aktiivinen"/>
+				<Item CMID="2" name="&amp;Tallenna"/>
+				<Item CMID="3" name="Tallenna &amp;nimellä..."/>
+				<Item CMID="4" name="T&amp;ulosta"/>
+				<Item CMID="5" name="&amp;Vaihda näkymää"/>
+				<Item CMID="6" name="&amp;Kahdenna näkymä"/>
+				<Item CMID="7" name="Kopioi tiedostopolku ja -nimi"/>
+				<Item CMID="8" name="Kopioi tiedostonimi"/>
+				<Item CMID="9" name="Kopioi tiedostopolku"/>
+				<Item CMID="10" name="Nimeä uudelleen"/>
+				<Item CMID="11" name="Poista"/>
+				<Item CMID="12" name="Lukutila"/>
+				<Item CMID="13" name="Muokkaustila"/>
+				<Item CMID="14" name="Luo uusi istunto"/>
+				<Item CMID="15" name="Avaa uudessa istunnossa"/>
+				<Item CMID="16" name="Avaa" />
+				<Item CMID="17" name="Sulje kaikki vasemmanpuoleiset" />
+				<Item CMID="18" name="Sulje kaikki oikeanpuoleiset"  />
+				<Item CMID="19" name="Avaa kansio resurssienhallinnassa"/>
+				<Item CMID="20" name="Avaa kansio komentokehotteessa"/>
 
 			</TabBar>
 		</Menu>
@@ -608,8 +608,8 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 					<Item id="6121" name="Valikkorivi"/>
 					<Item id="6122" name="Piilotettu (Näytä/piilota: F10 tai Alt)"/>
 					<Item id="6123" name="Käyttöliittymän kieli"/>
-    					<Item id="6125" name="Dokumenttiluettelo"/>
-    					<Item id="6126" name="Näytä"/>
+					<Item id="6125" name="Dokumenttiluettelo"/>
+					<Item id="6126" name="Näytä"/>
 					<Item id="6127" name="Piilota päätesarake"/>
 				</Global>
 				<Scintillas title="Muokkaus">
@@ -852,46 +852,46 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 		<ProjectManager>
 			<PanelTitle name="Projekti"/>
 			<WorkspaceRootName name="Työtila"/>
-				<Menus>
-					<Entries>
-						<Item id="0" name="Työtila"/>
-						<Item id="1" name="Muokkaa"/>
-					</Entries>
-					<WorkspaceMenu>
-						<Item id="3122" name="Uusi työtila"/>
-						<Item id="3123" name="Avaa työtila"/>
-						<Item id="3124" name="Lataa työtila uudestaan"/>
-						<Item id="3125" name="Tallenna"/>
-						<Item id="3126" name="Tallenna nimellä..."/>
-						<Item id="3127" name="Tallenna kopio..."/>
-						<Item id="3121" name="Lisää projekti"/>
-					</WorkspaceMenu>
-					<ProjectMenu>
-						<Item id="3111" name="Nimeä uudelleen"/>
-						<Item id="3112" name="Lisää kansio"/>
-						<Item id="3113" name="Lisää tiedostot..."/>
-						<Item id="3114" name="Poista"/>
-	 					<Item id="3117" name="Lisää tiedostot kansiosta... "/>
-						<Item id="3118" name="Siirrä ylös"/>
-						<Item id="3119" name="Siirrä alas"/>
-					</ProjectMenu>
-					<FolderMenu>
-						<Item id="3111" name="Nimeä uudelleen"/>
-						<Item id="3112" name="Lisää kansio"/>
-						<Item id="3113" name="Lisää tiedostot..."/>
-						<Item id="3114" name="Poista"/>
-	 					<Item id="3117" name="Lisää tiedostot kansiosta... "/>
-						<Item id="3118" name="Siirrä ylös"/>
-						<Item id="3119" name="Siirrä alas"/>
-					</FolderMenu>
-					<FileMenu>
-						<Item id="3111" name="Nimeä uudelleen"/>
-						<Item id="3115" name="Poista"/>
-						<Item id="3116" name="Muokkaa kansiopolkua"/>
-						<Item id="3118" name="Siirrä ylös"/>
-						<Item id="3119" name="Siirrä alas"/>
-					</FileMenu>
-				</Menus>
+			<Menus>
+				<Entries>
+					<Item id="0" name="Työtila"/>
+					<Item id="1" name="Muokkaa"/>
+				</Entries>
+				<WorkspaceMenu>
+					<Item id="3122" name="Uusi työtila"/>
+					<Item id="3123" name="Avaa työtila"/>
+					<Item id="3124" name="Lataa työtila uudestaan"/>
+					<Item id="3125" name="Tallenna"/>
+					<Item id="3126" name="Tallenna nimellä..."/>
+					<Item id="3127" name="Tallenna kopio..."/>
+					<Item id="3121" name="Lisää projekti"/>
+				</WorkspaceMenu>
+				<ProjectMenu>
+					<Item id="3111" name="Nimeä uudelleen"/>
+					<Item id="3112" name="Lisää kansio"/>
+					<Item id="3113" name="Lisää tiedostot..."/>
+					<Item id="3114" name="Poista"/>
+					<Item id="3117" name="Lisää tiedostot kansiosta... "/>
+					<Item id="3118" name="Siirrä ylös"/>
+					<Item id="3119" name="Siirrä alas"/>
+				</ProjectMenu>
+				<FolderMenu>
+					<Item id="3111" name="Nimeä uudelleen"/>
+					<Item id="3112" name="Lisää kansio"/>
+					<Item id="3113" name="Lisää tiedostot..."/>
+					<Item id="3114" name="Poista"/>
+					<Item id="3117" name="Lisää tiedostot kansiosta... "/>
+					<Item id="3118" name="Siirrä ylös"/>
+					<Item id="3119" name="Siirrä alas"/>
+				</FolderMenu>
+				<FileMenu>
+					<Item id="3111" name="Nimeä uudelleen"/>
+					<Item id="3115" name="Poista"/>
+					<Item id="3116" name="Muokkaa kansiopolkua"/>
+					<Item id="3118" name="Siirrä ylös"/>
+					<Item id="3119" name="Siirrä alas"/>
+				</FileMenu>
+			</Menus>
 		</ProjectManager>
 	</Native-Langue>
 </NotepadPlus>

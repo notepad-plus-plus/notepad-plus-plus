@@ -47,7 +47,7 @@
 					<Item subMenuId="search-bookmark" name="Legosignoj"/>
 					<Item subMenuId="view-showSymbol"  name="Montru signojn..."/>
 					<Item subMenuId="view-zoom"  name="Zomo (tekstogrando)..."/>
-					<Item subMenuId="view-moveCloneDocument"  name="Deloku/Montru la aktivan dokumenton..."/> <!-- Laŭ hVortaro (bazita sur vort. de Carlo Minnaja, bazita sur PIV) "movi" = "igi ne-senmova", "doni" movon al ion. Do se iu manĝas, tiu movas sian buŝon, tamen la buŝo restas ĉiam en la sama loko; deloku = ŝanĝi lokon al io; do openoffice eraras(?) -->
+					<Item subMenuId="view-moveCloneDocument"  name="Deloku/Montru la aktivan dokumenton..."/> <!-- Laŭ hVortaro (bazita sur vort. de Carlo Minnaja, bazita sur PIV) "movi"="igi ne-senmova", "doni" movon al ion. Do se iu manĝas, tiu movas sian buŝon, tamen la buŝo restas ĉiam en la sama loko; deloku=ŝanĝi lokon al io; do openoffice eraras(?) -->
 					<Item subMenuId="view-tab" name="Langeto..."/>
 					<Item subMenuId="view-collapseLevel" name="[-] Faldu blokojn je nivelo..."/>
 					<Item subMenuId="view-uncollapseLevel" name="[+]Malfaldu blokojn je nivelo..."/>
@@ -277,7 +277,7 @@
 					<Item id="47006" name="Ĝisdatigo de Notepad++"/>
 					<Item id="47008" name="Loka helpo"/>
 					<Item id="47009" name="Agordu ĝisdatiga prokurilo..."/>
-                    <Item id="47010" name="Argumentoj de komandlinio" />
+					<Item id="47010" name="Argumentoj de komandlinio" />
 					<Item id="48005" name="Importu kromaĵo(j)n..."/>
 					<Item id="48006" name="Importu etoso(j)n..."/>
 					<Item id="48018" name="Modifu kuntekstan menuon..."/>
@@ -306,25 +306,25 @@
 			<Splitter>
 			</Splitter>
 			<TabBar>
-					<Item CMID="0" name="Fermu"/>
-					<Item CMID="1" name="Fermu ĉiujn KROM tiu ĉi"/>
-					<Item CMID="2" name="Konservu"/>
-					<Item CMID="3" name="Konservu kiel..."/>
-					<Item CMID="4" name="Presu"/>
-					<Item CMID="5" name="Deloku al alia vido"/>
-					<Item CMID="6" name="Montru ankaŭ en alia vido"/>
-					<Item CMID="7" name="Kopiu la vojon de tiu ĉi dosiero"/>
-					<Item CMID="8" name="Kopiu la nomon de tiu ĉi dosiero"/>
-					<Item CMID="9" name="Kopiu la vojon de la dosierujo kun tiu ĉi dosiero"/>
-					<Item CMID="10" name="Alinomu"/>
-					<Item CMID="11" name="Forigu"/>
-					<Item CMID="12" name="Nurlegigu"/>
-					<Item CMID="13" name="Purigu la indikilon de nurlego"/>
-					<Item CMID="14" name="Deloku al nova ekzemplo de Notepad++"/>
-					<Item CMID="15" name="Montru ankaŭ en nova ekzemplo de Notepad++"/>
-					<Item CMID="16" name="Reŝargu"/>
-					<Item CMID="17" name="Fermu ĉiujn maldekstre"/>
-					<Item CMID="18" name="Fermu ĉiujn dekstre"/>
+				<Item CMID="0" name="Fermu"/>
+				<Item CMID="1" name="Fermu ĉiujn KROM tiu ĉi"/>
+				<Item CMID="2" name="Konservu"/>
+				<Item CMID="3" name="Konservu kiel..."/>
+				<Item CMID="4" name="Presu"/>
+				<Item CMID="5" name="Deloku al alia vido"/>
+				<Item CMID="6" name="Montru ankaŭ en alia vido"/>
+				<Item CMID="7" name="Kopiu la vojon de tiu ĉi dosiero"/>
+				<Item CMID="8" name="Kopiu la nomon de tiu ĉi dosiero"/>
+				<Item CMID="9" name="Kopiu la vojon de la dosierujo kun tiu ĉi dosiero"/>
+				<Item CMID="10" name="Alinomu"/>
+				<Item CMID="11" name="Forigu"/>
+				<Item CMID="12" name="Nurlegigu"/>
+				<Item CMID="13" name="Purigu la indikilon de nurlego"/>
+				<Item CMID="14" name="Deloku al nova ekzemplo de Notepad++"/>
+				<Item CMID="15" name="Montru ankaŭ en nova ekzemplo de Notepad++"/>
+				<Item CMID="16" name="Reŝargu"/>
+				<Item CMID="17" name="Fermu ĉiujn maldekstre"/>
+				<Item CMID="18" name="Fermu ĉiujn dekstre"/>
 			</TabBar>
 		</Menu>
 
@@ -371,7 +371,7 @@
 				<Item id="1703" name="&amp;. kaptas linifinon"/>
 			</Find>
 
-			<FindCharsInRange title = "Serĉu signojn...">
+			<FindCharsInRange title="Serĉu signojn...">
 				<Item id="2910" name="Serĉu"/>
 				<Item id="2" name="Fermu"/>
 				<Item id="2901" name="Ne-ASCII-aj signoj (128-255)"/>
@@ -767,10 +767,10 @@
 					<Item id="6330" name="Evid. regionojn kun komentoj/php/asp"/>
 
 					<Item id="6331" name="Montru nur dosiernomon en titola breto"/>
-                    <Item id="6332" name="Uskleca kongruo"/>
-                    <Item id="6333" name="Inteligenta evidentigo"/>
-                    <Item id="6334" name="Aŭtomata rekono de signarkodo"/>
-                    <Item id="6335" name="Malsuprenstreko estas kodŝanĝa signo de SQL"/> FCO -->
+					<Item id="6332" name="Uskleca kongruo"/>
+					<Item id="6333" name="Inteligenta evidentigo"/>
+					<Item id="6334" name="Aŭtomata rekono de signarkodo"/>
+					<Item id="6335" name="Malsuprenstreko estas kodŝanĝa signo de SQL"/> FCO -->
 					<Item id="6114" name="Ŝaltu"/>
 					<Item id="6115" name="Aŭtomata krommarĝeno"/>
 					<Item id="6117" name="Ordigu laŭ lasta uzo"/>
@@ -779,7 +779,7 @@
 
 				<Backup title="Sekurkopiado">
 					<Item id="6817" name="Perioda sekurkopiado kaj Ekkonservado" />
-                    <Item id="6309" name="Memoru la seancdosierojn por estonta lanĉo"/>
+					<Item id="6309" name="Memoru la seancdosierojn por estonta lanĉo"/>
 					<Item id="6818" name="Ŝaltu sekurkopiadon" />
 					<Item id="6819" name="... ĉiun" />
 					<Item id="6821" name="-an sekundon" />
@@ -794,7 +794,7 @@
 				</Backup>
 
 				<AutoCompletion title="Vortkompletigo">
- 					<Item id="6807" name="Aŭtomata vortkompletiĝo"/>
+					<Item id="6807" name="Aŭtomata vortkompletiĝo"/>
 					<Item id="6808" name="Ŝaltu vortkompletiĝon por ĉiu enigo"/>
 					<Item id="6809" name="Kompletigu funkciojn"/>
 					<Item id="6810" name="Kompletigu vortojn"/>
@@ -811,21 +811,21 @@
 					<Item id="6866" name="Kongrua duopo 3:"/>
 				</AutoCompletion>
 
-				<MultiInstance title = "Plurekzempleco">
-					<Item id = "6151" name = "Agordoj de plurekzempla maniero"/>
-					<Item id = "6152" name = "Malfermu seancon en nova ekzemplo de Notepadu++"/>
-					<Item id = "6153" name = "Ĉiam en plurekzempla maniero"/>
-					<Item id = "6154" name = "Defaŭlte (unu ekzemplo)"/>
-					<Item id="6155" name = "* Modifo de ĉi agordoj postulos restartigon de Notepad++"/>
+				<MultiInstance title="Plurekzempleco">
+					<Item id="6151" name="Agordoj de plurekzempla maniero"/>
+					<Item id="6152" name="Malfermu seancon en nova ekzemplo de Notepadu++"/>
+					<Item id="6153" name="Ĉiam en plurekzempla maniero"/>
+					<Item id="6154" name="Defaŭlte (unu ekzemplo)"/>
+					<Item id="6155" name="* Modifo de ĉi agordoj postulos restartigon de Notepad++"/>
 				</MultiInstance>
 
-				<Delimiter title = "Limmarkoj">
-					<Item id = "6251" name = "Elekto de teksto limmarkita (Ctrl + duobla musklako)"/>
-					<Item id = "6252" name = "Malf."/>
-					<Item id = "6255" name = "Fermo"/>
-					<Item id = "6256" name = "Permesu plurlinie"/>
-					<Item id = "6257" name = "bla bla bla bla bla bla"/>
-					<Item id = "6258" name = "bla bla bla bla bla bla bla bla bla bla bla bla"/>
+				<Delimiter title="Limmarkoj">
+					<Item id="6251" name="Elekto de teksto limmarkita (Ctrl + duobla musklako)"/>
+					<Item id="6252" name="Malf."/>
+					<Item id="6255" name="Fermo"/>
+					<Item id="6256" name="Permesu plurlinie"/>
+					<Item id="6257" name="bla bla bla bla bla bla"/>
+					<Item id="6258" name="bla bla bla bla bla bla bla bla bla bla bla bla"/>
 				</Delimiter>
 
 			</Preference>
@@ -938,7 +938,6 @@ ne plu uzataj (?)
 -->
 <!--
 
-
 Fontoj: Komputeko kaj la traduko de OpenOffice estis uzitaj por elekti radikojn, kiuj estas uzataj ankaŭ en aliaj programoj.
 Ankaŭ la vortaro de Carlo Minnaja (ITA-EO) en ĝia ĝisdatigata versio hVortaro (hvortaro.altervista.org) estis tre utila, por klarigi signifojn kaj rekoni la  Fundamentajn vortojn kaj la aldonojn de "Baza Radikaro Oficiala", kiujn mi preferas antastaŭ la postaj aldonoj kaj "novaj vortoj" (kiam eblas elekti).
 
@@ -952,8 +951,8 @@ Mi scias ke en OOo kaj Fajrovulpo estas "serĉi" anstataŭ "serĉu"; mi tute res
 	Ĉu estas tiel pro nacia(j) lingo(j)? Tradukante al Esperanto oni devas liberigi sian menson de aliaj lingvoj tiom, kiom eblas.
 	(...) Longa afero, kion mi looonge pripensis; estas grave ke la radikoj estas bone elektitaj, al aliaj tiaj aferoj oni rapide alkutimiĝas, aŭ oni eĉ ne pripensas.
 
-Mi preferis traduki ĉiun komandon laŭ ĝia efiko anstataŭ traduki laŭ la vortoj uzataj en aliaj lingvoj. Pro tio, mi ankaŭ devis pli bone lerni Np++n. Ekzemple "serĉu en dosierujo" anstataŭ "serĉu en dosieroj"; ankaŭ la tradukojn de OO kaj aliajn fontojn mi uzis kritike: "deloku" anstataŭ "movu" (mi skribis komenton ĉe ĝia traduko: "movi" = "igi ne-senmova", "doni" movon al ion; do se iu manĝas, tiu movas sian buŝon, tamen la buŝo restas ĉiam en la sama loko).
-Ne eblis al mi kontakti iun el komputeko.net por diskuti pri mankantaj vortoj ĉe tiu vortaro. Ekz. spaceto = blank (ĉiuj nevideblaj spaciaĵoj: " ", "	"), sed ankaŭ la signo de "normala" spaco: " ".
+Mi preferis traduki ĉiun komandon laŭ ĝia efiko anstataŭ traduki laŭ la vortoj uzataj en aliaj lingvoj. Pro tio, mi ankaŭ devis pli bone lerni Np++n. Ekzemple "serĉu en dosierujo" anstataŭ "serĉu en dosieroj"; ankaŭ la tradukojn de OO kaj aliajn fontojn mi uzis kritike: "deloku" anstataŭ "movu" (mi skribis komenton ĉe ĝia traduko: "movi"="igi ne-senmova", "doni" movon al ion; do se iu manĝas, tiu movas sian buŝon, tamen la buŝo restas ĉiam en la sama loko).
+Ne eblis al mi kontakti iun el komputeko.net por diskuti pri mankantaj vortoj ĉe tiu vortaro. Ekz. spaceto=blank (ĉiuj nevideblaj spaciaĵoj: " ", "	"), sed ankaŭ la signo de "normala" spaco: " ".
 Tamen mi estas kontenta pri la rezulto ĉar mi plispertiĝis post ĉi laboro, kiun mi plibonigos kaj ĝisdatigos; mi esperas, ke ankaŭ vi estos kontentaj.
 
 Mi ne volas plue enuigis vin (demando: se vi ne volas enui, kial vi estas leganta tion ĉi? ;) )

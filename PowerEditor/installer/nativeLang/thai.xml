@@ -209,7 +209,6 @@
 					<Item id="10003" name="ย้ายไปยังหน้าต่างใหม่"/>
 					<Item id="10004" name="เปิดในหน้าต่างใหม่"/>
 
-
 					<Item id="46001" name="ตัวตั้งค่ารูปแบบ..."/>
 					<Item id="46180" name="ผู้ใช้กำหนดเอง"/>
 					<Item id="47000" name="เกี่ยวกับ Notepad++..."/>
@@ -273,15 +272,15 @@
 				<Item id="1620" name="สิ่งที่ค้นหา:"/>
 				<Item id="1603" name="ตรงกับทั้งคำเท่านั้น (&amp;W)"/>
 				<Item id="1604" name="ตรงกับตัวอักษรเล็ก/ใหญ่ (&amp;C)"/>
-                <Item id="1605" name="Regular &amp;expression"/>
-                <Item id="1606" name="Wrap aroun&amp;d"/>
+				<Item id="1605" name="Regular &amp;expression"/>
+				<Item id="1606" name="Wrap aroun&amp;d"/>
 				<Item id="1612" name="ขึ้น (&amp;U)"/>
 				<Item id="1613" name="ลง (&amp;D)"/>
 				<Item id="1614" name="นับ"/>
 				<Item id="1615" name="ค้นหาทั้งหมด"/>
 				<Item id="1616" name="มาร์คบรรทัด"/>
-                <Item id="1617" name="Style found token"/>
-                <Item id="1618" name="ล้างแต่ละการค้นหา"/>
+				<Item id="1617" name="Style found token"/>
+				<Item id="1618" name="ล้างแต่ละการค้นหา"/>
 				<Item id="1621" name="ทิศทาง"/>
 				<Item id="1611" name="แทนที่ด้วย (&amp;P):"/>
 				<Item id="1608" name="แทนที่ (&amp;R)"/>

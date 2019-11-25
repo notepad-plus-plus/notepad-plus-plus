@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Brazilian Portuguese by Hélio de Souza  -->
-<!-- Updated: Oct 2019  |  For Notepad++ 7.8.1 -->
+<!-- Updated: Nov 2019  |  For Notepad++ 7.8.2 -->
 <!-- https://sway.office.com/RVue6qySNJ2DzYrs -->
 <NotepadPlus>
-    <Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="7.8.1">
+    <Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="7.8.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -66,6 +66,7 @@
                     <Item subMenuId="encoding-turkish" name="Turco"/>
                     <Item subMenuId="encoding-westernEuropean" name="Europa Ocidental"/>
                     <Item subMenuId="encoding-vietnamese" name="Vietnamita"/>
+                    <Item subMenuId="language-userDefinedLanguage" name="Linguagem definida pelo usuário"/>
                     <Item subMenuId="settings-import" name="Importar"/>
                     <Item subMenuId="tools-md5" name="MD5"/>
                     <Item subMenuId="tools-sha256" name="SHA-256"/>
@@ -93,7 +94,7 @@
                     <Item id="41013" name="Salvar sessão..."/>
                     <Item id="41014" name="Recarregar do disco"/>
                     <Item id="41015" name="Salvar uma cópia como..."/>
-                    <Item id="41016" name="Apagar do disco"/>
+                    <Item id="41016" name="Mover para a Lixeira"/>
                     <Item id="41017" name="Renomear..."/>
                     <Item id="41021" name="Restaurar último arquivo fechado"/>
                     <Item id="41022" name="Abrir pasta como espaço de trabalho..."/>
@@ -158,7 +159,7 @@
                     <Item id="42051" name="Painel de caracteres"/>
                     <Item id="42078" name="Multi-selecionar próxima ocorrência"/>
                     <Item id="42052" name="Histórico da área de transferência"/>
-                    <Item id="42025" name="Salvar macro atual"/>
+                    <Item id="42025" name="&amp;Salvar macro atual"/>
                     <Item id="42026" name="Alinhar texto à direita"/>
                     <Item id="42027" name="Alinhar texto à esquerda"/>
                     <Item id="42028" name="Definir como somente leitura"/>
@@ -285,10 +286,11 @@
 
                     <Item id="46001" name="Configurador de estilos..."/>
                     <Item id="46250" name="Defina a sua linguagem..."/>
+                    <Item id="46300" name="Pasta de Linguagens definidas pelo usuário..."/>
                     <Item id="46180" name="Definida pelo usuário"/>
-                    <Item id="47000" name="Sobre..."/>
+                    <Item id="47000" name="Sobre o Notepad++..."/>
                     <Item id="47010" name="Argumentos de Linha de Comando..."/>
-                    <Item id="47001" name="HomePage Notepad++"/>
+                    <Item id="47001" name="HomePage do Notepad++"/>
                     <Item id="47002" name="Página do Projeto Notepad++"/>
                     <Item id="47003" name="NpWiki++ (Ajuda Online)"/>
                     <Item id="47004" name="Fórum"/>
@@ -620,7 +622,7 @@
                     <Item id="23001" name="Permitir ocultar comentários (folding)"/>
                     <Item id="23326" name="Estilo"/>
                     <Item id="23323" name="Abrir"/>
-                    <Item id="23324" name="Caractere de continuação"/>
+                    <Item id="23324" name="Continuação"/>
                     <Item id="23325" name="Fechar"/>
                     <Item id="23301" name="Estilo do comentário de linha"/>
                     <Item id="23124" name="Estilo"/>
@@ -993,11 +995,11 @@
             </FindInFinder>
             <DoSaveOrNot title="Salvar">
                 <Item id="1761" name="Salvar o arquivo &quot;$STR_REPLACE$&quot; ?"/>
-                <Item id="6" name="Sim"/>
-                <Item id="7" name="Não"/>
-                <Item id="2" name="Cancelar"/>
-                <Item id="4" name="Sim para todos"/>
-                <Item id="5" name="Não para todos"/>
+                <Item id="6" name="&amp;Sim"/>
+                <Item id="7" name="&amp;Não"/>
+                <Item id="2" name="&amp;Cancelar"/>
+                <Item id="4" name="Sim para &amp;todos"/>
+                <Item id="5" name="Nã&amp;o para todos"/>
             </DoSaveOrNot>
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
@@ -1034,7 +1036,7 @@ Você tem que habilitar o &quot;Abrir todos os arquivos da pasta em vez de usar 
             <DoSaveOrNot title="Salvar" message="Salvar o arquivo &quot;$STR_REPLACE$&quot; ?"/>
             <DoCloseOrNot title="Manter arquivo não existente" message="O arquivo &quot;$STR_REPLACE$&quot; não existe mais.
 Deseja manter este arquivo no editor?"/>
-            <DoDeleteOrNot title="Excluir o arquivo" message="O arquivo &quot;$STR_REPLACE$&quot; será movido para a Lixeira e este documento será fechado.
+            <DoDeleteOrNot title="Excluir o arquivo" message="O arquivo &quot;$STR_REPLACE$&quot; será fechado e movido para a Lixeira.
 Deseja continuar?"/>
             <NoBackupDoSaveFile title="Salvar" message="Seu arquivo de backup não foi encontrado (excluído por fora). Salve-o, caso contrário, seus dados serão perdidos.
 Deseja salvar o arquivo &quot;$STR_REPLACE$&quot; ?"/>
@@ -1196,6 +1198,11 @@ Deseja continuar?"/>
             <cloud-select-folder value="Selecione uma pasta de/para onde o Notepad++ lê/grava suas configurações"/>
             <shift-change-direction-tip value="Usar Shift+Enter para pesquisar na direção oposta."/>
             <two-find-buttons-tip value="Modo 2 botões"/>
+            <find-in-files-filter-tip value="Procurar em cpp, cxx, h, hxx &amp;&amp; hpp:
+*.cpp *.cxx *.h *.hxx *.hpp
+
+Procurar em todos os arquivos, exceto exe, obj &amp;&amp; log:
+*.* !*.exe !*.obj !*.log"/>
             <find-status-top-reached value="Localizar: Encontrada a primeira ocorrência a partir do final. O início do documento foi alcançado."/>
             <find-status-end-reached value="Localizar: Encontrada a primeira ocorrência a partir do início. O final do documento foi alcançado."/>
             <find-status-replaceinfiles-1-replaced value="Substituir em Arquivos: 1 ocorrência foi substituída."/>

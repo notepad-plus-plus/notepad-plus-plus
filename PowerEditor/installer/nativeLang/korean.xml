@@ -64,6 +64,7 @@
   <Item subMenuId="encoding-turkish" name="터키어"/> 
   <Item subMenuId="encoding-westernEuropean" name="서유럽어"/> 
   <Item subMenuId="encoding-vietnamese" name="베트남어"/> 
+  <Item subMenuId="language-userDefinedLanguage" name="사용자 정의 언어"/>
   <Item subMenuId="settings-import" name="가져오기"/> 
   <Item subMenuId="tools-md5"  name="MD5"/>
   <Item subMenuId="tools-sha256"  name="SHA-256"/>
@@ -282,6 +283,7 @@
 
   <Item id="46001" name="스타일 설정..."/> 
   <Item id="46250" name="언어 정의..."/> 
+  <Item id="46300" name="사용자 정의 언어 폴더 열기..."/>
   <Item id="46180" name="사용자 정의"/> 
   <Item id="47000" name="Notepad++ 정보"/>
   <Item id="47010" name="명령줄 옵션..."/>
@@ -990,11 +992,11 @@
 </FindInFinder>
 <DoSaveOrNot title="저장">
   <Item id="1761" name="&quot;$STR_REPLACE$&quot; 을 저장하시겠습니까?"/>
-  <Item id="6" name="예"/>
-  <Item id="7" name="아니오"/>
-  <Item id="2" name="취소"/>
-  <Item id="4" name="모두 예"/>
-  <Item id="5" name="모두 아니오"/>
+  <Item id="6" name="예(&amp;Y)"/>
+  <Item id="7" name="아니오(&amp;N)"/>
+  <Item id="2" name="취소(&amp;C)"/>
+  <Item id="4" name="모두 예(&amp;A)"/>
+  <Item id="5" name="모두 아니오(&amp;O)"/>
 </DoSaveOrNot>
 </Dialog>
 <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
@@ -1194,6 +1196,11 @@ langs.xml 파일을 복구하시겠습니까?"/>
 <cloud-restart-warning value="적용하려면 Notepad++를 다시 시작하십시오."/>
 <shift-change-direction-tip value="반대쪽으로 검색하려면 Shift+Enter를 사용하십시오."/>
     <two-find-buttons-tip value="2 find buttons mode"/>
+        <find-in-files-filter-tip value="cpp, cxx, h, hxx &amp;&amp; hpp 파일에서 찾기:
+*.cpp *.cxx *.h *.hxx *.hpp
+
+exe, obj &amp;&amp; log 파일을 제외한 모든 파일에서 찾기:
+*.* !*.exe !*.obj !*.log"/>
     <find-status-top-reached value="찾기: 아래로부터 1곳을 찾았습니다. 문서의 처음에 도달하였습니다."/>
     <find-status-end-reached value="찾기: 위에서부터 1곳을 찾았습니다. 문서의 끝에 도달하였습니다."/>
     <find-status-replaceinfiles-1-replaced value="파일에서 바꾸기: 1곳을 바꾸었습니다."/>

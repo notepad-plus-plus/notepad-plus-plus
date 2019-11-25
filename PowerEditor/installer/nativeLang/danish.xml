@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Dansk" filename="danish.xml" version="7.7.2">
+    <Native-Langue name="Dansk" filename="danish.xml" version="7.8.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -63,9 +63,10 @@
                     <Item subMenuId="encoding-turkish" name="Tyrkisk"/>
                     <Item subMenuId="encoding-westernEuropean" name="Vesteuropæisk"/>
                     <Item subMenuId="encoding-vietnamese" name="Vietnamesisk"/>
+                    <Item subMenuId="language-userDefinedLanguage" name="Brugerdefineret sprog"/>
                     <Item subMenuId="settings-import" name="Importér"/>
-                    <Item subMenuId="tools-md5"  name="MD5"/>
-                    <Item subMenuId="tools-sha256"  name="SHA-256"/>
+                    <Item subMenuId="tools-md5" name="MD5"/>
+                    <Item subMenuId="tools-sha256" name="SHA-256"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -281,6 +282,7 @@
 
                     <Item id="46001" name="Udseende-konfigurator..."/>
                     <Item id="46250" name="Definer dit sprog..."/>
+                    <Item id="46300" name="Åbn mappe med brugerdefineret sprog..."/>
                     <Item id="46180" name="Brugerdefineret"/>
                     <Item id="47000" name="Om Notepad++"/>
                     <Item id="47010" name="Kommandolinjeparametre..."/>
@@ -311,6 +313,9 @@
                     <Item id="50000" name="Fuldførelse af funktioner"/>
                     <Item id="50001" name="Fuldførelse af ord"/>
                     <Item id="50002" name="Tip til funktionsparametre"/>
+                    <Item id="50003" name="Skift til forrige dokument"/>
+                    <Item id="50004" name="Skift til næste dokument"/>
+                    <Item id="50005" name="Makrooptagelse til/fra"/>
                     <Item id="50006" name="Fuldførelse af sti"/>
                     <Item id="44042" name="Skjul linjer"/>
                     <Item id="42040" name="Åbn alle seneste filer"/>
@@ -768,7 +773,7 @@
                     <Item id="6413" name="Standardmappe (åbn/gem)"/>
                     <Item id="6414" name="Følg nuværende dokument"/>
                     <Item id="6415" name="Husk sidste anvendte mappe"/>
-                    <Item id="6430" name="Brug gem-dialog med nyt udseende (uden filtype funktionalitet &amp;&amp; Stikapacitet i Unix-stil)"/>
+                    <Item id="6430" name="Brug gem-dialog med nyt udseende (uden filtype funktionalitet og stikapacitet i Unix-stil)"/>
                     <Item id="6431" name="Åbn alle mappens filer ved slip af mappe, fremfor at starte mappe som arbejdsområde"/>
                 </DefaultDir>
 
@@ -931,6 +936,7 @@
                     <Item id="6324" name="Dokumentskifter (Ctrl+Tabulator)"/>
                     <Item id="6331" name="Vis kun filnavn i titellinjen"/>
                     <Item id="6334" name="Automatisk registrering af tegnkodning"/>
+                    <Item id="6314" name="Brug skrifttype med fast bredde i Søg-dialog (Notepad++ skal genstartes)"/>
                     <Item id="6337" name="Filtype for arbejdsområde:"/>
                     <Item id="6114" name="Aktivér"/>
                     <Item id="6115" name="Automatisk indrykning"/>
@@ -985,11 +991,11 @@
             </FindInFinder>
             <DoSaveOrNot title="Gem"> 
                 <Item id="1761" name="Gem filen &quot;$STR_REPLACE$&quot;?"/>
-                <Item id="6" name="Ja"/>
-                <Item id="7" name="Nej"/>
-                <Item id="2" name="Annuller"/>
-                <Item id="4" name="Ja til alle"/>
-                <Item id="5" name="Nej til alle"/>
+                <Item id="6" name="&amp;Ja"/>
+                <Item id="7" name="&amp;Nej"/>
+                <Item id="2" name="Ann&amp;uller"/>
+                <Item id="4" name="Ja til &amp;alle"/>
+                <Item id="5" name="N&amp;ej til alle"/>
             </DoSaveOrNot>
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
@@ -1010,7 +1016,7 @@ Fortsæt?"/>
             <FileLockedWarning title="Gemning mislykkedes" message="Tjek venligst om filen allerede er åbnet i et andet program"/>
             <FileAlreadyOpenedInNpp title="" message="Filen er allerede åbnet i Notepad++."/>
             <DeleteFileFailed title="Slet fil" message="Sletning af filen mislykkedes"/>
-            
+
             <NbFileToOpenImportantWarning title="Du er ved at åbne et stort antal filer" message="$INT_REPLACE$ filer er ved at blive åbnet.
 Er du sikker på, at du vil åbne dem?"/>
 			<SettingsOnCloudError title="Indstillinger i skyen" message="Det ser ud til at stien af indstillinger i skyen er sat på et skrivebeskyttet drev,
@@ -1189,6 +1195,11 @@ Fortsæt?"/>
             <cloud-select-folder value="Vælg en mappe fra/til hvor Notepad++ læser/skriver sine indstillinger"/>
             <shift-change-direction-tip value="Brug Skift+Enter for at søge i den modsatte retning"/>
             <two-find-buttons-tip value="2 find-knapper-tilstand"/>
+            <find-in-files-filter-tip value="Find i cpp, cxx, h, hxx og hpp:
+*.cpp *.cxx *.h *.hxx *.hpp
+
+Find i alle filer undtagen exe, obj og log:
+*.* !*.exe !*.obj !*.log"/>
             <find-status-top-reached value="Søg: Fandt den første forekomst fra bunden. Begyndelsen af dokumentet er nået."/>
             <find-status-end-reached value="Søg: Fandt den første forekomst fra toppen. Slutningen af dokumentet er nået."/>
             <find-status-replaceinfiles-1-replaced value="Erstat i filer: 1 forekomst blev erstattet"/>

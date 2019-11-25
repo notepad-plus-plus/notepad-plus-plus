@@ -1982,9 +1982,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 	if (op == ProcessMarkAll && colourStyleID == -1)	//if marking, check if purging is needed
 	{
 		if (_env->_doPurge) {
-			pEditView->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE);
-			if (_env->_doMarkLine)
-				pEditView->execute(SCI_MARKERDELETEALL, MARK_BOOKMARK);
+			clearMarks(*_env);
 		}
 	}
 

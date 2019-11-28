@@ -63,9 +63,10 @@
                     <Item subMenuId="encoding-turkish" name="トルコ語"/>
                     <Item subMenuId="encoding-westernEuropean" name="西ヨーロッパ語圏"/>
                     <Item subMenuId="encoding-vietnamese" name="ベトナム語"/>
+                    <Item subMenuId="language-userDefinedLanguage" name="ユーザー定義"/>
                     <Item subMenuId="settings-import" name="インポート"/>
-                    <Item subMenuId="tools-md5"  name="MD5"/>
-                    <Item subMenuId="tools-sha256"  name="SHA-256"/>
+                    <Item subMenuId="tools-md5" name="MD5"/>
+                    <Item subMenuId="tools-sha256" name="SHA-256"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -294,6 +295,7 @@
 
                     <Item id="46001" name="スタイル設定..."/>
                     <Item id="46250" name="言語を定義..."/>
+                    <Item id="46300" name="言語定義のフォルダーを開く..."/>
                     <Item id="46180" name="ユーザー定義"/>
                     <Item id="47000" name="Notepad++について"/>
                     <Item id="47010" name="コマンドライン引数..."/>
@@ -1002,11 +1004,11 @@
             </FindInFinder>
             <DoSaveOrNot title="保存">
                 <Item id="1761" name="&quot;$STR_REPLACE$&quot; を保存しますか？"/>
-                <Item id="6" name="はい"/>
-                <Item id="7" name="いいえ"/>
-                <Item id="2" name="キャンセル"/>
-                <Item id="4" name="すべて はい"/>
-                <Item id="5" name="すべて いいえ"/>
+                <Item id="6" name="はい(&amp;Y)"/>
+                <Item id="7" name="いいえ(&amp;N)"/>
+                <Item id="2" name="キャンセル(&amp;C)"/>
+                <Item id="4" name="すべて はい(&amp;A)"/>
+                <Item id="5" name="すべて いいえ(&amp;O)"/>
             </DoSaveOrNot>
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
@@ -1206,6 +1208,11 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <cloud-select-folder value="Notepad++ が設定を読み書きするフォルダーを選択してください。"/>
             <shift-change-direction-tip value="Shift+Enter で逆方向に検索します"/>
             <two-find-buttons-tip value="検索ボタンを2個に分ける"/>
+            <find-in-files-filter-tip value="例）cpp, cxx, h, hxx, hpp のファイルで検索する場合：
+*.cpp *.cxx *.h *.hxx *.hpp
+
+例）exe, obj, log 以外のファイルで検索する場合：
+*.* !*.exe !*.obj !*.log"/>
             <find-status-top-reached value="検索：末尾からの最初の一致です。文書の先頭を通過しました"/>
             <find-status-end-reached value="検索：先頭からの最初の一致です。文書の末尾を通過しました"/>
             <find-status-replaceinfiles-1-replaced value="複数ファイル内を検索：1 件を置換しました"/>

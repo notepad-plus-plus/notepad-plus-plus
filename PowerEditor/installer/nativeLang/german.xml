@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2019-11-23 by schnurlos (schnurlos@gmail.com)
+	last modified: 2019-12-01 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -294,6 +294,7 @@
 
 					<Item id="46001" name="&amp;Stile …"/>
 					<Item id="46250" name="Eigene Sprache &amp;definieren …"/>
+					<Item id="46300" name="Verzeichnis mit benutzerdefinierte Sprache öffnen …"/>
 					<Item id="46180" name="Benutzerdefiniert"/>
 					<Item id="47000" name="&amp;Info …"/>
 					<Item id="47010" name="&amp;Kommandozeilenparameter …"/>

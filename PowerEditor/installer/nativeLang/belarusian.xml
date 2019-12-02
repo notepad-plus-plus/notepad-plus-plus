@@ -63,9 +63,10 @@
                     <Item subMenuId="encoding-turkish" name="Турэцкая"/>
                     <Item subMenuId="encoding-westernEuropean" name="Заходняя Еўропа"/>
                     <Item subMenuId="encoding-vietnamese" name="В'етнамская"/>
-                    <Item subMenuId="settings-import"  name="Імпарт"/>
-                    <Item subMenuId="tools-md5"  name="MD5"/>
-                    <Item subMenuId="tools-sha256"  name="SHA-256"/>
+                    <Item subMenuId="language-userDefinedLanguage" name="Мова карыстальніка"/>
+                    <Item subMenuId="settings-import" name="Імпарт"/>
+                    <Item subMenuId="tools-md5" name="MD5"/>
+                    <Item subMenuId="tools-sha256" name="SHA-256"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -281,6 +282,7 @@
 
                     <Item id="46001" name="Канфігуратар стылю..."/>
                     <Item id="46250" name="Азначце сваю мову..."/>
+                    <Item id="46300" name="Адкрыць карыстальніцкую папку мовы..."/>
                     <Item id="46180" name="Вызначаныя карыстальнікам"/>
                     <Item id="47000" name="Пра Notepad++"/>
                     <Item id="47010" name="Аргументы каманднага радка..."/>
@@ -290,7 +292,7 @@
                     <Item id="47004" name="Супольнасць Notepad++ (Форум)"/>
                     <Item id="47011" name="Тэхнічная падтрымка"/>
                     <Item id="47012" name="Адладачная інфармацыя..."/>
-                    <Item id="47005" name="Атрымаць больш модуляў"/>
+                    <Item id="47005" name="Атрымаць больш убудоў"/>
                     <Item id="47006" name="Абнавіць Notepad++"/>
                     <Item id="47009" name="Прызначыць проксі абнаўлення..."/>
                     <Item id="48005" name="Імпарт убудоў..."/>
@@ -302,10 +304,10 @@
                     <Item id="48015" name="Адміністраванне ўбудоў..."/>
                     <Item id="48501" name="Генерыраваць..."/>
                     <Item id="48502" name="Генерыраваць з файлаў..."/>
-                    <Item id="48503" name="Згенерыраваць з вылучанага ў буфер абмену"/>
+                    <Item id="48503" name="Генерыраваць з вылучанага ў буфер абмену"/>
                     <Item id="48504" name="Генерыраваць..."/>
                     <Item id="48505" name="Генерыраваць з файлаў..."/>
-                    <Item id="48506" name="Згенерыраваць з вылучанага ў буфер абмену"/>
+                    <Item id="48506" name="Генерыраваць з вылучанага ў буфер абмену"/>
                     <Item id="49000" name="&amp;Выканаць..."/>
 
                     <Item id="50000" name="Завяршэнне функцый"/>
@@ -1179,6 +1181,11 @@
             <cloud-select-folder value="Выберыце папку, адкуль/куды ў Notepad++ чытаць/запісваць свае налады"/>
             <shift-change-direction-tip value="Выкарыстоўвайце Shift+Enter для пошуку ў адваротным напрамку"/>
             <two-find-buttons-tip value="Рэжым пошуку &quot;дзве кнопкі&quot;"/>
+            <find-in-files-filter-tip value="Знайсці ў cpp, cxx, h, hxx &amp;&amp; hpp:
+*.cpp *.cxx *.h *.hxx *.hpp
+
+Знайсці ў ва ўсіх файлах за выключэннем exe, obj &amp;&amp; log:
+*.* !*.exe !*.obj !*.log"/>
             <find-status-top-reached value="Знайсці: знойдзена адно супадзенне зверху. Быў дасягнуты пачатак дакумента."/>
             <find-status-end-reached value="Знайсці: знойдзена адно супадзенне зверху. Быў дасягнуты канец дакумента."/>
             <find-status-replaceinfiles-1-replaced value="Замяніць у файлах: адно супадзенне заменена"/>

@@ -15,7 +15,7 @@
                     <Item menuId="tools" name="Інструме&amp;нты"/>
                     <Item menuId="macro" name="Макрас"/>
                     <Item menuId="run" name="Выканаць"/>
-                    <Item idName="Убудовы" name="Убудовы"/>
+                    <Item idName="Plugins" name="Убудовы"/>
                     <Item idName="Window" name="Акно"/>
                 </Entries>
                 <!-- Sub Menu Entries -->

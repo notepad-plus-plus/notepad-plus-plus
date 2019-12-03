@@ -3,11 +3,11 @@
 	Dutch localization for Notepad++ 7.5.6
 	Last modified Mon, Mar 26 2018 by Klaas Nekeman.
 	Please e-mail errors, suggestions etc. to knekeman(at)gmail.com.
-	Dutch localization for Notepad++ 7.8.2
-	Last modified Sun, Dec 1 2019 by xylographe <wr86420@gmail.com>.
+	Dutch localization for Notepad++ 7.8.3
+	Last modified Tue, Jan 7 2020 by xylographe <wr86420@gmail.com>.
 -->
 <NotepadPlus>
-	<Native-Langue name="Nederlands" filename="dutch.xml" version="7.8.2">
+	<Native-Langue name="Nederlands" filename="dutch.xml" version="7.8.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -281,12 +281,12 @@
 					<Item id="45011" name="Naar UTF-8-BOM converteren"/>
 					<Item id="45012" name="Naar UCS-2 Big Endian converteren"/>
 					<Item id="45013" name="Naar UCS-2 Little Endian converteren"/>
-					<Item id="45060" name="Big5 (Taiwan)" />
-					<Item id="45061" name="GB2312 (China)" />
-					<Item id="45054" name="OEM 861: Ĳslands" />
-					<Item id="45057" name="OEM 865: Deens &amp;&amp; Noors" />
-					<Item id="45053" name="OEM 860: Portugees" />
-					<Item id="45056" name="OEM 863: Canadees-Frans" />
+					<Item id="45060" name="Big5 (Taiwan)"/>
+					<Item id="45061" name="GB2312 (China)"/>
+					<Item id="45054" name="OEM 861: Ĳslands"/>
+					<Item id="45057" name="OEM 865: Deens &amp;&amp; Noors"/>
+					<Item id="45053" name="OEM 860: Portugees"/>
+					<Item id="45056" name="OEM 863: Canadees-Frans"/>
 
 					<Item id="10001" name="Naar deelvenster verplaatsen"/>
 					<Item id="10002" name="Naar deelvenster kopiëren"/>
@@ -322,7 +322,6 @@
 					<Item id="48505" name="Genereren voor bestanden..."/>
 					<Item id="48506" name="Genereren naar klembord"/>
 					<Item id="49000" name="&amp;Uitvoeren..."/>
-
 					<Item id="50000" name="Functie aanvullen"/>
 					<Item id="50001" name="Woord aanvullen"/>
 					<Item id="50002" name="Functie-argumenten weergeven"/>
@@ -333,7 +332,7 @@
 					<Item id="44042" name="Regels verbergen"/>
 					<Item id="42040" name="Alle recentelijk geopende bestanden openen"/>
 					<Item id="42041" name="Bestandsgeschiedenis wissen"/>
-					<Item id="48016" name="Macro's &amp;wijzigen ..."/>
+					<Item id="48016" name="Macro's &amp;wijzigen..."/>
 					<Item id="48017" name="Opdrachten &amp;wijzigen..."/>
 				</Commands>
 			</Main>
@@ -790,6 +789,7 @@
 				</DefaultDir>
 
 				<FileAssoc title="Bestandsassociaties">
+					<Item id="4008" name="Herstart Notepad++ in de beheerdersmodus om deze functie te kunnen gebruiken."/>
 					<Item id="4009" name="Beschikbare extensies:"/>
 					<Item id="4010" name="Geregistreerd:"/>
 				</FileAssoc>
@@ -875,6 +875,7 @@
 				</Backup>
 
 				<AutoCompletion title="Automatisch aanvullen">
+					<Item id="6115" name="Automatisch inspringen"/>
 					<Item id="6807" name="Automatisch aanvullen"/>
 					<Item id="6808" name="Activeren"/>
 					<Item id="6809" name="Functies aanvullen"/>
@@ -950,11 +951,11 @@
 					<Item id="6314" name="Monospace-lettertype in Zoeken/Vervangen invoervakken (Notepad++ herstart nodig)"/>
 					<Item id="6337" name="Bestandsextensie werkomgeving:"/>
 					<Item id="6114" name="Activeren"/>
-					<Item id="6115" name="Insprong automatisch toepassen"/>
 					<Item id="6117" name="Volgorde van wisselen onthouden"/>
 					<Item id="6344" name="Document voorvertoning"/>
 					<Item id="6345" name="Voorvertoning bij tab"/>
 					<Item id="6346" name="Voorvertoning bij documentstructuur"/>
+					<Item id="6348" name="Zoeken/Vervangen invoervakken niet voorinvullen"/>
 				</MISC>
 			</Preference>
 			<MultiMacro title="Macro meerdere keren uitvoeren">
@@ -1107,6 +1108,10 @@
 			<XpUpdaterProblem
 				title="Notepad++ Updater"
 				message="Notepad++ updater is niet compatibel met XP vanwege de verouderde beveiligingslaag onder XP.&#xD;Wilt u naar Notepad++ pagina gaan om de nieuwste versie te downloaden?"
+			/>
+			<GUpProxyConfNeedAdminMode
+				title="Proxyserver-instellingen"
+				message="Herstart Notepad++ in de beheerdersmodus om de Proxyserver-instellingen te wijzigen."
 			/>
 			<DocTooDirtyToMonitor
 				title="Bestandswijzigingen bewaak probleem"

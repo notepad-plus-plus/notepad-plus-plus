@@ -281,6 +281,12 @@
                     <Item id="45011" name="Convertir en UTF-8-BOM"/>
                     <Item id="45012" name="Convertir en UCS-2 BE BOM"/>
                     <Item id="45013" name="Convertir en UCS-2 LE BOM"/>
+                    <Item id="45060" name="Big5 (traditionnel)"/>
+                    <Item id="45061" name="GB2312 (simplifié)"/>
+                    <Item id="45054" name="OEM 861: islandais"/>
+                    <Item id="45057" name="OEM 865: danois &amp;&amp; norvégien"/>
+                    <Item id="45053" name="OEM 860: portugais"/>
+                    <Item id="45056" name="OEM 863: français"/>
                     <Item id="46001" name="Configurateur de coloration syntaxique..."/>
                     <Item id="46250" name="Définir votre langage..."/>
                     <Item id="46300" name="Ovrir le dossier des Langages utilisateur..."/>
@@ -317,7 +323,7 @@
                     <Item id="50002" name="Infobulle des paramètres de fonctions"/>
                     <Item id="50003" name="Document précédent"/>
                     <Item id="50004" name="Document suivant"/>
-                    <Item id="50005" name="Commencer/Arrêter enregistrement d'une macro"/>
+                    <Item id="50005" name="Démarrer/Arrêter l'enregistrement d'une macro"/>
                     <Item id="50006" name="Complétion de chemin d'accès du fichier"/>
                 </Commands>
             </Main>
@@ -1096,8 +1102,8 @@ Voulez-vous les poursuivez ?"/>
         </DocumentMap>
         <FunctionList>
             <PanelTitle name="Liste des Fonctions"/>
-            <SortTip name="Trier" />
-            <ReloadTip name="Recharger" />
+            <SortTip name="Trier"/>
+            <ReloadTip name="Recharger"/>
         </FunctionList>
         <FolderAsWorkspace>
             <PanelTitle name="Dossier en tant qu'Espace de travail"/>

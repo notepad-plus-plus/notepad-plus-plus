@@ -274,6 +274,12 @@
                     <Item id="45011" name="Convert to UTF-8-BOM"/>
                     <Item id="45012" name="Convert to UCS-2 BE BOM"/>
                     <Item id="45013" name="Convert to UCS-2 LE BOM"/>
+                    <Item id="45060" name="Big5 (Traditional)"/>
+                    <Item id="45061" name="GB2312 (Simplified)"/>
+                    <Item id="45054" name="OEM 861: Icelandic"/>
+                    <Item id="45057" name="OEM 865: Nordic"/>
+                    <Item id="45053" name="OEM 860: Portuguese"/>
+                    <Item id="45056" name="OEM 863: French"/>
 
                     <Item id="10001" name="Move to Other View"/>
                     <Item id="10002" name="Clone to Other View"/>
@@ -1121,8 +1127,8 @@ Continue?"/>
         </DocumentMap>
         <FunctionList>
             <PanelTitle name="Function List"/>
-            <SortTip name="Sort" />
-            <ReloadTip name="Reload" />
+            <SortTip name="Sort"/>
+            <ReloadTip name="Reload"/>
         </FunctionList>
         <FolderAsWorkspace>
             <PanelTitle name="Folder as Workspace"/>

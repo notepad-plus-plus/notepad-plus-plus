@@ -332,9 +332,6 @@ void FindReplaceDlg::fillFindHistory()
 		::SendDlgItemMessage(_hSelf, IDWHOLEWORD, BM_SETCHECK, BST_UNCHECKED, 0);
 		::EnableWindow(::GetDlgItem(_hSelf, IDWHOLEWORD), (BOOL)false);
 
-		//regex upward search is disable in v6.3 due to a regression
-		//::EnableWindow(::GetDlgItem(_hSelf, IDC_FINDPREV), (BOOL)false);
-		
 		// If the search mode from history is regExp then enable the checkbox (. matches newline)
 		::EnableWindow(GetDlgItem(_hSelf, IDREDOTMATCHNL), true);
 	}
@@ -1400,16 +1397,10 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						//regex doesn't allow whole word
 						_options._isWholeWord = false;
 						::SendDlgItemMessage(_hSelf, IDWHOLEWORD, BM_SETCHECK, _options._isWholeWord?BST_CHECKED:BST_UNCHECKED, 0);
-
-						//regex upward search is disable in v6.3 due to a regression
-						::SendDlgItemMessage(_hSelf, IDC_BACKWARDDIRECTION, BM_SETCHECK, BST_UNCHECKED, 0);
-						_options._whichDirection = DIR_DOWN;
 					}
 
 					::EnableWindow(::GetDlgItem(_hSelf, IDWHOLEWORD), (BOOL)!isRegex);
 
-					//regex upward search is disable in v6.3 due to a regression
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_BACKWARDDIRECTION), (BOOL)!isRegex);
 					return TRUE; }
 
 				case IDWRAP :

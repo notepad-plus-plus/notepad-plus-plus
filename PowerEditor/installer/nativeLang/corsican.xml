@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     History of Corsican translation for Notepad++
+		- Updated on January 8th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.3
 		- Updated on October 31st, 2019 by Patriccollu di Santa Maria è Sichè for version 7.8.1
 		- Updated on July 29th, 2019 by Patriccollu di Santa Maria è Sichè for version 7.7.2
 		- Updated on March 29th, 2019 by Patriccollu di Santa Maria è Sichè for version 7.6.5
@@ -13,7 +14,7 @@
 	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/corsican.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="Corsu" filename="corsican.xml" version="7.8.1">
+    <Native-Langue name="Corsu" filename="corsican.xml" version="7.8.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -76,6 +77,7 @@
                     <Item subMenuId="encoding-turkish" name="Turcu"/>
                     <Item subMenuId="encoding-westernEuropean" name="Europeanu di u punente"/>
                     <Item subMenuId="encoding-vietnamese" name="Vietnamese"/>
+                    <Item subMenuId="language-userDefinedLanguage" name="Linguaghju definitu da l’utilizatore"/>
                     <Item subMenuId="settings-import"  name="Impurtà"/>
                     <Item subMenuId="tools-md5"  name="MD5"/>
                     <Item subMenuId="tools-sha256"  name="SHA-256"/>
@@ -286,6 +288,12 @@
                     <Item id="45011" name="Cunvertisce ver di UTF-8 cù BOM"/>
                     <Item id="45012" name="Cunvertisce ver di UCS-2 Big Endian cù BOM"/>
                     <Item id="45013" name="Cunvertisce ver di UCS-2 Little Endian cù BOM"/>
+                    <Item id="45060" name="Big5 (Tradiziunale)"/>
+                    <Item id="45061" name="GB2312 (Semplificatu)"/>
+                    <Item id="45054" name="OEM 861 : Islandese"/>
+                    <Item id="45057" name="OEM 865 : Nordicu"/>
+                    <Item id="45053" name="OEM 860 : Purtughese"/>
+                    <Item id="45056" name="OEM 863 : Francese"/>
 
                     <Item id="10001" name="Dispiazzà ver di l’altra vista"/>
                     <Item id="10002" name="Duplicà in l’altra vista"/>
@@ -294,6 +302,7 @@
 
                     <Item id="46001" name="&amp;Cunfiguratore di stilu…"/>
                     <Item id="46250" name="Definisce u vostru linguaghju…"/>
+                    <Item id="46300" name="Apre u cartulare di i linguaghji definiti da l’utilizatore…"/>
                     <Item id="46180" name="Definitu da l’utilizatore"/>
                     <Item id="47000" name="Apprupositu di Notepad++"/>
                     <Item id="47010" name="Argumenti di linea di cummanda…"/>
@@ -791,6 +800,7 @@
                 </DefaultDir>
 
                 <FileAssoc title="Associu di schedariu">
+                    <Item id="4008" name="Ci vole à piantà Notepad++ è rilancià Notepad++ in modu Amministratore per impiegà sta funzione."/>
                     <Item id="4009" name="Estensioni accettate :"/>
                     <Item id="4010" name="Estensioni inscritte :"/>
                 </FileAssoc>
@@ -876,6 +886,7 @@
                 </Backup>
 
                 <AutoCompletion title="Empiimentu autumaticu">
+                    <Item id="6115" name="Indentazione autumatica"/>
                     <Item id="6807" name="Empiimentu autumaticu"/>
                     <Item id="6808" name="Attivà st’empiimentu à ogni entrata"/>
                     <Item id="6809" name="Cumpiimentu di funzione"/>
@@ -954,11 +965,11 @@
                     <Item id="6314" name="Impiegà a grafia à spaziamentu fissu in u dialogu di ricerca (Richiede di rilancià Notepad++)"/>
                     <Item id="6337" name="Estensione di spaziu di travagliu :"/>
                     <Item id="6114" name="Attivà"/>
-                    <Item id="6115" name="Indentazione autumatica"/>
                     <Item id="6117" name="Impiegà a lista MRU recente di schedarii"/>
                     <Item id="6344" name="Fighjata di ducumentu"/>
                     <Item id="6345" name="Fighjata da l’unghjetta"/>
                     <Item id="6346" name="Fighjata da a cartugrafia di ducumentu"/>
+                    <Item id="6348" name="Ùn micca riempie u campu di Ricerca cù a parolla selezziunata"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Eseguisce una macro parechje volte">
@@ -1006,11 +1017,11 @@
             </FindInFinder>
             <DoSaveOrNot title="Arregistrà">
                 <Item id="1761" name="Arregistrà u schedariu « $STR_REPLACE$ » ?"/>
-                <Item id="6" name="Iè"/>
-                <Item id="7" name="Innò"/>
-                <Item id="2" name="Abbandunà"/>
-                <Item id="4" name="Iè per tutti"/>
-                <Item id="5" name="Innò per tutti"/>
+                <Item id="6" name="&amp;Iè"/>
+                <Item id="7" name="In&amp;nò"/>
+                <Item id="2" name="&amp;Abbandunà"/>
+                <Item id="4" name="Iè per &amp;tutti"/>
+                <Item id="5" name="Innò &amp;per tutti"/>
             </DoSaveOrNot>
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
@@ -1063,6 +1074,7 @@ Vulete ricaricallu è perde cusì i cambiamenti fatti cù Notepad++ ?"/>
             <PrehistoricSystemDetected title="Sistema prestoricu identificatu" message="Pare chì voi impiegate sempre un sistema prestoricu. Per disgrazia, sta funzione funziuneghja solu cù un sistema mudernu."/>
             <XpUpdaterProblem title="Rinnovu di Notepad++" message="U rinnovu di Notepad++ ùn funziuneghja micca cù XP per via di u so livellu di sicurità à l’anticogna.
 Vulete andà nant’à a pagina di Notepad++ per scaricà l’ultima versione ?"/>
+            <GUpProxyConfNeedAdminMode title="Preferenze di Proxy" message="Ci vole à rilancià Notepad++ in modu Amministratore per cunfigurà u proxy."/>
             <DocTooDirtyToMonitor title="Penseru d’appustamentu" message="U ducumentu hè brutu. Ci vole à arregistrà a mudificazione nanzu à appustallu."/>
             <DocNoExistToMonitor title="Penseru d’appustamentu" message="U schedariu deve esiste per esse appustatu."/>
             <FileTooBigToOpen title="Penseru di dimensione di schedariu" message="U schedariu hè troppu maiò per esse apertu da Notepad++"/>
@@ -1133,8 +1145,8 @@ Cuntinuà ?"/>
         </DocumentMap>
         <FunctionList>
             <PanelTitle name="Lista di e funzioni"/>
-            <SortTip name="Classificà" />
-            <ReloadTip name="Ricaricà" />
+            <SortTip name="Classificà"/>
+            <ReloadTip name="Ricaricà"/>
         </FunctionList>
         <FolderAsWorkspace>
             <PanelTitle name="Cartulare cum’è spaziu di travagliu"/>
@@ -1210,6 +1222,11 @@ Cuntinuà ?"/>
             <cloud-select-folder value="Selezziunà un cartulare da/ver di induve Notepad++ leghje/scrive e so preferenze"/>
             <shift-change-direction-tip value="Impiegà Maiusc+Entre per circà in a direzzione opposta."/>
             <two-find-buttons-tip value="Modu di 2 buttoni per circà"/>
+            <find-in-files-filter-tip value="Circà tramezu cpp, cxx, h, hxx &amp;&amp; hpp:
+*.cpp *.cxx *.h *.hxx *.hpp
+
+Circà in tutti i schedarii fora di exe, obj &amp;&amp; log:
+*.* !*.exe !*.obj !*.log"/>
             <find-status-top-reached value="Circà : 1a occurrenza trova da a fine. U principiu di u ducumentu hè statu toccu."/>
             <find-status-end-reached value="Circà : 1a occurrenza trova da u principiu. A fine di u ducumentu hè stata tocca."/>
             <find-status-replaceinfiles-1-replaced value="Rimpiazzà in schedarii : 1 occurrenza hè stata rimpiazzata"/>

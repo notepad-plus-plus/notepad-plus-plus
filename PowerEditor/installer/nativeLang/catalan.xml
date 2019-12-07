@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 Catalan translation for Notepad++
-Updated 06.04.2019, v7.6.6
+Updated 07.12.2019, v7.8.2
 By Hiro5 <groccat at gmail>
 -->
 <NotepadPlus>
-	<Native-Langue name="Català" filename="catalan.xml" version="7.6.6">
+	<Native-Langue name="Català" filename="catalan.xml" version="7.8.2">
 		<Menu>
 			<Main>
 				<Entries>
@@ -66,6 +66,7 @@ By Hiro5 <groccat at gmail>
 					<Item subMenuId="encoding-turkish" name="T&amp;urc"/>
 					<Item subMenuId="encoding-westernEuropean" name="Europeu occidenta&amp;l"/>
 					<Item subMenuId="encoding-vietnamese" name="&amp;Vietnamita"/>
+					<Item subMenuId="language-userDefinedLanguage" name="Llenguatge definit per l'usuari"/>
 					<Item subMenuId="settings-import" name="&amp;Importa"/>
 					<Item subMenuId="tools-md5" name="MD5"/>
 					<Item subMenuId="tools-sha256" name="SHA-256"/>
@@ -145,6 +146,9 @@ By Hiro5 <groccat at gmail>
 					<Item id="50000" name="Autocompleta &amp;funcions"/>
 					<Item id="50001" name="Autocompleta &amp;paraules"/>
 					<Item id="50002" name="&amp;Suggeriments de paràmetres de funcions"/>
+					<Item id="50003" name="Canvia al document anterior"/>
+					<Item id="50004" name="Canvia al document següent"/>
+					<Item id="50005" name="Comença/atura l'enregistrament de macro"/>
 					<Item id="50006" name="Compleció de camí"/>
 					<Item id="45001" name="Converteix a format &amp;Windows"/>
 					<Item id="45002" name="Converteix a format &amp;UNIX"/>
@@ -299,6 +303,7 @@ By Hiro5 <groccat at gmail>
 					<Item id="46017" name="RC (fitxer de recursos)"/>
 					<Item id="46180" name="D&amp;efinit per l'usuari"/>
 					<Item id="46250" name="Definiu el llenguatge..."/>
+					<Item id="46300" name="Obre la carpeta del Llenguatge definit per l'usuari..."/>
 					<Item id="48011" name="&amp;Preferències..."/>
 					<Item id="48014" name="Obre la carpeta dels complements"/>
 					<Item id="46001" name="&amp;Configuració d'estil..."/>
@@ -401,6 +406,8 @@ By Hiro5 <groccat at gmail>
 				<Item id="1686" name="Transparència"/>
 				<Item id="1687" name="En perdre el focus"/>
 				<Item id="1688" name="Sempre"/>
+				<Item id="1721" name="▲"/>
+				<Item id="1723" name="▼ Cerca següent"/>
 			</Find>
 			<FindCharsInRange title = "Cerca interval de caràcters...">
 				<Item id="2910" name="Cerca"/>
@@ -890,7 +897,7 @@ By Hiro5 <groccat at gmail>
 				<MISC title="Miscel·lània">
 					<ComboBox id="6347">
 						<Element name="Activa"/>
-						<Element name="Activa a tots els fitxers oberts"/>
+						<Element name="Activa per a tot fitxer obert"/>
 						<Element name="Desactiva"/>
 					</ComboBox>
 					<Item id="6324" name="Canvi de document (Ctrl+Tab)"/>
@@ -900,6 +907,7 @@ By Hiro5 <groccat at gmail>
 					<Item id="6345" name="Previsualitza en la pestanya"/>
 					<Item id="6346" name="Previsualitza en el mapa del document"/>
 					<Item id="6334" name="Autodetecta codificació de caràcters"/>
+					<Item id="6314" name="Empra lletra monoespai al diàleg de cerca (demana reiniciar Notepad++)"/>
 					<Item id="6115" name="Sagnat automàtic"/>
 					<Item id="6308" name="Minimitza a la safata del sistema"/>
 					<Item id="6331" name="Mostra només el nom de fitxer a la barra de títol"/>
@@ -967,6 +975,14 @@ By Hiro5 <groccat at gmail>
 				<Item id="1718" name="Estès (\n, \r, \t, \0, \x...)"/>
 				<Item id="1720" name="&amp;. cerca nova línia"/>
 			</FindInFinder>
+			<DoSaveOrNot title="Desa">
+				<Item id="1761" name="Voleu desar el fitxer &quot;$STR_REPLACE$&quot; ?"/>
+				<Item id="6" name="&amp;Sí"/>
+				<Item id="7" name="&amp;No"/>
+				<Item id="2" name="&amp;Cancel·la"/>
+				<Item id="4" name="Sí a &amp;tot"/>
+				<Item id="5" name="N&amp;o a tot"/>
+			</DoSaveOrNot>
 		</Dialog>
 		<MessageBox>
 			<ContextMenuXmlEditWarning title="Editant contextMenu" message="Podeu modificar el menú contextual emergent de Notepad++ editant el fitxer contextMenu.xml.&#xD;Reinicieu Notepad++ després de modificar contextMenu.xml perquè faci efecte."/>
@@ -986,7 +1002,6 @@ By Hiro5 <groccat at gmail>
 			<SortingError title="Error d'ordenació" message="No s'ha pogut realitzar l'ordenació numèrica degut a la línia $INT_REPLACE$."/>
 			<ColumnModeTip title="Consell del mode de columna" message="Utilitzeu «Alt+Selecció amb ratolí»&#xD;o «Alt+Maj.+Fletxes del teclat»&#xD;per canviar al mode de columna." />
 			<BufferInvalidWarning title="El desat ha fallat" message="No es pot desar: El buffer no es vàlid."/>
-			<DoSaveOrNot title="Desa" message="Voleu desar el fitxer &quot;$STR_REPLACE$&quot; ?"/>
 			<DoCloseOrNot title="Manté el fitxer inexistent" message="El fitxer &quot;$STR_REPLACE$&quot; ja no existeix.&#xD;El voleu mantenir en l'editor?"/>
 			<DoDeleteOrNot title="Suprimeix fitxer" message="El fitxer &quot;$STR_REPLACE$&quot;&#xD;es mourà a la Paperera i aquest document es tancarà.&#xD;Voleu continuar?"/>
 			<NoBackupDoSaveFile title="Desa" message="El fitxer de la còpia de seguretat no es pot trobar (suprimit externament).&#xD;Desa-ho o perdreu les vostres dades.&#xD;Voleu desar el fitxer &quot;$STR_REPLACE$&quot; ?"/>
@@ -1022,6 +1037,8 @@ By Hiro5 <groccat at gmail>
 			<OpenInAdminModeWithoutCloseCurrent title="Error en desar" message="El fitxer no es pot desar i pot estar protegit.&#xD;Voleu iniciar Notepad++ en mode d'administrador?"/>
 			<OpenInAdminModeFailed title="Error en obrir en mode d'administrador" message="No es pot obrir Notepad++ en mode d'administrador."/>
 			<ViewInBrowser title="Mostra el fitxer actual al navegador" message="No s'ha trobat l'aplicació al vostre sistema."/>
+			<ExitToUpdatePlugins title="Notepad++ està a punt de tancar" message="Si feu clic a SÍ, sortiràs de Notepad++ per continuar les operacions.&#xD;Notepad++ es reiniciarà un cop hagin finalitzat totes les operacions.&#xD;Voleu continuar?"/>
+			<NeedToRestartToLoadPlugins title="Notepad++ demana reiniciar-se" message="S'ha de reiniciar Notepad++ per carregar els complements que heu instal·lat."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historial del porta-retalls"/>
@@ -1041,6 +1058,8 @@ By Hiro5 <groccat at gmail>
 			<ColumnVal name="Valor"/>
 			<ColumnHex name="Hex"/>
 			<ColumnChar name="Caràcter"/>
+			<ColumnHtmlNumber name="Número HTML"/>
+			<ColumnHtmlName name="Codi HTML"/>
 		</AsciiInsertion>
 		<DocumentMap>
 			<PanelTitle name="Mapa del Document"/>
@@ -1063,6 +1082,7 @@ By Hiro5 <groccat at gmail>
 				<Item id="3517" name="Cerca als fitxers..."/>
 				<Item id="3518" name="Obre aquí amb l'explorador"/>
 				<Item id="3519" name="Obre aquí amb l'indicador d'ordres"/>
+				<Item id="3520" name="Copia el nom del fitxer"/>
 			</Menus>
 		</FolderAsWorkspace>
 		<FileBrowser>
@@ -1125,6 +1145,7 @@ By Hiro5 <groccat at gmail>
 			<cloud-select-folder value="Seleccioneu una carpeta des d'on Notepad++ llegirà/escriurà la seva configuració"/>
 			<shift-change-direction-tip value="Utilitza Maj.+Retorn per cercar en direcció contrària"/>
 			<two-find-buttons-tip value="Mode de cerca amb 2 botons"/>
+			<find-in-files-filter-tip value="Cerca als cpp, cxx, h, hxx &amp;&amp; hpp:&#xD;*.cpp *.cxx *.h *.hxx *.hpp&#xD;&#xD;Cerca a tots els fitxer excepte exe, obj &amp;&amp; log:&#xD;*.* !*.exe !*.obj !*.log"/>
 			<find-status-top-reached value="Cerca: Trobat el 1ª resultat des de baix. S'ha arribat al principi del document."/>
 			<find-status-end-reached value="Cerca: Trobat el 1ª resultat des de dalt. S'ha arribat al final del document."/>
 			<find-status-replaceinfiles-1-replaced value="Reemplaça en fitxers: 1 resultat reemplaçat"/>
@@ -1170,6 +1191,17 @@ By Hiro5 <groccat at gmail>
 			<userdefined-title-rename value="Canvia el nom del llenguatge actual"/>
 			<autocomplete-nb-char value="Nre. car.: "/>
 			<edit-verticaledge-nb-col value="Nre. de columnes:"/>
+			<summary value="Sumari"/>
+			<summary-filepath value="Camí complet del fitxer: "/>
+			<summary-filecreatetime value="Creat: "/>
+			<summary-filemodifytime value="Modificat: "/>
+			<summary-nbchar value="Caràcters (sense finals de línia): "/>
+			<summary-nbword value="Paraules: "/>
+			<summary-nbline value="Línies: "/>
+			<summary-nbbyte value="Mida de document: "/>
+			<summary-nbsel1 value=" selecció ("/>
+			<summary-nbsel2 value=" bytes) en "/>
+			<summary-nbrange value=" rang(s)"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

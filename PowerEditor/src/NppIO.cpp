@@ -1190,11 +1190,13 @@ bool Notepad_plus::fileCloseAllToRight()
 
 bool Notepad_plus::fileCloseAllUnchanged()
 {
+	// Indexes must go from high to low to deal with the fact that when one index is closed, any remaining
+	// indexes (smaller than the one just closed) will point to the wrong tab.
 	std::vector<int> vecIndexesToClose;
 
 	for (int i = int(_pDocTab->nbItem()) - 1; i >= 0; i--)
 	{
-		BufferID id = _mainDocTab.getBufferByIndex(i);
+		BufferID id = _pDocTab->getBufferByIndex(i);
 		Buffer* buf = MainFileManager.getBufferByID(id);
 		if ((buf->isUntitled() && buf->docLength() == 0) || !buf->isDirty())
 		{

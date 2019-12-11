@@ -3328,6 +3328,10 @@ void Finder::setFinderStyle()
     }
 
 	_scintView.execute(SCI_COLOURISE, 0, -1);
+
+	// finder fold style follows user preference but use box when user selects none
+	ScintillaViewParams& svp = (ScintillaViewParams&)NppParameters::getInstance().getSVP();
+	_scintView.setMakerStyle(svp._folderStyle == FOLDER_STYLE_NONE ? FOLDER_STYLE_BOX : svp._folderStyle);
 }
 
 INT_PTR CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)

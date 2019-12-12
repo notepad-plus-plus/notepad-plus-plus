@@ -157,6 +157,8 @@ public:
 	generic_string getSelectedItemPath() const;
 
 protected:
+	HWND _hToolbarMenu = nullptr;
+
 	TreeView _treeView;
 	HIMAGELIST _hImaLst = nullptr;
 
@@ -172,6 +174,7 @@ protected:
 
 	BrowserNodeType getNodeType(HTREEITEM hItem);
 	void popupMenuCmd(int cmdID);
+	bool selectCurrentEditingFile();
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void notified(LPNMHDR notification);
 	void showContextMenu(int x, int y);

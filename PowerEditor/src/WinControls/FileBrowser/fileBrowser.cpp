@@ -53,6 +53,7 @@
 #define FB_ADDFILE (WM_USER + 1024)
 #define FB_RMFILE  (WM_USER + 1025)
 #define FB_RNFILE  (WM_USER + 1026)
+#define FB_CMD_AIMFILE 1
 
 FileBrowser::~FileBrowser()
 {
@@ -79,12 +80,52 @@ vector<generic_string> split(const generic_string & string2split, TCHAR sep)
 	return splitedStrings;
 };
 
+bool isRelatedRootFolder(const generic_string & relatedRoot, const generic_string & subFolder)
+{
+	if (relatedRoot.empty())
+		return false;
+
+	if (subFolder.empty())
+		return false;
+
+	size_t pos = subFolder.find(relatedRoot);
+	if (pos != 0) // pos == 0 is the necessary condition, but not enough
+		return false;
+
+	vector<generic_string> relatedRootArray = split(relatedRoot, '\\');
+	vector<generic_string> subFolderArray = split(subFolder, '\\');
+
+	size_t index2Compare = relatedRootArray.size() - 1;
+
+	return relatedRootArray[index2Compare] == subFolderArray[index2Compare];
+}
+
 INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
         case WM_INITDIALOG :
         {
+			NppParameters& nppParam = NppParameters::getInstance();
+			int style = WS_CHILD | WS_VISIBLE | CCS_ADJUSTABLE | TBSTYLE_AUTOSIZE | TBSTYLE_FLAT | TBSTYLE_LIST | TBSTYLE_TRANSPARENT | BTNS_AUTOSIZE | BTNS_SEP | TBSTYLE_TOOLTIPS;
+			_hToolbarMenu = CreateWindowEx(WS_EX_LAYOUTRTL, TOOLBARCLASSNAME, NULL, style, 0, 0, 0, 0, _hSelf, nullptr, _hInst, NULL);
+			TBBUTTON tbButtons[1];
+			// Add the bmap image into toolbar's imagelist
+			TBADDBITMAP addbmp = { _hInst, 0 };
+			addbmp.nID = IDI_FB_SELECTCURRENTFILE;
+			::SendMessage(_hToolbarMenu, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmp));
+			tbButtons[0].idCommand = FB_CMD_AIMFILE;
+			tbButtons[0].iBitmap = 0;
+			tbButtons[0].fsState = TBSTATE_ENABLED;
+			tbButtons[0].fsStyle = BTNS_BUTTON | BTNS_AUTOSIZE;
+			tbButtons[0].iString = reinterpret_cast<INT_PTR>(TEXT(""));
+			::SendMessage(_hToolbarMenu, TB_BUTTONSTRUCTSIZE, sizeof(TBBUTTON), 0);
+			::SendMessage(_hToolbarMenu, TB_SETBUTTONSIZE, 0, MAKELONG(nppParam._dpiManager.scaleX(20), nppParam._dpiManager.scaleY(20)));
+			::SendMessage(_hToolbarMenu, TB_SETPADDING, 0, MAKELONG(30, 0));
+			::SendMessage(_hToolbarMenu, TB_ADDBUTTONS, sizeof(tbButtons) / sizeof(TBBUTTON), reinterpret_cast<LPARAM>(&tbButtons));
+			::SendMessage(_hToolbarMenu, TB_AUTOSIZE, 0, 0);
+			ShowWindow(_hToolbarMenu, SW_SHOW);
+
 			FileBrowser::initPopupMenus();
 
 			_treeView.init(_hInst, _hSelf, ID_FILEBROWSERTREEVIEW);
@@ -130,10 +171,16 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
         {
             int width = LOWORD(lParam);
             int height = HIWORD(lParam);
+			int extraValue = NppParameters::getInstance()._dpiManager.scaleX(4);
+
+			RECT toolbarMenuRect;
+			::GetClientRect(_hToolbarMenu, &toolbarMenuRect);
+
+			::MoveWindow(_hToolbarMenu, 0, 0, width, toolbarMenuRect.bottom, TRUE);
 
 			HWND hwnd = _treeView.getHSelf();
 			if (hwnd)
-				::MoveWindow(hwnd, 0, 0, width, height, TRUE);
+				::MoveWindow(hwnd, 0, toolbarMenuRect.bottom + extraValue, width, height - toolbarMenuRect.bottom - extraValue, TRUE);
             break;
         }
 
@@ -144,12 +191,23 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
 		case WM_COMMAND:
 		{
-			popupMenuCmd(LOWORD(wParam));
+			switch (LOWORD(wParam))
+			{
+				case FB_CMD_AIMFILE:
+				{
+					selectCurrentEditingFile();
+					break;
+				}
+
+				default:
+					popupMenuCmd(LOWORD(wParam));
+			}
 			break;
 		}
 
 		case WM_DESTROY:
         {
+			::DestroyWindow(_hToolbarMenu);
 			_treeView.destroy();
 			destroyMenus();
             break;
@@ -290,6 +348,31 @@ void FileBrowser::initPopupMenus()
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_CMDHERE, cmdHere.c_str());
 }
 
+bool FileBrowser::selectCurrentEditingFile()
+{
+	TCHAR currentDocPath[MAX_PATH] = { '0' };
+	::SendMessage(_hParent, NPPM_GETFULLCURRENTPATH, MAX_PATH, reinterpret_cast<LPARAM>(currentDocPath));
+	generic_string rootFolderPath = currentDocPath;
+	size_t nbFolderUpdaters = _folderUpdaters.size();
+	for (size_t i = 0; i < nbFolderUpdaters; ++i)
+	{
+		if (isRelatedRootFolder(_folderUpdaters[i]->_rootFolder._rootPath, rootFolderPath))
+		{
+			generic_string rootPath = _folderUpdaters[i]->_rootFolder._rootPath;
+			generic_string pathSuffix = rootFolderPath.substr(rootPath.size() + 1, rootFolderPath.size() - rootPath.size());
+			vector<generic_string> linarPathArray = split(pathSuffix, '\\');
+
+			HTREEITEM foundItem = findInTree(rootPath, nullptr, linarPathArray);
+			if (foundItem)
+			{
+				_treeView.selectItem(foundItem);
+				_treeView.getFocus();
+				return true;
+			}
+		}
+	}
+	return false;
+}
 
 BOOL FileBrowser::setImageList(int root_clean_id, int root_dirty_id, int open_node_id, int closed_node_id, int leaf_id) 
 {
@@ -393,12 +476,12 @@ void FileBrowser::openSelectFile()
 {
 	// Get the selected item
 	HTREEITEM selectedNode = _treeView.getSelection();
-	if (not selectedNode) return;
+	if (!selectedNode) return;
 
 	generic_string fullPath = getNodePath(selectedNode);
 
 	// test the path - if it's a file, open it, otherwise just fold or unfold it
-	if (not ::PathFileExists(fullPath.c_str()))
+	if (!::PathFileExists(fullPath.c_str()))
 		return;
 	if (::PathIsDirectory(fullPath.c_str()))
 		return;
@@ -857,26 +940,6 @@ void FileBrowser::getDirectoryStructure(const TCHAR *dir, const std::vector<gene
 	::FindClose(hFile);
 }
 
-bool isRelatedRootFolder(const generic_string & relatedRoot, const generic_string & subFolder)
-{
-	if (relatedRoot.empty())
-		return false;
-
-	if (subFolder.empty())
-		return false;
-
-	size_t pos = subFolder.find(relatedRoot);
-	if (pos != 0) // pos == 0 is the necessary condition, but not enough
-		return false;
-
-	vector<generic_string> relatedRootArray = split(relatedRoot, '\\');
-	vector<generic_string> subFolderArray = split(subFolder, '\\');
-
-	size_t index2Compare = relatedRootArray.size() - 1;
-
-	return relatedRootArray[index2Compare] == subFolderArray[index2Compare];
-}
-
 void FileBrowser::addRootFolder(generic_string rootFolderPath)
 {
 	if (!::PathFileExists(rootFolderPath.c_str()))
@@ -1159,7 +1222,7 @@ bool FileBrowser::renameInTree(const generic_string& rootPath, HTREEITEM node, c
 	if (foundItem == nullptr)
 			return false;
 
-		// found it, rename it
+	// found it, rename it
 	_treeView.renameItem(foundItem, renameTo.c_str());
 		return true;
 }

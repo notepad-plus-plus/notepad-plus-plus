@@ -206,13 +206,14 @@ IDI_PROJECT_FILEINVALID         BITMAP      "icons/project_file_invalid.bmp"
 IDI_FB_ROOTOPEN                 BITMAP      "icons/fb_root_open.bmp"
 IDI_FB_ROOTCLOSE                BITMAP      "icons/fb_root_close.bmp"
 
+IDI_FB_SELECTCURRENTFILE        BITMAP      "icons/fb_select_current_file.bmp"
+
 IDI_FUNCLIST_ROOT               BITMAP      "icons/project_file.bmp"
 IDI_FUNCLIST_NODE               BITMAP      "icons/funcList_node.bmp"
 IDI_FUNCLIST_LEAF               BITMAP      "icons/funcList_leaf.bmp"
 
 IDI_FUNCLIST_SORTBUTTON         BITMAP      "icons/funclstSort.bmp"
 IDI_FUNCLIST_RELOADBUTTON       BITMAP      "icons/funclstReload.bmp"
-
 
 IDI_VIEW_DOC_MAP_ON_ICON        ICON        "icons/docMap_on.ico"
 IDI_VIEW_DOC_MAP_OFF_ICON       ICON        "icons/docMap_off.ico" 

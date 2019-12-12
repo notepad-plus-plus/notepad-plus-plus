@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="7.8.1">
+    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="7.8.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -63,9 +63,10 @@
                     <Item subMenuId="encoding-turkish" name="土耳其语"/>
                     <Item subMenuId="encoding-westernEuropean" name="西欧语系"/>
                     <Item subMenuId="encoding-vietnamese" name="越南文"/>
+                    <Item subMenuId="language-userDefinedLanguage" name="自定义语言"/>
                     <Item subMenuId="settings-import" name="导入"/>
                     <Item subMenuId="tools-md5" name="MD5"/>
-                    <Item subMenuId="tools-sha256"  name="SHA-256"/>
+                    <Item subMenuId="tools-sha256" name="SHA-256"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -281,6 +282,7 @@
 
                     <Item id="46001" name="语言格式设置..."/>
                     <Item id="46250" name="自定义语言格式..."/>
+                    <Item id="46300" name="打开自定义语言文件夹..."/>
                     <Item id="46180" name="用户自定义"/>
                     <Item id="47000" name="关于 Notepad++"/>
                     <Item id="47010" name="命令行参数..."/>
@@ -989,11 +991,11 @@
             </FindInFinder>
             <DoSaveOrNot title="保存"> 
                 <Item id="1761" name="保存文件 &quot;$STR_REPLACE$&quot; ?"/>
-                <Item id="6" name="是"/>
-                <Item id="7" name="否"/>
-                <Item id="2" name="取消"/>
-                <Item id="4" name="全选是"/>
-                <Item id="5" name="全选否"/>
+                <Item id="6" name="是(&amp;Y)"/>
+                <Item id="7" name="否(&amp;N)"/>
+                <Item id="2" name="取消(&amp;C)"/>
+                <Item id="4" name="全选是(&amp;A)"/>
+                <Item id="5" name="全选否(&amp;O)"/>
             </DoSaveOrNot>
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
@@ -1193,6 +1195,11 @@ Notepad++会在所有安装结束后重新启动。
             <cloud-select-folder value="请选择一个供Notepad++读写设置的文件夹"/>
             <shift-change-direction-tip value="使用Shift+Enter反向查找"/>
             <two-find-buttons-tip value="双按钮查找模式"/>
+            <find-in-files-filter-tip value="只在 cpp, cxx, h, hxx &amp;&amp; hpp 中查找:
+*.cpp *.cxx *.h *.hxx *.hpp
+
+除 exe, obj &amp;&amp; log 之外所有文件:
+*.* !*.exe !*.obj !*.log"/>
             <find-status-top-reached value="查找：查找到从下到上的首个匹配项。已查找至文档最顶部。"/>
             <find-status-end-reached value="查找：查找到从上到下的首个匹配项。已查找至文档最底部。"/>
             <find-status-replaceinfiles-1-replaced value="在文件中替换：已替换1个匹配项。"/>

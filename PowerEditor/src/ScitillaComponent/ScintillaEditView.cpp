@@ -1,4 +1,4 @@
-// This file is part of Notepad++ project
+ï»¿// This file is part of Notepad++ project
 // Copyright (C)2003 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
@@ -1431,7 +1431,7 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
     }
 	setSpecialIndicator(*pStyle);
 
-    // Il faut surtout faire un test ici avant d'exécuter SCI_SETCODEPAGE
+    // Il faut surtout faire un test ici avant d'ex?uter SCI_SETCODEPAGE
     // Sinon y'aura un soucis de performance!
 	if (isCJK())
 	{

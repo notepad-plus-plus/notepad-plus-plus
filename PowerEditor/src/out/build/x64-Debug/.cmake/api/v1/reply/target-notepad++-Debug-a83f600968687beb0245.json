@@ -1,0 +1,2588 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "notepad++.exe"
+		},
+		{
+			"path" : "notepad++.pdb"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"ADD_EXECUTABLE",
+			"INCLUDE_DIRECTORIES",
+			"ADD_DEFINITIONS"
+		],
+		"files" : 
+		[
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 376,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 374,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 372,
+				"parent" : 0
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "/EHa /MP /W4 /MDd /ZI /Ob0 /Od /RTC1 /JMC  "
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 3,
+					"define" : "TIXMLA_USE_STL"
+				},
+				{
+					"backtrace" : 3,
+					"define" : "TIXML_USE_STL"
+				},
+				{
+					"backtrace" : 3,
+					"define" : "UNICODE"
+				},
+				{
+					"backtrace" : 3,
+					"define" : "_CRT_NONSTDC_NO_DEPRECATE"
+				},
+				{
+					"backtrace" : 3,
+					"define" : "_CRT_NON_CONFORMING_SWPRINTFS"
+				},
+				{
+					"backtrace" : 3,
+					"define" : "_CRT_SECURE_NO_WARNINGS"
+				},
+				{
+					"backtrace" : 3,
+					"define" : "_UNICODE"
+				},
+				{
+					"backtrace" : 3,
+					"define" : "_USE_64BIT_TIME_T"
+				},
+				{
+					"backtrace" : 3,
+					"define" : "_WIN32_WINNT=0x501"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/../../scintilla/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/."
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/AboutDlg"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/ImageListSet"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/OpenSaveFileDialog"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/SplitterContainer"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/StaticDialog"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/TabBar"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/ToolBar"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./MISC/Process"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./ScitillaComponent"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./MISC"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./MISC/SysMsg"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/StatusBar"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/StaticDialog/RunDlg"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./tinyxml"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/ColourPicker"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./Win32Explr"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./MISC/RegExt"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/TrayIcon"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/shortcut"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/Grid"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/ContextMenu"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./MISC/PluginsManager"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/Preference"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/WindowsDlg"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/TaskList"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/DockingWnd"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/ToolTip"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./MISC/Exception"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./MISC/Common"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./tinyxml/tinyXmlA"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/AnsiCharPanel"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/ClipboardHistory"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/FindCharsInRange"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/VerticalFileSwitcher"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/ProjectPanel"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/DocumentMap"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/FunctionList"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./uchardet"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/FileBrowser"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/ReadDirectoryChanges"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./MISC/md5"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./MISC/sha2"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/PluginsAdmin"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./json"
+				}
+			],
+			"language" : "CXX",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9,
+				10,
+				11,
+				12,
+				13,
+				14,
+				15,
+				16,
+				17,
+				18,
+				19,
+				20,
+				21,
+				22,
+				23,
+				24,
+				25,
+				26,
+				27,
+				28,
+				29,
+				30,
+				31,
+				32,
+				33,
+				34,
+				35,
+				36,
+				37,
+				38,
+				39,
+				40,
+				41,
+				42,
+				43,
+				44,
+				45,
+				46,
+				47,
+				48,
+				49,
+				50,
+				51,
+				52,
+				53,
+				54,
+				55,
+				56,
+				57,
+				58,
+				59,
+				60,
+				61,
+				62,
+				63,
+				64,
+				65,
+				66,
+				67,
+				68,
+				69,
+				70,
+				71,
+				72,
+				73,
+				74,
+				75,
+				76,
+				77,
+				78,
+				79,
+				80,
+				81,
+				82,
+				83,
+				84,
+				85,
+				86,
+				87,
+				88,
+				89,
+				90,
+				91,
+				92,
+				93,
+				94,
+				95,
+				96,
+				97,
+				98,
+				99,
+				100,
+				101,
+				102,
+				103,
+				104,
+				105,
+				106,
+				107,
+				108,
+				109,
+				110,
+				111,
+				112,
+				113,
+				114,
+				115,
+				116,
+				117,
+				118,
+				119,
+				120,
+				121
+			]
+		},
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "/DWIN32 /D_DEBUG  "
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 3,
+					"define" : "TIXMLA_USE_STL"
+				},
+				{
+					"backtrace" : 3,
+					"define" : "TIXML_USE_STL"
+				},
+				{
+					"backtrace" : 3,
+					"define" : "UNICODE"
+				},
+				{
+					"backtrace" : 3,
+					"define" : "_CRT_NONSTDC_NO_DEPRECATE"
+				},
+				{
+					"backtrace" : 3,
+					"define" : "_CRT_NON_CONFORMING_SWPRINTFS"
+				},
+				{
+					"backtrace" : 3,
+					"define" : "_CRT_SECURE_NO_WARNINGS"
+				},
+				{
+					"backtrace" : 3,
+					"define" : "_UNICODE"
+				},
+				{
+					"backtrace" : 3,
+					"define" : "_USE_64BIT_TIME_T"
+				},
+				{
+					"backtrace" : 3,
+					"define" : "_WIN32_WINNT=0x501"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/../../scintilla/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/."
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/AboutDlg"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/ImageListSet"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/OpenSaveFileDialog"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/SplitterContainer"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/StaticDialog"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/TabBar"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/ToolBar"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./MISC/Process"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./ScitillaComponent"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./MISC"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./MISC/SysMsg"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/StatusBar"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/StaticDialog/RunDlg"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./tinyxml"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/ColourPicker"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./Win32Explr"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./MISC/RegExt"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/TrayIcon"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/shortcut"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/Grid"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/ContextMenu"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./MISC/PluginsManager"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/Preference"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/WindowsDlg"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/TaskList"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/DockingWnd"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/ToolTip"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./MISC/Exception"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./MISC/Common"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./tinyxml/tinyXmlA"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/AnsiCharPanel"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/ClipboardHistory"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/FindCharsInRange"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/VerticalFileSwitcher"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/ProjectPanel"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/DocumentMap"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/FunctionList"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./uchardet"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/FileBrowser"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/ReadDirectoryChanges"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./MISC/md5"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./MISC/sha2"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./WinControls/PluginsAdmin"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/bib12/Documents/GitHub/Notepad++/PowerEditor/src/./json"
+				}
+			],
+			"language" : "RC",
+			"sourceIndexes" : 
+			[
+				258,
+				259,
+				260,
+				261,
+				262,
+				263,
+				264,
+				265,
+				266,
+				267,
+				268,
+				269,
+				270,
+				271,
+				272,
+				273,
+				274,
+				275,
+				276,
+				277,
+				278,
+				279,
+				280,
+				281,
+				282,
+				283
+			]
+		}
+	],
+	"id" : "notepad++::@6890427a1f51a3e7e1df",
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "/EHa /MP /W4 /MDd /ZI /Ob0 /Od /RTC1 /JMC",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "/machine:x64 /debug /INCREMENTAL /subsystem:windows",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "comctl32.lib shlwapi.lib dbghelp.lib version.lib crypt32.lib wintrust.lib sensapi.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib",
+				"role" : "libraries"
+			}
+		],
+		"language" : "CXX"
+	},
+	"name" : "notepad++",
+	"nameOnDisk" : "notepad++.exe",
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9,
+				10,
+				11,
+				12,
+				13,
+				14,
+				15,
+				16,
+				17,
+				18,
+				19,
+				20,
+				21,
+				22,
+				23,
+				24,
+				25,
+				26,
+				27,
+				28,
+				29,
+				30,
+				31,
+				32,
+				33,
+				34,
+				35,
+				36,
+				37,
+				38,
+				39,
+				40,
+				41,
+				42,
+				43,
+				44,
+				45,
+				46,
+				47,
+				48,
+				49,
+				50,
+				51,
+				52,
+				53,
+				54,
+				55,
+				56,
+				57,
+				58,
+				59,
+				60,
+				61,
+				62,
+				63,
+				64,
+				65,
+				66,
+				67,
+				68,
+				69,
+				70,
+				71,
+				72,
+				73,
+				74,
+				75,
+				76,
+				77,
+				78,
+				79,
+				80,
+				81,
+				82,
+				83,
+				84,
+				85,
+				86,
+				87,
+				88,
+				89,
+				90,
+				91,
+				92,
+				93,
+				94,
+				95,
+				96,
+				97,
+				98,
+				99,
+				100,
+				101,
+				102,
+				103,
+				104,
+				105,
+				106,
+				107,
+				108,
+				109,
+				110,
+				111,
+				112,
+				113,
+				114,
+				115,
+				116,
+				117,
+				118,
+				119,
+				120,
+				121,
+				258,
+				259,
+				260,
+				261,
+				262,
+				263,
+				264,
+				265,
+				266,
+				267,
+				268,
+				269,
+				270,
+				271,
+				272,
+				273,
+				274,
+				275,
+				276,
+				277,
+				278,
+				279,
+				280,
+				281,
+				282,
+				283
+			]
+		},
+		{
+			"name" : "",
+			"sourceIndexes" : 
+			[
+				122,
+				123
+			]
+		},
+		{
+			"name" : "Header Files",
+			"sourceIndexes" : 
+			[
+				124,
+				125,
+				126,
+				127,
+				128,
+				129,
+				130,
+				131,
+				132,
+				133,
+				134,
+				135,
+				136,
+				137,
+				138,
+				139,
+				140,
+				141,
+				142,
+				143,
+				144,
+				145,
+				146,
+				147,
+				148,
+				149,
+				150,
+				151,
+				152,
+				153,
+				154,
+				155,
+				156,
+				157,
+				158,
+				159,
+				160,
+				161,
+				162,
+				163,
+				164,
+				165,
+				166,
+				167,
+				168,
+				169,
+				170,
+				171,
+				172,
+				173,
+				174,
+				175,
+				176,
+				177,
+				178,
+				179,
+				180,
+				181,
+				182,
+				183,
+				184,
+				185,
+				186,
+				187,
+				188,
+				189,
+				190,
+				191,
+				192,
+				193,
+				194,
+				195,
+				196,
+				197,
+				198,
+				199,
+				200,
+				201,
+				202,
+				203,
+				204,
+				205,
+				206,
+				207,
+				208,
+				209,
+				210,
+				211,
+				212,
+				213,
+				214,
+				215,
+				216,
+				217,
+				218,
+				219,
+				220,
+				221,
+				222,
+				223,
+				224,
+				225,
+				226,
+				227,
+				228,
+				229,
+				230,
+				231,
+				232,
+				233,
+				234,
+				235,
+				236,
+				237,
+				238,
+				239,
+				240,
+				241,
+				242,
+				243,
+				244,
+				245,
+				246,
+				247,
+				248,
+				249,
+				250,
+				251,
+				252,
+				253,
+				254,
+				255,
+				256,
+				257
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "MISC/Common/verifySignedfile.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "MISC/md5/md5Dlgs.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "MISC/sha2/sha-256.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "MISC/Process/Processus.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/AboutDlg/AboutDlg.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/AnsiCharPanel/ansiCharPanel.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "ScitillaComponent/AutoCompletion.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/AnsiCharPanel/asciiListView.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/FileBrowser/fileBrowser.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/Grid/BabyGrid.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/Grid/BabyGridWrapper.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "ScitillaComponent/Buffer.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "uchardet/CharDistribution.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/ClipboardHistory/clipboardHistoryPanel.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/ColourPicker/ColourPicker.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/ColourPicker/ColourPopup.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "ScitillaComponent/columnEditor.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "MISC/Common/Common.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/ContextMenu/ContextMenu.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/PluginsAdmin/pluginsAdmin.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/ReadDirectoryChanges/ReadDirectoryChanges.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/ReadDirectoryChanges/ReadDirectoryChangesPrivate.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/TabBar/ControlsTab.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/DockingWnd/DockingCont.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/DockingWnd/DockingManager.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/DockingWnd/DockingSplitter.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "ScitillaComponent/DocTabView.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/DocumentMap/documentMap.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/DocumentMap/documentSnapshot.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "EncodingMapper.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/OpenSaveFileDialog/FileDialog.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/FindCharsInRange/FindCharsInRange.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "ScitillaComponent/FindReplaceDlg.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "ScitillaComponent/FunctionCallTip.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/FunctionList/functionListPanel.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/FunctionList/functionParser.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "ScitillaComponent/GoToLineDlg.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/DockingWnd/Gripper.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "MISC/PluginsManager/IDAllocator.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/ImageListSet/ImageListSet.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "uchardet/JpCntx.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "uchardet/LangBulgarianModel.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "uchardet/LangCyrillicModel.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "uchardet/LangGreekModel.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "uchardet/LangHebrewModel.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "uchardet/LangHungarianModel.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "uchardet/LangThaiModel.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lastRecentFileList.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lesDlgs.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/AnsiCharPanel/ListView.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "localization.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "MISC/Exception/MiniDumper.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Notepad_plus.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Notepad_plus_Window.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "NppBigSwitch.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "NppCommands.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "NppIO.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "NppNotification.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "uchardet/nsBig5Prober.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "uchardet/nsCharSetProber.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "uchardet/nsEscCharsetProber.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "uchardet/nsEscSM.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "uchardet/nsEUCJPProber.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "uchardet/nsEUCKRProber.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "uchardet/nsEUCTWProber.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "uchardet/nsGB2312Prober.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "uchardet/nsHebrewProber.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "uchardet/nsLatin1Prober.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "uchardet/nsMBCSGroupProber.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "uchardet/nsMBCSSM.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "uchardet/nsSBCharSetProber.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "uchardet/nsSBCSGroupProber.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "uchardet/nsSJISProber.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "uchardet/nsUniversalDetector.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "uchardet/nsUTF8Prober.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Parameters.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "MISC/PluginsManager/PluginsManager.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/Preference/preferenceDlg.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "ScitillaComponent/Printer.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/ProjectPanel/ProjectPanel.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "MISC/RegExt/regExtDlg.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/StaticDialog/RunDlg/RunDlg.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/shortcut/RunMacroDlg.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "ScitillaComponent/ScintillaCtrls.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "ScitillaComponent/ScintillaEditView.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/shortcut/shortcut.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/Grid/ShortcutMapper.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/WindowsDlg/SizeableDlg.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "ScitillaComponent/SmartHighlighter.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/SplitterContainer/Splitter.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/SplitterContainer/SplitterContainer.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/StaticDialog/StaticDialog.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/StatusBar/StatusBar.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/TabBar/TabBar.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/TaskList/TaskList.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/TaskList/TaskListDlg.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "TinyXml/tinystr.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "TinyXml/tinyXmlA/tinystrA.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "TinyXml/tinyxml.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "TinyXml/tinyXmlA/tinyxmlA.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "TinyXml/tinyxmlerror.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "TinyXml/tinyXmlA/tinyxmlerrorA.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "TinyXml/tinyxmlparser.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "TinyXml/tinyXmlA/tinyxmlparserA.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/ToolBar/ToolBar.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/ToolTip/ToolTip.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/TrayIcon/trayIconControler.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/ProjectPanel/TreeView.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "uchardet/uchardet.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "UniConversion.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/AboutDlg/URLCtrl.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "ScitillaComponent/UserDefineDialog.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Utf8_16.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/VerticalFileSwitcher/VerticalFileSwitcher.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/VerticalFileSwitcher/VerticalFileSwitcherListView.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "MISC/Exception/Win32Exception.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/WindowsDlg/WindowsDlg.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "winmain.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/WindowsDlg/WinMgr.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/WindowsDlg/WinRect.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "WinControls/ColourPicker/WordStyleDlg.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "ScitillaComponent/xmlMatchedTagsHighlighter.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "dpiAware.manifest",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "notepad++.exe.manifest",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "MISC/Common/verifySignedfile.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "MISC/md5/md5Dlgs.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "MISC/sha2/sha-256.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "MISC/Process/Processus.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/AboutDlg/AboutDlg.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/AnsiCharPanel/ansiCharPanel.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "ScitillaComponent/AutoCompletion.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/AnsiCharPanel/asciiListView.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/FileBrowser/fileBrowser.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/FileBrowser/fileBrowser_rc.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/Grid/BabyGrid.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/Grid/BabyGridWrapper.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "ScitillaComponent/Buffer.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "uchardet/CharDistribution.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/ClipboardHistory/clipboardHistoryPanel.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/ClipboardHistory/clipboardHistoryPanel_rc.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "ScitillaComponent/colors.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/ColourPicker/ColourPicker.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/ColourPicker/ColourPopup.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "ScitillaComponent/columnEditor.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "MISC/Common/Common.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/ContextMenu/ContextMenu.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/PluginsAdmin/pluginsAdmin.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/PluginsAdmin/pluginsAdminRes.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/ReadDirectoryChanges/ReadDirectoryChanges.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/ReadDirectoryChanges/ReadDirectoryChangesPrivate.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/ReadDirectoryChanges/ThreadSafeQueue.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/TabBar/ControlsTab.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/DockingWnd/Docking.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/DockingWnd/DockingCont.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/DockingWnd/DockingDlgInterface.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/DockingWnd/DockingManager.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/DockingWnd/dockingResource.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/DockingWnd/DockingSplitter.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "ScitillaComponent/DocTabView.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/DocumentMap/documentMap.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/DocumentMap/documentSnapshot.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "EncodingMapper.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/OpenSaveFileDialog/FileDialog.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "MISC/FileNameStringSplitter.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/FindCharsInRange/FindCharsInRange.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "ScitillaComponent/FindReplaceDlg.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "ScitillaComponent/FunctionCallTip.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/FunctionList/functionListPanel.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/FunctionList/functionListPanel_rc.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/FunctionList/functionParser.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "ScitillaComponent/GoToLineDlg.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/DockingWnd/Gripper.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "MISC/PluginsManager/IDAllocator.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/ImageListSet/ImageListSet.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "uchardet/JpCntx.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "lastRecentFileList.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "lesDlgs.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/AnsiCharPanel/ListView.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "localization.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "localizationString.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "menuCmdID.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "MISC/Exception/MiniDumper.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Notepad_plus.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "MISC/PluginsManager/Notepad_plus_msgs.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Notepad_plus_Window.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "uchardet/nsBig5Prober.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "uchardet/nsCharSetProber.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "uchardet/nsCodingStateMachine.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "uchardet/nscore.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "uchardet/nsEscCharsetProber.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "uchardet/nsEUCJPProber.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "uchardet/nsEUCKRProber.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "uchardet/nsEUCTWProber.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "uchardet/nsGB2312Prober.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "uchardet/nsHebrewProber.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "uchardet/nsLatin1Prober.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "uchardet/nsMBCSGroupProber.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "uchardet/nsPkgInt.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "uchardet/nsSBCharSetProber.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "uchardet/nsSBCSGroupProber.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "uchardet/nsSJISProber.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "uchardet/nsUniversalDetector.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "uchardet/nsUTF8Prober.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Parameters.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "MISC/PluginsManager/PluginInterface.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "MISC/PluginsManager/PluginsManager.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/Preference/preferenceDlg.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "ScitillaComponent/Printer.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "uchardet/prmem.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/ProjectPanel/ProjectPanel.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/ProjectPanel/ProjectPanel_rc.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "MISC/RegExt/regExtDlg.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "MISC/RegExt/regExtDlgRc.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "resource.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/StaticDialog/RunDlg/RunDlg.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/shortcut/RunMacroDlg.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/shortcut/RunMacroDlg_rc.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "ScitillaComponent/ScintillaCtrls.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "ScitillaComponent/ScintillaEditView.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/shortcut/shortcut.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/Grid/ShortcutMapper.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/Grid/ShortcutMapper_rc.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/WindowsDlg/SizeableDlg.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "ScitillaComponent/SmartHighlighter.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/SplitterContainer/Splitter.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/SplitterContainer/SplitterContainer.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/StaticDialog/StaticDialog.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/StatusBar/StatusBar.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/TabBar/TabBar.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/TaskList/TaskList.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/TaskList/TaskListDlg.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/TaskList/TaskListDlg_rc.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "TinyXml/tinystr.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "TinyXml/tinyXmlA/tinystrA.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "TinyXml/tinyxml.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "TinyXml/tinyXmlA/tinyxmlA.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/ToolBar/ToolBar.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/ToolTip/ToolTip.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/TrayIcon/trayIconControler.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/ProjectPanel/TreeView.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "uchardet/uchardet.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "UniConversion.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/AboutDlg/URLCtrl.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "ScitillaComponent/UserDefineDialog.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "ScitillaComponent/UserDefineLangReference.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "ScitillaComponent/UserDefineResource.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Utf8_16.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/VerticalFileSwitcher/VerticalFileSwitcher.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/VerticalFileSwitcher/VerticalFileSwitcher_rc.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/VerticalFileSwitcher/VerticalFileSwitcherListView.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "MISC/Exception/Win32Exception.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/Window.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/WindowsDlg/WindowsDlg.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/WindowsDlg/WindowsDlgRc.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/WindowsDlg/WinMgr.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "WinControls/ColourPicker/WordStyleDlg.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "ScitillaComponent/xmlMatchedTagsHighlighter.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "rgba_icons.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "MISC/md5/md5Dlgs.rc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "WinControls/AnsiCharPanel/ansiCharPanel.rc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "WinControls/ClipboardHistory/clipboardHistoryPanel.rc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "WinControls/ColourPicker/ColourPopup.rc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "ScitillaComponent/columnEditor.rc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "WinControls/DockingWnd/DockingGUIWidget.rc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "WinControls/DocumentMap/documentMap.rc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "WinControls/DocumentMap/documentSnapshot.rc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "WinControls/FileBrowser/fileBrowser.rc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "WinControls/FindCharsInRange/findCharsInRange.rc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "ScitillaComponent/FindReplaceDlg.rc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "WinControls/FunctionList/functionListPanel.rc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Notepad_plus.rc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "WinControls/PluginsAdmin/pluginsAdmin.rc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "WinControls/Preference/preference.rc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "WinControls/ProjectPanel/ProjectPanel.rc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "MISC/RegExt/regExtDlg.rc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "WinControls/StaticDialog/RunDlg/RunDlg.rc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "WinControls/shortcut/RunMacroDlg.rc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "WinControls/shortcut/shortcut.rc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "WinControls/Grid/ShortcutMapper.rc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "WinControls/TaskList/TaskListDlg.rc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "ScitillaComponent/UserDefineDialog.rc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "WinControls/VerticalFileSwitcher/VerticalFileSwitcher.rc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "WinControls/WindowsDlg/WindowsDlg.rc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "WinControls/ColourPicker/WordStyleDlg.rc",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "EXECUTABLE"
+}

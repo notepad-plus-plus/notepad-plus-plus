@@ -555,6 +555,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 	bool isCharPrevBlank = (charPrev == ' ' || charPrev == '\t' || charPrev == '\n' || charPrev == '\r' || charPrev == '\0');
 	int docLen = _pEditView->getCurrentDocLen();
 	bool isCharNextBlank = (charNext == ' ' || charNext == '\t' || charNext == '\n' || charNext == '\r' || caretPos == docLen);
+	bool isCharNextCloseSymbol = (charNext == ')' || charNext == ']' || charNext == '}');
 	bool isInSandwich = (charPrev == '(' && charNext == ')') || (charPrev == '[' && charNext == ']') || (charPrev == '{' && charNext == '}');
 
 	// User defined matched pairs should be checked firstly
@@ -582,8 +583,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 		case int('('):
 			if (matchedPairConf._doParentheses)
 			{
-				if (isCharNextBlank || isInSandwich)
-
+				if (isCharNextBlank || isCharNextCloseSymbol)
 				{
 					matchedChars = ")";
 					_insertedMatchedChars.add(MatchedCharInserted(static_cast<char>(character), caretPos - 1));
@@ -594,7 +594,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 		case int('['):
 			if (matchedPairConf._doBrackets)
 			{
-				if (isCharNextBlank || isInSandwich)
+				if (isCharNextBlank || isCharNextCloseSymbol)
 				{
 					matchedChars = "]";
 					_insertedMatchedChars.add(MatchedCharInserted(static_cast<char>(character), caretPos - 1));
@@ -605,7 +605,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 		case int('{'):
 			if (matchedPairConf._doCurlyBrackets)
 			{
-				if (isCharNextBlank || isInSandwich)
+				if (isCharNextBlank || isCharNextCloseSymbol)
 				{
 					matchedChars = "}";
 					_insertedMatchedChars.add(MatchedCharInserted(static_cast<char>(character), caretPos - 1));

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-	<Native-Langue name="Español" filename="spanish.xml" version="7.7.2">
+	<Native-Langue name="Español" filename="spanish.xml" version="7.8.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -38,7 +38,7 @@
 					<Item subMenuId="search-jumpUp" name="Subir"/>
 					<Item subMenuId="search-jumpDown" name="Bajar"/>
 					<Item subMenuId="search-bookmark" name="Marca"/>
-					<Item subMenuId="view-currentFileIn" name="Ver el archivo corriente en"/>
+					<Item subMenuId="view-currentFileIn" name="Ver archivo actual en "/>
 					<Item subMenuId="view-showSymbol" name="Mostrar símbolo"/>
 					<Item subMenuId="view-zoom" name="Zoom"/>
 					<Item subMenuId="view-moveCloneDocument" name="Mover/clonar el documento actual"/>
@@ -63,6 +63,7 @@
 					<Item subMenuId="encoding-turkish" name="Turco"/>
 					<Item subMenuId="encoding-westernEuropean" name="Europeo occidental"/>
 					<Item subMenuId="encoding-vietnamese" name="Vietnamita"/>
+					<Item subMenuId="language-userDefinedLanguage" name="Definido por el usuario"/>
 					<Item subMenuId="settings-import" name="Importar"/>
 					<Item subMenuId="tools-md5" name="MD5"/>
 					<Item subMenuId="tools-sha256" name="SHA-256"/>
@@ -105,7 +106,7 @@
 					<Item id="42008" name="Aumentar guion de línea"/>
 					<Item id="42009" name="Reducir guion de línea"/>
 					<Item id="42010" name="Duplicar línea actual"/>
-					<Item id="42077" name="Eliminar líneas duplicadas consecutivas"/>
+					<Item id="42077" name="Eliminar lineas consecutivas duplicadas"/>
 					<Item id="42012" name="Dividir líneas"/>
 					<Item id="42013" name="Unir líneas"/>
 					<Item id="42014" name="Subir línea actual"/>
@@ -278,10 +279,11 @@
 					<Item id="10004" name="Abrir en una ventana nueva"/>
 					<Item id="46001" name="Configurador de estilo..."/>
 					<Item id="46250" name="Defina su lenguaje..."/>
+					<Item id="46300" name="Abrir carpeta de lenguaje definido por usuario..."/>
 					<Item id="46180" name="Definido por el usuario"/>
 					<Item id="47000" name="Acerca de Notepad++..."/>
 					<Item id="47010" name="Argumentos línea de comandos..."/>
-					<Item id="47001" name="Sitio de Notepad++"/>
+					<Item id="47001" name="Sobre Notepad++"/>
 					<Item id="47002" name="Página de proyecto Notepad++"/>
 					<Item id="47003" name="Documentación online"/>
 					<Item id="47004" name="Comunidad Notepad++ (Foro)"/>
@@ -303,10 +305,13 @@
 					<Item id="48504" name="Generar..."/>
 					<Item id="48505" name="Generar de archivos..."/>
 					<Item id="48506" name="Generar desde selección al portapapeles"/>
-					<Item id="49000" name="&amp;Run..."/>
+					<Item id="49000" name="E&amp;jecutar"/>
 					<Item id="50000" name="Función completa"/>
 					<Item id="50001" name="Palabra completa"/>
 					<Item id="50002" name="Parámetros de función"/>
+					<Item id="50003" name="Cambiar al documento anterior"/>
+					<Item id="50004" name="Cambiar al siguiente documento"/>
+					<Item id="50005" name="Alternar registro de macro"/>
 					<Item id="50006" name="Ruta"/>
 					<Item id="44042" name="Ocultar líneas"/>
 					<Item id="42040" name="Abrir los archivos recientes"/>
@@ -379,7 +384,7 @@
 				<Item id="1686" name="Transparencia"/>
 				<Item id="1703" name="&amp;. se ajusta a línea nueva"/>
 				<Item id="1721" name="▲"/>
-				<Item id="1723" name="▼ Encontrar siguiente"/>
+				<Item id="1723" name="▼ Siguiente"/>
 			</Find>
 			<FindCharsInRange title="Buscar caracteres en rango...">
 				<Item id="2" name="Cerrar"/>
@@ -759,6 +764,7 @@
 					<Item id="6302" name="Sustituir por espacios"/>
 					<Item id="6303" name="Tamaño: "/>
 					<Item id="6510" name="Usar valor por defecto"/>
+					<Item id="6335" name="Tratar barra invertida como carácter de escape para SQL"/>
 				</Language>
 				<Highlighting title="Resaltado">
 					<Item id="6333" name="Resaltado inteligente"/>
@@ -879,7 +885,7 @@
 				<MISC title="Otros">
 					<ComboBox id="6347">
 						<Element name="Habilitar"/>
-						<Element name="Habilitar para todos los archivos abiertos"/>
+						<Element name="Habilitar para archivos abiertos"/>
 						<Element name="Deshabilitar"/>
 					</ComboBox>
 					<Item id="6308" name="Minimizar a la bandeja del sistema"/>
@@ -894,7 +900,7 @@
 					<Item id="6324" name="Cambiar de documento (Ctrl+TAB)"/>
 					<Item id="6331" name="Mostrar sólo nombre de archivo en el título de la ventana"/>
 					<Item id="6334" name="Autodetectar codificación"/>
-					<Item id="6335" name="Tratar barra invertida como carácter de escape para SQL"/>
+					<Item id="6314" name="Usar fuente monoespaciada en el cuadro de diálogo Buscar (es necesario reiniciar Notepad ++)"/>
 					<Item id="6337" name="Ext. del arch. área de trab.:"/>
 					<Item id="6114" name="Permitir"/>
 					<Item id="6115" name="Auto-indentar"/>
@@ -948,11 +954,11 @@
 				<Item id="1720" name="&amp;. coincide con la nueva línea"/>
 			</FindInFinder>
 			<DoSaveOrNot title="Guardar">
-				<Item id="1761" name="Guardar archivo &quot;$STR_REPLACE$&quot; ?"/>
+				<Item id="1761" name="Guardar &quot;$STR_REPLACE$&quot; ?"/>
 				<Item id="6" name="Si"/>
 				<Item id="7" name="No"/>
 				<Item id="2" name="Cancelar"/>
-				<Item id="4" name="Sí a todo"/>
+				<Item id="4" name="Si a todo"/>
 				<Item id="5" name="No a todo"/>
 			</DoSaveOrNot>
 		</Dialog>
@@ -960,13 +966,13 @@
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<ContextMenuXmlEditWarning title="Editing contextMenu" message="Editing contextMenu.xml le permite modificar el menú contextual emergente de Notepad ++.
 Tiene que reiniciar su Notepad ++ para que surta efecto después de modificarlo."/>
-			<NppHelpAbsentWarning title="File does not exist" message="
+			<NppHelpAbsentWarning title="File does not exist" message="El archivo no existe
 no existe. Descárguelo en el sitio de Notepad ++."/>
-			<SaveCurrentModifWarning title="Save Current Modification" message="You should save the current modification.
+			<SaveCurrentModifWarning title="Save Current Modification" message="Debe guardar la modificación actual.
 Las modificaciones guardadas no se pueden deshacer.
 
 ¿Continuar?"/>
-			<LoseUndoAbilityWarning title="Lose Undo Ability Warning" message="You should save the current modification.
+			<LoseUndoAbilityWarning title="Lose Undo Ability Warning" message="Debe guardar la modificación actual.
 Las modificaciones guardadas no se pueden deshacer.
 
 ¿Continuar?"/>
@@ -1046,7 +1052,7 @@ Es necesario darle otro."/>
 			<ViewInBrowser title="View Current File in Browser" message="No se puede encontrar la aplicación en su sistema."/>
 			<ExitToUpdatePlugins title="Notepad++ is about to exit" message="Si hace clic en SÍ, saldrá de Notepad ++ para continuar con las operaciones.
 Notepad ++ se reiniciará después de que finalicen todas las operaciones.
-Continuar? "/>
+¿Continuar?"/>
 			<NeedToRestartToLoadPlugins title="Notepad++ need to be relaunched" message="Debe reiniciar Notepad ++ para cargar los complementos que instaló."/>
 		</MessageBox>
 		<ClipboardHistory>
@@ -1152,6 +1158,11 @@ Continuar? "/>
 			<cloud-select-folder value="Seleccione una carpeta en la que Notepad ++ lea o escriba sus configuraciones"/>
 			<shift-change-direction-tip value="Use May + Enter para buscar en la dirección opuesta"/>
 			<two-find-buttons-tip value="modo de 2 botones de búsqueda"/>
+			<find-in-files-filter-tip value="Buscar cpp, cxx, h, hxx &amp;&amp; hpp:
+*.cpp *.cxx *.h *.hxx *.hpp
+
+Find in all files except exe, obj &amp;&amp; log:
+*.* !*.exe !*.obj !*.log"/>
 			<find-status-top-reached value="Buscar: Encontrado el primer evento empezando desde el final. Se ha llegado al principio del documento."/>
 			<find-status-end-reached value="Buscar: Encontrado el primer evento empezando desde el inicio. Se ha llegado al final del documento."/>
 			<find-status-replaceinfiles-1-replaced value="Reemplazar en archivos: se reemplazó 1 elemento"/>
@@ -1168,7 +1179,7 @@ Continuar? "/>
 			<find-status-count-nb-matches value="Contar: $INT_REPLACE$ coincidencias"/>
 			<find-status-replaceall-re-malformed value="Reemplazar todo: La expresión regular tiene un formato incorrecto"/>
 			<find-status-replaceall-1-replaced value="Reemplazar todo: 1 coincidencia reemplazada"/>
-			<find-status-replaceall-nb-replaced value="Reemplazar todo: $INT_REPLACE$ coincidencias reemplazdas"/>
+			<find-status-replaceall-nb-replaced value="Reemplazar todo: $INT_REPLACE$ coincidencias reemplazadas"/>
 			<find-status-replaceall-readonly value="Reemplazar todo: No se puede reemplazar el texto. El documento actual es de solo lectura"/>
 			<find-status-replace-end-reached value="Reemplazar: Reemplazada la primera aparición desde el inicio. Se ha llegado al final del documento"/>
 			<find-status-replace-top-reached value="Reemplazar: Reemplazada la primera aparición desde el final. Se ha llegado al inicio del documento"/>
@@ -1198,7 +1209,7 @@ Continuar? "/>
 			<autocomplete-nb-char value="Nº car.: "/>
 			<edit-verticaledge-nb-col value="Nº columnas:"/>
 			<summary value="Resumen"/>
-			<summary-filepath value="Ruta completa del archivo: "/>
+			<summary-filepath value="Ruta completa del archivo:: "/>
 			<summary-filecreatetime value="Creado: "/>
 			<summary-filemodifytime value="Modificado: "/>
 			<summary-nbchar value="Caracteres (sin terminaciones de línea): "/>

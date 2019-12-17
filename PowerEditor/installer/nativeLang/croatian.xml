@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
         Croatian localization for Notepad++
-        Last modified 10 April 2019 by Elvis Gambiraža
+        Last modified 15 December 2019 by Elvis Gambiraža
 -->
 <NotepadPlus>
-        <Native-Langue name="Hrvatski (Croatian)" filename="croatian.xml" version="7.6.6">
+        <Native-Langue name="Hrvatski (Croatian)" filename="croatian.xml" version="7.8.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -68,9 +68,10 @@
                     <Item subMenuId="encoding-turkish" name="Turski"/>
                     <Item subMenuId="encoding-westernEuropean" name="Zapadna Europa"/>
                     <Item subMenuId="encoding-vietnamese" name="Vijetnamski"/>
+                    <Item subMenuId="language-userDefinedLanguage" name="Korisnički definiran jezik"/>
                     <Item subMenuId="settings-import" name="Uvoz"/>
-                    <Item subMenuId="tools-md5"  name="MD5"/>
-                    <Item subMenuId="tools-sha256"  name="SHA-256"/>
+                    <Item subMenuId="tools-md5" name="MD5"/>
+                    <Item subMenuId="tools-sha256" name="SHA-256"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -308,7 +309,8 @@
                     <Item id="46017" name="Datoteka resursa"/>
 
                     <Item id="46001" name="Postavke stilova..."/>
-                    <Item id="46250" name="Definiraj svoj jezik sintaksi..."/>
+                    <Item id="46250" name="Definiraj svoj jezik..."/>
+                    <Item id="46300" name="Otvori mapu korisnički definiranog jezika..."/>
                     <Item id="46180" name="Korisnički definirano"/>
                     <Item id="47000" name="O programu Notepad++..."/>
                     <Item id="47010" name="Argumenti komandne linije..."/>
@@ -341,6 +343,9 @@
                     <Item id="50000" name="Dopuna funkcija"/>
                     <Item id="50001" name="Dopuna riječi"/>
                     <Item id="50002" name="Podsjetnik funkcijskih parametara"/>
+                    <Item id="50003" name="Prijeđi na prethodni dokument"/>
+                    <Item id="50004" name="Prijeđi na sljedeći dokument"/>
+                    <Item id="50005" name="Uključi makro snimanje"/>
                     <Item id="50006" name="Dopuna puta"/>
                     <Item id="44042" name="Sakrij retke"/>
                     <Item id="42040" name="Otvori sve nedavno otvarane datoteke"/>
@@ -422,6 +427,9 @@
                     <Item id="1641" name="Pronađi sve u tekućem dokumentu"/>
                     <Item id="1686" name="&amp;Prozirnost"/>
                     <Item id="1703" name="&amp;. je novi redak"/>
+                    <Item id="1721" name="▲"/>
+                    <Item id="1723" name="▼ Nađi sljedeće"/>
+
             </Find>
 
             <FindCharsInRange title="Pronađi znakove u rasponu...">
@@ -810,7 +818,7 @@
                     <Item id="6226" name="Ništa"/>
 
                     <Item id="6227" name="Prijelom teksta"/>
-                    <Item id="6228" name="Izvorne postavke"/>
+                    <Item id="6228" name="Izv. postavke"/>
                     <Item id="6229" name="Poravnato"/>
                     <Item id="6230" name="Uvlaka"/>
 
@@ -931,7 +939,7 @@
                     <Item id="6818" name="Uključi snimke sesije i periodične sigurnosne kopije"/>
                     <Item id="6819" name="Sigurnosna kopija svakih"/>
                     <Item id="6821" name="sekundi"/>
-                    <Item id="6822" name="Put sigurnosne kopije:"/>
+                    <Item id="6822" name="Put kopije:"/>
                     <Item id="6309" name="Tekuću sesiju upamti do sljedećeg pokretanja"/>
                     <Item id="6801" name="Sigurnosna kopija pri spremanju"/>
                     <Item id="6315" name="Isključeno"/>
@@ -1029,6 +1037,7 @@
                     <Item id="6332" name="Razlikuj mala i velika slova"/>
                     <Item id="6333" name="Inteligentno isticanje"/>
                     <Item id="6334" name="Automatski detektiraj enkoding"/>
+                    <Item id="6314" name="Koristi monospaced font u Traži dijalogu (potreban je restart Notepada++)"/>
                     <Item id="6337" name="Nastavak datoteke radne površine:"/>
                     <Item id="6114" name="Uključi sklopku"/>
                     <Item id="6115" name="Automatska uvlaka redaka"/>
@@ -1083,6 +1092,14 @@
                 <Item id="1718" name="&amp;Prošireno (\n, \r, \t, \0, \x...)"/>
                 <Item id="1720" name="&amp;. odgovara novom retku"/>
             </FindInFinder>
+            <DoSaveOrNot title="Spremi"> 
+                <Item id="1761" name="Spremi datoteku &quot;$STR_REPLACE$&quot; ?"/>
+                <Item id="6" name="&amp;Da"/>
+                <Item id="7" name="&amp;Ne"/>
+                <Item id="2" name="&amp;Poništi"/>
+                <Item id="4" name="Da &amp;za sve"/>
+                <Item id="5" name="Ne za &amp;sve"/>
+            </DoSaveOrNot>
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title="Uređivanje contextMenu" message="Uređivanje contextMenu.xml omogućuje izmjenu Notepad++ skočnog kontekstnog izbornika.\rTrebate restartati Notepad++ kako bi se učitao izmijenjen contextMenu.xml."/>
@@ -1139,6 +1156,8 @@
             <OpenInAdminModeWithoutCloseCurrent title="Spremanje neuspješno" message="Datoteka ne može biti spremljena, a možda je zaštićena. Želite li pokrenuti Notepad++ u Administrator načinu?"/>
             <OpenInAdminModeFailed title="Otvaranje u Administrator načinu neuspješno" message="Notepad++ ne može biti otvoren u Administrator načinu."/>
             <ViewInBrowser title="Vidi trenutnu datoteku u pregledniku" message="Aplikacija ne može biti pronađena u vašem sistemu."/>
+            <ExitToUpdatePlugins title="Notepad++ će se zatvoriti" message="Ako kliknete DA, zatvorit ćete Notepad++ kako bi nastavili operacije. Notepad++ će se restartati nakon što sve operacije završe. Nastaviti?"/>
+            <NeedToRestartToLoadPlugins title="Notepad++ treba ponovno pokrenuti" message="Trebate restartati Notepad++ kako bi učitali instalirane dodatke."/>
             </MessageBox>
             <ClipboardHistory>
                     <PanelTitle name="Povijest međuspremnika"/>
@@ -1154,10 +1173,12 @@
             <ColumnType name="Tip"/>
         </WindowsDlg>
             <AsciiInsertion>
-                    <PanelTitle name="ASCII Umetanje"/>
+                    <PanelTitle name="Panel za umetanje ASCII kodova"/>
                     <ColumnVal name="Vrijednost"/>
                     <ColumnHex name="Hex"/>
                     <ColumnChar name="Znak"/>
+                    <ColumnHtmlNumber name="HTML broj"/>
+                    <ColumnHtmlName name="HTML kod"/>
             </AsciiInsertion>
             <DocumentMap>
                     <PanelTitle name="Mapa dokumenta"/>
@@ -1180,6 +1201,7 @@
                 <Item id="3517" name="Nađi u datotekama..."/>
                 <Item id="3518" name="Explorer ovdje"/>
                 <Item id="3519" name="CMD ovdje"/>
+                <Item id="3520" name="Kopiraj ime datoteke"/>
             </Menus>
         </FolderAsWorkspace>
             <ProjectManager>
@@ -1240,6 +1262,11 @@
             <cloud-select-folder value="Odaberite mapu iz koje/u koju Notepad++ čita/piše svoje postavke"/>
             <shift-change-direction-tip value="Upotrijebite Shift + Enter za traženje u suprotnom smjeru."/>
             <two-find-buttons-tip value="2 gumba za nalaženje"/>
+            <find-in-files-filter-tip value="Nađi u cpp, cxx, h, hxx &amp;&amp; hpp: 
+*.cpp *.cxx *.h *.hxx *.hpp
+
+Nađi u svim datotekama osim exe, obj &amp;&amp; log:
+*.* !*.exe !*.obj !*.log"/>
             <find-status-top-reached value="Nađeno: Nađeno prvo pojavljivanje od dna. Dostignut je početak dokumenta."/>
             <find-status-end-reached value="Nađeno: Nađeno prvo pojavljivanje od vrha. Dostignut je kraj dokumenta."/>
             <find-status-replaceinfiles-1-replaced value="Zamijeni u datotekama: 1 podudaranje je zamijenjeno"/>
@@ -1285,6 +1312,17 @@
             <userdefined-title-rename value="Promijeni ime trenutnog jezika"/>
             <autocomplete-nb-char value="Br znakova: "/>
             <edit-verticaledge-nb-col value="Br kolona:"/>
+            <summary value="Svojstva"/>
+            <summary-filepath value="Pun put datoteke: "/>
+            <summary-filecreatetime value="Kreirano: "/>
+            <summary-filemodifytime value="Modificirano: "/>
+            <summary-nbchar value="Karaktera (bez završetaka redaka): "/>
+            <summary-nbword value="Riječi: "/>
+            <summary-nbline value="Redaka: "/>
+            <summary-nbbyte value="Duljina dokumenta: "/>
+            <summary-nbsel1 value=" odabrano karaktera ("/>
+            <summary-nbsel2 value=" bajtova) u "/>
+            <summary-nbrange value=" opsezi"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

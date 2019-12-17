@@ -142,10 +142,10 @@ public:
 	void addRootFolder(generic_string);
 
 	HTREEITEM getRootFromFullPath(const generic_string & rootPath) const;
-	HTREEITEM findChildNodeFromName(HTREEITEM parent, const generic_string&);
+	HTREEITEM findChildNodeFromName(HTREEITEM parent, const generic_string&) const;
 
 	bool addInTree(const generic_string& rootPath, const generic_string& addItemFullPath, HTREEITEM node, std::vector<generic_string> linarPathArray);
-	HTREEITEM findInTree(const generic_string& rootPath, HTREEITEM node, std::vector<generic_string> linarPathArray);
+	HTREEITEM findInTree(const generic_string& rootPath, HTREEITEM node, std::vector<generic_string> linarPathArray) const;
 	bool deleteFromTree(const generic_string& rootPath, HTREEITEM node, const std::vector<generic_string>& linarPathArray);
 	void deleteAllFromTree() {
 		popupMenuCmd(IDM_FILEBROWSER_REMOVEALLROOTS);
@@ -174,7 +174,8 @@ protected:
 
 	BrowserNodeType getNodeType(HTREEITEM hItem);
 	void popupMenuCmd(int cmdID);
-	bool selectCurrentEditingFile();
+	bool selectCurrentEditingFile() const;
+
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void notified(LPNMHDR notification);
 	void showContextMenu(int x, int y);

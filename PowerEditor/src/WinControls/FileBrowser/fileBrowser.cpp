@@ -58,10 +58,10 @@
 
 FileBrowser::~FileBrowser()
 {
-	for (size_t i = 0; i < _folderUpdaters.size(); ++i)
+	for (const auto folder : _folderUpdaters)
 	{
-		_folderUpdaters[i]->stopWatcher();
-		delete _folderUpdaters[i];
+		folder->stopWatcher();
+		delete folder;
 	}
 }
 
@@ -526,7 +526,7 @@ void FileBrowser::notified(LPNMHDR notification)
 				openSelectFile();
 			}
 			break;
-	
+
 			case TVN_ENDLABELEDIT:
 			{
 				LPNMTVDISPINFO tvnotif = (LPNMTVDISPINFO)notification;
@@ -967,17 +967,16 @@ void FileBrowser::addRootFolder(generic_string rootFolderPath)
 		rootFolderPath = rootFolderPath.substr(0, rootFolderPath.length() - 1);
 	}
 
-	size_t nbFolderUpdaters = _folderUpdaters.size();
-	for (size_t i = 0; i < nbFolderUpdaters; ++i)
+	for (const auto f : _folderUpdaters)
 	{
-		if (_folderUpdaters[i]->_rootFolder._rootPath == rootFolderPath)
+		if (f->_rootFolder._rootPath == rootFolderPath)
 			return;
 		else
 		{
-			if (isRelatedRootFolder(_folderUpdaters[i]->_rootFolder._rootPath, rootFolderPath))
+			if (isRelatedRootFolder(f->_rootFolder._rootPath, rootFolderPath))
 			{
 				//do nothing, go down to select the dir
-				generic_string rootPath = _folderUpdaters[i]->_rootFolder._rootPath;
+				generic_string rootPath = f->_rootFolder._rootPath;
 				generic_string pathSuffix = rootFolderPath.substr(rootPath.size() + 1, rootFolderPath.size() - rootPath.size());
 				vector<generic_string> linarPathArray = split(pathSuffix, '\\');
 				
@@ -987,7 +986,7 @@ void FileBrowser::addRootFolder(generic_string rootFolderPath)
 				return;
 			}
 			
-			if (isRelatedRootFolder(rootFolderPath, _folderUpdaters[i]->_rootFolder._rootPath))
+			if (isRelatedRootFolder(rootFolderPath, f->_rootFolder._rootPath))
 			{
 				NppParameters::getInstance().getNativeLangSpeaker()->messageBox("FolderAsWorspaceSubfolderExists",
 					_hParent,
@@ -1036,15 +1035,16 @@ HTREEITEM FileBrowser::createFolderItemsFromDirStruct(HTREEITEM hParentItem, con
 		hFolderItem = _treeView.addItem(directoryStructure._name.c_str(), hParentItem, INDEX_CLOSE_NODE);
 	}
 
-	for (size_t i = 0; i < directoryStructure._subFolders.size(); ++i)
+	for (const auto& folder : directoryStructure._subFolders)
 	{
-		createFolderItemsFromDirStruct(hFolderItem, directoryStructure._subFolders[i]);
+		createFolderItemsFromDirStruct(hFolderItem, folder);
 	}
 
-	for (size_t i = 0; i < directoryStructure._files.size(); ++i)
+	for (const auto& file : directoryStructure._files)
 	{
-		_treeView.addItem(directoryStructure._files[i]._name.c_str(), hFolderItem, INDEX_LEAF);
+		_treeView.addItem(file._name.c_str(), hFolderItem, INDEX_LEAF);
 	}
+
 	_treeView.fold(hParentItem);
 
 	return hFolderItem;
@@ -1249,10 +1249,9 @@ bool FolderInfo::addToStructure(generic_string & fullpath, std::vector<generic_s
 		if (PathIsDirectory(fullpath.c_str()))
 		{
 			// search in folders, if found - no good
-			size_t nbFolder = _subFolders.size();
-			for (size_t i = 0; i < nbFolder; ++i)
+			for (const auto& folder : _subFolders)
 			{
-				if (linarPathArray[0] == _subFolders[i].getName())
+				if (linarPathArray[0] == folder.getName())
 					return false; // Maybe already added?
 			}
 			_subFolders.push_back(FolderInfo(linarPathArray[0], this));
@@ -1261,10 +1260,9 @@ bool FolderInfo::addToStructure(generic_string & fullpath, std::vector<generic_s
 		else
 		{
 			// search in files, if found - no good
-			size_t nbFile = _files.size();
-			for (size_t i = 0; i < nbFile; ++i)
+			for (const auto& file : _files)
 			{
-				if (linarPathArray[0] == _files[i].getName())
+				if (linarPathArray[0] == file.getName())
 					return false; // Maybe already added?
 			}
 			_files.push_back(FileInfo(linarPathArray[0], this));
@@ -1273,15 +1271,14 @@ bool FolderInfo::addToStructure(generic_string & fullpath, std::vector<generic_s
 	}
 	else // folder
 	{
-		size_t nbFolder = _subFolders.size();
-		for (size_t i = 0; i < nbFolder; ++i)
+		for (auto& folder : _subFolders)
 		{
-			if (_subFolders[i].getName() == linarPathArray[0])
+			if (folder.getName() == linarPathArray[0])
 			{
 				fullpath += TEXT("\\");
 				fullpath += linarPathArray[0];
 				linarPathArray.erase(linarPathArray.begin());
-				return _subFolders[i].addToStructure(fullpath, linarPathArray);
+				return folder.addToStructure(fullpath, linarPathArray);
 			}
 		}
 		return false;
@@ -1330,22 +1327,22 @@ bool FolderInfo::renameInStructure(std::vector<generic_string> linarPathArrayFro
 {
 	if (linarPathArrayFrom.size() == 1) // could be file or folder
 	{
-		for (size_t i = 0; i < _files.size(); ++i)
+		for (auto& file : _files)
 		{
-			if (_files[i].getName() == linarPathArrayFrom[0])
+			if (file.getName() == linarPathArrayFrom[0])
 			{
 				// rename this file
-				_files[i].setName(linarPathArrayTo[0]);
+				file.setName(linarPathArrayTo[0]);
 				return true;
 			}
 		}
 
-		for (size_t i = 0; i < _subFolders.size(); ++i)
+		for (auto& folder : _subFolders)
 		{
-			if (_subFolders[i].getName() == linarPathArrayFrom[0])
+			if (folder.getName() == linarPathArrayFrom[0])
 			{
 				// rename this folder
-				_subFolders[i].setName(linarPathArrayTo[0]);
+				folder.setName(linarPathArrayTo[0]);
 				return true;
 			}
 		}
@@ -1353,13 +1350,13 @@ bool FolderInfo::renameInStructure(std::vector<generic_string> linarPathArrayFro
 	}
 	else // folder
 	{
-		for (size_t i = 0; i < _subFolders.size(); ++i)
+		for (auto& folder : _subFolders)
 		{
-			if (_subFolders[i].getName() == linarPathArrayFrom[0])
+			if (folder.getName() == linarPathArrayFrom[0])
 			{
 				linarPathArrayFrom.erase(linarPathArrayFrom.begin());
 				linarPathArrayTo.erase(linarPathArrayTo.begin());
-				return _subFolders[i].renameInStructure(linarPathArrayFrom, linarPathArrayTo);
+				return folder.renameInStructure(linarPathArrayFrom, linarPathArrayTo);
 			}
 		}
 		return false;

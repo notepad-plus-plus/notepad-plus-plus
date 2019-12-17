@@ -145,6 +145,7 @@
 #define IDI_FB_ROOTOPEN        608
 #define IDI_FB_ROOTCLOSE        609
 #define IDI_FB_SELECTCURRENTFILE        610
+#define IDI_FB_FOLDALL                  611
 
 #define IDI_FUNCLIST_ROOT            620
 #define IDI_FUNCLIST_NODE            621

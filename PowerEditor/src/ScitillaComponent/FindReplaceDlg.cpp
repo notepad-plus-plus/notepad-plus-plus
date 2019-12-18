@@ -3528,7 +3528,6 @@ INT_PTR CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 				case IDCANCEL :
 					(*(_pFRDlg->_ppEditView))->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_INC);
 					(*(_pFRDlg->_ppEditView))->getFocus();
-					::SendDlgItemMessage(_hSelf, IDC_INCFINDHILITEALL, BM_SETCHECK, BST_UNCHECKED, 0);
 					display(false);
 					return TRUE;
 

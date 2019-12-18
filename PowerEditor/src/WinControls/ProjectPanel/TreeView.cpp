@@ -263,7 +263,7 @@ void TreeView::cleanSubEntries(HTREEITEM hTreeItem)
 	}
 }
 
-void TreeView::foldRecursively(HTREEITEM hParentItem) const
+void TreeView::foldExpandRecursively(HTREEITEM hParentItem, bool isFold) const
 {
 	if (!hParentItem)
 		return;
@@ -272,19 +272,33 @@ void TreeView::foldRecursively(HTREEITEM hParentItem) const
 
 	for (; hItem != NULL; hItem = getNextSibling(hItem))
 	{
-		foldRecursively(hItem);
-		fold(hItem);
+		foldExpandRecursively(hItem, isFold);
+		if (isFold)
+		{
+			fold(hItem);
+		}
+		else
+		{
+			expand(hItem);
+		}
 	}
 }
 
-void TreeView::foldAll() const
+void TreeView::foldExpandAll(bool isFold) const
 {
 	for (HTREEITEM tvProj = getRoot();
 		tvProj != NULL;
 		tvProj = getNextSibling(tvProj))
 	{
-		foldRecursively(tvProj);
-		fold(tvProj);
+		foldExpandRecursively(tvProj, isFold);
+		if (isFold)
+		{
+			fold(tvProj);
+		}
+		else
+		{
+			expand(tvProj);
+		}
 	}
 }
 

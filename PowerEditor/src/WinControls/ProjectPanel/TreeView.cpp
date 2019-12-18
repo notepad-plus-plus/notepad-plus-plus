@@ -275,7 +275,6 @@ void TreeView::foldRecursively(HTREEITEM hParentItem) const
 		foldRecursively(hItem);
 		fold(hItem);
 	}
-	fold(hParentItem);
 }
 
 void TreeView::foldAll() const
@@ -285,6 +284,7 @@ void TreeView::foldAll() const
 		tvProj = getNextSibling(tvProj))
 	{
 		foldRecursively(tvProj);
+		fold(tvProj);
 	}
 }
 

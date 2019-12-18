@@ -1,5 +1,6 @@
 # Contributing
 
+***Ask not what Notepad++ can do for you - ask what you can do for Notepad++***
 
 ## Reporting Issues
 

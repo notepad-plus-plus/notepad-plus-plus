@@ -208,6 +208,7 @@ IDI_FB_ROOTCLOSE                BITMAP      "icons/fb_root_close.bmp"
 
 IDI_FB_SELECTCURRENTFILE        BITMAP      "icons/fb_select_current_file.bmp"
 IDI_FB_FOLDALL                  BITMAP      "icons/fb_fold_all.bmp"
+IDI_FB_EXPANDALL                BITMAP      "icons/fb_expand_all.bmp"
 
 IDI_FUNCLIST_ROOT               BITMAP      "icons/project_file.bmp"
 IDI_FUNCLIST_NODE               BITMAP      "icons/funcList_node.bmp"

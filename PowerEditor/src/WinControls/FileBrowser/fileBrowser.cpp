@@ -55,6 +55,7 @@
 #define FB_RNFILE  (WM_USER + 1026)
 #define FB_CMD_AIMFILE 1
 #define FB_CMD_FOLDALL 2
+#define FB_CMD_EXPANDALL 3
 
 FileBrowser::~FileBrowser()
 {
@@ -110,12 +111,14 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			NppParameters& nppParam = NppParameters::getInstance();
 			int style = WS_CHILD | WS_VISIBLE | CCS_ADJUSTABLE | TBSTYLE_AUTOSIZE | TBSTYLE_FLAT | TBSTYLE_LIST | TBSTYLE_TRANSPARENT | BTNS_AUTOSIZE | BTNS_SEP | TBSTYLE_TOOLTIPS;
 			_hToolbarMenu = CreateWindowEx(WS_EX_LAYOUTRTL, TOOLBARCLASSNAME, NULL, style, 0, 0, 0, 0, _hSelf, nullptr, _hInst, NULL);
-			TBBUTTON tbButtons[2];
+			TBBUTTON tbButtons[3];
 			// Add the bmap image into toolbar's imagelist
 			TBADDBITMAP addbmp = { _hInst, 0 };
 			addbmp.nID = IDI_FB_SELECTCURRENTFILE;
 			::SendMessage(_hToolbarMenu, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmp));
 			addbmp.nID = IDI_FB_FOLDALL;
+			::SendMessage(_hToolbarMenu, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmp));
+			addbmp.nID = IDI_FB_EXPANDALL;
 			::SendMessage(_hToolbarMenu, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmp));
 			tbButtons[0].idCommand = FB_CMD_AIMFILE;
 			tbButtons[0].iBitmap = 0;
@@ -127,6 +130,11 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			tbButtons[1].fsState = TBSTATE_ENABLED;
 			tbButtons[1].fsStyle = BTNS_BUTTON | BTNS_AUTOSIZE;
 			tbButtons[1].iString = reinterpret_cast<INT_PTR>(TEXT(""));
+			tbButtons[2].idCommand = FB_CMD_EXPANDALL;
+			tbButtons[2].iBitmap = 2;
+			tbButtons[2].fsState = TBSTATE_ENABLED;
+			tbButtons[2].fsStyle = BTNS_BUTTON | BTNS_AUTOSIZE;
+			tbButtons[2].iString = reinterpret_cast<INT_PTR>(TEXT(""));
 
 			::SendMessage(_hToolbarMenu, TB_BUTTONSTRUCTSIZE, sizeof(TBBUTTON), 0);
 			::SendMessage(_hToolbarMenu, TB_SETBUTTONSIZE, 0, MAKELONG(nppParam._dpiManager.scaleX(20), nppParam._dpiManager.scaleY(20)));
@@ -211,6 +219,12 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				case FB_CMD_FOLDALL:
 				{
 					_treeView.foldAll();
+					break;
+				}
+
+				case FB_CMD_EXPANDALL:
+				{
+					_treeView.expandAll();
 					break;
 				}
 

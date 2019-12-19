@@ -533,6 +533,16 @@ void FileManager::checkFilesystemChanges(bool bCheckOnlyCurrentBuffer)
 	}
 }
 
+size_t FileManager::getNbDirtyBuffers() const
+{
+	size_t nb_dirtyBufs = 0;
+	for (size_t i = 0; i < _nbBufs; ++i)
+	{
+		if (_buffers[i]->_isDirty)
+			++nb_dirtyBufs;
+	}
+	return nb_dirtyBufs;
+}
 
 int FileManager::getBufferIndexByID(BufferID id)
 {

@@ -1048,6 +1048,45 @@ TiXmlNodeA * NativeLangSpeaker::searchDlgNode(TiXmlNodeA *node, const char *dlgT
 	return NULL;
 }
 
+bool NativeLangSpeaker::getDoSaveOrNotStrings(generic_string& title, generic_string& msg)
+{
+	if (!_nativeLangA) return false;
+
+	TiXmlNodeA *dlgNode = _nativeLangA->FirstChild("Dialog");
+	if (!dlgNode) return false;
+
+	dlgNode = searchDlgNode(dlgNode, "DoSaveOrNot");
+	if (!dlgNode) return false;
+
+	const char *title2set = (dlgNode->ToElement())->Attribute("title");
+	if (!title2set || !title2set[0]) return false;
+
+	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+	const wchar_t *titleW = wmc.char2wchar(title2set, _nativeLangEncoding);
+	title = titleW;
+
+	for (TiXmlNodeA *childNode = dlgNode->FirstChildElement("Item");
+		childNode;
+		childNode = childNode->NextSibling("Item"))
+	{
+		TiXmlElementA *element = childNode->ToElement();
+		int id;
+		const char *sentinel = element->Attribute("id", &id);
+		const char *name = element->Attribute("name");
+		if (sentinel && (name && name[0]))
+		{
+			if (id == 1761)
+			{
+				const wchar_t *msgW = wmc.char2wchar(name, _nativeLangEncoding);
+				msg = msgW;
+
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
 bool NativeLangSpeaker::changeDlgLang(HWND hDlg, const char *dlgTagName, char *title, size_t titleMaxSize)
 {
 	if (title)

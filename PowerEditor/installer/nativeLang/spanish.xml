@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-	<Native-Langue name="Español" filename="spanish.xml" version="7.8.1">
+	<Native-Langue name="Español" filename="spanish.xml" version="7.8.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -38,7 +38,7 @@
 					<Item subMenuId="search-jumpUp" name="Subir"/>
 					<Item subMenuId="search-jumpDown" name="Bajar"/>
 					<Item subMenuId="search-bookmark" name="Marca"/>
-					<Item subMenuId="view-currentFileIn" name="Ver archivo actual en "/>
+					<Item subMenuId="view-currentFileIn" name="Ver archivo actual en"/>
 					<Item subMenuId="view-showSymbol" name="Mostrar símbolo"/>
 					<Item subMenuId="view-zoom" name="Zoom"/>
 					<Item subMenuId="view-moveCloneDocument" name="Mover/clonar el documento actual"/>
@@ -292,18 +292,18 @@
 					<Item id="47005" name="Obtener más Plugins"/>
 					<Item id="47006" name="Actualizar Notepad++"/>
 					<Item id="47009" name="Establecer Proxy actualizador"/>
-					<Item id="48005" name="Importar Plugin(s) ..."/>
-					<Item id="48006" name="Importar Tema(s) ..."/>
+					<Item id="48005" name="Importar Plugin(s)..."/>
+					<Item id="48006" name="Importar Tema(s)..."/>
 					<Item id="48018" name="Editar menú emergente"/>
 					<Item id="48009" name="Enlaces directos..."/>
 					<Item id="48011" name="Preferencias..."/>
+					<Item id="48014" name="Abrir carpeta Plugins..."/>
 					<Item id="48015" name="Administrar Plugins..."/>
 					<Item id="48501" name="Generar..."/>
-					<Item id="48502" name="Generar de los archivos..."/>
 					<Item id="48502" name="Generar desde archivos..."/>
-					<Item id="48503" name="Generar en portapapeles"/>
+					<Item id="48503" name="Generar desde selección al portapapeles"/>
 					<Item id="48504" name="Generar..."/>
-					<Item id="48505" name="Generar de archivos..."/>
+					<Item id="48505" name="Generar desde archivos..."/>
 					<Item id="48506" name="Generar desde selección al portapapeles"/>
 					<Item id="49000" name="E&amp;jecutar"/>
 					<Item id="50000" name="Función completa"/>
@@ -548,7 +548,7 @@
 				</StylerDialog>
 				<Folder title="Relieve sintáctico &amp;&amp; Valores por defecto">
 					<Item id="21101" name="Estilo por defecto"/>
-					<Item id="21201" name="Estilo"/>
+					<Item id="21102" name="Estilo"/>
 					<Item id="21105" name="Documentación:"/>
 					<Item id="21104" name="Sitio web:"/>
 					<Item id="21106" name="Compactar el relieve (líneas vacías también)"/>
@@ -566,7 +566,7 @@
 					<Item id="21424" name="Abriendo:"/>
 					<Item id="21425" name="Medio:"/>
 					<Item id="21426" name="Cerrando:"/>
-					<Item id="21127" name="Estilo"/>
+					<Item id="21427" name="Estilo"/>
 				</Folder>
 				<Keywords title="Listas de palabras clave">
 					<Item id="22101" name="1º Grupo"/>
@@ -723,9 +723,8 @@
 					<Item id="6212" name="Modo lineal"/>
 					<Item id="6213" name="Modo de fondo"/>
 					<Item id="6214" name="Resaltar la línea activa"/>
-					<Item id="6231" name="Ancho de borde"/>
 					<Item id="6215" name="Suavizar la fuente"/>
-					<Item id="6231" name="Ancho del borde"/>
+					<Item id="6231" name="Ancho de borde"/>
 					<Item id="6235" name="Sin borde"/>
 					<Item id="6236" name="Permitir desplazamiento tras la próxima línea"/>
 				</Scintillas>
@@ -752,6 +751,7 @@
 					<Item id="6431" name="Abrir todos los archivos de la carpeta en lugar de usar la carpeta como área de trabajo"/>
 				</DefaultDir>
 				<FileAssoc title="Asociación de archivos">
+					<Item id="4008" name="Para usar esta función, reinicie Notepad++ en modo Administrador."/>
 					<Item id="4009" name="Ext. soportadas:"/>
 					<Item id="4010" name="Ext. asociadas:"/>
 				</FileAssoc>
@@ -832,6 +832,7 @@
 					<Item id="6803" name="Carpeta:"/>
 				</Backup>
 				<AutoCompletion title="Auto-completado">
+					<Item id="6115" name="Auto-indentar"/>
 					<Item id="6807" name="Auto-completado"/>
 					<Item id="6808" name="Permitir Auto-completar siempre"/>
 					<Item id="6809" name="Auto-completar función"/>
@@ -900,14 +901,14 @@
 					<Item id="6324" name="Cambiar de documento (Ctrl+TAB)"/>
 					<Item id="6331" name="Mostrar sólo nombre de archivo en el título de la ventana"/>
 					<Item id="6334" name="Autodetectar codificación"/>
-					<Item id="6314" name="Usar fuente monoespaciada en el cuadro de diálogo Buscar (es necesario reiniciar Notepad ++)"/>
+					<Item id="6314" name="Usar fuente monoespaciada en el cuadro de diálogo Buscar (es necesario reiniciar Notepad++)"/>
 					<Item id="6337" name="Ext. del arch. área de trab.:"/>
 					<Item id="6114" name="Permitir"/>
-					<Item id="6115" name="Auto-indentar"/>
 					<Item id="6117" name="Ordenar por el usado más reciente"/>
 					<Item id="6344" name="Visor de documento"/>
 					<Item id="6345" name="Pestaña de visor"/>
 					<Item id="6346" name="Ver en mapa de documento"/>
+					<Item id="6348" name="No rellene el campo de entrada en el cuadro de diálogo Buscar"/>
 				</MISC>
 			</Preference>
 			<MultiMacro title="Ejecución múltiple de macro">
@@ -955,20 +956,20 @@
 			</FindInFinder>
 			<DoSaveOrNot title="Guardar">
 				<Item id="1761" name="Guardar &quot;$STR_REPLACE$&quot; ?"/>
-				<Item id="6" name="Si"/>
-				<Item id="7" name="No"/>
-				<Item id="2" name="Cancelar"/>
-				<Item id="4" name="Si a todo"/>
-				<Item id="5" name="No a todo"/>
+				<Item id="6" name="&amp;Si"/>
+				<Item id="7" name="&amp;No"/>
+				<Item id="2" name="&amp;Cancelar"/>
+				<Item id="4" name="S&amp;i a todo"/>
+				<Item id="5" name="N&amp;o a todo"/>
 			</DoSaveOrNot>
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
-			<ContextMenuXmlEditWarning title="Editing contextMenu" message="Editing contextMenu.xml le permite modificar el menú contextual emergente de Notepad ++.
-Tiene que reiniciar su Notepad ++ para que surta efecto después de modificarlo."/>
-			<NppHelpAbsentWarning title="File does not exist" message="El archivo no existe
-no existe. Descárguelo en el sitio de Notepad ++."/>
-			<SaveCurrentModifWarning title="Save Current Modification" message="Debe guardar la modificación actual.
+			<ContextMenuXmlEditWarning title="Editar menú emergente" message="Editar 'contextMenu.xml' le permite modificar el menú contextual emergente de Notepad++.
+Tiene que reiniciar su Notepad++ para que surta efecto después de modificarlo."/>
+			<NppHelpAbsentWarning title="El archivo no existe" message="
+no existe. Descárguelo en el sitio de Notepad++."/>
+			<SaveCurrentModifWarning title="Guardar modificación actual" message="Debe guardar la modificación actual.
 Las modificaciones guardadas no se pueden deshacer.
 
 ¿Continuar?"/>
@@ -977,12 +978,12 @@ Las modificaciones guardadas no se pueden deshacer.
 
 ¿Continuar?"/>
 			<CannotMoveDoc title="Move to new Notepad++ Instance" message="El documento se modifica. Guárdelo y vuelva a intentarlo."/>
-			<DocReloadWarning title="Reload" message="¿Está seguro de que desea volver a cargar el archivo actual y perder los cambios realizados en Notepad ++?"/>
+			<DocReloadWarning title="Reload" message="¿Está seguro de que desea volver a cargar el archivo actual y perder los cambios realizados en Notepad++?"/>
 			<FileLockedWarning title="Save failed" message="Compruebe si este archivo está abierto en otro programa"/>
 			<FileAlreadyOpenedInNpp title="" message="El archivo ya está abierto en Notepad++."/>
 			<DeleteFileFailed title="Delete File" message="Fallo al borrar el archivo"/>
-			<NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ van a ser abiertos.
-Are you sure to open them?"/>
+			<NbFileToOpenImportantWarning title="Amount of files to open is too large" message="Se abrirán $INT_REPLACE$ archivos.
+¿Desea abrir todos estos archivos?"/>
 			<SettingsOnCloudError title="Settings on Cloud" message="Parece que la ruta de la configuración en la nube se establece en una unidad de solo lectura,
 o en una carpeta se necesita derecho de acceso para escritura.
 Su configuración en la nube será cancelada. Reinicie con un valor coherente usando el cuadro de diálogo de Preferencias."/>
@@ -1004,17 +1005,18 @@ Guárdelo, o sus datos se perderán.
 			<DoReloadOrNot title="Reload" message="&quot;$STR_REPLACE$&quot;
 
 Este archivo ha sido modificado por otro programa.
-¿Desea recargarlo? "/>
+¿Desea recargarlo?"/>
 			<DoReloadOrNotAndLooseChange title="Reload" message="&quot;$STR_REPLACE$&quot;
 
 Este archivo ha sido modificado por otro programa.
-¿Desea volver a cargarlo y perder los cambios realizados en Notepad ++? "/>
+¿Desea volver a cargarlo y perder los cambios realizados en Notepad++?"/>
 			<PrehistoricSystemDetected title="Prehistoric system detected" message="Parece que todavía usa un sistema anticuado. Lamentablemente esta función solo funciona en un sistema moderno."/>
-			<XpUpdaterProblem title="Notepad++ Updater" message="El actualizador de Notepad ++ no es compatible con XP debido a la capa de seguridad obsoleta en XP.
-¿Desea ir a la página de Notepad ++ para descargar la última versión?"/>
+			<XpUpdaterProblem title="Notepad++ Updater" message="El actualizador de Notepad++ no es compatible con XP debido a la capa de seguridad obsoleta en XP.
+¿Desea ir a la página de Notepad++ para descargar la última versión?"/>
+			<GUpProxyConfNeedAdminMode title="Configuración del proxy" message="Para cambiar la configuración del proxy, reinicie Notepad++ en modo Administrador."/>
 			<DocTooDirtyToMonitor title="Monitoring problem" message="El documento está sucio. Guarde la modificación antes de monitorearlo."/>
 			<DocNoExistToMonitor title="Monitoring problem" message="El archivo debe existir para ser monitoreado."/>
-			<FileTooBigToOpen title="File size problem" message="El archivo es demasiado grande para abrirlo con Notepad ++"/>
+			<FileTooBigToOpen title="File size problem" message="El archivo es demasiado grande para abrirlo con Notepad++"/>
 			<CreateNewFileOrNot title="Create new file" message="&quot;$STR_REPLACE$&quot; no existe. ¿Crearlo?"/>
 			<CreateNewFileError title="Create new file" message="No se puede crear el archivo &quot;$STR_REPLACE$&quot;."/>
 			<OpenFileError title="ERROR" message="No se puede abrir el archivo &quot;$STR_REPLACE$&quot;."/>
@@ -1045,15 +1047,15 @@ Es necesario darle otro."/>
 			<SCMapperDoDeleteOrNot title="Are you sure?" message="¿Está seguro de que desea eliminar este acceso directo?"/>
 			<FindCharRangeValueError title="Range Value problem" message="Debe escribir entre 0 y 255."/>
 			<OpenInAdminMode title="Save failed" message="El archivo no se puede guardar y puede estar protegido.
-¿Desea iniciar Notepad ++ en modo Administrador?"/>
+¿Desea iniciar Notepad++ en modo Administrador?"/>
 			<OpenInAdminModeWithoutCloseCurrent title="Save failed" message="El archivo no se puede guardar y puede estar protegido.
-¿Desea iniciar Notepad ++ en modo Administrador?"/>
-			<OpenInAdminModeFailed title="Open in Administrator mode failed" message="Notepad ++ no se puede abrir en el modo de administrador."/>
+¿Desea iniciar Notepad++ en modo Administrador?"/>
+			<OpenInAdminModeFailed title="Open in Administrator mode failed" message="Notepad++ no se puede abrir en el modo de Administrador."/>
 			<ViewInBrowser title="View Current File in Browser" message="No se puede encontrar la aplicación en su sistema."/>
-			<ExitToUpdatePlugins title="Notepad++ is about to exit" message="Si hace clic en SÍ, saldrá de Notepad ++ para continuar con las operaciones.
-Notepad ++ se reiniciará después de que finalicen todas las operaciones.
+			<ExitToUpdatePlugins title="Notepad++ is about to exit" message="Si hace clic en SÍ, saldrá de Notepad++ para continuar con las operaciones.
+Notepad++ se reiniciará después de que finalicen todas las operaciones.
 ¿Continuar?"/>
-			<NeedToRestartToLoadPlugins title="Notepad++ need to be relaunched" message="Debe reiniciar Notepad ++ para cargar los complementos que instaló."/>
+			<NeedToRestartToLoadPlugins title="Notepad++ need to be relaunched" message="Debe reiniciar Notepad++ para cargar los complementos que instaló."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historial de portapapeles"/>
@@ -1147,7 +1149,7 @@ Notepad ++ se reiniciará después de que finalicen todas las operaciones.
 			</Menus>
 		</ProjectManager>
 		<MiscStrings>
-			<!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
+			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders -->
 			<word-chars-list-tip value="Esto le permite incluir caracteres adicionales a los caracteres de la palabra actual al hacer doble click para seleccionar o buscar con la opción &quot;Solo palabras completas&quot; seleccionada."/>
 			<word-chars-list-warning-begin value="Cuidado: "/>
 			<word-chars-list-space-warning value="$INT_REPLACE$ espacio(s)"/>
@@ -1155,7 +1157,7 @@ Notepad ++ se reiniciará después de que finalicen todas las operaciones.
 			<word-chars-list-warning-end value="  en su lista de caracteres."/>
 			<cloud-invalid-warning value="Ruta inválida."/>
 			<cloud-restart-warning value="Reinicie Notepad++ para que tome efecto."/>
-			<cloud-select-folder value="Seleccione una carpeta en la que Notepad ++ lea o escriba sus configuraciones"/>
+			<cloud-select-folder value="Seleccione una carpeta en la que Notepad++ lea o escriba sus configuraciones"/>
 			<shift-change-direction-tip value="Use May + Enter para buscar en la dirección opuesta"/>
 			<two-find-buttons-tip value="modo de 2 botones de búsqueda"/>
 			<find-in-files-filter-tip value="Buscar cpp, cxx, h, hxx &amp;&amp; hpp:
@@ -1167,7 +1169,7 @@ Find in all files except exe, obj &amp;&amp; log:
 			<find-status-end-reached value="Buscar: Encontrado el primer evento empezando desde el inicio. Se ha llegado al final del documento."/>
 			<find-status-replaceinfiles-1-replaced value="Reemplazar en archivos: se reemplazó 1 elemento"/>
 			<find-status-replaceinfiles-nb-replaced value="Reemplazar en archivos: $INT_REPLACE$ coincidentes reemplazados"/>
-			<find-status-replaceinfiles-re-malformed value="Reemplazar en archivos abiertos: La expresión regular tiene un formato incorrecto. "/>
+			<find-status-replaceinfiles-re-malformed value="Reemplazar en archivos abiertos: La expresión regular tiene un formato incorrecto."/>
 			<find-status-replaceinopenedfiles-1-replaced value="Reemplazar en archivos abiertos: se reemplazó 1 aparición"/>
 			<find-status-replaceinopenedfiles-nb-replaced value="Reemplazar en archivos abiertos: $INT_REPLACE$ ocurrencias reemplazadas"/>
 			<find-status-mark-re-malformed value="Marcar: La expresión regular para buscar tiene un formato incorrecto"/>
@@ -1209,7 +1211,7 @@ Find in all files except exe, obj &amp;&amp; log:
 			<autocomplete-nb-char value="Nº car.: "/>
 			<edit-verticaledge-nb-col value="Nº columnas:"/>
 			<summary value="Resumen"/>
-			<summary-filepath value="Ruta completa del archivo:: "/>
+			<summary-filepath value="Ruta completa del archivo: "/>
 			<summary-filecreatetime value="Creado: "/>
 			<summary-filemodifytime value="Modificado: "/>
 			<summary-nbchar value="Caracteres (sin terminaciones de línea): "/>

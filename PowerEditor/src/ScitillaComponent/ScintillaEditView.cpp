@@ -138,7 +138,7 @@ LanguageName ScintillaEditView::langNames[L_EXTERNAL+1] = {
 {TEXT("r"),				TEXT("R"),					TEXT("R programming language"),							L_R,			SCLEX_R},
 {TEXT("jsp"),			TEXT("JSP"),				TEXT("JavaServer Pages script file"),					L_JSP,			SCLEX_HTML},
 {TEXT("coffeescript"),	TEXT("CoffeeScript"),		TEXT("CoffeeScript file"),								L_COFFEESCRIPT,	SCLEX_COFFEESCRIPT},
-{TEXT("json"),			TEXT("json"),				TEXT("JSON file"),										L_JSON,			SCLEX_CPP },
+{TEXT("json"),			TEXT("json"),				TEXT("JSON file"),										L_JSON,			SCLEX_JSON },
 {TEXT("javascript.js"), TEXT("JavaScript"),			TEXT("JavaScript file"),								L_JAVASCRIPT,	SCLEX_CPP },
 {TEXT("fortran77"),		TEXT("Fortran fixed form"),	TEXT("Fortran fixed form source file"),					L_FORTRAN_77,	SCLEX_F77},
 {TEXT("baanc"),			TEXT("BaanC"),				TEXT("BaanC File"),										L_BAANC,		SCLEX_BAAN },
@@ -692,20 +692,28 @@ void ScintillaEditView::setEmbeddedJSLexer()
 
 void ScintillaEditView::setJsonLexer()
 {
-	execute(SCI_SETLEXER, SCLEX_CPP);
+	execute(SCI_SETLEXER, SCLEX_JSON);
 
 	const TCHAR *pKwArray[10] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
 
 	makeStyle(L_JSON, pKwArray);
 
-	basic_string<char> keywordList("");
+	string keywordList;
+	string keywordList2;
 	if (pKwArray[LANG_INDEX_INSTR])
 	{
-		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
+		wstring kwlW = pKwArray[LANG_INDEX_INSTR];
 		keywordList = wstring2string(kwlW, CP_ACP);
 	}
 
+	if (pKwArray[LANG_INDEX_INSTR2])
+	{
+		wstring kwlW = pKwArray[LANG_INDEX_INSTR2];
+		keywordList2 = wstring2string(kwlW, CP_ACP);
+	}
+
 	execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(getCompleteKeywordList(keywordList, L_JSON, LANG_INDEX_INSTR)));
+	execute(SCI_SETKEYWORDS, 1, reinterpret_cast<LPARAM>(getCompleteKeywordList(keywordList2, L_JSON, LANG_INDEX_INSTR2)));
 
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold"), reinterpret_cast<LPARAM>("1"));
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.compact"), reinterpret_cast<LPARAM>("0"));

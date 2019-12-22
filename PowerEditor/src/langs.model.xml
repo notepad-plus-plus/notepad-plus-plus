@@ -203,8 +203,7 @@
         </Language>
 		<Language name="json" ext="json" commentLine="" commentStart="" commentEnd="">
             <Keywords name="instre1">false null true</Keywords>
-            <Keywords name="instre2">@id @context @type @value @language @container \
-@list @set @reverse @index @base @vocab @graph</Keywords>
+            <Keywords name="instre2">@id @context @type @value @language @container @list @set @reverse @index @base @vocab @graph</Keywords>
         </Language>
         <Language name="jsp" ext="jsp" commentLine="//" commentStart="/*" commentEnd="*/"/>
         <Language name="kix" ext="kix" commentLine=";" commentStart="" commentEnd="">

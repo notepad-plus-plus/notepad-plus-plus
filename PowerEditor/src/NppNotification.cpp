@@ -253,8 +253,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				{
 					if (!_tabPopupDropMenu.isCreated())
 					{
-						TCHAR goToView[32] = TEXT("Move to other view");
-						TCHAR cloneToView[32] = TEXT("Clone to other View");
+						TCHAR goToView[32] = TEXT("Move to Other View");
+						TCHAR cloneToView[32] = TEXT("Clone to Other View");
 						vector<MenuItemUnit> itemUnitArray;
 						itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_ANOTHER_VIEW, goToView));
 						itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_CLONE_TO_ANOTHER_VIEW, cloneToView));

@@ -117,4 +117,5 @@ LocalizationSwitcher::LocalizationDefinition localizationDefs[] =
 	{TEXT("کوردی‬"), TEXT("kurdish.xml")},
 	{TEXT("Pig latin"), TEXT("piglatin.xml")},
 	{TEXT("Zulu"), TEXT("zulu.xml")}
+	{TEXT("Venetan"), TEXT("venetan.xml")}
 };

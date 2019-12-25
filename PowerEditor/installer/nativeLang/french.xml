@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Français" filename="french.xml" version="7.8.1">
+    <Native-Langue name="Français" filename="french.xml" version="7.8.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -846,6 +846,7 @@
                     <Item id="6804" name="Dossier spécifique"/>
                 </Backup>
                 <AutoCompletion title="Autocomplétion">
+                    <Item id="6115" name="Indentation automatique"/>
                     <Item id="6807" name="Autocomplétion"/>
                     <Item id="6808" name="Activer la complétion automatique"/>
                     <Item id="6809" name="Complétion de fonction"/>
@@ -908,7 +909,6 @@
                         <Element name="Désactiver"/>
                     </ComboBox>
                     <Item id="6114" name="Activer"/>
-                    <Item id="6115" name="Indentation automatique"/>
                     <Item id="6117" name="Activer la liste de MRU"/>
                     <Item id="6308" name="Réduire dans la barre de notifications"/>
                     <Item id="6312" name="Surveillance de l’état des fichiers"/>
@@ -927,6 +927,7 @@
                     <Item id="6344" name="Aperçu du document"/>
                     <Item id="6345" name="Aperçu à onglet"/>
                     <Item id="6346" name="Aperçu à commutateur de documents"/>
+                    <Item id="6348" name="Ne pas remplir le champs de Recherche avec le mot séléctionné"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Exécuter une macro en boucle">

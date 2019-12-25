@@ -944,7 +944,7 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			::SendDlgItemMessage(_hSelf, IDC_EDIT_WORKSPACEFILEEXT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(nppGUI._definedWorkspaceExt.c_str()));
 			
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLEDOCSWITCHER, BM_SETCHECK, nppGUI._doTaskList, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_MAINTAININDENT, BM_SETCHECK, nppGUI._maitainIndent, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_STOPFILLINGFINDFIELD, BM_SETCHECK, nppGUI._stopFillingFindField, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_STYLEMRU, BM_SETCHECK, nppGUI._styleMRU, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_SHORTTITLE, BM_SETCHECK, nppGUI._shortTitlebar, 0);
 
@@ -1052,21 +1052,21 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 					return TRUE;
 				}
 
-				case IDC_CHECK_MAINTAININDENT :
+				case IDC_CHECK_STOPFILLINGFINDFIELD:
 				{
-					nppGUI._maitainIndent = !nppGUI._maitainIndent;
+					nppGUI._stopFillingFindField = isCheckedOrNot(IDC_CHECK_STOPFILLINGFINDFIELD);
 					return TRUE;
 				}
 
 				case IDC_CHECK_STYLEMRU :
 				{
-					nppGUI._styleMRU = !nppGUI._styleMRU;
+					nppGUI._styleMRU = isCheckedOrNot(IDC_CHECK_STYLEMRU);
 					return TRUE;
 				}
 
 				case IDC_CHECK_SHORTTITLE:
 				{
-					nppGUI._shortTitlebar = !nppGUI._shortTitlebar;
+					nppGUI._shortTitlebar = isCheckedOrNot(IDC_CHECK_SHORTTITLE);
 					HWND grandParent = ::GetParent(_hParent);
 					::SendMessage(grandParent, NPPM_INTERNAL_UPDATETITLEBAR, 0, 0);
 					return TRUE;
@@ -2700,6 +2700,8 @@ INT_PTR CALLBACK AutoCompletionDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 				::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_CHAR), FALSE);
 				::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_NOTE), FALSE);
 			}
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_MAINTAININDENT, BM_SETCHECK, nppGUI._maitainIndent, 0);
+
 			::SendDlgItemMessage(_hSelf, IDD_FUNC_CHECK, BM_SETCHECK, nppGUI._funcParams ? BST_CHECKED : BST_UNCHECKED, 0);
 
 			::SendDlgItemMessage(_hSelf, IDD_AUTOCPARENTHESES_CHECK, BM_SETCHECK, nppGUI._matchedPairConf._doParentheses?BST_CHECKED:BST_UNCHECKED, 0);
@@ -2802,6 +2804,11 @@ INT_PTR CALLBACK AutoCompletionDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 
 			switch (wParam)
 			{
+				case IDC_CHECK_MAINTAININDENT:
+				{
+					nppGUI._maitainIndent = isCheckedOrNot(IDC_CHECK_MAINTAININDENT);
+					return TRUE;
+				}
 
 				case IDD_AUTOC_ENABLECHECK :
 				{

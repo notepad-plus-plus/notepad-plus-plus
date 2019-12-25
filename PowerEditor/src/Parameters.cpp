@@ -5080,6 +5080,10 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			if (optNameMonoFont)
 				_nppGUI._monospacedFontFindDlg = (lstrcmp(optNameMonoFont, TEXT("yes")) == 0);
 
+			const TCHAR * optStopFillingFindField = element->Attribute(TEXT("stopFillingFindField"));
+			if (optStopFillingFindField)
+				_nppGUI._stopFillingFindField = (lstrcmp(optStopFillingFindField, TEXT("yes")) == 0);
+
 			const TCHAR * optNameNewStyleSaveDlg = element->Attribute(TEXT("newStyleSaveDlg"));
 			if (optNameNewStyleSaveDlg)
 				_nppGUI._useNewStyleSaveDlg = (lstrcmp(optNameNewStyleSaveDlg, TEXT("yes")) == 0);
@@ -5846,6 +5850,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("fileSwitcherWithoutExtColumn"), _nppGUI._fileSwitcherWithoutExtColumn ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("backSlashIsEscapeCharacterForSql"), _nppGUI._backSlashIsEscapeCharacterForSql ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("monospacedFontFindDlg"), _nppGUI._monospacedFontFindDlg ? TEXT("yes") : TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("stopFillingFindField"), _nppGUI._stopFillingFindField ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("newStyleSaveDlg"), _nppGUI._useNewStyleSaveDlg ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("isFolderDroppedOpenFiles"), _nppGUI._isFolderDroppedOpenFiles ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("docPeekOnTab"), _nppGUI._isDocPeekOnTab ? TEXT("yes") : TEXT("no"));

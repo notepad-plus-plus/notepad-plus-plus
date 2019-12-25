@@ -251,9 +251,14 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 			bool isFirstTime = not _findReplaceDlg.isCreated();
 			_findReplaceDlg.doDialog(FIND_DLG, _nativeLangSpeaker.isRTL());
+			
+			const NppGUI & nppGui = nppParam.getNppGUI();
+			if (!nppGui._stopFillingFindField)
+			{
+				_pEditView->getGenericSelectedText(str, strSize);
+				_findReplaceDlg.setSearchText(str);
+			}
 
-			_pEditView->getGenericSelectedText(str, strSize);
-			_findReplaceDlg.setSearchText(str);
 			if (isFirstTime)
 				_nativeLangSpeaker.changeFindReplaceDlgLang(_findReplaceDlg);
 			_findReplaceDlg.launchFindInFilesDlg();

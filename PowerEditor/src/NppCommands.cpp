@@ -986,8 +986,13 @@ void Notepad_plus::command(int id)
 				dlgID = MARK_DLG;
 			_findReplaceDlg.doDialog(dlgID, _nativeLangSpeaker.isRTL());
 
-			_pEditView->getGenericSelectedText(str, strSize);
-			_findReplaceDlg.setSearchText(str);
+			const NppGUI & nppGui = (NppParameters::getInstance()).getNppGUI();
+			if (!nppGui._stopFillingFindField)
+			{
+				_pEditView->getGenericSelectedText(str, strSize);
+				_findReplaceDlg.setSearchText(str);
+			}
+
 			setFindReplaceFolderFilter(NULL, NULL);
 
 			if (isFirstTime)

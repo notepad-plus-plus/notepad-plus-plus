@@ -27,6 +27,7 @@
 #include "Common.h"
 #include "regExtDlg.h"
 #include "resource.h"
+#include "Parameters.h"
 
 
 
@@ -78,10 +79,6 @@ const TCHAR defExtArray[nbSupportedLang][nbExtMax][extNameMax] =
 	{TEXT("customize")}
 };
 
-
-
-
-
 void RegExtDlg::doDialog(bool isRTL)
 {
 	if (isRTL)
@@ -95,7 +92,6 @@ void RegExtDlg::doDialog(bool isRTL)
 		::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_REGEXT_BOX), _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
 }
 
-
 INT_PTR CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 {
 	switch (Message)
@@ -104,10 +100,23 @@ INT_PTR CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 		{
 			getRegisteredExts();
 			getDefSupportedExts();
-			//goToCenter();
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_ADDFROMLANGEXT_BUTTON), false);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_REMOVEEXT_BUTTON), false);
-			::SendDlgItemMessage(_hSelf, IDC_CUSTOMEXT_EDIT, EM_SETLIMITTEXT, extNameMax-1, 0);
+
+			NppParameters& nppParam = NppParameters::getInstance();
+			if (!nppParam.isAdmin())
+			{
+				::EnableWindow(::GetDlgItem(_hSelf, IDC_REGEXT_LANG_LIST), false);
+				::EnableWindow(::GetDlgItem(_hSelf, IDC_REGEXT_LANGEXT_LIST), false);
+				::EnableWindow(::GetDlgItem(_hSelf, IDC_REGEXT_REGISTEREDEXTS_LIST), false);
+				::EnableWindow(::GetDlgItem(_hSelf, IDC_SUPPORTEDEXTS_STATIC), false);
+				::EnableWindow(::GetDlgItem(_hSelf, IDC_REGISTEREDEXTS_STATIC), false);
+			}
+			else
+			{
+				::ShowWindow(::GetDlgItem(_hSelf, IDC_ADMINMUSTBEONMSG_STATIC), SW_HIDE);
+				::SendDlgItemMessage(_hSelf, IDC_CUSTOMEXT_EDIT, EM_SETLIMITTEXT, extNameMax - 1, 0);
+			}
 			return TRUE;
 		}
 
@@ -291,7 +300,6 @@ INT_PTR CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 	}
 	//return FALSE;
 }
-
 
 void RegExtDlg::getRegisteredExts()
 {

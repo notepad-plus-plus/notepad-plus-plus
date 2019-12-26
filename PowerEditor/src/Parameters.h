@@ -1735,6 +1735,9 @@ private:
 
 public:
 	void setShortcutDirty() { _isAnyShortcutModified = true; };
+	void setAdminMode(bool isAdmin) { _isAdminMode = isAdmin; }
+	bool isAdmin() const { return _isAdminMode; }
+
 private:
 	bool _isAnyShortcutModified = false;
 	std::vector<CommandShortcut> _shortcuts;			//main menu shortuts. Static size
@@ -1794,6 +1797,7 @@ private:
 	generic_string _wingupParams;
 	generic_string _wingupDir;
 	bool _isElevationRequired = false;
+	bool _isAdminMode = false;
 
 public:
 	generic_string getWingupFullPath() const { return _wingupFullPath; };

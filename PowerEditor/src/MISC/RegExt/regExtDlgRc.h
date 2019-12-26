@@ -37,7 +37,7 @@
 	#define IDI_POUPELLE_ICON                (IDD_REGEXT_BOX + 5)
 	#define IDC_CUSTOMEXT_EDIT               (IDD_REGEXT_BOX + 6)
 	#define IDC_REMOVEEXT_BUTTON             (IDD_REGEXT_BOX + 7)
-	#define IDC_POUPELLE_STATIC              (IDD_REGEXT_BOX + 8)
+	#define IDC_ADMINMUSTBEONMSG_STATIC      (IDD_REGEXT_BOX + 8)
 	#define IDC_SUPPORTEDEXTS_STATIC         (IDD_REGEXT_BOX + 9)
 	#define IDC_REGISTEREDEXTS_STATIC        (IDD_REGEXT_BOX + 10)
 

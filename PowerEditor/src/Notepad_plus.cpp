@@ -134,20 +134,20 @@ Notepad_plus::Notepad_plus()
 {
 	ZeroMemory(&_prevSelectedRange, sizeof(_prevSelectedRange));
 
-
-	TiXmlDocumentA *nativeLangDocRootA = (NppParameters::getInstance()).getNativeLangA();
+	NppParameters& nppParam = NppParameters::getInstance();
+	TiXmlDocumentA *nativeLangDocRootA = nppParam.getNativeLangA();
     _nativeLangSpeaker.init(nativeLangDocRootA);
 
-	LocalizationSwitcher & localizationSwitcher = (NppParameters::getInstance()).getLocalizationSwitcher();
+	LocalizationSwitcher & localizationSwitcher = nppParam.getLocalizationSwitcher();
     const char *fn = _nativeLangSpeaker.getFileName();
     if (fn)
     {
         localizationSwitcher.setFileName(fn);
     }
 
-	(NppParameters::getInstance()).setNativeLangSpeaker(&_nativeLangSpeaker);
+	nppParam.setNativeLangSpeaker(&_nativeLangSpeaker);
 
-	TiXmlDocument *toolIconsDocRoot = (NppParameters::getInstance()).getToolIcons();
+	TiXmlDocument *toolIconsDocRoot = nppParam.getToolIcons();
 
 	if (toolIconsDocRoot)
 	{
@@ -172,6 +172,7 @@ Notepad_plus::Notepad_plus()
 	else
 		is_admin = false;
 
+	nppParam.setAdminMode(is_admin);
 	_isAdministrator = is_admin ? true : false;
 }
 

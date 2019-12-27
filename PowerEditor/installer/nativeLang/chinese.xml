@@ -779,6 +779,7 @@
                 </DefaultDir>
 
                 <FileAssoc title="副檔名連結設定">
+                    <Item id="4008" name="請關閉 Notepad++，並在系統管理員模式下重新啟動 Notepad++ 以使用此功能。"/>
                     <Item id="4009" name="支援的副檔名"/>
                     <Item id="4010" name="已連結的副檔名"/>
                 </FileAssoc>

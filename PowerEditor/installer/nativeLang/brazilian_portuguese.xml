@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Brazilian Portuguese by Hélio de Souza  -->
-<!-- Updated: Nov 2019  |  For Notepad++ 7.8.2 -->
+<!-- Updated: Jan 2020  |  For Notepad++ 7.8.3 -->
 <!-- https://sway.office.com/RVue6qySNJ2DzYrs -->
 <NotepadPlus>
-    <Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="7.8.2">
+    <Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="7.8.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -782,6 +782,7 @@
                 </DefaultDir>
 
                 <FileAssoc title="Tipos de Arquivos">
+                    <Item id="4008" name="Para usar este recurso, reinicie o Notepad++ como Administrador."/>
                     <Item id="4009" name="Extensões suportadas :"/>
                     <Item id="4010" name="Extensões registradas :"/>
                 </FileAssoc>
@@ -866,9 +867,10 @@
                     <Item id="6803" name="Pasta :"/>
                 </Backup>
 
-                <AutoCompletion title="Autocompletar">
-                    <Item id="6807" name="Autocompletar"/>
-                    <Item id="6808" name="Habilitar autocompletar para cada entrada"/>
+                <AutoCompletion title="Auto completar">
+                    <Item id="6115" name="Auto indentar"/>
+                    <Item id="6807" name="Auto completar"/>
+                    <Item id="6808" name="Habilitar auto completar para cada entrada"/>
                     <Item id="6809" name="Completar função"/>
                     <Item id="6810" name="Completar palavra"/>
                     <Item id="6816" name="Completar função e palavra"/>
@@ -943,11 +945,11 @@
                     <Item id="6314" name="Usar fonte monoespaçada na caixa de diálogo Localizar (Necessário reiniciar o Notepad++)"/>
                     <Item id="6337" name="Extensão do espaço de trabalho:"/>
                     <Item id="6114" name="Habilitar"/>
-                    <Item id="6115" name="Auto-indentar"/>
                     <Item id="6117" name="Ordenar pelo mais recente"/>
                     <Item id="6344" name="Espiar documento"/>
                     <Item id="6345" name="Espiar na aba"/>
                     <Item id="6346" name="Espiar no mapa do documento"/>
+                    <Item id="6348" name="Não preencher o campo Localizar com a palavra selecionada"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Executar macro múltiplas vezes">
@@ -1051,6 +1053,7 @@ Deseja recarregá-lo e perder as alterações feitas no Notepad++?"/>
             <PrehistoricSystemDetected title="Sistema pré-histórico detectado" message="Parece que você ainda usa um sistema pré-histórico. Esse recurso funciona apenas em um sistema moderno. Desculpe."/>
             <XpUpdaterProblem title="Atualizador do Notepad++" message="O atualizador do Notepad++ não é compatível com o Windows XP devido à camada de segurança obsoleta dele.
 Deseja ir para a página do Notepad++ e baixar a última versão?"/>
+            <GUpProxyConfNeedAdminMode title="Proxy Settings" message="Reinicie o Notepad++ como Admin para configurar o proxy."/>
             <DocTooDirtyToMonitor title="Problema de monitoramento" message="O documento está sujo. Por favor, salve a modificação antes de monitorá-lo."/>
             <DocNoExistToMonitor title="Problema de monitoramento" message="O arquivo deve existir para ser monitorado."/>
             <FileTooBigToOpen title="Problema no tamanho do arquivo" message="Arquivo é muito grande para ser aberto pelo Notepad++"/>

@@ -782,6 +782,7 @@
                 </DefaultDir>
 
                 <FileAssoc title="Tipos de Arquivos">
+                    <Item id="4008" name="Para usar este recurso, reinicie o Notepad++ como Administrador."/>
                     <Item id="4009" name="Extensões suportadas :"/>
                     <Item id="4010" name="Extensões registradas :"/>
                 </FileAssoc>

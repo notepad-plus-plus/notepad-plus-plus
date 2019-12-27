@@ -764,6 +764,7 @@
                 </DefaultDir>
 
                 <FileAssoc title="Extensions de fichier">
+                  <Item id="4008" name="Veuillez quitter Notepad++ et relancer Notepad++ en mode Administrateur pour utiliser cette fonctionnalité."/>
                   <Item id="4009" name="Extensions :"/>
                   <Item id="4010" name="Extensions associées :"/>
                 </FileAssoc>

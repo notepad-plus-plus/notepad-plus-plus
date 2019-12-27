@@ -778,6 +778,7 @@
                 </DefaultDir>
 
                 <FileAssoc title="File Association">
+                    <Item id="4008" name="Please exit Notepad++ and relaunch Notepad++ in Administrator mode to use this feature."/>
                     <Item id="4009" name="Supported extensions:"/>
                     <Item id="4010" name="Registered extensions:"/>
                 </FileAssoc>

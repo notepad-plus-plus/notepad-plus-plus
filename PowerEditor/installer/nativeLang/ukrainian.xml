@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Українська" filename="ukrainian.xml" version="7.8.1">
+    <Native-Langue name="Українська" filename="ukrainian.xml" version="7.8.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -778,6 +778,7 @@
                 </DefaultDir>
 
                 <FileAssoc title="Асоціації файлів">
+                    <Item id="4008" name="Щоб використовувати цю функцію, перезапустіть Notepad++ в режимі адміністратора."/>
                     <Item id="4009" name="Підтримувані:"/>
                     <Item id="4010" name="Зареєстровані:"/>
                 </FileAssoc>
@@ -863,6 +864,7 @@
                 </Backup>
 
                 <AutoCompletion title="Автозавершення">
+                    <Item id="6115" name="Автовідступ"/>
                     <Item id="6807" name="Автозавершення"/>
                     <Item id="6808" name="Увімкнути автозавершення для кожного введення"/>
                     <Item id="6809" name="Завершення функцій"/>
@@ -875,8 +877,8 @@
                     <Item id="6815" name="Підказка параметрів функції при введенні"/>
                     <Item id="6851" name="Автовставлення"/>
                     <Item id="6857" name=" закр. теґ html/xml"/>
-                    <Item id="6858" name="Відкр."/>
-                    <Item id="6859" name="Закр."/>
+                    <Item id="6858" name="Відкрити"/>
+                    <Item id="6859" name="Закрити"/>
                     <Item id="6860" name="Пара збігів 1:"/>
                     <Item id="6863" name="Пара збігів 2:"/>
                     <Item id="6866" name="Пара збігів 3:"/>
@@ -938,11 +940,11 @@
                     <Item id="6314" name="Моноширинний шрифт у вікні Знайти (Необхідний перезапуск Notepad++)"/>
                     <Item id="6337" name="Розш. файлу робочої області:"/>
                     <Item id="6114" name="Увімкнути"/>
-                    <Item id="6115" name="Авто-відступ"/>
                     <Item id="6117" name="Побудувати список по мірі використання"/>
                     <Item id="6344" name="Вибір документа"/>
                     <Item id="6345" name="Обрати у вкладці"/>
-                    <Item id="6346" name="Обрати в схемі документа"/>
+                    <Item id="6346" name="Обрати у схемі документа"/>
+                    <Item id="6348" name="Не заповнювати поле пошуку у вікні „Пошук“ виділеним словом"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Багаторазовий запуск макросу">
@@ -1046,6 +1048,7 @@
             <PrehistoricSystemDetected title="Виявлено застарілу систему" message="Схоже, ви все ще використовуєте застарілу систему. Шкода, але ця функція працює лише на сучасній системі."/>
             <XpUpdaterProblem title="Система оновлення Notepad++" message="Система оновлення Notepad++ несумісна з XP, у зв'язку із застарілою системою безпеки XP.
 Хочете перейти на веб-сторінку Notepad++ для завантаження найновішої версії?"/>
+            <GUpProxyConfNeedAdminMode title="Параметри проксі" message="Перезапустіть Notepad++ в режимі Адміністратора для налаштування проксі."/>
             <DocTooDirtyToMonitor title="Проблема моніторингу" message="Документ змінено. Будь ласка, збережіть зміни перед його моніторингом."/>
             <DocNoExistToMonitor title="Проблема моніторингу" message="Файл повинен існувати для його моніторингу."/>
             <FileTooBigToOpen title="Проблема розміру файлу" message="Файл завеликий для відкриття в Notepad++"/>

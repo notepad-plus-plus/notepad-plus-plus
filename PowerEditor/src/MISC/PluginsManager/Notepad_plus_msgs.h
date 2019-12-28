@@ -376,7 +376,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64 };
 	// by passing allocated buffer as argument langDesc
 
 	#define NPPM_SHOWDOCSWITCHER    (NPPMSG + 85)
-	// VOID NPPM_ISDOCSWITCHERSHOWN(0, BOOL toShowOrNot)
+	// VOID NPPM_SHOWDOCSWITCHER(0, BOOL toShowOrNot)
 	// Send this message to show or hide doc switcher.
 	// if toShowOrNot is TRUE then show doc switcher, otherwise hide it.
 

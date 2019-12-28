@@ -827,6 +827,7 @@
                 </Backup>
 
                 <AutoCompletion title="Pelengkapan-Otomatis">
+                    <Item id="6115" name="Indentasi otomatis"/>
                     <Item id="6807" name="Pelengkapan-Otomatis"/>
                     <Item id="6808" name="Aktifkan Pelengkapan-Otomatis di setiap input"/>
                     <Item id="6809" name="Pelengkapan fungsi"/>
@@ -898,7 +899,6 @@
                     <Item id="6334" name="Otomatis deteksi pengodean karakter"/>
                     <Item id="6337" name="Ekst. berkas Ruang kerja:"/>
                     <Item id="6114" name="Aktifkan"/>
-                    <Item id="6115" name="Indentasi otomatis"/>
                     <Item id="6117" name="Aktifkan perilaku MRU"/>
                     <Item id="6344" name="Pengintip Dokumen"/>
                     <Item id="6345" name="Intip di tab"/>

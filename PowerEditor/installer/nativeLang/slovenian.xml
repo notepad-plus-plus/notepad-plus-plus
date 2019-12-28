@@ -866,6 +866,7 @@
 					</Backup>
                 
 					<AutoCompletion title="Samodejno dopolnjevanje">
+						<Item id="6115" name="Samodejno zamikaj"/>
 						<Item id="6807" name="Samodejno dopolnjevanje"/>
 						<Item id="6808" name="Omogoči samodejno dopolnjevanje ob vsakem vnosu"/>
 						<Item id="6809" name="Dopolnjevanje funkcij"/>
@@ -942,7 +943,6 @@
 						<Item id="6314" name="Use monospaced font in Find dialog (Need to restart Notepad++)"/>
 						<Item id="6337" name="Delovni prostor pripone datoteke:"/>
 						<Item id="6114" name="Omogoči"/>
-						<Item id="6115" name="Samodejno zamikaj"/>
 						<Item id="6117" name="Omogoči MRU obnašanje"/>	
                     <Item id="6344" name="Ogledovalec dokumenta"/>
                     <Item id="6345" name="Pokukaj v zavihek"/>

@@ -746,6 +746,7 @@
 				</Backup>
 
 				<AutoCompletion title="Automātiskā pabeigšana">
+					<Item id="6115" name="Automātiska atkāpe"/>
 					<Item id="6807" name="Automātiskā pabeigšana"/>
 					<Item id="6808" name="Ieslēgt ievades automātisko pabeigšanu"/>
 					<Item id="6809" name="Funkciju pabeigšana"/>
@@ -812,7 +813,6 @@
 					<Item id="6334" name="Noteikt teksta kodējumu"/>
 					<Item id="6335" name="Iekļaut SQL valodā otrādo slīpsvītru"/>
 					<Item id="6114" name="Ieslēgt"/>
-					<Item id="6115" name="Automātiska atkāpe"/>
 					<Item id="6117" name="Ieslēgt kārtošanu pēc izmantojuma"/>
 				</MISC>
 			</Preference>

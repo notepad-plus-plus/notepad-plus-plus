@@ -847,6 +847,7 @@
                 </Backup>
 
                 <AutoCompletion title="Auto-Completion">
+                    <Item id="6115" name="Autoyay-indentyay"/>
                     <Item id="6807" name="Autoyay-Ompletioncay"/>
                     <Item id="6808" name="Enableyay autoyay-ompletioncay onyay eachyay inputyay"/>
                     <Item id="6809" name="Unctionfay ompletioncay"/>
@@ -916,7 +917,6 @@
                     <Item id="6334" name="Autodetectyay aracterchay encodingyay"/>
                     <Item id="6337" name="Orkspaceway ilefay extyay:."/>
                     <Item id="6114" name="Enableyay"/>
-                    <Item id="6115" name="Autoyay-indentyay"/>
                     <Item id="6117" name="Enableyay MRU ehaviourbay"/>
                     <Item id="6344" name="Ocumentday Eekerpay"/>
                     <Item id="6345" name="Eekpay onyay abtay"/>

@@ -734,6 +734,7 @@
 				</Backup>
 
 				<AutoCompletion title="Conclusão Automática">
+					<Item id="6115" name="Indentação Automática"/>
 					<Item id="6807" name=" Conclusão Automática "/>
 	                <Item id="6808" name="Ativar conclusão automática"/>
                     <Item id="6809" name="Completar função"/>
@@ -801,7 +802,6 @@
                     <Item id="6333" name="Realce Inteligente"/>
 					<Item id="6334" name="Detetar automaticamente a codificação de caráter"/>
 					<Item id="6114" name="Ativar"/>
-                    <Item id="6115" name="Indentação Automática"/>
                     <Item id="6117" name="Ativar comportamento MRU"/>
 				</MISC>
 			</Preference>

@@ -802,6 +802,7 @@ https://github.com/AndresTraks/
                 </Backup>
 
                 <AutoCompletion title="Automaattäitmine">
+                    <Item id="6115" name="Automaatne taane"/>
                     <Item id="6807" name="Automaattäitmine"/>
                     <Item id="6808" name="Luba automaattäitmine iga sisendi puhul"/>
                     <Item id="6809" name="Funktsioonide lõpetamine"/>
@@ -873,7 +874,6 @@ https://github.com/AndresTraks/
                     <Item id="6334" name="Tuvasta teksti kodeering automaatselt"/>
                     <Item id="6337" name="Tööruumi faili laiend:"/>
                     <Item id="6114" name="Luba"/>
-                    <Item id="6115" name="Automaatne taane"/>
                     <Item id="6117" name="Kasuta viimatisi dokumente"/>
                 </MISC>
             </Preference>

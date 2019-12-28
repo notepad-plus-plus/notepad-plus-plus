@@ -853,7 +853,6 @@ Updater: Shamsiddinov Zafar
 					<Item id="6324" name="Fayllarga O‘tmoq  (Ctrl+TAB)"/>
 					<Item id="6331" name="Sarlavhada faqat fayl nomi ko‘rsatmoq"/>
 					<Item id="6114" name="Ro‘yxatni ko‘rsatmoq"/>
-					<Item id="6115" name="Oldingi satrdagi chekinishni takrorlamoq"/>
 					<Item id="6117" name="Qo‘llash darajasida ro‘yxat tuzmoq"/>
 					<Item id="6334" name="Avtomatik belgilar kodini aniqlamoq"/>
 					<Item id="6337" name="Kengaytirilgan fayl loyihasi:"/>
@@ -909,6 +908,7 @@ Updater: Shamsiddinov Zafar
 					<Item id="6822" name="Nusxa yo‘lagi:"/>
 				</Backup>
 				<AutoCompletion title="Avtotugallash">
+					<Item id="6115" name="Oldingi satrdagi chekinishni takrorlamoq"/>
 					<Item id="6807" name="Avtotugallash"/>
 					<Item id="6808" name="Har bir kiritiganda, faolashtirmoq"/>
 					<Item id="6809" name="Funksiyani tugallash"/>

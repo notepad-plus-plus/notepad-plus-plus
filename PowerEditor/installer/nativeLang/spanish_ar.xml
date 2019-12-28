@@ -714,6 +714,7 @@
 				</Backup>
 
                 <AutoCompletion title="Autocompletar">
+					<Item id="6115" name="Sangría automática"/>
 					<Item id="6807" name="Autocompletar"/>
 					<Item id="6808" name="Habilitar autocompletar en cada entrada"/>
 					<Item id="6809" name="Completar función"/>
@@ -769,7 +770,6 @@
                     <Item id="6333" name="Destacado inteligente"/>
 					<Item id="6334" name="Detección de codificación automática"/>
 					<Item id="6114" name="Habilitar"/>
-					<Item id="6115" name="Sangría automática"/>
 					<Item id="6117" name="Ordenar por el usado más reciente"/>
                 </MISC>
 			</Preference>

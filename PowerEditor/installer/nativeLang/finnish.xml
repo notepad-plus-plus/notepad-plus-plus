@@ -851,6 +851,7 @@
 				</Backup>
 				
 				<AutoCompletion title="Automaattitäydennys">
+					<Item id="6115" name="Automaattinen sisennys"/>
 					<Item id="6807" name="Automaattinen täydennys"/>
 					<Item id="6808" name="Automaattinen täydennys kullekin syötteelle"/>
 					<Item id="6809" name="Funktion täydennys"/>
@@ -912,7 +913,6 @@
                         <Element name="Poista käytöstä"/>
                     </ComboBox>
 					<Item id="6114" name="Käytössä"/>
-					<Item id="6115" name="Automaattinen sisennys"/>
 					<Item id="6117" name="Ota käyttöön MRU-käyttäytyminen"/>
 					<Item id="6308" name="Pienennä ilmoitusalueelle"/>
 					<Item id="6312" name="Tiedostotilan automaattinen tunnistus"/>

@@ -823,6 +823,7 @@
 				</Backup>
 
 				<AutoCompletion title="Auto-komplettering">
+					<Item id="6115" name="Automatiskt indrag"/>
 					<Item id="6807" name="Automatisk komplettering"/>
 					<Item id="6808"	name="Aktivera automatisk komplettering vid varje inmatning"/>
 					<Item id="6809" name="Funktionskomplettering"/>
@@ -894,7 +895,6 @@
 					<Item id="6334" name="Automatisk igenkänning av teckenkodning"/>
 					<Item id="6337" name="Filändelse för arbetsytafil:"/>
 					<Item id="6114" name="Aktivera"/>
-					<Item id="6115" name="Automatiskt indrag"/>
 					<Item id="6117" name="Kom ihåg senast öppnade filer"/>
 					<Item id="6344" name="Förhandsgranska dokument"/>
 					<Item id="6345" name="Förhandsgranska i flik"/>

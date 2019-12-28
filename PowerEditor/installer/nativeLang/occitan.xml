@@ -841,6 +841,7 @@
 				</Backup>
 				
 				<AutoCompletion title="Auto-complecion">
+					<Item id="6115" name="Indentacion automatica"/>
 					<Item id="6807" name="Auto-compleion"/>
 					<Item id="6808" name="Activar l'auto-complecion per cada entrada"/>
 					<Item id="6809" name="Complecion de fonccion"/>
@@ -906,7 +907,6 @@
 					<Item id="6334" name="Detectar automaticament lo codage de caractèrs"/>
 					<Item id="6337" name="Ext. de fichièr de l'espaci de trabalh :"/>
 					<Item id="6114" name="Activar (Ctrl+Tab)"/>
-					<Item id="6115" name="Indentacion automatica"/>
 					<Item id="6117" name="Activar lo comportament MRU"/>
 					<Item id="6344" name="Previsualizacion de document"/>
 					<Item id="6345" name="Previsualizar dins l'onglet"/>

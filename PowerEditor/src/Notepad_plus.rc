@@ -736,6 +736,7 @@ BEGIN
         MENUITEM "LaTeX",                   IDM_LANG_LATEX
         MENUITEM "Lua",                     IDM_LANG_LUA
         MENUITEM "Makefile",                IDM_LANG_MAKEFILE
+        MENUITEM "Markdown",                IDM_LANG_MARKDOWN
         MENUITEM "Matlab",                  IDM_LANG_MATLAB
         MENUITEM "MMIXAL",                  IDM_LANG_MMIXAL
         MENUITEM "MS-DOS Style",            IDM_LANG_ASCII
@@ -858,6 +859,7 @@ BEGIN
      POPUP "M"
     BEGIN
         MENUITEM "Makefile",              IDM_LANG_MAKEFILE
+        MENUITEM "Markdown",              IDM_LANG_MARKDOWN
         MENUITEM "Matlab",                IDM_LANG_MATLAB
         MENUITEM "MMIXAL",                IDM_LANG_MMIXAL
         MENUITEM "MS-DOS Style",          IDM_LANG_ASCII

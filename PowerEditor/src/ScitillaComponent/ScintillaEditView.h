@@ -986,6 +986,9 @@ protected:
 		setLexer(SCLEX_VISUALPROLOG, L_VISUALPROLOG, LIST_0 | LIST_1 | LIST_2 | LIST_3);
 	}
 
+	void setMarkdownLexer() {
+		setLexer(SCLEX_MARKDOWN, L_MARKDOWN, LIST_NONE);
+	}
     //--------------------
 
 	void setSearchResultLexer() {

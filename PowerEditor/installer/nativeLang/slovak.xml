@@ -858,6 +858,7 @@
                 </Backup>
 
 				<AutoCompletion title="Automatické dokončovanie">
+					<Item id="6115" name="Automatické odsadzovanie"/>
 					<Item id="6807" name="Automatické dokončovanie"/>
 	                <Item id="6808" name="Povoliť automatické dokončovanie"/>
 					<Item id="6809" name="Dokončovanie funkcií"/>
@@ -928,7 +929,6 @@
                     <Item id="6334" name="Automatické zisťovanie kódovania znakov"/>
                     <Item id="6337" name="Prípona súboru prac. priestoru:"/>
 					<Item id="6114" name="Povoliť"/>
-					<Item id="6115" name="Automatické odsadzovanie"/>
 					<Item id="6117" name="Povoliť MRU správanie"/>
                     <Item id="6344" name="Náhľad neaktívnych dokumentov"/>
                     <Item id="6345" name="Náhľad na karte dokumentu"/>

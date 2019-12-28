@@ -829,6 +829,7 @@
                 </Backup>
 
                 <AutoCompletion title="Automatinis baigimas">
+                    <Item id="6115" name="Automatinė įtrauka"/>
                     <Item id="6807" name="Automatinis baigimas"/>
                     <Item id="6808" name="Įgalinti automatinį baigimą"/>
                     <Item id="6809" name="Funkcijų baigimas"/>
@@ -900,7 +901,6 @@
                     <Item id="6334" name="Automatiškai aptikti koduotę"/>
                     <Item id="6337" name="Darbo aplinkos failo išpl.:"/>
                     <Item id="6114" name="Įgalinti"/>
-                    <Item id="6115" name="Automatinė įtrauka"/>
                     <Item id="6117" name="Naudoti perjungimų istoriją"/>
                     <Item id="6344" name="Turinio peržiūra"/>
                     <Item id="6345" name="Peržiūrėti kortelėje"/>

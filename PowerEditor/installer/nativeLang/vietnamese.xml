@@ -721,6 +721,7 @@
                 </Backup>
 
                 <AutoCompletion title="Tự động hoàn thành">
+                    <Item id="6115" name="Auto-indent"/>
                     <Item id="6807" name="Tự động hoàn thành"/>
                     <Item id="6808" name="Bật"/>
                     <Item id="6809" name="Function completion"/>
@@ -775,7 +776,6 @@
                     <Item id="6332" name="Match case"/>
                     <Item id="6333" name="Smart Highlighting"/>
                     <Item id="6114" name="Enable"/>
-                    <Item id="6115" name="Auto-indent"/>
                     <Item id="6117" name="Enable MRU behaviour"/>
                 </MISC>
             </Preference>

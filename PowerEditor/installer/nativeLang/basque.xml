@@ -823,6 +823,7 @@
  		        </Backup>
 
  		        <AutoCompletion title="Berez-Osaketa">
+ 		            <Item id="6115" name="Berez-eskuineratu"/>
  		            <Item id="6807" name="Berez-Osaketa"/>
  		            <Item id="6808" name="Gaitu berez-osaketa sarrera bakoitzean"/>
  		            <Item id="6809" name="Eginkizun osaketa"/>
@@ -889,7 +890,6 @@
 					<Item id="6313" name="Eguneratu isilean"/>
                     <Item id="6337" name="Laneremu agiri luzp.:"/>
 					<Item id="6114" name="Gaitu"/>
-					<Item id="6115" name="Berez-eskuineratu"/>
 					<Item id="6117" name="Gaitu MRU jokabidea agiri aldatzailerako"/>
                     <Item id="6344" name="Agiri Begiralea"/>
                     <Item id="6345" name="Begiratu hegatsean"/>

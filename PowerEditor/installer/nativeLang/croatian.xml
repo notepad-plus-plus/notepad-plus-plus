@@ -950,6 +950,7 @@
                 </Backup>
 
                 <AutoCompletion title="Automatsko dopunjavanje">
+                    <Item id="6115" name="Automatska uvlaka redaka"/>
                     <Item id="6807" name="Automatsko dopunjavanje"/>
                     <Item id="6808" name="Auto. dopuna pri svakom unosu"/>
                     <Item id="6809" name="Dopunjavanje funkcija"/>
@@ -1040,7 +1041,6 @@
                     <Item id="6314" name="Koristi monospaced font u Traži dijalogu (potreban je restart Notepada++)"/>
                     <Item id="6337" name="Nastavak datoteke radne površine:"/>
                     <Item id="6114" name="Uključi sklopku"/>
-                    <Item id="6115" name="Automatska uvlaka redaka"/>
                     <Item id="6117" name="Koristi povijest dokumenata"/>
                     <Item id="6344" name="Kratki pogled na dokument"/>
                     <Item id="6345" name="Pogled na karticu"/>

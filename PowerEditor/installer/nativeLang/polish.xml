@@ -859,6 +859,7 @@
                 </Backup>
 
                 <AutoCompletion title="Autouzupełnianie">
+                    <Item id="6115" name="Autowcięcie"/>
                     <Item id="6807" name="Autouzupełnianie"/>
                     <Item id="6808" name="Włącz dla wszystkich:"/>
                     <Item id="6809" name="Funkcji"/>
@@ -934,7 +935,6 @@
                     <Item id="6334" name="Automatycznie wykrywaj kodowanie"/>
                     <Item id="6337" name="Rozszerzenie pliku obszaru roboczego:"/>
                     <Item id="6114" name="Włącz"/>
-                    <Item id="6115" name="Autowcięcie"/>
                     <Item id="6117" name="Zgodnie z ostatnim użyciem (MRU)"/>
                     <Item id="6344" name="Podgląd dokumentów"/>
                     <Item id="6345" name="Po najechaniu na kartę"/>

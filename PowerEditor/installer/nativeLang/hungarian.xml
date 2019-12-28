@@ -860,6 +860,7 @@
                 </Backup>
 
                 <AutoCompletion title="Automatikus kiegészítés">
+                    <Item id="6115" name="Automatikus behúzás"/>
                     <Item id="6807" name="Automatikus kiegészítés"/>
                     <Item id="6808" name="Automatikus kiegészítés minden bevitelhez"/>
                     <Item id="6809" name="Függvény kiegészítés (Nyelv függő)"/>
@@ -934,7 +935,6 @@
                     <Item id="6334" name="Karakterkódolás automatikus felismerése"/>
                     <Item id="6337" name="Munkaterület fájl kiterjesztés:"/>
                     <Item id="6114" name="Engedélyezés"/>
-                    <Item id="6115" name="Automatikus behúzás"/>
                     <Item id="6117" name="Lista sorrendje a használattól függ"/>
                     <Item id="6344" name="Dokumentum előnézet"/>
                     <Item id="6345" name="Előnézeti kép"/>

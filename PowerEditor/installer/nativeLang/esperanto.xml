@@ -772,7 +772,6 @@
                     <Item id="6334" name="Aŭtomata rekono de signarkodo"/>
                     <Item id="6335" name="Malsuprenstreko estas kodŝanĝa signo de SQL"/> FCO -->
 					<Item id="6114" name="Ŝaltu"/>
-					<Item id="6115" name="Aŭtomata krommarĝeno"/>
 					<Item id="6117" name="Ordigu laŭ lasta uzo"/>
 
 				</MISC>
@@ -794,6 +793,7 @@
 				</Backup>
 
 				<AutoCompletion title="Vortkompletigo">
+ 					<Item id="6115" name="Aŭtomata krommarĝeno"/>
  					<Item id="6807" name="Aŭtomata vortkompletiĝo"/>
 					<Item id="6808" name="Ŝaltu vortkompletiĝon por ĉiu enigo"/>
 					<Item id="6809" name="Kompletigu funkciojn"/>

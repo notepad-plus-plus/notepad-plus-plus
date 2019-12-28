@@ -876,6 +876,7 @@
                 </Backup>
 
                 <AutoCompletion title="自動補完">
+                    <Item id="6115" name="自動インデント"/>
                     <Item id="6807" name="自動補完"/>
                     <Item id="6808" name="入力毎に補完を行う"/>
                     <Item id="6809" name="関数名補完"/>
@@ -952,7 +953,6 @@
                     <Item id="6314" name="検索画面で固定幅フォントを使用する（Notepad++ の再起動が必要）"/>
                     <Item id="6337" name="ワークスペースファイルの拡張子:"/>
                     <Item id="6114" name="有効"/>
-                    <Item id="6115" name="自動インデント"/>
                     <Item id="6117" name="最近使用した順で切り替える"/>
                     <Item id="6344" name="タブのプレビュー"/>
                     <Item id="6345" name="タブの近くに表示する"/>

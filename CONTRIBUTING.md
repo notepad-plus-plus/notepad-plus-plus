@@ -67,10 +67,10 @@ In short: The easier the code review is, the better the chance your pull request
     }
     ```
 
-1. ##### Use tabs instead of white-spaces (we usually set our editors to 4 white-spaces for 1 tab, but the choice is up to you).
+2. ##### Use tabs instead of white-spaces (we usually set our editors to 4 white-spaces for 1 tab, but the choice is up to you).
 
 
-1. ##### Always leave one space before and after binary and ternary operators.
+3. ##### Always leave one space before and after binary and ternary operators.
 
   * ###### Good:
     ```cpp
@@ -82,7 +82,7 @@ In short: The easier the code review is, the better the chance your pull request
     if (a==10&&b==42)
     ```
 
-1. ##### Only leave one space after semi-colons in "for" statements.
+4. ##### Only leave one space after semi-colons in "for" statements.
 
   * ###### Good:
     ```cpp
@@ -94,8 +94,7 @@ In short: The easier the code review is, the better the chance your pull request
     for(int i=0;i<10;++i)
     ```
 
-1. <h5>Keywords are not function calls;<br>
-Function names are not separated from the first parenthesis.</h5>
+5. ##### Function names are not separated from the first parenthesis.
 
   * ###### Good:
     ```cpp
@@ -108,7 +107,7 @@ Function names are not separated from the first parenthesis.</h5>
     foo ();
     ```
 
-1. ##### Keywords are separated from the first parenthesis by one space.
+6. ##### Keywords are separated from the first parenthesis by one space.
 
   * ###### Good:
     ```cpp
@@ -121,7 +120,7 @@ Function names are not separated from the first parenthesis.</h5>
     if(myCondition)
     ```
 
-1. ##### Use the following indenting for "switch" statements:
+7. ##### Use the following indenting for "switch" statements:
 
   ```cpp
   switch (test)
@@ -136,7 +135,7 @@ Function names are not separated from the first parenthesis.</h5>
   } // No semi-colon here
   ```
 
-1. ##### Avoid magic numbers.
+8. ##### Avoid magic numbers.
 
   * ###### Good:
     ```cpp
@@ -150,9 +149,9 @@ Function names are not separated from the first parenthesis.</h5>
         lifeTheUniverseAndEverything = buildMorePowerfulComputerForTheAnswer();
     ```
 
-1. ##### Prefer enums for integer constants.
+9. ##### Prefer enums for integer constants.
 
-1. ##### Use initialization with curly braces.
+10. ##### Use initialization with curly braces.
 
   * ###### Good:
     ```cpp
@@ -164,7 +163,7 @@ Function names are not separated from the first parenthesis.</h5>
     MyClass instance(10.4);
     ```
 
-1. ##### Always use `empty()` for testing if a string is empty or not.
+11. ##### Always use `empty()` for testing if a string is empty or not.
 
   * ###### Good:
     ```cpp
@@ -179,7 +178,7 @@ Function names are not separated from the first parenthesis.</h5>
     ```
 
 
-1. ##### Always use `C++ conversion` instead of `C-Style cast`. Generally, all the conversion among types should be avoided. If you have no choice, use C++ conversion.
+12. ##### Always use `C++ conversion` instead of `C-Style cast`. Generally, all the conversion among types should be avoided. If you have no choice, use C++ conversion.
 
   * ###### Good:
     ```cpp
@@ -194,7 +193,7 @@ Function names are not separated from the first parenthesis.</h5>
 
 #### NAMING CONVENTIONS
 
-1. ##### Classes (camel case)
+1. ##### Classes uses Pascal Case
 
   * ###### Good:
     ```cpp
@@ -204,21 +203,21 @@ Function names are not separated from the first parenthesis.</h5>
 
   * ###### Bad:
     ```cpp
-    class iAmClass
+    class iAmAClass
     {};
-    class I_am_class
+    class I_am_a_class
     {};
     ```
 
-1. <h5>methods (camel case + begins with a lower case)<br>
-method parameters (camel case + begins with a lower case)</h5>
+2. ##### Methods & method parameters use camel Case
 
   ```cpp
   void myMethod(uint myVeryLongParameter);
   ```
 
-1. <h5>member variables<br>
-Any member variable name of class/struct should be preceded by an underscore.</h5>
+3. ##### Member variables
+
+Any member variable name of class/struct should be preceded by an underscore.
 
   ```cpp
   public:
@@ -228,7 +227,7 @@ Any member variable name of class/struct should be preceded by an underscore.</h
       float _pAccount;
   ```
 
-1. ##### Always prefer a variable name that describes what the variable is used for.
+4. ##### Always prefer a variable name that describes what the variable is used for.
 
   * ###### Good:
     ```cpp
@@ -263,9 +262,9 @@ Any member variable name of class/struct should be preceded by an underscore.</h
 
 #### BEST PRACTICES
 
-1. ##### Use C++11/14 whenever it is possible
+1. ##### Use C++11/14/17 whenever it is possible
 
-1. ##### Use C++11 member initialization feature whenever it is possible
+2. ##### Use C++11 member initialization feature whenever it is possible
 
   ```cpp
   class Foo
@@ -274,7 +273,7 @@ Any member variable name of class/struct should be preceded by an underscore.</h
   };
   ```
 
-1. ##### Prefer this form:
+3. ##### Prefer this form:
   ```cpp
   ++i
   ```
@@ -285,12 +284,12 @@ Any member variable name of class/struct should be preceded by an underscore.</h
   ```
   (It does not change anything for built-in types but it would bring consistency)
 
-1. ##### Avoid using pointers. Prefer references. You might need the variable to be assigned a NULL value: in this case the NULL value has semantics and must be checked. Wherever possible, use a SmartPtr instead of old-school pointers.
+4. ##### Avoid using pointers. Prefer references. You might need the variable to be assigned a NULL value: in this case the NULL value has semantics and must be checked. Wherever possible, use a SmartPtr instead of old-school pointers.
 
-1. ##### Avoid using new if you can use automatic variable. However, avoid `shared_ptr` as much as possible. Prefer `unique_ptr` instead.
+5. ##### Avoid using new if you can use automatic variable. However, avoid `shared_ptr` as much as possible. Prefer `unique_ptr` instead.
 
-1. ##### Don't place any "using namespace" directives in headers.
+6. ##### Don't place any "using namespace" directives in headers.
 
-1. ##### Compile time is without incidence. Increasing compile time to reduce execution time is encouraged.
+7. ##### Compile time is without incidence. Increasing compile time to reduce execution time is encouraged.
 
-1. ##### Code legibility and length is less important than easy and fast end-user experience.
+8. ##### Code legibility and length is less important than easy and fast end-user experience.

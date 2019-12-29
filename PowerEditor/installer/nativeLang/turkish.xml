@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-	<Native-Langue name="Turkish" filename="turkish.xml" version="7.8.1">
+	<Native-Langue name="Turkish" filename="turkish.xml" version="7.8.3">
 		<Menu>
 			<Main>
 				<!-- Ana Menü Girişleri -->
@@ -781,6 +781,7 @@
 				</DefaultDir>
 
 				<FileAssoc title="Dosya İlişkilendirmeleri">
+					<Item id="4008" name="Bu özelliği kullanmak için, Notepad++'ı kapatıp yönetici olarak tekrar açın."/>
 					<Item id="4009" name="Desteklenen uzantılar:"/>
 					<Item id="4010" name="Kaydedilen uzantılar:"/>
 				</FileAssoc>
@@ -866,6 +867,7 @@
 				</Backup>
 
 				<AutoCompletion title="Otomatik Tamamlama">
+					<Item id="6115" name="Otomatik olarak girinti bırak"/>
 					<Item id="6807" name="Otomatik Olarak Tamamla"/>
 					<Item id="6808" name="Yazarken otomatik tamamlamayı etkinleştir"/>
 					<Item id="6809" name="Fonksiyonu tamamla"/>
@@ -942,11 +944,11 @@
 					<Item id="6314" name="Bul penceresinde sabit genişlikli yazıtipi kullan (Notepad++ yeniden başlatılmalıdır)"/>
 					<Item id="6337" name="Çalışma alanı dosya uzantısı:"/>
 					<Item id="6114" name="Etkin"/>
-					<Item id="6115" name="Otomatik olarak girinti bırak"/>
 					<Item id="6117" name="MRU (en son kullanılan) davranışı etkin"/>
 					<Item id="6344" name="Belge İzleyici"/>
-                    <Item id="6345" name="Sekmede İzle"/>
-                    <Item id="6346" name="Belge Haritasında İzle"/>
+					<Item id="6345" name="Sekmede İzle"/>
+					<Item id="6346" name="Belge Haritasında İzle"/>
+					<Item id="6348" name="Bul penceresinde bul boşluğunu seçilmiş kelime ile doldurma"/>
 				</MISC>
 			</Preference>
 			<MultiMacro title="Makroyu Birden Çok Kez Çalıştır">

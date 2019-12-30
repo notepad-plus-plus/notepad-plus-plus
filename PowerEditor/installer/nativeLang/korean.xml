@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <NotepadPlus>
-    <!-- <localization work version=7.8.1 nick="Sapziller" name="ByungJo Yoon" mail="yunbj@naver.com"/> <localization work version=6.5.3~7.4.2 name="도움돌" mail= "domddol@gmail.com"/> <localization work version=1 and 6.1.5 nick= "taggon" name= "Taegon Kim" mail= "gonom9@gmail.com"/> <localization work version=2 nick= "" name= "JiHui Choi" mail= "jihui.choi@gmail.com"/> <localization work version=5.4R2 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=4 nick= "Sapziller" name= "Byungjo Yoon" mail= "yunbj@naver.com"/> <localization work version=5.8 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=5.9 nick= "Syonsi" name= "Kim JunHo" mail= "syonsi@live.com"/> <localization work version=5.92 nick= "Global DOL+I" name= "Lee Junho" mail= "riifjv@live.com"/> --> 
-<Native-Langue name="한국어" filename="korean.xml" version="7.8.1">
+    <!-- <localization work version="7.8.1~7.8.3" nick="Sapziller" name="ByungJo Yoon" mail="yunbj@naver.com"/> <localization work version=6.5.3~7.4.2 name="도움돌" mail= "domddol@gmail.com"/> <localization work version=1 and 6.1.5 nick= "taggon" name= "Taegon Kim" mail= "gonom9@gmail.com"/> <localization work version=2 nick= "" name= "JiHui Choi" mail= "jihui.choi@gmail.com"/> <localization work version=5.4R2 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=4 nick= "Sapziller" name= "Byungjo Yoon" mail= "yunbj@naver.com"/> <localization work version=5.8 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=5.9 nick= "Syonsi" name= "Kim JunHo" mail= "syonsi@live.com"/> <localization work version=5.92 nick= "Global DOL+I" name= "Lee Junho" mail= "riifjv@live.com"/> --> 
+<Native-Langue name="한국어" filename="korean.xml" version="7.8.3">
 <Menu>
 <Main>
 <!--  Main Menu Entries --> 
@@ -779,6 +779,7 @@
 </DefaultDir>
 
 <FileAssoc title="파일 연결">
+  <Item id="4008" name="이 기능을 사용하기 위해 Notepad++을 종료하고, 관리자 모드로 재실행해 주세요"/>
   <Item id="4009" name="확장자 지원:"/> 
   <Item id="4010" name="확장자 등록:"/> 
 </FileAssoc>
@@ -864,6 +865,7 @@
 </Backup>
 
 <AutoCompletion title="자동 완성">
+  <Item id="6115" name="자동 들여쓰기"/>
   <Item id="6807" name="자동 완성"/> 
   <Item id="6808" name="각 입력에 자동 완성 사용"/> 
   <Item id="6809" name="함수 완성"/> 
@@ -940,11 +942,11 @@
   <Item id="6334" name="문자 인코딩 자동 감지"/> 
   <Item id="6337" name="Workspace 파일 확장자:"/>
   <Item id="6114" name="사용"/> 
-  <Item id="6115" name="자동 들여쓰기"/> 
   <Item id="6117" name="가장 최근 사용한 문서로 이동"/> 
   <Item id="6344" name="문서 엿보기"/>
   <Item id="6345" name="탭 엿보기"/>
   <Item id="6346" name="문서 맵에서 엿보기"/>
+  <Item id="6348" name="찾기 대화창의 찾기 필드를 선택한 단어로 채우지 않기"/>
   </MISC>
 </Preference>
 <MultiMacro title="매크로 반복 실행">
@@ -1049,6 +1051,7 @@
             <PrehistoricSystemDetected title="구시대의 유물 감지" message="오래된 장비를 사용하는 것 같습니다. 이 기능은 최신 장비에서만 동작합니다. 죄송합니다."/>
             <XpUpdaterProblem title="Notepad++ 업데이터" message="Nodepad++업데이터는 보안 문제로 인해 XP 에서 동작하지 않습니다.
 Nodepad++ 홈페이지에서 직접 다운로드 받으시겠습니까?"/>
+            <GUpProxyConfNeedAdminMode title="프록시 설정" message="프록시 설정을 위해 관리자 모드로 재실행해 주세요."/>
             <DocTooDirtyToMonitor title="모니터링 문제" message="이 문서는 오염되었습니다. 모니터링을 하기 전에 변경 사항을 저장해 주세요."/>
             <DocNoExistToMonitor title="모니터링 문제" message="모니터링을 위해서는 파일이 있어야 합니다."/>
             <FileTooBigToOpen title="파일 크기 문제" message="Notepad++에서 열기에는 파일이 너무 큽니다."/>

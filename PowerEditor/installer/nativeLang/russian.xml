@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v7.8.2:
+Updated to v7.8.3:
 - add new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="7.8.2">
+	<Native-Langue name="Русский" filename="russian.xml" version="7.8.3">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -536,8 +536,8 @@ Updated to v7.8.2:
 				<Item id="20015" name="Импортир..."/>
 				<Item id="20016" name="Экспортир..."/>
 				<StylerDialog title="Настройка Стилистики">
-					<Item id="1" name="ОК"/>
-					<Item id="2" name="Отмена"/>
+					<Item id="1"     name="ОК"/>
+					<Item id="2"     name="Отмена"/>
 					<Item id="25030" name="Стиль шрифта:"/>
 					<Item id="25006" name="Цвет текста"/>
 					<Item id="25007" name="Цвет фона текста"/>
@@ -779,6 +779,7 @@ Updated to v7.8.2:
 					<Item id="6431" name="Открывать все файлы папки при перетаскивании в окно np++"/>
 				</DefaultDir>
 				<FileAssoc title = "Ассоциация Файлов">
+					<Item id="4008" name="Пожалуйста, перезапустите Notepad++ в режиме Администратора, чтобы использовать эту функцию."/>
 					<Item id="4009" name="Поддерживаемые:"/>
 					<Item id="4010" name="Зарегистрированные:"/>
 				</FileAssoc>
@@ -862,14 +863,14 @@ Updated to v7.8.2:
 					<Item id="6324" name="Переключение Документов  (Ctrl+TAB)"/>
 					<Item id="6331" name="Отображать в заголовке только имя файла"/>
 					<Item id="6114" name="Отображать список"/>
-					<Item id="6115" name="Повторять отступ предыдущей строки"/>
 					<Item id="6117" name="Выстроить список по мере использ."/>
 					<Item id="6334" name="Авто-определение кодировки символов"/>
-					<Item id="6314" name="Моноширинный шрифт в диалоге поиска (требуется перезапуск Notepad++)"/>
+					<Item id="6314" name="Моноширинный шрифт в окне поиска (требуется перезапуск Notepad++)"/>
 					<Item id="6337" name="Расширение файла проекта:"/>
 					<Item id="6344" name="Предосмотр Документа"/>
 					<Item id="6345" name="Миниатюра под Вкладкой"/>
 					<Item id="6346" name="Отображать в Карте Документа"/>
+					<Item id="6348" name="Не заполнять поле в окне Поиска выделенным словом"/>
 				</MISC>
 				<MultiInstance title = "Режимы Запуска">
 					<Item id="6151" name="Режим Открытия Файлов"/>
@@ -920,6 +921,7 @@ Updated to v7.8.2:
 					<Item id="6822" name="Путь копии:"/>
 				</Backup>
 				<AutoCompletion title="Автозавершение">
+					<Item id="6115" name="Повторять отступ предыдущей строки"/>
 					<Item id="6807" name="Автозавершение"/>
 					<Item id="6808" name="Включить при каждом вводе"/>
 					<Item id="6809" name="Завершение функций"/>
@@ -992,21 +994,22 @@ Updated to v7.8.2:
             </DoSaveOrNot>
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWarning  title="Редактирование contextMenu"   message="Редактирование contextMenu.xml позволяет настроить свое всплывающее контекстное меню в Notepad++.&#x0A;Вы должны перезапустить Notepad++, чтобы изменения вступили в силу."/>
-			<NppHelpAbsentWarning       title="Файла не существует"          message="&#x0A;не существует. Пожалуйста, загрузите его с сайта Notepad++."/>
-			<SaveCurrentModifWarning    title="Сохранение Текущих Изменений" message="Вы должны сохранить текущие изменения.&#x0A;Все сохраненные изменения не смогут быть отменены.&#x0A;&#x0A;Продолжить?"/>
-			<LoseUndoAbilityWarning     title="Потеря Возможности Отката"    message="Вы должны сохранить текущие изменения.&#x0A;Все сохраненные изменения не смогут быть отменены.&#x0A;&#x0A;Продолжить?"/>
+			<ContextMenuXmlEditWarning  title="Редактирование contextMenu"            message="Редактирование contextMenu.xml позволяет настроить свое всплывающее контекстное меню в Notepad++.&#x0A;Вы должны перезапустить Notepad++, чтобы изменения вступили в силу."/>
+			<NppHelpAbsentWarning       title="Файла не существует"                   message="&#x0A;не существует. Пожалуйста, загрузите его с сайта Notepad++."/>
+			<SaveCurrentModifWarning    title="Сохранение Текущих Изменений"          message="Вы должны сохранить текущие изменения.&#x0A;Все сохраненные изменения не смогут быть отменены.&#x0A;&#x0A;Продолжить?"/>
+			<LoseUndoAbilityWarning     title="Потеря Возможности Отката"             message="Вы должны сохранить текущие изменения.&#x0A;Все сохраненные изменения не смогут быть отменены.&#x0A;&#x0A;Продолжить?"/>
 			<CannotMoveDoc              title="Переход к новому экземпляру Notepad++" message="Документ был изменен, сохраните его и повторите попытку."/>
 			<DocReloadWarning           title="Перезагрузка"                          message="Все внесенные изменения будут потеряны!&#x0A;Продолжить?"/>
 			<FileLockedWarning          title="Сохранение не удалось"                 message="Пожалуйста, проверьте открыт ли этот файл в другом приложении."/>
 			<FileAlreadyOpenedInNpp     title=""                                      message="Файл уже открыт в Notepad++."/>
 			<DeleteFileFailed           title="Удаление Файла"                        message="Не удалось удалить файл"/>
 
+			<GUpConfNeedAdminMode               title="Настройки Прокси"                message="Пожалуйста, перезапустите Notepad++ в режиме администратора для настройки прокси."/>
 			<NbFileToOpenImportantWarning       title="Очень большое количество файлов" message="Вы точно хотите открыть $INT_REPLACE$ файла(ов)?"/>
 			<SettingsOnCloudError               title="Параметры Облака"                message="Похоже, что путь облака указан на диск или папку, с пометкой &quot;Только Чтение&quot;.&#x0A;Вам необходимо открыть доступ или получить права на запись.&#x0A;Ваши параметры облака будут отменены. Пожалуйста, сбросьте значение в окне Настройки..."/>
 			<FilePathNotFoundWarning            title="Открытие Файла"                  message="Файл, который вы пытаетесь открыть, не существует."/>
 			<SessionFileInvalidError            title="Не удалось загрузить Сессию"     message="Файл сессии поврежден или недействителен."/>
-			<DroppingFolderAsProjectModeWarning title="Неправильное действие" message="Вы можете применить, только одно из двух: файлы или папки, но не оба, потому, что вы перетаскиваете в режиме &quot;Папка как Проект&quot;.&#x0A;вы должны включить &quot;Открыть все файлы папки при перетаскивании, вместо запуска Папка как Рабочая Область&quot; в &quot;Директорию По Умолчанию&quot;, чтобы эта операция работала зайдите в Настройки."/>
+			<DroppingFolderAsProjectModeWarning title="Неправильное действие"    message="Вы можете применить, только одно из двух: файлы или папки, но не оба, потому, что вы перетаскиваете в режиме &quot;Папка как Проект&quot;.&#x0A;вы должны включить &quot;Открыть все файлы папки при перетаскивании, вместо запуска Папка как Рабочая Область&quot; в &quot;Директорию По Умолчанию&quot;, чтобы эта операция работала зайдите в Настройки."/>
 			<SortingError                title="Ошибка сортировки"               message="Невозможно выполнить числовую сортировку из-за строки $INT_REPLACE$."/>
 			<ColumnModeTip               title="Режим Столбца"                   message="Пожалуйста, используйте &quot;ALT+Выделение Мышкой&quot; или &quot;Alt+Shift+Клавиши Стрелок&quot; для переключения в режим столбца."/>
 			<BufferInvalidWarning        title="Ошибка Сохранения"               message="Не удается сохранить: Недопустимый буфер."/>
@@ -1014,7 +1017,7 @@ Updated to v7.8.2:
 			<DoDeleteOrNot               title="Удаление файла"                  message="Файл &quot;$STR_REPLACE$&quot;&#x0A;будет закрыт и удалён в Корзину.&#x0A;Продолжить?"/>
 			<NoBackupDoSaveFile          title="Сохранение ..."                  message="Файл резервной копии не найден (удалён извне).&#x0A;Сохраните его, иначе ваши данные будут потеряны.&#x0A;Вы хотите сохранить файл &quot;$STR_REPLACE$&quot; ?"/>
 			<DoReloadOrNot               title="Обновление файла"                message="&quot;$STR_REPLACE$&quot;&#x0A;&#x0A;Этот файл был изменен другой программой.&#x0A;Вы хотите обновить его?"/>
-			<DoReloadOrNotAndLooseChange title="Обновление файла"             message="&quot;$STR_REPLACE$&quot;&#x0A;&#x0A;Этот файл был изменен другой программой.&#x0A;Вы хотите обновить его?&#x0A;Но вы потеряете все внесенные изменения в Notepad++?"/>
+			<DoReloadOrNotAndLooseChange title="Обновление файла"                message="&quot;$STR_REPLACE$&quot;&#x0A;&#x0A;Этот файл был изменен другой программой.&#x0A;Вы хотите обновить его?&#x0A;Но вы потеряете все внесенные изменения в Notepad++?"/>
 			<PrehistoricSystemDetected   title="Обнаружена доисторическая система"   message="Кажется, вы все еще используете доисторическую систему. Извините, но эта функция работает только на современных системах."/>
 			<XpUpdaterProblem            title="Обновление Notepad++"                message="Обновление Notepad++ не совместимо с XP из-за устаревшего уровня безопасности.&#x0A;Хотите перейти на страницу Notepad++, чтобы загрузить последнюю версию?"/>
 			<DocTooDirtyToMonitor        title="Проблема Мониторинга"                message="Документ в работе. Сохраните внесённые изменения перед его мониторингом."/>
@@ -1063,10 +1066,10 @@ Updated to v7.8.2:
 			<ColumnType name="Тип"/>
 		</WindowsDlg>
 		<AsciiInsertion>
-			<PanelTitle name="Таблица символов ASCII"/>
-			<ColumnVal  name="Dec"/>
-			<ColumnHex  name="Hex"/>
-			<ColumnChar name="Символ"/>
+			<PanelTitle       name="Таблица символов ASCII"/>
+			<ColumnVal        name="Dec"/>
+			<ColumnHex        name="Hex"/>
+			<ColumnChar       name="Символ"/>
 			<ColumnHtmlNumber name="HTML Номер"/> 
 			<ColumnHtmlName   name="HTML Код"/> 
 		</AsciiInsertion>

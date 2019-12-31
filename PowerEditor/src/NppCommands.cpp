@@ -2915,7 +2915,7 @@ void Notepad_plus::command(int id)
 					{
 						if (!_isAdministrator)
 						{
-							_nativeLangSpeaker.messageBox("GUpConfNeedAdminMode",
+							_nativeLangSpeaker.messageBox("GUpProxyConfNeedAdminMode",
 								_pPublicInterface->getHSelf(),
 								TEXT("Please relaunch Notepad++ in Admin mode to configure proxy."),
 								TEXT("Proxy Settings"),

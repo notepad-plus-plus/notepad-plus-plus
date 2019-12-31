@@ -2913,6 +2913,15 @@ void Notepad_plus::command(int id)
 					generic_string param;
 					if (id == IDM_CONFUPDATERPROXY)
 					{
+						if (!_isAdministrator)
+						{
+							_nativeLangSpeaker.messageBox("GUpConfNeedAdminMode",
+								_pPublicInterface->getHSelf(),
+								TEXT("Please relaunch Notepad++ in Admin mode to configure proxy."),
+								TEXT("Proxy Settings"),
+								MB_OK | MB_APPLMODAL);
+							return;
+						}
 						param = TEXT("-options");
 					}
 					else

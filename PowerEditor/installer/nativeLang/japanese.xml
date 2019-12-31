@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="7.8.1">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="7.8.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -274,18 +274,17 @@
                     <Item id="45011" name="UTF-8-BOM に変換"/>
                     <Item id="45012" name="UCS-2 BE BOM に変換"/>
                     <Item id="45013" name="UCS-2 LE BOM に変換"/>
-
-                    <Item id="10001" name="別のビューへ移動"/>
-                    <Item id="10002" name="別のビューへ複製"/>
-                    <Item id="10003" name="新しいウィンドウへ移動"/>
-                    <Item id="10004" name="新しいウィンドウで開く"/>
-
                     <Item id="45060" name="Big5(繁体字)"/>
                     <Item id="45061" name="GB2312(簡体字)"/>
                     <Item id="45054" name="OEM 861: アイスランド語"/>
                     <Item id="45057" name="OEM 865: ノルウェー語"/>
                     <Item id="45053" name="OEM 860: ポルトガル語"/>
                     <Item id="45056" name="OEM 863: フランス語"/>
+
+                    <Item id="10001" name="別のビューへ移動"/>
+                    <Item id="10002" name="別のビューへ複製"/>
+                    <Item id="10003" name="新しいウィンドウへ移動"/>
+                    <Item id="10004" name="新しいウィンドウで開く"/>
 
                     <Item id="46033" name="アセンブリ"/>
                     <Item id="46019" name="MS INIファイル"/>
@@ -791,6 +790,7 @@
                 </DefaultDir>
 
                 <FileAssoc title="ファイルの関連付け">
+                    <Item id="4008" name="この機能を使うには、Notepad++ をいったん終了し、管理者権限で起動し直してください。"/>
                     <Item id="4009" name="サポート形式:"/>
                     <Item id="4010" name="登録済み形式:"/>
                 </FileAssoc>
@@ -957,6 +957,7 @@
                     <Item id="6344" name="タブのプレビュー"/>
                     <Item id="6345" name="タブの近くに表示する"/>
                     <Item id="6346" name="文書マップに表示する"/>
+                    <Item id="6348" name="検索画面の検索文字列欄に、選択中の文字を自動入力しない"/>
                 </MISC>
             </Preference>
             <MultiMacro title="指定マクロを複数回実行">

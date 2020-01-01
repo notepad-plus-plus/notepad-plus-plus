@@ -1004,6 +1004,7 @@ Updated to v7.8.3:
 			<FileAlreadyOpenedInNpp     title=""                                      message="Файл уже открыт в Notepad++."/>
 			<DeleteFileFailed           title="Удаление Файла"                        message="Не удалось удалить файл"/>
 
+			<GUpConfNeedAdminMode               title="Настройки Прокси"                message="Пожалуйста, перезапустите Notepad++ в режиме администратора для настройки прокси."/>
 			<NbFileToOpenImportantWarning       title="Очень большое количество файлов" message="Вы точно хотите открыть $INT_REPLACE$ файла(ов)?"/>
 			<SettingsOnCloudError               title="Параметры Облака"                message="Похоже, что путь облака указан на диск или папку, с пометкой &quot;Только Чтение&quot;.&#x0A;Вам необходимо открыть доступ или получить права на запись.&#x0A;Ваши параметры облака будут отменены. Пожалуйста, сбросьте значение в окне Настройки..."/>
 			<FilePathNotFoundWarning            title="Открытие Файла"                  message="Файл, который вы пытаетесь открыть, не существует."/>

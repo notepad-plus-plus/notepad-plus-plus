@@ -986,11 +986,11 @@
             </FindInFinder>
             <DoSaveOrNot title="Zapisywanie">  
 	  		               <Item id="1761" name="Zapisać plik „$STR_REPLACE$”?"/> 
-	  		               <Item id="6" name="Tak"/> 
-	  		               <Item id="7" name="Nie"/> 
-	  		               <Item id="2" name="Anuluj"/> 
-	  		               <Item id="4" name="Zapisz wszystkie"/> 
-	  		               <Item id="5" name="Nie zapisuj żadnego"/> 
+	  		               <Item id="6" name="&amp;Tak"/> 
+	  		               <Item id="7" name="&amp;Nie"/> 
+	  		               <Item id="2" name="&amp;Anuluj"/> 
+	  		               <Item id="4" name="Zapisz &amp;wszystkie"/> 
+	  		               <Item id="5" name="Nie &amp;zapisuj żadnego"/> 
 	  		           </DoSaveOrNot> 
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->

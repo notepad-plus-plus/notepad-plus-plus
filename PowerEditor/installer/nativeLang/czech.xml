@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 7.8.1  20/Oct/2019  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 7.8.3  2/Jan/2020  by Ondřej Müller (mullero@email.cz)
 	- N++ Community:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz)
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="7.8.1">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="7.8.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -69,6 +69,7 @@
 					<Item subMenuId="encoding-turkish" name = "turečtina"/>
 					<Item subMenuId="encoding-westernEuropean" name = "západoevropské jazyky (WE)"/>
 					<Item subMenuId="encoding-vietnamese" name = "vietnamština"/>
+					<Item subMenuId="language-userDefinedLanguage" name = "Uživatelem definovaná syntaxe"/>
 					<Item subMenuId="settings-import" name = "Import"/>
 					<Item subMenuId="tools-md5" name = "MD5"/>
 					<Item subMenuId="tools-sha256" name = "SHA-256"/>
@@ -230,7 +231,6 @@
 					<Item id = "44009" name = "Zobrazit pouze okno dokumentu"/>
 					<Item id = "44010" name = "Sbalit vše"/>
 					<Item id = "44011" name = "Panel Uživatelsky definované syntaxe"/>
-					<Item id = "46250" name = "Definovat vlastní syntaxi..."/>
 					<Item id = "44012" name = "Skrýt okrajový pruh s čísly řádků"/>
 					<Item id = "44013" name = "Skrýt okrajový pruh se záložkami"/>
 					<Item id = "44014" name = "Skrýt okrajový pruh pro sbalení/rozbalení"/>
@@ -304,6 +304,9 @@
 					<Item id = "46019" name = "MS INI soubor"/>
 					<Item id = "46033" name = "Sestavení"/>
 					<Item id = "46180" name = "Vlastní"/>
+					<Item id = "46250" name = "Definovat vlastní syntaxi..."/>
+					<Item id = "46300" name = "Otevřít složku s uživatelsky definovanou syntaxí..."/>
+					
 					<Item id = "47000" name = "O Notepadu++	..."/>
 					<Item id = "47001" name = "N++ - domovská stránka"/>
 					<Item id = "47002" name = "N++ - stránka projektu"/>
@@ -313,7 +316,7 @@
 					<Item id = "47006" name = "Aktualizovat Notepad++"/>
 					<Item id = "47007" name = "Wiki FAQ"/>
 					<Item id = "47008" name = "Obsah nápovědy"/>
-					<Item id = "47009" name = "Nastavit aktualizaci proxy-serveru ..."/>
+					<Item id = "47009" name = "Nastavit proxy-server pro aktualizace ..."/>
 					<Item id = "47010" name = "Parametry příkazové řádky"/>
 					<Item id = "47011" name = "N++ - online podpora"/>
 					<Item id = "47012" name = "Informace k ladění"/>
@@ -765,7 +768,6 @@
 					<Item id = "6112" name = "Přidat zavírací tlačítko každé záložce"/>
 					<Item id = "6113" name = "Dvojité kliknutí zavře záložku"/>
 					<Item id = "6114" name = "Povolit přepínání mezi dokumenty"/>
-					<Item id = "6115" name = "Automatické odsazování"/>
 					<Item id = "6116" name = "Zapamatovat si poslední používaný adresář"/>
 					<Item id = "6117" name = "Používat historii dokumentů"/>
 					<Item id = "6118" name = "Skrýt"/>
@@ -834,6 +836,7 @@
 					<Item id = "6431" name = "Otevírat všechny soubory ve složce při přetažení myší (místo zdroje pro pracovní plochu)"/>
 				</DefaultDir>
 				<FileAssoc title = "Asociovat se soubory">
+					<Item id = "4008" name = "Abyste mohli použít tuto vlastnost, restartujte prosím Notepad++ pod účtem administátora."/>
 					<Item id = "4009" name = "Podporované přípony:"/>
 					<Item id = "4010" name = "Zaregistr. přípony:"/>
 				</FileAssoc>
@@ -926,6 +929,7 @@
 					<Item id = "6344" name = "Náhled na neaktivní dokument"/>
 					<Item id = "6345" name = "Na oušku (tab) dokumentu"/>
 					<Item id = "6346" name = "Na přehledné mapě dokumentu"/>
+					<Item id = "6348" name = "Nevyplňovat pole Najít ve stejnojmeném dialogu vybraným slovem"/>
 				</MISC>
 				<Backup title = "Zálohování">
 					<Item id = "6219" name = "Uživatelsky definovaný adresář pro zálohování"/>
@@ -943,6 +947,7 @@
 					<Item id = "6822" name = "Cesta k zálohám:"/>
 				</Backup>
 				<AutoCompletion title = "Automat. dokončování">
+					<Item id = "6115" name = "Automatické odsazování"/>
 					<Item id = "6807" name = "Automatické dokončování"/>
 					<Item id = "6808" name = "Povolit autom. dokončování každého vstupu"/>
 					<Item id = "6809" name = "Dokončování funkcí"/>
@@ -1082,6 +1087,7 @@
 			<DoReloadOrNotAndLooseChange title = "Znovuotevření" message = "&quot;$STR_REPLACE$&quot;  Tento soubor byl změněn jiným programem. Chcete jej znovu načíst a ztratit tak všechny změny provedené v Notepadu++?"/>
 			<PrehistoricSystemDetected title = "Detekován příliš starý systém" message = "Vypadá to, že používáte příliš starý operační systém. Je nám líto, ale tato funkce je podporována pouze na novějších systémech."/>
 			<XpUpdaterProblem title = "Aktualizační program Notepadu++" message = "Aktualizační program Notepadu++ není kompatibilní s Windows XP vzhledem k zastaralé bezpečnostní vrstvě tohoto systému. Chcete místo toho přejít na webové stránky Notepadu++, odkud si můžete sami stáhnout poslední verzi Notepadu++?"/>
+			<GUpProxyConfNeedAdminMode title = "Nastavení proxy-serveru" message = "Pro nastavení proxy-serveru spusťte prosím znovu Notepad++ pod účtem administrátora."/>
 			<DocTooDirtyToMonitor title = "Chyba sledování stavu" message = "Dokument je v nekonzistentním stavu. Uložte prosím změny v dokumentu před zapnutím sledování jeho stavu."/>
 			<DocNoExistToMonitor title = "Problém se sledováním stavu" message = "Soubor musí existovat, aby jej bylo možné sledovat."/>
 			<FileTooBigToOpen title = "Problém s velikostí souboru" message = "Soubor je příliš velký na to, aby mohl být otevřen v Notepadu++."/>

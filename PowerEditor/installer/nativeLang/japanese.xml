@@ -1062,6 +1062,7 @@ Notepad++ で行った変更は破棄されますが、再読み込みします�
             <PrehistoricSystemDetected title="古いシステムです" message="システムが古いため、この機能は利用できません。"/>
             <XpUpdaterProblem title="Notepad++ アップデーター" message="Notepad++ アップデーターは XP では利用できません。これは XP のセキュリティー機能が古いためです。
 Notepad++ のダウンロードページを開きますか？"/>
+            <GUpProxyConfNeedAdminMode title="プロキシ設定" message="プロキシ設定を変更するには、Notepad++ を管理者権限で実行してください。"/>
             <DocTooDirtyToMonitor title="ファイル監視" message="この文書は変更されています。監視を始める前に保存をして下さい。"/>
             <DocNoExistToMonitor title="ファイル監視" message="監視対象のファイルが存在しません。"/>
             <FileTooBigToOpen title="ファイルサイズ" message="ファイルサイズが大きいため Notepad++ で開けません。"/>

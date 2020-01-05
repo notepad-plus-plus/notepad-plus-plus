@@ -273,8 +273,8 @@ public:
 	void insertNewLineBelowCurrentLine();
 
 	void saveCurrentPos();
-	void restoreCurrentPos();
-	void restoreCurrentPosAfterPainted();
+	void restoreCurrentPosPreStep();
+	void restoreCurrentPosPostStep();
 
 	void beginOrEndSelect();
 	bool beginEndSelectedIsStarted() const {

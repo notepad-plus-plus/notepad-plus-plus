@@ -1811,8 +1811,12 @@ void ScintillaEditView::saveCurrentPos()
 	buf->setPosition(pos, this);
 }
 
-void ScintillaEditView::restoreCurrentPos()
+void ScintillaEditView::restoreCurrentPosPreStep()
 {
+	// restore current position is executed in two steps:
+	//     - pre  step : restoreCurrentPosPreStep (this function)
+	//     - post step : function restoreCurrentPosPreStep that will be executed after scintilla 
+
 	Buffer * buf = MainFileManager.getBufferByID(_currentBufferID);
 	Position & pos = buf->getPosition(this);
 
@@ -1830,7 +1834,7 @@ void ScintillaEditView::restoreCurrentPos()
 	execute(SCI_SETFIRSTVISIBLELINE, lineToShow);
 	if (isWrap())
 	{
-		// Enable flag 'positionRestoreNeeded' so that function restoreCurrentPosAfterPainted get called
+		// Enable flag 'positionRestoreNeeded' so that function restoreCurrentPosPostStep get called
 		// once scintilla send SCN_PAITED notification
 		_positionRestoreNeeded = true;
 	}
@@ -1838,8 +1842,11 @@ void ScintillaEditView::restoreCurrentPos()
 
 }
 
-void ScintillaEditView::restoreCurrentPosAfterPainted()
+void ScintillaEditView::restoreCurrentPosPostStep()
 {
+	// scintilla can send several SCN_PAINTED notifications before the buffer is ready to be displayed. 
+	// this post step function is therefore iterated several times in a maximum of 8 iterations. 
+	// 8 is an arbitrary number. 2 is a minimum. Maximum value is unknown.
 	static int32_t restoreDone = 0;
 	Buffer * buf = MainFileManager.getBufferByID(_currentBufferID);
 	Position & pos = buf->getPosition(this);
@@ -1881,8 +1888,6 @@ void ScintillaEditView::restoreCurrentPosAfterPainted()
 		// Buffer position is correct, and there is no scroll to apply
 		_positionRestoreNeeded = false;
 	}
-
-	return;
 }
 
 void ScintillaEditView::restyleBuffer() {
@@ -1937,7 +1942,7 @@ void ScintillaEditView::activateBuffer(BufferID buffer)
 	const std::vector<size_t> & lineStateVectorNew = newBuf->getHeaderLineState(this);
 	syncFoldStateWith(lineStateVectorNew);
 
-	restoreCurrentPos();
+	restoreCurrentPosPreStep();
 
 	bufferUpdated(_currentBuffer, (BufferChangeMask & ~BufferChangeLanguage));	//everything should be updated, but the language (which undoes some operations done here like folding)
 

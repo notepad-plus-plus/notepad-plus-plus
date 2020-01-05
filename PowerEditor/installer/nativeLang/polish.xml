@@ -165,7 +165,7 @@
                     <Item id="42032" name="&amp;Uruchom makro wielokrotnie..."/>
                     <Item id="42033" name="Wyłącz tryb „Tylko do odczytu”"/>
                     <Item id="42035" name="Wstaw komentarz liniowy"/>
-                    <Item id="42036" name="Usuń komenatarz liniowy"/>
+                    <Item id="42036" name="Usuń komentarz liniowy"/>
                     <Item id="42055" name="Usuń puste linie"/>
                     <Item id="42056" name="Usuń puste linie (z białymi znakami)"/>
                     <Item id="42057" name="Wstaw pustą linię nad bieżącą"/>
@@ -276,8 +276,8 @@
                     <Item id="45013" name="Konwertuj na format UCS-2 LE BOM"/>
 
                     <Item id="10001" name="Przenieś do drugiego widoku"/>
-                    <Item id="10002" name="Sklouj do drugiego widoku"/>
-                    <Item id="10003" name="Przenieś do noweg okna"/>
+                    <Item id="10002" name="Sklonuj do drugiego widoku"/>
+                    <Item id="10003" name="Przenieś do nowego okna"/>
                     <Item id="10004" name="Otwórz w nowym oknie"/>
 
                     <Item id="46001" name="Konfigurator stylów..."/>
@@ -442,7 +442,7 @@
                 <Item id="2"    name="Anuluj"/>
             </SHA256FromTextDlg>
             
-            <PluginsAdminDlg title="Zarządzanie wtyczkami" titleAvailable = "Dostępne" titleUpdates = "Aktualizacji" titleInstalled = "Zainstalowane">
+            <PluginsAdminDlg title="Zarządzanie wtyczkami" titleAvailable = "Dostępne" titleUpdates = "Aktualizacje" titleInstalled = "Zainstalowane">
                 <ColumnPlugin   name="Wtyczka"/>
                 <ColumnVersion  name="Wersja"/>
                 <Item id="5501" name="Szukaj:"/>
@@ -777,7 +777,7 @@
                     <Item id="4009" name="Wspierane rozszerzenia:"/>
                     <Item id="4010" name="Zarejestrowane rozszerzenia:"/>
                 </FileAssoc>
-                <Language title="Jęzki">
+                <Language title="Języki">
                     <Item id="6505" name="Dostępne"/>
                     <Item id="6506" name="Wyłączone"/>
                     <Item id="6507" name="Kompaktowe menu języków"/>
@@ -994,7 +994,7 @@
 	  		           </DoSaveOrNot> 
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
-            <ContextMenuXmlEditWarning title="Edycja menu kontekstowego" message="Edycja pliku contextMenu.xml pozwala na zmianę menu konteksowego dostępnego w Notepad++ pod prawym przyciskiem myszy.
+            <ContextMenuXmlEditWarning title="Edycja menu kontekstowego" message="Edycja pliku contextMenu.xml pozwala na zmianę menu kontekstowego dostępnego w Notepad++ pod prawym przyciskiem myszy.
 Żeby zmiany dokonane contextMenu.xml weszły w życie, konieczne jest ponowne uruchomienie Notepad++."/>
             <NppHelpAbsentWarning title="Plik nie istnieje" message="
 nie istnieje. Można go pobrać ze strony internetowej Notepad++."/>
@@ -1233,7 +1233,7 @@ Czy chcesz uruchomić Notepad++ jako Administrator?"/>
             <language-tabsize value="Rozmiar tabulatora: "/>
             <userdefined-title-new value="Nowy język..."/>
             <userdefined-title-save value="Zapisz bieżący język jako..."/>
-            <userdefined-title-rename value="Zmień nazwę biężacego języka"/>
+            <userdefined-title-rename value="Zmień nazwę biężącego języka"/>
             <autocomplete-nb-char value="Numer znaku: "/>
             <edit-verticaledge-nb-col value="Numer kolumny:"/>
             <summary value="Podsumowanie"/> 

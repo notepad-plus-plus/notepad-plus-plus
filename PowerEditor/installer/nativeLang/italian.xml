@@ -20,7 +20,7 @@
                     <Item menuId="tools" name="&amp;Strumenti"/>
                     <Item menuId="macro" name="M&amp;acro"/>
                     <Item menuId="run" name="Ese&amp;gui"/>
-                    <Item idName="Plugins" name="P&amp;lugin"/>
+                    <Item idName="Plugins" name="&amp;Plugin"/>
                     <Item idName="Window" name="Fin&amp;estra"/>
                 </Entries>
                 <!-- Sub Menu Entries -->

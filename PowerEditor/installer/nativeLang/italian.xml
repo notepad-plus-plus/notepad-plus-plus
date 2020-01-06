@@ -1,11 +1,11 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-    Italian translation for Notepad++ 7.8.0
-    Last modified Sat, Oct 5th, 2019.
+    Italian translation for Notepad++ 7.8.3
+    Last modified Mon, Jan 6th, 2020.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 <NotepadPlus>
-    <Native-Langue name = "Italiano" filename = "italian.xml" version="7.8.0">
+    <Native-Langue name = "Italiano" filename = "italian.xml" version = "7.8.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -18,9 +18,9 @@
                     <Item menuId = "language" name = "&amp;Linguaggio" />
                     <Item menuId = "settings" name = "C&amp;onfigurazione" />
                     <Item menuId = "tools" name = "&amp;Strumenti" />
-                    <Item menuId = "macro" name = "Macro" />
-                    <Item menuId = "run" name = "Esegui" />
-                    <Item idName = "Plugins" name = "Plugin" />
+                    <Item menuId = "macro" name = "M&amp;acro" />
+                    <Item menuId = "run" name = "Ese&amp;gui" />
+                    <Item idName = "Plugins" name = "&amp;Plugin" />
                     <Item idName = "Window" name = "Fin&amp;estra" />
                 </Entries>
                 <!-- Sub Menu Entries -->
@@ -68,6 +68,7 @@
                     <Item subMenuId = "encoding-turkish" name = "Turco" />
                     <Item subMenuId = "encoding-westernEuropean" name = "Europa Occidentale" />
                     <Item subMenuId = "encoding-vietnamese" name = "Vietnamita" />
+                    <Item subMenuId = "language-userDefinedLanguage" name = "Linguaggio definito dall'utente" />
                     <Item subMenuId = "settings-import" name = "Importa" />
                     <Item subMenuId = "tools-md5" name = "MD5" />
                     <Item subMenuId = "tools-sha256" name = "SHA-256" />
@@ -170,7 +171,7 @@
                     <Item id = "42064" name = "Ordina righe come valori decimali (virgola) in modo decrescente" />
                     <Item id = "42065" name = "Ordina righe come valori decimali (punto) in modo crescente" />
                     <Item id = "42066" name = "Ordina righe come valori decimali (punto) in modo decrescente" />
-					
+
                     <Item id = "42067" name = "Iniziali Maiuscole" />
                     <Item id = "42068" name = "Iniziali Maiuscole (intelligente)" />
                     <Item id = "42069" name = "Frasi maiuscole" />
@@ -199,7 +200,7 @@
                     <Item id = "43015" name = "Trova (volatile) precedente" />
                     <Item id = "43018" name = "Taglia righe con segnalibri" />
                     <Item id = "43019" name = "Copia righe con segnalibri" />
-                    <Item id = "43020" name = "Incolla (sostituisci) righe con segnalibri " />
+                    <Item id = "43020" name = "Incolla (sostituisci) righe con segnalibri" />
                     <Item id = "43021" name = "Elimina righe con segnalibro" />
                     <Item id = "43022" name = "Usa 1º stile" />
                     <Item id = "43024" name = "Usa 2º stile" />
@@ -303,6 +304,7 @@
                     <Item id = "46001" name = "Configura gli stili..." />
                     <Item id = "46180" name = "Definito dall&apos;utente" />
                     <Item id = "46250" name = "Definisci il tuo linguaggio..." />
+                    <Item id = "46300" name = "Apri cartella linguaggi definiti dall'utente..." />
 
                     <Item id = "47000" name = "Informazioni su..." />
                     <Item id = "47001" name = "Sito web Notepad++" />
@@ -761,7 +763,7 @@
                     <Item id = "6215" name = "Abilita antialiasing caratteri" />
                     <Item id = "6234" name = "Disabilita scrolling avanzato&#xA;(in caso di problemi con touchpad)" />
                     <Item id = "6235" name = "Nessun bordo" />
-					<Item id = "6236" name = "Abilita scorrimento oltre l&apos;ultima riga" />
+                    <Item id = "6236" name = "Abilita scorrimento oltre l&apos;ultima riga" />
                 </Scintillas>
                 <NewDoc title = "Nuovo documento">
                     <Item id = "6401" name = "Formato (fine riga)" />
@@ -796,6 +798,7 @@
                     <Item id = "6429" name = "Visualizza" />
                 </RecentFilesHistory>
                 <FileAssoc title = "Associazione file">
+                    <Item id = "4008" name = "Per favore chiudi Notepad++ e rilancia Notepad++ con privilegi di Amministratore per usare questa funzionalità" />
                     <Item id = "4009" name = "Estensioni supportate:" />
                     <Item id = "4010" name = "Estensioni registrate:" />
                 </FileAssoc>
@@ -867,6 +870,7 @@
                     <Item id = "6317" name = "Backup dettagliato" />
                 </Backup>
                 <AutoCompletion title = "Auto-completamento">
+                    <Item id = "6115" name = "Auto-indentazione" />
                     <Item id = "6807" name = "Auto-Completamento" />
                     <Item id = "6808" name = "Attiva l&apos;auto-completamento su ogni input" />
                     <Item id = "6809" name = "Completamento funzione" />
@@ -944,14 +948,14 @@
                     <Item id = "6325" name = "Vai all&apos;ultima riga dopo l&apos;aggiornamento" />
 
                     <Item id = "6334" name = "Rileva automaticamente codifica caratteri" />
-                    <Item id = "6115" name = "Indentazione automatica" />
                     <Item id = "6308" name = "Minimizza nell&apos;area di notifica" />
                     <Item id = "6331" name = "Visualizza solo nome file nella barra del titolo" />
+                    <Item id = "6323" name = "Aggiorna automaticamente Notepad++" />
+                    <Item id = "6348" name = "Non riempire la casella di ricerca nella finestra di ricerca con parole selezionate" />
+                    <Item id = "6314" name = "Usa carattere a spaziatura fissa nella finestra di ricerca (Necessità di riavviare Notepad++)" />
 
                     <Item id = "6322" name = "Est. file di sessione:" />
                     <Item id = "6337" name = "Est. file workspace:" />
-
-                    <Item id = "6323" name = "Aggiorna automaticamente Notepad++" />
                 </MISC>
             </Preference>
             <MultiMacro title = "Esegui macro più volte">
@@ -999,11 +1003,11 @@
             </FindInFinder>
             <DoSaveOrNot title="Salva">
                 <Item id = "1761" name = "Salvare il file &quot;$STR_REPLACE$&quot;?" />
-                <Item id = "6" name = "Sì" />
-                <Item id = "7" name = "No" />
-                <Item id = "2" name = "Annulla" />
-                <Item id = "4" name = "Sì a tutto" />
-                <Item id = "5" name = "No a tutto" />
+                <Item id = "6" name = "&amp;Sì" />
+                <Item id = "7" name = "&amp;No" />
+                <Item id = "2" name = "&amp;Annulla" />
+                <Item id = "4" name = "S&amp;ì a tutto" />
+                <Item id = "5" name = "N&amp;o a tutto" />
             </DoSaveOrNot>
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
@@ -1055,6 +1059,7 @@ Vuoi ricaricarlo e perdere tutte le modifiche apportate in Notepad++?" />
             <PrehistoricSystemDetected title = "Sistema preistorico trovato" message = "Sembra tu stia usando un sistema preistorico. Questa funzionalità necessità di un sistema più moderno, scusaci." />
             <XpUpdaterProblem title = "Aggiornamento Notepad++" message = "L'aggiornamento automatico di Notepad++ non è compatibile con XP a causa di un sistema di permessi obsoleto.
 Vuoi andare nella pagina di Notepad++ per scaricare l'aggiornamento manualmente?" />
+            <GUpProxyConfNeedAdminMode title = "Impostazioni proxy" message = "Per favore rilancia Notepad++ con privilegi di amministratore per configurare il proxy." />
             <DocTooDirtyToMonitor title = "Problema monitoraggio" message = "Il documento è sporco. Salva le modifiche prima di avviare il monitoraggio." />
             <DocNoExistToMonitor title = "Problema monitoraggio" message = "Il file deve esistere per essere monitorato." />
             <FileTooBigToOpen title = "Problema dimensione file" message = "Il file è troppo grande per essere aperto con Notepad++" />
@@ -1201,6 +1206,10 @@ Vuoi continuare?" />
             <cloud-select-folder value = "Seleziona una cartella da dove Notepad++ possa leggere o scrivere le proprie impostazioni" />
             <shift-change-direction-tip value = "Utilizza Shift+Invio per cercare nella direzione opposta" />
             <two-find-buttons-tip value = "Modalità ricerca a 2 pulsanti" />
+            <find-in-files-filter-tip value = "Cerca in cpp, cxx, h, hxx &amp;&amp; hpp:
+*.cpp *.cxx *.h *.hxx *.hpp
+Cerca in tutti i file eccetto exe, obj &amp;&amp; log:
+*.* !*.exe !*.obj !*.log" />
             <find-status-top-reached value = "Cerca: trovata la prima occorrenza dal basso. È stato raggiunto l&apos;inizio del documento." />
             <find-status-end-reached value = "Cerca: trovata la prima occorrenza dall&apos;alto. È stata raggiunta la fine del documento." />
             <find-status-replaceinfiles-1-replaced value = "Sostituisci: 1 occorrenza è stata sostituita" />
@@ -1219,7 +1228,7 @@ Vuoi continuare?" />
             <find-status-replaceall-1-replaced value = "Sostituisci tutti: 1 occorrenza è stata sostituita" />
             <find-status-replaceall-nb-replaced value = "Sostituisci tutti: $INT_REPLACE$ occorrenze sono state sostituite" />
             <find-status-replaceall-readonly value = "Sostituisci tutti: impossibile sostituire il testo. Il documento attuale è in sola lettura" />
-            <find-status-replace-end-reached value = "Sostituisci: sostituita la prima occorrenza dall'&apos;alto. È stata raggiunta la fine del documento " />
+            <find-status-replace-end-reached value = "Sostituisci: sostituita la prima occorrenza dall'&apos;alto. È stata raggiunta la fine del documento" />
             <find-status-replace-top-reached value = "Sostituisci: sostituita la prima occorrenza dal basso. È stato raggiunto l&apos;inizio del documento" />
             <find-status-replaced-next-found value = "Sostituisci: 1 occorrenza è stata sostituita. Trovata l'occorrenza successiva" />
             <find-status-replaced-next-not-found value = "Sostituisci:1 occorrenza è stata sostituita. Nessuna occorrenza successiva" />

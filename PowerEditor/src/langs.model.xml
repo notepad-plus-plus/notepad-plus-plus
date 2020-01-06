@@ -389,7 +389,7 @@
             <Keywords name="type1">include bininclude requires orrequires if then else elseif endif error message export externally options</Keywords>
             <Keywords name="type2">short detail end exception withdomain</Keywords>
         </Language>
-        <Language name="xml" ext="xml xaml xsl xslt xsd xul kml svg mxml xsml wsdl xlf xliff xbl sxbl sitemap gml gpx plist" commentLine="" commentStart="&lt;!--" commentEnd="--&gt;"/>
+        <Language name="xml" ext="xml xaml xsl xslt xsd xul kml svg mxml xsml wsdl xlf xliff xbl sxbl sitemap gml gpx plist vcproj vcxproj csproj csxproj vbproj dbproj" commentLine="" commentStart="&lt;!--" commentEnd="--&gt;"/>
         <Language name="yaml" ext="yml yaml" commentLine="#" tabSettings="132">
           <Keywords name="instre1">true false yes no</Keywords>
         </Language>

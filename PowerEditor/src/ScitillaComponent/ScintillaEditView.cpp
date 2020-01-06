@@ -1811,12 +1811,12 @@ void ScintillaEditView::saveCurrentPos()
 	buf->setPosition(pos, this);
 }
 
+// restore current position is executed in two steps.
+// The detection wrap state done in the pre step function:
+// if wrap is enabled, then _positionRestoreNeeded is activated
+// so post step function will be cakked in the next SCN_PAINTED message
 void ScintillaEditView::restoreCurrentPosPreStep()
 {
-	// restore current position is executed in two steps:
-	//     - pre  step : restoreCurrentPosPreStep (this function)
-	//     - post step : function restoreCurrentPosPreStep that will be executed after scintilla 
-
 	Buffer * buf = MainFileManager.getBufferByID(_currentBufferID);
 	Position & pos = buf->getPosition(this);
 
@@ -1842,17 +1842,19 @@ void ScintillaEditView::restoreCurrentPosPreStep()
 
 }
 
+// If wrap is enabled, the post step function will be called in the next SCN_PAINTED message
+// to scroll several lines to set the first visible line to the correct wrapped line.
 void ScintillaEditView::restoreCurrentPosPostStep()
 {
-	// scintilla can send several SCN_PAINTED notifications before the buffer is ready to be displayed. 
-	// this post step function is therefore iterated several times in a maximum of 8 iterations. 
-	// 8 is an arbitrary number. 2 is a minimum. Maximum value is unknown.
 	static int32_t restoreDone = 0;
 	Buffer * buf = MainFileManager.getBufferByID(_currentBufferID);
 	Position & pos = buf->getPosition(this);
 
 	++_restorePositionRetryCount;
 
+	// Scintilla can send several SCN_PAINTED notifications before the buffer is ready to be displayed. 
+	// this post step function is therefore iterated several times in a maximum of 8 iterations. 
+	// 8 is an arbitrary number. 2 is a minimum. Maximum value is unknown.
 	if (_restorePositionRetryCount > 8)
 	{
 		// Abort the position restoring  process. Buffer topology may have changed

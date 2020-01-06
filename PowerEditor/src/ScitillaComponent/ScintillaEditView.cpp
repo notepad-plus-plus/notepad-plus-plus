@@ -1846,6 +1846,9 @@ void ScintillaEditView::restoreCurrentPosPreStep()
 // to scroll several lines to set the first visible line to the correct wrapped line.
 void ScintillaEditView::restoreCurrentPosPostStep()
 {
+	if (!_positionRestoreNeeded)
+		return;
+
 	static int32_t restoreDone = 0;
 	Buffer * buf = MainFileManager.getBufferByID(_currentBufferID);
 	Position & pos = buf->getPosition(this);

@@ -934,7 +934,8 @@
                     <Item id="6324" name="Cambia Documento (Ctrl+TAB)"/>
                     <Item id="6114" name="Abilita"/>
                     <Item id="6117" name="Precedenza ai file più recenti"/>
-
+					
+                    <Item id="6314" name="Usa carattere a spaziatura fissa nella finestra di ricerca (Necessità di riavviare Notepad++)"/>
                     <Item id="6344" name="Anteprima documenti"/>
                     <Item id="6345" name="Anteprima sulle schede"/>
                     <Item id="6346" name="Anteprima sulla mappa documento"/>

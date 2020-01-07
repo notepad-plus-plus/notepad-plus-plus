@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="7.8.1">
+    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="7.8.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -63,9 +63,10 @@
                     <Item subMenuId="encoding-turkish" name="土耳其语"/>
                     <Item subMenuId="encoding-westernEuropean" name="西欧语系"/>
                     <Item subMenuId="encoding-vietnamese" name="越南文"/>
+                    <Item subMenuId="language-userDefinedLanguage" name="自定义语言"/>
                     <Item subMenuId="settings-import" name="导入"/>
                     <Item subMenuId="tools-md5" name="MD5"/>
-                    <Item subMenuId="tools-sha256"  name="SHA-256"/>
+                    <Item subMenuId="tools-sha256" name="SHA-256"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -281,6 +282,7 @@
 
                     <Item id="46001" name="语言格式设置..."/>
                     <Item id="46250" name="自定义语言格式..."/>
+                    <Item id="46300" name="打开用户自定义语言文件夹..."/>
                     <Item id="46180" name="用户自定义"/>
                     <Item id="47000" name="关于 Notepad++"/>
                     <Item id="47010" name="命令行参数..."/>
@@ -776,6 +778,7 @@
                 </DefaultDir>
 
                 <FileAssoc title="文件关联">
+                    <Item id="4008" name="请退出并在管理员模式重新打开Notepad++，以使用此功能。"/>
                     <Item id="4009" name="支持的扩展名:"/>
                     <Item id="4010" name="注册的扩展名:"/>
                 </FileAssoc>
@@ -861,6 +864,7 @@
                 </Backup>
 
                 <AutoCompletion title="自动完成">
+                    <Item id="6115" name="自动缩进"/>
                     <Item id="6807" name="自动完成"/>
                     <Item id="6808" name="所有输入均启用自动完成"/>
                     <Item id="6809" name="函数自动完成"/>
@@ -937,11 +941,11 @@
                     <Item id="6314" name="在查找对话框中使用等宽字体（需要重启Notepad++）"/>
                     <Item id="6337" name="工作区文件扩展名:"/>
                     <Item id="6114" name="启用"/>
-                    <Item id="6115" name="自动缩进"/>
                     <Item id="6117" name="按最近使用顺序切换"/>
                     <Item id="6344" name="文档速览图"/>
                     <Item id="6345" name="在标签中启用速览"/>
                     <Item id="6346" name="在文档结构图中启用速览"/>
+                    <Item id="6348" name="不要用所选单词填充“查找”对话框中的“查找”字段"/>
                 </MISC>
             </Preference>
             <MultiMacro title="重复运行宏">
@@ -989,11 +993,11 @@
             </FindInFinder>
             <DoSaveOrNot title="保存"> 
                 <Item id="1761" name="保存文件 &quot;$STR_REPLACE$&quot; ?"/>
-                <Item id="6" name="是"/>
-                <Item id="7" name="否"/>
-                <Item id="2" name="取消"/>
-                <Item id="4" name="全选是"/>
-                <Item id="5" name="全选否"/>
+                <Item id="6" name="是(&amp;Y)"/>
+                <Item id="7" name="否(&amp;N)"/>
+                <Item id="2" name="取消(&amp;C)"/>
+                <Item id="4" name="全选是(&amp;A)"/>
+                <Item id="5" name="全选否(&amp;O)"/>
             </DoSaveOrNot>
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
@@ -1046,6 +1050,7 @@
             <PrehistoricSystemDetected title="检测到上古系统" message="您的系统好像过于古老了。很抱歉，这个功能只能在现代系统当中使用。"/>
             <XpUpdaterProblem title="Notepad++升级工具" message="Notepad++升级工具不兼容XP，由于XP的安全层过于陈旧。
 是否前往Notepad++官网下载最新版？"/>
+            <GUpProxyConfNeedAdminMode title="代理设置" message="请在管理员模式下重新启动Notepad++以配置代理。"/>
             <DocTooDirtyToMonitor title="监视问题" message="文档没有保存，请先保存修改再监视它。"/>
             <DocNoExistToMonitor title="监视问题" message="文件需要存在才能监视。"/>
             <FileTooBigToOpen title="文件大小问题" message="文件太大，Notepad++打不开。"/>
@@ -1193,6 +1198,11 @@ Notepad++会在所有安装结束后重新启动。
             <cloud-select-folder value="请选择一个供Notepad++读写设置的文件夹"/>
             <shift-change-direction-tip value="使用Shift+Enter反向查找"/>
             <two-find-buttons-tip value="双按钮查找模式"/>
+            <find-in-files-filter-tip value="在 cpp，cxx，h，hxx &amp;&amp; hpp 中查找：
+*.cpp *.cxx *.h *.hxx *.hpp
+
+查找除exe，obj &amp;&amp; log以外的所有文件:
+*.* !*.exe !*.obj !*.log"/>
             <find-status-top-reached value="查找：查找到从下到上的首个匹配项。已查找至文档最顶部。"/>
             <find-status-end-reached value="查找：查找到从上到下的首个匹配项。已查找至文档最底部。"/>
             <find-status-replaceinfiles-1-replaced value="在文件中替换：已替换1个匹配项。"/>

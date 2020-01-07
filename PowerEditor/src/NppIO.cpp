@@ -462,13 +462,13 @@ bool Notepad_plus::doReload(BufferID id, bool alert)
 	if (mainVisisble)
 	{
 		_mainEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
-		_mainEditView.restoreCurrentPos();
+		_mainEditView.restoreCurrentPosPreStep();
 	}
 
 	if (subVisisble)
 	{
 		_subEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
-		_subEditView.restoreCurrentPos();
+		_subEditView.restoreCurrentPosPreStep();
 	}
 
 	// Once reload is complete, activate buffer which will take care of
@@ -2057,8 +2057,8 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode)
 		_isFolding = false;
 	}
 
-	_mainEditView.restoreCurrentPos();
-	_subEditView.restoreCurrentPos();
+	_mainEditView.restoreCurrentPosPreStep();
+	_subEditView.restoreCurrentPosPreStep();
 
 	if (session._activeMainIndex < _mainDocTab.nbItem())//session.nbMainFiles())
 		activateBuffer(_mainDocTab.getBufferByIndex(session._activeMainIndex), MAIN_VIEW);

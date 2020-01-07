@@ -2504,7 +2504,7 @@ void Notepad_plus::command(int id)
 
 				// Paste the texte, restore buffer status
 				_pEditView->execute(SCI_PASTE);
-				_pEditView->restoreCurrentPos();
+				_pEditView->restoreCurrentPosPreStep();
 
 				// Restore the previous clipboard data
 				::OpenClipboard(_pPublicInterface->getHSelf());
@@ -2913,6 +2913,15 @@ void Notepad_plus::command(int id)
 					generic_string param;
 					if (id == IDM_CONFUPDATERPROXY)
 					{
+						if (!_isAdministrator)
+						{
+							_nativeLangSpeaker.messageBox("GUpProxyConfNeedAdminMode",
+								_pPublicInterface->getHSelf(),
+								TEXT("Please relaunch Notepad++ in Admin mode to configure proxy."),
+								TEXT("Proxy Settings"),
+								MB_OK | MB_APPLMODAL);
+							return;
+						}
 						param = TEXT("-options");
 					}
 					else

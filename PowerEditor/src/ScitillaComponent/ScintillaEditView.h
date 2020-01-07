@@ -273,7 +273,8 @@ public:
 	void insertNewLineBelowCurrentLine();
 
 	void saveCurrentPos();
-	void restoreCurrentPos();
+	void restoreCurrentPosPreStep();
+	void restoreCurrentPosPostStep();
 
 	void beginOrEndSelect();
 	bool beginEndSelectedIsStarted() const {
@@ -668,6 +669,8 @@ protected:
 	int _codepage = CP_ACP;
 	bool _lineNumbersShown = false;
 	bool _wrapRestoreNeeded = false;
+	bool _positionRestoreNeeded = false;
+	uint32_t _restorePositionRetryCount = 0;
 
 	typedef std::unordered_map<int, Style> StyleMap;
 	typedef std::unordered_map<BufferID, StyleMap*> BufferStyleMap;

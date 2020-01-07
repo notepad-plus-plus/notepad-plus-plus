@@ -2821,7 +2821,7 @@ void Notepad_plus::setLanguage(LangType langType)
 	if (reset)
 	{
 		_subEditView.execute(SCI_SETDOCPOINTER, 0, prev);
-		_subEditView.restoreCurrentPos();
+		_subEditView.restoreCurrentPosPreStep();
 	}
 };
 
@@ -3739,7 +3739,7 @@ void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 		Buffer *buf = MainFileManager.getBufferByID(current);
 		_pEditView->saveCurrentPos();	//allow copying of position
 		buf->setPosition(buf->getPosition(_pEditView), _pNonEditView);
-		_pNonEditView->restoreCurrentPos();	//set position
+		_pNonEditView->restoreCurrentPosPreStep();	//set position
 		activateBuffer(current, viewToGo);
 	}
 

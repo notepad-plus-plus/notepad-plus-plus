@@ -3,7 +3,7 @@
 	## Bulgarian localization for Notepad++ ##
 
 	Translators:.....: 2007–2012 – Milen Metev (Tragedy); 2014–yyyy – Rusi Dimitrov
-	Last revision:...: 22.11.2019 by Rusi Dimitrov <astral_86[at]mail[dot]bg>
+	Last revision:...: 01.01.2020 by Rusi Dimitrov <astral_86[at]mail[dot]bg>
 	Download:........: https://gist.github.com/rddim/bd37264898c3a17363e7437bcf1b4803
 -->
 <NotepadPlus>
@@ -335,6 +335,16 @@
 					<Item id="45011" name="Преобразуване в UTF-8-BOM"/>
 					<Item id="45012" name="Преобразуване в UCS-2 BE BOM"/>
 					<Item id="45013" name="Преобразуване в UCS-2 LE BOM"/>
+						<!-- Меню "Кодировки" - "Набор от знаци" -->
+							<!-- Китайски -->
+					<Item id="45060" name="Big5 (Традиционен)"/>
+					<Item id="45061" name="GB2312 (Опростен)"/>
+							<!-- Северноевропейски -->
+					<Item id="45054" name="OEM 861: Исландски"/>
+					<Item id="45057" name="OEM 865: Скандинавски"/>
+							<!-- Западноевропейски -->
+					<Item id="45053" name="OEM 860: Португалски"/>
+					<Item id="45056" name="OEM 863: Френски"/>
 				<!-- Меню "Кодировки" край -->
 				<!-- Меню "Синтаксис" начало -->
 					<Item id="46250" name="Дефиниране на синтаксис..."/>
@@ -496,7 +506,7 @@
 				<Item id="1718" name="&amp;Разширен (\n, \r, \t, \0, \x...)"/>
 				<Item id="1720" name=". и &amp;нов ред"/>
 			</FindInFinder>
-			<DoSaveOrNot title="Запис"> 
+			<DoSaveOrNot title="Запис">
 				<Item id="1761" name="Запис на файла &quot;$STR_REPLACE$&quot; ?"/>
 				<Item id="6"    name="&amp;Да"/>
 				<Item id="7"    name="&amp;Не"/>
@@ -803,6 +813,7 @@
 				<FileAssoc title="Файлови асоциации">
 					<Item id="4009" name="Поддържани"/>
 					<Item id="4010" name="Регистрирани"/>
+					<Item id="4008" name="За използване на тази функция, рестартирайте Notepad++ с администраторски права"/>
 				</FileAssoc>
 					<!-- Синтаксис и табулация-->
 				<Language title="Синтаксис">
@@ -832,7 +843,7 @@
 					<!-- Печат -->
 				<Print title="Печат">
 					<Item id="6601" name="Отпечатване номер на редовете"/>
-					<Item id="6602" name="Опции за цветен печат "/>
+					<Item id="6602" name="Опции за цветен печат"/>
 					<Item id="6603" name="Цветно, както се вижда"/>
 					<Item id="6604" name="Обръщане на цветове"/>
 					<Item id="6605" name="Черен текст – бял фон"/>
@@ -876,6 +887,7 @@
 				</Backup>
 					<!-- Автоматично завършване -->
 				<AutoCompletion title="Авто-завършване">
+					<Item id="6115" name="Автоматичен отстъп"/>
 					<Item id="6807" name="Автоматично завършване"/>
 					<Item id="6808" name="Включено"/>
 					<Item id="6809" name="Завършване на функции"/>
@@ -952,11 +964,11 @@
 					<Item id="6313" name="Тихо обновяване"/>
 					<Item id="6325" name="Превъртане до последният ред"/>
 					<Item id="6334" name="Автоматично определяне кодировката на знаците"/>
-					<Item id="6115" name="Повтаряне на отстъпа от предния ред"/>
 					<Item id="6308" name="Намаляване в системната област"/>
 					<Item id="6331" name="Показване само името на файла в заглавната лента"/>
 					<Item id="6323" name="Автоматично обновяване на Notepad++"/>
-					<Item id="6314" name="Равноширок шрифт в диалога за търсене (Изисква се рестартиране на Notepad++)"/>
+					<Item id="6348" name="Без попълване на полето за &quot;Търсене на:&quot; с избраната дума"/>
+					<Item id="6314" name="Равноширок шрифт в диалога за търсене (изисква се рестартиране на Notepad++)"/>
 					<Item id="6322" name="Файлово разширение за сесии:"/>
 					<Item id="6337" name="Разширение за работно място:"/>
 				</MISC>
@@ -1178,27 +1190,27 @@
 			<two-find-buttons-tip value="Режим за търсене с два бутона"/>
 			<find-status-top-reached value="Търсене: Намерено е първото съвпадение от краят. Началото на документа е достигнато."/>
 			<find-status-end-reached value="Търсене: Намерено е първото съвпадение от началото. Краят на документа е достигнат."/>
-			<find-status-invalid-re value="Търсене: неправилен регулярен израз"/>
-			<find-status-cannot-find value="Търсене: текстът &quot;$STR_REPLACE$&quot; не може да бъде намерен"/>
-			<find-status-replaceinfiles-1-replaced value="Замяна във Файлове: заменено е 1 съвпадение"/>
-			<find-status-replaceinfiles-nb-replaced value="Замяна във Файлове: заменени са $INT_REPLACE$ съвпадения"/>
-			<find-status-replaceinfiles-re-malformed value="Замяна в отворените файлове: регулярният израз е неправилно формиран"/>
-			<find-status-replaceinopenedfiles-1-replaced value="Замяна в отворените файлове: заменено е 1 съвпадение"/>
-			<find-status-replaceinopenedfiles-nb-replaced value="Замяна в отворените файлове: заменени са $INT_REPLACE$ съвпадения"/>
-			<find-status-replaceall-re-malformed value="Замяна на всичко: регулярният израз е неправилно формиран"/>
-			<find-status-replaceall-1-replaced value="Замяна на всичко: заменено е 1 съвпадение"/>
-			<find-status-replaceall-nb-replaced value="Замяна на всичко: заменени са $INT_REPLACE$ съвпадения"/>
+			<find-status-invalid-re value="Търсене: Неправилен регулярен израз"/>
+			<find-status-cannot-find value="Търсене: Текстът &quot;$STR_REPLACE$&quot; не може да бъде намерен"/>
+			<find-status-replaceinfiles-1-replaced value="Замяна във Файлове: Заменено е 1 съвпадение"/>
+			<find-status-replaceinfiles-nb-replaced value="Замяна във Файлове: Заменени са $INT_REPLACE$ съвпадения"/>
+			<find-status-replaceinfiles-re-malformed value="Замяна в отворените файлове: Регулярният израз е неправилно формиран"/>
+			<find-status-replaceinopenedfiles-1-replaced value="Замяна в отворените файлове: Заменено е 1 съвпадение"/>
+			<find-status-replaceinopenedfiles-nb-replaced value="Замяна в отворените файлове: Заменени са $INT_REPLACE$ съвпадения"/>
+			<find-status-replaceall-re-malformed value="Замяна на всичко: Регулярният израз е неправилно формиран"/>
+			<find-status-replaceall-1-replaced value="Замяна на всичко: Заменено е 1 съвпадение"/>
+			<find-status-replaceall-nb-replaced value="Замяна на всичко: Заменени са $INT_REPLACE$ съвпадения"/>
 			<find-status-replaceall-readonly value="Замяна на всичко: Текстът не може да бъде заменен. Текущият документ е само за четене"/>
 			<find-status-replace-end-reached value="Замяна: Заменено е първото съвпадение от началото. Краят на документа е достигнат"/>
 			<find-status-replace-top-reached value="Замяна: Заменено е първото съвпадение от краят. Началото на документа е достигнато"/>
 			<find-status-replaced-next-found value="Замяна: Заменено е 1 съвпадение. Намерено е следващото съвпадение"/>
 			<find-status-replaced-next-not-found value="Замяна: Заменено е 1 съвпадение. Следващото съвпадение не е намерено"/>
-			<find-status-replace-not-found value="Замяна: не е намерено съвпадение"/>
+			<find-status-replace-not-found value="Замяна: Не е намерено съвпадение"/>
 			<find-status-replace-readonly value="Замяна: Текстът не може да бъде заменен. Текущият документ е само за четене"/>
-			<find-status-mark-re-malformed value="Маркиране: регулярният израз за търсене е неправилно формиран"/>
+			<find-status-mark-re-malformed value="Маркиране: Регулярният израз за търсене е неправилно формиран"/>
 			<find-status-mark-1-match value="Маркиране: 1 съвпадение"/>
 			<find-status-mark-nb-matches value="Маркиране: $INT_REPLACE$ съвпадения"/>
-			<find-status-count-re-malformed value="Брой: регулярният израз за търсене е неправилно формиран"/>
+			<find-status-count-re-malformed value="Брой: Регулярният израз за търсене е неправилно формиран"/>
 			<find-status-count-1-match value="Брой съвпадения: 1"/>
 			<find-status-count-nb-matches value="Брой съвпадения: $INT_REPLACE$"/>
 			<finder-find-in-finder value="Търсене в намерените резултати..."/>
@@ -1212,7 +1224,7 @@
 			<find-in-files-filter-tip value="Търсене в cpp, cxx, h, hxx и hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 
-Търсене във файлове с изключение на exe, obj и log:
+Търсене във всички файлове с изключение на exe, obj и log:
 *.* !*.exe !*.obj !*.log"/>
 				<!-- Дясно щракане върху раздел -->
 			<tabrename-title value="Преименуване на текущият раздел"/>
@@ -1249,8 +1261,8 @@
 			<!-- Меню "Изглед" - "Списък с функции" -->
 		<FunctionList>
 			<PanelTitle name="Списък с функции"/>
-			<SortTip name="Подреждане" />
-			<ReloadTip name="Презареждане" />
+			<SortTip name="Подреждане"/>
+			<ReloadTip name="Презареждане"/>
 		</FunctionList>
 			<!-- Меню "Настройки" - "Основни" - "Панел с документи" -->
 		<DocSwitcher>
@@ -1387,6 +1399,7 @@
 
 Продължаване?"/>
 			<NeedToRestartToLoadPlugins title="Рестартиране на Notepad++" message="Notepad++ трябва да се рестартира за да зареди инсталираните добавки"/>
+			<GUpProxyConfNeedAdminMode title="Настройка на прокси" message="За настройка на прокси, рестартирайте Notepad++ с администраторски права"/>
 		</MessageBox>
 	</Native-Langue>
 </NotepadPlus>

@@ -1037,6 +1037,7 @@
             <PrehistoricSystemDetected title="系統過舊" message="很抱歉，此功能不適用於過舊的系統。"/>
             <XpUpdaterProblem title="Notepad++ 更新程式" message="由於 XP 的安全機制過舊，更新程式與 XP 並不兼容。
 您要直接到 Notepad++ 網站下載最新版本嗎？"/>
+            <GUpProxyConfNeedAdminMode title="代理伺服器設定" message="請關閉 Notepad++，並在系統管理員模式下重新啟動 Notepad++ 以設定代理伺服器。"/>
             <DocTooDirtyToMonitor title="監控錯誤" message="文件已被修改，請在監視前儲存文件。"/>
             <DocNoExistToMonitor title="監控錯誤" message="文件不存在，因此無法進行監視。"/>
             <FileTooBigToOpen title="文件太大" message="文件太大，無法使用 Notepad++ 開啟。"/>

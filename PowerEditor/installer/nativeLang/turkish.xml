@@ -1052,6 +1052,7 @@ Tekrar yükleyerek Notepad++ içindeki değişiklerin kaybolmasını istiyor mus
             <PrehistoricSystemDetected title="Antik Sistem Bulundu" message="Görünüşe göre, halen antik bir sistem kullanıyorsunuz. Bu özellik sadece modern bir sistemde kullanılabilir, üzgünüm."/>
             <XpUpdaterProblem title="Notepad++ Güncelleyici" message="Notepad++ güncelleyici XP ile uyumlu değil, çünkü XP güvenlik yapısı oldukça eski.
 Notepad++ sayfasına giderek en son sürümü indirmek ister misiniz?"/>
+            <GUpProxyConfNeedAdminMode title="Vekil Sunucu Ayarları" message="Vekil sunucuyu ayarlamak için, lütfen Notepad++'ı yönetici olarak tekrar başlatın."/>
             <DocTooDirtyToMonitor title="İzleme Sorunu" message="Belge kirli. İzlemeden önce lütfen değişikliği kaydedin."/>
             <DocNoExistToMonitor title="İzleme Sorunu" message="İzlenmesi için dosyanın mevcut olması gerekir."/>
             <FileTooBigToOpen title="Dosya Boyutu Sorunu" message="Dosya, Notepad++ tarafından açılamayacak kadar büyük."/>

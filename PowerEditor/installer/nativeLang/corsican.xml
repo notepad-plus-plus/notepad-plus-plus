@@ -1145,8 +1145,8 @@ Cuntinuà ?"/>
         </DocumentMap>
         <FunctionList>
             <PanelTitle name="Lista di e funzioni"/>
-            <SortTip name="Classificà" />
-            <ReloadTip name="Ricaricà" />
+            <SortTip name="Classificà"/>
+            <ReloadTip name="Ricaricà"/>
         </FunctionList>
         <FolderAsWorkspace>
             <PanelTitle name="Cartulare cum’è spaziu di travagliu"/>

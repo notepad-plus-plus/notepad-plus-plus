@@ -1291,33 +1291,29 @@ ATOM RegisterGridClass(HINSTANCE hInstance)
 
 
 void SizeGrid(HWND hWnd,int /*SI*/)
-    {
+{
      SendMessage(hWnd,WM_SIZE,SIZE_MAXIMIZED,0);
-     //obsolete
-     //SendMessage(hWnd,WM_SIZE,SIZE_MAXIMIZED,MAKELPARAM(BGHS[SI].wannabewidth,BGHS[SI].wannabeheight));
-     //SendMessage(hWnd,WM_SIZE,SIZE_MAXIMIZED,MAKELPARAM(BGHS[SI].wannabewidth,BGHS[SI].wannabeheight));
-    }
+}
 
-int FindLongestLine(HDC hdc,TCHAR* text,SIZE* size)
+int FindLongestLine(HDC hdc, wchar_t* text, SIZE* size)
 {
 	int longest = 0;
-     TCHAR temptext[1000];
-     TCHAR *p;
+	wchar_t temptext[1000];
+	wchar_t *p;
 
-	 wcscpy_s(temptext,text);
-     p = wcstok(temptext, TEXT("\n"));
-     while(p)
-     {
-          GetTextExtentPoint32(hdc,p,lstrlen(p),size);
-          if(size->cx > longest)
-          {
-               longest=size->cx;
-          }
-          TCHAR temptext2[2];
-          temptext2[0] = TEXT('\0');
-          p = wcstok(temptext2, TEXT("\n"));
-     }
-     return longest;
+	wcscpy_s(temptext, text);
+    p = wcstok(temptext, TEXT("\n"));
+    while (p)
+    {
+        GetTextExtentPoint32(hdc, p, lstrlen(p), size);
+        if (size->cx > longest)
+        {
+             longest=size->cx;
+        }
+		wchar_t temptext2[2] = {'\0'};
+        p = wcstok(temptext2, TEXT("\n"));
+    }
+    return longest;
 }
 
 
@@ -1376,18 +1372,18 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			//display column 0;
 
 			DisplayColumn(hWnd,SelfIndex,0,0,BGHS[SelfIndex].hfont,BGHS[SelfIndex].hcolumnheadingfont);
-			    {
+			{
 			     int c,j,k,offset;
 			     offset = BGHS[SelfIndex].columnwidths[0];
 			     j=BGHS[SelfIndex].leftvisiblecol;
 			     k=BGHS[SelfIndex].rightvisiblecol;
 			     for(c=j;c<=k;c++)
-			         {
+			     {
 			          DisplayColumn(hWnd,SelfIndex,c,offset,BGHS[SelfIndex].hfont,BGHS[SelfIndex].hcolumnheadingfont);
 			          offset+=BGHS[SelfIndex].columnwidths[c];
-			         }
+			     }
 
-			    }
+			}
 			EndPaint(hWnd, &ps);
 			//
 			if(GetFocus()==hWnd)
@@ -1400,33 +1396,34 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 
         case BGM_PAINTGRID:
-            {
+        {
              RECT rect;
              GetClientRect(hWnd, &rect);
              InvalidateRect(hWnd,&rect,TRUE);
              UpdateWindow(hWnd);
              MessageBeep(0);
-            }
-            break;
+        }
+        break;
+
         case WM_SETTEXT:
-            {
+        {
               int j,linecount;
               SIZE size;
               HDC gdc;
               HFONT holdfont;
               if(lstrlen((TCHAR*)lParam)>300)
-                  {
+              {
 				  wcscpy_s(BGHS[SelfIndex].title, TEXT("Title too long (300 chars max)"));
-                  }
+              }
               else
-                  {
+              {
 				  wcscpy_s(BGHS[SelfIndex].title,(TCHAR*)lParam);
-                  }
+              }
 
              gdc=GetDC(hWnd);
              //get linecount of title;
              if(lstrlen(BGHS[SelfIndex].title) > 0)
-                 {
+             {
                   linecount=1;
 				  for (j = 0; j<static_cast<int>(lstrlen(BGHS[SelfIndex].title)); j++)
                   {
@@ -1434,26 +1431,26 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                        {
                             linecount++;
                        }
-
                   }
                   holdfont=(HFONT)SelectObject(gdc,BGHS[SelfIndex].htitlefont);
                   GetTextExtentPoint32(gdc,BGHS[SelfIndex].title,lstrlen(BGHS[SelfIndex].title),&size);
                   SelectObject(gdc,holdfont);
 				  BGHS[SelfIndex].titleheight = static_cast<int>((size.cy*1.2) * linecount);
-                 }
+             }
              else
-                 {
+             {
                   //no title
                   BGHS[SelfIndex].titleheight = 0;
-                 }
-              ReleaseDC(hWnd,gdc);
+             }
+             ReleaseDC(hWnd,gdc);
 
 
-			  RefreshGrid(hWnd);
-              SizeGrid(hWnd,SelfIndex);
+			 RefreshGrid(hWnd);
+             SizeGrid(hWnd,SelfIndex);
 
-            }
-            break;
+        }
+        break;
+
         case BGM_GETROWS:
               ReturnValue = BGHS[SelfIndex].rows;
             break;
@@ -1485,15 +1482,15 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                DrawCursor(hWnd,SelfIndex);
                if((((int)wParam <= BGHS[SelfIndex].rows)&&((int)wParam > 0))&&
                    (((int)lParam <= BGHS[SelfIndex].cols)&&((int)lParam > 0)))
-                   {
+               {
 					   BGHS[SelfIndex].cursorrow = static_cast<int32_t>(wParam);
 					   BGHS[SelfIndex].cursorcol = static_cast<int32_t>(lParam);
-                   }
+               }
                else
-                   {
+               {
                     DrawCursor(hWnd,SelfIndex);
                     break;
-                   }
+               }
                SetHomeRow(hWnd,SelfIndex,BGHS[SelfIndex].cursorrow,BGHS[SelfIndex].cursorcol);
                SetHomeCol(hWnd,SelfIndex,BGHS[SelfIndex].cursorrow,BGHS[SelfIndex].cursorcol);
                DrawCursor(hWnd,SelfIndex);
@@ -1547,18 +1544,18 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		case BGM_PROTECTCELL:
               LPBGcell=(_BGCELL*)wParam;
               if(OutOfRange(LPBGcell))
-                  {
+              {
                    wParam=MAKEWPARAM(GetMenu(hWnd),BGN_OUTOFRANGE);
                    lParam = 0;
                    SendMessage(GetParent(hWnd),WM_COMMAND,wParam,lParam);
 				   ReturnValue = -1;
                    break;
-                  }
+              }
               wsprintf(buffer, TEXT("%05d-%03d"), LPBGcell->row,LPBGcell->col);
               //see if that cell is already loaded
               FindResult = BinarySearchListBox(BGHS[SelfIndex].hlist1,buffer);
               if(FindResult != LB_ERR)
-                  {
+              {
                    //it was found, get the text, modify text delete it from list, add modified to list
 				  auto lbTextLen = ::SendMessage(BGHS[SelfIndex].hlist1, LB_GETTEXTLEN, FindResult, 0);
 				  if (lbTextLen > bufferLen)
@@ -1567,15 +1564,15 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 					SendMessage(BGHS[SelfIndex].hlist1, LB_GETTEXT, FindResult, reinterpret_cast<LPARAM>(buffer));
 				   if((BOOL)lParam)
 				   {
-					buffer[10] = 'P';
+					   buffer[10] = 'P';
 				   }
 				   else
 				   {
-					buffer[10] = 'U';
+					   buffer[10] = 'U';
 				   }
                    SendMessage(BGHS[SelfIndex].hlist1, LB_DELETESTRING, FindResult, 0);
 				   SendMessage(BGHS[SelfIndex].hlist1, LB_ADDSTRING, FindResult, reinterpret_cast<LPARAM>(buffer));
-                  }
+              }
 			  else
 			  {
 			   //protecting or unprotecting a cell that isn't in the list
@@ -1601,35 +1598,35 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			   NotifyColChanged(hWnd,SelfIndex);
 			break;
 		case BGM_SETPROTECT:
-			  if((BOOL)wParam)
-                  {
-				  wcscpy_s(BGHS[SelfIndex].protect, TEXT("P"));
-			      }
-			      else
-                  {
-				  wcscpy_s(BGHS[SelfIndex].protect, TEXT("U"));
-			      }
+			if((BOOL)wParam)
+            {
+				wcscpy_s(BGHS[SelfIndex].protect, TEXT("P"));
+			}
+			else
+            {
+				wcscpy_s(BGHS[SelfIndex].protect, TEXT("U"));
+			}
 			break;
 
 		case BGM_AUTOROW:
 			  if((BOOL)wParam)
 			  {
-			   BGHS[SelfIndex].AUTOROW = TRUE;
+			      BGHS[SelfIndex].AUTOROW = TRUE;
 			  }
 			  else
 			  {
-			   BGHS[SelfIndex].AUTOROW = FALSE;
+			      BGHS[SelfIndex].AUTOROW = FALSE;
 			  }
 			break;
         case BGM_SETEDITABLE:
                if((BOOL)wParam)
-                   {
+               {
                     BGHS[SelfIndex].EDITABLE = TRUE;
-                   }
-               else
-                   {
-                    BGHS[SelfIndex].EDITABLE = FALSE;
-                   }
+               }
+			   else
+			   {
+				   BGHS[SelfIndex].EDITABLE = FALSE;
+			   }
             break;
 
         case BGM_SETCELLDATA:

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Translated by Patryk Skorupa (ppskorupa@outlook.com) and up-to-date as of version 7.7.2 (29/07/2019) -->
+<!-- Updated by Cezariusz Marek to version 7.8.3 (11.01.2020) -->
 <NotepadPlus>
-    <Native-Langue name="polski" filename="polish.xml" version="7.7.2">
+    <Native-Langue name="polski" filename="polish.xml" version="7.8.3">
         <Menu>
             <Main>
                 <!-- Główne menu -->
@@ -64,6 +65,7 @@
                     <Item subMenuId="encoding-turkish" name="turecki"/>
                     <Item subMenuId="encoding-westernEuropean" name="zachodnioeuropejski"/>
                     <Item subMenuId="encoding-vietnamese" name="wietnamski"/>
+                    <Item subMenuId="language-userDefinedLanguage" name="Język zdefiniowany przez użytkownika"/>
                     <Item subMenuId="settings-import"  name="Importuj..."/>
                     <Item subMenuId="tools-md5"  name="MD5"/>
                     <Item subMenuId="tools-sha256"  name="SHA-256"/>
@@ -274,6 +276,12 @@
                     <Item id="45011" name="Konwertuj na format UTF-8-BOM"/>
                     <Item id="45012" name="Konwertuj na format UCS-2 BE BOM"/>
                     <Item id="45013" name="Konwertuj na format UCS-2 LE BOM"/>
+                    <Item id="45060" name="Big5 (Tradycyjny)"/>
+                    <Item id="45061" name="GB2312 (Uproszczony)"/>
+                    <Item id="45054" name="OEM 861: islandzki"/>
+                    <Item id="45057" name="OEM 865: nordycki"/>
+                    <Item id="45053" name="OEM 860: portugalski"/>
+                    <Item id="45056" name="OEM 863: francuski"/>
 
                     <Item id="10001" name="Przenieś do drugiego widoku"/>
                     <Item id="10002" name="Sklonuj do drugiego widoku"/>
@@ -282,6 +290,7 @@
 
                     <Item id="46001" name="Konfigurator stylów..."/>
                     <Item id="46250" name="Zdefiniuj własny język..."/>
+                    <Item id="46300" name="Otwórz folder z językiem zdefiniowanym..."/>
                     <Item id="46180" name="Zdefiniowane przez użytkownika"/>
                     <Item id="47000" name="O programie..."/>
                     <Item id="47010" name="Argumenty wiersza polecenia..."/>
@@ -312,6 +321,9 @@
                     <Item id="50000" name="Uzupełnianie funkcji"/>
                     <Item id="50001" name="Uzupełnianie słów"/>
                     <Item id="50002" name="Podpowiadanie parametrów funkcji"/>
+                    <Item id="50003" name="Przełącz na poprzedni dokument"/>
+                    <Item id="50004" name="Przełącz na następny dokument"/>
+                    <Item id="50005" name="Przełącz nagrywanie makra"/>
                     <Item id="50006" name="Uzupełnianie ścieżek"/>
                     <Item id="44042" name="Ukryj zaznaczone linie"/>
                     <Item id="42040" name="Otwórz wszystkie ostatnio otwarte pliki"/>
@@ -385,8 +397,8 @@
                 <Item id="1641" name="Znajdź w bieżącym dokumencie"/>
                 <Item id="1686" name="&amp;Przeźroczystość okna"/>
                 <Item id="1703" name="&amp;. jako nowa linia"/>
-                <Item id="1721" name="▲"/> 
-	  		    <Item id="1723" name="▼ Następne wystąpienie"/> 
+                <Item id="1721" name="▲"/>
+                <Item id="1723" name="▼ Następne wystąpienie"/>
             </Find>
 
             <FindCharsInRange title="Zakres zestawu znaków...">
@@ -774,6 +786,7 @@
                 </DefaultDir>
 
                 <FileAssoc title="Powiązania plików">
+                    <Item id="4008" name="Zamknij Notepad++ i uruchom Notepad++ w trybie administratora aby użyć tej funkcji."/>
                     <Item id="4009" name="Wspierane rozszerzenia:"/>
                     <Item id="4010" name="Zarejestrowane rozszerzenia:"/>
                 </FileAssoc>
@@ -859,7 +872,7 @@
                 </Backup>
 
                 <AutoCompletion title="Autouzupełnianie">
-                    <Item id="6115" name="Autowcięcie"/>
+                    <Item id="6115" name="Autowcięcia"/>
                     <Item id="6807" name="Autouzupełnianie"/>
                     <Item id="6808" name="Włącz dla wszystkich:"/>
                     <Item id="6809" name="Funkcji"/>
@@ -933,6 +946,7 @@
                     <Item id="6324" name="Przełączanie dokumentów (Ctrl+TAB)"/>
                     <Item id="6331" name="Pokazuj w pasku tytułu tylko nazwę pliku"/>
                     <Item id="6334" name="Automatycznie wykrywaj kodowanie"/>
+                    <Item id="6314" name="Użyj nieproporcjonalnego fontu w oknie wyszukiwania (wymagany restart Notepad++)"/>
                     <Item id="6337" name="Rozszerzenie pliku obszaru roboczego:"/>
                     <Item id="6114" name="Włącz"/>
                     <Item id="6117" name="Zgodnie z ostatnim użyciem (MRU)"/>
@@ -1024,7 +1038,6 @@ Ustawienia chmury zostaną wycofane. Nową ścieżkę można podać w oknie pref
             <SortingError title="Błąd sortowania" message="Nie można wykonać sortowania przez linię numer $INT_REPLACE$."/>
             <ColumnModeTip title="Wskazówka dotycząca edycji kolumnowej" message="ALT+LPM oraz Alt+Shift+Strzałka przełączają tryb kolumnowy."/>
             <BufferInvalidWarning title="Błąd zapisywania" message="Nie udało się zapisać. Błąd bufora."/>
-            <DoSaveOrNot title="Zapisywanie" message="Czy zapisać plik „$STR_REPLACE$”?"/>
             <DoCloseOrNot title="Zachowywanie nieistniejącego pliku" message="Plik „$STR_REPLACE$” nie istnieje.
 Czy mimo to zachować go w edytorze?"/>
             <DoDeleteOrNot title="Usuwanie" message="Plik „$STR_REPLACE$”
@@ -1044,6 +1057,7 @@ Przeładować go i stracić wszystkie zmiany dokonane w Notepad++?"/>
             <PrehistoricSystemDetected title="Antyczny system" message="Wykryto antyczny system operacyjny. Przepraszamy, ale ta funkcja działa jedynie na nowoczesnych systemach."/>
             <XpUpdaterProblem title="Samoaktualizacja Notepad++" message="Automatyczne aktualizowanie Notepad++ jest niemożliwe w systemie Windows XP ze względu na przestarzałe sposoby ochrony systemu.
 Uruchomić stronę internetową Notepad++ z najnowszą wersją programu?"/>
+            <GUpProxyConfNeedAdminMode title="Proxy Settings" message="Uruchom Notepad++ w trybie administratora aby skonfigurować proxy."/>
             <DocTooDirtyToMonitor title="Problem z monitorowaniem" message="Plik został naruszony. Musi zostać pierw zapisany, żeby mógł być monitorowany."/>
             <DocNoExistToMonitor title="Problem z monitorowaniem" message="Plik musi istnieć na dysku, żeby być monitorowany."/>
             <FileTooBigToOpen title="Problem z rozmiarem" message="Plik jest zbyt duży, żeby mógł być otwarty przez Notepad++."/>
@@ -1191,6 +1205,11 @@ Czy chcesz uruchomić Notepad++ jako Administrator?"/>
             <cloud-select-folder value="Wybierz folder, który Notepad++ ma wykorzystywać do zapisu i odczytu swoich ustawień."/>
             <shift-change-direction-tip value="Shift+Enter pozwala wyszukiwać w drugą stronę."/>
             <two-find-buttons-tip value="Tryb dwóch przycisków szukania"/>
+            <find-in-files-filter-tip value="Szukaj wśród plików cpp, cxx, h, hxx i hpp:
+*.cpp *.cxx *.h *.hxx *.hpp
+
+Szukaj wśród wszystkich plików z wyjątkiem exe, obj i log:
+*.* !*.exe !*.obj !*.log"/>
             <find-status-top-reached value="Szukanie: Plik przeszukano do góry. Znaleziono 1. wystąpienie od dołu."/>
             <find-status-end-reached value="Szukanie: Plik przeszukano do dołu. Znaleziono 1. wystąpienie od góry."/>
             <find-status-replaceinfiles-1-replaced value="Zamienianie w plikach: Zamieniono 1 wystąpienie"/>
@@ -1233,14 +1252,14 @@ Czy chcesz uruchomić Notepad++ jako Administrator?"/>
             <language-tabsize value="Rozmiar tabulatora: "/>
             <userdefined-title-new value="Nowy język..."/>
             <userdefined-title-save value="Zapisz bieżący język jako..."/>
-            <userdefined-title-rename value="Zmień nazwę biężącego języka"/>
+            <userdefined-title-rename value="Zmień nazwę bieżącego języka"/>
             <autocomplete-nb-char value="Numer znaku: "/>
             <edit-verticaledge-nb-col value="Numer kolumny:"/>
             <summary value="Podsumowanie"/> 
             <summary-filepath value="Pełna ścieżka pliku: "/> 
             <summary-filecreatetime value="Utworzony: "/> 
             <summary-filemodifytime value="Zmodyfikowany: "/> 
-            <summary-nbchar value="Znaki (without line endings): "/> 
+            <summary-nbchar value="Znaki (bez znaków końca linii): "/> 
 	  		<summary-nbword value="Słowa: "/> 
             <summary-nbline value="Wiersze: "/> 
             <summary-nbbyte value="Długość dokumentu: "/> 

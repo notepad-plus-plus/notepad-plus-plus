@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2020-01-09 by schnurlos (schnurlos@gmail.com)
+	last modified: 2020-01-12 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -92,7 +92,7 @@
 					<Item id="41005" name="Alle schließen bis auf &amp;aktuelle Datei"/>
 					<Item id="41009" name="Dateien &amp;links schließen"/>
 					<Item id="41018" name="Dateien &amp;rechts schließen"/>
-					<Item id="41024" name="Schließe alle unveränderten Dateien"/>
+					<Item id="41024" name="Alle unveränderten Dateien schließen"/>
 					<Item id="41006" name="&amp;Speichern"/>
 					<Item id="41007" name="&amp;Alle speichern"/>
 					<Item id="41008" name="Speichern &amp;unter …"/>
@@ -119,7 +119,7 @@
 					<Item id="42008" name="Zeileneinzug v&amp;ergrößern"/>
 					<Item id="42009" name="Zeileneinzug ver&amp;kleinern"/>
 					<Item id="42010" name="Zeile &amp;duplizieren"/>
-					<Item id="42077" name="Entferne aufeinanderfolgende Zeilenduplikate"/>
+					<Item id="42077" name="Aufeinanderfolgende Zeilenduplikate entfernen"/>
 					<Item id="42012" name="Zeile am Fensterrand &amp;teilen"/>
 					<Item id="42013" name="&amp;Zeilen zusammenfassen"/>
 					<Item id="42014" name="Zeile nach &amp;oben verschieben"/>
@@ -142,7 +142,7 @@
 					<Item id="42072" name="zUFäLlIGeR WortSTiL"/>
 					<Item id="42073" name="Datei öffnen"/>
 					<Item id="42074" name="Ordner im Explorer öffnen"/>
-					<Item id="42075" name="Suche im Internet"/>
+					<Item id="42075" name="Im Internet suchen"/>
 					<Item id="42076" name="Andere Suchmaschine wählen …"/>
 					<Item id="42018" name="Aufzei&amp;chnung starten"/>
 					<Item id="42019" name="Aufzeichnung s&amp;toppen"/>
@@ -196,9 +196,9 @@
 					<Item id="43021" name="Zeilen mit Lesezeichen lös&amp;chen"/>
 					<Item id="43051" name="Zeilen &amp;ohne Lesezeichen löschen"/>
 					<Item id="43050" name="Lesezeichen inver&amp;tieren"/>
-					<Item id="43052" name="Suche nach &amp;Zeichencodes …"/>
+					<Item id="43052" name="Nach &amp;Zeichencodes suchen …"/>
 					<Item id="43053" name="&amp;Alles zwischen Klammern auswählen"/>
-					<Item id="43009" name="Suche zugehörige &amp;Klammer"/>
+					<Item id="43009" name="Zugehörige &amp;Klammer suchen"/>
 					<Item id="43010" name="&amp;Rückwärts suchen"/>
 					<Item id="43011" name="&amp;Inkrementelle Suche"/>
 					<Item id="43013" name="In &amp;Dateien suchen …"/>
@@ -318,14 +318,14 @@
 					<Item id="48018" name="&amp;Kontextmenü anpassen …"/>
 					<Item id="48009" name="&amp;Tastatur …"/>
 					<Item id="48011" name="&amp;Optionen …"/>
-					<Item id="48014" name="Öffne Verzeichnis mit Plugins …"/>
+					<Item id="48014" name="Verzeichnis mit Plugins öffnen …"/>
 					<Item id="48015" name="Plugin-Verwaltung …"/>
-					<Item id="48501" name="Erstelle …"/>
-					<Item id="48502" name="Erstelle aus Dateien …"/>
-					<Item id="48503" name="Erstelle aus Auswahl in die Zwischenablage"/>
-					<Item id="48504" name="Erstelle …"/>
-					<Item id="48505" name="Erstelle aus Dateien …"/>
-					<Item id="48506" name="Erstelle aus Auswahl in die Zwischenablage"/>
+					<Item id="48501" name="Erstellen …"/>
+					<Item id="48502" name="Aus Dateien erstellen …"/>
+					<Item id="48503" name="Aus Auswahl in die Zwischenablage erstellen"/>
+					<Item id="48504" name="Erstellen …"/>
+					<Item id="48505" name="Aus Dateien erstellen …"/>
+					<Item id="48506" name="Aus Auswahl in die Zwischenablage erstellen"/>
 					<Item id="49000" name="Externes Programm &amp;ausführen …"/>
 					<Item id="50000" name="&amp;Funktionsvervollständigung"/>
 					<Item id="50001" name="&amp;Wortvervollständigung"/>
@@ -366,13 +366,13 @@
 				<Item CMID="19" name="Ordner im E&amp;xplorer öffnen"/>
 				<Item CMID="20" name="Kommandozeile im aktuellen &amp;Ordner öffnen"/>
 				<Item CMID="21" name="Im Standard-Betrachter öffnen"/>
-				<Item CMID="22" name="Schließe alle unveränderten Dateien"/>
+				<Item CMID="22" name="Alle unveränderten Dateien schließen"/>
 			</TabBar>
 		</Menu>
 
 		<Dialog>
 			<Find title="Suchen und ersetzen" titleFind="Suchen" titleReplace="Ersetzen" titleFindInFiles="In Dateien suchen" titleMark="Hervorheben">
-				<Item id="1"    name="&amp;Suche weiter"/>
+				<Item id="1"    name="Weiter &amp;suchen"/>
 				<Item id="1722" name="&amp;Rückwärts suchen"/>
 				<Item id="2"    name="S&amp;chließen"/>
 				<Item id="1620" name="Suchen &amp;nach:"/>
@@ -407,7 +407,7 @@
 				<Item id="1686" name="Transparenz"/>
 				<Item id="1703" name="&amp;. findet \r und \n"/>
 				<Item id="1721" name="▲"/>
-				<Item id="1723" name="▼ Finde Nächstes"/>
+				<Item id="1723" name="▼ Nächstes finden"/>
 			</Find>
 
 			<FindCharsInRange title="Suche nach Zeichencodes">
@@ -439,8 +439,8 @@
 				<Item id="1904" name="&amp;Speichern"/>
 			</Run>
 
-			<MD5FromFilesDlg title="Erstelle MD5-Hashwert aus Dateien">
-				<Item id="1922" name="Wähle Dateien zur Erstellung des MD5-Hashwerts …"/>
+			<MD5FromFilesDlg title="MD5-Hashwert aus Dateien erstellen">
+				<Item id="1922" name="Dateien zur Erstellung des MD5-Hashwerts wählen …"/>
 				<Item id="1924" name="In die Zwischenablage kopieren"/>
 				<Item id="2"    name="Schließen"/>
 			</MD5FromFilesDlg>
@@ -451,14 +451,14 @@
 				<Item id="2"    name="Schließen"/>
 			</MD5FromTextDlg>
 			
-			<SHA256FromFilesDlg title="Erstelle SHA-256 Hashwert aus Dateien">
-				<Item id="1922" name="Wähle Dateien zur Erstellung des SHA-256-Hashwerts …"/>
+			<SHA256FromFilesDlg title="SHA-256 Hashwert aus Dateien erstellen">
+				<Item id="1922" name="Dateien zur Erstellung des SHA-256-Hashwerts wählen …"/>
 				<Item id="1924" name="In die Zwischenablage kopieren"/>
 				<Item id="2"    name="Schließen"/>
 			</SHA256FromFilesDlg>
 			
 			<SHA256FromTextDlg title="Erstelle SHA-256 Hashwert">
-				<Item id="1932" name="Behandle jede Zeile als eigene Zeichenkette"/>
+				<Item id="1932" name="Jede Zeile als eigene Zeichenkette behandeln"/>
 				<Item id="1934" name="In die Zwischenablage kopieren"/>
 				<Item id="2"    name="Schließen"/>
 			</SHA256FromTextDlg>
@@ -765,7 +765,7 @@
 					<Item id="6215" name="Kantenglättung der Schriftarten"/>
 					<Item id="6231" name="Rahmenbreite"/>
 					<Item id="6235" name="Kein Rand"/>
-					<Item id="6236" name="Scrollen über letzte Zeile hinaus"/>
+					<Item id="6236" name="Über letzte Zeile hinaus scrollen"/>
 				</Scintillas>
 
 				<NewDoc title="Neue Dateien">
@@ -788,7 +788,7 @@
 					<Item id="6413" name="Verzeichnis beim Öffnen/Speichern"/>
 					<Item id="6414" name="Wie aktuelle Datei"/>
 					<Item id="6415" name="Letztes Verzeichnis merken"/>
-					<Item id="6430" name="Benutze Dialog im neuen Stil (ohne Dateierweiterungen &amp;&amp; Pfade im Unix-Stil)"/>	
+					<Item id="6430" name="Dialog im neuen Stil (ohne Dateierweiterungen &amp;&amp; Pfade im Unix-Stil) benutzen"/>	
 					<Item id="6431" name="Alle Dateien im jeweiligen Verzeichnis öffnen anstelle des Start-Verzeichnisses"/>
 				</DefaultDir>
 
@@ -867,7 +867,7 @@
 				<Backup title="Sicherheitskopien">
 					<Item id="6817" name="Sitzungen automatisch speichern"/>
 					<Item id="6818" name="Sitzungen zeitgesteuert speichern"/>
-					<Item id="6819" name="Speichere Sitzung alle"/>
+					<Item id="6819" name="Alle Sitzungen speichern"/>
 					<Item id="6821" name="Sekunden"/>
 					<Item id="6822" name="Verzeichnis:"/>
 					<Item id="6309" name="Aktuelle Sitzung für den nächsten Start merken"/>
@@ -914,8 +914,8 @@
 					<Item id="6255" name="Ende"/>
 					<Item id="6256" name="Über mehrere Zeilen"/>
 					<Item id="6161" name="Liste der Wortzeichen (Word character list)"/>
-					<Item id="6162" name="Verwende die ursprüngliche Liste der Wortzeichen"/>
-					<Item id="6163" name="Füge Zeichen als Teil der Wortzeichen hinzu&#x0a;(nicht verwenden wenn man nicht sicher ist)"/>
+					<Item id="6162" name="Die ursprüngliche Liste der Wortzeichen verwenden"/>
+					<Item id="6163" name="Zeichen als Teil der Wortzeichen hinzufügen (nicht verwenden wenn man nicht sicher ist)"/>
 				</Delimiter>
 
 				<Cloud title="Cloud-Einstellungen">
@@ -1061,7 +1061,7 @@
 			<ProjectPanelOpenFailed title="Offener Arbeitsbereich" message="Der Arbeitsbereich konnte nicht geöffnet werden.&#x0A;Anscheinend ist die Datei keine gültige Projektdatei."/>
 			<ProjectPanelRemoveFolderFromProject title="Verzeichnis aus Projekt entfernen" message="Alle Untereinträge werden gelöscht.&#x0A;Soll dieses Verzeichnis wirklich aus dem Projekt entfernt werden?"/>
 			<ProjectPanelRemoveFileFromProject title="Datei aus Projekt entfernen" message="Soll diese Datei wirklich aus dem Projekt entfernt werden?"/>
-			<ProjectPanelReloadError title="Arbeitsbereich neu laden" message="Kann Datei zum neu laden nicht finden."/>
+			<ProjectPanelReloadError title="Arbeitsbereich neu laden" message="Datei zum Neuladen nicht gefunden."/>
 			<ProjectPanelReloadDirty title="Arbeitsbereich neu laden" message="Der aktuelle Arbeitsbereich wurde verändert. Ein Neuladen verwirft alle bisher gemachten Änderungen.&#x0A;Soll fortgefahren werden?"/>
 			<UDLNewNameError title="UDL-Fehler" message="Dieser Name wird bereits von einer anderen Sprache verwendet.&#x0A;Bitte daher eine anderen Namen wählen."/>
 			<UDLRemoveCurrentLang title="Aktuelle Sprache löschen" message="Wirklich löschen?"/>
@@ -1070,7 +1070,7 @@
 			<OpenInAdminMode title="Speichern fehlgeschlagen" message="Die Datei konnte nicht gespeichert werden, eventuell wegen vorhandenem Schreibschutz.&#x0A;Soll dazu Notepad++ im Administrator-Modus gestartet werden?"/>
 			<OpenInAdminModeWithoutCloseCurrent title="Speichern fehlgeschlagen" message="Die Datei konnte nicht gespeichert werden, eventuell wegen vorhandenem Schreibschutz.&#x0A;Soll dazu Notepad++ im Administrator-Modus gestartet werden?"/>
 			<OpenInAdminModeFailed title="Öffnen im Administrator-Modus fehlgeschlagen" message="Notepad++ konnte nicht im Administrator-Modus gestartet werden."/>
-			<ViewInBrowser title="Betrachte aktuelle Datei im Browser" message="Die Anwendung konnte nicht gefunden werden."/>
+			<ViewInBrowser title="Aktuelle Datei im Browser betrachten" message="Die Anwendung konnte nicht gefunden werden."/>
 			<ExitToUpdatePlugins title="Notepad++ wird beendet" message="Beim Drücken auf 'JA' wird Notepad++ beendet um die Vorgänge abzuschließen.&#x0A;Notepad++ wird neu gestartet.&#x0A;Fortsetzen?"/>
 			<NeedToRestartToLoadPlugins title="Notepad++ muss neu gestartet werden" message="Ein Neustart von Notepad++ zum Laden der Plugins ist erforderlich."/>
 		</MessageBox>
@@ -1208,12 +1208,12 @@ Finde in allen Dateien außer exe, obj &amp;&amp; log:
 			<find-status-replace-not-found value="Ersetzen: Kein Vorkommen gefunden"/>
 			<find-status-replace-readonly value="Ersetzen: Konnte Text wegen schreibgeschützter Datei nicht ersetzen"/>
 			<find-status-cannot-find value="Suche: Konnte Text &quot;$STR_REPLACE$&quot; nicht finden"/>
-			<finder-find-in-finder value="Finde in diesen Suchergebnissen …"/>
-			<finder-close-this value="Schließe diese Suche"/>
+			<finder-find-in-finder value="In diesen Suchergebnissen finden …"/>
+			<finder-close-this value="Diese Suche schließen"/>
 			<finder-collapse-all value="Alles einklappen"/>
 			<finder-uncollapse-all value="Alles aufmachen"/>
-			<finder-copy value="Kopiere"/>
-			<finder-select-all value="Wähle alles"/>
+			<finder-copy value="Kopieren"/>
+			<finder-select-all value="Alles wählen"/>
 			<finder-clear-all value="Alles löschen"/>
 			<finder-open-all value="Alles öffnen"/>
 			<common-ok value="OK"/>

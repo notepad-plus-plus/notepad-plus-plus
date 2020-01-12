@@ -275,6 +275,12 @@
   <Item id="45011" name="UTF-8로 변환"/> 
   <Item id="45012" name="UCS-2 빅 엔디언으로 변환"/> 
   <Item id="45013" name="UCS-2 리틀 엔디언으로 변환"/> 
+  <Item id="45060" name="Big5 (중국어 번체)"/>
+  <Item id="45061" name="GB2312 (중국어 간체)"/>
+  <Item id="45054" name="OEM 861: 아이슬란드어"/>
+  <Item id="45057" name="OEM 865: 노르웨이어"/>
+  <Item id="45053" name="OEM 860: 포트투갈어"/>
+  <Item id="45056" name="OEM 863: 프랑스어"/>
 
   <Item id="10001" name="분할 창으로 이동"/> 
   <Item id="10002" name="분할 창으로 복제"/> 
@@ -908,7 +914,6 @@
    <Item id="6262" name="클라우드 설정"/>
    <Item id="6263" name="클라우드 없음"/>
    <Item id="6267" name="클라우드 위치 경로를 설정:"/>
-   <!--Item id="6261" name="Notepad++를 다시 시작하여 설정을 적용합니다."/-->
 </Cloud>
 
 <SearchEngine title="검색 엔진">
@@ -940,6 +945,7 @@
   <Item id="6324" name="문서 전환 (Ctrl+Tab)"/> 
   <Item id="6331" name="제목 표시줄에 파일 이름만 표시"/> 
   <Item id="6334" name="문자 인코딩 자동 감지"/> 
+  <Item id="6314" name="찾기 창에서 고정폭 글꼴 사용 (Notepad++ 재시작 필요)"/>
   <Item id="6337" name="Workspace 파일 확장자:"/>
   <Item id="6114" name="사용"/> 
   <Item id="6117" name="가장 최근 사용한 문서로 이동"/> 
@@ -1188,15 +1194,17 @@ langs.xml 파일을 복구하시겠습니까?"/>
   </Menus>
   </ProjectManager>
 <MiscStrings>
-<word-chars-list-tip value="이것을 통해 선택을 위해 더블 클릭할때 추가 문자를 현재 단어 문자에 포함하거나 &quot;전체 단어 일치&quot; 옵션을 체크해서 검색합니다 "/>
+<!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
+<word-chars-list-tip value="더블 클릭으로 선택하거나 &quot;전체 단어 일치&quot; 옵션을 체크해서 검색하는 동안, 현재 단어에 추가 글자를 포함하는 것을 허용합니다. "/>
 <word-chars-list-warning-begin value="주의사항: "/>
 <!-- $INT_REPLACE$ is a place holder, don't translate it -->
-<word-chars-list-space-warning value="$INT_REPLACE$ 공간"/>
+<word-chars-list-space-warning value="$INT_REPLACE$ 빈 칸"/>
 <!-- $INT_REPLACE$ is a place holder, don't translate it -->
 <word-chars-list-tab-warning value="$INT_REPLACE$ 탭"/>
 <word-chars-list-warning-end value="  귀하의 문자 목록"/>
 <cloud-invalid-warning value="잘못된 경로입니다."/>
 <cloud-restart-warning value="적용하려면 Notepad++를 다시 시작하십시오."/>
+<cloud-select-folder value="Notepad++의 설정을 읽고 저장할 폴더를 선택하세요"/>
 <shift-change-direction-tip value="반대쪽으로 검색하려면 Shift+Enter를 사용하십시오."/>
     <two-find-buttons-tip value="2 find buttons mode"/>
         <find-in-files-filter-tip value="cpp, cxx, h, hxx &amp;&amp; hpp 파일에서 찾기:

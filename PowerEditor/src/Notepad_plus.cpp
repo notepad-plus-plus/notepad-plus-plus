@@ -172,7 +172,7 @@ Notepad_plus::Notepad_plus()
 	else
 		is_admin = false;
 
-	nppParam.setAdminMode(is_admin);
+	nppParam.setAdminMode(is_admin == TRUE);
 	_isAdministrator = is_admin ? true : false;
 }
 

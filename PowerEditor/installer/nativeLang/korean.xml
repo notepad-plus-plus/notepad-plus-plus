@@ -277,7 +277,7 @@
   <Item id="45013" name="UCS-2 리틀 엔디언으로 변환"/> 
   <Item id="45060" name="Big5 (중국어 번체)"/>
   <Item id="45061" name="GB2312 (중국어 간체)"/>
-  <Item id="45064" name="OEM 861: 아이슬란드어"/>
+  <Item id="45054" name="OEM 861: 아이슬란드어"/>
   <Item id="45057" name="OEM 865: 노르웨이어"/>
   <Item id="45053" name="OEM 860: 포트투갈어"/>
   <Item id="45056" name="OEM 863: 프랑스어"/>

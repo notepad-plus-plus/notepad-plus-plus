@@ -278,6 +278,12 @@
                     <Item id="45011" name="Converter para UTF-8-BOM"/>
                     <Item id="45012" name="Converter para UCS-2 Big Endian BOM"/>
                     <Item id="45013" name="Converter para UCS-2 Little Endian BOM"/>
+                    <Item id="45060" name="Big5 (Tradicional)"/>
+                    <Item id="45061" name="GB2312 (Simplificado)"/>
+                    <Item id="45054" name="OEM 861: Irlandês"/>
+                    <Item id="45057" name="OEM 865: Nórdico"/>
+                    <Item id="45053" name="OEM 860: Português"/>
+                    <Item id="45056" name="OEM 863: Francês"/>
 
                     <Item id="10001" name="Mover para outra tela"/>
                     <Item id="10002" name="Duplicar tela (clonar)"/>

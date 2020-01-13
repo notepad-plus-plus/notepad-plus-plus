@@ -274,6 +274,12 @@
 					<Item id="45011" name="UTF-8 BOM'a Dönüştür"/>
 					<Item id="45012" name="UCS-2 Big-Endian BOM'a Dönüştür"/>
 					<Item id="45013" name="UCS-2 Little-Endian BOM'a Dönüştür"/>
+					<Item id="45060" name="Big5 (Geleneksel)"/>
+					<Item id="45061" name="GB2312 (Basitleştirilmiş)"/>
+					<Item id="45054" name="OEM 861: İzlandaca"/>
+					<Item id="45057" name="OEM 865: Nordik"/>
+					<Item id="45053" name="OEM 860: Portekizce"/>
+					<Item id="45056" name="OEM 863: Fransızca"/>
 
 					<Item id="10001" name="Diğer Görünüme Taşı"/>
 					<Item id="10002" name="Diğer Görünüme Kopyala"/>

@@ -465,17 +465,29 @@
 				<Item id = "1904" name = "Uložit..."/>
 			</Run>
 			
-			<MD5FromFilesDlg title = "Generování unikátního MD5 klíče ze souborů">
+			<MD5FromFilesDlg title = "Generování MD5 otisku ze souborů">
 				<Item id = "1922" name = "Vyberte soubory pro generování MD5..."/>
 				<Item id = "1924" name = "Kopírovat do Schránky"/>
 				<Item id = "2"    name = "Zavřít"/>
 			</MD5FromFilesDlg>
 
-			<MD5FromTextDlg title = "Generování unikátního MD5 klíče">
-				<Item id = "1932" name = "Brát každý řádek jako separátní textový řetězec"/>
+			<MD5FromTextDlg title = "Generování MD5 otisku">
+				<Item id = "1932" name = "Brát každý řádek jako samostatný textový řetězec"/>
 				<Item id = "1934" name = "Kopírovat do Schránky"/>
 				<Item id = "2"    name = "Zavřít"/>
 			</MD5FromTextDlg>
+			
+			<SHA256FromFilesDlg title="Generování SHA-256 otisku ze souborů">
+				<Item id="1922" name="Vyberte soubory pro generování SHA-256..."/>
+				<Item id="1924" name="Kopírovat do Schránky"/>
+				<Item id="2"    name="Zavřít"/>
+			</SHA256FromFilesDlg>
+
+			<SHA256FromTextDlg title="Generování SHA-256 otisku">
+				<Item id="1932" name="Brát každý řádek jako samostatný textový řetězec"/>
+				<Item id="1934" name="Kopírovat do Schránky"/>
+				<Item id="2"    name="Zavřít"/>
+			</SHA256FromTextDlg>
 			
 			<PluginsAdminDlg title="Správa pluginů" titleAvailable = "Dostupné" titleUpdates = "Aktualizované" titleInstalled = "Instalované">
 				<ColumnPlugin   name="Plugin"/>
@@ -1051,11 +1063,11 @@
 			
 			<DoSaveOrNot title="Ukládání"> 
 				<Item id = "1761" name = "Uložit soubor &quot;$STR_REPLACE$&quot; ?"/>
-				<Item id = "6" name = "Ano"/>
-				<Item id = "7" name = "Ne"/>
-				<Item id = "2" name = "Storno"/>
-				<Item id = "4" name = "Ano pro všechny"/>
-				<Item id = "5" name = "Ne pro všechny"/>
+				<Item id = "6" name = "&amp;Ano"/>
+				<Item id = "7" name = "&amp;Ne"/>
+				<Item id = "2" name = "&amp;Storno"/>
+				<Item id = "4" name = "Ano pro &amp;všechny"/>
+				<Item id = "5" name = "N&amp;e pro všechny"/>
 			</DoSaveOrNot>
 
 		</Dialog>

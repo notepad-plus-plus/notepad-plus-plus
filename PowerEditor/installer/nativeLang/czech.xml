@@ -465,14 +465,14 @@
 				<Item id = "1904" name = "Uložit..."/>
 			</Run>
 			
-			<MD5FromFilesDlg title = "Generování unikátního MD5 klíče ze souborů">
+			<MD5FromFilesDlg title = "Generování MD5 otisku ze souborů">
 				<Item id = "1922" name = "Vyberte soubory pro generování MD5..."/>
 				<Item id = "1924" name = "Kopírovat do Schránky"/>
 				<Item id = "2"    name = "Zavřít"/>
 			</MD5FromFilesDlg>
 
-			<MD5FromTextDlg title = "Generování unikátního MD5 klíče">
-				<Item id = "1932" name = "Brát každý řádek jako separátní textový řetězec"/>
+			<MD5FromTextDlg title = "Generování MD5 otisku">
+				<Item id = "1932" name = "Brát každý řádek jako samostatný textový řetězec"/>
 				<Item id = "1934" name = "Kopírovat do Schránky"/>
 				<Item id = "2"    name = "Zavřít"/>
 			</MD5FromTextDlg>

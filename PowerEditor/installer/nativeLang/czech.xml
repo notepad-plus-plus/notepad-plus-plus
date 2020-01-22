@@ -1051,11 +1051,11 @@
 			
 			<DoSaveOrNot title="Ukládání"> 
 				<Item id = "1761" name = "Uložit soubor &quot;$STR_REPLACE$&quot; ?"/>
-				<Item id = "6" name = "Ano"/>
-				<Item id = "7" name = "Ne"/>
-				<Item id = "2" name = "Storno"/>
-				<Item id = "4" name = "Ano pro všechny"/>
-				<Item id = "5" name = "Ne pro všechny"/>
+				<Item id = "6" name = "&amp;Ano"/>
+				<Item id = "7" name = "&amp;Ne"/>
+				<Item id = "2" name = "&amp;Storno"/>
+				<Item id = "4" name = "Ano pro &amp;všechny"/>
+				<Item id = "5" name = "N&amp;e pro všechny"/>
 			</DoSaveOrNot>
 
 		</Dialog>

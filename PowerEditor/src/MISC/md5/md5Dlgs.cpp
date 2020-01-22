@@ -181,18 +181,20 @@ void HashFromFilesDlg::setHashType(hashType hashType2set)
 void HashFromFilesDlg::doDialog(bool isRTL)
 {
 	if (!isCreated())
+	{
 		create(IDD_HASHFROMFILES_DLG, isRTL);
 
-	if (_ht == hash_sha256)
-	{
-		generic_string title = TEXT("Generate SHA-256 digest from files");
-		::SetWindowText(_hSelf, title.c_str());
+		if (_ht == hash_sha256)
+		{
+			generic_string title = TEXT("Generate SHA-256 digest from files");
+			::SetWindowText(_hSelf, title.c_str());
 
-		generic_string buttonText = TEXT("Choose files to generate SHA-256...");
-		::SetDlgItemText(_hSelf, IDC_HASH_FILEBROWSER_BUTTON, buttonText.c_str());
+			generic_string buttonText = TEXT("Choose files to generate SHA-256...");
+			::SetDlgItemText(_hSelf, IDC_HASH_FILEBROWSER_BUTTON, buttonText.c_str());
+		}
 	}
 
-    // Adjust the position in the center
+	// Adjust the position in the center
 	goToCenter();
 };
 
@@ -382,14 +384,16 @@ void HashFromTextDlg::setHashType(hashType hashType2set)
 void HashFromTextDlg::doDialog(bool isRTL)
 {
 	if (!isCreated())
+	{
 		create(IDD_HASHFROMTEXT_DLG, isRTL);
 
-	if (_ht == hash_sha256)
-	{
-		generic_string title = TEXT("Generate SHA-256 digest");
-		::SetWindowText(_hSelf, title.c_str());
+		if (_ht == hash_sha256)
+		{
+			generic_string title = TEXT("Generate SHA-256 digest");
+			::SetWindowText(_hSelf, title.c_str());
+		}
 	}
 
-    // Adjust the position in the center
+	// Adjust the position in the center
 	goToCenter();
 };

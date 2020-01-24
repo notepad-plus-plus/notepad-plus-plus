@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="English" filename="english_customizable.xml" version="7.5.5">
+    <Native-Langue name="English" filename="english_customizable.xml" version="7.8.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -38,6 +38,7 @@
                     <Item subMenuId="search-jumpUp" name="Jump Up"/>
                     <Item subMenuId="search-jumpDown" name="Jump Down"/>
                     <Item subMenuId="search-bookmark" name="Bookmark"/>
+                    <Item subMenuId="view-currentFileIn" name="View Current File in"/>
                     <Item subMenuId="view-showSymbol"  name="Show Symbol"/>
                     <Item subMenuId="view-zoom"  name="Zoom"/>
                     <Item subMenuId="view-moveCloneDocument"  name="Move/Clone Current Document"/>
@@ -62,8 +63,10 @@
                     <Item subMenuId="encoding-turkish" name="Turkish"/>
                     <Item subMenuId="encoding-westernEuropean" name="Western European"/>
                     <Item subMenuId="encoding-vietnamese" name="Vietnamese"/>
-                    <Item subMenuId="settings-import"  name="Import"/>
-                    <Item subMenuId="tools-md5"  name="MD5"/>
+                    <Item subMenuId="language-userDefinedLanguage" name="User Defined Language"/>
+                    <Item subMenuId="settings-import" name="Import"/>
+                    <Item subMenuId="tools-md5" name="MD5"/>
+                    <Item subMenuId="tools-sha256" name="SHA-256"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -77,6 +80,7 @@
                     <Item id="41005" name="Close All BUT Current Document"/>
                     <Item id="41009" name="Close All to the Left"/>
                     <Item id="41018" name="Close All to the Right"/>
+                    <Item id="41024" name="Close All Unchanged"/>
                     <Item id="41006" name="&amp;Save"/>
                     <Item id="41007" name="Sav&amp;e All"/>
                     <Item id="41008" name="Save &amp;As..."/>
@@ -103,6 +107,7 @@
                     <Item id="42008" name="Increase Line Indent"/>
                     <Item id="42009" name="Decrease Line Indent"/>
                     <Item id="42010" name="Duplicate Current Line"/>
+                    <Item id="42077" name="Remove Consecutive Duplicate Lines"/>
                     <Item id="42012" name="Split Lines"/>
                     <Item id="42013" name="Join Lines"/>
                     <Item id="42014" name="Move Up Current Line"/>
@@ -259,16 +264,22 @@
                     <Item id="45001" name="Windows (CR LF)"/>
                     <Item id="45002" name="Unix (LF)"/>
                     <Item id="45003" name="Macintosh (CR)"/>
-                    <Item id="45004" name="Encode in ANSI"/>
-                    <Item id="45005" name="Encode in UTF-8-BOM"/>
-                    <Item id="45006" name="Encode in UCS-2 BE BOM"/>
-                    <Item id="45007" name="Encode in UCS-2 LE BOM"/>
-                    <Item id="45008" name="Encode in UTF-8"/>
+                    <Item id="45004" name="ANSI"/>
+                    <Item id="45005" name="UTF-8-BOM"/>
+                    <Item id="45006" name="UCS-2 BE BOM"/>
+                    <Item id="45007" name="UCS-2 LE BOM"/>
+                    <Item id="45008" name="UTF-8"/>
                     <Item id="45009" name="Convert to ANSI"/>
                     <Item id="45010" name="Convert to UTF-8"/>
                     <Item id="45011" name="Convert to UTF-8-BOM"/>
                     <Item id="45012" name="Convert to UCS-2 BE BOM"/>
                     <Item id="45013" name="Convert to UCS-2 LE BOM"/>
+                    <Item id="45060" name="Big5 (Traditional)"/>
+                    <Item id="45061" name="GB2312 (Simplified)"/>
+                    <Item id="45054" name="OEM 861: Icelandic"/>
+                    <Item id="45057" name="OEM 865: Nordic"/>
+                    <Item id="45053" name="OEM 860: Portuguese"/>
+                    <Item id="45056" name="OEM 863: French"/>
 
                     <Item id="10001" name="Move to Other View"/>
                     <Item id="10002" name="Clone to Other View"/>
@@ -277,6 +288,7 @@
 
                     <Item id="46001" name="Style Configurator..."/>
                     <Item id="46250" name="Define your language..."/>
+                    <Item id="46300" name="Open User Defined Language folder..."/>
                     <Item id="46180" name="User-Defined"/>
                     <Item id="47000" name="About Notepad++"/>
                     <Item id="47010" name="Command Line Arguments..."/>
@@ -294,14 +306,22 @@
                     <Item id="48018" name="Edit Popup ContextMenu"/>
                     <Item id="48009" name="Shortcut Mapper..."/>
                     <Item id="48011" name="Preferences..."/>
+                    <Item id="48014" name="Open Plugins Folder..."/>
+                    <Item id="48015" name="Plugins Admin..."/>
                     <Item id="48501" name="Generate..."/>
                     <Item id="48502" name="Generate from files..."/>
-                    <Item id="48503" name="Generate into clipboard"/>
+                    <Item id="48503" name="Generate from selection into clipboard"/>
+                    <Item id="48504" name="Generate..."/>
+                    <Item id="48505" name="Generate from files..."/>
+                    <Item id="48506" name="Generate from selection into clipboard"/>
                     <Item id="49000" name="&amp;Run..."/>
 
                     <Item id="50000" name="Function Completion"/>
                     <Item id="50001" name="Word Completion"/>
                     <Item id="50002" name="Function Parameters Hint"/>
+                    <Item id="50003" name="Switch to previous document"/>
+                    <Item id="50004" name="Switch to next document"/>
+                    <Item id="50005" name="Toggle macro record"/>
                     <Item id="50006" name="Path Completion"/>
                     <Item id="44042" name="Hide Lines"/>
                     <Item id="42040" name="Open All Recent Files"/>
@@ -335,6 +355,7 @@
                     <Item CMID="19" name="Open Containing Folder in Explorer"/>
                     <Item CMID="20" name="Open Containing Folder in cmd"/>
                     <Item CMID="21" name="Open in Default Viewer"/>
+                    <Item CMID="22" name="Close All Unchanged"/>
             </TabBar>
         </Menu>
 
@@ -374,6 +395,8 @@
                 <Item id="1641" name="Find All in Current Document"/>
                 <Item id="1686" name="Transparenc&amp;y"/>
                 <Item id="1703" name="&amp;. matches newline"/>
+				<Item id="1721" name="▲"/>
+                <Item id="1723" name="▼ Find Next"/>
             </Find>
 
             <FindCharsInRange title="Find Characters in Range...">
@@ -416,6 +439,29 @@
                 <Item id="1934" name="Copy to Clipboard"/>
                 <Item id="2"    name="Close"/>
             </MD5FromTextDlg>
+            
+            <SHA256FromFilesDlg title="Generate SHA-256 digest from files">
+                <Item id="1922" name="Choose files to generate SHA-256..."/>
+                <Item id="1924" name="Copy to Clipboard"/>
+                <Item id="2"    name="Close"/>
+            </SHA256FromFilesDlg>
+
+            <SHA256FromTextDlg title="Generate SHA-256 digest">
+                <Item id="1932" name="Treat each line as a separate string"/>
+                <Item id="1934" name="Copy to Clipboard"/>
+                <Item id="2"    name="Close"/>
+            </SHA256FromTextDlg>
+            
+            <PluginsAdminDlg title="Plugins Admin" titleAvailable = "Available" titleUpdates = "Updates" titleInstalled = "Installed">
+                <ColumnPlugin   name="Plugin"/>
+                <ColumnVersion  name="Version"/>
+                <Item id="5501" name="Search:"/>
+                <Item id="5503" name="Install"/>
+                <Item id="5504" name="Update"/>
+                <Item id="5505" name="Remove"/>
+                <Item id="5508" name="Next"/>
+                <Item id="2"    name="Close"/>
+            </PluginsAdminDlg>
 
             <StyleConfig title="Style Configurator">
                 <Item id="2"    name="Cancel"/>
@@ -738,6 +784,7 @@
                 </DefaultDir>
 
                 <FileAssoc title="File Association">
+                    <Item id="4008" name="Please exit Notepad++ and relaunch Notepad++ in Administrator mode to use this feature."/>
                     <Item id="4009" name="Supported extensions:"/>
                     <Item id="4010" name="Registered extensions:"/>
                 </FileAssoc>
@@ -867,7 +914,7 @@
                     <Item id="6263" name="No Cloud"/>
                     <Item id="6267" name="Set your cloud location path here:"/>
                 </Cloud>
-                
+
                 <SearchEngine title="Search Engine">
                     <Item id="6271" name="Search Engine (for command &quot;Search on Internet&quot;)"/>
                     <Item id="6272" name="DuckDuckGo"/>
@@ -880,7 +927,11 @@
                 </SearchEngine>
 
                 <MISC title="MISC.">
-                    <Item id="6307" name="Enable"/>
+                    <ComboBox id="6347">
+                        <Element name="Enable"/>
+                        <Element name="Enable for all opened files"/>
+                        <Element name="Disable"/>
+                    </ComboBox>
                     <Item id="6308" name="Minimize to system tray"/>
                     <Item id="6312" name="File Status Auto-Detection"/>
                     <Item id="6313" name="Update silently"/>
@@ -893,12 +944,14 @@
                     <Item id="6324" name="Document Switcher (Ctrl+TAB)"/>
                     <Item id="6331" name="Show only filename in title bar"/>
                     <Item id="6334" name="Autodetect character encoding"/>
+                    <Item id="6314" name="Use monospaced font in Find dialog (Need to restart Notepad++)"/>
                     <Item id="6337" name="Workspace file ext.:"/>
                     <Item id="6114" name="Enable"/>
                     <Item id="6117" name="Enable MRU behaviour"/>
                     <Item id="6344" name="Document Peeker"/>
                     <Item id="6345" name="Peek on tab"/>
                     <Item id="6346" name="Peek on document map"/>
+                    <Item id="6348" name="Don't fill find field in Find dialog with selected word"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Run a Macro Multiple Times">
@@ -944,6 +997,14 @@
                 <Item id="1718" name="E&amp;xtended (\n, \r, \t, \0, \x...)"/>
                 <Item id="1720" name="&amp;. matches newline"/>
             </FindInFinder>
+            <DoSaveOrNot title="Save"> 
+                <Item id="1761" name="Save file &quot;$STR_REPLACE$&quot; ?"/>
+                <Item id="6" name="&amp;Yes"/>
+                <Item id="7" name="&amp;No"/>
+                <Item id="2" name="&amp;Cancel"/>
+                <Item id="4" name="Yes to &amp;all"/>
+                <Item id="5" name="N&amp;o to all"/>
+            </DoSaveOrNot>
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title="Editing contextMenu" message="Editing contextMenu.xml allows you to modify your Notepad++ popup context menu.
@@ -963,9 +1024,9 @@ Continue?"/>
             <FileLockedWarning title="Save failed" message="Please check whether if this file is opened in another program"/>
             <FileAlreadyOpenedInNpp title="" message="The file is already opened in the Notepad++."/>
             <DeleteFileFailed title="Delete File" message="Delete File failed"/>
-            
+
             <NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.
-Are you sure to open them?"/>
+Are you sure you want to open them?"/>
             <SettingsOnCloudError title="Settings on Cloud" message="It seems the path of settings on cloud is set on a read only drive,
 or on a folder needed privilege right for writing access.
 Your settings on cloud will be canceled. Please reset a coherent value via Preference dialog."/>
@@ -976,7 +1037,6 @@ you have to enable &quot;Open all files of folder instead of launching Folder as
             <SortingError title="Sorting Error" message="Unable to perform numeric sorting due to line $INT_REPLACE$."/>
             <ColumnModeTip title="Column Mode Tip" message="Please use &quot;ALT+Mouse Selection&quot; or &quot;Alt+Shift+Arrow key&quot; to switch to column mode."/>
             <BufferInvalidWarning title="Save failed" message="Cannot save: Buffer is invalid."/>
-            <DoSaveOrNot title="Save" message="Save file &quot;$STR_REPLACE$&quot; ?"/>
             <DoCloseOrNot title="Keep non existing file" message="The file &quot;$STR_REPLACE$&quot; doesn't exist anymore.
 Keep this file in editor?"/>
             <DoDeleteOrNot title="Delete file" message="The file &quot;$STR_REPLACE$&quot;
@@ -996,6 +1056,7 @@ Do you want to reload it and lose the changes made in Notepad++?"/>
             <PrehistoricSystemDetected title="Prehistoric system detected" message="It seems you still use a prehistoric system. This feature works only on a modern system, sorry."/>
             <XpUpdaterProblem title="Notepad++ Updater" message="Notepad++ updater is not compatible with XP due to the obsolete security layer under XP.
 Do you want to go to Notepad++ page to download the latest version?"/>
+            <GUpProxyConfNeedAdminMode title="Proxy Settings" message="Please relaunch Notepad++ in Admin mode to configure proxy."/>
             <DocTooDirtyToMonitor title="Monitoring problem" message="The document is dirty. Please save the modification before monitoring it."/>
             <DocNoExistToMonitor title="Monitoring problem" message="The file should exist to be monitored."/>
             <FileTooBigToOpen title="File size problem" message="File is too big to be opened by Notepad++"/>
@@ -1034,6 +1095,11 @@ Do you want to launch Notepad++ in Administrator mode?"/>
             <OpenInAdminModeWithoutCloseCurrent title="Save failed" message="The file cannot be saved and it may be protected.
 Do you want to launch Notepad++ in Administrator mode?"/>
             <OpenInAdminModeFailed title="Open in Administrator mode failed" message="Notepad++ cannot be opened in Administrator mode."/>
+            <ViewInBrowser title="View Current File in Browser" message="Application cannot be found in your system."/>
+            <ExitToUpdatePlugins title="Notepad++ is about to exit" message="If you click YES, you will quit Notepad++ to continue the operations.
+Notepad++ will be restarted after all the operations are terminated.
+Continue?"/>
+            <NeedToRestartToLoadPlugins title="Notepad++ need to be relaunched" message="You have to restart Notepad++ to load plugins you installed."/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Clipboard History"/>
@@ -1049,18 +1115,20 @@ Do you want to launch Notepad++ in Administrator mode?"/>
             <ColumnType name="Type"/>
         </WindowsDlg>
         <AsciiInsertion>
-            <PanelTitle name="ASCII Insertion Panel"/>
+            <PanelTitle name="ASCII Codes Insertion Panel"/>
             <ColumnVal name="Value"/>
             <ColumnHex name="Hex"/>
             <ColumnChar name="Character"/>
+            <ColumnHtmlNumber name="HTML Number"/>
+            <ColumnHtmlName name="HTML Code"/>
         </AsciiInsertion>
         <DocumentMap>
             <PanelTitle name="Document Map"/>
         </DocumentMap>
         <FunctionList>
             <PanelTitle name="Function List"/>
-            <SortTip name="Sort" />
-            <ReloadTip name="Reload" />
+            <SortTip name="Sort"/>
+            <ReloadTip name="Reload"/>
         </FunctionList>
         <FolderAsWorkspace>
             <PanelTitle name="Folder as Workspace"/>
@@ -1075,6 +1143,7 @@ Do you want to launch Notepad++ in Administrator mode?"/>
                 <Item id="3517" name="Find in Files..."/>
                 <Item id="3518" name="Explorer here"/>
                 <Item id="3519" name="CMD here"/>
+                <Item id="3520" name="Copy file name"/>
             </Menus>
         </FolderAsWorkspace>
         <ProjectManager>
@@ -1135,6 +1204,11 @@ Do you want to launch Notepad++ in Administrator mode?"/>
             <cloud-select-folder value="Select a folder from/to where Notepad++ reads/writes its settings"/>
             <shift-change-direction-tip value="Use Shift+Enter to search in the opposite direction"/>
             <two-find-buttons-tip value="2 find buttons mode"/>
+            <find-in-files-filter-tip value="Find in cpp, cxx, h, hxx &amp;&amp; hpp:
+*.cpp *.cxx *.h *.hxx *.hpp
+
+Find in all files except exe, obj &amp;&amp; log:
+*.* !*.exe !*.obj !*.log"/>
             <find-status-top-reached value="Find: Found the 1st occurrence from the bottom. The beginning of the document has been reached."/>
             <find-status-end-reached value="Find: Found the 1st occurrence from the top. The end of the document has been reached."/>
             <find-status-replaceinfiles-1-replaced value="Replace in Files: 1 occurrence was replaced"/>
@@ -1144,8 +1218,8 @@ Do you want to launch Notepad++ in Administrator mode?"/>
             <find-status-replaceinopenedfiles-nb-replaced value="Replace in Opened Files: $INT_REPLACE$ occurrences were replaced"/>
             <find-status-mark-re-malformed value="Mark: The regular expression to search is malformed"/>
             <find-status-invalid-re value="Find: Invalid regular expression"/>
-            <find-status-mark-1-match value="1 match"/>
-            <find-status-mark-nb-matches value="$INT_REPLACE$ matches"/>
+            <find-status-mark-1-match value="Mark: 1 match"/>
+            <find-status-mark-nb-matches value="Mark: $INT_REPLACE$ matches"/>
             <find-status-count-re-malformed value="Count: The regular expression to search is malformed"/>
             <find-status-count-1-match value="Count: 1 match"/>
             <find-status-count-nb-matches value="Count: $INT_REPLACE$ matches"/>
@@ -1168,6 +1242,29 @@ Do you want to launch Notepad++ in Administrator mode?"/>
             <finder-select-all value="Select all"/>
             <finder-clear-all value="Clear all"/>
             <finder-open-all value="Open all"/>
+            <common-ok value="OK"/>
+            <common-cancel value="Cancel"/>
+            <common-name value="Name: "/>
+            <tabrename-title value="Rename Current Tab"/>
+            <tabrename-newname value="New Name: "/>
+            <recent-file-history-maxfile value="Max File: "/>
+            <language-tabsize value="Tab Size: "/>
+            <userdefined-title-new value="Create New Language..."/>
+            <userdefined-title-save value="Save Current Language Name As..."/>
+            <userdefined-title-rename value="Rename Current Language Name"/>
+            <autocomplete-nb-char value="Nb char: "/>
+            <edit-verticaledge-nb-col value="Nb of Column:"/>
+            <summary value="Summary"/>
+            <summary-filepath value="Full file path: "/>
+            <summary-filecreatetime value="Created: "/>
+            <summary-filemodifytime value="Modified: "/>
+            <summary-nbchar value="Characters (without line endings): "/>
+            <summary-nbword value="Words: "/>
+            <summary-nbline value="Lines: "/>
+            <summary-nbbyte value="Document length: "/>
+            <summary-nbsel1 value=" selected characters ("/>
+            <summary-nbsel2 value=" bytes) in "/>
+            <summary-nbrange value=" ranges"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

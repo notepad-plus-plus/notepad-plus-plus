@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     Venetian translation for Notepad++ 7.8.3
-    Last modified Mon, Jan 16th, 2020.
+    Last modified Mon, Jan 25th, 2020.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang	
 -->
 <NotepadPlus>
@@ -26,8 +26,8 @@
                 <!-- Sub Menu Entries -->
                 <SubEntries>
                     <Item subMenuId="file-openFolder" name="Vèrxi carteƚa file"/>
-                    <Item subMenuId="file-recentFiles" name="File resenti"/>
                     <Item subMenuId="file-closeMore" name="Sara de pì"/>
+                    <Item subMenuId="file-recentFiles" name="File resenti"/>
                     <Item subMenuId="edit-copyToClipboard" name="Còpia ne i Scarabòci"/>
                     <Item subMenuId="edit-indent" name="Indenta"/>
                     <Item subMenuId="edit-convertCaseTo" name="Converti i caràteri"/>
@@ -132,7 +132,7 @@
                     <Item id="42069" name="Fraxi maiuscoƚe"/>
                     <Item id="42070" name="Fraxi maiuscoƚe (inteƚigente)"/>
                     <Item id="42071" name="iNVERTI mAIUSCOȽE/mINUSCOȽE"/>
-                    <Item id="42072" name="mAiusCoƚe/miNUScoLE casUaȽi"/>
+                    <Item id="42072" name="mAiusCoƚe/miNUScoȽE casUaȽi"/>
                     <Item id="42073" name="Vèrxi file"/>
                     <Item id="42074" name="Vèrxi carteƚa en Espƚora Risorse"/>
                     <Item id="42075" name="Ruma en Internet"/>
@@ -286,15 +286,15 @@
                     <Item id="45053" name="OEM 860: Portoghexe"/>
                     <Item id="45056" name="OEM 863: Fransexe"/>
 
-                    <Item id="10001" name="Spòsta inte l&apos;altra vista"/>
-                    <Item id="10002" name="Còpia inte l&apos;altra vista"/>
+                    <Item id="10001" name="Spòsta inte ƚ&apos;altra vista"/>
+                    <Item id="10002" name="Còpia inte ƚ&apos;altra vista"/>
                     <Item id="10003" name="Spòsta en na nova fenèstra"/>
                     <Item id="10004" name="Còpia en na nova fenèstra"/>				
 
                     <Item id="46001" name="Configura i stiƚi..."/>
                     <Item id="46250" name="Definisi el to ƚenguagio..."/>
                     <Item id="46300" name ="Vèrxi carteƚa ƚenguagi definìi da &apos;l utente..." />
-                    <Item id="46180" name="Definìo da l&apos;utente"/>
+                    <Item id="46180" name="Definìo da ƚ&apos;utente"/>
 					<Item id="47000" name="Informasion so..."/>
                     <Item id="47010" name="Argomenti riga de comando..."/>					
                     <Item id="47001" name="Sito web Notepad++"/>
@@ -343,8 +343,8 @@
                 <Item CMID="2" name="Salva"/>
                 <Item CMID="3" name="Salva come..."/>
                 <Item CMID="4" name="Stanpa"/>
-                <Item CMID="5" name="Spòsta ne l&apos;altra vista"/>
-                <Item CMID="6" name="Còpia ne l&apos;altra vista"/>
+                <Item CMID="5" name="Spòsta ne ƚ&apos;altra vista"/>
+                <Item CMID="6" name="Còpia ne ƚ&apos;altra vista"/>
                 <Item CMID="7" name="Còpia percorso file"/>
                 <Item CMID="8" name="Còpia nòme file"/>
                 <Item CMID="9" name="Còpia percorso carteƚa"/>
@@ -457,7 +457,7 @@
                 <Item id="2" name="Sara"/>
             </SHA256FromTextDlg>
 			
-            <PluginsAdminDlg title="Gestion plugin" titleAvailable="Disponibiƚi" titleUpdates="Axornamenti" titleInstalled="Instalà">
+            <PluginsAdminDlg title="Gestion plugin" titleAvailable="Disponibiƚi" titleUpdates="Axornamenti" titleInstalled="Instaƚà">
                 <ColumnPlugin   name="Plugin"/>
                 <ColumnVersion  name="Version"/>
                 <Item id="5501" name="Ruma:"/>
@@ -487,7 +487,7 @@
                     <Item id="2216" name="Estension utente:"/>
                     <Item id="2218" name="Sotoƚineà"/>
                     <Item id="2219" name="Paròƚe ciave predefinìe"/>
-                    <Item id="2221" name="Paròƚe ciave definìe da l&apos;utente"/>
+                    <Item id="2221" name="Paròƚe ciave definìe da ƚ&apos;utente"/>
                     <Item id="2225" name="Ƚenguagio: "/>
                     <Item id="2226" name="Abìƚita coƚore gƚobaƚe en primo pian"/>
                     <Item id="2227" name="Abìƚita coƚore gƚobaƚe par ƚo sfondo"/>
@@ -525,9 +525,9 @@
                 <Item id="5009" name="Rimovi"/>
                 <Item id="5010" name="Apƚica"/>
                 <Item id="5007" name="Cuesto rimoverà ƚa selta ràpida"/>
-                <Item id="5012" name="CATÀ CONFLITO!"/>
+                <Item id="5012" name="CATÀ CONFȽITO!"/>
             </ShortcutMapperSubDialg>
-            <UserDefine title="Ƚenguagio definìo da l&apos;utente">
+            <UserDefine title="Ƚenguagio definìo da ƚ&apos;utente">
                 <Item id="20001" name="Ancora"/>
                 <Item id="20002" name="Rinomina"/>
                 <Item id="20003" name="Crea novo..."/>
@@ -605,20 +605,20 @@
                     <Item id="22551" name="7º grupo"/>
                     <Item id="22601" name="5º grupo"/>
                     <Item id="22121" name="Modaƚità prefiso"/>
-                    <Item id="22122" name="Stiƚe"/>
                     <Item id="22221" name="Modaƚità prefiso"/>
-                    <Item id="22222" name="Stiƚe"/>
                     <Item id="22321" name="Modaƚità prefiso"/>
-                    <Item id="22322" name="Stiƚe"/>
                     <Item id="22421" name="Modaƚità prefiso"/>
-                    <Item id="22422" name="Stiƚe"/>
                     <Item id="22471" name="Modaƚità prefiso"/>
-                    <Item id="22472" name="Stiƚe"/>
                     <Item id="22521" name="Modaƚità prefiso"/>
-                    <Item id="22522" name="Stiƚe"/>
                     <Item id="22571" name="Modaƚità prefiso"/>
-                    <Item id="22572" name="Stiƚe"/>
                     <Item id="22621" name="Modaƚità prefiso"/>
+                    <Item id="22122" name="Stiƚe"/>
+                    <Item id="22222" name="Stiƚe"/>
+                    <Item id="22322" name="Stiƚe"/>
+                    <Item id="22422" name="Stiƚe"/>
+                    <Item id="22472" name="Stiƚe"/>
+                    <Item id="22522" name="Stiƚe"/>
+                    <Item id="22572" name="Stiƚe"/>
                     <Item id="22622" name="Stiƚe"/>
                 </Keywords>
                 <Comment title="Commenti &amp;&amp; Nùmari">
@@ -706,15 +706,7 @@
                     <Item id="6104" name="Icone grandi"/>
                     <Item id="6105" name="Icone standard"/>
 
-                    <Item id="6125" name="Documenti vèrti"/>
-                    <Item id="6126" name="Vixuaƚixa"/>
-                    <Item id="6127" name="Disabiƚita coƚona estension"/>
-
                     <Item id="6106" name="Bara schede"/>
-                    <Item id="6118" name="Scondi"/>
-                    <Item id="6119" name="Utiƚixa pì righe"/>
-                    <Item id="6120" name="Verticaƚe"/>
-
                     <Item id="6107" name="Bara de ƚe schede conpata"/>
                     <Item id="6108" name="Bƚoca schede (no strasinamento)"/>
                     <Item id="6109" name="Oscura schede inative"/>
@@ -723,13 +715,17 @@
 					<Item id="6111" name="Ativa bara de stato"/>
                     <Item id="6112" name="Boton par sarare so ogni scheda"/>
                     <Item id="6113" name="Dopio clic sara na scheda"/>
-
-
-                    <Item id="6121" name="Va fora na vòlta sarà l&apos;ùltima scheda"/>
+                    <Item id="6118" name="Scondi"/>
+                    <Item id="6119" name="Utiƚixa pì righe"/>
+                    <Item id="6120" name="Verticaƚe"/>
+                    <Item id="6121" name="Va fora na vòlta sarà ƚ&apos;ùltima scheda"/>
 
                     <Item id="6122" name="Scondi bara de i menu (Alt o F10 par vixuaƚixare)"/>
                     <Item id="6123" name="Ƚengua"/>					
 
+                    <Item id="6125" name="Documenti vèrti"/>
+                    <Item id="6126" name="Vixuaƚixa"/>
+                    <Item id="6127" name="Disabiƚita coƚona estension"/>
                 </Global>
                 <Scintillas title="Visuaƚixasion">
                     <Item id="6216" name="Cursore"/>
@@ -761,13 +757,11 @@
 					<Item id="6211" name="Ƚimite De Coƚona"/>
 					<Item id="6212" name="Modaƚità &apos;ƚinea&apos;"/>
                     <Item id="6213" name="Modaƚità &apos;sfondo&apos;"/>
-
-
                     <Item id="6214" name="Evidensìa ƚa riga corente"/>
                     <Item id="6215" name="Abìƚita antialiasing caràteri"/>
                     <Item id="6231" name="Spesore Bordo Editor"/>
                     <Item id="6235" name="Nisun bordo"/>
-					<Item id="6236" name="Abìƚita scorimento oltre l&apos;ùltima riga"/>
+					<Item id="6236" name="Abìƚita scorimento oltre ƚ&apos;ùltima riga"/>
                 </Scintillas>
 				
                 <NewDoc title="Novo documento">
@@ -789,13 +783,13 @@
                 <DefaultDir title="Carteƚa predefinìa">
                     <Item id="6413" name="Carteƚa Predefinìa (Vèrxi/Salva)"/>
                     <Item id="6414" name="Secondo el documento corente"/>
-                    <Item id="6415" name="Ricordate l&apos;ùltima carteƚa utiƚixà"/>
+                    <Item id="6415" name="Ricordate ƚ&apos;ùltima carteƚa utiƚixà"/>
                     <Item id="6430" name="No seƚesionare estension predefinìa ne ƚa fenèstra de salvatagio"/>
                     <Item id="6431" name="Vèrxi tuti i file de ƚa carteƚa invese de far partire Carteƚa come Workspace a&apos;l strasinamento"/>
                 </DefaultDir>
 				
                 <FileAssoc title="Asociasion file">
-                    <Item id="4008" name="Sara Notepad++ e rilancia Notepad++ co privilegi de Aministradore par uxare sta funsionaƚità" />				
+                    <Item id="4008" name="Sara Notepad++ e invìa Notepad++ co privilegi de Aministradore par uxare sta funsionaƚità" />				
                     <Item id="4009" name="Estension suportà:"/>
                     <Item id="4010" name="Estension registrà:"/>
                 </FileAssoc>
@@ -817,7 +811,7 @@
                     <Item id="6332" name="Ƚ&apos;evidensiasion ƚa xe case-sensitive"/>
                     <Item id="6338" name="Identifica soƚo paròƚe intiere"/>
                     <Item id="6339" name="Utiƚixa inpostasion fenèstra de riserca"/>
-                    <Item id="6340" name="Evidensia anca ne l&apos;altra vista"/>
+                    <Item id="6340" name="Evidensia anca ne ƚ&apos;altra vista"/>
                     <Item id="6329" name="Evidensia Tag Corispondenti"/>
                     <Item id="6327" name="Abìƚita"/>
                     <Item id="6328" name="Evidensia atributi"/>
@@ -853,15 +847,16 @@
                     <Item id="6727" name="Seƚesiona parte"/>
                     <Item id="6728" name="Intestasion E Piè De Pàgina"/>
                 </Print>
+				
 				<RecentFilesHistory title="File resenti">
                     <Item id="6304" name="Ƚista Documenti Resenti"/>
-                    <Item id="6305" name="No controƚare a ƚa partensa"/>
                     <Item id="6306" name="Masimo nùmaro de vosi:"/>
+                    <Item id="6305" name="No controƚare a ƚa partensa"/>
+                    <Item id="6429" name="Visuaƚixa"/>
                     <Item id="6424" name="En on sotomenù"/>
                     <Item id="6425" name="Soƚo nòme file"/>
                     <Item id="6426" name="Intiero percorso"/>
                     <Item id="6427" name="Personaƚixa ƚonghesa màsima:"/>
-                    <Item id="6429" name="Visuaƚixa"/>
                 </RecentFilesHistory>
 				
                 <Backup title="Backup">
@@ -870,7 +865,7 @@
                     <Item id="6819" name="Backup ogni"/>
                     <Item id="6821" name="secondi"/>
                     <Item id="6822" name="Carteƚa backup:"/>
-                    <Item id="6309" name="Ricorda sesion corente a&apos;l prosimo avvio"/>					
+                    <Item id="6309" name="Ricorda sesion corente a&apos;l prosimo avio"/>					
                     <Item id="6801" name="Backup a&apos;l Salvatagio"/>
                     <Item id="6315" name="Nisun"/>
                     <Item id="6316" name="Backup senpƚice"/>
@@ -882,15 +877,15 @@
                 <AutoCompletion title="Auto-conpƚetamento">
                     <Item id="6115" name="Indentasion automatica"/>
                     <Item id="6807" name="Auto-Conpƚetamento"/>
-                    <Item id="6808" name="Ativa l&apos;auto-conpƚetamento so ogni input"/>
+                    <Item id="6808" name="Ativa ƚ&apos;auto-conpƚetamento so ogni input"/>
                     <Item id="6809" name="Conpƚetamento funsion"/>
                     <Item id="6810" name="Conpƚetamento paròƚa"/>
+                    <Item id="6816" name="Conpƚetamento funsion e paròƚe"/>
+                    <Item id="6824" name="Ignora nùmari"/>
                     <Item id="6811" name="Da el"/>
                     <Item id="6813" name="º caràtere"/>
                     <Item id="6814" name="Vaƚori vaƚidi: 1 - 9"/>
-                    <Item id="6815" name="Sugerisi parametri funsion durante l&apos;imision"/>
-                    <Item id="6816" name="Conpƚetamento funsion e paròƚe"/>
-                    <Item id="6824" name="Ignora nùmari"/>
+                    <Item id="6815" name="Sugerisi parametri funsion durante ƚ&apos;imision"/>
                     <Item id="6851" name="Auto-Inserimento"/>
                     <Item id="6857" name="Tag sarada html/xml"/>
                     <Item id="6858" name="Vèrxi"/>
@@ -899,13 +894,15 @@
                     <Item id="6863" name="Còpia 2:"/>
                     <Item id="6866" name="Còpia 3:"/>
                 </AutoCompletion>
+				
                 <MultiInstance title="Istanse multipƚe">
                     <Item id="6151" name="Inpostasion Istanse Mùltipƚe"/>
                     <Item id="6152" name="Vèrxi sesion en na nova istansa de Notepad++"/>
                     <Item id="6153" name="Senpre en modaƚità istansa multipƚa"/>
                     <Item id="6154" name="Predefinìo (istansa unica)"/>
-                    <Item id="6155" name="* Ƚa modìfica de sta inpostasion la ga bixogno de inviare de novo Notepad++"/>
+                    <Item id="6155" name="* Ƚa modìfica de sta inpostasion ƚa ga bixogno de inviare de novo Notepad++"/>
                 </MultiInstance>
+				
                 <Delimiter title="Deƚimitatori">
                     <Item id="6251" name="Inpostasion Seƚesion Deƚimitatori (Ctrl+dopio clic)"/>
                     <Item id="6252" name="Vèrxi"/>
@@ -940,11 +937,11 @@
                         <Element name="Ativa par tuti i tab"/>
                         <Element name="Dixativa"/>
                     </ComboBox>
-                    <Item id="6308" name="Minimixa ne l&apos;area de notifica"/>
+                    <Item id="6308" name="Minimixa ne ƚ&apos;area de notifica"/>
                     <Item id="6312" name="Riƚevamento Stato File"/>
                     <Item id="6313" name="Axorna sensa notifica"/>
                     <Item id="6318" name="Ƚink Clicabiƚi"/>
-                    <Item id="6325" name="Và a l&apos;ùltima riga dopo l&apos;axornamento"/>
+                    <Item id="6325" name="Và a ƚ&apos;ùltima riga dopo ƚ&apos;axornamento"/>
                     <Item id="6319" name="Abìƚita"/>
                     <Item id="6320" name="No sotoƚineare"/>
                     <Item id="6322" name="Est. file de sesion:"/>
@@ -1018,32 +1015,31 @@
             <ContextMenuXmlEditWarning title="Modìfica menu contestuaƚe" message="Ƚa modìfica de el file contextMenu.xml parmete de modificare el menu contestuaƚe de Notepad++.
 Xe necesario inviare de novo Notepad++ parchè ƚe modìfiche aportà a&apos;l file contextMenu.xml ƚe gàpia efeto."/>
             <NppHelpAbsentWarning title="El file no existe" message="
-No existe. Scarica el file dal sito de Notepad++."/>
+No existe. Scarica el file da el sito de Notepad++."/>
 			<SaveCurrentModifWarning title="Salva modìfiche corenti" message="Te devi salvare ƚe modìfiche corenti.
 Tute ƚe modìfiche salvà no ƚe poƚe èsare ripristinà.
-
 Continuare?"/>
             <LoseUndoAbilityWarning title="Òcio: Te perdi ƚa posibiƚità de ripristinare" message="Te devi salvare ƚe modìfiche corenti.
-Tute ƚe modìfiche salvà no ƚe poƚe èser ripristinà.
-
+Tute ƚe modìfiche salvà no ƚe poƚe èsare ripristinà.
 Continuare?"/>
             <CannotMoveDoc title="Manda a na nova istansa de Notepad++" message="El documento el xe stà modificà, salvarƚo vanti de continuare."/>
             <DocReloadWarning title="Ricarica" message="Sito sicuro de voƚer ricaricare el file? Ogni modìfica aportà ƚa vegnerà persa."/>
-            <FileLockedWarning title="Salvatagio falìo" message="Verificare che el file no&apos;l sia vèrto co &apos;n altro programa."/>
+            <FileLockedWarning title="Salvatagio faƚìo" message="Verificare che el file no&apos;l sia vèrto co &apos;n altro programa."/>
             <FileAlreadyOpenedInNpp title="" message="El file el xe xà vèrto en Notepad++."/>
-            <DeleteFileFailed title="Scanseƚasion file" message="Scanseƚasion de el file falìa."/>
+            <DeleteFileFailed title="Scanseƚasion file" message="Scanseƚasion de el file faƚìa."/>
+			
             <NbFileToOpenImportantWarning title="El nùmaro de file da vèrxare el xe masa grando" message="Se xe drìo vèrxare $INT_REPLACE$ file.
 Sito sicuro de voƚerƚi vèrxare?"/>
             <SettingsOnCloudError title="Inpostasion Cloud" message="Senbra che el percorso par ƚe inpostasion de el cloud el sìa inpostà so na carteƚa en soƚa ƚetura,
 o en na carteƚa che ga bixogno de i priviƚegi de scritura par poderghe asédare.
 Le to inpostasion ne el cloud ƚe vegnerà scanceƚà. Reinposta on vaƚore coerente da ƚe inpostasion."/>
-            <FilePathNotFoundWarning title="Vertaura file" message="El file che se stà sercando de vèrxare no&apos;l existe."/>
+            <FilePathNotFoundWarning title="Vertaura file" message="El file che se xe drio sercare de vèrxare no&apos;l existe."/>
             <SessionFileInvalidError title="Inposibiƚe caricare ƚa sesion" message="El file de sesion el xe coroto o no&apos;l xe mìa vaƚido."/>
             <DroppingFolderAsProjectModeWarning title="Asion no vaƚida" message="Te poi portare file o carteƚe, ma no tute e do, parché te si en modaƚità riƚasia Carteƚa come Progeto.
 te devi abiƚitare &quot;Vèrxi tuti i file de ƚa carteƚa invese de scomisiare Carteƚa come Workspace a&apos;l strasinamento&quot; ne ƚa sesion &quot;Carteƚa predefinìa&quot; de ƚe prefarense par ativare sta funsionaƚità."/>
             <SortingError title="Erore ordenamento" message="Inposibiƚe efetuare on ordenamento numerico par colpa de ƚa riga $INT_REPLACE$."/>
             <ColumnModeTip title="Consijio modaƚità coƚona" message="Utiƚixa &quot;ALT+Seƚesion Mouse&quot; o &quot;Alt+Shift+Tasti frece&quot; par pasare a ƚa modaƚità coƚona."/>
-            <BufferInvalidWarning title="Salvatagio falìo" message="Inposibiƚe salvare: el buffer no&apos;l xe vàƚido."/>
+            <BufferInvalidWarning title="Salvatagio faƚìo" message="Inposibiƚe salvare: el buffer no&apos;l xe vàƚido."/>
             <DoCloseOrNot title="Mantien file no existente" message="El file &quot;$STR_REPLACE$&quot; no&apos;l existe pì.
 Mantenere el file vèrto?"/>
             <DoDeleteOrNot title="Scanseƚa file" message="El file &quot;$STR_REPLACE$&quot;
@@ -1053,16 +1049,14 @@ Continuare?"/>
 Salvaƚo o i to dati i vegnerà persi.
 Vuto salvare el file &quot;$STR_REPLACE$&quot; ?"/>
             <DoReloadOrNot title="Ricarica" message="&quot;$STR_REPLACE$&quot;
-
 Sto file el xe xà stà modificà da &apos;n altro programa.
 Vuto ricaricarƚo?"/>
             <DoReloadOrNotAndLooseChange title="Ricarica" message="&quot;$STR_REPLACE$&quot;
-
 Sto file el xe stà modificà da &apos;n altro programa.
 Vuto ricaricarƚo e perdare tute ƚe modìfiche aportà en Notepad++?"/>
             <PrehistoricSystemDetected title="Sistema preistorico catà" message="Senbra che te si drìo uxare on sistema preistorico. Sta funsionaƚità ƚa necesita de on sistema pì moderno, scusane."/>
             <XpUpdaterProblem title="Axornamento Notepad++" message="Ƚ&apos;axornamento automadego de Notepad++ no&apos;l xe conpatibiƚe co XP par colpa de on sistema de permesi obsoƚeto.
-Vuto &apos;ndare ne ƚa pàgina de Notepad++ par scaricare l&apos;axornamento manualmente?"/>
+Vuto &apos;ndare ne ƚa pàgina de Notepad++ par scaricare ƚ&apos;axornamento manualmente?"/>
             <GUpProxyConfNeedAdminMode title = "Inpostasion proxy" message = "Rilancia Notepad++ co i privilegi de aministradore par configurare el proxy." />
 			<DocTooDirtyToMonitor title="Problema monitoragio" message="El documento el xe sporco. Salva ƚe modìfiche vanti de scomisiare el monitoragio."/>
             <DocNoExistToMonitor title="Probƚema monitoragio" message="El file el deve existare par èsare monitorà."/>
@@ -1071,23 +1065,23 @@ Vuto &apos;ndare ne ƚa pàgina de Notepad++ par scaricare l&apos;axornamento ma
             <CreateNewFileError title="Crea novo file" message="Inposibiƚe creare el file &quot;$STR_REPLACE$&quot;."/>
             <OpenFileError title="ERORE" message="Inposibiƚe vèrxare el file &quot;$STR_REPLACE$&quot;."/>
             <FileBackupFailed title="Backup File Faƚìo" message="Ƚa version presedente de el file no ƚa poƚe èsare salvà ne ƚa carteƚa de backup &quot;$STR_REPLACE$&quot;.
-
 Vuto salvare el file ƚo steso?"/>
-            <LoadStylersFailed title="Caricamento stylers.xml falìo" message="El caricamento de &quot;$STR_REPLACE$&quot; el xe faƚìo!"/>
+            <LoadStylersFailed title="Caricamento stylers.xml faƚìo" message="El caricamento de &quot;$STR_REPLACE$&quot; el xe faƚìo!"/>
             <LoadLangsFailed title="Configurasion" message="El caricamento de langs.xml el xe faƚìo!
 Vuto ripristinare el file langs.xml?"/>
-            <LoadLangsFailedFinal title="Configurasion" message="El caricamento de langs.xml el xe falìo!"/>
+            <LoadLangsFailedFinal title="Configurasion" message="El caricamento de langs.xml el xe faƚìo!"/>
             <FolderAsWorspaceSubfolderExists title="Probƚema par Carteƚa come Workspace" message="Na soto carteƚa de ƚa carteƚa che te voi xontare ƚa existe xà.
 Rimovi ƚa carteƚa da el paneƚo vanti de xontare &quot;$STR_REPLACE$&quot;."/>
+
             <ProjectPanelChanged title="$STR_REPLACE$" message="El workspace el xe stà modificà. Vuto salvarƚo?"/>
             <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="El to workspace no&apos;l xe stà salvà."/>
             <ProjectPanelOpenDoSaveDirtyWsOrNot title="Vèrxi Workspace" message="El workspace corente el xe stà modificà. Vuto salvare el progeto corente?"/>
             <ProjectPanelNewDoSaveDirtyWsOrNot title="Novo Workspace" message="El workspace corente el xe stà xà modificà. Vuto salvare el progeto corente?"/>
             <ProjectPanelOpenFailed title="Vèrxi Workspace" message="El workspace no el pole èsare vèrto.
 Senbra che el file da vèrxare no el sia on file de progeto vaƚido."/>
-            <ProjectPanelRemoveFolderFromProject title="Rimovi carteƚa dal progeto" message="Tuti i soto-eƚementi i vegnerà scanseƚà.
+            <ProjectPanelRemoveFolderFromProject title="Rimovi carteƚa da el progeto" message="Tuti i soto-eƚementi i vegnerà scanseƚà.
 Sito sicuro de voƚer rimovare sta carteƚa da el progeto?"/>
-            <ProjectPanelRemoveFileFromProject title="Rimovi file dal progeto" message="Sito sicuro de voƚer rimovare sto file da el progeto?"/>
+            <ProjectPanelRemoveFileFromProject title="Rimovi file da el progeto" message="Sito sicuro de voƚer rimovare sto file da el progeto?"/>
             <ProjectPanelReloadError title="Ricarica Workspace" message="Inposibiƚe catare el file da caricare de novo."/>
             <ProjectPanelReloadDirty title="Ricarica Workspace" message="El workspace corente el xe stà modificà. Caricandoƚo de novo te perderè tute cuante ƚe modìfiche.
 Vuto continuare?"/>
@@ -1096,11 +1090,11 @@ usane &apos;n altro."/>
             <UDLRemoveCurrentLang title="Rimovi el ƚenguagio corente" message="Sito sicuro?"/>
             <SCMapperDoDeleteOrNot title="Sito sicuro?" message="Sito sicuro de voƚer scanseƚare sta scorciatoia?"/>
             <FindCharRangeValueError title="Probƚema ne&apos;l intervaƚo de vaƚori" message="Te devi inserire on vaƚore tra 0 e 255."/>
-            <OpenInAdminMode title="Salvatagio falìo" message="El file no el pole èsare salvà e el poderìa èsare proteto.
+            <OpenInAdminMode title="Salvatagio faƚìo" message="El file no el pole èsare salvà e el poderìa èsare proteto.
 Vuto inviare Notepad++ come aministradore?"/>
-            <OpenInAdminModeWithoutCloseCurrent title="Salvatagio falìo" message="El file no el pole èsare salvà e el poderìa èsare proteto.
+            <OpenInAdminModeWithoutCloseCurrent title="Salvatagio faƚìo" message="El file no el pole èsare salvà e el poderìa èsare proteto.
 Vuto inviare Notepad++ come aministradore?"/>
-            <OpenInAdminModeFailed title="Vertaura come aministradore falìa" message="Notepad++ no&apos;l poƚe èsare vèrto come aministradore."/>
+            <OpenInAdminModeFailed title="Vertaura come aministradore faƚìa" message="Notepad++ no&apos;l poƚe èsare vèrto come aministradore."/>
             <ViewInBrowser title="Visuaƚixa file corente ne&apos;l browser" message="Apƚicasion no catà ne el sistema."/>
             <ExitToUpdatePlugins title="Notepad++ stà par sararse" message="Se te fe clic so 'Sì', te usirè da Notepad++ par continuare ƚe operasion.
 Notepad++ vegnerà invià de novo dòpo che ƚe operasion ƚe vegnerà conpƚetà.
@@ -1175,8 +1169,8 @@ Vuto continuare?"/>
                     <Item id="3111" name="Rinomina"/>
                     <Item id="3112" name="Xonta carteƚa"/>
                     <Item id="3113" name="Xonta file..."/>
-                    <Item id="3114" name="Rimovi"/>
                     <Item id="3117" name="Xonta file da na carteƚa..."/>
+                    <Item id="3114" name="Rimovi"/>
                     <Item id="3118" name="Spòsta sora"/>
                     <Item id="3119" name="Spòsta xó"/>
                 </ProjectMenu>
@@ -1184,8 +1178,8 @@ Vuto continuare?"/>
                     <Item id="3111" name="Rinomina"/>
                     <Item id="3112" name="Xonta carteƚa"/>
                     <Item id="3113" name="Xonta file..."/>
-                    <Item id="3114" name="Rimovi"/>
                     <Item id="3117" name="Xonta file da na carteƚa..."/>
+                    <Item id="3114" name="Rimovi"/>
                     <Item id="3118" name="Spòsta sora"/>
                     <Item id="3119" name="Spòsta xó"/>
                 </FolderMenu>
@@ -1200,7 +1194,7 @@ Vuto continuare?"/>
         </ProjectManager>
         <MiscStrings>
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
-            <word-chars-list-tip value="Parmete de includare caràteri xontà ne ƚa ƚista de i caràteri considerà na paròƚa, cuando te fè on dopio clic par seƚesionare, o te efetui na riserca co l&apos;opsion &quot;Soƚo paròƚe intiere&quot; seƚesionà"/>
+            <word-chars-list-tip value="Parmete de includare caràteri xontà ne ƚa ƚista de i caràteri considerà na paròƚa, cuando te fè on dopio clic par seƚesionare, o te efetui na riserca co ƚ&apos;opsion &quot;Soƚo paròƚe intiere&quot; seƚesionà"/>
             <word-chars-list-warning-begin value="Òcio: "/>
             <word-chars-list-space-warning value="$INT_REPLACE$ spasi"/>
             <word-chars-list-tab-warning value="$INT_REPLACE$ tab"/>
@@ -1212,30 +1206,29 @@ Vuto continuare?"/>
             <two-find-buttons-tip value="Modaƚità riserca a 2 botoni"/>
             <find-in-files-filter-tip value = "Ruma en cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
-
 Ruma en tuti i file a ecesion exe, obj &amp;&amp; log:
 *.* !*.exe !*.obj !*.log" />            
-			<find-status-top-reached value="Ruma: catà ƚa prima ocorensa dal basso. Se xe rivà a&apos;l prinsipio de&apos;l documento."/>
-            <find-status-end-reached value="Ruma: catà ƚa prima ocorensa da l&apos;alto. Se xe rivà a ƚa fine de el documento."/>
+			<find-status-top-reached value="Ruma: catà ƚa prima ocorensa da el baso. Se xe rivà a&apos;l prinsipio de&apos;l documento."/>
+            <find-status-end-reached value="Ruma: catà ƚa prima ocorensa da ƚ&apos;alto. Se xe rivà a ƚa fine de el documento."/>
             <find-status-replaceinfiles-1-replaced value="Sostituisi: 1 ocorensa ƚa xe stà sostituìa"/>
-            <find-status-replaceinfiles-nb-replaced value="Sostituisi: $INT_REPLACE$ ocorense ƚe xe stà sostituìa"/>
-            <find-status-replaceinfiles-re-malformed value="Sostituisi ne i file vèrti: l&apos;espression regoƚare no ƚa xe vaƚida"/>
+            <find-status-replaceinfiles-nb-replaced value="Sostituisi: $INT_REPLACE$ ocorense ƚe xe stà sostituìe"/>
+            <find-status-replaceinfiles-re-malformed value="Sostituisi ne i file vèrti: ƚ&apos;espression regoƚare no ƚa xe vaƚida"/>
             <find-status-replaceinopenedfiles-1-replaced value="Sostituisi ne i file vèrti: 1 ocorensa ƚa xe stà sostituìa"/>
-            <find-status-replaceinopenedfiles-nb-replaced value="Sostituisi nei file vèrti: $INT_REPLACE$ ocorense ƚe xe stà sostituìa"/>
-            <find-status-mark-re-malformed value="Evidensia: l&apos;espresion regoƚare da sercare no ƚa xe vaƚida"/>
+            <find-status-replaceinopenedfiles-nb-replaced value="Sostituisi nei file vèrti: $INT_REPLACE$ ocorense ƚe xe stà sostituìe"/>
+            <find-status-mark-re-malformed value="Evidensia: ƚ&apos;espresion regoƚare da sercare no ƚa xe vaƚida"/>
             <find-status-invalid-re value="Ruma: espresion regoƚare no vaƚida"/>
             <find-status-mark-1-match value="Evidensìa: 1 corispondensa catà"/>
             <find-status-mark-nb-matches value="Evidensìa: $INT_REPLACE$ corispondense catà"/>
-            <find-status-count-re-malformed value="Conta: l&apos;espresion regoƚare da sercare no ƚa xe vaƚida"/>
+            <find-status-count-re-malformed value="Conta: ƚ&apos;espresion regoƚare da sercare no ƚa xe vaƚida"/>
             <find-status-count-1-match value="Conta: 1 corispondensa catà"/>
             <find-status-count-nb-matches value="Conta: $INT_REPLACE$ corispondense catà"/>
-            <find-status-replaceall-re-malformed value="Sostituisi tuti: l&apos;espresion regoƚare no ƚa xe vàƚida"/>
+            <find-status-replaceall-re-malformed value="Sostituisi tuti: ƚ&apos;espresion regoƚare no ƚa xe vàƚida"/>
             <find-status-replaceall-1-replaced value="Sostituisi tuti: 1 ocorensa ƚa xe stà sostituìa"/>
             <find-status-replaceall-nb-replaced value="Sostituisi tuti: $INT_REPLACE$ ocorense ƚe xe stà sostituìe"/>
             <find-status-replaceall-readonly value="Sostituisi tuti: inposibiƚe sostituire el testo. El documento corente el xe en soƚa letura"/>
             <find-status-replace-end-reached value="Sostituisi: sostituìa ƚa prima ocorensa da ƚ&apos;alto. Se xe rivà a ƚa fine de el documento "/>
-            <find-status-replace-top-reached value="Sostituisi: sostituìa ƚa prima ocorensa dal baso. Se xe rivà a&apos;l prinsipio de el documento"/>
-            <find-status-replaced-next-found value="Sostituisi: 1 ocorensa ƚa xe stà sostituìa. Catà l&apos;ocorensa sucesiva"/>
+            <find-status-replace-top-reached value="Sostituisi: sostituìa ƚa prima ocorensa da el baso. Se xe rivà a&apos;l prinsipio de el documento"/>
+            <find-status-replaced-next-found value="Sostituisi: 1 ocorensa ƚa xe stà sostituìa. Catà ƚ&apos;ocorensa sucesiva"/>
             <find-status-replaced-next-not-found value="Sostituisi:1 ocorensa ƚa xe stà sostituìa. Nisuna ocorensa sucesiva"/>
             <find-status-replace-not-found value="Sostituisi: nisuna ocorensa catà"/>
             <find-status-replace-readonly value="Sostituisi: inposibiƚe canbiare el testo. El documento corente el xe en soƚa ƚetura"/>

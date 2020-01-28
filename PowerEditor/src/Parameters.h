@@ -772,6 +772,11 @@ struct NppGUI final
 		_appPos.right = 1100;
 		_appPos.bottom = 700;
 
+		_findWindowPos.left = 0;
+		_findWindowPos.top = 0;
+		_findWindowPos.right = 0;
+		_findWindowPos.bottom = 0;
+
 		_defaultDir[0] = 0;
 		_defaultDirExp[0] = 0;
 	}
@@ -802,6 +807,8 @@ struct NppGUI final
 	bool _checkHistoryFiles = false;
 
 	RECT _appPos;
+
+	RECT _findWindowPos;
 
 	bool _isMaximized = false;
 	bool _isMinimizedToTray = false;

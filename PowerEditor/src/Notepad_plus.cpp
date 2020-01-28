@@ -790,6 +790,16 @@ bool Notepad_plus::saveGUIParams()
 	nppGUI._appPos.bottom = posInfo.rcNormalPosition.bottom - posInfo.rcNormalPosition.top;
 	nppGUI._isMaximized = ((IsZoomed(_pPublicInterface->getHSelf()) != 0) || (posInfo.flags & WPF_RESTORETOMAXIMIZED));
 
+	if (_findReplaceDlg.getHSelf() != NULL)
+	{
+		::GetWindowPlacement(_findReplaceDlg.getHSelf(), &posInfo);
+
+		nppGUI._findWindowPos.left = posInfo.rcNormalPosition.left;
+		nppGUI._findWindowPos.top = posInfo.rcNormalPosition.top;
+		nppGUI._findWindowPos.right = posInfo.rcNormalPosition.right;
+		nppGUI._findWindowPos.bottom = posInfo.rcNormalPosition.bottom;
+	}
+
 	saveDockingParams();
 	(NppParameters::getInstance()).createXmlTreeFromGUIParams();
 	return true;

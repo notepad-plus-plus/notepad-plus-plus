@@ -297,7 +297,17 @@ void FindReplaceDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	if (enableDlgTheme)
 		enableDlgTheme(_hSelf, ETDT_ENABLETAB);
 
-	goToCenter();
+	NppParameters& nppParam = NppParameters::getInstance();
+	NppGUI& nppGUI = const_cast<NppGUI&>(nppParam.getNppGUI());
+	if (nppGUI._findWindowPos.bottom - nppGUI._findWindowPos.top != 0)  // check height against 0 as a test of valid data from config
+	{
+		RECT rc = getViewablePositionRect(nppGUI._findWindowPos);
+		::SetWindowPos(_hSelf, HWND_TOP, rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top, SWP_SHOWWINDOW);
+	}
+	else
+	{
+		goToCenter();
+	}
 }
 
 void FindReplaceDlg::fillFindHistory()
@@ -2924,7 +2934,7 @@ void FindReplaceDlg::doDialog(DIALOG_TYPE whichType, bool isRTL, bool toShow)
 		enableReplaceFunc(whichType == REPLACE_DLG);
 
 	::SetFocus(::GetDlgItem(_hSelf, IDFINDWHAT));
-    display(toShow);
+    display(toShow, true);
 }
 
 LRESULT FAR PASCAL FindReplaceDlg::finderProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)

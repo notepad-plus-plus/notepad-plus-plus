@@ -1747,13 +1747,16 @@ void Notepad_plus::fileOpen()
 	if (stringVector *pfns = fDlg.doOpenMultiFilesDlg())
 	{
 		size_t sz = pfns->size();
-		for (size_t i = 0 ; i < sz ; ++i) {
+		for (size_t i = 0 ; i < sz ; ++i)
+		{
 			BufferID test = doOpen(pfns->at(i).c_str(), fDlg.isReadOnly());
 			if (test != BUFFER_INVALID)
 				lastOpened = test;
 		}
 	}
-	if (lastOpened != BUFFER_INVALID) {
+
+	if (lastOpened != BUFFER_INVALID)
+	{
 		switchToFile(lastOpened);
 	}
 }
@@ -1776,7 +1779,8 @@ bool Notepad_plus::fileReload()
 }
 
 
-bool Notepad_plus::isFileSession(const TCHAR * filename) {
+bool Notepad_plus::isFileSession(const TCHAR * filename)
+{
 	// if file2open matches the ext of user defined session file ext, then it'll be opened as a session
 	const TCHAR *definedSessionExt = NppParameters::getInstance().getNppGUI()._definedSessionExt.c_str();
 	if (*definedSessionExt != '\0')
@@ -1950,7 +1954,8 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode)
 	{
 		const TCHAR *pFn = session._subViewFiles[k]._fileName.c_str();
 
-		if (isFileSession(pFn) || isFileWorkspace(pFn)) {
+		if (isFileSession(pFn) || isFileWorkspace(pFn))
+		{
 			vector<sessionFileInfo>::iterator posIt = session._subViewFiles.begin() + k;
 			session._subViewFiles.erase(posIt);
 			continue;	//skip session files, not supporting recursive sessions or embedded workspace files
@@ -1970,7 +1975,8 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode)
 				lastOpened = doOpen(pFn, false, false, session._subViewFiles[k]._encoding);
 
 			//check if already open in main. If so, clone
-			if (_mainDocTab.getIndexByBuffer(lastOpened) != -1) {
+			if (_mainDocTab.getIndexByBuffer(lastOpened) != -1)
+			{
 				loadBufferIntoView(lastOpened, SUB_VIEW);
 			}
 		}

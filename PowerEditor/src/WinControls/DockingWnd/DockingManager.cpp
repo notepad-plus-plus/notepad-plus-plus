@@ -247,7 +247,8 @@ LRESULT DockingManager::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
 		case WM_DESTROY:
 		{
 			// unregister window event hooking BEFORE EVERYTHING ELSE
-			if (hWndServer == hwnd) {
+			if (hWndServer == hwnd)
+			{
 				UnhookWindowsHookEx(gWinCallHook);
 				gWinCallHook = NULL;
 				hWndServer = NULL;

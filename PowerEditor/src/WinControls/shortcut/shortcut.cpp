@@ -440,10 +440,13 @@ INT_PTR CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 					return TRUE;
 
 				case IDOK :
-					if (!isEnabled()) {
+					if (!isEnabled())
+					{
 						_keyCombo._isCtrl = _keyCombo._isAlt = _keyCombo._isShift = false;
 					}
-					if (_canModifyName) {
+
+					if (_canModifyName)
+					{
 						TCHAR editName[nameLenMax];
 						::SendDlgItemMessage(_hSelf, IDC_NAME_EDIT, WM_GETTEXT, nameLenMax, reinterpret_cast<LPARAM>(editName));
 						setName(editName);
@@ -645,8 +648,10 @@ void Accelerator::updateMenuItemByCommand(const CommandShortcut& csc)
 recordedMacroStep::recordedMacroStep(int iMessage, uptr_t wParam, uptr_t lParam, int codepage)
 	: _message(iMessage), _wParameter(wParam), _lParameter(lParam), _macroType(mtUseLParameter)
 { 
-	if (_lParameter) {
-		switch (_message) {
+	if (_lParameter)
+	{
+		switch (_message)
+		{
 			case SCI_SETTEXT :
 			case SCI_REPLACESEL :
 			case SCI_REPLACETARGET :
@@ -971,7 +976,8 @@ void ScintillaKeyMap::validateDialog()
 	updateConflictState();
 }
 
-void ScintillaKeyMap::showCurrentSettings() {
+void ScintillaKeyMap::showCurrentSettings()
+{
 	auto keyIndex = ::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_GETCURSEL, 0, 0);
 	_keyCombo = _keyCombos[keyIndex];
 	::SendDlgItemMessage(_hSelf, IDC_CTRL_CHECK,	BM_SETCHECK, _keyCombo._isCtrl?BST_CHECKED:BST_UNCHECKED, 0);
@@ -987,7 +993,8 @@ void ScintillaKeyMap::showCurrentSettings() {
 	}
 }
 
-void ScintillaKeyMap::updateListItem(int index) {
+void ScintillaKeyMap::updateListItem(int index)
+{
 	::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_INSERTSTRING, index, reinterpret_cast<LPARAM>(toString(index).c_str()));
 	::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_DELETESTRING, index+1, 0);
 }
@@ -1129,7 +1136,8 @@ INT_PTR CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPARA
 	//return FALSE;
 }
 
-CommandShortcut::CommandShortcut(const Shortcut& sc, long id) :	Shortcut(sc), _id(id) {
+CommandShortcut::CommandShortcut(const Shortcut& sc, long id) :	Shortcut(sc), _id(id)
+{
 	if ( _id < IDM_EDIT)
 		_category = TEXT("File");
 	else if ( _id < IDM_SEARCH)

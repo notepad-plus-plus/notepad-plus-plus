@@ -1553,7 +1553,8 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 	TCHAR *pText = new TCHAR[stringSizeFind + 1];
 	wcscpy_s(pText, stringSizeFind + 1, txt2find);
 	
-	if (pOptions->_searchType == FindExtended) {
+	if (pOptions->_searchType == FindExtended)
+	{
 		stringSizeFind = Searching::convertExtendedToString(txt2find, pText, stringSizeFind);
 	}
 
@@ -1982,7 +1983,8 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 
 	if (op == ProcessMarkAll && colourStyleID == -1)	//if marking, check if purging is needed
 	{
-		if (_env->_doPurge) {
+		if (_env->_doPurge)
+		{
 			clearMarks(*_env);
 		}
 	}
@@ -2006,7 +2008,9 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 
 		targetEnd = int(pEditView->execute(SCI_GETTARGETEND));
 
-		if (targetEnd > findReplaceInfo._endRange) {	//we found a result but outside our range, therefore do not process it
+		if (targetEnd > findReplaceInfo._endRange)
+		{
+			//we found a result but outside our range, therefore do not process it
 			break;
 		}
 
@@ -2402,7 +2406,8 @@ bool FindReplaceDlg::removeFinder(Finder *finder2remove)
 	return false;
 }
 
-void FindReplaceDlg::setSearchText(TCHAR * txt2find) {
+void FindReplaceDlg::setSearchText(TCHAR * txt2find)
+{
 	HWND hCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
 	if (txt2find && txt2find[0])
 	{
@@ -2584,7 +2589,8 @@ void FindReplaceDlg::setStatusbarMessage(const generic_string & msg, FindStatus 
 	}
 	else if (staus == FSTopReached || staus == FSEndReached)
 	{
-		if (!isVisible()) {
+		if (!isVisible())
+		{
 			FLASHWINFO flashInfo;
 			flashInfo.cbSize = sizeof(FLASHWINFO);
 			flashInfo.hwnd = GetParent(_hSelf);

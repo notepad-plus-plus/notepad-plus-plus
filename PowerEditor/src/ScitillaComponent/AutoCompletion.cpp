@@ -105,7 +105,8 @@ bool AutoCompletion::showApiAndWordComplete()
 				wordArray.push_back(_keyWordArray[i]);
 			canStop = true;
 		}
-		else if (canStop) {
+		else if (canStop)
+		{
 			// Early out since no more strings will match
 			break;
 		}
@@ -754,18 +755,23 @@ void AutoCompletion::update(int character)
 	}
 }
 
-void AutoCompletion::callTipClick(size_t direction) {
+void AutoCompletion::callTipClick(size_t direction)
+{
 	if (!_funcCompletionActive)
 		return;
 
-	if (direction == 1) {
+	if (direction == 1)
+	{
 		_funcCalltip.showPrevOverload();
-	} else if (direction == 2) {
+	}
+	else if (direction == 2)
+	{
 		_funcCalltip.showNextOverload();
 	}
 }
 
-bool AutoCompletion::setLanguage(LangType language) {
+bool AutoCompletion::setLanguage(LangType language)
+{
 	if (_curLang == language)
 		return true;
 	_curLang = language;
@@ -783,7 +789,8 @@ bool AutoCompletion::setLanguage(LangType language) {
 	_funcCompletionActive = _pXmlFile->LoadFile();
 
 	TiXmlNode * pAutoNode = NULL;
-	if (_funcCompletionActive) {
+	if (_funcCompletionActive)
+	{
 		_funcCompletionActive = false;	//safety
 		TiXmlNode * pNode = _pXmlFile->FirstChild(TEXT("NotepadPlus"));
 		if (!pNode)
@@ -816,7 +823,8 @@ bool AutoCompletion::setLanguage(LangType language) {
         {
 			const TCHAR * val = 0;
 			val = pElem->Attribute(TEXT("ignoreCase"));
-			if (val && !lstrcmp(val, TEXT("no"))) {
+			if (val && !lstrcmp(val, TEXT("no")))
+			{
 				_ignoreCase = false;
 				_funcCalltip._ignoreCase = false;
 			}
@@ -838,9 +846,12 @@ bool AutoCompletion::setLanguage(LangType language) {
 		}
 	}
 
-	if (_funcCompletionActive) {
+	if (_funcCompletionActive)
+	{
 		_funcCalltip.setLanguageXML(_pXmlKeyword);
-	} else {
+	}
+	else
+	{
 		_funcCalltip.setLanguageXML(NULL);
 	}
 

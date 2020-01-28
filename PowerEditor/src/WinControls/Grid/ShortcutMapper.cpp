@@ -98,7 +98,8 @@ generic_string ShortcutMapper::getTabString(size_t i) const
 }
 
 
-void ShortcutMapper::initBabyGrid() {
+void ShortcutMapper::initBabyGrid()
+{
 	RECT rect;
 	getClientRect(rect);
 
@@ -153,7 +154,8 @@ bool ShortcutMapper::isFilterValid(Shortcut sc)
 {
 	bool match = false;
 	generic_string shortcut_name = stringToLower(generic_string(sc.getName()));
-	if (_shortcutFilter.empty()) {
+	if (_shortcutFilter.empty())
+	{
 		return true;
 	}
 	// test the filter on the shortcut name

@@ -1790,8 +1790,8 @@ void NppParameters::initMenuKeys()
 	}
 }
 
-void NppParameters::initScintillaKeys() {
-
+void NppParameters::initScintillaKeys()
+{
 	int nbCommands = sizeof(scintKeyDefs)/sizeof(ScintillaKeyDefinition);
 
 	//Warning! Matching function have to be consecutive
@@ -6139,7 +6139,8 @@ TiXmlElement * NppParameters::insertGUIConfigBoolNode(TiXmlNode *r2w, const TCHA
 	return GUIConfigElement;
 }
 
-int RGB2int(COLORREF color) {
+int RGB2int(COLORREF color)
+{
 	return (((((DWORD)color) & 0x0000FF) << 16) | ((((DWORD)color) & 0x00FF00)) | ((((DWORD)color) & 0xFF0000) >> 16));
 }
 

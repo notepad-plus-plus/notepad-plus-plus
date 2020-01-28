@@ -146,7 +146,8 @@ bool getParamVal(TCHAR c, ParamVector & params, generic_string & value)
 	for (size_t i = 0; i < nbItems; ++i)
 	{
 		const TCHAR * token = params.at(i).c_str();
-		if (token[0] == '-' && lstrlen(token) >= 2 && token[1] == c) {	//dash, and enough chars
+		if (token[0] == '-' && lstrlen(token) >= 2 && token[1] == c) //dash, and enough chars
+		{
 			value = (token+2);
 			params.erase(params.begin() + i);
 			return true;
@@ -191,7 +192,8 @@ generic_string getLocalizationPathFromParam(ParamVector & params)
 	return NppParameters::getLocPathFromStr(locStr.c_str());
 }
 
-int getNumberFromParam(char paramName, ParamVector & params, bool & isParamePresent) {
+int getNumberFromParam(char paramName, ParamVector & params, bool & isParamePresent)
+{
 	generic_string numStr;
 	if (!getParamVal(paramName, params, numStr))
 	{

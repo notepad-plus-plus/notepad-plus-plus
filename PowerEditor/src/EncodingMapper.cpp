@@ -83,9 +83,11 @@ static EncodingUnit encodings[] = {
     {20866, "koi8_r csKOI8R"}                                                                   //IDM_FORMAT_KOI8R_CYRILLIC
 };
 
-bool isInListA(const char *token, const char *list) {
+bool isInListA(const char *token, const char *list)
+{
 	if ((!token) || (!list))
 		return false;
+
 	char word[64];
 	size_t i = 0;
 	size_t j = 0;

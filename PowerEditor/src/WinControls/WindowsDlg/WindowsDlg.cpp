@@ -55,6 +55,7 @@ const UINT WDN_NOTIFY = RegisterWindowMessage(TEXT("WDN_NOTIFY"));
 inline static DWORD GetStyle(HWND hWnd) {
 	return (DWORD)GetWindowLongPtr(hWnd, GWL_STYLE);
 }
+
 inline static DWORD GetExStyle(HWND hWnd) {
 	return (DWORD)GetWindowLongPtr(hWnd, GWL_EXSTYLE);
 }
@@ -705,7 +706,8 @@ void WindowsDlg::doSave()
 	nmdlg.code = WDN_NOTIFY;
 	nmdlg.nItems = ListView_GetSelectedCount(_hList);
 	nmdlg.Items = new UINT[nmdlg.nItems];
-	for (int i=-1, j=0;;++j) {
+	for (int i=-1, j=0; ; ++j)
+	{
 		i = ListView_GetNextItem(_hList, i, LVNI_SELECTED);
 		if (i == -1) break;
 		nmdlg.Items[j] = _idxMap[i];
@@ -723,7 +725,6 @@ void WindowsDlg::destroy()
 	HWND hSelf = _hSelf;
 	_hSelf = NULL;
 	::DestroyWindow(hSelf);
-
 }
 
 void WindowsDlg::activateCurrent()

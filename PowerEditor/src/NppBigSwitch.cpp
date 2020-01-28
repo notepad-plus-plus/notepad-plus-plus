@@ -302,7 +302,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				return FALSE;
 			BufferID id = (BufferID)wParam;
 			Buffer * b = MainFileManager.getBufferByID(id);
-			if (b && b->getStatus() == DOC_UNNAMED) {
+			if (b && b->getStatus() == DOC_UNNAMED)
+			{
 				b->setFileName(reinterpret_cast<const TCHAR*>(lParam));
 				return TRUE;
 			}
@@ -607,7 +608,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					switchEditViewTo(MAIN_VIEW);
 				else if (hSec == hFocus)
 					switchEditViewTo(SUB_VIEW);
-				else {
+				else
+				{
 					//Other Scintilla, ignore
 				}
 				return TRUE;

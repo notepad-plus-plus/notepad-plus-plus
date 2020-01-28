@@ -447,12 +447,15 @@ bool ReBar::addBand(REBARBANDINFO * rBand, bool useID)
 	}
 	else
 		rBand->fStyle = RBBS_GRIPPERALWAYS;
+
 	rBand->fMask |= RBBIM_ID | RBBIM_STYLE;
-	if (useID) {
+	if (useID)
+	{
 		if (isIDTaken(rBand->wID))
 			return false;
-
-	} else {
+	}
+	else
+	{
 		rBand->wID = getNewID();
 	}
 	::SendMessage(_hSelf, RB_INSERTBAND, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(rBand));	//add to end of list

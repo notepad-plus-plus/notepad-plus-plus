@@ -61,7 +61,8 @@ inline bool match(TCHAR c1, TCHAR c2) {
 //0 if equal, <0 of before, >0 if after (name1 that is)
 int testNameNoCase(const TCHAR * name1, const TCHAR * name2, int len = -1)
 {
-	if (len == -1) {
+	if (len == -1)
+	{
 		len = 1024;	//magic value, but it probably fails way before it reaches this
 	}
 	int i = 0;
@@ -344,7 +345,8 @@ bool FunctionCallTip::loadFunction()
 
 	TiXmlElement *overloadNode = _curFunction->FirstChildElement(TEXT("Overload"));
 	TiXmlElement *paramNode = NULL;
-	for (; overloadNode ; overloadNode = overloadNode->NextSiblingElement(TEXT("Overload")) ) {
+	for (; overloadNode ; overloadNode = overloadNode->NextSiblingElement(TEXT("Overload")) )
+	{
 		const TCHAR * retVal = overloadNode->Attribute(TEXT("retVal"));
 		if (!retVal)
 			continue;	//malformed node
@@ -357,7 +359,8 @@ bool FunctionCallTip::loadFunction()
 			_descriptions.push_back(TEXT(""));	//"no description available"
 
 		paramNode = overloadNode->FirstChildElement(TEXT("Param"));
-		for (; paramNode ; paramNode = paramNode->NextSiblingElement(TEXT("Param")) ) {
+		for (; paramNode ; paramNode = paramNode->NextSiblingElement(TEXT("Param")) )
+		{
 			const TCHAR * param = paramNode->Attribute(TEXT("name"));
 			if (!param)
 				continue;	//malformed node
@@ -445,7 +448,8 @@ void FunctionCallTip::showCalltip()
 	}
 }
 
-void FunctionCallTip::reset() {
+void FunctionCallTip::reset()
+{
 	_currentOverload = 0;
 	_currentParam = 0;
 	//_curPos = 0;
@@ -456,7 +460,8 @@ void FunctionCallTip::reset() {
 	_descriptions.clear();
 }
 
-void FunctionCallTip::cleanup() {
+void FunctionCallTip::cleanup()
+{
 	reset();
 	delete [] _funcName;
 	_funcName = 0;

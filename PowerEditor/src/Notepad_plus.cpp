@@ -1068,7 +1068,8 @@ int Notepad_plus::getHtmlXmlEncoding(const TCHAR *fileName) const
 }
 
 
-bool Notepad_plus::replaceInOpenedFiles() {
+bool Notepad_plus::replaceInOpenedFiles()
+{
 
 	ScintillaEditView *pOldView = _pEditView;
 	_pEditView = &_invisibleEditView;
@@ -2995,11 +2996,14 @@ LangType Notepad_plus::menuID2LangType(int cmdID)
             return L_VISUALPROLOG;
 		case IDM_LANG_USER :
             return L_USER;
-		default: {
-			if (cmdID >= IDM_LANG_USER && cmdID <= IDM_LANG_USER_LIMIT) {
+		default:
+		{
+			if (cmdID >= IDM_LANG_USER && cmdID <= IDM_LANG_USER_LIMIT)
+			{
 				return L_USER;
 			}
-			break; }
+			break; 
+		}
 	}
 	return L_EXTERNAL;
 }
@@ -3372,17 +3376,23 @@ void Notepad_plus::showView(int whichOne)
 	if (viewVisible(whichOne))	//no use making visible view visible
 		return;
 
-	if (_mainWindowStatus & WindowUserActive) {
+	if (_mainWindowStatus & WindowUserActive)
+	{
 		 _pMainSplitter->setWin0(&_subSplitter);
 		 _pMainWindow = _pMainSplitter;
-	} else {
+	}
+	else
+	{
 		_pMainWindow = &_subSplitter;
 	}
 
-	if (whichOne == MAIN_VIEW) {
+	if (whichOne == MAIN_VIEW)
+	{
 		_mainEditView.display(true);
 		_mainDocTab.display(true);
-	} else if (whichOne == SUB_VIEW) {
+	}
+	else if (whichOne == SUB_VIEW)
+	{
 		_subEditView.display(true);
 		_subDocTab.display(true);
 	}
@@ -3394,7 +3404,8 @@ void Notepad_plus::showView(int whichOne)
 	::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
 }
 
-bool Notepad_plus::viewVisible(int whichOne) {
+bool Notepad_plus::viewVisible(int whichOne)
+{
 	int viewToCheck = (whichOne == SUB_VIEW?WindowSubActive:WindowMainActive);
 	return (_mainWindowStatus & viewToCheck) != 0;
 }
@@ -3422,10 +3433,13 @@ void Notepad_plus::hideView(int whichOne)
 
 	_subSplitter.display(false);	//hide splitter
 	//hide scintilla and doctab
-	if (whichOne == MAIN_VIEW) {
+	if (whichOne == MAIN_VIEW)
+	{
 		_mainEditView.display(false);
 		_mainDocTab.display(false);
-	} else if (whichOne == SUB_VIEW) {
+	}
+	else if (whichOne == SUB_VIEW)
+	{
 		_subEditView.display(false);
 		_subDocTab.display(false);
 	}
@@ -3566,10 +3580,13 @@ bool Notepad_plus::removeBufferFromView(BufferID id, int whichOne)
 
 int Notepad_plus::switchEditViewTo(int gid)
 {
-	if (currentView() == gid) {	//make sure focus is ok, then leave
+	if (currentView() == gid)
+	{
+		//make sure focus is ok, then leave
 		_pEditView->getFocus();	//set the focus
 		return gid;
 	}
+
 	if (!viewVisible(gid))
 		return currentView();	//cannot activate invisible view
 
@@ -3658,13 +3675,16 @@ void Notepad_plus::docOpenInNewInstance(FileTransferMode mode, int x, int y)
 	command += TEXT("\"");
 	command += TEXT(" \"$(FULL_CURRENT_PATH)\" -multiInst -nosession");
 
-	if (x) {
+	if (x)
+	{
 		TCHAR pX[10];
 		generic_itoa(x, pX, 10);
 		command += TEXT(" -x");
 		command += pX;
 	}
-	if (y) {
+
+	if (y)
+	{
 		TCHAR pY[10];
 		generic_itoa(y, pY, 10);
 		command += TEXT(" -y");
@@ -3826,15 +3846,19 @@ bool Notepad_plus::activateBuffer(BufferID id, int whichOne)
 	return true;
 }
 
-void Notepad_plus::performPostReload(int whichOne) {
+void Notepad_plus::performPostReload(int whichOne)
+{
 	NppParameters& nppParam = NppParameters::getInstance();
 	const NppGUI & nppGUI = nppParam.getNppGUI();
 	bool toEnd = (nppGUI._fileAutoDetection & cdGo2end) ? true : false;
 	if (!toEnd)
 		return;
-	if (whichOne == MAIN_VIEW) {
+	if (whichOne == MAIN_VIEW)
+	{
 		_mainEditView.execute(SCI_GOTOLINE, _mainEditView.execute(SCI_GETLINECOUNT) -1);
-	} else {
+	}
+	else
+	{
 		_subEditView.execute(SCI_GOTOLINE, _subEditView.execute(SCI_GETLINECOUNT) -1);
 	}
 }
@@ -4336,7 +4360,8 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
     _pEditView->execute(SCI_ENDUNDOACTION);
 
 	// undoStreamComment: If there were no block-comments to un-comment try uncommenting of stream-comment.
-	if ((currCommentMode == cm_uncomment) && (nUncomments == 0)) {
+	if ((currCommentMode == cm_uncomment) && (nUncomments == 0))
+	{
 		return undoStreamComment(false);
 	}
     return true;
@@ -4384,7 +4409,8 @@ bool Notepad_plus::doStreamComment()
 	}
 
 	// BlockToStreamComment: If there is no stream-comment symbol, try the block comment:
-	if ((!commentStart) || (!commentStart[0]) || (commentStart == NULL) || (!commentEnd) || (!commentEnd[0]) || (commentEnd == NULL)) {
+	if ((!commentStart) || (!commentStart[0]) || (commentStart == NULL) || (!commentEnd) || (!commentEnd[0]) || (commentEnd == NULL))
+	{
 		if (!(!commentLineSymbol || !commentLineSymbol[0] || commentLineSymbol == NULL))
 			return doBlockComment(cm_comment);
 		else
@@ -4695,7 +4721,9 @@ void Notepad_plus::fullScreenToggle()
 		if (!_beforeSpecialView.isPostIt)
 		{
 			_beforeSpecialView.preStyle = ::SetWindowLongPtr(_pPublicInterface->getHSelf(), GWL_STYLE, WS_POPUP);
-			if (!_beforeSpecialView.preStyle) {	//something went wrong, use default settings
+			if (!_beforeSpecialView.preStyle)
+			{
+				//something went wrong, use default settings
 				_beforeSpecialView.preStyle = WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN;
 			}
 		}
@@ -4830,7 +4858,9 @@ void Notepad_plus::postItToggle()
 			//Hide window so windows can properly update it
 			::ShowWindow(_pPublicInterface->getHSelf(), SW_HIDE);
 			_beforeSpecialView.preStyle = ::SetWindowLongPtr( _pPublicInterface->getHSelf(), GWL_STYLE, WS_POPUP );
-			if (!_beforeSpecialView.preStyle) {	//something went wrong, use default settings
+			if (!_beforeSpecialView.preStyle)
+			{
+				//something went wrong, use default settings
 				_beforeSpecialView.preStyle = WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN;
 			}
 			//Redraw the window and refresh windowmanager cache, dont do anything else, sizing is done later on
@@ -5066,7 +5096,8 @@ bool Notepad_plus::emergency(const generic_string& emergencySavedDir)
 	return dumpFiles(emergencySavedDir.c_str(), TEXT("File"));
 }
 
-bool Notepad_plus::dumpFiles(const TCHAR * outdir, const TCHAR * fileprefix) {
+bool Notepad_plus::dumpFiles(const TCHAR * outdir, const TCHAR * fileprefix)
+{
 	//start dumping unsaved files to recovery directory
 	bool somethingsaved = false;
 	bool somedirty = false;
@@ -6845,7 +6876,8 @@ bool Notepad_plus::undoStreamComment(bool tryBlockComment)
 
 
 	// BlockToStreamComment: If there is no stream-comment symbol and we came not from doBlockComment, try the block comment:
-	if ((!commentStart) || (!commentStart[0]) || (commentStart == NULL) || (!commentEnd) || (!commentEnd[0]) || (commentEnd == NULL)) {
+	if ((!commentStart) || (!commentStart[0]) || (commentStart == NULL) || (!commentEnd) || (!commentEnd[0]) || (commentEnd == NULL))
+	{
 		if (!(!commentLineSymbol || !commentLineSymbol[0] || commentLineSymbol == NULL) && tryBlockComment)
 			return doBlockComment(cm_uncomment);
 		else

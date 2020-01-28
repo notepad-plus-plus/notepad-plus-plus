@@ -416,7 +416,8 @@ bool PluginsManager::getShortcutByCmdID(int cmdID, ShortcutKey *sk)
 // returns false if cmdID not provided, true otherwise
 bool PluginsManager::removeShortcutByCmdID(int cmdID)
 {
-	if (cmdID == 0) { return false; }
+	if (cmdID == 0)
+		return false;
 
 	NppParameters& nppParam = NppParameters::getInstance();
 	vector<PluginCmdShortcut> & pluginCmdSCList = nppParam.getPluginCommandList();

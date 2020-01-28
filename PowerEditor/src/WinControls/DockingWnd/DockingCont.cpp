@@ -463,10 +463,13 @@ void DockingCont::drawCaptionItem(DRAWITEMSTRUCT *pDrawItemStruct)
 	// begin with paint
 	::SetBkMode(hDc, TRANSPARENT);
 
-	if (_isActive == TRUE) {
+	if (_isActive == TRUE)
+	{
 		bgbrush = ::CreateSolidBrush(::GetSysColor(COLOR_ACTIVECAPTION));
 		::SetTextColor(hDc, ::GetSysColor(COLOR_CAPTIONTEXT));
-	} else {
+	}
+	else
+	{
 		bgbrush = ::CreateSolidBrush(::GetSysColor(COLOR_BTNFACE));
 	}
 

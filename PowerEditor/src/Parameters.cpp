@@ -4511,6 +4511,39 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			if (val)
 				_nppGUI._isMaximized = (lstrcmp(val, TEXT("yes")) == 0);
 		}
+
+		else if (!lstrcmp(nm, TEXT("FindWindowPosition")))
+		{
+			RECT oldRect = _nppGUI._findWindowPos;
+			bool incomplete = true;
+			int i;
+
+			if (element->Attribute(TEXT("left"), &i))
+			{
+				_nppGUI._findWindowPos.left = i;
+
+				if (element->Attribute(TEXT("top"), &i))
+				{
+					_nppGUI._findWindowPos.top = i;
+
+					if (element->Attribute(TEXT("right"), &i))
+					{
+						_nppGUI._findWindowPos.right = i;
+
+						if (element->Attribute(TEXT("bottom"), &i))
+						{
+							_nppGUI._findWindowPos.bottom = i;
+							incomplete = false;
+						}
+					}
+				}
+			}
+			if (incomplete)
+			{
+				_nppGUI._findWindowPos = oldRect;
+			}
+		}
+
 		else if (!lstrcmp(nm, TEXT("NewDocDefaultSettings")))
 		{
 			int i;
@@ -5565,6 +5598,16 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("width"), _nppGUI._appPos.right);
 		GUIConfigElement->SetAttribute(TEXT("height"), _nppGUI._appPos.bottom);
 		GUIConfigElement->SetAttribute(TEXT("isMaximized"), _nppGUI._isMaximized ? TEXT("yes") : TEXT("no"));
+	}
+
+	// <GUIConfig name="FindWindowPosition" left="134" top="320" right="723" bottom="684" />
+	{
+		TiXmlElement* GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
+		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("FindWindowPosition"));
+		GUIConfigElement->SetAttribute(TEXT("left"), _nppGUI._findWindowPos.left);
+		GUIConfigElement->SetAttribute(TEXT("top"), _nppGUI._findWindowPos.top);
+		GUIConfigElement->SetAttribute(TEXT("right"), _nppGUI._findWindowPos.right);
+		GUIConfigElement->SetAttribute(TEXT("bottom"), _nppGUI._findWindowPos.bottom);
 	}
 
 	// <GUIConfig name="noUpdate" intervalDays="15" nextUpdateDate="20161022">no</GUIConfig>

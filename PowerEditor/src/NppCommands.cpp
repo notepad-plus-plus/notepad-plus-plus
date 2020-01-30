@@ -2797,8 +2797,9 @@ void Notepad_plus::command(int id)
 
 			if (doAboutDlg)
 			{
-				bool isFirstTime = !_aboutDlg.isCreated();
+				//bool isFirstTime = !_aboutDlg.isCreated();
 				_aboutDlg.doDialog();
+				/*
 				if (isFirstTime && _nativeLangSpeaker.getNativeLangA())
 				{
 					if (_nativeLangSpeaker.getLangEncoding() == NPP_CP_BIG5)
@@ -2811,6 +2812,7 @@ void Notepad_plus::command(int id)
 						::SetWindowText(hItem, authorNameW);
 					}
 				}
+				*/
 			}
 			break;
 		}

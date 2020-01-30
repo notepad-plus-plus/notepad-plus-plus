@@ -1,19 +1,7 @@
-Notepad++ v7.8.3 enhancements and bug-fixes:
+Notepad++ v7.8.4 bug-fixes:
 
-1.  Add the "Expand All", "Fold All" and "Select/Show current editing file" capacity into Folder as Workspace.
-2.  Fix restoring line position issue while document is wrapped.
-3.  Improve Json syntax highlighting.
-4.  Make filling find field of Find dialog with selected word(s) optional.
-5.  Make doSaveOrNot dialog simpler when there's a single file to save.
-6.  Fix auto-insert {[""]} imbrication not working issue.
-7.  Make cmd cli (for "Open Containing Folder in cmd") customizable.
-8.  Prevent from setting Updater's Proxy as Notepad++ is not in Admin mode.
-9.  Disable file association settings when Notepad++'s no admin right.
-10. Fix incremental search bar "highlight all" option not conserved bug.
-11. Enhance SQL syntax highlighting (add 2 more keyword lists).
-12. Fix too small buffer issue during add text macro playback.
-13. Fix "Close All Unchanged" not working issue for sub-view.
-14. Eliminate garbage displaying in Find-result fold margin.
+1.  Fix regression of double clicking a found in files result while Word-Wrap is on.
+2.  Fix HashFromDlg title bar localization issue.
 
 
 Included plugins:

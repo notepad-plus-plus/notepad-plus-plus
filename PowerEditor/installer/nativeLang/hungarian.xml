@@ -4,9 +4,9 @@
 <!-- Webpage: http://w3.hdsnet.hu/batagy/ -->
 <!-- Forum topic: https://notepad-plus-plus.org/community/topic/80/hungarian-translation-->
 <!-- Prohardver topic: https://prohardver.hu/tema/re_notepad/friss.html -->
-<!-- For Notepad++ Version 7.6.3, modified on 2019.01.30 -->
+<!-- For Notepad++ Version 7.8.4, modified on 2020.01.31 -->
 <NotepadPlus>
-    <Native-Langue name="Magyar" filename="hungarian.xml" version="7.6.3">
+    <Native-Langue name="Magyar" filename="hungarian.xml" version="7.8.4">
        <Menu>
            <Main>
                 <!-- Main Menu Entries -->
@@ -44,6 +44,7 @@
                     <Item subMenuId="search-jumpUp" name="Ugrás kiemelt szöveghez felfelé"/>
                     <Item subMenuId="search-jumpDown" name="Ugrás kiemelt szöveghez lefelé"/>
                     <Item subMenuId="search-bookmark" name="Könyvjelzők"/>
+                    <Item subMenuId="view-currentFileIn" name="Jelenlegi fájl megnyitása"/>
                     <Item subMenuId="view-showSymbol" name="Segéd jelek megjelenítése"/>
                     <Item subMenuId="view-zoom" name="Nagyítás"/>
                     <Item subMenuId="view-moveCloneDocument" name="Dokumentum nézete"/>
@@ -68,9 +69,10 @@
                     <Item subMenuId="encoding-turkish" name="Török"/>
                     <Item subMenuId="encoding-westernEuropean" name="Nyugat-európai"/>
                     <Item subMenuId="encoding-vietnamese" name="Vietnami"/>
+                    <Item subMenuId="language-userDefinedLanguage" name="Egyéni nyelv beállítása"/>
                     <Item subMenuId="settings-import" name="Importálás"/>
-                    <Item subMenuId="tools-md5"  name="MD5"/>
-                    <Item subMenuId="tools-sha256"  name="SHA-256"/>
+                    <Item subMenuId="tools-md5" name="MD5"/>
+                    <Item subMenuId="tools-sha256" name="SHA-256"/>
                     </SubEntries>
 
                 <!-- all menu item -->
@@ -84,6 +86,7 @@
                     <Item id="41005" name="Többi fül bezárása"/>
                     <Item id="41009" name="Balra lévő fülek bezárása"/>
                     <Item id="41018" name="Jobbra lévő fülek bezárása"/>
+                    <Item id="41024" name="Minden változatlan bezárása"/>
                     <Item id="41006" name="Mentés"/>
                     <Item id="41007" name="Mind mentése"/>
                     <Item id="41008" name="Mentés másként..."/>
@@ -110,6 +113,7 @@
                     <Item id="42008" name="Behúzás növelése (Tabulátor beszúrása)"/>
                     <Item id="42009" name="Behúzás csökkentése (Tabulátor törlése)"/>
                     <Item id="42010" name="Aktuális sor megkettőzése"/>
+                    <Item id="42077" name="Egymást követő duplikált sorok törlése"/>
                     <Item id="42012" name="Sorok szétvágása (Sortördelés rögzítése)"/>
                     <Item id="42013" name="Sorok összevonása"/>
                     <Item id="42014" name="Aktuális sor mozgatása feljebb"/>
@@ -279,6 +283,12 @@
                     <Item id="45011" name="Átalakítás UTF-8 BOM kódolásra"/>
                     <Item id="45012" name="Átalakítás UCS-2 BE BOM kódolásra"/>
                     <Item id="45013" name="Átalakítás UCS-2 LE BOM kódolásra"/>
+                    <Item id="45060" name="Big5 (Hagyományos)"/>
+                    <Item id="45061" name="GB2312 (Egyszerűsített)"/>
+                    <Item id="45054" name="OEM 861: Izlandi"/>
+                    <Item id="45057" name="OEM 865: Skandináv"/>
+                    <Item id="45053" name="OEM 860: Portugál"/>
+                    <Item id="45056" name="OEM 863: Francia"/>
 
                     <Item id="10001" name="Mozgatás a másik nézetbe"/>
                     <Item id="10002" name="Megnyitás a másik nézetben is"/>
@@ -287,6 +297,7 @@
 
                     <Item id="46001" name="Stílusok beállításai..."/>
                     <Item id="46250" name="Egyéni nyelv beállítása..."/>
+                    <Item id="46300" name="Egyéni nyelvek mappája..."/>
                     <Item id="46180" name="Egyéni nyelv"/>
                     <Item id="47000" name="Névjegy..."/>
                     <Item id="47010" name="Parancssori kapcsolók..."/>
@@ -304,6 +315,7 @@
                     <Item id="48018" name="Felugrómenü szerkesztése"/>
                     <Item id="48009" name="Billentyűparancsok beállítása..."/>
                     <Item id="48011" name="Program beállítások..."/>
+                    <Item id="48014" name="Bővítmények mappája..."/>
                     <Item id="48015" name="Bővítmények kezelése..."/>
                     <Item id="48501" name="Generálás..."/>
                     <Item id="48502" name="Generálás fájlokból..."/>
@@ -316,6 +328,9 @@
                     <Item id="50000" name="Függvény kiegészítés (Nyelv függő)"/>
                     <Item id="50001" name="Szó kiegészítés (Dokumentum függő)"/>
                     <Item id="50002" name="Segítség a függvény paramétereihez"/>
+                    <Item id="50003" name="Előző dokumentum"/>
+                    <Item id="50004" name="Következő dokumentum"/>
+                    <Item id="50005" name="Makró rögzítés / megállítás"/>
                     <Item id="50006" name="Elérési út kiegészítés"/>
                     <Item id="44042" name="Sorok elrejtése"/>
                     <Item id="42040" name="Minden előzmény megnyitása"/>
@@ -349,6 +364,7 @@
                  <Item CMID="19" name="Tartalmazó mappa megnyitása Intézőben"/>
                  <Item CMID="20" name="Tartalmazó mappa megnyitása parancssorban"/>
                  <Item CMID="21" name="Megnyitás alapértelmezett programban"/>
+                 <Item CMID="22" name="Minden változatlan bezárása"/>
            </TabBar>
        </Menu>
 
@@ -388,6 +404,8 @@
                 <Item id="1641" name="Keresés a jelenlegi dokumentumban"/>
                 <Item id="1686" name="Átlátszó"/>
                 <Item id="1703" name="&amp;Pont = újsor"/>
+                <Item id="1721" name="▲"/>
+                <Item id="1723" name="▼ Következő"/>
             </Find>
 
             <FindCharsInRange title="Keresés karakterkészletben">
@@ -775,8 +793,9 @@
                 </DefaultDir>
 
                 <FileAssoc title="Fájl társítások">
+                    <Item id="4008" name="Ehhez a beállításhoz lépjen ki és rendszergazdaként futtassa a Notepad++-t."/>
                     <Item id="4009" name="Támogatott kiterj.:"/>
-                    <Item id="4010" name="Társított kiterj.:"/>
+                    <Item id="4010" name="Társított kiterjesztések:"/>
                 </FileAssoc>
                 <Language title="Nyelvek">
                     <Item id="6505" name="Elérhető nyelvek:"/>
@@ -920,7 +939,11 @@
                 </SearchEngine>
 
                 <MISC title="Egyéb">
-                    <Item id="6307" name="Engedélyezés"/>
+                    <ComboBox id="6347">
+                        <Element name="Engedélyezés"/>
+                        <Element name="Engedélyezés minden megnyitott fájlra"/>
+                        <Element name="Tiltás"/>
+                    </ComboBox>
                     <Item id="6308" name="Kicsinyítés az értesítési területre"/>
                     <Item id="6312" name="Fájl állapot automatikus észlelése"/>
                     <Item id="6313" name="Frissítés figyelmeztetés nélkül"/>
@@ -933,12 +956,14 @@
                     <Item id="6324" name="Dokumentum váltó (Ctrl+TAB)"/>
                     <Item id="6331" name="Csak a fájlnév megjelenítése a fejlécben"/>
                     <Item id="6334" name="Karakterkódolás automatikus felismerése"/>
+                    <Item id="6314" name="Azonos szélességű betűtípus a keresendő előzményekhez (Notepad++ újraindítás szükséges)"/>
                     <Item id="6337" name="Munkaterület fájl kiterjesztés:"/>
                     <Item id="6114" name="Engedélyezés"/>
                     <Item id="6117" name="Lista sorrendje a használattól függ"/>
                     <Item id="6344" name="Dokumentum előnézet"/>
                     <Item id="6345" name="Előnézeti kép"/>
                     <Item id="6346" name="Előnézeti kép a Dokumentum térképen"/>
+                    <Item id="6348" name="Keresésnél ne töltse ki a keresendő mezőt a kijelölt szóval"/>
                     </MISC>
 
             </Preference>
@@ -985,6 +1010,14 @@
                 <Item id="1718" name="Bővített (\n, \r, \t, \0, \x...)"/>
                 <Item id="1720" name="&amp;Pont = újsor"/>
             </FindInFinder>
+            <DoSaveOrNot title="Mentés"> 
+                <Item id="1761" name="Menti ezt a fájlt: &quot;$STR_REPLACE$&quot; ?"/>
+                <Item id="6" name="Igen"/>
+                <Item id="7" name="Nem"/>
+                <Item id="2" name="Mégse"/>
+                <Item id="4" name="Mindre igen"/>
+                <Item id="5" name="Mindre nem"/>
+            </DoSaveOrNot>
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title="Felugrómenü szerkesztése" message = "A contextMenu.xml fájl szerkesztésével a jobb egérgomb menüje módosítható.
@@ -1017,7 +1050,6 @@ A művelethez az &quot;Alapértelmezett mappa&quot; beállításokban a &quot;Ma
             <SortingError title="Rendezési hiba" message="A numerikus rendezés nem hajtható végre a következő sor miatt: $INT_REPLACE$."/>
             <ColumnModeTip title="Blokk szerkesztés tipp" message="Az &quot;ALT+Egér kijelölés&quot; vagy &quot;Alt+Shift+Jobbra/Balra/Fel/Le&quot; billentyűkkel lehet Blokk szerkesztést használni."/>
             <BufferInvalidWarning title="Sikertelen mentés" message="A mentés nem sikerült: Érvénytelen buffer."/>
-            <DoSaveOrNot title="Mentés" message="Menteni kívánja a &quot;$STR_REPLACE$&quot; fájlt?"/>
             <DoCloseOrNot title="Nem létező fájl" message="A &quot;$STR_REPLACE$&quot; fájl már nem létezik.
 Megtartja a fájlt a szerkesztőben?"/>
             <DoDeleteOrNot title="Törlés" message="A &quot;$STR_REPLACE$&quot; fájl
@@ -1037,6 +1069,7 @@ Kívánja újból betölteni, és eldobni a Notepad++-ban végzett változtatás
             <PrehistoricSystemDetected title="Őskori rendszer" message="Úgy tűnik, hogy őskori rendszert használ. Ez a funkció csak modern operációs rendszeren működik, sajnos."/>
             <XpUpdaterProblem title="Notepad++ frissítés" message="A Notepad++ frissítő az XP-vel nem kompatibilis, az XP alatti elavult biztonsági rendszer miatt.
 A Notepad++ oldalra kíván menni a legújabb verzió letöltéséhez?"/>
+            <GUpProxyConfNeedAdminMode title="Proxy Beállítások" message="A proxy beállításokhoz rendszergazdaként futtassa a Notepad++-t."/>
             <DocTooDirtyToMonitor title="Követési probléma" message="A dokumentum módosult. Mentse a módosításokat, mielőtt követi azt."/>
             <DocNoExistToMonitor title="Követési probléma" message="A követéshez a fájlnak léteznie kell."/>
             <FileTooBigToOpen title="Méret probléma" message="A fájl túl nagy méretű a megnyitáshoz."/>
@@ -1075,7 +1108,12 @@ Elindítja a Notepad++-t rendszergazdaként?"/>
             <OpenInAdminModeWithoutCloseCurrent title="Sikertelen mentés" message="A fájl mentése nem sikerült, lehet, hogy védett.
 Elindítja a Notepad++-t rendszergazdaként?"/>
             <OpenInAdminModeFailed title="Sikertelen futtatás rendszergazdaként" message="A Notepad++ nem futtatható rendszergazdaként."/>
-			</MessageBox>
+            <ViewInBrowser title="Jelenlegi fájl megnyitása böngészőben" message="Az alkalmazás nem található a rendszeren."/>
+            <ExitToUpdatePlugins title="A Notepad++ ki fog lépni" message="Ha IGEN-t kattint, a műveletek folytatásához a Notepad++ ki fog lépni.
+A műveletek elvégzése után a program újra fog indulni.
+Folytatja?"/>
+            <NeedToRestartToLoadPlugins title="A Notepad++ újraindítása szükséges" message="A telepített bővítmények betöltéséhez indítsa újra a Notepad++-t."/>
+            </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Vágólap előzmények"/>
         </ClipboardHistory>
@@ -1094,6 +1132,8 @@ Elindítja a Notepad++-t rendszergazdaként?"/>
             <ColumnVal name="Érték"/>
             <ColumnHex name="Hex"/>
             <ColumnChar name="Karakter"/>
+            <ColumnHtmlNumber name="HTML Szám"/>
+            <ColumnHtmlName name="HTML Kód"/>
         </AsciiInsertion>
         <DocumentMap>
             <PanelTitle name="Dokumentum Térkép"/>
@@ -1116,6 +1156,7 @@ Elindítja a Notepad++-t rendszergazdaként?"/>
                 <Item id="3517" name="Keresés fájlokban..."/>
                 <Item id="3518" name="Intéző"/>
                 <Item id="3519" name="Parancssor"/>
+                <Item id="3520" name="Fájlnév másolása"/>
             </Menus>
         </FolderAsWorkspace>
         <ProjectManager>
@@ -1176,6 +1217,11 @@ Elindítja a Notepad++-t rendszergazdaként?"/>
             <cloud-select-folder value="Adjon meg egy mappát, ahol a Notepad++ a beállításait tárolja"/>
             <shift-change-direction-tip value="Shift + Enter használható az ellenkező irányú kereséshez"/>
             <two-find-buttons-tip value="2 gombos kereső mód"/>
+            <find-in-files-filter-tip value="Keresés ezekben: cpp, cxx, h, hxx  hpp:
+*.cpp *.cxx *.h *.hxx *.hpp
+
+Kereés minden fájlban, kivéve exe, obj  log:
+*.* !*.exe !*.obj !*.log"/>
             <find-status-top-reached value="Keresés: Első előfordulás alulról. A dokumentum elejét elértük."/>
             <find-status-end-reached value="Keresés: Első előfordulás felülről. A dokumentum végét elértük."/>
             <find-status-replaceinfiles-1-replaced value="Csere fájlokban: 1 találat cserélve"/>
@@ -1185,8 +1231,8 @@ Elindítja a Notepad++-t rendszergazdaként?"/>
             <find-status-replaceinopenedfiles-nb-replaced value="Csere a megnyitott fájlokban: $INT_REPLACE$ találat cserélve"/>
             <find-status-mark-re-malformed value="Kiemelés: A keresés reguláris kifejezése rossz formátumú"/>
             <find-status-invalid-re value="Keresés: Érvénytelen reguláris kifejezés"/>
-            <find-status-mark-1-match value="1 találat"/>
-            <find-status-mark-nb-matches value="$INT_REPLACE$ találat"/>
+            <find-status-mark-1-match value="Kiemelés: 1 találat"/>
+            <find-status-mark-nb-matches value="Kiemelés: $INT_REPLACE$ találat"/>
             <find-status-count-re-malformed value="Számlálás: A keresés reguláris kifejezése rossz formátumú"/>
             <find-status-count-1-match value="Számlálás: 1 találat"/>
             <find-status-count-nb-matches value="Számlálás: $INT_REPLACE$ találat"/>
@@ -1209,6 +1255,29 @@ Elindítja a Notepad++-t rendszergazdaként?"/>
             <finder-select-all value="Mind kijelölése"/>
             <finder-clear-all value="Mind eltávolítása"/>
             <finder-open-all value="Mind megnyitása"/>
+            <common-ok value="OK"/>
+            <common-cancel value="Mégse"/>
+            <common-name value="Név: "/>
+            <tabrename-title value="Jelenlegi fül átnevezése"/>
+            <tabrename-newname value="Új név: "/>
+            <recent-file-history-maxfile value="Előzmények: "/>
+            <language-tabsize value="Tab méret: "/>
+            <userdefined-title-new value="Új nyelv létrehozása"/>
+            <userdefined-title-save value="Jelenlegi nyelv mentése más néven"/>
+            <userdefined-title-rename value="Jelenlegi nyelv átnevezése"/>
+            <autocomplete-nb-char value="Karakterek: "/>
+            <edit-verticaledge-nb-col value="Oszlopok:"/>
+            <summary value="Összegzés"/>
+            <summary-filepath value="Teljes elérési út: "/>
+            <summary-filecreatetime value="Létrehozás: "/>
+            <summary-filemodifytime value="Módosítás: "/>
+            <summary-nbchar value="Karakterek (sorvégződések nélkül): "/>
+            <summary-nbword value="Szavak: "/>
+            <summary-nbline value="Sorok: "/>
+            <summary-nbbyte value="Dokumentum hossza: "/>
+            <summary-nbsel1 value=" kijelölt karakter ("/>
+            <summary-nbsel2 value=" byte) "/>
+            <summary-nbrange value=" szakaszban"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

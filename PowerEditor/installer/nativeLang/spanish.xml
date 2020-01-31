@@ -273,6 +273,12 @@
 					<Item id="45011" name="Convertir a UTF-8"/>
 					<Item id="45012" name="Convertir a UCS-2 Big Endian"/>
 					<Item id="45013" name="Convertir a UCS-2 Little Endian"/>
+					<Item id="45060" name="Big5 (Tradicional)"/>
+					<Item id="45061" name="GB2312 (Simplificado)"/>
+					<Item id="45054" name="OEM 861: Islandés"/>
+					<Item id="45057" name="OEM 865: Nórdico"/>
+					<Item id="45053" name="OEM 860: Portugués"/>
+					<Item id="45056" name="OEM 863: Francés"/>
 					<Item id="10001" name="Mover a otra vista"/>
 					<Item id="10002" name="Clonar en otra vista"/>
 					<Item id="10003" name="Mover a una ventana nueva"/>
@@ -718,7 +724,8 @@
 					<Item id="6207" name="Mostrar marcadores"/>
 					<Item id="6208" name="Mostrar límite vertical"/>
 					<Item id="6209" name="Número de columnas: "/>
-					<Item id="6234" name="Desactivar desplazamiento avanzado (si tiene problemas con pantalla táctil)"/>
+					<Item id="6234" name="Desactivar desplazamiento avanzado
+(si tiene problemas con pantalla táctil)"/>
 					<Item id="6211" name="Límite vertical"/>
 					<Item id="6212" name="Modo lineal"/>
 					<Item id="6213" name="Modo de fondo"/>

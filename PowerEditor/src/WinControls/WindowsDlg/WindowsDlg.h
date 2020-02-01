@@ -42,19 +42,6 @@ typedef enum {
 	WDT_SORT = 4,
 } WinDlgNotifyType;
 
-typedef enum {
-	TE_UPDATEADDITIONALDOCDATA = 0x1001,
-} WinDlgTimerEventsType;
-
-typedef enum {
-	IDX_COLNAME = 0,
-	IDX_COLPATH = 1,
-	IDX_COLTYPE = 2,
-	IDX_COLSIZE = 3,
-	IDX_COL_MAX = 3,
-} WinListColumnIdxType;
-
-
 struct NMWINDLG : public NMHDR {
 
 	BOOL processed;

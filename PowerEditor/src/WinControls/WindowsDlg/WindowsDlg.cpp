@@ -52,6 +52,18 @@ using namespace std;
 #define WD_CLMNTYPE					"ColumnType"
 #define WD_CLMNSIZE					"ColumnSize"
 
+typedef enum {
+	TE_UPDATEADDITIONALDOCDATA = 0x1001,
+} WinDlgTimerEventsType;
+
+typedef enum {
+	IDX_COLNAME = 0,
+	IDX_COLPATH = 1,
+	IDX_COLTYPE = 2,
+	IDX_COLSIZE = 3,
+	IDX_COL_MAX = 3,
+} WinListColumnIdxType;
+
 static const TCHAR *readonlyString = TEXT(" [Read Only]");
 const UINT WDN_NOTIFY = RegisterWindowMessage(TEXT("WDN_NOTIFY"));
 
@@ -117,7 +129,6 @@ static int prettyPrintSize(const long lsize, TCHAR* const buf, const size_t bufs
 	}
 
 }
-
 
 
 struct NumericStringEquivalence
@@ -225,7 +236,7 @@ struct BufferEquivalent
 			}
 			else if (_iColumn == IDX_COLSIZE)
 			{
-				// we will fall through and do nothing, sorting (special comparer is used, see below)
+				// we will fall through and do nothing, sorting uses special comparer, see below
 			}
 			else if (_iColumn == -1 && _sortValueLookup != NULL) // will use _sortValueLookup
 			{
@@ -235,7 +246,7 @@ struct BufferEquivalent
 					return (t1 < t2);
 			}
 
-			 // _iColumn == 1
+			 // _iColumn == IDX_COLPATH
 			const TCHAR *s1 = b1->getFullPathName();
 			const TCHAR *s2 = b2->getFullPathName();
 			return _strequiv(s1, s2) < 0;	//we can compare the full path to sort on directory, since after sorting directories sorting files is the second thing to do (if directories are the same that is)
@@ -358,9 +369,9 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 
 		case WM_TIMER:
 		{
-			if (wParam == TE_UPDATEADDITIONALDOCDATA) // load docLength for display (one at a time)
+			if (wParam == TE_UPDATEADDITIONALDOCDATA) // load docLength for each buffer one at a time and display (stays responsive)
 			{
-				int useIdx = _docSizesUpdateHint;  // useIdx as hint (current index)
+				int useIdx = _docSizesUpdateHint;  // start with hint
 
 				size_t cnt = _idxMap.size();
 				size_t done = 0;
@@ -374,7 +385,7 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 					if (kvSize == _docSizes.end())
 					{
 						auto buffer = MainFileManager.getBufferByID(bufId);
-						auto size = MainFileManager.docLength(buffer);
+						auto size = MainFileManager.docLength(buffer); // this method seems to be slow (> 10 ms / call)
 						_docSizes[bufId] = size;
 						ListView_RedrawItems(_hList, useIdx, useIdx);
 						break;
@@ -422,7 +433,7 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 						{
 							int len = pLvdi->item.cchTextMax;
 							const TCHAR *fileName = buf->getFileName();
-							generic_strncpy(pLvdi->item.pszText, fileName, ((size_t)len)-1);
+							generic_strncpy(pLvdi->item.pszText, fileName, static_cast<size_t>(len) - 1);
 							pLvdi->item.pszText[len-1] = 0;
 							len = lstrlen(pLvdi->item.pszText);
 							if (buf->isDirty())
@@ -451,7 +462,7 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 							}
 							if (pLvdi->item.cchTextMax < len)
 								len = pLvdi->item.cchTextMax;
-							generic_strncpy(pLvdi->item.pszText, fullName, ((size_t)len)-1);
+							generic_strncpy(pLvdi->item.pszText, fullName, static_cast<size_t>(len) - 1);
 							pLvdi->item.pszText[len-1] = 0;
 						}
 						else if (pLvdi->item.iSubItem == IDX_COLTYPE) // Type
@@ -461,7 +472,7 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 							Lang *lang = nppParameters.getLangFromID(buf->getLangType());
 							if (NULL != lang)
 							{
-								generic_strncpy(pLvdi->item.pszText, lang->getLangName(), ((size_t)len)-1);
+								generic_strncpy(pLvdi->item.pszText, lang->getLangName(), static_cast<size_t>(len) - 1);
 							}
 						}
 						else if (pLvdi->item.iSubItem == IDX_COLSIZE) // DocSize
@@ -556,11 +567,10 @@ void WindowsDlg::doColumnSort()
 	if (_currentSortColumn == IDX_COLSIZE)  // special sorting (via lambda)
 	{
 		auto docSizesMap = _docSizes;
-
 		stable_sort(_idxMap.begin(), _idxMap.end(), BufferEquivalent(_pTab, -1, _reverseSort,
-				[docSizesMap] (BufferID bufId) {
+				[docSizesMap] (BufferID bufId) -> int {
 					auto kvSize = docSizesMap.find(bufId);
-					return (int) ((kvSize == docSizesMap.end()) ? -1 : kvSize->second);
+					return ((kvSize == docSizesMap.end()) ? -1 : kvSize->second);
 				}
 			));
 	}
@@ -573,7 +583,6 @@ void WindowsDlg::doColumnSort()
 		ListView_SetItemState(_hList, i, sortMap[_idxMap[i]] ? LVIS_SELECTED : 0, LVIS_SELECTED);
 
 	ListView_RedrawItems(_hList, 0, _idxMap.size() - 1);
-
 	updateButtonState();
 }
 
@@ -623,7 +632,7 @@ BOOL WindowsDlg::onInitDialog()
 	exStyle |= LVS_EX_HEADERDRAGDROP|LVS_EX_FULLROWSELECT|LVS_EX_DOUBLEBUFFER;
 	ListView_SetExtendedListViewStyle(_hList, exStyle);
 
-	for (int ci = 0; ci < 4; ci++)
+	for (int ci = 0; ci <= IDX_COL_MAX; ci++)
 	{
 		updateColDef(ci, false);
 	}
@@ -705,11 +714,11 @@ LRESULT WindowsDlg::updateColDef(const int colIndex, const bool isRefresh)
 	generic_string columnText;
 	switch (colIndex)
 	{
-	case IDX_COLNAME:		columnText = pNativeSpeaker->getAttrNameStr(TEXT("Name"), WD_ROOTNODE, WD_CLMNNAME);		break;
-	case IDX_COLPATH:		columnText = pNativeSpeaker->getAttrNameStr(TEXT("Path"), WD_ROOTNODE, WD_CLMNPATH);		break;
-	case IDX_COLTYPE:		columnText = pNativeSpeaker->getAttrNameStr(TEXT("Type"), WD_ROOTNODE, WD_CLMNTYPE);		break;
-	case IDX_COLSIZE:		columnText = pNativeSpeaker->getAttrNameStr(TEXT("Size"), WD_ROOTNODE, WD_CLMNSIZE);		break;
-	default:		columnText = TEXT("Unsupported");		break;
+	case IDX_COLNAME: columnText = pNativeSpeaker->getAttrNameStr(TEXT("Name"), WD_ROOTNODE, WD_CLMNNAME); break;
+	case IDX_COLPATH: columnText = pNativeSpeaker->getAttrNameStr(TEXT("Path"), WD_ROOTNODE, WD_CLMNPATH); break;
+	case IDX_COLTYPE: columnText = pNativeSpeaker->getAttrNameStr(TEXT("Type"), WD_ROOTNODE, WD_CLMNTYPE); break;
+	case IDX_COLSIZE: columnText = pNativeSpeaker->getAttrNameStr(TEXT("Size"), WD_ROOTNODE, WD_CLMNSIZE); break;
+	default:          columnText = TEXT("Unsupported");  break;
 	}
 		
 	// U+0231B  HOURGLASS; U+023F3  HOURGLASS WITH FLOWING SAND; U+029D6  WHITE HOURGLASS; U+029D7  BLACK HOURGLASS
@@ -739,7 +748,7 @@ LRESULT WindowsDlg::updateColDef(const int colIndex, const bool isRefresh)
 
 void WindowsDlg::updateColumnNames()
 {
-	for (int ci = 0; ci < 4; ci++)
+	for (int ci = 0; ci <= IDX_COL_MAX; ci++)
 	{
 		updateColDef(ci, true);
 	}
@@ -748,6 +757,7 @@ void WindowsDlg::updateColumnNames()
 void WindowsDlg::onSize(UINT nType, int cx, int cy)
 {
 	MyBaseClass::onSize(nType, cx, cy);
+	getClientRect(_rc); // this should rather be done base-class, but isn't...
 	fitColumnsToSize();
 }
 
@@ -803,9 +813,9 @@ void WindowsDlg::doRefresh(bool invalidate /*= false*/)
 			LPARAM lp = invalidate ? LVSICF_NOSCROLL|LVSICF_NOINVALIDATEALL : LVSICF_NOSCROLL;
 			::SendMessage(_hList, LVM_SETITEMCOUNT, count, lp);
 			
-			RECT rc;
-			getClientRect(rc);  // do not use _rc, this might be out of date (after resize).
-			::InvalidateRect(_hList, &rc, FALSE);
+			//! RECT rc;
+			//! getClientRect(rc);  // do not use _rc, this might be out of date (after resize).
+			::InvalidateRect(_hList, &_rc, FALSE);
 
 			resetSelection();
 			updateButtonState();

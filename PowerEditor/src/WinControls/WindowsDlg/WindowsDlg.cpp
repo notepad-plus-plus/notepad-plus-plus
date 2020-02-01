@@ -28,11 +28,13 @@
 
 #include <functional>
 #include <algorithm>
+#include <unordered_map>
 #include "WindowsDlg.h"
 #include "WindowsDlgRc.h"
 #include "DocTabView.h"
 #include "EncodingMapper.h"
 #include "localization.h"
+// #include "shlwapi.h"
 
 using namespace std;
 
@@ -48,6 +50,7 @@ using namespace std;
 #define WD_CLMNNAME					"ColumnName"
 #define WD_CLMNPATH					"ColumnPath"
 #define WD_CLMNTYPE					"ColumnType"
+#define WD_CLMNSIZE					"ColumnSize"
 
 static const TCHAR *readonlyString = TEXT(" [Read Only]");
 const UINT WDN_NOTIFY = RegisterWindowMessage(TEXT("WDN_NOTIFY"));
@@ -77,6 +80,44 @@ inline static BOOL ModifyStyleEx(HWND hWnd, DWORD dwRemove, DWORD dwAdd) {
 	::SetWindowLongPtr(hWnd, GWL_EXSTYLE, dwNewStyle);
 	return TRUE;
 }
+
+
+static int prettyPrintSize(const long lsize, TCHAR* const buf, const size_t bufsize)
+{
+	// LOCALIZATION IS MISSING!
+	// Why is std::locale::global(std::locale("")); not set?
+	
+	static int maxMag = 6;
+	static const TCHAR* sizeSuffixes[] = { TEXT("  "), TEXT("K"), TEXT("M"), TEXT("G"), TEXT("T"), TEXT("P"), TEXT("E")};
+
+	float size = (float) lsize;
+	int mag = 0;
+
+	float nxt;
+	while ((nxt = size / 1000) > 0.99999f && mag < maxMag)
+	{
+		mag++;
+		size = nxt;
+	}
+	if (mag == 0)
+	{
+		return generic_sprintf(buf, bufsize, TEXT("%d %s"), lsize, sizeSuffixes[mag]);
+	}
+	else if (size >= 100)
+	{ 
+		return generic_sprintf(buf, bufsize, TEXT("%.0f %s"), size, sizeSuffixes[mag]);
+	}
+	else if (size >= 10)
+	{
+		return generic_sprintf(buf, bufsize, TEXT("%.1f %s"), size, sizeSuffixes[mag]);
+	}
+	else
+	{
+		return generic_sprintf(buf, bufsize, TEXT("%.2f %s"), size, sizeSuffixes[mag]);
+	}
+
+}
+
 
 
 struct NumericStringEquivalence
@@ -143,9 +184,11 @@ struct BufferEquivalent
 	DocTabView *_pTab;
 	int _iColumn;
 	bool _reverse;
-	BufferEquivalent(DocTabView *pTab, int iColumn, bool reverse)
-		: _pTab(pTab), _iColumn(iColumn), _reverse(reverse)
-	{}
+	std::function<int(BufferID)> _sortValueLookup;
+
+	BufferEquivalent(DocTabView* pTab, int iColumn, bool reverse, std::function<int(BufferID)> sortValueLookup)
+		: _pTab(pTab), _iColumn(iColumn), _reverse(reverse), _sortValueLookup(sortValueLookup)
+	{ }
 
 	bool operator()(int i1, int i2) const
 	{
@@ -156,14 +199,14 @@ struct BufferEquivalent
 
 	bool compare(int i1, int i2) const
 	{
-		if (_iColumn >= 0 && _iColumn <= 2)
+		if (_iColumn >= -1 && _iColumn <= IDX_COL_MAX)
 		{
 			BufferID bid1 = _pTab->getBufferByIndex(i1);
 			BufferID bid2 = _pTab->getBufferByIndex(i2);
 			Buffer * b1 = MainFileManager.getBufferByID(bid1);
 			Buffer * b2 = MainFileManager.getBufferByID(bid2);
 			
-			if (_iColumn == 0)
+			if (_iColumn == IDX_COLNAME)
 			{
 				const TCHAR *s1 = b1->getFileName();
 				const TCHAR *s2 = b2->getFileName();
@@ -172,7 +215,7 @@ struct BufferEquivalent
 				if (result != 0) // default to filepath sorting when equivalent
 					return result < 0;
 			}
-			else if (_iColumn == 2)
+			else if (_iColumn == IDX_COLTYPE)
 			{
 				auto t1 = b1->getLangType();
 				auto t2 = b2->getLangType();
@@ -180,7 +223,18 @@ struct BufferEquivalent
 				if (t1 != t2) // default to filepath sorting when equivalent
 					return (t1 < t2);
 			}
-			
+			else if (_iColumn == IDX_COLSIZE)
+			{
+				// we will fall through and do nothing, sorting (special comparer is used, see below)
+			}
+			else if (_iColumn == -1 && _sortValueLookup != NULL) // will use _sortValueLookup
+			{
+				auto t1 = _sortValueLookup(bid1);
+				auto t2 = _sortValueLookup(bid2);
+				if (t1 != t2) // default to filepath sorting when equivalent
+					return (t1 < t2);
+			}
+
 			 // _iColumn == 1
 			const TCHAR *s1 = b1->getFullPathName();
 			const TCHAR *s2 = b2->getFullPathName();
@@ -277,11 +331,10 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 				case IDC_WINDOWS_SORT:
 				{
 					// they never set a column to sort by, so assume they wanted filename
-					if (_currentColumn == -1)
+					if (_currentSortColumn == -1)
 					{
-						_currentColumn = 0;
+						_currentSortColumn = IDX_COLNAME;
 						_reverseSort = false;
-						_lastSort = _currentColumn;
 						
 						updateColumnNames();
 						doColumnSort();
@@ -301,6 +354,48 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 		{
 			//destroy();
 			return TRUE;
+		}
+
+		case WM_TIMER:
+		{
+			if (wParam == TE_UPDATEADDITIONALDOCDATA) // load docLength for display (one at a time)
+			{
+				int useIdx = _docSizesUpdateHint;  // useIdx as hint (current index)
+
+				size_t cnt = _idxMap.size();
+				size_t done = 0;
+
+				while (done < cnt)
+				{
+					done++;
+					useIdx %= cnt;
+					BufferID bufId = _pTab->getBufferByIndex(_idxMap[useIdx]);
+					auto kvSize = _docSizes.find(bufId);
+					if (kvSize == _docSizes.end())
+					{
+						auto buffer = MainFileManager.getBufferByID(bufId);
+						auto size = MainFileManager.docLength(buffer);
+						_docSizes[bufId] = size;
+						ListView_RedrawItems(_hList, useIdx, useIdx);
+						break;
+					}
+					useIdx++;
+				}
+
+				if (done < cnt) // if not all done (verified), trigger next round.
+				{
+					_docSizesUpdateHint = useIdx + 1;
+					SetTimer(_hSelf, TE_UPDATEADDITIONALDOCDATA, 1, NULL);
+				}
+				else // lookup is done.
+				{
+					_docSizesUpdateHint = 0;
+					_docSizesDataReady = true;
+					updateColumnNames();
+				}
+
+				return TRUE;
+			}
 		}
 
 		case WM_NOTIFY :
@@ -323,11 +418,11 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 						//const Buffer& buffer = _pView->getBufferAt(index);
 						BufferID bufID = _pTab->getBufferByIndex(index);
 						Buffer * buf = MainFileManager.getBufferByID(bufID);
-						if (pLvdi->item.iSubItem == 0) // file name
+						if (pLvdi->item.iSubItem == IDX_COLNAME) // file name
 						{
 							int len = pLvdi->item.cchTextMax;
 							const TCHAR *fileName = buf->getFileName();
-							generic_strncpy(pLvdi->item.pszText, fileName, len-1);
+							generic_strncpy(pLvdi->item.pszText, fileName, ((size_t)len)-1);
 							pLvdi->item.pszText[len-1] = 0;
 							len = lstrlen(pLvdi->item.pszText);
 							if (buf->isDirty())
@@ -345,7 +440,7 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 									wcscat_s(pLvdi->item.pszText, pLvdi->item.cchTextMax, readonlyString);
 							}
 						}
-						else if (pLvdi->item.iSubItem == 1) // directory
+						else if (pLvdi->item.iSubItem == IDX_COLPATH) // directory
 						{
 							const TCHAR *fullName = buf->getFullPathName();
 							const TCHAR *fileName = buf->getFileName();
@@ -356,17 +451,34 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 							}
 							if (pLvdi->item.cchTextMax < len)
 								len = pLvdi->item.cchTextMax;
-							generic_strncpy(pLvdi->item.pszText, fullName, len-1);
+							generic_strncpy(pLvdi->item.pszText, fullName, ((size_t)len)-1);
 							pLvdi->item.pszText[len-1] = 0;
 						}
-						else if (pLvdi->item.iSubItem == 2) // Type
+						else if (pLvdi->item.iSubItem == IDX_COLTYPE) // Type
 						{
 							int len = pLvdi->item.cchTextMax;
 							NppParameters& nppParameters = NppParameters::getInstance();
 							Lang *lang = nppParameters.getLangFromID(buf->getLangType());
 							if (NULL != lang)
 							{
-								generic_strncpy(pLvdi->item.pszText, lang->getLangName(), len-1);
+								generic_strncpy(pLvdi->item.pszText, lang->getLangName(), ((size_t)len)-1);
+							}
+						}
+						else if (pLvdi->item.iSubItem == IDX_COLSIZE) // DocSize
+						{
+							int len = pLvdi->item.cchTextMax;
+							auto kvSize = _docSizes.find(bufID);
+							if (kvSize != _docSizes.end())
+							{
+								// from shlwapi, appends "bytes", which is misleading: StrFormatByteSize(kvSize->second, pLvdi->item.pszText, len);
+								prettyPrintSize(kvSize->second, pLvdi->item.pszText, len);
+							}
+							else
+							{
+								const TCHAR* sizeNotReadyText = TEXT("...");
+								auto len = lstrlen(sizeNotReadyText);
+								generic_strncpy(pLvdi->item.pszText, sizeNotReadyText, len);
+								pLvdi->item.pszText[len] = 0;
 							}
 						}
 					}
@@ -377,21 +489,20 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 					NMLISTVIEW *pNMLV = (NMLISTVIEW *)pNMHDR;
 					if (pNMLV->iItem == -1)
 					{
-						_currentColumn = pNMLV->iSubItem;
+						auto lastSort = _currentSortColumn;
+						_currentSortColumn = pNMLV->iSubItem;
 						
-						if (_lastSort == _currentColumn)
+						if (lastSort == _currentSortColumn)
 						{
-							_reverseSort = true;
-							_lastSort = -1;
+							_reverseSort = !_reverseSort;
 						}
 						else
 						{
 							_reverseSort = false;
-							_lastSort = _currentColumn;
 						}
-						
-						updateColumnNames();
+
 						doColumnSort();
+						updateColumnNames();
 					}
 					return TRUE;
 				}
@@ -426,10 +537,14 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 	return MyBaseClass::run_dlgProc(message, wParam, lParam);
 }
 
+
 void WindowsDlg::doColumnSort()
 {
-	if (_currentColumn == -1)
+	if (_currentSortColumn == -1 || !isColumnDataReady(_currentSortColumn))
+	{
+		_currentSortColumn = -1;
 		return;
+	}
 	
 	size_t i;
 	size_t n = _idxMap.size();
@@ -438,11 +553,27 @@ void WindowsDlg::doColumnSort()
 	for (i = 0; i < n; ++i)
 		sortMap[_idxMap[i]] = ListView_GetItemState(_hList, i, LVIS_SELECTED);
 
-	stable_sort(_idxMap.begin(), _idxMap.end(), BufferEquivalent(_pTab, _currentColumn, _reverseSort));
+	if (_currentSortColumn == IDX_COLSIZE)  // special sorting (via lambda)
+	{
+		auto docSizesMap = _docSizes;
+
+		stable_sort(_idxMap.begin(), _idxMap.end(), BufferEquivalent(_pTab, -1, _reverseSort,
+				[docSizesMap] (BufferID bufId) {
+					auto kvSize = docSizesMap.find(bufId);
+					return (int) ((kvSize == docSizesMap.end()) ? -1 : kvSize->second);
+				}
+			));
+	}
+	else // default sorting (handled BufferEquivalent)
+	{
+		stable_sort(_idxMap.begin(), _idxMap.end(), BufferEquivalent(_pTab, _currentSortColumn, _reverseSort, NULL));
+	}
+
 	for (i = 0; i < n; ++i)
 		ListView_SetItemState(_hList, i, sortMap[_idxMap[i]] ? LVIS_SELECTED : 0, LVIS_SELECTED);
 
-	::InvalidateRect(_hList, &_rc, FALSE);
+	ListView_RedrawItems(_hList, 0, _idxMap.size() - 1);
+
 	updateButtonState();
 }
 
@@ -480,8 +611,7 @@ BOOL WindowsDlg::onInitDialog()
 	// save min size for OK/Cancel buttons
 	_szMinButton = RectToSize(_winMgr.GetRect(IDOK));
 	_szMinListCtrl = RectToSize(_winMgr.GetRect(IDC_WINDOWS_LIST));
-	_currentColumn = -1;
-	_lastSort = -1;
+	_currentSortColumn = -1;
 	_reverseSort = false;
 
 	_winMgr.CalcLayout(_hSelf);
@@ -493,33 +623,10 @@ BOOL WindowsDlg::onInitDialog()
 	exStyle |= LVS_EX_HEADERDRAGDROP|LVS_EX_FULLROWSELECT|LVS_EX_DOUBLEBUFFER;
 	ListView_SetExtendedListViewStyle(_hList, exStyle);
 
-	RECT rc;
-	GetClientRect(_hList, &rc);
-	LONG width = rc.right - rc.left;
-
-	LVCOLUMN lvColumn;
-	memset(&lvColumn, 0, sizeof(lvColumn));
-	lvColumn.mask = LVCF_WIDTH | LVCF_TEXT | LVCF_SUBITEM | LVCF_FMT;
-	lvColumn.fmt = LVCFMT_LEFT;
-	
-	generic_string columnText;
-	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-
-	columnText = TEXT("\u21F5 ") + pNativeSpeaker->getAttrNameStr(TEXT("Name"), WD_ROOTNODE, WD_CLMNNAME);
-	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
-	lvColumn.cx = width / 4;
-	SendMessage(_hList, LVM_INSERTCOLUMN, 0, LPARAM(&lvColumn));
-
-	columnText = TEXT("\u21F5 ") + pNativeSpeaker->getAttrNameStr(TEXT("Path"), WD_ROOTNODE, WD_CLMNPATH);
-	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
-	lvColumn.cx = 300;
-	SendMessage(_hList, LVM_INSERTCOLUMN, 1, LPARAM(&lvColumn));
-
-	lvColumn.fmt = LVCFMT_CENTER;
-	columnText = TEXT("\u21F5 ") + pNativeSpeaker->getAttrNameStr(TEXT("Type"), WD_ROOTNODE, WD_CLMNTYPE);
-	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
-	lvColumn.cx = 50;
-	SendMessage(_hList, LVM_INSERTCOLUMN, 2, LPARAM(&lvColumn));
+	for (int ci = 0; ci < 4; ci++)
+	{
+		updateColDef(ci, false);
+	}
 
 	fitColumnsToSize();
 
@@ -533,71 +640,109 @@ BOOL WindowsDlg::onInitDialog()
 		goToCenter();
 	}
 
+	getClientRect(_rc); // necessary after setting _lastKnownLocation
+
 	doRefresh(true);
+	
+	// Will trigger loading of docLength
+	SetTimer(_hSelf, TE_UPDATEADDITIONALDOCDATA, 1, NULL);
+
 	return TRUE;
+}
+
+
+bool WindowsDlg::isColumnDataReady(int colIndex)
+{
+	switch (colIndex)
+	{
+	case IDX_COLNAME:
+	case IDX_COLPATH:
+	case IDX_COLTYPE: return true;
+	case IDX_COLSIZE: return _docSizesDataReady;
+	default: return false; // we default to false so invalid column index will never trigger a sort
+	}
+}
+
+LRESULT WindowsDlg::updateColDef(const int colIndex, const bool isRefresh)
+{
+	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+
+	LVCOLUMN lvColumn;
+	memset(&lvColumn, 0, sizeof(lvColumn));
+
+	if (isRefresh) // get current info...
+	{
+		lvColumn.mask = LVCF_WIDTH | LVCF_SUBITEM | LVCF_FMT;
+		ListView_GetColumn(_hList, colIndex, &lvColumn);
+	}
+	else // set init defaults
+	{
+		RECT rc;
+		GetClientRect(_hList, &rc);
+		LONG width = rc.right - rc.left;
+
+		lvColumn.fmt = LVCFMT_LEFT;
+
+		switch (colIndex)
+		{
+		case IDX_COLNAME:
+			lvColumn.cx = width / 4;
+			break;
+		case IDX_COLPATH:
+			lvColumn.cx = 240;
+			break;
+		case IDX_COLTYPE:
+			lvColumn.fmt = LVCFMT_CENTER;
+			lvColumn.cx = 50;
+			break;
+		case IDX_COLSIZE:
+			lvColumn.fmt = LVCFMT_RIGHT;
+			lvColumn.cx = 60;
+			break;
+		}
+	}
+
+	generic_string columnText;
+	switch (colIndex)
+	{
+	case IDX_COLNAME:		columnText = pNativeSpeaker->getAttrNameStr(TEXT("Name"), WD_ROOTNODE, WD_CLMNNAME);		break;
+	case IDX_COLPATH:		columnText = pNativeSpeaker->getAttrNameStr(TEXT("Path"), WD_ROOTNODE, WD_CLMNPATH);		break;
+	case IDX_COLTYPE:		columnText = pNativeSpeaker->getAttrNameStr(TEXT("Type"), WD_ROOTNODE, WD_CLMNTYPE);		break;
+	case IDX_COLSIZE:		columnText = pNativeSpeaker->getAttrNameStr(TEXT("Size"), WD_ROOTNODE, WD_CLMNSIZE);		break;
+	default:		columnText = TEXT("Unsupported");		break;
+	}
+		
+	// U+0231B  HOURGLASS; U+023F3  HOURGLASS WITH FLOWING SAND; U+029D6  WHITE HOURGLASS; U+029D7  BLACK HOURGLASS
+	if (!isColumnDataReady(colIndex)) // to be used and checked in sort()
+		columnText = TEXT("\u231B ") + columnText; // Hourglass
+	else if (_currentSortColumn != colIndex)
+		columnText = TEXT("\u21F5 ") + columnText; // Up/Down-Arrow (alt: U+21C5)
+	else if (_reverseSort)
+		columnText = TEXT("\u25BD ") + columnText; // White Down-Triangle (alt: U+2193 Down-Arrow)
+	else
+		columnText = TEXT("\u25B3 ") + columnText; // White Up-Triangle (alt: U+2191 Up-Arrow)
+
+	lvColumn.pszText = const_cast<TCHAR*>(columnText.c_str());
+
+	// We update all props. Technically it's possible to only update LVCF_TEXT on refresh, but hey, let's be thorough.
+	lvColumn.mask = LVCF_WIDTH | LVCF_TEXT | LVCF_SUBITEM | LVCF_FMT;
+	if (isRefresh)
+	{
+		return ListView_SetColumn(_hList, colIndex, &lvColumn);
+	}
+	else
+	{
+		return ListView_InsertColumn(_hList, colIndex, &lvColumn);
+	}
+
 }
 
 void WindowsDlg::updateColumnNames()
 {
-	LVCOLUMN lvColumn;
-	memset(&lvColumn, 0, sizeof(lvColumn));
-	lvColumn.mask = LVCF_WIDTH | LVCF_TEXT | LVCF_SUBITEM | LVCF_FMT;
-	lvColumn.fmt = LVCFMT_LEFT;
-
-	generic_string columnText;
-	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-	
-	columnText = pNativeSpeaker->getAttrNameStr(TEXT("Name"), WD_ROOTNODE, WD_CLMNNAME);
-	if (_currentColumn != 0)
+	for (int ci = 0; ci < 4; ci++)
 	{
-		columnText = TEXT("\u21F5 ") + columnText;
+		updateColDef(ci, true);
 	}
-	else if (_reverseSort)
-	{
-		columnText = TEXT("\u25B3 ") + columnText;
-	}
-	else
-	{
-		columnText = TEXT("\u25BD ") + columnText;
-	}
-	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
-	lvColumn.cx = static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 0, 0));
-	SendMessage(_hList, LVM_SETCOLUMN, 0, LPARAM(&lvColumn));
-
-	columnText = pNativeSpeaker->getAttrNameStr(TEXT("Path"), WD_ROOTNODE, WD_CLMNPATH);
-	if (_currentColumn != 1)
-	{
-		columnText = TEXT("\u21F5 ") + columnText;
-	}
-	else if (_reverseSort)
-	{
-		columnText = TEXT("\u25B3 ") + columnText;
-	}
-	else
-	{
-		columnText = TEXT("\u25BD ") + columnText;
-	}
-	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
-	lvColumn.cx = static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 1, 0));
-	SendMessage(_hList, LVM_SETCOLUMN, 1, LPARAM(&lvColumn));
-
-	lvColumn.fmt = LVCFMT_CENTER;
-	columnText = pNativeSpeaker->getAttrNameStr(TEXT("Type"), WD_ROOTNODE, WD_CLMNTYPE);
-	if (_currentColumn != 2)
-	{
-		columnText = TEXT("\u21F5 ") + columnText;
-	}
-	else if (_reverseSort)
-	{
-		columnText = TEXT("\u25B3 ") + columnText;
-	}
-	else
-	{
-		columnText = TEXT("\u25BD ") + columnText;
-	}
-	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
-	lvColumn.cx = static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 2, 0));
-	SendMessage(_hList, LVM_SETCOLUMN, 2, LPARAM(&lvColumn));
 }
 
 void WindowsDlg::onSize(UINT nType, int cx, int cy)
@@ -657,7 +802,10 @@ void WindowsDlg::doRefresh(bool invalidate /*= false*/)
 			}
 			LPARAM lp = invalidate ? LVSICF_NOSCROLL|LVSICF_NOINVALIDATEALL : LVSICF_NOSCROLL;
 			::SendMessage(_hList, LVM_SETITEMCOUNT, count, lp);
-			::InvalidateRect(_hList, &_rc, FALSE);
+			
+			RECT rc;
+			getClientRect(rc);  // do not use _rc, this might be out of date (after resize).
+			::InvalidateRect(_hList, &rc, FALSE);
 
 			resetSelection();
 			updateButtonState();
@@ -672,8 +820,11 @@ void WindowsDlg::fitColumnsToSize()
 	if (GetClientRect(_hList, &rc))
 	{
 		int len = (rc.right - rc.left);
-		len -= static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 0, 0));
-		len -= static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 2, 0));
+		for (int i = 0; i <= IDX_COL_MAX; i++)
+		{
+			if (i != IDX_COLPATH)
+				len -= static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, i, 0));
+		}
 		len -= GetSystemMetrics(SM_CXVSCROLL);
 		len -= 1;
 		SendMessage(_hList, LVM_SETCOLUMNWIDTH, 1, len);
@@ -710,12 +861,16 @@ void WindowsDlg::doSave()
 	{
 		i = ListView_GetNextItem(_hList, i, LVNI_SELECTED);
 		if (i == -1) break;
-		nmdlg.Items[j] = _idxMap[i];
+		nmdlg.Items[j] = (UINT)_idxMap[i];
 	}
 	SendMessage(_hParent, WDN_NOTIFY, 0, LPARAM(&nmdlg));
 	delete[] nmdlg.Items;
-	::InvalidateRect(_hList, &_rc, FALSE);
-	ListView_RedrawItems(_hList, 0, ListView_GetSelectedCount(_hList));
+
+	int ri = -1;
+	while ((ri = ListView_GetNextItem(_hList, ri, LVNI_SELECTED)) != -1)
+	{
+		ListView_RedrawItems(_hList, ri, ri);
+	}
 }
 
 void WindowsDlg::destroy()
@@ -762,7 +917,7 @@ void WindowsDlg::doClose()
 		i = ListView_GetNextItem(_hList, i, LVNI_SELECTED);
 		if (i == -1) break;
 		ListView_SetItemState(_hList, i, 0, LVIS_SELECTED); // deselect
-		nmdlg.Items[j] = _idxMap[i];
+		nmdlg.Items[j] = (UINT)_idxMap[i];
 		key[j] = i;
 	}
 	SendMessage(_hParent, WDN_NOTIFY, 0, LPARAM(&nmdlg));
@@ -796,9 +951,10 @@ void WindowsDlg::doClose()
 		if (index >= 0)
 		{
 			ListView_SetItemState(_hList, index, LVIS_SELECTED, LVIS_SELECTED);
-			ListView_RedrawItems(_hList, 0, _idxMap.size() - 1);
 		}
+
 		ListView_SetItemCount(_hList, _idxMap.size());
+		ListView_RedrawItems(_hList, 0, _idxMap.size() - 1);
 	}
 }
 
@@ -822,7 +978,7 @@ void WindowsDlg::doSortToTabs()
 		i = ListView_GetNextItem(_hList, i, LVNI_ALL);
 		if (i == -1)
 			break;
-		nmdlg.Items[j] = _idxMap[i];
+		nmdlg.Items[j] = (UINT)_idxMap[i];
 		if (i == curSel)
 			nmdlg.curSel = j;
 	}

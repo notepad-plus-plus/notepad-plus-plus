@@ -28,6 +28,8 @@
 
 #pragma once
 
+#include <unordered_map>
+#include <Buffer.h>
 #include "SizeableDlg.h"
 #include "Common.h"
 
@@ -39,6 +41,18 @@ typedef enum {
 	WDT_CLOSE = 3,
 	WDT_SORT = 4,
 } WinDlgNotifyType;
+
+typedef enum {
+	TE_UPDATEADDITIONALDOCDATA = 0x1001,
+} WinDlgTimerEventsType;
+
+typedef enum {
+	IDX_COLNAME = 0,
+	IDX_COLPATH = 1,
+	IDX_COLTYPE = 2,
+	IDX_COLSIZE = 3,
+	IDX_COL_MAX = 3,
+} WinListColumnIdxType;
 
 
 struct NMWINDLG : public NMHDR {
@@ -75,6 +89,8 @@ protected :
 	virtual LRESULT onWinMgr(WPARAM wp, LPARAM lp);
 	virtual void destroy();
 	void updateColumnNames();
+	LRESULT updateColDef(const int colIndex, const bool isRefresh);
+	bool isColumnDataReady(const int colIndex);
 	void fitColumnsToSize();
 	void resetSelection();
 	void doSave();
@@ -90,9 +106,12 @@ protected :
 	SIZE _szMinListCtrl;
 	DocTabView *_pTab = nullptr;
 	std::vector<int> _idxMap;
-	int _currentColumn = -1;
-	int _lastSort = -1;
+	int _currentSortColumn = -1;
 	bool _reverseSort = false;
+	
+	std::unordered_map<BufferID, int> _docSizes;
+	int _docSizesUpdateHint = 0;
+	bool _docSizesDataReady = false;
 
 private:
 	virtual void init(HINSTANCE hInst, HWND parent);	

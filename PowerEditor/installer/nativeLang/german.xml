@@ -1086,6 +1086,7 @@
 			<ColumnName name="Name"/>
 			<ColumnPath name="Pfad"/>
 			<ColumnType name="Typ"/>
+			<ColumnSize name="Größe"/>
 		</WindowsDlg>
 		<AsciiInsertion>
 			<PanelTitle name="ASCII Zeichentabelle"/>

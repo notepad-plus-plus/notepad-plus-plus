@@ -9,7 +9,9 @@ What is Notepad++ ?
 Notepad++ is a free (free as in both "free speech" and "free beer") source code
 editor and Notepad replacement that supports several programming languages and
 natural languages. Running in the MS Windows environment, its use is governed by
-GPL License.
+[GPL License](LICENSE).
+
+See the [Notepad++ official site](https://notepad-plus-plus.org/) for more information.
 
 Notepad++ Release Key
 ---------------------
@@ -92,6 +94,11 @@ To build SciLexer.dll without PCRE support (for both 32-bit & 64-bit):
       (where `notepad++.exe` is) is `PowerEditor\visual.net\Unicode Debug\`.
 
 
-See the [Notepad++ official site](https://notepad-plus-plus.org/) for more information.
+Contribution
+------------
+
+Code contribution is welcome. Here are some [rules](CONTRIBUTING.md) that your should follow to make your contribution accepted easily. 
 
 [Notepad++ Contributors](https://github.com/notepad-plus-plus/notepad-plus-plus/graphs/contributors)
+
+

@@ -1884,7 +1884,7 @@ int FindReplaceDlg::processAll(ProcessOperation op, const FindOption *opt, bool 
 		startPosition = cr.cpMin;
 		endPosition = cr.cpMax;
 	}
-	else if (pOptions->_isWrapAround || isEntire || op == ProcessCountAll)	//entire document needs to be scanned
+	else if (pOptions->_isWrapAround || isEntire)	//entire document needs to be scanned
 	{
 		startPosition = 0;
 		endPosition = docLength;

@@ -1,0 +1,1242 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Valencian translation for Notepad++
+Updated 06.02.2020, v7.8.3
+By DavidCB
+-->
+<NotepadPlus>
+	<Native-Langue name="Valencià" filename="catalan-valencian.xml" version="7.8.3">
+		<Menu>
+			<Main>
+				<Entries>
+					<Item menuId="file" name="&amp;Fitxer"/>
+					<Item menuId="edit" name="&amp;Edita"/>
+					<Item menuId="search" name="&amp;Cerca"/>
+					<Item menuId="view" name="&amp;Visualitza"/>
+					<Item menuId="encoding" name="Co&amp;dificació"/>
+					<Item menuId="language" name="&amp;Llenguatge"/>
+					<Item menuId="settings" name="Co&amp;nfiguració"/>
+					<Item menuId="tools" name="E&amp;ines"/>
+					<Item menuId="macro" name="&amp;Macro"/>
+					<Item menuId="run" name="E&amp;xecuta"/>
+					<Item idName="Plugins" name="C&amp;omplements"/>
+					<Item idName="Window" name="Fine&amp;stres"/>
+				</Entries>
+				<SubEntries>
+					<Item subMenuId="file-openFolder" name="Obri la carpeta contenidora"/>
+					<Item subMenuId="file-closeMore" name = "&amp;Més tancaments"/>
+					<Item subMenuId="file-recentFiles" name="&amp;Fitxers recents"/>
+					<Item subMenuId="edit-copyToClipboard" name="Copia al porta&amp;-retalls"/>
+					<Item subMenuId="edit-indent" name="Tab&amp;ulació"/>
+					<Item subMenuId="edit-convertCaseTo" name="Ma&amp;júscules/minúscules"/>
+					<Item subMenuId="edit-lineOperations" name="Operacions amb &amp;línies"/>
+					<Item subMenuId="edit-comment" name="Símbols de come&amp;ntaris"/>
+					<Item subMenuId="edit-autoCompletion" name="Emplenament automàtic"/>
+					<Item subMenuId="edit-eolConversion" name="Conversió dels salts de línia"/>
+					<Item subMenuId="edit-blankOperations" name="Operacions amb espais en blanc"/>
+					<Item subMenuId="edit-pasteSpecial" name="Enganxament especial"/>
+					<Item subMenuId="edit-onSelection" name="Operacions amb selecció"/>
+					<Item subMenuId="search-markAll" name="Marca-ho tot"/>
+					<Item subMenuId="search-unmarkAll" name="Desmarca-ho tot"/>
+					<Item subMenuId="search-jumpUp" name="Cerca marca anterior"/>
+					<Item subMenuId="search-jumpDown" name="Cerca marca següent"/>
+					<Item subMenuId="search-bookmark" name="Operacions amb marques de línia"/>
+					<Item subMenuId="view-currentFileIn" name="Mostra el fitxer actual a"/>
+					<Item subMenuId="view-showSymbol" name="Mostra símbol"/>
+					<Item subMenuId="view-zoom" name="&amp;Zoom"/>
+					<Item subMenuId="view-moveCloneDocument" name="Desplaça/clona el document actual"/>
+					<Item subMenuId="view-tab" name = "Pestanyes"/>
+					<Item subMenuId="view-collapseLevel" name="Redueix el nivell..."/>
+					<Item subMenuId="view-uncollapseLevel" name="Amplia el nivell..."/>
+					<Item subMenuId="view-project" name="Projectes"/>
+					<Item subMenuId="encoding-characterSets" name="Codificació de caràcters"/>
+					<Item subMenuId="encoding-arabic" name="Àrab"/>
+					<Item subMenuId="encoding-baltic" name="Bàltic"/>
+					<Item subMenuId="encoding-celtic" name="Cèltic"/>
+					<Item subMenuId="encoding-cyrillic" name="Ciríl·lic"/>
+					<Item subMenuId="encoding-centralEuropean" name="Centreeuropeu"/>
+					<Item subMenuId="encoding-chinese" name="Xinés"/>
+					<Item subMenuId="encoding-easternEuropean" name="Europeu oriental"/>
+					<Item subMenuId="encoding-greek" name="Grec"/>
+					<Item subMenuId="encoding-hebrew" name="Hebreu"/>
+					<Item subMenuId="encoding-japanese" name="Japonés"/>
+					<Item subMenuId="encoding-korean" name="Coreà"/>
+					<Item subMenuId="encoding-northEuropean" name="Europeu del nord"/>
+					<Item subMenuId="encoding-thai" name="Tailandés"/>
+					<Item subMenuId="encoding-turkish" name="Turc"/>
+					<Item subMenuId="encoding-westernEuropean" name="Europeu occidental"/>
+					<Item subMenuId="encoding-vietnamese" name="Vietnamita"/>
+					<Item subMenuId="language-userDefinedLanguage" name="Idioma definit per l'usuari"/>
+					<Item subMenuId="settings-import" name="Importa"/>
+					<Item subMenuId="tools-md5" name="MD5"/>
+					<Item subMenuId="tools-sha256" name="SHA-256"/>
+				</SubEntries>
+				<Commands>
+					<Item id="41001" name="&amp;Nou"/>
+					<Item id="41002" name="&amp;Obri..."/>
+					<Item id="41019" name="Explorador de Windows"/>
+					<Item id="41020" name="Indicador d'ordres"/>
+					<Item id="41003" name="&amp;Tanca"/>
+					<Item id="41004" name="Tanca'&amp;ls tots"/>
+					<Item id="41005" name="Tanca'ls tots &amp;menys l'actiu"/>
+					<Item id="41009" name="Tanca tots els de l'&amp;esquerra"/>
+					<Item id="41018" name="Tanca tots els de la &amp;dreta"/>
+					<Item id="41024" name="Tanca tots els no canviats"/>
+					<Item id="41006" name="&amp;Guarda"/>
+					<Item id="41007" name="G&amp;uarda'ls tots"/>
+					<Item id="41008" name="&amp;Anomena i guarda..."/>
+					<Item id="41010" name="&amp;Imprimeix..."/>
+					<Item id="1001"  name="Im&amp;primeix ara!"/>
+					<Item id="41011" name="I&amp;x"/>					
+					<Item id="41012" name="Carre&amp;ga Sessió..."/>
+					<Item id="41013" name="Guarda &amp;Sessió..."/>
+					<Item id="41014" name="&amp;Recarrega des del disc"/>
+					<Item id="41015" name="Anomena &amp;còpia i guarda..."/>
+					<Item id="41016" name="Es&amp;borra del disc"/>
+					<Item id="41017" name="Can&amp;via el nom..."/>
+					<Item id="41021" name="Restaura el darrer fitxer tancat"/>										
+					<Item id="41022" name="Obri carpeta de treball"/>
+					<Item id="41023" name="Obri amb el visualitzador per defecte"/>
+					<Item id="42001" name="Re&amp;talla"/>
+					<Item id="42002" name="&amp;Copia"/>
+					<Item id="42003" name="&amp;Desfés"/>
+					<Item id="42004" name="Re&amp;fés"/>
+					<Item id="42005" name="En&amp;ganxa"/>
+					<Item id="42006" name="Es&amp;borra"/>
+					<Item id="42007" name="&amp;Selecciona-ho tot"/>
+					<Item id="42020" name="Comença/acaba la selecció"/>
+					<Item id="42008" name="&amp;Insereix tabulació"/>
+					<Item id="42009" name="&amp;Esborra tabulació"/>
+					<Item id="42010" name="Duplica la línia actual"/>
+					<Item id="42077" name="Esborra línies duplicades consecutives"/>					
+					<Item id="42012" name="&amp;Talla línies"/>
+					<Item id="42013" name="&amp;Uneix línies"/>
+					<Item id="42014" name="Desplaça a&amp;munt aquesta línia"/>
+					<Item id="42015" name="Desplaça a&amp;vall aquesta línia"/>
+					<Item id="42059" name="Ordena línies ascendentment"/>	
+					<Item id="42060" name="Ordena línies descendentment"/>
+					<Item id="42061" name="Ordena línies d'enters ascendentment"/>
+					<Item id="42062" name="Ordena línies d'enters descendentment"/>					
+					<Item id="42063" name="Ordena línies de decimals amb coma ascendentment"/>
+					<Item id="42064" name="Ordena línies de decimals amb coma descendentment"/>					
+					<Item id="42065" name="Ordena línies de decimals amb punt ascendentment"/>
+					<Item id="42066" name="Ordena línies de decimals amb punt descendentment"/>													
+					<Item id="42016" name="Converteix a M&amp;AJÚSCULES"/>
+					<Item id="42017" name="Converteix a m&amp;inúscules"/>
+					<Item id="42067" name="Maj. Inicial Per Paraula"/>
+					<Item id="42068" name="Maj. Inicial Per Paraula (barrejat)"/>
+					<Item id="42069" name="Maj. inicial per frase"/>
+					<Item id="42070" name="Maj. inicial per frase (barrejat)"/>
+					<Item id="42071" name="iNVERTEIX mAJ./mIN."/>
+					<Item id="42072" name="MaJ./mIn. ALeATori"/>
+					<Item id="42073" name="Obri fitxer"/>
+					<Item id="42074" name="Obri carpeta contenidora en l'Explorador"/>
+					<Item id="42075" name="Cerca a Internet"/>
+					<Item id="42076" name="Canvia el motor de cerca…"/>					
+					<Item id="42018" name="&amp;Comença l'enregistrament"/>
+					<Item id="42019" name="&amp;Atura l'enregistrament"/>
+					<Item id="42021" name="&amp;Reprodueix"/>
+					<Item id="42022" name="Commuta símbol de comentari de &amp;línia/es"/>
+					<Item id="42023" name="Bloqueja comentari"/>
+					<Item id="42047" name="Desloqueja comentari"/>
+					<Item id="42024" name="Treu espais de &amp;finals de línia"/>
+					<Item id="42042" name="Treu espais d'&amp;inicis de línia"/>
+					<Item id="42043" name="Treu espais d'inicis i finals de &amp;línia"/>
+					<Item id="42044" name="Converteix salts de línia &amp;a espai"/>
+					<Item id="42045" name="T&amp;reu espais i salts de línia innecessaris"/>
+					<Item id="42046" name="Converteix tabulacions a &amp;espais"/>
+					<Item id="42054" name="Converteix espais a &amp;tabulacions (Tots)"/>
+					<Item id="42053" name="Converteix espais a &amp;tabulacions (Inicials de línia)"/>
+					<Item id="42038" name="Enganxa contingut &amp;HTML"/>
+					<Item id="42039" name="Enganxa contingut &amp;RTF"/>
+					<Item id="42048" name="&amp;Copia contingut binari"/>
+					<Item id="42049" name="&amp;Talla contingut binari"/>
+					<Item id="42050" name="&amp;Enganxa contingut binari"/>
+					<Item id="42037" name="Consell del &amp;mode de columna..."/>
+					<Item id="42034" name="&amp;Insereix en columna..."/>
+					<Item id="42051" name="T&amp;auler d'inserció de caràcters"/>
+					<Item id="42052" name="&amp;Historial del porta-retalls"/>
+					<Item id="42025" name="&amp;Guarda la macro actual..."/>
+					<Item id="42026" name="Text de &amp;dreta a esquerra"/>					
+					<Item id="42027" name="Text d'&amp;esquerra a dreta"/>
+					<Item id="42028" name="M&amp;ode de Només-Lectura"/>
+					<Item id="42029" name="Copia la ruta sencera del fitxe&amp;r"/>
+					<Item id="42030" name="Copia el &amp;nom del fitxer"/>
+					<Item id="42031" name="Copia la ruta del &amp;directori on és el fitxer"/>
+					<Item id="42032" name="&amp;Executa una macro diverses vegades..."/>	
+					<Item id="42033" name="T&amp;reu marca de Només-Lectura"/>
+					<Item id="42035" name="&amp;Afegeix símbol de comentari de línia/es"/>	
+					<Item id="42036" name="&amp;Treu símbol de comentari de línia/es"/>																												
+					<Item id="42055" name="&amp;Esborra línies buides"/>
+					<Item id="42056" name="Esborra línies &amp;buides o amb espais en blanc"/>
+					<Item id="42057" name="Afegeix línia en blanc a sobre"/>
+					<Item id="42058" name="Afegeix línia en blanc a sota"/>
+					<Item id="43001" name="&amp;Cerca..."/>
+					<Item id="43002" name="Cerca &amp;següent"/>	
+					<Item id="43003" name="&amp;Reemplaça..."/>
+					<Item id="43004" name="Vés a la línia o &amp;posició..."/>
+					<Item id="43005" name="Commuta marcador"/>	
+					<Item id="43006" name=" Marcador següent"/>
+					<Item id="43007" name="Marcador anterior"/>
+					<Item id="43008" name="Neteja tots els marcadors"/>
+					<Item id="43018" name="&amp;Retalla les línies marcades"/>
+					<Item id="43019" name="&amp;Copia les línies marcades"/>
+					<Item id="43020" name="En&amp;ganxa a les línies marcades (canviar)"/>
+					<Item id="43021" name="Es&amp;borra les línies marcades"/>
+					<Item id="43051" name="Esborra línies sense marcar"/>
+					<Item id="43050" name="Inverteix marcador"/>
+					<Item id="43052" name="Cerca interval de caràcters..."/>
+					<Item id="43053" name="Selecciona el bloc"/>
+					<Item id="43009" name="Vés a l'altre extrem del &amp;bloc"/>
+					<Item id="43010" name="Cerca &amp;anterior"/>	
+					<Item id="43011" name="Cerca &amp;incremental..."/>	
+					<Item id="43013" name="Cerca als fitxers..."/>	
+					<Item id="43014" name="Cerca volàtil següent"/>
+					<Item id="43015" name="Cerca volàtil anterior"/>						
+					<Item id="43022" name="Utilitza 1r. estil"/>
+					<Item id="43023" name="Neteja 1r. estil"/>					
+					<Item id="43024" name="Utilitza 2n. estil"/>
+					<Item id="43025" name="Neteja 2n. estil"/>					
+					<Item id="43026" name="Utilitza 3r. estil"/>
+					<Item id="43027" name="Neteja 3r. estil"/>					
+					<Item id="43028" name="Utilitza 4t. estil"/>
+					<Item id="43029" name="Neteja 4t. estil"/>					
+					<Item id="43030" name="Utilitza 5é. estil"/>
+					<Item id="43031" name="Neteja 5é. estil"/>
+					<Item id="43032" name="Neteja tots els estils"/>
+					<Item id="43033" name="1r. estil"/>
+					<Item id="43034" name="2n. estil"/>
+					<Item id="43035" name="3r. estil"/>
+					<Item id="43036" name="4t. estil"/>
+					<Item id="43037" name="5é. estil"/>
+					<Item id="43038" name="Cerca estil"/>
+					<Item id="43039" name="1r. estil"/>
+					<Item id="43040" name="2n. estil"/>
+					<Item id="43041" name="3r. estil"/>
+					<Item id="43042" name="4t. estil"/>
+					<Item id="43043" name="5é. estil"/>
+					<Item id="43044" name="Cerca estil"/>
+					<Item id="43045" name="Finestra de resultats de cerca"/>
+					<Item id="43046" name="Resultat de cerca següent"/>
+					<Item id="43047" name="Resultat de cerca anterior"/>
+					<Item id="43048" name="Selecciona i cerca següent"/>
+					<Item id="43049" name="Selecciona i cerca anterior"/>
+					<Item id="43054" name="Mar&amp;ca..."/>
+					<Item id="44009" name="Mode fix"/>
+					<Item id="44010" name="Redueix-ho tot"/>					
+					<Item id="44019" name="Mostra tots els caràcters"/>
+					<Item id="44020" name="Mostra la guia del sagnat"/>
+					<Item id="44022" name="Ajusta el text"/>	
+					<Item id="44023" name="&amp;Amplia (Ctrl+Roda del ratolí amunt)"/>
+					<Item id="44024" name="&amp;Redueix (Ctrl+Roda del ratolí avall)"/>
+					<Item id="44025" name="Mostra els &amp;espais en blanc i els tabuladors"/>
+					<Item id="44026" name="Mostra el &amp;salt de línia"/>	
+					<Item id="44029" name="Amplia&amp;-ho tot"/>
+					<Item id="44030" name="Redueix el nivell actual"/>
+					<Item id="44031" name="Amplia el nivell actual"/>
+					<Item id="44049" name="Sumari..."/>
+					<Item id="44080" name="Mapa del document"/>
+					<Item id="44084" name="Llista de funcions"/>	
+					<Item id="44085" name="Carpetes de treball"/>
+					<Item id="44086" name="1a. pestanya"/>
+					<Item id="44087" name="2a. pestanya"/>
+					<Item id="44088" name="3a. pestanya"/>
+					<Item id="44089" name="4a. pestanya"/>
+					<Item id="44090" name="5a. pestanya"/>
+					<Item id="44091" name="6a. pestanya"/>
+					<Item id="44092" name="7a. pestanya"/>
+					<Item id="44093" name="8a. pestanya"/>
+					<Item id="44094" name="9a. pestanya"/>
+					<Item id="44095" name="Pestanya següent"/>
+					<Item id="44096" name="Pestanya anterior"/>
+					<Item id="44097" name="Supervisa canvis del fitxer"/>					
+					<Item id="44098" name="Desplaça pestanya endavant"/>
+					<Item id="44099" name="Desplaça pestanya enrere"/>	
+					<Item id="44032" name="Commuta pantalla sencera"/>	
+					<Item id="44033" name="Restaura zoom per defecte"/>
+					<Item id="44034" name="Sempre visible"/>																																													
+					<Item id="44035" name="Sincronitza el desplaçament vertical"/>
+					<Item id="44036" name="Sincronitza el desplaçament horitzontal"/>
+					<Item id="44041" name="Mostra símbol de &amp;tall"/>
+					<Item id="44072" name="Activa altra vista"/>
+					<Item id="44081" name="Tauler de projecte &amp;1"/>
+					<Item id="44082" name="Tauler de projecte &amp;2"/>
+					<Item id="44083" name="Tauler de projecte &amp;3"/>
+					<Item id="45001" name="Converteix a format Windows"/>
+					<Item id="45002" name="Converteix a format UNIX"/>
+					<Item id="45003" name="Converteix a format MAC"/>
+					<Item id="45004" name="Codifica com ANSI"/>
+					<Item id="45005" name="Codifica com UTF-8 amb BOM"/>
+					<Item id="45006" name="Codifica com UCS-2 Big Endian amb BOM"/>
+					<Item id="45007" name="Codifica com UCS-2 Little Endian amb BOM"/>
+					<Item id="45008" name="Codifica com UTF-8"/>
+					<Item id="45009" name="Converteix a ANSI"/>
+					<Item id="45010" name="Converteix a UTF-8"/>
+					<Item id="45011" name="Converteix a UTF-8 amb BOM"/>
+					<Item id="45012" name="Converteix a UCS-2 Big Endian amb BOM"/>
+					<Item id="45013" name="Converteix a UCS-2 Little Endian amb BOM"/>
+					<Item id="45060" name="Big5 (Tradicional)"/>
+					<Item id="45061" name="GB2312 (Simplificat)"/>
+					<Item id="45054" name="OEM 861: Islandès"/>
+					<Item id="45057" name="OEM 865: Nòrdic"/>
+					<Item id="45053" name="OEM 860: Portuguès"/>
+					<Item id="45056" name="OEM 863: Francès"/>
+					<Item id="10001" name="Desplaça a una altra vista"/>
+					<Item id="10002" name="Clona a una altra vista"/>
+					<Item id="10003" name="Desplaça a una nova finestra"/>
+					<Item id="10004" name="Clona a una nova finestra"/>
+					<Item id="46001" name="Configuració d'estil..."/>
+					<Item id="46250" name="Definiu el llenguatge..."/>
+					<Item id="46300" name="Obri la carpeta del Llenguatge definit per l'usuari..."/>
+					<Item id="46180" name="Definit per l'usuari"/>
+					<Item id="47000" name="Quant a Notepad++"/>
+					<Item id="47010" name="Ús en línia d'ordres..."/>
+					<Item id="47001" name="Web de Notepad++"/>
+					<Item id="47002" name="Pàgina del projecte Notepad++"/>
+					<Item id="47003" name="Documentació en línia"/>
+					<Item id="47004" name="Fòrum de Notepad++"/>
+					<Item id="47011" name="Suport en línia"/>
+					<Item id="47012" name="Informació de depuració..."/>
+					<Item id="47005" name="Aconsegueix més &amp;complements"/>
+					<Item id="47006" name="Actualitza Notepad++"/>
+					<Item id="47009" name="Configura servidor intermediari d'actualització..."/>
+					<Item id="48005" name="Importa complements ..."/>
+					<Item id="48006" name="Importa temes d'estil..."/>
+					<Item id="48018" name="Edita el menú contextual emergent"/>
+					<Item id="48009" name="Editor de tecles de dreceres..."/>
+					<Item id="48011" name="Preferències..."/>
+					<Item id="48014" name="Obri la carpeta dels complements"/>
+					<Item id="48015" name="Administració de complements..."/>
+					<Item id="48501" name="Genera..."/>
+					<Item id="48502" name="Genera dels fitxers..."/>
+					<Item id="48503" name="Genera de la selecció al porta-retalls"/>
+					<Item id="48504" name="Genera..."/>
+					<Item id="48505" name="Genera dels fitxers..."/>
+					<Item id="48506" name="Genera de la selecció al porta-retalls"/>
+					<Item id="49000" name="&amp;Executa..."/>
+
+					<Item id="50000" name="Finalització funcions"/>
+					<Item id="50001" name="Finalització paraules"/>
+					<Item id="50002" name="Suggeriments de paràmetres de funcions"/>
+					<Item id="50003" name="Canvia al document anterior"/>
+					<Item id="50004" name="Canvia al document següent"/>
+					<Item id="50005" name="Commuta l'enregistrament de macro"/>
+					<Item id="50006" name="Finalització de la ruta"/>
+					<Item id="44042" name="Amaga les línies"/>
+					<Item id="42040" name="Obri tots els fitxers recents"/>
+					<Item id="42041" name="Buida llista de fitxers recents"/>
+					<Item id="48016" name="Modifica tecla de drecera/Esborra macro..."/>
+					<Item id="48017" name="Modifica tecla de drecera/Esborra ordre..."/>
+
+				</Commands>
+			</Main>
+			<Splitter>
+			</Splitter>
+			<TabBar>
+				<Item CMID="0"  name="Tanca"/>
+				<Item CMID="1"  name="Tanca'ls tots menys aquest"/>
+				<Item CMID="2"  name="Guarda"/>
+				<Item CMID="3"  name="Guarda com a..."/>
+				<Item CMID="4"  name="Imprimeix..."/>				
+				<Item CMID="5"  name="Desplaça a una altra &amp;vista"/>
+				<Item CMID="6"  name="Clona a una altra vista"/>				
+				<Item CMID="7"  name="Copia la ruta sencera d'aquest fitxer"/>
+				<Item CMID="8"  name="Copia el nom d'aquest fitxer"/>
+				<Item CMID="9"  name="Copia la ruta del directori d'aquest fitxer"/>				
+				<Item CMID="10" name="Canvia el &amp;nom..."/>
+				<Item CMID="11" name="Suprimeix"/>				
+				<Item CMID="12" name="Mode de Només-Lectura"/>
+				<Item CMID="13" name="Esborra la marca de Només-Lectura"/>
+				<Item CMID="14" name="Desplaça a una nova finestra"/>
+				<Item CMID="15" name="Clona a una nova finestra"/>				
+				<Item CMID="16" name="Recarrega"/>				
+				<Item CMID="17" name="Tanca tots els de l'esquerra"/>
+				<Item CMID="18" name="Tanca tots els de la dreta"/>
+				<Item CMID="19" name="Obri la carpeta contenidora amb l'Explorador"/>
+				<Item CMID="20" name="Obri la carpeta contenidora amb l'Indicador d'ordres"/>
+				<Item CMID="21" name="Obri amb el visualitzador per defecte"/>				
+				<Item CMID="22" name="Tanca tots els no canviats"/>
+			</TabBar>
+		</Menu>
+		<Dialog>
+			<Find title="" titleFind="Cerca" titleReplace="Reemplaça" titleFindInFiles="Cerca als fitxers" titleMark="Marca">
+				<Item id="1"    name="Cerca següent"/>
+				<Item id="1722" name="Inverteix direcció"/>
+				<Item id="2"    name="Tanca"/>	
+				<Item id="1620" name="Què &amp;voleu trobar?:"/>
+				<Item id="1603" name="Només la &amp;paraula sencera"/>
+				<Item id="1604" name="Diferen&amp;cia majúscules i minúscules"/>				
+				<Item id="1605" name="Expressió r&amp;egular"/>				
+				<Item id="1606" name="Dóna la volta"/>
+				<Item id="1614" name="Comp&amp;ta coincidències"/>
+				<Item id="1615" name="Marca'ls tots"/>	
+				<Item id="1616" name="&amp;Marca la línia"/>
+				<Item id="1618" name="Neteja a cada recerca"/>	
+				<Item id="1611" name="Re&amp;emplaça amb:"/>
+				<Item id="1608" name="&amp;Reemplaça"/>
+				<Item id="1609" name="Reemplaça-ho &amp;tot"/>
+				<Item id="1687" name="En perdre el focus"/>
+				<Item id="1688" name="Sempre"/>		
+				<Item id="1632" name="A la selecció"/>
+				<Item id="1633" name="Neteja"/>	
+				<Item id="1635" name="Reemplaça-ho tot als documents oberts"/>		
+				<Item id="1636" name="Cerca-ho tot als documents oberts"/>
+				<Item id="1654" name="Filtres:"/>
+				<Item id="1655" name="Directori:"/>
+				<Item id="1656" name="Cerca'ls tots"/>
+				<Item id="1658" name="Inclou subdirectoris"/>
+				<Item id="1659" name="Inclou carpetes ocultes"/>																																									
+				<Item id="1624" name="Mode de cerca"/>
+				<Item id="1625" name="Normal"/>
+				<Item id="1626" name="Estés (\n, \r, \t, \0, \x...)"/>
+				<Item id="1660" name="Reemplaça-ho als fitxers"/>
+				<Item id="1661" name="Segueix fitxer actual"/>
+				<Item id="1641" name="Cerca-ho tot en el document actual"/>
+				<Item id="1686" name="Transparència"/>
+				<Item id="1703" name="&amp;. cerca nova línia"/>
+						<Item id="1721" name="▲"/>
+				<Item id="1723" name="▼ Cerca següent"/>
+			</Find>																																							
+
+			<FindCharsInRange title = "Cerca interval de caràcters...">
+				<Item id="2" name="Tanca"/>			
+				<Item id="2901" name="Caràcters no-ASCII (128-255)"/>
+				<Item id="2902" name="Caràcters ASCII (0 - 127)"/>
+				<Item id="2903" name="Aquest interval:"/>
+				<Item id="2906" name="Amunt"/>
+				<Item id="2907" name="Avall"/>
+				<Item id="2908" name="Direcció"/>
+				<Item id="2909" name="Dóna la volta"/>
+				<Item id="2910" name="Cerca"/>
+			</FindCharsInRange>
+			<GoToLine title="Vés a la línia o posició...">
+				<Item id="2007" name="Línia"/>
+				<Item id="2008" name="Posició (en bytes)"/>
+				<Item id="1"    name="&amp;Vés-hi!"/>
+				<Item id="2"    name="No vaig enlloc!"/>
+				<Item id="2004" name="Esteu ací:"/>
+				<Item id="2005" name="Voleu anar a:"/>
+				<Item id="2006" name="No podeu anar més enllà de:"/>				
+			</GoToLine>
+			<Run title="Executa...">
+				<Item id="1903" name="Trieu el programa que voleu executar ací"/>
+				<Item id="1"    name="Executa"/>
+				<Item id="2"    name="Atura"/>
+				<Item id="1904" name="Guarda..."/>				
+			</Run>
+			<MD5FromFilesDlg title="Genera resums MD5 dels fitxers">
+				<Item id="1922" name="Trieu els fitxers per generar els MD5..."/>
+				<Item id="1924" name="Copia al porta-retalls"/>
+				<Item id="2"    name="Tanca"/>
+			</MD5FromFilesDlg>
+			<MD5FromTextDlg title="Genera resums MD5">
+				<Item id="1932" name="Tracta cada línia com un text per separat"/>
+				<Item id="1934" name="Copia al porta-retalls"/>
+				<Item id="2"    name="Tanca"/>
+			</MD5FromTextDlg>
+			<SHA256FromFilesDlg title="Genera resums SHA-256 de fitxers">
+				<Item id="1922" name="Tria els fitxers per generar els SHA-256..."/>
+				<Item id="1924" name="Copia al porta-retalls"/>
+				<Item id="2"    name="Tanca"/>
+			</SHA256FromFilesDlg>
+			<SHA256FromTextDlg title="Genera resums SHA-256">
+				<Item id="1932" name="Tracta cada línia com un text per separat"/>
+				<Item id="1934" name="Copia al porta-retalls"/>
+				<Item id="2"    name="Tanca"/>
+			</SHA256FromTextDlg>
+			<PluginsAdminDlg title="Administrador de complements" titleAvailable = "Disponibles" titleUpdates = "Actualitzacions" titleInstalled = "Instal·lats">
+				<ColumnPlugin   name="Complement"/>
+				<ColumnVersion  name="Versió"/>
+				<Item id="5501" name="Cerca:"/>
+				<Item id="5503" name="Instal·la"/>
+				<Item id="5504" name="Actualitza"/>
+				<Item id="5505" name="Esborra"/>
+				<Item id="5508" name="Següent"/>
+				<Item id="2"    name="Tanca"/>
+			</PluginsAdminDlg>
+			<StyleConfig title="Configuració d'estil">
+				<Item id="2" name="Cancel·la"/>
+				<Item id="2301" name="Guarda &amp;i tanca"/>
+				<Item id="2303" name="Transparència"/>
+				<Item id="2306" name="Selecciona tema:"/>
+				<SubDialog>
+					<Item id="2204" name="Negreta"/>
+					<Item id="2205" name="Cursiva"/>
+					<Item id="2206" name="Col. en primer pla"/>
+					<Item id="2207" name="Color de fons"/>
+					<Item id="2208" name="Tipus de lletra:"/>
+					<Item id="2209" name="Mida de lletra:"/>
+					<Item id="2211" name="Configuració d'estil:"/>
+					<Item id="2212" name="Estil dels colors"/>					
+					<Item id="2213" name="Estil de lletra"/>
+					<Item id="2214" name="Ext. per defecte:"/>
+					<Item id="2216" name="Ext. de l'usuari/a:"/>	
+					<Item id="2218" name="Subratlla"/>
+					<Item id="2219" name="Paraules clau per defecte"/>
+					<Item id="2221" name="Definició de paraules clau de l'usuari/a"/>																												
+					<Item id="2225" name="Llenguatge:"/>
+					<Item id="2226" name="Habilita color en primer pla global"/>
+					<Item id="2227" name="Habilita color de fons global"/>
+					<Item id="2228" name="Habilita tipus de lletra global"/>
+					<Item id="2229" name="Habilita mida de lletra global"/>
+					<Item id="2230" name="Habilita estil negreta global"/>
+					<Item id="2231" name="Habilita estil cursiva global"/>
+					<Item id="2232" name="Habilita estil subratllat global"/>
+				</SubDialog>
+			</StyleConfig>
+			<ShortcutMapper title="Dreceres de teclat">
+				<Item id="2602" name="Modifica"/>
+				<Item id="2603" name="Suprimeix"/>
+				<Item id="2606" name="Neteja"/>
+				<Item id="2607" name="Filtre: "/>
+				<Item id="1" name="Tanca"/>
+				<ColumnName name="Nom"/>
+				<ColumnShortcut name="Drecera"/>
+				<ColumnCategory name="Categoria"/>
+				<ColumnPlugin name="Complement"/>
+				<MainMenuTab name="Menú principal"/>
+				<MacrosTab name="Macros"/>
+				<RunCommandsTab name="Ordres d'execució"/>
+				<PluginCommandsTab name="Ordres de complement"/>
+				<ScintillaCommandsTab name="Ordres Scintilla"/>
+				<ConflictInfoOk name="No hi ha cap conflicte de drecera amb aquest element."/>
+				<ConflictInfoEditing name="Sense conflictes . . ."/>
+			</ShortcutMapper>
+			<ShortcutMapperSubDialg title="Drecera de teclat">
+				<Item id="1" name="D'acord"/>
+				<Item id="2" name="Cancel·la"/>
+				<Item id="5006" name="Nom"/>
+				<Item id="5008" name="Afegeix"/>
+				<Item id="5009" name="Esborra"/>
+				<Item id="5010" name="Aplica"/>
+				<Item id="5007" name="Això esborrarà la drecera d'aquesta ordre"/>
+				<Item id="5012" name="CONFLICTE TROBAT!"/>
+			</ShortcutMapperSubDialg>
+			<UserDefine title="Llenguatge definit per l'usuari">
+				<Item id="20001" name="Acobla"/>
+				<Item id="20002" name="Canvia el nom"/>
+				<Item id="20003" name="Crea nou..."/>
+				<Item id="20004" name="Esborra"/>				
+				<Item id="20005" name="Anomena i guarda.."/>
+				<Item id="20007" name="Lleng. d'usuari:"/>
+				<Item id="20009" name="Ext.:"/>	
+				<Item id="20012" name="Ignora majúscules"/>
+				<Item id="20011" name="Transparència"/>															
+				<Item id="20015" name="Importa..."/>
+				<Item id="20016" name="Exporta..."/>
+				<StylerDialog title="Diàleg d'estil">
+					<Item id="25030" name="Opcions de lletra:"/>
+					<Item id="25006" name="Color de primer pla"/>
+					<Item id="25007" name="Color de fons"/>					
+					<Item id="25031" name="Nom:"/>
+					<Item id="25032" name="Mida:"/>
+					<Item id="25001" name="Negreta"/>
+					<Item id="25002" name="Cursiva"/>
+					<Item id="25003" name="Subratllat"/>
+
+					<Item id="25029" name="Incrustació:"/>
+					<Item id="25008" name="Delimitador 1"/>
+					<Item id="25009" name="Delimitador 2"/>
+					<Item id="25010" name="Delimitador 3"/>
+					<Item id="25011" name="Delimitador 4"/>
+					<Item id="25012" name="Delimitador 5"/>
+					<Item id="25013" name="Delimitador 6"/>
+					<Item id="25014" name="Delimitador 7"/>
+					<Item id="25015" name="Delimitador 8"/>
+					<Item id="25018" name="P. clau 1"/>
+					<Item id="25019" name="P. clau 2"/>
+					<Item id="25020" name="P. clau 3"/>
+					<Item id="25021" name="P. clau 4"/>
+					<Item id="25022" name="P. clau 5"/>
+					<Item id="25023" name="P. clau 6"/>
+					<Item id="25024" name="P. clau 7"/>
+					<Item id="25025" name="P. clau 8"/>
+					<Item id="25016" name="Comentari"/>
+					<Item id="25017" name="Comentari de línia"/>
+					<Item id="25026" name="Operadors 1"/>
+					<Item id="25027" name="Operadors 2"/>
+					<Item id="25028" name="Números"/>
+					<Item id="1" name="&amp;D'acord"/>
+					<Item id="2" name="&amp;Cancel·la"/>
+				</StylerDialog>
+				<Folder title="Per defecte i Bloc de codi">
+					<Item id="21101" name="Per defecte"/>
+					<Item id="21102" name="Estil"/>
+					<Item id="21105" name="Documentació:"/>
+					<Item id="21104" name="Web de documentació temporal:"/>					
+					<Item id="21106" name="Plegament &amp;compacte (plega línies buides)"/>
+					<Item id="21220" name="Plegat de codi 1: "/>					
+					<Item id="21224" name="Obertura:"/>
+					<Item id="21225" name="Mig:"/>
+					<Item id="21226" name="Tancament:"/>
+					<Item id="21227" name="Estil"/>
+					<Item id="21320" name="Plegat de codi 2 (necessita separadors):"/>	
+					<Item id="21324" name="Obertura:"/>
+					<Item id="21325" name="Mig:"/>
+					<Item id="21326" name="Tancament:"/>	
+					<Item id="21327" name="Estil"/>													
+					<Item id="21420" name="Plegat de comentari: "/>						
+					<Item id="21424" name="Obertura:"/>
+					<Item id="21425" name="Mig:"/>
+					<Item id="21426" name="Tancament:"/>					
+					<Item id="21427" name="Estil"/>		
+				</Folder>
+				<Keywords title="Llista de paraules clau">
+					<Item id="22101" name="1r. Grup"/>
+					<Item id="22201" name="2n. Grup"/>
+					<Item id="22301" name="3r. Grup"/>
+					<Item id="22401" name="4t. Grup"/>
+					<Item id="22451" name="5é. Grup"/>
+					<Item id="22501" name="6é. Grup"/>
+					<Item id="22551" name="7é. Grup"/>
+					<Item id="22601" name="8é. Grup"/>
+					<Item id="22121" name="Mode prefix"/>
+					<Item id="22221" name="Mode prefix"/>
+					<Item id="22321" name="Mode prefix"/>
+					<Item id="22421" name="Mode prefix"/>
+					<Item id="22471" name="Mode prefix"/>
+					<Item id="22521" name="Mode prefix"/>
+					<Item id="22571" name="Mode prefix"/>
+					<Item id="22621" name="Mode prefix"/>					
+					<Item id="22122" name="Estil"/>
+					<Item id="22222" name="Estil"/>
+					<Item id="22322" name="Estil"/>
+					<Item id="22422" name="Estil"/>
+					<Item id="22472" name="Estil"/>
+					<Item id="22522" name="Estil"/>
+					<Item id="22572" name="Estil"/>
+					<Item id="22622" name="Estil"/>
+				</Keywords>
+				<Comment title="Comentaris i números">
+					<Item id="23003" name="Posició de comentari de línia"/>
+					<Item id="23004" name="Permet en qualsevol lloc"/>
+					<Item id="23005" name="Força al principi de línia"/>
+					<Item id="23006" name="Permet espaiat inicial"/>
+					<Item id="23001" name="Permet plegat de comentaris"/>
+					<Item id="23326" name="Estil"/>
+					<Item id="23323" name="Obertura"/>
+					<Item id="23324" name="Caràcter de continuació"/>
+					<Item id="23325" name="Tancament"/>
+					<Item id="23301" name="Comentaris de línia"/>					
+					<Item id="23124" name="Estil"/>
+					<Item id="23122" name="Obertura"/>
+					<Item id="23123" name="Tancament"/>
+					<Item id="23101" name="Comentaris de bloc"/>
+					<Item id="23201" name="Número"/>
+					<Item id="23220" name="Estil"/>
+					<Item id="23230" name="Prefix 1:"/>
+					<Item id="23232" name="Prefix 2:"/>
+					<Item id="23234" name="Extres 1:"/>
+					<Item id="23236" name="Extres 2:"/>
+					<Item id="23238" name="Sufix 1:"/>
+					<Item id="23240" name="Sufix 2:"/>
+					<Item id="23242" name="Rang : "/>
+					<Item id="23244" name="Separador decimal"/>
+					<Item id="23245" name="Punt"/>
+					<Item id="23246" name="Coma"/>
+					<Item id="23247" name="Ambdós"/>
+				</Comment>
+				<Operator title="Operadors i Delimitadors">
+					<Item id="24101" name="Operadors activats"/>
+					<Item id="24113" name="Estil"/>
+					<Item id="24116" name="Operadors 1"/>
+					<Item id="24117" name="Operadors 2 (necessita separadors)"/>
+					<Item id="24201" name="Delimitador 1"/>
+					<Item id="24220" name="Obertura: "/>
+					<Item id="24221" name="Escapament: "/>
+					<Item id="24222" name="Tancament: "/>
+					<Item id="24223" name="Estil"/>					
+					<Item id="24301" name="Delimitador 2"/>
+					<Item id="24320" name="Obertura: "/>
+					<Item id="24321" name="Escapament: "/>
+					<Item id="24322" name="Tancament: "/>
+					<Item id="24323" name="Estil"/>				
+					<Item id="24401" name="Delimitador 3"/>
+					<Item id="24420" name="Obertura: "/>
+					<Item id="24421" name="Escapament: "/>
+					<Item id="24422" name="Tancament: "/>
+					<Item id="24423" name="Estil"/>						
+					<Item id="24451" name="Delimitador 4"/>
+					<Item id="24470" name="Obertura: "/>	
+					<Item id="24471" name="Escapament: "/>
+					<Item id="24472" name="Tancament: "/>									
+					<Item id="24473" name="Estil"/>
+					<Item id="24501" name="Delimitador 5"/>
+					<Item id="24520" name="Obertura: "/>
+					<Item id="24521" name="Escapament: "/>
+					<Item id="24522" name="Tancament: "/>
+					<Item id="24523" name="Estil"/>					
+					<Item id="24551" name="Delimitador 6"/>
+					<Item id="24570" name="Obertura: "/>
+					<Item id="24571" name="Escapament: "/>
+					<Item id="24572" name="Tancament: "/>										
+					<Item id="24573" name="Estil"/>
+					<Item id="24601" name="Delimitador 7"/>
+					<Item id="24620" name="Obertura: "/>
+					<Item id="24621" name="Escapament: "/>
+					<Item id="24622" name="Tancament: "/>					
+					<Item id="24623" name="Estil"/>
+					<Item id="24651" name="Delimitador 8"/>
+					<Item id="24670" name="Obertura: "/>
+					<Item id="24671" name="Escapament: "/>
+					<Item id="24672" name="Tancament: "/>					
+					<Item id="24673" name="Estil"/>
+				</Operator>
+			</UserDefine>
+			<Preference title="Preferències">
+				<Item id="6001" name="Tanca"/>
+				<Global title="General">
+					<Item id="6101" name="Barra d'eines"/>
+					<Item id="6102" name="Amaga la barra d'eines"/>
+					<Item id="6103" name="Icones menudes"/>
+					<Item id="6104" name="Icones grans"/>
+					<Item id="6105" name="Icones estàndard"/>
+					<Item id="6106" name="Barra de pestanyes"/>
+					<Item id="6107" name="Redueix"/>
+					<Item id="6108" name="Bloqueja (no es podrà arrossegar)"/>
+					<Item id="6109" name="Enfosqueix pestanyes inactives"/>
+					<Item id="6110" name="Marca superior a la pestanya activa"/>
+					<Item id="6111" name="Mostra barra d'estat"/>					
+					<Item id="6112" name="Botó de tancar a cada pestanya"/>
+					<Item id="6113" name="Doble clic per tancar el document"/>										
+					<Item id="6118" name="Amaga la barra de pestanyes"/>
+					<Item id="6119" name="Multilínia"/>
+					<Item id="6120" name="Vertical"/>
+					<Item id="6121" name="Ix en tancar l'última pestanya"/>
+					<Item id="6122" name="Amaga la barra de menú (prem Alt o F10 per accedir)"/>
+					<Item id="6123" name="Idioma"/>						
+					<Item id="6125" name="Tauler de documents"/>
+					<Item id="6126" name="Mostra"/>
+					<Item id="6127" name="Desactiva la columna d'extensions"/>				
+				</Global>
+				<Scintillas title="Edició">
+					<Item id="6216" name="Configuració del cursor"/>
+					<Item id="6217" name="Amplada:"/>
+					<Item id="6219" name="Parpelleig:"/>
+					<Item id="6221" name="R"/>
+					<Item id="6222" name="L"/>
+					<Item id="6224" name="Multi-edició"/>
+					<Item id="6225" name="Habilita (Ctrl+Ratolí)"/>
+					<Item id="6201" name="Estil d'agrupació"/>
+					<Item id="6202" name="Simple"/>
+					<Item id="6203" name="Triangle"/>
+					<Item id="6204" name="Arbre en cercle"/>
+					<Item id="6205" name="Arbre en caixa"/>
+					<Item id="6226" name="Cap"/>
+					<Item id="6227" name="Ajustament de línia"/>
+					<Item id="6228" name="Per defecte"/>
+					<Item id="6229" name="Alineat"/>
+					<Item id="6230" name="Sagnat"/>
+					<Item id="6206" name="Mostra el número de línia al marge"/>
+					<Item id="6207" name="Mostra les marques de línia al marge"/>
+					<Item id="6208" name="Mostra la vora vertical"/>
+					<Item id="6209" name="Número de columnes:"/>										
+			                <Item id="6234" name="Desactiva el desplaçament avançat
+(si teniu problemes amb el touchpad)"/>
+					<Item id="6211" name="Configuració de la vora vertical"/>
+					<Item id="6212" name="Mode de línia"/>
+					<Item id="6213" name="Mode de color de fons"/>
+					<Item id="6214" name="Activa el realçament de la línia actual"/>
+					<Item id="6215" name="Activa suavitzat de lletra"/>
+					<Item id="6231" name="Mida del marge"/>
+					<Item id="6235" name="Sense vores"/>
+					<Item id="6236" name="Permet desplaç. després de l'última línia"/>
+				</Scintillas>
+				<NewDoc title="Document nou">
+					<Item id="6401" name="Salt de línia"/>
+					<Item id="6402" name="Windows"/>
+					<Item id="6403" name="Unix"/>
+					<Item id="6404" name="Mac"/>
+					<Item id="6405" name="Codificació"/>
+					<Item id="6406" name="ANSI"/>
+					<Item id="6407" name="UTF-8"/>
+					<Item id="6408" name="UTF-8 amb BOM"/>
+					<Item id="6409" name="UCS2 Big Endian amb BOM"/>
+					<Item id="6410" name="UCS2 Little Endian amb BOM"/>
+					<Item id="6411" name="Llenguatge inicial:"/>
+					<Item id="6419" name="Document nou"/>
+					<Item id="6420" name="Aplica als fitxers ANSI oberts"/>
+				</NewDoc>
+				<DefaultDir title="Directoris">
+					<Item id="6413" name="Directori d'obertura/emmagatzematge"/>
+					<Item id="6414" name="Segons el document actual"/>
+					<Item id="6415" name="Segons l'últim directori emprat"/>
+					<Item id="6430" name="Diàleg de guardat sense extensions de fitxer"/>
+					<Item id="6431" name="Obri els fitxers d'una carpeta arrossegada en comptes d'obrir a Carpetes de treball"/>
+				</DefaultDir>
+				<FileAssoc title="Associació de fitxers">
+  			                <Item id="4008" name="Eixiu de Notepad++ i reinicieu-lo en mode administrador per utilitzar aquesta característica."/>
+					<Item id="4009" name="Extensions suportades:"/>
+					<Item id="4010" name="Ext. registrades:"/>
+				</FileAssoc>
+				<Language title="Llenguatge">
+					<Item id="6505" name="Elements disponibles"/>
+					<Item id="6506" name="Elements no disponibles"/>				
+
+					<Item id="6507" name="Compacta el menú Llenguatge"/>
+					<Item id="6508" name="Menú Llenguatge"/>
+					<Item id="6301" name="Configuració de tabulació"/>
+					<Item id="6302" name="Reemplaça per espais"/>
+					<Item id="6303" name="Mida de tabulació:"/>										
+					<Item id="6510" name="Utilitza el predeterminat"/>
+					<Item id="6335" name="Tracta \ com a caràcter d'escapada per l'SQL"/>
+				</Language>
+				<Highlighting title="Ressaltat">
+					<Item id="6333" name="Ressaltat intel·ligent"/>
+					<Item id="6326" name="Activa el ressaltat intel·ligent"/>
+					<Item id="6332" name="El ressaltat distingeix majúscules."/>
+					<Item id="6338" name="Només paraula sencera"/>
+					<Item id="6339" name="Empra opcions del diàleg de cerca"/>
+					<Item id="6340" name="Ressalta en una altra vista"/>
+					<Item id="6329" name="Destacat de paraules clau"/>
+					<Item id="6327" name="Habilita"/>
+					<Item id="6328" name="Destaca els atributs de par. clau"/>
+					<Item id="6330" name="Destaca la zona php/asp/comentari"/>
+				</Highlighting>
+				<Print title="Impressió">
+					<Item id="6601" name="Imprimeix número de línia"/>
+					<Item id="6602" name="Opcions de color"/>
+					<Item id="6603" name="Tal com es veu"/>
+					<Item id="6604" name="Colors invertits"/>
+					<Item id="6605" name="Blanc i negre"/>
+					<Item id="6606" name="Sense color de fons"/>
+					<Item id="6607" name="Marges de pàgina (Unitat:mm)"/>
+					<Item id="6612" name="Esquerra"/>					
+					<Item id="6613" name="Superior"/>
+					<Item id="6614" name="Dreta"/>
+					<Item id="6615" name="Inferior"/>					
+					<Item id="6706" name="Negreta"/>
+					<Item id="6707" name="Cursiva"/>					
+					<Item id="6708" name="Capçalera"/>
+					<Item id="6709" name="A l'esquerra"/>
+					<Item id="6710" name="Al mig"/>
+					<Item id="6711" name="A la dreta"/>					
+					<Item id="6717" name="Negreta"/>
+					<Item id="6718" name="Cursiva"/>
+					<Item id="6719" name="Peu"/>
+					<Item id="6720" name="A l'esquerra"/>
+					<Item id="6721" name="Al mig"/>
+					<Item id="6722" name="A la dreta"/>
+					<Item id="6723" name="Afegeix"/>
+					<Item id="6725" name="Variable:"/>
+					<Item id="6727" name="Ací es mostra la vostra configuració variable"/>															
+					<Item id="6728" name="Capçalera i peu de pàgina"/>
+				</Print>				
+				<RecentFilesHistory title="Historial fitxers recents">
+					<Item id="6304" name="Historial de fitxers recents"/>
+					<Item id="6306" name="Límit de fitxers a l'historial:"/>					
+					<Item id="6305" name="No comproves els fitxers en iniciar"/>
+					<Item id="6429" name="Mostra l'historial"/>
+					<Item id="6424" name="Al submenú"/>
+					<Item id="6425" name="Només el nom del fitxer"/>
+					<Item id="6426" name="Ruta completa del fitxer"/>
+					<Item id="6427" name="Ruta amb límit de caràcters:"/>
+				</RecentFilesHistory>										
+				<Backup title="Còpia de seguretat">
+					<Item id="6817" name="Captura de sessió i còpia periòdica"/>
+					<Item id="6818" name="Activa la captura de sessió i còpia periòdica"/>
+					<Item id="6819" name="Copia cada"/>
+					<Item id="6821" name="segons"/>
+					<Item id="6822" name="Directori:"/>
+					<Item id="6309" name="Recorda la sessió actual per la propera execució"/>
+					<Item id="6801" name="Còpia de seguretat en guardar"/>
+					<Item id="6315" name="Cap còpia"/>
+					<Item id="6316" name="Còpia simple"/>
+					<Item id="6317" name="Còpia complexa"/>
+					<Item id="6804" name="Directori de còpia personalitzat"/>
+					<Item id="6803" name="Directori:"/>
+				</Backup>
+				<AutoCompletion title="Emplenament automàtic">
+					<Item id="6807" name="Emplenament automàtic"/>
+					<Item id="6808" name="Permet emplenament auto. a cada entrada"/>
+					<Item id="6809" name="Emplena automàticament funcions"/>
+					<Item id="6810" name="Emplena automàticament paraules"/>
+					<Item id="6816" name="Emplena automàtica. funcions i paraules"/>
+					<Item id="6824" name="Ignora els números"/>
+					<Item id="6811" name="De"/>
+					<Item id="6813" name="caràcters ordinals anglesos"/>
+					<Item id="6814" name="Valors vàlids: 1 - 9"/>
+					<Item id="6815" name="Suggeriments en crear paràm. de funció"/>
+					<Item id="6851" name="Autoinserció"/>
+					<Item id="6857" name="tanca-etiq. html/xml"/>
+					<Item id="6858" name="Obri"/>
+					<Item id="6859" name="Tanca"/>
+					<Item id="6860" name="Parella 1:"/>
+					<Item id="6863" name="Parella 2:"/>
+					<Item id="6866" name="Parella 3:"/>
+				</AutoCompletion>
+				<MultiInstance title="Múltiples instàncies">
+					<Item id="6151" name="Opcions de múltiples instàncies"/>
+					<Item id="6152" name="Obri sessió en nova instància de Notepad++"/>
+					<Item id="6153" name="Sempre en mode de múltiples instàncies"/>
+					<Item id="6154" name="Per defecte (una instància)"/>
+					<Item id="6155" name="La modificació d'aquest paràmetre requereix reiniciar Notepad++"/>
+				</MultiInstance>
+				<Delimiter title="Delimitació">
+					<Item id="6251" name="Opcions de selecció de delimitació (Control + doble clic del ratolí)"/>
+					<Item id="6252" name="Obri"/>
+					<Item id="6255" name="Tanca"/>
+					<Item id="6256" name="Permet en diverses línies"/>
+					<Item id="6161" name="Llista de caràcters de paraula"/>
+					<Item id="6162" name="Utilitza la llista de caràcters de paraula tal qual"/>
+					<Item id="6163" name="Afegeix caràcters com a part de paraula
+(desactiveu si no sabeu què feu)"/>
+				</Delimiter>
+				<Cloud title="Núvol">
+					<Item id="6262" name="Paràmetres al núvol"/>
+					<Item id="6263" name="Sense núvol"/>
+					<Item id="6267" name="Indiqueu el directori del núvol ací:"/>
+				</Cloud>
+                <SearchEngine title="Motor de cerca">
+                    <Item id="6271" name="Motor de cerca (per al comandament &quot;Cerca a Internet&quot;)"/>
+                    <Item id="6272" name="DuckDuckGo"/>
+                    <Item id="6273" name="Google"/>
+                    <Item id="6274" name="Bing"/>
+                    <Item id="6275" name="Yahoo!"/>
+                    <Item id="6276" name="Establiu el vostre motor de cerca ací:"/>
+                    <!-- No canvieu res després de Exemple: -->
+                    <Item id="6278" name="Exemple: https://www.google.com/search?q=$(CURRENT_WORD)"/>
+                </SearchEngine>
+				<MISC title="Diversos">
+					<ComboBox id="6347">
+						<Element name="Habilita"/>
+						<Element name="Habilita per a tot fitxer obert"/>
+						<Element name="Inhabilita"/>
+					</ComboBox>
+					<Item id="6308" name="Minimitza a la safata del sistema"/>
+					<Item id="6312" name="Autodetecció d'estat del fitxer"/>
+					<Item id="6313" name="Actualitza en silenci"/>
+					<Item id="6318" name="Configuració dels enllaços clicables"/>
+					<Item id="6325" name="Vés a l'última línia després d'actualitzar"/>
+					<Item id="6319" name="Habilita"/>
+					<Item id="6320" name="No subratlles"/>
+					<Item id="6322" name="Ext. del fitxer de sessió:"/>
+					<Item id="6323" name="Actualitza Notepad++ automàticament"/>																																			
+					<Item id="6324" name="Canvi de document (Ctrl+Tab)"/>
+					<Item id="6331" name="Mostra només el nom de fitxer a la barra de títol"/>
+					<Item id="6334" name="Autodetecta codificació de caràcters"/>	
+					<Item id="6314" name="Empra lletra monoespai al diàleg de cerca (demana reiniciar Notepad++)"/>					
+					<Item id="6337" name="Ext. del fitxer d'espai de treball:"/>														
+					<Item id="6114" name="Habilita"/>
+					<Item id="6117" name="Habilita el comportament MRU"/>
+					<Item id="6344" name="Previsualització del document"/>
+					<Item id="6345" name="Previsualitza en la pestanya"/>
+					<Item id="6346" name="Previsualitza en el mapa del document"/>
+					<Item id="6348" name="No empleneu el camp al diàleg de cerca amb la paraula seleccionada"/>
+
+				</MISC>
+			</Preference>
+			<MultiMacro title="Executa una macro diverses vegades">
+				<Item id="1" name="Executa"/>
+				<Item id="2" name="Cancel·la"/>			
+				<Item id="8006" name="Macro a executar:"/>
+				<Item id="8001" name="Executa"/>
+				<Item id="8005" name="vegades"/>
+				<Item id="8002" name="Executa fins al final del fitxer"/>
+
+			</MultiMacro>
+			<Window title="Finestres...">
+				<Item id="1" name="Activa"/>
+				<Item id="2" name="Accepta"/>				
+				<Item id="7002" name="Guarda"/>
+				<Item id="7003" name="Tanca finestr."/>
+				<Item id="7004" name="Ordena pestany."/>
+
+			</Window>
+			<ColumnEditor title="Inserció en columna...">
+
+				<Item id="2023" name="Text a inserir"/>
+				<Item id="2033" name="Números a inserir"/>
+				<Item id="2030" name="Número inicial:"/>
+				<Item id="2031" name="Incrementat en:"/>
+				<Item id="2035" name="Omple amb zeros"/>				
+				<Item id="2036" name="Repeteix:"/>
+				<Item id="2032" name="Format"/>
+				<Item id="2024" name="Decimal"/>
+				<Item id="2025" name="Octal"/>
+				<Item id="2026" name="Hexadecimal"/>
+				<Item id="2027" name="Binari"/>
+				<Item id="1" name="D'acord"/>
+				<Item id="2" name="Cancel·la"/>
+			</ColumnEditor>
+			<FindInFinder title="Cerca al cercador">
+				<Item id="1"    name="Cerca-ho tot"/>
+				<Item id="2"    name="Tanca"/>
+				<Item id="1711" name="Cerca:"/>
+				<Item id="1713" name="Cerca només en línies trobades"/>
+				<Item id="1714" name="Cerca només &amp;paraula sencera"/>
+				<Item id="1715" name="&amp;Coincideix majúscules"/>
+				<Item id="1716" name="Mode de cerca"/>
+				<Item id="1717" name="Normal"/>
+				<Item id="1719" name="&amp;Expressió regular"/>
+				<Item id="1718" name="Estés (\n, \r, \t, \0, \x...)"/>
+				<Item id="1720" name="&amp;. cerca nova línia"/>
+			</FindInFinder>
+			<DoSaveOrNot title="Guarda">
+				<Item id="1761" name="Voleu guardar el fitxer &quot;$STR_REPLACE$&quot; ?"/>
+				<Item id="6" name="&amp;Sí"/>
+				<Item id="7" name="&amp;No"/>
+				<Item id="2" name="&amp;Cancel·la"/>
+				<Item id="4" name="Sí a &amp;tot"/>
+				<Item id="5" name="N&amp;o a tot"/>
+			</DoSaveOrNot>
+		</Dialog>
+		<MessageBox>
+			<ContextMenuXmlEditWarning title="Editant contextMenu" message="Podeu modificar el menú contextual emergent de Notepad++ editant el fitxer contextMenu.xml.
+Reinicieu Notepad++ després de modificar contextMenu.xml perquè faça efecte."/>
+			<NppHelpAbsentWarning title="No existeix el fitxer" message="
+no existeix. El podeu baixar de la web de Notepad++."/>
+			<SaveCurrentModifWarning title="Guarda la modificació actual" message="Hauríeu de guardar la modificació actual.
+Totes les modificacions guardades no es podran desfer.
+
+Voleu continuar?"/>
+			<LoseUndoAbilityWarning title="Avís de pèrdua d'habilitat de desfer" message="Hauríeu de guardar la modificació actual.
+Totes les modificacions guardades no es podran desfer.
+
+Voleu continuar?"/>
+			<CannotMoveDoc title="Desplaça a una nova finestra de Notepad++" message="El document s'ha modificat, l'heu de guardar abans i tornar a intentar-ho."/>
+			<DocReloadWarning title="Recarrega" message="Segur que voleu recarregar el fitxer actual i perdre els canvis fets amb Notepad++?"/>
+			<FileLockedWarning title="No s'ha pogut guardar" message="Comproveu si aquest fitxer està obert amb un altre programa"/>
+			<FileAlreadyOpenedInNpp title="" message="El fitxer ja està obert amb Notepad++."/>
+			<DeleteFileFailed title="Esborra fitxer" message="No s'ha pogut esborrar el fitxer"/>
+			<NbFileToOpenImportantWarning title="Massa fitxers per obrir" message="Esteu a punt d'obrir $INT_REPLACE$ fitxers.
+Segur que voleu obrir-los?"/>
+			<SettingsOnCloudError title="Opcions al núvol" message="Sembla que el directori indicat a les opcions del núvol es troba en una unitat de només lectura,
+o en una carpeta que demana drets d'accés d'escriptura.
+Els vostres paràmetres del núvol es cancel·laran. Reinicieu a un valor coherent a través del diàleg de Preferències."/>
+			<FilePathNotFoundWarning title="Obri fitxer" message="El fitxer que intenteu obrir no existeix."/>
+			<SessionFileInvalidError title="No s'ha pogut carregar la sessió" message="El fitxer de sessió està malmès o no és vàlid."/>
+			<DroppingFolderAsProjectModeWarning title="Acció no vàlida" message="Podeu arrossegar fitxers o carpetes però no ambdues, perquè s'està arrossegant en mode de Carpeta com a projecte.
+Heu d'activar &quot;Obri els fitxers d'una carpeta arrossegada en comptes d'obrir a Carpetes de treball&quot; a la secció &quot;Directoris&quot; del diàleg de Preferències per fer que aquesta operació funcioni."/>
+			<SortingError title="Error d'ordenació" message="No s'ha pogut realitzar l'ordenació numèrica degut a la línia $INT_REPLACE$."/>
+			<ColumnModeTip title="Consell del mode de columna" message="Utilitzeu «Alt+Selecció amb ratolí» o «Alt+Maj.+Fletxes del teclat» per canviar al mode de columna." />
+			<BufferInvalidWarning title="El guardat ha fallat" message="No es pot guardar: El buffer no es vàlid."/>
+			<DoCloseOrNot title="Manté el fitxer inexistent" message="El fitxer &quot;$STR_REPLACE$&quot; ja no existeix.
+El voleu mantenir en l'editor?"/>
+			<DoDeleteOrNot title="Suprimeix fitxer" message="El fitxer &quot;$STR_REPLACE$&quot;&
+es desplaçarà a la Paperera i aquest document es tancarà.
+Voleu continuar?"/>
+			<NoBackupDoSaveFile title="Guarda" message="El fitxer de la còpia de seguretat no es pot trobar (suprimit externament).
+Guardeu-ho o perdreu les vostres dades.
+Voleu guardar el fitxer &quot;$STR_REPLACE$&quot; ?"/>
+			<DoReloadOrNot title="Recarrega" message="&quot;$STR_REPLACE$&quot;
+			
+Aquest fitxer s'ha modificat amb un altre programa.
+El voleu recarregar?"/>
+			<DoReloadOrNotAndLooseChange title="Recarrega" message="&quot;$STR_REPLACE$&quot;
+			
+Aquest fitxer s'ha modificat amb un altre programa.
+El voleu recarregar i perdre els canvis que s'han fet amb Notepad++?"/>
+			<PrehistoricSystemDetected title="Sistema prehistòric detectat" message="Sembla que encara utilitzeu un sistema prehistòric, lamentablement aquesta característica només funciona en un sistema més modern."/>
+			<XpUpdaterProblem title="Actualitzador de Notepad++" message="L'actualitzador de Notepad++ no és compatible amb XP per una capa de seguretat obsoleta sota XP.
+Voleu anar a la web de Notepad++ per baixar l'última versió?"/>
+			<GUpProxyConfNeedAdminMode title="Proxy Settings" message="Torneu a posar en marxa el Notepad++ en mode administrador per configurar el servidor intermediari."/>
+			<DocTooDirtyToMonitor title="Problema de monitoratge" message="El document està en brut. Deseu la modificació abans de monitorar-lo."/>
+			<DocNoExistToMonitor title="Problema de monitoratge" message="El fitxer hauria d'existir per monitorar-lo."/>
+			<FileTooBigToOpen title="Problema amb mida de fitxer" message="El fitxer és massa gran per obrir-lo amb Notepad++"/>
+			<CreateNewFileOrNot title="Crea nou fitxer" message="&quot;$INT_REPLACE$&quot; no existeix. El voleu crear?."/>
+			<CreateNewFileError title="Crea nou fitxer" message="No es pot crear el fitxer &quot;$INT_REPLACE$&quot;."/>
+			<OpenFileError title="ERROR" message="No es pot obrir el fitxer &quot;$INT_REPLACE$&quot;."/>
+			<FileBackupFailed title="Còpia de seguretat fallida" message="No es pot guardar la versió anterior del fitxer al directori de còpia de seguretat a &quot;$INT_REPLACE$&quot;.
+			
+Voleu guardar el fitxer actual igualment?"/>
+			<LoadStylersFailed title="Error en carregar stylers.xml" message="La càrrega de &quot;$INT_REPLACE$&quot; ha fallat!"/>
+			<LoadLangsFailed title="Configurador" message="Ha fallat la càrrega de langs.xml!
+Voleu recuperar el vostre langs.xml?"/>
+			<LoadLangsFailedFinal title="Configurador" message="Ha fallat la càrrega de langs.xml!"/>
+			<FolderAsWorspaceSubfolderExists title="Problema d'afegir carpeta en Carpeta de treball" message="Existeix una subcarpeta de la carpeta que voleu afegir.
+Esborreu la seua arrel del tauler abans d'afegir la carpeta &quot;$STR_REPLACE$&quot;."/>
+			<ProjectPanelChanged title="$STR_REPLACE$" message="L'espai de treball s'ha modificat. Voleu guardar-lo?"/>
+			<ProjectPanelChangedSaveError title="$STR_REPLACE$" message="L'espai de treball no s'ha guardat."/>
+			<ProjectPanelOpenDoSaveDirtyWsOrNot title="Obri espai de treball" message="L'espai de treball actual s'ha modificat. Voleu guardar el projecte actual?"/>
+			<ProjectPanelNewDoSaveDirtyWsOrNot title="Nou espai de treball" message="L'espai de treball actual s'ha modificat. Voleu guardar el projecte actual?"/>
+			<ProjectPanelOpenFailed title="Obri espai de treball" message="No s'ha pogut obrir l'espai de treball.
+Sembla que el fitxer a obrir no és un fitxer de projecte vàlid."/>
+			<ProjectPanelRemoveFolderFromProject title="Esborra carpeta del projecte" message="S'esborraran tots els subelements.
+Segur que voleu esborrar aquesta carpeta del projecte?"/>
+			<ProjectPanelRemoveFileFromProject title="Esborra fitxer del projecte" message="Segur que voleu esborrar aquest fitxer del projecte?"/>
+			<ProjectPanelReloadError title="Recarrega l'espai de treball" message="No es pot trobar el fitxer a recarregar."/>
+			<ProjectPanelReloadDirty title="Recarrega l'espai de treball" message="L'espai de treball actual s'ha modificat. Recarregant-lo descartarà totes les modificacions.
+Voleu continuar?"/>
+			<UDLNewNameError title="Error d'UDL" message="Aquest nom l'utilitza un altre llenguatge,
+canvieu el nom."/>
+			<UDLRemoveCurrentLang title="Esborra el llenguatge actual" message="Esteu segur?"/>
+			<SCMapperDoDeleteOrNot title="Supressió de drecera" message="Segur que voleu suprimir aquesta drecera?"/>
+			<FindCharRangeValueError title="Valor fora de rang" message="Hauríeu d'escriure un valor de 0 a 255."/>
+			<OpenInAdminMode title="Error en guardar" message="El fitxer no es pot guardar i pot estar protegit.
+Voleu iniciar Notepad++ en mode d'administrador?"/>
+			<OpenInAdminModeWithoutCloseCurrent title="Error en guardar" message="El fitxer no es pot guardar i pot estar protegit.
+Voleu iniciar Notepad++ en mode d'administrador?"/>
+			<OpenInAdminModeFailed title="Error en obrir en mode d'administrador" message="No es pot obrir Notepad++ en mode d'administrador."/>
+			<ViewInBrowser title="Mostra el fitxer actual al navegador" message="No s'ha trobat l'aplicació al vostre sistema."/>
+			<ExitToUpdatePlugins title="Notepad++ està a punt de tancar" message="Si feu clic en SÍ, eixiràs de Notepad++ per continuar les operacions.
+Notepad++ es reiniciarà un volta hagen finalitzat totes les operacions.
+Voleu continuar?"/>
+			<NeedToRestartToLoadPlugins title="Notepad++ demana reiniciar-se" message="S'ha de reiniciar Notepad++ per carregar els complements que heu instal·lat."/>
+		</MessageBox>
+		<ClipboardHistory>
+			<PanelTitle name="Historial del porta-retalls"/>
+		</ClipboardHistory>
+		<DocSwitcher>
+			<PanelTitle name="Documents"/>
+			<ColumnName name="Nom"/>
+			<ColumnExt name="Ext."/>
+		</DocSwitcher>
+		<WindowsDlg>
+			<ColumnName name="Nom"/>
+			<ColumnPath name="Ruta"/>
+			<ColumnType name="Tipus"/>
+		</WindowsDlg>
+		<AsciiInsertion>
+			<PanelTitle name="Tauler d'inserció ASCII"/>
+			<ColumnVal name="Valor"/>
+			<ColumnHex name="Hex"/>
+			<ColumnChar name="Caràcter"/>
+			<ColumnHtmlNumber name="Número HTML"/>
+			<ColumnHtmlName name="Codi HTML"/>
+		</AsciiInsertion>
+		<DocumentMap>
+			<PanelTitle name="Mapa del Document"/>
+		</DocumentMap>
+		<FunctionList>
+			<PanelTitle name="Llista de funcions"/>
+			<SortTip name="Ordena" />
+			<ReloadTip name="Recarrega" />
+		</FunctionList>
+		<FolderAsWorkspace>
+			<PanelTitle name="Carpeta com espai de treball"/>
+			<SelectFolderFromBrowserString name="Selecciona una carpeta per afegir al tauler de Carpeta com espai de treball"/>
+			<Menus>
+				<Item id="3511" name="Esborra"/>
+				<Item id="3512" name="Esborra-ho tot"/>
+				<Item id="3513" name="Afegeix"/>
+				<Item id="3514" name="Executa pel sistema"/>
+				<Item id="3515" name="Obri"/>
+				<Item id="3516" name="Copia la ruta"/>
+				<Item id="3517" name="Cerca als fitxers..."/>
+				<Item id="3518" name="Obri ací amb l'explorador"/>
+				<Item id="3519" name="Obri ací amb l'indicador d'ordres"/>
+				<Item id="3520" name="Copia el nom del fitxer"/>
+			</Menus>
+		</FolderAsWorkspace>
+		<ProjectManager>
+			<PanelTitle name="Projecte"/>
+			<WorkspaceRootName name="Espai de treball"/>
+			<NewProjectName name="Nom de projecte nou"/>
+			<NewFolderName name="Nom de directori nou"/>
+			<Menus>
+				<Entries>
+					<Item id="0" name="Espai de treball"/>
+					<Item id="1" name="Edita"/>
+				</Entries>
+				<WorkspaceMenu>
+					<Item id="3122" name="Nou espai de treball"/>
+					<Item id="3123" name="Obri espai de treball"/>
+					<Item id="3124" name="Recarrega espai de treball"/>
+					<Item id="3125" name="Guarda"/>
+					<Item id="3126" name="Anomena i guarda..."/>
+					<Item id="3127" name="Anomena còpia i guarda..."/>
+					<Item id="3121" name="Afegeix nou projecte"/>
+				</WorkspaceMenu>
+				<ProjectMenu>
+					<Item id="3111" name="Canvia el nom"/>
+					<Item id="3112" name="Afegeix directori"/>
+					<Item id="3113" name="Afegeix fitxers..."/>
+					<Item id="3117" name="Afegeix fitxers del directori..."/>
+					<Item id="3114" name="Esborra"/>
+					<Item id="3118" name="Desplaça amunt"/>
+					<Item id="3119" name="Desplaça avall"/>
+				</ProjectMenu>
+				<FolderMenu>
+					<Item id="3111" name="Canvia el nom"/>
+					<Item id="3112" name="Afegeix directori"/>
+					<Item id="3113" name="Afegeix fitxers..."/>
+					<Item id="3117" name="Afegeix fitxers del directori..."/>
+					<Item id="3114" name="Esborra"/>
+					<Item id="3118" name="Desplaça amunt"/>
+					<Item id="3119" name="Desplaça avall"/>
+				</FolderMenu>
+				<FileMenu>
+					<Item id="3111" name="Canvia el nom"/>
+					<Item id="3115" name="Esborra"/>
+					<Item id="3116" name="Modifica la ruta del fitxer"/>
+					<Item id="3118" name="Desplaça amunt"/>
+					<Item id="3119" name="Desplaça avall"/>
+				</FileMenu>
+			</Menus>
+		</ProjectManager>
+		<MiscStrings>
+			<word-chars-list-tip value="Això permet afegir caràcters de paraula als predeterminats per quan es fa una selecció amb doble clic, o quan es cerca amb l'opció «Només la paraula sencera»."/>
+			<word-chars-list-warning-begin value="Vigileu: "/>
+			<word-chars-list-space-warning value="$INT_REPLACE$ espai(s)"/>
+			<word-chars-list-tab-warning value="$INT_REPLACE$ tabulacions"/>
+			<word-chars-list-warning-end value=" en la llista de caràcters."/>
+			<cloud-invalid-warning value="La ruta no és vàlida."/>
+			<cloud-restart-warning value="Reinicieu Notepad++ perquè faça efecte."/>
+			<cloud-select-folder value="Seleccioneu una carpeta des d'on Notepad++ llegirà/escriurà la seua configuració"/>
+			<shift-change-direction-tip value="Utilitza Maj.+Retorn per cercar en direcció contrària"/>
+			<two-find-buttons-tip value="Mode de cerca amb 2 botons"/>
+			<find-in-files-filter-tip value="Cerca als cpp, cxx, h, hxx &amp;&amp; hpp:
+*.cpp *.cxx *.h *.hxx *.hpp
+			
+Cerca a tots els fitxers excepte exe, obj &amp;&amp; log:
+*.* !*.exe !*.obj !*.log"/>
+			<find-status-top-reached value="Cerca: Trobat el 1r resultat des de baix. S'ha arribat al principi del document."/>
+			<find-status-end-reached value="Cerca: Trobat el 1r resultat des de dalt. S'ha arribat al final del document."/>
+			<find-status-replaceinfiles-1-replaced value="Reemplaça en fitxers: 1 resultat reemplaçat"/>
+			<find-status-replaceinfiles-nb-replaced value="Reemplaça en fitxers: $INT_REPLACE$ resultats reemplaçats"/>
+			<find-status-replaceinfiles-re-malformed value="Reemplaça en fitxers oberts: L'expressió regular està mal formada"/>
+			<find-status-replaceinopenedfiles-1-replaced value="Reemplaça en fitxers oberts: 1 resultat reemplaçat"/>
+			<find-status-replaceinopenedfiles-nb-replaced value="Reemplaça en fitxers oberts: $INT_REPLACE$ resultats reemplaçats"/>
+			<find-status-mark-re-malformed value="Marca: L'expressió regular de cerca està mal formada"/>
+			<find-status-invalid-re value="Cerca: Expressió regular no vàlida"/>
+			<find-status-mark-1-match value="1 coincidència marcada"/>
+			<find-status-mark-nb-matches value="$INT_REPLACE$ coincidències marcades"/>
+			<find-status-count-re-malformed value="Compta: L'expressió regular de cerca està mal formada"/>
+			<find-status-count-1-match value="Compta: 1 coincidència"/>
+			<find-status-count-nb-matches value="Compta: $INT_REPLACE$ coincidències"/>
+			<find-status-replaceall-re-malformed value="Reemplaça-ho tot: L'expressió regular està mal formada"/>
+			<find-status-replaceall-1-replaced value="Reemplaça-ho tot: 1 resultat reemplaçat"/>
+			<find-status-replaceall-nb-replaced value="Reemplaça-ho tot: $INT_REPLACE$ resultats reemplaçats"/>
+			<find-status-replaceall-readonly value="Reemplaça-ho tot: No es pot reemplaçar el text. El document actual és de només lectura"/>
+			<find-status-replace-end-reached value="Reemplaça: Reemplaçat el 1r resultat des de dalt. S'ha arribat al final del document"/>
+			<find-status-replace-top-reached value="Reemplaça: Reemplaçat el 1r resultat des de baix. S'ha arribat al principi del document"/>
+			<find-status-replaced-next-found value="Reemplaça: 1 resultat reemplaçat. Següent resultat trobat"/>
+			<find-status-replaced-next-not-found value="Reemplaça: 1 resultat reemplaçat. Següent resultat no trobat"/>
+			<find-status-replace-not-found value="Reemplaça: cap resultat trobat"/>
+			<find-status-replace-readonly value="Reemplaça: No es pot reemplaçar el text. El document actual és de només lectura"/>
+			<find-status-cannot-find value="Cerca: No s'ha trobat el text &quot;$STR_REPLACE$&quot;"/>
+			<finder-find-in-finder value="Cerca en aquests resultats..."/>
+			<finder-close-this value="Tanca aquest cercador"/>
+			<finder-collapse-all value="Redueix-ho tot"/>
+			<finder-uncollapse-all value="Amplia-ho tot"/>
+			<finder-copy value="Copia"/>
+			<finder-select-all value="Selecciona-ho tot"/>
+			<finder-clear-all value="Neteja-ho tot"/>
+			<finder-open-all value="Obri-ho tot"/>
+			<common-ok value="D'acord"/>
+			<common-cancel value="Cancel·la"/>
+			<common-name value="Nom: "/>
+			<tabrename-title value="Canvia el nom de la pestanya actual"/>
+			<tabrename-newname value="Nom nou: "/>
+			<recent-file-history-maxfile value="Màx. fitxers: "/>
+			<language-tabsize value="Mida de Tab.: "/>
+			<userdefined-title-new value="Crea un nou llenguatge..."/>
+			<userdefined-title-save value="Anomena i guarda el llenguatge actual..."/>
+			<userdefined-title-rename value="Canvia el nom del llenguatge actual"/>
+			<autocomplete-nb-char value="Nre. car.: "/>
+			<edit-verticaledge-nb-col value="Nre. de columnes:"/>
+			<summary value="Sumari"/>
+			<summary-filepath value="Ruta completa del fitxer: "/>
+			<summary-filecreatetime value="Creat: "/>
+			<summary-filemodifytime value="Modificat: "/>
+			<summary-nbchar value="Caràcters (sense finals de línia): "/>
+			<summary-nbword value="Paraules: "/>
+			<summary-nbline value="Línies: "/>
+			<summary-nbbyte value="Mida de document: "/>
+			<summary-nbsel1 value=" selecció ("/>
+			<summary-nbsel2 value=" bytes) en "/>
+			<summary-nbrange value=" rangs"/>
+		</MiscStrings>
+	</Native-Langue>
+</NotepadPlus>

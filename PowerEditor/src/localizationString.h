@@ -44,6 +44,7 @@ LocalizationSwitcher::LocalizationDefinition localizationDefs[] =
 	{TEXT("Русский"), TEXT("russian.xml")},
 	{TEXT("Polski"), TEXT("polish.xml")},
 	{TEXT("Català"), TEXT("catalan.xml")},
+	{TEXT("Català-valencià"), TEXT("catalan-valencian.xml")},
 	{TEXT("Česky"), TEXT("czech.xml")},
 	{TEXT("Magyar"), TEXT("hungarian.xml")},
 	{TEXT("Română"), TEXT("romanian.xml")},

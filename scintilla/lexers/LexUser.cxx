@@ -1710,6 +1710,8 @@ static void ColouriseUserDoc(Sci_PositionU startPos, Sci_Position length, int in
                             sc.Forward(iter->length());
                         if (sc.atLineStart)
                             checkEOL = EOL_FORCE_CHECK;
+                        else if (sc.atLineEnd)
+                            checkEOL = EOL_SKIP_CHECK;
 
                         // paint end of delimiter sequence
                         sc.SetState(newState);

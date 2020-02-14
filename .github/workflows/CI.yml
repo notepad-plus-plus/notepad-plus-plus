@@ -1,0 +1,99 @@
+name: CI
+
+on:
+  push:
+    paths-ignore:
+      - 'README.md'
+      - 'appveyor.yml'
+  pull_request:
+    paths-ignore:
+      - 'README.md'
+      - 'appveyor.yml'
+
+jobs:
+  build-vs2017:
+    runs-on: vs2017-win2016
+    strategy:
+      fail-fast: false
+      matrix:
+        configuration: [Unicode Release, Unicode Debug]
+        platform: [Win32, x64]
+        include:
+          - configuration: Unicode Debug
+            scintilla_debug: DEBUG=TRUE
+          - platform: Win32
+            archi: x86
+            platform_input: Win32
+          - platform: x64
+            archi: amd64
+            platform_input: x64
+    steps:
+    - uses: actions/checkout@v2
+    - uses: seanmiddleditch/gha-setup-vsdevenv@v1
+      with:
+        arch: ${{ matrix.archi }}
+    - name: NMAKE Scintilla/SciLexer
+      working-directory: scintilla\win32
+      run: nmake SUPPORT_XP=1 ${{ matrix.scintilla_debug }} -f scintilla.mak
+    - uses: warrenbuckley/Setup-MSBuild@v1
+    - name: Build Notepad++
+      working-directory: PowerEditor\visual.net
+      run: msbuild notepadPlus.vcxproj /p:configuration="${{ matrix.CONFIGURATION }}" /p:platform=${{ matrix.PLATFORM_INPUT }}
+    - name: Set artifact path
+      run: |
+        if ('${{ matrix.PLATFORM_INPUT }}' -eq 'x64' -And '${{ matrix.CONFIGURATION }}' -eq 'Unicode Release') {
+            echo "::set-env name=artifact::PowerEditor\bin64\Notepad++.exe"
+        }
+        if ('${{ matrix.PLATFORM_INPUT }}' -eq 'x64' -And '${{ matrix.CONFIGURATION }}' -eq 'Unicode Debug') {
+            echo "::set-env name=artifact::PowerEditor\visual.net\x64\Unicode Debug\Notepad++.exe"
+        }
+        if ('${{ matrix.PLATFORM_INPUT }}' -eq 'Win32' -And '${{ matrix.CONFIGURATION }}' -eq 'Unicode Release') {
+            echo "::set-env name=artifact::PowerEditor\bin\Notepad++.exe"
+        }
+        if ('${{ matrix.PLATFORM_INPUT }}' -eq 'Win32' -And '${{ matrix.CONFIGURATION }}' -eq 'Unicode Debug') {
+            echo "::set-env name=artifact::PowerEditor\visual.net\Unicode Debug\Notepad++.exe"
+        }
+    - name: Upload Notepad++ artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: Notepad++.${{ matrix.PLATFORM_INPUT }}.${{ matrix.CONFIGURATION }}
+        path: ${{ env.artifact }}
+    - name: Upload Scintilla/SciLexer artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: SciLexer++.${{ matrix.PLATFORM }}.${{ matrix.CONFIGURATION }}
+        path: scintilla\bin\SciLexer.dll
+  build-mingw:
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        configuration: [Unicode Release, Unicode Debug]
+        platform: [Win32, x64]
+        include:
+          - configuration: Unicode Debug
+            scintilla_debug: DEBUG=TRUE
+          - platform: Win32
+            archi: x86
+            platform_input: Win32
+          - platform: x64
+            archi: amd64
+            platform_input: x64
+    steps:
+    - uses: actions/checkout@v2
+    - name: Make Scintilla/SciLexer
+      working-directory: scintilla\win32
+      run: mingw32-make -j $env:NUMBER_OF_PROCESSORS
+    - name: Build Notepad++
+      working-directory: PowerEditor\gcc
+      run: mingw32-make -j $env:NUMBER_OF_PROCESSORS
+    - name: Upload Notepad++ artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: Notepad++.${{ matrix.PLATFORM_INPUT }}.${{ matrix.CONFIGURATION }}
+        path: PowerEditor\bin\NotepadPP.exe
+    - name: Upload Scintilla artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: SciLexer++.${{ matrix.PLATFORM }}.${{ matrix.CONFIGURATION }}
+        path: scintilla\bin\SciLexer.dll

@@ -394,6 +394,23 @@ void Notepad_plus::command(int id)
 		break;
 
 		case IDM_EDIT_OPENINFOLDER:
+		{
+			HWND hwnd = _pPublicInterface->getHSelf();
+	
+			TCHAR cmd2Exec[CURRENTWORD_MAXLENGTH];
+			wcscpy_s(cmd2Exec, TEXT("explorer"));
+	
+			TCHAR currentDir[CURRENTWORD_MAXLENGTH];
+			::SendMessage(hwnd, NPPM_GETCURRENTDIRECTORY, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(currentDir));
+	
+			generic_string fullFilePath = TEXT("/open,");
+			fullFilePath += TEXT("\"");
+			fullFilePath += currentDir;
+	
+			::ShellExecute(hwnd, TEXT("open"), cmd2Exec, fullFilePath.c_str(), TEXT("."), SW_SHOW);
+		}
+		break;
+
 		case IDM_EDIT_OPENASFILE:
 		{
 			if (_pEditView->execute(SCI_GETSELECTIONS) != 1) // Multi-Selection || Column mode || no selection
@@ -404,40 +421,26 @@ void Notepad_plus::command(int id)
 			::SendMessage(hwnd, NPPM_GETFILENAMEATCURSOR, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(curentWord));
 			
 			TCHAR cmd2Exec[CURRENTWORD_MAXLENGTH];
-			if (id == IDM_EDIT_OPENINFOLDER)
-			{
-				wcscpy_s(cmd2Exec, TEXT("explorer"));
-			}
-			else
-			{
-				::SendMessage(hwnd, NPPM_GETNPPFULLFILEPATH, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(cmd2Exec));
-			}
+			::SendMessage(hwnd, NPPM_GETNPPFULLFILEPATH, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(cmd2Exec));
 
 			// Full file path
 			if (::PathFileExists(curentWord))
 			{
-				generic_string fullFilePath = id == IDM_EDIT_OPENINFOLDER ? TEXT("/select,") : TEXT("");
-				fullFilePath += TEXT("\"");
-				fullFilePath += curentWord;
-				fullFilePath += TEXT("\"");
-
-				if (id == IDM_EDIT_OPENINFOLDER ||
-					(id == IDM_EDIT_OPENASFILE && not ::PathIsDirectory(curentWord)))
-					::ShellExecute(hwnd, TEXT("open"), cmd2Exec, fullFilePath.c_str(), TEXT("."), SW_SHOW);
+				generic_string fullFilePath = curentWord;
+				::ShellExecute(hwnd, TEXT("open"), cmd2Exec, fullFilePath.c_str(), TEXT("."), SW_SHOW);
 			}
 			else // Full file path - need concatenate with current full file path
 			{
 				TCHAR currentDir[CURRENTWORD_MAXLENGTH];
 				::SendMessage(hwnd, NPPM_GETCURRENTDIRECTORY, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(currentDir));
 
-				generic_string fullFilePath = id == IDM_EDIT_OPENINFOLDER ? TEXT("/select,") : TEXT("");
+				generic_string fullFilePath = TEXT("");
 				fullFilePath += TEXT("\"");
 				fullFilePath += currentDir;
 				fullFilePath += TEXT("\\");
 				fullFilePath += curentWord;
 
-				if ((id == IDM_EDIT_OPENASFILE &&
-					(not::PathFileExists(fullFilePath.c_str() + 1) || ::PathIsDirectory(fullFilePath.c_str() + 1))))
+				if (((not::PathFileExists(fullFilePath.c_str() + 1) || ::PathIsDirectory(fullFilePath.c_str() + 1))))
 				{
 					_nativeLangSpeaker.messageBox("FilePathNotFoundWarning",
 						_pPublicInterface->getHSelf(),

@@ -430,7 +430,7 @@ void Notepad_plus::command(int id)
 				TCHAR currentDir[CURRENTWORD_MAXLENGTH];
 				::SendMessage(hwnd, NPPM_GETCURRENTDIRECTORY, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(currentDir));
 
-				generic_string fullFilePath = id == IDM_EDIT_OPENINFOLDER ? TEXT("/select,") : TEXT("");
+				generic_string fullFilePath = id == IDM_EDIT_OPENINFOLDER ? TEXT("/open,") : TEXT("");
 				fullFilePath += TEXT("\"");
 				fullFilePath += currentDir;
 				fullFilePath += TEXT("\\");
@@ -439,9 +439,12 @@ void Notepad_plus::command(int id)
 				if ((id == IDM_EDIT_OPENASFILE &&
 					(not::PathFileExists(fullFilePath.c_str() + 1) || ::PathIsDirectory(fullFilePath.c_str() + 1))))
 				{
+					TCHAR szMsg[MAX_PATH + 64];
+					wsprintf(szMsg, TEXT("File '%s' doesn't exist."), fullFilePath.c_str());
+
 					_nativeLangSpeaker.messageBox("FilePathNotFoundWarning",
 						_pPublicInterface->getHSelf(),
-						TEXT("The file you're trying to open doesn't exist."),
+						szMsg,
 						TEXT("File Open"),
 						MB_OK | MB_APPLMODAL);
 					return;

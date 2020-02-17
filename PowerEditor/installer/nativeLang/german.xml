@@ -51,7 +51,7 @@
 					<Item subMenuId="search-jumpDown" name="Zur &amp;nächsten Hervorhebung springen"/>
 					<Item subMenuId="search-bookmark" name="&amp;Lesezeichen"/>
 					<Item subMenuId="view-currentFileIn" name="Aktuelle Datei betrachten in"/>
-					<Item subMenuId="view-showSymbol" name="Nicht &amp;druckbare Zeichen"/>
+					<Item subMenuId="view-showSymbol" name="Symbole anzeigen"/>
 					<Item subMenuId="view-zoom" name="Z&amp;oom"/>
 					<Item subMenuId="view-moveCloneDocument" name="Datei &amp;verschieben/duplizieren"/>
 					<Item subMenuId="view-tab" name="&amp;Tabs"/>

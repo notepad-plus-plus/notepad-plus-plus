@@ -908,13 +908,13 @@
                     <!-- <Item id="6261" name="（重新啟動 Notepad++ 後生效）"/> -->
                 </Cloud>
 
-                <SearchEngine title="搜索引擎">
-                    <Item id="6271" name="搜索引擎（適用於「於網上搜尋」選單指令）"/>
+                <SearchEngine title="搜尋引擎">
+                    <Item id="6271" name="搜尋引擎（適用於「於網上搜尋」選單指令）"/>
                     <Item id="6272" name="DuckDuckGo"/>
                     <Item id="6273" name="Google"/>
                     <Item id="6274" name="Bing"/>
                     <Item id="6275" name="Yahoo!"/>
-                    <Item id="6276" name="自訂搜索引擎："/>
+                    <Item id="6276" name="自訂搜尋引擎："/>
                     <Item id="6278" name="範例：https://www.google.com/search?q=$(CURRENT_WORD)"/>
                 </SearchEngine>
 
@@ -1157,7 +1157,7 @@
             </Menus>
         </ProjectManager>
         <MiscStrings>
-            <word-chars-list-tip value="這允許您附加字元在目前單字字元集中，當滑鼠雙擊以進行選擇或以「僅符合整個單字」選項進行搜索。"/>
+            <word-chars-list-tip value="這允許您在目前單字字元集中附加字元，當滑鼠雙擊以進行選擇或以「僅符合整個單字」選項進行搜尋。"/>
             <word-chars-list-warning-begin value="警告："/>
             <word-chars-list-space-warning value="$INT_REPLACE$ 個空格"/>
             <word-chars-list-tab-warning value="$INT_REPLACE$ 個 TAB"/>
@@ -1165,7 +1165,7 @@
             <cloud-invalid-warning value="無效的路徑。"/>
             <cloud-restart-warning value="請重新啟動 Notepad++ 以使變更生效。"/>
             <cloud-select-folder value="選擇一個資料夾，以便 Notepad++ 從中讀取/寫入其設定。"/>
-            <shift-change-direction-tip value="使用「Shift + Enter」以相反方向進行搜索"/>
+            <shift-change-direction-tip value="使用「Shift + Enter」以相反方向進行搜尋"/>
             <two-find-buttons-tip value="顯示「找上一個」按鈕"/>
 			<find-in-files-filter-tip value="只在 cpp, cxx, h, hxx &amp;&amp; hpp 中找尋:
 *.cpp *.cxx *.h *.hxx *.hpp

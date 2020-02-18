@@ -1157,7 +1157,7 @@
             </Menus>
         </ProjectManager>
         <MiscStrings>
-            <word-chars-list-tip value="這允許您附加字元在目前單字字元集中，當滑鼠雙擊以進行選擇或以「僅符合整個單字」選項進行搜尋。"/>
+            <word-chars-list-tip value="這允許您在目前單字字元集中附加字元，當滑鼠雙擊以進行選擇或以「僅符合整個單字」選項進行搜尋。"/>
             <word-chars-list-warning-begin value="警告："/>
             <word-chars-list-space-warning value="$INT_REPLACE$ 個空格"/>
             <word-chars-list-tab-warning value="$INT_REPLACE$ 個 TAB"/>

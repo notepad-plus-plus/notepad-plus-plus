@@ -1481,15 +1481,18 @@ bool Notepad_plus::fileSave(BufferID id)
 				struct tm *today;
 
 				today = localtime(&ltime);
-				generic_strftime(tmpbuf, temBufLen, TEXT("%Y-%m-%d_%H%M%S"), today);
+				if (today)
+				{
+					generic_strftime(tmpbuf, temBufLen, TEXT("%Y-%m-%d_%H%M%S"), today);
 
-				fn_bak += name;
-				fn_bak += TEXT(".");
-				fn_bak += tmpbuf;
-				fn_bak += TEXT(".bak");
+					fn_bak += name;
+					fn_bak += TEXT(".");
+					fn_bak += tmpbuf;
+					fn_bak += TEXT(".bak");
+				}
 			}
 
-			if (not ::CopyFile(fn, fn_bak.c_str(), FALSE))
+			if (!::CopyFile(fn, fn_bak.c_str(), FALSE))
 			{
 				int res = _nativeLangSpeaker.messageBox("FileBackupFailed",
 					_pPublicInterface->getHSelf(),

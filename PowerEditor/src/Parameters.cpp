@@ -6950,10 +6950,12 @@ Date::Date(int nbDaysFromNow)
 	rawtime += (nbDaysFromNow * oneDay);
 
 	timeinfo = localtime(&rawtime);
-
-	_year = timeinfo->tm_year + 1900;
-	_month = timeinfo->tm_mon + 1;
-	_day = timeinfo->tm_mday;
+	if (timeinfo)
+	{
+		_year = timeinfo->tm_year + 1900;
+		_month = timeinfo->tm_mon + 1;
+		_day = timeinfo->tm_mday;
+	}
 }
 
 void Date::now()
@@ -6963,10 +6965,12 @@ void Date::now()
 
 	time(&rawtime);
 	timeinfo = localtime(&rawtime);
-
-	_year = timeinfo->tm_year + 1900;
-	_month = timeinfo->tm_mon + 1;
-	_day = timeinfo->tm_mday;
+	if (timeinfo)
+	{
+		_year = timeinfo->tm_year + 1900;
+		_month = timeinfo->tm_mon + 1;
+		_day = timeinfo->tm_mday;
+	}
 }
 
 

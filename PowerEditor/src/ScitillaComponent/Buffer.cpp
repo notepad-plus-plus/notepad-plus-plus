@@ -849,6 +849,9 @@ bool FileManager::backupCurrentBuffer()
 				TCHAR tmpbuf[temBufLen];
 				time_t ltime = time(0);
 				struct tm* today = localtime(&ltime);
+				if (!today)
+					return false;
+
 				generic_strftime(tmpbuf, temBufLen, TEXT("%Y-%m-%d_%H%M%S"), today);
 
 				backupFilePath += TEXT("@");

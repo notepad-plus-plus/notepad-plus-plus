@@ -156,7 +156,7 @@ struct BufferEquivalent
 
 	bool compare(int i1, int i2) const
 	{
-		if (_iColumn >= 0 && _iColumn <= 2)
+		if (_iColumn >= 0 && _iColumn <= 3)
 		{
 			BufferID bid1 = _pTab->getBufferByIndex(i1);
 			BufferID bid2 = _pTab->getBufferByIndex(i2);
@@ -369,6 +369,16 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 								generic_strncpy(pLvdi->item.pszText, lang->getLangName(), len-1);
 							}
 						}
+						else if (pLvdi->item.iSubItem == 3) // size
+						{
+							int docSize = buf->docLength();
+							string docSizeText = to_string(docSize);
+							wstring wstr = wstring(docSizeText.begin(), docSizeText.end());
+							const wchar_t * wstrp = wstr.c_str();
+							int docSizeTextLen = lstrlen(wstrp);
+							generic_strncpy(pLvdi->item.pszText, wstrp, docSizeTextLen);
+							pLvdi->item.pszText[docSizeTextLen] = 0;
+						}
 					}
 					return TRUE;
 				}
@@ -521,6 +531,11 @@ BOOL WindowsDlg::onInitDialog()
 	lvColumn.cx = 50;
 	SendMessage(_hList, LVM_INSERTCOLUMN, 2, LPARAM(&lvColumn));
 
+	columnText = TEXT("\u21F5 ") + pNativeSpeaker->getAttrNameStr(TEXT("Size"), WD_ROOTNODE, WD_CLMNNAME);
+	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
+	lvColumn.cx = 60;
+	SendMessage(_hList, LVM_INSERTCOLUMN, 3, LPARAM(&lvColumn));
+
 	fitColumnsToSize();
 
 	if (_lastKnownLocation.bottom > 0 && _lastKnownLocation.right > 0)
@@ -598,6 +613,23 @@ void WindowsDlg::updateColumnNames()
 	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
 	lvColumn.cx = static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 2, 0));
 	SendMessage(_hList, LVM_SETCOLUMN, 2, LPARAM(&lvColumn));
+
+	columnText = pNativeSpeaker->getAttrNameStr(TEXT("Size"), WD_ROOTNODE, WD_CLMNTYPE);
+	if (_currentColumn != 3)
+	{
+		columnText = TEXT("\u21F5 ") + columnText;
+	}
+	else if (_reverseSort)
+	{
+		columnText = TEXT("\u25B3 ") + columnText;
+	}
+	else
+	{
+		columnText = TEXT("\u25BD ") + columnText;
+	}
+	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
+	lvColumn.cx = static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 3, 0));
+	SendMessage(_hList, LVM_SETCOLUMN, 3, LPARAM(&lvColumn));
 }
 
 void WindowsDlg::onSize(UINT nType, int cx, int cy)
@@ -674,6 +706,7 @@ void WindowsDlg::fitColumnsToSize()
 		int len = (rc.right - rc.left);
 		len -= static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 0, 0));
 		len -= static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 2, 0));
+		len -= static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 3, 0));
 		len -= GetSystemMetrics(SM_CXVSCROLL);
 		len -= 1;
 		SendMessage(_hList, LVM_SETCOLUMNWIDTH, 1, len);

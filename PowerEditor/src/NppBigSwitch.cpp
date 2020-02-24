@@ -1855,13 +1855,25 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					updater.run(nppParam.shouldDoUAC());
 				}
 			}
+
+			// _isEndingSessionButNotReady is true means WM_QUERYENDSESSION is sent but no time to finish saving data
+            // then WM_ENDSESSION is sent with wParam == FALSE - Notepad++ should exit in this case
+			if (_isEndingSessionButNotReady) 
+				::DestroyWindow(hwnd);
+
 			return TRUE;
 		}
 
 		case WM_ENDSESSION:
 		{
 			if (wParam == TRUE)
+			{
 				::DestroyWindow(hwnd);
+			}
+			else
+			{
+				_isEndingSessionButNotReady = true;
+			}
 			return 0;
 		}
 

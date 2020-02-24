@@ -1039,8 +1039,6 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					updateCombo(IDFINDWHAT);
 
 					nppParamInst._isFindReplacing = true;
-					if (isMacroRecording)
-						saveInMacro(wParam, FR_OP_FIND);
 
 					bool direction_bak = _options._whichDirection;
 
@@ -1062,6 +1060,9 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 							_options._whichDirection = !_options._whichDirection;
 						}
 					}
+
+					if (isMacroRecording)
+						saveInMacro(IDOK, FR_OP_FIND);
 
 					FindStatus findStatus = FSFound;
 					processFindNext(_options._str2Search.c_str(), _env, &findStatus);
@@ -2664,24 +2665,6 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const generic_st
 						processFindNext(_env->_str2Search.c_str());
 						nppParamInst._isFindReplacing = false;
 						break;
-
-					case IDC_FINDNEXT:
-					{
-						nppParamInst._isFindReplacing = true;
-						_options._whichDirection = DIR_DOWN;
-						processFindNext(_env->_str2Search.c_str());
-						nppParamInst._isFindReplacing = false;
-					}
-					break;
-					
-					case IDC_FINDPREV:
-					{
-						nppParamInst._isFindReplacing = true;
-						_env->_whichDirection = DIR_UP;
-						processFindNext(_env->_str2Search.c_str());
-						nppParamInst._isFindReplacing = false;
-					}
-					break;
 
 					case IDREPLACE:
 						nppParamInst._isFindReplacing = true;

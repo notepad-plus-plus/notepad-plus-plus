@@ -58,13 +58,13 @@ DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 	const DWORD dwNotificationFlags = FILE_NOTIFY_CHANGE_LAST_WRITE | FILE_NOTIFY_CHANGE_FILE_NAME | FILE_NOTIFY_CHANGE_SIZE;
 
 	// Create the monitor and add directory to watch.
-	CReadDirectoryChanges changes;
-	changes.AddDirectory(folderToMonitor, true, dwNotificationFlags);
+	CReadDirectoryChanges dirChanges;
+	dirChanges.AddDirectory(folderToMonitor, true, dwNotificationFlags);
 
-	CReadFileChanges fChanges;
-	fChanges.AddFile(fullFileName, FILE_NOTIFY_CHANGE_LAST_WRITE | FILE_NOTIFY_CHANGE_SIZE);
+	CReadFileChanges fileChanges;
+	fileChanges.AddFile(fullFileName, FILE_NOTIFY_CHANGE_LAST_WRITE | FILE_NOTIFY_CHANGE_SIZE);
 
-	HANDLE changeHandles[] = { buf->getMonitoringEvent(), changes.GetWaitHandle() };
+	HANDLE changeHandles[] = { buf->getMonitoringEvent(), dirChanges.GetWaitHandle() };
 
 	bool toBeContinued = true;
 
@@ -74,17 +74,19 @@ DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 		switch (waitStatus)
 		{
 			case WAIT_OBJECT_0 + 0:
-				// Mutex was signaled. User removes this folder or file browser is closed
+			// Mutex was signaled. User removes this folder or file browser is closed
+			{
 				toBeContinued = false;
+			}
 			break;
 
 			case WAIT_OBJECT_0 + 1:
-				// We've received a notification in the queue.
+			// We've received a notification in the queue.
 			{
 				DWORD dwAction;
 				generic_string fn;
 				// Process all available changes, ignore User actions
-				while (changes.Pop(dwAction, fn))
+				while (dirChanges.Pop(dwAction, fn))
 				{
 					// Fix monitoring files which are under root problem
 					size_t pos = fn.find(TEXT("\\\\"));
@@ -106,11 +108,14 @@ DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 				}
 			}
 			break;
+
 			case WAIT_TIMEOUT:
-				if (fChanges.DetectChanges()) {
+			{
+				if (fileChanges.DetectChanges())
 					::PostMessage(h, NPPM_INTERNAL_RELOADSCROLLTOEND, reinterpret_cast<WPARAM>(buf), 0);
-				}
-				break;
+			}
+			break;
+
 			case WAIT_IO_COMPLETION:
 				// Nothing to do.
 			break;
@@ -119,8 +124,8 @@ DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 
 	// Just for sample purposes. The destructor will
 	// call Terminate() automatically.
-	changes.Terminate();
-	fChanges.Terminate();
+	dirChanges.Terminate();
+	fileChanges.Terminate();
 	delete monitorInfo;
 	return EXIT_SUCCESS;
 }

@@ -785,7 +785,7 @@
 </DefaultDir>
 
 <FileAssoc title="파일 연결">
-  <Item id="4008" name="이 기능을 사용하려면 Notepad++를 종료한 뒤 관리자 모드 다시 실행해 주세요"/>
+  <Item id="4008" name="이 기능을 사용하려면 Notepad++를 종료하고 관리자 모드로 다시 실행해 주세요"/>
   <Item id="4009" name="확장자 지원:"/> 
   <Item id="4010" name="확장자 등록:"/> 
 </FileAssoc>

@@ -1197,10 +1197,10 @@ langs.xml 파일을 복구하시겠습니까?"/>
 <word-chars-list-tip value="더블 클릭으로 선택하거나 &quot;전체 단어 일치&quot; 옵션을 체크해서 검색하는 동안, 현재 단어에 추가 글자를 포함하는 것을 허용합니다. "/>
 <word-chars-list-warning-begin value="주의사항: "/>
 <!-- $INT_REPLACE$ is a place holder, don't translate it -->
-<word-chars-list-space-warning value="$INT_REPLACE$ 빈 칸"/>
+<word-chars-list-space-warning value="빈 칸 $INT_REPLACE$개"/>
 <!-- $INT_REPLACE$ is a place holder, don't translate it -->
-<word-chars-list-tab-warning value="$INT_REPLACE$ 탭"/>
-<word-chars-list-warning-end value="  설정한 문자 목록"/>
+<word-chars-list-tab-warning value="탭 INT_REPLACE$개"/>
+<word-chars-list-warning-end value="가 문자 목록에 존재합니다."/>
 <cloud-invalid-warning value="잘못된 경로입니다."/>
 <cloud-restart-warning value="적용하려면 Notepad++를 다시 시작하십시오."/>
 <cloud-select-folder value="Notepad++의 설정을 읽고 저장할 폴더를 선택하세요"/>

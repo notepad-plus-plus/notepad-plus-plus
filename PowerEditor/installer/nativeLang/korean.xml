@@ -1199,7 +1199,7 @@ langs.xml 파일을 복구하시겠습니까?"/>
 <!-- $INT_REPLACE$ is a place holder, don't translate it -->
 <word-chars-list-space-warning value="빈 칸 $INT_REPLACE$개"/>
 <!-- $INT_REPLACE$ is a place holder, don't translate it -->
-<word-chars-list-tab-warning value="탭 INT_REPLACE$개"/>
+<word-chars-list-tab-warning value="탭 $INT_REPLACE$개"/>
 <word-chars-list-warning-end value="가 문자 목록에 존재합니다."/>
 <cloud-invalid-warning value="잘못된 경로입니다."/>
 <cloud-restart-warning value="적용하려면 Notepad++를 다시 시작하십시오."/>

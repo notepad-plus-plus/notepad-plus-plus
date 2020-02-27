@@ -510,8 +510,8 @@
   <RunCommandsTab name="실행할 명령어"/>
   <PluginCommandsTab name="플러그인 명령어"/>
   <ScintillaCommandsTab name="Scintilla 명령어"/>
-  <ConflictInfoOk name="이 항목에 대해 겹치는 단축키는 없습니다."/>
-  <ConflictInfoEditing name="겹치는 단축키없음. . ."/>
+  <ConflictInfoOk name="이 항목은 충돌하는 단축키가 없습니다."/>
+  <ConflictInfoEditing name="충돌 없음..."/>
 </ShortcutMapper>
 <ShortcutMapperSubDialg title="단축키">
   <Item id="1" name="확인"/>
@@ -520,7 +520,7 @@
   <Item id="5008" name="추가"/>
   <Item id="5009" name="삭제"/>
   <Item id="5010" name="적용"/>
-  <Item id="5007" name="이 명령어에 대한 단축키를 삭제합니다."/>
+  <Item id="5007" name="이 명령어의 단축키를 삭제합니다."/>
   <Item id="5012" name="단축키가 겹칩니다!"/>
 </ShortcutMapperSubDialg>
 <UserDefine title="사용자 지정 프로그래밍 언어">
@@ -785,7 +785,7 @@
 </DefaultDir>
 
 <FileAssoc title="파일 연결">
-  <Item id="4008" name="이 기능을 사용하기 위해 Notepad++을 종료하고, 관리자 모드로 재실행해 주세요"/>
+  <Item id="4008" name="이 기능을 사용하려면 Notepad++를 종료한 뒤 관리자 모드 다시 실행해 주세요"/>
   <Item id="4009" name="확장자 지원:"/> 
   <Item id="4010" name="확장자 등록:"/> 
 </FileAssoc>
@@ -989,7 +989,7 @@
   <Item id="1"    name="모두 찾기"/>
   <Item id="2"    name="닫기"/>
   <Item id="1711" name="찾을 단어: (&amp;F)"/>
-  <Item id="1713" name="찾은 줄들에서 찾기"/>
+  <Item id="1713" name="찾은 줄에서 다시 찾기"/>
   <Item id="1714" name="단어 완전 일치(&amp;W)"/> 
   <Item id="1715" name="대소문자 구분(&amp;C)"/> 
   <Item id="1716" name="찾기 모드"/> 
@@ -1008,7 +1008,7 @@
 </DoSaveOrNot>
 </Dialog>
 <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
-  <ContextMenuXmlEditWarning title="컨텍스트 메뉴 편집" message="contextMenu.xml 파일을 수정하면 Noetpad++의 팝업 컨텍스트 메뉴를 바꿀 수 있습니다.  
+  <ContextMenuXmlEditWarning title="컨텍스트 메뉴 편집" message="contextMenu.xml 파일을 수정하면 Notepad++의 팝업 컨텍스트 메뉴를 바꿀 수 있습니다.  
 변경사항을 적용하려면 Notepad++을 다시 시작해야 합니다."/> 
   <NppHelpAbsentWarning title="파일이 없습니다!" message="
 파일이 없습니다. Notepad++ 사이트에서 다운로드 받으시기 바랍니다."/> 
@@ -1058,9 +1058,9 @@
             <XpUpdaterProblem title="Notepad++ 업데이터" message="Nodepad++업데이터는 보안 문제로 인해 XP 에서 동작하지 않습니다.
 Nodepad++ 홈페이지에서 직접 다운로드 받으시겠습니까?"/>
             <GUpProxyConfNeedAdminMode title="프록시 설정" message="프록시 설정을 위해 관리자 모드로 재실행해 주세요."/>
-            <DocTooDirtyToMonitor title="모니터링 문제" message="이 문서는 오염되었습니다. 모니터링을 하기 전에 변경 사항을 저장해 주세요."/>
-            <DocNoExistToMonitor title="모니터링 문제" message="모니터링을 위해서는 파일이 있어야 합니다."/>
-            <FileTooBigToOpen title="파일 크기 문제" message="Notepad++에서 열기에는 파일이 너무 큽니다."/>
+            <DocTooDirtyToMonitor title="모니터링 에러" message="이 문서는 저장되지 않았습니다. 모니터링을 하기 전에 변경 사항을 저장해 주세요."/>
+            <DocNoExistToMonitor title="모니터링 에러" message="모니터링을 위해서는 파일이 있어야 합니다."/>
+            <FileTooBigToOpen title="파일 크기 에러" message="Notepad++에서 열기에는 파일이 너무 큽니다."/>
             <CreateNewFileOrNot title="새 파일 만들기" message="&quot;$STR_REPLACE$&quot; 이 없습니다. 만드시겠습니까?"/>
             <CreateNewFileError title="새 파일 만들기" message="&quot;$STR_REPLACE$&quot; 을 만들 수 없습니다."/>
             <OpenFileError title="오류" message="&quot;$STR_REPLACE$&quot; 을 열 수 없습니다."/>
@@ -1071,7 +1071,7 @@ Nodepad++ 홈페이지에서 직접 다운로드 받으시겠습니까?"/>
             <LoadLangsFailed title="설정" message="langs.xml 파일을 열 수 없습니다!
 langs.xml 파일을 복구하시겠습니까?"/>
             <LoadLangsFailedFinal title="설정" message="langs.xml 파일을 열 수 없습니다!"/>
-            <FolderAsWorspaceSubfolderExists title="폴더를 작업 영역으로 추가하기 문제" message="추가하려는 폴더의 하위 폴더가 존재합니다.
+            <FolderAsWorspaceSubfolderExists title="작업 영역 폴더 추가 에러" message="추가하려는 폴더의 하위 폴더가 존재합니다.
 &quot;$STR_REPLACE$&quot; 폴더를 추가하기 전에 패널에서 해당 폴더의 최상위 폴더를 삭제해 주세요."/>
 
             <ProjectPanelChanged title="$STR_REPLACE$" message="작업 영역이 변경되었습니다. 저장하시겠습니까?"/>
@@ -1090,15 +1090,14 @@ langs.xml 파일을 복구하시겠습니까?"/>
 다른 이름을 사용해 주세요."/>
             <UDLRemoveCurrentLang title="현재 언어 삭제" message="삭제하시겠습니까?"/>
             <SCMapperDoDeleteOrNot title="확인" message="이 단축키를 삭제하시겠습니까?"/>
-            <FindCharRangeValueError title="범위 문제" message="0에서 255까지만 입력할 수 있습니다."/>
+            <FindCharRangeValueError title="범위 에러" message="0에서 255까지만 입력할 수 있습니다."/>
             <OpenInAdminMode title="저장 실패" message="파일을 저장할 수 없습니다. 보호 중인 것 같습니다.
 관리자 모드로 이 파일을 여시겠습니까?"/>
             <OpenInAdminModeWithoutCloseCurrent title="저장 실패" message="파일을 저장할 수 없습니다. 보호 중인 것 같습니다.
 관리자 모드로 이 파일을 여시겠습니까?"/>
             <OpenInAdminModeFailed title="관리자 모드로 열기 실패" message="Notepad++ 을 관리자 모드로 열 수 없습니다."/>
             <ViewInBrowser title="브라우저에서 파일 보기" message="시스템에서 프로그램을 찾을 수 없습니다."/>
-            <ExitToUpdatePlugins title="Notepad++ 종료 중" message="예를 누르면, 종료를 계속 진행합니다.
-모든 동작이 완료되면 Nodepad++을 재시작합니다.
+            <ExitToUpdatePlugins title="Notepad++ 종료 중" message="예를 누르면 Notepad++를 재시작합니다.
 계속하시겠습니까?"/>
             <NeedToRestartToLoadPlugins title="Notepad++ 재시작이 필요합니다" message="설치한 플러그인을 사용하려면 Notepad++을 재시작해야 합니다."/>
   </MessageBox>
@@ -1201,7 +1200,7 @@ langs.xml 파일을 복구하시겠습니까?"/>
 <word-chars-list-space-warning value="$INT_REPLACE$ 빈 칸"/>
 <!-- $INT_REPLACE$ is a place holder, don't translate it -->
 <word-chars-list-tab-warning value="$INT_REPLACE$ 탭"/>
-<word-chars-list-warning-end value="  귀하의 문자 목록"/>
+<word-chars-list-warning-end value="  설정한 문자 목록"/>
 <cloud-invalid-warning value="잘못된 경로입니다."/>
 <cloud-restart-warning value="적용하려면 Notepad++를 다시 시작하십시오."/>
 <cloud-select-folder value="Notepad++의 설정을 읽고 저장할 폴더를 선택하세요"/>

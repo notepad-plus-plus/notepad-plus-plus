@@ -1058,9 +1058,9 @@
             <XpUpdaterProblem title="Notepad++ 업데이터" message="Nodepad++업데이터는 보안 문제로 인해 XP 에서 동작하지 않습니다.
 Nodepad++ 홈페이지에서 직접 다운로드 받으시겠습니까?"/>
             <GUpProxyConfNeedAdminMode title="프록시 설정" message="프록시 설정을 위해 관리자 모드로 재실행해 주세요."/>
-            <DocTooDirtyToMonitor title="모니터링 에러" message="이 문서는 저장되지 않았습니다. 모니터링을 하기 전에 변경 사항을 저장해 주세요."/>
-            <DocNoExistToMonitor title="모니터링 에러" message="모니터링을 위해서는 파일이 있어야 합니다."/>
-            <FileTooBigToOpen title="파일 크기 에러" message="Notepad++에서 열기에는 파일이 너무 큽니다."/>
+            <DocTooDirtyToMonitor title="모니터링 오류" message="이 문서는 저장되지 않았습니다. 모니터링을 하기 전에 변경 사항을 저장해 주세요."/>
+            <DocNoExistToMonitor title="모니터링 오류" message="모니터링을 위해서는 파일이 있어야 합니다."/>
+            <FileTooBigToOpen title="파일 크기 오류" message="Notepad++에서 열기에는 파일이 너무 큽니다."/>
             <CreateNewFileOrNot title="새 파일 만들기" message="&quot;$STR_REPLACE$&quot; 이 없습니다. 만드시겠습니까?"/>
             <CreateNewFileError title="새 파일 만들기" message="&quot;$STR_REPLACE$&quot; 을 만들 수 없습니다."/>
             <OpenFileError title="오류" message="&quot;$STR_REPLACE$&quot; 을 열 수 없습니다."/>
@@ -1071,7 +1071,7 @@ Nodepad++ 홈페이지에서 직접 다운로드 받으시겠습니까?"/>
             <LoadLangsFailed title="설정" message="langs.xml 파일을 열 수 없습니다!
 langs.xml 파일을 복구하시겠습니까?"/>
             <LoadLangsFailedFinal title="설정" message="langs.xml 파일을 열 수 없습니다!"/>
-            <FolderAsWorspaceSubfolderExists title="작업 영역 폴더 추가 에러" message="추가하려는 폴더의 하위 폴더가 존재합니다.
+            <FolderAsWorspaceSubfolderExists title="작업 영역 폴더 추가 오류" message="추가하려는 폴더의 하위 폴더가 존재합니다.
 &quot;$STR_REPLACE$&quot; 폴더를 추가하기 전에 패널에서 해당 폴더의 최상위 폴더를 삭제해 주세요."/>
 
             <ProjectPanelChanged title="$STR_REPLACE$" message="작업 영역이 변경되었습니다. 저장하시겠습니까?"/>
@@ -1090,7 +1090,7 @@ langs.xml 파일을 복구하시겠습니까?"/>
 다른 이름을 사용해 주세요."/>
             <UDLRemoveCurrentLang title="현재 언어 삭제" message="삭제하시겠습니까?"/>
             <SCMapperDoDeleteOrNot title="확인" message="이 단축키를 삭제하시겠습니까?"/>
-            <FindCharRangeValueError title="범위 에러" message="0에서 255까지만 입력할 수 있습니다."/>
+            <FindCharRangeValueError title="범위 오류" message="0에서 255까지만 입력할 수 있습니다."/>
             <OpenInAdminMode title="저장 실패" message="파일을 저장할 수 없습니다. 보호 중인 것 같습니다.
 관리자 모드로 이 파일을 여시겠습니까?"/>
             <OpenInAdminModeWithoutCloseCurrent title="저장 실패" message="파일을 저장할 수 없습니다. 보호 중인 것 같습니다.

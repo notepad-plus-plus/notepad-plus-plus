@@ -492,7 +492,7 @@ private:
 		::CheckMenuItem(_mainMenuHandle, itemID, MF_BYCOMMAND | (willBeChecked?MF_CHECKED:MF_UNCHECKED));
 	}
 
-	bool isConditionExprLine(int lineNumber);
+	bool isConditionExprLine(int lineNumber, LangType type);
 	int findMachedBracePos(size_t startPos, size_t endPos, char targetSymbol, char matchedSymbol);
 	void maintainIndentation(TCHAR ch);
 

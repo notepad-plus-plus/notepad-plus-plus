@@ -2571,8 +2571,12 @@ void Notepad_plus::addHotSpot()
 	_pEditView->execute(SCI_SETSTYLING, 0, 0);
 }
 
-bool Notepad_plus::isConditionExprLine(int lineNumber)
+bool Notepad_plus::isConditionExprLine(int lineNumber, LangType type)
 {
+	// These languages support single line blocks without braces.
+	if (!(type == L_C || type == L_CPP || type == L_JAVA || type == L_CS || type == L_OBJC ||
+	      type == L_PHP || type == L_JS || type == L_JAVASCRIPT || type == L_JSP || type == L_CSS))
+		return false;
 	if (lineNumber < 0 || lineNumber > _pEditView->execute(SCI_GETLINECOUNT))
 		return false;
 
@@ -2638,8 +2642,10 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 		(eolMode == SC_EOL_CR && ch == '\r')) && prevLine >= 0 && _pEditView->getLineLength(prevLine) == 0)
 		return;
 
+	// These languages use braces for control structures.
 	if (type == L_C || type == L_CPP || type == L_JAVA || type == L_CS || type == L_OBJC ||
-		type == L_PHP || type == L_JS || type == L_JAVASCRIPT || type == L_JSP || type == L_CSS)
+		type == L_PHP || type == L_JS || type == L_JAVASCRIPT || type == L_JSP || type == L_CSS ||
+		type == L_PERL || type == L_RUST)
 	{
 		if (((eolMode == SC_EOL_CRLF || eolMode == SC_EOL_LF) && ch == '\n') ||
 			(eolMode == SC_EOL_CR && ch == '\r'))
@@ -2681,7 +2687,7 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 			{
 				_pEditView->setLineIndent(curLine, indentAmountPrevLine);
 			}
-			else if (isConditionExprLine(prevLine))
+			else if (isConditionExprLine(prevLine, type))
 			{
 				_pEditView->setLineIndent(curLine, indentAmountPrevLine + tabWidth);
 			}
@@ -2689,7 +2695,7 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 			{
 				if (indentAmountPrevLine > 0)
 				{
-					if (prevLine > 0 && isConditionExprLine(prevLine - 1))
+					if (prevLine > 0 && isConditionExprLine(prevLine - 1, type))
 						_pEditView->setLineIndent(curLine, indentAmountPrevLine - tabWidth);
 					else
 						_pEditView->setLineIndent(curLine, indentAmountPrevLine);

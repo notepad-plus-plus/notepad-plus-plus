@@ -34,7 +34,7 @@
   <Item subMenuId="edit-blankOperations" name="공백 기능"/> 
   <Item subMenuId="edit-pasteSpecial" name="붙여넣기 특수기능"/> 
   <Item subMenuId="edit-onSelection" name="선택시"/>
-  <Item subMenuId="search-markAll" name="모두 책갈피"/> 
+  <Item subMenuId="search-markAll" name="책갈피 모두 적용"/> 
   <Item subMenuId="search-unmarkAll" name="책갈피 모두 해제"/> 
   <Item subMenuId="search-jumpUp" name="위로 이동"/> 
   <Item subMenuId="search-jumpDown" name="아래로 이동"/> 
@@ -78,10 +78,10 @@
   <Item id="41020" name="CMD"/> 
   <Item id="41003" name="닫기(&amp;C)"/> 
   <Item id="41004" name="모두 닫기(&amp;e)"/> 
-  <Item id="41005" name="현재 문서만 남기고 모두 닫기"/> 
-  <Item id="41009" name="왼쪽 문서들 닫기"/> 
-  <Item id="41018" name="오른쪽 문서들 닫기"/> 
-  <Item id="41024" name="변경하지 않은 문서들 닫기"/>
+  <Item id="41005" name="다른 문서 모두 닫기"/> 
+  <Item id="41009" name="왼쪽에 있는 문서 모두 닫기"/> 
+  <Item id="41018" name="오른쪽에 있는 문서 모두 닫기"/> 
+  <Item id="41024" name="저장된 문서 모두 닫기"/>
   <Item id="41006" name="저장(&amp;S)"/> 
   <Item id="41007" name="모두 저장(&amp;E)"/> 
   <Item id="41008" name="다른 이름으로 저장(&amp;A)..."/> 
@@ -137,8 +137,8 @@
   <Item id="42019" name="기록 중지(&amp;S)"/> 
   <Item id="42021" name="실행(&amp;P)"/> 
   <Item id="42022" name="한 줄 주석 달기/제거"/> 
-  <Item id="42023" name="블록 주석 달기"/> 
-  <Item id="42047" name="블록 주석 제거"/> 
+  <Item id="42023" name="선택 영역 주석 달기"/> 
+  <Item id="42047" name="선택 영역 주석 제거"/> 
   <Item id="42024" name="줄 끝 공백 제거"/> 
   <Item id="42042" name="줄 시작 공백을 제거"/> 
   <Item id="42043" name="줄 시작/끝 공백 제거"/> 
@@ -266,13 +266,13 @@
   <Item id="45002" name="UNIX 형식(LF)으로 변환"/> 
   <Item id="45003" name="MAC 형식(CR)으로 변환"/> 
   <Item id="45004" name="ANSI로 표시"/> 
-  <Item id="45005" name="UTF-8로 표시"/> 
-  <Item id="45006" name="UCS-2 빅 엔디언으로 표시"/> 
-  <Item id="45007" name="UCS-2 리틀 엔디언으로 표시"/> 
-  <Item id="45008" name="UTF-8 (BOM 없음)로 표시"/> 
+  <Item id="45005" name="UTF-8 BOM"/> 
+  <Item id="45006" name="UCS-2 BE"/> 
+  <Item id="45007" name="UCS-2 LE"/> 
+  <Item id="45008" name="UTF-8"/> 
   <Item id="45009" name="ANSI로 변환"/> 
-  <Item id="45010" name="UTF-8 (BOM 없음)로 변환"/> 
-  <Item id="45011" name="UTF-8로 변환"/> 
+  <Item id="45010" name="UTF-8로 변환"/> 
+  <Item id="45011" name="UTF-8 BOM으로 변환"/> 
   <Item id="45012" name="UCS-2 빅 엔디언으로 변환"/> 
   <Item id="45013" name="UCS-2 리틀 엔디언으로 변환"/> 
   <Item id="45060" name="Big5 (중국어 번체)"/>
@@ -351,12 +351,12 @@
   <Item CMID="14" name="새 창으로 이동"/> 
   <Item CMID="15" name="새 창에서 열기"/> 
   <Item CMID="16" name="다시 불러오기"/> 
-  <Item CMID="17" name="왼쪽 문서들 닫기"/> 
-  <Item CMID="18" name="오른쪽 문서들 닫기"/> 
+  <Item CMID="17" name="왼쪽에 있는 문서 모두 닫기"/> 
+  <Item CMID="18" name="오른쪽에 있는 문서 모두 닫기"/> 
   <Item CMID="19" name="탐색기에서 현재 폴더 열기"/> 
   <Item CMID="20" name="CMD에서 현재 폴더 열기"/> 
   <Item CMID="21" name="기본 프로그램으로 열기"/>
-  <Item CMID="22" name="변경하지 않은 문서들 닫기"/>
+  <Item CMID="22" name="저장된 문서 모두 닫기"/>
   </TabBar>
   </Menu>
 
@@ -975,7 +975,7 @@
   <Item id="2033" name="숫자 삽입"/> 
   <Item id="2030" name="초기 숫자:"/> 
   <Item id="2031" name="증가치:"/> 
-  <Item id="2035" name="숫자 앞 0 채우기"/> 
+  <Item id="2035" name="숫자 앞에 0 채우기"/> 
   <Item id="2036" name="반복:"/>
   <Item id="2032" name="형식"/> 
   <Item id="2024" name="10진수"/> 

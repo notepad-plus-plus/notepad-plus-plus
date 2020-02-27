@@ -262,9 +262,9 @@
   <Item id="44081" name="프로젝트 패널 1"/> 
   <Item id="44082" name="프로젝트 패널 2"/> 
   <Item id="44083" name="프로젝트 패널 3"/> 
-  <Item id="45001" name="Windows 형식(CRLF)으로 변환"/> 
-  <Item id="45002" name="UNIX 형식(LF)으로 변환"/> 
-  <Item id="45003" name="MAC 형식(CR)으로 변환"/> 
+  <Item id="45001" name="Windows (CR LF)"/>
+  <Item id="45002" name="Unix (LF)"/>
+  <Item id="45003" name="Macintosh (CR)"/>
   <Item id="45004" name="ANSI로 표시"/> 
   <Item id="45005" name="UTF-8 BOM"/> 
   <Item id="45006" name="UCS-2 BE"/> 
@@ -273,10 +273,10 @@
   <Item id="45009" name="ANSI로 변환"/> 
   <Item id="45010" name="UTF-8로 변환"/> 
   <Item id="45011" name="UTF-8 BOM으로 변환"/> 
-  <Item id="45012" name="UCS-2 빅 엔디언으로 변환"/> 
-  <Item id="45013" name="UCS-2 리틀 엔디언으로 변환"/> 
-  <Item id="45060" name="Big5 (중국어 번체)"/>
-  <Item id="45061" name="GB2312 (중국어 간체)"/>
+  <Item id="45012" name="UCS-2 BE로 변환"/> 
+  <Item id="45013" name="UCS-2 LE로 변환"/> 
+  <Item id="45060" name="Big5: 중국어 번체"/>
+  <Item id="45061" name="GB2312: 중국어 간체"/>
   <Item id="45054" name="OEM 861: 아이슬란드어"/>
   <Item id="45057" name="OEM 865: 노르웨이어"/>
   <Item id="45053" name="OEM 860: 포트투갈어"/>
@@ -906,8 +906,8 @@
   <Item id="6256" name="여러 줄 허용"/> 
   <Item id="6161" name="단어 문자 목록"/>
   <Item id="6162" name="기본 단어 문자 목록을 사용"/>
-  <Item id="6163" name="단어의 일부분처럼 귀하의 문자를 추가 
-(잘 모르면 선택하지 마세요)"/>
+  <Item id="6163" name="문자가 단어의 일부로 인식되도록 설정 
+(잘 모르면 설정하지 마세요)"/>
 </Delimiter>
 
 <Cloud title="클라우드">
@@ -999,7 +999,7 @@
   <Item id="1720" name="새 줄과 일치(&amp;.)"/> 
 </FindInFinder>
 <DoSaveOrNot title="저장">
-  <Item id="1761" name="&quot;$STR_REPLACE$&quot; 을 저장하시겠습니까?"/>
+  <Item id="1761" name="&quot;$STR_REPLACE$&quot; 에 대한 변경 내용을 저장할까요?"/>
   <Item id="6" name="예(&amp;Y)"/>
   <Item id="7" name="아니오(&amp;N)"/>
   <Item id="2" name="취소(&amp;C)"/>
@@ -1034,7 +1034,7 @@
 <FilePathNotFoundWarning title="파일 열기" message="열려는 파일이 존재하지 않습니다."/>
 <SessionFileInvalidError title="세션을 로드할 수 없습니다." message="세션 파일이 손상되었거나 유효하지 않습니다."/>
     <DroppingFolderAsProjectModeWarning title="잘못된 동작" message="폴더를 프로젝트로 사용하고 있어서, 파일과 폴더를 동시에 드롭할 수 없습니다.
-이 동작을 사용하기 위해서는 설정의 &quot;기본 디렉토리&quot; 항목의 &quot;폴더 드롭시 워크스페이스로 여는 대신 폴더의 모든 파일 열기&quot; 를 선택하십시오"/>
+이 동작을 사용하기 위해서는 설정의 &quot;기본 디렉토리&quot; 항목의 &quot;폴더 드롭시 작업 영역으로 여는 대신 폴더의 모든 파일 열기&quot; 를 선택하십시오"/>
             <SortingError title="정렬 오류" message="$INT_REPLACE$ 줄 때문에 숫자 정렬을 수행할 수 없습니다."/>
             <ColumnModeTip title="열 모드 팁" message="열 모드로 변경할 때 &quot;ALT + 마우스 선택&quot; 이나 &quot;Alt+Shift+방향키&quot; 를 사용하세요."/>
             <BufferInvalidWarning title="저장 실패" message="저장할 수 없습니다: 버퍼가 잘못되었습니다."/>
@@ -1045,7 +1045,7 @@
 계속하시겠습니까?"/>
             <NoBackupDoSaveFile title="저장" message="백업 파일을 찾을 수 없습니다 (외부에서 삭제).
 저장하지 않으면 데이터를 잃게 됩니다.
-&quot;$STR_REPLACE$&quot; 을 저장하시겠습니까?"/>
+&quot;$STR_REPLACE$&quot; 에 대한 변경 내용을 저장할까요?"/>
             <DoReloadOrNot title="다시 읽기" message="&quot;$STR_REPLACE$&quot;
 
 다른 프로그램에서 파일을 변경했습니다.
@@ -1071,20 +1071,20 @@ Nodepad++ 홈페이지에서 직접 다운로드 받으시겠습니까?"/>
             <LoadLangsFailed title="설정" message="langs.xml 파일을 열 수 없습니다!
 langs.xml 파일을 복구하시겠습니까?"/>
             <LoadLangsFailedFinal title="설정" message="langs.xml 파일을 열 수 없습니다!"/>
-            <FolderAsWorspaceSubfolderExists title="폴더를 워크스페이스로 추가하기 문제" message="추가하려는 폴더의 하위 폴더가 존재합니다.
+            <FolderAsWorspaceSubfolderExists title="폴더를 작업 영역으로 추가하기 문제" message="추가하려는 폴더의 하위 폴더가 존재합니다.
 &quot;$STR_REPLACE$&quot; 폴더를 추가하기 전에 패널에서 해당 폴더의 최상위 폴더를 삭제해 주세요."/>
 
-            <ProjectPanelChanged title="$STR_REPLACE$" message="워크스페이스가 변경되었습니다. 저장하시겠습니까?"/>
-            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="워크스페이스가 저장되지 않았습니다."/>
-            <ProjectPanelOpenDoSaveDirtyWsOrNot title="워크스페이스 열기" message="워크스페이스가 변경되었습니다. 프로젝트에 저장하시겠습니까?"/>
-            <ProjectPanelNewDoSaveDirtyWsOrNot title="새 워크스페이스" message="워크스페이스가 변경되었습니다. 프로젝트에 저장하시겠습니까?"/>
-            <ProjectPanelOpenFailed title="워크스페이스 열기" message="워크스페이스를 열 수 없습니다.
+            <ProjectPanelChanged title="$STR_REPLACE$" message="작업 영역이 변경되었습니다. 저장하시겠습니까?"/>
+            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="작업 영역이 저장되지 않았습니다."/>
+            <ProjectPanelOpenDoSaveDirtyWsOrNot title="작업 영역 열기" message="작업 영역이 변경되었습니다. 프로젝트에 저장하시겠습니까?"/>
+            <ProjectPanelNewDoSaveDirtyWsOrNot title="새 작업 영역" message="작업 영역이 변경되었습니다. 프로젝트에 저장하시겠습니까?"/>
+            <ProjectPanelOpenFailed title="작업 영역 열기" message="작업 영역을 열 수 없습니다.
 프로젝트 파일이 잘못된 것 같습니다."/>
             <ProjectPanelRemoveFolderFromProject title="프로젝트에서 폴더 삭제" message="모든 하위 아이템이 삭제됩니다.
 프로젝트에서 이 폴더를 삭제하시겠습니까?"/>
             <ProjectPanelRemoveFileFromProject title="프로젝트에서 파일 삭제" message="프로젝트에서 이 파일을 삭제하시겠습니까?"/>
-            <ProjectPanelReloadError title="워크스페이스 다시 읽기" message="다시 읽을 파일을 찾지 못했습니다."/>
-            <ProjectPanelReloadDirty title="워크스페이스 다시 읽기" message="워크스페이스가 변경되었습니다. 다시 읽으면 모든 변경 사항이 취소됩니다.
+            <ProjectPanelReloadError title="작업 영역 다시 읽기" message="다시 읽을 파일을 찾지 못했습니다."/>
+            <ProjectPanelReloadDirty title="작업 영역 다시 읽기" message="작업 영역이 변경되었습니다. 다시 읽으면 모든 변경 사항이 취소됩니다.
 계속하시겠습니까?"/>
             <UDLNewNameError title="UDL 오류" message="이 이름은 다른 언어에서 사용하고 있습니다.
 다른 이름을 사용해 주세요."/>
@@ -1132,8 +1132,8 @@ langs.xml 파일을 복구하시겠습니까?"/>
   <ReloadTip name="다시 불러오기"/> 
 </FunctionList>
     <FolderAsWorkspace>
-            <PanelTitle name="폴더를 워크스페이스로"/>
-            <SelectFolderFromBrowserString name="워크스페이스 패널의 폴더로 사용할 폴더를 선택해 주세요."/>
+            <PanelTitle name="폴더를 작업 영역으로"/>
+            <SelectFolderFromBrowserString name="작업 영역 패널의 폴더로 사용할 폴더를 선택해 주세요."/>
             <Menus>
                 <Item id="3511" name="삭제"/>
                 <Item id="3512" name="전부 삭제"/>
@@ -1223,9 +1223,9 @@ exe, obj &amp;&amp; log 파일을 제외한 모든 파일에서 찾기:
     <find-status-invalid-re value="찾기: 정규 표현식이 잘못되었습니다."/>
     <find-status-mark-1-match value="책갈피: 1곳이 일치합니다."/>
     <find-status-mark-nb-matches value="책갈피: $INT_REPLACE$곳이 일치합니다."/>
-    <find-status-count-re-malformed value="세기: 찾으려는 정규 표현식이 잘못되었습니다."/>
-    <find-status-count-1-match value="세기: 1곳이 일치합니다."/>
-    <find-status-count-nb-matches value="세기: $INT_REPLACE$곳이 일치합니다."/>
+    <find-status-count-re-malformed value="찾아 세기: 찾으려는 정규 표현식이 잘못되었습니다."/>
+    <find-status-count-1-match value="찾아 세기: 1곳이 일치합니다."/>
+    <find-status-count-nb-matches value="찾아 세기: $INT_REPLACE$곳이 일치합니다."/>
     <find-status-replaceall-re-malformed value="모두 바꾸기: 정규 표현식이 잘못되었습니다."/>
     <find-status-replaceall-1-replaced value="모두 바꾸기: 1곳을 바꾸었습니다."/>
     <find-status-replaceall-nb-replaced value="모두 바꾸기: $INT_REPLACE$곳을 바꾸었습니다."/>

@@ -528,12 +528,12 @@ BOOL WindowsDlg::onInitDialog()
 	lvColumn.fmt = LVCFMT_CENTER;
 	columnText = TEXT("\u21F5 ") + pNativeSpeaker->getAttrNameStr(TEXT("Type"), WD_ROOTNODE, WD_CLMNTYPE);
 	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
-	lvColumn.cx = 50;
+	lvColumn.cx = 100;
 	SendMessage(_hList, LVM_INSERTCOLUMN, 2, LPARAM(&lvColumn));
 
 	columnText = TEXT("\u21F5 ") + pNativeSpeaker->getAttrNameStr(TEXT("Size"), WD_ROOTNODE, WD_CLMNNAME);
 	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
-	lvColumn.cx = 60;
+	lvColumn.cx = 100;
 	SendMessage(_hList, LVM_INSERTCOLUMN, 3, LPARAM(&lvColumn));
 
 	fitColumnsToSize();

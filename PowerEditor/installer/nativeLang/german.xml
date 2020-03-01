@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2020-01-12 by schnurlos (schnurlos@gmail.com)
+	last modified: 2020-03-01 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="7.8.3">
+	<Native-Langue name="Deutsch" filename="german.xml" version="7.8.4">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -1086,6 +1086,7 @@
 			<ColumnName name="Name"/>
 			<ColumnPath name="Pfad"/>
 			<ColumnType name="Typ"/>
+			<ColumnType name="Größe"/>
 		</WindowsDlg>
 		<AsciiInsertion>
 			<PanelTitle name="ASCII Zeichentabelle"/>

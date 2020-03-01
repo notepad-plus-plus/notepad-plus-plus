@@ -1113,6 +1113,7 @@ Vuto continuare?"/>
             <ColumnName name="Nòme"/>
             <ColumnPath name="Percorso"/>
             <ColumnType name="Tipo"/>
+            <ColumnSize name="Dimension"/>
         </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name="Paneƚo Inserimento ASCII"/>

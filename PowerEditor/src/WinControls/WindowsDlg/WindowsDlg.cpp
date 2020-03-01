@@ -48,6 +48,7 @@ using namespace std;
 #define WD_CLMNNAME					"ColumnName"
 #define WD_CLMNPATH					"ColumnPath"
 #define WD_CLMNTYPE					"ColumnType"
+#define WD_CLMNSIZE					"ColumnSize"
 
 static const TCHAR *readonlyString = TEXT(" [Read Only]");
 const UINT WDN_NOTIFY = RegisterWindowMessage(TEXT("WDN_NOTIFY"));
@@ -531,7 +532,7 @@ BOOL WindowsDlg::onInitDialog()
 	lvColumn.cx = 100;
 	SendMessage(_hList, LVM_INSERTCOLUMN, 2, LPARAM(&lvColumn));
 
-	columnText = TEXT("\u21F5 ") + pNativeSpeaker->getAttrNameStr(TEXT("Size"), WD_ROOTNODE, WD_CLMNNAME);
+	columnText = TEXT("\u21F5 ") + pNativeSpeaker->getAttrNameStr(TEXT("Size"), WD_ROOTNODE, WD_CLMNSIZE);
 	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
 	lvColumn.cx = 100;
 	SendMessage(_hList, LVM_INSERTCOLUMN, 3, LPARAM(&lvColumn));
@@ -614,7 +615,7 @@ void WindowsDlg::updateColumnNames()
 	lvColumn.cx = static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 2, 0));
 	SendMessage(_hList, LVM_SETCOLUMN, 2, LPARAM(&lvColumn));
 
-	columnText = pNativeSpeaker->getAttrNameStr(TEXT("Size"), WD_ROOTNODE, WD_CLMNTYPE);
+	columnText = pNativeSpeaker->getAttrNameStr(TEXT("Size"), WD_ROOTNODE, WD_CLMNSIZE);
 	if (_currentColumn != 3)
 	{
 		columnText = TEXT("\u21F5 ") + columnText;

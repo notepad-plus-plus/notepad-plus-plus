@@ -1082,6 +1082,7 @@
             <ColumnName name="名稱"/>
             <ColumnPath name="路徑"/>
             <ColumnType name="類型"/>
+            <ColumnSize name="長度"/>
         </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name="ASCII 插入面板"/>

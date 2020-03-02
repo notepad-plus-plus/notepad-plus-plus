@@ -3,7 +3,7 @@
 	## Bulgarian localization for Notepad++ ##
 
 	Translators:.....: 2007–2012 – Milen Metev (Tragedy); 2014–yyyy – Rusi Dimitrov
-	Last revision:...: 01.01.2020 by Rusi Dimitrov <astral_86[at]mail[dot]bg>
+	Last revision:...: 03.03.2020 by Rusi Dimitrov <astral_86[at]mail[dot]bg>
 	Download:........: https://gist.github.com/rddim/bd37264898c3a17363e7437bcf1b4803
 -->
 <NotepadPlus>
@@ -1275,6 +1275,7 @@
 			<ColumnName name="Име"/>
 			<ColumnPath name="Път"/>
 			<ColumnType name="Тип"/>
+			<ColumnSize name="Размер"/>
 		</WindowsDlg>
 			<!-- Прозорци със съобщения -->
 		<MessageBox>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-    Venetian translation for Notepad++ 7.8.4
-    Last modified Sun, March 1st, 2020.
+    Venetian translation for Notepad++ 7.8.6
+    Last modified Sun, April 14th, 2020.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang	
 -->
 <NotepadPlus>
-    <Native-Langue name="Vèneto" filename="venetian.xml" version="7.8.4">
+    <Native-Langue name="Vèneto" filename="venetian.xml" version="7.8.6">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -76,7 +76,7 @@
 
                 <!-- all menu item -->
                 <Commands>                    
-					<Item id="41001" name="&amp;Novo"/>
+                    <Item id="41001" name="&amp;Novo"/>
                     <Item id="41002" name="&amp;Vèrxi..."/>
                     <Item id="41019" name="Espƚora risorse"/>
                     <Item id="41020" name="Prompt comandi"/>					
@@ -89,7 +89,7 @@
                     <Item id="41006" name="&amp;Salva"/>
                     <Item id="41007" name="Salva t&amp;uto"/>
                     <Item id="41008" name="S&amp;alva cofà..."/>
-					<Item id="41010" name="Stanpa..."/>
+                    <Item id="41010" name="Stanpa..."/>
                     <Item id="1001"  name="Stanpa suito!"/>
                     <Item id="41011" name="&amp;Va fora"/>
                     <Item id="41012" name="Vèrxi sesion..."/>
@@ -160,7 +160,7 @@
                     <Item id="42034" name="Editor a coƚone..."/>
                     <Item id="42051" name="Paneƚo caràtari"/>
                     <Item id="42052" name="Cronoƚogìa Scarabòci"/>
-					<Item id="42025" name="Salva ƚa macro registrà..."/>
+                    <Item id="42025" name="Salva ƚa macro registrà..."/>
                     <Item id="42026" name="Diresion de&apos;l testo RTL"/>
                     <Item id="42027" name="Diresion de&apos;l testo LTR"/>
                     <Item id="42028" name="File en soƚa ƚetura"/>
@@ -295,7 +295,7 @@
                     <Item id="46250" name="Definisi el to ƚenguagio..."/>
                     <Item id="46300" name ="Vèrxi carteƚa ƚenguagi definìi da &apos;l utente..." />
                     <Item id="46180" name="Definìo da ƚ&apos;utente"/>
-					<Item id="47000" name="Informasion so..."/>
+                    <Item id="47000" name="Informasion so..."/>
                     <Item id="47010" name="Argomenti riga de comando..."/>					
                     <Item id="47001" name="Sito web Notepad++"/>
                     <Item id="47002" name="Progeto Notepad++"/>
@@ -370,7 +370,7 @@
                 <Item id="1722" name="Cata el Presedente"/>
                 <Item id="2" name="Sara su"/>
                 <Item id="1620" name="Cata:"/>                
-				<Item id="1603" name="Soƚo &amp;paròƚe intiere"/>
+                <Item id="1603" name="Soƚo &amp;paròƚe intiere"/>
                 <Item id="1604" name="Distingui tra ma&amp;iùscoƚe e minùscoƚe"/>
                 <Item id="1605" name="Espresion regoƚare"/>
                 <Item id="1606" name="Torna sora cò se xe rivà a ƚa fine"/>
@@ -413,7 +413,7 @@
                 <Item id="2907" name="Xó"/>
                 <Item id="2908" name="Diresion"/>
                 <Item id="2909" name="Torna sora se xe rivà a ƚa fine"/>
-				<Item id="2910" name="Ruma"/>
+                <Item id="2910" name="Ruma"/>
             </FindCharsInRange>
 			
             <GoToLine title="Và a ƚa riga #">
@@ -712,7 +712,7 @@
                     <Item id="6109" name="Oscura schede inative"/>
                     <Item id="6110" name="Evidensìa scheda ativa co na bara"/>
                     
-					<Item id="6111" name="Ativa bara de stato"/>
+                    <Item id="6111" name="Ativa bara de stato"/>
                     <Item id="6112" name="Boton par sarare su so ogni scheda"/>
                     <Item id="6113" name="Dopio clic sara su na scheda"/>
                     <Item id="6118" name="Scondi"/>
@@ -751,17 +751,18 @@
                     <Item id="6207" name="Visuaƚixa i segnaƚibri"/>                    
                     <Item id="6208" name="Visuaƚixa el ƚimite de coƚona"/>
                     <Item id="6209" name="Nùmaro de coƚona: "/>
-					<Item id="6234" name="Disabiƚita scrolling avansà 
+                    <Item id="6234" name="Disabiƚita scrolling avansà 
 (en caxo de probƚemi co touchpad)"/>
                     
-					<Item id="6211" name="Ƚimite De Coƚona"/>
-					<Item id="6212" name="Modaƚità &apos;ƚinea&apos;"/>
+                    <Item id="6211" name="Ƚimite De Coƚona"/>
+                    <Item id="6212" name="Modaƚità &apos;ƚinea&apos;"/>
                     <Item id="6213" name="Modaƚità &apos;sfondo&apos;"/>
+                    <Item id="6237" name="Modaƚità Multilinea"/>
                     <Item id="6214" name="Evidensìa ƚa riga corente"/>
                     <Item id="6215" name="Abìƚita antialiasing caràtari"/>
                     <Item id="6231" name="Spesore Bordo Editor"/>
                     <Item id="6235" name="Nisun bordo"/>
-					<Item id="6236" name="Abìƚita scorimento oltre ƚ&apos;ùltima riga"/>
+                    <Item id="6236" name="Abìƚita scorimento oltre ƚ&apos;ùltima riga"/>
                 </Scintillas>
 				
                 <NewDoc title="Novo documento">
@@ -848,7 +849,7 @@
                     <Item id="6728" name="Intestasion E Piè De Pàgina"/>
                 </Print>
 				
-				<RecentFilesHistory title="File resenti">
+		<RecentFilesHistory title="File resenti">
                     <Item id="6304" name="Ƚista Documenti Resenti"/>
                     <Item id="6306" name="Masimo nùmaro de vosi:"/>
                     <Item id="6305" name="No controƚare a ƚa partensa"/>
@@ -949,10 +950,10 @@
                     <Item id="6324" name="Sostituisi Documento (Ctrl+TAB)"/>
                     <Item id="6331" name="Visuaƚixa soƚo nòme file ne ƚa bara de&apos;l tìtoƚo"/>
                     <Item id="6334" name="Riƚeva otomàticamente codefega caràtari"/>					
-					<Item id="6314" name="Uxa caràtare a spasiatura fisa ne ƚa fenèstra de riserca (Te devi inviare de novo Notepad++)" />
+                    <Item id="6314" name="Uxa caràtare a spasiatura fisa ne ƚa fenèstra de riserca (Te devi inviare de novo Notepad++)" />
                     <Item id="6337" name="Est. file workspace:"/>
                     <Item id="6114" name="Abìƚita"/>
-					<Item id="6117" name="Presedensa a i file pì resenti"/>
+                    <Item id="6117" name="Presedensa a i file pì resenti"/>
                     <Item id="6344" name="Anteprima documenti"/>
                     <Item id="6345" name="Anteprima so ƚe schede"/>
                     <Item id="6346" name="Anteprima so ƚa mapa documento"/>
@@ -1058,7 +1059,7 @@ Vuto recargarƚo e perdare tute ƚe modìfeghe aportà en Notepad++?"/>
             <XpUpdaterProblem title="Axornamento Notepad++" message="Ƚ&apos;axornamento otomàtico de Notepad++ no&apos;l xe conpatibiƚe co XP par colpa de on sistema de parmesi obsoƚeto.
 Vuto &apos;ndare ne ƚa pàgina de Notepad++ par descargare ƚ&apos;axornamento manualmente?"/>
             <GUpProxyConfNeedAdminMode title = "Inpostasion proxy" message = "Rilancia Notepad++ co i privilegi de aministradore par configurare el proxy." />
-			<DocTooDirtyToMonitor title="Problema monitoragio" message="El documento el xe sporco. Salva ƚe modìfeghe vanti de scomisiare el monitoragio."/>
+            <DocTooDirtyToMonitor title="Problema monitoragio" message="El documento el xe sporco. Salva ƚe modìfeghe vanti de scomisiare el monitoragio."/>
             <DocNoExistToMonitor title="Probƚema monitoragio" message="El file el deve existare par èsare monitorà."/>
             <FileTooBigToOpen title="Probƚema dimension file" message="El file el xe masa grando par èsare vèrto co Notepad++"/>
             <CreateNewFileOrNot title="Crea novo file" message="&quot;$STR_REPLACE$&quot; no existe. Crearƚo??"/>
@@ -1209,7 +1210,7 @@ Vuto continuare?"/>
 *.cpp *.cxx *.h *.hxx *.hpp
 Ruma en tuti i file a ecesion exe, obj &amp;&amp; log:
 *.* !*.exe !*.obj !*.log" />            
-			<find-status-top-reached value="Ruma: catà ƚa prima ocorensa da&apos;l baso. Se xe rivà a&apos;l prinsipio de&apos;l documento."/>
+            <find-status-top-reached value="Ruma: catà ƚa prima ocorensa da&apos;l baso. Se xe rivà a&apos;l prinsipio de&apos;l documento."/>
             <find-status-end-reached value="Ruma: catà ƚa prima ocorensa da ƚ&apos;alto. Se xe rivà a ƚa fine de&apos;l documento."/>
             <find-status-replaceinfiles-1-replaced value="Sostituisi: 1 ocorensa ƚa xe stà sostituìa"/>
             <find-status-replaceinfiles-nb-replaced value="Sostituisi: $INT_REPLACE$ ocorense ƚe xe stà sostituìe"/>
@@ -1265,6 +1266,8 @@ Ruma en tuti i file a ecesion exe, obj &amp;&amp; log:
             <summary-nbsel1 value=" caràtari seƚesionà ("/>
             <summary-nbsel2 value=" byte) en "/>
             <summary-nbrange value=" intervaƚi"/>
+            <multi-edge-radio-tip value="Xonta el to deƚimitatore de coƚona indicando ƚa so poxision co on nùmaro desimaƚe.
+Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i diversi nùmari."/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

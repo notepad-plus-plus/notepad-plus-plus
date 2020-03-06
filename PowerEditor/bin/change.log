@@ -1,7 +1,13 @@
-Notepad++ v7.8.4 bug-fixes:
+Notepad++ v7.8.5 Enhancement & bug-fixes:
 
-1.  Fix regression of double clicking a found in files result while Word-Wrap is on.
-2.  Fix HashFromDlg title bar localization issue.
+1.  Fix "Monitoring" not detecting all file changes issue.
+2.  Fix auto-updater disabling not working regression.
+3.  Fix Notepad++ doesn't exit correctly while Windows 10 update restart.
+4.  Make Count command in Find dialog respect Backward-direction and Wrap-around options.
+5.  Make Find dialog remember its position across runs.
+6.  Add the document size column to the Windows Selection dialog.
+7.  Make "View Current File in(browser)" commands macro recordable.
+8.  Add external sound control capability for unsuccessful search (in Find dialog) bell.
 
 
 Included plugins:

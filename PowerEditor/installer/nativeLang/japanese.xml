@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="7.8.3">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="7.8.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -1119,6 +1119,7 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <ColumnName name="ファイル名"/>
             <ColumnPath name="パス"/>
             <ColumnType name="種類"/>
+            <ColumnSize name="サイズ"/>
         </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name="ASCII文字挿入パネル"/>

@@ -1114,6 +1114,7 @@ Devam edilsin mi?"/>
             <ColumnName name="İsim"/>
             <ColumnPath name="Yol"/>
             <ColumnType name="Tür"/>
+            <ColumnSize name="Boyut"/>
         </WindowsDlg>
 		<AsciiInsertion>
 			<PanelTitle name="ASCII Kodu Ekleme Paneli"/>

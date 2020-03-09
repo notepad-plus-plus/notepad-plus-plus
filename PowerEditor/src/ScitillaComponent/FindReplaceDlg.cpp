@@ -1196,7 +1196,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					msg += _options._directory;
 					msg += TEXT("\rfor file type : ");
 					msg += _options._filters[0]?_options._filters:TEXT("*.*");
-					int res = ::MessageBox(_hParent, msg.c_str(), TEXT("Are you sure?"), MB_OKCANCEL | MB_DEFBUTTON2);
+					int res = ::MessageBox(NULL, msg.c_str(), TEXT("Are you sure?"), MB_OKCANCEL | MB_DEFBUTTON2 | MB_TASKMODAL);
 					if (res == IDOK)
 					{
 						HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);

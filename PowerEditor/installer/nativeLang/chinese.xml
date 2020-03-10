@@ -336,9 +336,9 @@
                     <Item CMID="4"  name="列印"/>
                     <Item CMID="5"  name="移動此檔案至另一個視窗"/>
                     <Item CMID="6"  name="複製此檔案至另一個視窗"/>
-                    <Item CMID="7"  name="將資料夾路徑複製到剪貼簿"/>
+                    <Item CMID="7"  name="將資料夾路徑及檔案名稱複製到剪貼簿"/>
                     <Item CMID="8"  name="將檔案名稱複製到剪貼簿"/>
-                    <Item CMID="9"  name="將資料夾路徑及檔案名稱複製到剪貼簿"/>
+                    <Item CMID="9"  name="將資料夾路徑複製到剪貼簿"/>
                     <Item CMID="10" name="重新命名此檔案"/>
                     <Item CMID="11" name="刪除現有檔案"/>
                     <Item CMID="12" name="將此檔案設為唯讀"/>

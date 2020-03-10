@@ -2639,7 +2639,7 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 		return;
 
 	if (type == L_C || type == L_CPP || type == L_JAVA || type == L_CS || type == L_OBJC ||
-		type == L_PHP || type == L_JS || type == L_JAVASCRIPT || type == L_JSP || type == L_CSS)
+		type == L_PHP || type == L_JS || type == L_JAVASCRIPT || type == L_JSP || type == L_CSS || type == L_PERL || type == L_RUST)
 	{
 		if (((eolMode == SC_EOL_CRLF || eolMode == SC_EOL_LF) && ch == '\n') ||
 			(eolMode == SC_EOL_CR && ch == '\r'))
@@ -2678,6 +2678,11 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 				_pEditView->setLineIndent(curLine, indentAmountPrevLine + tabWidth);
 			}
 			else if (nextChar == '{')
+			{
+				_pEditView->setLineIndent(curLine, indentAmountPrevLine);
+			}
+			// These languages do no support single line control structures without braces.
+			else if (type == L_PERL || type == L_RUST)
 			{
 				_pEditView->setLineIndent(curLine, indentAmountPrevLine);
 			}

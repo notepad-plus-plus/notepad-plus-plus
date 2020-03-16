@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v7.8.3:
-- add new lines
+Updated to v7.8.6:
+- add new lines and fixes
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="7.8.3">
+	<Native-Langue name="Русский" filename="russian.xml" version="7.8.6">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -283,6 +283,14 @@ Updated to v7.8.3:
 					<Item id="45011" name="Преобразовать в UTF-8 с BOM"/>
 					<Item id="45012" name="Преобразовать в UCS-2 BE с BOM"/>
 					<Item id="45013" name="Преобразовать в UCS-2 LE с BOM"/>
+
+					<Item id="45060" name="Big5 (Традиционный)"/>
+					<Item id="45061" name="GB2312 (Упрощенный)"/>
+					<Item id="45054" name="OEM 861: Исландский"/>
+					<Item id="45057" name="OEM 865: Нордический"/>
+					<Item id="45053" name="OEM 860: Португальский"/>
+					<Item id="45056" name="OEM 863: Французский"/>
+
 					<Item id="46001" name="Определение стилей..."/>
 					<Item id="46019" name="INI файл"/>
 					<Item id="46015" name="MS-DOS стиль"/>
@@ -340,7 +348,7 @@ Updated to v7.8.3:
 					<Item CMID="4"  name="Печать"/>
 					<Item CMID="5"  name="Переместить в Другую Область"/>
 					<Item CMID="6"  name="Дублировать в Другой Области"/>
-					<Item CMID="7"  name="Полный путь к файлу (в буфер)"/>
+					<Item CMID="7"  name="Путь к файлу с Именем (в буфер)"/>
 					<Item CMID="8"  name="Имя файла (в буфер)"/>
 					<Item CMID="9"  name="Путь к директории файла (в буфер)"/>
 					<Item CMID="10" name="Переименовать"/>
@@ -755,6 +763,7 @@ Updated to v7.8.3:
 					<Item id="6234" name="Откл. расшир. функции прокрутки&#x0A; (если есть проблемы с тачпадом)"/>
 					<Item id="6235" name="Без рамки"/>
 					<Item id="6236" name="Прокрутка за пределы посл. строки"/>
+					<Item id="6237" name="Многострочный режим"/>
 				</Scintillas>
 				<NewDoc title = "Новый Документ">
 					<Item id="6401" name="Формат Конца Строк"/>
@@ -921,7 +930,7 @@ Updated to v7.8.3:
 					<Item id="6822" name="Путь копии:"/>
 				</Backup>
 				<AutoCompletion title="Автозавершение">
-					<Item id="6115" name="Повторять отступ предыдущей строки"/>
+					<Item id="6115" name="Авто-отступ Новой Строки"/>
 					<Item id="6807" name="Автозавершение"/>
 					<Item id="6808" name="Включить при каждом вводе"/>
 					<Item id="6809" name="Завершение функций"/>
@@ -1064,6 +1073,7 @@ Updated to v7.8.3:
 			<ColumnName name="Имя"/>
 			<ColumnPath name="Путь"/>
 			<ColumnType name="Тип"/>
+			<ColumnSize name="Размер"/>
 		</WindowsDlg>
 		<AsciiInsertion>
 			<PanelTitle       name="Таблица символов ASCII"/>
@@ -1078,8 +1088,8 @@ Updated to v7.8.3:
 		</DocumentMap>
 		<FunctionList>
 			<PanelTitle name="Список функций"/>
-			<SortTip    name="Упорядочить" />
-			<ReloadTip  name="Обновить" />
+			<SortTip    name="Упорядочить"/>
+			<ReloadTip  name="Обновить"/>
 		</FunctionList>
 		<FolderAsWorkspace>
 			<PanelTitle name="Папка как Проект"/>
@@ -1212,6 +1222,7 @@ Updated to v7.8.3:
 			<summary-nbsel1              value=" выделенных символов ("/> 
 			<summary-nbsel2              value=" байт) в "/> 
 			<summary-nbrange             value=" диапазоне(ах)"/> 
+			<multi-edge-radio-tip        value="Добавьте свой маркер столбца, указав его положение с десятичным числом.&#x0A;Вы можете определить несколько маркеров столбца, используя пробелы для разделения различных чисел."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

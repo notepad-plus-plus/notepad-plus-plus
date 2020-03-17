@@ -2660,6 +2660,8 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const generic_st
 				NppParameters& nppParamInst = NppParameters::getInstance();
 				switch (intValue)
 				{
+					case IDC_FINDNEXT: // retro-compatible to 7.8.4 and older versions
+					case IDC_FINDPREV: // retro-compatible to 7.8.4 and older versions
 					case IDOK:
 						nppParamInst._isFindReplacing = true;
 						processFindNext(_env->_str2Search.c_str());

@@ -3578,6 +3578,21 @@ bool Notepad_plus::removeBufferFromView(BufferID id, int whichOne)
 			{
 				toActivate = active;    //activate the 'active' index. Since we remove the tab first, the indices shift (on the right side)
 			}
+			if (NppParameters::getInstance().getNppGUI()._styleMRU)
+			{
+				// After closing a file choose the file to activate based on MRU list and not just last file in the list.
+				TaskListInfo taskListInfo;
+				::SendMessage(_pPublicInterface->getHSelf(), WM_GETTASKLISTINFO, (WPARAM)&taskListInfo, 0);
+				size_t i, n = taskListInfo._tlfsLst.size();
+				for (i = 0; i < n; i++)
+				{
+					TaskLstFnStatus& F = taskListInfo._tlfsLst[i];
+					if (F._iView != whichOne || F._bufID == (void*)id)
+						continue;
+					toActivate = F._docIndex >= active ? F._docIndex - 1 : F._docIndex;
+					break;
+				}
+			}
 			tabToClose->deletItemAt((size_t)index); //delete first
 			_isFolding = true; // So we can ignore events while folding is taking place
 			activateBuffer(tabToClose->getBufferByIndex(toActivate), whichOne);     //then activate. The prevent jumpy tab behaviour

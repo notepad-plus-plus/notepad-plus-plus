@@ -2660,10 +2660,26 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const generic_st
 				NppParameters& nppParamInst = NppParameters::getInstance();
 				switch (intValue)
 				{
-					case IDC_FINDNEXT: // retro-compatible to 7.8.4 and older versions
-					case IDC_FINDPREV: // retro-compatible to 7.8.4 and older versions
 					case IDOK:
 						nppParamInst._isFindReplacing = true;
+						processFindNext(_env->_str2Search.c_str());
+						nppParamInst._isFindReplacing = false;
+						break;
+
+					case IDC_FINDNEXT:
+						// IDC_FINDNEXT will not be recorded into new macros recorded with 7.8.5 and later
+						// stay playback compatible with 7.5.5 - 7.8.4 where IDC_FINDNEXT was allowed but unneeded/undocumented
+						nppParamInst._isFindReplacing = true;
+						_env->_whichDirection = DIR_DOWN;
+						processFindNext(_env->_str2Search.c_str());
+						nppParamInst._isFindReplacing = false;
+						break;
+
+					case IDC_FINDPREV:
+						// IDC_FINDPREV will not be recorded into new macros recorded with 7.8.5 and later
+						// stay playback compatible with 7.5.5 - 7.8.4 where IDC_FINDPREV was allowed but unneeded/undocumented
+						nppParamInst._isFindReplacing = true;
+						_env->_whichDirection = DIR_UP;
 						processFindNext(_env->_str2Search.c_str());
 						nppParamInst._isFindReplacing = false;
 						break;

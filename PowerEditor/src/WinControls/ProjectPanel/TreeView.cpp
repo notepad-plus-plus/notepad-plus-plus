@@ -103,7 +103,7 @@ bool TreeView::setItemParam(HTREEITEM Item2Set, const TCHAR *paramStr)
 
 LPARAM TreeView::getItemParam(HTREEITEM Item2Get) const
 {
-	if (not Item2Get)
+	if (!Item2Get)
 		return false;
 	//TCHAR textBuffer[MAX_PATH];
 	TVITEM tvItem;
@@ -117,7 +117,7 @@ LPARAM TreeView::getItemParam(HTREEITEM Item2Get) const
 
 generic_string TreeView::getItemDisplayName(HTREEITEM Item2Set) const
 {
-	if (not Item2Set)
+	if (!Item2Set)
 		return TEXT("");
 	TCHAR textBuffer[MAX_PATH];
 	TVITEM tvItem;
@@ -131,7 +131,7 @@ generic_string TreeView::getItemDisplayName(HTREEITEM Item2Set) const
 
 bool TreeView::renameItem(HTREEITEM Item2Set, const TCHAR *newName)
 {
-	if (not Item2Set || not newName)
+	if (!Item2Set || !newName)
 		return false;
 
 	TVITEM tvItem;
@@ -712,10 +712,12 @@ bool TreeView::restoreFoldingStateFrom(const TreeStateNode & treeState2Compare, 
 	return isOk;
 }
 
-void TreeView::sort(HTREEITEM hTreeItem)
+void TreeView::sort(HTREEITEM hTreeItem, bool isRecusive)
 {
 	::SendMessage(_hSelf, TVM_SORTCHILDREN, TRUE, reinterpret_cast<LPARAM>(hTreeItem));
+	if (!isRecusive)
+		return;
 
 	for (HTREEITEM hItem = getChildFrom(hTreeItem); hItem != NULL; hItem = getNextSibling(hItem))
-		sort(hItem);
+		sort(hItem, isRecusive);
 }

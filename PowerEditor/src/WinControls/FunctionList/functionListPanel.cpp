@@ -198,7 +198,7 @@ void FunctionListPanel::sortOrUnsort()
 {
 	bool doSort = shouldSort();
 	if (doSort)
-		_pTreeView->sort(_pTreeView->getRoot());
+		_pTreeView->sort(_pTreeView->getRoot(), true);
 	else
 	{
 		TCHAR text2search[MAX_PATH] ;
@@ -369,7 +369,7 @@ void FunctionListPanel::reload()
 			bool isSort = (previousParams->_searchParameters)._doSort;
 			setSort(isSort);
 			if (isSort)
-				_pTreeView->sort(_pTreeView->getRoot());
+				_pTreeView->sort(_pTreeView->getRoot(), true);
 		}
 	}
 
@@ -627,7 +627,7 @@ void FunctionListPanel::searchFuncAndSwitchView()
 	}
 
 	if (doSort)
-		_pTreeView->sort(_pTreeView->getRoot());
+		_pTreeView->sort(_pTreeView->getRoot(), true);
 }
 
 static WNDPROC oldFunclstToolbarProc = NULL;

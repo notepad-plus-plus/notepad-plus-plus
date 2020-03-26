@@ -262,10 +262,11 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			generic_string addedFilePath = file2Change[0].substr(0, sepPos + 1);
 			addedFilePath += pathSuffix;
 			bool isAdded = addInTree(rootPath, addedFilePath, nullptr, linarPathArray);
-			if (not isAdded)
+			if (!isAdded)
 			{
 				//MessageBox(NULL, addedFilePath.c_str(), TEXT("file/folder is not added"), MB_OK);
 			}
+
 			break;
 		}
 
@@ -287,7 +288,7 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			// search recursively and modify the tree structure
 
 			bool isRemoved = deleteFromTree(rootPath, nullptr, linarPathArray);
-			if (not isRemoved)
+			if (!isRemoved)
 			{
 				//MessageBox(NULL, file2Change[0].c_str(), TEXT("file/folder is not removed"), MB_OK);
 			}
@@ -318,7 +319,7 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			vector<generic_string> linarPathArray2 = split(pathSuffix2, '\\');
 
 			bool isRenamed = renameInTree(rootPath, nullptr, linarPathArray, linarPathArray2[linarPathArray2.size() - 1]);
-			if (not isRenamed)
+			if (!isRenamed)
 			{
 				//MessageBox(NULL, file2Change[0].c_str(), TEXT("file/folder is not removed"), MB_OK);
 			}
@@ -464,7 +465,7 @@ void FileBrowser::destroyMenus()
 
 generic_string FileBrowser::getNodePath(HTREEITEM node) const
 {
-	if (not node) return TEXT("");
+	if (!node) return TEXT("");
 
 	vector<generic_string> fullPathArray;
 	generic_string fullPath;
@@ -760,7 +761,7 @@ void FileBrowser::popupMenuCmd(int cmdID)
 		//
 		case IDM_FILEBROWSER_REMOVEROOTFOLDER:
 		{
-			if (not selectedNode) return;
+			if (!selectedNode) return;
 
 			generic_string *rootPath = (generic_string *)_treeView.getItemParam(selectedNode);
 			if (_treeView.getParent(selectedNode) != nullptr || rootPath == nullptr)
@@ -782,7 +783,7 @@ void FileBrowser::popupMenuCmd(int cmdID)
 		
 		case IDM_FILEBROWSER_EXPLORERHERE:
 		{
-			if (not selectedNode) return;
+			if (!selectedNode) return;
 
 			generic_string path = getNodePath(selectedNode);
 			if (::PathFileExists(path.c_str()))
@@ -800,7 +801,7 @@ void FileBrowser::popupMenuCmd(int cmdID)
 
 		case IDM_FILEBROWSER_CMDHERE:
 		{
-			if (not selectedNode) return;
+			if (!selectedNode) return;
 
 			if (getNodeType(selectedNode) == browserNodeType_file)
 				selectedNode = _treeView.getParent(selectedNode);
@@ -816,7 +817,7 @@ void FileBrowser::popupMenuCmd(int cmdID)
 
 		case IDM_FILEBROWSER_COPYPATH:
 		{
-			if (not selectedNode) return;
+			if (!selectedNode) return;
 			generic_string path = getNodePath(selectedNode);
 			str2Clipboard(path, _hParent);
 		}
@@ -824,7 +825,7 @@ void FileBrowser::popupMenuCmd(int cmdID)
 
 		case IDM_FILEBROWSER_COPYFILENAME:
 		{
-			if (not selectedNode) return;
+			if (!selectedNode) return;
 			generic_string fileName = getNodeName(selectedNode);
 			str2Clipboard(fileName, _hParent);
 		}
@@ -832,7 +833,7 @@ void FileBrowser::popupMenuCmd(int cmdID)
 
 		case IDM_FILEBROWSER_FINDINFILES:
 		{
-			if (not selectedNode) return;
+			if (!selectedNode) return;
 			generic_string path = getNodePath(selectedNode);
 			::SendMessage(_hParent, NPPM_LAUNCHFINDINFILESDLG, reinterpret_cast<WPARAM>(path.c_str()), 0);
 		}
@@ -1149,7 +1150,7 @@ bool FileBrowser::addInTree(const generic_string& rootPath, const generic_string
 	if (linarPathArray.size() == 1)
 	{
 		// Of course item to add should be exist on the disk
-		if (not::PathFileExists(addItemFullPath.c_str()))
+		if (!::PathFileExists(addItemFullPath.c_str()))
 			return false;
 
 		// Search : if no found, add
@@ -1166,6 +1167,7 @@ bool FileBrowser::addInTree(const generic_string& rootPath, const generic_string
 		{
 			_treeView.addItem(linarPathArray[0].c_str(), node, INDEX_LEAF);
 		}
+
 		return true;
 	}
 	else
@@ -1251,7 +1253,8 @@ bool FileBrowser::renameInTree(const generic_string& rootPath, HTREEITEM node, c
 
 	// found it, rename it
 	_treeView.renameItem(foundItem, renameTo.c_str());
-		return true;
+
+	return true;
 }
 
 bool FolderInfo::addToStructure(generic_string & fullpath, std::vector<generic_string> linarPathArray)
@@ -1476,7 +1479,7 @@ DWORD WINAPI FolderUpdater::watching(void *params)
 							break;
 
 						case FILE_ACTION_RENAMED_NEW_NAME:
-							if (not oldName.empty())
+							if (!oldName.empty())
 							{
 								file2Change.push_back(oldName);
 								file2Change.push_back(wstrFilename);

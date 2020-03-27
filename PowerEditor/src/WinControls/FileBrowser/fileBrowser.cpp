@@ -64,6 +64,11 @@ FileBrowser::~FileBrowser()
 		folder->stopWatcher();
 		delete folder;
 	}
+
+	for (const auto s : rootPaths)
+	{
+		delete s;
+	}
 }
 
 vector<generic_string> split(const generic_string & string2split, TCHAR sep)
@@ -1043,7 +1048,11 @@ HTREEITEM FileBrowser::createFolderItemsFromDirStruct(HTREEITEM hParentItem, con
 		size_t len = lstrlen(rootPath);
 		if (rootPath[len - 1] == '\\')
 			rootPath[len - 1] = '\0';
-		hFolderItem = _treeView.addItem(directoryStructure._name.c_str(), TVI_ROOT, INDEX_CLOSE_ROOT, rootPath);
+
+		generic_string* rootPathStr = new generic_string(rootPath);
+		rootPaths.push_back(rootPathStr);
+		LPARAM lParamRootPath = reinterpret_cast<LPARAM>(rootPathStr);
+		hFolderItem = _treeView.addItem(directoryStructure._name.c_str(), TVI_ROOT, INDEX_CLOSE_ROOT, lParamRootPath);
 	}
 	else
 	{

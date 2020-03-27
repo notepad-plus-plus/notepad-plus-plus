@@ -85,6 +85,7 @@ class FunctionListPanel : public DockingDlgInterface {
 public:
 	FunctionListPanel(): DockingDlgInterface(IDD_FUNCLIST_PANEL), _ppEditView(NULL), _pTreeView(&_treeView),
 	_reloadTipStr(TEXT("Reload")), _sortTipStr(TEXT("Sort")) {};
+	~FunctionListPanel();
 
 	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView);
 
@@ -133,6 +134,8 @@ private:
 	generic_string _reloadTipStr;
 
 	std::vector<foundInfo> _foundFuncInfos;
+
+	std::vector<generic_string*> posStrs;
 
 	ScintillaEditView **_ppEditView;
 	FunctionParsersManager _funcParserMgr;

@@ -80,7 +80,7 @@ void TreeView::makeLabelEditable(bool toBeEnabled)
 }
 
 
-bool TreeView::setItemParam(HTREEITEM Item2Set, const TCHAR *paramStr)
+bool TreeView::setItemParam(HTREEITEM Item2Set, LPARAM param)
 {
 	if (!Item2Set)
 		return false;
@@ -88,15 +88,8 @@ bool TreeView::setItemParam(HTREEITEM Item2Set, const TCHAR *paramStr)
 	TVITEM tvItem;
 	tvItem.hItem = Item2Set;
 	tvItem.mask = TVIF_PARAM;
-
-	SendMessage(_hSelf, TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
-
-	if (!tvItem.lParam)
-		tvItem.lParam = reinterpret_cast<LPARAM>(new generic_string(paramStr));
-	else
-	{
-		*((generic_string *)tvItem.lParam) = paramStr;
-	}
+	tvItem.lParam = param;
+	
 	SendMessage(_hSelf, TVM_SETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 	return true;
 }
@@ -143,7 +136,7 @@ bool TreeView::renameItem(HTREEITEM Item2Set, const TCHAR *newName)
 	return true;
 }
 
-HTREEITEM TreeView::addItem(const TCHAR *itemName, HTREEITEM hParentItem, int iImage, const TCHAR *filePath)
+HTREEITEM TreeView::addItem(const TCHAR *itemName, HTREEITEM hParentItem, int iImage, LPARAM lParam)
 {
 	TVITEM tvi;
 	tvi.mask = TVIF_TEXT | TVIF_IMAGE | TVIF_SELECTEDIMAGE | TVIF_PARAM;
@@ -156,8 +149,7 @@ HTREEITEM TreeView::addItem(const TCHAR *itemName, HTREEITEM hParentItem, int iI
 	tvi.iImage = iImage;//isNode?INDEX_CLOSED_NODE:INDEX_LEAF;
 	tvi.iSelectedImage = iImage;//isNode?INDEX_OPEN_NODE:INDEX_LEAF;
 
-	// Save the full path of file in the item's application-defined data area.
-	tvi.lParam = (filePath == NULL ? 0 : reinterpret_cast<LPARAM>(new generic_string(filePath)));
+	tvi.lParam = lParam;
 
 	TVINSERTSTRUCT tvInsertStruct;
 	tvInsertStruct.item = tvi;
@@ -177,8 +169,6 @@ void TreeView::removeItem(HTREEITEM hTreeItem)
 	tvItem.hItem = hTreeItem;
 	tvItem.mask = TVIF_PARAM;
 	SendMessage(_hSelf, TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
-	if (tvItem.lParam)
-		delete (generic_string *)(tvItem.lParam);
 
 	// Remove the node
 	TreeView_DeleteItem(_hSelf, hTreeItem);
@@ -207,10 +197,6 @@ void TreeView::dupTree(HTREEITEM hTree2Dup, HTREEITEM hParentItem)
 		tvItem.cchTextMax = MAX_PATH;
 		tvItem.mask = TVIF_TEXT | TVIF_PARAM | TVIF_IMAGE | TVIF_SELECTEDIMAGE;
 		SendMessage(_hSelf, TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
-		if (tvItem.lParam)
-		{
-			tvItem.lParam = reinterpret_cast<LPARAM>(new generic_string(*(reinterpret_cast<generic_string *>(tvItem.lParam))));
-		}
 
 		TVINSERTSTRUCT tvInsertStruct;
 		tvInsertStruct.item = tvItem;
@@ -255,10 +241,7 @@ void TreeView::cleanSubEntries(HTREEITEM hTreeItem)
 		tvItem.hItem = hItem;
 		tvItem.mask = TVIF_PARAM;
 		SendMessage(_hSelf, TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
-		if (tvItem.lParam)
-		{
-			delete reinterpret_cast<generic_string *>(tvItem.lParam);
-		}
+
 		cleanSubEntries(hItem);
 	}
 }
@@ -448,9 +431,6 @@ void TreeView::moveTreeViewItem(HTREEITEM draggedItem, HTREEITEM targetItem)
 	tvDraggingItem.hItem = draggedItem;
 	SendMessage(_hSelf, TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvDraggingItem));
 
-	if (tvDraggingItem.lParam)
-		tvDraggingItem.lParam = reinterpret_cast<LPARAM>(new generic_string(*(reinterpret_cast<generic_string *>(tvDraggingItem.lParam))));
-
     TVINSERTSTRUCT tvInsertStruct;
 	tvInsertStruct.item = tvDraggingItem;
 	tvInsertStruct.hInsertAfter = (HTREEITEM)TVI_LAST;
@@ -506,13 +486,6 @@ bool TreeView::swapTreeViewItem(HTREEITEM itemGoDown, HTREEITEM itemGoUp)
 	tvDownItem.hItem = itemGoDown;
 	SendMessage(_hSelf, TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvUpItem));
 	SendMessage(_hSelf, TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvDownItem));
-
-	// make copy recursively for both items
-
-	if (tvUpItem.lParam)
-		tvUpItem.lParam = reinterpret_cast<LPARAM>(new generic_string(*(reinterpret_cast<generic_string *>(tvUpItem.lParam))));
-	if (tvDownItem.lParam)
-		tvDownItem.lParam = reinterpret_cast<LPARAM>(new generic_string(*(reinterpret_cast<generic_string *>(tvDownItem.lParam))));
 
 	// add 2 new items
     TVINSERTSTRUCT tvInsertUp;
@@ -611,10 +584,6 @@ bool TreeView::searchLeafRecusivelyAndBuildTree(HTREEITEM tree2Build, const gene
 		size_t res = itemNameUpperCase.find(text2SearchUpperCase);
 		if (res != generic_string::npos)
 		{
-			if (tvItem.lParam)
-			{
-				tvItem.lParam = reinterpret_cast<LPARAM>(new generic_string(*(reinterpret_cast<generic_string *>(tvItem.lParam))));
-			}
 			TVINSERTSTRUCT tvInsertStruct;
 			tvInsertStruct.item = tvItem;
 			tvInsertStruct.hInsertAfter = TVI_LAST;

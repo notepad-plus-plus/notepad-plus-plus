@@ -68,7 +68,7 @@ class FileDialog;
 class ProjectPanel : public DockingDlgInterface {
 public:
 	ProjectPanel(): DockingDlgInterface(IDD_PROJECTPANEL) {};
-
+	~ProjectPanel();
 
 	void init(HINSTANCE hInst, HWND hPere) {
 		DockingDlgInterface::init(hInst, hPere);
@@ -140,6 +140,7 @@ protected:
 	generic_string getAbsoluteFilePath(const TCHAR * relativePath);
 	void openSelectFile();
 	void setFileExtFilter(FileDialog & fDlg);
+	std::vector<generic_string*> fullPathStrs;
 };
 
 class FileRelocalizerDlg : public StaticDialog

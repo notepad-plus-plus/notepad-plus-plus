@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-    Venetian translation for Notepad++ 7.8.3
-    Last modified Sun, Feb 2nd, 2020.
+    Venetian translation for Notepad++ 7.8.4
+    Last modified Sun, March 1st, 2020.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang	
 -->
 <NotepadPlus>
-    <Native-Langue name="Vèneto" filename="venetian.xml" version="7.8.3">
+    <Native-Langue name="Vèneto" filename="venetian.xml" version="7.8.4">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -1113,6 +1113,7 @@ Vuto continuare?"/>
             <ColumnName name="Nòme"/>
             <ColumnPath name="Percorso"/>
             <ColumnType name="Tipo"/>
+            <ColumnSize name="Dimension"/>
         </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name="Paneƚo Inserimento ASCII"/>

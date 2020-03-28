@@ -45,6 +45,14 @@
 #define INDEX_LEAF           5
 #define INDEX_LEAF_INVALID   6
 
+ProjectPanel::~ProjectPanel()
+{
+	for (const auto s : fullPathStrs)
+	{
+		delete s;
+	}
+}
+
 INT_PTR CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
@@ -530,7 +538,12 @@ bool ProjectPanel::buildTreeFrom(TiXmlNode *projectRoot, HTREEITEM hParentItem)
 			generic_string fullPath = getAbsoluteFilePath(strValue);
 			TCHAR *strValueLabel = ::PathFindFileName(strValue);
 			int iImage = ::PathFileExists(fullPath.c_str())?INDEX_LEAF:INDEX_LEAF_INVALID;
-			_treeView.addItem(strValueLabel, hParentItem, iImage, fullPath.c_str());
+
+			generic_string* fullPathStr = new generic_string(fullPath);
+			fullPathStrs.push_back(fullPathStr);
+			LPARAM lParamFullPathStr = reinterpret_cast<LPARAM>(fullPathStr);
+
+			_treeView.addItem(strValueLabel, hParentItem, iImage, lParamFullPathStr);
 		}
 	}
 	return true;
@@ -1190,7 +1203,12 @@ void ProjectPanel::addFiles(HTREEITEM hTreeItem)
 		for (size_t i = 0 ; i < sz ; ++i)
 		{
 			TCHAR *strValueLabel = ::PathFindFileName(pfns->at(i).c_str());
-			_treeView.addItem(strValueLabel, hTreeItem, INDEX_LEAF, pfns->at(i).c_str());
+
+			generic_string* pathFileStr = new generic_string(pfns->at(i));
+			fullPathStrs.push_back(pathFileStr);
+			LPARAM lParamPathFileStr = reinterpret_cast<LPARAM>(pathFileStr);
+
+			_treeView.addItem(strValueLabel, hTreeItem, INDEX_LEAF, lParamPathFileStr);
 		}
 		_treeView.expand(hTreeItem);
 		setWorkSpaceDirty(true);
@@ -1247,7 +1265,11 @@ void ProjectPanel::recursiveAddFilesFrom(const TCHAR *folderPath, HTREEITEM hTre
 		if (folderPath[lstrlen(folderPath)-1] != '\\')
 			pathFile += TEXT("\\");
 		pathFile += files[i];
-		_treeView.addItem(files[i].c_str(), hTreeItem, INDEX_LEAF, pathFile.c_str());
+
+		generic_string* pathFileStr = new generic_string(pathFile);
+		fullPathStrs.push_back(pathFileStr);
+		LPARAM lParamPathFileStr = reinterpret_cast<LPARAM>(pathFileStr);
+		_treeView.addItem(files[i].c_str(), hTreeItem, INDEX_LEAF, lParamPathFileStr);
 	}
 
 	::FindClose(hFile);

@@ -3523,6 +3523,10 @@ void Notepad_plus::command(int id)
 			case IDM_FORMAT_TODOS  :
 			case IDM_FORMAT_TOUNIX :
 			case IDM_FORMAT_TOMAC  :
+			case IDM_VIEW_IN_FIREFOX :
+			case IDM_VIEW_IN_CHROME  :
+			case IDM_VIEW_IN_EDGE    :
+			case IDM_VIEW_IN_IE      :
 				_macro.push_back(recordedMacroStep(id));
 				break;
 		}

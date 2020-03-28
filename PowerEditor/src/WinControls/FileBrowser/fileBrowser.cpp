@@ -64,6 +64,11 @@ FileBrowser::~FileBrowser()
 		folder->stopWatcher();
 		delete folder;
 	}
+
+	for (const auto cd : sortingDataArray)
+	{
+		delete cd;
+	}
 }
 
 vector<generic_string> split(const generic_string & string2split, TCHAR sep)
@@ -262,10 +267,11 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			generic_string addedFilePath = file2Change[0].substr(0, sepPos + 1);
 			addedFilePath += pathSuffix;
 			bool isAdded = addInTree(rootPath, addedFilePath, nullptr, linarPathArray);
-			if (not isAdded)
+			if (!isAdded)
 			{
 				//MessageBox(NULL, addedFilePath.c_str(), TEXT("file/folder is not added"), MB_OK);
 			}
+
 			break;
 		}
 
@@ -287,7 +293,7 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			// search recursively and modify the tree structure
 
 			bool isRemoved = deleteFromTree(rootPath, nullptr, linarPathArray);
-			if (not isRemoved)
+			if (!isRemoved)
 			{
 				//MessageBox(NULL, file2Change[0].c_str(), TEXT("file/folder is not removed"), MB_OK);
 			}
@@ -318,7 +324,7 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			vector<generic_string> linarPathArray2 = split(pathSuffix2, '\\');
 
 			bool isRenamed = renameInTree(rootPath, nullptr, linarPathArray, linarPathArray2[linarPathArray2.size() - 1]);
-			if (not isRenamed)
+			if (!isRenamed)
 			{
 				//MessageBox(NULL, file2Change[0].c_str(), TEXT("file/folder is not removed"), MB_OK);
 			}
@@ -464,7 +470,7 @@ void FileBrowser::destroyMenus()
 
 generic_string FileBrowser::getNodePath(HTREEITEM node) const
 {
-	if (not node) return TEXT("");
+	if (!node) return TEXT("");
 
 	vector<generic_string> fullPathArray;
 	generic_string fullPath;
@@ -478,8 +484,8 @@ generic_string FileBrowser::getNodePath(HTREEITEM node) const
 		HTREEITEM temp = _treeView.getParent(parent);
 		if (temp == nullptr)
 		{
-			LPARAM param = _treeView.getItemParam(parent);
-			folderName = (param == 0) ? TEXT("") : *((generic_string *)param);
+			SortingData4lParam* customData = reinterpret_cast<SortingData4lParam*>(_treeView.getItemParam(parent));
+			folderName = customData->_rootPath;
 		}
 		parent = temp;
 		fullPathArray.push_back(folderName);
@@ -558,7 +564,8 @@ void FileBrowser::notified(LPNMHDR notification)
 					size_t len = lstrlen(tvItem.pszText);
 
 					// Find the position of old label in File path
-					generic_string *filePath = (generic_string *)tvnotif->item.lParam;
+					SortingData4lParam* customData = reinterpret_cast<SortingData4lParam*>(tvnotif->item.lParam);
+					generic_string *filePath = &(customData->_rootPath);
 					size_t found = filePath->rfind(tvItem.pszText);
 
 					// If found the old label, replace it with the modified one
@@ -702,7 +709,7 @@ BrowserNodeType FileBrowser::getNodeType(HTREEITEM hItem)
 		return browserNodeType_file;
 	}
 	// Root
-	else if (tvItem.lParam != NULL)
+	else if (tvItem.lParam != NULL && !reinterpret_cast<SortingData4lParam*>(tvItem.lParam)->_rootPath.empty())
 	{
 		return browserNodeType_root;
 	}
@@ -760,7 +767,7 @@ void FileBrowser::popupMenuCmd(int cmdID)
 		//
 		case IDM_FILEBROWSER_REMOVEROOTFOLDER:
 		{
-			if (not selectedNode) return;
+			if (!selectedNode) return;
 
 			generic_string *rootPath = (generic_string *)_treeView.getItemParam(selectedNode);
 			if (_treeView.getParent(selectedNode) != nullptr || rootPath == nullptr)
@@ -782,7 +789,7 @@ void FileBrowser::popupMenuCmd(int cmdID)
 		
 		case IDM_FILEBROWSER_EXPLORERHERE:
 		{
-			if (not selectedNode) return;
+			if (!selectedNode) return;
 
 			generic_string path = getNodePath(selectedNode);
 			if (::PathFileExists(path.c_str()))
@@ -800,7 +807,7 @@ void FileBrowser::popupMenuCmd(int cmdID)
 
 		case IDM_FILEBROWSER_CMDHERE:
 		{
-			if (not selectedNode) return;
+			if (!selectedNode) return;
 
 			if (getNodeType(selectedNode) == browserNodeType_file)
 				selectedNode = _treeView.getParent(selectedNode);
@@ -816,7 +823,7 @@ void FileBrowser::popupMenuCmd(int cmdID)
 
 		case IDM_FILEBROWSER_COPYPATH:
 		{
-			if (not selectedNode) return;
+			if (!selectedNode) return;
 			generic_string path = getNodePath(selectedNode);
 			str2Clipboard(path, _hParent);
 		}
@@ -824,7 +831,7 @@ void FileBrowser::popupMenuCmd(int cmdID)
 
 		case IDM_FILEBROWSER_COPYFILENAME:
 		{
-			if (not selectedNode) return;
+			if (!selectedNode) return;
 			generic_string fileName = getNodeName(selectedNode);
 			str2Clipboard(fileName, _hParent);
 		}
@@ -832,7 +839,7 @@ void FileBrowser::popupMenuCmd(int cmdID)
 
 		case IDM_FILEBROWSER_FINDINFILES:
 		{
-			if (not selectedNode) return;
+			if (!selectedNode) return;
 			generic_string path = getNodePath(selectedNode);
 			::SendMessage(_hParent, NPPM_LAUNCHFINDINFILESDLG, reinterpret_cast<WPARAM>(path.c_str()), 0);
 		}
@@ -1042,11 +1049,18 @@ HTREEITEM FileBrowser::createFolderItemsFromDirStruct(HTREEITEM hParentItem, con
 		size_t len = lstrlen(rootPath);
 		if (rootPath[len - 1] == '\\')
 			rootPath[len - 1] = '\0';
-		hFolderItem = _treeView.addItem(directoryStructure._name.c_str(), TVI_ROOT, INDEX_CLOSE_ROOT, rootPath);
+
+		SortingData4lParam* customData = new SortingData4lParam(rootPath, TEXT(""), true);
+		sortingDataArray.push_back(customData);
+
+		hFolderItem = _treeView.addItem(directoryStructure._name.c_str(), TVI_ROOT, INDEX_CLOSE_ROOT, reinterpret_cast<LPARAM>(customData));
 	}
 	else
 	{
-		hFolderItem = _treeView.addItem(directoryStructure._name.c_str(), hParentItem, INDEX_CLOSE_NODE);
+		SortingData4lParam* customData = new SortingData4lParam(TEXT(""), directoryStructure._name, true);
+		sortingDataArray.push_back(customData);
+
+		hFolderItem = _treeView.addItem(directoryStructure._name.c_str(), hParentItem, INDEX_CLOSE_NODE, reinterpret_cast<LPARAM>(customData));
 	}
 
 	for (const auto& folder : directoryStructure._subFolders)
@@ -1056,7 +1070,10 @@ HTREEITEM FileBrowser::createFolderItemsFromDirStruct(HTREEITEM hParentItem, con
 
 	for (const auto& file : directoryStructure._files)
 	{
-		_treeView.addItem(file._name.c_str(), hFolderItem, INDEX_LEAF);
+		SortingData4lParam* customData = new SortingData4lParam(TEXT(""), file._name, false);
+		sortingDataArray.push_back(customData);
+
+		_treeView.addItem(file._name.c_str(), hFolderItem, INDEX_LEAF, reinterpret_cast<LPARAM>(customData));
 	}
 
 	_treeView.fold(hParentItem);
@@ -1077,7 +1094,7 @@ HTREEITEM FileBrowser::getRootFromFullPath(const generic_string & rootPath) cons
 		tvItem.hItem = hItemNode;
 		SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 
-		if (tvItem.lParam != 0 && rootPath == *((generic_string *)tvItem.lParam))
+		if (tvItem.lParam != 0 && rootPath == reinterpret_cast<SortingData4lParam *>(tvItem.lParam)->_rootPath)
 			node = hItemNode;
 	}
 	return node;
@@ -1121,7 +1138,7 @@ vector<generic_string> FileBrowser::getRoots() const
 		tvItem.hItem = hItemNode;
 		SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 
-		roots.push_back(*((generic_string *)tvItem.lParam));
+		roots.push_back(reinterpret_cast<SortingData4lParam*>(tvItem.lParam)->_rootPath);
 	}
 	return roots;
 }
@@ -1149,7 +1166,7 @@ bool FileBrowser::addInTree(const generic_string& rootPath, const generic_string
 	if (linarPathArray.size() == 1)
 	{
 		// Of course item to add should be exist on the disk
-		if (not::PathFileExists(addItemFullPath.c_str()))
+		if (!::PathFileExists(addItemFullPath.c_str()))
 			return false;
 
 		// Search : if no found, add
@@ -1160,12 +1177,20 @@ bool FileBrowser::addInTree(const generic_string& rootPath, const generic_string
 		// No found, good - Action
 		if (::PathIsDirectory(addItemFullPath.c_str()))
 		{
-			_treeView.addItem(linarPathArray[0].c_str(), node, INDEX_CLOSE_NODE);
+			SortingData4lParam* customData = new SortingData4lParam(TEXT(""), linarPathArray[0], true);
+			sortingDataArray.push_back(customData);
+
+			_treeView.addItem(linarPathArray[0].c_str(), node, INDEX_CLOSE_NODE, reinterpret_cast<LPARAM>(customData));
 		}
 		else
 		{
-			_treeView.addItem(linarPathArray[0].c_str(), node, INDEX_LEAF);
+			SortingData4lParam* customData = new SortingData4lParam(TEXT(""), linarPathArray[0], false);
+			sortingDataArray.push_back(customData);
+
+			_treeView.addItem(linarPathArray[0].c_str(), node, INDEX_LEAF, reinterpret_cast<LPARAM>(customData));
 		}
+
+		_treeView.customSorting(node, categorySortFunc, 0);
 		return true;
 	}
 	else
@@ -1251,7 +1276,27 @@ bool FileBrowser::renameInTree(const generic_string& rootPath, HTREEITEM node, c
 
 	// found it, rename it
 	_treeView.renameItem(foundItem, renameTo.c_str());
-		return true;
+	SortingData4lParam* compareData = reinterpret_cast<SortingData4lParam*>(_treeView.getItemParam(foundItem));
+	compareData->_label = renameTo;
+	_treeView.customSorting(_treeView.getParent(foundItem), categorySortFunc, 0);
+
+	return true;
+}
+
+int CALLBACK FileBrowser::categorySortFunc(LPARAM lParam1, LPARAM lParam2, LPARAM /*lParamSort*/)
+{
+	SortingData4lParam* item1 = reinterpret_cast<SortingData4lParam*>(lParam1);
+	SortingData4lParam* item2 = reinterpret_cast<SortingData4lParam*>(lParam2);
+
+	if (!item1 || !item2)
+		return 0;
+
+	if (item1->_isFolder && !item2->_isFolder)
+		return -1;
+	else if (!item1->_isFolder && item2->_isFolder)
+		return 1;
+	else
+		return lstrcmpi(item1->_label.c_str(), item2->_label.c_str());
 }
 
 bool FolderInfo::addToStructure(generic_string & fullpath, std::vector<generic_string> linarPathArray)
@@ -1455,14 +1500,12 @@ DWORD WINAPI FolderUpdater::watching(void *params)
 					{
 						case FILE_ACTION_ADDED:
 							file2Change.push_back(wstrFilename);
-							//thisFolderUpdater->updateTree(dwAction, file2Change);
 							::SendMessage((thisFolderUpdater->_pFileBrowser)->getHSelf(), FB_ADDFILE, reinterpret_cast<WPARAM>(nullptr), reinterpret_cast<LPARAM>(&file2Change));
 							oldName = TEXT("");
 							break;
 
 						case FILE_ACTION_REMOVED:
 							file2Change.push_back(wstrFilename);
-							//thisFolderUpdater->updateTree(dwAction, file2Change);
 							::SendMessage((thisFolderUpdater->_pFileBrowser)->getHSelf(), FB_RMFILE, reinterpret_cast<WPARAM>(nullptr), reinterpret_cast<LPARAM>(&file2Change));
 							oldName = TEXT("");
 							break;
@@ -1476,7 +1519,7 @@ DWORD WINAPI FolderUpdater::watching(void *params)
 							break;
 
 						case FILE_ACTION_RENAMED_NEW_NAME:
-							if (not oldName.empty())
+							if (!oldName.empty())
 							{
 								file2Change.push_back(oldName);
 								file2Change.push_back(wstrFilename);

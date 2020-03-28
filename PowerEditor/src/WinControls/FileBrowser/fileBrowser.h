@@ -113,6 +113,14 @@ private:
 	static DWORD WINAPI watching(void *param);
 };
 
+struct SortingData4lParam {
+	generic_string _rootPath; // Only for the root. It should be empty if it's not root
+	generic_string _label;    // TreeView item label
+	bool _isFolder = false;   // if it's not a folder, then it's a file
+
+	SortingData4lParam(generic_string rootPath, generic_string label, bool isFolder) : _rootPath(rootPath), _label(label), _isFolder(isFolder) {}
+};
+
 class FileBrowser : public DockingDlgInterface {
 public:
 	FileBrowser(): DockingDlgInterface(IDD_FILEBROWSER) {};
@@ -168,6 +176,8 @@ protected:
 	HMENU _hFileMenu = NULL;
 	std::vector<FolderUpdater *> _folderUpdaters;
 
+	std::vector<SortingData4lParam*> sortingDataArray;
+
 	void initPopupMenus();
 	void destroyMenus();
 	BOOL setImageList(int root_open_id, int root_close_id, int open_node_id, int closed_node_id, int leaf_id);
@@ -182,4 +192,5 @@ protected:
 	void openSelectFile();
 	void getDirectoryStructure(const TCHAR *dir, const std::vector<generic_string> & patterns, FolderInfo & directoryStructure, bool isRecursive, bool isInHiddenDir); 
 	HTREEITEM createFolderItemsFromDirStruct(HTREEITEM hParentItem, const FolderInfo & directoryStructure);
+	static int CALLBACK categorySortFunc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort);
 };

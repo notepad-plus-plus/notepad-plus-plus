@@ -1113,6 +1113,7 @@ Continue?"/>
             <ColumnName name="Name"/>
             <ColumnPath name="Path"/>
             <ColumnType name="Type"/>
+            <ColumnSize name="Size"/>
         </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name="ASCII Codes Insertion Panel"/>

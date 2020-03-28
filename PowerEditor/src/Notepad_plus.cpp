@@ -2639,7 +2639,7 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 		return;
 
 	if (type == L_C || type == L_CPP || type == L_JAVA || type == L_CS || type == L_OBJC ||
-		type == L_PHP || type == L_JS || type == L_JAVASCRIPT || type == L_JSP || type == L_CSS)
+		type == L_PHP || type == L_JS || type == L_JAVASCRIPT || type == L_JSP || type == L_CSS || type == L_PERL || type == L_RUST)
 	{
 		if (((eolMode == SC_EOL_CRLF || eolMode == SC_EOL_LF) && ch == '\n') ||
 			(eolMode == SC_EOL_CR && ch == '\r'))
@@ -2678,6 +2678,11 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 				_pEditView->setLineIndent(curLine, indentAmountPrevLine + tabWidth);
 			}
 			else if (nextChar == '{')
+			{
+				_pEditView->setLineIndent(curLine, indentAmountPrevLine);
+			}
+			// These languages do no support single line control structures without braces.
+			else if (type == L_PERL || type == L_RUST)
 			{
 				_pEditView->setLineIndent(curLine, indentAmountPrevLine);
 			}
@@ -3573,6 +3578,23 @@ bool Notepad_plus::removeBufferFromView(BufferID id, int whichOne)
 			{
 				toActivate = active;    //activate the 'active' index. Since we remove the tab first, the indices shift (on the right side)
 			}
+
+			if (NppParameters::getInstance().getNppGUI()._styleMRU)
+			{
+				// After closing a file choose the file to activate based on MRU list and not just last file in the list.
+				TaskListInfo taskListInfo;
+				::SendMessage(_pPublicInterface->getHSelf(), WM_GETTASKLISTINFO, reinterpret_cast<WPARAM>(&taskListInfo), 0);
+				size_t i, n = taskListInfo._tlfsLst.size();
+				for (i = 0; i < n; i++)
+				{
+					TaskLstFnStatus& tfs = taskListInfo._tlfsLst[i];
+					if (tfs._iView != whichOne || tfs._bufID == id)
+						continue;
+					toActivate = tfs._docIndex >= active ? tfs._docIndex - 1 : tfs._docIndex;
+					break;
+				}
+			}
+
 			tabToClose->deletItemAt((size_t)index); //delete first
 			_isFolding = true; // So we can ignore events while folding is taking place
 			activateBuffer(tabToClose->getBufferByIndex(toActivate), whichOne);     //then activate. The prevent jumpy tab behaviour

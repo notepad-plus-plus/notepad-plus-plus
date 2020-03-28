@@ -1039,8 +1039,6 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					updateCombo(IDFINDWHAT);
 
 					nppParamInst._isFindReplacing = true;
-					if (isMacroRecording)
-						saveInMacro(wParam, FR_OP_FIND);
 
 					bool direction_bak = _options._whichDirection;
 
@@ -1062,6 +1060,9 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 							_options._whichDirection = !_options._whichDirection;
 						}
 					}
+
+					if (isMacroRecording)
+						saveInMacro(IDOK, FR_OP_FIND);
 
 					FindStatus findStatus = FSFound;
 					processFindNext(_options._str2Search.c_str(), _env, &findStatus);
@@ -1195,7 +1196,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					msg += _options._directory;
 					msg += TEXT("\rfor file type : ");
 					msg += _options._filters[0]?_options._filters:TEXT("*.*");
-					int res = ::MessageBox(_hParent, msg.c_str(), TEXT("Are you sure?"), MB_OKCANCEL | MB_DEFBUTTON2);
+					int res = ::MessageBox(NULL, msg.c_str(), TEXT("Are you sure?"), MB_OKCANCEL | MB_DEFBUTTON2 | MB_TASKMODAL);
 					if (res == IDOK)
 					{
 						HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
@@ -2666,22 +2667,22 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const generic_st
 						break;
 
 					case IDC_FINDNEXT:
-					{
+						// IDC_FINDNEXT will not be recorded into new macros recorded with 7.8.5 and later
+						// stay playback compatible with 7.5.5 - 7.8.4 where IDC_FINDNEXT was allowed but unneeded/undocumented
 						nppParamInst._isFindReplacing = true;
-						_options._whichDirection = DIR_DOWN;
+						_env->_whichDirection = DIR_DOWN;
 						processFindNext(_env->_str2Search.c_str());
 						nppParamInst._isFindReplacing = false;
-					}
-					break;
-					
+						break;
+
 					case IDC_FINDPREV:
-					{
+						// IDC_FINDPREV will not be recorded into new macros recorded with 7.8.5 and later
+						// stay playback compatible with 7.5.5 - 7.8.4 where IDC_FINDPREV was allowed but unneeded/undocumented
 						nppParamInst._isFindReplacing = true;
 						_env->_whichDirection = DIR_UP;
 						processFindNext(_env->_str2Search.c_str());
 						nppParamInst._isFindReplacing = false;
-					}
-					break;
+						break;
 
 					case IDREPLACE:
 						nppParamInst._isFindReplacing = true;

@@ -1088,6 +1088,7 @@ Voulez-vous les poursuivez ?"/>
             <ColumnName name="Nom"/>
             <ColumnPath name="Chemin"/>
             <ColumnType name="Type"/>
+            <ColumnSize name="Taille"/>
         </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name="Panneau des codes ASCII"/>

@@ -48,8 +48,8 @@ public:
 
 	virtual void init(HINSTANCE hInst, HWND parent, int treeViewID);
 	virtual void destroy();
-	HTREEITEM addItem(const TCHAR *itemName, HTREEITEM hParentItem, int iImage, const TCHAR *filePath = NULL);
-	bool setItemParam(HTREEITEM Item2Set, const TCHAR *paramStr);
+	HTREEITEM addItem(const TCHAR *itemName, HTREEITEM hParentItem, int iImage, LPARAM lParam = NULL);
+	bool setItemParam(HTREEITEM Item2Set, LPARAM param);
 	LPARAM getItemParam(HTREEITEM Item2Get) const;
 	generic_string getItemDisplayName(HTREEITEM Item2Set) const;
 	HTREEITEM searchSubItemByName(const TCHAR *itemName, HTREEITEM hParentItem);
@@ -125,7 +125,8 @@ public:
 	bool restoreFoldingStateFrom(const TreeStateNode & treeState2Compare, HTREEITEM treeviewNode);
 	bool retrieveFoldingStateTo(TreeStateNode & treeState2Construct, HTREEITEM treeviewNode);
 	bool searchLeafAndBuildTree(TreeView & tree2Build, const generic_string & text2Search, int index2Search);
-	void sort(HTREEITEM hTreeItem);
+	void sort(HTREEITEM hTreeItem, bool isRecusive);
+	void customSorting(HTREEITEM hTreeItem, PFNTVCOMPARE sortingCallbackFunc, LPARAM lParam);
 
 protected:
 	WNDPROC _defaultProc;

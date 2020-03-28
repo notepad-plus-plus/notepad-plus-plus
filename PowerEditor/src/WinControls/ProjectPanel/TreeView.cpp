@@ -690,3 +690,14 @@ void TreeView::sort(HTREEITEM hTreeItem, bool isRecusive)
 	for (HTREEITEM hItem = getChildFrom(hTreeItem); hItem != NULL; hItem = getNextSibling(hItem))
 		sort(hItem, isRecusive);
 }
+
+
+void TreeView::customSorting(HTREEITEM hTreeItem, PFNTVCOMPARE sortingCallbackFunc, LPARAM lParam)
+{
+	TVSORTCB treeViewSortCB;
+	treeViewSortCB.hParent = hTreeItem;
+	treeViewSortCB.lpfnCompare = sortingCallbackFunc;
+	treeViewSortCB.lParam = lParam;
+
+	::SendMessage(_hSelf, TVM_SORTCHILDRENCB, 0, reinterpret_cast<LPARAM>(&treeViewSortCB));
+}

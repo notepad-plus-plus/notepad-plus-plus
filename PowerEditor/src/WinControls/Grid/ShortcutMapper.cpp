@@ -134,7 +134,6 @@ void ShortcutMapper::initBabyGrid()
 	_babygrid.setProtectColor(RGB(255,130,120));
 	_babygrid.setHighlightColorProtect(RGB(244,10,20));
 	_babygrid.setHighlightColorProtectNoFocus(RGB(230,194,190));
-	_babygrid.setAllowColResize();
 
 	NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
 	nativeLangSpeaker->changeDlgLang(_hSelf, "ShortcutMapper");

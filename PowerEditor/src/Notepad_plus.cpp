@@ -295,6 +295,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_mainEditView.execute(SCI_SETEDGEMODE, svp1._edgeMode);
 	_subEditView.execute(SCI_SETEDGECOLUMN, svp1._edgeNbColumn);
 	_subEditView.execute(SCI_SETEDGEMODE, svp1._edgeMode);
+	::SendMessage(hwnd, NPPM_INTERNAL_EDGEMULTISETSIZE, 0, 0);
 
 	_mainEditView.showEOL(svp1._eolShow);
 	_subEditView.showEOL(svp1._eolShow);

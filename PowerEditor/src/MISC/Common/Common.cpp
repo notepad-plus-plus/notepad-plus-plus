@@ -816,6 +816,39 @@ std::vector<generic_string> stringSplit(const generic_string& input, const gener
 }
 
 
+bool str2numberVector(generic_string str2convert, std::vector<size_t>& numVect)
+{
+	numVect.clear();
+
+	for (auto i : str2convert)
+	{
+		switch (i)
+		{
+		case ' ':
+		case '0': case '1':	case '2': case '3':	case '4':
+		case '5': case '6':	case '7': case '8':	case '9':
+		{
+			// correct. do nothing
+		}
+		break;
+
+		default:
+			return false;
+		}
+	}
+
+	std::vector<generic_string> v = stringSplit(str2convert, TEXT(" "));
+	for (auto i : v)
+	{
+		// Don't treat empty string and the number greater than 9999
+		if (!i.empty() && i.length() < 5)
+		{
+			numVect.push_back(std::stoi(i));
+		}
+	}
+	return true;
+}
+
 generic_string stringJoin(const std::vector<generic_string>& strings, const generic_string& separator)
 {
 	generic_string joined;

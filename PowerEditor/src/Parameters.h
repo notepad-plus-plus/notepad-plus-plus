@@ -922,6 +922,7 @@ struct ScintillaViewParams
 	bool _doWrap = false;
 	int _edgeMode = EDGE_NONE;
 	int _edgeNbColumn = 80;
+	std::vector<size_t> _edgeMultiColumnPos;
 	int _zoom = 0;
 	int _zoom2 = 0;
 	bool _whiteSpaceShow = false;

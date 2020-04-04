@@ -572,6 +572,22 @@ INT_PTR CALLBACK BarsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 	return FALSE;
 }
 
+static WNDPROC oldFunclstToolbarProc = NULL;
+static LRESULT CALLBACK editNumSpaceProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	switch (message)
+	{
+		case WM_CHAR:
+		{
+			// All non decimal numbers and non white space and non backspace are ignored
+			if ((wParam != 8 && wParam != 32 && wParam < 48) || wParam > 57)
+			{
+				return TRUE;
+			}
+		}
+	}
+	return oldFunclstToolbarProc(hwnd, message, wParam, lParam);
+}
 
 void MarginsDlg::initScintParam()
 {
@@ -630,15 +646,32 @@ void MarginsDlg::initScintParam()
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_SHOWVERTICALEDGE, BM_SETCHECK, isEnable, 0);
 	::SendDlgItemMessage(_hSelf, IDC_RADIO_LNMODE, BM_SETCHECK, (svp._edgeMode == EDGE_LINE), 0);
 	::SendDlgItemMessage(_hSelf, IDC_RADIO_BGMODE, BM_SETCHECK, (svp._edgeMode == EDGE_BACKGROUND), 0);
+	::SendDlgItemMessage(_hSelf, IDC_RADIO_MULTILNMODE, BM_SETCHECK, (svp._edgeMode == EDGE_MULTILINE), 0);
+
+	generic_string edgeColumnPosStr;
+	for (auto i : svp._edgeMultiColumnPos)
+	{
+		std::string s = std::to_string(i);
+		edgeColumnPosStr += generic_string(s.begin(), s.end());
+		edgeColumnPosStr += TEXT(" ");
+	}
+	::SendDlgItemMessage(_hSelf, IDC_COLUMNPOS_EDIT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(edgeColumnPosStr.c_str()));
+
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_LNMODE), isEnable);
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_BGMODE), isEnable);
-	::EnableWindow(::GetDlgItem(_hSelf, IDC_NBCOLONE_STATIC), isEnable);
+	::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_MULTILNMODE), isEnable);
+	::EnableWindow(::GetDlgItem(_hSelf, IDC_NBCOLONE_STATIC), isEnable && !isCheckedOrNot(IDC_RADIO_MULTILNMODE));
+	::EnableWindow(::GetDlgItem(_hSelf, IDC_COLUMNPOS_EDIT), isEnable && isCheckedOrNot(IDC_RADIO_MULTILNMODE));
 	
+	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+	generic_string radioboxTip = pNativeSpeaker->getLocalizedStrFromID("multi-edge-radio-tip", TEXT("Add your column marker by indicating its position with a decimal number.\nYou can define several column markers by using white space to seperate the different positions."));
+	_multiEdgeTip = CreateToolTip(IDC_RADIO_MULTILNMODE, _hSelf, _hInst, const_cast<PTSTR>(radioboxTip.c_str()));
+
+	oldFunclstToolbarProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(::GetDlgItem(_hSelf, IDC_COLUMNPOS_EDIT), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(editNumSpaceProc)));
+
 	::SetDlgItemInt(_hSelf, IDC_COLONENUMBER_STATIC, svp._edgeNbColumn, FALSE);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_COLONENUMBER_STATIC), isEnable);
-
 }
-
 
 INT_PTR CALLBACK MarginsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -673,7 +706,7 @@ INT_PTR CALLBACK MarginsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 			const ScintillaViewParams & svp = nppParam.getSVP();
 			::SendMessage(::GetDlgItem(_hSelf, IDC_BORDERWIDTH_SLIDER),TBM_SETPOS, TRUE, svp._borderWidth);
 			::SetDlgItemInt(_hSelf, IDC_BORDERWIDTHVAL_STATIC, svp._borderWidth, FALSE);
-			
+
 			initScintParam();
 			
 			ETDTProc enableDlgTheme = (ETDTProc)nppParam.getEnableThemeDlgTexture();
@@ -773,39 +806,59 @@ INT_PTR CALLBACK MarginsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 					
 				case IDC_CHECK_SHOWVERTICALEDGE:
 				{
-					int modeID = 0;
+					int modeMsg = 0;
 					bool isChecked = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_SHOWVERTICALEDGE, BM_GETCHECK, 0, 0));
 					if (isChecked)
 					{
 						::SendDlgItemMessage(_hSelf, IDC_RADIO_LNMODE, BM_SETCHECK, TRUE, 0);
 						svp._edgeMode = EDGE_LINE;
-						modeID = IDM_VIEW_EDGELINE;
+						modeMsg = NPPM_INTERNAL_EDGELINE;
 					}
 					else
 					{
 						::SendDlgItemMessage(_hSelf, IDC_RADIO_LNMODE, BM_SETCHECK, FALSE, 0);
 						::SendDlgItemMessage(_hSelf, IDC_RADIO_BGMODE, BM_SETCHECK, FALSE, 0);
+						::SendDlgItemMessage(_hSelf, IDC_RADIO_MULTILNMODE, BM_SETCHECK, FALSE, 0);
 						svp._edgeMode = EDGE_NONE;
-						modeID = IDM_VIEW_EDGENONE;
+						modeMsg = IDM_VIEW_EDGENONE;
 					}
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_LNMODE), isChecked);
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_BGMODE), isChecked);
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_NBCOLONE_STATIC), isChecked);
-					::ShowWindow(::GetDlgItem(_hSelf, IDC_COLONENUMBER_STATIC), isChecked);
-	
-					::SendMessage(_hParent, WM_COMMAND, modeID, 0);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_MULTILNMODE), isChecked);
+
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_NBCOLONE_STATIC), isChecked && !isCheckedOrNot(IDC_RADIO_MULTILNMODE));
+					::ShowWindow(::GetDlgItem(_hSelf, IDC_COLONENUMBER_STATIC), isChecked && !isCheckedOrNot(IDC_RADIO_MULTILNMODE));
+
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_COLUMNPOS_EDIT), isChecked && isCheckedOrNot(IDC_RADIO_MULTILNMODE));
+
+					::SendMessage(::GetParent(_hParent), modeMsg, 0, 0);
 					return TRUE;
 				}
+
 				case IDC_RADIO_LNMODE:
 					svp._edgeMode = EDGE_LINE;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_EDGELINE, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_EDGELINE, 0, 0);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_NBCOLONE_STATIC), TRUE);
+					::ShowWindow(::GetDlgItem(_hSelf, IDC_COLONENUMBER_STATIC), TRUE);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_COLUMNPOS_EDIT), FALSE);
 					return TRUE;
 					
 				case IDC_RADIO_BGMODE:
 					svp._edgeMode = EDGE_BACKGROUND;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_EDGEBACKGROUND, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_EDGEBACKGROUND, 0, 0);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_NBCOLONE_STATIC), TRUE);
+					::ShowWindow(::GetDlgItem(_hSelf, IDC_COLONENUMBER_STATIC), TRUE);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_COLUMNPOS_EDIT), FALSE);
 					return TRUE;
-				
+
+				case IDC_RADIO_MULTILNMODE:
+					svp._edgeMode = EDGE_MULTILINE;
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_EDGEMULTILINE, 0, 0);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_NBCOLONE_STATIC), FALSE);
+					::ShowWindow(::GetDlgItem(_hSelf, IDC_COLONENUMBER_STATIC), FALSE);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_COLUMNPOS_EDIT), TRUE);
+					return TRUE;
+
 				case IDC_COLONENUMBER_STATIC:
 				{
 					NativeLangSpeaker *pNativeSpeaker = nppParam.getNativeLangSpeaker();
@@ -825,7 +878,7 @@ INT_PTR CALLBACK MarginsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 						::SetDlgItemInt(_hSelf, IDC_COLONENUMBER_STATIC, svp._edgeNbColumn, FALSE);
 
 						// Execute modified value
-						::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETTING_EDGE_SIZE, 0, 0);
+						::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_EDGESETSIZE, 0, 0);
 					}
 					return TRUE;
 				}
@@ -850,18 +903,30 @@ INT_PTR CALLBACK MarginsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 					{
 						case CBN_SELCHANGE : // == case LBN_SELCHANGE :
 						{
-							switch (LOWORD(wParam))
+							if (LOWORD(wParam) == IDC_WIDTH_COMBO)
 							{
-								case IDC_WIDTH_COMBO:
-								{
-									nppGUI._caretWidth = static_cast<int32_t>(::SendDlgItemMessage(_hSelf, IDC_WIDTH_COMBO, CB_GETCURSEL, 0, 0));
-									::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETCARETWIDTH, 0, 0);
-									return TRUE;			
-								}
-								default:
-									break;
+								nppGUI._caretWidth = static_cast<int32_t>(::SendDlgItemMessage(_hSelf, IDC_WIDTH_COMBO, CB_GETCURSEL, 0, 0));
+								::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETCARETWIDTH, 0, 0);
+								return TRUE;
 							}
 						}
+						break;
+
+						case EN_CHANGE :
+						{
+							if (LOWORD(wParam) == IDC_COLUMNPOS_EDIT)
+							{
+								TCHAR text[MAX_PATH];
+								::SendDlgItemMessage(_hSelf, IDC_COLUMNPOS_EDIT, WM_GETTEXT, MAX_PATH, reinterpret_cast<LPARAM>(text));
+
+								if (str2numberVector(text, svp._edgeMultiColumnPos))
+								{
+									::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_EDGEMULTISETSIZE, 0, 0);
+									return TRUE;
+								}
+							}
+						}
+						break;
 					}
 			}
 		}

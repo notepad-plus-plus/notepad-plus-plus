@@ -3269,31 +3269,6 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
-		case IDM_VIEW_EDGEBACKGROUND:
-		case IDM_VIEW_EDGELINE:
-		case IDM_VIEW_EDGENONE:
-		{
-			int mode;
-			switch (id)
-			{
-			case IDM_VIEW_EDGELINE:
-			{
-				mode = EDGE_LINE;
-				break;
-			}
-			case IDM_VIEW_EDGEBACKGROUND:
-			{
-				mode = EDGE_BACKGROUND;
-				break;
-			}
-			default:
-				mode = EDGE_NONE;
-			}
-			_mainEditView.execute(SCI_SETEDGEMODE, mode);
-			_subEditView.execute(SCI_SETEDGEMODE, mode);
-		}
-		break;
-
 		case IDM_VIEW_LWDEF:
 		case IDM_VIEW_LWALIGN:
 		case IDM_VIEW_LWINDENT:

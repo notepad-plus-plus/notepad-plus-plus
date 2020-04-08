@@ -1280,7 +1280,12 @@ ATOM RegisterGridClass(HINSTANCE hInstance)
 	wclass.cbWndExtra = 0;
 	wclass.hInstance = hInstance;
 	wclass.hIcon = NULL;
-	wclass.hCursor = ::LoadCursor(NULL, IDC_ARROW);
+
+	// Setting the class cursor here causes the system to restore the class cursor each time the mouse moves,
+	// which prevents you from setting your own cursor (like <--> when resizing columns)
+	//wclass.hCursor = ::LoadCursor(NULL, IDC_ARROW);
+
+	wclass.hCursor = NULL;
 
 	wclass.hbrBackground = (HBRUSH)(GetStockObject(GRAY_BRUSH));
 	wclass.lpszClassName = TEXT("BABYGRID");
@@ -1725,7 +1730,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                        //if there are \n codes in the generic_string, find the longest line
                        longestline=FindLongestLine(hdc,(TCHAR*)lParam,&size);
                        //GetTextExtentPoint32(hdc,(TCHAR*)lParam,lstrlen((TCHAR*)lParam),&size);
-                       required_width = longestline+15;
+					   required_width = longestline+15;
                        required_height = size.cy;
                        //count lines
                            {
@@ -1764,7 +1769,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                            }
                        if(required_width > current_width)
                            {
-                            SendMessage(hWnd,BGM_SETCOLWIDTH,LPBGcell->col,required_width);
+								SendMessage(hWnd,BGM_SETCOLWIDTH,LPBGcell->col,required_width);
                            }
                        ReleaseDC(hWnd,hdc);
                       }
@@ -2160,7 +2165,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
               int x,y,r,c,t,z;
               x=LOWORD(lParam);
               y=HIWORD(lParam);
-              r=GetRowOfMouse(SelfIndex,y);
+			  r=GetRowOfMouse(SelfIndex,y);
               c=GetColOfMouse(SelfIndex,x);
               t=GetColOfMouse(SelfIndex,x+10);
               z=GetColOfMouse(SelfIndex,x-10);
@@ -2190,7 +2195,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                        {
                         BGHS[SelfIndex].cursortype = 1;
                         SetCursor(LoadCursor(NULL, IDC_ARROW));
-                       }
+				   }
                   }
             break;
 
@@ -2221,7 +2226,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 					  }
 				  BGHS[SelfIndex].COLUMNSIZING = TRUE;
                   BGHS[SelfIndex].SHOWINTEGRALROWS = FALSE;
-                  x=LOWORD(lParam);
+				  x=LOWORD(lParam);
                   BGHS[SelfIndex].columntoresizeinitx=x;
                      t=GetColOfMouse(SelfIndex,x+10);
                      z=GetColOfMouse(SelfIndex,x-10);

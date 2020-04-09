@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -31,7 +31,7 @@
 #include "Window.h"
 #include "Common.h"
 
-#include <Commctrl.h>
+#include <commctrl.h>
 
 struct columnInfo {
 	size_t _width;
@@ -43,18 +43,31 @@ struct columnInfo {
 class ListView : public Window
 {
 public:
-	ListView() : Window() {};
-	virtual ~ListView() {};
+	ListView() = default;
+	virtual ~ListView() = default;
 
+	enum SortDirection {
+		sortEncrease = 0,
+		sortDecrease = 1
+	};
 	// addColumn() should be called before init()
 	void addColumn(const columnInfo & column2Add) {
 		_columnInfos.push_back(column2Add);
 	};
 
+	void setColumnText(size_t i, generic_string txt2Set) {
+		LVCOLUMN lvColumn;
+		lvColumn.mask = LVCF_TEXT;
+		lvColumn.pszText = const_cast<TCHAR *>(txt2Set.c_str());
+		ListView_SetColumn(_hSelf, i, &lvColumn);
+	}
+
 	// setStyleOption() should be called before init()
 	void setStyleOption(int32_t extraStyle) {
 		_extraStyle = extraStyle;
 	};
+
+	size_t findAlphabeticalOrderPos(const generic_string& string2search, SortDirection sortDir);
 
 	void addLine(const std::vector<generic_string> & values2Add, LPARAM lParam = 0, int pos2insert = -1);
 	

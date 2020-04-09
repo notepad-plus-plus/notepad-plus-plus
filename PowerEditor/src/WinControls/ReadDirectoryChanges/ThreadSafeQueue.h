@@ -26,91 +26,59 @@
 //	http://qualapps.blogspot.com/2010/05/understanding-readdirectorychangesw.html
 //	See ReadMe.txt for overview information.
 
+#pragma once
+
 #include <list>
+#include <mutex>
 
 template <typename C>
 class CThreadSafeQueue : protected std::list<C>
 {
-public:
-	CThreadSafeQueue(int nMaxCount)
-	{
-		m_bOverflow = false;
+protected:
+	using Base = std::list<C>;
 
-		m_hSemaphore = ::CreateSemaphore(
+public:
+	CThreadSafeQueue()
+	{
+		m_hEvent = ::CreateEvent(
 			NULL,		// no security attributes
-			0,			// initial count
-			nMaxCount,	// max count
+			FALSE,		// auto reset
+			FALSE,		// non-signalled
 			NULL);		// anonymous
 	}
 
 	~CThreadSafeQueue()
 	{
-		::CloseHandle(m_hSemaphore);
-		m_hSemaphore = NULL;
+		::CloseHandle(m_hEvent);
+		m_hEvent = NULL;
 	}
 
 	void push(C& c)
 	{
-		CComCritSecLock<CComAutoCriticalSection> lock( m_Crit, true );
-		push_back( c );
-		lock.Unlock();
-
-		if (!::ReleaseSemaphore(m_hSemaphore, 1, NULL))
 		{
-			// If the semaphore is full, then take back the entry.
-			lock.Lock();
-			pop_back();
-			if (GetLastError() == ERROR_TOO_MANY_POSTS)
-			{
-				m_bOverflow = true;
-			}
+			std::lock_guard<std::mutex> lock(m_mutex);
+			Base::push_back(c);
 		}
+		::SetEvent(m_hEvent);
 	}
 
 	bool pop(C& c)
 	{
-		CComCritSecLock<CComAutoCriticalSection> lock( m_Crit, true );
-
-		// If the user calls pop() more than once after the
-		// semaphore is signaled, then the semaphore count will
-		// get out of sync.  We fix that when the queue empties.
-		if (empty())
+		std::lock_guard<std::mutex> lock(m_mutex);
+		if (Base::empty())
 		{
-			while (::WaitForSingleObject(m_hSemaphore, 0) != WAIT_TIMEOUT)
-				1;
 			return false;
 		}
 
-		c = front();
-		pop_front();
+		c = Base::front();
+		Base::pop_front();
 
 		return true;
 	}
 
-	// If overflow, use this to clear the queue.
-	void clear()
-	{
-		CComCritSecLock<CComAutoCriticalSection> lock( m_Crit, true );
-
-		for (DWORD i=0; i<size(); i++)
-			WaitForSingleObject(m_hSemaphore, 0);
-
-		__super::clear();
-
-		m_bOverflow = false;
-	}
-
-	bool overflow()
-	{
-		return m_bOverflow;
-	}
-
-	HANDLE GetWaitHandle() { return m_hSemaphore; }
+	HANDLE GetWaitHandle() { return m_hEvent; }
 
 protected:
-	HANDLE m_hSemaphore;
-
-	CComAutoCriticalSection m_Crit;
-
-	bool m_bOverflow;
+	HANDLE m_hEvent;
+	std::mutex m_mutex;
 };

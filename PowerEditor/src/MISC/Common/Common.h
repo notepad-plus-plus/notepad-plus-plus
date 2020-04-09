@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -63,6 +63,7 @@ const bool dirDown = false;
 #define generic_fopen _wfopen
 #define generic_fgets fgetws
 #define COPYDATA_FILENAMES COPYDATA_FILENAMESW
+#define NPP_INTERNAL_FUCTION_STR TEXT("Notepad++::InternalFunction")
 
 typedef std::basic_string<TCHAR> generic_string;
 typedef std::basic_stringstream<TCHAR> generic_stringstream;
@@ -95,8 +96,10 @@ bool matchInList(const TCHAR *fileName, const std::vector<generic_string> & patt
 class WcharMbcsConvertor final
 {
 public:
-	static WcharMbcsConvertor * getInstance() {return _pSelf;}
-	static void destroyInstance() {delete _pSelf;}
+	static WcharMbcsConvertor& getInstance() {
+		static WcharMbcsConvertor instance;
+		return instance;
+	}
 
 	const wchar_t * char2wchar(const char *mbStr, UINT codepage, int lenIn=-1, int *pLenOut=NULL, int *pBytesNotProcessed=NULL);
 	const wchar_t * char2wchar(const char *mbcs2Convert, UINT codepage, int *mstart, int *mend);
@@ -111,21 +114,23 @@ public:
     }
 
 protected:
-	WcharMbcsConvertor() {}
-	~WcharMbcsConvertor() {}
+	WcharMbcsConvertor() = default;
+	~WcharMbcsConvertor() = default;
 
 	// Since there's no public ctor, we need to void the default assignment operator and copy ctor.
 	// Since these are marked as deleted does not matter under which access specifier are kept
 	WcharMbcsConvertor(const WcharMbcsConvertor&) = delete;
 	WcharMbcsConvertor& operator= (const WcharMbcsConvertor&) = delete;
 
-	static WcharMbcsConvertor* _pSelf;
+	// No move ctor and assignment
+	WcharMbcsConvertor(WcharMbcsConvertor&&) = delete;
+	WcharMbcsConvertor& operator= (WcharMbcsConvertor&&) = delete;
 
 	template <class T>
 	class StringBuffer final
 	{
 	public:
-		~StringBuffer() { if(_allocLen) delete[] _str; }
+		~StringBuffer() { if (_allocLen) delete[] _str; }
 
 		void sizeTo(size_t size)
 		{
@@ -191,3 +196,10 @@ HWND CreateToolTip(int toolID, HWND hDlg, HINSTANCE hInst, const PTSTR pszText);
 
 bool isCertificateValidated(const generic_string & fullFilePath, const generic_string & subjectName2check);
 bool isAssoCommandExisting(LPCTSTR FullPathName);
+
+std::wstring s2ws(const std::string& str);
+std::string ws2s(const std::wstring& wstr);
+
+bool deleteFileOrFolder(const generic_string& f2delete);
+
+void getFilesInFolder(std::vector<generic_string>& files, const generic_string& extTypeFilter, const generic_string& inFolder);

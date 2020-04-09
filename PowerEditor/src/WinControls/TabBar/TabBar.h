@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -68,8 +68,8 @@ struct TBHDR
 class TabBar : public Window
 {
 public:
-	TabBar() : Window() {};
-	virtual ~TabBar() {};
+	TabBar() = default;
+	virtual ~TabBar() = default;
 	virtual void destroy();
 	virtual void init(HINSTANCE hInst, HWND hwnd, bool isVertical = false, bool isMultiLine = false);
 	virtual void reSizeTo(RECT & rc2Ajust);
@@ -143,7 +143,7 @@ struct CloseButtonZone
 class TabBarPlus : public TabBar
 {
 public :
-	TabBarPlus() : TabBar() {};
+	TabBarPlus() = default;
 	enum tabColourIndex {
 		activeText, activeFocusedTop, activeUnfocusedTop, inactiveText, inactiveBg
 	};

@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -26,8 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef ENCODINGMAPPER_H
-#define ENCODINGMAPPER_H
+#pragma once
 
 struct EncodingUnit {
    int _codePage;
@@ -36,16 +35,24 @@ struct EncodingUnit {
 
 class EncodingMapper {
 public:
-    static EncodingMapper * getInstance() {return _pSelf;};
+	static EncodingMapper& getInstance() {
+		static  EncodingMapper  instance;
+		return instance;
+	}
     int getEncodingFromIndex(int index) const;
 	int getIndexFromEncoding(int encoding) const;
 	int getEncodingFromString(const char * encodingAlias) const;
 
 private:
-	EncodingMapper(){};
-	~EncodingMapper(){};
-    static EncodingMapper *_pSelf;
-    EncodingUnit *_encodings;
+	EncodingMapper() = default;
+	~EncodingMapper() = default;
+
+	// No copy ctor and assignment
+	EncodingMapper(const EncodingMapper&) = delete;
+	EncodingMapper& operator=(const EncodingMapper&) = delete;
+
+	// No move ctor and assignment
+	EncodingMapper(EncodingMapper&&) = delete;
+	EncodingMapper& operator=(EncodingMapper&&) = delete;
 };
 
-#endif // ENCODINGMAPPER_H

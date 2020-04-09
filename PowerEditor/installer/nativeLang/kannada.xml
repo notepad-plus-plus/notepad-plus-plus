@@ -738,6 +738,7 @@ Thank you. -->
                 </Backup>
 
                 <AutoCompletion title="Auto-Completion">
+                    <Item id="6115" name="ಆಟೋ-ಇನ್‌ಡೆಂಟ್"/>
                     <Item id="6807" name="Auto-Completion"/>
                     <Item id="6808" name="ಎನೇಬಲ್ auto-completion ಒನ್ ಈಚ್ ಇನ್‌ಪುಟ್"/>
                     <Item id="6809" name="ಫಂಕ್ಶನ್ ಕಂಪ್ಲೀಶನ್"/>
@@ -803,7 +804,6 @@ Thank you. -->
 					<Item id="6334" name="ಔಟೊಡೇತೆಕ್ಟ್ ಕ್ಯಾರಕ್ಟರ್ ಎನ್‌ಕೋಡಿಂಗ್"/>
 					<Item id="6335" name="ಟ್ರೀಟ್ ಬ್ಯಾಕ್‌ಸ್ಲ್ಯಾಶ್ ಆಸ್ ಎಸ್ಕೇಪ್ ಕ್ಯಾರಕ್ಟರ್ ಫಾರ್ ಸ್ಕ್ಲ್"/>
                     <Item id="6114" name="ಎನೇಬಲ್"/>
-                    <Item id="6115" name="ಆಟೋ-ಇನ್‌ಡೆಂಟ್"/>
                     <Item id="6117" name="ಎನೇಬಲ್ ಮರ ಬಿಹೇವಿಯರ್"/>
                 </MISC>
             </Preference>

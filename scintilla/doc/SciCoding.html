@@ -5,6 +5,7 @@
   <head>
     <meta name="generator" content="SciTE" />
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>
       Scintilla and SciTE Code Style Preferences
     </title>
@@ -123,6 +124,8 @@
 	compilers on diverse platforms with high performance and low resource usage.
 	Scintilla has stricter portability requirements to SciTE as it may be ported to
 	low capability platforms.
+	Scintilla code must build with C++17 which can be checked with "g++ --std=c++17".
+	SciTE can use C++17 features that are widely available from g++ 7.1, MSVC 2017.6 and Clang 5.0 compilers.
 	</p>
 	<p>
 	To achieve portability, only a subset of C++ features are used.
@@ -130,13 +133,20 @@
 	C++, exceptions may not be thrown out of Scintilla and all exceptions should be caught
 	before returning from Scintilla.
 	Run-time type information adds to memory use so is turned off.
-	A 'Scintilla' name spaces is optionally used based on the SCI_NAMESPACE
-	definition. This helps with name clashes on OS X.
+	A 'Scintilla' name space is used. This helps with name clashes on OS X.
 	</p>
 	<p>
 	The goto statement is not used because of bad memories from my first job
 	maintaining FORTRAN programs. The union feature is not used as it can lead to
 	non-type-safe value access.
+	</p>
+	<p>
+	The SCI_METHOD preprocessor definition should be used when implementing
+	interfaces which include it like ILexer and only there.
+	</p>
+	<p>
+	Headers should always be included in the same order as given by the
+	scripts/HeaderOrder.txt file.
 	</p>
     <h3>
        Casting
@@ -144,8 +154,7 @@
 	<p>
 	Do not use old C style casts like (char *)s. Instead use the most strict form of C++
 	cast possible like const_cast&lt;char *&gt;(s). Use static_cast and const_cast
-	where possible rather than reinterpret_cast. Because the code is compiled with
-	run-time type information turned off, dynamic_cast will not work.
+	where possible rather than reinterpret_cast.
 	</p>
 	<p>
 	The benefit to using the new style casts is that they explicitly detail what evil is
@@ -255,5 +264,31 @@
 	<p>Ensure there are no warnings under the compiler you use. Warnings from other compilers
 	will be noted on the feature request.</p>
 	<p>sc.ch is an int: do not pass this around as a char.</p>
+	<p>The ctype functions like isalnum and isdigit only work on ASCII (0..127) and may cause
+	undefined behaviour including crashes if used on other values. Check with IsASCII before calling is*.</p>
+	<p>Functions, structs and classes in lexers should be in an unnamed namespace (see LexCPP)
+	or be marked "static" so they will not leak into other lexers.</p>
+	<p>If you copy from an existing lexer, remove any code that is not needed since it makes it
+	more difficult to maintain and review.</p>
+	<p>When modifying an existing lexer, try to maintain as much compatibility as possible.
+	Do not renumber lexical styles as current client code may be built against the earlier values.</p>
+    <h4>
+       Properties
+    </h4>
+	<p>
+	Properties provided by a new lexer should follow the naming conventions
+	and should include a comment suitable for showing to end users.
+	The convention is for properties that control styling to be named
+	lexer.&lt;lexername&gt;.* and those that control folding to be named
+	fold.&lt;lexername&gt;.*.
+	Examples are "lexer.python.literals.binary" and "fold.haskell.imports".
+	</p>
+	<p>
+	The properties "fold" and "fold.comment" are generic and can be used by
+	any lexer.
+	</p>
+	<p>
+	See LexPython for examples of properties in an object lexer and LexHTML for a functional lexer.
+	</p>
   </body>
 </html>

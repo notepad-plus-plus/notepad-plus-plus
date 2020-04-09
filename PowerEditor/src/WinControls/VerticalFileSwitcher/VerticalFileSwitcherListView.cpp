@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -100,10 +100,10 @@ void VerticalFileSwitcherListView::initList()
 	HWND colHeader = reinterpret_cast<HWND>(SendMessage(_hSelf, LVM_GETHEADER, 0, 0));
 	int columnCount = static_cast<int32_t>(SendMessage(colHeader, HDM_GETITEMCOUNT, 0, 0));
 	
-	NppParameters *nppParams = NppParameters::getInstance();
-	NativeLangSpeaker *pNativeSpeaker = nppParams->getNativeLangSpeaker();
+	NppParameters& nppParams = NppParameters::getInstance();
+	NativeLangSpeaker *pNativeSpeaker = nppParams.getNativeLangSpeaker();
 	
-	bool isExtColumn = !nppParams->getNppGUI()._fileSwitcherWithoutExtColumn;
+	bool isExtColumn = !nppParams.getNppGUI()._fileSwitcherWithoutExtColumn;
 	
 	// check if columns need to be added
 	if (columnCount <= 1)
@@ -122,6 +122,7 @@ void VerticalFileSwitcherListView::initList()
 		{
 			// resize "Name" column when "exts" won't fit
 			LVCOLUMN lvc;
+			lvc.mask = LVCF_WIDTH;
 			SendMessage(_hSelf, LVM_GETCOLUMN, 0, reinterpret_cast<LPARAM>(&lvc));
 			
 			if (lvc.cx + 50 > totalWidth)
@@ -152,7 +153,7 @@ void VerticalFileSwitcherListView::initList()
 		TaskLstFnStatus *tl = new TaskLstFnStatus(fileNameStatus._iView, fileNameStatus._docIndex, fileNameStatus._fn, fileNameStatus._status, (void *)fileNameStatus._bufID);
 
 		TCHAR fn[MAX_PATH];
-		lstrcpy(fn, ::PathFindFileName(fileNameStatus._fn.c_str()));
+		wcscpy_s(fn, ::PathFindFileName(fileNameStatus._fn.c_str()));
 
 		if (isExtColumn)
 		{
@@ -212,8 +213,8 @@ void VerticalFileSwitcherListView::setItemIconStatus(BufferID bufferID)
 	Buffer *buf = static_cast<Buffer *>(bufferID);
 	
 	TCHAR fn[MAX_PATH];
-	lstrcpy(fn, ::PathFindFileName(buf->getFileName()));
-	bool isExtColumn = !(NppParameters::getInstance())->getNppGUI()._fileSwitcherWithoutExtColumn;
+	wcscpy_s(fn, ::PathFindFileName(buf->getFileName()));
+	bool isExtColumn = !(NppParameters::getInstance()).getNppGUI()._fileSwitcherWithoutExtColumn;
 	if (isExtColumn)
 	{
 		::PathRemoveExtension(fn);
@@ -233,14 +234,15 @@ void VerticalFileSwitcherListView::setItemIconStatus(BufferID bufferID)
 		TaskLstFnStatus *tlfs = (TaskLstFnStatus *)(item.lParam);
 		if (tlfs->_bufID == bufferID)
 		{
+			tlfs->_fn = buf->getFullPathName();
 			item.mask = LVIF_TEXT | LVIF_IMAGE;
 			ListView_SetItem(_hSelf, &item);
 
 			if (isExtColumn)
 			{
 				ListView_SetItemText(_hSelf, i, 1, (LPTSTR)::PathFindExtension(buf->getFileName()));
-
 			}
+			break;
 		}
 	}
 }
@@ -285,11 +287,11 @@ int VerticalFileSwitcherListView::add(BufferID bufferID, int iView)
 	Buffer *buf = static_cast<Buffer *>(bufferID);
 	const TCHAR *fileName = buf->getFileName();
 
-	TaskLstFnStatus *tl = new TaskLstFnStatus(iView, 0, fileName, 0, (void *)bufferID);
+	TaskLstFnStatus *tl = new TaskLstFnStatus(iView, 0, buf->getFullPathName(), 0, (void *)bufferID);
 
 	TCHAR fn[MAX_PATH];
-	lstrcpy(fn, ::PathFindFileName(fileName));
-	bool isExtColumn = !(NppParameters::getInstance())->getNppGUI()._fileSwitcherWithoutExtColumn;
+	wcscpy_s(fn, ::PathFindFileName(fileName));
+	bool isExtColumn = !(NppParameters::getInstance()).getNppGUI()._fileSwitcherWithoutExtColumn;
 	if (isExtColumn)
 	{
 		::PathRemoveExtension(fn);
@@ -368,8 +370,8 @@ void VerticalFileSwitcherListView::insertColumn(const TCHAR *name, int width, in
 
 void VerticalFileSwitcherListView::resizeColumns(int totalWidth)
 {
-	NppParameters *nppParams = NppParameters::getInstance();
-	bool isExtColumn = !nppParams->getNppGUI()._fileSwitcherWithoutExtColumn;
+	NppParameters& nppParams = NppParameters::getInstance();
+	bool isExtColumn = !nppParams.getNppGUI()._fileSwitcherWithoutExtColumn;
 	if (isExtColumn)
 	{
 		ListView_SetColumnWidth(_hSelf, 0, totalWidth - 50);

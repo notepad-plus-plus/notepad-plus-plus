@@ -720,6 +720,7 @@
                 </Backup>
 
 				 <AutoCompletion title="Auto-Completion">
+                    <Item id="6115" name="Auto-indent"/>
                     <Item id="6807" name="Auto-Completion"/>
                     <Item id="6808" name="Enable auto-completion on each input"/>
                     <Item id="6809" name="Function completion"/>
@@ -781,7 +782,6 @@
 					<Item id="6334" name="Autodetect character encoding"/>
 
                     <Item id="6114" name="Enable"/>
-                    <Item id="6115" name="Auto-indent"/>
                     <Item id="6117" name="Enable MRU behaviour"/>
 
                 </MISC>

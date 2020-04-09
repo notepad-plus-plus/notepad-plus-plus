@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -83,7 +83,7 @@ size_t Printer::doPrint(bool justDoIt)
 			return 0;
 */
 
-	const NppGUI & nppGUI = (NppParameters::getInstance())->getNppGUI();
+	const NppGUI & nppGUI = (NppParameters::getInstance()).getNppGUI();
 
 	POINT ptPage;
 	POINT ptDpi;
@@ -144,8 +144,8 @@ size_t Printer::doPrint(bool justDoIt)
 	TEXTMETRIC tm;
 
 	int fontSize = nppGUI._printSettings._headerFontSize?nppGUI._printSettings._headerFontSize:9;
-	int fontWeight = nppGUI._printSettings._headerFontStyle & (FONTSTYLE_BOLD?FW_BOLD:FW_NORMAL);
-	int isFontItalic = nppGUI._printSettings._headerFontStyle & (FONTSTYLE_ITALIC?TRUE:FALSE);
+	int fontWeight = (nppGUI._printSettings._headerFontStyle & FONTSTYLE_BOLD) ? FW_BOLD : FW_NORMAL;
+	int isFontItalic = (nppGUI._printSettings._headerFontStyle & FONTSTYLE_ITALIC) ? TRUE : FALSE;
 	const TCHAR *fontFace = (nppGUI._printSettings._headerFontName != TEXT(""))?nppGUI._printSettings._headerFontName.c_str():TEXT("Arial");
 
 	int headerLineHeight = ::MulDiv(fontSize, ptDpi.y, 72);
@@ -164,8 +164,8 @@ size_t Printer::doPrint(bool justDoIt)
 	headerLineHeight = tm.tmHeight + tm.tmExternalLeading;
 
 	fontSize = nppGUI._printSettings._footerFontSize?nppGUI._printSettings._footerFontSize:9;
-	fontWeight = nppGUI._printSettings._footerFontStyle & (FONTSTYLE_BOLD?FW_BOLD:FW_NORMAL);
-	isFontItalic = nppGUI._printSettings._footerFontStyle & (FONTSTYLE_ITALIC?TRUE:FALSE);
+	fontWeight = (nppGUI._printSettings._footerFontStyle & FONTSTYLE_BOLD) ? FW_BOLD : FW_NORMAL;
+	isFontItalic = (nppGUI._printSettings._footerFontStyle & FONTSTYLE_ITALIC) ? TRUE : FALSE;
 	fontFace = (nppGUI._printSettings._footerFontName != TEXT(""))?nppGUI._printSettings._footerFontName.c_str():TEXT("Arial");
 
 	int footerLineHeight = ::MulDiv(fontSize, ptDpi.y, 72);

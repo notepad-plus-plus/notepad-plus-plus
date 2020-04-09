@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -36,6 +36,7 @@ const size_t tagMaxLen = 256;
 class ScintillaEditView;
 
 struct MatchedCharInserted {
+	MatchedCharInserted() = delete;
 	char _c;
 	int _pos;
 	MatchedCharInserted(char c, int pos) : _c(c), _pos(pos) {};
@@ -62,8 +63,7 @@ public:
 	};
 
 	~AutoCompletion(){
-		if (_pXmlFile)
-			delete _pXmlFile;
+		delete _pXmlFile;
 	};
 
 	bool setLanguage(LangType language);
@@ -81,7 +81,7 @@ public:
 
 	void insertMatchedChars(int character, const MatchedPairConf & matchedPairConf);
 	void update(int character);
-	void callTipClick(int direction);
+	void callTipClick(size_t direction);
 	void getCloseTag(char *closeTag, size_t closeTagLen, size_t caretPos, bool isHTML);
 
 private:

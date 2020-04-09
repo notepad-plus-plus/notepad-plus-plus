@@ -24,16 +24,14 @@
 #include "CharacterSet.h"
 #include "LexerModule.h"
 
-#ifdef SCI_NAMESPACE
 using namespace Scintilla;
-#endif
 
 
 static bool IsAlphabetic(int ch) {
 	return IsASCII(ch) && isalpha(ch);
 }
 
-static inline bool AtEOL(Accessor &styler, unsigned int i) {
+static inline bool AtEOL(Accessor &styler, Sci_PositionU i) {
 	return (styler[i] == '\n') || ((styler[i] == '\r') && (styler.SafeGetCharAt(i + 1) != '\n'));
 }
 
@@ -52,7 +50,7 @@ static unsigned int GetBatchVarLen( char *wordBuffer )
 {
 	int nLength = 0;
 	if ( wordBuffer[0] == '%' ) {
-		
+
 		if ( wordBuffer[1] == '~' )
 			nLength = 2;
 		else if (( wordBuffer[1] == '%' ) && ( wordBuffer[2] == '~' ))
@@ -92,12 +90,12 @@ static unsigned int GetBatchVarLen( char *wordBuffer )
 }
 
 
-static void ColouriseTCMDLine( char *lineBuffer, unsigned int lengthLine, unsigned int startLine, unsigned int endPos, WordList *keywordlists[], Accessor &styler)
+static void ColouriseTCMDLine( char *lineBuffer, Sci_PositionU lengthLine, Sci_PositionU startLine, Sci_PositionU endPos, WordList *keywordlists[], Accessor &styler)
 {
-	unsigned int offset = 0;	// Line Buffer Offset
+	Sci_PositionU offset = 0;	// Line Buffer Offset
 	char wordBuffer[260];		// Word Buffer - large to catch long paths
-	unsigned int wbl;			// Word Buffer Length
-	unsigned int wbo;			// Word Buffer Offset - also Special Keyword Buffer Length
+	Sci_PositionU wbl;			// Word Buffer Length
+	Sci_PositionU wbo;			// Word Buffer Offset - also Special Keyword Buffer Length
 	WordList &keywords = *keywordlists[0];      // Internal Commands
 //	WordList &keywords2 = *keywordlists[1];     // Aliases (optional)
 	bool isDelayedExpansion = 1;				// !var!
@@ -244,7 +242,7 @@ static void ColouriseTCMDLine( char *lineBuffer, unsigned int lengthLine, unsign
 			if ((CompareCaseInsensitive(sKeywordBuffer, "echo") == 0) ||
 			  (CompareCaseInsensitive(sKeywordBuffer, "echos") == 0) ||
 			  (CompareCaseInsensitive(sKeywordBuffer, "echoerr") == 0) ||
-			  (CompareCaseInsensitive(sKeywordBuffer, "echoserr") == 0) || 
+			  (CompareCaseInsensitive(sKeywordBuffer, "echoserr") == 0) ||
 			  (CompareCaseInsensitive(sKeywordBuffer, "cd") == 0) ||
 			  (CompareCaseInsensitive(sKeywordBuffer, "path") == 0) ||
 			  (CompareCaseInsensitive(sKeywordBuffer, "prompt") == 0)) {
@@ -252,7 +250,7 @@ static void ColouriseTCMDLine( char *lineBuffer, unsigned int lengthLine, unsign
 				// no further Regular Keyword Checking
 				continueProcessing = false;
 				sKeywordFound = true;
-				wbo = (unsigned int)strlen( sKeywordBuffer );
+				wbo = (Sci_PositionU)strlen( sKeywordBuffer );
 
 				// Colorize Special Keyword as Regular Keyword
 				styler.ColourTo(startLine + offset - 1 - (wbl - wbo), SCE_TCMD_WORD);
@@ -401,15 +399,15 @@ ColorizeArg:
 	styler.ColourTo(endPos, SCE_TCMD_DEFAULT);
 }
 
-static void ColouriseTCMDDoc( unsigned int startPos, int length, int /*initStyle*/, WordList *keywordlists[], Accessor &styler )
+static void ColouriseTCMDDoc( Sci_PositionU startPos, Sci_Position length, int /*initStyle*/, WordList *keywordlists[], Accessor &styler )
 {
 	char lineBuffer[16384];
 
 	styler.StartAt(startPos);
 	styler.StartSegment(startPos);
-	unsigned int linePos = 0;
-	unsigned int startLine = startPos;
-	for (unsigned int i = startPos; i < startPos + length; i++) {
+	Sci_PositionU linePos = 0;
+	Sci_PositionU startLine = startPos;
+	for (Sci_PositionU i = startPos; i < startPos + length; i++) {
 		lineBuffer[linePos++] = styler[i];
 		if (AtEOL(styler, i) || (linePos >= sizeof(lineBuffer) - 1)) {
 			// End of line (or of line buffer) met, colourise it
@@ -434,18 +432,18 @@ static void StrUpr(char *s) {
 }
 
 // Folding support (for DO, IFF, SWITCH, TEXT, and command groups)
-static void FoldTCMDDoc(unsigned int startPos, int length, int, WordList *[], Accessor &styler)
+static void FoldTCMDDoc(Sci_PositionU startPos, Sci_Position length, int, WordList *[], Accessor &styler)
 {
-	int line = styler.GetLine(startPos);
+	Sci_Position line = styler.GetLine(startPos);
 	int level = styler.LevelAt(line);
 	int levelIndent = 0;
-	unsigned int endPos = startPos + length;
+	Sci_PositionU endPos = startPos + length;
 	char s[16] = "";
 
     char chPrev = styler.SafeGetCharAt(startPos - 1);
 
 	// Scan for ( and )
-	for (unsigned int i = startPos; i < endPos; i++) {
+	for (Sci_PositionU i = startPos; i < endPos; i++) {
 
 		int c = styler.SafeGetCharAt(i, '\n');
 		int style = styler.StyleAt(i);
@@ -461,7 +459,7 @@ static void FoldTCMDDoc(unsigned int startPos, int length, int, WordList *[], Ac
 		}
 
         if (( bLineStart ) && ( style == SCE_TCMD_WORD )) {
-            for (unsigned int j = 0; j < 10; j++) {
+            for (Sci_PositionU j = 0; j < 10; j++) {
                 if (!iswordchar(styler[i + j])) {
                     break;
                 }

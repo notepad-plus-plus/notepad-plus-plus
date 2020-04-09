@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -36,7 +36,7 @@
 #include "ListView.h"
 #include "asciiListView.h"
 
-#define AI_PROJECTPANELTITLE		TEXT("ASCII Insertion Panel")
+#define AI_PROJECTPANELTITLE		TEXT("ASCII Codes Insertion Panel")
 
 class ScintillaEditView;
 
@@ -55,6 +55,7 @@ public:
 
 	void switchEncoding();
 	void insertChar(unsigned char char2insert) const;
+	void insertString(LPWSTR string2insert) const;
 
 	virtual void setBackgroundColor(int bgColour) const {
 		ListView_SetBkColor(_listView.getHSelf(), bgColour);

@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -25,13 +25,9 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-
-#ifndef FILENAME_STRING_SPLITTER_H
-#define FILENAME_STRING_SPLITTER_H
+#pragma once
 
 typedef std::vector<generic_string> stringVector;
-
-
 
 class FileNameStringSplitter
 {
@@ -105,6 +101,10 @@ public:
 		}
 	}
 
+	const stringVector& getFileNames() const {
+		return _fileNames;
+	};
+
 	const TCHAR * getFileName(size_t index) const {
 		if (index >= _fileNames.size())
 			return NULL;
@@ -118,7 +118,3 @@ public:
 private :
 	stringVector _fileNames;
 };
-
-
-
-#endif //FILENAME_STRING_SPLITTER_H

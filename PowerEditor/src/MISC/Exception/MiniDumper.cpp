@@ -2,7 +2,7 @@
 //Modified for use by Npp
 
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -54,7 +54,7 @@ bool MiniDumper::writeDump(EXCEPTION_POINTERS * pExceptionInfo)
 		{
 			::GetModuleFileName(NULL, szDumpPath, MAX_PATH);
 			::PathRemoveFileSpec(szDumpPath);
-			lstrcat(szDumpPath, TEXT("\\NppDump.dmp"));
+			wcscat_s(szDumpPath, TEXT("\\NppDump.dmp"));
 
 			// ask the user if they want to save a dump file
 			int msgret = ::MessageBox(NULL, TEXT("Do you want to save a dump file?\r\nDoing so can aid in developing Notepad++."), msgTitle, MB_YESNO);
@@ -98,6 +98,7 @@ bool MiniDumper::writeDump(EXCEPTION_POINTERS * pExceptionInfo)
 		{
 			szResult = TEXT("The debugging DLL is outdated,\r\nfind a recent copy of dbghelp.dll and install it.");
 		}
+		::FreeLibrary(hDll);
 	}
 	else
 	{

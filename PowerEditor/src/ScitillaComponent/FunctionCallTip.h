@@ -25,12 +25,9 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-#ifndef FUNCTIONCALLTIP_H
-#define FUNCTIONCALLTIP_H
+#pragma once
 
-#ifndef SCINTILLA_EDIT_VIEW_H
 #include "ScintillaEditView.h"
-#endif //SCINTILLA_EDIT_VIEW_H
 
 typedef std::vector<const TCHAR *> stringVec;
 
@@ -88,5 +85,3 @@ private:
         return false;
     };
 };
-
-#endif// FUNCTIONCALLTIP_H

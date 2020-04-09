@@ -259,7 +259,7 @@ void Gripper::create()
 	// start hooking
 	::SetWindowPos(_pCont->getHSelf(), HWND_TOPMOST, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE);
 	::SetCapture(_hSelf);
-	winVer ver = (NppParameters::getInstance())->getWinVersion();
+	winVer ver = (NppParameters::getInstance()).getWinVersion();
 	hookMouse = ::SetWindowsHookEx(WH_MOUSE_LL, hookProcMouse, _hInst, 0);
 
     if (!hookMouse)

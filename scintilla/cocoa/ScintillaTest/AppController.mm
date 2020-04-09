@@ -72,20 +72,30 @@ const char user_keywords[] = // Definition of own keywords, not used by MySQL.
   [mEditor setAutoresizingMask: NSViewWidthSizable | NSViewHeightSizable];
   
   // Let's load some text for the editor, as initial content.
-  NSError* error = nil;
-  
-  NSString* path = [[NSBundle mainBundle] pathForResource: @"TestData" 
-                                                   ofType: @"sql" inDirectory: nil];
-  
-  NSString* sql = [NSString stringWithContentsOfFile: path
-                                            encoding: NSUTF8StringEncoding
-                                               error: &error];
-  if (error && [[error domain] isEqual: NSCocoaErrorDomain])
-    NSLog(@"%@", error);
-  
+  NSString *sql = [self exampleText];
+
   [mEditor setString: sql];
 
   [self setupEditor];
+  
+  sciExtra = nil;
+}
+
+- (NSString *) exampleText
+{
+  NSError* error = nil;
+
+  NSString* path = [[NSBundle mainBundle] pathForResource: @"TestData"
+                                                   ofType: @"sql" inDirectory: nil];
+
+  NSString *sql = [NSString stringWithContentsOfFile: path
+                                            encoding: NSUTF8StringEncoding
+                                               error: &error];
+
+  if (error && [[error domain] isEqual: NSCocoaErrorDomain])
+    NSLog(@"%@", error);
+  
+  return sql;
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -98,9 +108,6 @@ const char user_keywords[] = // Definition of own keywords, not used by MySQL.
   // Lexer type is MySQL.
   [mEditor setGeneralProperty: SCI_SETLEXER parameter: SCLEX_MYSQL value: 0];
   // alternatively: [mEditor setEditorProperty: SCI_SETLEXERLANGUAGE parameter: nil value: (sptr_t) "mysql"];
-  
-  // Number of styles we use with this lexer.
-  [mEditor setGeneralProperty: SCI_SETSTYLEBITS value: [mEditor getGeneralProperty: SCI_GETSTYLEBITSNEEDED]];
   
   // Keywords to highlight. Indices are:
   // 0 - Major keywords (reserved keywords)
@@ -234,7 +241,7 @@ static const char * box_xpm[] = {
 
 - (void) showAutocompletion
 {
-	const char *words = "Babylon-5?1 Battlestar-Galactica Millenium-Falcon?2 Moya?2 Serenity Voyager";
+	const char *words = "Babylon-5?1 Battlestar-Galactica Millennium-Falcon?2 Moya?2 Serenity Voyager";
 	[mEditor setGeneralProperty: SCI_AUTOCSETIGNORECASE parameter: 1 value:0];
 	[mEditor setGeneralProperty: SCI_REGISTERIMAGE parameter: 1 value:(sptr_t)box_xpm];
 	const int imSize = 12;
@@ -269,6 +276,26 @@ static const char * box_xpm[] = {
 
   if ([[searchField stringValue] isEqualToString: @"XX"])
     [self showAutocompletion];
+}
+
+- (IBAction) addRemoveExtra: (id) sender
+{
+	if (sciExtra) {
+		[sciExtra removeFromSuperview];
+		sciExtra = nil;
+	} else {
+		NSRect newFrame = mEditHost.frame;
+		newFrame.origin.x += newFrame.size.width + 5;
+		newFrame.origin.y += 46;
+		newFrame.size.width = 96;
+		newFrame.size.height -= 60;
+
+		sciExtra = [[[ScintillaView alloc] initWithFrame: newFrame] autorelease];
+		[[[mEditHost window]contentView] addSubview: sciExtra];
+		[sciExtra setGeneralProperty: SCI_SETWRAPMODE parameter: SC_WRAP_WORD value: 1];
+		NSString *sql = [self exampleText];
+		[sciExtra setString: sql];
+	}
 }
 
 -(IBAction) setFontQuality: (id) sender

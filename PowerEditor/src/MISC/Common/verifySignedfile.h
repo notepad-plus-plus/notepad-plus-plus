@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003-2017 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -24,9 +24,6 @@
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-
-
-#pragma once
 
 
 //#define VerifySignedLibrary_DISABLE_REVOCATION_CHECK "Dont check certificat revocation"
@@ -57,12 +54,36 @@
 *  state of the certificates will *not* be checked.
 *
 */
+#pragma once
 
 #include <string>
+#include <vector>
 
-bool VerifySignedLibrary(const std::wstring& filepath,
-                         const std::wstring& key_id_hex,
-                         const std::wstring& cert_subject,
-                         const std::wstring& display_name,
-                         bool doCheckRevocation,
-                         bool doCheckChainOfTrust);
+enum SecurityMode { sm_certif = 0, sm_sha256 = 1 };
+enum NppModule { nm_scilexer = 0, nm_gup = 1, nm_pluginList = 2 };
+
+class SecurityGard final
+{
+public:
+	SecurityGard();
+	bool checkModule(const std::wstring& filePath, NppModule module2check);
+
+private:
+	// SHA256
+	static SecurityMode _securityMode;
+	std::vector<std::wstring> _scilexerSha256;
+	std::vector<std::wstring> _gupSha256;
+	std::vector<std::wstring> _pluginListSha256;
+
+	bool checkSha256(const std::wstring& filePath, NppModule module2check);
+
+	// Code signing certificate
+	std::wstring _signer_display_name = TEXT("Notepad++");
+	std::wstring _signer_subject = TEXT("C=FR, S=Ile-de-France, L=Saint Cloud, O=\"Notepad++\", CN=\"Notepad++\"");
+	std::wstring _signer_key_id = TEXT("ED255D9151912E40DF048A56288E969A8D0DAFA3");
+	bool _doCheckRevocation = false;
+	bool _doCheckChainOfTrust = false;
+
+	bool verifySignedLibrary(const std::wstring& filepath, NppModule module2check);
+};
+

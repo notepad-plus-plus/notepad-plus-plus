@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -85,6 +85,7 @@ class FunctionListPanel : public DockingDlgInterface {
 public:
 	FunctionListPanel(): DockingDlgInterface(IDD_FUNCLIST_PANEL), _ppEditView(NULL), _pTreeView(&_treeView),
 	_reloadTipStr(TEXT("Reload")), _sortTipStr(TEXT("Sort")) {};
+	~FunctionListPanel();
 
 	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView);
 
@@ -133,6 +134,8 @@ private:
 	generic_string _reloadTipStr;
 
 	std::vector<foundInfo> _foundFuncInfos;
+
+	std::vector<generic_string*> posStrs;
 
 	ScintillaEditView **_ppEditView;
 	FunctionParsersManager _funcParserMgr;

@@ -5,12 +5,8 @@
 // Copyright 1998-2010 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
 
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <assert.h>
-#include <ctype.h>
+#include <cstdlib>
+#include <cassert>
 
 #include <string>
 
@@ -26,11 +22,11 @@
 #include "LexerBase.h"
 #include "LexerSimple.h"
 
-#ifdef SCI_NAMESPACE
 using namespace Scintilla;
-#endif
 
-LexerSimple::LexerSimple(const LexerModule *module_) : module(module_) {
+LexerSimple::LexerSimple(const LexerModule *module_) :
+	LexerBase(module_->LexClasses(), module_->NamedStyles()),
+	module(module_) {
 	for (int wl = 0; wl < module->GetNumWordLists(); wl++) {
 		if (!wordLists.empty())
 			wordLists += "\n";
@@ -42,13 +38,13 @@ const char * SCI_METHOD LexerSimple::DescribeWordListSets() {
 	return wordLists.c_str();
 }
 
-void SCI_METHOD LexerSimple::Lex(unsigned int startPos, int lengthDoc, int initStyle, IDocument *pAccess) {
+void SCI_METHOD LexerSimple::Lex(Sci_PositionU startPos, Sci_Position lengthDoc, int initStyle, IDocument *pAccess) {
 	Accessor astyler(pAccess, &props);
 	module->Lex(startPos, lengthDoc, initStyle, keyWordLists, astyler);
 	astyler.Flush();
 }
 
-void SCI_METHOD LexerSimple::Fold(unsigned int startPos, int lengthDoc, int initStyle, IDocument *pAccess) {
+void SCI_METHOD LexerSimple::Fold(Sci_PositionU startPos, Sci_Position lengthDoc, int initStyle, IDocument *pAccess) {
 	if (props.GetInt("fold")) {
 		Accessor astyler(pAccess, &props);
 		module->Fold(startPos, lengthDoc, initStyle, keyWordLists, astyler);

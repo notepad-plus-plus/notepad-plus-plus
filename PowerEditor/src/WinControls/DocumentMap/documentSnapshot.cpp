@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003-2017 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -65,7 +65,7 @@ void DocumentPeeker::doDialog(POINT p, Buffer *pBuf, ScintillaEditView & scintSo
 
 void DocumentPeeker::goTo(POINT p)
 {
-	::SetWindowPos(_hSelf, HWND_TOP, p.x, p.y + 10, _rc.right - _rc.left, _rc.bottom - _rc.top, SWP_SHOWWINDOW);
+	::SetWindowPos(_hSelf, HWND_TOP, p.x, p.y + 10, _rc.right - _rc.left, _rc.bottom - _rc.top, SWP_SHOWWINDOW | SWP_NOACTIVATE);
 }
 
 
@@ -101,7 +101,6 @@ void DocumentPeeker::syncDisplay(Buffer *buf, ScintillaEditView & scintSource)
 		_pPeekerView->showMargin(3, false);
 
 		_pPeekerView->execute(SCI_SETCARETSTYLE, CARETSTYLE_INVISIBLE);
-		Window::display();
 	}
 }
 

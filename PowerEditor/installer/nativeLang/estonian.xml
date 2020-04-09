@@ -729,6 +729,7 @@ https://github.com/AndresTraks/
                     <Item id="6302" name="Asenda tühikutega"/>
                     <Item id="6303" name="Tabeldusmärgi laius: "/>
                     <Item id="6510" name="Kasuta vaikeväärtust"/>
+                    <Item id="6335" name="Arvesta kaldkriipsu SQL-is lõpumärgina"/>
                 </Language>
 
                 <Highlighting title="Esiletõstmine">
@@ -801,6 +802,7 @@ https://github.com/AndresTraks/
                 </Backup>
 
                 <AutoCompletion title="Automaattäitmine">
+                    <Item id="6115" name="Automaatne taane"/>
                     <Item id="6807" name="Automaattäitmine"/>
                     <Item id="6808" name="Luba automaattäitmine iga sisendi puhul"/>
                     <Item id="6809" name="Funktsioonide lõpetamine"/>
@@ -870,10 +872,8 @@ https://github.com/AndresTraks/
                     <Item id="6324" name="Dokumentide vahel liikumine (Ctrl+Tabeldusklahv)"/>
                     <Item id="6331" name="Näita tiitliribal ainult failinime"/>
                     <Item id="6334" name="Tuvasta teksti kodeering automaatselt"/>
-                    <Item id="6335" name="Arvesta kaldkriipsu SQL-is lõpumärgina"/>
                     <Item id="6337" name="Tööruumi faili laiend:"/>
                     <Item id="6114" name="Luba"/>
-                    <Item id="6115" name="Automaatne taane"/>
                     <Item id="6117" name="Kasuta viimatisi dokumente"/>
                 </MISC>
             </Preference>

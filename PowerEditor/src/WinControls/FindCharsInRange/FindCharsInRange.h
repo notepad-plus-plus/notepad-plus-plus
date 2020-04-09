@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -26,21 +26,15 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef FINDCHARSINRANGE_DLG_H
-#define FINDCHARSINRANGE_DLG_H
+#pragma once
 
-#ifndef FINDCHARSINRANGE_RC_H
 #include "findCharsInRange_rc.h"
-#endif //FINDCHARSINRANGE_RC_H
-
-#ifndef SCINTILLA_EDIT_VIEW_H
 #include "ScintillaEditView.h"
-#endif //SCINTILLA_EDIT_VIEW_H
 
 class FindCharsInRangeDlg : public StaticDialog
 {
 public :
-	FindCharsInRangeDlg() : StaticDialog() {};
+	FindCharsInRangeDlg() = default;
 
 	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView) {
 		Window::init(hInst, hPere);
@@ -73,4 +67,3 @@ private :
 	void getDirectionFromUI(bool & whichDirection, bool & isWrap);
 };
 
-#endif //FINDCHARSINRANGE_DLG_H

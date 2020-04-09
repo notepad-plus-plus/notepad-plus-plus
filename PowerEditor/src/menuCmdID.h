@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -26,8 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef MENUCMDID_H
-#define MENUCMDID_H
+#pragma once
 
 #define    IDM    40000
 
@@ -57,10 +56,11 @@
 	#define    IDM_FILE_RESTORELASTCLOSEDFILE   (IDM_FILE + 21)
 	#define    IDM_FILE_OPENFOLDERASWORSPACE    (IDM_FILE + 22)
     #define    IDM_FILE_OPEN_DEFAULT_VIEWER     (IDM_FILE + 23)
+	#define    IDM_FILE_CLOSEALL_UNCHANGED      (IDM_FILE + 24)
 // IMPORTANT: If list above is modified, you have to change the following values:
  
 // To be updated if new menu item(s) is (are) added in menu "File"
-    #define    IDM_FILEMENU_LASTONE             IDM_FILE_OPEN_DEFAULT_VIEWER
+    #define    IDM_FILEMENU_LASTONE             IDM_FILE_CLOSEALL_UNCHANGED
 
 // 0 based position of command "Exit" including the bars in the file menu
 // and without counting "Recent files history" items
@@ -104,6 +104,7 @@
     #define    IDM_EDIT_INS_TAB                     (IDM_EDIT + 8)
     #define    IDM_EDIT_RMV_TAB                     (IDM_EDIT + 9)
     #define    IDM_EDIT_DUP_LINE                    (IDM_EDIT + 10)
+    #define    IDM_EDIT_REMOVE_DUP_LINES            (IDM_EDIT + 77)
     #define    IDM_EDIT_TRANSPOSE_LINE              (IDM_EDIT + 11)
     #define    IDM_EDIT_SPLIT_LINES                 (IDM_EDIT + 12)
     #define    IDM_EDIT_JOIN_LINES                  (IDM_EDIT + 13)
@@ -350,6 +351,10 @@
     #define    IDM_VIEW_MONITORING                (IDM_VIEW + 97)
 	#define	   IDM_VIEW_TAB_MOVEFORWARD			  (IDM_VIEW + 98)
 	#define	   IDM_VIEW_TAB_MOVEBACKWARD		  (IDM_VIEW + 99)
+	#define	   IDM_VIEW_IN_FIREFOX                (IDM_VIEW + 100)
+	#define	   IDM_VIEW_IN_CHROME                 (IDM_VIEW + 101)
+	#define	   IDM_VIEW_IN_EDGE	                  (IDM_VIEW + 102)
+	#define	   IDM_VIEW_IN_IE                     (IDM_VIEW + 103)
 
     #define    IDM_VIEW_GOTO_ANOTHER_VIEW        10001
     #define    IDM_VIEW_CLONE_TO_ANOTHER_VIEW    10002
@@ -516,7 +521,8 @@
 
     #define    IDM_LANG_USER               (IDM_LANG + 180)     //46180: Used for translation
     #define    IDM_LANG_USER_LIMIT         (IDM_LANG + 210)     //46210: Ajust with IDM_LANG_USER
-    #define    IDM_LANG_USER_DLG           (IDM_LANG + 250)     //46250: Used for translation 
+    #define    IDM_LANG_USER_DLG           (IDM_LANG + 250)     //46250: Used for translation
+    #define    IDM_LANG_OPENUDLDIR         (IDM_LANG + 300)
 
 
     
@@ -524,9 +530,9 @@
 #define    IDM_ABOUT    (IDM  + 7000)
     #define    IDM_HOMESWEETHOME    (IDM_ABOUT  + 1)
     #define    IDM_PROJECTPAGE      (IDM_ABOUT  + 2)
-    #define    IDM_ONLINEHELP       (IDM_ABOUT  + 3)
+    #define    IDM_ONLINEDOCUMENT   (IDM_ABOUT  + 3)
     #define    IDM_FORUM            (IDM_ABOUT  + 4)
-    #define    IDM_PLUGINSHOME      (IDM_ABOUT  + 5)
+    //#define    IDM_PLUGINSHOME      (IDM_ABOUT  + 5)
     #define    IDM_UPDATE_NPP       (IDM_ABOUT  + 6)
     #define    IDM_WIKIFAQ          (IDM_ABOUT  + 7)
     #define    IDM_HELP             (IDM_ABOUT  + 8)
@@ -546,8 +552,9 @@
     #define    IDM_SETTING_TRAYICON                 (IDM_SETTING + 8)
     #define    IDM_SETTING_SHORTCUT_MAPPER          (IDM_SETTING + 9)
     #define    IDM_SETTING_REMEMBER_LAST_SESSION    (IDM_SETTING + 10)
-    #define    IDM_SETTING_PREFERECE                (IDM_SETTING + 11)
-//    #define    IDM_SETTING_AUTOCNBCHAR              (IDM_SETTING + 15)
+    #define    IDM_SETTING_PREFERENCE               (IDM_SETTING + 11)
+    #define    IDM_SETTING_OPENPLUGINSDIR           (IDM_SETTING + 14)
+    #define    IDM_SETTING_PLUGINADM                (IDM_SETTING + 15)
     #define	   IDM_SETTING_SHORTCUT_MAPPER_MACRO	(IDM_SETTING + 16)
 	#define	   IDM_SETTING_SHORTCUT_MAPPER_RUN		(IDM_SETTING + 17)
 	#define	   IDM_SETTING_EDITCONTEXTMENU  	    (IDM_SETTING + 18)
@@ -556,7 +563,9 @@
 	#define	   IDM_TOOL_MD5_GENERATE  	            (IDM_TOOL + 1)
 	#define	   IDM_TOOL_MD5_GENERATEFROMFILE  	    (IDM_TOOL + 2)
 	#define	   IDM_TOOL_MD5_GENERATEINTOCLIPBOARD  	(IDM_TOOL + 3)
-
+	#define	   IDM_TOOL_SHA256_GENERATE  	            (IDM_TOOL + 4)
+	#define	   IDM_TOOL_SHA256_GENERATEFROMFILE  	    (IDM_TOOL + 5)
+	#define	   IDM_TOOL_SHA256_GENERATEINTOCLIPBOARD  	(IDM_TOOL + 6)
 
 #define    IDM_EXECUTE  (IDM + 9000)
 
@@ -566,5 +575,3 @@
     #define IDM_SYSTRAYPOPUP_NEW_AND_PASTE    (IDM_SYSTRAYPOPUP + 3)
     #define IDM_SYSTRAYPOPUP_OPENFILE         (IDM_SYSTRAYPOPUP + 4)
     #define IDM_SYSTRAYPOPUP_CLOSE            (IDM_SYSTRAYPOPUP + 5)
-
-#endif //MENUCMDID_H

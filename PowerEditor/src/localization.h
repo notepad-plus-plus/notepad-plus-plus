@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -26,8 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef LOCALIZATION_H
-#define LOCALIZATION_H
+#pragma once
 
 #include "Common.h"
 #include "tinyxmlA.h"
@@ -37,6 +36,7 @@ class FindReplaceDlg;
 class PreferenceDlg;
 class ShortcutMapper;
 class UserDefineDialog;
+class PluginsAdminDlg;
 
 class MenuPosition {
 public:
@@ -54,7 +54,7 @@ public:
 	void changeConfigLang(HWND hDlg);
 	void changeLangTabContextMenu(HMENU hCM);
 	TiXmlNodeA * searchDlgNode(TiXmlNodeA *node, const char *dlgTagName);
-	bool changeDlgLang(HWND hDlg, const char *dlgTagName, char *title = NULL);
+	bool changeDlgLang(HWND hDlg, const char *dlgTagName, char *title = NULL, size_t titleMaxSize = 0);
 	void changeLangTabDrapContextMenu(HMENU hCM);
 	generic_string getSpecialMenuEntryName(const char *entryName) const;
 	generic_string getNativeLangMenuString(int itemID) const;
@@ -65,6 +65,10 @@ public:
 	void changeUserDefineLangPopupDlg(HWND hDlg);
     void changeFindReplaceDlgLang(FindReplaceDlg & findReplaceDlg);
     void changePrefereceDlgLang(PreferenceDlg & preference);
+	void changePluginsAdminDlgLang(PluginsAdminDlg & pluginsAdminDlg);
+
+	bool getDoSaveOrNotStrings(generic_string& title, generic_string& msg);
+
     bool isRTL() const {
         return _isRTL;
     };
@@ -98,4 +102,3 @@ private:
 
 MenuPosition & getMenuPosition(const char *id);
 
-#endif // LOCALIZATION_H

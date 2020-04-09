@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2012 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -39,11 +39,10 @@ FunctionParsersManager::~FunctionParsersManager()
 		delete _parsers[i];
 	}
 
-	if (_pXmlFuncListDoc)
-		delete _pXmlFuncListDoc;
+	delete _pXmlFuncListDoc;
 }
 
-bool FunctionParsersManager::init(generic_string xmlPath, ScintillaEditView ** ppEditView)
+bool FunctionParsersManager::init(const generic_string& xmlPath, ScintillaEditView ** ppEditView)
 {
 	_ppEditView = ppEditView;
 	bool loadOkay = false;

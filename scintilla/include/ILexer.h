@@ -8,69 +8,55 @@
 #ifndef ILEXER_H
 #define ILEXER_H
 
-#ifdef SCI_NAMESPACE
+#include "Sci_Position.h"
+
 namespace Scintilla {
-#endif
 
-#ifdef _WIN32
-	#define SCI_METHOD __stdcall
-#else
-	#define SCI_METHOD
-#endif
-
-enum { dvOriginal=0, dvLineEnd=1 };
+enum { dvRelease4=2 };
 
 class IDocument {
 public:
 	virtual int SCI_METHOD Version() const = 0;
 	virtual void SCI_METHOD SetErrorStatus(int status) = 0;
-	virtual int SCI_METHOD Length() const = 0;
-	virtual void SCI_METHOD GetCharRange(char *buffer, int position, int lengthRetrieve) const = 0;
-	virtual char SCI_METHOD StyleAt(int position) const = 0;
-	virtual int SCI_METHOD LineFromPosition(int position) const = 0;
-	virtual int SCI_METHOD LineStart(int line) const = 0;
-	virtual int SCI_METHOD GetLevel(int line) const = 0;
-	virtual int SCI_METHOD SetLevel(int line, int level) = 0;
-	virtual int SCI_METHOD GetLineState(int line) const = 0;
-	virtual int SCI_METHOD SetLineState(int line, int state) = 0;
-	virtual void SCI_METHOD StartStyling(int position, char mask) = 0;
-	virtual bool SCI_METHOD SetStyleFor(int length, char style) = 0;
-	virtual bool SCI_METHOD SetStyles(int length, const char *styles) = 0;
+	virtual Sci_Position SCI_METHOD Length() const = 0;
+	virtual void SCI_METHOD GetCharRange(char *buffer, Sci_Position position, Sci_Position lengthRetrieve) const = 0;
+	virtual char SCI_METHOD StyleAt(Sci_Position position) const = 0;
+	virtual Sci_Position SCI_METHOD LineFromPosition(Sci_Position position) const = 0;
+	virtual Sci_Position SCI_METHOD LineStart(Sci_Position line) const = 0;
+	virtual int SCI_METHOD GetLevel(Sci_Position line) const = 0;
+	virtual int SCI_METHOD SetLevel(Sci_Position line, int level) = 0;
+	virtual int SCI_METHOD GetLineState(Sci_Position line) const = 0;
+	virtual int SCI_METHOD SetLineState(Sci_Position line, int state) = 0;
+	virtual void SCI_METHOD StartStyling(Sci_Position position) = 0;
+	virtual bool SCI_METHOD SetStyleFor(Sci_Position length, char style) = 0;
+	virtual bool SCI_METHOD SetStyles(Sci_Position length, const char *styles) = 0;
 	virtual void SCI_METHOD DecorationSetCurrentIndicator(int indicator) = 0;
-	virtual void SCI_METHOD DecorationFillRange(int position, int value, int fillLength) = 0;
-	virtual void SCI_METHOD ChangeLexerState(int start, int end) = 0;
+	virtual void SCI_METHOD DecorationFillRange(Sci_Position position, int value, Sci_Position fillLength) = 0;
+	virtual void SCI_METHOD ChangeLexerState(Sci_Position start, Sci_Position end) = 0;
 	virtual int SCI_METHOD CodePage() const = 0;
 	virtual bool SCI_METHOD IsDBCSLeadByte(char ch) const = 0;
 	virtual const char * SCI_METHOD BufferPointer() = 0;
-	virtual int SCI_METHOD GetLineIndentation(int line) = 0;
+	virtual int SCI_METHOD GetLineIndentation(Sci_Position line) = 0;
+	virtual Sci_Position SCI_METHOD LineEnd(Sci_Position line) const = 0;
+	virtual Sci_Position SCI_METHOD GetRelativePosition(Sci_Position positionStart, Sci_Position characterOffset) const = 0;
+	virtual int SCI_METHOD GetCharacterAndWidth(Sci_Position position, Sci_Position *pWidth) const = 0;
 };
 
-class IDocumentWithLineEnd : public IDocument {
-public:
-	virtual int SCI_METHOD LineEnd(int line) const = 0;
-	virtual int SCI_METHOD GetRelativePosition(int positionStart, int characterOffset) const = 0;
-	virtual int SCI_METHOD GetCharacterAndWidth(int position, int *pWidth) const = 0;
-};
+enum { lvRelease4=2 };
 
-enum { lvOriginal=0, lvSubStyles=1 };
-
-class ILexer {
+class ILexer4 {
 public:
 	virtual int SCI_METHOD Version() const = 0;
 	virtual void SCI_METHOD Release() = 0;
 	virtual const char * SCI_METHOD PropertyNames() = 0;
 	virtual int SCI_METHOD PropertyType(const char *name) = 0;
 	virtual const char * SCI_METHOD DescribeProperty(const char *name) = 0;
-	virtual int SCI_METHOD PropertySet(const char *key, const char *val) = 0;
+	virtual Sci_Position SCI_METHOD PropertySet(const char *key, const char *val) = 0;
 	virtual const char * SCI_METHOD DescribeWordListSets() = 0;
-	virtual int SCI_METHOD WordListSet(int n, const char *wl) = 0;
-	virtual void SCI_METHOD Lex(unsigned int startPos, int lengthDoc, int initStyle, IDocument *pAccess) = 0;
-	virtual void SCI_METHOD Fold(unsigned int startPos, int lengthDoc, int initStyle, IDocument *pAccess) = 0;
+	virtual Sci_Position SCI_METHOD WordListSet(int n, const char *wl) = 0;
+	virtual void SCI_METHOD Lex(Sci_PositionU startPos, Sci_Position lengthDoc, int initStyle, IDocument *pAccess) = 0;
+	virtual void SCI_METHOD Fold(Sci_PositionU startPos, Sci_Position lengthDoc, int initStyle, IDocument *pAccess) = 0;
 	virtual void * SCI_METHOD PrivateCall(int operation, void *pointer) = 0;
-};
-
-class ILexerWithSubStyles : public ILexer {
-public:
 	virtual int SCI_METHOD LineEndTypesSupported() = 0;
 	virtual int SCI_METHOD AllocateSubStyles(int styleBase, int numberStyles) = 0;
 	virtual int SCI_METHOD SubStylesStart(int styleBase) = 0;
@@ -81,18 +67,12 @@ public:
 	virtual void SCI_METHOD SetIdentifiers(int style, const char *identifiers) = 0;
 	virtual int SCI_METHOD DistanceToSecondaryStyles() = 0;
 	virtual const char * SCI_METHOD GetSubStyleBases() = 0;
+	virtual int SCI_METHOD NamedStyles() = 0;
+	virtual const char * SCI_METHOD NameOfStyle(int style) = 0;
+	virtual const char * SCI_METHOD TagsOfStyle(int style) = 0;
+	virtual const char * SCI_METHOD DescriptionOfStyle(int style) = 0;
 };
 
-class ILoader {
-public:
-	virtual int SCI_METHOD Release() = 0;
-	// Returns a status code from SC_STATUS_*
-	virtual int SCI_METHOD AddData(char *data, int length) = 0;
-	virtual void * SCI_METHOD ConvertToDocument() = 0;
-};
-
-#ifdef SCI_NAMESPACE
 }
-#endif
 
 #endif

@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -151,9 +151,9 @@ void URLCtrl::create(HWND itemHandle, int cmd, HWND msgDest)
 
 void URLCtrl::destroy()
 {
-    	if(_hfUnderlined)
+    	if (_hfUnderlined)
             ::DeleteObject(_hfUnderlined);
-        if(_hCursor)
+        if (_hCursor)
             ::DestroyCursor(_hCursor);
 }
 
@@ -171,7 +171,7 @@ void URLCtrl::action()
 		::UpdateWindow(_hSelf);
 
 		// Open a browser
-		if(_URL != TEXT(""))
+		if (_URL != TEXT(""))
 		{
 			::ShellExecute(NULL, TEXT("open"), _URL.c_str(), NULL, NULL, SW_SHOWNORMAL);
 		}
@@ -201,9 +201,9 @@ LRESULT URLCtrl::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 		    DWORD dwDTStyle = DT_SINGLELINE;
 
 		    //Test if centered horizontally or vertically
-		    if(dwStyle & SS_CENTER)	     dwDTStyle |= DT_CENTER;
-		    if(dwStyle & SS_RIGHT)		 dwDTStyle |= DT_RIGHT;
-		    if(dwStyle & SS_CENTERIMAGE) dwDTStyle |= DT_VCENTER;
+		    if (dwStyle & SS_CENTER)	     dwDTStyle |= DT_CENTER;
+		    if (dwStyle & SS_RIGHT)		 dwDTStyle |= DT_RIGHT;
+		    if (dwStyle & SS_CENTERIMAGE) dwDTStyle |= DT_VCENTER;
 
 	        RECT		rect;
             ::GetClientRect(hwnd, &rect);
@@ -216,7 +216,7 @@ LRESULT URLCtrl::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
             ::SetBkColor(hdc, getCtrlBgColor(GetParent(hwnd))); ///*::GetSysColor(COLOR_3DFACE)*/);
 
 		    // Create an underline font
-		    if(_hfUnderlined == 0)
+		    if (_hfUnderlined == 0)
 		    {
 			    // Get the default GUI font
 			    LOGFONT lf;
@@ -266,7 +266,7 @@ LRESULT URLCtrl::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 		    break;
 
 	    case WM_LBUTTONUP:
-		    if(_clicking)
+		    if (_clicking)
 		    {
 			    _clicking = false;
 
@@ -277,12 +277,12 @@ LRESULT URLCtrl::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 
 		//Support using space to activate this object
 		case WM_KEYDOWN:
-			if(wParam == VK_SPACE)
+			if (wParam == VK_SPACE)
 				_clicking = true;
 			break;
 
 		case WM_KEYUP:
-			if(wParam == VK_SPACE && _clicking)
+			if (wParam == VK_SPACE && _clicking)
 			{
 				_clicking = false;
 

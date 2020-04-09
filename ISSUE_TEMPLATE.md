@@ -17,6 +17,6 @@
 <!--- What actually happened -->
 
 ### Debug Information
-<!--- Debug Info can be found under under the "?" menu -->
+<!--- Debug Info can be found under the "?" menu -->
 
 <!--- Feel free to include any other info, such as screenshots, etc -->

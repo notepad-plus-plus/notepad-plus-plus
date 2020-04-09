@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -42,15 +42,19 @@ INT_PTR CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
     {
         case WM_INITDIALOG :
         {
-			NppParameters *nppParam = NppParameters::getInstance();
-			NativeLangSpeaker *pNativeSpeaker = nppParam->getNativeLangSpeaker();
+			NppParameters& nppParam = NppParameters::getInstance();
+			NativeLangSpeaker *pNativeSpeaker = nppParam.getNativeLangSpeaker();
 			generic_string valStr = pNativeSpeaker->getAttrNameStr(TEXT("Value"), "AsciiInsertion", "ColumnVal");
 			generic_string hexStr = pNativeSpeaker->getAttrNameStr(TEXT("Hex"), "AsciiInsertion", "ColumnHex");
 			generic_string charStr = pNativeSpeaker->getAttrNameStr(TEXT("Character"), "AsciiInsertion", "ColumnChar");
+			generic_string htmlNumberStr = pNativeSpeaker->getAttrNameStr(TEXT("HTML Number"), "AsciiInsertion", "ColumnHtmlNumber");
+			generic_string htmlNameStr = pNativeSpeaker->getAttrNameStr(TEXT("HTML Name"), "AsciiInsertion", "ColumnHtmlName");
 
-			_listView.addColumn(columnInfo(valStr, nppParam->_dpiManager.scaleX(45)));
-			_listView.addColumn(columnInfo(hexStr, nppParam->_dpiManager.scaleX(45)));
-			_listView.addColumn(columnInfo(charStr, nppParam->_dpiManager.scaleX(70)));
+			_listView.addColumn(columnInfo(valStr, nppParam._dpiManager.scaleX(45)));
+			_listView.addColumn(columnInfo(hexStr, nppParam._dpiManager.scaleX(45)));
+			_listView.addColumn(columnInfo(charStr, nppParam._dpiManager.scaleX(70)));
+			_listView.addColumn(columnInfo(htmlNumberStr, nppParam._dpiManager.scaleX(100)));
+			_listView.addColumn(columnInfo(htmlNameStr, nppParam._dpiManager.scaleX(90)));
 
 			_listView.init(_hInst, _hSelf);
 			int codepage = (*_ppEditView)->getCurrentBuffer()->getEncoding();
@@ -67,12 +71,29 @@ INT_PTR CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 				case NM_DBLCLK:
 				{
 					LPNMITEMACTIVATE lpnmitem = (LPNMITEMACTIVATE) lParam;
-					int i = lpnmitem->iItem;
+					LVHITTESTINFO pInfo;
+					pInfo.pt = lpnmitem->ptAction;
+					ListView_SubItemHitTest(_listView.getHSelf(), &pInfo);
+
+					int i = pInfo.iItem;
+					int j = pInfo.iSubItem;
+					wchar_t buffer[10];
+					LVITEM item;
+					item.mask = LVIF_TEXT | LVIF_PARAM;
+					item.iItem = i;
+					item.iSubItem = j;
+					item.cchTextMax = 10;
+					item.pszText = buffer;
+					ListView_GetItem(_listView.getHSelf(), &item);
 
 					if (i == -1)
 						return TRUE;
 
-					insertChar(static_cast<unsigned char>(i));
+					if (j != 2)
+						insertString(item.pszText);
+					else
+						insertChar(static_cast<unsigned char>(i));
+					
 					return TRUE;
 				}
 
@@ -145,6 +166,33 @@ void AnsiCharPanel::insertChar(unsigned char char2insert) const
 	}
 	(*_ppEditView)->execute(SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(""));
 	size_t len = (char2insert < 128) ? 1 : strlen(multiByteStr);
+	(*_ppEditView)->execute(SCI_ADDTEXT, len, reinterpret_cast<LPARAM>(multiByteStr));
+	(*_ppEditView)->getFocus();
+}
+
+void AnsiCharPanel::insertString(LPWSTR string2insert) const
+{
+	char multiByteStr[10];
+	int codepage = (*_ppEditView)->getCurrentBuffer()->getEncoding();
+	if (codepage == -1)
+	{
+		bool isUnicode = ((*_ppEditView)->execute(SCI_GETCODEPAGE) == SC_CP_UTF8);
+		if (isUnicode)
+		{
+			WideCharToMultiByte(CP_UTF8, 0, string2insert, -1, multiByteStr, sizeof(multiByteStr), NULL, NULL);
+		}
+		else // ANSI
+		{
+			wcstombs(multiByteStr, string2insert, 10);
+		}
+	}
+	else
+	{
+		WideCharToMultiByte(CP_UTF8, 0, string2insert, -1, multiByteStr, sizeof(multiByteStr), NULL, NULL);
+	}
+
+	(*_ppEditView)->execute(SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(""));
+	size_t len = strlen(multiByteStr);
 	(*_ppEditView)->execute(SCI_ADDTEXT, len, reinterpret_cast<LPARAM>(multiByteStr));
 	(*_ppEditView)->getFocus();
 }

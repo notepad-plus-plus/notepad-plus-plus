@@ -44,7 +44,7 @@ static HHOOK	hookMouse		= NULL;
 
 static LRESULT CALLBACK hookProcMouse(int nCode, WPARAM wParam, LPARAM lParam)
 {
-    if(nCode >= 0)
+    if (nCode >= 0)
     {
 		switch (wParam)
 		{

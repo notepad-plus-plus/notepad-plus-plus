@@ -25,9 +25,7 @@
 #include "CharacterSet.h"
 #include "LexerModule.h"
 
-#ifdef SCI_NAMESPACE
 using namespace Scintilla;
-#endif
 
 
 //each character a..z and A..Z + '_' can be part of a keyword
@@ -61,7 +59,7 @@ static inline bool IsSorcusOperator(const int ch)
 }
 
 
-static void ColouriseSorcusDoc(unsigned int startPos, int length, int initStyle, WordList *keywordlists[],
+static void ColouriseSorcusDoc(Sci_PositionU startPos, Sci_Position length, int initStyle, WordList *keywordlists[],
                                Accessor &styler)
 {
 

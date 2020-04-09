@@ -26,8 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef DOCKING_RESOURCE_H
-#define DOCKING_RESOURCE_H
+#pragma once
 
 #define DM_NOFOCUSWHILECLICKINGCAPTION TEXT("NOFOCUSWHILECLICKINGCAPTION")
 
@@ -76,6 +75,4 @@
 	//nmhdr.code = DWORD(DMN_XXX, 0);
 	//nmhdr.hwndFrom = DockingCont::_hself;
 	//nmhdr.idFrom = 0;
-
-#endif //DOCKING_RESOURCE_H
 

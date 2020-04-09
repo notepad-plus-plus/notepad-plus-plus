@@ -1,5 +1,4 @@
-#ifndef MD5_H
-#define MD5_H
+#pragma once
 
 // Copyright (C) 1991-2, RSA Data Security, Inc. Created 1991. All
 // rights reserved.
@@ -327,7 +326,7 @@ public:
   {
     int pos ;
 
-    for( pos = 0 ; pos < 16 ; pos++ )
+    for ( pos = 0 ; pos < 16 ; pos++ )
       sprintf( digestChars+(pos*2), "%02x", digestRaw[pos] ) ;
   }
 
@@ -388,5 +387,3 @@ public:
     return digestChars ;
   }
 } ;
-
-#endif

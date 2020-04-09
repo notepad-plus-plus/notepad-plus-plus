@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -43,7 +43,7 @@ struct TaskLstFnStatus {
 	generic_string _fn;
 	int _status = 0;
 	void *_bufID = nullptr;
-	TaskLstFnStatus(generic_string str, int status) : _fn(str), _status(status){};
+	TaskLstFnStatus(const generic_string& str, int status) : _fn(str), _status(status){};
 	TaskLstFnStatus(int iView, int docIndex, generic_string str, int status, void *bufID) : 
 	_iView(iView), _docIndex(docIndex), _fn(str), _status(status), _bufID(bufID) {};
 };

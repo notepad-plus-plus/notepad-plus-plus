@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -31,7 +31,7 @@
 
 const TCHAR COMMAND_ARG_HELP[] = TEXT("Usage :\r\
 \r\
-notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-LlangCode] [-nLineNumber] [-cColumnNumber] [-pPosition] [-xLeftPos] [-yTopPos] [-nosession] [-notabbar] [-ro] [-systemtray] [-loadingTime] [-alwaysOnTop] [-openSession] [-r] [-qnEasterEggName | -qtText | -qfCntentFileName] [-qSpeed1|2|3] [-quickPrint] [filePath]\r\
+notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-LlangCode] [-nLineNumber] [-cColumnNumber] [-pPosition] [-xLeftPos] [-yTopPos] [-nosession] [-notabbar] [-ro] [-systemtray] [-loadingTime] [-alwaysOnTop] [-openSession] [-r] [-qnEasterEggName | -qtText | -qfCntentFileName] [-qSpeed1|2|3] [-quickPrint] [-openFoldersAsWorkspace] [filePath]\r\
 \r\
 --help : This help message\r\
 -multiInst : Launch another Notepad++ instance\r\
@@ -57,6 +57,7 @@ notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-LlangCode] [-nLineNum
 -qf : Launch ghost typing to display a file content via the file path\r\
 -qSpeed : Ghost typing speed. Value from 1 to 3 for slow, fast and fastest\r\
 -quickPrint : Print the file given as argument then quit Notepad++\r\
+-openFoldersAsWorkspace: open filePath of folder(s) as workspace\r\
 filePath : file or folder name to open (absolute or relative path name)\r\
 ");
 
@@ -76,7 +77,7 @@ public:
 		return _notepad_plus_plus_core.getAccTable();
 	}
 
-	bool emergency(generic_string emergencySavedDir)
+	bool emergency(const generic_string& emergencySavedDir)
 	{
 		return _notepad_plus_plus_core.emergency(emergencySavedDir);
 	}
@@ -89,6 +90,11 @@ public:
 	void setIsPrelaunch(bool val)
 	{
 		_isPrelaunch = val;
+	}
+
+	generic_string getPluginListVerStr() const
+	{
+		return _notepad_plus_plus_core.getPluginListVerStr();
 	}
 
 	virtual void destroy()

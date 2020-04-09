@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -31,7 +31,8 @@
 
 
 IDD_DOCUMENTSNAPSHOT DIALOGEX 26, 41, 140, 140
-STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_BORDER | WS_SYSMENU
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_BORDER | WS_SYSMENU | WS_DISABLED
+EXSTYLE WS_EX_NOACTIVATE
 FONT 8, "MS Sans Serif", 0, 0, 0x0
 BEGIN
 END

@@ -1,24 +1,22 @@
-Notepad++ v7.5.7 bug-fixes:
+Notepad++ v7.8.5 Enhancement & bug-fixes:
 
-1.  Fix hanging problem while shutdown and backup file is absent.
-2.  Fix Sort Lines as Integers issue: use Natural Sort algorithm.
-3.  Fix JavaScript not working regression in Function list.
-4.  Fix Open File Dialog error for a long path.
-5.  Fix document map display bug when the view is scrolled past the end of the file.
-6.  Fix tool bar display bug in big icon mode issue.
-7.  Make caret line always visible on click from Finder panel.
-8.  Fix UDL export extension issue.
-9.  Fix Run Macro multiple times dialog display glitch after deleting a Macro.
+1.  Fix "Monitoring" not detecting all file changes issue.
+2.  Fix auto-updater disabling not working regression.
+3.  Fix Notepad++ doesn't exit correctly while Windows 10 update restart.
+4.  Make Count command in Find dialog respect Backward-direction and Wrap-around options.
+5.  Make Find dialog remember its position across runs.
+6.  Add the document size column to the Windows Selection dialog.
+7.  Make "View Current File in(browser)" commands macro recordable.
+8.  Add external sound control capability for unsuccessful search (in Find dialog) bell.
 
 
 Included plugins:
 
-1.  NppExport v0.2.8 (32-bit x86 only)
+1.  NppExport v0.2.9
 2.  Converter 4.2.1
-3.  Mime Tool 2.1
-4.  DSpellCheck 1.3.5
+3.  Mime Tool 2.5
 
 
 Updater (Installer only):
 
-* WinGup (for Notepad++) v5.0.1
+* WinGup (for Notepad++) v5.1.1

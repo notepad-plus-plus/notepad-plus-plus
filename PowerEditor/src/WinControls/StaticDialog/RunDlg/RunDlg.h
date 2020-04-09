@@ -1,5 +1,5 @@
 //this file is part of notepad++
-//Copyright (C)2003 Don HO ( donho@altern.org )
+//Copyright (C)2020 Don HO ( donho@altern.org )
 //
 //This program is free software; you can redistribute it and/or
 //modify it under the terms of the GNU General Public License
@@ -39,21 +39,22 @@ void expandNppEnvironmentStrs(const TCHAR *strSrc, TCHAR *stringDest, size_t str
 
 class Command {
 public :
-	Command(){};
+	Command() = default;
 	explicit Command(TCHAR *cmd) : _cmdLine(cmd){};
-	explicit Command(generic_string cmd) : _cmdLine(cmd){};
+	explicit Command(const generic_string& cmd) : _cmdLine(cmd){};
 	HINSTANCE run(HWND hWnd);
+	HINSTANCE run(HWND hWnd, const TCHAR* cwd);
 
 protected :
 	generic_string _cmdLine;
 private :
-	void extractArgs(TCHAR *cmd2Exec, TCHAR *args, const TCHAR *cmdEntier);
+	void extractArgs(TCHAR *cmd2Exec, size_t cmd2ExecLen, TCHAR *args, size_t argsLen, const TCHAR *cmdEntier);
 };
 
 class RunDlg : public Command, public StaticDialog
 {
 public :
-	RunDlg() : StaticDialog() {};
+	RunDlg() = default;
 
 	void doDialog(bool isRTL = false);
     virtual void destroy() {};

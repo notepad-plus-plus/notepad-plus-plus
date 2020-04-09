@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -30,19 +30,19 @@
 #include "Processus.h"
 
 
-void Process::run() const
+void Process::run(bool isElevationRequired) const
 {
-	const TCHAR *opVerb = TEXT("open");
+	const TCHAR *opVerb = isElevationRequired ? TEXT("runas") : TEXT("open");
 	::ShellExecute(NULL, opVerb, _command.c_str(), _args.c_str(), _curDir.c_str(), SW_SHOWNORMAL);
 }
 
-unsigned long Process::runSync() const
+unsigned long Process::runSync(bool isElevationRequired) const
 {
 	SHELLEXECUTEINFO ShExecInfo = { 0 };
 	ShExecInfo.cbSize = sizeof(SHELLEXECUTEINFO);
 	ShExecInfo.fMask = SEE_MASK_NOCLOSEPROCESS;
 	ShExecInfo.hwnd = NULL;
-	ShExecInfo.lpVerb = TEXT("open");
+	ShExecInfo.lpVerb = isElevationRequired ? TEXT("runas") : TEXT("open");
 	ShExecInfo.lpFile = _command.c_str();
 	ShExecInfo.lpParameters = _args.c_str();
 	ShExecInfo.lpDirectory = _curDir.c_str();

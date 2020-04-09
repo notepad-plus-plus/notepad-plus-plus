@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -51,7 +51,7 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.")
 class AboutDlg : public StaticDialog
 {
 public :
-	AboutDlg() : StaticDialog() {};
+	AboutDlg() = default;
 
 	void doDialog();
 
@@ -72,9 +72,9 @@ private :
 class DebugInfoDlg : public StaticDialog
 {
 public:
-	DebugInfoDlg() : StaticDialog() {};
+	DebugInfoDlg() = default;
 
-	void init(HINSTANCE hInst, HWND parent, bool isAdmin, generic_string loadedPlugins) {
+	void init(HINSTANCE hInst, HWND parent, bool isAdmin, const generic_string& loadedPlugins) {
 		_isAdmin = isAdmin;
 		_loadedPlugins = loadedPlugins;
 		Window::init(hInst, parent);
@@ -90,9 +90,41 @@ protected:
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 private:
+	typedef const CHAR * (__cdecl * PWINEGETVERSION)();
 	generic_string _debugInfoStr;
 	bool _isAdmin = false;
 	generic_string _loadedPlugins;
 	URLCtrl _copyToClipboardLink;
 };
 
+class DoSaveOrNotBox : public StaticDialog
+{
+public:
+	DoSaveOrNotBox() = default;
+
+	void init(HINSTANCE hInst, HWND parent, const TCHAR* fn, bool isMulti) {
+		Window::init(hInst, parent);
+		if (fn)
+			_fn = fn;
+
+		_isMulti = isMulti;
+	};
+
+	void doDialog(bool isRTL = false);
+
+	virtual void destroy() {};
+
+	int getClickedButtonId() const {
+		return clickedButtonId;
+	};
+
+	void changeLang();
+
+protected:
+	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+
+private:
+	int clickedButtonId = -1;
+	generic_string _fn;
+	bool _isMulti = false;
+};

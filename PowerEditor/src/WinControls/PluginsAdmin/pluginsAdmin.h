@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2017 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -25,9 +25,10 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-
 #pragma once
 
+#include <cwctype>
+#include <algorithm>
 #include "StaticDialog.h"
 #include "pluginsAdminRes.h"
 #include "TabBar.h"
@@ -42,8 +43,34 @@ struct Version
 	unsigned long _minor = 0;
 	unsigned long _patch = 0;
 	unsigned long _build = 0;
-	void setVersionFrom(generic_string filePath);
+
+	Version() = default;
+	Version(const generic_string& versionStr);
+
+	void setVersionFrom(const generic_string& filePath);
 	generic_string toString();
+	bool isNumber(const generic_string& s) const {
+		return !s.empty() && 
+			find_if(s.begin(), s.end(), [](_TCHAR c) { return !_istdigit(c); }) == s.end();
+	};
+
+	int compareTo(const Version& v2c) const;
+
+	bool operator < (const Version& v2c) const {
+		return compareTo(v2c) == -1;
+	};
+
+	bool operator > (const Version& v2c) const {
+		return compareTo(v2c) == 1;
+	};
+
+	bool operator == (const Version& v2c) const {
+		return compareTo(v2c) == 0;
+	};
+
+	bool operator != (const Version& v2c) const {
+		return compareTo(v2c) != 0;
+	};
 };
 
 struct PluginUpdateInfo
@@ -57,13 +84,12 @@ struct PluginUpdateInfo
 	generic_string _sourceUrl;
 	generic_string _description;
 	generic_string _author;
-	generic_string _md5;
-	generic_string _id;
+	generic_string _id;           // Plugin package ID: SHA-256 hash
 	generic_string _repository;
-	bool _isVisible = true;     // if false then it should not be displayed 
+	bool _isVisible = true;       // if false then it should not be displayed 
 
 	generic_string describe();
-	PluginUpdateInfo() {};
+	PluginUpdateInfo() = default;
 	PluginUpdateInfo(const generic_string& fullFilePath, const generic_string& fileName);
 };
 
@@ -85,10 +111,22 @@ struct NppCurrentStatus
 	bool shouldLaunchInAdmMode() { return _isInProgramFiles; };
 };
 
+enum COLUMN_TYPE { COLUMN_PLUGIN, COLUMN_VERSION };
+enum SORT_TYPE { DISPLAY_NAME_ALPHABET_ENCREASE, DISPLAY_NAME_ALPHABET_DECREASE };
+
+
+struct SortDisplayNameDecrease final
+{
+	bool operator() (PluginUpdateInfo* l, PluginUpdateInfo* r)
+	{
+		return (l->_displayName.compare(r->_displayName) <= 0);
+	}
+};
+
 class PluginViewList
 {
 public:
-	PluginViewList() {};
+	PluginViewList() = default;
 	~PluginViewList() {
 		_ui.destroy();
 		for (auto i : _list)
@@ -118,17 +156,24 @@ public:
 	bool hideFromPluginInfoPtr(PluginUpdateInfo* pluginInfo2hide);
 	bool restore(const generic_string& folderName);
 	bool removeFromPluginInfoPtr(PluginUpdateInfo* pluginInfo2hide);
+	void changeColumnName(COLUMN_TYPE index, const TCHAR *name2change);
 
 private:
 	std::vector<PluginUpdateInfo*> _list;
 	ListView _ui;
+
+	SORT_TYPE _sortType = DISPLAY_NAME_ALPHABET_ENCREASE;
 };
+
+enum LIST_TYPE { AVAILABLE_LIST, UPDATES_LIST, INSTALLED_LIST };
+
 
 class PluginsAdminDlg final : public StaticDialog
 {
 public :
-	PluginsAdminDlg() {};
-	~PluginsAdminDlg() {}
+	PluginsAdminDlg();
+	~PluginsAdminDlg() = default;
+
     void init(HINSTANCE hInst, HWND parent)	{
         Window::init(hInst, parent);
 	};
@@ -148,6 +193,8 @@ public :
 	    display();
     };
 
+	bool isValide();
+
 	void switchDialog(int indexToSwitch);
 	void setPluginsManager(PluginsManager *pluginsManager) { _pPluginsManager = pluginsManager; };
 
@@ -158,10 +205,18 @@ public :
 	bool updatePlugins();
 	bool removePlugins();
 
+	void changeTabName(LIST_TYPE index, const TCHAR *name2change);
+	void changeColumnName(COLUMN_TYPE index, const TCHAR *name2change);
+	generic_string getPluginListVerStr() const;
+
 protected:
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 private :
+	generic_string _updaterDir;
+	generic_string _updaterFullPath;
+	generic_string _pluginListFullPath;
+
 	TabBar _tab;
 
 	PluginViewList _availableList; // A permanent list, once it's loaded (no removal - only hide or show) 
@@ -175,17 +230,24 @@ private :
 	bool searchInPlugins(bool isNextMode) const;
 	const bool _inNames = true;
 	const bool _inDescs = false;
-	bool isFoundInAvailableListFromIndex(int index, generic_string str2search, bool inWhichPart) const;
-	long searchFromCurrentSel(generic_string str2search, bool inWhichPart, bool isNextMode) const;
-	long searchInNamesFromCurrentSel(generic_string str2search, bool isNextMode) const {
+	bool isFoundInAvailableListFromIndex(int index, const generic_string& str2search, bool inWhichPart) const;
+	long searchFromCurrentSel(const generic_string& str2search, bool inWhichPart, bool isNextMode) const;
+	long searchInNamesFromCurrentSel(const generic_string& str2search, bool isNextMode) const {
 		return searchFromCurrentSel(str2search, _inNames, isNextMode);
 	};
 
-	long searchInDescsFromCurrentSel(generic_string str2search, bool isNextMode) const {
+	long searchInDescsFromCurrentSel(const generic_string& str2search, bool isNextMode) const {
 		return searchFromCurrentSel(str2search, _inDescs, isNextMode);
 	};
-
+	
 	bool loadFromPluginInfos();
 	bool checkUpdates();
+
+	enum Operation {
+		pa_install = 0,
+		pa_update = 1,
+		pa_remove = 2
+	};
+	bool exitToInstallRemovePlugins(Operation op, const std::vector<PluginUpdateInfo*>& puis);
 };
 

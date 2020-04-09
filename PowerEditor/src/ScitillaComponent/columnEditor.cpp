@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -59,8 +59,8 @@ INT_PTR CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			::SendDlgItemMessage(_hSelf, IDC_COL_DEC_RADIO, BM_SETCHECK, TRUE, 0);
 			goToCenter();
 
-			NppParameters *pNppParam = NppParameters::getInstance();
-			ETDTProc enableDlgTheme = (ETDTProc)pNppParam->getEnableThemeDlgTexture();
+			NppParameters& nppParam = NppParameters::getInstance();
+			ETDTProc enableDlgTheme = (ETDTProc)nppParam.getEnableThemeDlgTexture();
 			if (enableDlgTheme)
 			{
 				enableDlgTheme(_hSelf, ETDT_ENABLETAB);
@@ -334,3 +334,4 @@ UCHAR ColumnEditorDlg::getFormat()
 		f = 3;
 	return (f | (isLeadingZeros?MASK_ZERO_LEADING:0));
 }
+

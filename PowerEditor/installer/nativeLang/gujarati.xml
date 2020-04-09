@@ -732,6 +732,7 @@
                 </Backup>
 
                 <AutoCompletion title="Auto-Completion">
+                    <Item id="6115" name="ઓટો-ઇન્ડેન્ટ"/>
                     <Item id="6807" name="ઓટો -કમ્પ્લીશન(Auto-Completion)"/>
                     <Item id="6808" name="દરેક ઈનપુટ માટે ઓટો-કમ્પ્લીશન સક્રિય કરો"/>
                     <Item id="6809" name="ફંક્શન કમ્પ્લીશન"/>
@@ -787,7 +788,6 @@
                     <Item id="6333" name="સ્માર્ટ હાઇલાઇતિન્ગ"/>
 					<Item id="6334" name="ઓટો-ડીટેક્ટ કેરેક્ટર એનકોડીંગ"/>
                     <Item id="6114" name="સક્રિય કરો"/>
-                    <Item id="6115" name="ઓટો-ઇન્ડેન્ટ"/>
                     <Item id="6117" name="એમઆરયુ( MRU)	બિહેવિયર સક્રિય કરો"/>
                 </MISC>
             </Preference>

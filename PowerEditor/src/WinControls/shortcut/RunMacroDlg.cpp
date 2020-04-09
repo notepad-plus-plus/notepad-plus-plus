@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -36,8 +36,8 @@ void RunMacroDlg::initMacroList()
 {
 	if (!isCreated()) return;
 
-	NppParameters *pNppParam = NppParameters::getInstance();
-	std::vector<MacroShortcut> & macroList = pNppParam->getMacroList();
+	NppParameters& nppParam = NppParameters::getInstance();
+	std::vector<MacroShortcut> & macroList = nppParam.getMacroList();
 
 	::SendDlgItemMessage(_hSelf, IDC_MACRO_COMBO, CB_RESETCONTENT, 0, 0);
 
@@ -143,3 +143,4 @@ int RunMacroDlg::getMacro2Exec() const
 	bool isCurMacroPresent = ::SendMessage(_hParent, WM_GETCURRENTMACROSTATUS, 0, 0) == MACRO_RECORDING_HAS_STOPPED;
 	return isCurMacroPresent?(_macroIndex - 1):_macroIndex;
 }
+

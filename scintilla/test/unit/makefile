@@ -5,6 +5,8 @@
 # clang works only with libc++, not libstdc++
 # Tested with clang 3.3 and g++ 4.8
 
+CXXSTD=c++17
+
 ifndef windir
 ifeq ($(shell uname),Darwin)
 # On OS X always use clang as g++ is old version
@@ -13,7 +15,7 @@ USELIBCPP = 1
 endif
 endif
 
-CXXFLAGS += --std=c++11
+CXXFLAGS += --std=$(CXXSTD)
 
 ifdef CLANG
 CXX = clang++
@@ -47,11 +49,14 @@ CXXFLAGS += -Wall -Wextra
 TESTSRC=test*.cxx
 # Files being tested from scintilla/src directory
 TESTEDSRC=\
+ ../../lexlib/WordList.cxx \
  ../../src/CellBuffer.cxx \
  ../../src/CharClassify.cxx \
  ../../src/ContractionState.cxx \
  ../../src/Decoration.cxx \
- ../../src/RunStyles.cxx
+ ../../src/RunStyles.cxx \
+ ../../src/UniConversion.cxx \
+ ../../src/UniqueString.cxx
 
 TESTS=$(EXE)
 

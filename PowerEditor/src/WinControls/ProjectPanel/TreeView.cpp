@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -48,7 +48,7 @@ void TreeView::init(HINSTANCE hInst, HWND parent, int treeViewID)
                             _hInst,
                             (LPVOID)0);
 
-	int itemHeight = NppParameters::getInstance()->_dpiManager.scaleY(CY_ITEMHEIGHT);
+	int itemHeight = NppParameters::getInstance()._dpiManager.scaleY(CY_ITEMHEIGHT);
 	TreeView_SetItemHeight(_hSelf, itemHeight);
 
 	::SetWindowLongPtr(_hSelf, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
@@ -80,7 +80,7 @@ void TreeView::makeLabelEditable(bool toBeEnabled)
 }
 
 
-bool TreeView::setItemParam(HTREEITEM Item2Set, const TCHAR *paramStr)
+bool TreeView::setItemParam(HTREEITEM Item2Set, LPARAM param)
 {
 	if (!Item2Set)
 		return false;
@@ -88,22 +88,15 @@ bool TreeView::setItemParam(HTREEITEM Item2Set, const TCHAR *paramStr)
 	TVITEM tvItem;
 	tvItem.hItem = Item2Set;
 	tvItem.mask = TVIF_PARAM;
-
-	SendMessage(_hSelf, TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
-
-	if (!tvItem.lParam)
-		tvItem.lParam = reinterpret_cast<LPARAM>(new generic_string(paramStr));
-	else
-	{
-		*((generic_string *)tvItem.lParam) = paramStr;
-	}
+	tvItem.lParam = param;
+	
 	SendMessage(_hSelf, TVM_SETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 	return true;
 }
 
 LPARAM TreeView::getItemParam(HTREEITEM Item2Get) const
 {
-	if (not Item2Get)
+	if (!Item2Get)
 		return false;
 	//TCHAR textBuffer[MAX_PATH];
 	TVITEM tvItem;
@@ -117,7 +110,7 @@ LPARAM TreeView::getItemParam(HTREEITEM Item2Get) const
 
 generic_string TreeView::getItemDisplayName(HTREEITEM Item2Set) const
 {
-	if (not Item2Set)
+	if (!Item2Set)
 		return TEXT("");
 	TCHAR textBuffer[MAX_PATH];
 	TVITEM tvItem;
@@ -131,7 +124,7 @@ generic_string TreeView::getItemDisplayName(HTREEITEM Item2Set) const
 
 bool TreeView::renameItem(HTREEITEM Item2Set, const TCHAR *newName)
 {
-	if (not Item2Set || not newName)
+	if (!Item2Set || !newName)
 		return false;
 
 	TVITEM tvItem;
@@ -143,7 +136,7 @@ bool TreeView::renameItem(HTREEITEM Item2Set, const TCHAR *newName)
 	return true;
 }
 
-HTREEITEM TreeView::addItem(const TCHAR *itemName, HTREEITEM hParentItem, int iImage, const TCHAR *filePath)
+HTREEITEM TreeView::addItem(const TCHAR *itemName, HTREEITEM hParentItem, int iImage, LPARAM lParam)
 {
 	TVITEM tvi;
 	tvi.mask = TVIF_TEXT | TVIF_IMAGE | TVIF_SELECTEDIMAGE | TVIF_PARAM;
@@ -156,8 +149,7 @@ HTREEITEM TreeView::addItem(const TCHAR *itemName, HTREEITEM hParentItem, int iI
 	tvi.iImage = iImage;//isNode?INDEX_CLOSED_NODE:INDEX_LEAF;
 	tvi.iSelectedImage = iImage;//isNode?INDEX_OPEN_NODE:INDEX_LEAF;
 
-	// Save the full path of file in the item's application-defined data area.
-	tvi.lParam = (filePath == NULL ? 0 : reinterpret_cast<LPARAM>(new generic_string(filePath)));
+	tvi.lParam = lParam;
 
 	TVINSERTSTRUCT tvInsertStruct;
 	tvInsertStruct.item = tvi;
@@ -177,8 +169,6 @@ void TreeView::removeItem(HTREEITEM hTreeItem)
 	tvItem.hItem = hTreeItem;
 	tvItem.mask = TVIF_PARAM;
 	SendMessage(_hSelf, TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
-	if (tvItem.lParam)
-		delete (generic_string *)(tvItem.lParam);
 
 	// Remove the node
 	TreeView_DeleteItem(_hSelf, hTreeItem);
@@ -207,10 +197,6 @@ void TreeView::dupTree(HTREEITEM hTree2Dup, HTREEITEM hParentItem)
 		tvItem.cchTextMax = MAX_PATH;
 		tvItem.mask = TVIF_TEXT | TVIF_PARAM | TVIF_IMAGE | TVIF_SELECTEDIMAGE;
 		SendMessage(_hSelf, TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
-		if (tvItem.lParam)
-		{
-			tvItem.lParam = reinterpret_cast<LPARAM>(new generic_string(*(reinterpret_cast<generic_string *>(tvItem.lParam))));
-		}
 
 		TVINSERTSTRUCT tvInsertStruct;
 		tvInsertStruct.item = tvItem;
@@ -255,11 +241,47 @@ void TreeView::cleanSubEntries(HTREEITEM hTreeItem)
 		tvItem.hItem = hItem;
 		tvItem.mask = TVIF_PARAM;
 		SendMessage(_hSelf, TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
-		if (tvItem.lParam)
-		{
-			delete reinterpret_cast<generic_string *>(tvItem.lParam);
-		}
+
 		cleanSubEntries(hItem);
+	}
+}
+
+void TreeView::foldExpandRecursively(HTREEITEM hParentItem, bool isFold) const
+{
+	if (!hParentItem)
+		return;
+
+	HTREEITEM hItem = getChildFrom(hParentItem);
+
+	for (; hItem != NULL; hItem = getNextSibling(hItem))
+	{
+		foldExpandRecursively(hItem, isFold);
+		if (isFold)
+		{
+			fold(hItem);
+		}
+		else
+		{
+			expand(hItem);
+		}
+	}
+}
+
+void TreeView::foldExpandAll(bool isFold) const
+{
+	for (HTREEITEM tvProj = getRoot();
+		tvProj != NULL;
+		tvProj = getNextSibling(tvProj))
+	{
+		foldExpandRecursively(tvProj, isFold);
+		if (isFold)
+		{
+			fold(tvProj);
+		}
+		else
+		{
+			expand(tvProj);
+		}
 	}
 }
 
@@ -317,7 +339,7 @@ void TreeView::dragItem(HWND parentHandle, int x, int y)
     hitTestInfo.pt.x = point.x;
     hitTestInfo.pt.y = point.y;
 	HTREEITEM targetItem = reinterpret_cast<HTREEITEM>(::SendMessage(_hSelf, TVM_HITTEST, 0, reinterpret_cast<LPARAM>(&hitTestInfo)));
-    if(targetItem)
+    if (targetItem)
     {
 		::SendMessage(_hSelf, TVM_SELECTITEM, TVGN_DROPHILITE, reinterpret_cast<LPARAM>(targetItem));
     }
@@ -409,9 +431,6 @@ void TreeView::moveTreeViewItem(HTREEITEM draggedItem, HTREEITEM targetItem)
 	tvDraggingItem.hItem = draggedItem;
 	SendMessage(_hSelf, TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvDraggingItem));
 
-	if (tvDraggingItem.lParam)
-		tvDraggingItem.lParam = reinterpret_cast<LPARAM>(new generic_string(*(reinterpret_cast<generic_string *>(tvDraggingItem.lParam))));
-
     TVINSERTSTRUCT tvInsertStruct;
 	tvInsertStruct.item = tvDraggingItem;
 	tvInsertStruct.hInsertAfter = (HTREEITEM)TVI_LAST;
@@ -467,13 +486,6 @@ bool TreeView::swapTreeViewItem(HTREEITEM itemGoDown, HTREEITEM itemGoUp)
 	tvDownItem.hItem = itemGoDown;
 	SendMessage(_hSelf, TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvUpItem));
 	SendMessage(_hSelf, TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvDownItem));
-
-	// make copy recursively for both items
-
-	if (tvUpItem.lParam)
-		tvUpItem.lParam = reinterpret_cast<LPARAM>(new generic_string(*(reinterpret_cast<generic_string *>(tvUpItem.lParam))));
-	if (tvDownItem.lParam)
-		tvDownItem.lParam = reinterpret_cast<LPARAM>(new generic_string(*(reinterpret_cast<generic_string *>(tvDownItem.lParam))));
 
 	// add 2 new items
     TVINSERTSTRUCT tvInsertUp;
@@ -572,10 +584,6 @@ bool TreeView::searchLeafRecusivelyAndBuildTree(HTREEITEM tree2Build, const gene
 		size_t res = itemNameUpperCase.find(text2SearchUpperCase);
 		if (res != generic_string::npos)
 		{
-			if (tvItem.lParam)
-			{
-				tvItem.lParam = reinterpret_cast<LPARAM>(new generic_string(*(reinterpret_cast<generic_string *>(tvItem.lParam))));
-			}
 			TVINSERTSTRUCT tvInsertStruct;
 			tvInsertStruct.item = tvItem;
 			tvInsertStruct.hInsertAfter = TVI_LAST;
@@ -673,10 +681,23 @@ bool TreeView::restoreFoldingStateFrom(const TreeStateNode & treeState2Compare, 
 	return isOk;
 }
 
-void TreeView::sort(HTREEITEM hTreeItem)
+void TreeView::sort(HTREEITEM hTreeItem, bool isRecusive)
 {
 	::SendMessage(_hSelf, TVM_SORTCHILDREN, TRUE, reinterpret_cast<LPARAM>(hTreeItem));
+	if (!isRecusive)
+		return;
 
 	for (HTREEITEM hItem = getChildFrom(hTreeItem); hItem != NULL; hItem = getNextSibling(hItem))
-		sort(hItem);
+		sort(hItem, isRecusive);
+}
+
+
+void TreeView::customSorting(HTREEITEM hTreeItem, PFNTVCOMPARE sortingCallbackFunc, LPARAM lParam)
+{
+	TVSORTCB treeViewSortCB;
+	treeViewSortCB.hParent = hTreeItem;
+	treeViewSortCB.lpfnCompare = sortingCallbackFunc;
+	treeViewSortCB.lParam = lParam;
+
+	::SendMessage(_hSelf, TVM_SORTCHILDRENCB, 0, reinterpret_cast<LPARAM>(&treeViewSortCB));
 }

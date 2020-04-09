@@ -3,7 +3,7 @@
 |
 |   To learn how to make your own language parser, please check the following
 |   link:
-|       http://notepad-plus-plus.org/features/function-list.html
+|       https://npp-user-manual.org/docs/function-list/
 |
 \=========================================================================== -->
 <NotepadPlus>
@@ -78,6 +78,7 @@
 			<association id=         "xml_node"       langID= "9"                          />
 			<association id=       "batch_label"      langID="12"                          />
 			<association id=         "ini_section"    langID="13"                          />
+			<association id=       "plsql_function"   langID="17"                          />
 			<association id=        "perl_function"   langID="21"                          />
 			<association id=      "python_syntax"     langID="22"                          />
 			<association id=        "bash_function"   langID="26"                          />
@@ -86,9 +87,13 @@
 			<association id=        "ruby_syntax"     langID="36"                          />
 			<association id=     "autoit3_function"   langID="40"                          />
 			<association id=   "innosetup_syntax"     langID="46"                          />
+			<!--
+			   As there is currently only one langID for COBOL: change to cobol_section_free
+			   if this is your favourite format
+			-->
+			<association id=  "cobol_section_fixed"   langID="50"                          />
 			<association id=  "powershell_function"   langID="53"                          />
 			<association id=  "javascript_function"   langID="58"                          />
-			<!-- ======================================================================== -->
 			<association id=       "baanc_section"    langID="60"                          />
 			<!-- ======================================================================== -->
 			<association id=         "krl_function"   userDefinedLangName="KRL"            />
@@ -103,6 +108,20 @@
 			<!-- ======================================================================== -->
 		</associationMap>
 		<parsers>
+
+			<!-- ========================================================= [ PL/SQL ] -->
+			<parser id="plsql_function" displayName="PL/SQL" commentExpr="((/\*.*?\*)/|(//.*?$))">
+        			<function
+				    mainExpr="((PROCEDURE)|(FUNCTION))[\s]+[A-Za-z][\w_]*([\s]*\([^\)]*\)[\s]*)?(([\s]*;)|([\s]*([ia]s))|([\s]+(RETURN)([\s]+[\w%\.]+)+(([\s]*;)|([\s]+([ia]s)))))"
+				    displayMode="$className->$functionName"
+			 	>
+					<functionName>
+						<nameExpr expr="[\s]+[A-Za-z][\w_]*([\s]*\([^\)]*\))?(([\s]*;)|([\s]*([ia]s))|([\s]+(RETURN)([\s]+[\w%\.]+)+(([\s]*;)|([\s]+([ia]s)))))"/>
+						<nameExpr expr="[A-Za-z][\w_]*([\s]*\([^\)]*\))?(([\s]*;)|([\s]*([ia]s))|([\s]+(RETURN)([\s]+[\w%\.]+)+(([\s]*;)|([\s]+([ia]s)))))"/>
+						<nameExpr expr="[A-Za-z][\w_]*([\s]*\([^\)]*\))?(([\s]+(RETURN)([\s]+[\w%\.]+)+))*"/>
+					</functionName>
+				</function>
+			</parser>
 
 			<!-- ========================================================= [ PHP ] -->
 			<!-- PHP - Personal Home Page / PHP Hypertext Preprocessor             -->
@@ -1379,6 +1398,55 @@
 					<functionName>
 						<nameExpr expr="\w+(?:\.\w+)*(?:\h*:)?" />
 					</functionName>
+				</function>
+			</parser>
+
+			<!-- Variant for COBOL fixed-form reference format -->
+			<parser id="cobol_section_fixed" displayName="COBOL fixed-form reference format">
+				<function
+					mainExpr="(?x)                                             # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+						(?m-s)(^.{6}[ D])                                      # ignore first 6 columns, 7 must be empty or D (debug-line)
+						([\t ]{0,3})                                           # don't start after column 12
+						(?!exit\s)[\w_-]+(\.|((?'seps'([\t ]|\*&gt;.*|([\n\r]+(.{6}([ D]|\*.*)|.{0,6}$)))+)section(\.|((?&amp;seps)(\.|[\w_-]+\.)))))
+						                                                        # all names that come before `section` but not `exit section`
+						"
+				>
+					<functionName>
+						<nameExpr expr="[\w_-]+((?=\.)|((?'seps'([\t ]|\*&gt;.*|([\n\r]+(.{6}([ D]|\*.*)|.{0,6}$)))+)section((?=\.)|(?&amp;seps)((?=\.)|[\w_-]+(?=\.)))))"/>
+					</functionName>
+				</function>
+			</parser>
+
+			<!-- Variant for COBOL free-form reference format -->
+			<parser id="cobol_section_free" displayName="COBOL free-form reference format">
+				<!-- working comment Expression:
+						 commentExpr="(?m-s)(?:\*&gt;).*$"
+					 cannot be used because problems with comment boundaries
+					 in current FunctionList implementation, for details see
+					 https://sourceforge.net/p/notepad-plus/patches/597/
+				-->
+				<!-- Variant with paragraphs (don't work with comment lines
+					 before section/paragraph header, can be activated when
+					 comment boundaries work and the commentExpr is used) -->
+				<!--
+				<function
+					mainExpr="(?m-s)(?<=\.)\s*(?!exit\s)[\w_-]+(\s+section(\s*|(\s+[\w_-]+)?))(?=\.)"
+						"
+				>
+					<functionName>
+						<nameExpr expr="(?m-s)(?<=[\s\.])[\w_-]+(\s*section\s*([\w_-]+)?)?"/>
+					</functionName>
+				</function>
+				-->
+				<!-- Variant without paragraphs (works with comment lines before section header) -->
+				<function
+					mainExpr="(?x)                                                  # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+						[\s\.](?!exit\s)[\w_-]+\s+section(\s*|(\s+[\w_-]+)?)(?=\.)  # all names that come before `section` but not `exit section`
+						"
+				>
+					<functionName>
+						<nameExpr expr="[\w_-]+\s*section"/>
+				   </functionName>
 				</function>
 			</parser>
 

@@ -664,7 +664,7 @@ void MarginsDlg::initScintParam()
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_COLUMNPOS_EDIT), isEnable && isCheckedOrNot(IDC_RADIO_MULTILNMODE));
 	
 	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-	generic_string radioboxTip = pNativeSpeaker->getLocalizedStrFromID("multi-edge-radio-tip", TEXT("Add your column marker by indicating its position with a decimal number.\nYou can define several column markers by using white space to seperate the different positions."));
+	generic_string radioboxTip = pNativeSpeaker->getLocalizedStrFromID("multi-edge-radio-tip", TEXT("Add your column marker by indicating its position with a decimal number.\nYou can define several column markers by using white space to seperate the different numbers."));
 	_multiEdgeTip = CreateToolTip(IDC_RADIO_MULTILNMODE, _hSelf, _hInst, const_cast<PTSTR>(radioboxTip.c_str()));
 
 	oldFunclstToolbarProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(::GetDlgItem(_hSelf, IDC_COLUMNPOS_EDIT), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(editNumSpaceProc)));

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-    Venetian translation for Notepad++ 7.8.4
-    Last modified Sun, March 1st, 2020.
+    Venetian translation for Notepad++ 7.8.6
+    Last modified Sun, April 14th, 2020.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang	
 -->
 <NotepadPlus>
-    <Native-Langue name="Vèneto" filename="venetian.xml" version="7.8.4">
+    <Native-Langue name="Vèneto" filename="venetian.xml" version="7.8.6">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -757,6 +757,7 @@
                     <Item id="6211" name="Ƚimite De Coƚona"/>
                     <Item id="6212" name="Modaƚità &apos;ƚinea&apos;"/>
                     <Item id="6213" name="Modaƚità &apos;sfondo&apos;"/>
+                    <Item id="6237" name="Modaƚità Multilinea"/>
                     <Item id="6214" name="Evidensìa ƚa riga corente"/>
                     <Item id="6215" name="Abìƚita antialiasing caràtari"/>
                     <Item id="6231" name="Spesore Bordo Editor"/>
@@ -1265,6 +1266,8 @@ Ruma en tuti i file a ecesion exe, obj &amp;&amp; log:
             <summary-nbsel1 value=" caràtari seƚesionà ("/>
             <summary-nbsel2 value=" byte) en "/>
             <summary-nbrange value=" intervaƚi"/>
+            <multi-edge-radio-tip value="Xonta el to deƚimitatore de coƚona indicando ƚa so poxision co on nùmaro desimaƚe.
+Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i diversi nùmari."/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

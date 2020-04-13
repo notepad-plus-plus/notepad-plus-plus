@@ -748,6 +748,7 @@
                     <Item id="6211" name="邊緣線設定"/>
                     <Item id="6212" name="垂直線模式"/>
                     <Item id="6213" name="背景色模式"/>
+                    <Item id="6237" name="多重垂直線模式"/>
                     <Item id="6214" name="於游標行加上背景顏色"/>
                     <Item id="6215" name="啟用平滑字體"/>
                     <Item id="6231" name="邊框寬度"/>
@@ -1218,6 +1219,8 @@
             <summary-nbsel1 value=" 個選取字元（ "/>
             <summary-nbsel2 value=" 位元）在 "/>
             <summary-nbrange value=" 個選取範圍中"/>
+            <multi-edge-radio-tip value="如欲添加列標記可以在下面以數字指示其列位置。
+使用空格分隔不同數字來定義多個列標記。"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

@@ -1268,7 +1268,7 @@ Find in all files except exe, obj &amp;&amp; log:
             <summary-nbsel2 value=" bytes) in "/>
             <summary-nbrange value=" ranges"/>
             <multi-edge-radio-tip value="Add your column marker by indicating its position with a decimal number.
-You can define several column markers by using white space to seperate the different numbers."/>
+You can define several column markers by using white space to separate the different numbers."/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2020-03-01 by schnurlos (schnurlos@gmail.com)
+	last modified: 2020-04-14 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="7.8.4">
+	<Native-Langue name="Deutsch" filename="german.xml" version="7.8.6">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -327,6 +327,7 @@
 					<Item id="48505" name="Aus Dateien erstellen …"/>
 					<Item id="48506" name="Aus Auswahl in die Zwischenablage erstellen"/>
 					<Item id="49000" name="Externes Programm &amp;ausführen …"/>
+					
 					<Item id="50000" name="&amp;Funktionsvervollständigung"/>
 					<Item id="50001" name="&amp;Wortvervollständigung"/>
 					<Item id="50002" name="Funktions&amp;parameter anzeigen"/>
@@ -504,6 +505,7 @@
 					<Item id="2232" name="Unterstrichen als Standard setzen"/>
 				</SubDialog>
 			</StyleConfig>
+
 			<ShortcutMapper title="Tastatur-Kürzel">
 				<Item id="2602" name="Ändern"/>
 				<Item id="2603" name="Entfernen"/>
@@ -756,11 +758,11 @@
 					<Item id="6207" name="Lesezeichenrand"/>
 					<Item id="6208" name="Randbegrenzung anzeigen"/>
 					<Item id="6209" name="Anzahl der Spalten:"/>
-					<Item id="6234" name="Flüssiges Scrollen deaktivieren&#x0a;(bei Touchpad-Problemen)"/>
-
+					<Item id="6234" name="Flüssiges Scrollen deaktivieren&#x0A;(bei Touchpad-Problemen)"/>
 					<Item id="6211" name="Rechter Rand"/>
 					<Item id="6212" name="Vertikale Linie"/>
 					<Item id="6213" name="Farbiger Hintergrund"/>
+					<Item id="6237" name="Mehrzeiliger Modus"/>
 					<Item id="6214" name="Aktuelle Zeile hervorheben"/>
 					<Item id="6215" name="Kantenglättung der Schriftarten"/>
 					<Item id="6231" name="Rahmenbreite"/>
@@ -797,7 +799,6 @@
 					<Item id="4009" name="Unterstützte Erw.:"/>
 					<Item id="4010" name="Registrierte Erw.:"/>
 				</FileAssoc>
-
 				<Language title="Sprache">
 					<Item id="6505" name="Verfügbar:"/>
 					<Item id="6506" name="Deaktiviert:"/>
@@ -915,7 +916,7 @@
 					<Item id="6256" name="Über mehrere Zeilen"/>
 					<Item id="6161" name="Liste der Wortzeichen (Word character list)"/>
 					<Item id="6162" name="Die ursprüngliche Liste der Wortzeichen verwenden"/>
-					<Item id="6163" name="Zeichen als Teil der Wortzeichen hinzufügen (nicht verwenden wenn man nicht sicher ist)"/>
+					<Item id="6163" name="Zeichen als Teil der Wortzeichen hinzufügen&#x0A;(nicht verwenden wenn man nicht sicher ist)"/>
 				</Delimiter>
 
 				<Cloud title="Cloud-Einstellungen">
@@ -1014,7 +1015,6 @@
 				<Item id="4" name="Ja für a&amp;lle"/>
 				<Item id="5" name="N&amp;ein für alle"/>
 			</DoSaveOrNot>
-
 		</Dialog>
 		<MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<ContextMenuXmlEditWarning title="Kontextmenü anpassen" message="Durch Bearbeiten der Datei contextMenu.xml können Sie&#x0A;das Kontextmenü von Notepad++ anpassen.&#x0A;Nach dem Bearbeiten müssen Sie Notepad++ neu&#x0A;starten, damit die Änderungen wirksam werden."/>
@@ -1026,7 +1026,6 @@
 			<FileLockedWarning title="Speichern fehlgeschlagen!" message="Datei konnte von Notepad++ nicht gespeichert werden. &#x0A;Bitte überprüfen Sie, ob die Datei in einem anderen Programm geöffnet ist."/>
 			<FileAlreadyOpenedInNpp title="Datei bereits geöffnet" message="Die Datei ist bereits in Notepad++ geöffnet."/>
 			<DeleteFileFailed title="Löschen fehlgeschlagen!" message="Datei konnte nicht gelöscht werden."/>
-
 			<NbFileToOpenImportantWarning title="Viele Dateien zu öffnen" message="$INT_REPLACE$ Dateien sollen in Notepad++ geöffnet werden.&#x0A;Sind Sie sicher?"/>
 			<SettingsOnCloudError title="Cloud-Einstellungen" message="Der Pfad zu den Einstellungen in der Cloud dürfte&#x0A;auf ein Laufwerk nur mit Leserechten oder auf ein Verzeichnis&#x0A;ohne die erforderlichen Schreibrechte zeigen.&#x0A;Die Einstellungen in der Cloud werden abgebrochen.&#x0A;Bitte stellen Sie auf einen schlüssigen Wert in den Einstellungen um."/>
 			<FilePathNotFoundWarning title="Datei öffnen" message="Die Datei zum Öffnen existiert nicht."/>
@@ -1178,12 +1177,7 @@
 			<cloud-select-folder value="Verzeichnis wählen von wo/wohin Notepad++ seine Einstellungen liest bzw. schreibt"/>
 			<shift-change-direction-tip value="Shift+Enter verwenden um die Suchrichtung umzudrehen."/>
 			<two-find-buttons-tip value="Modus mit 2 Suchknöpfen"/>
-			<find-in-files-filter-tip value="Finde in cpp, cxx, h, hxx &amp;&amp; hpp:
-*.cpp *.cxx *.h *.hxx *.hpp
-
-Finde in allen Dateien außer exe, obj &amp;&amp; log:
-*.* !*.exe !*.obj !*.log"/>
-
+			<find-in-files-filter-tip value="Finde in cpp, cxx, h, hxx &amp;&amp; hpp:&#x0A;*.cpp *.cxx *.h *.hxx *.hpp&#x0A;&#x0A;Finde in allen Dateien außer exe, obj &amp;&amp; log:&#x0A;*.* !*.exe !*.obj !*.log"/>
 			<find-status-top-reached value="Suche: Erster Treffer von unten. Der Anfang des Dokumentes wurde erreicht."/>
 			<find-status-end-reached value="Suche: Erster Treffer von oben. Das Ende des Dokumentes wurde erreicht."/>			
 			<find-status-replaceinfiles-1-replaced value="Ersetzen in Dateien: 1 Vorkommen wurde ersetzt"/>
@@ -1240,6 +1234,7 @@ Finde in allen Dateien außer exe, obj &amp;&amp; log:
 			<summary-nbsel1 value=" gewählte Zeichen ("/>
 			<summary-nbsel2 value=" Bytes) in "/>
 			<summary-nbrange value=" Stufen"/>
+			<multi-edge-radio-tip value="Es können Spaltenmarkierung hinzugefügt werden, indem ihre Position mit einer Dezimalzahl angeben wird.&#x0A;Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Zahlen durch Leerzeichen getrennt werden."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

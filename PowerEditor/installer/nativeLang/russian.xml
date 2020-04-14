@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v7.8.5:
+Updated to v7.8.6:
 - add new lines and fixes
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="7.8.5">
+	<Native-Langue name="Русский" filename="russian.xml" version="7.8.6">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -763,6 +763,7 @@ Updated to v7.8.5:
 					<Item id="6234" name="Откл. расшир. функции прокрутки&#x0A; (если есть проблемы с тачпадом)"/>
 					<Item id="6235" name="Без рамки"/>
 					<Item id="6236" name="Прокрутка за пределы посл. строки"/>
+					<Item id="6237" name="Многострочный режим"/>
 				</Scintillas>
 				<NewDoc title = "Новый Документ">
 					<Item id="6401" name="Формат Конца Строк"/>
@@ -1221,6 +1222,7 @@ Updated to v7.8.5:
 			<summary-nbsel1              value=" выделенных символов ("/> 
 			<summary-nbsel2              value=" байт) в "/> 
 			<summary-nbrange             value=" диапазоне(ах)"/> 
+			<multi-edge-radio-tip        value="Добавьте свой маркер столбца, указав его положение с десятичным числом.&#x0A;Вы можете определить несколько маркеров столбца, используя пробелы для разделения различных чисел."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

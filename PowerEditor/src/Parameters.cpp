@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -3794,7 +3794,7 @@ generic_string NppParameters::getLocPathFromStr(const generic_string & localizat
 	if (localizationCode == TEXT("ca"))
 		return TEXT("catalan.xml");
 	if (localizationCode == TEXT("zh-tw") || localizationCode == TEXT("zh-hk") || localizationCode == TEXT("zh-sg"))
-		return TEXT("chinese.xml");
+		return TEXT("taiwaneseMandarin.xml");
 	if (localizationCode == TEXT("zh") || localizationCode == TEXT("zh-cn"))
 		return TEXT("chineseSimplified.xml");
 	if (localizationCode == TEXT("co") || localizationCode == TEXT("co-fr"))
@@ -5273,6 +5273,8 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 			_svp._edgeMode = EDGE_BACKGROUND;
 		else if (!lstrcmp(nm, TEXT("line")))
 			_svp._edgeMode = EDGE_LINE;
+		else if (!lstrcmp(nm, TEXT("multiColumn")))
+			_svp._edgeMode = EDGE_MULTILINE;
 		else
 			_svp._edgeMode = EDGE_NONE;
 	}
@@ -5293,6 +5295,13 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 	{
 		_svp._edgeNbColumn = val;
 	}
+
+	nm = element->Attribute(TEXT("edgeMultiColumnPos"));
+	if (nm)
+	{
+		str2numberVector(nm, _svp._edgeMultiColumnPos);
+	}
+
 
 	nm = element->Attribute(TEXT("zoom"), &val);
 	if (nm)
@@ -5474,14 +5483,25 @@ bool NppParameters::writeScintillaParams()
 	(scintNode->ToElement())->SetAttribute(TEXT("borderEdge"), _svp._showBorderEdge ? TEXT("yes") : TEXT("no"));
 
 	const TCHAR *edgeStr;
-	if (_svp._edgeMode == EDGE_NONE)
-		edgeStr = TEXT("no");
-	else if (_svp._edgeMode == EDGE_LINE)
+	if (_svp._edgeMode == EDGE_LINE)
 		edgeStr = TEXT("line");
-	else
+	else if (_svp._edgeMode == EDGE_BACKGROUND)
 		edgeStr = TEXT("background");
+	else if (_svp._edgeMode == EDGE_MULTILINE)
+		edgeStr = TEXT("multiColumn");
+	else
+		edgeStr = TEXT("no");
+
+	generic_string edgeColumnPosStr;
+	for (auto i : _svp._edgeMultiColumnPos)
+	{
+		std::string s = std::to_string(i);
+		edgeColumnPosStr += generic_string(s.begin(), s.end());
+		edgeColumnPosStr += TEXT(" ");
+	}
 	(scintNode->ToElement())->SetAttribute(TEXT("edge"), edgeStr);
 	(scintNode->ToElement())->SetAttribute(TEXT("edgeNbColumn"), _svp._edgeNbColumn);
+	(scintNode->ToElement())->SetAttribute(TEXT("edgeMultiColumnPos"), edgeColumnPosStr);
 	(scintNode->ToElement())->SetAttribute(TEXT("zoom"), _svp._zoom);
 	(scintNode->ToElement())->SetAttribute(TEXT("zoom2"), _svp._zoom2);
 	(scintNode->ToElement())->SetAttribute(TEXT("whiteSpaceShow"), _svp._whiteSpaceShow?TEXT("show"):TEXT("hide"));

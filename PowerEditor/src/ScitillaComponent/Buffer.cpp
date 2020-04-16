@@ -1381,6 +1381,7 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 			{
 				if (fileFormat._encoding == SC_CP_UTF8)
 				{
+					_pscratchTilla->execute(SCI_SETCODEPAGE, SC_CP_UTF8);
 					// Pass through UTF-8 (this does not check validity of characters, thus inserting a multi-byte character in two halfs is working)
 					_pscratchTilla->execute(SCI_APPENDTEXT, lenFile, reinterpret_cast<LPARAM>(data));
 				}
@@ -1398,6 +1399,7 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 			else
 			{
 				lenConvert = unicodeConvertor->convert(data, lenFile);
+				_pscratchTilla->execute(SCI_SETCODEPAGE, CP_ACP);
 				_pscratchTilla->execute(SCI_APPENDTEXT, lenConvert, reinterpret_cast<LPARAM>(unicodeConvertor->getNewBuf()));
 				if (format == EolType::unknown)
 					format = getEOLFormatForm(unicodeConvertor->getNewBuf(), unicodeConvertor->getNewSize(), EolType::unknown);

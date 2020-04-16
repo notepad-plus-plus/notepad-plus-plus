@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -122,6 +122,9 @@
 	#define	IDC_CHECK_DISABLEADVANCEDSCROLL (IDD_PREFERENCE_MARGEIN_BOX + 34)
 	#define	IDC_CHECK_NOEDGE (IDD_PREFERENCE_MARGEIN_BOX + 35)
 	#define	IDC_CHECK_SCROLLBEYONDLASTLINE (IDD_PREFERENCE_MARGEIN_BOX + 36)
+    
+	#define	IDC_RADIO_MULTILNMODE (IDD_PREFERENCE_MARGEIN_BOX + 37)
+	#define	IDC_COLUMNPOS_EDIT (IDD_PREFERENCE_MARGEIN_BOX + 38)
 	
 #define	IDD_PREFERENCE_DELIMITERSETTINGS_BOX 6250 //(IDD_PREFERENCE_BOX + 250)
 	#define	IDC_DELIMITERSETTINGS_GB_STATIC (IDD_PREFERENCE_DELIMITERSETTINGS_BOX + 1)

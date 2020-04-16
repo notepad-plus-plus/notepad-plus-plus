@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -79,7 +79,7 @@ BEGIN
     PUSHBUTTON      "Replace &All",IDREPLACEALL,268,56,91,14
     PUSHBUTTON      "Replace All in All Opened Doc&uments",IDC_REPLACE_OPENEDFILES,268,74,91,21,BS_MULTILINE
     PUSHBUTTON      "Find All",IDD_FINDINFILES_FIND_BUTTON,268,20,91,14,WS_GROUP
-    PUSHBUTTON      "&Replace in Files",IDD_FINDINFILES_REPLACEINFILES,268,38,91,14
+    PUSHBUTTON      "Replace in Files",IDD_FINDINFILES_REPLACEINFILES,268,38,91,14
     PUSHBUTTON      "Close",IDCANCEL,268,98,91,14
     GROUPBOX        "",IDC_TRANSPARENT_GRPBOX,258,131,99,48
     CONTROL         "Transparenc&y",IDC_TRANSPARENT_CHECK,"Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_TABSTOP,254,131,80,10

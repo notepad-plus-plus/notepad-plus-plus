@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -244,7 +244,7 @@ BEGIN
         MENUITEM "&Save",                            IDM_FILE_SAVE
         MENUITEM "Save &As...",                      IDM_FILE_SAVEAS
         MENUITEM "Save a Copy As...",                IDM_FILE_SAVECOPYAS
-        MENUITEM "Sav&e All",                        IDM_FILE_SAVEALL
+        MENUITEM "Sa&ve All",                        IDM_FILE_SAVEALL
         MENUITEM "Rename...",                        IDM_FILE_RENAME
         MENUITEM "&Close",                           IDM_FILE_CLOSE
         MENUITEM "Clos&e All",                       IDM_FILE_CLOSEALL

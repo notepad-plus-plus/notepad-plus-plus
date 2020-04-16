@@ -1,5 +1,5 @@
 //this file is part of notepad++
-//Copyright (C)2016 Don HO <don.h@fee.fr>
+//Copyright (C)2020 Don HO <don.h@fee.fr>
 //
 //This program is free software; you can redistribute it and/or
 //modify it under the terms of the GNU General Public License

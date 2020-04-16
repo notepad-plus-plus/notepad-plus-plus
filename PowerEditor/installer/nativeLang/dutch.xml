@@ -3,11 +3,11 @@
 	Dutch localization for Notepad++ 7.5.6
 	Last modified Mon, Mar 26 2018 by Klaas Nekeman.
 	Please e-mail errors, suggestions etc. to knekeman(at)gmail.com.
-	Dutch localization for Notepad++ 7.8.3
-	Last modified Tue, Jan 7 2020 by xylographe <wr86420@gmail.com>.
+	Dutch localization for Notepad++ 7.8.6
+	Last modified Tue, Apr 14 2020 by xylographe <wr86420@gmail.com>.
 -->
 <NotepadPlus>
-	<Native-Langue name="Nederlands" filename="dutch.xml" version="7.8.3">
+	<Native-Langue name="Nederlands" filename="dutch.xml" version="7.8.6">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -757,6 +757,7 @@
 					<Item id="6211" name="Regeleinde"/>
 					<Item id="6212" name="Lijn"/>
 					<Item id="6213" name="Achtergrond"/>
+					<Item id="6237" name="Meerdere rijen"/>
 					<Item id="6214" name="Actieve regel markeren"/>
 					<Item id="6215" name="ClearType inschakelen"/>
 					<Item id="6231" name="Breedte vensterrand"/>
@@ -1247,6 +1248,7 @@
 			<ColumnName name="Naam"/>
 			<ColumnPath name="Pad"/>
 			<ColumnType name="Type"/>
+			<ColumnSize name="Grootte"/>
 		</WindowsDlg>
 		<AsciiInsertion>
 			<PanelTitle name="ASCII-karakters / HTML-entiteiten"/>
@@ -1528,6 +1530,9 @@
 			/>
 			<summary-nbrange
 				value=" selecties"
+			/>
+			<multi-edge-radio-tip
+				value="Voeg een kolommarkering toe door haar positie aan te geven met een geheel getal.&#xD;Definieer meerdere kolommarkeringen door hun posities met witruimte te scheiden."
 			/>
 		</MiscStrings>
 	</Native-Langue>

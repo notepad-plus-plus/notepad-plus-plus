@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -280,8 +280,8 @@
     #define    IDM_VIEW_ZOOMOUT                   (IDM_VIEW + 24)
     #define    IDM_VIEW_TAB_SPACE                 (IDM_VIEW + 25)
     #define    IDM_VIEW_EOL                       (IDM_VIEW + 26)
-    #define    IDM_VIEW_EDGELINE                  (IDM_VIEW + 27)
-    #define    IDM_VIEW_EDGEBACKGROUND            (IDM_VIEW + 28)
+    //#define    IDM_VIEW_EDGELINE                  (IDM_VIEW + 27)
+    //#define    IDM_VIEW_EDGEBACKGROUND            (IDM_VIEW + 28)
     #define    IDM_VIEW_TOGGLE_UNFOLDALL          (IDM_VIEW + 29)
     #define    IDM_VIEW_FOLD_CURRENT              (IDM_VIEW + 30)
     #define    IDM_VIEW_UNFOLD_CURRENT            (IDM_VIEW + 31)
@@ -290,7 +290,7 @@
     #define    IDM_VIEW_ALWAYSONTOP               (IDM_VIEW + 34)
     #define    IDM_VIEW_SYNSCROLLV                (IDM_VIEW + 35)
     #define    IDM_VIEW_SYNSCROLLH                (IDM_VIEW + 36)
-    #define    IDM_VIEW_EDGENONE                  (IDM_VIEW + 37)
+    //#define    IDM_VIEW_EDGENONE                  (IDM_VIEW + 37)
     #define    IDM_VIEW_DRAWTABBAR_CLOSEBOTTUN    (IDM_VIEW + 38)
     #define    IDM_VIEW_DRAWTABBAR_DBCLK2CLOSE    (IDM_VIEW + 39)
     #define    IDM_VIEW_REFRESHTABAR              (IDM_VIEW + 40)

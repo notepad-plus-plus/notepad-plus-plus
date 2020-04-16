@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -58,10 +58,13 @@ public :
 	MarginsDlg() = default;
 	virtual void destroy() {
 		_verticalEdgeLineNbColVal.destroy();
+		if (_multiEdgeTip)
+			::DestroyWindow(_multiEdgeTip);
 	};
 	
 private :
 	URLCtrl _verticalEdgeLineNbColVal;
+	HWND _multiEdgeTip = nullptr;
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void initScintParam();
 };

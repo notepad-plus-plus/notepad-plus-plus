@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Français" filename="french.xml" version="7.8.3">
+    <Native-Langue name="Français" filename="french.xml" version="7.8.6">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -727,6 +727,7 @@
                     <Item id="6211" name="Largeur des lignes"/>
                     <Item id="6212" name="Afficher un filet vertical"/>
                     <Item id="6213" name="Colorer l’arrière-plan"/>
+                    <Item id="6237" name="Multi-colonne marqueur"/>
                     <Item id="6214" name="Surligner la ligne actuelle"/>
                     <Item id="6215" name="Activer le lissage de police"/>
                     <Item id="6216" name="Curseur"/>
@@ -1242,6 +1243,8 @@ Rechercher dans tous les fichiers sauf exe, obj &amp;&amp; log:
             <summary-nbsel1 value=" caractères sélectionnés ("/>
             <summary-nbsel2 value=" octets) dans "/>
             <summary-nbrange value=" sélections"/>
+            <multi-edge-radio-tip value="Ajoutez votre marqueur de colonne en indiquant sa position avec un nombre entier.
+Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour séparer les différents nombres."/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

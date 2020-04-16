@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="7.8.3">
+    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="7.8.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -274,6 +274,12 @@
                     <Item id="45011" name="转为 UTF-8-BOM 编码"/>
                     <Item id="45012" name="转为 UCS-2 Big Endian 编码"/>
                     <Item id="45013" name="转为 UCS-2 Little Endian 编码"/>
+                    <Item id="45060" name="Big5 (繁体中文)"/>
+                    <Item id="45061" name="GB2312 (简体中文)"/>
+                    <Item id="45054" name="OEM 861: 冰岛语"/>
+                    <Item id="45057" name="OEM 865: 北欧语言"/>
+                    <Item id="45053" name="OEM 860: 葡萄牙语"/>
+                    <Item id="45056" name="OEM 863: 法语"/>
 
                     <Item id="10001" name="移动到另一视图"/>
                     <Item id="10002" name="复制到另一视图"/>
@@ -746,6 +752,7 @@
                     <Item id="6211" name="列边界设置"/>
                     <Item id="6212" name="边界线模式"/>
                     <Item id="6213" name="背景色模式"/>
+                    <Item id="6237" name="多重垂直线模式"/>
                     <Item id="6214" name="当前行高亮模式"/>
                     <Item id="6215" name="启用平滑字体"/>
                     <Item id="6231" name="边框宽度"/>
@@ -1107,6 +1114,7 @@ Notepad++会在所有安装结束后重新启动。
             <ColumnName name="文件名"/>
             <ColumnPath name="路径"/>
             <ColumnType name="类型"/>
+            <ColumnSize name="大小"/>
         </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name="ASCII编码输入面板"/>
@@ -1259,6 +1267,8 @@ Notepad++会在所有安装结束后重新启动。
             <summary-nbsel1 value=" 个选中字符（"/>
             <summary-nbsel2 value=" 字节）在"/>
             <summary-nbrange value=" 个选取范围中"/>
+            <multi-edge-radio-tip value="想要添加列标记，可用数字指示其列位置。
+用空格分隔不同数字以定义多个列标记。"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

@@ -755,6 +755,22 @@ Credits:
             <WordsStyle name="Selected Line" styleID="5" fgColor="000080" bgColor="FFFF4F" fontName="" fontStyle="0" fontSize="">if else for while</WordsStyle>
             <WordsStyle name="Current line background colour" styleID="6" bgColor="E8E8FF" fgColor="0080FF" fontSize="" fontStyle="0">bool long int char</WordsStyle>
         </LexerType>
+        <LexerType name="powershell" desc="PowerShell" ext="">
+            <WordsStyle name="DEFAULT" styleID="0" fgColor="F8F8F2" bgColor="272822" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="COMMENT" styleID="1" fgColor="75715E" bgColor="272822" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="STRING" styleID="2" fgColor="E6DB74" bgColor="272822" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="CHARACTER" styleID="3" fgColor="E6DB74" bgColor="272822" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="NUMBER" styleID="4" fgColor="AE81FF" bgColor="272822" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="VARIABLE" styleID="5" fgColor="F8F8F2" bgColor="272822" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="OPERATOR" styleID="6" fgColor="F92672" bgColor="272822" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="INSTRUCTION WORD" styleID="8" fgColor="F92672" bgColor="272822" fontName="" fontStyle="0" fontSize="10" keywordClass="instre1" />
+            <WordsStyle name="CMDLET" styleID="9" fgColor="F92672" bgColor="272822" fontName="" fontStyle="0" fontSize="10" keywordClass="instre2" />
+            <WordsStyle name="ALIAS" styleID="10" fgColor="F92672" bgColor="272822" fontName="" fontStyle="0" fontSize="10" keywordClass="type1" />
+            <WordsStyle name="COMMENT STREAM" styleID="13" fgColor="75715E" bgColor="272822" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="HERE STRING" styleID="14" fgColor="E6DB74" bgColor="272822" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="HERE CHARACTER" styleID="15" fgColor="E6DB74" bgColor="272822" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="COMMENT DOC KEYWORD" styleID="16" fgColor="75715E" bgColor="272822" fontName="" fontStyle="1" fontSize="10" keywordClass="type4" />
+        </LexerType>
     </LexerStyles>
     <GlobalStyles>
         <!-- Attention : Don't modify the name of styleID="0" -->

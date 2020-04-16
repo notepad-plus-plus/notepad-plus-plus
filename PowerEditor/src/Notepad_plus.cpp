@@ -1,5 +1,5 @@
 ﻿// This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -295,6 +295,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_mainEditView.execute(SCI_SETEDGEMODE, svp1._edgeMode);
 	_subEditView.execute(SCI_SETEDGECOLUMN, svp1._edgeNbColumn);
 	_subEditView.execute(SCI_SETEDGEMODE, svp1._edgeMode);
+	::SendMessage(hwnd, NPPM_INTERNAL_EDGEMULTISETSIZE, 0, 0);
 
 	_mainEditView.showEOL(svp1._eolShow);
 	_subEditView.showEOL(svp1._eolShow);

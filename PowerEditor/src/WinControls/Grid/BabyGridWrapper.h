@@ -65,6 +65,10 @@ public :
 		::SendMessage(_hSelf, BGM_SETCELLDATA, reinterpret_cast<WPARAM>(&cell), reinterpret_cast<LPARAM>(text));
 	};
 
+	void setAllowColResize(bool allowResize = true) {
+		::SendMessage(_hSelf, BGM_SETALLOWCOLRESIZE, allowResize?TRUE:FALSE, 0);
+	}
+
 	void makeColAutoWidth(bool autoWidth = true) {
 		::SendMessage(_hSelf, BGM_SETCOLAUTOWIDTH, autoWidth?TRUE:FALSE, 0);
 	};

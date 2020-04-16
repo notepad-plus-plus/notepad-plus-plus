@@ -820,7 +820,7 @@ INT_PTR CALLBACK MarginsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 						::SendDlgItemMessage(_hSelf, IDC_RADIO_BGMODE, BM_SETCHECK, FALSE, 0);
 						::SendDlgItemMessage(_hSelf, IDC_RADIO_MULTILNMODE, BM_SETCHECK, FALSE, 0);
 						svp._edgeMode = EDGE_NONE;
-						modeMsg = IDM_VIEW_EDGENONE;
+						modeMsg = NPPM_INTERNAL_EDGENONE;
 					}
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_LNMODE), isChecked);
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_BGMODE), isChecked);

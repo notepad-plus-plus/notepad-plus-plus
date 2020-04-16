@@ -290,7 +290,7 @@
     #define    IDM_VIEW_ALWAYSONTOP               (IDM_VIEW + 34)
     #define    IDM_VIEW_SYNSCROLLV                (IDM_VIEW + 35)
     #define    IDM_VIEW_SYNSCROLLH                (IDM_VIEW + 36)
-    #define    IDM_VIEW_EDGENONE                  (IDM_VIEW + 37)
+    //#define    IDM_VIEW_EDGENONE                  (IDM_VIEW + 37)
     #define    IDM_VIEW_DRAWTABBAR_CLOSEBOTTUN    (IDM_VIEW + 38)
     #define    IDM_VIEW_DRAWTABBAR_DBCLK2CLOSE    (IDM_VIEW + 39)
     #define    IDM_VIEW_REFRESHTABAR              (IDM_VIEW + 40)

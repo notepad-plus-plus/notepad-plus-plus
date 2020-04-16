@@ -1178,8 +1178,8 @@
 			</Overload>
 		</KeyWord>
 		<KeyWord name="strncmp" func="yes">
-			<Overload retVal="char *" >
-				<Param name="char *s1" />
+			<Overload retVal="int" >
+				<Param name="const char *s1" />
 				<Param name="const char *s2" />
 				<Param name="size_t n" />
 			</Overload>

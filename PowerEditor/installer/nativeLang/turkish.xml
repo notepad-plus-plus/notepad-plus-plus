@@ -753,9 +753,9 @@
 (dokunmatik yüzeyde sorun varsa)"/>
 
 					<Item id="6211" name="Dikey Kenarlık Ayarları"/>
-					<Item id="6212" name="Çizgi modu"/>
 					<Item id="6213" name="Arka plan modu"/>
-					<Item id="6237" name="Çoklu-satır modu"/>
+					<Item id="6237" name="Sütun işaretçinizi, onun pozisyonunu ondalık sayıyla belirterek ekleyin.
+Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasına beyaz boşluk eklemeniz yeterli."/>
 					<Item id="6214" name="Geçerli satırı vurgula"/>
 					<Item id="6215" name="Yumuşak yazı tipini etkinleştir"/>
 					<Item id="6231" name="Kenarlık Boyutu"/>
@@ -1269,8 +1269,6 @@ Devam edilsin mi?"/>
 			<summary-nbsel1 value=" seçili karakterler ("/>
 			<summary-nbsel2 value=" bayt) içinde "/>
 			<summary-nbrange value=" mesafe"/>
-			<multi-edge-radio-tip value="Sütun işaretçinizi, onun pozisyonunu ondalık sayıyla belirterek ekleyin.
-Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasına beyaz boşluk eklemeniz yeterli."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

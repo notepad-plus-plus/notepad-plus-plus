@@ -755,9 +755,8 @@
 					<Item id="6234" name="Geavanceerd scrollen uitschakelen&#xD;(ivm eventuele touchpadproblemen)"/>
 
 					<Item id="6211" name="Regeleinde"/>
-					<Item id="6212" name="Lijn"/>
 					<Item id="6213" name="Achtergrond"/>
-					<Item id="6237" name="Meerdere rijen"/>
+					<Item id="6237" name="Voeg een kolommarkering toe door haar positie aan te geven met een geheel getal.&#xD;Definieer meerdere kolommarkeringen door hun posities met witruimte te scheiden."/>
 					<Item id="6214" name="Actieve regel markeren"/>
 					<Item id="6215" name="ClearType inschakelen"/>
 					<Item id="6231" name="Breedte vensterrand"/>
@@ -1530,9 +1529,6 @@
 			/>
 			<summary-nbrange
 				value=" selecties"
-			/>
-			<multi-edge-radio-tip
-				value="Voeg een kolommarkering toe door haar positie aan te geven met een geheel getal.&#xD;Definieer meerdere kolommarkeringen door hun posities met witruimte te scheiden."
 			/>
 		</MiscStrings>
 	</Native-Langue>

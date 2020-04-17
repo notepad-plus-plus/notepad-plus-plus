@@ -2337,38 +2337,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			break;
 		}
 
-		case NPPM_INTERNAL_EDGEBACKGROUND:
-		case NPPM_INTERNAL_EDGELINE:
-		case NPPM_INTERNAL_EDGENONE:
-		{
-			int mode;
-			switch (message)
-			{
-				case NPPM_INTERNAL_EDGELINE:
-				{
-					mode = EDGE_LINE;
-					break;
-				}
-				case NPPM_INTERNAL_EDGEBACKGROUND:
-				{
-					mode = EDGE_BACKGROUND;
-					break;
-				}
-				default:
-					mode = EDGE_NONE;
-			}
-			_mainEditView.execute(SCI_SETEDGEMODE, mode);
-			_subEditView.execute(SCI_SETEDGEMODE, mode);
-		}
-		break;
-
-		case NPPM_INTERNAL_EDGEMULTILINE:
-		{
-			_mainEditView.execute(SCI_SETEDGEMODE, EDGE_MULTILINE);
-			_subEditView.execute(SCI_SETEDGEMODE, EDGE_MULTILINE);
-		}
-		break;
-		
 		case NPPM_INTERNAL_EDGEMULTISETSIZE:
 		{
 			_mainEditView.execute(SCI_MULTIEDGECLEARALL);
@@ -2386,6 +2354,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			}
 
 			const size_t twoPower13 = 8192;
+			size_t nbColAdded = 0;
 			for (auto i : svp._edgeMultiColumnPos)
 			{
 				// it's absurd to set columns beyon 8000, even it's a long line.
@@ -2395,17 +2364,40 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 				_mainEditView.execute(SCI_MULTIEDGEADDLINE, i, multiEdgeColor);
 				_subEditView.execute(SCI_MULTIEDGEADDLINE, i, multiEdgeColor);
+
+				++nbColAdded;
 			}
+
+			int mode;
+			switch (nbColAdded)
+			{
+				case 0:
+				{
+					mode = EDGE_NONE;
+					break;
+				}
+				case 1:
+				{
+					if (svp._isEdgeBgMode)
+					{
+						mode = EDGE_BACKGROUND;
+						_mainEditView.execute(SCI_SETEDGECOLUMN, svp._edgeMultiColumnPos[0]);
+						_subEditView.execute(SCI_SETEDGECOLUMN, svp._edgeMultiColumnPos[0]);
+					}
+					else
+					{
+						mode = EDGE_MULTILINE;
+					}
+					break;
+				}
+				default:
+					mode = EDGE_MULTILINE;
+			}
+
+			_mainEditView.execute(SCI_SETEDGEMODE, mode);
+			_subEditView.execute(SCI_SETEDGEMODE, mode);
 		}
 		break;
-
-		case NPPM_INTERNAL_EDGESETSIZE:
-		{
-			ScintillaViewParams & svp = (ScintillaViewParams &)(NppParameters::getInstance()).getSVP();
-			_mainEditView.execute(SCI_SETEDGECOLUMN, svp._edgeNbColumn);
-			_subEditView.execute(SCI_SETEDGECOLUMN, svp._edgeNbColumn);
-			break;
-		}
 
 		case NPPM_INTERNAL_SETTING_TAB_REPLCESPACE:
 		case NPPM_INTERNAL_SETTING_TAB_SIZE:

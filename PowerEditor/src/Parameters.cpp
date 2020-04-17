@@ -5266,17 +5266,13 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 	}
 
 	// Do Edge
-	nm = element->Attribute(TEXT("edge"));
+	nm = element->Attribute(TEXT("isEdgeBgMode"));
 	if (nm)
 	{
-		if (!lstrcmp(nm, TEXT("background")))
-			_svp._edgeMode = EDGE_BACKGROUND;
-		else if (!lstrcmp(nm, TEXT("line")))
-			_svp._edgeMode = EDGE_LINE;
-		else if (!lstrcmp(nm, TEXT("multiColumn")))
-			_svp._edgeMode = EDGE_MULTILINE;
-		else
-			_svp._edgeMode = EDGE_NONE;
+		if (!lstrcmp(nm, TEXT("yes")))
+			_svp._isEdgeBgMode = true;
+		else if (!lstrcmp(nm, TEXT("no")))
+			_svp._isEdgeBgMode = false;
 	}
 
 	// Do Scintilla border edge
@@ -5289,20 +5285,13 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 			_svp._showBorderEdge = false;
 	}
 
-	int val;
-	nm = element->Attribute(TEXT("edgeNbColumn"), &val);
-	if (nm)
-	{
-		_svp._edgeNbColumn = val;
-	}
-
 	nm = element->Attribute(TEXT("edgeMultiColumnPos"));
 	if (nm)
 	{
 		str2numberVector(nm, _svp._edgeMultiColumnPos);
 	}
 
-
+	int val;
 	nm = element->Attribute(TEXT("zoom"), &val);
 	if (nm)
 	{
@@ -5482,16 +5471,6 @@ bool NppParameters::writeScintillaParams()
 	(scintNode->ToElement())->SetAttribute(TEXT("Wrap"), _svp._doWrap?TEXT("yes"):TEXT("no"));
 	(scintNode->ToElement())->SetAttribute(TEXT("borderEdge"), _svp._showBorderEdge ? TEXT("yes") : TEXT("no"));
 
-	const TCHAR *edgeStr;
-	if (_svp._edgeMode == EDGE_LINE)
-		edgeStr = TEXT("line");
-	else if (_svp._edgeMode == EDGE_BACKGROUND)
-		edgeStr = TEXT("background");
-	else if (_svp._edgeMode == EDGE_MULTILINE)
-		edgeStr = TEXT("multiColumn");
-	else
-		edgeStr = TEXT("no");
-
 	generic_string edgeColumnPosStr;
 	for (auto i : _svp._edgeMultiColumnPos)
 	{
@@ -5499,8 +5478,7 @@ bool NppParameters::writeScintillaParams()
 		edgeColumnPosStr += generic_string(s.begin(), s.end());
 		edgeColumnPosStr += TEXT(" ");
 	}
-	(scintNode->ToElement())->SetAttribute(TEXT("edge"), edgeStr);
-	(scintNode->ToElement())->SetAttribute(TEXT("edgeNbColumn"), _svp._edgeNbColumn);
+	(scintNode->ToElement())->SetAttribute(TEXT("isEdgeBgMode"), _svp._isEdgeBgMode ? TEXT("yes") : TEXT("no"));
 	(scintNode->ToElement())->SetAttribute(TEXT("edgeMultiColumnPos"), edgeColumnPosStr);
 	(scintNode->ToElement())->SetAttribute(TEXT("zoom"), _svp._zoom);
 	(scintNode->ToElement())->SetAttribute(TEXT("zoom2"), _svp._zoom2);

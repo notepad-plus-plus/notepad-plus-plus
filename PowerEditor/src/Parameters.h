@@ -920,8 +920,8 @@ struct ScintillaViewParams
 	bool _currentLineHilitingShow = true;
 	bool _wrapSymbolShow = false;
 	bool _doWrap = false;
-	int _edgeMode = EDGE_NONE;
-	int _edgeNbColumn = 80;
+	bool _isEdgeBgMode = false;
+
 	std::vector<size_t> _edgeMultiColumnPos;
 	int _zoom = 0;
 	int _zoom2 = 0;

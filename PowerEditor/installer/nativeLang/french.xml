@@ -725,6 +725,7 @@
                     <Item id="6234" name="Désactiver le défilement avancé
 (en cas de problème du pavé tactile)"/>
                     <Item id="6211" name="Marqueur de colonne"/>
+                    <Item id="6213" name="Colorer l’arrière-plan"/>
                     <Item id="6237" name="Ajoutez votre marqueur de colonne en indiquant sa position avec un nombre entier.
 Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour séparer les différents nombres."/>
                     <Item id="6214" name="Surligner la ligne actuelle"/>

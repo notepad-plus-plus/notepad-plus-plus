@@ -748,11 +748,9 @@
                     <Item id="6209" name="Number of columns :"/>
                     <Item id="6234" name="Disable advanced scrolling feature
 (if you have touchpad problem)"/>
-
                     <Item id="6211" name="Vertical Edge Settings"/>
-                    <Item id="6212" name="Line mode"/>
-                    <Item id="6213" name="Background mode"/>
-                    <Item id="6237" name="Multi-line mode"/>
+                    <Item id="6237" name="Add your column marker by indicating its position with a decimal number.
+You can define several column markers by using white space to separate the different numbers."/>
                     <Item id="6214" name="Enable current line highlighting"/>
                     <Item id="6215" name="Enable smooth font"/>
                     <Item id="6231" name="Border Width"/>
@@ -1267,8 +1265,6 @@ Find in all files except exe, obj &amp;&amp; log:
             <summary-nbsel1 value=" selected characters ("/>
             <summary-nbsel2 value=" bytes) in "/>
             <summary-nbrange value=" ranges"/>
-            <multi-edge-radio-tip value="Add your column marker by indicating its position with a decimal number.
-You can define several column markers by using white space to separate the different numbers."/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

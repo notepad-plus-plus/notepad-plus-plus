@@ -271,6 +271,9 @@ void ShortcutMapper::fillOutBabyGrid()
 			::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_MODIFY), true);
 			::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_CLEAR), true);
 			::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_DELETE), false);
+			::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_MOVE_UP), false);
+			::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_MOVE_DOWN), false);
+			::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_SORT), false);
 		}
 		break;
 
@@ -300,6 +303,9 @@ void ShortcutMapper::fillOutBabyGrid()
             ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_MODIFY), shouldBeEnabled);
             ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_CLEAR), shouldBeEnabled);
             ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_DELETE), shouldBeEnabled);
+			::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_MOVE_UP), shouldBeEnabled);
+			::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_MOVE_DOWN), shouldBeEnabled);
+			::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_SORT), shouldBeEnabled);
 		}
 		break;
 
@@ -330,6 +336,9 @@ void ShortcutMapper::fillOutBabyGrid()
             ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_MODIFY), shouldBeEnabled);
             ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_CLEAR), shouldBeEnabled);
             ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_DELETE), shouldBeEnabled);
+			::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_MOVE_UP), false);
+			::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_MOVE_DOWN), false);
+			::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_SORT), false);
 		}
 		break;
 
@@ -360,6 +369,9 @@ void ShortcutMapper::fillOutBabyGrid()
             ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_MODIFY), shouldBeEnabled);
             ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_CLEAR), shouldBeEnabled);
             ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_DELETE), false);
+			::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_MOVE_UP), false);
+			::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_MOVE_DOWN), false);
+			::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_SORT), false);
 		}
 		break;
 
@@ -398,6 +410,9 @@ void ShortcutMapper::fillOutBabyGrid()
             ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_MODIFY), true);
             ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_CLEAR), false);
             ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_DELETE), false);
+			::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_MOVE_UP), false);
+			::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_MOVE_DOWN), false);
+			::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_SORT), false);
 		}
 		break;
 	}
@@ -1114,6 +1129,158 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					{
 						fillOutBabyGrid();
 					}
+					return TRUE;
+				}
+				case IDM_BABYGRID_MOVE_UP:
+				{
+					if (_babygrid.getNumberRows() < 1)
+						return TRUE;
+
+					NppParameters& nppParam = NppParameters::getInstance();
+					int row = _babygrid.getSelectedRow();
+					size_t shortcutIndex = _shortcutIndex[row - 1];
+
+					switch (_currentState)
+					{
+						case STATE_MENU:
+						case STATE_PLUGIN:
+						case STATE_SCINTILLA:
+						case STATE_USER:
+						{
+							return FALSE;			//this is bad
+						}
+						case STATE_MACRO:
+						{
+							if (shortcutIndex <= 0)
+							{
+								return TRUE;		//We can't move the top-most macro up, so immediately return
+							}
+
+							//Get MacroShortcut corresponding to row
+							vector<MacroShortcut> & shortcuts = nppParam.getMacroList();
+							MacroShortcut msc = shortcuts[shortcutIndex], prevmsc = shortcuts[shortcutIndex - 1];
+
+							//swap selected shortcut with shortcut directly above it
+							shortcuts[shortcutIndex] = prevmsc;
+							shortcuts[shortcutIndex - 1] = msc;
+
+
+							//save the current view
+							_lastHomeRow[_currentState] = _babygrid.getHomeRow();
+							_lastCursorRow[_currentState] = _babygrid.getSelectedRow() - 1;
+							fillOutBabyGrid();
+
+							//Notify current Accelerator class to update everything
+							nppParam.getAccelerator()->updateShortcuts();
+							nppParam.setShortcutDirty();
+						}
+						break;
+					}
+
+					return TRUE;
+				}
+				case IDM_BABYGRID_MOVE_DOWN:
+				{
+					if (_babygrid.getNumberRows() < 1)
+						return TRUE;
+
+					NppParameters& nppParam = NppParameters::getInstance();
+					int row = _babygrid.getSelectedRow();
+					size_t shortcutIndex = _shortcutIndex[row - 1];
+
+					switch (_currentState)
+					{
+						case STATE_MENU:
+						case STATE_PLUGIN:
+						case STATE_SCINTILLA:
+						case STATE_USER:
+						{
+							return FALSE;			//this is bad
+						}
+						case STATE_MACRO:
+						{
+							if (shortcutIndex >= _shortcutIndex.size() - 1)
+							{
+								return TRUE;		//We can't move the bottom-most macro down, so immediately return
+							}
+
+							//Get MacroShortcut corresponding to row
+							vector<MacroShortcut> & shortcuts = nppParam.getMacroList();
+							MacroShortcut msc = shortcuts[shortcutIndex], nextmsc = shortcuts[shortcutIndex + 1];
+
+							//swap selected shortcut with shortcut directly above it
+							shortcuts[shortcutIndex] = nextmsc;
+							shortcuts[shortcutIndex + 1] = msc;
+
+
+							//save the current view
+							_lastHomeRow[_currentState] = _babygrid.getHomeRow();
+							_lastCursorRow[_currentState] = _babygrid.getSelectedRow() + 1;
+							fillOutBabyGrid();
+
+							//Notify current Accelerator class to update everything
+							nppParam.getAccelerator()->updateShortcuts();
+							nppParam.setShortcutDirty();
+						}
+						break;
+					}
+
+					return TRUE;
+				}
+				case IDM_BABYGRID_SORT:
+				{
+					if (_babygrid.getNumberRows() <= 1)
+						return TRUE;
+
+					NppParameters& nppParam = NppParameters::getInstance();
+					int row = _babygrid.getSelectedRow();
+					size_t shortcutIndex = _shortcutIndex[row - 1];
+
+					switch (_currentState)
+					{
+						case STATE_MENU:
+						case STATE_PLUGIN:
+						case STATE_SCINTILLA:
+						case STATE_USER:
+						{
+							return FALSE;			//this is bad
+						}
+						case STATE_MACRO:
+						{
+
+							vector<MacroShortcut> & shortcuts = nppParam.getMacroList();
+							MacroShortcut selected = shortcuts[shortcutIndex];
+
+							//sort Macros with lambda function comparator
+							sort(shortcuts.begin(), shortcuts.end(),
+								[](MacroShortcut const& a, MacroShortcut const& b) -> bool
+							{
+								return _tcscmp(a.getName(), b.getName()) < 0;
+							}
+							);
+
+							//find position of the selected Macro after the sort
+							size_t i = 0;
+							for (i; i < shortcuts.size(); i++)
+							{
+								if (shortcuts[i] == selected)
+								{
+									break;
+								}
+							}
+
+							//save the current view
+							_lastHomeRow[_currentState] = _babygrid.getHomeRow();
+							_lastCursorRow[_currentState] = i + 1;
+							fillOutBabyGrid();
+
+							//Notify current Accelerator class to update everything
+							nppParam.getAccelerator()->updateShortcuts();
+							nppParam.setShortcutDirty();
+						}
+						break;
+					}
+
 					return TRUE;
 				}
 			}

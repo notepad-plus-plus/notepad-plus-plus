@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2020-04-14 by schnurlos (schnurlos@gmail.com)
+	last modified: 2020-04-19 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -757,12 +757,10 @@
 					<Item id="6206" name="Zeilennummernrand"/>
 					<Item id="6207" name="Lesezeichenrand"/>
 					<Item id="6208" name="Randbegrenzung anzeigen"/>
-					<Item id="6209" name="Anzahl der Spalten:"/>
 					<Item id="6234" name="Flüssiges Scrollen deaktivieren&#x0A;(bei Touchpad-Problemen)"/>
 					<Item id="6211" name="Rechter Rand"/>
-					<Item id="6212" name="Vertikale Linie"/>
 					<Item id="6213" name="Farbiger Hintergrund"/>
-					<Item id="6237" name="Mehrzeiliger Modus"/>
+					<Item id="6237" name="Es können Spaltenmarkierung hinzugefügt werden, indem ihre Position mit einer Dezimalzahl angeben wird.&#x0A;Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Zahlen durch Leerzeichen getrennt werden."/>
 					<Item id="6214" name="Aktuelle Zeile hervorheben"/>
 					<Item id="6215" name="Kantenglättung der Schriftarten"/>
 					<Item id="6231" name="Rahmenbreite"/>
@@ -1234,7 +1232,6 @@
 			<summary-nbsel1 value=" gewählte Zeichen ("/>
 			<summary-nbsel2 value=" Bytes) in "/>
 			<summary-nbrange value=" Stufen"/>
-			<multi-edge-radio-tip value="Es können Spaltenmarkierung hinzugefügt werden, indem ihre Position mit einer Dezimalzahl angeben wird.&#x0A;Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Zahlen durch Leerzeichen getrennt werden."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

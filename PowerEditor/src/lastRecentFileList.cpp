@@ -157,10 +157,22 @@ void LastRecentFileList::updateMenu()
 	{
 		::RemoveMenu(_hMenu, _lrfl.at(i)._id, MF_BYCOMMAND);
 	}
+
+	size_t separator = 0;
 	//Then readd them, so everything stays in sync
 	for (int j = 0; j < _size; ++j)
 	{
-		generic_string strBuffer(BuildMenuFileName(nppParam.getRecentFileCustomLength(), j, _lrfl.at(j)._name));
+		generic_string filepath = _lrfl.at(j)._name;
+		separator = filepath.find_last_of('\\');
+		if (separator != std::wstring::npos)
+		{
+			generic_string filename = filepath.substr(separator + 1);
+			filepath.insert(filepath.begin(), '(');
+			filepath.insert(filepath.begin(), ' ');
+			filepath.insert(0, filename);
+			filepath.insert(filepath.end(), ')');
+		}
+		generic_string strBuffer(BuildMenuFileName(nppParam.getRecentFileCustomLength(), j, filepath));
 		::InsertMenu(_hMenu, _posBase + j, MF_BYPOSITION, _lrfl.at(j)._id, strBuffer.c_str());
 	}
 	

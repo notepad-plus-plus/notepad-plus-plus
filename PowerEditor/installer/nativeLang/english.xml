@@ -1209,6 +1209,11 @@ Continue?"/>
 
 Find in all files except exe, obj &amp;&amp; log:
 *.* !*.exe !*.obj !*.log"/>
+            <inselection-checkbox-tip value = "Applies ONLY to:
+- Count
+- Find All in Curr Doc
+- Replace All
+- Mark / Clear"/>
             <find-status-top-reached value="Find: Found the 1st occurrence from the bottom. The beginning of the document has been reached."/>
             <find-status-end-reached value="Find: Found the 1st occurrence from the top. The end of the document has been reached."/>
             <find-status-replaceinfiles-1-replaced value="Replace in Files: 1 occurrence was replaced"/>

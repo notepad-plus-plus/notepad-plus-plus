@@ -363,6 +363,7 @@ private :
 	HWND _shiftTrickUpTip = nullptr;
 	HWND _2ButtonsTip = nullptr;
 	HWND _filterTip = nullptr;
+	HWND _inSelectionTip = nullptr;
 
 	bool _isRTL = false;
 

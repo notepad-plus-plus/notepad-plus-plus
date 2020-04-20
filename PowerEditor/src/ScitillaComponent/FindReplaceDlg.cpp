@@ -248,6 +248,9 @@ FindReplaceDlg::~FindReplaceDlg()
 	if (_filterTip)
 		::DestroyWindow(_filterTip);
 
+	if (_inSelectionTip)
+		::DestroyWindow(_inSelectionTip);
+
 	if (_hMonospaceFont)
 		::DeleteObject(_hMonospaceFont);
 
@@ -892,7 +895,10 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			 generic_string findInFilesFilterTip = pNativeSpeaker->getLocalizedStrFromID("find-in-files-filter-tip", TEXT("Find in cpp, cxx, h, hxx && hpp:\r*.cpp *.cxx *.h *.hxx *.hpp\r\rFind in all files except exe, obj && log:\r*.* !*.exe !*.obj !*.log"));
 			 _filterTip = CreateToolTip(IDD_FINDINFILES_FILTERS_STATIC, _hSelf, _hInst, const_cast<PTSTR>(findInFilesFilterTip.c_str()));
 
-			::SetWindowTextW(::GetDlgItem(_hSelf, IDC_FINDPREV), TEXT("▲"));
+			 generic_string inSelCheckboxTip = pNativeSpeaker->getLocalizedStrFromID("inselection-checkbox-tip", TEXT("Applies ONLY to:\r- Count\r- Find All in Curr Doc\r- Replace All\r- Mark / Clear"));
+			 _inSelectionTip = CreateToolTip(IDC_IN_SELECTION_CHECK, _hSelf, _hInst, const_cast<PTSTR>(inSelCheckboxTip.c_str()));
+			 
+			 ::SetWindowTextW(::GetDlgItem(_hSelf, IDC_FINDPREV), TEXT("▲"));
 			::SetWindowTextW(::GetDlgItem(_hSelf, IDC_FINDNEXT), TEXT("▼ Find Next"));
 			return TRUE;
 		}
@@ -1885,6 +1891,19 @@ int FindReplaceDlg::processAll(ProcessOperation op, const FindOption *opt, bool 
 		startPosition = cr.cpMin;
 		endPosition = cr.cpMax;
 	}
+	else if (op == ProcessFindAll)
+	{
+		if (isEntire || !pOptions->_isInSelection)
+		{
+			startPosition = 0;
+			endPosition = docLength;
+		}
+		else
+		{
+			startPosition = cr.cpMin;
+			endPosition = cr.cpMax;
+		}
+	}
 	else if (pOptions->_isWrapAround || isEntire)	//entire document needs to be scanned
 	{
 		startPosition = 0;
@@ -2446,7 +2465,7 @@ void FindReplaceDlg::enableReplaceFunc(bool isEnable)
 	::ShowWindow(::GetDlgItem(_hSelf, IDREPLACEALL),hideOrShow);
 	::ShowWindow(::GetDlgItem(_hSelf, IDREPLACEINSEL),hideOrShow);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_REPLACE_OPENEDFILES),hideOrShow);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_REPLACEINSELECTION), SW_SHOW);
+	::ShowWindow(::GetDlgItem(_hSelf, IDC_REPLACEINSELECTION), hideOrShow);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_IN_SELECTION_CHECK), SW_SHOW);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_2_BUTTONS_MODE), SW_SHOW);
 	bool is2ButtonMode = isCheckedOrNot(IDC_2_BUTTONS_MODE);

@@ -2844,7 +2844,7 @@ void FindReplaceDlg::clearMarks(const FindOption& opt)
 		int endPosition = cr.cpMax;
 
 		(*_ppEditView)->execute(SCI_SETINDICATORCURRENT, SCE_UNIVERSAL_FOUND_STYLE);
-		(*_ppEditView)->execute(SCI_INDICATORCLEARRANGE, startPosition, endPosition);
+		(*_ppEditView)->execute(SCI_INDICATORCLEARRANGE, startPosition, endPosition - startPosition);
 
 		if (opt._doMarkLine)
 		{

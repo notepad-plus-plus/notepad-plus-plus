@@ -1680,7 +1680,7 @@ bool Notepad_plus::findInFinderFiles(FindersInfo *findInFolderInfo)
 	}
 	progress.close();
 
-	findInFolderInfo->_pDestFinder->finishFilesSearch(nbTotal, findInFolderInfo->_findOption._isMatchLineNumber);
+	findInFolderInfo->_pDestFinder->finishFilesSearch(nbTotal, int(filesCount), findInFolderInfo->_findOption._isMatchLineNumber);
 
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, oldDoc);
 	_pEditView = pOldView;
@@ -1766,7 +1766,7 @@ bool Notepad_plus::findInFiles()
 
 	progress.close();
 
-	_findReplaceDlg.finishFilesSearch(nbTotal);
+	_findReplaceDlg.finishFilesSearch(nbTotal, int(filesCount));
 
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, oldDoc);
 	_pEditView = pOldView;
@@ -1807,7 +1807,9 @@ bool Notepad_plus::findInOpenedFiles()
 	    }
     }
 
-    if (_mainWindowStatus & WindowSubActive)
+	size_t nbUniqueBuffers = _mainDocTab.nbItem();
+
+	if (_mainWindowStatus & WindowSubActive)
     {
 		for (size_t i = 0, len2 = _subDocTab.nbItem(); i < len2 ; ++i)
 	    {
@@ -1822,10 +1824,11 @@ bool Notepad_plus::findInOpenedFiles()
 			FindersInfo findersInfo;
 			findersInfo._pFileName = pBuf->getFullPathName();
 			nbTotal += _findReplaceDlg.processAll(ProcessFindAll, FindReplaceDlg::_env, isEntireDoc, &findersInfo);
+			++nbUniqueBuffers;
 	    }
     }
 
-	_findReplaceDlg.finishFilesSearch(nbTotal);
+	_findReplaceDlg.finishFilesSearch(nbTotal, int(nbUniqueBuffers));
 
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, oldDoc);
 	_pEditView = pOldView;
@@ -1858,7 +1861,7 @@ bool Notepad_plus::findInCurrentFile()
 	findersInfo._pFileName = pBuf->getFullPathName();
 	nbTotal += _findReplaceDlg.processAll(ProcessFindAll, FindReplaceDlg::_env, isEntireDoc, &findersInfo);
 
-	_findReplaceDlg.finishFilesSearch(nbTotal);
+	_findReplaceDlg.finishFilesSearch(nbTotal, 1);
 
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, oldDoc);
 	_pEditView = pOldView;

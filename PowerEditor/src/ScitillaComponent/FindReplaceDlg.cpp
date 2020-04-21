@@ -3144,18 +3144,18 @@ void Finder::addFileHitCount(int count)
 	++_nbFoundFiles;
 }
 
-void Finder::addSearchHitCount(int count, bool isMatchLines)
+void Finder::addSearchHitCount(int count, int countSearched, bool isMatchLines)
 {
 	const TCHAR *moreInfo = isMatchLines ? TEXT(" - Line Filter Mode: only display the filtered results") :TEXT("");
 	TCHAR text[100];
 	if (count == 1 && _nbFoundFiles == 1)
-		wsprintf(text, TEXT(" (1 hit in 1 file%s)"), moreInfo);
+		wsprintf(text, TEXT(" (1 hit in 1 file of %i searched%s)"), countSearched, moreInfo);
 	else if (count == 1 && _nbFoundFiles != 1)
-		wsprintf(text, TEXT(" (1 hit in %i files%s)"), _nbFoundFiles, moreInfo);
+		wsprintf(text, TEXT(" (1 hit in %i files of %i searched%s)"), _nbFoundFiles, countSearched, moreInfo);
 	else if (count != 1 && _nbFoundFiles == 1)
-		wsprintf(text, TEXT(" (%i hits in 1 file%s)"), count, moreInfo);
+		wsprintf(text, TEXT(" (%i hits in 1 file of %i searched%s)"), count, countSearched, moreInfo);
 	else if (count != 1 && _nbFoundFiles != 1)
-		wsprintf(text, TEXT(" (%i hits in %i files%s)"), count, _nbFoundFiles, moreInfo);
+		wsprintf(text, TEXT(" (%i hits in %i files of %i searched%s)"), count, _nbFoundFiles, countSearched, moreInfo);
 	setFinderReadOnly(false);
 	_scintView.insertGenericTextFrom(_lastSearchHeaderPos, text);
 	setFinderReadOnly(true);
@@ -3290,7 +3290,7 @@ void Finder::beginNewFilesSearch()
 	_scintView.collapse(searchHeaderLevel - SC_FOLDLEVELBASE, fold_collapse);
 }
 
-void Finder::finishFilesSearch(int count, bool isMatchLines)
+void Finder::finishFilesSearch(int count, int searchedCount, bool isMatchLines)
 {
 	std::vector<FoundInfo>* _pOldFoundInfos;
 	std::vector<SearchResultMarking>* _pOldMarkings;
@@ -3308,7 +3308,7 @@ void Finder::finishFilesSearch(int count, bool isMatchLines)
 	if (_pMainMarkings->size() > 0)
 		_markingsStruct._markings = &((*_pMainMarkings)[0]);
 
-	addSearchHitCount(count, isMatchLines);
+	addSearchHitCount(count, searchedCount, isMatchLines);
 	_scintView.execute(SCI_SETSEL, 0, 0);
 
 	_scintView.execute(SCI_SETLEXER, SCLEX_SEARCHRESULT);

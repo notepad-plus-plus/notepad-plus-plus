@@ -1,13 +1,12 @@
-Notepad++ v7.8.5 Enhancement & bug-fixes:
+Notepad++ v7.8.6 Enhancement & bug-fixes:
 
-1.  Fix "Monitoring" not detecting all file changes issue.
-2.  Fix auto-updater disabling not working regression.
-3.  Fix Notepad++ doesn't exit correctly while Windows 10 update restart.
-4.  Make Count command in Find dialog respect Backward-direction and Wrap-around options.
-5.  Make Find dialog remember its position across runs.
-6.  Add the document size column to the Windows Selection dialog.
-7.  Make "View Current File in(browser)" commands macro recordable.
-8.  Add external sound control capability for unsuccessful search (in Find dialog) bell.
+1.  Add multi-column marker (multi-line edge) feature.
+2.  Add dynamical sorting feature for Folder as Workspace.
+3.  Make MRU tab activate instead of rightmost tab while tab closure (if MRU enabled).
+4.  Fix folding state lost on the next startup issue.
+5.  Make Replace-in-Files confirmation dialog modal to prevent from crashing.
+6.  Add support of smart-indenting for Perl and Rust.
+7.  Make recorded macro (IDC_FINDNEXT & IDC_FINDPREV)retro-compatible up to 7.8.4.
 
 
 Included plugins:

@@ -211,7 +211,8 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 	if (isFileWorkspace(longFileName) && PathFileExists(longFileName))
 	{
 		nppParam.setWorkSpaceFilePath(0, longFileName);
-		command(IDM_VIEW_PROJECT_PANEL_1);
+		_isWorkspaceFileLoadedFromCommandLine = true;
+//		command(IDM_VIEW_PROJECT_PANEL_1);
 		return BUFFER_INVALID;
 	}
 

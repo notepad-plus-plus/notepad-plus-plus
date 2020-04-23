@@ -1192,12 +1192,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					if ((lstrlen(directory) > 0) && (directory[lstrlen(directory)-1] != '\\'))
 						_options._directory += TEXT("\\");
 
-					generic_string msg = TEXT("Are you sure you want to replace all occurrences in :\r");
-					msg += _options._directory;
-					msg += TEXT("\rfor file type : ");
-					msg += _options._filters[0]?_options._filters:TEXT("*.*");
-					int res = ::MessageBox(NULL, msg.c_str(), TEXT("Are you sure?"), MB_OKCANCEL | MB_DEFBUTTON2 | MB_TASKMODAL);
-					if (res == IDOK)
+					if (replaceInFilesConfirmCheck(_options._directory, _options._filters))
 					{
 						HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
 						_options._str2Search = getTextFromCombo(hFindCombo);
@@ -2712,12 +2707,7 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const generic_st
 
 					case IDD_FINDINFILES_REPLACEINFILES:
 					{
-						generic_string msg = TEXT("Are you sure you want to replace all occurrences in :\r");
-						msg += _env->_directory;
-						msg += TEXT("\rfor file type : ");
-						msg += (_env->_filters[0]) ? _env->_filters : TEXT("*.*");
-
-						if (::MessageBox(_hParent, msg.c_str(), TEXT("Are you sure?"), MB_OKCANCEL | MB_DEFBUTTON2) == IDOK)
+						if (replaceInFilesConfirmCheck(_env->_directory, _env->_filters))
 						{
 							nppParamInst._isFindReplacing = true;
 							::SendMessage(_hParent, WM_REPLACEINFILES, 0, 0);
@@ -3079,6 +3069,36 @@ void FindReplaceDlg::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	RECT rect;
 	_statusBar.getClientRect(rect);
 	::DrawText(lpDrawItemStruct->hDC, ptStr, lstrlen(ptStr), &rect, DT_SINGLELINE | DT_VCENTER | DT_LEFT);
+}
+
+bool FindReplaceDlg::replaceInFilesConfirmCheck(generic_string directory, generic_string fileTypes)
+{
+	bool confirmed = false;
+
+	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+
+	generic_string title = pNativeSpeaker->getLocalizedStrFromID("replace-in-files-confirm-title", TEXT("Are you sure?"));
+
+	generic_string msg = pNativeSpeaker->getLocalizedStrFromID("replace-in-files-confirm-directory", TEXT("Are you sure you want to replace all occurrences in :"));
+	msg += TEXT("\r\r");
+	msg += directory;
+
+	msg += TEXT("\r\r");
+
+	generic_string msg2 = pNativeSpeaker->getLocalizedStrFromID("replace-in-files-confirm-filetype", TEXT("For file type :"));
+	msg2 += TEXT("\r\r");
+	msg2 += fileTypes[0] ? fileTypes : TEXT("*.*");
+
+	msg += msg2;
+
+	int res = ::MessageBox(NULL, msg.c_str(), title.c_str(), MB_OKCANCEL | MB_DEFBUTTON2 | MB_TASKMODAL);
+
+	if (res == IDOK)
+	{
+		confirmed = true;
+	}
+
+	return confirmed;
 }
 
 void Finder::addSearchLine(const TCHAR *searchName)

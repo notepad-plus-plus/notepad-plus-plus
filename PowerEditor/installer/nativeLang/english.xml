@@ -1265,6 +1265,9 @@ Find in all files except exe, obj &amp;&amp; log:
             <summary-nbsel1 value=" selected characters ("/>
             <summary-nbsel2 value=" bytes) in "/>
             <summary-nbrange value=" ranges"/>
+            <replace-in-files-confirm-title value="Are you sure?"/>
+            <replace-in-files-confirm-directory value="Are you sure you want to replace all occurrences in :"/>
+            <replace-in-files-confirm-filetype value="For file type :"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

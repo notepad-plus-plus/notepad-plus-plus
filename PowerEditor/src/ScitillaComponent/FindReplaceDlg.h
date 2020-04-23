@@ -410,7 +410,7 @@ private :
 	static const int FR_OP_GLOBAL = 8;
 	void saveInMacro(size_t cmd, int cmdType);
 	void drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct);
-
+	bool replaceInFilesConfirmCheck(generic_string directory, generic_string fileTypes);
 };
 
 //FindIncrementDlg: incremental search dialog, docked in rebar

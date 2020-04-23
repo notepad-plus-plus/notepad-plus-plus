@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 7.8.3  2/Jan/2020  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 7.8.7  27/May/2020  by Ondřej Müller (mullero@email.cz)
 	- N++ Community:  https://notepad-plus-plus.org/community/topic/87/czech-translations
-	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz)
+	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="7.8.3">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="7.8.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -427,7 +427,7 @@
 				<Item id = "1660" name = "Nah&amp;radit v souborech"/>
 				<Item id = "1661" name = "Podle aktuál. dokumentu"/>
 				<Item id = "1686" name = "Průhle&amp;dnost"/>
-				<Item id = "1703" name = "&amp;. označuje nový řádek"/>
+				<Item id = "1703" name = "&amp;. označuje nový ř."/>
 				<Item id = "1721" name = "▲"/> 
 				<Item id = "1722" name = "Zpětný směr"/>
 				<Item id = "1723" name = "▼ Najít další"/>
@@ -801,10 +801,9 @@
 					<Item id = "6206" name = "Zobrazit okrajový pruh s čísly řádků"/>
 					<Item id = "6207" name = "Zobrazit okrajový pruh záložek"/>
 					<Item id = "6208" name = "Zobrazit"/>
-					<Item id = "6209" name = "Počet sloupců: "/>
-					<Item id = "6211" name = "Nastavení pravého okraje (vodící čáry)"/>
+					<Item id = "6211" name = "Nastavení svislé vodící čáry"/>
 					<Item id = "6212" name = "Okraj"/>
-					<Item id = "6213" name = "Zvýraznit přesah řádky"/>
+					<Item id = "6213" name = "Režim s pozadím"/>
 					<Item id = "6214" name = "Zvýraznit aktivní řádek"/>
 					<Item id = "6215" name = "Povolit vyhlazování fontu"/>
 					<Item id = "6216" name = "Nastavení kurzoru"/>
@@ -823,6 +822,8 @@
 					<Item id = "6234" name = "Zakázat funkci vylepšeného rolování (jestliže máte problém s touchpadem)"/>
 					<Item id = "6235" name = "Bez okraje"/>
 					<Item id = "6236" name = "Povolit rolování za poslední řádku"/>
+					<Item id = "6237" name = "Přidejte Vaši sloupcovou značku poukázáním na její pozici (decimální číslo).
+Můžete definovat více značek sloupců použitím více čísel oddělených mezerami."/>
 				</Scintillas>
 				<NewDoc title = "Nový dokument">
 					<Item id = "6401" name = "Formát"/>
@@ -844,7 +845,7 @@
 					<Item id = "6413" name = "Implicitní adresář pro otevírání/ukládání souborů"/>
 					<Item id = "6414" name = "Podle aktuálního dokumentu"/>
 					<Item id = "6415" name = "Zapamatovat si poslední používaný adresář"/>
-					<Item id = "6430" name = "Použít nový styl dialogu (bez zvýraznění typu souboru a cest v Unix-stylu)"/>
+					<Item id = "6430" name = "Použít nový styl dialogu (bez možnosti Unixových cest /)"/>
 					<Item id = "6431" name = "Otevírat všechny soubory ve složce při přetažení myší (místo zdroje pro pracovní plochu)"/>
 				</DefaultDir>
 				<FileAssoc title = "Asociovat se soubory">
@@ -941,7 +942,7 @@
 					<Item id = "6344" name = "Náhled na neaktivní dokument"/>
 					<Item id = "6345" name = "Na oušku (tab) dokumentu"/>
 					<Item id = "6346" name = "Na přehledné mapě dokumentu"/>
-					<Item id = "6348" name = "Nevyplňovat pole Najít ve stejnojmeném dialogu vybraným slovem"/>
+					<Item id = "6348" name = "Nevyplňovat pole Najít (v dialogu Najít) vybraným slovem"/>
 				</MISC>
 				<Backup title = "Zálohování">
 					<Item id = "6219" name = "Uživatelsky definovaný adresář pro zálohování"/>
@@ -1058,7 +1059,7 @@
 				<Item id = "1717" name = "Normální"/>
 				<Item id = "1719" name = "Regulární &amp;výrazy"/>
 				<Item id = "1718" name = "Rozšířený (\n, \r, \t, \0, \x...)"/>
-				<Item id = "1720" name = "&amp;. označuje nový řádek"/>
+				<Item id = "1720" name = "&amp;. označuje nový ř."/>
 			</FindInFinder>
 			
 			<DoSaveOrNot title="Ukládání"> 
@@ -1146,6 +1147,7 @@
 			<ColumnName name="Jméno"/>
 			<ColumnPath name="Cesta"/>
 			<ColumnType name="Typ"/>
+			<ColumnSize name="Velikost"/>
 		</WindowsDlg>
 		
 		<AsciiInsertion>
@@ -1243,6 +1245,10 @@
 			<cloud-select-folder value = "Vyberte složku, ze/do které Notepad++ načítá/zapisuje svoje nastavení"/>
 			<shift-change-direction-tip value = "Pro změnu směru vyhledávání použijte Shift + Enter."/>
 			<two-find-buttons-tip value = "Mód s dvěma vyhledávacími tlačítky"/>
+			<find-in-files-filter-tip value="Najít v cpp, cxx, h, hxx &amp;&amp; hpp:
+*.cpp *.cxx *.h *.hxx *.hpp
+Najít ve všech souborech mimo exe, obj &amp;&amp; log:
+*.* !*.exe !*.obj !*.log"/>
 			<find-status-top-reached value = "Vyhledávání: Nalezen první výskyt od konce. Bylo dosaženo začátku tohoto dokumentu"/>
 			<find-status-end-reached value = "Vyhledávání: Nalezen první výskyt od začátku. Bylo dosaženo konce tohoto dokumentu"/>
 			<find-status-replaceinfiles-1-replaced value = "Nahrazování v souborech: 1 výskyt nahrazen"/>
@@ -1263,8 +1269,8 @@
 			<find-status-replaceall-readonly value = "Nahrazování všeho: Nemohu nahradit text. Současný dokument je pouze pro čtení"/>
 			<find-status-replace-end-reached value = "Nahrazování: Nahrazen první výskyt od začátku. Bylo dosaženo konce dokumentu"/>
 			<find-status-replace-top-reached value = "Nahrazování: Nahrazen první výskyt od konce. Bylo dosaženo začátku dokumentu"/>
-			<find-status-replaced-next-found value = "Nahrazování: 1 výskyt byl nahrazen. Další výskyt nalezen"/>
-			<find-status-replaced-next-not-found value = "Nahrazování: 1 výskyt byl nahrazen. Další výskyt nenalezen"/>
+			<find-status-replaced-next-found value = "Nahrazování: 1 výskyt byl nahrazen. Další výskyt nalezen."/>
+			<find-status-replaced-next-not-found value = "Nahrazování: 1 výskyt byl nahrazen. Další výskyt nenalezen."/>
 			<find-status-replace-not-found value = "Nahrazování: žádný výskyt nebyl nalezen"/>
 			<find-status-replace-readonly value = "Nahrazování: Nemohu nahradit text. Současný dokument je pouze pro čtení"/>
 			<find-status-cannot-find value = "Vyhledávání: Nemohu nalézt text &quot;$STR_REPLACE$&quot;"/>
@@ -1299,6 +1305,14 @@
 			<summary-nbsel1 value = " vybraných znaků ("/>
 			<summary-nbsel2 value = " bytů) v "/>
 			<summary-nbrange value = " oblastech"/>
+			<replace-in-files-confirm-title value = "Jste si jistí?"/>
+			<replace-in-files-confirm-directory value = "Jste si jistí, že chcete nahradit všechny výskyty v:"/>
+			<replace-in-files-confirm-filetype value = "Pro typ souboru:"/>
+			<find-result-caption value = "Výsledek hledání"/>
+			<find-result-title value = "Vyhledávání"/>
+			<find-result-title-info value = "($INT_REPLACE1$ výskytů v $INT_REPLACE2$ souborech z $INT_REPLACE3$ prohledaných)"/>
+			<find-result-title-info-extra value = " - Režim řádkového filtru: zobrazení pouze filtrovaných výsledků"/>
+			<find-result-hits value = "(výskytů: $INT_REPLACE$)"/>
 		</MiscStrings>
 
 	</Native-Langue>

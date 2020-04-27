@@ -33,6 +33,11 @@ Here are the instructions to build SciLexer.dll (for both 32-bit & 64-bit) for N
  Note that **address-model=64** is optional if you want to build lib in 64 bits. For 32 bits build, just remove **address-model=64** from the command line.
  4. Copy generated message from  `C:\sources\boost_1_70_0\bin.v2\libs\regex\build\msvc-14.1\release\address-model-64\link-static\runtime-link-static\threading-multi\libboost_regex-vc141-mt-s-x64-1_70.lib` to `C:\tmp\boostregexLib\x64\`
  5. Go in `scintilla\win32\` then run `nmake BOOSTPATH=your_boost_root_path BOOSTREGEXLIBPATH=your_built_lib_path -f scintilla.mak`. For example `nmake BOOSTPATH=C:\sources\boost_1_70_0\ BOOSTREGEXLIBPATH=C:\tmp\boostregexLib\x64\ -f scintilla.mak`
+ 6. Copy `SciLexer.dll` from `scintilla\bin\` to the same directory as `notepad++.exe`.
+    - For the `Unicode Release` configuration, the output directory
+      (where `notepad++.exe` is) is `PowerEditor\bin\`.
+    - For the `Unicode Debug` configuration, the output directory
+      (where `notepad++.exe` is) is `PowerEditor\visual.net\Unicode Debug\`.
 
 
 

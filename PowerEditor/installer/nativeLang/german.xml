@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2020-04-19 by schnurlos (schnurlos@gmail.com)
+	last modified: 2020-04-30 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -1232,6 +1232,9 @@
 			<summary-nbsel1 value=" gewählte Zeichen ("/>
 			<summary-nbsel2 value=" Bytes) in "/>
 			<summary-nbrange value=" Stufen"/>
+			<replace-in-files-confirm-title value="Sind Sie sicher?"/>
+			<replace-in-files-confirm-directory value="Sind Sie sicher dass alle Vorkommen ersetzt werden sollen in: "/>
+			<replace-in-files-confirm-filetype value="Für Dateityp: "/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

@@ -1274,6 +1274,9 @@ Hľadať vo všetkých súboroch okrem exe, obj &amp;&amp; log:
             <summary-nbsel1 value=" označených znakov ("/>
             <summary-nbsel2 value=" bajtov) v "/>
             <summary-nbrange value=" oblastiach"/>
+            <replace-in-files-confirm-title value="Naozaj?"/>
+            <replace-in-files-confirm-directory value="Naozaj chcete nahradiť všetky výskyty v :"/>
+            <replace-in-files-confirm-filetype value="Pre typ súboru :"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

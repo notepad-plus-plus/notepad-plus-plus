@@ -3,7 +3,7 @@
 	## Bulgarian localization for Notepad++ ##
 
 	Translators:.....: 2007–2012 – Milen Metev (Tragedy); 2014–yyyy – Rusi Dimitrov
-	Last revision:...: 17.04.2020 by Rusi Dimitrov <astral_86[at]mail[dot]bg>
+	Last revision:...: 27.05.2020 by Rusi Dimitrov <astral_86[at]mail[dot]bg>
 	Download:........: https://gist.github.com/rddim/bd37264898c3a17363e7437bcf1b4803
 -->
 <NotepadPlus>
@@ -796,7 +796,7 @@
 					<Item id="6413" name="Директория по подразбиране (Отваряне / Запис)"/>
 					<Item id="6414" name="Следване на текущия документ"/>
 					<Item id="6415" name="Запомняне на последно използваната директория"/>
-					<Item id="6430" name="Без избор на файлово разш. и поддръжка на UNIX път в прозореца за &quot;Запис като..&quot;"/>
+					<Item id="6430" name="Нов диалогов стил (без поддръжка на UNIX път) в прозореца за &quot;Запис като..&quot;"/>
 					<Item id="6431" name="Отваряне на всички файлове от папката при влаченето ѝ в прозореца"/>
 				</DefaultDir>
 					<!-- История с отваряния -->
@@ -1205,7 +1205,7 @@
 			<find-status-replace-end-reached value="Замяна: Заменено е първото съвпадение от началото. Краят на документа е достигнат"/>
 			<find-status-replace-top-reached value="Замяна: Заменено е първото съвпадение от краят. Началото на документа е достигнато"/>
 			<find-status-replaced-next-found value="Замяна: Заменено е 1 съвпадение. Намерено е следващото съвпадение"/>
-			<find-status-replaced-next-not-found value="Замяна: Заменено е 1 съвпадение. Следващото съвпадение не е намерено"/>
+			<find-status-replaced-next-not-found value="Замяна: Заменено е 1 съвпадение. Не бяха намерени повече съвпадения"/>
 			<find-status-replace-not-found value="Замяна: Не е намерено съвпадение"/>
 			<find-status-replace-readonly value="Замяна: Текстът не може да бъде заменен. Текущият документ е само за четене"/>
 			<find-status-mark-re-malformed value="Маркиране: Регулярният израз за търсене е неправилно формиран"/>
@@ -1227,6 +1227,12 @@
 
 Търсене във всички файлове с изключение на exe, obj и log:
 *.* !*.exe !*.obj !*.log"/>
+				<!-- Меню "Търсене - Търсене във файлове - Намиране на всички" -->
+			<find-result-caption value="Намерени резултати"/>
+			<find-result-title value="Търсене на"/>
+			<find-result-title-info value="($INT_REPLACE1$ съвпадения в $INT_REPLACE2$ файл(а) от $INT_REPLACE3$ претърсен(и))"/>
+			<find-result-title-info-extra value=" - Режим за филтриране на редове: показват се само филтрираните резултати"/>
+			<find-result-hits value="($INT_REPLACE$ съвпадения)"/>
 				<!-- Дясно щракане върху раздел -->
 			<tabrename-title value="Преименуване на текущият раздел"/>
 			<tabrename-newname value="Ново име:"/>
@@ -1253,6 +1259,10 @@
 			<summary-nbsel1 value=" маркиран(и) символ(а) ("/>
 			<summary-nbsel2 value=" байта) в "/>
 			<summary-nbrange value=" обхват(а)"/>
+				<!-- Замяна във файлове -->
+			<replace-in-files-confirm-title value="Сигурни ли сте?"/>
+			<replace-in-files-confirm-directory value="Сигурни ли сте, че искате да бъдат заменени всички съвпадения в:"/>
+			<replace-in-files-confirm-filetype value="За типа файл:"/>
 		</MiscStrings>
 			<!-- Меню "Изглед" - "Карта на документа" -->
 		<DocumentMap>

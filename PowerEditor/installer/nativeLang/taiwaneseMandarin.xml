@@ -1218,6 +1218,9 @@
             <summary-nbsel1 value=" 個選取字元（ "/>
             <summary-nbsel2 value=" 位元）在 "/>
             <summary-nbrange value=" 個選取範圍中"/>
+            <replace-in-files-confirm-title value="確認"/>
+            <replace-in-files-confirm-directory value="是否要替換所有匹配項在此目錄中："/>
+            <replace-in-files-confirm-filetype value="向所有擁有下列副檔名的檔案："/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

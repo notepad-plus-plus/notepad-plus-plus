@@ -1242,6 +1242,9 @@ Rechercher dans tous les fichiers sauf exe, obj &amp;&amp; log:
             <summary-nbsel1 value=" caractères sélectionnés ("/>
             <summary-nbsel2 value=" octets) dans "/>
             <summary-nbrange value=" sélections"/>
+            <replace-in-files-confirm-title value="Confirmation"/>
+            <replace-in-files-confirm-directory value="Voulez-vous remplacer toutes les occurrences dans :"/>
+            <replace-in-files-confirm-filetype value="Pour le(s) type(s) de fichier :"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     History of Corsican translation for Notepad++
-		- Updated on April 14th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.6
+		- Updated on May 1st, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.6
 		- Updated on January 8th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.3
 		- Updated on October 31st, 2019 by Patriccollu di Santa Maria è Sichè for version 7.8.1
 		- Updated on July 29th, 2019 by Patriccollu di Santa Maria è Sichè for version 7.7.2
@@ -1284,6 +1284,9 @@ Circà in tutti i schedarii fora di exe, obj &amp;&amp; log:
             <summary-nbsel1 value=" caratteri selezziunati ("/>
             <summary-nbsel2 value=" ottetti) in "/>
             <summary-nbrange value=" selezzioni"/>
+            <replace-in-files-confirm-title value="Cunfirmazione"/>
+            <replace-in-files-confirm-directory value="Vulete rimpiazzà tutte l’occurrenze in :"/>
+            <replace-in-files-confirm-filetype value="Per u(i) tipu(i) di schedariu :"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

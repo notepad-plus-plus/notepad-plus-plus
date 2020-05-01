@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="7.8.6">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="7.8.7">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -1272,6 +1272,9 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <summary-nbsel1 value=" 文字を選択（"/>
             <summary-nbsel2 value=" バイト）/ "/>
             <summary-nbrange value=" 個の選択範囲"/>
+            <replace-in-files-confirm-title value="本当によろしいですか？"/>
+            <replace-in-files-confirm-directory value="下記ディレクトリ内の該当箇所をすべて置換しようとしています。よろしいですか？"/>
+            <replace-in-files-confirm-filetype value="ファイルの種類："/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="7.8.6">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="7.8.7">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -785,7 +785,7 @@
                     <Item id="6413" name="既定ディレクトリ(開く/保存)"/>
                     <Item id="6414" name="現在の文書に従う"/>
                     <Item id="6415" name="最後に使ったディレクトリ"/>
-                    <Item id="6430" name="新しいファイルダイアログ(拡張子なしでも保存。Unix 式のパス区切りも開く)"/>
+                    <Item id="6430" name="新しいファイルダイアログ(Unix 式のパスは解釈できません)"/>
                     <Item id="6431" name="フォルダーをドロップした時、ワークスペースとせずに すべてのファイルを開く"/>
                 </DefaultDir>
 
@@ -1272,6 +1272,14 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <summary-nbsel1 value=" 文字を選択（"/>
             <summary-nbsel2 value=" バイト）/ "/>
             <summary-nbrange value=" 個の選択範囲"/>
+            <replace-in-files-confirm-title value="本当によろしいですか？"/>
+            <replace-in-files-confirm-directory value="下記ディレクトリ内の該当箇所をすべて置換しようとしています。よろしいですか？"/>
+            <replace-in-files-confirm-filetype value="ファイルの種類："/>
+            <find-result-caption value="検索結果"/>
+            <find-result-title value="検索文字列"/>
+            <find-result-title-info value="($INT_REPLACE1$ 件が $INT_REPLACE2$ 個のファイル内で一致しました。検索ファイル数は $INT_REPLACE3$ 個)"/>
+            <find-result-title-info-extra value=" - 絞り込まれた検索結果のみを表示しています"/>
+            <find-result-hits value="($INT_REPLACE$ 件の一致)"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

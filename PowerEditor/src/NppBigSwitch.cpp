@@ -219,7 +219,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case WM_FINDALL_INCURRENTDOC:
 		{
-			return findInCurrentFile();
+			bool searchScopeIsSelectedText = (wParam == 0) ? false : true;
+			return findInCurrentFile(searchScopeIsSelectedText);
 		}
 
 		case WM_FINDINFILES:

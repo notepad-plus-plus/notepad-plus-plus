@@ -248,6 +248,9 @@ FindReplaceDlg::~FindReplaceDlg()
 	if (_filterTip)
 		::DestroyWindow(_filterTip);
 
+	if (_inSelectionTip)
+		::DestroyWindow(_inSelectionTip);
+
 	if (_hMonospaceFont)
 		::DeleteObject(_hMonospaceFont);
 
@@ -892,7 +895,10 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			 generic_string findInFilesFilterTip = pNativeSpeaker->getLocalizedStrFromID("find-in-files-filter-tip", TEXT("Find in cpp, cxx, h, hxx && hpp:\r*.cpp *.cxx *.h *.hxx *.hpp\r\rFind in all files except exe, obj && log:\r*.* !*.exe !*.obj !*.log"));
 			 _filterTip = CreateToolTip(IDD_FINDINFILES_FILTERS_STATIC, _hSelf, _hInst, const_cast<PTSTR>(findInFilesFilterTip.c_str()));
 
-			::SetWindowTextW(::GetDlgItem(_hSelf, IDC_FINDPREV), TEXT("▲"));
+			 generic_string inSelCheckboxTip = pNativeSpeaker->getLocalizedStrFromID("inselection-checkbox-tip", TEXT("Applies ONLY to:\r- Count\r- Find All in Curr Doc\r- Replace All\r- Mark / Clear"));
+			 _inSelectionTip = CreateToolTip(IDC_IN_SELECTION_CHECK, _hSelf, _hInst, const_cast<PTSTR>(inSelCheckboxTip.c_str()));
+
+			 ::SetWindowTextW(::GetDlgItem(_hSelf, IDC_FINDPREV), TEXT("▲"));
 			::SetWindowTextW(::GetDlgItem(_hSelf, IDC_FINDNEXT), TEXT("▼ Find Next"));
 			return TRUE;
 		}
@@ -1138,7 +1144,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 					nppParamInst._isFindReplacing = true;
 					if (isMacroRecording) saveInMacro(wParam, FR_OP_FIND + FR_OP_GLOBAL);
-					findAllIn(CURRENT_DOC);
+					findAllIn(_options._isInSelection ? CURR_DOC_SELECTION : CURRENT_DOC);
 					nppParamInst._isFindReplacing = false;
 				}
 				return TRUE;
@@ -1887,7 +1893,7 @@ int FindReplaceDlg::processAll(ProcessOperation op, const FindOption *opt, bool 
 	}
 	
 	//then readjust scope if the selection override is active and allowed
-	if ((pOptions->_isInSelection) && ((op == ProcessMarkAll) || ((op == ProcessReplaceAll) && (!isEntire))))	//if selection limiter and either mark all or replace all w/o entire document override
+	if ((pOptions->_isInSelection) && ((op == ProcessMarkAll) || ((op == ProcessReplaceAll || op == ProcessFindAll) && (!isEntire))))	//if selection limiter and either mark all or replace all or find all w/o entire document override
 	{
 		startPosition = cr.cpMin;
 		endPosition = cr.cpMax;
@@ -2307,12 +2313,14 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		cmdid = WM_FINDALL_INOPENEDDOC;
 	else if (op == FILES_IN_DIR)
 		cmdid = WM_FINDINFILES;
-	else if (op == CURRENT_DOC)
+	else if ((op == CURRENT_DOC) || (op == CURR_DOC_SELECTION))
 		cmdid = WM_FINDALL_INCURRENTDOC;
 
 	if (!cmdid) return;
 
-	if (::SendMessage(_hParent, cmdid, 0, 0))
+	bool limitSearchScopeToSelection = op == CURR_DOC_SELECTION;
+
+	if (::SendMessage(_hParent, cmdid, static_cast<WPARAM>(limitSearchScopeToSelection ? 1 : 0), 0))
 	{
 		if (_findAllResult == 1)
 			wsprintf(_findAllResultStr, TEXT("1 hit"));
@@ -2441,7 +2449,7 @@ void FindReplaceDlg::enableReplaceFunc(bool isEnable)
 	::ShowWindow(::GetDlgItem(_hSelf, IDREPLACEALL),hideOrShow);
 	::ShowWindow(::GetDlgItem(_hSelf, IDREPLACEINSEL),hideOrShow);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_REPLACE_OPENEDFILES),hideOrShow);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_REPLACEINSELECTION), SW_SHOW);
+	::ShowWindow(::GetDlgItem(_hSelf, IDC_REPLACEINSELECTION), hideOrShow);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_IN_SELECTION_CHECK), SW_SHOW);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_2_BUTTONS_MODE), SW_SHOW);
 	bool is2ButtonMode = isCheckedOrNot(IDC_2_BUTTONS_MODE);
@@ -2570,6 +2578,11 @@ void FindReplaceDlg::saveInMacro(size_t cmd, int cmdType)
 		booleans |= _options._isWrapAround?IDF_WRAP:0;
 		booleans |= _options._whichDirection?IDF_WHICH_DIRECTION:0;
 	}
+	else if (cmdType == FR_OP_FIND + FR_OP_GLOBAL)
+	{
+		// find all in curr doc can be limited by selected text
+		booleans |= _options._isInSelection ? IDF_IN_SELECTION_CHECK : 0;
+	}
 	if (cmd == IDC_CLEAR_ALL)
 	{
 		booleans = _options._doMarkLine ? IDF_MARKLINE_CHECK : 0;
@@ -2691,7 +2704,7 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const generic_st
 						break;
 					case IDC_FINDALL_CURRENTFILE:
 						nppParamInst._isFindReplacing = true;
-						findAllIn(CURRENT_DOC);
+						findAllIn(_env->_isInSelection ? CURR_DOC_SELECTION : CURRENT_DOC);
 						nppParamInst._isFindReplacing = false;
 						break;
 					case IDC_REPLACE_OPENEDFILES:
@@ -3144,18 +3157,19 @@ void Finder::addFileHitCount(int count)
 	++_nbFoundFiles;
 }
 
-void Finder::addSearchHitCount(int count, int countSearched, bool isMatchLines)
+void Finder::addSearchHitCount(int count, int countSearched, bool isMatchLines, bool isSelectionSearched)
 {
 	const TCHAR *moreInfo = isMatchLines ? TEXT(" - Line Filter Mode: only display the filtered results") :TEXT("");
+	const TCHAR* searchScope = isSelectionSearched ? TEXT("selection") : TEXT("file");
 	TCHAR text[100];
 	if (count == 1 && _nbFoundFiles == 1)
-		wsprintf(text, TEXT(" (1 hit in 1 file of %i searched%s)"), countSearched, moreInfo);
+		wsprintf(text, TEXT(" (1 hit in 1 %s of %i searched%s)"), searchScope, countSearched, moreInfo);
 	else if (count == 1 && _nbFoundFiles != 1)
-		wsprintf(text, TEXT(" (1 hit in %i files of %i searched%s)"), _nbFoundFiles, countSearched, moreInfo);
+		wsprintf(text, TEXT(" (1 hit in %i %ss of %i searched%s)"), _nbFoundFiles, searchScope, countSearched, moreInfo);
 	else if (count != 1 && _nbFoundFiles == 1)
-		wsprintf(text, TEXT(" (%i hits in 1 file of %i searched%s)"), count, countSearched, moreInfo);
+		wsprintf(text, TEXT(" (%i hits in 1 %s of %i searched%s)"), count, searchScope, countSearched, moreInfo);
 	else if (count != 1 && _nbFoundFiles != 1)
-		wsprintf(text, TEXT(" (%i hits in %i files of %i searched%s)"), count, _nbFoundFiles, countSearched, moreInfo);
+		wsprintf(text, TEXT(" (%i hits in %i %ss of %i searched%s)"), count, _nbFoundFiles, searchScope, countSearched, moreInfo);
 	setFinderReadOnly(false);
 	_scintView.insertGenericTextFrom(_lastSearchHeaderPos, text);
 	setFinderReadOnly(true);
@@ -3290,7 +3304,7 @@ void Finder::beginNewFilesSearch()
 	_scintView.collapse(searchHeaderLevel - SC_FOLDLEVELBASE, fold_collapse);
 }
 
-void Finder::finishFilesSearch(int count, int searchedCount, bool isMatchLines)
+void Finder::finishFilesSearch(int count, int searchedCount, bool isMatchLines, bool isSelectionSearched)
 {
 	std::vector<FoundInfo>* _pOldFoundInfos;
 	std::vector<SearchResultMarking>* _pOldMarkings;
@@ -3308,7 +3322,7 @@ void Finder::finishFilesSearch(int count, int searchedCount, bool isMatchLines)
 	if (_pMainMarkings->size() > 0)
 		_markingsStruct._markings = &((*_pMainMarkings)[0]);
 
-	addSearchHitCount(count, searchedCount, isMatchLines);
+	addSearchHitCount(count, searchedCount, isMatchLines, isSelectionSearched);
 	_scintView.execute(SCI_SETSEL, 0, 0);
 
 	_scintView.execute(SCI_SETLEXER, SCLEX_SEARCHRESULT);

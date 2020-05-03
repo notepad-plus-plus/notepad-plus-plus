@@ -3,11 +3,11 @@
 	Dutch localization for Notepad++ 7.5.6
 	Last modified Mon, Mar 26 2018 by Klaas Nekeman.
 	Please e-mail errors, suggestions etc. to knekeman(at)gmail.com.
-	Dutch localization for Notepad++ 7.8.6
-	Last modified Tue, Apr 14 2020 by xylographe <wr86420@gmail.com>.
+	Dutch localization for Notepad++ 7.8.7
+	Last modified Tue, May 26 2020 by xylographe <wr86420@gmail.com>.
 -->
 <NotepadPlus>
-	<Native-Langue name="Nederlands" filename="dutch.xml" version="7.8.6">
+	<Native-Langue name="Nederlands" filename="dutch.xml" version="7.8.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -783,7 +783,7 @@
 					<Item id="6413" name="Standaardlocatie voor laden en opslaan"/>
 					<Item id="6414" name="Huidige documentlocatie"/>
 					<Item id="6415" name="Laatst gekozen map"/>
-					<Item id="6430" name="Gebruik vensters nieuwe stijl (zonder bestandsextensie optie &amp;&amp; zonder Unix stijl paden)"/>
+					<Item id="6430" name="Gebruik vensters nieuwe stijl (zonder Unix stijl paden)"/>
 					<Item id="6431" name="Bij neerzetten, alle bestanden uit map openen ipv map als werkomgeving te openen"/>
 				</DefaultDir>
 
@@ -1528,6 +1528,30 @@
 			/>
 			<summary-nbrange
 				value=" selecties"
+			/>
+			<replace-in-files-confirm-title
+				value="Vervanging bevestigen"
+			/>
+			<replace-in-files-confirm-directory
+				value="Wilt u alle locaties vervangen in: "
+			/>
+			<replace-in-files-confirm-filetype
+				value="Voor bestandstype: "
+			/>
+			<find-result-caption
+				value="Zoekresultaten"
+			/>
+			<find-result-title
+				value="Zoeken"
+			/>
+			<find-result-title-info
+				value="($INT_REPLACE1$ treffers in $INT_REPLACE2$ uit $INT_REPLACE3$ bestanden)"
+			/>
+			<find-result-title-info-extra
+				value=" - Regelfiltermodus: alleen treffers tonen"
+			/>
+			<find-result-hits
+				value="($INT_REPLACE$ treffers)"
 			/>
 		</MiscStrings>
 	</Native-Langue>

@@ -2260,6 +2260,15 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		// the dlgDlg should be the index of funcItem where the current function pointer is
 		// in this case is DOCKABLE_DEMO_INDEX
 		data.dlgID = 0;
+		
+		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+		generic_string text = pNativeSpeaker->getLocalizedStrFromID("find-result-caption", TEXT(""));
+		if (!text.empty())
+		{
+			_findResTitle = text;
+			data.pszName = _findResTitle.c_str();
+		}
+
 		::SendMessage(_hParent, NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
 
 		_pFinder->_scintView.init(_hInst, _pFinder->getHSelf());
@@ -2314,10 +2323,9 @@ void FindReplaceDlg::findAllIn(InWhat op)
 
 	if (::SendMessage(_hParent, cmdid, 0, 0))
 	{
-		if (_findAllResult == 1)
-			wsprintf(_findAllResultStr, TEXT("1 hit"));
-		else
-			wsprintf(_findAllResultStr, TEXT("%s hits"), commafyInt(_findAllResult).c_str());
+		generic_string text = _pFinder->getHitsString(_findAllResult);
+		wsprintf(_findAllResultStr, text.c_str());
+
 		if (_findAllResult) 
 		{
 			focusOnFinder();
@@ -2352,6 +2360,15 @@ Finder * FindReplaceDlg::createFinder()
 	// the dlgDlg should be the index of funcItem where the current function pointer is
 	// in this case is DOCKABLE_DEMO_INDEX
 	data.dlgID = 0;
+
+	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+	generic_string text = pNativeSpeaker->getLocalizedStrFromID("find-result-caption", TEXT(""));
+	if (!text.empty())
+	{
+		_findResTitle = text;
+		data.pszName = _findResTitle.c_str();
+	}
+
 	::SendMessage(_hParent, NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
 
 	pFinder->_scintView.init(_hInst, pFinder->getHSelf());
@@ -2388,6 +2405,17 @@ Finder * FindReplaceDlg::createFinder()
 	pFinder->_scintView.execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("@MarkingsStruct"), reinterpret_cast<LPARAM>(ptrword));
 
 	_findersOfFinder.push_back(pFinder);
+	/*
+	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+	generic_string title_temp = pNativeSpeaker->getAttrNameStr(FS_PROJECTPANELTITLE, "DocSwitcher", "PanelTitle");
+	static TCHAR title[32];
+	if (title_temp.length() < 32)
+	{
+		wcscpy_s(title, title_temp.c_str());
+		data.pszName = title;
+	}
+	*/
+	
 
 	::SendMessage(pFinder->getHSelf(), WM_SIZE, 0, 0);
 
@@ -3101,11 +3129,39 @@ bool FindReplaceDlg::replaceInFilesConfirmCheck(generic_string directory, generi
 	return confirmed;
 }
 
+generic_string Finder::getHitsString(int count) const
+{
+	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+	generic_string text = pNativeSpeaker->getLocalizedStrFromID("find-result-hits", TEXT(""));
+
+	if (text.empty())
+	{
+		if (count == 1)
+		{
+			text = TEXT(" (1 hit)");
+		}
+		else
+		{
+			text = TEXT(" (");
+			text += std::to_wstring(count);
+			text += TEXT(" hits)");
+		}
+	}
+	else
+	{
+		text = stringReplace(text, TEXT("$INT_REPLACE$"), std::to_wstring(count));
+	}
+
+	return text;
+}
+
 void Finder::addSearchLine(const TCHAR *searchName)
 {
-	generic_string str = TEXT("Search \"");
+	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+	generic_string str = pNativeSpeaker->getLocalizedStrFromID("find-result-title", TEXT("Search"));
+	str += TEXT(" \"");
 	str += searchName;
-	str += TEXT("\"\r\n");
+	str += TEXT("\" \r\n");
 
 	setFinderReadOnly(false);
 	_scintView.addGenericText(str.c_str());
@@ -3133,31 +3189,72 @@ void Finder::addFileNameTitle(const TCHAR * fileName)
 
 void Finder::addFileHitCount(int count)
 {
-	TCHAR text[20];
-	if (count == 1)
-		wsprintf(text, TEXT(" (1 hit)"));
-	else
-		wsprintf(text, TEXT(" (%i hits)"), count);
+	wstring text = TEXT(" ");
+	text += getHitsString(count);
 	setFinderReadOnly(false);
-	_scintView.insertGenericTextFrom(_lastFileHeaderPos, text);
+	_scintView.insertGenericTextFrom(_lastFileHeaderPos, text.c_str());
 	setFinderReadOnly(true);
 	++_nbFoundFiles;
 }
 
 void Finder::addSearchHitCount(int count, int countSearched, bool isMatchLines)
 {
-	const TCHAR *moreInfo = isMatchLines ? TEXT(" - Line Filter Mode: only display the filtered results") :TEXT("");
-	TCHAR text[100];
-	if (count == 1 && _nbFoundFiles == 1)
-		wsprintf(text, TEXT(" (1 hit in 1 file of %i searched%s)"), countSearched, moreInfo);
-	else if (count == 1 && _nbFoundFiles != 1)
-		wsprintf(text, TEXT(" (1 hit in %i files of %i searched%s)"), _nbFoundFiles, countSearched, moreInfo);
-	else if (count != 1 && _nbFoundFiles == 1)
-		wsprintf(text, TEXT(" (%i hits in 1 file of %i searched%s)"), count, countSearched, moreInfo);
-	else if (count != 1 && _nbFoundFiles != 1)
-		wsprintf(text, TEXT(" (%i hits in %i files of %i searched%s)"), count, _nbFoundFiles, countSearched, moreInfo);
+	generic_string hitIn;
+	generic_string fileOf;
+
+	generic_string nbResStr = std::to_wstring(count);
+	generic_string nbFoundFilesStr = std::to_wstring(_nbFoundFiles);
+	generic_string nbSearchedFilesStr = std::to_wstring(countSearched);
+
+	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+	generic_string text = pNativeSpeaker->getLocalizedStrFromID("find-result-title-info", TEXT(""));
+
+	if (text.empty())
+	{
+		if (count == 1 && _nbFoundFiles == 1)
+		{
+			hitIn = TEXT(" hit in ");
+			fileOf = TEXT(" file of ");
+		}
+		else if (count == 1 && _nbFoundFiles != 1)
+		{
+			hitIn = TEXT(" hit in ");
+			fileOf = TEXT(" files of ");
+		}
+		else if (count != 1 && _nbFoundFiles == 1)
+		{
+			hitIn = TEXT(" hits in ");
+			fileOf = TEXT(" file of ");
+		}
+		else //if (count != 1 && _nbFoundFiles != 1)
+		{
+			hitIn = TEXT(" hits in ");
+			fileOf = TEXT(" files of ");
+		}
+
+		const TCHAR *moreInfo = isMatchLines ? TEXT(" - Line Filter Mode: only display the filtered results") : TEXT("");
+
+		text = TEXT(" (");
+		text += nbResStr;
+		text += hitIn;
+		text += nbFoundFilesStr;
+		text += fileOf;
+		text += nbSearchedFilesStr;
+		text += TEXT(" searched");
+		text += moreInfo;
+		text += TEXT(")");
+	}
+	else
+	{
+		text = stringReplace(text, TEXT("$INT_REPLACE1$"), nbResStr);
+		text = stringReplace(text, TEXT("$INT_REPLACE2$"), nbFoundFilesStr);
+		text = stringReplace(text, TEXT("$INT_REPLACE3$"), nbSearchedFilesStr);
+
+		text += isMatchLines ? pNativeSpeaker->getLocalizedStrFromID("find-result-title-info-extra", TEXT("")) : TEXT("");
+	}
+
 	setFinderReadOnly(false);
-	_scintView.insertGenericTextFrom(_lastSearchHeaderPos, text);
+	_scintView.insertGenericTextFrom(_lastSearchHeaderPos, text.c_str());
 	setFinderReadOnly(true);
 }
 

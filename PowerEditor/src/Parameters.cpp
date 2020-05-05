@@ -195,7 +195,7 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_G,       IDM_SEARCH_GOTOLINE,                          true,  false, false, nullptr },
 	{ VK_B,       IDM_SEARCH_GOTOMATCHINGBRACE,                 true,  false, false, nullptr },
 	{ VK_B,       IDM_SEARCH_SELECTMATCHINGBRACES,              true,  true,  false, nullptr },
-	{ VK_NULL,    IDM_SEARCH_MARK,                              false, false, false, nullptr },
+	{ VK_M,       IDM_SEARCH_MARK,                              true,  false, false, nullptr },
 	{ VK_NULL,    IDM_SEARCH_MARKALLEXT1,                       false, false, false, nullptr },
 	{ VK_NULL,    IDM_SEARCH_MARKALLEXT2,                       false, false, false, nullptr },
 	{ VK_NULL,    IDM_SEARCH_MARKALLEXT3,                       false, false, false, nullptr },

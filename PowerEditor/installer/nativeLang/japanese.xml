@@ -1275,6 +1275,11 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <replace-in-files-confirm-title value="本当によろしいですか？"/>
             <replace-in-files-confirm-directory value="下記ディレクトリ内の該当箇所をすべて置換しようとしています。よろしいですか？"/>
             <replace-in-files-confirm-filetype value="ファイルの種類："/>
+            <find-result-caption value="検索結果"/>
+            <find-result-title value="検索文字列"/>
+            <find-result-title-info value="($INT_REPLACE1$ 件が $INT_REPLACE2$ 個のファイル内で一致しました。検索ファイル数は $INT_REPLACE3$ 個)"/>
+            <find-result-title-info-extra value=" - 絞り込まれた検索結果のみを表示しています"/>
+            <find-result-hits value="($INT_REPLACE$ 件の一致)"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

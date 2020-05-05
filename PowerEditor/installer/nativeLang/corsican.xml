@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     History of Corsican translation for Notepad++
-		- Updated on May 1st, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.6
+		- Updated on May 5th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.7
 		- Updated on January 8th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.3
 		- Updated on October 31st, 2019 by Patriccollu di Santa Maria è Sichè for version 7.8.1
 		- Updated on July 29th, 2019 by Patriccollu di Santa Maria è Sichè for version 7.7.2
@@ -15,7 +15,7 @@
 	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/corsican.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="Corsu" filename="corsican.xml" version="7.8.6">
+    <Native-Langue name="Corsu" filename="corsican.xml" version="7.8.7">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -1287,6 +1287,11 @@ Circà in tutti i schedarii fora di exe, obj &amp;&amp; log:
             <replace-in-files-confirm-title value="Cunfirmazione"/>
             <replace-in-files-confirm-directory value="Vulete rimpiazzà tutte l’occurrenze in :"/>
             <replace-in-files-confirm-filetype value="Per u(i) tipu(i) di schedariu :"/>
+            <find-result-caption value="Risultati di ricerca"/>
+            <find-result-title value="Circà"/>
+            <find-result-title-info value="($INT_REPLACE1$ risultati in $INT_REPLACE2$ ducumenti tra i $INT_REPLACE3$ ducumenti circati)"/>
+            <find-result-title-info-extra value=" - Modu di filtru di linea : affisseghja solu i risultati filtrati"/>
+            <find-result-hits value="($INT_REPLACE1$ risultati)"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

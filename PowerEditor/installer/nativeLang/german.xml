@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2020-04-30 by schnurlos (schnurlos@gmail.com)
+	last modified: 2020-05-06 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="7.8.6">
+	<Native-Langue name="Deutsch" filename="german.xml" version="7.8.7">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -1235,6 +1235,11 @@
 			<replace-in-files-confirm-title value="Sind Sie sicher?"/>
 			<replace-in-files-confirm-directory value="Sind Sie sicher dass alle Vorkommen ersetzt werden sollen in: "/>
 			<replace-in-files-confirm-filetype value="Für Dateityp: "/>
+			<find-result-caption value="Suchergebnis"/>
+			<find-result-title value="Suche"/>
+			<find-result-title-info value="($INT_REPLACE1$ Treffer in $INT_REPLACE2$ Dateien von $INT_REPLACE3$ gesucht)"/>
+			<find-result-title-info-extra value=" - Zeilenfilter-Modus: nur die Treffer anzeigen"/>
+			<find-result-hits value="($INT_REPLACE$ Treffer)"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

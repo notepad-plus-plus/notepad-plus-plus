@@ -242,7 +242,6 @@ void VerticalFileSwitcherListView::setItemIconStatus(BufferID bufferID)
 			{
 				ListView_SetItemText(_hSelf, i, 1, (LPTSTR)::PathFindExtension(buf->getFileName()));
 			}
-			break;
 		}
 	}
 }

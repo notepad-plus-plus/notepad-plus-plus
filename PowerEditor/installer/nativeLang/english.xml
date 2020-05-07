@@ -894,7 +894,7 @@ You can define several column markers by using white space to separate the diffe
                     <Item id="6152" name="Open session in a new instance of Notepad++"/>
                     <Item id="6153" name="Always in multi-instance mode"/>
                     <Item id="6154" name="Default (mono-instance)"/>
-                    <Item id="6155" name="* The modification of this setting needs to restart Notepad++"/>
+                    <Item id="6155" name="* The modification of this setting requires restarting Notepad++"/>
                 </MultiInstance>
 
                 <Delimiter title="Delimiter">
@@ -903,7 +903,7 @@ You can define several column markers by using white space to separate the diffe
                     <Item id="6255" name="Close"/>
                     <Item id="6256" name="Allow on several lines"/>
                     <Item id="6161" name="Word character list"/>
-                    <Item id="6162" name="Use default Word character list as it is"/>
+                    <Item id="6162" name="Use default Word character list as-is"/>
                     <Item id="6163" name="Add your character as part of word
 (don't choose it unless you know what you're doing)"/>
                 </Delimiter>
@@ -1018,17 +1018,17 @@ Continue?"/>
 All the saved modifications can not be undone.
 
 Continue?"/>
-            <CannotMoveDoc title="Move to new Notepad++ Instance" message="Document is modified, save it then try again."/>
+            <CannotMoveDoc title="Move to new Notepad++ Instance" message="Document is modified; save it then try again."/>
             <DocReloadWarning title="Reload" message="Are you sure you want to reload the current file and lose the changes made in Notepad++?"/>
             <FileLockedWarning title="Save failed" message="Please check whether if this file is opened in another program"/>
-            <FileAlreadyOpenedInNpp title="" message="The file is already opened in the Notepad++."/>
+            <FileAlreadyOpenedInNpp title="" message="The file is already opened in Notepad++."/>
             <DeleteFileFailed title="Delete File" message="Delete File failed"/>
 
             <NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.
 Are you sure you want to open them?"/>
-            <SettingsOnCloudError title="Settings on Cloud" message="It seems the path of settings on cloud is set on a read only drive,
-or on a folder needed privilege right for writing access.
-Your settings on cloud will be canceled. Please reset a coherent value via Preference dialog."/>
+            <SettingsOnCloudError title="Settings on Cloud" message="It seems the cloud location path is set on a read-only drive,
+or on a folder requiring write access.
+Your settings on cloud will be canceled. Please reenter a valid value via the Preferences dialog."/>
             <FilePathNotFoundWarning title="File Open" message="The file you're trying to open doesn't exist."/>
             <SessionFileInvalidError title="Could not Load Session" message="Session file is either corrupted or not valid."/>
             <DroppingFolderAsProjectModeWarning title="Invalid action" message="You can only drop files or folders but not both, because you're in dropping Folder as Project mode.
@@ -1042,7 +1042,7 @@ Keep this file in editor?"/>
 will be moved to your Recycle Bin and this document will be closed.
 Continue?"/>
             <NoBackupDoSaveFile title="Save" message="Your backup file cannot be found (deleted from outside).
-Save it otherwise your data will be lost
+Save it, otherwise your data will be lost.
 Do you want to save file &quot;$STR_REPLACE$&quot; ?"/>
             <DoReloadOrNot title="Reload" message="&quot;$STR_REPLACE$&quot;
 

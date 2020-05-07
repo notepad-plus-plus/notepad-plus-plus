@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     History of Corsican translation for Notepad++
-		- Updated on May 5th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.7
+		- Updated on May 7th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.7
 		- Updated on January 8th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.3
 		- Updated on October 31st, 2019 by Patriccollu di Santa Maria è Sichè for version 7.8.1
 		- Updated on July 29th, 2019 by Patriccollu di Santa Maria è Sichè for version 7.7.2
@@ -1291,7 +1291,7 @@ Circà in tutti i schedarii fora di exe, obj &amp;&amp; log:
             <find-result-title value="Circà"/>
             <find-result-title-info value="($INT_REPLACE1$ risultati in $INT_REPLACE2$ ducumenti tra i $INT_REPLACE3$ ducumenti circati)"/>
             <find-result-title-info-extra value=" - Modu di filtru di linea : affisseghja solu i risultati filtrati"/>
-            <find-result-hits value="($INT_REPLACE1$ risultati)"/>
+            <find-result-hits value="($INT_REPLACE$ risultati)"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

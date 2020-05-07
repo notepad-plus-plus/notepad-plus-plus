@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="English" filename="english.xml" version="7.8.6">
+    <Native-Langue name="English" filename="english.xml" version="7.8.7">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -1268,6 +1268,11 @@ Find in all files except exe, obj &amp;&amp; log:
             <replace-in-files-confirm-title value="Are you sure?"/>
             <replace-in-files-confirm-directory value="Are you sure you want to replace all occurrences in :"/>
             <replace-in-files-confirm-filetype value="For file type :"/>
+            <find-result-caption value="Find result"/>
+            <find-result-title value="Search"/>
+            <find-result-title-info value="($INT_REPLACE1$ hits in $INT_REPLACE2$ files of $INT_REPLACE3$ searched)"/>
+            <find-result-title-info-extra value=" - Line Filter Mode: only display the filtered results"/>
+            <find-result-hits value="($INT_REPLACE$ hits)"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

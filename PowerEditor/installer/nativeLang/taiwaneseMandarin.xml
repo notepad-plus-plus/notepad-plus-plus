@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="7.8.6">
+    <Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="7.8.7">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -1221,6 +1221,11 @@
             <replace-in-files-confirm-title value="確認"/>
             <replace-in-files-confirm-directory value="是否要替換所有匹配項在此目錄中："/>
             <replace-in-files-confirm-filetype value="向所有擁有下列副檔名的檔案："/>
+            <find-result-caption value="搜尋結果"/>
+            <find-result-title value="搜尋"/>
+            <find-result-title-info value="（找到 $INT_REPLACE1$ 個結果在 $INT_REPLACE2$ 的文件中。搜尋文件量： $INT_REPLACE3$）"/>
+            <find-result-title-info-extra value=" - 僅在搜尋結果中尋找"/>
+            <find-result-hits value="（$INT_REPLACE$ 個結果）"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

@@ -2405,17 +2405,6 @@ Finder * FindReplaceDlg::createFinder()
 	pFinder->_scintView.execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("@MarkingsStruct"), reinterpret_cast<LPARAM>(ptrword));
 
 	_findersOfFinder.push_back(pFinder);
-	/*
-	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-	generic_string title_temp = pNativeSpeaker->getAttrNameStr(FS_PROJECTPANELTITLE, "DocSwitcher", "PanelTitle");
-	static TCHAR title[32];
-	if (title_temp.length() < 32)
-	{
-		wcscpy_s(title, title_temp.c_str());
-		data.pszName = title;
-	}
-	*/
-	
 
 	::SendMessage(pFinder->getHSelf(), WM_SIZE, 0, 0);
 

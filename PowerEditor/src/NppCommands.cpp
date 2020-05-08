@@ -2755,6 +2755,12 @@ void Notepad_plus::command(int id)
 			break;
 		}
 
+		case IDM_REGEX:
+		{
+			::ShellExecute(NULL, TEXT("open"), TEXT("https://www.regular-expressions.info/"), NULL, NULL, SW_SHOWNORMAL);
+			break;
+		}
+
         case IDM_ABOUT:
 		{
 			bool doAboutDlg = false;

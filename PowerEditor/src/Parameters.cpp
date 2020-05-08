@@ -653,6 +653,7 @@ void cutString(const TCHAR* str2cut, vector<generic_string>& patternVect)
 {
 	if (str2cut == nullptr) return;
 
+	bool aPositivePatternFound = false;
 	const TCHAR *pBegin = str2cut;
 	const TCHAR *pEnd = pBegin;
 
@@ -661,15 +662,24 @@ void cutString(const TCHAR* str2cut, vector<generic_string>& patternVect)
 		if (_istspace(*pEnd))
 		{
 			if (pBegin != pEnd)
+			{
 				patternVect.emplace_back(pBegin, pEnd);
+				aPositivePatternFound = (generic_string(pBegin)[0] != '!');
+			}
 			pBegin = pEnd + 1;
-		
+
 		}
 		++pEnd;
 	}
 
 	if (pBegin != pEnd)
+	{
 		patternVect.emplace_back(pBegin, pEnd);
+		aPositivePatternFound = (generic_string(pBegin)[0] != '!');
+	}
+
+	if (!aPositivePatternFound)
+		patternVect.emplace_back(TEXT("*.*"));
 }
 
 

@@ -1099,6 +1099,12 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
+		case IDM_HIDE_FOUND_RESULTS:
+		{
+			_findReplaceDlg.hideFinder();
+		}
+		break;
+
 		case IDM_SEARCH_VOLATILE_FINDNEXT :
 		case IDM_SEARCH_VOLATILE_FINDPREV :
 		{

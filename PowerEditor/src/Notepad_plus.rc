@@ -395,7 +395,8 @@ BEGIN
         MENUITEM "Find (Volatile) Previous",    IDM_SEARCH_VOLATILE_FINDPREV
         MENUITEM "&Replace...",                 IDM_SEARCH_REPLACE
         MENUITEM "&Incremental Search",         IDM_SEARCH_FINDINCREMENT
-        MENUITEM "Search Results Window",       IDM_FOCUS_ON_FOUND_RESULTS
+        MENUITEM "Show Search Results Window",  IDM_FOCUS_ON_FOUND_RESULTS
+        MENUITEM "Hide Search Results Window",  IDM_HIDE_FOUND_RESULTS
         MENUITEM "Next Search Result",          IDM_SEARCH_GOTONEXTFOUND
         MENUITEM "Previous Search Result",      IDM_SEARCH_GOTOPREVFOUND
         MENUITEM "&Go to...",                   IDM_SEARCH_GOTOLINE

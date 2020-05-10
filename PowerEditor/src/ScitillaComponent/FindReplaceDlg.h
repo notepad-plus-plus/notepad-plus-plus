@@ -317,6 +317,18 @@ public :
 		}
 	};
 
+	void hideFinder() 
+	{
+		if (_pFinder)
+		{
+			//When already visible, hide finder
+			if (_pFinder->_scintView.isVisible())
+			{
+				::SendMessage(_hParent, NPPM_DMMHIDE, 0, reinterpret_cast<LPARAM>(_pFinder->getHSelf()));
+			}
+		}
+	};
+
 	HWND getHFindResults() {
 		if (_pFinder)
 			return _pFinder->_scintView.getHSelf();

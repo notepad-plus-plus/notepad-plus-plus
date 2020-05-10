@@ -4879,7 +4879,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			const TCHAR *bDir = element->Attribute(TEXT("useCustumDir"));
 			if (bDir)
 			{
-				_nppGUI._useDir = (lstrcmp(bDir, TEXT("yes")) == 0);;
+				_nppGUI._useDir = (lstrcmp(bDir, TEXT("yes")) == 0);
 			}
 			const TCHAR *pDir = element->Attribute(TEXT("dir"));
 			if (pDir)

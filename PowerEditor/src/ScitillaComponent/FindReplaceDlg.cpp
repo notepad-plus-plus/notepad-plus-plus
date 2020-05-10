@@ -3594,6 +3594,16 @@ void FindIncrementDlg::init(HINSTANCE hInst, HWND hPere, FindReplaceDlg *pFRDlg,
 	_pFRDlg = pFRDlg;
 	create(IDD_INCREMENT_FIND, isRTL);
 	_isRTL = isRTL;
+	TCHAR mode_normal[16] = _TEXT("Normal");
+	TCHAR mode_extended[16] = _TEXT("Extended");
+	TCHAR mode_regexp[32] = _TEXT("Regular expression");
+	TCHAR mode_regexp_dt_match_nl[36] = _TEXT("Regular expression . match new line");
+	HWND hCombo = ::GetDlgItem(_hSelf, IDC_INCFINDSEARCHMODE);
+	::SendMessage(hCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(&mode_normal[0]));
+	::SendMessage(hCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(&mode_extended[0]));
+	::SendMessage(hCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(&mode_regexp[0]));
+	::SendMessage(hCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(&mode_regexp_dt_match_nl[0]));
+	::SendMessage(hCombo, CB_SETCURSEL, 0, 0); // select first item
 }
 
 void FindIncrementDlg::destroy()
@@ -3687,6 +3697,12 @@ INT_PTR CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 					updateHiLight = true;
 					break;
 
+				case IDC_INCFINDSEARCHMODE:
+					updateSearch = true;
+					updateHiLight = isCheckedOrNot(IDC_INCFINDHILITEALL);
+					updateCase = isCheckedOrNot(IDC_INCFINDMATCHCASE);
+					break;
+
 				case IDC_INCFINDTEXT:
 					if (HIWORD(wParam) == EN_CHANGE)
 					{
@@ -3704,6 +3720,31 @@ INT_PTR CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			fo._incrementalType = advance ? NextIncremental : FirstIncremental;
 			fo._whichDirection = forward ? DIR_DOWN : DIR_UP;
 			fo._isMatchCase = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_INCFINDMATCHCASE, BM_GETCHECK, 0, 0));
+
+			HWND hCombo = ::GetDlgItem(_hSelf, IDC_INCFINDSEARCHMODE);
+			int cursel = static_cast<int32_t>(::SendMessage(hCombo, CB_GETCURSEL, 0, 0));
+			switch (cursel) {
+				case 0:
+					fo._searchType = FindNormal;
+					fo._dotMatchesNewline = false;
+					break;
+				case 1:
+					fo._searchType = FindExtended;
+					fo._dotMatchesNewline = false;
+					break;
+				case 2:
+					fo._searchType = FindRegex;
+					fo._dotMatchesNewline = false;
+					break;
+				case 3:
+					fo._searchType = FindRegex;
+					fo._dotMatchesNewline = true;
+					break;
+				default:
+					fo._searchType = FindNormal;
+					fo._dotMatchesNewline = false;
+					break;
+			}
 
 			generic_string str2Search = getTextFromCombo(::GetDlgItem(_hSelf, IDC_INCFINDTEXT));
 			if (updateSearch)

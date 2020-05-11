@@ -1023,6 +1023,20 @@ bool matchInList(const TCHAR *fileName, const std::vector<generic_string> & patt
 	return is_matched;
 }
 
+bool allPatternsAreExclusion(const std::vector<generic_string> patterns)
+{
+	bool oneInclusionPatternFound = false;
+	for (size_t i = 0, len = patterns.size(); i < len; ++i)
+	{
+		if (patterns[i][0] != '!')
+		{
+			oneInclusionPatternFound = true;
+			break;
+		}
+	}
+	return not oneInclusionPatternFound;
+}
+
 generic_string GetLastErrorAsString(DWORD errorCode)
 {
 	generic_string errorMsg(_T(""));

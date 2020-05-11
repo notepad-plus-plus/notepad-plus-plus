@@ -1801,9 +1801,9 @@ bool FindReplaceDlg::processReplace(const TCHAR *txt2find, const TCHAR *txt2repl
 			{
 				generic_string msg;
 				if (moreMatches)
-					msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replaced-next-found", TEXT("Replace: 1 occurrence was replaced. The next occurence found"));
+					msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replaced-next-found", TEXT("Replace: 1 occurrence was replaced. The next occurrence found."));
 				else
-					msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replaced-next-not-found", TEXT("Replace: 1 occurrence was replaced. The next occurence not found"));
+					msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replaced-next-not-found", TEXT("Replace: 1 occurrence was replaced. No more occurrences were found."));
 
 				setStatusbarMessage(msg, FSMessage);
 			}
@@ -1812,7 +1812,7 @@ bool FindReplaceDlg::processReplace(const TCHAR *txt2find, const TCHAR *txt2repl
 	else
 	{
 		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-		generic_string msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replace-not-found", TEXT("Replace: no occurrence was found."));
+		generic_string msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replace-not-found", TEXT("Replace: No occurrence was found."));
 		setStatusbarMessage(msg, FSNotFound);
 	}
 

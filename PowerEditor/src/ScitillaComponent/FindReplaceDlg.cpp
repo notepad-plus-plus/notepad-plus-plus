@@ -1796,9 +1796,9 @@ bool FindReplaceDlg::processReplace(const TCHAR *txt2find, const TCHAR *txt2repl
 			{
 				generic_string msg;
 				if (moreMatches)
-					msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replaced-next-found", TEXT("Replace: 1 occurrence was replaced. The next occurence found"));
+					msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replaced-next-found", TEXT("Replace: 1 occurrence was replaced. The next occurrence found"));
 				else
-					msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replaced-next-not-found", TEXT("Replace: 1 occurrence was replaced. The next occurence not found"));
+					msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replaced-next-not-found", TEXT("Replace: 1 occurrence was replaced. The next occurrence not found"));
 
 				setStatusbarMessage(msg, FSMessage);
 			}
@@ -2200,7 +2200,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 		}	
 		++nbProcessed;
 
-        // After the processing of the last string occurence the search loop should be stopped
+        // After the processing of the last string occurrence the search loop should be stopped
         // This helps to avoid the endless replacement during the EOL ("$") searching
 		if (targetStart + foundTextLen == findReplaceInfo._endRange)
             break;

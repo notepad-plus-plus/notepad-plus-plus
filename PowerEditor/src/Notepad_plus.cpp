@@ -1532,6 +1532,11 @@ bool Notepad_plus::replaceInFiles()
 		_findReplaceDlg.setFindInFilesDirFilter(NULL, TEXT("*.*"));
 		_findReplaceDlg.getPatterns(patterns2Match);
 	}
+	else if (allPatternsAreExclusion(patterns2Match))
+	{
+		patterns2Match.insert(patterns2Match.begin(), TEXT("*.*"));
+	}
+
 	vector<generic_string> fileNames;
 
 	getMatchedFileNames(dir2Search, patterns2Match, fileNames, isRecursive, isInHiddenDir);
@@ -1619,14 +1624,6 @@ bool Notepad_plus::findInFinderFiles(FindersInfo *findInFolderInfo)
 	_pEditView = &_invisibleEditView;
 	Document oldDoc = _invisibleEditView.execute(SCI_GETDOCPOINTER);
 
-	vector<generic_string> patterns2Match;
-	_findReplaceDlg.getPatterns(patterns2Match);
-	if (patterns2Match.size() == 0)
-	{
-		_findReplaceDlg.setFindInFilesDirFilter(NULL, TEXT("*.*"));
-		_findReplaceDlg.getPatterns(patterns2Match);
-	}
-
 	vector<generic_string> fileNames = findInFolderInfo->_pSourceFinder->getResultFilePaths();
 
 	findInFolderInfo->_pDestFinder->beginNewFilesSearch();
@@ -1710,6 +1707,10 @@ bool Notepad_plus::findInFiles()
 	{
 		_findReplaceDlg.setFindInFilesDirFilter(NULL, TEXT("*.*"));
 		_findReplaceDlg.getPatterns(patterns2Match);
+	}
+	else if (allPatternsAreExclusion(patterns2Match))
+	{
+		patterns2Match.insert(patterns2Match.begin(), TEXT("*.*"));
 	}
 
 	vector<generic_string> fileNames;

@@ -92,6 +92,7 @@ std::string getFileContent(const TCHAR *file2read);
 generic_string relativeFilePathToFullFilePath(const TCHAR *relativeFilePath);
 void writeFileContent(const TCHAR *file2write, const char *content2write);
 bool matchInList(const TCHAR *fileName, const std::vector<generic_string> & patterns);
+bool allPatternsAreExclusion(const std::vector<generic_string> patterns);
 
 class WcharMbcsConvertor final
 {

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v7.8.6:
-- add new lines and fixes
+Updated to v7.8.7:
+- add new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="7.8.6">
+	<Native-Langue name="Русский" filename="russian.xml" version="7.8.7">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -782,7 +782,7 @@ Updated to v7.8.6:
 					<Item id="6413" name="Директория По Умолчанию (Открыть/Сохранить)"/>
 					<Item id="6414" name="Пройти за текущим документом"/>
 					<Item id="6415" name="Запомнить последнюю директорию"/>
-					<Item id="6430" name="Новый диалог сохранения файла (без запроса расширения файла)"/>
+					<Item id="6430" name="Новый диалог сохранения файла (без без возможности пути в стиле Unix)"/>
 					<Item id="6431" name="Открывать все файлы папки при перетаскивании в окно np++"/>
 				</DefaultDir>
 				<FileAssoc title = "Ассоциация Файлов">
@@ -1181,13 +1181,13 @@ Updated to v7.8.6:
 			<find-status-replaceall-re-malformed  value="Замена всех: Регулярное выражение искажено"/>
 			<find-status-replaceall-1-replaced    value="Замена всех: заменено 1 совпадение"/>
 			<find-status-replaceall-nb-replaced   value="Замена всех: заменено $INT_REPLACE$ совпадений"/>
-			<find-status-replaceall-readonly      value="Замена всех: Невозможно заменить текст. Текущий документ доступен только для чтения"/>
-			<find-status-replace-end-reached      value="Замена: Заменено первое совпадение сверху. Достигнут конец документа"/>
-			<find-status-replace-top-reached      value="Замена: Заменено первое совпадение снизу. Достигнуто начало документа"/>
-			<find-status-replaced-next-found      value="Замена: заменено 1 совпадение. Найдено следующее совпадение"/>
-			<find-status-replaced-next-not-found  value="Замена: заменено 1 совпадение. Следующее совпадение не найдено"/>
+			<find-status-replaceall-readonly      value="Замена всех: Невозможно заменить текст. Текущий документ доступен только для чтения."/>
+			<find-status-replace-end-reached      value="Замена: Заменено первое совпадение сверху. Достигнут конец документа."/>
+			<find-status-replace-top-reached      value="Замена: Заменено первое совпадение снизу. Достигнуто начало документа."/>
+			<find-status-replaced-next-found      value="Замена: заменено 1 совпадение. Найдено следующее совпадение."/>
+			<find-status-replaced-next-not-found  value="Замена: заменено 1 совпадение. Совпадений больше не найдено."/>
 			<find-status-replace-not-found        value="Замена: ничего не найдено"/>
-			<find-status-replace-readonly         value="Замена: Невозможно заменить текст. Текущий документ доступен только для чтения"/>
+			<find-status-replace-readonly         value="Замена: Невозможно заменить текст. Текущий документ доступен только для чтения."/>
 			<find-status-cannot-find              value="Поиск: Не удается найти текст &quot;$STR_REPLACE$&quot;"/>
 			<finder-find-in-finder                value="Поиск в найденном..."/>
 			<finder-close-this                    value="Закрыть этот поиск"/>
@@ -1220,6 +1220,14 @@ Updated to v7.8.6:
 			<summary-nbsel1              value=" выделенных символов ("/> 
 			<summary-nbsel2              value=" байт) в "/> 
 			<summary-nbrange             value=" диапазоне(ах)"/>
-		</MiscStrings>
-	</Native-Langue>
+            <replace-in-files-confirm-title      value="Вы уверены?"/>
+            <replace-in-files-confirm-directory  value="Вы точно хотите заменить все совпадения в каталоге :"/>
+            <replace-in-files-confirm-filetype   value="Для типа файла(ов) :"/>
+            <find-result-caption                 value="Результаты поиска"/>
+            <find-result-title                   value="Поиск"/>
+            <find-result-title-info              value="($INT_REPLACE1$ совпадения в $INT_REPLACE2$ файлах из $INT_REPLACE3$ найденных)"/>
+            <find-result-title-info-extra        value=" - Режим Фильтра Строк: только отображает результаты фильтрования"/>
+            <find-result-hits                    value="($INT_REPLACE$ совпадения)"/>
+        </MiscStrings>
+    </Native-Langue>
 </NotepadPlus>

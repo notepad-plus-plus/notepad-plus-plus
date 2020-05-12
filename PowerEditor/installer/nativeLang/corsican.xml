@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     History of Corsican translation for Notepad++
-		- Updated on May 7th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.7
+		- Updated on May 12th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.7
 		- Updated on January 8th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.3
 		- Updated on October 31st, 2019 by Patriccollu di Santa Maria è Sichè for version 7.8.1
 		- Updated on July 29th, 2019 by Patriccollu di Santa Maria è Sichè for version 7.7.2
@@ -1248,8 +1248,8 @@ Circà in tutti i schedarii fora di exe, obj &amp;&amp; log:
             <find-status-replaceall-readonly value="Rimpiazzalle tutte : Ùn si pò rimpiazzà u testu. U ducumentu attuale pò solu si leghje"/>
             <find-status-replace-end-reached value="Rimpiazzà : 1a occurrenza rimpiazzata da u principiu. A fine di u ducumentu hè stata tocca"/>
             <find-status-replace-top-reached value="Rimpiazzà : 1a occurrenza rimpiazzata da a fine. U principiu di u ducumentu hè statu toccu"/>
-            <find-status-replaced-next-found value="Rimpiazzà : 1 occurrenza hè stata rimpiazzata. A prossima occurrenza trova"/>
-            <find-status-replaced-next-not-found value="Rimpiazzà : 1 occurrenza hè stata rimpiazzata. A prossima occurrenza micca trova"/>
+            <find-status-replaced-next-found value="Rimpiazzà : 1 occurrenza hè stata rimpiazzata. A prossima occurrenza trova."/>
+            <find-status-replaced-next-not-found value="Rimpiazzà : 1 occurrenza hè stata rimpiazzata. Alcuna altra occurrenza trova."/>
             <find-status-replace-not-found value="Rimpiazzà : alcuna occurrenza trova"/>
             <find-status-replace-readonly value="Rimpiazzà : Ùn si pò rimpiazzà u testu. U ducumentu attuale pò solu si leghje"/>
             <find-status-cannot-find value="Circà : Ùn si pò truvà u testu « $STR_REPLACE$ »"/>

@@ -62,6 +62,7 @@
 #define TOOLBAR 0x02
 
 #define URL_REG_EXPR "[A-Za-z]+://[A-Za-z0-9_\\-\\+~.:?&@=/%#,;\\{\\}\\(\\)\\[\\]\\|\\*\\!\\\\]+"
+#define URL_INDIC 8
 
 enum FileTransferMode {
 	TransferClone		= 0x01,

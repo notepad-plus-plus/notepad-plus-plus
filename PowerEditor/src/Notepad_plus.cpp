@@ -2453,123 +2453,38 @@ void Notepad_plus::setUniModeText()
 }
 
 
-void Notepad_plus::addHotSpot()
+void Notepad_plus::addHotSpot(ScintillaEditView* view)
 {
+	ScintillaEditView* pView = view ? view : _pEditView;
+
+	int urlAction = (NppParameters::getInstance()).getNppGUI()._styleURL;
+	LPARAM Style = (urlAction == 2) ? INDIC_PLAIN : INDIC_HIDDEN;
+	pView->execute(SCI_INDICSETSTYLE, URL_INDIC, Style);
+	pView->execute(SCI_INDICSETHOVERSTYLE, URL_INDIC, INDIC_FULLBOX);
+
 	int startPos = 0;
 	int endPos = -1;
-	auto endStyle = _pEditView->execute(SCI_GETENDSTYLED);
+	pView->getVisibleStartAndEndPosition(&startPos, &endPos);
+	if (startPos >= endPos) return;
+	pView->execute(SCI_SETINDICATORCURRENT, URL_INDIC);
+	pView->execute(SCI_INDICATORCLEARRANGE, startPos, endPos - startPos);
+	if (!urlAction) return;
 
-	_pEditView->getVisibleStartAndEndPosition(&startPos, &endPos);
-
-	_pEditView->execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP|SCFIND_POSIX);
-
-	_pEditView->execute(SCI_SETTARGETRANGE, startPos, endPos);
-
-	std::vector<unsigned char> hotspotPairs; //= _pEditView->GetHotspotPairs();
-
-	unsigned char style_hotspot = 0;
-	unsigned char mask = 0x40; // INDIC1_MASK;
-	// INDIC2_MASK == 255 and it represents MSB bit		
-	// only LEX_HTML and LEX_POSTSCRIPT use use INDIC2_MASK bit internally		
-	// LEX_HTML is using INDIC2_MASK bit even though it has only 127 states, so it is safe to overwrite 8th bit		
-	// INDIC2_MASK will be used for LEX_HTML		
-
-	// LEX_POSTSCRIPT is using INDIC2_MASK bit for "tokenization", and is using mask=31 in lexer,		
-	// therefore hotspot in LEX_POSTSCRIPT will be saved to 5th bit		
-	// there are only 15 states in LEX_POSTSCRIPT, so it is safe to overwrite 5th bit		
-
-	// rule of the thumb is, any lexet that calls: styler.StartAt(startPos, 255);		
-	// must have special processing here, all other lexers are fine with INDIC1_MASK (7th bit)		
-
-	LangType type = _pEditView->getCurrentBuffer()->getLangType();
-
-	if (type == L_HTML || type == L_PHP || type == L_ASP || type == L_JSP)
-		mask = 0x80; // INDIC2_MASK;
-	else if (type == L_PS)
-		mask = 16;
-
-	int posFound = static_cast<int32_t>(_pEditView->execute(SCI_SEARCHINTARGET, strlen(URL_REG_EXPR), reinterpret_cast<LPARAM>(URL_REG_EXPR)));
+	pView->execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP|SCFIND_POSIX);
+	pView->execute(SCI_SETTARGETRANGE, startPos, endPos);
+	int posFound = static_cast<int32_t>(pView->execute(SCI_SEARCHINTARGET, strlen(URL_REG_EXPR), reinterpret_cast<LPARAM>(URL_REG_EXPR)));
 
 	while (posFound != -1 && posFound != -2)
 	{
-		int start = int(_pEditView->execute(SCI_GETTARGETSTART));
-		int end = int(_pEditView->execute(SCI_GETTARGETEND));
+		int start = int(pView->execute(SCI_GETTARGETSTART));
+		int end = int(pView->execute(SCI_GETTARGETEND));
 		int foundTextLen = end - start;
-		unsigned char idStyle = static_cast<unsigned char>(_pEditView->execute(SCI_GETSTYLEAT, posFound));
-
-		// Search the style
-		int fs = -1;
-		for (size_t i = 0, len = hotspotPairs.size(); i < len ; ++i)
-		{
-			// make sure to ignore "hotspot bit" when comparing document style with archived hotspot style
-			if ((hotspotPairs[i] & ~mask) == (idStyle & ~mask))
-			{
-				fs = hotspotPairs[i];
-				_pEditView->execute(SCI_STYLEGETFORE, fs);
-					break;
-			}
-		}
-
-		// if we found it then use it to colourize
-		if (fs != -1)
-		{
-			_pEditView->execute(SCI_STARTSTYLING, start, 0xFF);
-			_pEditView->execute(SCI_SETSTYLING, foundTextLen, fs);
-		}
-		else // generalize a new style and add it into a array
-		{
-			style_hotspot = idStyle | mask;	// set "hotspot bit"
-			hotspotPairs.push_back(style_hotspot);
-			unsigned char idStyleMSBunset = idStyle & ~mask;
-			char fontNameA[128];
-
-			Style hotspotStyle;
-
-			hotspotStyle._styleID = static_cast<int>(style_hotspot);
-			_pEditView->execute(SCI_STYLEGETFONT, idStyleMSBunset, reinterpret_cast<LPARAM>(fontNameA));
-			const size_t generic_fontnameLen = 128;
-			TCHAR *generic_fontname = new TCHAR[generic_fontnameLen];
-
-			WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-			const wchar_t * fontNameW = wmc.char2wchar(fontNameA, _nativeLangSpeaker.getLangEncoding());
-			wcscpy_s(generic_fontname, generic_fontnameLen, fontNameW);
-			hotspotStyle._fontName = generic_fontname;
-
-			hotspotStyle._fgColor = static_cast<COLORREF>(_pEditView->execute(SCI_STYLEGETFORE, idStyleMSBunset));
-			hotspotStyle._bgColor = static_cast<COLORREF>(_pEditView->execute(SCI_STYLEGETBACK, idStyleMSBunset));
-			hotspotStyle._fontSize = static_cast<int32_t>(_pEditView->execute(SCI_STYLEGETSIZE, idStyleMSBunset));
-
-			auto isBold = _pEditView->execute(SCI_STYLEGETBOLD, idStyleMSBunset);
-			auto isItalic = _pEditView->execute(SCI_STYLEGETITALIC, idStyleMSBunset);
-			auto isUnderline = _pEditView->execute(SCI_STYLEGETUNDERLINE, idStyleMSBunset);
-			hotspotStyle._fontStyle = (isBold?FONTSTYLE_BOLD:0) | (isItalic?FONTSTYLE_ITALIC:0) | (isUnderline?FONTSTYLE_UNDERLINE:0);
-
-			int urlAction = (NppParameters::getInstance()).getNppGUI()._styleURL;
-			if (urlAction == 2)
-				hotspotStyle._fontStyle |= FONTSTYLE_UNDERLINE;
-
-			_pEditView->setHotspotStyle(hotspotStyle);
-
-			_pEditView->execute(SCI_STYLESETHOTSPOT, style_hotspot, TRUE);
-			int activeFG = 0xFF0000;
-			Style *urlHovered = getStyleFromName(TEXT("URL hovered"));
-			if (urlHovered)
-				activeFG = urlHovered->_fgColor;
-			_pEditView->execute(SCI_SETHOTSPOTACTIVEFORE, TRUE, activeFG);
-			_pEditView->execute(SCI_SETHOTSPOTSINGLELINE, style_hotspot, 0);
-
-			// colourize it!
-			_pEditView->execute(SCI_STARTSTYLING, start, 0xFF);
-			_pEditView->execute(SCI_SETSTYLING, foundTextLen, style_hotspot);
-		}
-
-		_pEditView->execute(SCI_SETTARGETRANGE, posFound + foundTextLen, endPos);
-
-		posFound = static_cast<int32_t>(_pEditView->execute(SCI_SEARCHINTARGET, strlen(URL_REG_EXPR), reinterpret_cast<LPARAM>(URL_REG_EXPR)));
+		pView->execute(SCI_SETINDICATORCURRENT, URL_INDIC);
+		pView->execute(SCI_SETINDICATORVALUE, 0);
+		pView->execute(SCI_INDICATORFILLRANGE, start, foundTextLen);
+		pView->execute(SCI_SETTARGETRANGE, posFound + foundTextLen, endPos);
+		posFound = static_cast<int32_t>(pView->execute(SCI_SEARCHINTARGET, strlen(URL_REG_EXPR), reinterpret_cast<LPARAM>(URL_REG_EXPR)));
 	}
-
-	_pEditView->execute(SCI_STARTSTYLING, endStyle, 0xFF);
-	_pEditView->execute(SCI_SETSTYLING, 0, 0);
 }
 
 bool Notepad_plus::isConditionExprLine(int lineNumber)

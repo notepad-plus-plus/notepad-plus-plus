@@ -2448,6 +2448,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_INTERNAL_UPDATECLICKABLELINKS:
+		{
+			addHotSpot(_pEditView);
+			addHotSpot(_pNonEditView);
+		}
+
 		default:
 		{
 			if (message == WDN_NOTIFY)

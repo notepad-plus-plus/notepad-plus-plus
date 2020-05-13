@@ -592,7 +592,7 @@ static LRESULT CALLBACK editNumSpaceProc(HWND hwnd, UINT message, WPARAM wParam,
 void MarginsDlg::initScintParam()
 {
 	NppParameters& nppParam = NppParameters::getInstance();
-	const ScintillaViewParams & svp = nppParam.getSVP();
+	ScintillaViewParams & svp = const_cast<ScintillaViewParams &>(nppParam.getSVP());
 	
 	::SendDlgItemMessage(_hSelf, IDC_RADIO_BOX, BM_SETCHECK, FALSE, 0);
 	::SendDlgItemMessage(_hSelf, IDC_RADIO_CIRCLE, BM_SETCHECK, FALSE, 0);
@@ -642,11 +642,18 @@ void MarginsDlg::initScintParam()
 
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_NOEDGE, BM_SETCHECK, !svp._showBorderEdge, 0);
 
-	bool isEnable = !(svp._edgeMode == EDGE_NONE);
-	::SendDlgItemMessage(_hSelf, IDC_CHECK_SHOWVERTICALEDGE, BM_SETCHECK, isEnable, 0);
-	::SendDlgItemMessage(_hSelf, IDC_RADIO_LNMODE, BM_SETCHECK, (svp._edgeMode == EDGE_LINE), 0);
-	::SendDlgItemMessage(_hSelf, IDC_RADIO_BGMODE, BM_SETCHECK, (svp._edgeMode == EDGE_BACKGROUND), 0);
-	::SendDlgItemMessage(_hSelf, IDC_RADIO_MULTILNMODE, BM_SETCHECK, (svp._edgeMode == EDGE_MULTILINE), 0);
+	bool canBeBg = svp._edgeMultiColumnPos.size() == 1;
+	if (!canBeBg)
+	{
+		svp._isEdgeBgMode = false;
+		::SendDlgItemMessage(_hSelf, IDC_CHECK_EDGEBGMODE, BM_SETCHECK, FALSE, 0);
+		::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_EDGEBGMODE), FALSE);
+	}
+	else
+	{
+		::SendDlgItemMessage(_hSelf, IDC_CHECK_EDGEBGMODE, BM_SETCHECK, svp._isEdgeBgMode, 0);
+	}
+	
 
 	generic_string edgeColumnPosStr;
 	for (auto i : svp._edgeMultiColumnPos)
@@ -657,20 +664,7 @@ void MarginsDlg::initScintParam()
 	}
 	::SendDlgItemMessage(_hSelf, IDC_COLUMNPOS_EDIT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(edgeColumnPosStr.c_str()));
 
-	::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_LNMODE), isEnable);
-	::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_BGMODE), isEnable);
-	::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_MULTILNMODE), isEnable);
-	::EnableWindow(::GetDlgItem(_hSelf, IDC_NBCOLONE_STATIC), isEnable && !isCheckedOrNot(IDC_RADIO_MULTILNMODE));
-	::EnableWindow(::GetDlgItem(_hSelf, IDC_COLUMNPOS_EDIT), isEnable && isCheckedOrNot(IDC_RADIO_MULTILNMODE));
-	
-	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-	generic_string radioboxTip = pNativeSpeaker->getLocalizedStrFromID("multi-edge-radio-tip", TEXT("Add your column marker by indicating its position with a decimal number.\nYou can define several column markers by using white space to separate the different numbers."));
-	_multiEdgeTip = CreateToolTip(IDC_RADIO_MULTILNMODE, _hSelf, _hInst, const_cast<PTSTR>(radioboxTip.c_str()));
-
 	oldFunclstToolbarProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(::GetDlgItem(_hSelf, IDC_COLUMNPOS_EDIT), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(editNumSpaceProc)));
-
-	::SetDlgItemInt(_hSelf, IDC_COLONENUMBER_STATIC, svp._edgeNbColumn, FALSE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_COLONENUMBER_STATIC), isEnable);
 }
 
 INT_PTR CALLBACK MarginsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
@@ -681,9 +675,6 @@ INT_PTR CALLBACK MarginsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 	{
 		case WM_INITDIALOG :
 		{
-			_verticalEdgeLineNbColVal.init(_hInst, _hSelf);
-			_verticalEdgeLineNbColVal.create(::GetDlgItem(_hSelf, IDC_COLONENUMBER_STATIC), IDC_COLONENUMBER_STATIC);
-
 			::SendDlgItemMessage(_hSelf, IDC_WIDTH_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(TEXT("0")));
 			::SendDlgItemMessage(_hSelf, IDC_WIDTH_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(TEXT("1")));
 			::SendDlgItemMessage(_hSelf, IDC_WIDTH_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(TEXT("2")));
@@ -741,7 +732,7 @@ INT_PTR CALLBACK MarginsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 
 		case WM_COMMAND : 
 		{
-			ScintillaViewParams & svp = (ScintillaViewParams &)nppParam.getSVP();
+			ScintillaViewParams & svp = const_cast<ScintillaViewParams &>(nppParam.getSVP());
 			switch (wParam)
 			{
 				case IDC_CHECK_SMOOTHFONT:
@@ -803,85 +794,11 @@ INT_PTR CALLBACK MarginsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 					svp._folderStyle = FOLDER_STYLE_NONE;
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FOLDERMAGIN, 0);
 					return TRUE;
-					
-				case IDC_CHECK_SHOWVERTICALEDGE:
-				{
-					int modeMsg = 0;
-					bool isChecked = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_SHOWVERTICALEDGE, BM_GETCHECK, 0, 0));
-					if (isChecked)
-					{
-						::SendDlgItemMessage(_hSelf, IDC_RADIO_LNMODE, BM_SETCHECK, TRUE, 0);
-						svp._edgeMode = EDGE_LINE;
-						modeMsg = NPPM_INTERNAL_EDGELINE;
-					}
-					else
-					{
-						::SendDlgItemMessage(_hSelf, IDC_RADIO_LNMODE, BM_SETCHECK, FALSE, 0);
-						::SendDlgItemMessage(_hSelf, IDC_RADIO_BGMODE, BM_SETCHECK, FALSE, 0);
-						::SendDlgItemMessage(_hSelf, IDC_RADIO_MULTILNMODE, BM_SETCHECK, FALSE, 0);
-						svp._edgeMode = EDGE_NONE;
-						modeMsg = NPPM_INTERNAL_EDGENONE;
-					}
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_LNMODE), isChecked);
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_BGMODE), isChecked);
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_MULTILNMODE), isChecked);
 
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_NBCOLONE_STATIC), isChecked && !isCheckedOrNot(IDC_RADIO_MULTILNMODE));
-					::ShowWindow(::GetDlgItem(_hSelf, IDC_COLONENUMBER_STATIC), isChecked && !isCheckedOrNot(IDC_RADIO_MULTILNMODE));
-
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_COLUMNPOS_EDIT), isChecked && isCheckedOrNot(IDC_RADIO_MULTILNMODE));
-
-					::SendMessage(::GetParent(_hParent), modeMsg, 0, 0);
+				case IDC_CHECK_EDGEBGMODE:
+					svp._isEdgeBgMode = isCheckedOrNot(IDC_CHECK_EDGEBGMODE);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_EDGEMULTISETSIZE, 0, 0);
 					return TRUE;
-				}
-
-				case IDC_RADIO_LNMODE:
-					svp._edgeMode = EDGE_LINE;
-					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_EDGELINE, 0, 0);
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_NBCOLONE_STATIC), TRUE);
-					::ShowWindow(::GetDlgItem(_hSelf, IDC_COLONENUMBER_STATIC), TRUE);
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_COLUMNPOS_EDIT), FALSE);
-					return TRUE;
-					
-				case IDC_RADIO_BGMODE:
-					svp._edgeMode = EDGE_BACKGROUND;
-					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_EDGEBACKGROUND, 0, 0);
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_NBCOLONE_STATIC), TRUE);
-					::ShowWindow(::GetDlgItem(_hSelf, IDC_COLONENUMBER_STATIC), TRUE);
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_COLUMNPOS_EDIT), FALSE);
-					return TRUE;
-
-				case IDC_RADIO_MULTILNMODE:
-					svp._edgeMode = EDGE_MULTILINE;
-					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_EDGEMULTILINE, 0, 0);
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_NBCOLONE_STATIC), FALSE);
-					::ShowWindow(::GetDlgItem(_hSelf, IDC_COLONENUMBER_STATIC), FALSE);
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_COLUMNPOS_EDIT), TRUE);
-					return TRUE;
-
-				case IDC_COLONENUMBER_STATIC:
-				{
-					NativeLangSpeaker *pNativeSpeaker = nppParam.getNativeLangSpeaker();
-					generic_string strNbCol = pNativeSpeaker->getLocalizedStrFromID("edit-verticaledge-nb-col", TEXT("Nb of column:"));
-
-					ValueDlg nbColumnEdgeDlg;
-					nbColumnEdgeDlg.init(NULL, _hSelf, svp._edgeNbColumn, strNbCol.c_str());
-					nbColumnEdgeDlg.setNBNumber(3);
-
-					POINT p;
-					::GetCursorPos(&p);
-
-					int val = nbColumnEdgeDlg.doDialog(p);
-					if (val != -1)
-					{
-						svp._edgeNbColumn = val;
-						::SetDlgItemInt(_hSelf, IDC_COLONENUMBER_STATIC, svp._edgeNbColumn, FALSE);
-
-						// Execute modified value
-						::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_EDGESETSIZE, 0, 0);
-					}
-					return TRUE;
-				}
 
 				case IDC_RADIO_LWDEF:
 					svp._lineWrapMethod = LINEWRAP_DEFAULT;
@@ -921,6 +838,13 @@ INT_PTR CALLBACK MarginsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 
 								if (str2numberVector(text, svp._edgeMultiColumnPos))
 								{
+									bool canBeBg = svp._edgeMultiColumnPos.size() == 1;
+									if (!canBeBg)
+									{
+										svp._isEdgeBgMode = false;
+										::SendDlgItemMessage(_hSelf, IDC_CHECK_EDGEBGMODE, BM_SETCHECK, FALSE, 0);
+									}
+									::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_EDGEBGMODE), canBeBg);
 									::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_EDGEMULTISETSIZE, 0, 0);
 									return TRUE;
 								}

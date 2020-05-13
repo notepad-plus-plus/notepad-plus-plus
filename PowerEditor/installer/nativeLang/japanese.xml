@@ -751,14 +751,13 @@
                     <Item id="6206" name="行番号を表示"/>
                     <Item id="6207" name="ブックマークを表示"/>
                     <Item id="6208" name="指定桁で垂直線を表示"/>
-                    <Item id="6209" name="桁位置:"/>
                     <Item id="6234" name="スクロールの拡張機能を無効にする
 (タッチパッドに問題がある場合)"/>
 
                     <Item id="6211" name="ガイド線の表示設定"/>
-                    <Item id="6212" name="実線で表示"/>
                     <Item id="6213" name="背景色で表示"/>
-                    <Item id="6237" name="複数位置に表示"/>
+                    <Item id="6237" name="線を表示したい桁位置を指定してください。
+複数の値を半角スペースで区切って記入することで、複数の線を表示できます。"/>
                     <Item id="6214" name="現在行を強調表示する"/>
                     <Item id="6215" name="フォントスムージングを有効にする"/>
                     <Item id="6231" name="枠線幅"/>
@@ -1273,8 +1272,6 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <summary-nbsel1 value=" 文字を選択（"/>
             <summary-nbsel2 value=" バイト）/ "/>
             <summary-nbrange value=" 個の選択範囲"/>
-            <multi-edge-radio-tip value="線を表示したい桁位置を指定してください。
-複数の値を半角スペースで区切って記入することで、複数の線を表示できます。"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

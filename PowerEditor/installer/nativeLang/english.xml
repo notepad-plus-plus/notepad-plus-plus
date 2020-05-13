@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="English" filename="english.xml" version="7.8.6">
+    <Native-Langue name="English" filename="english.xml" version="7.8.7">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -745,14 +745,12 @@
                     <Item id="6206" name="Display line number"/>
                     <Item id="6207" name="Display bookmark"/>
                     <Item id="6208" name="Show vertical edge"/>
-                    <Item id="6209" name="Number of columns :"/>
                     <Item id="6234" name="Disable advanced scrolling feature
 (if you have touchpad problem)"/>
-
                     <Item id="6211" name="Vertical Edge Settings"/>
-                    <Item id="6212" name="Line mode"/>
                     <Item id="6213" name="Background mode"/>
-                    <Item id="6237" name="Multi-line mode"/>
+                    <Item id="6237" name="Add your column marker by indicating its position with a decimal number.
+You can define several column markers by using white space to separate the different numbers."/>
                     <Item id="6214" name="Enable current line highlighting"/>
                     <Item id="6215" name="Enable smooth font"/>
                     <Item id="6231" name="Border Width"/>
@@ -1023,7 +1021,7 @@ Continue?"/>
             <CannotMoveDoc title="Move to new Notepad++ Instance" message="Document is modified, save it then try again."/>
             <DocReloadWarning title="Reload" message="Are you sure you want to reload the current file and lose the changes made in Notepad++?"/>
             <FileLockedWarning title="Save failed" message="Please check whether if this file is opened in another program"/>
-            <FileAlreadyOpenedInNpp title="" message="The file is already opened in the Notepad++."/>
+            <FileAlreadyOpenedInNpp title="" message="The file is already opened in Notepad++."/>
             <DeleteFileFailed title="Delete File" message="Delete File failed"/>
 
             <NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.
@@ -1231,8 +1229,8 @@ Find in all files except exe, obj &amp;&amp; log:
             <find-status-replaceall-readonly value="Replace All: Cannot replace text. The current document is read only"/>
             <find-status-replace-end-reached value="Replace: Replaced the 1st occurrence from the top. The end of document has been reached"/>
             <find-status-replace-top-reached value="Replace: Replaced the 1st occurrence from the bottom. The begin of document has been reached"/>
-            <find-status-replaced-next-found value="Replace: 1 occurrence was replaced. The next occurrence found"/>
-            <find-status-replaced-next-not-found value="Replace: 1 occurrence was replaced. The next occurrence not found"/>
+            <find-status-replaced-next-found value="Replace: 1 occurrence was replaced. The next occurrence found."/>
+            <find-status-replaced-next-not-found value="Replace: 1 occurrence was replaced. No more occurrences were found."/>
             <find-status-replace-not-found value="Replace: no occurrence was found"/>
             <find-status-replace-readonly value="Replace: Cannot replace text. The current document is read only"/>
             <find-status-cannot-find value="Find: Can't find the text &quot;$STR_REPLACE$&quot;"/>
@@ -1267,8 +1265,14 @@ Find in all files except exe, obj &amp;&amp; log:
             <summary-nbsel1 value=" selected characters ("/>
             <summary-nbsel2 value=" bytes) in "/>
             <summary-nbrange value=" ranges"/>
-            <multi-edge-radio-tip value="Add your column marker by indicating its position with a decimal number.
-You can define several column markers by using white space to separate the different numbers."/>
+            <replace-in-files-confirm-title value="Are you sure?"/>
+            <replace-in-files-confirm-directory value="Are you sure you want to replace all occurrences in :"/>
+            <replace-in-files-confirm-filetype value="For file type :"/>
+            <find-result-caption value="Find result"/>
+            <find-result-title value="Search"/>
+            <find-result-title-info value="($INT_REPLACE1$ hits in $INT_REPLACE2$ files of $INT_REPLACE3$ searched)"/>
+            <find-result-title-info-extra value=" - Line Filter Mode: only display the filtered results"/>
+            <find-result-hits value="($INT_REPLACE$ hits)"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

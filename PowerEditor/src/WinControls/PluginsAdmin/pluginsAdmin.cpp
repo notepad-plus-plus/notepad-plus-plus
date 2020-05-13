@@ -280,7 +280,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	_tab.insertAtEnd(updates);
 	_tab.insertAtEnd(installed);
 
-	rect.bottom -= 100;;
+	rect.bottom -= 100;
 	_tab.reSizeTo(rect);
 	_tab.display();
 

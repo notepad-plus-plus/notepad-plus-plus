@@ -3,7 +3,7 @@
 	## Bulgarian localization for Notepad++ ##
 
 	Translators:.....: 2007–2012 – Milen Metev (Tragedy); 2014–yyyy – Rusi Dimitrov
-	Last revision:...: 03.03.2020 by Rusi Dimitrov <astral_86[at]mail[dot]bg>
+	Last revision:...: 17.04.2020 by Rusi Dimitrov <astral_86[at]mail[dot]bg>
 	Download:........: https://gist.github.com/rddim/bd37264898c3a17363e7437bcf1b4803
 -->
 <NotepadPlus>
@@ -758,9 +758,10 @@
 					<Item id="6226" name="Изключено"/>
 					<Item id="6211" name="Настройки на вертикална граница"/>
 					<Item id="6208" name="Показване на границата"/>
-					<Item id="6212" name="Линеен режим"/>
 					<Item id="6213" name="Фонов режим"/>
 					<Item id="6209" name="Брой колони: "/>
+					<Item id="6237" name="Добавяне на вертикална граница чрез задаване на броя колони с десетично число.
+Може да се зададат няколко такива граници, като се използва интервал за разделител между различните числа."/>
 					<Item id="6231" name="Дебелина на рамката на прозореца"/>
 					<Item id="6235" name="Без ръб"/>
 					<Item id="6227" name="Пренасяне на нов ред"/>
@@ -1237,7 +1238,6 @@
 			<userdefined-title-rename value="Преименуване на синтаксиса"/>
 			<common-name value="Име:"/>
 				<!-- Меню "Настройки" - "Предпочитания..." -->
-			<edit-verticaledge-nb-col value="Брой колони:"/>
 			<recent-file-history-maxfile value="Макс. файла:"/>
 			<language-tabsize value="Размер:"/>
 			<autocomplete-nb-char value="Брой знаци:"/>

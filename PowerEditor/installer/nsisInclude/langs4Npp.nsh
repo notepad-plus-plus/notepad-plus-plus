@@ -295,6 +295,9 @@ SectionGroup "Localization" localization
 	${MementoUnselectedSection} "Venetian" venetian
 		CopyFiles "$PLUGINSDIR\nppLocalization\venetian.xml" "$INSTDIR\localization\venetian.xml"
 	${MementoSectionEnd}
+	${MementoUnselectedSection} "Nepali" nepali
+		CopyFiles "$PLUGINSDIR\nppLocalization\nepali.xml" "$INSTDIR\localization\nepali.xml"
+	${MementoSectionEnd}
 SectionGroupEnd
 
 SectionGroup un.localization
@@ -565,5 +568,8 @@ SectionGroup un.localization
 	SectionEnd
 	Section un.venetian
 		Delete "$INSTDIR\localization\venetian.xml"
+	SectionEnd
+	Section un.nepali
+		Delete "$INSTDIR\localization\nepali.xml"
 	SectionEnd
 SectionGroupEnd

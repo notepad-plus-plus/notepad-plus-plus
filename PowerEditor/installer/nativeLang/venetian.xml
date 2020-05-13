@@ -750,14 +750,13 @@
                     <Item id="6206" name="Visuaƚixa i nùmari de riga"/>
                     <Item id="6207" name="Visuaƚixa i segnaƚibri"/>                    
                     <Item id="6208" name="Visuaƚixa el ƚimite de coƚona"/>
-                    <Item id="6209" name="Nùmaro de coƚona: "/>
                     <Item id="6234" name="Disabiƚita scrolling avansà 
 (en caxo de probƚemi co touchpad)"/>
                     
                     <Item id="6211" name="Ƚimite De Coƚona"/>
-                    <Item id="6212" name="Modaƚità &apos;ƚinea&apos;"/>
                     <Item id="6213" name="Modaƚità &apos;sfondo&apos;"/>
-                    <Item id="6237" name="Modaƚità Multilinea"/>
+                    <Item id="6237" name="Xonta el to deƚimitatore de coƚona indicando ƚa so poxision co on nùmaro desimaƚe.
+Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i diversi nùmari."/>
                     <Item id="6214" name="Evidensìa ƚa riga corente"/>
                     <Item id="6215" name="Abìƚita antialiasing caràtari"/>
                     <Item id="6231" name="Spesore Bordo Editor"/>
@@ -1266,8 +1265,6 @@ Ruma en tuti i file a ecesion exe, obj &amp;&amp; log:
             <summary-nbsel1 value=" caràtari seƚesionà ("/>
             <summary-nbsel2 value=" byte) en "/>
             <summary-nbrange value=" intervaƚi"/>
-            <multi-edge-radio-tip value="Xonta el to deƚimitatore de coƚona indicando ƚa so poxision co on nùmaro desimaƚe.
-Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i diversi nùmari."/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

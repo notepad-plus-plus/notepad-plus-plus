@@ -1613,7 +1613,6 @@ static void ColouriseUserDoc(Sci_PositionU startPos, Sci_Position length, int in
     int nlCount = 0;
 
     int continueCommentBlock = 0;
-    bool startOfDelimiter = false;
     int decSeparator = SEPARATOR_DOT;
 
     vector<nestedInfo> lastNestedGroup;
@@ -2003,8 +2002,7 @@ static void ColouriseUserDoc(Sci_PositionU startPos, Sci_Position length, int in
                             dontMove = true;
                             if (sc.atLineEnd)
                                 checkEOL = EOL_SKIP_CHECK;
-                            if (lineCommentNesting & SCE_USER_MASK_NESTING_NUMBERS)
-                                startOfDelimiter = true;
+
                             break;
                         }
                     }
@@ -2034,8 +2032,7 @@ static void ColouriseUserDoc(Sci_PositionU startPos, Sci_Position length, int in
                         dontMove = true;
                         if (sc.atLineEnd)
                             checkEOL = EOL_SKIP_CHECK;
-                        if (commentNesting & SCE_USER_MASK_NESTING_NUMBERS)
-                            startOfDelimiter = true;
+
                         break;
                     }
                 }

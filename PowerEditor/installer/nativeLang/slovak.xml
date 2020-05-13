@@ -753,14 +753,13 @@
                     <Item id="6206" name="Zobraziť čísla riadkov"/>
                     <Item id="6207" name="Zobraziť záložky"/>
                     <Item id="6208" name="Zobraziť vertikálny okraj"/>
-                    <Item id="6209" name="Počet stĺpcov: "/>
                     <Item id="6234" name="Zakázať funkciu vylepšeného posunu
 (pri problémoch s touchpadom)"/>
 
                     <Item id="6211" name="Nastavenie vertikálneho okraja"/>
-                    <Item id="6212" name="Režim čiary"/>
                     <Item id="6213" name="Režim pozadia"/>
-                    <Item id="6237" name="Režim viacerých čiar"/>
+                    <Item id="6237" name="Pridajte značku stĺpca tak, že označíte jej pozíciu s desatinným číslom.
+Zadať môžete viacero značiek pomocou medzery na oddelenie rôznych čísel."/>
                     <Item id="6214" name="Zvýrazňovať aktuálny riadok"/>
                     <Item id="6215" name="Povoliť vyhladzovanie písma"/>
                     <Item id="6231" name="Šírka okraja"/>
@@ -1275,8 +1274,6 @@ Hľadať vo všetkých súboroch okrem exe, obj &amp;&amp; log:
             <summary-nbsel1 value=" označených znakov ("/>
             <summary-nbsel2 value=" bajtov) v "/>
             <summary-nbrange value=" oblastiach"/>
-            <multi-edge-radio-tip value="Pridajte značku stĺpca tak, že označíte jej pozíciu s desatinným číslom.
-Zadať môžete viacero značiek pomocou medzery na oddelenie rôznych čísel."/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

@@ -57,13 +57,11 @@ class MarginsDlg : public StaticDialog
 public :
 	MarginsDlg() = default;
 	virtual void destroy() {
-		_verticalEdgeLineNbColVal.destroy();
 		if (_multiEdgeTip)
 			::DestroyWindow(_multiEdgeTip);
 	};
 	
 private :
-	URLCtrl _verticalEdgeLineNbColVal;
 	HWND _multiEdgeTip = nullptr;
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void initScintParam();

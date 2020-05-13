@@ -1204,12 +1204,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					if ((lstrlen(directory) > 0) && (directory[lstrlen(directory)-1] != '\\'))
 						_options._directory += TEXT("\\");
 
-					generic_string msg = TEXT("Are you sure you want to replace all occurrences in :\r");
-					msg += _options._directory;
-					msg += TEXT("\rfor file type : ");
-					msg += _options._filters[0]?_options._filters:TEXT("*.*");
-					int res = ::MessageBox(NULL, msg.c_str(), TEXT("Are you sure?"), MB_OKCANCEL | MB_DEFBUTTON2 | MB_TASKMODAL);
-					if (res == IDOK)
+					if (replaceInFilesConfirmCheck(_options._directory, _options._filters))
 					{
 						HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
 						_options._str2Search = getTextFromCombo(hFindCombo);
@@ -1815,9 +1810,9 @@ bool FindReplaceDlg::processReplace(const TCHAR *txt2find, const TCHAR *txt2repl
 			{
 				generic_string msg;
 				if (moreMatches)
-					msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replaced-next-found", TEXT("Replace: 1 occurrence was replaced. The next occurence found"));
+					msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replaced-next-found", TEXT("Replace: 1 occurrence was replaced. The next occurrence found."));
 				else
-					msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replaced-next-not-found", TEXT("Replace: 1 occurrence was replaced. The next occurence not found"));
+					msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replaced-next-not-found", TEXT("Replace: 1 occurrence was replaced. No more occurrences were found."));
 
 				setStatusbarMessage(msg, FSMessage);
 			}
@@ -2219,7 +2214,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 		}	
 		++nbProcessed;
 
-        // After the processing of the last string occurence the search loop should be stopped
+        // After the processing of the last string occurrence the search loop should be stopped
         // This helps to avoid the endless replacement during the EOL ("$") searching
 		if (targetStart + foundTextLen == findReplaceInfo._endRange)
             break;
@@ -2279,6 +2274,15 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		// the dlgDlg should be the index of funcItem where the current function pointer is
 		// in this case is DOCKABLE_DEMO_INDEX
 		data.dlgID = 0;
+		
+		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+		generic_string text = pNativeSpeaker->getLocalizedStrFromID("find-result-caption", TEXT(""));
+		if (!text.empty())
+		{
+			_findResTitle = text;
+			data.pszName = _findResTitle.c_str();
+		}
+
 		::SendMessage(_hParent, NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
 
 		_pFinder->_scintView.init(_hInst, _pFinder->getHSelf());
@@ -2333,10 +2337,9 @@ void FindReplaceDlg::findAllIn(InWhat op)
 
 	if (::SendMessage(_hParent, cmdid, 0, 0))
 	{
-		if (_findAllResult == 1)
-			wsprintf(_findAllResultStr, TEXT("1 hit"));
-		else
-			wsprintf(_findAllResultStr, TEXT("%s hits"), commafyInt(_findAllResult).c_str());
+		generic_string text = _pFinder->getHitsString(_findAllResult);
+		wsprintf(_findAllResultStr, text.c_str());
+
 		if (_findAllResult) 
 		{
 			focusOnFinder();
@@ -2371,6 +2374,15 @@ Finder * FindReplaceDlg::createFinder()
 	// the dlgDlg should be the index of funcItem where the current function pointer is
 	// in this case is DOCKABLE_DEMO_INDEX
 	data.dlgID = 0;
+
+	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+	generic_string text = pNativeSpeaker->getLocalizedStrFromID("find-result-caption", TEXT(""));
+	if (!text.empty())
+	{
+		_findResTitle = text;
+		data.pszName = _findResTitle.c_str();
+	}
+
 	::SendMessage(_hParent, NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
 
 	pFinder->_scintView.init(_hInst, pFinder->getHSelf());
@@ -2753,12 +2765,7 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const generic_st
 
 					case IDD_FINDINFILES_REPLACEINFILES:
 					{
-						generic_string msg = TEXT("Are you sure you want to replace all occurrences in :\r");
-						msg += _env->_directory;
-						msg += TEXT("\rfor file type : ");
-						msg += (_env->_filters[0]) ? _env->_filters : TEXT("*.*");
-
-						if (::MessageBox(_hParent, msg.c_str(), TEXT("Are you sure?"), MB_OKCANCEL | MB_DEFBUTTON2) == IDOK)
+						if (replaceInFilesConfirmCheck(_env->_directory, _env->_filters))
 						{
 							nppParamInst._isFindReplacing = true;
 							::SendMessage(_hParent, WM_REPLACEINFILES, 0, 0);
@@ -2885,7 +2892,7 @@ void FindReplaceDlg::clearMarks(const FindOption& opt)
 		int endPosition = cr.cpMax;
 
 		(*_ppEditView)->execute(SCI_SETINDICATORCURRENT, SCE_UNIVERSAL_FOUND_STYLE);
-		(*_ppEditView)->execute(SCI_INDICATORCLEARRANGE, startPosition, endPosition);
+		(*_ppEditView)->execute(SCI_INDICATORCLEARRANGE, startPosition, endPosition - startPosition);
 
 		if (opt._doMarkLine)
 		{
@@ -3122,11 +3129,69 @@ void FindReplaceDlg::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	::DrawText(lpDrawItemStruct->hDC, ptStr, lstrlen(ptStr), &rect, DT_SINGLELINE | DT_VCENTER | DT_LEFT);
 }
 
+bool FindReplaceDlg::replaceInFilesConfirmCheck(generic_string directory, generic_string fileTypes)
+{
+	bool confirmed = false;
+
+	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+
+	generic_string title = pNativeSpeaker->getLocalizedStrFromID("replace-in-files-confirm-title", TEXT("Are you sure?"));
+
+	generic_string msg = pNativeSpeaker->getLocalizedStrFromID("replace-in-files-confirm-directory", TEXT("Are you sure you want to replace all occurrences in :"));
+	msg += TEXT("\r\r");
+	msg += directory;
+
+	msg += TEXT("\r\r");
+
+	generic_string msg2 = pNativeSpeaker->getLocalizedStrFromID("replace-in-files-confirm-filetype", TEXT("For file type :"));
+	msg2 += TEXT("\r\r");
+	msg2 += fileTypes[0] ? fileTypes : TEXT("*.*");
+
+	msg += msg2;
+
+	int res = ::MessageBox(NULL, msg.c_str(), title.c_str(), MB_OKCANCEL | MB_DEFBUTTON2 | MB_TASKMODAL);
+
+	if (res == IDOK)
+	{
+		confirmed = true;
+	}
+
+	return confirmed;
+}
+
+generic_string Finder::getHitsString(int count) const
+{
+	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+	generic_string text = pNativeSpeaker->getLocalizedStrFromID("find-result-hits", TEXT(""));
+
+	if (text.empty())
+	{
+		if (count == 1)
+		{
+			text = TEXT(" (1 hit)");
+		}
+		else
+		{
+			text = TEXT(" (");
+			text += std::to_wstring(count);
+			text += TEXT(" hits)");
+		}
+	}
+	else
+	{
+		text = stringReplace(text, TEXT("$INT_REPLACE$"), std::to_wstring(count));
+	}
+
+	return text;
+}
+
 void Finder::addSearchLine(const TCHAR *searchName)
 {
-	generic_string str = TEXT("Search \"");
+	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+	generic_string str = pNativeSpeaker->getLocalizedStrFromID("find-result-title", TEXT("Search"));
+	str += TEXT(" \"");
 	str += searchName;
-	str += TEXT("\"\r\n");
+	str += TEXT("\" \r\n");
 
 	setFinderReadOnly(false);
 	_scintView.addGenericText(str.c_str());
@@ -3154,31 +3219,72 @@ void Finder::addFileNameTitle(const TCHAR * fileName)
 
 void Finder::addFileHitCount(int count)
 {
-	TCHAR text[20];
-	if (count == 1)
-		wsprintf(text, TEXT(" (1 hit)"));
-	else
-		wsprintf(text, TEXT(" (%i hits)"), count);
+	wstring text = TEXT(" ");
+	text += getHitsString(count);
 	setFinderReadOnly(false);
-	_scintView.insertGenericTextFrom(_lastFileHeaderPos, text);
+	_scintView.insertGenericTextFrom(_lastFileHeaderPos, text.c_str());
 	setFinderReadOnly(true);
 	++_nbFoundFiles;
 }
 
-void Finder::addSearchHitCount(int count, bool isMatchLines)
+void Finder::addSearchHitCount(int count, int countSearched, bool isMatchLines)
 {
-	const TCHAR *moreInfo = isMatchLines ? TEXT(" - Line Filter Mode: only display the filtered results") :TEXT("");
-	TCHAR text[100];
-	if (count == 1 && _nbFoundFiles == 1)
-		wsprintf(text, TEXT(" (1 hit in 1 file%s)"), moreInfo);
-	else if (count == 1 && _nbFoundFiles != 1)
-		wsprintf(text, TEXT(" (1 hit in %i files%s)"), _nbFoundFiles, moreInfo);
-	else if (count != 1 && _nbFoundFiles == 1)
-		wsprintf(text, TEXT(" (%i hits in 1 file%s)"), count, moreInfo);
-	else if (count != 1 && _nbFoundFiles != 1)
-		wsprintf(text, TEXT(" (%i hits in %i files%s)"), count, _nbFoundFiles, moreInfo);
+	generic_string hitIn;
+	generic_string fileOf;
+
+	generic_string nbResStr = std::to_wstring(count);
+	generic_string nbFoundFilesStr = std::to_wstring(_nbFoundFiles);
+	generic_string nbSearchedFilesStr = std::to_wstring(countSearched);
+
+	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+	generic_string text = pNativeSpeaker->getLocalizedStrFromID("find-result-title-info", TEXT(""));
+
+	if (text.empty())
+	{
+		if (count == 1 && _nbFoundFiles == 1)
+		{
+			hitIn = TEXT(" hit in ");
+			fileOf = TEXT(" file of ");
+		}
+		else if (count == 1 && _nbFoundFiles != 1)
+		{
+			hitIn = TEXT(" hit in ");
+			fileOf = TEXT(" files of ");
+		}
+		else if (count != 1 && _nbFoundFiles == 1)
+		{
+			hitIn = TEXT(" hits in ");
+			fileOf = TEXT(" file of ");
+		}
+		else //if (count != 1 && _nbFoundFiles != 1)
+		{
+			hitIn = TEXT(" hits in ");
+			fileOf = TEXT(" files of ");
+		}
+
+		const TCHAR *moreInfo = isMatchLines ? TEXT(" - Line Filter Mode: only display the filtered results") : TEXT("");
+
+		text = TEXT(" (");
+		text += nbResStr;
+		text += hitIn;
+		text += nbFoundFilesStr;
+		text += fileOf;
+		text += nbSearchedFilesStr;
+		text += TEXT(" searched");
+		text += moreInfo;
+		text += TEXT(")");
+	}
+	else
+	{
+		text = stringReplace(text, TEXT("$INT_REPLACE1$"), nbResStr);
+		text = stringReplace(text, TEXT("$INT_REPLACE2$"), nbFoundFilesStr);
+		text = stringReplace(text, TEXT("$INT_REPLACE3$"), nbSearchedFilesStr);
+
+		text += isMatchLines ? pNativeSpeaker->getLocalizedStrFromID("find-result-title-info-extra", TEXT("")) : TEXT("");
+	}
+
 	setFinderReadOnly(false);
-	_scintView.insertGenericTextFrom(_lastSearchHeaderPos, text);
+	_scintView.insertGenericTextFrom(_lastSearchHeaderPos, text.c_str());
 	setFinderReadOnly(true);
 }
 
@@ -3311,7 +3417,7 @@ void Finder::beginNewFilesSearch()
 	_scintView.collapse(searchHeaderLevel - SC_FOLDLEVELBASE, fold_collapse);
 }
 
-void Finder::finishFilesSearch(int count, bool isMatchLines)
+void Finder::finishFilesSearch(int count, int searchedCount, bool isMatchLines)
 {
 	std::vector<FoundInfo>* _pOldFoundInfos;
 	std::vector<SearchResultMarking>* _pOldMarkings;
@@ -3329,7 +3435,7 @@ void Finder::finishFilesSearch(int count, bool isMatchLines)
 	if (_pMainMarkings->size() > 0)
 		_markingsStruct._markings = &((*_pMainMarkings)[0]);
 
-	addSearchHitCount(count, isMatchLines);
+	addSearchHitCount(count, searchedCount, isMatchLines);
 	_scintView.execute(SCI_SETSEL, 0, 0);
 
 	_scintView.execute(SCI_SETLEXER, SCLEX_SEARCHRESULT);

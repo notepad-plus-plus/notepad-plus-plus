@@ -40,7 +40,7 @@
 using namespace Scintilla;
 
 // The following definitions are a copy of the ones in FindReplaceDlg.h
-enum { searchHeaderLevel = SC_FOLDLEVELBASE + 1, fileHeaderLevel, resultLevel };
+enum { searchHeaderLevel = SC_FOLDLEVELBASE, fileHeaderLevel, resultLevel };
 
 
 static inline bool AtEOL(Accessor &styler, size_t i) {
@@ -56,15 +56,11 @@ static void ColouriseSearchResultLine(SearchResultMarkings* pMarkings, char *lin
 {
 	// startLine and endPos are the absolute positions.
 
-	if (lineBuffer[0] == ' ') // file header
+	if (lineBuffer[0] == ' ') // white space - file header
 	{
 		styler.ColourTo(endPos, SCE_SEARCHRESULT_FILE_HEADER);
 	}
-	else if (lineBuffer[0] == 'S') // search header
-	{
-		styler.ColourTo(endPos, SCE_SEARCHRESULT_SEARCH_HEADER);
-	}
-	else // line info
+	else if (lineBuffer[0] == '	')// \t - line info
 	{
 		const unsigned int firstTokenLen = 4;
 		unsigned int currentPos;
@@ -94,6 +90,10 @@ static void ColouriseSearchResultLine(SearchResultMarkings* pMarkings, char *lin
 				currentStat = SCE_SEARCHRESULT_WORD2SEARCH;
 		}
 		styler.ColourTo(endPos, currentStat);
+	}
+	else // every character - search header
+	{
+		styler.ColourTo(endPos, SCE_SEARCHRESULT_SEARCH_HEADER);
 	}
 }
 

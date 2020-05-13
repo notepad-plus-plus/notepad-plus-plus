@@ -74,7 +74,7 @@ private:
 	void reset();					//reset all vars in case function is invalidated
 	void cleanup();					//delete any leftovers
     bool isBasicWordChar(TCHAR ch) const {
-        return (ch >= 'A' && ch <= 'Z' || ch >= 'a' && ch <= 'z' || ch >= '0' && ch <= '9' || ch == '_');
+        return ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9') || ch == '_');
     };
     bool isAdditionalWordChar(TCHAR ch) const {
         const TCHAR *addChars = _additionalWordChar.c_str();

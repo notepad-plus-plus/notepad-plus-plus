@@ -843,6 +843,7 @@
 				<Param name="string keyword" />
 			</Overload>
 		</KeyWord>
+		<KeyWord name="nameof" />
 		<KeyWord name="namespace" />
 		<KeyWord name="new" />
 		<KeyWord name="null" />

@@ -443,8 +443,8 @@
 	#define NPPM_INTERNAL_STOPMONITORING            (NOTEPADPLUS_USER_INTERNAL + 49) // Used by Monitoring feature
 	#define NPPM_INTERNAL_EDGEBACKGROUND            (NOTEPADPLUS_USER_INTERNAL + 50)
 	#define NPPM_INTERNAL_EDGEMULTISETSIZE          (NOTEPADPLUS_USER_INTERNAL + 51)
-    //wParam: 0
-    //lParam: document new index
+	#define NPPM_INTERNAL_UPDATECLICKABLELINKS      (NOTEPADPLUS_USER_INTERNAL + 52)
+
 // See Notepad_plus_msgs.h
 //#define NOTEPADPLUS_USER   (WM_USER + 1000)
 

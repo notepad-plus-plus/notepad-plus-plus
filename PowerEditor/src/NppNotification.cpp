@@ -792,7 +792,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			else
 			{ // Double click with no modifiers
 				// Check wether cursor is within URL
-				int indicMsk = notifyView->execute(SCI_INDICATORALLONFOR, notification->position);
+				auto indicMsk = notifyView->execute(SCI_INDICATORALLONFOR, notification->position);
 				if (!(indicMsk & (1 << URL_INDIC))) break;
 
 				// Revert selection of current word. Best to this early, otherwise the
@@ -800,8 +800,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				notifyView->execute(SCI_SETSEL, notification->position, notification->position); 
 
 				// Open URL
-				int startPos = notifyView->execute(SCI_INDICATORSTART, URL_INDIC, notification->position);
-				int endPos = notifyView->execute(SCI_INDICATOREND, URL_INDIC, notification->position);
+				auto startPos = notifyView->execute(SCI_INDICATORSTART, URL_INDIC, notification->position);
+				auto endPos = notifyView->execute(SCI_INDICATOREND, URL_INDIC, notification->position);
 				generic_string url = notifyView->getGenericTextAsString(static_cast<size_t>(startPos), static_cast<size_t>(endPos));
 				::ShellExecute(_pPublicInterface->getHSelf(), TEXT("open"), url.c_str(), NULL, NULL, SW_SHOW);
 			}

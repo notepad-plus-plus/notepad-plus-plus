@@ -1351,6 +1351,11 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 		do
 		{
 			lenFile = fread(data+incompleteMultibyteChar, 1, blockSize-incompleteMultibyteChar, fp) + incompleteMultibyteChar;
+			if (ferror(fp) != 0)
+			{
+				success = false;
+				break;
+			}
 			if (lenFile == 0) break;
 
             if (isFirstTime)

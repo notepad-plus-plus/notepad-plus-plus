@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-	<Native-Langue name="Turkish" filename="turkish.xml" version="7.8.6">
+	<Native-Langue name="Turkish" filename="turkish.xml" version="7.8.7">
 		<Menu>
 			<Main>
 				<!-- Ana Menü Girişleri -->
@@ -759,7 +759,7 @@ Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasın
 					<Item id="6215" name="Yumuşak yazı tipini etkinleştir"/>
 					<Item id="6231" name="Kenarlık Boyutu"/>
 					<Item id="6235" name="Kenarlık yok"/>
-                    <Item id="6236" name="Son satırın ötesine kaydırmayı etkinleştir"/>
+					<Item id="6236" name="Son satırın ötesine kaydırmayı etkinleştir"/>
 				</Scintillas>
 
 				<NewDoc title="Yeni Belge">
@@ -782,8 +782,8 @@ Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasın
 					<Item id="6413" name="Varsayılan Dizin (Aç/Kaydet)"/>
 					<Item id="6414" name="Geçerli belgeyi takip et"/>
 					<Item id="6415" name="Son kullanılan dizini hatırla"/>
-					<Item id="6430" name="Yeni stil diyalogunu kullan (&amp;&amp; Unix tarzı yol kapasitesi)"/>
-                    <Item id="6431" name="Klasör taşıyarak Çalışma Alanı Klasörleri başlatıldığında klasörün tüm dosyalarını aç"/>
+					<Item id="6430" name="Yeni stil diyalogunu kullan (Unix tarzı yol kapasitesi olmadan)"/>
+					<Item id="6431" name="Klasör taşıyarak Çalışma Alanı Klasörleri başlatıldığında klasörün tüm dosyalarını aç"/>
 				</DefaultDir>
 
 				<FileAssoc title="Dosya İlişkilendirmeleri">
@@ -1232,8 +1232,8 @@ Devam edilsin mi?"/>
 			<find-status-replaceall-readonly value="Tümünü Değiştir: Yazı değiştirilemez. Şu anki dosya yalnızca okunabilir"/>
 			<find-status-replace-end-reached value="Değiştir: Baştan 1. eşleşme değiştirildi. Dosyanın sonuna ulaşıldı"/>
 			<find-status-replace-top-reached value="Değiştir: Sondan 1. eşleşme değiştirildi. Dosyanın başına ulaşıldı"/>
-			<find-status-replaced-next-found value="Değiştir: 1 eşleşme değiştirildi. Sonraki eşleşme bulundu"/>
-			<find-status-replaced-next-not-found value="Değiştir: 1 eşleşme değiştirildi. Sonraki eşleşme bulunamadı"/>
+			<find-status-replaced-next-found value="Değiştir: 1 eşleşme değiştirildi. Sonraki eşleşme bulundu."/>
+			<find-status-replaced-next-not-found value="Değiştir: 1 eşleşme değiştirildi. Daha fazla eşleşme bulunamadı."/>
 			<find-status-replace-not-found value="Değiştir: hiçbir eşleşme bulunamadı"/>
 			<find-status-replace-readonly value="Değiştir: Yazı değiştirilemez. Şu anki dosya yalnızca okunabilir"/>
 			<find-status-cannot-find value="Bulma: &quot;$STR_REPLACE$&quot; yazısı bulunamadı"/>
@@ -1268,6 +1268,14 @@ Devam edilsin mi?"/>
 			<summary-nbsel1 value=" seçili karakterler ("/>
 			<summary-nbsel2 value=" bayt) içinde "/>
 			<summary-nbrange value=" mesafe"/>
+			<replace-in-files-confirm-title value="Emin misiniz?"/>
+			<replace-in-files-confirm-directory value="Şuradaki tüm bulunanları değiştirmek istediğinize emin misiniz :"/>
+			<replace-in-files-confirm-filetype value="Dosya türü için :"/>
+			<find-result-caption value="Sonuç bul"/>
+			<find-result-title value="Ara"/>
+			<find-result-title-info value="($INT_REPLACE2$ dosyada yapılan $INT_REPLACE3$ aramada $INT_REPLACE1$ eşleşme bulundu)"/>
+			<find-result-title-info-extra value=" - Satır Filtresi Modu: sadece filtrelenmiş sonuçları göster"/>
+			<find-result-hits value="($INT_REPLACE$ eşleşme)"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

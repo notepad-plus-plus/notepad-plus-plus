@@ -342,9 +342,10 @@ void FindReplaceDlg::fillFindHistory()
 		::SendDlgItemMessage(_hSelf, IDWHOLEWORD, BM_SETCHECK, BST_UNCHECKED, 0);
 		::EnableWindow(::GetDlgItem(_hSelf, IDWHOLEWORD), (BOOL)false);
 
-		//regex upward search is disable in v6.3 due to a regression
-		::EnableWindow(::GetDlgItem(_hSelf, IDC_FINDPREV), (BOOL)false);
+		// regex upward search is disabled
+		::SendDlgItemMessage(_hSelf, IDC_BACKWARDDIRECTION, BM_SETCHECK, BST_UNCHECKED, 0);
 		::EnableWindow(::GetDlgItem(_hSelf, IDC_BACKWARDDIRECTION), (BOOL)false);
+		::EnableWindow(::GetDlgItem(_hSelf, IDC_FINDPREV), (BOOL)false);
 		
 		// If the search mode from history is regExp then enable the checkbox (. matches newline)
 		::EnableWindow(GetDlgItem(_hSelf, IDREDOTMATCHNL), true);
@@ -1062,25 +1063,35 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						}
 					}
 
-					if (isMacroRecording)
-						saveInMacro(IDOK, FR_OP_FIND);
+					if ((_options._whichDirection == DIR_UP) && (_options._searchType == FindRegex))
+					{
+						// this can only happen when shift-key was pressed
+						// regex upward search is disabled
+						// turn user action into a no-action step
+					}
+					else
+					{
+						if (isMacroRecording)
+							saveInMacro(IDOK, FR_OP_FIND);
 
-					FindStatus findStatus = FSFound;
-					processFindNext(_options._str2Search.c_str(), _env, &findStatus);
+						FindStatus findStatus = FSFound;
+						processFindNext(_options._str2Search.c_str(), _env, &findStatus);
+
+						NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+						if (findStatus == FSEndReached)
+						{
+							generic_string msg = pNativeSpeaker->getLocalizedStrFromID("find-status-end-reached", TEXT("Find: Found the 1st occurrence from the top. The end of the document has been reached."));
+							setStatusbarMessage(msg, FSEndReached);
+						}
+						else if (findStatus == FSTopReached)
+						{
+							generic_string msg = pNativeSpeaker->getLocalizedStrFromID("find-status-top-reached", TEXT("Find: Found the 1st occurrence from the bottom. The beginning of the document has been reached."));
+							setStatusbarMessage(msg, FSTopReached);
+						}
+					}
+
 					// restore search direction which may have been overwritten because shift-key was pressed
 					_options._whichDirection = direction_bak;
-
-					NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-					if (findStatus == FSEndReached)
-					{
-						generic_string msg = pNativeSpeaker->getLocalizedStrFromID("find-status-end-reached", TEXT("Find: Found the 1st occurrence from the top. The end of the document has been reached."));
-						setStatusbarMessage(msg, FSEndReached);
-					}
-					else if (findStatus == FSTopReached)
-					{
-						generic_string msg = pNativeSpeaker->getLocalizedStrFromID("find-status-top-reached", TEXT("Find: Found the 1st occurrence from the bottom. The beginning of the document has been reached."));
-						setStatusbarMessage(msg, FSTopReached);
-					}
 
 					nppParamInst._isFindReplacing = false;
 				}
@@ -1409,16 +1420,17 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						_options._isWholeWord = false;
 						::SendDlgItemMessage(_hSelf, IDWHOLEWORD, BM_SETCHECK, _options._isWholeWord?BST_CHECKED:BST_UNCHECKED, 0);
 
-						//regex upward search is disable in v6.3 due to a regression
+						//regex upward search is disabled
 						::SendDlgItemMessage(_hSelf, IDC_BACKWARDDIRECTION, BM_SETCHECK, BST_UNCHECKED, 0);
 						_options._whichDirection = DIR_DOWN;
 					}
 
 					::EnableWindow(::GetDlgItem(_hSelf, IDWHOLEWORD), (BOOL)!isRegex);
 
-					//regex upward search is disable in v6.3 due to a regression
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_FINDPREV), (BOOL)!isRegex);
+					// regex upward search is disabled
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_BACKWARDDIRECTION), (BOOL)!isRegex);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_FINDPREV), (BOOL)!isRegex);
+
 					return TRUE; }
 
 				case IDWRAP :
@@ -2675,9 +2687,18 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const generic_st
 				switch (intValue)
 				{
 					case IDOK:
-						nppParamInst._isFindReplacing = true;
-						processFindNext(_env->_str2Search.c_str());
-						nppParamInst._isFindReplacing = false;
+						if ((_env->_whichDirection == DIR_UP) && (_env->_searchType == FindRegex))
+						{
+							// regex upward search is disabled
+							// this macro step could have been recorded in an earlier version before it was not allowed, or hand-edited
+							// make this a no-action macro step
+						}
+						else
+						{
+							nppParamInst._isFindReplacing = true;
+							processFindNext(_env->_str2Search.c_str());
+							nppParamInst._isFindReplacing = false;
+						}
 						break;
 
 					case IDC_FINDNEXT:
@@ -2692,16 +2713,34 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const generic_st
 					case IDC_FINDPREV:
 						// IDC_FINDPREV will not be recorded into new macros recorded with 7.8.5 and later
 						// stay playback compatible with 7.5.5 - 7.8.4 where IDC_FINDPREV was allowed but unneeded/undocumented
-						nppParamInst._isFindReplacing = true;
-						_env->_whichDirection = DIR_UP;
-						processFindNext(_env->_str2Search.c_str());
-						nppParamInst._isFindReplacing = false;
+						if (_env->_searchType == FindRegex)
+						{
+							// regex upward search is disabled
+							// this macro step could have been recorded in an earlier version before it was not allowed, or hand-edited
+							// make this a no-action macro step
+						}
+						else
+						{
+							_env->_whichDirection = DIR_UP;
+							nppParamInst._isFindReplacing = true;
+							processFindNext(_env->_str2Search.c_str());
+							nppParamInst._isFindReplacing = false;
+						}
 						break;
 
 					case IDREPLACE:
-						nppParamInst._isFindReplacing = true;
-						processReplace(_env->_str2Search.c_str(), _env->_str4Replace.c_str(), _env);
-						nppParamInst._isFindReplacing = false;
+						if ((_env->_whichDirection == DIR_UP) && (_env->_searchType == FindRegex))
+						{
+							// regex upward search is disabled
+							// this macro step could have been recorded in an earlier version before it was disabled, or hand-edited
+							// make this a no-action macro step
+						}
+						else
+						{
+							nppParamInst._isFindReplacing = true;
+							processReplace(_env->_str2Search.c_str(), _env->_str4Replace.c_str(), _env);
+							nppParamInst._isFindReplacing = false;
+						}
 						break;
 					case IDC_FINDALL_OPENEDFILES:
 						nppParamInst._isFindReplacing = true;

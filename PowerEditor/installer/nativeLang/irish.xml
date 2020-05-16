@@ -10,16 +10,16 @@ Desc: Irish translation for Notepad++
             <Main>
                 <!-- Main Menu Entries -->
                 <Entries>
-                    <Item menuId="file" name="&amp;comhad"/>
-                    <Item menuId="edit" name="&amp;eagarthóireacht"/>
-                    <Item menuId="search" name="&amp;cuardaigh"/>
-                    <Item menuId="view" name="&amp;amharc"/>
-                    <Item menuId="encoding" name="&amp;ionchódú"/>
-                    <Item menuId="language" name="&amp;teanga"/>
-                    <Item menuId="settings" name="&amp;suímh"/>
-                    <Item menuId="tools" name="&amp;uirlisí"/>
-                    <Item menuId="macro" name="&amp;macra"/>
-                    <Item menuId="Rith" name="&amp;rith"/>
+                    <Item menuId="file" name="&amp;Comhad"/>
+                    <Item menuId="edit" name="&amp;Eagar"/>
+                    <Item menuId="search" name="&amp;Cuardaigh"/>
+                    <Item menuId="view" name="&amp;Amharc"/>
+                    <Item menuId="encoding" name="&amp;Ionchódú"/>
+                    <Item menuId="language" name="&amp;Teanga"/>
+                    <Item menuId="settings" name="&amp;Suímh"/>
+                    <Item menuId="tools" name="&amp;Uirlisí"/>
+                    <Item menuId="macro" name="&amp;Macra"/>
+                    <Item menuId="Rith" name="&amp;Rith"/>
                     <Item idName="Plugins" name="&amp;Breiseáin"/>
                     <Item idName="Window" name="&amp;Fuinneog"/>
                 </Entries>
@@ -38,8 +38,8 @@ Desc: Irish translation for Notepad++
                     <Item subMenuId="edit-blankOperations" name="Oibríochtaí Bána"/>
                     <Item subMenuId="edit-pasteSpecial" name="Greamaigh Speisialta"/>
                     <Item subMenuId="edit-onSelection" name="Ar Roghnú"/>
-                    <Item subMenuId="search-markAll" name="Mark All"/>
-                    <Item subMenuId="search-unmarkAll" name="Unmark All"/>
+                    <Item subMenuId="search-markAll" name="Rianaigh Uile"/>
+                    <Item subMenuId="search-unmarkAll" name="Dírianaigh Uile"/>
                     <Item subMenuId="search-jumpUp" name="Léim suas"/>
                     <Item subMenuId="search-jumpDown" name="Léim síos"/>
                     <Item subMenuId="search-bookmark" name="Leabharmharc"/>
@@ -81,7 +81,7 @@ Desc: Irish translation for Notepad++
                     <Item id="41019" name="Explorer"/>
                     <Item id="41020" name="cmd"/>
                     <Item id="41003" name="&amp;Dún"/>
-                    <Item id="41004" name="Clos&amp;e All"/>
+                    <Item id="41004" name="Dún Uile"/>
                     <Item id="41005" name="Dún Gach NÍL Cáipéis Reatha"/>
                     <Item id="41009" name="Dún gach ceann leis an Chlé"/>
                     <Item id="41018" name="Dún All to the Right"/>

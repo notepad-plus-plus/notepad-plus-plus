@@ -326,10 +326,8 @@ void DocumentMap::scrollMapWith(const MapPosition & mapPos)
 void DocumentMap::doMove()
 {
 	RECT rc;
-	POINT pt = {0,0};
-	::ClientToScreen(_hSelf, &pt);
 	getClientRect(rc);
-	::MoveWindow(_vzDlg.getHSelf(), pt.x, pt.y, (rc.right - rc.left), (rc.bottom - rc.top), TRUE);
+	::MoveWindow(_vzDlg.getHSelf(), 0, 0, (rc.right - rc.left), (rc.bottom - rc.top), TRUE);
 }
 
 void DocumentMap::fold(size_t line, bool foldOrNot)
@@ -378,6 +376,7 @@ INT_PTR CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			_vzDlg.init(::GetModuleHandle(NULL), _hSelf);
 			_vzDlg.doDialog();
 			(NppParameters::getInstance()).SetTransparent(_vzDlg.getHSelf(), 50); // 0 <= transparancy < 256
+			BringWindowToTop (_vzDlg.getHSelf());
 
 			setSyntaxHiliting();
 			
@@ -398,12 +397,10 @@ INT_PTR CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
 				if (_vzDlg.isCreated())
 				{
-					POINT pt = {0,0};
-					::ClientToScreen(_hSelf, &pt);
 					if (!_pMapView->isWrap())
 						::MoveWindow(_pMapView->getHSelf(), 0, 0, width, height, TRUE);
 						
-					::MoveWindow(_vzDlg.getHSelf(), pt.x, pt.y, width, height, TRUE);
+					::MoveWindow(_vzDlg.getHSelf(), 0, 0, width, height, TRUE);
 				}
 			}
             break;
@@ -440,9 +437,7 @@ INT_PTR CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					int width = rc.right - rc.left;
 					int height = rc.bottom - rc.top;
 
-					POINT pt = {0,0};
-					::ClientToScreen(_hSelf, &pt);
-					::MoveWindow(_vzDlg.getHSelf(), pt.x, pt.y, width, height, TRUE);
+					::MoveWindow(_vzDlg.getHSelf(), 0, 0, width, height, TRUE);
 					scrollMap();
 					return TRUE;
 				}

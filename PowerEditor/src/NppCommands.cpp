@@ -1022,23 +1022,31 @@ void Notepad_plus::command(int id)
 		case IDM_SEARCH_FINDNEXT :
 		case IDM_SEARCH_FINDPREV :
 		{
-			if (!_findReplaceDlg.isCreated())
-				return;
-
-			FindOption op = _findReplaceDlg.getCurrentOptions();
-			op._whichDirection = (id == IDM_SEARCH_FINDNEXT?DIR_DOWN:DIR_UP);
-			generic_string s = _findReplaceDlg.getText2search();
-			FindStatus status = FSNoMessage;
-			_findReplaceDlg.processFindNext(s.c_str(), &op, &status);
-			if (status == FSEndReached)
+			if (_findReplaceDlg.isCreated())
 			{
-				generic_string msg = _nativeLangSpeaker.getLocalizedStrFromID("find-status-end-reached", TEXT("Find: Found the 1st occurrence from the top. The end of the document has been reached."));
-				_findReplaceDlg.setStatusbarMessage(msg, FSEndReached);
-			}
-			else if (status == FSTopReached)
-			{
-				generic_string msg = _nativeLangSpeaker.getLocalizedStrFromID("find-status-top-reached", TEXT("Find: Found the 1st occurrence from the bottom. The beginning of the document has been reached."));
-				_findReplaceDlg.setStatusbarMessage(msg, FSTopReached);
+				FindOption op = _findReplaceDlg.getCurrentOptions();
+				if ((id == IDM_SEARCH_FINDPREV) && (op._searchType == FindRegex))
+				{
+					// regex upward search is disabled
+					// make this a no-action command
+				}
+				else
+				{
+					op._whichDirection = (id == IDM_SEARCH_FINDNEXT ? DIR_DOWN : DIR_UP);
+					generic_string s = _findReplaceDlg.getText2search();
+					FindStatus status = FSNoMessage;
+					_findReplaceDlg.processFindNext(s.c_str(), &op, &status);
+					if (status == FSEndReached)
+					{
+						generic_string msg = _nativeLangSpeaker.getLocalizedStrFromID("find-status-end-reached", TEXT("Find: Found the 1st occurrence from the top. The end of the document has been reached."));
+						_findReplaceDlg.setStatusbarMessage(msg, FSEndReached);
+					}
+					else if (status == FSTopReached)
+					{
+						generic_string msg = _nativeLangSpeaker.getLocalizedStrFromID("find-status-top-reached", TEXT("Find: Found the 1st occurrence from the bottom. The beginning of the document has been reached."));
+						_findReplaceDlg.setStatusbarMessage(msg, FSTopReached);
+					}
+				}
 			}
 		}
 		break;

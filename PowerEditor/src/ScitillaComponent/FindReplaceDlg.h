@@ -125,20 +125,21 @@ public:
 	void addSearchLine(const TCHAR *searchName);
 	void addFileNameTitle(const TCHAR * fileName);
 	void addFileHitCount(int count);
-	void addSearchHitCount(int count, bool isMatchLines = false);
+	void addSearchHitCount(int count, int countSearched, bool isMatchLines = false);
 	void add(FoundInfo fi, SearchResultMarking mi, const TCHAR* foundline);
 	void setFinderStyle();
 	void removeAll();
 	void openAll();
 	void copy();
 	void beginNewFilesSearch();
-	void finishFilesSearch(int count, bool isMatchLines = false);
+	void finishFilesSearch(int count, int searchedCount, bool isMatchLines = false);
 	void gotoNextFoundResult(int direction);
 	void gotoFoundLine();
 	void deleteResult();
 	std::vector<generic_string> getResultFilePaths() const;
 	bool canFind(const TCHAR *fileName, size_t lineNumber) const;
 	void setVolatiled(bool val) { _canBeVolatiled = val; };
+	generic_string getHitsString(int count) const;
 
 protected :
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
@@ -146,7 +147,7 @@ protected :
 
 private:
 
-	enum { searchHeaderLevel = SC_FOLDLEVELBASE + 1, fileHeaderLevel, resultLevel };
+	enum { searchHeaderLevel = SC_FOLDLEVELBASE, fileHeaderLevel, resultLevel };
 
 	ScintillaEditView **_ppEditView = nullptr;
 	std::vector<FoundInfo> _foundInfos1;
@@ -302,9 +303,9 @@ public :
 		_pFinder->addSearchLine(getText2search().c_str());
 	}
 
-	void finishFilesSearch(int count)
+	void finishFilesSearch(int count, int searchedCount)
 	{
-		_pFinder->finishFilesSearch(count);
+		_pFinder->finishFilesSearch(count, searchedCount);
 	}
 
 	void focusOnFinder() {
@@ -357,6 +358,7 @@ private :
 
 	ScintillaEditView **_ppEditView = nullptr;
 	Finder  *_pFinder = nullptr;
+	generic_string _findResTitle;
 
 	std::vector<Finder *> _findersOfFinder;
 
@@ -410,7 +412,7 @@ private :
 	static const int FR_OP_GLOBAL = 8;
 	void saveInMacro(size_t cmd, int cmdType);
 	void drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct);
-
+	bool replaceInFilesConfirmCheck(generic_string directory, generic_string fileTypes);
 };
 
 //FindIncrementDlg: incremental search dialog, docked in rebar

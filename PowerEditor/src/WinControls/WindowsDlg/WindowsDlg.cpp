@@ -820,7 +820,7 @@ void WindowsDlg::doClose()
 	nmdlg.Items = new UINT[nmdlg.nItems];
 	vector<int> key;
 	key.resize(n, 0x7fffffff);
-	for (int i=-1, j=0;; ++j)
+	for (int i=-1, j=0; ; ++j)
 	{
 		i = ListView_GetNextItem(_hList, i, LVNI_SELECTED);
 		if (i == -1) break;
@@ -880,7 +880,7 @@ void WindowsDlg::doSortToTabs()
 	nmdlg.nItems = ListView_GetItemCount(_hList);
 	nmdlg.Items = new UINT[nmdlg.nItems];
 
-	for (int i=-1, j=0;; ++j)
+	for (int i=-1, j=0; ; ++j)
 	{
 		i = ListView_GetNextItem(_hList, i, LVNI_ALL);
 		if (i == -1)

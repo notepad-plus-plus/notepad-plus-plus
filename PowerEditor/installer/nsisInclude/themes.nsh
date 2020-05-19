@@ -124,10 +124,15 @@ SectionGroup "Themes" Themes
 		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\MossyLawn.xml"
 	${MementoSectionEnd}
-	
+
 	${MementoSection} "Navajo" Navajo
 		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Navajo.xml"
+	${MementoSectionEnd}
+
+	${MementoSection} "DansLeRuSH Dark" DansLeRuSHDark
+		SetOutPath "$UPDATE_PATH\themes"
+		File ".\themes\DansLeRuSH-Dark.xml"
 	${MementoSectionEnd}
 SectionGroupEnd
 
@@ -251,6 +256,12 @@ SectionGroup un.Themes
 	Section un.Navajo
 	${If} $keepUserData == "false"
 		Delete "$installPath\themes\Navajo.xml"
+	${endIf}
+	SectionEnd
+
+	Section un.DansLeRuSHDark
+	${If} $keepUserData == "false"
+		Delete "$installPath\themes\DansLeRuSH-Dark.xml"
 	${endIf}
 	SectionEnd
 	

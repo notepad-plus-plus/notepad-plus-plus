@@ -195,7 +195,7 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_G,       IDM_SEARCH_GOTOLINE,                          true,  false, false, nullptr },
 	{ VK_B,       IDM_SEARCH_GOTOMATCHINGBRACE,                 true,  false, false, nullptr },
 	{ VK_B,       IDM_SEARCH_SELECTMATCHINGBRACES,              true,  true,  false, nullptr },
-	{ VK_NULL,    IDM_SEARCH_MARK,                              false, false, false, nullptr },
+	{ VK_M,       IDM_SEARCH_MARK,                              true,  false, false, nullptr },
 	{ VK_NULL,    IDM_SEARCH_MARKALLEXT1,                       false, false, false, nullptr },
 	{ VK_NULL,    IDM_SEARCH_MARKALLEXT2,                       false, false, false, nullptr },
 	{ VK_NULL,    IDM_SEARCH_MARKALLEXT3,                       false, false, false, nullptr },
@@ -2243,6 +2243,10 @@ void NppParameters::feedFindHistoryParameters(TiXmlNode *node)
 	if (!findHistoryRoot) return;
 
 	(findHistoryRoot->ToElement())->Attribute(TEXT("nbMaxFindHistoryPath"), &_findHistory._nbMaxFindHistoryPath);
+	if (_findHistory._nbMaxFindHistoryPath > NB_MAX_FINDHISTORY_PATH)
+	{
+		_findHistory._nbMaxFindHistoryPath = NB_MAX_FINDHISTORY_PATH;
+	}
 	if ((_findHistory._nbMaxFindHistoryPath > 0) && (_findHistory._nbMaxFindHistoryPath <= NB_MAX_FINDHISTORY_PATH))
 	{
 		for (TiXmlNode *childNode = findHistoryRoot->FirstChildElement(TEXT("Path"));
@@ -2258,6 +2262,10 @@ void NppParameters::feedFindHistoryParameters(TiXmlNode *node)
 	}
 
 	(findHistoryRoot->ToElement())->Attribute(TEXT("nbMaxFindHistoryFilter"), &_findHistory._nbMaxFindHistoryFilter);
+	if (_findHistory._nbMaxFindHistoryFilter > NB_MAX_FINDHISTORY_FILTER)
+	{
+		_findHistory._nbMaxFindHistoryFilter = NB_MAX_FINDHISTORY_FILTER;
+	}
 	if ((_findHistory._nbMaxFindHistoryFilter > 0) && (_findHistory._nbMaxFindHistoryFilter <= NB_MAX_FINDHISTORY_FILTER))
 	{
 		for (TiXmlNode *childNode = findHistoryRoot->FirstChildElement(TEXT("Filter"));
@@ -2273,6 +2281,10 @@ void NppParameters::feedFindHistoryParameters(TiXmlNode *node)
 	}
 
 	(findHistoryRoot->ToElement())->Attribute(TEXT("nbMaxFindHistoryFind"), &_findHistory._nbMaxFindHistoryFind);
+	if (_findHistory._nbMaxFindHistoryFind > NB_MAX_FINDHISTORY_FIND)
+	{
+		_findHistory._nbMaxFindHistoryFind = NB_MAX_FINDHISTORY_FIND;
+	}
 	if ((_findHistory._nbMaxFindHistoryFind > 0) && (_findHistory._nbMaxFindHistoryFind <= NB_MAX_FINDHISTORY_FIND))
 	{
 		for (TiXmlNode *childNode = findHistoryRoot->FirstChildElement(TEXT("Find"));
@@ -2288,6 +2300,10 @@ void NppParameters::feedFindHistoryParameters(TiXmlNode *node)
 	}
 
 	(findHistoryRoot->ToElement())->Attribute(TEXT("nbMaxFindHistoryReplace"), &_findHistory._nbMaxFindHistoryReplace);
+	if (_findHistory._nbMaxFindHistoryReplace > NB_MAX_FINDHISTORY_REPLACE)
+	{
+		_findHistory._nbMaxFindHistoryReplace = NB_MAX_FINDHISTORY_REPLACE;
+	}
 	if ((_findHistory._nbMaxFindHistoryReplace > 0) && (_findHistory._nbMaxFindHistoryReplace <= NB_MAX_FINDHISTORY_REPLACE))
 	{
 		for (TiXmlNode *childNode = findHistoryRoot->FirstChildElement(TEXT("Replace"));
@@ -3931,6 +3947,8 @@ generic_string NppParameters::getLocPathFromStr(const generic_string & localizat
 		return TEXT("welsh.xml");
 	if (localizationCode == TEXT("zu") || localizationCode == TEXT("zu-za"))
 		return TEXT("zulu.xml");
+	if (localizationCode == TEXT("ne") || localizationCode == TEXT("nep"))
+		return TEXT("nepali.xml");
 
 	return generic_string();
 }
@@ -4861,7 +4879,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			const TCHAR *bDir = element->Attribute(TEXT("useCustumDir"));
 			if (bDir)
 			{
-				_nppGUI._useDir = (lstrcmp(bDir, TEXT("yes")) == 0);;
+				_nppGUI._useDir = (lstrcmp(bDir, TEXT("yes")) == 0);
 			}
 			const TCHAR *pDir = element->Attribute(TEXT("dir"));
 			if (pDir)

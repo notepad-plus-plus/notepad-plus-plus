@@ -35,37 +35,6 @@
 BOOL DockingSplitter::_isVertReg = FALSE;
 BOOL DockingSplitter::_isHoriReg = FALSE;
 
-static HWND		hWndMouse		= NULL;
-static HHOOK	hookMouse		= NULL;
-
-#ifndef WH_MOUSE_LL
-#define WH_MOUSE_LL 14
-#endif
-
-static LRESULT CALLBACK hookProcMouse(int nCode, WPARAM wParam, LPARAM lParam)
-{
-    if (nCode >= 0)
-    {
-		switch (wParam)
-		{
-			case WM_MOUSEMOVE:
-			case WM_NCMOUSEMOVE:
-				::PostMessage(hWndMouse, static_cast<UINT>(wParam), 0, 0);
-				break;
-
-			case WM_LBUTTONUP:
-			case WM_NCLBUTTONUP:
-				::PostMessage(hWndMouse, static_cast<UINT>(wParam), 0, 0);
-				return TRUE;
-
-			default:
-				break;
-		}
-	}
-
-	return ::CallNextHookEx(hookMouse, nCode, wParam, lParam);
-}
-
 void DockingSplitter::init(HINSTANCE hInst, HWND hWnd, HWND hMessage, UINT flags)
 {
 	Window::init(hInst, hWnd);
@@ -152,34 +121,15 @@ LRESULT DockingSplitter::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
 	{
 		case WM_LBUTTONDOWN:
 		{
-			hWndMouse = hwnd;
-			hookMouse = ::SetWindowsHookEx(WH_MOUSE_LL, hookProcMouse, _hInst, 0);
-			if (!hookMouse)
-			{
-				DWORD dwError = ::GetLastError();
-				TCHAR  str[128];
-				::wsprintf(str, TEXT("GetLastError() returned %lu"), dwError);
-				::MessageBox(NULL, str, TEXT("SetWindowsHookEx(MOUSE) failed on runProc"), MB_OK | MB_ICONERROR);
-			}
-			else
-			{
-				::SetCapture(_hSelf);
-				::GetCursorPos(&_ptOldPos);
-				_isLeftButtonDown = TRUE;
-			}
-
+			::SetCapture(_hSelf);
+			::GetCursorPos(&_ptOldPos);
+			_isLeftButtonDown = TRUE;
 			break;
 		}
 		case WM_LBUTTONUP:
 		case WM_NCLBUTTONUP:
 		{
-			/* end hooking */
-			if (hookMouse)
-			{
-				::UnhookWindowsHookEx(hookMouse);
-				::ReleaseCapture();
-				hookMouse = NULL;
-			}
+			::ReleaseCapture();
 			_isLeftButtonDown = FALSE;
 			break;
 		}

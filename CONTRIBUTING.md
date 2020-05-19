@@ -38,7 +38,7 @@ Opening a issue beforehand allows the administrators and the community to discus
 4. Make single commit per PR.
 5. Make your modification compact - don't reformat source code in your request. It makes code review more difficult.
 6. PR of reformatting (changing of ws/TAB, line endings or coding style) of source code won't be accepted. Use issue trackers for your request instead.
-7. Typo fixing and code refactoring won't be accepted - please create issues to request the changing.
+7. Typo fixing and code refactoring won't be accepted - please create issues with title started with `TYPO` to request the changing.
 
 In short: The easier the code review is, the better the chance your pull request will get accepted.
 

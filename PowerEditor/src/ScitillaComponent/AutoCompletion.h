@@ -102,5 +102,5 @@ private:
 	FunctionCallTip _funcCalltip;
 
 	const TCHAR * getApiFileName();
-	void getWordArray(std::vector<generic_string> & wordArray, TCHAR *beginChars);
+	void getWordArray(std::vector<generic_string> & wordArray, TCHAR *beginChars, TCHAR *excludeChars);
 };

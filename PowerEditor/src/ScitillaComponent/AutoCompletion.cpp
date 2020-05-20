@@ -77,24 +77,37 @@ bool AutoCompletion::showApiComplete()
 
 bool AutoCompletion::showApiAndWordComplete()
 {
+
+	// Get beginning of word and complete word
+
 	auto curPos = _pEditView->execute(SCI_GETCURRENTPOS);
 	auto startPos = _pEditView->execute(SCI_WORDSTARTPOSITION, curPos, true);
+	auto endPos = _pEditView->execute(SCI_WORDENDPOSITION, curPos, true);
 
 	if (curPos == startPos)
 		return false;
 
 	const size_t bufSize = 256;
 	TCHAR beginChars[bufSize];
+	TCHAR allChars[bufSize];
 
 	size_t len = (curPos > startPos)?(curPos - startPos):(startPos - curPos);
 	if (len >= bufSize)
 		return false;
 
-	// Get word array
-	vector<generic_string> wordArray;
-	_pEditView->getGenericText(beginChars, bufSize, startPos, curPos);
+	size_t lena = (endPos > startPos)?(endPos - startPos):(startPos - endPos);
+	if (lena >= bufSize)
+		return false;
 
-	getWordArray(wordArray, beginChars);
+	_pEditView->getGenericText(beginChars, bufSize, startPos, curPos);
+	_pEditView->getGenericText(allChars, bufSize, startPos, endPos);
+
+	// Get word array containing all words beginning with beginChars, excluding word equal to allChars
+
+	vector<generic_string> wordArray;
+	getWordArray(wordArray, beginChars, allChars);
+
+	// Add keywords to word array
 
 	bool canStop = false;
 	for (size_t i = 0, kwlen = _keyWordArray.size(); i < kwlen; ++i)
@@ -112,9 +125,10 @@ bool AutoCompletion::showApiAndWordComplete()
 		}
 	}
 
+	// Sort word array and convert it to a single string with space-separated words
+
 	sort(wordArray.begin(), wordArray.end());
 
-	// Get word list
 	generic_string words;
 
 	for (size_t i = 0, wordArrayLen = wordArray.size(); i < wordArrayLen; ++i)
@@ -124,6 +138,8 @@ bool AutoCompletion::showApiAndWordComplete()
 			words += TEXT(" ");
 	}
 
+	// Make Scintilla show the autocompletion menu
+
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
 	_pEditView->showAutoComletion(curPos - startPos, words.c_str());
@@ -131,7 +147,7 @@ bool AutoCompletion::showApiAndWordComplete()
 }
 
 
-void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beginChars)
+void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beginChars, TCHAR *allChars)
 {
 	const size_t bufSize = 256;
 	const NppGUI & nppGUI = NppParameters::getInstance().getNppGUI();
@@ -160,9 +176,11 @@ void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beg
 		{
 			TCHAR w[bufSize];
 			_pEditView->getGenericText(w, bufSize, wordStart, wordEnd);
-
-			if (!isInList(w, wordArray))
-				wordArray.push_back(w);
+			if (!allChars || (generic_strncmp (w, allChars, bufSize) != 0))
+			{
+				if (!isInList(w, wordArray))
+					wordArray.push_back(w);
+			}
 		}
 		posFind = _pEditView->searchInTarget(expr.c_str(), static_cast<int32_t>(expr.length()), wordEnd, docLength);
 	}
@@ -325,26 +343,38 @@ void AutoCompletion::showPathCompletion()
 
 bool AutoCompletion::showWordComplete(bool autoInsert)
 {
+	// Get beginning of word and complete word
+
 	int curPos = int(_pEditView->execute(SCI_GETCURRENTPOS));
 	int startPos = int(_pEditView->execute(SCI_WORDSTARTPOSITION, curPos, true));
+	int endPos = int(_pEditView->execute(SCI_WORDENDPOSITION, curPos, true));
 
 	if (curPos == startPos)
 		return false;
 
 	const size_t bufSize = 256;
 	TCHAR beginChars[bufSize];
+	TCHAR allChars[bufSize];
 
 	size_t len = (curPos > startPos)?(curPos - startPos):(startPos - curPos);
 	if (len >= bufSize)
 		return false;
 
-	// Get word array
-	vector<generic_string> wordArray;
-	_pEditView->getGenericText(beginChars, bufSize, startPos, curPos);
+	size_t lena = (endPos > startPos)?(endPos - startPos):(startPos - endPos);
+	if (lena >= bufSize)
+		return false;
 
-	getWordArray(wordArray, beginChars);
+	_pEditView->getGenericText(beginChars, bufSize, startPos, curPos);
+	_pEditView->getGenericText(allChars, bufSize, startPos, endPos);
+
+	// Get word array containing all words beginning with beginChars, excluding word equal to allChars
+
+	vector<generic_string> wordArray;
+	getWordArray(wordArray, beginChars, allChars);
 
 	if (wordArray.size() == 0) return false;
+
+	// Optionally, auto-insert word
 
 	if (wordArray.size() == 1 && autoInsert)
 	{
@@ -353,9 +383,10 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 		return true;
 	}
 
+	// Sort word array and convert it to a single string with space-separated words
+
 	sort(wordArray.begin(), wordArray.end());
 
-	// Get word list
 	generic_string words(TEXT(""));
 
 	for (size_t i = 0, wordArrayLen = wordArray.size(); i < wordArrayLen; ++i)
@@ -364,6 +395,8 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 		if (i != wordArrayLen -1)
 			words += TEXT(" ");
 	}
+
+	// Make Scintilla show the autocompletion menu
 
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);

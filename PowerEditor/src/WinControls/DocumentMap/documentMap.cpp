@@ -191,6 +191,7 @@ void DocumentMap::wrapMap(const ScintillaEditView *editView)
 		_pMapView->execute(SCI_SETWRAPINDENTMODE, pEditView->execute(SCI_GETWRAPINDENTMODE));
 
 	}
+	doMove();
 }
 
 int DocumentMap::getEditorTextZoneWidth(const ScintillaEditView *editView)
@@ -212,58 +213,32 @@ void DocumentMap::scrollMap()
 {
 	if (_pMapView && _ppEditView)
 	{
-		// Visible document line for the code view (but not displayed line)
-		auto firstVisibleDisplayLine = (*_ppEditView)->execute(SCI_GETFIRSTVISIBLELINE);
-		const auto firstVisibleDocLine = (*_ppEditView)->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleDisplayLine);
-		const auto nbLine = (*_ppEditView)->execute(SCI_LINESONSCREEN, firstVisibleDisplayLine);
-		const auto lastVisibleDocLine = (*_ppEditView)->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleDisplayLine + nbLine);
+		// Get the position of the 1st and last showing chars from the original edit view
+		RECT rcEditView;
+		(*_ppEditView)->getClientRect(rcEditView);
+		LRESULT higherPos = (*_ppEditView)->execute(SCI_POSITIONFROMPOINT, 0, 0);
+		LRESULT lowerPos = (*_ppEditView)->execute(SCI_POSITIONFROMPOINT, rcEditView.right - rcEditView.left, rcEditView.bottom - rcEditView.top);
 
-		// Visible document line for the map view
-		auto firstVisibleDisplayLineMap = _pMapView->execute(SCI_GETFIRSTVISIBLELINE);
-		auto firstVisibleDocLineMap = _pMapView->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleDisplayLineMap);
-		auto nbLineMap = _pMapView->execute(SCI_LINESONSCREEN, firstVisibleDocLineMap);
-		auto lastVisibleDocLineMap = _pMapView->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleDisplayLineMap + nbLineMap);
+		// Let Scintilla scroll the map
+		_pMapView->execute(SCI_GOTOPOS, higherPos);
+		_pMapView->execute(SCI_GOTOPOS, lowerPos);
 
-		// If part of editor view is out of map, then scroll map
-		LRESULT mapLineToScroll = 0;
-		if (lastVisibleDocLineMap < lastVisibleDocLine)
-			mapLineToScroll = lastVisibleDocLine;
-		else
-			mapLineToScroll = firstVisibleDocLine;
-		//
-		// Scroll to make whole view zone visible
-		//
-		_pMapView->execute(SCI_GOTOLINE, mapLineToScroll);
+		// Get top position of orange marker window
+		RECT rcMapView;
+		_pMapView->getClientRect(rcMapView);
+		LRESULT higherY = _pMapView->execute(SCI_POINTYFROMPOSITION, 0, higherPos);
 
-		// Get the editor's higher/lower Y, then compute the map's higher/lower Y
-		LRESULT higherY = 0;
+		// Get bottom position of orange marker window
 		LRESULT lowerY = 0;
-		LRESULT higherPos = -1 ; // -1 => not (*_ppEditView)->isWrap()
+		LRESULT lineHeightMapView  = _pMapView->execute(SCI_TEXTHEIGHT, 0);
 		if (not (*_ppEditView)->isWrap())
-		{
-			higherPos = _pMapView->execute(SCI_POSITIONFROMLINE, firstVisibleDocLine);
-			auto lowerPos = _pMapView->execute(SCI_POSITIONFROMLINE, lastVisibleDocLine);
-			higherY = _pMapView->execute(SCI_POINTYFROMPOSITION, 0, higherPos);
-			lowerY = _pMapView->execute(SCI_POINTYFROMPOSITION, 0, lowerPos);
-			if (lowerY == 0)
-			{
-				auto lineHeight = _pMapView->execute(SCI_TEXTHEIGHT, firstVisibleDocLine);
-				lowerY = nbLine * lineHeight + higherY;
-			}
+		{ // not wrapped: mimic height of edit view
+			LRESULT lineHeightEditView = (*_ppEditView)->execute(SCI_TEXTHEIGHT, 0);
+			lowerY = higherY + lineHeightMapView * (rcEditView.bottom - rcEditView.top) / lineHeightEditView;
 		}
 		else
-		{
-			// Get the position of the 1st showing char from the original edit view
-			higherPos = (*_ppEditView)->execute(SCI_POSITIONFROMPOINT, 0, 0);
-
-			// Get the map higher Y point from the position in map
-			higherY = _pMapView->execute(SCI_POINTYFROMPOSITION, 0, static_cast<int32_t>(higherPos));
-
-			// Get line height
-			auto lineHeight = _pMapView->execute(SCI_TEXTHEIGHT, firstVisibleDocLine);
-
-			// Get the map lower Y point
-			lowerY = nbLine * lineHeight + higherY;
+		{ // wrapped: ask Scintilla, since in the map view the current range of edit view might be wrapped differently
+			lowerY = _pMapView->execute(SCI_POINTYFROMPOSITION, 0, lowerPos) + lineHeightMapView;
 		}
 
 		//
@@ -326,8 +301,9 @@ void DocumentMap::scrollMapWith(const MapPosition & mapPos)
 void DocumentMap::doMove()
 {
 	RECT rc;
-	getClientRect(rc);
-	::MoveWindow(_vzDlg.getHSelf(), 0, 0, (rc.right - rc.left), (rc.bottom - rc.top), TRUE);
+	::GetClientRect (_hwndScintilla, & rc);
+	::MapWindowPoints (_hwndScintilla, _pMapView->getHParent(), reinterpret_cast<POINT*>(& rc), 2);
+	::MoveWindow(_vzDlg.getHSelf(), rc.left, rc.top, (rc.right - rc.left), (rc.bottom - rc.top), TRUE);
 }
 
 void DocumentMap::fold(size_t line, bool foldOrNot)
@@ -362,8 +338,8 @@ INT_PTR CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
     {
         case WM_INITDIALOG :
         {
-			HWND hwndScintilla = reinterpret_cast<HWND>(::SendMessage(_hParent, NPPM_CREATESCINTILLAHANDLE, 0, reinterpret_cast<LPARAM>(_hSelf)));
-			_pMapView = reinterpret_cast<ScintillaEditView *>(::SendMessage(_hParent, NPPM_INTERNAL_GETSCINTEDTVIEW, 0, reinterpret_cast<LPARAM>(hwndScintilla)));
+			_hwndScintilla = reinterpret_cast<HWND>(::SendMessage(_hParent, NPPM_CREATESCINTILLAHANDLE, 0, reinterpret_cast<LPARAM>(_hSelf)));
+			_pMapView = reinterpret_cast<ScintillaEditView *>(::SendMessage(_hParent, NPPM_INTERNAL_GETSCINTEDTVIEW, 0, reinterpret_cast<LPARAM>(_hwndScintilla)));
 			_pMapView->execute(SCI_SETZOOM, static_cast<WPARAM>(-10), 0);
 			_pMapView->execute(SCI_SETVSCROLLBAR, FALSE, 0);
 			_pMapView->execute(SCI_SETHSCROLLBAR, FALSE, 0);
@@ -399,8 +375,8 @@ INT_PTR CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				{
 					if (!_pMapView->isWrap())
 						::MoveWindow(_pMapView->getHSelf(), 0, 0, width, height, TRUE);
-						
-					::MoveWindow(_vzDlg.getHSelf(), 0, 0, width, height, TRUE);
+					
+					doMove();
 				}
 			}
             break;
@@ -432,12 +408,7 @@ INT_PTR CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
 				case DMN_FLOATDROPPED:
 				{
-					RECT rc;
-					getClientRect(rc);
-					int width = rc.right - rc.left;
-					int height = rc.bottom - rc.top;
-
-					::MoveWindow(_vzDlg.getHSelf(), 0, 0, width, height, TRUE);
+					doMove();
 					scrollMap();
 					return TRUE;
 				}

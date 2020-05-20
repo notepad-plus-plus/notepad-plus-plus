@@ -144,7 +144,7 @@ private:
 	ScintillaEditView **_ppEditView = nullptr;
 	ScintillaEditView *_pMapView = nullptr;
 	ViewZoneDlg _vzDlg;
-
+	HWND _hwndScintilla;
 	bool _isTemporarilyShowing = false;
 
 	// for needToRecomputeWith function

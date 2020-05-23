@@ -234,6 +234,14 @@ INT_PTR CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /
 				_debugInfoStr += TEXT("\r\n");
 			}
 
+			{
+				TCHAR szACP[32];
+				generic_sprintf(szACP, TEXT("%u"), ::GetACP());
+				_debugInfoStr += TEXT("Current ANSI codepage : ");
+ 				_debugInfoStr += szACP;
+				_debugInfoStr += TEXT("\r\n");
+			}
+
 			// Detect WINE
 			PWINEGETVERSION pWGV = (PWINEGETVERSION)GetProcAddress(GetModuleHandle(TEXT("ntdll.dll")), "wine_get_version");
 			if (pWGV != NULL)

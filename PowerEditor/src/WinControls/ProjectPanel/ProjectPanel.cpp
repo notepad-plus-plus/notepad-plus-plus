@@ -1188,6 +1188,7 @@ void ProjectPanel::setFileExtFilter(FileDialog & fDlg)
 			workspaceExt += TEXT(".");
 		workspaceExt += ext;
 		fDlg.setExtFilter(TEXT("Workspace file"), workspaceExt.c_str(), NULL);
+		fDlg.setDefExt(ext);
 	}
 	fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
 }

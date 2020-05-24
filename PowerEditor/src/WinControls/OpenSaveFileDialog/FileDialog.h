@@ -49,6 +49,7 @@ public:
 	
 	int setExtsFilter(const TCHAR *extText, const TCHAR *exts);
 	void setDefFileName(const TCHAR *fn){ wcscpy_s(_fileName, fn);}
+	void setDefExt(const TCHAR *ext){ _defExt = ext;}
 
 	TCHAR * doSaveDlg();
 	stringVector * doOpenMultiFilesDlg();
@@ -63,6 +64,7 @@ protected :
 
 private:
 	TCHAR _fileName[MAX_PATH*8];
+	generic_string _defExt;
 
 	TCHAR * _fileExt;
 	int _nbCharFileExt;

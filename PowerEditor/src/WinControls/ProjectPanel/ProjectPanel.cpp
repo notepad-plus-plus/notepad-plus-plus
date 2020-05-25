@@ -398,7 +398,8 @@ bool ProjectPanel::openWorkSpace(const TCHAR *projectFileName)
 
 	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 	generic_string workspace = pNativeSpeaker->getAttrNameStr(PM_WORKSPACEROOTNAME, "ProjectManager", "WorkspaceRootName");
-	HTREEITEM rootItem = _treeView.addItem(workspace.c_str(), TVI_ROOT, INDEX_CLEAN_ROOT);
+	TCHAR * fileName = PathFindFileName(projectFileName);
+	HTREEITEM rootItem = _treeView.addItem(fileName, TVI_ROOT, INDEX_CLEAN_ROOT);
 
 	for ( ; childNode ; childNode = childNode->NextSibling(TEXT("Project")))
 	{
@@ -453,6 +454,9 @@ bool ProjectPanel::writeWorkSpace(TCHAR *projectFileName)
     HTREEITEM tvRoot = _treeView.getRoot();
     if (!tvRoot)
       return false;
+
+	TCHAR * fileName = PathFindFileName(projectFileName);
+	_treeView.renameItem(tvRoot, fileName);
 
     for (HTREEITEM tvProj = _treeView.getChildFrom(tvRoot);
         tvProj != NULL;

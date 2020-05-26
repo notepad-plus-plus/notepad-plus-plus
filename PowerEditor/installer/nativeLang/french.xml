@@ -765,7 +765,7 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                     <Item id="6413" name="Dossier par défaut (ouvrir/enregistrer)"/>
                     <Item id="6414" name="Utiliser celui du document actuel"/>
                     <Item id="6415" name="Mémoriser le dernier dossier utilisé"/>
-                    <Item id="6430" name="Activer le nouveau style de dialogue (sans l'extension de fichier &amp; le style du chemin d'Unix supporté)"/>
+                    <Item id="6430" name="Activer le nouveau style de dialogue (sans le style du chemin d'Unix supporté)"/>
                     <Item id="6431" name="Lors de glisser-déposer d'un dossier, ouvrir tous les fichiers dans le dossier"/>
                 </DefaultDir>
 

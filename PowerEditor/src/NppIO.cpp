@@ -2121,6 +2121,7 @@ bool Notepad_plus::fileLoadSession(const TCHAR *fn)
 				sessionExt += TEXT(".");
 			sessionExt += ext;
 			fDlg.setExtFilter(TEXT("Session file"), sessionExt.c_str(), NULL);
+			fDlg.setDefExt(ext);
 		}
 		fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
 		sessionFileName = fDlg.doOpenSingleFileDlg();

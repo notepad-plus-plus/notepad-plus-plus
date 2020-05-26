@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-        Slovenian localization for Notepad++ v7.8.4
-        Last modified 30. January 2020 by Vinko Kastelic
+        Slovenian localization for Notepad++ v7.8.6
+        Last modified 08. May 2020 by Vinko Kastelic
         
 -->
 <NotepadPlus>
-    <Native-Langue name="Slovenski jezik" filename="slovenian.xml" version="7.8.4">
+    <Native-Langue name="Slovenski jezik" filename="slovenian.xml" version="7.8.6">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -750,13 +750,12 @@
 					<Item id="6206" name="Prikaži številko vrstice"/>
 					<Item id="6207" name="Prikaži zaznamek"/>
 					<Item id="6208" name="Prikaži navpični rob"/>
-					<Item id="6209" name="Število stolpcev: "/>
 					<Item id="6234" name="Onemogoči napredno funkcijo drsenja
-(če imate težave z dotikalno ploščico)"/>
-           
+(če imate težave z dotikalno ploščico)"/>         
 					<Item id="6211" name="Nastavitev navpičnega roba"/>
-					<Item id="6212" name="Vrstični način"/>
 					<Item id="6213" name="Način ozadja"/>
+					<Item id="6237" name="Dodajte oznako stolpca tako, da z decimalno številko navedete njegovo pozicijo.
+Lahko določite več označevalcev stolpcev z uporabo belega presledka za ločevanje različnih števil."/>
 					<Item id="6214" name="Omogoči poudarjanje trenutne vrstice"/>
 					<Item id="6215" name="Omogoči gladko pisavo"/>
 					<Item id="6231" name="Širina obrobe"/>
@@ -1118,6 +1117,7 @@ Nadaljujem?"/>
 			<ColumnName name="Ime"/>
 			<ColumnPath name="Pot"/>
 			<ColumnType name="Vrsta"/>
+			<ColumnSize name="Velikost"/>
 		</WindowsDlg>
 		<AsciiInsertion>
 			<PanelTitle name="Panel za vstavljanje ASCII kod"/>

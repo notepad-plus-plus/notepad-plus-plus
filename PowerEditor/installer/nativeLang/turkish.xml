@@ -759,7 +759,7 @@ Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasın
 					<Item id="6215" name="Yumuşak yazı tipini etkinleştir"/>
 					<Item id="6231" name="Kenarlık Boyutu"/>
 					<Item id="6235" name="Kenarlık yok"/>
-                    <Item id="6236" name="Son satırın ötesine kaydırmayı etkinleştir"/>
+					<Item id="6236" name="Son satırın ötesine kaydırmayı etkinleştir"/>
 				</Scintillas>
 
 				<NewDoc title="Yeni Belge">
@@ -782,8 +782,8 @@ Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasın
 					<Item id="6413" name="Varsayılan Dizin (Aç/Kaydet)"/>
 					<Item id="6414" name="Geçerli belgeyi takip et"/>
 					<Item id="6415" name="Son kullanılan dizini hatırla"/>
-					<Item id="6430" name="Yeni stil diyalogunu kullan (&amp;&amp; Unix tarzı yol kapasitesi)"/>
-                    <Item id="6431" name="Klasör taşıyarak Çalışma Alanı Klasörleri başlatıldığında klasörün tüm dosyalarını aç"/>
+					<Item id="6430" name="Yeni stil diyalogunu kullan (Unix tarzı yol kapasitesi olmadan)"/>
+					<Item id="6431" name="Klasör taşıyarak Çalışma Alanı Klasörleri başlatıldığında klasörün tüm dosyalarını aç"/>
 				</DefaultDir>
 
 				<FileAssoc title="Dosya İlişkilendirmeleri">

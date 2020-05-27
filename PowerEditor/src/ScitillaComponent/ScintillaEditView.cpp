@@ -331,6 +331,11 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 
     execute(SCI_INDICSETHOVERSTYLE, URL_INDIC, INDIC_FULLBOX);
 
+	if ((NppParameters::getInstance()).getNppGUI()._writeTechnologyEngine == directWriteTechnology)
+		execute(SCI_SETTECHNOLOGY, SC_TECHNOLOGY_DIRECTWRITE);
+	// If useDirectWrite is turned off, leave the technology setting untouched,
+	// so that existing plugins using SCI_SETTECHNOLOGY behave like before
+
 	_codepage = ::GetACP();
 
 	::SetWindowLongPtr(_hSelf, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));

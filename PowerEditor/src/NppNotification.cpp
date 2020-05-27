@@ -603,6 +603,31 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			break;
 		}
 
+		case SCN_MARGINRIGHTCLICK:
+		{
+			if (notification->nmhdr.hwndFrom == _mainEditView.getHSelf())
+				switchEditViewTo(MAIN_VIEW);
+			else if (notification->nmhdr.hwndFrom == _subEditView.getHSelf())
+				switchEditViewTo(SUB_VIEW);
+
+			if ((notification->margin == ScintillaEditView::_SC_MARGE_SYBOLE) && !notification->modifiers)
+			{
+				POINT p;
+				::GetCursorPos(&p);
+				MenuPosition& menuPos = getMenuPosition("search-bookmark");
+				HMENU hSearchMenu = ::GetSubMenu(_mainMenuHandle, menuPos._x);
+				if (hSearchMenu)
+				{
+					HMENU hBookmarkMenu = ::GetSubMenu(hSearchMenu, menuPos._y);
+					if (hBookmarkMenu)
+					{
+						TrackPopupMenu(hBookmarkMenu, 0, p.x, p.y, 0, _pPublicInterface->getHSelf(), NULL);
+					}
+				}
+			}
+			break;
+		}
+
 		case SCN_FOLDINGSTATECHANGED :
 		{
 			if ((notification->nmhdr.hwndFrom == _mainEditView.getHSelf()) || (notification->nmhdr.hwndFrom == _subEditView.getHSelf()))

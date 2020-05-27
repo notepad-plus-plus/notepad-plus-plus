@@ -1270,7 +1270,7 @@ Devam edilsin mi?"/>
 			<summary-nbrange value=" mesafe"/>
 			<replace-in-files-confirm-title value="Emin misiniz?"/>
 			<replace-in-files-confirm-directory value="Şuradaki tüm bulunanları değiştirmek istediğinize emin misiniz :"/>
-			<replace-in-files-confirm-filetype value="Dosya için girin :"/>
+			<replace-in-files-confirm-filetype value="Dosya türü için :"/>
 			<find-result-caption value="Sonuç bul"/>
 			<find-result-title value="Ara"/>
 			<find-result-title-info value="($INT_REPLACE2$ dosyada yapılan $INT_REPLACE3$ aramada $INT_REPLACE1$ eşleşme bulundu)"/>

@@ -2091,36 +2091,33 @@ void Notepad_plus::checkSyncState()
 	enableCommand(IDM_VIEW_SYNSCROLLH, canDoSync, MENU | TOOLBAR);
 }
 
-void doCheck(HMENU mainHandle, int id)
+bool doCheck(HMENU mainHandle, int id)
 {
 	MENUITEMINFO mii;
 	mii.cbSize = sizeof(MENUITEMINFO);
 	mii.fMask = MIIM_SUBMENU | MIIM_FTYPE | MIIM_ID | MIIM_STATE;
 
+	bool found = false;
 	int count = ::GetMenuItemCount(mainHandle);
 	for (int i = 0; i < count; i++)
 	{
 		::GetMenuItemInfo(mainHandle, i, MF_BYPOSITION, &mii);
 		if (mii.fType == MFT_RADIOCHECK || mii.fType == MFT_STRING)
 		{
-			if (mii.hSubMenu == 0)
+			bool checked = mii.hSubMenu ? doCheck(mii.hSubMenu, id) : (mii.wID == (unsigned int)id);
+			if (checked)
 			{
-				if (mii.wID == (unsigned int)id)
-				{
-					::CheckMenuRadioItem(mainHandle, 0, count, i, MF_BYPOSITION);
-				}
-				else
-				{
-					mii.fState = 0;
-					::SetMenuItemInfo(mainHandle, i, MF_BYPOSITION, &mii);
-				}
+				::CheckMenuRadioItem(mainHandle, 0, count, i, MF_BYPOSITION);
+				found = true;
 			}
 			else
 			{
-				doCheck(mii.hSubMenu, id);
+				mii.fState = 0;
+				::SetMenuItemInfo(mainHandle, i, MF_BYPOSITION, &mii);
 			}
 		}
 	}
+	return found;
 }
 
 void Notepad_plus::checkLangsMenu(int id) const
@@ -3914,8 +3911,7 @@ void Notepad_plus::checkUnicodeMenuItems() const
 	{
 		// Uncheck all in the sub encoding menu
         HMENU _formatMenuHandle = ::GetSubMenu(_mainMenuHandle, MENUINDEX_FORMAT);
-        doCheck(_formatMenuHandle, IDM_FORMAT_ENCODE);
-		::CheckMenuItem(_mainMenuHandle, IDM_FORMAT_ENCODE, MF_UNCHECKED | MF_BYCOMMAND);
+        doCheck(_formatMenuHandle, -1);
 
 		if (id == -1) //um == uni16BE_NoBOM || um == uni16LE_NoBOM
 		{

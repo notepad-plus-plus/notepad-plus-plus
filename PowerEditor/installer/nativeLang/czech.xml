@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 7.8.6  23/Apr/2020  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 7.8.7  27/May/2020  by Ondřej Müller (mullero@email.cz)
 	- N++ Community:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="7.8.6">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="7.8.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -845,7 +845,7 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id = "6413" name = "Implicitní adresář pro otevírání/ukládání souborů"/>
 					<Item id = "6414" name = "Podle aktuálního dokumentu"/>
 					<Item id = "6415" name = "Zapamatovat si poslední používaný adresář"/>
-					<Item id = "6430" name = "Použít nový styl dialogu (bez zvýraznění typu souboru a cest v Unix-stylu)"/>
+					<Item id = "6430" name = "Použít nový styl dialogu (bez možnosti Unixových cest /)"/>
 					<Item id = "6431" name = "Otevírat všechny soubory ve složce při přetažení myší (místo zdroje pro pracovní plochu)"/>
 				</DefaultDir>
 				<FileAssoc title = "Asociovat se soubory">
@@ -1245,6 +1245,10 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 			<cloud-select-folder value = "Vyberte složku, ze/do které Notepad++ načítá/zapisuje svoje nastavení"/>
 			<shift-change-direction-tip value = "Pro změnu směru vyhledávání použijte Shift + Enter."/>
 			<two-find-buttons-tip value = "Mód s dvěma vyhledávacími tlačítky"/>
+			<find-in-files-filter-tip value="Najít v cpp, cxx, h, hxx &amp;&amp; hpp:
+*.cpp *.cxx *.h *.hxx *.hpp
+Najít ve všech souborech mimo exe, obj &amp;&amp; log:
+*.* !*.exe !*.obj !*.log"/>
 			<find-status-top-reached value = "Vyhledávání: Nalezen první výskyt od konce. Bylo dosaženo začátku tohoto dokumentu"/>
 			<find-status-end-reached value = "Vyhledávání: Nalezen první výskyt od začátku. Bylo dosaženo konce tohoto dokumentu"/>
 			<find-status-replaceinfiles-1-replaced value = "Nahrazování v souborech: 1 výskyt nahrazen"/>
@@ -1265,8 +1269,8 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 			<find-status-replaceall-readonly value = "Nahrazování všeho: Nemohu nahradit text. Současný dokument je pouze pro čtení"/>
 			<find-status-replace-end-reached value = "Nahrazování: Nahrazen první výskyt od začátku. Bylo dosaženo konce dokumentu"/>
 			<find-status-replace-top-reached value = "Nahrazování: Nahrazen první výskyt od konce. Bylo dosaženo začátku dokumentu"/>
-			<find-status-replaced-next-found value = "Nahrazování: 1 výskyt byl nahrazen. Další výskyt nalezen"/>
-			<find-status-replaced-next-not-found value = "Nahrazování: 1 výskyt byl nahrazen. Další výskyt nenalezen"/>
+			<find-status-replaced-next-found value = "Nahrazování: 1 výskyt byl nahrazen. Další výskyt nalezen."/>
+			<find-status-replaced-next-not-found value = "Nahrazování: 1 výskyt byl nahrazen. Další výskyt nenalezen."/>
 			<find-status-replace-not-found value = "Nahrazování: žádný výskyt nebyl nalezen"/>
 			<find-status-replace-readonly value = "Nahrazování: Nemohu nahradit text. Současný dokument je pouze pro čtení"/>
 			<find-status-cannot-find value = "Vyhledávání: Nemohu nalézt text &quot;$STR_REPLACE$&quot;"/>
@@ -1301,6 +1305,14 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 			<summary-nbsel1 value = " vybraných znaků ("/>
 			<summary-nbsel2 value = " bytů) v "/>
 			<summary-nbrange value = " oblastech"/>
+			<replace-in-files-confirm-title value = "Jste si jistí?"/>
+			<replace-in-files-confirm-directory value = "Jste si jistí, že chcete nahradit všechny výskyty v:"/>
+			<replace-in-files-confirm-filetype value = "Pro typ souboru:"/>
+			<find-result-caption value = "Výsledek hledání"/>
+			<find-result-title value = "Vyhledávání"/>
+			<find-result-title-info value = "($INT_REPLACE1$ výskytů v $INT_REPLACE2$ souborech z $INT_REPLACE3$ prohledaných)"/>
+			<find-result-title-info-extra value = " - Režim řádkového filtru: zobrazení pouze filtrovaných výsledků"/>
+			<find-result-hits value = "(výskytů: $INT_REPLACE$)"/>
 		</MiscStrings>
 
 	</Native-Langue>

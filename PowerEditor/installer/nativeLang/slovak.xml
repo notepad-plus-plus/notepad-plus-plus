@@ -8,7 +8,7 @@
 -->
 
 <NotepadPlus>
-    <Native-Langue name="Slovenčina" filename="slovak.xml" version="7.8.6">
+    <Native-Langue name="Slovenčina" filename="slovak.xml" version="7.8.7">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -787,7 +787,7 @@ Zadať môžete viacero značiek pomocou medzery na oddelenie rôznych čísel."
                     <Item id="6413" name="Predvolený priečinok pre otvorenie a uloženie súborov"/>
                     <Item id="6414" name="Riadiť sa aktuálnym dokumentom"/>
                     <Item id="6415" name="Pamätať si posledný použitý priečinok"/>
-                    <Item id="6430" name="Použiť nový štýl dialógového okna (bez prednastavenia typu súboru)"/>
+                    <Item id="6430" name="Použiť nový štýl dialógového okna (bez Unixového zápisu)"/>
                     <Item id="6431" name="Pri pretiahnutí priečinka myšou otvoriť súbory v priečinku, nie panel prac. priestoru"/>
                 </DefaultDir>
 
@@ -1218,29 +1218,29 @@ Continue?"/>
 
 Hľadať vo všetkých súboroch okrem exe, obj &amp;&amp; log:
 *.* !*.exe !*.obj !*.log"/>
-            <find-status-top-reached value="Hľadať: Našiel sa posledný prípad hľadaného výrazu. Dospeli ste na začiatok dokumentu."/>
-            <find-status-end-reached value="Hľadať: Našiel sa prvý prípad hľadaného výrazu. Dospeli ste na koniec dokumentu."/>
-            <find-status-replaceinfiles-1-replaced value="Nahradiť v súboroch: Bol nahradený 1 prípad hľadaného výrazu."/>
-            <find-status-replaceinfiles-nb-replaced value="Nahradiť v súboroch: Bolo nahradených $INT_REPLACE$ prípadov hľadaného výrazu."/>
+            <find-status-top-reached value="Hľadať: Našiel sa posledný výskyt hľadaného výrazu. Dospeli ste na začiatok dokumentu."/>
+            <find-status-end-reached value="Hľadať: Našiel sa prvý výskyt hľadaného výrazu. Dospeli ste na koniec dokumentu."/>
+            <find-status-replaceinfiles-1-replaced value="Nahradiť v súboroch: Bol nahradený 1 výskyt hľadaného výrazu."/>
+            <find-status-replaceinfiles-nb-replaced value="Nahradiť v súboroch: Bolo nahradených $INT_REPLACE$ výskytov hľadaného výrazu."/>
             <find-status-replaceinfiles-re-malformed value="Nahradiť v otvorených súboroch: Neplatný regulárny výraz"/>
-            <find-status-replaceinopenedfiles-1-replaced value="Nahradiť v otvorených súboroch: Bol nahradený 1 prípad hľadaného výrazu."/>
-            <find-status-replaceinopenedfiles-nb-replaced value="Nahradiť v otvorených súboroch: Bolo nahradených $INT_REPLACE$ prípadov hľadaného výrazu."/>
+            <find-status-replaceinopenedfiles-1-replaced value="Nahradiť v otvorených súboroch: Bol nahradený 1 výskyt hľadaného výrazu."/>
+            <find-status-replaceinopenedfiles-nb-replaced value="Nahradiť v otvorených súboroch: Bolo nahradených $INT_REPLACE$ výskytov hľadaného výrazu."/>
             <find-status-mark-re-malformed value="Označiť: Neplatný regulárny výraz vyhľadávania"/>
             <find-status-invalid-re value="Hľadať: Neplatný regulárny výraz"/>
-            <find-status-mark-1-match value="1 zhodný výraz"/>
-            <find-status-mark-nb-matches value="$INT_REPLACE$ zhodných výrazov"/>
+            <find-status-mark-1-match value="Označiť: 1 výskyt"/>
+            <find-status-mark-nb-matches value="$INT_REPLACE$ výskytov"/>
             <find-status-count-re-malformed value="Spočítať: Neplatný regulárny výraz vyhľadávania"/>
-            <find-status-count-1-match value="Spočítať: 1 zhodný výraz"/>
-            <find-status-count-nb-matches value="Spočítať: $INT_REPLACE$ zhodných výrazov"/>
+            <find-status-count-1-match value="Spočítať: 1 výskyt"/>
+            <find-status-count-nb-matches value="Spočítať: $INT_REPLACE$ výskytov"/>
             <find-status-replaceall-re-malformed value="Nahradiť všetko: Neplatný regulárny výraz"/>
-            <find-status-replaceall-1-replaced value="Nahradiť všetko: Bol nahradený 1 prípad hľadaného výrazu."/>
-            <find-status-replaceall-nb-replaced value="Nahradiť všetko: Bolo nahradených $INT_REPLACE$ prípadov hľadaného výrazu."/>
+            <find-status-replaceall-1-replaced value="Nahradiť všetko: Bol nahradený 1 výskyt hľadaného výrazu."/>
+            <find-status-replaceall-nb-replaced value="Nahradiť všetko: Bolo nahradených $INT_REPLACE$ výskytov hľadaného výrazu."/>
             <find-status-replaceall-readonly value="Nahradiť všetko: Text nie je možné nahradiť. Aktuálny dokument je iba na čítanie."/>
-            <find-status-replace-end-reached value="Nahradiť: Bol nahradený prvý prípad hľadaného výrazu. Dospeli ste na koniec dokumentu."/>
-            <find-status-replace-top-reached value="Nahradiť: Bol nahradený posledný prípad hľadaného výrazu. Dospeli ste na začiatok dokumentu."/>
-            <find-status-replaced-next-found value="Nahradiť: Bol nahradený 1 prípad hľadaného výrazu. Našla sa ďalšia zhoda."/>
-            <find-status-replaced-next-not-found value="Nahradiť: Bol nahradený 1 prípad hľadaného výrazu. Ďalšia zhoda sa nenašla."/>
-            <find-status-replace-not-found value="Nahradiť: Nenašla sa žiadna zhoda."/>
+            <find-status-replace-end-reached value="Nahradiť: Bol nahradený prvý výskyt hľadaného výrazu. Dospeli ste na koniec dokumentu."/>
+            <find-status-replace-top-reached value="Nahradiť: Bol nahradený posledný výskyt hľadaného výrazu. Dospeli ste na začiatok dokumentu."/>
+            <find-status-replaced-next-found value="Nahradiť: Bol nahradený 1 výskyt hľadaného výrazu. Nájdený ďalší výskyt."/>
+            <find-status-replaced-next-not-found value="Nahradiť: Bol nahradený 1 výskyt hľadaného výrazu. Neboli nájdené žiadne ďalšie výskyty.."/>
+            <find-status-replace-not-found value="Nahradiť: Nenašiel sa žiaden výskyt."/>
             <find-status-replace-readonly value="Nahradiť: Text nie je možné nahradiť. Aktuálny dokument je iba na čítanie."/>
             <find-status-cannot-find value="Hľadať: Text &quot;$STR_REPLACE$&quot; sa nepodarilo nájsť."/>
             <finder-find-in-finder value="Vyhľadať v týchto výsledkoch hľadania..."/>
@@ -1274,6 +1274,14 @@ Hľadať vo všetkých súboroch okrem exe, obj &amp;&amp; log:
             <summary-nbsel1 value=" označených znakov ("/>
             <summary-nbsel2 value=" bajtov) v "/>
             <summary-nbrange value=" oblastiach"/>
+            <replace-in-files-confirm-title value="Naozaj?"/>
+            <replace-in-files-confirm-directory value="Naozaj chcete nahradiť všetky výskyty v :"/>
+            <replace-in-files-confirm-filetype value="Pre typ súboru :"/>
+            <find-result-caption value="Výsledok hľadania"/>
+            <find-result-title value="Hľadať"/>
+            <find-result-title-info value="($INT_REPLACE1$ výskytov v $INT_REPLACE2$ súboroch z $INT_REPLACE3$ prehľadávaných)"/>
+            <find-result-title-info-extra value=" - Režim filtrovania riadka: zobraziť iba filtrované výsledky"/>
+            <find-result-hits value="($INT_REPLACE$ výskytov)"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

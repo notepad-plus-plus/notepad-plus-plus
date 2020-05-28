@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     History of Corsican translation for Notepad++
+		- Updated on May 26th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.7
 		- Updated on January 8th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.3
 		- Updated on October 31st, 2019 by Patriccollu di Santa Maria è Sichè for version 7.8.1
 		- Updated on July 29th, 2019 by Patriccollu di Santa Maria è Sichè for version 7.7.2
@@ -14,7 +15,7 @@
 	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/corsican.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="Corsu" filename="corsican.xml" version="7.8.3">
+    <Native-Langue name="Corsu" filename="corsican.xml" version="7.8.7">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -47,7 +48,7 @@
                     <Item subMenuId="edit-blankOperations" name="Operazioni nant’à u spaziu"/>
                     <Item subMenuId="edit-pasteSpecial" name="Incullatura speziale"/>
                     <Item subMenuId="edit-onSelection" name="Per a selezzione"/>
-                    <Item subMenuId="search-markAll" name="Marcà tuttu"/>
+                    <Item subMenuId="search-markAll" name="Marcalle tutte"/>
                     <Item subMenuId="search-unmarkAll" name="Caccià tutte e marche"/>
                     <Item subMenuId="search-jumpUp" name="Andà insù"/>
                     <Item subMenuId="search-jumpDown" name="Andà inghjò"/>
@@ -90,13 +91,13 @@
                     <Item id="41019" name="Espluratore"/>
                     <Item id="41020" name="Invitu di cumanda"/>
                     <Item id="41003" name="&amp;Chjode"/>
-                    <Item id="41004" name="Chjode &amp;tuttu"/>
+                    <Item id="41004" name="Chjodelli &amp;tutti"/>
                     <Item id="41005" name="Chjode tuttu FOR di u ducumentu attuale"/>
                     <Item id="41009" name="Chjode tuttu ciò chì hè à manu manca"/>
                     <Item id="41018" name="Chjode tuttu ciò chì hè à manu diritta"/>
                     <Item id="41024" name="Chjode tuttu ciò ch’ùn hè micca cambiatu"/>
                     <Item id="41006" name="Arre&amp;gistrà"/>
-                    <Item id="41007" name="Arre&amp;gistrà tuttu"/>
+                    <Item id="41007" name="Arre&amp;gistralli tutti"/>
                     <Item id="41008" name="Arregistrà cù &amp;u nome…"/>
                     <Item id="41010" name="&amp;Stampà…"/>
                     <Item id="1001"  name="Stampà subitu"/>
@@ -191,15 +192,15 @@
                     <Item id="43005" name="Attivà/Disattivà l’indetta"/>
                     <Item id="43006" name="Indetta seguente"/>
                     <Item id="43007" name="Indetta precedente"/>
-                    <Item id="43008" name="Viutà tutti l’indette"/>
-                    <Item id="43018" name="Taglià e linee cun indetta"/>
-                    <Item id="43019" name="Cupià e linee cun Indetta"/>
-                    <Item id="43020" name="Incullà (per rimpiazzà) e linee cun indetta"/>
-                    <Item id="43021" name="Caccià e linee cun indetta"/>
+                    <Item id="43008" name="Viutà tutte l’indette"/>
+                    <Item id="43018" name="Taglià e linee indettate"/>
+                    <Item id="43019" name="Cupià e linee indettate"/>
+                    <Item id="43020" name="Incullà (per rimpiazzà) e linee indettate"/>
+                    <Item id="43021" name="Caccià e linee indettate"/>
                     <Item id="43051" name="Caccià e linee senza marca"/>
                     <Item id="43050" name="Arritrusà l’indette"/>
                     <Item id="43052" name="Circà caratteri in una stesa…"/>
-                    <Item id="43053" name="Selezziunà tuttu trà e parentesi chì currispondenu"/>
+                    <Item id="43053" name="Tuttu selezziunà trà e parentesi chì currispondenu"/>
                     <Item id="43009" name="Andà à a parentesi chì currisponde"/>
                     <Item id="43010" name="Circà &amp;precedente"/>
                     <Item id="43011" name="Ricerca &amp;interattiva"/>
@@ -375,7 +376,7 @@
 
         <Dialog>
             <Find title="" titleFind="Circà" titleReplace="Rimpiazzà" titleFindInFiles="Circà in schedarii" titleMark="Marcà">
-                <Item id="1"    name="Circà seguente"/>
+                <Item id="1"    name="Circà a seguente"/>
                 <Item id="1722" name="Circà à l’arritrosa"/>
                 <Item id="2"    name="Chjode"/>
                 <Item id="1620" name="&amp;Cosa à circà :"/>
@@ -386,21 +387,21 @@
                 <Item id="1612" name="In&amp;sù"/>
                 <Item id="1613" name="In&amp;ghjò"/>
                 <Item id="1614" name="Con&amp;tu"/>
-                <Item id="1615" name="Marcà tutti"/>
+                <Item id="1615" name="Marcalle tutte"/>
                 <Item id="1616" name="&amp;Indettà a linea"/>
                 <Item id="1618" name="Spurgulà à ogni ricerca"/>
                 <Item id="1611" name="Rimpiazzà &amp;cù :"/>
-                <Item id="1608" name="&amp;Rimpiazzà"/>
-                <Item id="1609" name="Rimpiazzà &amp;tutti"/>
+                <Item id="1608" name="&amp;Rimpiazzalla"/>
+                <Item id="1609" name="Rimpiazzalle &amp;tutte"/>
                 <Item id="1687" name="Finestra inattiva"/>
                 <Item id="1688" name="Sempre"/>
                 <Item id="1632" name="In a &amp;selezzione"/>
                 <Item id="1633" name="Squassà tutte e marche"/>
-                <Item id="1635" name="Rimpiazzà tutti in tutti i ducumenti aperti"/>
-                <Item id="1636" name="Circà tutti in tutti i &amp;ducumenti aperti"/>
+                <Item id="1635" name="Rimpiazzalle tutte in tutti i ducumenti aperti"/>
+                <Item id="1636" name="Circalle tutte in tutti i &amp;ducumenti aperti"/>
                 <Item id="1654" name="&amp;Filtri :"/>
                 <Item id="1655" name="Cart&amp;ulare :"/>
-                <Item id="1656" name="Circà Tutti"/>
+                <Item id="1656" name="Circalle tutte"/>
                 <Item id="1658" name="In i sottucartu&amp;lari"/>
                 <Item id="1659" name="In i schedarii &amp;piattati"/>
                 <Item id="1624" name="Modu di ricerca"/>
@@ -408,11 +409,11 @@
                 <Item id="1626" name="&amp;Allungatu (\n, \r, \t, \0, \x…)"/>
                 <Item id="1660" name="&amp;Rimpiazzà in schedarii"/>
                 <Item id="1661" name="Seguità ducum. attuale"/>
-                <Item id="1641" name="Circà tutti in ducumentu attuale"/>
+                <Item id="1641" name="Circalle tutte in u ducumentu attuale"/>
                 <Item id="1686" name="&amp;Trasparenza"/>
                 <Item id="1703" name="&amp;. cum’è nova linea"/>
                 <Item id="1721" name="▲"/>
-                <Item id="1723" name="▼ Circà seguente"/>
+                <Item id="1723" name="▼ Circà a seguente"/>
             </Find>
 
             <FindCharsInRange title="Circà caratteri in una stesa…">
@@ -761,14 +762,13 @@
                     <Item id="6206" name="Affissà u numeru di linea"/>
                     <Item id="6207" name="Affissà l’indetta"/>
                     <Item id="6208" name="Affissà un bordu verticale"/>
-                    <Item id="6209" name="Numeru di culonne : "/>
                     <Item id="6234" name="Disattivà u modu espertu d’affissera
 					(in casu di penseru cù touchpad)"/>
-
-                    <Item id="6211" name="Preferenze di cunfine verticale"/>
-                    <Item id="6212" name="Modu di linea"/>
-                    <Item id="6213" name="Modu di fondu"/>
-                    <Item id="6214" name="Sopralineà a linea currente"/>
+                    <Item id="6211" name="Marcatore di culonna"/>
+                    <Item id="6213" name="Culurisce u fondu"/>
+                    <Item id="6237" name="Aghjunghje u vostru marcatore di culonna indichendu a so pusizione cù un numeru sanu.
+Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà i numeri sani."/>
+                    <Item id="6214" name="Sopralineà a linea attuale"/>
                     <Item id="6215" name="Permette una grafia ’smooth’"/>
                     <Item id="6231" name="Larghezza di bordu"/>
                     <Item id="6235" name="Nisunu bordu"/>
@@ -795,7 +795,7 @@
                     <Item id="6413" name="Cartulare predefinitu (apre è arregistrà)"/>
                     <Item id="6414" name="Seguità u ducumentu attuale"/>
                     <Item id="6415" name="Arricurdassi di l’ultimu cartulare impiegatu"/>
-                    <Item id="6430" name="Impiegà u dialogu di novu stilu (senza estensione di schedariu è u chjassu di stilu Unix)"/>
+                    <Item id="6430" name="Impiegà u dialogu di stilu novu (senza accettà u stilu di chjassu Unix)"/>
                     <Item id="6431" name="À u depone d’un cartulare, apre tutti i schedarii invece d’impiegallu cum’è spaziu di travagliu"/>
                 </DefaultDir>
 
@@ -908,7 +908,7 @@
 
                 <MultiInstance title="Multi-finestra">
                     <Item id="6151" name="Preferenze di multi-finestra"/>
-                    <Item id="6152" name="Apre una sessione in una nova finestra di Notepad++"/>
+                    <Item id="6152" name="Apre una sessione in una nova finestra Notepad++"/>
                     <Item id="6153" name="Sempre in modu multi-finestra"/>
                     <Item id="6154" name="Predefinitu (mono-finestra)"/>
                     <Item id="6155" name="* A mudificazione di sta preferenza richiede di rilancià Notepad++"/>
@@ -1003,7 +1003,7 @@
                 <Item id="2" name="Abbandunà"/>
             </ColumnEditor>
             <FindInFinder title="Circà in i risultati trovi">
-                <Item id="1"    name="Circà Tutti"/>
+                <Item id="1"    name="Circalle tutte"/>
                 <Item id="2"    name="Chjode"/>
                 <Item id="1711" name="&amp;Cosa à circà :"/>
                 <Item id="1713" name="Circà solu in e linee truvate"/>
@@ -1081,7 +1081,7 @@ Vulete andà nant’à a pagina di Notepad++ per scaricà l’ultima versione ?"
             <CreateNewFileOrNot title="Creà un novu schedariu" message="« $STR_REPLACE$ » ùn esiste. Creallu ?"/>
             <CreateNewFileError title="Creà un novu schedariu" message="Ùn pò micca creà u schedariu « $STR_REPLACE$ »."/>
             <OpenFileError title="SBAGLIU" message="Ùn pò micca apre u schedariu « $STR_REPLACE$ »."/>
-            <FileBackupFailed title="Fiascu di Salvaguardia di Schedariu" message="A versione precedente di u schedariu ùn pò micca esse arregistrata in u cartulare di salvaguardia : « $STR_REPLACE$ ».
+            <FileBackupFailed title="Fiascu di salvaguardia di schedariu" message="A versione precedente di u schedariu ùn pò micca esse arregistrata in u cartulare di salvaguardia : « $STR_REPLACE$ ».
 
 Vulete arregistrà u schedariu attuale quantunque ?"/>
             <LoadStylersFailed title="Caricamentu fiascu di stylers.xml" message="Caricamentu fiascu di « $STR_REPLACE$ » !"/>
@@ -1131,6 +1131,7 @@ Cuntinuà ?"/>
             <ColumnName name="Nome"/>
             <ColumnPath name="Chjassu"/>
             <ColumnType name="Tipu"/>
+            <ColumnSize name="Dimensione"/>
         </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name="Pannellu d’inserzione di codice ASCII"/>
@@ -1153,7 +1154,7 @@ Cuntinuà ?"/>
             <SelectFolderFromBrowserString name="Selezziunà un cartulare à aghjunghje à u pannellu Cartulare cum’è spaziu di travagliu"/>
             <Menus>
                 <Item id="3511" name="Caccià"/>
-                <Item id="3512" name="Caccià tuttu"/>
+                <Item id="3512" name="Caccialli tutti"/>
                 <Item id="3513" name="Aghjunghje"/>
                 <Item id="3514" name="Eseguitu da u sistema"/>
                 <Item id="3515" name="Apre"/>
@@ -1241,25 +1242,25 @@ Circà in tutti i schedarii fora di exe, obj &amp;&amp; log:
             <find-status-count-re-malformed value="Cuntà : A spressione regulare per ricercà hè mal’cuncilia"/>
             <find-status-count-1-match value="Cuntà : 1 cuncurdanza"/>
             <find-status-count-nb-matches value="Cuntà : $INT_REPLACE$ cuncurdanze"/>
-            <find-status-replaceall-re-malformed value="Rimpiazzà Tutti : A spressione regulare hè mal’cuncilia"/>
-            <find-status-replaceall-1-replaced value="Rimpiazzà Tutti : 1 occurrenza hè stata rimpiazzata"/>
-            <find-status-replaceall-nb-replaced value="Rimpiazzà Tutti : $INT_REPLACE$ occurrenze sò state rimpiazzate"/>
-            <find-status-replaceall-readonly value="Rimpiazzà Tutti : Ùn si pò rimpiazzà u testu. U ducumentu attuale pò solu si leghje"/>
+            <find-status-replaceall-re-malformed value="Rimpiazzalle tutte : A spressione regulare hè mal’cuncilia"/>
+            <find-status-replaceall-1-replaced value="Rimpiazzalle tutte : 1 occurrenza hè stata rimpiazzata"/>
+            <find-status-replaceall-nb-replaced value="Rimpiazzalle tutte : $INT_REPLACE$ occurrenze sò state rimpiazzate"/>
+            <find-status-replaceall-readonly value="Rimpiazzalle tutte : Ùn si pò rimpiazzà u testu. U ducumentu attuale pò solu si leghje"/>
             <find-status-replace-end-reached value="Rimpiazzà : 1a occurrenza rimpiazzata da u principiu. A fine di u ducumentu hè stata tocca"/>
             <find-status-replace-top-reached value="Rimpiazzà : 1a occurrenza rimpiazzata da a fine. U principiu di u ducumentu hè statu toccu"/>
-            <find-status-replaced-next-found value="Rimpiazzà : 1 occurrenza hè stata rimpiazzata. A prossima occurrenza trova"/>
-            <find-status-replaced-next-not-found value="Rimpiazzà : 1 occurrenza hè stata rimpiazzata. A prossima occurrenza micca trova"/>
+            <find-status-replaced-next-found value="Rimpiazzà : 1 occurrenza hè stata rimpiazzata. A prossima occurrenza trova."/>
+            <find-status-replaced-next-not-found value="Rimpiazzà : 1 occurrenza hè stata rimpiazzata. Alcuna altra occurrenza trova."/>
             <find-status-replace-not-found value="Rimpiazzà : alcuna occurrenza trova"/>
             <find-status-replace-readonly value="Rimpiazzà : Ùn si pò rimpiazzà u testu. U ducumentu attuale pò solu si leghje"/>
             <find-status-cannot-find value="Circà : Ùn si pò truvà u testu « $STR_REPLACE$ »"/>
             <finder-find-in-finder value="Circà in sti risultati trovi…"/>
             <finder-close-this value="Chjode stu circatore"/>
-            <finder-collapse-all value="Ripiegà tuttu"/>
-            <finder-uncollapse-all value="Spiegà tuttu"/>
+            <finder-collapse-all value="Tuttu ripiegà"/>
+            <finder-uncollapse-all value="Tuttu spiegà"/>
             <finder-copy value="Cupià"/>
-            <finder-select-all value="Selezziunà tuttu"/>
-            <finder-clear-all value="Viutà tuttu"/>
-            <finder-open-all value="Apre tuttu"/>
+            <finder-select-all value="Tuttu selezziunà"/>
+            <finder-clear-all value="Tuttu viutà"/>
+            <finder-open-all value="Tuttu apre"/>
             <common-ok value="Vai"/>
             <common-cancel value="Abbandunà"/>
             <common-name value="Nome : "/>
@@ -1283,6 +1284,14 @@ Circà in tutti i schedarii fora di exe, obj &amp;&amp; log:
             <summary-nbsel1 value=" caratteri selezziunati ("/>
             <summary-nbsel2 value=" ottetti) in "/>
             <summary-nbrange value=" selezzioni"/>
+            <replace-in-files-confirm-title value="Cunfirmazione"/>
+            <replace-in-files-confirm-directory value="Vulete rimpiazzà tutte l’occurrenze in :"/>
+            <replace-in-files-confirm-filetype value="Per u(i) tipu(i) di schedariu :"/>
+            <find-result-caption value="Risultati di ricerca"/>
+            <find-result-title value="Circà"/>
+            <find-result-title-info value="($INT_REPLACE1$ risultati in $INT_REPLACE2$ ducumenti tra i $INT_REPLACE3$ ducumenti circati)"/>
+            <find-result-title-info-extra value=" - Modu di filtru di linea : affisseghja solu i risultati filtrati"/>
+            <find-result-hits value="($INT_REPLACE$ risultati)"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

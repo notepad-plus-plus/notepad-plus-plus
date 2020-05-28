@@ -28,5 +28,6 @@
 #pragma once
 
 #define	IDD_DOCUMENTMAP      3300
-#define	IDD_VIEWZONE         3320
+#define	IDD_VIEWZONE_CLASSIC 3320
+#define	IDD_VIEWZONE         3321
 #define	IDC_VIEWZONECANVAS    (IDD_VIEWZONE + 1)

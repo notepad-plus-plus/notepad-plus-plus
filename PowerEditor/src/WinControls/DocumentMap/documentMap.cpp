@@ -302,7 +302,8 @@ void DocumentMap::doMove()
 {
 	RECT rc;
 	::GetClientRect (_hwndScintilla, & rc);
-	::MapWindowPoints (_hwndScintilla, _pMapView->getHParent(), reinterpret_cast<POINT*>(& rc), 2);
+	bool isChild = (::GetWindowLongPtr (_vzDlg.getHSelf(), GWL_STYLE) & WS_CHILD) != 0;
+	::MapWindowPoints (_hwndScintilla, isChild ? _pMapView->getHParent() : HWND_DESKTOP, reinterpret_cast<POINT*>(& rc), 2);
 	::MoveWindow(_vzDlg.getHSelf(), rc.left, rc.top, (rc.right - rc.left), (rc.bottom - rc.top), TRUE);
 }
 
@@ -478,7 +479,10 @@ void ViewZoneDlg::drawPreviewZone(DRAWITEMSTRUCT *pdis)
 void ViewZoneDlg::doDialog()
 {
 	if (!isCreated())
-		create(IDD_VIEWZONE);
+	{
+		bool win10 = (NppParameters::getInstance()).getWinVersion() >= WV_WIN10;
+		create(win10 ? IDD_VIEWZONE : IDD_VIEWZONE_CLASSIC);
+	}
 	display();
 };
 

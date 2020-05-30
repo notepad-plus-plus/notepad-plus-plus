@@ -739,7 +739,7 @@ void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup)
 	return;
 }
 
-generic_string Notepad_plus::exts2Filters(const generic_string& exts) const
+generic_string Notepad_plus::exts2Filters(const generic_string& exts, int maxExtsLen) const
 {
 	const TCHAR *extStr = exts.c_str();
 	TCHAR aExt[MAX_PATH];
@@ -747,6 +747,7 @@ generic_string Notepad_plus::exts2Filters(const generic_string& exts) const
 
 	int j = 0;
 	bool stop = false;
+
 	for (size_t i = 0, len = exts.length(); i < len && j < MAX_PATH - 1; ++i)
 	{
 		if (extStr[i] == ' ')
@@ -763,6 +764,12 @@ generic_string Notepad_plus::exts2Filters(const generic_string& exts) const
 					filters += TEXT(";");
 				}
 				j = 0;
+
+				if (maxExtsLen != -1 && i >= maxExtsLen)
+				{
+					filters += TEXT(" ... ");
+					break;
+				}
 			}
 		}
 		else
@@ -789,7 +796,7 @@ generic_string Notepad_plus::exts2Filters(const generic_string& exts) const
 	return filters;
 }
 
-int Notepad_plus::setFileOpenSaveDlgFilters(FileDialog & fDlg, int langType)
+int Notepad_plus::setFileOpenSaveDlgFilters(FileDialog & fDlg, bool showAllExt, int langType)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = (NppGUI & )nppParam.getNppGUI();
@@ -835,7 +842,7 @@ int Notepad_plus::setFileOpenSaveDlgFilters(FileDialog & fDlg, int langType)
 				list += userList;
 			}
 
-			generic_string stringFilters = exts2Filters(list);
+			generic_string stringFilters = exts2Filters(list, showAllExt ? -1 : 40);
 			const TCHAR *filters = stringFilters.c_str();
 			if (filters[0])
 			{
@@ -1583,7 +1590,7 @@ bool Notepad_plus::fileSaveAs(BufferID id, bool isSaveCopy)
 	FileDialog fDlg(_pPublicInterface->getHSelf(), _pPublicInterface->getHinst());
 
     fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
-	int langTypeIndex = setFileOpenSaveDlgFilters(fDlg, buf->getLangType());
+	int langTypeIndex = setFileOpenSaveDlgFilters(fDlg, false, buf->getLangType());
 	fDlg.setDefFileName(buf->getFileName());
 
     fDlg.setExtIndex(langTypeIndex+1); // +1 for "All types"
@@ -1649,7 +1656,7 @@ bool Notepad_plus::fileRename(BufferID id)
 		FileDialog fDlg(_pPublicInterface->getHSelf(), _pPublicInterface->getHinst());
 
 		fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
-		setFileOpenSaveDlgFilters(fDlg);
+		setFileOpenSaveDlgFilters(fDlg, false);
 
 		fDlg.setDefFileName(buf->getFileName());
 		TCHAR *pfn = fDlg.doSaveDlg();
@@ -1759,7 +1766,7 @@ void Notepad_plus::fileOpen()
     FileDialog fDlg(_pPublicInterface->getHSelf(), _pPublicInterface->getHinst());
 	fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
 
-	setFileOpenSaveDlgFilters(fDlg);
+	setFileOpenSaveDlgFilters(fDlg, true);
 
 	BufferID lastOpened = BUFFER_INVALID;
 	if (stringVector *pfns = fDlg.doOpenMultiFilesDlg())

@@ -765,7 +765,7 @@ generic_string Notepad_plus::exts2Filters(const generic_string& exts, int maxExt
 				}
 				j = 0;
 
-				if (maxExtsLen != -1 && i >= maxExtsLen)
+				if (maxExtsLen != -1 && i >= static_cast<size_t>(maxExtsLen))
 				{
 					filters += TEXT(" ... ");
 					break;

@@ -85,6 +85,7 @@ PowerEditor/visual.net/x64/Unicode Release/
 # scintilla - generated files
 scintilla/bin/SciLexer.*
 scintilla/bin/Scintilla.*
+scintilla/bin/libscintilla.lib
 scintilla/win32/*.lib
 scintilla/win32/Lexers.a
 scintilla/win32/ScintRes.res

@@ -822,6 +822,10 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				// selected word is visible all the time while the browser is starting
 				notifyView->execute(SCI_SETSEL, notification->position, notification->position); 
 
+				// WM_LBUTTONUP goes to opening browser instead of Scintilla here, because the mouse is not captured.
+				// The missing message causes mouse cursor flicker as soon as the mouse cursor is moved to a position outside the text editing area.
+				::PostMessage(notifyView->getHSelf(), WM_LBUTTONUP, 0, 0);
+
 				// Open URL
 				auto startPos = notifyView->execute(SCI_INDICATORSTART, URL_INDIC, notification->position);
 				auto endPos = notifyView->execute(SCI_INDICATOREND, URL_INDIC, notification->position);

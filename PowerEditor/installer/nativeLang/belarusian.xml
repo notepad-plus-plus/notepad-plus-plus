@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Беларуская" filename="belarusian.xml" version="7.8.6">
+    <Native-Langue name="Беларуская" filename="belarusian.xml" version="7.8.7">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -778,7 +778,7 @@
                     <Item id="6413" name="Каталог па змаўчанні (Адкрыць/Захаваць)"/>
                     <Item id="6414" name="Перайсці за бягучым дакументам"/>
                     <Item id="6415" name="Памятаць апошні каталог"/>
-                    <Item id="6430" name="Выкарыстоўваць новы дыялогавы стыль (Unix style path capacity)"/>
+                    <Item id="6430" name="Выкарыстоўваць новы стыль дыялогу (без шляху ў стылі Unix)"/>
                     <Item id="6431" name="Адкрываць усе файлы папкі, замест адкрыцця папкі ў якасці працоўнай прасторы"/>
                 </DefaultDir>
 
@@ -1226,8 +1226,8 @@
             <find-status-replaceall-readonly value="Замяніць усе: Немагчыма замяніць тэкст. Бягучы дакумент мае правы толькі не чытанне"/>
             <find-status-replace-end-reached value="Замяніць: Заменена першае супадзенне зверху. Быў дасягнуты канец дакумента"/>
             <find-status-replace-top-reached value="Замяніць: Заменена першае супадзенне знізу. Быў дасягнуты пачатак дакумента"/>
-            <find-status-replaced-next-found value="Замяніць: Выканана адна замена. Знойдзена наступнае супадзенне"/>
-            <find-status-replaced-next-not-found value="Замяніць: Выканана адна замена. Наступнае супадзенне не знойдзена"/>
+            <find-status-replaced-next-found value="Замяніць: Выканана адна замена. Знойдзена наступнае супадзенне."/>
+            <find-status-replaced-next-not-found value="Замяніць: Выканана адна замена. Іншых супадзенняў не знойдзена."/>
             <find-status-replace-not-found value="Замяніць: Наступнае супадзенне не знойдзена"/>
             <find-status-replace-readonly value="Замяніць: Немагчыма замяніць тэкст. Бягучы дакумент мае правы толькі на чытанне"/>
             <find-status-cannot-find value="Знайсці: Немагчыма знайсці тэкст &quot;$STR_REPLACE$&quot;"/>
@@ -1262,6 +1262,14 @@
             <summary-nbsel1 value=" выбраныя сімвалы ("/>
             <summary-nbsel2 value=" байтаў) у "/>
             <summary-nbrange value=" дыяпазоны"/>
+            <replace-in-files-confirm-title value="Вы ўпэўненыя?"/>
+            <replace-in-files-confirm-directory value="Вы ўпэўненыя, што хочаце замяніць усе супадзенні для:"/>
+            <replace-in-files-confirm-filetype value="Для тыпу файла:"/>
+            <find-result-caption value="Знайсці вынік"/>
+            <find-result-title value="Пошук"/>
+            <find-result-title-info value="($INT_REPLACE1$ супадзенняў у $INT_REPLACE2$ файлах для $INT_REPLACE3$ пошукаў)"/>
+            <find-result-title-info-extra value=" - Рэжым фільтра радкоў: паказваць толькі фільтраваныя вынікі"/>
+            <find-result-hits value="($INT_REPLACE$ супадзенняў)"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

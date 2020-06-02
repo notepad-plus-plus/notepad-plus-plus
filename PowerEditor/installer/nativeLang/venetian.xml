@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-    Venetian translation for Notepad++ 7.8.6
-    Last modified Sun, April 14th, 2020.
+    Venetian translation for Notepad++ 7.8.7
+    Last modified Thu, June 2nd, 2020.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang	
 -->
 <NotepadPlus>
@@ -784,7 +784,7 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
                     <Item id="6413" name="Carteƚa Predefinìa (Vèrxi/Salva)"/>
                     <Item id="6414" name="Secondo el documento corente"/>
                     <Item id="6415" name="Ricordate ƚ&apos;ùltima carteƚa utiƚixà"/>
-                    <Item id="6430" name="No seƚesionare estension predefinìa ne ƚa fenèstra de salvatagio"/>
+                    <Item id="6430" name="Uxa novo stile de dialogo (sensa stile de el percorso UNIX)"/>
                     <Item id="6431" name="Vèrxi tuti i file de ƚa carteƚa invese de far partire Carteƚa cofà Workspace a&apos;l strasinamento"/>
                 </DefaultDir>
 				
@@ -1229,8 +1229,8 @@ Ruma en tuti i file a ecesion exe, obj &amp;&amp; log:
             <find-status-replaceall-readonly value="Sostituisi tuti cuanti: inposibiƚe sostituire el testo. El documento corente el xe en soƚa letura"/>
             <find-status-replace-end-reached value="Sostituisi: sostituìa ƚa prima ocorensa da ƚ&apos;alto. Se xe rivà a ƚa fine de&apos;l documento "/>
             <find-status-replace-top-reached value="Sostituisi: sostituìa ƚa prima ocorensa da&apos;l baso. Se xe rivà a&apos;l prinsipio de&apos;l documento"/>
-            <find-status-replaced-next-found value="Sostituisi: 1 ocorensa ƚa xe stà sostituìa. Catà ƚ&apos;ocorensa sucesiva"/>
-            <find-status-replaced-next-not-found value="Sostituisi:1 ocorensa ƚa xe stà sostituìa. Nisuna ocorensa sucesiva"/>
+            <find-status-replaced-next-found value="Sostituisi: 1 ocorensa ƚa xe stà sostituìa. Xe stà catà ƚ&apos;ocorensa sucesiva."/>
+            <find-status-replaced-next-not-found value="Sostituisi:1 ocorensa ƚa xe stà sostituìa. Nisuna ocorensa sucesiva."/>
             <find-status-replace-not-found value="Sostituisi: nisuna ocorensa catà"/>
             <find-status-replace-readonly value="Sostituisi: inposibiƚe canbiare el testo. El documento corente el xe en soƚa ƚetura"/>
             <find-status-cannot-find value="Ruma: inposibiƚe catare el testo &quot;$STR_REPLACE$&quot;"/>
@@ -1265,6 +1265,14 @@ Ruma en tuti i file a ecesion exe, obj &amp;&amp; log:
             <summary-nbsel1 value=" caràtari seƚesionà ("/>
             <summary-nbsel2 value=" byte) en "/>
             <summary-nbrange value=" intervaƚi"/>
+            <replace-in-files-confirm-title value="Sito sicuro?"/>
+            <replace-in-files-confirm-directory value="Sito sicuro de voler sostituire tute cuante le ocorense in:"/>
+            <replace-in-files-confirm-filetype value="Par i tipi de file:"/>
+            <find-result-caption value="Cata rixultadi"/>
+            <find-result-title value="Cata"/>
+            <find-result-title-info value="($INT_REPLACE1$ ocorense in $INT_REPLACE2$ file de $INT_REPLACE3$ sercà)"/>
+            <find-result-title-info-extra value=" - Modaƚità de filtro ƚinea: mostra soƚo i rixultati filtrà"/>
+            <find-result-hits value="($INT_REPLACE$ ocorense)"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

@@ -187,6 +187,7 @@ struct LanguageName {
 	int lexerID;
 };
 
+#define URL_INDIC 8
 class ISorter;
 
 class ScintillaEditView : public Window

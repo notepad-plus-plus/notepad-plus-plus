@@ -2455,8 +2455,8 @@ void Notepad_plus::addHotSpot(ScintillaEditView* view)
 	ScintillaEditView* pView = view ? view : _pEditView;
 
 	int urlAction = (NppParameters::getInstance()).getNppGUI()._styleURL;
-	LPARAM Style = (urlAction == 2) ? INDIC_PLAIN : INDIC_HIDDEN;
-	pView->execute(SCI_INDICSETSTYLE, URL_INDIC, Style);
+	LPARAM indicStyle = (urlAction == 2) ? INDIC_PLAIN : INDIC_HIDDEN;
+	pView->execute(SCI_INDICSETSTYLE, URL_INDIC, indicStyle);
 	pView->execute(SCI_INDICSETHOVERSTYLE, URL_INDIC, INDIC_FULLBOX);
 
 	int startPos = 0;

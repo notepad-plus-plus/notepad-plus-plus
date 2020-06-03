@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Translated by Patryk Skorupa (ppskorupa@outlook.com) and up-to-date as of version 7.7.2 (29/07/2019) -->
 <!-- Updated by Cezariusz Marek to version 7.8.3 (11.01.2020) -->
+<!-- Updated by Arkadiusz Michalski (webref.pl) to version 7.8.7 (03.06.2020) -->
 <NotepadPlus>
-    <Native-Langue name="polski" filename="polish.xml" version="7.8.3">
+    <Native-Langue name="polski" filename="polish.xml" version="7.8.7">
         <Menu>
             <Main>
                 <!-- Główne menu -->
@@ -41,24 +42,24 @@
                     <Item subMenuId="search-jumpDown" name="Przejdź niżej"/>
                     <Item subMenuId="search-bookmark" name="Zakładki"/>
                     <Item subMenuId="view-currentFileIn" name="Wyświetl obecny plik w..."/>
-                    <Item subMenuId="view-showSymbol"  name="Niewidoczne znaki"/>
-                    <Item subMenuId="view-zoom"  name="Przybliż"/>
-                    <Item subMenuId="view-moveCloneDocument"  name="Bieżący dokument"/>
-                    <Item subMenuId="view-tab"  name="Karty"/>
+                    <Item subMenuId="view-showSymbol" name="Niewidoczne znaki"/>
+                    <Item subMenuId="view-zoom" name="Przybliż"/>
+                    <Item subMenuId="view-moveCloneDocument" name="Bieżący dokument"/>
+                    <Item subMenuId="view-tab" name="Karty"/>
                     <Item subMenuId="view-collapseLevel" name="Zwiń poziom w pliku"/>
                     <Item subMenuId="view-uncollapseLevel" name="Rozwiń poziom w pliku"/>
                     <Item subMenuId="view-project" name="Projekt"/>
-                    <Item subMenuId="encoding-characterSets"  name="Zestaw znaków"/>
-                    <Item subMenuId="encoding-arabic"  name="arabski"/>
-                    <Item subMenuId="encoding-baltic"  name="bałtycki"/>
-                    <Item subMenuId="encoding-celtic"  name="celtycki"/>
-                    <Item subMenuId="encoding-cyrillic"  name="cyrylica"/>
-                    <Item subMenuId="encoding-centralEuropean"  name="środkowoeuropejski"/>
-                    <Item subMenuId="encoding-chinese"  name="chiński"/>
-                    <Item subMenuId="encoding-easternEuropean"  name="wschodnioeuropejski"/>
-                    <Item subMenuId="encoding-greek"  name="grecki"/>
-                    <Item subMenuId="encoding-hebrew"  name="hebrajski"/>
-                    <Item subMenuId="encoding-japanese"  name="japoński"/>
+                    <Item subMenuId="encoding-characterSets" name="Zestaw znaków"/>
+                    <Item subMenuId="encoding-arabic" name="arabski"/>
+                    <Item subMenuId="encoding-baltic" name="bałtycki"/>
+                    <Item subMenuId="encoding-celtic" name="celtycki"/>
+                    <Item subMenuId="encoding-cyrillic" name="cyrylica"/>
+                    <Item subMenuId="encoding-centralEuropean" name="środkowoeuropejski"/>
+                    <Item subMenuId="encoding-chinese" name="chiński"/>
+                    <Item subMenuId="encoding-easternEuropean" name="wschodnioeuropejski"/>
+                    <Item subMenuId="encoding-greek" name="grecki"/>
+                    <Item subMenuId="encoding-hebrew" name="hebrajski"/>
+                    <Item subMenuId="encoding-japanese" name="japoński"/>
                     <Item subMenuId="encoding-korean" name="koreański"/>
                     <Item subMenuId="encoding-northEuropean" name="północnoeuropejski"/>
                     <Item subMenuId="encoding-thai" name="tajski"/>
@@ -66,9 +67,9 @@
                     <Item subMenuId="encoding-westernEuropean" name="zachodnioeuropejski"/>
                     <Item subMenuId="encoding-vietnamese" name="wietnamski"/>
                     <Item subMenuId="language-userDefinedLanguage" name="Język zdefiniowany przez użytkownika"/>
-                    <Item subMenuId="settings-import"  name="Importuj..."/>
-                    <Item subMenuId="tools-md5"  name="MD5"/>
-                    <Item subMenuId="tools-sha256"  name="SHA-256"/>
+                    <Item subMenuId="settings-import" name="Importuj..."/>
+                    <Item subMenuId="tools-md5" name="MD5"/>
+                    <Item subMenuId="tools-sha256" name="SHA-256"/>
                 </SubEntries>
 
                 <!-- Menu rozwijane, dokładniej -->
@@ -178,7 +179,7 @@
                     <Item id="43004" name="&amp;Przejdź do..."/>
                     <Item id="43005" name="Przełącz zakładkę"/>
                     <Item id="43006" name="Następna zakładka"/>
-                    <Item id="43007" name="Następna zakładka"/>
+                    <Item id="43007" name="Poprzednia zakładka"/>
                     <Item id="43008" name="Usuń wszystkie zakładki"/>
                     <Item id="43018" name="Wytnij linie z zakładkami"/>
                     <Item id="43019" name="Kopiuj linie z zakładkami"/>
@@ -220,10 +221,10 @@
                     <Item id="43045" name="Okno wyników wyszukiwania"/>
                     <Item id="43046" name="Następny wynik wyszukiwania"/>
                     <Item id="43047" name="Poprzedni wynik wyszukiwania"/>
-                    <Item id="43048" name="Oznacz i szukaj następnego"/>
-                    <Item id="43049" name="Oznacz i szukaj poprzedniego"/>
+                    <Item id="43048" name="Wybierz i szukaj następnego"/>
+                    <Item id="43049" name="Wybierz i szukaj poprzedniego"/>
                     <Item id="43054" name="Oz&amp;nacz..."/>
-                    <Item id="44009" name="Pełny ekran 2"/>
+                    <Item id="44009" name="Przełącz tryb Post-It"/>
                     <Item id="44010" name="Zwiń wszystko"/>
                     <Item id="44019" name="Pokaż wszystkie znaki"/>
                     <Item id="44020" name="Pokaż prowadnice kolumn"/>
@@ -747,13 +748,12 @@
                     <Item id="6206" name="Pokazuj numer linii"/>
                     <Item id="6207" name="Pokazuj zakładki"/>
                     <Item id="6208" name="Pokazuj krawędź pionową"/>
-                    <Item id="6209" name="Liczba kolumn:"/>
                     <Item id="6234" name="Wyłącz zaawansowane przewijanie
 (w razie problemów z touchpadem)"/>
-
                     <Item id="6211" name="Ustawienia krawędzi pionowej"/>
-                    <Item id="6212" name="W formie linii"/>
                     <Item id="6213" name="Podświetlenie tła"/>
+                    <Item id="6237" name="Dodaj znacznik kolumny wskazując jego pozycję za pomocą liczby dziesiętnej.
+Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych liczb znakami spacji."/>
                     <Item id="6214" name="Podświetlaj bieżącą linię"/>
                     <Item id="6215" name="Ujednolicaj czcionki"/>
                     <Item id="6231" name="Grubość ramki"/>
@@ -762,7 +762,7 @@
                 </Scintillas>
 
                 <NewDoc title="Nowy dokument">
-                    <Item id="6401" name="Format"/>
+                    <Item id="6401" name="Format (koniec linii)"/>
                     <Item id="6402" name="Windows (CR LF)"/>
                     <Item id="6403" name="Unix (LF)"/>
                     <Item id="6404" name="Macintosh (CR)"/>
@@ -781,7 +781,7 @@
                     <Item id="6413" name="Domyślna ścieżka odczytu i zapisu"/>
                     <Item id="6414" name="Bieżącego pliku"/>
                     <Item id="6415" name="Pamiętaj ostatnio używaną"/>
-                    <Item id="6430" name="Używaj nowego okna zapisu (bez domyślnego rozszerzenia pliku i ścieżki z Unix)"/>
+                    <Item id="6430" name="Używaj nowego okna zapisu (bez ścieżki w stylu Unix)"/>
                     <Item id="6431" name="Nie traktuj przenoszonego folderu jako obszaru roboczego, tylko ładuj wszystkie jego pliki"/>
                 </DefaultDir>
 
@@ -946,13 +946,14 @@
                     <Item id="6324" name="Przełączanie dokumentów (Ctrl+TAB)"/>
                     <Item id="6331" name="Pokazuj w pasku tytułu tylko nazwę pliku"/>
                     <Item id="6334" name="Automatycznie wykrywaj kodowanie"/>
-                    <Item id="6314" name="Użyj nieproporcjonalnego fontu w oknie wyszukiwania (wymagany restart Notepad++)"/>
-                    <Item id="6337" name="Rozszerzenie pliku obszaru roboczego:"/>
+                    <Item id="6314" name="W oknie wyszukiwania użyj nieproporcjonalnego fontu (wymagany restart Notepad++)"/>
+                    <Item id="6337" name="Rozszerzenie pliku projektu:"/> <!-- obszaru roboczego -->
                     <Item id="6114" name="Włącz"/>
                     <Item id="6117" name="Zgodnie z ostatnim użyciem (MRU)"/>
                     <Item id="6344" name="Podgląd dokumentów"/>
                     <Item id="6345" name="Po najechaniu na kartę"/>
                     <Item id="6346" name="Po najechaniu na mapę dokumentu"/>
+                    <Item id="6348" name="W oknie wyszukiwania nie wprowadzaj wybranego słowa do pola"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Uruchom makro wielokrotnie">
@@ -998,14 +999,14 @@
                 <Item id="1718" name="&amp;Rozszerzony (\n, \r, \t, \0, \x...)"/>
                 <Item id="1720" name="&amp;. jako nowa linia"/>
             </FindInFinder>
-            <DoSaveOrNot title="Zapisywanie">  
-	  		               <Item id="1761" name="Zapisać plik „$STR_REPLACE$”?"/> 
-	  		               <Item id="6" name="&amp;Tak"/> 
-	  		               <Item id="7" name="&amp;Nie"/> 
-	  		               <Item id="2" name="&amp;Anuluj"/> 
-	  		               <Item id="4" name="Zapisz &amp;wszystkie"/> 
-	  		               <Item id="5" name="Nie &amp;zapisuj żadnego"/> 
-	  		           </DoSaveOrNot> 
+            <DoSaveOrNot title="Zapisywanie">
+                <Item id="1761" name="Zapisać plik „$STR_REPLACE$”?"/>
+                <Item id="6" name="&amp;Tak"/>
+                <Item id="7" name="&amp;Nie"/>
+                <Item id="2" name="&amp;Anuluj"/>
+                <Item id="4" name="Zapisz &amp;wszystkie"/>
+                <Item id="5" name="Nie &amp;zapisuj nic"/> <!-- Nie &amp;zapisuj żadnego -->
+            </DoSaveOrNot>
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title="Edycja menu kontekstowego" message="Edycja pliku contextMenu.xml pozwala na zmianę menu kontekstowego dostępnego w Notepad++ pod prawym przyciskiem myszy.
@@ -1098,9 +1099,9 @@ Czy chcesz uruchomić Notepad++ jako Administrator?"/>
             <OpenInAdminModeFailed title="Błąd uprawnień Administratora" message="Nie udało się otworzyć Notepad++ jako Administrator."/>
             <ViewInBrowser title="Przeglądanie pliku w przeglądarce" message="Nie udało się odnaleźć powiązanego programu w systemie."/>
             <ExitToUpdatePlugins title="Notepad++ musi zostać zamknięty" message="Kliknięcie TAK zamknie Notepad++.
-	  		Notepad++ uruchomi się ponownie, kiedy tylko wszystkie działania zostaną zakończone.
-	  		Kontynuować?"/> 
-	  		<NeedToRestartToLoadPlugins title="Ponowne uruchomienie Notepad++" message="Notepad++ musi zostać ponownie uruchomiony, aby zainstalowane wtyczki mogły działać."/> 
+Notepad++ uruchomi się ponownie, kiedy tylko wszystkie działania zostaną zakończone.
+Kontynuować?"/>
+            <NeedToRestartToLoadPlugins title="Ponowne uruchomienie Notepad++" message="Notepad++ musi zostać ponownie uruchomiony, aby zainstalowane wtyczki mogły działać."/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Historia schowka"/>
@@ -1114,14 +1115,15 @@ Czy chcesz uruchomić Notepad++ jako Administrator?"/>
             <ColumnName name="Nazwa"/>
             <ColumnPath name="Ścieżka"/>
             <ColumnType name="Typ"/>
+            <ColumnSize name="Rozmiar"/>
         </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name="Tablica znaków ASCII"/>
             <ColumnVal name="Wartość"/>
             <ColumnHex name="Hex"/>
             <ColumnChar name="Znak"/>
-            <ColumnHtmlNumber name="Numer HTML"/> 
-	  		<ColumnHtmlName name="Kod HTML"/> 
+            <ColumnHtmlNumber name="Numer HTML"/>
+            <ColumnHtmlName name="Kod HTML"/>
         </AsciiInsertion>
         <DocumentMap>
             <PanelTitle name="Mapa dokumentu"/>
@@ -1255,17 +1257,25 @@ Szukaj wśród wszystkich plików z wyjątkiem exe, obj i log:
             <userdefined-title-rename value="Zmień nazwę bieżącego języka"/>
             <autocomplete-nb-char value="Numer znaku: "/>
             <edit-verticaledge-nb-col value="Numer kolumny:"/>
-            <summary value="Podsumowanie"/> 
-            <summary-filepath value="Pełna ścieżka pliku: "/> 
-            <summary-filecreatetime value="Utworzony: "/> 
-            <summary-filemodifytime value="Zmodyfikowany: "/> 
-            <summary-nbchar value="Znaki (bez znaków końca linii): "/> 
-	  		<summary-nbword value="Słowa: "/> 
-            <summary-nbline value="Wiersze: "/> 
-            <summary-nbbyte value="Długość dokumentu: "/> 
-	  		<summary-nbsel1 value=" zaznaczonych znaków ("/> 
-	  		<summary-nbsel2 value=" bajtów) w "/> 
-	  		<summary-nbrange value=" zakresach"/> 
+            <summary value="Podsumowanie"/>
+            <summary-filepath value="Pełna ścieżka pliku: "/>
+            <summary-filecreatetime value="Utworzony: "/>
+            <summary-filemodifytime value="Zmodyfikowany: "/>
+            <summary-nbchar value="Znaki (bez znaków końca linii): "/>
+            <summary-nbword value="Słowa: "/>
+            <summary-nbline value="Wiersze: "/>
+            <summary-nbbyte value="Długość dokumentu: "/>
+            <summary-nbsel1 value=" zaznaczonych znaków ("/>
+            <summary-nbsel2 value=" bajtów) w "/>
+            <summary-nbrange value=" zakresach"/>
+            <replace-in-files-confirm-title value="Na pewno chcesz kontynuować?"/>
+            <replace-in-files-confirm-directory value="Czy na pewno chcesz zastąpić wszystkie wystąpienia w:"/>
+            <replace-in-files-confirm-filetype value="Dla plików pasujących do filtrów:"/>
+            <find-result-caption value="Wynik wyszukiwania"/>
+            <find-result-title value="Wyszukanie"/>
+            <find-result-title-info value="($INT_REPLACE1$ trafień w $INT_REPLACE2$ plikach z $INT_REPLACE3$ przeszukiwanych)"/>
+            <find-result-title-info-extra value=" - Tryb filtrowania linii: wyświetla tylko przefiltrowane wyniki"/>
+            <find-result-hits value="($INT_REPLACE$ trafień)"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

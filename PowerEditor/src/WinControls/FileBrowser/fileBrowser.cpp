@@ -513,15 +513,15 @@ void FileBrowser::openSelectFile()
 	HTREEITEM selectedNode = _treeView.getSelection();
 	if (!selectedNode) return;
 
-	generic_string fullPath = getNodePath(selectedNode);
+	_selectedNodeFullPath = getNodePath(selectedNode);
 
 	// test the path - if it's a file, open it, otherwise just fold or unfold it
-	if (!::PathFileExists(fullPath.c_str()))
+	if (!::PathFileExists(_selectedNodeFullPath.c_str()))
 		return;
-	if (::PathIsDirectory(fullPath.c_str()))
+	if (::PathIsDirectory(_selectedNodeFullPath.c_str()))
 		return;
 
-	::SendMessage(_hParent, NPPM_DOOPEN, 0, reinterpret_cast<LPARAM>(fullPath.c_str()));
+	::PostMessage(_hParent, NPPM_DOOPEN, 0, reinterpret_cast<LPARAM>(_selectedNodeFullPath.c_str()));
 }
 
 

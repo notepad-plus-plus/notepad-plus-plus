@@ -176,6 +176,8 @@ protected:
 	HMENU _hFileMenu = NULL;
 	std::vector<FolderUpdater *> _folderUpdaters;
 
+	generic_string _selectedNodeFullPath; // this member is used only for PostMessage call
+
 	std::vector<SortingData4lParam*> sortingDataArray;
 
 	void initPopupMenus();

@@ -579,7 +579,7 @@ void ProjectPanel::openSelectFile()
 		tvItem.mask = TVIF_IMAGE | TVIF_SELECTEDIMAGE;
 		if (::PathFileExists(fn->c_str()))
 		{
-			::SendMessage(_hParent, NPPM_DOOPEN, 0, reinterpret_cast<LPARAM>(fn->c_str()));
+			::PostMessage(_hParent, NPPM_DOOPEN, 0, reinterpret_cast<LPARAM>(fn->c_str()));
 			tvItem.iImage = INDEX_LEAF;
 			tvItem.iSelectedImage = INDEX_LEAF;
 		}

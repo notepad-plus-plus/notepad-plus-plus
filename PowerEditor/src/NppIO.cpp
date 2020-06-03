@@ -1593,7 +1593,7 @@ bool Notepad_plus::fileSaveAs(BufferID id, bool isSaveCopy)
 	int langTypeIndex = setFileOpenSaveDlgFilters(fDlg, false, buf->getLangType());
 	fDlg.setDefFileName(buf->getFileName());
 
-    fDlg.setExtIndex(langTypeIndex+1); // +1 for "All types"
+    fDlg.setExtIndex(langTypeIndex + 1); // +1 for "All types"
 
 	// Disable file autodetection before opening save dialog to prevent use-after-delete bug.
 	NppParameters& nppParam = NppParameters::getInstance();
@@ -1828,7 +1828,8 @@ bool Notepad_plus::isFileSession(const TCHAR * filename)
 	return false;
 }
 
-bool Notepad_plus::isFileWorkspace(const TCHAR * filename) {
+bool Notepad_plus::isFileWorkspace(const TCHAR * filename)
+{
 	// if filename matches the ext of user defined workspace file ext, then it'll be opened as a workspace
 	const TCHAR *definedWorkspaceExt = NppParameters::getInstance().getNppGUI()._definedWorkspaceExt.c_str();
 	if (*definedWorkspaceExt != '\0')

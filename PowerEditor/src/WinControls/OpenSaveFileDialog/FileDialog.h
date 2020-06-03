@@ -66,16 +66,16 @@ private:
 	TCHAR _fileName[MAX_PATH*8];
 	generic_string _defExt;
 
-	TCHAR * _fileExt;
-	int _nbCharFileExt;
+	TCHAR * _fileExt = nullptr;
+	int _nbCharFileExt = 0;
 
 	stringVector _fileNames;
 
 	OPENFILENAME _ofn;
 	winVer _winVersion;
 	
-    int _nbExt;
-    int _extTypeIndex;
+    int _nbExt = 0;
+    int _extTypeIndex = -1;
     static FileDialog *staticThis;
 };
 

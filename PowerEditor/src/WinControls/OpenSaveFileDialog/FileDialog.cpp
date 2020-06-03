@@ -35,8 +35,7 @@
 
 FileDialog *FileDialog::staticThis = NULL;
 
-FileDialog::FileDialog(HWND hwnd, HINSTANCE hInst) 
-	: _nbCharFileExt(0), _nbExt(0), _fileExt(NULL), _extTypeIndex(-1)
+FileDialog::FileDialog(HWND hwnd, HINSTANCE hInst)
 {
 	staticThis = this;
     
@@ -269,6 +268,8 @@ TCHAR * FileDialog::doSaveDlg()
 	NppParameters& params = NppParameters::getInstance();
 	_ofn.lpstrInitialDir = params.getWorkingDir();
 	_ofn.lpstrDefExt = _defExt.c_str();
+	if (_extTypeIndex != -1)
+		_ofn.nFilterIndex = _extTypeIndex + 1; // +1 for the file extension combobox index starts from 1
 
 	_ofn.Flags |= OFN_OVERWRITEPROMPT | OFN_HIDEREADONLY | OFN_ENABLESIZING;
 

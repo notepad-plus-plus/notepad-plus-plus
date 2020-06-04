@@ -212,7 +212,9 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 	{
 		nppParam.setWorkSpaceFilePath(0, longFileName);
 		_isWorkspaceFileLoadedFromCommandLine = true;
-//		command(IDM_VIEW_PROJECT_PANEL_1);
+		// This line switches to Project Panel 1 while starting up Npp
+		// and after dragging a workspace file to Npp:
+		command(IDM_VIEW_PROJECT_PANEL_1);
 		return BUFFER_INVALID;
 	}
 

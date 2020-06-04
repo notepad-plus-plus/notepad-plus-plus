@@ -1025,7 +1025,8 @@ void Notepad_plus::command(int id)
 			if (_findReplaceDlg.isCreated())
 			{
 				FindOption op = _findReplaceDlg.getCurrentOptions();
-				if ((id == IDM_SEARCH_FINDPREV) && (op._searchType == FindRegex))
+				NppParameters& nppParams = NppParameters::getInstance();
+				if ((id == IDM_SEARCH_FINDPREV) && (op._searchType == FindRegex) && !nppParams.regexBackward4PowerUser())
 				{
 					// regex upward search is disabled
 					// make this a no-action command

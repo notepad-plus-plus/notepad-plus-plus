@@ -344,8 +344,8 @@ void FindReplaceDlg::fillFindHistory()
 
 		// regex upward search is disabled
 		::SendDlgItemMessage(_hSelf, IDC_BACKWARDDIRECTION, BM_SETCHECK, BST_UNCHECKED, 0);
-		::EnableWindow(::GetDlgItem(_hSelf, IDC_BACKWARDDIRECTION), (BOOL)false);
-		::EnableWindow(::GetDlgItem(_hSelf, IDC_FINDPREV), (BOOL)false);
+		::EnableWindow(::GetDlgItem(_hSelf, IDC_BACKWARDDIRECTION), nppParams.regexBackward4PowerUser() ? TRUE : FALSE);
+		::EnableWindow(::GetDlgItem(_hSelf, IDC_FINDPREV), nppParams.regexBackward4PowerUser() ? TRUE : FALSE);
 		
 		// If the search mode from history is regExp then enable the checkbox (. matches newline)
 		::EnableWindow(GetDlgItem(_hSelf, IDREDOTMATCHNL), true);
@@ -1063,7 +1063,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						}
 					}
 
-					if ((_options._whichDirection == DIR_UP) && (_options._searchType == FindRegex))
+					if ((_options._whichDirection == DIR_UP) && (_options._searchType == FindRegex) && !nppParamInst.regexBackward4PowerUser())
 					{
 						// this can only happen when shift-key was pressed
 						// regex upward search is disabled
@@ -1421,15 +1421,23 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						::SendDlgItemMessage(_hSelf, IDWHOLEWORD, BM_SETCHECK, _options._isWholeWord?BST_CHECKED:BST_UNCHECKED, 0);
 
 						//regex upward search is disabled
-						::SendDlgItemMessage(_hSelf, IDC_BACKWARDDIRECTION, BM_SETCHECK, BST_UNCHECKED, 0);
-						_options._whichDirection = DIR_DOWN;
+						if (!nppParamInst.regexBackward4PowerUser())
+						{
+							::SendDlgItemMessage(_hSelf, IDC_BACKWARDDIRECTION, BM_SETCHECK, BST_UNCHECKED, 0);
+							_options._whichDirection = DIR_DOWN;
+						}
 					}
 
 					::EnableWindow(::GetDlgItem(_hSelf, IDWHOLEWORD), (BOOL)!isRegex);
 
 					// regex upward search is disabled
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_BACKWARDDIRECTION), (BOOL)!isRegex);
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_FINDPREV), (BOOL)!isRegex);
+					BOOL doEnable = TRUE;
+					if (isRegex && !nppParamInst.regexBackward4PowerUser())
+					{
+						doEnable = FALSE;
+					}
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_BACKWARDDIRECTION), doEnable);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_FINDPREV), doEnable);
 
 					return TRUE; }
 
@@ -2687,7 +2695,7 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const generic_st
 				switch (intValue)
 				{
 					case IDOK:
-						if ((_env->_whichDirection == DIR_UP) && (_env->_searchType == FindRegex))
+						if ((_env->_whichDirection == DIR_UP) && (_env->_searchType == FindRegex) && !nppParamInst.regexBackward4PowerUser())
 						{
 							// regex upward search is disabled
 							// this macro step could have been recorded in an earlier version before it was not allowed, or hand-edited
@@ -2713,7 +2721,7 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const generic_st
 					case IDC_FINDPREV:
 						// IDC_FINDPREV will not be recorded into new macros recorded with 7.8.5 and later
 						// stay playback compatible with 7.5.5 - 7.8.4 where IDC_FINDPREV was allowed but unneeded/undocumented
-						if (_env->_searchType == FindRegex)
+						if (_env->_searchType == FindRegex && !nppParamInst.regexBackward4PowerUser())
 						{
 							// regex upward search is disabled
 							// this macro step could have been recorded in an earlier version before it was not allowed, or hand-edited
@@ -2729,7 +2737,7 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const generic_st
 						break;
 
 					case IDREPLACE:
-						if ((_env->_whichDirection == DIR_UP) && (_env->_searchType == FindRegex))
+						if ((_env->_whichDirection == DIR_UP) && (_env->_searchType == FindRegex && !nppParamInst.regexBackward4PowerUser()))
 						{
 							// regex upward search is disabled
 							// this macro step could have been recorded in an earlier version before it was disabled, or hand-edited

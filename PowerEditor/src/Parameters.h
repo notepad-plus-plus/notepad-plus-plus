@@ -1171,6 +1171,9 @@ struct FindHistory final
 	bool _isDlgAlwaysVisible = false;
 	bool _isFilterFollowDoc = false;
 	bool _isFolderFollowDoc = false;
+
+	// Allow regExpr backward search: this option is not present in UI, only to modify in config.xml
+	bool _regexBackward4PowerUser = false;
 };
 
 
@@ -1747,6 +1750,7 @@ public:
 	void setShortcutDirty() { _isAnyShortcutModified = true; };
 	void setAdminMode(bool isAdmin) { _isAdminMode = isAdmin; }
 	bool isAdmin() const { return _isAdminMode; }
+	bool regexBackward4PowerUser() const { return _findHistory._regexBackward4PowerUser; }
 
 private:
 	bool _isAnyShortcutModified = false;

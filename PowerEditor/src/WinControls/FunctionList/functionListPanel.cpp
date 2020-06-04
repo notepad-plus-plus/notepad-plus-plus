@@ -557,6 +557,7 @@ void FunctionListPanel::notified(LPNMHDR notification)
 			case NM_DBLCLK:
 			{
 				openSelection(treeView);
+				PostMessage(_hParent, WM_COMMAND, SCEN_SETFOCUS << 16, reinterpret_cast<LPARAM>((*_ppEditView)->getHSelf()));
 			}
 			break;
 
@@ -570,7 +571,9 @@ void FunctionListPanel::notified(LPNMHDR notification)
 					{
 						HTREEITEM hItem = treeView.getSelection();
 						treeView.toggleExpandCollapse(hItem);
+						break;
 					}
+					PostMessage(_hParent, WM_COMMAND, SCEN_SETFOCUS << 16, reinterpret_cast<LPARAM>((*_ppEditView)->getHSelf()));
 				}
 			}
 			break;

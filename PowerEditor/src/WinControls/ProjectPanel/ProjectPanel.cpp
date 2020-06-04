@@ -863,6 +863,35 @@ HTREEITEM ProjectPanel::addFolder(HTREEITEM hTreeItem, const TCHAR *folderName)
 	return addedItem;
 }
 
+bool ProjectPanel::saveWorkspaceRequest()
+{ // returns true for continue and false for break
+	if (_isDirty)
+	{
+		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+		int res = pNativeSpeaker->messageBox("ProjectPanelOpenDoSaveDirtyWsOrNot",
+					_hSelf,
+					TEXT("The current workspace was modified. Do you want to save the current project?"),
+					TEXT("Open Workspace"),
+					MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL);
+				
+		if (res == IDYES)
+		{
+			if (!saveWorkSpace())
+				return false;
+		}
+		else if (res == IDNO)
+		{
+			// Don't save so do nothing here
+		}
+		else if (res == IDCANCEL) 
+		{
+			// User cancels action "New Workspace" so we interrupt here
+			return false;
+		}
+	}
+	return true;
+}
+
 void ProjectPanel::popupMenuCmd(int cmdID)
 {
 	// get selected item handle
@@ -989,31 +1018,8 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 
 		case IDM_PROJECT_OPENWS:
 		{
-			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-			if (_isDirty)
-			{
-				
-				int res = pNativeSpeaker->messageBox("ProjectPanelOpenDoSaveDirtyWsOrNot",
-					_hSelf,
-					TEXT("The current workspace was modified. Do you want to save the current project?"),
-					TEXT("Open Workspace"),
-					MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL);
-				
-				if (res == IDYES)
-				{
-					if (!saveWorkSpace())
-						return;
-				}
-				else if (res == IDNO)
-				{
-					// Don't save so do nothing here
-				}
-				else if (res == IDCANCEL) 
-				{
-					// User cancels action "New Workspace" so we interrupt here
-					return;
-				}
-			}
+			if (!saveWorkspaceRequest())
+				break;
 
 			FileDialog fDlg(_hSelf, ::GetModuleHandle(NULL));
 			setFileExtFilter(fDlg);
@@ -1021,6 +1027,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 			{
 				if (!openWorkSpace(fn))
 				{
+					NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 					pNativeSpeaker->messageBox("ProjectPanelOpenFailed",
 						_hSelf,
 						TEXT("The workspace could not be opened.\rIt seems the file to open is not a valid project file."),

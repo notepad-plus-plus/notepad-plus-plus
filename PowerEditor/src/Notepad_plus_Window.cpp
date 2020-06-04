@@ -247,6 +247,10 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	}
 	else if (_notepad_plus_plus_core._isWorkspaceFileLoadedFromCommandLine)
 	{
+		// Switch back to Project Panel 1, when a workspace file has been specified in the command line.
+		// This code is executed only once in lifetime of the process, at the first initialization. It is necessary, because
+		// the Project Panels are not loaded by Notepad_plus::doOpen only, but also by the Plugin Manager restoring the state
+		// of the last session from config.xml.
 		::SendMessage(_hSelf, WM_COMMAND, IDM_VIEW_PROJECT_PANEL_1, 0);
 	}
 

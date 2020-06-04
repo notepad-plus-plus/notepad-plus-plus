@@ -83,6 +83,7 @@ public:
     };
 
 	void newWorkSpace();
+	bool saveWorkspaceRequest();
 	bool openWorkSpace(const TCHAR *projectFileName);
 	bool saveWorkSpace();
 	bool saveWorkSpaceAs(bool saveCopyAs);

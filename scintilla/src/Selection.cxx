@@ -36,7 +36,7 @@ void SelectionPosition::MoveForInsertDelete(bool insertion, Sci::Position startC
 		if (position == startChange) {
 			virtualSpace = 0;
 		}
-		if (position > startChange) {
+		else if (position > startChange) {
 			const Sci::Position endDeletion = startChange + length;
 			if (position > endDeletion) {
 				position -= length;

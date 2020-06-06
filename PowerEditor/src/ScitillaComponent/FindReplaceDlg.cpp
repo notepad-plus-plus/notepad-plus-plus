@@ -62,6 +62,31 @@ generic_string getTextFromCombo(HWND hCombo)
 	return generic_string(str);
 };
 
+void delLeftWordInEdit(HWND hEdit)
+{
+	TCHAR str[FINDREPLACE_MAXLENGTH];
+	::SendMessage(hEdit, WM_GETTEXT, FINDREPLACE_MAXLENGTH - 1, reinterpret_cast<LPARAM>(str));
+	WORD cursor;
+	::SendMessage(hEdit, EM_GETSEL, (WPARAM)&cursor, NULL);
+	WORD wordstart = cursor;
+	while (wordstart > 0) {
+		TCHAR c = str[wordstart - 1];
+		if (c != ' ' && c != '\t')
+			break;
+		--wordstart;
+	}
+	while (wordstart > 0) {
+		TCHAR c = str[wordstart - 1];
+		if (c == ' ' || c == '\t')
+			break;
+		--wordstart;
+	}
+	if (wordstart < cursor) {
+		::SendMessage(hEdit, EM_SETSEL, (WPARAM)wordstart, (LPARAM)cursor);
+		::SendMessage(hEdit, EM_REPLACESEL, (WPARAM)TRUE, reinterpret_cast<LPARAM>(L""));
+	}
+};
+
 int Searching::convertExtendedToString(const TCHAR * query, TCHAR * result, int length) 
 {	//query may equal to result, since it always gets smaller
 	int i = 0, j = 0;
@@ -225,6 +250,7 @@ void Searching::displaySectionCentered(int posStart, int posEnd, ScintillaEditVi
 }
 
 LONG_PTR FindReplaceDlg::originalFinderProc = NULL;
+LONG_PTR FindReplaceDlg::originalComboEditProc = NULL;
 
 // important : to activate all styles
 const int STYLING_MASK = 255;
@@ -810,13 +836,24 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 		case WM_INITDIALOG :
 		{
+			HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
+			HWND hReplaceCombo = ::GetDlgItem(_hSelf, IDREPLACEWITH);
+			HWND hFiltersCombo = ::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_COMBO);
+			HWND hDirCombo = ::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_COMBO);
+
+			// Change handler of edit element in the comboboxes to support Ctrl+Backspace
+			COMBOBOXINFO cbinfo = { sizeof(COMBOBOXINFO) };
+			GetComboBoxInfo(hFindCombo, &cbinfo);
+			originalComboEditProc = SetWindowLongPtr(cbinfo.hwndItem, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(comboEditProc));
+			GetComboBoxInfo(hReplaceCombo, &cbinfo);
+			SetWindowLongPtr(cbinfo.hwndItem, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(comboEditProc));
+			GetComboBoxInfo(hFiltersCombo, &cbinfo);
+			SetWindowLongPtr(cbinfo.hwndItem, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(comboEditProc));
+			GetComboBoxInfo(hDirCombo, &cbinfo);
+			SetWindowLongPtr(cbinfo.hwndItem, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(comboEditProc));
+
 			if ((NppParameters::getInstance()).getNppGUI()._monospacedFontFindDlg)
 			{
-				HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
-				HWND hReplaceCombo = ::GetDlgItem(_hSelf, IDREPLACEWITH);
-				HWND hFiltersCombo = ::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_COMBO);
-				HWND hDirCombo = ::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_COMBO);
-
 				const TCHAR* fontName = _T("Courier New");
 				const long nFontSize = 8;
 
@@ -3019,6 +3056,16 @@ LRESULT FAR PASCAL FindReplaceDlg::finderProc(HWND hwnd, UINT message, WPARAM wP
 	else
 		// Call default (original) window procedure
 		return CallWindowProc((WNDPROC) originalFinderProc, hwnd, message, wParam, lParam);
+}
+
+LRESULT FAR PASCAL FindReplaceDlg::comboEditProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	if (message == WM_CHAR && wParam == 0x7F) // ASCII "DEL" (Ctrl+Backspace)
+	{
+		delLeftWordInEdit(hwnd);
+		return 0;
+	}
+	return CallWindowProc((WNDPROC)originalComboEditProc, hwnd, message, wParam, lParam);
 }
 
 void FindReplaceDlg::enableFindInFilesFunc()

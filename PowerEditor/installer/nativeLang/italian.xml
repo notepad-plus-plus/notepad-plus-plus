@@ -1,11 +1,11 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-    Italian translation for Notepad++ 7.8.3
-    Last modified Mon, Jan 6th, 2020.
+    Italian translation for Notepad++ 7.8.8
+    Last modified Mon, Jun 7th, 2020.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 <NotepadPlus>
-    <Native-Langue name = "Italiano" filename = "italian.xml" version = "7.8.3">
+    <Native-Langue name = "Italiano" filename = "italian.xml" version = "7.8.8">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -342,7 +342,7 @@
                     <Item id = "50002" name = "Parametri funzione" />
                     <Item id = "50003" name = "Passa al documento precedente" />
                     <Item id = "50004" name = "Passa al documento successivo" />
-                    <Item id = "50005" name = "Attiva / Dissattiva registrazione macro" />
+                    <Item id = "50005" name = "Attiva / Disattiva registrazione macro" />
                     <Item id = "50006" name = "Completa percorso" />
                 </Commands>
             </Main>
@@ -746,9 +746,7 @@
 
                     <Item id = "6211" name = "Limite Di Colonna" />
                     <Item id = "6208" name = "Visualizza il limite di colonna" />
-                    <Item id = "6212" name = "Modalità &apos;linea&apos;" />
                     <Item id = "6213" name = "Modalità &apos;sfondo&apos;" />
-                    <Item id = "6209" name = "Numero di colonna: " />
 
                     <Item id = "6227" name = "A Capo Automatico" />
                     <Item id = "6228" name = "Predefinito" />
@@ -945,15 +943,17 @@
 
                     <Item id = "6312" name = "Rilevamento Stato File" />
                     <Item id = "6313" name = "Aggiorna senza notifica" />
+                    <Item id = "6237" name = "Aggiungi il tuo delimitatore di colonna indicante la sua posizione con un numero decimale.
+Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i diversi numeri."/>					
                     <Item id = "6325" name = "Vai all&apos;ultima riga dopo l&apos;aggiornamento" />
 
                     <Item id = "6334" name = "Rileva automaticamente codifica caratteri" />
                     <Item id = "6308" name = "Minimizza nell&apos;area di notifica" />
                     <Item id = "6331" name = "Visualizza solo nome file nella barra del titolo" />
                     <Item id = "6323" name = "Aggiorna automaticamente Notepad++" />
-                    <Item id = "6348" name = "Non riempire la casella di ricerca nella finestra di ricerca con parole selezionate" />
-                    <Item id = "6314" name = "Usa carattere a spaziatura fissa nella finestra di ricerca (Necessità di riavviare Notepad++)" />
-
+                    <Item id = "6348" name = "Non inserire le parole selezionate nella casella di ricerca" />
+                    <Item id = "6314" name = "Usa carattere a spaziatura fissa nella finestra di ricerca (necessita riavvio di Notepad++)" />
+                    <Item id = "6349" name = "Utilizza DirectWrite (può migliorare la visualizzazione dei caratteri speciali, necessita riavvio di Notepad++)" />
                     <Item id = "6322" name = "Est. file di sessione:" />
                     <Item id = "6337" name = "Est. file workspace:" />
                 </MISC>
@@ -1031,7 +1031,7 @@ Continuare?" />
             <NbFileToOpenImportantWarning title = "Il numero di file da aprire è troppo grande" message = "Si stanno aprendo $INT_REPLACE$ file.
 Sicuro di volerli aprire?" />
             <SettingsOnCloudError title = "Impostazioni Cloud" message = "Sembra che il percorso per le impostazioni nel cloud sia impostato su una cartella in sola lettura,
-o in una cartella che necessità dei privilegi di scrittura per poterci accedere.
+o in una cartella che necessita dei privilegi di scrittura per poterci accedere.
 Le tue impostazioni nel cloud saranno cancellate. Reimposta un valore coerente dalle impostazioni." />
             <FilePathNotFoundWarning title = "Apertura file" message = "Il file che si sta cercando di aprire non esiste." />
             <SessionFileInvalidError title = "Impossibile caricare la sesisone" message = "Il file di sessione è corrotto o non è valido." />
@@ -1115,6 +1115,7 @@ Vuoi continuare?" />
             <ColumnName name = "Nome" />
             <ColumnPath name = "Percorso" />
             <ColumnType name = "Tipo" />
+			<ColumnSize name = "Dimensione" />
         </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name = "Pannello Inserimento ASCII" />
@@ -1228,10 +1229,10 @@ Cerca in tutti i file eccetto exe, obj &amp;&amp; log:
             <find-status-replaceall-1-replaced value = "Sostituisci tutti: 1 occorrenza è stata sostituita" />
             <find-status-replaceall-nb-replaced value = "Sostituisci tutti: $INT_REPLACE$ occorrenze sono state sostituite" />
             <find-status-replaceall-readonly value = "Sostituisci tutti: impossibile sostituire il testo. Il documento attuale è in sola lettura" />
-            <find-status-replace-end-reached value = "Sostituisci: sostituita la prima occorrenza dall'&apos;alto. È stata raggiunta la fine del documento" />
+            <find-status-replace-end-reached value = "Sostituisci: sostituita la prima occorrenza dall&apos;alto. È stata raggiunta la fine del documento" />
             <find-status-replace-top-reached value = "Sostituisci: sostituita la prima occorrenza dal basso. È stato raggiunto l&apos;inizio del documento" />
             <find-status-replaced-next-found value = "Sostituisci: 1 occorrenza è stata sostituita. Trovata l'occorrenza successiva" />
-            <find-status-replaced-next-not-found value = "Sostituisci:1 occorrenza è stata sostituita. Nessuna occorrenza successiva" />
+            <find-status-replaced-next-not-found value = "Sostituisci: 1 occorrenza è stata sostituita. Nessuna occorrenza successiva" />
             <find-status-replace-not-found value = "Sostituisci: nessuna occorrenza trovata" />
             <find-status-replace-readonly value = "Sostituisci: impossibile sostituire il testo. Il documento attuale è in sola lettura" />
             <find-status-cannot-find value = "Cerca: impossibile trovare il testo &quot;$STR_REPLACE$&quot;" />
@@ -1266,6 +1267,18 @@ Cerca in tutti i file eccetto exe, obj &amp;&amp; log:
             <summary-nbsel1 value=" caratteri selezionati (" />
             <summary-nbsel2 value=" byte) in " />
             <summary-nbrange value=" intervalli" />
+            <replace-in-files-confirm-title value="Sei sicuro?" />
+            <replace-in-files-confirm-directory value="Sei sicuro di voler sostituire tutte le occorrenze in: " />
+            <replace-in-files-confirm-filetype value="Per i tipi di file: " />
+            <replace-in-open-docs-confirm-title value="Conferma"/>
+            <replace-in-open-docs-confirm-message value="Sei sicuro di voler sostituire tutte le occorrenze in tutti i file aperti?" />
+            <find-result-caption value="Trova risultati" />
+            <find-result-title value="Trova" />
+            <find-result-title-info value="($INT_REPLACE1$ occorrenze in $INT_REPLACE2$ files di $INT_REPLACE3$ ricercati)" />
+            <find-result-title-info-selections value="($INT_REPLACE1$ ocorense in $INT_REPLACE2$ selesioni de $INT_REPLACE3$ sercà)"/>																																	   
+            <find-result-title-info-extra value=" - Modalità filtro linea: mostra solo i risultati filtrati" />
+            <find-result-hits value="($INT_REPLACE$ occorrenze)" />
+            <find-regex-zero-length-match value="nessun risultato trovato" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

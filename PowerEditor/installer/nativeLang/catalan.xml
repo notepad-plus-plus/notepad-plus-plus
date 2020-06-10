@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 Catalan translation for Notepad++
-Updated 07.12.2019, v7.8.2
+Updated 10.06.2020, v7.8.7
 By Hiro5 <groccat at gmail>
 -->
 <NotepadPlus>
-	<Native-Langue name="Català" filename="catalan.xml" version="7.8.2">
+	<Native-Langue name="Català" filename="catalan.xml" version="7.8.7">
 		<Menu>
 			<Main>
 				<Entries>
@@ -736,9 +736,8 @@ By Hiro5 <groccat at gmail>
 					<Item id="6226" name="Cap"/>
 					<Item id="6211" name="Configuració de la vora vertical"/>
 					<Item id="6208" name="Mostra la vora vertical"/>
-					<Item id="6212" name="Mode de línia"/>
 					<Item id="6213" name="Mode de color de fons"/>
-					<Item id="6209" name="Número de columna:"/>
+					<Item id="6237" name="Afegiu un marcador de columna indicant la posició amb un número decimal.&#xD;Podeu definir més d'un marcador separant els diferents números amb espais."/>
 					<Item id="6231" name="Mida del marge"/>
 					<Item id="6235" name="Sense vores"/>
 					<Item id="6227" name="Ajustament de línia"/>
@@ -771,7 +770,7 @@ By Hiro5 <groccat at gmail>
 					<Item id="6413" name="Directori d'obertura/emmagatzematge"/>
 					<Item id="6414" name="Segons el document actual"/>
 					<Item id="6415" name="Segons l'últim directori emprat"/>
-					<Item id="6430" name="Diàleg de desament sense extensions de fitxer"/>
+					<Item id="6430" name="Diàleg de desament sense capacitat de camí d'estil Unix"/>
 					<Item id="6431" name="Obre els fitxers d'una carpeta arrossegada en comptes d'obrir a Carpetes de treball"/>
 				</DefaultDir>
 				<RecentFilesHistory title="Historial de fitxers recents">
@@ -785,6 +784,7 @@ By Hiro5 <groccat at gmail>
 					<Item id="6427" name="Camí amb límit de caràcters:"/>
 				</RecentFilesHistory>
 				<FileAssoc title="Associació de fitxers">
+					<Item id="4008" name="Tanqueu i reinicieu Notepad++ en mode Administrador per utilitzar aquesta característica."/>
 					<Item id="4009" name="Extensions suportades:"/>
 					<Item id="4010" name="Ext. registrades:"/>
 				</FileAssoc>
@@ -855,6 +855,7 @@ By Hiro5 <groccat at gmail>
 					<Item id="6803" name="Directori:"/>
 				</Backup>
 				<AutoCompletion title="Autocompleció">
+					<Item id="6115" name="Sagnat automàtic"/>
 					<Item id="6807" name="Autocompleció"/>
 					<Item id="6808" name="Permetre Autocompleció a cada entrada"/>
 					<Item id="6809" name="Autocompleta funcions"/>
@@ -908,10 +909,10 @@ By Hiro5 <groccat at gmail>
 					<Item id="6346" name="Previsualitza en el mapa del document"/>
 					<Item id="6334" name="Autodetecta codificació de caràcters"/>
 					<Item id="6314" name="Empra lletra monoespai al diàleg de cerca (demana reiniciar Notepad++)"/>
-					<Item id="6115" name="Sagnat automàtic"/>
 					<Item id="6308" name="Minimitza a la safata del sistema"/>
 					<Item id="6331" name="Mostra només el nom de fitxer a la barra de títol"/>
 					<Item id="6323" name="Actualitza Notepad++ automàticament"/>
+					<Item id="6348" name="No omplis el camp del diàleg de cerca amb la paraula seleccionada"/>
 					<Item id="6318" name="Configuració dels enllaços clicables"/>
 					<Item id="6319" name="Habilita"/>
 					<Item id="6320" name="No subratllis"/>
@@ -992,7 +993,7 @@ By Hiro5 <groccat at gmail>
 			<CannotMoveDoc title="Mou a una nova finestra de Notepad++" message="El document s'ha modificat, l'heu de desar abans i tornar a intentar-ho."/>
 			<DocReloadWarning title="Recarrega" message="Segur que voleu recarregar el fitxer actual i perdre els canvis fets amb Notepad++?"/>
 			<FileLockedWarning title="No s'ha pogut desar" message="Comproveu si aquest fitxer està obert amb un altre programa"/>
-			<FileAlreadyOpenedInNpp title="" message="El fitxer ja està obert amb Notepad++."/>
+			<FileAlreadyOpenedInNpp title="" message="El fitxer ja està obert al Notepad++."/>
 			<DeleteFileFailed title="Esborra fitxer" message="No s'ha pogut esborrar el fitxer"/>
 			<NbFileToOpenImportantWarning title="Massa fitxers per obrir" message="Esteu a punt d'obrir $INT_REPLACE$ fitxers.&#xD;Segur que voleu obrir-los?"/>
 			<SettingsOnCloudError title="Opcions al núvol" message="Sembla que el directori indicat a les opcions del núvol es troba en una unitat de només lectura,&#xD;o en una carpeta que demana drets d'accés d'escriptura.&#xD;Els vostres paràmetres del núvol es cancel·laran. Reinicieu a un valor coherent a través del diàleg de Preferències."/>
@@ -1009,6 +1010,7 @@ By Hiro5 <groccat at gmail>
 			<DoReloadOrNotAndLooseChange title="Recarrega" message="&quot;$STR_REPLACE$&quot;&#xD;&#xD;Aquest fitxer s'ha modificat amb un altre programa.&#xD;El voleu recarregar i perdre els canvis que s'han fet amb Notepad++?"/>
 			<PrehistoricSystemDetected title="Sistema prehistòric detectat" message="Sembla que encara utilitzeu un sistema prehistòric, lamentablement aquesta característica només funciona en un sistema més modern."/>
 			<XpUpdaterProblem title="Actualitzador de Notepad++" message="L'actualitzador de Notepad++ no és compatible amb XP per una capa de seguretat obsoleta sota XP.&#xD;Voleu anar a la web de Notepad++ per baixar l'última versió?"/>
+			<GUpProxyConfNeedAdminMode title="Opcions de proxy" message="Reinicieu Notepad++ en mode Admin. per configurar el proxy."/>
 			<DocTooDirtyToMonitor title="Problema de monitoratge" message="El document està en brut. Deseu la modificació abans de monitorar-lo."/>
 			<DocNoExistToMonitor title="Problema de monitoratge" message="El fitxer hauria d'existir per monitorar-lo."/>
 			<FileTooBigToOpen title="Problema amb mida de fitxer" message="El fitxer és massa gran per obrir-lo amb Notepad++"/>
@@ -1052,6 +1054,7 @@ By Hiro5 <groccat at gmail>
 			<ColumnName name="Nom"/>
 			<ColumnPath name="Camí"/>
 			<ColumnType name="Tipus"/>
+			<ColumnSize name="Mida"/>
 		</WindowsDlg>
 		<AsciiInsertion>
 			<PanelTitle name="Panell d'inserció ASCII"/>
@@ -1066,8 +1069,8 @@ By Hiro5 <groccat at gmail>
 		</DocumentMap>
 		<FunctionList>
 			<PanelTitle name="Llista de funcions"/>
-			<SortTip name="Ordena" />
-			<ReloadTip name="Recarrega" />
+			<SortTip name="Ordena"/>
+			<ReloadTip name="Recarrega"/>
 		</FunctionList>
 		<FolderAsWorkspace>
 			<PanelTitle name="Carpeta com espai de treball"/>
@@ -1166,8 +1169,8 @@ By Hiro5 <groccat at gmail>
 			<find-status-replaceall-readonly value="Reemplaça-ho tot: No es pot reemplaçar el text. El document actual és de només lectura"/>
 			<find-status-replace-end-reached value="Reemplaça: Reemplaçat el 1er resultat des de dalt. S'ha arribat al final del document"/>
 			<find-status-replace-top-reached value="Reemplaça: Reemplaçat el 1er resultat des de baix. S'ha arribat al principi del document"/>
-			<find-status-replaced-next-found value="Reemplaça: 1 resultat reemplaçat. Següent resultat trobat"/>
-			<find-status-replaced-next-not-found value="Reemplaça: 1 resultat reemplaçat. Següent resultat no trobat"/>
+			<find-status-replaced-next-found value="Reemplaça: 1 resultat reemplaçat. Següent resultat trobat."/>
+			<find-status-replaced-next-not-found value="Reemplaça: 1 resultat reemplaçat. No hi ha més resultats."/>
 			<find-status-replace-not-found value="Reemplaça: cap resultat trobat"/>
 			<find-status-replace-readonly value="Reemplaça: No es pot reemplaçar el text. El document actual és de només lectura"/>
 			<find-status-cannot-find value="Cerca: No s'ha trobat el text &quot;$STR_REPLACE$&quot;"/>
@@ -1202,6 +1205,14 @@ By Hiro5 <groccat at gmail>
 			<summary-nbsel1 value=" selecció ("/>
 			<summary-nbsel2 value=" bytes) en "/>
 			<summary-nbrange value=" rang(s)"/>
+			<replace-in-files-confirm-title value="N'esteu segur?"/>
+			<replace-in-files-confirm-directory value="Segur que voleu reemplaçar totes les coincidències a :"/>
+			<replace-in-files-confirm-filetype value="Per al tipus de fitxer :"/>
+			<find-result-caption value="Resultat de cerca"/>
+			<find-result-title value="Cerca"/>
+			<find-result-title-info value="($INT_REPLACE1$ trobats en $INT_REPLACE2$ de $INT_REPLACE3$ fitxers cercats)"/>
+			<find-result-title-info-extra value=" - Mode de Filtre de Línia: només mostra els resultats filtrats"/>
+			<find-result-hits value="($INT_REPLACE$ trobats)"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

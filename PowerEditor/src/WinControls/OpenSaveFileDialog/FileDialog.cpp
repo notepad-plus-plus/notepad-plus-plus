@@ -30,6 +30,7 @@
 
 #include "FileDialog.h"
 #include "Parameters.h"
+#include "localization.h"
 
 #include <algorithm>
 
@@ -259,6 +260,41 @@ stringVector * FileDialog::doOpenMultiFilesDlg()
 	return nullptr;
 }
 
+generic_string getExtFromFilter (OPENFILENAME ofn)
+{
+	if (ofn.nFilterIndex < 2) return TEXT("");
+	TCHAR * P = (TCHAR*) ofn.lpstrFilter;
+	if (!P) return TEXT("");
+	int idx = ofn.nFilterIndex;
+	while (idx > 0)
+	{
+		idx--;
+
+		while (*P) P++; // skip description
+		P++;
+		if (!*P) break;
+
+		if (idx == 0)
+		{
+			while ((*P) && (*P != '.')) P++;
+			generic_string res = P;
+			for (size_t j = 0; j < res.length(); j++)
+			{
+				if (res [j] == ';')
+				{
+					res.resize(j);
+					break;
+				}
+			}
+			return res;
+		}
+
+		while (*P) P++; // skip type(s)
+		P++;
+		if (!*P) break;
+	}
+	return TEXT("");
+}
 
 TCHAR * FileDialog::doSaveDlg()
 {
@@ -266,23 +302,51 @@ TCHAR * FileDialog::doSaveDlg()
 	::GetCurrentDirectory(MAX_PATH, dir);
 
 	NppParameters& params = NppParameters::getInstance();
+	NativeLangSpeaker *pNativeLangSpeaker = params.getNativeLangSpeaker();
+
 	_ofn.lpstrInitialDir = params.getWorkingDir();
-	_ofn.lpstrDefExt = _defExt.c_str();
+	_ofn.lpstrDefExt = _defExt.length() ? _defExt.c_str() : NULL;
 	if (_extTypeIndex != -1)
 		_ofn.nFilterIndex = _extTypeIndex + 1; // +1 for the file extension combobox index starts from 1
 
-	_ofn.Flags |= OFN_OVERWRITEPROMPT | OFN_HIDEREADONLY | OFN_ENABLESIZING;
+	_ofn.Flags |= OFN_HIDEREADONLY | OFN_ENABLESIZING;
+	if (_ofn.lpstrDefExt)
+		_ofn.Flags |= OFN_OVERWRITEPROMPT;
 
 	if (!params.useNewStyleSaveDlg())
 	{
-		_ofn.Flags |= OFN_ENABLEHOOK | OFN_NOVALIDATE;
+		_ofn.Flags |= OFN_OVERWRITEPROMPT | OFN_ENABLEHOOK | OFN_NOVALIDATE;
 		_ofn.lpfnHook = OFNHookProc;
 	}
 
 	TCHAR *fn = NULL;
 	try
 	{
-		fn = ::GetSaveFileName(&_ofn) ? _fileName : NULL;
+		while(TRUE)
+		{
+			fn = ::GetSaveFileName(&_ofn) ? _fileName : NULL;
+			if (!fn)
+				break;
+			_fn = fn;
+			if (_ofn.lpstrDefExt || _ofn.lpfnHook)
+				break;
+			TCHAR * pExt = PathFindExtension(_fileName);
+			if ((*pExt == 0) && (_ofn.nFilterIndex > 1))
+				_fn += getExtFromFilter(_ofn);
+			if (!PathFileExists(_fn.c_str()))
+				break;
+			int result = pNativeLangSpeaker->messageBox("ConfirmSaveAs",
+				_ofn.hwndOwner,
+					TEXT("$STR_REPLACE$ already exists.\nDo you want to replace it?"),
+					TEXT("Save As Confirmation"),
+					MB_YESNO | MB_ICONWARNING,
+					0, // not used
+					PathFindFileName(_fn.c_str()));
+
+			if (result == IDYES)
+				break;
+		}
+
 		if (params.getNppGUI()._openSaveDir == dir_last)
 		{
 			::GetCurrentDirectory(MAX_PATH, dir);
@@ -305,7 +369,7 @@ TCHAR * FileDialog::doSaveDlg()
 
 	::SetCurrentDirectory(dir);
 
-	return (fn);
+	return fn ? (TCHAR*)_fn.c_str() : NULL;
 }
 
 static HWND hFileDlg = NULL;

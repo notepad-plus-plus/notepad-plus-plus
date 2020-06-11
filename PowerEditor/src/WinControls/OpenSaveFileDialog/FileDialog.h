@@ -64,7 +64,7 @@ protected :
 
 private:
 	TCHAR _fileName[MAX_PATH*8];
-	generic_string _defExt;
+	generic_string _defExt, _fn;
 
 	TCHAR * _fileExt = nullptr;
 	int _nbCharFileExt = 0;

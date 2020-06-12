@@ -2489,6 +2489,7 @@ void Notepad_plus::addHotSpot(ScintillaEditView* view)
 	pView->execute(SCI_INDICATORCLEARRANGE, startPos, endPos - startPos);
 	if (!urlAction) return;
 
+	LRESULT indicFore = pView->execute(SCI_STYLEGETFORE, STYLE_DEFAULT);
 	pView->execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP|SCFIND_POSIX);
 	pView->execute(SCI_SETTARGETRANGE, startPos, endPos);
 	int posFound = static_cast<int32_t>(pView->execute(SCI_SEARCHINTARGET, strlen(URL_REG_EXPR), reinterpret_cast<LPARAM>(URL_REG_EXPR)));
@@ -2499,7 +2500,7 @@ void Notepad_plus::addHotSpot(ScintillaEditView* view)
 		int end = int(pView->execute(SCI_GETTARGETEND));
 		int foundTextLen = end - start;
 		pView->execute(SCI_SETINDICATORCURRENT, URL_INDIC);
-		pView->execute(SCI_SETINDICATORVALUE, 0);
+		pView->execute(SCI_SETINDICATORVALUE, indicFore);
 		pView->execute(SCI_INDICATORFILLRANGE, start, foundTextLen);
 		pView->execute(SCI_SETTARGETRANGE, posFound + foundTextLen, endPos);
 		posFound = static_cast<int32_t>(pView->execute(SCI_SEARCHINTARGET, strlen(URL_REG_EXPR), reinterpret_cast<LPARAM>(URL_REG_EXPR)));

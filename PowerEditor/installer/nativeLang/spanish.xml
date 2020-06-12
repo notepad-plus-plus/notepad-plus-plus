@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-	<Native-Langue name="Español" filename="spanish.xml" version="7.8.3">
+	<Native-Langue name="Español" filename="spanish.xml" version="7.8.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1228,6 +1228,14 @@ Find in all files except exe, obj &amp;&amp; log:
 			<summary-nbsel1 value=" caracteres seleccionados ("/>
 			<summary-nbsel2 value=" bytes) en "/>
 			<summary-nbrange value=" rangos"/>
+			<replace-in-files-confirm-title value="¿Está seguro?"/>
+			<replace-in-files-confirm-directory value="¿Está seguro de que desea reemplazar todas las ocurrencias en :"/>
+			<replace-in-files-confirm-filetype value="Para tipo de archivo :"/>
+			<find-result-caption value="Encontrar resultados"/>
+			<find-result-title value="Buscar"/>
+			<find-result-title-info value="(Buscadas $INT_REPLACE1$ ocurrencias en $INT_REPLACE2$ archivos de $INT_REPLACE3$"/>
+			<find-result-title-info-extra value=" - Modo de filtro: mostrar solo los resultados buscados"/>
+			<find-result-hits value="($INT_REPLACE$ hits)"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

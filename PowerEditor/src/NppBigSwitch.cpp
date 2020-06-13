@@ -219,7 +219,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case WM_FINDALL_INCURRENTDOC:
 		{
-			return findInCurrentFile();
+			const bool isEntireDoc = wParam == 0;
+			return findInCurrentFile(isEntireDoc);
 		}
 
 		case WM_FINDINFILES:

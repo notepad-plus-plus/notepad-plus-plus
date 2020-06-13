@@ -572,7 +572,7 @@ private:
 	//void changeStyleCtrlsLang(HWND hDlg, int *idArray, const char **translatedText);
 	bool replaceInOpenedFiles();
 	bool findInOpenedFiles();
-	bool findInCurrentFile();
+	bool findInCurrentFile(bool isEntireDoc);
 
 	void getMatchedFileNames(const TCHAR *dir, const std::vector<generic_string> & patterns, std::vector<generic_string> & fileNames, bool isRecursive, bool isInHiddenDir);
 	void doSynScorll(HWND hW);

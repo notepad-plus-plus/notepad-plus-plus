@@ -1677,7 +1677,8 @@ bool Notepad_plus::findInFinderFiles(FindersInfo *findInFolderInfo)
 	}
 	progress.close();
 
-	findInFolderInfo->_pDestFinder->finishFilesSearch(nbTotal, int(filesCount), findInFolderInfo->_findOption._isMatchLineNumber);
+	const bool searchedInSelection = false;
+	findInFolderInfo->_pDestFinder->finishFilesSearch(nbTotal, int(filesCount), findInFolderInfo->_findOption._isMatchLineNumber, !searchedInSelection);
 
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, oldDoc);
 	_pEditView = pOldView;
@@ -1730,6 +1731,8 @@ bool Notepad_plus::findInFiles()
 		progress.open(_findReplaceDlg.getHSelf(), TEXT("Find In Files progress..."));
 	}
 
+	const bool isEntireDoc = true;
+
 	for (size_t i = 0, updateOnCount = filesPerPercent; i < filesCount; ++i)
 	{
 		if (progress.isCancelled()) break;
@@ -1750,7 +1753,7 @@ bool Notepad_plus::findInFiles()
 			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? cp : SC_CP_UTF8);
 			FindersInfo findersInfo;
 			findersInfo._pFileName = fileNames.at(i).c_str();
-			nbTotal += _findReplaceDlg.processAll(ProcessFindAll, FindReplaceDlg::_env, true, &findersInfo);
+			nbTotal += _findReplaceDlg.processAll(ProcessFindAll, FindReplaceDlg::_env, isEntireDoc, &findersInfo);
 			if (closeBuf)
 				MainFileManager.closeBuffer(id, _pEditView);
 		}
@@ -1767,7 +1770,7 @@ bool Notepad_plus::findInFiles()
 
 	progress.close();
 
-	_findReplaceDlg.finishFilesSearch(nbTotal, int(filesCount));
+	_findReplaceDlg.finishFilesSearch(nbTotal, int(filesCount), isEntireDoc);
 
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, oldDoc);
 	_pEditView = pOldView;
@@ -1829,7 +1832,7 @@ bool Notepad_plus::findInOpenedFiles()
 	    }
     }
 
-	_findReplaceDlg.finishFilesSearch(nbTotal, int(nbUniqueBuffers));
+	_findReplaceDlg.finishFilesSearch(nbTotal, int(nbUniqueBuffers), isEntireDoc);
 
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, oldDoc);
 	_pEditView = pOldView;
@@ -1843,26 +1846,43 @@ bool Notepad_plus::findInOpenedFiles()
 }
 
 
-bool Notepad_plus::findInCurrentFile()
+bool Notepad_plus::findInCurrentFile(bool isEntireDoc)
 {
 	int nbTotal = 0;
 	Buffer * pBuf = _pEditView->getCurrentBuffer();
+
+	Sci_CharacterRange mainSelection = _pEditView->getSelection();  // remember selection before switching view
+
 	ScintillaEditView *pOldView = _pEditView;
 	_pEditView = &_invisibleEditView;
 	Document oldDoc = _invisibleEditView.execute(SCI_GETDOCPOINTER);
-
-	const bool isEntireDoc = true;
 
 	_findReplaceDlg.beginNewFilesSearch();
 
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
 	UINT cp = static_cast<UINT>(_invisibleEditView.execute(SCI_GETCODEPAGE));
 	_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? cp : SC_CP_UTF8);
+
+	if (!isEntireDoc)
+	{
+		auto docLength = _invisibleEditView.execute(SCI_GETLENGTH);
+
+		if ((mainSelection.cpMin > 0) || (mainSelection.cpMax < docLength))
+		{
+			_invisibleEditView.execute(SCI_SETSELECTIONSTART, mainSelection.cpMin);
+			_invisibleEditView.execute(SCI_SETSELECTIONEND, mainSelection.cpMax);
+		}
+		else
+		{
+			isEntireDoc = true;
+		}
+	}
+
 	FindersInfo findersInfo;
 	findersInfo._pFileName = pBuf->getFullPathName();
 	nbTotal += _findReplaceDlg.processAll(ProcessFindAll, FindReplaceDlg::_env, isEntireDoc, &findersInfo);
 
-	_findReplaceDlg.finishFilesSearch(nbTotal, 1);
+	_findReplaceDlg.finishFilesSearch(nbTotal, 1, isEntireDoc);
 
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, oldDoc);
 	_pEditView = pOldView;

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-        Slovenian localization for Notepad++ v7.8.6
-        Last modified 08. May 2020 by Vinko Kastelic
+        Slovenian localization for Notepad++ v7.8.7
+        Last modified 12. June 2020 by Vinko Kastelic
         
 -->
 <NotepadPlus>
-    <Native-Langue name="Slovenski jezik" filename="slovenian.xml" version="7.8.6">
+    <Native-Langue name="Slovenski jezik" filename="slovenian.xml" version="7.8.7">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -783,7 +783,7 @@ Lahko določite več označevalcev stolpcev z uporabo belega presledka za ločev
 					<Item id="6413" name="Privzeti imenik (Odpri/Shrani)"/>
 					<Item id="6414" name="Sledi trenutnemu dokumentu"/>
 					<Item id="6415" name="Zapomni si zadnji uporabljen imenik"/>
-					<Item id="6430" name="Uporabi nov slog pogovornega okna (brez funkcije pripone datoteke &amp;&amp; zmogljivosti poti Unix sloga)"/>
+					<Item id="6430" name="Uporabi nov slog pogovornega okna (brez zmogljivosti poti Unix sloga)"/>
                     <Item id="6431" name="Odpri vse datoteke mape namesto začete Mape kot delovni prostor na spuščajočih mapah"/>
 				</DefaultDir>
 				
@@ -1234,8 +1234,8 @@ Najdi v vseh datotekah, razen exe, obj &amp;&amp; log:
 			<find-status-replaceall-readonly value="Zamenjaj vse: Besedilo ni mogoče zamenjati. Trenutni dokument je samo za branje"/>
 			<find-status-replace-end-reached value="Zamenjaj: Zamenjana je 1. pojavitev z vrha. Konec dokumenta je bil dosežen"/>
 			<find-status-replace-top-reached value="Zamenjaj: Zamenjana je 1. pojavitev od spodaj. Začetek dokumenta je bil dosežen"/>
-			<find-status-replaced-next-found value="Zamenjaj: 1. pojavitev je bila zamenjana. Naslednja pojavitev je bila najdena"/>
-			<find-status-replaced-next-not-found value="Zamenjaj: 1. pojavitev je bila zamenjana. Naslednja pojavitev ni bila najdena"/>
+			<find-status-replaced-next-found value="Zamenjaj: 1. pojavitev je bila zamenjana. Naslednja pojavitev je bila najdena."/>
+			<find-status-replaced-next-not-found value="Zamenjaj: 1 pojavitev je bila zamenjana. Ni več najdenih pojavitev."/>
 			<find-status-replace-not-found value="Zamenjaj: ni bilo nobene pojavitve"/>
 			<find-status-replace-readonly value="Zamenjaj: Besedilo ni mogoče zamenjati. Trenutni dokument je samo za branje"/>
 			<find-status-cannot-find value="Najdi: Besedila ni mogoče najti &quot;$STR_REPLACE$&quot;"/>
@@ -1270,6 +1270,14 @@ Najdi v vseh datotekah, razen exe, obj &amp;&amp; log:
             <summary-nbsel1 value=" izbrani znaki ("/>
             <summary-nbsel2 value=" bajtov) v "/>
             <summary-nbrange value=" razponu"/>
+		   <replace-in-files-confirm-title value="Ali ste prepričani?"/>
+            <replace-in-files-confirm-directory value="Ali ste prepričani, da želite zamenjati vse pojavitve v :"/>
+            <replace-in-files-confirm-filetype value="Za vrsto datoteke :"/>
+            <find-result-caption value="Poišči rezultat"/>
+            <find-result-title value="Iskanje"/>
+            <find-result-title-info value="($INT_REPLACE1$ zadetkov v $INT_REPLACE2$ datotek od $INT_REPLACE3$ iskanih)"/>
+            <find-result-title-info-extra value=" - Način linijskega filtra: prikaže samo filtrirane rezultate"/>
+            <find-result-hits value="($INT_REPLACE$ zadetkov)"/>
 		</MiscStrings>					
     </Native-Langue>
 </NotepadPlus>

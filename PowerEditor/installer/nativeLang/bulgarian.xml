@@ -3,7 +3,7 @@
 	## Bulgarian localization for Notepad++ ##
 
 	Translators:.....: 2007–2012 – Milen Metev (Tragedy); 2014–yyyy – Rusi Dimitrov
-	Last revision:...: 27.05.2020 by Rusi Dimitrov <astral_86[at]mail[dot]bg>
+	Last revision:...: 23.06.2020 by Rusi Dimitrov <astral_86[at]mail[dot]bg>
 	Download:........: https://gist.github.com/rddim/bd37264898c3a17363e7437bcf1b4803
 -->
 <NotepadPlus>
@@ -252,15 +252,15 @@
 					<Item id="43043" name="5-ти стил"/>
 					<Item id="43044" name="Търсене на стил"/>
 						<!-- Подменю "Отметки" -->
-					<Item id="43005" name="Добавяне / Премахване"/>
-					<Item id="43006" name="Следваща"/>
-					<Item id="43007" name="Предходна"/>
-					<Item id="43008" name="Изчистване на всички"/>
-					<Item id="43018" name="Изрязване на отметнати редове"/>
-					<Item id="43019" name="Копиране на отметнати редове"/>
-					<Item id="43020" name="Поставяне (замяна) в отметнати редове"/>
-					<Item id="43021" name="Премахване на отметнати редове"/>
-					<Item id="43051" name="Премахване на неотметнати редове"/>
+					<Item id="43005" name="Добавяне / Премахване на отметка"/>
+					<Item id="43006" name="Следваща отметка"/>
+					<Item id="43007" name="Предходна отметка"/>
+					<Item id="43008" name="Изчистване на всички отметки"/>
+					<Item id="43018" name="Изрязване на отметнатите редове"/>
+					<Item id="43019" name="Копиране на отметнатите редове"/>
+					<Item id="43020" name="Поставяне (замяна) в отметнатите редове"/>
+					<Item id="43021" name="Премахване на отметнатите редове"/>
+					<Item id="43051" name="Премахване на неотметнатите редове"/>
 					<Item id="43050" name="Обръщане на отметките"/>
 					<!-- Меню "Търсене" -->
 					<Item id="43052" name="Търсене на знаци в обхват..."/>
@@ -970,6 +970,7 @@
 					<Item id="6323" name="Автоматично обновяване на Notepad++"/>
 					<Item id="6348" name="Без попълване на полето за &quot;Търсене на:&quot; с избраната дума"/>
 					<Item id="6314" name="Равноширок шрифт в диалога за търсене (изисква се рестартиране на Notepad++)"/>
+					<Item id="6349" name="Използване на DirectWrite за изобразяване на текст (изисква се рестартиране на Notepad++)"/>
 					<Item id="6322" name="Файлово разширение за сесии:"/>
 					<Item id="6337" name="Разширение за работно място:"/>
 				</MISC>
@@ -1231,8 +1232,10 @@
 			<find-result-caption value="Намерени резултати"/>
 			<find-result-title value="Търсене на"/>
 			<find-result-title-info value="($INT_REPLACE1$ съвпадения в $INT_REPLACE2$ файл(а) от $INT_REPLACE3$ претърсен(и))"/>
+			<find-result-title-info-selections value="($INT_REPLACE1$ съвпадения в $INT_REPLACE2$ избран(и) от $INT_REPLACE3$ претърсен(и))"/>
 			<find-result-title-info-extra value=" - Режим за филтриране на редове: показват се само филтрираните резултати"/>
 			<find-result-hits value="($INT_REPLACE$ съвпадения)"/>
+			<find-regex-zero-length-match value="съвпадение с нулева дължина"/>
 				<!-- Дясно щракане върху раздел -->
 			<tabrename-title value="Преименуване на текущият раздел"/>
 			<tabrename-newname value="Ново име:"/>
@@ -1263,6 +1266,8 @@
 			<replace-in-files-confirm-title value="Сигурни ли сте?"/>
 			<replace-in-files-confirm-directory value="Сигурни ли сте, че искате да бъдат заменени всички съвпадения в:"/>
 			<replace-in-files-confirm-filetype value="За типа файл:"/>
+			<replace-in-open-docs-confirm-title value="Сигурни ли сте?"/>
+			<replace-in-open-docs-confirm-message value="Сигурни ли сте, че искате да бъдат заменени всички съвпадения във всички отворени документи?"/>
 		</MiscStrings>
 			<!-- Меню "Изглед" - "Карта на документа" -->
 		<DocumentMap>

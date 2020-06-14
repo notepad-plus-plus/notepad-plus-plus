@@ -1769,7 +1769,10 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 	// Show a calltip for a zero length match
 	if (start == end) 
 	{
-		(*_ppEditView)->execute(SCI_CALLTIPSHOW, start, reinterpret_cast<LPARAM>("^ zero length match"));
+		NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+		generic_string msg = pNativeSpeaker->getLocalizedStrFromID("find-regex-zero-length-match", TEXT("zero length match"));
+		msg = TEXT("^ ") + msg;
+		(*_ppEditView)->showCallTip(start, msg.c_str());
 	}
 	if (::SendMessage(_hParent, WM_GETCURRENTMACROSTATUS,0,0) == MACRO_RECORDING_IN_PROGRESS)
 		(*_ppEditView)->execute(SCI_STARTRECORD);

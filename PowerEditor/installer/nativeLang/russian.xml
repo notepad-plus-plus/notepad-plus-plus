@@ -1039,6 +1039,7 @@ Updated to v7.8.7:
 			<LoadLangsFailed             title="Конфигуратор"                        message="Ошибка загрузки langs.xml!&#x0A;Вы хотите восстановить свой langs.xml?"/>
 			<LoadLangsFailedFinal        title="Конфигуратор"                        message="Ошибка загрузки langs.xml!"/>
 			<FolderAsWorspaceSubfolderExists title="Проблема при добавлении &quot;Папка как Рабочая Область&quot;" message="Подпапка папки, которую вы хотите добавить, уже существует.&#x0A;Пожалуйста, удалите её корень, прежде чем добавить папку &quot;$STR_REPLACE$&quot;."/>
+			<ConfirmSaveAs               title="Подтверждение &quot;Сохранить как...&quot;" message="$STR_REPLACE$ уже существует.&#x0A;Вы хотите его заменить?"/>
 
 			<ProjectPanelChanged                 title="$STR_REPLACE$"                message="Рабочая область была изменена. Вы хотите сохранить её?"/>
 			<ProjectPanelChangedSaveError        title="$STR_REPLACE$"                message="Ваше рабочая область не сохранена."/>
@@ -1226,9 +1227,11 @@ Updated to v7.8.7:
             <replace-in-files-confirm-filetype   value="Для типа файла(ов) :"/>
             <find-result-caption                 value="Результаты поиска"/>
             <find-result-title                   value="Поиск"/>
-            <find-result-title-info              value="($INT_REPLACE1$ совпадения в $INT_REPLACE2$ файлах из $INT_REPLACE3$ найденных)"/>
+            <find-result-title-info              value="(найдено $INT_REPLACE1$ совпадений в $INT_REPLACE2$ файлах из $INT_REPLACE3$)"/>
+            <find-result-title-info-selections   value="(найдено $INT_REPLACE1$ совпадений в $INT_REPLACE2$ выделениях из $INT_REPLACE3$)"/>
             <find-result-title-info-extra        value=" - Режим Фильтра Строк: только отображает результаты фильтрования"/>
-            <find-result-hits                    value="($INT_REPLACE$ совпадения)"/>
+            <find-result-hits                    value="(совпадений: $INT_REPLACE$)"/>
+            <find-regex-zero-length-match        value="совпадение нулевой длины"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

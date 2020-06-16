@@ -253,6 +253,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 		// of the last session from config.xml.
 		::SendMessage(_hSelf, WM_COMMAND, IDM_VIEW_PROJECT_PANEL_1, 0);
 	}
+	::SendMessage(_hSelf, WM_ACTIVATE, WA_ACTIVE, 0);
 
 	// Notify plugins that Notepad++ is ready
 	SCNotification scnN;

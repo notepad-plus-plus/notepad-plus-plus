@@ -1185,6 +1185,7 @@ void DockingCont::showToolbar(tTbData* pTbData, BOOL state)
 int DockingCont::hideToolbar(tTbData *pTbData, BOOL hideClient)
 {
 	int iItem = searchPosInTab(pTbData);
+	BOOL hadFocus = ::IsChild (pTbData->hClient, ::GetFocus());
 
 	// delete item
 	if (TRUE == ::SendMessage(_hContTab, TCM_DELETEITEM, iItem, 0))
@@ -1218,6 +1219,9 @@ int DockingCont::hideToolbar(tTbData *pTbData, BOOL hideClient)
 			{
 				::SendMessage(_hParent, WM_SIZE, 0, 0);
 			}
+			// set focus to current edit window if the docking window had focus
+			if (hadFocus)
+				::PostMessage(::GetParent(_hParent), WM_ACTIVATE, WA_ACTIVE, 0);
 		}
 
 		// keep sure, that client is hide!!!

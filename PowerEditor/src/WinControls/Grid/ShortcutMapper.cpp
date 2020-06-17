@@ -888,7 +888,7 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 							case STATE_PLUGIN:
 							case STATE_SCINTILLA: 
 							{
-								return FALSE;			//this is bad
+								return FALSE;
 							}
 
 							case STATE_MACRO: 

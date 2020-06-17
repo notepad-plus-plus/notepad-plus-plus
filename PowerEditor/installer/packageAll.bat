@@ -86,6 +86,8 @@ copy /Y ..\src\contextMenu.xml .\minimalist\
 If ErrorLevel 1 goto End
 copy /Y ..\src\shortcuts.xml .\minimalist\
 If ErrorLevel 1 goto End
+copy /Y ..\src\functionList.xml .\minimalist\
+If ErrorLevel 1 goto End
 copy /Y ..\bin\doLocalConf.xml .\minimalist\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\"notepad++.exe" .\minimalist\
@@ -112,6 +114,8 @@ If ErrorLevel 1 goto End
 copy /Y ..\src\contextMenu.xml .\minimalist64\
 If ErrorLevel 1 goto End
 copy /Y ..\src\shortcuts.xml .\minimalist64\
+If ErrorLevel 1 goto End
+copy /Y ..\src\functionList.xml .\minimalist64\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\doLocalConf.xml .\minimalist64\
 If ErrorLevel 1 goto End

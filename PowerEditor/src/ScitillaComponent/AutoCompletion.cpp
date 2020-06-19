@@ -378,7 +378,7 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 
 	if (wordArray.size() == 1 && autoInsert)
 	{
-		int replacedLength = _pEditView->replaceTargetRegExMode(wordArray[0].c_str(), startPos, curPos);
+		int replacedLength = _pEditView->replaceTarget(wordArray[0].c_str(), startPos, curPos);
 		_pEditView->execute(SCI_GOTOPOS, startPos + replacedLength);
 		return true;
 	}

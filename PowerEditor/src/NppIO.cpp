@@ -1794,7 +1794,7 @@ void Notepad_plus::fileNew()
     BufferID newBufID = MainFileManager.newEmptyDocument();
 
     loadBufferIntoView(newBufID, currentView(), true);	//true, because we want multiple new files if possible
-    activateBuffer(newBufID, currentView());
+    switchToFile(newBufID);
 }
 
 

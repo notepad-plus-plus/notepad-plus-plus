@@ -2081,7 +2081,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 
 		int foundTextLen = targetEnd - targetStart;
 		int replaceDelta = 0;
-
+		bool processed = true;
 				
 		switch (op)
 		{
@@ -2130,12 +2130,6 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 
 				const TCHAR *pFileName = pFindersInfo->_pFileName ? pFindersInfo->_pFileName : TEXT("");
 
-				if (!findAllFileNameAdded)	//add new filetitle in hits if we haven't already
-				{
-					pFindersInfo->_pDestFinder->addFileNameTitle(pFileName);
-					findAllFileNameAdded = true;
-				}
-
 				auto lineNumber = pEditView->execute(SCI_LINEFROMPOSITION, targetStart);
 				int lend = static_cast<int32_t>(pEditView->execute(SCI_GETLINEENDPOSITION, lineNumber));
 				int lstart = static_cast<int32_t>(pEditView->execute(SCI_POSITIONFROMLINE, lineNumber));
@@ -2157,14 +2151,14 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 				SearchResultMarking srm;
 				srm._start = start_mark;
 				srm._end = end_mark;
-				
-				if (pOptions->_isMatchLineNumber)
+				processed = (!pOptions->_isMatchLineNumber) || (pFindersInfo->_pSourceFinder->canFind(pFileName, lineNumber + 1));
+				if (processed)
 				{
-					if (pFindersInfo->_pSourceFinder->canFind(pFileName, lineNumber + 1))
-						pFindersInfo->_pDestFinder->add(FoundInfo(targetStart, targetEnd, lineNumber + 1, pFileName), srm, line.c_str());
-				}
-				else
-				{
+					if (!findAllFileNameAdded)	//add new filetitle in hits if we haven't already
+					{
+						pFindersInfo->_pDestFinder->addFileNameTitle(pFileName);
+						findAllFileNameAdded = true;
+					}
 					pFindersInfo->_pDestFinder->add(FoundInfo(targetStart, targetEnd, lineNumber + 1, pFileName), srm, line.c_str());
 				}
 				break;
@@ -2257,7 +2251,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 			}
 			
 		}	
-		++nbProcessed;
+		if (processed) ++nbProcessed;
 
         // After the processing of the last string occurrence the search loop should be stopped
         // This helps to avoid the endless replacement during the EOL ("$") searching

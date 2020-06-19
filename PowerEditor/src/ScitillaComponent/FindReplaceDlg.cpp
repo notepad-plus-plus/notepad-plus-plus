@@ -1266,17 +1266,20 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 					if (_currentStatus == REPLACE_DLG)
 					{
-						setStatusbarMessage(TEXT(""), FSNoMessage);
-						HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
-						_options._str2Search = getTextFromCombo(hFindCombo);
-						HWND hReplaceCombo = ::GetDlgItem(_hSelf, IDREPLACEWITH);
-						_options._str4Replace = getTextFromCombo(hReplaceCombo);
-						updateCombos();
+						if (replaceInOpenDocsConfirmCheck())
+						{
+							setStatusbarMessage(TEXT(""), FSNoMessage);
+							HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
+							_options._str2Search = getTextFromCombo(hFindCombo);
+							HWND hReplaceCombo = ::GetDlgItem(_hSelf, IDREPLACEWITH);
+							_options._str4Replace = getTextFromCombo(hReplaceCombo);
+							updateCombos();
 
-						nppParamInst._isFindReplacing = true;
-						if (isMacroRecording) saveInMacro(wParam, FR_OP_REPLACE + FR_OP_GLOBAL);
-						replaceAllInOpenedDocs();
-						nppParamInst._isFindReplacing = false;
+							nppParamInst._isFindReplacing = true;
+							if (isMacroRecording) saveInMacro(wParam, FR_OP_REPLACE + FR_OP_GLOBAL);
+							replaceAllInOpenedDocs();
+							nppParamInst._isFindReplacing = false;
+						}
 					}
 				}			
 				return TRUE;
@@ -2811,9 +2814,12 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const generic_st
 						nppParamInst._isFindReplacing = false;
 						break;
 					case IDC_REPLACE_OPENEDFILES:
-						nppParamInst._isFindReplacing = true;
-						replaceAllInOpenedDocs();
-						nppParamInst._isFindReplacing = false;
+						if (replaceInOpenDocsConfirmCheck())
+						{
+							nppParamInst._isFindReplacing = true;
+							replaceAllInOpenedDocs();
+							nppParamInst._isFindReplacing = false;
+						}
 						break;
 					case IDD_FINDINFILES_FIND_BUTTON:
 						nppParamInst._isFindReplacing = true;
@@ -3216,6 +3222,24 @@ bool FindReplaceDlg::replaceInFilesConfirmCheck(generic_string directory, generi
 	msg2 += fileTypes[0] ? fileTypes : TEXT("*.*");
 
 	msg += msg2;
+
+	int res = ::MessageBox(NULL, msg.c_str(), title.c_str(), MB_OKCANCEL | MB_DEFBUTTON2 | MB_TASKMODAL);
+
+	if (res == IDOK)
+	{
+		confirmed = true;
+	}
+
+	return confirmed;
+}
+
+bool FindReplaceDlg::replaceInOpenDocsConfirmCheck(void)
+{
+	bool confirmed = false;
+
+	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+	generic_string title = pNativeSpeaker->getLocalizedStrFromID("replace-in-open-docs-confirm-title", TEXT("Are you sure?"));
+	generic_string msg = pNativeSpeaker->getLocalizedStrFromID("replace-in-open-docs-confirm-message", TEXT("Are you sure you want to replace all occurrences in all open documents?"));
 
 	int res = ::MessageBox(NULL, msg.c_str(), title.c_str(), MB_OKCANCEL | MB_DEFBUTTON2 | MB_TASKMODAL);
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v7.8.7:
+Updated to v7.8.8:
 - add new lines
 -->
 <NotepadPlus>
@@ -1225,6 +1225,8 @@ Updated to v7.8.7:
             <replace-in-files-confirm-title      value="Вы уверены?"/>
             <replace-in-files-confirm-directory  value="Вы точно хотите заменить все совпадения в каталоге :"/>
             <replace-in-files-confirm-filetype   value="Для типа файла(ов) :"/>
+            <replace-in-open-docs-confirm-title  value="Вы уверены?"/>
+            <replace-in-open-docs-confirm-message value="Вы уверены, что хотите заменить все совпадения во всех открытых документах?"/>
             <find-result-caption                 value="Результаты поиска"/>
             <find-result-title                   value="Поиск"/>
             <find-result-title-info              value="(найдено $INT_REPLACE1$ совпадений в $INT_REPLACE2$ файлах из $INT_REPLACE3$)"/>

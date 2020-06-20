@@ -1749,8 +1749,14 @@ bool Notepad_plus::findInFiles()
 		{
 			Buffer * pBuf = MainFileManager.getBufferByID(id);
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
-			auto cp = _invisibleEditView.execute(SCI_GETCODEPAGE);
-			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? cp : SC_CP_UTF8);
+			auto detectedCp = _invisibleEditView.execute(SCI_GETCODEPAGE);
+			int cp2set = SC_CP_UTF8;
+			if (pBuf->getUnicodeMode() == uni8Bit)
+			{
+				cp2set = (detectedCp == SC_CP_UTF8 ? CP_ACP : detectedCp);
+			}
+
+			_invisibleEditView.execute(SCI_SETCODEPAGE, cp2set);
 			FindersInfo findersInfo;
 			findersInfo._pFileName = fileNames.at(i).c_str();
 			nbTotal += _findReplaceDlg.processAll(ProcessFindAll, FindReplaceDlg::_env, isEntireDoc, &findersInfo);

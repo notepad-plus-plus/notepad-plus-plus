@@ -1569,8 +1569,14 @@ bool Notepad_plus::replaceInFiles()
 		{
 			Buffer * pBuf = MainFileManager.getBufferByID(id);
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
-			auto cp = _invisibleEditView.execute(SCI_GETCODEPAGE);
-			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? cp : SC_CP_UTF8);
+			int detectedCp = static_cast<int>(_invisibleEditView.execute(SCI_GETCODEPAGE));
+			int cp2set = SC_CP_UTF8;
+			if (pBuf->getUnicodeMode() == uni8Bit)
+			{
+				cp2set = (detectedCp == SC_CP_UTF8 ? CP_ACP : detectedCp);
+			}
+			_invisibleEditView.execute(SCI_SETCODEPAGE, cp2set);
+
 			_invisibleEditView.setCurrentBuffer(pBuf);
 
 			FindersInfo findersInfo;
@@ -1657,8 +1663,13 @@ bool Notepad_plus::findInFinderFiles(FindersInfo *findInFolderInfo)
 		{
 			Buffer * pBuf = MainFileManager.getBufferByID(id);
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
-			auto cp = _invisibleEditView.execute(SCI_GETCODEPAGE);
-			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? cp : SC_CP_UTF8);
+			int detectedCp = static_cast<int>(_invisibleEditView.execute(SCI_GETCODEPAGE));
+			int cp2set = SC_CP_UTF8;
+			if (pBuf->getUnicodeMode() == uni8Bit)
+			{
+				cp2set = (detectedCp == SC_CP_UTF8 ? CP_ACP : detectedCp);
+			}
+			_invisibleEditView.execute(SCI_SETCODEPAGE, cp2set);
 
 			findInFolderInfo->_pFileName = fileNames.at(i).c_str();
 			nbTotal += _findReplaceDlg.processAll(ProcessFindInFinder, &(findInFolderInfo->_findOption), true, findInFolderInfo);
@@ -1749,7 +1760,7 @@ bool Notepad_plus::findInFiles()
 		{
 			Buffer * pBuf = MainFileManager.getBufferByID(id);
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
-			auto detectedCp = _invisibleEditView.execute(SCI_GETCODEPAGE);
+			int detectedCp = static_cast<int>(_invisibleEditView.execute(SCI_GETCODEPAGE));
 			int cp2set = SC_CP_UTF8;
 			if (pBuf->getUnicodeMode() == uni8Bit)
 			{

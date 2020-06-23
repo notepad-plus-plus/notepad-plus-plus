@@ -2780,6 +2780,13 @@ pair<int, int> ScintillaEditView::getSelectionLinesRange() const
 	range.first = static_cast<int32_t>(execute(SCI_LINEFROMPOSITION, start));
 	range.second = static_cast<int32_t>(execute(SCI_LINEFROMPOSITION, end));
 
+	if ((range.first != range.second) && (execute(SCI_POSITIONFROMLINE, range.second) == end))
+	{
+		// if the end of the selection includes the line-ending, 
+		// then don't include the following line in the range
+		--range.second;
+	}
+
     return range;
 }
 

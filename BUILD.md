@@ -19,7 +19,7 @@ like to debug Notepad++, but don't have boost.
 ## Build `notepad++.exe`:
 
  1. Open [`PowerEditor\visual.net\notepadPlus.vcxproj`](https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/visual.net/notepadPlus.vcxproj)
- 2. Build Notepad++ like a normal Visual Studio project.
+ 2. Build Notepad++ using Visual Studio 2017 for C++. If using a newer version of Visual Studio, you must install the MSVC v141 - VS 2017 C++ x64/x86 build tools component.
 
 As mentioned above, you'll need `SciLexer.dll` to run Notepad++. Please check the following sections for building `SciLexer.dll`.
 Once `SciLexer.dll`is generated, copy it from `scintilla\bin\` to the same directory as `notepad++.exe`.

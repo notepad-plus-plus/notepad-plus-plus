@@ -1245,11 +1245,14 @@ Rechercher dans tous les fichiers sauf exe, obj &amp;&amp; log:
             <replace-in-files-confirm-title value="Confirmation"/>
             <replace-in-files-confirm-directory value="Voulez-vous remplacer toutes les occurrences dans :"/>
             <replace-in-files-confirm-filetype value="Pour le(s) type(s) de fichier :"/>
+            <replace-in-open-docs-confirm-title value="Confirmation"/>
+            <replace-in-open-docs-confirm-message value="Voulez-vous vraiment remplacer toutes les occurrences dans tous les documents ouverts ?"/>
             <find-result-caption value="Résultats de recherche"/>
             <find-result-title value="Rechercher"/>
-			<find-result-title-info value="($INT_REPLACE1$ résultats dans $INT_REPLACE2$ documents depuis $INT_REPLACE3$ documents recherchés)"/>
+            <find-result-title-info value="($INT_REPLACE1$ résultats dans $INT_REPLACE2$ documents depuis $INT_REPLACE3$ documents recherchés)"/>
             <find-result-title-info-extra value=" - Mode de filtre de ligne : affiche uniquement les résultats filtrés"/>
             <find-result-hits value="($INT_REPLACE$ résultats)"/>
+            <find-regex-zero-length-match value="la chaîne vide trouvée" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

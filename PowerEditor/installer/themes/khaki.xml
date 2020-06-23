@@ -920,6 +920,6 @@ Installation:
         <WidgetStyle name="Active tab unfocused indicator" styleID="0" fgColor="d7d7af" />
         <WidgetStyle name="Active tab text" styleID="0" fgColor="000000" />
         <WidgetStyle name="Inactive tabs" styleID="0" fgColor="5f5f00" bgColor="d7d7af" />
-<!--        <WidgetStyle name="Inactive tabs" styleID="0" fgColor="ffffd7" bgColor="5f5f00" /> -->
+        <WidgetStyle name="URL hovered" styleID="0" fgColor="808040" />
     </GlobalStyles>
 </NotepadPlus>

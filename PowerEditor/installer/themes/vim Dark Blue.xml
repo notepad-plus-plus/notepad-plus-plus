@@ -748,5 +748,6 @@
         <WidgetStyle name="Inactive tabs" styleID="0" fgColor="8080C0" bgColor="CECECE" />
         <WidgetStyle name="Unsaved change marker" styleID="0" bgColor="FF0000" />
         <WidgetStyle name="Saved change marker" styleID="0" bgColor="80FF00" />
+        <WidgetStyle name="URL hovered" styleID="0" fgColor="FFFFFF" />
     </GlobalStyles>
 </NotepadPlus>

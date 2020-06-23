@@ -938,6 +938,7 @@
                     <Item id="6331" name="在標題列僅顯示檔案名稱（隱藏資料夾路徑）"/>
                     <Item id="6334" name="自動偵測檔案編碼"/>
                     <Item id="6314" name="在尋找與取代對話方塊中使用等寬字型（需要重新啟動 Notepad++）"/>
+                    <Item id="6349" name="使用 DirectWrite（可改善特殊字符的呈現，需要重新啟動 Notepad++）"/>
                     <Item id="6337" name="資料夾工作區檔案副檔名："/>
                     <Item id="6114" name="啟動"/>
                     <Item id="6117" name="開啟「最近使用的檔案」功能"/>

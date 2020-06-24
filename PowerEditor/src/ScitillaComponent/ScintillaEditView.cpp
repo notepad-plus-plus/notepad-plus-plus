@@ -2257,15 +2257,12 @@ void ScintillaEditView::replaceSelWith(const char * replaceText)
 void ScintillaEditView::getVisibleStartAndEndPosition(int * startPos, int * endPos)
 {
 	assert(startPos != NULL && endPos != NULL);
+	// Get the position of the 1st and last showing chars from the edit view
+	RECT rcEditView;
+	getClientRect(rcEditView);
+	*startPos = static_cast<int32_t>(execute(SCI_POSITIONFROMPOINT, 0, 0));
+	*endPos = static_cast<int32_t>(execute(SCI_POSITIONFROMPOINT, rcEditView.right - rcEditView.left, rcEditView.bottom - rcEditView.top));
 
-	auto firstVisibleLine = execute(SCI_GETFIRSTVISIBLELINE);
-	*startPos = static_cast<int32_t>(execute(SCI_POSITIONFROMLINE, execute(SCI_DOCLINEFROMVISIBLE, firstVisibleLine)));
-	auto linesOnScreen = execute(SCI_LINESONSCREEN);
-	auto lineCount = execute(SCI_GETLINECOUNT);
-	auto visibleLine = execute(SCI_DOCLINEFROMVISIBLE, firstVisibleLine + min(linesOnScreen, lineCount));
-	*endPos = static_cast<int32_t>(execute(SCI_POSITIONFROMLINE, visibleLine));
-	if (*endPos == -1) 
-		*endPos = static_cast<int32_t>(execute(SCI_GETLENGTH));
 }
 
 char * ScintillaEditView::getWordFromRange(char * txt, int size, int pos1, int pos2)

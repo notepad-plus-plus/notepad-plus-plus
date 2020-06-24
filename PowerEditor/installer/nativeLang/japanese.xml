@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="7.8.7">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="7.8.8">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -951,6 +951,7 @@
                     <Item id="6331" name="タイトルバーにファイル名のみ表示"/>
                     <Item id="6334" name="文字コードを自動判別"/>
                     <Item id="6314" name="検索画面で固定幅フォントを使用する（Notepad++ の再起動が必要）"/>
+                    <Item id="6349" name="DirectWriteを使用する（特殊な文字の描画が改善されます。Notepad++ の再起動が必要）"/>
                     <Item id="6337" name="ワークスペースファイルの拡張子:"/>
                     <Item id="6114" name="有効"/>
                     <Item id="6117" name="最近使用した順で切り替える"/>
@@ -1275,11 +1276,15 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <replace-in-files-confirm-title value="本当によろしいですか？"/>
             <replace-in-files-confirm-directory value="下記ディレクトリ内の該当箇所をすべて置換しようとしています。よろしいですか？"/>
             <replace-in-files-confirm-filetype value="ファイルの種類："/>
+            <replace-in-open-docs-confirm-title value="本当によろしいですか？"/>
+            <replace-in-open-docs-confirm-message value="開いているすべての文書にて、すべての該当箇所を置換しようとしています。よろしいですか？"/>
             <find-result-caption value="検索結果"/>
             <find-result-title value="検索文字列"/>
             <find-result-title-info value="($INT_REPLACE1$ 件が $INT_REPLACE2$ 個のファイル内で一致しました。検索ファイル数は $INT_REPLACE3$ 個)"/>
+            <find-result-title-info-selections value="($INT_REPLACE1$ 件が $INT_REPLACE2$ 個の選択範囲内で一致しました。検索した選択範囲は $INT_REPLACE3$ 個)"/>
             <find-result-title-info-extra value=" - 絞り込まれた検索結果のみを表示しています"/>
             <find-result-hits value="($INT_REPLACE$ 件の一致)"/>
+            <find-regex-zero-length-match value="長さ0で一致しました" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

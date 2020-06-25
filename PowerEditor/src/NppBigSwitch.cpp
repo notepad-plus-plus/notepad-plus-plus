@@ -2479,7 +2479,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 						//loop through nmdlg->nItems, get index and save it
 						for (unsigned int i = 0; i < nmdlg->nItems; ++i)
 						{
-							fileSave(_pDocTab->getBufferByIndex(i));
+							fileSave(_pDocTab->getBufferByIndex(nmdlg->Items[i]));
 						}
 						nmdlg->processed = TRUE;
 						break;

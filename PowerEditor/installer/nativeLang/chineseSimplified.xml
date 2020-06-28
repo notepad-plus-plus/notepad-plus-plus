@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="7.8.5">
+    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="7.8.7">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -747,7 +747,6 @@
                     <Item id="6208" name="显示列边界"/>
                     <Item id="6234" name="关闭高级滚动功能
 （如果你遇到触摸板问题）"/>
-
                     <Item id="6211" name="列边界设置"/>
                     <Item id="6213" name="背景色模式"/>
                     <Item id="6237" name="想要添加列标记，可用数字指示其列位置。
@@ -779,7 +778,7 @@
                     <Item id="6413" name="文件打开/保存路径"/>
                     <Item id="6414" name="与当前文件一致"/>
                     <Item id="6415" name="记住最后的操作路径"/>
-                    <Item id="6430" name="使用新样式对话框(无文件扩展名和UNIX路径支持功能)"/>
+                    <Item id="6430" name="使用新样式对话框(无UNIX路径支持功能)"/>
                     <Item id="6431" name="拖放文件夹时开启文件夹中所有文件，而不开启文件夹工作区"/>
                 </DefaultDir>
 
@@ -945,6 +944,7 @@
                     <Item id="6331" name="在标题栏仅显示文件名"/>
                     <Item id="6334" name="自动检测字符编码"/>
                     <Item id="6314" name="在查找对话框中使用等宽字体（需要重启Notepad++）"/>
+                    <Item id="6349" name="使用DirectWrite（可改善特殊字符渲染，需要重启Notepad++）"/>
                     <Item id="6337" name="工作区文件扩展名:"/>
                     <Item id="6114" name="启用"/>
                     <Item id="6117" name="按最近使用顺序切换"/>
@@ -1231,7 +1231,7 @@ Notepad++会在所有安装结束后重新启动。
             <find-status-replace-end-reached value="替换：替换到从上到下的首个匹配项。已查找至文档最底部。"/>
             <find-status-replace-top-reached value="替换：替换到从下到上的首个匹配项。已查找至文档最顶部。"/>
             <find-status-replaced-next-found value="替换：已替换1个匹配项，并找到了下一个。"/>
-            <find-status-replaced-next-not-found value="替换：已替换1个匹配项，没有找到下一个。"/>
+            <find-status-replaced-next-not-found value="替换：已替换1个匹配项，找不到别的了。"/>
             <find-status-replace-not-found value="替换：没有找到匹配项。"/>
             <find-status-replace-readonly value="替换：无法替换文本，当前文件只读。"/>
             <find-status-cannot-find value="查找：无法找到文本“$STR_REPLACE$”"/>
@@ -1266,6 +1266,18 @@ Notepad++会在所有安装结束后重新启动。
             <summary-nbsel1 value=" 个选中字符（"/>
             <summary-nbsel2 value=" 字节）在"/>
             <summary-nbrange value=" 个选取范围中"/>
+            <replace-in-files-confirm-title value="确认"/>
+            <replace-in-files-confirm-directory value="您是否要替换下列范围内的所有匹配项："/>
+            <replace-in-files-confirm-filetype value="对这些文件类型："/>
+            <replace-in-open-docs-confirm-title value="替换确认"/>
+            <replace-in-open-docs-confirm-message value="您是否要在所有打开的文档中替换所有匹配项？"/>
+            <find-result-caption value="查找结果"/>
+            <find-result-title value="搜索"/>
+            <find-result-title-info value="（$INT_REPLACE2$个文件中匹配到$INT_REPLACE1$次，总计查找$INT_REPLACE3）"/>
+            <find-result-title-info-selections value="（$INT_REPLACE2$个选区中匹配到$INT_REPLACE1$次，总计查找$INT_REPLACE3$）"/>
+            <find-result-title-info-extra value=" - 仅在搜索结果中查找"/>
+            <find-result-hits value="（匹配$INT_REPLACE$次）"/>
+            <find-regex-zero-length-match value="零长度字符匹配" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

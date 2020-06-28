@@ -1,24 +1,17 @@
-Notepad++ v7.8.7 Enhancements & bug-fixes:
+Notepad++ v7.8.8 Enhancements & bug-fixes:
 
-1.  Fix new style save dialog by selecting right file filter and adding extension automatically.
-2.  Add right-click context menu to bookmark margin.
-3.  Add sub-menu bullets for cascaded Encoding and Language menus.
-4.  Display file name as root of workspace instead of "Workspace".
-5.  Add file extension automatically for session files and workspace files while saving in new style dialog.
-6.  Fix file reading failure (network problem) not detected issue.
-7.  Improve Document Map precision.
-8.  Fix clickable links break syntax highlighting issue.
-9.  Fix current range detached from Document Map issue.
-10. Disallow backward regex searches due to sometimes surprising results (an non-UI option is available to enable it).
-11. Fix wrong project panel at start by opening a project via command line.
-12. Allow user to skip *.* when adding only excluding Filters for Find/Replace In Files.
-13. Fix Doc switcher icon state update issue for cloned documents.
-14. Assign CTRL-M as default shortcut for invoking mark dialog.
-15. Fix also a folding visual glitch in Find result.
-16. Add count of files searched to 'Find result' output.
-17. Fix Find/Replace history lost issue.
-18. Fix bug of Mark clearing in selection mode.
-19. Fix auto-completion suggest the same word while the word being modified.
+1.  Fix accented characters in ANSI files not found in "find in files" and "replace in files" commands issues.
+2.  Add an option to improve rendering special Unicode characters by using Scintilla's DirectWrite technology.
+3.  Fix URL invisible issue in dark themes.
+4.  Fix the focus not on the opening new file issue.
+5.  Fix Workspace (Project panel), Folder As Workspace and function list keep focus issue after double clicking an item.
+6.  Add Ctrl+Backspace ability to delete word for comboboxes in Find/Replace dialog.
+7.  Add ability to find-all in selected text.
+8.  Fix wrong treatment of backslashes as escape sequences in autocompletion.
+9.  Enhance "Remove Empty Lines" command: Allow scope to be limited by an active selection.
+10. Fix loading of project & session files by drag & drop not working issue.
+11. Fix block selection cursor wrong positions after typing TAB.
+12. Add confirmation prompt to "Replace all in all opened documents" command to avoid PBKAC.
 
 
 Included plugins:

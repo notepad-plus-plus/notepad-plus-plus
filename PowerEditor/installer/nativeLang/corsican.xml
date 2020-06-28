@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     History of Corsican translation for Notepad++
+		- Updated on June 28th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.8
 		- Updated on May 26th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.7
 		- Updated on January 8th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.3
 		- Updated on October 31st, 2019 by Patriccollu di Santa Maria è Sichè for version 7.8.1
@@ -15,7 +16,7 @@
 	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/corsican.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="Corsu" filename="corsican.xml" version="7.8.7">
+    <Native-Langue name="Corsu" filename="corsican.xml" version="7.8.8">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -963,6 +964,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                     <Item id="6331" name="Affissà solu u nome di schedariu in a barra di titulu"/>
                     <Item id="6334" name="Detezione autumatica di cudificazione di caratteru"/>
                     <Item id="6314" name="Impiegà a grafia à spaziamentu fissu in u dialogu di ricerca (Richiede di rilancià Notepad++)"/>
+                    <Item id="6349" name="Impiegà DirectWrite (Puderia amendà a trasfurmazione di i caratteri speziali ; richiede di rilancià Notepad++)"/>
                     <Item id="6337" name="Estensione di spaziu di travagliu :"/>
                     <Item id="6114" name="Attivà"/>
                     <Item id="6117" name="Impiegà a lista MRU recente di schedarii"/>
@@ -1287,11 +1289,15 @@ Circà in tutti i schedarii fora di exe, obj &amp;&amp; log:
             <replace-in-files-confirm-title value="Cunfirmazione"/>
             <replace-in-files-confirm-directory value="Vulete rimpiazzà tutte l’occurrenze in :"/>
             <replace-in-files-confirm-filetype value="Per u(i) tipu(i) di schedariu :"/>
+            <replace-in-open-docs-confirm-title value="Cunfirmazione"/>
+            <replace-in-open-docs-confirm-message value="Vulete rimpiazzà tutte l’occurrenze in tutti i schedarii aperti ?"/>
             <find-result-caption value="Risultati di ricerca"/>
             <find-result-title value="Circà"/>
             <find-result-title-info value="($INT_REPLACE1$ risultati in $INT_REPLACE2$ ducumenti tra i $INT_REPLACE3$ ducumenti circati)"/>
+            <find-result-title-info-selections value="($INT_REPLACE1$ risultati in $INT_REPLACE2$ selezzioni tra i $INT_REPLACE3$ ducumenti circati)"/>
             <find-result-title-info-extra value=" - Modu di filtru di linea : affisseghja solu i risultati filtrati"/>
             <find-result-hits value="($INT_REPLACE$ risultati)"/>
+            <find-regex-zero-length-match value="currispundenza di longhezza à zeru" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

@@ -102,6 +102,9 @@ Function ExtraOptions
 	Pop $NoUserDataCheckboxHandle
 	${NSD_OnClick} $NoUserDataCheckboxHandle OnChange_NoUserDataCheckBox
 	
+	IfFileExists $INSTDIR\doLocalConf.xml 0 +2
+	${NSD_Check} $NoUserDataCheckboxHandle
+		
 	StrLen $0 $PROGRAMFILES
 	StrCpy $1 $InstDir $0
 

@@ -2498,8 +2498,15 @@ void Notepad_plus::addHotSpot(ScintillaEditView* view)
 	LPARAM indicStyle = (urlAction == 2) ? INDIC_PLAIN : INDIC_HIDDEN;
 
 	LPARAM indicStyleCur = pView->execute(SCI_INDICGETSTYLE, URL_INDIC);
-	if (indicStyleCur != indicStyle)
+	LPARAM indicHoverStyleCur = pView->execute(SCI_INDICGETHOVERSTYLE, URL_INDIC);
+
+	if ((indicStyleCur != indicStyle) || (indicHoverStyleCur != INDIC_FULLBOX))
+	{
 		pView->execute(SCI_INDICSETSTYLE, URL_INDIC, indicStyle);
+		pView->execute(SCI_INDICSETHOVERSTYLE, URL_INDIC, INDIC_FULLBOX);
+		pView->execute(SCI_INDICSETALPHA, URL_INDIC, 70);
+		pView->execute(SCI_INDICSETFLAGS, URL_INDIC, SC_INDICFLAG_VALUEFORE);
+	}
 
 	int startPos = 0;
 	int endPos = -1;

@@ -2353,6 +2353,9 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		_pFinder->_scintView.execute(SCI_SETCARETWIDTH, 0);
 		_pFinder->_scintView.showMargin(ScintillaEditView::_SC_MARGE_FOLDER, true);
 
+		_pFinder->_scintView.execute(SCI_SETUSETABS, true);
+		_pFinder->_scintView.execute(SCI_SETTABWIDTH, 4);
+
 		// get the width of FindDlg
 		RECT findRect;
 		::GetWindowRect(_pFinder->getHSelf(), &findRect);
@@ -2454,6 +2457,9 @@ Finder * FindReplaceDlg::createFinder()
 	pFinder->_scintView.execute(SCI_SETCARETLINEVISIBLEALWAYS, true);
 	pFinder->_scintView.execute(SCI_SETCARETWIDTH, 0);
 	pFinder->_scintView.showMargin(ScintillaEditView::_SC_MARGE_FOLDER, true);
+
+	pFinder->_scintView.execute(SCI_SETUSETABS, true);
+	pFinder->_scintView.execute(SCI_SETTABWIDTH, 4);
 
 	// get the width of FindDlg
 	RECT findRect;

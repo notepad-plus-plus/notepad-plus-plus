@@ -1438,9 +1438,18 @@ void Notepad_plus::command(int id)
 		break;
 
 		case IDM_EDIT_JOIN_LINES:
-			_pEditView->execute(SCI_TARGETFROMSELECTION);
-			_pEditView->execute(SCI_LINESJOIN);
-			break;
+		{
+			const pair<int, int> lineRange = _pEditView->getSelectionLinesRange();
+			if (lineRange.first != lineRange.second)
+			{
+				auto anchorPos = _pEditView->execute(SCI_POSITIONFROMLINE, lineRange.first);
+				auto caretPos = _pEditView->execute(SCI_GETLINEENDPOSITION, lineRange.second);
+				_pEditView->execute(SCI_SETSELECTION, caretPos, anchorPos);
+				_pEditView->execute(SCI_TARGETFROMSELECTION);
+				_pEditView->execute(SCI_LINESJOIN);
+			}
+		}
+		break;
 
 		case IDM_EDIT_LINE_UP:
 			_pEditView->currentLinesUp();

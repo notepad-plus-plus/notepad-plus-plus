@@ -952,12 +952,12 @@
 						  ^                                             # match at beginning of line
 						  \h*                                           # optional leading whitespace
 						  (\w+\h*:)?                                    # ID of process
-						  (\h(?!END)\w+\h)*                             # make sure this is not the end of a module
+						  (?:\h(?!END)\w+\h)*                           # make sure this is not the end of a module
 						  \h*
-						  (?(1)(ENTITY|BLOCK|PROCESS)|                  # keywords if ':' was detected before
-						  (ENTITY|COMPONENT|ARCHITECTURE))              # keywords else
+						  (?(1)(?:ENTITY|BLOCK|PROCESS)|                # keywords if ':' was detected before
+						  (?:ENTITY|COMPONENT|ARCHITECTURE))            # keywords else
 						  \h*
-						  [A-Za-z0-9_\(\)., ]*                          # ID or sensitivity list
+						  [A-Za-z0-9_\(\)., ]+                          # ID or sensitivity list
 						  (?!\;)"
 				>
 					<functionName>

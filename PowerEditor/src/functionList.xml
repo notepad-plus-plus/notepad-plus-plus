@@ -956,7 +956,7 @@
 						  \h*
 						  (?(1)(?:ENTITY|BLOCK|PROCESS)|                # keywords if ':' was detected before
 						  (?:ENTITY|COMPONENT|ARCHITECTURE))            # keywords else
-						  \h*
+						  [\h\(]+                                       # expect at least one blank or parentheses
 						  [A-Za-z0-9_\(\)., ]+                          # ID or sensitivity list
 						  (?!\;)"
 				>

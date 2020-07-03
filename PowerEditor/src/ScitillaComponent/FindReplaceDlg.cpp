@@ -213,40 +213,19 @@ bool Searching::readBase(const TCHAR * str, int * value, int base, int size)
 
 void Searching::displaySectionCentered(int posStart, int posEnd, ScintillaEditView * pEditView, bool isDownwards) 
 {
-	// to make sure the found result is visible
-	//When searching up, the beginning of the (possible multiline) result is important, when scrolling down the end
-	int testPos = isDownwards ? posEnd : posStart;
+	// Make sure target lines are unfolded
+	pEditView->execute(SCI_ENSUREVISIBLE, pEditView->execute(SCI_LINEFROMPOSITION, posStart));
+	pEditView->execute(SCI_ENSUREVISIBLE, pEditView->execute(SCI_LINEFROMPOSITION, posEnd));
 
-	pEditView->execute(SCI_SETCURRENTPOS, testPos);
-	auto currentlineNumberDoc = pEditView->execute(SCI_LINEFROMPOSITION, testPos);
-	auto currentlineNumberVis = pEditView->execute(SCI_VISIBLEFROMDOCLINE, currentlineNumberDoc);
-	pEditView->execute(SCI_ENSUREVISIBLE, currentlineNumberDoc);	// make sure target line is unfolded
+	// Jump-scroll to center, if current position is out of view
+	pEditView->execute(SCI_SETYCARETPOLICY, CARET_JUMPS | CARET_EVEN);
+	// When searching up, the beginning of the (possible multiline) result is important, when scrolling down the end
+	pEditView->execute(SCI_GOTOPOS, isDownwards ? posEnd : posStart);
+	pEditView->execute(SCI_SETYCARETPOLICY, CARET_EVEN);
 
-	auto firstVisibleLineVis =	pEditView->execute(SCI_GETFIRSTVISIBLELINE);
-	auto linesVisible =			pEditView->execute(SCI_LINESONSCREEN) - 1;	//-1 for the scrollbar
-	auto lastVisibleLineVis =	linesVisible + firstVisibleLineVis;
-	
-	//if out of view vertically, scroll line into (center of) view
-	int linesToScroll = 0;
-	if (currentlineNumberVis < firstVisibleLineVis)
-	{
-		linesToScroll = static_cast<int>(currentlineNumberVis - firstVisibleLineVis);
-		//use center
-		linesToScroll -= static_cast<int>(linesVisible/2);		
-	}
-	else if (currentlineNumberVis > lastVisibleLineVis)
-	{
-		linesToScroll = static_cast<int>(currentlineNumberVis - lastVisibleLineVis);
-		//use center
-		linesToScroll += static_cast<int>(linesVisible/2);
-	}
-	pEditView->scroll(0, linesToScroll);
-
-	//Make sure the caret is visible, scroll horizontally (this will also fix wrapping problems)
-	pEditView->execute(SCI_GOTOPOS, posStart);
+	// Move cursor to end of result and select result
 	pEditView->execute(SCI_GOTOPOS, posEnd);
-
-	pEditView->execute(SCI_SETANCHOR, posStart);	
+	pEditView->execute(SCI_SETANCHOR, posStart);
 }
 
 LONG_PTR FindReplaceDlg::originalFinderProc = NULL;

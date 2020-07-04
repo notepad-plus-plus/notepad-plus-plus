@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-    Venetian translation for Notepad++ 7.8.7
-    Last modified Thu, June 2nd, 2020.
+    Venetian translation for Notepad++ 7.8.8
+    Last modified Sat, July 4th, 2020.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang	
 -->
 <NotepadPlus>
-    <Native-Langue name="Vèneto" filename="venetian.xml" version="7.8.6">
+    <Native-Langue name="Vèneto" filename="venetian.xml" version="7.8.8">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -751,8 +751,7 @@
                     <Item id="6207" name="Visuaƚixa i segnaƚibri"/>                    
                     <Item id="6208" name="Visuaƚixa el ƚimite de coƚona"/>
                     <Item id="6234" name="Disabiƚita scrolling avansà 
-(en caxo de probƚemi co touchpad)"/>
-                    
+(en caxo de probƚemi co touchpad)"/>                    
                     <Item id="6211" name="Ƚimite De Coƚona"/>
                     <Item id="6213" name="Modaƚità &apos;sfondo&apos;"/>
                     <Item id="6237" name="Xonta el to deƚimitatore de coƚona indicando ƚa so poxision co on nùmaro desimaƚe.
@@ -950,6 +949,7 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
                     <Item id="6331" name="Visuaƚixa soƚo nòme file ne ƚa bara de&apos;l tìtoƚo"/>
                     <Item id="6334" name="Riƚeva otomàticamente codefega caràtari"/>					
                     <Item id="6314" name="Uxa caràtare a spasiatura fisa ne ƚa fenèstra de riserca (Te devi inviare de novo Notepad++)" />
+					<Item id="6349" name="Uxa DirectWrite (Poderìa mejorare el rendering de i carateri speciali, cogna inviare de novo Notepad++)"/>
                     <Item id="6337" name="Est. file workspace:"/>
                     <Item id="6114" name="Abìƚita"/>
                     <Item id="6117" name="Presedensa a i file pì resenti"/>
@@ -1018,9 +1018,11 @@ Bisogna inviare de novo Notepad++ parchè ƚe modìfeghe aportà a&apos;l file c
 No existe. Descarga el file da&apos;l sito de Notepad++."/>
 			<SaveCurrentModifWarning title="Salva modìfeghe corenti" message="Te devi salvare ƚe modìfeghe corenti.
 Tute ƚe modìfeghe salvà no ƚe poƚe èsare ripristinà.
+
 Continuare?"/>
             <LoseUndoAbilityWarning title="Òcio: Te perdi ƚa posibiƚità de ripristinare" message="Te devi salvare ƚe modìfeghe corenti.
 Tute ƚe modìfeghe salvà no ƚe poƚe èsare ripristinà.
+
 Continuare?"/>
             <CannotMoveDoc title="Manda a na nova istansa de Notepad++" message="El documento el xe stà modifegà, salvarƚo vanti de continuare."/>
             <DocReloadWarning title="Carga de novo" message="Sito sicuro de voƚer cargare de novo el file? Ogni modìfega aportà ƚa vegnerà persa."/>
@@ -1049,9 +1051,11 @@ Continuare?"/>
 Salvaƚo o i to dati i vegnerà persi.
 Vuto salvare el file &quot;$STR_REPLACE$&quot; ?"/>
             <DoReloadOrNot title="Recarga" message="&quot;$STR_REPLACE$&quot;
+
 Sto file el xe xà stà modifegà da &apos;n altro programa.
 Vuto recargarƚo?"/>
             <DoReloadOrNotAndLooseChange title="Recarga" message="&quot;$STR_REPLACE$&quot;
+
 Sto file el xe stà modifegà da &apos;n altro programa.
 Vuto recargarƚo e perdare tute ƚe modìfeghe aportà en Notepad++?"/>
             <PrehistoricSystemDetected title="Catà on sistema preistorico" message="Senbra che te si drìo uxare on sistema preistorico. Sta funsionaƚità ƚa ga bisogno de on sistema pì moderno, scusane."/>
@@ -1065,6 +1069,7 @@ Vuto &apos;ndare ne ƚa pàgina de Notepad++ par descargare ƚ&apos;axornamento 
             <CreateNewFileError title="Crea novo file" message="Inposibiƚe creare el file &quot;$STR_REPLACE$&quot;."/>
             <OpenFileError title="ERORE" message="Inposibiƚe vèrxare el file &quot;$STR_REPLACE$&quot;."/>
             <FileBackupFailed title="Backup File Faƚìo" message="Ƚa version presedente de&apos;l file no ƚa poƚe èsare salvà ne ƚa carteƚa de backup &quot;$STR_REPLACE$&quot;.
+
 Vuto salvare el file ƚo steso?"/>
             <LoadStylersFailed title="Cargamento stylers.xml faƚìo" message="El cargamento de &quot;$STR_REPLACE$&quot; el xe faƚìo!"/>
             <LoadLangsFailed title="Configurasion" message="El cargamento de langs.xml el xe faƚìo!
@@ -1249,6 +1254,7 @@ Ruma en tuti i file a ecesion exe, obj &amp;&amp; log:
             <tabrename-newname value="Novo nòme: "/>
             <recent-file-history-maxfile value="File max: "/>
             <language-tabsize value="Dimension tab: "/>
+			<language-tabsize value="Dimension Tabulasion: "/>
             <userdefined-title-new value="Crea novo ƚenguagio..."/>
             <userdefined-title-save value="Salva ƚenguagio corente cofà..."/>
             <userdefined-title-rename value="Rinomina ƚenguagio corente"/>
@@ -1268,11 +1274,15 @@ Ruma en tuti i file a ecesion exe, obj &amp;&amp; log:
             <replace-in-files-confirm-title value="Sito sicuro?"/>
             <replace-in-files-confirm-directory value="Sito sicuro de voler sostituire tute cuante le ocorense in:"/>
             <replace-in-files-confirm-filetype value="Par i tipi de file:"/>
-            <find-result-caption value="Cata rixultadi"/>
+            <replace-in-open-docs-confirm-title value="Sito sicuro?"/>
+            <replace-in-open-docs-confirm-message value="Sito sicuro de voler sostituire tute cuante le ocorense en tuti cuanti i documenti verti?"/>            
+			<find-result-caption value="Cata rixultadi"/>
             <find-result-title value="Cata"/>
             <find-result-title-info value="($INT_REPLACE1$ ocorense in $INT_REPLACE2$ file de $INT_REPLACE3$ sercà)"/>
+			<find-result-title-info-selections value="($INT_REPLACE1$ ocorense in $INT_REPLACE2$ selesioni de $INT_REPLACE3$ sercà)"/>
             <find-result-title-info-extra value=" - Modaƚità de filtro ƚinea: mostra soƚo i rixultati filtrà"/>
             <find-result-hits value="($INT_REPLACE$ ocorense)"/>
+			<find-regex-zero-length-match value="corispondensa de longhesa zero" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

@@ -1,11 +1,11 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-    Italian translation for Notepad++ 7.8.7
-    Last modified Mon, Jun 7th, 2020.
+    Italian translation for Notepad++ 7.8.8
+    Last modified Mon, Jul 4th, 2020.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 <NotepadPlus>
-    <Native-Langue name = "Italiano" filename = "italian.xml" version = "7.8.7">
+    <Native-Langue name = "Italiano" filename = "italian.xml" version = "7.8.8">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -953,7 +953,7 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per i separare
                     <Item id = "6323" name = "Aggiorna automaticamente Notepad++" />
                     <Item id = "6348" name = "Non riempire la casella di ricerca nella finestra di ricerca con parole selezionate" />
                     <Item id = "6314" name = "Usa carattere a spaziatura fissa nella finestra di ricerca (Necessità di riavviare Notepad++)" />
-
+					<Item id="6349" name="Usa DirectWrite (Potrebbe migliorare il rendering dei caratteri speciali, occorre riavviare Notepad++)"/>
                     <Item id = "6322" name = "Est. file di sessione:" />
                     <Item id = "6337" name = "Est. file workspace:" />
                 </MISC>
@@ -1273,8 +1273,10 @@ Cerca in tutti i file eccetto exe, obj &amp;&amp; log:
             <find-result-caption value="Trova risultati"/>
             <find-result-title value="Trova"/>
             <find-result-title-info value="($INT_REPLACE1$ occorrenze in $INT_REPLACE2$ files di $INT_REPLACE3$ ricercati)"/>
-            <find-result-title-info-extra value=" - Modalità filtro linea: mostra solo i risultati filtrati"/>
+            <find-result-title-info-selections value="($INT_REPLACE1$ ocorense in $INT_REPLACE2$ selesioni de $INT_REPLACE3$ sercà)"/>
+			<find-result-title-info-extra value=" - Modalità filtro linea: mostra solo i risultati filtrati"/>
             <find-result-hits value="($INT_REPLACE$ occorrenze)"/>
+			<find-regex-zero-length-match value="corrispondenza di lunghezza zero" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

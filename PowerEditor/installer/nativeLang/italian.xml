@@ -1,11 +1,11 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-    Italian translation for Notepad++ 7.8.8
-    Last modified Mon, Jul 4th, 2020.
+    Italian translation for Notepad++ 7.8.7
+    Last modified Mon, Jun 7th, 2020.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 <NotepadPlus>
-    <Native-Langue name = "Italiano" filename = "italian.xml" version = "7.8.8">
+    <Native-Langue name = "Italiano" filename = "italian.xml" version = "7.8.7">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->

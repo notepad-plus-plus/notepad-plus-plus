@@ -489,6 +489,11 @@ bool Finder::notify(SCNotification *notification)
 		{
 			// remove selection from the finder
 			isDoubleClicked = true;
+
+			// WM_LBUTTONUP can go to a "File not found" messagebox instead of Scintilla here, because the mouse is not captured.
+			// The missing message causes mouse cursor flicker as soon as the mouse cursor is moved to a position outside the text editing area.
+			::SendMessage(_scintView.getHSelf(), WM_LBUTTONUP, 0, 0);
+
 			size_t pos = notification->position;
 			if (pos == INVALID_POSITION)
 				pos = static_cast<int32_t>(_scintView.execute(SCI_GETLINEENDPOSITION, notification->line));
@@ -528,7 +533,8 @@ void Finder::gotoFoundLine()
 	const FoundInfo fInfo = *(_pMainFoundInfos->begin() + lno);
 
 	// Switch to another document
-	::SendMessage(::GetParent(_hParent), WM_DOOPEN, 0, reinterpret_cast<LPARAM>(fInfo._fullPath.c_str()));
+	if (!::SendMessage(::GetParent(_hParent), WM_DOOPEN, 0, reinterpret_cast<LPARAM>(fInfo._fullPath.c_str()))) return;
+
 	(*_ppEditView)->_positionRestoreNeeded = false;
 	Searching::displaySectionCentered(fInfo._start, fInfo._end, *_ppEditView);
 

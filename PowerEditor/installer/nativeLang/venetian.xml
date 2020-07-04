@@ -1253,8 +1253,7 @@ Ruma en tuti i file a ecesion exe, obj &amp;&amp; log:
             <tabrename-title value="Rinomina tab corente"/>
             <tabrename-newname value="Novo nòme: "/>
             <recent-file-history-maxfile value="File max: "/>
-            <language-tabsize value="Dimension tab: "/>
-			<language-tabsize value="Dimension Tabulasion: "/>
+            <language-tabsize value="Dimension Tabulasion: "/>
             <userdefined-title-new value="Crea novo ƚenguagio..."/>
             <userdefined-title-save value="Salva ƚenguagio corente cofà..."/>
             <userdefined-title-rename value="Rinomina ƚenguagio corente"/>

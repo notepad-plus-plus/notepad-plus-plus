@@ -635,6 +635,7 @@ public:
     void setTabSettings(Lang *lang);
 	bool isWrapRestoreNeeded() const {return _wrapRestoreNeeded;};
 	void setWrapRestoreNeeded(bool isWrapRestoredNeeded) {_wrapRestoreNeeded = isWrapRestoredNeeded;};
+	void setPositionRestoreNeeded(bool isPositionRestoredNeeded) { _positionRestoreNeeded = isPositionRestoredNeeded;};
 
 	bool isCJK() const {
 		return ((_codepage == CP_CHINESE_TRADITIONAL) || (_codepage == CP_CHINESE_SIMPLIFIED) ||

@@ -5462,7 +5462,7 @@ std::vector<generic_string> Notepad_plus::loadCommandlineParams(const TCHAR * co
                 auto pos = _pEditView->execute(SCI_FINDCOLUMN, ln-1, cn-1);
                 _pEditView->execute(SCI_GOTOPOS, pos);
             }
-
+			_pEditView->setPositionRestoreNeeded(false);
 			_pEditView->scrollPosToCenter(_pEditView->execute(SCI_GETCURRENTPOS));
 
 			switchEditViewTo(iView);	//restore view

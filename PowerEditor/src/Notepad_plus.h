@@ -387,10 +387,6 @@ private:
                                               // and "Enable session snapshot and periodic backup" is not enabled
                                               // then WM_ENDSESSION is send with wParam == FALSE
                                               // in this case this boolean is set true, so Notepad++ will quit and its current session will be saved 
-
-    bool _isWorkspaceFileLoadedFromCommandLine = false; // Set during Notepad_plus::doOpen if workspace file is opened.
-                                                        // But it is only evaluated during startup, when doOpen
-                                                        // has been called while command line interpretation.
 	ScintillaCtrls _scintillaCtrls4Plugins;
 
 	std::vector<std::pair<int, int> > _hideLinesMarks;
@@ -607,6 +603,7 @@ private:
 	void launchAnsiCharPanel();
 	void launchClipboardHistoryPanel();
 	void launchFileSwitcherPanel();
+	void checkProjectMenuItem();
 	void launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int panelID);
 	void launchDocMap();
 	void launchFunctionList();

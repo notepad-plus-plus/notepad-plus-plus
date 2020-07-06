@@ -35,6 +35,7 @@
 #include "VerticalFileSwitcher.h"
 #include "documentMap.h"
 #include "functionListPanel.h"
+#include "ProjectPanel.h"
 #include "fileBrowser.h"
 #include "Sorters.h"
 #include "verifySignedfile.h"
@@ -687,18 +688,34 @@ void Notepad_plus::command(int id)
 		break;
 
 		case IDM_VIEW_PROJECT_PANEL_1:
-		{
-			launchProjectPanel(id, &_pProjectPanel_1, 0);
-		}
-		break;
 		case IDM_VIEW_PROJECT_PANEL_2:
-		{
-			launchProjectPanel(id, &_pProjectPanel_2, 1);
-		}
-		break;
 		case IDM_VIEW_PROJECT_PANEL_3:
 		{
-			launchProjectPanel(id, &_pProjectPanel_3, 2);
+			ProjectPanel** pp [] = {&_pProjectPanel_1, &_pProjectPanel_2, &_pProjectPanel_3};
+			int idx = id - IDM_VIEW_PROJECT_PANEL_1;
+			if (*pp [idx] == nullptr)
+			{
+				launchProjectPanel(id, pp [idx], idx);
+			}
+			else
+			{
+				if (not (*pp[idx])->isClosed())
+				{
+					if ((*pp[idx])->checkIfNeedSave())
+					{
+						if (::IsChild((*pp[idx])->getHSelf(), ::GetFocus()))
+							::SetFocus(_pEditView->getHSelf());
+						(*pp[idx])->display(false);
+						(*pp[idx])->setClosed(true);
+						checkMenuItem(id, false);
+						checkProjectMenuItem();
+					}
+				}
+				else
+				{
+					launchProjectPanel(id, pp [idx], idx);
+				}
+			}
 		}
 		break;
 

@@ -810,17 +810,17 @@ bool Notepad_plus::saveProjectPanelsParams()
 {
 	if (_pProjectPanel_1)
 	{
-		_pProjectPanel_1->checkIfNeedSave(TEXT("Project Panel 1"));
+		if (!_pProjectPanel_1->checkIfNeedSave()) return false;
 		(NppParameters::getInstance()).setWorkSpaceFilePath(0, _pProjectPanel_1->getWorkSpaceFilePath());
 	}
 	if (_pProjectPanel_2)
 	{
-		_pProjectPanel_2->checkIfNeedSave(TEXT("Project Panel 2"));
+		if (!_pProjectPanel_2->checkIfNeedSave()) return false;
 		(NppParameters::getInstance()).setWorkSpaceFilePath(1, _pProjectPanel_2->getWorkSpaceFilePath());
 	}
 	if (_pProjectPanel_3)
 	{
-		_pProjectPanel_3->checkIfNeedSave(TEXT("Project Panel 3"));
+		if (!_pProjectPanel_3->checkIfNeedSave()) return false;
 		(NppParameters::getInstance()).setWorkSpaceFilePath(2, _pProjectPanel_3->getWorkSpaceFilePath());
 	}
 	return (NppParameters::getInstance()).writeProjectPanelsSettings();
@@ -6053,6 +6053,44 @@ void Notepad_plus::launchFileBrowser(const vector<generic_string> & folders, boo
 	_pFileBrowser->setClosed(false);
 }
 
+void Notepad_plus::checkProjectMenuItem()
+{
+	HMENU viewMenu = ::GetSubMenu(_mainMenuHandle, MENUINDEX_VIEW);
+	int viewMenuCount = ::GetMenuItemCount(viewMenu);
+	for (int i = 0; i < viewMenuCount; i++)
+	{
+		HMENU subMenu = ::GetSubMenu(viewMenu, i);
+		if (subMenu)
+		{
+			int subMenuCount = ::GetMenuItemCount(subMenu);
+			bool found = false;
+			bool checked = false;
+			for (int j = 0; j < subMenuCount; j++)
+			{
+				UINT const ids [] = {IDM_VIEW_PROJECT_PANEL_1, IDM_VIEW_PROJECT_PANEL_2, IDM_VIEW_PROJECT_PANEL_3};
+				UINT id = GetMenuItemID (subMenu, j);
+				for (int k = 0; k < _countof(ids); k++)
+				{
+					if (id == ids [k])
+					{
+						found = true;
+						UINT s = GetMenuState(subMenu, j, MF_BYPOSITION);
+						if (s & MF_CHECKED)
+						{
+							checked = true;
+							break;
+						}
+					}
+				}
+			}
+			if (found)
+			{
+				CheckMenuItem(viewMenu, i, (checked ? MF_CHECKED : MF_UNCHECKED) | MF_BYPOSITION);
+				break;
+			}
+		}
+	}
+}
 
 void Notepad_plus::launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int panelID)
 {
@@ -6060,7 +6098,7 @@ void Notepad_plus::launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int
 	if (!(*pProjPanel))
 	{
 		(*pProjPanel) = new ProjectPanel;
-		(*pProjPanel)->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf());
+		(*pProjPanel)->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), panelID);
 		(*pProjPanel)->setWorkSpaceFilePath(nppParam.getWorkSpaceFilePath(panelID));
 
 		tTbData	data;
@@ -6080,14 +6118,10 @@ void Notepad_plus::launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int
 		data.dlgID = cmdID;
 
 		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-		generic_string title_temp = pNativeSpeaker->getAttrNameStr(PM_PROJECTPANELTITLE, "ProjectManager", "PanelTitle");
-
-		static TCHAR title[32];
-		if (title_temp.length() < 32)
-		{
-			wcscpy_s(title, title_temp.c_str());
-			data.pszName = title;
-		}
+		generic_string title_no = to_wstring (panelID + 1);
+		generic_string title_temp = pNativeSpeaker->getAttrNameStr(PM_PROJECTPANELTITLE, "ProjectManager", "PanelTitle") + TEXT(" ") + title_no;
+		(*pProjPanel)->setPanelTitle(title_temp);
+		data.pszName = (*pProjPanel)->getPanelTitle();
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
 
 		COLORREF fgColor = (NppParameters::getInstance()).getCurrentDefaultFgColor();
@@ -6098,10 +6132,13 @@ void Notepad_plus::launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int
 	}
 	else
 	{
-		if ((*pProjPanel)->saveWorkspaceRequest())
-			(*pProjPanel)->openWorkSpace(nppParam.getWorkSpaceFilePath(panelID));
+		(*pProjPanel)->openWorkSpace(nppParam.getWorkSpaceFilePath(panelID));
 	}
 	(*pProjPanel)->display();
+
+	checkMenuItem(cmdID, true);
+	checkProjectMenuItem();
+	(*pProjPanel)->setClosed(false);
 }
 
 

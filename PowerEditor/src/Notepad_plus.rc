@@ -549,7 +549,7 @@ BEGIN
         MENUITEM SEPARATOR
             MENUITEM "Summary...",  IDM_VIEW_SUMMARY
         MENUITEM SEPARATOR
-            POPUP "Project"
+            POPUP "Project Panels"
             BEGIN
                 MENUITEM "Project Panel 1",          IDM_VIEW_PROJECT_PANEL_1
                 MENUITEM "Project Panel 2",          IDM_VIEW_PROJECT_PANEL_2

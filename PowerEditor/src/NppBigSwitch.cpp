@@ -1786,6 +1786,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				if (nppgui._rememberLastSession)
 					_lastRecentFileList.setLock(false);	//only lock when the session is remembered
 
+				if (!saveProjectPanelsParams()) allClosed = false; //writeProjectPanelsSettings
+				saveFileBrowserParam();
+
 				if (!allClosed)
 				{
 					//User cancelled the shutdown
@@ -1813,8 +1816,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				saveGUIParams(); //writeGUIParams writeScintillaParams
 				saveFindHistory(); //writeFindHistory
 				_lastRecentFileList.saveLRFL(); //writeRecentFileHistorySettings, writeHistory
-				saveProjectPanelsParams(); //writeProjectPanelsSettings
-				saveFileBrowserParam();
 				//
 				// saving config.xml
 				//

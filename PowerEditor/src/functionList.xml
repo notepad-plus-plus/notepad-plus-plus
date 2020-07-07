@@ -14,40 +14,52 @@
 
 			Don't use L_JS (19) use L_JAVASCRIPT (58) instead!
 			Don't use L_USER and L_EXTERNAL, use extension or UDL name association instead!
+			L_ADA = 42          | L_ERLANG = 71       | L_LUA = 23          | L_RUST = 81         | 
+			L_ASCII = 14        | L_ESCRIPT = 72      | L_MAKEFILE = 10     | L_SCHEME = 31       | 
+			L_ASM = 32          | L_EXTERNAL = 85     | L_MATLAB = 44       | L_SEARCHRESULT = 47 | 
+			L_ASN1 = 65         | L_FLASH = 27        | L_MMIXAL = 75       | L_SMALLTALK = 37    | 
+			L_ASP = 16          | L_FORTH = 73        | L_NIMROD = 76       | L_SPICE = 82        | 
+			L_AU3 = 40          | L_FORTRAN = 25      | L_NNCRONTAB = 77    | L_SQL = 17          | 
+			L_AVS = 66          | L_FORTRAN_77 = 59   | L_NSIS = 28         | L_SREC = 61         | 
+			L_BAANC = 60        | L_FREEBASIC = 69    | L_OBJC = 5          | L_SWIFT = 64        | 
+			L_BASH = 26         | L_GUI4CLI = 51      | L_OSCRIPT = 78      | L_TCL = 29          | 
+			L_BATCH = 12        | L_HASKELL = 45      | L_PASCAL = 11       | L_TEHEX = 63        | 
+			L_BLITZBASIC = 67   | L_HTML = 8          | L_PERL = 21         | L_TEX = 24          | 
+			L_C = 2             | L_IHEX = 62         | L_PHP = 1           | L_TEXT = 0          | 
+			L_CAML = 41         | L_INI = 13          | L_POWERSHELL = 53   | L_TXT2TAGS = 83     | 
+			L_CMAKE = 48        | L_INNO = 46         | L_PROPS = 34        | L_USER = 15         | 
+			L_COBOL = 50        | L_JAVA = 6          | L_PS = 35           | L_VB = 18           | 
+			L_COFFEESCRIPT = 56 | L_JAVASCRIPT = 58   | L_PUREBASIC = 68    | L_VERILOG = 43      | 
+			L_CPP = 3           | L_JS = 19           | L_PYTHON = 22       | L_VHDL = 38         | 
+			L_CS = 4            | L_JSON = 57         | L_R = 54            | L_VISUALPROLOG = 84 | 
+			L_CSOUND = 70       | L_JSP = 55          | L_RC = 7            | L_XML = 9           | 
+			L_CSS = 20          | L_KIX = 39          | L_REBOL = 79        | L_YAML = 49         | 
+			L_D = 52            | L_LATEX = 74        | L_REGISTRY = 80     | 
+			L_DIFF = 33         | L_LISP = 30         | L_RUBY = 36         | 
 
-			L_ADA          = 42 | L_DIFF         = 33 | L_LISP         = 30 | L_SCHEME       = 31
-			L_ASCII        = 14 | L_EXTERNAL     = 60 | L_LUA          = 23 | L_SEARCHRESULT = 47
-			L_ASM          = 32 | L_FLASH        = 27 | L_MAKEFILE     = 10 | L_SMALLTALK    = 37
-			L_ASP          = 16 | L_FORTRAN      = 25 | L_MATLAB       = 44 | L_SQL          = 17
-			L_AU3          = 40 | L_FORTRAN_77   = 59 | L_NSIS         = 28 | L_TCL          = 29
-			L_BASH         = 26 | L_GUI4CLI      = 51 | L_OBJC         =  5 | L_TEX          = 24
-			L_BATCH        = 12 | L_HASKELL      = 45 | L_PASCAL       = 11 | L_TEXT         =  0
-			L_C            =  2 | L_HTML         =  8 | L_PERL         = 21 | L_USER         = 15
-			L_CAML         = 41 | L_INI          = 13 | L_PHP          =  1 | L_VB           = 18
-			L_CMAKE        = 48 | L_INNO         = 46 | L_POWERSHELL   = 53 | L_VERILOG      = 43
-			L_COBOL        = 50 | L_JAVA         =  6 | L_PROPS        = 34 | L_VHDL         = 38
-			L_COFFEESCRIPT = 56 | L_JAVASCRIPT   = 58 | L_PS           = 35 | L_XML          =  9
-			L_CPP          =  3 | L_JS           = 19 | L_PYTHON       = 22 | L_YAML         = 49
-			L_CS           =  4 | L_JSON         = 57 | L_R            = 54 |
-			L_CSS          = 20 | L_JSP          = 55 | L_RC           =  7 |
-			L_D            = 52 | L_KIX          = 39 | L_RUBY         = 36 |
 
-			 0 = L_TEXT         | 16 = L_ASP          | 32 = L_ASM          | 48 = L_CMAKE
-			 1 = L_PHP          | 17 = L_SQL          | 33 = L_DIFF         | 49 = L_YAML
-			 2 = L_C            | 18 = L_VB           | 34 = L_PROPS        | 50 = L_COBOL
-			 3 = L_CPP          | 19 = L_JS           | 35 = L_PS           | 51 = L_GUI4CLI
-			 4 = L_CS           | 20 = L_CSS          | 36 = L_RUBY         | 52 = L_D
-			 5 = L_OBJC         | 21 = L_PERL         | 37 = L_SMALLTALK    | 53 = L_POWERSHELL
-			 6 = L_JAVA         | 22 = L_PYTHON       | 38 = L_VHDL         | 54 = L_R
-			 7 = L_RC           | 23 = L_LUA          | 39 = L_KIX          | 55 = L_JSP
-			 8 = L_HTML         | 24 = L_TEX          | 40 = L_AU3          | 56 = L_COFFEESCRIPT
-			 9 = L_XML          | 25 = L_FORTRAN      | 41 = L_CAML         | 57 = L_JSON
-			10 = L_MAKEFILE     | 26 = L_BASH         | 42 = L_ADA          | 58 = L_JAVASCRIPT
-			11 = L_PASCAL       | 27 = L_FLASH        | 43 = L_VERILOG      | 59 = L_FORTRAN_77
-			12 = L_BATCH        | 28 = L_NSIS         | 44 = L_MATLAB       | 60 = L_EXTERNAL
-			13 = L_INI          | 29 = L_TCL          | 45 = L_HASKELL      |
-			14 = L_ASCII        | 30 = L_LISP         | 46 = L_INNO         |
-			15 = L_USER         | 31 = L_SCHEME       | 47 = L_SEARCHRESULT |
+			 0 = L_TEXT         | 22 = L_PYTHON       | 44 = L_MATLAB       | 66 = L_AVS          | 
+			 1 = L_PHP          | 23 = L_LUA          | 45 = L_HASKELL      | 67 = L_BLITZBASIC   | 
+			 2 = L_C            | 24 = L_TEX          | 46 = L_INNO         | 68 = L_PUREBASIC    | 
+			 3 = L_CPP          | 25 = L_FORTRAN      | 47 = L_SEARCHRESULT | 69 = L_FREEBASIC    | 
+			 4 = L_CS           | 26 = L_BASH         | 48 = L_CMAKE        | 70 = L_CSOUND       | 
+			 5 = L_OBJC         | 27 = L_FLASH        | 49 = L_YAML         | 71 = L_ERLANG       | 
+			 6 = L_JAVA         | 28 = L_NSIS         | 50 = L_COBOL        | 72 = L_ESCRIPT      | 
+			 7 = L_RC           | 29 = L_TCL          | 51 = L_GUI4CLI      | 73 = L_FORTH        | 
+			 8 = L_HTML         | 30 = L_LISP         | 52 = L_D            | 74 = L_LATEX        | 
+			 9 = L_XML          | 31 = L_SCHEME       | 53 = L_POWERSHELL   | 75 = L_MMIXAL       | 
+			10 = L_MAKEFILE     | 32 = L_ASM          | 54 = L_R            | 76 = L_NIMROD       | 
+			11 = L_PASCAL       | 33 = L_DIFF         | 55 = L_JSP          | 77 = L_NNCRONTAB    | 
+			12 = L_BATCH        | 34 = L_PROPS        | 56 = L_COFFEESCRIPT | 78 = L_OSCRIPT      | 
+			13 = L_INI          | 35 = L_PS           | 57 = L_JSON         | 79 = L_REBOL        | 
+			14 = L_ASCII        | 36 = L_RUBY         | 58 = L_JAVASCRIPT   | 80 = L_REGISTRY     | 
+			15 = L_USER         | 37 = L_SMALLTALK    | 59 = L_FORTRAN_77   | 81 = L_RUST         | 
+			16 = L_ASP          | 38 = L_VHDL         | 60 = L_BAANC        | 82 = L_SPICE        | 
+			17 = L_SQL          | 39 = L_KIX          | 61 = L_SREC         | 83 = L_TXT2TAGS     | 
+			18 = L_VB           | 40 = L_AU3          | 62 = L_IHEX         | 84 = L_VISUALPROLOG | 
+			19 = L_JS           | 41 = L_CAML         | 63 = L_TEHEX        | 85 = L_EXTERNAL     | 
+			20 = L_CSS          | 42 = L_ADA          | 64 = L_SWIFT        | 
+			21 = L_PERL         | 43 = L_VERILOG      | 65 = L_ASN1         | 
 
 			if langID cannot be found above, you can set the file extensions ...
 

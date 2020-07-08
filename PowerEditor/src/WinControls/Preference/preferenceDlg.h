@@ -140,6 +140,15 @@ private :
 };
 
 
+class SearchingSettingsDlg : public StaticDialog
+{
+public:
+	SearchingSettingsDlg() = default;
+
+private:
+	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+};
+
 struct strCouple {
 	generic_string _varDesc;
 	generic_string _var;
@@ -276,5 +285,6 @@ private :
 	DelimiterSettingsDlg _delimiterSettingsDlg;
 	SettingsOnCloudDlg _settingsOnCloudDlg;
 	SearchEngineChoiceDlg _searchEngineDlg;
+	SearchingSettingsDlg _searchingSettingsDlg;
 };
 

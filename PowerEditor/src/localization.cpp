@@ -888,6 +888,14 @@ void NativeLangSpeaker::changePrefereceDlgLang(PreferenceDlg & preference)
 		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
 		preference.renameDialogTitle(TEXT("Print"), nameW);
 	}
+
+	changeDlgLang(preference._searchingSettingsDlg.getHSelf(), "Searching", titre, titreMaxSize);
+	if (titre[0] != '\0')
+	{
+		const wchar_t* nameW = wmc.char2wchar(titre, _nativeLangEncoding);
+		preference.renameDialogTitle(TEXT("Searching"), nameW);
+	}
+
 	changeDlgLang(preference._settingsDlg.getHSelf(), "MISC", titre, titreMaxSize);
 	if (titre[0] != '\0')
 	{

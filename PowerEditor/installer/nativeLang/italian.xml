@@ -1,11 +1,11 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-    Italian translation for Notepad++ 7.8.8
-    Last modified Mon, Jun 7th, 2020.
+    Italian translation for Notepad++ 7.8.9
+    Last modified Mon, Sep 9th, 2020.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 <NotepadPlus>
-    <Native-Langue name = "Italiano" filename = "italian.xml" version = "7.8.8">
+    <Native-Langue name = "Italiano" filename = "italian.xml" version = "7.8.9">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -183,6 +183,7 @@
                     <Item id = "42075" name = "Cerca in Internet" />
                     <Item id = "42076" name = "Modifica motore di ricerca..." />
                     <Item id = "42077" name = "Rimuovi linee duplicate consecutive" />
+                    <Item id = "42078" name = "Ordina righe in modo casuale" />
 
                     <Item id = "43001" name = "&amp;Trova..." />
                     <Item id = "43002" name = "Trova &amp;successivo" />
@@ -403,7 +404,7 @@
                 <Item id = "1656" name = "Trova tutti" />
                 <Item id = "1658" name = "Nelle sottocartelle" />
                 <Item id = "1659" name = "Nelle cartelle nascoste" />
-                <Item id = "1660" name = "&amp;Sostituisci nei file" />
+                <Item id = "1660" name = "Sostituisci nei file" />
                 <Item id = "1661" name = "Segui documento attuale" />
                 <Item id = "1686" name = "T&amp;rasparenza" />
                 <Item id = "1687" name = "Se perde il focus" />
@@ -459,8 +460,8 @@
                 <Item id = "2" name = "Chiudi" />
             </SHA256FromTextDlg>
             <PluginsAdminDlg title = "Gestione plugin" titleAvailable = "Disponibili" titleUpdates = "Aggiornamenti" titleInstalled = "Installati">
-                <ColumnPlugin   name="Plugin" />
-                <ColumnVersion  name="Versione" />
+                <ColumnPlugin   name = "Plugin" />
+                <ColumnVersion  name = "Versione" />
                 <Item id = "5501" name = "Cerca:" />
                 <Item id = "5503" name = "Installa" />
                 <Item id = "5504" name = "Aggiorna" />
@@ -513,8 +514,74 @@
                 <RunCommandsTab name = "Avvia comando" />
                 <PluginCommandsTab name = "Comandi plugin" />
                 <ScintillaCommandsTab name = "Comandi Scintilla" />
-                <ConflictInfoOk name="Nessun conflitto per questo elemento." />
-                <ConflictInfoEditing name="Nessun conflitto..." />
+                <ConflictInfoOk name = "Nessun conflitto per questo elemento." />
+                <ConflictInfoEditing name = "Nessun conflitto..." />
+                <MainCommandNames> 
+                    <Item id = "41019" name = "Apri la cartella in Explorer" />
+                    <Item id = "41020" name = "Apri la cartella nel Prompt dei Comandi" />
+                    <Item id = "41021" name = "Ripristina i file recenti" />
+                    <Item id = "45001" name = "Fine linea in formato Windows (CR+LF)" />
+                    <Item id = "45002" name = "Fine linea in formato UNIX (LF)" />
+                    <Item id = "45003" name = "Fine linea in formato Macintosh (CR)" />
+                    <Item id = "43022" name = "Segna i risultati di ricerca usando il 1º stile" />
+                    <Item id = "43024" name = "Segna i risultati di ricerca usando il 2º stile" />
+                    <Item id = "43026" name = "Segna i risultati di ricerca usando il 3º stile" />
+                    <Item id = "43028" name = "Segna i risultati di ricerca usando il 4º stile" />
+                    <Item id = "43030" name = "Segna i risultati di ricerca usando il 5º stile" />
+                    <Item id = "43023" name = "Pulisci i segni che utilizzano il 1º stile" />
+                    <Item id = "43025" name = "Pulisci i segni che utilizzano il 2º stile" />
+                    <Item id = "43027" name = "Pulisci i segni che utilizzano il 3º stile" />
+                    <Item id = "43029" name = "Pulisci i segni che utilizzano il 4º stile" />
+                    <Item id = "43031" name = "Pulisci i segni che utilizzano il 5º stile" />
+                    <Item id = "43033" name = "Segno precedente che usa il 1º stile" />
+                    <Item id = "43034" name = "Segno precedente che usa il 2º stile" />
+                    <Item id = "43035" name = "Segno precedente che usa il 3º stile" />
+                    <Item id = "43036" name = "Segno precedente che usa il 4º stile" />
+                    <Item id = "43037" name = "Segno precedente che usa il 5º stile" />
+                    <Item id = "43038" name = "Segno precedente creato con Evidenzia..." />
+                    <Item id = "43039" name = "Segno successivo che usa il 1º stile" />
+                    <Item id = "43040" name = "Segno successivo che usa il 2º stile" />
+                    <Item id = "43041" name = "Segno successivo che usa il 3º stile" />
+                    <Item id = "43042" name = "Segno successivo che usa il 4º stile" />
+                    <Item id = "43043" name = "Segno successivo che usa il 5º stile" />
+                    <Item id = "43038" name = "Segno successivo creato con Evidenzia..." />
+                    <Item id = "44100" name = "Apri il file corrente in Firefox" />
+                    <Item id = "44101" name = "Apri il file corrente in Chrome" />
+                    <Item id = "44103" name = "Apri il file corrente in IE" />
+                    <Item id = "44102" name = "Apri il file corrente in Edge" />
+                    <Item id = "50003" name = "Passa al documento precedente" />
+                    <Item id = "50004" name = "Passa al documento successivo" />
+                    
+                    
+                    <Item id = "44051" name = "Collassa livello 1" />
+                    <Item id = "44052" name = "Collassa livello 2" />
+                    <Item id = "44053" name = "Collassa livello 3" />
+                    <Item id = "44054" name = "Collassa livello 4" />
+                    <Item id = "44055" name = "Collassa livello 5" />
+                    <Item id = "44056" name = "Collassa livello 6" />
+                    <Item id = "44057" name = "Collassa livello 7" />
+                    <Item id = "44058" name = "Collassa livello 8" />
+                    <Item id = "44061" name = "Espandi livello 1" />
+                    <Item id = "44062" name = "Espandi livello 2" />
+                    <Item id = "44063" name = "Espandi livello 3" />
+                    <Item id = "44064" name = "Espandi livello 4" />
+                    <Item id = "44065" name = "Espandi livello 5" />
+                    <Item id = "44066" name = "Espandi livello 6" />
+                    <Item id = "44067" name = "Espandi livello 7" />
+                    <Item id = "44068" name = "Espandi livello 8" />
+                    <Item id = "44081" name = "Mostra/Nascondi Panello di progetto 1" />
+                    <Item id = "44082" name = "Mostra/Nascondi Panello di progetto 2" />
+                    <Item id = "44083" name = "Mostra/Nascondi Panello di progetto 3" />
+                    <Item id = "44085" name = "Mostra/Nascondi Cartella come Workspace" />
+                    <Item id = "44080" name = "Mostra/Nascondi Mappa documento" />
+                    <Item id = "44084" name = "Mostra/Nascondi Lista funzioni" />
+                    <Item id = "50005" name = "Mostra/Nascondi Registra macro" />
+                    <Item id = "44104" name = "Passa a Panello di progetto 1" />
+                    <Item id = "44105" name = "Passa a Panello di progetto 2" />
+                    <Item id = "44106" name = "Passa a Panello di progetto 3" />
+                    <Item id = "44107" name = "Passa a Cartella come Workspace" />
+                    <Item id = "44108" name = "Passa a Lista funzioni" />
+                </MainCommandNames>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title = "Scelta rapida">
                 <Item id = "1" name = "Ok" />
@@ -762,6 +829,9 @@
                     <Item id = "6234" name = "Disabilita scrolling avanzato&#xA;(in caso di problemi con touchpad)" />
                     <Item id = "6235" name = "Nessun bordo" />
                     <Item id = "6236" name = "Abilita scorrimento oltre l&apos;ultima riga" />
+                    <Item id = "6237" name = "Aggiungi il tuo delimitatore di colonna indicante la sua posizione con un numero decimale.
+Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i diversi numeri." />					
+                    <Item id = "6239" name = "Mantieni la selezione quando clicchi con il destro fuori da essa" />
                 </Scintillas>
                 <NewDoc title = "Nuovo documento">
                     <Item id = "6401" name = "Formato (fine riga)" />
@@ -852,6 +922,12 @@
                     <Item id = "6727" name = "Seleziona parte" />
                     <Item id = "6728" name = "Intestazione E Piè Di Pagina" />
                 </Print>
+                <Searching title="Ricerca"> 
+                    <Item id = "6901" name = "Non inserire le parole selezionate nella casella di ricerca" />
+                    <Item id = "6902" name = "Usa carattere a spaziatura fissa nella finestra di ricerca (necessita riavvio di Notepad++)" />
+                    <Item id = "6903" name = "La finestra di ricerca rimane aperta dopo ricerche inviate alla finestra dei risultati" />
+                    <Item id = "6904" name = "Chiedi conferma prima di sostituire tutto in tutti i documenti" />
+                </Searching> 
                 <Backup title = "Backup">
                     <Item id = "6817" name = "Snapshot Sessione e Backup Periodico" />
                     <Item id = "6309" name = "Ricorda sessione attuale al prossimo avvio" />
@@ -924,7 +1000,7 @@
                     <Item id = "6278" name = "Esempio: https://www.google.com/search?q=$(CURRENT_WORD)" />
                 </SearchEngine>
                 <MISC title = "Varie">
-                    <ComboBox id="6347">
+                    <ComboBox id = "6347">
                         <Element name = "Attiva" />
                         <Element name = "Attiva per tutti i tab" />
                         <Element name = "Disattiva" />
@@ -943,17 +1019,14 @@
 
                     <Item id = "6312" name = "Rilevamento Stato File" />
                     <Item id = "6313" name = "Aggiorna senza notifica" />
-                    <Item id = "6237" name = "Aggiungi il tuo delimitatore di colonna indicante la sua posizione con un numero decimale.
-Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i diversi numeri."/>					
                     <Item id = "6325" name = "Vai all&apos;ultima riga dopo l&apos;aggiornamento" />
 
                     <Item id = "6334" name = "Rileva automaticamente codifica caratteri" />
                     <Item id = "6308" name = "Minimizza nell&apos;area di notifica" />
                     <Item id = "6331" name = "Visualizza solo nome file nella barra del titolo" />
                     <Item id = "6323" name = "Aggiorna automaticamente Notepad++" />
-                    <Item id = "6348" name = "Non inserire le parole selezionate nella casella di ricerca" />
-                    <Item id = "6314" name = "Usa carattere a spaziatura fissa nella finestra di ricerca (necessita riavvio di Notepad++)" />
                     <Item id = "6349" name = "Utilizza DirectWrite (può migliorare la visualizzazione dei caratteri speciali, necessita riavvio di Notepad++)" />
+                    <Item id = "6350" name = "Abilita modalità fullbox" />
                     <Item id = "6322" name = "Est. file di sessione:" />
                     <Item id = "6337" name = "Est. file workspace:" />
                 </MISC>
@@ -1236,6 +1309,10 @@ Cerca in tutti i file eccetto exe, obj &amp;&amp; log:
             <find-status-replace-not-found value = "Sostituisci: nessuna occorrenza trovata" />
             <find-status-replace-readonly value = "Sostituisci: impossibile sostituire il testo. Il documento attuale è in sola lettura" />
             <find-status-cannot-find value = "Cerca: impossibile trovare il testo &quot;$STR_REPLACE$&quot;" />
+            <find-status-scope-selection value = "nel testo selezionato" />
+            <find-status-scope-all value = "in tutto il file" />
+            <find-status-scope-backward value = "dall'inizio fino al cursore" />
+            <find-status-scope-forward value = "dal cursore fino alla fine" />
             <finder-find-in-finder value = "Cerca in questi risultati..." />
             <finder-close-this value = "Chiudi i risultati" />
             <finder-collapse-all value = "Collassa tutto" />
@@ -1244,6 +1321,7 @@ Cerca in tutti i file eccetto exe, obj &amp;&amp; log:
             <finder-select-all value = "Selezione tutto" />
             <finder-clear-all value = "Pulisci tutto" />
             <finder-open-all value = "Apri tutto" />
+            <finder-wrap-long-lines value = "A capo nelle linee lunghe" />
             <common-ok value="OK" />
             <common-cancel value="Annulla" />
             <common-name value="Nome: " />
@@ -1270,12 +1348,12 @@ Cerca in tutti i file eccetto exe, obj &amp;&amp; log:
             <replace-in-files-confirm-title value="Sei sicuro?" />
             <replace-in-files-confirm-directory value="Sei sicuro di voler sostituire tutte le occorrenze in: " />
             <replace-in-files-confirm-filetype value="Per i tipi di file: " />
-            <replace-in-open-docs-confirm-title value="Conferma"/>
+            <replace-in-open-docs-confirm-title value="Conferma" />
             <replace-in-open-docs-confirm-message value="Sei sicuro di voler sostituire tutte le occorrenze in tutti i file aperti?" />
             <find-result-caption value="Trova risultati" />
             <find-result-title value="Trova" />
             <find-result-title-info value="($INT_REPLACE1$ occorrenze in $INT_REPLACE2$ files di $INT_REPLACE3$ ricercati)" />
-            <find-result-title-info-selections value="($INT_REPLACE1$ ocorense in $INT_REPLACE2$ selesioni de $INT_REPLACE3$ sercà)"/>																																	   
+            <find-result-title-info-selections value="($INT_REPLACE1$ ocorense in $INT_REPLACE2$ selesioni de $INT_REPLACE3$ sercà)" />																																	   
             <find-result-title-info-extra value=" - Modalità filtro linea: mostra solo i risultati filtrati" />
             <find-result-hits value="($INT_REPLACE$ occorrenze)" />
             <find-regex-zero-length-match value="nessun risultato trovato" />

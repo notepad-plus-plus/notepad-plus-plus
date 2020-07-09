@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
     Italian translation for Notepad++ 7.8.8
-    Last modified Mon, Jun 7th, 2020.
+    Last modified Mon, Jul 9th, 2020.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 <NotepadPlus>
@@ -746,6 +746,7 @@
 
                     <Item id = "6211" name = "Limite Di Colonna" />
                     <Item id = "6208" name = "Visualizza il limite di colonna" />
+
                     <Item id = "6213" name = "Modalità &apos;sfondo&apos;" />
 
                     <Item id = "6227" name = "A Capo Automatico" />
@@ -754,6 +755,9 @@
                     <Item id = "6230" name = "Indentato" />
 
                     <Item id = "6231" name = "Spessore Bordo Editor" />
+
+                    <Item id = "6237" name = "Aggiungi il tuo delimitatore di colonna indicante la sua posizione con un numero decimale.
+Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i diversi numeri." />
 
                     <Item id = "6206" name = "Visualizza i numeri di riga" />
                     <Item id = "6207" name = "Visualizza i segnalibri" />
@@ -943,8 +947,6 @@
 
                     <Item id = "6312" name = "Rilevamento Stato File" />
                     <Item id = "6313" name = "Aggiorna senza notifica" />
-                    <Item id = "6237" name = "Aggiungi il tuo delimitatore di colonna indicante la sua posizione con un numero decimale.
-Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i diversi numeri."/>					
                     <Item id = "6325" name = "Vai all&apos;ultima riga dopo l&apos;aggiornamento" />
 
                     <Item id = "6334" name = "Rileva automaticamente codifica caratteri" />
@@ -1275,7 +1277,7 @@ Cerca in tutti i file eccetto exe, obj &amp;&amp; log:
             <find-result-caption value="Trova risultati" />
             <find-result-title value="Trova" />
             <find-result-title-info value="($INT_REPLACE1$ occorrenze in $INT_REPLACE2$ files di $INT_REPLACE3$ ricercati)" />
-            <find-result-title-info-selections value="($INT_REPLACE1$ ocorense in $INT_REPLACE2$ selesioni de $INT_REPLACE3$ sercà)"/>																																	   
+            <find-result-title-info-selections value="($INT_REPLACE1$ occorrenze in $INT_REPLACE2$ selezioni di $INT_REPLACE3$ ricercate)"/>
             <find-result-title-info-extra value=" - Modalità filtro linea: mostra solo i risultati filtrati" />
             <find-result-hits value="($INT_REPLACE$ occorrenze)" />
             <find-regex-zero-length-match value="nessun risultato trovato" />

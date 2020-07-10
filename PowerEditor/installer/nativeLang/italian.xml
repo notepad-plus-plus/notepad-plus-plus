@@ -747,7 +747,8 @@
                     <Item id = "6211" name = "Limite Di Colonna" />
                     <Item id = "6208" name = "Visualizza il limite di colonna" />
                     <Item id = "6213" name = "Modalità &apos;sfondo&apos;" />
-
+                    <Item id = "6237" name = "Aggiungi il tuo delimitatore di colonna indicante la sua posizione con un numero decimale.
+Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i diversi numeri."/>					
                     <Item id = "6227" name = "A Capo Automatico" />
                     <Item id = "6228" name = "Predefinito" />
                     <Item id = "6229" name = "Allineato" />
@@ -943,8 +944,6 @@
 
                     <Item id = "6312" name = "Rilevamento Stato File" />
                     <Item id = "6313" name = "Aggiorna senza notifica" />
-                    <Item id = "6237" name = "Aggiungi il tuo delimitatore di colonna indicante la sua posizione con un numero decimale.
-Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i diversi numeri."/>					
                     <Item id = "6325" name = "Vai all&apos;ultima riga dopo l&apos;aggiornamento" />
 
                     <Item id = "6334" name = "Rileva automaticamente codifica caratteri" />

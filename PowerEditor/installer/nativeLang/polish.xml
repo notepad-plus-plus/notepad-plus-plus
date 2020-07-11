@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Translated by Patryk Skorupa (ppskorupa@outlook.com) and up-to-date as of version 7.7.2 (29/07/2019) -->
 <!-- Updated by Cezariusz Marek to version 7.8.3 (11.01.2020) -->
-<!-- Updated by Arkadiusz Michalski (webref.pl) to version 7.8.7 (03.06.2020) -->
+<!-- Updated by Arkadiusz Michalski (webref.pl) to version 7.8.9 (11.07.2020) -->
 <NotepadPlus>
     <Native-Langue name="polski" filename="polish.xml" version="7.8.7">
         <Menu>
@@ -379,7 +379,7 @@
                 <Item id="1611" name="Zamień &amp;na:"/>
                 <Item id="1608" name="&amp;Zamień"/>
                 <Item id="1609" name="Zamień &amp;wszystkie"/>
-                <Item id="1687" name="Po znalezieniu"/>
+                <Item id="1687" name="Gdy nieaktywne"/>
                 <Item id="1688" name="Stale"/>
                 <Item id="1632" name="W &amp;zaznaczeniu"/>
                 <Item id="1633" name="Odznacz wszystko"/>
@@ -947,6 +947,7 @@ Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych lic
                     <Item id="6331" name="Pokazuj w pasku tytułu tylko nazwę pliku"/>
                     <Item id="6334" name="Automatycznie wykrywaj kodowanie"/>
                     <Item id="6314" name="W oknie wyszukiwania użyj nieproporcjonalnego fontu (wymagany restart Notepad++)"/>
+                    <Item id="6349" name="Użyj DirectWrite (może poprawić wyświetlanie znaków specjalnych, wymagany restart Notepad++)"/>
                     <Item id="6337" name="Rozszerzenie pliku projektu:"/> <!-- obszaru roboczego -->
                     <Item id="6114" name="Włącz"/>
                     <Item id="6117" name="Zgodnie z ostatnim użyciem (MRU)"/>
@@ -1271,11 +1272,15 @@ Szukaj wśród wszystkich plików z wyjątkiem exe, obj i log:
             <replace-in-files-confirm-title value="Na pewno chcesz kontynuować?"/>
             <replace-in-files-confirm-directory value="Czy na pewno chcesz zastąpić wszystkie wystąpienia w:"/>
             <replace-in-files-confirm-filetype value="Dla plików pasujących do filtrów:"/>
+            <replace-in-open-docs-confirm-title value="Na pewno chcesz kontynuować?"/>
+            <replace-in-open-docs-confirm-message value="Czy na pewno chcesz zastąpić wszystkie wystąpienia we wszystkich otwartych plikach?"/>
             <find-result-caption value="Wynik wyszukiwania"/>
             <find-result-title value="Wyszukanie"/>
             <find-result-title-info value="($INT_REPLACE1$ trafień w $INT_REPLACE2$ plikach z $INT_REPLACE3$ przeszukiwanych)"/>
+            <find-result-title-info-selections value="($INT_REPLACE1$ trafień w $INT_REPLACE2$ zaznaczeniu z $INT_REPLACE3$ przeszukiwanych)"/>
             <find-result-title-info-extra value=" - Tryb filtrowania linii: wyświetla tylko przefiltrowane wyniki"/>
             <find-result-hits value="($INT_REPLACE$ trafień)"/>
+            <find-regex-zero-length-match value="dopasowanie o zerowej długości" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

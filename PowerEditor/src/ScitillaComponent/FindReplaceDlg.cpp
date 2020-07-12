@@ -2341,6 +2341,9 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		_pFinder->_scintView.execute(SCI_SETUSETABS, true);
 		_pFinder->_scintView.execute(SCI_SETTABWIDTH, 4);
 
+		// allow user to start selecting as a stream block, then switch to a column block by adding Alt keypress
+		_pFinder->_scintView.execute(SCI_SETMOUSESELECTIONRECTANGULARSWITCH, true);
+
 		// get the width of FindDlg
 		RECT findRect;
 		::GetWindowRect(_pFinder->getHSelf(), &findRect);
@@ -2445,6 +2448,9 @@ Finder * FindReplaceDlg::createFinder()
 
 	pFinder->_scintView.execute(SCI_SETUSETABS, true);
 	pFinder->_scintView.execute(SCI_SETTABWIDTH, 4);
+
+	// allow user to start selecting as a stream block, then switch to a column block by adding Alt keypress
+	pFinder->_scintView.execute(SCI_SETMOUSESELECTIONRECTANGULARSWITCH, true);
 
 	// get the width of FindDlg
 	RECT findRect;

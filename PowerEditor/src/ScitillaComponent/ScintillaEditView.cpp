@@ -3590,7 +3590,7 @@ void ScintillaEditView::insertNewLineBelowCurrentLine()
 	execute(SCI_SETEMPTYSELECTION, execute(SCI_POSITIONFROMLINE, current_line + 1));
 }
 
-void ScintillaEditView::sortLines(size_t fromLine, size_t toLine, ISorter *pSort)
+void ScintillaEditView::sortLines(size_t fromLine, size_t toLine, ISorter* pSort)
 {
 	if (fromLine >= toLine)
 	{
@@ -3612,16 +3612,19 @@ void ScintillaEditView::sortLines(size_t fromLine, size_t toLine, ISorter *pSort
 	}
 	assert(toLine - fromLine + 1 == splitText.size());
 	const std::vector<generic_string> sortedText = pSort->sort(splitText);
-	const generic_string joined = stringJoin(sortedText, getEOLString());
+	generic_string joined = stringJoin(sortedText, getEOLString());
 	if (sortEntireDocument)
 	{
 		assert(joined.length() == text.length());
-		replaceTarget(joined.c_str(), int(startPos), int(endPos));
 	}
 	else
 	{
 		assert(joined.length() + getEOLString().length() == text.length());
-		replaceTarget((joined + getEOLString()).c_str(), int(startPos), int(endPos));
+		joined += getEOLString();
+	}
+	if (text != joined)
+	{
+		replaceTarget(joined.c_str(), int(startPos), int(endPos));
 	}
 }
 

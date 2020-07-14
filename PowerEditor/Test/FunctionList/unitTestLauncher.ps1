@@ -15,6 +15,7 @@
 ..\..\bin\notepad++.exe -export=functionList -lpowershell .\powershell\unitTest | Out-Null
 ..\..\bin\notepad++.exe -export=functionList -lpython .\python\unitTest | Out-Null
 ..\..\bin\notepad++.exe -export=functionList -lruby .\ruby\unitTest | Out-Null
+..\..\bin\notepad++.exe -export=functionList -lvhdl .\vhdl\unitTest | Out-Null
 ..\..\bin\notepad++.exe -export=functionList -lxml .\xml\unitTest | Out-Null
 
 

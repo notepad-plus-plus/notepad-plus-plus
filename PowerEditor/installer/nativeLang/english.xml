@@ -756,6 +756,7 @@ You can define several column markers by using white space to separate the diffe
                     <Item id="6231" name="Border Width"/>
                     <Item id="6235" name="No edge"/>
                     <Item id="6236" name="Enable scrolling beyond last line"/>
+                    <Item id="6239" name="Keep selection when right-click outside of selection"/>
                 </Scintillas>
 
                 <NewDoc title="New Document">

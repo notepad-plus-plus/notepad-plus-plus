@@ -518,10 +518,8 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 		case WM_RBUTTONDOWN:
 		{
 			int clickX = GET_X_LPARAM(lParam);
-			int clickY = GET_Y_LPARAM(lParam);
-			int clickPos = static_cast<int>(execute(SCI_POSITIONFROMPOINT, clickX, clickY));
-			int posX = static_cast<int>(execute(SCI_POINTXFROMPOSITION, clickPos));
-			if (clickX >= posX)
+			int marginX = static_cast<int>(execute(SCI_POINTXFROMPOSITION, 0, 0));
+			if (clickX >= marginX)
 			{
 				// if right-click in the editing area (not the margins!),
 				// don't let this go to Scintilla because it will 

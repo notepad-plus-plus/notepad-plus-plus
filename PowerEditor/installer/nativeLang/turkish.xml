@@ -948,6 +948,7 @@ Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasın
 					<Item id="6331" name="Başlık çubuğunda sadece dosya adını göster"/>
 					<Item id="6334" name="Karakter kodlamasını otomatik olarak algıla"/>
 					<Item id="6314" name="Bul penceresinde sabit genişlikli yazıtipi kullan (Notepad++ yeniden başlatılmalıdır)"/>
+					<Item id="6349" name="DirectWrite Kullan (Özel karakterlerin gösterilmesini iyileştirebilir, Notepad++ yeniden başlatılmalıdır)"/>
 					<Item id="6337" name="Çalışma alanı dosya uzantısı:"/>
 					<Item id="6114" name="Etkin"/>
 					<Item id="6117" name="MRU (en son kullanılan) davranışı etkin"/>
@@ -1271,11 +1272,15 @@ Devam edilsin mi?"/>
 			<replace-in-files-confirm-title value="Emin misiniz?"/>
 			<replace-in-files-confirm-directory value="Şuradaki tüm bulunanları değiştirmek istediğinize emin misiniz :"/>
 			<replace-in-files-confirm-filetype value="Dosya türü için :"/>
+			<replace-in-open-docs-confirm-title value="Emin misiniz?"/>
+			<replace-in-open-docs-confirm-message value="Açık tüm dosyalardaki tüm eşleşmeleri değiştirmek istediğine emin misiniz?"/>
 			<find-result-caption value="Sonuç bul"/>
 			<find-result-title value="Ara"/>
 			<find-result-title-info value="($INT_REPLACE2$ dosyada yapılan $INT_REPLACE3$ aramada $INT_REPLACE1$ eşleşme bulundu)"/>
+			<find-result-title-info-selections value="($INT_REPLACE2$ seçimde yapılan $INT_REPLACE3$ aramada $INT_REPLACE1$ eşleşme bulundu)"/>
 			<find-result-title-info-extra value=" - Satır Filtresi Modu: sadece filtrelenmiş sonuçları göster"/>
 			<find-result-hits value="($INT_REPLACE$ eşleşme)"/>
+			<find-regex-zero-length-match value="sıfır uzunluk eşleşmesi" />
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

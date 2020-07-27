@@ -1397,12 +1397,30 @@ void Notepad_plus::command(int id)
 			break;
 
 		case IDM_EDIT_INS_TAB:
-			_pEditView->execute(SCI_TAB);
-			break;
-
 		case IDM_EDIT_RMV_TAB:
-			_pEditView->execute(SCI_BACKTAB);
-			break;
+		{
+			bool forwards = id == IDM_EDIT_INS_TAB;
+			int selStartPos = static_cast<int>(_pEditView->execute(SCI_GETSELECTIONSTART));
+			int lineNumber = static_cast<int>(_pEditView->execute(SCI_LINEFROMPOSITION, selStartPos));
+			int numSelections = static_cast<int>(_pEditView->execute(SCI_GETSELECTIONS));
+			int selEndPos = static_cast<int>(_pEditView->execute(SCI_GETSELECTIONEND));
+			int selEndLineNumber = static_cast<int>(_pEditView->execute(SCI_LINEFROMPOSITION, selEndPos));
+			if ((numSelections > 1) || (lineNumber != selEndLineNumber))
+			{
+				// multiple-selection or multi-line selection; use Scintilla SCI_TAB / SCI_BACKTAB behavior
+				_pEditView->execute(forwards ? SCI_TAB : SCI_BACKTAB);
+			}
+			else
+			{
+				// zero-length selection (simple single caret) or selected text is all on single line
+				// depart from Scintilla behavior and do it our way
+				int currentIndent = static_cast<int>(_pEditView->execute(SCI_GETLINEINDENTATION, lineNumber));
+				int indentDelta = static_cast<int>(_pEditView->execute(SCI_GETTABWIDTH));
+				if (!forwards) indentDelta = -indentDelta;
+				_pEditView->setLineIndent(lineNumber, currentIndent + indentDelta);
+			}
+		}
+		break;
 
 		case IDM_EDIT_DUP_LINE:
 			_pEditView->execute(SCI_LINEDUPLICATE);

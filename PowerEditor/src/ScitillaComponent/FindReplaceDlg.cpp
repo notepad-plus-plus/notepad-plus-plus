@@ -3462,12 +3462,17 @@ void Finder::copy()
 	}
 
 	std::vector<generic_string> lines;
+	generic_string previousResultLineStr(TEXT(""));
 	for (size_t line = fromLine; line <= toLine; ++line)
 	{
 		generic_string lineStr = _scintView.getLine(line);
 		if (isLineActualSearchResult(lineStr))
 		{
-			lines.push_back(prepareStringForClipboard(lineStr));
+			if (lineStr != previousResultLineStr)
+			{
+				previousResultLineStr = lineStr;
+				lines.push_back(prepareStringForClipboard(lineStr));
+			}
 		}
 	}
 	const generic_string toClipboard = stringJoin(lines, TEXT("\r\n"));

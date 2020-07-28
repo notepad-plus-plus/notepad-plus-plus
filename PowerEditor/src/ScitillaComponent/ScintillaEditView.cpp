@@ -517,15 +517,19 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 
 		case WM_RBUTTONDOWN:
 		{
-			int clickX = GET_X_LPARAM(lParam);
-			int marginX = static_cast<int>(execute(SCI_POINTXFROMPOSITION, 0, 0));
-			if (clickX >= marginX)
+			bool rightClickKeepsCaretPos = ((NppParameters::getInstance()).getSVP())._rightClickKeepsCaretPos;
+			if (rightClickKeepsCaretPos)
 			{
-				// if right-click in the editing area (not the margins!),
-				// don't let this go to Scintilla because it will 
-				// move the caret to the right-clicked location,
-				// cancelling any selection made by the user
-				return TRUE;
+				int clickX = GET_X_LPARAM(lParam);
+				int marginX = static_cast<int>(execute(SCI_POINTXFROMPOSITION, 0, 0));
+				if (clickX >= marginX)
+				{
+					// if right-click in the editing area (not the margins!),
+					// don't let this go to Scintilla because it will 
+					// move the caret to the right-clicked location,
+					// cancelling any selection made by the user
+					return TRUE;
+				}
 			}
 			break;
 		}

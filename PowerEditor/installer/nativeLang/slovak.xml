@@ -8,7 +8,7 @@
 -->
 
 <NotepadPlus>
-    <Native-Langue name="Slovenčina" filename="slovak.xml" version="7.8.7">
+    <Native-Langue name="Slovenčina" filename="slovak.xml" version="7.8.9">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -978,17 +978,17 @@ Zadať môžete viacero značiek pomocou medzery na oddelenie rôznych čísel."
                 <Item id="7004" name="Usporiadať karty"/>
             </Window>
             <ColumnEditor title="Stĺpcový editor">
-                <Item id="2023" name="Vložiť text"/>
-                <Item id="2033" name="Vložiť číslo"/>
-                <Item id="2030" name="Začiatočné číslo:"/>
-                <Item id="2031" name="Zvyšovať po:"/>
-                <Item id="2035" name="Nuly na začiatku"/>
-                <Item id="2036" name="Počet opakovaní:"/>
-                <Item id="2032" name="Formát"/>
-                <Item id="2024" name="Dec"/>
-                <Item id="2025" name="Oct"/>
-                <Item id="2026" name="Hex"/>
-                <Item id="2027" name="Bin"/>
+                <Item id="2023" name="Vložiť &amp;text"/>
+                <Item id="2033" name="Vložiť čí&amp;slo"/>
+                <Item id="2030" name="&amp;Začiatočné číslo:"/>
+                <Item id="2031" name="Z&amp;vyšovať po:"/>
+                <Item id="2035" name="&amp;Nuly na začiatku"/>
+                <Item id="2036" name="&amp;Počet opakovaní:"/>
+                <Item id="2032" name="&amp;Formát"/>
+                <Item id="2024" name="&amp;Dec"/>
+                <Item id="2025" name="&amp;Oct"/>
+                <Item id="2026" name="&amp;Hex"/>
+                <Item id="2027" name="&amp;Bin"/>
                 <Item id="1" name="OK"/>
                 <Item id="2" name="Zrušiť"/>
             </ColumnEditor>

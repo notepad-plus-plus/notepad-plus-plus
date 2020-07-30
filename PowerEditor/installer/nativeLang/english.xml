@@ -1238,6 +1238,10 @@ Find in all files except exe, obj &amp;&amp; log:
             <find-status-replace-not-found value="Replace: no occurrence was found"/>
             <find-status-replace-readonly value="Replace: Cannot replace text. The current document is read only"/>
             <find-status-cannot-find value="Find: Can't find the text &quot;$STR_REPLACE$&quot;"/>
+            <find-status-scope-selection value="in selected text"/>
+            <find-status-scope-all value="in entire file"/>
+            <find-status-scope-backward value="from start-of-file to caret"/>
+            <find-status-scope-forward value="from caret to end-of-file"/>
             <finder-find-in-finder value="Find in this found results..."/>
             <finder-close-this value="Close this finder"/>
             <finder-collapse-all value="Collapse all"/>

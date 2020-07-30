@@ -1313,7 +1313,9 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 							{
 								result = pNativeSpeaker->getLocalizedStrFromID("find-status-replaceall-nb-replaced", TEXT("Replace All: $INT_REPLACE$ occurrences were replaced."));
 								result = stringReplace(result, TEXT("$INT_REPLACE$"), std::to_wstring(nbReplaced));
-							}	
+							}
+							result += TEXT(" ");
+							result += getScopeInfoForStatusBar(&_options);
 						}
 						setStatusbarMessage(result, FSMessage);
 						getFocus();
@@ -1349,6 +1351,8 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 								result = pNativeSpeaker->getLocalizedStrFromID("find-status-count-nb-matches", TEXT("Count: $INT_REPLACE$ matches."));
 								result = stringReplace(result, TEXT("$INT_REPLACE$"), std::to_wstring(nbCounted));
 							}
+							result += TEXT(" ");
+							result += getScopeInfoForStatusBar(&_options);
 						}
 
 						if (isMacroRecording) saveInMacro(wParam, FR_OP_FIND);
@@ -1389,6 +1393,8 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 								result = pNativeSpeaker->getLocalizedStrFromID("find-status-mark-nb-matches", TEXT("Mark: $INT_REPLACE$ matches."));
 								result = stringReplace(result, TEXT("$INT_REPLACE$"), std::to_wstring(nbMarked));
 							}
+							result += TEXT(" ");
+							result += getScopeInfoForStatusBar(&_options);
 						}
 						setStatusbarMessage(result, FSMessage);
 						getFocus();
@@ -2697,6 +2703,32 @@ void FindReplaceDlg::setStatusbarMessage(const generic_string & msg, FindStatus 
 	}
 }
 
+generic_string FindReplaceDlg::getScopeInfoForStatusBar(FindOption const *pFindOpt) const
+{
+	generic_string scope;
+
+	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+
+	if (pFindOpt->_isInSelection)
+	{
+		scope += pNativeSpeaker->getLocalizedStrFromID("find-status-scope-selection", TEXT("in selected text"));
+	}
+	else if (pFindOpt->_isWrapAround)
+	{
+		scope += pNativeSpeaker->getLocalizedStrFromID("find-status-scope-all", TEXT("in entire file"));
+	}
+	else if (pFindOpt->_whichDirection == DIR_UP)
+	{
+		scope += pNativeSpeaker->getLocalizedStrFromID("find-status-scope-backward", TEXT("from start-of-file to caret"));
+	}
+	else
+	{
+		scope += pNativeSpeaker->getLocalizedStrFromID("find-status-scope-forward", TEXT("from caret to end-of-file"));
+	}
+
+	return scope;
+}
+
 void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const generic_string& stringValue)
 {
 	try
@@ -2853,6 +2885,8 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const generic_st
 								result = pNativeSpeaker->getLocalizedStrFromID("find-status-replaceall-nb-replaced", TEXT("Replace All: $INT_REPLACE$ occurrences were replaced."));
 								result = stringReplace(result, TEXT("$INT_REPLACE$"), std::to_wstring(nbReplaced));
 							}
+							result += TEXT(" ");
+							result += getScopeInfoForStatusBar(_env);
 						}
 
 						setStatusbarMessage(result, FSMessage);
@@ -2879,6 +2913,8 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const generic_st
 								result = pNativeSpeaker->getLocalizedStrFromID("find-status-count-nb-matches", TEXT("Count: $INT_REPLACE$ matches."));
 								result = stringReplace(result, TEXT("$INT_REPLACE$"), std::to_wstring(nbCounted));
 							}
+							result += TEXT(" ");
+							result += getScopeInfoForStatusBar(_env);
 						}
 						setStatusbarMessage(result, FSMessage);
 						break;
@@ -2907,6 +2943,8 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const generic_st
 								result = pNativeSpeaker->getLocalizedStrFromID("find-status-mark-nb-matches", TEXT("Mark: $INT_REPLACE$ matches."));
 								result = stringReplace(result, TEXT("$INT_REPLACE$"), std::to_wstring(nbMarked));
 							}
+							result += TEXT(" ");
+							result += getScopeInfoForStatusBar(_env);
 						}
 
 						setStatusbarMessage(result, FSMessage);

@@ -145,8 +145,9 @@ IDD_PREFERENCE_SEARCHINGSETTINGS_BOX DIALOGEX 0, 0, 455, 185
 STYLE DS_SETFONT | DS_FIXEDSYS | DS_CONTROL | WS_CHILD
 FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
-    CONTROL         "Don't fill find field in Find dialog with selected word", IDC_CHECK_STOPFILLINGFINDFIELD, "Button", BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,37,10,350,10
+    CONTROL         "Don't fill find field in Find dialog with selected word", IDC_CHECK_STOPFILLINGFINDFIELD, "Button", BS_AUTOCHECKBOX | WS_TABSTOP,37,10,350,10
     CONTROL         "Use Monospaced font in Find dialog (Need to restart Notepad++)",IDC_CHECK_MONOSPACEDFONT_FINDDLG, "Button", BS_AUTOCHECKBOX | WS_TABSTOP,37,25,350,10
+    CONTROL         "Find dialog remains open after search that outputs to results window",IDC_CHECK_FINDDLG_ALWAYS_VISIBLE, "Button", BS_AUTOCHECKBOX | WS_TABSTOP,37,40,350,10
 END
 
 IDD_PREFERENCE_NEWDOCSETTING_BOX DIALOGEX 0, 0, 455, 185

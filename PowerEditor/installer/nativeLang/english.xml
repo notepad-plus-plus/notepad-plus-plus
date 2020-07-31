@@ -847,6 +847,7 @@ You can define several column markers by using white space to separate the diffe
                 <Searching title="Searching">
                     <Item id="6901" name="Don't fill find field in Find dialog with selected word"/>
                     <Item id="6902" name="Use monospaced font in Find dialog (Need to restart Notepad++)"/>
+                    <Item id="6903" name="Find dialog remains open after search that outputs to results window"/>
                 </Searching>
 
                 <RecentFilesHistory title="Recent Files History">

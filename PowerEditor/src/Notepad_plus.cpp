@@ -1804,9 +1804,16 @@ bool Notepad_plus::findInFiles()
 
 	_findReplaceDlg.putFindResult(nbTotal);
 
-	FindHistory & findHistory = (NppParameters::getInstance()).getFindHistory();
-	if (nbTotal && !findHistory._isDlgAlwaysVisible)
-		_findReplaceDlg.display(false);
+	if (nbTotal != 0)
+	{
+		const NppParameters& nppParam = NppParameters::getInstance();
+		const NppGUI& nppGui = nppParam.getNppGUI();
+		if (!nppGui._findDlgAlwaysVisible)
+		{
+			_findReplaceDlg.display(false);
+		}
+	}
+
 	return true;
 }
 
@@ -1866,9 +1873,16 @@ bool Notepad_plus::findInOpenedFiles()
 
 	_findReplaceDlg.putFindResult(nbTotal);
 
-	FindHistory & findHistory = (NppParameters::getInstance()).getFindHistory();
-	if (nbTotal && !findHistory._isDlgAlwaysVisible)
-		_findReplaceDlg.display(false);
+	if (nbTotal != 0)
+	{
+		const NppParameters& nppParam = NppParameters::getInstance();
+		const NppGUI& nppGui = nppParam.getNppGUI();
+		if (!nppGui._findDlgAlwaysVisible)
+		{
+			_findReplaceDlg.display(false);
+		}
+	}
+
 	return true;
 }
 
@@ -1916,9 +1930,16 @@ bool Notepad_plus::findInCurrentFile(bool isEntireDoc)
 
 	_findReplaceDlg.putFindResult(nbTotal);
 
-	FindHistory & findHistory = (NppParameters::getInstance()).getFindHistory();
-	if (nbTotal && !findHistory._isDlgAlwaysVisible)
-		_findReplaceDlg.display(false);
+	if (nbTotal != 0)
+	{
+		const NppParameters& nppParam = NppParameters::getInstance();
+		const NppGUI& nppGui = nppParam.getNppGUI();
+		if (!nppGui._findDlgAlwaysVisible)
+		{
+			_findReplaceDlg.display(false);
+		}
+	}
+
 	return true;
 }
 

@@ -836,6 +836,7 @@ struct NppGUI final
 	bool _backSlashIsEscapeCharacterForSql = true;
 	bool _stopFillingFindField = false;
 	bool _monospacedFontFindDlg = false;
+	bool _findDlgAlwaysVisible = false;
 	writeTechnologyEngine _writeTechnologyEngine = defaultTechnology;
 	bool _isWordCharDefault = true;
 	std::string _customWordChars;
@@ -1171,7 +1172,6 @@ struct FindHistory final
 	transparencyMode _transparencyMode = onLossingFocus;
 	int _transparency = 150;
 
-	bool _isDlgAlwaysVisible = false;
 	bool _isFilterFollowDoc = false;
 	bool _isFolderFollowDoc = false;
 

@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2020-06-23 by schnurlos (schnurlos@gmail.com)
+	last modified: 2020-07-31 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="7.8.7">
+	<Native-Langue name="Deutsch" filename="german.xml" version="7.8.9">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -852,6 +852,11 @@
 					<Item id="6728" name="Kopf- und Fußzeile"/>
 				</Print>
 
+				<Searching title="Suche">
+					<Item id="6901" name="Gewähltes Wort nicht ins Suchfenster der Suche"/>
+					<Item id="6902" name="Festbreitenschrift im Dialogfeld 'Suchen' verwenden (Neustart von Notepad++ erforderlich)."/>
+				</Searching>
+
 				<RecentFilesHistory title="Zuletzt geöffn. Dateien">
 					<Item id="6304" name="Zuletzt geöffnete Dateien"/>
 					<Item id="6306" name="Max. Menüeinträge:"/>
@@ -952,7 +957,6 @@
 					<Item id="6324" name="Dokumentenumschalter (Strg+Tab)"/>
 					<Item id="6331" name="Nur Dateinamen in Titelleiste anzeigen"/>
 					<Item id="6334" name="Kodierung automatisch erkennen"/>
-					<Item id="6314" name="Festbreitenschrift im Dialogfeld 'Suchen' verwenden (Neustart von Notepad++ erforderlich)"/>
 					<Item id="6349" name="Verwende DirectWrite (kann die Darstellung von Sonderzeichen verbessern - Neustart von Notepad++ erforderlich)"/>
 					<Item id="6337" name="Arbeitsbereich Dateierw.:"/>
 					<Item id="6114" name="Aktivieren"/>
@@ -960,7 +964,6 @@
 					<Item id="6344" name="Momentaufnahme des Dokuments"/>
 					<Item id="6345" name="Momentaufnahme in Tab"/>
 					<Item id="6346" name="Momentaufnahme in Miniaturansicht"/>
-					<Item id="6348" name="Gewähltes Wort nicht ins Suchfenster der Suche"/>
 				</MISC>
 			</Preference>
 			<MultiMacro title="Makro mehrfach ausführen">
@@ -979,13 +982,13 @@
 				<Item id="7004" name="&amp;Sortiere Tabs"/>
 			</Window>
 			<ColumnEditor title="Block-Editor">
-				<Item id="2023" name="Text einfügen"/>
-				<Item id="2033" name="Zahlen einfügen"/>
-				<Item id="2030" name="Beginnen mit:"/>
-				<Item id="2031" name="Erhöhen um:"/>
+				<Item id="2023" name="&amp;Text einfügen"/>
+				<Item id="2033" name="&amp;Zahlen einfügen"/>
+				<Item id="2030" name="&amp;Starten mit:"/>
+				<Item id="2031" name="&amp;Erhöhen um:"/>
 				<Item id="2035" name="Führende &amp;Nullen"/>
-				<Item id="2036" name="Wiederholen:"/>
-				<Item id="2032" name="Format"/>
+				<Item id="2036" name="&amp;Wiederholen:"/>
+				<Item id="2032" name="&amp;Format"/>
 				<Item id="2024" name="&amp;Dezimal"/>
 				<Item id="2025" name="&amp;Oktal"/>
 				<Item id="2026" name="&amp;Hexadezimal"/>
@@ -994,16 +997,16 @@
 				<Item id="2"    name="Abbre&amp;chen"/>
 			</ColumnEditor>
 			<FindInFinder title="Finde in der Suche">
-				<Item id="1"    name="Finde alle"/>
-				<Item id="2"    name="Schließen"/>
-				<Item id="1711" name="Finde das:"/>
-				<Item id="1713" name="Finde nur in gesuchten Zeilen"/>
-				<Item id="1714" name="Nur ganzes &amp;Wort"/>
+				<Item id="1"    name="Finde &amp;alle"/>
+				<Item id="2"    name="S&amp;chließen"/>
+				<Item id="1711" name="Finde &amp;das:"/>
+				<Item id="1713" name="Finde nur in gesuchten &amp;Zeilen"/>
+				<Item id="1714" name="Nur &amp;ganzes Wort"/>
 				<Item id="1715" name="Nur Ausdru&amp;ck"/>
-				<Item id="1716" name="Suchmodus"/>
-				<Item id="1717" name="Normal"/>
+				<Item id="1716" name="&amp;Suchmodus"/>
+				<Item id="1717" name="&amp;Normal"/>
 				<Item id="1719" name="Ganz&amp;er Ausdruck"/>
-				<Item id="1718" name="Erweitert (\n, \r, \t, \0, \x...)"/>
+				<Item id="1718" name="Er&amp;weitert (\n, \r, \t, \0, \x...)"/>
 				<Item id="1720" name="&amp;. entspricht neuer Zeile"/>
 			</FindInFinder>
 			<DoSaveOrNot title="Speichern">

@@ -3,7 +3,7 @@
 <!--
 
 	Slovak localization for Notepad++
-	last modified: 2020-03-10 by kubalav
+	last modified: 31. 7. 2020 by kubalav
 	
 -->
 
@@ -850,6 +850,11 @@ Zadať môžete viacero značiek pomocou medzery na oddelenie rôznych čísel."
                     <Item id="6727" name="Tu sa zobrazia nastav. premenných"/>
                     <Item id="6728" name="Hlavička a päta"/>
                 </Print>
+
+                <Searching title="Vyhľadávanie">
+                    <Item id="6901" name="Nevkladať označené slovo do poľa v dialógovom okne Hľadať"/>
+                    <Item id="6902" name="Použiť neproporcionálne písmo v dialógovom okne Hľadať (Vyžaduje reštart Notepad++)"/>
+                </Searching>
 
                 <RecentFilesHistory title="História súborov">
                     <Item id="6304" name="História posledných súborov"/>

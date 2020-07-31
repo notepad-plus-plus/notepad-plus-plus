@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="7.8.8">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="7.8.9">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -120,6 +120,7 @@
                     <Item id="42064" name="選択行を　実数(コンマが小数点)として降順ソート"/>
                     <Item id="42065" name="選択行を　実数(ピリオドが小数点)として昇順ソート"/>
                     <Item id="42066" name="選択行を　実数(ピリオドが小数点)として降順ソート"/>
+                    <Item id="42078" name="選択行を　ランダムに入れ替える"/>
                     <Item id="42016" name="大文字に変換(&amp;U)"/>
                     <Item id="42017" name="小文字に変換(&amp;L)"/>
                     <Item id="42067" name="語頭を大文字、他は小文字(Proper Case 強制)(&amp;P)"/>
@@ -208,13 +209,13 @@
                     <Item id="43035" name="スタイル3"/>
                     <Item id="43036" name="スタイル4"/>
                     <Item id="43037" name="スタイル5"/>
-                    <Item id="43038" name="スタイルを検索"/>
+                    <Item id="43038" name="マーク画面で作成されたマーク"/>
                     <Item id="43039" name="スタイル1"/>
                     <Item id="43040" name="スタイル2"/>
                     <Item id="43041" name="スタイル3"/>
                     <Item id="43042" name="スタイル4"/>
                     <Item id="43043" name="スタイル5"/>
-                    <Item id="43044" name="スタイルを検索"/>
+                    <Item id="43044" name="マーク画面で作成されたマーク"/>
                     <Item id="43045" name="検索結果ウィンドウ"/>
                     <Item id="43046" name="次の検索結果"/>
                     <Item id="43047" name="前の検索結果"/>
@@ -396,7 +397,7 @@
                 <Item id="1624" name="検索モード"/>
                 <Item id="1625" name="標準(&amp;N)"/>
                 <Item id="1626" name="拡張(\n, \r, \t, \0, \x...) (&amp;X)"/>
-                <Item id="1660" name="ファイル内置換(&amp;R)"/>
+                <Item id="1660" name="ファイル内置換"/>
                 <Item id="1661" name="現在のフォルダ"/>
                 <Item id="1641" name="現在の文書内で検索"/>
                 <Item id="1686" name="透明化(&amp;Y)"/>
@@ -517,6 +518,71 @@
                 <ScintillaCommandsTab name="エディター"/>
                 <ConflictInfoOk name="この項目と競合するショートカットはありません。"/>
                 <ConflictInfoEditing name="競合しません..."/>
+                <MainCommandNames>
+                    <Item id="41019" name="このファイルのあるフォルダをエクスプローラーで開く"/>
+                    <Item id="41020" name="このファイルのあるフォルダをコマンドプロンプトで開く"/>
+                    <Item id="41021" name="直前に閉じたファイルを開く"/>
+                    <Item id="45001" name="改行コードを Windows (CR LF) に変換"/>
+                    <Item id="45002" name="改行コードを Unix (LF) に変換"/>
+                    <Item id="45003" name="改行コードを Macintosh (CR) に変換"/>
+                    <Item id="43022" name="検索結果をスタイル1でマーク"/>
+                    <Item id="43024" name="検索結果をスタイル2でマーク"/>
+                    <Item id="43026" name="検索結果をスタイル3でマーク"/>
+                    <Item id="43028" name="検索結果をスタイル4でマーク"/>
+                    <Item id="43030" name="検索結果をスタイル5でマーク"/>
+                    <Item id="43023" name="スタイル1のマークを解除"/>
+                    <Item id="43025" name="スタイル2のマークを解除"/>
+                    <Item id="43027" name="スタイル3のマークを解除"/>
+                    <Item id="43029" name="スタイル4のマークを解除"/>
+                    <Item id="43031" name="スタイル5のマークを解除"/>
+                    <Item id="43032" name="すべてのスタイルのマークを解除"/>
+                    <Item id="43033" name="スタイル1を使う前のマーク"/>
+                    <Item id="43034" name="スタイル2を使う前のマーク"/>
+                    <Item id="43035" name="スタイル3を使う前のマーク"/>
+                    <Item id="43036" name="スタイル4を使う前のマーク"/>
+                    <Item id="43037" name="スタイル5を使う前のマーク"/>
+                    <Item id="43038" name="マーク画面で作成された前のマーク"/>
+                    <Item id="43039" name="スタイル1を使う次のマーク"/>
+                    <Item id="43040" name="スタイル2を使う次のマーク"/>
+                    <Item id="43041" name="スタイル3を使う次のマーク"/>
+                    <Item id="43042" name="スタイル4を使う次のマーク"/>
+                    <Item id="43043" name="スタイル5を使う次のマーク"/>
+                    <Item id="43044" name="マーク画面で作成された次のマーク"/>
+                    <Item id="44100" name="Firefox で開く"/>
+                    <Item id="44101" name="Chrome で開く"/>
+                    <Item id="44103" name="IE で開く"/>
+                    <Item id="44102" name="Edge で開く"/>
+                    <Item id="50003" name="前のドキュメントに切り替え"/>
+                    <Item id="50004" name="次のドキュメントに切り替え"/>
+                    <Item id="44051" name="レベル1で畳む"/>
+                    <Item id="44052" name="レベル2で畳む"/>
+                    <Item id="44053" name="レベル3で畳む"/>
+                    <Item id="44054" name="レベル4で畳む"/>
+                    <Item id="44055" name="レベル5で畳む"/>
+                    <Item id="44056" name="レベル6で畳む"/>
+                    <Item id="44057" name="レベル7で畳む"/>
+                    <Item id="44058" name="レベル8で畳む"/>
+                    <Item id="44061" name="レベル1で展開する"/>
+                    <Item id="44062" name="レベル2で展開する"/>
+                    <Item id="44063" name="レベル3で展開する"/>
+                    <Item id="44064" name="レベル4で展開する"/>
+                    <Item id="44065" name="レベル5で展開する"/>
+                    <Item id="44066" name="レベル6で展開する"/>
+                    <Item id="44067" name="レベル7で展開する"/>
+                    <Item id="44068" name="レベル8で展開する"/>
+                    <Item id="44081" name="プロジェクトパネル1を表示・非表示"/>
+                    <Item id="44082" name="プロジェクトパネル2を表示・非表示"/>
+                    <Item id="44083" name="プロジェクトパネル3を表示・非表示"/>
+                    <Item id="44085" name="ワークスペースフォルダーを表示・非表示"/>
+                    <Item id="44080" name="文書マップを表示・非表示"/>
+                    <Item id="44084" name="関数リストを表示・非表示"/>
+                    <Item id="50005" name="マクロ記録を切り替え"/>
+                    <Item id="44104" name="プロジェクトパネル1を表示"/>
+                    <Item id="44105" name="プロジェクトパネル2を表示"/>
+                    <Item id="44106" name="プロジェクトパネル3を表示"/>
+                    <Item id="44107" name="ワークスペースフォルダーを表示"/>
+                    <Item id="44108" name="関数リストを表示"/>
+                </MainCommandNames>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="ショートカット">
                 <Item id="1" name="OK"/>
@@ -763,6 +829,7 @@
                     <Item id="6231" name="枠線幅"/>
                     <Item id="6235" name="枠を非表示"/>
                     <Item id="6236" name="最終行を1行目までスクロールできる"/>
+                    <Item id="6239" name="選択範囲外を右クリックしたときに選択を解除しない"/>
                 </Scintillas>
 
                 <NewDoc title="新規文書">
@@ -848,6 +915,14 @@
                     <Item id="6727" name="表示場所:"/>
                     <Item id="6728" name="ヘッダーとフッター"/>
                 </Print>
+                
+                <Searching title="検索">
+                    <Item id="6901" name="検索画面の検索文字列欄に、選択中の文字を自動入力しない"/>
+                    <Item id="6902" name="検索画面で固定幅フォントを使用する（Notepad++ の再起動が必要）"/>
+                    <Item id="6903" name="検索結果を結果ウィンドウに表示する時に、検索画面を自動で閉じないようにする"/>
+                    <Item id="6904" name="「すべての文書で置換」を実行する前に、確認する"/>
+                </Searching>
+
 
                 <RecentFilesHistory title="ファイル履歴">
                     <Item id="6304" name="ファイル履歴"/>
@@ -950,15 +1025,14 @@
                     <Item id="6324" name="ビューの切り替え(Ctrl+Tab)"/>
                     <Item id="6331" name="タイトルバーにファイル名のみ表示"/>
                     <Item id="6334" name="文字コードを自動判別"/>
-                    <Item id="6314" name="検索画面で固定幅フォントを使用する（Notepad++ の再起動が必要）"/>
                     <Item id="6349" name="DirectWriteを使用する（特殊な文字の描画が改善されます。Notepad++ の再起動が必要）"/>
+                    <Item id="6350" name="注目時に背景色を変える"/>
                     <Item id="6337" name="ワークスペースファイルの拡張子:"/>
                     <Item id="6114" name="有効"/>
                     <Item id="6117" name="最近使用した順で切り替える"/>
                     <Item id="6344" name="タブのプレビュー"/>
                     <Item id="6345" name="タブの近くに表示する"/>
                     <Item id="6346" name="文書マップに表示する"/>
-                    <Item id="6348" name="検索画面の検索文字列欄に、選択中の文字を自動入力しない"/>
                 </MISC>
             </Preference>
             <MultiMacro title="指定マクロを複数回実行">
@@ -977,17 +1051,17 @@
                 <Item id="7004" name="タブをソート(&amp;T)"/>
             </Window>
             <ColumnEditor title="矩形編集">
-                <Item id="2023" name="挿入する文字列"/>
-                <Item id="2033" name="挿入する数値"/>
-                <Item id="2030" name="初期値:"/>
-                <Item id="2031" name="増分:"/>
-                <Item id="2035" name="0詰めする"/>
-                <Item id="2036" name="反復:"/>
-                <Item id="2032" name="フォーマット"/>
-                <Item id="2024" name="10進数"/>
-                <Item id="2025" name="8進数"/>
-                <Item id="2026" name="16進数"/>
-                <Item id="2027" name="2進数"/>
+                <Item id="2023" name="挿入する文字列(&amp;T)"/>
+                <Item id="2033" name="挿入する数値(&amp;N)"/>
+                <Item id="2030" name="初期値(&amp;I):"/>
+                <Item id="2031" name="増分(&amp;Y):"/>
+                <Item id="2035" name="0詰めする(&amp;Z)"/>
+                <Item id="2036" name="反復(&amp;R):"/>
+                <Item id="2032" name="フォーマット(&amp;F)"/>
+                <Item id="2024" name="10進数(&amp;D)"/>
+                <Item id="2025" name="8進数(&amp;O)"/>
+                <Item id="2026" name="16進数(&amp;H)"/>
+                <Item id="2027" name="2進数(&amp;B)"/>
                 <Item id="1" name="OK"/>
                 <Item id="2" name="キャンセル"/>
             </ColumnEditor>
@@ -1242,6 +1316,10 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <find-status-replace-not-found value="置換：一致するものはありません"/>
             <find-status-replace-readonly value="置換：置換できません。この文書は読み取り専用です"/>
             <find-status-cannot-find value="検索：見つかりません。&quot;$STR_REPLACE$&quot;"/>
+            <find-status-scope-selection value="（選択範囲内）"/>
+            <find-status-scope-all value="（ファイル全体）"/>
+            <find-status-scope-backward value="（ファイル先頭から カーソル位置まで）"/>
+            <find-status-scope-forward value="（カーソル位置から ファイル末尾まで）"/>
             <finder-find-in-finder value="この検索結果から検索..."/>
             <finder-close-this value="この検索結果を閉じる"/>
             <finder-collapse-all value="すべて折りたたむ"/>
@@ -1250,6 +1328,7 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <finder-select-all value="すべて選択"/>
             <finder-clear-all value="すべてクリア"/>
             <finder-open-all value="すべて開く"/>
+            <finder-wrap-long-lines value="長い行を折り返す"/>
             <common-ok value="OK"/>
             <common-cancel value="ｷｬﾝｾﾙ"/>
             <common-name value="名前: "/>

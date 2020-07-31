@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2020-06-23 by schnurlos (schnurlos@gmail.com)
+	last modified: 2020-08-23 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="7.8.7">
+	<Native-Langue name="Deutsch" filename="german.xml" version="7.8.9">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -132,6 +132,7 @@
 					<Item id="42064" name="Zeilen als Dezimalzahlen (Komma) absteigend sortieren"/>
 					<Item id="42065" name="Zeilen als Dezimalzahlen (Punkt) aufsteigend sortieren"/>
 					<Item id="42066" name="Zeilen als Dezimalzahlen (Punkt) absteigend sortieren"/>
+					<Item id="42078" name="Zeilen zufällig sortieren"/>
 					<Item id="42016" name="In &amp;GROSSBUCHSTABEN umwandeln"/>
 					<Item id="42017" name="In &amp;kleinbuchstaben umwandeln"/>
 					<Item id="42067" name="&amp;Überschriftenstil"/>
@@ -523,6 +524,71 @@
 				<ScintillaCommandsTab name="Scintilla-Kommandos"/>
 				<ConflictInfoOk name="Keine Konflikte mit diesem Tastenkürzel."/>
 				<ConflictInfoEditing name="Keine Konflikte …"/>
+				<MainCommandNames>
+					<Item id="41019" name="Ordner im Explorer öffnen"/>
+					<Item id="41020" name="Ordner in der Kommandozeile öffnen"/>
+					<Item id="41021" name="Zuletzt geschlossene Datei wieder öffnen"/>
+					<Item id="45001" name="Zeilenende umwandeln zu Windows (CR LF)"/>
+					<Item id="45002" name="Zeilenende umwandeln zu Unix (LF)"/>
+					<Item id="45003" name="Zeilenende umwandeln zu Macintosh (CR)"/>
+					<Item id="43022" name="Hervorhebungen im Stil 1 markieren"/>
+					<Item id="43024" name="Hervorhebungen im Stil 2 markieren"/>
+					<Item id="43026" name="Hervorhebungen im Stil 3 markieren"/>
+					<Item id="43028" name="Hervorhebungen im Stil 4 markieren"/>
+					<Item id="43030" name="Hervorhebungen im Stil 5 markieren"/>
+					<Item id="43023" name="Entferne die Hervorhebungen im Stil 1"/>
+					<Item id="43025" name="Entferne die Hervorhebungen im Stil 2"/>
+					<Item id="43027" name="Entferne die Hervorhebungen im Stil 3"/>
+					<Item id="43029" name="Entferne die Hervorhebungen im Stil 4"/>
+					<Item id="43031" name="Entferne die Hervorhebungen im Stil 5"/>
+					<Item id="43032" name="Entferne die Hervorhebungen in allen Stilen"/>
+					<Item id="43033" name="Markiere vorherige im Stil 1"/>
+					<Item id="43034" name="Markiere vorherige im Stil 2"/>
+					<Item id="43035" name="Markiere vorherige im Stil 3"/>
+					<Item id="43036" name="Markiere vorherige im Stil 4"/>
+					<Item id="43037" name="Markiere vorherige im Stil 5"/>
+					<Item id="43038" name="Vorherige Marke erstellt mit Marke…"/>
+					<Item id="43039" name="Markiere nächste im Stil 1"/>
+					<Item id="43040" name="Markiere nächste im Stil 2"/>
+					<Item id="43041" name="Markiere nächste im Stil 3"/>
+					<Item id="43042" name="Markiere nächste im Stil 4"/>
+					<Item id="43043" name="Markiere nächste im Stil 5"/>
+					<Item id="43044" name="Nächste Marke erstellt mit Marke…"/>
+					<Item id="44100" name="Aktuelle Datei in Firefox betrachten"/>
+					<Item id="44101" name="Aktuelle Datei in Chrome betrachten"/>
+					<Item id="44103" name="Aktuelle Datei im IE betrachten"/>
+					<Item id="44102" name="Aktuelle Datei in Edge betrachten"/>
+					<Item id="50003" name="Zum vorherigen Dokument wechseln"/>
+					<Item id="50004" name="Zum nächsten Dokument wechseln"/>
+					<Item id="44051" name="Level 1 schließen"/>
+					<Item id="44052" name="Level 2 schließen"/>
+					<Item id="44053" name="Level 3 schließen"/>
+					<Item id="44054" name="Level 4 schließen"/>
+					<Item id="44055" name="Level 5 schließen"/>
+					<Item id="44056" name="Level 6 schließen"/>
+					<Item id="44057" name="Level 7 schließen"/>
+					<Item id="44058" name="Level 8 schließen"/>
+					<Item id="44061" name="Level 1 öffnen"/>
+					<Item id="44062" name="Level 2 öffnen"/>
+					<Item id="44063" name="Level 3 öffnen"/>
+					<Item id="44064" name="Level 4 öffnen"/>
+					<Item id="44065" name="Level 5 öffnen"/>
+					<Item id="44066" name="Level 6 öffnen"/>
+					<Item id="44067" name="Level 7 öffnen"/>
+					<Item id="44068" name="Level 8 öffnen"/>
+					<Item id="44081" name="Zum Projektfenster 1 umschalten"/>
+					<Item id="44082" name="Zum Projektfenster 2 umschalten"/>
+					<Item id="44083" name="Zum Projektfenster 3 umschalten"/>
+					<Item id="44085" name="Zum Ordner als Arbeitsbereich umschalten"/>
+					<Item id="44080" name="Zur Dokumentenliste umschalten"/>
+					<Item id="44084" name="Zur Funktionsliste umschalten"/>
+					<Item id="50005" name="Zur Makro-Aufzeichung umschalten"/>
+					<Item id="44104" name="Zum Projektfenster 1 wechseln"/>
+					<Item id="44105" name="Zum Projektfenster 2 wechseln"/>
+					<Item id="44106" name="Zum Projektfenster 3 wechseln"/>
+					<Item id="44107" name="Zum Ordner als Arbeitsbereich wechseln"/>
+					<Item id="44108" name="Zur Funktionsliste wechseln"/>
+				</MainCommandNames>
 			</ShortcutMapper>
 			<ShortcutMapperSubDialg title="Kürzel">
 				<Item id="1" name="OK"/>
@@ -766,6 +832,7 @@
 					<Item id="6231" name="Rahmenbreite"/>
 					<Item id="6235" name="Kein Rand"/>
 					<Item id="6236" name="Über letzte Zeile hinaus scrollen"/>
+					<Item id="6236" name="Auswahl beibehalten bei Rechtsklick außerhalb der Auswahl"/>
 				</Scintillas>
 
 				<NewDoc title="Neue Dateien">
@@ -851,6 +918,13 @@
 					<Item id="6727" name="Welcher Teil:"/>
 					<Item id="6728" name="Kopf- und Fußzeile"/>
 				</Print>
+
+				<Searching title="Suche">
+					<Item id="6901" name="Gewähltes Wort nicht ins Suchfenster der Suche"/>
+					<Item id="6902" name="Festbreitenschrift im Dialogfeld 'Suchen' verwenden (Neustart von Notepad++ erforderlich)."/>
+					<Item id="6903" name="Der Suchdialog bleibt nach der Suche geöffnet, die im Ergebnisfenster ausgegeben wird"/>
+					<Item id="6904" name="Bestätigung für 'Alle Ersetzen' in allen offenen Dokumenten"/>
+				</Searching>
 
 				<RecentFilesHistory title="Zuletzt geöffn. Dateien">
 					<Item id="6304" name="Zuletzt geöffnete Dateien"/>
@@ -952,15 +1026,14 @@
 					<Item id="6324" name="Dokumentenumschalter (Strg+Tab)"/>
 					<Item id="6331" name="Nur Dateinamen in Titelleiste anzeigen"/>
 					<Item id="6334" name="Kodierung automatisch erkennen"/>
-					<Item id="6314" name="Festbreitenschrift im Dialogfeld 'Suchen' verwenden (Neustart von Notepad++ erforderlich)"/>
 					<Item id="6349" name="Verwende DirectWrite (kann die Darstellung von Sonderzeichen verbessern - Neustart von Notepad++ erforderlich)"/>
+					<Item id="6350" name="Vollbox-Modus aktivieren"/>
 					<Item id="6337" name="Arbeitsbereich Dateierw.:"/>
 					<Item id="6114" name="Aktivieren"/>
 					<Item id="6117" name="In Reihenfolge der Benutzung"/>
 					<Item id="6344" name="Momentaufnahme des Dokuments"/>
 					<Item id="6345" name="Momentaufnahme in Tab"/>
 					<Item id="6346" name="Momentaufnahme in Miniaturansicht"/>
-					<Item id="6348" name="Gewähltes Wort nicht ins Suchfenster der Suche"/>
 				</MISC>
 			</Preference>
 			<MultiMacro title="Makro mehrfach ausführen">
@@ -979,13 +1052,13 @@
 				<Item id="7004" name="&amp;Sortiere Tabs"/>
 			</Window>
 			<ColumnEditor title="Block-Editor">
-				<Item id="2023" name="Text einfügen"/>
-				<Item id="2033" name="Zahlen einfügen"/>
-				<Item id="2030" name="Beginnen mit:"/>
-				<Item id="2031" name="Erhöhen um:"/>
+				<Item id="2023" name="&amp;Text einfügen"/>
+				<Item id="2033" name="&amp;Zahlen einfügen"/>
+				<Item id="2030" name="&amp;Starten mit:"/>
+				<Item id="2031" name="&amp;Erhöhen um:"/>
 				<Item id="2035" name="Führende &amp;Nullen"/>
-				<Item id="2036" name="Wiederholen:"/>
-				<Item id="2032" name="Format"/>
+				<Item id="2036" name="&amp;Wiederholen:"/>
+				<Item id="2032" name="&amp;Format"/>
 				<Item id="2024" name="&amp;Dezimal"/>
 				<Item id="2025" name="&amp;Oktal"/>
 				<Item id="2026" name="&amp;Hexadezimal"/>
@@ -994,16 +1067,16 @@
 				<Item id="2"    name="Abbre&amp;chen"/>
 			</ColumnEditor>
 			<FindInFinder title="Finde in der Suche">
-				<Item id="1"    name="Finde alle"/>
-				<Item id="2"    name="Schließen"/>
-				<Item id="1711" name="Finde das:"/>
-				<Item id="1713" name="Finde nur in gesuchten Zeilen"/>
-				<Item id="1714" name="Nur ganzes &amp;Wort"/>
+				<Item id="1"    name="Finde &amp;alle"/>
+				<Item id="2"    name="S&amp;chließen"/>
+				<Item id="1711" name="Finde &amp;das:"/>
+				<Item id="1713" name="Finde nur in gesuchten &amp;Zeilen"/>
+				<Item id="1714" name="Nur &amp;ganzes Wort"/>
 				<Item id="1715" name="Nur Ausdru&amp;ck"/>
-				<Item id="1716" name="Suchmodus"/>
-				<Item id="1717" name="Normal"/>
+				<Item id="1716" name="&amp;Suchmodus"/>
+				<Item id="1717" name="&amp;Normal"/>
 				<Item id="1719" name="Ganz&amp;er Ausdruck"/>
-				<Item id="1718" name="Erweitert (\n, \r, \t, \0, \x...)"/>
+				<Item id="1718" name="Er&amp;weitert (\n, \r, \t, \0, \x…)"/>
 				<Item id="1720" name="&amp;. entspricht neuer Zeile"/>
 			</FindInFinder>
 			<DoSaveOrNot title="Speichern">
@@ -1202,6 +1275,10 @@
 			<find-status-replace-not-found value="Ersetzen: Kein Vorkommen gefunden"/>
 			<find-status-replace-readonly value="Ersetzen: Konnte Text wegen schreibgeschützter Datei nicht ersetzen"/>
 			<find-status-cannot-find value="Suche: Konnte Text &quot;$STR_REPLACE$&quot; nicht finden"/>
+			<find-status-scope-selection value="im gewählten Text"/>
+			<find-status-scope-all value="in der gesamten Datei"/>
+			<find-status-scope-backward value="vom Dateianfang bis zum Cursor"/>
+			<find-status-scope-forward value="vom Cursor bis zum Dateiende"/>
 			<finder-find-in-finder value="In diesen Suchergebnissen finden …"/>
 			<finder-close-this value="Diese Suche schließen"/>
 			<finder-collapse-all value="Alles einklappen"/>
@@ -1210,6 +1287,7 @@
 			<finder-select-all value="Alles wählen"/>
 			<finder-clear-all value="Alles löschen"/>
 			<finder-open-all value="Alles öffnen"/>
+			<finder-wrap-long-lines value="Zeilenumbruch bei langen Zeilen"/>
 			<common-ok value="OK"/>
 			<common-cancel value="Abbruch"/>
 			<common-name value="Name: "/>

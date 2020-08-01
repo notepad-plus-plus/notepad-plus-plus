@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v7.8.8:
+Updated to v7.9.0:
 - add new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="7.8.7">
+	<Native-Langue name="Русский" filename="russian.xml" version="7.9.0">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -819,6 +819,12 @@ Updated to v7.8.8:
 					<Item id="6727" name="Какая часть..."/>
 					<Item id="6728" name="Колонтитулы"/>
 				</Print>
+
+                <Searching title="Searching">
+                    <Item id="6901" name="Не заполнять поле в окне Поиска выделенным словом"/>
+                    <Item id="6902" name="Моноширинный шрифт в окне поиска (требуется перезапуск Notepad++)"/>
+                </Searching>
+
 				<RecentFilesHistory title="История Открытия">
 					<Item id="6304" name="История Последних Закрытых Файлов"/>
 					<Item id="6305" name="Не проверять при запуске"/>
@@ -872,12 +878,10 @@ Updated to v7.8.8:
 					<Item id="6114" name="Отображать список"/>
 					<Item id="6117" name="Выстроить список по мере использ."/>
 					<Item id="6334" name="Авто-определение кодировки символов"/>
-					<Item id="6314" name="Моноширинный шрифт в окне поиска (требуется перезапуск Notepad++)"/>
 					<Item id="6337" name="Расширение файла проекта:"/>
 					<Item id="6344" name="Предосмотр Документа"/>
 					<Item id="6345" name="Миниатюра под Вкладкой"/>
 					<Item id="6346" name="Отображать в Карте Документа"/>
-					<Item id="6348" name="Не заполнять поле в окне Поиска выделенным словом"/>
 					<Item id="6349" name="Использовать DirectWrite (требуется перезапуск Notepad++)"/>
 				</MISC>
 				<MultiInstance title = "Режимы Запуска">

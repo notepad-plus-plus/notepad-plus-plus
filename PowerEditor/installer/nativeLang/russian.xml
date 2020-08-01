@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v7.8.8:
+Updated to v7.9.0:
 - add new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="7.8.7">
+	<Native-Langue name="Русский" filename="russian.xml" version="7.9.0">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -164,6 +164,7 @@ Updated to v7.8.8:
 					<Item id="42064" name="Сорт. по Убыванию десятичных чисел (Запятая)"/>
 					<Item id="42065" name="Сорт. по Возрастанию десятичных чисел (Точка)"/>
 					<Item id="42066" name="Сорт. по Убыванию десятичных чисел (Точка)"/>
+					<Item id="42078" name="Сорт. строк в случайном порядке"/>
 					<Item id="42067" name="Все с Заглавной"/>
 					<Item id="42068" name="Все с Заглавной (смешанный)"/>
 					<Item id="42069" name="Предложение"/>
@@ -315,7 +316,7 @@ Updated to v7.8.8:
 					<Item id="48011" name="&amp;Настройки..."/>
 					<Item id="48014" name="Открыть Папку Плагинов..."/>
 					<Item id="48015" name="Управление Плагинами..."/>
-					<Item id="48016" name="Измен. соч. клав./Удалить макро..."/>
+					<Item id="48016" name="Измен. соч. клав./Удалить макрос..."/>
 					<Item id="48017" name="Измен. соч. клав./Удалить команду..."/>
 					<Item id="48018" name="Редакт. Контекстное Меню"/>
 					<Item id="48501" name="Сгенерировать..."/>
@@ -330,7 +331,7 @@ Updated to v7.8.8:
 					<Item id="50002" name="Подсказка по функциям"/>
 					<Item id="50003" name="Перекл. на предыдущий док."/>
 					<Item id="50004" name="Перекл. на следующий док."/>
-					<Item id="50005" name="Вкл./Выкл. запись Макро"/>
+					<Item id="50005" name="Вкл./Выкл. запись Макрос"/>
 					<Item id="50006" name="Завершение пути"/>
 					<Item id="10001" name="Переместить в Другую Область"/>
 					<Item id="10002" name="Дублировать в Другой Области"/>
@@ -403,8 +404,8 @@ Updated to v7.8.8:
 				<Item id="1688" name="Всегда"/>
 				<Item id="1703" name="и новые строки"/>
 				<Item id="1722" name="Обратное направление поиска"/>
-				<Item id="1721" name="▲"/> 
-				<Item id="1723" name="▼"/> 
+				<Item id="1721" name="▲"/>
+				<Item id="1723" name="▼"/>
 			</Find>
 
 			<FindCharsInRange title = "Найти символы в диапазоне....">
@@ -502,7 +503,7 @@ Updated to v7.8.8:
 				</SubDialog>
 			</StyleConfig>
 
-			<ShortcutMapper title="Назначение Клавиш Быстрого Доступа">
+			<ShortcutMapper title="Управление Клавишами Быстрого Доступа">
 				<Item id="2602"       name="Изменить"/>
 				<Item id="2603"       name="Удалить"/>
 				<Item id="2606"       name="Очистить"/>
@@ -519,6 +520,71 @@ Updated to v7.8.8:
 				<ScintillaCommandsTab name="Scintilla"/>
 				<ConflictInfoOk       name="Конфликта клавиш не обнаружено."/>
 				<ConflictInfoEditing  name="Нет конфликтов . . ."/>
+				<MainCommandNames>
+					<Item id="41019" name="Открыть папку документа"/>
+					<Item id="41020" name="Открыть папку документа в cmd"/>
+					<Item id="41021" name="Открыть последний закрытый файл"/>
+					<Item id="45001" name="Преобразовать в Windows (CR LF)"/>
+					<Item id="45002" name="Преобразовать в Unix (LF)"/>
+					<Item id="45003" name="Преобразовать в Macintosh (CR)"/>
+					<Item id="43022" name="Пометить результат поиска используя 1-й стиль"/>
+					<Item id="43024" name="Пометить результат поиска используя 2-й стиль"/>
+					<Item id="43026" name="Пометить результат поиска используя 3-й стиль"/>
+					<Item id="43028" name="Пометить результат поиска используя 4-й стиль"/>
+					<Item id="43030" name="Пометить результат поиска используя 5-й стиль"/>
+					<Item id="43023" name="Убрать пометки исполз. 1-й стиль"/>
+					<Item id="43025" name="Убрать пометки исполз. 2-й стиль"/>
+					<Item id="43027" name="Убрать пометки исполз. 3-й стиль"/>
+					<Item id="43029" name="Убрать пометки исполз. 4-й стиль"/>
+					<Item id="43031" name="Убрать пометки исполз. 5-й стиль"/>
+					<Item id="43032" name="Убрать пометки исполз. любой стиль"/>
+					<Item id="43033" name="Предыдущая пометка исполз. 1-й стиль"/>
+					<Item id="43034" name="Предыдущая пометка исполз. 2-й стиль"/>
+					<Item id="43035" name="Предыдущая пометка исполз. 3-й стиль"/>
+					<Item id="43036" name="Предыдущая пометка исполз. 4-й стиль"/>
+					<Item id="43037" name="Предыдущая пометка исполз. 5-й стиль"/>
+					<Item id="43038" name="Предыдущая пометка созданная в Пометки..."/>
+					<Item id="43039" name="Следующая пометка исполз. 1-й стиль"/>
+					<Item id="43040" name="Следующая пометка исполз. 2-й стиль"/>
+					<Item id="43041" name="Следующая пометка исполз. 3-й стиль"/>
+					<Item id="43042" name="Следующая пометка исполз. 4-й стиль"/>
+					<Item id="43043" name="Следующая пометка исполз. 5-й стиль"/>
+					<Item id="43044" name="Следующая пометка созданная в Пометки..."/>
+					<Item id="44100" name="Открыть текущий файла в Firefox"/>
+					<Item id="44101" name="Открыть текущий файла в Chrome"/>
+					<Item id="44103" name="Открыть текущий файла в IE"/>
+					<Item id="44102" name="Открыть текущий файла в Edge"/>
+					<Item id="50003" name="Перекл. на Предыдущий док."/>
+					<Item id="50004" name="Перекл. на Следующий док."/>
+					<Item id="44051" name="Свернуть уровень 1"/>
+					<Item id="44052" name="Свернуть уровень 2"/>
+					<Item id="44053" name="Свернуть уровень 3"/>
+					<Item id="44054" name="Свернуть уровень 4"/>
+					<Item id="44055" name="Свернуть уровень 5"/>
+					<Item id="44056" name="Свернуть уровень 6"/>
+					<Item id="44057" name="Свернуть уровень 7"/>
+					<Item id="44058" name="Свернуть уровень 8"/>
+					<Item id="44061" name="Развернуть уровень 1"/>
+					<Item id="44062" name="Развернуть уровень 2"/>
+					<Item id="44063" name="Развернуть уровень 3"/>
+					<Item id="44064" name="Развернуть уровень 4"/>
+					<Item id="44065" name="Развернуть уровень 5"/>
+					<Item id="44066" name="Развернуть уровень 6"/>
+					<Item id="44067" name="Развернуть уровень 7"/>
+					<Item id="44068" name="Развернуть уровень 8"/>
+					<Item id="44081" name="Вкл./Выкл. Панель проекта 1"/>
+					<Item id="44082" name="Вкл./Выкл. Панель проекта 2"/>
+					<Item id="44083" name="Вкл./Выкл. Панель проекта 3"/>
+					<Item id="44085" name="Вкл./Выкл. Папка как Проект"/>
+					<Item id="44080" name="Вкл./Выкл. Карты Документа"/>
+					<Item id="44084" name="Вкл./Выкл. Списка Функций"/>
+					<Item id="50005" name="Вкл./Выкл. запись Макроса"/>
+					<Item id="44104" name="Перекл. на Панель проекта 1"/>
+					<Item id="44105" name="Перекл. на Панель проекта 2"/>
+					<Item id="44106" name="Перекл. на Панель проекта 3"/>
+					<Item id="44107" name="Перекл. на Папка как Проект"/>
+					<Item id="44108" name="Перекл. на Списка Функций"/>
+                </MainCommandNames>
 			</ShortcutMapper>
 			<ShortcutMapperSubDialg title="Клавиши Быстрого Доступа">
 				<Item id="1"    name="ОК"/>
@@ -762,6 +828,7 @@ Updated to v7.8.8:
 					<Item id="6235" name="Без рамки"/>
 					<Item id="6236" name="Прокрутка за пределы посл. строки"/>
 					<Item id="6237" name="Добавьте свой маркер столбца, указав его положение с десятичным числом.&#x0A;Вы можете определить несколько маркеров столбца, используя пробелы для разделения различных чисел."/>
+					<Item id="6239" name="Сохранять выделение при правом щелчке мыши за пределами выделения"/>
 				</Scintillas>
 				<NewDoc title = "Новый Документ">
 					<Item id="6401" name="Формат Конца Строк"/>
@@ -819,6 +886,14 @@ Updated to v7.8.8:
 					<Item id="6727" name="Какая часть..."/>
 					<Item id="6728" name="Колонтитулы"/>
 				</Print>
+
+				<Searching title="Поиск">
+					<Item id="6901" name="Не заполнять поле в окне Поиска выделенным словом"/>
+					<Item id="6902" name="Моноширинный шрифт в окне поиска (требуется перезапуск Notepad++)"/>
+					<Item id="6903" name="Оставлять окно Поиска открытым после окончания операции поиска"/>
+					<Item id="6904" name="Подтвердить замену Всего во Всех Открытых Документах"/>
+				</Searching>
+
 				<RecentFilesHistory title="История Открытия">
 					<Item id="6304" name="История Последних Закрытых Файлов"/>
 					<Item id="6305" name="Не проверять при запуске"/>
@@ -872,13 +947,14 @@ Updated to v7.8.8:
 					<Item id="6114" name="Отображать список"/>
 					<Item id="6117" name="Выстроить список по мере использ."/>
 					<Item id="6334" name="Авто-определение кодировки символов"/>
-					<Item id="6314" name="Моноширинный шрифт в окне поиска (требуется перезапуск Notepad++)"/>
+					<!--<Item id="6314" name="Моноширинный шрифт в окне поиска (требуется перезапуск Notepad++)"/>-->
 					<Item id="6337" name="Расширение файла проекта:"/>
 					<Item id="6344" name="Предосмотр Документа"/>
 					<Item id="6345" name="Миниатюра под Вкладкой"/>
 					<Item id="6346" name="Отображать в Карте Документа"/>
-					<Item id="6348" name="Не заполнять поле в окне Поиска выделенным словом"/>
+					<!--<Item id="6348" name="Не заполнять поле в окне Поиска выделенным словом"/>-->
 					<Item id="6349" name="Использовать DirectWrite (требуется перезапуск Notepad++)"/>
+					<Item id="6350" name="Включить режим заполнения"/>
 				</MISC>
 				<MultiInstance title = "Режимы Запуска">
 					<Item id="6151" name="Режим Открытия Файлов"/>
@@ -929,7 +1005,7 @@ Updated to v7.8.8:
 					<Item id="6822" name="Путь копии:"/>
 				</Backup>
 				<AutoCompletion title="Автозавершение">
-					<Item id="6115" name="Авто-отступ Новой Строки"/>
+					<Item id="6115" name="Авто-отступ с новой строки"/>
 					<Item id="6807" name="Автозавершение"/>
 					<Item id="6808" name="Включить при каждом вводе"/>
 					<Item id="6809" name="Завершение функций"/>
@@ -992,14 +1068,14 @@ Updated to v7.8.8:
 				<Item id="1718" name="Расширенный (\n, \r, \t, \0, \x...)"/>
 				<Item id="1720" name="и новые строки"/>
 			</FindInFinder>
-            <DoSaveOrNot title="Сохранение ..."> 
-                <Item id="1761" name="Сохранить файл &quot;$STR_REPLACE$&quot; ?"/>
-                <Item id="6"    name="&amp;Да"/>
-                <Item id="7"    name="&amp;Нет"/>
-                <Item id="2"    name="&amp;Отмена"/>
-                <Item id="4"    name="Д&amp;а, для всех"/>
-                <Item id="5"    name="Н&amp;ет, для всех"/>
-            </DoSaveOrNot>
+			<DoSaveOrNot title="Сохранение ...">
+				<Item id="1761" name="Сохранить файл &quot;$STR_REPLACE$&quot; ?"/>
+				<Item id="6"    name="&amp;Да"/>
+				<Item id="7"    name="&amp;Нет"/>
+				<Item id="2"    name="&amp;Отмена"/>
+				<Item id="4"    name="Д&amp;а, для всех"/>
+				<Item id="5"    name="Н&amp;ет, для всех"/>
+			</DoSaveOrNot>
 		</Dialog>
 		<MessageBox>
 			<ContextMenuXmlEditWarning  title="Редактирование contextMenu"            message="Редактирование contextMenu.xml позволяет настроить свое всплывающее контекстное меню в Notepad++.&#x0A;Вы должны перезапустить Notepad++, чтобы изменения вступили в силу."/>
@@ -1080,8 +1156,8 @@ Updated to v7.8.8:
 			<ColumnVal        name="Dec"/>
 			<ColumnHex        name="Hex"/>
 			<ColumnChar       name="Символ"/>
-			<ColumnHtmlNumber name="HTML Номер"/> 
-			<ColumnHtmlName   name="HTML Код"/> 
+			<ColumnHtmlNumber name="HTML Номер"/>
+			<ColumnHtmlName   name="HTML Код"/>
 		</AsciiInsertion>
 		<DocumentMap>
 			<PanelTitle name="Карта Документа"/>
@@ -1191,6 +1267,10 @@ Updated to v7.8.8:
 			<find-status-replace-not-found        value="Замена: ничего не найдено"/>
 			<find-status-replace-readonly         value="Замена: Невозможно заменить текст. Текущий документ доступен только для чтения."/>
 			<find-status-cannot-find              value="Поиск: Не удается найти текст &quot;$STR_REPLACE$&quot;"/>
+			<find-status-scope-selection          value="в выделенном тексте"/>
+			<find-status-scope-all                value="во всем файле"/>
+			<find-status-scope-backward           value="от начала файла до знак вставки"/>
+			<find-status-scope-forward            value="от знак вставки до конца файла"/>
 			<finder-find-in-finder                value="Поиск в найденном..."/>
 			<finder-close-this                    value="Закрыть этот поиск"/>
 			<finder-collapse-all         value="Свернуть всё"/>
@@ -1199,6 +1279,7 @@ Updated to v7.8.8:
 			<finder-select-all           value="Выделить всё"/>
 			<finder-clear-all            value="Очистить всё"/>
 			<finder-open-all             value="Открыть всё"/>
+			<finder-wrap-long-lines      value="Перенос слов длинных строк"/>
 			<common-ok                   value="ОК"/>
 			<common-cancel               value="Отмена"/>
 			<common-name                 value="Имя: "/>
@@ -1211,29 +1292,31 @@ Updated to v7.8.8:
 			<userdefined-title-rename    value="Изменить Имя Синтаксиса"/>
 			<autocomplete-nb-char        value="Символ: "/>
 			<edit-verticaledge-nb-col    value="От символа:"/>
-			<summary                     value="Информация о Файле"/> 
-			<summary-filepath            value="Полный путь к файлу: "/> 
-			<summary-filecreatetime      value="Создан: "/> 
-			<summary-filemodifytime      value="Обновлён: "/> 
-			<summary-nbchar              value="Символов (без окончания строки): "/> 
-			<summary-nbword              value="Слов: "/> 
-			<summary-nbline              value="Строк: "/> 
-			<summary-nbbyte              value="Длина документа: "/> 
-			<summary-nbsel1              value=" выделенных символов ("/> 
-			<summary-nbsel2              value=" байт) в "/> 
+			<summary                     value="Информация о Файле"/>
+			<summary-filepath            value="Полный путь к файлу: "/>
+			<summary-filecreatetime      value="Создан: "/>
+			<summary-filemodifytime      value="Обновлён: "/>
+			<summary-nbchar              value="Символов (без окончания строки): "/>
+			<summary-nbword              value="Слов: "/>
+			<summary-nbwordinsel         value="Слов (в 1 выделении): "/>
+			<summary-nbline              value="Строк: "/>
+			<summary-nbbyte              value="Длина документа: "/>
+			<summary-nbsel1              value=" выделенных символов ("/>
+			<summary-nbsel2              value=" байт) в "/>
 			<summary-nbrange             value=" диапазоне(ах)"/>
-            <replace-in-files-confirm-title      value="Вы уверены?"/>
-            <replace-in-files-confirm-directory  value="Вы точно хотите заменить все совпадения в каталоге :"/>
-            <replace-in-files-confirm-filetype   value="Для типа файла(ов) :"/>
-            <replace-in-open-docs-confirm-title  value="Вы уверены?"/>
-            <replace-in-open-docs-confirm-message value="Вы уверены, что хотите заменить все совпадения во всех открытых документах?"/>
-            <find-result-caption                 value="Результаты поиска"/>
-            <find-result-title                   value="Поиск"/>
-            <find-result-title-info              value="(найдено $INT_REPLACE1$ совпадений в $INT_REPLACE2$ файлах из $INT_REPLACE3$)"/>
-            <find-result-title-info-selections   value="(найдено $INT_REPLACE1$ совпадений в $INT_REPLACE2$ выделениях из $INT_REPLACE3$)"/>
-            <find-result-title-info-extra        value=" - Режим Фильтра Строк: только отображает результаты фильтрования"/>
-            <find-result-hits                    value="(совпадений: $INT_REPLACE$)"/>
-            <find-regex-zero-length-match        value="совпадение нулевой длины"/>
-        </MiscStrings>
-    </Native-Langue>
+			<replace-in-files-confirm-title       value="Вы уверены?"/>
+			<replace-in-files-confirm-directory   value="Вы точно хотите заменить все совпадения в каталоге :"/>
+			<replace-in-files-confirm-filetype    value="Для типа файла(ов) :"/>
+			<replace-in-open-docs-confirm-title   value="Вы уверены?"/>
+			<replace-in-open-docs-confirm-message value="Вы уверены, что хотите заменить все совпадения во всех открытых документах?"/>
+			<find-result-caption                  value="Результаты поиска"/>
+			<find-result-title                    value="Поиск"/>
+			<find-result-title-info               value="(найдено $INT_REPLACE1$ совпадений в $INT_REPLACE2$ файлах из $INT_REPLACE3$)"/>
+			<find-result-title-info-selections    value="(найдено $INT_REPLACE1$ совпадений в $INT_REPLACE2$ выделениях из $INT_REPLACE3$)"/>
+			<find-result-title-info-extra         value=" - Режим Фильтра Строк: только отображает результаты фильтрования"/>
+			<find-result-hits                     value="(совпадений: $INT_REPLACE$)"/>
+			<find-result-hits-and-line-hits       value="($INT_REPLACE1$ совпадений в $INT_REPLACE2$ строках)"/>
+			<find-regex-zero-length-match         value="совпадение нулевой длины"/>
+		</MiscStrings>
+	</Native-Langue>
 </NotepadPlus>

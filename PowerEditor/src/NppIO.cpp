@@ -1424,6 +1424,7 @@ bool Notepad_plus::fileCloseAllButCurrent()
 
 	const int viewNo = currentView();
 	activateBuffer(_pDocTab->getBufferByIndex(0), viewNo);
+	active = _pDocTab->getCurrentTabIndex();
 	for (int32_t i = static_cast<int32_t>(_pDocTab->nbItem()) - 1; i >= 0; i--)	//close all from right to left
 	{
 		if (i == active)	//dont close active index

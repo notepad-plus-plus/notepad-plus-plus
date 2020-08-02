@@ -1,17 +1,14 @@
-Notepad++ v7.8.8 Enhancements & bug-fixes:
+Notepad++ v7.8.9 Enhancements & bug-fixes:
 
-1.  Fix accented characters in ANSI files not found in "find in files" and "replace in files" commands issues.
-2.  Add an option to improve rendering special Unicode characters by using Scintilla's DirectWrite technology.
-3.  Fix URL invisible issue in dark themes.
-4.  Fix the focus not on the opening new file issue.
-5.  Fix Workspace (Project panel), Folder As Workspace and function list keep focus issue after double clicking an item.
-6.  Add Ctrl+Backspace ability to delete word for comboboxes in Find/Replace dialog.
-7.  Add ability to find-all in selected text.
-8.  Fix wrong treatment of backslashes as escape sequences in autocompletion.
-9.  Enhance "Remove Empty Lines" command: Allow scope to be limited by an active selection.
-10. Fix loading of project & session files by drag & drop not working issue.
-11. Fix block selection cursor wrong positions after typing TAB.
-12. Add confirmation prompt to "Replace all in all opened documents" command to avoid PBKAC.
+1.  Fix Line operations (join lines, split lines, remove duplicate lines and sort lines) doing one too many lines issue.
+2.  Fix the regression of jump line failure via command line (-n).
+3.  Fix URL Hovered colour disappears after modifying any Clickable Link Settings regression.
+4.  Fix URL is not clickable in certain stuation while wrapped is enabled.
+5.  Fix "Save" not working in Windows dialog.
+6.  Fix Flickering cursor after double clicking a found line in find results.
+7.  Fix Found line may not be centered by double clicking in find results, if word wrap is on.
+8.  Fix wrong horizontal scroll bar position after restoring Window position.
+9.  Fix Find result window output TAB-width incoherent issue.
 
 
 Included plugins:

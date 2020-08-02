@@ -842,6 +842,11 @@ You can define several column markers by using white space to separate the diffe
                     <Item id="6728" name="Header and Footer"/>
                 </Print>
 
+                <Searching title="Searching">
+                    <Item id="6901" name="Don't fill find field in Find dialog with selected word"/>
+                    <Item id="6902" name="Use monospaced font in Find dialog (Need to restart Notepad++)"/>
+                </Searching>
+
                 <RecentFilesHistory title="Recent Files History">
                     <Item id="6304" name="Recent Files History"/>
                     <Item id="6306" name="Max. number of entries :"/>
@@ -943,7 +948,6 @@ You can define several column markers by using white space to separate the diffe
                     <Item id="6324" name="Document Switcher (Ctrl+TAB)"/>
                     <Item id="6331" name="Show only filename in title bar"/>
                     <Item id="6334" name="Autodetect character encoding"/>
-                    <Item id="6314" name="Use monospaced font in Find dialog (Need to restart Notepad++)"/>
                     <Item id="6349" name="Use DirectWrite (May improve rendering special characters, need to restart Notepad++)"/>
                     <Item id="6337" name="Workspace file ext.:"/>
                     <Item id="6114" name="Enable"/>
@@ -951,7 +955,6 @@ You can define several column markers by using white space to separate the diffe
                     <Item id="6344" name="Document Peeker"/>
                     <Item id="6345" name="Peek on tab"/>
                     <Item id="6346" name="Peek on document map"/>
-                    <Item id="6348" name="Don't fill find field in Find dialog with selected word"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Run a Macro Multiple Times">
@@ -970,17 +973,17 @@ You can define several column markers by using white space to separate the diffe
                 <Item id="7004" name="Sort &amp;tabs"/>
             </Window>
             <ColumnEditor title="Column Editor">
-                <Item id="2023" name="Text to Insert"/>
-                <Item id="2033" name="Number to Insert"/>
-                <Item id="2030" name="Initial number :"/>
-                <Item id="2031" name="Increase by :"/>
-                <Item id="2035" name="Leading zeros"/>
-                <Item id="2036" name="Repeat :"/>
-                <Item id="2032" name="Format"/>
-                <Item id="2024" name="Dec"/>
-                <Item id="2025" name="Oct"/>
-                <Item id="2026" name="Hex"/>
-                <Item id="2027" name="Bin"/>
+                <Item id="2023" name="&amp;Text to Insert"/>
+                <Item id="2033" name="&amp;Number to Insert"/>
+                <Item id="2030" name="&amp;Initial number :"/>
+                <Item id="2031" name="Increase b&amp;y :"/>
+                <Item id="2035" name="Leading &amp;zeros"/>
+                <Item id="2036" name="&amp;Repeat :"/>
+                <Item id="2032" name="&amp;Format"/>
+                <Item id="2024" name="&amp;Dec"/>
+                <Item id="2025" name="&amp;Oct"/>
+                <Item id="2026" name="&amp;Hex"/>
+                <Item id="2027" name="&amp;Bin"/>
                 <Item id="1" name="OK"/>
                 <Item id="2" name="Cancel"/>
             </ColumnEditor>

@@ -127,6 +127,9 @@ INT_PTR CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			_printSettingsDlg.init(_hInst, _hSelf);
 			_printSettingsDlg.create(IDD_PREFERENCE_PRINT_BOX, false, false);
 
+			_searchingSettingsDlg.init(_hInst, _hSelf);
+			_searchingSettingsDlg.create(IDD_PREFERENCE_SEARCHINGSETTINGS_BOX, false, false);
+
 			_langMenuDlg.init(_hInst, _hSelf);
 			_langMenuDlg.create(IDD_PREFERENCE_LANG_BOX, false, false);
 
@@ -161,6 +164,7 @@ INT_PTR CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			_wVector.push_back(DlgInfo(&_langMenuDlg, TEXT("Language"), TEXT("Language")));
 			_wVector.push_back(DlgInfo(&_highlighting, TEXT("Highlighting"), TEXT("Highlighting")));
 			_wVector.push_back(DlgInfo(&_printSettingsDlg, TEXT("Print"), TEXT("Print")));
+			_wVector.push_back(DlgInfo(&_searchingSettingsDlg, TEXT("Searching"), TEXT("Searching")));
 			_wVector.push_back(DlgInfo(&_backupDlg, TEXT("Backup"), TEXT("Backup")));
 			_wVector.push_back(DlgInfo(&_autoCompletionDlg, TEXT("Auto-Completion"), TEXT("AutoCompletion")));
 			_wVector.push_back(DlgInfo(&_multiInstDlg, TEXT("Multi-Instance"), TEXT("MultiInstance")));
@@ -188,6 +192,7 @@ INT_PTR CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			_langMenuDlg.reSizeTo(rc);
 			_highlighting.reSizeTo(rc);
 			_printSettingsDlg.reSizeTo(rc);
+			_searchingSettingsDlg.reSizeTo(rc);
 			_backupDlg.reSizeTo(rc);
 			_autoCompletionDlg.reSizeTo(rc);
 			_multiInstDlg.reSizeTo(rc);
@@ -336,6 +341,7 @@ void PreferenceDlg::destroy()
 	_langMenuDlg.destroy();
 	_highlighting.destroy();
 	_printSettingsDlg.destroy();
+	_searchingSettingsDlg.destroy();
 	_defaultNewDocDlg.destroy();
 	_defaultDirectoryDlg.destroy();
 	_recentFilesHistoryDlg.destroy();
@@ -902,7 +908,6 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_MIN2SYSTRAY, BM_SETCHECK, nppGUI._isMinimizedToTray, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_DETECTENCODING, BM_SETCHECK, nppGUI._detectEncoding, 0);
             ::SendDlgItemMessage(_hSelf, IDC_CHECK_AUTOUPDATE, BM_SETCHECK, nppGUI._autoUpdateOpt._doAutoUpdate, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_MONOSPACEDFONT_FINDDLG, BM_SETCHECK, nppGUI._monospacedFontFindDlg, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_DIRECTWRITE_ENABLE, BM_SETCHECK, nppGUI._writeTechnologyEngine == directWriteTechnology, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLEDOCPEEKER, BM_SETCHECK, nppGUI._isDocPeekOnTab ? BST_CHECKED : BST_UNCHECKED, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLEDOCPEEKONMAP, BM_SETCHECK, nppGUI._isDocPeekOnMap ? BST_CHECKED : BST_UNCHECKED, 0);
@@ -934,7 +939,6 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			::SendDlgItemMessage(_hSelf, IDC_EDIT_WORKSPACEFILEEXT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(nppGUI._definedWorkspaceExt.c_str()));
 			
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLEDOCSWITCHER, BM_SETCHECK, nppGUI._doTaskList, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_STOPFILLINGFINDFIELD, BM_SETCHECK, nppGUI._stopFillingFindField, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_STYLEMRU, BM_SETCHECK, nppGUI._styleMRU, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_SHORTTITLE, BM_SETCHECK, nppGUI._shortTitlebar, 0);
 
@@ -1046,12 +1050,6 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 					return TRUE;
 				}
 
-				case IDC_CHECK_STOPFILLINGFINDFIELD:
-				{
-					nppGUI._stopFillingFindField = isCheckedOrNot(IDC_CHECK_STOPFILLINGFINDFIELD);
-					return TRUE;
-				}
-
 				case IDC_CHECK_STYLEMRU :
 				{
 					nppGUI._styleMRU = isCheckedOrNot(IDC_CHECK_STYLEMRU);
@@ -1063,12 +1061,6 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 					nppGUI._shortTitlebar = isCheckedOrNot(IDC_CHECK_SHORTTITLE);
 					HWND grandParent = ::GetParent(_hParent);
 					::SendMessage(grandParent, NPPM_INTERNAL_UPDATETITLEBAR, 0, 0);
-					return TRUE;
-				}
-
-				case IDC_CHECK_MONOSPACEDFONT_FINDDLG:
-				{
-					nppGUI._monospacedFontFindDlg = isCheckedOrNot(IDC_CHECK_MONOSPACEDFONT_FINDDLG);
 					return TRUE;
 				}
 
@@ -3508,3 +3500,43 @@ INT_PTR CALLBACK SearchEngineChoiceDlg::run_dlgProc(UINT message, WPARAM wParam,
 	return FALSE;
 }
 
+INT_PTR CALLBACK SearchingSettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+{
+	NppParameters& nppParams = NppParameters::getInstance();
+	NppGUI& nppGUI = const_cast<NppGUI&>(nppParams.getNppGUI());
+
+	switch (message)
+	{
+		case WM_INITDIALOG:
+		{
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_STOPFILLINGFINDFIELD, BM_SETCHECK, nppGUI._stopFillingFindField, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_MONOSPACEDFONT_FINDDLG, BM_SETCHECK, nppGUI._monospacedFontFindDlg, 0);
+		}
+		break;
+
+		case WM_COMMAND:
+		{
+			switch (wParam)
+			{
+				case IDC_CHECK_STOPFILLINGFINDFIELD:
+				{
+					nppGUI._stopFillingFindField = isCheckedOrNot(IDC_CHECK_STOPFILLINGFINDFIELD);
+					return TRUE;
+				}
+				break;
+
+				case IDC_CHECK_MONOSPACEDFONT_FINDDLG:
+				{
+					nppGUI._monospacedFontFindDlg = isCheckedOrNot(IDC_CHECK_MONOSPACEDFONT_FINDDLG);
+					return TRUE;
+				}
+				break;
+
+				default:
+					return FALSE;
+			}
+		}
+		break;
+	}
+	return FALSE;
+}

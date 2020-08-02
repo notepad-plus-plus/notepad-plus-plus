@@ -827,6 +827,11 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                     <Item id="6728" name="Entête et pied de page"/>
                 </Print>
 
+                <Searching title="Recherche">
+                    <Item id="6901" name="Ne pas remplir le champs de Recherche avec le mot séléctionné"/>
+                    <Item id="6902" name="Activer la police à espacement fixe dans la boîte de dialogue Rechercher (Nécessité de redémarrage)"/>
+                </Searching>
+
                 <RecentFilesHistory title="Fichiers récents">
                     <Item id="6304" name="Historique des fichiers récents"/>
                     <Item id="6306" name="Nombre maxi. de fichiers récents :"/>
@@ -929,13 +934,11 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                     <Item id="6325" name="Aller à la dernière ligne après mise à jour"/>
                     <Item id="6331" name="Afficher seulement le nom du fichier dans la barre de titre"/>
                     <Item id="6334" name="Détecter l'encodage automatiquement"/>
-                    <Item id="6314" name="Activer la police à espacement fixe dans la boîte de dialogue Rechercher (Nécessité de redémarrage)"/>
                     <Item id="6349" name="Utiliser &quot;DirectWrite&quot; (il pourrait améliorer le rendu des caractères spéciaux. Nécessité de redémarrage)"/>
                     <Item id="6337" name="Ext. fichier espace de travail :"/>
                     <Item id="6344" name="Aperçu du document"/>
                     <Item id="6345" name="Aperçu à onglet"/>
                     <Item id="6346" name="Aperçu à commutateur de documents"/>
-                    <Item id="6348" name="Ne pas remplir le champs de Recherche avec le mot séléctionné"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Exécuter une macro en boucle">

@@ -837,6 +837,11 @@
                     <Item id="6728" name="頁首與頁尾"/>
                 </Print>
 
+                <Searching title="尋找">
+                    <Item id="6901" name="不用選取詞填充搜尋對話框中的尋找內容"/>
+                    <Item id="6902" name="在尋找與取代對話方塊中使用等寬字型（需要重新啟動 Notepad++）"/>
+                </Searching>
+
                 <RecentFilesHistory title="最近使用的檔案">
                     <Item id="6304" name="最近使用的檔案"/>
                     <Item id="6306" name="最大數量："/>
@@ -937,7 +942,6 @@
                     <Item id="6324" name="文件切換器（Ctrl + TAB）"/>
                     <Item id="6331" name="在標題列僅顯示檔案名稱（隱藏資料夾路徑）"/>
                     <Item id="6334" name="自動偵測檔案編碼"/>
-                    <Item id="6314" name="在尋找與取代對話方塊中使用等寬字型（需要重新啟動 Notepad++）"/>
                     <Item id="6349" name="使用 DirectWrite（可改善特殊字符的呈現，需要重新啟動 Notepad++）"/>
                     <Item id="6337" name="資料夾工作區檔案副檔名："/>
                     <Item id="6114" name="啟動"/>
@@ -945,7 +949,6 @@
                     <Item id="6344" name="窺視檔案"/>
                     <Item id="6345" name="於頁籤窺視檔案"/>
                     <Item id="6346" name="於文件導覽窺視檔案"/>
-                    <Item id="6348" name="不用選取詞填充搜尋對話框中的尋找內容"/>
                 </MISC>
             </Preference>
 

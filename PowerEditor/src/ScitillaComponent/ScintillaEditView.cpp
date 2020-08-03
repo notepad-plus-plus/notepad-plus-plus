@@ -517,8 +517,8 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 
 		case WM_RBUTTONDOWN:
 		{
-			bool rightClickKeepsCaretPos = ((NppParameters::getInstance()).getSVP())._rightClickKeepsCaretPos;
-			if (rightClickKeepsCaretPos)
+			bool rightClickKeepsSelection = ((NppParameters::getInstance()).getSVP())._rightClickKeepsSelection;
+			if (rightClickKeepsSelection)
 			{
 				int clickX = GET_X_LPARAM(lParam);
 				int marginX = static_cast<int>(execute(SCI_POINTXFROMPOSITION, 0, 0));

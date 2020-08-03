@@ -638,7 +638,7 @@ void MarginsDlg::initScintParam()
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_BOOKMARKMARGE, BM_SETCHECK, svp._bookMarkMarginShow, 0);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_CURRENTLINEHILITE, BM_SETCHECK, svp._currentLineHilitingShow, 0);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_SCROLLBEYONDLASTLINE, BM_SETCHECK, svp._scrollBeyondLastLine, 0);
-	::SendDlgItemMessage(_hSelf, IDC_CHECK_RIGHTCLICKKEEPSCARET, BM_SETCHECK, svp._rightClickKeepsCaretPos, 0);
+	::SendDlgItemMessage(_hSelf, IDC_CHECK_RIGHTCLICKKEEPSSELECTION, BM_SETCHECK, svp._rightClickKeepsSelection, 0);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_DISABLEADVANCEDSCROLL, BM_SETCHECK, svp._disableAdvancedScrolling, 0);
 
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_NOEDGE, BM_SETCHECK, !svp._showBorderEdge, 0);
@@ -760,8 +760,8 @@ INT_PTR CALLBACK MarginsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SCROLLBEYONDLASTLINE, 0, 0);
 					return TRUE;
 
-				case IDC_CHECK_RIGHTCLICKKEEPSCARET:
-					svp._rightClickKeepsCaretPos = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_RIGHTCLICKKEEPSCARET, BM_GETCHECK, 0, 0));
+				case IDC_CHECK_RIGHTCLICKKEEPSSELECTION:
+					svp._rightClickKeepsSelection = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_RIGHTCLICKKEEPSSELECTION, BM_GETCHECK, 0, 0));
 					return TRUE;
 
 				case IDC_CHECK_DISABLEADVANCEDSCROLL:

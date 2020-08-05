@@ -2280,9 +2280,12 @@ void ScintillaEditView::getVisibleStartAndEndPosition(int * startPos, int * endP
 	// Get the position of the 1st and last showing chars from the edit view
 	RECT rcEditView;
 	getClientRect(rcEditView);
-	*startPos = static_cast<int32_t>(execute(SCI_POSITIONFROMPOINT, 0, 0));
-	*endPos = static_cast<int32_t>(execute(SCI_POSITIONFROMPOINT, rcEditView.right - rcEditView.left, rcEditView.bottom - rcEditView.top));
-
+	LRESULT pos = execute(SCI_POSITIONFROMPOINT, 0, 0);
+	LRESULT line = execute(SCI_LINEFROMPOSITION, pos);
+	*startPos = static_cast<int32_t>(execute(SCI_POSITIONFROMLINE, line));
+	pos = execute(SCI_POSITIONFROMPOINT, rcEditView.right - rcEditView.left, rcEditView.bottom - rcEditView.top);
+	line = execute(SCI_LINEFROMPOSITION, pos);
+	*endPos = static_cast<int32_t>(execute(SCI_GETLINEENDPOSITION, line));
 }
 
 char * ScintillaEditView::getWordFromRange(char * txt, int size, int pos1, int pos2)

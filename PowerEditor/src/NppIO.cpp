@@ -1248,7 +1248,6 @@ bool Notepad_plus::fileCloseAllUnchanged()
 bool Notepad_plus::fileCloseAllButCurrent()
 {
 	BufferID current = _pEditView->getCurrentBufferID();
-	int active = _pDocTab->getCurrentTabIndex();
 	const int activeViewID = currentView();
 	bool noSaveToAll = false;
 	bool saveToAll = false;
@@ -1423,8 +1422,21 @@ bool Notepad_plus::fileCloseAllButCurrent()
     }
 
 	const int viewNo = currentView();
+	int active = _pDocTab->getCurrentTabIndex();
+	size_t nbItems = _pDocTab->nbItem();
 	activateBuffer(_pDocTab->getBufferByIndex(0), viewNo);
-	for (int32_t i = static_cast<int32_t>(_pDocTab->nbItem()) - 1; i >= 0; i--)	//close all from right to left
+	
+	// After activateBuffer() call, if file is deleteed, user will decide to keep or not the tab
+	// So here we check if the 1st tab is closed or not
+	size_t newNbItems = _pDocTab->nbItem();
+
+	if (nbItems > newNbItems) // the 1st tab has been removed
+	{
+		// active tab move 1 position forward
+		active -= 1;
+	}
+
+	for (int32_t i = static_cast<int32_t>(newNbItems) - 1; i >= 0; i--)	//close all from right to left
 	{
 		if (i == active)	//dont close active index
 		{

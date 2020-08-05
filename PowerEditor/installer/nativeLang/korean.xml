@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <NotepadPlus>
-    <!-- <localization work version="7.8.1~7.8.3" nick="Sapziller" name="ByungJo Yoon" mail="yunbj@naver.com"/> <localization work version=6.5.3~7.4.2 name="도움돌" mail= "domddol@gmail.com"/> <localization work version=1 and 6.1.5 nick= "taggon" name= "Taegon Kim" mail= "gonom9@gmail.com"/> <localization work version=2 nick= "" name= "JiHui Choi" mail= "jihui.choi@gmail.com"/> <localization work version=5.4R2 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=4 nick= "Sapziller" name= "Byungjo Yoon" mail= "yunbj@naver.com"/> <localization work version=5.8 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=5.9 nick= "Syonsi" name= "Kim JunHo" mail= "syonsi@live.com"/> <localization work version=5.92 nick= "Global DOL+I" name= "Lee Junho" mail= "riifjv@live.com"/> --> 
-<Native-Langue name="한국어" filename="korean.xml" version="7.8.3">
+    <!-- <localization work version="7.8.1~7.9" nick="Sapziller" name="ByungJo Yoon" mail="yunbj@naver.com"/> <localization work version=6.5.3~7.4.2 name="도움돌" mail= "domddol@gmail.com"/> <localization work version=1 and 6.1.5 nick= "taggon" name= "Taegon Kim" mail= "gonom9@gmail.com"/> <localization work version=2 nick= "" name= "JiHui Choi" mail= "jihui.choi@gmail.com"/> <localization work version=5.4R2 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=4 nick= "Sapziller" name= "Byungjo Yoon" mail= "yunbj@naver.com"/> <localization work version=5.8 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=5.9 nick= "Syonsi" name= "Kim JunHo" mail= "syonsi@live.com"/> <localization work version=5.92 nick= "Global DOL+I" name= "Lee Junho" mail= "riifjv@live.com"/> -->
+<Native-Langue name="한국어" filename="korean.xml" version="7.9">
 <Menu>
 <Main>
 <!--  Main Menu Entries --> 
@@ -121,6 +121,7 @@
   <Item id="42064" name="소수(쉼표) 내림차순 정렬"/>
   <Item id="42065" name="소수(점) 오름차순 정렬"/>
   <Item id="42066" name="소수(점) 내림차순 정렬"/>
+  <Item id="42078" name="임의로 정렬"/>
   <Item id="42016" name="대문자로 변환(&amp;U)"/>
   <Item id="42017" name="소문자로 변환(&amp;L)"/>
   <Item id="42067" name="제목 사례"/>
@@ -237,7 +238,7 @@
   <Item id="44049" name="요약..."/> 
   <Item id="44080" name="문서 구조"/> 
   <Item id="44084" name="함수 목록"/>
-  <Item id="44085" name="Workspace 폴더(&amp;W)"/> 
+  <Item id="44085" name="작업 영역으로 폴더 지정"/>
   <Item id="44086" name="1번 탭"/> 
   <Item id="44087" name="2번 탭"/> 
   <Item id="44088" name="3번 탭"/> 
@@ -320,8 +321,6 @@
   <Item id="50000" name="함수 자동 완성"/> 
   <Item id="50001" name="단어 자동 완성"/> 
   <Item id="50002" name="함수 인자 정보 보기"/> 
-  <Item id="50003" name="이전 문서로 변경"/>
-  <Item id="50004" name="다음 문서로 변경"/>
   <Item id="50005" name="매크로 기록 켜기/끄기"/>
   <Item id="50006" name="경로 자동 완성"/> 
   <Item id="44042" name="라인 숨기기"/> 
@@ -512,6 +511,71 @@
   <ScintillaCommandsTab name="Scintilla 명령어"/>
   <ConflictInfoOk name="이 항목은 충돌하는 단축키가 없습니다."/>
   <ConflictInfoEditing name="충돌 없음..."/>
+  <MainCommandNames>
+    <Item id="41019" name="탐색기에서 파일이 위치한 폴더 열기"/>
+    <Item id="41020" name="CMD에서 파일이 위치한 폴더 열기"/>
+    <Item id="41021" name="최근 닫은 파일 복원"/>
+    <Item id="45001" name="Windows 줄 끝 문자로 변환 (CR LF)"/>
+    <Item id="45002" name="Unix 줄 끝 문자로 변환 (LF)"/>
+    <Item id="45003" name="Macintosh 줄 끝 문자로 변환 (CR)"/>
+    <Item id="43022" name="첫번째 형식을 사용하여 찾기 결과에 책갈피 표시"/>
+    <Item id="43024" name="두번째 형식을 사용하여 찾기 결과에 책갈피 표시"/>
+    <Item id="43026" name="세번째 형식을 사용하여 찾기 결과에 책갈피 표시"/>
+    <Item id="43028" name="네번째 형식을 사용하여 찾기 결과에 책갈피 표시"/>
+    <Item id="43030" name="다섯번째 형식을 사용하여 찾기 결과에 책갈피 표시"/>
+    <Item id="43023" name="첫번째 형식의 책갈피 제거"/>
+    <Item id="43025" name="두번째 형식의 책갈피 제거"/>
+    <Item id="43027" name="세번째 형식의 책갈피 제거"/>
+    <Item id="43029" name="네번째 형식의 책갈피 제거"/>
+    <Item id="43031" name="다섯번째 형식의 책갈피 제거"/>
+    <Item id="43032" name="모든 형식의 책갈피 제거"/>
+    <Item id="43033" name="첫번째 형식의 이전 책갈피"/>
+    <Item id="43034" name="두번째 형식의 이전 책갈피"/>
+    <Item id="43035" name="세번째 형식의 이전 책갈피"/>
+    <Item id="43036" name="네번째 형식의 이전 책갈피"/>
+    <Item id="43037" name="다섯번째 형식의 이전 책갈피"/>
+    <Item id="43038" name="책갈피 창으로 만든 이전 책갈피"/>
+    <Item id="43039" name="첫번째 형식의 다음 책갈피"/>
+    <Item id="43040" name="두번째 형식의 다음 책갈피"/>
+    <Item id="43041" name="세번째 형식의 다음 책갈피"/>
+    <Item id="43042" name="네번째 형식의 다음 책갈피"/>
+    <Item id="43043" name="다섯번째 형식의 다음 책갈피"/>
+    <Item id="43044" name="책갈피 창으로 만든 다음 책갈피"/>
+    <Item id="44100" name="Firefox로 현재 파일 보기"/>
+    <Item id="44101" name="Chrome으로 현재 파일 보기"/>
+    <Item id="44103" name="IE로 현재 파일 보기"/>
+    <Item id="44102" name="Edge로 현재 파일 보기"/>
+    <Item id="50003" name="이전 문서로 전환"/>
+    <Item id="50004" name="다음 문서로 전환"/>
+    <Item id="44051" name="1번째 단계 접기"/>
+    <Item id="44052" name="2번째 단계 접기"/>
+    <Item id="44053" name="3번째 단계 접기"/>
+    <Item id="44054" name="4번째 단계 접기"/>
+    <Item id="44055" name="5번째 단계 접기"/>
+    <Item id="44056" name="6번째 단계 접기"/>
+    <Item id="44057" name="7번째 단계 접기"/>
+    <Item id="44058" name="8번째 단계 접기"/>
+    <Item id="44061" name="1번째 단계 펼치기"/>
+    <Item id="44062" name="2번째 단계 펼치기"/>
+    <Item id="44063" name="3번째 단계 펼치기"/>
+    <Item id="44064" name="4번째 단계 펼치기"/>
+    <Item id="44065" name="5번째 단계 펼치기"/>
+    <Item id="44066" name="6번째 단계 펼치기"/>
+    <Item id="44067" name="7번째 단계 펼치기"/>
+    <Item id="44068" name="8번째 단계 펼치기"/>
+    <Item id="44081" name="프로젝트 패널1 표시 상태 전환"/>
+    <Item id="44082" name="프로젝트 패널2 표시 상태 전환"/>
+    <Item id="44083" name="프로젝트 패널3 표시 상태 전환"/>
+    <Item id="44085" name="작업 영역으로 폴더 지정 표시 상태 전환"/>
+    <Item id="44080" name="문서 맵 표시 상태 전환"/>
+    <Item id="44084" name="함수 목록 표시 상태 전환"/>
+    <Item id="50005" name="매크로 기록 상태 전환"/>
+    <Item id="44104" name="프로젝트 패널1로 전환"/>
+    <Item id="44105" name="프로젝트 패널2로 전환"/>
+    <Item id="44106" name="프로젝트 패널3으로 전환"/>
+    <Item id="44107" name="작업 영역으로 폴더 지정으로 전환"/>
+    <Item id="44108" name="함수 목록으로 전환"/>
+  </MainCommandNames>
 </ShortcutMapper>
 <ShortcutMapperSubDialg title="단축키">
   <Item id="1" name="확인"/>
@@ -746,18 +810,19 @@
   <Item id="6206" name="줄 번호 표시"/> 
   <Item id="6207" name="책갈피 표시"/> 
   <Item id="6208" name="열표식 표시"/> 
-  <Item id="6209" name="열의 수: " /> 
   <Item id="6234" name="고급 스크롤 기능 해제 
 (터치패드 문제 시)" /> 
 
   <Item id="6211" name="열표식 설정" /> 
-  <Item id="6212" name="줄 모드"/> 
   <Item id="6213" name="배경 모드"/> 
+  <Item id="6237" name="십진수로 위치를 지정하여 열 표식을 추가하십시오.
+숫자 사이를 공백으로 구분하여 여러 개의 열 표식을 지정할 수 있습니다."/>
   <Item id="6214" name="현재 줄 강조"/> 
   <Item id="6215" name="부드러운 글꼴 사용"/> 
   <Item id="6231" name="테두리 폭"/>
   <Item id="6235" name="가장자리 없음"/>
   <Item id="6236" name="마지막 줄 넘어 스크롤 사용"/>
+  <Item id="6239" name="선택 영역 바깥에서 우클릭해도 선택 영역 유지"/>
 </Scintillas>
 
 <NewDoc title="새 문서">
@@ -843,6 +908,13 @@
   <Item id="6727" name="여기에 변수 설정 표시"/> 
   <Item id="6728" name="머리글 및 바닥글"/> 
 </Print>
+
+<Searching title="찾기">
+  <Item id="6901" name="찾기 대화창의 찾기 필드를 선택한 단어로 채우지 않기"/>
+  <Item id="6902" name="찾기 창에서 고정폭 글꼴 사용 (Notepad++ 재시작 필요)"/>
+  <Item id="6903" name="결과 창에 찾기 결과 표시 후에도 찾기 창 유지"/>
+  <Item id="6904" name="모든 열린 문서에서 바꾸기를 실행할 때 확인"/>
+</Searching>
 
 <RecentFilesHistory title="최근 파일 사용 기록">
   <Item id="6304" name="기록 설정"/> 
@@ -945,14 +1017,14 @@
   <Item id="6324" name="문서 전환 (Ctrl+Tab)"/> 
   <Item id="6331" name="제목 표시줄에 파일 이름만 표시"/> 
   <Item id="6334" name="문자 인코딩 자동 감지"/> 
-  <Item id="6314" name="찾기 창에서 고정폭 글꼴 사용 (Notepad++ 재시작 필요)"/>
+  <Item id="6349" name="바로 쓰기 사용 (특수 문자 그리기 속도가 개선될 수 있음, Notepad++ 재시작 필요)"/>
+  <Item id="6350" name="꽉채우기 사용 가능"/>
   <Item id="6337" name="Workspace 파일 확장자:"/>
   <Item id="6114" name="사용"/> 
   <Item id="6117" name="가장 최근 사용한 문서로 이동"/> 
   <Item id="6344" name="문서 엿보기"/>
   <Item id="6345" name="탭 엿보기"/>
   <Item id="6346" name="문서 맵에서 엿보기"/>
-  <Item id="6348" name="찾기 대화창의 찾기 필드를 선택한 단어로 채우지 않기"/>
   </MISC>
 </Preference>
 <MultiMacro title="매크로 반복 실행">
@@ -971,17 +1043,17 @@
   <Item id="7004" name="탭 정렬(&amp;t)"/> 
 </Window>
 <ColumnEditor title="열 편집기">
-  <Item id="2023" name="글자 삽입"/> 
-  <Item id="2033" name="숫자 삽입"/> 
-  <Item id="2030" name="초기 숫자:"/> 
-  <Item id="2031" name="증가치:"/> 
-  <Item id="2035" name="숫자 앞에 0 채우기"/> 
-  <Item id="2036" name="반복:"/>
-  <Item id="2032" name="형식"/> 
-  <Item id="2024" name="10진수"/> 
-  <Item id="2025" name="8진수"/> 
-  <Item id="2026" name="16진수"/> 
-  <Item id="2027" name="2진수"/> 
+  <Item id="2023" name="글자 삽입(&amp;T)"/>
+  <Item id="2033" name="숫자 삽입(&amp;N)"/>
+  <Item id="2030" name="초기 숫자(&amp;I):"/>
+  <Item id="2031" name="증가치(&amp;y):"/>
+  <Item id="2035" name="숫자 앞에 0 채우기(&amp;z)"/>
+  <Item id="2036" name="반복(&amp;R):"/>
+  <Item id="2032" name="형식"/>
+  <Item id="2024" name="10진수(&amp;D)"/>
+  <Item id="2025" name="8진수(&amp;O)"/>
+  <Item id="2026" name="16진수(&amp;H)"/>
+  <Item id="2027" name="2진수(&amp;B)"/>
   <Item id="1" name="확인"/> 
   <Item id="2" name="취소"/> 
 </ColumnEditor>
@@ -1113,6 +1185,7 @@ langs.xml 파일을 복구하시겠습니까?"/>
   <ColumnName name="이름"/>
   <ColumnPath name="경로"/>
   <ColumnType name="종류"/>
+  <ColumnType name="크기"/>
 </WindowsDlg>
 <AsciiInsertion>
   <PanelTitle name="ASCII 삽입 패널"/> 
@@ -1236,6 +1309,10 @@ exe, obj &amp;&amp; log 파일을 제외한 모든 파일에서 찾기:
     <find-status-replace-not-found value="바꾸기: 바꿀 곳이 없습니다."/>
     <find-status-replace-readonly value="바꾸기: 바꿀 수 없습니다. 문서가 읽기 전용입니다."/>
     <find-status-cannot-find value="찾기: &quot;$STR_REPLACE$&quot;을 찾을 수 없습니다."/>
+    <find-status-scope-selection value="선택 영역"/>
+    <find-status-scope-all value="파일 전체"/>
+    <find-status-scope-backward value="파일 시작에서 현재 위치까지"/>
+    <find-status-scope-forward value="현재 위치에서 파일 끝까지"/>
     <finder-find-in-finder value="찾기 결과에서 찾기..."/>
     <finder-close-this value="찾기 창 닫기"/>
     <finder-collapse-all value="모두 접기"/>
@@ -1244,6 +1321,7 @@ exe, obj &amp;&amp; log 파일을 제외한 모든 파일에서 찾기:
     <finder-select-all value="모두 선택"/>
     <finder-clear-all value="모두 지우기"/>
     <finder-open-all value="모두 열기"/>
+	<finder-wrap-long-lines value="긴 줄을 단어 단위로 줄바꿈"/>
     <common-ok value="확인"/>
     <common-cancel value="취소"/>
     <common-name value="이름: "/>
@@ -1267,6 +1345,18 @@ exe, obj &amp;&amp; log 파일을 제외한 모든 파일에서 찾기:
     <summary-nbsel1 value=" 선택된 글자 수("/>
     <summary-nbsel2 value=" bytes) "/>
     <summary-nbrange value=" 범위"/>
+    <replace-in-files-confirm-title value="맞습니까?"/>
+    <replace-in-files-confirm-directory value="범위 내에서 모두 바꾸시겠습니까? :"/>
+    <replace-in-files-confirm-filetype value="파일 종류 :"/>
+    <replace-in-open-docs-confirm-title value="맞습니까?"/>
+    <replace-in-open-docs-confirm-message value="열린 문서 전체에서 모두 바꾸시겠습니까?"/>
+    <find-result-caption value="찾기 결과"/>
+    <find-result-title value="찾기"/>
+    <find-result-title-info value="($INT_REPLACE3$ 개 파일을 검색하여 $INT_REPLACE2$ 개 파일에서 $INT_REPLACE1$ 개 일치)"/>
+    <find-result-title-info-selections value="($INT_REPLACE3$ 개 파일의 $INT_REPLACE2$ 개 선택 영역에서 $INT_REPLACE1$ 개 일치)"/>
+    <find-result-title-info-extra value=" - 열 필터 상태: 걸러낸 결과만 표시"/>
+    <find-result-hits value="($INT_REPLACE$ 일치)"/>
+    <find-regex-zero-length-match value="길이 0 일치" />
 </MiscStrings>
 </Native-Langue>
 </NotepadPlus>

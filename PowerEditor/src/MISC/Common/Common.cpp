@@ -771,6 +771,10 @@ COLORREF getCtrlBgColor(HWND hWnd)
 	return crRet;
 }
 
+bool stringEndsWith(const generic_string& str, const generic_string& suffix)
+{
+	return str.size() >= suffix.size() && 0 == str.compare(str.size() - suffix.size(), suffix.size(), suffix);
+}
 
 generic_string stringToUpper(generic_string strToConvert)
 {
@@ -815,6 +819,48 @@ std::vector<generic_string> stringSplit(const generic_string& input, const gener
 	return output;
 }
 
+std::vector<generic_string> stringSplitIntoLinesKeepingEndings(const generic_string& input)
+{
+	std::vector<generic_string> output;
+	const generic_string cr = TEXT("\r");
+	const generic_string lf = TEXT("\n");
+	size_t start = 0U;
+	size_t endViaCR = input.find(cr);
+	size_t endViaLF = input.find(lf);
+	while ((endViaCR != std::string::npos) || (endViaLF != std::string::npos))
+	{
+		if ((endViaCR != std::string::npos) && (endViaLF != std::string::npos))
+		{
+			if ((endViaLF == endViaCR + 1) || (endViaCR > endViaLF))
+			{
+				output.push_back(input.substr(start, endViaLF + 1 - start));
+				start = endViaLF + 1;
+			}
+			else
+			{
+				output.push_back(input.substr(start, endViaCR + 1 - start));
+				start = endViaCR + 1;
+			}
+		}
+		else if (endViaCR != std::string::npos)
+		{
+			output.push_back(input.substr(start, endViaCR + 1 - start));
+			start = endViaCR + 1;
+		}
+		else
+		{
+			output.push_back(input.substr(start, endViaLF + 1 - start));
+			start = endViaLF + 1;
+		}
+		endViaCR = input.find(cr, start);
+		endViaLF = input.find(lf, start);
+	}
+	if (input.substr(start, std::string::npos).length() > 0)
+	{
+		output.push_back(input.substr(start, std::string::npos));
+	}
+	return output;
+}
 
 bool str2numberVector(generic_string str2convert, std::vector<size_t>& numVect)
 {
@@ -853,10 +899,11 @@ generic_string stringJoin(const std::vector<generic_string>& strings, const gene
 {
 	generic_string joined;
 	size_t length = strings.size();
+	size_t separatorLength = separator.length();
 	for (size_t i = 0; i < length; ++i)
 	{
 		joined += strings.at(i);
-		if (i != length - 1)
+		if ((i != length - 1) && (separatorLength != 0))
 		{
 			joined += separator;
 		}

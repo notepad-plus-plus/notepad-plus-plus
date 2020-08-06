@@ -226,6 +226,11 @@ void Searching::displaySectionCentered(int posStart, int posEnd, ScintillaEditVi
 	// Move cursor to end of result and select result
 	pEditView->execute(SCI_GOTOPOS, posEnd);
 	pEditView->execute(SCI_SETANCHOR, posStart);
+
+	// Update Scintilla's knowledge about what column the caret is in, so that if user
+	// does up/down arrow as first navigation after the search result is selected,
+	// the caret doesn't jump to an unexpected column
+	pEditView->execute(SCI_CHOOSECARETX);
 }
 
 LONG_PTR FindReplaceDlg::originalFinderProc = NULL;

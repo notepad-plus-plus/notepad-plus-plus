@@ -55,8 +55,16 @@ protected:
 			{
 				return TEXT("");
 			}
-
-			return input.substr(_fromColumn, 1 + _toColumn - _fromColumn);
+			else if (_fromColumn == _toColumn)
+			{
+				// get characters from the indicated column to the end of the line
+				return input.substr(_fromColumn);
+			}
+			else
+			{
+				// get characters between the indicated columns, inclusive
+				return input.substr(_fromColumn, _toColumn - _fromColumn);
+			}
 		}
 		else
 		{

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     History of Corsican translation for Notepad++
+		- Updated on August 6th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.9
 		- Updated on July 8th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.8
 		- Updated on May 26th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.7
 		- Updated on January 8th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.3
@@ -860,6 +861,11 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                     <Item id="6728" name="Intestatura è bassu di pagina"/>
                 </Print>
 
+                <Searching title="Searching">
+                    <Item id="6901" name="Ùn micca riempie u campu di Ricerca cù a parolla selezziunata"/>
+                    <Item id="6902" name="Impiegà a grafia à spaziamentu fissu in u dialogu di ricerca (Richiede di rilancià Notepad++)"/>
+                </Searching>
+
                 <RecentFilesHistory title="Schedarii recenti">
                     <Item id="6304" name="Crunulogia di schedarii recenti"/>
                     <Item id="6306" name="Numeru massimu d’elementi :"/>
@@ -963,7 +969,6 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                     <Item id="6324" name="Cambiamentu di ducumentu (Ctrl+Tabul.)"/>
                     <Item id="6331" name="Affissà solu u nome di schedariu in a barra di titulu"/>
                     <Item id="6334" name="Detezione autumatica di cudificazione di caratteru"/>
-                    <Item id="6314" name="Impiegà a grafia à spaziamentu fissu in u dialogu di ricerca (Richiede di rilancià Notepad++)"/>
                     <Item id="6349" name="Impiegà DirectWrite (Puderia amendà a trasfurmazione di i caratteri speziali ; richiede di rilancià Notepad++)"/>
                     <Item id="6337" name="Estensione di spaziu di travagliu :"/>
                     <Item id="6114" name="Attivà"/>
@@ -971,7 +976,6 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                     <Item id="6344" name="Fighjata di ducumentu"/>
                     <Item id="6345" name="Fighjata da l’unghjetta"/>
                     <Item id="6346" name="Fighjata da a cartugrafia di ducumentu"/>
-                    <Item id="6348" name="Ùn micca riempie u campu di Ricerca cù a parolla selezziunata"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Eseguisce una macro parechje volte">
@@ -990,17 +994,17 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                 <Item id="7004" name="Classi&amp;ficà"/>
             </Window>
             <ColumnEditor title="Mudificazione in modu culonna">
-                <Item id="2023" name="Testu à framette"/>
-                <Item id="2033" name="Numeru à framette"/>
-                <Item id="2030" name="Numeru di principiu :"/>
-                <Item id="2031" name="Cresce da :"/>
-                <Item id="2035" name="Zeru davanti"/>
-                <Item id="2036" name="Ripete :"/>
-                <Item id="2032" name="Forma"/>
-                <Item id="2024" name="Decimale"/>
-                <Item id="2025" name="Ottale"/>
-                <Item id="2026" name="Esadecimale"/>
-                <Item id="2027" name="Binariu"/>
+                <Item id="2023" name="&amp;Testu à framette"/>
+                <Item id="2033" name="&amp;Numeru à framette"/>
+                <Item id="2030" name="Numeru di &amp;principiu :"/>
+                <Item id="2031" name="&amp;Cresce da :"/>
+                <Item id="2035" name="&amp;Zeru davanti"/>
+                <Item id="2036" name="&amp;Ripete :"/>
+                <Item id="2032" name="&amp;Forma"/>
+                <Item id="2024" name="&amp;Decimale"/>
+                <Item id="2025" name="&amp;Ottale"/>
+                <Item id="2026" name="&amp;Esadecimale"/>
+                <Item id="2027" name="&amp;Binariu"/>
                 <Item id="1" name="Vai"/>
                 <Item id="2" name="Abbandunà"/>
             </ColumnEditor>
@@ -1255,6 +1259,10 @@ Circà in tutti i schedarii fora di exe, obj &amp;&amp; log:
             <find-status-replace-not-found value="Rimpiazzà : alcuna occurrenza trova"/>
             <find-status-replace-readonly value="Rimpiazzà : Ùn si pò rimpiazzà u testu. U ducumentu attuale pò solu si leghje"/>
             <find-status-cannot-find value="Circà : Ùn si pò truvà u testu « $STR_REPLACE$ »"/>
+            <find-status-scope-selection value="in u testu selezziunatu"/>
+            <find-status-scope-all value="in u schedariu sanu"/>
+            <find-status-scope-backward value="da u principiu di schedariu à u cursore"/>
+            <find-status-scope-forward value="da u cursore à a fine di schedariu"/>
             <finder-find-in-finder value="Circà in sti risultati trovi…"/>
             <finder-close-this value="Chjode stu circatore"/>
             <finder-collapse-all value="Tuttu ripiegà"/>

@@ -803,6 +803,8 @@ struct NppGUI final
 	int _tabSize = 4;
 	bool _tabReplacedBySpace = false;
 
+	bool _finderLinesAreCurrentlyWrapped = false;
+
 	int _fileAutoDetection = cdEnabledNew;
 
 	bool _checkHistoryFiles = false;

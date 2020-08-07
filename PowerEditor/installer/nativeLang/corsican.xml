@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     History of Corsican translation for Notepad++
-		- Updated on August 6th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.9
-		- Updated on July 8th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.8
+		- Updated on August 7th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.9
 		- Updated on May 26th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.7
 		- Updated on January 8th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.3
 		- Updated on October 31st, 2019 by Patriccollu di Santa Maria è Sichè for version 7.8.1
@@ -17,7 +16,7 @@
 	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/corsican.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="Corsu" filename="corsican.xml" version="7.8.8">
+    <Native-Langue name="Corsu" filename="corsican.xml" version="7.8.9">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -775,6 +774,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                     <Item id="6231" name="Larghezza di bordu"/>
                     <Item id="6235" name="Nisunu bordu"/>
                     <Item id="6236" name="Permette l’affissera dopu à l’ultima linea"/>
+                    <Item id="6239" name="Cunservà a selezzione quandu ci hè un cliccu dirittu fora di a selezzione"/>
                 </Scintillas>
 
                 <NewDoc title="Novu ducumentu">
@@ -862,7 +862,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                 </Print>
 
                 <Searching title="Searching">
-                    <Item id="6901" name="Ùn micca riempie u campu di Ricerca cù a parolla selezziunata"/>
+                    <Item id="6901" name="Ùn micca riempie u campu di ricerca cù a parolla selezziunata"/>
                     <Item id="6902" name="Impiegà a grafia à spaziamentu fissu in u dialogu di ricerca (Richiede di rilancià Notepad++)"/>
                 </Searching>
 

@@ -31,6 +31,7 @@
 
 #include <algorithm>
 #include <utility>
+#include <random>
 
 // Base interface for line sorting.
 class ISorter
@@ -382,6 +383,21 @@ protected:
 	double convertStringToNumber(const generic_string& input) override
 	{
 		return stodLocale(input, _usLocale);
+	}
+};
+
+class RandomSorter : public ISorter
+{
+public:
+	unsigned seed;
+	RandomSorter(bool isDescending, size_t fromColumn, size_t toColumn) : ISorter(isDescending, fromColumn, toColumn)
+	{
+		seed = static_cast<unsigned>(time(NULL));
+	}
+	std::vector<generic_string> sort(std::vector<generic_string> lines) override
+	{
+		std::shuffle(lines.begin(), lines.end(), std::default_random_engine(seed));
+		return lines;
 	}
 };
 

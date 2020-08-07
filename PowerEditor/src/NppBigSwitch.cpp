@@ -824,12 +824,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_GETCURRENTLINE:
 		{
-			return _pEditView->getCurrentLineNumber();
+			return _pEditView->getCurrentLineNumber() + 1;	// one-based, not zero-based
 		}
 
 		case NPPM_GETCURRENTCOLUMN:
 		{
-			return _pEditView->getCurrentColumnNumber();
+			return _pEditView->getCurrentColumnNumber() + 1;	// one-based, not zero-based
 		}
 
 		case NPPM_GETCURRENTSCINTILLA:

@@ -2346,6 +2346,13 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		_pFinder->_scintView.execute(SCI_SETUSETABS, true);
 		_pFinder->_scintView.execute(SCI_SETTABWIDTH, 4);
 
+		NppParameters& nppParam = NppParameters::getInstance();
+		NppGUI& nppGUI = const_cast<NppGUI&>(nppParam.getNppGUI());
+		_pFinder->_longLinesAreWrapped = nppGUI._finderLinesAreCurrentlyWrapped;
+		_pFinder->_scintView.wrap(_pFinder->_longLinesAreWrapped);
+		_pFinder->_scintView.setWrapMode(LINEWRAP_INDENT);
+		_pFinder->_scintView.showWrapSymbol(true);
+
 		// allow user to start selecting as a stream block, then switch to a column block by adding Alt keypress
 		_pFinder->_scintView.execute(SCI_SETMOUSESELECTIONRECTANGULARSWITCH, true);
 
@@ -2453,6 +2460,12 @@ Finder * FindReplaceDlg::createFinder()
 
 	pFinder->_scintView.execute(SCI_SETUSETABS, true);
 	pFinder->_scintView.execute(SCI_SETTABWIDTH, 4);
+
+	// inherit setting from current state of main finder:
+	pFinder->_longLinesAreWrapped = _pFinder->_longLinesAreWrapped;
+	pFinder->_scintView.wrap(pFinder->_longLinesAreWrapped);
+	pFinder->_scintView.setWrapMode(LINEWRAP_INDENT);
+	pFinder->_scintView.showWrapSymbol(true);
 
 	// allow user to start selecting as a stream block, then switch to a column block by adding Alt keypress
 	pFinder->_scintView.execute(SCI_SETMOUSESELECTIONRECTANGULARSWITCH, true);
@@ -3447,6 +3460,20 @@ void Finder::openAll()
 	}
 }
 
+void Finder::wrapLongLinesToggle()
+{
+	_longLinesAreWrapped = !_longLinesAreWrapped;
+	_scintView.wrap(_longLinesAreWrapped);
+
+	if (!_canBeVolatiled)
+	{
+		// only remember this setting from the original finder
+		NppParameters& nppParam = NppParameters::getInstance();
+		NppGUI& nppGUI = const_cast<NppGUI&>(nppParam.getNppGUI());
+		nppGUI._finderLinesAreCurrentlyWrapped = _longLinesAreWrapped;
+	}
+}
+
 bool Finder::isLineActualSearchResult(const generic_string & s) const
 {
 	const auto firstColon = s.find(TEXT("\tLine "));
@@ -3678,6 +3705,12 @@ INT_PTR CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 					return TRUE;
 				}
 
+				case NPPM_INTERNAL_SCINTILLAFINDERWRAP:
+				{
+					wrapLongLinesToggle();
+					return TRUE;
+				}
+
 				default :
 				{
 					return FALSE;
@@ -3704,6 +3737,7 @@ INT_PTR CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 				generic_string selectAll = pNativeSpeaker->getLocalizedStrFromID("finder-select-all", TEXT("Select all"));
 				generic_string clearAll = pNativeSpeaker->getLocalizedStrFromID("finder-clear-all", TEXT("Clear all"));
 				generic_string openAll = pNativeSpeaker->getLocalizedStrFromID("finder-open-all", TEXT("Open all"));
+				generic_string wrapLongLines = pNativeSpeaker->getLocalizedStrFromID("finder-wrap-long-lines", TEXT("Word wrap long lines"));
 
 				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_FINDINFINDERDLG, findInFinder));
 				if (_canBeVolatiled)
@@ -3717,8 +3751,12 @@ INT_PTR CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINFERCLEARALL, clearAll));
 				tmp.push_back(MenuItemUnit(0, TEXT("Separator")));
 				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINFEROPENALL, openAll));
+				tmp.push_back(MenuItemUnit(0, TEXT("Separator")));
+				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINDERWRAP, wrapLongLines));
 
 				scintillaContextmenu.create(_hSelf, tmp);
+
+				scintillaContextmenu.checkItem(NPPM_INTERNAL_SCINTILLAFINDERWRAP, _longLinesAreWrapped);
 
 				scintillaContextmenu.display(p);
 				return TRUE;

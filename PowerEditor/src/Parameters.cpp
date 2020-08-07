@@ -4563,6 +4563,15 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			}
 		}
 
+		else if (!lstrcmp(nm, TEXT("FinderConfig")))
+		{
+			const TCHAR* val = element->Attribute(TEXT("wrappedLines"));
+			if (val)
+			{
+				_nppGUI._finderLinesAreCurrentlyWrapped = (!lstrcmp(val, TEXT("yes")));
+			}
+		}
+
 		else if (!lstrcmp(nm, TEXT("NewDocDefaultSettings")))
 		{
 			int i;
@@ -5646,6 +5655,14 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("top"), _nppGUI._findWindowPos.top);
 		GUIConfigElement->SetAttribute(TEXT("right"), _nppGUI._findWindowPos.right);
 		GUIConfigElement->SetAttribute(TEXT("bottom"), _nppGUI._findWindowPos.bottom);
+	}
+
+	// <GUIConfig name="FinderConfig" wrappedLines="no" />
+	{
+		TiXmlElement* GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
+		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("FinderConfig"));
+		const TCHAR* pStr = _nppGUI._finderLinesAreCurrentlyWrapped ? TEXT("yes") : TEXT("no");
+		GUIConfigElement->SetAttribute(TEXT("wrappedLines"), pStr);
 	}
 
 	// <GUIConfig name="noUpdate" intervalDays="15" nextUpdateDate="20161022">no</GUIConfig>

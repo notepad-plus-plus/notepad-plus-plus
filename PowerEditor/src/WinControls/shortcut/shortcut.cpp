@@ -811,6 +811,7 @@ bool recordedMacroStep::isMacroable() const
 		case SCI_SCROLLTOSTART:
 		case SCI_SCROLLTOEND:
 		case SCI_SETVIRTUALSPACEOPTIONS:
+		case SCI_SETCARETLINEBACKALPHA:
 		{
 			if (_macroType == mtUseLParameter)
 				return true;

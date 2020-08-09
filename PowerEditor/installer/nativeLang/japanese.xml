@@ -120,6 +120,7 @@
                     <Item id="42064" name="選択行を　実数(コンマが小数点)として降順ソート"/>
                     <Item id="42065" name="選択行を　実数(ピリオドが小数点)として昇順ソート"/>
                     <Item id="42066" name="選択行を　実数(ピリオドが小数点)として降順ソート"/>
+                    <Item id="42078" name="選択行を　ランダムに入れ替える"/>
                     <Item id="42016" name="大文字に変換(&amp;U)"/>
                     <Item id="42017" name="小文字に変換(&amp;L)"/>
                     <Item id="42067" name="語頭を大文字、他は小文字(Proper Case 強制)(&amp;P)"/>
@@ -763,6 +764,7 @@
                     <Item id="6231" name="枠線幅"/>
                     <Item id="6235" name="枠を非表示"/>
                     <Item id="6236" name="最終行を1行目までスクロールできる"/>
+                    <Item id="6239" name="選択範囲外を右クリックしたときに選択を解除しない"/>
                 </Scintillas>
 
                 <NewDoc title="新規文書">
@@ -1246,6 +1248,10 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <find-status-replace-not-found value="置換：一致するものはありません"/>
             <find-status-replace-readonly value="置換：置換できません。この文書は読み取り専用です"/>
             <find-status-cannot-find value="検索：見つかりません。&quot;$STR_REPLACE$&quot;"/>
+            <find-status-scope-selection value="（選択範囲内）"/>
+            <find-status-scope-all value="（ファイル全体）"/>
+            <find-status-scope-backward value="（ファイル先頭から カーソル位置まで）"/>
+            <find-status-scope-forward value="（カーソル位置から ファイル末尾まで）"/>
             <finder-find-in-finder value="この検索結果から検索..."/>
             <finder-close-this value="この検索結果を閉じる"/>
             <finder-collapse-all value="すべて折りたたむ"/>

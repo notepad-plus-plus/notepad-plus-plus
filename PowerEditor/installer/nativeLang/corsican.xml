@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     History of Corsican translation for Notepad++
-		- Updated on August 7th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.9
+		- Updated on August 9th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.9
 		- Updated on May 26th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.7
 		- Updated on January 8th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.3
 		- Updated on October 31st, 2019 by Patriccollu di Santa Maria è Sichè for version 7.8.1
@@ -136,6 +136,7 @@
                     <Item id="42064" name="Classificà e linee cum’è numeri decimali (virgula) discendente"/>
                     <Item id="42065" name="Classificà e linee cum’è numeri decimali (puntu) crescente"/>
                     <Item id="42066" name="Classificà e linee cum’è numeri decimali (puntu) discendente"/>
+                    <Item id="42078" name="Classificà e linee à l’azardu"/>
                     <Item id="42016" name="&amp;MAIUSCULA"/>
                     <Item id="42017" name="mi&amp;nuscula"/>
                     <Item id="42067" name="Maiuscula Per &amp;Ogni Parolla"/>

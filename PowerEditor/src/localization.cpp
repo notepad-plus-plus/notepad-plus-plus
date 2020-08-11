@@ -211,6 +211,40 @@ generic_string NativeLangSpeaker::getNativeLangMenuString(int itemID) const
 	return TEXT("");
 }
 
+generic_string NativeLangSpeaker::getShortcutNameString(int itemID) const
+{
+	if (!_nativeLangA)
+		return TEXT("");
+
+	TiXmlNodeA *node = _nativeLangA->FirstChild("Dialog");
+	if (!node) return TEXT("");
+
+	node = node->FirstChild("ShortcutMapper");
+	if (!node) return TEXT("");
+
+	node = node->FirstChild("MainCommandNames");
+	if (!node) return TEXT("");
+
+	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+
+	for (TiXmlNodeA *childNode = node->FirstChildElement("Item");
+		childNode ;
+		childNode = childNode->NextSibling("Item") )
+	{
+		TiXmlElementA *element = childNode->ToElement();
+		int id;
+		if (element->Attribute("id", &id) && (id == itemID))
+		{
+			const char *name = element->Attribute("name");
+			if (name)
+			{
+				return wmc.char2wchar(name, _nativeLangEncoding);
+			}
+		}
+	}
+	return TEXT("");
+}
+
 generic_string NativeLangSpeaker::getLocalizedStrFromID(const char *strID, const generic_string& defaultString) const
 {
 	if (not _nativeLangA)

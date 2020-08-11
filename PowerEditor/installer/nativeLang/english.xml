@@ -440,7 +440,7 @@
                 <Item id="1934" name="Copy to Clipboard"/>
                 <Item id="2"    name="Close"/>
             </MD5FromTextDlg>
-            
+
             <SHA256FromFilesDlg title="Generate SHA-256 digest from files">
                 <Item id="1922" name="Choose files to generate SHA-256..."/>
                 <Item id="1924" name="Copy to Clipboard"/>
@@ -452,7 +452,7 @@
                 <Item id="1934" name="Copy to Clipboard"/>
                 <Item id="2"    name="Close"/>
             </SHA256FromTextDlg>
-            
+
             <PluginsAdminDlg title="Plugins Admin" titleAvailable = "Available" titleUpdates = "Updates" titleInstalled = "Installed">
                 <ColumnPlugin   name="Plugin"/>
                 <ColumnVersion  name="Version"/>
@@ -512,6 +512,66 @@
                 <ScintillaCommandsTab name="Scintilla commands"/>
                 <ConflictInfoOk name="No shortcut conflicts for this item."/>
                 <ConflictInfoEditing name="No conflicts . . ."/>
+                <MainCommandNames>
+                    <Item id="41019" name="Open containing folder in Explorer"/>
+                    <Item id="41020" name="Open containing folder in Command Prompt"/>
+                    <Item id="41021" name="Restore Recent Closed File"/>
+                    <Item id="45001" name="EOL Conversion to Windows (CR LF)"/>
+                    <Item id="45002" name="EOL Conversion to Unix (LF)"/>
+                    <Item id="45003" name="EOL Conversion to Macintosh (CR)"/>
+                    <Item id="43022" name="Mark search results using 1st style"/>
+                    <Item id="43024" name="Mark search results using 2nd style"/>
+                    <Item id="43026" name="Mark search results using 3rd style"/>
+                    <Item id="43028" name="Mark search results using 4th style"/>
+                    <Item id="43030" name="Mark search results using 5th style"/>
+                    <Item id="43023" name="Clear marks using 1st style"/>
+                    <Item id="43025" name="Clear marks using 2nd style"/>
+                    <Item id="43027" name="Clear marks using 3rd style"/>
+                    <Item id="43029" name="Clear marks using 4th style"/>
+                    <Item id="43031" name="Clear marks using 5th style"/>
+                    <Item id="43032" name="Clear marks using any style"/>
+                    <Item id="43033" name="Previous mark using 1st style"/>
+                    <Item id="43034" name="Previous mark using 2nd style"/>
+                    <Item id="43035" name="Previous mark using 3rd style"/>
+                    <Item id="43036" name="Previous mark using 4th style"/>
+                    <Item id="43037" name="Previous mark using 5th style"/>
+                    <Item id="43038" name="Previous mark created with Mark..."/>
+                    <Item id="43039" name="Next mark using 1st style"/>
+                    <Item id="43040" name="Next mark using 2nd style"/>
+                    <Item id="43041" name="Next mark using 3rd style"/>
+                    <Item id="43042" name="Next mark using 4th style"/>
+                    <Item id="43043" name="Next mark using 5th style"/>
+                    <Item id="43044" name="Next mark created with Mark..."/>
+                    <Item id="44100" name="View current file in Firefox"/>
+                    <Item id="44101" name="View current file in Chrome"/>
+                    <Item id="44103" name="View current file in IE"/>
+                    <Item id="44102" name="View current file in Edge"/>
+                    <Item id="50003" name="Switch to previous document"/>
+                    <Item id="50004" name="Switch to next document"/>
+                    <Item id="44051" name="Collapse Level 1"/>
+                    <Item id="44052" name="Collapse Level 2"/>
+                    <Item id="44053" name="Collapse Level 3"/>
+                    <Item id="44054" name="Collapse Level 4"/>
+                    <Item id="44055" name="Collapse Level 5"/>
+                    <Item id="44056" name="Collapse Level 6"/>
+                    <Item id="44057" name="Collapse Level 7"/>
+                    <Item id="44058" name="Collapse Level 8"/>
+                    <Item id="44061" name="Uncollapse Level 1"/>
+                    <Item id="44062" name="Uncollapse Level 2"/>
+                    <Item id="44063" name="Uncollapse Level 3"/>
+                    <Item id="44064" name="Uncollapse Level 4"/>
+                    <Item id="44065" name="Uncollapse Level 5"/>
+                    <Item id="44066" name="Uncollapse Level 6"/>
+                    <Item id="44067" name="Uncollapse Level 7"/>
+                    <Item id="44068" name="Uncollapse Level 8"/>
+                    <Item id="44081" name="Toggle Project Panel 1"/>
+                    <Item id="44082" name="Toggle Project Panel 2"/>
+                    <Item id="44083" name="Toggle Project Panel 3"/>
+                    <Item id="44085" name="Toggle Folder as Workspace"/>
+                    <Item id="44080" name="Toggle Document Map"/>
+                    <Item id="44084" name="Toggle Function List"/>
+                    <Item id="50005" name="Toggle macro recording"/>
+                </MainCommandNames>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="Shortcut">
                 <Item id="1" name="OK"/>
@@ -1003,7 +1063,7 @@ You can define several column markers by using white space to separate the diffe
                 <Item id="1718" name="E&amp;xtended (\n, \r, \t, \0, \x...)"/>
                 <Item id="1720" name="&amp;. matches newline"/>
             </FindInFinder>
-            <DoSaveOrNot title="Save"> 
+            <DoSaveOrNot title="Save">
                 <Item id="1761" name="Save file &quot;$STR_REPLACE$&quot; ?"/>
                 <Item id="6" name="&amp;Yes"/>
                 <Item id="7" name="&amp;No"/>
@@ -1292,3 +1352,4 @@ Find in all files except exe, obj &amp;&amp; log:
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>
+

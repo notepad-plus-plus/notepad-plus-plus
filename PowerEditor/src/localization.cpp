@@ -1320,5 +1320,9 @@ int NativeLangSpeaker::messageBox(const char *msgBoxTagName, HWND hWnd, const TC
 		title = stringReplace(title, TEXT("$STR_REPLACE$"), strInfo);
 		msg = stringReplace(msg, TEXT("$STR_REPLACE$"), strInfo);
 	}
+	if (_isRTL)
+	{
+		msgBoxType |= MB_RTLREADING | MB_RIGHT;
+	}
 	return ::MessageBox(hWnd, msg.c_str(), title.c_str(), msgBoxType);
 }

@@ -31,6 +31,7 @@
 
 #include <algorithm>
 #include <utility>
+#include "Common.h"
 
 // Base interface for line sorting.
 class ISorter
@@ -82,32 +83,47 @@ class LexicographicSorter : public ISorter
 {
 public:
 	LexicographicSorter(bool isDescending, size_t fromColumn, size_t toColumn) : ISorter(isDescending, fromColumn, toColumn) { };
-	
+
 	std::vector<generic_string> sort(std::vector<generic_string> lines) override
 	{
-		// Note that both branches here are equivalent in the sense that they give always give the same answer.
-		// However, if we are *not* sorting specific columns, then we get a 40% speed improvement by not calling
-		// getSortKey() so many times.
-		if (isSortingSpecificColumns())
+		const bool descending = isDescending();
+		bool conditionsCorrectForFasterSort = false;
+		
+		if (!isSortingSpecificColumns())
 		{
-			std::sort(lines.begin(), lines.end(), [this](generic_string a, generic_string b)
+			bool consistentLineEndings = true;
+			generic_string endingOnFirstLine = TEXT("\n");
+			if (stringEndsWith(lines[0], TEXT("\r\n")))
 			{
-				if (isDescending())
+				endingOnFirstLine = TEXT("\r\n");
+			}
+			else if (stringEndsWith(lines[0], TEXT("\r")))
+			{
+				endingOnFirstLine = TEXT("\r");
+			}
+			for (auto it = lines.begin(); it != lines.end(); ++it)
+			{
+				if (!stringEndsWith(*it, endingOnFirstLine))
 				{
-					return getSortKey(a).compare(getSortKey(b)) > 0;
-					
+					consistentLineEndings = false;
+					break;
 				}
-				else
-				{
-					return getSortKey(a).compare(getSortKey(b)) < 0;
-				}
-			});
+			}
+			
+			if (consistentLineEndings)
+			{
+				// if we have consistent line-endings on the lines to be sorted,
+				// and not using a column key, 
+				// we can get a big speed improvement by doing simpler sorting logic
+				conditionsCorrectForFasterSort = true;
+			}
 		}
-		else
+
+		if (conditionsCorrectForFasterSort)
 		{
-			std::sort(lines.begin(), lines.end(), [this](generic_string a, generic_string b)
+			std::sort(lines.begin(), lines.end(), [descending](generic_string a, generic_string b)
 			{
-				if (isDescending())
+				if (descending)
 				{
 					return a.compare(b) > 0;
 				}
@@ -116,11 +132,46 @@ public:
 					return a.compare(b) < 0;
 				}
 			});
+
+			return lines;
 		}
-		return lines;
+		else
+		{
+			std::vector<std::pair<size_t, generic_string>> indexAndPreparedContentVect;
+			indexAndPreparedContentVect.reserve(lines.size());
+			
+			for (size_t lineIndex = 0; lineIndex < lines.size(); ++lineIndex)
+			{
+				const generic_string originalLine = lines[lineIndex];
+				size_t p = originalLine.find_first_of(TEXT("\n\r"));
+				generic_string lineWithoutEnding = originalLine.substr(0, p);
+				indexAndPreparedContentVect.push_back(std::make_pair(lineIndex, lineWithoutEnding));
+			}
+			
+			// stable_sort is done so that lines that lines with the same key value or that differ only in line-ending retain their original order
+			std::stable_sort(indexAndPreparedContentVect.begin(), indexAndPreparedContentVect.end(), [this, descending](std::pair<size_t, generic_string> a, std::pair<size_t, generic_string> b)
+			{
+				if (descending)
+				{
+					return getSortKey(a.second) > getSortKey(b.second);
+				}
+				else
+				{
+					return getSortKey(a.second) < getSortKey(b.second);
+				}
+			});
+			
+			std::vector<generic_string> output;
+			output.reserve(lines.size());
+			for (auto it = indexAndPreparedContentVect.begin(); it != indexAndPreparedContentVect.end(); ++it)
+			{
+				output.push_back(lines[it->first]);
+			}
+			
+			return output;
+		}
 	}
 };
-
 // Treat consecutive numerals as one number
 // Otherwise it is a lexicographic sort
 class NaturalSorter : public ISorter

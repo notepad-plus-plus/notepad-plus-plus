@@ -120,6 +120,7 @@
                     <Item id="42064" name="Sort Lines As Decimals (Comma) Descending"/>
                     <Item id="42065" name="Sort Lines As Decimals (Dot) Ascending"/>
                     <Item id="42066" name="Sort Lines As Decimals (Dot) Descending"/>
+                    <Item id="42078" name="Sort Lines Randomly"/>
                     <Item id="42016" name="&amp;UPPERCASE"/>
                     <Item id="42017" name="&amp;lowercase"/>
                     <Item id="42067" name="&amp;Proper Case"/>
@@ -756,6 +757,7 @@ You can define several column markers by using white space to separate the diffe
                     <Item id="6231" name="Border Width"/>
                     <Item id="6235" name="No edge"/>
                     <Item id="6236" name="Enable scrolling beyond last line"/>
+                    <Item id="6239" name="Keep selection when right-click outside of selection"/>
                 </Scintillas>
 
                 <NewDoc title="New Document">
@@ -1238,6 +1240,10 @@ Find in all files except exe, obj &amp;&amp; log:
             <find-status-replace-not-found value="Replace: no occurrence was found"/>
             <find-status-replace-readonly value="Replace: Cannot replace text. The current document is read only"/>
             <find-status-cannot-find value="Find: Can't find the text &quot;$STR_REPLACE$&quot;"/>
+            <find-status-scope-selection value="in selected text"/>
+            <find-status-scope-all value="in entire file"/>
+            <find-status-scope-backward value="from start-of-file to caret"/>
+            <find-status-scope-forward value="from caret to end-of-file"/>
             <finder-find-in-finder value="Find in this found results..."/>
             <finder-close-this value="Close this finder"/>
             <finder-collapse-all value="Collapse all"/>

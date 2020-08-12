@@ -322,6 +322,8 @@ BEGIN
             MENUITEM "Sort Lines As Integers Descending",                IDM_EDIT_SORTLINES_INTEGER_DESCENDING
             MENUITEM "Sort Lines As Decimals (Comma) Descending",        IDM_EDIT_SORTLINES_DECIMALCOMMA_DESCENDING
             MENUITEM "Sort Lines As Decimals (Dot) Descending",          IDM_EDIT_SORTLINES_DECIMALDOT_DESCENDING
+            MENUITEM SEPARATOR
+            MENUITEM "Sort Lines Randomly",                              IDM_EDIT_SORTLINES_RANDOMLY
         END
         POPUP "Comment/Uncomment"
         BEGIN
@@ -547,7 +549,7 @@ BEGIN
         MENUITEM SEPARATOR
             MENUITEM "Summary...",  IDM_VIEW_SUMMARY
         MENUITEM SEPARATOR
-            POPUP "Project"
+            POPUP "Project Panels"
             BEGIN
                 MENUITEM "Project Panel 1",          IDM_VIEW_PROJECT_PANEL_1
                 MENUITEM "Project Panel 2",          IDM_VIEW_PROJECT_PANEL_2

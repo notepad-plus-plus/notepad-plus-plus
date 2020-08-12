@@ -28,6 +28,7 @@
 #include <memory>
 #include <shlwapi.h>
 #include <cinttypes>
+#include <windowsx.h>
 #include "ScintillaEditView.h"
 #include "Parameters.h"
 #include "Sorters.h"
@@ -511,6 +512,25 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 
 		case WM_VSCROLL :
 		{
+			break;
+		}
+
+		case WM_RBUTTONDOWN:
+		{
+			bool rightClickKeepsSelection = ((NppParameters::getInstance()).getSVP())._rightClickKeepsSelection;
+			if (rightClickKeepsSelection)
+			{
+				int clickX = GET_X_LPARAM(lParam);
+				int marginX = static_cast<int>(execute(SCI_POINTXFROMPOSITION, 0, 0));
+				if (clickX >= marginX)
+				{
+					// if right-click in the editing area (not the margins!),
+					// don't let this go to Scintilla because it will 
+					// move the caret to the right-clicked location,
+					// cancelling any selection made by the user
+					return TRUE;
+				}
+			}
 			break;
 		}
 	}
@@ -2260,9 +2280,12 @@ void ScintillaEditView::getVisibleStartAndEndPosition(int * startPos, int * endP
 	// Get the position of the 1st and last showing chars from the edit view
 	RECT rcEditView;
 	getClientRect(rcEditView);
-	*startPos = static_cast<int32_t>(execute(SCI_POSITIONFROMPOINT, 0, 0));
-	*endPos = static_cast<int32_t>(execute(SCI_POSITIONFROMPOINT, rcEditView.right - rcEditView.left, rcEditView.bottom - rcEditView.top));
-
+	LRESULT pos = execute(SCI_POSITIONFROMPOINT, 0, 0);
+	LRESULT line = execute(SCI_LINEFROMPOSITION, pos);
+	*startPos = static_cast<int32_t>(execute(SCI_POSITIONFROMLINE, line));
+	pos = execute(SCI_POSITIONFROMPOINT, rcEditView.right - rcEditView.left, rcEditView.bottom - rcEditView.top);
+	line = execute(SCI_LINEFROMPOSITION, pos);
+	*endPos = static_cast<int32_t>(execute(SCI_GETLINEENDPOSITION, line));
 }
 
 char * ScintillaEditView::getWordFromRange(char * txt, int size, int pos1, int pos2)

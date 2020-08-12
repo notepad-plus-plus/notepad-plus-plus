@@ -88,6 +88,10 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				prevWasEdit = false;
 			}
 
+			if (notification->modificationType & SC_MOD_CHANGEINDICATOR)
+			{
+				::InvalidateRect(notifyView->getHSelf(), NULL, FALSE);
+			}
 			break;
 		}
 

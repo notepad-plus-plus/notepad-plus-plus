@@ -211,10 +211,9 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 	if (isFileWorkspace(longFileName) && PathFileExists(longFileName))
 	{
 		nppParam.setWorkSpaceFilePath(0, longFileName);
-		_isWorkspaceFileLoadedFromCommandLine = true;
 		// This line switches to Project Panel 1 while starting up Npp
 		// and after dragging a workspace file to Npp:
-		command(IDM_VIEW_PROJECT_PANEL_1);
+		launchProjectPanel(IDM_VIEW_PROJECT_PANEL_1, &_pProjectPanel_1, 0);
 		return BUFFER_INVALID;
 	}
 
@@ -1249,6 +1248,7 @@ bool Notepad_plus::fileCloseAllButCurrent()
 {
 	BufferID current = _pEditView->getCurrentBufferID();
 	const int activeViewID = currentView();
+	int active = _pDocTab->getCurrentTabIndex();
 	bool noSaveToAll = false;
 	bool saveToAll = false;
 	std::vector<unsigned int> mainSaveOpIndex, subSaveOpIndex;
@@ -1422,7 +1422,6 @@ bool Notepad_plus::fileCloseAllButCurrent()
     }
 
 	const int viewNo = currentView();
-	int active = _pDocTab->getCurrentTabIndex();
 	size_t nbItems = _pDocTab->nbItem();
 	activateBuffer(_pDocTab->getBufferByIndex(0), viewNo);
 	

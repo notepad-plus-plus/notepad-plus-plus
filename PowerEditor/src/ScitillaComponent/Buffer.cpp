@@ -1103,7 +1103,7 @@ size_t FileManager::nextUntitledNewNumber() const
 	for (size_t i = 0; i < _buffers.size(); i++)
 	{
 		Buffer *buf = _buffers.at(i);
-		if (buf->isUntitled())
+		if (buf->isUntitled() && buf->isUtilityBuffer() == false) // Skip utility buffers (Find Results)
 		{
 			// if untitled document is invisible, then don't put its number into array (so its number is available to be used)
 			if ((buf->_referees[0])->isVisible())

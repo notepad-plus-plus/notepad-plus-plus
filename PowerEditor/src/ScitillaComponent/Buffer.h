@@ -374,6 +374,9 @@ public:
 
 	void langHasBeenSetFromMenu() { _hasLangBeenSetFromMenu = true; };
 
+	void setUtilityBuffer(bool state) { _isUtilityBuffer = state; };
+	bool isUtilityBuffer() { return _isUtilityBuffer; };
+
 private:
 	int indexOfReference(const ScintillaEditView * identifier) const;
 
@@ -432,6 +435,8 @@ private:
 	bool _isMonitoringOn = false;
 
 	bool _hasLangBeenSetFromMenu = false;
+
+	bool _isUtilityBuffer = false; // Marks that DOC_UNNAMED is used for something else than a "real document". i.e. the Find Results -window.
 
 	MapPosition _mapPosition;
 

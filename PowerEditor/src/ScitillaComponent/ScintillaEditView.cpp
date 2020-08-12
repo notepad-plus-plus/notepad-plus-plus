@@ -1806,6 +1806,8 @@ BufferID ScintillaEditView::attachDefaultDoc()
 
 	MainFileManager.addBufferReference(id, this);	//add a reference. Notepad only shows the buffer in tabbar
 
+	buf->setUtilityBuffer(true); // Mark the buffer as utility so it won't be considered as "new x"
+
 	_currentBufferID = id;
 	_currentBuffer = buf;
 	bufferUpdated(buf, BufferChangeMask);	//make sure everything is in sync with the buffer, since no reference exists

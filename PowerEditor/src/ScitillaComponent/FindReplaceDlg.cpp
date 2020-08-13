@@ -1256,7 +1256,9 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 					if (_currentStatus == REPLACE_DLG)
 					{
-						if (replaceInOpenDocsConfirmCheck())
+						NppParameters& nppParam = NppParameters::getInstance();
+						const NppGUI& nppGui = nppParam.getNppGUI();
+						if (!nppGui._confirmReplaceInAllOpenDocs || replaceInOpenDocsConfirmCheck())
 						{
 							setStatusbarMessage(TEXT(""), FSNoMessage);
 							HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
@@ -2855,13 +2857,17 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const generic_st
 						nppParamInst._isFindReplacing = false;
 						break;
 					case IDC_REPLACE_OPENEDFILES:
-						if (replaceInOpenDocsConfirmCheck())
+					{
+						NppParameters& nppParam = NppParameters::getInstance();
+						const NppGUI& nppGui = nppParam.getNppGUI();
+						if (!nppGui._confirmReplaceInAllOpenDocs || replaceInOpenDocsConfirmCheck())
 						{
 							nppParamInst._isFindReplacing = true;
 							replaceAllInOpenedDocs();
 							nppParamInst._isFindReplacing = false;
 						}
 						break;
+					}
 					case IDD_FINDINFILES_FIND_BUTTON:
 						nppParamInst._isFindReplacing = true;
 						findAllIn(FILES_IN_DIR);

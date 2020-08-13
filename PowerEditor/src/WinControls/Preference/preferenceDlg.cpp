@@ -3517,6 +3517,7 @@ INT_PTR CALLBACK SearchingSettingsDlg::run_dlgProc(UINT message, WPARAM wParam, 
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_STOPFILLINGFINDFIELD, BM_SETCHECK, nppGUI._stopFillingFindField, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_MONOSPACEDFONT_FINDDLG, BM_SETCHECK, nppGUI._monospacedFontFindDlg, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_FINDDLG_ALWAYS_VISIBLE, BM_SETCHECK, nppGUI._findDlgAlwaysVisible, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_CONFIRMREPLOPENDOCS, BM_SETCHECK, nppGUI._confirmReplaceInAllOpenDocs, 0);
 		}
 		break;
 
@@ -3541,6 +3542,13 @@ INT_PTR CALLBACK SearchingSettingsDlg::run_dlgProc(UINT message, WPARAM wParam, 
 				case IDC_CHECK_FINDDLG_ALWAYS_VISIBLE:
 				{
 					nppGUI._findDlgAlwaysVisible = isCheckedOrNot(IDC_CHECK_FINDDLG_ALWAYS_VISIBLE);
+					return TRUE;
+				}
+				break;
+
+				case IDC_CHECK_CONFIRMREPLOPENDOCS:
+				{
+					nppGUI._confirmReplaceInAllOpenDocs = isCheckedOrNot(IDC_CHECK_CONFIRMREPLOPENDOCS);
 					return TRUE;
 				}
 				break;

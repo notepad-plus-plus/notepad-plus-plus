@@ -5150,6 +5150,10 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			const TCHAR* optFindDlgAlwaysVisible = element->Attribute(TEXT("findDlgAlwaysVisible"));
 			if (optFindDlgAlwaysVisible)
 				_nppGUI._findDlgAlwaysVisible = (lstrcmp(optFindDlgAlwaysVisible, TEXT("yes")) == 0);
+
+			const TCHAR* optConfirmReplaceOpenDocs = element->Attribute(TEXT("confirmReplaceInAllOpenDocs"));
+			if (optConfirmReplaceOpenDocs)
+				_nppGUI._confirmReplaceInAllOpenDocs = (lstrcmp(optConfirmReplaceOpenDocs, TEXT("yes")) == 0);
 		}
 		else if (!lstrcmp(nm, TEXT("MISC")))
 		{
@@ -5964,7 +5968,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("docPeekOnMap"), _nppGUI._isDocPeekOnMap ? TEXT("yes") : TEXT("no"));
 	}
 
-	// <GUIConfig name="Searching" "monospacedFontFindDlg"="no" stopFillingFindField="no" findDlgAlwaysVisible="no" />
+	// <GUIConfig name="Searching" "monospacedFontFindDlg"="no" stopFillingFindField="no" findDlgAlwaysVisible="no" confirmReplaceOpenDocs="yes" confirmMacroReplaceOpenDocs="yes" confirmReplaceInFiles="yes" confirmMacroReplaceInFiles="yes" />
 	{
 		TiXmlElement* GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("Searching"));
@@ -5972,6 +5976,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("monospacedFontFindDlg"), _nppGUI._monospacedFontFindDlg ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("stopFillingFindField"), _nppGUI._stopFillingFindField ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("findDlgAlwaysVisible"), _nppGUI._findDlgAlwaysVisible ? TEXT("yes") : TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("confirmReplaceInAllOpenDocs"), _nppGUI._confirmReplaceInAllOpenDocs ? TEXT("yes") : TEXT("no"));
 	}
 
 	// <GUIConfig name="searchEngine" searchEngineChoice="2" searchEngineCustom="" />

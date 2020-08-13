@@ -865,6 +865,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                 <Searching title="Searching">
                     <Item id="6901" name="Ùn micca riempie u campu di ricerca cù a parolla selezziunata"/>
                     <Item id="6902" name="Impiegà a grafia à spaziamentu fissu in u dialogu di ricerca (Richiede di rilancià Notepad++)"/>
+                    <Item id="6903" name="U dialogu di ricerca sta apertu dopu una ricerca chì s’affisseghja in a finestra di risultati"/>
                 </Searching>
 
                 <RecentFilesHistory title="Schedarii recenti">

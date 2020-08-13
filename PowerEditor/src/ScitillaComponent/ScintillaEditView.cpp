@@ -1806,8 +1806,6 @@ BufferID ScintillaEditView::attachDefaultDoc()
 
 	MainFileManager.addBufferReference(id, this);	//add a reference. Notepad only shows the buffer in tabbar
 
-	buf->setUtilityBuffer(true); // Mark the buffer as utility so it won't be considered as "new x"
-
 	_currentBufferID = id;
 	_currentBuffer = buf;
 	bufferUpdated(buf, BufferChangeMask);	//make sure everything is in sync with the buffer, since no reference exists
@@ -3713,5 +3711,14 @@ void ScintillaEditView::getFoldColor(COLORREF& fgColor, COLORREF& bgColor, COLOR
 	{
 		Style & style = stylers.getStyler(i);
 		activeFgColor = style._fgColor;
+	}
+}
+
+void ScintillaEditView::setUtilityView(bool status)
+{
+	// Currently this just sets utility state for its buffer. Add member for view separately if ever needed.
+	if (_currentBuffer != nullptr)
+	{
+		_currentBuffer->setUtilityBuffer(status);
 	}
 }

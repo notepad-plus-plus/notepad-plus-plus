@@ -2330,6 +2330,7 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		originalFinderProc = SetWindowLongPtr(_pFinder->_scintView.getHSelf(), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(finderProc));
 
 		_pFinder->setFinderReadOnly(true);
+		_pFinder->_scintView.setUtilityView(true); // Mark the view as utility so it won't be considered as "new x"
 		_pFinder->_scintView.execute(SCI_SETCODEPAGE, SC_CP_UTF8);
 		_pFinder->_scintView.execute(SCI_USEPOPUP, FALSE);
 		_pFinder->_scintView.execute(SCI_SETUNDOCOLLECTION, false);	//dont store any undo information

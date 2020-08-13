@@ -647,6 +647,8 @@ public:
 	void changeTextDirection(bool isRTL);
 	bool isTextDirectionRTL() const;
 
+	void setUtilityView(bool status); // Sets the view and buffer to be concidered as utility.
+
 protected:
 	static HINSTANCE _hLib;
 	static int _refCount;

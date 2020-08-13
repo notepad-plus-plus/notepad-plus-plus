@@ -148,6 +148,11 @@ BEGIN
     CONTROL         "Don't fill find field in Find dialog with selected word", IDC_CHECK_STOPFILLINGFINDFIELD, "Button", BS_AUTOCHECKBOX | WS_TABSTOP,37,10,350,10
     CONTROL         "Use Monospaced font in Find dialog (Need to restart Notepad++)",IDC_CHECK_MONOSPACEDFONT_FINDDLG, "Button", BS_AUTOCHECKBOX | WS_TABSTOP,37,25,350,10
     CONTROL         "Find dialog remains open after search that outputs to results window",IDC_CHECK_FINDDLG_ALWAYS_VISIBLE, "Button", BS_AUTOCHECKBOX | WS_TABSTOP,37,40,350,10
+    GROUPBOX        "Confirmations",IDC_SEARCH_CONFIRMATIONS_STATIC,30,100,390,50,BS_CENTER
+    CONTROL         "Confirm interactive Replace-All-in-All-Opened-Documents",IDC_CHECK_CONFIRMREPLOPENDOCS, "Button", BS_AUTOCHECKBOX | WS_TABSTOP,37,115,195,10
+    CONTROL         "Confirm Replace-All-in-All-Opened-Documents in macro",IDC_CHECK_CONFIRMMACROREPLOPENDOCS, "Button", BS_AUTOCHECKBOX | WS_TABSTOP,37,130,195,10
+    CONTROL         "Confirm interactive Replace-in-Files",IDC_CHECK_CONFIRMREPLFILES, "Button", BS_AUTOCHECKBOX | WS_TABSTOP,257,115,140,10
+    CONTROL         "Confirm Replace-in-Files in macro",IDC_CHECK_CONFIRMMACROREPLFILES, "Button", BS_AUTOCHECKBOX | WS_TABSTOP,257,130,140,10
 END
 
 IDD_PREFERENCE_NEWDOCSETTING_BOX DIALOGEX 0, 0, 455, 185

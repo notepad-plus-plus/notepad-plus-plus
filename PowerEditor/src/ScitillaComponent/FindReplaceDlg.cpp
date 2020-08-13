@@ -3425,10 +3425,10 @@ void Finder::openAll()
 
 void Finder::wrapLongLinesToggle()
 {
-	_longLinesAreWrapped = not _longLinesAreWrapped;
+	_longLinesAreWrapped = !_longLinesAreWrapped;
 	_scintView.wrap(_longLinesAreWrapped);
 
-	if (not _canBeVolatiled)
+	if (!_canBeVolatiled)
 	{
 		// only remember this setting from the original finder
 		NppParameters& nppParam = NppParameters::getInstance();

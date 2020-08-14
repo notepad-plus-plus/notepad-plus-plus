@@ -1212,7 +1212,7 @@
 			<find-status-scope-selection value="im gewählten Text"/>
 			<find-status-scope-all value="in der gesamten Datei"/>
 			<find-status-scope-backward value="vom Dateianfang bis zum Cursor"/>
-			<find-status-scope-forward value="vom Cursor bis zum Dateieinde"/>
+			<find-status-scope-forward value="vom Cursor bis zum Dateiende"/>
 			<finder-find-in-finder value="In diesen Suchergebnissen finden …"/>
 			<finder-close-this value="Diese Suche schließen"/>
 			<finder-collapse-all value="Alles einklappen"/>

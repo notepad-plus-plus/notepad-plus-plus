@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2020-08-09 by schnurlos (schnurlos@gmail.com)
+	last modified: 2020-08-14 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -857,6 +857,8 @@
 				<Searching title="Suche">
 					<Item id="6901" name="Gewähltes Wort nicht ins Suchfenster der Suche"/>
 					<Item id="6902" name="Festbreitenschrift im Dialogfeld 'Suchen' verwenden (Neustart von Notepad++ erforderlich)."/>
+					<Item id="6903" name="Der Suchdialog bleibt nach der Suche geöffnet, die im Ergebnisfenster ausgegeben wird"/>
+
 				</Searching>
 
 				<RecentFilesHistory title="Zuletzt geöffn. Dateien">
@@ -1219,6 +1221,7 @@
 			<finder-select-all value="Alles wählen"/>
 			<finder-clear-all value="Alles löschen"/>
 			<finder-open-all value="Alles öffnen"/>
+			<finder-wrap-long-lines value="Zeilenumbruch bei langen Zeilen"/>
 			<common-ok value="OK"/>
 			<common-cancel value="Abbruch"/>
 			<common-name value="Name: "/>

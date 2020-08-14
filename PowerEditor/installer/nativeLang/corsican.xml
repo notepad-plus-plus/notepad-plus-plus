@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     History of Corsican translation for Notepad++
-		- Updated on August 9th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.9
+		- Updated on August 14th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.9
 		- Updated on May 26th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.7
 		- Updated on January 8th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.3
 		- Updated on October 31st, 2019 by Patriccollu di Santa Maria è Sichè for version 7.8.1
@@ -273,7 +273,7 @@
                     <Item id="44034" name="Sempre in primu pianu"/>
                     <Item id="44035" name="Sincrunizazione verticale di l’affissera"/>
                     <Item id="44036" name="Sincrunizazione orizuntale di l’affissera"/>
-                    <Item id="44041" name="Affissà i simbuli di messa à a linea"/>
+                    <Item id="44041" name="Affissà i simbuli di ritornu à a linea"/>
                     <Item id="44072" name="Attivà un’altra vista"/>
                     <Item id="44081" name="Pannellu di prughjettu 1"/>
                     <Item id="44082" name="Pannellu di prughjettu 2"/>
@@ -756,7 +756,7 @@
                     <Item id="6205" name="Arburu scatula"/>
                     <Item id="6226" name="Alcuna"/>
 
-                    <Item id="6227" name="Mette à a Linea"/>
+                    <Item id="6227" name="Ritornu à a Linea"/>
                     <Item id="6228" name="Predefinitu"/>
                     <Item id="6229" name="Aliniatu"/>
                     <Item id="6230" name="Indentazione"/>
@@ -779,7 +779,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                 </Scintillas>
 
                 <NewDoc title="Novu ducumentu">
-                    <Item id="6401" name="Formatu (fine di linea)"/>
+                    <Item id="6401" name="Furmatu (fine di linea)"/>
                     <Item id="6402" name="Windows (CR LF)"/>
                     <Item id="6403" name="Unix (LF)"/>
                     <Item id="6404" name="Macintosh (CR)"/>
@@ -1002,7 +1002,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                 <Item id="2031" name="&amp;Cresce da :"/>
                 <Item id="2035" name="&amp;Zeru davanti"/>
                 <Item id="2036" name="&amp;Ripete :"/>
-                <Item id="2032" name="&amp;Forma"/>
+                <Item id="2032" name="&amp;Furmatu"/>
                 <Item id="2024" name="&amp;Decimale"/>
                 <Item id="2025" name="&amp;Ottale"/>
                 <Item id="2026" name="&amp;Esadecimale"/>
@@ -1273,6 +1273,7 @@ Circà in tutti i schedarii fora di exe, obj &amp;&amp; log:
             <finder-select-all value="Tuttu selezziunà"/>
             <finder-clear-all value="Tuttu viutà"/>
             <finder-open-all value="Tuttu apre"/>
+            <finder-wrap-long-lines value="Ritornu autumaticu à a linea per e linee longhe"/>
             <common-ok value="Vai"/>
             <common-cancel value="Abbandunà"/>
             <common-name value="Nome : "/>

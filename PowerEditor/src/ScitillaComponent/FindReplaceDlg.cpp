@@ -474,7 +474,7 @@ void FindReplaceDlg::updateCombo(int comboID)
 	addText2Combo(getTextFromCombo(hCombo).c_str(), hCombo);
 }
 
-FoundInfo Finder::EmptyFoundInfo(0, 0, 0, TEXT(""));
+FoundInfo Finder::EmptyFoundInfo(0, 0, 0, 0, TEXT(""));
 SearchResultMarking Finder::EmptySearchResultMarking;
 
 bool Finder::notify(SCNotification *notification)
@@ -2100,9 +2100,18 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 				{
 					_pFinder->addFileNameTitle(pFileName);
 					findAllFileNameAdded = true;
+
+					_pFinder->_lineNumberEndOfPreviousMatch = 0;
+					_pFinder->_matchedLineCount = 0;
 				}
 
 				auto lineNumber = pEditView->execute(SCI_LINEFROMPOSITION, targetStart);
+				auto lineNumberEnd = pEditView->execute(SCI_LINEFROMPOSITION, targetEnd);
+				if (lineNumberEnd > 0 && targetEnd == pEditView->execute(SCI_POSITIONFROMLINE, lineNumberEnd))
+				{
+					// avoid including a line with the caret on it but having zero actual characters selected on that line
+					--lineNumberEnd;
+				}
 				int lend = static_cast<int32_t>(pEditView->execute(SCI_GETLINEENDPOSITION, lineNumber));
 				int lstart = static_cast<int32_t>(pEditView->execute(SCI_POSITIONFROMLINE, lineNumber));
 				int nbChar = lend - lstart;
@@ -2123,7 +2132,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 				SearchResultMarking srm;
 				srm._start = start_mark;
 				srm._end = end_mark;
-				_pFinder->add(FoundInfo(targetStart, targetEnd, lineNumber + 1, pFileName), srm, line.c_str());
+				_pFinder->add(FoundInfo(targetStart, targetEnd, lineNumber + 1, lineNumberEnd + 1, pFileName), srm, line.c_str());
 
 				break; 
 			}
@@ -2136,6 +2145,12 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 				const TCHAR *pFileName = pFindersInfo->_pFileName ? pFindersInfo->_pFileName : TEXT("");
 
 				auto lineNumber = pEditView->execute(SCI_LINEFROMPOSITION, targetStart);
+				auto lineNumberEnd = pEditView->execute(SCI_LINEFROMPOSITION, targetEnd);
+				if (lineNumberEnd > 0 && targetEnd == pEditView->execute(SCI_POSITIONFROMLINE, lineNumberEnd))
+				{
+					// avoid including a line with the caret on it but having zero actual characters selected on that line
+					--lineNumberEnd;
+				}
 				int lend = static_cast<int32_t>(pEditView->execute(SCI_GETLINEENDPOSITION, lineNumber));
 				int lstart = static_cast<int32_t>(pEditView->execute(SCI_POSITIONFROMLINE, lineNumber));
 				int nbChar = lend - lstart;
@@ -2163,8 +2178,11 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 					{
 						pFindersInfo->_pDestFinder->addFileNameTitle(pFileName);
 						findAllFileNameAdded = true;
+
+						pFindersInfo->_pDestFinder->_lineNumberEndOfPreviousMatch = 0;
+						pFindersInfo->_pDestFinder->_matchedLineCount = 0;
 					}
-					pFindersInfo->_pDestFinder->add(FoundInfo(targetStart, targetEnd, lineNumber + 1, pFileName), srm, line.c_str());
+					pFindersInfo->_pDestFinder->add(FoundInfo(targetStart, targetEnd, lineNumber + 1, lineNumberEnd + 1, pFileName), srm, line.c_str());
 				}
 				break;
 			}
@@ -3298,27 +3316,42 @@ bool FindReplaceDlg::replaceInOpenDocsConfirmCheck(void)
 	return confirmed;
 }
 
-generic_string Finder::getHitsString(int count) const
+generic_string Finder::getHitsString(int hitsCount, int linesWithHitsCount /*=0*/) const
 {
-	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-	generic_string text = pNativeSpeaker->getLocalizedStrFromID("find-result-hits", TEXT(""));
+	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+	
+	generic_string text = pNativeSpeaker->getLocalizedStrFromID(
+		(linesWithHitsCount == 0) ? "find-result-hits" : "find-result-hits-and-line-hits", 
+		TEXT(""));
 
 	if (text.empty())
 	{
-		if (count == 1)
+		text = std::to_wstring(hitsCount);
+		text += TEXT(" ");
+		text += (hitsCount == 1) ? TEXT("hit") : TEXT("hits");
+
+		if (linesWithHitsCount != 0)
 		{
-			text = TEXT("(1 hit)");
+			text += TEXT(" on ");
+			text += std::to_wstring(linesWithHitsCount);
+			text += TEXT(" ");
+			text += (linesWithHitsCount == 1) ? TEXT("line") : TEXT("lines");
 		}
-		else
-		{
-			text = TEXT("(");
-			text += std::to_wstring(count);
-			text += TEXT(" hits)");
-		}
+		
+		// wrap in parentheses
+		text = TEXT("(") + text + TEXT(")");
 	}
 	else
 	{
-		text = stringReplace(text, TEXT("$INT_REPLACE$"), std::to_wstring(count));
+		if (linesWithHitsCount == 0)
+		{
+			text = stringReplace(text, TEXT("$INT_REPLACE$"), std::to_wstring(hitsCount));
+		}
+		else
+		{
+			text = stringReplace(text, TEXT("$INT_REPLACE1$"), std::to_wstring(hitsCount));
+			text = stringReplace(text, TEXT("$INT_REPLACE2$"), std::to_wstring(linesWithHitsCount));
+		}
 	}
 
 	return text;
@@ -3359,7 +3392,7 @@ void Finder::addFileNameTitle(const TCHAR * fileName)
 void Finder::addFileHitCount(int count)
 {
 	wstring text = TEXT(" ");
-	text += getHitsString(count);
+	text += getHitsString(count, _matchedLineCount);
 	setFinderReadOnly(false);
 	_scintView.insertGenericTextFrom(_lastFileHeaderPos, text.c_str());
 	setFinderReadOnly(true);
@@ -3439,6 +3472,19 @@ void Finder::add(FoundInfo fi, SearchResultMarking mi, const TCHAR* foundline)
 	_scintView.addGenericText(str.c_str(), &mi._start, &mi._end);
 	setFinderReadOnly(true);
 	_pMainMarkings->push_back(mi);
+
+	if (fi._lineNumber == _lineNumberEndOfPreviousMatch)
+	{
+		if (fi._lineNumberEnd > fi._lineNumber)
+		{
+			_matchedLineCount += fi._lineNumberEnd - fi._lineNumber;
+		}
+	}
+	else
+	{
+		_matchedLineCount += fi._lineNumberEnd - fi._lineNumber + 1;
+	}
+	_lineNumberEndOfPreviousMatch = fi._lineNumberEnd;
 }
 
 void Finder::removeAll() 

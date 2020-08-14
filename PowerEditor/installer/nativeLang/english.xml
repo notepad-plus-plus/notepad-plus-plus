@@ -1288,6 +1288,7 @@ Find in all files except exe, obj &amp;&amp; log:
             <find-result-title-info-selections value="($INT_REPLACE1$ hits in $INT_REPLACE2$ selections of $INT_REPLACE3$ searched)"/>
             <find-result-title-info-extra value=" - Line Filter Mode: only display the filtered results"/>
             <find-result-hits value="($INT_REPLACE$ hits)"/>
+            <find-result-hits-and-line-hits value="($INT_REPLACE1$ hits on $INT_REPLACE2$ lines)"/>
             <find-regex-zero-length-match value="zero length match" />
         </MiscStrings>
     </Native-Langue>

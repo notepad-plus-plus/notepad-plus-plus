@@ -49,11 +49,12 @@ enum DIALOG_TYPE {FIND_DLG, REPLACE_DLG, FINDINFILES_DLG, MARK_DLG};
 enum InWhat{ALL_OPEN_DOCS, FILES_IN_DIR, CURRENT_DOC, CURR_DOC_SELECTION};
 
 struct FoundInfo {
-	FoundInfo(int start, int end, size_t lineNumber, const TCHAR *fullPath)
-		: _start(start), _end(end), _lineNumber(lineNumber), _fullPath(fullPath) {};
+	FoundInfo(int start, int end, size_t lineNumber, size_t lineNumberEnd, const TCHAR *fullPath)
+		: _start(start), _end(end), _lineNumber(lineNumber), _lineNumberEnd(lineNumberEnd), _fullPath(fullPath) {};
 	int _start;
 	int _end;
 	size_t _lineNumber;
+	size_t _lineNumberEnd;
 	generic_string _fullPath;
 };
 
@@ -140,7 +141,7 @@ public:
 	std::vector<generic_string> getResultFilePaths() const;
 	bool canFind(const TCHAR *fileName, size_t lineNumber) const;
 	void setVolatiled(bool val) { _canBeVolatiled = val; };
-	generic_string getHitsString(int count) const;
+	generic_string getHitsString(int hitsCount, int linesWithHitsCount=0) const;
 
 protected :
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
@@ -168,6 +169,9 @@ private:
 	bool _canBeVolatiled = true;
 
 	bool _longLinesAreWrapped = false;
+
+	int _matchedLineCount = 0;
+	size_t _lineNumberEndOfPreviousMatch = 0;
 
 	void setFinderReadOnly(bool isReadOnly) {
 		_scintView.execute(SCI_SETREADONLY, isReadOnly);

@@ -43,7 +43,7 @@ public:
 		return !(sacNormal == sacHover);
 	}
 	bool OverridesTextFore() const noexcept {
-		return sacNormal.style == INDIC_TEXTFORE || sacHover.style == INDIC_TEXTFORE;
+		return sacNormal.style == INDIC_TEXTFORE || sacHover.style == INDIC_TEXTFORE || sacNormal.style == INDIC_EXPLORERLINK || sacHover.style == INDIC_EXPLORERLINK;
 	}
 	int Flags() const noexcept {
 		return attributes;

@@ -92,6 +92,9 @@ enum BackupFeature {bak_none = 0, bak_simple = 1, bak_verbose = 2};
 enum OpenSaveDirSetting {dir_followCurrent = 0, dir_last = 1, dir_userDef = 2};
 enum MultiInstSetting {monoInst = 0, multiInstOnSession = 1, multiInst = 2};
 enum writeTechnologyEngine {defaultTechnology = 0, directWriteTechnology = 1};
+enum urlMode {urlDisable = 0, urlNoUnderLineFg, urlUnderLineFg, urlNoUnderLineBg, urlUnderLineBg,
+              urlMin = urlDisable,
+              urlMax = urlUnderLineBg};
 
 const int LANG_INDEX_INSTR = 0;
 const int LANG_INDEX_INSTR2 = 1;
@@ -843,12 +846,7 @@ struct NppGUI final
 	writeTechnologyEngine _writeTechnologyEngine = defaultTechnology;
 	bool _isWordCharDefault = true;
 	std::string _customWordChars;
-
-	// 0 : do nothing
-	// 1 : don't draw underline
-	// 2 : draw underline
-	int _styleURL = 2;
-
+	urlMode _styleURL = urlUnderLineFg;
 	NewDocDefaultSettings _newDocDefaultSettings;
 
 

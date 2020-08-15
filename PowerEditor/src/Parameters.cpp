@@ -4394,12 +4394,9 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				const TCHAR* val = n->Value();
 				if (val)
 				{
-					if (!lstrcmp(val, TEXT("1")))
-						_nppGUI._styleURL = 1;
-					else if (!lstrcmp(val, TEXT("2")))
-						_nppGUI._styleURL = 2;
-					else
-						_nppGUI._styleURL = 0;
+					int const i = generic_atoi (val);
+					if ((i >= urlMin) && (i <= urlMax))
+						_nppGUI._styleURL = urlMode(i);
 				}
 			}
 		}
@@ -5811,15 +5808,11 @@ void NppParameters::createXmlTreeFromGUIParams()
 
 	// <GUIConfig name="URL">2</GUIConfig>
 	{
-		const TCHAR *pStr = TEXT("0");
-		if (_nppGUI._styleURL == 1)
-			pStr = TEXT("1");
-		else if (_nppGUI._styleURL == 2)
-			pStr = TEXT("2");
-
+		TCHAR szStr [12] = TEXT("0");
+		generic_itoa(_nppGUI._styleURL, szStr, 10);
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("URL"));
-		GUIConfigElement->InsertEndChild(TiXmlText(pStr));
+		GUIConfigElement->InsertEndChild(TiXmlText(szStr));
 	}
 
 	// <GUIConfig name = "globalOverride" fg = "no" bg = "no" font = "no" fontSize = "no" bold = "no" italic = "no" underline = "no" / >

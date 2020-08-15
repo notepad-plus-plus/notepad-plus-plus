@@ -2503,15 +2503,15 @@ void Notepad_plus::addHotSpot(ScintillaEditView* view)
 	ScintillaEditView* pView = view ? view : _pEditView;
 
 	int urlAction = (NppParameters::getInstance()).getNppGUI()._styleURL;
-	LPARAM indicStyle = (urlAction == 2) ? INDIC_PLAIN : INDIC_HIDDEN;
-
+	LPARAM indicStyle = (urlAction == urlNoUnderLineFg) || (urlAction == urlNoUnderLineBg) ? INDIC_HIDDEN : INDIC_PLAIN;
+	LPARAM indicHoverStyle = (urlAction == urlNoUnderLineBg) || (urlAction == urlUnderLineBg) ? INDIC_FULLBOX : INDIC_EXPLORERLINK;
 	LPARAM indicStyleCur = pView->execute(SCI_INDICGETSTYLE, URL_INDIC);
 	LPARAM indicHoverStyleCur = pView->execute(SCI_INDICGETHOVERSTYLE, URL_INDIC);
 
-	if ((indicStyleCur != indicStyle) || (indicHoverStyleCur != INDIC_FULLBOX))
+	if ((indicStyleCur != indicStyle) || (indicHoverStyleCur != indicHoverStyle))
 	{
 		pView->execute(SCI_INDICSETSTYLE, URL_INDIC, indicStyle);
-		pView->execute(SCI_INDICSETHOVERSTYLE, URL_INDIC, INDIC_FULLBOX);
+		pView->execute(SCI_INDICSETHOVERSTYLE, URL_INDIC, indicHoverStyle);
 		pView->execute(SCI_INDICSETALPHA, URL_INDIC, 70);
 		pView->execute(SCI_INDICSETFLAGS, URL_INDIC, SC_INDICFLAG_VALUEFORE);
 	}
@@ -2521,25 +2521,32 @@ void Notepad_plus::addHotSpot(ScintillaEditView* view)
 	pView->getVisibleStartAndEndPosition(&startPos, &endPos);
 	if (startPos >= endPos) return;
 	pView->execute(SCI_SETINDICATORCURRENT, URL_INDIC);
-	pView->execute(SCI_INDICATORCLEARRANGE, startPos, endPos - startPos);
-	if (!urlAction) return;
+	if (urlAction == urlDisable)
+	{
+		pView->execute(SCI_INDICATORCLEARRANGE, startPos, endPos - startPos);
+		return;
+	}
 
 	LRESULT indicFore = pView->execute(SCI_STYLEGETFORE, STYLE_DEFAULT);
+	pView->execute(SCI_SETINDICATORVALUE, indicFore);
+
 	pView->execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP|SCFIND_POSIX);
 	pView->execute(SCI_SETTARGETRANGE, startPos, endPos);
 	int posFound = static_cast<int32_t>(pView->execute(SCI_SEARCHINTARGET, strlen(URL_REG_EXPR), reinterpret_cast<LPARAM>(URL_REG_EXPR)));
 
 	while (posFound != -1 && posFound != -2)
 	{
-		int start = int(pView->execute(SCI_GETTARGETSTART));
 		int end = int(pView->execute(SCI_GETTARGETEND));
-		int foundTextLen = end - start;
-		pView->execute(SCI_SETINDICATORCURRENT, URL_INDIC);
-		pView->execute(SCI_SETINDICATORVALUE, indicFore);
-		pView->execute(SCI_INDICATORFILLRANGE, start, foundTextLen);
-		pView->execute(SCI_SETTARGETRANGE, posFound + foundTextLen, endPos);
+		int foundTextLen = end - posFound;
+		if (posFound > startPos)
+			pView->execute(SCI_INDICATORCLEARRANGE, startPos, posFound - startPos);
+		pView->execute(SCI_INDICATORFILLRANGE, posFound, foundTextLen);
+		startPos = posFound + foundTextLen;
+		pView->execute(SCI_SETTARGETRANGE, startPos, endPos);
 		posFound = static_cast<int32_t>(pView->execute(SCI_SEARCHINTARGET, strlen(URL_REG_EXPR), reinterpret_cast<LPARAM>(URL_REG_EXPR)));
 	}
+	if (endPos > startPos)
+		pView->execute(SCI_INDICATORCLEARRANGE, startPos, endPos - startPos);
 }
 
 bool Notepad_plus::isConditionExprLine(int lineNumber)

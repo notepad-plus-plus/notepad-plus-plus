@@ -1814,11 +1814,11 @@ void EditView::DrawForeground(Surface *surface, const EditModel &model, const Vi
 							((model.hoverIndicatorPos >= ts.start + posLineStart) &&
 							(model.hoverIndicatorPos <= ts.end() + posLineStart));
 						if (hover) {
-							if (indicator.sacHover.style == INDIC_TEXTFORE) {
+							if ((indicator.sacHover.style == INDIC_TEXTFORE) || (indicator.sacHover.style == INDIC_EXPLORERLINK)) {
 								textFore = indicator.sacHover.fore;
 							}
 						} else {
-							if (indicator.sacNormal.style == INDIC_TEXTFORE) {
+							if ((indicator.sacNormal.style == INDIC_TEXTFORE) || (indicator.sacNormal.style == INDIC_EXPLORERLINK)) {
 								if (indicator.Flags() & SC_INDICFLAG_VALUEFORE)
 									textFore = ColourDesired(indicatorValue & SC_INDICVALUEMASK);
 								else

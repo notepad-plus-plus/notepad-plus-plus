@@ -919,26 +919,15 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 
 			::ShowWindow(::GetDlgItem(_hSelf, IDC_CHECK_AUTOUPDATE), nppGUI._doesExistUpdater?SW_SHOW:SW_HIDE);
 			
-			BOOL linkEnable = FALSE;
-			BOOL dontUnderline = FALSE;
-			BOOL dontUnderlineState = FALSE;
-			if (nppGUI._styleURL == 1)
-			{
-				linkEnable = TRUE;
-				dontUnderline = TRUE;
-				dontUnderlineState = TRUE;
-				
-			}
-			else if (nppGUI._styleURL == 2)
-			{
-				linkEnable = TRUE;
-				dontUnderline = FALSE;
-				dontUnderlineState = TRUE;	
-			}
-			
+			BOOL linkEnable =  nppGUI._styleURL != urlDisable;
+			BOOL dontUnderline = (nppGUI._styleURL == urlNoUnderLineFg) || (nppGUI._styleURL == urlNoUnderLineBg);
+			BOOL roundBoxMode  = (nppGUI._styleURL == urlNoUnderLineBg) || (nppGUI._styleURL == urlUnderLineBg);
+
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_CLICKABLELINK_ENABLE, BM_SETCHECK, linkEnable, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_CLICKABLELINK_NOUNDERLINE, BM_SETCHECK, dontUnderline, 0);
-			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_CLICKABLELINK_NOUNDERLINE), dontUnderlineState);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_CLICKABLELINK_FULLBOXMODE, BM_SETCHECK, roundBoxMode, 0);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_CLICKABLELINK_NOUNDERLINE), linkEnable);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_CLICKABLELINK_FULLBOXMODE), linkEnable);
 
 			::SendDlgItemMessage(_hSelf, IDC_EDIT_SESSIONFILEEXT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(nppGUI._definedSessionExt.c_str()));
 			::SendDlgItemMessage(_hSelf, IDC_EDIT_WORKSPACEFILEEXT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(nppGUI._definedWorkspaceExt.c_str()));
@@ -1010,19 +999,28 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 				{
 					bool isChecked = isCheckedOrNot(IDC_CHECK_CLICKABLELINK_ENABLE);
 					if (!isChecked)
+					{
 						::SendDlgItemMessage(_hSelf, IDC_CHECK_CLICKABLELINK_NOUNDERLINE, BM_SETCHECK, BST_UNCHECKED, 0);
+						::SendDlgItemMessage(_hSelf, IDC_CHECK_CLICKABLELINK_FULLBOXMODE, BM_SETCHECK, BST_UNCHECKED, 0);
+					}
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_CLICKABLELINK_NOUNDERLINE), isChecked);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_CLICKABLELINK_FULLBOXMODE), isChecked);
 					
-					nppGUI._styleURL = isChecked?2:0;
+					nppGUI._styleURL = isChecked ? urlUnderLineFg : urlDisable;
 					HWND grandParent = ::GetParent(_hParent);
 					::SendMessage(grandParent, NPPM_INTERNAL_UPDATECLICKABLELINKS, 0, 0);
 				}
 				return TRUE;
 
 				case IDC_CHECK_CLICKABLELINK_NOUNDERLINE:
+				case IDC_CHECK_CLICKABLELINK_FULLBOXMODE:
 				{
-					bool isChecked = isCheckedOrNot(IDC_CHECK_CLICKABLELINK_NOUNDERLINE);
-					nppGUI._styleURL = isChecked?1:2;
+					bool isNoUnderline = isCheckedOrNot(IDC_CHECK_CLICKABLELINK_NOUNDERLINE);
+					bool isRoundBoxMode = isCheckedOrNot(IDC_CHECK_CLICKABLELINK_FULLBOXMODE);
+					if (isRoundBoxMode)
+						nppGUI._styleURL = isNoUnderline ? urlNoUnderLineBg : urlUnderLineBg;
+					else
+						nppGUI._styleURL = isNoUnderline ? urlNoUnderLineFg : urlUnderLineFg;
 					HWND grandParent = ::GetParent(_hParent);
 					::SendMessage(grandParent, NPPM_INTERNAL_UPDATECLICKABLELINKS, 0, 0);
 				}

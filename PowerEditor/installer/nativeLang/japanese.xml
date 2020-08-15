@@ -1261,6 +1261,7 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <finder-select-all value="すべて選択"/>
             <finder-clear-all value="すべてクリア"/>
             <finder-open-all value="すべて開く"/>
+            <finder-wrap-long-lines value="長い行を折り返す"/>
             <common-ok value="OK"/>
             <common-cancel value="ｷｬﾝｾﾙ"/>
             <common-name value="名前: "/>

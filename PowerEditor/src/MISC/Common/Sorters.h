@@ -74,7 +74,7 @@ protected:
 
 	bool isSortingSpecificColumns()
 	{
-		return _fromColumn != 0 && _toColumn != 0;
+		return _fromColumn != 0 || _toColumn != 0;
 	}
 
 public:

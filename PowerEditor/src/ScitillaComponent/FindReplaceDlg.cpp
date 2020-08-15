@@ -1233,9 +1233,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					if ((lstrlen(directory) > 0) && (directory[lstrlen(directory)-1] != '\\'))
 						_options._directory += TEXT("\\");
 
-					NppParameters& nppParam = NppParameters::getInstance();
-					const NppGUI& nppGui = nppParam.getNppGUI();
-					if (not nppGui._confirmReplaceInFiles || replaceInFilesConfirmCheck(_options._directory, _options._filters))
+					if (replaceInFilesConfirmCheck(_options._directory, _options._filters))
 					{
 						HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
 						_options._str2Search = getTextFromCombo(hFindCombo);
@@ -1260,7 +1258,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					{
 						NppParameters& nppParam = NppParameters::getInstance();
 						const NppGUI& nppGui = nppParam.getNppGUI();
-						if (not nppGui._confirmReplaceOpenDocs || replaceInOpenDocsConfirmCheck())
+						if (!nppGui._confirmReplaceInAllOpenDocs || replaceInOpenDocsConfirmCheck())
 						{
 							setStatusbarMessage(TEXT(""), FSNoMessage);
 							HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
@@ -2849,7 +2847,7 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const generic_st
 					{
 						NppParameters& nppParam = NppParameters::getInstance();
 						const NppGUI& nppGui = nppParam.getNppGUI();
-						if (not nppGui._confirmMacroReplaceOpenDocs || replaceInOpenDocsConfirmCheck())
+						if (!nppGui._confirmReplaceInAllOpenDocs || replaceInOpenDocsConfirmCheck())
 						{
 							nppParamInst._isFindReplacing = true;
 							replaceAllInOpenedDocs();
@@ -2865,9 +2863,7 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const generic_st
 
 					case IDD_FINDINFILES_REPLACEINFILES:
 					{
-						NppParameters& nppParam = NppParameters::getInstance();
-						const NppGUI& nppGui = nppParam.getNppGUI();
-						if (not nppGui._confirmMacroReplaceInFiles || replaceInFilesConfirmCheck(_env->_directory, _env->_filters))
+						if (replaceInFilesConfirmCheck(_env->_directory, _env->_filters))
 						{
 							nppParamInst._isFindReplacing = true;
 							::SendMessage(_hParent, WM_REPLACEINFILES, 0, 0);

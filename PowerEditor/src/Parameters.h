@@ -837,10 +837,7 @@ struct NppGUI final
 	bool _stopFillingFindField = false;
 	bool _monospacedFontFindDlg = false;
 	bool _findDlgAlwaysVisible = false;
-	bool _confirmReplaceOpenDocs = true;
-	bool _confirmMacroReplaceOpenDocs = true;
-	bool _confirmReplaceInFiles = true;
-	bool _confirmMacroReplaceInFiles = true;
+	bool _confirmReplaceInAllOpenDocs = true;
 	writeTechnologyEngine _writeTechnologyEngine = defaultTechnology;
 	bool _isWordCharDefault = true;
 	std::string _customWordChars;

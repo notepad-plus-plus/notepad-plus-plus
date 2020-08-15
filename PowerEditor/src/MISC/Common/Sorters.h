@@ -50,9 +50,9 @@ protected:
 	{
 		if (isSortingSpecificColumns())
 		{
-			// prevent an std::out_of_range exception
 			if (input.length() < _fromColumn)
 			{
+				// prevent an std::out_of_range exception
 				return TEXT("");
 			}
 			else if (_fromColumn == _toColumn)
@@ -74,7 +74,7 @@ protected:
 
 	bool isSortingSpecificColumns()
 	{
-		return _fromColumn != 0 && _toColumn != 0;
+		return _toColumn != 0;
 	}
 
 public:

@@ -1260,6 +1260,10 @@ Updated to v7.9.0:
 			<find-status-replace-not-found        value="Замена: ничего не найдено"/>
 			<find-status-replace-readonly         value="Замена: Невозможно заменить текст. Текущий документ доступен только для чтения."/>
 			<find-status-cannot-find              value="Поиск: Не удается найти текст &quot;$STR_REPLACE$&quot;"/>
+			<find-status-scope-selection          value="в выделенном тексте"/>
+			<find-status-scope-all                value="во всем файле"/>
+			<find-status-scope-backward           value="от начала файла до знак вставки"/>
+			<find-status-scope-forward            value="от знак вставки до конца файла"/>
 			<finder-find-in-finder                value="Поиск в найденном..."/>
 			<finder-close-this                    value="Закрыть этот поиск"/>
 			<finder-collapse-all         value="Свернуть всё"/>

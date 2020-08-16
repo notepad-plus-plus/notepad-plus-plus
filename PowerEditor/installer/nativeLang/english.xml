@@ -571,6 +571,11 @@
                     <Item id="44080" name="Toggle Document Map"/>
                     <Item id="44084" name="Toggle Function List"/>
                     <Item id="50005" name="Toggle macro recording"/>
+                    <Item id="44104" name="Switch to Project Panel 1"/>
+                    <Item id="44105" name="Switch to Project Panel 2"/>
+                    <Item id="44106" name="Switch to Project Panel 3"/>
+                    <Item id="44107" name="Switch to Folder as Workspace"/>
+                    <Item id="44108" name="Switch to Function List"/>
                 </MainCommandNames>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="Shortcut">

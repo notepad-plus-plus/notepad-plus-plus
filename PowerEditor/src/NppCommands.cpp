@@ -719,7 +719,19 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
+		case IDM_VIEW_SWITCHTO_PROJECT_PANEL_1:
+		case IDM_VIEW_SWITCHTO_PROJECT_PANEL_2:
+		case IDM_VIEW_SWITCHTO_PROJECT_PANEL_3:
+		{
+			ProjectPanel** pp [] = {&_pProjectPanel_1, &_pProjectPanel_2, &_pProjectPanel_3};
+			int idx = id - IDM_VIEW_SWITCHTO_PROJECT_PANEL_1;
+			launchProjectPanel(id - IDM_VIEW_SWITCHTO_PROJECT_PANEL_1 + IDM_VIEW_PROJECT_PANEL_1, pp [idx], idx);
+		}
+		break;
+
+
 		case IDM_VIEW_FILEBROWSER:
+		case IDM_VIEW_SWITCHTO_FILEBROWSER:
 		{
 			if (_pFileBrowser == nullptr) // first launch, check in params to open folders
 			{
@@ -734,7 +746,7 @@ void Notepad_plus::command(int id)
 			}
 			else
 			{
-				if (not _pFileBrowser->isClosed())
+				if (!_pFileBrowser->isClosed() && (id != IDM_VIEW_SWITCHTO_FILEBROWSER))
 				{
 					_pFileBrowser->display(false);
 					_pFileBrowser->setClosed(true);
@@ -776,9 +788,25 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
+		case IDM_VIEW_SWITCHTO_FUNC_LIST:
+		{
+			if (_pFuncList && _pFuncList->isVisible())
+			{
+				_pFuncList->getFocus();
+			}
+			else
+			{
+				checkMenuItem(IDM_VIEW_FUNC_LIST, true);
+				_toolBar.setCheck(IDM_VIEW_FUNC_LIST, true);
+				launchFunctionList();
+				_pFuncList->setClosed(false);
+			}
+		}
+		break;
+		
 		case IDM_VIEW_FUNC_LIST:
 		{
-			if (_pFuncList && (not _pFuncList->isClosed()))
+			if (_pFuncList && (!_pFuncList->isClosed()))
 			{
 				_pFuncList->display(false);
 				_pFuncList->setClosed(true);

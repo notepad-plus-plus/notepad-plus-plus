@@ -357,6 +357,12 @@
 	#define	   IDM_VIEW_IN_EDGE	                  (IDM_VIEW + 102)
 	#define	   IDM_VIEW_IN_IE                     (IDM_VIEW + 103)
 
+	#define    IDM_VIEW_SWITCHTO_PROJECT_PANEL_1  (IDM_VIEW + 104)
+	#define    IDM_VIEW_SWITCHTO_PROJECT_PANEL_2  (IDM_VIEW + 105)
+	#define    IDM_VIEW_SWITCHTO_PROJECT_PANEL_3  (IDM_VIEW + 106)
+	#define    IDM_VIEW_SWITCHTO_FILEBROWSER      (IDM_VIEW + 107)
+	#define    IDM_VIEW_SWITCHTO_FUNC_LIST        (IDM_VIEW + 108)
+
     #define    IDM_VIEW_GOTO_ANOTHER_VIEW        10001
     #define    IDM_VIEW_CLONE_TO_ANOTHER_VIEW    10002
     #define    IDM_VIEW_GOTO_NEW_INSTANCE        10003

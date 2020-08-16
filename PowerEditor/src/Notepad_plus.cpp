@@ -6217,9 +6217,6 @@ void Notepad_plus::launchFunctionList()
 	}
 
 	_pFuncList->display();
-	_pFuncList->reload();
-
-	_pEditView->getFocus();
 }
 
 

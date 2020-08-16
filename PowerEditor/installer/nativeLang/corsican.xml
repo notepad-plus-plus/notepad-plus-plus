@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     History of Corsican translation for Notepad++
-		- Updated on August 14th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.9
+		- Updated on August 16th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.9
 		- Updated on May 26th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.7
 		- Updated on January 8th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.3
 		- Updated on October 31st, 2019 by Patriccollu di Santa Maria è Sichè for version 7.8.1
@@ -530,6 +530,65 @@
                 <ScintillaCommandsTab name="Cumande Scintilla"/>
                 <ConflictInfoOk name="Alcunu cunflittu d’accurtatoghju per st’elementu."/>
                 <ConflictInfoEditing name="Alcunu cunflittu . . ."/>
+                <MainCommandNames>
+                    <Item id="41019" name="Apre cù l’espluratore u cartulare cuntenendu u schedariu"/>
+                    <Item id="41020" name="Apre cù l’invitu di cumanda u cartulare cuntenendu u schedariu"/>
+                    <Item id="41021" name="Apre u schedariu chjosu pocu fà"/>
+                    <Item id="45001" name="Cunversione di fine di linea ver di u furmatu Windows (CR LF)"/>
+                    <Item id="45002" name="Cunversione di fine di linea ver di u furmatu Unix (LF)"/>
+                    <Item id="45003" name="Cunversione di fine di linea ver di u furmatu Macintosh (CR)"/>
+                    <Item id="43022" name="Marcà i risultati di ricerca impieghendu u 1u stilu"/>
+                    <Item id="43024" name="Marcà i risultati di ricerca impieghendu u 2u stilu"/>
+                    <Item id="43026" name="Marcà i risultati di ricerca impieghendu u 3u stilu"/>
+                    <Item id="43028" name="Marcà i risultati di ricerca impieghendu u 4u stilu"/>
+                    <Item id="43030" name="Marcà i risultati di ricerca impieghendu u 5u stilu"/>
+                    <Item id="43023" name="Squassà e marche impieghendu u 1u stilu"/>
+                    <Item id="43025" name="Squassà e marche impieghendu u 2u stilu"/>
+                    <Item id="43027" name="Squassà e marche impieghendu u 3u stilu"/>
+                    <Item id="43029" name="Squassà e marche impieghendu u 4u stilu"/>
+                    <Item id="43031" name="Squassà e marche impieghendu u 5u stilu"/>
+                    <Item id="43032" name="Squassà e marche impieghendu tutti i stili"/>
+                    <Item id="43033" name="Marca precedente impieghendu u 1u stilu"/>
+                    <Item id="43034" name="Marca precedente impieghendu u 2u stilu"/>
+                    <Item id="43035" name="Marca precedente impieghendu u 3u stilu"/>
+                    <Item id="43036" name="Marca precedente impieghendu u 4u stilu"/>
+                    <Item id="43037" name="Marca precedente impieghendu u 5u stilu"/>
+                    <Item id="43038" name="Marca precedente creata cù Marcà…"/>
+                    <Item id="43039" name="Marca seguente impieghendu u 1u stilu"/>
+                    <Item id="43040" name="Marca seguente impieghendu u 2u stilu"/>
+                    <Item id="43041" name="Marca seguente impieghendu u 3u stilu"/>
+                    <Item id="43042" name="Marca seguente impieghendu u 4u stilu"/>
+                    <Item id="43043" name="Marca seguente impieghendu u 5u stilu"/>
+                    <Item id="43044" name="Marca seguente creata cù Marcà…"/>
+                    <Item id="44100" name="Fighjà u schedariu attuale cù Firefox"/>
+                    <Item id="44101" name="Fighjà u schedariu attuale cù Chrome"/>
+                    <Item id="44103" name="Fighjà u schedariu attuale cù Internet Explorer"/>
+                    <Item id="44102" name="Fighjà u schedariu attuale cù Edge"/>
+                    <Item id="50003" name="Andà à u ducumentu precedente"/>
+                    <Item id="50004" name="Andà à u ducumentu seguente"/>
+                    <Item id="44051" name="Ripiegà u livellu 1"/>
+                    <Item id="44052" name="Ripiegà u livellu 2"/>
+                    <Item id="44053" name="Ripiegà u livellu 3"/>
+                    <Item id="44054" name="Ripiegà u livellu 4"/>
+                    <Item id="44055" name="Ripiegà u livellu 5"/>
+                    <Item id="44056" name="Ripiegà u livellu 6"/>
+                    <Item id="44057" name="Ripiegà u livellu 7"/>
+                    <Item id="44058" name="Ripiegà u livellu 8"/>
+                    <Item id="44061" name="Spiegà u livellu 1"/>
+                    <Item id="44062" name="Spiegà u livellu 2"/>
+                    <Item id="44063" name="Spiegà u livellu 3"/>
+                    <Item id="44064" name="Spiegà u livellu 4"/>
+                    <Item id="44065" name="Spiegà u livellu 5"/>
+                    <Item id="44066" name="Spiegà u livellu 6"/>
+                    <Item id="44067" name="Spiegà u livellu 7"/>
+                    <Item id="44068" name="Spiegà u livellu 8"/>
+                    <Item id="44081" name="Attivà o disattivà u pannellu di prughjettu 1"/>
+                    <Item id="44082" name="Attivà o disattivà u pannellu di prughjettu 2"/>
+                    <Item id="44083" name="Attivà o disattivà u pannellu di prughjettu 3"/>
+                    <Item id="44085" name="Attivà o disattivà u cartulare cum’è spaziu di travagliu"/>
+                    <Item id="44080" name="Attivà o disattivà a cartugrafia di u ducumentu"/>
+                    <Item id="44084" name="Attivà o disattivà a lista di e funzioni"/>
+                    <Item id="50005" name="Attivà o disattivà l’arregistramentu d’una macro"/>                </MainCommandNames>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="Accurtatoghju">
                 <Item id="1" name="Vai"/>
@@ -866,6 +925,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                     <Item id="6901" name="Ùn micca riempie u campu di ricerca cù a parolla selezziunata"/>
                     <Item id="6902" name="Impiegà a grafia à spaziamentu fissu in u dialogu di ricerca (Richiede di rilancià Notepad++)"/>
                     <Item id="6903" name="U dialogu di ricerca sta apertu dopu una ricerca chì s’affisseghja in a finestra di risultati"/>
+                    <Item id="6904" name="Cunfirmà tutti i rimpiazamenti in tutti i ducumenti aperti"/>
                 </Searching>
 
                 <RecentFilesHistory title="Schedarii recenti">

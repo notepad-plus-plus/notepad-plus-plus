@@ -3313,6 +3313,7 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 			{
 				TCHAR pathDropped[MAX_PATH];
 				::DragQueryFile(hdrop, i, pathDropped, MAX_PATH);
+				resolveLinkFile(NULL, pathDropped, MAX_PATH);
 				BufferID test = doOpen(pathDropped);
 				if (test != BUFFER_INVALID)
 					lastOpened = test;

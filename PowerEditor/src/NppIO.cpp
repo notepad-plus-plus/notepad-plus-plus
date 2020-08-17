@@ -38,6 +38,7 @@
 #include "ReadFileChanges.h"
 #include <tchar.h>
 #include <unordered_set>
+#include <strsafe.h>
 
 using namespace std;
 
@@ -2258,4 +2259,47 @@ void Notepad_plus::saveSession(const Session & session)
 void Notepad_plus::saveCurrentSession()
 {
 	::PostMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_SAVECURRENTSESSION, 0, 0);
+}
+
+
+HRESULT Notepad_plus::resolveLinkFile(HWND hwnd, LPWSTR linkFilePath, int iPathBufferSize)
+{
+	HRESULT hres;
+	IShellLink* psl;
+	WCHAR targetFilePath[MAX_PATH];
+	WIN32_FIND_DATA wfd;
+
+	hres = CoInitialize(NULL);
+	if (SUCCEEDED(hres))
+	{
+		hres = CoCreateInstance(CLSID_ShellLink, NULL, CLSCTX_INPROC_SERVER, IID_IShellLink, (LPVOID*)&psl);
+		if (SUCCEEDED(hres))
+		{
+			IPersistFile* ppf;
+			hres = psl->QueryInterface(IID_IPersistFile, (void**)&ppf);
+			if (SUCCEEDED(hres))
+			{
+				// Load the shortcut. 
+				hres = ppf->Load(linkFilePath, STGM_READ);
+				if (SUCCEEDED(hres))
+				{
+					// Resolve the link. 
+					hres = psl->Resolve(hwnd, 0);
+					if (SUCCEEDED(hres))
+					{
+						// Get the path to the link target. 
+						hres = psl->GetPath(targetFilePath, MAX_PATH, (WIN32_FIND_DATA*)&wfd, SLGP_SHORTPATH);
+						if (SUCCEEDED(hres))
+						{
+							hres = StringCbCopy(linkFilePath, iPathBufferSize, targetFilePath);
+						}
+					}
+				}
+				ppf->Release();
+			}
+			psl->Release();
+		}
+		CoUninitialize();
+	}
+	return hres;
 }

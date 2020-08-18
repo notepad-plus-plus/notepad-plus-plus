@@ -241,7 +241,6 @@ public:
 	std::vector<generic_string> addNppComponents(const TCHAR *destDir, const TCHAR *extFilterName, const TCHAR *extFilter);
 	std::vector<generic_string> addNppPlugins(const TCHAR *extFilterName, const TCHAR *extFilter);
     int getHtmlXmlEncoding(const TCHAR *fileName) const;
-	HRESULT resolveLinkFile(HWND hwnd, LPWSTR linkFilePath, int iPathBufferSize);
 
 	HACCEL getAccTable() const{
 		return _accelerator.getAccTable();

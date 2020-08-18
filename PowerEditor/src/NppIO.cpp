@@ -131,11 +131,55 @@ DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 	return EXIT_SUCCESS;
 }
 
+void resolveLinkFile(LPWSTR linkFilePath)
+{
+	HRESULT hres;
+	IShellLink* psl;
+	WCHAR targetFilePath[MAX_PATH];
+	WIN32_FIND_DATA wfd;
+
+	hres = CoInitialize(NULL);
+	if (SUCCEEDED(hres))
+	{
+		hres = CoCreateInstance(CLSID_ShellLink, NULL, CLSCTX_INPROC_SERVER, IID_IShellLink, (LPVOID*)&psl);
+		if (SUCCEEDED(hres))
+		{
+			IPersistFile* ppf;
+			hres = psl->QueryInterface(IID_IPersistFile, (void**)&ppf);
+			if (SUCCEEDED(hres))
+			{
+				// Load the shortcut. 
+				hres = ppf->Load(linkFilePath, STGM_READ);
+				if (SUCCEEDED(hres))
+				{
+					// Resolve the link. 
+					hres = psl->Resolve(NULL, 0);
+					if (SUCCEEDED(hres))
+					{
+						// Get the path to the link target. 
+						hres = psl->GetPath(targetFilePath, MAX_PATH, (WIN32_FIND_DATA*)&wfd, SLGP_SHORTPATH);
+						if (SUCCEEDED(hres))
+						{
+							hres = StringCbCopy(linkFilePath, MAX_PATH, targetFilePath);
+						}
+					}
+				}
+				ppf->Release();
+			}
+			psl->Release();
+		}
+		CoUninitialize();
+	}
+}
+
 BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, bool isReadOnly, int encoding, const TCHAR *backupFileName, FILETIME fileNameTimestamp)
 {
 	const rsize_t longFileNameBufferSize = MAX_PATH; // TODO stop using fixed-size buffer
 	if (fileName.size() >= longFileNameBufferSize - 1) // issue with all other sub-routines
 		return BUFFER_INVALID;
+
+	generic_string targetFileName = fileName;
+	resolveLinkFile((LPWSTR)targetFileName.c_str());
 
 	//If [GetFullPathName] succeeds, the return value is the length, in TCHARs, of the string copied to lpBuffer, not including the terminating null character.
 	//If the lpBuffer buffer is too small to contain the path, the return value [of GetFullPathName] is the size, in TCHARs, of the buffer that is required to hold the path and the terminating null character.
@@ -144,7 +188,7 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 	NppParameters& nppParam = NppParameters::getInstance();
 	TCHAR longFileName[longFileNameBufferSize];
 
-	const DWORD getFullPathNameResult = ::GetFullPathName(fileName.c_str(), longFileNameBufferSize, longFileName, NULL);
+	const DWORD getFullPathNameResult = ::GetFullPathName(targetFileName.c_str(), longFileNameBufferSize, longFileName, NULL);
 	if (getFullPathNameResult == 0)
 	{
 		return BUFFER_INVALID;
@@ -164,12 +208,12 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 	bool isSnapshotMode = backupFileName != NULL && PathFileExists(backupFileName);
 	if (isSnapshotMode && !PathFileExists(longFileName)) // UNTITLED
 	{
-		wcscpy_s(longFileName, fileName.c_str());
+		wcscpy_s(longFileName, targetFileName.c_str());
 	}
     _lastRecentFileList.remove(longFileName);
 
 	generic_string fileName2Find;
-	generic_string gs_fileName{ fileName };
+	generic_string gs_fileName{ targetFileName };
 
 
 	// "fileName" could be:
@@ -178,7 +222,7 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 	// 3. a file name with relative path to open or create
 
 	// Search case 1 & 2 firstly
-	BufferID foundBufID = MainFileManager.getBufferFromName(fileName.c_str());
+	BufferID foundBufID = MainFileManager.getBufferFromName(targetFileName.c_str());
 
 	if (foundBufID == BUFFER_INVALID)
 		fileName2Find = longFileName;
@@ -365,19 +409,19 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
     }
     else
     {
-        if (globbing || ::PathIsDirectory(fileName.c_str()))
+        if (globbing || ::PathIsDirectory(targetFileName.c_str()))
         {
             vector<generic_string> fileNames;
             vector<generic_string> patterns;
             if (globbing)
             {
-                const TCHAR * substring = wcsrchr(fileName.c_str(), TCHAR('\\'));
+                const TCHAR * substring = wcsrchr(targetFileName.c_str(), TCHAR('\\'));
 				if (substring)
 				{
-					size_t pos = substring - fileName.c_str();
+					size_t pos = substring - targetFileName.c_str();
 
 					patterns.push_back(substring + 1);
-					generic_string dir(fileName.c_str(), pos + 1); // use char * to evoke:
+					generic_string dir(targetFileName.c_str(), pos + 1); // use char * to evoke:
 																   // string (const char* s, size_t n);
 																   // and avoid to call (if pass string) :
 																   // string (const string& str, size_t pos, size_t len = npos);
@@ -387,8 +431,8 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
             }
             else
             {
-                generic_string fileNameStr = fileName;
-                if (fileName[fileName.size() - 1] != '\\')
+                generic_string fileNameStr = targetFileName;
+                if (targetFileName[targetFileName.size() - 1] != '\\')
                     fileNameStr += TEXT("\\");
 
                 patterns.push_back(TEXT("*"));
@@ -2259,47 +2303,4 @@ void Notepad_plus::saveSession(const Session & session)
 void Notepad_plus::saveCurrentSession()
 {
 	::PostMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_SAVECURRENTSESSION, 0, 0);
-}
-
-
-HRESULT Notepad_plus::resolveLinkFile(HWND hwnd, LPWSTR linkFilePath, int iPathBufferSize)
-{
-	HRESULT hres;
-	IShellLink* psl;
-	WCHAR targetFilePath[MAX_PATH];
-	WIN32_FIND_DATA wfd;
-
-	hres = CoInitialize(NULL);
-	if (SUCCEEDED(hres))
-	{
-		hres = CoCreateInstance(CLSID_ShellLink, NULL, CLSCTX_INPROC_SERVER, IID_IShellLink, (LPVOID*)&psl);
-		if (SUCCEEDED(hres))
-		{
-			IPersistFile* ppf;
-			hres = psl->QueryInterface(IID_IPersistFile, (void**)&ppf);
-			if (SUCCEEDED(hres))
-			{
-				// Load the shortcut. 
-				hres = ppf->Load(linkFilePath, STGM_READ);
-				if (SUCCEEDED(hres))
-				{
-					// Resolve the link. 
-					hres = psl->Resolve(hwnd, 0);
-					if (SUCCEEDED(hres))
-					{
-						// Get the path to the link target. 
-						hres = psl->GetPath(targetFilePath, MAX_PATH, (WIN32_FIND_DATA*)&wfd, SLGP_SHORTPATH);
-						if (SUCCEEDED(hres))
-						{
-							hres = StringCbCopy(linkFilePath, iPathBufferSize, targetFilePath);
-						}
-					}
-				}
-				ppf->Release();
-			}
-			psl->Release();
-		}
-		CoUninitialize();
-	}
-	return hres;
 }

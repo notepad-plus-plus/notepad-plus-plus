@@ -599,6 +599,19 @@ void Notepad_plus::command(int id)
 					// No selection.
 					fromLine = 0;
 					toLine = _pEditView->execute(SCI_GETLINECOUNT) - 1;
+					if (_pEditView->execute(SCI_LINELENGTH, toLine) == 0)
+					{
+						if (toLine > 0)
+						{
+							// Last line is zero-length, do not include it in the lines to be sorted
+							--toLine;
+						}
+					}
+					if (toLine == 0)
+					{
+						// Sorting a single line is not allowed
+						return;
+					}
 				}
 			}
 

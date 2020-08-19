@@ -131,7 +131,7 @@ DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 	return EXIT_SUCCESS;
 }
 
-void resolveLinkFile(LPWSTR linkFilePath)
+HRESULT resolveLinkFile(LPWSTR linkFilePath)
 {
 	HRESULT hres;
 	IShellLink* psl;
@@ -170,6 +170,7 @@ void resolveLinkFile(LPWSTR linkFilePath)
 		}
 		CoUninitialize();
 	}
+	return hres;
 }
 
 BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, bool isReadOnly, int encoding, const TCHAR *backupFileName, FILETIME fileNameTimestamp)

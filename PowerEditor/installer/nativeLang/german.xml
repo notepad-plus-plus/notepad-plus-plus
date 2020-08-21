@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2020-08-14 by schnurlos (schnurlos@gmail.com)
+	last modified: 2020-08-21 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -524,6 +524,71 @@
 				<ScintillaCommandsTab name="Scintilla-Kommandos"/>
 				<ConflictInfoOk name="Keine Konflikte mit diesem Tastenkürzel."/>
 				<ConflictInfoEditing name="Keine Konflikte …"/>
+				<MainCommandNames>
+					<Item id="41019" name="Ordner im Explorer öffnen"/>
+					<Item id="41020" name="Ordner in der Kommandozeile öffnen"/>
+					<Item id="41021" name="Zuletzt geschlossene Datei wieder öffnen"/>
+					<Item id="45001" name="Zeilenende umwandeln zu Windows (CR LF)"/>
+					<Item id="45002" name="Zeilenende umwandeln zu Unix (LF)"/>
+					<Item id="45003" name="Zeilenende umwandeln zu Macintosh (CR)"/>
+					<Item id="43022" name="Hervorhebungen im Stil 1 markieren"/>
+					<Item id="43024" name="Hervorhebungen im Stil 2 markieren"/>
+					<Item id="43026" name="Hervorhebungen im Stil 3 markieren"/>
+					<Item id="43028" name="Hervorhebungen im Stil 4 markieren"/>
+					<Item id="43030" name="Hervorhebungen im Stil 5 markieren"/>
+					<Item id="43023" name="Entferne die Hervorhebungen im Stil 1"/>
+					<Item id="43025" name="Entferne die Hervorhebungen im Stil 2"/>
+					<Item id="43027" name="Entferne die Hervorhebungen im Stil 3"/>
+					<Item id="43029" name="Entferne die Hervorhebungen im Stil 4"/>
+					<Item id="43031" name="Entferne die Hervorhebungen im Stil 5"/>
+					<Item id="43032" name="Entferne die Hervorhebungen in allen Stilen"/>
+					<Item id="43033" name="Markiere vorherige im Stil 1"/>
+					<Item id="43034" name="Markiere vorherige im Stil 2"/>
+					<Item id="43035" name="Markiere vorherige im Stil 3"/>
+					<Item id="43036" name="Markiere vorherige im Stil 4"/>
+					<Item id="43037" name="Markiere vorherige im Stil 5"/>
+					<Item id="43038" name="Vorherige Marke erstellt mit Marke…"/>
+					<Item id="43039" name="Markiere nächste im Stil 1"/>
+					<Item id="43040" name="Markiere nächste im Stil 2"/>
+					<Item id="43041" name="Markiere nächste im Stil 3"/>
+					<Item id="43042" name="Markiere nächste im Stil 4"/>
+					<Item id="43043" name="Markiere nächste im Stil 5"/>
+					<Item id="43044" name="Nächste Marke erstellt mit Marke…"/>
+					<Item id="44100" name="Aktuelle Datei in Firefox betrachten"/>
+					<Item id="44101" name="Aktuelle Datei in Chrome betrachten"/>
+					<Item id="44103" name="Aktuelle Datei im IE betrachten"/>
+					<Item id="44102" name="Aktuelle Datei in Edge betrachten"/>
+					<Item id="50003" name="Zum vorherigen Dokument wechseln"/>
+					<Item id="50004" name="Zum nächsten Dokument wechseln"/>
+					<Item id="44051" name="Level 1 schließen"/>
+					<Item id="44052" name="Level 2 schließen"/>
+					<Item id="44053" name="Level 3 schließen"/>
+					<Item id="44054" name="Level 4 schließen"/>
+					<Item id="44055" name="Level 5 schließen"/>
+					<Item id="44056" name="Level 6 schließen"/>
+					<Item id="44057" name="Level 7 schließen"/>
+					<Item id="44058" name="Level 8 schließen"/>
+					<Item id="44061" name="Level 1 öffnen"/>
+					<Item id="44062" name="Level 2 öffnen"/>
+					<Item id="44063" name="Level 3 öffnen"/>
+					<Item id="44064" name="Level 4 öffnen"/>
+					<Item id="44065" name="Level 5 öffnen"/>
+					<Item id="44066" name="Level 6 öffnen"/>
+					<Item id="44067" name="Level 7 öffnen"/>
+					<Item id="44068" name="Level 8 öffnen"/>
+					<Item id="44081" name="Zum Projektfenster 1 umschalten"/>
+					<Item id="44082" name="Zum Projektfenster 2 umschalten"/>
+					<Item id="44083" name="Zum Projektfenster 3 umschalten"/>
+					<Item id="44085" name="Zum Ordner als Arbeitsbereich umschalten"/>
+					<Item id="44080" name="Zur Dokumentenliste umschalten"/>
+					<Item id="44084" name="Zur Funktionsliste umschalten"/>
+					<Item id="50005" name="Zur Makro-Aufzeichung umschalten"/>
+					<Item id="44104" name="Zum Projektfenster 1 wechseln"/>
+					<Item id="44105" name="Zum Projektfenster 2 wechseln"/>
+					<Item id="44106" name="Zum Projektfenster 3 wechseln"/>
+					<Item id="44107" name="Zum Ordner als Arbeitsbereich wechseln"/>
+					<Item id="44108" name="Zur Funktionsliste wechseln"/>
+				</MainCommandNames>
 			</ShortcutMapper>
 			<ShortcutMapperSubDialg title="Kürzel">
 				<Item id="1" name="OK"/>
@@ -858,6 +923,7 @@
 					<Item id="6901" name="Gewähltes Wort nicht ins Suchfenster der Suche"/>
 					<Item id="6902" name="Festbreitenschrift im Dialogfeld 'Suchen' verwenden (Neustart von Notepad++ erforderlich)."/>
 					<Item id="6903" name="Der Suchdialog bleibt nach der Suche geöffnet, die im Ergebnisfenster ausgegeben wird"/>
+					<Item id="6904" name="Bestätigung für 'Alle Ersetzen' in allen offenen Dokumenten"/>
 
 				</Searching>
 
@@ -1010,7 +1076,7 @@
 				<Item id="1716" name="&amp;Suchmodus"/>
 				<Item id="1717" name="&amp;Normal"/>
 				<Item id="1719" name="Ganz&amp;er Ausdruck"/>
-				<Item id="1718" name="Er&amp;weitert (\n, \r, \t, \0, \x...)"/>
+				<Item id="1718" name="Er&amp;weitert (\n, \r, \t, \0, \x…)"/>
 				<Item id="1720" name="&amp;. entspricht neuer Zeile"/>
 			</FindInFinder>
 			<DoSaveOrNot title="Speichern">

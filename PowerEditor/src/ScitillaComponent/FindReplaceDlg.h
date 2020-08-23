@@ -28,6 +28,7 @@
 
 #pragma once
 
+#include <map>
 #include "FindReplaceDlg_rc.h"
 #include "ScintillaEditView.h"
 #include "DockingDlgInterface.h"
@@ -387,6 +388,11 @@ private :
 	FindStatus _statusbarFindStatus;
 
 	HFONT _hMonospaceFont = nullptr;
+
+	std::map<int, bool> _controlEnableMap;
+
+	void enableFindDlgItem(int dlgItemID, bool isEnable = true);
+	void showFindDlgItem(int dlgItemID, bool isShow = true);
 
 	void enableReplaceFunc(bool isEnable);
 	void enableFindInFilesControls(bool isEnable = true);

@@ -350,34 +350,34 @@ void FindReplaceDlg::fillFindHistory()
 	{
 		//regex doesn't allow wholeword
 		::SendDlgItemMessage(_hSelf, IDWHOLEWORD, BM_SETCHECK, BST_UNCHECKED, 0);
-		::EnableWindow(::GetDlgItem(_hSelf, IDWHOLEWORD), (BOOL)false);
+		enableFindDlgItem(IDWHOLEWORD, false);
 
 		// regex upward search is disabled
 		::SendDlgItemMessage(_hSelf, IDC_BACKWARDDIRECTION, BM_SETCHECK, BST_UNCHECKED, 0);
-		::EnableWindow(::GetDlgItem(_hSelf, IDC_BACKWARDDIRECTION), nppParams.regexBackward4PowerUser() ? TRUE : FALSE);
-		::EnableWindow(::GetDlgItem(_hSelf, IDC_FINDPREV), nppParams.regexBackward4PowerUser() ? TRUE : FALSE);
+		enableFindDlgItem(IDC_BACKWARDDIRECTION, nppParams.regexBackward4PowerUser());
+		enableFindDlgItem(IDC_FINDPREV, nppParams.regexBackward4PowerUser());
 		
 		// If the search mode from history is regExp then enable the checkbox (. matches newline)
-		::EnableWindow(GetDlgItem(_hSelf, IDREDOTMATCHNL), true);
+		enableFindDlgItem(IDREDOTMATCHNL);
 	}
 	
 	if (nppParams.isTransparentAvailable())
 	{
-		::ShowWindow(::GetDlgItem(_hSelf, IDC_TRANSPARENT_CHECK), SW_SHOW);
-		::ShowWindow(::GetDlgItem(_hSelf, IDC_TRANSPARENT_GRPBOX), SW_SHOW);
-		::ShowWindow(::GetDlgItem(_hSelf, IDC_TRANSPARENT_LOSSFOCUS_RADIO), SW_SHOW);
-		::ShowWindow(::GetDlgItem(_hSelf, IDC_TRANSPARENT_ALWAYS_RADIO), SW_SHOW);
-		::ShowWindow(::GetDlgItem(_hSelf, IDC_PERCENTAGE_SLIDER), SW_SHOW);
+		showFindDlgItem(IDC_TRANSPARENT_CHECK);
+		showFindDlgItem(IDC_TRANSPARENT_GRPBOX);
+		showFindDlgItem(IDC_TRANSPARENT_LOSSFOCUS_RADIO);
+		showFindDlgItem(IDC_TRANSPARENT_ALWAYS_RADIO);
+		showFindDlgItem(IDC_PERCENTAGE_SLIDER);
 		
 		::SendDlgItemMessage(_hSelf, IDC_PERCENTAGE_SLIDER, TBM_SETRANGE, FALSE, MAKELONG(20, 200));
 		::SendDlgItemMessage(_hSelf, IDC_PERCENTAGE_SLIDER, TBM_SETPOS, TRUE, findHistory._transparency);
 		
 		if (findHistory._transparencyMode == FindHistory::none)
 		{
-			::EnableWindow(::GetDlgItem(_hSelf, IDC_TRANSPARENT_GRPBOX), FALSE);
-			::EnableWindow(::GetDlgItem(_hSelf, IDC_TRANSPARENT_LOSSFOCUS_RADIO), FALSE);
-			::EnableWindow(::GetDlgItem(_hSelf, IDC_TRANSPARENT_ALWAYS_RADIO), FALSE);
-			::EnableWindow(::GetDlgItem(_hSelf, IDC_PERCENTAGE_SLIDER), FALSE);
+			enableFindDlgItem(IDC_TRANSPARENT_GRPBOX, false);
+			enableFindDlgItem(IDC_TRANSPARENT_LOSSFOCUS_RADIO, false);
+			enableFindDlgItem(IDC_TRANSPARENT_ALWAYS_RADIO, false);
+			enableFindDlgItem(IDC_PERCENTAGE_SLIDER, false);
 		}
 		else
 		{
@@ -1027,7 +1027,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					_options._isInSelection = false;
 					nbSelected = 0;
 				}
-				::EnableWindow(::GetDlgItem(_hSelf, IDC_IN_SELECTION_CHECK), nbSelected);
+				enableFindDlgItem(IDC_IN_SELECTION_CHECK, nbSelected != 0);
 				// uncheck if the control is disable
 				if (!nbSelected)
 				{
@@ -1054,11 +1054,11 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			// In that case, ". Matches newline" should be disabled as it applicable only for Regex
 			if (isCheckedOrNot(IDREGEXP))
 			{
-				::EnableWindow(GetDlgItem(_hSelf, IDREDOTMATCHNL), true);
+				enableFindDlgItem(IDREDOTMATCHNL);
 			}
 			else
 			{
-				::EnableWindow(GetDlgItem(_hSelf, IDREDOTMATCHNL), false);
+				enableFindDlgItem(IDREDOTMATCHNL, false);
 			}
 			return TRUE;
 		}
@@ -1079,9 +1079,9 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					bool is2ButtonsMode = isCheckedOrNot(IDC_2_BUTTONS_MODE);
 					findHistory._isSearch2ButtonsMode = is2ButtonsMode;
 
-					::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDPREV), is2ButtonsMode ? SW_SHOW : SW_HIDE);
-					::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDNEXT), is2ButtonsMode ? SW_SHOW : SW_HIDE);
-					::ShowWindow(::GetDlgItem(_hSelf, IDOK), is2ButtonsMode ? SW_HIDE : SW_SHOW);
+					showFindDlgItem(IDC_FINDPREV, is2ButtonsMode);
+					showFindDlgItem(IDC_FINDNEXT, is2ButtonsMode);
+					showFindDlgItem(IDOK, !is2ButtonsMode);
 				}
 				break;
 
@@ -1470,19 +1470,19 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					{
 						_options._searchType = FindRegex;
 						findHistory._searchMode = FindHistory::regExpr;
-						::EnableWindow(GetDlgItem(_hSelf, IDREDOTMATCHNL), true);
+						enableFindDlgItem(IDREDOTMATCHNL);
 					}
 					else if (isCheckedOrNot(IDEXTENDED))
 					{
 						_options._searchType = FindExtended;
 						findHistory._searchMode = FindHistory::extended;
-						::EnableWindow(GetDlgItem(_hSelf, IDREDOTMATCHNL), false);
+						enableFindDlgItem(IDREDOTMATCHNL, false);
 					}
 					else
 					{
 						_options._searchType = FindNormal;
 						findHistory._searchMode = FindHistory::normal;
-						::EnableWindow(GetDlgItem(_hSelf, IDREDOTMATCHNL), false);
+						enableFindDlgItem(IDREDOTMATCHNL, false);
 					}
 
 					bool isRegex = (_options._searchType == FindRegex);
@@ -1500,7 +1500,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						}
 					}
 
-					::EnableWindow(::GetDlgItem(_hSelf, IDWHOLEWORD), (BOOL)!isRegex);
+					enableFindDlgItem(IDWHOLEWORD, !isRegex);
 
 					// regex upward search is disabled
 					BOOL doEnable = TRUE;
@@ -1508,8 +1508,8 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					{
 						doEnable = FALSE;
 					}
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_BACKWARDDIRECTION), doEnable);
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_FINDPREV), doEnable);
+					enableFindDlgItem(IDC_BACKWARDDIRECTION, doEnable);
+					enableFindDlgItem(IDC_FINDPREV, doEnable);
 
 					return TRUE; }
 
@@ -1547,10 +1547,10 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				{
 					bool isChecked = isCheckedOrNot(IDC_TRANSPARENT_CHECK);
 
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_TRANSPARENT_GRPBOX), isChecked);
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_TRANSPARENT_LOSSFOCUS_RADIO), isChecked);
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_TRANSPARENT_ALWAYS_RADIO), isChecked);
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_PERCENTAGE_SLIDER), isChecked);
+					enableFindDlgItem(IDC_TRANSPARENT_GRPBOX, isChecked);
+					enableFindDlgItem(IDC_TRANSPARENT_LOSSFOCUS_RADIO, isChecked);
+					enableFindDlgItem(IDC_TRANSPARENT_ALWAYS_RADIO, isChecked);
+					enableFindDlgItem(IDC_PERCENTAGE_SLIDER, isChecked);
 
 					if (isChecked)
 					{
@@ -2560,10 +2560,63 @@ void FindReplaceDlg::setSearchText(TCHAR * txt2find)
 	::SendMessage(hCombo, CB_SETEDITSEL, 0, MAKELPARAM(0, -1)); // select all text - fast edit
 }
 
-void FindReplaceDlg::enableReplaceFunc(bool isEnable) 
+void FindReplaceDlg::enableFindDlgItem(int dlgItemID, bool isEnable /* = true*/)
+{
+	HWND h = ::GetDlgItem(_hSelf, dlgItemID);
+	if (!h) return;
+
+	if (::IsWindowVisible(h))
+	{
+		::EnableWindow(h, isEnable ? TRUE : FALSE);
+	}
+
+	// remember the real state of this control being enabled/disabled
+	_controlEnableMap[dlgItemID] = isEnable;
+}
+
+void FindReplaceDlg::showFindDlgItem(int dlgItemID, bool isShow /* = true*/)
+{
+	HWND h = ::GetDlgItem(_hSelf, dlgItemID);
+	if (!h) return;
+	
+	::ShowWindow(h, isShow ? SW_SHOW : SW_HIDE);
+
+	// when hiding a control to make it user-inaccessible, it can still be manipulated via a keyboard accelerator!
+	// so disable it in addition to hiding it to prevent such user interaction
+	// but that causes trouble when unhiding it; we don't know if it should be enabled or disabled,
+	// so used the remembered state when we last enabled/disabled this control to determine it
+
+	if (dlgItemID == IDOK)
+	{
+		// do not disable the standard Find-Next button (IDOK);
+		// keeping it enabled allows Enter (and Shift+Enter) to work when in 2-button-find-mode
+		// and IDC_FINDNEXT does not have focus
+		return;
+	}
+
+	int enable = isShow ? TRUE : FALSE;
+
+	if (isShow)
+	{
+		const auto iter = _controlEnableMap.find(dlgItemID);
+		if (iter == _controlEnableMap.end())
+		{
+			// if control's state was never previously recorded, assume it was enabled
+			enable = TRUE;
+			_controlEnableMap[dlgItemID] = true;
+		}
+		else
+		{
+			enable = iter->second ? TRUE : FALSE;
+		}
+	}
+
+	::EnableWindow(h, enable);
+}
+
+void FindReplaceDlg::enableReplaceFunc(bool isEnable)
 {
 	_currentStatus = isEnable?REPLACE_DLG:FIND_DLG;
-	int hideOrShow = isEnable?SW_SHOW:SW_HIDE;
 	RECT *pClosePos = isEnable ? &_replaceClosePos : &_findClosePos;
 	RECT *pInSelectionFramePos = isEnable ? &_replaceInSelFramePos : &_countInSelFramePos;
 	RECT *pInSectionCheckPos = isEnable ? &_replaceInSelCheckPos : &_countInSelCheckPos;
@@ -2571,25 +2624,25 @@ void FindReplaceDlg::enableReplaceFunc(bool isEnable)
 	enableFindInFilesControls(false);
 	enableMarkAllControls(false);
 	// replace controls
-	::ShowWindow(::GetDlgItem(_hSelf, ID_STATICTEXT_REPLACE),hideOrShow);
-	::ShowWindow(::GetDlgItem(_hSelf, IDREPLACE),hideOrShow);
-	::ShowWindow(::GetDlgItem(_hSelf, IDREPLACEWITH),hideOrShow);
-	::ShowWindow(::GetDlgItem(_hSelf, IDREPLACEALL),hideOrShow);
-	::ShowWindow(::GetDlgItem(_hSelf, IDREPLACEINSEL),hideOrShow);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_REPLACE_OPENEDFILES),hideOrShow);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_REPLACEINSELECTION), SW_SHOW);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_IN_SELECTION_CHECK), SW_SHOW);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_2_BUTTONS_MODE), SW_SHOW);
+	showFindDlgItem(ID_STATICTEXT_REPLACE, isEnable);
+	showFindDlgItem(IDREPLACE, isEnable);
+	showFindDlgItem(IDREPLACEWITH, isEnable);
+	showFindDlgItem(IDREPLACEALL, isEnable);
+	showFindDlgItem(IDREPLACEINSEL, isEnable);
+	showFindDlgItem(IDC_REPLACE_OPENEDFILES, isEnable);
+	showFindDlgItem(IDC_REPLACEINSELECTION);
+	showFindDlgItem(IDC_IN_SELECTION_CHECK);
+	showFindDlgItem(IDC_2_BUTTONS_MODE);
 	bool is2ButtonMode = isCheckedOrNot(IDC_2_BUTTONS_MODE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDOK), is2ButtonMode ? SW_HIDE : SW_SHOW);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDPREV), !is2ButtonMode ? SW_HIDE : SW_SHOW);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDNEXT), !is2ButtonMode ? SW_HIDE : SW_SHOW);
+	showFindDlgItem(IDOK, !is2ButtonMode);
+	showFindDlgItem(IDC_FINDPREV, is2ButtonMode);
+	showFindDlgItem(IDC_FINDNEXT, is2ButtonMode);
 
 
 	// find controls
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDALL_OPENEDFILES), !hideOrShow);
-	::ShowWindow(::GetDlgItem(_hSelf, IDCCOUNTALL),!hideOrShow);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDALL_CURRENTFILE),!hideOrShow);
+	showFindDlgItem(IDC_FINDALL_OPENEDFILES, !isEnable);
+	showFindDlgItem(IDCCOUNTALL, !isEnable);
+	showFindDlgItem(IDC_FINDALL_CURRENTFILE, !isEnable);
 
 	gotoCorrectTab();
 
@@ -2606,69 +2659,65 @@ void FindReplaceDlg::enableReplaceFunc(bool isEnable)
 
 void FindReplaceDlg::enableMarkAllControls(bool isEnable)
 {
-	int hideOrShow = isEnable?SW_SHOW:SW_HIDE;
-	::ShowWindow(::GetDlgItem(_hSelf, IDCMARKALL),hideOrShow);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_MARKLINE_CHECK),hideOrShow);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_PURGE_CHECK),hideOrShow);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_CLEAR_ALL),hideOrShow);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_IN_SELECTION_CHECK), hideOrShow);
+	showFindDlgItem(IDCMARKALL, isEnable);
+	showFindDlgItem(IDC_MARKLINE_CHECK, isEnable);
+	showFindDlgItem(IDC_PURGE_CHECK, isEnable);
+	showFindDlgItem(IDC_CLEAR_ALL, isEnable);
+	showFindDlgItem(IDC_IN_SELECTION_CHECK, isEnable);
 }
 
 void FindReplaceDlg::enableFindInFilesControls(bool isEnable)
 {
 	// Hide Items
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_BACKWARDDIRECTION), isEnable?SW_HIDE:SW_SHOW);
-	::ShowWindow(::GetDlgItem(_hSelf, IDWRAP), isEnable?SW_HIDE:SW_SHOW);
-	::ShowWindow(::GetDlgItem(_hSelf, IDCCOUNTALL), isEnable?SW_HIDE:SW_SHOW);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDALL_OPENEDFILES), isEnable?SW_HIDE:SW_SHOW);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDALL_CURRENTFILE), isEnable?SW_HIDE:SW_SHOW);
+	showFindDlgItem(IDC_BACKWARDDIRECTION, !isEnable);
+	showFindDlgItem(IDWRAP, !isEnable);
+	showFindDlgItem(IDCCOUNTALL, !isEnable);
+	showFindDlgItem(IDC_FINDALL_OPENEDFILES, !isEnable);
+	showFindDlgItem(IDC_FINDALL_CURRENTFILE, !isEnable);
 
 	if (isEnable)
 	{
-		::ShowWindow(::GetDlgItem(_hSelf, IDC_2_BUTTONS_MODE), SW_HIDE);
-		::ShowWindow(::GetDlgItem(_hSelf, IDOK), SW_HIDE);
-		::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDPREV), SW_HIDE);
-		::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDNEXT), SW_HIDE);
+		showFindDlgItem(IDC_2_BUTTONS_MODE, false);
+		showFindDlgItem(IDOK, false);
+		showFindDlgItem(IDC_FINDPREV, false);
+		showFindDlgItem(IDC_FINDNEXT, false);
 	}
 	else
 	{
-		::ShowWindow(::GetDlgItem(_hSelf, IDC_2_BUTTONS_MODE), SW_SHOW);
+		showFindDlgItem(IDC_2_BUTTONS_MODE);
 		bool is2ButtonMode = isCheckedOrNot(IDC_2_BUTTONS_MODE);
-
-		::ShowWindow(::GetDlgItem(_hSelf, IDOK), is2ButtonMode ? SW_HIDE : SW_SHOW);
-
-		::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDPREV), !is2ButtonMode ? SW_HIDE : SW_SHOW);
-		::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDNEXT), !is2ButtonMode ? SW_HIDE : SW_SHOW);
+		showFindDlgItem(IDOK, !is2ButtonMode);
+		showFindDlgItem(IDC_FINDPREV, is2ButtonMode);
+		showFindDlgItem(IDC_FINDNEXT, is2ButtonMode);
 	}
 
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_MARKLINE_CHECK), isEnable?SW_HIDE:SW_SHOW);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_PURGE_CHECK), isEnable?SW_HIDE:SW_SHOW);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_IN_SELECTION_CHECK), isEnable?SW_HIDE:SW_SHOW);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_CLEAR_ALL), isEnable?SW_HIDE:SW_SHOW);
-	::ShowWindow(::GetDlgItem(_hSelf, IDCMARKALL), isEnable?SW_HIDE:SW_SHOW);
+	showFindDlgItem(IDC_MARKLINE_CHECK, !isEnable);
+	showFindDlgItem(IDC_PURGE_CHECK, !isEnable);
+	showFindDlgItem(IDC_IN_SELECTION_CHECK, !isEnable);
+	showFindDlgItem(IDC_CLEAR_ALL, !isEnable);
+	showFindDlgItem(IDCMARKALL, !isEnable);
 	
-	::ShowWindow(::GetDlgItem(_hSelf, IDREPLACE), isEnable?SW_HIDE:SW_SHOW);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_REPLACEINSELECTION), isEnable?SW_HIDE:SW_SHOW);
-	::ShowWindow(::GetDlgItem(_hSelf, IDREPLACEALL), isEnable?SW_HIDE:SW_SHOW);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_REPLACE_OPENEDFILES), isEnable?SW_HIDE:SW_SHOW);
+	showFindDlgItem(IDREPLACE, !isEnable);
+	showFindDlgItem(IDC_REPLACEINSELECTION, !isEnable);
+	showFindDlgItem(IDREPLACEALL, !isEnable);
+	showFindDlgItem(IDC_REPLACE_OPENEDFILES, !isEnable);
 
 	// Show Items
 	if (isEnable)
 	{
-		::ShowWindow(::GetDlgItem(_hSelf, ID_STATICTEXT_REPLACE), SW_SHOW);
-		::ShowWindow(::GetDlgItem(_hSelf, IDREPLACEWITH), SW_SHOW);
+		showFindDlgItem(ID_STATICTEXT_REPLACE);
+		showFindDlgItem(IDREPLACEWITH);
 	}
-	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_REPLACEINFILES), isEnable?SW_SHOW:SW_HIDE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_STATIC), isEnable?SW_SHOW:SW_HIDE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_COMBO), isEnable?SW_SHOW:SW_HIDE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_STATIC), isEnable?SW_SHOW:SW_HIDE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_COMBO), isEnable?SW_SHOW:SW_HIDE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_BROWSE_BUTTON), isEnable?SW_SHOW:SW_HIDE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_FIND_BUTTON), isEnable?SW_SHOW:SW_HIDE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_GOBACK_BUTTON), isEnable?SW_SHOW:SW_HIDE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_RECURSIVE_CHECK), isEnable?SW_SHOW:SW_HIDE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_INHIDDENDIR_CHECK), isEnable?SW_SHOW:SW_HIDE);
-    ::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_FOLDERFOLLOWSDOC_CHECK), isEnable?SW_SHOW:SW_HIDE);
+	showFindDlgItem(IDD_FINDINFILES_REPLACEINFILES, isEnable);
+	showFindDlgItem(IDD_FINDINFILES_FILTERS_STATIC, isEnable);
+	showFindDlgItem(IDD_FINDINFILES_FILTERS_COMBO, isEnable);
+	showFindDlgItem(IDD_FINDINFILES_DIR_STATIC, isEnable);
+	showFindDlgItem(IDD_FINDINFILES_DIR_COMBO, isEnable);
+	showFindDlgItem(IDD_FINDINFILES_BROWSE_BUTTON, isEnable);
+	showFindDlgItem(IDD_FINDINFILES_FIND_BUTTON, isEnable);
+	showFindDlgItem(IDD_FINDINFILES_RECURSIVE_CHECK, isEnable);
+	showFindDlgItem(IDD_FINDINFILES_INHIDDENDIR_CHECK, isEnable);
+	showFindDlgItem(IDD_FINDINFILES_FOLDERFOLLOWSDOC_CHECK, isEnable);
 }
 
 void FindReplaceDlg::getPatterns(vector<generic_string> & patternVect)
@@ -3180,22 +3229,22 @@ void FindReplaceDlg::enableMarkFunc()
 	enableMarkAllControls(true);
 
 	// Replace controls to hide
-	::ShowWindow(::GetDlgItem(_hSelf, ID_STATICTEXT_REPLACE),SW_HIDE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDREPLACE),SW_HIDE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDREPLACEWITH),SW_HIDE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDREPLACEALL),SW_HIDE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDREPLACEINSEL),SW_HIDE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_REPLACE_OPENEDFILES),SW_HIDE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_REPLACEINSELECTION),SW_HIDE);
+	showFindDlgItem(ID_STATICTEXT_REPLACE, false);
+	showFindDlgItem(IDREPLACE, false);
+	showFindDlgItem(IDREPLACEWITH, false);
+	showFindDlgItem(IDREPLACEALL, false);
+	showFindDlgItem(IDREPLACEINSEL, false);
+	showFindDlgItem(IDC_REPLACE_OPENEDFILES, false);
+	showFindDlgItem(IDC_REPLACEINSELECTION, false);
 
 	// find controls to hide
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDALL_OPENEDFILES), SW_HIDE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDCCOUNTALL),SW_HIDE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDALL_CURRENTFILE),SW_HIDE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDOK),SW_HIDE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_2_BUTTONS_MODE), SW_HIDE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDPREV), SW_HIDE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDNEXT), SW_HIDE);
+	showFindDlgItem(IDC_FINDALL_OPENEDFILES, false);
+	showFindDlgItem(IDCCOUNTALL, false);
+	showFindDlgItem(IDC_FINDALL_CURRENTFILE, false);
+	showFindDlgItem(IDOK, false);
+	showFindDlgItem(IDC_2_BUTTONS_MODE, false);
+	showFindDlgItem(IDC_FINDPREV, false);
+	showFindDlgItem(IDC_FINDNEXT, false);
 
 	_currentStatus = MARK_DLG;
 	gotoCorrectTab();

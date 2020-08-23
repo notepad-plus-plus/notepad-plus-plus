@@ -391,7 +391,7 @@
                 <Item id="1624" name="Search mode"/>
                 <Item id="1625" name="&amp;Normal"/>
                 <Item id="1626" name="E&amp;xtended (\n, \r, \t, \0, \x...)"/>
-                <Item id="1660" name="&amp;Replace in Files"/>
+                <Item id="1660" name="Replace in Files"/>
                 <Item id="1661" name="Follow current doc."/>
                 <Item id="1641" name="Find All in Current Document"/>
                 <Item id="1686" name="Transparenc&amp;y"/>

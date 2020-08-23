@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2020-08-21 by schnurlos (schnurlos@gmail.com)
+	last modified: 2020-08-23 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -924,7 +924,6 @@
 					<Item id="6902" name="Festbreitenschrift im Dialogfeld 'Suchen' verwenden (Neustart von Notepad++ erforderlich)."/>
 					<Item id="6903" name="Der Suchdialog bleibt nach der Suche geöffnet, die im Ergebnisfenster ausgegeben wird"/>
 					<Item id="6904" name="Bestätigung für 'Alle Ersetzen' in allen offenen Dokumenten"/>
-
 				</Searching>
 
 				<RecentFilesHistory title="Zuletzt geöffn. Dateien">
@@ -1028,6 +1027,7 @@
 					<Item id="6331" name="Nur Dateinamen in Titelleiste anzeigen"/>
 					<Item id="6334" name="Kodierung automatisch erkennen"/>
 					<Item id="6349" name="Verwende DirectWrite (kann die Darstellung von Sonderzeichen verbessern - Neustart von Notepad++ erforderlich)"/>
+					<Item id="6350" name="Vollbox-Modus aktivieren"/>
 					<Item id="6337" name="Arbeitsbereich Dateierw.:"/>
 					<Item id="6114" name="Aktivieren"/>
 					<Item id="6117" name="In Reihenfolge der Benutzung"/>

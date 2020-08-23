@@ -1136,33 +1136,25 @@ void DockingCont::onSize()
 
 void DockingCont::doClose()
 {
-	int	iItemOff = 0;
 	int	iItemCnt = static_cast<int32_t>(::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0));
+	int iItemCur = getActiveTb();
 
-	for (int iItem = 0; iItem < iItemCnt; ++iItem)
+	TCITEM		tcItem		= {0};
+
+	tcItem.mask	= TCIF_PARAM;
+	::SendMessage(_hContTab, TCM_GETITEM, iItemCur, reinterpret_cast<LPARAM>(&tcItem));
+	if (tcItem.lParam)
 	{
-		TCITEM		tcItem		= {0};
-
-		// get item data
-		selectTab(iItemOff);
-		tcItem.mask	= TCIF_PARAM;
-		::SendMessage(_hContTab, TCM_GETITEM, iItemOff, reinterpret_cast<LPARAM>(&tcItem));
-		if (!tcItem.lParam)
-			continue;
-
 		// notify child windows
 		if (NotifyParent(DMM_CLOSE) == 0)
 		{
 			// delete tab
 			hideToolbar((tTbData*)tcItem.lParam);
 		}
-		else
-		{
-			++iItemOff;
-		}
 	}
 
-	if (iItemOff == 0)
+	iItemCnt = static_cast<int32_t>(::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0));
+	if (iItemCnt == 0)
 	{
 		// hide dialog first
 		this->doDialog(false);

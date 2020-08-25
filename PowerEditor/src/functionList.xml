@@ -85,6 +85,7 @@
 			<association id=        "nsis_syntax"     langID="28"                          />
 			<association id=    "assembly_subroutine" langID="32"                          />
 			<association id=        "ruby_syntax"     langID="36"                          />
+			<association id=        "vhdl_syntax"     langID="38"                          />
 			<association id=     "autoit3_function"   langID="40"                          />
 			<association id=   "innosetup_syntax"     langID="46"                          />
 			<!--
@@ -933,6 +934,34 @@
 				>
 					<functionName>
 						<nameExpr expr="(?&lt;=def\s)\w+" />
+					</functionName>
+				</function>
+			</parser>
+
+			<!-- ======================================================== [ VHDL ] -->
+			<!--
+			|   Derived from :
+			|       https://community.notepad-plus-plus.org/topic/11554/function-list-for-vhdl
+			\-->
+			<parser
+				displayName="VHDL"
+				id         ="vhdl_syntax"
+			>
+				<function
+					mainExpr="(?x)                                          # free-spacing (see `RegEx - Pattern Modifiers`)
+						  ^                                             # match at beginning of line
+						  \h*                                           # optional leading whitespace
+						  (\w+\h*:)?                                    # ID of process
+						  (?:\h(?!END)\w+\h)*                           # make sure this is not the end of a module
+						  \h*
+						  (?(1)(?:ENTITY|BLOCK|PROCESS)|                # keywords if ':' was detected before
+						  (?:ENTITY|COMPONENT|ARCHITECTURE))            # keywords else
+						  [\h\(]+                                       # expect at least one blank or parentheses
+						  [A-Za-z0-9_\(\)., ]+                          # ID or sensitivity list
+						  (?!\;)"
+				>
+					<functionName>
+					    <nameExpr expr=".*" />
 					</functionName>
 				</function>
 			</parser>

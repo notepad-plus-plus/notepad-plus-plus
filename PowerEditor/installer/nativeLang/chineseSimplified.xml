@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="7.8.7">
+    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="7.9">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -120,6 +120,7 @@
                     <Item id="42064" name="降序排列小数（逗号作为小数点）"/>
                     <Item id="42065" name="升序排列小数（句点作为小数点）"/>
                     <Item id="42066" name="降序排列小数（句点作为小数点）"/>
+                    <Item id="42078" name="随机排列行"/>
                     <Item id="42016" name="转成大写(&amp;U)"/>
                     <Item id="42017" name="转成小写(&amp;L)"/>
                     <Item id="42067" name="每词转成仅首字母大写(&amp;P)"/>
@@ -202,7 +203,7 @@
                     <Item id="43029" name="清除格式4"/>
                     <Item id="43030" name="使用格式5"/>
                     <Item id="43031" name="清除格式5"/>
-                    <Item id="43032" name="清除所有格式"/>
+                    <Item id="43032" name="清除所有格式标记"/>
                     <Item id="43033" name="格式一"/>
                     <Item id="43034" name="格式二"/>
                     <Item id="43035" name="格式三"/>
@@ -319,8 +320,6 @@
                     <Item id="50000" name="函数自动完成"/>
                     <Item id="50001" name="单词自动完成"/>
                     <Item id="50002" name="函数参数提示"/>
-                    <Item id="50003" name="切换到上一个文档"/>
-                    <Item id="50004" name="切换到下一个文档"/>
                     <Item id="50005" name="启动/停止宏录制"/>
                     <Item id="50006" name="路径补全"/>
                     <Item id="44042" name="隐藏行"/>
@@ -390,7 +389,7 @@
                 <Item id="1624" name="查找模式"/>
                 <Item id="1625" name="普通(&amp;N)"/>
                 <Item id="1626" name="扩展(&amp;X) (\n, \r, \t, \0, \x...)"/>
-                <Item id="1660" name="在文件中替换(&amp;R)"/>
+                <Item id="1660" name="在文件中替换"/>
                 <Item id="1661" name="当前文件夹。"/>
                 <Item id="1641" name="在当前文件中查找"/>
                 <Item id="1686" name="透明度(&amp;Y)"/>
@@ -439,7 +438,7 @@
                 <Item id="1934" name="复制到剪贴板"/>
                 <Item id="2"    name="关闭"/>
             </MD5FromTextDlg>
-			
+
             <SHA256FromFilesDlg title="从文件生成SHA-256">
                 <Item id="1922" name="选择生成SHA-256的文件..."/>
                 <Item id="1924" name="复制到剪贴板"/>
@@ -511,6 +510,71 @@
                 <ScintillaCommandsTab name="Scintilla命令"/>
                 <ConflictInfoOk name="此条无快捷键冲突。"/>
                 <ConflictInfoEditing name="无冲突……"/>
+                <MainCommandNames>
+                    <Item id="41019" name="打开所在文件夹"/>
+                    <Item id="41020" name="打开所在文件夹（命令行）"/>
+                    <Item id="41021" name="恢复最近关闭的文件"/>
+                    <Item id="45001" name="换行符转为 Windows (CR LF)"/>
+                    <Item id="45002" name="换行符转为 Unix (LF)"/>
+                    <Item id="45003" name="换行符转为 Macintosh (CR)"/>
+                    <Item id="43022" name="使用格式1标记搜索结果"/>
+                    <Item id="43024" name="使用格式2标记搜索结果"/>
+                    <Item id="43026" name="使用格式3标记搜索结果"/>
+                    <Item id="43028" name="使用格式4标记搜索结果"/>
+                    <Item id="43030" name="使用格式5标记搜索结果"/>
+                    <Item id="43023" name="清除格式1标记"/>
+                    <Item id="43025" name="清除格式2标记"/>
+                    <Item id="43027" name="清除格式3标记"/>
+                    <Item id="43029" name="清除格式4标记"/>
+                    <Item id="43031" name="清除格式5标记"/>
+                    <Item id="43032" name="清除所有格式的标记"/>
+                    <Item id="43033" name="到上一个格式1标记"/>
+                    <Item id="43034" name="到上一个格式2标记"/>
+                    <Item id="43035" name="到上一个格式3标记"/>
+                    <Item id="43036" name="到上一个格式4标记"/>
+                    <Item id="43037" name="到上一个格式5标记"/>
+                    <Item id="43038" name="上一个用标记面板创建的标记"/>
+                    <Item id="43039" name="使用格式1到下一个标记"/>
+                    <Item id="43040" name="使用格式2到下一个标记"/>
+                    <Item id="43041" name="使用格式3到下一个标记"/>
+                    <Item id="43042" name="使用格式4到下一个标记"/>
+                    <Item id="43043" name="使用格式5到下一个标记"/>
+                    <Item id="43044" name="下一个用标记面板创建的标记"/>
+                    <Item id="44100" name="在Firefox中查看当前文件"/>
+                    <Item id="44101" name="在Chrome中查看当前文件"/>
+                    <Item id="44103" name="在IE中查看当前文件"/>
+                    <Item id="44102" name="在Edge中查看当前文件"/>
+                    <Item id="50003" name="切换到上一个文档"/>
+                    <Item id="50004" name="切换到下一个文档"/>
+                    <Item id="44051" name="折叠层次1"/>
+                    <Item id="44052" name="折叠层次2"/>
+                    <Item id="44053" name="折叠层次3"/>
+                    <Item id="44054" name="折叠层次4"/>
+                    <Item id="44055" name="折叠层次5"/>
+                    <Item id="44056" name="折叠层次6"/>
+                    <Item id="44057" name="折叠层次7"/>
+                    <Item id="44058" name="折叠层次8"/>
+                    <Item id="44061" name="展开层次1"/>
+                    <Item id="44062" name="展开层次2"/>
+                    <Item id="44063" name="展开层次3"/>
+                    <Item id="44064" name="展开层次4"/>
+                    <Item id="44065" name="展开层次5"/>
+                    <Item id="44066" name="展开层次6"/>
+                    <Item id="44067" name="展开层次7"/>
+                    <Item id="44068" name="展开层次8"/>
+                    <Item id="44081" name="开启/关闭工程面板1"/>
+                    <Item id="44082" name="开启/关闭工程面板2"/>
+                    <Item id="44083" name="开启/关闭工程面板3"/>
+                    <Item id="44085" name="开启/关闭文件夹工作区"/>
+                    <Item id="44080" name="开启/关闭文档结构图"/>
+                    <Item id="44084" name="开启/关闭函数列表"/>
+                    <Item id="50005" name="开启/关闭宏录制"/>
+                    <Item id="44104" name="切换到工程面板1"/>
+                    <Item id="44105" name="切换到工程面板2"/>
+                    <Item id="44106" name="切换到工程面板3"/>
+                    <Item id="44107" name="切换到文件夹工作区"/>
+                    <Item id="44108" name="切换到函数列表"/>
+                </MainCommandNames>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="快捷键设置">
                 <Item id="1" name="确定"/>
@@ -756,6 +820,7 @@
                     <Item id="6231" name="边框宽度"/>
                     <Item id="6235" name="无边框"/>
                     <Item id="6236" name="启用滚动超过最后一行"/>
+                    <Item id="6239" name="选区外右键点击时保留选区"/>
                 </Scintillas>
 
                 <NewDoc title="新建">
@@ -841,6 +906,13 @@
                     <Item id="6727" name="这里显示你的变量设置"/>
                     <Item id="6728" name="页眉与页脚"/>
                 </Print>
+
+                <Searching title="搜索">
+                    <Item id="6901" name="不要将所选内容填入“查找”对话框中的“查找”字段"/>
+                    <Item id="6902" name="在查找对话框中使用等宽字体（需要重启Notepad++）"/>
+                    <Item id="6903" name="搜索输出到结果窗口后，保持查找对话框开启"/>
+                    <Item id="6904" name="替换所有打开文件前需确认"/>
+                </Searching>
 
                 <RecentFilesHistory title="最近文件记录">
                     <Item id="6304" name="最近文件记录"/>
@@ -943,15 +1015,14 @@
                     <Item id="6324" name="文档切换 (Ctrl+TAB)"/>
                     <Item id="6331" name="在标题栏仅显示文件名"/>
                     <Item id="6334" name="自动检测字符编码"/>
-                    <Item id="6314" name="在查找对话框中使用等宽字体（需要重启Notepad++）"/>
                     <Item id="6349" name="使用DirectWrite（可改善特殊字符渲染，需要重启Notepad++）"/>
+                    <Item id="6350" name="启用全框模式"/>
                     <Item id="6337" name="工作区文件扩展名:"/>
                     <Item id="6114" name="启用"/>
                     <Item id="6117" name="按最近使用顺序切换"/>
                     <Item id="6344" name="文档速览图"/>
                     <Item id="6345" name="在标签中启用速览"/>
                     <Item id="6346" name="在文档结构图中启用速览"/>
-                    <Item id="6348" name="不要用所选单词填充“查找”对话框中的“查找”字段"/>
                 </MISC>
             </Preference>
             <MultiMacro title="重复运行宏">
@@ -970,17 +1041,17 @@
                 <Item id="7004" name="文件排序(&amp;T)"/>
             </Window>
             <ColumnEditor title="列编辑">
-                <Item id="2023" name="插入文本"/>
-                <Item id="2033" name="插入数字"/>
-                <Item id="2030" name="初始值 :"/>
-                <Item id="2031" name="增量 :"/>
-                <Item id="2035" name="开头补零"/>
-                <Item id="2036" name="重复次数 :"/>
+                <Item id="2023" name="插入文本(&amp;T)"/>
+                <Item id="2033" name="插入数字(&amp;N)"/>
+                <Item id="2030" name="初始值(&amp;I) :"/>
+                <Item id="2031" name="增量(&amp;Y) :"/>
+                <Item id="2035" name="开头补零(&amp;Z)"/>
+                <Item id="2036" name="重复次数(&amp;R) :"/>
                 <Item id="2032" name="格式"/>
-                <Item id="2024" name="十进制"/>
-                <Item id="2025" name="八进制"/>
-                <Item id="2026" name="十六进制"/>
-                <Item id="2027" name="二进制"/>
+                <Item id="2024" name="十进制(&amp;D)"/>
+                <Item id="2025" name="八进制(&amp;O)"/>
+                <Item id="2026" name="十六进制(&amp;H)"/>
+                <Item id="2027" name="二进制(&amp;B)"/>
                 <Item id="1" name="确定"/>
                 <Item id="2" name="取消"/>
             </ColumnEditor>
@@ -997,7 +1068,7 @@
                 <Item id="1718" name="扩展(&amp;X) (\n, \r, \t, \0, \x...)"/>
                 <Item id="1720" name="&amp;. 匹配新行"/>
             </FindInFinder>
-            <DoSaveOrNot title="保存"> 
+            <DoSaveOrNot title="保存">
                 <Item id="1761" name="保存文件 &quot;$STR_REPLACE$&quot; ?"/>
                 <Item id="6" name="是(&amp;Y)"/>
                 <Item id="7" name="否(&amp;N)"/>
@@ -1235,6 +1306,10 @@ Notepad++会在所有安装结束后重新启动。
             <find-status-replace-not-found value="替换：没有找到匹配项。"/>
             <find-status-replace-readonly value="替换：无法替换文本，当前文件只读。"/>
             <find-status-cannot-find value="查找：无法找到文本“$STR_REPLACE$”"/>
+            <find-status-scope-selection value="在选区中"/>
+            <find-status-scope-all value="在整个文件中"/>
+            <find-status-scope-backward value="从文件头到光标"/>
+            <find-status-scope-forward value="从光标到文件尾"/>
             <finder-find-in-finder value="在此搜索结果中查找..."/>
             <finder-close-this value="关闭此查找器"/>
             <finder-collapse-all value="全部折叠"/>
@@ -1243,6 +1318,7 @@ Notepad++会在所有安装结束后重新启动。
             <finder-select-all value="全部选择"/>
             <finder-clear-all value="全部清除"/>
             <finder-open-all value="全部打开"/>
+            <finder-wrap-long-lines value="自动换行"/>
             <common-ok value="确定"/>
             <common-cancel value="取消"/>
             <common-name value="名称："/>

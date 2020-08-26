@@ -45,6 +45,8 @@ after_build:
     - ps: >-
         $nppFileName = "Notepad++.$env:PLATFORM_INPUT.$env:CONFIGURATION.exe"
 
+        Push-AppveyorArtifact "scintilla\bin\SciLexer.dll" -FileName "SciLexer.$env:PLATFORM.$env:CONFIGURATION.dll"
+
         if ($env:PLATFORM_INPUT -eq "x64" -and $env:CONFIGURATION -eq "Unicode Release") {
             Push-AppveyorArtifact "PowerEditor\bin64\Notepad++.exe" -FileName "$nppFileName"
         }
@@ -59,6 +61,22 @@ after_build:
 
         if ($env:PLATFORM_INPUT -eq "Win32" -and $env:CONFIGURATION -eq "Unicode Debug") {
             Push-AppveyorArtifact "PowerEditor\visual.net\Unicode Debug\Notepad++.exe" -FileName "$nppFileName"
+
+            Start-FileDownload 'https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v7.8.9/npp.7.8.9.bin.minimalist.7z'
+            7z x -y npp.7.8.9.bin.minimalist.7z | Out-Null
+            #take SciLexer.dll from downloaded version due to dependency of the functionlist tests on a version build with boost regex
+            #what is not the case for the dll build on appveyor CI (would either need a very time consuming boost build or usage of nuget packages)
+            Copy-Item "$env:APPVEYOR_BUILD_FOLDER\SciLexer.dll" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
+            Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\visual.net\Unicode Debug\Notepad++.exe" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
+            Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\src\langs.model.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
+            Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\src\stylers.model.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
+            Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\src\shortcuts.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
+            Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\src\functionList.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
+            Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\src\contextMenu.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
+            cd .\PowerEditor\Test\FunctionList\
+            .\unitTestLauncher.ps1
+            .\unitTestLauncher.ps1
+            #ATTENTION: current working dir is no longer at APPVEYOR_BUILD_FOLDER
         }
 
         if ($env:PLATFORM_INPUT -eq "mingw") {
@@ -66,4 +84,4 @@ after_build:
             Push-AppveyorArtifact "PowerEditor\bin\NotepadPP.exe_dynamic" -FileName "$nppFileName_dynamic"
         }
 
-        Push-AppveyorArtifact "scintilla\bin\SciLexer.dll" -FileName "SciLexer.$env:PLATFORM.$env:CONFIGURATION.dll"
+

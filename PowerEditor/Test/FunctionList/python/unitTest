@@ -1,3 +1,28 @@
+INPUT_FILE_NAME = "example.txt"
+
+class SampleClassBad (object):
+    # WrongClassName: this will appear in the function list
+
+    def __init__ (self, fileName):
+        self.fileName = fileName
+
+
+class SampleClassGood(object):
+    # this works as expected: notice the missing space between
+    # the class name and the left parenthesis.
+
+    def __init__ (self, fileName):
+        self.fileName = fileName
+
+
+def main():
+    sampleBad = SampleClassBad (INPUT_FILE_NAME)
+    sampleGood = SampleClassGood (INPUT_FILE_NAME)
+
+if __name__ == '__main__':
+    main()
+
+
 from __future__ import print_function
 
 try:

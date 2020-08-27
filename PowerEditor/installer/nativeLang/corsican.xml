@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     History of Corsican translation for Notepad++
-		- Updated on August 19th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.9
+		- Updated on August 27th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.9
 		- Updated on May 26th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.7
 		- Updated on January 8th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.3
 		- Updated on October 31st, 2019 by Patriccollu di Santa Maria è Sichè for version 7.8.1
@@ -1030,14 +1030,15 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                     <Item id="6313" name="Mudificazione senza avertimentu"/>
                     <Item id="6318" name="Preferenze di cliccu di leia"/>
                     <Item id="6325" name="Andà à l’ultima linea dopu a mudificazione"/>
-                    <Item id="6319" name="Attivà"/>
-                    <Item id="6320" name="Senza sottulinea"/>
+                    <Item id="6319" name="Attivà sta funzione"/>
+                    <Item id="6320" name="Ùn micca sottulineà"/>
                     <Item id="6322" name="Estensione di sched. di sessione :"/>
                     <Item id="6323" name="Attivà u rinnovu autumaticu di Notepad++"/>
                     <Item id="6324" name="Cambiamentu di ducumentu (Ctrl+Tabul.)"/>
                     <Item id="6331" name="Affissà solu u nome di schedariu in a barra di titulu"/>
                     <Item id="6334" name="Detezione autumatica di cudificazione di caratteru"/>
                     <Item id="6349" name="Impiegà DirectWrite (Puderia amendà a trasfurmazione di i caratteri speziali ; richiede di rilancià Notepad++)"/>
+                    <Item id="6350" name="Attivà u modu di sopralineamentu sanu per una leia"/>
                     <Item id="6337" name="Estensione di spaziu di travagliu :"/>
                     <Item id="6114" name="Attivà"/>
                     <Item id="6117" name="Impiegà a lista MRU recente di schedarii"/>

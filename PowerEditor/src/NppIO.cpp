@@ -150,15 +150,15 @@ HRESULT resolveLinkFile(LPWSTR linkFilePath)
 			{
 				// Load the shortcut. 
 				hres = ppf->Load(linkFilePath, STGM_READ);
-				if (SUCCEEDED(hres))
+				if (SUCCEEDED(hres) && hres != S_FALSE)
 				{
 					// Resolve the link. 
 					hres = psl->Resolve(NULL, 0);
-					if (SUCCEEDED(hres))
+					if (SUCCEEDED(hres) && hres != S_FALSE)
 					{
 						// Get the path to the link target. 
 						hres = psl->GetPath(targetFilePath, MAX_PATH, (WIN32_FIND_DATA*)&wfd, SLGP_SHORTPATH);
-						if (SUCCEEDED(hres))
+						if (SUCCEEDED(hres) && hres != S_FALSE)
 						{
 							hres = StringCbCopy(linkFilePath, MAX_PATH, targetFilePath);
 						}

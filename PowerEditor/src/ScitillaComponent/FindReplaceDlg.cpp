@@ -686,15 +686,19 @@ void FindInFinderDlg::initFromOptions()
 	HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT_FIFOLDER);
 	addText2Combo(_options._str2Search.c_str(), hFindCombo);
 
-	::SendDlgItemMessage(_hSelf, IDC_MATCHLINENUM_CHECK_FIFOLDER, BM_SETCHECK, _options._isMatchLineNumber ? BST_CHECKED : BST_UNCHECKED, 0);
-	::SendDlgItemMessage(_hSelf, IDWHOLEWORD_FIFOLDER, BM_SETCHECK, _options._isWholeWord ? BST_CHECKED : BST_UNCHECKED, 0);
-	::SendDlgItemMessage(_hSelf, IDMATCHCASE_FIFOLDER, BM_SETCHECK, _options._isMatchCase ? BST_CHECKED : BST_UNCHECKED, 0);
-	
-	::SendDlgItemMessage(_hSelf, IDNORMAL_FIFOLDER, BM_SETCHECK, _options._searchType == FindNormal ? BST_CHECKED : BST_UNCHECKED, 0);
-	::SendDlgItemMessage(_hSelf, IDEXTENDED_FIFOLDER, BM_SETCHECK, _options._searchType == FindExtended ? BST_CHECKED : BST_UNCHECKED, 0);
-	::SendDlgItemMessage(_hSelf, IDREGEXP_FIFOLDER, BM_SETCHECK, _options._searchType == FindRegex ? BST_CHECKED : BST_UNCHECKED, 0);
+	setChecked(IDC_MATCHLINENUM_CHECK_FIFOLDER, _options._isMatchLineNumber);
 
-	::SendDlgItemMessage(_hSelf, IDREDOTMATCHNL_FIFOLDER, BM_SETCHECK, _options._dotMatchesNewline ? BST_CHECKED : BST_UNCHECKED, 0);
+	setChecked(IDWHOLEWORD_FIFOLDER, _options._searchType != FindRegex && _options._isWholeWord);
+	::EnableWindow(::GetDlgItem(_hSelf, IDWHOLEWORD_FIFOLDER), _options._searchType != FindRegex);
+	
+	setChecked(IDMATCHCASE_FIFOLDER, _options._isMatchCase);
+
+	setChecked(IDNORMAL_FIFOLDER, _options._searchType == FindNormal);
+	setChecked(IDEXTENDED_FIFOLDER, _options._searchType == FindExtended);
+	setChecked(IDREGEXP_FIFOLDER, _options._searchType == FindRegex);
+
+	setChecked(IDREDOTMATCHNL_FIFOLDER, _options._dotMatchesNewline);
+	::EnableWindow(::GetDlgItem(_hSelf, IDREDOTMATCHNL_FIFOLDER), _options._searchType == FindRegex);
 }
 
 void FindInFinderDlg::writeOptions()
@@ -705,7 +709,6 @@ void FindInFinderDlg::writeOptions()
 	_options._isWholeWord = isCheckedOrNot(IDWHOLEWORD_FIFOLDER);
 	_options._isMatchCase = isCheckedOrNot(IDMATCHCASE_FIFOLDER);
 	_options._searchType = isCheckedOrNot(IDREGEXP_FIFOLDER) ? FindRegex : isCheckedOrNot(IDEXTENDED_FIFOLDER) ? FindExtended : FindNormal;
-
 	_options._dotMatchesNewline = isCheckedOrNot(IDREDOTMATCHNL_FIFOLDER);
 }
 
@@ -726,10 +729,13 @@ INT_PTR CALLBACK FindInFinderDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			switch (LOWORD(wParam))
 			{
 				case IDCANCEL:
+				{
 					::EndDialog(_hSelf, -1);
-				return TRUE;
+					return TRUE;
+				}
 
 				case IDOK:
+				{
 					writeOptions();
 					::EndDialog(_hSelf, -1);
 					FindersInfo findersInfo;
@@ -737,6 +743,32 @@ INT_PTR CALLBACK FindInFinderDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					findersInfo._findOption = _options;
 					::SendMessage(_hParent, WM_FINDALL_INCURRENTFINDER, reinterpret_cast<WPARAM>(&findersInfo), 0);
 					return TRUE;
+				}
+
+				case IDNORMAL_FIFOLDER:
+				case IDEXTENDED_FIFOLDER:
+				case IDREGEXP_FIFOLDER:
+				{
+					if (isCheckedOrNot(IDREGEXP_FIFOLDER))
+					{
+						::EnableWindow(::GetDlgItem(_hSelf, IDWHOLEWORD_FIFOLDER), false);
+						setChecked(IDWHOLEWORD_FIFOLDER, false);
+						::EnableWindow(GetDlgItem(_hSelf, IDREDOTMATCHNL_FIFOLDER), true);
+					}
+					else if (isCheckedOrNot(IDEXTENDED_FIFOLDER))
+					{
+						::EnableWindow(::GetDlgItem(_hSelf, IDWHOLEWORD_FIFOLDER), true);
+						::EnableWindow(GetDlgItem(_hSelf, IDREDOTMATCHNL_FIFOLDER), false);
+					}
+					else
+					{
+						// normal mode
+						::EnableWindow(::GetDlgItem(_hSelf, IDWHOLEWORD_FIFOLDER), true);
+						::EnableWindow(GetDlgItem(_hSelf, IDREDOTMATCHNL_FIFOLDER), false);
+					}
+
+					return TRUE; 
+				}
 			}
 			return FALSE;
 		}
@@ -1019,7 +1051,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			}
 
 			// At very first time (when find dlg is launched), search mode is Normal.
-			// In that case, ". Matches newline" should be disabled as it applicable on for Regex
+			// In that case, ". Matches newline" should be disabled as it applicable only for Regex
 			if (isCheckedOrNot(IDREGEXP))
 			{
 				::EnableWindow(GetDlgItem(_hSelf, IDREDOTMATCHNL), true);

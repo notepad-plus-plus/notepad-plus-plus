@@ -681,7 +681,7 @@
 						<nameExpr expr="\w+(?=\s*[\(|:])" />
 					</className>
 					<function
-						mainExpr="(?&lt;=def\x20).+?(?=:)"
+						mainExpr="(?&lt;=\sdef\x20).+?(?=:)"
 					>
 						<functionName>
 							<funcNameExpr expr=".*" />
@@ -689,7 +689,7 @@
 					</function>
 				</classRange>
 				<function
-					mainExpr="(?&lt;=def\x20).+?(?=:)"
+					mainExpr="(?&lt;=\sdef\x20).+?(?=:)"
 				>
 					<functionName>
 						<nameExpr expr=".*" />

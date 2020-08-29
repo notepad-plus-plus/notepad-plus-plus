@@ -459,36 +459,9 @@ public:
         return long(execute(SCI_GETCOLUMN, execute(SCI_GETCURRENTPOS)));
     };
 
-	bool getSelectedCount(int & selByte, int & selLine) const {
-		// return false if it's multi-selection or rectangle selection
-		if ((execute(SCI_GETSELECTIONS) > 1) || execute(SCI_SELECTIONISRECTANGLE))
-			return false;
-		long pStart = long(execute(SCI_GETSELECTIONSTART));
-		long pEnd = long(execute(SCI_GETSELECTIONEND));
-		selByte = pEnd - pStart;
+	std::pair<int, int> getSelectedCharsAndLinesCount(int maxSelectionsForLineCount = -1) const;
 
-		long lStart = long(execute(SCI_LINEFROMPOSITION, pStart));
-		long lEnd = long(execute(SCI_LINEFROMPOSITION, pEnd));
-		selLine = lEnd - lStart;
-		if (selLine || selByte)
-			++selLine;
-
-		return true;
-	};
-
-	long getUnicodeSelectedLength() const
-	{
-		// return -1 if it's multi-selection or rectangle selection
-		if ((execute(SCI_GETSELECTIONS) > 1) || execute(SCI_SELECTIONISRECTANGLE))
-			return -1;
-
-		long start = long(execute(SCI_GETSELECTIONSTART));
-		long end = long(execute(SCI_GETSELECTIONEND));
-		long length = long(execute(SCI_COUNTCHARACTERS, start, end));
-
-		return length;
-	};
-
+	int getUnicodeSelectedLength() const;
 
 	long getLineLength(int line) const {
 		return long(execute(SCI_GETLINEENDPOSITION, line) - execute(SCI_POSITIONFROMLINE, line));
@@ -531,7 +504,7 @@ public:
 
 	void expand(size_t& line, bool doExpand, bool force = false, int visLevels = 0, int level = -1);
 
-	std::pair<int, int> getSelectionLinesRange() const;
+	std::pair<int, int> getSelectionLinesRange(int selectionNumber = -1) const;
     void currentLinesUp() const;
     void currentLinesDown() const;
 

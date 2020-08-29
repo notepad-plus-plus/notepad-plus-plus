@@ -172,7 +172,11 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	if (nppGUI._rememberLastSession && !cmdLineParams->_isNoSession)
 		_notepad_plus_plus_core.loadLastSession();
 
-	if (not cmdLineParams->_isPreLaunch)
+	if (nppParams.doFunctionListExport() || nppParams.doPrintAndExit())
+	{
+		::ShowWindow(_hSelf, SW_HIDE);
+	}
+	else if (not cmdLineParams->_isPreLaunch)
 	{
 		if (cmdLineParams->isPointValid())
 			::ShowWindow(_hSelf, SW_SHOW);
@@ -184,7 +188,6 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 		_notepad_plus_plus_core._pTrayIco = new trayIconControler(_hSelf, IDI_M30ICON, IDC_MINIMIZED_TRAY, ::LoadIcon(_hInst, MAKEINTRESOURCE(IDI_M30ICON)), TEXT(""));
 		_notepad_plus_plus_core._pTrayIco->doTrayIcon(ADD);
 	}
-
 	std::vector<generic_string> fileNames;
 	std::vector<generic_string> patterns;
 	patterns.push_back(TEXT("*.xml"));

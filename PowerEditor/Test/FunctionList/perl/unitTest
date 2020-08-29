@@ -148,6 +148,10 @@ sub VarNames($)
     return (@vars);
 }
 
+sub functionNoParentheses {
+    return 1
+}
+
 ############### Start ###############
 
 print "\npltags $VERSION by Michael Schaap <mscha\@mscha.com>\n\n";

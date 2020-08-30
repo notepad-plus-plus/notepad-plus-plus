@@ -3866,10 +3866,12 @@ void Notepad_plus::performPostReload(int whichOne)
 	if (whichOne == MAIN_VIEW)
 	{
 		_mainEditView.execute(SCI_GOTOLINE, _mainEditView.execute(SCI_GETLINECOUNT) -1);
+		_mainEditView.saveCurrentPos();
 	}
 	else
 	{
 		_subEditView.execute(SCI_GOTOLINE, _subEditView.execute(SCI_GETLINECOUNT) -1);
+		_subEditView.saveCurrentPos();
 	}
 }
 

@@ -2141,6 +2141,7 @@ void Notepad_plus::command(int id)
 				}
 				generic_string nbCharLabel = pNativeSpeaker->getLocalizedStrFromID("summary-nbchar", TEXT("Characters (without line endings): "));
 				generic_string nbWordLabel = pNativeSpeaker->getLocalizedStrFromID("summary-nbword", TEXT("Words: "));
+				generic_string nbWordInSelLabel = pNativeSpeaker->getLocalizedStrFromID("summary-nbwordinsel", TEXT("Words (in 1 selection): "));
 				generic_string nbLineLabel = pNativeSpeaker->getLocalizedStrFromID("summary-nbline", TEXT("Lines: "));
 				generic_string nbByteLabel = pNativeSpeaker->getLocalizedStrFromID("summary-nbbyte", TEXT("Document length: "));
 				generic_string nbSelLabel1 = pNativeSpeaker->getLocalizedStrFromID("summary-nbsel1", TEXT(" selected characters ("));
@@ -2149,7 +2150,8 @@ void Notepad_plus::command(int id)
 
 				UniMode um = _pEditView->getCurrentBuffer()->getUnicodeMode();
 				auto nbChar = getCurrentDocCharCount(um);
-				int nbWord = wordCount();
+				int nbWord = wordCount(true);
+				int nbWordInSel = wordCount(false);
 				auto nbLine = _pEditView->execute(SCI_GETLINECOUNT);
 				auto nbByte = _pEditView->execute(SCI_GETLENGTH);
 				auto nbSel = getSelectedCharNumber(um);
@@ -2163,6 +2165,13 @@ void Notepad_plus::command(int id)
 				characterNumber += nbWordLabel;
 				characterNumber += commafyInt(nbWord).c_str();
 				characterNumber += TEXT("\r");
+
+				if (_pEditView->execute(SCI_GETSELECTIONS) == 1)
+				{
+					characterNumber += nbWordInSelLabel;
+					characterNumber += commafyInt(nbWordInSel).c_str();
+					characterNumber += TEXT("\r");
+				}
 
 				characterNumber += nbLineLabel;
 				characterNumber += commafyInt(static_cast<int>(nbLine)).c_str();

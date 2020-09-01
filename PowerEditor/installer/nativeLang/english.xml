@@ -1339,6 +1339,7 @@ Find in all files except exe, obj &amp;&amp; log:
             <summary-filemodifytime value="Modified: "/>
             <summary-nbchar value="Characters (without line endings): "/>
             <summary-nbword value="Words: "/>
+            <summary-nbwordinsel value="Words (in 1 selection): "/>
             <summary-nbline value="Lines: "/>
             <summary-nbbyte value="Document length: "/>
             <summary-nbsel1 value=" selected characters ("/>

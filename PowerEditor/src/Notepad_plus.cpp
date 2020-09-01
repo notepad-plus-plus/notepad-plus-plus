@@ -3224,11 +3224,12 @@ size_t Notepad_plus::getSelectedBytes()
 	return result;
 }
 
-int Notepad_plus::wordCount()
+int Notepad_plus::wordCount(bool isEntireDoc)
 {
     FindOption env;
     env._str2Search = TEXT("[^ 	\\\\.,;:!?()+\\r\\n\\-\\*/=\\]\\[{}&~\"'`|@$%<>\\^]+");
     env._searchType = FindRegex;
+	if (!isEntireDoc) env._isInSelection = true;
     return _findReplaceDlg.processAll(ProcessCountAll, &env, true);
 }
 

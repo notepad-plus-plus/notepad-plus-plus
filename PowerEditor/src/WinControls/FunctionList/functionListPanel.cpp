@@ -680,6 +680,23 @@ static LRESULT CALLBACK funclstToolbarProc(HWND hwnd, UINT message, WPARAM wPara
 	return oldFunclstToolbarProc(hwnd, message, wParam, lParam);
 }
 
+static WNDPROC oldFunclstSearchEditProc = NULL;
+static LRESULT CALLBACK funclstSearchEditProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	switch (message)
+	{
+		case WM_KEYDOWN:
+		{
+			if (wParam == VK_ESCAPE)
+			{
+				::SendMessage(hwnd, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(TEXT("")));
+				return TRUE;
+			}
+		}
+	}
+	return oldFunclstSearchEditProc(hwnd, message, wParam, lParam);
+}
+
 bool FunctionListPanel::shouldSort()
 {
 	TBBUTTONINFO tbbuttonInfo;
@@ -786,6 +803,8 @@ INT_PTR CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPA
                                    WS_CHILD | WS_BORDER | WS_VISIBLE | ES_AUTOVSCROLL,
                                    2, 2, editWidth, editHeight,
                                    _hToolbarMenu, reinterpret_cast<HMENU>(IDC_SEARCHFIELD_FUNCLIST), _hInst, 0 );
+
+			oldFunclstSearchEditProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSearchEdit, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(funclstSearchEditProc)));
 
 			HFONT hf = (HFONT)::GetStockObject(DEFAULT_GUI_FONT);
 			if (hf)

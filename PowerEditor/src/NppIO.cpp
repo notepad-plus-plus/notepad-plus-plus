@@ -38,7 +38,6 @@
 #include "ReadFileChanges.h"
 #include <tchar.h>
 #include <unordered_set>
-#include <strsafe.h>
 
 using namespace std;
 
@@ -131,14 +130,13 @@ DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 	return EXIT_SUCCESS;
 }
 
-HRESULT resolveLinkFile(LPWSTR linkFilePath)
+void resolveLinkFile(generic_string& linkFilePath)
 {
-	HRESULT hres;
 	IShellLink* psl;
 	WCHAR targetFilePath[MAX_PATH];
 	WIN32_FIND_DATA wfd;
 
-	hres = CoInitialize(NULL);
+	HRESULT hres = CoInitialize(NULL);
 	if (SUCCEEDED(hres))
 	{
 		hres = CoCreateInstance(CLSID_ShellLink, NULL, CLSCTX_INPROC_SERVER, IID_IShellLink, (LPVOID*)&psl);
@@ -149,7 +147,7 @@ HRESULT resolveLinkFile(LPWSTR linkFilePath)
 			if (SUCCEEDED(hres))
 			{
 				// Load the shortcut. 
-				hres = ppf->Load(linkFilePath, STGM_READ);
+				hres = ppf->Load(linkFilePath.c_str(), STGM_READ);
 				if (SUCCEEDED(hres) && hres != S_FALSE)
 				{
 					// Resolve the link. 
@@ -160,7 +158,7 @@ HRESULT resolveLinkFile(LPWSTR linkFilePath)
 						hres = psl->GetPath(targetFilePath, MAX_PATH, (WIN32_FIND_DATA*)&wfd, SLGP_SHORTPATH);
 						if (SUCCEEDED(hres) && hres != S_FALSE)
 						{
-							hres = StringCbCopy(linkFilePath, MAX_PATH, targetFilePath);
+							linkFilePath = targetFilePath;
 						}
 					}
 				}
@@ -170,7 +168,6 @@ HRESULT resolveLinkFile(LPWSTR linkFilePath)
 		}
 		CoUninitialize();
 	}
-	return hres;
 }
 
 BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, bool isReadOnly, int encoding, const TCHAR *backupFileName, FILETIME fileNameTimestamp)
@@ -180,7 +177,7 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 		return BUFFER_INVALID;
 
 	generic_string targetFileName = fileName;
-	resolveLinkFile((LPWSTR)targetFileName.c_str());
+	resolveLinkFile(targetFileName);
 
 	//If [GetFullPathName] succeeds, the return value is the length, in TCHARs, of the string copied to lpBuffer, not including the terminating null character.
 	//If the lpBuffer buffer is too small to contain the path, the return value [of GetFullPathName] is the size, in TCHARs, of the buffer that is required to hold the path and the terminating null character.

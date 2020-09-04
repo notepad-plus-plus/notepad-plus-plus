@@ -884,7 +884,7 @@ bool Notepad_plus::fileClose(BufferID id, int curView)
 	//process the fileNamePath into LRF
 	const TCHAR *fileNamePath = buf->getFullPathName();
 
-	if (buf->isUntitled() && buf->docLength() == 0)
+	if (buf->isUntitled() && buf->docLength() == 0 && !buf->isDirty())
 	{
 		// Do nothing
 	}
@@ -935,7 +935,7 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 		// hash table is used for fast searching
 		uniqueBuffers.insert(id);
 
-		if (buf->isUntitled() && buf->docLength() == 0)
+		if (buf->isUntitled() && buf->docLength() == 0 && !buf->isDirty())
 		{
 			// Do nothing
 		}
@@ -1019,7 +1019,7 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 		if (uniqueBuffers.find(id) != uniqueBuffers.end())
 			continue;
 
-		if (buf->isUntitled() && buf->docLength() == 0)
+		if (buf->isUntitled() && buf->docLength() == 0 && !buf->isDirty())
 		{
 			// Do nothing
 		}
@@ -1265,7 +1265,7 @@ bool Notepad_plus::fileCloseAllButCurrent()
 			continue;
 
 		Buffer * buf = MainFileManager.getBufferByID(id);
-		if (buf->isUntitled() && buf->docLength() == 0)
+		if (buf->isUntitled() && buf->docLength() == 0 && !buf->isDirty())
 		{
 			// Do nothing
 		}
@@ -1336,7 +1336,7 @@ bool Notepad_plus::fileCloseAllButCurrent()
 		if (id == current)
 			continue;
 
-		if (buf->isUntitled() && buf->docLength() == 0)
+		if (buf->isUntitled() && buf->docLength() == 0 && !buf->isDirty())
 		{
 			// Do nothing
 		}

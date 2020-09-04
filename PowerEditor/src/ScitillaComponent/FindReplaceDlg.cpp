@@ -3509,6 +3509,12 @@ generic_string & Finder::prepareStringForClipboard(generic_string & s) const
 
 void Finder::copy()
 {
+	if (_scintView.execute(SCI_GETSELECTIONS) > 1) // multi-selection
+	{
+		// don't do anything if user has made a column/rectangular selection
+		return;
+	}
+
 	size_t fromLine, toLine;
 	{
 		const pair<int, int> lineRange = _scintView.getSelectionLinesRange();

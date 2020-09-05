@@ -350,34 +350,34 @@ void FindReplaceDlg::fillFindHistory()
 	{
 		//regex doesn't allow wholeword
 		::SendDlgItemMessage(_hSelf, IDWHOLEWORD, BM_SETCHECK, BST_UNCHECKED, 0);
-		enableFindDlgCtrl(IDWHOLEWORD, false);
+		enableFindDlgItem(IDWHOLEWORD, false);
 
 		// regex upward search is disabled
 		::SendDlgItemMessage(_hSelf, IDC_BACKWARDDIRECTION, BM_SETCHECK, BST_UNCHECKED, 0);
-		enableFindDlgCtrl(IDC_BACKWARDDIRECTION, nppParams.regexBackward4PowerUser());
-		enableFindDlgCtrl(IDC_FINDPREV, nppParams.regexBackward4PowerUser());
+		enableFindDlgItem(IDC_BACKWARDDIRECTION, nppParams.regexBackward4PowerUser());
+		enableFindDlgItem(IDC_FINDPREV, nppParams.regexBackward4PowerUser());
 		
 		// If the search mode from history is regExp then enable the checkbox (. matches newline)
-		enableFindDlgCtrl(IDREDOTMATCHNL);
+		enableFindDlgItem(IDREDOTMATCHNL);
 	}
 	
 	if (nppParams.isTransparentAvailable())
 	{
-		showFindDlgCtrl(IDC_TRANSPARENT_CHECK);
-		showFindDlgCtrl(IDC_TRANSPARENT_GRPBOX);
-		showFindDlgCtrl(IDC_TRANSPARENT_LOSSFOCUS_RADIO);
-		showFindDlgCtrl(IDC_TRANSPARENT_ALWAYS_RADIO);
-		showFindDlgCtrl(IDC_PERCENTAGE_SLIDER);
+		showFindDlgItem(IDC_TRANSPARENT_CHECK);
+		showFindDlgItem(IDC_TRANSPARENT_GRPBOX);
+		showFindDlgItem(IDC_TRANSPARENT_LOSSFOCUS_RADIO);
+		showFindDlgItem(IDC_TRANSPARENT_ALWAYS_RADIO);
+		showFindDlgItem(IDC_PERCENTAGE_SLIDER);
 		
 		::SendDlgItemMessage(_hSelf, IDC_PERCENTAGE_SLIDER, TBM_SETRANGE, FALSE, MAKELONG(20, 200));
 		::SendDlgItemMessage(_hSelf, IDC_PERCENTAGE_SLIDER, TBM_SETPOS, TRUE, findHistory._transparency);
 		
 		if (findHistory._transparencyMode == FindHistory::none)
 		{
-			enableFindDlgCtrl(IDC_TRANSPARENT_GRPBOX, false);
-			enableFindDlgCtrl(IDC_TRANSPARENT_LOSSFOCUS_RADIO, false);
-			enableFindDlgCtrl(IDC_TRANSPARENT_ALWAYS_RADIO, false);
-			enableFindDlgCtrl(IDC_PERCENTAGE_SLIDER, false);
+			enableFindDlgItem(IDC_TRANSPARENT_GRPBOX, false);
+			enableFindDlgItem(IDC_TRANSPARENT_LOSSFOCUS_RADIO, false);
+			enableFindDlgItem(IDC_TRANSPARENT_ALWAYS_RADIO, false);
+			enableFindDlgItem(IDC_PERCENTAGE_SLIDER, false);
 		}
 		else
 		{
@@ -995,7 +995,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					_options._isInSelection = false;
 					nbSelected = 0;
 				}
-				enableFindDlgCtrl(IDC_IN_SELECTION_CHECK, nbSelected != 0);
+				enableFindDlgItem(IDC_IN_SELECTION_CHECK, nbSelected != 0);
 				// uncheck if the control is disable
 				if (!nbSelected)
 				{
@@ -1022,11 +1022,11 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			// In that case, ". Matches newline" should be disabled as it applicable on for Regex
 			if (isCheckedOrNot(IDREGEXP))
 			{
-				enableFindDlgCtrl(IDREDOTMATCHNL);
+				enableFindDlgItem(IDREDOTMATCHNL);
 			}
 			else
 			{
-				enableFindDlgCtrl(IDREDOTMATCHNL, false);
+				enableFindDlgItem(IDREDOTMATCHNL, false);
 			}
 			return TRUE;
 		}
@@ -1047,9 +1047,9 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					bool is2ButtonsMode = isCheckedOrNot(IDC_2_BUTTONS_MODE);
 					findHistory._isSearch2ButtonsMode = is2ButtonsMode;
 
-					showFindDlgCtrl(IDC_FINDPREV, is2ButtonsMode);
-					showFindDlgCtrl(IDC_FINDNEXT, is2ButtonsMode);
-					showFindDlgCtrl(IDOK, !is2ButtonsMode);
+					showFindDlgItem(IDC_FINDPREV, is2ButtonsMode);
+					showFindDlgItem(IDC_FINDNEXT, is2ButtonsMode);
+					showFindDlgItem(IDOK, !is2ButtonsMode);
 				}
 				break;
 
@@ -1438,19 +1438,19 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					{
 						_options._searchType = FindRegex;
 						findHistory._searchMode = FindHistory::regExpr;
-						enableFindDlgCtrl(IDREDOTMATCHNL);
+						enableFindDlgItem(IDREDOTMATCHNL);
 					}
 					else if (isCheckedOrNot(IDEXTENDED))
 					{
 						_options._searchType = FindExtended;
 						findHistory._searchMode = FindHistory::extended;
-						enableFindDlgCtrl(IDREDOTMATCHNL, false);
+						enableFindDlgItem(IDREDOTMATCHNL, false);
 					}
 					else
 					{
 						_options._searchType = FindNormal;
 						findHistory._searchMode = FindHistory::normal;
-						enableFindDlgCtrl(IDREDOTMATCHNL, false);
+						enableFindDlgItem(IDREDOTMATCHNL, false);
 					}
 
 					bool isRegex = (_options._searchType == FindRegex);
@@ -1468,7 +1468,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						}
 					}
 
-					enableFindDlgCtrl(IDWHOLEWORD, !isRegex);
+					enableFindDlgItem(IDWHOLEWORD, !isRegex);
 
 					// regex upward search is disabled
 					BOOL doEnable = TRUE;
@@ -1476,8 +1476,8 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					{
 						doEnable = FALSE;
 					}
-					enableFindDlgCtrl(IDC_BACKWARDDIRECTION, doEnable);
-					enableFindDlgCtrl(IDC_FINDPREV, doEnable);
+					enableFindDlgItem(IDC_BACKWARDDIRECTION, doEnable);
+					enableFindDlgItem(IDC_FINDPREV, doEnable);
 
 					return TRUE; }
 
@@ -1515,10 +1515,10 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				{
 					bool isChecked = isCheckedOrNot(IDC_TRANSPARENT_CHECK);
 
-					enableFindDlgCtrl(IDC_TRANSPARENT_GRPBOX, isChecked);
-					enableFindDlgCtrl(IDC_TRANSPARENT_LOSSFOCUS_RADIO, isChecked);
-					enableFindDlgCtrl(IDC_TRANSPARENT_ALWAYS_RADIO, isChecked);
-					enableFindDlgCtrl(IDC_PERCENTAGE_SLIDER, isChecked);
+					enableFindDlgItem(IDC_TRANSPARENT_GRPBOX, isChecked);
+					enableFindDlgItem(IDC_TRANSPARENT_LOSSFOCUS_RADIO, isChecked);
+					enableFindDlgItem(IDC_TRANSPARENT_ALWAYS_RADIO, isChecked);
+					enableFindDlgItem(IDC_PERCENTAGE_SLIDER, isChecked);
 
 					if (isChecked)
 					{
@@ -2528,9 +2528,9 @@ void FindReplaceDlg::setSearchText(TCHAR * txt2find)
 	::SendMessage(hCombo, CB_SETEDITSEL, 0, MAKELPARAM(0, -1)); // select all text - fast edit
 }
 
-void FindReplaceDlg::enableFindDlgCtrl(int dlgCtrl, bool isEnable /* = true*/)
+void FindReplaceDlg::enableFindDlgItem(int dlgItemID, bool isEnable /* = true*/)
 {
-	HWND h = ::GetDlgItem(_hSelf, dlgCtrl);
+	HWND h = ::GetDlgItem(_hSelf, dlgItemID);
 	if (!h) return;
 
 	if (::IsWindowVisible(h))
@@ -2539,12 +2539,12 @@ void FindReplaceDlg::enableFindDlgCtrl(int dlgCtrl, bool isEnable /* = true*/)
 	}
 
 	// remember the real state of this control being enabled/disabled
-	_controlEnableMap[dlgCtrl] = isEnable;
+	_controlEnableMap[dlgItemID] = isEnable;
 }
 
-void FindReplaceDlg::showFindDlgCtrl(int dlgCtrl, bool isShow /* = true*/)
+void FindReplaceDlg::showFindDlgItem(int dlgItemID, bool isShow /* = true*/)
 {
-	HWND h = ::GetDlgItem(_hSelf, dlgCtrl);
+	HWND h = ::GetDlgItem(_hSelf, dlgItemID);
 	if (!h) return;
 	
 	::ShowWindow(h, isShow ? SW_SHOW : SW_HIDE);
@@ -2554,7 +2554,7 @@ void FindReplaceDlg::showFindDlgCtrl(int dlgCtrl, bool isShow /* = true*/)
 	// but that causes trouble when unhiding it; we don't know if it should be enabled or disabled,
 	// so used the remembered state when we last enabled/disabled this control to determine it
 
-	if (dlgCtrl == IDOK)
+	if (dlgItemID == IDOK)
 	{
 		// do not disable the standard Find-Next button (IDOK);
 		// keeping it enabled allows Enter (and Shift+Enter) to work when in 2-button-find-mode
@@ -2566,12 +2566,12 @@ void FindReplaceDlg::showFindDlgCtrl(int dlgCtrl, bool isShow /* = true*/)
 
 	if (isShow)
 	{
-		const auto iter = _controlEnableMap.find(dlgCtrl);
+		const auto iter = _controlEnableMap.find(dlgItemID);
 		if (iter == _controlEnableMap.end())
 		{
 			// if control's state was never previously recorded, assume it was enabled
 			enable = TRUE;
-			_controlEnableMap[dlgCtrl] = true;
+			_controlEnableMap[dlgItemID] = true;
 		}
 		else
 		{
@@ -2592,25 +2592,25 @@ void FindReplaceDlg::enableReplaceFunc(bool isEnable)
 	enableFindInFilesControls(false);
 	enableMarkAllControls(false);
 	// replace controls
-	showFindDlgCtrl(ID_STATICTEXT_REPLACE, isEnable);
-	showFindDlgCtrl(IDREPLACE, isEnable);
-	showFindDlgCtrl(IDREPLACEWITH, isEnable);
-	showFindDlgCtrl(IDREPLACEALL, isEnable);
-	showFindDlgCtrl(IDREPLACEINSEL, isEnable);
-	showFindDlgCtrl(IDC_REPLACE_OPENEDFILES, isEnable);
-	showFindDlgCtrl(IDC_REPLACEINSELECTION);
-	showFindDlgCtrl(IDC_IN_SELECTION_CHECK);
-	showFindDlgCtrl(IDC_2_BUTTONS_MODE);
+	showFindDlgItem(ID_STATICTEXT_REPLACE, isEnable);
+	showFindDlgItem(IDREPLACE, isEnable);
+	showFindDlgItem(IDREPLACEWITH, isEnable);
+	showFindDlgItem(IDREPLACEALL, isEnable);
+	showFindDlgItem(IDREPLACEINSEL, isEnable);
+	showFindDlgItem(IDC_REPLACE_OPENEDFILES, isEnable);
+	showFindDlgItem(IDC_REPLACEINSELECTION);
+	showFindDlgItem(IDC_IN_SELECTION_CHECK);
+	showFindDlgItem(IDC_2_BUTTONS_MODE);
 	bool is2ButtonMode = isCheckedOrNot(IDC_2_BUTTONS_MODE);
-	showFindDlgCtrl(IDOK, !is2ButtonMode);
-	showFindDlgCtrl(IDC_FINDPREV, is2ButtonMode);
-	showFindDlgCtrl(IDC_FINDNEXT, is2ButtonMode);
+	showFindDlgItem(IDOK, !is2ButtonMode);
+	showFindDlgItem(IDC_FINDPREV, is2ButtonMode);
+	showFindDlgItem(IDC_FINDNEXT, is2ButtonMode);
 
 
 	// find controls
-	showFindDlgCtrl(IDC_FINDALL_OPENEDFILES, !isEnable);
-	showFindDlgCtrl(IDCCOUNTALL, !isEnable);
-	showFindDlgCtrl(IDC_FINDALL_CURRENTFILE, !isEnable);
+	showFindDlgItem(IDC_FINDALL_OPENEDFILES, !isEnable);
+	showFindDlgItem(IDCCOUNTALL, !isEnable);
+	showFindDlgItem(IDC_FINDALL_CURRENTFILE, !isEnable);
 
 	gotoCorrectTab();
 
@@ -2627,65 +2627,65 @@ void FindReplaceDlg::enableReplaceFunc(bool isEnable)
 
 void FindReplaceDlg::enableMarkAllControls(bool isEnable)
 {
-	showFindDlgCtrl(IDCMARKALL, isEnable);
-	showFindDlgCtrl(IDC_MARKLINE_CHECK, isEnable);
-	showFindDlgCtrl(IDC_PURGE_CHECK, isEnable);
-	showFindDlgCtrl(IDC_CLEAR_ALL, isEnable);
-	showFindDlgCtrl(IDC_IN_SELECTION_CHECK, isEnable);
+	showFindDlgItem(IDCMARKALL, isEnable);
+	showFindDlgItem(IDC_MARKLINE_CHECK, isEnable);
+	showFindDlgItem(IDC_PURGE_CHECK, isEnable);
+	showFindDlgItem(IDC_CLEAR_ALL, isEnable);
+	showFindDlgItem(IDC_IN_SELECTION_CHECK, isEnable);
 }
 
 void FindReplaceDlg::enableFindInFilesControls(bool isEnable)
 {
 	// Hide Items
-	showFindDlgCtrl(IDC_BACKWARDDIRECTION, !isEnable);
-	showFindDlgCtrl(IDWRAP, !isEnable);
-	showFindDlgCtrl(IDCCOUNTALL, !isEnable);
-	showFindDlgCtrl(IDC_FINDALL_OPENEDFILES, !isEnable);
-	showFindDlgCtrl(IDC_FINDALL_CURRENTFILE, !isEnable);
+	showFindDlgItem(IDC_BACKWARDDIRECTION, !isEnable);
+	showFindDlgItem(IDWRAP, !isEnable);
+	showFindDlgItem(IDCCOUNTALL, !isEnable);
+	showFindDlgItem(IDC_FINDALL_OPENEDFILES, !isEnable);
+	showFindDlgItem(IDC_FINDALL_CURRENTFILE, !isEnable);
 
 	if (isEnable)
 	{
-		showFindDlgCtrl(IDC_2_BUTTONS_MODE, false);
-		showFindDlgCtrl(IDOK, false);
-		showFindDlgCtrl(IDC_FINDPREV, false);
-		showFindDlgCtrl(IDC_FINDNEXT, false);
+		showFindDlgItem(IDC_2_BUTTONS_MODE, false);
+		showFindDlgItem(IDOK, false);
+		showFindDlgItem(IDC_FINDPREV, false);
+		showFindDlgItem(IDC_FINDNEXT, false);
 	}
 	else
 	{
-		showFindDlgCtrl(IDC_2_BUTTONS_MODE);
+		showFindDlgItem(IDC_2_BUTTONS_MODE);
 		bool is2ButtonMode = isCheckedOrNot(IDC_2_BUTTONS_MODE);
-		showFindDlgCtrl(IDOK, !is2ButtonMode);
-		showFindDlgCtrl(IDC_FINDPREV, is2ButtonMode);
-		showFindDlgCtrl(IDC_FINDNEXT, is2ButtonMode);
+		showFindDlgItem(IDOK, !is2ButtonMode);
+		showFindDlgItem(IDC_FINDPREV, is2ButtonMode);
+		showFindDlgItem(IDC_FINDNEXT, is2ButtonMode);
 	}
 
-	showFindDlgCtrl(IDC_MARKLINE_CHECK, !isEnable);
-	showFindDlgCtrl(IDC_PURGE_CHECK, !isEnable);
-	showFindDlgCtrl(IDC_IN_SELECTION_CHECK, !isEnable);
-	showFindDlgCtrl(IDC_CLEAR_ALL, !isEnable);
-	showFindDlgCtrl(IDCMARKALL, !isEnable);
+	showFindDlgItem(IDC_MARKLINE_CHECK, !isEnable);
+	showFindDlgItem(IDC_PURGE_CHECK, !isEnable);
+	showFindDlgItem(IDC_IN_SELECTION_CHECK, !isEnable);
+	showFindDlgItem(IDC_CLEAR_ALL, !isEnable);
+	showFindDlgItem(IDCMARKALL, !isEnable);
 	
-	showFindDlgCtrl(IDREPLACE, !isEnable);
-	showFindDlgCtrl(IDC_REPLACEINSELECTION, !isEnable);
-	showFindDlgCtrl(IDREPLACEALL, !isEnable);
-	showFindDlgCtrl(IDC_REPLACE_OPENEDFILES, !isEnable);
+	showFindDlgItem(IDREPLACE, !isEnable);
+	showFindDlgItem(IDC_REPLACEINSELECTION, !isEnable);
+	showFindDlgItem(IDREPLACEALL, !isEnable);
+	showFindDlgItem(IDC_REPLACE_OPENEDFILES, !isEnable);
 
 	// Show Items
 	if (isEnable)
 	{
-		showFindDlgCtrl(ID_STATICTEXT_REPLACE);
-		showFindDlgCtrl(IDREPLACEWITH);
+		showFindDlgItem(ID_STATICTEXT_REPLACE);
+		showFindDlgItem(IDREPLACEWITH);
 	}
-	showFindDlgCtrl(IDD_FINDINFILES_REPLACEINFILES, isEnable);
-	showFindDlgCtrl(IDD_FINDINFILES_FILTERS_STATIC, isEnable);
-	showFindDlgCtrl(IDD_FINDINFILES_FILTERS_COMBO, isEnable);
-	showFindDlgCtrl(IDD_FINDINFILES_DIR_STATIC, isEnable);
-	showFindDlgCtrl(IDD_FINDINFILES_DIR_COMBO, isEnable);
-	showFindDlgCtrl(IDD_FINDINFILES_BROWSE_BUTTON, isEnable);
-	showFindDlgCtrl(IDD_FINDINFILES_FIND_BUTTON, isEnable);
-	showFindDlgCtrl(IDD_FINDINFILES_RECURSIVE_CHECK, isEnable);
-	showFindDlgCtrl(IDD_FINDINFILES_INHIDDENDIR_CHECK, isEnable);
-	showFindDlgCtrl(IDD_FINDINFILES_FOLDERFOLLOWSDOC_CHECK, isEnable);
+	showFindDlgItem(IDD_FINDINFILES_REPLACEINFILES, isEnable);
+	showFindDlgItem(IDD_FINDINFILES_FILTERS_STATIC, isEnable);
+	showFindDlgItem(IDD_FINDINFILES_FILTERS_COMBO, isEnable);
+	showFindDlgItem(IDD_FINDINFILES_DIR_STATIC, isEnable);
+	showFindDlgItem(IDD_FINDINFILES_DIR_COMBO, isEnable);
+	showFindDlgItem(IDD_FINDINFILES_BROWSE_BUTTON, isEnable);
+	showFindDlgItem(IDD_FINDINFILES_FIND_BUTTON, isEnable);
+	showFindDlgItem(IDD_FINDINFILES_RECURSIVE_CHECK, isEnable);
+	showFindDlgItem(IDD_FINDINFILES_INHIDDENDIR_CHECK, isEnable);
+	showFindDlgItem(IDD_FINDINFILES_FOLDERFOLLOWSDOC_CHECK, isEnable);
 }
 
 void FindReplaceDlg::getPatterns(vector<generic_string> & patternVect)
@@ -3197,22 +3197,22 @@ void FindReplaceDlg::enableMarkFunc()
 	enableMarkAllControls(true);
 
 	// Replace controls to hide
-	showFindDlgCtrl(ID_STATICTEXT_REPLACE, false);
-	showFindDlgCtrl(IDREPLACE, false);
-	showFindDlgCtrl(IDREPLACEWITH, false);
-	showFindDlgCtrl(IDREPLACEALL, false);
-	showFindDlgCtrl(IDREPLACEINSEL, false);
-	showFindDlgCtrl(IDC_REPLACE_OPENEDFILES, false);
-	showFindDlgCtrl(IDC_REPLACEINSELECTION, false);
+	showFindDlgItem(ID_STATICTEXT_REPLACE, false);
+	showFindDlgItem(IDREPLACE, false);
+	showFindDlgItem(IDREPLACEWITH, false);
+	showFindDlgItem(IDREPLACEALL, false);
+	showFindDlgItem(IDREPLACEINSEL, false);
+	showFindDlgItem(IDC_REPLACE_OPENEDFILES, false);
+	showFindDlgItem(IDC_REPLACEINSELECTION, false);
 
 	// find controls to hide
-	showFindDlgCtrl(IDC_FINDALL_OPENEDFILES, false);
-	showFindDlgCtrl(IDCCOUNTALL, false);
-	showFindDlgCtrl(IDC_FINDALL_CURRENTFILE, false);
-	showFindDlgCtrl(IDOK, false);
-	showFindDlgCtrl(IDC_2_BUTTONS_MODE, false);
-	showFindDlgCtrl(IDC_FINDPREV, false);
-	showFindDlgCtrl(IDC_FINDNEXT, false);
+	showFindDlgItem(IDC_FINDALL_OPENEDFILES, false);
+	showFindDlgItem(IDCCOUNTALL, false);
+	showFindDlgItem(IDC_FINDALL_CURRENTFILE, false);
+	showFindDlgItem(IDOK, false);
+	showFindDlgItem(IDC_2_BUTTONS_MODE, false);
+	showFindDlgItem(IDC_FINDPREV, false);
+	showFindDlgItem(IDC_FINDNEXT, false);
 
 	_currentStatus = MARK_DLG;
 	gotoCorrectTab();

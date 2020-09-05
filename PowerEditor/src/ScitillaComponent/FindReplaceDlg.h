@@ -391,8 +391,8 @@ private :
 
 	std::map<int, bool> _controlEnableMap;
 
-	void enableFindDlgCtrl(int dlgCtrl, bool isEnable = true);
-	void showFindDlgCtrl(int dlgCtrl, bool isShow = true);
+	void enableFindDlgItem(int dlgItemID, bool isEnable = true);
+	void showFindDlgItem(int dlgItemID, bool isShow = true);
 
 	void enableReplaceFunc(bool isEnable);
 	void enableFindInFilesControls(bool isEnable = true);

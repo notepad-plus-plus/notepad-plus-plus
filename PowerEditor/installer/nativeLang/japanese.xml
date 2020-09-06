@@ -397,7 +397,7 @@
                 <Item id="1624" name="検索モード"/>
                 <Item id="1625" name="標準(&amp;N)"/>
                 <Item id="1626" name="拡張(\n, \r, \t, \0, \x...) (&amp;X)"/>
-                <Item id="1660" name="ファイル内置換(&amp;R)"/>
+                <Item id="1660" name="ファイル内置換"/>
                 <Item id="1661" name="現在のフォルダ"/>
                 <Item id="1641" name="現在の文書内で検索"/>
                 <Item id="1686" name="透明化(&amp;Y)"/>

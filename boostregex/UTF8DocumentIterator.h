@@ -5,7 +5,6 @@
 #include <iterator>
 #include <vector>
 #include <memory>
-#include "Platform.h"
 #include "Position.h"
 
 namespace Scintilla {
@@ -41,27 +40,7 @@ public:
 			return *this;
 		}
 
-		UTF8DocumentIterator& operator ++ ()
-		{
-				PLATFORM_ASSERT(m_pos < m_end);
-				if (m_utf16Length == 2 && m_characterIndex == 0)
-				{
-					m_characterIndex = 1;
-				}
-				else
-				{
-					m_pos += m_utf8Length;
-
-					if (m_pos > m_end)
-					{
-						m_pos = m_end;
-					}
-					m_characterIndex = 0;
-					readCharacter();
-				}
-				return *this;
-		}
-
+		UTF8DocumentIterator& operator ++ ();
 		UTF8DocumentIterator& operator -- ();
 
 		Sci::Position pos() const

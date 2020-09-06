@@ -1,5 +1,5 @@
 version: 7.9.{build}
-image: Visual Studio 2017
+image: Visual Studio 2019
 
 
 environment:
@@ -27,7 +27,7 @@ configuration:
 
 install:
     - if "%Platform%"=="mingw-w64_810_X64" set PATH=C:\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\bin;%PATH:C:\Program Files\Git\usr\bin;=%
-    - if "%archi%" NEQ "" call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" %archi%
+    - if "%archi%" NEQ "" call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsall.bat" %archi%
 
 build_script:
     - ps: |

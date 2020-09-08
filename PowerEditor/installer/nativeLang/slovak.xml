@@ -3,7 +3,7 @@
 <!--
 
 	Slovak localization for Notepad++
-	last modified:  23. 8. 2020 by kubalav
+	last modified: 8. 9. 2020 by kubalav
 	
 -->
 
@@ -831,6 +831,7 @@ Zadať môžete viacero značiek pomocou medzery na oddelenie rôznych čísel."
                     <Item id="6231" name="Šírka okraja"/>
                     <Item id="6235" name="Bez okraja"/>
                     <Item id="6236" name="Povoliť posun za posledným riadkom"/>
+					<Item id="6239" name="Ponechať označenie pri kliknutí pravým tlačidlom mimo označenia"/>
                 </Scintillas>
 
                 <NewDoc title="Nový dokument">
@@ -1025,7 +1026,6 @@ Zadať môžete viacero značiek pomocou medzery na oddelenie rôznych čísel."
                     <Item id="6324" name="Prepínanie dokumentov (Ctrl+Tab)"/>
                     <Item id="6331" name="Zobrazovať v záhlaví okna iba názov súboru"/>
                     <Item id="6334" name="Automatické zisťovanie kódovania znakov"/>
-                    <Item id="6314" name="Použiť neproporcionálne písmo v dialógovom okne Hľadať (Vyžaduje reštart Notepad++)"/>
 					<Item id="6349" name="Použiť DirectWrite (Môže ovplyvniť renderovanie špeciálnych znakov, vyžaduje sa reštart Notepad++)"/>
 					<Item id="6350" name="Povoliť režim orámovania"/>
                     <Item id="6337" name="Prípona súboru prac. priestoru:"/>
@@ -1034,7 +1034,6 @@ Zadať môžete viacero značiek pomocou medzery na oddelenie rôznych čísel."
                     <Item id="6344" name="Náhľad neaktívnych dokumentov"/>
                     <Item id="6345" name="Náhľad na karte dokumentu"/>
                     <Item id="6346" name="Náhľad na mape dokumentu"/>
-                    <Item id="6348" name="Nevkladať označ. slovo do vyhľadávacieho poľa Hľadať"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Spustiť makro viacnásobne">
@@ -1318,6 +1317,10 @@ Hľadať vo všetkých súboroch okrem exe, obj &amp;&amp; log:
             <find-status-replace-not-found value="Nahradiť: Nenašiel sa žiaden výskyt."/>
             <find-status-replace-readonly value="Nahradiť: Text nie je možné nahradiť. Aktuálny dokument je iba na čítanie."/>
             <find-status-cannot-find value="Hľadať: Text &quot;$STR_REPLACE$&quot; sa nepodarilo nájsť."/>
+            <find-status-scope-selection value="v označenom texte"/>
+ 		    <find-status-scope-all value="v celom súbore"/>
+ 		    <find-status-scope-backward value="od začiatku súboru po kurzor"/>
+ 		    <find-status-scope-forward value="od kurzoru po koniec súboru"/>
             <finder-find-in-finder value="Vyhľadať v týchto výsledkoch hľadania..."/>
             <finder-close-this value="Zatvoriť tento vyhľadávač"/>
             <finder-collapse-all value="Zbaliť všetko"/>

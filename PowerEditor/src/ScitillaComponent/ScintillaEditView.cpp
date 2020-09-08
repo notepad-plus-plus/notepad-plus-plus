@@ -2717,38 +2717,17 @@ void ScintillaEditView::updateLineNumberWidth()
 {
 	if (_lineNumbersShown)
 	{
-		auto linesVisible = execute(SCI_LINESONSCREEN);
-		if (linesVisible)
+		auto lineCount = execute(SCI_GETLINECOUNT);
+		int numDigits = 0;
+		while (lineCount)
 		{
-			auto firstVisibleLineVis = execute(SCI_GETFIRSTVISIBLELINE);
-			auto lastVisibleLineVis = linesVisible + firstVisibleLineVis + 1;
-
-			if (execute(SCI_GETWRAPMODE) != SC_WRAP_NONE)
-			{
-				auto numLinesDoc = execute(SCI_GETLINECOUNT);
-				auto prevLineDoc = execute(SCI_DOCLINEFROMVISIBLE, firstVisibleLineVis);
-				for (auto i = firstVisibleLineVis + 1; i <= lastVisibleLineVis; ++i)
-				{
-					auto lineDoc = execute(SCI_DOCLINEFROMVISIBLE, i);
-					if (lineDoc == numLinesDoc)
-						break;
-					if (lineDoc == prevLineDoc)
-						lastVisibleLineVis++;
-					prevLineDoc = lineDoc;
-				}
-			}
-
-			auto lastVisibleLineDoc = execute(SCI_DOCLINEFROMVISIBLE, lastVisibleLineVis);
-			int i = 0;
-
-			while (lastVisibleLineDoc)
-			{
-				lastVisibleLineDoc /= 10;
-				++i;
-			}
-
-			i = max(i, 3);
-			auto pixelWidth = 8 + i * execute(SCI_TEXTWIDTH, STYLE_LINENUMBER, reinterpret_cast<LPARAM>("8"));
+			lineCount /= 10;
+			++numDigits;
+		}
+		numDigits = max(numDigits, 3);
+		auto pixelWidth = 12 + numDigits * execute(SCI_TEXTWIDTH, STYLE_LINENUMBER, reinterpret_cast<LPARAM>("8"));
+		if (execute(SCI_GETMARGINWIDTHN, _SC_MARGE_LINENUMBER) != pixelWidth)
+		{
 			execute(SCI_SETMARGINWIDTHN, _SC_MARGE_LINENUMBER, pixelWidth);
 		}
 	}

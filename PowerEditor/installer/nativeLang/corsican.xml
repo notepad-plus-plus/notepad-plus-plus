@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     History of Corsican translation for Notepad++
-		- Updated on August 27th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.9
+		- Updated on September 8th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.9
 		- Updated on May 26th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.7
 		- Updated on January 8th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.3
 		- Updated on October 31st, 2019 by Patriccollu di Santa Maria è Sichè for version 7.8.1
@@ -245,7 +245,7 @@
                     <Item id="44022" name="Ritornu autumaticu à a linea"/>
                     <Item id="44023" name="&amp;Ingrandà u testu (Ctrl+rutulella insù)"/>
                     <Item id="44024" name="&amp;Diminuì u testu (Ctrl+rutulella inghjò)"/>
-                    <Item id="44025" name="Affissà i spazii bianchi è tabulazioni"/>
+                    <Item id="44025" name="Affissà i spazii bianchi è e tabulazioni"/>
                     <Item id="44026" name="Affissà i simbuli di fine di linea"/>
                     <Item id="44029" name="Spiegà tutti i livelli"/>
                     <Item id="44030" name="Ripiegà u livellu attuale"/>
@@ -383,17 +383,17 @@
                 <Item id="2"    name="Chjode"/>
                 <Item id="1620" name="&amp;Cosa à circà :"/>
                 <Item id="1603" name="&amp;Parolla sana deve currisponde"/>
-                <Item id="1604" name="&amp;Rispettà Maiuscule è minuscule"/>
-                <Item id="1605" name="&amp;Spressione regulare"/>
+                <Item id="1604" name="Rispettà &amp;Maiuscule è minuscule"/>
+                <Item id="1605" name="Spress&amp;ione regulare"/>
                 <Item id="1606" name="Circun&amp;voglie"/>
                 <Item id="1612" name="In&amp;sù"/>
                 <Item id="1613" name="In&amp;ghjò"/>
                 <Item id="1614" name="Con&amp;tu"/>
                 <Item id="1615" name="Marcalle tutte"/>
-                <Item id="1616" name="&amp;Indettà a linea"/>
+                <Item id="1616" name="Indettà a &amp;linea"/>
                 <Item id="1618" name="Spurgulà à ogni ricerca"/>
-                <Item id="1611" name="Rimpiazzà &amp;cù :"/>
-                <Item id="1608" name="&amp;Rimpiazzalla"/>
+                <Item id="1611" name="&amp;Rimpiazzà cù :"/>
+                <Item id="1608" name="Rimpia&amp;zzalla"/>
                 <Item id="1609" name="Rimpiazzalle &amp;tutte"/>
                 <Item id="1687" name="Finestra inattiva"/>
                 <Item id="1688" name="Sempre"/>
@@ -405,15 +405,15 @@
                 <Item id="1655" name="Cart&amp;ulare :"/>
                 <Item id="1656" name="Circalle tutte"/>
                 <Item id="1658" name="In i sottucartu&amp;lari"/>
-                <Item id="1659" name="In i schedarii &amp;piattati"/>
+                <Item id="1659" name="In i sc&amp;hedarii piattati"/>
                 <Item id="1624" name="Modu di ricerca"/>
                 <Item id="1625" name="&amp;Nurmale"/>
                 <Item id="1626" name="&amp;Allungatu (\n, \r, \t, \0, \x…)"/>
-                <Item id="1660" name="&amp;Rimpiazzà in schedarii"/>
+                <Item id="1660" name="Rimpiazzà in schedarii"/>
                 <Item id="1661" name="Seguità ducum. attuale"/>
                 <Item id="1641" name="Circalle tutte in u ducumentu attuale"/>
-                <Item id="1686" name="&amp;Trasparenza"/>
-                <Item id="1703" name="&amp;. cum’è nova linea"/>
+                <Item id="1686" name="Traspar&amp;enza"/>
+                <Item id="1703" name=". cum’è n&amp;ova linea"/>
                 <Item id="1721" name="▲"/>
                 <Item id="1723" name="▼ Circà a seguente"/>
             </Find>
@@ -785,7 +785,7 @@
                     <Item id="6104" name="Icone maiò"/>
                     <Item id="6105" name="Icone classiche"/>
 
-                    <Item id="6106" name="Barra di tabulazione"/>
+                    <Item id="6106" name="Barra d’unghjette"/>
                     <Item id="6107" name="Riduce"/>
                     <Item id="6108" name="Bluccà (senza sguillà é depone)"/>
                     <Item id="6109" name="Abbughjà l’unghjette inattive"/>
@@ -840,7 +840,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                     <Item id="6231" name="Larghezza di bordu"/>
                     <Item id="6235" name="Nisunu bordu"/>
                     <Item id="6236" name="Permette l’affissera dopu à l’ultima linea"/>
-                    <Item id="6239" name="Cunservà a selezzione quandu ci hè un cliccu dirittu fora di a selezzione"/>
+                    <Item id="6239" name="Cunservà a selezzione in casu di cliccu dirittu fora di a selezzione"/>
                 </Scintillas>
 
                 <NewDoc title="Novu ducumentu">
@@ -877,7 +877,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                     <Item id="6506" name="Elementi piattati"/>
                     <Item id="6507" name="Cumpattà u listinu di linguaghju"/>
                     <Item id="6508" name="Listinu di linguaghju"/>
-                    <Item id="6301" name="Definisce tabulazione"/>
+                    <Item id="6301" name="Definisce a tabulazione"/>
                     <Item id="6302" name="Rimpiazzà cù spaziu"/>
                     <Item id="6303" name="Dimensione : "/>
                     <Item id="6510" name="Impiegà u valore predefinitu"/>

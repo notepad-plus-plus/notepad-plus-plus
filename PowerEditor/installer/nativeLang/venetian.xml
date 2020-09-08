@@ -31,7 +31,7 @@
                     <Item subMenuId="edit-copyToClipboard" name="Còpia ne i Scarabòci"/>
                     <Item subMenuId="edit-indent" name="Indenta"/>
                     <Item subMenuId="edit-convertCaseTo" name="Converti i caràtari"/>
-                    <Item subMenuId="edit-lineOperations" name="Operasion so ƚe ƚinee"/>
+                    <Item subMenuId="edit-lineOperations" name="Operasion so ƚe righe"/>
                     <Item subMenuId="edit-comment" name="Comenta/scomenta"/>
                     <Item subMenuId="edit-autoCompletion" name="Oto-conpletamento"/>
                     <Item subMenuId="edit-eolConversion" name="Converti caràtare de fine ƚinea"/>
@@ -518,12 +518,12 @@
                 <ConflictInfoOk name="Nisun confƚito par sto eƚemento."/>
                 <ConflictInfoEditing name="Nisun confƚito..."/>
                 <MainCommandNames>
-                    <Item id="41019" name="Vèrxi carteƚa in Esplora risorse"/>
-                    <Item id="41020" name="Vèrxi carteƚa in Prompt comandi"/>
+                    <Item id="41019" name="Vèrxi carteƚa en Esplora risorse"/>
+                    <Item id="41020" name="Vèrxi carteƚa en Prompt comandi"/>
                     <Item id="41021" name="Ripristina i file resenti"/>
-                    <Item id="45001" name="Converti caràtare de fine linea in Formato Windows (CR+LF)"/>
-                    <Item id="45002" name="Converti caràtare de fine linea in Formato Unix (LF)"/>
-                    <Item id="45003" name="Converti caràtare de fine linea in Formato Macintosh (CR)"/>
+                    <Item id="45001" name="Converti caràtare de fine riga en Formato Windows (CR+LF)"/>
+                    <Item id="45002" name="Converti caràtare de fine riga en Formato Unix (LF)"/>
+                    <Item id="45003" name="Converti caràtare de fine riga en Formato Macintosh (CR)"/>
                     <Item id="43022" name="Marca i risultadi de ƚa riserca col 1º stiƚe"/>
                     <Item id="43024" name="Marca i risultadi de ƚa riserca col 2º stiƚe"/>
                     <Item id="43026" name="Marca i risultadi de ƚa riserca col 3º stiƚe"/>
@@ -1023,7 +1023,7 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
                     <Item id="6331" name="Visuaƚixa soƚo nòme file ne ƚa bara de&apos;l tìtoƚo"/>
                     <Item id="6334" name="Riƚeva otomàticamente codefega caràtari"/>
                     <Item id="6349" name="Uxa DirectWrite (Poderìa mejorare el rendering de i carateri speciali, cogna inviare de novo Notepad++)"/>
-                    <Item id="6350" name="Abilita la modaƚità fullbox"/>																
+					<Item id="6350" name="Abilita la modaƚità fullbox"/>																
                     <Item id="6337" name="Est. file workspace:"/>
                     <Item id="6114" name="Abìƚita"/>
                     <Item id="6117" name="Presedensa a i file pì resenti"/>
@@ -1325,7 +1325,7 @@ Ruma en tuti i file a ecesion exe, obj &amp;&amp; log:
             <finder-select-all value="Seƚesion tuto cuanto"/>
             <finder-clear-all value="Puƚisi tuto cuanto"/>
             <finder-open-all value="Vèrxi tuto cuanto"/>
-            <finder-wrap-long-lines value="A capo otomàtico par ƚe linee longhe"/>													  
+            <finder-wrap-long-lines value="A capo otomàtico par ƚe righe longhe"/>													  
             <common-ok value="OK"/>
             <common-cancel value="Anuƚa"/>
             <common-name value="Nòme: "/>
@@ -1344,23 +1344,23 @@ Ruma en tuti i file a ecesion exe, obj &amp;&amp; log:
             <summary-filemodifytime value="Modifegà: "/>
             <summary-nbchar value="N. caràtari (escluxi caràtari fine ƚinea): "/>
             <summary-nbword value="Paròƚe: "/>
-            <summary-nbline value="Ƚinee: "/>
+            <summary-nbline value="Righe: "/>
             <summary-nbbyte value="Ƚonghesa documento: "/>
             <summary-nbsel1 value=" caràtari seƚesionà ("/>
             <summary-nbsel2 value=" byte) en "/>
             <summary-nbrange value=" intervaƚi"/>
             <replace-in-files-confirm-title value="Sito sicuro?"/>
-            <replace-in-files-confirm-directory value="Sito sicuro de voler sostituire tute cuante le ocorense in:"/>
+            <replace-in-files-confirm-directory value="Sito sicuro de voler sostituire tute cuante le ocorense en:"/>
             <replace-in-files-confirm-filetype value="Par i tipi de file:"/>
             <replace-in-open-docs-confirm-title value="Sito sicuro?"/>
             <replace-in-open-docs-confirm-message value="Sito sicuro de voler sostituire tute cuante le ocorense en tuti cuanti i documenti verti?"/>
             <find-result-caption value="Cata rixultadi"/>
             <find-result-title value="Cata"/>
-            <find-result-title-info value="($INT_REPLACE1$ ocorense in $INT_REPLACE2$ file de $INT_REPLACE3$ sercà)"/>
-            <find-result-title-info-selections value="($INT_REPLACE1$ ocorense in $INT_REPLACE2$ seƚesioni de $INT_REPLACE3$ sercà)"/>
+            <find-result-title-info value="($INT_REPLACE1$ ocorense en $INT_REPLACE2$ file de $INT_REPLACE3$ sercà)"/>
+            <find-result-title-info-selections value="($INT_REPLACE1$ ocorense en $INT_REPLACE2$ seƚesioni de $INT_REPLACE3$ sercà)"/>
             <find-result-title-info-extra value=" - Modaƚità de filtro ƚinea: mostra soƚo i rixultadi filtrà"/>
             <find-result-hits value="($INT_REPLACE$ ocorense)"/>
-            <find-regex-zero-length-match value="corispondensa de longhesa zero" />
+            <find-regex-zero-length-match value="corispondensa de longhesa xero" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     Venetian translation for Notepad++ 7.8.10
-    Last modified Sun, September 6th, 2020.
+    Last modified Sun, September 8th, 2020.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 <NotepadPlus>
@@ -142,8 +142,8 @@
                     <Item id="42019" name="&amp;Ferma registrasion"/>
                     <Item id="42021" name="&amp;Exegui ƚa macro"/>
                     <Item id="42022" name="Comenta / Scomenta ƚa soƚa riga"/>
-                    <Item id="42023" name="Comenta bƚoco"/>
-                    <Item id="42047" name="Scomenta bƚoco"/>
+                    <Item id="42023" name="Comenta bloco"/>
+                    <Item id="42047" name="Scomenta bloco"/>
                     <Item id="42024" name="Scanseƚa spasi a fine riga"/>
                     <Item id="42042" name="Scanseƚa spasi inisiaƚi"/>
                     <Item id="42043" name="Scanseƚa spasi inisiaƚi e finaƚi"/>
@@ -396,7 +396,7 @@
                 <Item id="1624" name="Tipo riserca"/>
                 <Item id="1625" name="Normaƚe"/>
                 <Item id="1626" name="Sƚargà (\n, \r, \t, \0, \x...)"/>
-                <Item id="1660" name="&amp;Sostituisi ne i file"/>
+                <Item id="1660" name="Sostituisi ne i file"/>
                 <Item id="1661" name="Segui documento corente"/>
                 <Item id="1641" name="Cata tuto cuanto ne&apos;l documento corente"/>
                 <Item id="1686" name="T&amp;rasparensa"/>
@@ -774,7 +774,7 @@
 
                     <Item id="6106" name="Bara schede"/>
                     <Item id="6107" name="Bara de ƚe schede conpata"/>
-                    <Item id="6108" name="Bƚoca schede (no strasinamento)"/>
+                    <Item id="6108" name="Bloca schede (no strasinamento)"/>
                     <Item id="6109" name="Oscura schede inative"/>
                     <Item id="6110" name="Evidensìa scheda ativa co na bara"/>
 
@@ -817,7 +817,7 @@
                     <Item id="6207" name="Visuaƚixa i segnaƚibri"/>
                     <Item id="6208" name="Visuaƚixa el ƚimite de coƚona"/>
                     <Item id="6234" name="Disabiƚita scrolling avansà
-(en caxo de probƚemi co touchpad)"/>
+(en caxo de problemi co touchpad)"/>
                     <Item id="6211" name="Ƚimite De Coƚona"/>
                     <Item id="6213" name="Modaƚità &apos;sfondo&apos;"/>
                     <Item id="6237" name="Xonta el to deƚimitatore de coƚona indicando ƚa so poxision co on nùmaro desimaƚe.
@@ -827,7 +827,7 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
                     <Item id="6231" name="Spesore Bordo Editor"/>
                     <Item id="6235" name="Nisun bordo"/>
                     <Item id="6236" name="Abìƚita scorimento oltre ƚ&apos;ùltima riga"/>
-																								 
+                    <Item id="6239" name="Mantien la selesion cò the clichi col tasto de drita fora de la selesion"/>																			 
                 </Scintillas>
 
                 <NewDoc title="Novo documento">
@@ -1023,7 +1023,7 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
                     <Item id="6331" name="Visuaƚixa soƚo nòme file ne ƚa bara de&apos;l tìtoƚo"/>
                     <Item id="6334" name="Riƚeva otomàticamente codefega caràtari"/>
                     <Item id="6349" name="Uxa DirectWrite (Poderìa mejorare el rendering de i carateri speciali, cogna inviare de novo Notepad++)"/>
-																
+                    <Item id="6350" name="Abilita la modaƚità fullbox"/>																
                     <Item id="6337" name="Est. file workspace:"/>
                     <Item id="6114" name="Abìƚita"/>
                     <Item id="6117" name="Presedensa a i file pì resenti"/>
@@ -1048,17 +1048,17 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
                 <Item id="7004" name="Órdena schede"/>
             </Window>
             <ColumnEditor title="Editor a coƚone">
-                <Item id="2023" name="Testo da inserire"/>
-                <Item id="2033" name="Nùmaro da inserire"/>
-                <Item id="2030" name="Nùmaro inisiaƚe: "/>
-                <Item id="2031" name="Incrementa de: "/>
-                <Item id="2035" name="Xeri inisiaƚi"/>
-                <Item id="2036" name="Ripeti: "/>
-                <Item id="2032" name="Formato"/>
-                <Item id="2024" name="Desimaƚe"/>
-                <Item id="2025" name="Otaƚe"/>
-                <Item id="2026" name="Exadesimaƚe"/>
-                <Item id="2027" name="Binario"/>
+                <Item id="2023" name="&amp;Testo da inserire"/>
+                <Item id="2033" name="&amp;Nùmaro da inserire"/>
+                <Item id="2030" name="Nùmaro &amp;inisiaƚe: "/>
+                <Item id="2031" name="Increment&amp;a de: "/>
+                <Item id="2035" name="&amp;Xeri inisiaƚi"/>
+                <Item id="2036" name="&amp;Ripeti: "/>
+                <Item id="2032" name="&amp;Formato"/>
+                <Item id="2024" name="&amp;Desimaƚe"/>
+                <Item id="2025" name="&amp;Otaƚe"/>
+                <Item id="2026" name="Exadesi&amp;maƚe"/>
+                <Item id="2027" name="&amp;Binario"/>
                 <Item id="1" name="OK"/>
                 <Item id="2" name="Anuƚa"/>
             </ColumnEditor>
@@ -1136,8 +1136,8 @@ Vuto recargarƚo e perdare tute ƚe modìfeghe aportà en Notepad++?"/>
 Vuto &apos;ndare ne ƚa pàgina de Notepad++ par descargare ƚ&apos;axornamento manualmente?"/>
             <GUpProxyConfNeedAdminMode title = "Inpostasion proxy" message = "Rilancia Notepad++ co i privilegi de aministradore par configurare el proxy." />
             <DocTooDirtyToMonitor title="Problema monitoragio" message="El documento el xe sporco. Salva ƚe modìfeghe vanti de scomisiare el monitoragio."/>
-            <DocNoExistToMonitor title="Probƚema monitoragio" message="El file el deve existare par èsare monitorà."/>
-            <FileTooBigToOpen title="Probƚema dimension file" message="El file el xe masa grando par èsare vèrto co Notepad++"/>
+            <DocNoExistToMonitor title="Problema monitoragio" message="El file el deve existare par èsare monitorà."/>
+            <FileTooBigToOpen title="Problema dimension file" message="El file el xe masa grando par èsare vèrto co Notepad++"/>
             <CreateNewFileOrNot title="Crea novo file" message="&quot;$STR_REPLACE$&quot; no existe. Crearƚo??"/>
             <CreateNewFileError title="Crea novo file" message="Inposibiƚe creare el file &quot;$STR_REPLACE$&quot;."/>
             <OpenFileError title="ERORE" message="Inposibiƚe vèrxare el file &quot;$STR_REPLACE$&quot;."/>
@@ -1148,7 +1148,7 @@ Vuto salvare el file ƚo steso?"/>
             <LoadLangsFailed title="Configurasion" message="El cargamento de langs.xml el xe faƚìo!
 Vuto ripristinare el file langs.xml?"/>
             <LoadLangsFailedFinal title="Configurasion" message="El cargamento de langs.xml el xe faƚìo!"/>
-            <FolderAsWorspaceSubfolderExists title="Probƚema par Carteƚa cofà Workspace" message="Na soto carteƚa de ƚa carteƚa che te voi xontare ƚa existe xà.
+            <FolderAsWorspaceSubfolderExists title="Problema par Carteƚa cofà Workspace" message="Na soto carteƚa de ƚa carteƚa che te voi xontare ƚa existe xà.
 Rimovi ƚa carteƚa da&apos;l paneƚo vanti de xontare &quot;$STR_REPLACE$&quot;."/>
 
             <ProjectPanelChanged title="$STR_REPLACE$" message="El workspace el xe stà modifegà. Vuto salvarƚo?"/>
@@ -1167,7 +1167,7 @@ Vuto continuare?"/>
 usane &apos;n altro."/>
             <UDLRemoveCurrentLang title="Rimovi el ƚenguagio corente" message="Sito sicuro?"/>
             <SCMapperDoDeleteOrNot title="Sito sicuro?" message="Sito sicuro de voƚer scanseƚare sta scorciatoia?"/>
-            <FindCharRangeValueError title="Probƚema ne&apos;l intervaƚo de vaƚori" message="Te devi inserire on vaƚore tra 0 e 255."/>
+            <FindCharRangeValueError title="Problema ne&apos;l intervaƚo de vaƚori" message="Te devi inserire on vaƚore tra 0 e 255."/>
             <OpenInAdminMode title="Salvatagio faƚìo" message="El file no&apos;l poƚe èsare salvà e el poderìa èsare proteto.
 Vuto inviare Notepad++ cofà aministradore?"/>
             <OpenInAdminModeWithoutCloseCurrent title="Salvatagio faƚìo" message="El file no&apos;l poƚe èsare salvà e el poderìa èsare proteto.
@@ -1283,7 +1283,7 @@ Vuto continuare?"/>
             <cloud-select-folder value="Seƚesiona na carteƚa da indove Notepad++ pòsa ƚèxare o scrìvare ƚe proprie inpostasion"/>
             <shift-change-direction-tip value="Utiƚixa Shift+Invio par sercare ne ƚa diresion oposta"/>
             <two-find-buttons-tip value="Modaƚità riserca a 2 botoni"/>
-            <find-in-files-filter-tip value = "Ruma en cpp, cxx, h, hxx &amp;&amp; hpp:
+            <find-in-files-filter-tip value="Ruma en cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 
 Ruma en tuti i file a ecesion exe, obj &amp;&amp; log:
@@ -1325,7 +1325,7 @@ Ruma en tuti i file a ecesion exe, obj &amp;&amp; log:
             <finder-select-all value="Seƚesion tuto cuanto"/>
             <finder-clear-all value="Puƚisi tuto cuanto"/>
             <finder-open-all value="Vèrxi tuto cuanto"/>
-			<finder-wrap-long-lines value="A capo otomàtico par ƚe linee longhe"/>													  
+            <finder-wrap-long-lines value="A capo otomàtico par ƚe linee longhe"/>													  
             <common-ok value="OK"/>
             <common-cancel value="Anuƚa"/>
             <common-name value="Nòme: "/>

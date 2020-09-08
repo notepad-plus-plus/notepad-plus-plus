@@ -27,6 +27,7 @@
 
 #include <shlobj.h>
 #include <uxtheme.h>
+#include <windowsx.h>
 #include "FindReplaceDlg.h"
 #include "ScintillaEditView.h"
 #include "Notepad_plus_msgs.h"
@@ -3137,9 +3138,10 @@ void FindReplaceDlg::doDialog(DIALOG_TYPE whichType, bool isRTL, bool toShow)
 
 LRESULT FAR PASCAL FindReplaceDlg::finderProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+	ScintillaEditView* pScint = (ScintillaEditView*)(::GetWindowLongPtr(hwnd, GWLP_USERDATA));
+
 	if (message == WM_KEYDOWN && (wParam == VK_DELETE || wParam == VK_RETURN))
 	{
-		ScintillaEditView *pScint = (ScintillaEditView *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA));
 		Finder *pFinder = (Finder *)(::GetWindowLongPtr(pScint->getHParent(), GWLP_USERDATA));
 		if (wParam == VK_RETURN)
 			pFinder->gotoFoundLine();
@@ -3147,9 +3149,26 @@ LRESULT FAR PASCAL FindReplaceDlg::finderProc(HWND hwnd, UINT message, WPARAM wP
 			pFinder->deleteResult();
 		return 0;
 	}
-	else
-		// Call default (original) window procedure
-		return CallWindowProc((WNDPROC) originalFinderProc, hwnd, message, wParam, lParam);
+	else if (message == WM_RBUTTONDOWN)
+	{
+		bool rightClickKeepsSelection = ((NppParameters::getInstance()).getSVP())._rightClickKeepsSelection;
+		if (rightClickKeepsSelection)
+		{
+			int clickX = GET_X_LPARAM(lParam);
+			int marginX = static_cast<int>(pScint->execute(SCI_POINTXFROMPOSITION, 0, 0));
+			if (clickX >= marginX)
+			{
+				// if right-click in the editing area (not the margins!),
+				// don't let this go to Scintilla because it will 
+				// move the caret to the right-clicked location,
+				// cancelling any selection made by the user
+				return TRUE;
+			}
+		}
+	}
+
+	// Call default (original) window procedure
+	return CallWindowProc((WNDPROC)originalFinderProc, hwnd, message, wParam, lParam);
 }
 
 LRESULT FAR PASCAL FindReplaceDlg::comboEditProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)

@@ -1361,10 +1361,10 @@ Hľadať vo všetkých súboroch okrem exe, obj &amp;&amp; log:
             <find-result-caption value="Výsledok hľadania"/>
             <find-result-title value="Hľadať"/>
             <find-result-title-info value="($INT_REPLACE1$ výskytov v $INT_REPLACE2$ súboroch z $INT_REPLACE3$ prehľadávaných)"/>
+            <find-result-title-info-selections value="($INT_REPLACE1$ výskytov v $INT_REPLACE2$ výberoch z $INT_REPLACE3$ nájdených)"/>
             <find-result-title-info-extra value=" - Režim filtrovania riadka: zobraziť iba filtrované výsledky"/>
             <find-result-hits value="($INT_REPLACE$ výskytov)"/>
-			<find-regex-zero-length-match value="výskyt nulovej dĺžky" />
+            <find-regex-zero-length-match value="výskyt nulovej dĺžky" />
         </MiscStrings>
     </Native-Langue>
-                    <Item id="44083" name="Prepnúť panel projektu 3"/>
 </NotepadPlus>

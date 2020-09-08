@@ -917,8 +917,8 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
                 <Searching title="Searching">
                     <Item id="6901" name="No propore ƚe paròƚe seƚesionà ne ƚa fenèstra de riserca"/>
                     <Item id="6902" name="Uxa caràtare a spasiatura fisa ne ƚa fenèstra de riserca (Te devi inviare de novo Notepad++)"/>
-                    <Item id="6903" name="Lasa verta la finestra de dialogo after aver catà cuel output inte la fenèstra de i rixultadi"/>
-                    <Item id="6904" name="Conferma Sostituisi tuto Cuanto en tuti i documenti verti"/>
+                    <Item id="6903" name="Lasa verta la fenèstra de dialogo dopo aver catà cuel output inte la fenèstra de i rixultadi"/>
+                    <Item id="6904" name="Conferma Sostituisi tuto cuanto en tuti i documenti verti"/>
                 </Searching>
 
 		<RecentFilesHistory title="File resenti">
@@ -1285,7 +1285,6 @@ Vuto continuare?"/>
             <two-find-buttons-tip value="Modaƚità riserca a 2 botoni"/>
             <find-in-files-filter-tip value="Ruma en cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
-
 Ruma en tuti i file a ecesion exe, obj &amp;&amp; log:
 *.* !*.exe !*.obj !*.log" />
             <find-status-top-reached value="Ruma: catà ƚa prima ocorensa da&apos;l baso. Se xe rivà a&apos;l prinsipio de&apos;l documento."/>
@@ -1364,4 +1363,3 @@ Ruma en tuti i file a ecesion exe, obj &amp;&amp; log:
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>
-

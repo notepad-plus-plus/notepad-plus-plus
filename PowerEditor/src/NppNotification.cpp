@@ -890,7 +890,14 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				}
 			}
 
-			updateStatusBar();
+			bool selectionIsChanged = (notification->updated & SC_UPDATE_SELECTION) != 0;
+			// note: changing insert/overwrite mode will cause Scintilla to notify with SC_UPDATE_SELECTION
+			bool contentIsChanged = (notification->updated & SC_UPDATE_CONTENT) != 0;
+			if (selectionIsChanged || contentIsChanged)
+			{
+				updateStatusBar();
+			}
+
 			if (_pFuncList && (!_pFuncList->isClosed()) && _pFuncList->isVisible())
 				_pFuncList->markEntry();
 			AutoCompletion * autoC = isFromPrimary?&_autoCompleteMain:&_autoCompleteSub;

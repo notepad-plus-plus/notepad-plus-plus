@@ -3653,36 +3653,92 @@ int Notepad_plus::wordCount()
     return _findReplaceDlg.processAll(ProcessCountAll, &env, true);
 }
 
-
 void Notepad_plus::updateStatusBar()
 {
-    TCHAR strLnCol[128];
-	TCHAR strSel[64];
-	int selByte = 0;
-	int selLine = 0;
+	// these sections of status bar NOT updated by this function:
+	// STATUSBAR_DOC_TYPE , STATUSBAR_EOF_FORMAT , STATUSBAR_UNICODE_TYPE
 
-	_pEditView->getSelectedCount(selByte, selLine);
-
-	long selected_length = _pEditView->getUnicodeSelectedLength();
-	if (selected_length != -1)
-		wsprintf(strSel, TEXT("Sel : %s | %s"), commafyInt(selected_length).c_str(), commafyInt(selLine).c_str());
-	else
-		wsprintf(strSel, TEXT("Sel : %s"), TEXT("N/A"));
-
-	wsprintf(strLnCol, TEXT("Ln : %s    Col : %s    %s"),
-		commafyInt(_pEditView->getCurrentLineNumber() + 1).c_str(),
-		commafyInt(_pEditView->getCurrentColumnNumber() + 1).c_str(),
-		strSel);
-
-    _statusBar.setText(strLnCol, STATUSBAR_CUR_POS);
-
-    TCHAR strDocLen[256];
+	TCHAR strDocLen[256];
 	wsprintf(strDocLen, TEXT("length : %s    lines : %s"),
 		commafyInt(_pEditView->getCurrentDocLen()).c_str(),
 		commafyInt(_pEditView->execute(SCI_GETLINECOUNT)).c_str());
+	_statusBar.setText(strDocLen, STATUSBAR_DOC_SIZE);
 
-    _statusBar.setText(strDocLen, STATUSBAR_DOC_SIZE);
-    _statusBar.setText(_pEditView->execute(SCI_GETOVERTYPE) ? TEXT("OVR") : TEXT("INS"), STATUSBAR_TYPING_MODE);
+	TCHAR strSel[64];
+
+	int numSelections = static_cast<int>(_pEditView->execute(SCI_GETSELECTIONS));
+	if (numSelections == 1)
+	{
+		if (_pEditView->execute(SCI_GETSELECTIONEMPTY))
+		{
+			int currPos = static_cast<int>(_pEditView->execute(SCI_GETCURRENTPOS));
+			wsprintf(strSel, TEXT("Pos : %s"), commafyInt(currPos + 1).c_str());
+		}
+		else
+		{
+			const std::pair<int, int> oneSelCharsAndLines = _pEditView->getSelectedCharsAndLinesCount();
+			wsprintf(strSel, TEXT("Sel : %s | %s"),
+				commafyInt(oneSelCharsAndLines.first).c_str(),
+				commafyInt(oneSelCharsAndLines.second).c_str());
+		}
+	}
+	else if (_pEditView->execute(SCI_SELECTIONISRECTANGLE))
+	{
+		const std::pair<int, int> rectSelCharsAndLines = _pEditView->getSelectedCharsAndLinesCount();
+
+		bool sameCharCountOnEveryLine = true;
+		int maxLineCharCount = 0;
+
+		for (int sel = 0; sel < numSelections; ++sel)
+		{
+			int start = static_cast<int>(_pEditView->execute(SCI_GETSELECTIONNSTART, sel));
+			int end = static_cast<int>(_pEditView->execute(SCI_GETSELECTIONNEND, sel));
+			int lineCharCount = static_cast<int>(_pEditView->execute(SCI_COUNTCHARACTERS, start, end));
+
+			if (sel == 0)
+			{
+				maxLineCharCount = lineCharCount;
+			}
+			else 
+			{
+				if (lineCharCount != maxLineCharCount)
+				{
+					sameCharCountOnEveryLine = false;
+					if (lineCharCount > maxLineCharCount)
+					{
+						maxLineCharCount = lineCharCount;
+					}
+				}
+			}
+		}
+
+		wsprintf(strSel, TEXT("Sel : %sx%s %s %s"),
+			commafyInt(numSelections).c_str(),  // lines (rows) in rectangular selection
+			commafyInt(maxLineCharCount).c_str(),  // show maximum width for columns
+			sameCharCountOnEveryLine ? TEXT("=") : TEXT("->"),
+			commafyInt(rectSelCharsAndLines.first).c_str());
+	}
+	else  // multiple stream selections
+	{
+		const int maxSelsToProcessLineCount = 99;  // limit the number of selections to process, for performance reasons
+		const std::pair<int, int> multipleSelCharsAndLines = _pEditView->getSelectedCharsAndLinesCount(maxSelsToProcessLineCount);
+
+		wsprintf(strSel, TEXT("Sel %s : %s | %s"),
+			commafyInt(numSelections).c_str(),
+			commafyInt(multipleSelCharsAndLines.first).c_str(),
+			numSelections <= maxSelsToProcessLineCount ?
+				commafyInt(multipleSelCharsAndLines.second).c_str() :
+				TEXT("..."));  // show ellipsis for line count if too many selections are active
+	}
+
+	TCHAR strLnColSel[128];
+	wsprintf(strLnColSel, TEXT("Ln : %s    Col : %s    %s"),
+		commafyInt(_pEditView->getCurrentLineNumber() + 1).c_str(),
+		commafyInt(_pEditView->getCurrentColumnNumber() + 1).c_str(),
+		strSel);
+	_statusBar.setText(strLnColSel, STATUSBAR_CUR_POS);
+
+	_statusBar.setText(_pEditView->execute(SCI_GETOVERTYPE) ? TEXT("OVR") : TEXT("INS"), STATUSBAR_TYPING_MODE);
 }
 
 void Notepad_plus::dropFiles(HDROP hdrop)

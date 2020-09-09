@@ -2726,10 +2726,7 @@ void ScintillaEditView::updateLineNumberWidth()
 		}
 		numDigits = max(numDigits, 3);
 		auto pixelWidth = 12 + numDigits * execute(SCI_TEXTWIDTH, STYLE_LINENUMBER, reinterpret_cast<LPARAM>("8"));
-		if (execute(SCI_GETMARGINWIDTHN, _SC_MARGE_LINENUMBER) != pixelWidth)
-		{
-			execute(SCI_SETMARGINWIDTHN, _SC_MARGE_LINENUMBER, pixelWidth);
-		}
+		execute(SCI_SETMARGINWIDTHN, _SC_MARGE_LINENUMBER, pixelWidth);
 	}
 }
 

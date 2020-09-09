@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2020-08-23 by schnurlos (schnurlos@gmail.com)
+	last modified: 2020-09-09 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="7.8.9">
+	<Native-Langue name="Deutsch" filename="german.xml" version="7.9">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -332,8 +332,6 @@
 					<Item id="50000" name="&amp;Funktionsvervollständigung"/>
 					<Item id="50001" name="&amp;Wortvervollständigung"/>
 					<Item id="50002" name="Funktions&amp;parameter anzeigen"/>
-					<Item id="50003" name="Zum vorherigen Dokument wechseln"/>
-					<Item id="50004" name="Zum nächsten Dokument wechseln"/>
 					<Item id="50005" name="Umschalten der Makroaufnahme"/>
 					<Item id="50006" name="&amp;Dateipfad vervollständigen"/>
 					<Item id="44042" name="Zeilen &amp;ausblenden"/>
@@ -547,13 +545,13 @@
 					<Item id="43035" name="Markiere vorherige im Stil 3"/>
 					<Item id="43036" name="Markiere vorherige im Stil 4"/>
 					<Item id="43037" name="Markiere vorherige im Stil 5"/>
-					<Item id="43038" name="Vorherige Marke erstellt mit Marke…"/>
+					<Item id="43038" name="Vorherige Marke erstellt mit Marke"/>
 					<Item id="43039" name="Markiere nächste im Stil 1"/>
 					<Item id="43040" name="Markiere nächste im Stil 2"/>
 					<Item id="43041" name="Markiere nächste im Stil 3"/>
 					<Item id="43042" name="Markiere nächste im Stil 4"/>
 					<Item id="43043" name="Markiere nächste im Stil 5"/>
-					<Item id="43044" name="Nächste Marke erstellt mit Marke…"/>
+					<Item id="43044" name="Nächste Marke erstellt mit Marke"/>
 					<Item id="44100" name="Aktuelle Datei in Firefox betrachten"/>
 					<Item id="44101" name="Aktuelle Datei in Chrome betrachten"/>
 					<Item id="44103" name="Aktuelle Datei im IE betrachten"/>

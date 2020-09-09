@@ -2787,27 +2787,36 @@ void ScintillaEditView::setMultiSelections(const ColumnModeInfos & cmi)
 	}
 }
 
-// Get selection range : (fromLine, toLine)
-// return (-1, -1) if multi-selection
-pair<int, int> ScintillaEditView::getSelectionLinesRange() const
+// Get selection range (fromLine, toLine) for the specified selection
+// specify selectionNumber = -1 for the MAIN selection
+pair<int, int> ScintillaEditView::getSelectionLinesRange(int selectionNumber /* = -1 */) const
 {
-    pair<int, int> range(-1, -1);
-    if (execute(SCI_GETSELECTIONS) > 1) // multi-selection
-        return range;
-	int32_t start = static_cast<int32_t>(execute(SCI_GETSELECTIONSTART));
-	int32_t end = static_cast<int32_t>(execute(SCI_GETSELECTIONEND));
+	int numSelections = static_cast<int>(execute(SCI_GETSELECTIONS));
 
-	range.first = static_cast<int32_t>(execute(SCI_LINEFROMPOSITION, start));
-	range.second = static_cast<int32_t>(execute(SCI_LINEFROMPOSITION, end));
+	int start_pos, end_pos;
 
-	if ((range.first != range.second) && (execute(SCI_POSITIONFROMLINE, range.second) == end))
+	if ((selectionNumber < 0) || (selectionNumber >= numSelections))
+	{
+		start_pos = static_cast<int>(execute(SCI_GETSELECTIONSTART));
+		end_pos = static_cast<int>(execute(SCI_GETSELECTIONEND));
+	}
+	else
+	{
+		start_pos = static_cast<int>(execute(SCI_GETSELECTIONNSTART, selectionNumber));
+		end_pos = static_cast<int>(execute(SCI_GETSELECTIONNEND, selectionNumber));
+	}
+
+	int line1 = static_cast<int>(execute(SCI_LINEFROMPOSITION, start_pos));
+	int line2 = static_cast<int>(execute(SCI_LINEFROMPOSITION, end_pos));
+
+	if ((line1 != line2) && (execute(SCI_POSITIONFROMLINE, line2) == end_pos))
 	{
 		// if the end of the selection includes the line-ending, 
 		// then don't include the following line in the range
-		--range.second;
+		--line2;
 	}
 
-    return range;
+	return pair<int, int>(line1, line2);
 }
 
 void ScintillaEditView::currentLinesUp() const
@@ -3713,3 +3722,61 @@ void ScintillaEditView::getFoldColor(COLORREF& fgColor, COLORREF& bgColor, COLOR
 		activeFgColor = style._fgColor;
 	}
 }
+
+pair<int, int> ScintillaEditView::getSelectedCharsAndLinesCount(int maxSelectionsForLineCount /* = -1 */) const
+{
+	pair<int, int> selectedCharsAndLines(0, 0);
+
+	selectedCharsAndLines.first = getUnicodeSelectedLength();
+
+	int numSelections = static_cast<int>(execute(SCI_GETSELECTIONS));
+
+	if (numSelections == 1)
+	{
+		pair<int, int> lineRange = getSelectionLinesRange();
+		selectedCharsAndLines.second = lineRange.second - lineRange.first + 1;
+	}
+	else if ((maxSelectionsForLineCount == -1) ||  // -1 means process ALL of the selections
+		(numSelections <= maxSelectionsForLineCount))
+	{
+		// selections are obtained from Scintilla in the order user creates them,
+		// not in a lowest-to-highest position-based order;
+		// to be able to get a line-count that can't count the same line more than once,
+		// we have to reorder the lines touched
+		// by selection into low-to-high line number order before processing them further
+
+		vector< pair <int, int> > v;
+		for (int s = 0; s < numSelections; ++s)
+		{
+			v.push_back(getSelectionLinesRange(s));
+		}
+		sort(v.begin(), v.end());
+		int previousSecondLine = -1;
+		for (auto lineRange : v)
+		{
+			selectedCharsAndLines.second += lineRange.second - lineRange.first;
+			if (lineRange.first != previousSecondLine)
+			{
+				++selectedCharsAndLines.second;
+			}
+			previousSecondLine = lineRange.second;
+		}
+	}
+
+	return selectedCharsAndLines;
+};
+
+int ScintillaEditView::getUnicodeSelectedLength() const
+{
+	int length = 0;
+	int numSelections = static_cast<int>(execute(SCI_GETSELECTIONS));
+
+	for (int s = 0; s < numSelections; ++s)
+	{
+		int start = static_cast<int>(execute(SCI_GETSELECTIONNSTART, s));
+		int end = static_cast<int>(execute(SCI_GETSELECTIONNEND, s));
+		length += static_cast<int>(execute(SCI_COUNTCHARACTERS, start, end));
+	}
+
+	return length;
+};

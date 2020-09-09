@@ -1484,9 +1484,9 @@ void Notepad_plus::command(int id)
 
 		case IDM_EDIT_SPLIT_LINES:
 		{
-			pair<int, int> lineRange = _pEditView->getSelectionLinesRange();
-			if (lineRange.first != -1)
+			if (_pEditView->execute(SCI_GETSELECTIONS) == 1)
 			{
+				pair<int, int> lineRange = _pEditView->getSelectionLinesRange();
 				auto anchorPos = _pEditView->execute(SCI_POSITIONFROMLINE, lineRange.first);
 				auto caretPos = _pEditView->execute(SCI_GETLINEENDPOSITION, lineRange.second);
 				_pEditView->execute(SCI_SETSELECTION, caretPos, anchorPos);

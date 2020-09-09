@@ -404,8 +404,8 @@ Updated to v7.9.0:
 				<Item id="1688" name="Всегда"/>
 				<Item id="1703" name="и новые строки"/>
 				<Item id="1722" name="Обратное направление поиска"/>
-				<Item id="1721" name="▲"/> 
-				<Item id="1723" name="▼"/> 
+				<Item id="1721" name="▲"/>
+				<Item id="1723" name="▼"/>
 			</Find>
 
 			<FindCharsInRange title = "Найти символы в диапазоне....">
@@ -1005,7 +1005,7 @@ Updated to v7.9.0:
 					<Item id="6822" name="Путь копии:"/>
 				</Backup>
 				<AutoCompletion title="Автозавершение">
-					<Item id="6115" name="Авто-отступ Новой Строки"/>
+					<Item id="6115" name="Авто-отступ с новой строки"/>
 					<Item id="6807" name="Автозавершение"/>
 					<Item id="6808" name="Включить при каждом вводе"/>
 					<Item id="6809" name="Завершение функций"/>
@@ -1156,8 +1156,8 @@ Updated to v7.9.0:
 			<ColumnVal        name="Dec"/>
 			<ColumnHex        name="Hex"/>
 			<ColumnChar       name="Символ"/>
-			<ColumnHtmlNumber name="HTML Номер"/> 
-			<ColumnHtmlName   name="HTML Код"/> 
+			<ColumnHtmlNumber name="HTML Номер"/>
+			<ColumnHtmlName   name="HTML Код"/>
 		</AsciiInsertion>
 		<DocumentMap>
 			<PanelTitle name="Карта Документа"/>
@@ -1279,6 +1279,7 @@ Updated to v7.9.0:
 			<finder-select-all           value="Выделить всё"/>
 			<finder-clear-all            value="Очистить всё"/>
 			<finder-open-all             value="Открыть всё"/>
+			<finder-wrap-long-lines      value="Перенос слов длинных строк"/>
 			<common-ok                   value="ОК"/>
 			<common-cancel               value="Отмена"/>
 			<common-name                 value="Имя: "/>
@@ -1291,16 +1292,17 @@ Updated to v7.9.0:
 			<userdefined-title-rename    value="Изменить Имя Синтаксиса"/>
 			<autocomplete-nb-char        value="Символ: "/>
 			<edit-verticaledge-nb-col    value="От символа:"/>
-			<summary                     value="Информация о Файле"/> 
-			<summary-filepath            value="Полный путь к файлу: "/> 
-			<summary-filecreatetime      value="Создан: "/> 
-			<summary-filemodifytime      value="Обновлён: "/> 
-			<summary-nbchar              value="Символов (без окончания строки): "/> 
-			<summary-nbword              value="Слов: "/> 
-			<summary-nbline              value="Строк: "/> 
-			<summary-nbbyte              value="Длина документа: "/> 
-			<summary-nbsel1              value=" выделенных символов ("/> 
-			<summary-nbsel2              value=" байт) в "/> 
+			<summary                     value="Информация о Файле"/>
+			<summary-filepath            value="Полный путь к файлу: "/>
+			<summary-filecreatetime      value="Создан: "/>
+			<summary-filemodifytime      value="Обновлён: "/>
+			<summary-nbchar              value="Символов (без окончания строки): "/>
+			<summary-nbword              value="Слов: "/>
+			<summary-nbwordinsel         value="Слов (в 1 выделении): "/>
+			<summary-nbline              value="Строк: "/>
+			<summary-nbbyte              value="Длина документа: "/>
+			<summary-nbsel1              value=" выделенных символов ("/>
+			<summary-nbsel2              value=" байт) в "/>
 			<summary-nbrange             value=" диапазоне(ах)"/>
 			<replace-in-files-confirm-title       value="Вы уверены?"/>
 			<replace-in-files-confirm-directory   value="Вы точно хотите заменить все совпадения в каталоге :"/>

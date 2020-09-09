@@ -3959,6 +3959,18 @@ generic_string NppParameters::getLocPathFromStr(const generic_string & localizat
 		return TEXT("zulu.xml");
 	if (localizationCode == TEXT("ne") || localizationCode == TEXT("nep"))
 		return TEXT("nepali.xml");
+	if (localizationCode == TEXT("oc-aranes"))
+		return TEXT("aranese.xml");
+	if (localizationCode == TEXT("exy"))
+		return TEXT("extremaduran.xml");
+	if (localizationCode == TEXT("keb"))
+		return TEXT("kabyle.xml");
+	if (localizationCode == TEXT("lij"))
+		return TEXT("ligurian.xml");
+	if (localizationCode == TEXT("ga"))
+		return TEXT("irish.xml");
+	if (localizationCode == TEXT("sgs"))
+		return TEXT("samogitian.xml");
 
 	return generic_string();
 }

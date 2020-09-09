@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="English" filename="english.xml" version="7.8.7">
+    <Native-Langue name="English" filename="english.xml" version="7.9">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -320,8 +320,6 @@
                     <Item id="50000" name="Function Completion"/>
                     <Item id="50001" name="Word Completion"/>
                     <Item id="50002" name="Function Parameters Hint"/>
-                    <Item id="50003" name="Switch to previous document"/>
-                    <Item id="50004" name="Switch to next document"/>
                     <Item id="50005" name="Toggle macro record"/>
                     <Item id="50006" name="Path Completion"/>
                     <Item id="44042" name="Hide Lines"/>
@@ -535,13 +533,13 @@
                     <Item id="43035" name="Previous mark using 3rd style"/>
                     <Item id="43036" name="Previous mark using 4th style"/>
                     <Item id="43037" name="Previous mark using 5th style"/>
-                    <Item id="43038" name="Previous mark created with Mark..."/>
+                    <Item id="43038" name="Previous mark created with Mark"/>
                     <Item id="43039" name="Next mark using 1st style"/>
                     <Item id="43040" name="Next mark using 2nd style"/>
                     <Item id="43041" name="Next mark using 3rd style"/>
                     <Item id="43042" name="Next mark using 4th style"/>
                     <Item id="43043" name="Next mark using 5th style"/>
-                    <Item id="43044" name="Next mark created with Mark..."/>
+                    <Item id="43044" name="Next mark created with Mark"/>
                     <Item id="44100" name="View current file in Firefox"/>
                     <Item id="44101" name="View current file in Chrome"/>
                     <Item id="44103" name="View current file in IE"/>
@@ -1049,7 +1047,7 @@ You can define several column markers by using white space to separate the diffe
                 <Item id="2031" name="Increase b&amp;y :"/>
                 <Item id="2035" name="Leading &amp;zeros"/>
                 <Item id="2036" name="&amp;Repeat :"/>
-                <Item id="2032" name="&amp;Format"/>
+                <Item id="2032" name="Format"/>
                 <Item id="2024" name="&amp;Dec"/>
                 <Item id="2025" name="&amp;Oct"/>
                 <Item id="2026" name="&amp;Hex"/>

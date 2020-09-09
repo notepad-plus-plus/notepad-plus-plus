@@ -1057,7 +1057,7 @@
                 <Item id="2031" name="増分(&amp;Y):"/>
                 <Item id="2035" name="0詰めする(&amp;Z)"/>
                 <Item id="2036" name="反復(&amp;R):"/>
-                <Item id="2032" name="フォーマット(&amp;F)"/>
+                <Item id="2032" name="フォーマット"/>
                 <Item id="2024" name="10進数(&amp;D)"/>
                 <Item id="2025" name="8進数(&amp;O)"/>
                 <Item id="2026" name="16進数(&amp;H)"/>

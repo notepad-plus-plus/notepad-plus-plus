@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="7.8.9">
+    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="7.9">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -320,8 +320,6 @@
                     <Item id="50000" name="函数自动完成"/>
                     <Item id="50001" name="单词自动完成"/>
                     <Item id="50002" name="函数参数提示"/>
-                    <Item id="50003" name="切换到上一个文档"/>
-                    <Item id="50004" name="切换到下一个文档"/>
                     <Item id="50005" name="启动/停止宏录制"/>
                     <Item id="50006" name="路径补全"/>
                     <Item id="44042" name="隐藏行"/>
@@ -1049,7 +1047,7 @@
                 <Item id="2031" name="增量(&amp;Y) :"/>
                 <Item id="2035" name="开头补零(&amp;Z)"/>
                 <Item id="2036" name="重复次数(&amp;R) :"/>
-                <Item id="2032" name="格式(&amp;F)"/>
+                <Item id="2032" name="格式"/>
                 <Item id="2024" name="十进制(&amp;D)"/>
                 <Item id="2025" name="八进制(&amp;O)"/>
                 <Item id="2026" name="十六进制(&amp;H)"/>

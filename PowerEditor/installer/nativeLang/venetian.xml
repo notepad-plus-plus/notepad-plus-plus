@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-    Venetian translation for Notepad++ 7.8.10
-    Last modified Thu, September 8th, 2020.
+    Venetian translation for Notepad++ 7.9
+    Last modified Wed, September 9th, 2020.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 <NotepadPlus>
-    <Native-Langue name="Vèneto" filename="venetian.xml" version="7.8.10">
+    <Native-Langue name="Vèneto" filename="venetian.xml" version="7.9">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -13,7 +13,7 @@
                     <Item menuId="file" name="&amp;File"/>
                     <Item menuId="edit" name="&amp;Modìfega"/>
                     <Item menuId="search" name="&amp;Ruma"/>
-                    <Item menuId="view" name="Vi&amp;xualixa"/>
+                    <Item menuId="view" name="&amp;Vixualixa"/>
                     <Item menuId="encoding" name="Forma&amp;to"/>
                     <Item menuId="language" name="Ƚen&amp;guagio"/>
                     <Item menuId="settings" name="C&amp;onfigurasion"/>
@@ -161,7 +161,7 @@
                     <Item id="42034" name="Editor a coƚone..."/>
                     <Item id="42051" name="Paneƚo caràtari"/>
                     <Item id="42052" name="Cronoƚogìa Scarabòci"/>
-                    <Item id="42025" name="Salva ƚa macro registrà..."/>
+                    <Item id="42025" name="&amp;Salva ƚa macro registrà..."/>
                     <Item id="42026" name="Diresion de&apos;l testo RTL"/>
                     <Item id="42027" name="Diresion de&apos;l testo LTR"/>
                     <Item id="42028" name="File en soƚa ƚetura"/>
@@ -325,8 +325,6 @@
                     <Item id="50000" name="Conpleta funsion"/>
                     <Item id="50001" name="Conpleta paròƚa"/>
                     <Item id="50002" name="Parametri funsion"/>
-                    <Item id="50003" name="Pasa a&apos;l documento presedente"/>
-                    <Item id="50004" name="Pasa a&apos;l documento seguente"/>
                     <Item id="50005" name="Ativa / Dixativa registrasion macro"/>
                     <Item id="50006" name="Conpleta percorso"/>
                     <Item id="44042" name="Scondi righe"/>
@@ -540,13 +538,13 @@
                     <Item id="43035" name="Marcadura presedente col 3º stiƚe"/>
                     <Item id="43036" name="Marcadura presedente col 4º stiƚe"/>
                     <Item id="43037" name="Marcadura presedente col 5º stiƚe"/>
-                    <Item id="43038" name="Marcadura presedente creà col stiƚe..."/>
+                    <Item id="43038" name="Marcadura presedente creà col stiƚe"/>
                     <Item id="43039" name="Marcadura seguente col 1º stiƚe"/>
                     <Item id="43040" name="Marcadura seguente col 2º stiƚe"/>
                     <Item id="43041" name="Marcadura seguente col 3º stiƚe"/>
                     <Item id="43042" name="Marcadura seguente col 4º stiƚe"/>
                     <Item id="43043" name="Marcadura seguente col 5º stiƚe"/>
-                    <Item id="43044" name="Marcadura seguente creà con ƚa marcadura..."/>
+                    <Item id="43044" name="Marcadura seguente creà con ƚa marcadura"/>
                     <Item id="44100" name="Visaliƚa file corente en Firefox"/>
                     <Item id="44101" name="Visaliƚa file corente en Chrome"/>
                     <Item id="44103" name="Visaliƚa file corente en IE"/>
@@ -642,8 +640,8 @@
                 <Folder title="Carteƚe &amp;&amp; Predefinìe">
                     <Item id="21101" name="Inpostasion stiƚe predefinìo"/>
                     <Item id="21102" name="Stiƚe"/>
-                    <Item id="21104" name="Sito tenporaneo documentasion:"/>
                     <Item id="21105" name="Documentasion:"/>
+                    <Item id="21104" name="Sito tenporaneo documentasion:"/>
                     <Item id="21106" name="Deƚimita conpato (rachiudi righe vode)"/>
                     <Item id="21220" name="Deƚimitatori inte&apos;l còdexe 1° stiƚe:"/>
                     <Item id="21224" name="Vèrxi:"/>
@@ -687,7 +685,7 @@
                     <Item id="22572" name="Stiƚe"/>
                     <Item id="22622" name="Stiƚe"/>
                 </Keywords>
-                <Comment title="Commenti &amp;&amp; Nùmari">
+                <Comment title="Comenti &amp;&amp; Nùmari">
                     <Item id="23003" name="Poxision comenti en ƚinea"/>
                     <Item id="23004" name="Parmeti dapartuto"/>
                     <Item id="23005" name="Sforsa a &apos;l prinsipio de ƚa riga"/>
@@ -1054,7 +1052,7 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
                 <Item id="2031" name="Increment&amp;a de: "/>
                 <Item id="2035" name="&amp;Xeri inisiaƚi"/>
                 <Item id="2036" name="&amp;Ripeti: "/>
-                <Item id="2032" name="&amp;Formato"/>
+                <Item id="2032" name="Formato"/>
                 <Item id="2024" name="&amp;Desimaƚe"/>
                 <Item id="2025" name="&amp;Otaƚe"/>
                 <Item id="2026" name="Exadesi&amp;maƚe"/>

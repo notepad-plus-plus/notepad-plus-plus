@@ -391,7 +391,7 @@
                 <Item id="1624" name="查找模式"/>
                 <Item id="1625" name="普通(&amp;N)"/>
                 <Item id="1626" name="扩展(&amp;X) (\n, \r, \t, \0, \x...)"/>
-                <Item id="1660" name="在文件中替换(&amp;R)"/>
+                <Item id="1660" name="在文件中替换"/>
                 <Item id="1661" name="当前文件夹。"/>
                 <Item id="1641" name="在当前文件中查找"/>
                 <Item id="1686" name="透明度(&amp;Y)"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Français" filename="french.xml" version="7.8.7">
+    <Native-Langue name="Français" filename="french.xml" version="7.9">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -159,6 +159,7 @@
                     <Item id="42062" name="Trier les lignes dans l'ordre d'entier décroissant"/>
                     <Item id="42064" name="Trier les lignes dans l'ordre décimal (virgule) décroissant"/>
                     <Item id="42066" name="Trier les lignes dans l'ordre décimal (point) décroissant"/>
+                    <Item id="42078" name="Trier aléatoirement les lignes"/>
                     <Item id="42037" name="Sélection en mode colonne..."/>
                     <Item id="42040" name="Ouvrir tous les fichiers récents"/>
                     <Item id="42041" name="Vider la liste des fichiers récents"/>
@@ -321,8 +322,6 @@
                     <Item id="50000" name="Complétion de fonction"/>
                     <Item id="50001" name="Complétion de mot"/>
                     <Item id="50002" name="Infobulle des paramètres de fonctions"/>
-                    <Item id="50003" name="Document précédent"/>
-                    <Item id="50004" name="Document suivant"/>
                     <Item id="50005" name="Démarrer/Arrêter l'enregistrement d'une macro"/>
                     <Item id="50006" name="Complétion de chemin d'accès du fichier"/>
                 </Commands>
@@ -505,6 +504,71 @@
                 <ScintillaCommandsTab name="Commandes de Scintilla "/>
                 <ConflictInfoOk name="Pas de conflit pour cet élément."/>
                 <ConflictInfoEditing name="Pas de conflit . . ."/>
+                <MainCommandNames>
+                    <Item id="41019" name="Ouvrir le répertoire du fichier dans Explorateur Windows"/>
+                    <Item id="41020" name="Ouvrir le répertoire du fichier dans Invite de commande"/>
+                    <Item id="41021" name="Ouvrir le dernier fichier fermé"/>
+                    <Item id="45001" name="Convertir les sauts de ligne en Windows (CR LF)"/>
+                    <Item id="45002" name="Convertir les sauts de ligne en Unix (LF)"/>
+                    <Item id="45003" name="Convertir les sauts de ligne en Macintosh (CR)"/>
+                    <Item id="43022" name="Appliquer les marques du style 1"/>
+                    <Item id="43024" name="Appliquer les marques du style 2"/>
+                    <Item id="43026" name="Appliquer les marques du style 3"/>
+                    <Item id="43028" name="Appliquer les marques du style 4"/>
+                    <Item id="43030" name="Appliquer les marques du style 5"/>
+                    <Item id="43023" name="Dégager les marques du style 1"/>
+                    <Item id="43025" name="Dégager les marques du style 2"/>
+                    <Item id="43027" name="Dégager les marques du style 3"/>
+                    <Item id="43029" name="Dégager les marques du style 4"/>
+                    <Item id="43031" name="Dégager les marques du style 5"/>
+                    <Item id="43032" name="Dégager tous les marques"/>
+                    <Item id="43033" name="Marque précédente du 1er style"/>
+                    <Item id="43034" name="Marque précédente du 2ème style"/>
+                    <Item id="43035" name="Marque précédente du 3ème style"/>
+                    <Item id="43036" name="Marque précédente du 4ème style"/>
+                    <Item id="43037" name="Marque précédente du 5ème style"/>
+                    <Item id="43038" name="Marque précédente du &quot;Marquer&quot;"/>
+                    <Item id="43039" name="Marque suivantte du 1er style"/>
+                    <Item id="43040" name="Marque suivantte du 2ème style"/>
+                    <Item id="43041" name="Marque suivantte du 3ème style"/>
+                    <Item id="43042" name="Marque suivantte du 4ème style"/>
+                    <Item id="43043" name="Marque suivantte du 5ème style"/>
+                    <Item id="43044" name="Marque suivantte du &quot;Marquer&quot;"/>
+                    <Item id="44100" name="Afficher le fichier dans Firefox"/>
+                    <Item id="44101" name="Afficher le fichier dans Chrome"/>
+                    <Item id="44103" name="Afficher le fichier dans IE"/>
+                    <Item id="44102" name="Afficher le fichier dans Edge"/>
+                    <Item id="50003" name="Document précédent"/>
+                    <Item id="50004" name="Document suivant"/>
+                    <Item id="44051" name="Replier le niveau 1"/>
+                    <Item id="44052" name="Replier le niveau 2"/>
+                    <Item id="44053" name="Replier le niveau 3"/>
+                    <Item id="44054" name="Replier le niveau 4"/>
+                    <Item id="44055" name="Replier le niveau 5"/>
+                    <Item id="44056" name="Replier le niveau 6"/>
+                    <Item id="44057" name="Replier le niveau 7"/>
+                    <Item id="44058" name="Replier le niveau 8"/>
+                    <Item id="44061" name="Déplier le niveau 1"/>
+                    <Item id="44062" name="Déplier le niveau 2"/>
+                    <Item id="44063" name="Déplier le niveau 3"/>
+                    <Item id="44064" name="Déplier le niveau 4"/>
+                    <Item id="44065" name="Déplier le niveau 5"/>
+                    <Item id="44066" name="Déplier le niveau 6"/>
+                    <Item id="44067" name="Déplier le niveau 7"/>
+                    <Item id="44068" name="Déplier le niveau 8"/>
+                    <Item id="44081" name="Afficher/fermer Panneau de Projet 1"/>
+                    <Item id="44082" name="Afficher/fermer Panneau de Projet 2"/>
+                    <Item id="44083" name="Afficher/fermer Panneau de Projet 3"/>
+                    <Item id="44085" name="Afficher/fermer Dossier en tant qu'Espace de travail"/>
+                    <Item id="44080" name="Afficher/fermer Plan du document"/>
+                    <Item id="44084" name="Afficher/fermer Liste des fonctions"/>
+                    <Item id="50005" name="Démarer/arrêter macro recording"/>
+                    <Item id="44104" name="Basculer vers Panneau de Projet 1"/>
+                    <Item id="44105" name="Basculer vers Panneau de Projet 2"/>
+                    <Item id="44106" name="Basculer vers Panneau de Projet 3"/>
+                    <Item id="44107" name="Basculer vers Dossier en tant qu'Espace de travail"/>
+                    <Item id="44108" name="Basculer vers Liste des fonctions"/>
+                </MainCommandNames>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="Raccourcis clavier">
                 <Item id="1" name="OK"/>
@@ -744,6 +808,7 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                     <Item id="6231" name="Largeur de la bordure"/>
                     <Item id="6235" name="Pas de bordure"/>
                     <Item id="6236" name="Activer le défilement au-delà de la dernière ligne"/>
+                    <Item id="6239" name="Conserver la sélection lors d'un clic droit en dehors de la sélection"/> 
                 </Scintillas>
                 <NewDoc title="Nouveau document">
                     <Item id="6401" name="Format des sauts de ligne"/>
@@ -830,6 +895,8 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                 <Searching title="Recherche">
                     <Item id="6901" name="Ne pas remplir le champs de Recherche avec le mot séléctionné"/>
                     <Item id="6902" name="Activer la police à espacement fixe dans la boîte de dialogue Rechercher (Nécessité de redémarrage)"/>
+                    <Item id="6903" name="La boîte de dialogue Rechercher reste ouverte après la recherche qui affiche la fenêtre de résultats"/>
+                    <Item id="6904" name="Confirmer &quot;Remplacer dans tous les documents ouverts&quot;"/>
                 </Searching>
 
                 <RecentFilesHistory title="Fichiers récents">
@@ -935,6 +1002,7 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                     <Item id="6331" name="Afficher seulement le nom du fichier dans la barre de titre"/>
                     <Item id="6334" name="Détecter l'encodage automatiquement"/>
                     <Item id="6349" name="Utiliser &quot;DirectWrite&quot; (il pourrait améliorer le rendu des caractères spéciaux. Nécessité de redémarrage)"/>
+                    <Item id="6350" name="Activer la mode d'arrière-plan"/>
                     <Item id="6337" name="Ext. fichier espace de travail :"/>
                     <Item id="6344" name="Aperçu du document"/>
                     <Item id="6345" name="Aperçu à onglet"/>
@@ -959,17 +1027,17 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
             <ColumnEditor title="Édition en colonnes">
                 <Item id="1" name="OK"/>
                 <Item id="2" name="Annuler"/>
-                <Item id="2023" name="Texte à insérer"/>
-                <Item id="2024" name="Déc."/>
-                <Item id="2025" name="Oct."/>
-                <Item id="2026" name="Hex."/>
-                <Item id="2027" name="Bin."/>
-                <Item id="2030" name="Nombre initial :"/>
-                <Item id="2031" name="Augmenter de :"/>
+                <Item id="2023" name="&amp;Texte à insérer"/>
+                <Item id="2024" name="&amp;Déc."/>
+                <Item id="2025" name="&amp;Oct."/>
+                <Item id="2026" name="&amp;Hex."/>
+                <Item id="2027" name="&amp;Bin."/>
+                <Item id="2030" name="Nombre &amp;initial :"/>
+                <Item id="2031" name="&amp;Augmenter de :"/>
                 <Item id="2032" name="Format"/>
-                <Item id="2033" name="Nombre à insérer"/>
-                <Item id="2035" name="Nombre de zéros"/>
-                <Item id="2036" name="Répéter :"/>
+                <Item id="2033" name="&amp;Nombre à insérer"/>
+                <Item id="2035" name="Nombre de &amp;zéros"/>
+                <Item id="2036" name="&amp;Répéter :"/>
             </ColumnEditor>
             <FindInFinder title="Rechercher dans les résultats trouvés">
                 <Item id="1"    name="Rechercher Tout"/>
@@ -1215,6 +1283,10 @@ Rechercher dans tous les fichiers sauf exe, obj &amp;&amp; log:
             <find-status-replace-not-found value="Remplacer : aucune occurrence n'a été trouvée"/>
             <find-status-replace-readonly value="Remplacer : l'opération a échoué. Le fichier est en lecture seule"/>
             <find-status-cannot-find value="Rechercher : &quot;$STR_REPLACE$&quot; n'a pas été trouvé"/>
+            <find-status-scope-selection value="dans le texte selectionné"/>
+            <find-status-scope-all value="dans le fichier"/>
+            <find-status-scope-backward value="du début du fichier au curseur"/>
+            <find-status-scope-forward value="du curseur à la fin du fichier"/>
             <finder-find-in-finder value="Rechercher dans les résultats..."/>
             <finder-close-this value="Fermer le dialogue des résultats"/>
             <finder-collapse-all value="Replier tout"/>
@@ -1223,6 +1295,7 @@ Rechercher dans tous les fichiers sauf exe, obj &amp;&amp; log:
             <finder-select-all value="Sélectionner tout"/>
             <finder-clear-all value="Effacer tout"/>
             <finder-open-all value="Ouvrir tout"/>
+            <finder-wrap-long-lines value="Retour à la ligne automatique"/>
             <common-ok value="OK"/>
             <common-cancel value="Annuler"/>
             <common-name value="Nom : "/>

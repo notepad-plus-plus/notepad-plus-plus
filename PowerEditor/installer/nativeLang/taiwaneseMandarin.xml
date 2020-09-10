@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="7.8.7">
+    <Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="7.9">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -171,6 +171,7 @@
                     <Item id="42064" name="降冪排序小數（使用「,」作為小數點）"/>
                     <Item id="42065" name="升冪排序小數（使用「.」作為小數點）"/>
                     <Item id="42066" name="降冪排序小數（使用「.」作為小數點）"/>
+                    <Item id="42078" name="隨機排序"/> 
                     <Item id="43001" name="向上搜尋(&amp;F)..."/>
                     <Item id="43002" name="向下搜尋(&amp;N)"/>
                     <Item id="43003" name="取代..."/>
@@ -313,9 +314,7 @@
                     <Item id="49000" name="執行(&amp;R)..."/>
                     <Item id="50000" name="函數自動完成"/>
                     <Item id="50001" name="字詞自動完成"/>
-                    <Item id="50002" name="功能參數提示"/>                    
-					<Item id="50003" name="切換到上一文件"/>
-                    <Item id="50004" name="切換到下一文件"/>
+                    <Item id="50002" name="功能參數提示"/>
                     <Item id="50005" name="啟動/停止巨集錄製"/>
                     <Item id="50006" name="自動完成文件路徑"/>
                     <Item id="44042" name="隱藏此行"/>
@@ -503,6 +502,71 @@
                 <ScintillaCommandsTab name="Scintilla 指令"/>
                 <ConflictInfoOk       name="沒有與此項目衝突的快捷鍵。"/>
                 <ConflictInfoEditing  name="沒有與此項目衝突的快捷鍵..."/>
+                <MainCommandNames>
+                    <Item id="41019" name="在檔案總管內開啟檔案位置"/>
+                    <Item id="41020" name="在 CMD 內開啟檔案位置"/>
+                    <Item id="41021" name="重新開啟最近關閉的檔案"/>
+                    <Item id="45001" name="轉換成 Windows 換行格式(CR LF)"/>
+                    <Item id="45002" name="轉換成 UNIX 換行格式 (LF)"/>
+                    <Item id="45003" name="轉換成 Macintosh 換行格式 (CR)"/>
+                    <Item id="43022" name="使用格式一顏色標記"/>
+                    <Item id="43024" name="使用格式二顏色標記"/>
+                    <Item id="43026" name="使用格式三顏色標記"/>
+                    <Item id="43028" name="使用格式四顏色標記"/>
+                    <Item id="43030" name="使用格式五顏色標記"/>
+                    <Item id="43023" name="清除格式一顏色標記"/>
+                    <Item id="43025" name="清除格式二顏色標記"/>
+                    <Item id="43027" name="清除格式三顏色標記"/>
+                    <Item id="43029" name="清除格式四顏色標記"/>
+                    <Item id="43031" name="清除格式五顏色標記"/>
+                    <Item id="43032" name="清除所有格式顏色標記"/>
+                    <Item id="43033" name="至上個格式一標記"/>
+                    <Item id="43034" name="至上個格式二標記"/>
+                    <Item id="43035" name="至上個格式三標記"/>
+                    <Item id="43036" name="至上個格式四標記"/>
+                    <Item id="43037" name="至上個格式五標記"/>
+                    <Item id="43038" name="至上個格式搜尋標記"/>
+                    <Item id="43039" name="至下個格式一標記"/>
+                    <Item id="43040" name="至下個格式二標記"/>
+                    <Item id="43041" name="至下個格式三標記"/>
+                    <Item id="43042" name="至下個格式四標記"/>
+                    <Item id="43043" name="至下個格式五標記"/>
+                    <Item id="43044" name="至下個格式搜尋標記"/>
+                    <Item id="44100" name="在 Firefox 中開啟此文件"/>
+                    <Item id="44101" name="在 Chrome 中開啟此文件"/>
+                    <Item id="44103" name="在 IE 中開啟此文件"/>
+                    <Item id="44102" name="在 Edge 中開啟此文件"/>
+                    <Item id="50003" name="切換到上一文件"/>
+                    <Item id="50004" name="切換到下一文件"/>
+                    <Item id="44051" name="收折層數 1"/>
+                    <Item id="44052" name="收折層數 2"/>
+                    <Item id="44053" name="收折層數 3"/>
+                    <Item id="44054" name="收折層數 4"/>
+                    <Item id="44055" name="收折層數 5"/>
+                    <Item id="44056" name="收折層數 6"/>
+                    <Item id="44057" name="收折層數 7"/>
+                    <Item id="44058" name="收折層數 8"/>
+                    <Item id="44061" name="展開層數 1"/>
+                    <Item id="44062" name="展開層數 2"/>
+                    <Item id="44063" name="展開層數 3"/>
+                    <Item id="44064" name="展開層數 4"/>
+                    <Item id="44065" name="展開層數 5"/>
+                    <Item id="44066" name="展開層數 6"/>
+                    <Item id="44067" name="展開層數 7"/>
+                    <Item id="44068" name="展開層數 8"/>
+                    <Item id="44081" name="切換開關專案管理員 1"/>
+                    <Item id="44082" name="切換開關專案管理員 2"/>
+                    <Item id="44083" name="切換開關專案管理員 3"/>
+                    <Item id="44085" name="切換開關資料夾工作區"/>
+                    <Item id="44080" name="切換開關文件導覽"/>
+                    <Item id="44084" name="切換開關函式清單"/>
+                    <Item id="50005" name="啟動/停止巨集錄製"/>
+                    <Item id="44104" name="切換至專案管理員 1"/>
+                    <Item id="44105" name="切換至專案管理員 2"/>
+                    <Item id="44106" name="切換至專案管理員 3"/>
+                    <Item id="44107" name="切換至資料夾工作區"/>
+                    <Item id="44108" name="切換至函式清單"/>
+                </MainCommandNames>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="快捷鍵設定">
                 <Item id="1"    name="確認"/>
@@ -753,6 +817,7 @@
                     <Item id="6231" name="邊框寬度"/>
                     <Item id="6235" name="無邊框"/>
                     <Item id="6236" name="允許捲動至超出最後一行"/>
+                    <Item id="6239" name="在選擇範圍之外點擊滑鼠右鍵時仍保留選擇範圍"/> 
                 </Scintillas>
                 <NewDoc title="新文件預設設定">
                     <Item id="6401" name="格式（EOF）"/>
@@ -838,8 +903,10 @@
                 </Print>
 
                 <Searching title="尋找">
-                    <Item id="6901" name="不用選取詞填充搜尋對話框中的尋找內容"/>
+                    <Item id="6901" name="不用選取詞填充尋找與取代對話方塊中的尋找內容"/>
                     <Item id="6902" name="在尋找與取代對話方塊中使用等寬字型（需要重新啟動 Notepad++）"/>
+                    <Item id="6903" name="搜尋結果輸出到結果視窗後，尋找與取代對話方塊繼續保持打開狀態"/>
+                    <Item id="6904" name="確認「在所有開啟的文件中取代」"/>
                 </Searching>
 
                 <RecentFilesHistory title="最近使用的檔案">
@@ -943,7 +1010,8 @@
                     <Item id="6331" name="在標題列僅顯示檔案名稱（隱藏資料夾路徑）"/>
                     <Item id="6334" name="自動偵測檔案編碼"/>
                     <Item id="6349" name="使用 DirectWrite（可改善特殊字符的呈現，需要重新啟動 Notepad++）"/>
-                    <Item id="6337" name="資料夾工作區檔案副檔名："/>
+                    <Item id="6350" name="啟動背景模式"/>
+					<Item id="6337" name="資料夾工作區檔案副檔名："/>
                     <Item id="6114" name="啟動"/>
                     <Item id="6117" name="開啟「最近使用的檔案」功能"/>
                     <Item id="6344" name="窺視檔案"/>
@@ -968,17 +1036,17 @@
                 <Item id="7004" name="排序頁籤"/>
             </Window>
             <ColumnEditor title="多欄插入">
-                <Item id="2023" name="插入文字"/>
-                <Item id="2033" name="插入數字"/>
-                <Item id="2030" name="起始："/>
-                <Item id="2031" name="增量："/>
-                <Item id="2035" name="齊頭補零"/>
-                <Item id="2036" name="重複："/>
+                <Item id="2023" name="插入文字(&amp;T)"/>
+                <Item id="2033" name="插入數字(&amp;N)"/>
+                <Item id="2030" name="起始(&amp;I)："/>
+                <Item id="2031" name="增量(&amp;Y)："/>
+                <Item id="2035" name="齊頭補零(&amp;Z)"/>
+                <Item id="2036" name="重複(&amp;R)："/>
                 <Item id="2032" name="格式"/>
-                <Item id="2024" name="十進位"/>
-                <Item id="2025" name="八進位"/>
-                <Item id="2026" name="十六進位"/>
-                <Item id="2027" name="二進位"/>
+                <Item id="2024" name="十進位(&amp;D)"/>
+                <Item id="2025" name="八進位(&amp;O)"/>
+                <Item id="2026" name="十六進位(&amp;H)"/>
+                <Item id="2027" name="二進位(&amp;B)"/>
                 <Item id="1" name="插入"/>
                 <Item id="2" name="取消"/>
             </ColumnEditor>
@@ -1202,6 +1270,10 @@
             <find-status-replace-not-found value="取代：找不到搜尋字串。"/>
             <find-status-replace-readonly value="取代：檔案唯讀，無法取代字串。"/>
             <find-status-cannot-find value="搜尋：找不到搜尋字串「$STR_REPLACE$」。"/>
+            <find-status-scope-selection value="在所選取的字串中"/>
+            <find-status-scope-all value="在整個檔案中"/>
+            <find-status-scope-backward value="從文件開始到游標位置"/>
+            <find-status-scope-forward value="從游標位置到文件結尾"/>
             <finder-find-in-finder value="在此搜尋結果中尋找..."/>
             <finder-close-this value="關閉這個搜尋結果"/>
             <finder-collapse-all value="層數全部收折"/>
@@ -1210,6 +1282,19 @@
             <finder-select-all value="全部選取"/>
             <finder-clear-all value="全部清除"/>
             <finder-open-all value="全部開啟"/>
+            <finder-wrap-long-lines value="自動換行"/>
+            <common-ok value="OK啦"/>
+            <common-cancel value="取消啦"/>
+            <common-name value="名稱："/>
+            <tabrename-title value="重新命名現有頁籤"/>
+            <tabrename-newname value="新的名稱："/>
+            <recent-file-history-maxfile value="最大數量："/>
+            <language-tabsize value="TAB 大小："/>
+            <userdefined-title-new value="開新語言"/>
+            <userdefined-title-save value="將當前語言名稱另存為..."/>
+            <userdefined-title-rename value="當前語言名稱"/>
+            <autocomplete-nb-char value="字元數量："/>
+            <edit-verticaledge-nb-col value="欄數量："/>
             <summary value="統計資料"/>
             <summary-filepath value="完整文件路徑： "/>
             <summary-filecreatetime value="建檔時間： "/>

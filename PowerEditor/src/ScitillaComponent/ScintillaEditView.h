@@ -646,7 +646,7 @@ public:
 	void sortLines(size_t fromLine, size_t toLine, ISorter *pSort);
 	void changeTextDirection(bool isRTL);
 	bool isTextDirectionRTL() const;
-
+	void setPositionRestoreNeeded(bool val) { _positionRestoreNeeded = val; };
 protected:
 	static HINSTANCE _hLib;
 	static int _refCount;

@@ -5239,12 +5239,14 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 				// not only test main view
 				if (buffer == _mainEditView.getCurrentBuffer())
 				{
-					_mainEditView.execute(SCI_GOTOLINE, _mainEditView.execute(SCI_GETLINECOUNT) - 1);
+					_mainEditView.setPositionRestoreNeeded(false);
+					_mainEditView.execute(SCI_DOCUMENTEND);
 				}
 				// but also test sub-view, because the buffer could be clonned
 				if (buffer == _subEditView.getCurrentBuffer())
 				{
-					_subEditView.execute(SCI_GOTOLINE, _subEditView.execute(SCI_GETLINECOUNT) - 1);
+					_subEditView.setPositionRestoreNeeded(false);
+					_subEditView.execute(SCI_DOCUMENTEND);
 				}
 
 				break;

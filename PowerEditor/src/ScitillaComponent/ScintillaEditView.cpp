@@ -2723,32 +2723,28 @@ void ScintillaEditView::updateLineNumberWidth()
 			auto firstVisibleLineVis = execute(SCI_GETFIRSTVISIBLELINE);
 			auto lastVisibleLineVis = linesVisible + firstVisibleLineVis + 1;
 
-			if (execute(SCI_GETWRAPMODE) != SC_WRAP_NONE)
+			auto lastVisibleLineDoc = execute(SCI_DOCLINEFROMVISIBLE, lastVisibleLineVis);
+			int nbDigits = 0;
+			if (lastVisibleLineDoc >= 1 && lastVisibleLineDoc <= 9) nbDigits = 1;
+			else if (lastVisibleLineDoc >= 10 && lastVisibleLineDoc <= 99) nbDigits = 2;
+			else if (lastVisibleLineDoc >= 100 && lastVisibleLineDoc <= 999) nbDigits = 3;
+			else if (lastVisibleLineDoc >= 1000 && lastVisibleLineDoc <= 9999) nbDigits = 4;
+			else if (lastVisibleLineDoc >= 10000 && lastVisibleLineDoc <= 99999) nbDigits = 5;
+			else if (lastVisibleLineDoc >= 100000 && lastVisibleLineDoc <= 999999) nbDigits = 6;
+			else // rare case
 			{
-				auto numLinesDoc = execute(SCI_GETLINECOUNT);
-				auto prevLineDoc = execute(SCI_DOCLINEFROMVISIBLE, firstVisibleLineVis);
-				for (auto i = firstVisibleLineVis + 1; i <= lastVisibleLineVis; ++i)
+				nbDigits = 7;
+				lastVisibleLineDoc /= 1000000;
+
+				while (lastVisibleLineDoc)
 				{
-					auto lineDoc = execute(SCI_DOCLINEFROMVISIBLE, i);
-					if (lineDoc == numLinesDoc)
-						break;
-					if (lineDoc == prevLineDoc)
-						lastVisibleLineVis++;
-					prevLineDoc = lineDoc;
+					lastVisibleLineDoc /= 10;
+					++nbDigits;
 				}
 			}
 
-			auto lastVisibleLineDoc = execute(SCI_DOCLINEFROMVISIBLE, lastVisibleLineVis);
-			int i = 0;
-
-			while (lastVisibleLineDoc)
-			{
-				lastVisibleLineDoc /= 10;
-				++i;
-			}
-
-			i = max(i, 3);
-			auto pixelWidth = 8 + i * execute(SCI_TEXTWIDTH, STYLE_LINENUMBER, reinterpret_cast<LPARAM>("8"));
+			nbDigits = max(nbDigits, 3);
+			auto pixelWidth = 8 + nbDigits * execute(SCI_TEXTWIDTH, STYLE_LINENUMBER, reinterpret_cast<LPARAM>("8"));
 			execute(SCI_SETMARGINWIDTHN, _SC_MARGE_LINENUMBER, pixelWidth);
 		}
 	}

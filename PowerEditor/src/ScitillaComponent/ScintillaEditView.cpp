@@ -32,7 +32,6 @@
 #include "ScintillaEditView.h"
 #include "Parameters.h"
 #include "Sorters.h"
-#include "tchar.h"
 #include "verifySignedfile.h"
 
 using namespace std;
@@ -2724,10 +2723,9 @@ void ScintillaEditView::updateLineNumberWidth()
 			auto lastVisibleLineVis = linesVisible + firstVisibleLineVis + 1;
 
 			auto lastVisibleLineDoc = execute(SCI_DOCLINEFROMVISIBLE, lastVisibleLineVis);
-			int nbDigits = 0;
-			if (lastVisibleLineDoc < 10) nbDigits = 1;
-			else if (lastVisibleLineDoc < 100) nbDigits = 2;
-			else if (lastVisibleLineDoc < 1000) nbDigits = 3;
+
+			int nbDigits = 3; // minimum number of digit should be 3
+			if (lastVisibleLineDoc < 1000) {} //nbDigits = 3;
 			else if (lastVisibleLineDoc < 10000) nbDigits = 4;
 			else if (lastVisibleLineDoc < 100000) nbDigits = 5;
 			else if (lastVisibleLineDoc < 1000000) nbDigits = 6;
@@ -2742,8 +2740,6 @@ void ScintillaEditView::updateLineNumberWidth()
 					++nbDigits;
 				}
 			}
-
-			nbDigits = max(nbDigits, 3);
 			auto pixelWidth = 8 + nbDigits * execute(SCI_TEXTWIDTH, STYLE_LINENUMBER, reinterpret_cast<LPARAM>("8"));
 			execute(SCI_SETMARGINWIDTHN, _SC_MARGE_LINENUMBER, pixelWidth);
 		}

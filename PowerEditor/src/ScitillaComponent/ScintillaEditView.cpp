@@ -2725,12 +2725,12 @@ void ScintillaEditView::updateLineNumberWidth()
 
 			auto lastVisibleLineDoc = execute(SCI_DOCLINEFROMVISIBLE, lastVisibleLineVis);
 			int nbDigits = 0;
-			if (lastVisibleLineDoc >= 1 && lastVisibleLineDoc <= 9) nbDigits = 1;
-			else if (lastVisibleLineDoc >= 10 && lastVisibleLineDoc <= 99) nbDigits = 2;
-			else if (lastVisibleLineDoc >= 100 && lastVisibleLineDoc <= 999) nbDigits = 3;
-			else if (lastVisibleLineDoc >= 1000 && lastVisibleLineDoc <= 9999) nbDigits = 4;
-			else if (lastVisibleLineDoc >= 10000 && lastVisibleLineDoc <= 99999) nbDigits = 5;
-			else if (lastVisibleLineDoc >= 100000 && lastVisibleLineDoc <= 999999) nbDigits = 6;
+			if (lastVisibleLineDoc < 10) nbDigits = 1;
+			else if (lastVisibleLineDoc < 100) nbDigits = 2;
+			else if (lastVisibleLineDoc < 1000) nbDigits = 3;
+			else if (lastVisibleLineDoc < 10000) nbDigits = 4;
+			else if (lastVisibleLineDoc < 100000) nbDigits = 5;
+			else if (lastVisibleLineDoc < 1000000) nbDigits = 6;
 			else // rare case
 			{
 				nbDigits = 7;

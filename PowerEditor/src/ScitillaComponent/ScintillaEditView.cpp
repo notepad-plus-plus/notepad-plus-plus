@@ -3736,6 +3736,10 @@ pair<int, int> ScintillaEditView::getSelectedCharsAndLinesCount(int maxSelection
 		pair<int, int> lineRange = getSelectionLinesRange();
 		selectedCharsAndLines.second = lineRange.second - lineRange.first + 1;
 	}
+	else if (execute(SCI_SELECTIONISRECTANGLE))
+	{
+		selectedCharsAndLines.second = numSelections;
+	}
 	else if ((maxSelectionsForLineCount == -1) ||  // -1 means process ALL of the selections
 		(numSelections <= maxSelectionsForLineCount))
 	{

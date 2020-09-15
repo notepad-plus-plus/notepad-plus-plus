@@ -3243,50 +3243,71 @@ void Notepad_plus::updateStatusBar()
 		commafyInt(_pEditView->execute(SCI_GETLINECOUNT)).c_str());
 	_statusBar.setText(strDocLen, STATUSBAR_DOC_SIZE);
 
-	int selCount = static_cast<int>(_pEditView->execute(SCI_GETSELECTIONS));
-	bool selEmpty = static_cast<bool>(_pEditView->execute(SCI_GETSELECTIONEMPTY));
 	TCHAR strSel[64];
 
-	if (selCount == 1 && selEmpty)
+	int numSelections = static_cast<int>(_pEditView->execute(SCI_GETSELECTIONS));
+	if (numSelections == 1)
 	{
-		int curPos = static_cast<int>(_pEditView->execute(SCI_GETCURRENTPOS));
-		wsprintf(strSel, TEXT("Pos : %s"), commafyInt(curPos + 1).c_str());
-	}
-	else
-	{
-		const int maxSelsToProcessLineCount = 99;  // limit the number of selections to process, for performance reasons
-		const std::pair<int, int> selCharsAndLines = _pEditView->getSelectedCharsAndLinesCount(maxSelsToProcessLineCount);
-
-		if (_pEditView->execute(SCI_SELECTIONISRECTANGLE))
+		if (_pEditView->execute(SCI_GETSELECTIONEMPTY))
 		{
-			int rectAnchor = static_cast<int>(_pEditView->execute(SCI_GETCOLUMN, _pEditView->execute(SCI_GETRECTANGULARSELECTIONANCHOR)));
-			rectAnchor += static_cast<int>(_pEditView->execute(SCI_GETRECTANGULARSELECTIONANCHORVIRTUALSPACE));
-			int rectCaret = static_cast<int>(_pEditView->execute(SCI_GETCOLUMN, _pEditView->execute(SCI_GETRECTANGULARSELECTIONCARET)));
-			rectCaret += static_cast<int>(_pEditView->execute(SCI_GETRECTANGULARSELECTIONCARETVIRTUALSPACE));
-			int rectWidth = std::abs(rectCaret - rectAnchor);
-			bool hasVirtualSpace = selCharsAndLines.first != selCount * rectWidth;
-
-			wsprintf(strSel, TEXT("Sel : %sx%s %s %s"),
-				commafyInt(selCount).c_str(),
-				commafyInt(rectWidth).c_str(),
-				hasVirtualSpace ? TEXT("🡢") : TEXT("="),
-				commafyInt(selCharsAndLines.first).c_str());
-		}
-		else if (selCount > 1)
-		{
-			wsprintf(strSel, TEXT("Sel %s : %s | %s"),
-				commafyInt(selCount).c_str(),
-				commafyInt(selCharsAndLines.first).c_str(),
-				selCount <= maxSelsToProcessLineCount ?
-					commafyInt(selCharsAndLines.second).c_str() :
-					TEXT("…"));  // show ellipsis for line count if too many selections are active
+			int currPos = static_cast<int>(_pEditView->execute(SCI_GETCURRENTPOS));
+			wsprintf(strSel, TEXT("Pos : %s"), commafyInt(currPos + 1).c_str());
 		}
 		else
 		{
+			const std::pair<int, int> oneSelCharsAndLines = _pEditView->getSelectedCharsAndLinesCount();
 			wsprintf(strSel, TEXT("Sel : %s | %s"),
-				commafyInt(selCharsAndLines.first).c_str(),
-				commafyInt(selCharsAndLines.second).c_str());
+				commafyInt(oneSelCharsAndLines.first).c_str(),
+				commafyInt(oneSelCharsAndLines.second).c_str());
 		}
+	}
+	else if (_pEditView->execute(SCI_SELECTIONISRECTANGLE))
+	{
+		const std::pair<int, int> rectSelCharsAndLines = _pEditView->getSelectedCharsAndLinesCount();
+
+		bool sameCharCountOnEveryLine = true;
+		int maxLineCharCount = 0;
+
+		for (int sel = 0; sel < numSelections; ++sel)
+		{
+			int start = static_cast<int>(_pEditView->execute(SCI_GETSELECTIONNSTART, sel));
+			int end = static_cast<int>(_pEditView->execute(SCI_GETSELECTIONNEND, sel));
+			int lineCharCount = static_cast<int>(_pEditView->execute(SCI_COUNTCHARACTERS, start, end));
+
+			if (sel == 0)
+			{
+				maxLineCharCount = lineCharCount;
+			}
+			else 
+			{
+				if (lineCharCount != maxLineCharCount)
+				{
+					sameCharCountOnEveryLine = false;
+					if (lineCharCount > maxLineCharCount)
+					{
+						maxLineCharCount = lineCharCount;
+					}
+				}
+			}
+		}
+
+		wsprintf(strSel, TEXT("Sel : %sx%s %s %s"),
+			commafyInt(numSelections).c_str(),  // lines (rows) in rectangular selection
+			commafyInt(maxLineCharCount).c_str(),  // show maximum width for columns
+			sameCharCountOnEveryLine ? TEXT("=") : TEXT("->"),
+			commafyInt(rectSelCharsAndLines.first).c_str());
+	}
+	else  // multiple stream selections
+	{
+		const int maxSelsToProcessLineCount = 99;  // limit the number of selections to process, for performance reasons
+		const std::pair<int, int> multipleSelCharsAndLines = _pEditView->getSelectedCharsAndLinesCount(maxSelsToProcessLineCount);
+
+		wsprintf(strSel, TEXT("Sel %s : %s | %s"),
+			commafyInt(numSelections).c_str(),
+			commafyInt(multipleSelCharsAndLines.first).c_str(),
+			numSelections <= maxSelsToProcessLineCount ?
+				commafyInt(multipleSelCharsAndLines.second).c_str() :
+				TEXT("..."));  // show ellipsis for line count if too many selections are active
 	}
 
 	TCHAR strLnColSel[128];

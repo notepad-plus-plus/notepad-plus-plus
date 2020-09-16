@@ -908,7 +908,9 @@
 					<Item id="6324" name="Cambiar de documento (Ctrl+TAB)"/>
 					<Item id="6331" name="Mostrar sólo nombre de archivo en el título de la ventana"/>
 					<Item id="6334" name="Autodetectar codificación"/>
-					<Item id="6314" name="Usar fuente monoespaciada en el cuadro de diálogo Buscar (es necesario reiniciar Notepad++)"/>
+					<Item id="6314" name="Usar fuente monoespaciada en el cuadro de diálogo Buscar (es necesario reiniciar Notepad++)"/> 
+					<Item id="6349" name="Usar DirectWrite (Puede mejorar la representación de caracteres especiales, es necesario reiniciar Notepad++)"/>
+
 					<Item id="6337" name="Ext. del arch. área de trab.:"/>
 					<Item id="6114" name="Permitir"/>
 					<Item id="6117" name="Ordenar por el usado más reciente"/>
@@ -1076,6 +1078,7 @@ Notepad++ se reiniciará después de que finalicen todas las operaciones.
 			<ColumnName name="Nombre"/>
 			<ColumnPath name="Ruta"/>
 			<ColumnType name="Tipo"/>
+			<ColumnSize name="Tamaño"/>
 		</WindowsDlg>
 		<AsciiInsertion>
 			<PanelTitle name="Panel de entrada Códigos ASCII"/>
@@ -1231,11 +1234,15 @@ Find in all files except exe, obj &amp;&amp; log:
 			<replace-in-files-confirm-title value="¿Está seguro?"/>
 			<replace-in-files-confirm-directory value="¿Está seguro de que desea reemplazar todas las ocurrencias en :"/>
 			<replace-in-files-confirm-filetype value="Para tipo de archivo :"/>
+			<replace-in-open-docs-confirm-title value="¿Está seguro?"/>
+			<replace-in-open-docs-confirm-message value="¿Está seguro de que desea reemplazar todas las ocurrencias en todos los documentos abiertos?"/>
 			<find-result-caption value="Encontrar resultados"/>
 			<find-result-title value="Buscar"/>
 			<find-result-title-info value="(Buscadas $INT_REPLACE1$ ocurrencias en $INT_REPLACE2$ archivos de $INT_REPLACE3$"/>
+			<find-result-title-info-selections value="(Buscadas $INT_REPLACE1$ ocurrencias en $INT_REPLACE2$ búsquedas de $INT_REPLACE3$)"/>
 			<find-result-title-info-extra value=" - Modo de filtro: mostrar solo los resultados buscados"/>
 			<find-result-hits value="($INT_REPLACE$ hits)"/>
+			<find-regex-zero-length-match value="coincidencia longitud cero"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

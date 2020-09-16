@@ -1810,15 +1810,18 @@ void EditView::DrawForeground(Surface *surface, const EditModel &model, const Vi
 					const int indicatorValue = deco->ValueAt(ts.start + posLineStart);
 					if (indicatorValue) {
 						const Indicator &indicator = vsDraw.indicators[deco->Indicator()];
-						const bool hover = indicator.IsDynamic() &&
-							((model.hoverIndicatorPos >= ts.start + posLineStart) &&
-							(model.hoverIndicatorPos <= ts.end() + posLineStart));
+						bool hover = false;
+						if (indicator.IsDynamic()) {
+							const Sci::Position startPos = ts.start + posLineStart;
+							const Range rangeRun(deco->StartRun(startPos), deco->EndRun(startPos));
+							hover =	rangeRun.ContainsCharacter(model.hoverIndicatorPos);
+						}
 						if (hover) {
-							if (indicator.sacHover.style == INDIC_TEXTFORE) {
+							if ((indicator.sacHover.style == INDIC_TEXTFORE) || (indicator.sacHover.style == INDIC_EXPLORERLINK)) {
 								textFore = indicator.sacHover.fore;
 							}
 						} else {
-							if (indicator.sacNormal.style == INDIC_TEXTFORE) {
+							if ((indicator.sacNormal.style == INDIC_TEXTFORE) || (indicator.sacNormal.style == INDIC_EXPLORERLINK)) {
 								if (indicator.Flags() & SC_INDICFLAG_VALUEFORE)
 									textFore = ColourDesired(indicatorValue & SC_INDICVALUEMASK);
 								else

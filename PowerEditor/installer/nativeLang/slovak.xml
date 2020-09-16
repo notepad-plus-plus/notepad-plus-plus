@@ -3,12 +3,12 @@
 <!--
 
 	Slovak localization for Notepad++
-	last modified: 2020-03-10 by kubalav
+	last modified: 8. 9. 2020 by kubalav
 	
 -->
 
 <NotepadPlus>
-    <Native-Langue name="Slovenčina" filename="slovak.xml" version="7.8.7">
+    <Native-Langue name="Slovenčina" filename="slovak.xml" version="7.8.9">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -128,6 +128,8 @@
                     <Item id="42064" name="Usporiadať riadky ako desatinné čísla (s čiarkou) zostupne"/>
                     <Item id="42065" name="Usporiadať riadky ako desatinné čísla (s bodkou) vzostupne"/>
                     <Item id="42066" name="Usporiadať riadky ako desatinné čísla (s bodkou) zostupne"/>
+					<Item id="42078" name="Usporiadať riadky náhodne"/>
+					<Item id="42078" name="Usporiadať riadky náhodne"/>
                     <Item id="42016" name="VEĽKÉ PÍSMENÁ"/>
                     <Item id="42017" name="malé písmená"/>
                     <Item id="42067" name="Prvý Znak Slova Veľký"/>
@@ -519,6 +521,70 @@
                 <ScintillaCommandsTab name="Príkazy editora Scintilla"/>
                 <ConflictInfoOk name="Žiadne konflikty pre túto položku."/>
                 <ConflictInfoEditing name="Žiadne konflikty . . ."/>
+				<MainCommandNames>
+                    <Item id="41019" name="Otvoriť priečinok súboru v Prieskumníkovi"/>
+                    <Item id="41020" name="Otvoriť priečinok súboru Príkazovom riadku"/>
+                    <Item id="41021" name="Obnoviť naposledy zatvorený súbor"/>
+                    <Item id="45001" name="Konvertovať do formátu Windows (CR LF)"/>
+                    <Item id="45002" name="Konvertovať do formátu Unix (LF)"/>
+                    <Item id="45003" name="Konvertovať do formátu Macintosh (CR)"/>
+                    <Item id="43022" name="Označiť výsledky vyhľadávania pomocou 1. štýlu"/>
+                    <Item id="43024" name="Označiť výsledky vyhľadávania pomocou 2. štýlu"/>
+                    <Item id="43026" name="Označiť výsledky vyhľadávania pomocou 3. štýlu"/>
+                    <Item id="43028" name="Označiť výsledky vyhľadávania pomocou 4. štýlu"/>
+                    <Item id="43030" name="Označiť výsledky vyhľadávania pomocou 5. štýlu"/>
+                    <Item id="43023" name="Odstrániť označenie 1. štýlu"/>
+                    <Item id="43025" name="Odstrániť označenie 2. štýlu"/>
+                    <Item id="43027" name="Odstrániť označenie 3. štýlu"/>
+                    <Item id="43029" name="Odstrániť označenie 4. štýlu"/>
+                    <Item id="43031" name="Odstrániť označenie 5. štýlu"/>
+                    <Item id="43032" name="Odstrániť označenie ľubovolného štýlu"/>
+                    <Item id="43033" name="Prechádzajúce označenie pomocou 1. štýlu"/>
+                    <Item id="43034" name="Prechádzajúce označenie pomocou 2. štýlu"/>
+                    <Item id="43035" name="Prechádzajúce označenie pomocou 3. štýlu"/>
+                    <Item id="43036" name="Prechádzajúce označenie pomocou 4. štýlu"/>
+                    <Item id="43037" name="Prechádzajúce označenie pomocou 5. štýlu"/>
+                    <Item id="43038" name="Prechádzajúce označenie vytvorené cez Označiť…"/>
+                    <Item id="43039" name="Ďalšie označenie pomocou 1. štýlu"/>
+                    <Item id="43040" name="Ďalšie označenie pomocou 2. štýlu"/>
+                    <Item id="43041" name="Ďalšie označenie pomocou 3. štýlu"/>
+                    <Item id="43042" name="Ďalšie označenie pomocou 4. štýlu"/>
+                    <Item id="43043" name="Ďalšie označenie pomocou 5. štýlu"/>
+                    <Item id="43044" name="Ďalšie označenie vytvorené cez Označiť…"/>
+                    <Item id="44100" name="Zobraziť aktuálny súbor vo Firefoxe"/>
+                    <Item id="44101" name="Zobraziť aktuálny súbor v Chrome"/>
+                    <Item id="44103" name="Zobraziť aktuálny súbor v IE"/>
+                    <Item id="44102" name="Zobraziť aktuálny súbor v Edgei"/>
+                    <Item id="50003" name="Prepnúť na predchádzajúci dokument"/>
+                    <Item id="50004" name="Prepnúť na nasledujúci dokument"/>
+                    <Item id="44051" name="Zbaliť úroveň 1"/>
+                    <Item id="44052" name="Zbaliť úroveň 2"/>
+                    <Item id="44053" name="Zbaliť úroveň 3"/>
+                    <Item id="44054" name="Zbaliť úroveň 4"/>
+                    <Item id="44055" name="Zbaliť úroveň 5"/>
+                    <Item id="44056" name="Zbaliť úroveň 6"/>
+                    <Item id="44057" name="Zbaliť úroveň 7"/>
+                    <Item id="44058" name="Zbaliť úroveň 8"/>
+                    <Item id="44061" name="Rozbaliť 1"/>
+                    <Item id="44062" name="Rozbaliť 2"/>
+                    <Item id="44063" name="Rozbaliť 3"/>
+                    <Item id="44064" name="Rozbaliť 4"/>
+                    <Item id="44065" name="Rozbaliť 5"/>
+                    <Item id="44066" name="Rozbaliť 6"/>
+                    <Item id="44067" name="Rozbaliť 7"/>
+                    <Item id="44068" name="Rozbaliť 8"/>
+                    <Item id="44081" name="Prepnúť panel projektu 1"/>
+                    <Item id="44082" name="Prepnúť panel projektu 2"/>
+                    <Item id="44085" name="Prepnúť priečinok ako pracovný priestor"/>
+                    <Item id="44080" name="Prepnúť mapu dokumentu"/>
+                    <Item id="44084" name="Prepnúť zoznam funkcií"/>
+                    <Item id="50005" name="Prepnúť nahrávanie makra"/>
+					<Item id="44104" name="Prepnúť na Panel projektu 1"/>
+                    <Item id="44105" name="Prepnúť na Panel projektu 2"/>
+                    <Item id="44106" name="Prepnúť na Panel projektu 3"/>
+                    <Item id="44107" name="Prepnúť na Priečinok ako pracovný priestor"/>
+                    <Item id="44108" name="Prepnúť na Zoznam funkcií"/>
+                </MainCommandNames>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="Skratka">
                 <Item id="1" name="OK"/>
@@ -765,6 +831,7 @@ Zadať môžete viacero značiek pomocou medzery na oddelenie rôznych čísel."
                     <Item id="6231" name="Šírka okraja"/>
                     <Item id="6235" name="Bez okraja"/>
                     <Item id="6236" name="Povoliť posun za posledným riadkom"/>
+					<Item id="6239" name="Ponechať označenie pri kliknutí pravým tlačidlom mimo označenia"/>
                 </Scintillas>
 
                 <NewDoc title="Nový dokument">
@@ -850,6 +917,13 @@ Zadať môžete viacero značiek pomocou medzery na oddelenie rôznych čísel."
                     <Item id="6727" name="Tu sa zobrazia nastav. premenných"/>
                     <Item id="6728" name="Hlavička a päta"/>
                 </Print>
+
+                <Searching title="Vyhľadávanie">
+                    <Item id="6901" name="Nevkladať označené slovo do poľa v dialógovom okne Hľadať"/>
+                    <Item id="6902" name="Použiť neproporcionálne písmo v dialógovom okne Hľadať (Vyžaduje reštart Notepad++)"/>
+					<Item id="6903" name="Dialógové okno Hľadať zostáva otvorené po vyhľadaní s výstupom do okna s výsledkami hľadania"/>
+					<Item id="6904" name="Potvrdiť Nahradiť všetko vo všetkých otvorených dokumentoch"/>
+                </Searching>
 
                 <RecentFilesHistory title="História súborov">
                     <Item id="6304" name="História posledných súborov"/>
@@ -952,14 +1026,14 @@ Zadať môžete viacero značiek pomocou medzery na oddelenie rôznych čísel."
                     <Item id="6324" name="Prepínanie dokumentov (Ctrl+Tab)"/>
                     <Item id="6331" name="Zobrazovať v záhlaví okna iba názov súboru"/>
                     <Item id="6334" name="Automatické zisťovanie kódovania znakov"/>
-                    <Item id="6314" name="Použiť neproporcionálne písmo v dialógovom okne Hľadať (Vyžaduje reštart Notepad++)"/>
+					<Item id="6349" name="Použiť DirectWrite (Môže ovplyvniť renderovanie špeciálnych znakov, vyžaduje sa reštart Notepad++)"/>
+					<Item id="6350" name="Povoliť režim orámovania"/>
                     <Item id="6337" name="Prípona súboru prac. priestoru:"/>
                     <Item id="6114" name="Povoliť"/>
                     <Item id="6117" name="Povoliť MRU správanie"/>
                     <Item id="6344" name="Náhľad neaktívnych dokumentov"/>
                     <Item id="6345" name="Náhľad na karte dokumentu"/>
                     <Item id="6346" name="Náhľad na mape dokumentu"/>
-                    <Item id="6348" name="Nevkladať označ. slovo do vyhľadávacieho poľa Hľadať"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Spustiť makro viacnásobne">
@@ -978,17 +1052,17 @@ Zadať môžete viacero značiek pomocou medzery na oddelenie rôznych čísel."
                 <Item id="7004" name="Usporiadať karty"/>
             </Window>
             <ColumnEditor title="Stĺpcový editor">
-                <Item id="2023" name="Vložiť text"/>
-                <Item id="2033" name="Vložiť číslo"/>
-                <Item id="2030" name="Začiatočné číslo:"/>
-                <Item id="2031" name="Zvyšovať po:"/>
-                <Item id="2035" name="Nuly na začiatku"/>
-                <Item id="2036" name="Počet opakovaní:"/>
+                <Item id="2023" name="Vložiť &amp;text"/>
+                <Item id="2033" name="Vložiť čí&amp;slo"/>
+                <Item id="2030" name="&amp;Začiatočné číslo:"/>
+                <Item id="2031" name="Z&amp;vyšovať po:"/>
+                <Item id="2035" name="&amp;Nuly na začiatku"/>
+                <Item id="2036" name="&amp;Počet opakovaní:"/>
                 <Item id="2032" name="Formát"/>
-                <Item id="2024" name="Dec"/>
-                <Item id="2025" name="Oct"/>
-                <Item id="2026" name="Hex"/>
-                <Item id="2027" name="Bin"/>
+                <Item id="2024" name="&amp;Dec"/>
+                <Item id="2025" name="&amp;Oct"/>
+                <Item id="2026" name="&amp;Hex"/>
+                <Item id="2027" name="&amp;Bin"/>
                 <Item id="1" name="OK"/>
                 <Item id="2" name="Zrušiť"/>
             </ColumnEditor>
@@ -1218,8 +1292,8 @@ Continue?"/>
 
 Hľadať vo všetkých súboroch okrem exe, obj &amp;&amp; log:
 *.* !*.exe !*.obj !*.log"/>
-            <find-status-top-reached value="Hľadať: Našiel sa posledný výskyt hľadaného výrazu. Dospeli ste na začiatok dokumentu."/>
-            <find-status-end-reached value="Hľadať: Našiel sa prvý výskyt hľadaného výrazu. Dospeli ste na koniec dokumentu."/>
+            <find-status-top-reached value="Hľadať: Našiel sa posledný výskyt hľadaného výrazu. Bol dosiahnutý začiatok dokumentu."/>
+            <find-status-end-reached value="Hľadať: Našiel sa prvý výskyt hľadaného výrazu. Bol dosiahnutý koniec dokumentu."/>
             <find-status-replaceinfiles-1-replaced value="Nahradiť v súboroch: Bol nahradený 1 výskyt hľadaného výrazu."/>
             <find-status-replaceinfiles-nb-replaced value="Nahradiť v súboroch: Bolo nahradených $INT_REPLACE$ výskytov hľadaného výrazu."/>
             <find-status-replaceinfiles-re-malformed value="Nahradiť v otvorených súboroch: Neplatný regulárny výraz"/>
@@ -1236,13 +1310,17 @@ Hľadať vo všetkých súboroch okrem exe, obj &amp;&amp; log:
             <find-status-replaceall-1-replaced value="Nahradiť všetko: Bol nahradený 1 výskyt hľadaného výrazu."/>
             <find-status-replaceall-nb-replaced value="Nahradiť všetko: Bolo nahradených $INT_REPLACE$ výskytov hľadaného výrazu."/>
             <find-status-replaceall-readonly value="Nahradiť všetko: Text nie je možné nahradiť. Aktuálny dokument je iba na čítanie."/>
-            <find-status-replace-end-reached value="Nahradiť: Bol nahradený prvý výskyt hľadaného výrazu. Dospeli ste na koniec dokumentu."/>
-            <find-status-replace-top-reached value="Nahradiť: Bol nahradený posledný výskyt hľadaného výrazu. Dospeli ste na začiatok dokumentu."/>
+            <find-status-replace-end-reached value="Nahradiť: Bol nahradený prvý výskyt hľadaného výrazu. Bol dosiahnutý koniec dokumentu."/>
+            <find-status-replace-top-reached value="Nahradiť: Bol nahradený posledný výskyt hľadaného výrazu. Bol dosiahnutý začiatok dokumentu."/>
             <find-status-replaced-next-found value="Nahradiť: Bol nahradený 1 výskyt hľadaného výrazu. Nájdený ďalší výskyt."/>
             <find-status-replaced-next-not-found value="Nahradiť: Bol nahradený 1 výskyt hľadaného výrazu. Neboli nájdené žiadne ďalšie výskyty.."/>
             <find-status-replace-not-found value="Nahradiť: Nenašiel sa žiaden výskyt."/>
             <find-status-replace-readonly value="Nahradiť: Text nie je možné nahradiť. Aktuálny dokument je iba na čítanie."/>
             <find-status-cannot-find value="Hľadať: Text &quot;$STR_REPLACE$&quot; sa nepodarilo nájsť."/>
+            <find-status-scope-selection value="v označenom texte"/>
+ 		    <find-status-scope-all value="v celom súbore"/>
+ 		    <find-status-scope-backward value="od začiatku súboru po kurzor"/>
+ 		    <find-status-scope-forward value="od kurzoru po koniec súboru"/>
             <finder-find-in-finder value="Vyhľadať v týchto výsledkoch hľadania..."/>
             <finder-close-this value="Zatvoriť tento vyhľadávač"/>
             <finder-collapse-all value="Zbaliť všetko"/>
@@ -1251,6 +1329,7 @@ Hľadať vo všetkých súboroch okrem exe, obj &amp;&amp; log:
             <finder-select-all value="Vybrať všetko"/>
             <finder-clear-all value="Vymazať všetko"/>
             <finder-open-all value="Otvoriť všetko"/>
+			<finder-wrap-long-lines value="Zalamovať dlhé riadky"/>
             <common-ok value="OK"/>
             <common-cancel value="Zrušiť"/>
             <common-name value="Názov: "/>
@@ -1277,11 +1356,15 @@ Hľadať vo všetkých súboroch okrem exe, obj &amp;&amp; log:
             <replace-in-files-confirm-title value="Naozaj?"/>
             <replace-in-files-confirm-directory value="Naozaj chcete nahradiť všetky výskyty v :"/>
             <replace-in-files-confirm-filetype value="Pre typ súboru :"/>
+            <replace-in-open-docs-confirm-title value="Naozaj?"/>
+            <replace-in-open-docs-confirm-message value="Naozaj chcete nahradiť všetky výskyty vo všetkých otvorených dokumentoch"/>
             <find-result-caption value="Výsledok hľadania"/>
             <find-result-title value="Hľadať"/>
             <find-result-title-info value="($INT_REPLACE1$ výskytov v $INT_REPLACE2$ súboroch z $INT_REPLACE3$ prehľadávaných)"/>
+            <find-result-title-info-selections value="($INT_REPLACE1$ výskytov v $INT_REPLACE2$ výberoch z $INT_REPLACE3$ nájdených)"/>
             <find-result-title-info-extra value=" - Režim filtrovania riadka: zobraziť iba filtrované výsledky"/>
             <find-result-hits value="($INT_REPLACE$ výskytov)"/>
+            <find-regex-zero-length-match value="výskyt nulovej dĺžky" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

@@ -1,78 +1,78 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 7.8.7  27/May/2020  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 7.8.9  9/Sep/2020  by Ondřej Müller (mullero@email.cz)
 	- N++ Community:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="7.8.7">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="7.8.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
 				<Entries>
-					<Item menuId="file" name = "&amp;Soubor"/>
-					<Item menuId="edit" name = "Ú&amp;pravy"/>
-					<Item menuId="search" name = "&amp;Najít"/>
-					<Item menuId="view" name = "&amp;Zobrazit"/>
-					<Item menuId="encoding" name = "For&amp;mát"/>
-					<Item menuId="language" name = "Synta&amp;xe"/>
-					<Item menuId="settings" name = "Nas&amp;tavení"/>
-					<Item menuId="tools" name = "Nástro&amp;je"/>
-					<Item menuId="macro" name = "Makro"/>
-					<Item menuId="run" name = "Spustit"/>
-					<Item idName="Plugins" name = "Pluginy"/>
-					<Item idName="Window" name = "Okno"/>
+					<Item menuId = "file" name = "&amp;Soubor"/>
+					<Item menuId = "edit" name = "Ú&amp;pravy"/>
+					<Item menuId = "search" name = "&amp;Najít"/>
+					<Item menuId = "view" name = "&amp;Zobrazit"/>
+					<Item menuId = "encoding" name = "For&amp;mát"/>
+					<Item menuId = "language" name = "Synta&amp;xe"/>
+					<Item menuId = "settings" name = "Nas&amp;tavení"/>
+					<Item menuId = "tools" name = "Nástro&amp;je"/>
+					<Item menuId = "macro" name = "Makro"/>
+					<Item menuId = "run" name = "Spustit"/>
+					<Item idName = "Plugins" name = "Pluginy"/>
+					<Item idName = "Window" name = "Okno"/>
 				</Entries>
 
 				<!-- Sub Menu Entries -->
 				<SubEntries>
-					<Item subMenuId="file-openFolder" name = "Otevřít složku obsahující akt. soubor v"/>
-					<Item subMenuId="file-closeMore" name = "Zavřít vícero souborů"/>
-					<Item subMenuId="file-recentFiles" name = "Historie posledních souborů"/>
-					<Item subMenuId="edit-copyToClipboard" name = "Kopírovat do Schránky"/>
-					<Item subMenuId="edit-indent" name = "Odsazení"/>
-					<Item subMenuId="edit-convertCaseTo" name = "Konverze velikosti písma"/>
-					<Item subMenuId="edit-lineOperations" name = "Řádkové operace"/>
-					<Item subMenuId="edit-comment" name = "Zakomentovat/Odkomentovat"/>
-					<Item subMenuId="edit-autoCompletion" name = "Automatické dokončování"/>
-					<Item subMenuId="edit-eolConversion" name = "Konverze konců řádků (EOL)"/>
-					<Item subMenuId="edit-blankOperations" name = "Operace s prázdnými znaky"/>
-					<Item subMenuId="edit-pasteSpecial" name = "Vložit nestandardně"/>
-					<Item subMenuId="edit-onSelection" name = "Vybraný text"/>
-					<Item subMenuId="search-markAll" name = "Označit vše"/>
-					<Item subMenuId="search-unmarkAll" name = "Odznačit vše"/>
-					<Item subMenuId="search-jumpUp" name = "Skočit nahoru"/>
-					<Item subMenuId="search-jumpDown" name = "Skočit dolů"/>
-					<Item subMenuId="search-bookmark" name = "Záložka"/>
-					<Item subMenuId="view-currentFileIn" name = "Zobrazit aktuální soubor v"/>
-					<Item subMenuId="view-showSymbol" name = "Ukázat symboly"/>
-					<Item subMenuId="view-zoom" name = "Lupa"/>
-					<Item subMenuId="view-moveCloneDocument" name = "Přesunout/duplikovat aktuální dokument"/>
-					<Item subMenuId="view-tab" name = "Karta dokumentu (Tab)"/>
-					<Item subMenuId="view-collapseLevel" name = "Sbalit úroveň"/>
-					<Item subMenuId="view-uncollapseLevel" name = "Rozbalit úroveň"/>
-					<Item subMenuId="view-project" name = "Projekt"/>
-					<Item subMenuId="encoding-characterSets" name = "Výběr znakové sady"/>
-					<Item subMenuId="encoding-arabic" name = "arabština"/>
-					<Item subMenuId="encoding-baltic" name = "baltské jazyky"/>
-					<Item subMenuId="encoding-celtic" name = "keltština"/>
-					<Item subMenuId="encoding-cyrillic" name = "azbuka"/>
-					<Item subMenuId="encoding-centralEuropean" name = "středoevropské jazyky (CE)"/>
-					<Item subMenuId="encoding-chinese" name = "čínština"/>
-					<Item subMenuId="encoding-easternEuropean"  name = "východoevropské jazyky (EE)"/>
-					<Item subMenuId="encoding-greek" name = "řečtina"/>
-					<Item subMenuId="encoding-hebrew" name = "hebrejština"/>
-					<Item subMenuId="encoding-japanese" name = "japonština"/>
-					<Item subMenuId="encoding-korean" name = "korejština"/>
-					<Item subMenuId="encoding-northEuropean" name = "severoevropské jazyky (NE)"/>
-					<Item subMenuId="encoding-thai" name = "thajština"/>
-					<Item subMenuId="encoding-turkish" name = "turečtina"/>
-					<Item subMenuId="encoding-westernEuropean" name = "západoevropské jazyky (WE)"/>
-					<Item subMenuId="encoding-vietnamese" name = "vietnamština"/>
-					<Item subMenuId="language-userDefinedLanguage" name = "Uživatelem definovaná syntaxe"/>
-					<Item subMenuId="settings-import" name = "Import"/>
-					<Item subMenuId="tools-md5" name = "MD5"/>
-					<Item subMenuId="tools-sha256" name = "SHA-256"/>
+					<Item subMenuId = "file-openFolder" name = "Otevřít složku obsahující akt. soubor v"/>
+					<Item subMenuId = "file-closeMore" name = "Zavřít vícero souborů"/>
+					<Item subMenuId = "file-recentFiles" name = "Historie posledních souborů"/>
+					<Item subMenuId = "edit-copyToClipboard" name = "Kopírovat do Schránky"/>
+					<Item subMenuId = "edit-indent" name = "Odsazení"/>
+					<Item subMenuId = "edit-convertCaseTo" name = "Konverze velikosti písma"/>
+					<Item subMenuId = "edit-lineOperations" name = "Řádkové operace"/>
+					<Item subMenuId = "edit-comment" name = "Zakomentovat/Odkomentovat"/>
+					<Item subMenuId = "edit-autoCompletion" name = "Automatické dokončování"/>
+					<Item subMenuId = "edit-eolConversion" name = "Konverze konců řádků (EOL)"/>
+					<Item subMenuId = "edit-blankOperations" name = "Operace s prázdnými znaky"/>
+					<Item subMenuId = "edit-pasteSpecial" name = "Vložit nestandardně"/>
+					<Item subMenuId = "edit-onSelection" name = "Vybraný text"/>
+					<Item subMenuId = "search-markAll" name = "Označit vše"/>
+					<Item subMenuId = "search-unmarkAll" name = "Odznačit vše"/>
+					<Item subMenuId = "search-jumpUp" name = "Skočit nahoru"/>
+					<Item subMenuId = "search-jumpDown" name = "Skočit dolů"/>
+					<Item subMenuId = "search-bookmark" name = "Záložka"/>
+					<Item subMenuId = "view-currentFileIn" name = "Zobrazit aktuální soubor v"/>
+					<Item subMenuId = "view-showSymbol" name = "Ukázat symboly"/>
+					<Item subMenuId = "view-zoom" name = "Lupa"/>
+					<Item subMenuId = "view-moveCloneDocument" name = "Přesunout/duplikovat aktuální dokument"/>
+					<Item subMenuId = "view-tab" name = "Karta dokumentu (Tab)"/>
+					<Item subMenuId = "view-collapseLevel" name = "Sbalit úroveň"/>
+					<Item subMenuId = "view-uncollapseLevel" name = "Rozbalit úroveň"/>
+					<Item subMenuId = "view-project" name = "Projekt"/>
+					<Item subMenuId = "encoding-characterSets" name = "Výběr znakové sady"/>
+					<Item subMenuId = "encoding-arabic" name = "arabština"/>
+					<Item subMenuId = "encoding-baltic" name = "baltské jazyky"/>
+					<Item subMenuId = "encoding-celtic" name = "keltština"/>
+					<Item subMenuId = "encoding-cyrillic" name = "azbuka"/>
+					<Item subMenuId = "encoding-centralEuropean" name = "středoevropské jazyky (CE)"/>
+					<Item subMenuId = "encoding-chinese" name = "čínština"/>
+					<Item subMenuId = "encoding-easternEuropean"  name = "východoevropské jazyky (EE)"/>
+					<Item subMenuId = "encoding-greek" name = "řečtina"/>
+					<Item subMenuId = "encoding-hebrew" name = "hebrejština"/>
+					<Item subMenuId = "encoding-japanese" name = "japonština"/>
+					<Item subMenuId = "encoding-korean" name = "korejština"/>
+					<Item subMenuId = "encoding-northEuropean" name = "severoevropské jazyky (NE)"/>
+					<Item subMenuId = "encoding-thai" name = "thajština"/>
+					<Item subMenuId = "encoding-turkish" name = "turečtina"/>
+					<Item subMenuId = "encoding-westernEuropean" name = "západoevropské jazyky (WE)"/>
+					<Item subMenuId = "encoding-vietnamese" name = "vietnamština"/>
+					<Item subMenuId = "language-userDefinedLanguage" name = "Uživatelem definovaná syntaxe"/>
+					<Item subMenuId = "settings-import" name = "Import"/>
+					<Item subMenuId = "tools-md5" name = "MD5"/>
+					<Item subMenuId = "tools-sha256" name = "SHA-256"/>
 				</SubEntries>
 
 				<!-- all menu item -->
@@ -96,7 +96,7 @@
 					<Item id = "41017" name = "Přejmenovat..."/>
 					<Item id = "41009" name = "Zavřít vše nalevo"/>
 					<Item id = "41018" name = "Zavřít vše napravo"/>
-					<Item id = "41019" name = "Explorer"/>
+					<Item id = "41019" name = "Průzkumník"/>
 					<Item id = "41020" name = "cmd"/>
 					<Item id = "41021" name = "Znovuotevřít aktuálně zavřený soubor"/>
 					<Item id = "41022" name = "Otevřít složku jako pracovní plochu"/>
@@ -374,8 +374,8 @@
 					<Item CMID = "16" name = "Znovu načíst"/>
 					<Item CMID = "17" name = "Zavřít vše nalevo"/>
 					<Item CMID = "18" name = "Zavřít vše napravo"/>
-					<Item CMID = "19" name = "Otevřít složku obsahující akt. soubor v Exploreru"/>
-					<Item CMID = "20" name = "Otevřít složku obsahující akt. soubor v cmd"/>
+					<Item CMID = "19" name = "Otevřít složku obsahující akt. soubor v Průzkumníkovi"/>
+					<Item CMID = "20" name = "Otevřít složku obsahující akt. soubor v okně s příkaz. řádkem"/>
 					<Item CMID = "21" name = "Otevřít v implicitním prohlížeči"/>
 					<Item CMID = "22" name = "Zavřít všechny nezměněné"/>
 			</TabBar>
@@ -478,20 +478,20 @@
 			</MD5FromTextDlg>
 			
 			<SHA256FromFilesDlg title="Generování SHA-256 otisku ze souborů">
-				<Item id="1922" name="Vyberte soubory pro generování SHA-256..."/>
-				<Item id="1924" name="Kopírovat do Schránky"/>
-				<Item id="2"    name="Zavřít"/>
+				<Item id = "1922" name = "Vyberte soubory pro generování SHA-256..."/>
+				<Item id = "1924" name = "Kopírovat do Schránky"/>
+				<Item id = "2"    name = "Zavřít"/>
 			</SHA256FromFilesDlg>
 
 			<SHA256FromTextDlg title="Generování SHA-256 otisku">
-				<Item id="1932" name="Brát každý řádek jako samostatný textový řetězec"/>
-				<Item id="1934" name="Kopírovat do Schránky"/>
-				<Item id="2"    name="Zavřít"/>
+				<Item id = "1932" name = "Brát každý řádek jako samostatný textový řetězec"/>
+				<Item id = "1934" name = "Kopírovat do Schránky"/>
+				<Item id = "2"    name = "Zavřít"/>
 			</SHA256FromTextDlg>
 			
 			<PluginsAdminDlg title="Správa pluginů" titleAvailable = "Dostupné" titleUpdates = "Aktualizované" titleInstalled = "Instalované">
-				<ColumnPlugin   name="Plugin"/>
-				<ColumnVersion  name="Verze"/>
+				<ColumnPlugin   name = "Plugin"/>
+				<ColumnVersion  name = "Verze"/>
 				<Item id = "5501" name = "Rešerše:"/>
 				<Item id = "5503" name = "Instalovat"/>
 				<Item id = "5504" name = "Aktualizovat"/>
@@ -548,6 +548,71 @@
 				<ScintillaCommandsTab name = "Scintilla povely"/>
 				<ConflictInfoOk name = "Nezjištěny žádné kolize pro tuto položku."/>
 				<ConflictInfoEditing name = "Nekoliduje s ničím . . ."/>
+				<MainCommandNames>
+                    <Item id = "41019" name = "Otevřít složku obsahující akt. soubor v Průzkumníkovi"/>
+                    <Item id = "41020" name = "Otevřít složku obsahující akt. soubor v okně s příkaz. řádkem"/>
+                    <Item id = "41021" name = "Znovuotevřít právě zavřený soubor"/>
+                    <Item id = "45001" name = "Konverze konců řádků (EOL) na CR LF (Windows)"/>
+                    <Item id = "45002" name = "Konverze konců řádků (EOL) na LF (Unix)"/>
+                    <Item id = "45003" name = "Konverze konců řádků (EOL) na CR (Macintosh)"/>
+                    <Item id = "43022" name = "Označit výsledky hledání 1. stylem"/>
+                    <Item id = "43024" name = "Označit výsledky hledání 2. stylem"/>
+                    <Item id = "43026" name = "Označit výsledky hledání 3. stylem"/>
+                    <Item id = "43028" name = "Označit výsledky hledání 4. stylem"/>
+                    <Item id = "43030" name = "Označit výsledky hledání 5. stylem"/>
+                    <Item id = "43023" name = "Odstranit označení 1. stylem"/>
+                    <Item id = "43025" name = "Odstranit označení 2. stylem"/>
+                    <Item id = "43027" name = "Odstranit označení 3. stylem"/>
+                    <Item id = "43029" name = "Odstranit označení 4. stylem"/>
+                    <Item id = "43031" name = "Odstranit označení 5. stylem"/>
+                    <Item id = "43032" name = "Odstranit označení jakýmkoliv stylem"/>
+                    <Item id = "43033" name = "Předchozí označení 1st stylem"/>
+                    <Item id = "43034" name = "Předchozí označení 2nd stylem"/>
+                    <Item id = "43035" name = "Předchozí označení 3rd stylem"/>
+                    <Item id = "43036" name = "Předchozí označení 4th stylem"/>
+                    <Item id = "43037" name = "Předchozí označení 5th stylem"/>
+                    <Item id = "43038" name = "Předchozí označení vytvořené se Značkou..."/>
+                    <Item id = "43039" name = "Další označení 1. stylem"/>
+                    <Item id = "43040" name = "Další označení 2. stylem"/>
+                    <Item id = "43041" name = "Další označení 3. stylem"/>
+                    <Item id = "43042" name = "Další označení 4. stylem"/>
+                    <Item id = "43043" name = "Další označení 5. stylem"/>
+                    <Item id = "43044" name = "Další označení vytvořené se Značkou..."/>
+                    <Item id = "44100" name = "Zobrazit aktuální soubor ve Firefoxu"/>
+                    <Item id = "44101" name = "Zobrazit aktuální soubor v Chrome"/>
+                    <Item id = "44103" name = "Zobrazit aktuální soubor v IE"/>
+                    <Item id = "44102" name = "Zobrazit aktuální soubor v Edge"/>
+                    <Item id = "50003" name = "Přepnout na předchozí dokument"/>
+                    <Item id = "50004" name = "Přepnout na další dokument"/>
+                    <Item id = "44051" name = "Sbalit Úroveň 1"/>
+                    <Item id = "44052" name = "Sbalit Úroveň 2"/>
+                    <Item id = "44053" name = "Sbalit Úroveň 3"/>
+                    <Item id = "44054" name = "Sbalit Úroveň 4"/>
+                    <Item id = "44055" name = "Sbalit Úroveň 5"/>
+                    <Item id = "44056" name = "Sbalit Úroveň 6"/>
+                    <Item id = "44057" name = "Sbalit Úroveň 7"/>
+                    <Item id = "44058" name = "Sbalit Úroveň 8"/>
+                    <Item id = "44061" name = "Rozbalit Úroveň 1"/>
+                    <Item id = "44062" name = "Rozbalit Úroveň 2"/>
+                    <Item id = "44063" name = "Rozbalit Úroveň 3"/>
+                    <Item id = "44064" name = "Rozbalit Úroveň 4"/>
+                    <Item id = "44065" name = "Rozbalit Úroveň 5"/>
+                    <Item id = "44066" name = "Rozbalit Úroveň 6"/>
+                    <Item id = "44067" name = "Rozbalit Úroveň 7"/>
+                    <Item id = "44068" name = "Rozbalit Úroveň 8"/>
+                    <Item id = "44081" name = "Přepnout na Projektový Panel 1"/>
+                    <Item id = "44082" name = "Přepnout na Projektový Panel 2"/>
+                    <Item id = "44083" name = "Přepnout na Projektový Panel 3"/>
+                    <Item id = "44085" name = "Přepnout na Složku jako Pracovní plochu"/>
+                    <Item id = "44080" name = "Přepnout Mapu dokumentů"/>
+                    <Item id = "44084" name = "Přepnout Seznam funkcí"/>
+                    <Item id = "50005" name = "Přepnout Nahrávání makra"/>
+                    <Item id = "44104" name = "Přejít na Projektový panel 1"/>
+                    <Item id = "44105" name = "Přejít na Projektový panel 2"/>
+                    <Item id = "44106" name = "Přejít na Projektový panel 3"/>
+                    <Item id = "44107" name = "Přejít na Složka jako Pracovní plocha"/>
+                    <Item id = "44108" name = "Přejít na Seznam funkcí"/>
+                </MainCommandNames>
 			</ShortcutMapper>
 			
 			<ShortcutMapperSubDialg title="Zkratka">
@@ -905,6 +970,12 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id = "6727" name = "Která část:"/>
 					<Item id = "6728" name = "Záhlaví a zápatí"/>
 				</Print>
+				<Searching title = "Vyhledávání">
+                    <Item id = "6901" name = "Nevyplňovat pole Najít ve stejnojmenném dialogu vybraným slovem"/>
+                    <Item id = "6902" name = "Použít monospace font v dialogu Najít (vyžadován restart Notepadu++)"/>
+					<Item id = "6903" name = "Dialog Najít zůstane otevřen po vyhledávání s výstupem do okna s výsledky"/>
+                    <Item id = "6904" name = "Potvrzovat příkaz Zaměnit vše ve všech otevřených dokumentech"/>
+                </Searching>
 				<RecentFilesHistory title = "Historie posl. souborů">
 					<Item id = "6304" name = "Historie posledních souborů"/>
 					<Item id = "6305" name = "Nekontrolovat při startu"/>
@@ -928,7 +999,6 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id = "6308" name = "Minimalizovat do oznamovací oblasti"/>
 					<Item id = "6312" name = "Automatická detekce stavu souboru"/>
 					<Item id = "6313" name = "Aktualizovat skrytě"/>
-					<Item id = "6314" name = "Použít monospace font v dialog. okně Najít (restart N++)"/>
 					<Item id = "6318" name = "Nastavení hyperlinků"/>
 					<Item id = "6319" name = "Povolit"/>
 					<Item id = "6320" name = "Nepodtrhávat"/>
@@ -942,7 +1012,8 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id = "6344" name = "Náhled na neaktivní dokument"/>
 					<Item id = "6345" name = "Na oušku (tab) dokumentu"/>
 					<Item id = "6346" name = "Na přehledné mapě dokumentu"/>
-					<Item id = "6348" name = "Nevyplňovat pole Najít (v dialogu Najít) vybraným slovem"/>
+					<Item id = "6349" name = "Používat DirectWrite (může zlepšit zobrazení speciálních znaků, vyžaduje restart Notepadu++)"/>
+					<Item id = "6350" name = "Povolit fullbox mód"/>
 				</MISC>
 				<Backup title = "Zálohování">
 					<Item id = "6219" name = "Uživatelsky definovaný adresář pro zálohování"/>
@@ -1049,16 +1120,16 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 			</ColumnEditor>
 
 			<FindInFinder title="Najít ve vyhledávání">
-				<Item id = "1" name = "Najít vše"/>
-				<Item id = "2" name = "Zavřít"/>
-				<Item id = "1711" name = "Najít co:"/>
-				<Item id = "1713" name = "Vyhledat pouze v nalezených řádcích"/>
+				<Item id = "1" name = "N&amp;ajít vše"/>
+				<Item id = "2" name = "&amp;Zavřít"/>
+				<Item id = "1711" name = "Najít &amp;co:"/>
+				<Item id = "1713" name = "Vyhledat pouze v nalezených &amp;řádcích"/>
 				<Item id = "1714" name = "Rozlišovat &amp;pouze celá slova"/>
 				<Item id = "1715" name = "Rozlišovat &amp;velká a malá písmena"/>
-				<Item id = "1716" name = "Vyhledávací mód"/>
-				<Item id = "1717" name = "Normální"/>
-				<Item id = "1719" name = "Regulární &amp;výrazy"/>
-				<Item id = "1718" name = "Rozšířený (\n, \r, \t, \0, \x...)"/>
+				<Item id = "1716" name = "Vyhledávací &amp;mód"/>
+				<Item id = "1717" name = "&amp;Normální"/>
+				<Item id = "1719" name = "Re&amp;gulární výrazy"/>
+				<Item id = "1718" name = "&amp;Rozšířený (\n, \r, \t, \0, \x...)"/>
 				<Item id = "1720" name = "&amp;. označuje nový ř."/>
 			</FindInFinder>
 			
@@ -1134,55 +1205,55 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 		</MessageBox>
 		
 		<ClipboardHistory>
-			<PanelTitle name="Historie Schránky"/>
+			<PanelTitle name = "Historie Schránky"/>
 		</ClipboardHistory>
 		
 		<DocSwitcher>
-			<PanelTitle name="Přepínač dokumentů"/>
-			<ColumnName name="Jméno"/>
-			<ColumnExt name="Příp."/>
+			<PanelTitle name = "Přepínač dokumentů"/>
+			<ColumnName name = "Jméno"/>
+			<ColumnExt name = "Příp."/>
 		</DocSwitcher>
 		
 		<WindowsDlg>
-			<ColumnName name="Jméno"/>
-			<ColumnPath name="Cesta"/>
-			<ColumnType name="Typ"/>
-			<ColumnSize name="Velikost"/>
+			<ColumnName name = "Jméno"/>
+			<ColumnPath name = "Cesta"/>
+			<ColumnType name = "Typ"/>
+			<ColumnSize name = "Velikost"/>
 		</WindowsDlg>
 		
 		<AsciiInsertion>
-			<PanelTitle name="Panel ke vkládání ASCII znaků"/>
-			<ColumnVal name="Dec"/>
-			<ColumnHex name="Hex"/>
-			<ColumnChar name="Znak"/>
-			<ColumnHtmlNumber name="HTML číslo"/>
-			<ColumnHtmlName name="HTML kód"/>
+			<PanelTitle name = "Panel ke vkládání ASCII znaků"/>
+			<ColumnVal name = "Dec"/>
+			<ColumnHex name = "Hex"/>
+			<ColumnChar name = "Znak"/>
+			<ColumnHtmlNumber name = "HTML číslo"/>
+			<ColumnHtmlName name = "HTML kód"/>
 		</AsciiInsertion>
 		
 		<DocumentMap>
-			<PanelTitle name="Mapa dokumentu"/>
+			<PanelTitle name = "Mapa dokumentu"/>
 		</DocumentMap>
 		
 		<FunctionList>
-			<PanelTitle name="Seznam funkcí"/>
-			<SortTip name="Setřídit" />
-			<ReloadTip name="Znovu načíst" />
+			<PanelTitle name = "Seznam funkcí"/>
+			<SortTip name = "Setřídit" />
+			<ReloadTip name = "Znovu načíst" />
 		</FunctionList>
 		
 		<FolderAsWorkspace>
-			<PanelTitle name="Složka jako Pracovní plocha"/>
-			<SelectFolderFromBrowserString name="Vyberte složku, kterou chcete přidat do Pracovní plochy"/>
+			<PanelTitle name = "Složka jako Pracovní plocha"/>
+			<SelectFolderFromBrowserString name = "Vyberte složku, kterou chcete přidat do Pracovní plochy"/>
 			<Menus>
-				<Item id="3511" name="Odebrat"/>
-				<Item id="3512" name="Odebrat vše"/>
-				<Item id="3513" name="Přidat"/>
-				<Item id="3514" name="Spustit systémem"/>
-				<Item id="3515" name="Otevřít"/>
-				<Item id="3516" name="Kopírovat cestu"/>
-				<Item id="3517" name="Najít v souborech..."/>
-				<Item id="3518" name="Průzkumník zde"/>
-				<Item id="3519" name="CMD zde"/>
-				<Item id="3520" name="Kopírovat jméno souboru"/>
+				<Item id = "3511" name = "Odebrat"/>
+				<Item id = "3512" name = "Odebrat vše"/>
+				<Item id = "3513" name = "Přidat"/>
+				<Item id = "3514" name = "Spustit systémem"/>
+				<Item id = "3515" name = "Otevřít"/>
+				<Item id = "3516" name = "Kopírovat cestu"/>
+				<Item id = "3517" name = "Najít v souborech..."/>
+				<Item id = "3518" name = "Průzkumník zde"/>
+				<Item id = "3519" name = "cmd zde"/>
+				<Item id = "3520" name = "Kopírovat jméno souboru"/>
 			</Menus>
 		</FolderAsWorkspace>
 
@@ -1274,6 +1345,10 @@ Najít ve všech souborech mimo exe, obj &amp;&amp; log:
 			<find-status-replace-not-found value = "Nahrazování: žádný výskyt nebyl nalezen"/>
 			<find-status-replace-readonly value = "Nahrazování: Nemohu nahradit text. Současný dokument je pouze pro čtení"/>
 			<find-status-cannot-find value = "Vyhledávání: Nemohu nalézt text &quot;$STR_REPLACE$&quot;"/>
+			<find-status-scope-selection value = "ve vybraném textu"/>
+            <find-status-scope-all value = "v celém souboru"/>
+            <find-status-scope-backward value = "od začátku souboru až ke kurzoru"/>
+			<find-status-scope-forward value = "od kurzoru až do konce souboru"/>
 			<finder-find-in-finder value = "Nalézt v těchto nalezených výsledcích..."/>
 			<finder-close-this value = "Zavřít tento vyhledávač"/>
 			<finder-collapse-all value = "Sbalit vše"/>
@@ -1282,6 +1357,7 @@ Najít ve všech souborech mimo exe, obj &amp;&amp; log:
 			<finder-select-all value = "Vybrat vše"/>
 			<finder-clear-all value = "Smazat vše"/>
 			<finder-open-all value = "Otevřít vše"/>
+			<finder-wrap-long-lines value = "Zalomit dlouhé řádky"/>
 			<common-ok value = "OK"/>
 			<common-cancel value = "Storno"/>
 			<common-name value = "Jméno: "/>
@@ -1308,11 +1384,15 @@ Najít ve všech souborech mimo exe, obj &amp;&amp; log:
 			<replace-in-files-confirm-title value = "Jste si jistí?"/>
 			<replace-in-files-confirm-directory value = "Jste si jistí, že chcete nahradit všechny výskyty v:"/>
 			<replace-in-files-confirm-filetype value = "Pro typ souboru:"/>
+			<replace-in-open-docs-confirm-title value = "Jste si jistí?"/>
+            <replace-in-open-docs-confirm-message value = "Opravdu chcete zaměnit všechny výskyty ve všech otevřených dokumentech?"/>
 			<find-result-caption value = "Výsledek hledání"/>
 			<find-result-title value = "Vyhledávání"/>
 			<find-result-title-info value = "($INT_REPLACE1$ výskytů v $INT_REPLACE2$ souborech z $INT_REPLACE3$ prohledaných)"/>
+			<find-result-title-info-selections value = "($INT_REPLACE1$ výskytů v $INT_REPLACE2$ výběrech z $INT_REPLACE3$ prohledávaných)"/>
 			<find-result-title-info-extra value = " - Režim řádkového filtru: zobrazení pouze filtrovaných výsledků"/>
 			<find-result-hits value = "(výskytů: $INT_REPLACE$)"/>
+			<find-regex-zero-length-match value = "shoda nulové délky" />
 		</MiscStrings>
 
 	</Native-Langue>

@@ -211,6 +211,40 @@ generic_string NativeLangSpeaker::getNativeLangMenuString(int itemID) const
 	return TEXT("");
 }
 
+generic_string NativeLangSpeaker::getShortcutNameString(int itemID) const
+{
+	if (!_nativeLangA)
+		return TEXT("");
+
+	TiXmlNodeA *node = _nativeLangA->FirstChild("Dialog");
+	if (!node) return TEXT("");
+
+	node = node->FirstChild("ShortcutMapper");
+	if (!node) return TEXT("");
+
+	node = node->FirstChild("MainCommandNames");
+	if (!node) return TEXT("");
+
+	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+
+	for (TiXmlNodeA *childNode = node->FirstChildElement("Item");
+		childNode ;
+		childNode = childNode->NextSibling("Item") )
+	{
+		TiXmlElementA *element = childNode->ToElement();
+		int id;
+		if (element->Attribute("id", &id) && (id == itemID))
+		{
+			const char *name = element->Attribute("name");
+			if (name)
+			{
+				return wmc.char2wchar(name, _nativeLangEncoding);
+			}
+		}
+	}
+	return TEXT("");
+}
+
 generic_string NativeLangSpeaker::getLocalizedStrFromID(const char *strID, const generic_string& defaultString) const
 {
 	if (not _nativeLangA)
@@ -888,6 +922,14 @@ void NativeLangSpeaker::changePrefereceDlgLang(PreferenceDlg & preference)
 		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
 		preference.renameDialogTitle(TEXT("Print"), nameW);
 	}
+
+	changeDlgLang(preference._searchingSettingsDlg.getHSelf(), "Searching", titre, titreMaxSize);
+	if (titre[0] != '\0')
+	{
+		const wchar_t* nameW = wmc.char2wchar(titre, _nativeLangEncoding);
+		preference.renameDialogTitle(TEXT("Searching"), nameW);
+	}
+
 	changeDlgLang(preference._settingsDlg.getHSelf(), "MISC", titre, titreMaxSize);
 	if (titre[0] != '\0')
 	{
@@ -1311,6 +1353,10 @@ int NativeLangSpeaker::messageBox(const char *msgBoxTagName, HWND hWnd, const TC
 	{
 		title = stringReplace(title, TEXT("$STR_REPLACE$"), strInfo);
 		msg = stringReplace(msg, TEXT("$STR_REPLACE$"), strInfo);
+	}
+	if (_isRTL)
+	{
+		msgBoxType |= MB_RTLREADING | MB_RIGHT;
 	}
 	return ::MessageBox(hWnd, msg.c_str(), title.c_str(), msgBoxType);
 }

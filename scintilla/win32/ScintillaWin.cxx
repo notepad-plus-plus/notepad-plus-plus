@@ -1463,7 +1463,16 @@ sptr_t ScintillaWin::WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lParam
 						} else if (PointIsHotspot(PointFromPOINT(pt))) {
 							DisplayCursor(Window::cursorHand);
 						} else {
-							DisplayCursor(Window::cursorText);
+							// Fix the following issue:
+							// #8588
+							// It should be fixed in Scintilla release superior to v4.4.4 - to verify.
+							// ++ added
+							Sci::Position pos = PositionFromLocation(PointFromPOINT(pt), true, true);
+							if ((pos != INVALID_POSITION) && (hoverIndicatorPos != Sci::invalidPosition))
+								DisplayCursor(Window::cursorHand);
+							else
+							// -- added
+								DisplayCursor(Window::cursorText);
 						}
 					}
 				}

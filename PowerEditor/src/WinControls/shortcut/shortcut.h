@@ -99,7 +99,7 @@ public:
 	};
 
 	Shortcut(const Shortcut & sc) {
-		setName(sc.getMenuName());
+		setName(sc.getMenuName(), sc.getName());
 		_keyCombo = sc._keyCombo;
 		_canModifyName = sc._canModifyName;
 	}
@@ -112,7 +112,7 @@ public:
 		//Do not allow setting empty names
 		//So either we have an empty name or the other name has to be set
 		if (_name[0] == 0 || sc._name[0] != 0) {
-			setName(sc.getMenuName());
+			setName(sc.getMenuName(), sc.getName());
 		}
 		_keyCombo = sc._keyCombo;
 		this->_canModifyName = sc._canModifyName;
@@ -173,7 +173,7 @@ public:
 		return _menuName;
 	}
 
-	void setName(const TCHAR * name);
+	void setName(const TCHAR * menuName, const TCHAR * shortcutName = NULL);
 
 	void clear(){
 		_keyCombo._isCtrl = false;
@@ -198,10 +198,12 @@ public:
 	unsigned long getID() const {return _id;};
 	void setID(unsigned long id) { _id = id;};
 	const TCHAR * getCategory() const { return _category.c_str(); };
+	const TCHAR * getShortcutName() const { return _shortcutName.c_str(); };
 
 private :
 	unsigned long _id;
 	generic_string _category;
+	generic_string _shortcutName;
 };
 
 

@@ -32,7 +32,7 @@
 #include "TreeView.h"
 #include "ProjectPanel_rc.h"
 
-#define PM_PROJECTPANELTITLE     TEXT("Project")
+#define PM_PROJECTPANELTITLE     TEXT("Project Panel")
 #define PM_WORKSPACEROOTNAME     TEXT("Workspace")
 #define PM_NEWFOLDERNAME         TEXT("Folder Name")
 #define PM_NEWPROJECTNAME        TEXT("Project Name")
@@ -70,8 +70,9 @@ public:
 	ProjectPanel(): DockingDlgInterface(IDD_PROJECTPANEL) {};
 	~ProjectPanel();
 
-	void init(HINSTANCE hInst, HWND hPere) {
+	void init(HINSTANCE hInst, HWND hPere, int panelID) {
 		DockingDlgInterface::init(hInst, hPere);
+		_panelID = panelID;
 	}
 
     virtual void display(bool toShow = true) const {
@@ -82,9 +83,16 @@ public:
         _hParent = parent2set;
     };
 
+	void setPanelTitle(generic_string title) {
+		_panelTitle = title;
+	};
+	const TCHAR * getPanelTitle() const {
+		return _panelTitle.c_str();
+	};
+
 	void newWorkSpace();
 	bool saveWorkspaceRequest();
-	bool openWorkSpace(const TCHAR *projectFileName);
+	bool openWorkSpace(const TCHAR *projectFileName, bool force = false);
 	bool saveWorkSpace();
 	bool saveWorkSpaceAs(bool saveCopyAs);
 	void setWorkSpaceFilePath(const TCHAR *projectFileName){
@@ -96,7 +104,7 @@ public:
 	bool isDirty() const {
 		return _isDirty;
 	};
-	void checkIfNeedSave(const TCHAR *title);
+	bool checkIfNeedSave();
 
 	virtual void setBackgroundColor(COLORREF bgColour) {
 		TreeView_SetBkColor(_treeView.getHSelf(), bgColour);
@@ -113,9 +121,11 @@ protected:
 	HMENU _hProjectMenu = nullptr;
 	HMENU _hFolderMenu = nullptr;
 	HMENU _hFileMenu = nullptr;
+	generic_string _panelTitle;
 	generic_string _workSpaceFilePath;
 	generic_string _selDirOfFilesFromDirDlg;
 	bool _isDirty = false;
+	int _panelID = 0;
 
 	void initMenus();
 	void destroyMenus();

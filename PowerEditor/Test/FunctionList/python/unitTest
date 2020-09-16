@@ -1,3 +1,4 @@
+
 from __future__ import print_function
 
 try:
@@ -57,6 +58,8 @@ for _ in xrange(m):
 --------------------------------------------------------------------------------
 """
 
+ssdef = 20
+USER_DEF = 1000
 
 def dfs(G, s):
     vis, S = set([s]), [s]
@@ -278,3 +281,25 @@ def krusk(E_and_n):
                 s[j].update(s[i])
                 s.pop(i)
                 break
+
+
+INPUT_FILE_NAME = "example.txt"
+
+class SampleClassBad (object):
+    # WrongClassName: this will appear in the function list
+
+    def __init__ (self, fileName):
+        self.fileName = fileName
+
+
+class SampleClassGood(object):
+    # this works as expected: notice the missing space between
+    # the class name and the left parenthesis.
+
+    def __init__ (self, fileName):
+        self.fileName = fileName
+
+
+
+
+

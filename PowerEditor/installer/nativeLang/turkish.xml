@@ -120,6 +120,7 @@
 					<Item id="42064" name="Virgüle Göre Ondalıklı Olarak Sırala (Azalan)"/>
 					<Item id="42065" name="Noktaya Göre Ondalıklı Olarak Sırala (Artan)"/>
 					<Item id="42066" name="Noktaya Göre Ondalıklı Olarak Sırala (Azalan)"/>
+					<Item id="42078" name="Satırları Rastgele Sırala"/>
 					<Item id="42016" name="&amp;BÜYÜK HARFLERE ÇEVİR"/>
 					<Item id="42017" name="&amp;küçük harflere çevir"/>
 					<Item id="42067" name="&amp;Uygun Harflere Çevir"/>
@@ -393,7 +394,7 @@
 			 	<Item id="1624" name="Arama Modu"/>
 			 	<Item id="1625" name="&amp;Normal"/>
 			 	<Item id="1626" name="&amp;Genişletilmiş (\r, \n, \t, \0, \x…)"/>
-			 	<Item id="1660" name="Dosyalarda &amp;Değiştir"/>
+			 	<Item id="1660" name="Dosyalarda Değiştir"/>
 				<Item id="1661" name="Geçerli belgeyi takip et"/>
 			 	<Item id="1641" name="Geçerli Belgede Tümünü Bul"/>
 			 	<Item id="1686" name="Saydamlaş&amp;tır"/>
@@ -514,6 +515,71 @@
                 <ScintillaCommandsTab name="Scintilla Komutları"/>
 				<ConflictInfoOk name="Bu içerik için hiçbir kısayol çakışması yok."/>
                 <ConflictInfoEditing name="Hiçbir çakışma yok . . ."/>
+                <MainCommandNames>
+                    <Item id="41019" name="İçeren Klasörü Gezginde Aç"/>
+                    <Item id="41020" name="İçeren Klasörü Komut Satırında Aç"/>
+                    <Item id="41021" name="Son Kapatılan Dosyayı Geri Yükle"/>
+                    <Item id="45001" name="Satır Sonu Windows (CR LF) Dönüşümü"/>
+                    <Item id="45002" name="Satır Sonu Unix (LF) Dönüşümü"/>
+                    <Item id="45003" name="Satır Sonu Macintos (CR) Dönüşümü"/>
+                    <Item id="43022" name="Arama Sonuçlarını 1. Stili Kullanarak İşaretle"/>
+                    <Item id="43024" name="Arama Sonuçlarını 2. Stili Kullanarak İşaretle"/>
+                    <Item id="43026" name="Arama Sonuçlarını 3. Stili Kullanarak İşaretle"/>
+                    <Item id="43028" name="Arama Sonuçlarını 4. Stili Kullanarak İşaretle"/>
+                    <Item id="43030" name="Arama Sonuçlarını 5. Stili Kullanarak İşaretle"/>
+                    <Item id="43023" name="İşaretleri 1. Stili Kullanarak Kaldır"/>
+                    <Item id="43025" name="İşaretleri 2. Stili Kullanarak Kaldır"/>
+                    <Item id="43027" name="İşaretleri 3. Stili Kullanarak Kaldır"/>
+                    <Item id="43029" name="İşaretleri 4. Stili Kullanarak Kaldır"/>
+                    <Item id="43031" name="İşaretleri 5. Stili Kullanarak Kaldır"/>
+                    <Item id="43032" name="İşaretleri 6. Stili Kullanarak Kaldır"/>
+                    <Item id="43033" name="1. Stili Kullanan Önceki İşaret"/>
+                    <Item id="43034" name="2. Stili Kullanan Önceki İşaret"/>
+                    <Item id="43035" name="3. Stili Kullanan Önceki İşaret"/>
+                    <Item id="43036" name="4. Stili Kullanan Önceki İşaret"/>
+                    <Item id="43037" name="5. Stili Kullanan Önceki İşaret"/>
+                    <Item id="43038" name="İşaret kullanılarak oluşturulmuş önceki işaret..."/>
+                    <Item id="43039" name="1. Stili Kullanan Sonraki İşaret"/>
+                    <Item id="43040" name="2. Stili Kullanan Sonraki İşaret"/>
+                    <Item id="43041" name="3. Stili Kullanan Sonraki İşaret"/>
+                    <Item id="43042" name="4. Stili Kullanan Sonraki İşaret"/>
+                    <Item id="43043" name="5. Stili Kullanan Sonraki İşaret"/>
+                    <Item id="43044" name="İşaret kullanılarak oluşturulmuş sonraki işaret..."/>
+                    <Item id="44100" name="Dosyayı Firefox ile Görüntüle"/>
+                    <Item id="44101" name="Dosyayı Chrome ile Görüntüle"/>
+                    <Item id="44103" name="Dosyayı IE ile Görüntüle"/>
+                    <Item id="44102" name="Dosyayı Edge ile Görüntüle"/>
+                    <Item id="50003" name="Önceki Dosyaya Geç"/>
+                    <Item id="50004" name="Sonraki Dosyaya Geç"/>
+                    <Item id="44051" name="Seviye 1'i Daralt"/>
+                    <Item id="44052" name="Seviye 2'yi Daralt"/>
+                    <Item id="44053" name="Seviye 3'ü Daralt"/>
+                    <Item id="44054" name="Seviye 4'ü Daralt"/>
+                    <Item id="44055" name="Seviye 5'i Daralt"/>
+                    <Item id="44056" name="Seviye 6'yı Daralt"/>
+                    <Item id="44057" name="Seviye 7'yi Daralt"/>
+                    <Item id="44058" name="Seviye 8'i Daralt"/>
+                    <Item id="44061" name="Seviye 1'i Genişlet"/>
+                    <Item id="44062" name="Seviye 2'yi Genişlet"/>
+                    <Item id="44063" name="Seviye 3'ü Genişlet"/>
+                    <Item id="44064" name="Seviye 4'ü Genişlet"/>
+                    <Item id="44065" name="Seviye 5'i Genişlet"/>
+                    <Item id="44066" name="Seviye 6'yı Genişlet"/>
+                    <Item id="44067" name="Seviye 7'yi Genişlet"/>
+                    <Item id="44068" name="Seviye 8'i Genişlet"/>
+                    <Item id="44081" name="Proje Paneli 1'i Değiştir"/>
+                    <Item id="44082" name="Proje Paneli 2'yi Değiştir"/>
+                    <Item id="44083" name="Proje Paneli 3'ü Değiştir"/>
+                    <Item id="44085" name="Çalışma Alanı Olarak Klasörü Değiştir"/>
+                    <Item id="44080" name="Dosya Haritasını Değiştir"/>
+                    <Item id="44084" name="Fonksiyon Listesini Değiştir"/>
+                    <Item id="50005" name="Makro Kaydını Değiştir"/>
+                    <Item id="44104" name="Proje Paneli 1'e Geç"/>
+                    <Item id="44105" name="Proje Paneli 2'ye Geç"/>
+                    <Item id="44106" name="Proje Paneli 3'e Geç"/>
+                    <Item id="44107" name="Çalışma Alanı Olarak Klasöre Geç"/>
+                    <Item id="44108" name="Fonksiyon Listesine Geç"/>
+                </MainCommandNames>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="Kısayol">
                 <Item id="1" name="Tamam"/>
@@ -760,6 +826,7 @@ Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasın
 					<Item id="6231" name="Kenarlık Boyutu"/>
 					<Item id="6235" name="Kenarlık yok"/>
 					<Item id="6236" name="Son satırın ötesine kaydırmayı etkinleştir"/>
+					<Item id="6239" name="Seçimin dışında sağ tıklanırsa seçimi koru"/>
 				</Scintillas>
 
 				<NewDoc title="Yeni Belge">
@@ -845,6 +912,13 @@ Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasın
 					<Item id="6727" name="Değişken ayarlarınızı burada görüntüleyin"/>
 					<Item id="6728" name="Üst ve Alt Bilgi"/>
 				</Print>
+				
+                <Searching title="Arama">
+                    <Item id="6901" name="Bul penceresinde bul boşluğunu seçilmiş kelime ile doldurma"/>
+                    <Item id="6902" name="Bul penceresinde sabit genişlikli yazıtipi kullan (Notepad++ yeniden başlatılmalıdır)"/>
+                    <Item id="6903" name="Bul penceresi, arama sonuçlar penceresine yönlendirdiğinde açık kalsın"/>
+                    <Item id="6904" name="Tüm Açılmış Pencerelerde Tümünü Değiştirmeyi Onayla"/>
+                </Searching>
 
 				<RecentFilesHistory title="Son Kull. Dosya Geçmişi">
 					<Item id="6304" name="Son Kullanılan Dosya Geçmişi"/>
@@ -947,14 +1021,14 @@ Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasın
 					<Item id="6324" name="Belge Değiştirici (Ctrl + Tab)"/>
 					<Item id="6331" name="Başlık çubuğunda sadece dosya adını göster"/>
 					<Item id="6334" name="Karakter kodlamasını otomatik olarak algıla"/>
-					<Item id="6314" name="Bul penceresinde sabit genişlikli yazıtipi kullan (Notepad++ yeniden başlatılmalıdır)"/>
+					<Item id="6349" name="DirectWrite Kullan (Özel karakterlerin gösterilmesini iyileştirebilir, Notepad++ yeniden başlatılmalıdır)"/>
+					<Item id="6350" name="Tam Çerçeve Modunu Etkinleştir"/>
 					<Item id="6337" name="Çalışma alanı dosya uzantısı:"/>
 					<Item id="6114" name="Etkin"/>
 					<Item id="6117" name="MRU (en son kullanılan) davranışı etkin"/>
 					<Item id="6344" name="Belge İzleyici"/>
 					<Item id="6345" name="Sekmede İzle"/>
 					<Item id="6346" name="Belge Haritasında İzle"/>
-					<Item id="6348" name="Bul penceresinde bul boşluğunu seçilmiş kelime ile doldurma"/>
 				</MISC>
 			</Preference>
 			<MultiMacro title="Makroyu Birden Çok Kez Çalıştır">
@@ -973,17 +1047,17 @@ Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasın
 				<Item id="7004" name="&amp;Sekmeleri Sırala"/>
 			</Window>
 			<ColumnEditor title="Sütun Düzenleyici">
-				<Item id="2023" name="Metin ekle"/>
-				<Item id="2033" name="Sayı ekle"/>
-				<Item id="2030" name="Başlangıç sayısı :"/>
-				<Item id="2031" name="Artış miktarı :"/>
-				<Item id="2035" name="Başına sıfır ekle"/>
-				<Item id="2036" name="Tekrar :"/>
+				<Item id="2023" name="&amp;Metin Ekle"/>
+				<Item id="2033" name="&amp;Sayı Ekle"/>
+				<Item id="2030" name="&amp;Başlangıç Sayısı :"/>
+				<Item id="2031" name="Artış M&amp;iktarı :"/>
+				<Item id="2035" name="Başına &amp;Sıfır Ekle"/>
+				<Item id="2036" name="&amp;Tekrar :"/>
 				<Item id="2032" name="Biçim"/>
-				<Item id="2024" name="Onlu"/>
-				<Item id="2025" name="Sekizli"/>
-				<Item id="2026" name="On Altılı"/>
-				<Item id="2027" name="İkili"/>
+				<Item id="2024" name="&amp;Onlu"/>
+				<Item id="2025" name="&amp;Sekizli"/>
+				<Item id="2026" name="&amp;On Altılı"/>
+				<Item id="2027" name="&amp;İkili"/>
 				<Item id="1" name="Tamam"/>
 				<Item id="2" name="İptal"/>
 			</ColumnEditor>
@@ -1237,14 +1311,19 @@ Devam edilsin mi?"/>
 			<find-status-replace-not-found value="Değiştir: hiçbir eşleşme bulunamadı"/>
 			<find-status-replace-readonly value="Değiştir: Yazı değiştirilemez. Şu anki dosya yalnızca okunabilir"/>
 			<find-status-cannot-find value="Bulma: &quot;$STR_REPLACE$&quot; yazısı bulunamadı"/>
+			<find-status-scope-selection value="seçilmiş yazıda"/>
+			<find-status-scope-all value="tüm dosyada"/>
+			<find-status-scope-backward value="dosyanın başından içboşluk simgesine kadar"/>
+			<find-status-scope-forward value="içboşluk simgesinden dosya sonuna kadar"/>
 			<finder-find-in-finder value="Bulunmuş sonuçlar arasında bul..."/>
 			<finder-close-this value="Bu bulucuyu kapat"/>
 			<finder-collapse-all value="Tümünü Daralt"/>
 			<finder-uncollapse-all value="Tümünü Genişlet"/>
 			<finder-copy value="Kopyala"/>
 			<finder-select-all value="Tümünü Seç"/>
-			<finder-clear-all value="Tümünü temizle"/>
+			<finder-clear-all value="Tümünü Temizle"/>
 			<finder-open-all value="Tümünü Aç"/>
+			<finder-wrap-long-lines value="Uzun Satırlarda Metin Kaydır"/>
 			<common-ok value="Tamam"/>
 			<common-cancel value="İptal"/>
 			<common-name value="İsim: "/>
@@ -1271,11 +1350,15 @@ Devam edilsin mi?"/>
 			<replace-in-files-confirm-title value="Emin misiniz?"/>
 			<replace-in-files-confirm-directory value="Şuradaki tüm bulunanları değiştirmek istediğinize emin misiniz :"/>
 			<replace-in-files-confirm-filetype value="Dosya türü için :"/>
+			<replace-in-open-docs-confirm-title value="Emin misiniz?"/>
+			<replace-in-open-docs-confirm-message value="Açık tüm dosyalardaki tüm eşleşmeleri değiştirmek istediğine emin misiniz?"/>
 			<find-result-caption value="Sonuç bul"/>
 			<find-result-title value="Ara"/>
 			<find-result-title-info value="($INT_REPLACE2$ dosyada yapılan $INT_REPLACE3$ aramada $INT_REPLACE1$ eşleşme bulundu)"/>
+			<find-result-title-info-selections value="($INT_REPLACE2$ seçimde yapılan $INT_REPLACE3$ aramada $INT_REPLACE1$ eşleşme bulundu)"/>
 			<find-result-title-info-extra value=" - Satır Filtresi Modu: sadece filtrelenmiş sonuçları göster"/>
 			<find-result-hits value="($INT_REPLACE$ eşleşme)"/>
+			<find-regex-zero-length-match value="sıfır uzunluk eşleşmesi" />
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

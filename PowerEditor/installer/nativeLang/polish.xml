@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Translated by Patryk Skorupa (ppskorupa@outlook.com) and up-to-date as of version 7.7.2 (29/07/2019) -->
 <!-- Updated by Cezariusz Marek to version 7.8.3 (11.01.2020) -->
-<!-- Updated by Arkadiusz Michalski (webref.pl) to version 7.8.7 (03.06.2020) -->
+<!-- Updated by Arkadiusz Michalski (webref.pl) to version 7.9 (09.09.2020) -->
 <NotepadPlus>
-    <Native-Langue name="polski" filename="polish.xml" version="7.8.7">
+    <Native-Langue name="polski" filename="polish.xml" version="7.9">
         <Menu>
             <Main>
                 <!-- Główne menu -->
@@ -123,6 +123,7 @@
                     <Item id="42064" name="Sortuj malejąco jako liczby dziesiętne z przecinkiem"/>
                     <Item id="42065" name="Sortuj rosnąco jako liczby dziesiętne z kropką"/>
                     <Item id="42066" name="Sortuj malejąco jako liczby dziesiętne z kropką"/>
+                    <Item id="42078" name="Sortuj linie losowo"/>
                     <Item id="42016" name="&amp;MAJUSKUŁY"/>
                     <Item id="42017" name="mi&amp;nuskuły"/>
                     <Item id="42067" name="Jak Nazwy &amp;Własne"/>
@@ -379,7 +380,7 @@
                 <Item id="1611" name="Zamień &amp;na:"/>
                 <Item id="1608" name="&amp;Zamień"/>
                 <Item id="1609" name="Zamień &amp;wszystkie"/>
-                <Item id="1687" name="Po znalezieniu"/>
+                <Item id="1687" name="Gdy nieaktywne"/>
                 <Item id="1688" name="Stale"/>
                 <Item id="1632" name="W &amp;zaznaczeniu"/>
                 <Item id="1633" name="Odznacz wszystko"/>
@@ -393,7 +394,7 @@
                 <Item id="1624" name="Tryb szukania"/>
                 <Item id="1625" name="&amp;Normalny"/>
                 <Item id="1626" name="&amp;Rozszerzony (\n, \r, \t, \0, \x...)"/>
-                <Item id="1660" name="&amp;Zamień w plikach"/>
+                <Item id="1660" name="Zamień w plikach"/>
                 <Item id="1661" name="Ścieżka bież. dok."/>
                 <Item id="1641" name="Znajdź w bieżącym dokumencie"/>
                 <Item id="1686" name="&amp;Przeźroczystość okna"/>
@@ -514,6 +515,71 @@
                 <ScintillaCommandsTab name="Polecenia Scintilli"/>
                 <ConflictInfoOk name="Brak sprzecznego skrótu dla tej pozycji."/>
                 <ConflictInfoEditing name="Brak sprzeczności."/>
+                <MainCommandNames>
+                    <Item id="41019" name="Otwórz folder zawierający w Eksploratorze"/>
+                    <Item id="41020" name="Otwórz folder zawierający w Wierszu polecenia"/>
+                    <Item id="41021" name="Przywróć ostatni zamknięty plik"/>
+                    <Item id="45001" name="Konwertuj na format Windows (CR LF)"/>
+                    <Item id="45002" name="Konwertuj na format Unix (LF)"/>
+                    <Item id="45003" name="Konwertuj na format Macintosh (CR)"/>
+                    <Item id="43022" name="Nadaj wyróżnienie 1."/>
+                    <Item id="43024" name="Nadaj wyróżnienie 2."/>
+                    <Item id="43026" name="Nadaj wyróżnienie 3."/>
+                    <Item id="43028" name="Nadaj wyróżnienie 4."/>
+                    <Item id="43030" name="Nadaj wyróżnienie 5."/>
+                    <Item id="43023" name="Usuń wyróżnienie 1."/>
+                    <Item id="43025" name="Usuń wyróżnienie 2."/>
+                    <Item id="43027" name="Usuń wyróżnienie 3."/>
+                    <Item id="43029" name="Usuń wyróżnienie 4."/>
+                    <Item id="43031" name="Usuń wyróżnienie 5."/>
+                    <Item id="43032" name="Usuń wszystkie wyróżnienia"/>
+                    <Item id="43033" name="Poprzednie wyróżnienie 1."/>
+                    <Item id="43034" name="Poprzednie wyróżnienie 2."/>
+                    <Item id="43035" name="Poprzednie wyróżnienie 3."/>
+                    <Item id="43036" name="Poprzednie wyróżnienie 4."/>
+                    <Item id="43037" name="Poprzednie wyróżnienie 5."/>
+                    <Item id="43038" name="Poprzednie oznaczenie"/>
+                    <Item id="43039" name="Następne wyróżnienie 1."/>
+                    <Item id="43040" name="Następne wyróżnienie 2."/>
+                    <Item id="43041" name="Następne wyróżnienie 3."/>
+                    <Item id="43042" name="Następne wyróżnienie 4."/>
+                    <Item id="43043" name="Następne wyróżnienie 5."/>
+                    <Item id="43044" name="Następne oznaczenie"/>
+                    <Item id="44100" name="Wyświetl obecny plik w Firefox"/>
+                    <Item id="44101" name="Wyświetl obecny plik w Chrome"/>
+                    <Item id="44103" name="Wyświetl obecny plik w IE"/>
+                    <Item id="44102" name="Wyświetl obecny plik w Edge"/>
+                    <Item id="50003" name="Przełącz na poprzedni dokument"/>
+                    <Item id="50004" name="Przełącz na następny dokument"/>
+                    <Item id="44051" name="Zwiń poziom 1."/>
+                    <Item id="44052" name="Zwiń poziom 2."/>
+                    <Item id="44053" name="Zwiń poziom 3."/>
+                    <Item id="44054" name="Zwiń poziom 4."/>
+                    <Item id="44055" name="Zwiń poziom 5."/>
+                    <Item id="44056" name="Zwiń poziom 6."/>
+                    <Item id="44057" name="Zwiń poziom 7."/>
+                    <Item id="44058" name="Zwiń poziom 8."/>
+                    <Item id="44061" name="Rozwiń poziom 1."/>
+                    <Item id="44062" name="Rozwiń poziom 2."/>
+                    <Item id="44063" name="Rozwiń poziom 3."/>
+                    <Item id="44064" name="Rozwiń poziom 4."/>
+                    <Item id="44065" name="Rozwiń poziom 5."/>
+                    <Item id="44066" name="Rozwiń poziom 6."/>
+                    <Item id="44067" name="Rozwiń poziom 7."/>
+                    <Item id="44068" name="Rozwiń poziom 8."/>
+                    <Item id="44081" name="Przełącz panel 1. projektu"/>
+                    <Item id="44082" name="Przełącz panel 2. projektu"/>
+                    <Item id="44083" name="Przełącz panel 3. projektu"/>
+                    <Item id="44085" name="Przełącz obszar roboczy"/>
+                    <Item id="44080" name="Przełącz mapę dokumentu"/>
+                    <Item id="44084" name="Przełącz listę funkcji"/>
+                    <Item id="50005" name="Przełącz nagrywanie makra"/>
+                    <Item id="44104" name="Przejdź do panelu 1. projektu"/>
+                    <Item id="44105" name="Przejdź do panelu 2. projektu"/>
+                    <Item id="44106" name="Przejdź do panelu 3. projektu"/>
+                    <Item id="44107" name="Przejdź do panelu roboczego"/>
+                    <Item id="44108" name="Przejdź do listy funkcji"/>
+                </MainCommandNames>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="Skrót">
                 <Item id="1" name="OK"/>
@@ -759,6 +825,7 @@ Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych lic
                     <Item id="6231" name="Grubość ramki"/>
                     <Item id="6235" name="Brak ramki"/>
                     <Item id="6236" name="Umożliwiaj przewijanie poza ostatnią linię"/>
+                    <Item id="6239" name="Zachowaj zaznaczenie po kliknięciu prawym przyciskiem myszy poza zaznaczeniem"/>
                 </Scintillas>
 
                 <NewDoc title="Nowy dokument">
@@ -844,6 +911,13 @@ Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych lic
                     <Item id="6727" name="Wybierz miejsce:"/>
                     <Item id="6728" name="Nagłówek i stopka"/>
                 </Print>
+
+                <Searching title="Wyszukiwanie">
+                    <Item id="6901" name="W oknie wyszukiwania nie wprowadzaj wybranego słowa do pola z szukanym tekstem"/>
+                    <Item id="6902" name="W oknie wyszukiwania użyj nieproporcjonalnego fontu (wymagany restart Notepad++)"/>
+                    <Item id="6903" name="Okno wyszukiwania pozostaje otwarte po przywołaniu okna z wynikami wyszukiwania"/>
+                    <Item id="6904" name="Potwierdź operację „Zamień we wszystkich otwartych plikach”"/>
+                </Searching>
 
                 <RecentFilesHistory title="Historia ostatnich plików">
                     <Item id="6304" name="Historia ostatnich plików"/>
@@ -946,14 +1020,14 @@ Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych lic
                     <Item id="6324" name="Przełączanie dokumentów (Ctrl+TAB)"/>
                     <Item id="6331" name="Pokazuj w pasku tytułu tylko nazwę pliku"/>
                     <Item id="6334" name="Automatycznie wykrywaj kodowanie"/>
-                    <Item id="6314" name="W oknie wyszukiwania użyj nieproporcjonalnego fontu (wymagany restart Notepad++)"/>
+                    <Item id="6349" name="Użyj DirectWrite (może poprawić wyświetlanie znaków specjalnych, wymagany restart Notepad++)"/>
+                    <Item id="6350" name="Włącz tryb fullbox"/>
                     <Item id="6337" name="Rozszerzenie pliku projektu:"/> <!-- obszaru roboczego -->
                     <Item id="6114" name="Włącz"/>
                     <Item id="6117" name="Zgodnie z ostatnim użyciem (MRU)"/>
                     <Item id="6344" name="Podgląd dokumentów"/>
                     <Item id="6345" name="Po najechaniu na kartę"/>
                     <Item id="6346" name="Po najechaniu na mapę dokumentu"/>
-                    <Item id="6348" name="W oknie wyszukiwania nie wprowadzaj wybranego słowa do pola"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Uruchom makro wielokrotnie">
@@ -972,17 +1046,17 @@ Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych lic
                 <Item id="7004" name="Sortuj &amp;karty"/>
             </Window>
             <ColumnEditor title="Edytor kolumn">
-                <Item id="2023" name="Wstaw tekst"/>
-                <Item id="2033" name="Wstaw liczby"/>
-                <Item id="2030" name="Zacznij od"/>
-                <Item id="2031" name="Zwiększaj o:"/>
-                <Item id="2035" name="Poprzedzaj zerami"/>
-                <Item id="2036" name="Liczba powtórzeń:"/>
+                <Item id="2023" name="Wstaw teks&amp;t"/>
+                <Item id="2033" name="Wstaw liczb&amp;y"/>
+                <Item id="2030" name="Z&amp;acznij od"/>
+                <Item id="2031" name="Z&amp;większaj o:"/>
+                <Item id="2035" name="&amp;Poprzedzaj zerami"/>
+                <Item id="2036" name="&amp;Liczba powtórzeń:"/>
                 <Item id="2032" name="Format"/>
-                <Item id="2024" name="Dec"/>
-                <Item id="2025" name="Oct"/>
-                <Item id="2026" name="Hex"/>
-                <Item id="2027" name="Bin"/>
+                <Item id="2024" name="&amp;Dec"/>
+                <Item id="2025" name="&amp;Oct"/>
+                <Item id="2026" name="&amp;Hex"/>
+                <Item id="2027" name="&amp;Bin"/>
                 <Item id="1" name="OK"/>
                 <Item id="2" name="Anuluj"/>
             </ColumnEditor>
@@ -1237,6 +1311,10 @@ Szukaj wśród wszystkich plików z wyjątkiem exe, obj i log:
             <find-status-replace-not-found value="Zamienianie: Nie znaleziono wystąpień do zamiany."/>
             <find-status-replace-readonly value="Zamienianie: Nie można zamienić. Plik jest dostępny tylko do odczytu."/>
             <find-status-cannot-find value="Szukanie: Nie udało się znaleźć „$STR_REPLACE$”."/>
+            <find-status-scope-selection value="w zaznaczonym tekście"/>
+            <find-status-scope-all value="w cały pliku"/>
+            <find-status-scope-backward value="od początku pliku do aktualnego położenia kursora"/>
+            <find-status-scope-forward value="od aktualnego położenia kursora do końca pliku"/>
             <finder-find-in-finder value="Szukaj w wyszukanych..."/>
             <finder-close-this value="Zamknij"/>
             <finder-collapse-all value="Zwiń wszystko"/>
@@ -1245,6 +1323,7 @@ Szukaj wśród wszystkich plików z wyjątkiem exe, obj i log:
             <finder-select-all value="Zaznacz wszystko"/>
             <finder-clear-all value="Odznacz wszystko"/>
             <finder-open-all value="Otwórz wszystko"/>
+            <finder-wrap-long-lines value="Zawijaj długie wiersze"/>
             <common-ok value="OK"/>
             <common-cancel value="Anuluj"/>
             <common-name value="Nazwa: "/>
@@ -1271,11 +1350,15 @@ Szukaj wśród wszystkich plików z wyjątkiem exe, obj i log:
             <replace-in-files-confirm-title value="Na pewno chcesz kontynuować?"/>
             <replace-in-files-confirm-directory value="Czy na pewno chcesz zastąpić wszystkie wystąpienia w:"/>
             <replace-in-files-confirm-filetype value="Dla plików pasujących do filtrów:"/>
+            <replace-in-open-docs-confirm-title value="Na pewno chcesz kontynuować?"/>
+            <replace-in-open-docs-confirm-message value="Czy na pewno chcesz zastąpić wszystkie wystąpienia we wszystkich otwartych plikach?"/>
             <find-result-caption value="Wynik wyszukiwania"/>
             <find-result-title value="Wyszukanie"/>
             <find-result-title-info value="($INT_REPLACE1$ trafień w $INT_REPLACE2$ plikach z $INT_REPLACE3$ przeszukiwanych)"/>
+            <find-result-title-info-selections value="($INT_REPLACE1$ trafień w $INT_REPLACE2$ zaznaczeniu z $INT_REPLACE3$ przeszukiwanych)"/>
             <find-result-title-info-extra value=" - Tryb filtrowania linii: wyświetla tylko przefiltrowane wyniki"/>
             <find-result-hits value="($INT_REPLACE$ trafień)"/>
+            <find-regex-zero-length-match value="dopasowanie o zerowej długości" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

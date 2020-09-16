@@ -31,6 +31,7 @@
 
 #include <algorithm>
 #include <utility>
+#include <random>
 
 // Base interface for line sorting.
 class ISorter
@@ -49,13 +50,21 @@ protected:
 	{
 		if (isSortingSpecificColumns())
 		{
-			// prevent an std::out_of_range exception
 			if (input.length() < _fromColumn)
 			{
+				// prevent an std::out_of_range exception
 				return TEXT("");
 			}
-
-			return input.substr(_fromColumn, 1 + _toColumn - _fromColumn);
+			else if (_fromColumn == _toColumn)
+			{
+				// get characters from the indicated column to the end of the line
+				return input.substr(_fromColumn);
+			}
+			else
+			{
+				// get characters between the indicated columns, inclusive
+				return input.substr(_fromColumn, _toColumn - _fromColumn);
+			}
 		}
 		else
 		{
@@ -65,7 +74,7 @@ protected:
 
 	bool isSortingSpecificColumns()
 	{
-		return _fromColumn != 0 && _toColumn != 0;
+		return _toColumn != 0;
 	}
 
 public:
@@ -382,6 +391,21 @@ protected:
 	double convertStringToNumber(const generic_string& input) override
 	{
 		return stodLocale(input, _usLocale);
+	}
+};
+
+class RandomSorter : public ISorter
+{
+public:
+	unsigned seed;
+	RandomSorter(bool isDescending, size_t fromColumn, size_t toColumn) : ISorter(isDescending, fromColumn, toColumn)
+	{
+		seed = static_cast<unsigned>(time(NULL));
+	}
+	std::vector<generic_string> sort(std::vector<generic_string> lines) override
+	{
+		std::shuffle(lines.begin(), lines.end(), std::default_random_engine(seed));
+		return lines;
 	}
 };
 

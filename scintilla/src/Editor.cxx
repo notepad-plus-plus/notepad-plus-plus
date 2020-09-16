@@ -4486,6 +4486,12 @@ void Editor::DwellEnd(bool mouseMoved) {
 
 void Editor::MouseLeave() {
 	SetHotSpotRange(nullptr);
+	// Fix the following issue:
+	// #8647
+	// It could be fixed in Scintilla release superior to v4.4.4 - to verify.
+	// ++ added
+	SetHoverIndicatorPosition(INVALID_POSITION);
+	// -- added
 	if (!HaveMouseCapture()) {
 		ptMouseLast = Point(-1, -1);
 		DwellEnd(true);
@@ -4675,6 +4681,12 @@ void Editor::ButtonDownWithModifiers(Point pt, unsigned int curTime, int modifie
 	lastClick = pt;
 	lastXChosen = static_cast<int>(pt.x) + xOffset;
 	ShowCaretAtCurrentPosition();
+	// Fix the following issue:
+	// #8647
+	// It could be fixed in Scintilla release superior to v4.4.4 - to verify.
+	// ++ added
+	if (inSelMargin) SetHoverIndicatorPosition(INVALID_POSITION);
+	// -- added
 }
 
 void Editor::RightButtonDownWithModifiers(Point pt, unsigned int, int modifiers) {
@@ -4848,18 +4860,37 @@ void Editor::ButtonMoveWithModifiers(Point pt, unsigned int, int modifiers) {
 			}
 			hotSpotClickPos = INVALID_POSITION;
 		}
-
+		// Fix the following issue:
+		// #8647
+		// It could be fixed in Scintilla release superior to v4.4.4 - to verify.
+		// ++ added
+		if ((vs.fixedColumnWidth > 0) && PointInSelMargin(pt)) {
+			SetHoverIndicatorPosition(INVALID_POSITION);
+		}
+		// -- added
 	} else {
 		if (vs.fixedColumnWidth > 0) {	// There is a margin
 			if (PointInSelMargin(pt)) {
 				DisplayCursor(GetMarginCursor(pt));
 				SetHotSpotRange(nullptr);
+				// Fix the following issue:
+				// #8647
+				// It could be fixed in Scintilla release superior to v4.4.4 - to verify.
+				// ++ added
+				SetHoverIndicatorPosition(INVALID_POSITION);
+				// -- added
 				return; 	// No need to test for selection
 			}
 		}
 		// Display regular (drag) cursor over selection
 		if (PointInSelection(pt) && !SelectionEmpty()) {
 			DisplayCursor(Window::cursorArrow);
+			// Fix the following issue:
+			// #8647
+			// It could be fixed in Scintilla release superior to v4.4.4 - to verify.
+			// ++ added
+			SetHoverIndicatorPosition(INVALID_POSITION);
+			// -- added
 		} else {
 			SetHoverIndicatorPoint(pt);
 			if (PointIsHotspot(pt)) {

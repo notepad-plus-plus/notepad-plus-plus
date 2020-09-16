@@ -168,10 +168,10 @@ generic_string Shortcut::toString() const
 	return sc;
 }
 
-void Shortcut::setName(const TCHAR * name)
+void Shortcut::setName(const TCHAR * menuName, const TCHAR * shortcutName)
 {
-	lstrcpyn(_menuName, name, nameLenMax);
-	lstrcpyn(_name, name, nameLenMax);
+	lstrcpyn(_menuName, menuName, nameLenMax);
+	TCHAR const * name = shortcutName ? shortcutName : menuName;
 	int i = 0, j = 0;
 	while (name[j] != 0 && i < nameLenMax)
 	{
@@ -386,7 +386,7 @@ INT_PTR CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 	{
 		case WM_INITDIALOG :
 		{
-			::SetDlgItemText(_hSelf, IDC_NAME_EDIT, getMenuName());	//display the menu name, with ampersands
+			::SetDlgItemText(_hSelf, IDC_NAME_EDIT, _canModifyName ? getMenuName() : getName());	//display the menu name, with ampersands, for macros
 			if (!_canModifyName)
 				::SendDlgItemMessage(_hSelf, IDC_NAME_EDIT, EM_SETREADONLY, TRUE, 0);
 			auto textlen = ::SendDlgItemMessage(_hSelf, IDC_NAME_EDIT, WM_GETTEXTLENGTH, 0, 0);
@@ -811,6 +811,7 @@ bool recordedMacroStep::isMacroable() const
 		case SCI_SCROLLTOSTART:
 		case SCI_SCROLLTOEND:
 		case SCI_SETVIRTUALSPACEOPTIONS:
+		case SCI_SETCARETLINEBACKALPHA:
 		{
 			if (_macroType == mtUseLParameter)
 				return true;
@@ -1138,6 +1139,7 @@ INT_PTR CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPARA
 
 CommandShortcut::CommandShortcut(const Shortcut& sc, long id) :	Shortcut(sc), _id(id)
 {
+	_shortcutName = sc.getName();
 	if ( _id < IDM_EDIT)
 		_category = TEXT("File");
 	else if ( _id < IDM_SEARCH)

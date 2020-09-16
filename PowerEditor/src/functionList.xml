@@ -85,6 +85,7 @@
 			<association id=        "nsis_syntax"     langID="28"                          />
 			<association id=    "assembly_subroutine" langID="32"                          />
 			<association id=        "ruby_syntax"     langID="36"                          />
+			<association id=        "vhdl_syntax"     langID="38"                          />
 			<association id=     "autoit3_function"   langID="40"                          />
 			<association id=   "innosetup_syntax"     langID="46"                          />
 			<!--
@@ -274,33 +275,288 @@
 				commentExpr="(?s:/\*.*?\*/)|(?m-s://.*?$)"
 			>
 				<classRange
-					mainExpr    ="^[\t\x20]*(class|struct)[\t\x20]+\w+\s*(final)?\s*(:\s*(public|protected|private)\s+\w+\s*)?\{"
+					mainExpr="(?x)                                                                 # use inline comments
+						^[\t\x20]*                                                                 # leading whitespace
+						(template\s*&lt;\s*[\w\t\x20\(\)\=\.:,&lt;&gt;]*\s*&gt;\s*)?               # template parameters
+						(class|struct)                                                             # class/struct definition keyword
+						[\t\x20]+                                                                  # following whitespace
+						((\w+|\[\[[^\r\n]*\]\])[\t\x20]+)*                                         # type attributes
+						(
+							\w+                                                                    # namespace identifier
+							(\s*&lt;\s*[\w\t\x20\(\)\=\.:,&lt;&gt;]*\s*&gt;\s*)?                   # template parameters
+							\s*::\s*                                                               # namespace separator
+						)*
+						\w+                                                                        # class/struct identifier
+						(\s*&lt;\s*[\w\t\x20\(\)\=\.:,&lt;&gt;]*\s*&gt;\s*)?                       # template parameters
+						(\s*final\s*)?                                                             # final specifier
+						(
+							\s*:\s*                                                                # inheritance separator
+							((private|protected|public|virtual)\s+)*                               # visibility/virtual specifier
+							(
+								\w+                                                                # namespace identifier
+								(\s*&lt;\s*[\w\t\x20\(\)\=\.:,&lt;&gt;]*\s*&gt;\s*)?               # template parameters
+								\s*::\s*                                                           # namespace separator
+							)*
+							\w+                                                                    # parent class/struct identifier
+							(\s*&lt;\s*[\w\t\x20\(\)\=\.:,&lt;&gt;]*\s*&gt;\s*)?                   # template parameters
+							(
+								\s*,\s*                                                            # multiple inheritance separator
+								((private|protected|public|virtual)\s+)*                           # visibility/virtual specifier
+								(
+									\w+                                                            # namespace identifier
+									(\s*&lt;\s*[\w\t\x20\(\)\=\.:,&lt;&gt;]*\s*&gt;\s*)?           # template parameters
+									\s*::\s*                                                       # namespace separator
+								)*
+								\w+                                                                # parent class/struct identifier
+								(\s*&lt;\s*[\w\t\x20\(\)\=\.:,&lt;&gt;]*\s*&gt;\s*)?               # template parameters
+							)*
+						)?
+						\s*                                                                        # trailing whitespace
+						\{                                                                         # class/struct body
+					"
 					openSymbole ="\{"
 					closeSymbole="\}"
 				>
 					<className>
-						<nameExpr expr="(class|struct)[\t\x20]+\w+" />
-						<nameExpr expr="[\t\x20]+\w+" />
-						<nameExpr expr="\w+" />
+						<nameExpr
+							expr="(?x)                                                             # use inline comments
+								(class|struct)                                                     # class/struct definition keyword
+								[\t\x20]+                                                          # following whitespace
+								((\w+|\[\[[^\r\n]*\]\])[\t\x20]+)*                                 # type attributes
+								(\w+\s*::\s*)*                                                     # namespace specifier
+								\w+                                                                # class/struct identifier
+								(\s*&lt;\s*[\w\t\x20\(\)\=\.:,&lt;&gt;]*\s*&gt;\s*)?               # template parameters
+								(\s*final\s*)?                                                     # final specifier
+								\s*                                                                # trailing whitespace
+								(:\s*\w+|\{)                                                       # inheritance separator | class/struct body
+							"
+						/>
+						<nameExpr
+							expr="(?x)                                                             # use inline comments
+								(\w+\s*::\s*)*                                                     # namespace specifier
+								\w+                                                                # class/struct identifier
+								(\s*&lt;\s*[\w\t\x20\(\)\=\.:,&lt;&gt;]*\s*&gt;\s*)?               # template parameters
+								(\s*final\s*)?                                                     # final specifier
+								\s*                                                                # trailing whitespace
+								(:\s*\w+|\{)                                                       # inheritance separator | class/struct body
+							"
+						/>
+						<nameExpr
+							expr="(?x)                                                             # use inline comments
+								(\w+\s*::\s*)*                                                     # namespace specifier
+								\w+                                                                # class/struct identifier
+							"
+						/>
 					</className>
 					<function
-						mainExpr="^[\t\x20]*((static|const|virtual)\s+)?(\w+(\s+\w+)?(\s+|(\*|\*\*|&amp;)\s+|\s+(\*|\*\*|&amp;)|\s+(\*|\*\*|&amp;)\s+))?(\w+\s*::)?(?!(if|while|for|switch))[\w~]+\s*\([^\)\(]*\)(\s*const\s*)?(\s*(final|override|final\s*override|override\s*final)\s*)?[\n\s]*\{"
+						mainExpr="(?x)                                                             # use inline comments
+							^[\t\x20]*                                                             # leading whitespace
+							(template\s*&lt;\s*[\w\t\x20\(\)\=\.:,&lt;&gt;]*\s*&gt;\s*)?           # template parameters
+							((consteval|constexpr|explicit|friend|inline|static|virtual)\s+)*      # left function definition keywords
+							(
+								(                                                                  # conversion operator definition
+									(
+										\w+                                                        # namespace identifier
+										(\s*&lt;\s*[\w\t\x20\(\)\=\.:,&lt;&gt;]*\s*&gt;\s*)?       # template parameters
+										\s*::\s*                                                   # namespace separator
+									)*
+									operator\s+                                                    # operator keyword
+									((const|long|signed|unsigned|volatile)\s+)*                    # type definition keyword
+									(                                                              # operator type definition
+										(
+											\w+                                                    # namespace identifier
+											(\s*&lt;\s*[\w\t\x20\(\)\=\.:,&lt;&gt;]*\s*&gt;\s*)?   # template parameters
+											\s*::\s*                                               # namespace separator
+										)*
+										\w+                                                        # operator type identifier
+										(\s*&lt;\s*[\w\t\x20\(\)\=\.:,&lt;&gt;]*\s*&gt;\s*)?       # template parameters
+									)*
+									(\s*(\*|\*\*|&amp;)\s*)?                                       # type pointer/reference
+								)
+							|	(
+									((const|long|signed|unsigned|volatile)\s+)*                    # type definition keyword
+									(                                                              # return type definition
+										(
+											\w+                                                    # namespace identifier
+											(\s*&lt;\s*[\w\t\x20\(\)\=\.:,&lt;&gt;]*\s*&gt;\s*)?   # template parameters
+											\s*::\s*                                               # namespace separator
+										)*
+										\w+                                                        # return type identifier
+										(\s*&lt;\s*[\w\t\x20\(\)\=\.:,&lt;&gt;]*\s*&gt;\s*)?       # template parameters
+									)
+									(                                                              # type pointer/reference
+										\s+
+									|	(\*|\*\*|&amp;)\s+
+									|	\s+(\*|\*\*|&amp;)
+									|	\s+(\*|\*\*|&amp;)\s+
+									)
+									(
+										\w+                                                        # namespace identifier
+										(\s*&lt;\s*[\w\t\x20\(\)\=\.:,&lt;&gt;]*\s*&gt;\s*)?       # template parameters
+										\s*::\s*                                                   # namespace separator
+									)*
+									(
+										(                                                          # function definition
+											(?!(if|while|for|switch)\s*\()                         # exclude block/loop definition
+											\w+                                                    # function identifier
+										)
+									|	(                                                          # operator definition
+											operator\(\)                                           # parenthesis operator
+										|	operator                                               # operator keyword
+											[\[\]\*\=\+\-\~\|\^%!,&amp;&lt;&gt;]+                  # operator symbol
+										)
+									)
+								)
+							)
+							\s*                                                                    # following whitespace
+							\(
+								[^\)\(]*                                                           # function parameters
+								(\([^\)\(]*\)[^\)\(]*)*                                            # functors as parameter
+							\)
+							(\s*(const|final|noexcept|override|volatile)\s*)*                      # right function definition keywords
+							\s*                                                                    # trailing whitespace
+							\{                                                                     # function body
+						"
 					>
 						<functionName>
-							<funcNameExpr expr="(?!(if|while|for|switch))[\w~]+\s*\(" />
-							<funcNameExpr expr="(?!(if|while|for|switch))[\w~]+" />
+							<funcNameExpr
+								expr="(?x)                                                         # use inline comments
+									(
+										operator\(\)                                               # parenthesis operator
+									|	operator                                                   # operator keyword
+										[\w\t\x20\[\]\*\=\+\-\~\|\^%!,&amp;&lt;&gt;]+              # operator symbol | conversion operator
+									|	(?!(if|while|for|switch)\s*\()                             # exclude block/loop definition
+										\w+                                                        # function identifier
+									)
+									\s*                                                            # following whitespace
+									\(                                                             # function parameters
+								"
+							/>
+							<funcNameExpr
+								expr="(?x)                                                         # use inline comments
+									(
+										operator\(\)                                               # parenthesis operator
+									|	operator                                                   # operator keyword
+										[\w\t\x20\[\]\*\=\+\-\~\|\^%!,&amp;&lt;&gt;]+              # operator symbol | conversion operator
+									|	(?!(if|while|for|switch)\s*\()                             # exclude block/loop definition
+										\w+                                                        # function identifier
+									)
+								"
+							/>
 						</functionName>
 					</function>
 				</classRange>
 				<function
-					mainExpr="^[\t\x20]*((static|const|virtual)\s+)?\w+(\s+\w+)?(\s+|(\*|\*\*|&amp;)\s+|\s+(\*|\*\*|&amp;)|\s+(\*|\*\*|&amp;)\s+)(\w+\s*::)?(?!(if|while|for))\w+\s*\([^\)\(]*\)(\s*const\s*)?[\n\s]*\{"
+					mainExpr="(?x)                                                                 # use inline comments
+						^[\t\x20]*                                                                 # leading whitespace
+						(template\s*&lt;\s*[\w\t\x20\(\)\=\.:,&lt;&gt;]*\s*&gt;\s*)?               # template parameters
+						((consteval|constexpr|explicit|friend|inline|static|virtual)\s+)*          # left function definition keywords
+						(
+							(                                                                      # conversion operator definition
+								(
+									\w+                                                            # namespace identifier
+									(\s*&lt;\s*[\w\t\x20\(\)\=\.:,&lt;&gt;]*\s*&gt;\s*)?           # template parameters
+									\s*::\s*                                                       # namespace separator
+								)*
+								operator\s+                                                        # operator keyword
+								((const|long|signed|unsigned|volatile)\s+)*                        # type definition keyword
+								(                                                                  # operator type definition
+									(
+										\w+                                                        # namespace identifier
+										(\s*&lt;\s*[\w\t\x20\(\)\=\.:,&lt;&gt;]*\s*&gt;\s*)?       # template parameters
+										\s*::\s*                                                   # namespace separator
+									)*
+									\w+                                                            # operator type identifier
+									(\s*&lt;\s*[\w\t\x20\(\)\=\.:,&lt;&gt;]*\s*&gt;\s*)?           # template parameters
+								)*
+								(\s*(\*|\*\*|&amp;)\s*)?                                           # type pointer/reference
+							)
+						|	(
+								((const|long|signed|unsigned|volatile)\s+)*                        # type definition keyword
+								(                                                                  # return type definition
+									(
+										\w+                                                        # namespace identifier
+										(\s*&lt;\s*[\w\t\x20\(\)\=\.:,&lt;&gt;]*\s*&gt;\s*)?       # template parameters
+										\s*::\s*                                                   # namespace separator
+									)*
+									\w+                                                            # return type identifier
+									(\s*&lt;\s*[\w\t\x20\(\)\=\.:,&lt;&gt;]*\s*&gt;\s*)?           # template parameters
+								)
+								(                                                                  # type pointer/reference
+									\s+
+								|	(\*|\*\*|&amp;)\s+
+								|	\s+(\*|\*\*|&amp;)
+								|	\s+(\*|\*\*|&amp;)\s+
+								)
+								(
+									\w+                                                            # namespace identifier
+									(\s*&lt;\s*[\w\t\x20\(\)\=\.:,&lt;&gt;]*\s*&gt;\s*)?           # template parameters
+									\s*::\s*                                                       # namespace separator
+								)*
+								(
+									(                                                              # function definition
+										(?!(if|while|for|switch)\s*\()                             # exclude block/loop definition
+										\w+                                                        # function identifier
+									)
+								|	(                                                              # operator definition
+										operator\(\)                                               # operator parenthesis
+									|	operator                                                   # operator keyword
+										[\[\]\*\=\+\-\~\|\^%!,&amp;&lt;&gt;]+                      # operator symbol
+									)
+								)
+							)
+						)
+						\s*                                                                        # following whitespace
+						\(
+							[^\)\(]*                                                               # function parameters
+							(\([^\)\(]*\)[^\)\(]*)*                                                # functors as parameter
+						\)
+						(\s*(const|final|noexcept|override|volatile)\s*)*                          # right function definition keywords
+						\s*                                                                        # trailing whitespace
+						\{                                                                         # function body
+					"
 				>
 					<functionName>
-						<nameExpr expr="(?!(if|while|for))\w+\s*\(" />
-						<nameExpr expr="(?!(if|while|for))\w+" />
+						<nameExpr
+							expr="(?x)                                                             # use inline comments
+								(
+									operator\(\)                                                   # parenthesis operator
+								|	operator                                                       # operator keyword
+									[\w\t\x20\[\]\*\=\+\-\~\|\^%!,&amp;&lt;&gt;]+                  # operator symbol | conversion operator
+								|	(?!(if|while|for|switch)\s*\()                                 # exclude block/loop definition
+									\w+                                                            # function identifier
+								)
+								\s*                                                                # following whitespace
+								\(                                                                 # function parameters
+							"
+						/>
+						<nameExpr
+							expr="(?x)                                                             # use inline comments
+								(
+									operator\(\)                                                   # parenthesis operator
+								|	operator                                                       # operator keyword
+									[\w\t\x20\[\]\*\=\+\-\~\|\^%!,&amp;&lt;&gt;]+                  # operator symbol | conversion operator
+								|	(?!(if|while|for|switch)\s*\()                                 # exclude block/loop definition
+									\w+                                                            # function identifier
+								)
+							"
+						/>
 					</functionName>
 					<className>
-						<nameExpr expr="\w+(?=\s*::)" />
+						<nameExpr expr="(?x)                                                       # use inline comments
+							\w+                                                                    # namespace identifier
+							(?=
+								(\s*&lt;\s*[\w\t\x20\(\)\=\.:,]*\s*&gt;\s*)?                       # template parameters
+								\s*::\s*                                                           # namespace separator
+								(
+									operator\(\)                                                   # parenthesis operator
+								|	operator                                                       # operator keyword
+									[\w\t\x20\[\]\*\=\+\-\~\|\^%!,&amp;&lt;&gt;]+                  # operator symbol | conversion operator
+								|	\w+                                                            # function identifier
+								)
+								\(                                                                 # function parameters
+							)
+						" />
 					</className>
 				</function>
 			</parser>
@@ -650,10 +906,8 @@
 							sub
 							\s+
 							[A-Za-z_]\w*
-							\s*
-							\(
-							[^()]*
-							\)
+							(\s*\([^()]*\))?                                    # prototype or signature
+						  	(\s*\:\s*[^{]+)?                                    # attributes
 							\s*\{                                               # start of class body
 						"
 				>
@@ -677,10 +931,10 @@
 					mainExpr    ="(?&lt;=^class\x20).*?(?=\n\S|\Z)"
 				>
 					<className>
-						<nameExpr expr="\w+(?=[\(|:])" />
+						<nameExpr expr="\w+(?=\s*[\(|:])" />
 					</className>
 					<function
-						mainExpr="(?&lt;=def\x20).+?(?=:)"
+						mainExpr="(?&lt;=\sdef\x20).+?(?=:)"
 					>
 						<functionName>
 							<funcNameExpr expr=".*" />
@@ -688,7 +942,7 @@
 					</function>
 				</classRange>
 				<function
-					mainExpr="(?&lt;=def\x20).+?(?=:)"
+					mainExpr="(?&lt;=\sdef\x20).+?(?=:)"
 				>
 					<functionName>
 						<nameExpr expr=".*" />
@@ -933,6 +1187,34 @@
 				>
 					<functionName>
 						<nameExpr expr="(?&lt;=def\s)\w+" />
+					</functionName>
+				</function>
+			</parser>
+
+			<!-- ======================================================== [ VHDL ] -->
+			<!--
+			|   Derived from :
+			|       https://community.notepad-plus-plus.org/topic/11554/function-list-for-vhdl
+			\-->
+			<parser
+				displayName="VHDL"
+				id         ="vhdl_syntax"
+			>
+				<function
+					mainExpr="(?x)                                          # free-spacing (see `RegEx - Pattern Modifiers`)
+						  ^                                             # match at beginning of line
+						  \h*                                           # optional leading whitespace
+						  (\w+\h*:)?                                    # ID of process
+						  (?:\h(?!END)\w+\h)*                           # make sure this is not the end of a module
+						  \h*
+						  (?(1)(?:ENTITY|BLOCK|PROCESS)|                # keywords if ':' was detected before
+						  (?:ENTITY|COMPONENT|ARCHITECTURE))            # keywords else
+						  [\h\(]+                                       # expect at least one blank or parentheses
+						  [A-Za-z0-9_\(\)., ]+                          # ID or sensitivity list
+						  (?!\;)"
+				>
+					<functionName>
+					    <nameExpr expr=".*" />
 					</functionName>
 				</function>
 			</parser>

@@ -120,6 +120,7 @@
                     <Item id="42064" name="Sort Lines As Decimals (Comma) Descending"/>
                     <Item id="42065" name="Sort Lines As Decimals (Dot) Ascending"/>
                     <Item id="42066" name="Sort Lines As Decimals (Dot) Descending"/>
+                    <Item id="42078" name="Sort Lines Randomly"/>
                     <Item id="42016" name="&amp;UPPERCASE"/>
                     <Item id="42017" name="&amp;lowercase"/>
                     <Item id="42067" name="&amp;Proper Case"/>
@@ -390,7 +391,7 @@
                 <Item id="1624" name="Search mode"/>
                 <Item id="1625" name="&amp;Normal"/>
                 <Item id="1626" name="E&amp;xtended (\n, \r, \t, \0, \x...)"/>
-                <Item id="1660" name="&amp;Replace in Files"/>
+                <Item id="1660" name="Replace in Files"/>
                 <Item id="1661" name="Follow current doc."/>
                 <Item id="1641" name="Find All in Current Document"/>
                 <Item id="1686" name="Transparenc&amp;y"/>
@@ -439,7 +440,7 @@
                 <Item id="1934" name="Copy to Clipboard"/>
                 <Item id="2"    name="Close"/>
             </MD5FromTextDlg>
-            
+
             <SHA256FromFilesDlg title="Generate SHA-256 digest from files">
                 <Item id="1922" name="Choose files to generate SHA-256..."/>
                 <Item id="1924" name="Copy to Clipboard"/>
@@ -451,7 +452,7 @@
                 <Item id="1934" name="Copy to Clipboard"/>
                 <Item id="2"    name="Close"/>
             </SHA256FromTextDlg>
-            
+
             <PluginsAdminDlg title="Plugins Admin" titleAvailable = "Available" titleUpdates = "Updates" titleInstalled = "Installed">
                 <ColumnPlugin   name="Plugin"/>
                 <ColumnVersion  name="Version"/>
@@ -511,6 +512,71 @@
                 <ScintillaCommandsTab name="Scintilla commands"/>
                 <ConflictInfoOk name="No shortcut conflicts for this item."/>
                 <ConflictInfoEditing name="No conflicts . . ."/>
+                <MainCommandNames>
+                    <Item id="41019" name="Open containing folder in Explorer"/>
+                    <Item id="41020" name="Open containing folder in Command Prompt"/>
+                    <Item id="41021" name="Restore Recent Closed File"/>
+                    <Item id="45001" name="EOL Conversion to Windows (CR LF)"/>
+                    <Item id="45002" name="EOL Conversion to Unix (LF)"/>
+                    <Item id="45003" name="EOL Conversion to Macintosh (CR)"/>
+                    <Item id="43022" name="Mark search results using 1st style"/>
+                    <Item id="43024" name="Mark search results using 2nd style"/>
+                    <Item id="43026" name="Mark search results using 3rd style"/>
+                    <Item id="43028" name="Mark search results using 4th style"/>
+                    <Item id="43030" name="Mark search results using 5th style"/>
+                    <Item id="43023" name="Clear marks using 1st style"/>
+                    <Item id="43025" name="Clear marks using 2nd style"/>
+                    <Item id="43027" name="Clear marks using 3rd style"/>
+                    <Item id="43029" name="Clear marks using 4th style"/>
+                    <Item id="43031" name="Clear marks using 5th style"/>
+                    <Item id="43032" name="Clear marks using any style"/>
+                    <Item id="43033" name="Previous mark using 1st style"/>
+                    <Item id="43034" name="Previous mark using 2nd style"/>
+                    <Item id="43035" name="Previous mark using 3rd style"/>
+                    <Item id="43036" name="Previous mark using 4th style"/>
+                    <Item id="43037" name="Previous mark using 5th style"/>
+                    <Item id="43038" name="Previous mark created with Mark..."/>
+                    <Item id="43039" name="Next mark using 1st style"/>
+                    <Item id="43040" name="Next mark using 2nd style"/>
+                    <Item id="43041" name="Next mark using 3rd style"/>
+                    <Item id="43042" name="Next mark using 4th style"/>
+                    <Item id="43043" name="Next mark using 5th style"/>
+                    <Item id="43044" name="Next mark created with Mark..."/>
+                    <Item id="44100" name="View current file in Firefox"/>
+                    <Item id="44101" name="View current file in Chrome"/>
+                    <Item id="44103" name="View current file in IE"/>
+                    <Item id="44102" name="View current file in Edge"/>
+                    <Item id="50003" name="Switch to previous document"/>
+                    <Item id="50004" name="Switch to next document"/>
+                    <Item id="44051" name="Collapse Level 1"/>
+                    <Item id="44052" name="Collapse Level 2"/>
+                    <Item id="44053" name="Collapse Level 3"/>
+                    <Item id="44054" name="Collapse Level 4"/>
+                    <Item id="44055" name="Collapse Level 5"/>
+                    <Item id="44056" name="Collapse Level 6"/>
+                    <Item id="44057" name="Collapse Level 7"/>
+                    <Item id="44058" name="Collapse Level 8"/>
+                    <Item id="44061" name="Uncollapse Level 1"/>
+                    <Item id="44062" name="Uncollapse Level 2"/>
+                    <Item id="44063" name="Uncollapse Level 3"/>
+                    <Item id="44064" name="Uncollapse Level 4"/>
+                    <Item id="44065" name="Uncollapse Level 5"/>
+                    <Item id="44066" name="Uncollapse Level 6"/>
+                    <Item id="44067" name="Uncollapse Level 7"/>
+                    <Item id="44068" name="Uncollapse Level 8"/>
+                    <Item id="44081" name="Toggle Project Panel 1"/>
+                    <Item id="44082" name="Toggle Project Panel 2"/>
+                    <Item id="44083" name="Toggle Project Panel 3"/>
+                    <Item id="44085" name="Toggle Folder as Workspace"/>
+                    <Item id="44080" name="Toggle Document Map"/>
+                    <Item id="44084" name="Toggle Function List"/>
+                    <Item id="50005" name="Toggle macro recording"/>
+                    <Item id="44104" name="Switch to Project Panel 1"/>
+                    <Item id="44105" name="Switch to Project Panel 2"/>
+                    <Item id="44106" name="Switch to Project Panel 3"/>
+                    <Item id="44107" name="Switch to Folder as Workspace"/>
+                    <Item id="44108" name="Switch to Function List"/>
+                </MainCommandNames>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="Shortcut">
                 <Item id="1" name="OK"/>
@@ -756,6 +822,7 @@ You can define several column markers by using white space to separate the diffe
                     <Item id="6231" name="Border Width"/>
                     <Item id="6235" name="No edge"/>
                     <Item id="6236" name="Enable scrolling beyond last line"/>
+                    <Item id="6239" name="Keep selection when right-click outside of selection"/>
                 </Scintillas>
 
                 <NewDoc title="New Document">
@@ -841,6 +908,11 @@ You can define several column markers by using white space to separate the diffe
                     <Item id="6727" name="Here display your variable settings"/>
                     <Item id="6728" name="Header and Footer"/>
                 </Print>
+
+                <Searching title="Searching">
+                    <Item id="6901" name="Don't fill find field in Find dialog with selected word"/>
+                    <Item id="6902" name="Use monospaced font in Find dialog (Need to restart Notepad++)"/>
+                </Searching>
 
                 <RecentFilesHistory title="Recent Files History">
                     <Item id="6304" name="Recent Files History"/>
@@ -943,14 +1015,13 @@ You can define several column markers by using white space to separate the diffe
                     <Item id="6324" name="Document Switcher (Ctrl+TAB)"/>
                     <Item id="6331" name="Show only filename in title bar"/>
                     <Item id="6334" name="Autodetect character encoding"/>
-                    <Item id="6314" name="Use monospaced font in Find dialog (Need to restart Notepad++)"/>
+                    <Item id="6349" name="Use DirectWrite (May improve rendering special characters, need to restart Notepad++)"/>
                     <Item id="6337" name="Workspace file ext.:"/>
                     <Item id="6114" name="Enable"/>
                     <Item id="6117" name="Enable MRU behaviour"/>
                     <Item id="6344" name="Document Peeker"/>
                     <Item id="6345" name="Peek on tab"/>
                     <Item id="6346" name="Peek on document map"/>
-                    <Item id="6348" name="Don't fill find field in Find dialog with selected word"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Run a Macro Multiple Times">
@@ -969,17 +1040,17 @@ You can define several column markers by using white space to separate the diffe
                 <Item id="7004" name="Sort &amp;tabs"/>
             </Window>
             <ColumnEditor title="Column Editor">
-                <Item id="2023" name="Text to Insert"/>
-                <Item id="2033" name="Number to Insert"/>
-                <Item id="2030" name="Initial number :"/>
-                <Item id="2031" name="Increase by :"/>
-                <Item id="2035" name="Leading zeros"/>
-                <Item id="2036" name="Repeat :"/>
+                <Item id="2023" name="&amp;Text to Insert"/>
+                <Item id="2033" name="&amp;Number to Insert"/>
+                <Item id="2030" name="&amp;Initial number :"/>
+                <Item id="2031" name="Increase b&amp;y :"/>
+                <Item id="2035" name="Leading &amp;zeros"/>
+                <Item id="2036" name="&amp;Repeat :"/>
                 <Item id="2032" name="Format"/>
-                <Item id="2024" name="Dec"/>
-                <Item id="2025" name="Oct"/>
-                <Item id="2026" name="Hex"/>
-                <Item id="2027" name="Bin"/>
+                <Item id="2024" name="&amp;Dec"/>
+                <Item id="2025" name="&amp;Oct"/>
+                <Item id="2026" name="&amp;Hex"/>
+                <Item id="2027" name="&amp;Bin"/>
                 <Item id="1" name="OK"/>
                 <Item id="2" name="Cancel"/>
             </ColumnEditor>
@@ -996,7 +1067,7 @@ You can define several column markers by using white space to separate the diffe
                 <Item id="1718" name="E&amp;xtended (\n, \r, \t, \0, \x...)"/>
                 <Item id="1720" name="&amp;. matches newline"/>
             </FindInFinder>
-            <DoSaveOrNot title="Save"> 
+            <DoSaveOrNot title="Save">
                 <Item id="1761" name="Save file &quot;$STR_REPLACE$&quot; ?"/>
                 <Item id="6" name="&amp;Yes"/>
                 <Item id="7" name="&amp;No"/>
@@ -1234,6 +1305,10 @@ Find in all files except exe, obj &amp;&amp; log:
             <find-status-replace-not-found value="Replace: no occurrence was found"/>
             <find-status-replace-readonly value="Replace: Cannot replace text. The current document is read only"/>
             <find-status-cannot-find value="Find: Can't find the text &quot;$STR_REPLACE$&quot;"/>
+            <find-status-scope-selection value="in selected text"/>
+            <find-status-scope-all value="in entire file"/>
+            <find-status-scope-backward value="from start-of-file to caret"/>
+            <find-status-scope-forward value="from caret to end-of-file"/>
             <finder-find-in-finder value="Find in this found results..."/>
             <finder-close-this value="Close this finder"/>
             <finder-collapse-all value="Collapse all"/>
@@ -1268,11 +1343,15 @@ Find in all files except exe, obj &amp;&amp; log:
             <replace-in-files-confirm-title value="Are you sure?"/>
             <replace-in-files-confirm-directory value="Are you sure you want to replace all occurrences in :"/>
             <replace-in-files-confirm-filetype value="For file type :"/>
+            <replace-in-open-docs-confirm-title value="Are you sure?"/>
+            <replace-in-open-docs-confirm-message value="Are you sure you want to replace all occurrences in all open documents?"/>
             <find-result-caption value="Find result"/>
             <find-result-title value="Search"/>
             <find-result-title-info value="($INT_REPLACE1$ hits in $INT_REPLACE2$ files of $INT_REPLACE3$ searched)"/>
+            <find-result-title-info-selections value="($INT_REPLACE1$ hits in $INT_REPLACE2$ selections of $INT_REPLACE3$ searched)"/>
             <find-result-title-info-extra value=" - Line Filter Mode: only display the filtered results"/>
             <find-result-hits value="($INT_REPLACE$ hits)"/>
+            <find-regex-zero-length-match value="zero length match" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

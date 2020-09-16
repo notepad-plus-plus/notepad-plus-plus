@@ -221,13 +221,14 @@ public:
 	{
 		::DestroyWindow(_hSelf);
 		_hSelf = NULL;
+		_pScintillaFunc = NULL;
 	};
 
 	virtual void init(HINSTANCE hInst, HWND hPere);
 
 	LRESULT execute(UINT Msg, WPARAM wParam=0, LPARAM lParam=0) const {
 		try {
-			return _pScintillaFunc(_pScintillaPtr, Msg, wParam, lParam);
+			return (_pScintillaFunc) ? _pScintillaFunc(_pScintillaPtr, Msg, wParam, lParam) : -1;
 		}
 		catch (...)
 		{
@@ -645,7 +646,7 @@ public:
 	void sortLines(size_t fromLine, size_t toLine, ISorter *pSort);
 	void changeTextDirection(bool isRTL);
 	bool isTextDirectionRTL() const;
-
+	void setPositionRestoreNeeded(bool val) { _positionRestoreNeeded = val; };
 protected:
 	static HINSTANCE _hLib;
 	static int _refCount;

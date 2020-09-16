@@ -172,7 +172,11 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	if (nppGUI._rememberLastSession && !cmdLineParams->_isNoSession)
 		_notepad_plus_plus_core.loadLastSession();
 
-	if (not cmdLineParams->_isPreLaunch)
+	if (nppParams.doFunctionListExport() || nppParams.doPrintAndExit())
+	{
+		::ShowWindow(_hSelf, SW_HIDE);
+	}
+	else if (not cmdLineParams->_isPreLaunch)
 	{
 		if (cmdLineParams->isPointValid())
 			::ShowWindow(_hSelf, SW_SHOW);
@@ -184,11 +188,6 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 		_notepad_plus_plus_core._pTrayIco = new trayIconControler(_hSelf, IDI_M30ICON, IDC_MINIMIZED_TRAY, ::LoadIcon(_hInst, MAKEINTRESOURCE(IDI_M30ICON)), TEXT(""));
 		_notepad_plus_plus_core._pTrayIco->doTrayIcon(ADD);
 	}
-
-	std::vector<generic_string> fns;
-	if (cmdLine)
-		fns = _notepad_plus_plus_core.loadCommandlineParams(cmdLine, cmdLineParams);
-
 	std::vector<generic_string> fileNames;
 	std::vector<generic_string> patterns;
 	patterns.push_back(TEXT("*.xml"));
@@ -239,19 +238,15 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	for (size_t i = 0, len = _notepad_plus_plus_core._internalFuncIDs.size() ; i < len ; ++i)
 		::SendMessage(_hSelf, WM_COMMAND, _notepad_plus_plus_core._internalFuncIDs[i], 0);
 
+	std::vector<generic_string> fns;
+	if (cmdLine)
+		fns = _notepad_plus_plus_core.loadCommandlineParams(cmdLine, cmdLineParams);
+
 	// Launch folder as workspace after all this dockable panel being restored from the last session
 	// To avoid dockable panel toggle problem.
 	if (cmdLineParams->_openFoldersAsWorkspace)
 	{
 		_notepad_plus_plus_core.launchFileBrowser(fns, true);
-	}
-	else if (_notepad_plus_plus_core._isWorkspaceFileLoadedFromCommandLine)
-	{
-		// Switch back to Project Panel 1, when a workspace file has been specified in the command line.
-		// This code is executed only once in lifetime of the process, at the first initialization. It is necessary, because
-		// the Project Panels are not loaded by Notepad_plus::doOpen only, but also by the Plugin Manager restoring the state
-		// of the last session from config.xml.
-		::SendMessage(_hSelf, WM_COMMAND, IDM_VIEW_PROJECT_PANEL_1, 0);
 	}
 	::SendMessage(_hSelf, WM_ACTIVATE, WA_ACTIVE, 0);
 

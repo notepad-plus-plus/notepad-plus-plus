@@ -28,6 +28,7 @@
 
 #pragma once
 
+#include <map>
 #include "FindReplaceDlg_rc.h"
 #include "ScintillaEditView.h"
 #include "DockingDlgInterface.h"
@@ -130,6 +131,7 @@ public:
 	void setFinderStyle();
 	void removeAll();
 	void openAll();
+	void wrapLongLinesToggle();
 	void copy();
 	void beginNewFilesSearch();
 	void finishFilesSearch(int count, int searchedCount, bool isMatchLines, bool searchedEntireNotSelection);
@@ -166,6 +168,7 @@ private:
 
 	bool _canBeVolatiled = true;
 
+	bool _longLinesAreWrapped = false;
 
 	void setFinderReadOnly(bool isReadOnly) {
 		_scintView.execute(SCI_SETREADONLY, isReadOnly);
@@ -334,6 +337,7 @@ public :
 	void execSavedCommand(int cmd, uptr_t intValue, const generic_string& stringValue);
 	void clearMarks(const FindOption& opt);
 	void setStatusbarMessage(const generic_string & msg, FindStatus staus);
+	generic_string getScopeInfoForStatusBar(FindOption const *pFindOpt) const;
 	Finder * createFinder();
 	bool removeFinder(Finder *finder2remove);
 
@@ -384,6 +388,11 @@ private :
 	FindStatus _statusbarFindStatus;
 
 	HFONT _hMonospaceFont = nullptr;
+
+	std::map<int, bool> _controlEnableMap;
+
+	void enableFindDlgItem(int dlgItemID, bool isEnable = true);
+	void showFindDlgItem(int dlgItemID, bool isShow = true);
 
 	void enableReplaceFunc(bool isEnable);
 	void enableFindInFilesControls(bool isEnable = true);

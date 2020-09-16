@@ -92,6 +92,9 @@ enum BackupFeature {bak_none = 0, bak_simple = 1, bak_verbose = 2};
 enum OpenSaveDirSetting {dir_followCurrent = 0, dir_last = 1, dir_userDef = 2};
 enum MultiInstSetting {monoInst = 0, multiInstOnSession = 1, multiInst = 2};
 enum writeTechnologyEngine {defaultTechnology = 0, directWriteTechnology = 1};
+enum urlMode {urlDisable = 0, urlNoUnderLineFg, urlUnderLineFg, urlNoUnderLineBg, urlUnderLineBg,
+              urlMin = urlDisable,
+              urlMax = urlUnderLineBg};
 
 const int LANG_INDEX_INSTR = 0;
 const int LANG_INDEX_INSTR2 = 1;
@@ -803,6 +806,8 @@ struct NppGUI final
 	int _tabSize = 4;
 	bool _tabReplacedBySpace = false;
 
+	bool _finderLinesAreCurrentlyWrapped = false;
+
 	int _fileAutoDetection = cdEnabledNew;
 
 	bool _checkHistoryFiles = false;
@@ -836,15 +841,12 @@ struct NppGUI final
 	bool _backSlashIsEscapeCharacterForSql = true;
 	bool _stopFillingFindField = false;
 	bool _monospacedFontFindDlg = false;
+	bool _findDlgAlwaysVisible = false;
+	bool _confirmReplaceInAllOpenDocs = true;
 	writeTechnologyEngine _writeTechnologyEngine = defaultTechnology;
 	bool _isWordCharDefault = true;
 	std::string _customWordChars;
-
-	// 0 : do nothing
-	// 1 : don't draw underline
-	// 2 : draw underline
-	int _styleURL = 2;
-
+	urlMode _styleURL = urlUnderLineFg;
 	NewDocDefaultSettings _newDocDefaultSettings;
 
 
@@ -931,6 +933,7 @@ struct ScintillaViewParams
 	bool _eolShow = false;
 	int _borderWidth = 2;
 	bool _scrollBeyondLastLine = false;
+	bool _rightClickKeepsSelection = false;
 	bool _disableAdvancedScrolling = false;
 	bool _doSmoothFont = false;
 	bool _showBorderEdge = true;
@@ -1170,7 +1173,6 @@ struct FindHistory final
 	transparencyMode _transparencyMode = onLossingFocus;
 	int _transparency = 150;
 
-	bool _isDlgAlwaysVisible = false;
 	bool _isFilterFollowDoc = false;
 	bool _isFolderFollowDoc = false;
 

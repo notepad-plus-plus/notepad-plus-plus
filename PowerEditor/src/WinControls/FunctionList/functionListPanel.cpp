@@ -685,12 +685,12 @@ static LRESULT CALLBACK funclstSearchEditProc(HWND hwnd, UINT message, WPARAM wP
 {
 	switch (message)
 	{
-		case WM_KEYDOWN:
+		case WM_CHAR:
 		{
 			if (wParam == VK_ESCAPE)
 			{
 				::SendMessage(hwnd, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(TEXT("")));
-				return TRUE;
+				return FALSE;
 			}
 		}
 	}

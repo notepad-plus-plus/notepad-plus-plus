@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     History of Corsican translation for Notepad++
-		- Updated on September 8th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.9
-		- Updated on May 26th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.7
-		- Updated on January 8th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.3
-		- Updated on October 31st, 2019 by Patriccollu di Santa Maria è Sichè for version 7.8.1
-		- Updated on July 29th, 2019 by Patriccollu di Santa Maria è Sichè for version 7.7.2
+		- Updated on September 16th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.9
+		- Updated on June 28th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.9
+		- Updated on April 19th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.7
+		- Updated on December 5th, 2019 by Patriccollu di Santa Maria è Sichè for version 7.8.3
+		- Updated on November 2nd, 2019 by Patriccollu di Santa Maria è Sichè for version 7.8.1
+		- Updated on July 7th, 2019 by Patriccollu di Santa Maria è Sichè for version 7.7.2
 		- Updated on March 29th, 2019 by Patriccollu di Santa Maria è Sichè for version 7.6.5
 		- Updated on March 11th, 2018 by Patriccollu di Santa Maria è Sichè for version 7.5.5
 		- Updated on August 19th, 2017 by Patriccollu di Santa Maria è Sichè for version 7.5
@@ -16,7 +17,7 @@
 	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/corsican.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="Corsu" filename="corsican.xml" version="7.8.9">
+    <Native-Langue name="Corsu" filename="corsican.xml" version="7.9">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -165,9 +166,9 @@
                     <Item id="42053" name="Trasfurmà i spazii in tabulazioni (principiu)"/>
                     <Item id="42038" name="Incullà cuntenutu HTML"/>
                     <Item id="42039" name="Incullà cuntenutu RTF"/>
-                    <Item id="42048" name="Cupià cuntenutu Binariu"/>
-                    <Item id="42049" name="Taglià cuntenutu Binariu"/>
-                    <Item id="42050" name="Incullà cuntenutu Binariu"/>
+                    <Item id="42048" name="Cupià cuntenutu binariu"/>
+                    <Item id="42049" name="Taglià cuntenutu binariu"/>
+                    <Item id="42050" name="Incullà cuntenutu binariu"/>
                     <Item id="42037" name="Selezzione in modu culonna…"/>
                     <Item id="42034" name="Mudificazione in modu culonna…"/>
                     <Item id="42051" name="Pannellu di i caratteri"/>
@@ -209,28 +210,28 @@
                     <Item id="43013" name="Circà in schedarii"/>
                     <Item id="43014" name="Ricerca (vulatile) seguente"/>
                     <Item id="43015" name="Ricerca (vulatile) precedente"/>
-                    <Item id="43022" name="Impiegà u 1u stilu"/>
-                    <Item id="43023" name="Viutà u 1u stilu"/>
-                    <Item id="43024" name="Impiegà u 2u stilu"/>
-                    <Item id="43025" name="Viutà u 2u stilu"/>
-                    <Item id="43026" name="Impiegà u 3u stilu"/>
-                    <Item id="43027" name="Viutà u 3u stilu"/>
-                    <Item id="43028" name="Impiegà u 4u stilu"/>
-                    <Item id="43029" name="Viutà u 4u stilu"/>
-                    <Item id="43030" name="Impiegà u 5u stilu"/>
-                    <Item id="43031" name="Viutà u 5u stilu"/>
+                    <Item id="43022" name="Impiegà u 1ᵘ stilu"/>
+                    <Item id="43023" name="Viutà u 1ᵘ stilu"/>
+                    <Item id="43024" name="Impiegà u 2ᵘ stilu"/>
+                    <Item id="43025" name="Viutà u 2ᵘ stilu"/>
+                    <Item id="43026" name="Impiegà u 3ᵘ stilu"/>
+                    <Item id="43027" name="Viutà u 3ᵘ stilu"/>
+                    <Item id="43028" name="Impiegà u 4ᵘ stilu"/>
+                    <Item id="43029" name="Viutà u 4ᵘ stilu"/>
+                    <Item id="43030" name="Impiegà u 5ᵘ stilu"/>
+                    <Item id="43031" name="Viutà u 5ᵘ stilu"/>
                     <Item id="43032" name="Viutà tutti i stili"/>
-                    <Item id="43033" name="1u stilu"/>
-                    <Item id="43034" name="2u stilu"/>
-                    <Item id="43035" name="3u stilu"/>
-                    <Item id="43036" name="4u stilu"/>
-                    <Item id="43037" name="5u stilu"/>
+                    <Item id="43033" name="1ᵘ stilu"/>
+                    <Item id="43034" name="2ᵘ stilu"/>
+                    <Item id="43035" name="3ᵘ stilu"/>
+                    <Item id="43036" name="4ᵘ stilu"/>
+                    <Item id="43037" name="5ᵘ stilu"/>
                     <Item id="43038" name="Circà u stilu"/>
-                    <Item id="43039" name="1u stilu"/>
-                    <Item id="43040" name="2u stilu"/>
-                    <Item id="43041" name="3u stilu"/>
-                    <Item id="43042" name="4u stilu"/>
-                    <Item id="43043" name="5u stilu"/>
+                    <Item id="43039" name="1ᵘ stilu"/>
+                    <Item id="43040" name="2ᵘ stilu"/>
+                    <Item id="43041" name="3ᵘ stilu"/>
+                    <Item id="43042" name="4ᵘ stilu"/>
+                    <Item id="43043" name="5ᵘ stilu"/>
                     <Item id="43044" name="Circà u stilu"/>
                     <Item id="43045" name="Finestra di risultatu di ricerca"/>
                     <Item id="43046" name="Prossimu risultatu di ricerca"/>
@@ -254,15 +255,15 @@
                     <Item id="44080" name="Cartugrafia di u ducumentu"/>
                     <Item id="44084" name="Lista di e funzioni"/>
                     <Item id="44085" name="Cartulare cum’è spaziu di travagliu"/>
-                    <Item id="44086" name="1a unghjetta"/>
-                    <Item id="44087" name="2a unghjetta"/>
-                    <Item id="44088" name="3a unghjetta"/>
-                    <Item id="44089" name="4a unghjetta"/>
-                    <Item id="44090" name="5a unghjetta"/>
-                    <Item id="44091" name="6a unghjetta"/>
-                    <Item id="44092" name="7a unghjetta"/>
-                    <Item id="44093" name="8a unghjetta"/>
-                    <Item id="44094" name="9a unghjetta"/>
+                    <Item id="44086" name="1ᵃ unghjetta"/>
+                    <Item id="44087" name="2ᵃ unghjetta"/>
+                    <Item id="44088" name="3ᵃ unghjetta"/>
+                    <Item id="44089" name="4ᵃ unghjetta"/>
+                    <Item id="44090" name="5ᵃ unghjetta"/>
+                    <Item id="44091" name="6ᵃ unghjetta"/>
+                    <Item id="44092" name="7ᵃ unghjetta"/>
+                    <Item id="44093" name="8ᵃ unghjetta"/>
+                    <Item id="44094" name="9ᵃ unghjetta"/>
                     <Item id="44095" name="Unghjetta seguente"/>
                     <Item id="44096" name="Unghjetta precedente"/>
                     <Item id="44097" name="Appustamentu (tail -f)"/>
@@ -311,7 +312,7 @@
                     <Item id="47010" name="Argumenti di linea di cummanda…"/>
                     <Item id="47001" name="Pagina d’accolta di Notepad++…"/>
                     <Item id="47002" name="Pagina di prughjettu Notepad++"/>
-                    <Item id="47003" name="Documentazione inlinea"/>
+                    <Item id="47003" name="Documentazione in linea"/>
                     <Item id="47004" name="Cumunità Notepad++ (Foru)"/>
                     <Item id="47011" name="Assistenza diretta"/>
                     <Item id="47012" name="Infurmazioni di diagnosticu…"/>
@@ -319,7 +320,7 @@
                     <Item id="47006" name="Rinnovà Notepad++"/>
                     <Item id="47009" name="Parametri di u proxy di l’Updater…"/>
                     <Item id="48005" name="Impurtà l’estensione(i)…"/>
-                    <Item id="48006" name="Impurtà temu(i) di stilu…"/>
+                    <Item id="48006" name="Impurtà u tema(i) di stilu…"/>
                     <Item id="48018" name="&amp;Finestra di mudificazione di ContextMenu"/>
                     <Item id="48009" name="&amp;Definizione di l’accurtatoghji di tastera…"/>
                     <Item id="48011" name="&amp;Preferenze…"/>
@@ -336,8 +337,6 @@
                     <Item id="50000" name="Cumpiimentu di funzione"/>
                     <Item id="50001" name="Cumpiimentu di parolla"/>
                     <Item id="50002" name="Sugestione di parametri di funzione"/>
-                    <Item id="50003" name="Passà à u ducumentu precedente"/>
-                    <Item id="50004" name="Passà à u ducumentu seguente"/>
                     <Item id="50005" name="Attivà/Disattivà l’arregistramentu d’una macro"/>
                     <Item id="50006" name="Cumpiimentu di chjassu"/>
                     <Item id="44042" name="Piattà e linee"/>
@@ -486,7 +485,7 @@
                 <Item id="2"    name="Abbandunà"/>
                 <Item id="2301" name="Arregistrà è chjode"/>
                 <Item id="2303" name="Trasparenza"/>
-                <Item id="2306" name="Selezziunà u temu : "/>
+                <Item id="2306" name="Selezziunà u tema : "/>
                 <SubDialog>
                     <Item id="2204" name="Grassu"/>
                     <Item id="2205" name="Italicu"/>
@@ -537,29 +536,29 @@
                     <Item id="45001" name="Cunversione di fine di linea ver di u furmatu Windows (CR LF)"/>
                     <Item id="45002" name="Cunversione di fine di linea ver di u furmatu Unix (LF)"/>
                     <Item id="45003" name="Cunversione di fine di linea ver di u furmatu Macintosh (CR)"/>
-                    <Item id="43022" name="Marcà i risultati di ricerca impieghendu u 1u stilu"/>
-                    <Item id="43024" name="Marcà i risultati di ricerca impieghendu u 2u stilu"/>
-                    <Item id="43026" name="Marcà i risultati di ricerca impieghendu u 3u stilu"/>
-                    <Item id="43028" name="Marcà i risultati di ricerca impieghendu u 4u stilu"/>
-                    <Item id="43030" name="Marcà i risultati di ricerca impieghendu u 5u stilu"/>
-                    <Item id="43023" name="Squassà e marche impieghendu u 1u stilu"/>
-                    <Item id="43025" name="Squassà e marche impieghendu u 2u stilu"/>
-                    <Item id="43027" name="Squassà e marche impieghendu u 3u stilu"/>
-                    <Item id="43029" name="Squassà e marche impieghendu u 4u stilu"/>
-                    <Item id="43031" name="Squassà e marche impieghendu u 5u stilu"/>
+                    <Item id="43022" name="Marcà i risultati di ricerca impieghendu u 1ᵘ stilu"/>
+                    <Item id="43024" name="Marcà i risultati di ricerca impieghendu u 2ᵘ stilu"/>
+                    <Item id="43026" name="Marcà i risultati di ricerca impieghendu u 3ᵘ stilu"/>
+                    <Item id="43028" name="Marcà i risultati di ricerca impieghendu u 4ᵘ stilu"/>
+                    <Item id="43030" name="Marcà i risultati di ricerca impieghendu u 5ᵘ stilu"/>
+                    <Item id="43023" name="Squassà e marche impieghendu u 1ᵘ stilu"/>
+                    <Item id="43025" name="Squassà e marche impieghendu u 2ᵘ stilu"/>
+                    <Item id="43027" name="Squassà e marche impieghendu u 3ᵘ stilu"/>
+                    <Item id="43029" name="Squassà e marche impieghendu u 4ᵘ stilu"/>
+                    <Item id="43031" name="Squassà e marche impieghendu u 5ᵘ stilu"/>
                     <Item id="43032" name="Squassà e marche impieghendu tutti i stili"/>
-                    <Item id="43033" name="Marca precedente impieghendu u 1u stilu"/>
-                    <Item id="43034" name="Marca precedente impieghendu u 2u stilu"/>
-                    <Item id="43035" name="Marca precedente impieghendu u 3u stilu"/>
-                    <Item id="43036" name="Marca precedente impieghendu u 4u stilu"/>
-                    <Item id="43037" name="Marca precedente impieghendu u 5u stilu"/>
-                    <Item id="43038" name="Marca precedente creata cù Marcà…"/>
-                    <Item id="43039" name="Marca seguente impieghendu u 1u stilu"/>
-                    <Item id="43040" name="Marca seguente impieghendu u 2u stilu"/>
-                    <Item id="43041" name="Marca seguente impieghendu u 3u stilu"/>
-                    <Item id="43042" name="Marca seguente impieghendu u 4u stilu"/>
-                    <Item id="43043" name="Marca seguente impieghendu u 5u stilu"/>
-                    <Item id="43044" name="Marca seguente creata cù Marcà…"/>
+                    <Item id="43033" name="Marca precedente impieghendu u 1ᵘ stilu"/>
+                    <Item id="43034" name="Marca precedente impieghendu u 2ᵘ stilu"/>
+                    <Item id="43035" name="Marca precedente impieghendu u 3ᵘ stilu"/>
+                    <Item id="43036" name="Marca precedente impieghendu u 4ᵘ stilu"/>
+                    <Item id="43037" name="Marca precedente impieghendu u 5ᵘ stilu"/>
+                    <Item id="43038" name="Marca precedente creata cù Marcà"/>
+                    <Item id="43039" name="Marca seguente impieghendu u 1ᵘ stilu"/>
+                    <Item id="43040" name="Marca seguente impieghendu u 2ᵘ stilu"/>
+                    <Item id="43041" name="Marca seguente impieghendu u 3ᵘ stilu"/>
+                    <Item id="43042" name="Marca seguente impieghendu u 4ᵘ stilu"/>
+                    <Item id="43043" name="Marca seguente impieghendu u 5ᵘ stilu"/>
+                    <Item id="43044" name="Marca seguente creata cù Marcà"/>
                     <Item id="44100" name="Fighjà u schedariu attuale cù Firefox"/>
                     <Item id="44101" name="Fighjà u schedariu attuale cù Chrome"/>
                     <Item id="44103" name="Fighjà u schedariu attuale cù Internet Explorer"/>
@@ -675,14 +674,14 @@
                     <Item id="21427" name="Stilu"/>
                 </Folder>
                 <Keywords title="Liste di parolle chjave">
-                    <Item id="22101" name="1u gruppu"/>
-                    <Item id="22201" name="2u gruppu"/>
-                    <Item id="22301" name="3u gruppu"/>
-                    <Item id="22401" name="4u gruppu"/>
-                    <Item id="22451" name="5u gruppu"/>
-                    <Item id="22501" name="6u gruppu"/>
-                    <Item id="22551" name="7u gruppu"/>
-                    <Item id="22601" name="8u gruppu"/>
+                    <Item id="22101" name="1ᵘ gruppu"/>
+                    <Item id="22201" name="2ᵘ gruppu"/>
+                    <Item id="22301" name="3ᵘ gruppu"/>
+                    <Item id="22401" name="4ᵘ gruppu"/>
+                    <Item id="22451" name="5ᵘ gruppu"/>
+                    <Item id="22501" name="6ᵘ gruppu"/>
+                    <Item id="22551" name="7ᵘ gruppu"/>
+                    <Item id="22601" name="8ᵘ gruppu"/>
                     <Item id="22121" name="Modu di prefissu"/>
                     <Item id="22221" name="Modu di prefissu"/>
                     <Item id="22321" name="Modu di prefissu"/>
@@ -821,7 +820,7 @@
                     <Item id="6205" name="Arburu scatula"/>
                     <Item id="6226" name="Alcuna"/>
 
-                    <Item id="6227" name="Ritornu à a Linea"/>
+                    <Item id="6227" name="Ritornu à a linea"/>
                     <Item id="6228" name="Predefinitu"/>
                     <Item id="6229" name="Aliniatu"/>
                     <Item id="6230" name="Indentazione"/>
@@ -1303,8 +1302,8 @@ Cuntinuà ?"/>
 
 Circà in tutti i schedarii fora di exe, obj &amp;&amp; log:
 *.* !*.exe !*.obj !*.log"/>
-            <find-status-top-reached value="Circà : 1a occurrenza trova da a fine. U principiu di u ducumentu hè statu toccu."/>
-            <find-status-end-reached value="Circà : 1a occurrenza trova da u principiu. A fine di u ducumentu hè stata tocca."/>
+            <find-status-top-reached value="Circà : 1ᵃ occurrenza trova da a fine. U principiu di u ducumentu hè statu toccu."/>
+            <find-status-end-reached value="Circà : 1ᵃ occurrenza trova da u principiu. A fine di u ducumentu hè stata tocca."/>
             <find-status-replaceinfiles-1-replaced value="Rimpiazzà in schedarii : 1 occurrenza hè stata rimpiazzata"/>
             <find-status-replaceinfiles-nb-replaced value="Rimpiazzà in schedarii : $INT_REPLACE$ occurrenze sò state rimpiazzate"/>
             <find-status-replaceinfiles-re-malformed value="Rimpiazzà in schedarii aperti : A spressione regulare hè mal’cuncilia"/>
@@ -1321,8 +1320,8 @@ Circà in tutti i schedarii fora di exe, obj &amp;&amp; log:
             <find-status-replaceall-1-replaced value="Rimpiazzalle tutte : 1 occurrenza hè stata rimpiazzata"/>
             <find-status-replaceall-nb-replaced value="Rimpiazzalle tutte : $INT_REPLACE$ occurrenze sò state rimpiazzate"/>
             <find-status-replaceall-readonly value="Rimpiazzalle tutte : Ùn si pò rimpiazzà u testu. U ducumentu attuale pò solu si leghje"/>
-            <find-status-replace-end-reached value="Rimpiazzà : 1a occurrenza rimpiazzata da u principiu. A fine di u ducumentu hè stata tocca"/>
-            <find-status-replace-top-reached value="Rimpiazzà : 1a occurrenza rimpiazzata da a fine. U principiu di u ducumentu hè statu toccu"/>
+            <find-status-replace-end-reached value="Rimpiazzà : 1ᵃ occurrenza rimpiazzata da u principiu. A fine di u ducumentu hè stata tocca"/>
+            <find-status-replace-top-reached value="Rimpiazzà : 1ᵃ occurrenza rimpiazzata da a fine. U principiu di u ducumentu hè statu toccu"/>
             <find-status-replaced-next-found value="Rimpiazzà : 1 occurrenza hè stata rimpiazzata. A prossima occurrenza trova."/>
             <find-status-replaced-next-not-found value="Rimpiazzà : 1 occurrenza hè stata rimpiazzata. Alcuna altra occurrenza trova."/>
             <find-status-replace-not-found value="Rimpiazzà : alcuna occurrenza trova"/>

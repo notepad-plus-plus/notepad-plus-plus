@@ -288,6 +288,8 @@ BEGIN
                 MENUITEM "Current Full File path to Clipboard",    IDM_EDIT_FULLPATHTOCLIP
                 MENUITEM "Current Filename to Clipboard",          IDM_EDIT_FILENAMETOCLIP
                 MENUITEM "Current Dir. Path to Clipboard",         IDM_EDIT_CURRENTDIRTOCLIP
+                MENUITEM SEPARATOR
+                MENUITEM "Marked Text to Clipboard",               IDM_EDIT_MARKEDTOCLIP
         END
         POPUP "Indent"
         BEGIN

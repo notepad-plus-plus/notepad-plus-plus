@@ -1048,6 +1048,15 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
+		case IDM_EDIT_MARKEDTOCLIP:
+		{
+			if (_findReplaceDlg.isCreated())
+			{
+				_findReplaceDlg.markedTextToClipboard(SCE_UNIVERSAL_FOUND_STYLE);
+			}
+		}
+		break;
+
 		case IDM_SEARCH_FIND :
 		case IDM_SEARCH_REPLACE :
 		case IDM_SEARCH_MARK :
@@ -3533,6 +3542,7 @@ void Notepad_plus::command(int id)
 			case IDM_EDIT_FULLPATHTOCLIP :
 			case IDM_EDIT_FILENAMETOCLIP :
 			case IDM_EDIT_CURRENTDIRTOCLIP :
+			case IDM_EDIT_MARKEDTOCLIP:
 			case IDM_EDIT_CLEARREADONLY :
 			case IDM_EDIT_RTL :
 			case IDM_EDIT_LTR :

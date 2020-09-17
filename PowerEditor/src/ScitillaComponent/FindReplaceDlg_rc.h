@@ -138,4 +138,6 @@
 #define IDC_FINDNEXT					1723
 #define IDC_2_BUTTONS_MODE				1724
 
+#define IDC_COPY_MARKED_TEXT			1725
+
 #endif //FINDREPLACE_DLG_H

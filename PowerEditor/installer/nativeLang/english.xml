@@ -166,6 +166,7 @@
                     <Item id="42029" name="Current File Path to Clipboard"/>
                     <Item id="42030" name="Current Filename to Clipboard"/>
                     <Item id="42031" name="Current Dir. Path to Clipboard"/>
+                    <Item id="42079" name="Marked Text to Clipboard"/>
                     <Item id="42032" name="&amp;Run a Macro Multiple Times..."/>
                     <Item id="42033" name="Clear Read-Only Flag"/>
                     <Item id="42035" name="Single Line Comment"/>
@@ -398,8 +399,9 @@
                 <Item id="1641" name="Find All in Current Document"/>
                 <Item id="1686" name="Transparenc&amp;y"/>
                 <Item id="1703" name="&amp;. matches newline"/>
-				<Item id="1721" name="▲"/>
+                <Item id="1721" name="▲"/>
                 <Item id="1723" name="▼ Find Next"/>
+                <Item id="1725" name="Copy Marked Text to Clipboard"/>
             </Find>
 
             <FindCharsInRange title="Find Characters in Range...">

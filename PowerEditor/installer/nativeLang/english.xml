@@ -163,6 +163,7 @@
                     <Item id="42029" name="Current File Path to Clipboard"/>
                     <Item id="42030" name="Current Filename to Clipboard"/>
                     <Item id="42031" name="Current Dir. Path to Clipboard"/>
+                    <Item id="42079" name="Marked Text to Clipboard"/>
                     <Item id="42032" name="&amp;Run a Macro Multiple Times..."/>
                     <Item id="42033" name="Clear Read-Only Flag"/>
                     <Item id="42035" name="Single Line Comment"/>

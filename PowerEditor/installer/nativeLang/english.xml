@@ -114,6 +114,8 @@
                     <Item id="42015" name="Move Down Current Line"/>
                     <Item id="42059" name="Sort Lines Lexicographically Ascending"/>
                     <Item id="42060" name="Sort Lines Lexicographically Descending"/>
+                    <Item id="42080" name="Sort Lines Lex. Ascending Ignoring Case"/>
+                    <Item id="42081" name="Sort Lines Lex. Descending Ignoring Case"/>
                     <Item id="42061" name="Sort Lines As Integers Ascending"/>
                     <Item id="42062" name="Sort Lines As Integers Descending"/>
                     <Item id="42063" name="Sort Lines As Decimals (Comma) Ascending"/>

@@ -2208,10 +2208,16 @@ void NppParameters::feedFileListParameters(TiXmlNode *node)
 	}
 }
 
-void NppParameters::feedProjectPanelsParameters(TiXmlNode *node)
+void NppParameters::feedFileBrowserParameters(TiXmlNode *node)
 {
 	TiXmlNode *fileBrowserRoot = node->FirstChildElement(TEXT("FileBrowser"));
 	if (!fileBrowserRoot) return;
+
+	const TCHAR *selectedItemPath = (fileBrowserRoot->ToElement())->Attribute(TEXT("latestSelectedItem"));
+	if (selectedItemPath)
+	{
+		_fileBrowserSelectedItemPath = selectedItemPath;
+	}
 
 	for (TiXmlNode *childNode = fileBrowserRoot->FirstChildElement(TEXT("root"));
 		childNode;
@@ -2225,7 +2231,7 @@ void NppParameters::feedProjectPanelsParameters(TiXmlNode *node)
 	}
 }
 
-void NppParameters::feedFileBrowserParameters(TiXmlNode *node)
+void NppParameters::feedProjectPanelsParameters(TiXmlNode *node)
 {
 	TiXmlNode *projPanelRoot = node->FirstChildElement(TEXT("ProjectPanels"));
 	if (!projPanelRoot) return;

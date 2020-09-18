@@ -131,7 +131,8 @@ void Notepad_plus::command(int id)
 				if (_pFileBrowser == nullptr) // first launch, check in params to open folders
 				{
 					vector<generic_string> dummy;
-					launchFileBrowser(dummy);
+					generic_string emptyStr;
+					launchFileBrowser(dummy, emptyStr);
 					if (_pFileBrowser != nullptr)
 					{
 						checkMenuItem(IDM_VIEW_FILEBROWSER, true);
@@ -736,7 +737,7 @@ void Notepad_plus::command(int id)
 			if (_pFileBrowser == nullptr) // first launch, check in params to open folders
 			{
 				NppParameters& nppParam = NppParameters::getInstance();
-				launchFileBrowser(nppParam.getFileBrowserRoots());
+				launchFileBrowser(nppParam.getFileBrowserRoots(), nppParam.getFileBrowserSelectedItemPath());
 				if (_pFileBrowser != nullptr)
 				{
 					checkMenuItem(IDM_VIEW_FILEBROWSER, true);
@@ -756,7 +757,8 @@ void Notepad_plus::command(int id)
 				else
 				{
 					vector<generic_string> dummy;
-					launchFileBrowser(dummy);
+					generic_string emptyStr;
+					launchFileBrowser(dummy, emptyStr);
 					checkMenuItem(IDM_VIEW_FILEBROWSER, true);
 					_toolBar.setCheck(IDM_VIEW_FILEBROWSER, true);
 					_pFileBrowser->setClosed(false);

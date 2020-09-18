@@ -246,7 +246,8 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	// To avoid dockable panel toggle problem.
 	if (cmdLineParams->_openFoldersAsWorkspace)
 	{
-		_notepad_plus_plus_core.launchFileBrowser(fns, true);
+		generic_string emptyStr;
+		_notepad_plus_plus_core.launchFileBrowser(fns, emptyStr, true);
 	}
 	::SendMessage(_hSelf, WM_ACTIVATE, WA_ACTIVE, 0);
 

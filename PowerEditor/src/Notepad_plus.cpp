@@ -3335,7 +3335,8 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 		else if (not isOldMode && (folderPaths.size() != 0 && filePaths.size() == 0)) // new mode && only folders
 		{
 			// process new mode
-			launchFileBrowser(folderPaths);
+			generic_string emptyStr;
+			launchFileBrowser(folderPaths, emptyStr);
 		}
 
 		::DragFinish(hdrop);
@@ -5990,7 +5991,7 @@ void Notepad_plus::launchAnsiCharPanel()
 	_pAnsiCharPanel->display();
 }
 
-void Notepad_plus::launchFileBrowser(const vector<generic_string> & folders, bool fromScratch)
+void Notepad_plus::launchFileBrowser(const vector<generic_string> & folders, const generic_string& selectedItemPath, bool fromScratch)
 {
 	if (!_pFileBrowser)
 	{
@@ -6042,6 +6043,7 @@ void Notepad_plus::launchFileBrowser(const vector<generic_string> & folders, boo
 	}
 
 	_pFileBrowser->display();
+	_pFileBrowser->selectItemFromPath(selectedItemPath);
 
 	checkMenuItem(IDM_VIEW_FILEBROWSER, true);
 	_toolBar.setCheck(IDM_VIEW_FILEBROWSER, true);

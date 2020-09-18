@@ -164,6 +164,8 @@ public:
 	std::vector<generic_string> getRoots() const;
 	generic_string getSelectedItemPath() const;
 
+	bool selectItemFromPath(const generic_string& itemPath) const;
+
 protected:
 	HWND _hToolbarMenu = nullptr;
 
@@ -186,6 +188,7 @@ protected:
 
 	BrowserNodeType getNodeType(HTREEITEM hItem);
 	void popupMenuCmd(int cmdID);
+
 	bool selectCurrentEditingFile() const;
 
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);

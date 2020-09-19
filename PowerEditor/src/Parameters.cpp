@@ -4217,10 +4217,20 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				else
 					isFailed = true;
 			}
+
+			val = element->Attribute(TEXT("iconSetNumber"));
+			if (val)
+			{
+				if (!lstrcmp(val, TEXT("1")))
+					_nppGUI._tabStatus |= TAB_ALTICONS;
+				else if (!lstrcmp(val, TEXT("0")))
+					_nppGUI._tabStatus |= 0;
+				else
+					isFailed = true;
+			}
+
 			if (isFailed)
 				_nppGUI._tabStatus = oldValue;
-
-
 		}
 		else if (!lstrcmp(nm, TEXT("Auto-detection")))
 		{
@@ -5603,7 +5613,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->InsertEndChild(TiXmlText(pStr));
 	}
 
-	// <GUIConfig name="TabBar" dragAndDrop="yes" drawTopBar="yes" drawInactiveTab="yes" reduce="yes" closeButton="yes" doubleClick2Close="no" vertical="no" multiLine="no" hide="no" quitOnEmpty="no" />
+	// <GUIConfig name="TabBar" dragAndDrop="yes" drawTopBar="yes" drawInactiveTab="yes" reduce="yes" closeButton="yes" doubleClick2Close="no" vertical="no" multiLine="no" hide="no" quitOnEmpty="no" iconSetNumber="0" />
 	{
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("TabBar"));
@@ -5637,6 +5647,9 @@ void NppParameters::createXmlTreeFromGUIParams()
 
 		pStr = (_nppGUI._tabStatus & TAB_QUITONEMPTY) ? TEXT("yes") : TEXT("no");
 		GUIConfigElement->SetAttribute(TEXT("quitOnEmpty"), pStr);
+
+		pStr = (_nppGUI._tabStatus & TAB_ALTICONS) ? TEXT("1") : TEXT("0");
+		GUIConfigElement->SetAttribute(TEXT("iconSetNumber"), pStr);
 	}
 
 	// <GUIConfig name="ScintillaViewsSplitter">vertical</GUIConfig>

@@ -785,6 +785,8 @@
                     <Item id="6125" name="Document List Panel"/>
                     <Item id="6126" name="Show"/>
                     <Item id="6127" name="Disable extension column"/>
+
+                    <Item id="6128" name="Alternate icons (need to restart Notepad++)"/>
                 </Global>
                 <Scintillas title="Editing">
                     <Item id="6216" name="Caret Settings"/>

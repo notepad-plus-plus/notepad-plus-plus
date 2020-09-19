@@ -56,7 +56,11 @@ enum tb_stat {tb_saved, tb_unsaved, tb_ro};
 #define DIR_LEFT true
 #define DIR_RIGHT false
 
-int docTabIconIDs[] = {IDI_SAVED_ICON, IDI_UNSAVED_ICON, IDI_READONLY_ICON, IDI_MONITORING_ICON};
+int docTabIconIDs[][4] =
+{
+	{ IDI_SAVED_ICON,  IDI_UNSAVED_ICON,  IDI_READONLY_ICON,  IDI_MONITORING_ICON },
+	{ IDI_SAVED1_ICON, IDI_UNSAVED1_ICON, IDI_READONLY1_ICON, IDI_MONITORING_ICON },
+};
 
 ToolBarButtonUnit toolBarIcons[] = {
 	{IDM_FILE_NEW,		IDI_NEW_OFF_ICON,		IDI_NEW_ON_ICON,		IDI_NEW_OFF_ICON, IDR_FILENEW},
@@ -230,9 +234,12 @@ LRESULT Notepad_plus::init(HWND hwnd)
     const ScintillaViewParams & svp1 = nppParam.getSVP();
 
 	int tabBarStatus = nppGUI._tabStatus;
+	
 	_toReduceTabBar = ((tabBarStatus & TAB_REDUCE) != 0);
-	int iconDpiDynamicalSize = nppParam._dpiManager.scaleY(_toReduceTabBar?13:20);
-	_docTabIconList.create(iconDpiDynamicalSize, _pPublicInterface->getHinst(), docTabIconIDs, sizeof(docTabIconIDs)/sizeof(int));
+	int iconDpiDynamicalSize = nppParam._dpiManager.scaleY(_toReduceTabBar ? 12 : 18);
+	
+	_docTabIconList.create(iconDpiDynamicalSize, _pPublicInterface->getHinst(), 
+		docTabIconIDs[(tabBarStatus & TAB_ALTICONS) ? 1 : 0], sizeof(docTabIconIDs[0]) / sizeof(int));
 
 	_mainDocTab.init(_pPublicInterface->getHinst(), hwnd, &_mainEditView, &_docTabIconList);
 	_subDocTab.init(_pPublicInterface->getHinst(), hwnd, &_subEditView, &_docTabIconList);
@@ -753,7 +760,8 @@ bool Notepad_plus::saveGUIParams()
 						(TabBarPlus::isVertical() ? TAB_VERTICAL:0) | \
 						(TabBarPlus::isMultiLine() ? TAB_MULTILINE:0) |\
 						(nppGUI._tabStatus & TAB_HIDE) | \
-						(nppGUI._tabStatus & TAB_QUITONEMPTY);
+						(nppGUI._tabStatus & TAB_QUITONEMPTY) | \
+						(nppGUI._tabStatus & TAB_ALTICONS);
 	nppGUI._splitterPos = _subSplitter.isVertical()?POS_VERTICAL:POS_HORIZOTAL;
 	UserDefineDialog *udd = _pEditView->getUserDefineDlg();
 	bool b = udd->isDocked();

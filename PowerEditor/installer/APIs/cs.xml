@@ -753,6 +753,7 @@
 		<KeyWord name="IList" />
 		<KeyWord name="implicit" />
 		<KeyWord name="in" />
+		<KeyWord name="init" />
 		<KeyWord name="int" />
 		<KeyWord name="Int16" />
 		<KeyWord name="Int32" />
@@ -846,6 +847,8 @@
 		<KeyWord name="nameof" />
 		<KeyWord name="namespace" />
 		<KeyWord name="new" />
+		<KeyWord name="nint" />
+		<KeyWord name="nuint" />
 		<KeyWord name="null" />
 		<KeyWord name="object" />
 		<KeyWord name="operator" />
@@ -858,6 +861,7 @@
 		<KeyWord name="Queue" />
 		<KeyWord name="Queue.Enumerator" />
 		<KeyWord name="readonly" />
+		<KeyWord name="record" />
 		<KeyWord name="ref" />
 		<KeyWord name="return" />
 		<KeyWord name="sbyte" />

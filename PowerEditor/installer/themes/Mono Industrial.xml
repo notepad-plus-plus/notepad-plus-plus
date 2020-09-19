@@ -236,7 +236,7 @@ Credits:
             <WordsStyle name="STRING" styleID="85" fgColor="FFFFFF" bgColor="222C28" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="STRINGEOL" styleID="87" fgColor="FFFFFF" bgColor="222C28" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="IDENTIFIER" styleID="86" fgColor="C87500" bgColor="222C28" fontName="" fontStyle="0" fontSize="10" />
-            <WordsStyle name="ASPSYBOL" styleID="15" fgColor="FFFFFF" bgColor="222C28" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="ASPSYMBOL" styleID="15" fgColor="FFFFFF" bgColor="222C28" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="SCRIPTTYPE" styleID="16" fgColor="FFFFFF" bgColor="222C28" fontName="" fontStyle="0" fontSize="10" />
         </LexerType>
         <LexerType name="xml" desc="XML" ext="">
@@ -375,7 +375,7 @@ Credits:
             <WordsStyle name="COMMENT" styleID="1" fgColor="666C68" bgColor="222C28" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="KEYWORDS" styleID="2" fgColor="A8B3AB" bgColor="222C28" fontName="" fontStyle="0" fontSize="10" keywordClass="instre1" />
             <WordsStyle name="LABEL" styleID="3" fgColor="909993" bgColor="222C28" fontName="" fontStyle="0" fontSize="10" />
-            <WordsStyle name="HIDE SYBOL" styleID="4" fgColor="A8B3AB" bgColor="222C28" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="HIDE SYMBOL" styleID="4" fgColor="A8B3AB" bgColor="222C28" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="COMMAND" styleID="5" fgColor="C87500" bgColor="222C28" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="VARIABLE" styleID="6" fgColor="648BD2" bgColor="222C28" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="OPERATOR" styleID="7" fgColor="A8B3AB" bgColor="222C28" fontName="" fontStyle="0" fontSize="10" />

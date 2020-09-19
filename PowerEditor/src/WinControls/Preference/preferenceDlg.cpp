@@ -1241,6 +1241,8 @@ INT_PTR CALLBACK DefaultNewDocDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			}
 			::SendDlgItemMessage(_hSelf, IDC_COMBO_DEFAULTLANG, CB_SETCURSEL, index, 0);
 
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_SAVEAS_FILTER_STARDOTSTAR, BM_SETCHECK, ndds._saveAsFilterStarDotStar ? BST_CHECKED : BST_UNCHECKED, 0);
+
 			//
 			// To avoid the white control background to be displayed in dialog
 			//
@@ -1314,6 +1316,12 @@ INT_PTR CALLBACK DefaultNewDocDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 				case IDC_RADIO_F_WIN:
 				{
 					ndds._format = EolType::windows;
+					return TRUE;
+				}
+
+				case IDC_CHECK_SAVEAS_FILTER_STARDOTSTAR:
+				{
+					ndds._saveAsFilterStarDotStar = (BST_CHECKED == ::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_SAVEAS_FILTER_STARDOTSTAR), BM_GETCHECK, 0, 0));
 					return TRUE;
 				}
 

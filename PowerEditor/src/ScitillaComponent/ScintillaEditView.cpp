@@ -2633,6 +2633,16 @@ void ScintillaEditView::performGlobalStyles()
 	execute(SCI_SETFOLDMARGINCOLOUR, true, foldMarginColor);
 	execute(SCI_SETFOLDMARGINHICOLOUR, true, foldMarginHiColor);
 
+	COLORREF bookmarkMarginColor = veryLiteGrey;
+	i = stylers.getStylerIndexByName(TEXT("Bookmark margin"));
+	if (i != -1)
+	{
+		Style & style = stylers.getStyler(i);
+		bookmarkMarginColor = style._bgColor;
+	}
+	execute(SCI_SETMARGINTYPEN, _SC_MARGE_SYBOLE, SC_MARGIN_COLOUR);
+	execute(SCI_SETMARGINBACKN, _SC_MARGE_SYBOLE, bookmarkMarginColor);
+
 	COLORREF urlHoveredFG = grey;
 	i = stylers.getStylerIndexByName(TEXT("URL hovered"));
 	if (i != -1)

@@ -1379,6 +1379,7 @@
         <WidgetStyle name="Caret colour" styleID="2069" fgColor="8000FF" />
         <WidgetStyle name="Edge colour" styleID="0" fgColor="80FFFF" />
         <WidgetStyle name="Line number margin" styleID="33" fgColor="808080" bgColor="E4E4E4" fontName="" fontStyle="0" fontSize="" />
+        <WidgetStyle name="Bookmark margin" styleID="0" bgColor="E0E0E0" />
         <WidgetStyle name="Fold" styleID="0" fgColor="808080" bgColor="F3F3F3" />
         <WidgetStyle name="Fold active" styleID="0" fgColor="FF0000" />
         <WidgetStyle name="Fold margin" styleID="0" fgColor="FFFFFF" bgColor="E9E9E9" />

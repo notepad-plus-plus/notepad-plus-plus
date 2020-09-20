@@ -2634,7 +2634,7 @@ void ScintillaEditView::performGlobalStyles()
 	execute(SCI_SETFOLDMARGINHICOLOUR, true, foldMarginHiColor);
 
 	COLORREF bookmarkMarginColor = veryLiteGrey;
-	i = stylers.getStylerIndexByName(TEXT("Bookmark Margin"));
+	i = stylers.getStylerIndexByName(TEXT("Bookmark margin"));
 	if (i != -1)
 	{
 		Style & style = stylers.getStyler(i);

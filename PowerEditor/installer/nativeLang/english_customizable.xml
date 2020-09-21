@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="English" filename="english_customizable.xml" version="7.8.7">
+    <Native-Langue name="English" filename="english_customizable.xml" version="7.9.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -75,6 +75,7 @@
                     <Item id="41002" name="&amp;Open"/>
                     <Item id="41019" name="Explorer"/>
                     <Item id="41020" name="cmd"/>
+                    <Item id="41025" name="Folder as Workspace"/>
                     <Item id="41003" name="&amp;Close"/>
                     <Item id="41004" name="Clos&amp;e All"/>
                     <Item id="41005" name="Close All BUT Current Document"/>
@@ -320,8 +321,6 @@
                     <Item id="50000" name="Function Completion"/>
                     <Item id="50001" name="Word Completion"/>
                     <Item id="50002" name="Function Parameters Hint"/>
-                    <Item id="50003" name="Switch to previous document"/>
-                    <Item id="50004" name="Switch to next document"/>
                     <Item id="50005" name="Toggle macro record"/>
                     <Item id="50006" name="Path Completion"/>
                     <Item id="44042" name="Hide Lines"/>
@@ -357,6 +356,7 @@
                     <Item CMID="20" name="Open Containing Folder in cmd"/>
                     <Item CMID="21" name="Open in Default Viewer"/>
                     <Item CMID="22" name="Close All Unchanged"/>
+                    <Item CMID="23" name="Open Containing Folder as Workspace"/>
             </TabBar>
         </Menu>
 
@@ -535,13 +535,13 @@
                     <Item id="43035" name="Previous mark using 3rd style"/>
                     <Item id="43036" name="Previous mark using 4th style"/>
                     <Item id="43037" name="Previous mark using 5th style"/>
-                    <Item id="43038" name="Previous mark created with Mark..."/>
+                    <Item id="43038" name="Previous mark created with Mark"/>
                     <Item id="43039" name="Next mark using 1st style"/>
                     <Item id="43040" name="Next mark using 2nd style"/>
                     <Item id="43041" name="Next mark using 3rd style"/>
                     <Item id="43042" name="Next mark using 4th style"/>
                     <Item id="43043" name="Next mark using 5th style"/>
-                    <Item id="43044" name="Next mark created with Mark..."/>
+                    <Item id="43044" name="Next mark created with Mark"/>
                     <Item id="44100" name="View current file in Firefox"/>
                     <Item id="44101" name="View current file in Chrome"/>
                     <Item id="44103" name="View current file in IE"/>
@@ -912,6 +912,8 @@ You can define several column markers by using white space to separate the diffe
                 <Searching title="Searching">
                     <Item id="6901" name="Don't fill find field in Find dialog with selected word"/>
                     <Item id="6902" name="Use monospaced font in Find dialog (Need to restart Notepad++)"/>
+                    <Item id="6903" name="Find dialog remains open after search that outputs to results window"/>
+                    <Item id="6904" name="Confirm Replace All in All Opened Documents"/>
                 </Searching>
 
                 <RecentFilesHistory title="Recent Files History">
@@ -1016,6 +1018,7 @@ You can define several column markers by using white space to separate the diffe
                     <Item id="6331" name="Show only filename in title bar"/>
                     <Item id="6334" name="Autodetect character encoding"/>
                     <Item id="6349" name="Use DirectWrite (May improve rendering special characters, need to restart Notepad++)"/>
+                    <Item id="6350" name="Enable fullbox mode"/>
                     <Item id="6337" name="Workspace file ext.:"/>
                     <Item id="6114" name="Enable"/>
                     <Item id="6117" name="Enable MRU behaviour"/>
@@ -1317,6 +1320,7 @@ Find in all files except exe, obj &amp;&amp; log:
             <finder-select-all value="Select all"/>
             <finder-clear-all value="Clear all"/>
             <finder-open-all value="Open all"/>
+            <finder-wrap-long-lines value="Word wrap long lines"/>
             <common-ok value="OK"/>
             <common-cancel value="Cancel"/>
             <common-name value="Name: "/>

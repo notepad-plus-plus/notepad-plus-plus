@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="7.9">
+    <Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="7.9.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -75,6 +75,7 @@
                     <Item id="41002" name="開啟舊檔(&amp;O)..."/>
                     <Item id="41019" name="在檔案總管內"/>
                     <Item id="41020" name="在 CMD 內"/>
+                    <Item id="41025" name="在資料夾工作區內"/>
                     <Item id="41003" name="關閉此檔案"/>
                     <Item id="41004" name="關閉所有檔案"/>
                     <Item id="41005" name="除此檔案外，關閉所有檔案"/>
@@ -351,6 +352,7 @@
                     <Item CMID="20" name="於 CMD 開啟檔案位置"/>
                     <Item CMID="21" name="在電腦預設顯示器中開啟"/>
                     <Item CMID="22" name="關閉所有已存檔未變更的檔案"/>
+                    <Item CMID="23" name="在資料夾工作區開啟檔案位置如同根目錄"/>
             </TabBar>
         </Menu>
         <Dialog>

@@ -237,6 +237,8 @@ BEGIN
         BEGIN
             MENUITEM "Explorer",       IDM_FILE_OPEN_FOLDER
             MENUITEM "cmd",            IDM_FILE_OPEN_CMD
+			MENUITEM SEPARATOR
+            MENUITEM "Folder as Workspace", IDM_FILE_CONTAININGFOLDERASWORKSPACE
         END
         MENUITEM "Open in Default Viewer",           IDM_FILE_OPEN_DEFAULT_VIEWER
         MENUITEM "Open Folder as Workspace...",      IDM_FILE_OPENFOLDERASWORSPACE

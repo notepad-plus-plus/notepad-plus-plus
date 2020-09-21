@@ -94,7 +94,18 @@ void Notepad_plus::command(int id)
 			cmd.run(_pPublicInterface->getHSelf(), TEXT("$(CURRENT_DIRECTORY)"));
 		}
 		break;
-		
+
+		case IDM_FILE_CONTAININGFOLDERASWORKSPACE:
+		{
+			TCHAR currentDir[CURRENTWORD_MAXLENGTH];
+			::SendMessage(_pPublicInterface->getHSelf(), NPPM_GETCURRENTDIRECTORY, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(currentDir));
+			vector<generic_string> folders;
+			folders.push_back(currentDir);
+			generic_string emptyStr;
+			launchFileBrowser(folders, emptyStr);
+		}
+		break;
+
 		case IDM_FILE_OPEN_DEFAULT_VIEWER:
 		{
 			// Opens file in its default viewer. 

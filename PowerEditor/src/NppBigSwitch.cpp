@@ -1645,11 +1645,14 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case WM_ACTIVATE:
 		{
-			_pEditView->getFocus();
-			auto x = _pEditView->execute(SCI_GETXOFFSET);
-			_pEditView->execute(SCI_SETXOFFSET, x);
-			x = _pNonEditView->execute(SCI_GETXOFFSET);
-			_pNonEditView->execute(SCI_SETXOFFSET, x);
+			if (wParam != WA_INACTIVE)
+			{
+				_pEditView->getFocus();
+				auto x = _pEditView->execute(SCI_GETXOFFSET);
+				_pEditView->execute(SCI_SETXOFFSET, x);
+				x = _pNonEditView->execute(SCI_GETXOFFSET);
+				_pNonEditView->execute(SCI_SETXOFFSET, x);
+			}
 			return TRUE;
 		}
 

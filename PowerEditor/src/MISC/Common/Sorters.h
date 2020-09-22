@@ -94,7 +94,7 @@ public:
 	
 	std::vector<generic_string> sort(std::vector<generic_string> lines) override
 	{
-		// Note that both branches here are equivalent in the sense that they give always give the same answer.
+		// Note that both branches here are equivalent in the sense that they always give the same answer.
 		// However, if we are *not* sorting specific columns, then we get a 40% speed improvement by not calling
 		// getSortKey() so many times.
 		if (isSortingSpecificColumns())
@@ -138,7 +138,7 @@ public:
 
 	std::vector<generic_string> sort(std::vector<generic_string> lines) override
 	{
-		// Note that both branches here are equivalent in the sense that they give always give the same answer.
+		// Note that both branches here are equivalent in the sense that they always give the same answer.
 		// However, if we are *not* sorting specific columns, then we get a 40% speed improvement by not calling
 		// getSortKey() so many times.
 		if (isSortingSpecificColumns())
@@ -182,7 +182,7 @@ public:
 
 	std::vector<generic_string> sort(std::vector<generic_string> lines) override
 	{
-		// Note that both branches here are equivalent in the sense that they give always give the same answer.
+		// Note that both branches here are equivalent in the sense that they always give the same answer.
 		// However, if we are *not* sorting specific columns, then we get a 40% speed improvement by not calling
 		// getSortKey() so many times.
 		if (isSortingSpecificColumns())

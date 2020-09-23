@@ -281,7 +281,7 @@ If ErrorLevel 1 goto End
 
 "C:\Program Files\7-Zip\7z.exe" a -r .\build\npp.portable.minimalist.7z .\minimalist\*
 If ErrorLevel 1 goto End
-"C:\Program Files\7-Zip\7z.exe" a -r .\build\npp.portable.minimalist64.7z .\minimalist64\*
+"C:\Program Files\7-Zip\7z.exe" a -r .\build\npp.portable.minimalist.x64.7z .\minimalist64\*
 If ErrorLevel 1 goto End
 
 

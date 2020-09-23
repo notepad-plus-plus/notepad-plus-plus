@@ -295,7 +295,7 @@
             <Keywords name="type1">ac asnp clc cli clp clv cpi cpp cvpa diff epal epcsv fc fl foreach ft fw gal gc gci gcm gdr ghy gi gl gm gp gps group gsv gsnp gu gv gwmi iex ihy ii ipal ipcsv mi mp nal ndr ni nv oh rdr ri rni rnp rp rsnp rv rvpa sal sasv sc select si sl sleep sort sp spps spsv sv tee where write cat cd clear cp h history kill lp ls mount mv popd ps pushd pwd r rm rmdir echo cls chdir copy del dir erase move rd ren set type</Keywords>
             <Keywords name="type4">component description example externalhelp forwardhelpcategory forwardhelptargetname functionality inputs link notes outputs parameter remotehelprunspace role synopsis</Keywords>
         </Language>
-        <Language name="props" ext="properties" commentLine=";"/>
+        <Language name="props" ext="properties" commentLine="#"/>
         <Language name="purebasic" ext="pb" commentLine="" commentStart="" commentEnd="">
             <Keywords name="instre1">and break case continue data datasection declare declarecdll declaredll default deftype dim else elseif end enddatasection endenumeration endif endinterface endprocedure endselect endstructure endstructureunion enumeration extends fakereturn for foreach forever global gosub goto if includebinary includefile includepath interface newlist next or procedure procedurecdll proceduredll procedurereturn protected read repeat restore return select shared static step structure structureunion to until wend while xincludefile</Keywords>
             <Keywords name="instre2">compilercase compilerdefault compilerelse compilerendif compilerendselect compilerif compilerselect</Keywords>

@@ -575,6 +575,10 @@ void FunctionListPanel::notified(LPNMHDR notification)
 					}
 					PostMessage(_hParent, WM_COMMAND, SCEN_SETFOCUS << 16, reinterpret_cast<LPARAM>((*_ppEditView)->getHSelf()));
 				}
+				else if (ptvkd->wVKey == VK_TAB)
+				{
+					::SetFocus(_hSearchEdit);
+				}
 			}
 			break;
 		}
@@ -690,6 +694,11 @@ static LRESULT CALLBACK funclstSearchEditProc(HWND hwnd, UINT message, WPARAM wP
 			if (wParam == VK_ESCAPE)
 			{
 				::SendMessage(hwnd, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(TEXT("")));
+				return FALSE;
+			}
+			else if (wParam == VK_TAB)
+			{
+				::SendMessage(GetParent(hwnd), WM_COMMAND, VK_TAB, 1);
 				return FALSE;
 			}
 		}
@@ -837,6 +846,11 @@ INT_PTR CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPA
 						return TRUE;
 					}
 				}
+			}
+			else if (wParam == VK_TAB)
+			{
+				::SetFocus(_treeView.getHSelf());
+				return TRUE;
 			}
 
 			switch (LOWORD(wParam))

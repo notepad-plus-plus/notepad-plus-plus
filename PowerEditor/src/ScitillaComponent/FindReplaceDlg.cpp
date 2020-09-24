@@ -3191,12 +3191,14 @@ void FindReplaceDlg::doDialog(DIALOG_TYPE whichType, bool isRTL, bool toShow)
 
 LRESULT FAR PASCAL FindReplaceDlg::finderProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	if (message == WM_KEYDOWN && (wParam == VK_DELETE || wParam == VK_RETURN))
+	if (message == WM_KEYDOWN && (wParam == VK_DELETE || wParam == VK_RETURN || wParam == VK_ESCAPE))
 	{
 		ScintillaEditView *pScint = (ScintillaEditView *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA));
 		Finder *pFinder = (Finder *)(::GetWindowLongPtr(pScint->getHParent(), GWLP_USERDATA));
 		if (wParam == VK_RETURN)
 			pFinder->gotoFoundLine();
+		else if (wParam == VK_ESCAPE)
+			::SendMessage(::GetParent(pFinder->getHParent()), NPPM_DMMHIDE, 0, reinterpret_cast<LPARAM>(pFinder->getHSelf()));
 		else // VK_DELETE
 			pFinder->deleteResult();
 		return 0;

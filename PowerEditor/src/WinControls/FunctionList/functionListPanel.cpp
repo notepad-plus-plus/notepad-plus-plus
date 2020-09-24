@@ -849,7 +849,10 @@ INT_PTR CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPA
 			}
 			else if (wParam == VK_TAB)
 			{
-				::SetFocus(_treeView.getHSelf());
+				if (_treeViewSearchResult.isVisible())
+					::SetFocus(_treeViewSearchResult.getHSelf());
+				else
+					::SetFocus(_treeView.getHSelf());
 				return TRUE;
 			}
 

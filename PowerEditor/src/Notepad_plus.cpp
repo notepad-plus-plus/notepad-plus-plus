@@ -1971,22 +1971,24 @@ int Notepad_plus::doSaveOrNot(const TCHAR* fn, bool isMulti)
 
 int Notepad_plus::doReloadOrNot(const TCHAR *fn, bool dirty)
 {
-	if (dirty)
-		return _nativeLangSpeaker.messageBox("DoReloadOrNotAndLooseChange",
-			_pPublicInterface->getHSelf(),
-			TEXT("\"$STR_REPLACE$\"\r\rThis file has been modified by another program.\rDo you want to reload it and lose the changes made in Notepad++?"),
-			TEXT("Reload"),
-			MB_YESNO | MB_APPLMODAL | MB_ICONEXCLAMATION,
-			0, // not used
-			fn);
-	else
-		return _nativeLangSpeaker.messageBox("DoReloadOrNot",
-			_pPublicInterface->getHSelf(),
-			TEXT("\"$STR_REPLACE$\"\r\rThis file has been modified by another program.\rDo you want to reload it?"),
-			TEXT("Reload"),
-			MB_YESNO | MB_APPLMODAL | MB_ICONQUESTION,
-			0, // not used
-			fn);
+	//if (dirty)
+	//	return _nativeLangSpeaker.messageBox("DoReloadOrNotAndLooseChange",
+	//		_pPublicInterface->getHSelf(),
+	//		TEXT("\"$STR_REPLACE$\"\r\rThis file has been modified by another program.\rDo you want to reload it and lose the changes made in Notepad++?"),
+	//		TEXT("Reload"),
+	//		MB_YESNO | MB_APPLMODAL | MB_ICONEXCLAMATION,
+	//		0, // not used
+	//		fn);
+	//else
+	//	return _nativeLangSpeaker.messageBox("DoReloadOrNot",
+	//		_pPublicInterface->getHSelf(),
+	//		TEXT("\"$STR_REPLACE$\"\r\rThis file has been modified by another program.\rDo you want to reload it?"),
+	//		TEXT("Reload"),
+	//		MB_YESNO | MB_APPLMODAL | MB_ICONQUESTION,
+	//		0, // not used
+	//		fn);
+
+	return IDNO;	// never reload automatically
 }
 
 int Notepad_plus::doCloseOrNot(const TCHAR *fn)

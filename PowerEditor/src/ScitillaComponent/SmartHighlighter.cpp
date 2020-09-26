@@ -171,11 +171,15 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView, Scintil
 
 	highlightViewWithWord(pHighlightView, text2FindW);
 
-	if (nppGUI._smartHiliteOnAnotherView && unfocusView && unfocusView->isVisible()
-		&& unfocusView->getCurrentBufferID() != pHighlightView->getCurrentBufferID())
-	{
-		// Clear marks
-		unfocusView->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_SMART);
+	if (nppGUI._smartHiliteOnAnotherView && unfocusView && unfocusView->isVisible())
+	{		
+		// Clear the indicator only when the view is not a clone, or it will clear what we have already hightlighted in the pHighlightView
+		if (unfocusView->getCurrentBufferID() != pHighlightView->getCurrentBufferID())
+		{	
+			unfocusView->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_SMART);
+		}
+		
+		// Hightlight the unfocused view even if it's a clone, as it might be in a different area of the document
 		highlightViewWithWord(unfocusView, text2FindW);
 	}
 

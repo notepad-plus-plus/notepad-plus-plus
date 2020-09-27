@@ -127,7 +127,7 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView, Scintil
 
 	auto curPos = pHighlightView->execute(SCI_GETCURRENTPOS);
 	auto range = pHighlightView->getSelection();
-	int textlen = range.cpMax - range.cpMin + 1;
+	int textlen = range.cpMax - range.cpMin;
 
 	// Determine mode for SmartHighlighting
 	bool isWordOnly = true;
@@ -162,8 +162,8 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView, Scintil
 			return;
 	}
 	
-	char * text2Find = new char[textlen];
-	pHighlightView->getSelectedText(text2Find, textlen, false); //do not expand selection (false)
+	char * text2Find = new char[textlen + 1];
+	pHighlightView->getSelectedText(text2Find, textlen + 1, false); //do not expand selection (false)
 
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	UINT cp = static_cast<UINT>(pHighlightView->execute(SCI_GETCODEPAGE));

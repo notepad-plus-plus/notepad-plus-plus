@@ -567,6 +567,7 @@ private:
 	void showPathCompletion();
 
 	//void changeStyleCtrlsLang(HWND hDlg, int *idArray, const char **translatedText);
+	void setCodePageForInvisibleView(Buffer const* pBuffer);
 	bool replaceInOpenedFiles();
 	bool findInOpenedFiles();
 	bool findInCurrentFile(bool isEntireDoc);

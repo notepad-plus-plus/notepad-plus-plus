@@ -1022,44 +1022,9 @@ void Notepad_plus::command(int id)
 
 		case IDM_EDIT_MARKEDTOCLIP:
 		{
-			auto pos = _pEditView->execute(SCI_INDICATOREND, SCE_UNIVERSAL_FOUND_STYLE, 0);
-			if (pos > 0)
+			if (_findReplaceDlg.isCreated())
 			{
-				std::vector<generic_string> markedTextStr;
-				bool atEndOfIndic = _pEditView->execute(SCI_INDICATORVALUEAT, SCE_UNIVERSAL_FOUND_STYLE, 0) != 0;
-				auto prevPos = pos;
-				if (atEndOfIndic) prevPos = 0;
-
-				const generic_string cr = TEXT("\r");
-				const generic_string lf = TEXT("\n");
-				bool dataHasLineEndingChar = false;
-
-				do
-				{
-					if (atEndOfIndic)
-					{
-						generic_string s = _pEditView->getGenericTextAsString(prevPos, pos);
-						if (!dataHasLineEndingChar)
-						{
-							if (s.find(cr) != std::string::npos || s.find(lf) != std::string::npos)
-							{
-								dataHasLineEndingChar = true;
-							}
-						}
-						markedTextStr.push_back(s);
-					}
-					atEndOfIndic = !atEndOfIndic;
-					prevPos = pos;
-					pos = _pEditView->execute(SCI_INDICATOREND, SCE_UNIVERSAL_FOUND_STYLE, pos);
-				} 
-				while (pos != prevPos);
-
-				if (markedTextStr.size() > 0)
-				{
-					const generic_string delim = dataHasLineEndingChar ? TEXT("\r\n----\r\n") : TEXT("\r\n");
-					generic_string joined = stringJoin(markedTextStr, delim) + delim;
-					str2Cliboard(joined);
-				}
+				_findReplaceDlg.markedTextToClipboard(SCE_UNIVERSAL_FOUND_STYLE);
 			}
 		}
 		break;

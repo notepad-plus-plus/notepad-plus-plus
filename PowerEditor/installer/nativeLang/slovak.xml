@@ -3,12 +3,12 @@
 <!--
 
 	Slovak localization for Notepad++
-	last modified: 8. 9. 2020 by kubalav
+	last modified: 29. 9. 2020 by kubalav
 	
 -->
 
 <NotepadPlus>
-    <Native-Langue name="Slovenčina" filename="slovak.xml" version="7.8.9">
+    <Native-Langue name="Slovenčina" filename="slovak.xml" version="7.9.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -83,6 +83,7 @@
                     <Item id="41002" name="&amp;Otvoriť"/>
                     <Item id="41019" name="v Prieskumníkovi"/>
                     <Item id="41020" name="v Príkazovom riadku"/>
+                    <Item id="41025" name="Priečinok ako pracovný priestor"/>
                     <Item id="41003" name="Zatvoriť"/>
                     <Item id="41004" name="Z&amp;atvoriť všetko"/>
                     <Item id="41005" name="Zatvoriť všetky okrem aktuálneho"/>
@@ -368,6 +369,7 @@
                     <Item CMID="20" name="Otvoriť priečinok súboru v Príkazovom riadku"/>
                     <Item CMID="21" name="Otvoriť v predvolenom prehliadači"/>
                     <Item CMID="22" name="Zatvoriť všetky nezmenené"/>
+                    <Item CMID="23" name="Otvoriť priečinok súboru ako pracovný priestor"/>
             </TabBar>
         </Menu>
 

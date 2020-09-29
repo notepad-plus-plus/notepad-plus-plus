@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Français" filename="french.xml" version="7.9">
+    <Native-Langue name="Français" filename="french.xml" version="7.9.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -80,6 +80,7 @@
                     <Item id="41002" name="&amp;Ouvrir..."/>
                     <Item id="41019" name="Explorateur Windows"/>
                     <Item id="41020" name="Invite de commande (cmd)"/>
+                    <Item id="41025" name="Dossier en tant qu'espace de travail"/>
                     <Item id="41003" name="Fermer"/>
                     <Item id="41004" name="Fermer tout"/>
                     <Item id="41005" name="Fermer tout sauf le document actuel"/>
@@ -352,6 +353,7 @@
                     <Item CMID="20" name="Ouvrir le répertoire du fichier en cours dans l'invite de commande"/>
                     <Item CMID="21" name="Ouvrir dans l'application par défaut"/>
                     <Item CMID="22" name="Fermer tous les documents non-modifiés"/>
+                    <Item CMID="23" name="Ouvrir le répertoire du fichier en cours en tant qu'espace de travail"/>
             </TabBar>
         </Menu>
         <Dialog>

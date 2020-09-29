@@ -579,6 +579,10 @@ void FunctionListPanel::notified(LPNMHDR notification)
 				{
 					::SetFocus(_hSearchEdit);
 				}
+				else if (ptvkd->wVKey == VK_ESCAPE)
+				{
+					PostMessage(_hParent, WM_COMMAND, SCEN_SETFOCUS << 16, reinterpret_cast<LPARAM>((*_ppEditView)->getHSelf()));
+				}
 			}
 			break;
 		}

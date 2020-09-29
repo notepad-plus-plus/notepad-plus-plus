@@ -279,15 +279,15 @@ If ErrorLevel 1 goto End
 
 
 
-"C:\Program Files\7-Zip\7z.exe" a -r .\build\npp.bin.minimalist.7z .\minimalist\*
+"C:\Program Files\7-Zip\7z.exe" a -r .\build\npp.portable.minimalist.7z .\minimalist\*
 If ErrorLevel 1 goto End
-"C:\Program Files\7-Zip\7z.exe" a -r .\build\npp.bin.minimalist64.7z .\minimalist64\*
+"C:\Program Files\7-Zip\7z.exe" a -r .\build\npp.portable.minimalist.x64.7z .\minimalist64\*
 If ErrorLevel 1 goto End
 
 
-"C:\Program Files\7-Zip\7z.exe" a -tzip -r .\build\npp.bin.zip .\zipped.package.release\*
+"C:\Program Files\7-Zip\7z.exe" a -tzip -r .\build\npp.portable.zip .\zipped.package.release\*
 If ErrorLevel 1 goto End
-"C:\Program Files\7-Zip\7z.exe" a -r .\build\npp.bin.7z .\zipped.package.release\*
+"C:\Program Files\7-Zip\7z.exe" a -r .\build\npp.portable.7z .\zipped.package.release\*
 If ErrorLevel 1 goto End
 rem IF EXIST "%PROGRAMFILES(X86)%" ("%PROGRAMFILES(x86)%\NSIS\Unicode\makensis.exe" nppSetup.nsi) ELSE ("%PROGRAMFILES%\NSIS\Unicode\makensis.exe" nppSetup.nsi)
 IF EXIST "%PROGRAMFILES(X86)%" ("%PROGRAMFILES(x86)%\NSIS\makensis.exe" nppSetup.nsi) ELSE ("%PROGRAMFILES%\NSIS\makensis.exe" nppSetup.nsi)
@@ -297,10 +297,10 @@ rem Remove old build
 rmdir /S /Q .\zipped.package.release
 
 rem 
-"C:\Program Files\7-Zip\7z.exe" a -tzip -r .\build\npp.bin64.zip .\zipped.package.release64\*
+"C:\Program Files\7-Zip\7z.exe" a -tzip -r .\build\npp.portable.x64.zip .\zipped.package.release64\*
 If ErrorLevel 1 goto End
 
-"C:\Program Files\7-Zip\7z.exe" a -r .\build\npp.bin64.7z .\zipped.package.release64\*
+"C:\Program Files\7-Zip\7z.exe" a -r .\build\npp.portable.x64.7z .\zipped.package.release64\*
 If ErrorLevel 1 goto End
 
 
@@ -316,14 +316,14 @@ for %%a in (npp.*.Installer.exe) do (
   set nppInstallerVar64=!nppInstallerVar:Installer.exe=Installer.x64.exe!
 
   rem nppInstallerVar should be the version for example: 6.9
-  rem we put npp.6.9. + (bin.zip instead of Installer.exe) into var zipvar
-  set zipvar=!nppInstallerVar:Installer.exe=bin.zip!
+  rem we put npp.6.9. + (portable.zip instead of Installer.exe) into var zipvar
+  set zipvar=!nppInstallerVar:Installer.exe=portable.zip!
 
-  set zipvar64=!nppInstallerVar:Installer.exe=bin.x64.zip!
-  set 7zvar=!nppInstallerVar:Installer.exe=bin.7z!
-  set 7zvar64=!nppInstallerVar:Installer.exe=bin.x64.7z!
-  set 7zvarMin=!nppInstallerVar:Installer.exe=bin.minimalist.7z!
-  set 7zvarMin64=!nppInstallerVar:Installer.exe=bin.minimalist.x64.7z!
+  set zipvar64=!nppInstallerVar:Installer.exe=portable.x64.zip!
+  set 7zvar=!nppInstallerVar:Installer.exe=portable.7z!
+  set 7zvar64=!nppInstallerVar:Installer.exe=portable.x64.7z!
+  set 7zvarMin=!nppInstallerVar:Installer.exe=portable.minimalist.7z!
+  set 7zvarMin64=!nppInstallerVar:Installer.exe=portable.minimalist.x64.7z!
 )
 
 rem echo zipvar=!zipvar!
@@ -332,12 +332,12 @@ rem echo 7zvar=!7zvar!
 rem echo 7zvar64=!7zvar64!
 rem echo 7zvarMin=!7zvarMin!
 rem echo 7zvarMin64=!7zvarMin64!
-ren npp.bin.zip !zipvar!
-ren npp.bin64.zip !zipvar64!
-ren npp.bin.7z !7zvar!
-ren npp.bin64.7z !7zvar64!
-ren npp.bin.minimalist.7z !7zvarMin!
-ren npp.bin.minimalist64.7z !7zvarMin64!
+ren npp.portable.zip !zipvar!
+ren npp.portable.x64.zip !zipvar64!
+ren npp.portable.7z !7zvar!
+ren npp.portable.x64.7z !7zvar64!
+ren npp.portable.minimalist.7z !7zvarMin!
+ren npp.portable.minimalist.x64.7z !7zvarMin64!
 
 if %SIGN% == 0 goto NoSignInstaller
 signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++ Installer" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ !nppInstallerVar!

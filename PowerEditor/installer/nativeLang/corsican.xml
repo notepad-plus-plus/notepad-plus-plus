@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     History of Corsican translation for Notepad++
-		- Updated on September 16th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.9
-		- Updated on June 28th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.9
-		- Updated on April 19th, 2020 by Patriccollu di Santa Maria è Sichè for version 7.8.7
-		- Updated on December 5th, 2019 by Patriccollu di Santa Maria è Sichè for version 7.8.3
-		- Updated on November 2nd, 2019 by Patriccollu di Santa Maria è Sichè for version 7.8.1
-		- Updated on July 7th, 2019 by Patriccollu di Santa Maria è Sichè for version 7.7.2
-		- Updated on March 29th, 2019 by Patriccollu di Santa Maria è Sichè for version 7.6.5
-		- Updated on March 11th, 2018 by Patriccollu di Santa Maria è Sichè for version 7.5.5
-		- Updated on August 19th, 2017 by Patriccollu di Santa Maria è Sichè for version 7.5
-		- Updated on April 30th, 2017 by Patriccollu di Santa Maria è Sichè for version 7.3.3
-		- Created on September 14th, 2016 by Patriccollu di Santa Maria è Sichè for version 6.9.2
+		- Updated on September 16th, 2020 for version 7.9 by Patriccollu di Santa Maria è Sichè
+		- Updated on June 28th, 2020 for version 7.8.9 by Patriccollu di Santa Maria è Sichè
+		- Updated on April 19th, 2020 for version 7.8.7 by Patriccollu di Santa Maria è Sichè
+		- Updated on December 5th, 2019 for version 7.8.3 by Patriccollu di Santa Maria è Sichè
+		- Updated on November 2nd, 2019 for version 7.8.1 by Patriccollu di Santa Maria è Sichè
+		- Updated on July 7th, 2019 for version 7.7.2 by Patriccollu di Santa Maria è Sichè
+		- Updated on March 29th, 2019 for version 7.6.5 by Patriccollu di Santa Maria è Sichè
+		- Updated on March 11th, 2018 for version 7.5.5 by Patriccollu di Santa Maria è Sichè
+		- Updated on August 19th, 2017 for version 7.5 by Patriccollu di Santa Maria è Sichè
+		- Updated on April 30th, 2017 for version 7.3.3 by Patriccollu di Santa Maria è Sichè
+		- Created on September 14th, 2016 for version 6.9.2 by Patriccollu di Santa Maria è Sichè
 
     The latest update is still available here:
 	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/corsican.xml
@@ -92,6 +92,7 @@
                     <Item id="41002" name="&amp;Apre"/>
                     <Item id="41019" name="Espluratore"/>
                     <Item id="41020" name="Invitu di cumanda"/>
+                    <Item id="41025" name="Cartulare cum’è spaziu di travagliu"/>
                     <Item id="41003" name="&amp;Chjode"/>
                     <Item id="41004" name="Chjodelli &amp;tutti"/>
                     <Item id="41005" name="Chjode tuttu FOR di u ducumentu attuale"/>
@@ -131,6 +132,8 @@
                     <Item id="42015" name="Dispiazzà inghjò a linea attuale"/>
                     <Item id="42059" name="Classificà e linee da una manera lessicugrafica crescente"/>
                     <Item id="42060" name="Classificà e linee da una manera lessicugrafica discendente"/>
+                    <Item id="42080" name="Classificà e linee da manera less. crescente è rispittendu MAIU/minu"/>
+                    <Item id="42081" name="Classificà e linee da manera less. discendente è rispittendu MAIU/minu"/>
                     <Item id="42061" name="Classificà e linee cum’è numeri interi crescente"/>
                     <Item id="42062" name="Classificà e linee cum’è numeri interi discendente"/>
                     <Item id="42063" name="Classificà e linee cum’è numeri decimali (virgula) crescente"/>
@@ -372,6 +375,7 @@
                     <Item CMID="20" name="Apre cù l’invitu di cumanda u cartulare cuntenendu u schedariu"/>
                     <Item CMID="21" name="Apre in l’appiecazione predefinita"/>
                     <Item CMID="22" name="Chjode tuttu ciò ch’ùn hè micca cambiatu"/>
+                    <Item CMID="23" name="Apre u cartulare cuntenendu u schedariu cum’è spaziu di travagliu"/>
             </TabBar>
         </Menu>
 

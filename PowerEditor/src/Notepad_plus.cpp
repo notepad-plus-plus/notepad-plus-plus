@@ -27,6 +27,7 @@
 
 #include <time.h>
 #include <shlwapi.h>
+#include <wininet.h>
 #include "Notepad_plus.h"
 #include "Notepad_plus_Window.h"
 #include "FileDialog.h"
@@ -2514,6 +2515,394 @@ void Notepad_plus::setUniModeText()
 	_statusBar.setText(uniModeTextString.c_str(), STATUSBAR_UNICODE_TYPE);
 }
 
+bool isUrlSchemeStartChar(TCHAR const c)
+{
+	return ((c >= 'A') && (c <= 'Z'))
+		|| ((c >= 'a') && (c <= 'z'));
+}
+
+bool isUrlSchemeDelimiter(TCHAR const c) // characters allowed immedeately before scheme
+{
+	return   ! (((c >= '0') && (c <= '9'))
+			 || ((c >= 'A') && (c <= 'Z'))
+			 || ((c >= 'a') && (c <= 'z'))
+			 ||  (c == '_'));
+}
+
+bool isUrlTextChar(TCHAR const c)
+{
+	if (c <= ' ') return false;
+	switch (c)
+	{
+		case '"':
+		case '#':
+		case '\'':
+		case '<':
+		case '>':
+		case '?':
+		case '\0x7f':
+			return false;
+	}
+	return true;
+}
+
+bool isUrlQueryDelimiter(TCHAR const c)
+{
+	switch(c)
+	{
+		case '&':
+		case '+':
+		case '=':
+		case ';':
+			return true;
+	}
+	return false;
+}
+
+bool isUrlSchemeSupported(INTERNET_SCHEME s)
+{
+	switch (s)
+	{
+		case INTERNET_SCHEME_FTP:
+		case INTERNET_SCHEME_HTTP:
+		case INTERNET_SCHEME_HTTPS:
+		case INTERNET_SCHEME_MAILTO:
+		case INTERNET_SCHEME_FILE:
+			return true;
+	}
+	return false;
+}
+
+// scanToUrlStart searches for a possible URL in <text>.
+// If a possible URL is found, then:
+// - True is returned.
+// - The number of characters between <text[start]> and the beginning of the URL candidate is stored in <distance>.
+// - The length of the URL scheme is stored in <schemeLength>.
+// If no URL is found, then:
+// - False is returned.
+// - The number of characters between <text[start]> and the end of text is stored in <distance>.
+bool scanToUrlStart(TCHAR *text, int textLen, int start, int* distance, int* schemeLength)
+{
+	int p = start;
+	int p0 = 0;
+	enum {sUnknown, sScheme} s = sUnknown;
+	while (p < textLen)
+	{
+		switch (s)
+		{
+			case sUnknown:
+				if (isUrlSchemeStartChar(text [p]) && ((p == 0) || isUrlSchemeDelimiter(text [p - 1])))
+				{
+					p0 = p;
+					s = sScheme;
+				}
+				break;
+
+			case sScheme:
+				if (text [p] == ':')
+				{
+					*distance = p0 - start;
+					*schemeLength = p - p0 + 1;
+					return true;
+				}
+				if (!isUrlSchemeStartChar(text [p]))
+					s = sUnknown;
+				break;
+		}
+		p++;
+	}
+	*schemeLength = 0;
+	*distance = p - start;
+	return false;
+}
+
+// scanToUrlEnd searches the end of an URL, coarsly parsing its main parts HostAndPath, Query and Fragment.
+//
+// In the query part, a simple pattern is enforced, to avoid that everything goes through as a query.
+// The pattern is kept simple, since there seem to be many different forms of queries used in the world.
+// The objective here is not to detect whether or not a query is malformed. The objective is, to let through
+// most of the real world's queries, and to sort out what is certainly not a query.
+//
+// The approach is:
+// - A query begins with '?', followed by any number of values,
+//   which are separated by a single delimiter character '&', '+', '=' or ';'.
+// - Each value may be enclosed in single or double quotes.
+//
+// The query pattern going through looks like this:
+// - ?abc;def;fgh="i j k"&'l m n'+opq
+//
+void scanToUrlEnd(TCHAR *text, int textLen, int start, int* distance)
+{
+	int p = start;
+	TCHAR q = 0;
+	enum {sHostAndPath, sQuery, sQueryAfterDelimiter, sQueryQuotes, sQueryAfterQuotes, sFragment} s = sHostAndPath;
+	while (p < textLen)
+	{
+		switch (s)
+		{
+			case sHostAndPath: 
+				if (text [p] == '?')
+					s = sQuery;
+				else if (text [p] == '#')
+					s = sFragment;
+				else if (!isUrlTextChar (text [p]))
+				{
+					*distance = p - start;
+					return;
+				}
+				break;
+
+			case sQuery:
+				if (text [p] == '#')
+					s = sFragment;
+				else if (isUrlQueryDelimiter (text [p]))
+					s = sQueryAfterDelimiter;
+				else if (!isUrlTextChar(text [p]))
+				{
+					*distance = p - start;
+					return;
+				}
+				break;
+
+			case sQueryAfterDelimiter:
+				if ((text [p] == '\'') || (text [p] == '"'))
+				{
+					q = text [p];
+					s = sQueryQuotes;
+				}
+				else if (isUrlTextChar(text [p]))
+					s = sQuery;
+				else
+				{
+					*distance = p - start;
+					return;
+				}
+				break;
+
+			case sQueryQuotes:
+				if (text [p] < ' ')
+				{
+					*distance = p - start;
+					return;
+				}
+				if (text [p] == q)
+					s = sQueryAfterQuotes;
+				break;
+	
+			case sQueryAfterQuotes:
+				if (isUrlQueryDelimiter (text [p]))
+					s = sQueryAfterDelimiter;
+				else
+				{
+					*distance = p - start;
+					return;
+				}
+				break;
+
+			case sFragment:
+				if (!isUrlTextChar(text [p]))
+				{
+					*distance = p - start;
+					return;
+				}
+				break;
+		}
+		p++;
+	}
+	*distance = p - start;
+}
+
+// removeUnwantedTrailingCharFromUrl removes a single unwanted trailing character from an URL.
+// It has to be called repeatedly, until it returns false, meaning that all unwanted characters are gone.
+bool removeUnwantedTrailingCharFromUrl (TCHAR const *text, int* length)
+{
+	int l = *length - 1;
+	if (l <= 0) return false;
+	{ // remove unwanted single characters
+		const TCHAR *singleChars = L".,:;?!#";
+		for (int i = 0; singleChars [i]; i++)
+			if (text [l] == singleChars [i])
+			{
+				*length = l;
+				return true;
+			}
+	}
+	{ // remove unwanted closing parenthesis
+		const TCHAR *closingParenthesis = L")]}>";
+		const TCHAR *openingParenthesis = L"([{<";
+		for (int i = 0; closingParenthesis [i]; i++)
+			if (text [l] == closingParenthesis [i])
+			{
+				int count = 1;
+				for (int j = l - 1; j >= 0; j--)
+				{
+					if (text [j] == closingParenthesis [i])
+						count++;
+					if (text [j] == openingParenthesis [i])
+						count--;
+				}
+				if (count == 0)
+					return false;
+				*length = l;
+				return true;
+			}
+	}
+	{ // remove unwanted quotes
+		const TCHAR *quotes = L"\"'`";
+		for (int i = 0; quotes [i]; i++)
+		{
+			if (text [l] == quotes [i])
+			{
+				int count = 0;
+				for (int j = l - 1; j >= 0; j--)
+					if (text [j] == quotes [i])
+						count++;
+
+				if (count & 1)
+					return false;
+				*length = l;
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+bool isSlashOrBackslash(TCHAR const c)
+{
+	return (c == '/') || (c == '\\');
+}
+
+bool isFilenameChar(TCHAR const c, bool const quoted)
+{
+	if (c < ' ')
+		return false;
+
+	if ((c == ' ') && (!quoted))
+		return false;
+
+	switch (c)
+	{
+		case '"':
+		case '%':
+		case '*':
+		case '/':
+		case '<':
+		case '>':
+		case ':':
+		case '?':
+		case '|':
+		case '\\':
+		case '\0x7f':
+			return false;
+	}
+	return true;
+}
+
+// scanToFileEnd searches the end of an Filename, coarsly parsing it into prefix and name.
+// The prefix parsing is done to avoid multiple colons.
+// The <quoted> parameter specifies, whether spaces are allowed.
+void scanToFileEnd(TCHAR *text, int textLen, int start, bool quoted, int* distance)
+{
+	int p = start;
+	enum {sStart, sPrefix, sColon, sName} s = sStart;
+	while (p < textLen)
+	{
+		switch (s)
+		{
+			case sStart:
+				if (isFilenameChar (text [p], false))
+					s = sPrefix;
+				else if (!isSlashOrBackslash(text [p]))
+				{
+					*distance = p - start;
+					return;
+				}
+				break;
+
+			case sPrefix:
+				if (isSlashOrBackslash(text [p]) || isFilenameChar(text [p], quoted))
+					s = sName;
+				else if (text [p] == ':')
+					s = sColon;
+				else
+				{
+					*distance = p - start;
+					return;
+				}
+				break;
+
+			case sColon:
+				if (isSlashOrBackslash(text[p]))
+					s = sName;
+				else
+				{
+					*distance = p - start;
+					return;
+				}
+				break;
+
+			case sName:
+				if (! (isSlashOrBackslash(text [p]) || isFilenameChar(text [p], quoted)))
+				{
+					*distance = p - start;
+					return;
+				}
+				break;
+		}
+		p++;
+	}
+	*distance = p - start;
+}
+
+// isUrl checks, whether there is a valid URL at <text [start]>.
+// If yes:
+// - True is returned.
+// - The length of the URL is stored in <segmentLen>.
+// If no:
+// - False is returned.
+// - The number of characters between <text[start]> and the next URL is stored in <segementLen>.
+// - If no URL is found at all, then the number of characters between <text[start]> and the end of text is stored in <segmentLen>.
+bool isUrl(TCHAR * text, int textLen, int start, int* segmentLen)
+{
+	int dist = 0, schemeLen = 0;
+	if (scanToUrlStart(text, textLen, start, & dist, & schemeLen))
+	{
+		if (dist)
+		{
+			*segmentLen = dist;
+			return false;
+		}
+		int len = 0;
+		scanToUrlEnd (text, textLen, start + schemeLen, & len);
+		if (len)
+		{
+			len += schemeLen;
+			URL_COMPONENTS url;
+			memset (& url, 0, sizeof(url));
+			url.dwStructSize = sizeof(url);
+			bool r  = InternetCrackUrl(& text [start], len, 0, & url) && isUrlSchemeSupported(url.nScheme);
+			if (r)
+			{
+				while (removeUnwantedTrailingCharFromUrl (& text [start], & len));
+				if (url.nScheme == INTERNET_SCHEME_FILE)
+				{
+					scanToFileEnd (text, textLen, start + schemeLen, (start > 0) && (text [start - 1] == '"'), & len);
+					len += schemeLen;
+				}
+				*segmentLen = len;
+				return true;
+			}
+		}
+		len = 1;
+		int lMax = textLen - start;
+		while (isUrlSchemeStartChar(text[start+len]) && (len < lMax)) len++;
+		*segmentLen = len;
+		return false;
+	}
+	*segmentLen = dist;
+	return false;
+}
 
 void Notepad_plus::addHotSpot(ScintillaEditView* view)
 {
@@ -2547,23 +2936,38 @@ void Notepad_plus::addHotSpot(ScintillaEditView* view)
 	LRESULT indicFore = pView->execute(SCI_STYLEGETFORE, STYLE_DEFAULT);
 	pView->execute(SCI_SETINDICATORVALUE, indicFore);
 
-	pView->execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP|SCFIND_POSIX);
-	pView->execute(SCI_SETTARGETRANGE, startPos, endPos);
-	int posFound = static_cast<int32_t>(pView->execute(SCI_SEARCHINTARGET, strlen(URL_REG_EXPR), reinterpret_cast<LPARAM>(URL_REG_EXPR)));
-
-	while (posFound != -1 && posFound != -2)
+	UINT cp = static_cast<UINT>(pView->execute(SCI_GETCODEPAGE));
+	char *encodedText = new char[endPos - startPos + 1];
+	pView->getText(encodedText, startPos, endPos);
+	TCHAR *wideText = new TCHAR[endPos - startPos + 1];
+	int wideTextLen = MultiByteToWideChar(cp, 0, encodedText, endPos - startPos + 1, (LPWSTR) wideText, endPos - startPos + 1) - 1;
+	delete[] encodedText;
+	if (wideTextLen > 0)
 	{
-		int end = int(pView->execute(SCI_GETTARGETEND));
-		int foundTextLen = end - posFound;
-		if (posFound > startPos)
-			pView->execute(SCI_INDICATORCLEARRANGE, startPos, posFound - startPos);
-		pView->execute(SCI_INDICATORFILLRANGE, posFound, foundTextLen);
-		startPos = posFound + foundTextLen;
-		pView->execute(SCI_SETTARGETRANGE, startPos, endPos);
-		posFound = static_cast<int32_t>(pView->execute(SCI_SEARCHINTARGET, strlen(URL_REG_EXPR), reinterpret_cast<LPARAM>(URL_REG_EXPR)));
+		int startWide = 0;
+		int lenWide = 0;
+		int startEncoded = 0;
+		int lenEncoded = 0;
+		while (true)
+		{
+			bool r = isUrl(wideText, wideTextLen, startWide, & lenWide);
+			if (lenWide <= 0)
+				break;
+			assert ((startWide + lenWide) <= wideTextLen);
+			lenEncoded = WideCharToMultiByte(cp, 0, & wideText [startWide], lenWide, NULL, 0, NULL, NULL);
+			if (r)
+				pView->execute(SCI_INDICATORFILLRANGE, startEncoded + startPos, lenEncoded);
+			else
+				pView->execute(SCI_INDICATORCLEARRANGE, startEncoded + startPos, lenEncoded);
+			startWide += lenWide;
+			startEncoded += lenEncoded;
+			if ((startWide >= wideTextLen) || ((startEncoded + startPos) >= endPos))
+				break;
+		}
+		assert ((startEncoded + startPos) == endPos);
+		assert (startWide == wideTextLen);
 	}
-	if (endPos > startPos)
-		pView->execute(SCI_INDICATORCLEARRANGE, startPos, endPos - startPos);
+	delete[] wideText;
 }
 
 bool Notepad_plus::isConditionExprLine(int lineNumber)

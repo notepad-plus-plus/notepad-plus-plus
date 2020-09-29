@@ -292,7 +292,7 @@ Sci::Position BoostRegexSearch::FindText(Document* doc, Sci::Position startPosit
 		const bool starts_at_line_start = search.isLineStart(search._startPosition);
 		const bool ends_at_line_end     = search.isLineEnd(search._endPosition);
 		search._boostRegexFlags = 
-			  (starts_at_line_start ? regex_constants::match_default : regex_constants::match_not_bol)
+			  (starts_at_line_start ? regex_constants::match_default : regex_constants::match_prev_avail)
 			| (ends_at_line_end     ? regex_constants::match_default : regex_constants::match_not_eol)
 			| ((sciSearchFlags & SCFIND_REGEXP_DOTMATCHESNL) ? regex_constants::match_default : regex_constants::match_not_dot_newline);
 		
@@ -349,8 +349,8 @@ BoostRegexSearch::Match BoostRegexSearch::EncodingDependent<CharT, CharacterIter
 	bool match_is_valid = false;
 	do {
 		search._boostRegexFlags = search.isLineStart(next_search_from_position)
-			? search._boostRegexFlags & ~regex_constants::match_not_bol
-			: search._boostRegexFlags |  regex_constants::match_not_bol;
+			? search._boostRegexFlags & ~regex_constants::match_prev_avail
+			: search._boostRegexFlags |  regex_constants::match_prev_avail;
 		const bool end_reached = next_search_from_position > search._endPosition;
 		found = !end_reached && boost::regex_search(CharacterIterator(search._document, next_search_from_position, search._endPosition), endIterator, _match, _regex, search._boostRegexFlags);
 		if (found) {

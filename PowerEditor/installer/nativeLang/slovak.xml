@@ -799,6 +799,8 @@
                     <Item id="6125" name="Panel prepínača dokumentov"/>
                     <Item id="6126" name="Zobraziť"/>
                     <Item id="6127" name="Nepoužívať stĺpec prípon"/>
+
+                    <Item id="6128" name="Alternatívne ikony"/>
                 </Global>
                 <Scintillas title="Editor">
                     <Item id="6216" name="Nastavenie kurzora"/>

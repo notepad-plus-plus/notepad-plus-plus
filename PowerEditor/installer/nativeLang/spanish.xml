@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-	<Native-Langue name="Español" filename="spanish.xml" version="7.8.7">
+	<Native-Langue name="Español" filename="spanish.xml" version="7.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -119,6 +119,7 @@
 					<Item id="42064" name="Ordenar líneas como decimales (coma) descendente"/>
 					<Item id="42065" name="Ordenar líneas como decimales (punto) ascendente"/>
 					<Item id="42066" name="Ordenar líneas como decimales (punto) descendente"/>
+					<Item id="42078" name="Ordenar líneas al azar"/>
 					<Item id="42016" name="Convertir a MAYÚSCULAS"/>
 					<Item id="42017" name="Convertir a minúsculas"/>
 					<Item id="42067" name="Convertir A Modo Título"/>
@@ -315,8 +316,6 @@
 					<Item id="50000" name="Función completa"/>
 					<Item id="50001" name="Palabra completa"/>
 					<Item id="50002" name="Parámetros de función"/>
-					<Item id="50003" name="Cambiar al documento anterior"/>
-					<Item id="50004" name="Cambiar al siguiente documento"/>
 					<Item id="50005" name="Alternar registro de macro"/>
 					<Item id="50006" name="Ruta"/>
 					<Item id="44042" name="Ocultar líneas"/>
@@ -495,6 +494,71 @@
 				<ScintillaCommandsTab name="Comandos Scintilla"/>
 				<ConflictInfoOk name="No hay conflictos de acceso para este elemento."/>
 				<ConflictInfoEditing name="Sin conflictos . . ."/>
+				<MainCommandNames>
+					<Item id="41019" name="Abrir carpeta contenedora en Explorer"/>
+					<Item id="41020" name="Abrir carpeta contenedora en Símbolo del sistema"/>
+					<Item id="41021" name="Restaurar archivo cerrado reciente"/>
+					<Item id="45001" name="Conversión EOL a Windows (CR LF)"/>
+					<Item id="45002" name="Conversión EOL a Unix (LF)"/>
+					<Item id="45003" name="Conversión EOL a Macintosh (CR)"/>
+					<Item id="43022" name="Marcar los resultados de la búsqueda con el primer estilo"/>
+					<Item id="43024" name="Marcar los resultados de la búsqueda con el segundo estilo"/>
+					<Item id="43026" name="Marcar los resultados de la búsqueda con el tercer estilo"/>
+					<Item id="43028" name="Marcar los resultados de la búsqueda con el cuarto estilo"/>
+					<Item id="43030" name="Marcar los resultados de la búsqueda con el quinto estilo"/>
+					<Item id="43023" name="Desmarcar usando el primer estilo"/>
+					<Item id="43025" name="Desmarcar usando el segundo estilo"/>
+					<Item id="43027" name="Desmarcar usando el tercer estilo"/>
+					<Item id="43029" name="Desmarcar usando el cuarto estilo"/>
+					<Item id="43031" name="Desmarcar usando el quinto estilo"/>
+					<Item id="43032" name="Desmarcar usando cualquier estilo"/>
+					<Item id="43033" name="Marca anterior usando el primer estilo"/>
+					<Item id="43034" name="Marca anterior usando el segundo estilo"/>
+					<Item id="43035" name="Marca anterior usando el tercer estilo"/>
+					<Item id="43036" name="Marca anterior usando el cuarto estilo"/>
+					<Item id="43037" name="Marca anterior usando el quinto estilo"/>
+					<Item id="43038" name="Marca anterior creada con Marcar"/>
+					<Item id="43039" name="Next mark using 1st style"/>
+					<Item id="43040" name="Next mark using 2nd style"/>
+					<Item id="43041" name="Next mark using 3rd style"/>
+					<Item id="43042" name="Next mark using 4th style"/>
+					<Item id="43043" name="Next mark using 5th style"/>
+					<Item id="43044" name="Next mark created with Mark"/>
+					<Item id="44100" name="View current file in Firefox"/>
+					<Item id="44101" name="View current file in Chrome"/>
+					<Item id="44103" name="View current file in IE"/>
+					<Item id="44102" name="View current file in Edge"/>
+					<Item id="50003" name="Switch to previous document"/>
+					<Item id="50004" name="Switch to next document"/>
+					<Item id="44051" name="Collapse Level 1"/>
+					<Item id="44052" name="Collapse Level 2"/>
+					<Item id="44053" name="Collapse Level 3"/>
+					<Item id="44054" name="Collapse Level 4"/>
+					<Item id="44055" name="Collapse Level 5"/>
+					<Item id="44056" name="Collapse Level 6"/>
+					<Item id="44057" name="Collapse Level 7"/>
+					<Item id="44058" name="Collapse Level 8"/>
+					<Item id="44061" name="Uncollapse Level 1"/>
+					<Item id="44062" name="Uncollapse Level 2"/>
+					<Item id="44063" name="Uncollapse Level 3"/>
+					<Item id="44064" name="Uncollapse Level 4"/>
+					<Item id="44065" name="Uncollapse Level 5"/>
+					<Item id="44066" name="Uncollapse Level 6"/>
+					<Item id="44067" name="Uncollapse Level 7"/>
+					<Item id="44068" name="Uncollapse Level 8"/>
+					<Item id="44081" name="Toggle Project Panel 1"/>
+					<Item id="44082" name="Toggle Project Panel 2"/>
+					<Item id="44083" name="Toggle Project Panel 3"/>
+					<Item id="44085" name="Toggle Folder as Workspace"/>
+					<Item id="44080" name="Toggle Document Map"/>
+					<Item id="44084" name="Toggle Function List"/>
+					<Item id="50005" name="Toggle macro recording"/>
+					<Item id="44104" name="Switch to Project Panel 1"/>
+					<Item id="44105" name="Switch to Project Panel 2"/>
+					<Item id="44106" name="Switch to Project Panel 3"/>
+					<Item id="44107" name="Switch to Folder as Workspace"/>
+					<Item id="44108" name="Switch to Function List"/>
+				</MainCommandNames>
 			</ShortcutMapper>
 			<ShortcutMapperSubDialg title="Acceso directo">
 				<Item id="1" name="OK"/>
@@ -734,6 +798,7 @@
 					<Item id="6231" name="Ancho de borde"/>
 					<Item id="6235" name="Sin borde"/>
 					<Item id="6236" name="Permitir desplazamiento tras la próxima línea"/>
+					<Item id="6239" name="Mantener la selección al hacer clic con el botón derecho fuera de la selección"/>
 				</Scintillas>
 				<NewDoc title="Archivo nuevo">
 					<Item id="6401" name="Formato"/>
@@ -814,14 +879,20 @@
 					<Item id="6727" name="Mostrar sus ajustes variables"/>
 					<Item id="6728" name="Cabecera y pie de página"/>
 				</Print>
-				<RecentFilesHistory title="Archivos recientes">
+				<Searching title="Buscando">
+					<Item id="6901" name="No llenar el campo de búsqueda en el cuadro de diálogo con la palabra seleccionada"/>
+					<Item id="6902" name="Utilizar una fuente monoespaciada en el cuadro de diálogo Buscar (es necesario reiniciar Notepad++)"/>
+					<Item id="6903" name="El cuadro de diálogo permanece abierto después de la búsqueda que muestra la ventana de resultados"/>
+					<Item id="6904" name="Confirmar Reemplazar todo en todos los documentos abiertos"/>
+				</Searching>
+				<RecentFilesHistory title="Historial de archivos recientes">
 					<Item id="6304" name="Historial de archivos recientes"/>
-					<Item id="6306" name="Máximo núm. entradas:"/>
-					<Item id="6305" name="No comprobar al inicio"/>
+					<Item id="6306" name="Max. número de entradas :"/>
+					<Item id="6305" name="No verificar en el lanzamiento"/>
 					<Item id="6429" name="Mostrar"/>
-					<Item id="6424" name="En submenú"/>
-					<Item id="6425" name="Solo nombre archivo"/>
-					<Item id="6426" name="Ruta completa archivo"/>
+					<Item id="6424" name="En Submenu"/>
+					<Item id="6425" name="Solo nombre de archivo"/>
+					<Item id="6426" name="Ruta completa del archivo"/>
 					<Item id="6427" name="Longitud máxima:"/>
 				</RecentFilesHistory>
 				<Backup title="Backup">
@@ -908,16 +979,14 @@
 					<Item id="6324" name="Cambiar de documento (Ctrl+TAB)"/>
 					<Item id="6331" name="Mostrar sólo nombre de archivo en el título de la ventana"/>
 					<Item id="6334" name="Autodetectar codificación"/>
-					<Item id="6314" name="Usar fuente monoespaciada en el cuadro de diálogo Buscar (es necesario reiniciar Notepad++)"/> 
+					<Item id="6314" name="Usar fuente monoespaciada en el cuadro de diálogo Buscar (es necesario reiniciar Notepad++)"/>
 					<Item id="6349" name="Usar DirectWrite (Puede mejorar la representación de caracteres especiales, es necesario reiniciar Notepad++)"/>
-
 					<Item id="6337" name="Ext. del arch. área de trab.:"/>
 					<Item id="6114" name="Permitir"/>
 					<Item id="6117" name="Ordenar por el usado más reciente"/>
 					<Item id="6344" name="Visor de documento"/>
 					<Item id="6345" name="Pestaña de visor"/>
 					<Item id="6346" name="Ver en mapa de documento"/>
-					<Item id="6348" name="No rellene el campo de entrada en el cuadro de diálogo Buscar"/>
 				</MISC>
 			</Preference>
 			<MultiMacro title="Ejecución múltiple de macro">
@@ -1200,6 +1269,10 @@ Find in all files except exe, obj &amp;&amp; log:
 			<find-status-replace-not-found value="Reemplazar: no se encontró ninguna ocurrencia."/>
 			<find-status-replace-readonly value="Reemplazar: No se puede reemplazar el texto. El documento actual es de solo lectura"/>
 			<find-status-cannot-find value="Buscar: no se puede encontrar el texto &quot;$STR_REPLACE$&quot;"/>
+			<find-status-scope-selection value="en el texto seleccionado"/>
+			<find-status-scope-all value="en todo el archivo"/>
+			<find-status-scope-backward value="desde el inicio del archivo hasta el cursor"/>
+			<find-status-scope-forward value="desde el inicio del archivo hasta el final"/>
 			<finder-find-in-finder value="Buscar en estos resultados..."/>
 			<finder-close-this value="Cerrar el buscador"/>
 			<finder-collapse-all value="Contraer todo"/>
@@ -1208,6 +1281,7 @@ Find in all files except exe, obj &amp;&amp; log:
 			<finder-select-all value="Seleccionar todo"/>
 			<finder-clear-all value="Limpiar todo"/>
 			<finder-open-all value="Abrir todo"/>
+			<finder-wrap-long-lines value="Ajustarlongitud de palabras"/>
 			<common-ok value="OK"/>
 			<common-cancel value="Cancelar"/>
 			<common-name value="Nombre: "/>

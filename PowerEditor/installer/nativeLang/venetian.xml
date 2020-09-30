@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     Venetian translation for Notepad++ 7.9
-    Last modified Wed, September 9th, 2020.
+    Last modified Wed, September 30th, 2020.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 <NotepadPlus>
@@ -825,7 +825,7 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
                     <Item id="6231" name="Spesore Bordo Editor"/>
                     <Item id="6235" name="Nisun bordo"/>
                     <Item id="6236" name="Abìƚita scorimento oltre ƚ&apos;ùltima riga"/>
-                    <Item id="6239" name="Mantien ƚa selesion cò the clichi col tasto de drita fora de ƚa selesion"/>																			 
+                    <Item id="6239" name="Mantien ƚa selesion cò te clichi col boton de drita fora de ƚa selesion"/>																			 
                 </Scintillas>
 
                 <NewDoc title="Novo documento">

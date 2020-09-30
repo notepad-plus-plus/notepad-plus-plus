@@ -650,8 +650,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_CHANGETABBAEICONS:
 		{
-			_mainDocTab.changeIcons(lParam);
-			_subDocTab.changeIcons(lParam);
+			_mainDocTab.changeIcons(static_cast<unsigned char>(lParam));
+			_subDocTab.changeIcons(static_cast<unsigned char>(lParam));
 			return TRUE;
 		}
 

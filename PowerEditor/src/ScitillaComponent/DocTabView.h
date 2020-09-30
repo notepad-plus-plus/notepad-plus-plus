@@ -45,7 +45,7 @@ public :
 		TabBarPlus::destroy();
 	};
 
-	void init(HINSTANCE hInst, HWND parent, ScintillaEditView * pView, std::vector<IconList *> pIconListVector, size_t indexChoice) {
+	void init(HINSTANCE hInst, HWND parent, ScintillaEditView * pView, std::vector<IconList *> pIconListVector, unsigned char indexChoice) {
 		TabBarPlus::init(hInst, parent);
 		_pView = pView;
 
@@ -64,7 +64,7 @@ public :
 		return;
 	};
 
-	void changeIcons(size_t choice) {
+	void changeIcons(unsigned char choice) {
 		if (choice >= _pIconListVector.size())
 			return;
 		_iconListIndexChoice = choice;

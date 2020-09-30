@@ -648,6 +648,13 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_INTERNAL_CHANGETABBAEICONS:
+		{
+			_mainDocTab.changeIcons(lParam);
+			_subDocTab.changeIcons(lParam);
+			return TRUE;
+		}
+
 		case NPPM_INTERNAL_RELOADNATIVELANG:
 		{
 			reloadLang();

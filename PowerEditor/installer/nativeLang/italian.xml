@@ -1107,7 +1107,7 @@ Sicuro di volerli aprire?" />
 o in una cartella che necessita dei privilegi di scrittura per poterci accedere.
 Le tue impostazioni nel cloud saranno cancellate. Reimposta un valore coerente dalle impostazioni." />
             <FilePathNotFoundWarning title = "Apertura file" message = "Il file che si sta cercando di aprire non esiste." />
-            <SessionFileInvalidError title = "Impossibile caricare la sesisone" message = "Il file di sessione è corrotto o non è valido." />
+            <SessionFileInvalidError title = "Impossibile caricare la sessione" message = "Il file di sessione è corrotto o non è valido." />
             <DroppingFolderAsProjectModeWarning title = "Azione non valida" message = "Puoi portare file o cartelle, ma non entrambe, perché sei in modalità rilascia Cartella come Progetto.
 devi abilitare &quot;Apri tutti i file della cartella invece di avviare Cartella come Workspace al trascinamento&quot; nella sezione &quot;Cartella predefinita&quot; delle preferenze per attivare questa funzionalità." />
             <SortingError title = "Errore ordinamento" message = "Impossibile effettuare un ordinamento numerico a causa della riga $INT_REPLACE$." />
@@ -1152,7 +1152,7 @@ Rimuovi la cartella dal pannello prima di aggiungere &quot;$STR_REPLACE$&quot;."
             <ProjectPanelChangedSaveError title = "$STR_REPLACE$" message = "Il tuo workspace non è stato salvato." />
             <ProjectPanelOpenDoSaveDirtyWsOrNot title = "Apri Workspace" message = "Il workspace attuale è stato modificato. Vuoi salvare il progetto attuale?" />
             <ProjectPanelNewDoSaveDirtyWsOrNot title = "Nuovo Workspace" message = "Il workspace attuale è stato modificato. Vuoi salvare il progetto attuale?" />
-            <ProjectPanelOpenFailed title = "Apri Workspace" message = "Il workspace non puà essere aperto.
+            <ProjectPanelOpenFailed title = "Apri Workspace" message = "Il workspace non può essere aperto.
 Sembra che il file da aprire non sia un file di progetto valido." />
             <ProjectPanelRemoveFolderFromProject title = "Rimuovi cartella dal progetto" message = "Tutti i sotto-elementi saranno eliminati.
 Sei sicuro di voler rimuovere questa cartella dal progetto?" />
@@ -1170,7 +1170,7 @@ Vuoi avviare Notepad++ come amministratore?" />
             <OpenInAdminModeWithoutCloseCurrent title = "Salvataggio fallito" message = "Il file non può essere salvato e potrebbe essere protetto.
 Vuoi avviare Notepad++ come amministratore?" />
             <OpenInAdminModeFailed title = "Apertura come amministratore fallita" message = "Notepad++ non può essere aperto come amministratore." />
-            <ViewInBrowser title="Visualiza file attuale nel browser" message="Applicazione non trovata nel sistema." />
+            <ViewInBrowser title="Visualizza file attuale nel browser" message="Applicazione non trovata nel sistema." />
             <ExitToUpdatePlugins title="Notepad++ sta per chiudersi" message="Se fai clic su 'Sì', uscirai da Notepad++ per continuare le operazioni.
 Notepad++ verrà riavviato dopo che le operazioni saranno state completate.
 Vuoi continuare?" />
@@ -1318,7 +1318,7 @@ Cerca in tutti i file eccetto exe, obj &amp;&amp; log:
             <finder-collapse-all value = "Collassa tutto" />
             <finder-uncollapse-all value = "Espandi tutto" />
             <finder-copy value = "Copia" />
-            <finder-select-all value = "Selezione tutto" />
+            <finder-select-all value = "Seleziona tutto" />
             <finder-clear-all value = "Pulisci tutto" />
             <finder-open-all value = "Apri tutto" />
             <finder-wrap-long-lines value = "A capo nelle linee lunghe" />
@@ -1353,7 +1353,7 @@ Cerca in tutti i file eccetto exe, obj &amp;&amp; log:
             <find-result-caption value="Trova risultati" />
             <find-result-title value="Trova" />
             <find-result-title-info value="($INT_REPLACE1$ occorrenze in $INT_REPLACE2$ files di $INT_REPLACE3$ ricercati)" />
-            <find-result-title-info-selections value="($INT_REPLACE1$ ocorense in $INT_REPLACE2$ selesioni de $INT_REPLACE3$ sercà)" />																																	   
+            <find-result-title-info-selections value="($INT_REPLACE1$ occorrenze in $INT_REPLACE2$ selezioni di $INT_REPLACE3$ trovate)" />																																	   
             <find-result-title-info-extra value=" - Modalità filtro linea: mostra solo i risultati filtrati" />
             <find-result-hits value="($INT_REPLACE$ occorrenze)" />
             <find-regex-zero-length-match value="nessun risultato trovato" />

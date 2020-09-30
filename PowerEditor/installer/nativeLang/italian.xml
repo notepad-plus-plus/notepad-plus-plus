@@ -1,11 +1,11 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-    Italian translation for Notepad++ 7.8.9
-    Last modified Mon, Sep 9th, 2020.
+    Italian translation for Notepad++ 7.9.1
+    Last modified Sat, Oct 24th, 2020.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 <NotepadPlus>
-    <Native-Langue name = "Italiano" filename = "italian.xml" version = "7.8.9">
+    <Native-Langue name = "Italiano" filename = "italian.xml" version = "7.9.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -42,6 +42,7 @@
                     <Item subMenuId = "search-unmarkAll" name = "Rimuovi marcatura" />
                     <Item subMenuId = "search-jumpUp" name = "Vai su" />
                     <Item subMenuId = "search-jumpDown" name = "Vai giù" />
+                    <Item subMenuId = "search-copyStyledText" name="Copia il testo in stile"/>
                     <Item subMenuId = "search-bookmark" name = "Segnalibri" />
                     <Item subMenuId = "view-currentFileIn" name = "Visualizza file attuale in" />
                     <Item subMenuId = "view-showSymbol" name = "Simboli" />
@@ -105,6 +106,7 @@
                     <Item id = "41022" name = "Apri cartella come workspace..." />
                     <Item id = "41023" name = "Apri con il visualizzatore predefinito" />
                     <Item id = "41024" name = "Chiudi tutti quelli non modificati" />
+                    <Item id = "41025" name = "Cartella come Workspace"/>
 
                     <Item id = "42001" name = "Tag&amp;lia" />
                     <Item id = "42002" name = "&amp;Copia" />
@@ -184,6 +186,9 @@
                     <Item id = "42076" name = "Modifica motore di ricerca..." />
                     <Item id = "42077" name = "Rimuovi linee duplicate consecutive" />
                     <Item id = "42078" name = "Ordina righe in modo casuale" />
+                    <Item id = "42079" name = "Rimuovi linee duplicate" />
+                    <Item id = "42080" name = "Ordina righe in modo crescente ignorando maiuscole/minuscole"/>
+                    <Item id = "42081" name = "Ordina righe in modo decrescente ignorando maiuscole/minuscole"/>
 
                     <Item id = "43001" name = "&amp;Trova..." />
                     <Item id = "43002" name = "Trova &amp;successivo" />
@@ -226,6 +231,13 @@
                     <Item id = "43042" name = "4º stile" />
                     <Item id = "43043" name = "5º stile" />
                     <Item id = "43044" name = "Trova stile" />
+                    <Item id = "43055" name = "1º stile" />
+                    <Item id = "43056" name = "2º stile" />
+                    <Item id = "43057" name = "3º stile" />
+                    <Item id = "43058" name = "4º stile" />
+                    <Item id = "43059" name = "5º stile" />
+                    <Item id = "43060" name = "Tutti gli stili" />
+                    <Item id = "43061" name = "Trova stile (Evidenziata)" />
                     <Item id = "43045" name = "Finestra risultati di ricerca" />
                     <Item id = "43046" name = "Risultato di ricerca successivo" />
                     <Item id = "43047" name = "Risultato di ricerca precedente" />
@@ -341,8 +353,6 @@
                     <Item id = "50000" name = "Completa funzione" />
                     <Item id = "50001" name = "Completa parola" />
                     <Item id = "50002" name = "Parametri funzione" />
-                    <Item id = "50003" name = "Passa al documento precedente" />
-                    <Item id = "50004" name = "Passa al documento successivo" />
                     <Item id = "50005" name = "Attiva / Disattiva registrazione macro" />
                     <Item id = "50006" name = "Completa percorso" />
                 </Commands>
@@ -372,6 +382,7 @@
                 <Item CMID = "20" name = "Apri prompt dei comandi in cartella file" />
                 <Item CMID = "21" name = "Apri con il visualizzatore predefinito" />
                 <Item CMID = "22" name = "Chiudi tutti quelli non modificati" />
+                <Item CMID = "23" name = "Apri cartella contenuta come Workspace"/>
             </TabBar>
         </Menu>
         <Dialog>
@@ -412,6 +423,7 @@
                 <Item id = "1703" name = "&amp;. significa &apos;a capo&apos;" />
                 <Item id = "1721" name = "▲" />
                 <Item id = "1723" name = "▼ Trova successivo" />
+                <Item id = "1725" name= "Copia il testo marcato negli appunti" />
             </Find>
             <FindCharsInRange title = "Cerca caratteri...">
                 <Item id = "2910" name = "Cerca" />
@@ -533,6 +545,7 @@
                     <Item id = "43027" name = "Pulisci i segni che utilizzano il 3º stile" />
                     <Item id = "43029" name = "Pulisci i segni che utilizzano il 4º stile" />
                     <Item id = "43031" name = "Pulisci i segni che utilizzano il 5º stile" />
+                    <Item id = "43032" name = "Pulisci i segni che utilizzano qualunque stile" />
                     <Item id = "43033" name = "Segno precedente che usa il 1º stile" />
                     <Item id = "43034" name = "Segno precedente che usa il 2º stile" />
                     <Item id = "43035" name = "Segno precedente che usa il 3º stile" />
@@ -544,15 +557,20 @@
                     <Item id = "43041" name = "Segno successivo che usa il 3º stile" />
                     <Item id = "43042" name = "Segno successivo che usa il 4º stile" />
                     <Item id = "43043" name = "Segno successivo che usa il 5º stile" />
-                    <Item id = "43038" name = "Segno successivo creato con Evidenzia..." />
+                    <Item id = "43044" name = "Segno successivo creato con Evidenzia..." />
+                    <Item id = "43055" name = "Copia stile - 1º stile" />
+                    <Item id = "43056" name = "Copia stile - 2º stile" />
+                    <Item id = "43057" name = "Copia stile - 3º stile" />
+                    <Item id = "43058" name = "Copia stile - 4º stile" />
+                    <Item id = "43059" name = "Copia stile - 5º stile" />
+                    <Item id = "43060" name = "Copia stile - Tutti gli stili" />
+                    <Item id = "43061" name = "Copia stile - Trova stile creato con Evidenzia" />
                     <Item id = "44100" name = "Apri il file corrente in Firefox" />
                     <Item id = "44101" name = "Apri il file corrente in Chrome" />
                     <Item id = "44103" name = "Apri il file corrente in IE" />
                     <Item id = "44102" name = "Apri il file corrente in Edge" />
                     <Item id = "50003" name = "Passa al documento precedente" />
                     <Item id = "50004" name = "Passa al documento successivo" />
-                    
-                    
                     <Item id = "44051" name = "Collassa livello 1" />
                     <Item id = "44052" name = "Collassa livello 2" />
                     <Item id = "44053" name = "Collassa livello 3" />
@@ -777,7 +795,7 @@
                     <Item id = "6125" name = "Documenti aperti" />
                     <Item id = "6126" name = "Visualizza" />
                     <Item id = "6127" name = "Disabilita colonna estensioni" />
-
+                    <Item id = "6128" name = "Alterna icone"/>
                     <Item id = "6106" name = "Barra schede" />
                     <Item id = "6118" name = "Nascondi" />
                     <Item id = "6119" name = "Utilizza più righe" />
@@ -830,7 +848,7 @@
                     <Item id = "6235" name = "Nessun bordo" />
                     <Item id = "6236" name = "Abilita scorrimento oltre l&apos;ultima riga" />
                     <Item id = "6237" name = "Aggiungi il tuo delimitatore di colonna indicante la sua posizione con un numero decimale.
-Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i diversi numeri." />					
+Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i diversi numeri." />
                     <Item id = "6239" name = "Mantieni la selezione quando clicchi con il destro fuori da essa" />
                 </Scintillas>
                 <NewDoc title = "Nuovo documento">
@@ -1029,6 +1047,7 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
                     <Item id = "6350" name = "Abilita modalità fullbox" />
                     <Item id = "6322" name = "Est. file di sessione:" />
                     <Item id = "6337" name = "Est. file workspace:" />
+                    <Item id = "6351" name = "Imposta il filtro dell'estensione della finestra di dialogo a .* invece di .txt per i file di testo"/>
                 </MISC>
             </Preference>
             <MultiMacro title = "Esegui macro più volte">
@@ -1086,8 +1105,6 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title = "Modifica menu contestuale" message = "La modifica del file contextMenu.xml permette di modificare il menu contestuale di Notepad++.
 È necessario riavviare Notepad++ affinché le modifiche apportate al file contextMenu.xml abbiano effetto." />
-            <NppHelpAbsentWarning title = "Il file non esiste" message = "
-non esiste. Scarica il file dal sito di Notepad++." />
             <SaveCurrentModifWarning title = "Salva modifiche correnti" message = "Devi salvare le modifiche correnti.
 Tutte le modifiche salvate non possono essere ripristinate.
 
@@ -1107,7 +1124,7 @@ Sicuro di volerli aprire?" />
 o in una cartella che necessita dei privilegi di scrittura per poterci accedere.
 Le tue impostazioni nel cloud saranno cancellate. Reimposta un valore coerente dalle impostazioni." />
             <FilePathNotFoundWarning title = "Apertura file" message = "Il file che si sta cercando di aprire non esiste." />
-            <SessionFileInvalidError title = "Impossibile caricare la sesisone" message = "Il file di sessione è corrotto o non è valido." />
+            <SessionFileInvalidError title = "Impossibile caricare la sessione" message = "Il file di sessione è corrotto o non è valido." />
             <DroppingFolderAsProjectModeWarning title = "Azione non valida" message = "Puoi portare file o cartelle, ma non entrambe, perché sei in modalità rilascia Cartella come Progetto.
 devi abilitare &quot;Apri tutti i file della cartella invece di avviare Cartella come Workspace al trascinamento&quot; nella sezione &quot;Cartella predefinita&quot; delle preferenze per attivare questa funzionalità." />
             <SortingError title = "Errore ordinamento" message = "Impossibile effettuare un ordinamento numerico a causa della riga $INT_REPLACE$." />
@@ -1152,7 +1169,7 @@ Rimuovi la cartella dal pannello prima di aggiungere &quot;$STR_REPLACE$&quot;."
             <ProjectPanelChangedSaveError title = "$STR_REPLACE$" message = "Il tuo workspace non è stato salvato." />
             <ProjectPanelOpenDoSaveDirtyWsOrNot title = "Apri Workspace" message = "Il workspace attuale è stato modificato. Vuoi salvare il progetto attuale?" />
             <ProjectPanelNewDoSaveDirtyWsOrNot title = "Nuovo Workspace" message = "Il workspace attuale è stato modificato. Vuoi salvare il progetto attuale?" />
-            <ProjectPanelOpenFailed title = "Apri Workspace" message = "Il workspace non puà essere aperto.
+            <ProjectPanelOpenFailed title = "Apri Workspace" message = "Il workspace non può essere aperto.
 Sembra che il file da aprire non sia un file di progetto valido." />
             <ProjectPanelRemoveFolderFromProject title = "Rimuovi cartella dal progetto" message = "Tutti i sotto-elementi saranno eliminati.
 Sei sicuro di voler rimuovere questa cartella dal progetto?" />
@@ -1170,7 +1187,7 @@ Vuoi avviare Notepad++ come amministratore?" />
             <OpenInAdminModeWithoutCloseCurrent title = "Salvataggio fallito" message = "Il file non può essere salvato e potrebbe essere protetto.
 Vuoi avviare Notepad++ come amministratore?" />
             <OpenInAdminModeFailed title = "Apertura come amministratore fallita" message = "Notepad++ non può essere aperto come amministratore." />
-            <ViewInBrowser title="Visualiza file attuale nel browser" message="Applicazione non trovata nel sistema." />
+            <ViewInBrowser title="Visualizza file attuale nel browser" message="Applicazione non trovata nel sistema." />
             <ExitToUpdatePlugins title="Notepad++ sta per chiudersi" message="Se fai clic su 'Sì', uscirai da Notepad++ per continuare le operazioni.
 Notepad++ verrà riavviato dopo che le operazioni saranno state completate.
 Vuoi continuare?" />
@@ -1188,7 +1205,7 @@ Vuoi continuare?" />
             <ColumnName name = "Nome" />
             <ColumnPath name = "Percorso" />
             <ColumnType name = "Tipo" />
-			<ColumnSize name = "Dimensione" />
+            <ColumnSize name = "Dimensione" />
         </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name = "Pannello Inserimento ASCII" />
@@ -1318,7 +1335,7 @@ Cerca in tutti i file eccetto exe, obj &amp;&amp; log:
             <finder-collapse-all value = "Collassa tutto" />
             <finder-uncollapse-all value = "Espandi tutto" />
             <finder-copy value = "Copia" />
-            <finder-select-all value = "Selezione tutto" />
+            <finder-select-all value = "Seleziona tutto" />
             <finder-clear-all value = "Pulisci tutto" />
             <finder-open-all value = "Apri tutto" />
             <finder-wrap-long-lines value = "A capo nelle linee lunghe" />
@@ -1353,7 +1370,7 @@ Cerca in tutti i file eccetto exe, obj &amp;&amp; log:
             <find-result-caption value="Trova risultati" />
             <find-result-title value="Trova" />
             <find-result-title-info value="($INT_REPLACE1$ occorrenze in $INT_REPLACE2$ files di $INT_REPLACE3$ ricercati)" />
-            <find-result-title-info-selections value="($INT_REPLACE1$ ocorense in $INT_REPLACE2$ selesioni de $INT_REPLACE3$ sercà)" />																																	   
+            <find-result-title-info-selections value="($INT_REPLACE1$ occorrenze in $INT_REPLACE2$ selezioni di $INT_REPLACE3$ trovate)" />
             <find-result-title-info-extra value=" - Modalità filtro linea: mostra solo i risultati filtrati" />
             <find-result-hits value="($INT_REPLACE$ occorrenze)" />
             <find-regex-zero-length-match value="nessun risultato trovato" />

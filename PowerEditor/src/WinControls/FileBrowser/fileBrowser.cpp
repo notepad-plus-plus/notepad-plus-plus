@@ -633,6 +633,9 @@ void FileBrowser::notified(LPNMHDR notification)
 			}
 			break;
 
+			case NM_RETURN:
+				SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, 1);
+			break;
 
 			case TVN_KEYDOWN:
 			{

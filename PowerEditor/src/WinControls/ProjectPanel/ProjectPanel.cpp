@@ -628,6 +628,10 @@ void ProjectPanel::notified(LPNMHDR notification)
 				openSelectFile();
 			}
 			break;
+
+			case NM_RETURN:
+				SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, 1);
+			break;
 	
 			case TVN_ENDLABELEDIT:
 			{

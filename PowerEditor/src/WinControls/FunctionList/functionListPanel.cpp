@@ -562,7 +562,7 @@ void FunctionListPanel::notified(LPNMHDR notification)
 			break;
 
 			case NM_RETURN:
-				SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, 1);
+				SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, 1); // remove beep
 			break;
 
 			case TVN_KEYDOWN:
@@ -582,9 +582,11 @@ void FunctionListPanel::notified(LPNMHDR notification)
 				else if (ptvkd->wVKey == VK_TAB)
 				{
 					::SetFocus(_hSearchEdit);
+					SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, 1); // remove beep
 				}
 				else if (ptvkd->wVKey == VK_ESCAPE)
 				{
+					SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, 1); // remove beep
 					PostMessage(_hParent, WM_COMMAND, SCEN_SETFOCUS << 16, reinterpret_cast<LPARAM>((*_ppEditView)->getHSelf()));
 				}
 			}

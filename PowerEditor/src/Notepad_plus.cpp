@@ -389,7 +389,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	if (nppGUI._isMinimizedToTray && _pTrayIco == NULL)
 	{
 		HICON icon = ::LoadIcon(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDI_M30ICON));
-		_pTrayIco = new trayIconControler(hwnd, IDI_M30ICON, IDC_MINIMIZED_TRAY, icon, TEXT(""));
+		_pTrayIco = new trayIconControler(hwnd, IDI_M30ICON, NPPM_INTERNAL_MINIMIZED_TRAY, icon, TEXT(""));
 	}
 
 	checkSyncState();

@@ -1909,10 +1909,10 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case WM_SYSCOMMAND:
 		{
 			const NppGUI & nppgui = (nppParam.getNppGUI());
-			if (((nppgui._isMinimizedToTray && !_isAdministrator) || _pPublicInterface->isPrelaunch()) && (wParam == SC_MINIMIZE))
+			if ((nppgui._isMinimizedToTray || _pPublicInterface->isPrelaunch()) && (wParam == SC_MINIMIZE))
 			{
 				if (nullptr == _pTrayIco)
-					_pTrayIco = new trayIconControler(hwnd, IDI_M30ICON, IDC_MINIMIZED_TRAY, ::LoadIcon(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDI_M30ICON)), TEXT(""));
+					_pTrayIco = new trayIconControler(hwnd, IDI_M30ICON, NPPM_INTERNAL_MINIMIZED_TRAY, ::LoadIcon(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDI_M30ICON)), TEXT(""));
 
 				_pTrayIco->doTrayIcon(ADD);
 				::ShowWindow(hwnd, SW_HIDE);
@@ -1937,7 +1937,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
-		case IDC_MINIMIZED_TRAY:
+		case NPPM_INTERNAL_MINIMIZED_TRAY:
 		{
 			switch (lParam)
 			{

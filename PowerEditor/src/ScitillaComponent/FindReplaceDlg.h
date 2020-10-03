@@ -340,7 +340,6 @@ public :
 	generic_string getScopeInfoForStatusBar(FindOption const *pFindOpt) const;
 	Finder * createFinder();
 	bool removeFinder(Finder *finder2remove);
-	void markedTextToClipboard(int indiStyle);
 
 protected :
 	void resizeDialogElements(LONG newWidth);

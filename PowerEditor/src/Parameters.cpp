@@ -5220,6 +5220,10 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			const TCHAR * optDocPeekOnMap = element->Attribute(TEXT("docPeekOnMap"));
 			if (optDocPeekOnMap)
 				_nppGUI._isDocPeekOnMap = (lstrcmp(optDocPeekOnMap, TEXT("yes")) == 0);
+
+			const TCHAR* saveDlgExtFilterToAllTypesForNormText = element->Attribute(TEXT("saveDlgExtFilterToAllTypesForNormalText"));
+			if (saveDlgExtFilterToAllTypesForNormText)
+				_nppGUI._setSaveDlgExtFiltToAllTypesForNormText = (lstrcmp(saveDlgExtFilterToAllTypesForNormText, TEXT("yes")) == 0);
 		}
 		else if (!lstrcmp(nm, TEXT("commandLineInterpreter")))
 		{
@@ -5989,7 +5993,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("setting"), _nppGUI._multiInstSetting);
 	}
 
-	// <GUIConfig name="MISC" fileSwitcherWithoutExtColumn="no" backSlashIsEscapeCharacterForSql="yes" newStyleSaveDlg="no" isFolderDroppedOpenFiles="no" />
+	// <GUIConfig name="MISC" fileSwitcherWithoutExtColumn="no" backSlashIsEscapeCharacterForSql="yes" newStyleSaveDlg="no" isFolderDroppedOpenFiles="no" saveDlgExtFilterToAllTypesForNormalText="no" />
 	{
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("MISC"));
@@ -6001,6 +6005,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("isFolderDroppedOpenFiles"), _nppGUI._isFolderDroppedOpenFiles ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("docPeekOnTab"), _nppGUI._isDocPeekOnTab ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("docPeekOnMap"), _nppGUI._isDocPeekOnMap ? TEXT("yes") : TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("saveDlgExtFilterToAllTypesForNormalText"), _nppGUI._setSaveDlgExtFiltToAllTypesForNormText ? TEXT("yes") : TEXT("no"));
 	}
 
 	// <GUIConfig name="Searching" "monospacedFontFindDlg"="no" stopFillingFindField="no" findDlgAlwaysVisible="no" confirmReplaceOpenDocs="yes" confirmMacroReplaceOpenDocs="yes" confirmReplaceInFiles="yes" confirmMacroReplaceInFiles="yes" />

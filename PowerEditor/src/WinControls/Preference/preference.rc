@@ -122,9 +122,10 @@ BEGIN
     CONTROL         "Enable MRU behaviour",IDC_CHECK_STYLEMRU,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,45,28,140,10
     CONTROL         "Peek on tab",IDC_CHECK_ENABLEDOCPEEKER,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,45,58,140,10
     CONTROL         "Peek on document map", IDC_CHECK_ENABLEDOCPEEKONMAP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,45,71,140,10
-	
+
     // "Enable Notepad++ auto-updater" should be always the 1st item, because it'll be hidden if GUP.exe is absent
-    CONTROL         "Enable Notepad++ auto-updater",IDC_CHECK_AUTOUPDATE, "Button",BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,37,128,217,10
+    CONTROL         "Enable Notepad++ auto-updater",IDC_CHECK_AUTOUPDATE, "Button",BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,37,113,217,10
+    CONTROL         "Set Save dialog file extension filter to .* instead of .txt for Normal Text",IDC_CHECK_SAVEDLGEXTFILTALLTYPESFORNORMTEXT, "Button",BS_AUTOCHECKBOX | WS_TABSTOP,37,128,267,10
     CONTROL         "Autodetect character encoding",IDC_CHECK_DETECTENCODING, "Button",BS_AUTOCHECKBOX | WS_TABSTOP,37,143,217,10
     CONTROL         "Minimize to system tray",IDC_CHECK_MIN2SYSTRAY,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,37,158,217,10
     CONTROL         "Show only filename in title bar",IDC_CHECK_SHORTTITLE, "Button",BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,37,173,217,10

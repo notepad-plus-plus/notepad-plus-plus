@@ -1020,6 +1020,7 @@ You can define several column markers by using white space to separate the diffe
                     <Item id="6320" name="No underline"/>
                     <Item id="6322" name="Session file ext.:"/>
                     <Item id="6323" name="Enable Notepad++ auto-updater"/>
+                    <Item id="6351" name="Set Save dialog file extension filter to .* instead of .txt for Normal Text"/>
                     <Item id="6324" name="Document Switcher (Ctrl+TAB)"/>
                     <Item id="6331" name="Show only filename in title bar"/>
                     <Item id="6334" name="Autodetect character encoding"/>

@@ -3294,6 +3294,7 @@ void Notepad_plus::command(int id)
 		{
 			NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance()).getNppGUI());
 			::ShowWindow(_pPublicInterface->getHSelf(), nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
+			_dockingManager.showFloatingContainers(true);
 			fileNew();
 		}
 		break;
@@ -3302,6 +3303,7 @@ void Notepad_plus::command(int id)
 		{
 			NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance()).getNppGUI());
 			::ShowWindow(_pPublicInterface->getHSelf(), nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
+			_dockingManager.showFloatingContainers(true);
 
 			// Send sizing info to make window fit (specially to show tool bar. Fixed issue #2600)
 			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
@@ -3312,6 +3314,7 @@ void Notepad_plus::command(int id)
 		{
 			NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance()).getNppGUI());
 			::ShowWindow(_pPublicInterface->getHSelf(), nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
+			_dockingManager.showFloatingContainers(true);
 			BufferID bufferID = _pEditView->getCurrentBufferID();
 			Buffer * buf = MainFileManager.getBufferByID(bufferID);
 			if (!buf->isUntitled() || buf->docLength() != 0)
@@ -3326,6 +3329,7 @@ void Notepad_plus::command(int id)
 		{
 			NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance()).getNppGUI());
 			::ShowWindow(_pPublicInterface->getHSelf(), nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
+			_dockingManager.showFloatingContainers(true);
 
 			// Send sizing info to make window fit (specially to show tool bar. Fixed issue #2600)
 			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);

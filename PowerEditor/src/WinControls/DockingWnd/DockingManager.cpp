@@ -220,6 +220,16 @@ void DockingManager::showContainer(HWND hCont, bool display)
 	}
 }
 
+void DockingManager::showFloatingContainers(bool show)
+{
+	for (size_t i=0; i < _vContainer.size(); i++)
+	{
+		size_t iElementCnt = _vContainer[i]->getElementCnt();
+		if (iElementCnt > 0)
+			_vContainer[i]->display(show);
+	}
+}
+
 LRESULT DockingManager::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)

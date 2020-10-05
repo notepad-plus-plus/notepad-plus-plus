@@ -3,7 +3,7 @@
 <!--
 
 	Slovak localization for Notepad++
-	last modified: 29. 9. 2020 by kubalav
+
 	
 -->
 
@@ -1031,6 +1031,7 @@ Zadať môžete viacero značiek pomocou medzery na oddelenie rôznych čísel."
                     <Item id="6320" name="Nepodčiarkovať"/>
                     <Item id="6322" name="Prípona súboru relácie:"/>
                     <Item id="6323" name="Povoliť automatické aktualizácie programu Notepad++"/>
+                    <Item id="6351" name="Pre normálny text nastaviť v dialógovom okne Uložiť príponu .* namiesto .txt"/>
                     <Item id="6324" name="Prepínanie dokumentov (Ctrl+Tab)"/>
                     <Item id="6331" name="Zobrazovať v záhlaví okna iba názov súboru"/>
                     <Item id="6334" name="Automatické zisťovanie kódovania znakov"/>

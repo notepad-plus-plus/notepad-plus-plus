@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2020-09-09 by schnurlos (schnurlos@gmail.com)
+	last modified: 2020-10-05 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="7.9">
+	<Native-Langue name="Deutsch" filename="german.xml" version="7.9.1">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -126,6 +126,8 @@
 					<Item id="42015" name="Zeile nach &amp;unten verschieben"/>
 					<Item id="42059" name="Zeilen alphabetisch au&amp;fsteigend sortieren"/>
 					<Item id="42060" name="Zeilen alphabetisch a&amp;bsteigend sortieren"/>
+					<Item id="42080" name="Zeilen alph. aufsteigend sortieren, Schreibung ignorieren"/>
+					<Item id="42081" name="Zeilen alph. absteigend sortieren, Schreibung ignorieren"/>
 					<Item id="42061" name="Zeilen als Ganzzahlen aufsteigend sortieren"/>
 					<Item id="42062" name="Zeilen als Ganzzahlen absteigend sortieren"/>
 					<Item id="42063" name="Zeilen als Dezimalzahlen (Komma) aufsteigend sortieren"/>
@@ -175,6 +177,7 @@
 					<Item id="42029" name="Vollständigen &amp;Pfad kopieren"/>
 					<Item id="42030" name="Nur Datei&amp;namen kopieren"/>
 					<Item id="42031" name="Nur &amp;Verzeichnispfad kopieren"/>
+					<Item id="42079" name="Markierten Text in die Zwischenablage"/>
 					<Item id="42032" name="Makro &amp;mehrfach ausführen …"/>
 					<Item id="42033" name="Schreibschutz-Attribut l&amp;öschen"/>
 					<Item id="42035" name="Zeilen aus&amp;kommentieren"/>
@@ -408,6 +411,7 @@
 				<Item id="1703" name="&amp;. findet \r und \n"/>
 				<Item id="1721" name="▲"/>
 				<Item id="1723" name="▼ Nächstes finden"/>
+				<Item id="1725" name="Markierten Text in die Zwischenablage kopieren"/>
 			</Find>
 
 			<FindCharsInRange title="Suche nach Zeichencodes">
@@ -797,6 +801,7 @@
 					<Item id="6125" name="Liste der geöffneten Dateien"/>
 					<Item id="6126" name="Anzeigen"/>
 					<Item id="6127" name="Erweiterungsspalte ausblenden"/>
+					<Item id="6128" name="Alternative Icons"/>
 				</Global>
 				<Scintillas title="Editieren">
 					<Item id="6216" name="Cursoreinstellungen"/>
@@ -1021,6 +1026,7 @@
 					<Item id="6320" name="Links nicht unterstreichen"/>
 					<Item id="6322" name="Sitzungsdatei-Erw.:"/>
 					<Item id="6323" name="Automatische Updates aktivieren"/>
+					<Item id="6351" name="Dateifilter für den Speicherdialog auf .* anstelle von .txt für normalen Text"/>
 					<Item id="6324" name="Dokumentenumschalter (Strg+Tab)"/>
 					<Item id="6331" name="Nur Dateinamen in Titelleiste anzeigen"/>
 					<Item id="6334" name="Kodierung automatisch erkennen"/>

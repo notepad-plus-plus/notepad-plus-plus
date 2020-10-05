@@ -360,7 +360,7 @@ size_t Utf8_16_Write::fwrite(const void* p, size_t _size)
         default:
             break;
     }
-    
+
     return ret;
 }
 
@@ -435,10 +435,17 @@ void Utf8_16_Write::setEncoding(UniMode eType)
 void Utf8_16_Write::fclose()
 {
 	if (m_pNewBuf)
+	{
 		delete [] m_pNewBuf;
+		m_pNewBuf = NULL;
+	}
 
 	if (m_pFile)
+	{
+		::fflush(m_pFile);
 		::fclose(m_pFile);
+		m_pFile = NULL;
+	}
 }
 
 

@@ -755,10 +755,11 @@ bool TiXmlDocument::LoadFile( const TCHAR* filename )
 bool TiXmlDocument::SaveFile( const TCHAR * filename ) const
 {
 	// The old c stuff lives on...
-	FILE* fp = generic_fopen( filename, TEXT("w") );
+	FILE* fp = generic_fopen( filename, TEXT("wc") );
 	if ( fp )
 	{
 		Print( fp, 0 );
+		fflush( fp );
 		fclose( fp );
 		return true;
 	}

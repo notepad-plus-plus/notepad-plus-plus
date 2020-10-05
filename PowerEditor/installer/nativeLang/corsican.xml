@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     History of Corsican translation for Notepad++
-		- Updated on September 16th, 2020 for version 7.9 by Patriccollu di Santa Maria è Sichè
+		- Updated on September 16th, 2020 for version 7.9.1 by Patriccollu di Santa Maria è Sichè
 		- Updated on June 28th, 2020 for version 7.8.9 by Patriccollu di Santa Maria è Sichè
 		- Updated on April 19th, 2020 for version 7.8.7 by Patriccollu di Santa Maria è Sichè
 		- Updated on December 5th, 2019 for version 7.8.3 by Patriccollu di Santa Maria è Sichè
@@ -17,7 +17,7 @@
 	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/corsican.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="Corsu" filename="corsican.xml" version="7.9">
+    <Native-Langue name="Corsu" filename="corsican.xml" version="7.9.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -183,6 +183,7 @@
                     <Item id="42029" name="Cupià u chjassu cumpletu di u ducumentu attuale"/>
                     <Item id="42030" name="Cupià u nome di schedariu di u ducumentu attuale"/>
                     <Item id="42031" name="Cupià u chjassu cumpletu di u cartulare attuale"/>
+                    <Item id="42079" name="Testu marcatu ver di u preme’papei"/>
                     <Item id="42032" name="&amp;Eseguisce una macro parechje volte…"/>
                     <Item id="42033" name="Caccià a marca di lettura-sola da u ducumentu"/>
                     <Item id="42035" name="Mette in cummentu a linea sola"/>
@@ -419,6 +420,7 @@
                 <Item id="1703" name=". cum’è n&amp;ova linea"/>
                 <Item id="1721" name="▲"/>
                 <Item id="1723" name="▼ Circà a seguente"/>
+                <Item id="1725" name="Cupià testu marcatu"/>
             </Find>
 
             <FindCharsInRange title="Circà caratteri in una stesa…">
@@ -808,6 +810,8 @@
                     <Item id="6125" name="Pannellu di lista di ducumentu"/>
                     <Item id="6126" name="Affissà"/>
                     <Item id="6127" name="Disattivà a culonna d’estensione"/>
+
+                    <Item id="6128" name="Icone alternative"/>
                 </Global>
                 <Scintillas title="Mudificazione">
                     <Item id="6216" name="Preferenze di cursore"/>
@@ -1037,6 +1041,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                     <Item id="6320" name="Ùn micca sottulineà"/>
                     <Item id="6322" name="Estensione di sched. di sessione :"/>
                     <Item id="6323" name="Attivà u rinnovu autumaticu di Notepad++"/>
+                    <Item id="6351" name="Definisce u filtru d’estensione di u dialogu d’arregistramentu à .* invece di .txt per u schedariu di testu nurmale"/>
                     <Item id="6324" name="Cambiamentu di ducumentu (Ctrl+Tabul.)"/>
                     <Item id="6331" name="Affissà solu u nome di schedariu in a barra di titulu"/>
                     <Item id="6334" name="Detezione autumatica di cudificazione di caratteru"/>

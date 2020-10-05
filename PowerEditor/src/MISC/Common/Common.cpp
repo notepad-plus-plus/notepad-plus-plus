@@ -125,7 +125,7 @@ generic_string relativeFilePathToFullFilePath(const TCHAR *relativeFilePath)
 
 void writeFileContent(const TCHAR *file2write, const char *content2write)
 {
-	FILE *f = generic_fopen(file2write, TEXT("w+"));
+	FILE *f = generic_fopen(file2write, TEXT("w+c"));
 	fwrite(content2write, sizeof(content2write[0]), strlen(content2write), f);
 	fflush(f);
 	fclose(f);
@@ -134,7 +134,7 @@ void writeFileContent(const TCHAR *file2write, const char *content2write)
 
 void writeLog(const TCHAR *logFileName, const char *log2write)
 {
-	FILE *f = generic_fopen(logFileName, TEXT("a+"));
+	FILE *f = generic_fopen(logFileName, TEXT("a+c"));
 	fwrite(log2write, sizeof(log2write[0]), strlen(log2write), f);
 	fputc('\n', f);
 	fflush(f);

@@ -816,10 +816,11 @@ bool TiXmlDocumentA::LoadUnicodeFilePath( const TCHAR* filename )
 bool TiXmlDocumentA::SaveFile( const char * filename ) const
 {
 	// The old c stuff lives on...
-	FILE* fp = fopen( filename, "w" );
+	FILE* fp = fopen( filename, "wc" );
 	if ( fp )
 	{
 		Print( fp, 0 );
+		fflush( fp );
 		fclose( fp );
 		return true;
 	}
@@ -828,10 +829,11 @@ bool TiXmlDocumentA::SaveFile( const char * filename ) const
 bool TiXmlDocumentA::SaveUnicodeFilePath( const TCHAR* filename ) const
 {
 	// The old c stuff lives on...
-	FILE* fp = generic_fopen( filename, TEXT("w") );
+	FILE* fp = generic_fopen( filename, TEXT("wc") );
 	if ( fp )
 	{
 		Print( fp, 0 );
+		fflush( fp );
 		fclose( fp );
 		return true;
 	}

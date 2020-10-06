@@ -3786,3 +3786,88 @@ int ScintillaEditView::getUnicodeSelectedLength() const
 
 	return length;
 };
+
+
+void ScintillaEditView::markedTextToClipboard(int indiStyle, bool doAll /*= false*/)
+{
+	int styleIndicators[] =
+	{
+		SCE_UNIVERSAL_FOUND_STYLE_EXT1,
+		SCE_UNIVERSAL_FOUND_STYLE_EXT2,
+		SCE_UNIVERSAL_FOUND_STYLE_EXT3,
+		SCE_UNIVERSAL_FOUND_STYLE_EXT4,
+		SCE_UNIVERSAL_FOUND_STYLE_EXT5,
+		-1  // end signifier
+	};
+
+	if (!doAll)
+	{
+		styleIndicators[0] = indiStyle;
+		styleIndicators[1] = -1;
+	}
+
+	// vector of pairs: starting position of styled text, and styled text
+	std::vector<std::pair<int, generic_string>> styledVect;
+
+	const generic_string cr = TEXT("\r");
+	const generic_string lf = TEXT("\n");
+
+	bool textContainsLineEndingChar = false;
+
+	for (int si = 0; styleIndicators[si] != -1; ++si)
+	{
+		int pos = static_cast<int>(execute(SCI_INDICATOREND, styleIndicators[si], 0));
+		if (pos > 0)
+		{
+			bool atEndOfIndic = execute(SCI_INDICATORVALUEAT, styleIndicators[si], 0) != 0;
+			int prevPos = pos;
+			if (atEndOfIndic) prevPos = 0;
+
+			do
+			{
+				if (atEndOfIndic)
+				{
+					generic_string styledText = getGenericTextAsString(prevPos, pos);
+					if (!textContainsLineEndingChar)
+					{
+						if (styledText.find(cr) != std::string::npos ||
+							styledText.find(lf) != std::string::npos)
+						{
+							textContainsLineEndingChar = true;
+						}
+					}
+					styledVect.push_back(::make_pair(prevPos, styledText));
+				}
+				atEndOfIndic = !atEndOfIndic;
+				prevPos = pos;
+				pos = static_cast<int>(execute(SCI_INDICATOREND, styleIndicators[si], pos));
+			} while (pos != prevPos);
+		}
+	}
+
+	if (styledVect.size() > 0)
+	{
+		if (doAll)
+		{
+			// sort by starting position of styled text
+			std::sort(styledVect.begin(), styledVect.end());
+		}
+
+		const generic_string delim =
+			(textContainsLineEndingChar && styledVect.size() > 1) ?
+			TEXT("\r\n----\r\n") : TEXT("\r\n");
+
+		generic_string joined;
+		for (auto item : styledVect)
+		{
+			joined += delim + item.second;
+		}
+		joined = joined.substr(delim.length());
+		if (styledVect.size() > 1)
+		{
+			joined += TEXT("\r\n");
+		}
+
+		str2Clipboard(joined, NULL);
+	}
+}

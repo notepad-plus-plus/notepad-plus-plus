@@ -69,7 +69,8 @@ MenuPosition menuPos[] = {
 	{ 2, 19, -1, "search-unmarkAll" },
 	{ 2, 20, -1, "search-jumpUp" },
 	{ 2, 21, -1, "search-jumpDown" },
-	{ 2, 23, -1, "search-bookmark" },
+	{ 2, 22, -1, "search-copyStyledText" },
+	{ 2, 24, -1, "search-bookmark" },
 
 	{ 3,  4, -1, "view-currentFileIn" },
 	{ 3,  6, -1, "view-showSymbol" },

@@ -37,6 +37,7 @@
                     <Item subMenuId="search-unmarkAll" name="Unmark All"/>
                     <Item subMenuId="search-jumpUp" name="Jump Up"/>
                     <Item subMenuId="search-jumpDown" name="Jump Down"/>
+                    <Item subMenuId="search-copyStyledText" name="Copy Styled Text"/>
                     <Item subMenuId="search-bookmark" name="Bookmark"/>
                     <Item subMenuId="view-currentFileIn" name="View Current File in"/>
                     <Item subMenuId="view-showSymbol"  name="Show Symbol"/>
@@ -166,7 +167,6 @@
                     <Item id="42029" name="Current File Path to Clipboard"/>
                     <Item id="42030" name="Current Filename to Clipboard"/>
                     <Item id="42031" name="Current Dir. Path to Clipboard"/>
-                    <Item id="42079" name="Marked Text to Clipboard"/>
                     <Item id="42032" name="&amp;Run a Macro Multiple Times..."/>
                     <Item id="42033" name="Clear Read-Only Flag"/>
                     <Item id="42035" name="Single Line Comment"/>
@@ -220,6 +220,13 @@
                     <Item id="43042" name="4th style"/>
                     <Item id="43043" name="5th style"/>
                     <Item id="43044" name="Find style"/>
+                    <Item id="43055" name="1st Style"/>
+                    <Item id="43056" name="2nd Style"/>
+                    <Item id="43057" name="3rd Style"/>
+                    <Item id="43058" name="4th Style"/>
+                    <Item id="43059" name="5th Style"/>
+                    <Item id="43060" name="All Styles"/>
+                    <Item id="43061" name="Find Style (Marked)"/>
                     <Item id="43045" name="Search Results Window"/>
                     <Item id="43046" name="Next Search Result"/>
                     <Item id="43047" name="Previous Search Result"/>
@@ -401,7 +408,7 @@
                 <Item id="1703" name="&amp;. matches newline"/>
                 <Item id="1721" name="▲"/>
                 <Item id="1723" name="▼ Find Next"/>
-                <Item id="1725" name="Copy Marked Text to Clipboard"/>
+                <Item id="1725" name="Copy Marked Text"/>
             </Find>
 
             <FindCharsInRange title="Find Characters in Range...">
@@ -546,6 +553,13 @@
                     <Item id="43042" name="Next mark using 4th style"/>
                     <Item id="43043" name="Next mark using 5th style"/>
                     <Item id="43044" name="Next mark created with Mark"/>
+                    <Item id="43055" name="Copy Styled Text - 1st Style"/>
+                    <Item id="43056" name="Copy Styled Text - 2nd Style"/>
+                    <Item id="43057" name="Copy Styled Text - 3rd Style"/>
+                    <Item id="43058" name="Copy Styled Text - 4th Style"/>
+                    <Item id="43059" name="Copy Styled Text - 5th Style"/>
+                    <Item id="43060" name="Copy Styled Text - All Styles"/>
+                    <Item id="43061" name="Copy Styled Text - Find Style (Marked)"/>
                     <Item id="44100" name="View current file in Firefox"/>
                     <Item id="44101" name="View current file in Chrome"/>
                     <Item id="44103" name="View current file in IE"/>

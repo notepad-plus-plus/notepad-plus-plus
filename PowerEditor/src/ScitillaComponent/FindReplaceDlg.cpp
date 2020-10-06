@@ -1460,7 +1460,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 				case IDC_COPY_MARKED_TEXT:
 				{
-					markedTextToClipboard(SCE_UNIVERSAL_FOUND_STYLE);
+					(*_ppEditView)->markedTextToClipboard(SCE_UNIVERSAL_FOUND_STYLE);
 				}
 				return TRUE;
 
@@ -3404,48 +3404,6 @@ bool FindReplaceDlg::replaceInOpenDocsConfirmCheck(void)
 	}
 
 	return confirmed;
-}
-
-void FindReplaceDlg::markedTextToClipboard(int indiStyle)
-{
-	auto pos = (*_ppEditView)->execute(SCI_INDICATOREND, indiStyle, 0);
-	if (pos > 0)
-	{
-		std::vector<generic_string> markedTextStr;
-		bool atEndOfIndic = (*_ppEditView)->execute(SCI_INDICATORVALUEAT, indiStyle, 0) != 0;
-		auto prevPos = pos;
-		if (atEndOfIndic) prevPos = 0;
-
-		const generic_string cr = TEXT("\r");
-		const generic_string lf = TEXT("\n");
-		bool dataHasLineEndingChar = false;
-
-		do
-		{
-			if (atEndOfIndic)
-			{
-				generic_string s = (*_ppEditView)->getGenericTextAsString(prevPos, pos);
-				if (!dataHasLineEndingChar)
-				{
-					if (s.find(cr) != std::string::npos || s.find(lf) != std::string::npos)
-					{
-						dataHasLineEndingChar = true;
-					}
-				}
-				markedTextStr.push_back(s);
-			}
-			atEndOfIndic = !atEndOfIndic;
-			prevPos = pos;
-			pos = (*_ppEditView)->execute(SCI_INDICATOREND, indiStyle, pos);
-		} while (pos != prevPos);
-
-		if (markedTextStr.size() > 0)
-		{
-			const generic_string delim = dataHasLineEndingChar ? TEXT("\r\n----\r\n") : TEXT("\r\n");
-			generic_string joined = stringJoin(markedTextStr, delim) + delim;
-			str2Clipboard(joined, NULL);
-		}
-	}
 }
 
 generic_string Finder::getHitsString(int count) const

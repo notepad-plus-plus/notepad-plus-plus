@@ -288,8 +288,6 @@ BEGIN
                 MENUITEM "Current Full File path to Clipboard",    IDM_EDIT_FULLPATHTOCLIP
                 MENUITEM "Current Filename to Clipboard",          IDM_EDIT_FILENAMETOCLIP
                 MENUITEM "Current Dir. Path to Clipboard",         IDM_EDIT_CURRENTDIRTOCLIP
-                MENUITEM SEPARATOR
-                MENUITEM "Marked Text to Clipboard",               IDM_EDIT_MARKEDTOCLIP
         END
         POPUP "Indent"
         BEGIN
@@ -449,6 +447,16 @@ BEGIN
             MENUITEM "4th Style",      IDM_SEARCH_GONEXTMARKER4
             MENUITEM "5th Style",      IDM_SEARCH_GONEXTMARKER5
             MENUITEM "Find Style",     IDM_SEARCH_GONEXTMARKER_DEF
+        END
+        POPUP "Copy Styled Text"
+        BEGIN
+            MENUITEM "1st Style",               IDM_SEARCH_STYLE1TOCLIP
+            MENUITEM "2nd Style",               IDM_SEARCH_STYLE2TOCLIP
+            MENUITEM "3rd Style",               IDM_SEARCH_STYLE3TOCLIP
+            MENUITEM "4th Style",               IDM_SEARCH_STYLE4TOCLIP
+            MENUITEM "5th Style",               IDM_SEARCH_STYLE5TOCLIP
+            MENUITEM "All Styles",              IDM_SEARCH_ALLSTYLESTOCLIP
+            MENUITEM "Find Style (Marked)",     IDM_SEARCH_MARKEDTOCLIP
         END
         MENUITEM SEPARATOR
         POPUP "Bookmark"

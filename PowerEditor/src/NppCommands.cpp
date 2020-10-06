@@ -1048,15 +1048,6 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
-		case IDM_EDIT_MARKEDTOCLIP:
-		{
-			if (_findReplaceDlg.isCreated())
-			{
-				_findReplaceDlg.markedTextToClipboard(SCE_UNIVERSAL_FOUND_STYLE);
-			}
-		}
-		break;
-
 		case IDM_SEARCH_FIND :
 		case IDM_SEARCH_REPLACE :
 		case IDM_SEARCH_MARK :
@@ -1338,7 +1329,43 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
-        case IDM_SEARCH_GOTOLINE :
+		case IDM_SEARCH_STYLE1TOCLIP:
+		{
+			_pEditView->markedTextToClipboard(SCE_UNIVERSAL_FOUND_STYLE_EXT1);
+		}
+		break;
+		case IDM_SEARCH_STYLE2TOCLIP:
+		{
+			_pEditView->markedTextToClipboard(SCE_UNIVERSAL_FOUND_STYLE_EXT2);
+		}
+		break;
+		case IDM_SEARCH_STYLE3TOCLIP:
+		{
+			_pEditView->markedTextToClipboard(SCE_UNIVERSAL_FOUND_STYLE_EXT3);
+		}
+		break;
+		case IDM_SEARCH_STYLE4TOCLIP:
+		{
+			_pEditView->markedTextToClipboard(SCE_UNIVERSAL_FOUND_STYLE_EXT4);
+		}
+		break;
+		case IDM_SEARCH_STYLE5TOCLIP:
+		{
+			_pEditView->markedTextToClipboard(SCE_UNIVERSAL_FOUND_STYLE_EXT5);
+		}
+		break;
+		case IDM_SEARCH_ALLSTYLESTOCLIP:
+		{
+			_pEditView->markedTextToClipboard(-1, true);
+		}
+		break;
+		case IDM_SEARCH_MARKEDTOCLIP:
+		{
+			_pEditView->markedTextToClipboard(SCE_UNIVERSAL_FOUND_STYLE);
+		}
+		break;
+
+		case IDM_SEARCH_GOTOLINE:
 		{
 			bool isFirstTime = !_goToLineDlg.isCreated();
 			_goToLineDlg.doDialog(_nativeLangSpeaker.isRTL());
@@ -3542,7 +3569,6 @@ void Notepad_plus::command(int id)
 			case IDM_EDIT_FULLPATHTOCLIP :
 			case IDM_EDIT_FILENAMETOCLIP :
 			case IDM_EDIT_CURRENTDIRTOCLIP :
-			case IDM_EDIT_MARKEDTOCLIP:
 			case IDM_EDIT_CLEARREADONLY :
 			case IDM_EDIT_RTL :
 			case IDM_EDIT_LTR :
@@ -3613,6 +3639,13 @@ void Notepad_plus::command(int id)
 			case IDM_SEARCH_GONEXTMARKER4   :
 			case IDM_SEARCH_GONEXTMARKER5   :
 			case IDM_SEARCH_GONEXTMARKER_DEF:
+			case IDM_SEARCH_STYLE1TOCLIP:
+			case IDM_SEARCH_STYLE2TOCLIP:
+			case IDM_SEARCH_STYLE3TOCLIP:
+			case IDM_SEARCH_STYLE4TOCLIP:
+			case IDM_SEARCH_STYLE5TOCLIP:
+			case IDM_SEARCH_ALLSTYLESTOCLIP:
+			case IDM_SEARCH_MARKEDTOCLIP:
 			case IDM_SEARCH_VOLATILE_FINDNEXT:
 			case IDM_SEARCH_VOLATILE_FINDPREV:
 			case IDM_SEARCH_CUTMARKEDLINES   :

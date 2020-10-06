@@ -37,6 +37,7 @@
                     <Item subMenuId="search-unmarkAll" name="Unmark All"/>
                     <Item subMenuId="search-jumpUp" name="Jump Up"/>
                     <Item subMenuId="search-jumpDown" name="Jump Down"/>
+                    <Item subMenuId="search-copyStyledText" name="Copy Styled Text"/>
                     <Item subMenuId="search-bookmark" name="Bookmark"/>
                     <Item subMenuId="view-currentFileIn" name="View Current File in"/>
                     <Item subMenuId="view-showSymbol"  name="Show Symbol"/>

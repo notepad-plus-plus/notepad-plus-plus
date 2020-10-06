@@ -620,6 +620,8 @@ public:
 	void changeTextDirection(bool isRTL);
 	bool isTextDirectionRTL() const;
 	void setPositionRestoreNeeded(bool val) { _positionRestoreNeeded = val; };
+	void markedTextToClipboard(int indiStyle, bool doAll = false);
+
 protected:
 	static HINSTANCE _hLib;
 	static int _refCount;

@@ -168,7 +168,6 @@
     #define    IDM_EDIT_FULLPATHTOCLIP              (IDM_EDIT + 29)
     #define    IDM_EDIT_FILENAMETOCLIP              (IDM_EDIT + 30)
     #define    IDM_EDIT_CURRENTDIRTOCLIP            (IDM_EDIT + 31)
-    #define    IDM_EDIT_MARKEDTOCLIP                (IDM_EDIT + 79)
 
 // Menu macro
     #define    IDM_MACRO_RUNMULTIMACRODLG           (IDM_EDIT + 32)
@@ -252,7 +251,15 @@
 	#define    IDM_SEARCH_FINDCHARINRANGE      (IDM_SEARCH + 52)
 	#define    IDM_SEARCH_SELECTMATCHINGBRACES (IDM_SEARCH + 53)
 	#define    IDM_SEARCH_MARK                 (IDM_SEARCH + 54)
-	
+
+    #define    IDM_SEARCH_STYLE1TOCLIP         (IDM_SEARCH + 55)
+    #define    IDM_SEARCH_STYLE2TOCLIP         (IDM_SEARCH + 56)
+    #define    IDM_SEARCH_STYLE3TOCLIP         (IDM_SEARCH + 57)
+    #define    IDM_SEARCH_STYLE4TOCLIP         (IDM_SEARCH + 58)
+    #define    IDM_SEARCH_STYLE5TOCLIP         (IDM_SEARCH + 59)
+    #define    IDM_SEARCH_ALLSTYLESTOCLIP      (IDM_SEARCH + 60)
+    #define    IDM_SEARCH_MARKEDTOCLIP         (IDM_SEARCH + 61)
+
 #define    IDM_MISC    (IDM + 3500)
 	#define    IDM_FILESWITCHER_FILESCLOSE            (IDM_MISC + 1)
 	#define    IDM_FILESWITCHER_FILESCLOSEOTHERS      (IDM_MISC + 2)

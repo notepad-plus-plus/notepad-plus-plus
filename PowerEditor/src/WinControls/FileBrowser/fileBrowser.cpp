@@ -650,16 +650,14 @@ void FileBrowser::notified(LPNMHDR notification)
 					else
 						_treeView.toggleExpandCollapse(hItem);
 				}
-				/*
 				else if (ptvkd->wVKey == VK_DELETE)
 				{
 					HTREEITEM hItem = _treeView.getSelection();
 					BrowserNodeType nType = getNodeType(hItem);
-					if (nType == browserNodeType_folder)
-						popupMenuCmd(IDM_FILEBROWSER_DELETEFOLDER);
-					else if (nType == browserNodeType_file)
-						popupMenuCmd(IDM_FILEBROWSER_DELETEFILE);
+					if (nType == browserNodeType_root)
+						popupMenuCmd(IDM_FILEBROWSER_REMOVEROOTFOLDER);
 				}
+				/*
 				else if (ptvkd->wVKey == VK_UP)
 				{
 					if (0x80 & GetKeyState(VK_CONTROL))
@@ -793,6 +791,15 @@ void FileBrowser::popupMenuCmd(int cmdID)
 		case IDM_FILEBROWSER_REMOVEROOTFOLDER:
 		{
 			if (!selectedNode) return;
+
+			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+			int res = pNativeSpeaker->messageBox("FolderAsWorspaceRemoveFolderFromWorkspace",
+				_hSelf,
+				TEXT("All the sub-items will be removed.\rAre you sure you want to remove this folder from the workspace?"),
+				TEXT("Remove folder from workspace"),
+				MB_YESNO);
+			if (res != IDYES)
+				return;
 
 			generic_string *rootPath = (generic_string *)_treeView.getItemParam(selectedNode);
 			if (_treeView.getParent(selectedNode) != nullptr || rootPath == nullptr)

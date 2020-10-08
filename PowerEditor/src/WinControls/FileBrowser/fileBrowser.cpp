@@ -650,16 +650,14 @@ void FileBrowser::notified(LPNMHDR notification)
 					else
 						_treeView.toggleExpandCollapse(hItem);
 				}
-				/*
 				else if (ptvkd->wVKey == VK_DELETE)
 				{
 					HTREEITEM hItem = _treeView.getSelection();
 					BrowserNodeType nType = getNodeType(hItem);
-					if (nType == browserNodeType_folder)
-						popupMenuCmd(IDM_FILEBROWSER_DELETEFOLDER);
-					else if (nType == browserNodeType_file)
-						popupMenuCmd(IDM_FILEBROWSER_DELETEFILE);
+					if (nType == browserNodeType_root)
+						popupMenuCmd(IDM_FILEBROWSER_REMOVEROOTFOLDER);
 				}
+				/*
 				else if (ptvkd->wVKey == VK_UP)
 				{
 					if (0x80 & GetKeyState(VK_CONTROL))

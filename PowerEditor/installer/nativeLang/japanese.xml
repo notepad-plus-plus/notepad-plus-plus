@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="7.8.9">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="7.9.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -37,6 +37,7 @@
                     <Item subMenuId="search-unmarkAll" name="マークをすべて解除"/>
                     <Item subMenuId="search-jumpUp" name="前のマークに移動"/>
                     <Item subMenuId="search-jumpDown" name="次のマークに移動"/>
+                    <Item subMenuId="search-copyStyledText" name="スタイル付きの文字列をコピー"/>
                     <Item subMenuId="search-bookmark" name="ブックマーク"/>
                     <Item subMenuId="view-currentFileIn" name="ブラウザーで開く"/>
                     <Item subMenuId="view-showSymbol" name="制御文字の表示"/>
@@ -75,6 +76,7 @@
                     <Item id="41002" name="開く(&amp;O)"/>
                     <Item id="41019" name="エクスプローラー"/>
                     <Item id="41020" name="コマンドプロンプト"/>
+                    <Item id="41025" name="フォルダーをワークスペースとして開く"/>
                     <Item id="41003" name="閉じる(&amp;C)"/>
                     <Item id="41004" name="すべて閉じる(&amp;E)"/>
                     <Item id="41005" name="現在の文書以外を閉じる"/>
@@ -107,6 +109,7 @@
                     <Item id="42008" name="インデントを増やす"/>
                     <Item id="42009" name="インデントを減らす"/>
                     <Item id="42010" name="カーソル行を複製"/>
+                    <Item id="42079" name="重複行を削除"/>
                     <Item id="42077" name="連続する重複行を削除"/>
                     <Item id="42012" name="折り返し位置で分割"/>
                     <Item id="42013" name="選択行を連結"/>
@@ -114,6 +117,8 @@
                     <Item id="42015" name="下の行と入れ替え"/>
                     <Item id="42059" name="選択行を　辞書順で昇順ソート"/>
                     <Item id="42060" name="選択行を　辞書順で降順ソート"/>
+                    <Item id="42080" name="選択行を　辞書順で昇順ソート(大文字小文字を無視)"/>
+                    <Item id="42081" name="選択行を　辞書順で降順ソート(大文字小文字を無視)"/>
                     <Item id="42061" name="選択行を　整数として昇順ソート"/>
                     <Item id="42062" name="選択行を　整数として降順ソート"/>
                     <Item id="42063" name="選択行を　実数(コンマが小数点)として昇順ソート"/>
@@ -216,6 +221,13 @@
                     <Item id="43042" name="スタイル4"/>
                     <Item id="43043" name="スタイル5"/>
                     <Item id="43044" name="マーク画面で作成されたマーク"/>
+                    <Item id="43055" name="スタイル1"/>
+                    <Item id="43056" name="スタイル2"/>
+                    <Item id="43057" name="スタイル3"/>
+                    <Item id="43058" name="スタイル4"/>
+                    <Item id="43059" name="スタイル5"/>
+                    <Item id="43060" name="すべてのスタイル"/>
+                    <Item id="43061" name="マーク画面で作成されたマーク"/>
                     <Item id="43045" name="検索結果ウィンドウ"/>
                     <Item id="43046" name="次の検索結果"/>
                     <Item id="43047" name="前の検索結果"/>
@@ -326,8 +338,6 @@
                     <Item id="50000" name="関数名補完"/>
                     <Item id="50001" name="単語補完"/>
                     <Item id="50002" name="関数パラメータのヒント"/>
-                    <Item id="50003" name="前の文書へ切り替え"/>
-                    <Item id="50004" name="次の文書へ切り替え"/>
                     <Item id="50005" name="マクロの記録を開始・停止"/>
                     <Item id="50006" name="パス補完"/>
                     <Item id="44042" name="行を隠す"/>
@@ -363,6 +373,7 @@
                     <Item CMID="20" name="ファイルの場所をコマンドプロンプトで開く"/>
                     <Item CMID="21" name="既定のアプリで開く"/>
                     <Item CMID="22" name="未変更をすべて閉じる"/>
+                    <Item CMID="23" name="ファイルを含むフォルダーをワークスペースとして開く"/>
             </TabBar>
         </Menu>
 
@@ -404,6 +415,7 @@
                 <Item id="1703" name="&amp;.は改行と一致"/>
                 <Item id="1721" name="▲"/>
                 <Item id="1723" name="▼ 次を検索"/>
+                <Item id="1725" name="マークした文字列をコピー"/>
             </Find>
 
             <FindCharsInRange title="文字範囲を指定して検索...">
@@ -548,6 +560,13 @@
                     <Item id="43042" name="スタイル4を使う次のマーク"/>
                     <Item id="43043" name="スタイル5を使う次のマーク"/>
                     <Item id="43044" name="マーク画面で作成された次のマーク"/>
+                    <Item id="43055" name="スタイル1の文字列をコピー"/>
+                    <Item id="43056" name="スタイル2の文字列をコピー"/>
+                    <Item id="43057" name="スタイル3の文字列をコピー"/>
+                    <Item id="43058" name="スタイル4の文字列をコピー"/>
+                    <Item id="43059" name="スタイル5の文字列をコピー"/>
+                    <Item id="43060" name="すべてのスタイルの文字列をコピー"/>
+                    <Item id="43061" name="マーク画面でマークされた文字列をコピー"/>
                     <Item id="44100" name="Firefox で開く"/>
                     <Item id="44101" name="Chrome で開く"/>
                     <Item id="44103" name="IE で開く"/>
@@ -793,6 +812,8 @@
                     <Item id="6125" name="文書一覧"/>
                     <Item id="6126" name="表示"/>
                     <Item id="6127" name="拡張子の列を表示しない"/>
+                    
+                    <Item id="6128" name="別デザインのアイコンを使用する"/>
                 </Global>
                 <Scintillas title="編集画面">
                     <Item id="6216" name="カーソル設定"/>
@@ -1022,6 +1043,7 @@
                     <Item id="6320" name="下線を引かない"/>
                     <Item id="6322" name="セッションファイルの拡張子:"/>
                     <Item id="6323" name="Notepad++の自動アップデートを有効にする"/>
+                    <Item id="6351" name="標準テキスト形式を保存するとき、ファイルの種類を .txt ではなく .* にする"/>
                     <Item id="6324" name="ビューの切り替え(Ctrl+Tab)"/>
                     <Item id="6331" name="タイトルバーにファイル名のみ表示"/>
                     <Item id="6334" name="文字コードを自動判別"/>
@@ -1090,8 +1112,6 @@
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title="コンテキストメニューの編集" message="これから開く contextMenu.xml を編集することで、Notepad++のポップアップメニューを変更できます。
 変更を適用するには、保存後、Notepad++を再起動して下さい。"/>
-            <NppHelpAbsentWarning title="警告: ファイルが存在しません" message="
-が存在しません。Notepad++のサイトからダウンロードしてください。"/>
             <SaveCurrentModifWarning title="警告: 現在の変更を保存" message="現在の変更を保存する必要があります。
 保存したすべての変更は取り消すことはできません。
 

@@ -17,6 +17,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "Utf8_16.h"
+#include <io.h>
 
 const Utf8_16::utf8 Utf8_16::k_Boms[][3] = {
 	{0x00, 0x00, 0x00},  // Unknown
@@ -432,7 +433,7 @@ void Utf8_16_Write::setEncoding(UniMode eType)
 }
 
 
-void Utf8_16_Write::fclose()
+void Utf8_16_Write::fclose(bool keepOriginalLength)
 {
 	if (m_pNewBuf)
 	{
@@ -442,6 +443,12 @@ void Utf8_16_Write::fclose()
 
 	if (m_pFile)
 	{
+		if (!keepOriginalLength)
+		{
+			const int fd = _fileno(m_pFile);
+			_chsize_s(fd, _ftelli64(m_pFile));
+		}
+
 		::fflush(m_pFile);
 		::fclose(m_pFile);
 		m_pFile = NULL;

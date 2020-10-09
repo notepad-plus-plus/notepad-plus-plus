@@ -125,7 +125,7 @@ generic_string relativeFilePathToFullFilePath(const TCHAR *relativeFilePath)
 
 void writeFileContent(const TCHAR *file2write, const char *content2write)
 {
-	FILE *f = generic_fopen(file2write, TEXT("w+c"));
+	FILE *f = generic_fopen(file2write, TEXT("wc"));
 	fwrite(content2write, sizeof(content2write[0]), strlen(content2write), f);
 	fflush(f);
 	fclose(f);

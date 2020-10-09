@@ -17,6 +17,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "Utf8_16.h"
+#include <io.h>
 
 const Utf8_16::utf8 Utf8_16::k_Boms[][3] = {
 	{0x00, 0x00, 0x00},  // Unknown
@@ -276,8 +277,9 @@ Utf8_16_Write::Utf8_16_Write()
 	m_eEncoding = uni8Bit;
 	m_pFile = NULL;
 	m_pNewBuf = NULL;
-	m_bFirstWrite = true;
 	m_nBufSize = 0;
+	m_bFirstWrite = true;
+	m_bWriteFailure = false;
 }
 
 Utf8_16_Write::~Utf8_16_Write()
@@ -297,24 +299,29 @@ FILE * Utf8_16_Write::fopen(const TCHAR *_name, const TCHAR *_type)
 size_t Utf8_16_Write::fwrite(const void* p, size_t _size)
 {
     // no file open
-	if (!m_pFile)
+	if (!m_pFile || m_bWriteFailure)
     {
 		return 0;
 	}
 
-    size_t  ret = 0;
-    
 	if (m_bFirstWrite)
     {
         switch (m_eEncoding)
         {
-            case uniUTF8: {
-                ::fwrite(k_Boms[m_eEncoding], 3, 1, m_pFile);
+            case uniUTF8:
+                if (::fwrite(k_Boms[m_eEncoding], 3, 1, m_pFile) == 0)
+				{
+					m_bWriteFailure = true;
+					return 0;
+				}
                 break;
-            }    
             case uni16BE:
             case uni16LE:
-                ::fwrite(k_Boms[m_eEncoding], 2, 1, m_pFile);
+                if (::fwrite(k_Boms[m_eEncoding], 2, 1, m_pFile) == 0)
+				{
+					m_bWriteFailure = true;
+					return 0;
+				}
                 break;
             default:
                 // nothing to do
@@ -322,7 +329,9 @@ size_t Utf8_16_Write::fwrite(const void* p, size_t _size)
         }
 		m_bFirstWrite = false;
     }
-    
+
+    size_t ret = 0;
+
     switch (m_eEncoding)
     {
 		case uni7Bit:
@@ -350,7 +359,11 @@ size_t Utf8_16_Write::fwrite(const void* p, size_t _size)
                 }
 				++iter8;
 				if (bufIndex == bufSize || !iter8) {
-					if (!::fwrite(buf, bufIndex*sizeof(utf16), 1, m_pFile)) return 0;
+					if (!::fwrite(buf, bufIndex*sizeof(utf16), 1, m_pFile))
+					{
+						m_bWriteFailure = true;
+						return 0;
+					}
 					bufIndex = 0;
 				}
             }
@@ -360,6 +373,8 @@ size_t Utf8_16_Write::fwrite(const void* p, size_t _size)
         default:
             break;
     }
+
+	m_bWriteFailure = (ret == 0);
 
     return ret;
 }
@@ -432,7 +447,7 @@ void Utf8_16_Write::setEncoding(UniMode eType)
 }
 
 
-void Utf8_16_Write::fclose()
+void Utf8_16_Write::fclose(bool keepOriginalLength)
 {
 	if (m_pNewBuf)
 	{
@@ -442,6 +457,15 @@ void Utf8_16_Write::fclose()
 
 	if (m_pFile)
 	{
+		if (!keepOriginalLength && !m_bWriteFailure)
+		{
+			const __int64 writtenLength = _ftelli64(m_pFile);
+			const int fd = _fileno(m_pFile);
+
+			if (_filelengthi64(fd) > writtenLength)
+				_chsize_s(fd, writtenLength);
+		}
+
 		::fflush(m_pFile);
 		::fclose(m_pFile);
 		m_pFile = NULL;

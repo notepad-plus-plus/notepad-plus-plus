@@ -879,7 +879,21 @@ bool FileManager::backupCurrentBuffer()
 				::SetFileAttributes(fullpath, dwFileAttribs);
 			}
 
-			FILE *fp = UnicodeConvertor.fopen(fullpath, TEXT("wbc"));
+			FILE *fp = UnicodeConvertor.fopen(fullpath, TEXT("rb+c")); // Use "r+" to NOT destroy existing file contents on open
+			if (fp)
+			{
+				// On "r+" open success move file position to the very beginning of file
+				if (_fseeki64(fp, 0, SEEK_SET))
+				{
+					UnicodeConvertor.fclose(true);
+					fp = NULL;
+				}
+			}
+			else
+			{
+				fp = UnicodeConvertor.fopen(fullpath, TEXT("wbc")); // If "r+" open fails file might not exist so try opening it anew with "w"
+			}
+
 			if (fp)
 			{
 				int lengthDoc = _pNotepadPlus->_pEditView->getCurrentDocLen();
@@ -1004,7 +1018,20 @@ SavingStatus FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool i
 
 	int encoding = buffer->getEncoding();
 
-	FILE *fp = UnicodeConvertor.fopen(fullpath, TEXT("wbc"));
+	FILE *fp = UnicodeConvertor.fopen(fullpath, TEXT("rb+c")); // Use "r+" to NOT destroy existing file contents on open
+	if (fp)
+	{
+		// On "r+" open success move file position to the very beginning of file
+		if (_fseeki64(fp, 0, SEEK_SET))
+		{
+			UnicodeConvertor.fclose(true);
+			fp = NULL;
+		}
+	}
+	else
+	{
+		fp = UnicodeConvertor.fopen(fullpath, TEXT("wbc")); // If "r+" open fails file might not exist so try opening it anew with "w"
+	}
 
 	if (!fp)
 	{

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-    Venetian translation for Notepad++ 7.9
-    Last modified Wed, September 30th, 2020.
+    Venetian translation for Notepad++
+    Last modified Sat, September 10th, 2020.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 <NotepadPlus>
-    <Native-Langue name="Vèneto" filename="venetian.xml" version="7.9">
+    <Native-Langue name="Vèneto" filename="venetian.xml" version="7.9.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -80,6 +80,7 @@
                     <Item id="41002" name="&amp;Vèrxi..."/>
                     <Item id="41019" name="Esplora risorse"/>
                     <Item id="41020" name="Prompt comandi"/>
+					<Item id="41025" name="Carteƚa cofà Workspace"/>
                     <Item id="41003" name="Sara su"/>
                     <Item id="41004" name="S&amp;ara tuti cuanti"/>
                     <Item id="41005" name="Sara su tuti cuanti, vìa che el documento corente"/>
@@ -119,7 +120,9 @@
                     <Item id="42015" name="Spòsta xó ƚa riga corente"/>
                     <Item id="42059" name="Órdena righe en maniera cresente"/>
                     <Item id="42060" name="Órdena righe en maniera decresente"/>
-                    <Item id="42061" name="Órdena righe cofà intieri en maniera cresente"/>
+                    <Item id="42080" name="Órdena righe cresente ƚasando stare Maiùscoƚo/Minùscoƚo"/>
+                    <Item id="42081" name="Órdena righe decresente ƚasando stare Maiùscoƚo/Minùscoƚo"/>              
+					<Item id="42061" name="Órdena righe cofà intieri en maniera cresente"/>
                     <Item id="42062" name="Órdena righe cofà intieri en maniera decresente"/>
                     <Item id="42063" name="Órdena righe cofà vaƚori desimaƚi (virgoƚa) en maniera cresente"/>
                     <Item id="42064" name="Órdena righe cofà vaƚori desimaƚi (virgoƚa) en maniera decresente"/>
@@ -168,6 +171,7 @@
                     <Item id="42029" name="Percorso file corente"/>
                     <Item id="42030" name="Nòme file corente"/>
                     <Item id="42031" name="Carteƚa corente"/>
+					<Item id="42079" name="Marca el testo inte ƚa Clipboard"/>
                     <Item id="42032" name="Exegui na macro pì volte..."/>
                     <Item id="42033" name="Puƚisi el flag de soƚa ƚetura"/>
                     <Item id="42035" name="Comenta singoƚa riga"/>
@@ -360,6 +364,7 @@
                 <Item CMID="20" name="Vèrxi prompt dei comandi en carteƚa file"/>
                 <Item CMID="21" name="Vèrxi co el visuaƚixatore predefinìo"/>
                 <Item CMID="22" name="Sara su tuti cueƚi no modifegà"/>
+                <Item CMID="23" name="Vèrxi carteƚa contegnù cofà Workspace"/>
             </TabBar>
         </Menu>
 
@@ -401,6 +406,7 @@
                 <Item id="1703" name="&amp;. vol dire &apos;a capo&apos;"/>
                 <Item id="1721" name="▲"/>
                 <Item id="1723" name="▼ Cata el seguente"/>
+				<Item id="1725" name="Còpia testo marcà inte ƚa Clipboard"/>
             </Find>
 
             <FindCharsInRange title="Ruma caràtari...">
@@ -790,6 +796,8 @@
                     <Item id="6125" name="Documenti vèrti"/>
                     <Item id="6126" name="Vixuaƚixa"/>
                     <Item id="6127" name="Disabiƚita coƚona estension"/>
+					
+					<Item id="6128" name="Alterna icone"/>
                 </Global>
                 <Scintillas title="Visuaƚixasion">
                     <Item id="6216" name="Cursore"/>
@@ -825,7 +833,7 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
                     <Item id="6231" name="Spesore Bordo Editor"/>
                     <Item id="6235" name="Nisun bordo"/>
                     <Item id="6236" name="Abìƚita scorimento oltre ƚ&apos;ùltima riga"/>
-                    <Item id="6239" name="Mantien ƚa selesion cò te clichi col boton de drita fora de ƚa selesion"/>																			 
+                    <Item id="6239" name="Mantien ƚa selesion cò the clichi col tasto de drita fora de ƚa selesion"/>																			 
                 </Scintillas>
 
                 <NewDoc title="Novo documento">
@@ -1017,6 +1025,7 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
                     <Item id="6320" name="No sotoƚineare"/>
                     <Item id="6322" name="Est. file de sesion:"/>
                     <Item id="6323" name="Axorna otomàticamente Notepad++" />
+					<Item id="6351" name="Inposta el filtro de l'estension par la fenèstra de salvatagio a .* invese de .txt par Testo Normale"/>
                     <Item id="6324" name="Sostituisi Documento (Ctrl+TAB)"/>
                     <Item id="6331" name="Visuaƚixa soƚo nòme file inte ƚa bara de&apos;l tìtoƚo"/>
                     <Item id="6334" name="Riƚeva otomàticamente codefega caràtari"/>

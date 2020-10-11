@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ==========================================================================\
+|
+|   To learn how to make your own language parser, please check the following
+|   link:
+|       https://npp-user-manual.org/docs/function-list/
+|
+\=========================================================================== -->
+<NotepadPlus>
+	<functionList>
+		<!-- ======================================================== [ NSIS ] -->
+		<!-- NSIS - Nullsoft Scriptable Install System                         -->
+
+		<parser
+			displayName="NSIS"
+			id         ="nsis_syntax"
+		>
+			<classRange
+				mainExpr="(?x)                                              # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+						\b(?-i:SectionGroup)\b                              # open indicator
+						(?s:.*?)
+						\b(?-i:SectionGroupEnd)\b                           # close indicator
+					"
+			>
+				<className>
+					<nameExpr expr="(?x)                                    # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+							(?m-s)
+							SectionGroup\h+(?-i:/e\h+)?                     # start indicator and its optional switch
+							\K                                              # keep the text matched so far, out of the overall match
+							.+$                                             # whatever, till end-of-line
+						"
+					/>
+					<nameExpr expr="[^\r\n\x22]*" />
+				</className>
+				<function
+					mainExpr="(?x)                                          # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+							(?m)
+							^(?'INDENT'\h*)                                 # optional leading whitespace at start-of-line
+							(?:
+								(?-i:!macro)
+								\h+                                         # required whitespace separator
+								\K                                          # keep the text matched so far, out of the overall match
+								[^\r\n]*$                                   # whatever, until end-of-line
+							|
+								(?'TAG'(?-i:Function|PageEx|Section))
+								\h+                                         # required whitespace separator
+								(?-i:/o\h+)?                                # optional switch
+								\K                                          # keep the text matched so far, out of the overall match
+								(?s:
+									.*?                                     # whatever,
+									(?=                                     # up till...
+										^\k'INDENT'                         # ...equal indent at start-of-line for...
+										\k'TAG'End\b                        # ...matching close indicator
+									)
+								)
+							|
+								\x24\x7B                                    # start-of-open-element indicator
+								(?'ID'[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*)
+								\x7D                                        # end-of-open-element indicator
+								\h+                                         # required whitespace separator
+								(?-i:/o\h+)?                                # optional switch
+								\K                                          # keep the text matched so far, out of the overall match
+								(?s:
+									.*?                                     # whatever,
+									(?=                                     # up till...
+										^\k'INDENT'                         # ...equal indent at start-of-line for...
+										\x24\x7B\k'ID'End\x7D               # ...matching close indicator
+									)
+								)
+							)
+						"
+				>
+					<functionName>
+						<funcNameExpr expr="(?x)                            # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+								(?m)
+								[^\r\n]+?                                   # whatever,
+								(?=                                         # up till...
+									\h*                                     # ...optional whitespace and...
+									(?:
+										\x2F\x2A                            # ...start of multi line comment or...
+									|	[\x23;]                             # ...start of single line comment or...
+									|	$                                   # ...end-of-line
+									)
+								)
+							"
+						/>
+					</functionName>
+				</function>
+			</classRange>
+			<function
+				mainExpr="(?x)                                              # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+						(?m)
+						^(?'INDENT'\h*)                                     # optional leading whitespace at start-of-line
+						(?:
+							(?-i:!macro)
+							\h+                                             # required whitespace separator
+							\K                                              # keep the text matched so far, out of the overall match
+							[^\r\n]*$                                       # whatever, until end-of-line
+						|
+							(?'TAG'(?-i:Function|PageEx|Section))
+							\h+                                             # required whitespace separator
+							(?-i:/o\h+)?                                    # optional switch
+							\K                                              # keep the text matched so far, out of the overall match
+							(?s:
+								.*?                                         # whatever,
+								(?=                                         # up till...
+									^\k'INDENT'                             # ...equal indent at start-of-line for...
+									\k'TAG'End\b                            # ...matching close indicator
+								)
+							)
+						|
+							\x24\x7B                                        # start-of-open-element indicator
+							(?'ID'[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*)
+							\x7D                                            # end-of-open-element indicator
+							\h+                                             # required whitespace separator
+							(?-i:/o\h+)?                                    # optional switch
+							\K                                              # keep the text matched so far, out of the overall match
+							(?s:
+								.*?                                         # whatever,
+								(?=                                         # up till...
+									^\k'INDENT'                             # ...equal indent at start-of-line for...
+									\x24\x7B\k'ID'End\x7D                   # ...matching close indicator
+								)
+							)
+						)
+					"
+			>
+				<functionName>
+					<nameExpr expr="(?x)                                    # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+							(?m)
+							[^\r\n]+?                                       # whatever,
+							(?=                                             # up till...
+								\h*                                         # ...optional whitespace and...
+								(?:
+									\x2F\x2A                                # ...start of multi line comment or...
+								|	[\x23;]                                 # ...start of single line comment or...
+								|	$                                       # ...end-of-line
+								)
+							)
+						"
+					/>
+				</functionName>
+			</function>
+		</parser>
+	</functionList>
+</NotepadPlus>

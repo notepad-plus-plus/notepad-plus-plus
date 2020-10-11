@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ==========================================================================\
+|
+|   To learn how to make your own language parser, please check the following
+|   link:
+|       https://npp-user-manual.org/docs/function-list/
+|
+\=========================================================================== -->
+<NotepadPlus>
+	<functionList>
+		<!-- ==================================================== [ Assembly ] -->
+
+		<parser
+			displayName="Assembly"
+			id         ="assembly_subroutine"
+			commentExpr="(?x)                                               # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+							(?m-s:;.*$)                                     # Single Line Comment
+						"
+		>
+			<function
+				mainExpr="(?x)                                              # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+						(?m)^\h*                                            # optional leading whitespace
+						\K                                                  # keep the text matched so far, out of the overall match
+						[A-Za-z_$][\w$]*                                    # valid character combination for labels
+						(?=:)                                               # up till the colon
+					"
+			/>
+		</parser>
+	</functionList>
+</NotepadPlus>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ==========================================================================\
+|
+|   To learn how to make your own language parser, please check the following
+|   link:
+|       https://npp-user-manual.org/docs/function-list/
+|
+\=========================================================================== -->
+<NotepadPlus>
+	<functionList>
+		<!-- ========================================================= [ KRL ] -->
+		<!-- KRL - KUKA Robot Language                                         -->
+
+		<!--
+		|   https://notepad-plus-plus.org/community/topic/12264/function-list-for-new-language
+		\-->
+		<parser
+			displayName="KRL"
+			id         ="krl_function"
+			commentExpr="(?x)                                               # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+							(?m-s:;.*$)                                     # Single Line Comment
+						"
+		>
+			<function
+				mainExpr="(?x)                                              # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+						(?i:
+							(?:GLOBAL\h+)?
+							DEF                                             # start-of-procedure indicator, possible extended to...
+							(?:
+								FCT                                         # ...start-of-function indicator
+								\h+
+								(?:BOOL|CHAR|INT|REAL|(?&amp;VALID_ID))     # returning a primitive type or a user-defined-type...
+								(?:                                         # ...optionally as an array
+									\h*\[
+									\h*(?:\d+|\x27(?:H[0-9A-Fa-f]+|B[01]+)\x27)?
+									\h*\]
+								)?
+							)?
+						)
+						\h+
+						\K                                                  # keep the text matched so far, out of the overall match
+						(?'VALID_ID'                                        # valid identifier, use as subroutine
+							\b(?!(?i:
+								AN(?:D|IN|OUT)
+							|	B(?:OOL|RAKE|_(?:AND|EXOR|NOT|OR))
+							|	C(?:ASE|AST_(?:FROM|TO)|HAR|IRC(?:_REL)?|ON(?:ST|TINUE)|_(?:DIS|ORI|PTP|VEL))
+							|	D(?:ECL|EF(?:AULT|DAT|FCT)|ELAY|O)
+							|	E(?:LSE|ND(?:DAT|FCT|FOR|IF|LOOP|SWITCH|WHILE)?|NUM|X(?:IT|OR|T(?:FCT)?))
+							|	F(?:ALSE|OR)
+							|	G(?:LOBAL|OTO)
+							|	HALT
+							|	I(?:[FS]|MPORT|NT(?:ERRUPT)?)
+							|	L(?:IN(?:_REL)?|OOP)
+							|	M(?:AXI|INI)MUM
+							|	NOT
+							|	OR
+							|	P(?:RIO|TP(?:_REL)?|UBLIC)
+							|	RE(?:AL|PEAT|SUME|TURN)
+							|	S(?:EC|IGNAL|TRUC|WITCH)
+							|	T(?:HEN|O|RIGGER|RUE)
+							|	UNTIL
+							|	W(?:AIT|HEN|HILE)
+							)\b)                                            # keywords, not to be used as identifier
+							[$A-Za-z_\x7F-\xFF][$\w\x7F-\xFF]{0,23}         # valid character combination for identifiers
+						)
+						\h*\([^)]*\)
+					"
+			>
+				<!-- comment out the following node to display the method with its parameters -->
+				<functionName>
+					<nameExpr expr="[$A-Za-z_\x7F-\xFF][$\w\x7F-\xFF]{0,23}" />
+				</functionName>
+			</function>
+		</parser>
+	</functionList>
+</NotepadPlus>

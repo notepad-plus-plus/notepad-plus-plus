@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ==========================================================================\
+|
+|   To learn how to make your own language parser, please check the following
+|   link:
+|       https://npp-user-manual.org/docs/function-list/
+|
+\=========================================================================== -->
+<NotepadPlus>
+	<functionList>
+		<!-- ===================================================== [ AutoIt3 ] -->
+
+		<!--
+		|   Based on:
+		|       https://sourceforge.net/p/notepad-plus/discussion/331753/thread/5d9bb881/#e86e
+		\-->
+		<parser
+			displayName="AutoIt3"
+			id         ="autoit3_function"
+			commentExpr="(?x)                                               # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+							(?is:\x23cs.*?\x23ce)                           # Multi Line Comment
+						|	(?m-s:^\h*;.*?$)                                # Single Line Comment
+						"
+		>
+			<function
+				mainExpr="(?x)                                              # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+						(?m)^\h*                                            # optional leading whitespace
+						(?i:FUNC\s+)                                        # start-of-function indicator
+						\K                                                  # keep the text matched so far, out of the overall match
+						[A-Za-z_]\w*                                        # valid character combination for identifiers
+						\s*\([^()]*?\)                                      # parentheses required, parameters optional
+					"
+			>
+				<!-- comment out the following node to display the function with its parameters -->
+				<functionName>
+					<nameExpr expr="[A-Za-z_]\w*" />
+				</functionName>
+			</function>
+		</parser>
+	</functionList>
+</NotepadPlus>

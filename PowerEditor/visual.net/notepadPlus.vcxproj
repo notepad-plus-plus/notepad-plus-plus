@@ -217,7 +217,6 @@
 copy ..\src\langs.model.xml ..\bin\langs.model.xml
 copy ..\src\stylers.model.xml ..\bin\stylers.model.xml
 copy ..\src\shortcuts.xml ..\bin\shortcuts.xml
-copy ..\src\functionList.xml ..\bin\functionList.xml
 copy ..\src\contextMenu.xml ..\bin\contextMenu.xml
 </Command>
     </PostBuildEvent>
@@ -270,7 +269,6 @@ copy ..\src\contextMenu.xml ..\bin\contextMenu.xml
 copy ..\src\langs.model.xml ..\bin64\langs.model.xml
 copy ..\src\stylers.model.xml ..\bin64\stylers.model.xml
 copy ..\src\shortcuts.xml ..\bin64\shortcuts.xml
-copy ..\src\functionList.xml ..\bin64\functionList.xml
 copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
 </Command>
     </PostBuildEvent>
@@ -679,7 +677,6 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClInclude Include="..\src\WinControls\ReadDirectoryChanges\ReadDirectoryChangesPrivate.h" />
     <ClInclude Include="..\src\WinControls\ReadDirectoryChanges\ThreadSafeQueue.h" />
     <ClInclude Include="..\src\WinControls\ReadDirectoryChanges\ReadFileChanges.h" />
-	
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="..\src\notepad++.exe.manifest" />

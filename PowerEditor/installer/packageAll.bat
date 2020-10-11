@@ -129,6 +129,7 @@ mkdir .\zipped.package.release\updater
 mkdir .\zipped.package.release\localization
 mkdir .\zipped.package.release\themes
 mkdir .\zipped.package.release\autoCompletion
+mkdir .\zipped.package.release\functionList
 mkdir .\zipped.package.release\userDefineLangs
 mkdir .\zipped.package.release\plugins
 mkdir .\zipped.package.release\plugins\NppExport
@@ -146,6 +147,7 @@ mkdir .\zipped.package.release64\updater
 mkdir .\zipped.package.release64\localization
 mkdir .\zipped.package.release64\themes
 mkdir .\zipped.package.release64\autoCompletion
+mkdir .\zipped.package.release64\functionList
 mkdir .\zipped.package.release64\userDefineLangs
 mkdir .\zipped.package.release64\plugins
 mkdir .\zipped.package.release64\plugins\NppExport
@@ -169,8 +171,6 @@ copy /Y ..\src\contextMenu.xml .\zipped.package.release\
 If ErrorLevel 1 goto End
 copy /Y ..\src\shortcuts.xml .\zipped.package.release\
 If ErrorLevel 1 goto End
-copy /Y ..\src\functionList.xml .\zipped.package.release\
-If ErrorLevel 1 goto End
 copy /Y ..\bin\doLocalConf.xml .\zipped.package.release\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\"notepad++.exe" .\zipped.package.release\
@@ -193,8 +193,6 @@ If ErrorLevel 1 goto End
 copy /Y ..\src\contextMenu.xml .\zipped.package.release64\
 If ErrorLevel 1 goto End
 copy /Y ..\src\shortcuts.xml .\zipped.package.release64\
-If ErrorLevel 1 goto End
-copy /Y ..\src\functionList.xml .\zipped.package.release64\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\doLocalConf.xml .\zipped.package.release64\
 If ErrorLevel 1 goto End
@@ -230,6 +228,12 @@ rem files API: Copy all files into Notepad++ 32-bit/64-bit package folders
 copy /Y ".\APIs\*.xml" .\zipped.package.release\autoCompletion\
 If ErrorLevel 1 goto End
 copy /Y ".\APIs\*.xml" .\zipped.package.release64\autoCompletion\
+If ErrorLevel 1 goto End
+
+rem FunctionList files: Copy all files into Notepad++ 32-bit/64-bit package folders
+copy /Y ".\functionList\*.xml" .\zipped.package.release\functionList\
+If ErrorLevel 1 goto End
+copy /Y ".\functionList\*.xml" .\zipped.package.release64\functionList\
 If ErrorLevel 1 goto End
 
 rem Markdown as UserDefineLanguge: Markdown syntax highlighter into Notepad++ 32-bit/64-bit package folders

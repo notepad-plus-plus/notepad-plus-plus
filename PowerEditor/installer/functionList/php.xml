@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ==========================================================================\
+|
+|   To learn how to make your own language parser, please check the following
+|   link:
+|       https://npp-user-manual.org/docs/function-list/
+|
+\=========================================================================== -->
+<NotepadPlus>
+	<functionList>
+		<!-- ========================================================= [ PHP ] -->
+		<!-- PHP - Personal Home Page / PHP Hypertext Preprocessor             -->
+
+		<parser
+			id         ="php_syntax"
+			displayName="PHP"
+			commentExpr="(?s:/\*.*?\*/)|(?m-s://.*?$)"
+		>
+			<classRange
+				mainExpr    ="^\s*(class|abstract\s+class|final\s+class|interface|trait)[\t\x20]+[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*(\s*|\s*(extends|implements|(extends\s+(\\|[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*)+\s+implements))\s+(\,\s*|(\\|[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*))+\s*)?\{"
+				openSymbole ="\{"
+				closeSymbole="\}"
+			>
+				<className>
+					<nameExpr expr="(class|abstract\s+class|final\s+class|interface|trait)\s+\w+" />
+					<nameExpr expr="\s+\w+\Z" />
+					<nameExpr expr="\w+\Z" />
+				</className>
+				<function
+					mainExpr="^\s*((static|public|protected|private|final)*(\s+(static|public|protected|private|final))+\s+)?(function\s+)+(\w+(\s+\w+)?(\s+|\*\s+|\s+\*|\s+\*\s+))?(\w+\s*::)?(?!(if|while|for|switch))[\w~]+\s*\([^\{]*\{"
+				>
+					<functionName>
+						<funcNameExpr expr="(?!(if|while|for|switch))\w+\s*\([^\{]*" />
+						<!-- comment out the following node to display the method with parameters -->
+						<funcNameExpr expr="(?!(if|while|for|switch))\w+" />
+					</functionName>
+				</function>
+			</classRange>
+			<function
+				mainExpr="^\s*function\s+\w+\s*\("
+			>
+				<functionName>
+					<nameExpr expr="(?!(if|while|for))\w+\s*\(" />
+					<nameExpr expr="(?!(if|while|for))\w+" />
+				</functionName>
+				<className>
+					<nameExpr expr="\w+(?=\s*::)" />
+				</className>
+			</function>
+		</parser>
+	</functionList>
+</NotepadPlus>

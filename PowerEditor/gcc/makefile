@@ -217,7 +217,7 @@ SRC_RES			= ./resources.rc
 OBJ_RES			= $(patsubst %.rc,%.res,$(SRC_RES))
 
 # XML config files
-SRC_XMLCFG		= $(addprefix $(NPP_DIR)/,langs.model.xml stylers.model.xml shortcuts.xml functionList.xml contextMenu.xml)
+SRC_XMLCFG		= $(addprefix $(NPP_DIR)/,langs.model.xml stylers.model.xml shortcuts.xml contextMenu.xml)
 DST_XMLCFG		= $(subst $(NPP_DIR),../bin,$(SRC_XMLCFG))
 
 DEPS = $(patsubst %.o,%.d,$(OBJS))

@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ==========================================================================\
+|
+|   To learn how to make your own language parser, please check the following
+|   link:
+|       https://npp-user-manual.org/docs/function-list/
+|
+\=========================================================================== -->
+<NotepadPlus>
+	<functionList>
+		<!-- ======================================================== [ Java ] -->
+
+		<!--
+		|   Based on:
+		|       https://notepad-plus-plus.org/community/topic/12691/function-list-with-java-problems
+		\-->
+		<parser
+			displayName="Java"
+			id         ="java_syntax"
+		>
+			<classRange
+				mainExpr    ="(?x)                                          # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+						(?m)^[\t\x20]*                                      # leading whitespace
+						(?:
+							(?-i:
+								abstract
+							|	final
+							|	native
+							|	p(?:rivate|rotected|ublic)
+							|	s(?:tatic|trictfp|ynchronized)
+							|	transient
+							|	volatile
+							|	@[A-Za-z_]\w*                               # qualified identifier
+								(?:                                         # consecutive names...
+									\.                                      # ...are dot separated
+									[A-Za-z_]\w*
+								)*
+							)
+							\s+
+						)*
+						(?-i:class|enum|@?interface)
+						\s+
+						(?'DECLARATOR'
+							(?'VALID_ID'                                    # valid identifier, use as subroutine
+								\b(?!(?-i:
+									a(?:bstract|ssert)
+								|	b(?:oolean|reak|yte)
+								|	c(?:ase|atch|har|lass|on(?:st|tinue))
+								|	d(?:efault|o(?:uble)?)
+								|	e(?:lse|num|xtends)
+								|	f(?:inal(?:ly)?|loat|or)
+								|	goto
+								|	i(?:f|mp(?:lements|ort)|nstanceof|nt(?:erface)?)
+								|	long
+								|	n(?:ative|ew)
+								|	p(?:ackage|rivate|rotected|ublic)
+								|	return
+								|	s(?:hort|tatic|trictfp|uper|witch|ynchronized)
+								|	th(?:is|rows?)|tr(?:ansient|y)
+								|	vo(?:id|latile)
+								|	while
+								)\b)                                        # keywords, not to be used as identifier
+								[A-Za-z_]\w*                                # valid character combination for identifiers
+							)
+							(?:
+								\s*\x3C                                     # start-of-template indicator...
+								(?'GENERIC'                                 # ...match first generic, use as subroutine
+									\s*
+									(?:
+										(?&amp;DECLARATOR)                  # use named generic
+									|	\?                                  # or unknown
+									)
+									(?:                                     # optional type extension
+										\s+(?-i:extends|super)
+										\s+(?&amp;DECLARATOR)
+										(?:                                 # multiple bounds...
+											\s+\x26                         # ...are ampersand separated
+											\s+(?&amp;DECLARATOR)
+										)*
+									)?
+									(?:                                     # match consecutive generics objects...
+										\s*,                                # ...are comma separated
+										(?&amp;GENERIC)
+									)?
+								)
+								\s*\x3E                                     # end-of-template indicator
+							)?
+							(?:                                             # package and|or nested classes...
+								\.                                          # ...are dot separated
+								(?&amp;DECLARATOR)
+							)?
+						)
+						(?:                                                 # optional object extension
+							\s+(?-i:extends)
+							\s+(?&amp;DECLARATOR)
+							(?:                                             # consecutive objects...
+								\s*,                                        # ...are comma separated
+								\s*(?&amp;DECLARATOR)
+							)*
+						)?
+						(?:                                                 # optional object implementation
+							\s+(?-i:implements)
+							\s+(?&amp;DECLARATOR)
+							(?:                                             # consecutive objects...
+								\s*,                                        # ...are comma separated
+								\s*(?&amp;DECLARATOR)
+							)*
+						)?
+						\s*\{                                               # whatever, up till start-of-body indicator
+					"
+				openSymbole ="\{"
+				closeSymbole="\}"
+			>
+				<className>
+					<nameExpr expr="(?-i:class|enum|@?interface)\s+\K\w+(?:\s*\x3C.*?\x3E)?" />
+				</className>
+				<function
+					mainExpr="(?x)                                          # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+							^[\t\x20]*                                      # leading whitespace
+							(?:
+								(?-i:
+									abstract
+								|	final
+								|	native
+								|	p(?:rivate|rotected|ublic)
+								|	s(?:tatic|trictfp|ynchronized)
+								|	transient
+								|	volatile
+								|	@[A-Za-z_]\w*                           # qualified identifier
+									(?:                                     # consecutive names...
+										\.                                  # ...are dot separated
+										[A-Za-z_]\w*
+									)*
+								)
+								\s+
+							)*
+							(?:
+								\s*\x3C                                     # start-of-template indicator
+								(?&amp;GENERIC)
+								\s*\x3E                                     # end-of-template indicator
+							)?
+							\s*
+							(?'DECLARATOR'
+								[A-Za-z_]\w*                                # (parent) type name
+								(?:                                         # consecutive sibling type names...
+									\.                                      # ...are dot separated
+									[A-Za-z_]\w*
+								)*
+								(?:
+									\s*\x3C                                 # start-of-template indicator
+									(?'GENERIC'                             # match first generic, use as subroutine
+										\s*
+										(?:
+											(?&amp;DECLARATOR)              # use named generic
+										|	\?                              # or unknown
+										)
+										(?:                                 # optional type extension
+											\s+(?-i:extends|super)
+											\s+(?&amp;DECLARATOR)
+											(?:                             # multiple bounds...
+												\s+\x26                     # ...are ampersand separated
+												\s+(?&amp;DECLARATOR)
+											)*
+										)?
+										(?:                                 # consecutive generics objects...
+											\s*,                            # ...are comma separated
+											(?&amp;GENERIC)
+										)?
+									)
+									\s*\x3E                                 # end-of-template indicator
+								)?
+								(?:                                         # package and|or nested classes...
+									\.                                      # ...are dot separated
+									(?&amp;DECLARATOR)
+								)?
+								(?:                                         # optional compound type...
+									\s*\[                                   # ...start-of-compound indicator
+									\s*\]                                   # ...end-of-compound indicator
+								)*
+							)
+							\s+
+							(?'VALID_ID'                                    # valid identifier, use as subroutine
+								\b(?!(?-i:
+									a(?:bstract|ssert)
+								|	b(?:oolean|reak|yte)
+								|	c(?:ase|atch|har|lass|on(?:st|tinue))
+								|	d(?:efault|o(?:uble)?)
+								|	e(?:lse|num|xtends)
+								|	f(?:inal(?:ly)?|loat|or)
+								|	goto
+								|	i(?:f|mp(?:lements|ort)|nstanceof|nt(?:erface)?)
+								|	long
+								|	n(?:ative|ew)
+								|	p(?:ackage|rivate|rotected|ublic)
+								|	return
+								|	s(?:hort|tatic|trictfp|uper|witch|ynchronized)
+								|	th(?:is|rows?)|tr(?:ansient|y)
+								|	vo(?:id|latile)
+								|	while
+								)\b)                                        # keywords, not to be used as identifier
+								[A-Za-z_]\w*                                # valid character combination for identifiers
+							)
+							\s*\(                                           # start-of-parameters indicator
+							(?'PARAMETER'                                   # match first parameter, use as subroutine
+								\s*(?-i:final\s+)?
+								(?&amp;DECLARATOR)
+								\s+(?&amp;VALID_ID)                         # parameter name
+								(?:                                         # consecutive parameters...
+									\s*,                                    # ...are comma separated
+									(?&amp;PARAMETER)
+								)?
+							)?
+							\)                                              # end-of-parameters indicator
+							(?:                                             # optional exceptions
+								\s*(?-i:throws)
+								\s+(?&amp;VALID_ID)                         # first exception name
+								(?:                                         # consecutive exception names...
+									\s*,                                    # ...are comma separated
+									\s*(?&amp;VALID_ID)
+								)*
+							)?
+							[^{;]*\{                                        # start-of-function-body indicator
+						"
+				>
+					<functionName>
+						<funcNameExpr expr="\w+(?=\s*\()" />
+					</functionName>
+				</function>
+			</classRange>
+		</parser>
+	</functionList>
+</NotepadPlus>

@@ -792,15 +792,6 @@ void FileBrowser::popupMenuCmd(int cmdID)
 		{
 			if (!selectedNode) return;
 
-			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-			int res = pNativeSpeaker->messageBox("FolderAsWorspaceRemoveFolderFromWorkspace",
-				_hSelf,
-				TEXT("All the sub-items will be removed.\rAre you sure you want to remove this folder from the workspace?"),
-				TEXT("Remove folder from workspace"),
-				MB_YESNO);
-			if (res != IDYES)
-				return;
-
 			generic_string *rootPath = (generic_string *)_treeView.getItemParam(selectedNode);
 			if (_treeView.getParent(selectedNode) != nullptr || rootPath == nullptr)
 				return;

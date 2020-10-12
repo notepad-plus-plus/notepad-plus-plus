@@ -1145,8 +1145,6 @@ Do you want to recover your langs.xml?"/>
             <LoadLangsFailedFinal title="Configurator" message="Load langs.xml failed!"/>
             <FolderAsWorspaceSubfolderExists title="Folder as Workspace adding folder problem" message="A sub-folder of the folder you want to add exists.
 Please remove its root from the panel before you add folder &quot;$STR_REPLACE$&quot;."/>
-            <FolderAsWorspaceRemoveFolderFromWorkspace title="Remove folder from workspace" message="All the sub-items will be removed.
-Are you sure you want to remove this folder from the workspace?"/>
 
             <ProjectPanelChanged title="$STR_REPLACE$" message="The workspace was modified. Do you want to save it?"/>
             <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Your workspace has not been saved."/>

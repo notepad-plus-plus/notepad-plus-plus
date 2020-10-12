@@ -2539,6 +2539,8 @@ bool isUrlTextChar(TCHAR const c)
 		case '\'':
 		case '<':
 		case '>':
+		case '{':
+		case '}':
 		case '?':
 		case '\0x7f':
 			return false;
@@ -2670,6 +2672,11 @@ void scanToUrlEnd(TCHAR *text, int textLen, int start, int* distance)
 					q = text [p];
 					s = sQueryQuotes;
 				}
+				else if (text [p] == '{')
+				{
+					q = '}';
+					s = sQueryQuotes;
+				}
 				else if (isUrlTextChar(text [p]))
 					s = sQuery;
 				else
@@ -2728,8 +2735,8 @@ bool removeUnwantedTrailingCharFromUrl (TCHAR const *text, int* length)
 			}
 	}
 	{ // remove unwanted closing parenthesis
-		const TCHAR *closingParenthesis = L")]}>";
-		const TCHAR *openingParenthesis = L"([{<";
+		const TCHAR *closingParenthesis = L")]>";
+		const TCHAR *openingParenthesis = L"([<";
 		for (int i = 0; closingParenthesis [i]; i++)
 			if (text [l] == closingParenthesis [i])
 			{
@@ -2768,93 +2775,6 @@ bool removeUnwantedTrailingCharFromUrl (TCHAR const *text, int* length)
 	return false;
 }
 
-bool isSlashOrBackslash(TCHAR const c)
-{
-	return (c == '/') || (c == '\\');
-}
-
-bool isFilenameChar(TCHAR const c, bool const quoted)
-{
-	if (c < ' ')
-		return false;
-
-	if ((c == ' ') && (!quoted))
-		return false;
-
-	switch (c)
-	{
-		case '"':
-		case '%':
-		case '*':
-		case '/':
-		case '<':
-		case '>':
-		case ':':
-		case '?':
-		case '|':
-		case '\\':
-		case '\0x7f':
-			return false;
-	}
-	return true;
-}
-
-// scanToFileEnd searches the end of an Filename, coarsly parsing it into prefix and name.
-// The prefix parsing is done to avoid multiple colons.
-// The <quoted> parameter specifies, whether spaces are allowed.
-void scanToFileEnd(TCHAR *text, int textLen, int start, bool quoted, int* distance)
-{
-	int p = start;
-	enum {sStart, sPrefix, sColon, sName} s = sStart;
-	while (p < textLen)
-	{
-		switch (s)
-		{
-			case sStart:
-				if (isFilenameChar (text [p], false))
-					s = sPrefix;
-				else if (!isSlashOrBackslash(text [p]))
-				{
-					*distance = p - start;
-					return;
-				}
-				break;
-
-			case sPrefix:
-				if (isSlashOrBackslash(text [p]) || isFilenameChar(text [p], quoted))
-					s = sName;
-				else if (text [p] == ':')
-					s = sColon;
-				else
-				{
-					*distance = p - start;
-					return;
-				}
-				break;
-
-			case sColon:
-				if (isSlashOrBackslash(text[p]))
-					s = sName;
-				else
-				{
-					*distance = p - start;
-					return;
-				}
-				break;
-
-			case sName:
-				if (! (isSlashOrBackslash(text [p]) || isFilenameChar(text [p], quoted)))
-				{
-					*distance = p - start;
-					return;
-				}
-				break;
-		}
-		p++;
-	}
-	*distance = p - start;
-}
-
 // isUrl checks, whether there is a valid URL at <text [start]>.
 // If yes:
 // - True is returned.
@@ -2885,11 +2805,6 @@ bool isUrl(TCHAR * text, int textLen, int start, int* segmentLen)
 			if (r)
 			{
 				while (removeUnwantedTrailingCharFromUrl (& text [start], & len));
-				if (url.nScheme == INTERNET_SCHEME_FILE)
-				{
-					scanToFileEnd (text, textLen, start + schemeLen, (start > 0) && (text [start - 1] == '"'), & len);
-					len += schemeLen;
-				}
 				*segmentLen = len;
 				return true;
 			}

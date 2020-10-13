@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-	<Native-Langue name="Turkish" filename="turkish.xml" version="7.8.7">
+	<Native-Langue name="Turkish" filename="turkish.xml" version="7.9.1">
 		<Menu>
 			<Main>
 				<!-- Ana Menü Girişleri -->
@@ -37,6 +37,7 @@
 					<Item subMenuId="search-unmarkAll" name="Tüm İşaretleri Kaldır"/>
 					<Item subMenuId="search-jumpUp" name="Yukarı Atla"/>
 					<Item subMenuId="search-jumpDown" name="Aşağı Atla"/>
+					<Item subMenuId="search-copyStyledText" name="Stilli Yazıyı Kopyala"/>
 					<Item subMenuId="search-bookmark" name="&amp;Yer İmleri"/>
 					<Item subMenuId="view-currentFileIn" name="Şimdiki Dosyayı İçinde Göster"/>
 					<Item subMenuId="view-showSymbol" name="Simge Göster"/>
@@ -75,6 +76,7 @@
 					<Item id="41002" name="&amp;Aç"/>
 					<Item id="41019" name="Windows Gezgini"/>
 					<Item id="41020" name="Komut İstemi"/>
+					<Item id="41025" name="Çalışma Alanı Olarak Klasör"/>
 					<Item id="41003" name="&amp;Kapat"/>
 					<Item id="41004" name="Tümünü Kapa&amp;t"/>
 					<Item id="41005" name="Diğer Sekmeleri Kapat"/>
@@ -107,6 +109,7 @@
 					<Item id="42008" name="Girintiyi Artır"/>
 					<Item id="42009" name="Girintiyi Azalt"/>
 					<Item id="42010" name="Geçerli Satırı Çoğalt"/>
+					<Item id="42079" name="Aynı Satırları Kaldır"/>
 					<Item id="42077" name="Ardışık Aynı Satırları Kaldır"/>
 					<Item id="42012" name="Satırları Böl"/>
 					<Item id="42013" name="Satırları Birleştir"/>
@@ -114,6 +117,8 @@
 					<Item id="42015" name="Geçerli Satırı Aşağı Taşı"/>
 					<Item id="42059" name="Alfabetik Olarak Sırala (Artan)"/>
 					<Item id="42060" name="Alfabetik Olarak Sırala (Azalan)"/>
+					<Item id="42080" name="Satırları Alfb. Olarak Büyük Küçük Görmezden Gel. Sırala (Artan)"/>
+					<Item id="42081" name="Satırları Alfb. Olarak Büyük Küçük Görmezden Gel. Sırala (Azalan)"/>
 					<Item id="42061" name="Tam Sayı Olarak Sırala (Artan)"/>
 					<Item id="42062" name="Tam Sayı Olarak Sırala (Azalan)"/>
 					<Item id="42063" name="Virgüle Göre Ondalıklı Olarak Sırala (Artan)"/>
@@ -163,6 +168,7 @@
 					<Item id="42029" name="Geçerli Dosyanın Yolunu Kopyala"/>
 					<Item id="42030" name="Geçerli Dosya Adını Kopyala"/>
 					<Item id="42031" name="Geçerli Dizin Yolunu Kopyala"/>
+					<Item id="42079" name="İşaretli Yazıyı Kopyala"/>
 					<Item id="42032" name="&amp;Makroyu Birden Çok Kez Çalıştır"/>
 					<Item id="42033" name="Salt Okunur İşaretini Kaldır"/>
 					<Item id="42035" name="Tek Satır Yorum Alanı Aç"/>
@@ -216,6 +222,13 @@
 					<Item id="43042" name="4. Stil"/>
 					<Item id="43043" name="5. Stil"/>
 					<Item id="43044" name="Stil Bul"/>
+					<Item id="43055" name="1. Stil"/>
+					<Item id="43056" name="2. Stil"/>
+					<Item id="43057" name="3. Stil"/>
+					<Item id="43058" name="4. Stil"/>
+					<Item id="43059" name="5. Stil"/>
+					<Item id="43060" name="Tüm Stiller"/>
+					<Item id="43061" name="Stili Bul (İşaretli)"/>
 					<Item id="43045" name="Arama Sonuçları Penceresi"/>
 					<Item id="43046" name="Sonraki Arama Sonucu"/>
 					<Item id="43047" name="Önceki Arama Sonucu"/>
@@ -320,8 +333,6 @@
 					<Item id="50000" name="Fonksiyonu Tamamla"/>
 					<Item id="50001" name="Kelimeyi Tamamla"/>
 					<Item id="50002" name="Fonksiyon Parametre İpuçlarını Tamamla"/>
-					<Item id="50003" name="Önceki dosyaya geç"/>
-					<Item id="50004" name="Sonraki dosyaya geç"/>
 					<Item id="50005" name="Makro kaydını başlat/durdur"/>
 					<Item id="50006" name="Yolu Tamamla"/>
 					<Item id="44042" name="Satırları Gizle"/>
@@ -357,6 +368,7 @@
 				<Item CMID="20" name="Dosya Konumunu Komut İstemi'nde Aç"/>
 				<Item CMID="21" name="Varsayılan Görüntüleyicide Aç"/>
 				<Item CMID="22" name="Tüm Değiştirilmemişleri Kapat"/>
+				<Item CMID="23" name="İçeren Klasörü Çalışma Alanı Olarak Aç"/>
 			</TabBar>
 		</Menu>
 
@@ -399,8 +411,9 @@
 			 	<Item id="1641" name="Geçerli Belgede Tümünü Bul"/>
 			 	<Item id="1686" name="Saydamlaş&amp;tır"/>
 				<Item id="1703" name="&amp;. yeni satırı eşle"/>
-                <Item id="1721" name="▲"/>
-                <Item id="1723" name="▼ Sonrakini Bul"/>
+				<Item id="1721" name="▲"/>
+				<Item id="1723" name="▼ Sonrakini Bul"/>
+				<Item id="1725" name="İşaretli Yazıyı Kopyala"/>
 			</Find>
 
 			<FindCharsInRange title="Aralıktaki Karakterleri Bul…">
@@ -545,6 +558,13 @@
                     <Item id="43042" name="4. Stili Kullanan Sonraki İşaret"/>
                     <Item id="43043" name="5. Stili Kullanan Sonraki İşaret"/>
                     <Item id="43044" name="İşaret kullanılarak oluşturulmuş sonraki işaret..."/>
+                    <Item id="43055" name="Stilli Yazıyı Kopyala - 1. Stil"/>
+                    <Item id="43056" name="Stilli Yazıyı Kopyala - 2. Stil"/>
+                    <Item id="43057" name="Stilli Yazıyı Kopyala - 3. Stil"/>
+                    <Item id="43058" name="Stilli Yazıyı Kopyala - 4. Stil"/>
+                    <Item id="43059" name="Stilli Yazıyı Kopyala - 5. Stil"/>
+                    <Item id="43060" name="Stilli Yazıyı Kopyala - Tüm Stiller"/>
+                    <Item id="43061" name="Stilli Yazıyı Kopyala - Stili Bul (İşaretli)"/>
                     <Item id="44100" name="Dosyayı Firefox ile Görüntüle"/>
                     <Item id="44101" name="Dosyayı Chrome ile Görüntüle"/>
                     <Item id="44103" name="Dosyayı IE ile Görüntüle"/>
@@ -789,7 +809,9 @@
 
 					<Item id="6125" name="Belge Listesi Paneli"/>
 					<Item id="6126" name="Göster"/>
-					<Item id="6127" name="Uzantı sütununu devre dışı bırak"/>
+					<Item id="6127" name="Uzantı Sütununu Devre Dışı Bırak"/>
+					
+					<Item id="6128" name="Alternatif Simgeler"/>
 				</Global>
 				<Scintillas title="Düzenleme">
 					<Item id="6216" name="İmleç Ayarları"/>
@@ -1018,6 +1040,7 @@ Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasın
 					<Item id="6320" name="Alt çizgisiz"/>
 					<Item id="6322" name="Oturumun dosya uzantısı:"/>
 					<Item id="6323" name="Notepad++'ı otomatik güncelle"/>
+					<Item id="6351" name="Normal Yazı için, dosya uzantısı kaydetme filtresinde .txt yerine .* kullanmaya ayarla"/>
 					<Item id="6324" name="Belge Değiştirici (Ctrl + Tab)"/>
 					<Item id="6331" name="Başlık çubuğunda sadece dosya adını göster"/>
 					<Item id="6334" name="Karakter kodlamasını otomatik olarak algıla"/>
@@ -1086,8 +1109,6 @@ Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasın
 		<MessageBox><!-- $INT_REPLACE$ bir yer tutucudur, çevirmeyin -->
 			<ContextMenuXmlEditWarning title="contextMenu.xml Dosyasını Düzenle" message="contextMenu.xml dosyasını düzenleyerek Notepad++ sağ tık bağlam menüsü değiştirilebilir.
 Değişikliklerin etkin olması için Notepad++ yeniden başlatılmalıdır."/>
-			<NppHelpAbsentWarning title="Dosya Bulunamadı" message=" 
-dosyası bulunamadı. Lütfen Notepad++ web sitesinden indirin."/>
 			<SaveCurrentModifWarning title="Geçerli Düzenlemeyi Kaydet" message="Yaptığınız değişiklikleri kaydetmelisiniz. 
 Kaydedilen değişiklikler geri alınamaz. 
 

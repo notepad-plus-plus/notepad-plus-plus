@@ -561,8 +561,7 @@ bool Notepad_plus::doSave(BufferID id, const TCHAR * filename, bool isCopy)
 		_pluginsManager.notify(&scnN);
 	}
 
-	generic_string error_msg;
-	bool res = MainFileManager.saveBuffer(id, filename, isCopy, &error_msg);
+	SavingStatus res = MainFileManager.saveBuffer(id, filename, isCopy);
 
 	if (!isCopy)
 	{
@@ -570,7 +569,15 @@ bool Notepad_plus::doSave(BufferID id, const TCHAR * filename, bool isCopy)
 		_pluginsManager.notify(&scnN);
 	}
 
-	if (!res)
+	if (res == SavingStatus::SaveWrittingFailed)
+	{
+		_nativeLangSpeaker.messageBox("NotEnoughRoom4Saving",
+			_pPublicInterface->getHSelf(),
+			TEXT("Failed to save file.\nIt seems there's not enough space on disk to save file."),
+			TEXT("Save failed"),
+			MB_OK);
+	}
+	else if (res == SavingStatus::SaveOpenFailed)
 	{
 		// try to open Notepad++ in admin mode
 		if (!_isAdministrator)
@@ -580,7 +587,7 @@ bool Notepad_plus::doSave(BufferID id, const TCHAR * filename, bool isCopy)
 			{                   // Open the 2nd Notepad++ instance in Admin mode, then close the 1st instance.
 				int openInAdminModeRes = _nativeLangSpeaker.messageBox("OpenInAdminMode",
 				_pPublicInterface->getHSelf(),
-				TEXT("The file cannot be saved and it may be protected.\rDo you want to launch Notepad++ in Administrator mode?"),
+				TEXT("This file cannot be saved and it may be protected.\rDo you want to launch Notepad++ in Administrator mode?"),
 				TEXT("Save failed"),
 				MB_YESNO);
 
@@ -652,28 +659,13 @@ bool Notepad_plus::doSave(BufferID id, const TCHAR * filename, bool isCopy)
 			}
 
 		}
-		else
-		{
-
-			if (error_msg.empty())
-			{
-				_nativeLangSpeaker.messageBox("FileLockedWarning",
-					_pPublicInterface->getHSelf(),
-					TEXT("Please check if this file is opened in another program."),
-					TEXT("Save failed"),
-					MB_OK);
-			}
-			else
-			{
-				::MessageBox(_pPublicInterface->getHSelf(), error_msg.c_str(), TEXT("Save failed"), MB_OK);
-			}
-		}
 	}
 
-	if (res && _pFuncList && (!_pFuncList->isClosed()) && _pFuncList->isVisible())
+	if (res == SavingStatus::SaveOK && _pFuncList && (!_pFuncList->isClosed()) && _pFuncList->isVisible())
 	{
 		_pFuncList->reload();
 	}
+
 	return res;
 }
 

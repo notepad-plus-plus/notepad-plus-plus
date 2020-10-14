@@ -16,7 +16,7 @@
 		>
 			<!-- within a class-->
 			<classRange
-				mainExpr    ="(?&lt;=^class\x20).*?(?=\n\S|\Z)"
+				mainExpr    ="^class\x20\K.*?(?=\n\S|\Z)"
 			>
 				<className>
 					<nameExpr expr="\w+" />
@@ -25,7 +25,7 @@
 					mainExpr="^\s*def\s+\w+"
 				>
 					<functionName>
-						<funcNameExpr expr="(?&lt;=def\s)\w+" />
+						<funcNameExpr expr="def\s\K\w+" />
 					</functionName>
 				</function>
 			</classRange>
@@ -34,7 +34,7 @@
 				mainExpr="^\s*def\s+\w+"
 			>
 				<functionName>
-					<nameExpr expr="(?&lt;=def\s)\w+" />
+					<nameExpr expr="def\s\K\w+" />
 				</functionName>
 			</function>
 		</parser>

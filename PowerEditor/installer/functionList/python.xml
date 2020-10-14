@@ -16,13 +16,13 @@
 			commentExpr="(?s:'''.*?''')|(?m-s:#.*?$)"
 		>
 			<classRange
-				mainExpr    ="(?&lt;=^class\x20).*?(?=\n\S|\Z)"
+				mainExpr    ="^class\x20\K.*?(?=\n\S|\Z)"
 			>
 				<className>
 					<nameExpr expr="\w+(?=\s*[\(|:])" />
 				</className>
 				<function
-					mainExpr="(?&lt;=\sdef\x20).+?(?=:)"
+					mainExpr="\sdef\x20\K.+?(?=:)"
 				>
 					<functionName>
 						<funcNameExpr expr=".*" />
@@ -30,7 +30,7 @@
 				</function>
 			</classRange>
 			<function
-				mainExpr="(?&lt;=\sdef\x20).+?(?=:)"
+				mainExpr="\sdef\x20\K.+?(?=:)"
 			>
 				<functionName>
 					<nameExpr expr=".*" />

@@ -32,6 +32,7 @@
 #include "Notepad_plus_msgs.h"
 #include "UniConversion.h"
 #include "localization.h"
+#include "Utf8.h"
 
 using namespace std;
 
@@ -2158,15 +2159,15 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 				int nbChar = lend - lstart;
 
 				// use the static buffer
-				TCHAR lineBuf[1024];
+				TCHAR lineBuf[SC_SEARCHRESULT_LINEBUFFERMAXLENGTH];
 
-				if (nbChar > 1024 - 3)
-					lend = lstart + 1020;
+				if (nbChar > SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - 3)
+					lend = lstart + SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - 4;
 
 				int start_mark = targetStart - lstart;
 				int end_mark = targetEnd - lstart;
 
-				pEditView->getGenericText(lineBuf, 1024, lstart, lend, &start_mark, &end_mark);
+				pEditView->getGenericText(lineBuf, SC_SEARCHRESULT_LINEBUFFERMAXLENGTH, lstart, lend, &start_mark, &end_mark);
 
 				generic_string line = lineBuf;
 				line += TEXT("\r\n");
@@ -2191,15 +2192,15 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 				int nbChar = lend - lstart;
 
 				// use the static buffer
-				TCHAR lineBuf[1024];
-
-				if (nbChar > 1024 - 3)
-					lend = lstart + 1020;
+				TCHAR lineBuf[SC_SEARCHRESULT_LINEBUFFERMAXLENGTH];
+				
+				if (nbChar > SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - 3)
+					lend = lstart + SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - 4;
 
 				int start_mark = targetStart - lstart;
 				int end_mark = targetEnd - lstart;
 
-				pEditView->getGenericText(lineBuf, 1024, lstart, lend, &start_mark, &end_mark);
+				pEditView->getGenericText(lineBuf, SC_SEARCHRESULT_LINEBUFFERMAXLENGTH, lstart, lend, &start_mark, &end_mark);
 
 				generic_string line = lineBuf;
 				line += TEXT("\r\n");
@@ -3537,14 +3538,25 @@ void Finder::add(FoundInfo fi, SearchResultMarking mi, const TCHAR* foundline)
 	mi._end += static_cast<int32_t>(str.length());
 	str += foundline;
 
-	if (str.length() >= SC_SEARCHRESULT_LINEBUFFERMAXLENGTH)
+	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+	const char *text2AddUtf8 = wmc.wchar2char(str.c_str(), SC_CP_UTF8, &mi._start, &mi._end); // certainly utf8 here
+	size_t len = strlen(text2AddUtf8);
+
+	if (len >= SC_SEARCHRESULT_LINEBUFFERMAXLENGTH)
 	{
-		const TCHAR * endOfLongLine = TEXT("...\r\n");
-		str = str.substr(0, SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - lstrlen(endOfLongLine) - 1);
-		str += endOfLongLine;
+		const char * endOfLongLine = " ...\r\n"; // perfectly Utf8-encoded already
+		size_t lenEndOfLongLine = strlen(endOfLongLine);
+		size_t cut = SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - lenEndOfLongLine - 1;
+
+		while ((cut > 0) && (!Utf8::isValid(& text2AddUtf8 [cut], (int)(len - cut))))
+			cut--;
+
+		memcpy ((void*) & text2AddUtf8 [cut], endOfLongLine, lenEndOfLongLine + 1);
+		len = cut + lenEndOfLongLine;
 	}
+
 	setFinderReadOnly(false);
-	_scintView.addGenericText(str.c_str(), &mi._start, &mi._end);
+	_scintView.execute(SCI_ADDTEXT, len, reinterpret_cast<LPARAM>(text2AddUtf8));
 	setFinderReadOnly(true);
 	_pMainMarkings->push_back(mi);
 }

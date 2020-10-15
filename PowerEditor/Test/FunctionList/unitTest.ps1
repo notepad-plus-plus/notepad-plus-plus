@@ -3,7 +3,9 @@
 # .\unit-test.ps1 RELATIVE_PATH LANG
 # It return 0 if result is OK
 #          -1 if result is KO
+#          -2 if exception
 #           1 if unitTest file not found
+
 
 $testRoot = ".\"
 
@@ -35,5 +37,5 @@ Try {
 }
 Catch
 {
-	return -1
+	return -2
 }

@@ -6,7 +6,7 @@ Foreach-Object {
 		$dirName = (Get-Item $testRoot$_).Name
 		$langName = $dirName
 		$sw = [Diagnostics.Stopwatch]::StartNew()
-		$result = &.\unitTest.ps1 $dirName $langName
+		$result = & ".\unitTest.ps1" $dirName $langName
 		$sw.Stop()
 		"Test: " + $sw.Elapsed.TotalMilliseconds + " ms"
 
@@ -19,11 +19,21 @@ Foreach-Object {
 		{		
 			"$dirName ... unitTest file not found. Test skipped."
 		}
-		else
+		elseif ($result -eq -1)
 		{
 			"$dirName ... KO"
-			""
-			"There are some problems in your functionList.xml"
+			"result = $result"
+			"There are some problems in your $dirName.xml"
+			exit -1
+		}
+		elseif ($result -eq -2)
+		{
+			"Exception!"
+			exit -1
+		}
+		else
+		{
+			"It should not happen - check your script."
 			exit -1
 		}
 		
@@ -48,7 +58,7 @@ Foreach-Object {
 				{
 					"$dirName-$subDirName ... KO"
 					""
-					"There are some problems in your functionList.xml"
+					"There are some problems in your $dirName.xml"
 					exit -1
 				}
 		}

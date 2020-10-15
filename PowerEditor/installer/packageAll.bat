@@ -232,6 +232,12 @@ If ErrorLevel 1 goto End
 copy /Y ".\APIs\*.xml" .\zipped.package.release64\autoCompletion\
 If ErrorLevel 1 goto End
 
+rem FunctionList files: Copy all files into Notepad++ 32-bit/64-bit package folders
+copy /Y ".\functionList\*.xml" .\zipped.package.release\functionList\
+If ErrorLevel 1 goto End
+copy /Y ".\functionList\*.xml" .\zipped.package.release64\functionList\
+If ErrorLevel 1 goto End
+
 rem Markdown as UserDefineLanguge: Markdown syntax highlighter into Notepad++ 32-bit/64-bit package folders
 copy /Y "..\bin\userDefineLangs\userDefinedLang-markdown.default.modern.xml" .\zipped.package.release\userDefineLangs\
 If ErrorLevel 1 goto End

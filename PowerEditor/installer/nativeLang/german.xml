@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2020-09-09 by schnurlos (schnurlos@gmail.com)
+	last modified: 2020-10-24 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="7.9">
+	<Native-Langue name="Deutsch" filename="german.xml" version="7.9.1">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -49,6 +49,7 @@
 					<Item subMenuId="search-unmarkAll" name="Alle Hervorhe&amp;bungen löschen"/>
 					<Item subMenuId="search-jumpUp" name="Zur vorherigen Hervorhebung s&amp;pringen"/>
 					<Item subMenuId="search-jumpDown" name="Zur &amp;nächsten Hervorhebung springen"/>
+					<Item subMenuId="search-copyStyledText" name="Gestylten Text kopieren"/>
 					<Item subMenuId="search-bookmark" name="&amp;Lesezeichen"/>
 					<Item subMenuId="view-currentFileIn" name="Aktuelle Datei betrachten in"/>
 					<Item subMenuId="view-showSymbol" name="Symbole anzeigen"/>
@@ -119,6 +120,7 @@
 					<Item id="42008" name="Zeileneinzug v&amp;ergrößern"/>
 					<Item id="42009" name="Zeileneinzug ver&amp;kleinern"/>
 					<Item id="42010" name="Zeile &amp;duplizieren"/>
+					<Item id="42079" name="Doppelte Zeilen löschen"/>
 					<Item id="42077" name="Aufeinanderfolgende Zeilenduplikate entfernen"/>
 					<Item id="42012" name="Zeile am Fensterrand &amp;teilen"/>
 					<Item id="42013" name="&amp;Zeilen zusammenfassen"/>
@@ -126,6 +128,8 @@
 					<Item id="42015" name="Zeile nach &amp;unten verschieben"/>
 					<Item id="42059" name="Zeilen alphabetisch au&amp;fsteigend sortieren"/>
 					<Item id="42060" name="Zeilen alphabetisch a&amp;bsteigend sortieren"/>
+					<Item id="42080" name="Zeilen alph. aufsteigend sortieren, Schreibung ignorieren"/>
+					<Item id="42081" name="Zeilen alph. absteigend sortieren, Schreibung ignorieren"/>
 					<Item id="42061" name="Zeilen als Ganzzahlen aufsteigend sortieren"/>
 					<Item id="42062" name="Zeilen als Ganzzahlen absteigend sortieren"/>
 					<Item id="42063" name="Zeilen als Dezimalzahlen (Komma) aufsteigend sortieren"/>
@@ -175,6 +179,7 @@
 					<Item id="42029" name="Vollständigen &amp;Pfad kopieren"/>
 					<Item id="42030" name="Nur Datei&amp;namen kopieren"/>
 					<Item id="42031" name="Nur &amp;Verzeichnispfad kopieren"/>
+					<Item id="42079" name="Markierten Text in die Zwischenablage"/>
 					<Item id="42032" name="Makro &amp;mehrfach ausführen …"/>
 					<Item id="42033" name="Schreibschutz-Attribut l&amp;öschen"/>
 					<Item id="42035" name="Zeilen aus&amp;kommentieren"/>
@@ -228,6 +233,13 @@
 					<Item id="43042" name="Hervorhebung &amp;4"/>
 					<Item id="43043" name="Hervorhebung &amp;5"/>
 					<Item id="43044" name="Hervorhebung aus &amp;Suche"/>
+					<Item id="43055" name="1. Stil"/>
+					<Item id="43056" name="2. Stil"/>
+					<Item id="43057" name="3. Stil"/>
+					<Item id="43058" name="4. Stil"/>
+					<Item id="43059" name="5. Stil"/>
+					<Item id="43060" name="Alle Stile"/>
+					<Item id="43061" name="Stil finden (markiert)"/>
 					<Item id="43045" name="Suchergebnis-&amp;Fenster"/>
 					<Item id="43046" name="Zum n&amp;ächsten Suchergebnis springen"/>
 					<Item id="43047" name="Zum vorherigen S&amp;uchergebnis springen"/>
@@ -408,6 +420,7 @@
 				<Item id="1703" name="&amp;. findet \r und \n"/>
 				<Item id="1721" name="▲"/>
 				<Item id="1723" name="▼ Nächstes finden"/>
+				<Item id="1725" name="Markierten Text kopieren"/>
 			</Find>
 
 			<FindCharsInRange title="Suche nach Zeichencodes">
@@ -552,6 +565,13 @@
 					<Item id="43042" name="Markiere nächste im Stil 4"/>
 					<Item id="43043" name="Markiere nächste im Stil 5"/>
 					<Item id="43044" name="Nächste Marke erstellt mit Marke"/>
+					<Item id="43055" name="Gestylten Text kopieren - 1. Stil"/>
+					<Item id="43056" name="Gestylten Text kopieren - 2. Stil"/>
+					<Item id="43057" name="Gestylten Text kopieren - 3. Stil"/>
+					<Item id="43058" name="Gestylten Text kopieren - 4. Stil"/>
+					<Item id="43059" name="Gestylten Text kopieren - 5. Stil"/>
+					<Item id="43060" name="Gestylten Text kopieren - Alle Stile"/>
+					<Item id="43061" name="Gestylten Text kopieren - Stil finden (markiert)"/>
 					<Item id="44100" name="Aktuelle Datei in Firefox betrachten"/>
 					<Item id="44101" name="Aktuelle Datei in Chrome betrachten"/>
 					<Item id="44103" name="Aktuelle Datei im IE betrachten"/>
@@ -797,6 +817,7 @@
 					<Item id="6125" name="Liste der geöffneten Dateien"/>
 					<Item id="6126" name="Anzeigen"/>
 					<Item id="6127" name="Erweiterungsspalte ausblenden"/>
+					<Item id="6128" name="Alternative Icons"/>
 				</Global>
 				<Scintillas title="Editieren">
 					<Item id="6216" name="Cursoreinstellungen"/>
@@ -1021,6 +1042,7 @@
 					<Item id="6320" name="Links nicht unterstreichen"/>
 					<Item id="6322" name="Sitzungsdatei-Erw.:"/>
 					<Item id="6323" name="Automatische Updates aktivieren"/>
+					<Item id="6351" name="Dateifilter für den Speicherdialog auf .* anstelle von .txt für normalen Text"/>
 					<Item id="6324" name="Dokumentenumschalter (Strg+Tab)"/>
 					<Item id="6331" name="Nur Dateinamen in Titelleiste anzeigen"/>
 					<Item id="6334" name="Kodierung automatisch erkennen"/>
@@ -1088,7 +1110,6 @@
 		</Dialog>
 		<MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<ContextMenuXmlEditWarning title="Kontextmenü anpassen" message="Durch Bearbeiten der Datei contextMenu.xml können Sie&#x0A;das Kontextmenü von Notepad++ anpassen.&#x0A;Nach dem Bearbeiten müssen Sie Notepad++ neu&#x0A;starten, damit die Änderungen wirksam werden."/>
-			<NppHelpAbsentWarning title="Fehlende Hilfedatei" message="&#x0A;wurde nicht gefunden. Bitte laden Sie die Hilfedateien&#x0A;von der Notepad++-Website herunter."/>
 			<SaveCurrentModifWarning title="Änderungen speichern" message="Bitte speichern Sie Ihre Änderungen.&#x0A;&#x0A;Fortfahren?"/>
 			<LoseUndoAbilityWarning title="Änderungen können nicht rückgängig gemacht werden" message="Diese Änderung kann nicht rückgängig gemacht werden.&#x0A;&#x0A;Fortfahren?"/>
 			<CannotMoveDoc title="In neue Instanz verschieben" message="Dokument wurde geändert.&#x0A;Bitte zuerst speichern und erneut versuchen."/>

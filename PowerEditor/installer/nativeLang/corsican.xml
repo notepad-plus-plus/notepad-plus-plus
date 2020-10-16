@@ -54,6 +54,7 @@
                     <Item subMenuId="search-unmarkAll" name="Caccià tutte e marche"/>
                     <Item subMenuId="search-jumpUp" name="Andà insù"/>
                     <Item subMenuId="search-jumpDown" name="Andà inghjò"/>
+                    <Item subMenuId="search-copyStyledText" name="Cupià u testu di stilu"/>
                     <Item subMenuId="search-bookmark" name="Indetta"/>
                     <Item subMenuId="view-currentFileIn" name="Fighjà u schedariu attuale in"/>
                     <Item subMenuId="view-showSymbol"  name="Affissà i simbuli"/>
@@ -183,7 +184,6 @@
                     <Item id="42029" name="Cupià u chjassu cumpletu di u ducumentu attuale"/>
                     <Item id="42030" name="Cupià u nome di schedariu di u ducumentu attuale"/>
                     <Item id="42031" name="Cupià u chjassu cumpletu di u cartulare attuale"/>
-                    <Item id="42079" name="Testu marcatu ver di u preme’papei"/>
                     <Item id="42032" name="&amp;Eseguisce una macro parechje volte…"/>
                     <Item id="42033" name="Caccià a marca di lettura-sola da u ducumentu"/>
                     <Item id="42035" name="Mette in cummentu a linea sola"/>
@@ -237,6 +237,13 @@
                     <Item id="43042" name="4ᵘ stilu"/>
                     <Item id="43043" name="5ᵘ stilu"/>
                     <Item id="43044" name="Circà u stilu"/>
+                    <Item id="43055" name="1ᵘ stilu"/>
+                    <Item id="43056" name="2ᵘ stilu"/>
+                    <Item id="43057" name="3ᵘ stilu"/>
+                    <Item id="43058" name="4ᵘ stilu"/>
+                    <Item id="43059" name="5ᵘ stilu"/>
+                    <Item id="43060" name="Tutti i stili"/>
+                    <Item id="43061" name="Circà u stilu (marcatu)"/>
                     <Item id="43045" name="Finestra di risultatu di ricerca"/>
                     <Item id="43046" name="Prossimu risultatu di ricerca"/>
                     <Item id="43047" name="Precedente risultatu di ricerca"/>
@@ -565,6 +572,13 @@
                     <Item id="43042" name="Marca seguente impieghendu u 4ᵘ stilu"/>
                     <Item id="43043" name="Marca seguente impieghendu u 5ᵘ stilu"/>
                     <Item id="43044" name="Marca seguente creata cù Marcà"/>
+                    <Item id="43055" name="Cupià u testu cù 1ᵘ stilu"/>
+                    <Item id="43056" name="Cupià u testu cù 2ᵘ stilu"/>
+                    <Item id="43057" name="Cupià u testu cù 3ᵘ stilu"/>
+                    <Item id="43058" name="Cupià u testu cù 4ᵘ stilu"/>
+                    <Item id="43059" name="Cupià u testu cù 5ᵘ stilu"/>
+                    <Item id="43060" name="Cupià u testu cù tutti i stili"/>
+                    <Item id="43061" name="Cupià u testu - Circà u stilu (marcatu)"/>
                     <Item id="44100" name="Fighjà u schedariu attuale cù Firefox"/>
                     <Item id="44101" name="Fighjà u schedariu attuale cù Chrome"/>
                     <Item id="44103" name="Fighjà u schedariu attuale cù Internet Explorer"/>

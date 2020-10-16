@@ -2976,29 +2976,6 @@ void Notepad_plus::command(int id)
 			break;
 		}
 
-		case IDM_HELP :
-		{
-			generic_string tmp((NppParameters::getInstance()).getNppPath());
-			generic_string nppHelpPath = tmp.c_str();
-
-			nppHelpPath += TEXT("\\user.manual\\documentation\\notepad-online-document.html");
-			if (::PathFileExists(nppHelpPath.c_str()))
-				::ShellExecute(NULL, TEXT("open"), nppHelpPath.c_str(), NULL, NULL, SW_SHOWNORMAL);
-			else
-			{
-				generic_string msg = nppHelpPath;
-				generic_string warning, title;
-				if (!_nativeLangSpeaker.getMsgBoxLang("NppHelpAbsentWarning", title, warning))
-				{
-					title = TEXT("File does not exist");
-					warning = TEXT("\rdoesn't exist. Please download it on Notepad++ site.");
-				}
-				msg += warning;
-				::MessageBox(_pPublicInterface->getHSelf(), msg.c_str(), title.c_str(), MB_OK);
-			}
-		}
-		break;
-
 		case IDM_HOMESWEETHOME :
 		{
 			::ShellExecute(NULL, TEXT("open"), TEXT("https://notepad-plus-plus.org/"), NULL, NULL, SW_SHOWNORMAL);

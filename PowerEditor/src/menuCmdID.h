@@ -553,7 +553,7 @@
     //#define    IDM_PLUGINSHOME      (IDM_ABOUT  + 5)
     #define    IDM_UPDATE_NPP       (IDM_ABOUT  + 6)
     #define    IDM_WIKIFAQ          (IDM_ABOUT  + 7)
-    #define    IDM_HELP             (IDM_ABOUT  + 8)
+    //#define    IDM_HELP             (IDM_ABOUT  + 8)
 	#define    IDM_CONFUPDATERPROXY (IDM_ABOUT  + 9)
 	#define    IDM_CMDLINEARGUMENTS (IDM_ABOUT  + 10)
 	#define    IDM_ONLINESUPPORT    (IDM_ABOUT  + 11)

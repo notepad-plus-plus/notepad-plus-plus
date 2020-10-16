@@ -1077,8 +1077,6 @@
         <MessageBox>
             <ContextMenuXmlEditWarning title="編輯快顯功能表" message="編輯 contextMenu.xml 可以變更 Notepad++ 之快顯功能表。
 請於修改後重新啟動 Notepad++ 以使變更生效。"/>
-            <NppHelpAbsentWarning title="檔案不存在" message="
-不存在。請在 Notepad++ 網站上下載。"/>
             <SaveCurrentModifWarning title="警告" message="您必須儲存目前的修改，而儲存後將無法復原。
 您確定要繼續嗎？"/>
             <LoseUndoAbilityWarning title="警告" message="您必須儲存目前的修改，而儲存後將無法復原。

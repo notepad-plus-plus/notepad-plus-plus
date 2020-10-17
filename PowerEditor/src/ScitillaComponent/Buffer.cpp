@@ -69,9 +69,9 @@ namespace // anonymous
 } // anonymous namespace
 
 
-Buffer::Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus type, const TCHAR *fileName)
+Buffer::Buffer(FileManager * pManager, Document doc, DocFileStatus type, const TCHAR *fileName)
 	// type must be either DOC_REGULAR or DOC_UNNAMED
-	: _pManager(pManager) , _id(id), _doc(doc), _lang(L_TEXT)
+	: _pManager(pManager) , _doc(doc), _lang(L_TEXT)
 {
 	NppParameters& nppParamInst = NppParameters::getInstance();
 	const NewDocDefaultSettings& ndds = (nppParamInst.getNppGUI()).getNewDocDefaultSettings();
@@ -548,7 +548,7 @@ int FileManager::getBufferIndexByID(BufferID id)
 {
 	for (size_t i = 0; i < _nbBufs; ++i)
 	{
-		if (_buffers[i]->_id == id)
+		if (_buffers[i] == id)
 			return static_cast<int>(i);
 	}
 	return -1;
@@ -627,9 +627,7 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 	bool res = loadFileData(doc, backupFileName ? backupFileName : fullpath, data, &UnicodeConvertor, loadedFileFormat);
 	if (res)
 	{
-		Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_REGULAR, fullpath);
-		BufferID id = static_cast<BufferID>(newBuf);
-		newBuf->_id = id;
+		Buffer* newBuf = new Buffer(this, doc, DOC_REGULAR, fullpath);
 
 		if (backupFileName != NULL)
 		{
@@ -655,9 +653,7 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 
 		setLoadedBufferEncodingAndEol(buf, UnicodeConvertor, loadedFileFormat._encoding, loadedFileFormat._eolFormat);
 
-		//determine buffer properties
-		++_nextBufferID;
-		return id;
+		return newBuf;
 	}
 	else //failed loading, release document
 	{
@@ -1137,16 +1133,13 @@ BufferID FileManager::newEmptyDocument()
 	newTitle += nb;
 
 	Document doc = (Document)_pscratchTilla->execute(SCI_CREATEDOCUMENT);	//this already sets a reference for filemanager
-	Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_UNNAMED, newTitle.c_str());
-	BufferID id = static_cast<BufferID>(newBuf);
-	newBuf->_id = id;
+	Buffer* newBuf = new Buffer(this, doc, DOC_UNNAMED, newTitle.c_str());
 	_buffers.push_back(newBuf);
 	++_nbBufs;
-	++_nextBufferID;
-	return id;
+	return newBuf;
 }
 
-BufferID FileManager::bufferFromDocument(Document doc, bool dontIncrease, bool dontRef)
+BufferID FileManager::bufferFromDocument(Document doc, bool dontRef)
 {
 	generic_string newTitle = UNTITLED_STR;
 	TCHAR nb[10];
@@ -1155,15 +1148,11 @@ BufferID FileManager::bufferFromDocument(Document doc, bool dontIncrease, bool d
 
 	if (!dontRef)
 		_pscratchTilla->execute(SCI_ADDREFDOCUMENT, 0, doc);	//set reference for FileManager
-	Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_UNNAMED, newTitle.c_str());
-	BufferID id = static_cast<BufferID>(newBuf);
-	newBuf->_id = id;
+	Buffer* newBuf = new Buffer(this, doc, DOC_UNNAMED, newTitle.c_str());
 	_buffers.push_back(newBuf);
 	++_nbBufs;
 
-	if (!dontIncrease)
-		++_nextBufferID;
-	return id;
+	return newBuf;
 }
 
 int FileManager::detectCodepage(char* buf, size_t len)
@@ -1474,7 +1463,7 @@ BufferID FileManager::getBufferFromDocument(Document doc)
 	for (size_t i = 0; i < _nbBufs; ++i)
 	{
 		if (_buffers[i]->_doc == doc)
-			return _buffers[i]->_id;
+			return _buffers[i];
 	}
 	return BUFFER_INVALID;
 }

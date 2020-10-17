@@ -95,10 +95,10 @@ public:
 
 	BufferID loadFile(const TCHAR * filename, Document doc = NULL, int encoding = -1, const TCHAR *backupFileName = NULL, FILETIME fileNameTimestamp = {});	//ID == BUFFER_INVALID on failure. If Doc == NULL, a new file is created, otherwise data is loaded in given document
 	BufferID newEmptyDocument();
-	//create Buffer from existing Scintilla, used from new Scintillas. If dontIncrease = true, then the new document number isnt increased afterwards.
+	//create Buffer from existing Scintilla, used from new Scintillas.
 	//usefull for temporary but neccesary docs
 	//If dontRef = false, then no extra reference is added for the doc. Its the responsibility of the caller to do so
-	BufferID bufferFromDocument(Document doc,  bool dontIncrease = false, bool dontRef = false);
+	BufferID bufferFromDocument(Document doc, bool dontRef = false);
 
 	BufferID getBufferFromName(const TCHAR * name);
 	BufferID getBufferFromDocument(Document doc);
@@ -150,7 +150,6 @@ private:
 	ScintillaEditView* _pscratchTilla = nullptr;
 	Document _scratchDocDefault;
 	std::vector<Buffer*> _buffers;
-	BufferID _nextBufferID = 0;
 	size_t _nbBufs = 0;
 };
 
@@ -161,13 +160,13 @@ class Buffer final
 	friend class FileManager;
 public:
 	//Loading a document:
-	//constructor with ID.
+	//constructor.
 	//Set a reference (pointer to a container mostly, like DocTabView or ScintillaEditView)
 	//Set the position manually if needed
 	//Load the document into Scintilla/add to TabBar
 	//The entire lifetime if the buffer, the Document has reference count of _atleast_ one
 	//Destructor makes sure its purged
-	Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus type, const TCHAR *fileName);
+	Buffer(FileManager * pManager, Document doc, DocFileStatus type, const TCHAR *fileName);
 
 	// this method 1. copies the file name
 	//             2. determinates the language from the ext of file name
@@ -180,7 +179,7 @@ public:
 
 	const TCHAR * getFileName() const { return _fileName; }
 
-	BufferID getID() const { return _id; }
+	BufferID getID() const { return const_cast<BufferID>(this); }
 
 	void increaseRecentTag() {
 		_recentTag = ++_recentTagCtr;
@@ -330,7 +329,7 @@ public:
 	int docLength() const
 	{
 		assert(_pManager != nullptr);
-		return _pManager->docLength(_id);
+		return _pManager->docLength(this->getID());
 	}
 
 	int64_t getFileLength() const; // return file length. -1 if file is not existing.
@@ -397,7 +396,6 @@ private:
 	FileManager * _pManager = nullptr;
 	bool _canNotify = false;
 	int _references = 0; // if no references file inaccessible, can be closed
-	BufferID _id = nullptr;
 
 	//document properties
 	Document _doc;	//invariable

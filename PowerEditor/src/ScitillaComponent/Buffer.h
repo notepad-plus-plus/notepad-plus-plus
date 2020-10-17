@@ -81,7 +81,7 @@ public:
 	//void activateBuffer(int index);
 	void checkFilesystemChanges(bool bCheckOnlyCurrentBuffer);
 
-	size_t getNbBuffers() const { return _nbBufs; };
+	size_t getNbBuffers() const { return _buffers.size(); };
 	size_t getNbDirtyBuffers() const;
 	int getBufferIndexByID(BufferID id);
 	Buffer * getBufferByIndex(size_t index);
@@ -151,7 +151,6 @@ private:
 	Document _scratchDocDefault;
 	std::vector<Buffer*> _buffers;
 	BufferID _nextBufferID = 0;
-	size_t _nbBufs = 0;
 };
 
 #define MainFileManager FileManager::getInstance()

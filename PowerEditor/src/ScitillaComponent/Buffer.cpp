@@ -519,14 +519,14 @@ void FileManager::checkFilesystemChanges(bool bCheckOnlyCurrentBuffer)
 	}
 	else
 	{
-		for (int i = int(_nbBufs) - 1; i >= 0; i--)
+		for (int i = int(_buffers.size()) - 1; i >= 0; i--)
 		{
-			if (i >= int(_nbBufs))
+			if (i >= int(_buffers.size()))
 			{
-				if (_nbBufs == 0)
+				if (_buffers.size() == 0)
 					return;
 
-				i = int(_nbBufs) - 1;
+				i = int(_buffers.size()) - 1;
 			}
 			_buffers[i]->checkFileState();	//something has changed. Triggers update automatically
 		}
@@ -536,9 +536,9 @@ void FileManager::checkFilesystemChanges(bool bCheckOnlyCurrentBuffer)
 size_t FileManager::getNbDirtyBuffers() const
 {
 	size_t nb_dirtyBufs = 0;
-	for (size_t i = 0; i < _nbBufs; ++i)
+	for (const Buffer* buffer : _buffers)
 	{
-		if (_buffers[i]->_isDirty)
+		if (buffer->_isDirty)
 			++nb_dirtyBufs;
 	}
 	return nb_dirtyBufs;
@@ -546,7 +546,8 @@ size_t FileManager::getNbDirtyBuffers() const
 
 int FileManager::getBufferIndexByID(BufferID id)
 {
-	for (size_t i = 0; i < _nbBufs; ++i)
+	const size_t size = _buffers.size();
+	for (size_t i = 0; i < size; ++i)
 	{
 		if (_buffers[i]->_id == id)
 			return static_cast<int>(i);
@@ -587,7 +588,6 @@ void FileManager::closeBuffer(BufferID id, ScintillaEditView * identifier)
 		_pscratchTilla->execute(SCI_RELEASEDOCUMENT, 0, buf->_doc);	//release for FileManager, Document is now gone
 		_buffers.erase(_buffers.begin() + index);
 		delete buf;
-		_nbBufs--;
 	}
 }
 
@@ -643,8 +643,7 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 			newBuf->_timeStamp = fileNameTimestamp;
 
 		_buffers.push_back(newBuf);
-		++_nbBufs;
-		Buffer* buf = _buffers.at(_nbBufs - 1);
+		Buffer* buf = _buffers.back();
 
 		// restore the encoding (ANSI based) while opening the existing file
 		buf->setEncoding(-1);
@@ -1141,7 +1140,6 @@ BufferID FileManager::newEmptyDocument()
 	BufferID id = static_cast<BufferID>(newBuf);
 	newBuf->_id = id;
 	_buffers.push_back(newBuf);
-	++_nbBufs;
 	++_nextBufferID;
 	return id;
 }
@@ -1159,7 +1157,6 @@ BufferID FileManager::bufferFromDocument(Document doc, bool dontIncrease, bool d
 	BufferID id = static_cast<BufferID>(newBuf);
 	newBuf->_id = id;
 	_buffers.push_back(newBuf);
-	++_nbBufs;
 
 	if (!dontIncrease)
 		++_nextBufferID;
@@ -1471,10 +1468,10 @@ BufferID FileManager::getBufferFromName(const TCHAR* name)
 
 BufferID FileManager::getBufferFromDocument(Document doc)
 {
-	for (size_t i = 0; i < _nbBufs; ++i)
+	for (Buffer* buffer : _buffers)
 	{
-		if (_buffers[i]->_doc == doc)
-			return _buffers[i]->_id;
+		if (buffer->_doc == doc)
+			return buffer->_id;
 	}
 	return BUFFER_INVALID;
 }

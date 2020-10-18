@@ -525,9 +525,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				_pDocMap->reloadMap();
 			}
 
-			addHotSpot(_pEditView);
-			addHotSpot(_pNonEditView);
-
 			result = TRUE;
 			break;
 		}
@@ -2471,8 +2468,16 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_UPDATECLICKABLELINKS:
 		{
-			addHotSpot(_pEditView);
-			addHotSpot(_pNonEditView);
+			ScintillaEditView* pView = reinterpret_cast<ScintillaEditView*>(wParam);
+			if (pView == NULL)
+			{
+				addHotSpot(_pEditView);
+				addHotSpot(_pNonEditView);
+			}
+			else
+			{
+				addHotSpot(pView);
+			}
 		}
 
 		default:

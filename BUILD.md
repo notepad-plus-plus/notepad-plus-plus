@@ -51,7 +51,7 @@ To build SciLexer.dll without PCRE support (for both 32-bit & 64-bit):
     - From an *already open* command prompt, run `vcvarsall.bat`
       (e.g. "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat").
 
-	For 64-bit, open *VS2017 x64 Native tool command prompt*.
+    For 64-bit, open *VS2017 x64 Native tool command prompt*.
 
  2. Change directory (`cd` or `pushd`) to `scintilla\win32\`
 
@@ -59,3 +59,4 @@ To build SciLexer.dll without PCRE support (for both 32-bit & 64-bit):
     - `nmake -f scintilla.mak`         (normal build)
     - `nmake DEBUG=1 -f scintilla.mak` (debugging build)
 
+    Note: If building the 32-bit and 64-bit versions in the same folder structure, after building one, it may be necessary to do a `nmake -f scintilla.mak clean` before building the other.

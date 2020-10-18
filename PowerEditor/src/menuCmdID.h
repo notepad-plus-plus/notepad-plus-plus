@@ -106,6 +106,7 @@
     #define    IDM_EDIT_RMV_TAB                     (IDM_EDIT + 9)
     #define    IDM_EDIT_DUP_LINE                    (IDM_EDIT + 10)
     #define    IDM_EDIT_REMOVE_DUP_LINES            (IDM_EDIT + 77)
+    #define    IDM_EDIT_REMOVE_ANY_DUP_LINES        (IDM_EDIT + 79)
     #define    IDM_EDIT_TRANSPOSE_LINE              (IDM_EDIT + 11)
     #define    IDM_EDIT_SPLIT_LINES                 (IDM_EDIT + 12)
     #define    IDM_EDIT_JOIN_LINES                  (IDM_EDIT + 13)

@@ -128,6 +128,7 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_NULL,    IDM_EDIT_INVERTCASE,                          false, false, false, nullptr },
 	{ VK_NULL,    IDM_EDIT_RANDOMCASE,                          false, false, false, nullptr },
 	{ VK_NULL,    IDM_EDIT_REMOVE_DUP_LINES,                    false, false, false, nullptr },
+	{ VK_NULL,    IDM_EDIT_REMOVE_ANY_DUP_LINES,                false, false, false, nullptr },
 	{ VK_I,       IDM_EDIT_SPLIT_LINES,                         true,  false, false, nullptr },
 	{ VK_J,       IDM_EDIT_JOIN_LINES,                          true,  false, false, nullptr },
 	{ VK_UP,      IDM_EDIT_LINE_UP,                             true,  false, true,  nullptr },

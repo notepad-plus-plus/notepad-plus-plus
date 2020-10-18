@@ -112,6 +112,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42008" name="Increase Line Indent"/>
                     <Item id="42009" name="Decrease Line Indent"/>
                     <Item id="42010" name="Duplicate Current Line"/>
+                    <Item id="42079" name="Remove Duplicate Lines"/>
                     <Item id="42077" name="Remove Consecutive Duplicate Lines"/>
                     <Item id="42012" name="Split Lines"/>
                     <Item id="42013" name="Join Lines"/>

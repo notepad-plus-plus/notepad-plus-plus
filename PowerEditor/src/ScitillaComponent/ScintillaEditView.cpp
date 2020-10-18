@@ -3871,3 +3871,66 @@ void ScintillaEditView::markedTextToClipboard(int indiStyle, bool doAll /*= fals
 		str2Clipboard(joined, NULL);
 	}
 }
+
+void ScintillaEditView::removeAnyDuplicateLines()
+{
+	size_t fromLine = 0, toLine = 0;
+	bool hasLineSelection = false;
+
+	auto selStart = execute(SCI_GETSELECTIONSTART);
+	auto selEnd = execute(SCI_GETSELECTIONEND);
+	hasLineSelection = selStart != selEnd;
+
+	if (hasLineSelection)
+	{
+		const pair<int, int> lineRange = getSelectionLinesRange();
+		// One single line selection is not allowed.
+		if (lineRange.first == lineRange.second)
+		{
+			return;
+		}
+		fromLine = lineRange.first;
+		toLine = lineRange.second;
+	}
+	else
+	{
+		// No selection.
+		fromLine = 0;
+		toLine = execute(SCI_GETLINECOUNT) - 1;
+	}
+
+	if (fromLine >= toLine)
+	{
+		return;
+	}
+
+	const auto startPos = execute(SCI_POSITIONFROMLINE, fromLine);
+	const auto endPos = execute(SCI_POSITIONFROMLINE, toLine) + execute(SCI_LINELENGTH, toLine);
+	const generic_string text = getGenericTextAsString(startPos, endPos);
+	std::vector<generic_string> linesVect = stringSplit(text, getEOLString());
+	const size_t lineCount = execute(SCI_GETLINECOUNT);
+
+	const bool doingEntireDocument = toLine == lineCount - 1;
+	if (!doingEntireDocument)
+	{
+		if (linesVect.rbegin()->empty())
+		{
+			linesVect.pop_back();
+		}
+	}
+
+	size_t origSize = linesVect.size();
+	size_t newSize = vecRemoveDuplicates(linesVect);
+	if (origSize != newSize)
+	{
+		generic_string joined = stringJoin(linesVect, getEOLString());
+		if (!doingEntireDocument)
+		{
+			joined += getEOLString();
+		}
+		if (text != joined)
+		{
+			replaceTarget(joined.c_str(), int(startPos), int(endPos));
+		}
+	}
+}

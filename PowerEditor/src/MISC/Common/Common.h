@@ -31,6 +31,8 @@
 #include <windows.h>
 #include <iso646.h>
 #include <cstdint>
+#include <unordered_set>
+#include <algorithm>
 
 
 const bool dirUp = true;
@@ -205,3 +207,29 @@ std::string ws2s(const std::wstring& wstr);
 bool deleteFileOrFolder(const generic_string& f2delete);
 
 void getFilesInFolder(std::vector<generic_string>& files, const generic_string& extTypeFilter, const generic_string& inFolder);
+
+template<typename T> size_t vecRemoveDuplicates(std::vector<T>& vec, bool isSorted = false, bool canSort = false)
+{
+	if (!isSorted && canSort)
+	{
+		std::sort(vec.begin(), vec.end());
+		isSorted = true;
+	}
+
+	if (isSorted)
+	{
+		typename std::vector<T>::iterator it;
+		it = std::unique(vec.begin(), vec.end());
+		vec.resize(distance(vec.begin(), it));  // unique() does not shrink the vector
+	}
+	else
+	{
+		std::unordered_set<T> seen;
+		auto newEnd = std::remove_if(vec.begin(), vec.end(), [&seen](const T& value)
+			{
+				return !seen.insert(value).second;
+			});
+		vec.erase(newEnd, vec.end());
+	}
+	return vec.size();
+}

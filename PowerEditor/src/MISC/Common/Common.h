@@ -227,12 +227,7 @@ template<typename T> size_t VecRemoveDuplicates(std::vector<T>& vec, bool isSort
 		std::unordered_set<T> seen;
 		auto newEnd = std::remove_if(vec.begin(), vec.end(), [&seen](const T& value)
 			{
-				if (seen.find(value) != std::end(seen))
-				{
-					return true;
-				}
-				seen.insert(value);
-				return false;
+				return !seen.insert(value).second;
 			});
 		vec.erase(newEnd, vec.end());
 	}

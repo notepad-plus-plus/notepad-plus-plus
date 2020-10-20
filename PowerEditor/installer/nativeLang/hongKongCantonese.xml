@@ -45,7 +45,7 @@
                     <Item subMenuId="search-jumpDown" name="下個標記"/>
                     <Item subMenuId="search-copyStyledText" name="抄低標記咗嘅字"/> <!-- #new v7.9.1 -->
                     <Item subMenuId="search-bookmark" name="書籤"/>
-                    <Item subMenuId="view-currentFileIn" name="响...睇呢個檔案"/>
+                    <Item subMenuId="view-currentFileIn" name="喺...睇呢個檔案"/>
                     <Item subMenuId="view-showSymbol" name="特殊字元"/>
                     <Item subMenuId="view-zoom" name="Zoom"/>
                     <Item subMenuId="view-moveCloneDocument" name="搬/抄呢個檔案"/>
@@ -99,13 +99,13 @@
                     <Item id="41011" name="散水(&amp;X)"/>
                     <Item id="41012" name="開返個工作階段出嚟..."/>
                     <Item id="41013" name="Save 低個工作階段..."/>
-                    <Item id="41014" name="响磁碟重新 load 過(&amp;L)"/>
+                    <Item id="41014" name="喺磁碟重新 load 過(&amp;L)"/>
                     <Item id="41015" name="Save 多份 copy..."/>
                     <Item id="41016" name="掉去垃圾桶"/>
                     <Item id="41017" name="改名..."/>
                     <Item id="41021" name="開返閂咗嘅檔案"/>
-                    <Item id="41022" name="响工作區打開資料夾(&amp;W)..."/>
-                    <Item id="41023" name="响系統預設程式打開"/>
+                    <Item id="41022" name="喺工作區打開資料夾(&amp;W)..."/>
+                    <Item id="41023" name="喺系統預設程式打開"/>
 
                     <!-- menu: Edit -->
                     <Item id="42001" name="剪(&amp;T)"/>
@@ -144,7 +144,7 @@
                     <Item id="42071" name="將啲大細楷調轉晒佢(&amp;I)"/>
                     <Item id="42072" name="求其咁轉大細楷(&amp;R)"/>
                     <Item id="42073" name="打開檔案"/>
-                    <Item id="42074" name="响檔案總管打開資料夾"/>
+                    <Item id="42074" name="喺檔案總管打開資料夾"/>
                     <Item id="42075" name="上網搵吓"/>
                     <Item id="42076" name="換過個搜尋器..."/>
 
@@ -197,8 +197,8 @@
                     <Item id="42036" name="取消單行式註解"/>
                     <Item id="42055" name="剷走空行"/>
                     <Item id="42056" name="剷走空行（只有空白字元嘅都照剷）"/>
-                    <Item id="42057" name="响上面加一行"/>
-                    <Item id="42058" name="响下面加一行"/>
+                    <Item id="42057" name="喺上面加一行"/>
+                    <Item id="42058" name="喺下面加一行"/>
 
                     <!-- menu: Search -->
                     <Item id="43001" name="搵(&amp;F)..."/>
@@ -220,7 +220,7 @@
                     <Item id="43009" name="跳去對應括號"/>
                     <Item id="43010" name="搵上一個(&amp;P)"/>
                     <Item id="43011" name="遞增式咁搵(&amp;I)..."/>
-                    <Item id="43013" name="响一咋檔案搵"/>
+                    <Item id="43013" name="喺一咋檔案搵"/>
                     <Item id="43014" name="揀字然後搵下個（唔記錄關鍵字）"/>
                     <Item id="43015" name="揀字然後搵上個（唔記錄關鍵字）"/>
                     <Item id="43022" name="使用格式一嘅顏色"/>
@@ -421,19 +421,19 @@
                 <Item CMID="13" name="取消唯讀屬性"/>
                 <Item CMID="14" name="搬呢個檔案去新視窗"/>
                 <Item CMID="15" name="抄呢個檔案去新視窗"/>
-                <Item CMID="16" name="响磁碟重新 load 過"/>
+                <Item CMID="16" name="喺磁碟重新 load 過"/>
                 <Item CMID="17" name="閂晒左邊所有檔案"/>
                 <Item CMID="18" name="閂晒右邊所有檔案"/>
-                <Item CMID="19" name="响檔案總管打開檔案嘅資料夾"/>
-                <Item CMID="20" name="响 CMD 打開檔案嘅資料夾"/>
-                <Item CMID="21" name="响系統預設程式打開"/>
+                <Item CMID="19" name="喺檔案總管打開檔案嘅資料夾"/>
+                <Item CMID="20" name="喺 CMD 打開檔案嘅資料夾"/>
+                <Item CMID="21" name="喺系統預設程式打開"/>
                 <Item CMID="22" name="閂晒啲 save 咗兼冇改過嘅檔案"/>
-                <Item CMID="23" name="响資料夾工作區打開"/> <!-- #new v7.9.1 -->
+                <Item CMID="23" name="喺資料夾工作區打開"/> <!-- #new v7.9.1 -->
             </TabBar>
         </Menu>
 
         <Dialog>
-            <Find title="" titleFind="搵" titleReplace="取代" titleFindInFiles="响一咋檔案搵" titleMark="標記">
+            <Find title="" titleFind="搵" titleReplace="取代" titleFindInFiles="喺一咋檔案搵" titleMark="標記">
                 <Item id="1"    name="搵下一個"/>
                 <Item id="1722" name="向上搵"/>
                 <Item id="2"    name="閂"/>
@@ -453,8 +453,8 @@
                 <Item id="1688" name="一直保持"/>
                 <Item id="1632" name="限揀選範圍(&amp;I)"/>
                 <Item id="1633" name="清晒啲標記佢"/>
-                <Item id="1635" name="响所有打開咗嘅文件執行取代(&amp;O)"/>
-                <Item id="1636" name="响所有打開咗嘅文件度搵晒出嚟(&amp;O)"/>
+                <Item id="1635" name="喺所有打開咗嘅文件執行取代(&amp;O)"/>
+                <Item id="1636" name="喺所有打開咗嘅文件度搵晒出嚟(&amp;O)"/>
                 <Item id="1654" name="過濾(&amp;S)："/>
                 <Item id="1655" name="資料夾(&amp;E)"/>
                 <Item id="1656" name="搵晒出嚟"/>
@@ -465,7 +465,7 @@
                 <Item id="1626" name="加強（例如 \n, \r, \t, \0, \x...）(&amp;X)"/>
                 <Item id="1660" name="所有檔案全部取代"/>
                 <Item id="1661" name="使用目前文件嘅資料夾"/>
-                <Item id="1641" name="响目前文件搵晒出嚟"/>
+                <Item id="1641" name="喺目前文件搵晒出嚟"/>
                 <Item id="1686" name="透明度(&amp;Y)"/>
                 <Item id="1703" name="包含換行(&amp;.)"/>
                 <Item id="1721" name="▲"/>
@@ -490,7 +490,7 @@
                 <Item id="2008" name="字元位置(&amp;O)"/>
                 <Item id="1"    name="跳過去"/>
                 <Item id="2"    name="邊度都唔去"/>
-                <Item id="2004" name="您响呢度："/>
+                <Item id="2004" name="您喺呢度："/>
                 <Item id="2005" name="您想去："/>
                 <Item id="2006" name="去到盡喺呢度："/>
             </GoToLine>
@@ -586,8 +586,8 @@
                 <ConflictInfoOk name="冇同其它快捷鍵發生衝突。"/>
                 <ConflictInfoEditing name="冇同其它快捷鍵發生衝突..."/>
                 <MainCommandNames>
-                    <Item id="41019" name="响檔案總管打開檔案嘅資料夾"/>
-                    <Item id="41020" name="响 CMD 打開檔案嘅資料夾"/>
+                    <Item id="41019" name="喺檔案總管打開檔案嘅資料夾"/>
+                    <Item id="41020" name="喺 CMD 打開檔案嘅資料夾"/>
                     <Item id="41021" name="開返閂咗嘅檔案"/>
                     <Item id="45001" name="將 EOL 轉換去 Windows (CR LF) 格式"/>
                     <Item id="45002" name="將 EOL 轉換去 Unix (LF) 格式"/>
@@ -622,10 +622,10 @@
                     <Item id="43059" name="抄低標記咗嘅字：格式五"/> <!-- #new v7.9.1 -->
                     <Item id="43060" name="抄低標記咗嘅字：所有格式"/> <!-- #new v7.9.1 -->
                     <Item id="43061" name="抄低標記咗嘅字：搵嘢標記"/> <!-- #new v7.9.1 -->
-                    <Item id="44100" name="响 Firefox 度睇呢個檔案"/>
-                    <Item id="44101" name="响 Chrome 度睇呢個檔案"/>
-                    <Item id="44103" name="响 IE 度睇呢個檔案"/>
-                    <Item id="44102" name="响 Edge 度睇呢個檔案"/>
+                    <Item id="44100" name="喺 Firefox 度睇呢個檔案"/>
+                    <Item id="44101" name="喺 Chrome 度睇呢個檔案"/>
+                    <Item id="44103" name="喺 IE 度睇呢個檔案"/>
+                    <Item id="44102" name="喺 Edge 度睇呢個檔案"/>
                     <Item id="50003" name="跳去上一份文件"/>
                     <Item id="50004" name="跳去下一份文件"/>
                     <Item id="44051" name="摺埋第 1 層"/>
@@ -771,7 +771,7 @@
                 <Comment title="註解同埋數字">
                     <Item id="23003" name="單行註解定位"/>
                     <Item id="23004" name="邊到都得"/>
-                    <Item id="23005" name="一定要响一行嘅開始"/>
+                    <Item id="23005" name="一定要喺一行嘅開始"/>
                     <Item id="23006" name="可以畀註解字眼前面有空格"/>
                     <Item id="23001" name="可以畀註解摺疊"/>
                     <Item id="23326" name="樣式"/>
@@ -859,9 +859,9 @@
                     <Item id="6107" name="縮細"/>
                     <Item id="6108" name="鎖定（唔畀 drag-and-drop）"/>
                     <Item id="6109" name="整暗啲唔係用緊嘅 tabs"/>
-                    <Item id="6110" name="响用緊嘅 tab 上面加條顏色 bar"/>
+                    <Item id="6110" name="喺用緊嘅 tab 上面加條顏色 bar"/>
                     <Item id="6111" name="顯示狀態列"/>
-                    <Item id="6112" name="响每個 tab 顯示交叉掣"/>
+                    <Item id="6112" name="喺每個 tab 顯示交叉掣"/>
                     <Item id="6113" name="撳兩吓滑鼠掣去閂文件"/>
                     <Item id="6118" name="隱藏"/>
                     <Item id="6119" name="多行"/>
@@ -907,7 +907,7 @@
                     <Item id="6231" name="邊框闊度"/>
                     <Item id="6235" name="無邊框"/>
                     <Item id="6236" name="轆到超出至最後一行"/>
-                    <Item id="6239" name="响揀選範圍以外撳滑鼠右掣，保留揀選範圍"/>
+                    <Item id="6239" name="喺揀選範圍以外撳滑鼠右掣，保留揀選範圍"/>
                 </Scintillas>
 
                 <NewDoc title="新文件">
@@ -949,7 +949,7 @@
                     <Item id="6302" name="以空格做 tab"/>
                     <Item id="6303" name="縮排大細："/>
                     <Item id="6510" name="使用預設值"/>
-                    <Item id="6335" name="响 SQL 將 backslash「\」睇成 escape character"/>
+                    <Item id="6335" name="喺 SQL 將 backslash「\」睇成 escape character"/>
                 </Language>
 
                 <Highlighting title="醒目提示">
@@ -958,11 +958,11 @@
                     <Item id="6332" name="符合大細楷"/>
                     <Item id="6338" name="符合完整單字"/>
                     <Item id="6339" name="套用搵同取代功能對話框嘅設定"/>
-                    <Item id="6340" name="同時响另一邊文件顯示醒目提示"/>
+                    <Item id="6340" name="同時喺另一邊文件顯示醒目提示"/>
                     <Item id="6329" name="醒目提示對應 Tags"/>
                     <Item id="6327" name="啟動"/>
-                    <Item id="6328" name="套用响 HTML/XML tag 屬性"/>
-                    <Item id="6330" name="套用响 comment/PHP/ASP 區域"/>
+                    <Item id="6328" name="套用喺 HTML/XML tag 屬性"/>
+                    <Item id="6330" name="套用喺 comment/PHP/ASP 區域"/>
                 </Highlighting>
 
                 <Print title="Print 嘢">
@@ -999,7 +999,7 @@
                     <Item id="6901" name="撳搵嘢／取代嗰陣，唔好將揀咗嘅字自動輸入去對話框"/>
                     <Item id="6902" name="搵／取代對話框啲字用等寬字型（需要重開 Notepad++）"/>
                     <Item id="6903" name="搵完嘢，保持開著個對話框"/>
-                    <Item id="6904" name="响所有打開咗嘅文件執行取代之前，要再次確認"/>
+                    <Item id="6904" name="喺所有打開咗嘅文件執行取代之前，要再次確認"/>
                 </Searching>
 
                 <RecentFilesHistory title="最近用過嘅檔案記錄">
@@ -1075,7 +1075,7 @@
                 </Cloud>
 
                 <SearchEngine title="搜尋器">
-                    <Item id="6271" name="搜尋器（用响「上網搵吓」指令嗰度）"/>
+                    <Item id="6271" name="搜尋器（用喺「上網搵吓」指令嗰度）"/>
                     <Item id="6272" name="DuckDuckGo"/>
                     <Item id="6273" name="Google"/>
                     <Item id="6274" name="Bing"/>
@@ -1088,12 +1088,12 @@
                 <MISC title="其它雜項">
                     <ComboBox id="6347">
                         <Element name="啟用"/>
-                        <Element name="响所有打開咗嘅檔案啟用"/>
+                        <Element name="喺所有打開咗嘅檔案啟用"/>
                         <Element name="停用"/>
                     </ComboBox>
                     <Item id="6308" name="最小化視窗嗰陣縮去系統匣"/>
                     <Item id="6312" name="自動偵測檔案狀態"/>
-                    <Item id="6313" name="靜靜雞响背景更新"/>
+                    <Item id="6313" name="靜靜雞喺背景更新"/>
                     <Item id="6318" name="Click 得嘅連結設定"/>
                     <Item id="6325" name="更新後轆去最後一行"/>
                     <Item id="6319" name="啟用"/>
@@ -1111,8 +1111,8 @@
                     <Item id="6114" name="啟用"/>
                     <Item id="6117" name="啟用 MRU 行為功能"/>
                     <Item id="6344" name="文件偷睇功能（Mouse 指著 tab 嗰陣時）"/>
-                    <Item id="6345" name="响 tab 度偷睇"/>
-                    <Item id="6346" name="响文件地圖度偷睇"/>
+                    <Item id="6345" name="喺 tab 度偷睇"/>
+                    <Item id="6346" name="喺文件地圖度偷睇"/>
                     <Item id="6348" name="撳搵嘢／取代嗰陣，唔好將揀咗嘅字自動輸入去對話框"/> <!-- legacy command <= v7.8.9 -->
                 </MISC>
             </Preference>
@@ -1150,11 +1150,11 @@
                 <Item id="2" name="取消"/>
             </ColumnEditor>
 
-            <FindInFinder title="响搜尋結果再搵">
+            <FindInFinder title="喺搜尋結果再搵">
                 <Item id="1"    name="搵晒出嚟"/>
                 <Item id="2"    name="閂"/>
                 <Item id="1711" name="搵乜嘢(&amp;F)："/>
-                <Item id="1713" name="限制响啲搵咗嘅行數再搵"/>
+                <Item id="1713" name="限制喺啲搵咗嘅行數再搵"/>
                 <Item id="1714" name="符合完整單字(&amp;W)"/>
                 <Item id="1715" name="符合大細楷(&amp;C)"/>
                 <Item id="1716" name="模式"/>
@@ -1178,7 +1178,7 @@
             <ContextMenuXmlEditWarning title="編輯快顯功能表" message="編輯 contextMenu.xml 可以修改 Notepad++ 嘅快顯功能表。
 改完記得重新啟動 Notepad++，咁先至會生效。"/>
             <NppHelpAbsentWarning title="檔案唔存在" message="
-冇响度，去 Notepad++ 網站下載返啦。"/> <!-- legacy command <= v7.9 -->
+冇喺度，去 Notepad++ 網站下載返啦。"/> <!-- legacy command <= v7.9 -->
             <SaveCurrentModifWarning title="Save 而家嘅改動" message="您必須要 save 低而家嘅改動。
 留意返，save 咗就冇得復原。
 
@@ -1188,19 +1188,19 @@
 
 仲繼唔繼續？"/>
             <CannotMoveDoc title="搬去新嘅 Notepad++ 個體" message="份文件有嘢改過，save 咗佢再試吓啦。"/>
-            <DocReloadWarning title="响磁碟重新 load 過" message="留意返！改過嘅嘢會冇晒，係咪真係要再 load 過呢個檔案？"/>
+            <DocReloadWarning title="喺磁碟重新 load 過" message="留意返！改過嘅嘢會冇晒，係咪真係要再 load 過呢個檔案？"/>
             <FileLockedWarning title="儲存失敗" message="麻煩您檢查吓，係咪有其它應用程式開咗呢個檔案。"/>
-            <FileAlreadyOpenedInNpp title="" message="已經响 Notepad++ 度開咗呢個檔案。"/>
+            <FileAlreadyOpenedInNpp title="" message="已經喺 Notepad++ 度開咗呢個檔案。"/>
             <DeleteFileFailed title="掉去垃圾桶" message="剷唔走個檔案。"/>
 
             <NbFileToOpenImportantWarning title="太多檔案" message="成 $INT_REPLACE$ 個檔案咁多，
 係咪真係要開晒先？"/>
-            <SettingsOnCloudError title="雲端設定" message="條雲端路徑似乎 set 咗响唯讀磁碟，又或者
+            <SettingsOnCloudError title="雲端設定" message="條雲端路徑似乎 set 咗喺唯讀磁碟，又或者
 資料夾冇足夠嘅寫入權限，而家清除您嘅雲端設定，
 麻煩去「偏好設定」重新 set 過。"/>
             <FilePathNotFoundWarning title="打開檔案" message="您想打開嘅檔案唔存在。"/>
             <SessionFileInvalidError title="Load 唔到個工作階段" message="個工作階段檔案損毀咗或者無效。"/>
-            <DroppingFolderAsProjectModeWarning title="操作無效" message="由於您响「偏好設定：預設資料夾」閂咗「拖放資料夾去視窗嗰陣，會打開資料夾裏面所有檔案，而唔係放入去資料夾工作區」呢個選項，您只能夠拖放文件或者資料夾其中一種。
+            <DroppingFolderAsProjectModeWarning title="操作無效" message="由於您喺「偏好設定：預設資料夾」閂咗「拖放資料夾去視窗嗰陣，會打開資料夾裏面所有檔案，而唔係放入去資料夾工作區」呢個選項，您只能夠拖放文件或者資料夾其中一種。
 有需要就啟用呢個選項，然後再試一次。"/>
             <SortingError title="排次序出錯" message="第 $INT_REPLACE$ 行出問題，無法子以整數排次序。"/>
             <ColumnModeTip title="欄位模式" message="貼士：用「Alt + 滑鼠拖拉揀選」或者「Alt + Shift + keyboard 方向掣」嚟切換去欄位模式。"/>
@@ -1220,7 +1220,7 @@ $STR_REPLACE$
             <DoReloadOrNotAndLooseChange title="Reload" message="「$STR_REPLACE$」
 
 已經畀另一個程式改過嘢。
-Reload 會放棄您响 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
+Reload 會放棄您喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
             <PrehistoricSystemDetected title="系統太舊" message="似乎您個系統太舊啦喂，呢個功能唔 work，真係唔好意思。"/>
             <XpUpdaterProblem title="更新 Notepad++" message="由於 Windows XP 嘅安全機制太過舊，更新程式唔再兼容 XP 系統啦。
 要唔要去 Notepad++ 網站，下載最新嘅版本呢？"/>
@@ -1238,8 +1238,8 @@ Reload 會放棄您响 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
             <LoadLangsFailed title="設定" message="Load 唔到「langs.xml」。
 使唔使回復個檔案？"/>
             <LoadLangsFailedFinal title="設定" message="Load 唔到「langs.xml」。"/>
-            <FolderAsWorspaceSubfolderExists title="資料夾工作區問題" message="您要加入嘅資料夾「$STR_REPLACE$」，已經以子資料夾嘅形式出現响工作區裏面。
-如果您仍然想咁做，唯有响工作區剷走包含佢嘅資料夾，先至可以加返上去。"/>
+            <FolderAsWorspaceSubfolderExists title="資料夾工作區問題" message="您要加入嘅資料夾「$STR_REPLACE$」，已經以子資料夾嘅形式出現喺工作區裏面。
+如果您仍然想咁做，唯有喺工作區剷走包含佢嘅資料夾，先至可以加返上去。"/>
 
             <ProjectPanelChanged title="$STR_REPLACE$" message="Project 工作區有嘢改動過，使唔使 save？"/>
             <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Project 工作區冇 save 到。"/>
@@ -1247,9 +1247,9 @@ Reload 會放棄您响 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
             <ProjectPanelNewDoSaveDirtyWsOrNot title="新工作區" message="您用緊呢個工作區改過嘢，使唔使 save 咗佢先呢？"/>
             <ProjectPanelOpenFailed title="打開工作區" message="打唔開個工作區。
 似乎係個工作區檔案無效又或者損毀咗。"/>
-            <ProjectPanelRemoveFolderFromProject title="响 project 度剷走資料夾" message="咁樣會剷走埋佢啲子項目。
-係咪真係要响 project 度剷走呢個資料夾？"/>
-            <ProjectPanelRemoveFileFromProject title="响 project 度剷走檔案" message="係咪真係要响 project 度剷走呢個檔案？"/>
+            <ProjectPanelRemoveFolderFromProject title="喺 project 度剷走資料夾" message="咁樣會剷走埋佢啲子項目。
+係咪真係要喺 project 度剷走呢個資料夾？"/>
+            <ProjectPanelRemoveFileFromProject title="喺 project 度剷走檔案" message="係咪真係要喺 project 度剷走呢個檔案？"/>
             <ProjectPanelReloadError title="Reload 工作區" message="搵唔到要 reload 嘅檔案。"/>
             <ProjectPanelReloadDirty title="Reload 工作區" message="呢個工作區已經改過嘢。Reload 會捨棄啲改動。
 仲繼唔繼續？"/>
@@ -1258,12 +1258,12 @@ Reload 會放棄您响 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
             <UDLRemoveCurrentLang title="剷除程式語言" message="係咪真係要咁做？"/>
             <SCMapperDoDeleteOrNot title="剷除快捷鍵" message="係咪真係要咁做"/>
             <FindCharRangeValueError title="輸入值範圍錯誤" message="您輸入嘅數值應該要介乎 0 到 255 之間先至啱。"/>
-            <OpenInAdminMode title="Save 唔到" message="Save 唔到，可能係因為個檔案响保護狀態。
+            <OpenInAdminMode title="Save 唔到" message="Save 唔到，可能係因為個檔案喺保護狀態。
 想唔想用系統管理員身份重新打開 Notepad++？"/>
-            <OpenInAdminModeWithoutCloseCurrent title="Save 唔到" message="Save 唔到，可能係因為個檔案响保護狀態。
+            <OpenInAdminModeWithoutCloseCurrent title="Save 唔到" message="Save 唔到，可能係因為個檔案喺保護狀態。
 想唔想用系統管理員身份重新打開 Notepad++？"/>
             <OpenInAdminModeFailed title="系統管理員身份都開唔到" message="Notepad++ 冇法子用系統管理員身份打開"/>
-            <ViewInBrowser title="响瀏覽器度睇呢個檔案" message="响系統裏面搵唔到應用程式"/>
+            <ViewInBrowser title="喺瀏覽器度睇呢個檔案" message="喺系統裏面搵唔到應用程式"/>
             <ExitToUpdatePlugins title="即將會閂 Notepad++" message="係嘅話，Notepad++ 會自己摺埋，然後安裝更新或者剷走 plugin(s)。
 搞掂晒安裝程序，Notepad++ 就會重新啟動。
 係咪繼續？"/>
@@ -1306,12 +1306,12 @@ Reload 會放棄您响 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
                 <Item id="3511" name="剷走"/>
                 <Item id="3512" name="剷走晒佢"/>
                 <Item id="3513" name="加料"/>
-                <Item id="3514" name="响系統預設程式打開"/>
+                <Item id="3514" name="喺系統預設程式打開"/>
                 <Item id="3515" name="打開"/>
                 <Item id="3516" name="將檔案路徑抄去剪貼簿"/>
-                <Item id="3517" name="响呢啲檔案度搵..."/>
-                <Item id="3518" name="响檔案總管打開資料夾"/>
-                <Item id="3519" name="响 CMD 打開資料夾"/>
+                <Item id="3517" name="喺呢啲檔案度搵..."/>
+                <Item id="3518" name="喺檔案總管打開資料夾"/>
+                <Item id="3519" name="喺 CMD 打開資料夾"/>
                 <Item id="3520" name="將檔名抄去剪貼簿"/>
             </Menus>
         </FolderAsWorkspace>
@@ -1363,7 +1363,7 @@ Reload 會放棄您响 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
         </ProjectManager>
         <MiscStrings>
             <!-- $INT_REPLACE$ 同埋 $STR_REPLACE$ 係 placeholders 嚟，唔好改啊嗱 -->
-            <word-chars-list-tip value="呢度要嚟响現時嘅單字字元清單附加字元，double-click 揀字又或者剔咗「符合完整單字」嚟搵嘢就會包埋。"/>
+            <word-chars-list-tip value="呢度要嚟喺現時嘅單字字元清單附加字元，double-click 揀字又或者剔咗「符合完整單字」嚟搵嘢就會包埋。"/>
             <word-chars-list-warning-begin value="留意返：您嘅清單裏頭有"/>
             <word-chars-list-space-warning value=" $INT_REPLACE$ 個空格"/>
             <word-chars-list-tab-warning value=" $INT_REPLACE$ 個 tab "/>
@@ -1373,18 +1373,18 @@ Reload 會放棄您响 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
             <cloud-select-folder value="揀返個資料夾，畀 Notepad++ 讀取/寫入設定。"/>
             <shift-change-direction-tip value="用「Shift + Enter」掣嚟反方向咁搵"/>
             <two-find-buttons-tip value="用上丶落兩個掣代替「搵下一個」"/>
-            <find-in-files-filter-tip value="只係响 cpp, cxx, h, hxx &amp;&amp; hpp 嘅檔案度搵：
+            <find-in-files-filter-tip value="只係喺 cpp, cxx, h, hxx &amp;&amp; hpp 嘅檔案度搵：
 *.cpp *.cxx *.h *.hxx *.hpp
 
 所有檔案，除咗 exe, obj &amp;&amp; log：
 *.* !*.exe !*.obj !*.log"/>
-            <find-status-top-reached value="搵嘢：已經過咗文件開端，而家响底部第一個相符嘅字串。"/>
-            <find-status-end-reached value="搵嘢：已經過咗文件結尾，而家响頂部第一個相符嘅字串。"/>
+            <find-status-top-reached value="搵嘢：已經過咗文件開端，而家喺底部第一個相符嘅字串。"/>
+            <find-status-end-reached value="搵嘢：已經過咗文件結尾，而家喺頂部第一個相符嘅字串。"/>
             <find-status-replaceinfiles-1-replaced value="檔案中執行取代：取代咗 1 次。"/>
             <find-status-replaceinfiles-nb-replaced value="檔案中執行取代：取代咗 $INT_REPLACE$ 次。"/>
             <find-status-replaceinfiles-re-malformed value="檔案中執行取代：規則運算式無效。"/>
-            <find-status-replaceinopenedfiles-1-replaced value="响所有打開咗嘅文件執行取代：取代咗 1 次。"/>
-            <find-status-replaceinopenedfiles-nb-replaced value="响所有打開咗嘅文件執行取代：取代咗 $INT_REPLACE$ 次。"/>
+            <find-status-replaceinopenedfiles-1-replaced value="喺所有打開咗嘅文件執行取代：取代咗 1 次。"/>
+            <find-status-replaceinopenedfiles-nb-replaced value="喺所有打開咗嘅文件執行取代：取代咗 $INT_REPLACE$ 次。"/>
             <find-status-mark-re-malformed value="標記：規則運算式無效。"/>
             <find-status-invalid-re value="搵嘢：規則運算式無效。"/>
             <find-status-mark-1-match value="標記： 1 個符合結果。"/>
@@ -1407,7 +1407,7 @@ Reload 會放棄您响 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
             <find-status-scope-all value="（成份檔案）"/>
             <find-status-scope-backward value="（由頭到滑鼠浮標位置）"/>
             <find-status-scope-forward value="（由滑鼠浮標位置到檔尾）"/>
-            <finder-find-in-finder value="响搜尋結果再搵..."/>
+            <finder-find-in-finder value="喺搜尋結果再搵..."/>
             <finder-close-this value="閂埋呢個搜尋結果"/>
             <finder-collapse-all value="摺埋所有層級"/>
             <finder-uncollapse-all value="展開所有層級"/>
@@ -1440,15 +1440,15 @@ Reload 會放棄您响 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
             <summary-nbsel2 value=" bytes），揀咗 "/>
             <summary-nbrange value=" 個範圍數"/>
             <replace-in-files-confirm-title value="係咪真係先？"/>
-            <replace-in-files-confirm-directory value="係咪真係要响呢度執行取代："/>
+            <replace-in-files-confirm-directory value="係咪真係要喺呢度執行取代："/>
             <replace-in-files-confirm-filetype value="檔案類型："/>
             <replace-in-open-docs-confirm-title value="係咪真係先？"/>
-            <replace-in-open-docs-confirm-message value="係咪真係要响所有打開咗嘅文件度執行取代？"/>
+            <replace-in-open-docs-confirm-message value="係咪真係要喺所有打開咗嘅文件度執行取代？"/>
             <find-result-caption value="搵到嘅結果"/>
             <find-result-title value="搵"/>
-            <find-result-title-info value="（搵到 $INT_REPLACE1$ 個結果，散佈响 $INT_REPLACE2$ 份文件，總共搵咗 $INT_REPLACE3$ 份文件）"/>
-            <find-result-title-info-selections value="（搵到 $INT_REPLACE1$ 個結果，散佈响 $INT_REPLACE2$ 個揀選範圍，總共搵咗 $INT_REPLACE3$ 份文件）"/>
-            <find-result-title-info-extra value=" - 搵中搵模式：只顯示「响搜尋結果再搵」嘅篩選結果"/>
+            <find-result-title-info value="（搵到 $INT_REPLACE1$ 個結果，散佈喺 $INT_REPLACE2$ 份文件，總共搵咗 $INT_REPLACE3$ 份文件）"/>
+            <find-result-title-info-selections value="（搵到 $INT_REPLACE1$ 個結果，散佈喺 $INT_REPLACE2$ 個揀選範圍，總共搵咗 $INT_REPLACE3$ 份文件）"/>
+            <find-result-title-info-extra value=" - 搵中搵模式：只顯示「喺搜尋結果再搵」嘅篩選結果"/>
             <find-result-hits value="（搵到 $INT_REPLACE$ 個結果）"/>
             <find-regex-zero-length-match value="我覺得自己係零囉" /> <!-- 字元相符不過長度係零 -->
         </MiscStrings>

@@ -119,5 +119,6 @@ LocalizationSwitcher::LocalizationDefinition localizationDefs[] =
 	{TEXT("Zulu"), TEXT("zulu.xml")},
 	{TEXT("Vèneto"), TEXT("venetian.xml")},
 	{TEXT("Gaeilge"), TEXT("irish.xml")},
-	{TEXT("नेपाली"), TEXT("nepali.xml")}
+	{TEXT("नेपाली"), TEXT("nepali.xml")},
+	{TEXT("香港繁體"), TEXT("hongKongCantonese.xml")}
 };

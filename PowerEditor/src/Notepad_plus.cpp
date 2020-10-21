@@ -411,6 +411,8 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	// Menu Section //
 	// ------------ //
 
+	setupColorSampleBitmapsOnMainMenuItems();
+
 	// Macro Menu
 	std::vector<MacroShortcut> & macros  = nppParam.getMacroList();
 	HMENU hMacroMenu = ::GetSubMenu(_mainMenuHandle, MENUINDEX_MACRO);
@@ -2155,6 +2157,68 @@ void Notepad_plus::checkSyncState()
 	}
 	enableCommand(IDM_VIEW_SYNSCROLLV, canDoSync, MENU | TOOLBAR);
 	enableCommand(IDM_VIEW_SYNSCROLLH, canDoSync, MENU | TOOLBAR);
+}
+
+void Notepad_plus::setupColorSampleBitmapsOnMainMenuItems()
+{
+	// set up bitmaps on menu items
+	// style-related bitmaps of color samples
+
+	struct
+	{
+		int firstOfThisColorMenuId;
+		int styleIndic;
+		std::vector<int> sameColorMenuIds;
+	}
+	bitmapOnStyleMenuItemsInfo[] =
+	{
+		{ IDM_SEARCH_GONEXTMARKER5, SCE_UNIVERSAL_FOUND_STYLE_EXT5, { IDM_SEARCH_MARKALLEXT5, IDM_SEARCH_UNMARKALLEXT5, IDM_SEARCH_GOPREVMARKER5, IDM_SEARCH_STYLE5TOCLIP } },
+		{ IDM_SEARCH_GONEXTMARKER4, SCE_UNIVERSAL_FOUND_STYLE_EXT4, { IDM_SEARCH_MARKALLEXT4, IDM_SEARCH_UNMARKALLEXT4, IDM_SEARCH_GOPREVMARKER4, IDM_SEARCH_STYLE4TOCLIP } },
+		{ IDM_SEARCH_GONEXTMARKER3, SCE_UNIVERSAL_FOUND_STYLE_EXT3, { IDM_SEARCH_MARKALLEXT3, IDM_SEARCH_UNMARKALLEXT3, IDM_SEARCH_GOPREVMARKER3, IDM_SEARCH_STYLE3TOCLIP } },
+		{ IDM_SEARCH_GONEXTMARKER2, SCE_UNIVERSAL_FOUND_STYLE_EXT2, { IDM_SEARCH_MARKALLEXT2, IDM_SEARCH_UNMARKALLEXT2, IDM_SEARCH_GOPREVMARKER2, IDM_SEARCH_STYLE2TOCLIP } },
+		{ IDM_SEARCH_GONEXTMARKER1, SCE_UNIVERSAL_FOUND_STYLE_EXT1, { IDM_SEARCH_MARKALLEXT1, IDM_SEARCH_UNMARKALLEXT1, IDM_SEARCH_GOPREVMARKER1, IDM_SEARCH_STYLE1TOCLIP } },
+		{ IDM_SEARCH_GONEXTMARKER_DEF, SCE_UNIVERSAL_FOUND_STYLE, { IDM_SEARCH_GOPREVMARKER_DEF, IDM_SEARCH_MARKEDTOCLIP } }
+	};
+
+	for (int j = 0; j < sizeof(bitmapOnStyleMenuItemsInfo) / sizeof(bitmapOnStyleMenuItemsInfo[0]); ++j)
+	{
+		StyleArray& stylers = NppParameters::getInstance().getMiscStylerArray();
+		int iFind = stylers.getStylerIndexByID(bitmapOnStyleMenuItemsInfo[j].styleIndic);
+		
+		if (iFind != -1)
+		{
+			Style const* pStyle = &(stylers.getStyler(iFind));
+
+			HDC hDC = GetDC(NULL);
+			const int bitmapXYsize = 16;
+			HBITMAP hNewBitmap = CreateCompatibleBitmap(hDC, bitmapXYsize, bitmapXYsize);
+			HDC hDCn = CreateCompatibleDC(hDC);
+			HBITMAP hOldBitmap = static_cast<HBITMAP>(SelectObject(hDCn, hNewBitmap));
+			RECT rc = { 0, 0, bitmapXYsize, bitmapXYsize };
+
+			// paint full-size black square
+			HBRUSH hBlackBrush = CreateSolidBrush(RGB(0,0,0));
+			FillRect(hDCn, &rc, hBlackBrush);
+			DeleteObject(hBlackBrush);
+
+			// overpaint a slightly smaller colored square
+			rc.left = rc.top = 1;
+			rc.right = rc.bottom = bitmapXYsize - 1;
+			HBRUSH hColorBrush = CreateSolidBrush(pStyle->_bgColor);
+			FillRect(hDCn, &rc, hColorBrush);
+			DeleteObject(hColorBrush);
+
+			// restore old bitmap so we can delete it to avoid leak
+			SelectObject(hDCn, hOldBitmap);
+			DeleteDC(hDCn);
+			
+			SetMenuItemBitmaps(_mainMenuHandle, bitmapOnStyleMenuItemsInfo[j].firstOfThisColorMenuId, MF_BYCOMMAND, hNewBitmap, hNewBitmap);
+			for (int relatedMenuId : bitmapOnStyleMenuItemsInfo[j].sameColorMenuIds)
+			{
+				SetMenuItemBitmaps(_mainMenuHandle, relatedMenuId, MF_BYCOMMAND, hNewBitmap, NULL);
+			}
+		}
+	}
 }
 
 bool doCheck(HMENU mainHandle, int id)

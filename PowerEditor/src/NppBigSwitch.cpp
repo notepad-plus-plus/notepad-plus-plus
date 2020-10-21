@@ -1750,6 +1750,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case WM_UPDATEMAINMENUBITMAPS:
+		{
+			setupColorSampleBitmapsOnMainMenuItems();
+			return TRUE;
+		}
+
 		case WM_QUERYENDSESSION:
 		case WM_CLOSE:
 		{

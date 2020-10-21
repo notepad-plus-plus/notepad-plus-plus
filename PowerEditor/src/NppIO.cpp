@@ -954,6 +954,7 @@ bool Notepad_plus::fileClose(BufferID id, int curView)
 
 bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 {
+	HoldUpdateRecentFileList guard(_lastRecentFileList);
 	bool noSaveToAll = false;
 	bool saveToAll = false;
 
@@ -1152,6 +1153,8 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 
 bool Notepad_plus::fileCloseAllGiven(const std::vector<int>& krvecBufferIndexes)
 {
+	HoldUpdateRecentFileList guard(_lastRecentFileList);
+
 	// First check if we need to save any file.
 
 	bool noSaveToAll = false;
@@ -1283,6 +1286,7 @@ bool Notepad_plus::fileCloseAllUnchanged()
 
 bool Notepad_plus::fileCloseAllButCurrent()
 {
+	HoldUpdateRecentFileList guard(_lastRecentFileList);
 	BufferID current = _pEditView->getCurrentBufferID();
 	const int activeViewID = currentView();
 	int active = _pDocTab->getCurrentTabIndex();

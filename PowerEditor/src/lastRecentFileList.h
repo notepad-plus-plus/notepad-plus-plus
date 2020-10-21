@@ -93,6 +93,8 @@ public:
 		return (_hParentMenu != NULL);
 	};
 
+	void setUpdateMenuPaused(bool value);
+
 private:
 	recentList _lrfl;
 	Accelerator *_pAccelerator = nullptr;
@@ -108,9 +110,25 @@ private:
 	bool _idFreeArray[NB_MAX_LRF_FILE] = {false};
 	bool _hasSeparators = false;
 	bool _locked = false;
+	bool _updateMenuPaused = false;
+	bool _updateMenuRequested = false;
 
 	int find(const TCHAR *fn);
 	int popFirstAvailableID();
 	void setAvailable(int id);
 };
 
+class HoldUpdateRecentFileList
+{
+public:
+	HoldUpdateRecentFileList(LastRecentFileList& list);
+	HoldUpdateRecentFileList(HoldUpdateRecentFileList&&) = delete;
+	HoldUpdateRecentFileList(const HoldUpdateRecentFileList&) = delete;
+	~HoldUpdateRecentFileList();
+
+	HoldUpdateRecentFileList& operator=(HoldUpdateRecentFileList&&) = delete;
+	HoldUpdateRecentFileList& operator=(const HoldUpdateRecentFileList&) = delete;
+
+private:
+	LastRecentFileList& _list;
+};

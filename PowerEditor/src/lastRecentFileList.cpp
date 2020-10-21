@@ -94,6 +94,12 @@ void LastRecentFileList::switchMode()
 
 void LastRecentFileList::updateMenu()
 {
+	if (_updateMenuPaused)
+	{
+		_updateMenuRequested = true;
+		return;
+	}
+
 	NppParameters& nppParam = NppParameters::getInstance();
 
 	if (!_hasSeparators && _size > 0) 
@@ -284,6 +290,19 @@ void LastRecentFileList::saveLRFL()
 	}
 }
 
+void LastRecentFileList::setUpdateMenuPaused(bool value)
+{
+	if (_updateMenuPaused == value)
+		return;
+
+	_updateMenuPaused = value;
+	if (!value && _updateMenuRequested)
+	{
+		_updateMenuRequested = false;
+		updateMenu();
+	}
+}
+
 
 int LastRecentFileList::find(const TCHAR *fn)
 {
@@ -314,4 +333,15 @@ void LastRecentFileList::setAvailable(int id)
 {
 	int index = id - _idBase;
 	_idFreeArray[index] = true;
+}
+
+HoldUpdateRecentFileList::HoldUpdateRecentFileList(LastRecentFileList& list)
+	: _list(list)
+{
+	list.setUpdateMenuPaused(true);
+}
+
+HoldUpdateRecentFileList::~HoldUpdateRecentFileList()
+{
+	_list.setUpdateMenuPaused(false);
 }

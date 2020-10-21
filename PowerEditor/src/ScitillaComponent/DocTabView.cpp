@@ -37,25 +37,74 @@
 
 bool DocTabView::_hideTabBarStatus = false;
 
+void fillTCItemValues(TCITEM& tie, Buffer* buffer, int mask, TCHAR* encodedLabel)
+{
+	tie.lParam = -1;
+	tie.mask = 0;
+
+	if (mask & BufferChangeReadonly || mask & BufferChangeDirty)
+	{
+		tie.mask |= TCIF_IMAGE;
+		tie.iImage = buffer->isDirty() ? UNSAVED_IMG_INDEX : SAVED_IMG_INDEX;
+		if (buffer->isMonitoringOn())
+		{
+			tie.iImage = MONITORING_IMG_INDEX;
+		}
+		else if (buffer->isReadOnly())
+		{
+			tie.iImage = REDONLY_IMG_INDEX;
+		}
+	}
+
+	if (mask & BufferChangeFilename)
+	{
+		tie.mask |= TCIF_TEXT;
+		tie.pszText = const_cast<TCHAR *>(encodedLabel);
+
+		{
+			const TCHAR* in = buffer->getFileName();
+			TCHAR* out = encodedLabel;
+
+			//This code will read in one character at a time and duplicate every first ampersand(&).
+			//ex. If input is "test & test && test &&&" then output will be "test && test &&& test &&&&".
+			//Tab's caption must be encoded like this because otherwise tab control would make tab too small or too big for the text.
+
+			while (*in != 0)
+			if (*in == '&')
+			{
+				*out++ = '&';
+				*out++ = '&';
+				while (*(++in) == '&')
+					*out++ = '&';
+			}
+			else
+				*out++ = *in++;
+			*out = '\0';
+		}
+	}
+}
+
 void DocTabView::addBuffer(BufferID buffer)
 {
 	if (buffer == BUFFER_INVALID)	//valid only
 		return;
-	if (this->getIndexByBuffer(buffer) != -1)	//no duplicates
-		return;
 	Buffer * buf = MainFileManager.getBufferByID(buffer);
+	if (buf->getIndexForTab(this) != -1)	//no duplicates
+		return;
+
 	TCITEM tie;
-	tie.mask = TCIF_TEXT | TCIF_IMAGE | TCIF_PARAM;
 
-	int index = -1;
-	if (_hasImgLst)
-		index = 0;
-	tie.iImage = index;
-	tie.pszText = const_cast<TCHAR *>(buf->getFileName());
+	// We must make space for the added ampersand characters.
+	TCHAR encodedLabel[2 * MAX_PATH];
+
+	fillTCItemValues(tie, buffer, BufferChangeMask, encodedLabel);
+
+	tie.mask |= TCIF_PARAM;
 	tie.lParam = reinterpret_cast<LPARAM>(buffer);
-	::SendMessage(_hSelf, TCM_INSERTITEM, _nbItem++, reinterpret_cast<LPARAM>(&tie));
-	bufferUpdated(buf, BufferChangeMask);
 
+	const int tabIndex = static_cast<int>(_nbItem++);
+	buf->setIndexForTab(this, tabIndex);
+	::SendMessage(_hSelf, TCM_INSERTITEM, tabIndex, reinterpret_cast<LPARAM>(&tie));
 	::SendMessage(_hParent, WM_SIZE, 0, 0);
 }
 
@@ -63,6 +112,7 @@ void DocTabView::addBuffer(BufferID buffer)
 void DocTabView::closeBuffer(BufferID buffer)
 {
 	int indexToClose = getIndexByBuffer(buffer);
+	MainFileManager.getBufferByID(buffer)->removeIndexForTab(this);
 	deletItemAt((size_t)indexToClose);
 	::SendMessage(_hParent, WM_SIZE, 0, 0);
 }
@@ -110,12 +160,34 @@ int DocTabView::getIndexByBuffer(BufferID id)
 	TCITEM tie;
 	tie.lParam = -1;
 	tie.mask = TCIF_PARAM;
+
+	FileManager& fileManager = MainFileManager;
+
+	Buffer* buffer = fileManager.getBufferByID(id);
+	const int expectedTabIndex = buffer->getIndexForTab(this);
+	if (expectedTabIndex == -1)
+		return -1;
+
+	if (size_t(expectedTabIndex) < _nbItem)
+	{
+		::SendMessage(_hSelf, TCM_GETITEM, expectedTabIndex, reinterpret_cast<LPARAM>(&tie));
+		if (reinterpret_cast<BufferID>(tie.lParam) == id)
+			return static_cast<int>(expectedTabIndex);
+	}
+
 	for (size_t i = 0; i < _nbItem; ++i)
 	{
 		::SendMessage(_hSelf, TCM_GETITEM, i, reinterpret_cast<LPARAM>(&tie));
-		if (reinterpret_cast<BufferID>(tie.lParam) == id)
+		BufferID gottenID = reinterpret_cast<BufferID>(tie.lParam);
+		if (gottenID == id)
+		{
+			buffer->setIndexForTab(this, static_cast<int>(i));
 			return static_cast<int>(i);
+		}
+
+		fileManager.getBufferByID(gottenID)->setIndexForTab(this, static_cast<int>(i));
 	}
+
 	return -1;
 }
 
@@ -130,7 +202,6 @@ BufferID DocTabView::getBufferByIndex(size_t index)
 	return reinterpret_cast<BufferID>(tie.lParam);
 }
 
-
 void DocTabView::bufferUpdated(Buffer * buffer, int mask)
 {
 	int index = getIndexByBuffer(buffer->getID());
@@ -138,53 +209,13 @@ void DocTabView::bufferUpdated(Buffer * buffer, int mask)
 		return;
 
 	TCITEM tie;
-	tie.lParam = -1;
-	tie.mask = 0;
 
-	if (mask & BufferChangeReadonly || mask & BufferChangeDirty)
-	{
-		tie.mask |= TCIF_IMAGE;
-		tie.iImage = buffer->isDirty()?UNSAVED_IMG_INDEX:SAVED_IMG_INDEX;
-		if (buffer->isMonitoringOn())
-		{
-			tie.iImage = MONITORING_IMG_INDEX;
-		}
-		else if (buffer->isReadOnly())
-		{
-			tie.iImage = REDONLY_IMG_INDEX;
-		}
-	}
-
-	//We must make space for the added ampersand characters.
+	// We must make space for the added ampersand characters.
 	TCHAR encodedLabel[2 * MAX_PATH];
 
-	if (mask & BufferChangeFilename)
-	{
-		tie.mask |= TCIF_TEXT;
-		tie.pszText = const_cast<TCHAR *>(encodedLabel);
+	fillTCItemValues(tie, buffer, mask, encodedLabel);
 
-		{
-			const TCHAR* in = buffer->getFileName();
-			TCHAR* out = encodedLabel;
-
-			//This code will read in one character at a time and duplicate every first ampersand(&).
-			//ex. If input is "test & test && test &&&" then output will be "test && test &&& test &&&&".
-			//Tab's caption must be encoded like this because otherwise tab control would make tab too small or too big for the text.
-
-			while (*in != 0)
-			if (*in == '&')
-			{
-				*out++ = '&';
-				*out++ = '&';
-				while (*(++in) == '&')
-					*out++ = '&';
-			}
-			else
-				*out++ = *in++;
-			*out = '\0';
-		}
-	}
-
+	buffer->setIndexForTab(this, index);
 	::SendMessage(_hSelf, TCM_SETITEM, index, reinterpret_cast<LPARAM>(&tie));
 
 	// send WM_SIZE only when change tab
@@ -199,12 +230,14 @@ void DocTabView::setBuffer(size_t index, BufferID id)
 	if (index < 0 || index >= _nbItem)
 		return;
 
+	Buffer* buffer = MainFileManager.getBufferByID(id);
 	TCITEM tie;
 	tie.lParam = reinterpret_cast<LPARAM>(id);
 	tie.mask = TCIF_PARAM;
+	buffer->setIndexForTab(this, static_cast<int>(index));
 	::SendMessage(_hSelf, TCM_SETITEM, index, reinterpret_cast<LPARAM>(&tie));
 
-	bufferUpdated(MainFileManager.getBufferByID(id), BufferChangeMask);	//update tab, everything has changed
+	bufferUpdated(buffer, BufferChangeMask);	//update tab, everything has changed
 
 	::SendMessage(_hParent, WM_SIZE, 0, 0);
 }

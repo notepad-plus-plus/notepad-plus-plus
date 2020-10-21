@@ -25,6 +25,7 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #pragma once
+#include <map>
 #include <mutex>
 
 #include "Utf8_16.h"
@@ -379,6 +380,24 @@ public:
 
 	void langHasBeenSetFromMenu() { _hasLangBeenSetFromMenu = true; };
 
+	int getIndexForTab(void* tab)
+	{
+		auto it = tabIndexMapping.find(tab);
+		if (it != tabIndexMapping.end())
+			return it->second;
+		return -1;
+	}
+
+	void setIndexForTab(const void* tab, int index)
+	{
+		tabIndexMapping[tab] = index;
+	}
+
+	void removeIndexForTab(const void* tab)
+	{
+		tabIndexMapping.erase(tab);
+	}
+
 private:
 	int indexOfReference(const ScintillaEditView * identifier) const;
 
@@ -398,6 +417,7 @@ private:
 	bool _canNotify = false;
 	int _references = 0; // if no references file inaccessible, can be closed
 	BufferID _id = nullptr;
+	std::map<const void*, int> tabIndexMapping;
 
 	//document properties
 	Document _doc;	//invariable

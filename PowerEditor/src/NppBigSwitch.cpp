@@ -1913,6 +1913,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 				_pTrayIco->doTrayIcon(ADD);
 				_dockingManager.showFloatingContainers(false);
+				minimizeDialogs();
 				::ShowWindow(hwnd, SW_HIDE);
 				return TRUE;
 			}
@@ -1945,6 +1946,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					_pEditView->getFocus();
 					::ShowWindow(hwnd, SW_SHOW);
 					_dockingManager.showFloatingContainers(true);
+					restoreMinimizeDialogs();
+
 					if (!_pPublicInterface->isPrelaunch())
 						_pTrayIco->doTrayIcon(REMOVE);
 					::SendMessage(hwnd, WM_SIZE, 0, 0);

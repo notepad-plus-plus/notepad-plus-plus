@@ -259,6 +259,9 @@ public:
 		return _pluginsAdminDlg.getPluginListVerStr();
 	};
 
+	void minimizeDialogs();
+	void restoreMinimizeDialogs();
+
 private:
 	Notepad_plus_Window *_pPublicInterface = nullptr;
     Window *_pMainWindow = nullptr;
@@ -402,6 +405,8 @@ private:
 
 	DocumentMap* _pDocMap = nullptr;
 	FunctionListPanel* _pFuncList = nullptr;
+
+	std::vector<HWND> _sysTrayHiddenHwnd;
 
 	BOOL notify(SCNotification *notification);
 	void command(int id);

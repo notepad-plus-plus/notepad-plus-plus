@@ -7235,6 +7235,34 @@ void Notepad_plus::showQuote(const QuoteParams* quote) const
 	::CloseHandle(hThread);
 }
 
+void Notepad_plus::minimizeDialogs()
+{
+	static StaticDialog* modelessDlgs[] = {&_findReplaceDlg, &_aboutDlg, &_debugInfoDlg, &_runDlg, &_goToLineDlg, &_colEditorDlg, &_configStyleDlg,\
+		&_preference, &_pluginsAdminDlg, &_findCharsInRangeDlg, &_md5FromFilesDlg, &_md5FromTextDlg, &_sha2FromFilesDlg, &_sha2FromTextDlg, &_runMacroDlg};
+	
+	static size_t nbModelessDlg = sizeof(modelessDlgs) / sizeof(StaticDialog*);
+
+	for (size_t i = 0; i < nbModelessDlg; ++i)
+	{
+		StaticDialog* pDlg = modelessDlgs[i];
+		if (pDlg->isCreated() && pDlg->isVisible())
+		{
+			pDlg->display(false);
+			_sysTrayHiddenHwnd.push_back(pDlg->getHSelf());
+		}
+	}
+}
+
+void Notepad_plus::restoreMinimizeDialogs()
+{
+	size_t nbDialogs = _sysTrayHiddenHwnd.size();
+	for (int i = (nbDialogs - 1); i >= 0; i--)
+	{
+		::ShowWindow(_sysTrayHiddenHwnd[i], SW_SHOW);
+		_sysTrayHiddenHwnd.erase(_sysTrayHiddenHwnd.begin() + i);
+	}
+}
+
 void Notepad_plus::launchDocumentBackupTask()
 {
 	HANDLE hThread = ::CreateThread(NULL, 0, backupDocument, NULL, 0, NULL);

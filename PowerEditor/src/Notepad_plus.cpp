@@ -7256,7 +7256,7 @@ void Notepad_plus::minimizeDialogs()
 void Notepad_plus::restoreMinimizeDialogs()
 {
 	size_t nbDialogs = _sysTrayHiddenHwnd.size();
-	for (int i = (nbDialogs - 1); i >= 0; i--)
+	for (int i = (static_cast<int>(nbDialogs) - 1); i >= 0; i--)
 	{
 		::ShowWindow(_sysTrayHiddenHwnd[i], SW_SHOW);
 		_sysTrayHiddenHwnd.erase(_sysTrayHiddenHwnd.begin() + i);

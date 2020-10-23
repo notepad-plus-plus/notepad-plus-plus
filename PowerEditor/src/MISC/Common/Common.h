@@ -208,7 +208,7 @@ bool deleteFileOrFolder(const generic_string& f2delete);
 
 void getFilesInFolder(std::vector<generic_string>& files, const generic_string& extTypeFilter, const generic_string& inFolder);
 
-template<typename T> size_t VecRemoveDuplicates(std::vector<T>& vec, bool isSorted = false, bool canSort = false)
+template<typename T> size_t vecRemoveDuplicates(std::vector<T>& vec, bool isSorted = false, bool canSort = false)
 {
 	if (!isSorted && canSort)
 	{

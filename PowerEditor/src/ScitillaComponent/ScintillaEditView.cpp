@@ -3920,7 +3920,7 @@ void ScintillaEditView::removeAnyDuplicateLines()
 	}
 
 	size_t origSize = linesVect.size();
-	size_t newSize = VecRemoveDuplicates(linesVect);
+	size_t newSize = vecRemoveDuplicates(linesVect);
 	if (origSize != newSize)
 	{
 		generic_string joined = stringJoin(linesVect, getEOLString());

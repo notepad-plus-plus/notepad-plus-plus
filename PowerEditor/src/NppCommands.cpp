@@ -1540,7 +1540,7 @@ void Notepad_plus::command(int id)
 			_pEditView->execute(SCI_LINEDUPLICATE);
 			break;
 
-		case IDM_EDIT_REMOVE_DUP_LINES:
+		case IDM_EDIT_REMOVE_CONSECUTIVE_DUP_LINES:
 			_pEditView->execute(SCI_BEGINUNDOACTION);
 			removeDuplicateLines();
 			_pEditView->execute(SCI_ENDUNDOACTION);
@@ -3529,7 +3529,7 @@ void Notepad_plus::command(int id)
 			case IDM_EDIT_INS_TAB:
 			case IDM_EDIT_RMV_TAB:
 			case IDM_EDIT_DUP_LINE:
-			case IDM_EDIT_REMOVE_DUP_LINES:
+			case IDM_EDIT_REMOVE_CONSECUTIVE_DUP_LINES:
 			case IDM_EDIT_REMOVE_ANY_DUP_LINES:
 			case IDM_EDIT_TRANSPOSE_LINE:
 			case IDM_EDIT_SPLIT_LINES:

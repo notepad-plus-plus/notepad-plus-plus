@@ -119,7 +119,8 @@
                     <Item id="42008" name="增加縮排"/>
                     <Item id="42009" name="減少縮排"/>
                     <Item id="42010" name="重複呢行"/>
-                    <Item id="42077" name="剷走連續又重複呢（幾）行"/>
+                    <Item id="42079" name="剷走重複嗰幾行"/>
+                    <Item id="42077" name="剷走連續又重複嗰幾行"/>
                     <Item id="42012" name="分割呢行"/>
                     <Item id="42013" name="合併呢（幾）行"/>
                     <Item id="42014" name="移呢行上去"/>

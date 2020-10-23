@@ -112,7 +112,8 @@
                     <Item id="42008" name="Augmenter l’indentation"/>
                     <Item id="42009" name="Réduire l’indentation"/>
                     <Item id="42010" name="Dupliquer la ligne actuelle"/>
-                    <Item id="42077" name="Supprimer la ligne en double consécutives"/>
+                    <Item id="42079" name="Supprimer les lignes en double"/>
+                    <Item id="42077" name="Supprimer les lignes en double consécutives"/>
                     <Item id="42012" name="Séparer en plusieurs lignes"/>
                     <Item id="42013" name="Joindre plusieurs lignes"/>
                     <Item id="42014" name="Déplacer la ligne actuelle vers le haut"/>

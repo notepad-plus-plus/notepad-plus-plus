@@ -108,6 +108,7 @@
                     <Item id="42008" name="增加縮排"/>
                     <Item id="42009" name="減少縮排"/>
                     <Item id="42010" name="重複此行"/>
+                    <Item id="42079" name="刪除重複行"/>
                     <Item id="42077" name="刪除連續的重複行"/>
                     <Item id="42011" name="調換此行"/>
                     <Item id="42012" name="分割此行"/>

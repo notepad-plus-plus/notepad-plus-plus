@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
     Italian translation for Notepad++ 7.9.1
-    Last modified Sat, Oct 10th, 2020.
+    Last modified Sat, Oct 24th, 2020.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 <NotepadPlus>
@@ -42,6 +42,7 @@
                     <Item subMenuId = "search-unmarkAll" name = "Rimuovi marcatura" />
                     <Item subMenuId = "search-jumpUp" name = "Vai su" />
                     <Item subMenuId = "search-jumpDown" name = "Vai giù" />
+					<Item subMenuId = "search-copyStyledText" name="Copia il testo in stile"/>
                     <Item subMenuId = "search-bookmark" name = "Segnalibri" />
                     <Item subMenuId = "view-currentFileIn" name = "Visualizza file attuale in" />
                     <Item subMenuId = "view-showSymbol" name = "Simboli" />
@@ -185,7 +186,7 @@
                     <Item id = "42076" name = "Modifica motore di ricerca..." />
                     <Item id = "42077" name = "Rimuovi linee duplicate consecutive" />
                     <Item id = "42078" name = "Ordina righe in modo casuale" />
-                    <Item id = "42079" name = "Marca testo negli Appunti"/>
+                    <Item id = "42079" name = "Rimuovi linee duplicate" />
                     <Item id = "42080" name = "Ordina righe in modo crescente ignorando maiuscole/minuscole"/>
                     <Item id = "42081" name = "Ordina righe in modo decrescente ignorando maiuscole/minuscole"/>
 
@@ -230,6 +231,13 @@
                     <Item id = "43042" name = "4º stile" />
                     <Item id = "43043" name = "5º stile" />
                     <Item id = "43044" name = "Trova stile" />
+                    <Item id = "43055" name = "1º stile" />
+                    <Item id = "43056" name = "2º stile" />
+                    <Item id = "43057" name = "3º stile" />
+                    <Item id = "43058" name = "4º stile" />
+                    <Item id = "43059" name = "5º stile" />
+                    <Item id = "43060" name = "Tutti gli stili" />
+                    <Item id = "43061" name = "Trova stile (Evidenziata)" />
                     <Item id = "43045" name = "Finestra risultati di ricerca" />
                     <Item id = "43046" name = "Risultato di ricerca successivo" />
                     <Item id = "43047" name = "Risultato di ricerca precedente" />
@@ -550,15 +558,20 @@
                     <Item id = "43041" name = "Segno successivo che usa il 3º stile" />
                     <Item id = "43042" name = "Segno successivo che usa il 4º stile" />
                     <Item id = "43043" name = "Segno successivo che usa il 5º stile" />
-                    <Item id = "43038" name = "Segno successivo creato con Evidenzia..." />
+                    <Item id = "43044" name = "Segno successivo creato con Evidenzia..." />
+                    <Item id = "43055" name = "Copia stile - 1º stile" />
+                    <Item id = "43056" name = "Copia stile - 2º stile" />
+                    <Item id = "43057" name = "Copia stile - 3º stile" />
+                    <Item id = "43058" name = "Copia stile - 4º stile" />
+                    <Item id = "43059" name = "Copia stile - 5º stile" />
+                    <Item id = "43060" name = "Copia stile - Tutti gli stili" />
+                    <Item id = "43061" name = "Copia stile - Trova stile creato con Evidenzia" />
                     <Item id = "44100" name = "Apri il file corrente in Firefox" />
                     <Item id = "44101" name = "Apri il file corrente in Chrome" />
                     <Item id = "44103" name = "Apri il file corrente in IE" />
                     <Item id = "44102" name = "Apri il file corrente in Edge" />
                     <Item id = "50003" name = "Passa al documento precedente" />
                     <Item id = "50004" name = "Passa al documento successivo" />
-                    
-                    
                     <Item id = "44051" name = "Collassa livello 1" />
                     <Item id = "44052" name = "Collassa livello 2" />
                     <Item id = "44053" name = "Collassa livello 3" />
@@ -1035,7 +1048,7 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
                     <Item id = "6350" name = "Abilita modalità fullbox" />
                     <Item id = "6322" name = "Est. file di sessione:" />
                     <Item id = "6337" name = "Est. file workspace:" />
-                    <Item id = "6351" name = "Imposta il filtro dell'estensione della finestra di dialogo a .* invece di .txt per il testo normal"/>
+                    <Item id = "6351" name = "Imposta il filtro dell'estensione della finestra di dialogo a .* invece di .txt per i file di testo"/>
                 </MISC>
             </Preference>
             <MultiMacro title = "Esegui macro più volte">
@@ -1093,8 +1106,6 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title = "Modifica menu contestuale" message = "La modifica del file contextMenu.xml permette di modificare il menu contestuale di Notepad++.
 È necessario riavviare Notepad++ affinché le modifiche apportate al file contextMenu.xml abbiano effetto." />
-            <NppHelpAbsentWarning title = "Il file non esiste" message = "
-non esiste. Scarica il file dal sito di Notepad++." />
             <SaveCurrentModifWarning title = "Salva modifiche correnti" message = "Devi salvare le modifiche correnti.
 Tutte le modifiche salvate non possono essere ripristinate.
 

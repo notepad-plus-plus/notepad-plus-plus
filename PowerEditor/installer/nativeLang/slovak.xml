@@ -112,15 +112,16 @@
                     <Item id="42008" name="Zväčšiť odsadenie riadka"/>
                     <Item id="42009" name="Zmenšiť odsadenie riadka"/>
                     <Item id="42010" name="Duplikovať aktuálny riadok"/>
-                    <Item id="42077" name="Odstrániť posebe idúce duplicitné riadky"/>
+					<Item id="42079" name="Odstrániť duplicitné riadky"/>
+                    <Item id="42077" name="Odstrániť po sebe idúce duplicitné riadky"/>
                     <Item id="42012" name="Rozdeliť riadky"/>
                     <Item id="42013" name="Spojiť riadky"/>
                     <Item id="42014" name="Posunúť aktuálny riadok nahor"/>
                     <Item id="42015" name="Posunúť aktuálny riadok nadol"/>
                     <Item id="42059" name="Usporiadať riadky vzostupne"/>
                     <Item id="42060" name="Usporiadať riadky zostupne"/>
-                    <Item id="42080" name="Uporiadať riadky vzostupne (nerozlišovať veľkosť písma)"/>
-                    <Item id="42081" name="Uporiadať riadky zostupne (nerozlišovať veľkosť písma)"/>
+                    <Item id="42080" name="Usporiadať riadky vzostupne (nerozlišovať veľkosť písma)"/>
+                    <Item id="42081" name="Usporiadať riadky zostupne (nerozlišovať veľkosť písma)"/>
                     <Item id="42061" name="Usporiadať riadky ako celé čísla vzostupne"/>
                     <Item id="42062" name="Usporiadať riadky ako celé čísla zostupne"/>
                     <Item id="42063" name="Usporiadať riadky ako desatinné čísla (s čiarkou) vzostupne"/>
@@ -393,7 +394,7 @@
                 <Item id="1611" name="Na&amp;hradiť čím:"/>
                 <Item id="1608" name="&amp;Nahradiť"/>
                 <Item id="1609" name="Nahradiť &amp;všetko"/>
-                <Item id="1687" name="Pri strate focusu"/>
+                <Item id="1687" name="Pri strate fokusu"/>
                 <Item id="1688" name="Vždy"/>
                 <Item id="1632" name="Vo výbere"/>
                 <Item id="1633" name="Odstrániť označenie"/>
@@ -565,7 +566,7 @@
                     <Item id="43058" name="Kopírovať štylizovaný text - 4. štýl"/>
                     <Item id="43059" name="Kopírovať štylizovaný text - 5. štýl"/>
                     <Item id="43060" name="Kopírovať štylizovaný text - Všetky štýly"/>
-                    <Item id="43061" name="Kopírovať štylizovaný text - Nájsť štýl (Označné)"/>
+                    <Item id="43061" name="Kopírovať štylizovaný text - Nájsť štýl (Označené)"/>
                     <Item id="44100" name="Zobraziť aktuálny súbor vo Firefoxe"/>
                     <Item id="44101" name="Zobraziť aktuálny súbor v Chrome"/>
                     <Item id="44103" name="Zobraziť aktuálny súbor v IE"/>

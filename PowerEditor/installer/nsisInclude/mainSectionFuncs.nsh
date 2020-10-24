@@ -113,7 +113,7 @@ Function copyCommonFiles
 
 	; Markdown in user defined languages
 	SetOutPath "$UPDATE_PATH\userDefineLangs\"
-	File "..\bin\userDefineLangs\userDefinedLang-markdown.default.modern.xml"
+	File "..\bin\userDefineLangs\markdown._preinstalled.udl.xml"
 
 	; Localization
 	; Default language English 

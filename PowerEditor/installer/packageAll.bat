@@ -76,7 +76,7 @@ copy /Y ..\bin\readme.txt .\minimalist\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\change.log .\minimalist\
 If ErrorLevel 1 goto End
-copy /Y "..\bin\userDefineLangs\userDefinedLang-markdown.default.modern.xml" .\minimalist\userDefineLangs\
+copy /Y "..\bin\userDefineLangs\markdown._preinstalled.udl.xml" .\minimalist\userDefineLangs\
 If ErrorLevel 1 goto End
 copy /Y ..\src\langs.model.xml .\minimalist\
 If ErrorLevel 1 goto End
@@ -103,7 +103,7 @@ copy /Y ..\bin\readme.txt .\minimalist64\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\change.log .\minimalist64\
 If ErrorLevel 1 goto End
-copy /Y "..\bin\userDefineLangs\userDefinedLang-markdown.default.modern.xml" .\minimalist64\userDefineLangs\
+copy /Y "..\bin\userDefineLangs\markdown._preinstalled.udl.xml" .\minimalist64\userDefineLangs\
 If ErrorLevel 1 goto End
 copy /Y ..\src\langs.model.xml .\minimalist64\
 If ErrorLevel 1 goto End
@@ -237,9 +237,9 @@ copy /Y ".\functionList\*.xml" .\zipped.package.release64\functionList\
 If ErrorLevel 1 goto End
 
 rem Markdown as UserDefineLanguge: Markdown syntax highlighter into Notepad++ 32-bit/64-bit package folders
-copy /Y "..\bin\userDefineLangs\userDefinedLang-markdown.default.modern.xml" .\zipped.package.release\userDefineLangs\
+copy /Y "..\bin\userDefineLangs\markdown._preinstalled.udl.xml" .\zipped.package.release\userDefineLangs\
 If ErrorLevel 1 goto End
-copy /Y "..\bin\userDefineLangs\userDefinedLang-markdown.default.modern.xml" .\zipped.package.release64\userDefineLangs\
+copy /Y "..\bin\userDefineLangs\markdown._preinstalled.udl.xml" .\zipped.package.release64\userDefineLangs\
 If ErrorLevel 1 goto End
 
 rem theme: Copy all files into Notepad++ 32-bit/64-bit package folders

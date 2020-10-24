@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Translated by Patryk Skorupa (ppskorupa@outlook.com) and up-to-date as of version 7.7.2 (29/07/2019) -->
-<!-- Updated by Cezariusz Marek to version 7.8.3 (11.01.2020) -->
-<!-- Updated by Arkadiusz Michalski (webref.pl) to version 7.9 (09.09.2020) -->
+<!--
+The comments are here for explanation, it's not necessary to translate them.
+-->
+<!--
+    History of Polish translation for Notepad++:
+
+        - Updated by Arkadiusz Michalski (webref.pl) to version 7.9.1 (24.10.2020)
+        - Updated by Cezariusz Marek to version 7.8.3 (11.01.2020)
+        - Translated by Patryk Skorupa (ppskorupa@outlook.com) and up-to-date as of version 7.7.2 (29/07/2019)
+    
+    The most recent version of this file can usually be downloaded from:
+        https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/polish.xml
+-->
 <NotepadPlus>
-    <Native-Langue name="polski" filename="polish.xml" version="7.9">
+    <Native-Langue name="polski" filename="polish.xml" version="7.9.1">
         <Menu>
             <Main>
                 <!-- Główne menu -->
@@ -40,6 +50,7 @@
                     <Item subMenuId="search-unmarkAll" name="Odznacz wszystko"/>
                     <Item subMenuId="search-jumpUp" name="Przejdź wyżej"/>
                     <Item subMenuId="search-jumpDown" name="Przejdź niżej"/>
+                    <Item subMenuId="search-copyStyledText" name="Kopiuj ostylowany tekst"/>
                     <Item subMenuId="search-bookmark" name="Zakładki"/>
                     <Item subMenuId="view-currentFileIn" name="Wyświetl obecny plik w..."/>
                     <Item subMenuId="view-showSymbol" name="Niewidoczne znaki"/>
@@ -76,8 +87,9 @@
                 <Commands>
                     <Item id="41001" name="&amp;Nowy"/>
                     <Item id="41002" name="&amp;Otwórz"/>
-                    <Item id="41019" name="Użyj domyślnego eksploratora"/>
-                    <Item id="41020" name="Użyj wiersza poleceń"/>
+                    <Item id="41019" name="W eksploratorze plików"/>
+                    <Item id="41020" name="W wierszu poleceń"/>
+                    <Item id="41025" name="W obszarze roboczym"/>
                     <Item id="41003" name="Za&amp;mknij"/>
                     <Item id="41004" name="Zamknij &amp;wszystko"/>
                     <Item id="41005" name="Zamknij wszystko prócz bieżącego pliku"/>
@@ -110,15 +122,18 @@
                     <Item id="42008" name="Zwiększ wcięcie"/>
                     <Item id="42009" name="Zmniejsz wcięcie"/>
                     <Item id="42010" name="Powtórz bieżącą linię"/>
-                    <Item id="42077" name="Usuń linie powtórzone kolejno"/>
+                    <Item id="42079" name="Usuń powtórzone linie"/>
+                    <Item id="42077" name="Usuń przyległe powtórzone linie"/>
                     <Item id="42012" name="Podziel linię"/>
                     <Item id="42013" name="Połącz linie"/>
                     <Item id="42014" name="Przenieś bieżącą linię do góry"/>
                     <Item id="42015" name="Przenieś bieżącą linię w dół"/>
-                    <Item id="42059" name="Sortuj linie rosnąco..."/>
-                    <Item id="42060" name="Sortuj linie malejąco..."/>
-                    <Item id="42061" name="Sortuj rosnąco jako liczby całkowite"/> <!--Sort Lines As Integers Descending-->
-                    <Item id="42062" name="Sortuj malejąco jako liczby całkowite"/> <!--Sort Lines As Integers Descending-->
+                    <Item id="42059" name="Sortuj linie rosnąco"/>
+                    <Item id="42060" name="Sortuj linie malejąco"/>
+                    <Item id="42080" name="Sortuj rosnąco ignorując wielkość znaków"/>
+                    <Item id="42081" name="Sortuj malejąco ignorując wielkość znaków"/>
+                    <Item id="42061" name="Sortuj rosnąco jako liczby całkowite"/>
+                    <Item id="42062" name="Sortuj malejąco jako liczby całkowite"/>
                     <Item id="42063" name="Sortuj rosnąco jako liczby dziesiętne z przecinkiem"/>
                     <Item id="42064" name="Sortuj malejąco jako liczby dziesiętne z przecinkiem"/>
                     <Item id="42065" name="Sortuj rosnąco jako liczby dziesiętne z kropką"/>
@@ -133,15 +148,15 @@
                     <Item id="42071" name="&amp;oDWRÓC wIELKOŚĆ lITER"/>
                     <Item id="42072" name="&amp;loSoWA WIelKość liTEr"/>
                     <Item id="42073" name="Otwórz plik"/>
-                    <Item id="42074" name="Otwórz folder z plikiem w Eksploratorze"/>
+                    <Item id="42074" name="Otwórz folder zawierający w eksploratorze plików"/>
                     <Item id="42075" name="Wyszukaj w Internecie"/>
                     <Item id="42076" name="Zmień wyszukiwarkę..."/>
                     <Item id="42018" name="Rozpocznij &amp;nagrywanie"/>
                     <Item id="42019" name="&amp;Zatrzymaj nagrywanie"/>
                     <Item id="42021" name="&amp;Odtwórz"/>
                     <Item id="42022" name="Przełącz komentarz liniowy"/>
-                    <Item id="42023" name="Wstaw komentarz blokowy"/> <!--Block Comment-->
-                    <Item id="42047" name="Usuń komentarz blokowy"/> <!--Block Unoomment-->
+                    <Item id="42023" name="Wstaw komentarz blokowy"/>
+                    <Item id="42047" name="Usuń komentarz blokowy"/>
                     <Item id="42024" name="Usuń spacje na końcach linii"/>
                     <Item id="42042" name="Usuń spacje na początkach linii"/>
                     <Item id="42043" name="Usuń spacje na początkach i końcach linii"/>
@@ -196,29 +211,36 @@
                     <Item id="43013" name="Szukaj w plikach"/>
                     <Item id="43014" name="Szukaj zaznaczonego tekstu (w przód)"/>
                     <Item id="43015" name="Szukaj zaznaczonego tekstu (wstecz)"/>
-                    <Item id="43022" name="Wyróżnienie 1."/>  <!-- zaznacz > 'using' -->
-                    <Item id="43023" name="Wyróżnienie 1."/><!-- odznacz > 'clear' -->
+                    <Item id="43022" name="Wyróżnienie 1."/> <!-- zaznacz > 'using' -->
+                    <Item id="43023" name="Wyróżnienie 1."/> <!-- odznacz > 'clear' -->
                     <Item id="43024" name="Wyróżnienie 2."/> <!-- zaznacz > 'using' -->
-                    <Item id="43025" name="Wyróżnienie 2."/><!-- odznacz > 'clear' -->
+                    <Item id="43025" name="Wyróżnienie 2."/> <!-- odznacz > 'clear' -->
                     <Item id="43026" name="Wyróżnienie 3."/> <!-- zaznacz > 'using' -->
-                    <Item id="43027" name="Wyróżnienie 3."/><!-- odznacz > 'clear' -->
+                    <Item id="43027" name="Wyróżnienie 3."/> <!-- odznacz > 'clear' -->
                     <Item id="43028" name="Wyróżnienie 4."/> <!-- zaznacz > 'using' -->
-                    <Item id="43029" name="Wyróżnienie 4."/><!-- odznacz > 'clear' -->
+                    <Item id="43029" name="Wyróżnienie 4."/> <!-- odznacz > 'clear' -->
                     <Item id="43030" name="Wyróżnienie 5."/> <!-- zaznacz > 'using' -->
-                    <Item id="43031" name="Wyróżnienie 5."/><!-- odznacz > 'clear' -->
+                    <Item id="43031" name="Wyróżnienie 5."/> <!-- odznacz > 'clear' -->
                     <Item id="43032" name="Wszystkie wyróżnienia"/>
-                    <Item id="43033" name="1. styl"/>
-                    <Item id="43034" name="2. styl"/>
-                    <Item id="43035" name="3. styl"/>
-                    <Item id="43036" name="4. styl"/>
-                    <Item id="43037" name="5. styl"/>
-                    <Item id="43038" name="Znajdź styl"/>
-                    <Item id="43039" name="1. styl"/>
-                    <Item id="43040" name="2. styl"/>
-                    <Item id="43041" name="3. styl"/>
-                    <Item id="43042" name="4. styl"/>
-                    <Item id="43043" name="5. styl"/>
-                    <Item id="43044" name="Znajdź styl"/>
+                    <Item id="43033" name="Wyróżnienie 1."/>
+                    <Item id="43034" name="Wyróżnienie 2."/>
+                    <Item id="43035" name="Wyróżnienie 3."/>
+                    <Item id="43036" name="Wyróżnienie 4."/>
+                    <Item id="43037" name="Wyróżnienie 5."/>
+                    <Item id="43038" name="Oznaczenie"/>
+                    <Item id="43039" name="Wyróżnienie 1."/>
+                    <Item id="43040" name="Wyróżnienie 2."/>
+                    <Item id="43041" name="Wyróżnienie 3."/>
+                    <Item id="43042" name="Wyróżnienie 4."/>
+                    <Item id="43043" name="Wyróżnienie 5."/>
+                    <Item id="43044" name="Oznaczenie"/>
+                    <Item id="43055" name="Wyróżnienie 1."/>
+                    <Item id="43056" name="Wyróżnienie 2."/>
+                    <Item id="43057" name="Wyróżnienie 3."/>
+                    <Item id="43058" name="Wyróżnienie 4."/>
+                    <Item id="43059" name="Wyróżnienie 5."/>
+                    <Item id="43060" name="Wszystkie wyróżnienia"/>
+                    <Item id="43061" name="Wszystkie oznaczenia"/>
                     <Item id="43045" name="Okno wyników wyszukiwania"/>
                     <Item id="43046" name="Następny wynik wyszukiwania"/>
                     <Item id="43047" name="Poprzedni wynik wyszukiwania"/>
@@ -256,7 +278,7 @@
                     <Item id="44098" name="Przesuń kartę do przodu"/>
                     <Item id="44099" name="Przesuń kartę do tyłu"/>
                     <Item id="44032" name="Przełącz tryb pełnoekranowy"/>
-                    <Item id="44033" name="Przywróć domyślne"/> <!-- przybliżenie -->
+                    <Item id="44033" name="Przywróć domyślne"/>
                     <Item id="44034" name="Zawsze na wierzchu"/>
                     <Item id="44035" name="Synchronizuj przewijanie pionowe"/>
                     <Item id="44036" name="Synchronizuj przewijanie poziome"/>
@@ -323,8 +345,6 @@
                     <Item id="50000" name="Uzupełnianie funkcji"/>
                     <Item id="50001" name="Uzupełnianie słów"/>
                     <Item id="50002" name="Podpowiadanie parametrów funkcji"/>
-                    <Item id="50003" name="Przełącz na poprzedni dokument"/>
-                    <Item id="50004" name="Przełącz na następny dokument"/>
                     <Item id="50005" name="Przełącz nagrywanie makra"/>
                     <Item id="50006" name="Uzupełnianie ścieżek"/>
                     <Item id="44042" name="Ukryj zaznaczone linie"/>
@@ -356,16 +376,17 @@
                     <Item CMID="16" name="Odśwież"/>
                     <Item CMID="17" name="Zamknij wszystko po lewej"/>
                     <Item CMID="18" name="Zamknij wszystko po prawej"/>
-                    <Item CMID="19" name="Otwórz folder zawierający w Eksploratorze"/>
-                    <Item CMID="20" name="Otwórz folder zawierający w Wierszu polecenia"/>
+                    <Item CMID="19" name="Otwórz folder zawierający w eksploratorze plików"/>
+                    <Item CMID="20" name="Otwórz folder zawierający w wierszu poleceń"/>
                     <Item CMID="21" name="Otwórz w domyślnym programie"/>
                     <Item CMID="22" name="Zamknij wszystko bez zapisywania"/>
+                    <Item CMID="23" name="Otwórz folder zawierający w obszarze roboczym"/>
             </TabBar>
         </Menu>
 
         <Dialog>
             <Find title="" titleFind="Szukaj" titleReplace="Zastąp" titleFindInFiles="Szukaj w plikach" titleMark="Oznacz">
-                <Item id="1"    name="Szukaj"/> <!-- Find Next -->
+                <Item id="1"    name="Znajdź następny"/> <!-- Find Next -->
                 <Item id="1722" name="W tekście wyżej"/>
                 <Item id="2"    name="Zamknij"/>
                 <Item id="1620" name="Szukany &amp;tekst:"/>
@@ -400,7 +421,8 @@
                 <Item id="1686" name="&amp;Przeźroczystość okna"/>
                 <Item id="1703" name="&amp;. jako nowa linia"/>
                 <Item id="1721" name="▲"/>
-                <Item id="1723" name="▼ Następne wystąpienie"/>
+                <Item id="1723" name="▼ Znajdź następny"/>
+                <Item id="1725" name="Kopiuj oznaczony tekst"/>
             </Find>
 
             <FindCharsInRange title="Zakres zestawu znaków...">
@@ -516,8 +538,8 @@
                 <ConflictInfoOk name="Brak sprzecznego skrótu dla tej pozycji."/>
                 <ConflictInfoEditing name="Brak sprzeczności."/>
                 <MainCommandNames>
-                    <Item id="41019" name="Otwórz folder zawierający w Eksploratorze"/>
-                    <Item id="41020" name="Otwórz folder zawierający w Wierszu polecenia"/>
+                    <Item id="41019" name="Otwórz folder zawierający w eksploratorze plików"/>
+                    <Item id="41020" name="Otwórz folder zawierający w wierszu poleceń"/>
                     <Item id="41021" name="Przywróć ostatni zamknięty plik"/>
                     <Item id="45001" name="Konwertuj na format Windows (CR LF)"/>
                     <Item id="45002" name="Konwertuj na format Unix (LF)"/>
@@ -545,6 +567,13 @@
                     <Item id="43042" name="Następne wyróżnienie 4."/>
                     <Item id="43043" name="Następne wyróżnienie 5."/>
                     <Item id="43044" name="Następne oznaczenie"/>
+                    <Item id="43055" name="Kopiuj ostylowany tekst - wyróżnienie 1."/>
+                    <Item id="43056" name="Kopiuj ostylowany tekst - wyróżnienie 2."/>
+                    <Item id="43057" name="Kopiuj ostylowany tekst - wyróżnienie 3."/>
+                    <Item id="43058" name="Kopiuj ostylowany tekst - wyróżnienie 4."/>
+                    <Item id="43059" name="Kopiuj ostylowany tekst - wyróżnienie 5."/>
+                    <Item id="43060" name="Kopiuj ostylowany tekst - wszystkie wyróżnienia"/>
+                    <Item id="43061" name="Kopiuj ostylowany tekst - wszystkie oznaczenia"/>
                     <Item id="44100" name="Wyświetl obecny plik w Firefox"/>
                     <Item id="44101" name="Wyświetl obecny plik w Chrome"/>
                     <Item id="44103" name="Wyświetl obecny plik w IE"/>
@@ -790,6 +819,8 @@
                     <Item id="6125" name="Lista dokumentów"/>
                     <Item id="6126" name="Pokazuj"/>
                     <Item id="6127" name="Bez kolumny z rozszerzeniami"/>
+
+                    <Item id="6128" name="Alternatywne ikony"/>
                 </Global>
                 <Scintillas title="Edycja">
                     <Item id="6216" name="Kursor"/>
@@ -825,7 +856,7 @@ Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych lic
                     <Item id="6231" name="Grubość ramki"/>
                     <Item id="6235" name="Brak ramki"/>
                     <Item id="6236" name="Umożliwiaj przewijanie poza ostatnią linię"/>
-                    <Item id="6239" name="Zachowaj zaznaczenie po kliknięciu prawym przyciskiem myszy poza zaznaczeniem"/>
+                    <Item id="6239" name="Zachowaj zaznaczenie po kliku prawym przyciskiem myszy poza zaznaczeniem"/>
                 </Scintillas>
 
                 <NewDoc title="Nowy dokument">
@@ -1017,12 +1048,13 @@ Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych lic
                     <Item id="6320" name="Nie podkreślaj"/>
                     <Item id="6322" name="Rozszerzenie pliku sesji:"/>
                     <Item id="6323" name="Automatycznie aktualizuj Notepad++"/>
+                    <Item id="6351" name="W oknie zapisu dla Normal Text ustaw filtr rozszerzenia pliku na .* zamiast .txt"/>
                     <Item id="6324" name="Przełączanie dokumentów (Ctrl+TAB)"/>
                     <Item id="6331" name="Pokazuj w pasku tytułu tylko nazwę pliku"/>
                     <Item id="6334" name="Automatycznie wykrywaj kodowanie"/>
                     <Item id="6349" name="Użyj DirectWrite (może poprawić wyświetlanie znaków specjalnych, wymagany restart Notepad++)"/>
                     <Item id="6350" name="Włącz tryb fullbox"/>
-                    <Item id="6337" name="Rozszerzenie pliku projektu:"/> <!-- obszaru roboczego -->
+                    <Item id="6337" name="Rozszerzenie pliku projektu:"/>
                     <Item id="6114" name="Włącz"/>
                     <Item id="6117" name="Zgodnie z ostatnim użyciem (MRU)"/>
                     <Item id="6344" name="Podgląd dokumentów"/>
@@ -1085,34 +1117,32 @@ Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych lic
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title="Edycja menu kontekstowego" message="Edycja pliku contextMenu.xml pozwala na zmianę menu kontekstowego dostępnego w Notepad++ pod prawym przyciskiem myszy.
 Żeby zmiany dokonane contextMenu.xml weszły w życie, konieczne jest ponowne uruchomienie Notepad++."/>
-            <NppHelpAbsentWarning title="Plik nie istnieje" message="
-nie istnieje. Można go pobrać ze strony internetowej Notepad++."/>
             <SaveCurrentModifWarning title="Zapis bieżących zmian" message="Bieżące zmiany muszą zostać zapisane.
 Po zapisaniu nie będzie można ich wycofać.
 
-Kontynuować?"/>
+Kontynuować?"/> <!-- HowToReproduce: when you openned file is modified but unsaved yet, and you are changing file encoding. -->
             <LoseUndoAbilityWarning title="Utrata możliwości cofania zmian" message="Bieżące zmiany muszą zostać zapisane.
 Po zapisaniu nie będzie można ich wycofać.
 
-Kontynuować?"/>
-            <CannotMoveDoc title="Przeniesienie do nowej instancji Notepad++" message="Dokument został zmodyfikowany. Zapisz go i spróbuj ponownie."/>
+Kontynuować?"/> <!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
+            <CannotMoveDoc title="Przeniesienie do nowej instancji Notepad++" message="Dokument został zmodyfikowany. Zapisz go i spróbuj ponownie."/> <!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
             <DocReloadWarning title="Ponowne załadowanie" message="Czy na pewno chcesz ponownie załadować bieżący plik i stracić wszystkie dokonane w nim zmiany?"/>
             <FileLockedWarning title="Nieudany zapis" message="Plik może być obecnie otwarty w innym programie."/>
-            <FileAlreadyOpenedInNpp title="" message="Plik jest już otwarty w Notepad++."/>
-            <DeleteFileFailed title="Usuwanie pliku" message="Nie udało się usunąć pliku."/>
+            <FileAlreadyOpenedInNpp title="" message="Plik jest już otwarty w Notepad++."/> <!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
+            <DeleteFileFailed title="Usuwanie pliku" message="Nie udało się usunąć pliku."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 
             <NbFileToOpenImportantWarning title="Otwarcie wielu plików" message="Liczba plików do otwarcia wynosi $INT_REPLACE$.
-Czy na pewno chcesz tyle otworzyć?"/>
+Czy na pewno chcesz tyle otworzyć?"/> <!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into Notepad++. -->
             <SettingsOnCloudError title="Ustawienia chmury" message="Folder podany w ścieżce chmury dostępny jest tylko do odczytu
 lub potrzebuje specjalnych uprawnień do modyfikacji jego zawartości.
 Ustawienia chmury zostaną wycofane. Nową ścieżkę można podać w oknie preferencji."/>
-            <FilePathNotFoundWarning title="Otwarcie pliku" message="Wybrany plik nie istnieje."/>
-            <SessionFileInvalidError title="Ładowanie sesji" message="Nie udało się załadować sesji. Plik sesji jest uszkodzony lub nieprawidłowy."/>
+            <FilePathNotFoundWarning title="Otwarcie pliku" message="Wybrany plik nie istnieje."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+            <SessionFileInvalidError title="Ładowanie sesji" message="Nie udało się załadować sesji. Plik sesji jest uszkodzony lub nieprawidłowy."/> <!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
             <DroppingFolderAsProjectModeWarning title="Nieprawidłowe działanie" message="Pliki i foldery muszą być przenoszone do programu osobno, ponieważ aktywny jest tryb „Folder jako Projekt”.
 Żeby to zmienić, należy włączyć opcję „Nie traktuj przenoszonego folderu jako obszaru roboczego, tylko ładuj wszystkie jego pliki” w zakładce „Domyślna ścieżka” w oknie preferencji."/>
-            <SortingError title="Błąd sortowania" message="Nie można wykonać sortowania przez linię numer $INT_REPLACE$."/>
+            <SortingError title="Błąd sortowania" message="Nie można wykonać sortowania przez linię numer $INT_REPLACE$."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <ColumnModeTip title="Wskazówka dotycząca edycji kolumnowej" message="ALT+LPM oraz Alt+Shift+Strzałka przełączają tryb kolumnowy."/>
-            <BufferInvalidWarning title="Błąd zapisywania" message="Nie udało się zapisać. Błąd bufora."/>
+            <BufferInvalidWarning title="Błąd zapisywania" message="Nie udało się zapisać. Błąd bufora."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <DoCloseOrNot title="Zachowywanie nieistniejącego pliku" message="Plik „$STR_REPLACE$” nie istnieje.
 Czy mimo to zachować go w edytorze?"/>
             <DoDeleteOrNot title="Usuwanie" message="Plik „$STR_REPLACE$”
@@ -1129,28 +1159,28 @@ Przeładować go?"/>
 
 został zmodyfikowany przez inny program.
 Przeładować go i stracić wszystkie zmiany dokonane w Notepad++?"/>
-            <PrehistoricSystemDetected title="Antyczny system" message="Wykryto antyczny system operacyjny. Przepraszamy, ale ta funkcja działa jedynie na nowoczesnych systemach."/>
+            <PrehistoricSystemDetected title="Antyczny system" message="Wykryto antyczny system operacyjny. Przepraszamy, ale ta funkcja działa jedynie na nowoczesnych systemach."/> <!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
             <XpUpdaterProblem title="Samoaktualizacja Notepad++" message="Automatyczne aktualizowanie Notepad++ jest niemożliwe w systemie Windows XP ze względu na przestarzałe sposoby ochrony systemu.
-Uruchomić stronę internetową Notepad++ z najnowszą wersją programu?"/>
+Uruchomić stronę internetową Notepad++ z najnowszą wersją programu?"/> <!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
             <GUpProxyConfNeedAdminMode title="Proxy Settings" message="Uruchom Notepad++ w trybie administratora aby skonfigurować proxy."/>
             <DocTooDirtyToMonitor title="Problem z monitorowaniem" message="Plik został naruszony. Musi zostać pierw zapisany, żeby mógł być monitorowany."/>
             <DocNoExistToMonitor title="Problem z monitorowaniem" message="Plik musi istnieć na dysku, żeby być monitorowany."/>
-            <FileTooBigToOpen title="Problem z rozmiarem" message="Plik jest zbyt duży, żeby mógł być otwarty przez Notepad++."/>
+            <FileTooBigToOpen title="Problem z rozmiarem" message="Plik jest zbyt duży, żeby mógł być otwarty przez Notepad++."/> <!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
             <CreateNewFileOrNot title="Tworzenie nowego pliku" message="Plik „$STR_REPLACE$” nie istnieje. Utworzyć go?"/>
-            <CreateNewFileError title="Tworzenie nowego pliku" message="Nie można utworzyć pliku o nazwie „$STR_REPLACE$”."/>
+            <CreateNewFileError title="Tworzenie nowego pliku" message="Nie można utworzyć pliku o nazwie „$STR_REPLACE$”."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <OpenFileError title="Błąd" message="Nie można otworzyć pliku „$STR_REPLACE$”."/>
             <FileBackupFailed title="Błąd kopii zapasowej" message="Nie udało się utworzyć kopii zapasowej poprzedniej wersji pliku w katalogu „$STR_REPLACE$”.
 
-Zapisać bieżący plik bez kopii?"/>
+Zapisać bieżący plik bez kopii?"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <LoadStylersFailed title="Błąd pliku stylers.xml" message="Nie udało się załadować pliku „$STR_REPLACE$”!"/>
             <LoadLangsFailed title="Konfigurator" message="Nie udało się załadować pliku „langs.xml”!
-Odzyskać go?"/>
-            <LoadLangsFailedFinal title="Konfigurator" message="Nie udało się załadować pliku „langs.xml”!"/>
+Odzyskać go?"/> <!-- HowToReproduce: Close Notepad++. Use another editor to remove all content of "langs.xml" (0 length) then save it. Open Notepad++. -->
+            <LoadLangsFailedFinal title="Konfigurator" message="Nie udało się załadować pliku „langs.xml”!"/> <!-- HowToReproduce: Close Notepad++. Use another editor to make "langs.xml" an invalid xml file then save it. Open Notepad++. -->
             <FolderAsWorspaceSubfolderExists title="Problem z obszarem roboczym" message="Przed dodaniem folderu „$STR_REPLACE$”
-należy usunąć z niego podfolder."/>
+należy usunąć z niego podfolder."/> <!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
 
             <ProjectPanelChanged title="$STR_REPLACE$" message="Obszar roboczy został zmodyfikowany. Zapisać go?"/>
-            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Twój obszar roboczy nie został zapisany."/>
+            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Twój obszar roboczy nie został zapisany."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <ProjectPanelOpenDoSaveDirtyWsOrNot title="Otwarcie obszaru roboczego" message="Bieżący obszar roboczy został zmodyfikowany. Zapisać bieżący projekt?"/>
             <ProjectPanelNewDoSaveDirtyWsOrNot title="Nowy obszar roboczy" message="Bieżący obszar roboczy został zmodyfikowany. Zapisać bieżący projekt?"/>
             <ProjectPanelOpenFailed title="Otwarcie obszaru roboczego" message="Nie udało się otworzyć projektu.
@@ -1170,12 +1200,12 @@ Proszę wybrać inną."/>
 Czy chcesz uruchomić Notepad++ jako Administrator?"/>
             <OpenInAdminModeWithoutCloseCurrent title="Błąd zapisywania" message="Nie udało się zapisać pliku, ponieważ ten może być chroniony.
 Czy chcesz uruchomić Notepad++ jako Administrator?"/>
-            <OpenInAdminModeFailed title="Błąd uprawnień Administratora" message="Nie udało się otworzyć Notepad++ jako Administrator."/>
+            <OpenInAdminModeFailed title="Błąd uprawnień Administratora" message="Nie udało się otworzyć Notepad++ jako Administrator."/> <!-- HowToReproduce: When you have no Admin privilege and you try to save a modified file in a protected location (for example: any file in sub-folder of "C:\Program Files\". This message will appear after replying "Yes" to "Open in Admin mode" dialog. -->
             <ViewInBrowser title="Przeglądanie pliku w przeglądarce" message="Nie udało się odnaleźć powiązanego programu w systemie."/>
             <ExitToUpdatePlugins title="Notepad++ musi zostać zamknięty" message="Kliknięcie TAK zamknie Notepad++.
 Notepad++ uruchomi się ponownie, kiedy tylko wszystkie działania zostaną zakończone.
 Kontynuować?"/>
-            <NeedToRestartToLoadPlugins title="Ponowne uruchomienie Notepad++" message="Notepad++ musi zostać ponownie uruchomiony, aby zainstalowane wtyczki mogły działać."/>
+            <NeedToRestartToLoadPlugins title="Ponowne uruchomienie Notepad++" message="Notepad++ musi zostać ponownie uruchomiony, aby zainstalowane wtyczki mogły działać."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Historia schowka"/>
@@ -1218,7 +1248,7 @@ Kontynuować?"/>
                 <Item id="3515" name="Otwórz"/>
                 <Item id="3516" name="Ścieżka do schowka"/>
                 <Item id="3517" name="Szukaj w plikach..."/>
-                <Item id="3518" name="Otwórz w Eksploratorze"/>
+                <Item id="3518" name="Otwórz w eksploratorze plików"/>
                 <Item id="3519" name="Otwórz w wierszu poleceń"/>
                 <Item id="3520" name="Nazwa pliku do schowka"/>
             </Menus>
@@ -1271,21 +1301,22 @@ Kontynuować?"/>
         </ProjectManager>
         <MiscStrings>
             <!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
-            <word-chars-list-tip value="Pozwala to włączać określone znaki do zaznaczenia powstałego w wyniku podwójnego kliknięcia LPM na słowo lub wyszukania frazy z zaznaczoną opcją „Patrz tylko na całe słowa”."/>
+            <word-chars-list-tip value="Pozwala to włączać określone znaki do zaznaczenia powstałego w wyniku podwójnego kliknięcia LPM na słowo lub wyszukania frazy z zaznaczoną opcją „Patrz tylko na całe słowa”."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
+
             <word-chars-list-warning-begin value="Uwaga! W twojej liście są: "/>
-            <word-chars-list-space-warning value="spacja ($INT_REPLACE$)"/>
-            <word-chars-list-tab-warning value="tabulator ($INT_REPLACE$)"/>
-            <word-chars-list-warning-end value="."/>
+            <word-chars-list-space-warning value="spacje ($INT_REPLACE$)"/>
+            <word-chars-list-tab-warning value="tabulatory ($INT_REPLACE$)"/>
+            <word-chars-list-warning-end value="."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
             <cloud-invalid-warning value="Nieprawidłowa ścieżka."/>
             <cloud-restart-warning value="Wymagane ponowne uruchomienie Notepad++."/>
-            <cloud-select-folder value="Wybierz folder, który Notepad++ ma wykorzystywać do zapisu i odczytu swoich ustawień."/>
+            <cloud-select-folder value="Wybierz folder, który Notepad++ ma wykorzystywać do zapisu i odczytu swoich ustawień."/> <!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
             <shift-change-direction-tip value="Shift+Enter pozwala wyszukiwać w drugą stronę."/>
             <two-find-buttons-tip value="Tryb dwóch przycisków szukania"/>
             <find-in-files-filter-tip value="Szukaj wśród plików cpp, cxx, h, hxx i hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 
 Szukaj wśród wszystkich plików z wyjątkiem exe, obj i log:
-*.* !*.exe !*.obj !*.log"/>
+*.* !*.exe !*.obj !*.log"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" secction of Find dialog. -->
             <find-status-top-reached value="Szukanie: Plik przeszukano do góry. Znaleziono 1. wystąpienie od dołu."/>
             <find-status-end-reached value="Szukanie: Plik przeszukano do dołu. Znaleziono 1. wystąpienie od góry."/>
             <find-status-replaceinfiles-1-replaced value="Zamienianie w plikach: Zamieniono 1 wystąpienie"/>

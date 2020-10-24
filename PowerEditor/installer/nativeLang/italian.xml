@@ -545,6 +545,7 @@
                     <Item id = "43027" name = "Pulisci i segni che utilizzano il 3º stile" />
                     <Item id = "43029" name = "Pulisci i segni che utilizzano il 4º stile" />
                     <Item id = "43031" name = "Pulisci i segni che utilizzano il 5º stile" />
+                    <Item id = "43032" name = "Pulisci i segni che utilizzano qualunque stile" />
                     <Item id = "43033" name = "Segno precedente che usa il 1º stile" />
                     <Item id = "43034" name = "Segno precedente che usa il 2º stile" />
                     <Item id = "43035" name = "Segno precedente che usa il 3º stile" />

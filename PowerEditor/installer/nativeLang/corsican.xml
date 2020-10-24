@@ -129,6 +129,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42008" name="Aghjunghje una tabulazione nant’à a linea"/>
                     <Item id="42009" name="Caccià una tabulazione da a linea"/>
                     <Item id="42010" name="Duplicà a linea attuale"/>
+                    <Item id="42079" name="Caccià e linee in doppiu"/>
                     <Item id="42077" name="Caccià e linee in doppiu chì si seguitanu"/>
                     <Item id="42012" name="Frazziunà in parechje linee"/>
                     <Item id="42013" name="Unisce parechje linee"/>
@@ -334,7 +335,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="47006" name="Rinnovà Notepad++"/>
                     <Item id="47009" name="Parametri di u proxy di l’Updater…"/>
                     <Item id="48005" name="Impurtà l’estensione(i)…"/>
-                    <Item id="48006" name="Impurtà u tema(i) di stilu…"/>
+                    <Item id="48006" name="Impurtà u(i) tema(i) di stilu…"/>
                     <Item id="48018" name="&amp;Finestra di mudificazione di ContextMenu"/>
                     <Item id="48009" name="&amp;Definizione di l’accurtatoghji di tastera…"/>
                     <Item id="48011" name="&amp;Preferenze…"/>

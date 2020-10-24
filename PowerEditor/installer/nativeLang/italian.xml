@@ -42,7 +42,7 @@
                     <Item subMenuId = "search-unmarkAll" name = "Rimuovi marcatura" />
                     <Item subMenuId = "search-jumpUp" name = "Vai su" />
                     <Item subMenuId = "search-jumpDown" name = "Vai giù" />
-					<Item subMenuId = "search-copyStyledText" name="Copia il testo in stile"/>
+                    <Item subMenuId = "search-copyStyledText" name="Copia il testo in stile"/>
                     <Item subMenuId = "search-bookmark" name = "Segnalibri" />
                     <Item subMenuId = "view-currentFileIn" name = "Visualizza file attuale in" />
                     <Item subMenuId = "view-showSymbol" name = "Simboli" />
@@ -353,8 +353,6 @@
                     <Item id = "50000" name = "Completa funzione" />
                     <Item id = "50001" name = "Completa parola" />
                     <Item id = "50002" name = "Parametri funzione" />
-                    <Item id = "50003" name = "Passa al documento precedente" />
-                    <Item id = "50004" name = "Passa al documento successivo" />
                     <Item id = "50005" name = "Attiva / Disattiva registrazione macro" />
                     <Item id = "50006" name = "Completa percorso" />
                 </Commands>

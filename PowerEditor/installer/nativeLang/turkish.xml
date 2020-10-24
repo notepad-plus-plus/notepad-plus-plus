@@ -37,6 +37,7 @@
 					<Item subMenuId="search-unmarkAll" name="Tüm İşaretleri Kaldır"/>
 					<Item subMenuId="search-jumpUp" name="Yukarı Atla"/>
 					<Item subMenuId="search-jumpDown" name="Aşağı Atla"/>
+					<Item subMenuId="search-copyStyledText" name="Stilli Yazıyı Kopyala"/>
 					<Item subMenuId="search-bookmark" name="&amp;Yer İmleri"/>
 					<Item subMenuId="view-currentFileIn" name="Şimdiki Dosyayı İçinde Göster"/>
 					<Item subMenuId="view-showSymbol" name="Simge Göster"/>
@@ -108,6 +109,7 @@
 					<Item id="42008" name="Girintiyi Artır"/>
 					<Item id="42009" name="Girintiyi Azalt"/>
 					<Item id="42010" name="Geçerli Satırı Çoğalt"/>
+					<Item id="42079" name="Aynı Satırları Kaldır"/>
 					<Item id="42077" name="Ardışık Aynı Satırları Kaldır"/>
 					<Item id="42012" name="Satırları Böl"/>
 					<Item id="42013" name="Satırları Birleştir"/>
@@ -220,6 +222,13 @@
 					<Item id="43042" name="4. Stil"/>
 					<Item id="43043" name="5. Stil"/>
 					<Item id="43044" name="Stil Bul"/>
+					<Item id="43055" name="1. Stil"/>
+					<Item id="43056" name="2. Stil"/>
+					<Item id="43057" name="3. Stil"/>
+					<Item id="43058" name="4. Stil"/>
+					<Item id="43059" name="5. Stil"/>
+					<Item id="43060" name="Tüm Stiller"/>
+					<Item id="43061" name="Stili Bul (İşaretli)"/>
 					<Item id="43045" name="Arama Sonuçları Penceresi"/>
 					<Item id="43046" name="Sonraki Arama Sonucu"/>
 					<Item id="43047" name="Önceki Arama Sonucu"/>
@@ -404,7 +413,7 @@
 				<Item id="1703" name="&amp;. yeni satırı eşle"/>
 				<Item id="1721" name="▲"/>
 				<Item id="1723" name="▼ Sonrakini Bul"/>
-				<Item id="1725" name="İşaretli Yazıyı Panoya Kopyala"/>
+				<Item id="1725" name="İşaretli Yazıyı Kopyala"/>
 			</Find>
 
 			<FindCharsInRange title="Aralıktaki Karakterleri Bul…">
@@ -549,6 +558,13 @@
                     <Item id="43042" name="4. Stili Kullanan Sonraki İşaret"/>
                     <Item id="43043" name="5. Stili Kullanan Sonraki İşaret"/>
                     <Item id="43044" name="İşaret kullanılarak oluşturulmuş sonraki işaret..."/>
+                    <Item id="43055" name="Stilli Yazıyı Kopyala - 1. Stil"/>
+                    <Item id="43056" name="Stilli Yazıyı Kopyala - 2. Stil"/>
+                    <Item id="43057" name="Stilli Yazıyı Kopyala - 3. Stil"/>
+                    <Item id="43058" name="Stilli Yazıyı Kopyala - 4. Stil"/>
+                    <Item id="43059" name="Stilli Yazıyı Kopyala - 5. Stil"/>
+                    <Item id="43060" name="Stilli Yazıyı Kopyala - Tüm Stiller"/>
+                    <Item id="43061" name="Stilli Yazıyı Kopyala - Stili Bul (İşaretli)"/>
                     <Item id="44100" name="Dosyayı Firefox ile Görüntüle"/>
                     <Item id="44101" name="Dosyayı Chrome ile Görüntüle"/>
                     <Item id="44103" name="Dosyayı IE ile Görüntüle"/>
@@ -1093,8 +1109,6 @@ Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasın
 		<MessageBox><!-- $INT_REPLACE$ bir yer tutucudur, çevirmeyin -->
 			<ContextMenuXmlEditWarning title="contextMenu.xml Dosyasını Düzenle" message="contextMenu.xml dosyasını düzenleyerek Notepad++ sağ tık bağlam menüsü değiştirilebilir.
 Değişikliklerin etkin olması için Notepad++ yeniden başlatılmalıdır."/>
-			<NppHelpAbsentWarning title="Dosya Bulunamadı" message=" 
-dosyası bulunamadı. Lütfen Notepad++ web sitesinden indirin."/>
 			<SaveCurrentModifWarning title="Geçerli Düzenlemeyi Kaydet" message="Yaptığınız değişiklikleri kaydetmelisiniz. 
 Kaydedilen değişiklikler geri alınamaz. 
 

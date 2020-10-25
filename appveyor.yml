@@ -77,6 +77,8 @@ after_build:
             .\unitTestLauncher.ps1
             .\unitTestLauncher.ps1
             #ATTENTION: current working dir is no longer at APPVEYOR_BUILD_FOLDER
+            cd ..\UrlDetection
+            .\verifyUrlDetection.ps1
         }
 
         if ($env:PLATFORM_INPUT -eq "mingw") {

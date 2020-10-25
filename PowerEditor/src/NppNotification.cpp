@@ -852,7 +852,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			// replacement for obsolete custom SCN_SCROLLED
 			if (notification->updated & SC_UPDATE_V_SCROLL)
 			{
-				addHotSpot();
+				addHotSpot(notifyView);
 			}
 
 			// if it's searching/replacing, then do nothing

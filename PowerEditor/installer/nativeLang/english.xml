@@ -534,11 +534,11 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="45001" name="EOL Conversion to Windows (CR LF)"/>
                     <Item id="45002" name="EOL Conversion to Unix (LF)"/>
                     <Item id="45003" name="EOL Conversion to Macintosh (CR)"/>
-                    <Item id="43022" name="Mark search results using 1st style"/>
-                    <Item id="43024" name="Mark search results using 2nd style"/>
-                    <Item id="43026" name="Mark search results using 3rd style"/>
-                    <Item id="43028" name="Mark search results using 4th style"/>
-                    <Item id="43030" name="Mark search results using 5th style"/>
+                    <Item id="43022" name="Mark text using 1st style"/>
+                    <Item id="43024" name="Mark text using 2nd style"/>
+                    <Item id="43026" name="Mark text using 3rd style"/>
+                    <Item id="43028" name="Mark text using 4th style"/>
+                    <Item id="43030" name="Mark text using 5th style"/>
                     <Item id="43023" name="Clear marks using 1st style"/>
                     <Item id="43025" name="Clear marks using 2nd style"/>
                     <Item id="43027" name="Clear marks using 3rd style"/>
@@ -1082,7 +1082,7 @@ You can define several column markers by using white space to separate the diffe
                 <Item id="1" name="OK"/>
                 <Item id="2" name="Cancel"/>
             </ColumnEditor>
-            <FindInFinder title="Find in finder">
+            <FindInFinder title="Find in search results">
                 <Item id="1"    name="Find All"/>
                 <Item id="2"    name="Close"/>
                 <Item id="1711" name="&amp;Find what :"/>
@@ -1336,8 +1336,8 @@ Find in all files except exe, obj &amp;&amp; log:
             <find-status-scope-all value="in entire file"/>
             <find-status-scope-backward value="from start-of-file to caret"/>
             <find-status-scope-forward value="from caret to end-of-file"/>
-            <finder-find-in-finder value="Find in this found results..."/>
-            <finder-close-this value="Close this finder"/>
+            <finder-find-in-finder value="Find in these search results..."/>
+            <finder-close-this value="Close these search results"/>
             <finder-collapse-all value="Collapse all"/>
             <finder-uncollapse-all value="Uncollapse all"/>
             <finder-copy value="Copy"/>
@@ -1373,7 +1373,7 @@ Find in all files except exe, obj &amp;&amp; log:
             <replace-in-files-confirm-filetype value="For file type :"/>
             <replace-in-open-docs-confirm-title value="Are you sure?"/>
             <replace-in-open-docs-confirm-message value="Are you sure you want to replace all occurrences in all open documents?"/>
-            <find-result-caption value="Find result"/>
+            <find-result-caption value="Search results"/>
             <find-result-title value="Search"/>
             <find-result-title-info value="($INT_REPLACE1$ hits in $INT_REPLACE2$ files of $INT_REPLACE3$ searched)"/>
             <find-result-title-info-selections value="($INT_REPLACE1$ hits in $INT_REPLACE2$ selections of $INT_REPLACE3$ searched)"/>

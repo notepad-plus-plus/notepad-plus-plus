@@ -413,6 +413,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="1721" name="▲"/>
                 <Item id="1723" name="▼ Find Next"/>
                 <Item id="1725" name="Copy Marked Text"/>
+                <Item id="1726" name="Line's 1st hit only in Find All output"/>
             </Find>
 
             <FindCharsInRange title="Find Characters in Range...">
@@ -1094,6 +1095,7 @@ You can define several column markers by using white space to separate the diffe
                 <Item id="1719" name="Re&amp;gular expression"/>
                 <Item id="1718" name="E&amp;xtended (\n, \r, \t, \0, \x...)"/>
                 <Item id="1720" name="&amp;. matches newline"/>
+                <Item id="1727" name="Line's 1st hit only in Find All output"/>
             </FindInFinder>
             <DoSaveOrNot title="Save">
                 <Item id="1761" name="Save file &quot;$STR_REPLACE$&quot; ?"/>
@@ -1379,6 +1381,7 @@ Find in all files except exe, obj &amp;&amp; log:
             <find-result-title-info-selections value="($INT_REPLACE1$ hits in $INT_REPLACE2$ selections of $INT_REPLACE3$ searched)"/>
             <find-result-title-info-extra value=" - Line Filter Mode: only display the filtered results"/>
             <find-result-hits value="($INT_REPLACE$ hits)"/>
+            <find-result-hits-info-extra value=" - Condensed Hits Mode: Display only 1st hit per line"/>
             <find-regex-zero-length-match value="zero length match" />
         </MiscStrings>
     </Native-Langue>

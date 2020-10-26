@@ -50,11 +50,11 @@ enum DIALOG_TYPE {FIND_DLG, REPLACE_DLG, FINDINFILES_DLG, MARK_DLG};
 enum InWhat{ALL_OPEN_DOCS, FILES_IN_DIR, CURRENT_DOC, CURR_DOC_SELECTION};
 
 struct FoundInfo {
-	FoundInfo(int start, int end, size_t lineNumber, const TCHAR *fullPath)
-		: _start(start), _end(end), _lineNumber(lineNumber), _fullPath(fullPath) {};
+	FoundInfo(int start, int end, size_t lineNumber, size_t lineNumberEnd, const TCHAR* fullPath)
+		: _start(start), _end(end), _lineNumber(lineNumber, lineNumberEnd), _fullPath(fullPath) {};
 	int _start;
 	int _end;
-	size_t _lineNumber;
+	std::pair<size_t, size_t>_lineNumber;
 	generic_string _fullPath;
 };
 
@@ -86,6 +86,7 @@ struct FindOption
 	bool _isInHiddenDir = false;
 	bool _dotMatchesNewline = false;
 	bool _isMatchLineNumber = true; // only for Find in Folder
+	bool _isLimitFindAllToMax1HitPerLine = false;
 };
 
 //This class contains generic search functions as static functions for easy access
@@ -133,7 +134,7 @@ public:
 	void openAll();
 	void wrapLongLinesToggle();
 	void copy();
-	void beginNewFilesSearch();
+	void beginNewFilesSearch(bool activateCondensedHitsMode);
 	void finishFilesSearch(int count, int searchedCount, bool isMatchLines, bool searchedEntireNotSelection);
 	void gotoNextFoundResult(int direction);
 	void gotoFoundLine();
@@ -141,7 +142,7 @@ public:
 	std::vector<generic_string> getResultFilePaths() const;
 	bool canFind(const TCHAR *fileName, size_t lineNumber) const;
 	void setVolatiled(bool val) { _canBeVolatiled = val; };
-	generic_string getHitsString(int count) const;
+	generic_string getHitsString(int count, bool useBriefHitsOutputFormat) const;
 
 protected :
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
@@ -169,6 +170,9 @@ private:
 	bool _canBeVolatiled = true;
 
 	bool _longLinesAreWrapped = false;
+
+	size_t _lineNumberEndOfPreviousMatch = 0;
+	bool _condensedHitsMode = false;
 
 	void setFinderReadOnly(bool isReadOnly) {
 		_scintView.execute(SCI_SETREADONLY, isReadOnly);
@@ -274,6 +278,8 @@ public :
 
 	void getPatterns(std::vector<generic_string> & patternVect);
 
+	bool getCondensedHitsMode() { return _env->_isLimitFindAllToMax1HitPerLine; };
+
 	void launchFindInFilesDlg() {
 		doDialog(FINDINFILES_DLG);
 	};
@@ -300,9 +306,9 @@ public :
 		_tab.getCurrentTitle(label, MAX_PATH);
 		::SetWindowText(_hSelf, label);
 	}
-	void beginNewFilesSearch()
+	void beginNewFilesSearch(bool activateCondensedHitsMode)
 	{
-		_pFinder->beginNewFilesSearch();
+		_pFinder->beginNewFilesSearch(activateCondensedHitsMode);
 		_pFinder->addSearchLine(getText2search().c_str());
 	}
 

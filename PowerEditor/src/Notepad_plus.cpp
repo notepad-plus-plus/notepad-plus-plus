@@ -1641,8 +1641,10 @@ bool Notepad_plus::findInFinderFiles(FindersInfo *findInFolderInfo)
 
 	vector<generic_string> fileNames = findInFolderInfo->_pSourceFinder->getResultFilePaths();
 
-	findInFolderInfo->_pDestFinder->beginNewFilesSearch();
-	findInFolderInfo->_pDestFinder->addSearchLine(findInFolderInfo->_findOption._str2Search.c_str());
+	FindOption const * pFinderFindOpts = &(findInFolderInfo->_findOption);
+
+	findInFolderInfo->_pDestFinder->beginNewFilesSearch(pFinderFindOpts->_isLimitFindAllToMax1HitPerLine);
+	findInFolderInfo->_pDestFinder->addSearchLine(pFinderFindOpts->_str2Search.c_str());
 
 	Progress progress(_pPublicInterface->getHinst());
 
@@ -1677,7 +1679,7 @@ bool Notepad_plus::findInFinderFiles(FindersInfo *findInFolderInfo)
 
 			findInFolderInfo->_pFileName = fileNames.at(i).c_str();
 			
-			nbTotal += _findReplaceDlg.processAll(ProcessFindInFinder, &(findInFolderInfo->_findOption), true, findInFolderInfo);
+			nbTotal += _findReplaceDlg.processAll(ProcessFindInFinder, pFinderFindOpts, true, findInFolderInfo);
 			
 			if (closeBuf)
 				MainFileManager.closeBuffer(id, _pEditView);
@@ -1695,7 +1697,7 @@ bool Notepad_plus::findInFinderFiles(FindersInfo *findInFolderInfo)
 	progress.close();
 
 	const bool searchedInSelection = false;
-	findInFolderInfo->_pDestFinder->finishFilesSearch(nbTotal, int(filesCount), findInFolderInfo->_findOption._isMatchLineNumber, !searchedInSelection);
+	findInFolderInfo->_pDestFinder->finishFilesSearch(nbTotal, int(filesCount), pFinderFindOpts->_isMatchLineNumber, !searchedInSelection);
 
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, oldDoc);
 	_pEditView = pOldView;
@@ -1734,7 +1736,7 @@ bool Notepad_plus::findInFiles()
 	vector<generic_string> fileNames;
 	getMatchedFileNames(dir2Search, patterns2Match, fileNames, isRecursive, isInHiddenDir);
 
-	_findReplaceDlg.beginNewFilesSearch();
+	_findReplaceDlg.beginNewFilesSearch(_findReplaceDlg.getCondensedHitsMode());
 
 	Progress progress(_pPublicInterface->getHinst());
 
@@ -1822,7 +1824,7 @@ bool Notepad_plus::findInOpenedFiles()
 
 	const bool isEntireDoc = true;
 
-	_findReplaceDlg.beginNewFilesSearch();
+	_findReplaceDlg.beginNewFilesSearch(_findReplaceDlg.getCondensedHitsMode());
 
 	if (_mainWindowStatus & WindowMainActive)
 	{
@@ -1896,7 +1898,7 @@ bool Notepad_plus::findInCurrentFile(bool isEntireDoc)
 	_pEditView = &_invisibleEditView;
 	Document oldDoc = _invisibleEditView.execute(SCI_GETDOCPOINTER);
 
-	_findReplaceDlg.beginNewFilesSearch();
+	_findReplaceDlg.beginNewFilesSearch(_findReplaceDlg.getCondensedHitsMode());
 
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
 

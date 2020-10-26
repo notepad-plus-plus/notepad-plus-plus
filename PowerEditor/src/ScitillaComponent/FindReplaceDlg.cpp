@@ -350,6 +350,8 @@ void FindReplaceDlg::fillFindHistory()
 
 	::SendDlgItemMessage(_hSelf, IDC_2_BUTTONS_MODE, BM_SETCHECK, findHistory._isSearch2ButtonsMode, 0);
 
+	::SendDlgItemMessage(_hSelf, IDC_1HITPERLINE, BM_SETCHECK, findHistory._isLimitFindAllToMax1HitPerLine, 0);
+
 	if (findHistory._searchMode == FindHistory::regExpr)
 	{
 		//regex doesn't allow wholeword
@@ -478,7 +480,7 @@ void FindReplaceDlg::updateCombo(int comboID)
 	addText2Combo(getTextFromCombo(hCombo).c_str(), hCombo);
 }
 
-FoundInfo Finder::EmptyFoundInfo(0, 0, 0, TEXT(""));
+FoundInfo Finder::EmptyFoundInfo(0, 0, 0, 0, TEXT(""));
 SearchResultMarking Finder::EmptySearchResultMarking;
 
 bool Finder::notify(SCNotification *notification)
@@ -626,7 +628,7 @@ bool Finder::canFind(const TCHAR *fileName, size_t lineNumber) const
 	{
 		if ((*_pMainFoundInfos)[i]._fullPath == fileName)
 		{
-			if (lineNumber == (*_pMainFoundInfos)[i]._lineNumber)
+			if (lineNumber == (*_pMainFoundInfos)[i]._lineNumber.first)
 				return true;
 		}
 	}
@@ -703,6 +705,8 @@ void FindInFinderDlg::initFromOptions()
 
 	setChecked(IDREDOTMATCHNL_FIFOLDER, _options._dotMatchesNewline);
 	::EnableWindow(::GetDlgItem(_hSelf, IDREDOTMATCHNL_FIFOLDER), _options._searchType == FindRegex);
+
+	setChecked(IDC_1HITPERLINE_FIFOLDER, _options._isLimitFindAllToMax1HitPerLine);
 }
 
 void FindInFinderDlg::writeOptions()
@@ -714,6 +718,7 @@ void FindInFinderDlg::writeOptions()
 	_options._isMatchCase = isCheckedOrNot(IDMATCHCASE_FIFOLDER);
 	_options._searchType = isCheckedOrNot(IDREGEXP_FIFOLDER) ? FindRegex : isCheckedOrNot(IDEXTENDED_FIFOLDER) ? FindExtended : FindNormal;
 	_options._dotMatchesNewline = isCheckedOrNot(IDREDOTMATCHNL_FIFOLDER);
+	_options._isLimitFindAllToMax1HitPerLine = isCheckedOrNot(IDC_1HITPERLINE_FIFOLDER);
 }
 
 INT_PTR CALLBACK FindInFinderDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /*lParam*/)
@@ -1474,6 +1479,11 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					findHistory._isMatchWord = _options._isWholeWord = isCheckedOrNot(IDWHOLEWORD);
 					return TRUE;
 
+				case IDC_1HITPERLINE:
+					findHistory._isLimitFindAllToMax1HitPerLine = 
+						_options._isLimitFindAllToMax1HitPerLine = isCheckedOrNot(IDC_1HITPERLINE);
+					return TRUE;
+
 				case IDMATCHCASE :
 					findHistory._isMatchCase = _options._isMatchCase = isCheckedOrNot(IDMATCHCASE);
 					return TRUE;
@@ -2151,9 +2161,17 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 				{
 					_pFinder->addFileNameTitle(pFileName);
 					findAllFileNameAdded = true;
+
+					_pFinder->_lineNumberEndOfPreviousMatch = 0;
 				}
 
 				auto lineNumber = pEditView->execute(SCI_LINEFROMPOSITION, targetStart);
+				auto lineNumberEnd = pEditView->execute(SCI_LINEFROMPOSITION, targetEnd);
+				if (lineNumberEnd > 0 && targetEnd == pEditView->execute(SCI_POSITIONFROMLINE, lineNumberEnd))
+				{
+					// avoid including a line with the caret on it but having zero actual characters selected on that line
+					--lineNumberEnd;
+				}
 				int lend = static_cast<int32_t>(pEditView->execute(SCI_GETLINEENDPOSITION, lineNumber));
 				int lstart = static_cast<int32_t>(pEditView->execute(SCI_POSITIONFROMLINE, lineNumber));
 				int nbChar = lend - lstart;
@@ -2174,7 +2192,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 				SearchResultMarking srm;
 				srm._start = start_mark;
 				srm._end = end_mark;
-				_pFinder->add(FoundInfo(targetStart, targetEnd, lineNumber + 1, pFileName), srm, line.c_str());
+				_pFinder->add(FoundInfo(targetStart, targetEnd, lineNumber + 1, lineNumberEnd + 1, pFileName), srm, line.c_str());
 
 				break; 
 			}
@@ -2187,6 +2205,12 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 				const TCHAR *pFileName = pFindersInfo->_pFileName ? pFindersInfo->_pFileName : TEXT("");
 
 				auto lineNumber = pEditView->execute(SCI_LINEFROMPOSITION, targetStart);
+				auto lineNumberEnd = pEditView->execute(SCI_LINEFROMPOSITION, targetEnd);
+				if (lineNumberEnd > 0 && targetEnd == pEditView->execute(SCI_POSITIONFROMLINE, lineNumberEnd))
+				{
+					// avoid including a line with the caret on it but having zero actual characters selected on that line
+					--lineNumberEnd;
+				}
 				int lend = static_cast<int32_t>(pEditView->execute(SCI_GETLINEENDPOSITION, lineNumber));
 				int lstart = static_cast<int32_t>(pEditView->execute(SCI_POSITIONFROMLINE, lineNumber));
 				int nbChar = lend - lstart;
@@ -2214,8 +2238,11 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 					{
 						pFindersInfo->_pDestFinder->addFileNameTitle(pFileName);
 						findAllFileNameAdded = true;
+
+						pFindersInfo->_pDestFinder->_lineNumberEndOfPreviousMatch = 0;
 					}
-					pFindersInfo->_pDestFinder->add(FoundInfo(targetStart, targetEnd, lineNumber + 1, pFileName), srm, line.c_str());
+					pFindersInfo->_pDestFinder->add(
+						FoundInfo(targetStart, targetEnd, lineNumber + 1, lineNumberEnd + 1, pFileName), srm, line.c_str());
 				}
 				break;
 			}
@@ -2447,7 +2474,7 @@ void FindReplaceDlg::findAllIn(InWhat op)
 
 	if (::SendMessage(_hParent, cmdid, static_cast<WPARAM>(limitSearchScopeToSelection ? 1 : 0), 0))
 	{
-		generic_string text = _pFinder->getHitsString(_findAllResult);
+		generic_string text = _pFinder->getHitsString(_findAllResult, true);
 		wsprintf(_findAllResultStr, text.c_str());
 
 		if (_findAllResult) 
@@ -2655,11 +2682,11 @@ void FindReplaceDlg::enableReplaceFunc(bool isEnable)
 	showFindDlgItem(IDC_FINDPREV, is2ButtonMode);
 	showFindDlgItem(IDC_FINDNEXT, is2ButtonMode);
 
-
-	// find controls
+	// find-only controls
 	showFindDlgItem(IDC_FINDALL_OPENEDFILES, !isEnable);
 	showFindDlgItem(IDCCOUNTALL, !isEnable);
 	showFindDlgItem(IDC_FINDALL_CURRENTFILE, !isEnable);
+	showFindDlgItem(IDC_1HITPERLINE, !isEnable);
 
 	gotoCorrectTab();
 
@@ -2721,6 +2748,8 @@ void FindReplaceDlg::enableFindInFilesControls(bool isEnable)
 	showFindDlgItem(IDREPLACEALL, !isEnable);
 	showFindDlgItem(IDC_REPLACE_OPENEDFILES, !isEnable);
 
+	showFindDlgItem(IDC_1HITPERLINE, isEnable);
+
 	// Show Items
 	if (isEnable)
 	{
@@ -2767,6 +2796,7 @@ void FindReplaceDlg::saveInMacro(size_t cmd, int cmdType)
 		::SendMessage(_hParent, WM_FRSAVE_STR, IDD_FINDINFILES_FILTERS_COMBO, reinterpret_cast<LPARAM>(_options._filters.c_str()));
 		booleans |= _options._isRecursive?IDF_FINDINFILES_RECURSIVE_CHECK:0;
 		booleans |= _options._isInHiddenDir?IDF_FINDINFILES_INHIDDENDIR_CHECK:0;
+		booleans |= _options._isLimitFindAllToMax1HitPerLine ? IDF_1HITPERLINE : 0;
 	}
 	else if (!(cmdType & FR_OP_GLOBAL))
 	{
@@ -2778,6 +2808,7 @@ void FindReplaceDlg::saveInMacro(size_t cmd, int cmdType)
 	{
 		// find all in curr doc can be limited by selected text
 		booleans |= _options._isInSelection ? IDF_IN_SELECTION_CHECK : 0;
+		booleans |= _options._isLimitFindAllToMax1HitPerLine ? IDF_1HITPERLINE : 0;
 	}
 	if (cmd == IDC_CLEAR_ALL)
 	{
@@ -2872,6 +2903,7 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const generic_st
 				_env->_isWrapAround = ((intValue & IDF_WRAP) > 0);
 				_env->_whichDirection = ((intValue & IDF_WHICH_DIRECTION) > 0);
 				_env->_dotMatchesNewline = ((intValue & IDF_REDOTMATCHNL) > 0);
+				_env->_isLimitFindAllToMax1HitPerLine = ((intValue & IDF_1HITPERLINE) > 0);
 				break;
 			case IDNORMAL:
 				_env->_searchType = static_cast<SearchType>(intValue);
@@ -3167,6 +3199,8 @@ void FindReplaceDlg::initOptionsFromDlg()
 	
 	_options._isRecursive = isCheckedOrNot(IDD_FINDINFILES_RECURSIVE_CHECK);
 	_options._isInHiddenDir = isCheckedOrNot(IDD_FINDINFILES_INHIDDENDIR_CHECK);
+
+	_options._isLimitFindAllToMax1HitPerLine = isCheckedOrNot(IDC_1HITPERLINE);
 }
 
 void FindInFinderDlg::doDialog(Finder *launcher, bool isRTL)
@@ -3266,6 +3300,7 @@ void FindReplaceDlg::enableMarkFunc()
 	showFindDlgItem(IDC_2_BUTTONS_MODE, false);
 	showFindDlgItem(IDC_FINDPREV, false);
 	showFindDlgItem(IDC_FINDNEXT, false);
+	showFindDlgItem(IDC_1HITPERLINE, false);
 
 	_currentStatus = MARK_DLG;
 	gotoCorrectTab();
@@ -3407,9 +3442,10 @@ bool FindReplaceDlg::replaceInOpenDocsConfirmCheck(void)
 	return confirmed;
 }
 
-generic_string Finder::getHitsString(int count) const
+generic_string Finder::getHitsString(int count, bool useBriefHitsOutputFormat) const
 {
-	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+
 	generic_string text = pNativeSpeaker->getLocalizedStrFromID("find-result-hits", TEXT(""));
 
 	if (text.empty())
@@ -3428,6 +3464,12 @@ generic_string Finder::getHitsString(int count) const
 	else
 	{
 		text = stringReplace(text, TEXT("$INT_REPLACE$"), std::to_wstring(count));
+	}
+
+	if (!useBriefHitsOutputFormat && _condensedHitsMode)
+	{
+		text += pNativeSpeaker->getLocalizedStrFromID("find-result-hits-info-extra",
+			TEXT(" - Condensed Hits Mode: Display only 1st hit per line"));
 	}
 
 	return text;
@@ -3468,7 +3510,7 @@ void Finder::addFileNameTitle(const TCHAR * fileName)
 void Finder::addFileHitCount(int count)
 {
 	wstring text = TEXT(" ");
-	text += getHitsString(count);
+	text += getHitsString(count, false);
 	setFinderReadOnly(false);
 	_scintView.insertGenericTextFrom(_lastFileHeaderPos, text.c_str());
 	setFinderReadOnly(true);
@@ -3527,38 +3569,43 @@ void Finder::addSearchHitCount(int count, int countSearched, bool isMatchLines, 
 
 void Finder::add(FoundInfo fi, SearchResultMarking mi, const TCHAR* foundline)
 {
-	_pMainFoundInfos->push_back(fi);
-	generic_string str = TEXT("\tLine ");
-
-	TCHAR lnb[16];
-	wsprintf(lnb, TEXT("%d"), fi._lineNumber);
-	str += lnb;
-	str += TEXT(": ");
-	mi._start += static_cast<int32_t>(str.length());
-	mi._end += static_cast<int32_t>(str.length());
-	str += foundline;
-
-	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-	const char *text2AddUtf8 = wmc.wchar2char(str.c_str(), SC_CP_UTF8, &mi._start, &mi._end); // certainly utf8 here
-	size_t len = strlen(text2AddUtf8);
-
-	if (len >= SC_SEARCHRESULT_LINEBUFFERMAXLENGTH)
+	if (!_condensedHitsMode || fi._lineNumber.first != _lineNumberEndOfPreviousMatch)
 	{
-		const char * endOfLongLine = " ...\r\n"; // perfectly Utf8-encoded already
-		size_t lenEndOfLongLine = strlen(endOfLongLine);
-		size_t cut = SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - lenEndOfLongLine - 1;
+		_pMainFoundInfos->push_back(fi);
+		generic_string str = TEXT("\tLine ");
 
-		while ((cut > 0) && (!Utf8::isValid(& text2AddUtf8 [cut], (int)(len - cut))))
-			cut--;
+		TCHAR lnb[16];
+		wsprintf(lnb, TEXT("%d"), fi._lineNumber.first);
+		str += lnb;
+		str += TEXT(": ");
+		mi._start += static_cast<int32_t>(str.length());
+		mi._end += static_cast<int32_t>(str.length());
+		str += foundline;
 
-		memcpy ((void*) & text2AddUtf8 [cut], endOfLongLine, lenEndOfLongLine + 1);
-		len = cut + lenEndOfLongLine;
+		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+		const char* text2AddUtf8 = wmc.wchar2char(str.c_str(), SC_CP_UTF8, &mi._start, &mi._end); // certainly utf8 here
+		size_t len = strlen(text2AddUtf8);
+
+		if (len >= SC_SEARCHRESULT_LINEBUFFERMAXLENGTH)
+		{
+			const char* endOfLongLine = " ...\r\n"; // perfectly Utf8-encoded already
+			size_t lenEndOfLongLine = strlen(endOfLongLine);
+			size_t cut = SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - lenEndOfLongLine - 1;
+
+			while ((cut > 0) && (!Utf8::isValid(&text2AddUtf8[cut], (int)(len - cut))))
+				cut--;
+
+			memcpy((void*)&text2AddUtf8[cut], endOfLongLine, lenEndOfLongLine + 1);
+			len = cut + lenEndOfLongLine;
+		}
+
+		setFinderReadOnly(false);
+		_scintView.execute(SCI_ADDTEXT, len, reinterpret_cast<LPARAM>(text2AddUtf8));
+		setFinderReadOnly(true);
+		_pMainMarkings->push_back(mi);
 	}
 
-	setFinderReadOnly(false);
-	_scintView.execute(SCI_ADDTEXT, len, reinterpret_cast<LPARAM>(text2AddUtf8));
-	setFinderReadOnly(true);
-	_pMainMarkings->push_back(mi);
+	_lineNumberEndOfPreviousMatch = fi._lineNumber.second;
 }
 
 void Finder::removeAll() 
@@ -3670,7 +3717,7 @@ void Finder::copy()
 	}
 }
 
-void Finder::beginNewFilesSearch()
+void Finder::beginNewFilesSearch(bool activateCondensedHitsMode)
 {
 	//_scintView.execute(SCI_SETLEXER, SCLEX_NULL);
 
@@ -3681,6 +3728,8 @@ void Finder::beginNewFilesSearch()
 
 	// fold all old searches (1st level only)
 	_scintView.collapse(searchHeaderLevel - SC_FOLDLEVELBASE, fold_collapse);
+
+	_condensedHitsMode = activateCondensedHitsMode;
 }
 
 void Finder::finishFilesSearch(int count, int searchedCount, bool isMatchLines, bool searchedEntireNotSelection)

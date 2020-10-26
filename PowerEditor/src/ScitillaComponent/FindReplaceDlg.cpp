@@ -3848,8 +3848,8 @@ INT_PTR CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 
 				NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 
-				generic_string findInFinder = pNativeSpeaker->getLocalizedStrFromID("finder-find-in-finder", TEXT("Find in these found results..."));
-				generic_string closeThis = pNativeSpeaker->getLocalizedStrFromID("finder-close-this", TEXT("Close this finder"));
+				generic_string findInFinder = pNativeSpeaker->getLocalizedStrFromID("finder-find-in-finder", TEXT("Find in these search results..."));
+				generic_string closeThis = pNativeSpeaker->getLocalizedStrFromID("finder-close-this", TEXT("Close these search results"));
 				generic_string collapseAll = pNativeSpeaker->getLocalizedStrFromID("finder-collapse-all", TEXT("Collapse all"));
 				generic_string uncollapseAll = pNativeSpeaker->getLocalizedStrFromID("finder-uncollapse-all", TEXT("Uncollapse all"));
 				generic_string copy = pNativeSpeaker->getLocalizedStrFromID("finder-copy", TEXT("Copy"));

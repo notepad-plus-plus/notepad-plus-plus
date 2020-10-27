@@ -2635,7 +2635,16 @@ void ScintillaEditView::performGlobalStyles()
 
 	COLORREF bookmarkMarginColor = veryLiteGrey;
 	i = stylers.getStylerIndexByName(TEXT("Bookmark margin"));
-	if (i != -1)
+	if (i == -1)
+	{
+		int j = stylers.getStylerIndexByName(TEXT("Line number margin"));
+		if (j != -1)
+		{
+			Style & style = stylers.getStyler(j);
+			bookmarkMarginColor = style._bgColor;
+		}
+	}
+	else
 	{
 		Style & style = stylers.getStyler(i);
 		bookmarkMarginColor = style._bgColor;

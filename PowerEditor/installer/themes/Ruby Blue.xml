@@ -619,7 +619,9 @@ http://sourceforge.net/donate/index.php?group_id=95717
         <WidgetStyle name="Find Mark Style" styleID="31" fgColor="FFFFFF" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
         <WidgetStyle name="Edge colour" styleID="0" fgColor="FFFFFF" bgColor="FF0000" fontSize="" fontStyle="1" />
         <WidgetStyle name="Line number margin" styleID="33" fgColor="FFFFFF" bgColor="1F4661" fontName="" fontStyle="0" fontSize="8" />
+        <WidgetStyle name="Bookmark margin" styleID="0" bgColor="1F4661" />
         <WidgetStyle name="Fold" styleID="0" fgColor="FFFFFF" bgColor="F0804F" fontSize="" fontStyle="0" />
+        <WidgetStyle name="Fold active" styleID="0" fgColor="FFFFFF" />
         <WidgetStyle name="Fold margin" styleID="0" fgColor="4096BF" bgColor="3476A3" />
         <WidgetStyle name="White space symbol" styleID="0" fgColor="FF8080" bgColor="112435" />
         <WidgetStyle name="Smart HighLighting" styleID="29" bgColor="00FF00" fgColor="555753" />

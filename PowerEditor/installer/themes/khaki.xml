@@ -902,6 +902,7 @@ Installation:
         <WidgetStyle name="Caret colour" styleID="2069" fgColor="5f5f00" />
         <WidgetStyle name="Edge colour" styleID="0" fgColor="afaf87" />
         <WidgetStyle name="Line number margin" styleID="33" fgColor="5f5f00" bgColor="afaf87" fontName="" fontStyle="0" fontSize="" />
+        <WidgetStyle name="Bookmark margin" styleID="0" bgColor="afaf87" />
         <WidgetStyle name="Fold" styleID="0" fgColor="5f5f00" bgColor="afaf87" />
         <WidgetStyle name="Fold active" styleID="0" fgColor="af0000" />
         <WidgetStyle name="Fold margin" styleID="0" fgColor="afaf87" bgColor="afaf87" />

@@ -741,7 +741,9 @@ so your enhanced file can be included in Notepad++ future release.
         <WidgetStyle name="Caret colour" styleID="2069" fgColor="FFFFFF" bgColor="372017" fontStyle="0" />
         <WidgetStyle name="Edge colour" styleID="0" fgColor="80FFFF" bgColor="112435" fontSize="" fontStyle="0" />
         <WidgetStyle name="Line number margin" styleID="33" fgColor="FFFFFF" bgColor="FF80FF" fontName="" fontStyle="0" fontSize="" />
+        <WidgetStyle name="Bookmark margin" styleID="0" bgColor="FF80FF" />
         <WidgetStyle name="Fold" styleID="0" fgColor="FFFFFF" bgColor="FF80C0" fontSize="8" fontStyle="0" />
+        <WidgetStyle name="Fold active" styleID="0" fgColor="FFFFFF" />
         <WidgetStyle name="Fold margin" styleID="0" fgColor="FF80C0" bgColor="FF80C0" fontSize="8" fontStyle="0" />
         <WidgetStyle name="White space symbol" styleID="0" fgColor="FFB56A" bgColor="EEEEEC" />
         <WidgetStyle name="Smart HighLighting" styleID="29" bgColor="00FF00" fgColor="555753" />

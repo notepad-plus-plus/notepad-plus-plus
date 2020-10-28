@@ -746,11 +746,18 @@ http://sourceforge.net/donate/index.php?group_id=95717
         <WidgetStyle name="Caret colour" styleID="2069" fgColor="FFFFFF" bgColor="253B76" fontStyle="0" />
         <WidgetStyle name="Edge colour" styleID="0" fgColor="80FFFF" bgColor="112435" fontSize="" fontStyle="0" />
         <WidgetStyle name="Line number margin" styleID="33" fgColor="C0C0C0" bgColor="333333" fontName="" fontStyle="0" fontSize="" />
+        <WidgetStyle name="Bookmark margin" styleID="0" bgColor="333333" />
         <WidgetStyle name="Fold" styleID="0" fgColor="6A6A6A" bgColor="333333" fontSize="8" fontStyle="0" />
+        <WidgetStyle name="Fold active" styleID="0" fgColor="6A6A6A" />
         <WidgetStyle name="Fold margin" styleID="0" fgColor="1A1A1A" bgColor="1A1A1A" fontSize="8" fontStyle="0" />
         <WidgetStyle name="White space symbol" styleID="0" fgColor="FF8080" bgColor="EEEEEC" fontSize="" fontStyle="0" />
         <WidgetStyle name="Smart HighLighting" styleID="29" bgColor="80FF00" fgColor="555753" />
         <WidgetStyle name="Find Mark Style" styleID="31" fgColor="FFFF00" bgColor="FF0000" fontName="" fontStyle="1" fontSize="" />
+        <WidgetStyle name="Mark Style 1" styleID="25" bgColor="00FFFF" />
+        <WidgetStyle name="Mark Style 2" styleID="24" bgColor="FF8000" />
+        <WidgetStyle name="Mark Style 3" styleID="23" bgColor="FFFF00" />
+        <WidgetStyle name="Mark Style 4" styleID="22" bgColor="8000FF" />
+        <WidgetStyle name="Mark Style 5" styleID="21" bgColor="008000" />
         <WidgetStyle name="Incremental highlight all" styleID="28" bgColor="FF8000" fgColor="555753" />
         <WidgetStyle name="Tags match highlighting" styleID="27" bgColor="0080FF" fgColor="FCAF3E" />
         <WidgetStyle name="Tags attribute" styleID="26" bgColor="808080" />

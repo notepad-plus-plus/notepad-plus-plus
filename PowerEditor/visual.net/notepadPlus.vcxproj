@@ -539,17 +539,31 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <None Include="..\src\cursors\drag_plus.cur" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\clipboardFormats.h" />
+    <ClInclude Include="..\src\dpiManager.h" />
+    <ClInclude Include="..\src\keys.h" />
+    <ClInclude Include="..\src\localizationString.h" />
+    <ClInclude Include="..\src\MISC\Common\Sorters.h" />
     <ClInclude Include="..\src\MISC\Common\verifySignedfile.h" />
     <ClInclude Include="..\src\MISC\md5\md5.h" />
     <ClInclude Include="..\src\MISC\md5\md5Dlgs.h" />
     <ClInclude Include="..\src\MISC\md5\md5Dlgs_rc.h" />
     <ClInclude Include="..\src\MISC\sha2\sha-256.h" />
+    <ClInclude Include="..\src\ScitillaComponent\columnEditor_rc.h" />
+    <ClInclude Include="..\src\ScitillaComponent\FindReplaceDlg_rc.h" />
+    <ClInclude Include="..\src\ScitillaComponent\ScintillaRef.h" />
+    <ClInclude Include="..\src\Utf8.h" />
     <ClInclude Include="..\src\WinControls\AboutDlg\AboutDlg.h" />
     <ClInclude Include="..\src\WinControls\AnsiCharPanel\ansiCharPanel.h" />
     <ClInclude Include="..\src\ScitillaComponent\AutoCompletion.h" />
+    <ClInclude Include="..\src\WinControls\AnsiCharPanel\ansiCharPanel_rc.h" />
     <ClInclude Include="..\src\WinControls\AnsiCharPanel\asciiListView.h" />
+    <ClInclude Include="..\src\WinControls\ColourPicker\ColourPopupResource.h" />
+    <ClInclude Include="..\src\WinControls\ColourPicker\WordStyleDlgRes.h" />
+    <ClInclude Include="..\src\WinControls\DocumentMap\documentMap_rc.h" />
     <ClInclude Include="..\src\WinControls\DocumentMap\documentSnapshot.h" />
     <ClInclude Include="..\src\WinControls\DocumentMap\documentSnapshot_rc.h" />
+    <ClInclude Include="..\src\WinControls\FindCharsInRange\findCharsInRange_rc.h" />
     <ClInclude Include="..\src\WinControls\Grid\BabyGrid.h" />
     <ClInclude Include="..\src\WinControls\Grid\BabyGridWrapper.h" />
     <ClInclude Include="..\src\ScitillaComponent\Buffer.h" />
@@ -564,6 +578,10 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClInclude Include="..\src\WinControls\ContextMenu\ContextMenu.h" />
     <ClInclude Include="..\src\WinControls\PluginsAdmin\pluginsAdmin.h" />
     <ClInclude Include="..\src\WinControls\PluginsAdmin\pluginsAdminRes.h" />
+    <ClInclude Include="..\src\WinControls\Preference\preference_rc.h" />
+    <ClInclude Include="..\src\WinControls\ReadDirectoryChanges\targetver.h" />
+    <ClInclude Include="..\src\WinControls\shortcut\shortcutRc.h" />
+    <ClInclude Include="..\src\WinControls\StaticDialog\RunDlg\RunDlg_rc.h" />
     <ClInclude Include="..\src\WinControls\TabBar\ControlsTab.h" />
     <ClInclude Include="..\src\WinControls\DockingWnd\Docking.h" />
     <ClInclude Include="..\src\WinControls\DockingWnd\DockingCont.h" />
@@ -591,7 +609,6 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClInclude Include="..\src\lesDlgs.h" />
     <ClInclude Include="..\src\WinControls\AnsiCharPanel\ListView.h" />
     <ClInclude Include="..\src\localization.h" />
-    <ClInclude Include="..\src\localizationstring.h" />
     <ClInclude Include="..\src\menuCmdID.h" />
     <ClInclude Include="..\src\MISC\Exception\MiniDumper.h" />
     <ClInclude Include="..\src\Notepad_plus.h" />

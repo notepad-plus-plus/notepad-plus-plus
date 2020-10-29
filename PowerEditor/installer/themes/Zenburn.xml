@@ -993,7 +993,7 @@ License:             GPL2
             <WordsStyle name="BINARY ( 16#{1A803F59} )" styleID="11" fgColor="8CD0D3" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="MONEY" styleID="12" fgColor="8CD0D3" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="ISSUE { #123-CD-456 }" styleID="13" fgColor="EBD6EB" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="TAG { <TITLE HEIGHT=100> }" styleID="14" fgColor="DCDCCC" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="TAG { &lt;TITLE HEIGHT=100&gt; }" styleID="14" fgColor="DCDCCC" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="FILE { %/C/WINNT/SOME.DLL }" styleID="15" fgColor="DCDCCC" bgColor="333333" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="EMAIL { JOE@MAIL.DOM }" styleID="16" fgColor="DCDCCC" bgColor="333333" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="URL { FTP://THERE.DOM }" styleID="17" fgColor="DCDCCC" bgColor="333333" fontName="" fontStyle="0" fontSize="" />
@@ -1361,6 +1361,7 @@ License:             GPL2
         <WidgetStyle name="Caret colour" styleID="2069" fgColor="8FAF9F" />
         <WidgetStyle name="Edge colour" styleID="0" fgColor="4F5F5F" />
         <WidgetStyle name="Line number margin" styleID="33" fgColor="8A8A8A" bgColor="0C0C0C" fontName="" fontStyle="0" fontSize="" />
+        <WidgetStyle name="Bookmark margin" styleID="0" bgColor="0C0C0C" />
         <WidgetStyle name="Fold" styleID="0" fgColor="707070" bgColor="101010" />
         <WidgetStyle name="Fold active" styleID="0" fgColor="7F9F7F" />
         <WidgetStyle name="Fold margin" styleID="0" fgColor="181818" bgColor="101010" />

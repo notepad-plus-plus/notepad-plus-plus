@@ -735,6 +735,7 @@
         <WidgetStyle name="Find Mark Style" styleID="31" fgColor="FFFF00" bgColor="000040" fontName="" fontStyle="1" fontSize="" />
         <WidgetStyle name="Edge colour" styleID="0" fgColor="80FFFF" />
         <WidgetStyle name="Line number margin" styleID="33" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
+        <WidgetStyle name="Bookmark margin" styleID="0" bgColor="000040" />
         <WidgetStyle name="Fold" styleID="0" fgColor="FFFFFF" bgColor="000040" />
         <WidgetStyle name="Fold margin" styleID="0" fgColor="000040" bgColor="000040" />
         <WidgetStyle name="White space symbol" styleID="0" fgColor="004040" />

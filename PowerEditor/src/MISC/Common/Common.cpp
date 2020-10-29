@@ -36,7 +36,7 @@
 #include "StaticDialog.h"
 
 #include "Common.h"
-#include "../Utf8.h"
+#include "Utf8.h"
 #include <Parameters.h>
 
 void printInt(int int2print)

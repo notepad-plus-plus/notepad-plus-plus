@@ -111,6 +111,11 @@ INT_PTR CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 							insertChar(static_cast<unsigned char>(i));
 							return TRUE;
 						}
+						case VK_ESCAPE:
+						{
+							::SendMessage(_hParent, NPPM_DMMHIDE, 0, reinterpret_cast<LPARAM>(_hSelf));
+							return TRUE;
+						}
 						default:
 							break;
 					}

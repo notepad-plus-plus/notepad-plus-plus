@@ -272,7 +272,7 @@ void Notepad_plus::command(int id)
 			break;
 
 		case IDM_FILE_EXIT:
-			::SendMessage(_pPublicInterface->getHSelf(), WM_CLOSE, 0, 0);
+			::PostMessage(_pPublicInterface->getHSelf(), WM_CLOSE, 0, 0);
 			break;
 
 		case IDM_EDIT_UNDO:

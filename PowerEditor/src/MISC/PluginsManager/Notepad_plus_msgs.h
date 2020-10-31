@@ -429,6 +429,12 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64 };
 	// Users should call it with pluginRootPath be NULL to get the required number of TCHAR (not including the terminating nul character),
 	// allocate pluginRootPath buffer with the return value + 1, then call it again to get the path.
 
+	#define NPPM_GETDOCUMENTFROMBUFFER (NPPMSG + 98)
+	// Document NPPM_GETDOCUMENTFROMBUFFER(UINT_PTR bufferID)
+	// Get the Scintilla document pointer associated with a bufferID.
+	// Returns NULL if the bufferID does not exist.
+	// This can be used with NPPM_CREATESCINTILLAHANDLE and SCI_SETDOCPOINTER to read and modify a document from it's bufferID.
+
 #define	RUNCOMMAND_USER    (WM_USER + 3000)
 	#define NPPM_GETFULLCURRENTPATH		(RUNCOMMAND_USER + FULL_CURRENT_PATH)
 	#define NPPM_GETCURRENTDIRECTORY	(RUNCOMMAND_USER + CURRENT_DIRECTORY)

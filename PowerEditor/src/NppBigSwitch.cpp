@@ -2483,6 +2483,16 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			{
 				addHotSpot(pView);
 			}
+			break;
+		}
+
+		case NPPM_GETDOCUMENTFROMBUFFER:
+		{
+			BufferID id = reinterpret_cast<BufferID>(wParam);
+			Buffer* buffer = MainFileManager.getBufferByID(id);
+			if (buffer == NULL)
+				return NULL;
+			return buffer->getDocument();
 		}
 
 		default:

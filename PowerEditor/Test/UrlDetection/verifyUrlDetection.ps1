@@ -1,26 +1,30 @@
 try {
-	if (Test-Path -Path '..\..\Bin\plugins' -PathType Container)
+	$binDir = '..\..\Bin'
+	$pluginsDir = $binDir + '\plugins'
+	$pluginsSaveDir = $binDir + '\plugins_save'
+
+	if (Test-Path -Path $pluginsDir -PathType Container)
 	{
-		if (Test-Path -Path '..\..\Bin\plugins_save' -PathType Container)
+		if (Test-Path -Path $pluginsSaveDir -PathType Container)
 		{
 			"Backup for plugins directory already exists"
 			exit -1
 		}
 		"Backing up plugin directory ..."
-		Move-Item ..\..\Bin\plugins ..\..\bin\plugins_save
+		Move-Item $pluginsDir $pluginsSaveDir
 	}
 	"Installing Lua plugin for testing ..."
-	Copy-Item -Path .\plugins -Destination ..\..\bin -Recurse
+	Copy-Item -Path .\plugins -Destination $binDir -Recurse
 
 	"Testing ..."
-	..\..\bin\notepad++.exe | Out-Null
+	Invoke-Expression ($binDir + "\notepad++.exe | Out-Null")
 
-	if (Test-Path -Path '..\..\Bin\plugins_save' -PathType Container)
+	if (Test-Path -Path $pluginsSaveDir -PathType Container)
 	{
 		"Removing Lua plugin ..."
-		Remove-Item -Path ..\..\Bin\plugins -Recurse -Force
+		Remove-Item -Path $pluginsDir -Recurse -Force
 		"Restoring plugin directory ..."
-		Move-Item ..\..\Bin\plugins_save ..\..\bin\plugins
+		Move-Item $pluginsSaveDir $pluginsDir
 	}
 
 	$expectedRes = Get-Content .\verifyUrlDetection_1a.expected.result

@@ -2600,7 +2600,6 @@ bool isUrlTextChar(TCHAR const c)
 	{
 		case '"':
 		case '#':
-		case '\'':
 		case '<':
 		case '>':
 		case '{':
@@ -2731,9 +2730,19 @@ void scanToUrlEnd(TCHAR *text, int textLen, int start, int* distance)
 				break;
 
 			case sQueryAfterDelimiter:
-				if ((text [p] == '\'') || (text [p] == '"'))
+				if ((text [p] == '\'') || (text [p] == '"') || (text [p] == '`'))
 				{
 					q = text [p];
+					s = sQueryQuotes;
+				}
+				else if (text [p] == '(')
+				{
+					q = ')';
+					s = sQueryQuotes;
+				}
+				else if (text [p] == '[')
+				{
+					q = ']';
 					s = sQueryQuotes;
 				}
 				else if (text [p] == '{')
@@ -2799,42 +2808,27 @@ bool removeUnwantedTrailingCharFromUrl (TCHAR const *text, int* length)
 			}
 	}
 	{ // remove unwanted closing parenthesis
-		const TCHAR *closingParenthesis = L")]>";
-		const TCHAR *openingParenthesis = L"([<";
+		const TCHAR *closingParenthesis = L")]";
+		const TCHAR *openingParenthesis = L"([";
 		for (int i = 0; closingParenthesis [i]; i++)
 			if (text [l] == closingParenthesis [i])
 			{
-				int count = 1;
+				int count = 0;
 				for (int j = l - 1; j >= 0; j--)
 				{
 					if (text [j] == closingParenthesis [i])
 						count++;
 					if (text [j] == openingParenthesis [i])
-						count--;
+						if (count > 0)
+							count--;
+						else
+							return false;
 				}
-				if (count == 0)
+				if (count != 0)
 					return false;
 				*length = l;
 				return true;
 			}
-	}
-	{ // remove unwanted quotes
-		const TCHAR *quotes = L"\"'`";
-		for (int i = 0; quotes [i]; i++)
-		{
-			if (text [l] == quotes [i])
-			{
-				int count = 0;
-				for (int j = l - 1; j >= 0; j--)
-					if (text [j] == quotes [i])
-						count++;
-
-				if (count & 1)
-					return false;
-				*length = l;
-				return true;
-			}
-		}
 	}
 	return false;
 }

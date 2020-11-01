@@ -169,6 +169,9 @@ Unwanted trailing character removal:
 u (https://github.com/notepad-plus-plus/notepad-plus-plus) u
 m 01111111111111111111111111111111111111111111111111111110 m
 
+u [https://github.com/notepad-plus-plus/notepad-plus-plus] u
+m 01111111111111111111111111111111111111111111111111111110 m
+
 u https://github.com/notepad-plus-plus/notepad-plus-plus; u
 m 1111111111111111111111111111111111111111111111111111110 m
 
@@ -192,6 +195,9 @@ m 01111111111111111111111111111111111111111111110 m
 
 u (https://en.wikipedia.org/wiki/Saw_2003_film) u
 m 011111111111111111111111111111111111111111110 m
+
+u [https://en.wikipedia.org/wiki/Saw_[2003_film]] u
+m 01111111111111111111111111111111111111111111110 m
 
 
 
@@ -238,7 +244,224 @@ m 0000001111111111111111111100000000000 m
 u \href{https://ig.com/?query=c761&vars={"id":"0815","first":100}}{click me} u
 m 00000011111111111111111111111111111111111111111111111111111111100000000000 m
 
+========
 
+Quotation mark
+- forbidden in name and path (delimiter)
+- parsed in query part as quoting character, 
+  overriding all other quoting characters
+
+u http://xxx.xxx/xxx"xxx" u
+m 11111111111111111100000 m
+
+u http://xxx.xxx/?q="A"+"B"" u
+m 11111111111111111111111110 m
+
+u http://xxx.xxx/?q="A'+'B{}`'"" u
+m 111111111111111111111111111110 m
+
+========
+
+Apostrophe
+- allowed unrestricted in name and path
+- parsed in query part as quoting character, 
+  overriding all other quoting characters
+
+u https://en.wikipedia.org/wiki/Murphy's_law u
+m 111111111111111111111111111111111111111111 m
+
+u http://xxx.xxx/xxx'xxx' u
+m 11111111111111111111111 m
+
+u http://xxx.xxx/xxx'xxx'' u
+m 111111111111111111111111 m
+
+u http://xxx.xxx/?q='A'+'B'' u
+m 11111111111111111111111110 m
+
+u http://xxx.xxx/?q='A'+'B'' u
+m 11111111111111111111111110 m
+
+u http://xxx.xxx/?q='A'+'B"{}`'' u
+m 111111111111111111111111111110 m
+
+========
+
+Grave accent
+- allowed unrestricted in name and path
+- parsed in query part as quoting character, 
+  overriding all other quoting characters
+
+u http://xxx.xxx/Tom`s_sisters u
+m 1111111111111111111111111111 m
+
+u http://xxx.xxx/Tom`s%20sisters` u
+m 1111111111111111111111111111111 m
+
+u http://xxx.xxx/Tom`s%20sisters`` u
+m 11111111111111111111111111111111 m
+
+u http://xxx.xxx/?q=`A`+`B` u
+m 1111111111111111111111111 m
+
+u http://xxx.xxx/?q=`A`+`B`` u
+m 11111111111111111111111110 m
+
+u http://xxx.xxx/?q=`A"{}()'`` u
+m 1111111111111111111111111110 m
+
+========
+
+Parentheses
+- allowed in name and path
+- closing parenthesis at end of path is removed,
+  if there are no other parentheses in path,
+  except pairing parentheses
+- parsed in query part as quoting character, 
+  overriding all other quoting characters
+
+- no other parentheses in path, remove last closing parenthesis
+u http://xxx.xxx/xxx) u
+m 1111111111111111110 m
+
+- pairing parentheses in path: remove last closing unpaired parenthesis
+u http://xxx.xxx/xxx(xxx)) u
+m 111111111111111111111110 m
+
+- pairing parentheses in path: remove last closing unpaired parenthesis
+u http://xxx.xxx/xxx((xxx))) u 
+m 11111111111111111111111110 m
+
+- pairing parenthesis in path: keep last closing paired parenthesis
+u http://xxx.xxx/xxx(xxx) u
+m 11111111111111111111111 m
+
+- pairing parentheses in path: remove last closing unpaired parenthesis
+u http://xxx.xxx/xxx()xxx) u
+m 111111111111111111111110 m
+
+- arbitrary parentheses in path: keep last closing parenthesis
+u http://xxx.xxx/xxx)) u
+m 11111111111111111111 m
+
+- arbitrary parentheses in path: keep last closing parenthesis
+u http://xxx.xxx/xxx)(xxx) u
+m 111111111111111111111111 m
+
+- arbitrary parentheses in path: keep last closing parenthesis
+u http://xxx.xxx/xxx)(xxx)) u
+m 1111111111111111111111111 m
+
+- arbitrary parentheses in path: keep last closing parenthesis
+u http://xxx.xxx/xxx((xxx) u
+m 111111111111111111111111 m
+
+- arbitrary parentheses in path: keep last closing parenthesis
+u http://xxx.xxx/xxx)((xxx) u
+m 1111111111111111111111111 m
+
+- parentheses in query part: end after last closing quote of query part
+u http://xxx.xxx/xxx?q=(xxx)) u
+m 111111111111111111111111110 m
+
+- parentheses in query part: end after last closing quote of query part
+u http://xxx.xxx/xxx?q=(xxx)( u
+m 111111111111111111111111110 m
+
+- parentheses in query part: end after last closing quote of query part
+u http://xxx.xxx/xxx?q=(xxx)( u
+m 111111111111111111111111110 m
+
+- parentheses in query part: end after last closing quote of query part
+u http://xxx.xxx/xxx?q=(xxx)&(xxx)( u
+m 111111111111111111111111111111110 m
+
+========
+
+ Square brackets
+- allowed in name and path
+- closing square bracket at end of path is removed,
+  if there are no other square brackets in path,
+  except pairing square brackets
+- parsed in query part as quoting characters, 
+  overriding all other quoting characters
+
+- no other square brackets in path, remove last closing square bracket
+u http://xxx.xxx/xxx] u
+m 1111111111111111110 m
+
+- pairing square brackets in path: remove last closing unpaired square bracket
+u http://xxx.xxx/xxx[xxx]] u
+m 111111111111111111111110 m
+
+- pairing square brackets in path: remove last closing unpaired square bracket
+u http://xxx.xxx/xxx[[xxx]]] u 
+m 11111111111111111111111110 m
+
+- pairing square brackets in path: keep last closing paired square bracket
+u http://xxx.xxx/xxx[xxx] u
+m 11111111111111111111111 m
+
+- pairing square brackets in path: remove last closing unpaired square bracket
+u http://xxx.xxx/xxx[]xxx] u
+m 111111111111111111111110 m
+
+- arbitrary square brackets in path: keep last closing square bracket
+u http://xxx.xxx/xxx]] u
+m 11111111111111111111 m
+
+- arbitrary square brackets in path: keep last closing square bracket
+u http://xxx.xxx/xxx][xxx] u
+m 111111111111111111111111 m
+
+- arbitrary square brackets in path: keep last closing square bracket
+u http://xxx.xxx/xxx][xxx]] u
+m 1111111111111111111111111 m
+
+- arbitrary square brackets in path: keep last closing square bracket
+u http://xxx.xxx/xxx[[xxx] u
+m 111111111111111111111111 m
+
+- arbitrary square brackets in path: keep last closing square bracket
+u http://xxx.xxx/xxx][[xxx] u
+m 1111111111111111111111111 m
+
+- square brackets in query part: end after last closing quote of query part
+u http://xxx.xxx/xxx?q=[xxx]] u
+m 111111111111111111111111110 m
+
+- square brackets in query part: end after last closing quote of query part
+u http://xxx.xxx/xxx?q=[xxx][ u
+m 111111111111111111111111110 m
+
+- square brackets in query part: end after last closing quote of query part
+u )http://xxx.xxx/xxx?q=[xxx][ u
+m 0111111111111111111111111110 m
+
+- square brackets in query part: end after last closing quote of query part
+u http://xxx.xxx/xxx?q=[xxx]&[xxx][ u
+m 111111111111111111111111111111110 m
+
+========
+
+Curly brackets
+- forbidden in name and path, because of LaTeX
+- parsed in query part as quoting characters, 
+  overriding all other quoting characters
+
+u http://xxx.xxx/xxx{xxx}} u
+m 111111111111111111000000 m
+
+u http://xxx.xxx/xxx{xxx} u
+m 11111111111111111100000 m
+
+u http://xxx.xxx/xxx?q={xxx}} u
+m 111111111111111111111111110 m
+
+u http://xxx.xxx/xxx?q={xxx};{"[]()''`}} u
+m 11111111111111111111111111111111111110 m
+
+========
 
 Mail:
 

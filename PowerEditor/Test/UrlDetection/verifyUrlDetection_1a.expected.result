@@ -49,6 +49,7 @@ OK	u "http://github.com/notepad-plus-plus/notepad-plus-plus" u
 OK	u "https://github.com /notepad-plus-plus/notepad-plus-plus" u
 OK	u "https://github.com/notepad plus plus/notepad-plus-plus" u
 OK	u (https://github.com/notepad-plus-plus/notepad-plus-plus) u
+OK	u [https://github.com/notepad-plus-plus/notepad-plus-plus] u
 OK	u https://github.com/notepad-plus-plus/notepad-plus-plus; u
 OK	u https://github.com/notepad-plus-plus/notepad-plus-plus? u
 OK	u https://github.com/notepad-plus-plus/notepad-plus-plus! u
@@ -57,6 +58,7 @@ OK	u http://github.com/notepad-plus-plus/notepad-plus-plus#fragment u
 OK	u (e.g., https://en.wikipedia.org/wiki/Saw_(2003_film))? u
 OK	u (https://en.wikipedia.org/wiki/Saw_(2003_film)) u
 OK	u (https://en.wikipedia.org/wiki/Saw_2003_film) u
+OK	u [https://en.wikipedia.org/wiki/Saw_[2003_film]] u
 OK	u https://apache-windows.ru/как-установить-сервер-apache-c-php-mysql-и-phpmyadmin-на-windows/ u
 OK	u https://www.rnids.rs/национални-домени/регистрација-националних-домена u
 OK	u https://www.morfix.co.il/שלום u
@@ -68,6 +70,51 @@ OK	u [https://ig.com/?query=c761&vars={"id":"0815","first":100}] u
 OK	u "https://ig.com/?query=c761&vars={"id":"0815","first":100}" u
 OK	u \href{https://weblink.com/}{click me} u
 OK	u \href{https://ig.com/?query=c761&vars={"id":"0815","first":100}}{click me} u
+OK	u http://xxx.xxx/xxx"xxx" u
+OK	u http://xxx.xxx/?q="A"+"B"" u
+OK	u http://xxx.xxx/?q="A'+'B{}`'"" u
+OK	u https://en.wikipedia.org/wiki/Murphy's_law u
+OK	u http://xxx.xxx/xxx'xxx' u
+OK	u http://xxx.xxx/xxx'xxx'' u
+OK	u http://xxx.xxx/?q='A'+'B'' u
+OK	u http://xxx.xxx/?q='A'+'B'' u
+OK	u http://xxx.xxx/?q='A'+'B"{}`'' u
+OK	u http://xxx.xxx/Tom`s_sisters u
+OK	u http://xxx.xxx/Tom`s%20sisters` u
+OK	u http://xxx.xxx/Tom`s%20sisters`` u
+OK	u http://xxx.xxx/?q=`A`+`B` u
+OK	u http://xxx.xxx/?q=`A`+`B`` u
+OK	u http://xxx.xxx/?q=`A"{}()'`` u
+OK	u http://xxx.xxx/xxx) u
+OK	u http://xxx.xxx/xxx(xxx)) u
+OK	u http://xxx.xxx/xxx(xxx) u
+OK	u http://xxx.xxx/xxx()xxx) u
+OK	u http://xxx.xxx/xxx)) u
+OK	u http://xxx.xxx/xxx)(xxx) u
+OK	u http://xxx.xxx/xxx)(xxx)) u
+OK	u http://xxx.xxx/xxx((xxx) u
+OK	u http://xxx.xxx/xxx)((xxx) u
+OK	u http://xxx.xxx/xxx?q=(xxx)) u
+OK	u http://xxx.xxx/xxx?q=(xxx)( u
+OK	u http://xxx.xxx/xxx?q=(xxx)( u
+OK	u http://xxx.xxx/xxx?q=(xxx)&(xxx)( u
+OK	u http://xxx.xxx/xxx] u
+OK	u http://xxx.xxx/xxx[xxx]] u
+OK	u http://xxx.xxx/xxx[xxx] u
+OK	u http://xxx.xxx/xxx[]xxx] u
+OK	u http://xxx.xxx/xxx]] u
+OK	u http://xxx.xxx/xxx][xxx] u
+OK	u http://xxx.xxx/xxx][xxx]] u
+OK	u http://xxx.xxx/xxx[[xxx] u
+OK	u http://xxx.xxx/xxx][[xxx] u
+OK	u http://xxx.xxx/xxx?q=[xxx]] u
+OK	u http://xxx.xxx/xxx?q=[xxx][ u
+OK	u )http://xxx.xxx/xxx?q=[xxx][ u
+OK	u http://xxx.xxx/xxx?q=[xxx]&[xxx][ u
+OK	u http://xxx.xxx/xxx{xxx}} u
+OK	u http://xxx.xxx/xxx{xxx} u
+OK	u http://xxx.xxx/xxx?q={xxx}} u
+OK	u http://xxx.xxx/xxx?q={xxx};{"[]()''`}} u
 OK	u mailto:don.h@free.fr u
 OK	u <don.h@free.fr> u
 OK	u <mailto:don.h@free.fr> u

@@ -8,18 +8,3 @@ m 0000000000000000 m
 u домhttp://test.com u
 m 000000000000000000 m
 
-
-
-Apostrophes:
-
-u https://en.wikipedia.org/wiki/Murphy's_law u
-m 111111111111111111111111111111111111111111 m
-
-u http://xxx.xxx/Tom's%20sisters'%20careers u
-m 11111111111111111111111111111111111111111 m
-
-u http://xxx.xxx/Tom's%20sisters' u
-m 1111111111111111111111111111111 m
-
-u http://xxx.xxx/Tom's%20sisters'' u
-m 11111111111111111111111111111111 m

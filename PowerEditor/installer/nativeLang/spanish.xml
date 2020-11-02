@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+	<!--
+The comments are here for explanation, it's not necessary to translate them.
+	-->
 <NotepadPlus>
 	<Native-Langue name="Español" filename="spanish.xml" version="7.9">
 		<Menu>
@@ -37,6 +40,7 @@
 					<Item subMenuId="search-unmarkAll" name="Desmarcar todo"/>
 					<Item subMenuId="search-jumpUp" name="Subir"/>
 					<Item subMenuId="search-jumpDown" name="Bajar"/>
+					<Item subMenuId="search-copyStyledText" name="Copiar texto con estilo"/>
 					<Item subMenuId="search-bookmark" name="Marca"/>
 					<Item subMenuId="view-currentFileIn" name="Ver archivo actual en"/>
 					<Item subMenuId="view-showSymbol" name="Mostrar símbolo"/>
@@ -74,6 +78,7 @@
 					<Item id="41002" name="&amp;Abrir"/>
 					<Item id="41019" name="Explorador de archivos"/>
 					<Item id="41020" name="cmd"/>
+					<Item id="41025" name="Carpeta como espacio de trabajo"/>
 					<Item id="41003" name="Cerrar"/>
 					<Item id="41004" name="C&amp;errar todas"/>
 					<Item id="41005" name="Cerrar las otras pestañas"/>
@@ -106,6 +111,7 @@
 					<Item id="42008" name="Aumentar guion de línea"/>
 					<Item id="42009" name="Reducir guion de línea"/>
 					<Item id="42010" name="Duplicar línea actual"/>
+					<Item id="42079" name="Eliminar lineas duplicadas"/>
 					<Item id="42077" name="Eliminar lineas consecutivas duplicadas"/>
 					<Item id="42012" name="Dividir líneas"/>
 					<Item id="42013" name="Unir líneas"/>
@@ -113,6 +119,8 @@
 					<Item id="42015" name="Bajar línea actual"/>
 					<Item id="42059" name="Ordenar líneas en sentido ascendente"/>
 					<Item id="42060" name="Ordenar líneas en sentido descendente"/>
+					<Item id="42080" name="Ordenar líneas en sentido ascendente ignorando tamaño."/>
+					<Item id="42081" name="Ordenar líneas en sentido descendente ignorando tamaño"/>
 					<Item id="42061" name="Orden de líneas numérico ascendente"/>
 					<Item id="42062" name="Orden de líneas numérico descendente"/>
 					<Item id="42063" name="Ordenar líneas como decimales (coma) ascendente"/>
@@ -215,6 +223,13 @@
 					<Item id="43042" name="Estilo 4"/>
 					<Item id="43043" name="Estilo 5"/>
 					<Item id="43044" name="Buscar estilo"/>
+					<Item id="43055" name="Primer estilo"/>
+					<Item id="43056" name="Segundo estilo"/>
+					<Item id="43057" name="Tercer estilo"/>
+					<Item id="43058" name="Cuarto estilo"/>
+					<Item id="43059" name="Quinto estilo"/>
+					<Item id="43060" name="Todos los estilos"/>
+					<Item id="43061" name="Encontrar estilo (marcado)"/>
 					<Item id="43045" name="Ventana de resultados de búsqueda"/>
 					<Item id="43046" name="Resultados de búsqueda siguiente"/>
 					<Item id="43047" name="Resultados de búsqueda anterior"/>
@@ -350,6 +365,7 @@
 				<Item CMID="20" name="Abrir carpeta en cmd"/>
 				<Item CMID="21" name="Abrir en visor predeterminado"/>
 				<Item CMID="22" name="Cerrar todo sin cambios"/>
+				<Item CMID="23" name="Open Containing Folder as Workspace"/>
 			</TabBar>
 		</Menu>
 		<Dialog>
@@ -390,6 +406,7 @@
 				<Item id="1703" name="&amp;. se ajusta a línea nueva"/>
 				<Item id="1721" name="▲"/>
 				<Item id="1723" name="▼ Siguiente"/>
+				<Item id="1725" name="Copiar el texto marcado"/>
 			</Find>
 			<FindCharsInRange title="Buscar caracteres en rango...">
 				<Item id="2" name="Cerrar"/>
@@ -506,58 +523,65 @@
 					<Item id="43026" name="Marcar los resultados de la búsqueda con el tercer estilo"/>
 					<Item id="43028" name="Marcar los resultados de la búsqueda con el cuarto estilo"/>
 					<Item id="43030" name="Marcar los resultados de la búsqueda con el quinto estilo"/>
-					<Item id="43023" name="Desmarcar usando el primer estilo"/>
-					<Item id="43025" name="Desmarcar usando el segundo estilo"/>
-					<Item id="43027" name="Desmarcar usando el tercer estilo"/>
-					<Item id="43029" name="Desmarcar usando el cuarto estilo"/>
-					<Item id="43031" name="Desmarcar usando el quinto estilo"/>
-					<Item id="43032" name="Desmarcar usando cualquier estilo"/>
-					<Item id="43033" name="Marca anterior usando el primer estilo"/>
-					<Item id="43034" name="Marca anterior usando el segundo estilo"/>
-					<Item id="43035" name="Marca anterior usando el tercer estilo"/>
-					<Item id="43036" name="Marca anterior usando el cuarto estilo"/>
-					<Item id="43037" name="Marca anterior usando el quinto estilo"/>
+					<Item id="43023" name="Desmarcar usando estilo 1"/>
+					<Item id="43025" name="Desmarcar usando estilo 2"/>
+					<Item id="43027" name="Desmarcar usando estilo 3"/>
+					<Item id="43029" name="Desmarcar usando estilo 4"/>
+					<Item id="43031" name="Desmarcar usando estilo 5"/>
+					<Item id="43032" name="Desmarcar com cualquier estilo"/>
+					<Item id="43033" name="Marca anterior estilo 1"/>
+					<Item id="43034" name="Marca anterior estilo 2"/>
+					<Item id="43035" name="Marca anterior estilo 3"/>
+					<Item id="43036" name="Marca anterior estilo 4"/>
+					<Item id="43037" name="Marca anterior estilo5"/>
 					<Item id="43038" name="Marca anterior creada con Marcar"/>
-					<Item id="43039" name="Next mark using 1st style"/>
-					<Item id="43040" name="Next mark using 2nd style"/>
-					<Item id="43041" name="Next mark using 3rd style"/>
-					<Item id="43042" name="Next mark using 4th style"/>
-					<Item id="43043" name="Next mark using 5th style"/>
-					<Item id="43044" name="Next mark created with Mark"/>
-					<Item id="44100" name="View current file in Firefox"/>
-					<Item id="44101" name="View current file in Chrome"/>
-					<Item id="44103" name="View current file in IE"/>
-					<Item id="44102" name="View current file in Edge"/>
-					<Item id="50003" name="Switch to previous document"/>
-					<Item id="50004" name="Switch to next document"/>
-					<Item id="44051" name="Collapse Level 1"/>
-					<Item id="44052" name="Collapse Level 2"/>
-					<Item id="44053" name="Collapse Level 3"/>
-					<Item id="44054" name="Collapse Level 4"/>
-					<Item id="44055" name="Collapse Level 5"/>
-					<Item id="44056" name="Collapse Level 6"/>
-					<Item id="44057" name="Collapse Level 7"/>
-					<Item id="44058" name="Collapse Level 8"/>
-					<Item id="44061" name="Uncollapse Level 1"/>
-					<Item id="44062" name="Uncollapse Level 2"/>
-					<Item id="44063" name="Uncollapse Level 3"/>
-					<Item id="44064" name="Uncollapse Level 4"/>
-					<Item id="44065" name="Uncollapse Level 5"/>
-					<Item id="44066" name="Uncollapse Level 6"/>
-					<Item id="44067" name="Uncollapse Level 7"/>
-					<Item id="44068" name="Uncollapse Level 8"/>
-					<Item id="44081" name="Toggle Project Panel 1"/>
-					<Item id="44082" name="Toggle Project Panel 2"/>
-					<Item id="44083" name="Toggle Project Panel 3"/>
-					<Item id="44085" name="Toggle Folder as Workspace"/>
-					<Item id="44080" name="Toggle Document Map"/>
-					<Item id="44084" name="Toggle Function List"/>
-					<Item id="50005" name="Toggle macro recording"/>
-					<Item id="44104" name="Switch to Project Panel 1"/>
-					<Item id="44105" name="Switch to Project Panel 2"/>
-					<Item id="44106" name="Switch to Project Panel 3"/>
-					<Item id="44107" name="Switch to Folder as Workspace"/>
-					<Item id="44108" name="Switch to Function List"/>
+					<Item id="43039" name="Marca siguiente estilo 1"/>
+					<Item id="43040" name="Marca siguiente estilo 2"/>
+					<Item id="43041" name="Marca siguiente estilo 3rd style"/>
+					<Item id="43042" name="Marca siguiente estilo 4th style"/>
+					<Item id="43043" name="Marca siguiente estilo 5th style"/>
+					<Item id="43044" name="Marca siguiente creada con Marcar"/>
+					<Item id="43055" name="Copiar texto estilo 1"/>
+					<Item id="43056" name="Copiar texto estilo 2"/>
+					<Item id="43057" name="Copiar texto estilo 3"/>
+					<Item id="43058" name="Copiar texto estilo 4"/>
+					<Item id="43059" name="Copiar texto estilo 5"/>
+					<Item id="43060" name="Copiar texto todos los estilos"/>
+					<Item id="43061" name="Encontrar estilo (marcado)"/>
+					<Item id="44100" name="Ver archivo actual en Firefox"/>
+					<Item id="44101" name="Ver archivo actual en Chrome"/>
+					<Item id="44103" name="Ver archivo actual en IE"/>
+					<Item id="44102" name="Ver archivo actual en Edge"/>
+					<Item id="50003" name="Cambiar a documento previo"/>
+					<Item id="50004" name="Cambiar a documento siguiente"/>
+					<Item id="44051" name="Nivel de compresión 1"/>
+					<Item id="44052" name="Nivel de compresión 2"/>
+					<Item id="44053" name="Nivel de compresión 3"/>
+					<Item id="44054" name="Nivel de compresión 4"/>
+					<Item id="44055" name="Nivel de compresión 5"/>
+					<Item id="44056" name="Nivel de compresión 6"/>
+					<Item id="44057" name="Nivel de compresión 7"/>
+					<Item id="44058" name="Nivel de compresión 8"/>
+					<Item id="44061" name="Descomprimir nivel 1"/>
+					<Item id="44062" name="Descomprimir nivel 2"/>
+					<Item id="44063" name="Descomprimir nivel 3"/>
+					<Item id="44064" name="Descomprimir nivel 4"/>
+					<Item id="44065" name="Descomprimir nivel 5"/>
+					<Item id="44066" name="Descomprimir nivel 6"/>
+					<Item id="44067" name="Descomprimir nivel 7"/>
+					<Item id="44068" name="Descomprimir nivel 8"/>
+					<Item id="44081" name="Alternar panel de proyecto 1"/>
+					<Item id="44082" name="Alternar panel de proyecto 2"/>
+					<Item id="44083" name="Alternar panel de proyecto 3"/>
+					<Item id="44085" name="Alternar a espacio de trabajo"/>
+					<Item id="44080" name="Alternar mapa de documento"/>
+					<Item id="44084" name="Alternar lista de funciones"/>
+					<Item id="50005" name="Alternar registro macro"/>
+					<Item id="44104" name="Cambiar a panel de proyectos 1"/>
+					<Item id="44105" name="Cambiar a panel de proyectos 2"/>
+					<Item id="44106" name="Cambiar a panel de proyectos 3"/>
+					<Item id="44107" name="Cambiar a espacio de trabajo"/>
+					<Item id="44108" name="Cambiar a lista de funciones"/>
 				</MainCommandNames>
 			</ShortcutMapper>
 			<ShortcutMapperSubDialg title="Acceso directo">
@@ -765,6 +789,7 @@
 					<Item id="6125" name="Panel lista de documentos"/>
 					<Item id="6126" name="Mostrar"/>
 					<Item id="6127" name="Desactivar columna de extensión"/>
+					<Item id="6128" name="Iconos alternados"/>
 				</Global>
 				<Scintillas title="Edición">
 					<Item id="6216" name="Configuración del cursor"/>
@@ -976,6 +1001,7 @@
 					<Item id="6320" name="No subrayar"/>
 					<Item id="6322" name="Extensión del archivo de sesión:"/>
 					<Item id="6323" name="Actualizar automáticamente Notepad++"/>
+					<Item id="6351" name="Establecer el filtro de extensión de archivo de diálogo guardar .* en lugar de .txt para texto normal"/>
 					<Item id="6324" name="Cambiar de documento (Ctrl+TAB)"/>
 					<Item id="6331" name="Mostrar sólo nombre de archivo en el título de la ventana"/>
 					<Item id="6334" name="Autodetectar codificación"/>
@@ -1045,33 +1071,41 @@
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<ContextMenuXmlEditWarning title="Editar menú emergente" message="Editar 'contextMenu.xml' le permite modificar el menú contextual emergente de Notepad++.
 Tiene que reiniciar su Notepad++ para que surta efecto después de modificarlo."/>
-			<NppHelpAbsentWarning title="El archivo no existe" message="
-no existe. Descárguelo en el sitio de Notepad++."/>
 			<SaveCurrentModifWarning title="Guardar modificación actual" message="Debe guardar la modificación actual.
 Las modificaciones guardadas no se pueden deshacer.
 
 ¿Continuar?"/>
+			<!-- HowToReproduce: when you openned file is modified but unsaved yet, and you are changing file encoding. -->
 			<LoseUndoAbilityWarning title="Lose Undo Ability Warning" message="Debe guardar la modificación actual.
 Las modificaciones guardadas no se pueden deshacer.
 
 ¿Continuar?"/>
+			<!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
 			<CannotMoveDoc title="Move to new Notepad++ Instance" message="El documento se modifica. Guárdelo y vuelva a intentarlo."/>
+			<!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
 			<DocReloadWarning title="Reload" message="¿Está seguro de que desea volver a cargar el archivo actual y perder los cambios realizados en Notepad++?"/>
 			<FileLockedWarning title="Save failed" message="Compruebe si este archivo está abierto en otro programa"/>
 			<FileAlreadyOpenedInNpp title="" message="El archivo ya está abierto en Notepad++."/>
+			<!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
 			<DeleteFileFailed title="Delete File" message="Fallo al borrar el archivo"/>
+			<!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<NbFileToOpenImportantWarning title="Amount of files to open is too large" message="Se abrirán $INT_REPLACE$ archivos.
 ¿Desea abrir todos estos archivos?"/>
-			<SettingsOnCloudError title="Settings on Cloud" message="Parece que la ruta de la configuración en la nube se establece en una unidad de solo lectura,
-o en una carpeta se necesita derecho de acceso para escritura.
+			<!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into Notepad++. -->
+			<SettingsOnCloudError title="Settings on Cloud" message="Parece que la ruta de la configuración en la nube se establece en una unidad de solo lectura, o en una carpeta que necesita derecho de acceso para escritura.
+
 Su configuración en la nube será cancelada. Reinicie con un valor coherente usando el cuadro de diálogo de Preferencias."/>
 			<FilePathNotFoundWarning title="File Open" message="El archivo que está intentando abrir no existe."/>
+			<!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<SessionFileInvalidError title="Could not Load Session" message="El archivo de sesión está dañado o no es válido."/>
+			<!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
 			<DroppingFolderAsProjectModeWarning title="Invalid action" message="Solo puede eliminar archivos o carpetas, pero no ambos, porque está eliminando carpeta en modo Proyecto.
 debe activar &quot;Abra todos los archivos de la carpeta en lugar de abrir Carpeta como espacio de trabajo en la carpeta que se suelta&quot; in &quot;Carpeta por defecto &quot; en el cuadro de diálogo de Preferencias para que esta operación funcione."/>
 			<SortingError title="Sorting Error" message="No se puede realizar la ordenación numérica debido a la línea $INT_REPLACE$."/>
+			<!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<ColumnModeTip title="Column Mode Tip" message="Use &quot;ALT+Mouse&quot; o &quot;Alt+May+Flecha&quot; para cambiar a modo columna."/>
 			<BufferInvalidWarning title="Save failed" message="No se puede guardar: el búfer no es válido."/>
+			<!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<DoCloseOrNot title="Keep non existing file" message="El archivo &quot;$STR_REPLACE$&quot; no existe.
 ¿Mantener este archivo en el editor?"/>
 			<DoDeleteOrNot title="Delete file" message="El archivo &quot;$STR_REPLACE$&quot;
@@ -1089,26 +1123,35 @@ Este archivo ha sido modificado por otro programa.
 Este archivo ha sido modificado por otro programa.
 ¿Desea volver a cargarlo y perder los cambios realizados en Notepad++?"/>
 			<PrehistoricSystemDetected title="Prehistoric system detected" message="Parece que todavía usa un sistema anticuado. Lamentablemente esta función solo funciona en un sistema moderno."/>
+			<!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
 			<XpUpdaterProblem title="Notepad++ Updater" message="El actualizador de Notepad++ no es compatible con XP debido a la capa de seguridad obsoleta en XP.
 ¿Desea ir a la página de Notepad++ para descargar la última versión?"/>
+			<!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
 			<GUpProxyConfNeedAdminMode title="Configuración del proxy" message="Para cambiar la configuración del proxy, reinicie Notepad++ en modo Administrador."/>
 			<DocTooDirtyToMonitor title="Monitoring problem" message="El documento está sucio. Guarde la modificación antes de monitorearlo."/>
 			<DocNoExistToMonitor title="Monitoring problem" message="El archivo debe existir para ser monitoreado."/>
 			<FileTooBigToOpen title="File size problem" message="El archivo es demasiado grande para abrirlo con Notepad++"/>
+			<!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
 			<CreateNewFileOrNot title="Create new file" message="&quot;$STR_REPLACE$&quot; no existe. ¿Crearlo?"/>
 			<CreateNewFileError title="Create new file" message="No se puede crear el archivo &quot;$STR_REPLACE$&quot;."/>
+			<!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<OpenFileError title="ERROR" message="No se puede abrir el archivo &quot;$STR_REPLACE$&quot;."/>
 			<FileBackupFailed title="File Backup Failed" message="La versión anterior del archivo no se pudo guardar en el directorio de copia de seguridad en &quot;$STR_REPLACE$&quot;.
 
 ¿Desea guardar el archivo actual de todos modos?"/>
+			<!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<LoadStylersFailed title="Load stylers.xml failed" message="La carga de &quot;$STR_REPLACE$&quot; ha fallado"/>
 			<LoadLangsFailed title="Configurator" message="Load langs.xml ha fallado
 ¿Desea recuperar su langs.xml?"/>
+			<!-- HowToReproduce: Close Notepad++. Use another editor to remove all content of "langs.xml" (0 length) then save it. Open Notepad++. -->
 			<LoadLangsFailedFinal title="Configurator" message="Load langs.xml ha fallado"/>
+			<!-- HowToReproduce: Close Notepad++. Use another editor to make "langs.xml" an invalid xml file then save it. Open Notepad++. -->
 			<FolderAsWorspaceSubfolderExists title="Folder as Workspace adding folder problem" message="Existe una subcarpeta de la carpeta que desea agregar.
 Elimine su raíz del panel antes de agregar la carpeta &quot;$STR_REPLACE$&quot;."/>
+			<!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
 			<ProjectPanelChanged title="$STR_REPLACE$" message="El espacio de trabajo se modificó. ¿Desea guardarlo?"/>
 			<ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Su espacio de trabajo no se ha guardado."/>
+			<!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<ProjectPanelOpenDoSaveDirtyWsOrNot title="Open Workspace" message="El espacio de trabajo actual se modificó. ¿Desea guardar el proyecto actual?"/>
 			<ProjectPanelNewDoSaveDirtyWsOrNot title="New Workspace" message="El espacio de trabajo actual se modificó. ¿Desea guardar el proyecto actual?"/>
 			<ProjectPanelOpenFailed title="Open Workspace" message="El espacio de trabajo no se pudo abrir.
@@ -1129,11 +1172,13 @@ Es necesario darle otro."/>
 			<OpenInAdminModeWithoutCloseCurrent title="Save failed" message="El archivo no se puede guardar y puede estar protegido.
 ¿Desea iniciar Notepad++ en modo Administrador?"/>
 			<OpenInAdminModeFailed title="Open in Administrator mode failed" message="Notepad++ no se puede abrir en el modo de Administrador."/>
+			<!-- HowToReproduce: When you have no Admin privilege and you try to save a modified file in a protected location (for example: any file in sub-folder of "C:\Program Files\". This message will appear after replying "Yes" to "Open in Admin mode" dialog. -->
 			<ViewInBrowser title="View Current File in Browser" message="No se puede encontrar la aplicación en su sistema."/>
 			<ExitToUpdatePlugins title="Notepad++ is about to exit" message="Si hace clic en SÍ, saldrá de Notepad++ para continuar con las operaciones.
 Notepad++ se reiniciará después de que finalicen todas las operaciones.
 ¿Continuar?"/>
 			<NeedToRestartToLoadPlugins title="Notepad++ need to be relaunched" message="Debe reiniciar Notepad++ para cargar los complementos que instaló."/>
+			<!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historial de portapapeles"/>
@@ -1230,13 +1275,16 @@ Notepad++ se reiniciará después de que finalicen todas las operaciones.
 		<MiscStrings>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders -->
 			<word-chars-list-tip value="Esto le permite incluir caracteres adicionales a los caracteres de la palabra actual al hacer doble click para seleccionar o buscar con la opción &quot;Solo palabras completas&quot; seleccionada."/>
+			<!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
 			<word-chars-list-warning-begin value="Cuidado: "/>
 			<word-chars-list-space-warning value="$INT_REPLACE$ espacio(s)"/>
 			<word-chars-list-tab-warning value="$INT_REPLACE$ TAB(s)"/>
 			<word-chars-list-warning-end value="  en su lista de caracteres."/>
+			<!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
 			<cloud-invalid-warning value="Ruta inválida."/>
 			<cloud-restart-warning value="Reinicie Notepad++ para que tome efecto."/>
 			<cloud-select-folder value="Seleccione una carpeta en la que Notepad++ lea o escriba sus configuraciones"/>
+			<!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
 			<shift-change-direction-tip value="Use May + Enter para buscar en la dirección opuesta"/>
 			<two-find-buttons-tip value="modo de 2 botones de búsqueda"/>
 			<find-in-files-filter-tip value="Buscar cpp, cxx, h, hxx &amp;&amp; hpp:
@@ -1244,6 +1292,7 @@ Notepad++ se reiniciará después de que finalicen todas las operaciones.
 
 Find in all files except exe, obj &amp;&amp; log:
 *.* !*.exe !*.obj !*.log"/>
+			<!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" secction of Find dialog. -->
 			<find-status-top-reached value="Buscar: Encontrado el primer evento empezando desde el final. Se ha llegado al principio del documento."/>
 			<find-status-end-reached value="Buscar: Encontrado el primer evento empezando desde el inicio. Se ha llegado al final del documento."/>
 			<find-status-replaceinfiles-1-replaced value="Reemplazar en archivos: se reemplazó 1 elemento"/>

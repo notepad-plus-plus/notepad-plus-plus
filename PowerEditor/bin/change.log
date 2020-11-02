@@ -1,32 +1,35 @@
-Notepad++ v7.9 Enhancements & bug-fixes:
+Notepad++ v7.9.1 Enhancements & bug-fixes:
 
-1.  Add the ability to open the target file of a Shortcut (*.lnk).
-2.  Enhance side panels behaviour: close a single panel instead of the entire stack.
-3.  Fix Monitoring & document auto-update not scrolling to the end of the file with Word wrap enabled issue.
-4.  Fix mouse cursor flicker while hovering URLs.
-5.  Add back hovered blue underlined URLs.
-6.  Enhance C++, Perl, Python parsers and add VHDL in Function List. 
-7.  Improve some ambiguous commands naming in Shortcut Mapper.
-8.  Add an option to prevent right click from canceling selection.
-9.  Add ability to sort lines randomly.
-10. Fix "Close All BUT this" looses current document data issue.
-11. Allow user to start making a stream selection and then change to column block (by pressing ALT key).
-12. Add word wrap option to find results context menu.
-13. Add keyboard navigation ability to Column Editor.
-14. Add keyboard shortcut ability to Projects, Folder as Workspace and Function List for switching among these panels.
-15. Enable project panels toggle from menu.
-16. Enhance Folder as Workspace to restore latest selected item of last session on Notepad++ startup.
-17. Fix inaccurate line margin update with word wrap enabled.
-18. Fix Find previous/next commands not scroll vertically to show match result issue (with word wrap disabled).
-19. Fix column key sort with col block starting in col1 bug.
-20. Add confirmation preference for Replace All in All Opened Documents operation.
-21. Add Escape keypress in functionlist searchbox to clear its text.
-22. Add RTL capability to localized messageboxes.
-23. Make (Find) dlgAlwaysVisible a true Preference setting.
-24. Fix sorting by column key using incorrect key values.
-25. Add search scope to Find window status bar output.
-26. Fix false hit result in Find in Finder.
-27. Prevent redundant line data copy in Finder.
+1.  Fix NUL file-corruption bug after Windows shutdown brutally.
+2.  Fix inaccurate URL detection by replacing a new URL parser.
+3.  Fix RegEx look behind operations and \A and and \b and \z.
+4.  Split functionList.xml into multifile in "functionList" Folder.
+5.  Make tray icon work again in administrator mode.
+6.  Fix dialogs & floating dockable panels don't minimize to system tray issue.
+7.  Add alternative icon set for tab bar.
+8.  Add ability to remove any duplicate lines in a document, keeping the first occurrence.
+9.  Fix incorrect icon for monitoring status in Document list panel and in Document switcher.
+10. Add copy marked text & styled text to clipboard commands to menu.
+11. Fix find-all-open-docs not finding all matches in ANSI files.
+12. Display long lines better in Find-result panel by increasing its max length to 2048.
+13. Fix double clicking on find result line not working.
+14. Fix Find-result rclick-Copy incomplete data bug.
+15. Add case insensitive lines sorting.
+16. Add "Open Containing Folder as Workspace" command in main menu and in context menu of tabs.
+17. Enhance Sel info of status bar.
+18. Add new option for save type of normal text files in Save dialog.
+19. Fix file path truncated issue in save confirmation dialog.
+20. Fix auto-Indent not working for PowerShell.
+21. Allow setting of background color for bookmark margin.
+22. Fix smart-highlighting not applying to cloned view.
+23. Fix smart highlight issue related to EOF.
+24. Fix closing file in 2nd view not removed from Doc Switcher.
+25. Add Delete keystroke to remove selected root from Folder as Workspace.
+26. Add TAB keystroke in Function List to switch between search field and list.
+27. Add ESC keystroke in Function List to switch to edit window.
+28. Add ESC keystroke to close Search Results Window.
+29. Fix data-prefixed attributes are not recognized in HTML.
+
 
 Included plugins:
 

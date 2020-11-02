@@ -27,20 +27,24 @@
 
 #pragma once
 
-#define NOTEPAD_PLUS_VERSION TEXT("Notepad++ v7.9")
+//
+// Notepad++ version: begin
+//
+#define NOTEPAD_PLUS_VERSION TEXT("Notepad++ v7.9.1")
 
 // should be X.Y : ie. if VERSION_DIGITALVALUE == 4, 7, 1, 0 , then X = 4, Y = 71
 // ex : #define VERSION_VALUE TEXT("5.63\0")
-#define VERSION_VALUE TEXT("7.9\0")
-#define VERSION_DIGITALVALUE 7, 9, 0, 0
+#define VERSION_VALUE TEXT("7.91\0")
+#define VERSION_DIGITALVALUE 7, 9, 1, 0
 
+// Notepad++ version: end
 
 
 #ifndef IDC_STATIC
 #define IDC_STATIC    -1
 #endif
 
-#define IDI_M30ICON                100
+#define IDI_M30ICON              100
 #define IDI_CHAMELEON            101
 //#define IDI_JESUISCHARLIE        102
 //#define IDI_GILETJAUNE        102

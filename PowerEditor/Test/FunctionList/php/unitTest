@@ -14,6 +14,32 @@
  ************************************************************************
  */
 require_once "../PagSeguroLibrary/PagSeguroLibrary.php";
+
+function for123(){
+    alert 'nothing';
+}
+
+abstract class PageGrille extends PageMotsBleus{
+	abstract function GetTypeGrille() ; // blabla blabla
+	abstract function GetGrilleJSON($p_grilleId); // Retourn JSON
+
+	function CleanStr($pStr){
+		return str_replace ( "\\" , "" , $pStr);
+	}
+
+	function GetJavascriptMajax() {
+		return "ABC";
+	}
+}
+
+function stringContainAsterisk_test1(){
+	$target = '/path/to/files/*';
+}
+
+function stringContainAsterisk_test2(){
+	$target = '/path/to/files/*.jpg';
+}
+
 class NotificationListener
 {
     public static function main()
@@ -86,4 +112,5 @@ class NotificationListener
         echo LogPagSeguro::getHtml($count);
     }
 }
+
 NotificationListener::main();

@@ -317,7 +317,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="48005" name="Importar Plugin(s)..."/>
 					<Item id="48006" name="Importar Tema(s)..."/>
 					<Item id="48018" name="Editar menú emergente"/>
-					<Item id="48009" name="Enlaces directos..."/>
+					<Item id="48009" name="Atajos de teclado..."/>
 					<Item id="48011" name="Preferencias..."/>
 					<Item id="48014" name="Abrir carpeta Plugins..."/>
 					<Item id="48015" name="Administrar Plugins..."/>

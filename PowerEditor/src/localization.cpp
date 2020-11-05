@@ -99,7 +99,7 @@ MenuPosition menuPos[] = {
 	{ 4,  5, 14, "encoding-westernEuropean" },
 	{ 4,  5, 15, "encoding-vietnamese" },
 
-	{ 5, 23, -1, "language-userDefinedLanguage" },
+	{ 5, 25, -1, "language-userDefinedLanguage" },
 
 	{ 6,  4, -1, "settings-import" },
 

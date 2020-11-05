@@ -714,6 +714,8 @@ BEGIN
 
     POPUP "&Language"
     BEGIN
+        MENUITEM "None (Normal Text)",      IDM_LANG_TEXT
+        MENUITEM SEPARATOR
         MENUITEM "ActionScript",            IDM_LANG_FLASH
         MENUITEM "Ada",                     IDM_LANG_ADA
         MENUITEM "ASN.1",                   IDM_LANG_ASN1
@@ -761,7 +763,6 @@ BEGIN
         MENUITEM "MS-DOS Style",            IDM_LANG_ASCII
         MENUITEM "Nimrod",                  IDM_LANG_NIMROD
         MENUITEM "Nncrontab",               IDM_LANG_NNCRONTAB
-        MENUITEM "Normal Text",             IDM_LANG_TEXT
         MENUITEM "NSIS",                    IDM_LANG_NSIS
         MENUITEM "Objective-C",             IDM_LANG_OBJC
         MENUITEM "OScript",                 IDM_LANG_OSCRIPT
@@ -804,6 +805,8 @@ BEGIN
 
     POPUP "&Language"
     BEGIN
+    MENUITEM "None (Normal Text)",        IDM_LANG_TEXT
+    MENUITEM SEPARATOR
     POPUP "A"
     BEGIN
         MENUITEM "ActionScript",          IDM_LANG_FLASH
@@ -886,7 +889,6 @@ BEGIN
     BEGIN
         MENUITEM "Nimrod",                IDM_LANG_NIMROD
         MENUITEM "Nncrontab",             IDM_LANG_NNCRONTAB
-        MENUITEM "Normal Text",           IDM_LANG_TEXT
         MENUITEM "NSIS",                  IDM_LANG_NSIS
     END
     POPUP "O"

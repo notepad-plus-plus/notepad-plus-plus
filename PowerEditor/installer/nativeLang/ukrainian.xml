@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
+<!--
+The comments are here for explanation, it's not necessary to translate them.
+-->
 <NotepadPlus>
     <Native-Langue name="Українська" filename="ukrainian.xml" version="7.9.1">
         <Menu>
@@ -37,6 +40,7 @@
                     <Item subMenuId="search-unmarkAll" name="Зняти всі позначення"/>
                     <Item subMenuId="search-jumpUp" name="Вгору"/>
                     <Item subMenuId="search-jumpDown" name="Вниз"/>
+                    <Item subMenuId="search-copyStyledText" name="Копіювати стиль тексту"/>
                     <Item subMenuId="search-bookmark" name="Закладка"/>
                     <Item subMenuId="view-currentFileIn" name="Перегляд поточного файлу в"/>
                     <Item subMenuId="view-showSymbol"  name="Показати символ"/>
@@ -108,6 +112,7 @@
                     <Item id="42008" name="Збільшити відступ рядка"/>
                     <Item id="42009" name="Зменшити відступ рядка"/>
                     <Item id="42010" name="Дублювати рядок"/>
+                    <Item id="42079" name="Вилучити дублікати рядків"/>
                     <Item id="42077" name="Вилучити послідовні дублікати рядків"/>
                     <Item id="42012" name="Розділити рядки"/>
                     <Item id="42013" name="Об'єднати рядки"/>
@@ -166,7 +171,6 @@
                     <Item id="42029" name="Шлях файлу до буфера"/>
                     <Item id="42030" name="Назву файлу до буфера"/>
                     <Item id="42031" name="Шлях теки до буфера"/>
-                    <Item id="42079" name="Позначений текст до буфера"/>
                     <Item id="42032" name="Багаторазовий запуск макросу..."/>
                     <Item id="42033" name="Прибрати атрибут «Лише читання»"/>
                     <Item id="42035" name="Закоментувати рядок"/>
@@ -220,6 +224,13 @@
                     <Item id="43042" name="Стиль 4"/>
                     <Item id="43043" name="Стиль 5"/>
                     <Item id="43044" name="Знайти стиль"/>
+                    <Item id="43055" name="Стиль 1"/>
+                    <Item id="43056" name="Стиль 2"/>
+                    <Item id="43057" name="Стиль 3"/>
+                    <Item id="43058" name="Стиль 4"/>
+                    <Item id="43059" name="Стиль 5"/>
+                    <Item id="43060" name="Всі стилі"/>
+                    <Item id="43061" name="Знайти стиль (Позначено)"/>
                     <Item id="43045" name="Вікно результатів пошуку"/>
                     <Item id="43046" name="Наступний результат пошуку"/>
                     <Item id="43047" name="Попередній результат пошуку"/>
@@ -401,7 +412,7 @@
                 <Item id="1703" name="&amp;. новий рядок"/>
                 <Item id="1721" name="▲"/>
                 <Item id="1723" name="▼ Знайти далі"/>
-                <Item id="1725" name="Копіювати позначений текст до буфера"/>
+                <Item id="1725" name="Копіювати позначений текст"/>
             </Find>
 
             <FindCharsInRange title="Знайти символи в діапазоні...">
@@ -523,11 +534,11 @@
                     <Item id="45001" name="Конвертування EOL у Windows (CR LF)"/>
                     <Item id="45002" name="Конвертування EOL в Unix (LF)"/>
                     <Item id="45003" name="Конвертування EOL у Macintosh (CR)"/>
-                    <Item id="43022" name="Позначити результати пошуку стилем 1"/>
-                    <Item id="43024" name="Позначити результати пошуку стилем 2"/>
-                    <Item id="43026" name="Позначити результати пошуку стилем 3"/>
-                    <Item id="43028" name="Позначити результати пошуку стилем 4"/>
-                    <Item id="43030" name="Позначити результати пошуку стилем 5"/>
+                    <Item id="43022" name="Позначити текст Стилем 1"/>
+                    <Item id="43024" name="Позначити текст Стилем 2"/>
+                    <Item id="43026" name="Позначити текст Стилем 3"/>
+                    <Item id="43028" name="Позначити текст Стилем 4"/>
+                    <Item id="43030" name="Позначити текст Стилем 5"/>
                     <Item id="43023" name="Очистити позначки стилю 1"/>
                     <Item id="43025" name="Очистити позначки стилю 2"/>
                     <Item id="43027" name="Очистити позначки стилю 3"/>
@@ -546,6 +557,13 @@
                     <Item id="43042" name="Позначити наступне стилем 4"/>
                     <Item id="43043" name="Позначити наступне стилем 5"/>
                     <Item id="43044" name="Наступне позначено Позначкою"/>
+                    <Item id="43055" name="Копіювати текст - Стиль 1"/>
+                    <Item id="43056" name="Копіювати текст - Стиль 2"/>
+                    <Item id="43057" name="Копіювати текст - Стиль 3"/>
+                    <Item id="43058" name="Копіювати текст - Стиль 4"/>
+                    <Item id="43059" name="Копіювати текст - Стиль 5"/>
+                    <Item id="43060" name="Копіювати текст - Усі стилі"/>
+                    <Item id="43061" name="Копіювати текст - Знайти стиль (Позначено)"/>
                     <Item id="44100" name="Переглянути цей файл у Firefox"/>
                     <Item id="44101" name="Переглянути цей файл у Chrome"/>
                     <Item id="44103" name="Переглянути цей файл в IE"/>
@@ -1063,7 +1081,7 @@
                 <Item id="1" name="Гаразд"/>
                 <Item id="2" name="Скасувати"/>
             </ColumnEditor>
-            <FindInFinder title="Знайти у пошуковику">
+            <FindInFinder title="Знайти в результатах пошуку">
                 <Item id="1"    name="Знайти все"/>
                 <Item id="2"    name="Закрити"/>
                 <Item id="1711" name="Що шукати:"/>
@@ -1088,33 +1106,31 @@
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title="Зміна contextMenu" message="Зміна contextMenu.xml дозволяє вам змінювати випадаюче меню Notepad++.
 Для застосування змін необхідно перезапустити Notepad++."/>
-            <NppHelpAbsentWarning title="Файл не існує" message="
-не існує. Завантажте його на сайті Notepad++."/>
             <SaveCurrentModifWarning title="Зберегти поточну модифікацію" message="Ви повинні зберегти поточні зміни.
 Всі збережені зміни неможливо відмінити.
 
-Продовжити?"/>
+Продовжити?"/> <!-- HowToReproduce: when you openned file is modified but unsaved yet, and you are changing file encoding. -->
             <LoseUndoAbilityWarning title="Втрата можливості відміни" message="Ви повинні зберегти поточні зміни.
 Всі збережені зміни неможливо відмінити.
 
-Продовжити?"/>
-            <CannotMoveDoc title="Перемістити в новий зразок Notepad++" message="Документ змінений. Збережіть його і спробуйте знову."/>
+Продовжити?"/> <!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
+            <CannotMoveDoc title="Перемістити в новий зразок Notepad++" message="Документ змінений. Збережіть його і спробуйте знову."/> <!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
             <DocReloadWarning title="Перезавантажити" message="Ви дійсно хочете перезавантажити поточний файл і втратити зміни, зроблені в Notepad++?"/>
             <FileLockedWarning title="Збереження невдале" message="Перевірте, чи цей файл не відкритий в іншій програмі"/>
-            <FileAlreadyOpenedInNpp title="" message="Файл вже відкрито в Notepad++."/>
-            <DeleteFileFailed title="Видалення файлу" message="Не вдалося вилучити файл"/>
+            <FileAlreadyOpenedInNpp title="" message="Файл вже відкрито в Notepad++."/> <!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
+            <DeleteFileFailed title="Видалення файлу" message="Не вдалося вилучити файл"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 
             <NbFileToOpenImportantWarning title="Надто велика кількість файлів для відкриття" message="$INT_REPLACE$ файлів невдовзі будуть відкриті.
-Ви дійсно хочете відкрити їх?"/>
+Ви дійсно хочете відкрити їх?"/> <!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into Notepad++. -->
             <SettingsOnCloudError title="Налаштування в хмарі" message="Схоже, шлях налаштувань в хмарі встановлений на диск лише для читання,
 або в теку, яка потребує відповідних прав на запис.
 Ваші налаштування в хмарі будуть скасовані. Будь ласка, скиньте відповідні значення через діалог Налаштування."/>
-            <FilePathNotFoundWarning title="Відкриття файла" message="Файл, який ви намагаєтесь відкрити, не існує."/>
-            <SessionFileInvalidError title="Не вдалося завантажити сеанс" message="Файл сеансу пошкоджений, або недійсний."/>
+            <FilePathNotFoundWarning title="Відкриття файла" message="Файл, який ви намагаєтесь відкрити, не існує."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+            <SessionFileInvalidError title="Не вдалося завантажити сеанс" message="Файл сеансу пошкоджений, або недійсний."/> <!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
             <DroppingFolderAsProjectModeWarning title="Неприпустима дія" message="Ви можете виключити лише файли або лише теки, але не разом, оскільки ви зараз в режимі &quot;Тека як проєкт&quot;. Щоб запрацювала ця операція, вам необхідно активувати &quot;Відкривати всі файли теки, замість відкриття теки, як робочого простору&quot; в меню &quot;Налаштування - Типова тека&quot;."/>
-            <SortingError title="Помилка впорядкування" message="Не вдається виконати впорядкування за числами, через рядок $INT_REPLACE$."/>
+            <SortingError title="Помилка впорядкування" message="Не вдається виконати впорядкування за числами, через рядок $INT_REPLACE$."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <ColumnModeTip title="Порада для режиму стовпців" message="Використовуйте &quot;ALT+Вибір мишею&quot; або &quot;Alt+Shift+Клавіша стрілки&quot;, щоб перемкнутися в режим стовпців."/>
-            <BufferInvalidWarning title="Не вдалося зберегти" message="Неможливо зберегти: Неправильний буфер."/>
+            <BufferInvalidWarning title="Не вдалося зберегти" message="Неможливо зберегти: Неправильний буфер."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <DoCloseOrNot title="Зберегти неіснуючий файл" message="Файл &quot;$STR_REPLACE$&quot; більше не існує.
 Залишити цей файл в редакторі?"/>
             <DoDeleteOrNot title="Видалити файл" message="Файл &quot;$STR_REPLACE$&quot;
@@ -1131,26 +1147,26 @@
 
 Цей файл був змінений іншою програмою.
 Хочете перезавантажити його і втратити всі зміни, зроблені в Notepad++?"/>
-            <PrehistoricSystemDetected title="Виявлено застарілу систему" message="Схоже, ви все ще використовуєте застарілу систему. Шкода, але ця функція працює лише на сучасній системі."/>
+            <PrehistoricSystemDetected title="Виявлено застарілу систему" message="Схоже, ви все ще використовуєте застарілу систему. Шкода, але ця функція працює лише на сучасній системі."/> <!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
             <XpUpdaterProblem title="Система оновлення Notepad++" message="Система оновлення Notepad++ несумісна з XP, у зв'язку із застарілою системою безпеки XP.
-Хочете перейти на веб-сторінку Notepad++ для завантаження найновішої версії?"/>
+Хочете перейти на веб-сторінку Notepad++ для завантаження найновішої версії?"/> <!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
             <GUpProxyConfNeedAdminMode title="Параметри проксі" message="Перезапустіть Notepad++ в режимі Адміністратора для налаштування проксі."/>
             <DocTooDirtyToMonitor title="Проблема моніторингу" message="Документ змінено. Будь ласка, збережіть зміни перед його моніторингом."/>
             <DocNoExistToMonitor title="Проблема моніторингу" message="Файл повинен існувати для його моніторингу."/>
-            <FileTooBigToOpen title="Проблема розміру файлу" message="Файл завеликий для відкриття в Notepad++"/>
+            <FileTooBigToOpen title="Проблема розміру файлу" message="Файл завеликий для відкриття в Notepad++"/> <!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
             <CreateNewFileOrNot title="Створити новий файл" message="&quot;$STR_REPLACE$&quot; не існує. Створити його?"/>
-            <CreateNewFileError title="Створити новий файл" message="Не вдалося створить файл &quot;$STR_REPLACE$&quot;."/>
+            <CreateNewFileError title="Створити новий файл" message="Не вдалося створить файл &quot;$STR_REPLACE$&quot;."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <OpenFileError title="ПОМИЛКА" message="Не вдалося відкрити файл &quot;$STR_REPLACE$&quot;."/>
-            <FileBackupFailed title="Збій резервного копіювання файлу" message="Попередня версія файлу може бути не збережена в каталозі для резервного копіювання &quot;$STR_REPLACE$&quot;. Ви все ще хочете зберегти поточний файл?"/>
+            <FileBackupFailed title="Збій резервного копіювання файлу" message="Попередня версія файлу може бути не збережена в каталозі для резервного копіювання &quot;$STR_REPLACE$&quot;. Ви все ще хочете зберегти поточний файл?"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <LoadStylersFailed title="Збій завантаження stylers.xml" message="Не вдалося завантажити &quot;$STR_REPLACE$&amp;quot!"/>
             <LoadLangsFailed title="Конфігуратор" message="Збій завантаження langs.xml!
-Хочете відновити langs.xml?"/>
-            <LoadLangsFailedFinal title="Конфігуратор" message="Збій завантаження langs.xml!"/>
+Хочете відновити langs.xml?"/> <!-- HowToReproduce: Close Notepad++. Use another editor to remove all content of "langs.xml" (0 length) then save it. Open Notepad++. -->
+            <LoadLangsFailedFinal title="Конфігуратор" message="Збій завантаження langs.xml!"/> <!-- HowToReproduce: Close Notepad++. Use another editor to make "langs.xml" an invalid xml file then save it. Open Notepad++. -->
             <FolderAsWorspaceSubfolderExists title="Проблема з додаванням теки в якості Робочого простору" message="Підтека, яку ви хочете додати, вже існує.
-Вилучіть її корінь з панелі перш, ніж додавати теку &quot;$STR_REPLACE$&quot;."/>
+Вилучіть її корінь з панелі перш, ніж додавати теку &quot;$STR_REPLACE$&quot;."/> <!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
 
             <ProjectPanelChanged title="$STR_REPLACE$" message="Робоча область була змінена. Хочете зберегти її?"/>
-            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Ваша робоча область не була збережена."/>
+            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Ваша робоча область не була збережена."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <ProjectPanelOpenDoSaveDirtyWsOrNot title="Відкрити робочу область" message="Активна робоча область була змінена. Хочете зберегти цей проєкт?"/>
             <ProjectPanelNewDoSaveDirtyWsOrNot title="Нова робоча область" message="Поточна робоча область була змінена. Хочете зберегти поточний проєкт?"/>
             <ProjectPanelOpenFailed title="Відкрити робочу область" message="Не вдалося відкрити робочу область.
@@ -1169,12 +1185,12 @@
 Хочете запустити Notepad++ в режимі адміністратора?"/>
             <OpenInAdminModeWithoutCloseCurrent title="Не вдалося зберегти" message="Не вдається зберегти файл, він може бути захищеним.
 Хочете запустити Notepad++ в режимі адміністратора?"/>
-            <OpenInAdminModeFailed title="Не вдалося запустити в режимі адміністратора" message="Notepad++ не може бути відкритий в режимі адміністратора."/>
+            <OpenInAdminModeFailed title="Не вдалося запустити в режимі адміністратора" message="Notepad++ не може бути відкритий в режимі адміністратора."/> <!-- HowToReproduce: When you have no Admin privilege and you try to save a modified file in a protected location (for example: any file in sub-folder of "C:\Program Files\". This message will appear after replying "Yes" to "Open in Admin mode" dialog. -->
             <ViewInBrowser title="Перегляд поточного файлу в браузері" message="У вашій системі не вдалося знайти програму."/>
             <ExitToUpdatePlugins title="Ви збираєтеся закрити Notepad++" message="Якщо ви оберете ТАК, ви вийдете з Notepad++ для продовження операцій.
 Notepad++ перезапуститься після завершення всіх операцій.
 Продовжити?"/>
-            <NeedToRestartToLoadPlugins title="Необхідно перезапустити Notepad++" message="Необхідно перезапустити Notepad++ для завантаження встановлених плагінів."/>
+            <NeedToRestartToLoadPlugins title="Необхідно перезапустити Notepad++" message="Необхідно перезапустити Notepad++ для завантаження встановлених плагінів."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Історія буфера"/>
@@ -1270,21 +1286,22 @@ Notepad++ перезапуститься після завершення всі�
         </ProjectManager>
         <MiscStrings>
             <!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
-            <word-chars-list-tip value="Це дозволяє вам включати додатковий символ у поточні символи слова при подвійному натисканні для вибору, або пошуку за допомогою параметру „Лише цілі слова“."/>
+            <word-chars-list-tip value="Це дозволяє вам включати додатковий символ у поточні символи слова при подвійному натисканні для вибору, або пошуку за допомогою параметру „Лише цілі слова“."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
+
             <word-chars-list-warning-begin value="Майте на увазі: "/>
             <word-chars-list-space-warning value="$INT_REPLACE$ пробіл(и)"/>
             <word-chars-list-tab-warning value="$INT_REPLACE$ TAB"/>
-            <word-chars-list-warning-end value="  у вашому списку символів."/>
+            <word-chars-list-warning-end value="  у вашому списку символів."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
             <cloud-invalid-warning value="Неправильний шлях."/>
             <cloud-restart-warning value="Перезапустіть Notepad++ для застосування змін."/>
-            <cloud-select-folder value="Виберіть теку, звідки/куди в Notepad++ читати/записувати свої параметри"/>
+            <cloud-select-folder value="Виберіть теку, звідки/куди в Notepad++ читати/записувати свої параметри"/> <!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
             <shift-change-direction-tip value="Використовуйте Shift+Enter для пошуку у зворотному напрямку"/>
             <two-find-buttons-tip value="2-кнопковий режим пошуку"/>
             <find-in-files-filter-tip value="Знайти в cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 
 Знайти у всіх файлах, за винятком exe, obj &amp;&amp; log:
-*.* !*.exe !*.obj !*.log"/>
+*.* !*.exe !*.obj !*.log"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" secction of Find dialog. -->
             <find-status-top-reached value="Знайти: Знайдено 1-й збіг знизу. Було досягнуто початку документа."/>
             <find-status-end-reached value="Знайти: Знайдено 1-й збіг згори. Було досягнуто кінця документа."/>
             <find-status-replaceinfiles-1-replaced value="Замінити у файлах: Виконано 1 заміну"/>
@@ -1314,8 +1331,8 @@ Notepad++ перезапуститься після завершення всі�
             <find-status-scope-all value="в цілому файлі"/>
             <find-status-scope-backward value="від початку файлу до каретки"/>
             <find-status-scope-forward value="від каретки до кінця файлу"/>
-            <finder-find-in-finder value="Знайти у цих знайдених результатах..."/>
-            <finder-close-this value="Закрити цей пошуковик"/>
+            <finder-find-in-finder value="Знайти в цих результатах пошуку..."/>
+            <finder-close-this value="Закрити ці результати пошуку"/>
             <finder-collapse-all value="Згорнути все"/>
             <finder-uncollapse-all value="Розгорнути все"/>
             <finder-copy value="Копіювати"/>
@@ -1351,7 +1368,7 @@ Notepad++ перезапуститься після завершення всі�
             <replace-in-files-confirm-filetype value="Для типу файлу:"/>
             <replace-in-open-docs-confirm-title value="Ви впевнені?"/>
             <replace-in-open-docs-confirm-message value="Ви дійсно хочете замінити всі збіги в усіх відкритих документах?"/>
-            <find-result-caption value="Знайти результат"/>
+            <find-result-caption value="Результати пошуку"/>
             <find-result-title value="Пошук"/>
             <find-result-title-info value="($INT_REPLACE1$ збігів у $INT_REPLACE2$ файлах для $INT_REPLACE3$ пошуків)"/>
             <find-result-title-info-selections value="($INT_REPLACE1$ влучань в $INT_REPLACE2$ вибраних з $INT_REPLACE3$ шуканих)"/>

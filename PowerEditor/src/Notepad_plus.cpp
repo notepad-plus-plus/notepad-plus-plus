@@ -3054,7 +3054,7 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 				_pEditView->setLineIndent(curLine, indentAmountPrevLine);
 			}
 			// These languages do no support single line control structures without braces.
-			else if (type == L_PERL || type == L_RUST || L_POWERSHELL)
+			else if (type == L_PERL || type == L_RUST || type == L_POWERSHELL)
 			{
 				_pEditView->setLineIndent(curLine, indentAmountPrevLine);
 			}

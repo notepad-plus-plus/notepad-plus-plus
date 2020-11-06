@@ -1463,7 +1463,12 @@ BufferID FileManager::getBufferFromName(const TCHAR* name)
 	for (size_t i = 0; i < _buffers.size(); i++)
 	{
 		if (OrdinalIgnoreCaseCompareStrings(name, _buffers.at(i)->getFullPathName()) == 0)
-			return _buffers.at(i)->getID();
+		{
+			if (_buffers.at(i)->_referees[0]->isVisible())
+			{
+				return _buffers.at(i)->getID();
+			}
+		}
 	}
 	return BUFFER_INVALID;
 }

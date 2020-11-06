@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Dansk" filename="danish.xml" version="7.8.1">
+    <Native-Langue name="Dansk" filename="danish.xml" version="7.9.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -75,6 +75,7 @@
                     <Item id="41002" name="&amp;Åbn"/>
                     <Item id="41019" name="Stifinder"/>
                     <Item id="41020" name="Kommandoprompt"/>
+                    <Item id="41025" name="Mappe som arbejdsområde"/>
                     <Item id="41003" name="&amp;Luk"/>
                     <Item id="41004" name="Lu&amp;k alle"/>
                     <Item id="41005" name="Luk alle, undtagen nuværende dokument"/>
@@ -120,6 +121,7 @@
                     <Item id="42064" name="Sortér linjer som decimaltal med komma (faldende)"/>
                     <Item id="42065" name="Sortér linjer som decimaltal med punktum (stigende)"/>
                     <Item id="42066" name="Sortér linjer som decimaltal med punktum (faldende)"/>
+                    <Item id="42078" name="Sortér linjer tilfældigt"/>
                     <Item id="42016" name="BOGSTAVER MED STORT"/>
                     <Item id="42017" name="bogstaver med småt"/>
                     <Item id="42067" name="Ord Med Stort"/>
@@ -154,7 +156,7 @@
                     <Item id="42037" name="Kolonne-tilstand..."/>
                     <Item id="42034" name="Kolonne-editor..."/>
                     <Item id="42051" name="Tegnpanel"/>
-                    <Item id="42052" name="Udklipsholder historik"/>
+                    <Item id="42052" name="Historik for udklipsholder"/>
                     <Item id="42025" name="&amp;Gem nuværende makrooptagelse"/>
                     <Item id="42026" name="Tekstretning (højre til venstre)"/>
                     <Item id="42027" name="Tekstretning (venstre til højre)"/>
@@ -274,6 +276,12 @@
                     <Item id="45011" name="Konverter til UTF-8-BOM"/>
                     <Item id="45012" name="Konverter til UCS-2 BE BOM"/>
                     <Item id="45013" name="Konverter til UCS-2 LE BOM"/>
+                    <Item id="45060" name="Big5 (traditionel)"/>
+                    <Item id="45061" name="GB2312 (forenklet)"/>
+                    <Item id="45054" name="OEM 861: Islandsk"/>
+                    <Item id="45057" name="OEM 865: Nordisk"/>
+                    <Item id="45053" name="OEM 860: Portugisisk"/>
+                    <Item id="45056" name="OEM 863: Fransk"/>
 
                     <Item id="10001" name="Flyt til anden visning"/>
                     <Item id="10002" name="Klon til anden visning"/>
@@ -288,7 +296,7 @@
                     <Item id="47010" name="Kommandolinjeparametre..."/>
                     <Item id="47001" name="Notepad++ hjem"/>
                     <Item id="47002" name="Notepad++ projektside"/>
-                    <Item id="47003" name="Online dokumentation"/>
+                    <Item id="47003" name="Onlinedokumentation"/>
                     <Item id="47004" name="Notepad++ community (forum)"/>
                     <Item id="47011" name="Livesupport"/>
                     <Item id="47012" name="Fejlfindingsinfo..."/>
@@ -313,8 +321,6 @@
                     <Item id="50000" name="Fuldførelse af funktioner"/>
                     <Item id="50001" name="Fuldførelse af ord"/>
                     <Item id="50002" name="Tip til funktionsparametre"/>
-                    <Item id="50003" name="Skift til forrige dokument"/>
-                    <Item id="50004" name="Skift til næste dokument"/>
                     <Item id="50005" name="Makrooptagelse til/fra"/>
                     <Item id="50006" name="Fuldførelse af sti"/>
                     <Item id="44042" name="Skjul linjer"/>
@@ -350,6 +356,7 @@
                     <Item CMID="20" name="Åbn indeholdende mappe i Kommandoprompt"/>
                     <Item CMID="21" name="Åbn i standardfremviser"/>
                     <Item CMID="22" name="Luk alle som ikke er ændret"/>
+                    <Item CMID="23" name="Åbn indeholdende mappe som arbejdsområde"/>
             </TabBar>
         </Menu>
 
@@ -361,8 +368,8 @@
                 <Item id="1620" name="&amp;Søg efter:"/>
                 <Item id="1603" name="Søg kun på &amp;hele ord"/>
                 <Item id="1604" name="Forskel på store og små &amp;bogstaver"/>
-                <Item id="1605" name="Regulære &amp;udtryk"/>
-                <Item id="1606" name="Forfra &amp;når slutningen er nået"/>
+                <Item id="1605" name="Regu&amp;lære udtryk"/>
+                <Item id="1606" name="Forfra når s&amp;lutningen er nået"/>
                 <Item id="1614" name="Tæl"/>
                 <Item id="1615" name="Mærk alle"/>
                 <Item id="1616" name="&amp;Bogmærk linje"/>
@@ -384,7 +391,7 @@
                 <Item id="1624" name="Søgetilstand"/>
                 <Item id="1625" name="&amp;Normal"/>
                 <Item id="1626" name="&amp;Udvidet (\n, \r, \t, \0, \u, \x...)"/>
-                <Item id="1660" name="&amp;Erstat i filer"/>
+                <Item id="1660" name="Erstat i filer"/>
                 <Item id="1661" name="Følg nuværende dok."/>
                 <Item id="1641" name="&amp;Find alle i nuværende dokument"/>
                 <Item id="1686" name="&amp;Gennemsigtig"/>
@@ -401,7 +408,7 @@
                 <Item id="2906" name="&amp;Op"/>
                 <Item id="2907" name="&amp;Ned"/>
                 <Item id="2908" name="Retning"/>
-                <Item id="2909" name="&amp;Forfra når slutningen er nået"/>
+                <Item id="2909" name="Forfra når &amp;slutningen er nået"/>
                 <Item id="2910" name="Find"/>
             </FindCharsInRange>
 
@@ -505,6 +512,71 @@
                 <ScintillaCommandsTab name="Scintilla-kommandoer"/>
                 <ConflictInfoOk name="Punktet har ingen genvejskonflikter."/>
                 <ConflictInfoEditing name="Ingen konflikter . . ."/>
+                <MainCommandNames>
+                    <Item id="41019" name="Åbn indeholdende mappe i Stifinder"/>
+                    <Item id="41020" name="Åbn indeholdende mappe i Kommandoprompt"/>
+                    <Item id="41021" name="Åbn senest lukkede fil"/>
+                    <Item id="45001" name="Linjeskiftkonvertering til Windows (CR LF)"/>
+                    <Item id="45002" name="Linjeskiftkonvertering til Unix (LF)"/>
+                    <Item id="45003" name="Linjeskiftkonvertering til Macintosh (CR)"/>
+                    <Item id="43022" name="Mærk søgeresultater med 1. udseende"/>
+                    <Item id="43024" name="Mærk søgeresultater med 2. udseende"/>
+                    <Item id="43026" name="Mærk søgeresultater med 3. udseende"/>
+                    <Item id="43028" name="Mærk søgeresultater med 4. udseende"/>
+                    <Item id="43030" name="Mærk søgeresultater med 5. udseende"/>
+                    <Item id="43023" name="Ryd mærker med 1. udseende"/>
+                    <Item id="43025" name="Ryd mærker med 2. udseende"/>
+                    <Item id="43027" name="Ryd mærker med 3. udseende"/>
+                    <Item id="43029" name="Ryd mærker med 4. udseende"/>
+                    <Item id="43031" name="Ryd mærker med 5. udseende"/>
+                    <Item id="43032" name="Ryd mærker med vilkårligt udseende"/>
+                    <Item id="43033" name="Forrige mærke med 1. udseende"/>
+                    <Item id="43034" name="Forrige mærke med 2. udseende"/>
+                    <Item id="43035" name="Forrige mærke med 3. udseende"/>
+                    <Item id="43036" name="Forrige mærke med 4. udseende"/>
+                    <Item id="43037" name="Forrige mærke med 5. udseende"/>
+                    <Item id="43038" name="Forrige mærke som blev oprettet med Mærk"/>
+                    <Item id="43039" name="Næste mærke med 1. udseende"/>
+                    <Item id="43040" name="Næste mærke med 2. udseende"/>
+                    <Item id="43041" name="Næste mærke med 3. udseende"/>
+                    <Item id="43042" name="Næste mærke med 4. udseende"/>
+                    <Item id="43043" name="Næste mærke med 5. udseende"/>
+                    <Item id="43044" name="Næste mærke som blev oprettet med Mærk"/>
+                    <Item id="44100" name="Vis nuværende fil i Firefox"/>
+                    <Item id="44101" name="Vis nuværende fil i Chrome"/>
+                    <Item id="44103" name="Vis nuværende fil i IE"/>
+                    <Item id="44102" name="Vis nuværende fil i Edge"/>
+                    <Item id="50003" name="Skift til forrige dokument"/>
+                    <Item id="50004" name="Skift til næste dokument"/>
+                    <Item id="44051" name="Sammenfold niveau 1"/>
+                    <Item id="44052" name="Sammenfold niveau 2"/>
+                    <Item id="44053" name="Sammenfold niveau 3"/>
+                    <Item id="44054" name="Sammenfold niveau 4"/>
+                    <Item id="44055" name="Sammenfold niveau 5"/>
+                    <Item id="44056" name="Sammenfold niveau 6"/>
+                    <Item id="44057" name="Sammenfold niveau 7"/>
+                    <Item id="44058" name="Sammenfold niveau 8"/>
+                    <Item id="44061" name="Udfold niveau 1"/>
+                    <Item id="44062" name="Udfold niveau 2"/>
+                    <Item id="44063" name="Udfold niveau 3"/>
+                    <Item id="44064" name="Udfold niveau 4"/>
+                    <Item id="44065" name="Udfold niveau 5"/>
+                    <Item id="44066" name="Udfold niveau 6"/>
+                    <Item id="44067" name="Udfold niveau 7"/>
+                    <Item id="44068" name="Udfold niveau 8"/>
+                    <Item id="44081" name="Projektpanel 1 til/fra"/>
+                    <Item id="44082" name="Projektpanel 2 til/fra"/>
+                    <Item id="44083" name="Projektpanel 3 til/fra"/>
+                    <Item id="44085" name="Mappe som arbejdsområde til/fra"/>
+                    <Item id="44080" name="Dokumentoversigt til/fra"/>
+                    <Item id="44084" name="Funktionsliste til/fra"/>
+                    <Item id="50005" name="Makrooptagelse til/fra"/>
+                    <Item id="44104" name="Skift til Projektpanel 1"/>
+                    <Item id="44105" name="Skift til Projektpanel 2"/>
+                    <Item id="44106" name="Skift til Projektpanel 3"/>
+                    <Item id="44107" name="Skift til Mappe som arbejdsområde"/>
+                    <Item id="44108" name="Skift til Funktionsliste"/>
+                </MainCommandNames>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="Genvej">
                 <Item id="1" name="OK"/>
@@ -739,18 +811,18 @@
                     <Item id="6206" name="Vis linjenummer"/>
                     <Item id="6207" name="Vis bogmærke"/>
                     <Item id="6208" name="Vis lodret kant"/>
-                    <Item id="6209" name="Antal kolonner:"/>
                     <Item id="6234" name="Deaktivér avanceret rullefunktionalitet
 (ved problemer med touchpad)"/>
-
                     <Item id="6211" name="Indstillinger for lodret kant"/>
-                    <Item id="6212" name="Linjetilstand"/>
                     <Item id="6213" name="Baggrundstilstand"/>
+                    <Item id="6237" name="Tilføj din kolonnemarkør ved at indikere dens position med et decimaltal.
+Du kan definere adskillige kolonnemarkører ved at bruge blanktegn til at adskille de forskellige tal."/>
                     <Item id="6214" name="Fremhæv aktiv linje"/>
                     <Item id="6215" name="Udjævn kanter på skrifttyper"/>
                     <Item id="6231" name="Kantbredde"/>
                     <Item id="6235" name="Ingen kant"/>
                     <Item id="6236" name="Aktivér rulning udover sidste linje"/>
+                    <Item id="6239" name="Behold markeringen når der højreklikkes uden for markeringen"/>
                 </Scintillas>
 
                 <NewDoc title="Nyt dokument">
@@ -773,11 +845,12 @@
                     <Item id="6413" name="Standardmappe (åbn/gem)"/>
                     <Item id="6414" name="Følg nuværende dokument"/>
                     <Item id="6415" name="Husk sidste anvendte mappe"/>
-                    <Item id="6430" name="Brug gem-dialog med nyt udseende (uden filtype funktionalitet og stikapacitet i Unix-stil)"/>
+                    <Item id="6430" name="Brug gem-dialog med nyt udseende (uden stikapacitet i Unix-stil)"/>
                     <Item id="6431" name="Åbn alle mappens filer ved slip af mappe, fremfor at starte mappe som arbejdsområde"/>
                 </DefaultDir>
 
                 <FileAssoc title="Filtilknytning">
+                    <Item id="4008" name="Afslut venligst Notepad++ og start Notepad++ igen i administrator-tilstand for at bruge funktionaliteten."/>
                     <Item id="4009" name="Understøttede filtyper:"/>
                     <Item id="4010" name="Tilknyttede filtyper:"/>
                 </FileAssoc>
@@ -836,8 +909,15 @@
                     <Item id="6728" name="Sidehoved og sidefod"/>
                 </Print>
 
-                <RecentFilesHistory title="Seneste filer historik">
-                    <Item id="6304" name="Seneste filer historik"/>
+                <Searching title="Søgning">
+                    <Item id="6901" name="Udfyld ikke søgefeltet i dialogen Søg med de markerede ord"/>
+                    <Item id="6902" name="Brug skrifttype med fast bredde i dialogen Søg (Notepad++ skal genstartes)"/>
+                    <Item id="6903" name="Dialogen Søg forbliver åben efter søgning som gav output i vinduet med resultater"/>
+                    <Item id="6904" name="Bekræft Erstat alle i alle åbne dokumenter"/>
+                </Searching>
+
+                <RecentFilesHistory title="Historik for seneste filer">
+                    <Item id="6304" name="Historik for seneste filer"/>
                     <Item id="6306" name="Maks. antal filer:"/>
                     <Item id="6305" name="Tjek ikke under opstart"/>
                     <Item id="6429" name="Vis"/>
@@ -937,7 +1017,8 @@
                     <Item id="6324" name="Dokumentskifter (Ctrl+Tabulator)"/>
                     <Item id="6331" name="Vis kun filnavn i titellinjen"/>
                     <Item id="6334" name="Automatisk registrering af tegnkodning"/>
-                    <Item id="6314" name="Brug skrifttype med fast bredde i Søg-dialog (Notepad++ skal genstartes)"/>
+                    <Item id="6349" name="Brug DirectWrite (kan forbedre gengivelsen af specialtegn, Notepad++ skal genstartes)"/>
+                    <Item id="6350" name="Aktivér fullbox-tilstand"/>
                     <Item id="6337" name="Filtype for arbejdsområde:"/>
                     <Item id="6114" name="Aktivér"/>
                     <Item id="6117" name="Aktivér MRU-adfærd"/>
@@ -962,17 +1043,17 @@
                 <Item id="7004" name="Sortér &amp;faneblade"/>
             </Window>
             <ColumnEditor title="Kolonne-editor">
-                <Item id="2023" name="Tekst der skal indsættes"/>
-                <Item id="2033" name="Tal der skal indsættes"/>
-                <Item id="2030" name="Starttal:"/>
-                <Item id="2031" name="Forøg med:"/>
-                <Item id="2035" name="Foranstillede nuller"/>
-                <Item id="2036" name="Gentag:"/>
+                <Item id="2023" name="&amp;Tekst der skal indsættes"/>
+                <Item id="2033" name="T&amp;al der skal indsættes"/>
+                <Item id="2030" name="&amp;Starttal:"/>
+                <Item id="2031" name="Forøg &amp;med:"/>
+                <Item id="2035" name="&amp;Foranstillede nuller"/>
+                <Item id="2036" name="&amp;Gentag:"/>
                 <Item id="2032" name="Format"/>
-                <Item id="2024" name="Heltal"/>
-                <Item id="2025" name="Oktal"/>
-                <Item id="2026" name="Heksadecimal"/>
-                <Item id="2027" name="Binær"/>
+                <Item id="2024" name="&amp;Heltal"/>
+                <Item id="2025" name="&amp;Oktal"/>
+                <Item id="2026" name="H&amp;eksadecimal"/>
+                <Item id="2027" name="&amp;Binær"/>
                 <Item id="1" name="OK"/>
                 <Item id="2" name="Annuller"/>
             </ColumnEditor>
@@ -985,11 +1066,11 @@
                 <Item id="1715" name="Forskel på store og små &amp;bogstaver"/>
                 <Item id="1716" name="Søgetilstand"/>
                 <Item id="1717" name="&amp;Normal"/>
-                <Item id="1719" name="Regulære &amp;udtryk"/>
+                <Item id="1719" name="Regu&amp;lære udtryk"/>
                 <Item id="1718" name="&amp;Udvidet (\n, \r, \t, \0, \x...)"/>
                 <Item id="1720" name="&amp;. finder linjeskift"/>
             </FindInFinder>
-            <DoSaveOrNot title="Gem"> 
+            <DoSaveOrNot title="Gem">
                 <Item id="1761" name="Gem filen &quot;$STR_REPLACE$&quot;?"/>
                 <Item id="6" name="&amp;Ja"/>
                 <Item id="7" name="&amp;Nej"/>
@@ -1048,6 +1129,7 @@ Vil du genindlæse den og miste ændringerne som er foretaget i Notepad++?"/>
             <PrehistoricSystemDetected title="Forhistorisk system registreret" message="Det ser ud til at du stadig bruger et forhistorisk system. Funktionaliteten virker beklageligvis kun på et moderne system."/>
             <XpUpdaterProblem title="Opdatering af Notepad++" message="Opdatering af Notepad++ er ikke kompatibel med XP pga. det forældede sikkerhedslag under XP.
 Vil du gå til Notepad++-siden for at downloade den seneste version?"/>
+            <GUpProxyConfNeedAdminMode title="Proxyinstillinger" message="Genstart venligst Notepad++ i administrator-tilstand for at konfigurere proxy."/>
             <DocTooDirtyToMonitor title="Problem med overvågning" message="Dokumentet er beskidt. Gem venligst ændringen inden det overvåges."/>
             <DocNoExistToMonitor title="Problem med overvågning" message="Filen skal findes for at kunne overvåges."/>
             <FileTooBigToOpen title="Problem med filstørrelse" message="Filen er for stor til at blive åbnet af Notepad++"/>
@@ -1093,7 +1175,7 @@ Fortsæt?"/>
             <NeedToRestartToLoadPlugins title="Notepad++ skal genstartes" message="Du skal genstarte Notepad++ for at indlæse de plugins du har installeret."/>
         </MessageBox>
         <ClipboardHistory>
-            <PanelTitle name="Udklipsholder historik"/>
+            <PanelTitle name="Historik for udklipsholder"/>
         </ClipboardHistory>
         <DocSwitcher>
             <PanelTitle name="Dokumentskifter"/>
@@ -1104,6 +1186,7 @@ Fortsæt?"/>
             <ColumnName name="Navn"/>
             <ColumnPath name="Sti"/>
             <ColumnType name="Type"/>
+            <ColumnSize name="Størrelse"/>
         </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name="Indsætningspanel for ASCII-koder"/>
@@ -1220,11 +1303,15 @@ Find i alle filer undtagen exe, obj og log:
             <find-status-replaceall-readonly value="Erstat alle: Kan ikke erstatte tekst. Det nuværende dokument er skrivebeskyttet"/>
             <find-status-replace-end-reached value="Erstat: Erstattet den første forekomst fra toppen. Slutningen af dokumentet er nået"/>
             <find-status-replace-top-reached value="Erstat: Erstattet den første forekomst fra bunden. Begyndelsen af dokumentet er nået"/>
-            <find-status-replaced-next-found value="Erstat: 1 forekomst blev erstattet. Den næste forekomst blev fundet"/>
-            <find-status-replaced-next-not-found value="Erstat: 1 forekomst blev erstattet. Den næste forekomst blev ikke fundet"/>
+            <find-status-replaced-next-found value="Erstat: 1 forekomst blev erstattet. Den næste forekomst blev fundet."/> 
+            <find-status-replaced-next-not-found value="Erstat: 1 forekomst blev erstattet. Der blev ikke fundet flere forekomster."/>
             <find-status-replace-not-found value="Erstat: ingen forekomster blev fundet"/>
             <find-status-replace-readonly value="Erstat: Kan ikke erstatte tekst. Det nuværende dokument er skrivebeskyttet"/>
             <find-status-cannot-find value="Søg: Kan ikke finde teksten &quot;$STR_REPLACE$&quot;"/>
+            <find-status-scope-selection value="i markeret tekst"/>
+            <find-status-scope-all value="i hele filen"/>
+            <find-status-scope-backward value="fra filens begyndelse til markør"/>
+            <find-status-scope-forward value="fra markør til filens slutning"/>
             <finder-find-in-finder value="Find i denne fundne resultater..."/>
             <finder-close-this value="Luk denne finder"/>
             <finder-collapse-all value="Sammenfold alle"/>
@@ -1233,6 +1320,7 @@ Find i alle filer undtagen exe, obj og log:
             <finder-select-all value="Marker alle"/>
             <finder-clear-all value="Ryd alle"/>
             <finder-open-all value="Åbn alle"/>
+            <finder-wrap-long-lines value="Ordombryd lange linjer"/>
             <common-ok value="OK"/>
             <common-cancel value="Annuller"/>
             <common-name value="Navn: "/>
@@ -1256,6 +1344,19 @@ Find i alle filer undtagen exe, obj og log:
             <summary-nbsel1 value=" markeret tegn ("/>
             <summary-nbsel2 value=" bytes) i "/>
             <summary-nbrange value=" områder"/>
+            <replace-in-files-confirm-title value="Er du sikker?"/>
+            <replace-in-files-confirm-directory value="Er du sikker på, at du vil erstatte alle forekomster i:"/>
+            <replace-in-files-confirm-filetype value="For filtype :"/>
+            <replace-in-open-docs-confirm-title value="Er du sikker?"/>
+            <replace-in-open-docs-confirm-message value="Er du sikker på, at du vil erstatte alle forekomster i alle åbne dokumenter?"/>
+            <find-result-caption value="Resultat for søgning"/>
+            <find-result-title value="Søgning"/>
+            <find-result-title-info value="($INT_REPLACE1$ træf i $INT_REPLACE2$ filer af $INT_REPLACE3$ søgte)"/>
+            <find-result-title-info-selections value="($INT_REPLACE1$ træf i $INT_REPLACE2$ markeringer af $INT_REPLACE3$ søgte)"/>
+            <find-result-title-info-extra value=" - Linjefilter-tilstand: vis kun de filtrerede resultater"/>
+            <find-result-hits value="($INT_REPLACE$ træf)"/>
+            <find-regex-zero-length-match value="match uden længde" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>
+

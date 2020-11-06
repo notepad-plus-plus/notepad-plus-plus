@@ -139,6 +139,19 @@ struct AssociationInfo final
 	};
 };
 
+const int nbMaxUserDefined = 25;
+
+struct ParserInfo
+{
+	generic_string _id; // xml parser rule file name - if empty, then we use default name. Mandatory if _userDefinedLangName is not empty
+	FunctionParser* _parser = nullptr;
+	generic_string _userDefinedLangName;
+
+	ParserInfo() {};
+	ParserInfo(const generic_string& id): _id(id) {};
+	ParserInfo(const generic_string& id, const generic_string& userDefinedLangName): _id(id), _userDefinedLangName(userDefinedLangName) {};
+	~ParserInfo() { if (_parser) delete _parser; }
+};
 
 class FunctionParsersManager final
 {
@@ -147,16 +160,16 @@ public:
 
 	bool init(const generic_string& xmlPath, ScintillaEditView ** ppEditView);
 	bool parse(std::vector<foundInfo> & foundInfos, const AssociationInfo & assoInfo);
-	void writeFunctionListXml(const TCHAR *destFoder) const;
 	
 
 private:
 	ScintillaEditView **_ppEditView = nullptr;
-	std::vector<FunctionParser *> _parsers;
-	std::vector<AssociationInfo> _associationMap;
-	TiXmlDocument *_pXmlFuncListDoc = nullptr;
+	generic_string _xmlDirPath;
+	ParserInfo* _parsers[L_EXTERNAL + nbMaxUserDefined] = {nullptr};
+	int _currentUDIndex = L_EXTERNAL;
 
-	bool getFuncListFromXmlTree();
+	bool getOverrideMapFromXmlTree();
+	bool loadFuncListFromXmlTree(LangType lType, const generic_string& overrideId, int udlIndex = -1);
 	bool getZonePaserParameters(TiXmlNode *classRangeParser, generic_string &mainExprStr, generic_string &openSymboleStr, generic_string &closeSymboleStr, std::vector<generic_string> &classNameExprArray, generic_string &functionExprStr, std::vector<generic_string> &functionNameExprArray);
 	bool getUnitPaserParameters(TiXmlNode *functionParser, generic_string &mainExprStr, std::vector<generic_string> &functionNameExprArray, std::vector<generic_string> &classNameExprArray);
 	FunctionParser * getParser(const AssociationInfo & assoInfo);

@@ -31,6 +31,7 @@
 
 #include <algorithm>
 #include <utility>
+#include <random>
 
 // Base interface for line sorting.
 class ISorter
@@ -49,13 +50,21 @@ protected:
 	{
 		if (isSortingSpecificColumns())
 		{
-			// prevent an std::out_of_range exception
 			if (input.length() < _fromColumn)
 			{
+				// prevent an std::out_of_range exception
 				return TEXT("");
 			}
-
-			return input.substr(_fromColumn, 1 + _toColumn - _fromColumn);
+			else if (_fromColumn == _toColumn)
+			{
+				// get characters from the indicated column to the end of the line
+				return input.substr(_fromColumn);
+			}
+			else
+			{
+				// get characters between the indicated columns, inclusive
+				return input.substr(_fromColumn, _toColumn - _fromColumn);
+			}
 		}
 		else
 		{
@@ -65,7 +74,7 @@ protected:
 
 	bool isSortingSpecificColumns()
 	{
-		return _fromColumn != 0 && _toColumn != 0;
+		return _toColumn != 0;
 	}
 
 public:
@@ -85,7 +94,7 @@ public:
 	
 	std::vector<generic_string> sort(std::vector<generic_string> lines) override
 	{
-		// Note that both branches here are equivalent in the sense that they give always give the same answer.
+		// Note that both branches here are equivalent in the sense that they always give the same answer.
 		// However, if we are *not* sorting specific columns, then we get a 40% speed improvement by not calling
 		// getSortKey() so many times.
 		if (isSortingSpecificColumns())
@@ -121,6 +130,49 @@ public:
 	}
 };
 
+// Implementation of lexicographic sorting of lines, ignoring character casing
+class LexicographicCaseInsensitiveSorter : public ISorter
+{
+public:
+	LexicographicCaseInsensitiveSorter(bool isDescending, size_t fromColumn, size_t toColumn) : ISorter(isDescending, fromColumn, toColumn) { };
+
+	std::vector<generic_string> sort(std::vector<generic_string> lines) override
+	{
+		// Note that both branches here are equivalent in the sense that they always give the same answer.
+		// However, if we are *not* sorting specific columns, then we get a 40% speed improvement by not calling
+		// getSortKey() so many times.
+		if (isSortingSpecificColumns())
+		{
+			std::sort(lines.begin(), lines.end(), [this](generic_string a, generic_string b)
+				{
+					if (isDescending())
+					{
+						return OrdinalIgnoreCaseCompareStrings(getSortKey(a).c_str(), getSortKey(b).c_str()) > 0;
+					}
+					else
+					{
+						return OrdinalIgnoreCaseCompareStrings(getSortKey(a).c_str(), getSortKey(b).c_str()) < 0;
+					}
+				});
+		}
+		else
+		{
+			std::sort(lines.begin(), lines.end(), [this](generic_string a, generic_string b)
+				{
+					if (isDescending())
+					{
+						return OrdinalIgnoreCaseCompareStrings(a.c_str(), b.c_str()) > 0;
+					}
+					else
+					{
+						return OrdinalIgnoreCaseCompareStrings(a.c_str(), b.c_str()) < 0;
+					}
+				});
+		}
+		return lines;
+	}
+};
+
 // Treat consecutive numerals as one number
 // Otherwise it is a lexicographic sort
 class NaturalSorter : public ISorter
@@ -130,7 +182,7 @@ public:
 
 	std::vector<generic_string> sort(std::vector<generic_string> lines) override
 	{
-		// Note that both branches here are equivalent in the sense that they give always give the same answer.
+		// Note that both branches here are equivalent in the sense that they always give the same answer.
 		// However, if we are *not* sorting specific columns, then we get a 40% speed improvement by not calling
 		// getSortKey() so many times.
 		if (isSortingSpecificColumns())
@@ -382,6 +434,21 @@ protected:
 	double convertStringToNumber(const generic_string& input) override
 	{
 		return stodLocale(input, _usLocale);
+	}
+};
+
+class RandomSorter : public ISorter
+{
+public:
+	unsigned seed;
+	RandomSorter(bool isDescending, size_t fromColumn, size_t toColumn) : ISorter(isDescending, fromColumn, toColumn)
+	{
+		seed = static_cast<unsigned>(time(NULL));
+	}
+	std::vector<generic_string> sort(std::vector<generic_string> lines) override
+	{
+		std::shuffle(lines.begin(), lines.end(), std::default_random_engine(seed));
+		return lines;
 	}
 };
 

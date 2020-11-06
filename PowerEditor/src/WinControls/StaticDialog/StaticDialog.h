@@ -71,6 +71,11 @@ public :
 		return (BST_CHECKED == ::SendMessage(::GetDlgItem(_hSelf, checkControlID), BM_GETCHECK, 0, 0));
 	}
 
+	void setChecked(int checkControlID, bool checkOrNot = true) const
+	{
+		::SendDlgItemMessage(_hSelf, checkControlID, BM_SETCHECK, checkOrNot ? BST_CHECKED : BST_UNCHECKED, 0);
+	}
+
     virtual void destroy() override;
 
 protected:

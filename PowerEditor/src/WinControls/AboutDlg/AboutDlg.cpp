@@ -63,6 +63,8 @@ INT_PTR CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
             //_emailLink.init(_hInst, _hSelf);
 			//_emailLink.create(::GetDlgItem(_hSelf, IDC_AUTHOR_NAME), TEXT("mailto:don.h@free.fr"));
 			//_emailLink.create(::GetDlgItem(_hSelf, IDC_AUTHOR_NAME), TEXT("https://notepad-plus-plus.org/news/v781-free-uyghur-edition/"));
+			//_emailLink.create(::GetDlgItem(_hSelf, IDC_AUTHOR_NAME), TEXT("https://notepad-plus-plus.org/news/v789-stand-with-hong-kong/"));
+			_emailLink.create(::GetDlgItem(_hSelf, IDC_AUTHOR_NAME), TEXT("https://notepad-plus-plus.org/news/v791-pour-samuel-paty/"));
 
             _pageLink.init(_hInst, _hSelf);
             _pageLink.create(::GetDlgItem(_hSelf, IDC_HOME_ADDR), TEXT("https://notepad-plus-plus.org/"));
@@ -231,6 +233,14 @@ INT_PTR CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /
 				_debugInfoStr += szCurrentBuildNumber;
 				_debugInfoStr += TEXT(".");
 				_debugInfoStr += szUBR;
+				_debugInfoStr += TEXT("\r\n");
+			}
+
+			{
+				TCHAR szACP[32];
+				generic_sprintf(szACP, TEXT("%u"), ::GetACP());
+				_debugInfoStr += TEXT("Current ANSI codepage : ");
+ 				_debugInfoStr += szACP;
 				_debugInfoStr += TEXT("\r\n");
 			}
 

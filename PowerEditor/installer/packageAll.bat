@@ -76,7 +76,7 @@ copy /Y ..\bin\readme.txt .\minimalist\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\change.log .\minimalist\
 If ErrorLevel 1 goto End
-copy /Y "..\bin\userDefineLangs\userDefinedLang-markdown.default.modern.xml" .\minimalist\userDefineLangs\
+copy /Y "..\bin\userDefineLangs\markdown._preinstalled.udl.xml" .\minimalist\userDefineLangs\
 If ErrorLevel 1 goto End
 copy /Y ..\src\langs.model.xml .\minimalist\
 If ErrorLevel 1 goto End
@@ -103,7 +103,7 @@ copy /Y ..\bin\readme.txt .\minimalist64\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\change.log .\minimalist64\
 If ErrorLevel 1 goto End
-copy /Y "..\bin\userDefineLangs\userDefinedLang-markdown.default.modern.xml" .\minimalist64\userDefineLangs\
+copy /Y "..\bin\userDefineLangs\markdown._preinstalled.udl.xml" .\minimalist64\userDefineLangs\
 If ErrorLevel 1 goto End
 copy /Y ..\src\langs.model.xml .\minimalist64\
 If ErrorLevel 1 goto End
@@ -129,6 +129,7 @@ mkdir .\zipped.package.release\updater
 mkdir .\zipped.package.release\localization
 mkdir .\zipped.package.release\themes
 mkdir .\zipped.package.release\autoCompletion
+mkdir .\zipped.package.release\functionList
 mkdir .\zipped.package.release\userDefineLangs
 mkdir .\zipped.package.release\plugins
 mkdir .\zipped.package.release\plugins\NppExport
@@ -146,6 +147,7 @@ mkdir .\zipped.package.release64\updater
 mkdir .\zipped.package.release64\localization
 mkdir .\zipped.package.release64\themes
 mkdir .\zipped.package.release64\autoCompletion
+mkdir .\zipped.package.release64\functionList
 mkdir .\zipped.package.release64\userDefineLangs
 mkdir .\zipped.package.release64\plugins
 mkdir .\zipped.package.release64\plugins\NppExport
@@ -169,8 +171,6 @@ copy /Y ..\src\contextMenu.xml .\zipped.package.release\
 If ErrorLevel 1 goto End
 copy /Y ..\src\shortcuts.xml .\zipped.package.release\
 If ErrorLevel 1 goto End
-copy /Y ..\src\functionList.xml .\zipped.package.release\
-If ErrorLevel 1 goto End
 copy /Y ..\bin\doLocalConf.xml .\zipped.package.release\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\"notepad++.exe" .\zipped.package.release\
@@ -193,8 +193,6 @@ If ErrorLevel 1 goto End
 copy /Y ..\src\contextMenu.xml .\zipped.package.release64\
 If ErrorLevel 1 goto End
 copy /Y ..\src\shortcuts.xml .\zipped.package.release64\
-If ErrorLevel 1 goto End
-copy /Y ..\src\functionList.xml .\zipped.package.release64\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\doLocalConf.xml .\zipped.package.release64\
 If ErrorLevel 1 goto End
@@ -232,10 +230,16 @@ If ErrorLevel 1 goto End
 copy /Y ".\APIs\*.xml" .\zipped.package.release64\autoCompletion\
 If ErrorLevel 1 goto End
 
-rem Markdown as UserDefineLanguge: Markdown syntax highlighter into Notepad++ 32-bit/64-bit package folders
-copy /Y "..\bin\userDefineLangs\userDefinedLang-markdown.default.modern.xml" .\zipped.package.release\userDefineLangs\
+rem FunctionList files: Copy all files into Notepad++ 32-bit/64-bit package folders
+copy /Y ".\functionList\*.xml" .\zipped.package.release\functionList\
 If ErrorLevel 1 goto End
-copy /Y "..\bin\userDefineLangs\userDefinedLang-markdown.default.modern.xml" .\zipped.package.release64\userDefineLangs\
+copy /Y ".\functionList\*.xml" .\zipped.package.release64\functionList\
+If ErrorLevel 1 goto End
+
+rem Markdown as UserDefineLanguge: Markdown syntax highlighter into Notepad++ 32-bit/64-bit package folders
+copy /Y "..\bin\userDefineLangs\markdown._preinstalled.udl.xml" .\zipped.package.release\userDefineLangs\
+If ErrorLevel 1 goto End
+copy /Y "..\bin\userDefineLangs\markdown._preinstalled.udl.xml" .\zipped.package.release64\userDefineLangs\
 If ErrorLevel 1 goto End
 
 rem theme: Copy all files into Notepad++ 32-bit/64-bit package folders
@@ -279,15 +283,15 @@ If ErrorLevel 1 goto End
 
 
 
-"C:\Program Files\7-Zip\7z.exe" a -r .\build\npp.bin.minimalist.7z .\minimalist\*
+"C:\Program Files\7-Zip\7z.exe" a -r .\build\npp.portable.minimalist.7z .\minimalist\*
 If ErrorLevel 1 goto End
-"C:\Program Files\7-Zip\7z.exe" a -r .\build\npp.bin.minimalist64.7z .\minimalist64\*
+"C:\Program Files\7-Zip\7z.exe" a -r .\build\npp.portable.minimalist.x64.7z .\minimalist64\*
 If ErrorLevel 1 goto End
 
 
-"C:\Program Files\7-Zip\7z.exe" a -tzip -r .\build\npp.bin.zip .\zipped.package.release\*
+"C:\Program Files\7-Zip\7z.exe" a -tzip -r .\build\npp.portable.zip .\zipped.package.release\*
 If ErrorLevel 1 goto End
-"C:\Program Files\7-Zip\7z.exe" a -r .\build\npp.bin.7z .\zipped.package.release\*
+"C:\Program Files\7-Zip\7z.exe" a -r .\build\npp.portable.7z .\zipped.package.release\*
 If ErrorLevel 1 goto End
 rem IF EXIST "%PROGRAMFILES(X86)%" ("%PROGRAMFILES(x86)%\NSIS\Unicode\makensis.exe" nppSetup.nsi) ELSE ("%PROGRAMFILES%\NSIS\Unicode\makensis.exe" nppSetup.nsi)
 IF EXIST "%PROGRAMFILES(X86)%" ("%PROGRAMFILES(x86)%\NSIS\makensis.exe" nppSetup.nsi) ELSE ("%PROGRAMFILES%\NSIS\makensis.exe" nppSetup.nsi)
@@ -297,10 +301,10 @@ rem Remove old build
 rmdir /S /Q .\zipped.package.release
 
 rem 
-"C:\Program Files\7-Zip\7z.exe" a -tzip -r .\build\npp.bin64.zip .\zipped.package.release64\*
+"C:\Program Files\7-Zip\7z.exe" a -tzip -r .\build\npp.portable.x64.zip .\zipped.package.release64\*
 If ErrorLevel 1 goto End
 
-"C:\Program Files\7-Zip\7z.exe" a -r .\build\npp.bin64.7z .\zipped.package.release64\*
+"C:\Program Files\7-Zip\7z.exe" a -r .\build\npp.portable.x64.7z .\zipped.package.release64\*
 If ErrorLevel 1 goto End
 
 
@@ -316,14 +320,14 @@ for %%a in (npp.*.Installer.exe) do (
   set nppInstallerVar64=!nppInstallerVar:Installer.exe=Installer.x64.exe!
 
   rem nppInstallerVar should be the version for example: 6.9
-  rem we put npp.6.9. + (bin.zip instead of Installer.exe) into var zipvar
-  set zipvar=!nppInstallerVar:Installer.exe=bin.zip!
+  rem we put npp.6.9. + (portable.zip instead of Installer.exe) into var zipvar
+  set zipvar=!nppInstallerVar:Installer.exe=portable.zip!
 
-  set zipvar64=!nppInstallerVar:Installer.exe=bin.x64.zip!
-  set 7zvar=!nppInstallerVar:Installer.exe=bin.7z!
-  set 7zvar64=!nppInstallerVar:Installer.exe=bin.x64.7z!
-  set 7zvarMin=!nppInstallerVar:Installer.exe=bin.minimalist.7z!
-  set 7zvarMin64=!nppInstallerVar:Installer.exe=bin.minimalist.x64.7z!
+  set zipvar64=!nppInstallerVar:Installer.exe=portable.x64.zip!
+  set 7zvar=!nppInstallerVar:Installer.exe=portable.7z!
+  set 7zvar64=!nppInstallerVar:Installer.exe=portable.x64.7z!
+  set 7zvarMin=!nppInstallerVar:Installer.exe=portable.minimalist.7z!
+  set 7zvarMin64=!nppInstallerVar:Installer.exe=portable.minimalist.x64.7z!
 )
 
 rem echo zipvar=!zipvar!
@@ -332,12 +336,12 @@ rem echo 7zvar=!7zvar!
 rem echo 7zvar64=!7zvar64!
 rem echo 7zvarMin=!7zvarMin!
 rem echo 7zvarMin64=!7zvarMin64!
-ren npp.bin.zip !zipvar!
-ren npp.bin64.zip !zipvar64!
-ren npp.bin.7z !7zvar!
-ren npp.bin64.7z !7zvar64!
-ren npp.bin.minimalist.7z !7zvarMin!
-ren npp.bin.minimalist64.7z !7zvarMin64!
+ren npp.portable.zip !zipvar!
+ren npp.portable.x64.zip !zipvar64!
+ren npp.portable.7z !7zvar!
+ren npp.portable.x64.7z !7zvar64!
+ren npp.portable.minimalist.7z !7zvarMin!
+ren npp.portable.minimalist.x64.7z !7zvarMin64!
 
 if %SIGN% == 0 goto NoSignInstaller
 signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++ Installer" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ !nppInstallerVar!

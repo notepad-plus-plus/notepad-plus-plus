@@ -61,9 +61,6 @@
 #define MENU 0x01
 #define TOOLBAR 0x02
 
-#define URL_REG_EXPR "[A-Za-z]+://[A-Za-z0-9_\\-\\+~.:?&@=/%#,;\\{\\}\\(\\)\\[\\]\\|\\*\\!\\\\]+"
-#define URL_INDIC 8
-
 enum FileTransferMode {
 	TransferClone		= 0x01,
 	TransferMove		= 0x02
@@ -262,6 +259,9 @@ public:
 		return _pluginsAdminDlg.getPluginListVerStr();
 	};
 
+	void minimizeDialogs();
+	void restoreMinimizeDialogs();
+
 private:
 	Notepad_plus_Window *_pPublicInterface = nullptr;
     Window *_pMainWindow = nullptr;
@@ -294,6 +294,7 @@ private:
 
 	ToolBar	_toolBar;
 	IconList _docTabIconList;
+	IconList _docTabIconListAlt;
 
     StatusBar _statusBar;
 	bool _toReduceTabBar = false;
@@ -388,7 +389,6 @@ private:
                                               // and "Enable session snapshot and periodic backup" is not enabled
                                               // then WM_ENDSESSION is send with wParam == FALSE
                                               // in this case this boolean is set true, so Notepad++ will quit and its current session will be saved 
-
 	ScintillaCtrls _scintillaCtrls4Plugins;
 
 	std::vector<std::pair<int, int> > _hideLinesMarks;
@@ -405,6 +405,8 @@ private:
 
 	DocumentMap* _pDocMap = nullptr;
 	FunctionListPanel* _pFuncList = nullptr;
+
+	std::vector<HWND> _sysTrayHiddenHwnd;
 
 	BOOL notify(SCNotification *notification);
 	void command(int id);
@@ -467,6 +469,7 @@ private:
 	void checkUndoState();
 	void checkMacroState();
 	void checkSyncState();
+	void setupColorSampleBitmapsOnMainMenuItems();
 	void dropFiles(HDROP hdrop);
 	void checkModifiedDocument(bool bCheckOnlyCurrentBuffer);
 
@@ -568,9 +571,10 @@ private:
 	void showPathCompletion();
 
 	//void changeStyleCtrlsLang(HWND hDlg, int *idArray, const char **translatedText);
+	void setCodePageForInvisibleView(Buffer const* pBuffer);
 	bool replaceInOpenedFiles();
 	bool findInOpenedFiles();
-	bool findInCurrentFile();
+	bool findInCurrentFile(bool isEntireDoc);
 
 	void getMatchedFileNames(const TCHAR *dir, const std::vector<generic_string> & patterns, std::vector<generic_string> & fileNames, bool isRecursive, bool isInHiddenDir);
 	void doSynScorll(HWND hW);
@@ -581,8 +585,8 @@ private:
 	int getLangFromMenuName(const TCHAR * langName);
 	generic_string getLangFromMenu(const Buffer * buf);
 
-    generic_string exts2Filters(const generic_string& exts) const;
-	int setFileOpenSaveDlgFilters(FileDialog & fDlg, int langType = -1);
+    generic_string exts2Filters(const generic_string& exts, int maxExtsLen = -1) const; // maxExtsLen default value -1 makes no limit of whole exts length
+	int setFileOpenSaveDlgFilters(FileDialog & fDlg, bool showAllExt, int langType = -1); // showAllExt should be true if it's used for open file dialog - all set exts should be used for filtering files
 	Style * getStyleFromName(const TCHAR *styleName);
 	bool dumpFiles(const TCHAR * outdir, const TCHAR * fileprefix = TEXT(""));	//helper func
 	void drawTabbarColoursFromStylerArray();
@@ -605,10 +609,11 @@ private:
 	void launchAnsiCharPanel();
 	void launchClipboardHistoryPanel();
 	void launchFileSwitcherPanel();
+	void checkProjectMenuItem();
 	void launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int panelID);
 	void launchDocMap();
 	void launchFunctionList();
-	void launchFileBrowser(const std::vector<generic_string> & folders, bool fromScratch = false);
+	void launchFileBrowser(const std::vector<generic_string> & folders, const generic_string& selectedItemPath, bool fromScratch = false);
 	void showAllQuotes() const;
 	static DWORD WINAPI threadTextPlayer(void *text2display);
 	static DWORD WINAPI threadTextTroller(void *params);
@@ -636,6 +641,7 @@ private:
 	};
 
 	void monitoringStartOrStopAndUpdateUI(Buffer* pBuf, bool isStarting);
+	void updateCommandShortcuts();
 };
 
 

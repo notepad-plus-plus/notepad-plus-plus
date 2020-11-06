@@ -709,6 +709,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				else if (iTabNow != -1 && _currentHoverTabItem != -1 && _currentHoverTabItem != iTabNow) // mouse is being moved from a tab and entering into another tab
 				{
 					isFromTabToTab = true;
+					_whichCloseClickDown = -1;
 
 					// set current hovered
 					_currentHoverTabItem = iTabNow;
@@ -766,6 +767,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				InvalidateRect(hwnd, &_currentHoverTabRect, FALSE);
 
 			_currentHoverTabItem = -1;
+			_whichCloseClickDown = -1;
 			SetRectEmpty(&_currentHoverTabRect);
 			_isCloseHover = false;
 

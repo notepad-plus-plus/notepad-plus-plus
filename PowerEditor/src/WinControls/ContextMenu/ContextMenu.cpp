@@ -61,6 +61,7 @@ void ContextMenu::create(HWND hParent, const std::vector<MenuItemUnit> & menuIte
 	HMENU hParentFolder = NULL;
 	generic_string currentParentFolderStr;
 	int j = 0;
+	MENUITEMINFO mii;
 
 	for (size_t i = 0, len = menuItemArray.size(); i < len; ++i)
 	{
@@ -109,7 +110,6 @@ void ContextMenu::create(HWND hParent, const std::vector<MenuItemUnit> & menuIte
 			lastIsSep = true;
 		}
 
-		
 		if (mainMenuHandle)
 		{
 			bool isEnabled = (::GetMenuState(mainMenuHandle, item._cmdID, MF_BYCOMMAND)&(MF_DISABLED|MF_GRAYED)) == 0;
@@ -118,8 +118,14 @@ void ContextMenu::create(HWND hParent, const std::vector<MenuItemUnit> & menuIte
 				enableItem(item._cmdID, isEnabled);
 			if (isChecked)
 				checkItem(item._cmdID, isChecked);
-		}
 
+			// set up any menu item bitmaps in the context menu, using main menu bitmaps
+			memset(&mii, 0, sizeof(mii));
+			mii.cbSize = sizeof(MENUITEMINFO);
+			mii.fMask = MIIM_CHECKMARKS;
+			mii.fType = MFT_BITMAP;
+			GetMenuItemInfo(mainMenuHandle, item._cmdID, FALSE, &mii);
+			SetMenuItemInfo(_hMenu, item._cmdID, FALSE, &mii);
+		}
 	}
 }
-	

@@ -33,7 +33,8 @@
 #include "Parameters.h"
 
 
-#define WM_UPDATESCINTILLAS			(WORDSTYLE_USER + 1) //GlobalStyleDlg's msg 2 send 2 its parent
+#define WM_UPDATESCINTILLAS      (WORDSTYLE_USER + 1) //GlobalStyleDlg's msg 2 send 2 its parent
+#define WM_UPDATEMAINMENUBITMAPS (WORDSTYLE_USER + 2)
 
 enum fontStyleType {BOLD_STATUS, ITALIC_STATUS, UNDERLINE_STATUS};
 

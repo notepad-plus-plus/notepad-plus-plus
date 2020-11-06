@@ -45,13 +45,30 @@ public :
 		TabBarPlus::destroy();
 	};
 
-	void init(HINSTANCE hInst, HWND parent, ScintillaEditView * pView, IconList *pIconList = NULL)
-	{
+	void init(HINSTANCE hInst, HWND parent, ScintillaEditView * pView, std::vector<IconList *> pIconListVector, unsigned char indexChoice) {
 		TabBarPlus::init(hInst, parent);
 		_pView = pView;
-		if (pIconList)
-			TabBar::setImageList(pIconList->getHandle());
+
+		if (!pIconListVector.empty())
+		{
+			_pIconListVector = pIconListVector;
+
+			if (indexChoice >= pIconListVector.size())
+				_iconListIndexChoice = 0;
+			else
+				_iconListIndexChoice = indexChoice;
+		}
+
+		if (_iconListIndexChoice != -1)
+			TabBar::setImageList(_pIconListVector[_iconListIndexChoice]->getHandle());
 		return;
+	};
+
+	void changeIcons(unsigned char choice) {
+		if (choice >= _pIconListVector.size())
+			return;
+		_iconListIndexChoice = choice;
+		TabBar::setImageList(_pIconListVector[_iconListIndexChoice]->getHandle());
 	};
 
 	void addBuffer(BufferID buffer);
@@ -87,4 +104,7 @@ public :
 private :
 	ScintillaEditView *_pView;
 	static bool _hideTabBarStatus;
+
+	std::vector<IconList *> _pIconListVector;
+	int _iconListIndexChoice = -1;
 };

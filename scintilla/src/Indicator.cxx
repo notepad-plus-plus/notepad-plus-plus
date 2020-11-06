@@ -212,7 +212,7 @@ void Indicator::Draw(Surface *surface, const PRectangle &rc, const PRectangle &r
 			};
 			surface->Polygon(pts, std::size(pts), sacDraw.fore, sacDraw.fore);
 		}
-	} else {	// Either INDIC_PLAIN or unknown
+	} else {	// Either INDIC_PLAIN, INDIC_EXPLORERLINK or unknown
 		surface->MoveTo(irc.left, ymid);
 		surface->LineTo(irc.right, ymid);
 	}

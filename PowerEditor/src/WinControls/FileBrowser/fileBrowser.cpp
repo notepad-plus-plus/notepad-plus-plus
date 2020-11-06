@@ -383,21 +383,34 @@ void FileBrowser::initPopupMenus()
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_CMDHERE, cmdHere.c_str());
 }
 
-bool FileBrowser::selectCurrentEditingFile() const
+bool FileBrowser::selectItemFromPath(const generic_string& itemPath) const
 {
-	TCHAR currentDocPath[MAX_PATH] = { '0' };
-	::SendMessage(_hParent, NPPM_GETFULLCURRENTPATH, MAX_PATH, reinterpret_cast<LPARAM>(currentDocPath));
-	generic_string rootFolderPath = currentDocPath;
+	if (itemPath.empty())
+		return false;
+
+	size_t itemPathLen = itemPath.size();
 
 	for (const auto f : _folderUpdaters)
 	{
-		if (isRelatedRootFolder(f->_rootFolder._rootPath, rootFolderPath))
+		if (isRelatedRootFolder(f->_rootFolder._rootPath, itemPath))
 		{
 			generic_string rootPath = f->_rootFolder._rootPath;
-			generic_string pathSuffix = rootFolderPath.substr(rootPath.size() + 1, rootFolderPath.size() - rootPath.size());
-			vector<generic_string> linarPathArray = split(pathSuffix, '\\');
+			size_t rootPathLen = rootPath.size();
+			if (rootPathLen > itemPathLen) // It should never happen
+				return false;
 
+			vector<generic_string> linarPathArray;
+			if (rootPathLen == itemPathLen)
+			{
+				// Do nothing and use empty linarPathArray
+			}
+			else
+			{
+				generic_string pathSuffix = itemPath.substr(rootPathLen + 1, itemPathLen - rootPathLen);
+				linarPathArray = split(pathSuffix, '\\');
+			}
 			HTREEITEM foundItem = findInTree(rootPath, nullptr, linarPathArray);
+
 			if (foundItem)
 			{
 				_treeView.selectItem(foundItem);
@@ -407,6 +420,15 @@ bool FileBrowser::selectCurrentEditingFile() const
 		}
 	}
 	return false;
+}
+
+bool FileBrowser::selectCurrentEditingFile() const
+{
+	TCHAR currentDocPath[MAX_PATH] = { '0' };
+	::SendMessage(_hParent, NPPM_GETFULLCURRENTPATH, MAX_PATH, reinterpret_cast<LPARAM>(currentDocPath));
+	generic_string currentDocPathStr = currentDocPath;
+
+	return selectItemFromPath(currentDocPathStr);
 }
 
 BOOL FileBrowser::setImageList(int root_clean_id, int root_dirty_id, int open_node_id, int closed_node_id, int leaf_id) 
@@ -513,15 +535,15 @@ void FileBrowser::openSelectFile()
 	HTREEITEM selectedNode = _treeView.getSelection();
 	if (!selectedNode) return;
 
-	generic_string fullPath = getNodePath(selectedNode);
+	_selectedNodeFullPath = getNodePath(selectedNode);
 
 	// test the path - if it's a file, open it, otherwise just fold or unfold it
-	if (!::PathFileExists(fullPath.c_str()))
+	if (!::PathFileExists(_selectedNodeFullPath.c_str()))
 		return;
-	if (::PathIsDirectory(fullPath.c_str()))
+	if (::PathIsDirectory(_selectedNodeFullPath.c_str()))
 		return;
 
-	::SendMessage(_hParent, NPPM_DOOPEN, 0, reinterpret_cast<LPARAM>(fullPath.c_str()));
+	::PostMessage(_hParent, NPPM_DOOPEN, 0, reinterpret_cast<LPARAM>(_selectedNodeFullPath.c_str()));
 }
 
 
@@ -611,6 +633,9 @@ void FileBrowser::notified(LPNMHDR notification)
 			}
 			break;
 
+			case NM_RETURN:
+				SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, 1);
+			break;
 
 			case TVN_KEYDOWN:
 			{
@@ -625,16 +650,14 @@ void FileBrowser::notified(LPNMHDR notification)
 					else
 						_treeView.toggleExpandCollapse(hItem);
 				}
-				/*
 				else if (ptvkd->wVKey == VK_DELETE)
 				{
 					HTREEITEM hItem = _treeView.getSelection();
 					BrowserNodeType nType = getNodeType(hItem);
-					if (nType == browserNodeType_folder)
-						popupMenuCmd(IDM_FILEBROWSER_DELETEFOLDER);
-					else if (nType == browserNodeType_file)
-						popupMenuCmd(IDM_FILEBROWSER_DELETEFILE);
+					if (nType == browserNodeType_root)
+						popupMenuCmd(IDM_FILEBROWSER_REMOVEROOTFOLDER);
 				}
+				/*
 				else if (ptvkd->wVKey == VK_UP)
 				{
 					if (0x80 & GetKeyState(VK_CONTROL))
@@ -1227,7 +1250,11 @@ HTREEITEM FileBrowser::findInTree(const generic_string& rootPath, HTREEITEM node
 			return nullptr;
 	}
 
-	if (linarPathArray.size() == 1)
+	if (linarPathArray.empty()) // nothing to search, return node
+	{
+		return node;
+	}
+	else if (linarPathArray.size() == 1)
 	{
 		// Search
 		return findChildNodeFromName(node, linarPathArray[0]);

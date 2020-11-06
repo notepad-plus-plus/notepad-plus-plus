@@ -99,7 +99,7 @@ INT_PTR CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 			_treeView.addCanNotDragOutList(INDEX_PROJECT);
 
 			_treeView.display();
-			if (!openWorkSpace(_workSpaceFilePath.c_str()))
+			if (!openWorkSpace(_workSpaceFilePath.c_str(), true))
 				newWorkSpace();
 
             return TRUE;
@@ -185,18 +185,17 @@ INT_PTR CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 	return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
 }
 
-void ProjectPanel::checkIfNeedSave(const TCHAR *title)
+bool ProjectPanel::checkIfNeedSave()
 {
 	if (_isDirty)
 	{
-		display();
-		
+		const TCHAR * title = _workSpaceFilePath.length() > 0 ? PathFindFileName (_workSpaceFilePath.c_str()) : _panelTitle.c_str();
 		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 		int res = pNativeSpeaker->messageBox("ProjectPanelChanged",
 			_hSelf,
 			TEXT("The workspace was modified. Do you want to save it?"),
 			TEXT("$STR_REPLACE$"),
-			MB_YESNO | MB_ICONQUESTION,
+			MB_YESNOCANCEL | MB_ICONQUESTION,
 			0,
 			title);
 
@@ -211,9 +210,17 @@ void ProjectPanel::checkIfNeedSave(const TCHAR *title)
 					0,
 					title);
 		}
-		//else if (res == IDNO)
+		else if (res == IDNO)
+		{
 			// Don't save so do nothing here
+		}
+		else
+		{
+			// Cancelled
+			return false;
+		}
 	}
+	return true;
 }
 
 void ProjectPanel::initMenus()
@@ -362,8 +369,17 @@ void ProjectPanel::destroyMenus()
 	::DestroyMenu(_hFileMenu);
 }
 
-bool ProjectPanel::openWorkSpace(const TCHAR *projectFileName)
+bool ProjectPanel::openWorkSpace(const TCHAR *projectFileName, bool force)
 {
+	if ((!force) && (_workSpaceFilePath.length() > 0))
+	{ // Return if it is better to keep the current workspace tree
+		generic_string newWorkspace = projectFileName;
+		if (newWorkspace == _workSpaceFilePath)
+			return true;
+		if (!saveWorkspaceRequest())
+			return true;
+	}
+
 	TiXmlDocument *pXmlDocProject = new TiXmlDocument(projectFileName);
 	bool loadOkay = pXmlDocProject->LoadFile();
 	if (!loadOkay)
@@ -396,9 +412,8 @@ bool ProjectPanel::openWorkSpace(const TCHAR *projectFileName)
 	_treeView.removeAllItems();
 	_workSpaceFilePath = projectFileName;
 
-	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-	generic_string workspace = pNativeSpeaker->getAttrNameStr(PM_WORKSPACEROOTNAME, "ProjectManager", "WorkspaceRootName");
-	HTREEITEM rootItem = _treeView.addItem(workspace.c_str(), TVI_ROOT, INDEX_CLEAN_ROOT);
+	TCHAR * fileName = PathFindFileName(projectFileName);
+	HTREEITEM rootItem = _treeView.addItem(fileName, TVI_ROOT, INDEX_CLEAN_ROOT);
 
 	for ( ; childNode ; childNode = childNode->NextSibling(TEXT("Project")))
 	{
@@ -431,7 +446,6 @@ bool ProjectPanel::saveWorkSpace()
 	{
 		writeWorkSpace();
 		setWorkSpaceDirty(false);
-		_isDirty = false;
 		return true;
 	} 
 }
@@ -453,6 +467,9 @@ bool ProjectPanel::writeWorkSpace(TCHAR *projectFileName)
     HTREEITEM tvRoot = _treeView.getRoot();
     if (!tvRoot)
       return false;
+
+	TCHAR * fileName = PathFindFileName(fn2write);
+	_treeView.renameItem(tvRoot, fileName);
 
     for (HTREEITEM tvProj = _treeView.getChildFrom(tvRoot);
         tvProj != NULL;
@@ -575,7 +592,7 @@ void ProjectPanel::openSelectFile()
 		tvItem.mask = TVIF_IMAGE | TVIF_SELECTEDIMAGE;
 		if (::PathFileExists(fn->c_str()))
 		{
-			::SendMessage(_hParent, NPPM_DOOPEN, 0, reinterpret_cast<LPARAM>(fn->c_str()));
+			::PostMessage(_hParent, NPPM_DOOPEN, 0, reinterpret_cast<LPARAM>(fn->c_str()));
 			tvItem.iImage = INDEX_LEAF;
 			tvItem.iSelectedImage = INDEX_LEAF;
 		}
@@ -591,7 +608,12 @@ void ProjectPanel::openSelectFile()
 
 void ProjectPanel::notified(LPNMHDR notification)
 {
-	if ((notification->hwndFrom == _treeView.getHSelf()))
+	if (notification->code == DMN_CLOSE)
+	{
+		::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_PROJECT_PANEL_1 + _panelID, 0);
+		SetWindowLongPtr (getHSelf(), DWLP_MSGRESULT, _isClosed ? 0 : 1);
+	}
+	else if ((notification->hwndFrom == _treeView.getHSelf()))
 	{
 		TCHAR textBuffer[MAX_PATH];
 		TVITEM tvItem;
@@ -605,6 +627,10 @@ void ProjectPanel::notified(LPNMHDR notification)
 			{
 				openSelectFile();
 			}
+			break;
+
+			case NM_RETURN:
+				SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, 1);
 			break;
 	
 			case TVN_ENDLABELEDIT:
@@ -859,6 +885,35 @@ HTREEITEM ProjectPanel::addFolder(HTREEITEM hTreeItem, const TCHAR *folderName)
 	return addedItem;
 }
 
+bool ProjectPanel::saveWorkspaceRequest()
+{ // returns true for continue and false for break
+	if (_isDirty)
+	{
+		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+		int res = pNativeSpeaker->messageBox("ProjectPanelOpenDoSaveDirtyWsOrNot",
+					_hSelf,
+					TEXT("The current workspace was modified. Do you want to save the current project?"),
+					TEXT("Open Workspace"),
+					MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL);
+				
+		if (res == IDYES)
+		{
+			if (!saveWorkSpace())
+				return false;
+		}
+		else if (res == IDNO)
+		{
+			// Don't save so do nothing here
+		}
+		else if (res == IDCANCEL) 
+		{
+			// User cancels action "New Workspace" so we interrupt here
+			return false;
+		}
+	}
+	return true;
+}
+
 void ProjectPanel::popupMenuCmd(int cmdID)
 {
 	// get selected item handle
@@ -985,38 +1040,16 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 
 		case IDM_PROJECT_OPENWS:
 		{
-			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-			if (_isDirty)
-			{
-				
-				int res = pNativeSpeaker->messageBox("ProjectPanelOpenDoSaveDirtyWsOrNot",
-					_hSelf,
-					TEXT("The current workspace was modified. Do you want to save the current project?"),
-					TEXT("Open Workspace"),
-					MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL);
-				
-				if (res == IDYES)
-				{
-					if (!saveWorkSpace())
-						return;
-				}
-				else if (res == IDNO)
-				{
-					// Don't save so do nothing here
-				}
-				else if (res == IDCANCEL) 
-				{
-					// User cancels action "New Workspace" so we interrupt here
-					return;
-				}
-			}
+			if (!saveWorkspaceRequest())
+				break;
 
 			FileDialog fDlg(_hSelf, ::GetModuleHandle(NULL));
 			setFileExtFilter(fDlg);
 			if (TCHAR *fn = fDlg.doOpenSingleFileDlg())
 			{
-				if (!openWorkSpace(fn))
+				if (!openWorkSpace(fn, true))
 				{
+					NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 					pNativeSpeaker->messageBox("ProjectPanelOpenFailed",
 						_hSelf,
 						TEXT("The workspace could not be opened.\rIt seems the file to open is not a valid project file."),
@@ -1188,6 +1221,7 @@ void ProjectPanel::setFileExtFilter(FileDialog & fDlg)
 			workspaceExt += TEXT(".");
 		workspaceExt += ext;
 		fDlg.setExtFilter(TEXT("Workspace file"), workspaceExt.c_str(), NULL);
+		fDlg.setDefExt(ext);
 	}
 	fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
 }

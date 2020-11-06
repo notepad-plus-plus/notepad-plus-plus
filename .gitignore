@@ -69,7 +69,9 @@ PowerEditor/bin/backup/
 PowerEditor/bin/localization/
 PowerEditor/bin/plugins/
 PowerEditor/bin/updater/
+PowerEditor/bin/functionList/
 PowerEditor/bin64/
+PowerEditor/bin/themes/
 PowerEditor/installer/bin/wingup/
 PowerEditor/installer/build/
 PowerEditor/installer/minimalist/
@@ -85,6 +87,7 @@ PowerEditor/visual.net/x64/Unicode Release/
 # scintilla - generated files
 scintilla/bin/SciLexer.*
 scintilla/bin/Scintilla.*
+scintilla/bin/libscintilla.lib
 scintilla/win32/*.lib
 scintilla/win32/Lexers.a
 scintilla/win32/ScintRes.res

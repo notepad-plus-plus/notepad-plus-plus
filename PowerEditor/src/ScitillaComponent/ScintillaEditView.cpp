@@ -28,10 +28,10 @@
 #include <memory>
 #include <shlwapi.h>
 #include <cinttypes>
+#include <windowsx.h>
 #include "ScintillaEditView.h"
 #include "Parameters.h"
 #include "Sorters.h"
-#include "tchar.h"
 #include "verifySignedfile.h"
 
 using namespace std;
@@ -329,6 +329,11 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	execute(SCI_INDICSETUNDER, SCE_UNIVERSAL_FOUND_STYLE_EXT4, true);
 	execute(SCI_INDICSETUNDER, SCE_UNIVERSAL_FOUND_STYLE_EXT5, true);
 
+	if ((NppParameters::getInstance()).getNppGUI()._writeTechnologyEngine == directWriteTechnology)
+		execute(SCI_SETTECHNOLOGY, SC_TECHNOLOGY_DIRECTWRITE);
+	// If useDirectWrite is turned off, leave the technology setting untouched,
+	// so that existing plugins using SCI_SETTECHNOLOGY behave like before
+
 	_codepage = ::GetACP();
 
 	::SetWindowLongPtr(_hSelf, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
@@ -506,6 +511,25 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 
 		case WM_VSCROLL :
 		{
+			break;
+		}
+
+		case WM_RBUTTONDOWN:
+		{
+			bool rightClickKeepsSelection = ((NppParameters::getInstance()).getSVP())._rightClickKeepsSelection;
+			if (rightClickKeepsSelection)
+			{
+				int clickX = GET_X_LPARAM(lParam);
+				int marginX = static_cast<int>(execute(SCI_POINTXFROMPOSITION, 0, 0));
+				if (clickX >= marginX)
+				{
+					// if right-click in the editing area (not the margins!),
+					// don't let this go to Scintilla because it will 
+					// move the caret to the right-clicked location,
+					// cancelling any selection made by the user
+					return TRUE;
+				}
+			}
 			break;
 		}
 	}
@@ -2252,15 +2276,15 @@ void ScintillaEditView::replaceSelWith(const char * replaceText)
 void ScintillaEditView::getVisibleStartAndEndPosition(int * startPos, int * endPos)
 {
 	assert(startPos != NULL && endPos != NULL);
-
-	auto firstVisibleLine = execute(SCI_GETFIRSTVISIBLELINE);
-	*startPos = static_cast<int32_t>(execute(SCI_POSITIONFROMLINE, execute(SCI_DOCLINEFROMVISIBLE, firstVisibleLine)));
-	auto linesOnScreen = execute(SCI_LINESONSCREEN);
-	auto lineCount = execute(SCI_GETLINECOUNT);
-	auto visibleLine = execute(SCI_DOCLINEFROMVISIBLE, firstVisibleLine + min(linesOnScreen, lineCount));
-	*endPos = static_cast<int32_t>(execute(SCI_POSITIONFROMLINE, visibleLine));
-	if (*endPos == -1) 
-		*endPos = static_cast<int32_t>(execute(SCI_GETLENGTH));
+	// Get the position of the 1st and last showing chars from the edit view
+	RECT rcEditView;
+	getClientRect(rcEditView);
+	LRESULT pos = execute(SCI_POSITIONFROMPOINT, 0, 0);
+	LRESULT line = execute(SCI_LINEFROMPOSITION, pos);
+	*startPos = static_cast<int32_t>(execute(SCI_POSITIONFROMLINE, line));
+	pos = execute(SCI_POSITIONFROMPOINT, rcEditView.right - rcEditView.left, rcEditView.bottom - rcEditView.top);
+	line = execute(SCI_LINEFROMPOSITION, pos);
+	*endPos = static_cast<int32_t>(execute(SCI_GETLINEENDPOSITION, line));
 }
 
 char * ScintillaEditView::getWordFromRange(char * txt, int size, int pos1, int pos2)
@@ -2609,6 +2633,34 @@ void ScintillaEditView::performGlobalStyles()
 	execute(SCI_SETFOLDMARGINCOLOUR, true, foldMarginColor);
 	execute(SCI_SETFOLDMARGINHICOLOUR, true, foldMarginHiColor);
 
+	COLORREF bookmarkMarginColor = veryLiteGrey;
+	i = stylers.getStylerIndexByName(TEXT("Bookmark margin"));
+	if (i == -1)
+	{
+		int j = stylers.getStylerIndexByName(TEXT("Line number margin"));
+		if (j != -1)
+		{
+			Style & style = stylers.getStyler(j);
+			bookmarkMarginColor = style._bgColor;
+		}
+	}
+	else
+	{
+		Style & style = stylers.getStyler(i);
+		bookmarkMarginColor = style._bgColor;
+	}
+	execute(SCI_SETMARGINTYPEN, _SC_MARGE_SYBOLE, SC_MARGIN_COLOUR);
+	execute(SCI_SETMARGINBACKN, _SC_MARGE_SYBOLE, bookmarkMarginColor);
+
+	COLORREF urlHoveredFG = grey;
+	i = stylers.getStylerIndexByName(TEXT("URL hovered"));
+	if (i != -1)
+	{
+		Style & style = stylers.getStyler(i);
+		urlHoveredFG = style._fgColor;
+	}
+	execute(SCI_INDICSETHOVERFORE, URL_INDIC, urlHoveredFG);
+
 	COLORREF foldfgColor = white, foldbgColor = grey, activeFoldFgColor = red;
 	getFoldColor(foldfgColor, foldbgColor, activeFoldFgColor);
 
@@ -2689,32 +2741,25 @@ void ScintillaEditView::updateLineNumberWidth()
 			auto firstVisibleLineVis = execute(SCI_GETFIRSTVISIBLELINE);
 			auto lastVisibleLineVis = linesVisible + firstVisibleLineVis + 1;
 
-			if (execute(SCI_GETWRAPMODE) != SC_WRAP_NONE)
+			auto lastVisibleLineDoc = execute(SCI_DOCLINEFROMVISIBLE, lastVisibleLineVis);
+
+			int nbDigits = 3; // minimum number of digit should be 3
+			if (lastVisibleLineDoc < 1000) {} //nbDigits = 3;
+			else if (lastVisibleLineDoc < 10000) nbDigits = 4;
+			else if (lastVisibleLineDoc < 100000) nbDigits = 5;
+			else if (lastVisibleLineDoc < 1000000) nbDigits = 6;
+			else // rare case
 			{
-				auto numLinesDoc = execute(SCI_GETLINECOUNT);
-				auto prevLineDoc = execute(SCI_DOCLINEFROMVISIBLE, firstVisibleLineVis);
-				for (auto i = firstVisibleLineVis + 1; i <= lastVisibleLineVis; ++i)
+				nbDigits = 7;
+				lastVisibleLineDoc /= 1000000;
+
+				while (lastVisibleLineDoc)
 				{
-					auto lineDoc = execute(SCI_DOCLINEFROMVISIBLE, i);
-					if (lineDoc == numLinesDoc)
-						break;
-					if (lineDoc == prevLineDoc)
-						lastVisibleLineVis++;
-					prevLineDoc = lineDoc;
+					lastVisibleLineDoc /= 10;
+					++nbDigits;
 				}
 			}
-
-			auto lastVisibleLineDoc = execute(SCI_DOCLINEFROMVISIBLE, lastVisibleLineVis);
-			int i = 0;
-
-			while (lastVisibleLineDoc)
-			{
-				lastVisibleLineDoc /= 10;
-				++i;
-			}
-
-			i = max(i, 3);
-			auto pixelWidth = 8 + i * execute(SCI_TEXTWIDTH, STYLE_LINENUMBER, reinterpret_cast<LPARAM>("8"));
+			auto pixelWidth = 8 + nbDigits * execute(SCI_TEXTWIDTH, STYLE_LINENUMBER, reinterpret_cast<LPARAM>("8"));
 			execute(SCI_SETMARGINWIDTHN, _SC_MARGE_LINENUMBER, pixelWidth);
 		}
 	}
@@ -2753,20 +2798,36 @@ void ScintillaEditView::setMultiSelections(const ColumnModeInfos & cmi)
 	}
 }
 
-// Get selection range : (fromLine, toLine)
-// return (-1, -1) if multi-selection
-pair<int, int> ScintillaEditView::getSelectionLinesRange() const
+// Get selection range (fromLine, toLine) for the specified selection
+// specify selectionNumber = -1 for the MAIN selection
+pair<int, int> ScintillaEditView::getSelectionLinesRange(int selectionNumber /* = -1 */) const
 {
-    pair<int, int> range(-1, -1);
-    if (execute(SCI_GETSELECTIONS) > 1) // multi-selection
-        return range;
-	int32_t start = static_cast<int32_t>(execute(SCI_GETSELECTIONSTART));
-	int32_t end = static_cast<int32_t>(execute(SCI_GETSELECTIONEND));
+	int numSelections = static_cast<int>(execute(SCI_GETSELECTIONS));
 
-	range.first = static_cast<int32_t>(execute(SCI_LINEFROMPOSITION, start));
-	range.second = static_cast<int32_t>(execute(SCI_LINEFROMPOSITION, end));
+	int start_pos, end_pos;
 
-    return range;
+	if ((selectionNumber < 0) || (selectionNumber >= numSelections))
+	{
+		start_pos = static_cast<int>(execute(SCI_GETSELECTIONSTART));
+		end_pos = static_cast<int>(execute(SCI_GETSELECTIONEND));
+	}
+	else
+	{
+		start_pos = static_cast<int>(execute(SCI_GETSELECTIONNSTART, selectionNumber));
+		end_pos = static_cast<int>(execute(SCI_GETSELECTIONNEND, selectionNumber));
+	}
+
+	int line1 = static_cast<int>(execute(SCI_LINEFROMPOSITION, start_pos));
+	int line2 = static_cast<int>(execute(SCI_LINEFROMPOSITION, end_pos));
+
+	if ((line1 != line2) && (execute(SCI_POSITIONFROMLINE, line2) == end_pos))
+	{
+		// if the end of the selection includes the line-ending, 
+		// then don't include the following line in the range
+		--line2;
+	}
+
+	return pair<int, int>(line1, line2);
 }
 
 void ScintillaEditView::currentLinesUp() const
@@ -3272,6 +3333,8 @@ void ScintillaEditView::foldChanged(size_t line, int levelNow, int levelPrev)
 
 void ScintillaEditView::scrollPosToCenter(size_t pos)
 {
+	_positionRestoreNeeded = false;
+
 	execute(SCI_GOTOPOS, pos);
 	int line = static_cast<int32_t>(execute(SCI_LINEFROMPOSITION, pos));
 
@@ -3570,7 +3633,7 @@ void ScintillaEditView::insertNewLineBelowCurrentLine()
 	execute(SCI_SETEMPTYSELECTION, execute(SCI_POSITIONFROMLINE, current_line + 1));
 }
 
-void ScintillaEditView::sortLines(size_t fromLine, size_t toLine, ISorter *pSort)
+void ScintillaEditView::sortLines(size_t fromLine, size_t toLine, ISorter* pSort)
 {
 	if (fromLine >= toLine)
 	{
@@ -3592,16 +3655,19 @@ void ScintillaEditView::sortLines(size_t fromLine, size_t toLine, ISorter *pSort
 	}
 	assert(toLine - fromLine + 1 == splitText.size());
 	const std::vector<generic_string> sortedText = pSort->sort(splitText);
-	const generic_string joined = stringJoin(sortedText, getEOLString());
+	generic_string joined = stringJoin(sortedText, getEOLString());
 	if (sortEntireDocument)
 	{
 		assert(joined.length() == text.length());
-		replaceTarget(joined.c_str(), int(startPos), int(endPos));
 	}
 	else
 	{
 		assert(joined.length() + getEOLString().length() == text.length());
-		replaceTarget((joined + getEOLString()).c_str(), int(startPos), int(endPos));
+		joined += getEOLString();
+	}
+	if (text != joined)
+	{
+		replaceTarget(joined.c_str(), int(startPos), int(endPos));
 	}
 }
 
@@ -3665,5 +3731,215 @@ void ScintillaEditView::getFoldColor(COLORREF& fgColor, COLORREF& bgColor, COLOR
 	{
 		Style & style = stylers.getStyler(i);
 		activeFgColor = style._fgColor;
+	}
+}
+
+pair<int, int> ScintillaEditView::getSelectedCharsAndLinesCount(int maxSelectionsForLineCount /* = -1 */) const
+{
+	pair<int, int> selectedCharsAndLines(0, 0);
+
+	selectedCharsAndLines.first = getUnicodeSelectedLength();
+
+	int numSelections = static_cast<int>(execute(SCI_GETSELECTIONS));
+
+	if (numSelections == 1)
+	{
+		pair<int, int> lineRange = getSelectionLinesRange();
+		selectedCharsAndLines.second = lineRange.second - lineRange.first + 1;
+	}
+	else if (execute(SCI_SELECTIONISRECTANGLE))
+	{
+		selectedCharsAndLines.second = numSelections;
+	}
+	else if ((maxSelectionsForLineCount == -1) ||  // -1 means process ALL of the selections
+		(numSelections <= maxSelectionsForLineCount))
+	{
+		// selections are obtained from Scintilla in the order user creates them,
+		// not in a lowest-to-highest position-based order;
+		// to be able to get a line-count that can't count the same line more than once,
+		// we have to reorder the lines touched
+		// by selection into low-to-high line number order before processing them further
+
+		vector< pair <int, int> > v;
+		for (int s = 0; s < numSelections; ++s)
+		{
+			v.push_back(getSelectionLinesRange(s));
+		}
+		sort(v.begin(), v.end());
+		int previousSecondLine = -1;
+		for (auto lineRange : v)
+		{
+			selectedCharsAndLines.second += lineRange.second - lineRange.first;
+			if (lineRange.first != previousSecondLine)
+			{
+				++selectedCharsAndLines.second;
+			}
+			previousSecondLine = lineRange.second;
+		}
+	}
+
+	return selectedCharsAndLines;
+};
+
+int ScintillaEditView::getUnicodeSelectedLength() const
+{
+	int length = 0;
+	int numSelections = static_cast<int>(execute(SCI_GETSELECTIONS));
+
+	for (int s = 0; s < numSelections; ++s)
+	{
+		int start = static_cast<int>(execute(SCI_GETSELECTIONNSTART, s));
+		int end = static_cast<int>(execute(SCI_GETSELECTIONNEND, s));
+		length += static_cast<int>(execute(SCI_COUNTCHARACTERS, start, end));
+	}
+
+	return length;
+};
+
+
+void ScintillaEditView::markedTextToClipboard(int indiStyle, bool doAll /*= false*/)
+{
+	int styleIndicators[] =
+	{
+		SCE_UNIVERSAL_FOUND_STYLE_EXT1,
+		SCE_UNIVERSAL_FOUND_STYLE_EXT2,
+		SCE_UNIVERSAL_FOUND_STYLE_EXT3,
+		SCE_UNIVERSAL_FOUND_STYLE_EXT4,
+		SCE_UNIVERSAL_FOUND_STYLE_EXT5,
+		-1  // end signifier
+	};
+
+	if (!doAll)
+	{
+		styleIndicators[0] = indiStyle;
+		styleIndicators[1] = -1;
+	}
+
+	// vector of pairs: starting position of styled text, and styled text
+	std::vector<std::pair<int, generic_string>> styledVect;
+
+	const generic_string cr = TEXT("\r");
+	const generic_string lf = TEXT("\n");
+
+	bool textContainsLineEndingChar = false;
+
+	for (int si = 0; styleIndicators[si] != -1; ++si)
+	{
+		int pos = static_cast<int>(execute(SCI_INDICATOREND, styleIndicators[si], 0));
+		if (pos > 0)
+		{
+			bool atEndOfIndic = execute(SCI_INDICATORVALUEAT, styleIndicators[si], 0) != 0;
+			int prevPos = pos;
+			if (atEndOfIndic) prevPos = 0;
+
+			do
+			{
+				if (atEndOfIndic)
+				{
+					generic_string styledText = getGenericTextAsString(prevPos, pos);
+					if (!textContainsLineEndingChar)
+					{
+						if (styledText.find(cr) != std::string::npos ||
+							styledText.find(lf) != std::string::npos)
+						{
+							textContainsLineEndingChar = true;
+						}
+					}
+					styledVect.push_back(::make_pair(prevPos, styledText));
+				}
+				atEndOfIndic = !atEndOfIndic;
+				prevPos = pos;
+				pos = static_cast<int>(execute(SCI_INDICATOREND, styleIndicators[si], pos));
+			} while (pos != prevPos);
+		}
+	}
+
+	if (styledVect.size() > 0)
+	{
+		if (doAll)
+		{
+			// sort by starting position of styled text
+			std::sort(styledVect.begin(), styledVect.end());
+		}
+
+		const generic_string delim =
+			(textContainsLineEndingChar && styledVect.size() > 1) ?
+			TEXT("\r\n----\r\n") : TEXT("\r\n");
+
+		generic_string joined;
+		for (auto item : styledVect)
+		{
+			joined += delim + item.second;
+		}
+		joined = joined.substr(delim.length());
+		if (styledVect.size() > 1)
+		{
+			joined += TEXT("\r\n");
+		}
+
+		str2Clipboard(joined, NULL);
+	}
+}
+
+void ScintillaEditView::removeAnyDuplicateLines()
+{
+	size_t fromLine = 0, toLine = 0;
+	bool hasLineSelection = false;
+
+	auto selStart = execute(SCI_GETSELECTIONSTART);
+	auto selEnd = execute(SCI_GETSELECTIONEND);
+	hasLineSelection = selStart != selEnd;
+
+	if (hasLineSelection)
+	{
+		const pair<int, int> lineRange = getSelectionLinesRange();
+		// One single line selection is not allowed.
+		if (lineRange.first == lineRange.second)
+		{
+			return;
+		}
+		fromLine = lineRange.first;
+		toLine = lineRange.second;
+	}
+	else
+	{
+		// No selection.
+		fromLine = 0;
+		toLine = execute(SCI_GETLINECOUNT) - 1;
+	}
+
+	if (fromLine >= toLine)
+	{
+		return;
+	}
+
+	const auto startPos = execute(SCI_POSITIONFROMLINE, fromLine);
+	const auto endPos = execute(SCI_POSITIONFROMLINE, toLine) + execute(SCI_LINELENGTH, toLine);
+	const generic_string text = getGenericTextAsString(startPos, endPos);
+	std::vector<generic_string> linesVect = stringSplit(text, getEOLString());
+	const size_t lineCount = execute(SCI_GETLINECOUNT);
+
+	const bool doingEntireDocument = toLine == lineCount - 1;
+	if (!doingEntireDocument)
+	{
+		if (linesVect.rbegin()->empty())
+		{
+			linesVect.pop_back();
+		}
+	}
+
+	size_t origSize = linesVect.size();
+	size_t newSize = vecRemoveDuplicates(linesVect);
+	if (origSize != newSize)
+	{
+		generic_string joined = stringJoin(linesVect, getEOLString());
+		if (!doingEntireDocument)
+		{
+			joined += getEOLString();
+		}
+		if (text != joined)
+		{
+			replaceTarget(joined.c_str(), int(startPos), int(endPos));
+		}
 	}
 }

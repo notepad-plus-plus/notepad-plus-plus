@@ -266,6 +266,7 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 							//(nppParamInst.getNppGUI())._themeName
 							::SendMessage(_hSwitch2ThemeCombo, CB_SETCURSEL, _currentThemeIndex, 0);
 							::SendMessage(_hParent, WM_UPDATESCINTILLAS, 0, 0);
+							::SendMessage(_hParent, WM_UPDATEMAINMENUBITMAPS, 0, 0);
 						}
 						::EnableWindow(::GetDlgItem(_hSelf, IDC_SAVECLOSE_BUTTON), FALSE/*!_isSync*/);
 						display(false);
@@ -293,6 +294,7 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 						//_isSync = true;
 						display(false);
 						::SendMessage(_hParent, WM_UPDATESCINTILLAS, 0, 0);
+						::SendMessage(_hParent, WM_UPDATEMAINMENUBITMAPS, 0, 0);
 						return TRUE;
 					}
 
@@ -885,4 +887,5 @@ void WordStyleDlg::apply()
 
 	::EnableWindow(::GetDlgItem(_hSelf, IDOK), FALSE);
 	::SendMessage(_hParent, WM_UPDATESCINTILLAS, 0, 0);
+	::SendMessage(_hParent, WM_UPDATEMAINMENUBITMAPS, 0, 0);
 }

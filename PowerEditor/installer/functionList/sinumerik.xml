@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ==========================================================================\
+|
+|   To learn how to make your own language parser, please check the following
+|   link:
+|       https://npp-user-manual.org/docs/function-list/
+|
+\=========================================================================== -->
+<NotepadPlus>
+	<functionList>
+		<!-- =================================================== [ Sinumerik ] -->
+		<!-- Sinumerik - Siemens Numeric Control                               -->
+
+		<!--
+		|   https://notepad-plus-plus.org/community/topic/12520/function-list-for-simatic
+		|   20161113: Added `(?!\$PATH)` to get around restriction/bug of
+		|             two characters required before comment.
+		\-->
+		<parser
+			displayName="Sinumerik"
+			id         ="sinumerik_function"
+			commentExpr="(?m-s:;(?!\$PATH).*?$)"
+		>
+			<function
+				mainExpr="(?m)^%_N_\K[A-Za-z_]\w*"
+			/>
+		</parser>
+	</functionList>
+</NotepadPlus>

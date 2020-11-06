@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ==========================================================================\
+|
+|   To learn how to make your own language parser, please check the following
+|   link:
+|       https://npp-user-manual.org/docs/function-list/
+|
+\=========================================================================== -->
+<NotepadPlus>
+	<functionList>
+		<!-- ======================================================== [ Ruby ] -->
+
+		<parser
+			displayName="Ruby"
+			id         ="ruby_syntax"
+		>
+			<!-- within a class-->
+			<classRange
+				mainExpr    ="^class\x20\K.*?(?=\n\S|\Z)"
+			>
+				<className>
+					<nameExpr expr="\w+" />
+				</className>
+				<function
+					mainExpr="^\s*def\s+\w+"
+				>
+					<functionName>
+						<funcNameExpr expr="def\s\K\w+" />
+					</functionName>
+				</function>
+			</classRange>
+			<!-- without class-->
+			<function
+				mainExpr="^\s*def\s+\w+"
+			>
+				<functionName>
+					<nameExpr expr="def\s\K\w+" />
+				</functionName>
+			</function>
+		</parser>
+	</functionList>
+</NotepadPlus>

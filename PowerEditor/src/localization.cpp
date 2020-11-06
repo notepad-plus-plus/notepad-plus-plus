@@ -69,7 +69,8 @@ MenuPosition menuPos[] = {
 	{ 2, 19, -1, "search-unmarkAll" },
 	{ 2, 20, -1, "search-jumpUp" },
 	{ 2, 21, -1, "search-jumpDown" },
-	{ 2, 23, -1, "search-bookmark" },
+	{ 2, 22, -1, "search-copyStyledText" },
+	{ 2, 24, -1, "search-bookmark" },
 
 	{ 3,  4, -1, "view-currentFileIn" },
 	{ 3,  6, -1, "view-showSymbol" },
@@ -98,7 +99,7 @@ MenuPosition menuPos[] = {
 	{ 4,  5, 14, "encoding-westernEuropean" },
 	{ 4,  5, 15, "encoding-vietnamese" },
 
-	{ 5, 23, -1, "language-userDefinedLanguage" },
+	{ 5, 25, -1, "language-userDefinedLanguage" },
 
 	{ 6,  4, -1, "settings-import" },
 
@@ -189,6 +190,40 @@ generic_string NativeLangSpeaker::getNativeLangMenuString(int itemID) const
 	if (!node) return TEXT("");
 
 	node = node->FirstChild("Commands");
+	if (!node) return TEXT("");
+
+	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+
+	for (TiXmlNodeA *childNode = node->FirstChildElement("Item");
+		childNode ;
+		childNode = childNode->NextSibling("Item") )
+	{
+		TiXmlElementA *element = childNode->ToElement();
+		int id;
+		if (element->Attribute("id", &id) && (id == itemID))
+		{
+			const char *name = element->Attribute("name");
+			if (name)
+			{
+				return wmc.char2wchar(name, _nativeLangEncoding);
+			}
+		}
+	}
+	return TEXT("");
+}
+
+generic_string NativeLangSpeaker::getShortcutNameString(int itemID) const
+{
+	if (!_nativeLangA)
+		return TEXT("");
+
+	TiXmlNodeA *node = _nativeLangA->FirstChild("Dialog");
+	if (!node) return TEXT("");
+
+	node = node->FirstChild("ShortcutMapper");
+	if (!node) return TEXT("");
+
+	node = node->FirstChild("MainCommandNames");
 	if (!node) return TEXT("");
 
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
@@ -370,32 +405,33 @@ static const int tabContextMenuItemPos[] =
 {
 //  +-------------- The order in tab menu (NppNotification.cpp : if (!_tabPopupMenu.isCreated())
 //  |
-//  |       +------ Number in english.xml (<language>.xml) : <TabBar>
-//  |       |
-    0,   // 0 : Close
-    1,   // 1 : Close ALL BUT This
-    5,   // 2 : Save
-    6,   // 3 : Save As
-    10,  // 4 : Print
-    24,  // 5 : Move to Other View
-    25,  // 6 : Clone to Other View
-    20,  // 7 : Full File Path to Clipboard
-    21,  // 8 : Filename to Clipboard
-    22,  // 9 : Current Dir. Path to Clipboard
+//  |        +------ Number in english.xml (<language>.xml) : <TabBar>
+//  |        |
+    0,   //  0: Close
+    1,   //  1: Close ALL BUT This
+    5,   //  2: Save
+    6,   //  3: Save As
+   10,   //  4: Print
+   25,   //  5: Move to Other View
+   26,   //  6: Clone to Other View
+   21,   //  7: Full File Path to Clipboard
+   22,   //  8: Filename to Clipboard
+   23,   //  9: Current Dir. Path to Clipboard
     7,   // 10: Rename
     8,   // 11: Move to Recycle Bin
-    17,  // 12: Read-Only
-    18,  // 13: Clear Read-Only Flag
-    26,  // 14: Move to New Instance
-    27,  // 15: Open to New Instance
+   18,   // 12: Read-Only
+   19,   // 13: Clear Read-Only Flag
+   27,   // 14: Move to New Instance
+   28,   // 15: Open to New Instance
     9,   // 16: Reload
     2,   // 17: Close ALL to the Left
     3,   // 18: Close ALL to the Right
-    12,  // 19: Open Containing Folder in Explorer
-    13,  // 20: Open Containing Folder in cmd
-    15,  // 21: Open in Default Viewer
+   12,   // 19: Open Containing Folder in Explorer
+   13,   // 20: Open Containing Folder in cmd
+   16,   // 21: Open in Default Viewer
     4,   // 22: Close ALL Unchanged
-    -1   //-------End
+   14,   // 23: Open Containing Folder as Workspace
+   -1    //-------End
 };
 
 
@@ -888,6 +924,14 @@ void NativeLangSpeaker::changePrefereceDlgLang(PreferenceDlg & preference)
 		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
 		preference.renameDialogTitle(TEXT("Print"), nameW);
 	}
+
+	changeDlgLang(preference._searchingSettingsDlg.getHSelf(), "Searching", titre, titreMaxSize);
+	if (titre[0] != '\0')
+	{
+		const wchar_t* nameW = wmc.char2wchar(titre, _nativeLangEncoding);
+		preference.renameDialogTitle(TEXT("Searching"), nameW);
+	}
+
 	changeDlgLang(preference._settingsDlg.getHSelf(), "MISC", titre, titreMaxSize);
 	if (titre[0] != '\0')
 	{
@@ -1311,6 +1355,10 @@ int NativeLangSpeaker::messageBox(const char *msgBoxTagName, HWND hWnd, const TC
 	{
 		title = stringReplace(title, TEXT("$STR_REPLACE$"), strInfo);
 		msg = stringReplace(msg, TEXT("$STR_REPLACE$"), strInfo);
+	}
+	if (_isRTL)
+	{
+		msgBoxType |= MB_RTLREADING | MB_RIGHT;
 	}
 	return ::MessageBox(hWnd, msg.c_str(), title.c_str(), msgBoxType);
 }

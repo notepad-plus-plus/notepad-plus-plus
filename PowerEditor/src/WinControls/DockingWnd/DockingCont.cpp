@@ -1136,33 +1136,25 @@ void DockingCont::onSize()
 
 void DockingCont::doClose()
 {
-	int	iItemOff = 0;
 	int	iItemCnt = static_cast<int32_t>(::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0));
+	int iItemCur = getActiveTb();
 
-	for (int iItem = 0; iItem < iItemCnt; ++iItem)
+	TCITEM		tcItem		= {0};
+
+	tcItem.mask	= TCIF_PARAM;
+	::SendMessage(_hContTab, TCM_GETITEM, iItemCur, reinterpret_cast<LPARAM>(&tcItem));
+	if (tcItem.lParam)
 	{
-		TCITEM		tcItem		= {0};
-
-		// get item data
-		selectTab(iItemOff);
-		tcItem.mask	= TCIF_PARAM;
-		::SendMessage(_hContTab, TCM_GETITEM, iItemOff, reinterpret_cast<LPARAM>(&tcItem));
-		if (!tcItem.lParam)
-			continue;
-
 		// notify child windows
 		if (NotifyParent(DMM_CLOSE) == 0)
 		{
 			// delete tab
 			hideToolbar((tTbData*)tcItem.lParam);
 		}
-		else
-		{
-			++iItemOff;
-		}
 	}
 
-	if (iItemOff == 0)
+	iItemCnt = static_cast<int32_t>(::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0));
+	if (iItemCnt == 0)
 	{
 		// hide dialog first
 		this->doDialog(false);
@@ -1185,6 +1177,7 @@ void DockingCont::showToolbar(tTbData* pTbData, BOOL state)
 int DockingCont::hideToolbar(tTbData *pTbData, BOOL hideClient)
 {
 	int iItem = searchPosInTab(pTbData);
+	BOOL hadFocus = ::IsChild (pTbData->hClient, ::GetFocus());
 
 	// delete item
 	if (TRUE == ::SendMessage(_hContTab, TCM_DELETEITEM, iItem, 0))
@@ -1218,6 +1211,9 @@ int DockingCont::hideToolbar(tTbData *pTbData, BOOL hideClient)
 			{
 				::SendMessage(_hParent, WM_SIZE, 0, 0);
 			}
+			// set focus to current edit window if the docking window had focus
+			if (hadFocus)
+				::PostMessage(::GetParent(_hParent), WM_ACTIVATE, WA_ACTIVE, 0);
 		}
 
 		// keep sure, that client is hide!!!

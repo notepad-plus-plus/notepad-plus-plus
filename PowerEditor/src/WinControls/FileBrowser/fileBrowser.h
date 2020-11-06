@@ -164,6 +164,8 @@ public:
 	std::vector<generic_string> getRoots() const;
 	generic_string getSelectedItemPath() const;
 
+	bool selectItemFromPath(const generic_string& itemPath) const;
+
 protected:
 	HWND _hToolbarMenu = nullptr;
 
@@ -176,6 +178,8 @@ protected:
 	HMENU _hFileMenu = NULL;
 	std::vector<FolderUpdater *> _folderUpdaters;
 
+	generic_string _selectedNodeFullPath; // this member is used only for PostMessage call
+
 	std::vector<SortingData4lParam*> sortingDataArray;
 
 	void initPopupMenus();
@@ -184,6 +188,7 @@ protected:
 
 	BrowserNodeType getNodeType(HTREEITEM hItem);
 	void popupMenuCmd(int cmdID);
+
 	bool selectCurrentEditingFile() const;
 
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);

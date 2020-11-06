@@ -127,7 +127,7 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView, Scintil
 
 	auto curPos = pHighlightView->execute(SCI_GETCURRENTPOS);
 	auto range = pHighlightView->getSelection();
-	int textlen = range.cpMax - range.cpMin + 1;
+	int textlen = range.cpMax - range.cpMin;
 
 	// Determine mode for SmartHighlighting
 	bool isWordOnly = true;
@@ -162,8 +162,8 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView, Scintil
 			return;
 	}
 	
-	char * text2Find = new char[textlen];
-	pHighlightView->getSelectedText(text2Find, textlen, false); //do not expand selection (false)
+	char * text2Find = new char[textlen + 1];
+	pHighlightView->getSelectedText(text2Find, textlen + 1, false); //do not expand selection (false)
 
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	UINT cp = static_cast<UINT>(pHighlightView->execute(SCI_GETCODEPAGE));
@@ -171,11 +171,15 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView, Scintil
 
 	highlightViewWithWord(pHighlightView, text2FindW);
 
-	if (nppGUI._smartHiliteOnAnotherView && unfocusView && unfocusView->isVisible()
-		&& unfocusView->getCurrentBufferID() != pHighlightView->getCurrentBufferID())
-	{
-		// Clear marks
-		unfocusView->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_SMART);
+	if (nppGUI._smartHiliteOnAnotherView && unfocusView && unfocusView->isVisible())
+	{		
+		// Clear the indicator only when the view is not a clone, or it will clear what we have already hightlighted in the pHighlightView
+		if (unfocusView->getCurrentBufferID() != pHighlightView->getCurrentBufferID())
+		{	
+			unfocusView->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_SMART);
+		}
+		
+		// Hightlight the unfocused view even if it's a clone, as it might be in a different area of the document
 		highlightViewWithWord(unfocusView, text2FindW);
 	}
 

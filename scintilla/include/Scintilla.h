@@ -293,6 +293,7 @@ typedef sptr_t (*SciFnDirect)(sptr_t ptr, unsigned int iMessage, uptr_t wParam, 
 #define INDIC_POINTCHARACTER 19
 #define INDIC_GRADIENT 20
 #define INDIC_GRADIENTCENTRE 21
+#define INDIC_EXPLORERLINK 22
 #define INDIC_CONTAINER 8
 #define INDIC_IME 32
 #define INDIC_IME_MAX 35
@@ -1054,7 +1055,7 @@ typedef sptr_t (*SciFnDirect)(sptr_t ptr, unsigned int iMessage, uptr_t wParam, 
 #define SC_MOD_INSERTCHECK 0x100000
 #define SC_MOD_CHANGETABSTOPS 0x200000
 #define SC_MODEVENTMASKALL 0x3FFFFF
-#define SC_SEARCHRESULT_LINEBUFFERMAXLENGTH 1024
+#define SC_SEARCHRESULT_LINEBUFFERMAXLENGTH 2048
 #define SC_UPDATE_CONTENT 0x1
 #define SC_UPDATE_SELECTION 0x2
 #define SC_UPDATE_V_SCROLL 0x4

@@ -222,7 +222,7 @@ void VerticalFileSwitcherListView::setItemIconStatus(BufferID bufferID)
 	LVITEM item;
 	item.pszText = fn;
 	item.iSubItem = 0;
-	item.iImage = buf->getUserReadOnly()||buf->getFileReadOnly()?2:(buf->isDirty()?1:0);
+	item.iImage = buf->isMonitoringOn()?3:(buf->isReadOnly()?2:(buf->isDirty()?1:0));
 
 	int nbItem = ListView_GetItemCount(_hSelf);
 
@@ -301,7 +301,7 @@ int VerticalFileSwitcherListView::add(BufferID bufferID, int iView)
 	item.pszText = fn;
 	item.iItem = index;
 	item.iSubItem = 0;
-	item.iImage = buf->getUserReadOnly()||buf->getFileReadOnly()?2:(buf->isDirty()?1:0);
+	item.iImage = buf->isMonitoringOn()?3:(buf->isReadOnly()?2:(buf->isDirty()?1:0));
 	item.lParam = reinterpret_cast<LPARAM>(tl);
 	ListView_InsertItem(_hSelf, &item);
 

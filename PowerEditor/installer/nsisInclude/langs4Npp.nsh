@@ -70,9 +70,6 @@ SectionGroup "Localization" localization
 	${MementoUnselectedSection} "Catalan" catalan
 		CopyFiles "$PLUGINSDIR\nppLocalization\catalan.xml" "$INSTDIR\localization\catalan.xml"
 	${MementoSectionEnd}
-	${MementoUnselectedSection} "Taiwanese Mandarin" chineseTraditional
-		CopyFiles "$PLUGINSDIR\nppLocalization\taiwaneseMandarin.xml" "$INSTDIR\localization\taiwaneseMandarin.xml"
-	${MementoSectionEnd}
 	${MementoUnselectedSection} "Chinese (Simplified)" chineseSimplified
 		CopyFiles "$PLUGINSDIR\nppLocalization\chineseSimplified.xml" "$INSTDIR\localization\chineseSimplified.xml"
 	${MementoSectionEnd}
@@ -136,11 +133,17 @@ SectionGroup "Localization" localization
 	${MementoUnselectedSection} "Hindi" hindi
 		CopyFiles "$PLUGINSDIR\nppLocalization\hindi.xml" "$INSTDIR\localization\hindi.xml"
 	${MementoSectionEnd}
+	${MementoUnselectedSection} "Hong Kong Cantonese" hongKongCantonese
+		CopyFiles "$PLUGINSDIR\nppLocalization\hongKongCantonese.xml" "$INSTDIR\localization\hongKongCantonese.xml"
+	${MementoSectionEnd}
 	${MementoUnselectedSection} "Hungarian" hungarian
 		CopyFiles "$PLUGINSDIR\nppLocalization\hungarian.xml" "$INSTDIR\localization\hungarian.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Indonesian" indonesian
 		CopyFiles "$PLUGINSDIR\nppLocalization\indonesian.xml" "$INSTDIR\localization\indonesian.xml"
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Irish" irish
+		CopyFiles "$PLUGINSDIR\nppLocalization\iriish.xml" "$INSTDIR\localization\irish.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Italian" italian
 		CopyFiles "$PLUGINSDIR\nppLocalization\italian.xml" "$INSTDIR\localization\italian.xml"
@@ -156,6 +159,9 @@ SectionGroup "Localization" localization
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Korean" korean
 		CopyFiles "$PLUGINSDIR\nppLocalization\korean.xml" "$INSTDIR\localization\korean.xml"
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Kurdish" kurdish
+		CopyFiles "$PLUGINSDIR\nppLocalization\kurdish.xml" "$INSTDIR\localization\kurdish.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Kyrgyz" kyrgyz
 		CopyFiles "$PLUGINSDIR\nppLocalization\kyrgyz.xml" "$INSTDIR\localization\kyrgyz.xml"
@@ -184,6 +190,9 @@ SectionGroup "Localization" localization
 	${MementoUnselectedSection} "Mongolian" mongolian
 		CopyFiles "$PLUGINSDIR\nppLocalization\mongolian.xml" "$INSTDIR\localization\mongolian.xml"
 	${MementoSectionEnd}
+	${MementoUnselectedSection} "Nepali" nepali
+		CopyFiles "$PLUGINSDIR\nppLocalization\nepali.xml" "$INSTDIR\localization\nepali.xml"
+	${MementoSectionEnd}
 	${MementoUnselectedSection} "Norwegian" norwegian
 		CopyFiles "$PLUGINSDIR\nppLocalization\norwegian.xml" "$INSTDIR\localization\norwegian.xml"
 	${MementoSectionEnd}
@@ -192,6 +201,9 @@ SectionGroup "Localization" localization
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Occitan" occitan
 		CopyFiles "$PLUGINSDIR\nppLocalization\occitan.xml" "$INSTDIR\localization\occitan.xml"
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Piglatin" piglatin
+		CopyFiles "$PLUGINSDIR\nppLocalization\piglatin.xml" "$INSTDIR\localization\piglatin.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Polish" polish
 		CopyFiles "$PLUGINSDIR\nppLocalization\polish.xml" "$INSTDIR\localization\polish.xml"
@@ -241,6 +253,9 @@ SectionGroup "Localization" localization
 	${MementoUnselectedSection} "Tagalog" tagalog
 		CopyFiles "$PLUGINSDIR\nppLocalization\tagalog.xml" "$INSTDIR\localization\tagalog.xml"
 	${MementoSectionEnd}
+	${MementoUnselectedSection} "Taiwanese Mandarin" chineseTraditional
+		CopyFiles "$PLUGINSDIR\nppLocalization\taiwaneseMandarin.xml" "$INSTDIR\localization\taiwaneseMandarin.xml"
+	${MementoSectionEnd}
 	${MementoUnselectedSection} "Tajik" tajik
 		CopyFiles "$PLUGINSDIR\nppLocalization\tajikCyrillic.xml" "$INSTDIR\localization\tajikCyrillic.xml"
 	${MementoSectionEnd}
@@ -274,30 +289,19 @@ SectionGroup "Localization" localization
 	${MementoUnselectedSection} "Uzbek (Cyrillic)" uzbekCyrillic
 		CopyFiles "$PLUGINSDIR\nppLocalization\uzbekCyrillic.xml" "$INSTDIR\localization\uzbekCyrillic.xml"
 	${MementoSectionEnd}
+	${MementoUnselectedSection} "Venetian" venetian
+		CopyFiles "$PLUGINSDIR\nppLocalization\venetian.xml" "$INSTDIR\localization\venetian.xml"
+	${MementoSectionEnd}
 	${MementoUnselectedSection} "Vietnamese" vietnamese
 		CopyFiles "$PLUGINSDIR\nppLocalization\vietnamese.xml" "$INSTDIR\localization\vietnamese.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Welsh" welsh
 		CopyFiles "$PLUGINSDIR\nppLocalization\welsh.xml" "$INSTDIR\localization\welsh.xml"
 	${MementoSectionEnd}
-	${MementoUnselectedSection} "Kurdish" kurdish
-		CopyFiles "$PLUGINSDIR\nppLocalization\kurdish.xml" "$INSTDIR\localization\kurdish.xml"
-	${MementoSectionEnd}
-	${MementoUnselectedSection} "Irish" irish
-		CopyFiles "$PLUGINSDIR\nppLocalization\iriish.xml" "$INSTDIR\localization\irish.xml"
-	${MementoSectionEnd}
-	${MementoUnselectedSection} "Piglatin" piglatin
-		CopyFiles "$PLUGINSDIR\nppLocalization\piglatin.xml" "$INSTDIR\localization\piglatin.xml"
-	${MementoSectionEnd}
 	${MementoUnselectedSection} "Zulu" zulu
 		CopyFiles "$PLUGINSDIR\nppLocalization\zulu.xml" "$INSTDIR\localization\zulu.xml"
 	${MementoSectionEnd}
-	${MementoUnselectedSection} "Venetian" venetian
-		CopyFiles "$PLUGINSDIR\nppLocalization\venetian.xml" "$INSTDIR\localization\venetian.xml"
-	${MementoSectionEnd}
-	${MementoUnselectedSection} "Nepali" nepali
-		CopyFiles "$PLUGINSDIR\nppLocalization\nepali.xml" "$INSTDIR\localization\nepali.xml"
-	${MementoSectionEnd}
+
 SectionGroupEnd
 
 SectionGroup un.localization
@@ -571,5 +575,8 @@ SectionGroup un.localization
 	SectionEnd
 	Section un.nepali
 		Delete "$INSTDIR\localization\nepali.xml"
+	SectionEnd
+	Section un.hongKongCantonese
+		Delete "$INSTDIR\localization\hongKongCantonese.xml"
 	SectionEnd
 SectionGroupEnd

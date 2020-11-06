@@ -28,6 +28,7 @@
 
 #pragma once
 
+#include <map>
 #include "FindReplaceDlg_rc.h"
 #include "ScintillaEditView.h"
 #include "DockingDlgInterface.h"
@@ -46,7 +47,7 @@ enum DIALOG_TYPE {FIND_DLG, REPLACE_DLG, FINDINFILES_DLG, MARK_DLG};
 
 //#define FIND_REPLACE_STR_MAX 256
 
-enum InWhat{ALL_OPEN_DOCS, FILES_IN_DIR, CURRENT_DOC};
+enum InWhat{ALL_OPEN_DOCS, FILES_IN_DIR, CURRENT_DOC, CURR_DOC_SELECTION};
 
 struct FoundInfo {
 	FoundInfo(int start, int end, size_t lineNumber, const TCHAR *fullPath)
@@ -125,14 +126,15 @@ public:
 	void addSearchLine(const TCHAR *searchName);
 	void addFileNameTitle(const TCHAR * fileName);
 	void addFileHitCount(int count);
-	void addSearchHitCount(int count, int countSearched, bool isMatchLines = false);
+	void addSearchHitCount(int count, int countSearched, bool isMatchLines, bool searchedEntireNotSelection);
 	void add(FoundInfo fi, SearchResultMarking mi, const TCHAR* foundline);
 	void setFinderStyle();
 	void removeAll();
 	void openAll();
+	void wrapLongLinesToggle();
 	void copy();
 	void beginNewFilesSearch();
-	void finishFilesSearch(int count, int searchedCount, bool isMatchLines = false);
+	void finishFilesSearch(int count, int searchedCount, bool isMatchLines, bool searchedEntireNotSelection);
 	void gotoNextFoundResult(int direction);
 	void gotoFoundLine();
 	void deleteResult();
@@ -166,6 +168,7 @@ private:
 
 	bool _canBeVolatiled = true;
 
+	bool _longLinesAreWrapped = false;
 
 	void setFinderReadOnly(bool isReadOnly) {
 		_scintView.execute(SCI_SETREADONLY, isReadOnly);
@@ -303,9 +306,10 @@ public :
 		_pFinder->addSearchLine(getText2search().c_str());
 	}
 
-	void finishFilesSearch(int count, int searchedCount)
+	void finishFilesSearch(int count, int searchedCount, bool searchedEntireNotSelection)
 	{
-		_pFinder->finishFilesSearch(count, searchedCount);
+		const bool isMatchLines = false;
+		_pFinder->finishFilesSearch(count, searchedCount, isMatchLines, searchedEntireNotSelection);
 	}
 
 	void focusOnFinder() {
@@ -333,6 +337,7 @@ public :
 	void execSavedCommand(int cmd, uptr_t intValue, const generic_string& stringValue);
 	void clearMarks(const FindOption& opt);
 	void setStatusbarMessage(const generic_string & msg, FindStatus staus);
+	generic_string getScopeInfoForStatusBar(FindOption const *pFindOpt) const;
 	Finder * createFinder();
 	bool removeFinder(Finder *finder2remove);
 
@@ -340,6 +345,9 @@ protected :
 	void resizeDialogElements(LONG newWidth);
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	static LONG_PTR originalFinderProc;
+	static LONG_PTR originalComboEditProc;
+
+	static LRESULT FAR PASCAL comboEditProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 	// Window procedure for the finder
 	static LRESULT FAR PASCAL finderProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
@@ -352,7 +360,7 @@ private :
 	LONG _initialClientWidth;
 
 	DIALOG_TYPE _currentStatus;
-	RECT _findClosePos, _replaceClosePos, _findInFilesClosePos;
+	RECT _findClosePos, _replaceClosePos, _findInFilesClosePos, _markClosePos;
 	RECT _countInSelFramePos, _replaceInSelFramePos;
 	RECT _countInSelCheckPos, _replaceInSelCheckPos;
 
@@ -380,6 +388,11 @@ private :
 	FindStatus _statusbarFindStatus;
 
 	HFONT _hMonospaceFont = nullptr;
+
+	std::map<int, bool> _controlEnableMap;
+
+	void enableFindDlgItem(int dlgItemID, bool isEnable = true);
+	void showFindDlgItem(int dlgItemID, bool isShow = true);
 
 	void enableReplaceFunc(bool isEnable);
 	void enableFindInFilesControls(bool isEnable = true);
@@ -413,6 +426,7 @@ private :
 	void saveInMacro(size_t cmd, int cmdType);
 	void drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct);
 	bool replaceInFilesConfirmCheck(generic_string directory, generic_string fileTypes);
+	bool replaceInOpenDocsConfirmCheck(void);
 };
 
 //FindIncrementDlg: incremental search dialog, docked in rebar

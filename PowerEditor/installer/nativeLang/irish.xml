@@ -1,75 +1,70 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!--
-Author: Jignasa Solanki , Roshan Rathod
-Emailid : libcap2020@gmail.com
-Desc: Irish translation for Notepad++
--->
 <NotepadPlus>
-    <Native-Langue name="Irish" filename="Irish.xml" version="7.8.3">
+    <Native-Langue name="Gaeilge" filename="irish.xml" version="7.8.7">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
                 <Entries>
-                    <Item menuId="file" name="&amp;comhad"/>
-                    <Item menuId="edit" name="&amp;eagarthóireacht"/>
-                    <Item menuId="search" name="&amp;cuardaigh"/>
-                    <Item menuId="view" name="&amp;amharc"/>
-                    <Item menuId="encoding" name="&amp;ionchódú"/>
-                    <Item menuId="language" name="&amp;teanga"/>
-                    <Item menuId="settings" name="&amp;suímh"/>
-                    <Item menuId="tools" name="&amp;uirlisí"/>
-                    <Item menuId="macro" name="&amp;macra"/>
-                    <Item menuId="Rith" name="&amp;rith"/>
+                    <Item menuId="file" name="&amp;Comhad"/>
+                    <Item menuId="edit" name="&amp;Eagar"/>
+                    <Item menuId="search" name="&amp;Cuardaigh"/>
+                    <Item menuId="view" name="&amp;Amharc"/>
+                    <Item menuId="encoding" name="Io&amp;nchodú"/>
+                    <Item menuId="language" name="&amp;Teanga"/>
+                    <Item menuId="settings" name="So&amp;cruithe"/>
+                    <Item menuId="tools" name="Uir&amp;lisí"/>
+                    <Item menuId="macro" name="&amp;Macra"/>
+                    <Item menuId="run" name="&amp;Rith"/>
                     <Item idName="Plugins" name="&amp;Breiseáin"/>
                     <Item idName="Window" name="&amp;Fuinneog"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item subMenuId="file-OscailteFolder" name="Fillteán Coimeádáin Oscailte"/>
-                    <Item subMenuId="file-DúnMore" name="Dún Níos Mó"/>
-                    <Item subMenuId="file-recentFiles" name="&amp;Comhaid is Déanaí"/>
-                    <Item subMenuId="edit-copyToClipboard"  name="Cóipeáil chuig an Ghearrthaisce"/>
-                    <Item subMenuId="edit-indent" name="Folaigh"/>
-                    <Item subMenuId="edit-convertCaseTo" name="Cás a thiontú go"/>
-                    <Item subMenuId="edit-lineOperations" name="Oibríochtaí Líne"/>
-                    <Item subMenuId="edit-comment" name="Trácht / Neamhchomhlíonadh"/>
+                    <Item subMenuId="file-openFolder" name="Oscail an fillteán ina bhfuil"/>
+                    <Item subMenuId="file-closeMore" name="Dún tuilleadh"/>
+                    <Item subMenuId="file-recentFiles" name="&amp;Comhaid le déanaí"/>
+                    <Item subMenuId="edit-copyToClipboard"  name="Cóipeáil chuig an ngearrthaisce"/>
+                    <Item subMenuId="edit-indent" name="Indent"/>
+                    <Item subMenuId="edit-convertCaseTo" name="Tiontaigh an cás go"/>
+                    <Item subMenuId="edit-lineOperations" name="Oibríochtaí líne"/>
+                    <Item subMenuId="edit-comment" name="Déan/ bain trácht"/>
                     <Item subMenuId="edit-autoCompletion" name="Críochnú uathoibríoch"/>
-                    <Item subMenuId="edit-eolConversion" name="Comhshó EOL"/>
-                    <Item subMenuId="edit-blankOperations" name="Oibríochtaí Bána"/>
-                    <Item subMenuId="edit-pasteSpecial" name="Greamaigh Speisialta"/>
-                    <Item subMenuId="edit-onSelection" name="Ar Roghnú"/>
+                    <Item subMenuId="edit-eolConversion" name="EOL Conversion"/>
+                    <Item subMenuId="edit-blankOperations" name="Oibríochtaí bána"/>
+                    <Item subMenuId="edit-pasteSpecial" name="Sainghreamú"/>
+                    <Item subMenuId="edit-onSelection" name="Ar an rogha"/>
                     <Item subMenuId="search-markAll" name="Mark All"/>
                     <Item subMenuId="search-unmarkAll" name="Unmark All"/>
                     <Item subMenuId="search-jumpUp" name="Léim suas"/>
                     <Item subMenuId="search-jumpDown" name="Léim síos"/>
-                    <Item subMenuId="search-bookmark" name="Leabharmharc"/>
-                    <Item subMenuId="view-currentFileIn" name="Féach ar an Comhad Reatha"/>
-                    <Item subMenuId="view-showSymbol"  name="Taispeáin Siombail"/>
-                    <Item subMenuId="view-zoom"  name="Zúmáil"/>
-                    <Item subMenuId="view-moveCloneDocument"  name="Bog / Clón Doiciméad Reatha"/>
-                    <Item subMenuId="view-tab"  name="Tab"/>
-                    <Item subMenuId="view-collapseLevel" name="Laghdaigh Leibhéal"/>
-                    <Item subMenuId="view-uncollapseLevel" name="Leibhéal neamh-chomhshó"/>
+                    <Item subMenuId="search-bookmark" name="Bookmark"/>
+                    <Item subMenuId="view-currentFileIn" name="Breathnaigh ar an gcomhad reatha i"/>
+                    <Item subMenuId="view-showSymbol"  name="Taispeáin comhartha"/>
+                    <Item subMenuId="view-zoom"  name="Gluais"/>
+                    <Item subMenuId="view-moveCloneDocument"  name="Bog/Clónaigh an cháipéis reatha"/>
+                    <Item subMenuId="view-tab"  name="Cluaisín"/>
+                    <Item subMenuId="view-collapseLevel" name="Collapse Level"/>
+                    <Item subMenuId="view-uncollapseLevel" name="Uncollapse Level"/>
                     <Item subMenuId="view-project" name="Tionscadal"/>
-                    <Item subMenuId="encoding-characterSets"  name="Socraigh Carachtair"/>
-                    <Item subMenuId="encoding-arabic"  name="Araibis"/>
-                    <Item subMenuId="encoding-baltic"  name="Baltach"/>
+                    <Item subMenuId="encoding-characterSets"  name="Character Set"/>
+                    <Item subMenuId="encoding-arabic"  name="Arabic"/>
+                    <Item subMenuId="encoding-baltic"  name="Baltic"/>
                     <Item subMenuId="encoding-celtic"  name="Ceilteach"/>
-                    <Item subMenuId="encoding-cyrillic"  name="Coireallach"/>
+                    <Item subMenuId="encoding-cyrillic"  name="Cyrillic"/>
                     <Item subMenuId="encoding-centralEuropean"  name="Lár na hEorpa"/>
-                    <Item subMenuId="encoding-chinese"  name="Sínis"/>
+                    <Item subMenuId="encoding-chinese"  name="Chinese"/>
                     <Item subMenuId="encoding-easternEuropean"  name="Oirthear na hEorpa"/>
                     <Item subMenuId="encoding-greek"  name="Gréigis"/>
                     <Item subMenuId="encoding-hebrew"  name="Eabhrais"/>
-                    <Item subMenuId="encoding-japanese"  name="Seapánach"/>
-                    <Item subMenuId="encoding-korean" name="Cóiré"/>
+                    <Item subMenuId="encoding-japanese"  name="Seapáinis"/>
+                    <Item subMenuId="encoding-korean" name="Coiréis"/>
                     <Item subMenuId="encoding-northEuropean" name="Tuaisceart na hEorpa"/>
-                    <Item subMenuId="encoding-thai" name="Téalainnis"/>
+                    <Item subMenuId="encoding-thai" name="Thai"/>
                     <Item subMenuId="encoding-turkish" name="Tuircis"/>
                     <Item subMenuId="encoding-westernEuropean" name="Iarthar na hEorpa"/>
-                    <Item subMenuId="encoding-vietnamese" name="Vítneaimis"/>
-                    <Item subMenuId="language-userDefinedLanguage" name="Teanga Sainithe Úsáideora"/>
-                    <Item subMenuId="settings-import" name="Iompórtáil"/>
+                    <Item subMenuId="encoding-vietnamese" name="Vietnamese"/>
+                    <Item subMenuId="language-userDefinedLanguage" name="User Defined Language"/>
+                    <Item subMenuId="settings-import" name="Import"/>
                     <Item subMenuId="tools-md5" name="MD5"/>
                     <Item subMenuId="tools-sha256" name="SHA-256"/>
                 </SubEntries>
@@ -77,195 +72,196 @@ Desc: Irish translation for Notepad++
                 <!-- all menu item -->
                 <Commands>
                     <Item id="41001" name="&amp;Nua"/>
-                    <Item id="41002" name="&amp;Oscailte"/>
-                    <Item id="41019" name="Explorer"/>
+                    <Item id="41002" name="&amp;Oscail"/>
+                    <Item id="41019" name="Taiscéalaí"/>
                     <Item id="41020" name="cmd"/>
                     <Item id="41003" name="&amp;Dún"/>
-                    <Item id="41004" name="Clos&amp;e All"/>
-                    <Item id="41005" name="Dún Gach NÍL Cáipéis Reatha"/>
-                    <Item id="41009" name="Dún gach ceann leis an Chlé"/>
-                    <Item id="41018" name="Dún All to the Right"/>
-                    <Item id="41024" name="Dún All Gan athrú"/>
-                    <Item id="41006" name="&amp;Sábháil"/>
-                    <Item id="41007" name="Sábháil Uile"/>
-                    <Item id="41008" name="Sábháil mar..."/>
-                    <Item id="41010" name="Priontáil..."/>
-                    <Item id="1001"  name="Priontáil Anois"/>
-                    <Item id="41011" name="An slí amach"/>
-                    <Item id="41012" name="Seisiún Luchtaigh..."/>
-                    <Item id="41013" name="Sábháil an Seisiún..."/>
-                    <Item id="41014" name="Athlódáil ón Diosca"/>
-                    <Item id="41015" name="Sábháil Cóip..."/>
-                    <Item id="41016" name="Bogadh chuig Athchúrsáil Bin"/>
+                    <Item id="41004" name="Dú&amp;n uile"/>
+                    <Item id="41005" name="Dún UILE ACH AMHÁIN an cháipéis reatha"/>
+                    <Item id="41009" name="Dún GACH CEANN ar chlé"/>
+                    <Item id="41018" name="Dún GACH CEANN ar dheis"/>
+                    <Item id="41024" name="Dún GACH CEANN gan athrú"/>
+                    <Item id="41006" name="&amp;Taisc"/>
+                    <Item id="41007" name="Tai&amp;sc uile"/>
+                    <Item id="41008" name="Taisc &amp;mar..."/>
+                    <Item id="41010" name="Clóbhuail..."/>
+                    <Item id="1001"  name="Clóbhuail anois"/>
+                    <Item id="41011" name="S&amp;coir"/>
+                    <Item id="41012" name="Load Session..."/>
+                    <Item id="41013" name="Save Session..."/>
+                    <Item id="41014" name="Re&amp;load from Disk"/>
+                    <Item id="41015" name="Taisc cóip mar..."/>
+                    <Item id="41016" name="Move to Recycle Bin"/>
                     <Item id="41017" name="Athainmnigh..."/>
-                    <Item id="41021" name="Athchóirigh an Comhad Dúnta is Déanaí"/>
-                    <Item id="41022" name="Fillteán Oscailte mar Spás Oibre..."/>
-                    <Item id="41023" name="Oscail i Réamhshocrú Viewer"/>
-                    <Item id="42001" name="Gearr"/>
-                    <Item id="42002" name="&amp;Cóip"/>
+                    <Item id="41021" name="Restore Recent Closed File"/>
+                    <Item id="41022" name="Oscail Folder as Workspace..."/>
+                    <Item id="41023" name="Oscail in Default Viewer"/>
+                    <Item id="42001" name="Gea&amp;rr"/>
+                    <Item id="42002" name="&amp;Cóípeáil"/>
                     <Item id="42003" name="&amp;Cealaigh"/>
-                    <Item id="42004" name="&amp;Athdhéan"/>
+                    <Item id="42004" name="&amp;Athdhéan e"/>
                     <Item id="42005" name="&amp;Greamaigh"/>
                     <Item id="42006" name="&amp;Scrios"/>
-                    <Item id="42007" name="Roghnú go léir"/>
-                    <Item id="42020" name="Tosaigh / Deireadh Roghnaigh"/>
-                    <Item id="42008" name="Méadaigh Líne Inlíonta"/>
-                    <Item id="42009" name="Laghdú ar Inent Líne"/>
-                    <Item id="42010" name="Líne Dúblach Dúblach"/>
-                    <Item id="42077" name="Bain na Línte Dúblacha Iarmhartacha"/>
-                    <Item id="42012" name="Línte Scoilte"/>
-                    <Item id="42013" name="Cláraigh Línte"/>
-                    <Item id="42014" name="Bog an Líne Reatha"/>
-                    <Item id="42015" name="Bog an Líne Reatha"/>
-                    <Item id="42059" name="Línte Sórtála ag dul suas go Tíreolaíoch"/>
-                    <Item id="42060" name="Línte Sórtála atá Íslitheach go Sochorraithe"/>
-                    <Item id="42061" name="Línte Sórtála Mar Suimitheoirí ag dul suas"/>
-                    <Item id="42062" name="Línte Sórtáil De réir mar a Shroicheann Slán"/>
-                    <Item id="42063" name="Línte Sórtála mar Dheachúlacha (Cuma) Ag dul suas"/>
-                    <Item id="42064" name="Línte Sórtála mar Dheachúlacha (Cuma)"/>
-                    <Item id="42065" name="Sórtáil Línte Mar Dheachúlacha (Dot) Ag dul suas"/>
-                    <Item id="42066" name="Sórtáil Línte Mar Dheachúlacha (Ponc) Sliocht"/>
-                    <Item id="42016" name="&amp;COMHCHUISIÚ"/>
-                    <Item id="42017" name="&amp;Cás beag"/>
-                    <Item id="42067" name="&amp;Cás cuí"/>
-                    <Item id="42068" name="Cás Cuí (meascán)"/>
-                    <Item id="42069" name="&amp;Cás na pianbhreithe"/>
-                    <Item id="42070" name="Cás pianbhreithe (meascán)"/>
-                    <Item id="42071" name="&amp;CÚNAMH IAD"/>
-                    <Item id="42072" name="&amp;CasE RANG"/>
-                    <Item id="42073" name="Comhad a oscailt"/>
-                    <Item id="42074" name="Fillteán Coimeádáin Oscailte in Explorer"/>
+                    <Item id="42007" name="Roghnaigh u&amp;ile"/>
+                    <Item id="42020" name="Begin/End Select"/>
+                    <Item id="42008" name="Increase Line Indent"/>
+                    <Item id="42009" name="Decrease Line Indent"/>
+                    <Item id="42010" name="Duplicate Current Line"/>
+                    <Item id="42077" name="Bain Consecutive Duplicate Lines"/>
+                    <Item id="42012" name="Split Lines"/>
+                    <Item id="42013" name="Join Lines"/>
+                    <Item id="42014" name="Bog suas Current Line"/>
+                    <Item id="42015" name="Bog síos Current Line"/>
+                    <Item id="42059" name="Sort Lines Lexicographically Ascending"/>
+                    <Item id="42060" name="Sort Lines Lexicographically Descending"/>
+                    <Item id="42061" name="Sort Lines As Integers Ascending"/>
+                    <Item id="42062" name="Sort Lines As Integers Descending"/>
+                    <Item id="42063" name="Sort Lines As Decimals (Comma) Ascending"/>
+                    <Item id="42064" name="Sort Lines As Decimals (Comma) Descending"/>
+                    <Item id="42065" name="Sort Lines As Decimals (Dot) Ascending"/>
+                    <Item id="42066" name="Sort Lines As Decimals (Dot) Descending"/>
+                    <Item id="42078" name="Sort Lines Randomly"/>
+                    <Item id="42016" name="&amp;UPPERCASE"/>
+                    <Item id="42017" name="&amp;lowercase"/>
+                    <Item id="42067" name="&amp;Proper Case"/>
+                    <Item id="42068" name="Proper Case (blend)"/>
+                    <Item id="42069" name="&amp;Sentence case"/>
+                    <Item id="42070" name="Sentence case (blend)"/>
+                    <Item id="42071" name="&amp;iNVERT cASE"/>
+                    <Item id="42072" name="&amp;ranDOm CasE"/>
+                    <Item id="42073" name="Oscail comhad"/>
+                    <Item id="42074" name="Oscail Containing Folder in Explorer"/>
                     <Item id="42075" name="Cuardaigh ar an Idirlíon"/>
-                    <Item id="42076" name="Athraigh Inneall Cuardaigh..."/>
-                    <Item id="42018" name="Tosaigh Taifeadadh"/>
-                    <Item id="42019" name="stop a chur le taifeadadh"/>
+                    <Item id="42076" name="Athraigh an t-inneall cuardaigh..."/>
+                    <Item id="42018" name="Tosaigh ag taifead&amp;adh"/>
+                    <Item id="42019" name="S&amp;tad den taifeadadh"/>
                     <Item id="42021" name="&amp;Athsheinm"/>
-                    <Item id="42022" name="Toggle Comment Ar Líne Amháin"/>
-                    <Item id="42023" name="Bloc an tráchta"/>
-                    <Item id="42047" name="Bloc Neamhchoitianta"/>
-                    <Item id="42024" name="Spás Trailing Trim"/>
-                    <Item id="42042" name="Baile Átha Troim Spás Ceannaireachta"/>
-                    <Item id="42043" name="Spás Treoraithe agus Trailing Baile Átha Troim"/>
+                    <Item id="42022" name="Toggle Single Line Comment"/>
+                    <Item id="42023" name="Block Comment"/>
+                    <Item id="42047" name="Block Uncomment"/>
+                    <Item id="42024" name="Trim Trailing Space"/>
+                    <Item id="42042" name="Trim Leading Space"/>
+                    <Item id="42043" name="Trim Leading and Trailing Space"/>
                     <Item id="42044" name="EOL to Space"/>
-                    <Item id="42045" name="Bain Blank agus EOL neamhriachtanach"/>
+                    <Item id="42045" name="Bain Unnecessary Blank and EOL"/>
                     <Item id="42046" name="TAB to Space"/>
-                    <Item id="42054" name="Spás don TAB (Uile)"/>
-                    <Item id="42053" name="Spás don TAB (Ceannaireacht)"/>
-                    <Item id="42038" name="Greamaigh Ábhar HTML"/>
-                    <Item id="42039" name="Greamaigh Ábhar RTF"/>
-                    <Item id="42048" name="Cóipeáil Ábhar Dénártha"/>
-                    <Item id="42049" name="Gearr Ábhar Dénártha"/>
-                    <Item id="42050" name="Greamaigh Ábhar Dénártha"/>
-                    <Item id="42037" name="Mód Colúin..."/>
-                    <Item id="42034" name="Eagarthóir Colúinr..."/>
-                    <Item id="42051" name="ainéal Carachtair"/>
-                    <Item id="42052" name="Stair Ghearrthaisce"/>
-                    <Item id="42025" name="&amp;Sábháil Macra Taifeadta faoi láthair..."/>
-                    <Item id="42026" name="Treo Téacs RTL"/>
-                    <Item id="42027" name="Treo Téacs LTR"/>
-                    <Item id="42028" name="Socraigh Léamh Amháin"/>
-                    <Item id="42029" name="Cosán Comhad Reatha go dtí an Ghearrthaisce"/>
-                    <Item id="42030" name="Ainm comhaid reatha go dtí an Ghearrthaisce"/>
-                    <Item id="42031" name="Dir Reatha. Conair go dtí an Ghearrthaisce"/>
-                    <Item id="42032" name="&amp;Rith Il-Amanna Macra..."/>
-                    <Item id="42033" name="Bratach Léamh Amháin Amháin"/>
-                    <Item id="42035" name="Trácht Líne Aonair"/>
-                    <Item id="42036" name="Neamh-Líne Aonair"/>
-                    <Item id="42055" name="Bain na Línte Folamh"/>
-                    <Item id="42056" name="Bain na Línte Folamh (ina bhfuil carachtair bhána)"/>
-                    <Item id="42057" name="Cuir isteach Líne Bhán Os cionn an Reatha"/>
-                    <Item id="42058" name="Cuir Líne Bán faoi Thíos"/>
+                    <Item id="42054" name="Space to TAB (All)"/>
+                    <Item id="42053" name="Space to TAB (Leading)"/>
+                    <Item id="42038" name="Greamaigh HTML Content"/>
+                    <Item id="42039" name="Greamaigh RTF Content"/>
+                    <Item id="42048" name="Copy Binary Content"/>
+                    <Item id="42049" name="Cut Binary Content"/>
+                    <Item id="42050" name="Greamaigh Binary Content"/>
+                    <Item id="42037" name="Column Mode..."/>
+                    <Item id="42034" name="Column Editor..."/>
+                    <Item id="42051" name="Character Panel"/>
+                    <Item id="42052" name="Clipboard History"/>
+                    <Item id="42025" name="&amp;Save Currently Recorded Macro..."/>
+                    <Item id="42026" name="Text Direction RTL"/>
+                    <Item id="42027" name="Text Direction LTR"/>
+                    <Item id="42028" name="Socraigh mar inléite amháin"/>
+                    <Item id="42029" name="Current File Path chuig an ngearrthaisce"/>
+                    <Item id="42030" name="Current Filename chuig an ngearrthaisce"/>
+                    <Item id="42031" name="Current Dir. Path chuig an ngearrthaisce"/>
+                    <Item id="42032" name="&amp;Rith a Macro Multiple Times..."/>
+                    <Item id="42033" name="Glan Read-Only Flag"/>
+                    <Item id="42035" name="Single Line Comment"/>
+                    <Item id="42036" name="Single Line Uncomment"/>
+                    <Item id="42055" name="Bain línte folmha"/>
+                    <Item id="42056" name="Bain Empty Lines (Containing Blank characters)"/>
+                    <Item id="42057" name="Insert Blank Line Above Current"/>
+                    <Item id="42058" name="Insert Blank Line Below Current"/>
                     <Item id="43001" name="&amp;Aimsigh..."/>
-                    <Item id="43002" name="Aimsigh Next"/>
-                    <Item id="43003" name="&amp;In ionad..."/>
-                    <Item id="43004" name="&amp;Téigh..."/>
+                    <Item id="43002" name="Aimsigh &amp;ar aghaidh"/>
+                    <Item id="43003" name="&amp;Ionadaigh..."/>
+                    <Item id="43004" name="&amp;Téigh chuig..."/>
                     <Item id="43005" name="Toggle Bookmark"/>
                     <Item id="43006" name="Next Bookmark"/>
-                    <Item id="43007" name="Leabharmharcanna roimhe seo"/>
-                    <Item id="43008" name="Glan Gach Leabharmharcanna"/>
-                    <Item id="43018" name="Gearr Línte Leabharmharcáilte"/>
-                    <Item id="43019" name="Cóipeáil Línte Leabharmharcáilte"/>
-                    <Item id="43020" name="Línte Leabharmharcáilte le Paste to (Replace)"/>
-                    <Item id="43021" name="Bain na Línte Leabharmharcáilte"/>
-                    <Item id="43051" name="Bain na Línte Neamhmharcáilte"/>
-                    <Item id="43050" name="Leabharmharc Inbhéartach"/>
-                    <Item id="43052" name="Faigh carachtair sa raon..."/>
-                    <Item id="43053" name="Roghnaigh Gach Idir Braces Meaitseáil"/>
-                    <Item id="43009" name="Téigh go Matching Brace"/>
-                    <Item id="43010" name="Aimsigh Roimhe Seo"/>
-                    <Item id="43011" name="&amp;Cuardach Incriminteach"/>
-                    <Item id="43013" name="Faigh i gcomhaid"/>
-                    <Item id="43014" name="Faigh (Soghalaithe) Ar Aghaidh"/>
-                    <Item id="43015" name="Aimsigh (Soghalaithe) Roimhe Seo"/>
-                    <Item id="43022" name="Ag baint úsáide as an 1ú Stíl"/>
-                    <Item id="43023" name="Glan an 1ú Stíl"/>
-                    <Item id="43024" name="Ag baint úsáide as an dara stíl"/>
-                    <Item id="43025" name="Glan an dara Stíl"/>
-                    <Item id="43026" name="Ag baint úsáide as an 3ú Stíl"/>
-                    <Item id="43027" name="Glan 3ú Stíl"/>
-                    <Item id="43028" name="Ag baint úsáide as an 4ú Stíl"/>
-                    <Item id="43029" name="Glan an 4ú Stíl"/>
-                    <Item id="43030" name="Ag baint úsáide as an 5ú Stíl"/>
-                    <Item id="43031" name="Glan 5ú Stíl"/>
-                    <Item id="43032" name="Glan gach Stíl"/>
-                    <Item id="43033" name="1ú stíl"/>
-                    <Item id="43034" name="2ú stíl"/>
-                    <Item id="43035" name="3ú stíl"/>
-                    <Item id="43036" name="4ú stíl"/>
-                    <Item id="43037" name="5ú stíl"/>
-                    <Item id="43038" name="Aimsigh stíl"/>
-                    <Item id="43039" name="1ú stíl"/>
-                    <Item id="43040" name="2ú stíl"/>
-                    <Item id="43041" name="3ú stíl"/>
-                    <Item id="43042" name="4ú stíl"/>
-                    <Item id="43043" name="5ú stíl"/>
-                    <Item id="43044" name="Aimsigh stíl"/>
-                    <Item id="43045" name="Fuinneog Torthaí Cuardaigh"/>
-                    <Item id="43046" name="Ar Aghaidh Toradh Cuardaigh"/>
-                    <Item id="43047" name="Toradh Cuardaigh Roimhe Seo"/>
-                    <Item id="43048" name="Roghnaigh agus Aimsigh Ar Aghaidh"/>
-                    <Item id="43049" name="Roghnaigh agus Faigh Roimhe Seo"/>
-                    <Item id="43054" name="Marcáil..."/>
+                    <Item id="43007" name="Previous Bookmark"/>
+                    <Item id="43008" name="Glan All Bookmarks"/>
+                    <Item id="43018" name="Cut Bookmarked Lines"/>
+                    <Item id="43019" name="Cóipeáil Bookmarked Lines"/>
+                    <Item id="43020" name="Greamaigh to (Replace) Bookmarked Lines"/>
+                    <Item id="43021" name="Bain Bookmarked Lines"/>
+                    <Item id="43051" name="Bain Unmarked Lines"/>
+                    <Item id="43050" name="Inverse Bookmark"/>
+                    <Item id="43052" name="Aimsigh carachtair i raon.."/>
+                    <Item id="43053" name="Select All Between Matching Braces"/>
+                    <Item id="43009" name="Go to Matching Brace"/>
+                    <Item id="43010" name="Find &amp;Previous"/>
+                    <Item id="43011" name="&amp;Incremental Search"/>
+                    <Item id="43013" name="Aimsigh sna comhaid"/>
+                    <Item id="43014" name="Find (Volatile) Next"/>
+                    <Item id="43015" name="Find (Volatile) Previous"/>
+                    <Item id="43022" name="Using 1st Style"/>
+                    <Item id="43023" name="Glan 1st Style"/>
+                    <Item id="43024" name="Using 2nd Style"/>
+                    <Item id="43025" name="Glan 2nd Style"/>
+                    <Item id="43026" name="Using 3rd Style"/>
+                    <Item id="43027" name="Glan 3rd Style"/>
+                    <Item id="43028" name="Using 4th Style"/>
+                    <Item id="43029" name="Glan 4th Style"/>
+                    <Item id="43030" name="Using 5th Style"/>
+                    <Item id="43031" name="Glan 5th Style"/>
+                    <Item id="43032" name="Glan All Styles"/>
+                    <Item id="43033" name="1st style"/>
+                    <Item id="43034" name="2nd style"/>
+                    <Item id="43035" name="3rd style"/>
+                    <Item id="43036" name="4th style"/>
+                    <Item id="43037" name="5th style"/>
+                    <Item id="43038" name="Find style"/>
+                    <Item id="43039" name="1st style"/>
+                    <Item id="43040" name="2nd style"/>
+                    <Item id="43041" name="3rd style"/>
+                    <Item id="43042" name="4th style"/>
+                    <Item id="43043" name="5th style"/>
+                    <Item id="43044" name="Find style"/>
+                    <Item id="43045" name="Search Results Window"/>
+                    <Item id="43046" name="Next Search Result"/>
+                    <Item id="43047" name="Previous Search Result"/>
+                    <Item id="43048" name="Select and Find Next"/>
+                    <Item id="43049" name="Select and Find Previous"/>
+                    <Item id="43054" name="Mar&amp;k..."/>
                     <Item id="44009" name="Post-It"/>
-                    <Item id="44010" name="Fill All"/>
-                    <Item id="44019" name="Taispeáin Gach Carachtar"/>
-                    <Item id="44020" name="Taispeáin Treoir Indent"/>
-                    <Item id="44022" name="Timfhilleadh focal"/>
-                    <Item id="44023" name="Súmáil isteach (Ctrl + Roth Luiche Suas)"/>
-                    <Item id="44024" name="Súmáil Amach (Ctrl + Roth Luiche Síos)"/>
-                    <Item id="44025" name="Taispeáin an Spás Bán agus an CMT"/>
-                    <Item id="44026" name="Taispeáin Deireadh an Líne"/>
-                    <Item id="44029" name="Neamhdhóite Uile"/>
-                    <Item id="44030" name="Leathnaigh an Leibhéal Reatha"/>
-                    <Item id="44031" name="Déan neamhshuim ar an leibhéal reatha"/>
+                    <Item id="44010" name="Fill uile"/>
+                    <Item id="44019" name="Taispeáin gach carachtar"/>
+                    <Item id="44020" name="Show Indent Guide"/>
+                    <Item id="44022" name="Word wrap"/>
+                    <Item id="44023" name="Zoom &amp;In (Ctrl+Mouse Wheel Up)"/>
+                    <Item id="44024" name="Zoom &amp;Out (Ctrl+Mouse Wheel Down)"/>
+                    <Item id="44025" name="Show White Space and TAB"/>
+                    <Item id="44026" name="Show End of Line"/>
+                    <Item id="44029" name="Unfold All"/>
+                    <Item id="44030" name="Collapse Current Level"/>
+                    <Item id="44031" name="Uncollapse Current Level"/>
                     <Item id="44049" name="Achoimre..."/>
-                    <Item id="44080" name="Léarscáil an Doiciméid"/>
-                    <Item id="44084" name="Liosta Feidhme"/>
-                    <Item id="44085" name="Fillteán mar Spás Oibre"/>
-                    <Item id="44086" name="1ú Tab"/>
-                    <Item id="44087" name="2ú Tab"/>
-                    <Item id="44088" name="3ú Tab"/>
-                    <Item id="44089" name="4ú Tab"/>
-                    <Item id="44090" name="5ú Tab"/>
-                    <Item id="44091" name="6ú Tab"/>
-                    <Item id="44092" name="7ú Tab"/>
-                    <Item id="44093" name="8ú Tab"/>
-                    <Item id="44094" name="9ú Tab"/>
-                    <Item id="44095" name="An chéad táb eile"/>
-                    <Item id="44096" name="Roimhe Seo Tab"/>
-                    <Item id="44097" name="Monatóireacht (eireaball)"/>
-                    <Item id="44098" name="Bog Tab Ar Aghaidh"/>
-                    <Item id="44099" name="Bog Tab Ar Ais"/>
-                    <Item id="44032" name="Scoránaigh Mód Scáileáin Iomlán"/>
-                    <Item id="44033" name="Athchóirigh Réamhshocrú Zoom"/>
-                    <Item id="44034" name="I gcónaí ar barr"/>
-                    <Item id="44035" name="Scrollaigh Ingearach a shioncrónú"/>
-                    <Item id="44036" name="Sioncrónaigh Scrollaigh Cothrománach"/>
-                    <Item id="44041" name="Taispeáin Siombail Wrap"/>
-                    <Item id="44072" name="Fócas ar Radharc Eile"/>
-                    <Item id="44081" name="Painéal Tionscadail 1"/>
-                    <Item id="44082" name="Painéal Tionscadail 2"/>
-                    <Item id="44083" name="Painéal Tionscadail 3"/>
+                    <Item id="44080" name="Document Map"/>
+                    <Item id="44084" name="Function List"/>
+                    <Item id="44085" name="Folder as Workspace"/>
+                    <Item id="44086" name="1st Tab"/>
+                    <Item id="44087" name="2nd Tab"/>
+                    <Item id="44088" name="3rd Tab"/>
+                    <Item id="44089" name="4th Tab"/>
+                    <Item id="44090" name="5th Tab"/>
+                    <Item id="44091" name="6th Tab"/>
+                    <Item id="44092" name="7th Tab"/>
+                    <Item id="44093" name="8th Tab"/>
+                    <Item id="44094" name="9th Tab"/>
+                    <Item id="44095" name="An cluaisín ar aghaidh"/>
+                    <Item id="44096" name="An cluaisín roimhe"/>
+                    <Item id="44097" name="Monitoring (tail -f)"/>
+                    <Item id="44098" name="Move Tab Forward"/>
+                    <Item id="44099" name="Move Tab Backward"/>
+                    <Item id="44032" name="Toggle Full Screen Mode"/>
+                    <Item id="44033" name="Restore Default Zoom"/>
+                    <Item id="44034" name="Always on Top"/>
+                    <Item id="44035" name="Synchronise Vertical Scrolling"/>
+                    <Item id="44036" name="Synchronise Horizontal Scrolling"/>
+                    <Item id="44041" name="Show Wrap Symbol"/>
+                    <Item id="44072" name="Focus on Another View"/>
+                    <Item id="44081" name="Project Panel 1"/>
+                    <Item id="44082" name="Project Panel 2"/>
+                    <Item id="44083" name="Project Panel 3"/>
                     <Item id="45001" name="Windows (CR LF)"/>
                     <Item id="45002" name="Unix (LF)"/>
                     <Item id="45003" name="Macintosh (CR)"/>
@@ -279,339 +275,399 @@ Desc: Irish translation for Notepad++
                     <Item id="45011" name="Tiontaigh go UTF-8-BOM"/>
                     <Item id="45012" name="Tiontaigh go UCS-2 BE BOM"/>
                     <Item id="45013" name="Tiontaigh go UCS-2 LE BOM"/>
-                    <Item id="45060" name="Big5 (Traidisiúnta)"/>
+                    <Item id="45060" name="Big5 (Traditional)"/>
                     <Item id="45061" name="GB2312 (Simplithe)"/>
                     <Item id="45054" name="OEM 861: Íoslainnis"/>
-                    <Item id="45057" name="OEM 865: Nordach"/>
+                    <Item id="45057" name="OEM 865: Nordic"/>
                     <Item id="45053" name="OEM 860: Portaingéilis"/>
                     <Item id="45056" name="OEM 863: Fraincis"/>
 
-                    <Item id="10001" name="Bog go Radharc Eile"/>
-                    <Item id="10002" name="Clón go Radharc Eile"/>
-                    <Item id="10003" name="Bog go New Instance"/>
-                    <Item id="10004" name="Oscailte in New Instance"/>
+                    <Item id="10001" name="Bog chuig amharc eile"/>
+                    <Item id="10002" name="Clone to Other View"/>
+                    <Item id="10003" name="Move to New Instance"/>
+                    <Item id="10004" name="Oscail in New Instance"/>
 
-                    <Item id="46001" name="Cumadóir Stíle..."/>
-                    <Item id="46250" name="Sainmhínigh do theanga..."/>
-                    <Item id="46300" name="Fillteán Teanga Sainmhínithe Úsáideora Oscailte..."/>
-                    <Item id="46180" name="Úsáideoir-Sainithe"/>
-                    <Item id="47000" name="Maidir le Notepad ++"/>
-                    <Item id="47010" name="Argóintí Líne Ordaithe..."/>
-                    <Item id="47001" name="Home Notepad ++"/>
-                    <Item id="47002" name="Leathanach Tionscadail Notepad ++"/>
-                    <Item id="47003" name="Doiciméadúcháin ar líne"/>
-                    <Item id="47004" name="Pobal Notepad ++ (Fóram)"/>
-                    <Item id="47011" name="Tacaíocht Beo"/>
+                    <Item id="46001" name="Style Configurator..."/>
+                    <Item id="46250" name="Define your language..."/>
+                    <Item id="46300" name="Oscail User Defined Language folder..."/>
+                    <Item id="46180" name="User-Defined"/>
+                    <Item id="47000" name="Maidir le Notepad++"/>
+                    <Item id="47010" name="Command Line Arguments..."/>
+                    <Item id="47001" name="Baile Notepad++"/>
+                    <Item id="47002" name="Notepad++ Project Page"/>
+                    <Item id="47003" name="Online Documentation"/>
+                    <Item id="47004" name="Notepad++ Community (Forum)"/>
+                    <Item id="47011" name="Tacaíocht bheo"/>
                     <Item id="47012" name="Debug Info..."/>
-                    <Item id="47005" name="Faigh Breiseáin Níos Mó"/>
-                    <Item id="47006" name="Nuashonraigh Notepad + +"/>
-                    <Item id="47009" name="Socraigh Proxy Updater..."/>
-                    <Item id="48005" name="Plug (i) r iompórtála..."/>
-                    <Item id="48006" name="Téama / téamaí stíl iompórtála..."/>
-                    <Item id="48018" name="Cuir Popup ContextMenu in eagar"/>
-                    <Item id="48009" name="Mapper Aicearra..."/>
-                    <Item id="48011" name="Roghanna..."/>
-                    <Item id="48014" name="Fillteán Oscailte Breiseáin..."/>
-                    <Item id="48015" name="Breiseáin Riarachán..."/>
-                    <Item id="48501" name="Gin..."/>
-                    <Item id="48502" name="Gin ó chomhaid..."/>
-                    <Item id="48503" name="Cruthaigh ó roghnú go gearrthaisce"/>
-                    <Item id="48504" name="Gin..."/>
-                    <Item id="48505" name="Gin ó chomhaid..."/>
-                    <Item id="48506" name="Cruthaigh ó roghnú go gearrthaisce"/>
+                    <Item id="47005" name="Get More Plugins"/>
+                    <Item id="47006" name="Nuashonraigh Notepad++"/>
+                    <Item id="47009" name="Set Updater Proxy..."/>
+                    <Item id="48005" name="Import plugin(s)..."/>
+                    <Item id="48006" name="Import style theme(s)..."/>
+                    <Item id="48018" name="Edit Popup ContextMenu"/>
+                    <Item id="48009" name="Shortcut Mapper..."/>
+                    <Item id="48011" name="Sainroghanna..."/>
+                    <Item id="48014" name="Oscail Plugins Folder..."/>
+                    <Item id="48015" name="Plugins Admin..."/>
+                    <Item id="48501" name="Cruthaigh..."/>
+                    <Item id="48502" name="Cruathaigh ó chomhaid..."/>
+                    <Item id="48503" name="Generate from selection into clipboard"/>
+                    <Item id="48504" name="Cruthaigh..."/>
+                    <Item id="48505" name="Generate from files..."/>
+                    <Item id="48506" name="Generate from selection into clipboard"/>
                     <Item id="49000" name="&amp;Rith..."/>
 
-                    <Item id="50000" name="Críochnú Feidhm"/>
-                    <Item id="50001" name="Críochnú Word"/>
-                    <Item id="50002" name="Feidhm Paraiméadair Leid"/>
-                    <Item id="50003" name="Athraigh an doiciméad roimhe seo"/>
-                    <Item id="50004" name="Téigh go dtí an chéad doiciméad eile"/>
-                    <Item id="50005" name="Scoránaigh an macraifead"/>
-                    <Item id="50006" name="Críochnú Cosáin"/>
-                    <Item id="44042" name="Folaigh Línte"/>
-                    <Item id="42040" name="Oscail Gach Comhad Le Déanaí"/>
-                    <Item id="42041" name="Liosta Comhaid le Folamh le Folamh"/>
-                    <Item id="48016" name="Athraigh an Aicearra / Scrios Macra..."/>
-                    <Item id="48017" name="Athraigh an Aicearra / Scrios Ceannasaíocht..."/>
+                    <Item id="50000" name="Function Completion"/>
+                    <Item id="50001" name="Críochnú focail"/>
+                    <Item id="50002" name="Function Parameters Hint"/>
+                    <Item id="50003" name="Switch to previous document"/>
+                    <Item id="50004" name="Switch to next document"/>
+                    <Item id="50005" name="Toggle macro record"/>
+                    <Item id="50006" name="Path Completion"/>
+                    <Item id="44042" name="Folaigh na línte"/>
+                    <Item id="42040" name="Oscail gach comhad le déanaí"/>
+                    <Item id="42041" name="Empty Recent Files List"/>
+                    <Item id="48016" name="Modify Shortcut/Delete Macro..."/>
+                    <Item id="48017" name="Modify Shortcut/Delete Command..."/>
                 </Commands>
             </Main>
             <Splitter>
             </Splitter>
             <TabBar>
                     <Item CMID="0" name="Dún"/>
-                    <Item CMID="1" name="Dún gach uile ACH ACH"/>
-                    <Item CMID="2" name="Sábháil"/>
-                    <Item CMID="3" name="Sábháil mar..."/>
-                    <Item CMID="4" name="Priontáil"/>
-                    <Item CMID="5" name="Bog go Radharc Eile"/>
-                    <Item CMID="6" name="Clón go Radharc Eile"/>
-                    <Item CMID="7" name="Full File Path to Clipboard"/>
-                    <Item CMID="8" name="Ainm comhaid go dtí an Ghearrthaisce"/>
-                    <Item CMID="9" name="Dir Reatha. Conair go dtí an Ghearrthaisce"/>
+                    <Item CMID="1" name="Dún uile ACH AMHÁIN an ceann seo"/>
+                    <Item CMID="2" name="Taisc"/>
+                    <Item CMID="3" name="Taisc mar..."/>
+                    <Item CMID="4" name="Clóbhuail"/>
+                    <Item CMID="5" name="Bog chuig amharc eile"/>
+                    <Item CMID="6" name="Clone to Other View"/>
+                    <Item CMID="7" name="Full File Path chuig an ngearrthaisce"/>
+                    <Item CMID="8" name="Filename chuig an ngearrthaisce"/>
+                    <Item CMID="9" name="Current Dir. Path chuig an ngearrthaisce"/>
                     <Item CMID="10" name="Athainmnigh"/>
-                    <Item CMID="11" name="Bogadh go dtí Athchúrsáil Bin"/>
-                    <Item CMID="12" name="Léamh amháin"/>
-                    <Item CMID="13" name="Bratach Léamh Amháin Amháin"/>
-                    <Item CMID="14" name="Bog go New Instance"/>
-                    <Item CMID="15" name="Oscailte in New Instance"/>
-                    <Item CMID="16" name="Athlódáil"/>
-                    <Item CMID="17" name="Dún gach ceann leis an Chlé"/>
-                    <Item CMID="18" name="Dún All to the Right"/>
-                    <Item CMID="19" name="Fillteán Coimeádáin Oscailte in Explorer"/>
-                    <Item CMID="20" name="Fillteán Coimeádáin Oscailte i cmd"/>
-                    <Item CMID="21" name="Oscail i Réamhshocrú Viewer"/>
-                    <Item CMID="22" name="Dún All Gan athrú"/>
+                    <Item CMID="11" name="Move to Recycle Bin"/>
+                    <Item CMID="12" name="Inléite-Amháin"/>
+                    <Item CMID="13" name="Glan Read-Only Flag"/>
+                    <Item CMID="14" name="Move to New Instance"/>
+                    <Item CMID="15" name="Oscail in New Instance"/>
+                    <Item CMID="16" name="Athluchtaigh é"/>
+                    <Item CMID="17" name="Dún GACH CEANN ar chlé"/>
+                    <Item CMID="18" name="Dún GACH CEANN ar dheis"/>
+                    <Item CMID="19" name="Oscail Containing Folder in Explorer"/>
+                    <Item CMID="20" name="Oscail Containing Folder in cmd"/>
+                    <Item CMID="21" name="Oscail san amharcóir réamhshocraithe"/>
+                    <Item CMID="22" name="Dún GACH CEANN gan athrú"/>
             </TabBar>
         </Menu>
 
         <Dialog>
-            <Find title="" titleFind="Aimsigh" titleReplace="In ionad" titleFindInFiles="Faigh i gcomhaid" titleMark="Marcáil">
-                <Item id="1"    name="Aimsigh Next"/>
-                <Item id="1722" name="Treo siar"/>
+            <Find title="" titleFind="Find" titleReplace="Replace" titleFindInFiles="Find in Files" titleMark="Mark">
+                <Item id="1"    name="Aimsigh ar aghaidh"/>
+                <Item id="1722" name="Siar"/>
                 <Item id="2"    name="Dún"/>
-                <Item id="1620" name="&amp;Faigh cad é :"/>
-                <Item id="1603" name="Meaitseáil focal iomlán amháin"/>
-                <Item id="1604" name="Meaitseáil cás"/>
-                <Item id="1605" name="Léiriú rialta"/>
-                <Item id="1606" name="Timfhilleadh timpeall"/>
-                <Item id="1614" name="Comhaireamh"/>
+                <Item id="1620" name="&amp;Céard ba cheart a aimsiú :"/>
+                <Item id="1603" name="Match &amp;whole word only"/>
+                <Item id="1604" name="Match &amp;case"/>
+                <Item id="1605" name="Re&amp;gular expression"/>
+                <Item id="1606" name="Wra&amp;p around"/>
+                <Item id="1614" name="Coun&amp;t"/>
                 <Item id="1615" name="Mark All"/>
-                <Item id="1616" name="Líne Leabharmharcanna"/>
-                <Item id="1618" name="Purge do gach cuardach"/>
-                <Item id="1611" name="In ionad :"/>
-                <Item id="1608" name="&amp;In ionad"/>
-                <Item id="1609" name="Ionadaigh Uile"/>
-                <Item id="1687" name="Ar fhócas a chailliúint"/>
+                <Item id="1616" name="Book&amp;mark line"/>
+                <Item id="1618" name="Purge for each search"/>
+                <Item id="1611" name="Ionad&amp;aigh le :"/>
+                <Item id="1608" name="&amp;Ionadaigh"/>
+                <Item id="1609" name="Iondaigh &amp;uile"/>
+                <Item id="1687" name="On losing focus"/>
                 <Item id="1688" name="I gcónaí"/>
-                <Item id="1632" name="I roghnú"/>
-                <Item id="1633" name="Glan na marcanna go léir"/>
-                <Item id="1635" name="Ionadaigh Doiciméid Uile i Uile &amp; Oscailte"/>
-                <Item id="1636" name="Faigh Doiciméid Uile &amp; Gach Doiciméad Oscailte"/>
-                <Item id="1654" name="Scagairí :"/>
-                <Item id="1655" name="Eolaire :"/>
-                <Item id="1656" name="Aimsigh Gach"/>
-                <Item id="1658" name="I ngach fo-fhillteán"/>
-                <Item id="1659" name="I bhfillteáin i bhfolach"/>
-                <Item id="1624" name="Modh cuardaigh"/>
+                <Item id="1632" name="Sa ro&amp;gha"/>
+                <Item id="1633" name="Glan all marks"/>
+                <Item id="1635" name="Replace All in All &amp;Opened Documents"/>
+                <Item id="1636" name="Find All in All &amp;Opened Documents"/>
+                <Item id="1654" name="Scagair&amp;í :"/>
+                <Item id="1655" name="Comhad&amp;lann :"/>
+                <Item id="1656" name="Aimsigh uile"/>
+                <Item id="1658" name="In all su&amp;b-folders"/>
+                <Item id="1659" name="In &amp;hidden folders"/>
+                <Item id="1624" name="Search mode"/>
                 <Item id="1625" name="&amp;Gnáth"/>
-                <Item id="1626" name="Sínte (n, r,, 0, x ...)"/>
-                <Item id="1660" name="&amp;In ionad Comhaid"/>
-                <Item id="1661" name="Lean an doiciméad reatha."/>
-                <Item id="1641" name="Faigh gach eolas sa cháipéis reatha"/>
-                <Item id="1686" name="Trédhearcacht"/>
-                <Item id="1703" name="&amp;. meaitseálann líne nua"/>
+                <Item id="1626" name="E&amp;xtended (\n, \r, \t, \0, \x...)"/>
+                <Item id="1660" name="&amp;Ionadaigh sna comhaid"/>
+                <Item id="1661" name="Follow current doc."/>
+                <Item id="1641" name="Aimsigh uile sa cháipéis reatha"/>
+                <Item id="1686" name="Trédhearc&amp;acht"/>
+                <Item id="1703" name="&amp;. matches newline"/>
 				<Item id="1721" name="▲"/>
-                <Item id="1723" name="▼ Aimsigh Next"/>
+                <Item id="1723" name="▼ Aimsigh ar aghaidh"/>
             </Find>
 
-            <FindCharsInRange title="Faigh Carachtair sa Raon...">
+            <FindCharsInRange title="Aimsigh carachtair i raon...">
                 <Item id="2" name="Dún"/>
-                <Item id="2901" name="Carachtair Neamh-ASCII (128-255)"/>
+                <Item id="2901" name="Carachtair neamh-ASCII (128-255)"/>
                 <Item id="2902" name="Carachtair ASCII (0-127)"/>
                 <Item id="2903" name="Mo raon:"/>
                 <Item id="2906" name="&amp;Suas"/>
-                <Item id="2907" name="&amp;An Dúin"/>
+                <Item id="2907" name="&amp;Síos"/>
                 <Item id="2908" name="Treo"/>
-                <Item id="2909" name="Timfhilleadh timpeall"/>
+                <Item id="2909" name="Wra&amp;p around"/>
                 <Item id="2910" name="Aimsigh"/>
             </FindCharsInRange>
 
-            <GoToLine title="Téigh...">
+            <GoToLine title="Téigh chuig...">
                 <Item id="2007" name="&amp;Líne"/>
-                <Item id="2008" name="&amp;Fritháireamh"/>
+                <Item id="2008" name="&amp;Offset"/>
                 <Item id="1"    name="Téigh"/>
-                <Item id="2"    name="Táim ag dul in áit ar bith"/>
+                <Item id="2"    name="Níl ag dul aon áit"/>
                 <Item id="2004" name="Tá tú anseo:"/>
-                <Item id="2005" name="Ba mhaith leat dul chuig:"/>
+                <Item id="2005" name="Is mian leat dul chuig:"/>
                 <Item id="2006" name="Ní féidir leat dul níos faide ná:"/>
             </GoToLine>
 
-            <Rith title="Rith...">
-                <Item id="1903" name="An Clár le Rith"/>
+            <Run title="Rith...">
+                <Item id="1903" name="An ríomhchlár le rith"/>
                 <Item id="1"    name="Rith"/>
                 <Item id="2"    name="Cealaigh"/>
-                <Item id="1904" name="Sábháil..."/>
-            </Rith>
+                <Item id="1904" name="Taisc..."/>
+            </Run>
 
-            <MD5FromFilesDlg title="Gin díolachán MD5 ó chomhaid">
-                <Item id="1922" name="Roghnaigh comhaid chun MD5 a ghiniúint..."/>
-                <Item id="1924" name="Cóipeáil chuig an Ghearrthaisce"/>
+            <MD5FromFilesDlg title="Generate MD5 digest from files">
+                <Item id="1922" name="Choose files to generate MD5..."/>
+                <Item id="1924" name="Cóipeáil chuig an ngearrthaisce"/>
                 <Item id="2"    name="Dún"/>
             </MD5FromFilesDlg>
 
             <MD5FromTextDlg title="Generate MD5 digest">
-                <Item id="1932" name="Déileáil le gach líne mar shreang ar leith"/>
-                <Item id="1934" name="Cóipeáil chuig an Ghearrthaisce"/>
+                <Item id="1932" name="Treat each line as a separate string"/>
+                <Item id="1934" name="Cóipeáil chuig an ngearrthaisce"/>
                 <Item id="2"    name="Dún"/>
             </MD5FromTextDlg>
-            
-            <SHA256FromFilesDlg title="Gin SHA-256 díolama ó chomhaid">
-                <Item id="1922" name="Roghnaigh comhaid chun SHA-256 a ghiniúint..."/>
-                <Item id="1924" name="Cóipeáil chuig an Ghearrthaisce"/>
+
+            <SHA256FromFilesDlg title="Generate SHA-256 digest from files">
+                <Item id="1922" name="Choose files to generate SHA-256..."/>
+                <Item id="1924" name="Cóipeáil chuig an ngearrthaisce"/>
                 <Item id="2"    name="Dún"/>
             </SHA256FromFilesDlg>
 
-            <SHA256FromTextDlg title="Gin díolachán SHA-256">
-                <Item id="1932" name="Déileáil le gach líne mar shreang ar leith"/>
-                <Item id="1934" name="Cóipeáil chuig an Ghearrthaisce"/>
+            <SHA256FromTextDlg title="Generate SHA-256 digest">
+                <Item id="1932" name="Treat each line as a separate string"/>
+                <Item id="1934" name="Cóipeáil chuig an ngearrthaisce"/>
                 <Item id="2"    name="Dún"/>
             </SHA256FromTextDlg>
-            
-            <PluginsAdminDlg title="Breiseáin Riarachán" titleAvailable = "Ar fáil" titleUpdates = "Nuashonruithe" titleInstalled = "Suiteáilte">
-                <ColumnPlugin   name="Plugáil isteach"/>
+
+            <PluginsAdminDlg title="Plugins Admin" titleAvailable = "Available" titleUpdates = "Updates" titleInstalled = "Installed">
+                <ColumnPlugin   name="Breiseán"/>
                 <ColumnVersion  name="Leagan"/>
                 <Item id="5501" name="Cuardaigh:"/>
-                <Item id="5503" name="Suiteáil"/>
-                <Item id="5504" name="Nuashonrú"/>
-                <Item id="5505" name="Bain amach"/>
-                <Item id="5508" name="Ar Aghaidh"/>
+                <Item id="5503" name="Suiteáil é"/>
+                <Item id="5504" name="Nuashonraigh é"/>
+                <Item id="5505" name="Bain"/>
+                <Item id="5508" name="Ar aghaidh"/>
                 <Item id="2"    name="Dún"/>
             </PluginsAdminDlg>
 
-            <StyleConfig title="Cumadóir Stíler">
+            <StyleConfig title="Style Configurator">
                 <Item id="2"    name="Cealaigh"/>
-                <Item id="2301" name="Sábháil &amp; Dún"/>
+                <Item id="2301" name="Taisc &amp;&amp; Dún"/>
                 <Item id="2303" name="Trédhearcacht"/>
                 <Item id="2306" name="Roghnaigh téama: "/>
                 <SubDialog>
                     <Item id="2204" name="Trom"/>
                     <Item id="2205" name="Iodálach"/>
-                    <Item id="2206" name="Dath tulrar"/>
-                    <Item id="2207" name="Dath cúlra"/>
-                    <Item id="2208" name="Ainm an chló:"/>
-                    <Item id="2209" name="Méid cló:"/>
-                    <Item id="2211" name="Stíl:"/>
-                    <Item id="2212" name="Stíl Dath"/>
-                    <Item id="2213" name="Stíl Cló"/>
-                    <Item id="2214" name="Réamhshocrú ext.:"/>
-                    <Item id="2216" name="Úsáideoir ext.:"/>
-                    <Item id="2218" name="Cuir béim"/>
-                    <Item id="2219" name="Eochairfhocail réamhshocraithe"/>
-                    <Item id="2221" name="Eochairfhocail sainithe ag an úsáideoir"/>
+                    <Item id="2206" name="Foreground colour"/>
+                    <Item id="2207" name="Background colour"/>
+                    <Item id="2208" name="Font name:"/>
+                    <Item id="2209" name="Font size:"/>
+                    <Item id="2211" name="Style:"/>
+                    <Item id="2212" name="Colour Style"/>
+                    <Item id="2213" name="Font Style"/>
+                    <Item id="2214" name="Default ext.:"/>
+                    <Item id="2216" name="User ext.:"/>
+                    <Item id="2218" name="Cuir líne faoi"/>
+                    <Item id="2219" name="Default keywords"/>
+                    <Item id="2221" name="User-defined keywords"/>
                     <Item id="2225" name="Teanga:"/>
-                    <Item id="2226" name="Cumasaigh dath tulra domhanda"/>
-                    <Item id="2227" name="Cumasaigh dath cúlra domhanda"/>
-                    <Item id="2228" name="Cumasaigh cló domhanda"/>
-                    <Item id="2229" name="Cumasaigh clómhéid domhanda"/>
-                    <Item id="2230" name="Cumasaigh stíl chló trom dhomhanda"/>
-                    <Item id="2231" name="Cumasaigh stíl cló iodálach domhanda"/>
-                    <Item id="2232" name="Cumasaigh stíl cló líneach dhomhanda"/>
+                    <Item id="2226" name="Cumasaigh global foreground colour"/>
+                    <Item id="2227" name="Cumasaigh global background colour"/>
+                    <Item id="2228" name="Cumasaigh global font"/>
+                    <Item id="2229" name="Cumasaigh global font size"/>
+                    <Item id="2230" name="Cumasaigh global bold font style"/>
+                    <Item id="2231" name="Cumasaigh global italic font style"/>
+                    <Item id="2232" name="Cumasaigh global underline font style"/>
                 </SubDialog>
             </StyleConfig>
 
-            <ShortcutMapper title="Mapper Aicearra">
-                <Item id="2602" name="Athraigh"/>
+            <ShortcutMapper title="Shortcut Mapper">
+                <Item id="2602" name="Mionathraigh"/>
                 <Item id="2603" name="Scrios"/>
                 <Item id="2606" name="Glan"/>
                 <Item id="2607" name="Scagaire: "/>
                 <Item id="1" name="Dún"/>
                 <ColumnName name="Ainm"/>
                 <ColumnShortcut name="Aicearra"/>
-                <ColumnCategory name="Catagóir"/>
-                <ColumnPlugin name="Plugáil isteach"/>
-                <MainMenuTab name="Príomhroghchlár"/>
-                <MacrosTab name="Macraí"/>
-                <RithCommandsTab name="Rith orduithe"/>
-                <PluginCommandsTab name="Orduithe breiseáin"/>
-                <ScintillaCommandsTab name="Orduithe Scintilla"/>
-                <ConflictInfoOk name="Níl aon choinbhleachtaí aicearra don mhír seo."/>
-                <ConflictInfoEditing name="Níl aon choinbhleachtaí ann . . ."/>
+                <ColumnCategory name="Aicme"/>
+                <ColumnPlugin name="Breiseán"/>
+                <MainMenuTab name="An príomhroghchlár"/>
+                <MacrosTab name="Macros"/>
+                <RunCommandsTab name="Rith commands"/>
+                <PluginCommandsTab name="Plugin commands"/>
+                <ScintillaCommandsTab name="Scintilla commands"/>
+                <ConflictInfoOk name="No shortcut conflicts for this item."/>
+                <ConflictInfoEditing name="No conflicts . . ."/>
+                <MainCommandNames>
+                    <Item id="41019" name="Oscail containing folder in Explorer"/>
+                    <Item id="41020" name="Oscail containing folder in Command Prompt"/>
+                    <Item id="41021" name="Restore Recent Closed File"/>
+                    <Item id="45001" name="EOL Conversion to Windows (CR LF)"/>
+                    <Item id="45002" name="EOL Conversion to Unix (LF)"/>
+                    <Item id="45003" name="EOL Conversion to Macintosh (CR)"/>
+                    <Item id="43022" name="Mark search results using 1st style"/>
+                    <Item id="43024" name="Mark search results using 2nd style"/>
+                    <Item id="43026" name="Mark search results using 3rd style"/>
+                    <Item id="43028" name="Mark search results using 4th style"/>
+                    <Item id="43030" name="Mark search results using 5th style"/>
+                    <Item id="43023" name="Glan marks using 1st style"/>
+                    <Item id="43025" name="Glan marks using 2nd style"/>
+                    <Item id="43027" name="Glan marks using 3rd style"/>
+                    <Item id="43029" name="Glan marks using 4th style"/>
+                    <Item id="43031" name="Glan marks using 5th style"/>
+                    <Item id="43032" name="Glan marks using any style"/>
+                    <Item id="43033" name="Previous mark using 1st style"/>
+                    <Item id="43034" name="Previous mark using 2nd style"/>
+                    <Item id="43035" name="Previous mark using 3rd style"/>
+                    <Item id="43036" name="Previous mark using 4th style"/>
+                    <Item id="43037" name="Previous mark using 5th style"/>
+                    <Item id="43038" name="Previous mark created with Mark..."/>
+                    <Item id="43039" name="Next mark using 1st style"/>
+                    <Item id="43040" name="Next mark using 2nd style"/>
+                    <Item id="43041" name="Next mark using 3rd style"/>
+                    <Item id="43042" name="Next mark using 4th style"/>
+                    <Item id="43043" name="Next mark using 5th style"/>
+                    <Item id="43044" name="Next mark created with Mark..."/>
+                    <Item id="44100" name="View current file in Firefox"/>
+                    <Item id="44101" name="View current file in Chrome"/>
+                    <Item id="44103" name="View current file in IE"/>
+                    <Item id="44102" name="View current file in Edge"/>
+                    <Item id="50003" name="Switch to previous document"/>
+                    <Item id="50004" name="Switch to next document"/>
+                    <Item id="44051" name="Collapse Level 1"/>
+                    <Item id="44052" name="Collapse Level 2"/>
+                    <Item id="44053" name="Collapse Level 3"/>
+                    <Item id="44054" name="Collapse Level 4"/>
+                    <Item id="44055" name="Collapse Level 5"/>
+                    <Item id="44056" name="Collapse Level 6"/>
+                    <Item id="44057" name="Collapse Level 7"/>
+                    <Item id="44058" name="Collapse Level 8"/>
+                    <Item id="44061" name="Uncollapse Level 1"/>
+                    <Item id="44062" name="Uncollapse Level 2"/>
+                    <Item id="44063" name="Uncollapse Level 3"/>
+                    <Item id="44064" name="Uncollapse Level 4"/>
+                    <Item id="44065" name="Uncollapse Level 5"/>
+                    <Item id="44066" name="Uncollapse Level 6"/>
+                    <Item id="44067" name="Uncollapse Level 7"/>
+                    <Item id="44068" name="Uncollapse Level 8"/>
+                    <Item id="44081" name="Toggle Project Panel 1"/>
+                    <Item id="44082" name="Toggle Project Panel 2"/>
+                    <Item id="44083" name="Toggle Project Panel 3"/>
+                    <Item id="44085" name="Toggle Folder as Workspace"/>
+                    <Item id="44080" name="Toggle Document Map"/>
+                    <Item id="44084" name="Toggle Function List"/>
+                    <Item id="50005" name="Toggle macro recording"/>
+                </MainCommandNames>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="Aicearra">
-                <Item id="1" name="OK"/>
+                <Item id="1" name="Tá go maith"/>
                 <Item id="2" name="Cealaigh"/>
-                <Item id="5006" name="Ainm"/>
+                <Item id="5006" Ainm="Ainm"/>
                 <Item id="5008" name="Cuir leis"/>
-                <Item id="5009" name="Bain amach"/>
-                <Item id="5010" name="Cuir iarratas isteach"/>
-                <Item id="5007" name="Bainfidh sé seo an t-aicearra ón ordú seo"/>
-                <Item id="5012" name="COINBHEART FÍOR!"/>
+                <Item id="5009" name="Bain é"/>
+                <Item id="5010" name="Cuir i bhfeidhm é"/>
+                <Item id="5007" name="This will remove shortcut from this command"/>
+                <Item id="5012" name="CONFLICT FOUND!"/>
             </ShortcutMapperSubDialg>
-            <UserDefine title="Úsáideoir-Sainithe">
-                <Item id="20001" name="Duga"/>
-                <Item id="20002" name="Athainmnigh"/>
-                <Item id="20003" name="Cruthaigh Nua..."/>
-                <Item id="20004" name="Bain amach"/>
-                <Item id="20005" name="Sábháil mar..."/>
+            <UserDefine title="User-Defined">
+                <Item id="20001" name="Dock"/>
+                <Item id="20002" name="Athainmnigh é"/>
+                <Item id="20003" name="Cruthaigh ceann nua..."/>
+                <Item id="20004" name="Bain"/>
+                <Item id="20005" name="Taisc mar..."/>
                 <Item id="20007" name="Teanga an úsáideora: "/>
                 <Item id="20009" name="Ext.:"/>
-                <Item id="20012" name="Déan neamhaird de chás"/>
-                <Item id="20011" name="Trédhearcacht"/>
-                <Item id="20015" name="Iompórtáil..."/>
-                <Item id="20016" name="Easpórtáil..."/>
-                <StylerDialog title="Dialóg Styler">
-                    <Item id="25030" name="Roghanna cló:"/>
-                    <Item id="25006" name="Dath tulra"/>
-                    <Item id="25007" name="Dath cúlra"/>
+                <Item id="20012" name="Ignore case"/>
+                <Item id="20011" name="Transparency"/>
+                <Item id="20015" name="Import..."/>
+                <Item id="20016" name="Export..."/>
+                <StylerDialog title="Styler Dialog">
+                    <Item id="25030" name="Roghanna na clófhoirne:"/>
+                    <Item id="25006" name="Dath an tulra"/>
+                    <Item id="25007" name="Dath an chúlra"/>
                     <Item id="25031" name="Ainm:"/>
                     <Item id="25032" name="Méid:"/>
                     <Item id="25001" name="Trom"/>
                     <Item id="25002" name="Iodálach"/>
-                    <Item id="25003" name="Cuir béim"/>
+                    <Item id="25003" name="Cuir líne faoi"/>
                     <Item id="25029" name="Neadú:"/>
-                    <Item id="25008" name="Teilifíseoir 1"/>
-                    <Item id="25009" name="Teilifíseoir 2"/>
-                    <Item id="25010" name="Teilifíseoir 3"/>
-                    <Item id="25011" name="Teilifíseoir 4"/>
-                    <Item id="25012" name="Teilifíseoir 5"/>
-                    <Item id="25013" name="Teilifíseoir 6"/>
-                    <Item id="25014" name="Teilifíseoir 7"/>
-                    <Item id="25015" name="Teilifíseoir 8"/>
-                    <Item id="25018" name="Eochairfhocal 1"/>
-                    <Item id="25019" name="Eochairfhocal 2"/>
-                    <Item id="25020" name="Eochairfhocal 3"/>
-                    <Item id="25021" name="Eochairfhocal 4"/>
-                    <Item id="25022" name="Eochairfhocal 5"/>
-                    <Item id="25023" name="Eochairfhocal 6"/>
-                    <Item id="25024" name="Eochairfhocal 7"/>
-                    <Item id="25025" name="Eochairfhocal 8"/>
+                    <Item id="25008" name="Delimiter 1"/>
+                    <Item id="25009" name="Delimiter 2"/>
+                    <Item id="25010" name="Delimiter 3"/>
+                    <Item id="25011" name="Delimiter 4"/>
+                    <Item id="25012" name="Delimiter 5"/>
+                    <Item id="25013" name="Delimiter 6"/>
+                    <Item id="25014" name="Delimiter 7"/>
+                    <Item id="25015" name="Delimiter 8"/>
+                    <Item id="25018" name="Keyword 1"/>
+                    <Item id="25019" name="Keyword 2"/>
+                    <Item id="25020" name="Keyword 3"/>
+                    <Item id="25021" name="Keyword 4"/>
+                    <Item id="25022" name="Keyword 5"/>
+                    <Item id="25023" name="Keyword 6"/>
+                    <Item id="25024" name="Keyword 7"/>
+                    <Item id="25025" name="Keyword 8"/>
                     <Item id="25016" name="Trácht"/>
-                    <Item id="25017" name="Líne tráchta"/>
+                    <Item id="25017" name="Comment line"/>
                     <Item id="25026" name="Oibreoir 1"/>
                     <Item id="25027" name="Oibreoir 2"/>
                     <Item id="25028" name="Uimhreacha"/>
-                    <Item id="1" name="OK"/>
+                    <Item id="1" name="Tá go maith"/>
                     <Item id="2" name="Cealaigh"/>
                 </StylerDialog>
-                <Folder title="Folder &amp;&amp; Réamhshocrú">
-                    <Item id="21101" name="Stíl réamhshocraithe"/>
+                <Folder title="Folder &amp;&amp; Default">
+                    <Item id="21101" name="Default style"/>
                     <Item id="21102" name="Styler"/>
-                    <Item id="21105" name="Doiciméadú:"/>
-                    <Item id="21104" name="Suíomh doc sealadach`:"/>
-                    <Item id="21106" name="Fill &amp; dhlúth (línte folamh a fhilleadh)"/>
-                    <Item id="21220" name="Folding i stíl chóid 1:"/>
-                    <Item id="21224" name="Oscailte:"/>
-                    <Item id="21225" name="Meán:"/>
+                    <Item id="21105" name="Documentation:"/>
+                    <Item id="21104" name="Temporary doc site:"/>
+                    <Item id="21106" name="Fold &amp;compact (fold empty lines too)"/>
+                    <Item id="21220" name="Folding in code 1 style:"/>
+                    <Item id="21224" name="Oscail:"/>
+                    <Item id="21225" name="Meánach:"/>
                     <Item id="21226" name="Dún:"/>
                     <Item id="21227" name="Styler"/>
-                    <Item id="21320" name="Folding i stíl chód 2 (teastaíonn deighilteoirí):"/>
-                    <Item id="21324" name="Oscailte:"/>
-                    <Item id="21325" name="Meán:"/>
+                    <Item id="21320" name="Folding in code 2 style (separators needed):"/>
+                    <Item id="21324" name="Oscail:"/>
+                    <Item id="21325" name="Middle:"/>
                     <Item id="21326" name="Dún:"/>
                     <Item id="21327" name="Styler"/>
-                    <Item id="21420" name="Filleadh i stíl tuairimí:"/>
-                    <Item id="21424" name="Oscailte:"/>
-                    <Item id="21425" name="Meán:"/>
+                    <Item id="21420" name="Folding in comment style:"/>
+                    <Item id="21424" name="Oscail:"/>
+                    <Item id="21425" name="Middle:"/>
                     <Item id="21426" name="Dún:"/>
                     <Item id="21427" name="Styler"/>
                 </Folder>
-                <Keywords title="Liostaí Eochairfhocail">
-                    <Item id="22101" name="1ú Grúpa"/>
-                    <Item id="22201" name="2ú Grúpa"/>
-                    <Item id="22301" name="3ú Grúpa"/>
-                    <Item id="22401" name="4ú Grúpa"/>
-                    <Item id="22451" name="5ú Grúpa"/>
-                    <Item id="22501" name="6ú Grúpa"/>
-                    <Item id="22551" name="7ú Grúpa"/>
-                    <Item id="22601" name="8ú Grúpa"/>
-                    <Item id="22121" name="Modh réamhullmhaithe"/>
-                    <Item id="22221" name="Modh réamhullmhaithe"/>
-                    <Item id="22321" name="Modh réamhullmhaithe"/>
-                    <Item id="22421" name="Modh réamhullmhaithe"/>
-                    <Item id="22471" name="Modh réamhullmhaithe"/>
-                    <Item id="22521" name="Modh réamhullmhaithe"/>
-                    <Item id="22571" name="Modh réamhullmhaithe"/>
-                    <Item id="22621" name="Modh réamhullmhaithe"/>
+                <Keywords title="Keywords Lists">
+                    <Item id="22101" name="1st Group"/>
+                    <Item id="22201" name="2nd Group"/>
+                    <Item id="22301" name="3rd Group"/>
+                    <Item id="22401" name="4th Group"/>
+                    <Item id="22451" name="5th Group"/>
+                    <Item id="22501" name="6th Group"/>
+                    <Item id="22551" name="7th Group"/>
+                    <Item id="22601" name="8th Group"/>
+                    <Item id="22121" name="Prefix mode"/>
+                    <Item id="22221" name="Prefix mode"/>
+                    <Item id="22321" name="Prefix mode"/>
+                    <Item id="22421" name="Prefix mode"/>
+                    <Item id="22471" name="Prefix mode"/>
+                    <Item id="22521" name="Prefix mode"/>
+                    <Item id="22571" name="Prefix mode"/>
+                    <Item id="22621" name="Prefix mode"/>
                     <Item id="22122" name="Styler"/>
                     <Item id="22222" name="Styler"/>
                     <Item id="22322" name="Styler"/>
@@ -621,151 +677,151 @@ Desc: Irish translation for Notepad++
                     <Item id="22572" name="Styler"/>
                     <Item id="22622" name="Styler"/>
                 </Keywords>
-                <Comment title="Trácht &amp;&amp; Uimhir">
-                    <Item id="23003" name="Seasamh tuairimí líne"/>
-                    <Item id="23004" name="Ceadaigh áit ar bith"/>
-                    <Item id="23005" name="Fórsa ag tús na líne"/>
-                    <Item id="23006" name="Ceadaigh an spás bán roimhe seo"/>
-                    <Item id="23001" name="Ceadaigh tuairimí a fhilleadh"/>
+                <Comment title="Comment &amp;&amp; Number">
+                    <Item id="23003" name="Line comment position"/>
+                    <Item id="23004" name="Allow anywhere"/>
+                    <Item id="23005" name="Force at beginning of line"/>
+                    <Item id="23006" name="Allow preceding whitespace"/>
+                    <Item id="23001" name="Allow folding of comments"/>
                     <Item id="23326" name="Styler"/>
-                    <Item id="23323" name="Oscailte"/>
-                    <Item id="23324" name="Lean ar aghaidh le carachtar"/>
+                    <Item id="23323" name="Oscail"/>
+                    <Item id="23324" name="Continue character"/>
                     <Item id="23325" name="Dún"/>
-                    <Item id="23301" name="Stíl líne tráchta"/>
+                    <Item id="23301" name="Comment line style"/>
                     <Item id="23124" name="Styler"/>
-                    <Item id="23122" name="Oscailte"/>
+                    <Item id="23122" name="Oscail"/>
                     <Item id="23123" name="Dún"/>
-                    <Item id="23101" name="Stíl tráchtaireachta"/>
-                    <Item id="23201" name="Stíl uimhreacha"/>
+                    <Item id="23101" name="Comment style"/>
+                    <Item id="23201" name="Number style"/>
                     <Item id="23220" name="Styler"/>
-                    <Item id="23230" name="Réamhrá 1"/>
-                    <Item id="23232" name="Réamhrá 2"/>
-                    <Item id="23234" name="Breiseáin 1"/>
-                    <Item id="23236" name="Breiseáin 2"/>
-                    <Item id="23238" name="Iarmhír 1"/>
-                    <Item id="23240" name="Iarmhír 2"/>
-                    <Item id="23242" name="Raon:"/>
-                    <Item id="23244" name="Deighilteoir deimhneach"/>
+                    <Item id="23230" name="Prefix 1"/>
+                    <Item id="23232" name="Prefix 2"/>
+                    <Item id="23234" name="Extras 1"/>
+                    <Item id="23236" name="Extras 2"/>
+                    <Item id="23238" name="Suffix 1"/>
+                    <Item id="23240" name="Suffix 2"/>
+                    <Item id="23242" name="Rapn:"/>
+                    <Item id="23244" name="Decimal separator"/>
                     <Item id="23245" name="Ponc"/>
-                    <Item id="23246" name="Comma"/>
-                    <Item id="23247" name="An dá rud"/>
+                    <Item id="23246" name="Camóg"/>
+                    <Item id="23247" name="Araon"/>
                 </Comment>
-                <Operator title="Oibreoirí &amp;&amp; Teilifíseoir">
-                    <Item id="24101" name="Stíl oibreoirí"/>
+                <Operator title="Operators &amp;&amp; Delimiter">
+                    <Item id="24101" name="Operators style"/>
                     <Item id="24113" name="Styler"/>
-                    <Item id="24116" name="Oibreoirí 1"/>
-                    <Item id="24117" name="Oibreoirí 2 (teastaíonn deighilteoirí)"/>
-                    <Item id="24201" name="Stíl an luchtaire 1"/>
-                    <Item id="24220" name="Oscailte:"/>
-                    <Item id="24221" name="Éalú:"/>
+                    <Item id="24116" name="Operators 1"/>
+                    <Item id="24117" name="Operators 2 (separators required)"/>
+                    <Item id="24201" name="Delimiter 1 style"/>
+                    <Item id="24220" name="Oscail:"/>
+                    <Item id="24221" name="Éalaigh:"/>
                     <Item id="24222" name="Dún:"/>
                     <Item id="24223" name="Styler"/>
-                    <Item id="24301" name="Teilifíseoir 2 stíl"/>
-                    <Item id="24320" name="Oscailte:"/>
-                    <Item id="24321" name="Éalú:"/>
+                    <Item id="24301" name="Delimiter 2 style"/>
+                    <Item id="24320" name="Oscail:"/>
+                    <Item id="24321" name="Éalaigh:"/>
                     <Item id="24322" name="Dún:"/>
                     <Item id="24323" name="Styler"/>
-                    <Item id="24401" name="Dearthóir 3 stíl"/>
-                    <Item id="24420" name="Oscailte:"/>
-                    <Item id="24421" name="Éalú:"/>
+                    <Item id="24401" name="Delimiter 3 style"/>
+                    <Item id="24420" name="Oscail:"/>
+                    <Item id="24421" name="Éalaigh:"/>
                     <Item id="24422" name="Dún:"/>
                     <Item id="24423" name="Styler"/>
-                    <Item id="24451" name="Dearthóir 4 stíl"/>
-                    <Item id="24470" name="Oscailte:"/>
-                    <Item id="24471" name="Éalú:"/>
+                    <Item id="24451" name="Delimiter 4 style"/>
+                    <Item id="24470" name="Oscail:"/>
+                    <Item id="24471" name="Éalaigh:"/>
                     <Item id="24472" name="Dún:"/>
                     <Item id="24473" name="Styler"/>
-                    <Item id="24501" name="Teilifíseoir 5 style"/>
-                    <Item id="24520" name="Oscailte:"/>
-                    <Item id="24521" name="Éalú:"/>
+                    <Item id="24501" name="Delimiter 5 style"/>
+                    <Item id="24520" name="Oscail:"/>
+                    <Item id="24521" name="Éalaigh:"/>
                     <Item id="24522" name="Dún:"/>
                     <Item id="24523" name="Styler"/>
-                    <Item id="24551" name="Teilifíseoir 6 style"/>
-                    <Item id="24570" name="Oscailte:"/>
-                    <Item id="24571" name="Éalú:"/>
+                    <Item id="24551" name="Delimiter 6 style"/>
+                    <Item id="24570" name="Oscail:"/>
+                    <Item id="24571" name="Éalaigh:"/>
                     <Item id="24572" name="Dún:"/>
                     <Item id="24573" name="Styler"/>
-                    <Item id="24601" name="Teilifíseoir 7 style"/>
-                    <Item id="24620" name="Oscailte:"/>
-                    <Item id="24621" name="Éalú:"/>
+                    <Item id="24601" name="Delimiter 7 style"/>
+                    <Item id="24620" name="Oscail:"/>
+                    <Item id="24621" name="Éalaigh:"/>
                     <Item id="24622" name="Dún:"/>
                     <Item id="24623" name="Styler"/>
-                    <Item id="24651" name="Teilifíseoir 8 style"/>
-                    <Item id="24670" name="Oscailte:"/>
-                    <Item id="24671" name="Éalú:"/>
+                    <Item id="24651" name="Delimiter 8 style"/>
+                    <Item id="24670" name="Oscail:"/>
+                    <Item id="24671" name="Éalaigh:"/>
                     <Item id="24672" name="Dún:"/>
                     <Item id="24673" name="Styler"/>
                 </Operator>
             </UserDefine>
-            <Preference title="Preferences">
+            <Preference title="Sainroghanna">
                 <Item id="6001" name="Dún"/>
-                <Global title="Ginearálta">
-                    <Item id="6101" name="Barra Uirlisí"/>
+                <Global title="Coiteann">
+                    <Item id="6101" name="Toolbar"/>
                     <Item id="6102" name="Folaigh"/>
-                    <Item id="6103" name="Deilbhíní beaga"/>
-                    <Item id="6104" name="Deilbhíní móra"/>
+                    <Item id="6103" name="Deilbhíní móra"/>
+                    <Item id="6104" name="Deilbhíní beaga"/>
                     <Item id="6105" name="Deilbhíní caighdeánacha"/>
 
-                    <Item id="6106" name="Bar Barra"/>
+                    <Item id="6106" name="Tab Bar"/>
                     <Item id="6107" name="Laghdaigh"/>
-                    <Item id="6108" name="Loc (gan tarraing agus titim)"/>
-                    <Item id="6109" name="Cluaisíní neamhghníomhacha briste"/>
-                    <Item id="6110" name="Tarraing barra daite ar chluaisín gníomhach"/>
+                    <Item id="6108" name="Lock (no drag and drop)"/>
+                    <Item id="6109" name="Darken inactive tabs"/>
+                    <Item id="6110" name="Draw a coloured bar on active tab"/>
 
-                    <Item id="6111" name="Taispeáin barra stádais"/>
-                    <Item id="6112" name="Taispeáin cnaipe Dún ar gach cluaisín"/>
-                    <Item id="6113" name="Cliceáil faoi dhó chun an doiciméad a dhúnadh"/>
+                    <Item id="6111" name="Show status bar"/>
+                    <Item id="6112" name="Show close button on each tab"/>
+                    <Item id="6113" name="Double click to close document"/>
                     <Item id="6118" name="Folaigh"/>
-                    <Item id="6119" name="Il-líne"/>
+                    <Item id="6119" name="Multi-line"/>
                     <Item id="6120" name="Ingearach"/>
-                    <Item id="6121" name="Scoir ar an gciorcal deireanach a dhúnadh"/>
+                    <Item id="6121" name="Exit on close the last tab"/>
 
-                    <Item id="6122" name="Folaigh barra roghchláir (bain úsáid as eochair Alt nó F10 chun scoránú)"/>
-                    <Item id="6123" name="Logánú"/>
+                    <Item id="6122" name="Hide menu bar (use Alt or F10 key to toggle)"/>
+                    <Item id="6123" name="Logánaú"/>
 
-                    <Item id="6125" name="Painéal Liosta Doiciméad"/>
+                    <Item id="6125" name="Document List Panel"/>
                     <Item id="6126" name="Taispeáin"/>
-                    <Item id="6127" name="Díchumasaigh an colún síneadh"/>
+                    <Item id="6127" name="Díchumasaigh extension column"/>
                 </Global>
                 <Scintillas title="Eagarthóireacht">
-                    <Item id="6216" name="Socruithe Caret"/>
+                    <Item id="6216" name="Caret Settings"/>
                     <Item id="6217" name="Leithead :"/>
-                    <Item id="6219" name="Ráta blink :"/>
+                    <Item id="6219" name="Blink rate :"/>
                     <Item id="6221" name="F"/>
                     <Item id="6222" name="S"/>
-                    <Item id="6224" name="Suíomhanna Il-Eagarthóireachta"/>
-                    <Item id="6225" name="Cumasaigh (Cliceáil / roghnú Ctrl + Luiche)"/>
-                    <Item id="6201" name="Stíl Imeall Fillteán"/>
+                    <Item id="6224" name="Multi-Editing Settings"/>
+                    <Item id="6225" name="Cumasaigh (Ctrl+Mouse click/selection)"/>
+                    <Item id="6201" name="Folder Margin Style"/>
                     <Item id="6202" name="Simplí"/>
                     <Item id="6203" name="Saighead"/>
-                    <Item id="6204" name="Crann ciorcail"/>
-                    <Item id="6205" name="Crann bosca"/>
+                    <Item id="6204" name="Circle tree"/>
+                    <Item id="6205" name="Box tree"/>
                     <Item id="6226" name="Dada"/>
 
-                    <Item id="6227" name="Líne Wrap"/>
+                    <Item id="6227" name="Line Wrap"/>
                     <Item id="6228" name="Réamhshocrú"/>
-                    <Item id="6229" name="Ailínithe"/>
-                    <Item id="6230" name="Folaigh"/>
+                    <Item id="6229" name="Aligned"/>
+                    <Item id="6230" name="Indent"/>
 
-                    <Item id="6206" name="Uimhir líne taispeána"/>
-                    <Item id="6207" name="Taispeáin leabharmharc"/>
-                    <Item id="6208" name="Taispeáin imeall ceartingearach"/>
-                    <Item id="6209" name="Líon na gcolún :"/>
-                    <Item id="6234" name="Díchumasaigh gné scrollaithe ard
-(má tá fadhb do phláta tadhaill)"/>
-
-                    <Item id="6211" name="Socruithe Ingearach Ingearach"/>
-                    <Item id="6212" name="Modh líne "/>
-                    <Item id="6213" name="Modh cúlra"/>
-                    <Item id="6214" name="Cumasaigh béim ar líne reatha"/>
-                    <Item id="6215" name="Cumasaigh cló réidh"/>
-                    <Item id="6231" name="Leithead na Teorann"/>
-                    <Item id="6235" name="Gan imeall"/>
-                    <Item id="6236" name="Cumasaigh scrollaigh thar an líne dheiridh"/>
+                    <Item id="6206" name="Display line number"/>
+                    <Item id="6207" name="Display bookmark"/>
+                    <Item id="6208" name="Show vertical edge"/>
+                    <Item id="6234" name="Díchumasaigh advanced scrolling feature
+(if you have touchpad problem)"/>
+                    <Item id="6211" name="Vertical Edge Settings"/>
+                    <Item id="6213" name="Background mode"/>
+                    <Item id="6237" name="Add your column marker by indicating its position with a decimal number.
+You can define several column markers by using white space to separate the different numbers."/>
+                    <Item id="6214" name="Cumasaigh current line highlighting"/>
+                    <Item id="6215" name="Cumasaigh smooth font"/>
+                    <Item id="6231" name="Border Width"/>
+                    <Item id="6235" name="No edge"/>
+                    <Item id="6236" name="Cumasaigh scrolling beyond last line"/>
+                    <Item id="6239" name="Keep selection when right-click outside of selection"/>
                 </Scintillas>
 
-                <NewDoc title="Doiciméad nua">
-                    <Item id="6401" name="Formáid (Críochnú líne)"/>
+                <NewDoc title="New Document">
+                    <Item id="6401" name="Format (Line ending)"/>
                     <Item id="6402" name="Windows (CR LF)"/>
                     <Item id="6403" name="Unix (LF)"/>
                     <Item id="6404" name="Macintosh (CR)"/>
@@ -775,339 +831,338 @@ Desc: Irish translation for Notepad++
                     <Item id="6408" name="UTF-8 with BOM"/>
                     <Item id="6409" name="UCS-2 Big Endian with BOM"/>
                     <Item id="6410" name="UCS-2 Little Endian with BOM"/>
-                    <Item id="6411" name="Teanga réamhshocraithe :"/>
-                    <Item id="6419" name="Doiciméad nua"/>
-                    <Item id="6420" name="Cuir iarratas isteach ar chomhaid ANSI Oscailte"/>
+                    <Item id="6411" name="Default language :"/>
+                    <Item id="6419" name="New Document"/>
+                    <Item id="6420" name="Apply to opened ANSI files"/>
                 </NewDoc>
 
-                <DefaultDir title="Eolaire Réamhshocraithe">
-                    <Item id="6413" name="Eolaire Réamhshocraithe (Oscailte / Save)"/>
-                    <Item id="6414" name="Lean an doiciméad reatha"/>
-                    <Item id="6415" name="Cuimhnigh ar an eolaire deireanach a úsáideadh"/>
-                    <Item id="6430" name="Úsáid dialóg stíl nua (gan gné síneadh comhad &amp; acmhainn cosáin Unix)"/>
-                    <Item id="6431" name="Oscailte gach comhad den fhillteán in ionad Fillteán a sheoladh mar Workspace ar fhillteán a dhúnadh"/>
+                <DefaultDir title="Default Directory">
+                    <Item id="6413" name="Default Directory (Oscail/Save)"/>
+                    <Item id="6414" name="Follow current document"/>
+                    <Item id="6415" name="Remember last used directory"/>
+                    <Item id="6430" name="Use new style dialog (without Unix style path capacity)"/>
+                    <Item id="6431" name="Open all files of folder instead of launching Folder as Workspace on folder dropping"/>
                 </DefaultDir>
 
-                <FileAssoc title="Cumann Comhad">
-                    <Item id="4008" name="Le do thoil fág imeacht Notepad + + agus seol athsheoladh ar Notepad + + i mód an Riarthóra chun an ghné seo a úsáid."/>
-                    <Item id="4009" name="Síntí tacaithe:"/>
-                    <Item id="4010" name="Síntí cláraithe:"/>
+                <FileAssoc title="File Association">
+                    <Item id="4008" name="Please exit Notepad++ and relaunch Notepad++ in Administrator mode to use this feature."/>
+                    <Item id="4009" name="Supported extensions:"/>
+                    <Item id="4010" name="Registered extensions:"/>
                 </FileAssoc>
                 <Language title="Teanga">
-                    <Item id="6505" name="Míreanna atá ar fáil"/>
-                    <Item id="6506" name="Mír míchumaiss"/>
-                    <Item id="6507" name="Déan dlúthchlár roghchlár teanga"/>
-                    <Item id="6508" name="Clár Teanga"/>
-                    <Item id="6301" name="Socruithe Tab"/>
-                    <Item id="6302" name="Cuir spás isteach ina áit"/>
-                    <Item id="6303" name="Méid na dtáblaí: "/>
-                    <Item id="6510" name="Bain úsáid as luach réamhshocraithe"/>
-                    <Item id="6335" name="Déileáil le cúlshlí mar charachtar Éalú do SQL"/>
+                    <Item id="6505" name="Available items"/>
+                    <Item id="6506" name="Disabled items"/>
+                    <Item id="6507" name="Make language menu compact"/>
+                    <Item id="6508" name="Roghchlár na teanga"/>
+                    <Item id="6301" name="Tab Settings"/>
+                    <Item id="6302" name="Replace by space"/>
+                    <Item id="6303" name="Tab size: "/>
+                    <Item id="6510" name="Use default value"/>
+                    <Item id="6335" name="Treat backslash as escape character for SQL"/>
                 </Language>
 
                 <Highlighting title="Aibhsiú">
-                    <Item id="6333" name="Aibhsigh Cliste"/>
+                    <Item id="6333" name="Aibhsiú cliste"/>
                     <Item id="6326" name="Cumasaigh"/>
-                    <Item id="6332" name="Meaitseáil cás"/>
-                    <Item id="6338" name="Meaitseáil focal iomlán amháin"/>
-                    <Item id="6339" name="Úsáid Suímh dialóige Aimsigh"/>
-                    <Item id="6340" name="Aibhsigh dearcadh eile"/>
-                    <Item id="6329" name="Clibeanna Meaitseáil Aibhsigh"/>
+                    <Item id="6332" name="Match case"/>
+                    <Item id="6338" name="Match whole word only"/>
+                    <Item id="6339" name="Use Find dialog settings"/>
+                    <Item id="6340" name="Highlight another view"/>
+                    <Item id="6329" name="Highlight Matching Tags"/>
                     <Item id="6327" name="Cumasaigh"/>
-                    <Item id="6328" name="Aibhsigh tréithe clibe"/>
-                    <Item id="6330" name="Trácht aibhsithe / crios php / asp"/>
+                    <Item id="6328" name="Highlight tag attributes"/>
+                    <Item id="6330" name="Highlight comment/php/asp zone"/>
                 </Highlighting>
 
-                <Print title="Priontáil">
-                    <Item id="6601" name="Priontáil uimhir líne"/>
-                    <Item id="6602" name="Roghanna Dath"/>
+                <Print title="Clóbhuail">
+                    <Item id="6601" name="Print line number"/>
+                    <Item id="6602" name="Roghanna datha"/>
                     <Item id="6603" name="WYSIWYG"/>
-                    <Item id="6604" name="Inbhéartach"/>
+                    <Item id="6604" name="Aisiompaigh"/>
                     <Item id="6605" name="Dubh ar bhán"/>
-                    <Item id="6606" name="Gan dath cúlra ar bith"/>
-                    <Item id="6607" name="Suímh Imeallacha (Aonad: mm)"/>
+                    <Item id="6606" name="Gan dath don chúlra"/>
+                    <Item id="6607" name="Margin Settings (Unit:mm)"/>
                     <Item id="6612" name="Clé"/>
                     <Item id="6613" name="Barr"/>
-                    <Item id="6614" name="Ceart"/>
+                    <Item id="6614" name="Deas"/>
                     <Item id="6615" name="Bun"/>
                     <Item id="6706" name="Trom"/>
                     <Item id="6707" name="Iodálach"/>
                     <Item id="6708" name="Ceanntásc"/>
-                    <Item id="6709" name="Cuid ar chlé"/>
-                    <Item id="6710" name="Meán-chuid"/>
-                    <Item id="6711" name="An chuid cheart"/>
+                    <Item id="6709" name="Left part"/>
+                    <Item id="6710" name="Middle part"/>
+                    <Item id="6711" name="Right part"/>
                     <Item id="6717" name="Trom"/>
                     <Item id="6718" name="Iodálach"/>
-                    <Item id="6719" name="Buntásc"/>
-                    <Item id="6720" name="Cuid ar chlé"/>
-                    <Item id="6721" name="Meán-chuid"/>
-                    <Item id="6722" name="An chuid cheart"/>
+                    <Item id="6719" name="Footer"/>
+                    <Item id="6720" name="Left part"/>
+                    <Item id="6721" name="Middle part"/>
+                    <Item id="6722" name="Right part"/>
                     <Item id="6723" name="Cuir leis"/>
-                    <Item id="6725" name="Athróg:"/>
-                    <Item id="6727" name="Taispeáin do chuid socruithe athraitheacha anseo"/>
-                    <Item id="6728" name="Ceanntásc agus Buntásc"/>
+                    <Item id="6725" name="Variable:"/>
+                    <Item id="6727" name="Here display your variable settings"/>
+                    <Item id="6728" name="Header and Footer"/>
                 </Print>
 
-                <RecentFilesHistory title="Stair Comhaid is Déanaí">
-                    <Item id="6304" name="Stair Comhaid is Déanaí"/>
-                    <Item id="6306" name="Max. líon na n-iontrálacha:"/>
-                    <Item id="6305" name="Ná seiceáil ag am seolta"/>
+                <Searching title="Cuardach">
+                    <Item id="6901" name="Don't fill find field in Find dialog with selected word"/>
+                    <Item id="6902" name="Use monospaced font in Find dialog (Need to restart Notepad++)"/>
+                </Searching>
+
+                <RecentFilesHistory title="Recent Files History">
+                    <Item id="6304" name="Recent Files History"/>
+                    <Item id="6306" name="Max. number of entries :"/>
+                    <Item id="6305" name="Don't check at launch time"/>
                     <Item id="6429" name="Taispeáin"/>
-                    <Item id="6424" name="In Submenu"/>
-                    <Item id="6425" name="Amháin Ainm an Chomhaid"/>
-                    <Item id="6426" name="Conair Iomlán Ainm an Chomhaid"/>
-                    <Item id="6427" name="Saincheap an Fad Uasta:"/>
+                    <Item id="6424" name="Sa fhóroghchlár"/>
+                    <Item id="6425" name="Only File Name"/>
+                    <Item id="6426" name="Full File Name Path"/>
+                    <Item id="6427" name="Customize Maximum Length:"/>
                 </RecentFilesHistory>
 
-                <Backup title="Cúltaca">
-                    <Item id="6817" name="Seisiún eolais agus cúltaca tréimhsiúil"/>
-                    <Item id="6818" name="Cumasaigh léargas seisiúin agus cúltaca tréimhsiúil"/>
-                    <Item id="6819" name="Cúltaca i ngach ceann"/>
-                    <Item id="6821" name="soicind"/>
-                    <Item id="6822" name="Conair chúltaca:"/>
-                    <Item id="6309" name="Cuimhnigh ar an seisiún reatha don chéad seoladh eile"/>
-                    <Item id="6801" name="Cúltaca ar shábháil"/>
+                <Backup title="Backup">
+                    <Item id="6817" name="Session snapshot and periodic backup"/>
+                    <Item id="6818" name="Cumasaigh session snapshot and periodic backup"/>
+                    <Item id="6819" name="Backup in every"/>
+                    <Item id="6821" name="seconds"/>
+                    <Item id="6822" name="Backup path:"/>
+                    <Item id="6309" name="Remember current session for next launch"/>
+                    <Item id="6801" name="Backup on save"/>
                     <Item id="6315" name="Dada"/>
-                    <Item id="6316" name="Cúltaca simplí"/>
-                    <Item id="6317" name="Cúltaca Verbose"/>
-                    <Item id="6804" name="Eolaire Cúltaca an Chustaim"/>
-                    <Item id="6803" name="Eolaire :"/>
+                    <Item id="6316" name="Simple backup"/>
+                    <Item id="6317" name="Verbose backup"/>
+                    <Item id="6804" name="Custom Backup Directory"/>
+                    <Item id="6803" name="Comhadlann :"/>
                 </Backup>
 
-                <AutoCompletion title="Críochnú uathoibríoch">
-                    <Item id="6115" name="Dí-fhleasc"/>
-                    <Item id="6807" name="Críochnú uathoibríoch"/>
-                    <Item id="6808" name="Cumasaigh uath-chríochnú ar gach ionchur"/>
-                    <Item id="6809" name="Críochnú feidhme"/>
-                    <Item id="6810" name="Críochnú focal"/>
-                    <Item id="6816" name="Feidhm agus comhlánú focal"/>
-                    <Item id="6824" name="Déan neamhaird de na huimhreacha"/>
-                    <Item id="6811" name="Ón"/>
-                    <Item id="6813" name="carachtar ú"/>
-                    <Item id="6814" name="Luach bailí: 1 - 9"/>
-                    <Item id="6815" name="Tugann paraiméadair fheidhm le fios ar ionchur"/>
-                    <Item id="6851" name="Auto-Ionsáigh"/>
-                    <Item id="6857" name="html / xml Dún tag"/>
-                    <Item id="6858" name="Oscailte"/>
+                <AutoCompletion title="Auto-Completion">
+                    <Item id="6115" name="Auto-indent"/>
+                    <Item id="6807" name="Auto-Completion"/>
+                    <Item id="6808" name="Cumasaigh auto-completion on each input"/>
+                    <Item id="6809" name="Function completion"/>
+                    <Item id="6810" name="Word completion"/>
+                    <Item id="6816" name="Function and word completion"/>
+                    <Item id="6824" name="Ignore numbers"/>
+                    <Item id="6811" name="Ó"/>
+                    <Item id="6813" name="th character"/>
+                    <Item id="6814" name="Valid value : 1 - 9"/>
+                    <Item id="6815" name="Function parameters hint on input"/>
+                    <Item id="6851" name="Auto-Insert"/>
+                    <Item id="6857" name=" html/xml close tag"/>
+                    <Item id="6858" name="Oscail"/>
                     <Item id="6859" name="Dún"/>
-                    <Item id="6860" name="Péire comhoiriúnaithe 1:"/>
-                    <Item id="6863" name="Péire comhoiriúnaithe 2:"/>
-                    <Item id="6866" name="Péire comhoiriúnaithe 3:"/>
+                    <Item id="6860" name="Matched pair 1:"/>
+                    <Item id="6863" name="Matched pair 2:"/>
+                    <Item id="6866" name="Matched pair 3:"/>
                 </AutoCompletion>
 
-                <MultiInstance title="Il-Chéim">
-                    <Item id="6151" name="Suíomhanna il-shamplacha"/>
-                    <Item id="6152" name="Seisiún Oscailte i gcás nua Notepad ++"/>
-                    <Item id="6153" name="I gcónaí i mód il-shampla"/>
-                    <Item id="6154" name="Réamhshocrú (mono-example)"/>
-                    <Item id="6155" name="* Caithfidh modhnú an tsuímh seo atosú ar Notepad + +"/>
+                <MultiInstance title="Multi-Instance">
+                    <Item id="6151" name="Multi-instance settings"/>
+                    <Item id="6152" name="Oscail session in a new instance of Notepad++"/>
+                    <Item id="6153" name="Always in multi-instance mode"/>
+                    <Item id="6154" name="Default (mono-instance)"/>
+                    <Item id="6155" name="* The modification of this setting needs to restart Notepad++"/>
                 </MultiInstance>
 
-                <Teilifíseoir title="Teilifíseoir">
-                    <Item id="6251" name="Teilifíseoir socruithe roghnúcháin (cliceáil dúbailte Ctrl + Luiche)"/>
-                    <Item id="6252" name="Oscailte"/>
+                <Delimiter title="Delimiter">
+                    <Item id="6251" name="Delimiter selection settings (Ctrl + Mouse double click)"/>
+                    <Item id="6252" name="Oscail"/>
                     <Item id="6255" name="Dún"/>
-                    <Item id="6256" name="Ceadaigh ar roinnt línte"/>
-                    <Item id="6161" name="Liosta carachtair focalt"/>
-                    <Item id="6162" name="Úsáid liosta carachtair réamhshocraithe Word mar atá sé"/>
-                    <Item id="6163" name="Cuir do charachtar leis mar chuid den fhocal
-(ná roghnaigh é mura bhfuil a fhios agat cad atá tú a dhéanamh)"/>
-                </Teilifíseoir>
+                    <Item id="6256" name="Ceadaigh ar línte éagsúla"/>
+                    <Item id="6161" name="Word character list"/>
+                    <Item id="6162" name="Use default Word character list as it is"/>
+                    <Item id="6163" name="Add your character as part of word
+(don't choose it unless you know what you're doing)"/>
+                </Delimiter>
 
-                <Cloud title="Cloud">
-                    <Item id="6262" name="Socruithe ar scamall"/>
-                    <Item id="6263" name="Uimh"/>
-                    <Item id="6267" name="Socraigh do chosán suímh scamall anseo:"/>
+                <Cloud title="Néal">
+                    <Item id="6262" name="Settings on cloud"/>
+                    <Item id="6263" name="No Cloud"/>
+                    <Item id="6267" name="Set your cloud location path here:"/>
                 </Cloud>
 
-                <SearchEngine title="Inneall cuardaigh">
-                    <Item id="6271" name="Inneall Cuardaigh (le haghaidh cuardaigh ordaithe ar an Idirlíon)"/>
+                <SearchEngine title="Inneall Cuardaigh">
+                    <Item id="6271" name="Inneall cuardaigh (for command &quot;Search on Internet&quot;)"/>
                     <Item id="6272" name="DuckDuckGo"/>
                     <Item id="6273" name="Google"/>
                     <Item id="6274" name="Bing"/>
                     <Item id="6275" name="Yahoo!"/>
-                    <Item id="6276" name="Socraigh do inneall cuardaigh anseo:"/>
+                    <Item id="6276" name="Socraigh d'inneall cuardaigh anseo:"/>
                     <!-- Don't change anything after Example: -->
-                    <Item id="6278" name="Sampla: https://www.google.com/search?q=$ (CURRENT_WORD)"/>
+                    <Item id="6278" name="Sampla: https://www.google.com/search?q=$(CURRENT_WORD)"/>
                 </SearchEngine>
 
-                <MISC title="MISC.">
+                <MISC title="ILGHNÉITH.">
                     <ComboBox id="6347">
                         <Element name="Cumasaigh"/>
-                        <Element name="Cumasaigh do gach comhad Oscailte"/>
+                        <Element name="Cumasaigh for all opened files"/>
                         <Element name="Díchumasaigh"/>
                     </ComboBox>
-                    <Item id="6308" name="Íoslaghdaigh go tráidire córais"/>
-                    <Item id="6312" name="Comhad-Aimsiú Stádas Comhad"/>
-                    <Item id="6313" name="Nuashonraigh go ciúin"/>
-                    <Item id="6318" name="Socruithe Nasc Inchuardaithe"/>
-                    <Item id="6325" name="Scrollaigh go dtí an líne dheiridh tar éis nuashonraithe"/>
+                    <Item id="6308" name="Minimize to system tray"/>
+                    <Item id="6312" name="File Status Auto-Detection"/>
+                    <Item id="6313" name="Nuashonraigh go ciúin é"/>
+                    <Item id="6318" name="Clickable Link Settings"/>
+                    <Item id="6325" name="Scroll to the last line after update"/>
                     <Item id="6319" name="Cumasaigh"/>
-                    <Item id="6320" name="Níl béim air"/>
-                    <Item id="6322" name="File file ext.:"/>
-                    <Item id="6323" name="Cumasaigh uathoibreoir Notepad + +"/>
-                    <Item id="6324" name="Athraitheoir Doiciméid (Ctrl + TAB)"/>
-                    <Item id="6331" name="Taispeáin ainm comhaid amháin sa bharra teidil"/>
-                    <Item id="6334" name="Ionchódú carachtar Autodetect"/>
-                    <Item id="6314" name="Bain úsáid as cló aonfhoirmeach sa dialóg Finding (Is gá Notepad ++ a atosú)"/>
-                    <Item id="6337" name="Comhad Spás Oibre ext.:"/>
+                    <Item id="6320" name="No underline"/>
+                    <Item id="6322" name="Session file ext.:"/>
+                    <Item id="6323" name="Cumasaigh Notepad++ auto-updater"/>
+                    <Item id="6324" name="Document Switcher (Ctrl+TAB)"/>
+                    <Item id="6331" name="Show only filename in title bar"/>
+                    <Item id="6334" name="Autodetect character encoding"/>
+                    <Item id="6349" name="Use DirectWrite (May improve rendering special characters, need to restart Notepad++)"/>
+                    <Item id="6337" name="Workspace file ext.:"/>
                     <Item id="6114" name="Cumasaigh"/>
-                    <Item id="6117" name="Cumasaigh iompar MRU"/>
-                    <Item id="6344" name="Doiciméad Peeker"/>
-                    <Item id="6345" name="Lean an cluaisín"/>
-                    <Item id="6346" name="Féach ar léarscáil na ndoiciméad"/>
-                    <Item id="6348" name="Ná líon isteach an réimse a aimsiú i dialóg Find with wor roghnaithed"/>
+                    <Item id="6117" name="Cumasaigh MRU behaviour"/>
+                    <Item id="6344" name="Document Peeker"/>
+                    <Item id="6345" name="Peek on tab"/>
+                    <Item id="6346" name="Peek on document map"/>
                 </MISC>
             </Preference>
-            <MultiMacro title="Rith Il-Amanna Macra">
+            <MultiMacro title="Rith a Macro Multiple Times">
                 <Item id="1" name="&amp;Rith"/>
                 <Item id="2" name="&amp;Cealaigh"/>
                 <Item id="8006" name="Macro to Rith :"/>
                 <Item id="8001" name="Rith"/>
-                <Item id="8005" name="amanna"/>
-                <Item id="8002" name="Rith go dtí deireadh an chomhaid"/>
+                <Item id="8005" name="times"/>
+                <Item id="8002" name="Rith until the &amp;end of file"/>
             </MultiMacro>
-            <Window title="Windows">
+            <Window title="Fuinneoga">
                 <Item id="1" name="&amp;Gníomhachtaigh"/>
-                <Item id="2" name="&amp;OK"/>
-                <Item id="7002" name="&amp;Sábháil"/>
-                <Item id="7003" name="&amp;dún an fhuinneog / na fuinneoga"/>
-                <Item id="7004" name="Cluaisíní sórtála"/>
+                <Item id="2" name="&amp;Tá go maith"/>
+                <Item id="7002" name="&amp;Save"/>
+                <Item id="7003" name="&amp;Dún window(s)"/>
+                <Item id="7004" name="Sort &amp;tabs"/>
             </Window>
-            <ColumnEditor title="Eagarthóir Colúin">
-                <Item id="2023" name="Téacs a chur isteach"/>
-                <Item id="2033" name="Líon go Cuir isteach"/>
-                <Item id="2030" name="Uimhir Tosaigh :"/>
-                <Item id="2031" name="Méadú ar:"/>
-                <Item id="2035" name="Nialais tosaigh"/>
-                <Item id="2036" name="Déan é arís :"/>
-                <Item id="2032" name="Formáid"/>
-                <Item id="2024" name="Nollaig"/>
-                <Item id="2025" name="Deireadh Fómhair"/>
-                <Item id="2026" name="Hex"/>
-                <Item id="2027" name="Bin"/>
-                <Item id="1" name="OK"/>
+            <ColumnEditor title="Column Editor">
+                <Item id="2023" name="&amp;Text to Insert"/>
+                <Item id="2033" name="&amp;Number to Insert"/>
+                <Item id="2030" name="&amp;Initial number :"/>
+                <Item id="2031" name="Increase b&amp;y :"/>
+                <Item id="2035" name="Leading &amp;zeros"/>
+                <Item id="2036" name="&amp;Repeat :"/>
+                <Item id="2032" name="Format"/>
+                <Item id="2024" name="&amp;Dec"/>
+                <Item id="2025" name="&amp;Oct"/>
+                <Item id="2026" name="&amp;Hex"/>
+                <Item id="2027" name="&amp;Bin"/>
+                <Item id="1" name="Tá go maith"/>
                 <Item id="2" name="Cealaigh"/>
             </ColumnEditor>
-            <FindInFinder title="Faigh an aimsitheoir">
-                <Item id="1"    name="Aimsigh Gach"/>
+            <FindInFinder title="Aimsigh san aimsitheoir">
+                <Item id="1"    name="Aimsigh uile"/>
                 <Item id="2"    name="Dún"/>
-                <Item id="1711" name="&amp;Faigh cad é :"/>
-                <Item id="1713" name="Cuardaigh ach amháin i línte aimsithe"/>
-                <Item id="1714" name="Meaitseáil focal iomlán amháin"/>
-                <Item id="1715" name="Meaitseáil cás"/>
-                <Item id="1716" name="Cuardaigh Mód"/>
+                <Item id="1711" name="&amp;Céard ba cheart a aimsiú :"/>
+                <Item id="1713" name="Search only in found lines"/>
+                <Item id="1714" name="Match &amp;whole word only"/>
+                <Item id="1715" name="Match &amp;case"/>
+                <Item id="1716" name="Search Mode"/>
                 <Item id="1717" name="&amp;Gnáth"/>
-                <Item id="1719" name="Léiriú rialta"/>
-                <Item id="1718" name="Sínte (n, r,, 0, x ...)"/>
-                <Item id="1720" name="&amp;. meaitseálann líne nua"/>
+                <Item id="1719" name="Re&amp;gular expression"/>
+                <Item id="1718" name="E&amp;xtended (\n, \r, \t, \0, \x...)"/>
+                <Item id="1720" name="&amp;. matches newline"/>
             </FindInFinder>
-            <DoSaveOrNot title="Sábháil"> 
-                <Item id="1761" name="Sábháil comhad &quot;$STR_REPLACE$&quot; ?"/>
-                <Item id="6" name="&amp;Is féidir"/>
-                <Item id="7" name="&amp;Níl"/>
+            <DoSaveOrNot title="Taisc">
+                <Item id="1761" name="Save file &quot;$STR_REPLACE$&quot; ?"/>
+                <Item id="6" name="&amp;Yes"/>
+                <Item id="7" name="&amp;No"/>
                 <Item id="2" name="&amp;Cealaigh"/>
-                <Item id="4" name="Sea do chách"/>
-                <Item id="5" name="Níl le gach duine"/>
+                <Item id="4" name="Yes to &amp;all"/>
+                <Item id="5" name="N&amp;o to all"/>
             </DoSaveOrNot>
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
-            <ContextMenuXmlEditWarning title="Eagarthóireacht contextMenu" message="Ceadaíonn eagarthóireacht contextMenu.xml duit do roghchlár comhthéacs Notepad + + a athrú.
-Caithfidh tú do Notepad + + a atosú chun éifeacht a bheith agat tar éis duit contextMenu.xml a athrú."/>
-            <NppHelpAbsentWarning title="Níl an comhad ann" message="
-nach bhfuil ann. Déan é a íoslódáil ar shuíomh Notepad ++."/>
-            <SaveCurrentModifWarning title="Sábháil Athrú Reatha" message="Ba cheart duit an modhnú reatha a shábháil.
-Ní féidir na modhnuithe go léir a shábháil a dhíscaoileadh.
+            <ContextMenuXmlEditWarning title="Editing contextMenu" message="Editing contextMenu.xml allows you to modify your Notepad++ popup context menu.
+You have to restart your Notepad++ to take effect after modifying contextMenu.xml."/>
+            <NppHelpAbsentWarning title="File does not exist" message="
+doesn't exist. Please download it on Notepad++ site."/>
+            <SaveCurrentModifWarning title="Save Current Modification" message="You should save the current modification.
+All the saved modifications can not be undone.
+Continue?"/>
+            <LoseUndoAbilityWarning title="Lose Undo Ability Warning" message="You should save the current modification.
+All the saved modifications can not be undone.
+Continue?"/>
+            <CannotMoveDoc title="Move to new Notepad++ Instance" message="Document is modified, save it then try again."/>
+            <DocReloadWarning title="Reload" message="Are you sure you want to reload the current file and lose the changes made in Notepad++?"/>
+            <FileLockedWarning title="Save failed" message="Please check whether if this file is opened in another program"/>
+            <FileAlreadyOpenedInNpp title="" message="The file is already opened in Notepad++."/>
+            <DeleteFileFailed title="Delete File" message="Delete File failed"/>
 
-Leanúint ar aghaidh?"/>
-            <LoseUndoAbilityWarning title="Rabhadh gan Cumas a chailleadh" message="Ba cheart duit an modhnú reatha a shábháil.
-Ní féidir na modhnuithe go léir a shábháil a dhíscaoileadh.
+            <NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.
+Are you sure you want to open them?"/>
+            <SettingsOnCloudError title="Settings on Cloud" message="It seems the path of settings on cloud is set on a read only drive,
+or on a folder needed privilege right for writing access.
+Your settings on cloud will be canceled. Please reset a coherent value via Preference dialog."/>
+            <FilePathNotFoundWarning title="File Open" message="The file you're trying to open doesn't exist."/>
+            <SessionFileInvalidError title="Could not Load Session" message="Session file is either corrupted or not valid."/>
+            <DroppingFolderAsProjectModeWarning title="Invalid action" message="You can only drop files or folders but not both, because you're in dropping Folder as Project mode.
+you have to enable &quot;Open all files of folder instead of launching Folder as Workspace on folder dropping&quot; in &quot;Default Directory&quot; section of Preferences dialog to make this operation work."/>
+            <SortingError title="Sorting Error" message="Unable to perform numeric sorting due to line $INT_REPLACE$."/>
+            <ColumnModeTip title="Column Mode Tip" message="Please use &quot;ALT+Mouse Selection&quot; or &quot;Alt+Shift+Arrow key&quot; to switch to column mode."/>
+            <BufferInvalidWarning title="Save failed" message="Cannot save: Buffer is invalid."/>
+            <DoCloseOrNot title="Keep non existing file" message="The file &quot;$STR_REPLACE$&quot; doesn't exist anymore.
+Keep this file in editor?"/>
+            <DoDeleteOrNot title="Delete file" message="The file &quot;$STR_REPLACE$&quot;
+will be moved to your Recycle Bin and this document will be closed.
+Continue?"/>
+            <NoBackupDoSaveFile title="Save" message="Your backup file cannot be found (deleted from outside).
+Save it otherwise your data will be lost
+Do you want to save file &quot;$STR_REPLACE$&quot; ?"/>
+            <DoReloadOrNot title="Reload" message="&quot;$STR_REPLACE$&quot;
+This file has been modified by another program.
+Do you want to reload it?"/>
+            <DoReloadOrNotAndLooseChange title="Reload" message="&quot;$STR_REPLACE$&quot;
+This file has been modified by another program.
+Do you want to reload it and lose the changes made in Notepad++?"/>
+            <PrehistoricSystemDetected title="Prehistoric system detected" message="It seems you still use a prehistoric system. This feature works only on a modern system, sorry."/>
+            <XpUpdaterProblem title="Notepad++ Updater" message="Notepad++ updater is not compatible with XP due to the obsolete security layer under XP.
+Do you want to go to Notepad++ page to download the latest version?"/>
+            <GUpProxyConfNeedAdminMode title="Proxy Settings" message="Please relaunch Notepad++ in Admin mode to configure proxy."/>
+            <DocTooDirtyToMonitor title="Monitoring problem" message="The document is dirty. Please save the modification before monitoring it."/>
+            <DocNoExistToMonitor title="Monitoring problem" message="The file should exist to be monitored."/>
+            <FileTooBigToOpen title="File size problem" message="File is too big to be opened by Notepad++"/>
+            <CreateNewFileOrNot title="Create new file" message="&quot;$STR_REPLACE$&quot; doesn't exist. Create it?"/>
+            <CreateNewFileError title="Create new file" message="Cannot create the file &quot;$STR_REPLACE$&quot;."/>
+            <OpenFileError title="ERROR" message="Can not open file &quot;$STR_REPLACE$&quot;."/>
+            <FileBackupFailed title="File Backup Failed" message="The previous version of the file could not be saved into the backup directory at &quot;$STR_REPLACE$&quot;.
+Do you want to save the current file anyways?"/>
+            <LoadStylersFailed title="Load stylers.xml failed" message="Load &quot;$STR_REPLACE$&quot; failed!"/>
+            <LoadLangsFailed title="Configurator" message="Load langs.xml failed!
+Do you want to recover your langs.xml?"/>
+            <LoadLangsFailedFinal title="Configurator" message="Load langs.xml failed!"/>
+            <FolderAsWorspaceSubfolderExists title="Folder as Workspace adding folder problem" message="A sub-folder of the folder you want to add exists.
+Please remove its root from the panel before you add folder &quot;$STR_REPLACE$&quot;."/>
 
-Leanúint ar aghaidh?"/>
-            <CannotMoveDoc title="Bog go dtí Institiúd Notepad ++ nua" message="Athraítear an doiciméad, déan é a shábháil agus bain triail as arís."/>
-            <DocReloadWarning title="Athlódáil" message="An bhfuil tú cinnte go dteastaíonn uait an comhad reatha a athlódáil agus na hathruithe a rinneadh i Notepad ++ a chailleadh?"/>
-            <FileLockedWarning title="Theip ar shábháil" message="Déan seiceáil an bhfuil an comhad seo Oscailte i gclár eile"/>
-            <FileAlreadyOscailteedInNpp title="" message="Tá an comhad Oscailte cheana féin sa Notepad ++."/>
-            <DeleteFileFailed title="Scrios an Comhad" message="Theip ar scriosadh an chomhaid"/>
-
-            <NbFileToOscailteImportantWarning title="Tá méid na gcomhad go Oscailte rómhór" message="$INT_REPLACE$ tá na comhaid ar tí a bheith Oscailte.
-An bhfuil tú cinnte gur mian leat Oscailte iad?"/>
-            <SettingsOnCloudError title="Socruithe ar Cloud" message="Dealraíonn sé go bhfuil cosán na socruithe ar an scamall ar thiomáint le léamh amháin,
-nó ar fhillteán bhí gá le pribhléid chun rochtain a scríobh.
-Cuirfear do chuid socruithe ar scamall ar ceal. Athshocraigh luach comhleanúnach le do thoil trí dialóg Tosaíochta."/>
-            <FilePathNotFoundWarning title="Comhad Oscailte" message="Ní ann don chomhad a bhfuil tú ag iarraidh a dhéanamh air."/>
-            <SessionFileInvalidError title="Níorbh fhéidir Seisiún a Luchtaigh" message="Tá comhad an tseisiúin truaillithe nó níl sé bailí."/>
-            <DroppingFolderAsProjectModeWarning title="Gníomh neamhbhailí" message="Ní féidir leat comhaid nó fillteáin a scaoileadh ach amháin, toisc nach bhfuil tú ag fágáil an Fhillteáin mar mhodh Tionscadail.
-caithfidh tú Oscailte gach comhad den fhillteán a chumasú in ionad Fillteán a sheoladh mar Workspace ar fhillteán ag titim i rannóg Réamhshocraithe de chuid Preferences chun an oibríocht seo a dhéanamh."/>
-            <SortingError title="Earráid a Shórtáil" message="Ní féidir sórtáil uimhriúil a dhéanamh mar gheall ar líne $INT_REPLACE$."/>
-            <ColumnModeTip title="Leid Mód Colún" message="Úsáid le do thoil &quot;Roghnú ALT + Luiche&quot; nó &quot;Alt + Shift + eochair eochair&quot; chun modh na gcolún a athrú."/>
-            <BufferInvalidWarning title="Theip ar shábháil" message="Ní féidir é a shábháil: Tá an maolán neamhbhailí."/>
-            <DoDúnOrNot title="Coinnigh an comhad nach bhfuil ann cheana" message="Níl an comhad $ STR_REPLACE $ ann níos mó.
-Coinnigh an comhad seo san eagarthóir?"/>
-            <DoDeleteOrNot title="Scrios an comhad" message="An comhad $ STR_REPLACE $
-bogfar go dtí do Athchúrsáil agus Dúnd an doiciméad seo.
-Leanúint ar aghaidh?"/>
-            <NoBackupDoSaveFile title="Sábháil" message="Ní féidir do chomhad cúltaca a fháil (scriostar ón taobh amuigh).
-Sábháil é nó caillfear do chuid sonraí
-Ar mhaith leat an comhad &amp; $ STR_REPLACE $ a shábháil; ?"/>
-            <DoReloadOrNot title="Athlódáil" message="&quot;$STR_REPLACE$&quot;
-
-Athraíodh an comhad seo le clár eile.
-Ar mhaith leat é a athlódáil?"/>
-            <DoReloadOrNotAndLooseChange title="Athlódáil" message="&quot;$STR_REPLACE$&quot;
-
-Athraíodh an comhad seo le clár eile.
-Ar mhaith leat é a athlódáil agus na hathruithe a rinneadh i Notepad ++ a chailleadh?"/>
-            <PrehistoricSystemDetected title="Braitheadh an córas réamhstairiúil" message="Is cosúil go n-úsáideann tú córas réamhstairiúil fós. Ní oibríonn an ghné seo ach ar chóras nua-aimseartha, tá brón orm."/>
-            <XpUpdaterProblem title="Notepad++ Updater" message="Níl nuashonrú Notepad ++ comhoiriúnach le XP mar gheall ar an tsraith slándála atá imithe i léig faoi XP.
-Ar mhaith leat dul chuig leathanach Notepad ++ chun an leagan is déanaí a íoslódáil?"/>
-            <GUpProxyConfNeedAdminMode title="Socruithe Proxy" message="Seol an Notepad ++ i modh Riaracháin chun seachfhreastalaí a chumrú."/>
-            <DocTooDirtyToMonitor title="Fadhb monatóireachta" message="Tá an doiciméad salach. Coinnigh an modhnú roimh monatóireacht a dhéanamh air."/>
-            <DocNoExistToMonitor title="Fadhb monatóireachta" message="Ba cheart monatóireacht a dhéanamh ar an gcomhad."/>
-            <FileTooBigToOscailte title="Fadhb méid comhaid" message="Tá an comhad rómhór le bheith Oscailte ag Notepad ++"/>
-            <CreateNewFileOrNot title="Cruthaigh comhad nua" message="&quot;$STR_REPLACE$&quot; nach bhfuil ann. Cruthaigh é?"/>
-            <CreateNewFileError title="Cruthaigh comhad nua" message="Ní féidir an comhad a chruthú &quot;$STR_REPLACE$&quot;."/>
-            <OscailteFileError title="EARRÁID" message="Ní féidir comhad Oscailte a dhéanamh &quot;$STR_REPLACE$&quot;."/>
-            <FileBackupFailed title="Níor éirigh le Cúltaca an Chomhaid" message="Níorbh fhéidir an leagan roimhe seo den chomhad a shábháil isteach san eolaire cúltaca ag &quot;$STR_REPLACE$&quot;.
-
-Ar mhaith leat an comhad comhaid reatha a shábháil?"/>
-            <LoadStylersFailed title="Theip ar stylers.xml ualaigh" message="Luchtaigh &quot;$STR_REPLACE$&quot; theip!"/>
-            <LoadLangsFailed title="Configurator" message="Theip ar langs.xml ualaigh!
-Ar mhaith leat do langs.xml a aisghabháil?"/>
-            <LoadLangsFailedFinal title="Configurator" message="Theip ar langs.xml ualaigh!"/>
-            <FolderAsWorspaceSubfolderExists title="Fillteán mar spás oibre ag cur fadhb fillteáin leis" message="Tá fo-fhillteán den fhillteán is mian leat a chur leis.
-Le do thoil bain a fhréamh ón bpainéal sula gcuireann tú fillteán leis &quot;$STR_REPLACE$&quot;."/>
-
-            <ProjectPanelChanged title="$STR_REPLACE$" message="Athraíodh an spás oibre. Ar mhaith leat é a shábháil?"/>
-            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Níor sábháladh do spás oibre."/>
-            <ProjectPanelOscailteDoSaveDirtyWsOrNot title="Oscailte Workspace" message="Athraíodh an spás oibre reatha. Ar mhaith leat an tionscadal reatha a shábháil?"/>
-            <ProjectPanelNewDoSaveDirtyWsOrNot title="Spás Oibre Nua" message="Athraíodh an spás oibre reatha. Ar mhaith leat an tionscadal reatha a shábháil?"/>
-            <ProjectPanelOscailteFailed title="Oscailte Workspace" message="Níorbh fhéidir an spás oibre a Oscailte.
-Dealraíonn sé nach comhad bailí tionscadail é an comhad chuig Oscailte."/>
-            <ProjectPanelRemoveFolderFromProject title="Bain an fillteán ón tionscadal" message="Bainfear na fo-mhíreanna go léir.
-An bhfuil tú cinnte gur mian leat an fillteán seo a bhaint ón tionscadal?"/>
-            <ProjectPanelRemoveFileFromProject title="Bain an comhad ón tionscadal" message="An bhfuil tú cinnte gur mian leat an comhad seo a bhaint ón tionscadal?"/>
-            <ProjectPanelReloadError title="Athlódáil an Spás Oibre" message="Ní féidir an comhad a athlódáil."/>
-            <ProjectPanelReloadDirty title="Athlódáil an Spás Oibre" message="Athraíodh an spás oibre reatha. Seachnóidh athlódáil gach modhnú.
-Ar mhaith leat leanúint ar aghaidh?"/>
-            <UDLNewNameError title="Earráid UDL" message="Úsáideann teanga eile an t-ainm seo,
-tabhair ceann eile le do thoil."/>
-            <UDLRemoveCurrentLang title="Bain an teanga reatha" message="An bhfuil tú cinnte?"/>
-            <SCMapperDoDeleteOrNot title="An bhfuil tú cinnte?" message="An bhfuil tú cinnte gur mian leat an aicearra seo a scriosadh?"/>
-            <FindCharRangeValueError title="Fadhb maidir le Luach Réimse" message="Ba chóir duit idir 0 agus 255 a chlóscríobh."/>
-            <OscailteInAdminMode title="Theip ar shábháil" message="Ní féidir an comhad a shábháil agus d'fhéadfaí é a chosaint.
-Ar mhaith leat Notepad ++ a sheoladh i mód riarthóra?"/>
-            <OscailteInAdminModeWithoutDúnCurrent title="Theip ar shábháil" message="Ní féidir an comhad a shábháil agus d'fhéadfaí é a chosaint.
-Ar mhaith leat Notepad ++ a sheoladh i mod Riarthóire?"/>
-            <OscailteInAdminModeFailed title="Theip ar mhodh Oscailte sa Riarthóir" message="Ní féidir Notepad + + a bheith Oscailte i mód Riarthóra."/>
-            <ViewInBrowser title="Féach an Comhad Reatha i mBrabhsálaí" message="Ní féidir an t-iarratas a fháil i do chóras."/>
-            <ExitToUpdatePlugins title="Tá Notepad ++ ar tí imeacht as" message="Imá chliceálann tú TÁ, scoirfidh tú do Notepad ++ chun leanúint leis na hoibríochtaí.
-Athchromfar ar Notepad ++ tar éis na hoibríochtaí go léir a fhoirceannadh.
-Leanúint ar aghaidh?"/>
-            <NeedToRestartToLoadPlugins title="Caithfear Notepad ++ a athsheoladh" message="Ní mór duit Notepad ++ a atosú chun na breiseáin a shuiteáil tú a luchtú."/>
+            <ProjectPanelChanged title="$STR_REPLACE$" message="The workspace was modified. Do you want to save it?"/>
+            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Your workspace has not been saved."/>
+            <ProjectPanelOpenDoSaveDirtyWsOrNot title="Open Workspace" message="The current workspace was modified. Do you want to save the current project?"/>
+            <ProjectPanelNewDoSaveDirtyWsOrNot title="New Workspace" message="The current workspace was modified. Do you want to save the current project?"/>
+            <ProjectPanelOpenFailed title="Open Workspace" message="The workspace could not be opened.
+It seems the file to open is not a valid project file."/>
+            <ProjectPanelRemoveFolderFromProject title="Remove folder from project" message="All the sub-items will be removed.
+Are you sure you want to remove this folder from the project?"/>
+            <ProjectPanelRemoveFileFromProject title="Remove file from project" message="Are you sure you want to remove this file from the project?"/>
+            <ProjectPanelReloadError title="Reload Workspace" message="Cannot find the file to reload."/>
+            <ProjectPanelReloadDirty title="Reload Workspace" message="The current workspace was modified. Reloading will discard all modifications.
+Do you want to continue?"/>
+            <UDLNewNameError title="UDL Error" message="This name is used by another language,
+please give another one."/>
+            <UDLRemoveCurrentLang title="Bain the current language" message="Are you sure?"/>
+            <SCMapperDoDeleteOrNot title="Are you sure?" message="Are you sure you want to delete this shortcut?"/>
+            <FindCharRangeValueError title="Range Value problem" message="You should type between 0 and 255."/>
+            <OpenInAdminMode title="Save failed" message="The file cannot be saved and it may be protected.
+Do you want to launch Notepad++ in Administrator mode?"/>
+            <OpenInAdminModeWithoutCloseCurrent title="Save failed" message="The file cannot be saved and it may be protected.
+Do you want to launch Notepad++ in Administrator mode?"/>
+            <OpenInAdminModeFailed title="Open in Administrator mode failed" message="Notepad++ cannot be opened in Administrator mode."/>
+            <ViewInBrowser title="View Current File in Browser" message="Application cannot be found in your system."/>
+            <ExitToUpdatePlugins title="Notepad++ is about to exit" message="If you click YES, you will quit Notepad++ to continue the operations.
+Notepad++ will be restarted after all the operations are terminated.
+Continue?"/>
+            <NeedToRestartToLoadPlugins title="Notepad++ need to be relaunched" message="You have to restart Notepad++ to load plugins you installed."/>
         </MessageBox>
         <ClipboardHistory>
-            <PanelTitle name="Stair Ghearrthaisce"/>
+            <PanelTitle name="Clipboard History"/>
         </ClipboardHistory>
         <DocSwitcher>
             <PanelTitle name="Doc Switcher"/>
@@ -1118,158 +1173,174 @@ Leanúint ar aghaidh?"/>
             <ColumnName name="Ainm"/>
             <ColumnPath name="Conair"/>
             <ColumnType name="Cineál"/>
+            <ColumnSize name="Méid"/>
         </WindowsDlg>
         <AsciiInsertion>
-            <PanelTitle name="Painéal Ionsáigh Cóid ASCII"/>
+            <PanelTitle name="ASCII Codes Insertion Panel"/>
             <ColumnVal name="Luach"/>
             <ColumnHex name="Hex"/>
             <ColumnChar name="Carachtar"/>
-            <ColumnHtmlNumber name="Uimhir HTML"/>
-            <ColumnHtmlName name="Cód HTML"/>
+            <ColumnHtmlNumber name="HTML Number"/>
+            <ColumnHtmlName name="HTML Code"/>
         </AsciiInsertion>
         <DocumentMap>
-            <PanelTitle name="Léarscáil an Doiciméid"/>
+            <PanelTitle name="Document Map"/>
         </DocumentMap>
         <FunctionList>
-            <PanelTitle name="Liosta Feidhme"/>
-            <SortTip name="Sórtáil"/>
-            <ReloadTip name="Athlódáil"/>
+            <PanelTitle name="Function List"/>
+            <SortTip name="Sort"/>
+            <ReloadTip name="Reload"/>
         </FunctionList>
         <FolderAsWorkspace>
-            <PanelTitle name="Fillteán mar Spás Oibre"/>
-            <SelectFolderFromBrowserString name="Roghnaigh fillteán le cur leis an bhFillteán mar phainéal Spás Oibre"/>
+            <PanelTitle name="Folder as Workspace"/>
+            <SelectFolderFromBrowserString name="Select a folder to add in Folder as Workspace panel"/>
             <Menus>
-                <Item id="3511" name="Bain amach"/>
-                <Item id="3512" name="Bain Uile"/>
+                <Item id="3511" name="Bain"/>
+                <Item id="3512" name="Bain All"/>
                 <Item id="3513" name="Cuir leis"/>
-                <Item id="3514" name="á reáchtáil ag an gcóras"/>
-                <Item id="3515" name="Oscailte"/>
-                <Item id="3516" name="Conair chóipeála"/>
-                <Item id="3517" name="Faigh i gcomhaid..."/>
-                <Item id="3518" name="Explorer anseo"/>
-                <Item id="3519" name="CMD anseo"/>
-                <Item id="3520" name="Cóipeáil ainm comhaid"/>
+                <Item id="3514" name="Rith by system"/>
+                <Item id="3515" name="Oscail"/>
+                <Item id="3516" name="Cóipeáil an chonair"/>
+                <Item id="3517" name="Aimsigh sna comhaid..."/>
+                <Item id="3518" name="Explorer here"/>
+                <Item id="3519" name="Anseo CMD"/>
+                <Item id="3520" name="Cóipeáil ainm an chomhaid"/>
             </Menus>
         </FolderAsWorkspace>
         <ProjectManager>
             <PanelTitle name="Tionscadal"/>
-            <WorkspaceRootName name="Spás oibre"/>
-            <NewProjectName name="Ainm an Tionscadail"/>
-            <NewFolderName name="Ainm an Fhillteáin"/>
+            <WorkspaceRootName name="Workspace"/>
+            <NewProjectName name="Ainm an tionscadail"/>
+            <NewFolderName name="Ainm an fhillteáin"/>
             <Menus>
                 <Entries>
-                    <Item id="0" name="Spás oibre"/>
-                    <Item id="1" name="Athraigh"/>
+                    <Item id="0" name="Workspace"/>
+                    <Item id="1" name="Eagar"/>
                 </Entries>
                 <WorkspaceMenu>
-                    <Item id="3122" name="Spás Oibre Nua"/>
-                    <Item id="3123" name="Oscailte Workspace"/>
-                    <Item id="3124" name="Athlódáil an Spás Oibre"/>
-                    <Item id="3125" name="Sábháil"/>
-                    <Item id="3126" name="Sábháil mar..."/>
-                    <Item id="3127" name="Sábháil Cóip..."/>
-                    <Item id="3121" name="Cuir Tionscadal Nua leis"/>
+                    <Item id="3122" name="New Workspace"/>
+                    <Item id="3123" name="Oscail Workspace"/>
+                    <Item id="3124" name="Reload Workspace"/>
+                    <Item id="3125" name="Taisc"/>
+                    <Item id="3126" name="Taisc mar..."/>
+                    <Item id="3127" name="Taisc cóip mar..."/>
+                    <Item id="3121" name="Cuir tionscadal nua leis"/>
                 </WorkspaceMenu>
                 <ProjectMenu>
                     <Item id="3111" name="Athainmnigh"/>
-                    <Item id="3112" name="Cuir Fillteán leis"/>
-                    <Item id="3113" name="Comhaid a chur leis..."/>
-                    <Item id="3117" name="Cuir Comhaid leis ón Eolaire..."/>
-                    <Item id="3114" name="Bain amach"/>
-                    <Item id="3118" name="Éirí suas"/>
-                    <Item id="3119" name="Bog an Dúin "/>
+                    <Item id="3112" name="Cuir fillteán leis"/>
+                    <Item id="3113" name="Cuir comhaid leis..."/>
+                    <Item id="3117" name="Cuir comhaid ón gcomhadlann leis..."/>
+                    <Item id="3114" name="Bain"/>
+                    <Item id="3118" name="Bog suas"/>
+                    <Item id="3119" name="Bog síos"/>
                 </ProjectMenu>
                 <FolderMenu>
                     <Item id="3111" name="Athainmnigh"/>
-                    <Item id="3112" name="Cuir Fillteán leis"/>
-                    <Item id="3113" name="Comhaid a chur leis..."/>
-                    <Item id="3117" name="Cuir Comhaid leis ón Eolaire..."/>
-                    <Item id="3114" name="Bain amach"/>
-                    <Item id="3118" name="Éirí suas"/>
-                    <Item id="3119" name="Bog an Dúin"/>
+                    <Item id="3112" name="Cuir fillteán leis"/>
+                    <Item id="3113" name="Cuir comhaid leis..."/>
+                    <Item id="3117" name="Cuir comhaid ón gcomhadlann leis..."/>
+                    <Item id="3114" name="Bain"/>
+                    <Item id="3118" name="Bog suas"/>
+                    <Item id="3119" name="Bog síos"/>
                 </FolderMenu>
                 <FileMenu>
                     <Item id="3111" name="Athainmnigh"/>
-                    <Item id="3115" name="Bain amach"/>
-                    <Item id="3116" name="Athraigh an Comhad Path"/>
-                    <Item id="3118" name="Éirí suas"/>
-                    <Item id="3119" name="Bog an Dúin"/>
+                    <Item id="3115" name="Bain"/>
+                    <Item id="3116" name="Modify File Path"/>
+                    <Item id="3118" name="Bog suas"/>
+                    <Item id="3119" name="Bog síos"/>
                 </FileMenu>
             </Menus>
         </ProjectManager>
         <MiscStrings>
             <!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
-            <word-chars-list-tip value="Ligeann sé seo duit carachtar breise a chur san áireamh i gcarachtair focal reatha agus cliceáil dúbailte ar roghnú nó cuardach le rogha Comhoiriúnacht focal amháin a sheiceáil."/>
-            <word-chars-list-warning-begin value="Bí ar an eolas: "/>
-            <word-chars-list-space-warning value="$ INT_REPLACE $ spás (í)"/>
-            <word-chars-list-tab-warning value="$ INT_REPLACE $ TAB (s)"/>
-            <word-chars-list-warning-end value="  i do liosta carachtar."/>
+            <word-chars-list-tip value="This allows you to include additional character into current word characters while double clicking for selection or searching with &quot;Match whole word only&quot; option checked."/>
+            <word-chars-list-warning-begin value="Be aware: "/>
+            <word-chars-list-space-warning value="$INT_REPLACE$ space(s)"/>
+            <word-chars-list-tab-warning value="$INT_REPLACE$ TAB(s)"/>
+            <word-chars-list-warning-end value="  in your character list."/>
             <cloud-invalid-warning value="Conair neamhbhailí."/>
-            <cloud-restart-warning value="Cuir atosú ar Notepad ++ le héifeacht."/>
-            <cloud-select-folder value="Roghnaigh fillteán ó / go dtí áit a léann / a scríobhann Notepad ++ a shuíomhanna"/>
-            <shift-change-direction-tip value="Úsáid Shift + Enter chun cuardach a dhéanamh sa treo eile"/>
-            <two-find-buttons-tip value="2 mód cnaipí a aimsiú"/>
-            <find-in-files-filter-tip value="Faigh i cpp, cxx, h, hxx &amp;&amp; hpp:
-* .cpp * .cxx * .h * .hxx * .hpp
-
-Faigh i ngach comhad ach amháin exe, obj &amp; logáil isteach:
-*. *! *. exe? *. logáil isteach"/>
-            <find-status-top-reached value="Aimsigh: Aimsíodh an chéad tarlú ón mbun. Tá tús na cáipéise bainte amach."/>
-            <find-status-end-reached value="Aimsigh: Aimsíodh an chéad tarlú ón mbarr. Tá deireadh an doiciméid bainte amach."/>
-            <find-status-replaceinfiles-1-replaced value="In ionad Comhaid: athraíodh 1 teagmhas"/>
-            <find-status-replaceinfiles-nb-replaced value="Ionadaigh a chur in ionad na gcomhad: $ INT_REPLACE $ in ionad tarluithe"/>
-            <find-status-replaceinfiles-re-malformed value="Ionadaigh na Comhaid Oscailte: Déantar an abairt rialta a mhíchumadh"/>
-            <find-status-replaceinOscailteedfiles-1-replaced value="In ionad Comhaid Oscailteed: cuireadh 1 teagmhas nua in áit"/>
-            <find-status-replaceinOscailteedfiles-nb-replaced value="In ionad na gComhad Oscailte: Athraíodh $ INT_REPLACE $ tarluithe"/>
-            <find-status-mark-re-malformed value="Marcáil: Déantar an léiriú rialta ar chuardach a mhíchumadh"/>
-            <find-status-invalid-re value="Aimsigh: Léiriú rialta neamhbhailí"/>
-            <find-status-mark-1-match value="Cluiche Mark: 1"/>
-            <find-status-mark-nb-matches value="Marcáil: $ INT_REPLACE $ lasáin"/>
-            <find-status-count-re-malformed value="Marcáil: $ INT_REPLACE $ lasáin"/>
-            <find-status-count-1-match value="Meaitseáil Comhaireamh: 1"/>
-            <find-status-count-nb-matches value="Comhaireamh: $ INT_REPLACE $ lasáin"/>
-            <find-status-replaceall-re-malformed value="Ionadaigh Uile: Déantar an abairt rialta a mhíchumadh"/>
-            <find-status-replaceall-1-replaced value="Athsholáthar a dhéanamh ar Chách: Athraíodh 1 tarlú"/>
-            <find-status-replaceall-nb-replaced value="Ionadaigh Uile: $ INT_REPLACE $ in ionad tarluithe"/>
-            <find-status-replaceall-readonly value="Ionadaigh Uile: Ní féidir téacs a athsholáthar. Tá an doiciméad reatha léite amháin"/>
-            <find-status-replace-end-reached value="Ionadaigh: In ionad an chéad tarlú ón mbarr. Tá deireadh leis an doiciméad"/>
-            <find-status-replace-top-reached value="Ionadaigh: In ionad an chéad tarlú ón mbun. Tá tús curtha leis an gcáipéis"/>
-            <find-status-replaced-next-found value="Ionadaigh: athraíodh 1 teagmhas. Fuarthas an chéad teagmhas eile"/>
-            <find-status-replaced-next-not-found value="Ionadaigh: athraíodh 1 teagmhas. Níor aimsíodh an chéad teagmhas eile"/>
-            <find-status-replace-not-found value="Ionadaigh: níor aimsíodh aon teagmhas"/>
-            <find-status-replace-readonly value="Ionadaigh: Ní féidir téacs a athsholáthar. Tá an doiciméad reatha léite amháin"/>
-            <find-status-cannot-find value="Aimsigh: Ní féidir an téacs a aimsiú $ STR_REPLACE $;"/>
-            <finder-find-in-finder value="Faigh na torthaí seo..."/>
-            <finder-Dún-this value="Dún an aimsitheoir seo"/>
-            <finder-collapse-all value="Collapse go léir"/>
-            <finder-uncollapse-all value="Déan neamhshocrú ar fad"/>
-            <finder-copy value="Cóip"/>
-            <finder-select-all value="Roghnú go léir"/>
-            <finder-clear-all value="Soiléir ar fad"/>
-            <finder-Oscailte-all value="Oscailte go léir"/>
-            <common-ok value="OK"/>
+            <cloud-restart-warning value="Please restart Notepad++ to take effect."/>
+            <cloud-select-folder value="Select a folder from/to where Notepad++ reads/writes its settings"/>
+            <shift-change-direction-tip value="Use Shift+Enter to search in the opposite direction"/>
+            <two-find-buttons-tip value="2 find buttons mode"/>
+            <find-in-files-filter-tip value="Find in cpp, cxx, h, hxx &amp;&amp; hpp:
+*.cpp *.cxx *.h *.hxx *.hpp
+Find in all files except exe, obj &amp;&amp; log:
+*.* !*.exe !*.obj !*.log"/>
+            <find-status-top-reached value="Find: Found the 1st occurrence from the bottom. The beginning of the document has been reached."/>
+            <find-status-end-reached value="Find: Found the 1st occurrence from the top. The end of the document has been reached."/>
+            <find-status-replaceinfiles-1-replaced value="Replace in Files: 1 occurrence was replaced"/>
+            <find-status-replaceinfiles-nb-replaced value="Replace in Files: $INT_REPLACE$ occurrences were replaced"/>
+            <find-status-replaceinfiles-re-malformed value="Replace in Opened Files: The regular expression is malformed"/>
+            <find-status-replaceinopenedfiles-1-replaced value="Replace in Opened Files: 1 occurrence was replaced"/>
+            <find-status-replaceinopenedfiles-nb-replaced value="Replace in Opened Files: $INT_REPLACE$ occurrences were replaced"/>
+            <find-status-mark-re-malformed value="Mark: The regular expression to search is malformed"/>
+            <find-status-invalid-re value="Find: Invalid regular expression"/>
+            <find-status-mark-1-match value="Mark: 1 match"/>
+            <find-status-mark-nb-matches value="Mark: $INT_REPLACE$ matches"/>
+            <find-status-count-re-malformed value="Count: The regular expression to search is malformed"/>
+            <find-status-count-1-match value="Count: 1 match"/>
+            <find-status-count-nb-matches value="Count: $INT_REPLACE$ matches"/>
+            <find-status-replaceall-re-malformed value="Replace All: The regular expression is malformed"/>
+            <find-status-replaceall-1-replaced value="Replace All: 1 occurrence was replaced"/>
+            <find-status-replaceall-nb-replaced value="Replace All: $INT_REPLACE$ occurrences were replaced"/>
+            <find-status-replaceall-readonly value="Replace All: Cannot replace text. The current document is read only"/>
+            <find-status-replace-end-reached value="Replace: Replaced the 1st occurrence from the top. The end of document has been reached"/>
+            <find-status-replace-top-reached value="Replace: Replaced the 1st occurrence from the bottom. The begin of document has been reached"/>
+            <find-status-replaced-next-found value="Replace: 1 occurrence was replaced. The next occurrence found."/>
+            <find-status-replaced-next-not-found value="Replace: 1 occurrence was replaced. No more occurrences were found."/>
+            <find-status-replace-not-found value="Replace: no occurrence was found"/>
+            <find-status-replace-readonly value="Replace: Cannot replace text. The current document is read only"/>
+            <find-status-cannot-find value="Find: Can't find the text &quot;$STR_REPLACE$&quot;"/>
+            <find-status-scope-selection value="in selected text"/>
+            <find-status-scope-all value="in entire file"/>
+            <find-status-scope-backward value="from start-of-file to caret"/>
+            <find-status-scope-forward value="from caret to end-of-file"/>
+            <finder-find-in-finder value="Find in this found results..."/>
+            <finder-close-this value="Dún an t-aimsitheoir seo"/>
+            <finder-collapse-all value="Collapse all"/>
+            <finder-uncollapse-all value="Uncollapse all"/>
+            <finder-copy value="Cóipeáil"/>
+            <finder-select-all value="Roghnaigh uile"/>
+            <finder-clear-all value="Glan uile"/>
+            <finder-open-all value="Oscail uile"/>
+            <common-ok value="Tá go maith"/>
             <common-cancel value="Cealaigh"/>
             <common-name value="Ainm: "/>
-            <tabrename-title value="Athainmnigh an Cluaisín Reatha"/>
-            <tabrename-newname value="Ainm Nua: "/>
+            <tabrename-title value="Athainmnigh an cluaisín reatha"/>
+            <tabrename-newname value="Ainm nua: "/>
             <recent-file-history-maxfile value="Max File: "/>
-            <language-tabsize value="Méid Tab: "/>
-            <userdefined-title-new value="Cruthaigh Teanga Nua..."/>
-            <userdefined-title-save value="Sábháil Ainm na Teanga Reatha Mar a bhí..."/>
-            <userdefined-title-rename value="Athainmnigh Ainm Teanga Reatha"/>
-            <autocomplete-nb-char value="Nb charb: "/>
+            <language-tabsize value="Tab Size: "/>
+            <userdefined-title-new value="Cruthaigh teanga nua..."/>
+            <userdefined-title-save value="Save Current Language Name As..."/>
+            <userdefined-title-rename value="Athainmnigh Current Language Name"/>
+            <autocomplete-nb-char value="Nb char: "/>
             <edit-verticaledge-nb-col value="Nb of Column:"/>
             <summary value="Achoimre"/>
-            <summary-filepath value="Cosán iomlán an chomhaid: "/>
+            <summary-filepath value="Full file path: "/>
             <summary-filecreatetime value="Cruthaithe: "/>
-            <summary-filemodifytime value="Athraithe: "/>
-            <summary-nbchar value="Carachtair (gan foircinn líne): "/>
+            <summary-filemodifytime value="Mionathraithe: "/>
+            <summary-nbchar value="Characters (without line endings): "/>
             <summary-nbword value="Focail: "/>
             <summary-nbline value="Línte: "/>
-            <summary-nbbyte value="Fad an doiciméid: "/>
-            <summary-nbsel1 value=" carachtair roghnaithe ("/>
-            <summary-nbsel2 value=" bearta "/>
+            <summary-nbbyte value="Fad na cáipéise: "/>
+            <summary-nbsel1 value=" selected characters ("/>
+            <summary-nbsel2 value=" bytes) in "/>
             <summary-nbrange value=" ranges"/>
+            <replace-in-files-confirm-title value="An bhfuil tú cinnte?"/>
+            <replace-in-files-confirm-directory value="Are you sure you want to replace all occurrences in :"/>
+            <replace-in-files-confirm-filetype value="For file type :"/>
+            <replace-in-open-docs-confirm-title value="An bhfuil tú cinnte?"/>
+            <replace-in-open-docs-confirm-message value="Are you sure you want to replace all occurrences in all open documents?"/>
+            <find-result-caption value="Aimsigh toradh"/>
+            <find-result-title value="Cuardaigh"/>
+            <find-result-title-info value="($INT_REPLACE1$ hits in $INT_REPLACE2$ files of $INT_REPLACE3$ searched)"/>
+            <find-result-title-info-selections value="($INT_REPLACE1$ hits in $INT_REPLACE2$ selections of $INT_REPLACE3$ searched)"/>
+            <find-result-title-info-extra value=" - Line Filter Mode: only display the filtered results"/>
+            <find-result-hits value="($INT_REPLACE$ hits)"/>
+            <find-regex-zero-length-match value="zero length match" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

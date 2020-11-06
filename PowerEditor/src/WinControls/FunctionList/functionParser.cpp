@@ -34,30 +34,19 @@ using namespace std;
 
 FunctionParsersManager::~FunctionParsersManager()
 {
-	for (size_t i = 0, len = _parsers.size(); i < len; ++i)
+	for (size_t i = 0, len = L_EXTERNAL + nbMaxUserDefined; i < len; ++i)
 	{
-		delete _parsers[i];
+		if (_parsers[i] != nullptr)
+			delete _parsers[i];
 	}
-
-	delete _pXmlFuncListDoc;
 }
 
-bool FunctionParsersManager::init(const generic_string& xmlPath, ScintillaEditView ** ppEditView)
+bool FunctionParsersManager::init(const generic_string& xmlDirPath, ScintillaEditView ** ppEditView)
 {
 	_ppEditView = ppEditView;
-	bool loadOkay = false;
+	_xmlDirPath = xmlDirPath;
 
-	if (PathFileExists(xmlPath.c_str()))
-	{
-        _pXmlFuncListDoc = new TiXmlDocument(xmlPath);
-        loadOkay = _pXmlFuncListDoc->LoadFile();
-        if (loadOkay)
-        {
-            loadOkay = getFuncListFromXmlTree();
-        }
-    }
-
-	return loadOkay;
+	return getOverrideMapFromXmlTree();
 }
 
 bool FunctionParsersManager::getZonePaserParameters(TiXmlNode *classRangeParser, generic_string &mainExprStr, generic_string &openSymboleStr, generic_string &closeSymboleStr, std::vector<generic_string> &classNameExprArray, generic_string &functionExprStr, std::vector<generic_string> &functionNameExprArray)
@@ -153,81 +142,127 @@ bool FunctionParsersManager::getUnitPaserParameters(TiXmlNode *functionParser, g
 	return true;
 }
 
-void FunctionParsersManager::writeFunctionListXml(const TCHAR *destFoder) const 
+
+bool FunctionParsersManager::loadFuncListFromXmlTree(LangType lType, const generic_string& overrideId, int udlIndex)
 {
-	generic_string dest = destFoder;
-	PathAppend(dest, TEXT("functionList.xml"));
-	if (_pXmlFuncListDoc)
-		_pXmlFuncListDoc->SaveFile(dest.c_str());
+	generic_string funcListRulePath = _xmlDirPath;
+	funcListRulePath += TEXT("\\");
+	int index = -1;
+	if (lType == L_USER) // UDL
+	{
+		if (overrideId.empty())
+			return false;
+		
+		if (udlIndex == -1)
+			return false;
+
+		index = udlIndex;
+		funcListRulePath += overrideId;
+	}
+	else // Supported Language
+	{
+		index = lType;
+		if (overrideId.empty())
+		{
+			generic_string lexerName = ScintillaEditView::langNames[lType].lexerName;
+			funcListRulePath += lexerName;
+			funcListRulePath += TEXT(".xml");
+		}
+		else
+		{
+			funcListRulePath += overrideId;
+		}
+	}
+
+	if (index > _currentUDIndex)
+		return false;
+
+	if (_parsers[index] == nullptr)
+		return false;
+
+	TiXmlDocument xmlFuncListDoc(funcListRulePath);
+	bool loadOK = xmlFuncListDoc.LoadFile();
+
+	if (!loadOK)
+		return false;
+
+	TiXmlNode *root = xmlFuncListDoc.FirstChild(TEXT("NotepadPlus"));
+	if (!root)
+		return false;
+
+	root = root->FirstChild(TEXT("functionList"));
+	if (!root)
+		return false;
+
+	TiXmlNode *parserRoot = root->FirstChild(TEXT("parser"));
+	if (!parserRoot)
+		return false;
+
+	const TCHAR *id = (parserRoot->ToElement())->Attribute(TEXT("id"));
+	if (!id || !id[0])
+		return false;
+
+	generic_string commentExpr(TEXT(""));
+	const TCHAR *pCommentExpr = (parserRoot->ToElement())->Attribute(TEXT("commentExpr"));
+	if (pCommentExpr && pCommentExpr[0])
+		commentExpr = pCommentExpr;
+
+	std::vector<generic_string> classNameExprArray;
+	std::vector<generic_string> functionNameExprArray;
+
+	const TCHAR *displayName = (parserRoot->ToElement())->Attribute(TEXT("displayName"));
+	if (!displayName || !displayName[0])
+		displayName = id;
+
+	TiXmlNode *classRangeParser = parserRoot->FirstChild(TEXT("classRange"));
+	TiXmlNode *functionParser = parserRoot->FirstChild(TEXT("function"));
+	if (classRangeParser && functionParser)
+	{
+		generic_string mainExpr, openSymbole, closeSymbole, functionExpr;
+		getZonePaserParameters(classRangeParser, mainExpr, openSymbole, closeSymbole, classNameExprArray, functionExpr, functionNameExprArray);
+
+		generic_string mainExpr2;
+		std::vector<generic_string> classNameExprArray2;
+		std::vector<generic_string> functionNameExprArray2;
+		getUnitPaserParameters(functionParser, mainExpr2, functionNameExprArray2, classNameExprArray2);
+		FunctionUnitParser *funcUnitPaser = new FunctionUnitParser(id, displayName, commentExpr.c_str(), mainExpr2.c_str(), functionNameExprArray2, classNameExprArray2);
+
+		_parsers[index]->_parser = new FunctionMixParser(id, displayName, commentExpr.c_str(), mainExpr.c_str(), openSymbole.c_str(), closeSymbole.c_str(), classNameExprArray, functionExpr.c_str(), functionNameExprArray, funcUnitPaser);
+	}
+	else if (classRangeParser)
+	{
+		generic_string mainExpr, openSymbole, closeSymbole, functionExpr;
+		getZonePaserParameters(classRangeParser, mainExpr, openSymbole, closeSymbole, classNameExprArray, functionExpr, functionNameExprArray);
+		_parsers[index]->_parser = new FunctionZoneParser(id, displayName, commentExpr.c_str(), mainExpr.c_str(), openSymbole.c_str(), closeSymbole.c_str(), classNameExprArray, functionExpr.c_str(), functionNameExprArray);
+	}
+	else if (functionParser)
+	{
+		generic_string  mainExpr;
+		getUnitPaserParameters(functionParser, mainExpr, functionNameExprArray, classNameExprArray);
+		_parsers[index]->_parser = new FunctionUnitParser(id, displayName, commentExpr.c_str(), mainExpr.c_str(), functionNameExprArray, classNameExprArray);
+	}
+
+	return true;
 }
 
-bool FunctionParsersManager::getFuncListFromXmlTree()
+bool FunctionParsersManager::getOverrideMapFromXmlTree()
 {
-	if (!_pXmlFuncListDoc)
+	generic_string funcListRulePath = _xmlDirPath;
+	funcListRulePath += TEXT("\\overrideMap.xml");
+	
+	TiXmlDocument xmlFuncListDoc(funcListRulePath);
+	bool loadOK = xmlFuncListDoc.LoadFile();
+
+	if (!loadOK)
 		return false;
 	
-	TiXmlNode *root = _pXmlFuncListDoc->FirstChild(TEXT("NotepadPlus"));
+	TiXmlNode *root = xmlFuncListDoc.FirstChild(TEXT("NotepadPlus"));
 	if (!root) 
 		return false;
 
 	root = root->FirstChild(TEXT("functionList"));
 	if (!root) 
 		return false;
-
-	TiXmlNode *parserRoot = root->FirstChild(TEXT("parsers"));
-	if (!parserRoot) 
-		return false;
-
-
-	for (TiXmlNode *childNode = parserRoot->FirstChildElement(TEXT("parser"));
-		childNode;
-		childNode = childNode->NextSibling(TEXT("parser")) )
-	{
-		const TCHAR *id = (childNode->ToElement())->Attribute(TEXT("id"));
-		if (!id || !id[0])
-			continue;
-
-		generic_string commentExpr(TEXT(""));
-		const TCHAR *pCommentExpr = (childNode->ToElement())->Attribute(TEXT("commentExpr"));
-		if (pCommentExpr && pCommentExpr[0])
-			commentExpr = pCommentExpr;
-		
-
-		std::vector<generic_string> classNameExprArray;
-		std::vector<generic_string> functionNameExprArray;
-
-		const TCHAR *displayName = (childNode->ToElement())->Attribute(TEXT("displayName"));
-		if (!displayName || !displayName[0])
-			displayName = id;
-
-		TiXmlNode *classRangeParser = childNode->FirstChild(TEXT("classRange"));
-		TiXmlNode *functionParser = childNode->FirstChild(TEXT("function"));
-		if (classRangeParser && functionParser)
-		{
-			generic_string mainExpr, openSymbole, closeSymbole, functionExpr;
-			getZonePaserParameters(classRangeParser, mainExpr, openSymbole, closeSymbole, classNameExprArray, functionExpr, functionNameExprArray);
-			
-			generic_string mainExpr2;
-			std::vector<generic_string> classNameExprArray2;
-			std::vector<generic_string> functionNameExprArray2;
-			getUnitPaserParameters(functionParser, mainExpr2, functionNameExprArray2, classNameExprArray2);
-			FunctionUnitParser *funcUnitPaser = new FunctionUnitParser(id, displayName, commentExpr.c_str(), mainExpr2.c_str(), functionNameExprArray2, classNameExprArray2);
-
-			_parsers.push_back(new FunctionMixParser(id, displayName, commentExpr.c_str(), mainExpr.c_str(), openSymbole.c_str(), closeSymbole.c_str(), classNameExprArray, functionExpr.c_str(), functionNameExprArray, funcUnitPaser));
-		}
-		else if (classRangeParser)
-		{
-			generic_string mainExpr, openSymbole, closeSymbole, functionExpr;
-			getZonePaserParameters(classRangeParser, mainExpr, openSymbole, closeSymbole, classNameExprArray, functionExpr, functionNameExprArray);
-			_parsers.push_back(new FunctionZoneParser(id, displayName, commentExpr.c_str(), mainExpr.c_str(), openSymbole.c_str(), closeSymbole.c_str(), classNameExprArray, functionExpr.c_str(), functionNameExprArray));
-		}
-		else if (functionParser)
-		{
-			generic_string  mainExpr;
-			getUnitPaserParameters(functionParser, mainExpr, functionNameExprArray, classNameExprArray);
-			_parsers.push_back(new FunctionUnitParser(id, displayName, commentExpr.c_str(), mainExpr.c_str(), functionNameExprArray, classNameExprArray));
-		}
-	}
 
 	TiXmlNode *associationMapRoot = root->FirstChild(TEXT("associationMap"));
 	if (associationMapRoot) 
@@ -238,24 +273,29 @@ bool FunctionParsersManager::getFuncListFromXmlTree()
 		{
 			int langID;
 			const TCHAR *langIDStr = (childNode->ToElement())->Attribute(TEXT("langID"), &langID);
-			const TCHAR *exts = (childNode->ToElement())->Attribute(TEXT("ext"));
 			const TCHAR *id = (childNode->ToElement())->Attribute(TEXT("id"));
 			const TCHAR *userDefinedLangName = (childNode->ToElement())->Attribute(TEXT("userDefinedLangName"));
-			if (((langIDStr && langIDStr[0]) || (exts && exts[0]) || (userDefinedLangName && userDefinedLangName[0])) && (id && id[0]))
+
+			if (!(id && id[0]))
+				continue;
+
+			if (langIDStr && langIDStr[0])
 			{
-				for (size_t i = 0, len = _parsers.size(); i < len; ++i)
+				_parsers[langID] = new ParserInfo(id);
+			}
+			else if (userDefinedLangName && userDefinedLangName[0])
+			{
+				if (_currentUDIndex < L_EXTERNAL + nbMaxUserDefined)
 				{
-					if (_parsers[i]->_id == id)
-					{
-						_associationMap.push_back(AssociationInfo(static_cast<int32_t>(i), langIDStr ? langID : -1, exts ? exts : TEXT(""), userDefinedLangName ? userDefinedLangName : TEXT("")));
-						break;
-					}
+					++_currentUDIndex;
+					_parsers[_currentUDIndex] = new ParserInfo(id, userDefinedLangName);
+					
 				}
 			}
 		}
 	}
 
-	return (_parsers.size() != 0);
+	return true;
 }
 
 FunctionParser * FunctionParsersManager::getParser(const AssociationInfo & assoInfo)
@@ -263,7 +303,6 @@ FunctionParser * FunctionParsersManager::getParser(const AssociationInfo & assoI
 	const unsigned char doNothing = 0;
 	const unsigned char checkLangID = 1;
 	const unsigned char checkUserDefined = 2;
-	const unsigned char checkExt = 3;
 
 	unsigned char choice = doNothing;
 	// langID != -1 && langID != L_USER
@@ -272,39 +311,66 @@ FunctionParser * FunctionParsersManager::getParser(const AssociationInfo & assoI
 	// langID == L_USER, we chack the userDefinedLangName
 	else if (assoInfo._langID == L_USER && assoInfo._userDefinedLangName != TEXT(""))
 		choice = checkUserDefined;
-	// langID == -1, we chack the ext
-	else if (assoInfo._langID == -1 && assoInfo._ext != TEXT(""))
-		choice = checkExt;
 	else
 		return NULL;
 
-	for (size_t i = 0, len = _associationMap.size(); i < len; ++i)
+	switch (choice)
 	{
-		switch (choice)
+		case checkLangID:
 		{
-			case checkLangID:
+			if (_parsers[assoInfo._langID] != nullptr)
 			{
-				if (assoInfo._langID == _associationMap[i]._langID)
-					return _parsers[_associationMap[i]._id];			
+				if (_parsers[assoInfo._langID]->_parser != nullptr)
+					return _parsers[assoInfo._langID]->_parser;
+				else
+				{
+					// load it
+					if (loadFuncListFromXmlTree(static_cast<LangType>(assoInfo._langID), _parsers[assoInfo._langID]->_id))
+						return _parsers[assoInfo._langID]->_parser;
+				}
 			}
-			break;
-
-			case checkUserDefined:
+			else
 			{
-				if (assoInfo._userDefinedLangName == _associationMap[i]._userDefinedLangName)
-					return _parsers[_associationMap[i]._id];			
-			}
-			break;
+				_parsers[assoInfo._langID] = new ParserInfo;
+				// load it
+				if (loadFuncListFromXmlTree(static_cast<LangType>(assoInfo._langID), _parsers[assoInfo._langID]->_id))
+					return _parsers[assoInfo._langID]->_parser;
 
-			case checkExt:
-			{
-				if (assoInfo._ext == _associationMap[i]._ext)
-					return _parsers[_associationMap[i]._id];		
+				return nullptr;
 			}
-			break;
-
 		}
+		break;
+
+		case checkUserDefined:
+		{
+			if (_currentUDIndex == L_EXTERNAL) // no User Defined Language parser
+				return nullptr;
+
+			for (int i = L_EXTERNAL + 1; i <= _currentUDIndex; ++i)
+			{
+				if (_parsers[i]->_userDefinedLangName == assoInfo._userDefinedLangName)
+				{
+					if (_parsers[i]->_parser)
+					{
+						return _parsers[i]->_parser;
+					}
+					else
+					{
+						// load it
+						if (loadFuncListFromXmlTree(static_cast<LangType>(assoInfo._langID), _parsers[i]->_id, i))
+							return _parsers[i]->_parser;
+					}
+
+					break;
+				}
+			}
+
+			return nullptr;
+		}
+		break;
+
 	}
+
 	return NULL;
 }
 
@@ -427,9 +493,6 @@ generic_string FunctionParser::parseSubLevel(size_t begin, size_t end, std::vect
 
 bool FunctionParsersManager::parse(std::vector<foundInfo> & foundInfos, const AssociationInfo & assoInfo)
 {
-	if (!_pXmlFuncListDoc)
-		return false;
-
 	// Serch the right parser from the given ext in the map
 	FunctionParser *fp = getParser(assoInfo);
 	if (!fp)

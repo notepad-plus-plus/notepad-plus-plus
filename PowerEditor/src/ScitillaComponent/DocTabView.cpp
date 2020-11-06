@@ -228,5 +228,6 @@ void DocTabView::reSizeTo(RECT & rc)
 		rc.bottom -= (borderWidth * 2);
 		_pView->reSizeTo(rc);
 	}
+	SendMessage(_hParent, NPPM_INTERNAL_UPDATECLICKABLELINKS, reinterpret_cast<WPARAM>(_pView), 0);
 }
 

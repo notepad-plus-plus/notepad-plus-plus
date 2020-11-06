@@ -88,6 +88,10 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				prevWasEdit = false;
 			}
 
+			if (notification->modificationType & SC_MOD_CHANGEINDICATOR)
+			{
+				::InvalidateRect(notifyView->getHSelf(), NULL, FALSE);
+			}
 			break;
 		}
 
@@ -527,6 +531,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				itemUnitArray.push_back(MenuItemUnit(0, NULL));
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_OPEN_FOLDER, TEXT("Open Containing Folder in Explorer")));
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_OPEN_CMD, TEXT("Open Containing Folder in cmd")));
+				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CONTAININGFOLDERASWORKSPACE, TEXT("Open Containing Folder as Workspace")));
 				itemUnitArray.push_back(MenuItemUnit(0, NULL));
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_OPEN_DEFAULT_VIEWER, TEXT("Open in Default Viewer")));
 				itemUnitArray.push_back(MenuItemUnit(0, NULL));
@@ -599,6 +604,31 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			{
 				if (!_pEditView->markerMarginClick(lineClick))
 					bookmarkToggle(lineClick);
+			}
+			break;
+		}
+
+		case SCN_MARGINRIGHTCLICK:
+		{
+			if (notification->nmhdr.hwndFrom == _mainEditView.getHSelf())
+				switchEditViewTo(MAIN_VIEW);
+			else if (notification->nmhdr.hwndFrom == _subEditView.getHSelf())
+				switchEditViewTo(SUB_VIEW);
+
+			if ((notification->margin == ScintillaEditView::_SC_MARGE_SYBOLE) && !notification->modifiers)
+			{
+				POINT p;
+				::GetCursorPos(&p);
+				MenuPosition& menuPos = getMenuPosition("search-bookmark");
+				HMENU hSearchMenu = ::GetSubMenu(_mainMenuHandle, menuPos._x);
+				if (hSearchMenu)
+				{
+					HMENU hBookmarkMenu = ::GetSubMenu(hSearchMenu, menuPos._y);
+					if (hBookmarkMenu)
+					{
+						TrackPopupMenu(hBookmarkMenu, 0, p.x, p.y, 0, _pPublicInterface->getHSelf(), NULL);
+					}
+				}
 			}
 			break;
 		}
@@ -792,14 +822,19 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				// Check wether cursor is within URL
 				auto indicMsk = notifyView->execute(SCI_INDICATORALLONFOR, notification->position);
 				if (!(indicMsk & (1 << URL_INDIC))) break;
+				auto startPos = notifyView->execute(SCI_INDICATORSTART, URL_INDIC, notification->position);
+				auto endPos = notifyView->execute(SCI_INDICATOREND, URL_INDIC, notification->position);
+				if ((notification->position < startPos) || (notification->position > endPos)) break;
+
+				// WM_LBUTTONUP goes to opening browser instead of Scintilla here, because the mouse is not captured.
+				// The missing message causes mouse cursor flicker as soon as the mouse cursor is moved to a position outside the text editing area.
+				::PostMessage(notifyView->getHSelf(), WM_LBUTTONUP, 0, 0);
 
 				// Revert selection of current word. Best to this early, otherwise the
 				// selected word is visible all the time while the browser is starting
 				notifyView->execute(SCI_SETSEL, notification->position, notification->position); 
 
 				// Open URL
-				auto startPos = notifyView->execute(SCI_INDICATORSTART, URL_INDIC, notification->position);
-				auto endPos = notifyView->execute(SCI_INDICATOREND, URL_INDIC, notification->position);
 				generic_string url = notifyView->getGenericTextAsString(static_cast<size_t>(startPos), static_cast<size_t>(endPos));
 				::ShellExecute(_pPublicInterface->getHSelf(), TEXT("open"), url.c_str(), NULL, NULL, SW_SHOW);
 			}
@@ -817,7 +852,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			// replacement for obsolete custom SCN_SCROLLED
 			if (notification->updated & SC_UPDATE_V_SCROLL)
 			{
-				addHotSpot();
+				addHotSpot(notifyView);
 			}
 
 			// if it's searching/replacing, then do nothing
@@ -827,8 +862,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			if (notification->nmhdr.hwndFrom != _pEditView->getHSelf()) // notification come from unfocus view - both views ae visible
 			{
 				//ScintillaEditView * unfocusView = isFromPrimary ? &_subEditView : &_mainEditView;
-				if (nppGui._smartHiliteOnAnotherView &&
-					_pEditView->getCurrentBufferID() != notifyView->getCurrentBufferID())
+				if (nppGui._smartHiliteOnAnotherView)
 				{
 					TCHAR selectedText[1024];
 					_pEditView->getGenericSelectedText(selectedText, sizeof(selectedText)/sizeof(TCHAR), false);
@@ -856,7 +890,14 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				}
 			}
 
-			updateStatusBar();
+			bool selectionIsChanged = (notification->updated & SC_UPDATE_SELECTION) != 0;
+			// note: changing insert/overwrite mode will cause Scintilla to notify with SC_UPDATE_SELECTION
+			bool contentIsChanged = (notification->updated & SC_UPDATE_CONTENT) != 0;
+			if (selectionIsChanged || contentIsChanged)
+			{
+				updateStatusBar();
+			}
+
 			if (_pFuncList && (!_pFuncList->isClosed()) && _pFuncList->isVisible())
 				_pFuncList->markEntry();
 			AutoCompletion * autoC = isFromPrimary?&_autoCompleteMain:&_autoCompleteSub;

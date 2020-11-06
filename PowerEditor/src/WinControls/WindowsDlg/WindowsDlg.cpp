@@ -848,7 +848,9 @@ void WindowsDlg::doClose()
 	}
 	delete[] nmdlg.Items;
 
-	if (_pTab->nbItem() != _idxMap.size())
+	if (_idxMap.size() < 1)
+		::SendMessage(_hSelf, WM_CLOSE, 0, 0);
+	else if (_pTab->nbItem() != _idxMap.size())
 		doRefresh(true);
 	else
 	{

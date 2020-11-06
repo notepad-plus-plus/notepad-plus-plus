@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ==========================================================================\
+|
+|   To learn how to make your own language parser, please check the following
+|   link:
+|       https://npp-user-manual.org/docs/function-list/
+|
+\=========================================================================== -->
+<NotepadPlus>
+	<functionList>
+		<!-- ========================================================= [ PHP ] -->
+		<!-- PHP - Personal Home Page / PHP Hypertext Preprocessor             -->
+
+		<parser
+			displayName="PHP - Personal Home Page / PHP Hypertext Preprocessor"
+			id         ="php_syntax"
+			commentExpr="(?x)                                               # free-spacing (see `RegEx - Pattern Modifiers`)
+							(?s:\x2F\x2A.*?\x2A\x2F)                        # Multi Line Comment  x2F -> '/'  x2A -> '*'  
+						|	(?m-s:(?:\x23|\x2F{2}).*$)                      # Single Line Comment 1 # and 2 //
+					  # |	(?s:\x22(?:[^\x22\x24\x5C]|\x5C.)*\x22)         # String Literal - Double Quoted
+						|	(?s:\x22(?:[^\x22\x5C]|\x5C.)*\x22)         # String Literal - Double Quoted
+						|	(?s:\x27(?:[^\x27\x5C]|\x5C.)*\x27)             # String Literal - Single Quoted
+						|	(?:                                             # Here Document
+								\x3C{3}(?'HDID'[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*)[^\r\n]*(?:\r?\n|\n?\r)
+								(?s:.*?)
+								(?:\r?\n|\n?\r)\k'HDID'                     # close with exactly the same identifier, in the first column
+							)
+						|	(?:                                             # Now Document
+								\x3C{3}\x27(?'NDID'[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*)\x27[^\r\n]*(?:\r?\n|\n?\r)
+								(?s:.*?)
+								(?:\r?\n|\n?\r)\k'NDID'                     # close with exactly the same identifier, in the first column
+							)
+						"
+		>
+			<classRange
+				mainExpr    ="(?x)                                          # free-spacing (see `RegEx - Pattern Modifiers`)
+						(?(DEFINE)                                          # definition of sub-routines
+							(?'VALID_ID'
+								\b(?!(?-i:                                  # keywords (case-sensitive), not to be used as identifier
+									a(?:bstract|nd|rray|s)
+								|   b(?:ool|reak)
+								|   c(?:a(?:llable|se|tch)|l(?:ass|one)|on(?:st|tinue))
+								|   d(?:e(?:clare|fault)|ie|o)
+								|   e(?:cho|lse(?:if)?|mpty|nd(?:declare|for(?:each)?|if|switch|while)|val|x(?:it|tends))
+								|   f(?:alse|loat|inal|or(?:each)?|unction)
+								|   g(?:lobal|oto)
+								|   i(?:f|mplements|n(?:clude(?:_once)?|st(?:anceof|eadof)|t(?:erface)?)|sset)
+								|   list
+								|   mixed
+								|   n(?:amespace|ew|u(?:ll|meric))
+								|   o(?:r|bject)
+								|   p(?:r(?:i(?:nt|vate)|otected)|ublic)
+								|   re(?:quire(?:_once)?|turn)
+								|   s(?:t(?:atic|ring)|witch)
+								|   t(?:hrow|r(?:ait|ue|y))
+								|   u(?:nset|se)
+								|   var
+								|   while
+								|   xor
+								|   __(?:halt_compiler|(?:CLASS|DIR|F(?:ILE|UNCTION)|LINE|METHOD|NAMESPACE|TRAIT)__)
+								)\b)
+								[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*            # valid character combination for identifiers
+							)
+							(?'INTERFACE_LIST'
+								\s+(?:\x5C|(?&amp;VALID_ID))+
+								(?:
+									\s*,
+									\s*(?:\x5C|(?&amp;VALID_ID))+
+								)*
+							)
+						)
+						(?m-i)                                              # ^ and $ match at line-breaks, case-sensitive
+						^\h*                                                # optional leading white-space at start-of-line
+						(?:
+							(?:(?-i:abstract|final)\s+)?                    # optional class entry type
+							(?-i:class)\s+
+							\K                                              # discard text matched so far
+							(?&amp;VALID_ID)                                # identifier used as class name
+							(?:                                             # optional extends-from-class
+								\s+(?-i:extends)
+								\s+(?:\x5C|(?&amp;VALID_ID))+
+							)?
+							(?:                                             # optional implements-class/interfaces
+								\s+(?-i:implements)
+								(?&amp;INTERFACE_LIST)
+							)?
+						|
+							(?-i:interface)\s+
+							\K                                              # discard text matched so far
+							(?&amp;VALID_ID)                                # identifier used as interface name
+							(?:                                             # optional extends-from list
+								\s+(?-i:extends)
+								(?&amp;INTERFACE_LIST)
+							)?
+						|
+							(?-i:trait)\s+
+							\K                                              # discard text matched so far
+							(?&amp;VALID_ID)                                # identifier used as trait name
+						)
+						\s*\{
+					"
+				openSymbole ="\{"
+				closeSymbole="\}"
+			>
+				<className>
+					<nameExpr expr="[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*" />
+				</className>
+				<function
+					mainExpr="(?x)                                          # free-spacing (see `RegEx - Pattern Modifiers`)
+							(?m-i)                                          # ^ and $ match at line-breaks, case-sensitive
+							^\h*                                            # optional leading white-space at start-of-line
+							(?:(?-i:                                        # field modifiers
+									p(?:r(?:ivate|otected)|ublic)           # - access modifiers
+								|   abstract|final|static                   # - ...
+							)\s+)*                                          # require a white-space separator
+							(?-i:function)\s+
+							\K                                              # discard text matched so far
+							(?:\x26\s*)?                                    # optionally a reference
+							(?'VALID_ID'                                    # valid identifier, use as subroutine
+								\b(?!(?-i:                                  # keywords (case-sensitive), not to be used as identifier
+									a(?:bstract|nd|rray|s)
+								|   b(?:ool|reak)
+								|   c(?:a(?:llable|se|tch)|l(?:ass|one)|on(?:st|tinue))
+								|   d(?:e(?:clare|fault)|ie|o)
+								|   e(?:cho|lse(?:if)?|mpty|nd(?:declare|for(?:each)?|if|switch|while)|val|x(?:it|tends))
+								|   f(?:alse|loat|inal|or(?:each)?|unction)
+								|   g(?:lobal|oto)
+								|   i(?:f|mplements|n(?:clude(?:_once)?|st(?:anceof|eadof)|t(?:erface)?)|sset)
+								|   list
+								|   mixed
+								|   n(?:amespace|ew|u(?:ll|meric))
+								|   o(?:r|bject)
+								|   p(?:r(?:i(?:nt|vate)|otected)|ublic)
+								|   re(?:quire(?:_once)?|turn)
+								|   s(?:t(?:atic|ring)|witch)
+								|   t(?:hrow|r(?:ait|ue|y))
+								|   u(?:nset|se)
+								|   var
+								|   while
+								|   xor
+								|   __(?:halt_compiler|(?:CLASS|DIR|F(?:ILE|UNCTION)|LINE|METHOD|NAMESPACE|TRAIT)__)
+								)\b)
+								[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*            # valid character combination for identifiers
+							)                                               # identifier used as method name
+							\s*\(                                           # start of function parameters
+							(?:[^{;]*(?:\{|;))                              # start of function body  or abstract function without body
+						"
+				>
+					<functionName>
+						<funcNameExpr expr="(?:\x26\s*)?[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*\s*\((?:[^/{]|/(?![*/]))*" />
+						<!-- comment out the following node to display the method with parameters -->
+						<funcNameExpr expr="(?:\x26\s*)?[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*" />  
+					</functionName>
+				</function>
+			</classRange>
+			<function
+				mainExpr="(?x)                                              # free-spacing (see `RegEx - Pattern Modifiers`)
+						(?m-i)                                              # ^ and $ match at line-breaks, case-sensitive
+						^\h*                                                # optional leading white-space at start-of-line
+						(?-i:function)\s+
+						\K                                                  # discard text matched so far
+						(?:\x26\s*)?                                        # optionally a reference
+						(?'VALID_ID'                                        # valid identifier, use as subroutine
+							\b(?!(?-i:                                      # keywords (case-sensitive), not to be used as identifier
+								a(?:bstract|nd|rray|s)
+							|   b(?:ool|reak)
+							|   c(?:a(?:llable|se|tch)|l(?:ass|one)|on(?:st|tinue))
+							|   d(?:e(?:clare|fault)|ie|o)
+							|   e(?:cho|lse(?:if)?|mpty|nd(?:declare|for(?:each)?|if|switch|while)|val|x(?:it|tends))
+							|   f(?:alse|loat|inal|or(?:each)?|unction)
+							|   g(?:lobal|oto)
+							|   i(?:f|mplements|n(?:clude(?:_once)?|st(?:anceof|eadof)|t(?:erface)?)|sset)
+							|   list
+							|   mixed
+							|   n(?:amespace|ew|u(?:ll|meric))
+							|   o(?:r|bject)
+							|   p(?:r(?:i(?:nt|vate)|otected)|ublic)
+							|   re(?:quire(?:_once)?|turn)
+							|   s(?:t(?:atic|ring)|witch)
+							|   t(?:hrow|r(?:ait|ue|y))
+							|   u(?:nset|se)
+							|   var
+							|   while
+							|   xor
+							|   __(?:halt_compiler|(?:CLASS|DIR|F(?:ILE|UNCTION)|LINE|METHOD|NAMESPACE|TRAIT)__)
+							)\b)
+							[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*                # valid character combination for identifiers
+						)                                                   # identifier used as function name
+						\s*\(                                               # start of function parameters
+						[^{]*\{                                             # start of function body 
+					"
+			>
+				<functionName>
+					<nameExpr expr="(?:\x26\s*)?[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*\s*\((?:[^/{]|/(?![*/]))*" />
+					<!-- comment out the following node to display the function with its parameters -->
+					<!-- <nameExpr expr="(?:\x26\s*)?[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*" /> -->
+				</functionName>
+			</function>
+		</parser>
+	</functionList>
+</NotepadPlus>

@@ -117,8 +117,8 @@
 					<Item id="42015" name="Geçerli Satırı Aşağı Taşı"/>
 					<Item id="42059" name="Alfabetik Olarak Sırala (Artan)"/>
 					<Item id="42060" name="Alfabetik Olarak Sırala (Azalan)"/>
-					<Item id="42080" name="Satırları Alfb. Olarak Büyük Küçük Görmezden Gel. Sırala (Artan)"/>
-					<Item id="42081" name="Satırları Alfb. Olarak Büyük Küçük Görmezden Gel. Sırala (Azalan)"/>
+					<Item id="42080" name="Satırları Alfb. Ve Boyutu Görmezden Gel. Sırala (Artan)"/>
+					<Item id="42081" name="Satırları Alfb. Ve Boyutu Görmezden Gel. Sırala (Azalan)"/>
 					<Item id="42061" name="Tam Sayı Olarak Sırala (Artan)"/>
 					<Item id="42062" name="Tam Sayı Olarak Sırala (Azalan)"/>
 					<Item id="42063" name="Virgüle Göre Ondalıklı Olarak Sırala (Artan)"/>
@@ -535,11 +535,11 @@
                     <Item id="45001" name="Satır Sonu Windows (CR LF) Dönüşümü"/>
                     <Item id="45002" name="Satır Sonu Unix (LF) Dönüşümü"/>
                     <Item id="45003" name="Satır Sonu Macintos (CR) Dönüşümü"/>
-                    <Item id="43022" name="Arama Sonuçlarını 1. Stili Kullanarak İşaretle"/>
-                    <Item id="43024" name="Arama Sonuçlarını 2. Stili Kullanarak İşaretle"/>
-                    <Item id="43026" name="Arama Sonuçlarını 3. Stili Kullanarak İşaretle"/>
-                    <Item id="43028" name="Arama Sonuçlarını 4. Stili Kullanarak İşaretle"/>
-                    <Item id="43030" name="Arama Sonuçlarını 5. Stili Kullanarak İşaretle"/>
+                    <Item id="43022" name="Yazıyı 1. Stili Kullanarak İşaretle"/>
+                    <Item id="43024" name="Yazıyı 2. Stili Kullanarak İşaretle"/>
+                    <Item id="43026" name="Yazıyı 3. Stili Kullanarak İşaretle"/>
+                    <Item id="43028" name="Yazıyı 4. Stili Kullanarak İşaretle"/>
+                    <Item id="43030" name="Yazıyı 5. Stili Kullanarak İşaretle"/>
                     <Item id="43023" name="İşaretleri 1. Stili Kullanarak Kaldır"/>
                     <Item id="43025" name="İşaretleri 2. Stili Kullanarak Kaldır"/>
                     <Item id="43027" name="İşaretleri 3. Stili Kullanarak Kaldır"/>
@@ -1084,7 +1084,7 @@ Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasın
 				<Item id="1" name="Tamam"/>
 				<Item id="2" name="İptal"/>
 			</ColumnEditor>
-            <FindInFinder title="Bulucuda Bul">
+            <FindInFinder title="Arama Sonuçlarında Bul">
                 <Item id="1"    name="Tümünü Bul"/>
                 <Item id="2"    name="Kapat"/>
                 <Item id="1711" name="Ne &amp;Bulunsun:"/>
@@ -1336,8 +1336,8 @@ Devam edilsin mi?"/>
 			<find-status-scope-all value="tüm dosyada"/>
 			<find-status-scope-backward value="dosyanın başından içboşluk simgesine kadar"/>
 			<find-status-scope-forward value="içboşluk simgesinden dosya sonuna kadar"/>
-			<finder-find-in-finder value="Bulunmuş sonuçlar arasında bul..."/>
-			<finder-close-this value="Bu bulucuyu kapat"/>
+			<finder-find-in-finder value="Bu arama sonuçları arasında bul..."/>
+			<finder-close-this value="Bu arama sonuçlarını kapat"/>
 			<finder-collapse-all value="Tümünü Daralt"/>
 			<finder-uncollapse-all value="Tümünü Genişlet"/>
 			<finder-copy value="Kopyala"/>
@@ -1373,7 +1373,7 @@ Devam edilsin mi?"/>
 			<replace-in-files-confirm-filetype value="Dosya türü için :"/>
 			<replace-in-open-docs-confirm-title value="Emin misiniz?"/>
 			<replace-in-open-docs-confirm-message value="Açık tüm dosyalardaki tüm eşleşmeleri değiştirmek istediğine emin misiniz?"/>
-			<find-result-caption value="Sonuç bul"/>
+			<find-result-caption value="Arama Sonuçları"/>
 			<find-result-title value="Ara"/>
 			<find-result-title-info value="($INT_REPLACE2$ dosyada yapılan $INT_REPLACE3$ aramada $INT_REPLACE1$ eşleşme bulundu)"/>
 			<find-result-title-info-selections value="($INT_REPLACE2$ seçimde yapılan $INT_REPLACE3$ aramada $INT_REPLACE1$ eşleşme bulundu)"/>

@@ -40,6 +40,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item subMenuId="search-unmarkAll" name="清除颜色标记"/>
                     <Item subMenuId="search-jumpUp" name="到上一个颜色标记"/>
                     <Item subMenuId="search-jumpDown" name="到下一个颜色标记"/>
+                    <Item subMenuId="search-copyStyledText" name="复制样式文本"/>
                     <Item subMenuId="search-bookmark" name="书签"/>
                     <Item subMenuId="view-currentFileIn" name="将当前文件显示到"/>
                     <Item subMenuId="view-showSymbol" name="显示符号"/>
@@ -110,7 +111,6 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42008" name="插入制表符(缩进)"/>
                     <Item id="42009" name="删除制表符(退格)"/>
                     <Item id="42010" name="复制当前行"/>
-                    <Item id="42079" name="删除重复行"/>
                     <Item id="42077" name="删除连续的重复行"/>
                     <Item id="42012" name="分割行"/>
                     <Item id="42013" name="合并行"/>
@@ -220,6 +220,13 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43042" name="格式四"/>
                     <Item id="43043" name="格式五"/>
                     <Item id="43044" name="寻找格式"/>
+                    <Item id="43055" name="样式一"/>
+                    <Item id="43056" name="样式二"/>
+                    <Item id="43057" name="样式三"/>
+                    <Item id="43058" name="样式四"/>
+                    <Item id="43059" name="样式五"/>
+                    <Item id="43060" name="所有样式"/>
+                    <Item id="43061" name="寻找样式"/>
                     <Item id="43045" name="寻找结果"/>
                     <Item id="43046" name="下一个寻找结果"/>
                     <Item id="43047" name="上一个寻找结果"/>
@@ -400,6 +407,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="1703" name="&amp;. 匹配新行"/>
                 <Item id="1721" name="▲"/>
                 <Item id="1723" name="▼ 查找下一个"/>
+                <Item id="1725" name="复制标记文本"/>
             </Find>
 
             <FindCharsInRange title="查找范围内的字符...">
@@ -544,6 +552,13 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43042" name="使用格式4到下一个标记"/>
                     <Item id="43043" name="使用格式5到下一个标记"/>
                     <Item id="43044" name="下一个用标记面板创建的标记"/>
+                    <Item id="43055" name="复制样式文本 —— 样式一"/>
+                    <Item id="43056" name="复制样式文本 —— 样式二"/>
+                    <Item id="43057" name="复制样式文本 —— 样式三"/>
+                    <Item id="43058" name="复制样式文本 —— 样式四"/>
+                    <Item id="43059" name="复制样式文本 —— 样式五"/>
+                    <Item id="43060" name="复制样式文本 —— 所有样式"/>
+                    <Item id="43061" name="复制样式文本 —— 寻找样式 （已标记的）"/>
                     <Item id="44100" name="在Firefox中查看当前文件"/>
                     <Item id="44101" name="在Chrome中查看当前文件"/>
                     <Item id="44103" name="在IE中查看当前文件"/>

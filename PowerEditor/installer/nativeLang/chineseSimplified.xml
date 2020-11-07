@@ -120,6 +120,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42015" name="下移当前行"/>
                     <Item id="42059" name="升序排列文本行"/>
                     <Item id="42060" name="降序排列文本行"/>
+                    <Item id="42080" name="升序排列行，忽略大小写"/>
+                    <Item id="42081" name="降序排列行，忽略大小写"/>
                     <Item id="42061" name="升序排列整数"/>
                     <Item id="42062" name="降序排列整数"/>
                     <Item id="42063" name="升序排列小数（逗号作为小数点）"/>

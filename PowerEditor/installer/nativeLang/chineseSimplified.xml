@@ -805,6 +805,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6125" name="文件列表面板"/>
                     <Item id="6126" name="显示"/>
                     <Item id="6127" name="隐藏扩展名栏"/>
+                    <Item id="6128" name="自定义图标"/>
                 </Global>
                 <Scintillas title="编辑">
                     <Item id="6216" name="光标设置"/>

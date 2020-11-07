@@ -351,13 +351,13 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item CMID="1" name="Close All BUT This"/>
                     <Item CMID="2" name="Save"/>
                     <Item CMID="3" name="Save As..."/>
-                    <Item CMID="4" name="Print"/>
+                    <Item CMID="4" name="Print..."/>
                     <Item CMID="5" name="Move to Other View"/>
                     <Item CMID="6" name="Clone to Other View"/>
                     <Item CMID="7" name="Full File Path to Clipboard"/>
                     <Item CMID="8" name="Filename to Clipboard"/>
                     <Item CMID="9" name="Current Dir. Path to Clipboard"/>
-                    <Item CMID="10" name="Rename"/>
+                    <Item CMID="10" name="Rename..."/>
                     <Item CMID="11" name="Move to Recycle Bin"/>
                     <Item CMID="12" name="Read-Only"/>
                     <Item CMID="13" name="Clear Read-Only Flag"/>

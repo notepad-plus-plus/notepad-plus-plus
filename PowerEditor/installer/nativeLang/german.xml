@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2020-10-24 by schnurlos (schnurlos@gmail.com)
+	last modified: 2020-11-07 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -542,11 +542,11 @@
 					<Item id="45001" name="Zeilenende umwandeln zu Windows (CR LF)"/>
 					<Item id="45002" name="Zeilenende umwandeln zu Unix (LF)"/>
 					<Item id="45003" name="Zeilenende umwandeln zu Macintosh (CR)"/>
-					<Item id="43022" name="Hervorhebungen im Stil 1 markieren"/>
-					<Item id="43024" name="Hervorhebungen im Stil 2 markieren"/>
-					<Item id="43026" name="Hervorhebungen im Stil 3 markieren"/>
-					<Item id="43028" name="Hervorhebungen im Stil 4 markieren"/>
-					<Item id="43030" name="Hervorhebungen im Stil 5 markieren"/>
+					<Item id="43022" name="Text im Stil 1 markieren"/>
+					<Item id="43024" name="Text im Stil 2 markieren"/>
+					<Item id="43026" name="Text im Stil 3 markieren"/>
+					<Item id="43028" name="Text im Stil 4 markieren"/>
+					<Item id="43030" name="Text im Stil 5 markieren"/>
 					<Item id="43023" name="Entferne die Hervorhebungen im Stil 1"/>
 					<Item id="43025" name="Entferne die Hervorhebungen im Stil 2"/>
 					<Item id="43027" name="Entferne die Hervorhebungen im Stil 3"/>
@@ -1086,7 +1086,7 @@
 				<Item id="1"    name="Ausfüh&amp;ren"/>
 				<Item id="2"    name="Abbre&amp;chen"/>
 			</ColumnEditor>
-			<FindInFinder title="Finde in der Suche">
+			<FindInFinder title="Finde in den Suchergebnissen">
 				<Item id="1"    name="Finde &amp;alle"/>
 				<Item id="2"    name="S&amp;chließen"/>
 				<Item id="1711" name="Finde &amp;das:"/>
@@ -1335,7 +1335,7 @@
 			<replace-in-files-confirm-filetype value="Für Dateityp: "/>
 			<replace-in-open-docs-confirm-title value="Sind Sie sicher?"/>
 			<replace-in-open-docs-confirm-message value="Sind Sie sicher dass alle Vorkommen in allen offenen Dokumenten ersetzt werden sollen?"/>
-			<find-result-caption value="Suchergebnis"/>
+			<find-result-caption value="Suchergebnisse"/>
 			<find-result-title value="Suche"/>
 			<find-result-title-info value="($INT_REPLACE1$ Treffer in $INT_REPLACE2$ Dateien von $INT_REPLACE3$ gesucht)"/>
 			<find-result-title-info-selections value="($INT_REPLACE1$ Treffer in $INT_REPLACE2$ Auswahlen von $INT_REPLACE3$ gesucht)"/>

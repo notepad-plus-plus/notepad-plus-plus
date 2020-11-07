@@ -1084,8 +1084,6 @@ The comments are here for explanation, it's not necessary to translate them.
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title="编辑快捷菜单" message="您可以通过编辑contextMenu.xml文件来修改Notepad++的快捷菜单。
 修改contextMenu.xml文件后，重启Notepad++程序生效。"/>
-            <NppHelpAbsentWarning title="文件不存在" message="
-文件不存在. 请从Notepad++官网下载。"/>
             <SaveCurrentModifWarning title="保存当前修改" message="你将要保存当前的修改。
 所有修改都是不可逆的。
 

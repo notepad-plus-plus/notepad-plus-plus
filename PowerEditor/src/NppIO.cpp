@@ -1741,23 +1741,40 @@ bool Notepad_plus::fileRename(BufferID id)
 		TCHAR *tabNewName = reinterpret_cast<TCHAR *>(strDlg.doDialog());
 		if (tabNewName)
 		{
-			success = true;
-			buf->setFileName(tabNewName);
-			bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
-			if (isSnapshotMode)
+			BufferID sameNamedBufferId = _pDocTab->findBufferByName(tabNewName);
+			if (sameNamedBufferId == BUFFER_INVALID)
 			{
-				generic_string oldBackUpFile = buf->getBackupFileName();
+				sameNamedBufferId = _pNonDocTab->findBufferByName(tabNewName);
+			}
+			
+			if (sameNamedBufferId != BUFFER_INVALID)
+			{
+				_nativeLangSpeaker.messageBox("RenameTabTemporaryNameAlreadyInUse",
+					_pPublicInterface->getHSelf(),
+					TEXT("The specified name is already in use on another tab."),
+					TEXT("Rename failed"),
+					MB_OK | MB_ICONSTOP);
+			}
+			else
+			{
+				success = true;
+				buf->setFileName(tabNewName);
+				bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
+				if (isSnapshotMode)
+				{
+					generic_string oldBackUpFile = buf->getBackupFileName();
 
-				// Change the backup file name and let MainFileManager decide the new filename
-				buf->setBackupFileName(TEXT(""));
+					// Change the backup file name and let MainFileManager decide the new filename
+					buf->setBackupFileName(TEXT(""));
 
-				// Create new backup
-				buf->setModifiedStatus(true);
-				bool bRes = MainFileManager.backupCurrentBuffer();
+					// Create new backup
+					buf->setModifiedStatus(true);
+					bool bRes = MainFileManager.backupCurrentBuffer();
 
-				// Delete old backup
-				if (bRes)
-					::DeleteFile(oldBackUpFile.c_str());
+					// Delete old backup
+					if (bRes)
+						::DeleteFile(oldBackUpFile.c_str());
+				}
 			}
 		}
 	}

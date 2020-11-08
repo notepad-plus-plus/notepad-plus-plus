@@ -112,7 +112,7 @@
                     <Item id="42008" name="Zväčšiť odsadenie riadka"/>
                     <Item id="42009" name="Zmenšiť odsadenie riadka"/>
                     <Item id="42010" name="Duplikovať aktuálny riadok"/>
-					<Item id="42079" name="Odstrániť duplicitné riadky"/>
+                    <Item id="42079" name="Odstrániť duplicitné riadky"/>
                     <Item id="42077" name="Odstrániť po sebe idúce duplicitné riadky"/>
                     <Item id="42012" name="Rozdeliť riadky"/>
                     <Item id="42013" name="Spojiť riadky"/>
@@ -354,13 +354,13 @@
                     <Item CMID="1" name="Zatvoriť všetko OKREM tohto"/>
                     <Item CMID="2" name="Uložiť"/>
                     <Item CMID="3" name="Uložiť ako..."/>
-                    <Item CMID="4" name="Tlačiť"/>
+                    <Item CMID="4" name="Tlačiť…"/>
                     <Item CMID="5" name="Presunúť do druhého náhľadu"/>
                     <Item CMID="6" name="Klonovať do druhého náhľadu"/>
                     <Item CMID="7" name="Celá cesta k súboru do schránky"/>
                     <Item CMID="8" name="Názov súboru do schránky"/>
                     <Item CMID="9" name="Cesta k aktuálnemu priečinku do schránky"/>
-                    <Item CMID="10" name="Premenovať"/>
+                    <Item CMID="10" name="Premenovať…"/>
                     <Item CMID="11" name="Presunúť do Koša"/>
                     <Item CMID="12" name="Iba na čítanie"/>
                     <Item CMID="13" name="Odstrániť označenie 'Iba na čítanie'"/>
@@ -537,11 +537,11 @@
                     <Item id="45001" name="Konvertovať do formátu Windows (CR LF)"/>
                     <Item id="45002" name="Konvertovať do formátu Unix (LF)"/>
                     <Item id="45003" name="Konvertovať do formátu Macintosh (CR)"/>
-                    <Item id="43022" name="Označiť výsledky vyhľadávania pomocou 1. štýlu"/>
-                    <Item id="43024" name="Označiť výsledky vyhľadávania pomocou 2. štýlu"/>
-                    <Item id="43026" name="Označiť výsledky vyhľadávania pomocou 3. štýlu"/>
-                    <Item id="43028" name="Označiť výsledky vyhľadávania pomocou 4. štýlu"/>
-                    <Item id="43030" name="Označiť výsledky vyhľadávania pomocou 5. štýlu"/>
+                    <Item id="43022" name="Označiť text pomocou 1. štýlu"/>
+                    <Item id="43024" name="Označiť text pomocou 2. štýlu"/>
+                    <Item id="43026" name="Označiť text pomocou 3. štýlu"/>
+                    <Item id="43028" name="Označiť text pomocou 4. štýlu"/>
+                    <Item id="43030" name="Označiť text pomocou 5. štýlu"/>
                     <Item id="43023" name="Odstrániť označenie 1. štýlu"/>
                     <Item id="43025" name="Odstrániť označenie 2. štýlu"/>
                     <Item id="43027" name="Odstrániť označenie 3. štýlu"/>
@@ -1085,7 +1085,7 @@ Zadať môžete viacero značiek pomocou medzery na oddelenie rôznych čísel."
                 <Item id="1" name="OK"/>
                 <Item id="2" name="Zrušiť"/>
             </ColumnEditor>
-            <FindInFinder title="Hľadať vo vyhľadávači">
+            <FindInFinder title="Hľadať vo výsledkov vyhľadávania">
                 <Item id="1"    name="Hľadať všetko"/>
                 <Item id="2"    name="Zatvoriť"/>
                 <Item id="1711" name="Hľadať:"/>
@@ -1338,8 +1338,8 @@ Hľadať vo všetkých súboroch okrem exe, obj &amp;&amp; log:
             <find-status-scope-all value="v celom súbore"/>
             <find-status-scope-backward value="od začiatku súboru po kurzor"/>
             <find-status-scope-forward value="od kurzoru po koniec súboru"/>
-            <finder-find-in-finder value="Vyhľadať v týchto výsledkoch hľadania..."/>
-            <finder-close-this value="Zatvoriť tento vyhľadávač"/>
+            <finder-find-in-finder value="Vyhľadať v týchto výsledkoch vyhľadávania..."/>
+            <finder-close-this value="Zavrieť tieto výsledky vyhľadávania"/>
             <finder-collapse-all value="Zbaliť všetko"/>
             <finder-uncollapse-all value="Rozbaliť všetko"/>
             <finder-copy value="Kopírovať"/>
@@ -1375,7 +1375,7 @@ Hľadať vo všetkých súboroch okrem exe, obj &amp;&amp; log:
             <replace-in-files-confirm-filetype value="Pre typ súboru :"/>
             <replace-in-open-docs-confirm-title value="Naozaj?"/>
             <replace-in-open-docs-confirm-message value="Naozaj chcete nahradiť všetky výskyty vo všetkých otvorených dokumentoch"/>
-            <find-result-caption value="Výsledok hľadania"/>
+            <find-result-caption value="Výsledky vyhľadávania"/>
             <find-result-title value="Hľadať"/>
             <find-result-title-info value="($INT_REPLACE1$ výskytov v $INT_REPLACE2$ súboroch z $INT_REPLACE3$ prehľadávaných)"/>
             <find-result-title-info-selections value="($INT_REPLACE1$ výskytov v $INT_REPLACE2$ výberoch z $INT_REPLACE3$ nájdených)"/>

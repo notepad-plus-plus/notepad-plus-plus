@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2020-11-07 by schnurlos (schnurlos@gmail.com)
+	last modified: 2020-11-08 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -360,7 +360,7 @@
 				<Item CMID="1"  name="&amp;Alle anderen schließen"/>
 				<Item CMID="2"  name="&amp;Speichern"/>
 				<Item CMID="3"  name="Speichern &amp;unter …"/>
-				<Item CMID="4"  name="&amp;Drucken"/>
+				<Item CMID="4"  name="&amp;Drucken …"/>
 				<Item CMID="5"  name="In zweite Ansicht &amp;verschieben"/>
 				<Item CMID="6"  name="In zw&amp;eite Ansicht duplizieren"/>
 				<Item CMID="7"  name="Vollständigen Pfad &amp;kopieren"/>

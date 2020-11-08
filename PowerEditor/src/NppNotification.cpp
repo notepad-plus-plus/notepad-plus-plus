@@ -911,8 +911,6 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			try
 			{
 				LPTOOLTIPTEXT lpttt = (LPTOOLTIPTEXT)notification;
-
-				//Joce's fix
 				lpttt->hinst = NULL;
 
 				POINT p;

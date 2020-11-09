@@ -1751,7 +1751,7 @@ bool Notepad_plus::fileRename(BufferID id)
 			{
 				_nativeLangSpeaker.messageBox("RenameTabTemporaryNameAlreadyInUse",
 					_pPublicInterface->getHSelf(),
-					TEXT("The specified name is already in use on another tab."),
+					TEXT("The specified name is already in use."),
 					TEXT("Rename failed"),
 					MB_OK | MB_ICONSTOP);
 			}

@@ -5461,8 +5461,6 @@ void NppParameters::feedDockingManager(TiXmlNode *node)
 	if (element->Attribute(TEXT("bottomHeight"), &i))
 		_nppGUI._dockingData._bottomHight = i;
 
-
-
 	for (TiXmlNode *childNode = node->FirstChildElement(TEXT("FloatingWindow"));
 		childNode ;
 		childNode = childNode->NextSibling(TEXT("FloatingWindow")) )
@@ -5526,6 +5524,116 @@ void NppParameters::feedDockingManager(TiXmlNode *node)
 			_nppGUI._dockingData._containerTabInfo.push_back(ContainerTabInfo(cont, activeTab));
 		}
 	}
+}
+
+TiXmlElement NppParameters::duplicateDockingManager(TiXmlNode *node)
+{
+	TiXmlElement *element = node->ToElement();
+
+	TiXmlElement DMNode(TEXT("GUIConfig"));
+	DMNode.SetAttribute(TEXT("name"), TEXT("DockingManager"));
+	
+	int i;
+	if (element->Attribute(TEXT("leftWidth"), &i))
+		DMNode.SetAttribute(TEXT("leftWidth"), i);
+
+	if (element->Attribute(TEXT("rightWidth"), &i))
+		DMNode.SetAttribute(TEXT("rightWidth"), i);
+
+	if (element->Attribute(TEXT("topHeight"), &i))
+		DMNode.SetAttribute(TEXT("topHeight"), i);
+
+	if (element->Attribute(TEXT("bottomHeight"), &i))
+		DMNode.SetAttribute(TEXT("bottomHeight"), i);
+
+
+	for (TiXmlNode *childNode = node->FirstChildElement(TEXT("FloatingWindow"));
+		childNode;
+		childNode = childNode->NextSibling(TEXT("FloatingWindow")))
+	{
+		TiXmlElement *floatElement = childNode->ToElement();
+		int cont;
+		if (floatElement->Attribute(TEXT("cont"), &cont))
+		{
+			TiXmlElement FWNode(TEXT("FloatingWindow"));
+			FWNode.SetAttribute(TEXT("cont"), cont);
+
+			int x = 0;
+			int y = 0;
+			int w = 100;
+			int h = 100;
+
+			floatElement->Attribute(TEXT("x"), &x);
+			FWNode.SetAttribute(TEXT("x"), x);
+
+			floatElement->Attribute(TEXT("y"), &y);
+			FWNode.SetAttribute(TEXT("y"), y);
+			
+			floatElement->Attribute(TEXT("width"), &w);
+			FWNode.SetAttribute(TEXT("width"), w);
+			
+			floatElement->Attribute(TEXT("height"), &h);
+			FWNode.SetAttribute(TEXT("height"), h);
+
+			DMNode.InsertEndChild(FWNode);
+		}
+	}
+
+	for (TiXmlNode *childNode = node->FirstChildElement(TEXT("PluginDlg"));
+		childNode;
+		childNode = childNode->NextSibling(TEXT("PluginDlg")))
+	{
+		TiXmlElement *dlgElement = childNode->ToElement();
+		const TCHAR *name = dlgElement->Attribute(TEXT("pluginName"));
+		TiXmlElement PDNode(TEXT("PluginDlg"));
+
+		int id;
+		const TCHAR *idStr = dlgElement->Attribute(TEXT("id"), &id);
+		if (name && idStr)
+		{
+			int curr = 0; // on left
+			int prev = 0; // on left
+
+			dlgElement->Attribute(TEXT("curr"), &curr);
+			dlgElement->Attribute(TEXT("prev"), &prev);
+
+			bool isVisible = false;
+			const TCHAR *val = dlgElement->Attribute(TEXT("isVisible"));
+			if (val)
+			{
+				isVisible = (lstrcmp(val, TEXT("yes")) == 0);
+			}
+
+			PDNode.SetAttribute(TEXT("pluginName"), name);
+			PDNode.SetAttribute(TEXT("id"), idStr);
+			PDNode.SetAttribute(TEXT("curr"), curr);
+			PDNode.SetAttribute(TEXT("prev"), prev);
+			PDNode.SetAttribute(TEXT("isVisible"), isVisible ? TEXT("yes") : TEXT("no"));
+
+			DMNode.InsertEndChild(PDNode);
+		}
+	}
+
+	for (TiXmlNode *childNode = node->FirstChildElement(TEXT("ActiveTabs"));
+		childNode;
+		childNode = childNode->NextSibling(TEXT("ActiveTabs")))
+	{
+		TiXmlElement *dlgElement = childNode->ToElement();
+		TiXmlElement CTNode(TEXT("ActiveTabs"));
+		int cont;
+		if (dlgElement->Attribute(TEXT("cont"), &cont))
+		{
+			int activeTab = 0;
+			dlgElement->Attribute(TEXT("activeTab"), &activeTab);
+
+			CTNode.SetAttribute(TEXT("cont"), cont);
+			CTNode.SetAttribute(TEXT("activeTab"), activeTab);
+
+			DMNode.InsertEndChild(CTNode);
+		}
+	}
+
+	return DMNode;
 }
 
 bool NppParameters::writeScintillaParams()
@@ -5594,12 +5702,19 @@ bool NppParameters::writeScintillaParams()
 void NppParameters::createXmlTreeFromGUIParams()
 {
 	TiXmlNode *nppRoot = _pXmlUserDoc->FirstChild(TEXT("NotepadPlus"));
-	if (not nppRoot)
+	if (!nppRoot)
 	{
 		nppRoot = _pXmlUserDoc->InsertEndChild(TiXmlElement(TEXT("NotepadPlus")));
 	}
 
 	TiXmlNode *oldGUIRoot = nppRoot->FirstChildElement(TEXT("GUIConfigs"));
+	TiXmlElement dockMngNode(TEXT(""));
+	if (_nppGUI._isCmdlineNosessionActivated)
+	{
+		// Copy DockingParamNode
+		dockMngNode = duplicateDockingManager(oldGUIRoot);
+	}
+
 	// Remove the old root nod if it exist
 	if (oldGUIRoot)
 	{
@@ -6054,7 +6169,14 @@ void NppParameters::createXmlTreeFromGUIParams()
 
 	// <GUIConfig name="DockingManager" leftWidth="328" rightWidth="359" topHeight="200" bottomHeight="436">
 	// ...
-	insertDockingParamNode(newGUIRoot);
+	if (_nppGUI._isCmdlineNosessionActivated)
+	{
+		newGUIRoot->InsertEndChild(dockMngNode);
+	}
+	else
+	{
+		insertDockingParamNode(newGUIRoot);
+	}
 }
 
 bool NppParameters::writeFindHistory()

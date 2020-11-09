@@ -99,6 +99,8 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	if (cmdLineParams->_isNoPlugin)
 		_notepad_plus_plus_core._pluginsManager.disable();
 
+	nppGUI._isCmdlineNosessionActivated = cmdLineParams->_isNoSession;
+
 	_hSelf = ::CreateWindowEx(
 		WS_EX_ACCEPTFILES | (_notepad_plus_plus_core._nativeLangSpeaker.isRTL()?WS_EX_LAYOUTRTL:0),
 		_className,
@@ -168,8 +170,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	if (cmdLineParams->_alwaysOnTop)
 		::SendMessage(_hSelf, WM_COMMAND, IDM_VIEW_ALWAYSONTOP, 0);
 
-	nppGUI._isCmdlineNosessionActivated = cmdLineParams->_isNoSession;
-	if (nppGUI._rememberLastSession && !cmdLineParams->_isNoSession)
+	if (nppGUI._rememberLastSession && !nppGUI._isCmdlineNosessionActivated)
 		_notepad_plus_plus_core.loadLastSession();
 
 	if (nppParams.doFunctionListExport() || nppParams.doPrintAndExit())

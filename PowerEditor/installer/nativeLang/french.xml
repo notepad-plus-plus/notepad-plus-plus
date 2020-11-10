@@ -1183,6 +1183,9 @@ Voulez-vous les poursuivez ?"/>
         <FolderAsWorkspace>
             <PanelTitle name="Dossier en tant qu'Espace de travail"/>
             <SelectFolderFromBrowserString name="Sélectionner un dossier pour ajouter dans Dossier en tant qu'Espace de travail"/>
+            <ExpandAllFoldersTip name="Déplier tous les dossiers"/>
+            <CollapseAllFoldersTip name="Replier tous les dossiers"/>
+            <LocateCurrentFileTip name="Localiser le fichier courant"/>
             <Menus>
                 <Item id="3511" name="Effacer"/>
                 <Item id="3512" name="Effacer Tout"/>

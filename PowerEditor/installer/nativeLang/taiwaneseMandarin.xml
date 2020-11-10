@@ -1174,6 +1174,9 @@
         <FolderAsWorkspace>
             <PanelTitle name="資料夾工作區"/>
             <SelectFolderFromBrowserString name="選擇一個資料夾以加入資料夾工作區"/>
+            <ExpandAllFoldersTip name="展開所有文件夾"/>
+            <CollapseAllFoldersTip name="收折所有文件夾"/>
+            <LocateCurrentFileTip name="現行文件位置"/>
             <Menus>
                 <Item id="3511" name="移除"/>
                 <Item id="3512" name="全部移除"/>

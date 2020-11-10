@@ -30,6 +30,7 @@
 #include "ShortcutMapper.h"
 #include "EncodingMapper.h"
 #include "localization.h"
+#include "fileBrowser.h"
 
 using namespace std;
 
@@ -1254,7 +1255,7 @@ generic_string NativeLangSpeaker::getFileBrowserLangMenuStr(int cmdID, const TCH
 {
 	if (!_nativeLangA) return defaultStr;
 
-	TiXmlNodeA *targetNode = _nativeLangA->FirstChild("FolderAsWorkspace");
+	TiXmlNodeA *targetNode = _nativeLangA->FirstChild(FOLDERASWORKSPACE_NODE);
 	if (!targetNode) return defaultStr;
 
 	targetNode = targetNode->FirstChild("Menus");

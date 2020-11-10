@@ -1230,6 +1230,9 @@ Continue?"/>
         <FolderAsWorkspace>
             <PanelTitle name="Folder as Workspace"/>
             <SelectFolderFromBrowserString name="Select a folder to add in Folder as Workspace panel"/>
+            <ExpandAllFoldersTip name="Expand all folders"/>
+            <CollapseAllFoldersTip name="Collapse all folders"/>
+            <LocateCurrentFileTip name="Locate current file"/>
             <Menus>
                 <Item id="3511" name="Remove"/>
                 <Item id="3512" name="Remove All"/>

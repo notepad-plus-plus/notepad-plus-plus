@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2020-11-08 by schnurlos (schnurlos@gmail.com)
+	last modified: 2020-11-10 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -1197,6 +1197,9 @@
 		<FolderAsWorkspace>
 			<PanelTitle name="Verzeichnis als Arbeitsbereich"/>
 			<SelectFolderFromBrowserString name="Wähle ein Verzeichnis zum Hinzufügen zum Arbeitsbereich"/>
+			<ExpandAllFoldersTip name="Alle Verzeichnisse aufklappen"/>
+			<CollapseAllFoldersTip name="Alle Verzeichnisse zuklappen"/>
+			<LocateCurrentFileTip name="Aktuelle Datei lokalisieren"/>
 			<Menus>
 				<Item id="3511" name="Entfernen"/>
 				<Item id="3512" name="Alle entfernen"/>

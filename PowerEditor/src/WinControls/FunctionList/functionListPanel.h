@@ -33,6 +33,7 @@
 #include "TreeView.h"
 
 #define FL_PANELTITLE     TEXT("Function List")
+#define FL_FUCTIONLISTROOTNODE "FunctionList"
 
 class ScintillaEditView;
 

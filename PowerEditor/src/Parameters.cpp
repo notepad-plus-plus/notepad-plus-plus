@@ -5709,7 +5709,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 	TiXmlNode *oldGUIRoot = nppRoot->FirstChildElement(TEXT("GUIConfigs"));
 	TiXmlElement* dockMngNodeDup = nullptr;
 	TiXmlNode* dockMngNodeOriginal = nullptr;
-	if (_nppGUI._isCmdlineNosessionActivated)
+	if (oldGUIRoot && _nppGUI._isCmdlineNosessionActivated)
 	{
 		for (TiXmlNode *childNode = oldGUIRoot->FirstChildElement(TEXT("GUIConfig"));
 			childNode;

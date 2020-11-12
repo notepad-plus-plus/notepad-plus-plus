@@ -1788,8 +1788,7 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 		const auto currentIndentMode = execute(SCI_GETINDENTATIONGUIDES);
 		// Python like indentation, excludes lexers (Nim, VB, YAML, etc.)
 		// that includes tailing empty or whitespace only lines in folding block.
-		const bool pythonLike = (typeDoc == L_PYTHON || typeDoc == L_COFFEESCRIPT || typeDoc == L_HASKELL);
-		const int docIndentMode = pythonLike ? SC_IV_LOOKFORWARD : SC_IV_LOOKBOTH;
+		const int docIndentMode = isPythonStyleIndentation(typeDoc) ? SC_IV_LOOKFORWARD : SC_IV_LOOKBOTH;
 		if (currentIndentMode != docIndentMode)
 			execute(SCI_SETINDENTATIONGUIDES, docIndentMode);
 	}
@@ -2683,8 +2682,7 @@ void ScintillaEditView::performGlobalStyles()
 void ScintillaEditView::showIndentGuideLine(bool willBeShowed)
 {
 	auto typeDoc = _currentBuffer->getLangType();
-	const bool pythonLike = (typeDoc == L_PYTHON || typeDoc == L_COFFEESCRIPT || typeDoc == L_HASKELL);
-	const int docIndentMode = pythonLike ? SC_IV_LOOKFORWARD : SC_IV_LOOKBOTH;
+	const int docIndentMode = isPythonStyleIndentation(typeDoc) ? SC_IV_LOOKFORWARD : SC_IV_LOOKBOTH;
 	execute(SCI_SETINDENTATIONGUIDES, willBeShowed ? docIndentMode : SC_IV_NONE);
 }
 

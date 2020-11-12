@@ -594,6 +594,12 @@ public:
 		return false;
 	};
 
+	bool isPythonStyleIndentation(LangType typeDoc) const{
+		return (typeDoc == L_PYTHON || typeDoc == L_COFFEESCRIPT || typeDoc == L_HASKELL ||\
+			typeDoc == L_C || typeDoc == L_CPP || typeDoc == L_OBJC || typeDoc == L_CS || typeDoc == L_JAVA ||\
+			typeDoc == L_PHP || typeDoc == L_JS || typeDoc == L_JAVASCRIPT || typeDoc == L_MAKEFILE || typeDoc == L_ASN1);
+	};
+
 	void defineDocType(LangType typeDoc);	//setup stylers for active document
 
 	void addCustomWordChars();

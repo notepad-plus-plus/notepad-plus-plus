@@ -3,7 +3,7 @@
 	## Bulgarian localization for Notepad++ ##
 
 	Translators:.....: 2007–2012 – Milen Metev (Tragedy); 2014–yyyy – Rusi Dimitrov
-	Last revision:...: 23.10.2020 by Rusi Dimitrov <astral_86[at]mail[dot]bg>
+	Last revision:...: 18.12.2020 by Rusi Dimitrov <astral_86[at]mail[dot]bg>
 	Download:........: https://gist.github.com/rddim/bd37264898c3a17363e7437bcf1b4803
 -->
 <NotepadPlus>
@@ -126,6 +126,7 @@
 					<Item id="42004" name="&amp;Връщане"/>
 					<Item id="42001" name="Из&amp;рязване"/>
 					<Item id="42002" name="&amp;Копиране"/>
+					<Item id="42082" name="Копиране на връзката"/>
 					<Item id="42005" name="&amp;Поставяне"/>
 					<Item id="42006" name="Из&amp;триване"/>
 					<Item id="42007" name="Избиране на &amp;всичко"/>
@@ -425,10 +426,10 @@
 				<Item CMID="22" name="Затваряне на всички непроменени"/>
 				<Item CMID="2"  name="Запис"/>
 				<Item CMID="3"  name="Запис като..."/>
-				<Item CMID="10" name="Преименуване"/>
+				<Item CMID="10" name="Преименуване..."/>
 				<Item CMID="11" name="Преместване в кошчето"/>
 				<Item CMID="16" name="Презареждане"/>
-				<Item CMID="4"  name="Печат"/>
+				<Item CMID="4"  name="Печат..."/>
 				<Item CMID="19" name="Отваряне папката на файла"/>
 				<Item CMID="20" name="Отваряне папката на файла в cmd"/>
 				<Item CMID="23" name="Отваряне на директорията като работно място"/>
@@ -741,6 +742,7 @@
 					<Item id="6125" name="Панел с документи"/>
 					<Item id="6126" name="Включено"/>
 					<Item id="6127" name="Без колона с разширенията"/>
+					<Item id="6111" name="Показване лента на състоянието"/>
 					<Item id="6106" name="Лента с отворени раздели"/>
 					<Item id="6118" name="Скриване"/>
 					<Item id="6119" name="На повече редове"/>
@@ -754,7 +756,6 @@
 					<Item id="6113" name="Двойно щракане за затваряне"/>
 					<Item id="6121" name="Изход при затваряне на последният раздел"/>
 					<Item id="6122" name="Скриване на менютата (Alt или F10 за показване)"/>
-					<Item id="6111" name="Показване лента на състоянието"/>
 				</Global>
 					<!-- Редактиране -->
 				<Scintillas title="Редактиране">
@@ -763,34 +764,37 @@
 					<Item id="6219" name="Премигване:"/>
 					<Item id="6221" name="100"/>
 					<Item id="6222" name="0"/>
-					<Item id="6224" name="Множествено редактиране"/>
-					<Item id="6225" name="Включено (Ctrl + избор с мишката)"/>
+					<Item id="6225" name="Множествено редактиране (Ctrl + избор с мишката)"/>
+					<Item id="6214" name="Открояване на текущия ред"/>
+					<Item id="6215" name="Заглаждане на шрифта"/>
+					<Item id="6236" name="Превъртане след последният ред"/>
+					<Item id="6239" name="Запазване на селекцията при щракане с десен бутон извън нея"/>
+					<Item id="6234" name="Без разширени функции за превъртане"/>
+					<Item id="6227" name="Пренасяне на нов ред"/>
+					<Item id="6228" name="Стандартно"/>
+					<Item id="6229" name="Подравнено"/>
+					<Item id="6230" name="С отстъп"/>
+				</Scintillas>
+					<!-- Полета/Граница/Ръб -->
+				<MarginsBorderEdge title="Полета/Граница/Ръб">
 					<Item id="6201" name="Стил на свиващо поле"/>
 					<Item id="6202" name="Обикновено"/>
 					<Item id="6203" name="Стрелка"/>
 					<Item id="6204" name="Кръг"/>
 					<Item id="6205" name="Квадрат"/>
 					<Item id="6226" name="Изключено"/>
-					<Item id="6211" name="Настройки на вертикална граница"/>
-					<Item id="6208" name="Показване на границата"/>
-					<Item id="6213" name="Фонов режим"/>
-					<Item id="6209" name="Брой колони: "/>
-					<Item id="6237" name="Добавяне на вертикална граница чрез задаване на броя колони с десетично число.
-Може да се зададат няколко такива граници, като се използва интервал за разделител между различните числа."/>
 					<Item id="6231" name="Рамка на прозореца"/>
 					<Item id="6235" name="Без ръб"/>
-					<Item id="6227" name="Пренасяне на нов ред"/>
-					<Item id="6228" name="Стандартно"/>
-					<Item id="6229" name="Подравнено"/>
-					<Item id="6230" name="С отстъп"/>
-					<Item id="6206" name="Показване номер на реда"/>
+					<Item id="6211" name="Настройки на вертикална граница"/>
+					<Item id="6237" name="Добавяне на вертикална граница чрез задаване на броя колони с десетично число.
+Може да се зададат няколко такива граници, като се използва интервал за разделител между различните числа."/>
+					<Item id="6213" name="Фонов режим"/>
+					<Item id="6291" name="Номера на редове"/>
+					<Item id="6206" name="Показване"/>
+					<Item id="6292" name="Динамична ширина"/>
+					<Item id="6293" name="Постоянна ширина"/>
 					<Item id="6207" name="Показване на отметки"/>
-					<Item id="6214" name="Открояване на текущия ред"/>
-					<Item id="6215" name="Заглаждане на шрифта"/>
-					<Item id="6236" name="Превъртане след последният ред"/>
-					<Item id="6239" name="Запазване на селекцията при щракане с десен бутон извън нея"/>
-					<Item id="6234" name="Без разширени функции за превъртане"/>
-				</Scintillas>
+				</MarginsBorderEdge>
 					<!-- Нов документ -->
 				<NewDoc title="Нов документ">
 					<Item id="6419" name="Нов документ"/>
@@ -951,11 +955,16 @@
 					<Item id="6257" name="бла бла бла бла"/>
 					<Item id="6258" name="бла бла бла бла бла бла бла бла бла"/>
 				</Delimiter>
-					<!-- Облак -->
-				<Cloud title="Облак">
+					<!-- Облак и връзка-->
+				<Cloud title="Облак и връзка">
 					<Item id="6262" name="Настройки за облачно синхронизирана папка"/>
 					<Item id="6263" name="Локално"/>
 					<Item id="6267" name="По избор"/>
+					<Item id="6318" name="Настройки за отваряне на връзка"/>
+					<Item id="6319" name="Включено"/>
+					<Item id="6320" name="Без подчертаване"/>
+					<Item id="6350" name="Цветен фон"/>
+					<Item id="6264" name="URI потребителски схеми:"/>
 				</Cloud>
 					<!-- Търсеща машина -->
 				<SearchEngine title="Търсеща машина">
@@ -976,10 +985,6 @@
 					<Item id="6344" name="Надникване в документи"/>
 					<Item id="6345" name="Надникване в раздел"/>
 					<Item id="6346" name="Надникване в &quot;Карта на документа&quot;"/>
-					<Item id="6318" name="Отваряне на Уеб-връзки"/>
-					<Item id="6319" name="Включено"/>
-					<Item id="6320" name="Без подчертаване"/>
-					<Item id="6350" name="Цветен фон"/>
 					<Item id="6312" name="Авто-проверка за състоянието на файла"/>
 					<ComboBox id="6347">
 						<Element name="Включено"/>
@@ -1268,6 +1273,9 @@
 		<FolderAsWorkspace>
 			<PanelTitle name="Директория като работно място"/>
 			<SelectFolderFromBrowserString name="Избор на папка за добавяне в панела &quot;Директория като работно място&quot;"/>
+			<ExpandAllFoldersTip name="Разгъване на всички папки"/>
+			<CollapseAllFoldersTip name="Свиване на всички папки"/>
+			<LocateCurrentFileTip name="Намиране на текущият файл"/>
 			<Menus>
 				<Item id="3511" name="Премахване"/>
 				<Item id="3512" name="Премахване на всички"/>
@@ -1329,7 +1337,8 @@
 			<finder-close-this value="Затваряне на това търсене"/>
 			<finder-collapse-all value="Свиване на всички"/>
 			<finder-uncollapse-all value="Разгъване на всички"/>
-			<finder-copy value="Копиране"/>
+			<finder-copy-verbatim value="Копиране"/>
+			<finder-copy value="Копиране на избраните редове"/>
 			<finder-select-all value="Избиране на всичко"/>
 			<finder-clear-all value="Изчистване на всичко"/>
 			<finder-open-all value="Отваряне на всички"/>
@@ -1346,6 +1355,7 @@
 			<find-result-title-info-selections value="($INT_REPLACE1$ съвпадения в $INT_REPLACE2$ избран(и) от $INT_REPLACE3$ претърсен(и))"/>
 			<find-result-title-info-extra value=" - Режим за филтриране на редове: показват се само филтрираните резултати"/>
 			<find-result-hits value="($INT_REPLACE$ съвпадения)"/>
+			<find-result-line-prefix value="Ред"/>
 			<find-regex-zero-length-match value="съвпадение с нулева дължина"/>
 				<!-- Дясно щракане върху раздел -->
 			<tabrename-title value="Преименуване на текущият раздел"/>
@@ -1398,6 +1408,7 @@
 		</DocSwitcher>
 			<!-- Меню "Прозорци" - "Прозорци..." -->
 		<WindowsDlg>
+			<NbDocsTotal name="общо документи: "/>
 			<ColumnName name="Име"/>
 			<ColumnPath name="Път"/>
 			<ColumnType name="Тип"/>
@@ -1422,6 +1433,7 @@
 			<DocReloadWarning title="Презареждане" message="Сигурни ли сте, че искате текущият документ да бъде презареден и да се загубят направените с Notepad++ промени?"/>
 			<FileLockedWarning title="Неуспешно записване" message="Проверете дали файлът не е отворен от друга програма"/>
 			<FileAlreadyOpenedInNpp title="" message="Файлът вече е отворен в Notepad++"/>
+			<RenameTabTemporaryNameAlreadyInUse title="Преименуването е неуспешно" message="Посоченото име вече се използва в друг раздел"/>
 			<DeleteFileFailed title="Изтриване на файл" message="Изтриването на файла е неуспешно"/>
 			<NbFileToOpenImportantWarning title="Твърде много файлове" message="Ще бъдат отворени $INT_REPLACE$ файла.
 

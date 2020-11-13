@@ -5918,24 +5918,28 @@ std::vector<generic_string> Notepad_plus::loadCommandlineParams(const TCHAR * co
 		}
 
 		if (ln != -1 || cpos != -1)
-		{	//we have to move the cursor manually
+		{
+			//we have to move the cursor manually
 			int iView = currentView();	//store view since fileswitch can cause it to change
 			switchToFile(bufID);	//switch to the file. No deferred loading, but this way we can easily move the cursor to the right position
 
 			if (cpos != -1)
 			{
+				// make sure not jumping into the middle of a multibyte character
+				// or into the middle of a CR/LF pair for Windows files
+				auto before = _pEditView->execute(SCI_POSITIONBEFORE, cpos);
+				cpos = static_cast<int>(_pEditView->execute(SCI_POSITIONAFTER, before));
 				_pEditView->execute(SCI_GOTOPOS, cpos);
 			}
-            else
-			if (cn == -1)
+			else if (cn == -1)
 			{
 				_pEditView->execute(SCI_GOTOLINE, ln-1);
 			}
-            else
-            {
-                auto pos = _pEditView->execute(SCI_FINDCOLUMN, ln-1, cn-1);
-                _pEditView->execute(SCI_GOTOPOS, pos);
-            }
+			else
+			{
+				auto pos = _pEditView->execute(SCI_FINDCOLUMN, ln-1, cn-1);
+				_pEditView->execute(SCI_GOTOPOS, pos);
+			}
 
 			_pEditView->scrollPosToCenter(_pEditView->execute(SCI_GETCURRENTPOS));
 

@@ -1229,6 +1229,9 @@ Notepad++会在所有安装结束后重新启动。
         <FolderAsWorkspace>
             <PanelTitle name="文件夹工作区"/>
             <SelectFolderFromBrowserString name="选择一个文件夹添加到文件夹工作区面板"/>
+            <ExpandAllFoldersTip name="展开所有文件夹"/>
+            <CollapseAllFoldersTip name="折叠所有文件夹"/>
+            <LocateCurrentFileTip name="定位当前文件夹"/>
             <Menus>
                 <Item id="3511" name="移除"/>
                 <Item id="3512" name="全部移除"/>

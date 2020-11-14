@@ -1516,7 +1516,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					::GetCursorPos(&p);
 					ContextMenu scintillaContextmenu;
 					std::vector<MenuItemUnit>& tmp = nppParam.getContextMenuItems();
-					scintillaContextmenu.create(hwnd, tmp, _mainMenuHandle);
+					bool copyLink = (_pEditView->getSelectedTextCount() == 0) && _pEditView->getIndicatorRange(URL_INDIC);
+					scintillaContextmenu.create(hwnd, tmp, _mainMenuHandle, copyLink);
 					scintillaContextmenu.display(p);
 					return TRUE;
 				}

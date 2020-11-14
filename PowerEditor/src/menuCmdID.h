@@ -174,6 +174,7 @@
     #define    IDM_EDIT_REMOVE_ANY_DUP_LINES                    (IDM_EDIT + 79)
     #define    IDM_EDIT_SORTLINES_LEXICO_CASE_INSENS_ASCENDING  (IDM_EDIT + 80)
     #define    IDM_EDIT_SORTLINES_LEXICO_CASE_INSENS_DESCENDING (IDM_EDIT + 81)
+    #define    IDM_EDIT_COPY_LINK                               (IDM_EDIT + 82)
 
     #define    IDM_EDIT_AUTOCOMPLETE                            (50000 + 0)
     #define    IDM_EDIT_AUTOCOMPLETE_CURRENTFILE                (50000 + 1)

@@ -1296,7 +1296,8 @@ Rechercher dans tous les fichiers sauf exe, obj &amp;&amp; log:
             <finder-close-this value="Fermer le dialogue des résultats"/>
             <finder-collapse-all value="Replier tout"/>
             <finder-uncollapse-all value="Déplier tout"/>
-            <finder-copy value="Copier"/>
+            <finder-copy value="Copier la(les) ligne(s) selectionnée(s)"/>
+            <finder-copy-verbatim value="Copier"/>
             <finder-select-all value="Sélectionner tout"/>
             <finder-clear-all value="Effacer tout"/>
             <finder-open-all value="Ouvrir tout"/>

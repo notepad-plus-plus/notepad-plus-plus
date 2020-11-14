@@ -76,7 +76,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <!-- all menu item -->
                 <Commands>
                     <Item id="41001" name="&amp;New"/>
-                    <Item id="41002" name="&amp;Open"/>
+                    <Item id="41002" name="&amp;Open..."/>
                     <Item id="41019" name="Explorer"/>
                     <Item id="41020" name="cmd"/>
                     <Item id="41025" name="Folder as Workspace"/>
@@ -96,7 +96,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="41013" name="Save Session..."/>
                     <Item id="41014" name="Re&amp;load from Disk"/>
                     <Item id="41015" name="Save a Copy As..."/>
-                    <Item id="41016" name="Move to Recycle Bin"/>
+                    <Item id="41016" name="Move to Recycle Bin..."/>
                     <Item id="41017" name="Rename..."/>
                     <Item id="41021" name="Restore Recent Closed File"/>
                     <Item id="41022" name="Open Folder as Workspace..."/>
@@ -198,7 +198,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43009" name="Go to Matching Brace"/>
                     <Item id="43010" name="Find &amp;Previous"/>
                     <Item id="43011" name="&amp;Incremental Search"/>
-                    <Item id="43013" name="Find in Files"/>
+                    <Item id="43013" name="Find in Files..."/>
                     <Item id="43014" name="Find (Volatile) Next"/>
                     <Item id="43015" name="Find (Volatile) Previous"/>
                     <Item id="43022" name="Using 1st Style"/>
@@ -306,7 +306,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="46250" name="Define your language..."/>
                     <Item id="46300" name="Open User Defined Language folder..."/>
                     <Item id="46180" name="User-Defined"/>
-                    <Item id="47000" name="About Notepad++"/>
+                    <Item id="47000" name="About Notepad++..."/>
                     <Item id="47010" name="Command Line Arguments..."/>
                     <Item id="47001" name="Notepad++ Home"/>
                     <Item id="47002" name="Notepad++ Project Page"/>
@@ -319,7 +319,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="47009" name="Set Updater Proxy..."/>
                     <Item id="48005" name="Import plugin(s)..."/>
                     <Item id="48006" name="Import style theme(s)..."/>
-                    <Item id="48018" name="Edit Popup ContextMenu"/>
+                    <Item id="48018" name="Edit Popup ContextMenu..."/>
                     <Item id="48009" name="Shortcut Mapper..."/>
                     <Item id="48011" name="Preferences..."/>
                     <Item id="48014" name="Open Plugins Folder..."/>
@@ -358,7 +358,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item CMID="8" name="Filename to Clipboard"/>
                     <Item CMID="9" name="Current Dir. Path to Clipboard"/>
                     <Item CMID="10" name="Rename..."/>
-                    <Item CMID="11" name="Move to Recycle Bin"/>
+                    <Item CMID="11" name="Move to Recycle Bin..."/>
                     <Item CMID="12" name="Read-Only"/>
                     <Item CMID="13" name="Clear Read-Only Flag"/>
                     <Item CMID="14" name="Move to New Instance"/>
@@ -415,7 +415,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="1725" name="Copy Marked Text"/>
             </Find>
 
-            <FindCharsInRange title="Find Characters in Range...">
+            <FindCharsInRange title="Find Characters in Range">
                 <Item id="2" name="Close"/>
                 <Item id="2901" name="Non-ASCII Characters (128-255)"/>
                 <Item id="2902" name="ASCII Characters (0-127)"/>
@@ -427,7 +427,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="2910" name="Find"/>
             </FindCharsInRange>
 
-            <GoToLine title="Go to...">
+            <GoToLine title="Go to">
                 <Item id="2007" name="&amp;Line"/>
                 <Item id="2008" name="&amp;Offset"/>
                 <Item id="1"    name="Go"/>
@@ -437,11 +437,11 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="2006" name="You can't go further than:"/>
             </GoToLine>
 
-            <Run title="Run...">
+            <Run title="Run">
                 <Item id="1903" name="The Program to Run"/>
                 <Item id="1"    name="Run"/>
                 <Item id="2"    name="Cancel"/>
-                <Item id="1904" name="Save..."/>
+                <Item id="1904" name="Save"/>
             </Run>
 
             <MD5FromFilesDlg title="Generate MD5 digest from files">
@@ -511,7 +511,7 @@ The comments are here for explanation, it's not necessary to translate them.
             </StyleConfig>
 
             <ShortcutMapper title="Shortcut Mapper">
-                <Item id="2602" name="Modify"/>
+                <Item id="2602" name="Modify..."/>
                 <Item id="2603" name="Delete"/>
                 <Item id="2606" name="Clear"/>
                 <Item id="2607" name="Filter: "/>
@@ -526,7 +526,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <PluginCommandsTab name="Plugin commands"/>
                 <ScintillaCommandsTab name="Scintilla commands"/>
                 <ConflictInfoOk name="No shortcut conflicts for this item."/>
-                <ConflictInfoEditing name="No conflicts . . ."/>
+                <ConflictInfoEditing name="No conflicts..."/>
                 <MainCommandNames>
                     <Item id="41019" name="Open containing folder in Explorer"/>
                     <Item id="41020" name="Open containing folder in Command Prompt"/>
@@ -550,13 +550,13 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43035" name="Previous mark using 3rd style"/>
                     <Item id="43036" name="Previous mark using 4th style"/>
                     <Item id="43037" name="Previous mark using 5th style"/>
-                    <Item id="43038" name="Previous mark created with Mark"/>
+                    <Item id="43038" name="Previous mark created with Mark..."/>
                     <Item id="43039" name="Next mark using 1st style"/>
                     <Item id="43040" name="Next mark using 2nd style"/>
                     <Item id="43041" name="Next mark using 3rd style"/>
                     <Item id="43042" name="Next mark using 4th style"/>
                     <Item id="43043" name="Next mark using 5th style"/>
-                    <Item id="43044" name="Next mark created with Mark"/>
+                    <Item id="43044" name="Next mark created with Mark..."/>
                     <Item id="43055" name="Copy Styled Text - 1st Style"/>
                     <Item id="43056" name="Copy Styled Text - 2nd Style"/>
                     <Item id="43057" name="Copy Styled Text - 3rd Style"/>
@@ -612,9 +612,9 @@ The comments are here for explanation, it's not necessary to translate them.
             </ShortcutMapperSubDialg>
             <UserDefine title="User-Defined">
                 <Item id="20001" name="Dock"/>
-                <Item id="20002" name="Rename"/>
+                <Item id="20002" name="Rename..."/>
                 <Item id="20003" name="Create New..."/>
-                <Item id="20004" name="Remove"/>
+                <Item id="20004" name="Remove..."/>
                 <Item id="20005" name="Save As..."/>
                 <Item id="20007" name="User language: "/>
                 <Item id="20009" name="Ext.:"/>
@@ -658,7 +658,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 </StylerDialog>
                 <Folder title="Folder &amp;&amp; Default">
                     <Item id="21101" name="Default style"/>
-                    <Item id="21102" name="Styler"/>
+                    <Item id="21102" name="Styler..."/>
                     <Item id="21105" name="Documentation:"/>
                     <Item id="21104" name="Temporary doc site:"/>
                     <Item id="21106" name="Fold &amp;compact (fold empty lines too)"/>
@@ -666,17 +666,17 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="21224" name="Open:"/>
                     <Item id="21225" name="Middle:"/>
                     <Item id="21226" name="Close:"/>
-                    <Item id="21227" name="Styler"/>
+                    <Item id="21227" name="Styler..."/>
                     <Item id="21320" name="Folding in code 2 style (separators needed):"/>
                     <Item id="21324" name="Open:"/>
                     <Item id="21325" name="Middle:"/>
                     <Item id="21326" name="Close:"/>
-                    <Item id="21327" name="Styler"/>
+                    <Item id="21327" name="Styler..."/>
                     <Item id="21420" name="Folding in comment style:"/>
                     <Item id="21424" name="Open:"/>
                     <Item id="21425" name="Middle:"/>
                     <Item id="21426" name="Close:"/>
-                    <Item id="21427" name="Styler"/>
+                    <Item id="21427" name="Styler..."/>
                 </Folder>
                 <Keywords title="Keywords Lists">
                     <Item id="22101" name="1st Group"/>
@@ -695,14 +695,14 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="22521" name="Prefix mode"/>
                     <Item id="22571" name="Prefix mode"/>
                     <Item id="22621" name="Prefix mode"/>
-                    <Item id="22122" name="Styler"/>
-                    <Item id="22222" name="Styler"/>
-                    <Item id="22322" name="Styler"/>
-                    <Item id="22422" name="Styler"/>
-                    <Item id="22472" name="Styler"/>
-                    <Item id="22522" name="Styler"/>
-                    <Item id="22572" name="Styler"/>
-                    <Item id="22622" name="Styler"/>
+                    <Item id="22122" name="Styler..."/>
+                    <Item id="22222" name="Styler..."/>
+                    <Item id="22322" name="Styler..."/>
+                    <Item id="22422" name="Styler..."/>
+                    <Item id="22472" name="Styler..."/>
+                    <Item id="22522" name="Styler..."/>
+                    <Item id="22572" name="Styler..."/>
+                    <Item id="22622" name="Styler..."/>
                 </Keywords>
                 <Comment title="Comment &amp;&amp; Number">
                     <Item id="23003" name="Line comment position"/>
@@ -710,17 +710,17 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="23005" name="Force at beginning of line"/>
                     <Item id="23006" name="Allow preceding whitespace"/>
                     <Item id="23001" name="Allow folding of comments"/>
-                    <Item id="23326" name="Styler"/>
+                    <Item id="23326" name="Styler..."/>
                     <Item id="23323" name="Open"/>
                     <Item id="23324" name="Continue character"/>
                     <Item id="23325" name="Close"/>
                     <Item id="23301" name="Comment line style"/>
-                    <Item id="23124" name="Styler"/>
+                    <Item id="23124" name="Styler..."/>
                     <Item id="23122" name="Open"/>
                     <Item id="23123" name="Close"/>
                     <Item id="23101" name="Comment style"/>
                     <Item id="23201" name="Number style"/>
-                    <Item id="23220" name="Styler"/>
+                    <Item id="23220" name="Styler..."/>
                     <Item id="23230" name="Prefix 1"/>
                     <Item id="23232" name="Prefix 2"/>
                     <Item id="23234" name="Extras 1"/>
@@ -735,49 +735,49 @@ The comments are here for explanation, it's not necessary to translate them.
                 </Comment>
                 <Operator title="Operators &amp;&amp; Delimiter">
                     <Item id="24101" name="Operators style"/>
-                    <Item id="24113" name="Styler"/>
+                    <Item id="24113" name="Styler..."/>
                     <Item id="24116" name="Operators 1"/>
                     <Item id="24117" name="Operators 2 (separators required)"/>
                     <Item id="24201" name="Delimiter 1 style"/>
                     <Item id="24220" name="Open:"/>
                     <Item id="24221" name="Escape:"/>
                     <Item id="24222" name="Close:"/>
-                    <Item id="24223" name="Styler"/>
+                    <Item id="24223" name="Styler..."/>
                     <Item id="24301" name="Delimiter 2 style"/>
                     <Item id="24320" name="Open:"/>
                     <Item id="24321" name="Escape:"/>
                     <Item id="24322" name="Close:"/>
-                    <Item id="24323" name="Styler"/>
+                    <Item id="24323" name="Styler..."/>
                     <Item id="24401" name="Delimiter 3 style"/>
                     <Item id="24420" name="Open:"/>
                     <Item id="24421" name="Escape:"/>
                     <Item id="24422" name="Close:"/>
-                    <Item id="24423" name="Styler"/>
+                    <Item id="24423" name="Styler..."/>
                     <Item id="24451" name="Delimiter 4 style"/>
                     <Item id="24470" name="Open:"/>
                     <Item id="24471" name="Escape:"/>
                     <Item id="24472" name="Close:"/>
-                    <Item id="24473" name="Styler"/>
+                    <Item id="24473" name="Styler..."/>
                     <Item id="24501" name="Delimiter 5 style"/>
                     <Item id="24520" name="Open:"/>
                     <Item id="24521" name="Escape:"/>
                     <Item id="24522" name="Close:"/>
-                    <Item id="24523" name="Styler"/>
+                    <Item id="24523" name="Styler..."/>
                     <Item id="24551" name="Delimiter 6 style"/>
                     <Item id="24570" name="Open:"/>
                     <Item id="24571" name="Escape:"/>
                     <Item id="24572" name="Close:"/>
-                    <Item id="24573" name="Styler"/>
+                    <Item id="24573" name="Styler..."/>
                     <Item id="24601" name="Delimiter 7 style"/>
                     <Item id="24620" name="Open:"/>
                     <Item id="24621" name="Escape:"/>
                     <Item id="24622" name="Close:"/>
-                    <Item id="24623" name="Styler"/>
+                    <Item id="24623" name="Styler..."/>
                     <Item id="24651" name="Delimiter 8 style"/>
                     <Item id="24670" name="Open:"/>
                     <Item id="24671" name="Escape:"/>
                     <Item id="24672" name="Close:"/>
-                    <Item id="24673" name="Styler"/>
+                    <Item id="24673" name="Styler..."/>
                 </Operator>
             </UserDefine>
             <Preference title="Preferences">
@@ -1237,7 +1237,7 @@ Continue?"/>
             <Menus>
                 <Item id="3511" name="Remove"/>
                 <Item id="3512" name="Remove All"/>
-                <Item id="3513" name="Add"/>
+                <Item id="3513" name="Add..."/>
                 <Item id="3514" name="Run by system"/>
                 <Item id="3515" name="Open"/>
                 <Item id="3516" name="Copy path"/>
@@ -1356,8 +1356,8 @@ Find in all files except exe, obj &amp;&amp; log:
             <tabrename-newname value="New Name: "/>
             <recent-file-history-maxfile value="Max File: "/>
             <language-tabsize value="Tab Size: "/>
-            <userdefined-title-new value="Create New Language..."/>
-            <userdefined-title-save value="Save Current Language Name As..."/>
+            <userdefined-title-new value="Create New Language"/>
+            <userdefined-title-save value="Save Current Language Name As"/>
             <userdefined-title-rename value="Rename Current Language Name"/>
             <autocomplete-nb-char value="Nb char: "/>
             <edit-verticaledge-nb-col value="Nb of Column:"/>

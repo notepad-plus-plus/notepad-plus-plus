@@ -108,6 +108,7 @@ INT_PTR CALLBACK GoToLineDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 					updateLinesNumbers();
 					return TRUE;
 				}
+
 				default :
 				{
 					switch (HIWORD(wParam))
@@ -142,7 +143,8 @@ void GoToLineDlg::updateLinesNumbers() const
 	else
 	{
 		current = static_cast<unsigned int>((*_ppEditView)->execute(SCI_GETCURRENTPOS));
-		limit = static_cast<unsigned int>((*_ppEditView)->getCurrentDocLen() - 1);
+		int currentDocLength = (*_ppEditView)->getCurrentDocLen();
+		limit = static_cast<unsigned int>(currentDocLength > 0 ? currentDocLength - 1 : 0);
 	}
     ::SetDlgItemInt(_hSelf, ID_CURRLINE, current, FALSE);
     ::SetDlgItemInt(_hSelf, ID_LASTLINE, limit, FALSE);

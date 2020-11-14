@@ -349,13 +349,13 @@
 				<Item CMID="1" name="Diğerlerini Kapat"/>
 				<Item CMID="2" name="Kaydet"/>
 				<Item CMID="3" name="Farklı Kaydet"/>
-				<Item CMID="4" name="Yazdır"/>
+				<Item CMID="4" name="Yazdır..."/>
 				<Item CMID="5" name="Diğer Görünüme Taşı"/>
 				<Item CMID="6" name="Diğer Görünüme Kopyala"/>
 				<Item CMID="7" name="Tam Dosya Yolunu Panoya Kopyala"/>
 				<Item CMID="8" name="Dosya Adını Panoya Kopyala"/>
 				<Item CMID="9" name="Geçerli Dizin Yolunu Panoya Kopyala"/>
-				<Item CMID="10" name="Yeniden Adlandır"/>
+				<Item CMID="10" name="Yeniden Adlandır..."/>
 				<Item CMID="11" name="Geri Dönüşüm Kutusu'na Taşı"/>
 				<Item CMID="12" name="Salt Okunur Yap"/>
 				<Item CMID="13" name="Salt Okunur İşaretini Kaldır"/>
@@ -1121,6 +1121,7 @@ Devam etmek istiyor musunuz?"/>
 			<DocReloadWarning title="Yeniden Yükle" message="Geçerli dosyayı yeniden yüklerseniz yaptığınız değişiklikler kaybolacak. Devam etmek istiyor musunuz?"/>
 			<FileLockedWarning title="Kaydedilemedi" message="Dosyanın başka bir yazılım tarafından kullanılmadığından emin olun."/>
 			<FileAlreadyOpenedInNpp title="Dosya Aç" message="Dosya zaten Notepad++ içinde açık."/>
+			<RenameTabTemporaryNameAlreadyInUse title="Yeniden Adlandırma Başarısız" message="Belirtilen isim başka bir sekmede kullanımda."/>
 			<DeleteFileFailed title="Dosya Sil" message="Dosya silinemedi"/>
 
 			<NbFileToOpenImportantWarning title="Çok Fazla Sayıda Dosya Açıldı" message="$INT_REPLACE$ dosyası açılmak üzere. 
@@ -1230,6 +1231,9 @@ Devam edilsin mi?"/>
 		<FolderAsWorkspace>
             <PanelTitle name="Çalışma Alanı Olarak Klasör"/>
             <SelectFolderFromBrowserString name="Çalışma Alanı Olarak Klasör paneline eklemek için bir klasör seçin."/>
+            <ExpandAllFoldersTip name="Tüm Klasörleri Genişlet"/>
+            <CollapseAllFoldersTip name="Tüm Klasörleri Daralt"/>
+            <LocateCurrentFileTip name="Şu Anki Dosyayı Bul"/>
             <Menus>
                 <Item id="3511" name="Kaldır"/>
                 <Item id="3512" name="Tümünü Kaldır"/>

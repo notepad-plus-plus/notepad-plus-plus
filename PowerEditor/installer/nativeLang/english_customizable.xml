@@ -153,6 +153,7 @@
                     <Item id="42048" name="Copy Binary Content"/>
                     <Item id="42049" name="Cut Binary Content"/>
                     <Item id="42050" name="Paste Binary Content"/>
+                    <Item id="42082" name="Copy link"/>
                     <Item id="42037" name="Column Mode..."/>
                     <Item id="42034" name="Column Editor..."/>
                     <Item id="42051" name="Character Panel"/>

@@ -305,6 +305,19 @@ void Notepad_plus::command(int id)
 			checkClipboard();
 			break;
 
+		case IDM_EDIT_COPY_LINK:
+		{
+			int startPos = 0, endPos = 0, curPos = 0;
+			if (_pEditView->getIndicatorRange(URL_INDIC, &startPos, &endPos, &curPos))
+			{
+				_pEditView->execute(SCI_SETSEL, startPos, endPos);
+				_pEditView->execute(WM_COPY);
+				checkClipboard();
+				_pEditView->execute(SCI_SETSEL, curPos, curPos);
+				break;
+			}
+		}
+
 		case IDM_EDIT_COPY_BINARY:
 		case IDM_EDIT_CUT_BINARY:
 		{

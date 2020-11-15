@@ -61,3 +61,29 @@ To build SciLexer.dll without PCRE support (for both 32-bit & 64-bit):
 
 
 Note: If building the 32-bit and 64-bit versions in the same folder structure, after building one, it may be necessary to do a `nmake -f scintilla.mak clean` before building the other.
+
+
+## Build 64 bits binaries with GCC:
+
+If you have installed [MinGW-w64](https://mingw-w64.org/doku.php/start), then you can compile Notepad++ & SciLexer.dll 64 bits binaries with GCC.
+
+* Compile Notepad++ binary
+
+1. Launch cmd.
+2. Change dir into `notepad-plus-plus\PowerEditor\gcc`.
+3. Type `mingw32-make.exe -j%NUMBER_OF_PROCESSORS%`
+4. `NotepadPP.exe` is generated in `notepad-plus-plus\PowerEditor\bin\`.
+
+* Compile SciLexer.dll
+
+1. Launch cmd.
+2. Change dir into `notepad-plus-plus\scintilla\win32`.
+3. Type `mingw32-make.exe -j%NUMBER_OF_PROCESSORS%`
+4. `SciLexer.dll` is generated in `notepad-plus-plus\scintilla\bin\`.
+
+You can download MinGW-w64 from https://sourceforge.net/projects/mingw-w64/files/. On Notepad++ Github page (this project), the build system use [MinGW 8.1](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/8.1.0/threads-posix/seh/x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z).
+
+
+Note 1: if you use MinGW from the package (7z), you need manually add the MinGW/bin folder path to system Path variable to make mingw32-make.exe invoke works (or you can use command :`set PATH=%PATH%;C:\xxxx\mingw64\bin` for adding it on each time you launch cmd). 
+
+Note 2: For 32bit build, https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/8.1.0/threads-posix/sjlj/i686-8.1.0-release-posix-sjlj-rt_v6-rev0.7z could be used. The rest of the instructions are still valid. 

@@ -1118,6 +1118,7 @@ The comments are here for explanation, it's not necessary to translate them.
             <DocReloadWarning title="重载警告" message="您确定要重新加载当前文件并失去在Notepad++所做的修改吗？"/>
             <FileLockedWarning title="保存失败" message="请检查文件是否在别的程序中打开"/>
             <FileAlreadyOpenedInNpp title="" message="此文件已经在Notepad++中打开。"/> <!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
+            <RenameTabTemporaryNameAlreadyInUse title="Rename failed" message="这个名称已经在另一个标签页中使用。"/> <!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
             <DeleteFileFailed title="删除文件" message="文件删除失败"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 
             <NbFileToOpenImportantWarning title="即将打开的文件过多" message="即将打开 $INT_REPLACE$ 个文件。

@@ -274,12 +274,12 @@ Any member variable name of class/struct should be preceded by an underscore.
   };
   ```
 
-3. ##### Prefer this form:
+3. ##### Prefer Pre-increment:
   ```cpp
   ++i
   ```
 
-  **to:**
+ ##### **Over Post-increment:**
   ```cpp
   i++
   ```

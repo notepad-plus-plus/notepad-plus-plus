@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-    <Native-Langue name="Slovenčina" filename="slovak.xml" version="7.9.1">
+    <Native-Langue name="Slovenčina" filename="slovak.xml" version="7.9.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -161,6 +161,7 @@
                     <Item id="42048" name="Kopírovať Binárny obsah"/>
                     <Item id="42049" name="Vystrihnúť Binárny obsah"/>
                     <Item id="42050" name="Prilepiť Binárny obsah"/>
+                    <Item id="42082" name="Kopírovať odkaz"/>
                     <Item id="42037" name="Stĺpcový režim..."/>
                     <Item id="42034" name="Stĺpcový editor..."/>
                     <Item id="42051" name="Panel ASCII znakov"/>

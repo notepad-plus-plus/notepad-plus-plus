@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="7.9.1">
+    <Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="7.9.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -146,6 +146,7 @@
                     <Item id="42048" name="複製 Binary 內容（包含 NULL 字元）"/>
                     <Item id="42049" name="剪下 Binary 內容（包含 NULL 字元）"/>
                     <Item id="42050" name="貼上 Binary 內容（包含 NULL 字元）"/>
+                    <Item id="42082" name="複製連結"/>
                     <Item id="42037" name="多欄選取..."/>
                     <Item id="42034" name="多欄插入..."/>
                     <Item id="42051" name="顯示 ASCII 插入面板"/>

@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2020-11-14 by schnurlos (schnurlos@gmail.com)
+	last modified: 2020-11-18 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="7.9.1">
+	<Native-Langue name="Deutsch" filename="german.xml" version="7.9.2">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -168,6 +168,7 @@
 					<Item id="42048" name="Binär-Inhalt &amp;kopieren"/>
 					<Item id="42049" name="Binär-Inhalt &amp;ausschneiden"/>
 					<Item id="42050" name="Binär-Inhalt &amp;einfügen"/>
+					<Item id="42082" name="Link kopieren"/>
 					<Item id="42037" name="Spalten-&amp;Modus …"/>
 					<Item id="42034" name="&amp;Block-Editor …"/>
 					<Item id="42051" name="Zeichen&amp;tabelle"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-	<Native-Langue name="Turkish" filename="turkish.xml" version="7.9.1">
+	<Native-Langue name="Turkish" filename="turkish.xml" version="7.9.2">
 		<Menu>
 			<Main>
 				<!-- Ana Menü Girişleri -->
@@ -157,6 +157,7 @@
 					<Item id="42048" name="İkili İçeriği Kopyala"/>
 					<Item id="42049" name="İkili İçeriği Kes"/>
 					<Item id="42050" name="İkili İçeriği Yapıştır"/>
+					<Item id="42082" name="Linki Kopyala"/>
 					<Item id="42037" name="Sütun &amp;Modu…"/>
 					<Item id="42034" name="Sütun &amp;Düzenleyici…"/>
 					<Item id="42051" name="K&amp;arakter Paneli"/>

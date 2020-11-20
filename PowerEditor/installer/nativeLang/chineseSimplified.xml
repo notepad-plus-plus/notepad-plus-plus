@@ -534,11 +534,11 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="45001" name="换行符转为 Windows (CR LF)"/>
                     <Item id="45002" name="换行符转为 Unix (LF)"/>
                     <Item id="45003" name="换行符转为 Macintosh (CR)"/>
-                    <Item id="43022" name="使用格式1标记搜索结果"/>
-                    <Item id="43024" name="使用格式2标记搜索结果"/>
-                    <Item id="43026" name="使用格式3标记搜索结果"/>
-                    <Item id="43028" name="使用格式4标记搜索结果"/>
-                    <Item id="43030" name="使用格式5标记搜索结果"/>
+                    <Item id="43022" name="使用格式1标记文本"/>
+                    <Item id="43024" name="使用格式2标记文本"/>
+                    <Item id="43026" name="使用格式3标记文本"/>
+                    <Item id="43028" name="使用格式4标记文本"/>
+                    <Item id="43030" name="使用格式5标记文本"/>
                     <Item id="43023" name="清除格式1标记"/>
                     <Item id="43025" name="清除格式2标记"/>
                     <Item id="43027" name="清除格式3标记"/>

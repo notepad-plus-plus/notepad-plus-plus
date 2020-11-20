@@ -201,15 +201,15 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43013" name="在文件中查找"/>
                     <Item id="43014" name="快速查找下一个"/>
                     <Item id="43015" name="快速查找上一个"/>
-                    <Item id="43022" name="使用格式1标记文本"/>
+                    <Item id="43022" name="使用格式1"/>
                     <Item id="43023" name="清除格式1"/>
-                    <Item id="43024" name="使用格式2标记文本"/>
+                    <Item id="43024" name="使用格式2"/>
                     <Item id="43025" name="清除格式2"/>
-                    <Item id="43026" name="使用格式3标记文本"/>
+                    <Item id="43026" name="使用格式3"/>
                     <Item id="43027" name="清除格式3"/>
-                    <Item id="43028" name="使用格式4标记文本"/>
+                    <Item id="43028" name="使用格式4"/>
                     <Item id="43029" name="清除格式4"/>
-                    <Item id="43030" name="使用格式5标记文本"/>
+                    <Item id="43030" name="使用格式5"/>
                     <Item id="43031" name="清除格式5"/>
                     <Item id="43032" name="清除所有格式标记"/>
                     <Item id="43033" name="格式一"/>

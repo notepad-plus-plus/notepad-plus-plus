@@ -351,7 +351,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item CMID="1" name="关闭非当前文件"/>
                     <Item CMID="2" name="保存当前文件"/>
                     <Item CMID="3" name="当前文件另存为..."/>
-                    <Item CMID="4" name="打印当前文件……"/>
+                    <Item CMID="4" name="打印当前文件..."/>
                     <Item CMID="5" name="移动到另一视图"/>
                     <Item CMID="6" name="复制到另一视图"/>
                     <Item CMID="7" name="复制文件路径到剪切板"/>

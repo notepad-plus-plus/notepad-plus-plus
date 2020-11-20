@@ -1037,7 +1037,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6320" name="不显示下划线"/>
                     <Item id="6322" name="会话文件扩展名:"/>
                     <Item id="6323" name="启用 Notepad++ 自动更新"/>
-                    <Item id="6351" name="设置保存会话文件扩展名过滤器用 .* 来替换普通文本使用的 .txt 格式"/>
+                    <Item id="6351" name="将保存对话框中的文本文档扩展名过滤器设置为 .* 以代替 .txt"/>
                     <Item id="6324" name="文档切换 (Ctrl+TAB)"/>
                     <Item id="6331" name="在标题栏仅显示文件名"/>
                     <Item id="6334" name="自动检测字符编码"/>

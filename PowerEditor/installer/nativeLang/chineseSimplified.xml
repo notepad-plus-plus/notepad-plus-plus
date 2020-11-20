@@ -370,7 +370,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item CMID="20" name="打开所在文件夹(命令行)"/>
                     <Item CMID="21" name="使用默认查看器打开"/>
                     <Item CMID="22" name="关闭所有未修改"/>
-                    <Item CMID="23" name="将包含的文件夹作为工作区"/>
+                    <Item CMID="23" name="打开所在文件夹工作区"/>
             </TabBar>
         </Menu>
 

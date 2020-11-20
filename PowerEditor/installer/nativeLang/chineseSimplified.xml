@@ -1150,7 +1150,7 @@ The comments are here for explanation, it's not necessary to translate them.
 
 此文件被另一个程序修改了。
 是否重新加载并放弃在Notepad++中的变更？"/>
-            <PrehistoricSystemDetected title="检测到上古系统" message="您的系统好像过于古老了。很抱歉，这个功能只能在较新的系统当中使用。"/> <!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
+            <PrehistoricSystemDetected title="检测到上古系统" message="您的系统好像过于古老了。很抱歉，这个功能只能在现代系统当中使用。"/> <!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
             <XpUpdaterProblem title="Notepad++升级工具" message="Notepad++升级工具不兼容XP，由于XP的安全层过于陈旧。
 是否前往Notepad++官网下载最新版？"/> <!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
             <GUpProxyConfNeedAdminMode title="代理设置" message="请在管理员模式下重新启动Notepad++以配置代理。"/>

@@ -1345,7 +1345,8 @@ Find in all files except exe, obj &amp;&amp; log:
             <finder-close-this value="Close these search results"/>
             <finder-collapse-all value="Collapse all"/>
             <finder-uncollapse-all value="Uncollapse all"/>
-            <finder-copy value="Copy"/>
+            <finder-copy value="Copy Selected Line(s)"/>
+            <finder-copy-verbatim value="Copy"/>
             <finder-select-all value="Select all"/>
             <finder-clear-all value="Clear all"/>
             <finder-open-all value="Open all"/>

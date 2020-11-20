@@ -1339,8 +1339,8 @@ Notepad++会在所有安装结束后重新启动。
             <find-status-scope-all value="在整个文件中"/>
             <find-status-scope-backward value="从文件头到光标"/>
             <find-status-scope-forward value="从光标到文件尾"/>
-            <finder-find-in-finder value="在这些搜索结果中查找..."/>
-            <finder-close-this value="关闭这些搜索结果"/>
+            <finder-find-in-finder value="在此搜索结果中查找..."/>
+            <finder-close-this value="关闭此搜索结果"/>
             <finder-collapse-all value="全部折叠"/>
             <finder-uncollapse-all value="全部展开"/>
             <finder-copy value="复制"/>

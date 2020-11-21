@@ -1347,7 +1347,7 @@ Hľadať vo všetkých súboroch okrem exe, obj &amp;&amp; log:
             <finder-close-this value="Zatvoriť tento vyhľadávač"/>
             <finder-collapse-all value="Zbaliť všetko"/>
             <finder-uncollapse-all value="Rozbaliť všetko"/>
-            <finder-copy value="Kopírovať"/>
+            <finder-copy value="Kopírovať vybrané riadky"/>
             <finder-select-all value="Vybrať všetko"/>
             <finder-clear-all value="Vymazať všetko"/>
             <finder-open-all value="Otvoriť všetko"/>

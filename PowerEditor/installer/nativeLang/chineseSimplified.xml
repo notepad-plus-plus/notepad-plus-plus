@@ -357,7 +357,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item CMID="7" name="复制文件路径到剪切板"/>
                     <Item CMID="8" name="复制文件名到剪切板"/>
                     <Item CMID="9" name="复制当前路径到剪切板"/>
-                    <Item CMID="10" name="重命名当前文件……"/>
+                    <Item CMID="10" name="重命名当前文件..."/>
                     <Item CMID="11" name="删除当前文件"/>
                     <Item CMID="12" name="设置为只读"/>
                     <Item CMID="13" name="清除只读属性"/>

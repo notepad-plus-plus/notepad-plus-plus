@@ -2628,7 +2628,7 @@ bool isUrlQueryDelimiter(TCHAR const c)
 	return false;
 }
 
-bool isUrlSchemeSupported(INTERNET_SCHEME s)
+bool isUrlSchemeSupported(INTERNET_SCHEME s, TCHAR *url)
 {
 	switch (s)
 	{
@@ -2638,6 +2638,17 @@ bool isUrlSchemeSupported(INTERNET_SCHEME s)
 		case INTERNET_SCHEME_MAILTO:
 		case INTERNET_SCHEME_FILE:
 			return true;
+	}
+	generic_string const mySchemes = (NppParameters::getInstance()).getNppGUI()._customizedShemes + TEXT(" ");
+	TCHAR *p = (TCHAR *)mySchemes.c_str();
+	while (*p)
+	{
+		int i = 0;
+		while (p [i] && (p [i] != ' ')) i++;
+		if (i == 0) return false;
+		if (generic_strnicmp (url, p, i) == 0) return true;
+		p += i;
+		while (*p == ' ') p++;
 	}
 	return false;
 }
@@ -2863,7 +2874,7 @@ bool isUrl(TCHAR * text, int textLen, int start, int* segmentLen)
 			URL_COMPONENTS url;
 			memset (& url, 0, sizeof(url));
 			url.dwStructSize = sizeof(url);
-			bool r  = InternetCrackUrl(& text [start], len, 0, & url) && isUrlSchemeSupported(url.nScheme);
+			bool r  = InternetCrackUrl(& text [start], len, 0, & url) && isUrlSchemeSupported(url.nScheme, & text [start]);
 			if (r)
 			{
 				while (removeUnwantedTrailingCharFromUrl (& text [start], & len));

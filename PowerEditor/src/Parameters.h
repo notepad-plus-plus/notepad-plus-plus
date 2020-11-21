@@ -849,6 +849,7 @@ struct NppGUI final
 	bool _isWordCharDefault = true;
 	std::string _customWordChars;
 	urlMode _styleURL = urlUnderLineFg;
+	generic_string _customizedShemes = TEXT("");
 	NewDocDefaultSettings _newDocDefaultSettings;
 
 

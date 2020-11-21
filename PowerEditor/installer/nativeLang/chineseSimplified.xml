@@ -160,6 +160,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42048" name="复制二进制"/>
                     <Item id="42049" name="剪切二进制"/>
                     <Item id="42050" name="粘贴二进制"/>
+                    <Item id="42082" name="复制链接"/>
                     <Item id="42037" name="列块模式..."/>
                     <Item id="42034" name="列块编辑..."/>
                     <Item id="42051" name="字符面版"/>

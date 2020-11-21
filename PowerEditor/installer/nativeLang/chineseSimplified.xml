@@ -79,7 +79,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="41002" name="打开(&amp;O)"/>
                     <Item id="41019" name="文件管理器"/>
                     <Item id="41020" name="命令行"/>
-                    <Item id="41025" name="将文件夹作为工作区文件夹"/>
+                    <Item id="41025" name="文件夹工作区"/>
                     <Item id="41003" name="关闭(&amp;C)"/>
                     <Item id="41004" name="全部关闭(&amp;E)"/>
                     <Item id="41005" name="关闭当前以外所有文件"/>

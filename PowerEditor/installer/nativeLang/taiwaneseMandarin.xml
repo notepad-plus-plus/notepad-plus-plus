@@ -977,11 +977,15 @@
                     <Item id="6163" name="添加字元（不了解此選項的話不建議選取）"/>
                 </Delimiter>
 
-                <Cloud title="雲端">
+                <Cloud title="雲端與連結">
                     <Item id="6262" name="雲端設定"/>
                     <Item id="6263" name="不使用雲端"/>
                     <Item id="6267" name="雲端路徑："/>
-                    <!-- <Item id="6261" name="（重新啟動 Notepad++ 後生效）"/> -->
+                    <Item id="6318" name="連結設定"/>
+                    <Item id="6319" name="將連結設為可點擊"/>
+                    <Item id="6320" name="隱藏連結底線"/>
+                    <Item id="6350" name="啟動背景模式"/>
+                    <Item id="6264" name="自訂 URI 格式："/>
                 </Cloud>
 
                 <SearchEngine title="搜尋引擎">
@@ -1004,18 +1008,14 @@
                     <Item id="6308" name="最小化至系統匣"/>
                     <Item id="6312" name="自動更新檔案狀態"/>
                     <Item id="6313" name="於背景自動更新"/>
-                    <Item id="6318" name="連結設定"/>
                     <Item id="6325" name="更新後捲動至最後一行"/>
-                    <Item id="6319" name="將連結設為可點擊"/>
-                    <Item id="6320" name="隱藏連結底線"/>
                     <Item id="6322" name="工作階段檔案副檔名："/>
                     <Item id="6323" name="自動更新 Notepad++"/>
                     <Item id="6324" name="文件切換器（Ctrl + TAB）"/>
                     <Item id="6331" name="在標題列僅顯示檔案名稱（隱藏資料夾路徑）"/>
                     <Item id="6334" name="自動偵測檔案編碼"/>
                     <Item id="6349" name="使用 DirectWrite（可改善特殊字符的呈現，需要重新啟動 Notepad++）"/>
-                    <Item id="6350" name="啟動背景模式"/>
-					<Item id="6337" name="資料夾工作區檔案副檔名："/>
+                    <Item id="6337" name="資料夾工作區檔案副檔名："/>
                     <Item id="6114" name="啟動"/>
                     <Item id="6117" name="開啟「最近使用的檔案」功能"/>
                     <Item id="6344" name="窺視檔案"/>

@@ -968,10 +968,15 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
 (Ne pas utiliser cette option si vous ne savez pas ce qu'elle fait)"/>
                 </Delimiter>
 
-                <Cloud title="Cloud">
+                <Cloud title="Cloud &amp; Lien">
                     <Item id="6262" name="Sauvegarder les paramètres dans le cloud"/>
                     <Item id="6263" name="Par défaut"/>
                     <Item id="6267" name="Chemin d'accès de votre cloud :"/>
+                    <Item id="6318" name="Paramétrage de lien cliquable"/>
+                    <Item id="6319" name="Activer"/>
+                    <Item id="6320" name="Ne pas souligner"/>
+                    <Item id="6350" name="Activer la mode d'arrière-plan"/>
+                    <Item id="6264" name="Schémas personnalisés d'URI:"/>
                 </Cloud>
 
                 <SearchEngine title="Moteur de recherche">
@@ -996,9 +1001,6 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                     <Item id="6308" name="Réduire dans la barre de notifications"/>
                     <Item id="6312" name="Surveillance de l’état des fichiers"/>
                     <Item id="6313" name="Mise à jour sans alerte"/>
-                    <Item id="6318" name="Paramétrage de lien cliquable"/>
-                    <Item id="6319" name="Activer"/>
-                    <Item id="6320" name="Ne pas souligner"/>
                     <Item id="6322" name="Ext. fichier session :"/>
                     <Item id="6323" name="Activer la mise à jour automatique"/>
                     <Item id="6324" name="Commutateur de documents (Ctrl+Tab)"/>
@@ -1006,7 +1008,6 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                     <Item id="6331" name="Afficher seulement le nom du fichier dans la barre de titre"/>
                     <Item id="6334" name="Détecter l'encodage automatiquement"/>
                     <Item id="6349" name="Utiliser &quot;DirectWrite&quot; (il pourrait améliorer le rendu des caractères spéciaux. Nécessité de redémarrage)"/>
-                    <Item id="6350" name="Activer la mode d'arrière-plan"/>
                     <Item id="6337" name="Ext. fichier espace de travail :"/>
                     <Item id="6344" name="Aperçu du document"/>
                     <Item id="6345" name="Aperçu à onglet"/>

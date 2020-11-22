@@ -2639,7 +2639,7 @@ bool isUrlSchemeSupported(INTERNET_SCHEME s, TCHAR *url)
 		case INTERNET_SCHEME_FILE:
 			return true;
 	}
-	generic_string const mySchemes = (NppParameters::getInstance()).getNppGUI()._customizedShemes + TEXT(" ");
+	generic_string const mySchemes = (NppParameters::getInstance()).getNppGUI()._uriShemes + TEXT(" ");
 	TCHAR *p = (TCHAR *)mySchemes.c_str();
 	while (*p)
 	{

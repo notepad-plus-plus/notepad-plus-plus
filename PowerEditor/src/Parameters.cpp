@@ -4442,7 +4442,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			}
 		}
 
-		else if (!lstrcmp(nm, TEXT("URL customized schemes")))
+		else if (!lstrcmp(nm, TEXT("urlCustomizedSchemes")))
 		{
 			TiXmlNode *n = childNode->FirstChild();
 			if (n)
@@ -6009,10 +6009,10 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->InsertEndChild(TiXmlText(szStr));
 	}
 
-	// <GUIConfig name="URL customized schemes">svn://</GUIConfig>
+	// <GUIConfig name="urlCustomizedSchemes">svn://</GUIConfig>
 	{
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
-		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("URL customized schemes"));
+		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("urlCustomizedSchemes"));
 		GUIConfigElement->InsertEndChild(TiXmlText(_nppGUI._customizedShemes.c_str()));
 	}
 	// <GUIConfig name = "globalOverride" fg = "no" bg = "no" font = "no" fontSize = "no" bold = "no" italic = "no" underline = "no" / >

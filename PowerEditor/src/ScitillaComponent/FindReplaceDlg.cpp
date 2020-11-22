@@ -2332,8 +2332,11 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 		}
 		else if (op == ProcessFindInFinder)
 		{
-			if (pFindersInfo && pFindersInfo->_pDestFinder)
+			if (pFindersInfo && pFindersInfo->_pDestFinder) 
+			{
+				pFinder = pFindersInfo->_pDestFinder;
 				_pFinder = pFindersInfo->_pDestFinder;
+			}
 			else
 				pFinder = _pFinder;
 		}

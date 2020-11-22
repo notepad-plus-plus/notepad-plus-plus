@@ -1344,7 +1344,7 @@ Notepad++会在所有安装结束后重新启动。
             <finder-close-this value="关闭此搜索结果"/>
             <finder-collapse-all value="全部折叠"/>
             <finder-uncollapse-all value="全部展开"/>
-            <finder-copy value="复制选择行"/>
+            <finder-copy value="复制选中的行"/>
             <finder-copy-verbatim value="复制"/>
             <finder-select-all value="全部选择"/>
             <finder-clear-all value="全部清除"/>

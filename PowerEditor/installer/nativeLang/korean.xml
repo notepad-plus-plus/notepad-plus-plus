@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <NotepadPlus>
-    <!-- <localization work version="7.8.1~7.9" nick="Sapziller" name="ByungJo Yoon" mail="yunbj@naver.com"/> <localization work version=6.5.3~7.4.2 name="도움돌" mail= "domddol@gmail.com"/> <localization work version=1 and 6.1.5 nick= "taggon" name= "Taegon Kim" mail= "gonom9@gmail.com"/> <localization work version=2 nick= "" name= "JiHui Choi" mail= "jihui.choi@gmail.com"/> <localization work version=5.4R2 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=4 nick= "Sapziller" name= "Byungjo Yoon" mail= "yunbj@naver.com"/> <localization work version=5.8 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=5.9 nick= "Syonsi" name= "Kim JunHo" mail= "syonsi@live.com"/> <localization work version=5.92 nick= "Global DOL+I" name= "Lee Junho" mail= "riifjv@live.com"/> -->
-<Native-Langue name="한국어" filename="korean.xml" version="7.9">
+    <!-- <localization work version="7.8.1~7.9.2" nick="Sapziller" name="ByungJo Yoon" mail="yunbj@naver.com"/> <localization work version=6.5.3~7.4.2 name="도움돌" mail= "domddol@gmail.com"/> <localization work version=1 and 6.1.5 nick= "taggon" name= "Taegon Kim" mail= "gonom9@gmail.com"/> <localization work version=2 nick= "" name= "JiHui Choi" mail= "jihui.choi@gmail.com"/> <localization work version=5.4R2 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=4 nick= "Sapziller" name= "Byungjo Yoon" mail= "yunbj@naver.com"/> <localization work version=5.8 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=5.9 nick= "Syonsi" name= "Kim JunHo" mail= "syonsi@live.com"/> <localization work version=5.92 nick= "Global DOL+I" name= "Lee Junho" mail= "riifjv@live.com"/> -->
+<Native-Langue name="한국어" filename="korean.xml" version="7.9.2">
 <Menu>
 <Main>
 <!--  Main Menu Entries --> 
@@ -37,7 +37,8 @@
   <Item subMenuId="search-markAll" name="책갈피 모두 적용"/> 
   <Item subMenuId="search-unmarkAll" name="책갈피 모두 해제"/> 
   <Item subMenuId="search-jumpUp" name="위로 이동"/> 
-  <Item subMenuId="search-jumpDown" name="아래로 이동"/> 
+  <Item subMenuId="search-jumpDown" name="아래로 이동"/>
+  <Item subMenuId="search-copyStyledText" name="형식을 가진 텍스트 복사"/>
   <Item subMenuId="search-bookmark" name="책갈피"/> 
   <Item subMenuId="view-currentFileIn" name="파일 보기"/>
   <Item subMenuId="view-showSymbol" name="기호 보기"/> 
@@ -75,7 +76,8 @@
   <Item id="41001" name="새 파일(&amp;N)"/> 
   <Item id="41002" name="열기(&amp;O)"/> 
   <Item id="41019" name="탐색기"/> 
-  <Item id="41020" name="CMD"/> 
+  <Item id="41020" name="CMD"/>
+  <Item id="41025" name="폴더를 작업 영역으로"/>
   <Item id="41003" name="닫기(&amp;C)"/> 
   <Item id="41004" name="모두 닫기(&amp;e)"/> 
   <Item id="41005" name="다른 문서 모두 닫기"/> 
@@ -95,7 +97,7 @@
   <Item id="41016" name="휴지통으로 이동"/> 
   <Item id="41017" name="파일 이름 변경..."/> 
   <Item id="41021" name="최근 닫은 파일 복원"/> 
-  <Item id="41022" name="Workspace으로 폴더 열기(&amp;W)"/>
+  <Item id="41022" name="작업 영역으로 폴더 열기(&amp;W)"/>
   <Item id="41023" name="기본 뷰어로 열기"/>
   <Item id="42001" name="잘라내기(&amp;T)"/> 
   <Item id="42002" name="복사(&amp;C)"/> 
@@ -108,6 +110,7 @@
   <Item id="42008" name="탭 삽입 (들여쓰기)"/> 
   <Item id="42009" name="탭 제거 (내어쓰기)"/> 
   <Item id="42010" name="현재 줄 복제"/> 
+  <Item id="42079" name="중복된 줄 제거"/>
   <Item id="42077" name="연속으로 중복된 줄 삭제"/>
   <Item id="42012" name="줄 나누기"/> 
   <Item id="42013" name="줄 합치기"/> 
@@ -115,6 +118,8 @@
   <Item id="42015" name="현재 줄 아래로 이동"/> 
   <Item id="42059" name="사전식 오름차순 정렬"/>
   <Item id="42060" name="사전식 내림차순 정렬"/>
+  <Item id="42080" name="사전식 오름차순 정렬(대소문자 무시)"/>
+  <Item id="42081" name="사전식 내림차순 정렬(대소문자 무시)"/>
   <Item id="42061" name="정수 오름차순 정렬"/>
   <Item id="42062" name="정수 내림차순 정렬"/>
   <Item id="42063" name="소수(쉼표) 오름차순 정렬"/>
@@ -153,6 +158,7 @@
   <Item id="42048" name="이진 내용 복사"/> 
   <Item id="42049" name="이진 내용 잘라내기"/> 
   <Item id="42050" name="이진 내용 붙여넣기"/> 
+  <Item id="42082" name="연결 복사하기"/>
   <Item id="42037" name="열 모드..."/> 
   <Item id="42034" name="열 편집기..."/> 
   <Item id="42051" name="문자 패널"/> 
@@ -194,29 +200,36 @@
   <Item id="43013" name="파일에서 찾기"/> 
   <Item id="43014" name="다음 찾기(일시적)"/> 
   <Item id="43015" name="이전 찾기(일시적)"/> 
-  <Item id="43022" name="1번째 스타일 적용"/> 
-  <Item id="43023" name="1번째 스타일 해제"/> 
-  <Item id="43024" name="2번째 스타일 적용"/> 
-  <Item id="43025" name="2번째 스타일 해제"/> 
-  <Item id="43026" name="3번째 스타일 적용"/> 
-  <Item id="43027" name="3번째 스타일 해제"/> 
-  <Item id="43028" name="4번째 스타일 적용"/> 
-  <Item id="43029" name="4번째 스타일 해제"/> 
-  <Item id="43030" name="5번째 스타일 적용"/> 
-  <Item id="43031" name="5번째 스타일 해제"/> 
-  <Item id="43032" name="모든 스타일 해제"/> 
-  <Item id="43033" name="1번째 스타일"/> 
-  <Item id="43034" name="2번째 스타일"/> 
-  <Item id="43035" name="3번째 스타일"/> 
-  <Item id="43036" name="4번째 스타일"/> 
-  <Item id="43037" name="5번째 스타일"/> 
-  <Item id="43038" name="스타일 찾기"/> 
-  <Item id="43039" name="1번째 스타일"/> 
-  <Item id="43040" name="2번째 스타일"/> 
-  <Item id="43041" name="3번째 스타일"/> 
-  <Item id="43042" name="4번째 스타일"/> 
-  <Item id="43043" name="5번째 스타일"/> 
-  <Item id="43044" name="스타일 찾기"/> 
+  <Item id="43022" name="1번째 형식 적용"/> 
+  <Item id="43023" name="1번째 형식 해제"/> 
+  <Item id="43024" name="2번째 형식 적용"/> 
+  <Item id="43025" name="2번째 형식 해제"/> 
+  <Item id="43026" name="3번째 형식 적용"/> 
+  <Item id="43027" name="3번째 형식 해제"/> 
+  <Item id="43028" name="4번째 형식 적용"/> 
+  <Item id="43029" name="4번째 형식 해제"/> 
+  <Item id="43030" name="5번째 형식 적용"/> 
+  <Item id="43031" name="5번째 형식 해제"/> 
+  <Item id="43032" name="모든 형식 해제"/> 
+  <Item id="43033" name="1번째 형식"/> 
+  <Item id="43034" name="2번째 형식"/> 
+  <Item id="43035" name="3번째 형식"/> 
+  <Item id="43036" name="4번째 형식"/> 
+  <Item id="43037" name="5번째 형식"/> 
+  <Item id="43038" name="형식 찾기"/> 
+  <Item id="43039" name="1번째 형식"/> 
+  <Item id="43040" name="2번째 형식"/> 
+  <Item id="43041" name="3번째 형식"/> 
+  <Item id="43042" name="4번째 형식"/> 
+  <Item id="43043" name="5번째 형식"/> 
+  <Item id="43044" name="형식 찾기"/> 
+  <Item id="43055" name="1번째 형식"/> 
+  <Item id="43056" name="2번째 형식"/> 
+  <Item id="43057" name="3번째 형식"/> 
+  <Item id="43058" name="4번째 형식"/> 
+  <Item id="43059" name="5번째 형식"/> 
+  <Item id="43060" name="모든 형식"/> 
+  <Item id="43061" name="형식 찾기 (북마크)"/> 
   <Item id="43045" name="찾기 결과 창"/> 
   <Item id="43046" name="다음 찾기 결과"/> 
   <Item id="43047" name="이전 찾기 결과"/> 
@@ -288,7 +301,7 @@
   <Item id="10003" name="새 창으로 이동(창 이동)"/> 
   <Item id="10004" name="새 창에서 열기(창 복사)"/> 
 
-  <Item id="46001" name="스타일 설정..."/> 
+  <Item id="46001" name="형식 설정..."/> 
   <Item id="46250" name="언어 정의..."/> 
   <Item id="46300" name="사용자 정의 언어 폴더 열기..."/>
   <Item id="46180" name="사용자 정의"/> 
@@ -337,13 +350,13 @@
   <Item CMID="1" name="현재 문서만 남기고 닫기"/> 
   <Item CMID="2" name="저장"/> 
   <Item CMID="3" name="다른 이름으로 저장..."/> 
-  <Item CMID="4" name="인쇄"/> 
+  <Item CMID="4" name="인쇄..."/> 
   <Item CMID="5" name="분할 창으로 이동"/> 
   <Item CMID="6" name="분할 창으로 복사"/> 
   <Item CMID="7" name="전체 파일 경로를 클립보드에 복사"/> 
   <Item CMID="8" name="파일명을 클립보드에 복사"/> 
   <Item CMID="9" name="현재 디렉토리를 클립보드에 복사"/> 
-  <Item CMID="10" name="이름 변경"/> 
+  <Item CMID="10" name="이름 변경..."/> 
   <Item CMID="11" name="휴지통으로 이동"/> 
   <Item CMID="12" name="읽기 전용으로 설정"/> 
   <Item CMID="13" name="읽기 전용 해제"/> 
@@ -356,6 +369,7 @@
   <Item CMID="20" name="CMD에서 현재 폴더 열기"/> 
   <Item CMID="21" name="기본 프로그램으로 열기"/>
   <Item CMID="22" name="저장된 문서 모두 닫기"/>
+  <Item CMID="23" name="포함된 폴더를 작업 영역으로 열기"/>
   </TabBar>
   </Menu>
 
@@ -397,6 +411,7 @@
   <Item id="1703" name="새 줄과 일치(&amp;.)"/> 
   <Item id="1721" name="▲"/>
   <Item id="1723" name="▼ 다음 찾기"/>
+  <Item id="1725" name="표시된 텍스트 복사하기"/>
 </Find>
 
 <FindCharsInRange title="다음 범위에서 문자 찾기...">
@@ -463,7 +478,7 @@
     <Item id="2"    name="닫기"/>
 </PluginsAdminDlg>
 
-<StyleConfig title="스타일 설정">
+<StyleConfig title="형식 설정">
   <Item id="2" name="취소"/> 
   <Item id="2301" name="저장 후 닫기"/> 
   <Item id="2303" name="투명도"/> 
@@ -475,9 +490,9 @@
   <Item id="2207" name="배경색"/> 
   <Item id="2208" name="글꼴이름:"/> 
   <Item id="2209" name="크기:"/> 
-  <Item id="2211" name="스타일:"/> 
-  <Item id="2212" name="색상 스타일"/> 
-  <Item id="2213" name="글꼴 스타일"/> 
+  <Item id="2211" name="형식:"/> 
+  <Item id="2212" name="색상 형식"/> 
+  <Item id="2213" name="글꼴 형식"/> 
   <Item id="2214" name="기본 확장자:"/> 
   <Item id="2216" name="사용자 확장자:"/> 
   <Item id="2218" name="밑줄"/> 
@@ -518,11 +533,11 @@
     <Item id="45001" name="Windows 줄 끝 문자로 변환 (CR LF)"/>
     <Item id="45002" name="Unix 줄 끝 문자로 변환 (LF)"/>
     <Item id="45003" name="Macintosh 줄 끝 문자로 변환 (CR)"/>
-    <Item id="43022" name="첫번째 형식을 사용하여 찾기 결과에 책갈피 표시"/>
-    <Item id="43024" name="두번째 형식을 사용하여 찾기 결과에 책갈피 표시"/>
-    <Item id="43026" name="세번째 형식을 사용하여 찾기 결과에 책갈피 표시"/>
-    <Item id="43028" name="네번째 형식을 사용하여 찾기 결과에 책갈피 표시"/>
-    <Item id="43030" name="다섯번째 형식을 사용하여 찾기 결과에 책갈피 표시"/>
+    <Item id="43022" name="첫번째 형식을 사용하여 텍스트에 책갈피 표시"/>
+    <Item id="43024" name="두번째 형식을 사용하여 텍스트에 책갈피 표시"/>
+    <Item id="43026" name="세번째 형식을 사용하여 텍스트에 책갈피 표시"/>
+    <Item id="43028" name="네번째 형식을 사용하여 텍스트에 책갈피 표시"/>
+    <Item id="43030" name="다섯번째 형식을 사용하여 텍스트에 책갈피 표시"/>
     <Item id="43023" name="첫번째 형식의 책갈피 제거"/>
     <Item id="43025" name="두번째 형식의 책갈피 제거"/>
     <Item id="43027" name="세번째 형식의 책갈피 제거"/>
@@ -541,6 +556,13 @@
     <Item id="43042" name="네번째 형식의 다음 책갈피"/>
     <Item id="43043" name="다섯번째 형식의 다음 책갈피"/>
     <Item id="43044" name="책갈피 창으로 만든 다음 책갈피"/>
+    <Item id="43055" name="형식을 가진 텍스트 복사 - 첫 번째 형식"/>
+    <Item id="43056" name="형식을 가진 텍스트 복사 - 두 번째 형식"/>
+    <Item id="43057" name="형식을 가진 텍스트 복사 - 세 번째 형식"/>
+    <Item id="43058" name="형식을 가진 텍스트 복사 - 네 번째 형식"/>
+    <Item id="43059" name="형식을 가진 텍스트 복사 - 다섯 번째 형식"/>
+    <Item id="43060" name="형식을 가진 텍스트 복사 - 모든 형식"/>
+    <Item id="43061" name="형식을 가진 텍스트 복사 - 형식 찾기 (북마크)"/>
     <Item id="44100" name="Firefox로 현재 파일 보기"/>
     <Item id="44101" name="Chrome으로 현재 파일 보기"/>
     <Item id="44103" name="IE로 현재 파일 보기"/>
@@ -599,7 +621,7 @@
   <Item id="20011" name="투명도"/> 
   <Item id="20015" name="가져오기..."/> 
   <Item id="20016" name="내보내기..."/> 
-<StylerDialog title="스타일 옵션">
+<StylerDialog title="형식 옵션">
   <Item id="25030" name="글꼴 옵션:"/> 
   <Item id="25006" name="글자색"/> 
   <Item id="25007" name="배경색"/> 
@@ -634,22 +656,22 @@
   <Item id="2" name="취소"/> 
   </StylerDialog>
 <Folder title="폴더 &amp;&amp; 기본값">
-  <Item id="21101" name="기본 스타일"/> 
+  <Item id="21101" name="기본 형식"/> 
   <Item id="21102" name="스타일러"/> 
   <Item id="21105" name="설명서:"/> 
   <Item id="21104" name="임시 웹사이트:"/> 
   <Item id="21106" name="최대 접기 (빈 줄 포함)"/> 
-  <Item id="21220" name="접기 스타일 1:"/> 
+  <Item id="21220" name="접기 형식 1:"/> 
   <Item id="21224" name="열기:"/> 
   <Item id="21225" name="중간:"/> 
   <Item id="21226" name="닫기:"/> 
   <Item id="21227" name="스타일러"/> 
-  <Item id="21320" name="접기 스타일 2 (구분 필요):"/> 
+  <Item id="21320" name="접기 형식 2 (구분 필요):"/> 
   <Item id="21324" name="열기:"/> 
   <Item id="21325" name="중간:"/> 
   <Item id="21326" name="닫기:"/> 
   <Item id="21327" name="스타일러"/> 
-  <Item id="21420" name="주석 접기 스타일:"/> 
+  <Item id="21420" name="주석 접기 형식:"/> 
   <Item id="21424" name="열기:"/> 
   <Item id="21425" name="중간:"/> 
   <Item id="21426" name="닫기:"/> 
@@ -691,12 +713,12 @@
   <Item id="23323" name="열기"/> 
   <Item id="23324" name="중간"/> 
   <Item id="23325" name="닫기"/> 
-  <Item id="23301" name="주석 줄 스타일"/> 
+  <Item id="23301" name="주석 줄 형식"/> 
   <Item id="23124" name="스타일러"/> 
   <Item id="23122" name="열기"/> 
   <Item id="23123" name="닫기"/> 
-  <Item id="23101" name="주석 스타일"/> 
-  <Item id="23201" name="숫자 스타일"/> 
+  <Item id="23101" name="주석 형식"/> 
+  <Item id="23201" name="숫자 형식"/> 
   <Item id="23220" name="스타일러"/> 
   <Item id="23230" name="접두사 1"/> 
   <Item id="23232" name="접두사 2"/> 
@@ -711,7 +733,7 @@
   <Item id="23247" name="둘 다"/> 
   </Comment>
 <Operator title="연산자 &amp;&amp; 구분 기호">
-  <Item id="24101" name="연산자 스타일"/> 
+  <Item id="24101" name="연산자 형식"/> 
   <Item id="24113" name="스타일러"/> 
   <Item id="24116" name="연산자 1"/> 
   <Item id="24117" name="연산자 2 (구분 기호 필요)"/> 
@@ -786,6 +808,8 @@
   <Item id="6125" name="문서 목록 패널"/> 
   <Item id="6126" name="표시"/> 
   <Item id="6127" name="확장 열 숨기기"/>
+
+  <Item id="6128" name="대체 아이콘"/>
 </Global>
 <Scintillas title="편집">
   <Item id="6216" name="커서 설정"/> 
@@ -793,37 +817,37 @@
   <Item id="6219" name="깜빡임 정도:"/> 
   <Item id="6221" name="빠름"/> 
   <Item id="6222" name="느림"/> 
-  <Item id="6224" name="다중 편집 설정"/> 
-  <Item id="6225" name="가능 (Ctrl+마우스 클릭/선택)"/> 
-  <Item id="6201" name="폴더 스타일"/> 
+  <Item id="6225" name="다중 편집 가능 (Ctrl+마우스 클릭/선택)"/>
+  <Item id="6227" name="자동 줄바꿈"/>
+  <Item id="6228" name="기본값"/>
+  <Item id="6229" name="정렬"/>
+  <Item id="6230" name="들여쓰기"/>
+  <Item id="6234" name="터치패드 문제로 고급 스크롤 기능 비활성화"/>
+  <Item id="6214" name="현재 줄 강조 활성화"/>
+  <Item id="6215" name="부드러운 폰트 활성화"/>
+  <Item id="6236" name="마지막 줄 이후로 스크롤 가능"/>
+  <Item id="6239" name="선택 영역 바깥에서 우클릭해도 선택 유지"/>
+</Scintillas>
+
+<MarginsBorderEdge title="여백/경계선/가장자리">
+  <Item id="6201" name="폴더 형식"/> 
   <Item id="6202" name="단순"/> 
   <Item id="6203" name="화살표"/> 
   <Item id="6204" name="원형 트리"/> 
   <Item id="6205" name="박스 트리"/> 
   <Item id="6226" name="없음"/> 
-
-  <Item id="6227" name="자동 줄바꿈"/> 
-  <Item id="6228" name="기본값"/> 
-  <Item id="6229" name="정렬"/> 
-  <Item id="6230" name="들여쓰기"/> 
-
-  <Item id="6206" name="줄 번호 표시"/> 
+  <Item id="6291" name="줄 번호"/>
+  <Item id="6206" name="표시"/>
+  <Item id="6292" name="동적 넓이"/>
+  <Item id="6293" name="고정 넓이"/>
   <Item id="6207" name="책갈피 표시"/> 
-  <Item id="6208" name="열표식 표시"/> 
-  <Item id="6234" name="고급 스크롤 기능 해제 
-(터치패드 문제 시)" /> 
-
   <Item id="6211" name="열표식 설정" /> 
   <Item id="6213" name="배경 모드"/> 
   <Item id="6237" name="십진수로 위치를 지정하여 열 표식을 추가하십시오.
 숫자 사이를 공백으로 구분하여 여러 개의 열 표식을 지정할 수 있습니다."/>
-  <Item id="6214" name="현재 줄 강조"/> 
-  <Item id="6215" name="부드러운 글꼴 사용"/> 
   <Item id="6231" name="테두리 폭"/>
   <Item id="6235" name="가장자리 없음"/>
-  <Item id="6236" name="마지막 줄 넘어 스크롤 사용"/>
-  <Item id="6239" name="선택 영역 바깥에서 우클릭해도 선택 영역 유지"/>
-</Scintillas>
+</MarginsBorderEdge>
 
 <NewDoc title="새 문서">
   <Item id="6401" name="형식"/> 
@@ -846,7 +870,7 @@
   <Item id="6414" name="현재 문서 디렉토리"/> 
   <Item id="6415" name="마지막 디렉토리를 기억"/> 
   <Item id="6430" name="새로운 스타일로 대화 저장 (파일 확장 기능 없이)"/>
-  <Item id="6431" name="폴더 드롭시 Workspace로 Folder를 실행하는 대신 폴더의 모든 파일 열기"/>
+  <Item id="6431" name="폴더 드롭시 작업 영역으로 Folder를 실행하는 대신 폴더의 모든 파일 열기"/>
 </DefaultDir>
 
 <FileAssoc title="파일 연결">
@@ -982,10 +1006,15 @@
 (잘 모르면 설정하지 마세요)"/>
 </Delimiter>
 
-<Cloud title="클라우드">
+<Cloud title="클라우드 &amp; 연결">
    <Item id="6262" name="클라우드 설정"/>
    <Item id="6263" name="클라우드 없음"/>
    <Item id="6267" name="클라우드 위치 경로를 설정:"/>
+   <Item id="6318" name="클릭 가능한 연결 설정"/>
+   <Item id="6319" name="사용 가능"/>
+   <Item id="6320" name="밑줄 없음"/>
+   <Item id="6350" name="꽉채우기 기능 사용"/>
+   <Item id="6264" name="사용자 정의 URI 스킴:"/>
 </Cloud>
 
 <SearchEngine title="검색 엔진">
@@ -1008,18 +1037,15 @@
   <Item id="6308" name="시스템 트레이로 최소화"/> 
   <Item id="6312" name="파일 상태 자동 확인"/> 
   <Item id="6313" name="경고 없이 업데이트"/> 
-  <Item id="6318" name="클릭 가능한 링크 설정"/> 
   <Item id="6325" name="업데이트 후 마지막 줄로 이동"/> 
-  <Item id="6319" name="사용"/> 
-  <Item id="6320" name="밑줄 표시 안함"/> 
   <Item id="6322" name="세션 파일 확장자:"/> 
-  <Item id="6323" name="Notepad++ 자동으로 업데이트"/> 
+  <Item id="6323" name="Notepad++ 자동으로 업데이트"/>
+  <Item id="6351" name="저장 창의 파일 확장자 필터를 일반 문자열의 .txt 대신 .* 로 설정"/>
   <Item id="6324" name="문서 전환 (Ctrl+Tab)"/> 
   <Item id="6331" name="제목 표시줄에 파일 이름만 표시"/> 
   <Item id="6334" name="문자 인코딩 자동 감지"/> 
   <Item id="6349" name="바로 쓰기 사용 (특수 문자 그리기 속도가 개선될 수 있음, Notepad++ 재시작 필요)"/>
-  <Item id="6350" name="꽉채우기 사용 가능"/>
-  <Item id="6337" name="Workspace 파일 확장자:"/>
+  <Item id="6337" name="작업 영역 파일 확장자:"/>
   <Item id="6114" name="사용"/> 
   <Item id="6117" name="가장 최근 사용한 문서로 이동"/> 
   <Item id="6344" name="문서 엿보기"/>
@@ -1057,7 +1083,7 @@
   <Item id="1" name="확인"/> 
   <Item id="2" name="취소"/> 
 </ColumnEditor>
-<FindInFinder title="찾기">
+<FindInFinder title="찾기 결과에서 찾기">
   <Item id="1"    name="모두 찾기"/>
   <Item id="2"    name="닫기"/>
   <Item id="1711" name="찾을 단어: (&amp;F)"/>
@@ -1082,97 +1108,96 @@
 <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
   <ContextMenuXmlEditWarning title="컨텍스트 메뉴 편집" message="contextMenu.xml 파일을 수정하면 Notepad++의 팝업 컨텍스트 메뉴를 바꿀 수 있습니다.  
 변경사항을 적용하려면 Notepad++을 다시 시작해야 합니다."/> 
-  <NppHelpAbsentWarning title="파일이 없습니다!" message="
-파일이 없습니다. Notepad++ 사이트에서 다운로드 받으시기 바랍니다."/> 
   <SaveCurrentModifWarning title="변경사항 저장" message="현재 변경된 사항을 저장해야 합니다. 
 저장된 모든 변경사항은 되돌릴 수 없습니다.  
 
-그래도 계속 하시겠습니까?"/> 
+그래도 계속 하시겠습니까?"/> <!-- HowToReproduce: when you openned file is modified but unsaved yet, and you are changing file encoding. -->
   <LoseUndoAbilityWarning title="복원 불가!" message="현재 변경된 사항을 저장해야 합니다. 
 저장된 모든 변경사항은 되돌릴 수 없습니다.  
 
-그래도 계속 하시겠습니까?"/> 
-  <CannotMoveDoc title="새로운 Notepad++ 인스턴스로 이동" message="문서가 수정되었습니다. 저장 후 다시 시도해 주십시오."/> 
+그래도 계속 하시겠습니까?"/> <!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
+  <CannotMoveDoc title="새로운 Notepad++ 인스턴스로 이동" message="문서가 수정되었습니다. 저장 후 다시 시도해 주십시오."/>  <!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
   <DocReloadWarning title="다시 불러오기" message="변경 사항을 무시하고 현재 파일을 다시 불러오시겠습니까?"/> 
   <FileLockedWarning title="저장 실패" message="다른 프로그램에서 파일을 사용하는지 확인하십시오."/> 
-  <FileAlreadyOpenedInNpp title="" message="이미 Notepad++에 열려 있는 파일입니다."/> 
-  <DeleteFileFailed title="파일 삭제" message="파일을 삭제하지 못했습니다"/> 
+  <FileAlreadyOpenedInNpp title="" message="이미 Notepad++에 열려 있는 파일입니다."/> <!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
+  <RenameTabTemporaryNameAlreadyInUse title="이름바꾸기 실패w" message="이름이 이미 다른 탭에서 사용중입니다."/> <!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
+  <DeleteFileFailed title="파일 삭제" message="파일을 삭제하지 못했습니다"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 
-<NbFileToOpenImportantWarning title="열려는 파일이 너무 많습니다" message="$INT_REPLACE$개 파일을 열려고 합니다. 
-이 파일을 모두 다 여시겠습니까?"/> 
-<SettingsOnCloudError title="클라우드 설정" message="클라우드 설정 경로가 읽기 전용 드라이브로 설정되어 있거나,
+  <NbFileToOpenImportantWarning title="열려는 파일이 너무 많습니다" message="$INT_REPLACE$개 파일을 열려고 합니다. 
+이 파일을 모두 다 여시겠습니까?"/> <!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into Notepad++. -->
+  <SettingsOnCloudError title="클라우드 설정" message="클라우드 설정 경로가 읽기 전용 드라이브로 설정되어 있거나,
 쓰기에 대한 액세스 권한이 필요한 폴더인 것 같습니다.
 클라우드 설정은 취소될 것입니다. 기본 설정에서 일관된 값으로 재설정하십시오."/>
-<FilePathNotFoundWarning title="파일 열기" message="열려는 파일이 존재하지 않습니다."/>
-<SessionFileInvalidError title="세션을 로드할 수 없습니다." message="세션 파일이 손상되었거나 유효하지 않습니다."/>
-    <DroppingFolderAsProjectModeWarning title="잘못된 동작" message="폴더를 프로젝트로 사용하고 있어서, 파일과 폴더를 동시에 드롭할 수 없습니다.
+  <FilePathNotFoundWarning title="파일 열기" message="열려는 파일이 존재하지 않습니다."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+  <SessionFileInvalidError title="세션을 로드할 수 없습니다." message="세션 파일이 손상되었거나 유효하지 않습니다."/> <!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
+  <DroppingFolderAsProjectModeWarning title="잘못된 동작" message="폴더를 프로젝트로 사용하고 있어서, 파일과 폴더를 동시에 드롭할 수 없습니다.
 이 동작을 사용하기 위해서는 설정의 &quot;기본 디렉토리&quot; 항목의 &quot;폴더 드롭시 작업 영역으로 여는 대신 폴더의 모든 파일 열기&quot; 를 선택하십시오"/>
-            <SortingError title="정렬 오류" message="$INT_REPLACE$ 줄 때문에 숫자 정렬을 수행할 수 없습니다."/>
-            <ColumnModeTip title="열 모드 팁" message="열 모드로 변경할 때 &quot;ALT + 마우스 선택&quot; 이나 &quot;Alt+Shift+방향키&quot; 를 사용하세요."/>
-            <BufferInvalidWarning title="저장 실패" message="저장할 수 없습니다: 버퍼가 잘못되었습니다."/>
-            <DoCloseOrNot title="파일 보존" message="&quot;$STR_REPLACE$&quot; 은 더 이상 존재하지 않습니다.
+  <SortingError title="정렬 오류" message="$INT_REPLACE$ 줄 때문에 숫자 정렬을 수행할 수 없습니다."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+  <ColumnModeTip title="열 모드 팁" message="열 모드로 변경할 때 &quot;ALT + 마우스 선택&quot; 이나 &quot;Alt+Shift+방향키&quot; 를 사용하세요."/>
+  <BufferInvalidWarning title="저장 실패" message="저장할 수 없습니다: 버퍼가 잘못되었습니다."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+  <DoCloseOrNot title="파일 보존" message="&quot;$STR_REPLACE$&quot; 은 더 이상 존재하지 않습니다.
 파일을 보존하시겠습니까?"/>
-            <DoDeleteOrNot title="파일 삭제" message="&quot;$STR_REPLACE$&quot;
+  <DoDeleteOrNot title="파일 삭제" message="&quot;$STR_REPLACE$&quot;
 을 휴지통으로 이동하고, 편집기에서 닫으려고 합니다.
 계속하시겠습니까?"/>
-            <NoBackupDoSaveFile title="저장" message="백업 파일을 찾을 수 없습니다 (외부에서 삭제).
+  <NoBackupDoSaveFile title="저장" message="백업 파일을 찾을 수 없습니다 (외부에서 삭제).
 저장하지 않으면 데이터를 잃게 됩니다.
 &quot;$STR_REPLACE$&quot; 에 대한 변경 내용을 저장할까요?"/>
-            <DoReloadOrNot title="다시 읽기" message="&quot;$STR_REPLACE$&quot;
+  <DoReloadOrNot title="다시 읽기" message="&quot;$STR_REPLACE$&quot;
 
 다른 프로그램에서 파일을 변경했습니다.
 다시 읽어들이시겠습니까?"/>
-            <DoReloadOrNotAndLooseChange title="다시 읽기" message="&quot;$STR_REPLACE$&quot;
+  <DoReloadOrNotAndLooseChange title="다시 읽기" message="&quot;$STR_REPLACE$&quot;
 
 다른 프로그램에서 파일을 변경했습니다.
 파일을 다시 읽어, Notepad++의 변경 사항을 취소하시겠습니까?"/>
-            <PrehistoricSystemDetected title="구시대의 유물 감지" message="오래된 장비를 사용하는 것 같습니다. 이 기능은 최신 장비에서만 동작합니다. 죄송합니다."/>
-            <XpUpdaterProblem title="Notepad++ 업데이터" message="Nodepad++업데이터는 보안 문제로 인해 XP 에서 동작하지 않습니다.
-Nodepad++ 홈페이지에서 직접 다운로드 받으시겠습니까?"/>
-            <GUpProxyConfNeedAdminMode title="프록시 설정" message="프록시 설정을 위해 관리자 모드로 재실행해 주세요."/>
-            <DocTooDirtyToMonitor title="모니터링 오류" message="이 문서는 저장되지 않았습니다. 모니터링을 하기 전에 변경 사항을 저장해 주세요."/>
-            <DocNoExistToMonitor title="모니터링 오류" message="모니터링을 위해서는 파일이 있어야 합니다."/>
-            <FileTooBigToOpen title="파일 크기 오류" message="Notepad++에서 열기에는 파일이 너무 큽니다."/>
-            <CreateNewFileOrNot title="새 파일 만들기" message="&quot;$STR_REPLACE$&quot; 이 없습니다. 만드시겠습니까?"/>
-            <CreateNewFileError title="새 파일 만들기" message="&quot;$STR_REPLACE$&quot; 을 만들 수 없습니다."/>
-            <OpenFileError title="오류" message="&quot;$STR_REPLACE$&quot; 을 열 수 없습니다."/>
-            <FileBackupFailed title="백업 실패" message="이전 버전의 파일을 백업 디렉토리 &quot;$STR_REPLACE$&quot; 에 저장할 수 없었습니다.
+  <PrehistoricSystemDetected title="구시대의 유물 감지" message="오래된 장비를 사용하는 것 같습니다. 이 기능은 최신 장비에서만 동작합니다. 죄송합니다."/>  <!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
+  <XpUpdaterProblem title="Notepad++ 업데이터" message="Nodepad++업데이터는 보안 문제로 인해 XP 에서 동작하지 않습니다.
+Nodepad++ 홈페이지에서 직접 다운로드 받으시겠습니까?"/> <!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
+  <GUpProxyConfNeedAdminMode title="프록시 설정" message="프록시 설정을 위해 관리자 모드로 재실행해 주세요."/>
+  <DocTooDirtyToMonitor title="모니터링 오류" message="이 문서는 저장되지 않았습니다. 모니터링을 하기 전에 변경 사항을 저장해 주세요."/>
+  <DocNoExistToMonitor title="모니터링 오류" message="모니터링을 위해서는 파일이 있어야 합니다."/>
+  <FileTooBigToOpen title="파일 크기 오류" message="Notepad++에서 열기에는 파일이 너무 큽니다."/> <!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
+  <CreateNewFileOrNot title="새 파일 만들기" message="&quot;$STR_REPLACE$&quot; 이 없습니다. 만드시겠습니까?"/>
+  <CreateNewFileError title="새 파일 만들기" message="&quot;$STR_REPLACE$&quot; 을 만들 수 없습니다."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+  <OpenFileError title="오류" message="&quot;$STR_REPLACE$&quot; 을 열 수 없습니다."/>
+  <FileBackupFailed title="백업 실패" message="이전 버전의 파일을 백업 디렉토리 &quot;$STR_REPLACE$&quot; 에 저장할 수 없었습니다.
 
-현재 파일을 저장하시겠습니까?"/>                
-            <LoadStylersFailed title="stylers.xml 파일 열기 실패" message="&quot;$STR_REPLACE$&quot; 파일을 열 수 없습니다."/>
-            <LoadLangsFailed title="설정" message="langs.xml 파일을 열 수 없습니다!
-langs.xml 파일을 복구하시겠습니까?"/>
-            <LoadLangsFailedFinal title="설정" message="langs.xml 파일을 열 수 없습니다!"/>
-            <FolderAsWorspaceSubfolderExists title="작업 영역 폴더 추가 오류" message="추가하려는 폴더의 하위 폴더가 존재합니다.
-&quot;$STR_REPLACE$&quot; 폴더를 추가하기 전에 패널에서 해당 폴더의 최상위 폴더를 삭제해 주세요."/>
+현재 파일을 저장하시겠습니까?"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+  <LoadStylersFailed title="stylers.xml 파일 열기 실패" message="&quot;$STR_REPLACE$&quot; 파일을 열 수 없습니다."/>
+  <LoadLangsFailed title="설정" message="langs.xml 파일을 열 수 없습니다!
+langs.xml 파일을 복구하시겠습니까?"/> <!-- HowToReproduce: Close Notepad++. Use another editor to remove all content of "langs.xml" (0 length) then save it. Open Notepad++. -->
+  <LoadLangsFailedFinal title="설정" message="langs.xml 파일을 열 수 없습니다!"/> <!-- HowToReproduce: Close Notepad++. Use another editor to make "langs.xml" an invalid xml file then save it. Open Notepad++. -->
+  <FolderAsWorspaceSubfolderExists title="작업 영역 폴더 추가 오류" message="추가하려는 폴더의 하위 폴더가 존재합니다.
+&quot;$STR_REPLACE$&quot; 폴더를 추가하기 전에 패널에서 해당 폴더의 최상위 폴더를 삭제해 주세요."/> <!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
 
-            <ProjectPanelChanged title="$STR_REPLACE$" message="작업 영역이 변경되었습니다. 저장하시겠습니까?"/>
-            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="작업 영역이 저장되지 않았습니다."/>
-            <ProjectPanelOpenDoSaveDirtyWsOrNot title="작업 영역 열기" message="작업 영역이 변경되었습니다. 프로젝트에 저장하시겠습니까?"/>
-            <ProjectPanelNewDoSaveDirtyWsOrNot title="새 작업 영역" message="작업 영역이 변경되었습니다. 프로젝트에 저장하시겠습니까?"/>
-            <ProjectPanelOpenFailed title="작업 영역 열기" message="작업 영역을 열 수 없습니다.
+  <ProjectPanelChanged title="$STR_REPLACE$" message="작업 영역이 변경되었습니다. 저장하시겠습니까?"/>
+  <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="작업 영역이 저장되지 않았습니다."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+  <ProjectPanelOpenDoSaveDirtyWsOrNot title="작업 영역 열기" message="작업 영역이 변경되었습니다. 프로젝트에 저장하시겠습니까?"/>
+  <ProjectPanelNewDoSaveDirtyWsOrNot title="새 작업 영역" message="작업 영역이 변경되었습니다. 프로젝트에 저장하시겠습니까?"/>
+  <ProjectPanelOpenFailed title="작업 영역 열기" message="작업 영역을 열 수 없습니다.
 프로젝트 파일이 잘못된 것 같습니다."/>
-            <ProjectPanelRemoveFolderFromProject title="프로젝트에서 폴더 삭제" message="모든 하위 아이템이 삭제됩니다.
+  <ProjectPanelRemoveFolderFromProject title="프로젝트에서 폴더 삭제" message="모든 하위 아이템이 삭제됩니다.
 프로젝트에서 이 폴더를 삭제하시겠습니까?"/>
-            <ProjectPanelRemoveFileFromProject title="프로젝트에서 파일 삭제" message="프로젝트에서 이 파일을 삭제하시겠습니까?"/>
-            <ProjectPanelReloadError title="작업 영역 다시 읽기" message="다시 읽을 파일을 찾지 못했습니다."/>
-            <ProjectPanelReloadDirty title="작업 영역 다시 읽기" message="작업 영역이 변경되었습니다. 다시 읽으면 모든 변경 사항이 취소됩니다.
+  <ProjectPanelRemoveFileFromProject title="프로젝트에서 파일 삭제" message="프로젝트에서 이 파일을 삭제하시겠습니까?"/>
+  <ProjectPanelReloadError title="작업 영역 다시 읽기" message="다시 읽을 파일을 찾지 못했습니다."/>
+  <ProjectPanelReloadDirty title="작업 영역 다시 읽기" message="작업 영역이 변경되었습니다. 다시 읽으면 모든 변경 사항이 취소됩니다.
 계속하시겠습니까?"/>
-            <UDLNewNameError title="UDL 오류" message="이 이름은 다른 언어에서 사용하고 있습니다.
+  <UDLNewNameError title="UDL 오류" message="이 이름은 다른 언어에서 사용하고 있습니다.
 다른 이름을 사용해 주세요."/>
-            <UDLRemoveCurrentLang title="현재 언어 삭제" message="삭제하시겠습니까?"/>
-            <SCMapperDoDeleteOrNot title="확인" message="이 단축키를 삭제하시겠습니까?"/>
-            <FindCharRangeValueError title="범위 오류" message="0에서 255까지만 입력할 수 있습니다."/>
-            <OpenInAdminMode title="저장 실패" message="파일을 저장할 수 없습니다. 보호 중인 것 같습니다.
+  <UDLRemoveCurrentLang title="현재 언어 삭제" message="삭제하시겠습니까?"/>
+  <SCMapperDoDeleteOrNot title="확인" message="이 단축키를 삭제하시겠습니까?"/>
+  <FindCharRangeValueError title="범위 오류" message="0에서 255까지만 입력할 수 있습니다."/>
+  <OpenInAdminMode title="저장 실패" message="파일을 저장할 수 없습니다. 보호 중인 것 같습니다.
 관리자 모드로 이 파일을 여시겠습니까?"/>
-            <OpenInAdminModeWithoutCloseCurrent title="저장 실패" message="파일을 저장할 수 없습니다. 보호 중인 것 같습니다.
+  <OpenInAdminModeWithoutCloseCurrent title="저장 실패" message="파일을 저장할 수 없습니다. 보호 중인 것 같습니다.
 관리자 모드로 이 파일을 여시겠습니까?"/>
-            <OpenInAdminModeFailed title="관리자 모드로 열기 실패" message="Notepad++ 을 관리자 모드로 열 수 없습니다."/>
-            <ViewInBrowser title="브라우저에서 파일 보기" message="시스템에서 프로그램을 찾을 수 없습니다."/>
-            <ExitToUpdatePlugins title="Notepad++ 종료 중" message="예를 누르면 Notepad++를 재시작합니다.
+  <OpenInAdminModeFailed title="관리자 모드로 열기 실패" message="Notepad++ 을 관리자 모드로 열 수 없습니다."/> <!-- HowToReproduce: When you have no Admin privilege and you try to save a modified file in a protected location (for example: any file in sub-folder of "C:\Program Files\". This message will appear after replying "Yes" to "Open in Admin mode" dialog. -->
+  <ViewInBrowser title="브라우저에서 파일 보기" message="시스템에서 프로그램을 찾을 수 없습니다."/>
+  <ExitToUpdatePlugins title="Notepad++ 종료 중" message="예를 누르면 Notepad++를 재시작합니다.
 계속하시겠습니까?"/>
-            <NeedToRestartToLoadPlugins title="Notepad++ 재시작이 필요합니다" message="설치한 플러그인을 사용하려면 Notepad++을 재시작해야 합니다."/>
-  </MessageBox>
+  <NeedToRestartToLoadPlugins title="Notepad++ 재시작이 필요합니다" message="설치한 플러그인을 사용하려면 Notepad++을 재시작해야 합니다."/>  <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
+</MessageBox>
 <ClipboardHistory>
   <PanelTitle name="클립보드 사용 기록"/> 
   </ClipboardHistory>
@@ -1185,7 +1210,8 @@ langs.xml 파일을 복구하시겠습니까?"/>
   <ColumnName name="이름"/>
   <ColumnPath name="경로"/>
   <ColumnType name="종류"/>
-  <ColumnType name="크기"/>
+  <ColumnSize name="크기"/>
+  <NbDocsTotal name="총 문서:"/>
 </WindowsDlg>
 <AsciiInsertion>
   <PanelTitle name="ASCII 삽입 패널"/> 
@@ -1206,6 +1232,9 @@ langs.xml 파일을 복구하시겠습니까?"/>
     <FolderAsWorkspace>
             <PanelTitle name="폴더를 작업 영역으로"/>
             <SelectFolderFromBrowserString name="작업 영역 패널의 폴더로 사용할 폴더를 선택해 주세요."/>
+            <ExpandAllFoldersTip name="모든 폴더 펼치기"/>
+            <CollapseAllFoldersTip name="모든 폴더 접기"/>
+            <LocateCurrentFileTip name="현재 파일 위치"/>
             <Menus>
                 <Item id="3511" name="삭제"/>
                 <Item id="3512" name="전부 삭제"/>
@@ -1267,23 +1296,23 @@ langs.xml 파일을 복구하시겠습니까?"/>
   </ProjectManager>
 <MiscStrings>
 <!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
-<word-chars-list-tip value="더블 클릭으로 선택하거나 &quot;전체 단어 일치&quot; 옵션을 체크해서 검색하는 동안, 현재 단어에 추가 글자를 포함하는 것을 허용합니다. "/>
+<word-chars-list-tip value="더블 클릭으로 선택하거나 &quot;전체 단어 일치&quot; 옵션을 체크해서 검색하는 동안, 현재 단어에 추가 글자를 포함하는 것을 허용합니다. "/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
 <word-chars-list-warning-begin value="주의사항: "/>
 <!-- $INT_REPLACE$ is a place holder, don't translate it -->
 <word-chars-list-space-warning value="빈 칸 $INT_REPLACE$개"/>
 <!-- $INT_REPLACE$ is a place holder, don't translate it -->
 <word-chars-list-tab-warning value="탭 $INT_REPLACE$개"/>
-<word-chars-list-warning-end value="가 문자 목록에 존재합니다."/>
+<word-chars-list-warning-end value="가 문자 목록에 존재합니다."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
 <cloud-invalid-warning value="잘못된 경로입니다."/>
 <cloud-restart-warning value="적용하려면 Notepad++를 다시 시작하십시오."/>
-<cloud-select-folder value="Notepad++의 설정을 읽고 저장할 폴더를 선택하세요"/>
+<cloud-select-folder value="Notepad++의 설정을 읽고 저장할 폴더를 선택하세요"/> <!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
 <shift-change-direction-tip value="반대쪽으로 검색하려면 Shift+Enter를 사용하십시오."/>
     <two-find-buttons-tip value="2 find buttons mode"/>
         <find-in-files-filter-tip value="cpp, cxx, h, hxx &amp;&amp; hpp 파일에서 찾기:
 *.cpp *.cxx *.h *.hxx *.hpp
 
 exe, obj &amp;&amp; log 파일을 제외한 모든 파일에서 찾기:
-*.* !*.exe !*.obj !*.log"/>
+*.* !*.exe !*.obj !*.log"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" secction of Find dialog. -->
     <find-status-top-reached value="찾기: 아래로부터 1곳을 찾았습니다. 문서의 처음에 도달하였습니다."/>
     <find-status-end-reached value="찾기: 위에서부터 1곳을 찾았습니다. 문서의 끝에 도달하였습니다."/>
     <find-status-replaceinfiles-1-replaced value="파일에서 바꾸기: 1곳을 바꾸었습니다."/>
@@ -1313,11 +1342,12 @@ exe, obj &amp;&amp; log 파일을 제외한 모든 파일에서 찾기:
     <find-status-scope-all value="파일 전체"/>
     <find-status-scope-backward value="파일 시작에서 현재 위치까지"/>
     <find-status-scope-forward value="현재 위치에서 파일 끝까지"/>
-    <finder-find-in-finder value="찾기 결과에서 찾기..."/>
-    <finder-close-this value="찾기 창 닫기"/>
+    <finder-find-in-finder value="찾기 결과들에서 찾기..."/>
+    <finder-close-this value="다음의 찾기 결과들 닫기"/>
     <finder-collapse-all value="모두 접기"/>
     <finder-uncollapse-all value="모두 펼치기"/>
-    <finder-copy value="복사"/>
+    <finder-copy value="선택된 줄 복사"/>
+	<finder-copy-verbatim value="복사"/>
     <finder-select-all value="모두 선택"/>
     <finder-clear-all value="모두 지우기"/>
     <finder-open-all value="모두 열기"/>
@@ -1350,12 +1380,13 @@ exe, obj &amp;&amp; log 파일을 제외한 모든 파일에서 찾기:
     <replace-in-files-confirm-filetype value="파일 종류 :"/>
     <replace-in-open-docs-confirm-title value="맞습니까?"/>
     <replace-in-open-docs-confirm-message value="열린 문서 전체에서 모두 바꾸시겠습니까?"/>
-    <find-result-caption value="찾기 결과"/>
+    <find-result-caption value="찾기 결과들"/>
     <find-result-title value="찾기"/>
     <find-result-title-info value="($INT_REPLACE3$ 개 파일을 검색하여 $INT_REPLACE2$ 개 파일에서 $INT_REPLACE1$ 개 일치)"/>
     <find-result-title-info-selections value="($INT_REPLACE3$ 개 파일의 $INT_REPLACE2$ 개 선택 영역에서 $INT_REPLACE1$ 개 일치)"/>
     <find-result-title-info-extra value=" - 열 필터 상태: 걸러낸 결과만 표시"/>
     <find-result-hits value="($INT_REPLACE$ 일치)"/>
+	<find-result-line-prefix value="줄"/> <!-- Must not begin with space or tab character -->
     <find-regex-zero-length-match value="길이 0 일치" />
 </MiscStrings>
 </Native-Langue>

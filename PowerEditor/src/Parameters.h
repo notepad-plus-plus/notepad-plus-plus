@@ -217,9 +217,12 @@ struct CmdLineParams
 	bool _isPreLaunch = false;
 	bool _showLoadingTime = false;
 	bool _alwaysOnTop = false;
-	int _line2go   = -1;
-	int _column2go = -1;
-	int _pos2go = -1;
+	int _line2go = 0;
+	bool _line2goPresent = false;
+	int _column2go = 0;
+	bool _column2goPresent = false;
+	int _pos2go = 0;
+	bool _pos2goPresent = false;
 
 	POINT _point;
 	bool _isPointXValid = false;
@@ -257,8 +260,11 @@ struct CmdLineParamsDTO
 	bool _openFoldersAsWorkspace = false;
 
 	int _line2go = 0;
+	bool _line2goPresent = false;
 	int _column2go = 0;
+	bool _column2goPresent = false;
 	int _pos2go = 0;
+	bool _pos2goPresent = false;
 
 	LangType _langType = L_EXTERNAL;
 
@@ -272,9 +278,12 @@ struct CmdLineParamsDTO
 		dto._openFoldersAsWorkspace = params._openFoldersAsWorkspace;
 
 		dto._line2go = params._line2go;
+		dto._line2goPresent = params._line2goPresent;
 		dto._column2go = params._column2go;
+		dto._column2goPresent = params._column2goPresent;
 		dto._pos2go = params._pos2go;
-		
+		dto._pos2goPresent = params._pos2goPresent;
+
 		dto._langType = params._langType;
 
 		return dto;

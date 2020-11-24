@@ -400,9 +400,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 	cmdLineParams._ghostTypingSpeed = getGhostTypingSpeedFromParam(params);
 
 	// getNumberFromParam should be run at the end, to not consuming the other params
-	cmdLineParams._line2go = getNumberFromParam('n', params, isParamePresent);
-    cmdLineParams._column2go = getNumberFromParam('c', params, isParamePresent);
-    cmdLineParams._pos2go = getNumberFromParam('p', params, isParamePresent);
+	cmdLineParams._line2go = getNumberFromParam('n', params, cmdLineParams._line2goPresent);
+    cmdLineParams._column2go = getNumberFromParam('c', params, cmdLineParams._column2goPresent);
+    cmdLineParams._pos2go = getNumberFromParam('p', params, cmdLineParams._pos2goPresent);
 	cmdLineParams._point.x = getNumberFromParam('x', params, cmdLineParams._isPointXValid);
 	cmdLineParams._point.y = getNumberFromParam('y', params, cmdLineParams._isPointYValid);
 

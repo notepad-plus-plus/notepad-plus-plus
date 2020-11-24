@@ -5884,10 +5884,13 @@ std::vector<generic_string> Notepad_plus::loadCommandlineParams(const TCHAR * co
 		return std::vector<generic_string>();
 	}
 
- 	LangType lt = pCmdParams->_langType;
-	int ln =  pCmdParams->_line2go;
-    int cn = pCmdParams->_column2go;
-    int cpos = pCmdParams->_pos2go;
+	LangType lt = pCmdParams->_langType;
+	int ln = pCmdParams->_line2go;
+	bool lnPresent = pCmdParams->_line2goPresent;
+	int cn = pCmdParams->_column2go;
+	bool cnPresent = pCmdParams->_column2goPresent;
+	int cpos = pCmdParams->_pos2go;
+	bool pnPresent = pCmdParams->_pos2goPresent;
 	bool recursive = pCmdParams->_isRecursive;
 	bool readOnly = pCmdParams->_isReadOnly;
 	bool openFoldersAsWorkspace = pCmdParams->_openFoldersAsWorkspace;
@@ -5917,15 +5920,33 @@ std::vector<generic_string> Notepad_plus::loadCommandlineParams(const TCHAR * co
 			pBuf->setLangType(lt);
 		}
 
-		if (ln != -1 || cpos != -1)
+		if (pnPresent || lnPresent || cnPresent)
 		{
 			//we have to move the cursor manually
 			int iView = currentView();	//store view since fileswitch can cause it to change
 			switchToFile(bufID);	//switch to the file. No deferred loading, but this way we can easily move the cursor to the right position
 
-			if (cpos != -1)
+			auto currPos = _pEditView->execute(SCI_GETCURRENTPOS);
+
+			if (pnPresent)
 			{
-				if (cpos > 0)
+				int docLength = static_cast<int>(_pEditView->execute(SCI_GETLENGTH));
+				if (docLength == 0)
+				{
+					cpos = 0;
+				}
+				else
+				{
+					if (cpos < 0)
+					{
+						// -1 means last position of file, 
+						// -2 means next-to-last position of file, etc.
+						cpos += docLength + 1;
+						cpos = max(cpos, 0);
+					}
+					cpos = min(cpos, docLength);
+				}
+				if (cpos != 0)
 				{
 					// make sure not jumping into the middle of a multibyte character
 					// or into the middle of a CR/LF pair for Windows files
@@ -5934,23 +5955,56 @@ std::vector<generic_string> Notepad_plus::loadCommandlineParams(const TCHAR * co
 				}
 				_pEditView->execute(SCI_GOTOPOS, cpos);
 			}
-			else if (cn == -1)
-			{
-				_pEditView->execute(SCI_GOTOLINE, ln-1);
-			}
 			else
 			{
-				auto pos = _pEditView->execute(SCI_FINDCOLUMN, ln-1, cn-1);
-				_pEditView->execute(SCI_GOTOPOS, pos);
+				int lineCount = static_cast<int>(_pEditView->execute(SCI_GETLINECOUNT));
+				if (!lnPresent || ln == 0)
+				{
+					// 0 means "current line"
+					ln = static_cast<int>(_pEditView->execute(SCI_LINEFROMPOSITION, currPos)) + 1;
+				}
+				else if (ln < 0)
+				{
+					// -1 means last line of file, 
+					// -2 means next-to-last line of file, etc.
+					ln += lineCount + 1;
+					ln = max(ln, 1);
+				}
+				ln = min(ln, lineCount);
+
+				if (!cnPresent)
+				{
+					// if column not specified, we will go to column 1 of the line
+					_pEditView->execute(SCI_GOTOLINE, ln - 1);
+				}
+				else  
+				{
+					auto posEndOfLine = _pEditView->execute(SCI_GETLINEENDPOSITION, ln - 1);
+					int highestCol = static_cast<int>(_pEditView->execute(SCI_GETCOLUMN, posEndOfLine)) + 1;
+					if (cn == 0)
+					{
+						// 0 means "current column"
+						cn = static_cast<int>(_pEditView->execute(SCI_GETCOLUMN, currPos)) + 1;
+					}
+					else if (cn < 0)
+					{
+						// -1 means last col of line, -2 means next-to-last col of line, etc.
+						cn += highestCol + 1;
+						cn = max(cn, 1);
+					}
+					cn = min(cn, highestCol);
+
+					auto pos = _pEditView->execute(SCI_FINDCOLUMN, ln - 1, cn - 1);
+					_pEditView->execute(SCI_GOTOPOS, pos);
+				}
 			}
 
 			_pEditView->scrollPosToCenter(_pEditView->execute(SCI_GETCURRENTPOS));
-
 			switchEditViewTo(iView);	//restore view
 		}
 	}
 	if (lastOpened != BUFFER_INVALID)
-    {
+	{
 		switchToFile(lastOpened);
 	}
 

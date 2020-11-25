@@ -1300,7 +1300,7 @@ Updated to v7.9.2:
 			<finder-close-this                    value="Закрыть этот поиск"/>
 			<finder-collapse-all         value="Свернуть всё"/>
 			<finder-uncollapse-all       value="Развернуть всё"/>
-			<finder-copy                 value="Копир. Выбранную Строку"/>
+			<finder-copy                 value="Копир. Выделенные Строки"/>
 			<finder-copy-verbatim        value="Копировать"/>
 			<finder-select-all           value="Выделить всё"/>
 			<finder-clear-all            value="Очистить всё"/>

@@ -1010,10 +1010,15 @@ Zadať môžete viacero značiek pomocou medzery na oddelenie rôznych čísel."
 (zvoľte, iba ak viete, čo robíte)"/>
                 </Delimiter>
 
-                <Cloud title="Úložisko">
-                    <Item id="6262" name="Úložisko s nastaveniami programu"/>
-                    <Item id="6263" name="Bez úložiska"/>
-                    <Item id="6267" name="Cesta k úložisku:"/>
+                <Cloud title="Odkaz na cloud">
+                    <Item id="6262" name="Nastavenia programu v cloude"/>
+                    <Item id="6263" name="Bez cloudu"/>
+                    <Item id="6267" name="Nastaviť umiestnenie v cloude:"/>
+                    <Item id="6318" name="Klikateľný odkaz na nastavenia"/>
+                    <Item id="6319" name="Povoliť"/>
+                    <Item id="6320" name="Bez podčiarknutia"/>
+                    <Item id="6350" name="Povoliť režim fullbox"/>
+                    <Item id="6264" name="Prispôsobené URI schémy:"/>
                 </Cloud>
 
                 <SearchEngine title="Vyhľadávač">

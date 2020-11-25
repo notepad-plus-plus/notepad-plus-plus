@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2020-11-21 by schnurlos (schnurlos@gmail.com)
+	last modified: 2020-11-25 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -1015,6 +1015,12 @@
 					<Item id="6262" name="Einstellungen in der Cloud speichern"/>
 					<Item id="6263" name="Aus"/>
 					<Item id="6267" name="Netzwerkpfad:"/>
+					<Item id="6318" name="Klickbare Links"/>
+					<Item id="6319" name="Aktivieren"/>
+					<Item id="6320" name="Links nicht unterstreichen"/>
+					<Item id="6350" name="Vollbox-Modus aktivieren"/>
+					<Item id="6264" name="URI-angepasste Schemas:"/>
+
 				</Cloud>
 
 				<SearchEngine title="Suchmaschine">
@@ -1037,10 +1043,7 @@
 					<Item id="6308" name="In Infobereich (Tray) minimieren"/>
 					<Item id="6312" name="Automatische Änderungserkennung"/>
 					<Item id="6313" name="Ohne Rückfrage aktualisieren"/>
-					<Item id="6318" name="Klickbare Links"/>
 					<Item id="6325" name="Nach Aktualisierung zum Ende scrollen"/>
-					<Item id="6319" name="Aktivieren"/>
-					<Item id="6320" name="Links nicht unterstreichen"/>
 					<Item id="6322" name="Sitzungsdatei-Erw.:"/>
 					<Item id="6323" name="Automatische Updates aktivieren"/>
 					<Item id="6351" name="Dateifilter für den Speicherdialog auf .* anstelle von .txt für normalen Text"/>
@@ -1048,7 +1051,6 @@
 					<Item id="6331" name="Nur Dateinamen in Titelleiste anzeigen"/>
 					<Item id="6334" name="Kodierung automatisch erkennen"/>
 					<Item id="6349" name="Verwende DirectWrite (kann die Darstellung von Sonderzeichen verbessern - Neustart von Notepad++ erforderlich)"/>
-					<Item id="6350" name="Vollbox-Modus aktivieren"/>
 					<Item id="6337" name="Arbeitsbereich Dateierw.:"/>
 					<Item id="6114" name="Aktivieren"/>
 					<Item id="6117" name="In Reihenfolge der Benutzung"/>

@@ -41,12 +41,19 @@ FunctionParsersManager::~FunctionParsersManager()
 	}
 }
 
-bool FunctionParsersManager::init(const generic_string& xmlDirPath, ScintillaEditView ** ppEditView)
+bool FunctionParsersManager::init(const generic_string& xmlDirPath, const generic_string& xmlInstalledPath, ScintillaEditView ** ppEditView)
 {
 	_ppEditView = ppEditView;
 	_xmlDirPath = xmlDirPath;
+	_xmlDirInstalledPath = xmlInstalledPath;
 
-	return getOverrideMapFromXmlTree();
+	bool isOK = getOverrideMapFromXmlTree(_xmlDirPath);
+	if (isOK)
+		return true;
+	else if (_xmlDirPath != _xmlDirInstalledPath && !_xmlDirInstalledPath.empty())
+		return getOverrideMapFromXmlTree(_xmlDirInstalledPath);
+	else
+		return false;
 }
 
 bool FunctionParsersManager::getZonePaserParameters(TiXmlNode *classRangeParser, generic_string &mainExprStr, generic_string &openSymboleStr, generic_string &closeSymboleStr, std::vector<generic_string> &classNameExprArray, generic_string &functionExprStr, std::vector<generic_string> &functionNameExprArray)
@@ -143,9 +150,9 @@ bool FunctionParsersManager::getUnitPaserParameters(TiXmlNode *functionParser, g
 }
 
 
-bool FunctionParsersManager::loadFuncListFromXmlTree(LangType lType, const generic_string& overrideId, int udlIndex)
+bool FunctionParsersManager::loadFuncListFromXmlTree(generic_string & xmlDirPath, LangType lType, const generic_string& overrideId, int udlIndex)
 {
-	generic_string funcListRulePath = _xmlDirPath;
+	generic_string funcListRulePath = xmlDirPath;
 	funcListRulePath += TEXT("\\");
 	int index = -1;
 	if (lType == L_USER) // UDL
@@ -245,9 +252,9 @@ bool FunctionParsersManager::loadFuncListFromXmlTree(LangType lType, const gener
 	return true;
 }
 
-bool FunctionParsersManager::getOverrideMapFromXmlTree()
+bool FunctionParsersManager::getOverrideMapFromXmlTree(generic_string & xmlDirPath)
 {
-	generic_string funcListRulePath = _xmlDirPath;
+	generic_string funcListRulePath = xmlDirPath;
 	funcListRulePath += TEXT("\\overrideMap.xml");
 	
 	TiXmlDocument xmlFuncListDoc(funcListRulePath);
@@ -325,7 +332,9 @@ FunctionParser * FunctionParsersManager::getParser(const AssociationInfo & assoI
 				else
 				{
 					// load it
-					if (loadFuncListFromXmlTree(static_cast<LangType>(assoInfo._langID), _parsers[assoInfo._langID]->_id))
+					if (loadFuncListFromXmlTree(_xmlDirPath, static_cast<LangType>(assoInfo._langID), _parsers[assoInfo._langID]->_id))
+						return _parsers[assoInfo._langID]->_parser;
+					else if (_xmlDirPath != _xmlDirInstalledPath && !_xmlDirInstalledPath.empty() && loadFuncListFromXmlTree(_xmlDirInstalledPath, static_cast<LangType>(assoInfo._langID), _parsers[assoInfo._langID]->_id))
 						return _parsers[assoInfo._langID]->_parser;
 				}
 			}
@@ -333,7 +342,9 @@ FunctionParser * FunctionParsersManager::getParser(const AssociationInfo & assoI
 			{
 				_parsers[assoInfo._langID] = new ParserInfo;
 				// load it
-				if (loadFuncListFromXmlTree(static_cast<LangType>(assoInfo._langID), _parsers[assoInfo._langID]->_id))
+				if (loadFuncListFromXmlTree(_xmlDirPath, static_cast<LangType>(assoInfo._langID), _parsers[assoInfo._langID]->_id))
+					return _parsers[assoInfo._langID]->_parser;
+				else if (_xmlDirPath != _xmlDirInstalledPath && !_xmlDirInstalledPath.empty() && loadFuncListFromXmlTree(_xmlDirInstalledPath, static_cast<LangType>(assoInfo._langID), _parsers[assoInfo._langID]->_id))
 					return _parsers[assoInfo._langID]->_parser;
 
 				return nullptr;
@@ -357,7 +368,9 @@ FunctionParser * FunctionParsersManager::getParser(const AssociationInfo & assoI
 					else
 					{
 						// load it
-						if (loadFuncListFromXmlTree(static_cast<LangType>(assoInfo._langID), _parsers[i]->_id, i))
+						if (loadFuncListFromXmlTree(_xmlDirPath, static_cast<LangType>(assoInfo._langID), _parsers[i]->_id, i))
+							return _parsers[i]->_parser;
+						else if (_xmlDirPath != _xmlDirInstalledPath && !_xmlDirInstalledPath.empty() && loadFuncListFromXmlTree(_xmlDirInstalledPath, static_cast<LangType>(assoInfo._langID), _parsers[i]->_id, i))
 							return _parsers[i]->_parser;
 					}
 
@@ -371,7 +384,7 @@ FunctionParser * FunctionParsersManager::getParser(const AssociationInfo & assoI
 
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 

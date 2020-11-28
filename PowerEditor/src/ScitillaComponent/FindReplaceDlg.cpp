@@ -1226,11 +1226,11 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				}
 				return TRUE;
 
-				case IDD_FINDINFILES_FIND_BUTTON :
+				case IDD_FINDINFILES_FIND_BUTTON:
 				{
 					setStatusbarMessage(TEXT(""), FSNoMessage);
 					const int filterSize = 256;
-					TCHAR filters[filterSize+1];
+					TCHAR filters[filterSize + 1];
 					filters[filterSize] = '\0';
 					TCHAR directory[MAX_PATH];
 					::GetDlgItemText(_hSelf, IDD_FINDINFILES_FILTERS_COMBO, filters, filterSize);
@@ -1238,25 +1238,30 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					_options._filters = filters;
 
 					::GetDlgItemText(_hSelf, IDD_FINDINFILES_DIR_COMBO, directory, MAX_PATH);
-					addText2Combo(directory, ::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_COMBO));
 					_options._directory = directory;
-					
-					if ((lstrlen(directory) > 0) && (directory[lstrlen(directory)-1] != '\\'))
-						_options._directory += TEXT("\\");
+					trim(_options._directory);
+					if (!_options._directory.empty())
+					{
+						addText2Combo(_options._directory.c_str(), ::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_COMBO));
+						if (_options._directory.back() != L'\\')
+						{
+							_options._directory += TEXT("\\");
+						}
 
-					HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
-                   combo2ExtendedMode(IDFINDWHAT);
-					_options._str2Search = getTextFromCombo(hFindCombo);
-					updateCombo(IDFINDWHAT);
+						HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
+						combo2ExtendedMode(IDFINDWHAT);
+						_options._str2Search = getTextFromCombo(hFindCombo);
+						updateCombo(IDFINDWHAT);
 
-					nppParamInst._isFindReplacing = true;
-					if (isMacroRecording) saveInMacro(wParam, FR_OP_FIND + FR_OP_FIF);
-					findAllIn(FILES_IN_DIR);
-					nppParamInst._isFindReplacing = false;
+						nppParamInst._isFindReplacing = true;
+						if (isMacroRecording) saveInMacro(wParam, FR_OP_FIND + FR_OP_FIF);
+						findAllIn(FILES_IN_DIR);
+						nppParamInst._isFindReplacing = false;
+					}
 				}
 				return TRUE;
 
-				case IDD_FINDINFILES_REPLACEINFILES :
+				case IDD_FINDINFILES_REPLACEINFILES:
 				{
 					std::lock_guard<std::mutex> lock(findOps_mutex);
 
@@ -1269,25 +1274,30 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					_options._filters = filters;
 
 					::GetDlgItemText(_hSelf, IDD_FINDINFILES_DIR_COMBO, directory, MAX_PATH);
-					addText2Combo(directory, ::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_COMBO));
 					_options._directory = directory;
-					
-					if ((lstrlen(directory) > 0) && (directory[lstrlen(directory)-1] != '\\'))
-						_options._directory += TEXT("\\");
-
-					if (replaceInFilesConfirmCheck(_options._directory, _options._filters))
+					trim(_options._directory);
+					if (!_options._directory.empty())
 					{
-						HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
-						_options._str2Search = getTextFromCombo(hFindCombo);
-						HWND hReplaceCombo = ::GetDlgItem(_hSelf, IDREPLACEWITH);
-						_options._str4Replace = getTextFromCombo(hReplaceCombo);
-						updateCombo(IDFINDWHAT);
-						updateCombo(IDREPLACEWITH);
+						if (replaceInFilesConfirmCheck(_options._directory, _options._filters))
+						{
+							addText2Combo(_options._directory.c_str(), ::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_COMBO));
+							if (_options._directory.back() != L'\\')
+							{
+								_options._directory += TEXT("\\");
+							}
 
-						nppParamInst._isFindReplacing = true;
-						if (isMacroRecording) saveInMacro(wParam, FR_OP_REPLACE + FR_OP_FIF);
-						::SendMessage(_hParent, WM_REPLACEINFILES, 0, 0);
-						nppParamInst._isFindReplacing = false;
+							HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
+							_options._str2Search = getTextFromCombo(hFindCombo);
+							HWND hReplaceCombo = ::GetDlgItem(_hSelf, IDREPLACEWITH);
+							_options._str4Replace = getTextFromCombo(hReplaceCombo);
+							updateCombo(IDFINDWHAT);
+							updateCombo(IDREPLACEWITH);
+
+							nppParamInst._isFindReplacing = true;
+							if (isMacroRecording) saveInMacro(wParam, FR_OP_REPLACE + FR_OP_FIF);
+							::SendMessage(_hParent, WM_REPLACEINFILES, 0, 0);
+							nppParamInst._isFindReplacing = false;
+						}
 					}
 				}
 				return TRUE;

@@ -377,7 +377,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 		params = convertParamsToNotepadStyle(pCmdLineWithoutIgnores);
 	}
 
-	bool isParamePresent;
 	bool showHelp = isInList(FLAG_HELP, params);
 	bool isMultiInst = isInList(FLAG_MULTI_INSTANCE, params);
 	bool doFunctionListExport = isInList(FLAG_FUNCLSTEXPORT, params);

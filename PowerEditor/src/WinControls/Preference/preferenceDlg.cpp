@@ -46,7 +46,7 @@ const int BORDERWIDTH_LARGEST = 30;
 const int BORDERWIDTH_INTERVAL = 1;
 
 // This int encoding array is built from "EncodingUnit encodings[]" (see EncodingMapper.cpp)
-// And DefaultNewDocDlg will use "int encoding array" to get more info from "EncodingUnit encodings[]"
+// And NewDocumentSubDlg will use "int encoding array" to get more info from "EncodingUnit encodings[]"
 static int encodings[] = {
 	1250, 
 	1251, 
@@ -102,80 +102,80 @@ INT_PTR CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 	{
 		case WM_INITDIALOG :
 		{
-			_barsDlg.init(_hInst, _hSelf);
-			_barsDlg.create(IDD_PREFERENCE_SUB_GENRAL, false, false);
-			_barsDlg.display();
+			_generalSubDlg.init(_hInst, _hSelf);
+			_generalSubDlg.create(IDD_PREFERENCE_SUB_GENRAL, false, false);
+			_generalSubDlg.display();
 			
-			_marginsDlg.init(_hInst, _hSelf);
-			_marginsDlg.create(IDD_PREFERENCE_SUB_EDITING, false, false);
+			_editingSubDlg.init(_hInst, _hSelf);
+			_editingSubDlg.create(IDD_PREFERENCE_SUB_EDITING, false, false);
 
-			_marginsBorderEdgeDlg.init(_hInst, _hSelf);
-			_marginsBorderEdgeDlg.create(IDD_PREFERENCE_SUB_MARGING_BORDER_EDGE, false, false);
+			_marginsBorderEdgeSubDlg.init(_hInst, _hSelf);
+			_marginsBorderEdgeSubDlg.create(IDD_PREFERENCE_SUB_MARGING_BORDER_EDGE, false, false);
 			
-			_settingsDlg.init(_hInst, _hSelf);
-			_settingsDlg.create(IDD_PREFERENCE_SUB_MISC, false, false);
+			_miscSubDlg.init(_hInst, _hSelf);
+			_miscSubDlg.create(IDD_PREFERENCE_SUB_MISC, false, false);
 			
-			_defaultNewDocDlg.init(_hInst, _hSelf);
-			_defaultNewDocDlg.create(IDD_PREFERENCE_SUB_NEWDOCUMENT, false, false);
+			_newDocumentSubDlg.init(_hInst, _hSelf);
+			_newDocumentSubDlg.create(IDD_PREFERENCE_SUB_NEWDOCUMENT, false, false);
 
-			_defaultDirectoryDlg.init(_hInst, _hSelf);
-			_defaultDirectoryDlg.create(IDD_PREFERENCE_SUB_DEFAULTDIRECTORY, false, false);
+			_defaultDirectorySubDlg.init(_hInst, _hSelf);
+			_defaultDirectorySubDlg.create(IDD_PREFERENCE_SUB_DEFAULTDIRECTORY, false, false);
 
-			_recentFilesHistoryDlg.init(_hInst, _hSelf);
-			_recentFilesHistoryDlg.create(IDD_PREFERENCE_SUB_RECENTFILESHISTORY, false, false);
+			_recentFilesHistorySubDlg.init(_hInst, _hSelf);
+			_recentFilesHistorySubDlg.create(IDD_PREFERENCE_SUB_RECENTFILESHISTORY, false, false);
 
 			_fileAssocDlg.init(_hInst, _hSelf);
 			_fileAssocDlg.create(IDD_REGEXT_BOX, false, false);
 
-			_printSettingsDlg.init(_hInst, _hSelf);
-			_printSettingsDlg.create(IDD_PREFERENCE_SUB_PRINT, false, false);
+			_printSubDlg.init(_hInst, _hSelf);
+			_printSubDlg.create(IDD_PREFERENCE_SUB_PRINT, false, false);
 
-			_searchingSettingsDlg.init(_hInst, _hSelf);
-			_searchingSettingsDlg.create(IDD_PREFERENCE_SUB_SEARCHING, false, false);
+			_searchingSubDlg.init(_hInst, _hSelf);
+			_searchingSubDlg.create(IDD_PREFERENCE_SUB_SEARCHING, false, false);
 
-			_langMenuDlg.init(_hInst, _hSelf);
-			_langMenuDlg.create(IDD_PREFERENCE_SUB_LANGUAGE, false, false);
+			_languageSubDlg.init(_hInst, _hSelf);
+			_languageSubDlg.create(IDD_PREFERENCE_SUB_LANGUAGE, false, false);
 
-			_highlighting.init(_hInst, _hSelf);
-			_highlighting.create(IDD_PREFERENCE_SUB_HIGHLIGHTING, false, false);
+			_highlightingSubDlg.init(_hInst, _hSelf);
+			_highlightingSubDlg.create(IDD_PREFERENCE_SUB_HIGHLIGHTING, false, false);
 
-			_backupDlg.init(_hInst, _hSelf);
-			_backupDlg.create(IDD_PREFERENCE_SUB_BACKUP, false, false);
+			_backupSubDlg.init(_hInst, _hSelf);
+			_backupSubDlg.create(IDD_PREFERENCE_SUB_BACKUP, false, false);
 
-			_autoCompletionDlg.init(_hInst, _hSelf);
-			_autoCompletionDlg.create(IDD_PREFERENCE_SUB_AUTOCOMPLETION, false, false);
+			_autoCompletionSubDlg.init(_hInst, _hSelf);
+			_autoCompletionSubDlg.create(IDD_PREFERENCE_SUB_AUTOCOMPLETION, false, false);
 
-			_multiInstDlg.init(_hInst, _hSelf);
-			_multiInstDlg.create(IDD_PREFERENCE_SUB_MULTIINSTANCE, false, false);
+			_multiInstanceSubDlg.init(_hInst, _hSelf);
+			_multiInstanceSubDlg.create(IDD_PREFERENCE_SUB_MULTIINSTANCE, false, false);
 
-			_delimiterSettingsDlg.init(_hInst, _hSelf);
-			_delimiterSettingsDlg.create(IDD_PREFERENCE_SUB_DELIMITER, false, false);
+			_delimiterSubDlg.init(_hInst, _hSelf);
+			_delimiterSubDlg.create(IDD_PREFERENCE_SUB_DELIMITER, false, false);
 
-			_settingsOnCloudDlg.init(_hInst, _hSelf);
-			_settingsOnCloudDlg.create(IDD_PREFERENCE_SUB_CLOUD_LINK, false, false);
+			_cloudAndLinkSubDlg.init(_hInst, _hSelf);
+			_cloudAndLinkSubDlg.create(IDD_PREFERENCE_SUB_CLOUD_LINK, false, false);
 
-			_searchEngineDlg.init(_hInst, _hSelf);
-			_searchEngineDlg.create(IDD_PREFERENCE_SUB_SEARCHENGINE, false, false);
+			_searchEngineSubDlg.init(_hInst, _hSelf);
+			_searchEngineSubDlg.create(IDD_PREFERENCE_SUB_SEARCHENGINE, false, false);
 
 
-			_wVector.push_back(DlgInfo(&_barsDlg, TEXT("General"), TEXT("Global")));
-			_wVector.push_back(DlgInfo(&_marginsDlg, TEXT("Editing"), TEXT("Scintillas")));
-			_wVector.push_back(DlgInfo(&_marginsBorderEdgeDlg, TEXT("Margins/Border/Edge"), TEXT("MarginsBorderEdge")));
-			_wVector.push_back(DlgInfo(&_defaultNewDocDlg, TEXT("New Document"), TEXT("NewDoc")));
-			_wVector.push_back(DlgInfo(&_defaultDirectoryDlg, TEXT("Default Directory"), TEXT("DefaultDir")));
-			_wVector.push_back(DlgInfo(&_recentFilesHistoryDlg, TEXT("Recent Files History"), TEXT("RecentFilesHistory")));
+			_wVector.push_back(DlgInfo(&_generalSubDlg, TEXT("General"), TEXT("Global")));
+			_wVector.push_back(DlgInfo(&_editingSubDlg, TEXT("Editing"), TEXT("Scintillas")));
+			_wVector.push_back(DlgInfo(&_marginsBorderEdgeSubDlg, TEXT("Margins/Border/Edge"), TEXT("MarginsBorderEdge")));
+			_wVector.push_back(DlgInfo(&_newDocumentSubDlg, TEXT("New Document"), TEXT("NewDoc")));
+			_wVector.push_back(DlgInfo(&_defaultDirectorySubDlg, TEXT("Default Directory"), TEXT("DefaultDir")));
+			_wVector.push_back(DlgInfo(&_recentFilesHistorySubDlg, TEXT("Recent Files History"), TEXT("RecentFilesHistory")));
 			_wVector.push_back(DlgInfo(&_fileAssocDlg, TEXT("File Association"), TEXT("FileAssoc")));
-			_wVector.push_back(DlgInfo(&_langMenuDlg, TEXT("Language"), TEXT("Language")));
-			_wVector.push_back(DlgInfo(&_highlighting, TEXT("Highlighting"), TEXT("Highlighting")));
-			_wVector.push_back(DlgInfo(&_printSettingsDlg, TEXT("Print"), TEXT("Print")));
-			_wVector.push_back(DlgInfo(&_searchingSettingsDlg, TEXT("Searching"), TEXT("Searching")));
-			_wVector.push_back(DlgInfo(&_backupDlg, TEXT("Backup"), TEXT("Backup")));
-			_wVector.push_back(DlgInfo(&_autoCompletionDlg, TEXT("Auto-Completion"), TEXT("AutoCompletion")));
-			_wVector.push_back(DlgInfo(&_multiInstDlg, TEXT("Multi-Instance"), TEXT("MultiInstance")));
-			_wVector.push_back(DlgInfo(&_delimiterSettingsDlg, TEXT("Delimiter"), TEXT("Delimiter")));
-			_wVector.push_back(DlgInfo(&_settingsOnCloudDlg, TEXT("Cloud & Link"), TEXT("Cloud")));
-			_wVector.push_back(DlgInfo(&_searchEngineDlg, TEXT("Search Engine"), TEXT("SearchEngine")));
-			_wVector.push_back(DlgInfo(&_settingsDlg, TEXT("MISC."), TEXT("MISC")));
+			_wVector.push_back(DlgInfo(&_languageSubDlg, TEXT("Language"), TEXT("Language")));
+			_wVector.push_back(DlgInfo(&_highlightingSubDlg, TEXT("Highlighting"), TEXT("Highlighting")));
+			_wVector.push_back(DlgInfo(&_printSubDlg, TEXT("Print"), TEXT("Print")));
+			_wVector.push_back(DlgInfo(&_searchingSubDlg, TEXT("Searching"), TEXT("Searching")));
+			_wVector.push_back(DlgInfo(&_backupSubDlg, TEXT("Backup"), TEXT("Backup")));
+			_wVector.push_back(DlgInfo(&_autoCompletionSubDlg, TEXT("Auto-Completion"), TEXT("AutoCompletion")));
+			_wVector.push_back(DlgInfo(&_multiInstanceSubDlg, TEXT("Multi-Instance"), TEXT("MultiInstance")));
+			_wVector.push_back(DlgInfo(&_delimiterSubDlg, TEXT("Delimiter"), TEXT("Delimiter")));
+			_wVector.push_back(DlgInfo(&_cloudAndLinkSubDlg, TEXT("Cloud & Link"), TEXT("Cloud")));
+			_wVector.push_back(DlgInfo(&_searchEngineSubDlg, TEXT("Search Engine"), TEXT("SearchEngine")));
+			_wVector.push_back(DlgInfo(&_miscSubDlg, TEXT("MISC."), TEXT("MISC")));
 
 
 			makeCategoryList();
@@ -186,24 +186,24 @@ INT_PTR CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			rc.bottom -= NppParameters::getInstance()._dpiManager.scaleY(50);
 			rc.left += NppParameters::getInstance()._dpiManager.scaleX(150);
 			
-			_barsDlg.reSizeTo(rc);
-			_marginsDlg.reSizeTo(rc);
-			_marginsBorderEdgeDlg.reSizeTo(rc);
-			_settingsDlg.reSizeTo(rc);
-			_defaultNewDocDlg.reSizeTo(rc);
-			_defaultDirectoryDlg.reSizeTo(rc);
-			_recentFilesHistoryDlg.reSizeTo(rc);
+			_generalSubDlg.reSizeTo(rc);
+			_editingSubDlg.reSizeTo(rc);
+			_marginsBorderEdgeSubDlg.reSizeTo(rc);
+			_miscSubDlg.reSizeTo(rc);
+			_newDocumentSubDlg.reSizeTo(rc);
+			_defaultDirectorySubDlg.reSizeTo(rc);
+			_recentFilesHistorySubDlg.reSizeTo(rc);
 			_fileAssocDlg.reSizeTo(rc);
-			_langMenuDlg.reSizeTo(rc);
-			_highlighting.reSizeTo(rc);
-			_printSettingsDlg.reSizeTo(rc);
-			_searchingSettingsDlg.reSizeTo(rc);
-			_backupDlg.reSizeTo(rc);
-			_autoCompletionDlg.reSizeTo(rc);
-			_multiInstDlg.reSizeTo(rc);
-			_delimiterSettingsDlg.reSizeTo(rc);
-			_settingsOnCloudDlg.reSizeTo(rc);
-			_searchEngineDlg.reSizeTo(rc);
+			_languageSubDlg.reSizeTo(rc);
+			_highlightingSubDlg.reSizeTo(rc);
+			_printSubDlg.reSizeTo(rc);
+			_searchingSubDlg.reSizeTo(rc);
+			_backupSubDlg.reSizeTo(rc);
+			_autoCompletionSubDlg.reSizeTo(rc);
+			_multiInstanceSubDlg.reSizeTo(rc);
+			_delimiterSubDlg.reSizeTo(rc);
+			_cloudAndLinkSubDlg.reSizeTo(rc);
+			_searchEngineSubDlg.reSizeTo(rc);
 
 			NppParameters& nppParam = NppParameters::getInstance();
 			ETDTProc enableDlgTheme = (ETDTProc)nppParam.getEnableThemeDlgTexture();
@@ -339,25 +339,25 @@ void PreferenceDlg::showDialogByIndex(size_t index) const
 
 void PreferenceDlg::destroy()
 {
-	_barsDlg.destroy();
-	_marginsDlg.destroy();
-	_marginsBorderEdgeDlg.destroy();
-	_settingsDlg.destroy();
+	_generalSubDlg.destroy();
+	_editingSubDlg.destroy();
+	_marginsBorderEdgeSubDlg.destroy();
+	_miscSubDlg.destroy();
 	_fileAssocDlg.destroy();
-	_langMenuDlg.destroy();
-	_highlighting.destroy();
-	_printSettingsDlg.destroy();
-	_searchingSettingsDlg.destroy();
-	_defaultNewDocDlg.destroy();
-	_defaultDirectoryDlg.destroy();
-	_recentFilesHistoryDlg.destroy();
-	_backupDlg.destroy();
-	_autoCompletionDlg.destroy();
-	_multiInstDlg.destroy();
-	_delimiterSettingsDlg.destroy();
+	_languageSubDlg.destroy();
+	_highlightingSubDlg.destroy();
+	_printSubDlg.destroy();
+	_searchingSubDlg.destroy();
+	_newDocumentSubDlg.destroy();
+	_defaultDirectorySubDlg.destroy();
+	_recentFilesHistorySubDlg.destroy();
+	_backupSubDlg.destroy();
+	_autoCompletionSubDlg.destroy();
+	_multiInstanceSubDlg.destroy();
+	_delimiterSubDlg.destroy();
 }
 
-INT_PTR CALLBACK BarsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+INT_PTR CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	
@@ -594,7 +594,7 @@ INT_PTR CALLBACK BarsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 	return FALSE;
 }
 
-void MarginsDlg::initScintParam()
+void EditingSubDlg::initScintParam()
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	ScintillaViewParams & svp = const_cast<ScintillaViewParams &>(nppParam.getSVP());
@@ -638,7 +638,7 @@ static LRESULT CALLBACK editNumSpaceProc(HWND hwnd, UINT message, WPARAM wParam,
 }
 
 
-INT_PTR CALLBACK MarginsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+INT_PTR CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = const_cast<NppGUI &>(nppParam.getNppGUI());
@@ -754,7 +754,7 @@ INT_PTR CALLBACK MarginsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 	return FALSE;
 }
 
-void MarginsBorderEdgeDlg::initScintParam()
+void MarginsBorderEdgeSubDlg::initScintParam()
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	ScintillaViewParams & svp = const_cast<ScintillaViewParams &>(nppParam.getSVP());
@@ -814,7 +814,7 @@ void MarginsBorderEdgeDlg::initScintParam()
 	oldFunclstToolbarProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(::GetDlgItem(_hSelf, IDC_COLUMNPOS_EDIT), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(editNumSpaceProc)));
 }
 
-INT_PTR CALLBACK MarginsBorderEdgeDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+INT_PTR CALLBACK MarginsBorderEdgeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	switch (message) 
@@ -932,7 +932,7 @@ INT_PTR CALLBACK MarginsBorderEdgeDlg::run_dlgProc(UINT message, WPARAM wParam, 
 const size_t fileUpdateChoiceEnable = 0;
 const size_t fileUpdateChoiceEnable4All = 1;
 const size_t fileUpdateChoiceDisable = 2;
-INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+INT_PTR CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = const_cast<NppGUI &>(nppParam.getNppGUI());
@@ -1158,14 +1158,14 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 }
 
 
-void RecentFilesHistoryDlg::setCustomLen(int val)
+void RecentFilesHistorySubDlg::setCustomLen(int val)
 {
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_CUSTOMIZELENGTHVAL_STATIC), val > 0);
 	::SetDlgItemInt(_hSelf, IDC_CUSTOMIZELENGTHVAL_STATIC, val, FALSE);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_CUSTOMIZELENGTHVAL_STATIC), val > 0?SW_SHOW:SW_HIDE);
 }
 
-INT_PTR CALLBACK DefaultNewDocDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+INT_PTR CALLBACK NewDocumentSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = (NppGUI & )nppParam.getNppGUI();
@@ -1365,7 +1365,7 @@ INT_PTR CALLBACK DefaultNewDocDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
  	return FALSE;
 }
 
-INT_PTR CALLBACK DefaultDirectoryDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+INT_PTR CALLBACK DefaultDirectorySubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = (NppGUI & )nppParam.getNppGUI();
@@ -1463,7 +1463,7 @@ INT_PTR CALLBACK DefaultDirectoryDlg::run_dlgProc(UINT message, WPARAM wParam, L
 	return FALSE;
 }
 
-INT_PTR CALLBACK RecentFilesHistoryDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+INT_PTR CALLBACK RecentFilesHistorySubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = (NppGUI & )nppParam.getNppGUI();
@@ -1600,7 +1600,7 @@ INT_PTR CALLBACK RecentFilesHistoryDlg::run_dlgProc(UINT message, WPARAM wParam,
 	return FALSE;
 }
 
-INT_PTR CALLBACK LangMenuDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+INT_PTR CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = const_cast<NppGUI &>(nppParam.getNppGUI());
@@ -2015,7 +2015,7 @@ INT_PTR CALLBACK LangMenuDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 	return FALSE;
 }
 
-INT_PTR CALLBACK Highlighting::run_dlgProc(UINT message, WPARAM wParam, LPARAM/* lParam*/)
+INT_PTR CALLBACK HighlightingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM/* lParam*/)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = (NppGUI & )nppParam.getNppGUI();
@@ -2152,7 +2152,7 @@ INT_PTR CALLBACK Highlighting::run_dlgProc(UINT message, WPARAM wParam, LPARAM/*
 	return FALSE;
 }
 
-INT_PTR CALLBACK PrintSettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+INT_PTR CALLBACK PrintSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = (NppGUI & )nppParam.getNppGUI();
@@ -2472,7 +2472,7 @@ INT_PTR CALLBACK PrintSettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 }
 
 
-INT_PTR CALLBACK BackupDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+INT_PTR CALLBACK BackupSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = const_cast<NppGUI &>(nppParam.getNppGUI());
@@ -2637,7 +2637,7 @@ INT_PTR CALLBACK BackupDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 	return FALSE;
 }
 
-void BackupDlg::updateBackupGUI()
+void BackupSubDlg::updateBackupGUI()
 {
 	bool rememberSession = isCheckedOrNot(IDC_CHECK_REMEMBERSESSION);
 	bool isSnapshot = isCheckedOrNot(IDC_BACKUPDIR_RESTORESESSION_CHECK);
@@ -2666,7 +2666,7 @@ void BackupDlg::updateBackupGUI()
 }
 
 
-INT_PTR CALLBACK AutoCompletionDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+INT_PTR CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = const_cast<NppGUI &>(nppParam.getNppGUI());
@@ -2967,7 +2967,7 @@ INT_PTR CALLBACK AutoCompletionDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 }
 
 
-INT_PTR CALLBACK MultiInstDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+INT_PTR CALLBACK MultiInstanceSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance()).getNppGUI());
 	switch (message) 
@@ -3013,7 +3013,7 @@ INT_PTR CALLBACK MultiInstDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 	return FALSE;
 }
 
-void DelimiterSettingsDlg::detectSpace(const char *text2Check, int & nbSp, int & nbTab) const
+void DelimiterSubDlg::detectSpace(const char *text2Check, int & nbSp, int & nbTab) const
 {
 	nbSp = nbTab = 0;
 	for (size_t i = 0; i < strlen(text2Check); ++i)
@@ -3026,7 +3026,7 @@ void DelimiterSettingsDlg::detectSpace(const char *text2Check, int & nbSp, int &
 }
 
 
-generic_string DelimiterSettingsDlg::getWarningText(size_t nbSp, size_t nbTab) const
+generic_string DelimiterSubDlg::getWarningText(size_t nbSp, size_t nbTab) const
 {
 	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 
@@ -3112,7 +3112,7 @@ generic_string DelimiterSettingsDlg::getWarningText(size_t nbSp, size_t nbTab) c
 	return msg;
 }
 
-void DelimiterSettingsDlg::setWarningIfNeed() const
+void DelimiterSubDlg::setWarningIfNeed() const
 {
 	generic_string msg;
 	NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance()).getNppGUI());
@@ -3126,7 +3126,7 @@ void DelimiterSettingsDlg::setWarningIfNeed() const
 	::SetDlgItemText(_hSelf, IDD_STATIC_WORDCHAR_WARNING, msg.c_str());
 }
 
-INT_PTR CALLBACK DelimiterSettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+INT_PTR CALLBACK DelimiterSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance()).getNppGUI());
 	switch (message) 
@@ -3299,7 +3299,7 @@ INT_PTR CALLBACK DelimiterSettingsDlg::run_dlgProc(UINT message, WPARAM wParam, 
 	return FALSE;
 }
 
-INT_PTR CALLBACK SettingsOnCloudDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+INT_PTR CALLBACK CloudAndLinkSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppParameters& nppParams = NppParameters::getInstance();
 	NppGUI & nppGUI = const_cast<NppGUI &>(nppParams.getNppGUI());
@@ -3475,7 +3475,7 @@ INT_PTR CALLBACK SettingsOnCloudDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 	return FALSE;
 }
 
-INT_PTR CALLBACK SearchEngineChoiceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+INT_PTR CALLBACK SearchEngineSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppParameters& nppParams = NppParameters::getInstance();
 	NppGUI & nppGUI = const_cast<NppGUI &>(nppParams.getNppGUI());
@@ -3572,7 +3572,7 @@ INT_PTR CALLBACK SearchEngineChoiceDlg::run_dlgProc(UINT message, WPARAM wParam,
 	return FALSE;
 }
 
-INT_PTR CALLBACK SearchingSettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+INT_PTR CALLBACK SearchingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppParameters& nppParams = NppParameters::getInstance();
 	NppGUI& nppGUI = const_cast<NppGUI&>(nppParams.getNppGUI());

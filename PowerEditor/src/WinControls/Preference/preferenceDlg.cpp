@@ -103,56 +103,56 @@ INT_PTR CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 		case WM_INITDIALOG :
 		{
 			_barsDlg.init(_hInst, _hSelf);
-			_barsDlg.create(IDD_PREFERENCE_BAR_BOX, false, false);
+			_barsDlg.create(IDD_PREFERENCE_SUB_GENRAL, false, false);
 			_barsDlg.display();
 			
 			_marginsDlg.init(_hInst, _hSelf);
-			_marginsDlg.create(IDD_PREFERENCE_MARGEIN_BOX, false, false);
+			_marginsDlg.create(IDD_PREFERENCE_SUB_EDITING, false, false);
 			
 			_settingsDlg.init(_hInst, _hSelf);
-			_settingsDlg.create(IDD_PREFERENCE_SETTING_BOX, false, false);
+			_settingsDlg.create(IDD_PREFERENCE_SUB_MISC, false, false);
 			
 			_defaultNewDocDlg.init(_hInst, _hSelf);
-			_defaultNewDocDlg.create(IDD_PREFERENCE_NEWDOCSETTING_BOX, false, false);
+			_defaultNewDocDlg.create(IDD_PREFERENCE_SUB_NEWDOCUMENT, false, false);
 
 			_defaultDirectoryDlg.init(_hInst, _hSelf);
-			_defaultDirectoryDlg.create(IDD_PREFERENCE_DEFAULTDIRECTORY_BOX, false, false);
+			_defaultDirectoryDlg.create(IDD_PREFERENCE_SUB_DEFAULTDIRECTORY, false, false);
 
 			_recentFilesHistoryDlg.init(_hInst, _hSelf);
-			_recentFilesHistoryDlg.create(IDD_PREFERENCE_RECENTFILESHISTORY_BOX, false, false);
+			_recentFilesHistoryDlg.create(IDD_PREFERENCE_SUB_RECENTFILESHISTORY, false, false);
 
 			_fileAssocDlg.init(_hInst, _hSelf);
 			_fileAssocDlg.create(IDD_REGEXT_BOX, false, false);
 
 			_printSettingsDlg.init(_hInst, _hSelf);
-			_printSettingsDlg.create(IDD_PREFERENCE_PRINT_BOX, false, false);
+			_printSettingsDlg.create(IDD_PREFERENCE_SUB_PRINT, false, false);
 
 			_searchingSettingsDlg.init(_hInst, _hSelf);
-			_searchingSettingsDlg.create(IDD_PREFERENCE_SEARCHINGSETTINGS_BOX, false, false);
+			_searchingSettingsDlg.create(IDD_PREFERENCE_SUB_SEARCHING, false, false);
 
 			_langMenuDlg.init(_hInst, _hSelf);
-			_langMenuDlg.create(IDD_PREFERENCE_LANG_BOX, false, false);
+			_langMenuDlg.create(IDD_PREFERENCE_SUB_LANGUAGE, false, false);
 
 			_highlighting.init(_hInst, _hSelf);
-			_highlighting.create(IDD_PREFERENCE_HILITE_BOX, false, false);
+			_highlighting.create(IDD_PREFERENCE_SUB_HIGHLIGHTING, false, false);
 
 			_backupDlg.init(_hInst, _hSelf);
-			_backupDlg.create(IDD_PREFERENCE_BACKUP_BOX, false, false);
+			_backupDlg.create(IDD_PREFERENCE_SUB_BACKUP, false, false);
 
 			_autoCompletionDlg.init(_hInst, _hSelf);
-			_autoCompletionDlg.create(IDD_PREFERENCE_AUTOCOMPLETION_BOX, false, false);
+			_autoCompletionDlg.create(IDD_PREFERENCE_SUB_AUTOCOMPLETION, false, false);
 
 			_multiInstDlg.init(_hInst, _hSelf);
-			_multiInstDlg.create(IDD_PREFERENCE_MULTIINSTANCE_BOX, false, false);
+			_multiInstDlg.create(IDD_PREFERENCE_SUB_MULTIINSTANCE, false, false);
 
 			_delimiterSettingsDlg.init(_hInst, _hSelf);
-			_delimiterSettingsDlg.create(IDD_PREFERENCE_DELIMITERSETTINGS_BOX, false, false);
+			_delimiterSettingsDlg.create(IDD_PREFERENCE_SUB_DELIMITER, false, false);
 
 			_settingsOnCloudDlg.init(_hInst, _hSelf);
-			_settingsOnCloudDlg.create(IDD_PREFERENCE_SETTINGSONCLOUD_BOX, false, false);
+			_settingsOnCloudDlg.create(IDD_PREFERENCE_SUB_CLOUD_LINK, false, false);
 
 			_searchEngineDlg.init(_hInst, _hSelf);
-			_searchEngineDlg.create(IDD_PREFERENCE_SEARCHENGINE_BOX, false, false);
+			_searchEngineDlg.create(IDD_PREFERENCE_SUB_SEARCHENGINE, false, false);
 
 
 			_wVector.push_back(DlgInfo(&_barsDlg, TEXT("General"), TEXT("Global")));

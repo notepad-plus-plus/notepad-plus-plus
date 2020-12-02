@@ -35,34 +35,39 @@
 #include "regExtDlg.h"
 #include "WordStyleDlg.h"
 
-class SettingsDlg : public StaticDialog
+class MiscSubDlg : public StaticDialog
 {
 public :
-	SettingsDlg() = default;
+	MiscSubDlg() = default;
 
 private :
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
 
-class BarsDlg : public StaticDialog
+class GeneralSubDlg : public StaticDialog
 {
 public :
-	BarsDlg() = default;
+	GeneralSubDlg() = default;
 private :
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
 
-class MarginsDlg : public StaticDialog
+class EditingSubDlg : public StaticDialog
 {
 public :
-	MarginsDlg() = default;
-	virtual void destroy() {
-		if (_multiEdgeTip)
-			::DestroyWindow(_multiEdgeTip);
-	};
+	EditingSubDlg() = default;
 	
 private :
-	HWND _multiEdgeTip = nullptr;
+	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	void initScintParam();
+};
+
+class MarginsBorderEdgeSubDlg : public StaticDialog
+{
+public :
+	MarginsBorderEdgeSubDlg() = default;
+	
+private :
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void initScintParam();
 };
@@ -74,10 +79,10 @@ struct LangID_Name
 	LangID_Name(LangType id, const generic_string& name) : _id(id), _name(name){};
 };
 
-class DefaultNewDocDlg : public StaticDialog
+class NewDocumentSubDlg : public StaticDialog
 {
 public :
-	DefaultNewDocDlg() = default;
+	NewDocumentSubDlg() = default;
 
 private :
 	std::vector<LangID_Name> _langList;
@@ -89,19 +94,19 @@ private :
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
 
-class DefaultDirectoryDlg : public StaticDialog
+class DefaultDirectorySubDlg : public StaticDialog
 {
 public :
-	DefaultDirectoryDlg() = default;
+	DefaultDirectorySubDlg() = default;
 
 private :
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
 
-class RecentFilesHistoryDlg : public StaticDialog
+class RecentFilesHistorySubDlg : public StaticDialog
 {
 public :
-	RecentFilesHistoryDlg() = default;
+	RecentFilesHistorySubDlg() = default;
 	virtual void destroy() {
 		_nbHistoryVal.destroy();
 		_customLenVal.destroy();
@@ -114,10 +119,10 @@ private :
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
 
-class LangMenuDlg : public StaticDialog
+class LanguageSubDlg : public StaticDialog
 {
 public :
-	LangMenuDlg() = default;
+	LanguageSubDlg() = default;
 	virtual void destroy() {
 		_tabSizeVal.destroy();
 	};
@@ -129,10 +134,10 @@ private :
 	std::vector<LangMenuItem> _langList;
 };
 
-class Highlighting : public StaticDialog
+class HighlightingSubDlg : public StaticDialog
 {
 public :
-	Highlighting() = default;
+	HighlightingSubDlg() = default;
 
 private :
 
@@ -140,10 +145,10 @@ private :
 };
 
 
-class SearchingSettingsDlg : public StaticDialog
+class SearchingSubDlg : public StaticDialog
 {
 public:
-	SearchingSettingsDlg() = default;
+	SearchingSubDlg() = default;
 
 private:
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
@@ -155,10 +160,10 @@ struct strCouple {
 	strCouple(const TCHAR *varDesc, const TCHAR *var): _varDesc(varDesc), _var(var){};
 };
 
-class PrintSettingsDlg : public StaticDialog
+class PrintSubDlg : public StaticDialog
 {
 public :
-	PrintSettingsDlg() = default;
+	PrintSubDlg() = default;
 
 private :
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
@@ -166,10 +171,10 @@ private :
 	int _focusedEditCtrl = 0;
 };
 
-class BackupDlg : public StaticDialog
+class BackupSubDlg : public StaticDialog
 {
 public :
-	BackupDlg() = default;
+	BackupSubDlg() = default;
 
 private :
 	void updateBackupGUI();
@@ -177,29 +182,29 @@ private :
 };
 
 
-class AutoCompletionDlg : public StaticDialog
+class AutoCompletionSubDlg : public StaticDialog
 {
 public :
-	AutoCompletionDlg() = default;
+	AutoCompletionSubDlg() = default;
 private :
 	URLCtrl _nbCharVal;
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
 
-class MultiInstDlg : public StaticDialog
+class MultiInstanceSubDlg : public StaticDialog
 {
 public :
-	MultiInstDlg() = default;
+	MultiInstanceSubDlg() = default;
 
 private :
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
 
-class DelimiterSettingsDlg : public StaticDialog
+class DelimiterSubDlg : public StaticDialog
 {
 public :
-	DelimiterSettingsDlg() = default;
-	~DelimiterSettingsDlg() {
+	DelimiterSubDlg() = default;
+	~DelimiterSubDlg() {
 		if (_tip)
 			::DestroyWindow(_tip);
 	};
@@ -215,19 +220,19 @@ private :
 	void setWarningIfNeed() const;
 };
 
-class SettingsOnCloudDlg : public StaticDialog
+class CloudAndLinkSubDlg : public StaticDialog
 {
 public :
-	SettingsOnCloudDlg() = default;
+	CloudAndLinkSubDlg() = default;
 
 private :
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
 
-class SearchEngineChoiceDlg : public StaticDialog
+class SearchEngineSubDlg : public StaticDialog
 {
 public :
-	SearchEngineChoiceDlg() = default;
+	SearchEngineSubDlg() = default;
 
 private :
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
@@ -269,22 +274,23 @@ private :
 	int32_t getIndexFromName(const TCHAR *name) const;
 	void showDialogByIndex(size_t index) const;
 	WindowVector _wVector;
-	BarsDlg _barsDlg;
-	MarginsDlg _marginsDlg;
-	SettingsDlg _settingsDlg;
+	GeneralSubDlg _generalSubDlg;
+	EditingSubDlg _editingSubDlg;
+	MarginsBorderEdgeSubDlg _marginsBorderEdgeSubDlg;
+	MiscSubDlg _miscSubDlg;
 	RegExtDlg _fileAssocDlg;
-	LangMenuDlg _langMenuDlg;
-	Highlighting _highlighting;
-	PrintSettingsDlg _printSettingsDlg;
-	DefaultNewDocDlg _defaultNewDocDlg;
-	DefaultDirectoryDlg	_defaultDirectoryDlg;
-	RecentFilesHistoryDlg _recentFilesHistoryDlg;
-	BackupDlg _backupDlg;
-	AutoCompletionDlg _autoCompletionDlg;
-	MultiInstDlg _multiInstDlg;
-	DelimiterSettingsDlg _delimiterSettingsDlg;
-	SettingsOnCloudDlg _settingsOnCloudDlg;
-	SearchEngineChoiceDlg _searchEngineDlg;
-	SearchingSettingsDlg _searchingSettingsDlg;
+	LanguageSubDlg _languageSubDlg;
+	HighlightingSubDlg _highlightingSubDlg;
+	PrintSubDlg _printSubDlg;
+	NewDocumentSubDlg _newDocumentSubDlg;
+	DefaultDirectorySubDlg	_defaultDirectorySubDlg;
+	RecentFilesHistorySubDlg _recentFilesHistorySubDlg;
+	BackupSubDlg _backupSubDlg;
+	AutoCompletionSubDlg _autoCompletionSubDlg;
+	MultiInstanceSubDlg _multiInstanceSubDlg;
+	DelimiterSubDlg _delimiterSubDlg;
+	CloudAndLinkSubDlg _cloudAndLinkSubDlg;
+	SearchEngineSubDlg _searchEngineSubDlg;
+	SearchingSubDlg _searchingSubDlg;
 };
 

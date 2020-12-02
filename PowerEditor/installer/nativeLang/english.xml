@@ -819,36 +819,34 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6219" name="Blink rate :"/>
                     <Item id="6221" name="F"/>
                     <Item id="6222" name="S"/>
-                    <Item id="6224" name="Multi-Editing Settings"/>
-                    <Item id="6225" name="Enable (Ctrl+Mouse click/selection)"/>
+                    <Item id="6225" name="Enable Multi-Editing (Ctrl+Mouse click/selection)"/>
+                    <Item id="6227" name="Line Wrap"/>
+                    <Item id="6228" name="Default"/>
+                    <Item id="6229" name="Aligned"/>
+                    <Item id="6230" name="Indent"/>
+                    <Item id="6234" name="Disable advanced scrolling feature due to touchpad issue"/>
+                    <Item id="6214" name="Enable current line highlighting"/>
+                    <Item id="6215" name="Enable smooth font"/>
+                    <Item id="6236" name="Enable scrolling beyond last line"/>
+                    <Item id="6239" name="Keep selection when right-click outside of selection"/>
+                </Scintillas>
+
+                <MarginsBorderEdge title="Margins/Border/Edge">
                     <Item id="6201" name="Folder Margin Style"/>
                     <Item id="6202" name="Simple"/>
                     <Item id="6203" name="Arrow"/>
                     <Item id="6204" name="Circle tree"/>
                     <Item id="6205" name="Box tree"/>
                     <Item id="6226" name="None"/>
-
-                    <Item id="6227" name="Line Wrap"/>
-                    <Item id="6228" name="Default"/>
-                    <Item id="6229" name="Aligned"/>
-                    <Item id="6230" name="Indent"/>
-
                     <Item id="6206" name="Display line number"/>
                     <Item id="6207" name="Display bookmark"/>
-                    <Item id="6208" name="Show vertical edge"/>
-                    <Item id="6234" name="Disable advanced scrolling feature
-(if you have touchpad problem)"/>
                     <Item id="6211" name="Vertical Edge Settings"/>
                     <Item id="6213" name="Background mode"/>
                     <Item id="6237" name="Add your column marker by indicating its position with a decimal number.
 You can define several column markers by using white space to separate the different numbers."/>
-                    <Item id="6214" name="Enable current line highlighting"/>
-                    <Item id="6215" name="Enable smooth font"/>
                     <Item id="6231" name="Border Width"/>
                     <Item id="6235" name="No edge"/>
-                    <Item id="6236" name="Enable scrolling beyond last line"/>
-                    <Item id="6239" name="Keep selection when right-click outside of selection"/>
-                </Scintillas>
+                </MarginsBorderEdge>
 
                 <NewDoc title="New Document">
                     <Item id="6401" name="Format (Line ending)"/>

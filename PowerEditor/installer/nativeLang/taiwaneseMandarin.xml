@@ -787,42 +787,42 @@
                     <Item id="6126" name="顯示"/>
                     <Item id="6127" name="停用副檔名欄"/>
                 </Global>
+
                 <Scintillas title="編輯">
                     <Item id="6216" name="游標設定"/>
                     <Item id="6217" name="寬度："/>
                     <Item id="6219" name="閃爍頻率："/>
                     <Item id="6221" name="快"/>
                     <Item id="6222" name="慢"/>
-                    <Item id="6224" name="多個位置同時編輯"/>
-                    <Item id="6225" name="啟用（Ctrl + 滑鼠點擊/選取）"/>
+                    <Item id="6225" name="啟用多個位置同時編輯（Ctrl + 滑鼠點擊/選取）"/>
+                    <Item id="6227" name="換行設定"/>
+                    <Item id="6228" name="預設"/>
+                    <Item id="6229" name="對齊"/>
+                    <Item id="6230" name="縮排"/>
+                    <Item id="6234" name="關閉進階捲動功能（若有觸控板問題）"/>
+                    <Item id="6214" name="於游標行加上背景顏色"/>
+                    <Item id="6215" name="啟用平滑字體"/>
+                    <Item id="6236" name="允許捲動至超出最後一行"/>
+                    <Item id="6239" name="在選擇範圍之外點擊滑鼠右鍵時仍保留選擇範圍"/> 
+                </Scintillas>
+
+                <MarginsBorderEdge title="邊距/邊界/行界線">
                     <Item id="6201" name="摺疊符號"/>
                     <Item id="6202" name="精簡"/>
                     <Item id="6203" name="箭頭"/>
                     <Item id="6204" name="圓形"/>
                     <Item id="6205" name="方形"/>
                     <Item id="6226" name="無"/>
-
-                    <Item id="6227" name="換行設定"/>
-                    <Item id="6228" name="預設"/>
-                    <Item id="6229" name="對齊"/>
-                    <Item id="6230" name="縮排"/>
-
                     <Item id="6206" name="顯示行號"/>
                     <Item id="6207" name="顯示標記"/>
-                    <Item id="6208" name="顯示邊界線"/>
-                    <Item id="6234" name="關閉進階捲動功能
-（若有觸控板問題）"/>
-                    <Item id="6211" name="邊緣線設定"/>
+                    <Item id="6211" name="行界線設定"/>
                     <Item id="6213" name="背景色模式"/>
                     <Item id="6237" name="如欲添加列標記可以在下面以數字指示其列位置。
 使用空格分隔不同數字來定義多個列標記。"/>
-                    <Item id="6214" name="於游標行加上背景顏色"/>
-                    <Item id="6215" name="啟用平滑字體"/>
                     <Item id="6231" name="邊框寬度"/>
                     <Item id="6235" name="無邊框"/>
-                    <Item id="6236" name="允許捲動至超出最後一行"/>
-                    <Item id="6239" name="在選擇範圍之外點擊滑鼠右鍵時仍保留選擇範圍"/> 
-                </Scintillas>
+                </MarginsBorderEdge>
+
                 <NewDoc title="新文件預設設定">
                     <Item id="6401" name="格式（EOF）"/>
                     <Item id="6402" name="Windows（CR LF）"/>

@@ -56,13 +56,18 @@ class MarginsDlg : public StaticDialog
 {
 public :
 	MarginsDlg() = default;
-	virtual void destroy() {
-		if (_multiEdgeTip)
-			::DestroyWindow(_multiEdgeTip);
-	};
 	
 private :
-	HWND _multiEdgeTip = nullptr;
+	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	void initScintParam();
+};
+
+class MarginsBorderEdgeDlg : public StaticDialog
+{
+public :
+	MarginsBorderEdgeDlg() = default;
+	
+private :
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void initScintParam();
 };
@@ -271,6 +276,7 @@ private :
 	WindowVector _wVector;
 	BarsDlg _barsDlg;
 	MarginsDlg _marginsDlg;
+	MarginsBorderEdgeDlg _marginsBorderEdgeDlg;
 	SettingsDlg _settingsDlg;
 	RegExtDlg _fileAssocDlg;
 	LangMenuDlg _langMenuDlg;

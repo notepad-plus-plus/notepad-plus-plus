@@ -817,37 +817,34 @@
   <Item id="6219" name="깜빡임 정도:"/> 
   <Item id="6221" name="빠름"/> 
   <Item id="6222" name="느림"/> 
-  <Item id="6224" name="다중 편집 설정"/> 
-  <Item id="6225" name="가능 (Ctrl+마우스 클릭/선택)"/> 
+  <Item id="6225" name="다중 편집 가능 (Ctrl+마우스 클릭/선택)"/>
+  <Item id="6227" name="자동 줄바꿈"/>
+  <Item id="6228" name="기본값"/>
+  <Item id="6229" name="정렬"/>
+  <Item id="6230" name="들여쓰기"/>
+  <Item id="6234" name="터치패드 문제로 고급 스크롤 기능 비활성화"/>
+  <Item id="6214" name="현재 줄 강조 활성화"/>
+  <Item id="6215" name="부드러운 폰트 활성화"/>
+  <Item id="6236" name="마지막 줄 이후로 스크롤 가능"/>
+  <Item id="6239" name="선택 영역 바깥에서 우클릭해도 선택 유지"/>
+</Scintillas>
+
+<MarginsBorderEdge title="여백/경계선/가장자리">
   <Item id="6201" name="폴더 형식"/> 
   <Item id="6202" name="단순"/> 
   <Item id="6203" name="화살표"/> 
   <Item id="6204" name="원형 트리"/> 
   <Item id="6205" name="박스 트리"/> 
   <Item id="6226" name="없음"/> 
-
-  <Item id="6227" name="자동 줄바꿈"/> 
-  <Item id="6228" name="기본값"/> 
-  <Item id="6229" name="정렬"/> 
-  <Item id="6230" name="들여쓰기"/> 
-
   <Item id="6206" name="줄 번호 표시"/> 
   <Item id="6207" name="책갈피 표시"/> 
-  <Item id="6208" name="열표식 표시"/> 
-  <Item id="6234" name="고급 스크롤 기능 해제 
-(터치패드 문제 시)" /> 
-
   <Item id="6211" name="열표식 설정" /> 
   <Item id="6213" name="배경 모드"/> 
   <Item id="6237" name="십진수로 위치를 지정하여 열 표식을 추가하십시오.
 숫자 사이를 공백으로 구분하여 여러 개의 열 표식을 지정할 수 있습니다."/>
-  <Item id="6214" name="현재 줄 강조"/> 
-  <Item id="6215" name="부드러운 글꼴 사용"/> 
   <Item id="6231" name="테두리 폭"/>
   <Item id="6235" name="가장자리 없음"/>
-  <Item id="6236" name="마지막 줄 넘어 스크롤 사용"/>
-  <Item id="6239" name="선택 영역 바깥에서 우클릭해도 선택 영역 유지"/>
-</Scintillas>
+</MarginsBorderEdge>
 
 <NewDoc title="새 문서">
   <Item id="6401" name="형식"/> 
@@ -1006,10 +1003,15 @@
 (잘 모르면 설정하지 마세요)"/>
 </Delimiter>
 
-<Cloud title="클라우드">
+<Cloud title="클라우드 &amp; 연결">
    <Item id="6262" name="클라우드 설정"/>
    <Item id="6263" name="클라우드 없음"/>
    <Item id="6267" name="클라우드 위치 경로를 설정:"/>
+   <Item id="6318" name="클릭 가능한 연결 설정"/>
+   <Item id="6319" name="사용 가능"/>
+   <Item id="6320" name="밑줄 없음"/>
+   <Item id="6350" name="꽉채우기 기능 사용"/>
+   <Item id="6264" name="개별 설정한 URI 스킴:"/>
 </Cloud>
 
 <SearchEngine title="검색 엔진">
@@ -1032,10 +1034,7 @@
   <Item id="6308" name="시스템 트레이로 최소화"/> 
   <Item id="6312" name="파일 상태 자동 확인"/> 
   <Item id="6313" name="경고 없이 업데이트"/> 
-  <Item id="6318" name="클릭 가능한 링크 설정"/> 
   <Item id="6325" name="업데이트 후 마지막 줄로 이동"/> 
-  <Item id="6319" name="사용"/> 
-  <Item id="6320" name="밑줄 표시 안함"/> 
   <Item id="6322" name="세션 파일 확장자:"/> 
   <Item id="6323" name="Notepad++ 자동으로 업데이트"/>
   <Item id="6351" name="저장 창의 파일 확장자 필터를 일반 문자열의 .txt 대신 .* 로 설정"/>
@@ -1043,7 +1042,6 @@
   <Item id="6331" name="제목 표시줄에 파일 이름만 표시"/> 
   <Item id="6334" name="문자 인코딩 자동 감지"/> 
   <Item id="6349" name="바로 쓰기 사용 (특수 문자 그리기 속도가 개선될 수 있음, Notepad++ 재시작 필요)"/>
-  <Item id="6350" name="꽉채우기 사용 가능"/>
   <Item id="6337" name="작업 영역 파일 확장자:"/>
   <Item id="6114" name="사용"/> 
   <Item id="6117" name="가장 최근 사용한 문서로 이동"/> 

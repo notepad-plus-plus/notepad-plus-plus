@@ -821,37 +821,34 @@
                     <Item id="6219" name="Rýchlosť blikania:"/>
                     <Item id="6221" name="R"/>
                     <Item id="6222" name="P"/>
-                    <Item id="6224" name="Nastavenie viacnásobnej editácie"/>
-                    <Item id="6225" name="Povoliť Ctrl+klik pre výber"/>
+                    <Item id="6225" name="Povoliť viacnásobnú editáciu (Ctrl+myš kliknutie/výber)"/>
+                    <Item id="6227" name="Zalomenie riadku"/>
+                    <Item id="6228" name="Predvolené"/>
+                    <Item id="6229" name="Zarovnané"/>
+                    <Item id="6230" name="Odsadené"/>
+                    <Item id="6234" name="Zakázať funkciu vylepšeného posunu (pri problémoch s touchpadom)"/>
+                    <Item id="6214" name="Zvýrazňovať aktuálny riadok"/>
+                    <Item id="6215" name="Povoliť vyhladzovanie písma"/>
+                    <Item id="6236" name="Povoliť posun za posledným riadkom"/>
+                    <Item id="6239" name="Ponechať označenie pri kliknutí pravým tlačidlom mimo označenia"/>
+                </Scintillas>
+
+                <MarginsBorderEdge title="Okraje a ohraničenia">
                     <Item id="6201" name="Štýl stromu"/>
                     <Item id="6202" name="Jednoduchý"/>
                     <Item id="6203" name="Šípky"/>
                     <Item id="6204" name="Kruhy"/>
                     <Item id="6205" name="Štvorce"/>
                     <Item id="6226" name="Žiadny"/>
-
-                    <Item id="6227" name="Zalamovanie riadka"/>
-                    <Item id="6228" name="Predvolené"/>
-                    <Item id="6229" name="Zarovnané"/>
-                    <Item id="6230" name="Odsadené"/>
-
                     <Item id="6206" name="Zobraziť čísla riadkov"/>
                     <Item id="6207" name="Zobraziť záložky"/>
-                    <Item id="6208" name="Zobraziť vertikálny okraj"/>
-                    <Item id="6234" name="Zakázať funkciu vylepšeného posunu
-(pri problémoch s touchpadom)"/>
-
                     <Item id="6211" name="Nastavenie vertikálneho okraja"/>
                     <Item id="6213" name="Režim pozadia"/>
                     <Item id="6237" name="Pridajte značku stĺpca tak, že označíte jej pozíciu s desatinným číslom.
 Zadať môžete viacero značiek pomocou medzery na oddelenie rôznych čísel."/>
-                    <Item id="6214" name="Zvýrazňovať aktuálny riadok"/>
-                    <Item id="6215" name="Povoliť vyhladzovanie písma"/>
                     <Item id="6231" name="Šírka okraja"/>
                     <Item id="6235" name="Bez okraja"/>
-                    <Item id="6236" name="Povoliť posun za posledným riadkom"/>
-                    <Item id="6239" name="Ponechať označenie pri kliknutí pravým tlačidlom mimo označenia"/>
-                </Scintillas>
+                </MarginsBorderEdge>
 
                 <NewDoc title="Nový dokument">
                     <Item id="6401" name="Formát (Koniec riadka)"/>

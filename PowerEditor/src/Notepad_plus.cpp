@@ -5896,9 +5896,9 @@ std::vector<generic_string> Notepad_plus::loadCommandlineParams(const TCHAR * co
 	}
 
  	LangType lt = pCmdParams->_langType;
-	int ln =  pCmdParams->_line2go;
-    int cn = pCmdParams->_column2go;
-    int cpos = pCmdParams->_pos2go;
+	int lineNumber =  pCmdParams->_line2go;
+	int columnNumber = pCmdParams->_column2go;
+	int positionNumber = pCmdParams->_pos2go;
 	bool recursive = pCmdParams->_isRecursive;
 	bool readOnly = pCmdParams->_isReadOnly;
 	bool openFoldersAsWorkspace = pCmdParams->_openFoldersAsWorkspace;
@@ -5928,30 +5928,30 @@ std::vector<generic_string> Notepad_plus::loadCommandlineParams(const TCHAR * co
 			pBuf->setLangType(lt);
 		}
 
-		if (ln != -1 || cpos != -1)
+		if (lineNumber >= 0 || positionNumber >= 0)
 		{
 			//we have to move the cursor manually
 			int iView = currentView();	//store view since fileswitch can cause it to change
 			switchToFile(bufID);	//switch to the file. No deferred loading, but this way we can easily move the cursor to the right position
 
-			if (cpos != -1)
+			if (positionNumber >= 0)
 			{
-				if (cpos > 0)
+				if (positionNumber > 0)
 				{
 					// make sure not jumping into the middle of a multibyte character
 					// or into the middle of a CR/LF pair for Windows files
-					auto before = _pEditView->execute(SCI_POSITIONBEFORE, cpos);
-					cpos = static_cast<int>(_pEditView->execute(SCI_POSITIONAFTER, before));
+					auto before = _pEditView->execute(SCI_POSITIONBEFORE, positionNumber);
+					positionNumber = static_cast<int>(_pEditView->execute(SCI_POSITIONAFTER, before));
 				}
-				_pEditView->execute(SCI_GOTOPOS, cpos);
+				_pEditView->execute(SCI_GOTOPOS, positionNumber);
 			}
-			else if (cn == -1)
+			else if (columnNumber < 0)
 			{
-				_pEditView->execute(SCI_GOTOLINE, ln-1);
+				_pEditView->execute(SCI_GOTOLINE, lineNumber - 1);
 			}
 			else
 			{
-				auto pos = _pEditView->execute(SCI_FINDCOLUMN, ln-1, cn-1);
+				auto pos = _pEditView->execute(SCI_FINDCOLUMN, lineNumber - 1, columnNumber - 1);
 				_pEditView->execute(SCI_GOTOPOS, pos);
 			}
 

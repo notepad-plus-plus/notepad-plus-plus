@@ -797,7 +797,6 @@
 					<Item id="6103" name="Kleine Icons"/>
 					<Item id="6104" name="Große Icons"/>
 					<Item id="6105" name="Kleine Standard-Icons"/>
-
 					<Item id="6106" name="Dateireiter (Tabs)"/>
 					<Item id="6107" name="Verkleinern"/>
 					<Item id="6108" name="Tabs nicht mit der Maus verschiebbar"/>
@@ -818,6 +817,7 @@
 					<Item id="6125" name="Liste der geöffneten Dateien"/>
 					<Item id="6126" name="Anzeigen"/>
 					<Item id="6127" name="Erweiterungsspalte ausblenden"/>
+
 					<Item id="6128" name="Alternative Icons"/>
 				</Global>
 				<Scintillas title="Editieren">
@@ -826,34 +826,33 @@
 					<Item id="6219" name="Geschwindigkeit"/>
 					<Item id="6221" name="S"/>
 					<Item id="6222" name="L"/>
-					<Item id="6224" name="Mehrfaches Editieren"/>
-					<Item id="6225" name="Aktivieren (Strg+Mausklick)"/>
+					<Item id="6225" name="Mehrfaches Editieren aktivieren (Strg+Mausklick)"/>
+					<Item id="6227" name="Umgebrochene Zeilen"/>
+					<Item id="6228" name="Standard"/>
+					<Item id="6229" name="Linksbündig"/>
+					<Item id="6230" name="Hängend"/>
+					<Item id="6234" name="Flüssiges Scrollen deaktivieren&#x0A;(bei Touchpad-Problemen)"/>
+					<Item id="6214" name="Aktuelle Zeile hervorheben"/>
+					<Item id="6215" name="Kantenglättung der Schriftarten"/>
+					<Item id="6236" name="Über letzte Zeile hinaus scrollen"/>
+					<Item id="6239" name="Auswahl beibehalten bei Rechtsklick außerhalb der Auswahl"/>
+				</Scintillas>
+
+				<MarginsBorderEdge title="Faltung/Rahmen/Ränder">
 					<Item id="6201" name="Textblock-Faltung"/>
 					<Item id="6202" name="Plus/minus"/>
 					<Item id="6203" name="Pfeile"/>
 					<Item id="6204" name="Kreise"/>
 					<Item id="6205" name="Quadrate"/>
 					<Item id="6226" name="Aus"/>
-
-					<Item id="6227" name="Umgebrochene Zeilen"/>
-					<Item id="6228" name="Standard"/>
-					<Item id="6229" name="Linksbündig"/>
-					<Item id="6230" name="Hängend"/>
-
 					<Item id="6206" name="Zeilennummernrand"/>
 					<Item id="6207" name="Lesezeichenrand"/>
-					<Item id="6208" name="Randbegrenzung anzeigen"/>
-					<Item id="6234" name="Flüssiges Scrollen deaktivieren&#x0A;(bei Touchpad-Problemen)"/>
 					<Item id="6211" name="Rechter Rand"/>
 					<Item id="6213" name="Farbiger Hintergrund"/>
 					<Item id="6237" name="Es können Spaltenmarkierung hinzugefügt werden, indem ihre Position mit einer Dezimalzahl angeben wird.&#x0A;Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Zahlen durch Leerzeichen getrennt werden."/>
-					<Item id="6214" name="Aktuelle Zeile hervorheben"/>
-					<Item id="6215" name="Kantenglättung der Schriftarten"/>
 					<Item id="6231" name="Rahmenbreite"/>
 					<Item id="6235" name="Kein Rand"/>
-					<Item id="6236" name="Über letzte Zeile hinaus scrollen"/>
-					<Item id="6236" name="Auswahl beibehalten bei Rechtsklick außerhalb der Auswahl"/>
-				</Scintillas>
+				</MarginsBorderEdge>
 
 				<NewDoc title="Neue Dateien">
 					<Item id="6401" name="Zeilenenden"/>

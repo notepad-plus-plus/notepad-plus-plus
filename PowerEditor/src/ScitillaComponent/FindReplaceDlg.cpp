@@ -3435,8 +3435,7 @@ generic_string Finder::getHitsString(int count) const
 
 void Finder::addSearchLine(const TCHAR *searchName)
 {
-	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-	generic_string str = pNativeSpeaker->getLocalizedStrFromID("find-result-title", TEXT("Search"));
+	generic_string str = _searchResultSearchPrefix;
 	str += TEXT(" \"");
 	str += searchName;
 	str += TEXT("\" \r\n");
@@ -3527,8 +3526,11 @@ void Finder::addSearchHitCount(int count, int countSearched, bool isMatchLines, 
 
 void Finder::add(FoundInfo fi, SearchResultMarking mi, const TCHAR* foundline)
 {
+	// build up and add a line like this: "\tLine 123: xxxxxxHITxxxxxx"
+	
 	_pMainFoundInfos->push_back(fi);
-	generic_string str = TEXT("\tLine ");
+
+	generic_string str = TEXT("\t") + _searchResultLineNbPrefix + TEXT(" ");
 
 	TCHAR lnb[16];
 	wsprintf(lnb, TEXT("%d"), fi._lineNumber);
@@ -3596,16 +3598,19 @@ void Finder::wrapLongLinesToggle()
 
 bool Finder::isLineActualSearchResult(const generic_string & s) const
 {
-	const auto firstColon = s.find(TEXT("\tLine "));
-	return (firstColon == 0);
+	// actual-search-result lines are the only type that start with a tab character
+	// sample: "\tLine 123: xxxxxxHITxxxxxx"
+	return (s.find(TEXT("\t")) == 0);
 }
 
 generic_string & Finder::prepareStringForClipboard(generic_string & s) const
 {
-	// Input: a string like "\tLine 3: search result".
-	// Output: "search result"
+	// Input: a string like "\tLine 123: xxxxxxHITxxxxxx"
+	// Output:              "xxxxxxHITxxxxxx"
+
 	s = stringReplace(s, TEXT("\r"), TEXT(""));
 	s = stringReplace(s, TEXT("\n"), TEXT(""));
+
 	const auto firstColon = s.find(TEXT(':'));
 	if (firstColon == std::string::npos)
 	{
@@ -3675,6 +3680,32 @@ void Finder::beginNewFilesSearch()
 	_pMainFoundInfos = _pMainFoundInfos == &_foundInfos1 ? &_foundInfos2 : &_foundInfos1;
 	_pMainMarkings = _pMainMarkings == &_markings1 ? &_markings2 : &_markings1;
 	_nbFoundFiles = 0;
+
+	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+
+	generic_string defaultPrefix = TEXT("Search");
+	generic_string prefix = pNativeSpeaker->getLocalizedStrFromID("find-result-title", defaultPrefix);
+	if (prefix.empty() || prefix[0] == TEXT(' ') || prefix[0] == TEXT('\t'))
+	{
+		// must not start with a space or a tab because we need a way to differentiate line types:
+		// - a space starts a "  pathname (3 hits)" line
+		// - a tab starts a "\tLine 123: \tLine 123: xxxxxxHITxxxxxx" line
+		// - any other charcter starts a "Search "xxx" ..." line
+		prefix = defaultPrefix;  // if translator has done it poorly, use the default English
+	}
+	_searchResultSearchPrefix = prefix;
+
+	defaultPrefix = TEXT("Line");
+	prefix = pNativeSpeaker->getLocalizedStrFromID("find-result-line-nb-prefix", defaultPrefix);
+	// the translation for "Line" must not contain a space or a colon,
+	// as these are used by the lexer for parsing; if these occur, the
+	// translator has done it poorly, use the default English
+	const auto firstColonOrSpace = min(prefix.find(TEXT(' ')), prefix.find(TEXT(':')));
+	if (prefix.empty() || firstColonOrSpace != std::string::npos)
+	{
+		prefix = defaultPrefix;
+	}
+	_searchResultLineNbPrefix = prefix;
 
 	// fold all old searches (1st level only)
 	_scintView.collapse(searchHeaderLevel - SC_FOLDLEVELBASE, fold_collapse);

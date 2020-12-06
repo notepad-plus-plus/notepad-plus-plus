@@ -170,6 +170,9 @@ private:
 
 	bool _longLinesAreWrapped = false;
 
+	generic_string _searchResultSearchPrefix;
+	generic_string _searchResultLineNbPrefix;
+
 	void setFinderReadOnly(bool isReadOnly) {
 		_scintView.execute(SCI_SETREADONLY, isReadOnly);
 	};

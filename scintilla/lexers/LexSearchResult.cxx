@@ -60,25 +60,20 @@ static void ColouriseSearchResultLine(SearchResultMarkings* pMarkings, char *lin
 	{
 		styler.ColourTo(endPos, SCE_SEARCHRESULT_FILE_HEADER);
 	}
-	else if (lineBuffer[0] == '	')// \t - line info
+	else if (lineBuffer[0] == '\t')  // "\tLine 123: xxxxxxHITxxxxxx"
 	{
-		const unsigned int firstTokenLen = 4;
-		unsigned int currentPos;
+		unsigned int currentPos = 0;
 
-		styler.ColourTo(startLine + firstTokenLen, SCE_SEARCHRESULT_DEFAULT);
-		
-		for (currentPos = firstTokenLen; lineBuffer[currentPos] != ':'; currentPos++)
-		{
-			// Just make currentPos mover forward
-		}
+		while (lineBuffer[++currentPos] != ' ');  // move currentPos to after the first space on the line
+		styler.ColourTo(startLine + currentPos, SCE_SEARCHRESULT_DEFAULT);
 
+		while (lineBuffer[++currentPos] != ':');  // move currentPos to after the first colon on the line
 		styler.ColourTo(startLine + currentPos - 1, SCE_SEARCHRESULT_LINE_NUMBER);
-		
+
 		int currentStat = SCE_SEARCHRESULT_DEFAULT;
 
 		SearchResultMarking mi = pMarkings->_markings[linenum];
 
-		currentPos += 2; // skip ": "
 		size_t match_start = startLine + mi._start - 1;
 		size_t match_end = startLine + mi._end - 1;
 

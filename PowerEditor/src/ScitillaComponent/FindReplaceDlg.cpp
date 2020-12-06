@@ -3685,23 +3685,29 @@ void Finder::beginNewFilesSearch()
 
 	generic_string defaultPrefix = TEXT("Search");
 	generic_string prefix = pNativeSpeaker->getLocalizedStrFromID("find-result-title", defaultPrefix);
-	if (prefix.empty() || prefix[0] == TEXT(' ') || prefix[0] == TEXT('\t'))
+	// the "Search" translation must not start with a space/tab because the lexer
+	// uses these characters to differentiate the different types of possible lines:
+	// - a space starts a "  pathname (3 hits)" line
+	// - a tab starts a "\tLine 123: \tLine 123: xxxxxxHITxxxxxx" line
+	// - any other charcter starts a "Search "xxx" ..." line
+	if (prefix.empty())
 	{
-		// must not start with a space or a tab because we need a way to differentiate line types:
-		// - a space starts a "  pathname (3 hits)" line
-		// - a tab starts a "\tLine 123: \tLine 123: xxxxxxHITxxxxxx" line
-		// - any other charcter starts a "Search "xxx" ..." line
-		prefix = defaultPrefix;  // if translator has done it poorly, use the default English
+		prefix = defaultPrefix;
+	}
+	else if (prefix[0] == TEXT(' ') || prefix[0] == TEXT('\t'))
+	{
+		// translation starts with a "bad" character; make it a workable
+		// character which will alert the translator to the problem
+		prefix = TEXT("?") + prefix;
 	}
 	_searchResultSearchPrefix = prefix;
 
 	defaultPrefix = TEXT("Line");
 	prefix = pNativeSpeaker->getLocalizedStrFromID("find-result-line-nb-prefix", defaultPrefix);
-	// the translation for "Line" must not contain a space or a colon,
-	// as these are used by the lexer for parsing; if these occur, the
-	// translator has done it poorly, use the default English
-	const auto firstColonOrSpace = min(prefix.find(TEXT(' ')), prefix.find(TEXT(':')));
-	if (prefix.empty() || firstColonOrSpace != std::string::npos)
+	// the translation for "Line" must not contain a space; 
+	// a space is used by the lexer to determine where this token ends
+	prefix = stringReplace(prefix, TEXT(" "), TEXT(""));  // remove spaces
+	if (prefix.empty())
 	{
 		prefix = defaultPrefix;
 	}

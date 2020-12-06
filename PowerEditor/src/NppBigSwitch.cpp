@@ -1429,7 +1429,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_SCROLLBEYONDLASTLINE:
 		{
-			const bool endAtLastLine = not (nppParam.getSVP())._scrollBeyondLastLine;
+			const bool endAtLastLine = !(nppParam.getSVP())._scrollBeyondLastLine;
 			_mainEditView.execute(SCI_SETENDATLASTLINE, endAtLastLine);
 			_subEditView.execute(SCI_SETENDATLASTLINE, endAtLastLine);
 			return TRUE;
@@ -2124,6 +2124,24 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return settingsOnCloudPath.length();
 		}
 
+		case NPPM_SETLINENUMBERWIDTHMODE:
+		{
+			if (lParam != LINENUMWIDTH_DYNAMIC || lParam != LINENUMWIDTH_CONSTANT)
+				return FALSE;
+
+			ScintillaViewParams &svp = const_cast<ScintillaViewParams &>(nppParam.getSVP());
+			svp._lineNumberMarginDynamicWidth = lParam == LINENUMWIDTH_DYNAMIC;
+			::SendMessage(hwnd, WM_COMMAND, IDM_VIEW_LINENUMBER, 0);
+
+			return TRUE;
+		}
+
+		case NPPM_GETLINENUMBERWIDTHMODE:
+		{
+			const ScintillaViewParams &svp = nppParam.getSVP();
+			return svp._lineNumberMarginDynamicWidth ? LINENUMWIDTH_DYNAMIC : LINENUMWIDTH_CONSTANT;
+		}
+
 		case NPPM_MSGTOPLUGIN :
 		{
 			return _pluginsManager.relayPluginMessages(message, wParam, lParam);
@@ -2387,7 +2405,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			_mainEditView.execute(SCI_MULTIEDGECLEARALL);
 			_subEditView.execute(SCI_MULTIEDGECLEARALL);
 
-			ScintillaViewParams & svp = (ScintillaViewParams &)nppParam.getSVP();
+			ScintillaViewParams &svp = const_cast<ScintillaViewParams &>(nppParam.getSVP());
 
 			StyleArray & stylers = NppParameters::getInstance().getMiscStylerArray();
 			COLORREF multiEdgeColor = liteGrey;

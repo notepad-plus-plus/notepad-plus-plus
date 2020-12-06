@@ -800,20 +800,23 @@
                 </Scintillas>
 
                 <MarginsBorderEdge title="Marges et Bordure">
-                    <Item id="6206" name="Afficher la numérotation des lignes"/>
-                    <Item id="6207" name="Afficher la marge de signet"/>
-                    <Item id="6211" name="Marqueur de colonne"/>
-                    <Item id="6213" name="Colorer l’arrière-plan"/>
-                    <Item id="6237" name="Ajoutez votre marqueur de colonne en indiquant sa position avec un nombre entier.
-Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour séparer les différents nombres."/>
                     <Item id="6201" name="Contrôle de repli de bloc"/>
                     <Item id="6202" name="Simple"/>
                     <Item id="6203" name="Flèche"/>
                     <Item id="6204" name="Cercle"/>
                     <Item id="6205" name="Carré"/>
                     <Item id="6226" name="Aucun"/>
+                    <Item id="6211" name="Marqueur de colonne"/>
+                    <Item id="6213" name="Colorer l’arrière-plan"/>
+                    <Item id="6237" name="Ajoutez votre marqueur de colonne en indiquant sa position avec un nombre entier.
+Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour séparer les différents nombres."/>
                     <Item id="6231" name="Largeur de la bordure"/>
                     <Item id="6235" name="Pas de bordure"/>
+                    <Item id="6291" name="Numérotation des lignes"/>
+                    <Item id="6206" name="Afficher"/>
+                    <Item id="6292" name="Largeur dynamique"/>
+                    <Item id="6293" name="Largeur constante"/>
+                    <Item id="6207" name="Afficher la marge de signet"/>
                 </MarginsBorderEdge>
 
                 <NewDoc title="Nouveau document">

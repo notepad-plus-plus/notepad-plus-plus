@@ -838,7 +838,10 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6204" name="Circle tree"/>
                     <Item id="6205" name="Box tree"/>
                     <Item id="6226" name="None"/>
-                    <Item id="6206" name="Display line number"/>
+                    <Item id="6291" name="Line Number"/>
+                    <Item id="6206" name="Display"/>
+                    <Item id="6292" name="Dynamic width"/>
+                    <Item id="6293" name="Constant width"/>
                     <Item id="6207" name="Display bookmark"/>
                     <Item id="6211" name="Vertical Edge Settings"/>
                     <Item id="6213" name="Background mode"/>

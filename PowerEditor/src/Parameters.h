@@ -849,7 +849,7 @@ struct NppGUI final
 	bool _isWordCharDefault = true;
 	std::string _customWordChars;
 	urlMode _styleURL = urlUnderLineFg;
-	generic_string _uriShemes = TEXT("svn:// cvs:// git:// imap:// irc:// irc6:// ircs:// ldap:// ldaps:// news: telnet:// gopher:// ssh:// sftp:// smb:// skype: snmp:// spotify: steam:// sms: slack:// chrome:// bitcoin:");
+	generic_string _uriSchemes = TEXT("svn:// cvs:// git:// imap:// irc:// irc6:// ircs:// ldap:// ldaps:// news: telnet:// gopher:// ssh:// sftp:// smb:// skype: snmp:// spotify: steam:// sms: slack:// chrome:// bitcoin:");
 	NewDocDefaultSettings _newDocDefaultSettings;
 
 
@@ -919,6 +919,7 @@ struct NppGUI final
 struct ScintillaViewParams
 {
 	bool _lineNumberMarginShow = true;
+	bool _lineNumberMarginDynamicWidth = true;
 	bool _bookMarkMarginShow = true;
 	folderStyle  _folderStyle = FOLDER_STYLE_BOX; //"simple", "arrow", "circle", "box" and "none"
 	lineWrapMethod _lineWrapMethod = LINEWRAP_ALIGNED;
@@ -935,7 +936,7 @@ struct ScintillaViewParams
 	bool _whiteSpaceShow = false;
 	bool _eolShow = false;
 	int _borderWidth = 2;
-	bool _scrollBeyondLastLine = false;
+	bool _scrollBeyondLastLine = true;
 	bool _rightClickKeepsSelection = false;
 	bool _disableAdvancedScrolling = false;
 	bool _doSmoothFont = false;

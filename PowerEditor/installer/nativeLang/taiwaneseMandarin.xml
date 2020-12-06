@@ -813,7 +813,10 @@
                     <Item id="6204" name="圓形"/>
                     <Item id="6205" name="方形"/>
                     <Item id="6226" name="無"/>
-                    <Item id="6206" name="顯示行號"/>
+                    <Item id="6291" name="行號"/>
+                    <Item id="6206" name="顯示"/>
+                    <Item id="6292" name="動態寬度"/>
+                    <Item id="6293" name="恆定寬度"/>
                     <Item id="6207" name="顯示標記"/>
                     <Item id="6211" name="行界線設定"/>
                     <Item id="6213" name="背景色模式"/>

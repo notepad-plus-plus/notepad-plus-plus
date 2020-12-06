@@ -235,3 +235,5 @@ template<typename T> size_t vecRemoveDuplicates(std::vector<T>& vec, bool isSort
 }
 
 void trim(generic_string& str);
+
+int nbDigitsFromNbLines(size_t nbLines);

@@ -91,13 +91,14 @@ BEGIN
     CONTROL         "Default",IDC_RADIO_LWDEF,"Button",BS_AUTORADIOBUTTON | WS_GROUP,275,21,59,10
     CONTROL         "Aligned",IDC_RADIO_LWALIGN,"Button",BS_AUTORADIOBUTTON,275,36,60,10
     CONTROL         "Indent",IDC_RADIO_LWINDENT,"Button",BS_AUTORADIOBUTTON,275,51,62,10
-    CONTROL         "Enable Multi-Editing (Ctrl+Mouse click/selection)",IDC_CHECK_MULTISELECTION,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,54,90,230,10
-    CONTROL         "Enable current line highlighting",IDC_CHECK_CURRENTLINEHILITE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,54,103,160,10
-    CONTROL         "Enable smooth font",IDC_CHECK_SMOOTHFONT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,54,116,130,10
-    CONTROL         "Enable scrolling beyond last line",IDC_CHECK_SCROLLBEYONDLASTLINE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,54,129,160,10
-    CONTROL         "Keep selection when right-click outside of selection",IDC_CHECK_RIGHTCLICKKEEPSSELECTION,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,54,142,230,10
+    CONTROL         "Enable Multi-Editing (Ctrl+Mouse click/selection)",IDC_CHECK_MULTISELECTION,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,54,90,270,10
+    CONTROL         "Enable current line highlighting",IDC_CHECK_CURRENTLINEHILITE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,54,103,270,10
+    CONTROL         "Enable smooth font",IDC_CHECK_SMOOTHFONT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,54,116,250,10
+    CONTROL         "Enable scrolling beyond last line",IDC_CHECK_SCROLLBEYONDLASTLINE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,54,129,270,10
+    CONTROL         "Keep selection when right-click outside of selection",IDC_CHECK_RIGHTCLICKKEEPSSELECTION,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,54,142,270,10
     CONTROL         "Disable advanced scrolling feature due to touchpad issue",IDC_CHECK_DISABLEADVANCEDSCROLL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,54,155,270,10
 END
+
 
 
 IDD_PREFERENCE_SUB_MARGING_BORDER_EDGE DIALOGEX 0, 0, 455, 185
@@ -110,16 +111,19 @@ BEGIN
     CONTROL         "Circle tree",IDC_RADIO_CIRCLE,"Button",BS_AUTORADIOBUTTON,31,63,62,10
     CONTROL         "None",IDC_RADIO_FOLDMARGENONE,"Button",BS_AUTORADIOBUTTON,31,92,61,10
     CONTROL         "Box tree",IDC_RADIO_BOX,"Button",BS_AUTORADIOBUTTON,31,77,61,10
-    GROUPBOX        "Vertical Edge Settings",IDC_VES_GB_STATIC,118,21,148,135,BS_CENTER
-    CONTROL         "Background mode",IDC_CHECK_EDGEBGMODE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,129,138,122,10
-    LTEXT           "Add your column marker by indicating its position with a decimal number.\nYou can define several column markers by using white space to separate the different numbers.",IDC_STATIC_MULTILNMODE_TIP,126,36,134,55
-    EDITTEXT        IDC_COLUMNPOS_EDIT,128,93,125,36,ES_MULTILINE
+    GROUPBOX        "Vertical Edge Settings",IDC_VES_GB_STATIC,116,21,148,135,BS_CENTER
+    LTEXT           "Add your column marker by indicating its position with a decimal number.\nYou can define several column markers by using white space to separate the different numbers.",IDC_STATIC_MULTILNMODE_TIP,124,36,134,55
+    EDITTEXT        IDC_COLUMNPOS_EDIT,126,93,125,36,ES_MULTILINE
+    CONTROL         "Background mode",IDC_CHECK_EDGEBGMODE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,127,138,122,10
     GROUPBOX        "Border Width",IDC_BORDERWIDTH_STATIC,21,112,85,45,BS_CENTER
     CONTROL         "",IDC_BORDERWIDTH_SLIDER,"msctls_trackbar32",TBS_AUTOTICKS | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,24,125,67,13
     LTEXT           "0",IDC_BORDERWIDTHVAL_STATIC,92,125,12,8
     CONTROL         "No edge",IDC_CHECK_NOEDGE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,29,142,60,10
-    CONTROL         "Display line number",IDC_CHECK_LINENUMBERMARGE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,283,27,141,10
-    CONTROL         "Display bookmark",IDC_CHECK_BOOKMARKMARGE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,283,39,150,10
+    GROUPBOX        "Line Number",IDC_LINENUMBERMARGE_GB_STATIC,275,21,135,66,BS_CENTER
+    CONTROL         "Display",IDC_CHECK_LINENUMBERMARGE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,281,35,85,10
+    CONTROL         "Dynamic width",IDC_RADIO_DYNAMIC,"Button",BS_AUTORADIOBUTTON | WS_GROUP,293,51,110,10
+    CONTROL         "Constant width",IDC_RADIO_CONSTANT,"Button",BS_AUTORADIOBUTTON,293,65,108,10
+    CONTROL         "Display bookmark",IDC_CHECK_BOOKMARKMARGE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,281,97,150,10
 END
 
 

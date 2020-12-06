@@ -1012,7 +1012,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				_subEditView.restoreCurrentPosPreStep();
 				_subEditView.setWrapRestoreNeeded(false);
 			}
+
 			notifyView->updateLineNumberWidth();
+
 			if (_syncInfo.doSync())
 				doSynScorll(HWND(notification->nmhdr.hwndFrom));
 

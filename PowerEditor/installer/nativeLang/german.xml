@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2020-12-05 by schnurlos (schnurlos@gmail.com)
+	last modified: 2020-12-06 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -845,7 +845,10 @@
 					<Item id="6204" name="Kreise"/>
 					<Item id="6205" name="Quadrate"/>
 					<Item id="6226" name="Aus"/>
-					<Item id="6206" name="Zeilennummernrand"/>
+					<Item id="6291" name="Zeilennummer"/>
+					<Item id="6206" name="Anzeige"/>
+					<Item id="6292" name="Dynamische Weite"/>
+					<Item id="6293" name="Fixw Weite"/>
 					<Item id="6207" name="Lesezeichenrand"/>
 					<Item id="6211" name="Rechter Rand"/>
 					<Item id="6213" name="Farbiger Hintergrund"/>

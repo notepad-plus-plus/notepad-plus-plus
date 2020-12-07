@@ -840,7 +840,10 @@
                     <Item id="6204" name="Kruhy"/>
                     <Item id="6205" name="Štvorce"/>
                     <Item id="6226" name="Žiadny"/>
-                    <Item id="6206" name="Zobraziť čísla riadkov"/>
+                    <Item id="6291" name="Čísla riadkov"/>
+                    <Item id="6206" name="Monitor"/>
+                    <Item id="6292" name="Dynamická šírka"/>
+                    <Item id="6293" name="Konštantná šírka"/>
                     <Item id="6207" name="Zobraziť záložky"/>
                     <Item id="6211" name="Nastavenie vertikálneho okraja"/>
                     <Item id="6213" name="Režim pozadia"/>

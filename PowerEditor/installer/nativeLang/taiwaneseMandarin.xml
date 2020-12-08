@@ -1102,7 +1102,7 @@
             <ColumnModeTip title="多欄選取提示" message="請使用「ALT + 滑鼠選擇」或「Alt + Shift + 方向鍵」以切換到多欄選取。"/>
             <BufferInvalidWarning title="儲存失敗" message="緩衝區無效。"/>
             <DoCloseOrNot title="保留文件" message="檔案「$STR_REPLACE$」已不存在。
-您在 Notepad++ 中保存這個文件嗎？"/>
+您要在 Notepad++ 中保留這個文件嗎？"/>
             <DoDeleteOrNot title="刪除檔案" message="您確定要刪除並關閉「$STR_REPLACE$」嗎？"/>
             <NoBackupDoSaveFile title="儲存" message="您的備份文件已從外部刪除。
 請儲存「$STR_REPLACE$」，否則您的數據將會遺失。
@@ -1142,8 +1142,8 @@
             <UDLRemoveCurrentLang title="刪除語言" message="您確定要刪除目前的自訂程式語言嗎？"/>
             <SCMapperDoDeleteOrNot title="刪除快捷鍵" message="您確定要刪除這個快捷鍵嗎？"/>
             <FindCharRangeValueError title="輸入值範圍錯誤" message="您輸入的值應在 0 到 255 之間。如要搜尋字元編號大於 255 的字元，請在「尋找」對話方塊中使用「規則運算式」。"/>
-            <ExitToUpdatePlugins title="關閉 Notepad++" message="如果您的回答是肯定的，Notepad ++將自動關閉以進行後置安裝。
-所有的後置安裝終止後，Notepad ++將重新啟動。
+            <ExitToUpdatePlugins title="關閉 Notepad++" message="Notepad++ 將自動關閉以進行後續作業。
+在所有後續作業完成後，Notepad++ 將重新啟動。
 繼續嗎？"/>
             <NeedToRestartToLoadPlugins title="重新啟動 Notepad++" message="您必須重新啟動 Notepad++ 才能載入已安裝的外掛模組。"/>
         </MessageBox>

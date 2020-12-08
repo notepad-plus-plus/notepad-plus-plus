@@ -3538,7 +3538,12 @@ void Finder::addSearchHitCount(int count, int countSearched, bool isMatchLines, 
 void Finder::add(FoundInfo fi, SearchResultMarking mi, const TCHAR* foundline)
 {
 	_pMainFoundInfos->push_back(fi);
-	generic_string str = TEXT("\tLine ");
+
+	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+	static generic_string lineStr = pNativeSpeaker->getLocalizedStrFromID("find-result-line-prefix", TEXT("Line"));
+	generic_string str = TEXT("\t");
+	str += lineStr;
+	str += TEXT(" ");
 
 	TCHAR lnb[16];
 	wsprintf(lnb, TEXT("%d"), fi._lineNumber);

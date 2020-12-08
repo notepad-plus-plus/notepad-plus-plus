@@ -1322,10 +1322,11 @@
             <replace-in-open-docs-confirm-title value="替換確認"/>
             <replace-in-open-docs-confirm-message value="您確定要替換所有打開的文檔中的所有匹配項嗎？"/>
             <find-result-caption value="搜尋結果"/>
-            <find-result-title value="搜尋"/>
+            <find-result-title value="搜尋"/> <!-- Must not begin with space or tab character -->
             <find-result-title-info value="（找到 $INT_REPLACE1$ 個結果在 $INT_REPLACE2$ 的文件中。搜尋文件量： $INT_REPLACE3$）"/>
             <find-result-title-info-extra value=" - 僅在搜尋結果中尋找"/>
             <find-result-hits value="（$INT_REPLACE$ 個結果）"/>
+            <find-result-line-prefix value="行號"/> <!-- Must not begin with space or tab character -->
             <find-regex-zero-length-match value="零長度的字元相符" />
         </MiscStrings>
     </Native-Langue>

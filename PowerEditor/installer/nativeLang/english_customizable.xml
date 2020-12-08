@@ -1379,11 +1379,12 @@ Find in all files except exe, obj &amp;&amp; log:
             <replace-in-open-docs-confirm-title value="Are you sure?"/>
             <replace-in-open-docs-confirm-message value="Are you sure you want to replace all occurrences in all open documents?"/>
             <find-result-caption value="Search results"/>
-            <find-result-title value="Search"/>
+            <find-result-title value="Search"/> <!-- Must not begin with space or tab character -->
             <find-result-title-info value="($INT_REPLACE1$ hits in $INT_REPLACE2$ files of $INT_REPLACE3$ searched)"/>
             <find-result-title-info-selections value="($INT_REPLACE1$ hits in $INT_REPLACE2$ selections of $INT_REPLACE3$ searched)"/>
             <find-result-title-info-extra value=" - Line Filter Mode: only display the filtered results"/>
             <find-result-hits value="($INT_REPLACE$ hits)"/>
+            <find-result-line-prefix value="Line"/> <!-- Must not begin with space or tab character -->
             <find-regex-zero-length-match value="zero length match" />
         </MiscStrings>
     </Native-Langue>

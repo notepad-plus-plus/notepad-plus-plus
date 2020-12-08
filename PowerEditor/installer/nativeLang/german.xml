@@ -2,9 +2,9 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2020-12-06 by schnurlos (schnurlos@gmail.com)
+	last modified: 2020-12-08 by schnurlos (schnurlos@gmail.com)
 
-	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
+	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
 	The most recent version of this file can usually be downloaded from
 	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/german.xml
@@ -1346,11 +1346,12 @@
 			<replace-in-open-docs-confirm-title value="Sind Sie sicher?"/>
 			<replace-in-open-docs-confirm-message value="Sind Sie sicher dass alle Vorkommen in allen offenen Dokumenten ersetzt werden sollen?"/>
 			<find-result-caption value="Suchergebnisse"/>
-			<find-result-title value="Suche"/>
+			<find-result-title value="Suche"/> <!-- Must not begin with space or tab character -->
 			<find-result-title-info value="($INT_REPLACE1$ Treffer in $INT_REPLACE2$ Dateien von $INT_REPLACE3$ gesucht)"/>
 			<find-result-title-info-selections value="($INT_REPLACE1$ Treffer in $INT_REPLACE2$ Auswahlen von $INT_REPLACE3$ gesucht)"/>
 			<find-result-title-info-extra value=" - Zeilenfilter-Modus: nur die Treffer anzeigen"/>
 			<find-result-hits value="($INT_REPLACE$ Treffer)"/>
+			<find-result-line-prefix value="Zeile"/> <!-- Must not begin with space or tab character -->
 			<find-regex-zero-length-match value="Übereinstimmung Null-Längen" />
 		</MiscStrings>
 	</Native-Langue>

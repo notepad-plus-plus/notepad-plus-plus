@@ -858,8 +858,11 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6204" name="Linea è chjerchju"/>
                     <Item id="6205" name="Linea è quadratu"/>
                     <Item id="6226" name="Alcuna"/>
-                    <Item id="6206" name="Affissà u numeru di linea"/>
-                    <Item id="6207" name="Affissà l’indetta"/>
+                    <Item id="6291" name="Numeru di linea"/>
+                    <Item id="6206" name="Affissà"/>
+                    <Item id="6292" name="Larghezza dinamica"/>
+                    <Item id="6293" name="Larghezza custante"/>
+                    <Item id="6207" name="Affissà a margine di l’indetta"/>
                     <Item id="6211" name="Marcatore di culonna"/>
                     <Item id="6213" name="Culurisce u fondu"/>
                     <Item id="6237" name="Aghjunghje u vostru marcatore di culonna indichendu a so pusizione cù un numeru sanu.
@@ -1401,11 +1404,12 @@ Circà in tutti i schedarii fora di exe, obj è log :
             <replace-in-open-docs-confirm-title value="Cunfirmazione"/>
             <replace-in-open-docs-confirm-message value="Vulete rimpiazzà tutte l’occurrenze in tutti i schedarii aperti ?"/>
             <find-result-caption value="Risultati di ricerca"/>
-            <find-result-title value="Circà"/>
+            <find-result-title value="Circà"/> <!-- Must not begin with space or tab character -->
             <find-result-title-info value="($INT_REPLACE1$ risultati in $INT_REPLACE2$ ducumenti frà $INT_REPLACE3$ ducumenti circati)"/>
             <find-result-title-info-selections value="($INT_REPLACE1$ risultati in $INT_REPLACE2$ selezzioni frà $INT_REPLACE3$ ducumenti circati)"/>
             <find-result-title-info-extra value=" - Modu di filtru di linea : affisseghja solu i risultati filtrati"/>
             <find-result-hits value="($INT_REPLACE$ risultati)"/>
+            <find-result-line-prefix value="Linea"/> <!-- Must not begin with space or tab character -->
             <find-regex-zero-length-match value="currispundenza di longhezza à zeru" />
         </MiscStrings>
     </Native-Langue>

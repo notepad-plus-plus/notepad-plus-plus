@@ -3539,10 +3539,8 @@ void Finder::add(FoundInfo fi, SearchResultMarking mi, const TCHAR* foundline)
 {
 	_pMainFoundInfos->push_back(fi);
 
-	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-	static generic_string lineStr = pNativeSpeaker->getLocalizedStrFromID("find-result-line-prefix", TEXT("Line"));
 	generic_string str = TEXT("\t");
-	str += lineStr;
+	str += _prefixLineStr;
 	str += TEXT(" ");
 
 	TCHAR lnb[16];
@@ -3684,7 +3682,9 @@ void Finder::copy()
 
 void Finder::beginNewFilesSearch()
 {
-	//_scintView.execute(SCI_SETLEXER, SCLEX_NULL);
+	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+	_prefixLineStr = pNativeSpeaker->getLocalizedStrFromID("find-result-line-prefix", TEXT("Line"));
+
 
 	_scintView.execute(SCI_SETCURRENTPOS, 0);
 	_pMainFoundInfos = _pMainFoundInfos == &_foundInfos1 ? &_foundInfos2 : &_foundInfos1;

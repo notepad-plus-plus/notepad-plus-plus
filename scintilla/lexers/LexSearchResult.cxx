@@ -78,7 +78,6 @@ static void ColouriseSearchResultLine(SearchResultMarkings* pMarkings, char *lin
 
 		SearchResultMarking mi = pMarkings->_markings[linenum];
 
-		currentPos += 2; // skip ": "
 		size_t match_start = startLine + mi._start - 1;
 		size_t match_end = startLine + mi._end - 1;
 

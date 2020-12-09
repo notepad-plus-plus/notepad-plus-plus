@@ -167,8 +167,9 @@ private:
 	int _lastSearchHeaderPos = 0;
 
 	bool _canBeVolatiled = true;
-
 	bool _longLinesAreWrapped = false;
+
+	generic_string _prefixLineStr;
 
 	void setFinderReadOnly(bool isReadOnly) {
 		_scintView.execute(SCI_SETREADONLY, isReadOnly);

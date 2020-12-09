@@ -62,15 +62,15 @@ static void ColouriseSearchResultLine(SearchResultMarkings* pMarkings, char *lin
 	}
 	else if (lineBuffer[0] == '	')// \t - line info
 	{
-		const unsigned int firstTokenLen = 4;
-		unsigned int currentPos;
+		unsigned int firstTokenLen = 0;
+		unsigned int currentPos = 0;
 
-		styler.ColourTo(startLine + firstTokenLen, SCE_SEARCHRESULT_DEFAULT);
 		
-		for (currentPos = firstTokenLen; lineBuffer[currentPos] != ':'; currentPos++)
-		{
-			// Just make currentPos mover forward
-		}
+		for (; !(lineBuffer[firstTokenLen] >= '0' && lineBuffer[firstTokenLen] <= '9'); firstTokenLen++);
+		
+		styler.ColourTo(startLine + firstTokenLen - 1, SCE_SEARCHRESULT_DEFAULT);
+
+		for (currentPos = firstTokenLen; lineBuffer[currentPos] != ':'; currentPos++);
 
 		styler.ColourTo(startLine + currentPos - 1, SCE_SEARCHRESULT_LINE_NUMBER);
 		

@@ -242,6 +242,7 @@ BEGIN_WINDOW_MAP(WindowsDlgMap)
 			RCTOFIT(IDC_WINDOWS_SORT)
 			RCREST(-1)
 			RCTOFIT(IDCANCEL)
+			RCSPACE(19)
 			ENDGROUP()
 		ENDGROUP()
 	ENDGROUP()
@@ -578,6 +579,8 @@ BOOL WindowsDlg::onInitDialog()
 		goToCenter();
 	}
 
+	_statusBar.init(GetModuleHandle(NULL), _hSelf, 1);
+	_statusBar.display();
 	doRefresh(true);
 	return TRUE;
 }
@@ -664,7 +667,8 @@ void WindowsDlg::updateColumnNames()
 
 void WindowsDlg::onSize(UINT nType, int cx, int cy)
 {
-	MyBaseClass::onSize(nType, cx, cy);
+	MyBaseClass::onSize(nType, cx, cy);					
+	SendMessage(_statusBar.getHSelf(),WM_SIZE, 0, 0);
 	fitColumnsToSize();
 }
 
@@ -723,6 +727,7 @@ void WindowsDlg::doRefresh(bool invalidate /*= false*/)
 
 			resetSelection();
 			updateButtonState();
+			doCount();
 		}
 	}
 }
@@ -865,6 +870,16 @@ void WindowsDlg::doClose()
 		}
 		ListView_SetItemCount(_hList, _idxMap.size());
 	}
+}
+
+void WindowsDlg::doCount()
+{
+	TCHAR count[32];
+	wsprintf(count, TEXT("%d"), _idxMap.size());
+	generic_string msg = TEXT("");
+	msg += TEXT("Total: ");
+	msg += count;
+	_statusBar.setText(msg.c_str(),0);
 }
 
 void WindowsDlg::doSortToTabs()

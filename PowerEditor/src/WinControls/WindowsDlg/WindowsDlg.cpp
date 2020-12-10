@@ -49,6 +49,7 @@ using namespace std;
 #define WD_CLMNPATH					"ColumnPath"
 #define WD_CLMNTYPE					"ColumnType"
 #define WD_CLMNSIZE					"ColumnSize"
+#define WD_TABTOTAL					"TabsTotal"
 
 static const TCHAR *readonlyString = TEXT(" [Read Only]");
 const UINT WDN_NOTIFY = RegisterWindowMessage(TEXT("WDN_NOTIFY"));
@@ -723,6 +724,7 @@ void WindowsDlg::doRefresh(bool invalidate /*= false*/)
 
 			resetSelection();
 			updateButtonState();
+			doCount();
 		}
 	}
 }
@@ -865,6 +867,22 @@ void WindowsDlg::doClose()
 		}
 		ListView_SetItemCount(_hList, _idxMap.size());
 	}
+	doCount();
+}
+
+//this function will be called everytime when close is performed
+//as well as each time refresh is performed to keep updated
+void WindowsDlg::doCount()
+{
+	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+	
+	TCHAR count[32];
+	wsprintf(count, TEXT("%d"), _idxMap.size());
+	
+	generic_string msg = TEXT("Windows -- ");
+	msg += pNativeSpeaker->getAttrNameStr(TEXT("Total documents opened: "), WD_ROOTNODE, WD_TABTOTAL);
+	msg += count;
+	SetWindowText(_hSelf,msg.c_str());
 }
 
 void WindowsDlg::doSortToTabs()

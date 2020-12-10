@@ -870,8 +870,11 @@ void WindowsDlg::doClose()
 		}
 		ListView_SetItemCount(_hList, _idxMap.size());
 	}
+	doCount();
 }
 
+//this function will be called everytime when close is performed
+//as well as each time refresh is performed to keep updated
 void WindowsDlg::doCount()
 {
 	TCHAR count[32];

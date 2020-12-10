@@ -1366,7 +1366,6 @@
             <WordsStyle name="File Header" styleID="2" fgColor="008000" bgColor="D5FFD5" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="Line Number" styleID="3" fgColor="FF8040" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="Hit Word" styleID="4" fgColor="FF0000" bgColor="FFFFBF" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="Selected Line" styleID="5" fgColor="000080" bgColor="FFFF4F" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="Current line background colour" styleID="6" bgColor="E8E8FF" />
         </LexerType>
     </LexerStyles>

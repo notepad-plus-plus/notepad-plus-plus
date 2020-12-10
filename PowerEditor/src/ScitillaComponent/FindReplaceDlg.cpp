@@ -548,14 +548,6 @@ void Finder::gotoFoundLine()
 
 	(*_ppEditView)->_positionRestoreNeeded = false;
 	Searching::displaySectionCentered(fInfo._start, fInfo._end, *_ppEditView);
-
-	// Then we colourise the double clicked line
-	setFinderStyle();
-
-	_scintView.execute(SCI_STYLESETEOLFILLED, SCE_SEARCHRESULT_HIGHLIGHT_LINE, true);
-	_scintView.execute(SCI_STARTSTYLING, start, STYLING_MASK);
-	_scintView.execute(SCI_SETSTYLING, end - start + 2, SCE_SEARCHRESULT_HIGHLIGHT_LINE);
-	_scintView.execute(SCI_COLOURISE, start, end + 1);
 }
 
 void Finder::deleteResult()

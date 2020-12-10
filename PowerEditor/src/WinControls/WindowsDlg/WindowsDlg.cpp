@@ -49,6 +49,7 @@ using namespace std;
 #define WD_CLMNPATH					"ColumnPath"
 #define WD_CLMNTYPE					"ColumnType"
 #define WD_CLMNSIZE					"ColumnSize"
+#define WD_TABTOTAL					"TabsTotal"
 
 static const TCHAR *readonlyString = TEXT(" [Read Only]");
 const UINT WDN_NOTIFY = RegisterWindowMessage(TEXT("WDN_NOTIFY"));
@@ -877,10 +878,13 @@ void WindowsDlg::doClose()
 //as well as each time refresh is performed to keep updated
 void WindowsDlg::doCount()
 {
+	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+	
 	TCHAR count[32];
 	wsprintf(count, TEXT("%d"), _idxMap.size());
+	
 	generic_string msg = TEXT("");
-	msg += TEXT("Total: ");
+	msg += pNativeSpeaker->getAttrNameStr(TEXT("Total: "), WD_ROOTNODE, WD_TABTOTAL);
 	msg += count;
 	_statusBar.setText(msg.c_str(),0);
 }

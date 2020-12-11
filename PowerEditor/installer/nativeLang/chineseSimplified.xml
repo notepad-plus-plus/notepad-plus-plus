@@ -819,6 +819,20 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6219" name="闪烁频率 :"/>
                     <Item id="6221" name="快"/>
                     <Item id="6222" name="慢"/>
+                    <Item id="6227" name="折行"/>
+                    <Item id="6228" name="默认"/>
+                    <Item id="6229" name="对齐"/>
+                    <Item id="6230" name="缩排"/>
+                    <Item id="6208" name="显示列边界"/>
+                    <Item id="6234" name="关闭高级滚动功能
+（如果你遇到触摸板问题）"/>
+                    <Item id="6214" name="当前行高亮模式"/>
+                    <Item id="6215" name="启用平滑字体"/>                    
+                    <Item id="6236" name="启用滚动超过最后一行"/>
+                    <Item id="6239" name="选区外右键点击时保留选区"/>
+                    </Scintillas>
+
+                <MarginsBorderEdge title="Margins/Border/Edge">
                     <Item id="6224" name="多列编辑"/>
                     <Item id="6225" name="启用 (Ctrl+鼠标点选)"/>
                     <Item id="6201" name="代码折叠标志"/>
@@ -827,28 +841,15 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6204" name="圆圈"/>
                     <Item id="6205" name="方框"/>
                     <Item id="6226" name="无"/>
-
-                    <Item id="6227" name="折行"/>
-                    <Item id="6228" name="默认"/>
-                    <Item id="6229" name="对齐"/>
-                    <Item id="6230" name="缩排"/>
-
                     <Item id="6206" name="显示行号栏"/>
                     <Item id="6207" name="显示标签栏"/>
-                    <Item id="6208" name="显示列边界"/>
-                    <Item id="6234" name="关闭高级滚动功能
-（如果你遇到触摸板问题）"/>
                     <Item id="6211" name="列边界设置"/>
                     <Item id="6213" name="背景色模式"/>
                     <Item id="6237" name="想要添加列标记，可用数字指示其列位置。
 用空格分隔不同数字以定义多个列标记。"/>
-                    <Item id="6214" name="当前行高亮模式"/>
-                    <Item id="6215" name="启用平滑字体"/>
                     <Item id="6231" name="边框宽度"/>
                     <Item id="6235" name="无边框"/>
-                    <Item id="6236" name="启用滚动超过最后一行"/>
-                    <Item id="6239" name="选区外右键点击时保留选区"/>
-                </Scintillas>
+                </MarginsBorderEdge>
 
                 <NewDoc title="新建">
                     <Item id="6401" name="格式 (行尾)"/>

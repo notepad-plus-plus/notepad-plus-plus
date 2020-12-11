@@ -1015,7 +1015,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6319" name="启用"/>
                     <Item id="6320" name="不显示下划线"/>
                     <Item id="6350" name="启用全框模式"/>
-                    <Item id="6264" name="URI customized schemes:"/>
+                    <Item id="6264" name="URI 自定义方案:"/>
                 </Cloud>
 
                 <SearchEngine title="搜索引擎">

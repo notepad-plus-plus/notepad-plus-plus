@@ -2359,9 +2359,13 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		_pFinder = new Finder();
 		_pFinder->init(_hInst, (*_ppEditView)->getHParent(), _ppEditView);
 		_pFinder->setVolatiled(false);
-		
+
+		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+		bool isRTL = pNativeSpeaker->isRTL();
+
 		tTbData	data = {0};
-		_pFinder->create(&data, false);
+		
+		_pFinder->create(&data, isRTL);
 		::SendMessage(_hParent, NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pFinder->getHSelf()));
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_BOTTOM | DWS_ICONTAB | DWS_ADDINFO;
@@ -2374,8 +2378,8 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		// in this case is DOCKABLE_DEMO_INDEX
 		data.dlgID = 0;
 		
-		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 		generic_string text = pNativeSpeaker->getLocalizedStrFromID("find-result-caption", TEXT(""));
+
 		if (!text.empty())
 		{
 			_findResTitle = text;
@@ -2385,6 +2389,7 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		::SendMessage(_hParent, NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
 
 		_pFinder->_scintView.init(_hInst, _pFinder->getHSelf());
+		_pFinder->_scintView.changeTextDirection(isRTL);
 
 		// Subclass the ScintillaEditView for the Finder (Scintilla doesn't notify all key presses)
 		originalFinderProc = SetWindowLongPtr(_pFinder->_scintView.getHSelf(), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(finderProc));
@@ -2471,11 +2476,14 @@ void FindReplaceDlg::findAllIn(InWhat op)
 Finder * FindReplaceDlg::createFinder()
 {
 	Finder *pFinder = new Finder();
-
 	pFinder->init(_hInst, (*_ppEditView)->getHParent(), _ppEditView);
 	
+	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+	bool isRTL = pNativeSpeaker->isRTL();
+
 	tTbData	data = { 0 };
-	pFinder->create(&data, false);
+
+	pFinder->create(&data, isRTL);
 	::SendMessage(_hParent, NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<WPARAM>(pFinder->getHSelf()));
 	// define the default docking behaviour
 	data.uMask = DWS_DF_CONT_BOTTOM | DWS_ICONTAB | DWS_ADDINFO;
@@ -2488,7 +2496,6 @@ Finder * FindReplaceDlg::createFinder()
 	// in this case is DOCKABLE_DEMO_INDEX
 	data.dlgID = 0;
 
-	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 	generic_string text = pNativeSpeaker->getLocalizedStrFromID("find-result-caption", TEXT(""));
 	if (!text.empty())
 	{
@@ -2499,6 +2506,7 @@ Finder * FindReplaceDlg::createFinder()
 	::SendMessage(_hParent, NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
 
 	pFinder->_scintView.init(_hInst, pFinder->getHSelf());
+	pFinder->_scintView.changeTextDirection(isRTL);
 
 	// Subclass the ScintillaEditView for the Finder (Scintilla doesn't notify all key presses)
 	originalFinderProc = SetWindowLongPtr(pFinder->_scintView.getHSelf(), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(finderProc));

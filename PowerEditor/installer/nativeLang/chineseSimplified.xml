@@ -1007,10 +1007,15 @@ The comments are here for explanation, it's not necessary to translate them.
 （若不了解请勿选择）"/>
                 </Delimiter>
 
-                <Cloud title="云同步">
+                <Cloud title="云同步（&amp; 链接）">
                     <Item id="6262" name="云端同步设置"/>
                     <Item id="6263" name="不使用云同步"/>
                     <Item id="6267" name="设置你的云同步路径:"/>
+                    <Item id="6318" name="可点击链接设置"/>
+                    <Item id="6319" name="启用"/>
+                    <Item id="6320" name="不显示下划线"/>
+                    <Item id="6350" name="启用全框模式"/>
+                    <Item id="6264" name="URI customized schemes:"/>
                 </Cloud>
 
                 <SearchEngine title="搜索引擎">
@@ -1035,8 +1040,6 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6313" name="自动更新文件"/>
                     <Item id="6318" name="超链接设置"/>
                     <Item id="6325" name="更新后定位到末行"/>
-                    <Item id="6319" name="启用"/>
-                    <Item id="6320" name="不显示下划线"/>
                     <Item id="6322" name="会话文件扩展名:"/>
                     <Item id="6323" name="启用 Notepad++ 自动更新"/>
                     <Item id="6351" name="将保存对话框中的文本文档扩展名过滤器设置为 .* 以代替 .txt"/>
@@ -1044,7 +1047,6 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6331" name="在标题栏仅显示文件名"/>
                     <Item id="6334" name="自动检测字符编码"/>
                     <Item id="6349" name="使用DirectWrite（可改善特殊字符渲染，需要重启Notepad++）"/>
-                    <Item id="6350" name="启用全框模式"/>
                     <Item id="6337" name="工作区文件扩展名:"/>
                     <Item id="6114" name="启用"/>
                     <Item id="6117" name="按最近使用顺序切换"/>

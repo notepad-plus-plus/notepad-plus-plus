@@ -1788,8 +1788,7 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 		const auto currentIndentMode = execute(SCI_GETINDENTATIONGUIDES);
 		// Python like indentation, excludes lexers (Nim, VB, YAML, etc.)
 		// that includes tailing empty or whitespace only lines in folding block.
-		const bool pythonLike = (typeDoc == L_PYTHON || typeDoc == L_COFFEESCRIPT || typeDoc == L_HASKELL);
-		const int docIndentMode = pythonLike ? SC_IV_LOOKFORWARD : SC_IV_LOOKBOTH;
+		const int docIndentMode = isPythonStyleIndentation(typeDoc) ? SC_IV_LOOKFORWARD : SC_IV_LOOKBOTH;
 		if (currentIndentMode != docIndentMode)
 			execute(SCI_SETINDENTATIONGUIDES, docIndentMode);
 	}
@@ -2683,8 +2682,7 @@ void ScintillaEditView::performGlobalStyles()
 void ScintillaEditView::showIndentGuideLine(bool willBeShowed)
 {
 	auto typeDoc = _currentBuffer->getLangType();
-	const bool pythonLike = (typeDoc == L_PYTHON || typeDoc == L_COFFEESCRIPT || typeDoc == L_HASKELL);
-	const int docIndentMode = pythonLike ? SC_IV_LOOKFORWARD : SC_IV_LOOKBOTH;
+	const int docIndentMode = isPythonStyleIndentation(typeDoc) ? SC_IV_LOOKFORWARD : SC_IV_LOOKBOTH;
 	execute(SCI_SETINDENTATIONGUIDES, willBeShowed ? docIndentMode : SC_IV_NONE);
 }
 
@@ -2733,37 +2731,36 @@ void ScintillaEditView::setLineIndent(int line, int indent) const
 
 void ScintillaEditView::updateLineNumberWidth()
 {
-	if (_lineNumbersShown)
+	const ScintillaViewParams& svp = NppParameters::getInstance().getSVP();
+	if (svp._lineNumberMarginShow)
 	{
 		auto linesVisible = execute(SCI_LINESONSCREEN);
 		if (linesVisible)
 		{
-			auto firstVisibleLineVis = execute(SCI_GETFIRSTVISIBLELINE);
-			auto lastVisibleLineVis = linesVisible + firstVisibleLineVis + 1;
+			int nbDigits = 0;
 
-			auto lastVisibleLineDoc = execute(SCI_DOCLINEFROMVISIBLE, lastVisibleLineVis);
-
-			int nbDigits = 3; // minimum number of digit should be 3
-			if (lastVisibleLineDoc < 1000) {} //nbDigits = 3;
-			else if (lastVisibleLineDoc < 10000) nbDigits = 4;
-			else if (lastVisibleLineDoc < 100000) nbDigits = 5;
-			else if (lastVisibleLineDoc < 1000000) nbDigits = 6;
-			else // rare case
+			if (svp._lineNumberMarginDynamicWidth)
 			{
-				nbDigits = 7;
-				lastVisibleLineDoc /= 1000000;
+				auto firstVisibleLineVis = execute(SCI_GETFIRSTVISIBLELINE);
+				auto lastVisibleLineVis = linesVisible + firstVisibleLineVis + 1;
+				auto lastVisibleLineDoc = execute(SCI_DOCLINEFROMVISIBLE, lastVisibleLineVis);
 
-				while (lastVisibleLineDoc)
-				{
-					lastVisibleLineDoc /= 10;
-					++nbDigits;
-				}
+				nbDigits = nbDigitsFromNbLines(lastVisibleLineDoc);
+				nbDigits = nbDigits < 3 ? 3 : nbDigits;
 			}
+			else
+			{
+				auto nbLines = execute(SCI_GETLINECOUNT);
+				nbDigits = nbDigitsFromNbLines(nbLines);
+				nbDigits = nbDigits < 4 ? 4 : nbDigits;
+			}
+
 			auto pixelWidth = 8 + nbDigits * execute(SCI_TEXTWIDTH, STYLE_LINENUMBER, reinterpret_cast<LPARAM>("8"));
 			execute(SCI_SETMARGINWIDTHN, _SC_MARGE_LINENUMBER, pixelWidth);
 		}
 	}
 }
+
 
 const char * ScintillaEditView::getCompleteKeywordList(std::basic_string<char> & kwl, LangType langType, int keywordIndex)
 {

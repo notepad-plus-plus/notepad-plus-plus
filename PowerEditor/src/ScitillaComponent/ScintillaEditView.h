@@ -326,7 +326,7 @@ public:
 
     void showMargin(int whichMarge, bool willBeShowed = true) {
         if (whichMarge == _SC_MARGE_LINENUMBER)
-			showLineNumbersMargin(willBeShowed);
+			updateLineNumbersMargin();
         else
 		{
 			int width = 3;
@@ -473,11 +473,9 @@ public:
 
 	void setLineIndent(int line, int indent) const;
 
-	void showLineNumbersMargin(bool show)
-	{
-		if (show == _lineNumbersShown) return;
-		_lineNumbersShown = show;
-		if (show)
+	void updateLineNumbersMargin() {
+		const ScintillaViewParams& svp = NppParameters::getInstance().getSVP();
+		if (svp._lineNumberMarginShow)
 		{
 			updateLineNumberWidth();
 		}
@@ -488,6 +486,7 @@ public:
 	}
 
 	void updateLineNumberWidth();
+	
 
 	void setCurrentLineHiLiting(bool isHiliting, COLORREF bgColor) const {
 		execute(SCI_SETCARETLINEVISIBLE, isHiliting);
@@ -560,6 +559,21 @@ public:
 		execute(SCI_INDICATORCLEARRANGE, docStart, docEnd-docStart);
 	};
 
+	bool getIndicatorRange(int indicatorNumber, int *from = NULL, int *to = NULL, int *cur = NULL) {
+		int curPos = static_cast<int>(execute(SCI_GETCURRENTPOS));
+		int indicMsk = static_cast<int>(execute(SCI_INDICATORALLONFOR, curPos));
+		if (!(indicMsk & (1 << indicatorNumber)))
+			return false;
+		int startPos = static_cast<int>(execute(SCI_INDICATORSTART, indicatorNumber, curPos));
+		int endPos = static_cast<int>(execute(SCI_INDICATOREND, indicatorNumber, curPos));
+		if ((curPos < startPos) || (curPos > endPos))
+			return false;
+		if (from) *from = startPos;
+		if (to) *to = endPos;
+		if (cur) *cur = curPos;
+		return true;
+	};
+
 	static LanguageName langNames[L_EXTERNAL+1];
 
 	void bufferUpdated(Buffer * buffer, int mask);
@@ -592,6 +606,12 @@ public:
 
 		previousSelRange = currentSelRange;
 		return false;
+	};
+
+	bool isPythonStyleIndentation(LangType typeDoc) const{
+		return (typeDoc == L_PYTHON || typeDoc == L_COFFEESCRIPT || typeDoc == L_HASKELL ||\
+			typeDoc == L_C || typeDoc == L_CPP || typeDoc == L_OBJC || typeDoc == L_CS || typeDoc == L_JAVA ||\
+			typeDoc == L_PHP || typeDoc == L_JS || typeDoc == L_JAVASCRIPT || typeDoc == L_MAKEFILE || typeDoc == L_ASN1);
 	};
 
 	void defineDocType(LangType typeDoc);	//setup stylers for active document
@@ -645,7 +665,6 @@ protected:
 	Buffer * _currentBuffer = nullptr;
 
 	int _codepage = CP_ACP;
-	bool _lineNumbersShown = false;
 	bool _wrapRestoreNeeded = false;
 	bool _positionRestoreNeeded = false;
 	uint32_t _restorePositionRetryCount = 0;

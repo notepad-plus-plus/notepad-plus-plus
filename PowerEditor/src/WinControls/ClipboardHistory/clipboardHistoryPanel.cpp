@@ -273,6 +273,13 @@ INT_PTR CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam,
 			}
 		}
 		break;
+
+		case WM_NOTIFY:
+		{
+			if (((LPNMHDR)lParam)->code == DMN_CLOSE)
+				::SendMessage(_hParent, WM_COMMAND, IDM_EDIT_CLIPBOARDHISTORY_PANEL, 0);
+			break;
+		}
 		
         case WM_SIZE:
         {

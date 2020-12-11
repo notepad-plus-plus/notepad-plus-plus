@@ -75,7 +75,6 @@ after_build:
             Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\installer\functionList" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin" -Recurse
             cd .\PowerEditor\Test\FunctionList\
             .\unitTestLauncher.ps1
-            .\unitTestLauncher.ps1
             #ATTENTION: current working dir is no longer at APPVEYOR_BUILD_FOLDER
             cd ..\UrlDetection
             .\verifyUrlDetection.ps1

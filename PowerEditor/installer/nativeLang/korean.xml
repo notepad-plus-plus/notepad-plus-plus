@@ -368,7 +368,7 @@
   <Item id="1603" name="단어 완전 일치(&amp;W)"/> 
   <Item id="1604" name="대소문자 구분(&amp;C)"/> 
   <Item id="1605" name="정규 표현식(&amp;E)"/> 
-  <Item id="1606" name="되돌이 검색(&amp;A)"/> 
+  <Item id="1606" name="되돌이 검색(&amp;P)"/> 
   <Item id="1614" name="일치하는 개수"/> 
   <Item id="1615" name="모두 찾기"/> 
   <Item id="1616" name="줄을 책갈피"/> 

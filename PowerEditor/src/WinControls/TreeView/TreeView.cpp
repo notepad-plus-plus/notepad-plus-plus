@@ -66,6 +66,36 @@ void TreeView::destroy()
 
 LRESULT TreeView::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 {
+	if (Message == TVM_EXPAND)
+	{
+		if (wParam & (TVE_COLLAPSE | TVE_EXPAND))
+		{
+			// If TVIS_EXPANDEDONCE flag is set, TVM_EXPAND messages do not generate
+			// TVN_ITEMEXPANDING or TVN_ITEMEXPANDED notifications.
+			// To reset the flag, you must send a TVM_EXPAND message
+			// with the TVE_COLLAPSE and TVE_COLLAPSERESET flags set.
+			// That in turn removes child items which is unwanted.
+			// Below is a workaround for that.
+			TVITEM tvItem = {};
+			tvItem.hItem = reinterpret_cast<HTREEITEM>(lParam);
+			tvItem.mask = TVIF_STATE | TVIF_HANDLE | TVIF_PARAM;
+			tvItem.stateMask = TVIS_EXPANDEDONCE;
+			TreeView_GetItem(_hSelf, &tvItem);
+			// Check if a flag is set.
+			if (tvItem.state & TVIS_EXPANDEDONCE)
+			{
+				// If the flag is set, then manually notify parent that an item is collapsed/expanded
+				// so that it can change icon, etc.
+				NMTREEVIEW nmtv = {};
+				nmtv.hdr.code = TVN_ITEMEXPANDED;
+				nmtv.hdr.hwndFrom = _hSelf;
+				nmtv.hdr.idFrom = 0;
+				nmtv.action = wParam & TVE_COLLAPSE ? TVE_COLLAPSE : TVE_EXPAND;
+				nmtv.itemNew.hItem = tvItem.hItem;
+				::SendMessage(_hParent, WM_NOTIFY, nmtv.hdr.idFrom, reinterpret_cast<LPARAM>(&nmtv));
+			}
+		}
+	}
 	return ::CallWindowProc(_defaultProc, hwnd, Message, wParam, lParam);
 }
 

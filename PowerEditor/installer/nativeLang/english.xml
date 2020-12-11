@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="English" filename="english.xml" version="7.9.1">
+    <Native-Langue name="English" filename="english.xml" version="7.9.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -160,6 +160,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42048" name="Copy Binary Content"/>
                     <Item id="42049" name="Cut Binary Content"/>
                     <Item id="42050" name="Paste Binary Content"/>
+                    <Item id="42082" name="Copy link"/>
                     <Item id="42037" name="Column Mode..."/>
                     <Item id="42034" name="Column Editor..."/>
                     <Item id="42051" name="Character Panel"/>
@@ -351,13 +352,13 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item CMID="1" name="Close All BUT This"/>
                     <Item CMID="2" name="Save"/>
                     <Item CMID="3" name="Save As..."/>
-                    <Item CMID="4" name="Print"/>
+                    <Item CMID="4" name="Print..."/>
                     <Item CMID="5" name="Move to Other View"/>
                     <Item CMID="6" name="Clone to Other View"/>
                     <Item CMID="7" name="Full File Path to Clipboard"/>
                     <Item CMID="8" name="Filename to Clipboard"/>
                     <Item CMID="9" name="Current Dir. Path to Clipboard"/>
-                    <Item CMID="10" name="Rename"/>
+                    <Item CMID="10" name="Rename..."/>
                     <Item CMID="11" name="Move to Recycle Bin"/>
                     <Item CMID="12" name="Read-Only"/>
                     <Item CMID="13" name="Clear Read-Only Flag"/>
@@ -818,36 +819,37 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6219" name="Blink rate :"/>
                     <Item id="6221" name="F"/>
                     <Item id="6222" name="S"/>
-                    <Item id="6224" name="Multi-Editing Settings"/>
-                    <Item id="6225" name="Enable (Ctrl+Mouse click/selection)"/>
+                    <Item id="6225" name="Enable Multi-Editing (Ctrl+Mouse click/selection)"/>
+                    <Item id="6227" name="Line Wrap"/>
+                    <Item id="6228" name="Default"/>
+                    <Item id="6229" name="Aligned"/>
+                    <Item id="6230" name="Indent"/>
+                    <Item id="6234" name="Disable advanced scrolling feature due to touchpad issue"/>
+                    <Item id="6214" name="Enable current line highlighting"/>
+                    <Item id="6215" name="Enable smooth font"/>
+                    <Item id="6236" name="Enable scrolling beyond last line"/>
+                    <Item id="6239" name="Keep selection when right-click outside of selection"/>
+                </Scintillas>
+
+                <MarginsBorderEdge title="Margins/Border/Edge">
                     <Item id="6201" name="Folder Margin Style"/>
                     <Item id="6202" name="Simple"/>
                     <Item id="6203" name="Arrow"/>
                     <Item id="6204" name="Circle tree"/>
                     <Item id="6205" name="Box tree"/>
                     <Item id="6226" name="None"/>
-
-                    <Item id="6227" name="Line Wrap"/>
-                    <Item id="6228" name="Default"/>
-                    <Item id="6229" name="Aligned"/>
-                    <Item id="6230" name="Indent"/>
-
-                    <Item id="6206" name="Display line number"/>
+                    <Item id="6291" name="Line Number"/>
+                    <Item id="6206" name="Display"/>
+                    <Item id="6292" name="Dynamic width"/>
+                    <Item id="6293" name="Constant width"/>
                     <Item id="6207" name="Display bookmark"/>
-                    <Item id="6208" name="Show vertical edge"/>
-                    <Item id="6234" name="Disable advanced scrolling feature
-(if you have touchpad problem)"/>
                     <Item id="6211" name="Vertical Edge Settings"/>
                     <Item id="6213" name="Background mode"/>
                     <Item id="6237" name="Add your column marker by indicating its position with a decimal number.
 You can define several column markers by using white space to separate the different numbers."/>
-                    <Item id="6214" name="Enable current line highlighting"/>
-                    <Item id="6215" name="Enable smooth font"/>
                     <Item id="6231" name="Border Width"/>
                     <Item id="6235" name="No edge"/>
-                    <Item id="6236" name="Enable scrolling beyond last line"/>
-                    <Item id="6239" name="Keep selection when right-click outside of selection"/>
-                </Scintillas>
+                </MarginsBorderEdge>
 
                 <NewDoc title="New Document">
                     <Item id="6401" name="Format (Line ending)"/>
@@ -1006,10 +1008,15 @@ You can define several column markers by using white space to separate the diffe
 (don't choose it unless you know what you're doing)"/>
                 </Delimiter>
 
-                <Cloud title="Cloud">
+                <Cloud title="Cloud &amp; Link">
                     <Item id="6262" name="Settings on cloud"/>
                     <Item id="6263" name="No Cloud"/>
                     <Item id="6267" name="Set your cloud location path here:"/>
+                    <Item id="6318" name="Clickable Link Settings"/>
+                    <Item id="6319" name="Enable"/>
+                    <Item id="6320" name="No underline"/>
+                    <Item id="6350" name="Enable fullbox mode"/>
+                    <Item id="6264" name="URI customized schemes:"/>
                 </Cloud>
 
                 <SearchEngine title="Search Engine">
@@ -1032,10 +1039,7 @@ You can define several column markers by using white space to separate the diffe
                     <Item id="6308" name="Minimize to system tray"/>
                     <Item id="6312" name="File Status Auto-Detection"/>
                     <Item id="6313" name="Update silently"/>
-                    <Item id="6318" name="Clickable Link Settings"/>
                     <Item id="6325" name="Scroll to the last line after update"/>
-                    <Item id="6319" name="Enable"/>
-                    <Item id="6320" name="No underline"/>
                     <Item id="6322" name="Session file ext.:"/>
                     <Item id="6323" name="Enable Notepad++ auto-updater"/>
                     <Item id="6351" name="Set Save dialog file extension filter to .* instead of .txt for Normal Text"/>
@@ -1043,7 +1047,6 @@ You can define several column markers by using white space to separate the diffe
                     <Item id="6331" name="Show only filename in title bar"/>
                     <Item id="6334" name="Autodetect character encoding"/>
                     <Item id="6349" name="Use DirectWrite (May improve rendering special characters, need to restart Notepad++)"/>
-                    <Item id="6350" name="Enable fullbox mode"/>
                     <Item id="6337" name="Workspace file ext.:"/>
                     <Item id="6114" name="Enable"/>
                     <Item id="6117" name="Enable MRU behaviour"/>
@@ -1119,6 +1122,7 @@ Continue?"/> <!-- HowToReproduce: when you openned file is modified and saved, t
             <DocReloadWarning title="Reload" message="Are you sure you want to reload the current file and lose the changes made in Notepad++?"/>
             <FileLockedWarning title="Save failed" message="Please check whether if this file is opened in another program"/>
             <FileAlreadyOpenedInNpp title="" message="The file is already opened in Notepad++."/> <!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
+            <RenameTabTemporaryNameAlreadyInUse title="Rename failed" message="The specified name is already in use on another tab."/> <!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
             <DeleteFileFailed title="Delete File" message="Delete File failed"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 
             <NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.
@@ -1230,6 +1234,9 @@ Continue?"/>
         <FolderAsWorkspace>
             <PanelTitle name="Folder as Workspace"/>
             <SelectFolderFromBrowserString name="Select a folder to add in Folder as Workspace panel"/>
+            <ExpandAllFoldersTip name="Expand all folders"/>
+            <CollapseAllFoldersTip name="Collapse all folders"/>
+            <LocateCurrentFileTip name="Locate current file"/>
             <Menus>
                 <Item id="3511" name="Remove"/>
                 <Item id="3512" name="Remove All"/>
@@ -1340,7 +1347,8 @@ Find in all files except exe, obj &amp;&amp; log:
             <finder-close-this value="Close these search results"/>
             <finder-collapse-all value="Collapse all"/>
             <finder-uncollapse-all value="Uncollapse all"/>
-            <finder-copy value="Copy"/>
+            <finder-copy value="Copy Selected Line(s)"/>
+            <finder-copy-verbatim value="Copy"/>
             <finder-select-all value="Select all"/>
             <finder-clear-all value="Clear all"/>
             <finder-open-all value="Open all"/>
@@ -1374,11 +1382,12 @@ Find in all files except exe, obj &amp;&amp; log:
             <replace-in-open-docs-confirm-title value="Are you sure?"/>
             <replace-in-open-docs-confirm-message value="Are you sure you want to replace all occurrences in all open documents?"/>
             <find-result-caption value="Search results"/>
-            <find-result-title value="Search"/>
+            <find-result-title value="Search"/> <!-- Must not begin with space or tab character -->
             <find-result-title-info value="($INT_REPLACE1$ hits in $INT_REPLACE2$ files of $INT_REPLACE3$ searched)"/>
             <find-result-title-info-selections value="($INT_REPLACE1$ hits in $INT_REPLACE2$ selections of $INT_REPLACE3$ searched)"/>
             <find-result-title-info-extra value=" - Line Filter Mode: only display the filtered results"/>
             <find-result-hits value="($INT_REPLACE$ hits)"/>
+            <find-result-line-prefix value="Line"/> <!-- Must not begin with space or tab character -->
             <find-regex-zero-length-match value="zero length match" />
         </MiscStrings>
     </Native-Langue>

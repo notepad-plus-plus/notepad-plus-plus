@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="7.9.1">
+    <Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="7.9.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -146,6 +146,7 @@
                     <Item id="42048" name="複製 Binary 內容（包含 NULL 字元）"/>
                     <Item id="42049" name="剪下 Binary 內容（包含 NULL 字元）"/>
                     <Item id="42050" name="貼上 Binary 內容（包含 NULL 字元）"/>
+                    <Item id="42082" name="複製連結"/>
                     <Item id="42037" name="多欄選取..."/>
                     <Item id="42034" name="多欄插入..."/>
                     <Item id="42051" name="顯示 ASCII 插入面板"/>
@@ -786,42 +787,45 @@
                     <Item id="6126" name="顯示"/>
                     <Item id="6127" name="停用副檔名欄"/>
                 </Global>
+
                 <Scintillas title="編輯">
                     <Item id="6216" name="游標設定"/>
                     <Item id="6217" name="寬度："/>
                     <Item id="6219" name="閃爍頻率："/>
                     <Item id="6221" name="快"/>
                     <Item id="6222" name="慢"/>
-                    <Item id="6224" name="多個位置同時編輯"/>
-                    <Item id="6225" name="啟用（Ctrl + 滑鼠點擊/選取）"/>
+                    <Item id="6225" name="啟用多個位置同時編輯（Ctrl + 滑鼠點擊/選取）"/>
+                    <Item id="6227" name="換行設定"/>
+                    <Item id="6228" name="預設"/>
+                    <Item id="6229" name="對齊"/>
+                    <Item id="6230" name="縮排"/>
+                    <Item id="6234" name="關閉進階捲動功能（若有觸控板問題）"/>
+                    <Item id="6214" name="於游標行加上背景顏色"/>
+                    <Item id="6215" name="啟用平滑字體"/>
+                    <Item id="6236" name="允許捲動至超出最後一行"/>
+                    <Item id="6239" name="在選擇範圍之外點擊滑鼠右鍵時仍保留選擇範圍"/> 
+                </Scintillas>
+
+                <MarginsBorderEdge title="邊距/邊界/行界線">
                     <Item id="6201" name="摺疊符號"/>
                     <Item id="6202" name="精簡"/>
                     <Item id="6203" name="箭頭"/>
                     <Item id="6204" name="圓形"/>
                     <Item id="6205" name="方形"/>
                     <Item id="6226" name="無"/>
-
-                    <Item id="6227" name="換行設定"/>
-                    <Item id="6228" name="預設"/>
-                    <Item id="6229" name="對齊"/>
-                    <Item id="6230" name="縮排"/>
-
-                    <Item id="6206" name="顯示行號"/>
+                    <Item id="6291" name="行號"/>
+                    <Item id="6206" name="顯示"/>
+                    <Item id="6292" name="動態寬度"/>
+                    <Item id="6293" name="恆定寬度"/>
                     <Item id="6207" name="顯示標記"/>
-                    <Item id="6208" name="顯示邊界線"/>
-                    <Item id="6234" name="關閉進階捲動功能
-（若有觸控板問題）"/>
-                    <Item id="6211" name="邊緣線設定"/>
+                    <Item id="6211" name="行界線設定"/>
                     <Item id="6213" name="背景色模式"/>
                     <Item id="6237" name="如欲添加列標記可以在下面以數字指示其列位置。
 使用空格分隔不同數字來定義多個列標記。"/>
-                    <Item id="6214" name="於游標行加上背景顏色"/>
-                    <Item id="6215" name="啟用平滑字體"/>
                     <Item id="6231" name="邊框寬度"/>
                     <Item id="6235" name="無邊框"/>
-                    <Item id="6236" name="允許捲動至超出最後一行"/>
-                    <Item id="6239" name="在選擇範圍之外點擊滑鼠右鍵時仍保留選擇範圍"/> 
-                </Scintillas>
+                </MarginsBorderEdge>
+
                 <NewDoc title="新文件預設設定">
                     <Item id="6401" name="格式（EOF）"/>
                     <Item id="6402" name="Windows（CR LF）"/>
@@ -976,11 +980,15 @@
                     <Item id="6163" name="添加字元（不了解此選項的話不建議選取）"/>
                 </Delimiter>
 
-                <Cloud title="雲端">
+                <Cloud title="雲端與連結">
                     <Item id="6262" name="雲端設定"/>
                     <Item id="6263" name="不使用雲端"/>
                     <Item id="6267" name="雲端路徑："/>
-                    <!-- <Item id="6261" name="（重新啟動 Notepad++ 後生效）"/> -->
+                    <Item id="6318" name="連結設定"/>
+                    <Item id="6319" name="將連結設為可點擊"/>
+                    <Item id="6320" name="隱藏連結底線"/>
+                    <Item id="6350" name="啟動背景模式"/>
+                    <Item id="6264" name="自訂 URI 格式："/>
                 </Cloud>
 
                 <SearchEngine title="搜尋引擎">
@@ -1003,18 +1011,14 @@
                     <Item id="6308" name="最小化至系統匣"/>
                     <Item id="6312" name="自動更新檔案狀態"/>
                     <Item id="6313" name="於背景自動更新"/>
-                    <Item id="6318" name="連結設定"/>
                     <Item id="6325" name="更新後捲動至最後一行"/>
-                    <Item id="6319" name="將連結設為可點擊"/>
-                    <Item id="6320" name="隱藏連結底線"/>
                     <Item id="6322" name="工作階段檔案副檔名："/>
                     <Item id="6323" name="自動更新 Notepad++"/>
                     <Item id="6324" name="文件切換器（Ctrl + TAB）"/>
                     <Item id="6331" name="在標題列僅顯示檔案名稱（隱藏資料夾路徑）"/>
                     <Item id="6334" name="自動偵測檔案編碼"/>
                     <Item id="6349" name="使用 DirectWrite（可改善特殊字符的呈現，需要重新啟動 Notepad++）"/>
-                    <Item id="6350" name="啟動背景模式"/>
-					<Item id="6337" name="資料夾工作區檔案副檔名："/>
+                    <Item id="6337" name="資料夾工作區檔案副檔名："/>
                     <Item id="6114" name="啟動"/>
                     <Item id="6117" name="開啟「最近使用的檔案」功能"/>
                     <Item id="6344" name="窺視檔案"/>
@@ -1098,7 +1102,7 @@
             <ColumnModeTip title="多欄選取提示" message="請使用「ALT + 滑鼠選擇」或「Alt + Shift + 方向鍵」以切換到多欄選取。"/>
             <BufferInvalidWarning title="儲存失敗" message="緩衝區無效。"/>
             <DoCloseOrNot title="保留文件" message="檔案「$STR_REPLACE$」已不存在。
-您在 Notepad++ 中保存這個文件嗎？"/>
+您要在 Notepad++ 中保留這個文件嗎？"/>
             <DoDeleteOrNot title="刪除檔案" message="您確定要刪除並關閉「$STR_REPLACE$」嗎？"/>
             <NoBackupDoSaveFile title="儲存" message="您的備份文件已從外部刪除。
 請儲存「$STR_REPLACE$」，否則您的數據將會遺失。
@@ -1138,8 +1142,8 @@
             <UDLRemoveCurrentLang title="刪除語言" message="您確定要刪除目前的自訂程式語言嗎？"/>
             <SCMapperDoDeleteOrNot title="刪除快捷鍵" message="您確定要刪除這個快捷鍵嗎？"/>
             <FindCharRangeValueError title="輸入值範圍錯誤" message="您輸入的值應在 0 到 255 之間。如要搜尋字元編號大於 255 的字元，請在「尋找」對話方塊中使用「規則運算式」。"/>
-            <ExitToUpdatePlugins title="關閉 Notepad++" message="如果您的回答是肯定的，Notepad ++將自動關閉以進行後置安裝。
-所有的後置安裝終止後，Notepad ++將重新啟動。
+            <ExitToUpdatePlugins title="關閉 Notepad++" message="Notepad++ 將自動關閉以進行後續作業。
+在所有後續作業完成後，Notepad++ 將重新啟動。
 繼續嗎？"/>
             <NeedToRestartToLoadPlugins title="重新啟動 Notepad++" message="您必須重新啟動 Notepad++ 才能載入已安裝的外掛模組。"/>
         </MessageBox>
@@ -1174,6 +1178,9 @@
         <FolderAsWorkspace>
             <PanelTitle name="資料夾工作區"/>
             <SelectFolderFromBrowserString name="選擇一個資料夾以加入資料夾工作區"/>
+            <ExpandAllFoldersTip name="展開所有文件夾"/>
+            <CollapseAllFoldersTip name="收折所有文件夾"/>
+            <LocateCurrentFileTip name="現行文件位置"/>
             <Menus>
                 <Item id="3511" name="移除"/>
                 <Item id="3512" name="全部移除"/>
@@ -1279,7 +1286,8 @@
             <finder-close-this value="關閉這個搜尋結果"/>
             <finder-collapse-all value="層數全部收折"/>
             <finder-uncollapse-all value="層數全部展開"/>
-            <finder-copy value="複製"/>
+            <finder-copy value="複製全行"/>
+            <finder-copy-verbatim value="複製"/>
             <finder-select-all value="全部選取"/>
             <finder-clear-all value="全部清除"/>
             <finder-open-all value="全部開啟"/>
@@ -1314,10 +1322,11 @@
             <replace-in-open-docs-confirm-title value="替換確認"/>
             <replace-in-open-docs-confirm-message value="您確定要替換所有打開的文檔中的所有匹配項嗎？"/>
             <find-result-caption value="搜尋結果"/>
-            <find-result-title value="搜尋"/>
+            <find-result-title value="搜尋"/> <!-- Must not begin with space or tab character -->
             <find-result-title-info value="（找到 $INT_REPLACE1$ 個結果在 $INT_REPLACE2$ 的文件中。搜尋文件量： $INT_REPLACE3$）"/>
             <find-result-title-info-extra value=" - 僅在搜尋結果中尋找"/>
             <find-result-hits value="（$INT_REPLACE$ 個結果）"/>
+            <find-result-line-prefix value="行號"/> <!-- Must not begin with space or tab character -->
             <find-regex-zero-length-match value="零長度的字元相符" />
         </MiscStrings>
     </Native-Langue>

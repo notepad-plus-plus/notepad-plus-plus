@@ -158,18 +158,20 @@ class FunctionParsersManager final
 public:
 	~FunctionParsersManager();
 
-	bool init(const generic_string& xmlPath, ScintillaEditView ** ppEditView);
+	bool init(const generic_string& xmlPath, const generic_string& xmlInstalledPath, ScintillaEditView ** ppEditView);
 	bool parse(std::vector<foundInfo> & foundInfos, const AssociationInfo & assoInfo);
 	
 
 private:
 	ScintillaEditView **_ppEditView = nullptr;
-	generic_string _xmlDirPath;
+	generic_string _xmlDirPath; // The 1st place to load function list files. Usually it's "%APPDATA%\Notepad++\functionList\"
+	generic_string _xmlDirInstalledPath; // Where Notepad++ is installed. The 2nd place to load function list files. Usually it's "%PROGRAMFILES%\Notepad++\functionList\" 
+
 	ParserInfo* _parsers[L_EXTERNAL + nbMaxUserDefined] = {nullptr};
 	int _currentUDIndex = L_EXTERNAL;
 
-	bool getOverrideMapFromXmlTree();
-	bool loadFuncListFromXmlTree(LangType lType, const generic_string& overrideId, int udlIndex = -1);
+	bool getOverrideMapFromXmlTree(generic_string & xmlDirPath);
+	bool loadFuncListFromXmlTree(generic_string & xmlDirPath, LangType lType, const generic_string& overrideId, int udlIndex = -1);
 	bool getZonePaserParameters(TiXmlNode *classRangeParser, generic_string &mainExprStr, generic_string &openSymboleStr, generic_string &closeSymboleStr, std::vector<generic_string> &classNameExprArray, generic_string &functionExprStr, std::vector<generic_string> &functionNameExprArray);
 	bool getUnitPaserParameters(TiXmlNode *functionParser, generic_string &mainExprStr, std::vector<generic_string> &functionNameExprArray, std::vector<generic_string> &classNameExprArray);
 	FunctionParser * getParser(const AssociationInfo & assoInfo);

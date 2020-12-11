@@ -44,6 +44,9 @@
 #define FB_OPENINNPP          TEXT("Open")
 #define FB_SHELLEXECUTE       TEXT("Run by system")
 
+#define FOLDERASWORKSPACE_NODE "FolderAsWorkspace"
+
+
 class TiXmlNode;
 class FileBrowser;
 class FolderInfo;
@@ -120,6 +123,7 @@ struct SortingData4lParam {
 
 	SortingData4lParam(generic_string rootPath, generic_string label, bool isFolder) : _rootPath(rootPath), _label(label), _isFolder(isFolder) {}
 };
+;
 
 class FileBrowser : public DockingDlgInterface {
 public:
@@ -181,6 +185,10 @@ protected:
 	generic_string _selectedNodeFullPath; // this member is used only for PostMessage call
 
 	std::vector<SortingData4lParam*> sortingDataArray;
+
+	generic_string _expandAllFolders = TEXT("Expand all folders");
+	generic_string _collapseAllFolders = TEXT("Collapse all folders");
+	generic_string _locateCurrentFile = TEXT("Locate current file");
 
 	void initPopupMenus();
 	void destroyMenus();

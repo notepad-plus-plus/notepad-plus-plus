@@ -167,8 +167,9 @@ private:
 	int _lastSearchHeaderPos = 0;
 
 	bool _canBeVolatiled = true;
-
 	bool _longLinesAreWrapped = false;
+
+	generic_string _prefixLineStr;
 
 	void setFinderReadOnly(bool isReadOnly) {
 		_scintView.execute(SCI_SETREADONLY, isReadOnly);
@@ -316,7 +317,7 @@ public :
 		// Show finder and set focus
 		if (_pFinder) 
 		{
-			::SendMessage(_hParent, NPPM_DMMSHOW, 0, reinterpret_cast<LPARAM>(_pFinder->getHSelf()));
+			_pFinder->display();
 			_pFinder->_scintView.getFocus();
 		}
 	};

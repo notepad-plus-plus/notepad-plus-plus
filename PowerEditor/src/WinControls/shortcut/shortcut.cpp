@@ -812,6 +812,7 @@ bool recordedMacroStep::isMacroable() const
 		case SCI_SCROLLTOEND:
 		case SCI_SETVIRTUALSPACEOPTIONS:
 		case SCI_SETCARETLINEBACKALPHA:
+		case SCI_NEWLINE:
 		{
 			if (_macroType == mtUseLParameter)
 				return true;
@@ -819,9 +820,7 @@ bool recordedMacroStep::isMacroable() const
 				return false;
 		}
 
-		// Filter out all others like display changes. Also, newlines are redundant
-		// with char insert messages.
-		case SCI_NEWLINE:
+		// Filter out all others like display changes.
 		default:
 			return false;
 	}

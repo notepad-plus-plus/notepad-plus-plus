@@ -820,11 +820,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			else
 			{ // Double click with no modifiers
 				// Check wether cursor is within URL
-				auto indicMsk = notifyView->execute(SCI_INDICATORALLONFOR, notification->position);
-				if (!(indicMsk & (1 << URL_INDIC))) break;
-				auto startPos = notifyView->execute(SCI_INDICATORSTART, URL_INDIC, notification->position);
-				auto endPos = notifyView->execute(SCI_INDICATOREND, URL_INDIC, notification->position);
-				if ((notification->position < startPos) || (notification->position > endPos)) break;
+				int startPos = 0, endPos = 0;
+				if (!notifyView->getIndicatorRange(URL_INDIC, &startPos, &endPos))
+					break;
 
 				// WM_LBUTTONUP goes to opening browser instead of Scintilla here, because the mouse is not captured.
 				// The missing message causes mouse cursor flicker as soon as the mouse cursor is moved to a position outside the text editing area.
@@ -911,8 +909,6 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			try
 			{
 				LPTOOLTIPTEXT lpttt = (LPTOOLTIPTEXT)notification;
-
-				//Joce's fix
 				lpttt->hinst = NULL;
 
 				POINT p;
@@ -1016,7 +1012,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				_subEditView.restoreCurrentPosPreStep();
 				_subEditView.setWrapRestoreNeeded(false);
 			}
+
 			notifyView->updateLineNumberWidth();
+
 			if (_syncInfo.doSync())
 				doSynScorll(HWND(notification->nmhdr.hwndFrom));
 

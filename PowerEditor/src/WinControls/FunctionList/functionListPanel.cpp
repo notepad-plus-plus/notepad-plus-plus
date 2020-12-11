@@ -41,6 +41,9 @@ using namespace std;
 #define INDEX_NODE        1
 #define INDEX_LEAF        2
 
+#define FL_SORTLOCALNODENAME   "SortTip"
+#define FL_RELOADLOCALNODENAME "ReloadTip"
+
 FunctionListPanel::~FunctionListPanel()
 {
 	for (const auto s : posStrs)
@@ -473,26 +476,28 @@ void FunctionListPanel::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **pp
 {
 	DockingDlgInterface::init(hInst, hPere);
 	_ppEditView = ppEditView;
+	
+	generic_string funcListXmlPath = (NppParameters::getInstance()).getUserPath();
+	PathAppend(funcListXmlPath, TEXT("functionList"));
+
+	generic_string funcListDefaultXmlPath = (NppParameters::getInstance()).getNppPath();
+	PathAppend(funcListDefaultXmlPath, TEXT("functionList"));
+
 	bool doLocalConf = (NppParameters::getInstance()).isLocal();
 
 	if (!doLocalConf)
 	{
-		generic_string funcListXmlPath = (NppParameters::getInstance()).getUserPath();
-		PathAppend(funcListXmlPath, TEXT("functionList"));
-
 		if (!PathFileExists(funcListXmlPath.c_str()))
-		{
-			generic_string funcListDefaultXmlPath = (NppParameters::getInstance()).getNppPath();
-			PathAppend(funcListDefaultXmlPath, TEXT("functionList"));
+		{	
 			if (PathFileExists(funcListDefaultXmlPath.c_str()))
 			{
 				::CopyFile(funcListDefaultXmlPath.c_str(), funcListXmlPath.c_str(), TRUE);
-				_funcParserMgr.init(funcListXmlPath, ppEditView);
+				_funcParserMgr.init(funcListXmlPath, funcListDefaultXmlPath, ppEditView);
 			}
 		}
 		else
 		{
-			_funcParserMgr.init(funcListXmlPath, ppEditView);
+			_funcParserMgr.init(funcListXmlPath, funcListDefaultXmlPath, ppEditView);
 		}
 	}
 	else
@@ -501,7 +506,7 @@ void FunctionListPanel::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **pp
 		PathAppend(funcListDefaultXmlPath, TEXT("functionList"));
 		if (PathFileExists(funcListDefaultXmlPath.c_str()))
 		{
-			_funcParserMgr.init(funcListDefaultXmlPath, ppEditView);
+			_funcParserMgr.init(funcListDefaultXmlPath, funcListDefaultXmlPath, ppEditView);
 		}
 	}
 }

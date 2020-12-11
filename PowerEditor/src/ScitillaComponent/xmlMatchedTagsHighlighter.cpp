@@ -50,6 +50,7 @@ vector< pair<int, int> > XmlMatchedTagsHighlighter::getAttributesPos(int start, 
 		attr_pre_assign,\
 		attr_assign,\
 		attr_string,\
+		attr_single_quot_string,\
 		attr_value,\
 		attr_valid\
 	} state = attr_invalid;
@@ -96,6 +97,20 @@ vector< pair<int, int> > XmlMatchedTagsHighlighter::getAttributesPos(int start, 
 					state = attr_invalid;
 				else if (state == attr_assign)
 					state = attr_string;
+			}
+			break;
+			
+			case '\'':
+			{
+				if (state == attr_single_quot_string)
+				{
+					state = attr_valid;
+					oneMoreChar = 1;
+				}
+				else if (state == attr_key || state == attr_pre_assign || state == attr_value)
+					state = attr_invalid;
+				else if (state == attr_assign)
+					state = attr_single_quot_string;
 			}
 			break;
 

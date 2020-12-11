@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="English" filename="english_customizable.xml" version="7.9.1">
+    <Native-Langue name="English" filename="english_customizable.xml" version="7.9.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -37,6 +37,7 @@
                     <Item subMenuId="search-unmarkAll" name="Unmark All"/>
                     <Item subMenuId="search-jumpUp" name="Jump Up"/>
                     <Item subMenuId="search-jumpDown" name="Jump Down"/>
+                    <Item subMenuId="search-copyStyledText" name="Copy Styled Text"/>
                     <Item subMenuId="search-bookmark" name="Bookmark"/>
                     <Item subMenuId="view-currentFileIn" name="View Current File in"/>
                     <Item subMenuId="view-showSymbol"  name="Show Symbol"/>
@@ -108,6 +109,7 @@
                     <Item id="42008" name="Increase Line Indent"/>
                     <Item id="42009" name="Decrease Line Indent"/>
                     <Item id="42010" name="Duplicate Current Line"/>
+                    <Item id="42079" name="Remove Duplicate Lines"/>
                     <Item id="42077" name="Remove Consecutive Duplicate Lines"/>
                     <Item id="42012" name="Split Lines"/>
                     <Item id="42013" name="Join Lines"/>
@@ -115,6 +117,8 @@
                     <Item id="42015" name="Move Down Current Line"/>
                     <Item id="42059" name="Sort Lines Lexicographically Ascending"/>
                     <Item id="42060" name="Sort Lines Lexicographically Descending"/>
+                    <Item id="42080" name="Sort Lines Lex. Ascending Ignoring Case"/>
+                    <Item id="42081" name="Sort Lines Lex. Descending Ignoring Case"/>
                     <Item id="42061" name="Sort Lines As Integers Ascending"/>
                     <Item id="42062" name="Sort Lines As Integers Descending"/>
                     <Item id="42063" name="Sort Lines As Decimals (Comma) Ascending"/>
@@ -153,6 +157,7 @@
                     <Item id="42048" name="Copy Binary Content"/>
                     <Item id="42049" name="Cut Binary Content"/>
                     <Item id="42050" name="Paste Binary Content"/>
+                    <Item id="42082" name="Copy link"/>
                     <Item id="42037" name="Column Mode..."/>
                     <Item id="42034" name="Column Editor..."/>
                     <Item id="42051" name="Character Panel"/>
@@ -217,6 +222,13 @@
                     <Item id="43042" name="4th style"/>
                     <Item id="43043" name="5th style"/>
                     <Item id="43044" name="Find style"/>
+                    <Item id="43055" name="1st Style"/>
+                    <Item id="43056" name="2nd Style"/>
+                    <Item id="43057" name="3rd Style"/>
+                    <Item id="43058" name="4th Style"/>
+                    <Item id="43059" name="5th Style"/>
+                    <Item id="43060" name="All Styles"/>
+                    <Item id="43061" name="Find Style (Marked)"/>
                     <Item id="43045" name="Search Results Window"/>
                     <Item id="43046" name="Next Search Result"/>
                     <Item id="43047" name="Previous Search Result"/>
@@ -337,13 +349,13 @@
                     <Item CMID="1" name="Close All BUT This"/>
                     <Item CMID="2" name="Save"/>
                     <Item CMID="3" name="Save As..."/>
-                    <Item CMID="4" name="Print"/>
+                    <Item CMID="4" name="Print..."/>
                     <Item CMID="5" name="Move to Other View"/>
                     <Item CMID="6" name="Clone to Other View"/>
                     <Item CMID="7" name="Full File Path to Clipboard"/>
                     <Item CMID="8" name="Filename to Clipboard"/>
                     <Item CMID="9" name="Current Dir. Path to Clipboard"/>
-                    <Item CMID="10" name="Rename"/>
+                    <Item CMID="10" name="Rename..."/>
                     <Item CMID="11" name="Move to Recycle Bin"/>
                     <Item CMID="12" name="Read-Only"/>
                     <Item CMID="13" name="Clear Read-Only Flag"/>
@@ -396,8 +408,9 @@
                 <Item id="1641" name="Find All in Current Document"/>
                 <Item id="1686" name="Transparenc&amp;y"/>
                 <Item id="1703" name="&amp;. matches newline"/>
-				<Item id="1721" name="▲"/>
+                <Item id="1721" name="▲"/>
                 <Item id="1723" name="▼ Find Next"/>
+                <Item id="1725" name="Copy Marked Text"/>
             </Find>
 
             <FindCharsInRange title="Find Characters in Range...">
@@ -542,6 +555,13 @@
                     <Item id="43042" name="Next mark using 4th style"/>
                     <Item id="43043" name="Next mark using 5th style"/>
                     <Item id="43044" name="Next mark created with Mark"/>
+                    <Item id="43055" name="Copy Styled Text - 1st Style"/>
+                    <Item id="43056" name="Copy Styled Text - 2nd Style"/>
+                    <Item id="43057" name="Copy Styled Text - 3rd Style"/>
+                    <Item id="43058" name="Copy Styled Text - 4th Style"/>
+                    <Item id="43059" name="Copy Styled Text - 5th Style"/>
+                    <Item id="43060" name="Copy Styled Text - All Styles"/>
+                    <Item id="43061" name="Copy Styled Text - Find Style (Marked)"/>
                     <Item id="44100" name="View current file in Firefox"/>
                     <Item id="44101" name="View current file in Chrome"/>
                     <Item id="44103" name="View current file in IE"/>
@@ -787,6 +807,8 @@
                     <Item id="6125" name="Document List Panel"/>
                     <Item id="6126" name="Show"/>
                     <Item id="6127" name="Disable extension column"/>
+
+                    <Item id="6128" name="Alternate icons"/>
                 </Global>
                 <Scintillas title="Editing">
                     <Item id="6216" name="Caret Settings"/>
@@ -794,36 +816,37 @@
                     <Item id="6219" name="Blink rate :"/>
                     <Item id="6221" name="F"/>
                     <Item id="6222" name="S"/>
-                    <Item id="6224" name="Multi-Editing Settings"/>
-                    <Item id="6225" name="Enable (Ctrl+Mouse click/selection)"/>
+                    <Item id="6225" name="Enable Multi-Editing (Ctrl+Mouse click/selection)"/>
+                    <Item id="6227" name="Line Wrap"/>
+                    <Item id="6228" name="Default"/>
+                    <Item id="6229" name="Aligned"/>
+                    <Item id="6230" name="Indent"/>
+                    <Item id="6234" name="Disable advanced scrolling feature due to touchpad issue"/>
+                    <Item id="6214" name="Enable current line highlighting"/>
+                    <Item id="6215" name="Enable smooth font"/>
+                    <Item id="6236" name="Enable scrolling beyond last line"/>
+                    <Item id="6239" name="Keep selection when right-click outside of selection"/>
+                </Scintillas>
+
+                <MarginsBorderEdge title="Margins/Border/Edge">
                     <Item id="6201" name="Folder Margin Style"/>
                     <Item id="6202" name="Simple"/>
                     <Item id="6203" name="Arrow"/>
                     <Item id="6204" name="Circle tree"/>
                     <Item id="6205" name="Box tree"/>
                     <Item id="6226" name="None"/>
-
-                    <Item id="6227" name="Line Wrap"/>
-                    <Item id="6228" name="Default"/>
-                    <Item id="6229" name="Aligned"/>
-                    <Item id="6230" name="Indent"/>
-
-                    <Item id="6206" name="Display line number"/>
+                    <Item id="6291" name="Line Number"/>
+                    <Item id="6206" name="Display"/>
+                    <Item id="6292" name="Dynamic width"/>
+                    <Item id="6293" name="Constant width"/>
                     <Item id="6207" name="Display bookmark"/>
-                    <Item id="6208" name="Show vertical edge"/>
-                    <Item id="6234" name="Disable advanced scrolling feature
-(if you have touchpad problem)"/>
                     <Item id="6211" name="Vertical Edge Settings"/>
                     <Item id="6213" name="Background mode"/>
                     <Item id="6237" name="Add your column marker by indicating its position with a decimal number.
 You can define several column markers by using white space to separate the different numbers."/>
-                    <Item id="6214" name="Enable current line highlighting"/>
-                    <Item id="6215" name="Enable smooth font"/>
                     <Item id="6231" name="Border Width"/>
                     <Item id="6235" name="No edge"/>
-                    <Item id="6236" name="Enable scrolling beyond last line"/>
-                    <Item id="6239" name="Keep selection when right-click outside of selection"/>
-                </Scintillas>
+                </MarginsBorderEdge>
 
                 <NewDoc title="New Document">
                     <Item id="6401" name="Format (Line ending)"/>
@@ -982,10 +1005,15 @@ You can define several column markers by using white space to separate the diffe
 (don't choose it unless you know what you're doing)"/>
                 </Delimiter>
 
-                <Cloud title="Cloud">
+                <Cloud title="Cloud &amp; Link">
                     <Item id="6262" name="Settings on cloud"/>
                     <Item id="6263" name="No Cloud"/>
                     <Item id="6267" name="Set your cloud location path here:"/>
+                    <Item id="6318" name="Clickable Link Settings"/>
+                    <Item id="6319" name="Enable"/>
+                    <Item id="6320" name="No underline"/>
+                    <Item id="6350" name="Enable fullbox mode"/>
+                    <Item id="6264" name="URI customized schemes:"/>
                 </Cloud>
 
                 <SearchEngine title="Search Engine">
@@ -1008,17 +1036,14 @@ You can define several column markers by using white space to separate the diffe
                     <Item id="6308" name="Minimize to system tray"/>
                     <Item id="6312" name="File Status Auto-Detection"/>
                     <Item id="6313" name="Update silently"/>
-                    <Item id="6318" name="Clickable Link Settings"/>
                     <Item id="6325" name="Scroll to the last line after update"/>
-                    <Item id="6319" name="Enable"/>
-                    <Item id="6320" name="No underline"/>
                     <Item id="6322" name="Session file ext.:"/>
                     <Item id="6323" name="Enable Notepad++ auto-updater"/>
+                    <Item id="6351" name="Set Save dialog file extension filter to .* instead of .txt for Normal Text"/>
                     <Item id="6324" name="Document Switcher (Ctrl+TAB)"/>
                     <Item id="6331" name="Show only filename in title bar"/>
                     <Item id="6334" name="Autodetect character encoding"/>
                     <Item id="6349" name="Use DirectWrite (May improve rendering special characters, need to restart Notepad++)"/>
-                    <Item id="6350" name="Enable fullbox mode"/>
                     <Item id="6337" name="Workspace file ext.:"/>
                     <Item id="6114" name="Enable"/>
                     <Item id="6117" name="Enable MRU behaviour"/>
@@ -1082,34 +1107,33 @@ You can define several column markers by using white space to separate the diffe
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title="Editing contextMenu" message="Editing contextMenu.xml allows you to modify your Notepad++ popup context menu.
 You have to restart your Notepad++ to take effect after modifying contextMenu.xml."/>
-            <NppHelpAbsentWarning title="File does not exist" message="
-doesn't exist. Please download it on Notepad++ site."/>
             <SaveCurrentModifWarning title="Save Current Modification" message="You should save the current modification.
 All the saved modifications can not be undone.
 
-Continue?"/>
+Continue?"/> <!-- HowToReproduce: when you openned file is modified but unsaved yet, and you are changing file encoding. -->
             <LoseUndoAbilityWarning title="Lose Undo Ability Warning" message="You should save the current modification.
 All the saved modifications can not be undone.
 
-Continue?"/>
-            <CannotMoveDoc title="Move to new Notepad++ Instance" message="Document is modified, save it then try again."/>
+Continue?"/> <!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
+            <CannotMoveDoc title="Move to new Notepad++ Instance" message="Document is modified, save it then try again."/> <!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
             <DocReloadWarning title="Reload" message="Are you sure you want to reload the current file and lose the changes made in Notepad++?"/>
             <FileLockedWarning title="Save failed" message="Please check whether if this file is opened in another program"/>
-            <FileAlreadyOpenedInNpp title="" message="The file is already opened in Notepad++."/>
-            <DeleteFileFailed title="Delete File" message="Delete File failed"/>
+            <FileAlreadyOpenedInNpp title="" message="The file is already opened in Notepad++."/> <!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
+            <RenameTabTemporaryNameAlreadyInUse title="Rename failed" message="The specified name is already in use on another tab."/> <!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
+            <DeleteFileFailed title="Delete File" message="Delete File failed"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 
             <NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.
-Are you sure you want to open them?"/>
+Are you sure you want to open them?"/> <!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into Notepad++. -->
             <SettingsOnCloudError title="Settings on Cloud" message="It seems the path of settings on cloud is set on a read only drive,
 or on a folder needed privilege right for writing access.
 Your settings on cloud will be canceled. Please reset a coherent value via Preference dialog."/>
-            <FilePathNotFoundWarning title="File Open" message="The file you're trying to open doesn't exist."/>
-            <SessionFileInvalidError title="Could not Load Session" message="Session file is either corrupted or not valid."/>
+            <FilePathNotFoundWarning title="File Open" message="The file you're trying to open doesn't exist."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+            <SessionFileInvalidError title="Could not Load Session" message="Session file is either corrupted or not valid."/> <!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
             <DroppingFolderAsProjectModeWarning title="Invalid action" message="You can only drop files or folders but not both, because you're in dropping Folder as Project mode.
 you have to enable &quot;Open all files of folder instead of launching Folder as Workspace on folder dropping&quot; in &quot;Default Directory&quot; section of Preferences dialog to make this operation work."/>
-            <SortingError title="Sorting Error" message="Unable to perform numeric sorting due to line $INT_REPLACE$."/>
+            <SortingError title="Sorting Error" message="Unable to perform numeric sorting due to line $INT_REPLACE$."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <ColumnModeTip title="Column Mode Tip" message="Please use &quot;ALT+Mouse Selection&quot; or &quot;Alt+Shift+Arrow key&quot; to switch to column mode."/>
-            <BufferInvalidWarning title="Save failed" message="Cannot save: Buffer is invalid."/>
+            <BufferInvalidWarning title="Save failed" message="Cannot save: Buffer is invalid."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <DoCloseOrNot title="Keep non existing file" message="The file &quot;$STR_REPLACE$&quot; doesn't exist anymore.
 Keep this file in editor?"/>
             <DoDeleteOrNot title="Delete file" message="The file &quot;$STR_REPLACE$&quot;
@@ -1126,28 +1150,28 @@ Do you want to reload it?"/>
 
 This file has been modified by another program.
 Do you want to reload it and lose the changes made in Notepad++?"/>
-            <PrehistoricSystemDetected title="Prehistoric system detected" message="It seems you still use a prehistoric system. This feature works only on a modern system, sorry."/>
+            <PrehistoricSystemDetected title="Prehistoric system detected" message="It seems you still use a prehistoric system. This feature works only on a modern system, sorry."/> <!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
             <XpUpdaterProblem title="Notepad++ Updater" message="Notepad++ updater is not compatible with XP due to the obsolete security layer under XP.
-Do you want to go to Notepad++ page to download the latest version?"/>
+Do you want to go to Notepad++ page to download the latest version?"/> <!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
             <GUpProxyConfNeedAdminMode title="Proxy Settings" message="Please relaunch Notepad++ in Admin mode to configure proxy."/>
             <DocTooDirtyToMonitor title="Monitoring problem" message="The document is dirty. Please save the modification before monitoring it."/>
             <DocNoExistToMonitor title="Monitoring problem" message="The file should exist to be monitored."/>
-            <FileTooBigToOpen title="File size problem" message="File is too big to be opened by Notepad++"/>
+            <FileTooBigToOpen title="File size problem" message="File is too big to be opened by Notepad++"/> <!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
             <CreateNewFileOrNot title="Create new file" message="&quot;$STR_REPLACE$&quot; doesn't exist. Create it?"/>
-            <CreateNewFileError title="Create new file" message="Cannot create the file &quot;$STR_REPLACE$&quot;."/>
+            <CreateNewFileError title="Create new file" message="Cannot create the file &quot;$STR_REPLACE$&quot;."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <OpenFileError title="ERROR" message="Can not open file &quot;$STR_REPLACE$&quot;."/>
             <FileBackupFailed title="File Backup Failed" message="The previous version of the file could not be saved into the backup directory at &quot;$STR_REPLACE$&quot;.
 
-Do you want to save the current file anyways?"/>
+Do you want to save the current file anyways?"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <LoadStylersFailed title="Load stylers.xml failed" message="Load &quot;$STR_REPLACE$&quot; failed!"/>
             <LoadLangsFailed title="Configurator" message="Load langs.xml failed!
-Do you want to recover your langs.xml?"/>
-            <LoadLangsFailedFinal title="Configurator" message="Load langs.xml failed!"/>
+Do you want to recover your langs.xml?"/> <!-- HowToReproduce: Close Notepad++. Use another editor to remove all content of "langs.xml" (0 length) then save it. Open Notepad++. -->
+            <LoadLangsFailedFinal title="Configurator" message="Load langs.xml failed!"/> <!-- HowToReproduce: Close Notepad++. Use another editor to make "langs.xml" an invalid xml file then save it. Open Notepad++. -->
             <FolderAsWorspaceSubfolderExists title="Folder as Workspace adding folder problem" message="A sub-folder of the folder you want to add exists.
-Please remove its root from the panel before you add folder &quot;$STR_REPLACE$&quot;."/>
+Please remove its root from the panel before you add folder &quot;$STR_REPLACE$&quot;."/> <!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
 
             <ProjectPanelChanged title="$STR_REPLACE$" message="The workspace was modified. Do you want to save it?"/>
-            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Your workspace has not been saved."/>
+            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Your workspace has not been saved."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <ProjectPanelOpenDoSaveDirtyWsOrNot title="Open Workspace" message="The current workspace was modified. Do you want to save the current project?"/>
             <ProjectPanelNewDoSaveDirtyWsOrNot title="New Workspace" message="The current workspace was modified. Do you want to save the current project?"/>
             <ProjectPanelOpenFailed title="Open Workspace" message="The workspace could not be opened.
@@ -1167,12 +1191,12 @@ please give another one."/>
 Do you want to launch Notepad++ in Administrator mode?"/>
             <OpenInAdminModeWithoutCloseCurrent title="Save failed" message="The file cannot be saved and it may be protected.
 Do you want to launch Notepad++ in Administrator mode?"/>
-            <OpenInAdminModeFailed title="Open in Administrator mode failed" message="Notepad++ cannot be opened in Administrator mode."/>
+            <OpenInAdminModeFailed title="Open in Administrator mode failed" message="Notepad++ cannot be opened in Administrator mode."/> <!-- HowToReproduce: When you have no Admin privilege and you try to save a modified file in a protected location (for example: any file in sub-folder of "C:\Program Files\". This message will appear after replying "Yes" to "Open in Admin mode" dialog. -->
             <ViewInBrowser title="View Current File in Browser" message="Application cannot be found in your system."/>
             <ExitToUpdatePlugins title="Notepad++ is about to exit" message="If you click YES, you will quit Notepad++ to continue the operations.
 Notepad++ will be restarted after all the operations are terminated.
 Continue?"/>
-            <NeedToRestartToLoadPlugins title="Notepad++ need to be relaunched" message="You have to restart Notepad++ to load plugins you installed."/>
+            <NeedToRestartToLoadPlugins title="Notepad++ need to be relaunched" message="You have to restart Notepad++ to load plugins you installed."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Clipboard History"/>
@@ -1207,6 +1231,9 @@ Continue?"/>
         <FolderAsWorkspace>
             <PanelTitle name="Folder as Workspace"/>
             <SelectFolderFromBrowserString name="Select a folder to add in Folder as Workspace panel"/>
+            <ExpandAllFoldersTip name="Expand all folders"/>
+            <CollapseAllFoldersTip name="Collapse all folders"/>
+            <LocateCurrentFileTip name="Locate current file"/>
             <Menus>
                 <Item id="3511" name="Remove"/>
                 <Item id="3512" name="Remove All"/>
@@ -1268,21 +1295,22 @@ Continue?"/>
         </ProjectManager>
         <MiscStrings>
             <!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
-            <word-chars-list-tip value="This allows you to include additional character into current word characters while double clicking for selection or searching with &quot;Match whole word only&quot; option checked."/>
+            <word-chars-list-tip value="This allows you to include additional character into current word characters while double clicking for selection or searching with &quot;Match whole word only&quot; option checked."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
+
             <word-chars-list-warning-begin value="Be aware: "/>
             <word-chars-list-space-warning value="$INT_REPLACE$ space(s)"/>
             <word-chars-list-tab-warning value="$INT_REPLACE$ TAB(s)"/>
-            <word-chars-list-warning-end value="  in your character list."/>
+            <word-chars-list-warning-end value="  in your character list."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
             <cloud-invalid-warning value="Invalid path."/>
             <cloud-restart-warning value="Please restart Notepad++ to take effect."/>
-            <cloud-select-folder value="Select a folder from/to where Notepad++ reads/writes its settings"/>
+            <cloud-select-folder value="Select a folder from/to where Notepad++ reads/writes its settings"/> <!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
             <shift-change-direction-tip value="Use Shift+Enter to search in the opposite direction"/>
             <two-find-buttons-tip value="2 find buttons mode"/>
             <find-in-files-filter-tip value="Find in cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 
 Find in all files except exe, obj &amp;&amp; log:
-*.* !*.exe !*.obj !*.log"/>
+*.* !*.exe !*.obj !*.log"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" secction of Find dialog. -->
             <find-status-top-reached value="Find: Found the 1st occurrence from the bottom. The beginning of the document has been reached."/>
             <find-status-end-reached value="Find: Found the 1st occurrence from the top. The end of the document has been reached."/>
             <find-status-replaceinfiles-1-replaced value="Replace in Files: 1 occurrence was replaced"/>
@@ -1316,7 +1344,8 @@ Find in all files except exe, obj &amp;&amp; log:
             <finder-close-this value="Close these search results"/>
             <finder-collapse-all value="Collapse all"/>
             <finder-uncollapse-all value="Uncollapse all"/>
-            <finder-copy value="Copy"/>
+            <finder-copy value="Copy Selected Line(s)"/>
+            <finder-copy-verbatim value="Copy"/>
             <finder-select-all value="Select all"/>
             <finder-clear-all value="Clear all"/>
             <finder-open-all value="Open all"/>
@@ -1350,11 +1379,12 @@ Find in all files except exe, obj &amp;&amp; log:
             <replace-in-open-docs-confirm-title value="Are you sure?"/>
             <replace-in-open-docs-confirm-message value="Are you sure you want to replace all occurrences in all open documents?"/>
             <find-result-caption value="Search results"/>
-            <find-result-title value="Search"/>
+            <find-result-title value="Search"/> <!-- Must not begin with space or tab character -->
             <find-result-title-info value="($INT_REPLACE1$ hits in $INT_REPLACE2$ files of $INT_REPLACE3$ searched)"/>
             <find-result-title-info-selections value="($INT_REPLACE1$ hits in $INT_REPLACE2$ selections of $INT_REPLACE3$ searched)"/>
             <find-result-title-info-extra value=" - Line Filter Mode: only display the filtered results"/>
             <find-result-hits value="($INT_REPLACE$ hits)"/>
+            <find-result-line-prefix value="Line"/> <!-- Must not begin with space or tab character -->
             <find-regex-zero-length-match value="zero length match" />
         </MiscStrings>
     </Native-Langue>

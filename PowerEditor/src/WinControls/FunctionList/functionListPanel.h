@@ -33,12 +33,7 @@
 #include "TreeView.h"
 
 #define FL_PANELTITLE     TEXT("Function List")
-#define FL_SORTTIP        TEXT("sort")
-#define FL_RELOADTIP      TEXT("Reload")
-
 #define FL_FUCTIONLISTROOTNODE "FunctionList"
-#define FL_SORTLOCALNODENAME   "SortTip"
-#define FL_RELOADLOCALNODENAME "ReloadTip"
 
 class ScintillaEditView;
 
@@ -83,8 +78,7 @@ struct TreeParams {
 
 class FunctionListPanel : public DockingDlgInterface {
 public:
-	FunctionListPanel(): DockingDlgInterface(IDD_FUNCLIST_PANEL), _ppEditView(NULL), _pTreeView(&_treeView),
-	_reloadTipStr(TEXT("Reload")), _sortTipStr(TEXT("Sort")) {};
+	FunctionListPanel(): DockingDlgInterface(IDD_FUNCLIST_PANEL), _pTreeView(&_treeView) {};
 	~FunctionListPanel();
 
 	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView);
@@ -119,10 +113,10 @@ protected:
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 private:
-	HWND _hToolbarMenu;
-	HWND _hSearchEdit;
+	HWND _hToolbarMenu = nullptr;
+	HWND _hSearchEdit = nullptr;
 
-	TreeView *_pTreeView;
+	TreeView *_pTreeView = nullptr;
 	TreeView _treeView;
 	TreeView _treeViewSearchResult;
 
@@ -130,18 +124,19 @@ private:
 	long _findEndLine = -1;
 	HTREEITEM _findItem;
 
-	generic_string _sortTipStr;
-	generic_string _reloadTipStr;
+	generic_string _sortTipStr = TEXT("Reload");
+	generic_string _reloadTipStr = TEXT("Sort");
 
 	std::vector<foundInfo> _foundFuncInfos;
 
 	std::vector<generic_string*> posStrs;
 
-	ScintillaEditView **_ppEditView;
+	ScintillaEditView **_ppEditView = nullptr;
 	FunctionParsersManager _funcParserMgr;
 	std::vector< std::pair<int, int> > _skipZones;
 	std::vector<TreeParams> _treeParams;
 	HIMAGELIST _hTreeViewImaLst;
+
 	generic_string parseSubLevel(size_t begin, size_t end, std::vector< generic_string > dataToSearch, int & foundPos);
 	size_t getBodyClosePos(size_t begin, const TCHAR *bodyOpenSymbol, const TCHAR *bodyCloseSymbol);
 	void notified(LPNMHDR notification);

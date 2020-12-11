@@ -57,6 +57,7 @@
 #define FB_CMD_FOLDALL 2
 #define FB_CMD_EXPANDALL 3
 
+
 FileBrowser::~FileBrowser()
 {
 	for (const auto folder : _folderUpdaters)
@@ -140,6 +141,12 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			tbButtons[2].fsState = TBSTATE_ENABLED;
 			tbButtons[2].fsStyle = BTNS_BUTTON | BTNS_AUTOSIZE;
 			tbButtons[2].iString = reinterpret_cast<INT_PTR>(TEXT(""));
+
+			// tips text for toolbar buttons
+			NativeLangSpeaker *pNativeSpeaker = nppParam.getNativeLangSpeaker();
+			_expandAllFolders = pNativeSpeaker->getAttrNameStr(_expandAllFolders.c_str(), FOLDERASWORKSPACE_NODE, "ExpandAllFoldersTip");
+			_collapseAllFolders = pNativeSpeaker->getAttrNameStr(_collapseAllFolders.c_str(), FOLDERASWORKSPACE_NODE, "CollapseAllFoldersTip");
+			_locateCurrentFile = pNativeSpeaker->getAttrNameStr(_locateCurrentFile.c_str(), FOLDERASWORKSPACE_NODE, "LocateCurrentFileTip");
 
 			::SendMessage(_hToolbarMenu, TB_BUTTONSTRUCTSIZE, sizeof(TBBUTTON), 0);
 			::SendMessage(_hToolbarMenu, TB_SETBUTTONSIZE, 0, MAKELONG(nppParam._dpiManager.scaleX(20), nppParam._dpiManager.scaleY(20)));
@@ -553,6 +560,24 @@ void FileBrowser::notified(LPNMHDR notification)
 	{
 		::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FILEBROWSER, 0);
 	}
+	else if (notification->code == TTN_GETDISPINFO)
+	{
+		LPTOOLTIPTEXT lpttt = (LPTOOLTIPTEXT)notification;
+		lpttt->hinst = NULL;
+
+		if (notification->idFrom == FB_CMD_AIMFILE)
+		{
+			wcscpy_s(lpttt->szText, _locateCurrentFile.c_str());
+		}
+		else if (notification->idFrom == FB_CMD_FOLDALL)
+		{
+			wcscpy_s(lpttt->szText, _collapseAllFolders.c_str());
+		}
+		else if (notification->idFrom == FB_CMD_EXPANDALL)
+		{
+			wcscpy_s(lpttt->szText, _expandAllFolders.c_str());
+		}
+	}
 	else if ((notification->hwndFrom == _treeView.getHSelf()))
 	{
 		TCHAR textBuffer[MAX_PATH];
@@ -892,7 +917,7 @@ void FileBrowser::popupMenuCmd(int cmdID)
 		case IDM_FILEBROWSER_ADDROOT:
 		{
 			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-			generic_string openWorkspaceStr = pNativeSpeaker->getAttrNameStr(TEXT("Select a folder to add in Folder as Workspace panel"), "FolderAsWorkspace", "SelectFolderFromBrowserString");
+			generic_string openWorkspaceStr = pNativeSpeaker->getAttrNameStr(TEXT("Select a folder to add in Folder as Workspace panel"), FOLDERASWORKSPACE_NODE, "SelectFolderFromBrowserString");
 			generic_string folderPath = folderBrowser(_hParent, openWorkspaceStr.c_str());
 			if (!folderPath.empty())
 			{

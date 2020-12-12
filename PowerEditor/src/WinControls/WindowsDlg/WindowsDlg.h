@@ -30,7 +30,6 @@
 
 #include "SizeableDlg.h"
 #include "Common.h"
-#include "StatusBar.h"
 
 class DocTabView;
 
@@ -95,7 +94,6 @@ protected :
 	int _currentColumn = -1;
 	int _lastSort = -1;
 	bool _reverseSort = false;
-	StatusBar _statusBar;
 
 private:
 	virtual void init(HINSTANCE hInst, HWND parent);	

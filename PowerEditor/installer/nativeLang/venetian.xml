@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     Venetian translation for Notepad++
-    Last modified Sat, October 24th, 2020.
+    Last modified Sat, December 12th, 2020.
 	Translators: 2019-xxxx, Matteo Concato (Conky77)
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 	The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="Vèneto" filename="venetian.xml" version="7.9.1">
+    <Native-Langue name="Vèneto" filename="venetian.xml" version="7.9.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -164,6 +164,7 @@
                     <Item id="42048" name="Còpia contenudo binario"/>
                     <Item id="42049" name="Taja contenudo binario"/>
                     <Item id="42050" name="Incoƚa contenudo binario"/>
+                    <Item id="42082" name="Còpia coƚegamento"/>
                     <Item id="42037" name="Modaƚità coƚona..."/>
                     <Item id="42034" name="Editor a coƚone..."/>
                     <Item id="42051" name="Paneƚo caràtari"/>
@@ -355,13 +356,13 @@
                 <Item CMID="1" name="Sara su tute cuante, vìa che cuesta"/>
                 <Item CMID="2" name="Salva"/>
                 <Item CMID="3" name="Salva cofà..."/>
-                <Item CMID="4" name="Stanpa"/>
+                <Item CMID="4" name="Stanpa..."/>
                 <Item CMID="5" name="Spòsta inte ƚ&apos;altra vista"/>
                 <Item CMID="6" name="Còpia inte ƚ&apos;altra vista"/>
                 <Item CMID="7" name="Còpia percorso file"/>
                 <Item CMID="8" name="Còpia nòme file"/>
                 <Item CMID="9" name="Còpia percorso carteƚa"/>
-                <Item CMID="10" name="Rinomina file"/>
+                <Item CMID="10" name="Rinomina file..."/>
                 <Item CMID="11" name="Scanseƚa file"/>
                 <Item CMID="12" name="Soƚa ƚetura"/>
                 <Item CMID="13" name="Reinposta flag soƚa ƚetura"/>
@@ -538,11 +539,11 @@
                     <Item id="45001" name="Converti caràtare de fine riga en Formato Windows (CR+LF)"/>
                     <Item id="45002" name="Converti caràtare de fine riga en Formato Unix (LF)"/>
                     <Item id="45003" name="Converti caràtare de fine riga en Formato Macintosh (CR)"/>
-                    <Item id="43022" name="Marca i risultadi de ƚa riserca col 1º stiƚe"/>
-                    <Item id="43024" name="Marca i risultadi de ƚa riserca col 2º stiƚe"/>
-                    <Item id="43026" name="Marca i risultadi de ƚa riserca col 3º stiƚe"/>
-                    <Item id="43028" name="Marca i risultadi de ƚa riserca col 4º stiƚe"/>
-                    <Item id="43030" name="Marca i risultadi de ƚa riserca col 5º stiƚe"/>
+                    <Item id="43022" name="Marca el testo col 1º stiƚe"/>
+                    <Item id="43024" name="Marca el testo col 2º stiƚe"/>
+                    <Item id="43026" name="Marca el testo col 3º stiƚe"/>
+                    <Item id="43028" name="Marca el testo col 4º stiƚe"/>
+                    <Item id="43030" name="Marca el testo col 5º stiƚe"/>
                     <Item id="43023" name="Scanseƚa marcadura de el 1º stiƚe"/>
                     <Item id="43025" name="Scanseƚa marcadura de el 2º stiƚe"/>
                     <Item id="43027" name="Scanseƚa marcadura de el 3º stiƚe"/>

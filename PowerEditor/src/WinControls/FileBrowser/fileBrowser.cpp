@@ -56,6 +56,8 @@
 #define FB_CMD_AIMFILE 1
 #define FB_CMD_FOLDALL 2
 #define FB_CMD_EXPANDALL 3
+#define FB_CMD_MOVEUP 4
+#define FB_CMD_MOVEDOWN 5
 
 FileBrowser::~FileBrowser()
 {
@@ -116,7 +118,7 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			NppParameters& nppParam = NppParameters::getInstance();
 			int style = WS_CHILD | WS_VISIBLE | CCS_ADJUSTABLE | TBSTYLE_AUTOSIZE | TBSTYLE_FLAT | TBSTYLE_LIST | TBSTYLE_TRANSPARENT | BTNS_AUTOSIZE | BTNS_SEP | TBSTYLE_TOOLTIPS;
 			_hToolbarMenu = CreateWindowEx(WS_EX_LAYOUTRTL, TOOLBARCLASSNAME, NULL, style, 0, 0, 0, 0, _hSelf, nullptr, _hInst, NULL);
-			TBBUTTON tbButtons[3];
+			TBBUTTON tbButtons[5];
 			// Add the bmap image into toolbar's imagelist
 			TBADDBITMAP addbmp = { _hInst, 0 };
 			addbmp.nID = IDI_FB_SELECTCURRENTFILE;
@@ -124,6 +126,10 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			addbmp.nID = IDI_FB_FOLDALL;
 			::SendMessage(_hToolbarMenu, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmp));
 			addbmp.nID = IDI_FB_EXPANDALL;
+			::SendMessage(_hToolbarMenu, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmp));
+			addbmp.nID = IDI_FB_MOVEUP;
+			::SendMessage(_hToolbarMenu, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmp));
+			addbmp.nID = IDI_FB_MOVEDOWN;
 			::SendMessage(_hToolbarMenu, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmp));
 			tbButtons[0].idCommand = FB_CMD_AIMFILE;
 			tbButtons[0].iBitmap = 0;
@@ -140,6 +146,16 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			tbButtons[2].fsState = TBSTATE_ENABLED;
 			tbButtons[2].fsStyle = BTNS_BUTTON | BTNS_AUTOSIZE;
 			tbButtons[2].iString = reinterpret_cast<INT_PTR>(TEXT(""));
+			tbButtons[3].idCommand = FB_CMD_MOVEUP;
+			tbButtons[3].iBitmap = 3;
+			tbButtons[3].fsState = TBSTATE_ENABLED;
+			tbButtons[3].fsStyle = BTNS_BUTTON | BTNS_AUTOSIZE;
+			tbButtons[3].iString = reinterpret_cast<INT_PTR>(TEXT(""));
+			tbButtons[4].idCommand = FB_CMD_MOVEDOWN;
+			tbButtons[4].iBitmap = 4;
+			tbButtons[4].fsState = TBSTATE_ENABLED;
+			tbButtons[4].fsStyle = BTNS_BUTTON | BTNS_AUTOSIZE;
+			tbButtons[4].iString = reinterpret_cast<INT_PTR>(TEXT(""));
 
 			::SendMessage(_hToolbarMenu, TB_BUTTONSTRUCTSIZE, sizeof(TBBUTTON), 0);
 			::SendMessage(_hToolbarMenu, TB_SETBUTTONSIZE, 0, MAKELONG(nppParam._dpiManager.scaleX(20), nppParam._dpiManager.scaleY(20)));
@@ -230,6 +246,18 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				case FB_CMD_EXPANDALL:
 				{
 					_treeView.expandAll();
+					break;
+				}
+
+				case FB_CMD_MOVEUP:
+				{
+					moveFileUpOrDown(true);
+					break;
+				}
+
+				case FB_CMD_MOVEDOWN:
+				{
+					moveFileUpOrDown(false);
 					break;
 				}
 
@@ -337,6 +365,15 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 	return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
 }
 
+void FileBrowser::moveFileUpOrDown(bool moveUp)
+{
+	HTREEITEM Item2Set = _treeView.getSelection();
+	if (moveUp)
+		_treeView.moveUp(Item2Set);
+	else
+		_treeView.moveDown(Item2Set);
+}
+
 void FileBrowser::initPopupMenus()
 {
 	NativeLangSpeaker* pNativeSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
@@ -351,6 +388,8 @@ void FileBrowser::initPopupMenus()
 	generic_string cmdHere = pNativeSpeaker->getFileBrowserLangMenuStr(IDM_FILEBROWSER_CMDHERE, FB_CMDHERE);
 	generic_string openInNpp = pNativeSpeaker->getFileBrowserLangMenuStr(IDM_FILEBROWSER_OPENINNPP, FB_OPENINNPP);
 	generic_string shellExecute = pNativeSpeaker->getFileBrowserLangMenuStr(IDM_FILEBROWSER_SHELLEXECUTE, FB_SHELLEXECUTE);
+	generic_string moveUp = pNativeSpeaker->getFileBrowserLangMenuStr(IDM_FILEBROWSER_MOVEUP, FB_MOVEUP);
+	generic_string moveDown = pNativeSpeaker->getFileBrowserLangMenuStr(IDM_FILEBROWSER_MOVEDOWN, FB_MOVEDOWN);
 
 	_hGlobalMenu = ::CreatePopupMenu();
 	::InsertMenu(_hGlobalMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_ADDROOT, addRoot.c_str());
@@ -381,6 +420,8 @@ void FileBrowser::initPopupMenus()
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, static_cast<UINT>(-1), 0);
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_EXPLORERHERE, explorerHere.c_str());
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_CMDHERE, cmdHere.c_str());
+	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_MOVEUP, moveUp.c_str());
+	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_MOVEDOWN, moveDown.c_str());
 }
 
 bool FileBrowser::selectItemFromPath(const generic_string& itemPath) const
@@ -809,7 +850,19 @@ void FileBrowser::popupMenuCmd(int cmdID)
 			}
 		}
 		break;
-		
+
+		case IDM_FILEBROWSER_MOVEUP:
+		{
+			moveFileUpOrDown(true);
+		}
+		break;
+
+		case IDM_FILEBROWSER_MOVEDOWN:
+		{
+			moveFileUpOrDown(false);
+		}
+		break;
+
 		case IDM_FILEBROWSER_EXPLORERHERE:
 		{
 			if (!selectedNode) return;

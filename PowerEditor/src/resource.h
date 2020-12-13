@@ -171,6 +171,8 @@
 #define IDI_VIEW_FUNCLIST_OFF_ICON     638
 #define IDI_VIEW_MONITORING_ON_ICON    639
 #define IDI_VIEW_MONITORING_OFF_ICON   640
+#define IDI_FB_MOVEUP                  641
+#define IDI_FB_MOVEDOWN                642
 
 
 

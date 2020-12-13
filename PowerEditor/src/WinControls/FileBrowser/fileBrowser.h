@@ -43,6 +43,8 @@
 #define FB_CMDHERE            TEXT("CMD here")
 #define FB_OPENINNPP          TEXT("Open")
 #define FB_SHELLEXECUTE       TEXT("Run by system")
+#define FB_MOVEUP             TEXT("Move up")
+#define FB_MOVEDOWN           TEXT("Move down")
 
 class TiXmlNode;
 class FileBrowser;
@@ -198,4 +200,5 @@ protected:
 	void getDirectoryStructure(const TCHAR *dir, const std::vector<generic_string> & patterns, FolderInfo & directoryStructure, bool isRecursive, bool isInHiddenDir); 
 	HTREEITEM createFolderItemsFromDirStruct(HTREEITEM hParentItem, const FolderInfo & directoryStructure);
 	static int CALLBACK categorySortFunc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort);
+	void moveFileUpOrDown(bool moveUp);
 };

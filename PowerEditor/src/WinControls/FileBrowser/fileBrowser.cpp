@@ -1060,7 +1060,7 @@ void FileBrowser::addRootFolder(generic_string rootFolderPath)
 				NppParameters::getInstance().getNativeLangSpeaker()->messageBox("FolderAsWorspaceSubfolderExists",
 					_hParent,
 					TEXT("A sub-folder of the folder you want to add exists.\rPlease remove its root from the panel before you add folder \"$STR_REPLACE$\"."),
-					TEXT("Folder as Worspace adding folder problem"),
+					TEXT("Folder as Workspace adding folder problem"),
 					MB_OK,
 					0, // not used
 					rootFolderPath.c_str());

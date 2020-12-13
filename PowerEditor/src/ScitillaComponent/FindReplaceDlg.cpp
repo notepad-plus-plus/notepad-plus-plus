@@ -2360,9 +2360,8 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		_pFinder->init(_hInst, (*_ppEditView)->getHParent(), _ppEditView);
 		_pFinder->setVolatiled(false);
 
-		bool isRTL = (*_ppEditView)->isTextDirectionRTL();
 		tTbData	data = {0};
-		_pFinder->create(&data, isRTL);
+		_pFinder->create(&data);
 		::SendMessage(_hParent, NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pFinder->getHSelf()));
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_BOTTOM | DWS_ICONTAB | DWS_ADDINFO;
@@ -2387,7 +2386,6 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		::SendMessage(_hParent, NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
 
 		_pFinder->_scintView.init(_hInst, _pFinder->getHSelf());
-		_pFinder->_scintView.changeTextDirection(isRTL);
 
 		// Subclass the ScintillaEditView for the Finder (Scintilla doesn't notify all key presses)
 		originalFinderProc = SetWindowLongPtr(_pFinder->_scintView.getHSelf(), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(finderProc));
@@ -2456,6 +2454,8 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		generic_string text = _pFinder->getHitsString(_findAllResult);
 		wsprintf(_findAllResultStr, text.c_str());
 
+		bool isRTL = (*_ppEditView)->isTextDirectionRTL();
+		_pFinder->_scintView.changeTextDirection(isRTL);
 		if (_findAllResult) 
 		{
 			focusOnFinder();

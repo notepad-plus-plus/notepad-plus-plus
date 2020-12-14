@@ -2477,7 +2477,7 @@ Finder * FindReplaceDlg::createFinder()
 	pFinder->init(_hInst, (*_ppEditView)->getHParent(), _ppEditView);
 
 	tTbData	data = { 0 };
-	bool isRTL = (*_ppEditView)->isTextDirectionRTL();
+	bool isRTL = _pFinder->_scintView.isTextDirectionRTL();
 	pFinder->create(&data, isRTL);
 	::SendMessage(_hParent, NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<WPARAM>(pFinder->getHSelf()));
 	// define the default docking behaviour

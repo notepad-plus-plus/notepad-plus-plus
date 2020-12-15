@@ -259,6 +259,8 @@ INT_PTR CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam,
 								(*_ppEditView)->execute(SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(""));
 								(*_ppEditView)->execute(SCI_ADDTEXT, strlen(c), reinterpret_cast<LPARAM>(c));
 								(*_ppEditView)->getFocus();
+								int eolMode = int((*_ppEditView)->execute(SCI_GETEOLMODE));
+								(*_ppEditView)->execute(SCI_CONVERTEOLS, eolMode);
 								delete[] c;
 							}
 							catch (...)

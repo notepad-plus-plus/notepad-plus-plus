@@ -187,7 +187,11 @@ void ClipboardHistoryPanel::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	COLORREF fgColor = _lbFgColor == -1?black:_lbFgColor; // fg black by default
 	COLORREF bgColor = _lbBgColor == -1?white:_lbBgColor; // bg white by default
 	
-	StringArray sa(_clipboardDataVector[lpDrawItemStruct->itemID], MAX_DISPLAY_LENGTH);
+	RECT windowPlacement;
+
+	::GetWindowRect(::GetDlgItem(_hSelf, IDC_LIST_CLIPBOARD), &windowPlacement);
+
+	StringArray sa(_clipboardDataVector[lpDrawItemStruct->itemID], (windowPlacement.right - windowPlacement.left) / 3);
 	TCHAR *ptStr = (TCHAR *)sa.getPointer();
 
 	//printStr(ptStr);

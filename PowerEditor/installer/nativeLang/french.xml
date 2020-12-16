@@ -1170,6 +1170,7 @@ Voulez-vous les poursuivez ?"/>
             <ColumnPath name="Chemin"/>
             <ColumnType name="Type"/>
             <ColumnSize name="Taille"/>
+            <NbDocsTotal name="nombre de documents :"/>
         </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name="Panneau des codes ASCII"/>

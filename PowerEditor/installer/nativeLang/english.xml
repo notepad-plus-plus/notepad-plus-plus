@@ -1214,6 +1214,7 @@ Continue?"/>
             <ColumnPath name="Path"/>
             <ColumnType name="Type"/>
             <ColumnSize name="Size"/>
+            <NbDocsTotal name="total documents:"/>
         </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name="ASCII Codes Insertion Panel"/>

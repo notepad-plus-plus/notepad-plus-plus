@@ -90,7 +90,7 @@ public:
 	generic_string getShortcutMapperLangStr(const char *nodeName, const TCHAR *defaultStr) const;
 	generic_string getProjectPanelLangMenuStr(const char * nodeName, int cmdID, const TCHAR *defaultStr) const;
 	generic_string getFileBrowserLangMenuStr(int cmdID, const TCHAR *defaultStr) const;
-	generic_string getAttrNameStr(const TCHAR *defaultStr, const char *nodeL1Name, const char *nodeL2Name = NULL) const;
+	generic_string getAttrNameStr(const TCHAR *defaultStr, const char *nodeL1Name, const char *nodeL2Name, const char *nodeL3Name = "name") const;
 	generic_string getLocalizedStrFromID(const char *strID, const generic_string& defaultString) const;
 
 	int messageBox(const char *msgBoxTagName, HWND hWnd, const TCHAR *message, const TCHAR *title, int msgBoxType, int intInfo = 0, const TCHAR *strInfo = NULL);

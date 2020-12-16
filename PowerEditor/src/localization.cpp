@@ -1330,7 +1330,7 @@ generic_string NativeLangSpeaker::getProjectPanelLangMenuStr(const char * nodeNa
 	return defaultStr;
 }
 
-generic_string NativeLangSpeaker::getAttrNameStr(const TCHAR *defaultStr, const char *nodeL1Name, const char *nodeL2Name) const
+generic_string NativeLangSpeaker::getAttrNameStr(const TCHAR *defaultStr, const char *nodeL1Name, const char *nodeL2Name, const char *nodeL3Name) const
 {
 	if (!_nativeLangA) return defaultStr;
 
@@ -1341,7 +1341,7 @@ generic_string NativeLangSpeaker::getAttrNameStr(const TCHAR *defaultStr, const 
 
 	if (!targetNode) return defaultStr;
 
-	const char *name = (targetNode->ToElement())->Attribute("name");
+	const char *name = (targetNode->ToElement())->Attribute(nodeL3Name);
 	if (name && name[0])
 	{
 		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();

@@ -49,7 +49,7 @@ using namespace std;
 #define WD_CLMNPATH					"ColumnPath"
 #define WD_CLMNTYPE					"ColumnType"
 #define WD_CLMNSIZE					"ColumnSize"
-#define WD_TABTOTAL					"TabsTotal"
+#define WD_NBDOCSTOTAL				"NbDocsTotal"
 
 static const TCHAR *readonlyString = TEXT(" [Read Only]");
 const UINT WDN_NOTIFY = RegisterWindowMessage(TEXT("WDN_NOTIFY"));
@@ -875,13 +875,11 @@ void WindowsDlg::doClose()
 void WindowsDlg::doCount()
 {
 	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-	
-	TCHAR count[32];
-	wsprintf(count, TEXT("%d"), _idxMap.size());
-	
-	generic_string msg = TEXT("Windows -- ");
-	msg += pNativeSpeaker->getAttrNameStr(TEXT("Total documents opened: "), WD_ROOTNODE, WD_TABTOTAL);
-	msg += count;
+
+	generic_string msg = pNativeSpeaker->getAttrNameStr(TEXT("Windows"), "Dialog", "Window", "title");
+	msg += TEXT(" - ");
+	msg += pNativeSpeaker->getAttrNameStr(TEXT("Total documents: "), WD_ROOTNODE, WD_NBDOCSTOTAL);
+	msg += to_wstring(_idxMap.size());
 	SetWindowText(_hSelf,msg.c_str());
 }
 

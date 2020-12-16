@@ -229,7 +229,7 @@ BEGIN_WINDOW_MAP(WindowsDlgMap)
 		BEGINCOLS(WRCT_REST,0,0)                       // Begin list control column
 			BEGINROWS(WRCT_REST,0,0)
 				RCREST(IDC_WINDOWS_LIST)
-				RCSPACE(15)
+				RCSPACE(20)
 			ENDGROUP()
 			RCSPACE(12)
 			BEGINROWS(WRCT_TOFIT,0,0)
@@ -243,7 +243,6 @@ BEGIN_WINDOW_MAP(WindowsDlgMap)
 			RCTOFIT(IDC_WINDOWS_SORT)
 			RCREST(-1)
 			RCTOFIT(IDCANCEL)
-			RCSPACE(14)
 			ENDGROUP()
 		ENDGROUP()
 	ENDGROUP()
@@ -666,7 +665,7 @@ void WindowsDlg::updateColumnNames()
 
 void WindowsDlg::onSize(UINT nType, int cx, int cy)
 {
-	MyBaseClass::onSize(nType, cx, cy);					
+	MyBaseClass::onSize(nType, cx, cy);
 	fitColumnsToSize();
 }
 
@@ -881,7 +880,7 @@ void WindowsDlg::doCount()
 	wsprintf(count, TEXT("%d"), _idxMap.size());
 	
 	generic_string msg = TEXT("Windows -- ");
-	msg += pNativeSpeaker->getAttrNameStr(TEXT("Total tabs opened: "), WD_ROOTNODE, WD_TABTOTAL);
+	msg += pNativeSpeaker->getAttrNameStr(TEXT("Total documents opened: "), WD_ROOTNODE, WD_TABTOTAL);
 	msg += count;
 	SetWindowText(_hSelf,msg.c_str());
 }

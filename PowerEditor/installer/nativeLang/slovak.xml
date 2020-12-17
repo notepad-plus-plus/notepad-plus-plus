@@ -1220,6 +1220,7 @@ Continue?"/>
             <ColumnPath name="Cesta"/>
             <ColumnType name="Typ"/>
             <ColumnSize name="Veľkosť"/>
+            <NbDocsTotal name="Počet dokumentov:"/>
         </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name="Panel ASCII znakov"/>

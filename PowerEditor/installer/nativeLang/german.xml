@@ -793,9 +793,9 @@
 				<Global title="Allgemein">
 					<Item id="6101" name="Symbolleiste"/>
 					<Item id="6102" name="Ausblenden"/>
-					<Item id="6103" name="Kleine Icons"/>
-					<Item id="6104" name="Große Icons"/>
-					<Item id="6105" name="Kleine Standard-Icons"/>
+					<Item id="6103" name="Kleine Symbole"/>
+					<Item id="6104" name="Große Symbole"/>
+					<Item id="6105" name="Kleine Standard-Symbole"/>
 
 					<Item id="6106" name="Dateireiter (Tabs)"/>
 					<Item id="6107" name="Verkleinern"/>
@@ -817,7 +817,7 @@
 					<Item id="6125" name="Liste der geöffneten Dateien"/>
 					<Item id="6126" name="Anzeigen"/>
 					<Item id="6127" name="Erweiterungsspalte ausblenden"/>
-					<Item id="6128" name="Alternative Icons"/>
+					<Item id="6128" name="Alternative Symbole"/>
 				</Global>
 				<Scintillas title="Editieren">
 					<Item id="6216" name="Cursoreinstellungen"/>

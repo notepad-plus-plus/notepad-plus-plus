@@ -2207,6 +2207,9 @@ INT_PTR CALLBACK PrintSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			::SetDlgItemText(_hSelf, IDC_EDIT_FLEFT, nppGUI._printSettings._footerLeft.c_str());
 			::SetDlgItemText(_hSelf, IDC_EDIT_FMIDDLE, nppGUI._printSettings._footerMiddle.c_str());
 			::SetDlgItemText(_hSelf, IDC_EDIT_FRIGHT, nppGUI._printSettings._footerRight.c_str());
+			
+			bool disableMinMarge = nppGUI._printSettings._disableMinMarge;
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_DISABLEMINMARGE, BM_SETCHECK, disableMinMarge, 0);
 
 			TCHAR intStr[5];
 			for (size_t i = 6 ; i < 15 ; ++i)
@@ -2432,6 +2435,11 @@ INT_PTR CALLBACK PrintSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 				case IDC_RADIO_NOBG :
 					nppGUI._printSettings._printOption = SC_PRINT_COLOURONWHITE;
 					break;
+
+				case IDC_CHECK_DISABLEMINMARGE:
+					nppGUI._printSettings._disableMinMarge = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_DISABLEMINMARGE, BM_GETCHECK, 0, 0));
+					break;
+
 				case IDC_CHECK_HBOLD:
 					nppGUI._printSettings._headerFontStyle ^= FONTSTYLE_BOLD;
 					break;

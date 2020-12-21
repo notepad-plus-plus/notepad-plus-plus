@@ -4954,6 +4954,10 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 
 			if (element->Attribute(TEXT("margeBottom"), &i))
 				_nppGUI._printSettings._marge.bottom = i;
+				
+			val = element->Attribute(TEXT("disableMinMarge"));
+			if (val)
+				_nppGUI._printSettings._disableMinMarge = (!lstrcmp(val, TEXT("yes")));
 		}
 
 		else if (!lstrcmp(nm, TEXT("ScintillaPrimaryView")))
@@ -6398,6 +6402,9 @@ void NppParameters::writePrintSetting(TiXmlElement *element)
 	element->SetAttribute(TEXT("margeRight"), _nppGUI._printSettings._marge.right);
 	element->SetAttribute(TEXT("margeTop"), _nppGUI._printSettings._marge.top);
 	element->SetAttribute(TEXT("margeBottom"), _nppGUI._printSettings._marge.bottom);
+	
+	pStr = _nppGUI._printSettings._disableMinMarge?TEXT("yes"):TEXT("no");
+	element->SetAttribute(TEXT("disableMinMarge"), pStr);
 }
 
 void NppParameters::writeExcludedLangList(TiXmlElement *element)

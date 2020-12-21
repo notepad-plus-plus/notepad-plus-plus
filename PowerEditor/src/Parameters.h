@@ -653,6 +653,7 @@ struct PrintSettings final {
 	int _footerFontSize = 0;
 
 	RECT _marge;
+	bool _disableMinMarge = false;
 
 	PrintSettings() {
 		_marge.left = 0; _marge.top = 0; _marge.right = 0; _marge.bottom = 0;

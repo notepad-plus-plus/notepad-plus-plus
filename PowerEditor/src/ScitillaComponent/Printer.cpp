@@ -184,7 +184,7 @@ size_t Printer::doPrint(bool justDoIt)
 	
 
 	::GetTextMetrics(_pdlg.hDC, &tm);
-	int printMarge = tm.tmHeight + tm.tmExternalLeading;
+	int printMarge = (!nppGUI._printSettings._disableMinMarge)?(tm.tmHeight + tm.tmExternalLeading):0;
 	printMarge = printMarge + printMarge / 2;
 
 	DOCINFO docInfo;

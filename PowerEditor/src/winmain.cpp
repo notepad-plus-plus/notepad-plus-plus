@@ -262,15 +262,14 @@ int getNumberFromParam(char paramName, ParamVector & params, bool & isParamePres
 generic_string getEasterEggNameFromParam(ParamVector & params, unsigned char & type)
 {
 	generic_string EasterEggName;
-	if (!getParamValFromString(TEXT("-qn"), params, EasterEggName))  // get internal easter egg
+	if (!getParamValFromString(TEXT("-qn="), params, EasterEggName))  // get internal easter egg
 	{
-		if (!getParamValFromString(TEXT("-qt"), params, EasterEggName)) // get user quote from cmdline argument
+		if (!getParamValFromString(TEXT("-qt="), params, EasterEggName)) // get user quote from cmdline argument
 		{
-			if (!getParamValFromString(TEXT("-qf"), params, EasterEggName)) // get user quote from a content of file
+			if (!getParamValFromString(TEXT("-qf="), params, EasterEggName)) // get user quote from a content of file
 				return TEXT("");
 			else
 			{
-				EasterEggName = relativeFilePathToFullFilePath(EasterEggName.c_str());
 				type = 2; // quote content in file
 			}
 		}
@@ -280,14 +279,13 @@ generic_string getEasterEggNameFromParam(ParamVector & params, unsigned char & t
 	else
 		type = 0; // easter egg
 
-	generic_string percentTwentyStr = TEXT("%20");
-	generic_string spaceStr = TEXT(" ");
-	size_t start_pos = 0;
-	while ((start_pos = EasterEggName.find(percentTwentyStr, start_pos)) != std::string::npos)
+	if (EasterEggName.c_str()[0] == '"' && EasterEggName.c_str()[EasterEggName.length() - 1] == '"')
 	{
-		EasterEggName.replace(start_pos, percentTwentyStr.length(), spaceStr);
-		start_pos += spaceStr.length(); // Handles case where 'to' is a substring of 'from'
+		EasterEggName = EasterEggName.substr(1, EasterEggName.length() - 2);
 	}
+
+	if (type == 2)
+		EasterEggName = relativeFilePathToFullFilePath(EasterEggName.c_str());
 
 	return EasterEggName;
 }

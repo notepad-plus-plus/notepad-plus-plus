@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2020-12-16 by schnurlos (schnurlos@gmail.com)
+	last modified: 2020-12-21 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -109,6 +109,7 @@
 					<Item id="41021" name="Zuletzt geschlossene Datei wieder öffnen"/>
 					<Item id="41022" name="Verzeichnis als Arbeitsbereich öffnen"/>
 					<Item id="41023" name="Im Standard-Betrachter öffnen"/>
+					<Item id="41025" name="Ordner als Arbeitsbereich"/>
 					<Item id="42001" name="Aus&amp;schneiden"/>
 					<Item id="42002" name="&amp;Kopieren"/>
 					<Item id="42003" name="&amp;Rückgängig"/>
@@ -331,7 +332,7 @@
 					<Item id="48006" name="Stil-&amp;Design(s) importieren …"/>
 					<Item id="48018" name="&amp;Kontextmenü anpassen …"/>
 					<Item id="48009" name="&amp;Tastatur …"/>
-					<Item id="48011" name="&amp;Optionen …"/>
+					<Item id="48011" name="&amp;Einstellungen …"/>
 					<Item id="48014" name="Verzeichnis mit Plugins öffnen …"/>
 					<Item id="48015" name="Plugin-Verwaltung …"/>
 					<Item id="48501" name="Erstellen …"/>
@@ -380,7 +381,7 @@
 				<Item CMID="20" name="Kommandozeile im aktuellen &amp;Ordner öffnen"/>
 				<Item CMID="21" name="Im Standard-Betrachter öffnen"/>
 				<Item CMID="22" name="Alle unveränderten Dateien schließen"/>
-				<Item CMID="23" name="Verzeichnis als Arbeitsbereich öffnen"/>
+				<Item CMID="23" name="Enthaltenden Ordner als Arbeitsbereich öffnen"/>
 			</TabBar>
 		</Menu>
 
@@ -451,7 +452,7 @@
 				<Item id="1903" name="Auszuführendes Programm hier eingeben"/>
 				<Item id="1"    name="&amp;Ausführen"/>
 				<Item id="2"    name="A&amp;bbrechen"/>
-				<Item id="1904" name="&amp;Speichern"/>
+				<Item id="1904" name="&amp;Speichern …"/>
 			</Run>
 
 			<MD5FromFilesDlg title="MD5-Hashwert aus Dateien erstellen">
@@ -493,7 +494,7 @@
 				<Item id="2"    name="Abbrechen"/>
 				<Item id="2301" name="Speichern &amp;&amp; Schließen"/>
 				<Item id="2303" name="Transparenz"/>
-				<Item id="2306" name="Design:"/>
+				<Item id="2306" name="Thema auswählen:"/>
 				<SubDialog>
 					<Item id="2204" name="Fett"/>
 					<Item id="2205" name="Kursiv"/>
@@ -795,9 +796,9 @@
 				<Global title="Allgemein">
 					<Item id="6101" name="Symbolleiste"/>
 					<Item id="6102" name="Ausblenden"/>
-					<Item id="6103" name="Kleine Icons"/>
-					<Item id="6104" name="Große Icons"/>
-					<Item id="6105" name="Kleine Standard-Icons"/>
+					<Item id="6103" name="Kleine Symbole"/>
+					<Item id="6104" name="Große Symbole"/>
+					<Item id="6105" name="Kleine Standard-Symbole"/>
 
 					<Item id="6106" name="Dateireiter (Tabs)"/>
 					<Item id="6107" name="Verkleinern"/>
@@ -820,7 +821,7 @@
 					<Item id="6126" name="Anzeigen"/>
 					<Item id="6127" name="Erweiterungsspalte ausblenden"/>
 
-					<Item id="6128" name="Alternative Icons"/>
+					<Item id="6128" name="Alternative Symbole"/>
 				</Global>
 				<Scintillas title="Editieren">
 					<Item id="6216" name="Cursoreinstellungen"/>
@@ -828,40 +829,40 @@
 					<Item id="6219" name="Geschwindigkeit"/>
 					<Item id="6221" name="S"/>
 					<Item id="6222" name="L"/>
-					<Item id="6225" name="Mehrfaches Editieren aktivieren (Strg+Mausklick)"/>
-					<Item id="6227" name="Umgebrochene Zeilen"/>
+					<Item id="6225" name="Multi-Editing aktivieren (Strg+Mausklick/Auswahl)"/>
+					<Item id="6227" name="Zeilenumbruch"/>
 					<Item id="6228" name="Standard"/>
-					<Item id="6229" name="Linksbündig"/>
-					<Item id="6230" name="Hängend"/>
-					<Item id="6234" name="Flüssiges Scrollen deaktivieren&#x0A;(bei Touchpad-Problemen)"/>
-					<Item id="6214" name="Aktuelle Zeile hervorheben"/>
+					<Item id="6229" name="Ausgerichtet"/>
+					<Item id="6230" name="Einrücken"/>
+					<Item id="6234" name="Erweiterten Bildlauffunktion aufgrund eines Touchpad-Problems deaktivieren"/>
+					<Item id="6214" name="Hervorhebung der aktuellen Zeile aktivieren"/>
 					<Item id="6215" name="Kantenglättung der Schriftarten"/>
-					<Item id="6236" name="Über letzte Zeile hinaus scrollen"/>
+					<Item id="6236" name="Blättern über die letzte Zeile hinaus aktivieren"/>
 					<Item id="6239" name="Auswahl beibehalten bei Rechtsklick außerhalb der Auswahl"/>
 				</Scintillas>
 
 				<MarginsBorderEdge title="Faltung/Rahmen/Ränder">
-					<Item id="6201" name="Textblock-Faltung"/>
-					<Item id="6202" name="Plus/minus"/>
-					<Item id="6203" name="Pfeile"/>
-					<Item id="6204" name="Kreise"/>
-					<Item id="6205" name="Quadrate"/>
-					<Item id="6226" name="Aus"/>
-					<Item id="6291" name="Zeilennummer"/>
+					<Item id="6201" name="Ordnerrandstil"/>
+					<Item id="6202" name="Einfach"/>
+					<Item id="6203" name="Pfeil"/>
+					<Item id="6204" name="Kreisstruktur"/>
+					<Item id="6205" name="Baumstruktur"/>
+					<Item id="6226" name="Keine"/>
+					<Item id="6291" name="Liniennummer"/>
 					<Item id="6206" name="Anzeige"/>
-					<Item id="6292" name="Dynamische Weite"/>
-					<Item id="6293" name="Fixw Weite"/>
-					<Item id="6207" name="Lesezeichenrand"/>
-					<Item id="6211" name="Rechter Rand"/>
-					<Item id="6213" name="Farbiger Hintergrund"/>
+					<Item id="6292" name="Dynamische Breite"/>
+					<Item id="6293" name="Konstante Breite"/>
+					<Item id="6207" name="Lesezeichen anzeigen"/>
+					<Item id="6211" name="Vertikale Randeinstellungen"/>
+					<Item id="6213" name="Hintergrundmodus"/>
 					<Item id="6237" name="Es können Spaltenmarkierung hinzugefügt werden, indem ihre Position mit einer Dezimalzahl angeben wird.
 Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Zahlen durch Leerzeichen getrennt werden."/>
 					<Item id="6231" name="Rahmenbreite"/>
 					<Item id="6235" name="Kein Rand"/>
 				</MarginsBorderEdge>
 
-				<NewDoc title="Neue Dateien">
-					<Item id="6401" name="Zeilenenden"/>
+				<NewDoc title="Neues Dokument">
+					<Item id="6401" name="Format (Zeilenende)"/>
 					<Item id="6402" name="Windows (CR LF)"/>
 					<Item id="6403" name="UNIX (LF)"/>
 					<Item id="6404" name="Macintosh (CR)"/>
@@ -872,7 +873,7 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Za
 					<Item id="6409" name="UCS-2 Big Endian mit BOM"/>
 					<Item id="6410" name="UCS-2 Little Endian mit BOM"/>
 					<Item id="6411" name="Standardsprache"/>
-					<Item id="6419" name="Format für neue Dateien"/>
+					<Item id="6419" name="Neues Dokument"/>
 					<Item id="6420" name="Auch beim Öffnen von ANSI-Dateien"/>
 				</NewDoc>
 
@@ -1017,15 +1018,15 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Za
 	(nicht verwenden wenn man nicht sicher ist)"/>
 				</Delimiter>
 
-				<Cloud title="Cloud-Einstellungen">
-					<Item id="6262" name="Einstellungen in der Cloud speichern"/>
-					<Item id="6263" name="Aus"/>
-					<Item id="6267" name="Netzwerkpfad:"/>
-					<Item id="6318" name="Klickbare Links"/>
+				<Cloud title="Cloud &amp; Link">
+					<Item id="6262" name="Cloud-Einstellungen"/>
+					<Item id="6263" name="Keine Cloud"/>
+					<Item id="6267" name="Hier den Pfad zum Cloud-Speicherort festlegen:"/>
+					<Item id="6318" name="Einstellungen für klickbare Links"/>
 					<Item id="6319" name="Aktivieren"/>
-					<Item id="6320" name="Links nicht unterstreichen"/>
-					<Item id="6350" name="Vollbox-Modus aktivieren"/>
-					<Item id="6264" name="URI-angepasste Schemas:"/>
+					<Item id="6320" name="Kein Unterstrich"/>
+					<Item id="6350" name="Vollboxmodus aktivieren"/>
+					<Item id="6264" name="Benutzerdefinierte URI-Vorgaben:"/>
 				</Cloud>
 
 				<SearchEngine title="Suchmaschine">

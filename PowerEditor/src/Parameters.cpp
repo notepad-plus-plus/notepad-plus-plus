@@ -1005,8 +1005,6 @@ bool NppParameters::load()
 {
 	L_END = L_EXTERNAL;
 	bool isAllLaoded = true;
-	for (int i = 0 ; i < NB_LANG ; _langList[i] = NULL, ++i)
-	{}
 
 	_isx64 = sizeof(void *) == 8;
 
@@ -1037,6 +1035,9 @@ bool NppParameters::load()
 	_pluginRootDir = _nppPath;
 	PathAppend(_pluginRootDir, TEXT("plugins"));
 
+	//
+	// the 3rd priority: general default configuration
+	//
 	generic_string nppPluginRootParent;
 	if (_isLocal)
 	{
@@ -1078,7 +1079,9 @@ bool NppParameters::load()
 	generic_string cloudChoicePath{_userPath};
 	cloudChoicePath += TEXT("\\cloud\\choice");
 
-	// cloudChoicePath doesn't exist, just quit
+	//
+	// the 2nd priority: cloud Choice Path
+	//
 	if (::PathFileExists(cloudChoicePath.c_str()))
 	{
 		// Read cloud choice
@@ -1086,7 +1089,7 @@ bool NppParameters::load()
 		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 		std::wstring cloudChoiceStrW = wmc.char2wchar(cloudChoiceStr.c_str(), SC_CP_UTF8);
 
-		if (not cloudChoiceStrW.empty() and ::PathFileExists(cloudChoiceStrW.c_str()))
+		if (!cloudChoiceStrW.empty() && ::PathFileExists(cloudChoiceStrW.c_str()))
 		{
 			_userPath = cloudChoiceStrW;
 			_nppGUI._cloudPath = cloudChoiceStrW;
@@ -1094,6 +1097,26 @@ bool NppParameters::load()
 		}
 	}
 
+	//
+	// the 1st priority: custom settings dir via command line argument
+	//
+	if (!_cmdSettingsDir.empty())
+	{
+		if (!::PathIsDirectory(_cmdSettingsDir.c_str()))
+		{
+			// The following text is not translatable.
+			// _pNativeLangSpeaker is initialized AFTER _userPath being dterminated because nativeLang.xml is from from _userPath.
+			generic_string errMsg = TEXT("The given path\r");
+			errMsg += _cmdSettingsDir;
+			errMsg += TEXT("\nvia command line \"-settingsDir=\" is not a valid directory.\rThis argument will be ignored.");
+			::MessageBox(NULL, errMsg.c_str(), TEXT("Invalid directory"), MB_OK);
+		}
+		else
+		{
+			_userPath = _cmdSettingsDir;
+			_sessionPath = _userPath; // reset session path
+		}
+	}
 
 	//-------------------------------------//
 	// Transparent function for w2k and xp //

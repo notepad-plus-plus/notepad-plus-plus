@@ -231,6 +231,7 @@ struct CmdLineParams
 
 	LangType _langType = L_EXTERNAL;
 	generic_string _localizationPath;
+
 	generic_string _easterEggName;
 	unsigned char _quoteType = '\0';
 	int _ghostTypingSpeed = -1; // -1: initial value  1: slow  2: fast  3: speed of light
@@ -1678,6 +1679,11 @@ public:
 	void setUseNewStyleSaveDlg(bool v) {
 		_nppGUI._useNewStyleSaveDlg = v;
 	}
+
+	void setCmdSettingsDir(const generic_string& settingsDir) {
+		_cmdSettingsDir = settingsDir;
+	};
+
 	DPIManager _dpiManager;
 
 	generic_string static getSpecialFolderLocation(int folderKind);
@@ -1716,7 +1722,7 @@ private:
 
 	NppGUI _nppGUI;
 	ScintillaViewParams _svp;
-	Lang *_langList[NB_LANG];
+	Lang *_langList[NB_LANG] = {};
 	int _nbLang = 0;
 
 	// Recent File History
@@ -1755,6 +1761,8 @@ private:
 	WNDPROC _enableThemeDialogTextureFuncAddr = nullptr;
 	bool _isLocal;
 	bool _isx64 = false; // by default 32-bit
+
+	generic_string _cmdSettingsDir;
 
 public:
 	void setShortcutDirty() { _isAnyShortcutModified = true; };

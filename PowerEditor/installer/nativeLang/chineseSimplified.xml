@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+The comments are here for explanation, it's not necessary to translate them.
+-->
 <NotepadPlus>
-    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="7.9">
+    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="7.9.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -37,6 +40,7 @@
                     <Item subMenuId="search-unmarkAll" name="清除颜色标记"/>
                     <Item subMenuId="search-jumpUp" name="到上一个颜色标记"/>
                     <Item subMenuId="search-jumpDown" name="到下一个颜色标记"/>
+                    <Item subMenuId="search-copyStyledText" name="复制样式文本"/>
                     <Item subMenuId="search-bookmark" name="书签"/>
                     <Item subMenuId="view-currentFileIn" name="将当前文件显示到"/>
                     <Item subMenuId="view-showSymbol" name="显示符号"/>
@@ -75,6 +79,7 @@
                     <Item id="41002" name="打开(&amp;O)"/>
                     <Item id="41019" name="文件管理器"/>
                     <Item id="41020" name="命令行"/>
+                    <Item id="41025" name="文件夹工作区"/>
                     <Item id="41003" name="关闭(&amp;C)"/>
                     <Item id="41004" name="全部关闭(&amp;E)"/>
                     <Item id="41005" name="关闭当前以外所有文件"/>
@@ -107,6 +112,7 @@
                     <Item id="42008" name="插入制表符(缩进)"/>
                     <Item id="42009" name="删除制表符(退格)"/>
                     <Item id="42010" name="复制当前行"/>
+                    <Item id="42079" name="删除重复行"/>
                     <Item id="42077" name="删除连续的重复行"/>
                     <Item id="42012" name="分割行"/>
                     <Item id="42013" name="合并行"/>
@@ -114,6 +120,8 @@
                     <Item id="42015" name="下移当前行"/>
                     <Item id="42059" name="升序排列文本行"/>
                     <Item id="42060" name="降序排列文本行"/>
+                    <Item id="42080" name="升序排列行（不分大小写）"/>
+                    <Item id="42081" name="降序排列行（不分大小写）"/>
                     <Item id="42061" name="升序排列整数"/>
                     <Item id="42062" name="降序排列整数"/>
                     <Item id="42063" name="升序排列小数（逗号作为小数点）"/>
@@ -152,6 +160,7 @@
                     <Item id="42048" name="复制二进制"/>
                     <Item id="42049" name="剪切二进制"/>
                     <Item id="42050" name="粘贴二进制"/>
+                    <Item id="42082" name="复制链接"/>
                     <Item id="42037" name="列块模式..."/>
                     <Item id="42034" name="列块编辑..."/>
                     <Item id="42051" name="字符面版"/>
@@ -216,6 +225,13 @@
                     <Item id="43042" name="格式四"/>
                     <Item id="43043" name="格式五"/>
                     <Item id="43044" name="寻找格式"/>
+                    <Item id="43055" name="格式一"/>
+                    <Item id="43056" name="格式二"/>
+                    <Item id="43057" name="格式三"/>
+                    <Item id="43058" name="格式四"/>
+                    <Item id="43059" name="格式五"/>
+                    <Item id="43060" name="所有格式"/>
+                    <Item id="43061" name="寻找标记样式"/>
                     <Item id="43045" name="寻找结果"/>
                     <Item id="43046" name="下一个寻找结果"/>
                     <Item id="43047" name="上一个寻找结果"/>
@@ -336,14 +352,14 @@
                     <Item CMID="1" name="关闭非当前文件"/>
                     <Item CMID="2" name="保存当前文件"/>
                     <Item CMID="3" name="当前文件另存为..."/>
-                    <Item CMID="4" name="打印当前文件"/>
+                    <Item CMID="4" name="打印当前文件..."/>
                     <Item CMID="5" name="移动到另一视图"/>
                     <Item CMID="6" name="复制到另一视图"/>
                     <Item CMID="7" name="复制文件路径到剪切板"/>
                     <Item CMID="8" name="复制文件名到剪切板"/>
                     <Item CMID="9" name="复制当前路径到剪切板"/>
-                    <Item CMID="10" name="当前文件重命名"/>
-                    <Item CMID="11" name="删除当前文件"/>
+                    <Item CMID="10" name="当前文件重命名..."/>
+                    <Item CMID="11" name="当前文件移至回收站"/>
                     <Item CMID="12" name="设置为只读"/>
                     <Item CMID="13" name="清除只读属性"/>
                     <Item CMID="14" name="打开新窗口"/>
@@ -355,6 +371,7 @@
                     <Item CMID="20" name="打开所在文件夹(命令行)"/>
                     <Item CMID="21" name="使用默认查看器打开"/>
                     <Item CMID="22" name="关闭所有未修改"/>
+                    <Item CMID="23" name="打开所在文件夹工作区"/>
             </TabBar>
         </Menu>
 
@@ -396,6 +413,7 @@
                 <Item id="1703" name="&amp;. 匹配新行"/>
                 <Item id="1721" name="▲"/>
                 <Item id="1723" name="▼ 查找下一个"/>
+                <Item id="1725" name="复制标记文本"/>
             </Find>
 
             <FindCharsInRange title="查找范围内的字符...">
@@ -517,11 +535,11 @@
                     <Item id="45001" name="换行符转为 Windows (CR LF)"/>
                     <Item id="45002" name="换行符转为 Unix (LF)"/>
                     <Item id="45003" name="换行符转为 Macintosh (CR)"/>
-                    <Item id="43022" name="使用格式1标记搜索结果"/>
-                    <Item id="43024" name="使用格式2标记搜索结果"/>
-                    <Item id="43026" name="使用格式3标记搜索结果"/>
-                    <Item id="43028" name="使用格式4标记搜索结果"/>
-                    <Item id="43030" name="使用格式5标记搜索结果"/>
+                    <Item id="43022" name="使用格式1标记文本"/>
+                    <Item id="43024" name="使用格式2标记文本"/>
+                    <Item id="43026" name="使用格式3标记文本"/>
+                    <Item id="43028" name="使用格式4标记文本"/>
+                    <Item id="43030" name="使用格式5标记文本"/>
                     <Item id="43023" name="清除格式1标记"/>
                     <Item id="43025" name="清除格式2标记"/>
                     <Item id="43027" name="清除格式3标记"/>
@@ -540,6 +558,13 @@
                     <Item id="43042" name="使用格式4到下一个标记"/>
                     <Item id="43043" name="使用格式5到下一个标记"/>
                     <Item id="43044" name="下一个用标记面板创建的标记"/>
+                    <Item id="43055" name="复制样式1文本"/>
+                    <Item id="43056" name="复制样式2文本"/>
+                    <Item id="43057" name="复制样式3文本"/>
+                    <Item id="43058" name="复制样式4文本"/>
+                    <Item id="43059" name="复制样式5文本"/>
+                    <Item id="43060" name="复制所有样式文本"/>
+                    <Item id="43061" name="复制寻找的标记样式文本"/>
                     <Item id="44100" name="在Firefox中查看当前文件"/>
                     <Item id="44101" name="在Chrome中查看当前文件"/>
                     <Item id="44103" name="在IE中查看当前文件"/>
@@ -785,6 +810,8 @@
                     <Item id="6125" name="文件列表面板"/>
                     <Item id="6126" name="显示"/>
                     <Item id="6127" name="隐藏扩展名栏"/>
+
+                    <Item id="6128" name="自定义图标"/>
                 </Global>
                 <Scintillas title="编辑">
                     <Item id="6216" name="光标设置"/>
@@ -792,35 +819,36 @@
                     <Item id="6219" name="闪烁频率 :"/>
                     <Item id="6221" name="快"/>
                     <Item id="6222" name="慢"/>
-                    <Item id="6224" name="多列编辑"/>
-                    <Item id="6225" name="启用 (Ctrl+鼠标点选)"/>
+                    <Item id="6225" name="启用多列编辑 (Ctrl+鼠标点选)"/>
+                    <Item id="6227" name="折行"/>
+                    <Item id="6228" name="默认"/>
+                    <Item id="6229" name="对齐"/>
+                    <Item id="6230" name="缩排"/>
+                    <Item id="6234" name="禁用高级滚动功能以解决触摸板问题"/>
+                    <Item id="6214" name="启用当前行高亮模式"/>
+                    <Item id="6215" name="启用平滑字体"/>
+                    <Item id="6236" name="允许滚动到末尾行之后"/>
+                    <Item id="6239" name="选区外右键点击时保留选区"/>
+                </Scintillas>
+
+                <MarginsBorderEdge title="边距/边框/边缘">
                     <Item id="6201" name="代码折叠标志"/>
                     <Item id="6202" name="简洁"/>
                     <Item id="6203" name="箭头"/>
                     <Item id="6204" name="圆圈"/>
                     <Item id="6205" name="方框"/>
                     <Item id="6226" name="无"/>
-
-                    <Item id="6227" name="折行"/>
-                    <Item id="6228" name="默认"/>
-                    <Item id="6229" name="对齐"/>
-                    <Item id="6230" name="缩排"/>
-
-                    <Item id="6206" name="显示行号栏"/>
+                    <Item id="6291" name="行号"/>
+                    <Item id="6206" name="显示"/>
+                    <Item id="6292" name="变宽"/>
+                    <Item id="6293" name="等宽"/>
                     <Item id="6207" name="显示标签栏"/>
-                    <Item id="6208" name="显示列边界"/>
-                    <Item id="6234" name="关闭高级滚动功能
-（如果你遇到触摸板问题）"/>
                     <Item id="6211" name="列边界设置"/>
                     <Item id="6213" name="背景色模式"/>
                     <Item id="6237" name="想要添加列标记，可用数字指示其列位置。
 用空格分隔不同数字以定义多个列标记。"/>
-                    <Item id="6214" name="当前行高亮模式"/>
-                    <Item id="6215" name="启用平滑字体"/>
                     <Item id="6231" name="边框宽度"/>
                     <Item id="6235" name="无边框"/>
-                    <Item id="6236" name="启用滚动超过最后一行"/>
-                    <Item id="6239" name="选区外右键点击时保留选区"/>
                 </Scintillas>
 
                 <NewDoc title="新建">
@@ -980,10 +1008,15 @@
 （若不了解请勿选择）"/>
                 </Delimiter>
 
-                <Cloud title="云同步">
+                <Cloud title="云同步与链接">
                     <Item id="6262" name="云端同步设置"/>
                     <Item id="6263" name="不使用云同步"/>
                     <Item id="6267" name="设置你的云同步路径:"/>
+                    <Item id="6318" name="超链接设置"/>
+                    <Item id="6319" name="启用"/>
+                    <Item id="6320" name="不显示下划线"/>
+                    <Item id="6350" name="启用全框模式"/>
+                    <Item id="6264" name="自定义 URI 格式:"/>
                 </Cloud>
 
                 <SearchEngine title="搜索引擎">
@@ -1006,17 +1039,14 @@
                     <Item id="6308" name="最小化到系统托盘"/>
                     <Item id="6312" name="自动检测文件状态"/>
                     <Item id="6313" name="自动更新文件"/>
-                    <Item id="6318" name="超链接设置"/>
                     <Item id="6325" name="更新后定位到末行"/>
-                    <Item id="6319" name="启用"/>
-                    <Item id="6320" name="不显示下划线"/>
                     <Item id="6322" name="会话文件扩展名:"/>
                     <Item id="6323" name="启用 Notepad++ 自动更新"/>
+                    <Item id="6351" name="将保存对话框中的文本文档扩展名过滤器设置为 .* 以代替 .txt"/>
                     <Item id="6324" name="文档切换 (Ctrl+TAB)"/>
                     <Item id="6331" name="在标题栏仅显示文件名"/>
                     <Item id="6334" name="自动检测字符编码"/>
                     <Item id="6349" name="使用DirectWrite（可改善特殊字符渲染，需要重启Notepad++）"/>
-                    <Item id="6350" name="启用全框模式"/>
                     <Item id="6337" name="工作区文件扩展名:"/>
                     <Item id="6114" name="启用"/>
                     <Item id="6117" name="按最近使用顺序切换"/>
@@ -1055,7 +1085,7 @@
                 <Item id="1" name="确定"/>
                 <Item id="2" name="取消"/>
             </ColumnEditor>
-            <FindInFinder title="在查找器中查找">
+            <FindInFinder title="在搜索结果中查找">
                 <Item id="1" name="全部查找"/>
                 <Item id="2" name="关闭"/>
                 <Item id="1711" name="查找目标(&amp;F) :"/>
@@ -1080,34 +1110,33 @@
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title="编辑快捷菜单" message="您可以通过编辑contextMenu.xml文件来修改Notepad++的快捷菜单。
 修改contextMenu.xml文件后，重启Notepad++程序生效。"/>
-            <NppHelpAbsentWarning title="文件不存在" message="
-文件不存在. 请从Notepad++官网下载。"/>
             <SaveCurrentModifWarning title="保存当前修改" message="你将要保存当前的修改。
 所有修改都是不可逆的。
 
-继续？"/>
+继续？"/> <!-- HowToReproduce: when you openned file is modified but unsaved yet, and you are changing file encoding. -->
             <LoseUndoAbilityWarning title="无法恢复警告" message="你将要保存当前的修改。
 所有修改都是不可逆的。
 
-继续？"/>
-            <CannotMoveDoc title="移动到新的Notepad++窗口" message="文件已修改，请保存并重试。"/>
+继续？"/> <!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
+            <CannotMoveDoc title="移动到新的Notepad++窗口" message="文件已修改，请保存并重试。"/> <!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
             <DocReloadWarning title="重载警告" message="您确定要重新加载当前文件并失去在Notepad++所做的修改吗？"/>
             <FileLockedWarning title="保存失败" message="请检查文件是否在别的程序中打开"/>
-            <FileAlreadyOpenedInNpp title="" message="此文件已经在Notepad++中打开。"/>
-            <DeleteFileFailed title="删除文件" message="文件删除失败"/>
+            <FileAlreadyOpenedInNpp title="" message="此文件已经在Notepad++中打开。"/> <!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
+            <RenameTabTemporaryNameAlreadyInUse title="重命名失败" message="此名称已在其他标签页使用。"/> <!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
+            <DeleteFileFailed title="删除文件" message="文件删除失败"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 
             <NbFileToOpenImportantWarning title="即将打开的文件过多" message="即将打开 $INT_REPLACE$ 个文件。
-确定要打开吗？"/>
+确定要打开吗？"/> <!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into Notepad++. -->
             <SettingsOnCloudError title="云同步设置" message="云同步路径疑似设于只读存储器，或未给予写入权限的文件夹，
 云同步设置将取消。
 请在首选项中重设相应值。"/>
-            <FilePathNotFoundWarning title="文件打开" message="您尝试打开的文件并不存在。"/>
-            <SessionFileInvalidError title="无法加载会话" message="会话文件出现损坏/无效。"/>
+            <FilePathNotFoundWarning title="文件打开" message="您尝试打开的文件并不存在。"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+            <SessionFileInvalidError title="无法加载会话" message="会话文件出现损坏/无效。"/> <!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
             <DroppingFolderAsProjectModeWarning title="无效操作" message="您只能在拖放文件或文件夹中二选一，由于您正在将文件夹拖放为项目模式。
 您必须到“首选项”对话框的“默认目录”部分，启用“拖放文件夹时开启文件夹中所有文件，而不开启文件夹工作区”，才能完成此操作。"/>
-            <SortingError title="排序错误" message="由于第$INT_REPLACE$行的问题，无法执行数字排序。"/>
+            <SortingError title="排序错误" message="由于第$INT_REPLACE$行的问题，无法执行数字排序。"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <ColumnModeTip title="列块模式提示" message="请使用“ALT+鼠标点选” or “Alt+Shift+箭头键”切换列块模式。"/>
-            <BufferInvalidWarning title="保存失败" message="无法保存：缓冲区无效。"/>
+            <BufferInvalidWarning title="保存失败" message="无法保存：缓冲区无效。"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <DoCloseOrNot title="保留文件" message="文件“$STR_REPLACE$”不在了。
 是否在编辑器里保留它？"/>
             <DoDeleteOrNot title="删除文件" message="此文件“$STR_REPLACE$”
@@ -1124,28 +1153,28 @@
 
 此文件被另一个程序修改了。
 是否重新加载并放弃在Notepad++中的变更？"/>
-            <PrehistoricSystemDetected title="检测到上古系统" message="您的系统好像过于古老了。很抱歉，这个功能只能在现代系统当中使用。"/>
+            <PrehistoricSystemDetected title="检测到上古系统" message="您的系统好像过于古老了。很抱歉，这个功能只能在现代系统当中使用。"/> <!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
             <XpUpdaterProblem title="Notepad++升级工具" message="Notepad++升级工具不兼容XP，由于XP的安全层过于陈旧。
-是否前往Notepad++官网下载最新版？"/>
+是否前往Notepad++官网下载最新版？"/> <!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
             <GUpProxyConfNeedAdminMode title="代理设置" message="请在管理员模式下重新启动Notepad++以配置代理。"/>
             <DocTooDirtyToMonitor title="监视问题" message="文档没有保存，请先保存修改再监视它。"/>
             <DocNoExistToMonitor title="监视问题" message="文件需要存在才能监视。"/>
-            <FileTooBigToOpen title="文件大小问题" message="文件太大，Notepad++打不开。"/>
+            <FileTooBigToOpen title="文件大小问题" message="文件太大，Notepad++打不开。"/> <!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
             <CreateNewFileOrNot title="创建新文件" message="“$STR_REPLACE$”不存在。新建一个？"/>
-            <CreateNewFileError title="创建新文件" message="无法创建文件“$STR_REPLACE$”。"/>
+            <CreateNewFileError title="创建新文件" message="无法创建文件“$STR_REPLACE$”。"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <OpenFileError title="出错" message="无法打开文件“$STR_REPLACE$”。"/>
             <FileBackupFailed title="文件备份失败" message="此文件的先前版本无法保存到备份目录“$STR_REPLACE$”。
 
-是否继续保存当前文件？"/>
+是否继续保存当前文件？"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <LoadStylersFailed title="加载stylers.xml失败" message="加载“$STR_REPLACE$”失败！"/>
             <LoadLangsFailed title="配置" message="加载langs.xml失败！
-您是否要恢复您的langs.xml？"/>
-            <LoadLangsFailedFinal title="配置" message="加载 langs.xml 失败！"/>
+您是否要恢复您的langs.xml？"/> <!-- HowToReproduce: Close Notepad++. Use another editor to remove all content of "langs.xml" (0 length) then save it. Open Notepad++. -->
+            <LoadLangsFailedFinal title="配置" message="加载 langs.xml 失败！"/> <!-- HowToReproduce: Close Notepad++. Use another editor to make "langs.xml" an invalid xml file then save it. Open Notepad++. -->
             <FolderAsWorspaceSubfolderExists title="文件夹工作区添加文件夹问题" message="您想要添加的文件夹中的一个子文件夹已存在。
-请您在添加文件夹“$STR_REPLACE$”之前从面板移除此根文件夹。"/>
+请您在添加文件夹“$STR_REPLACE$”之前从面板移除此根文件夹。"/> <!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
 
             <ProjectPanelChanged title="$STR_REPLACE$" message="工作区已修改，是否保存？"/>
-            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="您的工作区尚未保存。"/>
+            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="您的工作区尚未保存。"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <ProjectPanelOpenDoSaveDirtyWsOrNot title="打开工作区" message="当前工作区已修改。您是否要保存当前项目？"/>
             <ProjectPanelNewDoSaveDirtyWsOrNot title="新工作区" message="当前工作区已修改。您是否要保存当前项目？"/>
             <ProjectPanelOpenFailed title="打开工作区" message="工作区无法打开。
@@ -1165,12 +1194,12 @@
 是否要用管理员模式启动Notepad++？"/>
             <OpenInAdminModeWithoutCloseCurrent title="保存失败" message="文件无法保存，它可能受到保护。
 是否要用管理员模式启动Notepad++？"/>
-            <OpenInAdminModeFailed title="管理员模式开启失败" message="Notepad++不能用管理员模式打开。"/>
+            <OpenInAdminModeFailed title="管理员模式开启失败" message="Notepad++不能用管理员模式打开。"/> <!-- HowToReproduce: When you have no Admin privilege and you try to save a modified file in a protected location (for example: any file in sub-folder of "C:\Program Files\". This message will appear after replying "Yes" to "Open in Admin mode" dialog. -->
             <ViewInBrowser title="在浏览器查看当前文件" message="在您的系统未找到该应用程序。"/>
             <ExitToUpdatePlugins title="Notepad++将要退出" message="如果您点击确定，Notepad++将退出以执行后续安装操作。
 Notepad++会在所有安装结束后重新启动。
 是否继续？"/>
-            <NeedToRestartToLoadPlugins title="Notepad++需要重启" message="您必须重启Notepad++才能加载安装好的插件。"/>
+            <NeedToRestartToLoadPlugins title="Notepad++需要重启" message="您必须重启Notepad++才能加载安装好的插件。"/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="剪贴板历史记录"/>
@@ -1185,6 +1214,7 @@ Notepad++会在所有安装结束后重新启动。
             <ColumnPath name="路径"/>
             <ColumnType name="类型"/>
             <ColumnSize name="大小"/>
+            <NbDocsTotal name="总计:"/>
         </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name="ASCII编码输入面板"/>
@@ -1205,6 +1235,9 @@ Notepad++会在所有安装结束后重新启动。
         <FolderAsWorkspace>
             <PanelTitle name="文件夹工作区"/>
             <SelectFolderFromBrowserString name="选择一个文件夹添加到文件夹工作区面板"/>
+            <ExpandAllFoldersTip name="展开所有文件夹"/>
+            <CollapseAllFoldersTip name="收起所有文件夹"/>
+            <LocateCurrentFileTip name="定位当前文件"/>
             <Menus>
                 <Item id="3511" name="移除"/>
                 <Item id="3512" name="全部移除"/>
@@ -1266,21 +1299,22 @@ Notepad++会在所有安装结束后重新启动。
         </ProjectManager>
         <MiscStrings>
             <!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
-            <word-chars-list-tip value="这允许您在双击选择或选中“全词匹配”选项的情况下,在当前单词字符列表中附加字符。"/>
+            <word-chars-list-tip value="这允许您在双击选择或选中“全词匹配”选项的情况下,在当前单词字符列表中附加字符。"/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
+
             <word-chars-list-warning-begin value="警告："/>
             <word-chars-list-space-warning value="$INT_REPLACE$ 空格"/>
             <word-chars-list-tab-warning value="$INT_REPLACE$ TAB"/>
-            <word-chars-list-warning-end value="  在你的字符列表中。"/>
+            <word-chars-list-warning-end value="  在你的字符列表中。"/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
             <cloud-invalid-warning value="无效路径。"/>
             <cloud-restart-warning value="请重启Notepad++以生效。"/>
-            <cloud-select-folder value="请选择一个供Notepad++读写设置的文件夹"/>
+            <cloud-select-folder value="请选择一个供Notepad++读写设置的文件夹"/> <!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
             <shift-change-direction-tip value="使用Shift+Enter反向查找"/>
             <two-find-buttons-tip value="双按钮查找模式"/>
             <find-in-files-filter-tip value="在 cpp，cxx，h，hxx &amp;&amp; hpp 中查找：
 *.cpp *.cxx *.h *.hxx *.hpp
 
 查找除exe，obj &amp;&amp; log以外的所有文件:
-*.* !*.exe !*.obj !*.log"/>
+*.* !*.exe !*.obj !*.log"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" secction of Find dialog. -->
             <find-status-top-reached value="查找：查找到从下到上的首个匹配项。已查找至文档最顶部。"/>
             <find-status-end-reached value="查找：查找到从上到下的首个匹配项。已查找至文档最底部。"/>
             <find-status-replaceinfiles-1-replaced value="在文件中替换：已替换1个匹配项。"/>
@@ -1311,10 +1345,11 @@ Notepad++会在所有安装结束后重新启动。
             <find-status-scope-backward value="从文件头到光标"/>
             <find-status-scope-forward value="从光标到文件尾"/>
             <finder-find-in-finder value="在此搜索结果中查找..."/>
-            <finder-close-this value="关闭此查找器"/>
+            <finder-close-this value="关闭此搜索结果"/>
             <finder-collapse-all value="全部折叠"/>
             <finder-uncollapse-all value="全部展开"/>
-            <finder-copy value="复制"/>
+            <finder-copy value="复制选中行"/>
+            <finder-copy-verbatim value="复制"/>
             <finder-select-all value="全部选择"/>
             <finder-clear-all value="全部清除"/>
             <finder-open-all value="全部打开"/>
@@ -1347,13 +1382,15 @@ Notepad++会在所有安装结束后重新启动。
             <replace-in-files-confirm-filetype value="对这些文件类型："/>
             <replace-in-open-docs-confirm-title value="替换确认"/>
             <replace-in-open-docs-confirm-message value="您是否要在所有打开的文档中替换所有匹配项？"/>
-            <find-result-caption value="查找结果"/>
-            <find-result-title value="搜索"/>
+            <find-result-caption value="搜索结果"/>
+            <find-result-title value="搜索"/> <!-- Must not begin with space or tab character -->
             <find-result-title-info value="（$INT_REPLACE2$个文件中匹配到$INT_REPLACE1$次，总计查找$INT_REPLACE3）"/>
             <find-result-title-info-selections value="（$INT_REPLACE2$个选区中匹配到$INT_REPLACE1$次，总计查找$INT_REPLACE3$）"/>
             <find-result-title-info-extra value=" - 仅在搜索结果中查找"/>
             <find-result-hits value="（匹配$INT_REPLACE$次）"/>
+            <find-result-line-prefix value="行"/> <!-- Must not begin with space or tab character -->
             <find-regex-zero-length-match value="零长度字符匹配" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>
+

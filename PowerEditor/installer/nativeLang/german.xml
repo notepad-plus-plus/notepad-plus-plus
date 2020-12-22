@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2020-12-21 by schnurlos (schnurlos@gmail.com)
+	last modified: 2020-12-22 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -328,10 +328,10 @@
 					<Item id="47005" name="&amp;Erweiterungen"/>
 					<Item id="47006" name="Notepad++ &amp;aktualisieren"/>
 					<Item id="47009" name="&amp;Proxy für Updater einstellen …"/>
-					<Item id="48005" name="&amp;Plugin(s) importieren …"/>
-					<Item id="48006" name="Stil-&amp;Design(s) importieren …"/>
-					<Item id="48018" name="&amp;Kontextmenü anpassen …"/>
-					<Item id="48009" name="&amp;Tastatur …"/>
+					<Item id="48005" name="Plugin(s) &amp;importieren …"/>
+					<Item id="48006" name="Stil-&amp;Thema(en) importieren …"/>
+					<Item id="48018" name="Popup-&amp;KontextMenü bearbeiten …"/>
+					<Item id="48009" name="&amp;Tastenkombi erstellen …"/>
 					<Item id="48011" name="&amp;Einstellungen …"/>
 					<Item id="48014" name="Verzeichnis mit Plugins öffnen …"/>
 					<Item id="48015" name="Plugin-Verwaltung …"/>
@@ -351,8 +351,8 @@
 					<Item id="44042" name="Zeilen &amp;ausblenden"/>
 					<Item id="42040" name="Alle zule&amp;tzt verwendeten Dateien öffnen"/>
 					<Item id="42041" name="L&amp;iste löschen"/>
-					<Item id="48016" name="Shortcut &amp;ändern/Makro löschen …"/>
-					<Item id="48017" name="Shortcut &amp;ändern/Befehl löschen …"/>
+					<Item id="48016" name="Verknüpfung &amp;ändern/Makro löschen …"/>
+					<Item id="48017" name="Verknüpfung &amp;ändern/Befehl löschen …"/>
 				</Commands>
 			</Main>
 			<Splitter>
@@ -521,14 +521,14 @@
 				</SubDialog>
 			</StyleConfig>
 
-			<ShortcutMapper title="Tastatur-Kürzel">
-				<Item id="2602" name="Ändern"/>
-				<Item id="2603" name="Entfernen"/>
-				<Item id="2606" name="Löschen"/>
+			<ShortcutMapper title="Tastenkombinationen">
+				<Item id="2602" name="TK Ändern"/>
+				<Item id="2603" name="Alle Löschen"/>
+				<Item id="2606" name="TK Löschen"/>
 				<Item id="2607" name="Filter: "/>
 				<Item id="1" name="Schließen"/>
-				<ColumnName name="Name"/>
-				<ColumnShortcut name="Kürzel"/>
+				<ColumnName name="TK Name"/>
+				<ColumnShortcut name="Tastenkombi"/>
 				<ColumnCategory name="Kategorie"/>
 				<ColumnPlugin name="Plugin"/>
 				<MainMenuTab name="Hauptmenü"/>
@@ -536,7 +536,7 @@
 				<RunCommandsTab name="Kommandos ausführen"/>
 				<PluginCommandsTab name="Plugin-Kommandos"/>
 				<ScintillaCommandsTab name="Scintilla-Kommandos"/>
-				<ConflictInfoOk name="Keine Konflikte mit diesem Tastenkürzel."/>
+				<ConflictInfoOk name="Keine Konflikte mit dieser Tastenkombination."/>
 				<ConflictInfoEditing name="Keine Konflikte …"/>
 				<MainCommandNames>
 					<Item id="41019" name="Ordner im Explorer öffnen"/>
@@ -611,14 +611,14 @@
 					<Item id="44108" name="Zur Funktionsliste wechseln"/>
 				</MainCommandNames>
 			</ShortcutMapper>
-			<ShortcutMapperSubDialg title="Kürzel">
+			<ShortcutMapperSubDialg title="Tastenkombi">
 				<Item id="1" name="OK"/>
 				<Item id="2" name="Abbruch"/>
 				<Item id="5006" name="Name"/>
 				<Item id="5008" name="Hinzufügen"/>
 				<Item id="5009" name="Entfernen"/>
 				<Item id="5010" name="Übernehmen"/>
-				<Item id="5007" name="Das wird das Tastenkürzel für diesen Befehl entfernen"/>
+				<Item id="5007" name="Das wird die Tastenkombination für diesen Befehl entfernen"/>
 				<Item id="5012" name="KONFLIKT GEFUNDEN!"/>
 			</ShortcutMapperSubDialg>
 			<UserDefine title="Benutzerdefinierte Sprache">
@@ -1198,7 +1198,7 @@ Soll fortgefahren werden?"/>
 			<UDLNewNameError title="UDL-Fehler" message="Dieser Name wird bereits von einer anderen Sprache verwendet.
 Bitte daher eine anderen Namen wählen."/>
 			<UDLRemoveCurrentLang title="Aktuelle Sprache löschen" message="Wirklich löschen?"/>
-			<SCMapperDoDeleteOrNot title="Wirklich?" message="Soll das Tastenkürzel wirklich gelöscht werden?"/>
+			<SCMapperDoDeleteOrNot title="Wirklich?" message="Soll die Tastenkombination wirklich gelöscht werden?"/>
 			<FindCharRangeValueError title="Problem mit Wertebereich" message="Der Wert muss zwischen 0 und 255 liegen."/>
 			<OpenInAdminMode title="Speichern fehlgeschlagen" message="Die Datei konnte nicht gespeichert werden, eventuell wegen vorhandenem Schreibschutz.
 Soll dazu Notepad++ im Administrator-Modus gestartet werden?"/>

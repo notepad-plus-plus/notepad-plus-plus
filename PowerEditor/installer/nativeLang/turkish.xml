@@ -821,7 +821,7 @@
 					<Item id="6221" name="H"/>
 					<Item id="6222" name="Y"/>
 					<Item id="6224" name="Çoklu Düzenleme Ayarları"/>
-                    <Item id="6225" name="Çoklu Düzenlemeyi Etkinleştir (Ctrl + fareyle tıkla/seç)"/>
+					<Item id="6225" name="Çoklu Düzenlemeyi Etkinleştir (Ctrl + fareyle tıkla/seç)"/>
 					<Item id="6227" name="Satır Kaydırma"/>
 					<Item id="6228" name="Varsayılan"/>
 					<Item id="6229" name="Hizalanmış"/>
@@ -831,19 +831,19 @@
 					<Item id="6215" name="Yumuşak yazı tipini etkinleştir"/>
 					<Item id="6236" name="Son satırın ötesine kaydırmayı etkinleştir"/>
 					<Item id="6239" name="Seçimin dışında sağ tıklanırsa seçimi koru"/>
-                </Scintillas>
+				</Scintillas>
 
-                <MarginsBorderEdge title="Boşluk/Sınır/Köşe">
+				<MarginsBorderEdge title="Boşluk/Sınır/Köşe">
 					<Item id="6201" name="Anahat Ağacı Stili"/>
 					<Item id="6202" name="Basit"/>
 					<Item id="6203" name="Ok"/>
 					<Item id="6204" name="Daire"/>
 					<Item id="6205" name="Kutu"/>
 					<Item id="6226" name="Hiçbiri"/>
-                    <Item id="6291" name="Satır Numarası"/>
-                    <Item id="6206" name="Göster"/>
-                    <Item id="6292" name="Hareketli Genişlik"/>
-                    <Item id="6293" name="Sabit Genişlik"/>
+					<Item id="6291" name="Satır Numarası"/>
+					<Item id="6206" name="Göster"/>
+					<Item id="6292" name="Hareketli Genişlik"/>
+					<Item id="6293" name="Sabit Genişlik"/>
 					<Item id="6207" name="Yer imini görüntüle"/>
 					<Item id="6211" name="Dikey Kenarlık Ayarları"/>
 					<Item id="6213" name="Arka plan modu"/>
@@ -851,7 +851,7 @@
 Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasına beyaz boşluk eklemeniz yeterli."/>
 					<Item id="6231" name="Kenarlık Boyutu"/>
 					<Item id="6235" name="Kenarlık yok"/>
-               </MarginsBorderEdge>
+				</MarginsBorderEdge>
 
 				<NewDoc title="Yeni Belge">
 					<Item id="6401" name="Biçim (Satır sonu)"/>
@@ -1014,11 +1014,11 @@ Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasın
 					<Item id="6262" name="Buluta Yedekleme Ayarları"/>
 					<Item id="6263" name="Buluta yedekleme"/>
 					<Item id="6267" name="Bulutunuzun konumunu ayarlayın:"/>
-                    <Item id="6318" name="Tıklanabilir Link Ayarları"/>
-                    <Item id="6319" name="Etkinleştir"/>
-                    <Item id="6320" name="Alt Çizgisiz"/>
-                    <Item id="6350" name="Tam Çerçeve Modunu Etkinleştir"/>
-                    <Item id="6264" name="URI Kişiselleştirme Şemaları:"/>
+					<Item id="6318" name="Tıklanabilir Link Ayarları"/>
+					<Item id="6319" name="Etkinleştir"/>
+					<Item id="6320" name="Alt Çizgisiz"/>
+					<Item id="6350" name="Tam Çerçeve Modunu Etkinleştir"/>
+					<Item id="6264" name="URI Kişiselleştirme Şemaları:"/>
 				</Cloud>
 				
 				<SearchEngine title="Arama Motoru">
@@ -1215,7 +1215,7 @@ Devam edilsin mi?"/>
             <ColumnPath name="Yol"/>
             <ColumnType name="Tür"/>
             <ColumnSize name="Boyut"/>
-			<NbDocsTotal name="toplam dosyalar:"/>
+            <NbDocsTotal name="toplam dosyalar:"/>
         </WindowsDlg>
 		<AsciiInsertion>
 			<PanelTitle name="ASCII Kodu Ekleme Paneli"/>
@@ -1349,8 +1349,8 @@ Devam edilsin mi?"/>
 			<finder-close-this value="Bu arama sonuçlarını kapat"/>
 			<finder-collapse-all value="Tümünü Daralt"/>
 			<finder-uncollapse-all value="Tümünü Genişlet"/>
-            <finder-copy value="Seçili Satır(ları) Kopyala"/>
-            <finder-copy-verbatim value="Kopyala"/>
+			<finder-copy value="Seçili Satır(ları) Kopyala"/>
+			<finder-copy-verbatim value="Kopyala"/>
 			<finder-select-all value="Tümünü Seç"/>
 			<finder-clear-all value="Tümünü Temizle"/>
 			<finder-open-all value="Tümünü Aç"/>

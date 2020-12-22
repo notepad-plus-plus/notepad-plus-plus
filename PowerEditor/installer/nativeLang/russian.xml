@@ -69,7 +69,7 @@ Updated to v7.9.2:
 					<Item subMenuId="encoding-turkish"          name="Турецкий"/>
 					<Item subMenuId="encoding-westernEuropean"  name="Западно-Европейский"/>
 					<Item subMenuId="encoding-vietnamese"       name="Вьетнамский"/>
-					<Item subMenuId="language-userDefinedLanguage" name="Польз. Определение Синтаксиса"/>
+					<Item subMenuId="language-userDefinedLanguage" name="Польз. Синтаксис"/>
 					<Item subMenuId="settings-import"           name="Импортировать"/>
 					<Item subMenuId="tools-md5"                 name="MD5"/>
 					<Item subMenuId="tools-sha256"              name="SHA-256"/>
@@ -78,7 +78,7 @@ Updated to v7.9.2:
 				<Commands>
 					<Item id="1001"  name="&amp;Распечатать!"/>
 					<Item id="41001" name="Новый"/>
-					<Item id="41002" name="Открыть"/>
+					<Item id="41002" name="Открыть..."/>
 					<Item id="41019" name="&amp;Открыть папку документа"/>
 					<Item id="41003" name="Закрыть"/>
 					<Item id="41004" name="Закрыть вс&amp;е"/>
@@ -194,7 +194,7 @@ Updated to v7.9.2:
 					<Item id="43009" name="Перейти к парной скобке"/>
 					<Item id="43010" name="Искать ранее"/>
 					<Item id="43011" name="Поиск по мере набора..."/>
-					<Item id="43013" name="Найти в файлах"/>
+					<Item id="43013" name="Найти в файлах..."/>
 					<Item id="43014" name="Искать выделенное далее с Регистром"/>
 					<Item id="43015" name="Искать выделенное ранее с Регистром"/>
 					<Item id="43018" name="Вырезать все строки с закладкой"/>
@@ -310,7 +310,7 @@ Updated to v7.9.2:
 					<Item id="46019" name="INI файл"/>
 					<Item id="46015" name="MS-DOS стиль"/>
 					<Item id="46016" name="Обычный Текст"/>
-					<Item id="46180" name="Свои настройки"/>
+					<Item id="46180" name="Пользовательский"/>
 					<Item id="46250" name="Задать свой синтаксис..."/>
 					<Item id="46300" name="Открыть папку синтаксисов ..."/>
 					<Item id="47000" name="О программе..."/>
@@ -358,13 +358,13 @@ Updated to v7.9.2:
 					<Item CMID="1"  name="Закрыть все Кроме Активной"/>
 					<Item CMID="2"  name="Сохранить"/>
 					<Item CMID="3"  name="Сохранить как..."/>
-					<Item CMID="4"  name="Печать"/>
+					<Item CMID="4"  name="Печать..."/>
 					<Item CMID="5"  name="Переместить в Другую Область"/>
 					<Item CMID="6"  name="Дублировать в Другой Области"/>
 					<Item CMID="7"  name="Путь к файлу с Именем (в буфер)"/>
 					<Item CMID="8"  name="Имя файла (в буфер)"/>
 					<Item CMID="9"  name="Путь к директории файла (в буфер)"/>
-					<Item CMID="10" name="Переименовать"/>
+					<Item CMID="10" name="Переименовать..."/>
 					<Item CMID="11" name="Удалить файл (в корзину)"/>
 					<Item CMID="12" name="&quot;Только Чтение&quot; файла"/>
 					<Item CMID="13" name="Снять &quot;Только Чтение&quot;"/>
@@ -533,11 +533,11 @@ Updated to v7.9.2:
 					<Item id="45001" name="Преобразовать в Windows (CR LF)"/>
 					<Item id="45002" name="Преобразовать в Unix (LF)"/>
 					<Item id="45003" name="Преобразовать в Macintosh (CR)"/>
-					<Item id="43022" name="Пометить результат поиска используя 1-й стиль"/>
-					<Item id="43024" name="Пометить результат поиска используя 2-й стиль"/>
-					<Item id="43026" name="Пометить результат поиска используя 3-й стиль"/>
-					<Item id="43028" name="Пометить результат поиска используя 4-й стиль"/>
-					<Item id="43030" name="Пометить результат поиска используя 5-й стиль"/>
+					<Item id="43022" name="Пометить текст используя 1-й стиль"/>
+					<Item id="43024" name="Пометить текст используя 2-й стиль"/>
+					<Item id="43026" name="Пометить текст используя 3-й стиль"/>
+					<Item id="43028" name="Пометить текст используя 4-й стиль"/>
+					<Item id="43030" name="Пометить текст используя 5-й стиль"/>
 					<Item id="43023" name="Убрать пометки использ. 1-й стиль"/>
 					<Item id="43025" name="Убрать пометки использ. 2-й стиль"/>
 					<Item id="43027" name="Убрать пометки использ. 3-й стиль"/>
@@ -609,7 +609,7 @@ Updated to v7.9.2:
 				<Item id="5007" name="Это удалит быстрый доступ для этой команды."/>
 				<Item id="5012" name="!!! НАЙДЕН КОНФЛИКТ !!!"/>
 			</ShortcutMapperSubDialg>
-			<UserDefine title="Польз. определение языка">
+			<UserDefine title="Пользовательское Определение Синтаксиса">
 				<Item id="20001" name="Стыковать"/>
 				<Item id="20002" name="Новое имя"/>
 				<Item id="20003" name="Создать..."/>
@@ -819,7 +819,7 @@ Updated to v7.9.2:
 					<Item id="6219" name="Част. мерц.:"/>
 					<Item id="6221" name="Ч"/>
 					<Item id="6222" name="Р"/>
-					<Item id="6225" name="Мультиредактирование  (используйте Ctrl + Клик/Выделение)"/>
+					<Item id="6225" name="Мультиредактирование  (Ctrl + Клик / Выделение)"/>
 					<Item id="6227" name="Стиль Переноса Строк"/>
 					<Item id="6228" name="Стандартный"/>
 					<Item id="6229" name="Выровненный"/>
@@ -1160,10 +1160,11 @@ Updated to v7.9.2:
 			<ColumnExt  name="Расш."/>
 		</DocSwitcher>
 		<WindowsDlg>
-			<ColumnName name="Имя"/>
-			<ColumnPath name="Путь"/>
-			<ColumnType name="Тип"/>
-			<ColumnSize name="Размер"/>
+			<ColumnName  name="Имя"/>
+			<ColumnPath  name="Путь"/>
+			<ColumnType  name="Тип"/>
+			<ColumnSize  name="Размер"/>
+			<NbDocsTotal name="всего документов:"/>
 		</WindowsDlg>
 		<AsciiInsertion>
 			<PanelTitle       name="Таблица символов ASCII"/>
@@ -1184,9 +1185,9 @@ Updated to v7.9.2:
 		<FolderAsWorkspace>
 			<PanelTitle name="Папка как Проект"/>
 			<SelectFolderFromBrowserString name="Выберите папку, чтобы добавить в панель Папка как Проект"/>
-			<ExpandAllFoldersTip name="Развернуть все папки"/>
+			<ExpandAllFoldersTip   name="Развернуть все папки"/>
 			<CollapseAllFoldersTip name="Свернуть все папки"/>
-			<LocateCurrentFileTip name="Выбрать текущий файл"/>
+			<LocateCurrentFileTip  name="Выбрать текущий файл"/>
 			<Menus>
 				<Item id="3511" name="Убрать папку"/>
 				<Item id="3512" name="Убрать Всё"/>
@@ -1328,7 +1329,8 @@ Updated to v7.9.2:
 			<replace-in-open-docs-confirm-title   value="Вы уверены?"/>
 			<replace-in-open-docs-confirm-message value="Вы уверены, что хотите заменить все совпадения во всех открытых документах?"/>
 			<find-result-caption                  value="Результаты поиска"/>
-			<find-result-title                    value="Поиск"/>
+			<find-result-title                    value="Поиск"/>  <!-- Не должно начинаться с пробела или табуляции -->
+			<find-result-line-prefix              value="Строка"/> <!-- Не должно начинаться с пробела или табуляции -->
 			<find-result-title-info               value="(найдено $INT_REPLACE1$ совпадений в $INT_REPLACE2$ файлах из $INT_REPLACE3$)"/>
 			<find-result-title-info-selections    value="(найдено $INT_REPLACE1$ совпадений в $INT_REPLACE2$ выделениях из $INT_REPLACE3$)"/>
 			<find-result-title-info-extra         value=" - Режим Фильтра Строк: только отображает результаты фильтрования"/>

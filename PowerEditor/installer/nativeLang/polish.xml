@@ -5,7 +5,7 @@ The comments are here for explanation, it's not necessary to translate them.
 <!--
     History of Polish translation for Notepad++:
 
-        - Updated by Arkadiusz Michalski (webref.pl) to version 7.9.1 (24.10.2020)
+        - Updated by Arkadiusz Michalski (webref.pl) to version 7.9.2 (22.12.2020)
         - Updated by Cezariusz Marek to version 7.8.3 (11.01.2020)
         - Translated by Patryk Skorupa (ppskorupa@outlook.com) and up-to-date as of version 7.7.2 (29/07/2019)
     
@@ -35,7 +35,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <SubEntries>
                     <Item subMenuId="file-openFolder" name="Otwórz folder zawierający"/>
                     <Item subMenuId="file-closeMore" name="Zamknij więcej"/>
-                    <Item subMenuId="file-recentFiles" name="Ostatnie &amp;pliki"/>
+                    <Item subMenuId="file-recentFiles" name="Ostatnio zamknięte &amp;pliki"/>
                     <Item subMenuId="edit-copyToClipboard"  name="Kopiuj do schowka"/>
                     <Item subMenuId="edit-indent" name="Wcięcie"/>
                     <Item subMenuId="edit-convertCaseTo" name="Wielkość liter"/>
@@ -108,7 +108,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="41015" name="Zapisz kopię jako..."/>
                     <Item id="41016" name="Przenieś do kosza"/>
                     <Item id="41017" name="Zmień nazwę..."/>
-                    <Item id="41021" name="Przywróć ostatni zamknięty plik"/>
+                    <Item id="41021" name="Przywróć ostatnio zamknięty plik"/>
                     <Item id="41022" name="Dodaj folder do obszaru roboczego..."/>
                     <Item id="41023" name="Otwórz bieżący w domyślnym programie"/>
                     <Item id="42001" name="Wy&amp;tnij"/>
@@ -170,6 +170,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42048" name="Kopiuj treść binarną"/>
                     <Item id="42049" name="Wytnij treść binarną"/>
                     <Item id="42050" name="Wklej treść binarną"/>
+                    <Item id="42082" name="Kopiuj hiperłącze"/>
                     <Item id="42037" name="Kolumnowy tryb zaznaczania"/>
                     <Item id="42034" name="Edycja kolumnowa..."/>
                     <Item id="42051" name="Tablica znaków"/>
@@ -348,8 +349,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="50005" name="Przełącz nagrywanie makra"/>
                     <Item id="50006" name="Uzupełnianie ścieżek"/>
                     <Item id="44042" name="Ukryj zaznaczone linie"/>
-                    <Item id="42040" name="Otwórz wszystkie ostatnio otwarte pliki"/>
-                    <Item id="42041" name="Wyczyść listę ostatnio otwartych plików"/>
+                    <Item id="42040" name="Otwórz wszystkie ostatnio zamknięte pliki"/>
+                    <Item id="42041" name="Wyczyść listę ostatnio zamkniętych plików"/>
                     <Item id="48016" name="Zmień skrót/Usuń makro..."/>
                     <Item id="48017" name="Zmień skrót/Usuń polecenie..."/>
                 </Commands>
@@ -361,13 +362,13 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item CMID="1" name="Zamknij wszystko PRÓCZ tego"/>
                     <Item CMID="2" name="Zapisz"/>
                     <Item CMID="3" name="Zapisz jako..."/>
-                    <Item CMID="4" name="Drukuj"/>
+                    <Item CMID="4" name="Drukuj..."/>
                     <Item CMID="5" name="Przenieś do drugiego widoku"/>
                     <Item CMID="6" name="Klonuj do drugiego widoku"/>
                     <Item CMID="7" name="Kopiuj ścieżkę tego pliku do schowka"/>
                     <Item CMID="8" name="Kopiuj nazwę pliku do schowka"/>
                     <Item CMID="9" name="Kopiuj ścieżkę katalogu pliku do schowka"/>
-                    <Item CMID="10" name="Zmień nazwę"/>
+                    <Item CMID="10" name="Zmień nazwę..."/>
                     <Item CMID="11" name="Przenieś do kosza"/>
                     <Item CMID="12" name="Blokada edycji"/>
                     <Item CMID="13" name="Wyłącz tryb „Tylko do odczytu”"/>
@@ -379,7 +380,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item CMID="19" name="Otwórz folder zawierający w eksploratorze plików"/>
                     <Item CMID="20" name="Otwórz folder zawierający w wierszu poleceń"/>
                     <Item CMID="21" name="Otwórz w domyślnym programie"/>
-                    <Item CMID="22" name="Zamknij wszystko bez zapisywania"/>
+                    <Item CMID="22" name="Zamknij wszystko niezmodyfikowane"/>
                     <Item CMID="23" name="Otwórz folder zawierający w obszarze roboczym"/>
             </TabBar>
         </Menu>
@@ -828,36 +829,37 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6219" name="Miganie:"/>
                     <Item id="6221" name="S"/>
                     <Item id="6222" name="W"/>
-                    <Item id="6224" name="Edycja wieloliniowa"/>
-                    <Item id="6225" name="Włącz (Ctrl+LPM/zaznaczanie)"/>
+                    <Item id="6225" name="Włącz edycję wieloliniową (Ctrl + klik LPM/zaznaczanie)"/>
+                    <Item id="6227" name="Zawijanie tekstu"/>
+                    <Item id="6228" name="Domyślne"/>
+                    <Item id="6229" name="Wyrównane"/>
+                    <Item id="6230" name="Wcięte"/>
+                    <Item id="6234" name="Wyłącz zaawansowane przewijanie (w razie problemów z touchpadem)"/>
+                    <Item id="6214" name="Podświetlaj bieżącą linię"/>
+                    <Item id="6215" name="Ujednolicaj czcionki"/>
+                    <Item id="6236" name="Umożliwiaj przewijanie poza ostatnią linię"/>
+                    <Item id="6239" name="Zachowaj zaznaczenie po kliku prawym przyciskiem myszy poza zaznaczeniem"/>
+                </Scintillas>
+
+                <MarginsBorderEdge title="Marginesy i Krawędzie"> <!-- Marginesy/Ramka/Krawędź -->
                     <Item id="6201" name="Styl marginesu"/>
                     <Item id="6202" name="Prosty"/>
                     <Item id="6203" name="Strzałki"/>
                     <Item id="6204" name="Kółka"/>
                     <Item id="6205" name="Kwadraty"/>
                     <Item id="6226" name="Żaden"/>
-
-                    <Item id="6227" name="Zawijanie tekstu"/>
-                    <Item id="6228" name="Domyślne"/>
-                    <Item id="6229" name="Wyrównane"/>
-                    <Item id="6230" name="Wcięte"/>
-
-                    <Item id="6206" name="Pokazuj numer linii"/>
+                    <Item id="6291" name="Numery linii"/>
+                    <Item id="6206" name="Pokazuj"/>
+                    <Item id="6292" name="Dynamiczna szerokość"/>
+                    <Item id="6293" name="Stała szerokość"/>
                     <Item id="6207" name="Pokazuj zakładki"/>
-                    <Item id="6208" name="Pokazuj krawędź pionową"/>
-                    <Item id="6234" name="Wyłącz zaawansowane przewijanie
-(w razie problemów z touchpadem)"/>
                     <Item id="6211" name="Ustawienia krawędzi pionowej"/>
                     <Item id="6213" name="Podświetlenie tła"/>
                     <Item id="6237" name="Dodaj znacznik kolumny wskazując jego pozycję za pomocą liczby dziesiętnej.
 Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych liczb znakami spacji."/>
-                    <Item id="6214" name="Podświetlaj bieżącą linię"/>
-                    <Item id="6215" name="Ujednolicaj czcionki"/>
                     <Item id="6231" name="Grubość ramki"/>
-                    <Item id="6235" name="Brak ramki"/>
-                    <Item id="6236" name="Umożliwiaj przewijanie poza ostatnią linię"/>
-                    <Item id="6239" name="Zachowaj zaznaczenie po kliku prawym przyciskiem myszy poza zaznaczeniem"/>
-                </Scintillas>
+                    <Item id="6235" name="Brak obrysu"/>
+                </MarginsBorderEdge>
 
                 <NewDoc title="Nowy dokument">
                     <Item id="6401" name="Format (koniec linii)"/>
@@ -1016,14 +1018,19 @@ Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych lic
 (wybierz tę opcję tylko, jeżeli wiesz, co robisz)"/>
                 </Delimiter>
 
-                <Cloud title="Chmura">
+                <Cloud title="Chmura i Hiperłącza">
                     <Item id="6262" name="Ustawienia chmury"/>
                     <Item id="6263" name="Nie korzystaj z chmury"/>
                     <Item id="6267" name="Ścieżka chmury:"/>
+                    <Item id="6318" name="Hiperłącza w treści"/>
+                    <Item id="6319" name="Włącz"/>
+                    <Item id="6320" name="Nie podkreślaj"/>
+                    <Item id="6350" name="Włącz tryb fullbox"/>
+                    <Item id="6264" name="Dodatkowe schematy URI:"/>
                 </Cloud>
 
-                <SearchEngine title="Wyszukiwarka internetowa">
-                    <Item id="6271" name="Wyszukiwarka internetowa (dla opcji „Wyszukaj w Internecie”)"/>
+                <SearchEngine title="Wyszukiwarka WWW"> <!-- internetowa -->
+                    <Item id="6271" name="Wyszukiwarka WWW (dla opcji „Wyszukaj w Internecie”)"/>
                     <Item id="6272" name="DuckDuckGo"/>
                     <Item id="6273" name="Google"/>
                     <Item id="6274" name="Bing"/>
@@ -1042,18 +1049,14 @@ Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych lic
                     <Item id="6308" name="Minimalizuj do zasobnika systemowego"/>
                     <Item id="6312" name="Autowykrywanie stanu pliku"/>
                     <Item id="6313" name="Uaktualniaj po cichu"/>
-                    <Item id="6318" name="Hiperłącza w treści"/>
                     <Item id="6325" name="Przewiń na koniec po uaktualnieniu"/>
-                    <Item id="6319" name="Włącz"/>
-                    <Item id="6320" name="Nie podkreślaj"/>
                     <Item id="6322" name="Rozszerzenie pliku sesji:"/>
                     <Item id="6323" name="Automatycznie aktualizuj Notepad++"/>
                     <Item id="6351" name="W oknie zapisu dla Normal Text ustaw filtr rozszerzenia pliku na .* zamiast .txt"/>
                     <Item id="6324" name="Przełączanie dokumentów (Ctrl+TAB)"/>
                     <Item id="6331" name="Pokazuj w pasku tytułu tylko nazwę pliku"/>
                     <Item id="6334" name="Automatycznie wykrywaj kodowanie"/>
-                    <Item id="6349" name="Użyj DirectWrite (może poprawić wyświetlanie znaków specjalnych, wymagany restart Notepad++)"/>
-                    <Item id="6350" name="Włącz tryb fullbox"/>
+                    <Item id="6349" name="Użyj DirectWrite (może poprawić wyświetlanie znaków specjalnych, wymagany restart Notepad++)"/>      
                     <Item id="6337" name="Rozszerzenie pliku projektu:"/>
                     <Item id="6114" name="Włącz"/>
                     <Item id="6117" name="Zgodnie z ostatnim użyciem (MRU)"/>
@@ -1092,7 +1095,7 @@ Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych lic
                 <Item id="1" name="OK"/>
                 <Item id="2" name="Anuluj"/>
             </ColumnEditor>
-            <FindInFinder title="Szukaj wśród znalezionych">
+            <FindInFinder title="Znajdź w wynikach wyszukiwania"> <!-- Szukaj wśród znalezionych -->
                 <Item id="1"    name="Znajdź wszystkie"/>
                 <Item id="2"    name="Zamknij"/>
                 <Item id="1711" name="Szukany &amp;tekst:"/>
@@ -1129,6 +1132,7 @@ Kontynuować?"/> <!-- HowToReproduce: when you openned file is modified and save
             <DocReloadWarning title="Ponowne załadowanie" message="Czy na pewno chcesz ponownie załadować bieżący plik i stracić wszystkie dokonane w nim zmiany?"/>
             <FileLockedWarning title="Nieudany zapis" message="Plik może być obecnie otwarty w innym programie."/>
             <FileAlreadyOpenedInNpp title="" message="Plik jest już otwarty w Notepad++."/> <!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
+            <RenameTabTemporaryNameAlreadyInUse title="Nieudana zmiana nazwy" message="Podana nazwa jest używana przez inną kartę."/> <!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
             <DeleteFileFailed title="Usuwanie pliku" message="Nie udało się usunąć pliku."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 
             <NbFileToOpenImportantWarning title="Otwarcie wielu plików" message="Liczba plików do otwarcia wynosi $INT_REPLACE$.
@@ -1220,6 +1224,7 @@ Kontynuować?"/>
             <ColumnPath name="Ścieżka"/>
             <ColumnType name="Typ"/>
             <ColumnSize name="Rozmiar"/>
+            <NbDocsTotal name="wszystkie dokumenty:"/>
         </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name="Tablica znaków ASCII"/>
@@ -1240,6 +1245,9 @@ Kontynuować?"/>
         <FolderAsWorkspace>
             <PanelTitle name="Obszar roboczy"/>
             <SelectFolderFromBrowserString name="Wybierz folder do dodania do panelu obszaru roboczego."/>
+            <ExpandAllFoldersTip name="Rozwiń wszystkie foldery"/>
+            <CollapseAllFoldersTip name="Zwiń wszystkie foldery"/>
+            <LocateCurrentFileTip name="Zlokalizuj bieżący plik"/> <!-- w obszarze roboczym -->
             <Menus>
                 <Item id="3511" name="Usuń"/>
                 <Item id="3512" name="Usuń wszystkie"/>
@@ -1346,11 +1354,12 @@ Szukaj wśród wszystkich plików z wyjątkiem exe, obj i log:
             <find-status-scope-all value="w cały pliku"/>
             <find-status-scope-backward value="od początku pliku do aktualnego położenia kursora"/>
             <find-status-scope-forward value="od aktualnego położenia kursora do końca pliku"/>
-            <finder-find-in-finder value="Szukaj w wyszukanych..."/>
-            <finder-close-this value="Zamknij"/>
+            <finder-find-in-finder value="Znajdź w tych wynikach wyszukiwania..."/>
+            <finder-close-this value="Zamknij te wyniki wyszukiwania"/>
             <finder-collapse-all value="Zwiń wszystko"/>
             <finder-uncollapse-all value="Rozwiń wszystko"/>
-            <finder-copy value="Kopiuj"/>
+            <finder-copy value="Kopiuj zaznaczone linie"/>
+            <finder-copy-verbatim value="Kopiuj"/>
             <finder-select-all value="Zaznacz wszystko"/>
             <finder-clear-all value="Odznacz wszystko"/>
             <finder-open-all value="Otwórz wszystko"/>
@@ -1383,12 +1392,13 @@ Szukaj wśród wszystkich plików z wyjątkiem exe, obj i log:
             <replace-in-files-confirm-filetype value="Dla plików pasujących do filtrów:"/>
             <replace-in-open-docs-confirm-title value="Na pewno chcesz kontynuować?"/>
             <replace-in-open-docs-confirm-message value="Czy na pewno chcesz zastąpić wszystkie wystąpienia we wszystkich otwartych plikach?"/>
-            <find-result-caption value="Wynik wyszukiwania"/>
-            <find-result-title value="Wyszukanie"/>
+            <find-result-caption value="Wyniki wyszukiwania"/>
+            <find-result-title value="Wyszukanie"/> <!-- Must not begin with space or tab character -->
             <find-result-title-info value="($INT_REPLACE1$ trafień w $INT_REPLACE2$ plikach z $INT_REPLACE3$ przeszukiwanych)"/>
             <find-result-title-info-selections value="($INT_REPLACE1$ trafień w $INT_REPLACE2$ zaznaczeniu z $INT_REPLACE3$ przeszukiwanych)"/>
             <find-result-title-info-extra value=" - Tryb filtrowania linii: wyświetla tylko przefiltrowane wyniki"/>
             <find-result-hits value="($INT_REPLACE$ trafień)"/>
+            <find-result-line-prefix value="Linia"/> <!-- Must not begin with space or tab character -->
             <find-regex-zero-length-match value="dopasowanie o zerowej długości" />
         </MiscStrings>
     </Native-Langue>

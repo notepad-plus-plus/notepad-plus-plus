@@ -1236,6 +1236,7 @@ Cuntinuà ?"/>
             <ColumnPath name="Chjassu"/>
             <ColumnType name="Tipu"/>
             <ColumnSize name="Dimensione"/>
+            <NbDocsTotal name="numeru di ducumenti :"/>
         </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name="Pannellu d’inserzione di codice ASCII"/>
@@ -1369,7 +1370,7 @@ Circà in tutti i schedarii fora di exe, obj è log :
             <finder-close-this value="Chjode sti risultati di ricerca"/>
             <finder-collapse-all value="Tuttu ripiegà"/>
             <finder-uncollapse-all value="Tuttu spiegà"/>
-            <finder-copy value="Cupià a(e) linea(e) seleziunata(e)"/>
+            <finder-copy value="Cupià a(e) linea(e) selezziunata(e)"/>
             <finder-copy-verbatim value="Cupià"/>
             <finder-select-all value="Tuttu selezziunà"/>
             <finder-clear-all value="Tuttu viutà"/>

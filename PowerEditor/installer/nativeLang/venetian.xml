@@ -1217,6 +1217,7 @@ Vuto continuare?"/>
             <ColumnPath name="Percorso"/>
             <ColumnType name="Tipo"/>
             <ColumnSize name="Dimension"/>
+            <NbDocsTotal name="Documenti totaƚi:"/> 
         </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name="Paneƚo Inserimento ASCII"/>

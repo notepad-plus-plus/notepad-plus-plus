@@ -751,7 +751,6 @@
         <WidgetStyle name="Tags attribute" styleID="26" bgColor="000040" />
         <WidgetStyle name="Active tab focused indicator" styleID="0" fgColor="FAAA3C" />
         <WidgetStyle name="Active tab unfocused indicator" styleID="0" fgColor="FFCAB0" />
-        <WidgetStyle name="Active tab text" styleID="0" fgColor="000000" />
         <WidgetStyle name="Inactive tabs" styleID="0" fgColor="8080C0" bgColor="CECECE" />
         <WidgetStyle name="Unsaved change marker" styleID="0" bgColor="FF0000" />
         <WidgetStyle name="Saved change marker" styleID="0" bgColor="80FF00" />

@@ -1378,7 +1378,6 @@ License:             GPL2
         <WidgetStyle name="Tags attribute" styleID="26" bgColor="78926F" />
         <WidgetStyle name="Active tab focused indicator" styleID="0" fgColor="80D4B2" />
         <WidgetStyle name="Active tab unfocused indicator" styleID="0" fgColor="3FBA89" />
-        <WidgetStyle name="Active tab text" styleID="0" fgColor="101010" />
         <WidgetStyle name="Inactive tabs" styleID="0" fgColor="808080" bgColor="C0C0C0" />
         <WidgetStyle name="URL hovered" styleID="0" fgColor="A3DCA3" />
     </GlobalStyles>

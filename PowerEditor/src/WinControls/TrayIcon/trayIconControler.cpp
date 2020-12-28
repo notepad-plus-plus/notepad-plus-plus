@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -36,7 +36,7 @@ trayIconControler::trayIconControler(HWND hwnd, UINT uID, UINT uCBMsg, HICON hic
   _nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
   _nid.uCallbackMessage = uCBMsg;
   _nid.hIcon = hicon;
-  lstrcpy(_nid.szTip, tip);
+  wcscpy_s(_nid.szTip, tip);
   
   ::RegisterWindowMessage(TEXT("TaskbarCreated"));
   _isIconShowed = false;

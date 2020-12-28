@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -34,6 +34,7 @@ IDD_REGEXT_BOX DIALOGEX 0, 0, 370, 180
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | DS_CONTROL
 FONT 8, TEXT("MS Shell Dlg"), 0, 0, 0x1
 BEGIN
+    LTEXT           "Please exit Notepad++ and relaunch Notepad++ in Administrator mode to use this feature.",IDC_ADMINMUSTBEONMSG_STATIC,20,0,300,16
     LTEXT           "Supported extensions:",IDC_SUPPORTEDEXTS_STATIC,70,18,80,8
     LISTBOX         IDC_REGEXT_LANG_LIST,70,30,100,125,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP
     LISTBOX         IDC_REGEXT_LANGEXT_LIST,175,30,80,125,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP
@@ -42,7 +43,6 @@ BEGIN
     PUSHBUTTON      "<-",IDC_REMOVEEXT_BUTTON,265,96,25,14
     LTEXT           "Registered extensions:",IDC_REGISTEREDEXTS_STATIC,300,18,80,8
     LISTBOX         IDC_REGEXT_REGISTEREDEXTS_LIST,300,30,80,125,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP
-    //CONTROL         "",IDC_POUPELLE_STATIC,"Static",SS_OWNERDRAW,301,82,20,20
 END
 
 

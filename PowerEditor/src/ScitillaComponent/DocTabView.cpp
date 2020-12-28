@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -43,7 +43,7 @@ void DocTabView::addBuffer(BufferID buffer)
 		return;
 	if (this->getIndexByBuffer(buffer) != -1)	//no duplicates
 		return;
-	Buffer * buf = MainFileManager->getBufferByID(buffer);
+	Buffer * buf = MainFileManager.getBufferByID(buffer);
 	TCITEM tie;
 	tie.mask = TCIF_TEXT | TCIF_IMAGE | TCIF_PARAM;
 
@@ -91,11 +91,11 @@ BufferID DocTabView::findBufferByName(const TCHAR * fullfilename) //-1 if not fo
 	TCITEM tie;
 	tie.lParam = -1;
 	tie.mask = TCIF_PARAM;
-	for(size_t i = 0; i < _nbItem; ++i)
+	for (size_t i = 0; i < _nbItem; ++i)
 	{
 		::SendMessage(_hSelf, TCM_GETITEM, i, reinterpret_cast<LPARAM>(&tie));
 		BufferID id = reinterpret_cast<BufferID>(tie.lParam);
-		Buffer * buf = MainFileManager->getBufferByID(id);
+		Buffer * buf = MainFileManager.getBufferByID(id);
 		if (OrdinalIgnoreCaseCompareStrings(fullfilename, buf->getFullPathName()) == 0)
 		{
 			return id;
@@ -110,7 +110,7 @@ int DocTabView::getIndexByBuffer(BufferID id)
 	TCITEM tie;
 	tie.lParam = -1;
 	tie.mask = TCIF_PARAM;
-	for(size_t i = 0; i < _nbItem; ++i)
+	for (size_t i = 0; i < _nbItem; ++i)
 	{
 		::SendMessage(_hSelf, TCM_GETITEM, i, reinterpret_cast<LPARAM>(&tie));
 		if (reinterpret_cast<BufferID>(tie.lParam) == id)
@@ -204,7 +204,7 @@ void DocTabView::setBuffer(size_t index, BufferID id)
 	tie.mask = TCIF_PARAM;
 	::SendMessage(_hSelf, TCM_SETITEM, index, reinterpret_cast<LPARAM>(&tie));
 
-	bufferUpdated(MainFileManager->getBufferByID(id), BufferChangeMask);	//update tab, everything has changed
+	bufferUpdated(MainFileManager.getBufferByID(id), BufferChangeMask);	//update tab, everything has changed
 
 	::SendMessage(_hParent, WM_SIZE, 0, 0);
 }
@@ -212,7 +212,7 @@ void DocTabView::setBuffer(size_t index, BufferID id)
 
 void DocTabView::reSizeTo(RECT & rc)
 {
-	int borderWidth = ((NppParameters::getInstance())->getSVP())._borderWidth;
+	int borderWidth = ((NppParameters::getInstance()).getSVP())._borderWidth;
 	if (_hideTabBarStatus)
 	{
 		RECT rcTmp = rc;
@@ -228,5 +228,6 @@ void DocTabView::reSizeTo(RECT & rc)
 		rc.bottom -= (borderWidth * 2);
 		_pView->reSizeTo(rc);
 	}
+	SendMessage(_hParent, NPPM_INTERNAL_UPDATECLICKABLELINKS, reinterpret_cast<WPARAM>(_pView), 0);
 }
 

@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -26,15 +26,10 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef USER_DEFINE_LANG_REFERENCE_H
-#define USER_DEFINE_LANG_REFERENCE_H
+#pragma once
 
 #include "SciLexer.h"
 
-const int langNameLenMax = 33;
+const int langNameLenMax = 64;
 const int extsLenMax = 256;
 const int max_char = 1024*30;
-
-#endif //USER_DEFINE_LANG_REFERENCE_H
-
-

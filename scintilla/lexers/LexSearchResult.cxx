@@ -27,8 +27,6 @@
 #include <vector>
 #include <assert.h>
 
-#include "Platform.h"
-
 #include "ILexer.h"
 #include "LexAccessor.h"
 #include "PropSetSimple.h"
@@ -39,15 +37,13 @@
 #include "CharacterSet.h"
 #include "LexerModule.h"
 
-#ifdef SCI_NAMESPACE
 using namespace Scintilla;
-#endif
 
 // The following definitions are a copy of the ones in FindReplaceDlg.h
-enum { searchHeaderLevel = SC_FOLDLEVELBASE + 1, fileHeaderLevel, resultLevel };
+enum { searchHeaderLevel = SC_FOLDLEVELBASE, fileHeaderLevel, resultLevel };
 
 
-static inline bool AtEOL(Accessor &styler, unsigned int i) {
+static inline bool AtEOL(Accessor &styler, size_t i) {
 	return (styler[i] == '\n') ||
 	       ((styler[i] == '\r') && (styler.SafeGetCharAt(i + 1) != '\n'));
 }
@@ -56,38 +52,34 @@ static const char * const emptyWordListDesc[] = {
 	0
 };
 
-static void ColouriseSearchResultLine(SearchResultMarkings* pMarkings, char *lineBuffer, unsigned int lengthLine, unsigned int startLine, unsigned int endPos, Accessor &styler, int linenum) 
+static void ColouriseSearchResultLine(SearchResultMarkings* pMarkings, char *lineBuffer, size_t startLine, size_t endPos, Accessor &styler, int linenum) 
 {
 	// startLine and endPos are the absolute positions.
 
-	if (lineBuffer[0] == ' ') // file header
+	if (lineBuffer[0] == ' ') // white space - file header
 	{
 		styler.ColourTo(endPos, SCE_SEARCHRESULT_FILE_HEADER);
 	}
-	else if (lineBuffer[0] == 'S') // search header
+	else if (lineBuffer[0] == '	')// \t - line info
 	{
-		styler.ColourTo(endPos, SCE_SEARCHRESULT_SEARCH_HEADER);
-	}
-	else // line info
-	{
-		const unsigned int firstTokenLen = 4;
-		unsigned int currentPos;
+		unsigned int firstTokenLen = 0;
+		unsigned int currentPos = 0;
+
 		
-		PLATFORM_ASSERT(lengthLine >= firstTokenLen + 2);
+		for (; !(lineBuffer[firstTokenLen] >= '0' && lineBuffer[firstTokenLen] <= '9'); firstTokenLen++);
+		
+		styler.ColourTo(startLine + firstTokenLen - 1, SCE_SEARCHRESULT_DEFAULT);
 
-		styler.ColourTo(startLine + firstTokenLen, SCE_SEARCHRESULT_DEFAULT);
+		for (currentPos = firstTokenLen; lineBuffer[currentPos] != ':'; currentPos++);
 
-		for (currentPos = firstTokenLen; lineBuffer[currentPos] != ':' ; currentPos++) PLATFORM_ASSERT(currentPos < lengthLine);
 		styler.ColourTo(startLine + currentPos - 1, SCE_SEARCHRESULT_LINE_NUMBER);
 		
 		int currentStat = SCE_SEARCHRESULT_DEFAULT;
 
-		PLATFORM_ASSERT(linenum < pMarkings->_length);
 		SearchResultMarking mi = pMarkings->_markings[linenum];
 
-		currentPos += 2; // skip ": "
-		unsigned int match_start = startLine + mi._start - 1;
-		unsigned int match_end = startLine + mi._end - 1;
+		size_t match_start = startLine + mi._start - 1;
+		size_t match_end = startLine + mi._end - 1;
 
 		if  (match_start <= endPos) {
 			styler.ColourTo(match_start, SCE_SEARCHRESULT_DEFAULT);
@@ -98,44 +90,47 @@ static void ColouriseSearchResultLine(SearchResultMarkings* pMarkings, char *lin
 		}
 		styler.ColourTo(endPos, currentStat);
 	}
+	else // every character - search header
+	{
+		styler.ColourTo(endPos, SCE_SEARCHRESULT_SEARCH_HEADER);
+	}
 }
 
-static void ColouriseSearchResultDoc(unsigned int startPos, int length, int, WordList *[], Accessor &styler) {
+static void ColouriseSearchResultDoc(Sci_PositionU startPos, Sci_Position length, int, WordList *[], Accessor &styler) {
 
 	char lineBuffer[SC_SEARCHRESULT_LINEBUFFERMAXLENGTH];
 	styler.StartAt(startPos);
 	styler.StartSegment(startPos);
 	unsigned int linePos = 0;
-	unsigned int startLine = startPos;
+	size_t startLine = startPos;
 
 	const char *addrMarkingsStruct = (styler.pprops)->Get("@MarkingsStruct");
 	if (!addrMarkingsStruct || !addrMarkingsStruct[0])
 		return;
 
 	SearchResultMarkings* pMarkings = NULL;
-	sscanf(addrMarkingsStruct, "%p", &pMarkings);
-	PLATFORM_ASSERT(pMarkings);
+	sscanf(addrMarkingsStruct, "%p", (void**)&pMarkings);
 
-	for (unsigned int i = startPos; i < startPos + length; i++) {
+	for (size_t i = startPos; i < startPos + length; i++) {
 		lineBuffer[linePos++] = styler[i];
 		if (AtEOL(styler, i) || (linePos >= sizeof(lineBuffer) - 1)) {
 			// End of line (or of line buffer) met, colourise it
 			lineBuffer[linePos] = '\0';
-			ColouriseSearchResultLine(pMarkings, lineBuffer, linePos, startLine, i, styler, styler.GetLine(startLine));
+			ColouriseSearchResultLine(pMarkings, lineBuffer, startLine, i, styler, styler.GetLine(startLine));
 			linePos = 0;
 			startLine = i + 1;
 			while (!AtEOL(styler, i)) i++;
 		}
 	}
 	if (linePos > 0) {	// Last line does not have ending characters
-		ColouriseSearchResultLine(pMarkings, lineBuffer, linePos, startLine, startPos + length - 1, styler, styler.GetLine(startLine));
+		ColouriseSearchResultLine(pMarkings, lineBuffer, startLine, startPos + length - 1, styler, styler.GetLine(startLine));
 	}
 }
 
-static void FoldSearchResultDoc(unsigned int startPos, int length, int, WordList *[], Accessor &styler) {
+static void FoldSearchResultDoc(Sci_PositionU startPos, Sci_Position length, int, WordList *[], Accessor &styler) {
 	bool foldCompact = styler.GetPropertyInt("fold.compact", 1) != 0;
 
-	unsigned int endPos = startPos + length;
+	size_t endPos = startPos + length;
 	int visibleChars = 0;
 	int lineCurrent = styler.GetLine(startPos);
 
@@ -144,7 +139,7 @@ static void FoldSearchResultDoc(unsigned int startPos, int length, int, WordList
 	int headerPoint = 0;
 	int lev;
 
-	for (unsigned int i = startPos; i < endPos; i++) {
+	for (size_t i = startPos; i < endPos; i++) {
 		char ch = chNext;
 		chNext = styler[i+1];
 

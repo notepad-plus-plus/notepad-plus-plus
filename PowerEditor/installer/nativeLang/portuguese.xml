@@ -274,6 +274,9 @@
 					<Item id="50000" name="Conclusão da Função"/>
                     <Item id="50001" name="Conclusão da Palavra"/>
                     <Item id="50002" name="Dica dos Parâmetros da Função"/>
+					<Item id="50003" name="Alternar para o documento anterior"/>
+					<Item id="50004" name="Alternar para o documento seguinte"/>
+					<Item id="50005" name="Alternar para gravação de macro"/>
 					<Item id="50006" name="Conclusão do Caminho"/>
 					<Item id="44042" name="Ocultar Linhas"/>
 					<Item id="42040" name="Abrir Todos os Ficheiros Recentes"/>
@@ -317,7 +320,7 @@
 				<Item id="1603" name="Corresponder à &amp;Palavra Completa"/>
                 <Item id="1604" name="Corresponder &amp;MAI/MIN"/>
                 <Item id="1605" name="&amp;Expressão Regular "/>
-                <Item id="1606" name="&amp;Moldar Texto"/>
+				<Item id="1606" name="&amp;Voltar ao início"/>
 				<Item id="1612" name="&amp;Para cima"/>
                 <Item id="1613" name="&amp;Para baixo"/>
                 <Item id="1614" name="Contar"/>
@@ -731,6 +734,7 @@
 				</Backup>
 
 				<AutoCompletion title="Conclusão Automática">
+					<Item id="6115" name="Indentação Automática"/>
 					<Item id="6807" name=" Conclusão Automática "/>
 	                <Item id="6808" name="Ativar conclusão automática"/>
                     <Item id="6809" name="Completar função"/>
@@ -798,7 +802,6 @@
                     <Item id="6333" name="Realce Inteligente"/>
 					<Item id="6334" name="Detetar automaticamente a codificação de caráter"/>
 					<Item id="6114" name="Ativar"/>
-                    <Item id="6115" name="Indentação Automática"/>
                     <Item id="6117" name="Ativar comportamento MRU"/>
 				</MISC>
 			</Preference>

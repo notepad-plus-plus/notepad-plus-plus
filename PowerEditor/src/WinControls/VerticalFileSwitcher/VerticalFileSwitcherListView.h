@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -26,8 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef VERTICALFILESWITCHERLISTVIEW_H
-#define VERTICALFILESWITCHERLISTVIEW_H
+#pragma once
 
 #include "Window.h"
 #include "TaskListDlg.h"
@@ -42,15 +41,17 @@ typedef Buffer * BufferID;	//each buffer has unique ID by which it can be retrie
 struct SwitcherFileInfo {
 	BufferID _bufID;
 	int _iView;
+
+	SwitcherFileInfo() = delete;
 	SwitcherFileInfo(BufferID buf, int view) : _bufID(buf), _iView(view){};
 };
 
 class VerticalFileSwitcherListView : public Window
 {
 public:
-	VerticalFileSwitcherListView() : Window() {};
+	VerticalFileSwitcherListView() = default;
+	virtual ~VerticalFileSwitcherListView() = default;
 
-	virtual ~VerticalFileSwitcherListView() {};
 	virtual void init(HINSTANCE hInst, HWND parent, HIMAGELIST hImaLst);
 	virtual void destroy();
 	void initList();
@@ -101,6 +102,3 @@ protected:
 	void remove(int index);
 	void removeAll();
 };
-
-
-#endif // VERTICALFILESWITCHERLISTVIEW_H

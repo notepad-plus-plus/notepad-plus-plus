@@ -47,7 +47,7 @@ The task of a lexer can be summarized briefly: for each range r of
 characters that are to be colored the same, the lexer should call
 
     styler.ColourTo(i, state)
-        
+
 where i is the position of the last character of the range r.  The lexer
 should set the state variable to the coloring state of the character at
 position i and continue until the entire text has been colored.
@@ -139,8 +139,8 @@ characters in ASCII for operators, comment markers, etc.
 
 Special case: Folding
 
-Folding may be performed in the lexer function. It is better to use a 
-separate folder function as that avoids some troublesome interaction 
+Folding may be performed in the lexer function. It is better to use a
+separate folder function as that avoids some troublesome interaction
 between styling and folding. The folder function will be run after the
 lexer function if folding is enabled. The rest of this section explains
 how to perform folding within the lexer function.
@@ -148,15 +148,15 @@ how to perform folding within the lexer function.
 During initialization, lexers that support folding set
 
     bool fold = styler.GetPropertyInt("fold");
-        
+
 If folding is enabled in the editor, fold will be TRUE and the lexer
 should call:
 
     styler.SetLevel(line, level);
-        
+
 at the end of each line and just before exiting.
 
-The line parameter is simply the count of the number of newlines seen. 
+The line parameter is simply the count of the number of newlines seen.
 It's initial value is styler.GetLine(startPos) and it is incremented
 (after calling styler.SetLevel) whenever a newline is seen.
 
@@ -169,7 +169,7 @@ comments, of course).
 The following flag bits, defined in Scintilla.h, may be set or cleared
 in the flags parameter. The SC_FOLDLEVELWHITEFLAG flag is set if the
 lexer considers that the line contains nothing but whitespace.  The
-SC_FOLDLEVELHEADERFLAG flag indicates that the line is a fold point. 
+SC_FOLDLEVELHEADERFLAG flag indicates that the line is a fold point.
 This normally means that the next line has a greater level than present
 line.  However, the lexer may have some other basis for determining a
 fold point.  For example, a lexer might create a header line for the
@@ -193,7 +193,7 @@ seen:
     if ((levelCurrent > levelPrev) && (visChars > 0))
       lev |= SC_FOLDLEVELHEADERFLAG;
       styler.SetLevel(lineCurrent, lev);
-        
+
     // reinitialize the folding vars describing the present line.
     lineCurrent++;
     visChars = 0;  // Number of non-whitespace characters on the line.
@@ -210,7 +210,7 @@ The following code appears in the C++ lexer just before exit:
     flagsNext &= ~SC_FOLDLEVELNUMBERMASK;
     styler.SetLevel(lineCurrent, levelPrev | flagsNext);
   }
-        
+
 
 Don't worry about performance
 

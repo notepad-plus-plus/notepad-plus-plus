@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -36,7 +36,6 @@
 IDD_SHORTCUTMAPPER_DLG DIALOGEX 0, 0, 450, 355
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
     WS_SYSMENU | WS_MAXIMIZEBOX | WS_THICKFRAME
-//EXSTYLE WS_EX_TOOLWINDOW
 CAPTION "Shortcut mapper"
 FONT 8, TEXT("MS Shell Dlg"), 400, 0, 0x1
 BEGIN

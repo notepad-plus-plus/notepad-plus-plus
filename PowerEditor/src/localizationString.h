@@ -1,5 +1,5 @@
 ﻿// This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -31,7 +31,7 @@ LocalizationSwitcher::LocalizationDefinition localizationDefs[] =
 	{TEXT("English"), TEXT("english.xml")},
 	{TEXT("English (customizable)"), TEXT("english_customizable.xml")},
 	{TEXT("Français"), TEXT("french.xml")},
-	{TEXT("中文繁體"), TEXT("chinese.xml")},
+	{TEXT("台灣繁體"), TEXT("taiwaneseMandarin.xml")},
 	{TEXT("中文简体"), TEXT("chineseSimplified.xml")},
 	{TEXT("한국어"), TEXT("korean.xml")},
 	{TEXT("日本語"), TEXT("japanese.xml")},
@@ -116,5 +116,9 @@ LocalizationSwitcher::LocalizationDefinition localizationDefs[] =
 	{TEXT("Brezhoneg"), TEXT("breton.xml")},
 	{TEXT("کوردی‬"), TEXT("kurdish.xml")},
 	{TEXT("Pig latin"), TEXT("piglatin.xml")},
-        {TEXT("Zulu"), TEXT("zulu.xml")}
+	{TEXT("Zulu"), TEXT("zulu.xml")},
+	{TEXT("Vèneto"), TEXT("venetian.xml")},
+	{TEXT("Gaeilge"), TEXT("irish.xml")},
+	{TEXT("नेपाली"), TEXT("nepali.xml")},
+	{TEXT("香港繁體"), TEXT("hongKongCantonese.xml")}
 };

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!--
 ***********************************************************************************
 	zulu language binary translations file for Notepad++ ::
@@ -771,6 +771,7 @@
                     <Item id="6302" name="Faka esikhundleni isikhala"/>
                     <Item id="6303" name="Usayizi wethebhu: "/>
                     <Item id="6510" name="Sebenzisa inani elizenzakalelayo"/>
+                    <Item id="6335" name="Phatha ukubuyela emuva njengendlela yokuphunyuka kwe-SQL"/>
                 </Language>
 
                 <Highlighting title="Ukugqamisa">
@@ -843,6 +844,7 @@
 				 </Backup>
 
                 <AutoCompletion title="Ukuqedela ngokuzenzekelayo">
+                    <Item id="6115" name="I-self-indent"/>
                     <Item id="6807" name="Ukuqedela ngokuzenzekelayo"/>
                     <Item id="6808" name="Nika amandla ukuqedela ngokuzenzakalela kokufakwayo ngalunye"/>
                     <Item id="6809" name="Ukuqedwa komsebenzi"/>
@@ -912,10 +914,8 @@
 				 <Item id="6324" name="Ishintshi sedokhumenti (Ctrl + TAB)"/>
 				 <Item id="6331" name="Bonisa kuphela igama lomsebenzisi ku-bar yesihloko"/>
 				 <Item id="6334" name="Vumelanisa ikhodi yezinhlamvu ze-Autodetect"/>
-				 <Item id="6335" name="Phatha ukubuyela emuva njengendlela yokuphunyuka kwe-SQL"/>
 				 <Item id="6337" name="Ifayela le-Workspace ext.:"/>
 				 <Item id="6114" name="Nika amandla"/>
-				 <Item id="6115" name="I-self-indent"/>
 				 <Item id="6117" name="Nika amandla ukuziphatha kwe-MRU"/>
 				 <Item id="6344" name="Idokhumenti ye-Document"/>
 				 <Item id="6345" name="Jondisa ithebhu"/>

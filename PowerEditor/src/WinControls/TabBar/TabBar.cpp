@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -153,7 +153,8 @@ void TabBar::activateAt(int index) const
 {
 	if (getCurrentTabIndex() != index)
 	{
-		// TCS_BUTTONS needs both set or two tabs can appear selected
+		// TCM_SETCURFOCUS is busted on WINE/ReactOS for single line (non-TCS_BUTTONS) tabs...
+		// We need it on Windows for multi-line tabs or multiple tabs can appear pressed.
 		if (::GetWindowLongPtr(_hSelf, GWL_STYLE) & TCS_BUTTONS)
 		{
 			::SendMessage(_hSelf, TCM_SETCURFOCUS, index, 0);
@@ -378,8 +379,8 @@ void TabBarPlus::doOwnerDrawTab()
 			::SetWindowLongPtr(_hwndArray[i], GWL_STYLE, style);
 			::InvalidateRect(_hwndArray[i], NULL, TRUE);
 
-			const int paddingSizeDynamicW = NppParameters::getInstance()->_dpiManager.scaleX(6);
-			const int paddingSizePlusClosebuttonDynamicW = NppParameters::getInstance()->_dpiManager.scaleX(9);
+			const int paddingSizeDynamicW = NppParameters::getInstance()._dpiManager.scaleX(6);
+			const int paddingSizePlusClosebuttonDynamicW = NppParameters::getInstance()._dpiManager.scaleX(9);
 			::SendMessage(_hwndArray[i], TCM_SETPADDING, 0, MAKELPARAM(_drawTabCloseButton ? paddingSizePlusClosebuttonDynamicW : paddingSizeDynamicW, 0));
 		}
 	}
@@ -547,7 +548,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 				// get index of the first visible tab
 				TC_HITTESTINFO hti;
-				LONG xy = NppParameters::getInstance()->_dpiManager.scaleX(12); // an arbitrary coordinate inside the first visible tab
+				LONG xy = NppParameters::getInstance()._dpiManager.scaleX(12); // an arbitrary coordinate inside the first visible tab
 				hti.pt = { xy, xy };
 				int scrollTabIndex = static_cast<int32_t>(::SendMessage(_hSelf, TCM_HITTEST, 0, reinterpret_cast<LPARAM>(&hti)));
 
@@ -556,7 +557,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 				// maximal width/height of the msctls_updown32 class (arrow box in the tab bar), 
 				// this area may hide parts of the last tab and needs to be excluded
-				LONG maxLengthUpDownCtrl = NppParameters::getInstance()->_dpiManager.scaleX(44); // sufficient static value
+				LONG maxLengthUpDownCtrl = NppParameters::getInstance()._dpiManager.scaleX(44); // sufficient static value
 
 				// scroll forward as long as the last tab is hidden; scroll backward till the first tab
 				if ((_isVertical ? ((rcTabCtrl.bottom - rcLastTab.bottom) < maxLengthUpDownCtrl) : ((rcTabCtrl.right - rcLastTab.right) < maxLengthUpDownCtrl)) || not isForward)
@@ -585,6 +586,15 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 		case WM_LBUTTONDOWN :
 		{
+			if (::GetWindowLongPtr(_hSelf, GWL_STYLE) & TCS_BUTTONS)
+			{
+				int nTab = getTabIndexAt(LOWORD(lParam), HIWORD(lParam));
+				if (nTab != -1 && nTab != static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0)))
+				{
+					setActiveTab(nTab);
+				}
+			}
+
 			if (_drawTabCloseButton)
 			{
 				int xPos = LOWORD(lParam);
@@ -642,22 +652,19 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				}
 				else if (++_dragCount > 2)
 				{
-					int tabFocused = static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETCURFOCUS, 0, 0));
 					int tabSelected = static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0));
 
-					// make sure the tab they are moving is active.
-					if (tabFocused != tabSelected)
+					if (tabSelected >= 0)
 					{
-						setActiveTab(tabFocused);
-					}
+						_nSrcTab = _nTabDragged = tabSelected;
+						_isDragging = true;
 
-					_nSrcTab = _nTabDragged = tabFocused;
-					_isDragging = true;
-					
-					// ::SetCapture is required for normal non-TLS_BUTTONS.
-					if (!(::GetWindowLongPtr(_hSelf, GWL_STYLE) & TCS_BUTTONS))
-					{
-						::SetCapture(hwnd);
+						// TLS_BUTTONS is already captured on Windows and will break on ::SetCapture
+						// However, this is not the case for WINE/ReactOS and must ::SetCapture
+						if (::GetCapture() != _hSelf)
+						{
+							::SetCapture(hwnd);
+						}
 					}
 				}
 			}
@@ -669,7 +676,6 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			if (_isDragging)
 			{
                 exchangeItemData(p);
-				::CallWindowProc(_tabBarDefaultProc, hwnd, WM_LBUTTONDOWN, wParam, lParam);
 
 				// Get cursor position of "Screen"
 				// For using the function "WindowFromPoint" afterward!!!
@@ -703,6 +709,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				else if (iTabNow != -1 && _currentHoverTabItem != -1 && _currentHoverTabItem != iTabNow) // mouse is being moved from a tab and entering into another tab
 				{
 					isFromTabToTab = true;
+					_whichCloseClickDown = -1;
 
 					// set current hovered
 					_currentHoverTabItem = iTabNow;
@@ -760,6 +767,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				InvalidateRect(hwnd, &_currentHoverTabRect, FALSE);
 
 			_currentHoverTabItem = -1;
+			_whichCloseClickDown = -1;
 			SetRectEmpty(&_currentHoverTabRect);
 			_isCloseHover = false;
 
@@ -775,10 +783,16 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			int xPos = LOWORD(lParam);
 			int yPos = HIWORD(lParam);
 			int currentTabOn = getTabIndexAt(xPos, yPos);
-            if (_isDragging)
+			if (_isDragging)
 			{
-				if(::GetCapture() == _hSelf)
+				if (::GetCapture() == _hSelf)
+				{
 					::ReleaseCapture();
+				}
+				else
+				{
+					_isDragging = false;
+				}
 
 				notify(_isDraggingInside?TCN_TABDROPPED:TCN_TABDROPPEDOUTSIDE, currentTabOn);
 				return TRUE;
@@ -889,8 +903,8 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 	::DeleteObject((HGDIOBJ)hBrush);
 	
 	// equalize drawing areas of active and inactive tabs
-	int paddingDynamicTwoX = NppParameters::getInstance()->_dpiManager.scaleX(2);
-	int paddingDynamicTwoY = NppParameters::getInstance()->_dpiManager.scaleY(2);
+	int paddingDynamicTwoX = NppParameters::getInstance()._dpiManager.scaleX(2);
+	int paddingDynamicTwoY = NppParameters::getInstance()._dpiManager.scaleY(2);
 	if (isSelected)
 	{
 		// the drawing area of the active tab extends on all borders by default
@@ -947,15 +961,15 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 	{
 		if (_drawTopBar)
 		{
-			int topBarHeight = NppParameters::getInstance()->_dpiManager.scaleX(4);
+			int topBarHeight = NppParameters::getInstance()._dpiManager.scaleX(4);
 			if (_isVertical)
 			{
-				barRect.left -= NppParameters::getInstance()->_dpiManager.scaleX(2);
+				barRect.left -= NppParameters::getInstance()._dpiManager.scaleX(2);
 				barRect.right = barRect.left + topBarHeight;
 			}
 			else
 			{
-				barRect.top -= NppParameters::getInstance()->_dpiManager.scaleY(2);
+				barRect.top -= NppParameters::getInstance()._dpiManager.scaleY(2);
 				barRect.bottom = barRect.top + topBarHeight;
 			}
 
@@ -998,8 +1012,8 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 		BITMAP bmp;
 		::GetObject(hBmp, sizeof(bmp), &bmp);
 
-		int bmDpiDynamicalWidth = NppParameters::getInstance()->_dpiManager.scaleX(bmp.bmWidth);
-		int bmDpiDynamicalHeight = NppParameters::getInstance()->_dpiManager.scaleY(bmp.bmHeight);
+		int bmDpiDynamicalWidth = NppParameters::getInstance()._dpiManager.scaleX(bmp.bmWidth);
+		int bmDpiDynamicalHeight = NppParameters::getInstance()._dpiManager.scaleY(bmp.bmHeight);
 
 		RECT buttonRect = _closeButtonZone.getButtonRectFrom(rect, _isVertical);
 
@@ -1141,14 +1155,15 @@ void TabBarPlus::draggingCursor(POINT screenPoint)
 
 void TabBarPlus::setActiveTab(int tabIndex)
 {
-	::SendMessage(_hSelf, TCM_SETCURFOCUS, tabIndex, 0);
-
-	// the TCS_BUTTONS style does not automatically send TCM_SETCURSEL & TCN_SELCHANGE
+	// TCM_SETCURFOCUS is busted on WINE/ReactOS for single line (non-TCS_BUTTONS) tabs...
+	// We need it on Windows for multi-line tabs or multiple tabs can appear pressed.
 	if (::GetWindowLongPtr(_hSelf, GWL_STYLE) & TCS_BUTTONS)
 	{
-		::SendMessage(_hSelf, TCM_SETCURSEL, tabIndex, 0);
-		notify(TCN_SELCHANGE, tabIndex);
+		::SendMessage(_hSelf, TCM_SETCURFOCUS, tabIndex, 0);
 	}
+
+	::SendMessage(_hSelf, TCM_SETCURSEL, tabIndex, 0);
+	notify(TCN_SELCHANGE, tabIndex);
 }
 
 void TabBarPlus::exchangeTabItemData(int oldTab, int newTab)
@@ -1188,6 +1203,9 @@ void TabBarPlus::exchangeTabItemData(int oldTab, int newTab)
 
 	// Tell Notepad_plus to notifiy plugins that a D&D operation was done (so doc index has been changed)
 	::SendMessage(_hParent, NPPM_INTERNAL_DOCORDERCHANGED, 0, oldTab);
+
+	//2. set to focus
+	setActiveTab(newTab);
 }
 
 void TabBarPlus::exchangeItemData(POINT point)
@@ -1230,8 +1248,8 @@ void TabBarPlus::exchangeItemData(POINT point)
 CloseButtonZone::CloseButtonZone()
 {
 	// TODO: get width/height of close button dynamically
-	_width = NppParameters::getInstance()->_dpiManager.scaleX(11);
-	_height = NppParameters::getInstance()->_dpiManager.scaleY(11);
+	_width = NppParameters::getInstance()._dpiManager.scaleX(11);
+	_height = NppParameters::getInstance()._dpiManager.scaleY(11);
 }
 
 bool CloseButtonZone::isHit(int x, int y, const RECT & tabRect, bool isVertical) const

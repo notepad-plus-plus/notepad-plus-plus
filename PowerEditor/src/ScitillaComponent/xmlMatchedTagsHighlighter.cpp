@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2012 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -50,6 +50,7 @@ vector< pair<int, int> > XmlMatchedTagsHighlighter::getAttributesPos(int start, 
 		attr_pre_assign,\
 		attr_assign,\
 		attr_string,\
+		attr_single_quot_string,\
 		attr_value,\
 		attr_valid\
 	} state = attr_invalid;
@@ -96,6 +97,20 @@ vector< pair<int, int> > XmlMatchedTagsHighlighter::getAttributesPos(int start, 
 					state = attr_invalid;
 				else if (state == attr_assign)
 					state = attr_string;
+			}
+			break;
+			
+			case '\'':
+			{
+				if (state == attr_single_quot_string)
+				{
+					state = attr_valid;
+					oneMoreChar = 1;
+				}
+				else if (state == attr_key || state == attr_pre_assign || state == attr_value)
+					state = attr_invalid;
+				else if (state == attr_assign)
+					state = attr_single_quot_string;
 			}
 			break;
 
@@ -182,7 +197,7 @@ bool XmlMatchedTagsHighlighter::getXmlMatchedTagsPos(XmlMatchedTagsPos &xmlTags)
 				std::string tagName;
 				nextChar = static_cast<int32_t>(_pEditView->execute(SCI_GETCHARAT, position));
 				// Checking for " or ' is actually wrong here, but it means it works better with invalid XML
-				while(position < docLength && !isWhitespace(nextChar) && nextChar != '/' && nextChar != '>' && nextChar != '\"' && nextChar != '\'')
+				while (position < docLength && !isWhitespace(nextChar) && nextChar != '/' && nextChar != '>' && nextChar != '\"' && nextChar != '\'')
 				{
 					tagName.push_back(static_cast<char>(nextChar));
 					++position;
@@ -246,7 +261,7 @@ bool XmlMatchedTagsHighlighter::getXmlMatchedTagsPos(XmlMatchedTagsPos &xmlTags)
 									}
 								}
 
-							} while(inbetweenCloseTag.success);
+							} while (inbetweenCloseTag.success);
 					
 							// If we didn't find any close tags between the open and our close,
 							// and there's no open tags remaining to find
@@ -282,7 +297,7 @@ bool XmlMatchedTagsHighlighter::getXmlMatchedTagsPos(XmlMatchedTagsPos &xmlTags)
 				std::string tagName;
 				nextChar = static_cast<int32_t>(_pEditView->execute(SCI_GETCHARAT, position));
 				// Checking for " or ' is actually wrong here, but it means it works better with invalid XML
-				while(position < docLength && !isWhitespace(nextChar) && nextChar != '/' && nextChar != '>' && nextChar != '\"' && nextChar != '\'' )
+				while (position < docLength && !isWhitespace(nextChar) && nextChar != '/' && nextChar != '>' && nextChar != '\"' && nextChar != '\'' )
 				{
 					tagName.push_back(static_cast<char>(nextChar));
 					++position;
@@ -351,7 +366,7 @@ bool XmlMatchedTagsHighlighter::getXmlMatchedTagsPos(XmlMatchedTagsPos &xmlTags)
 											currentStartPosition = inbetweenOpenTag.end;
 										}
 
-									} while(inbetweenOpenTag.success);
+									} while (inbetweenOpenTag.success);
 					
 									// If we didn't find any open tags between our open and the close,
 									// and there's no close tags remaining to find
@@ -537,7 +552,7 @@ XmlMatchedTagsHighlighter::FindResult XmlMatchedTagsHighlighter::findCloseTag(co
 						++whitespacePoint;
 						nextChar = static_cast<int32_t>(_pEditView->execute(SCI_GETCHARAT, whitespacePoint));
 				
-					} while(isWhitespace(nextChar));
+					} while (isWhitespace(nextChar));
 			
 					if (nextChar == '>')
 					{
@@ -600,11 +615,11 @@ void XmlMatchedTagsHighlighter::tagMatch(bool doHiliteAttr)
 		const FindResult startFound = findText(codeBeginTag.c_str(), caret, 0, 0); // This searches backwards from "caret".
 		const FindResult endFound= findText(codeEndTag.c_str(), caret, 0, 0); // This searches backwards from "caret".
 
-		if(startFound.success)
+		if (startFound.success)
 		{
-			if(! endFound.success)
+			if (! endFound.success)
 				return;
-			else if(endFound.success && endFound.start <= startFound.end)
+			else if (endFound.success && endFound.start <= startFound.end)
 				return;
 		}
 	}

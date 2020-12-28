@@ -3,17 +3,19 @@
 	Dutch localization for Notepad++ 7.5.6
 	Last modified Mon, Mar 26 2018 by Klaas Nekeman.
 	Please e-mail errors, suggestions etc. to knekeman(at)gmail.com.
+	Dutch localization for Notepad++ 7.8.7
+	Last modified Tue, May 26 2020 by xylographe <wr86420@gmail.com>.
 -->
 <NotepadPlus>
-	<Native-Langue name="Nederlands" filename="dutch.xml" version="7.5.6">
+	<Native-Langue name="Nederlands" filename="dutch.xml" version="7.8.7">
 		<Menu>
 			<Main>
-				<!-- Main Menu Titles -->
+				<!-- Main Menu Entries -->
 				<Entries>
 					<Item menuId="file"     name="&amp;Bestand"/>
 					<Item menuId="edit"     name="Be&amp;werken"/>
 					<Item menuId="search"   name="&amp;Zoeken"/>
-					<Item menuId="view"     name="Beel&amp;d"/>
+					<Item menuId="view"     name="B&amp;eeld"/>
 					<Item menuId="encoding" name="&amp;Karakterset"/>
 					<Item menuId="language" name="&amp;Syntaxis"/>
 					<Item menuId="settings" name="&amp;Instellingen"/>
@@ -43,6 +45,7 @@
 					<Item subMenuId="search-jumpUp"             name="Ga naar vorige markering"/>
 					<Item subMenuId="search-jumpDown"           name="Ga naar volgende markering"/>
 					<Item subMenuId="search-bookmark"           name="Bladwijzers"/>
+					<Item subMenuId="view-currentFileIn"        name="Document bekijken in"/>
 					<Item subMenuId="view-showSymbol"           name="Niet-afdrukbare tekens"/>
 					<Item subMenuId="view-zoom"                 name="In- en uitzoomen"/>
 					<Item subMenuId="view-moveCloneDocument"    name="Documentweergave"/>
@@ -67,8 +70,10 @@
 					<Item subMenuId="encoding-turkish"          name="Turks"/>
 					<Item subMenuId="encoding-westernEuropean"  name="West-Europees"/>
 					<Item subMenuId="encoding-vietnamese"       name="Vietnamees"/>
+					<Item subMenuId="language-userDefinedLanguage" name="Gebruikerssyntaxis"/>
 					<Item subMenuId="settings-import"           name="Importeren"/>
 					<Item subMenuId="tools-md5"                 name="MD5"/>
+					<Item subMenuId="tools-sha256"              name="SHA-256"/>
 				</SubEntries>
 
 				<!-- all menu items -->
@@ -82,6 +87,7 @@
 					<Item id="41005" name="Overige documenten sluiten"/>
 					<Item id="41009" name="Documenten aan de linkerkant sluiten"/>
 					<Item id="41018" name="Documenten aan de rechterkant sluiten"/>
+					<Item id="41024" name="Ongewijzigde documenten sluiten"/>
 					<Item id="41006" name="O&amp;pslaan"/>
 					<Item id="41007" name="Alles opslaan"/>
 					<Item id="41008" name="Ops&amp;laan als..."/>
@@ -95,8 +101,8 @@
 					<Item id="41016" name="Verwijderen"/>
 					<Item id="41017" name="Naam wijzigen..."/>
 					<Item id="41021" name="Laatste bestand opnieuw openen"/>
-					<Item id="42022" name="Regels markeren als commentaar (vervangen)"/>
-					<Item id="42023" name="Selectie markeren als commentaar"/>
+					<Item id="41022" name="Bestandsmap als &amp;werkomgeving openen"/>
+					<Item id="41023" name="In standaardviewer openen"/>
 					<Item id="42001" name="K&amp;nippen"/>
 					<Item id="42002" name="&amp;Kopiëren"/>
 					<Item id="42003" name="&amp;Ongedaan maken"/>
@@ -108,6 +114,7 @@
 					<Item id="42008" name="Insprong vergroten"/>
 					<Item id="42009" name="Insprong verkleinen"/>
 					<Item id="42010" name="Regel dupliceren"/>
+					<Item id="42077" name="Opeenvolgende identieke regels wissen"/>
 					<Item id="42012" name="Regels splitsen"/>
 					<Item id="42013" name="Regels samenvoegen"/>
 					<Item id="42014" name="Regel omhoog verplaatsen"/>
@@ -135,9 +142,9 @@
 					<Item id="42018" name="Opname &amp;starten"/>
 					<Item id="42019" name="Opname st&amp;oppen"/>
 					<Item id="42021" name="Macro &amp;afspelen"/>
-					<Item id="42022" name="Wissel lijn commentaar"/>
-					<Item id="42023" name="Blok commentaar"/>
-					<Item id="42047" name="Blok commentaar wissen"/>
+					<Item id="42022" name="Regelcommentaar aan/uit"/>
+					<Item id="42023" name="Blokcommentaar inschakelen"/>
+					<Item id="42047" name="Blokcommentaar uitschakelen"/>
 					<Item id="42024" name="Spaties voor regeleinden wissen"/>
 					<Item id="42042" name="Insprong wissen"/>
 					<Item id="42043" name="Insprong en spaties voor regeleinden wissen"/>
@@ -155,7 +162,7 @@
 					<Item id="42034" name="Reeks bewerken..."/>
 					<Item id="42051" name="ASCII-karakters"/>
 					<Item id="42052" name="Klembord"/>
-					<Item id="42025" name="Macro opsl&amp;aan"/>
+					<Item id="42025" name="Macro ops&amp;laan"/>
 					<Item id="42026" name="Tekstrichting rechts-links"/>
 					<Item id="42027" name="Tekstrichting links-rechts"/>
 					<Item id="42028" name="Alleen-lezen"/>
@@ -164,8 +171,8 @@
 					<Item id="42031" name="Maplocatie kopiëren"/>
 					<Item id="42032" name="Macro meerdere keren uitvoeren..."/>
 					<Item id="42033" name="Alleen-lezen opheffen"/>
-					<Item id="42035" name="Regels markeren als commentaar (toevoegen)"/>
-					<Item id="42036" name="Markering wissen"/>
+					<Item id="42035" name="Regelcommentaar aan"/>
+					<Item id="42036" name="Regelcommentaar uit"/>
 					<Item id="42055" name="Lege regels verwijderen"/>
 					<Item id="42056" name="Regels met alleen spaties of tabs verwijderen"/>
 					<Item id="42057" name="Regeleinde invoegen voor deze regel"/>
@@ -225,7 +232,7 @@
 					<Item id="44010" name="Gegevensstructuur samenvouwen"/>
 					<Item id="44019" name="Alle karakters weergeven"/>
 					<Item id="44020" name="Insprong weergeven"/>
-					<Item id="44022" name="Automatische terugloop"/>
+					<Item id="44022" name="Automatische &amp;terugloop"/>
 					<Item id="44023" name="Inzoomen"/>
 					<Item id="44024" name="Uitzoomen"/>
 					<Item id="44025" name="Spaties en tabs weergeven"/>
@@ -248,14 +255,14 @@
 					<Item id="44094" name="9e document"/>
 					<Item id="44095" name="Volgende document"/>
 					<Item id="44096" name="Vorige document"/>
-					<Item id="44097" name="Monitoren (tail -f)"/>
+					<Item id="44097" name="&amp;Monitoren (tail -f)"/>
 					<Item id="44098" name="Document vooruit verplaatsen"/>
 					<Item id="44099" name="Document achteruit verplaatsen"/>
 					<Item id="44032" name="Volledig scherm"/>
 					<Item id="44033" name="Standaard"/>
 					<Item id="44034" name="Altijd op voorgrond"/>
-					<Item id="44035" name="Verticaal scrollen koppelen"/>
-					<Item id="44036" name="Horizontaal scrollen koppelen"/>
+					<Item id="44035" name="&amp;Verticaal scrollen koppelen"/>
+					<Item id="44036" name="&amp;Horizontaal scrollen koppelen"/>
 					<Item id="44041" name="Terugloopmarkering weergeven"/>
 					<Item id="44072" name="Actieve deelvenster wisselen"/>
 					<Item id="44081" name="Project 1"/>
@@ -265,23 +272,30 @@
 					<Item id="45002" name="Unix-indeling"/>
 					<Item id="45003" name="Mac-indeling"/>
 					<Item id="45004" name="ANSI"/>
-					<Item id="45005" name="UTF-8"/>
+					<Item id="45005" name="UTF-8-BOM"/>
 					<Item id="45006" name="UCS-2 Big Endian"/>
 					<Item id="45007" name="UCS-2 Little Endian"/>
 					<Item id="45008" name="UTF-8 (zonder BOM)"/>
 					<Item id="45009" name="Naar ANSI converteren"/>
 					<Item id="45010" name="Naar UTF-8 (zonder BOM) converteren"/>
-					<Item id="45011" name="Naar UTF-8 converteren"/>
+					<Item id="45011" name="Naar UTF-8-BOM converteren"/>
 					<Item id="45012" name="Naar UCS-2 Big Endian converteren"/>
 					<Item id="45013" name="Naar UCS-2 Little Endian converteren"/>
+					<Item id="45060" name="Big5 (Taiwan)"/>
+					<Item id="45061" name="GB2312 (China)"/>
+					<Item id="45054" name="OEM 861: Ĳslands"/>
+					<Item id="45057" name="OEM 865: Deens &amp;&amp; Noors"/>
+					<Item id="45053" name="OEM 860: Portugees"/>
+					<Item id="45056" name="OEM 863: Canadees-Frans"/>
 
 					<Item id="10001" name="Naar deelvenster verplaatsen"/>
 					<Item id="10002" name="Naar deelvenster kopiëren"/>
 					<Item id="10003" name="Naar een nieuw venster verplaatsen"/>
 					<Item id="10004" name="Naar een nieuw venster kopiëren"/>
 
-					<Item id="46001" name="Opmaak..."/>
+					<Item id="46001" name="&amp;Opmaak..."/>
 					<Item id="46250" name="Syntaxismarkering ontwerpen..."/>
+					<Item id="46300" name="Syntaxismarkering map openen..."/>
 					<Item id="46180" name="Aangepast"/>
 					<Item id="47000" name="Over..."/>
 					<Item id="47010" name="Opdrachtregelargumenten..."/>
@@ -296,23 +310,30 @@
 					<Item id="47009" name="Proxyserver-instellingen..."/>
 					<Item id="48005" name="Plugin importeren..."/>
 					<Item id="48006" name="Thema importeren..."/>
-					<Item id="48018" name="Contextmenu wijzigen..."/>
-					<Item id="48009" name="Sneltoetsen..."/>
-					<Item id="48011" name="Voorkeuren..."/>
+					<Item id="48018" name="Contextmenu &amp;wijzigen..."/>
+					<Item id="48009" name="&amp;Sneltoetsen..."/>
+					<Item id="48011" name="&amp;Voorkeuren..."/>
+					<Item id="48014" name="Plugin map openen..."/>
+					<Item id="48015" name="Plugin beheer..."/>
 					<Item id="48501" name="Genereren..."/>
 					<Item id="48502" name="Genereren voor bestanden..."/>
 					<Item id="48503" name="Genereren naar klembord"/>
+					<Item id="48504" name="Genereren..."/>
+					<Item id="48505" name="Genereren voor bestanden..."/>
+					<Item id="48506" name="Genereren naar klembord"/>
 					<Item id="49000" name="&amp;Uitvoeren..."/>
-
 					<Item id="50000" name="Functie aanvullen"/>
 					<Item id="50001" name="Woord aanvullen"/>
 					<Item id="50002" name="Functie-argumenten weergeven"/>
+					<Item id="50003" name="Vorige document"/>
+					<Item id="50004" name="Volgende document"/>
+					<Item id="50005" name="Macro opname aan/uit"/>
 					<Item id="50006" name="Bestandspad aanvullen"/>
 					<Item id="44042" name="Regels verbergen"/>
 					<Item id="42040" name="Alle recentelijk geopende bestanden openen"/>
 					<Item id="42041" name="Bestandsgeschiedenis wissen"/>
-					<Item id="48016" name="Macro's wijzigen ..."/>
-					<Item id="48017" name="Opdrachten wijzigen..."/>
+					<Item id="48016" name="Macro's &amp;wijzigen..."/>
+					<Item id="48017" name="Opdrachten &amp;wijzigen..."/>
 				</Commands>
 			</Main>
 			<Splitter>
@@ -339,7 +360,8 @@
 				<Item CMID="18" name="Documenten aan de rechterkant sluiten"/>
 				<Item CMID="19" name="Bestand weergeven in Windows Verkenner"/>
 				<Item CMID="20" name="Opdrachtprompt openen"/>
-				<Item CMID="21" name="Openen in standaardviewer"/>
+				<Item CMID="21" name="In standaardviewer openen"/>
+				<Item CMID="22" name="Ongewijzigde documenten sluiten"/>
 			</TabBar>
 		</Menu>
 
@@ -354,7 +376,7 @@
 				<Item id="1605" name="Reguliere e&amp;xpressie"/>
 				<Item id="1606" name="&amp;Documenteinde negeren"/>
 				<Item id="1614" name="Gevonden woorden &amp;tellen"/>
-				<Item id="1615" name="&amp;Alle zoeken"/>
+				<Item id="1615" name="Alle &amp;markeren"/>
 				<Item id="1616" name="Bladwijzer invoegen"/>
 				<Item id="1618" name="Markering opnieuw instellen"/>
 				<Item id="1611" name="Vervangen door:"/>
@@ -364,21 +386,23 @@
 				<Item id="1688" name="Altijd"/>
 				<Item id="1632" name="In &amp;selectie"/>
 				<Item id="1633" name="Wissen"/>
-				<Item id="1635" name="Vervangen in &amp;alle geopende bestanden"/>
-				<Item id="1636" name="In alle geopende bestanden zoeken"/>
+				<Item id="1635" name="In alle ge&amp;opende bestanden vervangen"/>
+				<Item id="1636" name="In alle geopende &amp;bestanden zoeken"/>
 				<Item id="1654" name="Filters:"/>
 				<Item id="1655" name="Map:"/>
-				<Item id="1656" name="Bestanden zoeken"/>
+				<Item id="1656" name="Zoeken in bestanden"/>
 				<Item id="1658" name="Submappen doorzoeken"/>
-				<Item id="1659" name="Verborgen bestanden en&#xD;mappen"/>
+				<Item id="1659" name="Verborgen mappen"/>
 				<Item id="1624" name="Zoekmethode"/>
-				<Item id="1625" name="Normaal"/>
-				<Item id="1626" name="Uitgebreid (\n, \r, \t, \0, \x...)"/>
+				<Item id="1625" name="&amp;Normaal"/>
+				<Item id="1626" name="&amp;Uitgebreid (\n, \r, \t, \0, \x...)"/>
 				<Item id="1660" name="Vervangen in bestanden"/>
-				<Item id="1661" name="Huidige bestandsmap&#xD;selecteren"/>
+				<Item id="1661" name="Huidige bestandsmap"/>
 				<Item id="1641" name="In dit document zoeken"/>
 				<Item id="1686" name="Transparantie"/>
 				<Item id="1703" name="&amp;. vindt \n en \r"/>
+				<Item id="1721" name="▲"/>
+				<Item id="1723" name="▼ Volgende"/>
 			</Find>
 
 			<FindCharsInRange title="Karakter zoeken in bereik...">
@@ -410,17 +434,40 @@
 				<Item id="1904" name="Opslaan..."/>
 			</Run>
 
-			<MD5FromFilesDlg title="Genereer MD5 code voor bestanden">
-				<Item id="1922" name="Selecteer bestanden..."/>
-				<Item id="1924" name="Kopiëren naar het klembord"/>
+			<MD5FromFilesDlg title="MD5 code voor bestanden genereren">
+				<Item id="1922" name="Bestanden selecteren..."/>
+				<Item id="1924" name="Naar klembord kopiëren"/>
 				<Item id="2"    name="Sluiten"/>
 			</MD5FromFilesDlg>
 
-			<MD5FromTextDlg title="Genereer MD5 code">
-				<Item id="1932" name="Iedere regel als aparte tekst interpreteren"/>
-				<Item id="1934" name="Kopiëren naar het klembord"/>
+			<MD5FromTextDlg title="MD5 code genereren">
+				<Item id="1932" name="Elke regel als aparte tekst interpreteren"/>
+				<Item id="1934" name="Naar klembord kopiëren"/>
 				<Item id="2"    name="Sluiten"/>
 			</MD5FromTextDlg>
+
+			<SHA256FromFilesDlg title="SHA-256 code voor bestanden genereren">
+				<Item id="1922" name="Bestanden selecteren..."/>
+				<Item id="1924" name="Naar klembord kopiëren"/>
+				<Item id="2"    name="Sluiten"/>
+			</SHA256FromFilesDlg>
+
+			<SHA256FromTextDlg title="SHA-256 code genereren">
+				<Item id="1932" name="Elke regel als aparte tekst interpreteren"/>
+				<Item id="1934" name="Naar klembord kopiëren"/>
+				<Item id="2"    name="Sluiten"/>
+			</SHA256FromTextDlg>
+
+			<PluginsAdminDlg title="Plugin beheer" titleAvailable="Beschikbaar" titleUpdates="Updates" titleInstalled="Geïnstalleerd">
+				<ColumnPlugin   name="Naam"/>
+				<ColumnVersion  name="Versie"/>
+				<Item id="5501" name="Zoeken:"/>
+				<Item id="5503" name="Installeren"/>
+				<Item id="5504" name="Updaten"/>
+				<Item id="5505" name="Verwijderen"/>
+				<Item id="5508" name="Volgende"/>
+				<Item id="2"    name="Sluiten"/>
+			</PluginsAdminDlg>
 
 			<StyleConfig title="Opmaak">
 				<Item id="2"    name="&amp;Annuleren"/>
@@ -665,6 +712,7 @@
 					<Item id="6108" name="Slepen en neerzetten uitschakelen"/>
 					<Item id="6109" name="Inactieve tabs camoufleren"/>
 					<Item id="6110" name="Actieve tab accentueren"/>
+
 					<Item id="6111" name="Statusbalk weergeven"/>
 					<Item id="6112" name="Knop sluiten weergeven"/>
 					<Item id="6113" name="Document sluiten door dubbelklikken"/>
@@ -703,12 +751,11 @@
 					<Item id="6206" name="Regelnummers weergeven"/>
 					<Item id="6207" name="Bladwijzers weergeven"/>
 					<Item id="6208" name="Regeleinde weergeven"/>
-					<Item id="6209" name="Aantal kolommen:"/>
-					<Item id="6234" name="Geavanceerd scrollen uitschakelen (ivm eventuele touchpadproblemen)"/>
+					<Item id="6234" name="Geavanceerd scrollen uitschakelen&#xD;(ivm eventuele touchpadproblemen)"/>
 
 					<Item id="6211" name="Regeleinde"/>
-					<Item id="6212" name="Lijn"/>
 					<Item id="6213" name="Achtergrond"/>
+					<Item id="6237" name="Voeg een kolommarkering toe door haar positie aan te geven met een geheel getal.&#xD;Definieer meerdere kolommarkeringen door hun posities met witruimte te scheiden."/>
 					<Item id="6214" name="Actieve regel markeren"/>
 					<Item id="6215" name="ClearType inschakelen"/>
 					<Item id="6231" name="Breedte vensterrand"/>
@@ -724,7 +771,7 @@
 					<Item id="6405" name="Karakterset"/>
 					<Item id="6406" name="ANSI"/>
 					<Item id="6407" name="UTF-8 (zonder BOM)"/>
-					<Item id="6408" name="UTF-8"/>
+					<Item id="6408" name="UTF-8-BOM"/>
 					<Item id="6409" name="UCS-2 Big Endian"/>
 					<Item id="6410" name="UCS-2 Little Endian"/>
 					<Item id="6411" name="Syntaxis:"/>
@@ -736,11 +783,12 @@
 					<Item id="6413" name="Standaardlocatie voor laden en opslaan"/>
 					<Item id="6414" name="Huidige documentlocatie"/>
 					<Item id="6415" name="Laatst gekozen map"/>
-					<Item id="6430" name="Gebruik vensters nieuwe stijl (zonder bestandsextensie optie &amp;&amp; zonder Unix stijl paden)"/>
+					<Item id="6430" name="Gebruik vensters nieuwe stijl (zonder Unix stijl paden)"/>
 					<Item id="6431" name="Bij neerzetten, alle bestanden uit map openen ipv map als werkomgeving te openen"/>
 				</DefaultDir>
 
 				<FileAssoc title="Bestandsassociaties">
+					<Item id="4008" name="Herstart Notepad++ in de beheerdersmodus om deze functie te kunnen gebruiken."/>
 					<Item id="4009" name="Beschikbare extensies:"/>
 					<Item id="4010" name="Geregistreerd:"/>
 				</FileAssoc>
@@ -753,16 +801,16 @@
 					<Item id="6302" name="Omzetten in spaties"/>
 					<Item id="6303" name="Tabgrootte:"/>
 					<Item id="6510" name="Standaardwaarde"/>
+					<Item id="6335" name="Backslash als SQL escape-teken interpreteren"/>
 				</Language>
 
 				<Highlighting title="Markeren">
 					<Item id="6333" name="Slim markeren"/>
 					<Item id="6326" name="Activeren"/>
-					<Item id="6332" name="Kaptialen onderscheiden"/>
+					<Item id="6332" name="Kapitalen onderscheiden"/>
 					<Item id="6338" name="Losse woorden"/>
 					<Item id="6339" name="Gebruik zoekvensterinstellingen"/>
 					<Item id="6340" name="Markeer deelvenster"/>
-
 					<Item id="6329" name="Markeer overeenkomende tags"/>
 					<Item id="6327" name="Activeren"/>
 					<Item id="6328" name="Markeer tagattributen"/>
@@ -799,7 +847,7 @@
 					<Item id="6728" name="Pagina"/>
 				</Print>
 
-				<RecentFilesHistory title="Recent geopende bestanden">
+				<RecentFilesHistory title="Recente bestanden">
 					<Item id="6304" name="Recent geopende bestanden"/>
 					<Item id="6306" name="Maximaal aantal bestanden in lijst:"/>
 					<Item id="6305" name="Niet controleren op wijzigingen"/>
@@ -812,12 +860,11 @@
 
 				<Backup title="Reservekopieën">
 					<Item id="6817" name="Sessie momentopname en periodieke reservekopieën"/>
-					<Item id="6818" name="Sessie en aangebrachte wijzingen herstellen"/>
+					<Item id="6818" name="Sessie en aangebrachte wijzigingen herstellen"/>
 					<Item id="6819" name="Informatie elke"/>
 					<Item id="6821" name="seconden bijwerken"/>
 					<Item id="6822" name="Map:"/>
 					<Item id="6309" name="Activeren"/>
-
 					<Item id="6801" name="Reservekopieën"/>
 					<Item id="6315" name="Geen"/>
 					<Item id="6316" name="Standaard"/>
@@ -827,6 +874,7 @@
 				</Backup>
 
 				<AutoCompletion title="Automatisch aanvullen">
+					<Item id="6115" name="Automatisch inspringen"/>
 					<Item id="6807" name="Automatisch aanvullen"/>
 					<Item id="6808" name="Activeren"/>
 					<Item id="6809" name="Functies aanvullen"/>
@@ -882,9 +930,13 @@
 				</SearchEngine>
 
 				<MISC title="Overig">
-					<Item id="6307" name="Wijzigingen detecteren"/>
+					<ComboBox id="6347">
+						<Element name="Inschakelen"/>
+						<Element name="Inschakelen voor alle documenten"/>
+						<Element name="Uitschakelen"/>
+					</ComboBox>
 					<Item id="6308" name="Minimaliseren naar systeemvak"/>
-					<Item id="6312" name="Document"/>
+					<Item id="6312" name="Bestandswijziging detecteren"/>
 					<Item id="6313" name="Automatisch bijwerken"/>
 					<Item id="6318" name="Hyperlinks"/>
 					<Item id="6325" name="Ga naar de laatste regel na wijziging"/>
@@ -895,14 +947,14 @@
 					<Item id="6324" name="Wisselen tussen documenten (Ctrl+Tab)"/>
 					<Item id="6331" name="Alleen de bestandsnaam in de titelbalk weergeven"/>
 					<Item id="6334" name="Karakterset automatisch detecteren"/>
-					<Item id="6335" name="\ als SQL escape character interpreteren"/>
+					<Item id="6314" name="Monospace-lettertype in Zoeken/Vervangen invoervakken (Notepad++ herstart nodig)"/>
 					<Item id="6337" name="Bestandsextensie werkomgeving:"/>
 					<Item id="6114" name="Activeren"/>
-					<Item id="6115" name="Insprong automatisch toepassen"/>
 					<Item id="6117" name="Volgorde van wisselen onthouden"/>
 					<Item id="6344" name="Document voorvertoning"/>
 					<Item id="6345" name="Voorvertoning bij tab"/>
 					<Item id="6346" name="Voorvertoning bij documentstructuur"/>
+					<Item id="6348" name="Zoeken/Vervangen invoervakken niet voorinvullen"/>
 				</MISC>
 			</Preference>
 			<MultiMacro title="Macro meerdere keren uitvoeren">
@@ -948,9 +1000,18 @@
 				<Item id="1718" name="Uitgebreid (\n, \r, \t, \0, \x...)"/>
 				<Item id="1720" name="&amp;. vind \n en \r"/>
 			</FindInFinder>
+			<DoSaveOrNot title="Bestand opslaan">
+				<Item id="1761" name="Bestand &quot;$STR_REPLACE$&quot; opslaan?"/>
+				<Item id="6" name="&amp;Ja"/>
+				<Item id="7" name="&amp;Nee"/>
+				<Item id="2" name="Annuleren"/>
+				<Item id="4" name="J&amp;a op alles"/>
+				<Item id="5" name="N&amp;ee op alles"/>
+			</DoSaveOrNot>
 		</Dialog>
 
 		<MessageBox>
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<ContextMenuXmlEditWarning
 				title="Contextmenu wijzigen"
 				message="Met het wijzigen van het contextmenu kunt u Notepad++ aan uw persoonlijke voorkeur aanpassen.&#xD;&#xD;Wijzigingen worden zichtbaar na het opnieuw starten van Notepad++."
@@ -1019,10 +1080,6 @@
 				title="Opslaan mislukt"
 				message="Kan niet opslaan: Buffer is ongeldig."
 			/>
-			<DoSaveOrNot
-				title="Bestand opslaan"
-				message="Bestand &quot;$STR_REPLACE$&quot; opslaan?"
-			/>
 			<DoCloseOrNot
 				title="Bestand sluiten"
 				message="Het bestand &quot;$STR_REPLACE$&quot; bestaat niet meer.&#xD;Bewaar dit bestand in de editor?"
@@ -1050,6 +1107,10 @@
 			<XpUpdaterProblem
 				title="Notepad++ Updater"
 				message="Notepad++ updater is niet compatibel met XP vanwege de verouderde beveiligingslaag onder XP.&#xD;Wilt u naar Notepad++ pagina gaan om de nieuwste versie te downloaden?"
+			/>
+			<GUpProxyConfNeedAdminMode
+				title="Proxyserver-instellingen"
+				message="Herstart Notepad++ in de beheerdersmodus om de Proxyserver-instellingen te wijzigen."
 			/>
 			<DocTooDirtyToMonitor
 				title="Bestandswijzigingen bewaak probleem"
@@ -1105,23 +1166,23 @@
 			/>
 			<ProjectPanelOpenDoSaveDirtyWsOrNot
 				title="Werkomgeving openen"
-				message="De huidige werkomgeving is aangepast. Wilt u het huidige projekt opslaan?"
+				message="De huidige werkomgeving is aangepast. Wilt u het huidige project opslaan?"
 			/>
 			<ProjectPanelNewDoSaveDirtyWsOrNot
 				title="Nieuwe werkomgeving"
-				message="De huidige werkomgeving is aangepast. Wilt u het huidige projekt opslaan?"
+				message="De huidige werkomgeving is aangepast. Wilt u het huidige project opslaan?"
 			/>
 			<ProjectPanelOpenFailed
 				title="Werkomgeving openen"
-				message="De werkomgeving kon niet worden geopend.&#xD;Het lijkt erop dat het te openen bestand geen geldig projektbestand is."
+				message="De werkomgeving kon niet worden geopend.&#xD;Het lijkt erop dat het te openen bestand geen geldig projectbestand is."
 			/>
 			<ProjectPanelRemoveFolderFromProject
-				title="Map uit projekt verwijderen"
-				message="De werkomgeving kon niet worden geopend.&#xD;Het lijkt erop dat het te openen bestand geen geldig projektbestand is."
+				title="Map uit project verwijderen"
+				message="De werkomgeving kon niet worden geopend.&#xD;Het lijkt erop dat het te openen bestand geen geldig projectbestand is."
 			/>
 			<ProjectPanelRemoveFileFromProject
-				title="Bestand uit projekt verwijderen"
-				message="Weet u zeker dat u dit bestand uit het projekt wilt verwijderen?"
+				title="Bestand uit project verwijderen"
+				message="Weet u zeker dat u dit bestand uit het project wilt verwijderen?"
 			/>
 			<ProjectPanelReloadError
 				title="Werkomgeving laden"
@@ -1159,12 +1220,23 @@
 				title="Openen in beheerdersmodus mislukt"
 				message="Notepad++ kan niet worden geopend in de beheerdersmodus."
 			/>
+			<ViewInBrowser
+				title="Document bekijken in browser"
+				message="Applicatie niet gevonden op uw computer."
+			/>
+			<ExitToUpdatePlugins
+				title="Notepad++ afsluiten"
+				message="Notepad++ moet afsluiten om de update te voltooien.&#xD;Vervolgens zal Notepad++ opnieuw starten.&#xD;&#xD;Wilt u doorgaan?"
+			/>
+			<NeedToRestartToLoadPlugins
+				title="Notepad++ opnieuw starten"
+				message="Start Notepad++ opnieuw op om de geïnstalleerde plug-ins te activeren."
+			/>
 		</MessageBox>
 
 		<ClipboardHistory>
 			<PanelTitle name="Klembord"/>
 		</ClipboardHistory>
-
 		<DocSwitcher>
 			<PanelTitle name="Documentenlijst"/>
 			<ColumnName name="Naam"/>
@@ -1174,12 +1246,15 @@
 			<ColumnName name="Naam"/>
 			<ColumnPath name="Pad"/>
 			<ColumnType name="Type"/>
+			<ColumnSize name="Grootte"/>
 		</WindowsDlg>
 		<AsciiInsertion>
-			<PanelTitle name="ASCII-karakters"/>
-			<ColumnVal  name="Code"/>
+			<PanelTitle name="ASCII-karakters / HTML-entiteiten"/>
+			<ColumnVal  name="Dec"/>
 			<ColumnHex  name="Hex"/>
 			<ColumnChar name="Karakter"/>
+			<ColumnHtmlNumber name="Entiteitnummer"/>
+			<ColumnHtmlName name="Entiteitnaam"/>
 		</AsciiInsertion>
 		<DocumentMap>
 			<PanelTitle name="Documentstructuur"/>
@@ -1202,12 +1277,13 @@
 				<Item id="3517" name="Zoek in bestanden..."/>
 				<Item id="3518" name="Locatie openen in Windows Verkenner"/>
 				<Item id="3519" name="Locatie openen in opdrachtprompt"/>
+				<Item id="3520" name="Bestandsnaam kopiëren"/>
 			</Menus>
 		</FolderAsWorkspace>
 		<ProjectManager>
 			<PanelTitle        name="Project"/>
 			<WorkspaceRootName name="Werkmap"/>
-			<NewProjectName    name="Nieuw projekt"/>
+			<NewProjectName    name="Nieuw project"/>
 			<NewFolderName     name="Nieuwe map"/>
 			<Menus>
 				<Entries>
@@ -1251,7 +1327,7 @@
 			</Menus>
 		</ProjectManager>
 		<MiscStrings>
-			<!-- $INT_REPLACE$ and $STR_REPLACE$ are a place holders, don't translate these place holders -->
+			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders -->
 			<word-chars-list-tip
 				value="Hiermee kan een extra teken aan de huidige woordtekenlijst worden toegevoegd. Deze lijst bepaalt wat als woord wordt gezien bij dubbelklik op een selectie en bij het zoeken met de &quot;Losse woorden&quot;-optie aangevinkt."
 			/>
@@ -1281,6 +1357,9 @@
 			/>
 			<two-find-buttons-tip
 				value="2-zoek-knoppen modus"
+			/>
+			<find-in-files-filter-tip
+				value="In cpp, cxx, hpp en hxx bestanden zoeken:&#xD;*.cpp *.cxx *.hpp *.hxx&#xD;&#xD;In alle bestanden behalve exe, obj en log zoeken:&#xD;*.* !*.exe !*.obj !*.log"
 			/>
 			<find-status-top-reached
 				value="Zoeken: 1ste locatie vanuit document einde gevonden. De start van het document is gepasseerd."
@@ -1380,6 +1459,99 @@
 			/>
 			<finder-open-all
 				value="Alle openen"
+			/>
+			<common-ok
+				value="OK"
+			/>
+			<common-cancel
+				value="Annuleren"
+			/>
+			<common-name
+				value="Naam: "
+			/>
+			<tabrename-title
+				value="Huidige tab hernoemen"
+			/>
+			<tabrename-newname
+				value="Nieuwe naam: "
+			/>
+			<recent-file-history-maxfile
+				value="Max. bestand: "
+			/>
+			<language-tabsize
+				value="Tabgrootte: "
+			/>
+			<userdefined-title-new
+				value="Nieuwe syntaxis aanmaken..."
+			/>
+			<userdefined-title-save
+				value="Huidige syntaxis opslaan als..."
+			/>
+			<userdefined-title-rename
+				value="Huidige syntaxis hernoemen"
+			/>
+			<autocomplete-nb-char
+				value="Karakters: "
+			/>
+			<edit-verticaledge-nb-col
+				value="Kolommen: "
+			/>
+			<summary
+				value="Documentinformatie"
+			/>
+			<summary-filepath
+				value="Bestandsnaam: "
+			/>
+			<summary-filecreatetime
+				value="Gemaakt: "
+			/>
+			<summary-filemodifytime
+				value="Gewijzigd: "
+			/>
+			<summary-nbchar
+				value="Lettertekens: "
+			/>
+			<summary-nbword
+				value="Woorden: "
+			/>
+			<summary-nbline
+				value="Regels: "
+			/>
+			<summary-nbbyte
+				value="Documentgrootte: "
+			/>
+			<summary-nbsel1
+				value=" geselecteerde tekens ("
+			/>
+			<summary-nbsel2
+				value=" bytes) in "
+			/>
+			<summary-nbrange
+				value=" selecties"
+			/>
+			<replace-in-files-confirm-title
+				value="Vervanging bevestigen"
+			/>
+			<replace-in-files-confirm-directory
+				value="Wilt u alle locaties vervangen in: "
+			/>
+			<replace-in-files-confirm-filetype
+				value="Voor bestandstype: "
+			/>
+			<find-result-caption
+				value="Zoekresultaten"
+			/>
+			<find-result-title
+				value="Zoeken"
+			/>
+			<find-result-title-info
+				value="($INT_REPLACE1$ treffers in $INT_REPLACE2$ uit $INT_REPLACE3$ bestanden)"
+			/>
+			<find-result-title-info-extra
+				value=" - Regelfiltermodus: alleen treffers tonen"
+			/>
+			<find-result-hits
+				value="($INT_REPLACE$ treffers)"
 			/>
 		</MiscStrings>
 	</Native-Langue>

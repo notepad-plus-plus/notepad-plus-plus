@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -26,8 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef NOTEPAD_PLUS_MSGS_H
-#define NOTEPAD_PLUS_MSGS_H
+#pragma once
 
 #include <windows.h>
 #include <tchar.h>
@@ -54,7 +53,6 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64 };
 
 
 
-//Here you can find how to use these messages : http://docs.notepad-plus-plus.org/index.php/Messages_And_Notifications
 #define NPPMSG  (WM_USER + 1000)
 
 	#define NPPM_GETCURRENTSCINTILLA  (NPPMSG + 4)
@@ -378,7 +376,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64 };
 	// by passing allocated buffer as argument langDesc
 
 	#define NPPM_SHOWDOCSWITCHER    (NPPMSG + 85)
-	// VOID NPPM_ISDOCSWITCHERSHOWN(0, BOOL toShowOrNot)
+	// VOID NPPM_SHOWDOCSWITCHER(0, BOOL toShowOrNot)
 	// Send this message to show or hide doc switcher.
 	// if toShowOrNot is TRUE then show doc switcher, otherwise hide it.
 
@@ -431,11 +429,44 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64 };
 	// Users should call it with pluginRootPath be NULL to get the required number of TCHAR (not including the terminating nul character),
 	// allocate pluginRootPath buffer with the return value + 1, then call it again to get the path.
 
+	#define NPPM_GETSETTINGSONCLOUDPATH (NPPMSG + 98)
+	// INT NPPM_GETSETTINGSCLOUDPATH(size_t strLen, TCHAR *settingsOnCloudPath)
+	// Get settings on cloud path. It's useful if plugins want to store its settings on Cloud, if this path is set.
+	// Returns the number of TCHAR copied/to copy. If the return value is 0, then this path is not set, or the "strLen" is not enough to copy the path.
+	// Users should call it with settingsCloudPath be NULL to get the required number of TCHAR (not including the terminating nul character),
+	// allocate settingsCloudPath buffer with the return value + 1, then call it again to get the path.
+
+	#define NPPM_SETLINENUMBERWIDTHMODE    (NPPMSG + 99)
+		#define LINENUMWIDTH_DYNAMIC     0
+		#define LINENUMWIDTH_CONSTANT    1
+	// BOOL NPPM_SETLINENUMBERWIDTHMODE(0, INT widthMode)
+	// Set line number margin width in dynamic width mode (LINENUMWIDTH_DYNAMIC) or constant width mode (LINENUMWIDTH_CONSTANT)
+	// It may help some plugins to disable non-dynamic line number margins width to have a smoothly visual effect while vertical scrolling the content in Notepad++
+	// If calling is successful return TRUE, otherwise return FALSE.
+
+	#define NPPM_GETLINENUMBERWIDTHMODE    (NPPMSG + 100)
+	// INT NPPM_GETLINENUMBERWIDTHMODE(0, 0)
+	// Get line number margin width in dynamic width mode (LINENUMWIDTH_DYNAMIC) or constant width mode (LINENUMWIDTH_CONSTANT)
+
+
+#define VAR_NOT_RECOGNIZED 0
+#define FULL_CURRENT_PATH 1
+#define CURRENT_DIRECTORY 2
+#define FILE_NAME 3
+#define NAME_PART 4
+#define EXT_PART 5
+#define CURRENT_WORD 6
+#define NPP_DIRECTORY 7
+#define CURRENT_LINE 8
+#define CURRENT_COLUMN 9
+#define NPP_FULL_FILE_PATH 10
+#define GETFILENAMEATCURSOR 11
+
 
 	#define BUFSTAT_READONLY     0x01
 	#define BUFSTAT_MODIFIED     0x02
 	#define BUFSTAT_LOADEDDIRTY  0x04
-	#define NPPM_GETBUFFERSTATUS (NPPMSG + 98)
+	#define NPPM_GETBUFFERSTATUS (NPPMSG + 101)
 	// LRESULT NPPM_GETBUFFERSTATUS(UINT_PTR bufferID, 0)
 	// wParam: BufferID to get Status
 	// lParam: 0
@@ -470,18 +501,6 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64 };
 
 	#define NPPM_GETNPPFULLFILEPATH			(RUNCOMMAND_USER + NPP_FULL_FILE_PATH)
 
-		#define VAR_NOT_RECOGNIZED 0
-		#define FULL_CURRENT_PATH 1
-		#define CURRENT_DIRECTORY 2
-		#define FILE_NAME 3
-		#define NAME_PART 4
-		#define EXT_PART 5
-		#define CURRENT_WORD 6
-		#define NPP_DIRECTORY 7
-		#define CURRENT_LINE 8
-		#define CURRENT_COLUMN 9
-		#define NPP_FULL_FILE_PATH 10
-		#define GETFILENAMEATCURSOR 11
 
 
 // Notification code
@@ -627,5 +646,3 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64 };
 	//scnNotification->nmhdr.code = NPPN_FILEDELETED;
 	//scnNotification->nmhdr.hwndFrom = hwndNpp;
 	//scnNotification->nmhdr.idFrom = BufferID;
-
-#endif //NOTEPAD_PLUS_MSGS_H

@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -60,12 +60,6 @@ class WindowsDlg : public SizeableDlg
 {
 	typedef SizeableDlg MyBaseClass;
 
-	class CachedValue
-	{
-		generic_string fullname;
-		int index;
-	};
-
 public :
 	WindowsDlg();
 	int doDialog();
@@ -89,6 +83,7 @@ protected :
 	void updateButtonState();
 	void activateCurrent();
 	void doColumnSort();
+	void doCount();
 
 	HWND _hList = nullptr;
 	static RECT _lastKnownLocation;

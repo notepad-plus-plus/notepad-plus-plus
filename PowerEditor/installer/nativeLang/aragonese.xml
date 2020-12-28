@@ -722,7 +722,6 @@ By ChesÃƒÂºs D. Trigo [xuxinho7@gmail.com] & softaragones [softaragones@soft
 
 					<Item id="6331" name="Amostrar nomÃƒÂ¡s o nombre de fichero en a barra de titols"/>
                     <Item id="6114" name="Habilitar"/>
-                    <Item id="6115" name="Sangrar automaticament"/>
                     <Item id="6117" name="Ordenar seguntes emplego (MRU)"/> <!-- EXTRA TAGS: <Item id="6333" name="Realzamiento intelichent"/> <Item id="6332" name="O realzamiento distingue mayusclas"/> -->
 
                 </MISC>
@@ -737,6 +736,7 @@ By ChesÃƒÂºs D. Trigo [xuxinho7@gmail.com] & softaragones [softaragones@soft
 				</Backup>
 
 				<AutoCompletion title="AutocompleciÃƒÂ³n">
+                    <Item id="6115" name="Sangrar automaticament"/>
                     <Item id="6807" name="AutocompleciÃƒÂ³n"/>
 					<Item id="6808" name="Permitir l'autocompleciÃƒÂ³n en cada dentrada"/>
                     <Item id="6809" name="Autocompletar funcions"/>

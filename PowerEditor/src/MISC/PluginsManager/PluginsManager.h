@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -45,7 +45,7 @@ struct PluginCommand
 
 struct PluginInfo
 {
-	PluginInfo() {}
+	PluginInfo() = default;
 	~PluginInfo()
 	{
 		if (_pluginMenu)
@@ -55,17 +55,17 @@ struct PluginInfo
 			::FreeLibrary(_hLib);
 	}
 
-	HINSTANCE _hLib = NULL;
-	HMENU _pluginMenu = NULL;
+	HINSTANCE _hLib = nullptr;
+	HMENU _pluginMenu = nullptr;
 
-	PFUNCSETINFO _pFuncSetInfo = NULL;
-	PFUNCGETNAME _pFuncGetName = NULL;
-	PBENOTIFIED	_pBeNotified = NULL;
-	PFUNCGETFUNCSARRAY _pFuncGetFuncsArray = NULL;
-	PMESSAGEPROC _pMessageProc = NULL;
-	PFUNCISUNICODE _pFuncIsUnicode = NULL;
+	PFUNCSETINFO _pFuncSetInfo = nullptr;
+	PFUNCGETNAME _pFuncGetName = nullptr;
+	PBENOTIFIED	_pBeNotified = nullptr;
+	PFUNCGETFUNCSARRAY _pFuncGetFuncsArray = nullptr;
+	PMESSAGEPROC _pMessageProc = nullptr;
+	PFUNCISUNICODE _pFuncIsUnicode = nullptr;
 
-	FuncItem *_funcItems = NULL;
+	FuncItem *_funcItems = nullptr;
 	int _nbFuncItem = 0;
 	generic_string _moduleName;
 	generic_string _funcName;

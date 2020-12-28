@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -26,17 +26,10 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef SIZABLE_DLG_H
-#define SIZABLE_DLG_H
+#pragma once
 
-#ifndef WINDOWS_DLG_RC_H
 #include "WindowsDlgRc.h"
-#endif //WINDOWS_DLG_RC_H
-
-#ifndef WINMGR_H
 #include "WinMgr.h"
-#endif //WINMGR_H
-
 #include "StaticDialog.h"
 
 class SizeableDlg : public StaticDialog {
@@ -54,4 +47,3 @@ protected:
 	virtual LRESULT onWinMgr(WPARAM wp, LPARAM lp);
 };
 
-#endif //SIZABLE_DLG_H

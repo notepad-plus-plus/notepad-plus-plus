@@ -1,11 +1,4 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- This is the Kannada language file for Notepad++.Kannada is one of the Indian regional languages.
-I was inspired by teh work done by other contributors and I also wanted to
-contribute by translating it to one of India's regional languages.
-Author: Aakash vemulapalli
-Email: aakashv11@gmail.com
-Note:In case of any suggestions and improvements please do not hesitate to contact me.
-Thank you. -->
 <NotepadPlus>
     <Native-Langue name="ಕನ್ನಡ" filename="kannada.xml" version="6.6.8">
         <Menu>
@@ -738,6 +731,7 @@ Thank you. -->
                 </Backup>
 
                 <AutoCompletion title="Auto-Completion">
+                    <Item id="6115" name="ಆಟೋ-ಇನ್‌ಡೆಂಟ್"/>
                     <Item id="6807" name="Auto-Completion"/>
                     <Item id="6808" name="ಎನೇಬಲ್ auto-completion ಒನ್ ಈಚ್ ಇನ್‌ಪುಟ್"/>
                     <Item id="6809" name="ಫಂಕ್ಶನ್ ಕಂಪ್ಲೀಶನ್"/>
@@ -803,7 +797,6 @@ Thank you. -->
 					<Item id="6334" name="ಔಟೊಡೇತೆಕ್ಟ್ ಕ್ಯಾರಕ್ಟರ್ ಎನ್‌ಕೋಡಿಂಗ್"/>
 					<Item id="6335" name="ಟ್ರೀಟ್ ಬ್ಯಾಕ್‌ಸ್ಲ್ಯಾಶ್ ಆಸ್ ಎಸ್ಕೇಪ್ ಕ್ಯಾರಕ್ಟರ್ ಫಾರ್ ಸ್ಕ್ಲ್"/>
                     <Item id="6114" name="ಎನೇಬಲ್"/>
-                    <Item id="6115" name="ಆಟೋ-ಇನ್‌ಡೆಂಟ್"/>
                     <Item id="6117" name="ಎನೇಬಲ್ ಮರ ಬಿಹೇವಿಯರ್"/>
                 </MISC>
             </Preference>
@@ -845,7 +838,7 @@ Thank you. -->
             <CannotMoveDoc title="Move to new Notepad++ Instance" message="Document is modified, save it then try again."/>
             <DocReloadWarning title="Reload" message="Are you sure you want to reload the current file and lose the changes made in Notepad++?"/>
             <FileLockedWarning title="Save failed" message="Please check whether if this file is opened in another program"/>
-            <FileAlreadyOpenedInNpp title="" message="The file is already opened in the Notepad++."/>
+            <FileAlreadyOpenedInNpp title="" message="The file is already opened in Notepad++."/>
             <DeleteFileFailed title="Delete File" message="Delete File failed"/>
 
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->

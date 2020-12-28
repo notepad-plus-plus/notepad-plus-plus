@@ -8,9 +8,7 @@
 #ifndef CHARCLASSIFY_H
 #define CHARCLASSIFY_H
 
-#ifdef SCI_NAMESPACE
 namespace Scintilla {
-#endif
 
 class CharClassify {
 public:
@@ -19,17 +17,15 @@ public:
 	enum cc { ccSpace, ccNewLine, ccWord, ccPunctuation };
 	void SetDefaultCharClasses(bool includeWordClass);
 	void SetCharClasses(const unsigned char *chars, cc newCharClass);
-	int GetCharsOfClass(cc charClass, unsigned char *buffer);
-	cc GetClass(unsigned char ch) const { return static_cast<cc>(charClass[ch]);}
-	bool IsWord(unsigned char ch) const { return static_cast<cc>(charClass[ch]) == ccWord;}
+	int GetCharsOfClass(cc characterClass, unsigned char *buffer) const;
+	cc GetClass(unsigned char ch) const noexcept { return static_cast<cc>(charClass[ch]);}
+	bool IsWord(unsigned char ch) const noexcept { return static_cast<cc>(charClass[ch]) == ccWord;}
 
 private:
 	enum { maxChar=256 };
 	unsigned char charClass[maxChar];    // not type cc to save space
 };
 
-#ifdef SCI_NAMESPACE
 }
-#endif
 
 #endif

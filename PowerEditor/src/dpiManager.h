@@ -86,8 +86,8 @@ public:
 private:
 	// X and Y DPI values are provided, though to date all 
     // Windows OS releases have equal X and Y scale values
-    int _dpiX;			
-    int _dpiY;
+    int _dpiX = 0;			
+    int _dpiY = 0;
 
 
 	void init() {

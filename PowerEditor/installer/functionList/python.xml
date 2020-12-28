@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ==========================================================================\
+|
+|   To learn how to make your own language parser, please check the following
+|   link:
+|       https://npp-user-manual.org/docs/function-list/
+|
+\=========================================================================== -->
+<NotepadPlus>
+	<functionList>
+		<!-- ====================================================== [ Python ] -->
+
+		<parser
+			displayName="Python"
+			id         ="python_syntax"
+			commentExpr="(?s:'''.*?''')|(?m-s:#.*?$)"
+		>
+			<classRange
+				mainExpr    ="^class\x20\K.*?(?=\n\S|\Z)"
+			>
+				<className>
+					<nameExpr expr="\w+(?=\s*[\(|:])" />
+				</className>
+				<function
+					mainExpr="\sdef\x20\K.+?(?=:)"
+				>
+					<functionName>
+						<funcNameExpr expr=".*" />
+					</functionName>
+				</function>
+			</classRange>
+			<function
+				mainExpr="\sdef\x20\K.+?(?=:)"
+			>
+				<functionName>
+					<nameExpr expr=".*" />
+				</functionName>
+			</function>
+		</parser>
+	</functionList>
+</NotepadPlus>

@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -41,7 +41,7 @@ public:
 		_shortcutFilter = TEXT("");
 		_dialogInitDone = false;
 	};
-	~ShortcutMapper() {};
+	~ShortcutMapper() = default;
 
 	void init(HINSTANCE hInst, HWND parent, GridState initState = STATE_MENU) {
         Window::init(hInst, parent);
@@ -65,9 +65,9 @@ public:
 	bool findKeyConflicts(__inout_opt generic_string * const keyConflictLocation,
 							const KeyCombo & itemKeyCombo, const size_t & itemIndex) const;
 
-	generic_string ShortcutMapper::getTextFromCombo(HWND hCombo);
-	bool ShortcutMapper::isFilterValid(Shortcut);
-	bool ShortcutMapper::isFilterValid(PluginCmdShortcut sc);
+	generic_string getTextFromCombo(HWND hCombo);
+	bool isFilterValid(Shortcut);
+	bool isFilterValid(PluginCmdShortcut sc);
 
 protected :
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);

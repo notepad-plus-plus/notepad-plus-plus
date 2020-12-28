@@ -1,5 +1,5 @@
 // this file is part of notepad++
-// Copyright (C)2003 Harry <harrybharry@users.sourceforge.net>
+// Copyright (C)2020 Harry <harrybharry@users.sourceforge.net>
 // 
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -57,13 +57,13 @@ void SmartHighlighter::highlightViewWithWord(ScintillaEditView * pHighlightView,
 	bool isWordOnly = true;
 	bool isCaseSensentive = true;
 
-	const NppGUI & nppGUI = NppParameters::getInstance()->getNppGUI();
+	const NppGUI & nppGUI = NppParameters::getInstance().getNppGUI();
 
 	if (nppGUI._smartHiliteUseFindSettings)
 	{
 		// fetch find dialog's setting
-		NppParameters *nppParams = NppParameters::getInstance();
-		FindHistory &findHistory = nppParams->getFindHistory();
+		NppParameters& nppParams = NppParameters::getInstance();
+		FindHistory &findHistory = nppParams.getFindHistory();
 		isWordOnly = findHistory._isMatchWord;
 		isCaseSensentive = findHistory._isMatchCase;
 	}
@@ -112,7 +112,7 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView, Scintil
 	// Clear marks
 	pHighlightView->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_SMART);
 
-	const NppGUI & nppGUI = NppParameters::getInstance()->getNppGUI();
+	const NppGUI & nppGUI = NppParameters::getInstance().getNppGUI();
 
 	// If nothing selected or smart highlighting disabled, don't mark anything
 	if ((!nppGUI._enableSmartHilite) || (pHighlightView->execute(SCI_GETSELECTIONEMPTY) == 1))
@@ -127,7 +127,7 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView, Scintil
 
 	auto curPos = pHighlightView->execute(SCI_GETCURRENTPOS);
 	auto range = pHighlightView->getSelection();
-	int textlen = range.cpMax - range.cpMin + 1;
+	int textlen = range.cpMax - range.cpMin;
 
 	// Determine mode for SmartHighlighting
 	bool isWordOnly = true;
@@ -135,8 +135,8 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView, Scintil
 	if (nppGUI._smartHiliteUseFindSettings)
 	{
 		// fetch find dialog's setting
-		NppParameters *nppParams = NppParameters::getInstance();
-		FindHistory &findHistory = nppParams->getFindHistory();
+		NppParameters& nppParams = NppParameters::getInstance();
+		FindHistory &findHistory = nppParams.getFindHistory();
 		isWordOnly = findHistory._isMatchWord;
 	}
 	else
@@ -162,20 +162,24 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView, Scintil
 			return;
 	}
 	
-	char * text2Find = new char[textlen];
-	pHighlightView->getSelectedText(text2Find, textlen, false); //do not expand selection (false)
+	char * text2Find = new char[textlen + 1];
+	pHighlightView->getSelectedText(text2Find, textlen + 1, false); //do not expand selection (false)
 
-	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	UINT cp = static_cast<UINT>(pHighlightView->execute(SCI_GETCODEPAGE));
-	const TCHAR * text2FindW = wmc->char2wchar(text2Find, cp);
+	const TCHAR * text2FindW = wmc.char2wchar(text2Find, cp);
 
 	highlightViewWithWord(pHighlightView, text2FindW);
 
-	if (nppGUI._smartHiliteOnAnotherView && unfocusView && unfocusView->isVisible()
-		&& unfocusView->getCurrentBufferID() != pHighlightView->getCurrentBufferID())
-	{
-		// Clear marks
-		unfocusView->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_SMART);
+	if (nppGUI._smartHiliteOnAnotherView && unfocusView && unfocusView->isVisible())
+	{		
+		// Clear the indicator only when the view is not a clone, or it will clear what we have already hightlighted in the pHighlightView
+		if (unfocusView->getCurrentBufferID() != pHighlightView->getCurrentBufferID())
+		{	
+			unfocusView->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_SMART);
+		}
+		
+		// Hightlight the unfocused view even if it's a clone, as it might be in a different area of the document
 		highlightViewWithWord(unfocusView, text2FindW);
 	}
 

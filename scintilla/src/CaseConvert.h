@@ -10,9 +10,7 @@
 #ifndef CASECONVERT_H
 #define CASECONVERT_H
 
-#ifdef SCI_NAMESPACE
 namespace Scintilla {
-#endif
 
 enum CaseConversion {
 	CaseConversionFold,
@@ -40,8 +38,9 @@ const int maxExpansionCaseConversion=3;
 // If there is not enough space then 0 is returned.
 size_t CaseConvertString(char *converted, size_t sizeConverted, const char *mixed, size_t lenMixed, enum CaseConversion conversion);
 
-#ifdef SCI_NAMESPACE
+// Converts a mixed case string using a particular conversion.
+std::string CaseConvertString(const std::string &s, enum CaseConversion conversion);
+
 }
-#endif
 
 #endif

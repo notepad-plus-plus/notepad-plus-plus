@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -252,7 +252,7 @@ class SharedParametersDialog : public StaticDialog
 {
 friend class StylerDlg;
 public:
-    SharedParametersDialog() {};
+    SharedParametersDialog() = default;
     virtual void updateDlg() = 0;
 protected :
     //Shared data
@@ -266,7 +266,7 @@ protected :
 class FolderStyleDialog : public SharedParametersDialog
 {
 public:
-    FolderStyleDialog(): SharedParametersDialog() {};
+    FolderStyleDialog() = default;
     void updateDlg();
 protected :
     INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
@@ -279,7 +279,7 @@ private :
 class KeyWordsStyleDialog : public SharedParametersDialog
 {
 public:
-    KeyWordsStyleDialog(): SharedParametersDialog() {};
+    KeyWordsStyleDialog() = default;
     void updateDlg();
 protected :
     INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
@@ -289,7 +289,7 @@ protected :
 class CommentStyleDialog : public SharedParametersDialog
 {
 public :
-    CommentStyleDialog(): SharedParametersDialog() {};
+    CommentStyleDialog() = default;
     void updateDlg();
 protected :
     INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
@@ -301,7 +301,7 @@ private :
 class SymbolsStyleDialog : public SharedParametersDialog
 {
 public :
-    SymbolsStyleDialog(): SharedParametersDialog() {};
+    SymbolsStyleDialog() = default;
     void updateDlg();
 protected :
     INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
@@ -398,14 +398,19 @@ protected :
 class StringDlg : public StaticDialog
 {
 public :
-    StringDlg() : StaticDialog() {};
-    void init(HINSTANCE hInst, HWND parent, const TCHAR *title, const TCHAR *staticName, const TCHAR *text2Set, int txtLen = 0) {
-        Window::init(hInst, parent);
-        _title = title;
-        _static = staticName;
-        _textValue = text2Set;
-        _txtLen = txtLen;
-    };
+    StringDlg() = default;
+	void init(HINSTANCE hInst, HWND parent, const TCHAR *title, const TCHAR *staticName, const TCHAR *text2Set, int txtLen = 0, const TCHAR* restrictedChars = nullptr, bool bGotoCenter = false) {
+		Window::init(hInst, parent);
+		_title = title;
+		_static = staticName;
+		_textValue = text2Set;
+		_txtLen = txtLen;
+		_shouldGotoCenter = bGotoCenter;
+		if (restrictedChars && _tcslen(restrictedChars))
+		{
+			_restrictedChars = restrictedChars;
+		}
+	};
 
     INT_PTR doDialog() {
         return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_STRING_DLG), _hParent,  dlgProc, reinterpret_cast<LPARAM>(this));
@@ -416,11 +421,20 @@ public :
 protected :
     INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM);
 
+	// Custom proc to subclass edit control
+	LRESULT static CALLBACK customEditProc(HWND hEdit, UINT msg, WPARAM wParam, LPARAM lParam);
+
+	bool isAllowed(const generic_string& txt);
+	void HandlePaste(HWND hEdit);
+
 private :
     generic_string _title;
     generic_string _textValue;
     generic_string _static;
+	generic_string _restrictedChars;
     int _txtLen = 0;
+	bool _shouldGotoCenter = false;
+	WNDPROC _oldEditProc = nullptr;
 };
 
 class StylerDlg

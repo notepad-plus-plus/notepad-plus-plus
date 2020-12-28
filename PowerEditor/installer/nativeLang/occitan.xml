@@ -779,6 +779,7 @@
 					<Item id="6302" name="Remplaçar per d'espacis"/>
 					<Item id="6303" name="Talha de tabulacion : "/>
 					<Item id="6510" name="Utilizar la valor per dafaut"/>
+					<Item id="6335" name="Considerar backslash coma caractèr d'escapament per SQL"/>
 				</Language>
 				
 				<Highlighting title="Coloracion sintaxica">
@@ -840,6 +841,7 @@
 				</Backup>
 				
 				<AutoCompletion title="Auto-complecion">
+					<Item id="6115" name="Indentacion automatica"/>
 					<Item id="6807" name="Auto-compleion"/>
 					<Item id="6808" name="Activar l'auto-complecion per cada entrada"/>
 					<Item id="6809" name="Complecion de fonccion"/>
@@ -903,10 +905,8 @@
 					<Item id="6324" name="Cambiaire de documents (Ctrl+TAB)"/>
 					<Item id="6331" name="Mostrar sonque lo nom del fichièr dins la barra de títol"/>
 					<Item id="6334" name="Detectar automaticament lo codage de caractèrs"/>
-					<Item id="6335" name="Considerar backslash coma caractèr d'escapament per SQL"/>
 					<Item id="6337" name="Ext. de fichièr de l'espaci de trabalh :"/>
 					<Item id="6114" name="Activar (Ctrl+Tab)"/>
-					<Item id="6115" name="Indentacion automatica"/>
 					<Item id="6117" name="Activar lo comportament MRU"/>
 					<Item id="6344" name="Previsualizacion de document"/>
 					<Item id="6345" name="Previsualizar dins l'onglet"/>
@@ -1148,7 +1148,6 @@ Deuretz tornar lançar Notepad++ per que siá efectiu."/>
 			<find-status-replace-not-found value="Remplaçar : cap d'ocurrénia trobada"/>
 			<find-status-replace-readonly value="Remplaçar : Impossible de remplaçar lo tèxt. Lo document actiu es en lectura sola"/>
 			<find-status-cannot-find value="Recèrca : Impossible de trobar lo tèxt &quot;$STR_REPLACE$&quot;"/>
-			<find-status-mark-nb-matches value="$INT_REPLACE$ ocurréncias"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

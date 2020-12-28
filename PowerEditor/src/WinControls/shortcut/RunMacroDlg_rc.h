@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -27,8 +27,7 @@
 
 // created by Daniel Volk mordorpost@volkarts.com
 
-#ifndef RUN_MACRO_DLG_RC_H
-#define RUN_MACRO_DLG_RC_H
+#pragma once
 
 #define IDD_RUN_MACRO_DLG					8000
 #define IDC_M_RUN_MULTI						8001
@@ -39,4 +38,3 @@
 #define IDC_TIMES_STATIC					8005
 #define IDC_MACRO2RUN_STATIC				8006
 
-#endif //RUN_MACRO_DLG_RC_H

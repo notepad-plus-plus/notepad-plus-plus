@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -65,7 +65,12 @@ enum BufferStatusInfo
 //const int userLangNameMax = 16;
 const TCHAR UNTITLED_STR[] = TEXT("new ");
 
-
+enum SavingStatus
+{
+	SaveOK             = 0,
+	SaveOpenFailed     = 1,
+	SaveWrittingFailed = 2
+};
 
 //File manager class maintains all buffers
 class FileManager final
@@ -74,9 +79,10 @@ public:
 	void init(Notepad_plus* pNotepadPlus, ScintillaEditView* pscratchTilla);
 
 	//void activateBuffer(int index);
-	void checkFilesystemChanges();
+	void checkFilesystemChanges(bool bCheckOnlyCurrentBuffer);
 
-	size_t getNbBuffers() { return _nbBufs; };
+	size_t getNbBuffers() const { return _nbBufs; };
+	size_t getNbDirtyBuffers() const;
 	int getBufferIndexByID(BufferID id);
 	Buffer * getBufferByIndex(size_t index);
 	Buffer * getBufferByID(BufferID id) {return static_cast<Buffer*>(id);}
@@ -100,29 +106,46 @@ public:
 	void setLoadedBufferEncodingAndEol(Buffer* buf, const Utf8_16_Read& UnicodeConvertor, int encoding, EolType bkformat);
 	bool reloadBuffer(BufferID id);
 	bool reloadBufferDeferred(BufferID id);
-	bool saveBuffer(BufferID id, const TCHAR* filename, bool isCopy = false, generic_string * error_msg = NULL);
+	SavingStatus saveBuffer(BufferID id, const TCHAR* filename, bool isCopy = false);
 	bool backupCurrentBuffer();
 	bool deleteBufferBackup(BufferID id);
 	bool deleteFile(BufferID id);
 	bool moveFile(BufferID id, const TCHAR * newFilename);
 	bool createEmptyFile(const TCHAR * path);
-	static FileManager * getInstance() {return _pSelf;};
-	void destroyInstance() { delete _pSelf; };
+	static FileManager& getInstance() {
+		static FileManager instance;
+		return instance;
+	};
 	int getFileNameFromBuffer(BufferID id, TCHAR * fn2copy);
 	int docLength(Buffer * buffer) const;
 	size_t nextUntitledNewNumber() const;
 
 
 private:
+	struct LoadedFileFormat {
+		LoadedFileFormat() = default;
+		LangType _language = L_TEXT;
+		int _encoding = 0;
+		EolType _eolFormat = EolType::osdefault;
+	};
+
+	FileManager() = default;
 	~FileManager();
+
+	// No copy ctor and assignment
+	FileManager(const FileManager&) = delete;
+	FileManager& operator=(const FileManager&) = delete;
+
+	// No move ctor and assignment
+	FileManager(FileManager&&) = delete;
+	FileManager& operator=(FileManager&&) = delete;
+
 	int detectCodepage(char* buf, size_t len);
-	bool loadFileData(Document doc, const TCHAR* filename, char* buffer, Utf8_16_Read* UnicodeConvertor, LangType & language, int & encoding, EolType & eolFormat);
+	bool loadFileData(Document doc, const TCHAR* filename, char* buffer, Utf8_16_Read* UnicodeConvertor, LoadedFileFormat& fileFormat);
 	LangType detectLanguageFromTextBegining(const unsigned char *data, size_t dataLen);
 
 
 private:
-	static FileManager *_pSelf;
-
 	Notepad_plus* _pNotepadPlus = nullptr;
 	ScintillaEditView* _pscratchTilla = nullptr;
 	Document _scratchDocDefault;
@@ -320,7 +343,7 @@ public:
 	bool isModified() const { return _isModified; }
 	void setModifiedStatus(bool isModified) { _isModified = isModified; }
 	generic_string getBackupFileName() const { return _backupFileName; }
-	void setBackupFileName(generic_string fileName) { _backupFileName = fileName; }
+	void setBackupFileName(const generic_string& fileName) { _backupFileName = fileName; }
 	FILETIME getLastModifiedTimestamp() const { return _timeStamp; }
 
 	bool isLoadedDirty() const

@@ -105,10 +105,11 @@ void TiXmlBase::PutString( const TIXML_STRING& str, TIXML_STRING* outString )
 // <-- Strange class for a bug fix. Search for STL_STRING_BUG
 TiXmlBase::StringToBuffer::StringToBuffer( const TIXML_STRING& str )
 {
-	buffer = new TCHAR[ str.length()+1 ];
-	if ( buffer )
+	const size_t strLen = str.length() + 1;
+	buffer = new TCHAR[strLen];
+	if (buffer)
 	{
-		lstrcpy( buffer, str.c_str() );
+		wcscpy_s(buffer, strLen, str.c_str());
 	}
 }
 
@@ -754,10 +755,11 @@ bool TiXmlDocument::LoadFile( const TCHAR* filename )
 bool TiXmlDocument::SaveFile( const TCHAR * filename ) const
 {
 	// The old c stuff lives on...
-	FILE* fp = generic_fopen( filename, TEXT("w") );
+	FILE* fp = generic_fopen( filename, TEXT("wc") );
 	if ( fp )
 	{
 		Print( fp, 0 );
+		fflush( fp );
 		fclose( fp );
 		return true;
 	}

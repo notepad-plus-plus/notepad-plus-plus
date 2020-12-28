@@ -1,52 +1,88 @@
-version: 1.0.{build}
-image: Visual Studio 2015
+version: 7.9.{build}
+image: Visual Studio 2017
 
 
-clone_depth: 1
+environment:
+  matrix:
+    - platform: Win32
+      archi: x86
+      platform_input: Win32
 
-platform:
-    - x64
-    - Win32
+    - platform: x64
+      archi: amd64
+      platform_input: x64
+
+    - platform: mingw-w64_810_X64
+      platform_input: mingw
 
 configuration:
     - Unicode Release
     - Unicode Debug
 
 install:
-    - if "%platform%"=="x64" set archi=amd64
-    - if "%platform%"=="Win32" set archi=x86
-    - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" %archi%
+    - if "%Platform%"=="mingw-w64_810_X64" set PATH=C:\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\bin;%PATH:C:\Program Files\Git\usr\bin;=%
+    - if "%archi%" NEQ "" call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" %archi%
 
-build:
-    verbosity: minimal
 
 build_script:
-    - cd c:\projects\notepad-plus-plus\scintilla\win32
+    - ps: |
+          Write-Output "Configuration: $env:CONFIGURATION"
+          Write-Output "Platform: $env:PLATFORM"
+
+    - cd "%APPVEYOR_BUILD_FOLDER%"\scintilla\win32
     - if "%configuration%"=="Unicode Debug" set scintilla_debug=DEBUG=1
     - if "%configuration%"=="Unicode Release" set scintilla_debug=
-    - nmake NOBOOST=1 %scintilla_debug% -f scintilla.mak
-    - cd c:\projects\notepad-plus-plus\PowerEditor\visual.net\
-    - msbuild notepadPlus.vcxproj /p:configuration="%configuration%" /p:platform="%platform%" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+    - if "%archi%" NEQ "" nmake SUPPORT_XP=1 %scintilla_debug% -f scintilla.mak
+    - if "%Platform%"=="mingw-w64_810_X64" mingw32-make -j%NUMBER_OF_PROCESSORS%
+    
+    - cd "%APPVEYOR_BUILD_FOLDER%"\PowerEditor\visual.net\
+    - if "%archi%" NEQ "" msbuild notepadPlus.vcxproj /p:configuration="%configuration%" /p:platform="%platform_input%" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+    - if "%Platform%"=="mingw-w64_810_X64" cd c:\projects\notepad-plus-plus\PowerEditor\gcc\ & mingw32-make -j%NUMBER_OF_PROCESSORS%
+
 
 after_build:
-    - cd c:\projects\notepad-plus-plus\
+    - cd "%APPVEYOR_BUILD_FOLDER%"
     - ps: >-
-        $nppFileName = "Notepad++.$env:PLATFORM.$env:CONFIGURATION.exe"
+        $nppFileName = "Notepad++.$env:PLATFORM_INPUT.$env:CONFIGURATION.exe"
 
-        if ($env:PLATFORM -eq "x64" -and $env:CONFIGURATION -eq "Unicode Release") {
+        Push-AppveyorArtifact "scintilla\bin\SciLexer.dll" -FileName "SciLexer.$env:PLATFORM.$env:CONFIGURATION.dll"
+
+        if ($env:PLATFORM_INPUT -eq "x64" -and $env:CONFIGURATION -eq "Unicode Release") {
             Push-AppveyorArtifact "PowerEditor\bin64\Notepad++.exe" -FileName "$nppFileName"
         }
 
-        if ($env:PLATFORM -eq "x64" -and $env:CONFIGURATION -eq "Unicode Debug") {
+        if ($env:PLATFORM_INPUT -eq "x64" -and $env:CONFIGURATION -eq "Unicode Debug") {
             Push-AppveyorArtifact "PowerEditor\visual.net\x64\Unicode Debug\Notepad++.exe" -FileName "$nppFileName"
         }
 
-        if ($env:PLATFORM -eq "Win32" -and $env:CONFIGURATION -eq "Unicode Release") {
+        if ($env:PLATFORM_INPUT -eq "Win32" -and $env:CONFIGURATION -eq "Unicode Release") {
             Push-AppveyorArtifact "PowerEditor\bin\Notepad++.exe" -FileName "$nppFileName"
         }
 
-        if ($env:PLATFORM -eq "Win32" -and $env:CONFIGURATION -eq "Unicode Debug") {
+        if ($env:PLATFORM_INPUT -eq "Win32" -and $env:CONFIGURATION -eq "Unicode Debug") {
             Push-AppveyorArtifact "PowerEditor\visual.net\Unicode Debug\Notepad++.exe" -FileName "$nppFileName"
+
+            Start-FileDownload 'https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v7.9/npp.7.9.portable.minimalist.7z'
+            7z x -y npp.7.9.portable.minimalist.7z | Out-Null
+            #take SciLexer.dll from downloaded version due to dependency of the functionlist tests on a version build with boost regex
+            #what is not the case for the dll build on appveyor CI (would either need a very time consuming boost build or usage of nuget packages)
+            Copy-Item "$env:APPVEYOR_BUILD_FOLDER\SciLexer.dll" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
+            Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\visual.net\Unicode Debug\Notepad++.exe" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
+            Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\src\langs.model.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
+            Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\src\stylers.model.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
+            Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\src\shortcuts.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
+            Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\src\contextMenu.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
+            Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\installer\functionList" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin" -Recurse
+            cd .\PowerEditor\Test\FunctionList\
+            .\unitTestLauncher.ps1
+            #ATTENTION: current working dir is no longer at APPVEYOR_BUILD_FOLDER
+            cd ..\UrlDetection
+            .\verifyUrlDetection.ps1
         }
 
-        Push-AppveyorArtifact "scintilla\bin\SciLexer.dll" -FileName "SciLexer.$env:PLATFORM.$env:CONFIGURATION.dll"
+        if ($env:PLATFORM_INPUT -eq "mingw") {
+            Push-AppveyorArtifact "PowerEditor\bin\NotepadPP.exe" -FileName "$nppFileName"
+            Push-AppveyorArtifact "PowerEditor\bin\NotepadPP.exe_dynamic" -FileName "$nppFileName_dynamic"
+        }
+
+

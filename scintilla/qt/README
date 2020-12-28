@@ -3,7 +3,7 @@ README for building of Scintilla on Qt
 There are three different Scintilla libraries that can be produced:
 
 	ScintillaEditBase
-A basic widget callable from C++ which is small and can be used just as is 
+A basic widget callable from C++ which is small and can be used just as is
 or with higher level functionality added.
 
 	ScintillaEdit
@@ -16,21 +16,23 @@ A Python callable version of ScintillaEdit using the PySide bindings.
 	Building a library
 
 ScintillaEditBase can be built without performing any generation steps.
-The ScintillaEditBase/ScintillaEditBase.pro project can be loaded into 
+The ScintillaEditBase/ScintillaEditBase.pro project can be loaded into
 Qt Creator and the "Build All" command performed.
 Alternatively, run "qmake" to build make files and then use the platform
 make to build. Most commonly, use "make" on Unix and "nmake"
 on Windows.
 
-ScintillaEdit requires a generation command be run first. From the 
+On Linux, qmake may be called qmake-qt5 or qmake-qt4.
+
+ScintillaEdit requires a generation command be run first. From the
 ScintillaEdit directory:
 
 python WidgetGen.py
 
 After the generation command has run, the ScintillaEdit.h and
 ScintillaEdit.cpp files will have been populated with the Scintilla API
-methods. 
+methods.
 To build, use Qt Creator or qmake and make as for ScintillaEditBase.
 
-ScintillaEditPy is more complex and instructions are found in 
+ScintillaEditPy is more complex and instructions are found in
 ScintillaEditPy/README.

@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -26,8 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef USERDEFINEDIALOG_RC
-#define USERDEFINEDIALOG_RC
+#pragma once
 
 #include <windows.h>
 #include "UserDefineResource.h"
@@ -255,7 +254,6 @@ END
 
 IDD_STRING_DLG DIALOGEX 0, 0, 151, 52
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
-EXSTYLE WS_EX_TOOLWINDOW
 FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
     LTEXT           "STATIC :",IDC_STRING_STATIC,6,4,42,8,0,WS_EX_RIGHT
@@ -305,5 +303,3 @@ BEGIN
     CONTROL         "Operators 2",IDC_STYLER_CHECK_NESTING_OPERATORS2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,209,183,76,13
     CONTROL         "Numbers",IDC_STYLER_CHECK_NESTING_NUMBERS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,209,200,76,13
 END
-
-#endif //USERDEFINEDIALOG_RC

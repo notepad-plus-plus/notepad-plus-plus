@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -36,7 +36,7 @@ struct MenuItemUnit final
 	generic_string _parentFolderName;
 
 	MenuItemUnit() = default;
-	MenuItemUnit(unsigned long cmdID, generic_string itemName, generic_string parentFolderName = generic_string())
+	MenuItemUnit(unsigned long cmdID, const generic_string& itemName, const generic_string& parentFolderName = generic_string())
 		: _cmdID(cmdID), _itemName(itemName), _parentFolderName(parentFolderName){};
 	MenuItemUnit(unsigned long cmdID, const TCHAR *itemName, const TCHAR *parentFolderName = nullptr);
 };
@@ -47,7 +47,7 @@ class ContextMenu final
 public:
 	~ContextMenu();
 
-	void create(HWND hParent, const std::vector<MenuItemUnit> & menuItemArray, const HMENU mainMenuHandle = NULL);
+	void create(HWND hParent, const std::vector<MenuItemUnit> & menuItemArray, const HMENU mainMenuHandle = NULL, bool copyLink = false);
 	bool isCreated() const {return _hMenu != NULL;}
 	
 	void display(const POINT & p) const {

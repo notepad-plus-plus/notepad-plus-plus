@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -27,8 +27,8 @@
 
 // created by Daniel Volk mordorpost@volkarts.com
 
-#ifndef RUN_MACRO_DLG_RC
-#define RUN_MACRO_DLG_RC
+#pragma once
+
 #include <windows.h>
 #include "RunMacroDlg_rc.h"
 
@@ -48,4 +48,3 @@ BEGIN
     RTEXT           "Macro to run :",IDC_MACRO2RUN_STATIC,5,12,59,8
     LTEXT           "times",IDC_TIMES_STATIC,97,38,65,8
 END
-#endif // RUN_MACRO_DLG_RC

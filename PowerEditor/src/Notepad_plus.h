@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -60,8 +60,6 @@
 
 #define MENU 0x01
 #define TOOLBAR 0x02
-
-#define URL_REG_EXPR "[A-Za-z]+://[A-Za-z0-9_\\-\\+~.:?&@=/%#,;\\{\\}\\(\\)\\[\\]\\|\\*\\!\\\\]+"
 
 enum FileTransferMode {
 	TransferClone		= 0x01,
@@ -189,6 +187,7 @@ public:
 	bool fileCloseAllGiven(const std::vector<int>& krvecBufferIndexes);
 	bool fileCloseAllToLeft();
 	bool fileCloseAllToRight();
+	bool fileCloseAllUnchanged();
 	bool fileSave(BufferID id = BUFFER_INVALID);
 	bool fileSaveAll();
 	bool fileSaveSpecific(const generic_string& fileNameToSave);
@@ -196,8 +195,6 @@ public:
 	bool fileDelete(BufferID id = BUFFER_INVALID);
 	bool fileRename(BufferID id = BUFFER_INVALID);
 
-	bool addBufferToView(BufferID id, int whichOne);
-	bool moveBuffer(BufferID id, int whereTo);	//assumes whereFrom is otherView(whereTo)
 	bool switchToFile(BufferID buffer);			//find buffer in active view then in other view.
 	//@}
 
@@ -242,18 +239,28 @@ public:
 	std::vector<generic_string> addNppComponents(const TCHAR *destDir, const TCHAR *extFilterName, const TCHAR *extFilter);
 	std::vector<generic_string> addNppPlugins(const TCHAR *extFilterName, const TCHAR *extFilter);
     int getHtmlXmlEncoding(const TCHAR *fileName) const;
+
 	HACCEL getAccTable() const{
 		return _accelerator.getAccTable();
-	}
-	bool emergency(generic_string emergencySavedDir);
+	};
+
+	bool emergency(const generic_string& emergencySavedDir);
+
 	Buffer* getCurrentBuffer()	{
 		return _pEditView->getCurrentBuffer();
-	}
+	};
+
 	void launchDocumentBackupTask();
 	int getQuoteIndexFrom(const wchar_t* quoter) const;
 	void showQuoteFromIndex(int index) const;
 	void showQuote(const QuoteParams* quote) const;
 
+	generic_string getPluginListVerStr() const {
+		return _pluginsAdminDlg.getPluginListVerStr();
+	};
+
+	void minimizeDialogs();
+	void restoreMinimizeDialogs();
 
 private:
 	Notepad_plus_Window *_pPublicInterface = nullptr;
@@ -287,6 +294,7 @@ private:
 
 	ToolBar	_toolBar;
 	IconList _docTabIconList;
+	IconList _docTabIconListAlt;
 
     StatusBar _statusBar;
 	bool _toReduceTabBar = false;
@@ -348,7 +356,7 @@ private:
 	bool _isFolding = false;
 
 	//For Dynamic selection highlight
-	CharacterRange _prevSelectedRange;
+	Sci_CharacterRange _prevSelectedRange;
 
 	//Synchronized Scolling
 	struct SyncInfo final
@@ -376,6 +384,11 @@ private:
 	bool _isFileOpening = false;
 	bool _isAdministrator = false;
 
+	bool _isEndingSessionButNotReady = false; // If Windows 10 update needs to restart 
+                                              // and Notepad++ has one (some) dirty document(s)
+                                              // and "Enable session snapshot and periodic backup" is not enabled
+                                              // then WM_ENDSESSION is send with wParam == FALSE
+                                              // in this case this boolean is set true, so Notepad++ will quit and its current session will be saved 
 	ScintillaCtrls _scintillaCtrls4Plugins;
 
 	std::vector<std::pair<int, int> > _hideLinesMarks;
@@ -392,6 +405,8 @@ private:
 
 	DocumentMap* _pDocMap = nullptr;
 	FunctionListPanel* _pFuncList = nullptr;
+
+	std::vector<HWND> _sysTrayHiddenHwnd;
 
 	BOOL notify(SCNotification *notification);
 	void command(int id);
@@ -442,11 +457,10 @@ private:
 	void performPostReload(int whichOne);
 //END: Document management
 
-	int doSaveOrNot(const TCHAR *fn);
+	int doSaveOrNot(const TCHAR *fn, bool isMulti = false);
 	int doReloadOrNot(const TCHAR *fn, bool dirty);
 	int doCloseOrNot(const TCHAR *fn);
 	int doDeleteOrNot(const TCHAR *fn);
-	int doActionOrNot(const TCHAR *title, const TCHAR *displayText, int type);
 
 	void enableMenu(int cmdID, bool doEnable) const;
 	void enableCommand(int cmdID, bool doEnable, int which) const;
@@ -455,8 +469,9 @@ private:
 	void checkUndoState();
 	void checkMacroState();
 	void checkSyncState();
+	void setupColorSampleBitmapsOnMainMenuItems();
 	void dropFiles(HDROP hdrop);
-	void checkModifiedDocument();
+	void checkModifiedDocument(bool bCheckOnlyCurrentBuffer);
 
     void getMainClientRect(RECT & rc) const;
 	void staticCheckMenuAndTB() const;
@@ -485,7 +500,7 @@ private:
 	int findMachedBracePos(size_t startPos, size_t endPos, char targetSymbol, char matchedSymbol);
 	void maintainIndentation(TCHAR ch);
 
-	void addHotSpot();
+	void addHotSpot(ScintillaEditView* view = NULL);
 
     void bookmarkAdd(int lineno) const
 	{
@@ -556,9 +571,10 @@ private:
 	void showPathCompletion();
 
 	//void changeStyleCtrlsLang(HWND hDlg, int *idArray, const char **translatedText);
+	void setCodePageForInvisibleView(Buffer const* pBuffer);
 	bool replaceInOpenedFiles();
 	bool findInOpenedFiles();
-	bool findInCurrentFile();
+	bool findInCurrentFile(bool isEntireDoc);
 
 	void getMatchedFileNames(const TCHAR *dir, const std::vector<generic_string> & patterns, std::vector<generic_string> & fileNames, bool isRecursive, bool isInHiddenDir);
 	void doSynScorll(HWND hW);
@@ -569,18 +585,18 @@ private:
 	int getLangFromMenuName(const TCHAR * langName);
 	generic_string getLangFromMenu(const Buffer * buf);
 
-    generic_string exts2Filters(generic_string exts) const;
-	int setFileOpenSaveDlgFilters(FileDialog & fDlg, int langType = -1);
+    generic_string exts2Filters(const generic_string& exts, int maxExtsLen = -1) const; // maxExtsLen default value -1 makes no limit of whole exts length
+	int setFileOpenSaveDlgFilters(FileDialog & fDlg, bool showAllExt, int langType = -1); // showAllExt should be true if it's used for open file dialog - all set exts should be used for filtering files
 	Style * getStyleFromName(const TCHAR *styleName);
 	bool dumpFiles(const TCHAR * outdir, const TCHAR * fileprefix = TEXT(""));	//helper func
 	void drawTabbarColoursFromStylerArray();
 
-	void loadCommandlineParams(const TCHAR * commandLine, const CmdLineParams * pCmdParams)
+	std::vector<generic_string> loadCommandlineParams(const TCHAR * commandLine, const CmdLineParams * pCmdParams)
 	{
 		const CmdLineParamsDTO dto = CmdLineParamsDTO::FromCmdLineParams(*pCmdParams);
-		loadCommandlineParams(commandLine, &dto);
+		return loadCommandlineParams(commandLine, &dto);
 	}
-	void loadCommandlineParams(const TCHAR * commandLine, const CmdLineParamsDTO * pCmdParams);
+	std::vector<generic_string> loadCommandlineParams(const TCHAR * commandLine, const CmdLineParamsDTO * pCmdParams);
 	bool noOpenedDoc() const;
 	bool goToPreviousIndicator(int indicID2Search, bool isWrap = true) const;
 	bool goToNextIndicator(int indicID2Search, bool isWrap = true) const;
@@ -593,10 +609,11 @@ private:
 	void launchAnsiCharPanel();
 	void launchClipboardHistoryPanel();
 	void launchFileSwitcherPanel();
+	void checkProjectMenuItem();
 	void launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int panelID);
 	void launchDocMap();
 	void launchFunctionList();
-	void launchFileBrowser(const std::vector<generic_string> & folders);
+	void launchFileBrowser(const std::vector<generic_string> & folders, const generic_string& selectedItemPath, bool fromScratch = false);
 	void showAllQuotes() const;
 	static DWORD WINAPI threadTextPlayer(void *text2display);
 	static DWORD WINAPI threadTextTroller(void *params);
@@ -624,6 +641,7 @@ private:
 	};
 
 	void monitoringStartOrStopAndUpdateUI(Buffer* pBuf, bool isStarting);
+	void updateCommandShortcuts();
 };
 
 

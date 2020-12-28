@@ -27,10 +27,9 @@
 #include "CharacterSet.h"
 #include "LexerModule.h"
 #include "OptionSet.h"
+#include "DefaultLexer.h"
 
-#ifdef SCI_NAMESPACE
 using namespace Scintilla;
-#endif
 
 static const char *const RegistryWordListDesc[] = {
 	0
@@ -53,7 +52,7 @@ struct OptionSetRegistry : public OptionSet<OptionsRegistry> {
 	}
 };
 
-class LexerRegistry : public ILexer {
+class LexerRegistry : public DefaultLexer {
 	OptionsRegistry options;
 	OptionSetRegistry optSetRegistry;
 
@@ -65,8 +64,8 @@ class LexerRegistry : public ILexer {
 		return (state == SCE_REG_ADDEDKEY || state == SCE_REG_DELETEDKEY);
 	}
 
-	static bool AtValueType(LexAccessor &styler, int start) {
-		int i = 0;
+	static bool AtValueType(LexAccessor &styler, Sci_Position start) {
+		Sci_Position i = 0;
 		while (i < 10) {
 			i++;
 			char curr = styler.SafeGetCharAt(start+i, '\0');
@@ -79,8 +78,8 @@ class LexerRegistry : public ILexer {
 		return false;
 	}
 
-	static bool IsNextNonWhitespace(LexAccessor &styler, int start, char ch) {
-		int i = 0;
+	static bool IsNextNonWhitespace(LexAccessor &styler, Sci_Position start, char ch) {
+		Sci_Position i = 0;
 		while (i < 100) {
 			i++;
 			char curr = styler.SafeGetCharAt(start+i, '\0');
@@ -96,9 +95,9 @@ class LexerRegistry : public ILexer {
 	}
 
 	// Looks for the equal sign at the end of the string
-	static bool AtValueName(LexAccessor &styler, int start) {
+	static bool AtValueName(LexAccessor &styler, Sci_Position start) {
 		bool atEOL = false;
-		int i = 0;
+		Sci_Position i = 0;
 		bool escaped = false;
 		while (!atEOL) {
 			i++;
@@ -119,9 +118,9 @@ class LexerRegistry : public ILexer {
 		return false;
 	}
 
-	static bool AtKeyPathEnd(LexAccessor &styler, int start) {
+	static bool AtKeyPathEnd(LexAccessor &styler, Sci_Position start) {
 		bool atEOL = false;
-		int i = 0;
+		Sci_Position i = 0;
 		while (!atEOL) {
 			i++;
 			char curr = styler.SafeGetCharAt(start+i, '\0');
@@ -135,7 +134,7 @@ class LexerRegistry : public ILexer {
 		return true;
 	}
 
-	static bool AtGUID(LexAccessor &styler, int start) {
+	static bool AtGUID(LexAccessor &styler, Sci_Position start) {
 		int count = 8;
 		int portion = 0;
 		int offset = 1;
@@ -164,51 +163,51 @@ class LexerRegistry : public ILexer {
 public:
 	LexerRegistry() {}
 	virtual ~LexerRegistry() {}
-	virtual int SCI_METHOD Version() const {
-		return lvOriginal;
+	int SCI_METHOD Version() const override {
+		return lvRelease4;
 	}
-	virtual void SCI_METHOD Release() {
+	void SCI_METHOD Release() override {
 		delete this;
 	}
-	virtual const char *SCI_METHOD PropertyNames() {
+	const char *SCI_METHOD PropertyNames() override {
 		return optSetRegistry.PropertyNames();
 	}
-	virtual int SCI_METHOD PropertyType(const char *name) {
+	int SCI_METHOD PropertyType(const char *name) override {
 		return optSetRegistry.PropertyType(name);
 	}
-	virtual const char *SCI_METHOD DescribeProperty(const char *name) {
+	const char *SCI_METHOD DescribeProperty(const char *name) override {
 		return optSetRegistry.DescribeProperty(name);
 	}
-	virtual int SCI_METHOD PropertySet(const char *key, const char *val) {
+	Sci_Position SCI_METHOD PropertySet(const char *key, const char *val) override {
 		if (optSetRegistry.PropertySet(&options, key, val)) {
 			return 0;
 		}
 		return -1;
 	}
-	virtual int SCI_METHOD WordListSet(int, const char *) {
+	Sci_Position SCI_METHOD WordListSet(int, const char *) override {
 		return -1;
 	}
-	virtual void *SCI_METHOD PrivateCall(int, void *) {
+	void *SCI_METHOD PrivateCall(int, void *) override {
 		return 0;
 	}
-	static ILexer *LexerFactoryRegistry() {
+	static ILexer4 *LexerFactoryRegistry() {
 		return new LexerRegistry;
 	}
-	virtual const char *SCI_METHOD DescribeWordListSets() {
+	const char *SCI_METHOD DescribeWordListSets() override {
 		return optSetRegistry.DescribeWordListSets();
 	}
-	virtual void SCI_METHOD Lex(unsigned startPos,
-								int length,
+	void SCI_METHOD Lex(Sci_PositionU startPos,
+								Sci_Position length,
 								int initStyle,
-								IDocument *pAccess);
-	virtual void SCI_METHOD Fold(unsigned startPos,
-								 int length,
+								IDocument *pAccess) override;
+	void SCI_METHOD Fold(Sci_PositionU startPos,
+								 Sci_Position length,
 								 int initStyle,
-								 IDocument *pAccess);
+								 IDocument *pAccess) override;
 };
 
-void SCI_METHOD LexerRegistry::Lex(unsigned startPos,
-								   int length,
+void SCI_METHOD LexerRegistry::Lex(Sci_PositionU startPos,
+								   Sci_Position length,
 								   int initStyle,
 								   IDocument *pAccess) {
 	int beforeGUID = SCE_REG_DEFAULT;
@@ -220,7 +219,7 @@ void SCI_METHOD LexerRegistry::Lex(unsigned startPos,
 	bool afterEqualSign = false;
 	while (context.More()) {
 		if (context.atLineStart) {
-			int currPos = static_cast<int>(context.currentPos);
+			Sci_Position currPos = static_cast<Sci_Position>(context.currentPos);
 			bool continued = styler[currPos-3] == '\\';
 			highlight = continued ? true : false;
 		}
@@ -232,7 +231,7 @@ void SCI_METHOD LexerRegistry::Lex(unsigned startPos,
 				break;
 			case SCE_REG_VALUENAME:
 			case SCE_REG_STRING: {
-					int currPos = static_cast<int>(context.currentPos);
+					Sci_Position currPos = static_cast<Sci_Position>(context.currentPos);
 					if (context.ch == '"') {
 						context.ForwardSetState(SCE_REG_DEFAULT);
 					} else if (context.ch == '\\') {
@@ -270,7 +269,7 @@ void SCI_METHOD LexerRegistry::Lex(unsigned startPos,
 				break;
 			case SCE_REG_DELETEDKEY:
 			case SCE_REG_ADDEDKEY: {
-					int currPos = static_cast<int>(context.currentPos);
+					Sci_Position currPos = static_cast<Sci_Position>(context.currentPos);
 					if (context.ch == ']' && AtKeyPathEnd(styler, currPos)) {
 						context.ForwardSetState(SCE_REG_DEFAULT);
 					} else if (context.ch == '{') {
@@ -298,7 +297,7 @@ void SCI_METHOD LexerRegistry::Lex(unsigned startPos,
 						context.ForwardSetState(beforeGUID);
 						beforeGUID = SCE_REG_DEFAULT;
 					}
-					int currPos = static_cast<int>(context.currentPos);
+					Sci_Position currPos = static_cast<Sci_Position>(context.currentPos);
 					if (context.ch == '"' && IsStringState(context.state)) {
 						context.ForwardSetState(SCE_REG_DEFAULT);
 					} else if (context.ch == ']' &&
@@ -315,7 +314,7 @@ void SCI_METHOD LexerRegistry::Lex(unsigned startPos,
 		}
 		// Determine if a new state should be entered.
 		if (context.state == SCE_REG_DEFAULT) {
-			int currPos = static_cast<int>(context.currentPos);
+			Sci_Position currPos = static_cast<Sci_Position>(context.currentPos);
 			if (context.ch == ';') {
 				context.SetState(SCE_REG_COMMENT);
 			} else if (context.ch == '"') {
@@ -352,19 +351,19 @@ void SCI_METHOD LexerRegistry::Lex(unsigned startPos,
 }
 
 // Folding similar to that of FoldPropsDoc in LexOthers
-void SCI_METHOD LexerRegistry::Fold(unsigned startPos,
-									int length,
+void SCI_METHOD LexerRegistry::Fold(Sci_PositionU startPos,
+									Sci_Position length,
 									int,
 									IDocument *pAccess) {
 	if (!options.fold) {
 		return;
 	}
 	LexAccessor styler(pAccess);
-	int currLine = styler.GetLine(startPos);
+	Sci_Position currLine = styler.GetLine(startPos);
 	int visibleChars = 0;
-	unsigned endPos = startPos + length;
+	Sci_PositionU endPos = startPos + length;
 	bool atKeyPath = false;
-	for (unsigned i = startPos; i < endPos; i++) {
+	for (Sci_PositionU i = startPos; i < endPos; i++) {
 		atKeyPath = IsKeyPathState(styler.StyleAt(i)) ? true : atKeyPath;
 		char curr = styler.SafeGetCharAt(i);
 		char next = styler.SafeGetCharAt(i+1);

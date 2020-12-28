@@ -7,14 +7,14 @@
 #     version
 #     versionDotted
 #     versionCommad
-#     
+#
 # Date last modified
 #     dateModified
 #     yearModified
 #     mdyModified
 #     dmyModified
 #     myModified
-#     
+#
 # Information about lexers and properties defined in lexers
 #     lexFiles
 #         sorted list of lexer files
@@ -24,9 +24,13 @@
 #         sorted list of lexer properties
 #     propertyDocuments
 #         dictionary of property documentation { name: document string }
+#     sclexFromName
+#         dictionary of SCLEX_* IDs { name: SCLEX_ID }
+#     fileFromSclex
+#         dictionary of file names { SCLEX_ID: file name }
 
 # This file can be run to see the data it provides.
-# Requires Python 2.5 or later
+# Requires Python 2.7 or later
 
 from __future__ import with_statement
 
@@ -36,12 +40,47 @@ import FileGenerator
 
 def FindModules(lexFile):
     modules = []
+    partLine = ""
     with open(lexFile) as f:
         for l in f.readlines():
-            if l.startswith("LexerModule"):
-                l = l.replace("(", " ")
-                modules.append(l.split()[1])
+            l = l.rstrip()
+            if partLine or l.startswith("LexerModule"):
+                if ")" in l:
+                    l = partLine + l
+                    l = l.replace("(", " ")
+                    l = l.replace(")", " ")
+                    l = l.replace(",", " ")
+                    parts = l.split()
+                    modules.append([parts[1], parts[2], parts[4][1:-1]])
+                    partLine = ""
+                else:
+                    partLine = partLine + l
     return modules
+
+def FindLexersInXcode(xCodeProject):
+    lines = FileGenerator.ReadFileAsList(xCodeProject)
+
+    uidsOfBuild = {}
+    markersPBXBuildFile = ["Begin PBXBuildFile section", "", "End PBXBuildFile section"]
+    for buildLine in lines[FileGenerator.FindSectionInList(lines, markersPBXBuildFile)]:
+        # Occurs for each file in the build. Find the UIDs used for the file.
+        #\t\t[0-9A-F]+ /* [a-zA-Z]+.cxx in sources */ = {isa = PBXBuildFile; fileRef = [0-9A-F]+ /* [a-zA-Z]+ */; };
+        pieces = buildLine.split()
+        uid1 = pieces[0]
+        filename = pieces[2].split(".")[0]
+        uid2 = pieces[12]
+        uidsOfBuild[filename] = [uid1, uid2]
+
+    lexers = {}
+    markersLexers = ["/* Lexers */ =", "children", ");"]
+    for lexerLine in lines[FileGenerator.FindSectionInList(lines, markersLexers)]:
+        #\t\t\t\t[0-9A-F]+ /* [a-zA-Z]+.cxx */,
+        uid, _, rest = lexerLine.partition("/* ")
+        uid = uid.strip()
+        lexer, _, _ = rest.partition(".")
+        lexers[lexer] = uidsOfBuild[lexer]
+
+    return lexers
 
 # Properties that start with lexer. or fold. are automatically found but there are some
 # older properties that don't follow this pattern so must be explicitly listed.
@@ -185,8 +224,14 @@ class ScintillaData:
         self.lexerModules = []
         lexerProperties = set()
         self.propertyDocuments = {}
+        self.sclexFromName = {}
+        self.fileFromSclex = {}
         for lexFile in lexFilePaths:
-            self.lexerModules.extend(FindModules(lexFile))
+            modules = FindModules(lexFile)
+            for module in modules:
+                self.sclexFromName[module[2]] = module[1]
+                self.fileFromSclex[module[1]] = lexFile
+                self.lexerModules.append(module[0])
             for k in FindProperties(lexFile).keys():
                 lexerProperties.add(k)
             documents = FindPropertyDocumentation(lexFile)
@@ -197,6 +242,7 @@ class ScintillaData:
         self.lexerProperties = list(lexerProperties)
         SortListInsensitive(self.lexerProperties)
 
+        self.lexersXcode = FindLexersInXcode(scintillaRoot + "cocoa/ScintillaFramework/ScintillaFramework.xcodeproj/project.pbxproj")
         self.credits = FindCredits(scintillaRoot + "doc/ScintillaHistory.html")
 
 def printWrapped(text):
@@ -209,6 +255,14 @@ if __name__=="__main__":
         sci.dateModified, sci.yearModified, sci.mdyModified, sci.dmyModified, sci.myModified))
     printWrapped(str(len(sci.lexFiles)) + " lexer files: " + ", ".join(sci.lexFiles))
     printWrapped(str(len(sci.lexerModules)) + " lexer modules: " + ", ".join(sci.lexerModules))
+    #~ printWrapped(str(len(sci.lexersXcode)) + " Xcode lexer references: " + ", ".join(
+        #~ [lex+":"+uids[0]+","+uids[1] for lex, uids in sci.lexersXcode.items()]))
+    print("Lexer name to ID:")
+    lexNames = sorted(sci.sclexFromName.keys())
+    for lexName in lexNames:
+        sclex = sci.sclexFromName[lexName]
+        fileName = os.path.basename(sci.fileFromSclex[sclex])
+        print("    " + lexName + " -> " + sclex + " in " + fileName)
     printWrapped("Lexer properties: " + ", ".join(sci.lexerProperties))
     print("Lexer property documentation:")
     documentProperties = list(sci.propertyDocuments.keys())

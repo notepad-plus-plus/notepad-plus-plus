@@ -1,0 +1,35 @@
+entity ent1 is
+end entity ent1;
+
+architecture rtl of ent1 is
+	component compo1 is
+    PORT ( Reset_s : out std_logic);
+	end component compo1;
+
+    component reset_controller is       -- comment
+    PORT                                -- comment
+    ( Reset_s : out std_logic);
+	end component reset_controller;     -- comment
+
+begin
+
+	compo1_inst : compo1
+    PORT MAP ( Reset_s =>open);
+
+	rst_controller_inst : component reset_controller
+    PORT MAP ( Reset_s => open);        -- comment
+
+
+
+proc1: process (reset_reset_n, clk_clk)
+    begin
+    end process;
+
+    block1: block is
+    begin
+    end block;
+
+comp_per_entity : entity work.doing_so port map ( Reset_s => open
+    );
+
+end architecture rtl; -- of ent1

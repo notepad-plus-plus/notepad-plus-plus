@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -26,11 +26,8 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef IDD_CLIPBOARDHISTORYPANEL_RC_H
-#define IDD_CLIPBOARDHISTORYPANEL_RC_H
+#pragma once
 
 #define	IDD_CLIPBOARDHISTORY_PANEL		2800
 #define	IDC_LIST_CLIPBOARD    (IDD_CLIPBOARDHISTORY_PANEL + 1)
-
-#endif //IDD_CLIPBOARDHISTORYPANEL_RC_H
 

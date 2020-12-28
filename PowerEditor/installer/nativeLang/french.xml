@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Français" filename="french.xml" version="7.6.2">
+    <Native-Langue name="Français" filename="french.xml" version="7.9.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -38,6 +38,7 @@
                     <Item subMenuId="search-jumpUp" name="Aller vers le haut"/>
                     <Item subMenuId="search-jumpDown" name="Aller vers le bas"/>
                     <Item subMenuId="search-bookmark" name="Signet"/>
+                    <Item subMenuId="view-currentFileIn" name="Afficher le fichier dans"/>
                     <Item subMenuId="view-showSymbol" name="Symboles spéciaux"/>
                     <Item subMenuId="view-zoom"  name="Zoom"/>
                     <Item subMenuId="view-moveCloneDocument"  name="Déplacer/Cloner le document actuel"/>
@@ -62,9 +63,10 @@
                     <Item subMenuId="encoding-turkish" name="Turc"/>
                     <Item subMenuId="encoding-westernEuropean" name="Langues d’Europe occidentale"/>
                     <Item subMenuId="encoding-vietnamese" name="Vietnamien"/>
+                    <Item subMenuId="language-userDefinedLanguage" name="Langage utilisateur"/>
                     <Item subMenuId="settings-import"  name="Importer"/>
                     <Item subMenuId="tools-md5"  name="MD5"/>
-					<Item subMenuId="tools-sha256"  name="SHA-256"/>
+                    <Item subMenuId="tools-sha256"  name="SHA-256"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -76,13 +78,15 @@
                     <Item id="1001"  name="Imprimer immédiatement"/>
                     <Item id="41001" name="&amp;Nouveau"/>
                     <Item id="41002" name="&amp;Ouvrir..."/>
-                    <Item id="41019" name="Explorer"/>
-                    <Item id="41020" name="cmd"/>
+                    <Item id="41019" name="Explorateur Windows"/>
+                    <Item id="41020" name="Invite de commande (cmd)"/>
+                    <Item id="41025" name="Dossier en tant qu'espace de travail"/>
                     <Item id="41003" name="Fermer"/>
                     <Item id="41004" name="Fermer tout"/>
                     <Item id="41005" name="Fermer tout sauf le document actuel"/>
                     <Item id="41009" name="Fermer tout à gauche"/>
                     <Item id="41018" name="Fermer tout à droite"/>
+                    <Item id="41024" name="Fermer tous les documents non-modifiés"/>
                     <Item id="41006" name="&amp;Enregistrer"/>
                     <Item id="41007" name="En&amp;registrer tout"/>
                     <Item id="41008" name="Enregistrer &amp;sous..."/>
@@ -108,6 +112,8 @@
                     <Item id="42008" name="Augmenter l’indentation"/>
                     <Item id="42009" name="Réduire l’indentation"/>
                     <Item id="42010" name="Dupliquer la ligne actuelle"/>
+                    <Item id="42079" name="Supprimer les lignes en double"/>
+                    <Item id="42077" name="Supprimer les lignes en double consécutives"/>
                     <Item id="42012" name="Séparer en plusieurs lignes"/>
                     <Item id="42013" name="Joindre plusieurs lignes"/>
                     <Item id="42014" name="Déplacer la ligne actuelle vers le haut"/>
@@ -155,6 +161,7 @@
                     <Item id="42062" name="Trier les lignes dans l'ordre d'entier décroissant"/>
                     <Item id="42064" name="Trier les lignes dans l'ordre décimal (virgule) décroissant"/>
                     <Item id="42066" name="Trier les lignes dans l'ordre décimal (point) décroissant"/>
+                    <Item id="42078" name="Trier aléatoirement les lignes"/>
                     <Item id="42037" name="Sélection en mode colonne..."/>
                     <Item id="42040" name="Ouvrir tous les fichiers récents"/>
                     <Item id="42041" name="Vider la liste des fichiers récents"/>
@@ -170,6 +177,7 @@
                     <Item id="42048" name="Copier du contenu Binaire"/>
                     <Item id="42049" name="Couper du contenu Binaire"/>
                     <Item id="42050" name="Coller du contenu Binaire"/>
+                    <Item id="42082" name="Copier le lien"/>
                     <Item id="42051" name="Panneau des caractères ASCII"/>
                     <Item id="42052" name="Panneau historique du presse-papiers"/>
                     <Item id="43001" name="&amp;Rechercher..."/>
@@ -228,8 +236,8 @@
                     <Item id="44019" name="Afficher tous les caractères"/>
                     <Item id="44020" name="Afficher le guide d'indentation"/>
                     <Item id="44022" name="Retour automatique à la ligne"/>
-                    <Item id="44023" name="Zoom &amp;avant  Ctrl+Molette vers le haut"/>
-                    <Item id="44024" name="Zoom &amp;arrière    Ctrl+Molette vers le bas"/>
+                    <Item id="44023" name="Zoom &amp;avant   (Ctrl+Molette vers le haut)"/>
+                    <Item id="44024" name="Zoom a&amp;rrière  (Ctrl+Molette vers le bas)"/>
                     <Item id="44025" name="Afficher les blancs et les tabulations"/>
                     <Item id="44026" name="Afficher les symboles de fin de ligne"/>
                     <Item id="44029" name="Déplier tous les blocs"/>
@@ -237,7 +245,7 @@
                     <Item id="44031" name="Déplier le bloc de la ligne actuelle"/>
                     <Item id="44049" name="Résumé..."/>
                     <Item id="44032" name="Activer/Désactiver le mode plein écran"/>
-                    <Item id="44033" name="Restaurer zoom   Ctrl+/(keypad)"/>
+                    <Item id="44033" name="Restaurer zoom"/>
                     <Item id="44034" name="Toujours devant"/>
                     <Item id="44035" name="Défilement vertical synchrone"/>
                     <Item id="44036" name="Défilement horizontal synchrone"/>
@@ -261,24 +269,31 @@
                     <Item id="44094" name="Onglet 9"/>
                     <Item id="44095" name="Onglet suivant"/>
                     <Item id="44096" name="Onglet précédent"/>
-                    <Item id="44097" name="Surveillance de Log(tail -f)"/>
+                    <Item id="44097" name="Surveillance de Log (tail -f)"/>
                     <Item id="44098" name="Déplacer vers l'avant"/>
                     <Item id="44099" name="Déplacer vers l'arrière"/>
                     <Item id="45001" name="Convertir en format Windows (CR+LF)"/>
                     <Item id="45002" name="Convertir en format UNIX (LF)"/>
                     <Item id="45003" name="Convertir en format Mac (CR)"/>
-                    <Item id="45004" name="Encoder en ANSI"/>
-                    <Item id="45005" name="Encoder en UTF-8 (avec BOM)"/>
-                    <Item id="45006" name="Encoder en UTF-16BE"/>
-                    <Item id="45007" name="Encoder en UTF-16LE"/>
-                    <Item id="45008" name="Encoder en UTF-8"/>
+                    <Item id="45004" name="ANSI"/>
+                    <Item id="45005" name="UTF-8-BOM"/>
+                    <Item id="45006" name="UCS-2 BE BOM"/>
+                    <Item id="45007" name="UCS-2 LE BOM"/>
+                    <Item id="45008" name="UTF-8"/>
                     <Item id="45009" name="Convertir en ANSI"/>
                     <Item id="45010" name="Convertir en UTF-8"/>
                     <Item id="45011" name="Convertir en UTF-8-BOM"/>
-                    <Item id="45012" name="Convertir en UTF-16BE"/>
-                    <Item id="45013" name="Convertir en UTF-16LE"/>
+                    <Item id="45012" name="Convertir en UCS-2 BE BOM"/>
+                    <Item id="45013" name="Convertir en UCS-2 LE BOM"/>
+                    <Item id="45060" name="Big5 (traditionnel)"/>
+                    <Item id="45061" name="GB2312 (simplifié)"/>
+                    <Item id="45054" name="OEM 861: islandais"/>
+                    <Item id="45057" name="OEM 865: danois &amp;&amp; norvégien"/>
+                    <Item id="45053" name="OEM 860: portugais"/>
+                    <Item id="45056" name="OEM 863: français"/>
                     <Item id="46001" name="Configurateur de coloration syntaxique..."/>
                     <Item id="46250" name="Définir votre langage..."/>
+                    <Item id="46300" name="Ovrir le dossier des Langages utilisateur..."/>
                     <Item id="46180" name="Langage utilisateur"/>
                     <Item id="47000" name="À propos de Notepad++..."/>
                     <Item id="47001" name="Site officiel Notepad++"/>
@@ -287,22 +302,22 @@
                     <Item id="47004" name="Forum"/>
                     <Item id="47005" name="Obtenir d'autres compléments"/>
                     <Item id="47006" name="Mettre à jour Notepad++"/>
-                    <Item id="47008" name="Aide"/>
                     <Item id="47009" name="Paramétrer le proxy de mise à jour..."/>
                     <Item id="47010" name="Arguments de la ligne de commande..."/>
                     <Item id="47011" name="Support en direct"/>
-                    <Item id="47012" name="Debug Info..."/>
+                    <Item id="47012" name="Informations de débogage..."/>
                     <Item id="48005" name="Importer un complément..."/>
                     <Item id="48006" name="Importer un thème..."/>
                     <Item id="48009" name="Raccourcis clavier..."/>
                     <Item id="48011" name="Préférences..."/>
+                    <Item id="48014" name="Ouvrir le dossier des modules d'extension..."/>
                     <Item id="48015" name="Gestionnaire des modules d'extension..."/>
                     <Item id="48501" name="Générer..."/>
                     <Item id="48502" name="Générer depuis les fichiers..."/>
-                    <Item id="48503" name="Générer dans le presse-papiers depuis la selection"/>
-                    <Item id="48501" name="Générer..."/>
-                    <Item id="48502" name="Générer depuis les fichiers..."/>
-                    <Item id="48503" name="Générer dans le presse-papiers depuis la selection"/>
+                    <Item id="48503" name="Générer dans le presse-papiers depuis la sélection"/>
+                    <Item id="48504" name="Générer..."/>
+                    <Item id="48505" name="Générer depuis les fichiers..."/>
+                    <Item id="48506" name="Générer dans le presse-papiers depuis la sélection"/>
                     <Item id="48016" name="Modifier/Supprimer une macro..."/>
                     <Item id="48017" name="Modifier/Supprimer une commande..."/>
                     <Item id="48018" name="Éditer le menu contextuel"/>
@@ -310,6 +325,7 @@
                     <Item id="50000" name="Complétion de fonction"/>
                     <Item id="50001" name="Complétion de mot"/>
                     <Item id="50002" name="Infobulle des paramètres de fonctions"/>
+                    <Item id="50005" name="Démarrer/Arrêter l'enregistrement d'une macro"/>
                     <Item id="50006" name="Complétion de chemin d'accès du fichier"/>
                 </Commands>
             </Main>
@@ -338,6 +354,8 @@
                     <Item CMID="19" name="Ouvrir le répertoire du fichier en cours dans l'explorateur"/>
                     <Item CMID="20" name="Ouvrir le répertoire du fichier en cours dans l'invite de commande"/>
                     <Item CMID="21" name="Ouvrir dans l'application par défaut"/>
+                    <Item CMID="22" name="Fermer tous les documents non-modifiés"/>
+                    <Item CMID="23" name="Ouvrir le répertoire du fichier en cours en tant qu'espace de travail"/>
             </TabBar>
         </Menu>
         <Dialog>
@@ -376,6 +394,8 @@
                 <Item id="1688" name="persistante"/>
                 <Item id="1703" name="&amp;. comprend ligne nouvelle"/>
                 <Item id="2" name="Annuler"/>
+                <Item id="1721" name="▲"/>
+                <Item id="1723" name="▼ Suivant"/>
             </Find>
 
             <FindCharsInRange title="Rechercher des caractères dans une plage">
@@ -405,7 +425,7 @@
                 <Item id="1904" name="Enregistrer..."/>
                 <Item id="2" name="Annuler"/>
             </Run>
-            
+
             <MD5FromFilesDlg title="Calculer les empreintes de MD5 depuis les fichiers">
                 <Item id="1922" name="Choisir les fichiers pour générer les empreintes..."/>
                 <Item id="1924" name="Copier dans le presse-papiers"/>
@@ -413,7 +433,7 @@
             </MD5FromFilesDlg>
 
             <MD5FromTextDlg title="Calculer l'empreinte de MD5">
-                <Item id="1932" name="Traiter chaque ligne comme une chaine de caractères"/>
+                <Item id="1932" name="Traiter chaque ligne comme une chaîne de caractères"/>
                 <Item id="1934" name="Copier dans le presse-papiers"/>
                 <Item id="2"    name="Fermer"/>
             </MD5FromTextDlg>
@@ -425,7 +445,7 @@
             </SHA256FromFilesDlg>
 
             <SHA256FromTextDlg title="Calculer l'empreinte de SHA-256">
-                <Item id="1932" name="Traiter chaque ligne comme une chaine de caractères"/>
+                <Item id="1932" name="Traiter chaque ligne comme une chaîne de caractères"/>
                 <Item id="1934" name="Copier dans le presse-papiers"/>
                 <Item id="2"    name="Fermer"/>
             </SHA256FromTextDlg>
@@ -433,7 +453,7 @@
             <PluginsAdminDlg title="Gestionnaire des modules d'extension" titleAvailable = "Disponibles" titleUpdates = "Mises à jour" titleInstalled = "Installés">
                 <ColumnPlugin   name="Modules d'extension"/>
                 <ColumnVersion  name="Version"/>
-                <Item id="5501" name="Rechercher:"/>
+                <Item id="5501" name="Recherche : "/>
                 <Item id="5503" name="Installer"/>
                 <Item id="5504" name="Mettre à jour"/>
                 <Item id="5505" name="Supprimer"/>
@@ -488,6 +508,71 @@
                 <ScintillaCommandsTab name="Commandes de Scintilla "/>
                 <ConflictInfoOk name="Pas de conflit pour cet élément."/>
                 <ConflictInfoEditing name="Pas de conflit . . ."/>
+                <MainCommandNames>
+                    <Item id="41019" name="Ouvrir le répertoire du fichier dans Explorateur Windows"/>
+                    <Item id="41020" name="Ouvrir le répertoire du fichier dans Invite de commande"/>
+                    <Item id="41021" name="Ouvrir le dernier fichier fermé"/>
+                    <Item id="45001" name="Convertir les sauts de ligne en Windows (CR LF)"/>
+                    <Item id="45002" name="Convertir les sauts de ligne en Unix (LF)"/>
+                    <Item id="45003" name="Convertir les sauts de ligne en Macintosh (CR)"/>
+                    <Item id="43022" name="Appliquer les marques du style 1"/>
+                    <Item id="43024" name="Appliquer les marques du style 2"/>
+                    <Item id="43026" name="Appliquer les marques du style 3"/>
+                    <Item id="43028" name="Appliquer les marques du style 4"/>
+                    <Item id="43030" name="Appliquer les marques du style 5"/>
+                    <Item id="43023" name="Dégager les marques du style 1"/>
+                    <Item id="43025" name="Dégager les marques du style 2"/>
+                    <Item id="43027" name="Dégager les marques du style 3"/>
+                    <Item id="43029" name="Dégager les marques du style 4"/>
+                    <Item id="43031" name="Dégager les marques du style 5"/>
+                    <Item id="43032" name="Dégager tous les marques"/>
+                    <Item id="43033" name="Marque précédente du 1er style"/>
+                    <Item id="43034" name="Marque précédente du 2ème style"/>
+                    <Item id="43035" name="Marque précédente du 3ème style"/>
+                    <Item id="43036" name="Marque précédente du 4ème style"/>
+                    <Item id="43037" name="Marque précédente du 5ème style"/>
+                    <Item id="43038" name="Marque précédente du &quot;Marquer&quot;"/>
+                    <Item id="43039" name="Marque suivantte du 1er style"/>
+                    <Item id="43040" name="Marque suivantte du 2ème style"/>
+                    <Item id="43041" name="Marque suivantte du 3ème style"/>
+                    <Item id="43042" name="Marque suivantte du 4ème style"/>
+                    <Item id="43043" name="Marque suivantte du 5ème style"/>
+                    <Item id="43044" name="Marque suivantte du &quot;Marquer&quot;"/>
+                    <Item id="44100" name="Afficher le fichier dans Firefox"/>
+                    <Item id="44101" name="Afficher le fichier dans Chrome"/>
+                    <Item id="44103" name="Afficher le fichier dans IE"/>
+                    <Item id="44102" name="Afficher le fichier dans Edge"/>
+                    <Item id="50003" name="Document précédent"/>
+                    <Item id="50004" name="Document suivant"/>
+                    <Item id="44051" name="Replier le niveau 1"/>
+                    <Item id="44052" name="Replier le niveau 2"/>
+                    <Item id="44053" name="Replier le niveau 3"/>
+                    <Item id="44054" name="Replier le niveau 4"/>
+                    <Item id="44055" name="Replier le niveau 5"/>
+                    <Item id="44056" name="Replier le niveau 6"/>
+                    <Item id="44057" name="Replier le niveau 7"/>
+                    <Item id="44058" name="Replier le niveau 8"/>
+                    <Item id="44061" name="Déplier le niveau 1"/>
+                    <Item id="44062" name="Déplier le niveau 2"/>
+                    <Item id="44063" name="Déplier le niveau 3"/>
+                    <Item id="44064" name="Déplier le niveau 4"/>
+                    <Item id="44065" name="Déplier le niveau 5"/>
+                    <Item id="44066" name="Déplier le niveau 6"/>
+                    <Item id="44067" name="Déplier le niveau 7"/>
+                    <Item id="44068" name="Déplier le niveau 8"/>
+                    <Item id="44081" name="Afficher/fermer Panneau de Projet 1"/>
+                    <Item id="44082" name="Afficher/fermer Panneau de Projet 2"/>
+                    <Item id="44083" name="Afficher/fermer Panneau de Projet 3"/>
+                    <Item id="44085" name="Afficher/fermer Dossier en tant qu'Espace de travail"/>
+                    <Item id="44080" name="Afficher/fermer Plan du document"/>
+                    <Item id="44084" name="Afficher/fermer Liste des fonctions"/>
+                    <Item id="50005" name="Démarer/arrêter macro recording"/>
+                    <Item id="44104" name="Basculer vers Panneau de Projet 1"/>
+                    <Item id="44105" name="Basculer vers Panneau de Projet 2"/>
+                    <Item id="44106" name="Basculer vers Panneau de Projet 3"/>
+                    <Item id="44107" name="Basculer vers Dossier en tant qu'Espace de travail"/>
+                    <Item id="44108" name="Basculer vers Liste des fonctions"/>
+                </MainCommandNames>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="Raccourcis clavier">
                 <Item id="1" name="OK"/>
@@ -695,21 +780,9 @@
                     <Item id="6126" name="Montrer"/>
                     <Item id="6127" name="Désactiver la colonne d'extension"/>
                 </Global>
+
                 <Scintillas title="Zones d'édition">
-                    <Item id="6201" name="Contrôle de repli de bloc"/>
-                    <Item id="6202" name="Simple"/>
-                    <Item id="6203" name="Flèche"/>
-                    <Item id="6204" name="Cercle"/>
-                    <Item id="6205" name="Carré"/>
-                    <Item id="6206" name="Afficher la numérotation des lignes"/>
-                    <Item id="6207" name="Afficher la marge de signet"/>
-                    <Item id="6208" name="Afficher la marge droite"/>
-                    <Item id="6209" name="Nombre de colonnes :"/>
-                    <Item id="6234" name="Désactiver le défilement avancé
-(en cas de problème du touchpad)"/>
-                    <Item id="6211" name="Largeur des lignes"/>
-                    <Item id="6212" name="Afficher un filet vertical"/>
-                    <Item id="6213" name="Colorer l’arrière-plan"/>
+                    <Item id="6234" name="Désactiver le défilement avancé en cas de problème du pavé tactile"/>
                     <Item id="6214" name="Surligner la ligne actuelle"/>
                     <Item id="6215" name="Activer le lissage de police"/>
                     <Item id="6216" name="Curseur"/>
@@ -717,17 +790,35 @@
                     <Item id="6219" name="Clignotement :"/>
                     <Item id="6221" name="Vif"/><!-- Rapide -->
                     <Item id="6222" name="Zen"/><!-- Lent -->
-                    <Item id="6224" name="Multiédition"/>
-                    <Item id="6225" name="Activer (Ctrl+Clic/sélection)"/>
-                    <Item id="6226" name="Aucun"/>
+                    <Item id="6225" name="Activer Multi-édition (Ctrl+Clic/sélection)"/>
                     <Item id="6227" name="Ligne pliée"/>
                     <Item id="6228" name="Défaut"/>
                     <Item id="6229" name="Aligné"/>
                     <Item id="6230" name="Indenté"/>
+                    <Item id="6236" name="Activer le défilement au-delà de la dernière ligne"/>
+                    <Item id="6239" name="Conserver la sélection lors d'un clic droit en dehors de la sélection"/> 
+                </Scintillas>
+
+                <MarginsBorderEdge title="Marges et Bordure">
+                    <Item id="6201" name="Contrôle de repli de bloc"/>
+                    <Item id="6202" name="Simple"/>
+                    <Item id="6203" name="Flèche"/>
+                    <Item id="6204" name="Cercle"/>
+                    <Item id="6205" name="Carré"/>
+                    <Item id="6226" name="Aucun"/>
+                    <Item id="6211" name="Marqueur de colonne"/>
+                    <Item id="6213" name="Colorer l’arrière-plan"/>
+                    <Item id="6237" name="Ajoutez votre marqueur de colonne en indiquant sa position avec un nombre entier.
+Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour séparer les différents nombres."/>
                     <Item id="6231" name="Largeur de la bordure"/>
                     <Item id="6235" name="Pas de bordure"/>
-                    <Item id="6236" name="Activer le défilement au-delà de la dernière ligne"/>
-                </Scintillas>
+                    <Item id="6291" name="Numérotation des lignes"/>
+                    <Item id="6206" name="Afficher"/>
+                    <Item id="6292" name="Largeur dynamique"/>
+                    <Item id="6293" name="Largeur constante"/>
+                    <Item id="6207" name="Afficher la marge de signet"/>
+                </MarginsBorderEdge>
+
                 <NewDoc title="Nouveau document">
                     <Item id="6401" name="Format des sauts de ligne"/>
                     <Item id="6402" name="Windows"/>
@@ -735,10 +826,10 @@
                     <Item id="6404" name="Mac"/>
                     <Item id="6405" name="Encodage"/>
                     <Item id="6406" name="ANSI"/>
-                    <Item id="6407" name="UTF-8 sans BOM"/>
-                    <Item id="6408" name="UTF-8"/>
-                    <Item id="6409" name="UTF-16BE (Big Endian)"/>
-                    <Item id="6410" name="UTF-16LE (Little Endian)"/>
+                    <Item id="6407" name="UTF-8"/>
+                    <Item id="6408" name="UTF-8-BOM"/>
+                    <Item id="6409" name="UCS-2 BE BOM"/>
+                    <Item id="6410" name="UCS-2 LE BOM"/>
                     <Item id="6411" name="Langage par défaut :"/>
                     <Item id="6419" name="Nouveau document"/>
                     <Item id="6420" name="Appliquer aux fichiers ANSI ouverts"/>
@@ -748,11 +839,12 @@
                     <Item id="6413" name="Dossier par défaut (ouvrir/enregistrer)"/>
                     <Item id="6414" name="Utiliser celui du document actuel"/>
                     <Item id="6415" name="Mémoriser le dernier dossier utilisé"/>
-                    <Item id="6430" name="Activer le nouveau style de dialogue (sans l'extension de fichier &amp; le style du chemin d'Unix supporté)"/>
+                    <Item id="6430" name="Activer le nouveau style de dialogue (sans le style du chemin d'Unix supporté)"/>
                     <Item id="6431" name="Lors de glisser-déposer d'un dossier, ouvrir tous les fichiers dans le dossier"/>
                 </DefaultDir>
 
                 <FileAssoc title="Extensions de fichier">
+                  <Item id="4008" name="Veuillez quitter Notepad++ et relancer Notepad++ en mode Administrateur pour utiliser cette fonctionnalité."/>
                   <Item id="4009" name="Extensions :"/>
                   <Item id="4010" name="Extensions associées :"/>
                 </FileAssoc>
@@ -765,6 +857,7 @@
                     <Item id="6302" name="Insérer des espaces"/>
                     <Item id="6303" name="Taille : "/>
                     <Item id="6510" name="Valeur par défaut"/>
+                    <Item id="6335" name="Contre-oblique : caractère d'échappement pour SQL"/>
                 </Language>
                 <Highlighting title="Coloration">
                     <Item id="6333" name="Sélectionner et montrer tout"/>
@@ -808,7 +901,14 @@
                     <Item id="6728" name="Entête et pied de page"/>
                 </Print>
 
-                <RecentFilesHistory title="Historique des fichiers récents">
+                <Searching title="Recherche">
+                    <Item id="6901" name="Ne pas remplir le champs de Recherche avec le mot séléctionné"/>
+                    <Item id="6902" name="Activer la police à espacement fixe dans la boîte de dialogue Rechercher (Nécessité de redémarrage)"/>
+                    <Item id="6903" name="La boîte de dialogue Rechercher reste ouverte après la recherche qui affiche la fenêtre de résultats"/>
+                    <Item id="6904" name="Confirmer &quot;Remplacer dans tous les documents ouverts&quot;"/>
+                </Searching>
+
+                <RecentFilesHistory title="Fichiers récents">
                     <Item id="6304" name="Historique des fichiers récents"/>
                     <Item id="6306" name="Nombre maxi. de fichiers récents :"/>
                     <Item id="6305" name="Ne pas vérifier au lancement"/>
@@ -834,6 +934,7 @@
                     <Item id="6804" name="Dossier spécifique"/>
                 </Backup>
                 <AutoCompletion title="Autocomplétion">
+                    <Item id="6115" name="Indentation automatique"/>
                     <Item id="6807" name="Autocomplétion"/>
                     <Item id="6808" name="Activer la complétion automatique"/>
                     <Item id="6809" name="Complétion de fonction"/>
@@ -872,12 +973,15 @@
 (Ne pas utiliser cette option si vous ne savez pas ce qu'elle fait)"/>
                 </Delimiter>
 
-                <Cloud title="Cloud">
-                    <Item id="6261" name="Chemin invalide"/>
+                <Cloud title="Cloud &amp; Lien">
                     <Item id="6262" name="Sauvegarder les paramètres dans le cloud"/>
                     <Item id="6263" name="Par défaut"/>
                     <Item id="6267" name="Chemin d'accès de votre cloud :"/>
-                    <!--Item id="6261" name="Please restart Notepad++ to take effect."/-->
+                    <Item id="6318" name="Paramétrage de lien cliquable"/>
+                    <Item id="6319" name="Activer"/>
+                    <Item id="6320" name="Ne pas souligner"/>
+                    <Item id="6350" name="Activer la mode d'arrière-plan"/>
+                    <Item id="6264" name="Schémas personnalisés d'URI:"/>
                 </Cloud>
 
                 <SearchEngine title="Moteur de recherche">
@@ -892,24 +996,27 @@
                 </SearchEngine>
 
                 <MISC title="Divers">
+                    <ComboBox id="6347">
+                        <Element name="Activer"/>
+                        <Element name="Activer avec tous les onglets"/>
+                        <Element name="Désactiver"/>
+                    </ComboBox>
                     <Item id="6114" name="Activer"/>
-                    <Item id="6115" name="Indentation automatique"/>
                     <Item id="6117" name="Activer la liste de MRU"/>
-                    <Item id="6307" name="Détection automatique"/>
                     <Item id="6308" name="Réduire dans la barre de notifications"/>
-                    <Item id="6312" name="Autodétection de l’état des fichiers"/>
+                    <Item id="6312" name="Surveillance de l’état des fichiers"/>
                     <Item id="6313" name="Mise à jour sans alerte"/>
-                    <Item id="6318" name="Paramétrage de lien cliquable"/>
-                    <Item id="6319" name="Activer"/>
-                    <Item id="6320" name="Ne pas souligner"/>
                     <Item id="6322" name="Ext. fichier session :"/>
                     <Item id="6323" name="Activer la mise à jour automatique"/>
                     <Item id="6324" name="Commutateur de documents (Ctrl+Tab)"/>
                     <Item id="6325" name="Aller à la dernière ligne après mise à jour"/>
                     <Item id="6331" name="Afficher seulement le nom du fichier dans la barre de titre"/>
                     <Item id="6334" name="Détecter l'encodage automatiquement"/>
-                    <Item id="6335" name="Backslash : caractère d'échappement pour SQL"/>
+                    <Item id="6349" name="Utiliser &quot;DirectWrite&quot; (il pourrait améliorer le rendu des caractères spéciaux. Nécessité de redémarrage)"/>
                     <Item id="6337" name="Ext. fichier espace de travail :"/>
+                    <Item id="6344" name="Aperçu du document"/>
+                    <Item id="6345" name="Aperçu à onglet"/>
+                    <Item id="6346" name="Aperçu à commutateur de documents"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Exécuter une macro en boucle">
@@ -926,23 +1033,21 @@
                 <Item id="7002" name="Enregistrer"/>
                 <Item id="7003" name="Fermer fenêtres"/>
                 <Item id="7004" name="Trier les onglets"/>
-                <Item id="Name" name="Nom"/>
-                <Item id="Path" name="Chemin"/>
-                <Item id="Type" name="Type"/>
             </Window>
             <ColumnEditor title="Édition en colonnes">
                 <Item id="1" name="OK"/>
                 <Item id="2" name="Annuler"/>
-                <Item id="2023" name="Texte à insérer"/>
-                <Item id="2024" name="Déc."/>
-                <Item id="2025" name="Oct."/>
-                <Item id="2026" name="Hex."/>
-                <Item id="2027" name="Bin."/>
-                <Item id="2030" name="Nombre initial :"/>
-                <Item id="2031" name="Augmenter de :"/>
+                <Item id="2023" name="&amp;Texte à insérer"/>
+                <Item id="2024" name="&amp;Déc."/>
+                <Item id="2025" name="&amp;Oct."/>
+                <Item id="2026" name="&amp;Hex."/>
+                <Item id="2027" name="&amp;Bin."/>
+                <Item id="2030" name="Nombre &amp;initial :"/>
+                <Item id="2031" name="&amp;Augmenter de :"/>
                 <Item id="2032" name="Format"/>
-                <Item id="2033" name="Nombre à insérer"/>
-                <Item id="2035" name="Nombre de zéros"/>
+                <Item id="2033" name="&amp;Nombre à insérer"/>
+                <Item id="2035" name="Nombre de &amp;zéros"/>
+                <Item id="2036" name="&amp;Répéter :"/>
             </ColumnEditor>
             <FindInFinder title="Rechercher dans les résultats trouvés">
                 <Item id="1"    name="Rechercher Tout"/>
@@ -957,11 +1062,19 @@
                 <Item id="1718" name="Mode étendu (\n, \r, \t, \0, \x...)"/>
                 <Item id="1720" name="&amp;. comprend ligne nouvelle"/>
             </FindInFinder>
+            <DoSaveOrNot title="Sauvegarder">
+                <Item id="1761" name="Sauvegarder le fichier &quot;$STR_REPLACE$&quot; ?"/>
+                <Item id="6" name="&amp;Oui"/>
+                <Item id="7" name="&amp;Non"/>
+                <Item id="2" name="&amp;Annuler"/>
+                <Item id="4" name="Oui pour &amp;tout"/>
+                <Item id="5" name="Non &amp;pour tout"/>
+            </DoSaveOrNot>
         </Dialog>
         <MessageBox>
             <CannotMoveDoc title="Déplacement vers une nouvelle instance Notepad++" message="Le document est en cours d'utilisation, le sauvegarder puis réessayer."/>
-            <ColumnModeTip title="Sélection en mode colonnes" message="Utiliser 'Alt+sélection souris' ou 'Alt+Maj+flêches' pour activer le mode colonne."/>
-            <ContextMenuXmlEditWarning title="Édition du Menu Contextuel" message="L'édition de contextMenu.xml vous permet de modifier la fenêtre de menu contextuel de Notepad++. Vous devez redémarrer votre Notepad++ pour prendre en compte les modifications du fichier."/>
+            <ColumnModeTip title="Sélection en mode colonnes" message="Utiliser 'Alt+sélection souris' ou 'Alt+Maj+flèches' pour activer le mode colonne."/>
+            <ContextMenuXmlEditWarning title="Édition du Menu Contextuel" message="L'édition de &quot;contextMenu.xml&quot; vous permet de modifier la fenêtre de menu contextuel de Notepad++. Vous devez redémarrer votre Notepad++ pour prendre en compte les modifications du fichier."/>
             <DeleteFileFailed title="Suppression du fichier" message="La suppression du fichier a échoué."/>
             <DocReloadWarning title="Recharger" message="Êtes-vous sûr de vouloir recharger le fichier en cours et de perdre les modifications apportées dans Notepad++ ?"/>
             <FileAlreadyOpenedInNpp title="" message="Le fichier est toujours ouvert dans Notepad++."/>
@@ -969,20 +1082,21 @@
             <LoseUndoAbilityWarning title="Perte de la capacité d'annulation" message="Vous devez enregistrer la modification en cours. Toutes les modifications enregistrées ne peuvent pas être annulées. Continuer ?"/>
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <NbFileToOpenImportantWarning title="Quantité de fichiers à ouvrir trop grande." message="$INT_REPLACE$ fichiers sont sur le point d'être ouverts. Êtes-vous sûr de les ouvrir ?"/>
-            <NppHelpAbsentWarning title="Le fichier n'existe pas" message=" n'existe pas. Veuillez le télécharger sur le site de Notepad++."/>
+            <SettingsOnCloudError title="Les paramètres dans le cloud" message="Il semble que les paramètres dans le cloud se trouve sur un lecteur en lecture seule,
+ou à un dossier restreint. Votre paramètres dans le cloud seront annulés.
+Veuillez réinitialiser une valeur cohérente au dialogue Préférences."/>
             <SaveCurrentModifWarning title="Sauvegarder la modification en cours" message="Vous devez enregistrer la modification en cours. Toutes les modifications enregistrées ne peuvent pas être annulées. Continuer ?"/>
             <FilePathNotFoundWarning title="Ouvrir" message="Le fichier que vous essayez d'ouvrir n'existe pas."/>
             <SessionFileInvalidError title="Impossible de charger la session" message="Le fichier de session est endommagé ou non valide."/>
             <DroppingFolderAsProjectModeWarning title="Action invalide" message="Vous ne pouvez déposer que des fichiers ou des dossiers mais pas les deux, car vous êtes en mode Projet.
-vous devez activer &quot;Open all files of folder instead of launching Folder as Workspace on folder dropping&quot; in &quot;Default Directory&quot; section of Preferences dialog to make this operation work."/>
+Pour rendre cette opération possible, vous devez activer &quot;Lors de glisser-déposer d'un dossier, ouvrir tous les fichiers dans le dossier&quot; à la page &quot;Dossier par défaut&quot; du dialogue Préférences."/>
             <SortingError title="Erreur de tri" message="Impossible d'effectuer le tri numérique à cause de la ligne $INT_REPLACE$."/>
-            <BufferInvalidWarning title="Échec de sauvegarde" message="Cannot save: Buffer is invalid."/>
-            <DoSaveOrNot title="Sauvegarder" message="Sauvegarder le fichier &quot;$STR_REPLACE$&quot; ?"/>
+            <BufferInvalidWarning title="Échec de sauvegarde" message="Échec de sauvegarde : le tampon des données de fichier est invalide."/>
             <DoCloseOrNot title="Conserver un fichier non existant" message="Le fichier &quot;$STR_REPLACE$&quot; n'existe plus.
 Conserver ce fichier dans l'éditeur ?"/>
             <DoDeleteOrNot title="Supprimer fichier" message="Le fichier &quot;$STR_REPLACE$&quot;
 sera déplacé dans votre corbeille et ce document sera fermé.
-Continue?"/>
+Voulez-vous continuer ?"/>
             <NoBackupDoSaveFile title="Sauvegarde" message="Votre fichier de sauvegarde ne peut pas être trouvé (effacé de l'extérieur).
 Sauvegardez-le sinon vos données seront perdues
 Voulez-vous enregistrer le fichier &quot;$STR_REPLACE$&quot; ?"/>
@@ -995,46 +1109,53 @@ Voulez-vous le recharger ?"/>
 Ce fichier a été modifié par un autre programme.
 Voulez-vous le recharger et perdre les modifications effectuées dans Notepad++ ?"/>
             <PrehistoricSystemDetected title="Système préhistorique détecté" message="Il semble que vous utilisez toujours un système préhistorique, cette fonctionnalité ne fonctionne que sur un système moderne, désolé."/>
-            <XpUpdaterProblem title="Notepad++ Updater" message="Notepad++ updater is not compatible with XP due to the obsolete security layer under XP.
-Do you want to go to Notepad++ page to download the latest version?"/>
-            <DocTooDirtyToMonitor title="Monitoring problem" message="The document is dirty. Please save the modification before monitoring it."/>
-            <DocNoExistToMonitor title="Monitoring problem" message="The file should exist to be monitored."/>
-            <FileTooBigToOpen title="File size problem" message="File is too big to be opened by Notepad++"/>
-            <CreateNewFileOrNot title="Create new file" message="&quot;$INT_REPLACE$&quot; doesn't exist. Create it?."/>
-            <CreateNewFileError title="Create new file" message="Cannot create the file &quot;$INT_REPLACE$&quot;."/>
-            <OpenFileError title="ERREUR" message="Can not open file &quot;$INT_REPLACE$&quot;."/>
-            <FileBackupFailed title="File Backup Failed" message="The previous version of the file could not be saved into the backup directory at &quot;$INT_REPLACE$&quot;.
+            <XpUpdaterProblem title="Mettre à jour Notepad++" message="Le metteur à jour de Notepad++ est incompatible avec XP en raison de la couche de sécurité obsolète de XP.
+Voulez-vous télécharger la dernière version de Notepad++ sur le site officiel ?"/>
+            <GUpProxyConfNeedAdminMode title="Paramétrage de Proxy" message=" Afin de pouvoir configurer le proxy, relancez Notepad++ en mode d'administrateur."/>
+            <DocTooDirtyToMonitor title="Surveillance de Log" message="Le document a été modifié. Veuillez l'enregistrer d'abord."/>
+            <DocNoExistToMonitor title="Surveillance de Log" message="Le fichier doit exister pour être surveillé."/>
+            <FileTooBigToOpen title="Fichier trop volumineux" message="Ce fichier est trop volumineux pour être ouvert avec Notepad++."/>
+            <CreateNewFileOrNot title="Créer un nouveau fichier" message="Le fichier &quot;$STR_REPLACE$&quot; n'existe pas.
+Voulez-vous le créer maintenant ?"/>
+            <CreateNewFileError title="Créer un nouveau fichier" message="Le fichier &quot;$STR_REPLACE$&quot; n'a pas pu être créé."/>
+            <OpenFileError title="Ouvrir un fichier" message="Le fichier &quot;$STR_REPLACE$&quot; n'a pas pu être ouvert."/>
+            <FileBackupFailed title="Échec de sauvegarde" message="La version précédente du fichier n'a pas pu être enregistré dans le répertoire de sauvegarde à &quot;$STR_REPLACE$&quot;.
 
-Do you want to save the current file anyways?"/>
-            <LoadStylersFailed title="Load stylers.xml failed" message="Load &quot;$INT_REPLACE$&quot; failed!"/>
-            <LoadLangsFailed title="Configurator" message="Load langs.xml failed!
-Do you want to recover your langs.xml?"/>
-            <LoadLangsFailedFinal title="Configurator" message="Load langs.xml failed!"/>
-            <FolderAsWorspaceSubfolderExists title="Folder as Workspace adding folder problem" message="A sub-folder of the folder you want to add exists.
-Please remove its root from the panel before you add folder &quot;$STR_REPLACE$&quot;."/>
+Voulez-vous quand même enregistrer le fichier actuel ?"/>
+            <LoadStylersFailed title="Échec de chargement des styles" message="Échec de chargement du fichier &quot;$STR_REPLACE$&quot; !"/>
+            <LoadLangsFailed title="Configuration" message="Échec de chargement du fichier &quot;langs.xml&quot;.
+Voulez-vous récupérer &quot;langs.xml&quot; ?"/>
+            <LoadLangsFailedFinal title="Configuration" message="Échec de chargement du fichier &quot;langs.xml&quot; !"/>
+            <FolderAsWorspaceSubfolderExists title="Dossier en tant qu'Espace de travail" message="Il existe un sous-dossier du dossier que vous souhaitez ajouter.
+Veuillez supprimer le sous-dossier avant d'ajouter &quot;$STR_REPLACE$&quot;."/>
 
-            <ProjectPanelChanged title="$STR_REPLACE$" message="The workspace was modified. Do you want to save it?"/>
-            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Your workspace has not been saved."/>
-            <ProjectPanelOpenDoSaveDirtyWsOrNot title="Open Workspace" message="The current workspace was modified. Do you want to save the current project?"/>
-            <ProjectPanelNewDoSaveDirtyWsOrNot title="New Workspace" message="The current workspace was modified. Do you want to save the current project?"/>
-            <ProjectPanelOpenFailed title="Open Workspace" message="The workspace could not be opened.
-It seems the file to open is not a valid project file."/>
-            <ProjectPanelRemoveFolderFromProject title="Remove folder from project" message="All the sub-items will be removed.
-Are you sure you want to remove this folder from the project?"/>
-            <ProjectPanelRemoveFileFromProject title="Remove file from project" message="Are you sure you want to remove this file from the project?"/>
+            <ProjectPanelChanged title="$STR_REPLACE$" message="L'espace de travail a été modifié. Voulez-vous l'enregistrer ?"/>
+            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Votre espace de travail n'a pas encore été enregistré."/>
+            <ProjectPanelOpenDoSaveDirtyWsOrNot title="Ouvrir espace de travail" message="L'espace de travail actuel a été modifié. Voulez-vous enregistrer le projet actuel ?"/>
+            <ProjectPanelNewDoSaveDirtyWsOrNot title="Nouvel espace de travail" message="L'espace de travail actuel a été modifié. Voulez-vous enregistrer le projet actuel ?"/>
+            <ProjectPanelOpenFailed title="Ouvrir espace de travail" message="L'espace de travail n'a pas pu être ouvert.
+Il semble que le fichier à ouvrir n'appartient pas au projet."/>
+            <ProjectPanelRemoveFolderFromProject title="Supprimer dossier du projet" message="La totalité du dossier sera supprimée.
+Êtes-vous sûr de vouloir supprimer ce dossier du projet ?"/>
+            <ProjectPanelRemoveFileFromProject title="Supprimer fichier du projet" message="Êtes-vous sûr de vouloir supprimer ce fichier du projet ?"/>
             <ProjectPanelReloadError title="Recharger l'espace de travail" message="Impossible de trouver le fichier à recharger."/>
             <ProjectPanelReloadDirty title="Recharger l'espace de travail" message="L'espace de travail actuel a été modifié. Le rechargement éliminera toutes les modifications.
 Voulez-vous continuer ?"/>
             <UDLNewNameError title="Erreur UDL" message="Ce nom est utilisé par un autre langage,
 veuillez en donner un autre."/>
-            <UDLRemoveCurrentLang title="Remove the current language" message="Are you sure?"/>
-            <SCMapperDoDeleteOrNot title="Are you sure?" message="Are you sure you want to delete this shortcut?"/>
-            <FindCharRangeValueError title="Range Value problem" message="You should type between from 0 to 255."/>
+            <UDLRemoveCurrentLang title="Supprimer la langage actuelle" message="Êtes-vous sûr de vouloir supprimer la langage actuelle ?"/>
+            <SCMapperDoDeleteOrNot title="Supprimer un raccourci clavier" message="Êtes-vous sûr de vouloir supprimer ce raccourci clavier ?"/>
+            <FindCharRangeValueError title="Valeur en dehors des limites" message="Veuillez entrer une valeur entre 0 et 255."/>
             <OpenInAdminMode title="L'enregistrement a échoué" message="Le fichier ne peut pas être enregistré et il est peut-être protégé.
 Voulez-vous lancer Notepad++ en mode Administrateur ?"/>
             <OpenInAdminModeWithoutCloseCurrent title="L'enregistrement a échoué" message="Le fichier ne peut pas être enregistré et il est peut-être protégé.
 Voulez-vous lancer Notepad++ en mode Administrateur ?"/>
             <OpenInAdminModeFailed title="L'ouverture en mode Administrateur a échoué" message="Notepad++ ne peut pas être lancé en mode Administrateur."/>
+            <ViewInBrowser title="Afficher le fichier actuel dans le navigateur" message="Application introuvable sur votre ordinateur."/>
+            <ExitToUpdatePlugins title="Notepad++ sera fermé" message="Si vous cliquez Oui, vous allez quitter Notepad++ pour poursuivre les opérations.
+Notepad++ sera relancé après.
+Voulez-vous les poursuivez ?"/>
+            <NeedToRestartToLoadPlugins title="Vous devez redémarrer Notepad++" message="Vous devez redémarrer Notepad++ pour charger les modules d'extension installés."/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Historique du presse-papiers"/>
@@ -1048,24 +1169,31 @@ Voulez-vous lancer Notepad++ en mode Administrateur ?"/>
             <ColumnName name="Nom"/>
             <ColumnPath name="Chemin"/>
             <ColumnType name="Type"/>
+            <ColumnSize name="Taille"/>
+            <NbDocsTotal name="nombre de documents :"/>
         </WindowsDlg>
         <AsciiInsertion>
-            <PanelTitle name="Panneau des caractères ASCII"/>
+            <PanelTitle name="Panneau des codes ASCII"/>
             <ColumnVal name="Valeur"/>
             <ColumnHex name="Hexa"/>
             <ColumnChar name="Caractère"/>
+            <ColumnHtmlNumber name="Numéro HTML"/>
+            <ColumnHtmlName name="Code HTML"/>
         </AsciiInsertion>
         <DocumentMap>
             <PanelTitle name="Plan du Document"/>
         </DocumentMap>
         <FunctionList>
             <PanelTitle name="Liste des Fonctions"/>
-            <SortTip name="Trier" />
-            <ReloadTip name="Recharger" />
+            <SortTip name="Trier"/>
+            <ReloadTip name="Recharger"/>
         </FunctionList>
         <FolderAsWorkspace>
             <PanelTitle name="Dossier en tant qu'Espace de travail"/>
             <SelectFolderFromBrowserString name="Sélectionner un dossier pour ajouter dans Dossier en tant qu'Espace de travail"/>
+            <ExpandAllFoldersTip name="Déplier tous les dossiers"/>
+            <CollapseAllFoldersTip name="Replier tous les dossiers"/>
+            <LocateCurrentFileTip name="Localiser le fichier courant"/>
             <Menus>
                 <Item id="3511" name="Effacer"/>
                 <Item id="3512" name="Effacer Tout"/>
@@ -1076,6 +1204,7 @@ Voulez-vous lancer Notepad++ en mode Administrateur ?"/>
                 <Item id="3517" name="Rechercher dans les fichiers..."/>
                 <Item id="3518" name="Explorer depuis ici"/>
                 <Item id="3519" name="CMD depuis ici"/>
+                <Item id="3520" name="Copier le nom du fichier"/>
             </Menus>
         </FolderAsWorkspace>
         <ProjectManager>
@@ -1136,6 +1265,11 @@ Voulez-vous lancer Notepad++ en mode Administrateur ?"/>
             <cloud-restart-warning value="Veuillez redémarrer Notepad++ afin que le changement prenne effet."/>
             <shift-change-direction-tip value="Utilisez Shift + Entrée pour rechercher dans le sens inverse"/>
             <two-find-buttons-tip value="2 boutons Recherche"/>
+            <find-in-files-filter-tip value="Rechercher dans cpp, cxx, h, hxx &amp;&amp; hpp:
+*.cpp *.cxx *.h *.hxx *.hpp
+
+Rechercher dans tous les fichiers sauf exe, obj &amp;&amp; log:
+*.* !*.exe !*.obj !*.log"/>
             <cloud-select-folder value="Sélectionner un répertoire où Notepad++ lit ou écrit ses paramètres"/>
             <find-status-top-reached value="Rechercher : La 1ère occurrence a été trouvée depuis le bas. Le début du document a été atteint"/>
             <find-status-end-reached value="Rechercher : La 1ère occurrence a été trouvée depuis le haut. La fin du document a été atteinte"/>
@@ -1157,17 +1291,60 @@ Voulez-vous lancer Notepad++ en mode Administrateur ?"/>
             <find-status-replaceall-readonly value="Remplacer tout : l'opération a échoué. Le fichier est en lecture seule"/>
             <find-status-replace-end-reached value="Remplacer : La 1ère occurrence a été remplacée depuis le haut. La fin du document a été atteinte"/>
             <find-status-replace-top-reached value="Remplacer : La 1ère occurrence a été remplacée depuis le bas. Le début du document a été atteint"/>
+            <find-status-replaced-next-found value="Remplacer : 1 occurrence a été remplacée. L'occurrence suivante a été trouvée"/>
+            <find-status-replaced-next-not-found value="Remplacer : 1 occurrence a été remplacée. L'occurrence suivante n'a pas été trouvée"/>
             <find-status-replace-not-found value="Remplacer : aucune occurrence n'a été trouvée"/>
             <find-status-replace-readonly value="Remplacer : l'opération a échoué. Le fichier est en lecture seule"/>
             <find-status-cannot-find value="Rechercher : &quot;$STR_REPLACE$&quot; n'a pas été trouvé"/>
+            <find-status-scope-selection value="dans le texte selectionné"/>
+            <find-status-scope-all value="dans le fichier"/>
+            <find-status-scope-backward value="du début du fichier au curseur"/>
+            <find-status-scope-forward value="du curseur à la fin du fichier"/>
             <finder-find-in-finder value="Rechercher dans les résultats..."/>
             <finder-close-this value="Fermer le dialogue des résultats"/>
             <finder-collapse-all value="Replier tout"/>
             <finder-uncollapse-all value="Déplier tout"/>
-            <finder-copy value="Copier"/>
+            <finder-copy value="Copier la(les) ligne(s) selectionnée(s)"/>
+            <finder-copy-verbatim value="Copier"/>
             <finder-select-all value="Sélectionner tout"/>
             <finder-clear-all value="Effacer tout"/>
             <finder-open-all value="Ouvrir tout"/>
+            <finder-wrap-long-lines value="Retour à la ligne automatique"/>
+            <common-ok value="OK"/>
+            <common-cancel value="Annuler"/>
+            <common-name value="Nom : "/>
+            <tabrename-title value="Renommer onglet actuel"/>
+            <tabrename-newname value="Nom nouveau : "/>
+            <recent-file-history-maxfile value="Max. fichier : "/>
+            <language-tabsize value="Taille tabulation : "/>
+            <userdefined-title-new value="Langage nouveau..."/>
+            <userdefined-title-save value="Enregistrer langage actuel sous..."/>
+            <userdefined-title-rename value="Renommer langage actuel"/>
+            <autocomplete-nb-char value="Caractères : "/>
+            <edit-verticaledge-nb-col value="Colonnes : "/>
+            <summary value="Statistiques"/>
+            <summary-filepath value="Chemin d'accès : "/>
+            <summary-filecreatetime value="Date de Création : "/>
+            <summary-filemodifytime value="Date de Modification : "/>
+            <summary-nbchar value="Caractères (sans fin de ligne) : "/>
+            <summary-nbword value="Mots : "/>
+            <summary-nbline value="Lignes : "/>
+            <summary-nbbyte value="Taille du document : "/>
+            <summary-nbsel1 value=" caractères sélectionnés ("/>
+            <summary-nbsel2 value=" octets) dans "/>
+            <summary-nbrange value=" sélections"/>
+            <replace-in-files-confirm-title value="Confirmation"/>
+            <replace-in-files-confirm-directory value="Voulez-vous remplacer toutes les occurrences dans :"/>
+            <replace-in-files-confirm-filetype value="Pour le(s) type(s) de fichier :"/>
+            <replace-in-open-docs-confirm-title value="Confirmation"/>
+            <replace-in-open-docs-confirm-message value="Voulez-vous vraiment remplacer toutes les occurrences dans tous les documents ouverts ?"/>
+            <find-result-caption value="Résultats de recherche"/>
+            <find-result-title value="Rechercher"/> <!-- Must not begin with space or tab character -->
+            <find-result-title-info value="($INT_REPLACE1$ résultats dans $INT_REPLACE2$ documents depuis $INT_REPLACE3$ documents recherchés)"/>
+            <find-result-title-info-extra value=" - Mode de filtre de ligne : affiche uniquement les résultats filtrés"/>
+            <find-result-hits value="($INT_REPLACE$ résultats)"/>
+            <find-result-line-prefix value="Ligne"/> <!-- Must not begin with space or tab character -->
+            <find-regex-zero-length-match value="la chaîne vide trouvée" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

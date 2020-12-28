@@ -25,12 +25,9 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-#ifndef FUNCTIONCALLTIP_H
-#define FUNCTIONCALLTIP_H
+#pragma once
 
-#ifndef SCINTILLA_EDIT_VIEW_H
 #include "ScintillaEditView.h"
-#endif //SCINTILLA_EDIT_VIEW_H
 
 typedef std::vector<const TCHAR *> stringVec;
 
@@ -77,7 +74,7 @@ private:
 	void reset();					//reset all vars in case function is invalidated
 	void cleanup();					//delete any leftovers
     bool isBasicWordChar(TCHAR ch) const {
-        return (ch >= 'A' && ch <= 'Z' || ch >= 'a' && ch <= 'z' || ch >= '0' && ch <= '9' || ch == '_');
+        return ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9') || ch == '_');
     };
     bool isAdditionalWordChar(TCHAR ch) const {
         const TCHAR *addChars = _additionalWordChar.c_str();
@@ -88,5 +85,3 @@ private:
         return false;
     };
 };
-
-#endif// FUNCTIONCALLTIP_H

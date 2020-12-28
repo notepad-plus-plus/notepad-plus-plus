@@ -167,12 +167,16 @@ http://sourceforge.net/donate/index.php?group_id=95717
         </LexerType>
         <LexerType name="sql" desc="SQL" ext="">
             <WordsStyle name="KEYWORD" styleID="5" fgColor="7BC22F" bgColor="112435" fontName="" fontStyle="0" fontSize="" keywordClass="instre1" />
+            <WordsStyle name="USER1" styleID="16" fgColor="7BC22F" bgColor="112435" fontName="" fontStyle="0" fontSize="" keywordClass="instre2" />
+            <WordsStyle name="KEYWORD2" styleID="19" fgColor="FF8080" bgColor="112435" fontName="" fontStyle="0" fontSize="" keywordClass="type3" />
             <WordsStyle name="NUMBER" styleID="4" fgColor="F4DD0B" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="STRING" styleID="6" fgColor="8DB0D3" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="STRING2" styleID="7" fgColor="8DB0D3" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="OPERATOR" styleID="10" fgColor="F08047" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT" styleID="1" fgColor="3A8BDA" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT LINE" styleID="2" fgColor="3A8BDA" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="COMMENT DOC" styleID="3" fgColor="3A8BDA" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="Q OPERATOR" styleID="24" fgColor="8DB0D3" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
         <LexerType name="html" desc="HTML" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="FFFFFF" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
@@ -226,7 +230,7 @@ http://sourceforge.net/donate/index.php?group_id=95717
             <WordsStyle name="STRING" styleID="85" fgColor="FFFFFF" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="STRINGEOL" styleID="87" fgColor="FFFFFF" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="IDENTIFIER" styleID="86" fgColor="FFFFFF" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="ASPSYBOL" styleID="15" fgColor="FFFFFF" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="ASPSYMBOL" styleID="15" fgColor="FFFFFF" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="SCRIPTTYPE" styleID="16" fgColor="FFFFFF" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
         <LexerType name="xml" desc="XML" ext="">
@@ -354,14 +358,18 @@ http://sourceforge.net/donate/index.php?group_id=95717
             <WordsStyle name="OPERATOR" styleID="10" fgColor="FFFFFF" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="IDENTIFIER" styleID="11" fgColor="FFFFFF" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENTBLOCK" styleID="12" fgColor="FFFFFF" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="STRINGEOL" styleID="12" fgColor="FFFFFF" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRINGEOL" styleID="13" fgColor="FFFFFF" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="F STRING" styleID="16" fgColor="FFFFFF" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="F CHARACTER" styleID="17" fgColor="FFFFFF" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="F TRIPLE" styleID="18" fgColor="FFFFFF" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="F TRIPLEDOUBLE" styleID="19" fgColor="FFFFFF" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
         <LexerType name="batch" desc="Batch" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="FFFFFF" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT" styleID="1" fgColor="FFFFFF" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="KEYWORDS" styleID="2" fgColor="FFFFFF" bgColor="112435" fontName="" fontStyle="0" fontSize="" keywordClass="instre1" />
             <WordsStyle name="LABEL" styleID="3" fgColor="FFFFFF" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="HIDE SYBOL" styleID="4" fgColor="FFFFFF" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="HIDE SYMBOL" styleID="4" fgColor="FFFFFF" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMAND" styleID="5" fgColor="FFFFFF" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="VARIABLE" styleID="6" fgColor="FFFFFF" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="OPERATOR" styleID="7" fgColor="FFFFFF" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
@@ -611,7 +619,9 @@ http://sourceforge.net/donate/index.php?group_id=95717
         <WidgetStyle name="Find Mark Style" styleID="31" fgColor="FFFFFF" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
         <WidgetStyle name="Edge colour" styleID="0" fgColor="FFFFFF" bgColor="FF0000" fontSize="" fontStyle="1" />
         <WidgetStyle name="Line number margin" styleID="33" fgColor="FFFFFF" bgColor="1F4661" fontName="" fontStyle="0" fontSize="8" />
+        <WidgetStyle name="Bookmark margin" styleID="0" bgColor="1F4661" />
         <WidgetStyle name="Fold" styleID="0" fgColor="FFFFFF" bgColor="F0804F" fontSize="" fontStyle="0" />
+        <WidgetStyle name="Fold active" styleID="0" fgColor="FFFFFF" />
         <WidgetStyle name="Fold margin" styleID="0" fgColor="4096BF" bgColor="3476A3" />
         <WidgetStyle name="White space symbol" styleID="0" fgColor="FF8080" bgColor="112435" />
         <WidgetStyle name="Smart HighLighting" styleID="29" bgColor="00FF00" fgColor="555753" />
@@ -628,5 +638,6 @@ http://sourceforge.net/donate/index.php?group_id=95717
         <WidgetStyle name="Active tab unfocused indicator" styleID="0" fgColor="FFCAB0" bgColor="80FF00" />
         <WidgetStyle name="Active tab text" styleID="0" fgColor="000000" />
         <WidgetStyle name="Inactive tabs" styleID="0" fgColor="808080" bgColor="C0C0C0" />
+        <WidgetStyle name="URL hovered" styleID="0" fgColor="FFFFFF" />
     </GlobalStyles>
 </NotepadPlus>

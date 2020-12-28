@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -60,13 +60,20 @@ public :
 
 	void goToCenter();
 
-	void display(bool toShow = true) const;
+	void display(bool toShow = true, bool enhancedPositioningCheckWhenShowing = false) const;
+
+	RECT getViewablePositionRect(RECT testRc) const;
 
 	POINT getTopPoint(HWND hwnd, bool isLeft = true) const;
 
 	bool isCheckedOrNot(int checkControlID) const
 	{
 		return (BST_CHECKED == ::SendMessage(::GetDlgItem(_hSelf, checkControlID), BM_GETCHECK, 0, 0));
+	}
+
+	void setChecked(int checkControlID, bool checkOrNot = true) const
+	{
+		::SendDlgItemMessage(_hSelf, checkControlID, BM_SETCHECK, checkOrNot ? BST_CHECKED : BST_UNCHECKED, 0);
 	}
 
     virtual void destroy() override;

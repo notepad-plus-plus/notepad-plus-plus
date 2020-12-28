@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -26,8 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef SIZE_DLG_H
-#define SIZE_DLG_H
+#pragma once
 
 #include "StaticDialog.h"
 #include "Common.h"
@@ -36,7 +35,7 @@ const int DEFAULT_NB_NUMBER = 2;
 class ValueDlg : public StaticDialog
 {
 public :
-        ValueDlg() : StaticDialog() {};
+        ValueDlg() = default;
         void init(HINSTANCE hInst, HWND parent, int valueToSet, const TCHAR *text);
         int doDialog(POINT p, bool isRTL = false);
 		void setNBNumber(int nbNumber) {
@@ -53,7 +52,7 @@ private :
 	int _nbNumber = DEFAULT_NB_NUMBER;
     int _defaultValue = 0;
 	generic_string _name;
-	POINT _p;
+	POINT _p = {0, 0};
 };
 
 // 0 : sans fullscreen
@@ -66,32 +65,31 @@ const int buttonStatus_postit = 2;
 class ButtonDlg : public StaticDialog
 {
 public :
-    ButtonDlg() : StaticDialog(), _buttonStatus(buttonStatus_nada) {};
-        void init(HINSTANCE hInst, HWND parent){
-        	Window::init(hInst, parent);
-        };
+    ButtonDlg() = default;
+    void init(HINSTANCE hInst, HWND parent){
+        Window::init(hInst, parent);
+    };
 
-        void doDialog(bool isRTL = false);
-		void destroy() {};
-        int getButtonStatus() const {
-            return _buttonStatus;
-        };
-        void setButtonStatus(int buttonStatus) {
-            _buttonStatus = buttonStatus;
-        };
+    void doDialog(bool isRTL = false);
+	void destroy() {};
+    int getButtonStatus() const {
+        return _buttonStatus;
+    };
+    void setButtonStatus(int buttonStatus) {
+        _buttonStatus = buttonStatus;
+    };
 
-        void display(bool toShow = true) const {
-            int cmdToShow = toShow?SW_SHOW:SW_HIDE;
-            if (!toShow)
-            {
-                cmdToShow = (_buttonStatus != buttonStatus_nada)?SW_SHOW:SW_HIDE; 
-            }
-		    ::ShowWindow(_hSelf, cmdToShow);
-	    };
+    void display(bool toShow = true) const {
+        int cmdToShow = toShow?SW_SHOW:SW_HIDE;
+        if (!toShow)
+        {
+            cmdToShow = (_buttonStatus != buttonStatus_nada)?SW_SHOW:SW_HIDE; 
+        }
+		::ShowWindow(_hSelf, cmdToShow);
+	};
 
 protected :
 	INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM);
-    int _buttonStatus;
+    int _buttonStatus = buttonStatus_nada;
 
 };
-#endif //TABSIZE_DLG_H

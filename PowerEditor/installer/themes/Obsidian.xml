@@ -52,7 +52,7 @@ Notepad++ Custom Style
             <WordsStyle name="STRING" styleID="85" fgColor="EC7600" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="STRINGEOL" styleID="87" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="IDENTIFIER" styleID="86" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="ASPSYBOL" styleID="15" fgColor="D955C1" bgColor="293134" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="ASPSYMBOL" styleID="15" fgColor="D955C1" bgColor="293134" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="SCRIPTTYPE" styleID="16" fgColor="D955C1" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
         <LexerType name="asm" desc="Assembly" ext="">
@@ -110,7 +110,7 @@ Notepad++ Custom Style
             <WordsStyle name="COMMENT" styleID="1" fgColor="66747B" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="KEYWORDS" styleID="2" fgColor="93C763" bgColor="293134" fontName="" fontStyle="1" fontSize="" keywordClass="instre1" />
             <WordsStyle name="LABEL" styleID="3" fgColor="C29F56" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="HIDE SYBOL" styleID="4" fgColor="D3DA50" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="HIDE SYMBOL" styleID="4" fgColor="D3DA50" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMAND" styleID="5" fgColor="FFCD22" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="VARIABLE" styleID="6" fgColor="678CB1" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="OPERATOR" styleID="7" fgColor="E8E2B7" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
@@ -559,7 +559,11 @@ Notepad++ Custom Style
             <WordsStyle name="OPERATOR" styleID="10" fgColor="E8E2B7" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="IDENTIFIER" styleID="11" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENTBLOCK" styleID="12" fgColor="66747B" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="STRINGEOL" styleID="12" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRINGEOL" styleID="13" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="F STRING" styleID="16" fgColor="EC7600" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="F CHARACTER" styleID="17" fgColor="FF8409" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="F TRIPLE" styleID="18" fgColor="66747B" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="F TRIPLEDOUBLE" styleID="19" fgColor="66747B" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
         <LexerType name="rc" desc="RC" ext="">
             <WordsStyle name="PREPROCESSOR" styleID="9" fgColor="A082BD" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
@@ -636,12 +640,16 @@ Notepad++ Custom Style
         </LexerType>
         <LexerType name="sql" desc="SQL" ext="">
             <WordsStyle name="KEYWORD" styleID="5" fgColor="93C763" bgColor="293134" fontName="" fontStyle="1" fontSize="" keywordClass="instre1" />
+            <WordsStyle name="USER1" styleID="16" fgColor="93C763" bgColor="293134" fontName="" fontStyle="1" fontSize="" keywordClass="instre2" />
+            <WordsStyle name="KEYWORD2" styleID="19" fgColor="007FFF" bgColor="293134" fontName="" fontStyle="1" fontSize="" keywordClass="type3" />
             <WordsStyle name="NUMBER" styleID="4" fgColor="FFCD22" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="STRING" styleID="6" fgColor="EC7600" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="STRING2" styleID="7" fgColor="EC7600" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="OPERATOR" styleID="10" fgColor="E8E2B7" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT" styleID="1" fgColor="66747B" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT LINE" styleID="2" fgColor="66747B" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="COMMENT DOC" styleID="3" fgColor="66747B" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="Q OPERATOR" styleID="24" fgColor="EC7600" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
         <LexerType name="tcl" desc="TCL" ext="">
             <WordsStyle name="PREPROCESSOR" styleID="9" fgColor="A082BD" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
@@ -763,7 +771,9 @@ Notepad++ Custom Style
         <WidgetStyle name="Caret colour" styleID="2069" fgColor="C1CBD2" bgColor="6699CC" fontStyle="0" />
         <WidgetStyle name="Edge colour" styleID="0" fgColor="445257" bgColor="112435" fontSize="" fontStyle="0" />
         <WidgetStyle name="Line number margin" styleID="33" fgColor="81969A" bgColor="3F4B4E" fontName="" fontStyle="0" fontSize="" />
+        <WidgetStyle name="Bookmark margin" styleID="0" bgColor="3F4B4E" />
         <WidgetStyle name="Fold" styleID="0" fgColor="6A8088" bgColor="2F383C" fontSize="" fontStyle="0" />
+        <WidgetStyle name="Fold active" styleID="0" fgColor="6A8088" />
         <WidgetStyle name="Fold margin" styleID="0" fgColor="343F41" bgColor="343F41" fontSize="" fontStyle="0" />
         <WidgetStyle name="White space symbol" styleID="0" fgColor="343F43" bgColor="3476A3" fontSize="" fontStyle="0" />
         <WidgetStyle name="Smart HighLighting" styleID="29" bgColor="56676D" fgColor="222222" />
@@ -780,5 +790,6 @@ Notepad++ Custom Style
         <WidgetStyle name="Active tab unfocused indicator" styleID="0" fgColor="FFCAB0" bgColor="008000" />
         <WidgetStyle name="Active tab text" styleID="0" fgColor="000000" bgColor="0080FF" />
         <WidgetStyle name="Inactive tabs" styleID="0" fgColor="808080" bgColor="C0C0C0" />
+        <WidgetStyle name="URL hovered" styleID="0" fgColor="FFFFFF" />
     </GlobalStyles>
 </NotepadPlus>

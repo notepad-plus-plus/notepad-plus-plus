@@ -26,6 +26,7 @@
 #include <ctype.h>
 
 #include <string>
+#include <vector>
 #include <map>
 
 #include "ILexer.h"
@@ -41,10 +42,9 @@
 #include "CharacterCategory.h"
 #include "LexerModule.h"
 #include "OptionSet.h"
+#include "DefaultLexer.h"
 
-#ifdef SCI_NAMESPACE
 using namespace Scintilla;
-#endif
 
 // See https://github.com/ghc/ghc/blob/master/compiler/parser/Lexer.x#L1682
 // Note, letter modifiers are prohibited.
@@ -143,13 +143,13 @@ static inline int CommentBlockStyleFromNestLevel(const unsigned int nestLevel) {
 // Mangled version of lexlib/Accessor.cxx IndentAmount.
 // Modified to treat comment blocks as whitespace
 // plus special case for commentline/preprocessor.
-static int HaskellIndentAmount(Accessor &styler, const int line) {
+static int HaskellIndentAmount(Accessor &styler, const Sci_Position line) {
 
    // Determines the indentation level of the current line
    // Comment blocks are treated as whitespace
 
-   int pos = styler.LineStart(line);
-   int eol_pos = styler.LineStart(line + 1) - 1;
+   Sci_Position pos = styler.LineStart(line);
+   Sci_Position eol_pos = styler.LineStart(line + 1) - 1;
 
    char ch = styler[pos];
    int style = styler.StyleAt(pos);
@@ -157,7 +157,7 @@ static int HaskellIndentAmount(Accessor &styler, const int line) {
    int indent = 0;
    bool inPrevPrefix = line > 0;
 
-   int posPrev = inPrevPrefix ? styler.LineStart(line-1) : 0;
+   Sci_Position posPrev = inPrevPrefix ? styler.LineStart(line-1) : 0;
 
    while ((  ch == ' ' || ch == '\t'
           || IsCommentBlockStyle(style)
@@ -269,9 +269,9 @@ struct OptionSetHaskell : public OptionSet<OptionsHaskell> {
    }
 };
 
-class LexerHaskell : public ILexer {
+class LexerHaskell : public DefaultLexer {
    bool literate;
-   int firstImportLine;
+   Sci_Position firstImportLine;
    int firstImportIndent;
    WordList keywords;
    WordList ffi;
@@ -347,12 +347,12 @@ class LexerHaskell : public ILexer {
       }
    }
 
-   bool LineContainsImport(const int line, Accessor &styler) const {
+   bool LineContainsImport(const Sci_Position line, Accessor &styler) const {
       if (options.foldImports) {
-         int currentPos = styler.LineStart(line);
+         Sci_Position currentPos = styler.LineStart(line);
          int style = styler.StyleAt(currentPos);
 
-         int eol_pos = styler.LineStart(line + 1) - 1;
+         Sci_Position eol_pos = styler.LineStart(line + 1) - 1;
 
          while (currentPos < eol_pos) {
             int ch = styler[currentPos];
@@ -374,7 +374,7 @@ class LexerHaskell : public ILexer {
       }
    }
 
-   inline int IndentAmountWithOffset(Accessor &styler, const int line) const {
+   inline int IndentAmountWithOffset(Accessor &styler, const Sci_Position line) const {
       const int indent = HaskellIndentAmount(styler, line);
       const int indentLevel = indent & SC_FOLDLEVELNUMBERMASK;
       return indentLevel <= ((firstImportIndent - 1) + SC_FOLDLEVELBASE)
@@ -396,59 +396,59 @@ public:
       {}
    virtual ~LexerHaskell() {}
 
-   void SCI_METHOD Release() {
+   void SCI_METHOD Release() override {
       delete this;
    }
 
-   int SCI_METHOD Version() const {
-      return lvOriginal;
+   int SCI_METHOD Version() const override {
+      return lvRelease4;
    }
 
-   const char * SCI_METHOD PropertyNames() {
+   const char * SCI_METHOD PropertyNames() override {
       return osHaskell.PropertyNames();
    }
 
-   int SCI_METHOD PropertyType(const char *name) {
+   int SCI_METHOD PropertyType(const char *name) override {
       return osHaskell.PropertyType(name);
    }
 
-   const char * SCI_METHOD DescribeProperty(const char *name) {
+   const char * SCI_METHOD DescribeProperty(const char *name) override {
       return osHaskell.DescribeProperty(name);
    }
 
-   int SCI_METHOD PropertySet(const char *key, const char *val);
+   Sci_Position SCI_METHOD PropertySet(const char *key, const char *val) override;
 
-   const char * SCI_METHOD DescribeWordListSets() {
+   const char * SCI_METHOD DescribeWordListSets() override {
       return osHaskell.DescribeWordListSets();
    }
 
-   int SCI_METHOD WordListSet(int n, const char *wl);
+   Sci_Position SCI_METHOD WordListSet(int n, const char *wl) override;
 
-   void SCI_METHOD Lex(unsigned int startPos, int length, int initStyle, IDocument *pAccess);
+   void SCI_METHOD Lex(Sci_PositionU startPos, Sci_Position length, int initStyle, IDocument *pAccess) override;
 
-   void SCI_METHOD Fold(unsigned int startPos, int length, int initStyle, IDocument *pAccess);
+   void SCI_METHOD Fold(Sci_PositionU startPos, Sci_Position length, int initStyle, IDocument *pAccess) override;
 
-   void * SCI_METHOD PrivateCall(int, void *) {
+   void * SCI_METHOD PrivateCall(int, void *) override {
       return 0;
    }
 
-   static ILexer *LexerFactoryHaskell() {
+   static ILexer4 *LexerFactoryHaskell() {
       return new LexerHaskell(false);
    }
 
-   static ILexer *LexerFactoryLiterateHaskell() {
+   static ILexer4 *LexerFactoryLiterateHaskell() {
       return new LexerHaskell(true);
    }
 };
 
-int SCI_METHOD LexerHaskell::PropertySet(const char *key, const char *val) {
+Sci_Position SCI_METHOD LexerHaskell::PropertySet(const char *key, const char *val) {
    if (osHaskell.PropertySet(&options, key, val)) {
       return 0;
    }
    return -1;
 }
 
-int SCI_METHOD LexerHaskell::WordListSet(int n, const char *wl) {
+Sci_Position SCI_METHOD LexerHaskell::WordListSet(int n, const char *wl) {
    WordList *wordListN = 0;
    switch (n) {
    case 0:
@@ -461,7 +461,7 @@ int SCI_METHOD LexerHaskell::WordListSet(int n, const char *wl) {
       wordListN = &reserved_operators;
       break;
    }
-   int firstModification = -1;
+   Sci_Position firstModification = -1;
    if (wordListN) {
       WordList wlNew;
       wlNew.Set(wl);
@@ -473,11 +473,11 @@ int SCI_METHOD LexerHaskell::WordListSet(int n, const char *wl) {
    return firstModification;
 }
 
-void SCI_METHOD LexerHaskell::Lex(unsigned int startPos, int length, int initStyle
+void SCI_METHOD LexerHaskell::Lex(Sci_PositionU startPos, Sci_Position length, int initStyle
                                  ,IDocument *pAccess) {
    LexAccessor styler(pAccess);
 
-   int lineCurrent = styler.GetLine(startPos);
+   Sci_Position lineCurrent = styler.GetLine(startPos);
 
    HaskellLineInfo hs = HaskellLineInfo(lineCurrent ? styler.GetLineState(lineCurrent-1) : 0);
 
@@ -961,26 +961,26 @@ void SCI_METHOD LexerHaskell::Lex(unsigned int startPos, int length, int initSty
    sc.Complete();
 }
 
-void SCI_METHOD LexerHaskell::Fold(unsigned int startPos, int length, int // initStyle
+void SCI_METHOD LexerHaskell::Fold(Sci_PositionU startPos, Sci_Position length, int // initStyle
                                   ,IDocument *pAccess) {
    if (!options.fold)
       return;
 
    Accessor styler(pAccess, NULL);
 
-   int lineCurrent = styler.GetLine(startPos);
+   Sci_Position lineCurrent = styler.GetLine(startPos);
 
    if (lineCurrent <= firstImportLine) {
       firstImportLine = -1; // readjust first import position
       firstImportIndent = 0;
    }
 
-   const int maxPos = startPos + length;
-   const int maxLines =
+   const Sci_Position maxPos = startPos + length;
+   const Sci_Position maxLines =
       maxPos == styler.Length()
          ? styler.GetLine(maxPos)
          : styler.GetLine(maxPos - 1);  // Requested last line
-   const int docLines = styler.GetLine(styler.Length()); // Available last line
+   const Sci_Position docLines = styler.GetLine(styler.Length()); // Available last line
 
    // Backtrack to previous non-blank line so we can determine indent level
    // for any white space lines
@@ -1018,7 +1018,7 @@ void SCI_METHOD LexerHaskell::Fold(unsigned int startPos, int length, int // ini
    while (lineCurrent <= docLines && lineCurrent <= maxLines) {
 
       // Gather info
-      int lineNext = lineCurrent + 1;
+      Sci_Position lineNext = lineCurrent + 1;
       importHere = false;
       int indentNext = indentCurrent;
 
@@ -1063,7 +1063,7 @@ void SCI_METHOD LexerHaskell::Fold(unsigned int startPos, int length, int // ini
       // which is indented more than the line after the end of
       // the comment-block, use the level of the block before
 
-      int skipLine = lineNext;
+      Sci_Position skipLine = lineNext;
       int skipLevel = indentNextLevel;
 
       while (--skipLine > lineCurrent) {

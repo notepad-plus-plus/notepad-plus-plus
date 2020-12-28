@@ -29,17 +29,19 @@
 SectionGroup "Plugins" Plugins
 	SetOverwrite on
 	
-!ifndef ARCH64
 	${MementoSection} "NppExport" NppExport
 		Delete "$INSTDIR\plugins\NppExport.dll"
 		Delete "$INSTDIR\plugins\NppExport\NppExport.dll"
 		Delete "$PLUGIN_INST_PATH\NppExport\NppExport.dll"
 		
 		SetOutPath "$PLUGIN_INST_PATH\NppExport"
+!ifdef ARCH64
+		File "..\bin64\plugins\NppExport\NppExport.dll"
+!else
 		File "..\bin\plugins\NppExport\NppExport.dll"
+!endif
 	${MementoSectionEnd}
 
-!endif
 
 	${MementoSection} "Mime Tools" MimeTools
 		Delete "$INSTDIR\plugins\mimeTools.dll"
@@ -67,30 +69,6 @@ SectionGroup "Plugins" Plugins
 !endif
 	${MementoSectionEnd}
 
-	${MementoSection} "Decent Spell-Checking" DSpellCheck
-       
-		Delete "$INSTDIR\plugins\DSpellCheck.dll"
-		Delete "$INSTDIR\plugins\DSpellCheck\DSpellCheck.dll"
-		Delete "$PLUGIN_INST_PATH\DSpellCheck\DSpellCheck.dll"
-		
-		
-		SetOutPath "$PLUGIN_INST_PATH\DSpellCheck"
-!ifdef ARCH64
-		File "..\bin64\plugins\DSpellCheck\DSpellCheck.dll"
-		SetOutPath "$USER_PLUGIN_CONF_PATH\Hunspell"
-		File "..\bin64\plugins\Config\Hunspell\en_US.aff"
-		File "..\bin64\plugins\Config\Hunspell\en_US.dic"
-!else
-		File "..\bin\plugins\DSpellCheck\DSpellCheck.dll"
-		SetOutPath "$USER_PLUGIN_CONF_PATH\Hunspell"
-		File "..\bin\plugins\Config\Hunspell\en_US.aff"
-		File "..\bin\plugins\Config\Hunspell\en_US.dic"
-!endif
-        SetOverwrite off
-        SetOutPath "$UPDATE_PATH\plugins\Config"
-        File "..\bin\plugins\Config\DSpellCheckDefaultDisabled\DSpellCheck.ini"
-	${MementoSectionEnd}
-
 SectionGroupEnd
 
 ${MementoSection} "Auto-Updater" AutoUpdater
@@ -115,9 +93,9 @@ ${MementoSection} "Plugins Admin" PluginsAdmin
 	SetOverwrite on
 	SetOutPath $ALLUSERS_PLUGIN_CONF_PATH
 !ifdef ARCH64
-	File "..\bin64\nppPluginList.dll"
+	File "..\bin64\plugins\Config\nppPluginList.dll"
 !else
-	File "..\bin\nppPluginList.dll"
+	File "..\bin\plugins\Config\nppPluginList.dll"
 !endif
 ${MementoSectionEnd}
 

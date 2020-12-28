@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><NotepadPlus>
+<?xml version="1.0" encoding="UTF-8"?>
     <!--
     URL: https://www.w3schools.com/xml/xml_syntax.asp
     - &#xD;  is (\r) new line 
@@ -7,7 +7,8 @@
     - &apos; is (')
     - &quot; is (")
     -->
-    <Native-Langue name="Arabic" filename="arabic.xml" RTL="yes" version="7.5.5">
+<NotepadPlus>
+    <Native-Langue name="Arabic" filename="arabic.xml" RTL="yes" version="7.7.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -40,11 +41,12 @@
                     <Item subMenuId="edit-blankOperations" name="عمليات الفراغ"/>
                     <Item subMenuId="edit-pasteSpecial" name="لصق خاص"/>
                     <Item subMenuId="edit-onSelection" name="على المحدد"/>
-                    <Item subMenuId="search-markAll" name="تأشير الكل"/>
+                    <Item subMenuId="search-markAll" name="وضع علامة على الكل"/>
                     <Item subMenuId="search-unmarkAll" name="إلغاء وضع علامة على الكل"/>
                     <Item subMenuId="search-jumpUp" name="قفز لأعلى"/>
                     <Item subMenuId="search-jumpDown" name="قفز لأسفل"/>
                     <Item subMenuId="search-bookmark" name="إشارة المرجعية"/>
+                    <Item subMenuId="view-currentFileIn" name="عرض الملف الحالي في"/>
                     <Item subMenuId="view-showSymbol" name="إظهار الرمز"/>
                     <Item subMenuId="view-zoom" name="تكبير"/>
                     <Item subMenuId="view-moveCloneDocument" name="نقل / استنساخ المستند الحالي"/>
@@ -71,6 +73,7 @@
                     <Item subMenuId="encoding-vietnamese" name="Vietnamese"/>
                     <Item subMenuId="settings-import" name="استيراد"/>
                     <Item subMenuId="tools-md5" name="MD5"/>
+                    <Item subMenuId="tools-sha256" name="SHA-256"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -84,6 +87,7 @@
                     <Item id="41005" name="إغلاق الكل باستثناء المستند الحالي"/>
                     <Item id="41009" name="إغلاق الكل إلى اليسار"/>
                     <Item id="41018" name="إغلاق الكل إلى اليمين"/>
+                    <Item id="41024" name="إغلاق الكل بدون تغيير"/>
                     <Item id="41006" name="&amp;حفظ"/>
                     <Item id="41007" name="ح&amp;فظ الكل"/>
                     <Item id="41008" name="حفظ &amp;باسم..."/>
@@ -98,7 +102,7 @@
                     <Item id="41017" name="إعادة تسمية..."/>
                     <Item id="41021" name="إستعادة الملف الذي تم إغلاقه مؤخراً"/>
                     <Item id="41022" name="فتح المجلد كمساحة عمل..."/>
-                    <Item id="41023" name="فتح في العارض الافتراضي"/>
+                    <Item id="41023" name="فتح في المستعرض الافتراضي"/>
                     <Item id="42001" name="&amp;قص"/>
                     <Item id="42002" name="&amp;نسخ"/>
                     <Item id="42003" name="&amp;تراجع"/>
@@ -110,6 +114,7 @@
                     <Item id="42008" name="زيادة إزاحة السطر"/>
                     <Item id="42009" name="إنقاص إزاحة السطر"/>
                     <Item id="42010" name="تكرار السطر الحالي"/>
+                    <Item id="42077" name="إزالة الأسطر المكررة بشكل متتالي"/>
                     <Item id="42012" name="تقسيم الأسطر"/>
                     <Item id="42013" name="تجميع الأسطر"/>
                     <Item id="42014" name="نقل السطر الحالي إلى أعلى"/>
@@ -222,7 +227,7 @@
                     <Item id="43047" name="نتيجة البحث السابقة"/>
                     <Item id="43048" name="تحديد وبحث عن التالي"/>
                     <Item id="43049" name="تحديد وبحث عن السابق"/>
-                    <Item id="43054" name="إ&amp;شارة..."/>
+                    <Item id="43054" name="وضع &amp;علامة..."/>
                     <Item id="44009" name="تثبيت كملاحظة"/>
                     <Item id="44010" name="طي الكل"/>
                     <Item id="44019" name="إظهار كل الأحرف"/>
@@ -296,14 +301,19 @@
                     <Item id="47005" name="الحصول على المزيد من الإضافات"/>
                     <Item id="47006" name="تحديث Notepad++"/>
                     <Item id="47009" name="تعيين Proxy للتحديث..."/>
-                    <Item id="48005" name="استيراد إضافات..."/>
-                    <Item id="48006" name="استيراد نمط موضوعات..."/>
+                    <Item id="48005" name="استيراد الإضافات..."/>
+                    <Item id="48006" name="استيراد نمط الموضوعات..."/>
                     <Item id="48018" name="تحرير قائمة السياق المنبثقة"/>
                     <Item id="48009" name="مخطط الاختصارات..."/>
-                    <Item id="48011" name="تفضيلات..."/>
+                    <Item id="48011" name="التفضيلات..."/>
+                    <Item id="48014" name="فتح مجلد الإضافات..."/>
+                    <Item id="48015" name="مدير الإضافات..."/>
                     <Item id="48501" name="توليد..."/>
-                    <Item id="48502" name="توليد من ملفات..."/>
-                    <Item id="48503" name="توليد في الذاكرة"/>
+                    <Item id="48502" name="توليد من الملفات..."/>
+                    <Item id="48503" name="توليد من المحدد إلى الذاكرة"/>
+                    <Item id="48504" name="توليد..."/>
+                    <Item id="48505" name="توليد من الملفات..."/>
+                    <Item id="48506" name="توليد من المحدد إلى الذاكرة"/>
                     <Item id="49000" name="&amp;تشغيل..."/>
 
                     <Item id="50000" name="إكمال الإقتران"/>
@@ -342,11 +352,12 @@
                     <Item CMID="19" name="فتح مجلد الهدف في مستعرض الملفات"/>
                     <Item CMID="20" name="فتح مجلد الهدف في cmd"/>
                     <Item CMID="21" name="فتح في العارض الافتراضي"/>
+                    <Item CMID="22" name="إغلاق الكل بدون تغيير"/>
             </TabBar>
         </Menu>
 
         <Dialog>
-            <Find title="" titleFind="بحث" titleReplace="استبدال" titleFindInFiles="بحث في الملفات" titleMark="إشارة">
+            <Find title="" titleFind="بحث" titleReplace="استبدال" titleFindInFiles="بحث في الملفات" titleMark="وضع علامة">
                 <Item id="1" name="بحث عن التالي"/>
                 <Item id="1722" name="الاتجاه إلى الخلف"/>
                 <Item id="2" name="إغلاق"/>
@@ -356,7 +367,7 @@
                 <Item id="1605" name="Re&amp;gular expression"/>
                 <Item id="1606" name="الت&amp;فاف حول"/>
                 <Item id="1614" name="مجمو&amp;ع"/>
-                <Item id="1615" name="تأشير الكل"/>
+                <Item id="1615" name="وضع علامة على الكل"/>
                 <Item id="1616" name="سطر الإشارة المر&amp;جعية"/>
                 <Item id="1618" name="تطهير لكل بحث"/>
                 <Item id="1611" name="إ&amp;ستبدال بواسطة :"/>
@@ -365,7 +376,7 @@
                 <Item id="1687" name="عند فقد التركيز"/>
                 <Item id="1688" name="دائماً"/>
                 <Item id="1632" name="في الم&amp;حدد"/>
-                <Item id="1633" name="مسح كل الإشارات"/>
+                <Item id="1633" name="مسح كل العلامات"/>
                 <Item id="1635" name="استبدال الكل في جميع المستندات ال&amp;مفتوحة"/>
                 <Item id="1636" name="بحث عن الكل في جميع المستندات ال&amp;مفتوحة"/>
                 <Item id="1654" name="ت&amp;صفيات :"/>
@@ -381,6 +392,8 @@
                 <Item id="1641" name="بحث عن الكل في المستند الحالي"/>
                 <Item id="1686" name="الشفاف&amp;ية"/>
                 <Item id="1703" name="&amp;. تطابق سطر جديد"/>
+				<Item id="1721" name="▲"/>
+                <Item id="1723" name="▼ بحث عن التالي"/>
             </Find>
 
             <FindCharsInRange title="بحث عن أحرف في النطاق...">
@@ -412,17 +425,40 @@
                 <Item id="1904" name="حفظ..."/>
             </Run>
 
-            <MD5FromFilesDlg title="توليد ملخص MD5 من الملفات">
+            <MD5FromFilesDlg title="توليد توقيع MD5 من الملفات">
                 <Item id="1922" name="اختر الملفات لتوليد MD5..."/>
                 <Item id="1924" name="نسخ إلى الذاكرة"/>
                 <Item id="2" name="إغلاق"/>
             </MD5FromFilesDlg>
 
-            <MD5FromTextDlg title="توليد ملخص MD5">
+            <MD5FromTextDlg title="توليد توقيع MD5">
                 <Item id="1932" name="عامل كل سطر كنص منفصل"/>
                 <Item id="1934" name="نسخ إلى الذاكرة"/>
                 <Item id="2" name="إغلاق"/>
             </MD5FromTextDlg>
+            
+            <SHA256FromFilesDlg title="توليد توقيع SHA-256 من الملفات">
+                <Item id="1922" name="حدد الملفات لتوليد SHA-256..."/>
+                <Item id="1924" name="نسخ إلى الذاكرة"/>
+                <Item id="2" name="إغلاق"/>
+            </SHA256FromFilesDlg>
+
+            <SHA256FromTextDlg title="توليد توقيع SHA-256">
+                <Item id="1932" name="تعامل مع كل سطر كنص منفصل"/>
+                <Item id="1934" name="نسخ إلى الذاكرة"/>
+                <Item id="2" name="إغلاق"/>
+            </SHA256FromTextDlg>
+            
+            <PluginsAdminDlg title="مدير الإضافات" titleAvailable="المتوفر" titleUpdates="التحديثات" titleInstalled="المثبت">
+                <ColumnPlugin name="الإضافة"/>
+                <ColumnVersion name="النسخة"/>
+                <Item id="5501" name="بحث:"/>
+                <Item id="5503" name="تثبيت"/>
+                <Item id="5504" name="تحديث"/>
+                <Item id="5505" name="إزالة"/>
+                <Item id="5508" name="التالي"/>
+                <Item id="2" name="إغلاق"/>
+            </PluginsAdminDlg>
 
             <StyleConfig title="مكون النمط">
                 <Item id="2" name="إلغاء"/>
@@ -756,6 +792,7 @@
                     <Item id="6302" name="استبدال بمسافة"/>
                     <Item id="6303" name="حجم Tab: "/>
                     <Item id="6510" name="استخدم القيمة الافتراضية"/>
+                    <Item id="6335" name="تعامل مع الشرطة المائلة للخلف على أنا حرف إفلات لـ SQL"/>
                 </Language>
 
                 <Highlighting title="التمييز">
@@ -828,6 +865,7 @@
                 </Backup>
 
                 <AutoCompletion title="الإكمال التلقائي">
+                    <Item id="6115" name="إزاحة تلقائية"/>
                     <Item id="6807" name="الإكمال التلقائي"/>
                     <Item id="6808" name="تفعيل الإكمال التلقائي لكل إدخال"/>
                     <Item id="6809" name="إكمال الإقتران"/>
@@ -870,7 +908,7 @@
                     <Item id="6263" name="لا يوجد تخزين سحابي"/>
                     <Item id="6267" name="قم بتعيين مسار موقع التخزين السحابي الخاص بك هنا:"/>
                 </Cloud>
-                
+
                 <SearchEngine title="محرك البحث">
                     <Item id="6271" name="محرك البحث (للأمر &quot;البحث على الإنترنت&quot;)"/>
                     <Item id="6272" name="DuckDuckGo"/>
@@ -883,7 +921,11 @@
                 </SearchEngine>
 
                 <MISC title="متعدد.">
-                    <Item id="6307" name="تفعيل"/>
+                    <ComboBox id="6347">
+                        <Element name="تفعيل"/>
+                        <Element name="تفعيل لكل الملفات المفتوحة"/>
+                        <Element name="تعطيل"/>
+                    </ComboBox>
                     <Item id="6308" name="تصغير إلى جوار الساعة"/>
                     <Item id="6312" name="التحقق التلقائي من حالة الملف"/>
                     <Item id="6313" name="التحديث بشكل صامت"/>
@@ -896,10 +938,8 @@
                     <Item id="6324" name="مبدل المستندات (Ctrl + TAB)"/>
                     <Item id="6331" name="إظهار اسم الملف فقط في شريط العنوان"/>
                     <Item id="6334" name="كشف ترميز الأحرف بشكل تلقائي"/>
-                    <Item id="6335" name="تعامل مع الشرطة المائلة للخلف على أنا حرف إفلات لـ SQL"/>
                     <Item id="6337" name="امتداد ملف مساحة العمل:"/>
                     <Item id="6114" name="تفعيل"/>
-                    <Item id="6115" name="إزاحة تلقائية"/>
                     <Item id="6117" name="تفعيل سلوك MRU"/>
                     <Item id="6344" name="النظرة الخاطفة للمستند"/>
                     <Item id="6345" name="نظرة خاطفة على علامة التبويب"/>
@@ -949,6 +989,14 @@
                 <Item id="1718" name="م&amp;وسع (\n, \r, \t, \0, \x...)"/>
                 <Item id="1720" name="&amp;. تطابق سطر جديد"/>
             </FindInFinder>
+            <DoSaveOrNot title="حفظ"> 
+                <Item id="1761" name="حفظ الملف &quot;$STR_REPLACE$&quot; ؟"/>
+                <Item id="6" name="نعم"/>
+                <Item id="7" name="لا"/>
+                <Item id="2" name="إلغاء"/>
+                <Item id="4" name="نعم للكل"/>
+                <Item id="5" name="لا للكل"/>
+            </DoSaveOrNot>
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title="تحرير القائمة المنبثقة" message="إن تحرير contextMenu.xml يسمح لك بتعديل قائمة السياق المنبثقة لـ Notepad++.&#xA; يجب عليك إعادة تشغيل Notepad++ ليتم تطبيق التعديلات التي قمت بها على contextMenu.xml."/>
@@ -960,8 +1008,8 @@
             <FileLockedWarning title="فشل الحفظ" message="الرجاء التحقق من أن هذا الملف مفتوح في برنامج أخر"/>
             <FileAlreadyOpenedInNpp title="" message="هذا الملف مفتوح بالفعل في Notepad++."/>
             <DeleteFileFailed title="حذف الملف" message="فشل حذف الملف"/>
-            
-            <NbFileToOpenImportantWarning title="عدد الملفات المطلوب فتحها كبير جداً" message="$INT_REPLACE$ ملفات سوف يتم فتحها.&#xA;هل تريد بالتأكيد فتح هذه الملفات؟"/>
+
+            <NbFileToOpenImportantWarning title="عدد الملفات المطلوب فتحها كبير جداً" message="$INT_REPLACE$ ملفات سوف يتم فتحها.&#xA;هل أنت متأكد أنك تريد فتحها؟"/>
             <SettingsOnCloudError title="الإعدادات على التخزين السحابي" message="يبدو أن مسار الإعدادات على التخزين السحابي تم تعيينه على قرص للقراءة فقط، &#xA;أو على مجلد يحتاج صلاحيات للكتابة. &#xA;سيتم إلغاء إعداداتك على التخزين السحابي. الرجاء إعادة تعيين قيمة أفضل من خلال مربع حوال تفضيلات."/>
             <FilePathNotFoundWarning title="فتح ملف" message="الملف الذي تحاول فتحه غير موجود."/>
             <SessionFileInvalidError title="لا يمكن تحميل الجلسة" message="ملف الجلسة إما أنه تالف أو غير صالح."/>
@@ -969,7 +1017,6 @@
             <SortingError title="خطأ في الترتيب" message="غير قادر على إجراء ترتيب رقمي بسبب السطر $INT_REPLACE$."/>
             <ColumnModeTip title="تلميح وضع العمود" message="الرجاء استخدام &quot;Alt + تحديد الفأرة&quot; أو &quot;Shift + Alt + مفتاح السهم&quot; للتبديل إلى وضع العمود."/>
             <BufferInvalidWarning title="فشل الحفظ" message="لا يمكن الحفظ: المخزن المؤقت غير صالح."/>
-            <DoSaveOrNot title="حفظ" message="حفظ الملف &quot;$STR_REPLACE$&quot; ؟"/>
             <DoCloseOrNot title="إبقاء الملف الغير موجود" message="هذا الملف &quot;$STR_REPLACE$&quot; غير موجود بعد الآن.&#xA;إبقاء هذا الملف في المحرر؟"/>
             <DoDeleteOrNot title="حذف الملف" message="هذا الملف &quot;$STR_REPLACE$&quot;&#xA;سوف يتم نقله إلى سلة المهملات وسوف يتم إغلاق المستند الحالي.&#xA;متابعة؟"/>
             <NoBackupDoSaveFile title="حفظ" message="لا يمكن العثور على ملف النسخ الاحتياطي الخاص بك (تم حذفه من الخارج).&#xA;قم بحفظه وإلا سيتم فقدان البيانات الخاصة بك&#xA;هل تريد حفظ الملف &quot;$STR_REPLACE$&quot;؟"/>
@@ -1005,6 +1052,9 @@
             <OpenInAdminMode title="فشل الحفظ" message="لا يمكن حفظ الملف وقد يكون محمياً.&#xA;هل تريد تشغيل Notepad++ في وضع المسؤول؟"/>
             <OpenInAdminModeWithoutCloseCurrent title="فشل الحفظ" message="لا يمكن حفظ الملف وقد يكون محمياً.&#xA;هل تريد تشغيل Notepad++ في وضع المسؤول؟"/>
             <OpenInAdminModeFailed title="فشل الفتح في وضع المسؤول." message="لا يمكن فتح Notepad++ في وضع المسؤول."/>
+            <ViewInBrowser title="عرض الملف الحالي في المتصفح" message="لا يمكن العثور على التطبيق في نظامك."/>
+            <ExitToUpdatePlugins title="Notepad++ على وشك الخروج" message="إذا قمت بالضغط على نعم، ستقوم بمغادرة Notepad ++ لمتابعة العمليات.&#xA;سيتم إعادة تشغيل Notepad ++ بعد إنهاء جميع العمليات.&#xA;متابعة؟"/>
+            <NeedToRestartToLoadPlugins title="Notepad++ يحتاج لإعادة تشغيل" message="يجب عليك إعادة تشغيل Notepad++ لتحميل الإضافات التي قمت بتثبيتها."/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="سجل الذاكرة"/>
@@ -1020,10 +1070,12 @@
             <ColumnType name="النوع"/>
         </WindowsDlg>
         <AsciiInsertion>
-            <PanelTitle name="لوحة إدراج ASCII"/>
+            <PanelTitle name="لوحة الإدراج رموز ASCII"/>
             <ColumnVal name="القيمة"/>
             <ColumnHex name="Hex"/>
             <ColumnChar name="الحرف"/>
+            <ColumnHtmlNumber name="رقم HTML"/>
+            <ColumnHtmlName name="كود HTML"/>
         </AsciiInsertion>
         <DocumentMap>
             <PanelTitle name="خريطة المستند"/>
@@ -1046,6 +1098,7 @@
                 <Item id="3517" name="البحث في الملفات ..."/>
                 <Item id="3518" name="إستعراض هنا"/>
                 <Item id="3519" name="CMD هنا"/>
+                <Item id="3520" name="نسخ اسم الملف"/>
             </Menus>
         </FolderAsWorkspace>
         <ProjectManager>
@@ -1113,10 +1166,10 @@
             <find-status-replaceinfiles-re-malformed value="الاستبدال في الملفات المفتوحة: إن regular expression غير صحيحة"/>
             <find-status-replaceinopenedfiles-1-replaced value="الاستبدال في الملفات المفتوحة: 1 تكرار تم استبداله"/>
             <find-status-replaceinopenedfiles-nb-replaced value="الاستبدال في الملفات المفتوحة: $INT_REPLACE$ تكرار تم استبداله"/>
-            <find-status-mark-re-malformed value="الإشارة: إن regular expression للبحث غير صحيحة."/>
+            <find-status-mark-re-malformed value="العلامة: إن regular expression للبحث غير صحيحة."/>
             <find-status-invalid-re value="البحث: إن regular expression غير صالح"/>
-            <find-status-mark-1-match value="1 تطابق"/>
-            <find-status-mark-nb-matches value="$INT_REPLACE$ تطابق"/>
+            <find-status-mark-1-match value="العلامة: 1 تطابق"/>
+            <find-status-mark-nb-matches value="العلامة: $INT_REPLACE$ تطابق"/>
             <find-status-count-re-malformed value="المجموع: إن regular expression للبحث غير صحيحة."/>
             <find-status-count-1-match value="المجموع: 1 تطابق"/>
             <find-status-count-nb-matches value="المجموع: $INT_REPLACE$ تطابق."/>
@@ -1139,6 +1192,29 @@
             <finder-select-all value="تحديد الكل"/>
             <finder-clear-all value="مسح الكل"/>
             <finder-open-all value="فتح الكل"/>
+            <common-ok value="موافق"/>
+            <common-cancel value="إلغاء"/>
+            <common-name value="الاسم: "/>
+            <tabrename-title value="إعادة تسمية علامة التبويب الحالية"/>
+            <tabrename-newname value="الاسم الجديد: "/>
+            <recent-file-history-maxfile value="أكبر ملف: "/>
+            <language-tabsize value="حجم علامة التبويب: "/>
+            <userdefined-title-new value="إنشاء لغة جديدة..."/>
+            <userdefined-title-save value="حفظ اللغة الحالية باسم..."/>
+            <userdefined-title-rename value="إعادة تسمية اللغة الحالية"/>
+            <autocomplete-nb-char value="عدد الحروف: "/>
+            <edit-verticaledge-nb-col value="عدد الأعمدة:"/>
+            <summary value="الملخص"/>
+            <summary-filepath value="المسار الكامل للملف: "/>
+            <summary-filecreatetime value="الإنشاء: "/>
+            <summary-filemodifytime value="التعديل: "/>
+            <summary-nbchar value="الأحرف (بدون نهاية السطر): "/>
+            <summary-nbword value="الكلمات: "/>
+            <summary-nbline value="الأسطر: "/>
+            <summary-nbbyte value="طول المستند: "/>
+            <summary-nbsel1 value=" الأحرف المحددة ("/>
+            <summary-nbsel2 value=" بايت) في "/>
+            <summary-nbrange value=" النطاقات"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

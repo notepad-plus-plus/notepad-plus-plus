@@ -1,0 +1,6 @@
+KO	u ähttp://test.com u
+ok	m 0000000000000000 m
+ko	m 0111111111111111 m
+KO	u домhttp://test.com u
+ok	m 000000000000000000 m
+ko	m 000111111111111111 m

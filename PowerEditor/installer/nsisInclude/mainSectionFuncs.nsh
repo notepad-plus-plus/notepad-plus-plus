@@ -85,14 +85,12 @@ Function copyCommonFiles
 	SetOverwrite off
 	SetOutPath "$UPDATE_PATH\"
 	File "..\bin\contextMenu.xml"
-	File "..\bin\functionList.xml"
 	
 	SetOverwrite on
 	SetOutPath "$INSTDIR\"
 	File "..\bin\langs.model.xml"
 	File "..\bin\stylers.model.xml"
 	File "..\bin\contextMenu.xml"
-	File "..\bin\functionList.xml"
 
 	SetOverwrite off
 	File "..\bin\shortcuts.xml"
@@ -105,10 +103,6 @@ Function copyCommonFiles
 	File "..\bin\change.log"
 	File "..\bin\readme.txt"
 	
-	IfFileExists "$UPDATE_PATH\userDefineLang.xml" 0 +2
-	File "..\bin\userDefinedLang-markdown.default.modern.xml"
-	File /oname=$INSTDIR\userDefineLang.xml "..\bin\userDefinedLang-markdown.default.modern.xml"
-	
 !ifdef ARCH64
 	File "..\bin64\SciLexer.dll"
 	File "..\bin64\notepad++.exe"
@@ -116,6 +110,12 @@ Function copyCommonFiles
 	File "..\bin\SciLexer.dll"
 	File "..\bin\notepad++.exe"
 !endif
+
+	; Markdown in user defined languages
+	SetOutPath "$UPDATE_PATH\userDefineLangs\"
+	Delete "$UPDATE_PATH\userDefineLangs\userDefinedLang-markdown.default.modern.xml"
+	File "..\bin\userDefineLangs\markdown._preinstalled.udl.xml"
+
 	; Localization
 	; Default language English 
 	SetOutPath "$INSTDIR\localization\"

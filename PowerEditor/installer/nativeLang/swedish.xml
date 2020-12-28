@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-	<Native-Langue name="Svenska" filename="swedish.xml" version="7.5.5">
+	<Native-Langue name="Svenska" filename="swedish.xml" version="7.8.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -32,38 +32,41 @@
 					<Item subMenuId="edit-eolConversion" name="Konvertering av radbyten"/>
 					<Item subMenuId="edit-blankOperations" name="Blanksteg"/>
 					<Item subMenuId="edit-pasteSpecial" name="Klistra in special"/>
-					<Item subMenuId="edit-onSelection" name="För markerat"/> 
+					<Item subMenuId="edit-onSelection" name="För markerat"/>
 					<Item subMenuId="search-markAll" name="Markera allt"/>
 					<Item subMenuId="search-unmarkAll" name="Avmarkera allt"/>
 					<Item subMenuId="search-jumpUp" name="Hoppa uppåt"/>
 					<Item subMenuId="search-jumpDown" name="Hoppa nedåt"/>
 					<Item subMenuId="search-bookmark" name="Bokmärken"/>
+					<Item subMenuId="view-currentFileIn" name="Visa aktuell fil i"/>
 					<Item subMenuId="view-showSymbol" name="Visa symbol"/>
-					<Item subMenuId="view-zoom"  name="Zooma"/>
+					<Item subMenuId="view-zoom" name="Zooma"/>
 					<Item subMenuId="view-moveCloneDocument" name="Flytta/klona aktuellt dokument"/>
-					<Item subMenuId="view-tab"  name="Flik"/>
+					<Item subMenuId="view-tab" name="Flik"/>
 					<Item subMenuId="view-collapseLevel" name="Minimera nivå"/>
 					<Item subMenuId="view-uncollapseLevel" name="Expandera nivå"/>
 					<Item subMenuId="view-project" name="Projekt"/>
 					<Item subMenuId="encoding-characterSets" name="Teckenuppsättning"/>
-					<Item subMenuId="encoding-arabic"  name="Arabisk"/>
-					<Item subMenuId="encoding-baltic"  name="Baltisk"/>
-					<Item subMenuId="encoding-celtic"  name="Keltisk"/>
-					<Item subMenuId="encoding-cyrillic"  name="Kyrillisk"/>
-					<Item subMenuId="encoding-centralEuropean"  name="Centraleuropeisk"/>
-					<Item subMenuId="encoding-chinese"  name="Kinesisk"/>
-					<Item subMenuId="encoding-easternEuropean"  name="Östeuropeisk"/>
-					<Item subMenuId="encoding-greek"  name="Grekisk"/>
-					<Item subMenuId="encoding-hebrew"  name="Hebreisk"/>
-					<Item subMenuId="encoding-japanese"  name="Japansk"/>
-					<Item subMenuId="encoding-korean"  name="Koreansk"/>
-					<Item subMenuId="encoding-northEuropean"  name="Nordeuropeisk"/>
-					<Item subMenuId="encoding-thai"  name="Thailändsk"/>
-					<Item subMenuId="encoding-turkish"  name="Turkisk"/>
-					<Item subMenuId="encoding-westernEuropean"  name="Västeuropeisk"/>
-					<Item subMenuId="encoding-vietnamese"  name="Vietnamesisk"/>
-					<Item subMenuId="settings-import"  name="Importera"/>
-					<Item subMenuId="tools-md5"  name="MD5"/>
+					<Item subMenuId="encoding-arabic" name="Arabisk"/>
+					<Item subMenuId="encoding-baltic" name="Baltisk"/>
+					<Item subMenuId="encoding-celtic" name="Keltisk"/>
+					<Item subMenuId="encoding-cyrillic" name="Kyrillisk"/>
+					<Item subMenuId="encoding-centralEuropean" name="Centraleuropeisk"/>
+					<Item subMenuId="encoding-chinese" name="Kinesisk"/>
+					<Item subMenuId="encoding-easternEuropean" name="Östeuropeisk"/>
+					<Item subMenuId="encoding-greek" name="Grekisk"/>
+					<Item subMenuId="encoding-hebrew" name="Hebreisk"/>
+					<Item subMenuId="encoding-japanese" name="Japansk"/>
+					<Item subMenuId="encoding-korean" name="Koreansk"/>
+					<Item subMenuId="encoding-northEuropean" name="Nordeuropeisk"/>
+					<Item subMenuId="encoding-thai" name="Thailändsk"/>
+					<Item subMenuId="encoding-turkish" name="Turkisk"/>
+					<Item subMenuId="encoding-westernEuropean" name="Västeuropeisk"/>
+					<Item subMenuId="encoding-vietnamese" name="Vietnamesisk"/>
+					<Item subMenuId="language-userDefinedLanguage" name="Användardefinierat språk"/>
+					<Item subMenuId="settings-import" name="Importera"/>
+					<Item subMenuId="tools-md5" name="MD5"/>
+					<Item subMenuId="tools-sha256" name="SHA-256"/>
 				</SubEntries>
 
 				<!-- all menu item -->
@@ -77,6 +80,7 @@
 					<Item id="41005" name="Stäng &amp;alla FÖRUTOM aktivt dokument"/>
 					<Item id="41009" name="Stäng alla till vänster"/>
 					<Item id="41018" name="Stäng alla till höger"/>
+					<Item id="41024" name="Stäng alla oförändrade"/>
 					<Item id="41006" name="&amp;Spara"/>
 					<Item id="41007" name="Spara a&amp;lla"/>
 					<Item id="41008" name="Spara so&amp;m..."/>
@@ -103,6 +107,7 @@
 					<Item id="42008" name="Öka indrag (infoga TAB)"/>
 					<Item id="42009" name="Minska indrag (ta bort TAB)"/>
 					<Item id="42010" name="Duplicera nuvarande rad"/>
+					<Item id="42077" name="Ta bort efterföljande dubbletter av rader"/>
 					<Item id="42012" name="Dela rader"/>
 					<Item id="42013" name="Sammanfoga rader"/>
 					<Item id="42014" name="Flytta rad uppåt"/>
@@ -117,12 +122,12 @@
 					<Item id="42066" name="Sortera rader som decimaltal (punkt) fallande"/>
 					<Item id="42016" name="&amp;VERSALER"/>
 					<Item id="42017" name="&amp;gemener"/>
-					<Item id="42067" name="Versal Enbart Första Bokstav I Varje Ord - Proper Case"/>
-					<Item id="42068" name="VERSAL Första Bokstav I Varje Ord - Proper Case (blandad)"/>
-					<Item id="42069" name="Versal enbart första bokstav i varje mening - &amp;Sentence case"/>
-					<Item id="42070" name="VERSAL första bokstav i varje mening - Sentence case (blandad)"/>
+					<Item id="42067" name="Inledande Versal I Varje Ord"/>
+					<Item id="42068" name="Inledande Versal I Varje BLANDAT Ord"/>
+					<Item id="42069" name="Inledande versal i varje mening"/>
+					<Item id="42070" name="Inledande versal i varje BLANDAD mening"/>
 					<Item id="42071" name="&amp;iNVERTERA sKIFTLÄGE"/>
-					<Item id="42072" name="&amp;sLUmpmäSSiGt SkifTLÄge"/> 
+					<Item id="42072" name="&amp;sLUmpmäSSiGt SkifTLÄge"/>
 					<Item id="42073" name="Öppna fil"/>
 					<Item id="42074" name="Öppna innehållande mapp i Explorer"/>
 					<Item id="42075" name="Sök på Internet"/>
@@ -259,24 +264,31 @@
 					<Item id="45001" name="Windows (CR LF)"/>
 					<Item id="45002" name="Unix (LF)"/>
 					<Item id="45003" name="Macintosh (CR)"/>
-					<Item id="45004" name="Koda i ANSI"/>
-					<Item id="45005" name="Koda i UTF-8-BOM"/>
-					<Item id="45006" name="Koda i UCS-2 BE BOM"/>
-					<Item id="45007" name="Koda i UCS-2 LE BOM"/>
-					<Item id="45008" name="Koda i UTF-8"/>
+					<Item id="45004" name="ANSI"/>
+					<Item id="45005" name="UTF-8-BOM"/>
+					<Item id="45006" name="UCS-2 BE BOM"/>
+					<Item id="45007" name="UCS-2 LE BOM"/>
+					<Item id="45008" name="UTF-8"/>
 					<Item id="45009" name="Konvertera till ANSI"/>
 					<Item id="45010" name="Konvertera till UTF-8"/>
 					<Item id="45011" name="Konvertera till UTF-8-BOM"/>
 					<Item id="45012" name="Konvertera till UCS-2 BE BOM"/>
 					<Item id="45013" name="Konvertera till UCS-2 LE BOM"/>
+					<Item id="45060" name="Big5 (traditionell)"/>
+					<Item id="45061" name="GB2312 (förenklad)"/>
+					<Item id="45054" name="OEM 861: isländska"/>
+					<Item id="45057" name="OEM 865: nordiska"/>
+					<Item id="45053" name="OEM 860: portugisiska"/>
+					<Item id="45056" name="OEM 863: franska"/>
 
-					<Item id="10001" name="Flytta till annan vy"/>
-					<Item id="10002" name="Klona till annan vy"/>
-					<Item id="10003" name="Flytta till ny instans"/>
-					<Item id="10004" name="Klona till ny instans"/>
+					<Item id="10001" name="Flytta till delad vy"/>
+					<Item id="10002" name="Klona till delad vy"/>
+					<Item id="10003" name="Flytta till nytt fönster"/>
+					<Item id="10004" name="Klona till nytt fönster"/>
 
 					<Item id="46001" name="Konfigurera programspråk"/>
 					<Item id="46250" name="Definiera ditt språk..."/>
+					<Item id="46300" name="Öppna användardefinierad språkmapp..."/>
 					<Item id="46180" name="Användardefinierad"/>
 					<Item id="47000" name="Om Notepad++"/>
 					<Item id="47010" name="Kommandoradsargument"/>
@@ -294,14 +306,22 @@
 					<Item id="48018" name="Redigera popup-meny"/>
 					<Item id="48009" name="Snabbkommandon..."/>
 					<Item id="48011" name="Inställningar..."/>
+					<Item id="48014" name="Öppna mapp med plugins..."/>
+					<Item id="48015" name="Pluginhantering..."/>
 					<Item id="48501" name="Generera..."/>
-					<Item id="48502" name="Generera från fil..."/>
-					<Item id="48503" name="Generera till Urklipp"/>
+					<Item id="48502" name="Generera från filer..."/>
+					<Item id="48503" name="Generera från markering till Urklipp"/>
+					<Item id="48504" name="Generera..."/>
+					<Item id="48505" name="Generera från filer..."/>
+					<Item id="48506" name="Generera från markering till Urklipp"/>
 					<Item id="49000" name="&amp;Kör..."/>
 
 					<Item id="50000" name="Funktionskomplettering"/>
 					<Item id="50001" name="Ordkomplettering"/>
 					<Item id="50002" name="Funktionsparameterhjälp"/>
+					<Item id="50003" name="Växla till föregående dokument"/>
+					<Item id="50004" name="Växla till nästa dokument"/>
+					<Item id="50005" name="Växla makroinspelning"/>
 					<Item id="50006" name="Sökvägskomplettering"/>
 					<Item id="44042" name="Dölj rader"/>
 					<Item id="42040" name="Öppna alla senast använda filer"/>
@@ -335,20 +355,21 @@
 				<Item CMID="19" name="Öppna objektets mapp i utforskaren"/>
 				<Item CMID="20" name="Öppna objektets mapp i kommandotolken"/>
 				<Item CMID="21" name="Öppna i standardprogram"/>
+				<Item CMID="22" name="Stäng alla oförändrade"/>
 			</TabBar>
 		</Menu>
 
 		<Dialog>
-			<Find title="" titleFind="Sök" titleReplace="Ersätt" titleFindInFiles="Sök i filer" titleMark="Markera">
+			<Find title="Sök" titleFind="Sök" titleReplace="Ersätt" titleFindInFiles="Sök i filer" titleMark="Markera">
 				<Item id="1"    name="Sök nästa"/>
 				<Item id="1722" name="Sök föregående"/>
 				<Item id="2"    name="Stäng"/>
-				<Item id="1620" name="Sök &amp;efter:"/>
+				<Item id="1620" name="&amp;Sök efter:"/>
 				<Item id="1603" name="Matcha &amp;hela ord"/>
 				<Item id="1604" name="&amp;Matcha små/STORA bokstäver"/>
 				<Item id="1605" name="&amp;Reguljärt uttryck"/>
-				<Item id="1606" name="&amp;Loopa"/>
-				<Item id="1614" name="&amp;Antal sökträffar"/>
+				<Item id="1606" name="L&amp;oopa"/>
+				<Item id="1614" name="Anta&amp;l sökträffar"/>
 				<Item id="1615" name="Hitta alla"/>
 				<Item id="1616" name="&amp;Bokmärk rad"/>
 				<Item id="1618" name="Rensa tidigare markering vid varje sökning"/>
@@ -369,11 +390,13 @@
 				<Item id="1624" name="Sökläge"/>
 				<Item id="1625" name="&amp;Normal"/>
 				<Item id="1626" name="&amp;Utökat (\n, \r, \t, \0, \x...)"/>
-				<Item id="1660" name="Ersätt i &amp;filer"/>
+				<Item id="1660" name="Ersätt i f&amp;iler"/>
 				<Item id="1661" name="Följ aktuellt dok."/>
 				<Item id="1641" name="Sök alla i aktuellt dokument"/>
 				<Item id="1686" name="&amp;Transparens"/>
 				<Item id="1703" name="&amp;. matchar ny rad"/>
+				<Item id="1721" name="▲"/>
+				<Item id="1723" name="▼ Hitta nästa"/>
 			</Find>
 
 			<FindCharsInRange title="Hitta tecken i intervall...">
@@ -417,9 +440,32 @@
 				<Item id="2"    name="Stäng"/>
 			</MD5FromTextDlg>
 
-			<StyleConfig title="Stilinställningar för programspråk">
+			<SHA256FromFilesDlg title="Generera SHA-256 kontrollsumma från filer">
+				<Item id="1922" name="Välj filer att generera SHA-256..."/>
+				<Item id="1924" name="Kopiera till Urklipp"/>
+				<Item id="2"    name="Stäng"/>
+			</SHA256FromFilesDlg>
+
+			<SHA256FromTextDlg title="Generate SHA-256 digest">
+				<Item id="1932" name="Behandla varje rad som separat sträng"/>
+				<Item id="1934" name="Kopiera till Urklipp"/>
+				<Item id="2"    name="Stäng"/>
+			</SHA256FromTextDlg>
+
+			<PluginsAdminDlg title="Pluginhantering" titleAvailable="Tillgänglig" titleUpdates="Uppdateringar" titleInstalled="Installerat">
+				<ColumnPlugin   name="Plugin"/>
+				<ColumnVersion  name="Version"/>
+				<Item id="5501" name="Sök:"/>
+				<Item id="5503" name="Installera"/>
+				<Item id="5504" name="Uppdatera"/>
+				<Item id="5505" name="Ta bort"/>
+				<Item id="5508" name="Nästa"/>
+				<Item id="2"    name="Stäng"/>
+			</PluginsAdminDlg>
+
+			<StyleConfig title="Stilkonfigurator">
 				<Item id="2" name="Avbryt"/>
-				<Item id="2301" name="&amp;Spara &amp;&amp; stäng"/>
+				<Item id="2301" name="Spara &amp;&amp; stäng"/>
 				<Item id="2303" name="Transparens"/>
 				<Item id="2306" name="Välj tema: "/>
 				<SubDialog>
@@ -700,7 +746,7 @@
 					<Item id="6207" name="Visa bokmärke"/>
 					<Item id="6208" name="Visa vertikal kant"/>
 					<Item id="6209" name="Antal kolumner:"/>
-					<Item id="6234" name="Inaktivera utökade bläddringfunktioner 
+					<Item id="6234" name="Inaktivera utökade bläddringfunktioner
 (om du har problem med pekplattan)"/>
 
 					<Item id="6211" name="Inställning för vertikal gräns"/>
@@ -710,7 +756,7 @@
 					<Item id="6215" name="Aktivera utjämnade tecken"/>
 					<Item id="6231" name="Kantbredd"/>
 					<Item id="6235" name="Ingen kant"/>
-					<Item id="6236" name="Möjliggör bläddring förbi sista raden"/> 
+					<Item id="6236" name="Möjliggör bläddring förbi sista raden"/>
 				</Scintillas>
 
 				<NewDoc title="Nytt dokument">
@@ -726,7 +772,7 @@
 					<Item id="6410" name="UCS-2 Little Endian med BOM"/>
 					<Item id="6411" name="Standardspråk:"/>
 					<Item id="6419" name="Nytt dokument"/>
-					<Item id="6420" name="Tillämpa på öppna ANSI-filer"/>
+					<Item id="6420" name="Tillämpa på öppnade filer i ANSI"/>
 				</NewDoc>
 
 				<DefaultDir title="Standardmapp">
@@ -734,7 +780,7 @@
 					<Item id="6414" name="Använd det aktuella dokumentet"/>
 					<Item id="6415" name="Kom ihåg senast använd mapp"/>
 					<Item id="6430" name="Använd moderna dialogrutor (utan hantering av filtillägg &amp;&amp; möjlighet för sökvägar i Unix-format)"/>
-					<Item id="6431" name="Öppna alla filer i mapp istället för att starta en mapp som en arbetsyta när en mapp dras in"/> 
+					<Item id="6431" name="Öppna alla filer i mapp istället för att starta en mapp som en arbetsyta när en mapp dras in"/>
 				</DefaultDir>
 
 				<FileAssoc title="Filassociering">
@@ -750,15 +796,16 @@
 					<Item id="6302" name="Ersätt med mellanslag"/>
 					<Item id="6303" name="Tabb-storlek: "/>
 					<Item id="6510" name="Använd standardvärde"/>
+					<Item id="6335" name="Behandla omvänt snedstreck som escape-tecken för SQL"/>
 				</Language>
 
 				<Highlighting title="Markering">
 					<Item id="6333" name="Smarta markeringar"/>
 					<Item id="6326" name="Aktivera"/>
 					<Item id="6332" name="Matcha skiftläge"/>
-					<Item id="6338" name="Matcha enbart hela ord"/> 
+					<Item id="6338" name="Matcha enbart hela ord"/>
 					<Item id="6339" name="Använd inställningar från sökfönstret"/>
-					<Item id="6340" name="Markera en annan vy"/> 
+					<Item id="6340" name="Markera en annan vy"/>
 					<Item id="6329" name="Markera matchande taggar"/>
 					<Item id="6327" name="Aktivera"/>
 					<Item id="6328" name="Markera taggattribut"/>
@@ -822,8 +869,9 @@
 				</Backup>
 
 				<AutoCompletion title="Auto-komplettering">
+					<Item id="6115" name="Automatiskt indrag"/>
 					<Item id="6807" name="Automatisk komplettering"/>
-					<Item id="6808"	name="Aktivera automatisk komplettering vid varje inmatning"/>
+					<Item id="6808" name="Aktivera automatisk komplettering vid varje inmatning"/>
 					<Item id="6809" name="Funktionskomplettering"/>
 					<Item id="6810" name="Ordkomplettering"/>
 					<Item id="6816" name="Funktion- och ordkomplettering"/>
@@ -875,10 +923,14 @@
 					<Item id="6276" name="Ange din sökmotor här:"/>
 					<!-- Don't change anything after Example: -->
 					<Item id="6278" name="Exempel: https://www.google.com/search?q=$(CURRENT_WORD)"/>
-				</SearchEngine> 
+				</SearchEngine>
 
 				<MISC title="Övrigt">
-					<Item id="6307" name="Aktivera"/>
+					<ComboBox id="6347">
+						<Element name="Aktivera"/>
+						<Element name="Aktivera för alla öppnade filer"/>
+						<Element name="Avaktivera"/>
+					</ComboBox>
 					<Item id="6308" name="Minimera till systemfältet"/>
 					<Item id="6312" name="Automatisk avkänning av filstatus"/>
 					<Item id="6313" name="Tyst uppdatering"/>
@@ -891,10 +943,9 @@
 					<Item id="6324" name="Dokumentväxling (Ctrl+Tab)"/>
 					<Item id="6331" name="Visa endast filnamn i titelrad"/>
 					<Item id="6334" name="Automatisk igenkänning av teckenkodning"/>
-					<Item id="6335" name="Behandla omvänt snedstreck som escape-tecken för SQL"/>
+					<Item id="6314" name="Använd typsnitt med fast bredd i sökdialogen (Kräver omstart av Notepad++)"/>
 					<Item id="6337" name="Filändelse för arbetsytafil:"/>
 					<Item id="6114" name="Aktivera"/>
-					<Item id="6115" name="Automatiskt indrag"/>
 					<Item id="6117" name="Kom ihåg senast öppnade filer"/>
 					<Item id="6344" name="Förhandsgranska dokument"/>
 					<Item id="6345" name="Förhandsgranska i flik"/>
@@ -922,7 +973,7 @@
 				<Item id="2030" name="Första siffra:"/>
 				<Item id="2031" name="Öka med:"/>
 				<Item id="2035" name="Inledande nollor"/>
-				<Item id="2036" name="Upprepa:"/> 
+				<Item id="2036" name="Upprepa:"/>
 				<Item id="2032" name="Format"/>
 				<Item id="2024" name="Dec"/>
 				<Item id="2025" name="Oct"/>
@@ -944,6 +995,14 @@
 				<Item id="1718" name="&amp;Utökat (\n, \r, \t, \0, \x...)"/>
 				<Item id="1720" name="&amp;. matchar ny rad"/>
 			</FindInFinder>
+			<DoSaveOrNot title="Spara">
+				<Item id="1761" name="Spara fil &quot;$STR_REPLACE$&quot; ?"/>
+				<Item id="6"    name="&amp;Ja"/>
+				<Item id="7"    name="&amp;Nej"/>
+				<Item id="2"    name="Avbryt"/>
+				<Item id="4"    name="J&amp;a till alla"/>
+				<Item id="5"    name="N&amp;ej till alla"/>
+			</DoSaveOrNot>
 		</Dialog>
 		<MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<ContextMenuXmlEditWarning title="Redigera snabbmenyn" message="Genom att redigera contextMenu.xml kan du anpassa snabbmenyn i Notepad++.
@@ -954,16 +1013,14 @@ finns inte. Ladda ned den från hemsidan för Notepad++."/>
 Inga sparade ändringar kan ångras.
 
 Fortsätt?"/>
-			<LoseUndoAbilityWarning title="Varning, förlorad förmåga att ångra" message="Du bör spara ändringarna.&#x0A;Inga sparade ändringar kan ångras.&#x0A;&#x0A;Fortsätt?"/>
-
-
+			<LoseUndoAbilityWarning title="Varning, förlorad förmåga att ångra" message="Du bör spara ändringarna.&#xA;Inga sparade ändringar kan ångras.&#xA;&#xA;Fortsätt?"/>
 
 			<CannotMoveDoc title="Flytta till en ny instans av Notepad++" message="Dokumentet är ändrat, spara det och försök igen."/>
 			<DocReloadWarning title="Ladda om" message="Är det säkert att du vill ladda om aktuell fil och förlora de ändringar som gjorts i Notepad++?"/>
 			<FileLockedWarning title="Kunde inte spara" message="Kontrollera om filen är öppen i ett annat program"/>
 			<FileAlreadyOpenedInNpp title="" message="Filen är redan öppen i Notepad++."/>
 			<DeleteFileFailed title="Ta bort fil" message="Kunde inte ta bort fil"/>
-			
+
 			<NbFileToOpenImportantWarning title="Det är för många filer att öppna" message="$INT_REPLACE$ filer är på väg att öppnas.
 Är det säkert att du vill öppna dem?"/>
 			<SettingsOnCloudError title="Inställningar för molnet" message="Det ser ut som att den angivna sökvägen för molnet är skrivskyddad,
@@ -976,7 +1033,6 @@ Du måste aktivera &quot;Öppna alla filer i mapp istället för att starta en m
 			<SortingError title="Sorteringsfel" message="Kan inte utföra numerisk sortering på grund av rad $INT_REPLACE$."/>
 			<ColumnModeTip title="Tips för kolumnläge" message="Använd &quot;Alt+musmarkering&quot; eller &quot;Alt+Shift+Piltangent&quot; för att växla till kolumnläge."/>
 			<BufferInvalidWarning title="Sparning misslyckades" message="Kan inte spara: Bufferten är felaktig."/>
-			<DoSaveOrNot title="Spara" message="Spara fil &quot;$STR_REPLACE$&quot;?"/>
 			<DoCloseOrNot title="Behålla icke existerande fil" message="Filen &quot;$STR_REPLACE$&quot; existerar inte längre.
 Ska filen behållas i Notepad++?"/>
 			<DoDeleteOrNot title="Ta bort fil" message="Filen &quot;$STR_REPLACE$&quot;
@@ -1034,6 +1090,11 @@ Vill du starta Notepad++ i administratörsläge?"/>
 			<OpenInAdminModeWithoutCloseCurrent title="Kunde inte spara" message="Filen kunde inte sparas och den kan vara skyddad.
 Vill du starta Notepad++ i administratörsläge?"/>
 			<OpenInAdminModeFailed title="Kunde inte starta i administratörsläge" message="Notepad++ kan inte öppnas i administratörsläge."/>
+			<ViewInBrowser title="Visa nuvarande fil i webbläsaren" message="Application cannot be found in your system."/>
+			<ExitToUpdatePlugins title="Notepad++ behöver avslutas" message="Om du klickar på JA, kommer Notepad++ avslutas för att slutföra åtgärderna.
+Notepad++ kommer att startas om när alla åtgärder är avslutade.
+Fortsätta?"/>
+			<NeedToRestartToLoadPlugins title="Notepad++ behöver startas om" message="Du måste starta om Notepad++ för att läsa in plugins du har installerat."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Urklippshistorik"/>
@@ -1053,14 +1114,16 @@ Vill du starta Notepad++ i administratörsläge?"/>
 			<ColumnVal name="Värde"/>
 			<ColumnHex name="Hex"/>
 			<ColumnChar name="Tecken"/>
+			<ColumnHtmlNumber name="HTML Nummer"/>
+			<ColumnHtmlName name="HTML kod"/>
 		</AsciiInsertion>
 		<DocumentMap>
 			<PanelTitle name="Dokumentvy"/>
 		</DocumentMap>
 		<FunctionList>
 			<PanelTitle name="Funktionslista"/>
-			<SortTip name="Sortera" />
-			<ReloadTip name="Ladda om" />
+			<SortTip name="Sortera"/>
+			<ReloadTip name="Ladda om"/>
 		</FunctionList>
 		<FolderAsWorkspace>
 			<PanelTitle name="Mapp som arbetsyta"/>
@@ -1075,6 +1138,7 @@ Vill du starta Notepad++ i administratörsläge?"/>
 				<Item id="3517" name="Sök i filer..."/>
 				<Item id="3518" name="Utforska här"/>
 				<Item id="3519" name="CMD här"/>
+				<Item id="3520" name="Kopiera filnamn"/>
 			</Menus>
 		</FolderAsWorkspace>
 		<ProjectManager>
@@ -1135,6 +1199,11 @@ Vill du starta Notepad++ i administratörsläge?"/>
 			<cloud-select-folder value="Välj en mapp från/till vilken Notepad++ ska läsa/skriva sina inställningar"/>
 			<shift-change-direction-tip value="Använd Shift+Enter för att söka i omvänd riktning"/>
 			<two-find-buttons-tip value="Sök med två knappar"/>
+			<find-in-files-filter-tip value="Hitta i cpp, cxx, h, hxx &amp;&amp; hpp:
+*.cpp *.cxx *.h *.hxx *.hpp
+
+Hitta i alla filer utom exe, obj &amp;&amp; log:
+*.* !*.exe !*.obj !*.log"/>
 			<find-status-top-reached value="Sök: Hittade första förekomsten från slutet. Början av dokumentet har passerats."/>
 			<find-status-end-reached value="Sök: Hittade första förekomsten från början. Slutet av dokumentet har passerats."/>
 			<find-status-replaceinfiles-1-replaced value="Ersätt i filer: 1 förekomst ersattes"/>
@@ -1168,6 +1237,29 @@ Vill du starta Notepad++ i administratörsläge?"/>
 			<finder-select-all value="Välj alla"/>
 			<finder-clear-all value="Rensa alla"/>
 			<finder-open-all value="Öppna alla"/>
+			<common-ok value="OK"/>
+			<common-cancel value="Avbryt"/>
+			<common-name value="Namn: "/>
+			<tabrename-title value="Döp om aktuell flik"/>
+			<tabrename-newname value="Nytt namn: "/>
+			<recent-file-history-maxfile value="Högsta filstorlek: "/>
+			<language-tabsize value="Tab Size: "/>
+			<userdefined-title-new value="Skapa nytt språk..."/>
+			<userdefined-title-save value="Spara aktuellt språknamn som..."/>
+			<userdefined-title-rename value="Döp om aktuellt språknamn"/>
+			<autocomplete-nb-char value="Nb tecken: "/>
+			<edit-verticaledge-nb-col value="Nb av kolumn:"/>
+			<summary value="Summering"/>
+			<summary-filepath value="Full filsökväg: "/>
+			<summary-filecreatetime value="Skapad: "/>
+			<summary-filemodifytime value="Modifierad: "/>
+			<summary-nbchar value="Tecken (utom radslut): "/>
+			<summary-nbword value="Ord: "/>
+			<summary-nbline value="Rader: "/>
+			<summary-nbbyte value="Dokumentlängd: "/>
+			<summary-nbsel1 value=" markerade tecken("/>
+			<summary-nbsel2 value=" bytes) i "/>
+			<summary-nbrange value=" omfång"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -26,8 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef COLORS_H
-#define COLORS_H
+#pragma once
 
 const COLORREF red			            = RGB(0xFF,    0,    0);
 const COLORREF darkRed                  = RGB(0x80,    0,    0);
@@ -64,6 +63,3 @@ const COLORREF extremeLitePurple        = RGB(0xF8, 0xE8, 0xFF);
 const COLORREF veryLitePurple           = RGB(0xE7, 0xD8, 0xE9);
 const COLORREF liteBerge				= RGB(0xFE, 0xFC, 0xF5);
 const COLORREF berge					= RGB(0xFD, 0xF8, 0xE3);
-
-#endif //COLORS_H
-

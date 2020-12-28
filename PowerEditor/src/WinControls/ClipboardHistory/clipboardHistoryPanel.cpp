@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -64,7 +64,7 @@ ClipboardData ClipboardHistoryPanel::getClipboadData()
 						{
 							clipboardData.push_back(static_cast<unsigned char>(lpchar[i]));
 						}
-						GlobalUnlock(hglb); 
+						GlobalUnlock(hglbLen); 
 					}
 				}
 			}
@@ -76,7 +76,8 @@ ClipboardData ClipboardHistoryPanel::getClipboadData()
 					clipboardData.push_back(static_cast<unsigned char>(lpchar[i]));
 				}
 			}
-			GlobalUnlock(hglb); 
+			GlobalUnlock(hglb);
+			GlobalUnlock(hglb);
 		}
 	}
 	CloseClipboard();
@@ -263,8 +264,7 @@ INT_PTR CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam,
 							catch (...)
 							{
 								MessageBox(_hSelf,	TEXT("Cannot process this clipboard data in the history:\nThe data is too large to be treated."), TEXT("Clipboard problem"), MB_OK | MB_APPLMODAL);
-								if (c)
-									delete[] c;
+								delete[] c;
 							}
 						}
 					}
@@ -273,6 +273,13 @@ INT_PTR CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam,
 			}
 		}
 		break;
+
+		case WM_NOTIFY:
+		{
+			if (((LPNMHDR)lParam)->code == DMN_CLOSE)
+				::SendMessage(_hParent, WM_COMMAND, IDM_EDIT_CLIPBOARDHISTORY_PANEL, 0);
+			break;
+		}
 		
         case WM_SIZE:
         {

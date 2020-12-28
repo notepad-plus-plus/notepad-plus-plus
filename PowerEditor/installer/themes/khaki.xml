@@ -91,7 +91,7 @@ Installation:
             <WordsStyle name="WORD" styleID="84" fgColor="87005f" bgColor="bfbf97" fontName="" fontStyle="0" fontSize="" keywordClass="instre1" />
             <WordsStyle name="STRING" styleID="85" fgColor="005f5f" bgColor="bfbf97" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="IDENTIFIER" styleID="86" fgColor="000087" bgColor="bfbf97" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="ASPSYBOL" styleID="15" fgColor="005f00" bgColor="bfbf97" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="ASPSYMBOL" styleID="15" fgColor="005f00" bgColor="bfbf97" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="SCRIPTTYPE" styleID="16" fgColor="005f00" bgColor="bfbf97" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
         <LexerType name="autoit" desc="autoIt" ext="">
@@ -132,7 +132,7 @@ Installation:
             <WordsStyle name="COMMENT" styleID="1" fgColor="87875f" bgColor="d7d7af" fontName="" fontStyle="2" fontSize="" />
             <WordsStyle name="KEYWORDS" styleID="2" fgColor="87005f" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" keywordClass="instre1" />
             <WordsStyle name="LABEL" styleID="3" fgColor="005f5f" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="HIDE SYBOL" styleID="4" fgColor="870000" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="HIDE SYMBOL" styleID="4" fgColor="870000" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMAND" styleID="5" fgColor="af0000" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="VARIABLE" styleID="6" fgColor="000087" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="OPERATOR" styleID="7" fgColor="00005f" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
@@ -673,7 +673,11 @@ Installation:
             <WordsStyle name="OPERATOR" styleID="10" fgColor="00005f" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="IDENTIFIER" styleID="11" fgColor="000087" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENTBLOCK" styleID="12" fgColor="87875f" bgColor="d7d7af" fontName="" fontStyle="2" fontSize="" />
-            <WordsStyle name="STRINGEOL" styleID="12" fgColor="87875f" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRINGEOL" styleID="13" fgColor="87875f" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="F STRING" styleID="16" fgColor="005f5f" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="F CHARACTER" styleID="17" fgColor="005f5f" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="F TRIPLE" styleID="18" fgColor="005f5f" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="F TRIPLEDOUBLE" styleID="19" fgColor="005f5f" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
         <LexerType name="r" desc="R" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="5f5f00" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
@@ -777,11 +781,14 @@ Installation:
             <WordsStyle name="COMMENT DOC" styleID="3" fgColor="87875f" bgColor="d7d7af" fontName="" fontStyle="2" fontSize="" />
             <WordsStyle name="NUMBER" styleID="4" fgColor="005f00" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="KEYWORD" styleID="5" fgColor="87005f" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" keywordClass="instre1" />
+            <WordsStyle name="USER1" styleID="16" fgColor="87005f" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" keywordClass="instre2" />
+            <WordsStyle name="KEYWORD2" styleID="19" fgColor="008060" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" keywordClass="type3" />
             <WordsStyle name="STRING" styleID="6" fgColor="af5f00" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="STRING2" styleID="7" fgColor="005f5f" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="OPERATOR" styleID="10" fgColor="00005f" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="IDENTIFIER" styleID="11" fgColor="5f5f00" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT LINE DOC" styleID="15" fgColor="87875f" bgColor="d7d7af" fontName="" fontStyle="2" fontSize="" />
+            <WordsStyle name="Q OPERATOR" styleID="24" fgColor="af5f00" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
 		</LexerType>
         <LexerType name="tcl" desc="TCL" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="5f5f00" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
@@ -895,6 +902,7 @@ Installation:
         <WidgetStyle name="Caret colour" styleID="2069" fgColor="5f5f00" />
         <WidgetStyle name="Edge colour" styleID="0" fgColor="afaf87" />
         <WidgetStyle name="Line number margin" styleID="33" fgColor="5f5f00" bgColor="afaf87" fontName="" fontStyle="0" fontSize="" />
+        <WidgetStyle name="Bookmark margin" styleID="0" bgColor="afaf87" />
         <WidgetStyle name="Fold" styleID="0" fgColor="5f5f00" bgColor="afaf87" />
         <WidgetStyle name="Fold active" styleID="0" fgColor="af0000" />
         <WidgetStyle name="Fold margin" styleID="0" fgColor="afaf87" bgColor="afaf87" />
@@ -913,6 +921,6 @@ Installation:
         <WidgetStyle name="Active tab unfocused indicator" styleID="0" fgColor="d7d7af" />
         <WidgetStyle name="Active tab text" styleID="0" fgColor="000000" />
         <WidgetStyle name="Inactive tabs" styleID="0" fgColor="5f5f00" bgColor="d7d7af" />
-<!--        <WidgetStyle name="Inactive tabs" styleID="0" fgColor="ffffd7" bgColor="5f5f00" /> -->
+        <WidgetStyle name="URL hovered" styleID="0" fgColor="808040" />
     </GlobalStyles>
 </NotepadPlus>

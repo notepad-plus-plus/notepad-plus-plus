@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -31,7 +31,7 @@
 #include "Window.h"
 #include "Common.h"
 
-#include <Commctrl.h>
+#include <commctrl.h>
 
 struct columnInfo {
 	size_t _width;
@@ -43,8 +43,8 @@ struct columnInfo {
 class ListView : public Window
 {
 public:
-	ListView() : Window() {};
-	virtual ~ListView() {};
+	ListView() = default;
+	virtual ~ListView() = default;
 
 	enum SortDirection {
 		sortEncrease = 0,

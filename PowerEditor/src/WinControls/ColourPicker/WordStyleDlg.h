@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -33,7 +33,8 @@
 #include "Parameters.h"
 
 
-#define WM_UPDATESCINTILLAS			(WORDSTYLE_USER + 1) //GlobalStyleDlg's msg 2 send 2 its parent
+#define WM_UPDATESCINTILLAS      (WORDSTYLE_USER + 1) //GlobalStyleDlg's msg 2 send 2 its parent
+#define WM_UPDATEMAINMENUBITMAPS (WORDSTYLE_USER + 2)
 
 enum fontStyleType {BOLD_STATUS, ITALIC_STATUS, UNDERLINE_STATUS};
 
@@ -68,7 +69,7 @@ private :
 class WordStyleDlg : public StaticDialog
 {
 public :
-	WordStyleDlg() {};
+	WordStyleDlg() = default;
 
     void init(HINSTANCE hInst, HWND parent)	{
         Window::init(hInst, parent);
@@ -91,9 +92,9 @@ public :
     };
 
 	void prepare2Cancel() {
-		_styles2restored = (NppParameters::getInstance())->getLStylerArray();
-		_gstyles2restored = (NppParameters::getInstance())->getGlobalStylers();
-		_gOverride2restored = (NppParameters::getInstance())->getGlobalOverrideStyle();
+		_styles2restored = (NppParameters::getInstance()).getLStylerArray();
+		_gstyles2restored = (NppParameters::getInstance()).getGlobalStylers();
+		_gOverride2restored = (NppParameters::getInstance()).getGlobalOverrideStyle();
 	};
 
     virtual void redraw(bool forceUpdate = false) const {
@@ -104,15 +105,15 @@ public :
     };
 	
 	void restoreGlobalOverrideValues() {
-		GlobalOverride & gOverride = (NppParameters::getInstance())->getGlobalOverrideStyle();
+		GlobalOverride & gOverride = (NppParameters::getInstance()).getGlobalOverrideStyle();
 		gOverride = _gOverride2restored;
 	};
 
 	void apply();
 
 	void addLastThemeEntry() {
-        NppParameters *nppParamInst = NppParameters::getInstance();
-        ThemeSwitcher & themeSwitcher = nppParamInst->getThemeSwitcher();
+        NppParameters& nppParamInst = NppParameters::getInstance();
+        ThemeSwitcher & themeSwitcher = nppParamInst.getThemeSwitcher();
 		std::pair<generic_string, generic_string> & themeInfo = themeSwitcher.getElementFromIndex(themeSwitcher.size() - 1);
 	    ::SendMessage(_hSwitch2ThemeCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(themeInfo.first.c_str()));
     };
@@ -125,19 +126,18 @@ private :
     int _currentLexerIndex = 0;
 	int _currentThemeIndex = 0;
 
-    HWND _hCheckBold;
-    HWND _hCheckItalic;
-	HWND _hCheckUnderline;
-    HWND _hFontNameCombo;
-    HWND _hFontSizeCombo;
-	HWND _hSwitch2ThemeCombo;
+    HWND _hCheckBold = nullptr;
+    HWND _hCheckItalic = nullptr;
+	HWND _hCheckUnderline = nullptr;
+    HWND _hFontNameCombo = nullptr;
+    HWND _hFontSizeCombo = nullptr;
+	HWND _hSwitch2ThemeCombo = nullptr;
 
-	HWND _hFgColourStaticText;
-	HWND _hBgColourStaticText;
-	HWND _hFontNameStaticText;
-	HWND _hFontSizeStaticText;
-	HWND _hStyleInfoStaticText;
-	//TCHAR _originalWarning[256];
+	HWND _hFgColourStaticText = nullptr;
+	HWND _hBgColourStaticText = nullptr;
+	HWND _hFontNameStaticText = nullptr;
+	HWND _hFontSizeStaticText = nullptr;
+	HWND _hStyleInfoStaticText = nullptr;
 
 	LexerStylerArray _lsArray;
     StyleArray _globalStyles;
@@ -182,7 +182,7 @@ private :
 	void updateFontSize();
 	void updateUserKeywords();
 	void switchToTheme();
-	void updateThemeName(generic_string themeName);
+	void updateThemeName(const generic_string& themeName);
 
 	void loadLangListFromNppParam();
 

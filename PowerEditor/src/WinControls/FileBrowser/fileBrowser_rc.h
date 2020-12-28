@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -26,8 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef FILEBROWSER_RC_H
-#define FILEBROWSER_RC_H
+#pragma once
 
 #define	IDD_FILEBROWSER		3500
 
@@ -38,7 +37,8 @@
   #define IDM_FILEBROWSER_ADDROOT          (IDD_FILEBROWSER_MENU + 3)
   #define IDM_FILEBROWSER_SHELLEXECUTE     (IDD_FILEBROWSER_MENU + 4)
   #define IDM_FILEBROWSER_OPENINNPP        (IDD_FILEBROWSER_MENU + 5)
-  #define IDM_FILEBROWSER_COPYEPATH        (IDD_FILEBROWSER_MENU + 6)
+  #define IDM_FILEBROWSER_COPYPATH         (IDD_FILEBROWSER_MENU + 6)
+  #define IDM_FILEBROWSER_COPYFILENAME     (IDD_FILEBROWSER_MENU + 10)
   #define IDM_FILEBROWSER_FINDINFILES      (IDD_FILEBROWSER_MENU + 7)
 
   #define IDM_FILEBROWSER_EXPLORERHERE     (IDD_FILEBROWSER_MENU + 8)
@@ -47,6 +47,3 @@
 #define	IDD_FILEBROWSER_CTRL		(IDD_FILEBROWSER + 30)
   #define	ID_FILEBROWSERTREEVIEW    (IDD_FILEBROWSER_CTRL + 1)
   
-
-#endif // FILEBROWSER_RC_H
-

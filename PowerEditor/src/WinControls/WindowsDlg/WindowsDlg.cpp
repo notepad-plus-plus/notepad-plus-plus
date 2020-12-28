@@ -1,5 +1,5 @@
-// This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+﻿// This file is part of Notepad++ project
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -48,6 +48,8 @@ using namespace std;
 #define WD_CLMNNAME					"ColumnName"
 #define WD_CLMNPATH					"ColumnPath"
 #define WD_CLMNTYPE					"ColumnType"
+#define WD_CLMNSIZE					"ColumnSize"
+#define WD_NBDOCSTOTAL				"NbDocsTotal"
 
 static const TCHAR *readonlyString = TEXT(" [Read Only]");
 const UINT WDN_NOTIFY = RegisterWindowMessage(TEXT("WDN_NOTIFY"));
@@ -55,6 +57,7 @@ const UINT WDN_NOTIFY = RegisterWindowMessage(TEXT("WDN_NOTIFY"));
 inline static DWORD GetStyle(HWND hWnd) {
 	return (DWORD)GetWindowLongPtr(hWnd, GWL_STYLE);
 }
+
 inline static DWORD GetExStyle(HWND hWnd) {
 	return (DWORD)GetWindowLongPtr(hWnd, GWL_EXSTYLE);
 }
@@ -62,7 +65,7 @@ inline static DWORD GetExStyle(HWND hWnd) {
 inline static BOOL ModifyStyle(HWND hWnd, DWORD dwRemove, DWORD dwAdd) {
 	DWORD dwStyle = (DWORD)::GetWindowLongPtr(hWnd, GWL_STYLE);
 	DWORD dwNewStyle = (dwStyle & ~dwRemove) | dwAdd;
-	if(dwStyle == dwNewStyle)
+	if (dwStyle == dwNewStyle)
 		return FALSE;
 	::SetWindowLongPtr(hWnd, GWL_STYLE, dwNewStyle);
 	return TRUE;
@@ -71,7 +74,7 @@ inline static BOOL ModifyStyle(HWND hWnd, DWORD dwRemove, DWORD dwAdd) {
 inline static BOOL ModifyStyleEx(HWND hWnd, DWORD dwRemove, DWORD dwAdd) {
 	DWORD dwStyle = (DWORD)::GetWindowLongPtr(hWnd, GWL_EXSTYLE);
 	DWORD dwNewStyle = (dwStyle & ~dwRemove) | dwAdd;
-	if(dwStyle == dwNewStyle)
+	if (dwStyle == dwNewStyle)
 		return FALSE;
 	::SetWindowLongPtr(hWnd, GWL_EXSTYLE, dwNewStyle);
 	return TRUE;
@@ -81,7 +84,10 @@ inline static BOOL ModifyStyleEx(HWND hWnd, DWORD dwRemove, DWORD dwAdd) {
 struct NumericStringEquivalence
 {
 	int operator()(const TCHAR* s1, const TCHAR* s2) const
-	{ return numstrcmp(s1, s2); }
+	{
+		return numstrcmp(s1, s2);
+	}
+
 	static inline int numstrcmp_get(const TCHAR **str, int *length)
 	{
 		const TCHAR *p = *str;
@@ -91,13 +97,15 @@ struct NumericStringEquivalence
 		*str = p;
 		return (value);
 	}
+
 	static int numstrcmp(const TCHAR *str1, const TCHAR *str2)
 	{
 		TCHAR *p1, *p2;
 		int c1, c2, lcmp = 0;
-		for(;;)
+		for (;;)
 		{
-			if (*str1 == 0 || *str2 == 0) {
+			if (*str1 == 0 || *str2 == 0)
+			{
 				if (*str1 != *str2)
 					lcmp = *str1 - *str2;
 				break;
@@ -150,12 +158,12 @@ struct BufferEquivalent
 
 	bool compare(int i1, int i2) const
 	{
-		if (_iColumn >= 0 && _iColumn <= 2)
+		if (_iColumn >= 0 && _iColumn <= 3)
 		{
 			BufferID bid1 = _pTab->getBufferByIndex(i1);
 			BufferID bid2 = _pTab->getBufferByIndex(i2);
-			Buffer * b1 = MainFileManager->getBufferByID(bid1);
-			Buffer * b2 = MainFileManager->getBufferByID(bid2);
+			Buffer * b1 = MainFileManager.getBufferByID(bid1);
+			Buffer * b2 = MainFileManager.getBufferByID(bid2);
 			
 			if (_iColumn == 0)
 			{
@@ -168,14 +176,43 @@ struct BufferEquivalent
 			}
 			else if (_iColumn == 2)
 			{
-				auto t1 = b1->getLangType();
-				auto t2 = b2->getLangType();
+				NppParameters & nppParameters = NppParameters::getInstance();
+				const TCHAR *s1;
+				const TCHAR *s2;
+				//const TCHAR empty[] = ;
+				Lang *lang1 = nppParameters.getLangFromID(b1->getLangType());
+
+				if (lang1)
+				{
+					s1 = lang1->getLangName();
+				}
+				else
+					s1 = TEXT("");
+				
+				Lang *lang2 = nppParameters.getLangFromID(b2->getLangType());
+				if (lang2)
+				{
+					s2 = lang2->getLangName();
+				}
+				else
+					s2 = TEXT("");
+				
+				int result = _strequiv(s1, s2);
+
+				if (result != 0) // default to filepath sorting when equivalent
+					return result < 0;
+
+			}
+			else if (_iColumn == 3)
+			{
+				auto t1 = b1->docLength();
+				auto t2 = b2->docLength();
 				
 				if (t1 != t2) // default to filepath sorting when equivalent
 					return (t1 < t2);
 			}
 			
-			 // _iColumn == 1
+			// _iColumn == 1
 			const TCHAR *s1 = b1->getFullPathName();
 			const TCHAR *s2 = b2->getFullPathName();
 			return _strequiv(s1, s2) < 0;	//we can compare the full path to sort on directory, since after sorting directories sorting files is the second thing to do (if directories are the same that is)
@@ -238,7 +275,7 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 	{
 		case WM_INITDIALOG :
 		{
-			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 			pNativeSpeaker->changeDlgLang(_hSelf, "Window");
 			return MyBaseClass::run_dlgProc(message, wParam, lParam);
 		}
@@ -306,7 +343,7 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 				{
 					NMLVDISPINFO *pLvdi = (NMLVDISPINFO *)pNMHDR;
 
-					if(pLvdi->item.mask & LVIF_TEXT)
+					if (pLvdi->item.mask & LVIF_TEXT)
 					{
 						pLvdi->item.pszText[0] = 0;
 						size_t index = pLvdi->item.iItem;
@@ -316,7 +353,7 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 
 						//const Buffer& buffer = _pView->getBufferAt(index);
 						BufferID bufID = _pTab->getBufferByIndex(index);
-						Buffer * buf = MainFileManager->getBufferByID(bufID);
+						Buffer * buf = MainFileManager.getBufferByID(bufID);
 						if (pLvdi->item.iSubItem == 0) // file name
 						{
 							int len = pLvdi->item.cchTextMax;
@@ -336,7 +373,7 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 							{
 								len += lstrlen(readonlyString);
 								if (len <= pLvdi->item.cchTextMax)
-									lstrcat(pLvdi->item.pszText, readonlyString);
+									wcscat_s(pLvdi->item.pszText, pLvdi->item.cchTextMax, readonlyString);
 							}
 						}
 						else if (pLvdi->item.iSubItem == 1) // directory
@@ -356,12 +393,22 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 						else if (pLvdi->item.iSubItem == 2) // Type
 						{
 							int len = pLvdi->item.cchTextMax;
-							NppParameters *pNppParameters = NppParameters::getInstance();
-							Lang *lang = pNppParameters->getLangFromID(buf->getLangType());
+							NppParameters& nppParameters = NppParameters::getInstance();
+							Lang *lang = nppParameters.getLangFromID(buf->getLangType());
 							if (NULL != lang)
 							{
 								generic_strncpy(pLvdi->item.pszText, lang->getLangName(), len-1);
 							}
+						}
+						else if (pLvdi->item.iSubItem == 3) // size
+						{
+							int docSize = buf->docLength();
+							string docSizeText = to_string(docSize);
+							wstring wstr = wstring(docSizeText.begin(), docSizeText.end());
+							const wchar_t * wstrp = wstr.c_str();
+							int docSizeTextLen = lstrlen(wstrp);
+							generic_strncpy(pLvdi->item.pszText, wstrp, docSizeTextLen);
+							pLvdi->item.pszText[docSizeTextLen] = 0;
 						}
 					}
 					return TRUE;
@@ -497,23 +544,28 @@ BOOL WindowsDlg::onInitDialog()
 	lvColumn.fmt = LVCFMT_LEFT;
 	
 	generic_string columnText;
-	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 
-	columnText = TEXT("\u21F5 ") + pNativeSpeaker->getAttrNameStr(TEXT("Name"), WD_ROOTNODE, WD_CLMNNAME);
+	columnText = TEXT("⇵ ") + pNativeSpeaker->getAttrNameStr(TEXT("Name"), WD_ROOTNODE, WD_CLMNNAME);
 	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
 	lvColumn.cx = width / 4;
 	SendMessage(_hList, LVM_INSERTCOLUMN, 0, LPARAM(&lvColumn));
 
-	columnText = TEXT("\u21F5 ") + pNativeSpeaker->getAttrNameStr(TEXT("Path"), WD_ROOTNODE, WD_CLMNPATH);
+	columnText = TEXT("⇵ ") + pNativeSpeaker->getAttrNameStr(TEXT("Path"), WD_ROOTNODE, WD_CLMNPATH);
 	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
 	lvColumn.cx = 300;
 	SendMessage(_hList, LVM_INSERTCOLUMN, 1, LPARAM(&lvColumn));
 
 	lvColumn.fmt = LVCFMT_CENTER;
-	columnText = TEXT("\u21F5 ") + pNativeSpeaker->getAttrNameStr(TEXT("Type"), WD_ROOTNODE, WD_CLMNTYPE);
+	columnText = TEXT("⇵ ") + pNativeSpeaker->getAttrNameStr(TEXT("Type"), WD_ROOTNODE, WD_CLMNTYPE);
 	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
-	lvColumn.cx = 50;
+	lvColumn.cx = 100;
 	SendMessage(_hList, LVM_INSERTCOLUMN, 2, LPARAM(&lvColumn));
+
+	columnText = TEXT("⇵ ") + pNativeSpeaker->getAttrNameStr(TEXT("Size"), WD_ROOTNODE, WD_CLMNSIZE);
+	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
+	lvColumn.cx = 100;
+	SendMessage(_hList, LVM_INSERTCOLUMN, 3, LPARAM(&lvColumn));
 
 	fitColumnsToSize();
 
@@ -539,20 +591,20 @@ void WindowsDlg::updateColumnNames()
 	lvColumn.fmt = LVCFMT_LEFT;
 
 	generic_string columnText;
-	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 	
 	columnText = pNativeSpeaker->getAttrNameStr(TEXT("Name"), WD_ROOTNODE, WD_CLMNNAME);
 	if (_currentColumn != 0)
 	{
-		columnText = TEXT("\u21F5 ") + columnText;
+		columnText = TEXT("⇵ ") + columnText;
 	}
 	else if (_reverseSort)
 	{
-		columnText = TEXT("\u25B3 ") + columnText;
+		columnText = TEXT("△ ") + columnText;
 	}
 	else
 	{
-		columnText = TEXT("\u25BD ") + columnText;
+		columnText = TEXT("▽ ") + columnText;
 	}
 	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
 	lvColumn.cx = static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 0, 0));
@@ -561,15 +613,15 @@ void WindowsDlg::updateColumnNames()
 	columnText = pNativeSpeaker->getAttrNameStr(TEXT("Path"), WD_ROOTNODE, WD_CLMNPATH);
 	if (_currentColumn != 1)
 	{
-		columnText = TEXT("\u21F5 ") + columnText;
+		columnText = TEXT("⇵ ") + columnText;
 	}
 	else if (_reverseSort)
 	{
-		columnText = TEXT("\u25B3 ") + columnText;
+		columnText = TEXT("△ ") + columnText;
 	}
 	else
 	{
-		columnText = TEXT("\u25BD ") + columnText;
+		columnText = TEXT("▽ ") + columnText;
 	}
 	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
 	lvColumn.cx = static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 1, 0));
@@ -579,19 +631,36 @@ void WindowsDlg::updateColumnNames()
 	columnText = pNativeSpeaker->getAttrNameStr(TEXT("Type"), WD_ROOTNODE, WD_CLMNTYPE);
 	if (_currentColumn != 2)
 	{
-		columnText = TEXT("\u21F5 ") + columnText;
+		columnText = TEXT("⇵ ") + columnText;
 	}
 	else if (_reverseSort)
 	{
-		columnText = TEXT("\u25B3 ") + columnText;
+		columnText = TEXT("△ ") + columnText;
 	}
 	else
 	{
-		columnText = TEXT("\u25BD ") + columnText;
+		columnText = TEXT("▽ ") + columnText;
 	}
 	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
 	lvColumn.cx = static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 2, 0));
 	SendMessage(_hList, LVM_SETCOLUMN, 2, LPARAM(&lvColumn));
+
+	columnText = pNativeSpeaker->getAttrNameStr(TEXT("Size"), WD_ROOTNODE, WD_CLMNSIZE);
+	if (_currentColumn != 3)
+	{
+		columnText = TEXT("⇵ ") + columnText;
+	}
+	else if (_reverseSort)
+	{
+		columnText = TEXT("△ ") + columnText;
+	}
+	else
+	{
+		columnText = TEXT("▽ ") + columnText;
+	}
+	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
+	lvColumn.cx = static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 3, 0));
+	SendMessage(_hList, LVM_SETCOLUMN, 3, LPARAM(&lvColumn));
 }
 
 void WindowsDlg::onSize(UINT nType, int cx, int cy)
@@ -655,6 +724,7 @@ void WindowsDlg::doRefresh(bool invalidate /*= false*/)
 
 			resetSelection();
 			updateButtonState();
+			doCount();
 		}
 	}
 }
@@ -668,6 +738,7 @@ void WindowsDlg::fitColumnsToSize()
 		int len = (rc.right - rc.left);
 		len -= static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 0, 0));
 		len -= static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 2, 0));
+		len -= static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 3, 0));
 		len -= GetSystemMetrics(SM_CXVSCROLL);
 		len -= 1;
 		SendMessage(_hList, LVM_SETCOLUMNWIDTH, 1, len);
@@ -682,7 +753,7 @@ void WindowsDlg::resetSelection()
 	{
 		if (*itr == curSel)
 		{
-			ListView_SetItemState(_hList, pos, LVIS_SELECTED|LVIS_FOCUSED, LVIS_SELECTED|LVIS_FOCUSED)
+			ListView_SetItemState(_hList, pos, LVIS_SELECTED | LVIS_FOCUSED, LVIS_SELECTED | LVIS_FOCUSED);
 		}
 		else
 		{
@@ -700,7 +771,8 @@ void WindowsDlg::doSave()
 	nmdlg.code = WDN_NOTIFY;
 	nmdlg.nItems = ListView_GetSelectedCount(_hList);
 	nmdlg.Items = new UINT[nmdlg.nItems];
-	for (int i=-1, j=0;;++j) {
+	for (int i=-1, j=0; ; ++j)
+	{
 		i = ListView_GetNextItem(_hList, i, LVNI_SELECTED);
 		if (i == -1) break;
 		nmdlg.Items[j] = _idxMap[i];
@@ -718,7 +790,6 @@ void WindowsDlg::destroy()
 	HWND hSelf = _hSelf;
 	_hSelf = NULL;
 	::DestroyWindow(hSelf);
-
 }
 
 void WindowsDlg::activateCurrent()
@@ -751,7 +822,8 @@ void WindowsDlg::doClose()
 	nmdlg.Items = new UINT[nmdlg.nItems];
 	vector<int> key;
 	key.resize(n, 0x7fffffff);
-	for(int i=-1, j=0;; ++j) {
+	for (int i=-1, j=0; ; ++j)
+	{
 		i = ListView_GetNextItem(_hList, i, LVNI_SELECTED);
 		if (i == -1) break;
 		ListView_SetItemState(_hList, i, 0, LVIS_SELECTED); // deselect
@@ -774,11 +846,13 @@ void WindowsDlg::doClose()
 						--(*itr);
 			}
 		}
-		_idxMap.erase(std::remove_if(_idxMap.begin(), _idxMap.end(), bind2nd(equal_to<int>(), -1)), _idxMap.end());
+		_idxMap.erase(remove_if(_idxMap.begin(), _idxMap.end(), bind(equal_to<int>(), placeholders::_1, -1)), _idxMap.end());
 	}
 	delete[] nmdlg.Items;
 
-	if (_pTab->nbItem() != _idxMap.size())
+	if (_idxMap.size() < 1)
+		::SendMessage(_hSelf, WM_CLOSE, 0, 0);
+	else if (_pTab->nbItem() != _idxMap.size())
 		doRefresh(true);
 	else
 	{
@@ -793,6 +867,20 @@ void WindowsDlg::doClose()
 		}
 		ListView_SetItemCount(_hList, _idxMap.size());
 	}
+	doCount();
+}
+
+//this function will be called everytime when close is performed
+//as well as each time refresh is performed to keep updated
+void WindowsDlg::doCount()
+{
+	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+
+	generic_string msg = pNativeSpeaker->getAttrNameStr(TEXT("Windows"), "Dialog", "Window", "title");
+	msg += TEXT(" - ");
+	msg += pNativeSpeaker->getAttrNameStr(TEXT("Total documents: "), WD_ROOTNODE, WD_NBDOCSTOTAL);
+	msg += to_wstring(_idxMap.size());
+	SetWindowText(_hSelf,msg.c_str());
 }
 
 void WindowsDlg::doSortToTabs()
@@ -810,7 +898,7 @@ void WindowsDlg::doSortToTabs()
 	nmdlg.nItems = ListView_GetItemCount(_hList);
 	nmdlg.Items = new UINT[nmdlg.nItems];
 
-	for(int i=-1, j=0;; ++j)
+	for (int i=-1, j=0; ; ++j)
 	{
 		i = ListView_GetNextItem(_hList, i, LVNI_ALL);
 		if (i == -1)
@@ -850,7 +938,7 @@ void WindowsMenu::init(HINSTANCE hInst, HMENU hMainMenu, const TCHAR *translatio
 	}
 
 	int32_t pos = 0;
-	for(pos = GetMenuItemCount(hMainMenu) - 1; pos > 0; --pos)
+	for (pos = GetMenuItemCount(hMainMenu) - 1; pos > 0; --pos)
 	{
 		if ((GetMenuState(hMainMenu, pos, MF_BYPOSITION) & MF_POPUP) != MF_POPUP)
 			continue;
@@ -882,7 +970,7 @@ void WindowsMenu::initPopupMenu(HMENU hMenu, DocTabView *pTab)
 		for (id = IDM_WINDOW_MRU_FIRST, pos = 0; id < IDM_WINDOW_MRU_FIRST + static_cast<int32_t>(nDoc); ++id, ++pos)
 		{
 			BufferID bufID = pTab->getBufferByIndex(pos);
-			Buffer * buf = MainFileManager->getBufferByID(bufID);
+			Buffer * buf = MainFileManager.getBufferByID(bufID);
 
 			MENUITEMINFO mii;
 			memset(&mii, 0, sizeof(mii));

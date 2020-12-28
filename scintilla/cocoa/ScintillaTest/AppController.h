@@ -15,10 +15,12 @@
 @interface AppController : NSObject {
   IBOutlet NSBox *mEditHost;
   ScintillaView* mEditor;
+  ScintillaView* sciExtra;	// For testing Scintilla tear-down
 }
 
 - (void) awakeFromNib;
 - (void) setupEditor;
 - (IBAction) searchText: (id) sender;
+- (IBAction) addRemoveExtra: (id) sender;
 
 @end

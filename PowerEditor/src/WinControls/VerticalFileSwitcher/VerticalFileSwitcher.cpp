@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -121,6 +121,13 @@ INT_PTR CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, 
 				{
 					// Switch to the right document
 					LPNMITEMACTIVATE lpnmitem = (LPNMITEMACTIVATE) lParam;
+
+					if (lpnmitem->hdr.hwndFrom != _fileListView.getHSelf())
+					{
+						// Do nothing
+						return TRUE;
+					}
+
 					int nbItem = ListView_GetItemCount(_fileListView.getHSelf());
 
 					if (nbSelectedFiles() == 1)

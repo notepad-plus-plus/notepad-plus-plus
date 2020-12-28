@@ -45,7 +45,7 @@
             <WordsStyle name="STRING" styleID="85" fgColor="FFA0A0" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="STRINGEOL" styleID="87" fgColor="FFA0A0" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="IDENTIFIER" styleID="86" fgColor="C0C0C0" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="ASPSYBOL" styleID="15" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="ASPSYMBOL" styleID="15" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="SCRIPTTYPE" styleID="16" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
         <LexerType name="asm" desc="Assembly" ext="">
@@ -103,7 +103,7 @@
             <WordsStyle name="COMMENT" styleID="1" fgColor="80A0FF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="KEYWORDS" styleID="2" fgColor="FFFF00" bgColor="000040" fontName="" fontStyle="0" fontSize="" keywordClass="instre1" />
             <WordsStyle name="LABEL" styleID="3" fgColor="80FFFF" bgColor="000040" fontName="" fontStyle="4" fontSize="" />
-            <WordsStyle name="HIDE SYBOL" styleID="4" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="HIDE SYMBOL" styleID="4" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMAND" styleID="5" fgColor="FF80FF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="VARIABLE" styleID="6" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="OPERATOR" styleID="7" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
@@ -198,7 +198,7 @@
         </LexerType>
         <LexerType name="css" desc="CSS" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="TAG" styleID="1" fgColor="0000FF" bgColor="000040" fontName="Batang" fontStyle="0" fontSize="" />
+            <WordsStyle name="TAG" styleID="1" fgColor="0000FF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="CLASS" styleID="2" fgColor="FF0000" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="PSEUDOCLASS" styleID="3" fgColor="FF8000" bgColor="000040" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="UNKNOWN_PSEUDOCLASS" styleID="4" fgColor="FF8080" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
@@ -602,12 +602,16 @@
         </LexerType>
         <LexerType name="sql" desc="SQL" ext="pck">
             <WordsStyle name="KEYWORD" styleID="5" fgColor="FFFF00" bgColor="000040" fontName="" fontStyle="0" fontSize="" keywordClass="instre1" />
+            <WordsStyle name="USER1" styleID="16" fgColor="FFFF00" bgColor="000040" fontName="" fontStyle="0" fontSize="" keywordClass="instre2" />
+            <WordsStyle name="KEYWORD2" styleID="19" fgColor="FF8080" bgColor="000040" fontName="" fontStyle="0" fontSize="" keywordClass="type3" />
             <WordsStyle name="NUMBER" styleID="4" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="STRING" styleID="6" fgColor="FFA0A0" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="STRING2" styleID="7" fgColor="FF80FF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="OPERATOR" styleID="10" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT" styleID="1" fgColor="80A0FF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT LINE" styleID="2" fgColor="80A0FF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="COMMENT DOC" styleID="3" fgColor="80A0FF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="Q OPERATOR" styleID="24" fgColor="FFA0A0" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
         <LexerType name="tcl" desc="TCL" ext="">
             <WordsStyle name="PREPROCESSOR" styleID="9" fgColor="804000" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
@@ -728,13 +732,20 @@
         <WidgetStyle name="Mark colour" styleID="0" fgColor="C00000" bgColor="000040" />
         <WidgetStyle name="Selected text colour" styleID="0" bgColor="2050D0" />
         <WidgetStyle name="Caret colour" styleID="2069" fgColor="FFFF00" />
-        <WidgetStyle name="Find Mark Style" styleID="31" fgColor="FFFF00" bgColor="000040" fontName="" fontStyle="1" fontSize="" />
         <WidgetStyle name="Edge colour" styleID="0" fgColor="80FFFF" />
         <WidgetStyle name="Line number margin" styleID="33" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
+        <WidgetStyle name="Bookmark margin" styleID="0" bgColor="000040" />
         <WidgetStyle name="Fold" styleID="0" fgColor="FFFFFF" bgColor="000040" />
+        <WidgetStyle name="Fold active" styleID="0" fgColor="FFFFFF" />
         <WidgetStyle name="Fold margin" styleID="0" fgColor="000040" bgColor="000040" />
         <WidgetStyle name="White space symbol" styleID="0" fgColor="004040" />
         <WidgetStyle name="Smart HighLighting" styleID="29" bgColor="2050D0" />
+        <WidgetStyle name="Find Mark Style" styleID="31" fgColor="FFFF00" bgColor="000040" fontName="" fontStyle="1" fontSize="" />
+        <WidgetStyle name="Mark Style 1" styleID="25" bgColor="00FFFF" />
+        <WidgetStyle name="Mark Style 2" styleID="24" bgColor="FF8000" />
+        <WidgetStyle name="Mark Style 3" styleID="23" bgColor="FFFF00" />
+        <WidgetStyle name="Mark Style 4" styleID="22" bgColor="8000FF" />
+        <WidgetStyle name="Mark Style 5" styleID="21" bgColor="008000" />
         <WidgetStyle name="Incremental highlight all" styleID="28" bgColor="008000" />
         <WidgetStyle name="Tags match highlighting" styleID="27" bgColor="000040" />
         <WidgetStyle name="Tags attribute" styleID="26" bgColor="000040" />
@@ -744,5 +755,6 @@
         <WidgetStyle name="Inactive tabs" styleID="0" fgColor="8080C0" bgColor="CECECE" />
         <WidgetStyle name="Unsaved change marker" styleID="0" bgColor="FF0000" />
         <WidgetStyle name="Saved change marker" styleID="0" bgColor="80FF00" />
+        <WidgetStyle name="URL hovered" styleID="0" fgColor="FFFFFF" />
     </GlobalStyles>
 </NotepadPlus>

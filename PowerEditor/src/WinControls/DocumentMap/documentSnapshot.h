@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003-2017 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -38,16 +38,14 @@ struct MapPosition;
 
 class DocumentPeeker : public StaticDialog {
 public:
-	DocumentPeeker(): StaticDialog() {};
+	DocumentPeeker() = default;
 
 	void init(HINSTANCE hInst, HWND hPere) {
 		Window::init(hInst, hPere);
 	};
 
 	void doDialog(POINT p, Buffer *buf, ScintillaEditView & scintSource);
-	
 	void syncDisplay(Buffer *buf, ScintillaEditView & scintSource);
-
 
     void setParent(HWND parent2set){
         _hParent = parent2set;

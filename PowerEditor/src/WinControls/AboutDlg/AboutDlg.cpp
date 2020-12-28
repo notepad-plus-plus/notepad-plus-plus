@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -32,6 +32,9 @@
 
 #include "AboutDlg.h"
 #include "Parameters.h"
+#include "localization.h"
+
+#pragma warning(disable : 4996) // for GetVersion()
 
 INT_PTR CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -42,13 +45,13 @@ INT_PTR CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 			HWND compileDateHandle = ::GetDlgItem(_hSelf, IDC_BUILD_DATETIME);
 			generic_string buildTime = TEXT("Build time : ");
 
-			WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-			buildTime +=  wmc->char2wchar(__DATE__, CP_ACP);
+			WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+			buildTime +=  wmc.char2wchar(__DATE__, CP_ACP);
 			buildTime += TEXT(" - ");
-			buildTime +=  wmc->char2wchar(__TIME__, CP_ACP);
+			buildTime +=  wmc.char2wchar(__TIME__, CP_ACP);
 
-			NppParameters *pNppParam = NppParameters::getInstance();
-			LPCTSTR bitness = pNppParam ->isx64() ? TEXT("(64-bit)") : TEXT("(32-bit)");
+			NppParameters& nppParam = NppParameters::getInstance();
+			LPCTSTR bitness = nppParam.isx64() ? TEXT("(64-bit)") : TEXT("(32-bit)");
 			::SetDlgItemText(_hSelf, IDC_VERSION_BIT, bitness);
 
 			::SendMessage(compileDateHandle, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(buildTime.c_str()));
@@ -57,16 +60,18 @@ INT_PTR CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
             HWND licenceEditHandle = ::GetDlgItem(_hSelf, IDC_LICENCE_EDIT);
 			::SendMessage(licenceEditHandle, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(LICENCE_TXT));
 
-            _emailLink.init(_hInst, _hSelf);
+            //_emailLink.init(_hInst, _hSelf);
 			//_emailLink.create(::GetDlgItem(_hSelf, IDC_AUTHOR_NAME), TEXT("mailto:don.h@free.fr"));
-			_emailLink.create(::GetDlgItem(_hSelf, IDC_AUTHOR_NAME), TEXT("https://notepad-plus-plus.org/contributors"));
+			//_emailLink.create(::GetDlgItem(_hSelf, IDC_AUTHOR_NAME), TEXT("https://notepad-plus-plus.org/news/v781-free-uyghur-edition/"));
+			//_emailLink.create(::GetDlgItem(_hSelf, IDC_AUTHOR_NAME), TEXT("https://notepad-plus-plus.org/news/v789-stand-with-hong-kong/"));
+			_emailLink.create(::GetDlgItem(_hSelf, IDC_AUTHOR_NAME), TEXT("https://notepad-plus-plus.org/news/v791-pour-samuel-paty/"));
 
             _pageLink.init(_hInst, _hSelf);
             _pageLink.create(::GetDlgItem(_hSelf, IDC_HOME_ADDR), TEXT("https://notepad-plus-plus.org/"));
 
 			getClientRect(_rc);
 
-			ETDTProc enableDlgTheme = (ETDTProc)pNppParam->getEnableThemeDlgTexture();
+			ETDTProc enableDlgTheme = (ETDTProc)nppParam.getEnableThemeDlgTexture();
 			if (enableDlgTheme)
 			{
 				enableDlgTheme(_hSelf, ETDT_ENABLETAB);
@@ -81,6 +86,7 @@ INT_PTR CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 			HICON hIcon = (HICON)::LoadImage(_hInst, MAKEINTRESOURCE(IDI_CHAMELEON), IMAGE_ICON, 64, 64, LR_DEFAULTSIZE);
 			//HICON hIcon = (HICON)::LoadImage(_hInst, MAKEINTRESOURCE(IDI_JESUISCHARLIE), IMAGE_ICON, 64, 64, LR_DEFAULTSIZE);
 			//HICON hIcon = (HICON)::LoadImage(_hInst, MAKEINTRESOURCE(IDI_GILETJAUNE), IMAGE_ICON, 64, 64, LR_DEFAULTSIZE);
+			//HICON hIcon = (HICON)::LoadImage(_hInst, MAKEINTRESOURCE(IDI_SAMESEXMARRIAGE), IMAGE_ICON, 64, 64, LR_DEFAULTSIZE);
 			DRAWITEMSTRUCT *pdis = (DRAWITEMSTRUCT *)lParam;
 			::DrawIconEx(pdis->hDC, 0, 0, hIcon, 64, 64, 0, NULL, DI_NORMAL);
 			return TRUE;
@@ -124,20 +130,20 @@ INT_PTR CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /
 	{
 		case WM_INITDIALOG:
 		{
-			NppParameters *pNppParam = NppParameters::getInstance();
+			NppParameters& nppParam = NppParameters::getInstance();
 
 			// Notepad++ version
 			_debugInfoStr = NOTEPAD_PLUS_VERSION;
-			_debugInfoStr += pNppParam->isx64() ? TEXT("   (64-bit)") : TEXT("   (32-bit)");
+			_debugInfoStr += nppParam.isx64() ? TEXT("   (64-bit)") : TEXT("   (32-bit)");
 			_debugInfoStr += TEXT("\r\n");
 
 			// Build time
 			_debugInfoStr += TEXT("Build time : ");
 			generic_string buildTime;
-			WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-			buildTime += wmc->char2wchar(__DATE__, CP_ACP);
+			WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+			buildTime += wmc.char2wchar(__DATE__, CP_ACP);
 			buildTime += TEXT(" - ");
-			buildTime += wmc->char2wchar(__TIME__, CP_ACP);
+			buildTime += wmc.char2wchar(__TIME__, CP_ACP);
 			_debugInfoStr += buildTime;
 			_debugInfoStr += TEXT("\r\n");
 
@@ -155,17 +161,100 @@ INT_PTR CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /
 
 			// local conf
 			_debugInfoStr += TEXT("Local Conf mode : ");
-			bool doLocalConf = (NppParameters::getInstance())->isLocal();
+			bool doLocalConf = (NppParameters::getInstance()).isLocal();
 			_debugInfoStr += (doLocalConf ? TEXT("ON") : TEXT("OFF"));
 			_debugInfoStr += TEXT("\r\n");
 
-			// OS version
-			_debugInfoStr += TEXT("OS : ");
-			_debugInfoStr += (NppParameters::getInstance())->getWinVersionStr();
+			// OS information
+			HKEY hKey;
+			DWORD dataSize = 0;
+			
+			TCHAR szProductName[96] = {'\0'};
+			TCHAR szCurrentBuildNumber[32] = {'\0'};
+			TCHAR szReleaseId[32] = {'\0'};
+			DWORD dwUBR = 0;
+			TCHAR szUBR[12] = TEXT("0");
+
+			// NOTE: RegQueryValueExW is not guaranteed to return null-terminated strings
+			if (RegOpenKeyExW(HKEY_LOCAL_MACHINE, TEXT("SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion"), 0, KEY_READ, &hKey) == ERROR_SUCCESS)
+			{
+				dataSize = sizeof(szProductName);
+				RegQueryValueExW(hKey, TEXT("ProductName"), NULL, NULL, reinterpret_cast<LPBYTE>(szProductName), &dataSize);
+				szProductName[sizeof(szProductName) / sizeof(TCHAR) - 1] = '\0';
+
+				dataSize = sizeof(szReleaseId);
+				RegQueryValueExW(hKey, TEXT("ReleaseId"), NULL, NULL, reinterpret_cast<LPBYTE>(szReleaseId), &dataSize);
+				szReleaseId[sizeof(szReleaseId) / sizeof(TCHAR) - 1] = '\0';
+				
+				dataSize = sizeof(szCurrentBuildNumber);
+				RegQueryValueExW(hKey, TEXT("CurrentBuildNumber"), NULL, NULL, reinterpret_cast<LPBYTE>(szCurrentBuildNumber), &dataSize);
+				szCurrentBuildNumber[sizeof(szCurrentBuildNumber) / sizeof(TCHAR) - 1] = '\0';
+				
+				dataSize = sizeof(DWORD);
+				if (RegQueryValueExW(hKey, TEXT("UBR"), NULL, NULL, reinterpret_cast<LPBYTE>(&dwUBR), &dataSize) == ERROR_SUCCESS)
+				{
+					generic_sprintf(szUBR, TEXT("%u"), dwUBR);
+				}
+				
+				RegCloseKey(hKey);
+			}
+
+			// Get alternative OS information
+			if (szProductName[0] == '\0')
+			{
+				generic_sprintf(szProductName, TEXT("%s"), (NppParameters::getInstance()).getWinVersionStr().c_str());
+			}
+			if (szCurrentBuildNumber[0] == '\0')
+			{
+				DWORD dwVersion = GetVersion();
+				if (dwVersion < 0x80000000)
+				{
+					generic_sprintf(szCurrentBuildNumber, TEXT("%u"), HIWORD(dwVersion));
+				}
+			}
+			
+			_debugInfoStr += TEXT("OS Name : ");
+			_debugInfoStr += szProductName;
 			_debugInfoStr += TEXT(" (");
-			_debugInfoStr += (NppParameters::getInstance())->getWinVerBitStr();
-			_debugInfoStr += TEXT(")");
+			_debugInfoStr += (NppParameters::getInstance()).getWinVerBitStr();
+			_debugInfoStr += TEXT(") ");
 			_debugInfoStr += TEXT("\r\n");
+			
+			if (szReleaseId[0] != '\0')
+			{
+				_debugInfoStr += TEXT("OS Version : ");
+				_debugInfoStr += szReleaseId;
+				_debugInfoStr += TEXT("\r\n");
+			}
+
+			if (szCurrentBuildNumber[0] != '\0')
+			{
+				_debugInfoStr += TEXT("OS Build : ");
+				_debugInfoStr += szCurrentBuildNumber;
+				_debugInfoStr += TEXT(".");
+				_debugInfoStr += szUBR;
+				_debugInfoStr += TEXT("\r\n");
+			}
+
+			{
+				TCHAR szACP[32];
+				generic_sprintf(szACP, TEXT("%u"), ::GetACP());
+				_debugInfoStr += TEXT("Current ANSI codepage : ");
+ 				_debugInfoStr += szACP;
+				_debugInfoStr += TEXT("\r\n");
+			}
+
+			// Detect WINE
+			PWINEGETVERSION pWGV = (PWINEGETVERSION)GetProcAddress(GetModuleHandle(TEXT("ntdll.dll")), "wine_get_version");
+			if (pWGV != NULL)
+			{
+				TCHAR szWINEVersion[32];
+				generic_sprintf(szWINEVersion, TEXT("%hs"), pWGV());
+
+				_debugInfoStr += TEXT("WINE : ");
+				_debugInfoStr += szWINEVersion;
+				_debugInfoStr += TEXT("\r\n");
+			}
 
 			// Plugins
 			_debugInfoStr += TEXT("Plugins : ");
@@ -224,3 +313,95 @@ void DebugInfoDlg::doDialog()
 	goToCenter();
 }
 
+void DoSaveOrNotBox::doDialog(bool isRTL)
+{
+	
+	if (isRTL)
+	{
+		DLGTEMPLATE *pMyDlgTemplate = NULL;
+		HGLOBAL hMyDlgTemplate = makeRTLResource(IDD_DOSAVEORNOTBOX, &pMyDlgTemplate);
+		::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
+		::GlobalFree(hMyDlgTemplate);
+	}
+	else
+		::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_DOSAVEORNOTBOX), _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
+}
+
+void DoSaveOrNotBox::changeLang()
+{
+	generic_string msg;
+	generic_string defaultMessage = TEXT("Save file \"$STR_REPLACE$\" ?");
+	NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
+
+	if (nativeLangSpeaker->changeDlgLang(_hSelf, "DoSaveOrNot"))
+	{
+		const unsigned char len = 255;
+		TCHAR text[len];
+		::GetDlgItemText(_hSelf, IDC_DOSAVEORNOTTEX, text, len);
+		msg = text;
+	}
+
+	if (msg.empty())
+		msg = defaultMessage;
+
+	msg = stringReplace(msg, TEXT("$STR_REPLACE$"), _fn);
+	::SetDlgItemText(_hSelf, IDC_DOSAVEORNOTTEX, msg.c_str());
+}
+
+INT_PTR CALLBACK DoSaveOrNotBox::run_dlgProc(UINT message, WPARAM wParam, LPARAM /*lParam*/)
+{
+	switch (message)
+	{
+		case WM_INITDIALOG :
+		{
+			changeLang();
+			::EnableWindow(::GetDlgItem(_hSelf, IDRETRY), _isMulti);
+			::EnableWindow(::GetDlgItem(_hSelf, IDIGNORE), _isMulti);
+			goToCenter();
+			return TRUE;
+		}
+
+		case WM_COMMAND:
+		{
+			switch (LOWORD(wParam))
+			{
+				case IDCANCEL:
+				{
+					::EndDialog(_hSelf, -1);
+					clickedButtonId = IDCANCEL;
+					return TRUE;
+				}
+
+				case IDYES:
+				{
+					::EndDialog(_hSelf, 0);
+					clickedButtonId = IDYES;
+					return TRUE;
+				}
+
+				case IDNO:
+				{
+					::EndDialog(_hSelf, 0);
+					clickedButtonId = IDNO;
+					return TRUE;
+				}
+
+				case IDIGNORE:
+				{
+					::EndDialog(_hSelf, 0);
+					clickedButtonId = IDIGNORE;
+					return TRUE;
+				}
+
+				case IDRETRY:
+				{
+					::EndDialog(_hSelf, 0);
+					clickedButtonId = IDRETRY;
+					return TRUE;
+				}
+			}
+		}
+		default:
+			return FALSE;
+	}
+}

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+  <Type Name="SplitVector&lt;*&gt;">
+    <DisplayString>{{size = {lengthBody}}}</DisplayString>
+    <Expand>
+      <Item Name="[size]">lengthBody</Item>
+      <Item Name="[capacity]">(size)</Item>
+      <Item Name="[part1Length]">part1Length</Item>
+      <Item Name="[gap]">gapLength</Item>
+      <ArrayItems>
+        <Size>part1Length</Size>
+        <ValuePointer>body</ValuePointer>
+      </ArrayItems>
+      <ArrayItems>
+        <Size>lengthBody-part1Length</Size>
+        <ValuePointer>body+part1Length+gapLength</ValuePointer>
+      </ArrayItems>
+    </Expand>
+  </Type>
+</AutoVisualizer>

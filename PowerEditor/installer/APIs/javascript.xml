@@ -258,6 +258,7 @@
 		<KeyWord name="hasAttributeNS" />
 		<KeyWord name="hasAttributes" />
 		<KeyWord name="hasFocus" />
+		<KeyWord name="hasOwnProperty" />
 		<KeyWord name="hash" />
 		<KeyWord name="height" />
 		<KeyWord name="Hidden" />

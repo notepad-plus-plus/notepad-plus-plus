@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -27,6 +27,9 @@
 
 
 #include "ContextMenu.h"
+#include "menuCmdID.h"
+#include "Parameters.h"
+#include "localization.h"
 
 MenuItemUnit::MenuItemUnit(unsigned long cmdID, const TCHAR *itemName, const TCHAR *parentFolderName) : _cmdID(cmdID)
 {
@@ -53,7 +56,7 @@ ContextMenu::~ContextMenu()
 }
 
 	
-void ContextMenu::create(HWND hParent, const std::vector<MenuItemUnit> & menuItemArray, const HMENU mainMenuHandle)
+void ContextMenu::create(HWND hParent, const std::vector<MenuItemUnit> & menuItemArray, const HMENU mainMenuHandle, bool copyLink)
 { 
 	_hParent = hParent;
 	_hMenu = ::CreatePopupMenu();
@@ -61,6 +64,7 @@ void ContextMenu::create(HWND hParent, const std::vector<MenuItemUnit> & menuIte
 	HMENU hParentFolder = NULL;
 	generic_string currentParentFolderStr;
 	int j = 0;
+	MENUITEMINFO mii;
 
 	for (size_t i = 0, len = menuItemArray.size(); i < len; ++i)
 	{
@@ -109,7 +113,6 @@ void ContextMenu::create(HWND hParent, const std::vector<MenuItemUnit> & menuIte
 			lastIsSep = true;
 		}
 
-		
 		if (mainMenuHandle)
 		{
 			bool isEnabled = (::GetMenuState(mainMenuHandle, item._cmdID, MF_BYCOMMAND)&(MF_DISABLED|MF_GRAYED)) == 0;
@@ -118,8 +121,30 @@ void ContextMenu::create(HWND hParent, const std::vector<MenuItemUnit> & menuIte
 				enableItem(item._cmdID, isEnabled);
 			if (isChecked)
 				checkItem(item._cmdID, isChecked);
+
+			// set up any menu item bitmaps in the context menu, using main menu bitmaps
+			memset(&mii, 0, sizeof(mii));
+			mii.cbSize = sizeof(MENUITEMINFO);
+			mii.fMask = MIIM_CHECKMARKS;
+			mii.fType = MFT_BITMAP;
+			GetMenuItemInfo(mainMenuHandle, item._cmdID, FALSE, &mii);
+			SetMenuItemInfo(_hMenu, item._cmdID, FALSE, &mii);
 		}
 
+		if (copyLink && (item._cmdID == IDM_EDIT_COPY))
+		{
+			NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
+			generic_string localized = nativeLangSpeaker->getNativeLangMenuString(IDM_EDIT_COPY_LINK);
+			if (localized.length() == 0)
+				localized = L"Copy link";
+			memset(&mii, 0, sizeof(mii));
+			mii.cbSize = sizeof(MENUITEMINFO);
+			mii.fMask = MIIM_ID | MIIM_STRING | MIIM_STATE;
+			mii.wID = IDM_EDIT_COPY_LINK;
+			mii.dwTypeData = (TCHAR*) localized.c_str();
+			mii.fState = MFS_ENABLED;
+			int c = GetMenuItemCount(_hMenu);
+			SetMenuItemInfo(_hMenu, c - 1, TRUE, & mii);
+		}
 	}
 }
-	

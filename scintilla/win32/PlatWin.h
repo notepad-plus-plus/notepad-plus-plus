@@ -8,12 +8,16 @@
 #ifndef PLATWIN_H
 #define PLATWIN_H
 
-#ifdef SCI_NAMESPACE
 namespace Scintilla {
-#endif
 
 extern void Platform_Initialise(void *hInstance);
 extern void Platform_Finalise(bool fromDllMain);
+
+constexpr RECT RectFromPRectangle(PRectangle prc) noexcept {
+	RECT rc = { static_cast<LONG>(prc.left), static_cast<LONG>(prc.top),
+		static_cast<LONG>(prc.right), static_cast<LONG>(prc.bottom) };
+	return rc;
+}
 
 #if defined(USE_D2D)
 extern bool LoadD2D();
@@ -21,8 +25,6 @@ extern ID2D1Factory *pD2DFactory;
 extern IDWriteFactory *pIDWriteFactory;
 #endif
 
-#ifdef SCI_NAMESPACE
 }
-#endif
 
 #endif

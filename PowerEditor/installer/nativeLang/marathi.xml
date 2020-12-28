@@ -5,6 +5,9 @@
 	** created By:- Nikhil Tamhankar **
 		Email- iamnik.mailme@gmail.com
 
+	**modified by:kumar gagare
+		Email-kumargagare1@gmail.com
+
 -->
 <NotepadPlus>
 	<Native-Langue name="मराठी" filename="marathi.xml">
@@ -19,7 +22,7 @@
                     <Item menuId="encoding" name="&amp;एन्कोडिंग"/>
                     <Item menuId="language" name="&amp;भाषा"/>
                     <Item menuId="settings" name="&amp;सेटिंग"/>
-                    <Item menuId="macro" name="मेक्रो"/>
+                    <Item menuId="macro" name="मॅक्रो"/>
                     <Item menuId="run" name="चलाये"/>
                     <Item idName="Plugins" name="प्लगइन्स"/>
                     <Item idName="Window" name="विन्डों"/>
@@ -74,7 +77,7 @@
                     <Item id="41005" name="चालू डॉक्युमेंट व्यतिरिक्त सर्व बंद करा"/>
                     <Item id="41006" name="&amp;सेव्ह करा"/>
                     <Item id="41007" name="&amp;सर्व सेव्ह करा"/>
-                    <Item id="41008" name="&amp;अस सेव्ह करा..."/>
+                    <Item id="41008" name="&amp;असे सेव्ह करा..."/>
                     <Item id="41010" name="छापा..."/>
                     <Item id="1001" name="आता छापा"/>
                     <Item id="41011" name="&amp;बाहेर पडण्यासाठी"/>
@@ -147,28 +150,28 @@
                     <Item id="43019" name="बुकमार्क लाइन कॉपी करा"/>
                     <Item id="43020" name="बुकमार्क लाइन पेस्ट करा (Replace)"/>
                     <Item id="43021" name="बुकमार्क लाइन नष्ट करा (delete) करो"/>
-                    <Item id="43022" name="१ला स्टाईल वापरा"/>
-                    <Item id="43023" name="१ला स्टाईल काढा"/>
-                    <Item id="43024" name="२रा स्टाईल वापरा"/>
-                    <Item id="43025" name="२रा स्टाईल काढा"/>
-                    <Item id="43026" name="३रा स्टाईल वापरा"/>
-                    <Item id="43027" name="३रा स्टाईल काढा"/>
-                    <Item id="43028" name="४था स्टाईल वापरा"/>
-                    <Item id="43029" name="४था स्टाईल काढा"/>
-                    <Item id="43030" name="५वा स्टाईल वापरा"/>
-                    <Item id="43031" name="५वा स्टाईल काढा"/>
+                    <Item id="43022" name="१ली स्टाईल वापरा"/>
+                    <Item id="43023" name="१ली स्टाईल काढा"/>
+                    <Item id="43024" name="२री स्टाईल वापरा"/>
+                    <Item id="43025" name="२री स्टाईल काढा"/>
+                    <Item id="43026" name="३री स्टाईल वापरा"/>
+                    <Item id="43027" name="३री स्टाईल काढा"/>
+                    <Item id="43028" name="४थी स्टाईल वापरा"/>
+                    <Item id="43029" name="४थी स्टाईल काढा"/>
+                    <Item id="43030" name="५वी स्टाईल वापरा"/>
+                    <Item id="43031" name="५वी स्टाईल काढा"/>
                     <Item id="43032" name="सभी स्टाईल काढा"/>
-                    <Item id="43033" name="१ला स्टाईल"/>
-                    <Item id="43034" name="२रा स्टाईल"/>
-                    <Item id="43035" name="३रा स्टाईल"/>
-                    <Item id="43036" name="४था स्टाईल"/>
-                    <Item id="43037" name="५वा स्टाईल"/>
+                    <Item id="43033" name="१ली स्टाईल"/>
+                    <Item id="43034" name="२री स्टाईल"/>
+                    <Item id="43035" name="३री स्टाईल"/>
+                    <Item id="43036" name="४थी स्टाईल"/>
+                    <Item id="43037" name="५वी स्टाईल"/>
                     <Item id="43038" name="स्टाईल शोधा"/>
                     <Item id="43039" name="१ला स्टाईल"/>
                     <Item id="43040" name="२रा स्टाईल"/>
-                    <Item id="43041" name="३रा स्टाईल"/>
-                    <Item id="43042" name="४था स्टाईल"/>
-                    <Item id="43043" name="५वा स्टाईल"/>
+                    <Item id="43041" name="३री स्टाईल"/>
+                    <Item id="43042" name="४थी स्टाईल"/>
+                    <Item id="43043" name="५वी स्टाईल"/>
                     <Item id="43044" name="स्टाईल शोधा"/>
                     <Item id="43045" name="परिणाम विंडो शोधा"/>
                     <Item id="43046" name="पुढील शोध परिणाम"/>
@@ -220,9 +223,10 @@
 
                     <Item id="46001" name="शैली संरचना..."/>
                     <Item id="46180" name="वापरकर्ता परिभाषित"/>
+		     <Item id="46250" name="तुमची भाषा निश्चित करा..."/>
                     <Item id="47000" name="नोटपैड++ बद्दल..."/>
                     <Item id="47001" name="नोटपैड++ मुख्य पान"/>
-                    <Item id="47002" name="नोटपैड++ प्रकल्प पान"/>
+                    <Item id="47002" name="नोटपैड++ प्रकल्प(project) पान"/>
                     <Item id="47003" name="ऑनलाईन प्रलेखन"/>
                     <Item id="47004" name="चर्चामंच"/>
                     <Item id="47005" name="अधिक प्लगिन्स मिळवा"/>

@@ -23,28 +23,29 @@
     <ProjectGuid>{FCF60E65-1B78-4D1D-AB59-4FC00AC8C248}</ProjectGuid>
     <RootNamespace>Notepad++</RootNamespace>
     <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v140_xp</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v140_xp</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v140_xp</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v140_xp</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -94,7 +95,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
-      <AdditionalIncludeDirectories>..\src\WinControls\AboutDlg;..\..\scintilla\include;..\include;..\src\WinControls;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\TabBar;..\src\WinControls\ToolBar;..\src\MISC\Process;..\src\ScitillaComponent;..\src\MISC;..\src\MISC\SysMsg;..\src\WinControls\StatusBar;..\src;..\src\WinControls\StaticDialog\RunDlg;..\src\tinyxml;..\src\WinControls\ColourPicker;..\src\Win32Explr;..\src\MISC\RegExt;..\src\WinControls\TrayIcon;..\src\WinControls\shortcut;..\src\WinControls\Grid;..\src\WinControls\ContextMenu;..\src\MISC\PluginsManager;..\src\WinControls\Preference;..\src\WinControls\WindowsDlg;..\src\WinControls\TaskList;..\src\WinControls\DockingWnd;..\src\WinControls\ToolTip;..\src\MISC\Exception;..\src\MISC\Common;..\src\tinyxml\tinyXmlA;..\src\WinControls\AnsiCharPanel;..\src\WinControls\ClipboardHistory;..\src\WinControls\FindCharsInRange;..\src\WinControls\VerticalFileSwitcher;..\src\WinControls\ProjectPanel;..\src\WinControls\DocumentMap;..\src\WinControls\FunctionList;..\src\uchardet;..\src\WinControls\FileBrowser;..\src\WinControls\ReadDirectoryChanges;..\src\MISC\md5;..\src\WinControls\PluginsAdmin;..\src\json;..\src\MISC\sha2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\src\WinControls\AboutDlg;..\..\scintilla\include;..\include;..\src\WinControls;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\TabBar;..\src\WinControls\ToolBar;..\src\MISC\Process;..\src\ScitillaComponent;..\src\MISC;..\src\MISC\SysMsg;..\src\WinControls\StatusBar;..\src;..\src\WinControls\StaticDialog\RunDlg;..\src\tinyxml;..\src\WinControls\ColourPicker;..\src\Win32Explr;..\src\MISC\RegExt;..\src\WinControls\TrayIcon;..\src\WinControls\shortcut;..\src\WinControls\Grid;..\src\WinControls\ContextMenu;..\src\MISC\PluginsManager;..\src\WinControls\Preference;..\src\WinControls\WindowsDlg;..\src\WinControls\TaskList;..\src\WinControls\DockingWnd;..\src\WinControls\TreeView;..\src\WinControls\ToolTip;..\src\MISC\Exception;..\src\MISC\Common;..\src\tinyxml\tinyXmlA;..\src\WinControls\AnsiCharPanel;..\src\WinControls\ClipboardHistory;..\src\WinControls\FindCharsInRange;..\src\WinControls\VerticalFileSwitcher;..\src\WinControls\ProjectPanel;..\src\WinControls\DocumentMap;..\src\WinControls\FunctionList;..\src\uchardet;..\src\WinControls\FileBrowser;..\src\WinControls\ReadDirectoryChanges;..\src\MISC\md5;..\src\WinControls\PluginsAdmin;..\src\json;..\src\MISC\sha2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WIN32_WINNT=0x0501;_WINDOWS;_USE_64BIT_TIME_T;TIXML_USE_STL;TIXMLA_USE_STL;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_SWPRINTFS=1;_CRT_NON_CONFORMING_WCSTOK;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ExceptionHandling>Async</ExceptionHandling>
       <BasicRuntimeChecks>UninitializedLocalUsageCheck</BasicRuntimeChecks>
@@ -106,10 +107,11 @@
       <SmallerTypeCheck>false</SmallerTypeCheck>
       <DisableSpecificWarnings>4091;4456;4457;4459</DisableSpecificWarnings>
       <AdditionalOptions>/Zc:strictStrings %(AdditionalOptions)</AdditionalOptions>
+      <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
       <AdditionalOptions>/fixed:no %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>comctl32.lib;shlwapi.lib;shell32.lib;Oleacc.lib;Dbghelp.lib;Version.lib;Crypt32.lib;wintrust.lib;Sensapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>comctl32.lib;shlwapi.lib;shell32.lib;Oleacc.lib;Dbghelp.lib;Version.lib;Crypt32.lib;wintrust.lib;Sensapi.lib;winmm.lib;wininet.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ShowProgress>LinkVerboseLib</ShowProgress>
       <OutputFile>$(OutDir)notepad++.exe</OutputFile>
       <Version>1.0</Version>
@@ -119,6 +121,7 @@
       <ProgramDatabaseFile>$(OutDir)notepadPlus.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
+      <MinimumRequiredVersion>5.01</MinimumRequiredVersion>
     </Link>
     <Manifest>
       <AdditionalManifestFiles>..\src\dpiAware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
@@ -131,7 +134,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
-      <AdditionalIncludeDirectories>..\src\WinControls\AboutDlg;..\..\scintilla\include;..\include;..\src\WinControls;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\TabBar;..\src\WinControls\ToolBar;..\src\MISC\Process;..\src\ScitillaComponent;..\src\MISC;..\src\MISC\SysMsg;..\src\WinControls\StatusBar;..\src;..\src\WinControls\StaticDialog\RunDlg;..\src\tinyxml;..\src\WinControls\ColourPicker;..\src\Win32Explr;..\src\MISC\RegExt;..\src\WinControls\TrayIcon;..\src\WinControls\shortcut;..\src\WinControls\Grid;..\src\WinControls\ContextMenu;..\src\MISC\PluginsManager;..\src\WinControls\Preference;..\src\WinControls\WindowsDlg;..\src\WinControls\TaskList;..\src\WinControls\DockingWnd;..\src\WinControls\ToolTip;..\src\MISC\Exception;..\src\MISC\Common;..\src\tinyxml\tinyXmlA;..\src\WinControls\AnsiCharPanel;..\src\WinControls\ClipboardHistory;..\src\WinControls\FindCharsInRange;..\src\WinControls\VerticalFileSwitcher;..\src\WinControls\ProjectPanel;..\src\WinControls\DocumentMap;..\src\WinControls\FunctionList;..\src\uchardet;..\src\WinControls\FileBrowser;..\src\WinControls\ReadDirectoryChanges;..\src\MISC\md5;..\src\WinControls\PluginsAdmin;..\src\json;..\src\MISC\sha2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\src\WinControls\AboutDlg;..\..\scintilla\include;..\include;..\src\WinControls;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\TabBar;..\src\WinControls\ToolBar;..\src\MISC\Process;..\src\ScitillaComponent;..\src\MISC;..\src\MISC\SysMsg;..\src\WinControls\StatusBar;..\src;..\src\WinControls\StaticDialog\RunDlg;..\src\tinyxml;..\src\WinControls\ColourPicker;..\src\Win32Explr;..\src\MISC\RegExt;..\src\WinControls\TrayIcon;..\src\WinControls\shortcut;..\src\WinControls\Grid;..\src\WinControls\ContextMenu;..\src\MISC\PluginsManager;..\src\WinControls\Preference;..\src\WinControls\WindowsDlg;..\src\WinControls\TaskList;..\src\WinControls\DockingWnd;..\src\WinControls\TreeView;..\src\WinControls\ToolTip;..\src\MISC\Exception;..\src\MISC\Common;..\src\tinyxml\tinyXmlA;..\src\WinControls\AnsiCharPanel;..\src\WinControls\ClipboardHistory;..\src\WinControls\FindCharsInRange;..\src\WinControls\VerticalFileSwitcher;..\src\WinControls\ProjectPanel;..\src\WinControls\DocumentMap;..\src\WinControls\FunctionList;..\src\uchardet;..\src\WinControls\FileBrowser;..\src\WinControls\ReadDirectoryChanges;..\src\MISC\md5;..\src\WinControls\PluginsAdmin;..\src\json;..\src\MISC\sha2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WIN32_WINNT=0x0501;_WINDOWS;_USE_64BIT_TIME_T;TIXML_USE_STL;TIXMLA_USE_STL;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_SWPRINTFS=1;_CRT_NON_CONFORMING_WCSTOK;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ExceptionHandling>Async</ExceptionHandling>
       <BasicRuntimeChecks>UninitializedLocalUsageCheck</BasicRuntimeChecks>
@@ -143,10 +146,11 @@
       <SmallerTypeCheck>false</SmallerTypeCheck>
       <DisableSpecificWarnings>4091;4456;4457;4459</DisableSpecificWarnings>
       <AdditionalOptions>/Zc:strictStrings %(AdditionalOptions)</AdditionalOptions>
+      <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
       <AdditionalOptions>/fixed:no %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>comctl32.lib;shlwapi.lib;shell32.lib;Oleacc.lib;Dbghelp.lib;Version.lib;Crypt32.lib;wintrust.lib;Sensapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>comctl32.lib;shlwapi.lib;shell32.lib;Oleacc.lib;Dbghelp.lib;Version.lib;Crypt32.lib;wintrust.lib;Sensapi.lib;winmm.lib;wininet.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ShowProgress>LinkVerboseLib</ShowProgress>
       <OutputFile>$(OutDir)notepad++.exe</OutputFile>
       <Version>1.0</Version>
@@ -155,6 +159,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)notepadPlus.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
+      <MinimumRequiredVersion>5.02</MinimumRequiredVersion>
     </Link>
     <Manifest>
       <AdditionalManifestFiles>..\src\dpiAware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
@@ -171,7 +176,7 @@
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>false</OmitFramePointers>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\src\WinControls\AboutDlg;..\..\scintilla\include;..\include;..\src\WinControls;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\TabBar;..\src\WinControls\ToolBar;..\src\MISC\Process;..\src\ScitillaComponent;..\src\MISC;..\src\MISC\SysMsg;..\src\WinControls\StatusBar;..\src;..\src\WinControls\StaticDialog\RunDlg;..\src\tinyxml;..\src\WinControls\ColourPicker;..\src\Win32Explr;..\src\MISC\RegExt;..\src\WinControls\TrayIcon;..\src\WinControls\shortcut;..\src\WinControls\Grid;..\src\WinControls\ContextMenu;..\src\MISC\PluginsManager;..\src\WinControls\Preference;..\src\WinControls\WindowsDlg;..\src\WinControls\TaskList;..\src\WinControls\DockingWnd;..\src\WinControls\ToolTip;..\src\MISC\Exception;..\src\MISC\Common;..\src\tinyxml\tinyXmlA;..\src\WinControls\AnsiCharPanel;..\src\WinControls\ClipboardHistory;..\src\WinControls\FindCharsInRange;..\src\WinControls\VerticalFileSwitcher;..\src\WinControls\ProjectPanel;..\src\WinControls\DocumentMap;..\src\WinControls\FunctionList;..\src\uchardet;..\src\WinControls\FileBrowser;..\src\WinControls\ReadDirectoryChanges;..\src\MISC\md5;..\src\WinControls\PluginsAdmin;..\src\json;..\src\MISC\sha2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\src\WinControls\AboutDlg;..\..\scintilla\include;..\include;..\src\WinControls;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\TabBar;..\src\WinControls\ToolBar;..\src\MISC\Process;..\src\ScitillaComponent;..\src\MISC;..\src\MISC\SysMsg;..\src\WinControls\StatusBar;..\src;..\src\WinControls\StaticDialog\RunDlg;..\src\tinyxml;..\src\WinControls\ColourPicker;..\src\Win32Explr;..\src\MISC\RegExt;..\src\WinControls\TrayIcon;..\src\WinControls\shortcut;..\src\WinControls\Grid;..\src\WinControls\ContextMenu;..\src\MISC\PluginsManager;..\src\WinControls\Preference;..\src\WinControls\WindowsDlg;..\src\WinControls\TaskList;..\src\WinControls\DockingWnd;..\src\WinControls\TreeView;..\src\WinControls\ToolTip;..\src\MISC\Exception;..\src\MISC\Common;..\src\tinyxml\tinyXmlA;..\src\WinControls\AnsiCharPanel;..\src\WinControls\ClipboardHistory;..\src\WinControls\FindCharsInRange;..\src\WinControls\VerticalFileSwitcher;..\src\WinControls\ProjectPanel;..\src\WinControls\DocumentMap;..\src\WinControls\FunctionList;..\src\uchardet;..\src\WinControls\FileBrowser;..\src\WinControls\ReadDirectoryChanges;..\src\MISC\md5;..\src\WinControls\PluginsAdmin;..\src\json;..\src\MISC\sha2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WIN32_WINNT=0x0501;NDEBUG;_WINDOWS;_USE_64BIT_TIME_T;TIXML_USE_STL;TIXMLA_USE_STL;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_SWPRINTFS=1;_CRT_NON_CONFORMING_WCSTOK;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessToFile>false</PreprocessToFile>
       <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
@@ -186,9 +191,10 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <DisableSpecificWarnings>4091;4456;4457;4459</DisableSpecificWarnings>
       <AdditionalOptions>/Zc:strictStrings %(AdditionalOptions)</AdditionalOptions>
+      <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>comctl32.lib;shlwapi.lib;shell32.lib;Oleacc.lib;Dbghelp.lib;Version.lib;Crypt32.lib;wintrust.lib;Sensapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>comctl32.lib;shlwapi.lib;shell32.lib;Oleacc.lib;Dbghelp.lib;Version.lib;Crypt32.lib;wintrust.lib;Sensapi.lib;winmm.lib;wininet.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ShowProgress>LinkVerboseLib</ShowProgress>
       <OutputFile>$(OutDir)notepad++.exe</OutputFile>
       <Version>1.0</Version>
@@ -201,6 +207,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
       <TargetMachine>MachineX86</TargetMachine>
+      <MinimumRequiredVersion>5.01</MinimumRequiredVersion>
     </Link>
     <Manifest>
       <AdditionalManifestFiles>..\src\dpiAware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
@@ -210,7 +217,6 @@
 copy ..\src\langs.model.xml ..\bin\langs.model.xml
 copy ..\src\stylers.model.xml ..\bin\stylers.model.xml
 copy ..\src\shortcuts.xml ..\bin\shortcuts.xml
-copy ..\src\functionList.xml ..\bin\functionList.xml
 copy ..\src\contextMenu.xml ..\bin\contextMenu.xml
 </Command>
     </PostBuildEvent>
@@ -222,7 +228,7 @@ copy ..\src\contextMenu.xml ..\bin\contextMenu.xml
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>false</OmitFramePointers>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\src\WinControls\AboutDlg;..\..\scintilla\include;..\include;..\src\WinControls;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\TabBar;..\src\WinControls\ToolBar;..\src\MISC\Process;..\src\ScitillaComponent;..\src\MISC;..\src\MISC\SysMsg;..\src\WinControls\StatusBar;..\src;..\src\WinControls\StaticDialog\RunDlg;..\src\tinyxml;..\src\WinControls\ColourPicker;..\src\Win32Explr;..\src\MISC\RegExt;..\src\WinControls\TrayIcon;..\src\WinControls\shortcut;..\src\WinControls\Grid;..\src\WinControls\ContextMenu;..\src\MISC\PluginsManager;..\src\WinControls\Preference;..\src\WinControls\WindowsDlg;..\src\WinControls\TaskList;..\src\WinControls\DockingWnd;..\src\WinControls\ToolTip;..\src\MISC\Exception;..\src\MISC\Common;..\src\tinyxml\tinyXmlA;..\src\WinControls\AnsiCharPanel;..\src\WinControls\ClipboardHistory;..\src\WinControls\FindCharsInRange;..\src\WinControls\VerticalFileSwitcher;..\src\WinControls\ProjectPanel;..\src\WinControls\DocumentMap;..\src\WinControls\FunctionList;..\src\uchardet;..\src\WinControls\FileBrowser;..\src\WinControls\ReadDirectoryChanges;..\src\MISC\md5;..\src\WinControls\PluginsAdmin;..\src\json;..\src\MISC\sha2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\src\WinControls\AboutDlg;..\..\scintilla\include;..\include;..\src\WinControls;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\TabBar;..\src\WinControls\ToolBar;..\src\MISC\Process;..\src\ScitillaComponent;..\src\MISC;..\src\MISC\SysMsg;..\src\WinControls\StatusBar;..\src;..\src\WinControls\StaticDialog\RunDlg;..\src\tinyxml;..\src\WinControls\ColourPicker;..\src\Win32Explr;..\src\MISC\RegExt;..\src\WinControls\TrayIcon;..\src\WinControls\shortcut;..\src\WinControls\Grid;..\src\WinControls\ContextMenu;..\src\MISC\PluginsManager;..\src\WinControls\Preference;..\src\WinControls\WindowsDlg;..\src\WinControls\TaskList;..\src\WinControls\DockingWnd;..\src\WinControls\TreeView;..\src\WinControls\ToolTip;..\src\MISC\Exception;..\src\MISC\Common;..\src\tinyxml\tinyXmlA;..\src\WinControls\AnsiCharPanel;..\src\WinControls\ClipboardHistory;..\src\WinControls\FindCharsInRange;..\src\WinControls\VerticalFileSwitcher;..\src\WinControls\ProjectPanel;..\src\WinControls\DocumentMap;..\src\WinControls\FunctionList;..\src\uchardet;..\src\WinControls\FileBrowser;..\src\WinControls\ReadDirectoryChanges;..\src\MISC\md5;..\src\WinControls\PluginsAdmin;..\src\json;..\src\MISC\sha2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WIN32_WINNT=0x0501;NDEBUG;_WINDOWS;_USE_64BIT_TIME_T;TIXML_USE_STL;TIXMLA_USE_STL;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_SWPRINTFS=1;_CRT_NON_CONFORMING_WCSTOK;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessToFile>false</PreprocessToFile>
       <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
@@ -237,9 +243,10 @@ copy ..\src\contextMenu.xml ..\bin\contextMenu.xml
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <DisableSpecificWarnings>4091;4456;4457;4459</DisableSpecificWarnings>
       <AdditionalOptions>/Zc:strictStrings %(AdditionalOptions)</AdditionalOptions>
+      <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>comctl32.lib;shlwapi.lib;shell32.lib;Oleacc.lib;Dbghelp.lib;Version.lib;Crypt32.lib;wintrust.lib;Sensapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>comctl32.lib;shlwapi.lib;shell32.lib;Oleacc.lib;Dbghelp.lib;Version.lib;Crypt32.lib;wintrust.lib;Sensapi.lib;winmm.lib;wininet.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ShowProgress>LinkVerboseLib</ShowProgress>
       <OutputFile>$(OutDir)notepad++.exe</OutputFile>
       <Version>1.0</Version>
@@ -252,6 +259,7 @@ copy ..\src\contextMenu.xml ..\bin\contextMenu.xml
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <MinimumRequiredVersion>5.02</MinimumRequiredVersion>
     </Link>
     <Manifest>
       <AdditionalManifestFiles>..\src\dpiAware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
@@ -261,31 +269,14 @@ copy ..\src\contextMenu.xml ..\bin\contextMenu.xml
 copy ..\src\langs.model.xml ..\bin64\langs.model.xml
 copy ..\src\stylers.model.xml ..\bin64\stylers.model.xml
 copy ..\src\shortcuts.xml ..\bin64\shortcuts.xml
-copy ..\src\functionList.xml ..\bin64\functionList.xml
 copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\MISC\Common\LongRunningOperation.cpp" />
-    <ClCompile Include="..\src\MISC\Common\mutex.cpp" />
     <ClCompile Include="..\src\MISC\Common\verifySignedfile.cpp" />
     <ClCompile Include="..\src\MISC\md5\md5Dlgs.cpp" />
     <ClCompile Include="..\src\MISC\sha2\sha-256.cpp" />
-    <ClCompile Include="..\src\uchardet\LangModels\LangArabicModel.cpp" />
-    <ClCompile Include="..\src\uchardet\LangModels\LangBulgarianModel.cpp" />
-    <ClCompile Include="..\src\uchardet\LangModels\LangDanishModel.cpp" />
-    <ClCompile Include="..\src\uchardet\LangModels\LangEsperantoModel.cpp" />
-    <ClCompile Include="..\src\uchardet\LangModels\LangFrenchModel.cpp" />
-    <ClCompile Include="..\src\uchardet\LangModels\LangGermanModel.cpp" />
-    <ClCompile Include="..\src\uchardet\LangModels\LangGreekModel.cpp" />
-    <ClCompile Include="..\src\uchardet\LangModels\LangHebrewModel.cpp" />
-    <ClCompile Include="..\src\uchardet\LangModels\LangHungarianModel.cpp" />
-    <ClCompile Include="..\src\uchardet\LangModels\LangRussianModel.cpp" />
-    <ClCompile Include="..\src\uchardet\LangModels\LangSpanishModel.cpp" />
-    <ClCompile Include="..\src\uchardet\LangModels\LangThaiModel.cpp" />
-    <ClCompile Include="..\src\uchardet\LangModels\LangTurkishModel.cpp" />
-    <ClCompile Include="..\src\uchardet\LangModels\LangVietnameseModel.cpp" />
     <ClCompile Include="..\src\WinControls\AboutDlg\AboutDlg.cpp" />
     <ClCompile Include="..\src\WinControls\AnsiCharPanel\ansiCharPanel.cpp" />
     <ClCompile Include="..\src\ScitillaComponent\AutoCompletion.cpp" />
@@ -320,6 +311,12 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClCompile Include="..\src\MISC\PluginsManager\IDAllocator.cpp" />
     <ClCompile Include="..\src\WinControls\ImageListSet\ImageListSet.cpp" />
     <ClCompile Include="..\src\uchardet\JpCntx.cpp" />
+    <ClCompile Include="..\src\uchardet\LangBulgarianModel.cpp" />
+    <ClCompile Include="..\src\uchardet\LangCyrillicModel.cpp" />
+    <ClCompile Include="..\src\uchardet\LangGreekModel.cpp" />
+    <ClCompile Include="..\src\uchardet\LangHebrewModel.cpp" />
+    <ClCompile Include="..\src\uchardet\LangHungarianModel.cpp" />
+    <ClCompile Include="..\src\uchardet\LangThaiModel.cpp" />
     <ClCompile Include="..\src\lastRecentFileList.cpp" />
     <ClCompile Include="..\src\lesDlgs.cpp" />
     <ClCompile Include="..\src\WinControls\AnsiCharPanel\ListView.cpp" />
@@ -361,6 +358,7 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClCompile Include="..\src\ScitillaComponent\ScintillaEditView.cpp" />
     <ClCompile Include="..\src\WinControls\shortcut\shortcut.cpp" />
     <ClCompile Include="..\src\WinControls\Grid\ShortcutMapper.cpp" />
+    <ClCompile Include="..\src\WinControls\TreeView\TreeView.cpp" />
     <ClCompile Include="..\src\WinControls\WindowsDlg\SizeableDlg.cpp" />
     <ClCompile Include="..\src\ScitillaComponent\SmartHighlighter.cpp" />
     <ClCompile Include="..\src\WinControls\SplitterContainer\Splitter.cpp" />
@@ -381,7 +379,6 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClCompile Include="..\src\WinControls\ToolBar\ToolBar.cpp" />
     <ClCompile Include="..\src\WinControls\ToolTip\ToolTip.cpp" />
     <ClCompile Include="..\src\WinControls\TrayIcon\trayIconControler.cpp" />
-    <ClCompile Include="..\src\WinControls\ProjectPanel\TreeView.cpp" />
     <ClCompile Include="..\src\uchardet\uchardet.cpp" />
     <ClCompile Include="..\src\UniConversion.cpp" />
     <ClCompile Include="..\src\WinControls\AboutDlg\URLCtrl.cpp" />
@@ -399,6 +396,7 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClCompile Include="..\src\WinControls\FileBrowser\fileBrowser.cpp" />
     <ClCompile Include="..\src\WinControls\ReadDirectoryChanges\ReadDirectoryChanges.cpp" />
     <ClCompile Include="..\src\WinControls\ReadDirectoryChanges\ReadDirectoryChangesPrivate.cpp" />
+    <ClCompile Include="..\src\WinControls\ReadDirectoryChanges\ReadFileChanges.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\src\icons\allChars_off.ico" />
@@ -541,20 +539,31 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <None Include="..\src\cursors\drag_plus.cur" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\MISC\Common\LongRunningOperation.h" />
-    <ClInclude Include="..\src\MISC\Common\mutex.h" />
-    <ClInclude Include="..\src\MISC\Common\mutex.hxx" />
+    <ClInclude Include="..\src\clipboardFormats.h" />
+    <ClInclude Include="..\src\dpiManager.h" />
+    <ClInclude Include="..\src\keys.h" />
+    <ClInclude Include="..\src\localizationString.h" />
+    <ClInclude Include="..\src\MISC\Common\Sorters.h" />
     <ClInclude Include="..\src\MISC\Common\verifySignedfile.h" />
     <ClInclude Include="..\src\MISC\md5\md5.h" />
     <ClInclude Include="..\src\MISC\md5\md5Dlgs.h" />
     <ClInclude Include="..\src\MISC\md5\md5Dlgs_rc.h" />
     <ClInclude Include="..\src\MISC\sha2\sha-256.h" />
+    <ClInclude Include="..\src\ScitillaComponent\columnEditor_rc.h" />
+    <ClInclude Include="..\src\ScitillaComponent\FindReplaceDlg_rc.h" />
+    <ClInclude Include="..\src\ScitillaComponent\ScintillaRef.h" />
+    <ClInclude Include="..\src\Utf8.h" />
     <ClInclude Include="..\src\WinControls\AboutDlg\AboutDlg.h" />
     <ClInclude Include="..\src\WinControls\AnsiCharPanel\ansiCharPanel.h" />
     <ClInclude Include="..\src\ScitillaComponent\AutoCompletion.h" />
+    <ClInclude Include="..\src\WinControls\AnsiCharPanel\ansiCharPanel_rc.h" />
     <ClInclude Include="..\src\WinControls\AnsiCharPanel\asciiListView.h" />
+    <ClInclude Include="..\src\WinControls\ColourPicker\ColourPopupResource.h" />
+    <ClInclude Include="..\src\WinControls\ColourPicker\WordStyleDlgRes.h" />
+    <ClInclude Include="..\src\WinControls\DocumentMap\documentMap_rc.h" />
     <ClInclude Include="..\src\WinControls\DocumentMap\documentSnapshot.h" />
     <ClInclude Include="..\src\WinControls\DocumentMap\documentSnapshot_rc.h" />
+    <ClInclude Include="..\src\WinControls\FindCharsInRange\findCharsInRange_rc.h" />
     <ClInclude Include="..\src\WinControls\Grid\BabyGrid.h" />
     <ClInclude Include="..\src\WinControls\Grid\BabyGridWrapper.h" />
     <ClInclude Include="..\src\ScitillaComponent\Buffer.h" />
@@ -569,6 +578,10 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClInclude Include="..\src\WinControls\ContextMenu\ContextMenu.h" />
     <ClInclude Include="..\src\WinControls\PluginsAdmin\pluginsAdmin.h" />
     <ClInclude Include="..\src\WinControls\PluginsAdmin\pluginsAdminRes.h" />
+    <ClInclude Include="..\src\WinControls\Preference\preference_rc.h" />
+    <ClInclude Include="..\src\WinControls\ReadDirectoryChanges\targetver.h" />
+    <ClInclude Include="..\src\WinControls\shortcut\shortcutRc.h" />
+    <ClInclude Include="..\src\WinControls\StaticDialog\RunDlg\RunDlg_rc.h" />
     <ClInclude Include="..\src\WinControls\TabBar\ControlsTab.h" />
     <ClInclude Include="..\src\WinControls\DockingWnd\Docking.h" />
     <ClInclude Include="..\src\WinControls\DockingWnd\DockingCont.h" />
@@ -596,7 +609,6 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClInclude Include="..\src\lesDlgs.h" />
     <ClInclude Include="..\src\WinControls\AnsiCharPanel\ListView.h" />
     <ClInclude Include="..\src\localization.h" />
-    <ClInclude Include="..\src\localizationstring.h" />
     <ClInclude Include="..\src\menuCmdID.h" />
     <ClInclude Include="..\src\MISC\Exception\MiniDumper.h" />
     <ClInclude Include="..\src\Notepad_plus.h" />
@@ -640,6 +652,7 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClInclude Include="..\src\WinControls\shortcut\shortcut.h" />
     <ClInclude Include="..\src\WinControls\Grid\ShortcutMapper.h" />
     <ClInclude Include="..\src\WinControls\Grid\ShortcutMapper_rc.h" />
+    <ClInclude Include="..\src\WinControls\TreeView\TreeView.h" />
     <ClInclude Include="..\src\WinControls\WindowsDlg\SizeableDlg.h" />
     <ClInclude Include="..\src\ScitillaComponent\SmartHighlighter.h" />
     <ClInclude Include="..\src\WinControls\SplitterContainer\Splitter.h" />
@@ -657,7 +670,6 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClInclude Include="..\src\WinControls\ToolBar\ToolBar.h" />
     <ClInclude Include="..\src\WinControls\ToolTip\ToolTip.h" />
     <ClInclude Include="..\src\WinControls\TrayIcon\trayIconControler.h" />
-    <ClInclude Include="..\src\WinControls\ProjectPanel\TreeView.h" />
     <ClInclude Include="..\src\uchardet\uchardet.h" />
     <ClInclude Include="..\src\UniConversion.h" />
     <ClInclude Include="..\src\WinControls\AboutDlg\URLCtrl.h" />
@@ -681,6 +693,7 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClInclude Include="..\src\WinControls\ReadDirectoryChanges\ReadDirectoryChanges.h" />
     <ClInclude Include="..\src\WinControls\ReadDirectoryChanges\ReadDirectoryChangesPrivate.h" />
     <ClInclude Include="..\src\WinControls\ReadDirectoryChanges\ThreadSafeQueue.h" />
+    <ClInclude Include="..\src\WinControls\ReadDirectoryChanges\ReadFileChanges.h" />
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="..\src\notepad++.exe.manifest" />

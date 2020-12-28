@@ -24,9 +24,7 @@
 #include "CharacterSet.h"
 #include "LexerModule.h"
 
-#ifdef SCI_NAMESPACE
 using namespace Scintilla;
-#endif
 
 // Extended to accept accented characters
 static inline bool IsAWordChar(int ch) {
@@ -37,7 +35,7 @@ static inline bool IsOperator(const int ch) {
 	return (ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '&' || ch == '|' || ch == '<' || ch == '>' || ch == '=');
 }
 
-static void ColouriseKixDoc(unsigned int startPos, int length, int initStyle,
+static void ColouriseKixDoc(Sci_PositionU startPos, Sci_Position length, int initStyle,
                            WordList *keywordlists[], Accessor &styler) {
 
 	WordList &keywords = *keywordlists[0];

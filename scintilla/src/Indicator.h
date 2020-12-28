@@ -8,18 +8,16 @@
 #ifndef INDICATOR_H
 #define INDICATOR_H
 
-#ifdef SCI_NAMESPACE
 namespace Scintilla {
-#endif
 
 struct StyleAndColour {
 	int style;
 	ColourDesired fore;
-	StyleAndColour() : style(INDIC_PLAIN), fore(0, 0, 0) {
+	StyleAndColour() noexcept : style(INDIC_PLAIN), fore(0, 0, 0) {
 	}
-	StyleAndColour(int style_, ColourDesired fore_ = ColourDesired(0, 0, 0)) : style(style_), fore(fore_) {
+	StyleAndColour(int style_, ColourDesired fore_ = ColourDesired(0, 0, 0)) noexcept : style(style_), fore(fore_) {
 	}
-	bool operator==(const StyleAndColour &other) const {
+	bool operator==(const StyleAndColour &other) const noexcept {
 		return (style == other.style) && (fore == other.fore);
 	}
 };
@@ -35,26 +33,24 @@ public:
 	int fillAlpha;
 	int outlineAlpha;
 	int attributes;
-	Indicator() : under(false), fillAlpha(30), outlineAlpha(50), attributes(0) {
+	Indicator() noexcept : under(false), fillAlpha(30), outlineAlpha(50), attributes(0) {
 	}
-	Indicator(int style_, ColourDesired fore_=ColourDesired(0,0,0), bool under_=false, int fillAlpha_=30, int outlineAlpha_=50) :
+	Indicator(int style_, ColourDesired fore_=ColourDesired(0,0,0), bool under_=false, int fillAlpha_=30, int outlineAlpha_=50) noexcept :
 		sacNormal(style_, fore_), sacHover(style_, fore_), under(under_), fillAlpha(fillAlpha_), outlineAlpha(outlineAlpha_), attributes(0) {
 	}
-	void Draw(Surface *surface, const PRectangle &rc, const PRectangle &rcLine, DrawState drawState, int value) const;
-	bool IsDynamic() const {
+	void Draw(Surface *surface, const PRectangle &rc, const PRectangle &rcLine, const PRectangle &rcCharacter, DrawState drawState, int value) const;
+	bool IsDynamic() const noexcept {
 		return !(sacNormal == sacHover);
 	}
-	bool OverridesTextFore() const {
-		return sacNormal.style == INDIC_TEXTFORE || sacHover.style == INDIC_TEXTFORE;
+	bool OverridesTextFore() const noexcept {
+		return sacNormal.style == INDIC_TEXTFORE || sacHover.style == INDIC_TEXTFORE || sacNormal.style == INDIC_EXPLORERLINK || sacHover.style == INDIC_EXPLORERLINK;
 	}
-	int Flags() const {
+	int Flags() const noexcept {
 		return attributes;
 	}
 	void SetFlags(int attributes_);
 };
 
-#ifdef SCI_NAMESPACE
 }
-#endif
 
 #endif

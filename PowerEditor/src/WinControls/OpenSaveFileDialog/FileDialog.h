@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -26,8 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef FILE_DIALOG_H
-#define FILE_DIALOG_H
+#pragma once
 
 #include "Common.h"
 #include "Notepad_plus_msgs.h"
@@ -49,7 +48,8 @@ public:
 	void setExtFilter(const TCHAR *, const TCHAR *, ...);
 	
 	int setExtsFilter(const TCHAR *extText, const TCHAR *exts);
-	void setDefFileName(const TCHAR *fn){lstrcpy(_fileName, fn);}
+	void setDefFileName(const TCHAR *fn){ wcscpy_s(_fileName, fn);}
+	void setDefExt(const TCHAR *ext){ _defExt = ext;}
 
 	TCHAR * doSaveDlg();
 	stringVector * doOpenMultiFilesDlg();
@@ -64,18 +64,18 @@ protected :
 
 private:
 	TCHAR _fileName[MAX_PATH*8];
+	generic_string _defExt;
 
-	TCHAR * _fileExt;
-	int _nbCharFileExt;
+	TCHAR * _fileExt = nullptr;
+	int _nbCharFileExt = 0;
 
 	stringVector _fileNames;
 
 	OPENFILENAME _ofn;
 	winVer _winVersion;
 	
-    int _nbExt;
-    int _extTypeIndex;
+    int _nbExt = 0;
+    int _extTypeIndex = -1;
     static FileDialog *staticThis;
 };
 
-#endif //FILE_DIALOG_H

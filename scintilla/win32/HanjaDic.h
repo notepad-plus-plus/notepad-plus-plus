@@ -9,9 +9,7 @@
 #ifndef HANJADIC_H
 #define HANJADIC_H
 
-#ifdef SCI_NAMESPACE
 namespace Scintilla {
-#endif
 
 namespace HanjaDict {
 
@@ -19,8 +17,6 @@ int GetHangulOfHanja(wchar_t *inout);
 
 }
 
-#ifdef SCI_NAMESPACE
 }
-#endif
 
 #endif

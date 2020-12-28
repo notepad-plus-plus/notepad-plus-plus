@@ -4,10 +4,10 @@
 
 	** created By:- Rathin A. Dholakia **
 		Email- rathin2j@gmail.com
-	** Last Updated on 28/11/2018 by Rajendra Singh (singh.rajen15@gmail.com) **
+	** Last Updated on 22/10/2019 by Rajendra Singh (singh.rajen15@gmail.com) **
 -->
 <NotepadPlus>
-  <Native-Langue name="हिन्दी" filename="hindi.xml" version="7.6">
+  <Native-Langue name="हिन्दी" filename="hindi.xml" version="7.8.1">
     <Menu>
       <Main>
         <!-- Main Menu Entries -->
@@ -19,7 +19,7 @@
           <Item menuId="encoding" name="&amp;एन्कोडिंग"/>
           <Item menuId="language" name="&amp;भाषा"/>
           <Item menuId="settings" name="&amp;सेटिंग"/>
-	  <Item menuId="tools" name="टूल्स"/>
+          <Item menuId="tools" name="टूल्स"/>
           <Item menuId="macro" name="मेक्रो"/>
           <Item menuId="run" name="चलाये"/>
           <Item idName="Plugins" name="प्लगिन्स"/>
@@ -46,6 +46,7 @@
           <Item subMenuId="search-jumpUp" name="ऊपर कूदें"/>
           <Item subMenuId="search-jumpDown" name="नीचें कूदें"/>
           <Item subMenuId="search-bookmark" name="बूकमार्क"/>
+          <Item subMenuId="view-currentFileIn" name="वर्तमान फाइल देखें"/>
           <Item subMenuId="view-showSymbol" name="प्रतीक दिखायें"/>
           <Item subMenuId="view-zoom" name="बड़ा करें"/>
           <Item subMenuId="view-moveCloneDocument" name="वर्तमान दस्तावेज़ मूव/क्लोन करें"/>
@@ -71,7 +72,8 @@
           <Item subMenuId="encoding-westernEuropean" name="पश्चिमी यूरोपियन"/>
           <Item subMenuId="encoding-vietnamese" name="वियतनाम"/>
           <Item subMenuId="settings-import" name="आयात"/>
-		  <Item subMenuId="tools-md5"  name="MD5"/>
+          <Item subMenuId="tools-md5"  name="MD5"/>
+          <Item subMenuId="tools-sha256"  name="SHA-256"/>
         </SubEntries>
 
         <!-- all menu item -->
@@ -85,6 +87,7 @@
           <Item id="41005" name="वर्तमान दस्तावेज़ के अलावा सभी बंद करें"/>
           <Item id="41009" name="बाएं और सभी बंद करें"/>
           <Item id="41018" name="दाएं और सभी बंद करें"/>
+          <Item id="41024" name="सभी अनचेंज्ड बंद करें"/>
           <Item id="41006" name="&amp;सेव करें"/>
           <Item id="41007" name="&amp;सभी सेव करें"/>
           <Item id="41008" name="&amp;की तरह सेव करें"/>
@@ -111,6 +114,7 @@
           <Item id="42008" name="लाईन इंडेंट बढ़ायें"/>
           <Item id="42009" name="लाईन इंडेंट घटायें"/>
           <Item id="42010" name="वर्तमान लाईन की कॉपी करें"/>
+          <Item id="42077" name="लगातार डुप्लिकेट लाइनें निकालें"/>
           <Item id="42012" name="लाईन विभाजित करें"/>
           <Item id="42013" name="लाईन जोड़ें"/>
           <Item id="42014" name="वर्तमान लाईन को ऊपर सरकायें"/>
@@ -156,7 +160,7 @@
           <Item id="42050" name="बाइनरी कंटेंट पेस्ट करें"/>
           <Item id="42037" name="कॉलम  मोड..."/>
           <Item id="42034" name="कॉलम एडिटर..."/>
-          <Item id="42051" name="करैक्टर पैनल"/>
+          <Item id="42051" name="कैरेक्टर पैनल"/>
           <Item id="42052" name="क्लिपबोर्ड हिस्ट्री"/>
           <Item id="42025" name="अभी रिकॉर्ड किया गया मेक्रो (macro)सेव करें"/>
           <Item id="42026" name="अक्षर की दिशा  RTL"/>
@@ -226,7 +230,7 @@
           <Item id="43054" name="चिन्ह लगाएं (Mark)..."/>
           <Item id="44009" name="इसे-डाले (post-it)"/>
           <Item id="44010" name="सभी फोल्ड करें"/>
-          <Item id="44019" name="सभी कैरक्टर्स दिखायें"/>
+          <Item id="44019" name="सभी कैरेक्टर्स दिखायें"/>
           <Item id="44020" name="ईन्डेन्ट मार्ग दर्शक दिखायें"/>
           <Item id="44022" name="वर्ड रैप (Word Wrap)"/>
           <Item id="44023" name="&amp;बड़ा करें (Ctrl+Mouse Wheel Up)"/>
@@ -267,11 +271,11 @@
           <Item id="45001" name="Windows (CR LF)"/>
           <Item id="45002" name="Unix (LF)"/>
           <Item id="45003" name="Macintosh (CR)"/>
-          <Item id="45004" name="ANSI में एन्कोड करें"/>
-          <Item id="45005" name="UTF-8-BOM में एन्कोड करें"/>
-          <Item id="45006" name="UCS-2 BE BOM में एन्कोड करें"/>
-          <Item id="45007" name="UCS-2 LE BOM में एन्कोड करें"/>
-          <Item id="45008" name="UTF-8 में एन्कोड करें"/>
+          <Item id="45004" name="ANSI"/>
+          <Item id="45005" name="UTF-8-BOM"/>
+          <Item id="45006" name="UCS-2 BE BOM"/>
+          <Item id="45007" name="UCS-2 LE BOM"/>
+          <Item id="45008" name="UTF-8"/>
           <Item id="45009" name="ANSI में रूपांतरित करें"/>
           <Item id="45010" name="UTF-8 में रूपांतरित करें"/>
           <Item id="45011" name="UTF-8-BOM में रूपांतरित करें"/>
@@ -302,15 +306,21 @@
           <Item id="48018" name="एडिट पॉपअप कॉन्टेक्स्ट मेनू"/>
           <Item id="48009" name="शॉर्टकट मेपर..."/>
           <Item id="48011" name="पसंदगी (Preferences)..."/>
+          <Item id="48014" name="प्लगइन्स फोल्डर को खोलें..."/>
           <Item id="48015" name="प्लगइन एडमिन..."/>
           <Item id="48501" name="जनरेट करें..."/>
           <Item id="48502" name="फाइल्स से जनरेट करें..."/>
           <Item id="48503" name="क्लिपबोर्ड पर सलेक्शन से जनरेट करें"/>
           <Item id="49000" name="&amp;चलायें (Run)..."/>
-
+          <Item id="48504" name="जनरेट करें..."/>
+          <Item id="48505" name="फाइल्स से जनरेट करें..."/>
+          <Item id="48506" name="क्लिपबोर्ड पर सलेक्शन से जनरेट करें"/>
           <Item id="50000" name="फंक्शन समापन"/>
           <Item id="50001" name="शब्द समापन"/>
           <Item id="50002" name="फंक्शन पैरामीटर्स संकेत(हिंट)"/>
+          <Item id="50003" name="पिछले दस्तावेज़ पर जाएँ"/>
+          <Item id="50004" name="अगले दस्तावेज़ पर जाएँ"/>
+          <Item id="50005" name="मैक्रो रिकॉर्ड को टॉगल करें"/>
           <Item id="50006" name="पाथ समापन"/>
           <Item id="44042" name="लाइन छिपायें"/>
           <Item id="42040" name="सभी रीसेंट फ़ाईलें खोलें"/>
@@ -343,7 +353,8 @@
         <Item CMID="18" name="दाएं और सभी बंद करें"/>
         <Item CMID="19" name="धारक फोल्डर को एक्स्प्लोरर में खोलें"/>
         <Item CMID="20" name="धारक फोल्डर को cmd में खोलें"/>
-	<Item CMID="21" name="डिफ़ॉल्ट व्यूअर में खोलें"/>
+        <Item CMID="21" name="डिफ़ॉल्ट व्यूअर में खोलें"/>
+        <Item CMID="22" name="सभी अनचेंज्ड बंद करें"/>
       </TabBar>
     </Menu>
 
@@ -383,12 +394,14 @@
         <Item id="1641" name="वर्तमान दस्तावेज़ में सब खोजें"/>
         <Item id="1686" name="पारदर्शिता"/>
         <Item id="1703" name="&amp;. न्यू लाइन मैच"/>
+        <Item id="1721" name="▲"/>
+        <Item id="1723" name="▼ अगला खोजें"/>
       </Find>
 
       <FindCharsInRange title="रेंज में अक्षर का पता लगाएं...">
         <Item id="2" name="बंद करें"/>
-        <Item id="2901" name="Non-ASCII कैरक्टर्स (128-255)"/>
-        <Item id="2902" name="ASCII कैरक्टर्स (0-127)"/>
+        <Item id="2901" name="Non-ASCII कैरेक्टर्स (128-255)"/>
+        <Item id="2902" name="ASCII कैरेक्टर्स (0-127)"/>
         <Item id="2903" name="मेरी रेंज:"/>
         <Item id="2906" name="&amp;उपर"/>
         <Item id="2907" name="&amp;नीचे"/>
@@ -424,6 +437,18 @@
 		<Item id="1934" name="क्लिपबोर्ड पर कॉपी करें"/>
 		<Item id="2"    name="बंद करें"/>
 	  </MD5FromTextDlg>
+
+	  <SHA256FromFilesDlg title="फाइल्स से SHA-256 डाइजेस्ट जनरेट करें">
+		<Item id="1922" name="SHA-256 जनरेट करने के लिए फाइल्स चुनें..."/>
+		<Item id="1924" name="क्लिपबोर्ड पर कॉपी करें"/>
+		<Item id="2"    name="बंद करें"/>
+	  </SHA256FromFilesDlg>
+
+	  <SHA256FromTextDlg title="SHA-256 डाइजेस्ट जनरेट करें">
+		<Item id="1932" name="हरेक लाइन को अलग स्ट्रिंग्स मानें"/>
+		<Item id="1934" name="क्लिपबोर्ड पर कॉपी करें"/>
+		<Item id="2"    name="बंद करें"/>
+	  </SHA256FromTextDlg>
 
 	  <PluginsAdminDlg title="प्लगइन एडमिन" titleAvailable = "अवेलेबल" titleUpdates = "अपडेट्स" titleInstalled = "इन्सटॉल्ड">
 		<ColumnPlugin   name="प्लगइन"/>
@@ -598,7 +623,7 @@
           <Item id="23001" name="कमेंट फोल्डिंग allow करें"/>
           <Item id="23326" name="स्टाइलर"/>
           <Item id="23323" name="खोलें"/>
-          <Item id="23324" name="करैक्टर  जारी रखें"/>
+          <Item id="23324" name="कैरेक्टर  जारी रखें"/>
           <Item id="23325" name="बंद करें"/>
           <Item id="23301" name="कॉमेंट लाईन"/>
           <Item id="23124" name="स्टाइलर"/>
@@ -770,6 +795,7 @@
 	  <Item id="6302" name="खाली स्थान से बदलें"/>
 	  <Item id="6303" name="टैब साइज:"/>
 	  <Item id="6510" name="डिफ़ॉल्ट वैल्यू का प्रयोग करें"/>
+          <Item id="6335" name="ट्रीट बैकस्लैश अस एस्केप कैरेक्टर फॉर SQL"/>
         </Language>
 	
 	<Highlighting title="हाईलाईटिंग">
@@ -842,6 +868,7 @@
         </Backup>
 
         <AutoCompletion title="स्वतः पूर्ति">
+          <Item id="6115" name="स्वचालित इंडेंट"/>
           <Item id="6807" name="स्वतः पूर्ति"/>
           <Item id="6808" name="प्रत्येक इनपुट पर स्वतः पूर्ति सक्रिय करें"/>
           <Item id="6809" name="फंक्शन समापन"/>
@@ -849,7 +876,7 @@
           <Item id="6816" name="फंक्शन और शब्द समापन"/>
 	  <Item id="6824" name="नंबर्स को इगनोर करें"/>
           <Item id="6811" name="से (From)"/>
-          <Item id="6813" name="वा करैक्टर"/>
+          <Item id="6813" name="वा कैरेक्टर"/>
           <Item id="6814" name="वैलिड (वैध) वैल्यू: 1 - 9"/>
           <Item id="6815" name="इनपुट पर फंक्शन पैरामीटर्स हिंट"/>
           <Item id="6851" name="ऑटो-इन्सर्ट"/>
@@ -898,7 +925,11 @@
         </SearchEngine>
 
         <MISC title="विविध (MISC.)">
-          <Item id="6307" name="सक्रिय"/>
+          <ComboBox id="6347">
+            <Element name="इनेबल करें"/>
+            <Element name="सभी खुली हुई फाइलों के लिए इनेबल करें"/>
+            <Element name="डिसेबल करें"/>
+          </ComboBox>
           <Item id="6308" name="सिस्टम ट्रे में छोटा करें"/>
           <Item id="6312" name="फाईल स्टेटस की स्वचालित जांच"/>
           <Item id="6313" name="साइलेंटली अपडेट करें"/>
@@ -910,11 +941,10 @@
           <Item id="6323" name="Notepad++ स्वचालित-अपडेटर सक्रिय करें"/>
           <Item id="6324" name="डॉकयुमेंट स्वीचर (Ctrl+TAB)"/>
           <Item id="6331" name="टाइटल बार मे सिर्फ फाईल का नाम दिखायें"/>
-          <Item id="6334" name="करैक्टर एन्डकोडिंग का स्वतः पता लगाएं"/>
-          <Item id="6335" name="ट्रीट बैकस्लैश अस एस्केप करैक्टर फॉर SQL"/>
+          <Item id="6334" name="कैरेक्टर एन्डकोडिंग का स्वतः पता लगाएं"/>
+          <Item id="6314" name="फाइंड डायलॉग में मोनोस्पेस फ़ॉन्ट यूज करें (Notepad++ को रीस्टार्ट करना होगा)"/>
           <Item id="6337" name="वर्कस्पेस फाइल ext.:"/>
           <Item id="6114" name="सक्रिय"/>
-          <Item id="6115" name="स्वचालित इंडेंट"/>
           <Item id="6117" name="MRU बिहेवीयर सक्रिय करें"/>
           <Item id="6344" name="डॉक्यूमेंट पीकर"/>
           <Item id="6345" name="पीक ऑन टैब"/>
@@ -964,6 +994,14 @@
         <Item id="1718" name="विस्तृत (\n, \r, \t, \0, \x...)"/>
         <Item id="1720" name="्यूलाइन मैच करें"/>
       </FindInFinder>
+      <DoSaveOrNot title="सेव करें">
+        <Item id="1761" name="फाइल &quot;$STR_REPLACE$&quot; सेव करें?"/>
+        <Item id="6" name="हाँ"/>
+        <Item id="7" name="नहीं"/>
+        <Item id="2" name="रद्द करें"/>
+        <Item id="4" name="सभी के लिए हाँ"/>
+        <Item id="5" name="सभी के लिए नहीं"/>
+      </DoSaveOrNot>
     </Dialog>
     <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
       <ContextMenuXmlEditWarning title="Context Menu एडिटिंग" message="ContextMenu.xml एडिट करके आप Notepad++ के पॉपअप कॉन्टेक्स्ट मेनू बदल सकतें हैं| ContextMenu.xml एडिट करने के बाद, बदलाव देखने के लिए Notepad++ को बंद करके पुनः खोलें|"/>
@@ -976,7 +1014,8 @@
       <FileAlreadyOpenedInNpp title="" message="यह फाइल पहले से ही Notepad++ में खुली हुयी है।"/>
       <DeleteFileFailed title="फाइल नष्ट करें" message="फाइल को नष्ट करना विफल रहा है।"/>
 
-      <NbFileToOpenImportantWarning title="खोलने के लिए फाइलों की राशि बहुत बड़ी है" message="$INT_REPLACE$ फाइलें खुलने ही वाली हैं। आप उन्हें खोलने के लिए सुनिश्चित कर रहे हैं?"/>
+      <NbFileToOpenImportantWarning title="खोलने के लिए फाइलों की राशि बहुत बड़ी है" message="$INT_REPLACE$ फाइलें खुलने ही वाली हैं।
+क्या आप वाकई उन्हें खोलना चाहते हैं?"/>
       <SettingsOnCloudError title="क्लाउड (cloud) की सेटिंग्स" message="ऐसा लगता है कि क्लाउड (cloud) का सेटिंग पाथ रीड ओनली है या फिर आवश्यक फोल्डर पर राइट एक्सेस (write access) चाहिए। आपकी क्लाउड (cloud) की सेटिंग्स को रद्द कर दिया जायेगा। कृप्या प्रैफरेंसेज डायलॉग (preferences dialog) से एक सुसंगत (coherent) मूल्य रीसेट करें।"/>
       <FilePathNotFoundWarning title="फाइल खोलें" message="आप जिस फाइल को खोलने की कोशिश कर रहे हैं, वह मौजूद नहीं है।"/>
       <SessionFileInvalidError title="सत्र लोड नहीं किया जा सका" message="सत्र फाइल या तो अनुपयोगी है या मान्य नहीं है।"/>
@@ -985,7 +1024,6 @@
       <SortingError title="सॉर्टिंग एरर" message="लाइन $INT_REPLACE$ के कारण न्यूमेरिक सॉर्ट नहीं कर सकते।"/>
       <ColumnModeTip title="कॉलम मोड टिप" message="कॉलम मोड के लिए कृपया &quot;ALT+Mouse Selection&quot; या &quot;Alt+Shift+Arrow key&quot; का प्रयोग करें।"/>
       <BufferInvalidWarning title="सेव फेल्ड" message="सेव नहीं कर सके। बफर इनवैलिड है।"/>
-      <DoSaveOrNot title="सेव" message="फाइल &quot;$STR_REPLACE$&quot; सेव करें?"/>
       <DoCloseOrNot title="गैर मौजूदा फाइल रखें" message="फाइल &quot;$STR_REPLACE$&quot; अब और मौजूद नहीं है।
 इस फाइल को एडिटर में रखें?"/>
       <DoDeleteOrNot title="फाइल डिलीट करें" message="फाइल &quot;$STR_REPLACE$&quot;
@@ -1040,6 +1078,11 @@
       <OpenInAdminModeWithoutCloseCurrent title="सेविंग फैल" message="फाइल को सेव नहीं कर सकते हैं और फाइल प्रोटेक्टेड हो सकती है।
 क्या आप Notepad ++ को एडमिन मोड में लॉन्च करना चाहते हैं?"/>
       <OpenInAdminModeFailed title="एडमिन मोड में खोलना विफल हुआ" message="Notepad ++ को एडमिन मोड में नहीं खोला जा सकता।"/>
+      <ViewInBrowser title="वर्तमान फाइल को ब्राउज़र में देखें" message="आपके सिस्टम में एप्लीकेशन नहीं मिली।"/>
+      <ExitToUpdatePlugins title="Notepad++ बंद होने वाला है" message="यदि आप YES पर क्लिक करते हैं, तो आप ऑपरेशन जारी रखने के लिए नोटपैड ++ बंद हो जायेगा।
+सभी कार्रवाई समाप्त होने के बाद नोटपैड ++ को फिर से शुरू किया जाएगा।
+चालू रखें ?"/>
+      <NeedToRestartToLoadPlugins title="रीस्टार्ट  Notepad++" message="आपके द्वारा इंस्टॉल किए गए प्लगिन्स को लोड करने के लिए आपको नोटपैड ++ को रीस्टार्ट करना होगा।"/>
     </MessageBox>
     <ClipboardHistory>
       <PanelTitle name="क्लिपबोर्ड हिस्ट्री"/>
@@ -1055,10 +1098,12 @@
       <ColumnType name="प्रकार"/>
     </WindowsDlg>
     <AsciiInsertion>
-      <PanelTitle name="ASCII इंसर्शन पैनल"/>
+      <PanelTitle name="ASCII कोड्स इंसर्शन पैनल"/>
       <ColumnVal name="वैल्यू"/>
       <ColumnHex name="हेक्स"/>
-      <ColumnChar name="करैक्टर"/>
+      <ColumnChar name="कैरेक्टर"/>
+      <ColumnHtmlNumber name="HTML नंबर"/>
+      <ColumnHtmlName name="HTML कोड"/>
     </AsciiInsertion>
     <DocumentMap>
       <PanelTitle name="डॉक्यूमेंट मैप"/>
@@ -1081,6 +1126,7 @@
         <Item id="3517" name="फाइल्स में खोजें..."/>
         <Item id="3518" name="यहाँ Explorer खोलें"/>
         <Item id="3519" name="यहाँ CMD खोलें"/>
+        <Item id="3520" name="फाइल का नाम कॉपी करें"/>
       </Menus>
     </FolderAsWorkspace>
     <ProjectManager>
@@ -1150,8 +1196,8 @@
 		<find-status-replaceinopenedfiles-nb-replaced value="खुली फाइलों में बदलें: $INT_REPLACE$ मिलानों को बदल दिया गया है।"/>
 		<find-status-mark-re-malformed value="निशान: ढूंढने के लिए रेगुलर एक्सप्रेशन गलत है।"/>
 		<find-status-invalid-re value="खोज: अवैध रेगुलर एक्सप्रेशन"/>
-		<find-status-mark-1-match value="1 मिलान"/>
-		<find-status-mark-nb-matches value="$INT_REPLACE$ मिलान"/>
+		<find-status-mark-1-match value="निशान: 1 मिलान"/>
+		<find-status-mark-nb-matches value="निशान: $INT_REPLACE$ मिलान"/>
 		<find-status-count-re-malformed value="गणना: ढूंढने के लिए रेगुलर एक्सप्रेशन गलत है।"/>
 		<find-status-count-1-match value="गणना: 1 मिलान"/>
 		<find-status-count-nb-matches value="गणना: $INT_REPLACE$ मिलान"/>
@@ -1174,6 +1220,29 @@
 		<finder-select-all value="सब सेलेक्ट करें"/>
 		<finder-clear-all value="सब क्लियर करें"/>
 		<finder-open-all value="सब ओपन करें"/>
+		<common-ok value="ओके"/>
+		<common-cancel value="रद्द करें"/>
+		<common-name value="नाम: "/>
+		<tabrename-title value="वर्तमान टैब का नाम बदलें"/>
+		<tabrename-newname value="नया नाम: "/>
+		<recent-file-history-maxfile value="फाइल सीमा:"/>
+		<language-tabsize value="टैब साइज: "/>
+		<userdefined-title-new value="नई भाषा बनाएं..."/>
+		<userdefined-title-save value="वर्तमान भाषा का नाम करें..."/>
+		<userdefined-title-rename value="वर्तमान भाषा का नाम बदलें"/>
+		<autocomplete-nb-char value="कैरेक्टर संख्या: "/>
+		<edit-verticaledge-nb-col value="कॉलम संख्या:"/>
+		<summary value="समरी"/>
+		<summary-filepath value="फाइल का पूरा पाथ: "/>
+		<summary-filecreatetime value="बनाया गया: "/>
+		<summary-filemodifytime value="मॉडिफाइड: "/>
+		<summary-nbchar value="करेक्टर्स (लाइन अंत के बिना): "/>
+		<summary-nbword value="शब्द: "/>
+		<summary-nbline value="पंक्तियां: "/>
+		<summary-nbbyte value="दस्तावेज़ की लंबाई: "/>
+		<summary-nbsel1 value=" चुने हुए करेक्टर्स ("/>
+		<summary-nbsel2 value=" बाइट्स) में   "/>
+		<summary-nbrange value=" रेंज"/>
 	</MiscStrings>
   </Native-Langue>
 </NotepadPlus>

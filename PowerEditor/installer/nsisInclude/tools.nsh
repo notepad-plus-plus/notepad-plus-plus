@@ -106,7 +106,7 @@ Function ExtraOptions
 	StrCpy $1 $InstDir $0
 
 	StrLen $0 $PROGRAMFILES64
-	StrCpy $2 $$InstDir "" $0
+	StrCpy $2 $InstDir $0
 	${If} $1 == "$PROGRAMFILES"
 	${ORIF} $2 == "$PROGRAMFILES64"
 		${NSD_Uncheck} $NoUserDataCheckboxHandle

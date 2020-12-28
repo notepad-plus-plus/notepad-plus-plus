@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -99,7 +99,7 @@ public:
 	};
 
 	Shortcut(const Shortcut & sc) {
-		setName(sc.getMenuName());
+		setName(sc.getMenuName(), sc.getName());
 		_keyCombo = sc._keyCombo;
 		_canModifyName = sc._canModifyName;
 	}
@@ -112,7 +112,7 @@ public:
 		//Do not allow setting empty names
 		//So either we have an empty name or the other name has to be set
 		if (_name[0] == 0 || sc._name[0] != 0) {
-			setName(sc.getMenuName());
+			setName(sc.getMenuName(), sc.getName());
 		}
 		_keyCombo = sc._keyCombo;
 		this->_canModifyName = sc._canModifyName;
@@ -154,7 +154,7 @@ public:
 	virtual generic_string toString() const;					//the hotkey part
 	generic_string toMenuItemString() const {					//generic_string suitable for menu
 		generic_string str = _menuName;
-		if(isEnabled())
+		if (isEnabled())
 		{
 			str += TEXT("\t");
 			str += toString();
@@ -173,7 +173,7 @@ public:
 		return _menuName;
 	}
 
-	void setName(const TCHAR * name);
+	void setName(const TCHAR * menuName, const TCHAR * shortcutName = NULL);
 
 	void clear(){
 		_keyCombo._isCtrl = false;
@@ -194,20 +194,22 @@ protected :
 		 
 class CommandShortcut : public Shortcut {
 public:
-	CommandShortcut(Shortcut sc, long id);
+	CommandShortcut(const Shortcut& sc, long id);
 	unsigned long getID() const {return _id;};
 	void setID(unsigned long id) { _id = id;};
 	const TCHAR * getCategory() const { return _category.c_str(); };
+	const TCHAR * getShortcutName() const { return _shortcutName.c_str(); };
 
 private :
 	unsigned long _id;
 	generic_string _category;
+	generic_string _shortcutName;
 };
 
 
 class ScintillaKeyMap : public Shortcut {
 public:
-	ScintillaKeyMap(Shortcut sc, unsigned long scintillaKeyID, unsigned long id): Shortcut(sc), _menuCmdID(id), _scintillaKeyID(scintillaKeyID) {
+	ScintillaKeyMap(const Shortcut& sc, unsigned long scintillaKeyID, unsigned long id): Shortcut(sc), _menuCmdID(id), _scintillaKeyID(scintillaKeyID) {
 		_keyCombos.clear();
 		_keyCombos.push_back(_keyCombo);
 		_keyCombo._key = 0;
@@ -247,7 +249,7 @@ public:
 		if (!equal)
 			return false;
 		size_t i = 0;
-		while(equal && (i < a._size))
+		while (equal && (i < a._size))
 		{
 			equal = 
 				(a._keyCombos[i]._isCtrl	== b._keyCombos[i]._isCtrl) && 
@@ -300,7 +302,8 @@ struct recordedMacroStep {
 	bool isValid() const {
 		return true;
 	};
-	bool isPlayable() const {return _macroType <= mtMenuCommand;};
+	bool isScintillaMacro() const {return _macroType <= mtMenuCommand;};
+	bool isMacroable() const;
 
 	void PlayBack(Window* pNotepad, ScintillaEditView *pEditView);
 };
@@ -310,7 +313,7 @@ typedef std::vector<recordedMacroStep> Macro;
 class MacroShortcut : public CommandShortcut {
 friend class NppParameters;
 public:
-	MacroShortcut(Shortcut sc, Macro macro, int id) : CommandShortcut(sc, id), _macro(macro) {_canModifyName = true;};
+	MacroShortcut(const Shortcut& sc, const Macro& macro, int id) : CommandShortcut(sc, id), _macro(macro) {_canModifyName = true;};
 	Macro & getMacro() {return _macro;};
 private:
 	Macro _macro;
@@ -320,7 +323,7 @@ private:
 class UserCommand : public CommandShortcut {
 friend class NppParameters;
 public:
-	UserCommand(Shortcut sc, const TCHAR *cmd, int id) : CommandShortcut(sc, id), _cmd(cmd) {_canModifyName = true;};
+	UserCommand(const Shortcut& sc, const TCHAR *cmd, int id) : CommandShortcut(sc, id), _cmd(cmd) {_canModifyName = true;};
 	const TCHAR* getCmd() const {return _cmd.c_str();};
 private:
 	generic_string _cmd;
@@ -329,7 +332,7 @@ private:
 class PluginCmdShortcut : public CommandShortcut {
 //friend class NppParameters;
 public:
-	PluginCmdShortcut(Shortcut sc, int id, const TCHAR *moduleName, unsigned short internalID) :\
+	PluginCmdShortcut(const Shortcut& sc, int id, const TCHAR *moduleName, unsigned short internalID) :\
 		CommandShortcut(sc, id), _id(id), _moduleName(moduleName), _internalID(internalID) {};
 	bool isValid() const {
 		if (!Shortcut::isValid())
@@ -351,7 +354,7 @@ private :
 class Accelerator { //Handles accelerator keys for Notepad++ menu, including custom commands
 friend class ShortcutMapper;
 public:
-	Accelerator() {};
+	Accelerator() = default;
 	~Accelerator() {
 		if (_hAccTable)
 			::DestroyAcceleratorTable(_hAccTable);
@@ -359,8 +362,7 @@ public:
 			::DestroyAcceleratorTable(_hIncFindAccTab);
 		if (_hFindAccTab)
 			::DestroyAcceleratorTable(_hFindAccTab);
-		if (_pAccelArray)
-			delete [] _pAccelArray;
+		delete [] _pAccelArray;
 	};
 	void init(HMENU hMenu, HWND menuParent) {
 		_hAccelMenu = hMenu;
@@ -383,12 +385,12 @@ private:
 	ACCEL *_pAccelArray = nullptr;
 	int _nbAccelItems = 0;
 
-	void updateMenuItemByCommand(CommandShortcut csc);
+	void updateMenuItemByCommand(const CommandShortcut& csc);
 };
 
 class ScintillaAccelerator {	//Handles accelerator keys for scintilla
 public:
-	ScintillaAccelerator() {};
+	ScintillaAccelerator() = default;
 	void init(std::vector<HWND> * vScintillas, HMENU hMenu, HWND menuParent);
 	void updateKeys();
 	size_t nbScintillas() { return _vScintillas.size(); };
@@ -397,5 +399,5 @@ private:
 	HWND _hMenuParent = nullptr;
 	std::vector<HWND> _vScintillas;
 
-	void updateMenuItemByID(ScintillaKeyMap skm, int id);
+	void updateMenuItemByID(const ScintillaKeyMap& skm, int id);
 };

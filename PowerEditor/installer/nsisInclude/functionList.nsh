@@ -27,7 +27,7 @@
 
 
 SectionGroup "Function List Files" functionListComponent
-	SetOverwrite off
+	SetOverwrite on
 	
 	${MementoSection} "C" C_FL
 		SetOutPath "$INSTDIR\functionList"

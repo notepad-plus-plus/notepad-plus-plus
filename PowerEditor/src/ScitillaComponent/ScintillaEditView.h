@@ -559,20 +559,7 @@ public:
 		execute(SCI_INDICATORCLEARRANGE, docStart, docEnd-docStart);
 	};
 
-	bool getIndicatorRange(int indicatorNumber, int *from = NULL, int *to = NULL, int *cur = NULL) {
-		int curPos = static_cast<int>(execute(SCI_GETCURRENTPOS));
-		int indicMsk = static_cast<int>(execute(SCI_INDICATORALLONFOR, curPos));
-		if (!(indicMsk & (1 << indicatorNumber)))
-			return false;
-		int startPos = static_cast<int>(execute(SCI_INDICATORSTART, indicatorNumber, curPos));
-		int endPos = static_cast<int>(execute(SCI_INDICATOREND, indicatorNumber, curPos));
-		if ((curPos < startPos) || (curPos > endPos))
-			return false;
-		if (from) *from = startPos;
-		if (to) *to = endPos;
-		if (cur) *cur = curPos;
-		return true;
-	};
+	bool getIndicatorRange(int indicatorNumber, int *from = NULL, int *to = NULL, int *cur = NULL);
 
 	static LanguageName langNames[L_EXTERNAL+1];
 

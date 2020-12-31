@@ -3327,6 +3327,22 @@ void ScintillaEditView::foldChanged(size_t line, int levelNow, int levelPrev)
 	}
 }
 
+bool ScintillaEditView::getIndicatorRange(int indicatorNumber, int *from, int *to, int *cur)
+{
+	int curPos = static_cast<int>(execute(SCI_GETCURRENTPOS));
+	int indicMsk = static_cast<int>(execute(SCI_INDICATORALLONFOR, curPos));
+	if (!(indicMsk & (1 << indicatorNumber)))
+		return false;
+	int startPos = static_cast<int>(execute(SCI_INDICATORSTART, indicatorNumber, curPos));
+	int endPos = static_cast<int>(execute(SCI_INDICATOREND, indicatorNumber, curPos));
+	if ((curPos < startPos) || (curPos > endPos))
+		return false;
+	if (from) *from = startPos;
+	if (to) *to = endPos;
+	if (cur) *cur = curPos;
+	return true;
+};
+
 
 void ScintillaEditView::scrollPosToCenter(size_t pos)
 {

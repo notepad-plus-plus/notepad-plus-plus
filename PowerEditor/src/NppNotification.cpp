@@ -820,8 +820,13 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			else
 			{ // Double click with no modifiers
 				// Check wether cursor is within URL
-				int startPos = 0, endPos = 0;
-				if (!notifyView->getIndicatorRange(URL_INDIC, &startPos, &endPos))
+				auto indicMsk = notifyView->execute(SCI_INDICATORALLONFOR, notification->position);
+				if (!(indicMsk & (1 << URL_INDIC)))
+					break;
+				
+				auto startPos = notifyView->execute(SCI_INDICATORSTART, URL_INDIC, notification->position);
+				auto endPos = notifyView->execute(SCI_INDICATOREND, URL_INDIC, notification->position);
+				if ((notification->position < startPos) || (notification->position > endPos))
 					break;
 
 				// WM_LBUTTONUP goes to opening browser instead of Scintilla here, because the mouse is not captured.

@@ -114,11 +114,6 @@ SectionGroup "Function List Files" functionListComponent
 		File ".\functionList\krl.xml"
 	${MementoSectionEnd}
 	
-	${MementoSection} "Override Map" OverrideMap_FL
-		SetOutPath "$INSTDIR\functionList"
-		File ".\functionList\overrideMap.xml"
-	${MementoSectionEnd}
-	
 	${MementoSection} "NSIS" NSIS_FL
 		SetOutPath "$INSTDIR\functionList"
 		File ".\functionList\nsis.xml"
@@ -162,6 +157,12 @@ SectionGroup "Function List Files" functionListComponent
 	${MementoSection} "XML" XML_FL
 		SetOutPath "$INSTDIR\functionList"
 		File ".\functionList\xml.xml"
+	${MementoSectionEnd}
+	
+	SetOverwrite off
+	${MementoSection} "Override Map" OverrideMap_FL
+		SetOutPath "$INSTDIR\functionList"
+		File ".\functionList\overrideMap.xml"
 	${MementoSectionEnd}
 SectionGroupEnd
 

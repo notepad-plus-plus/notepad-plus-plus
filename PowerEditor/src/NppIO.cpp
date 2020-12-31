@@ -31,6 +31,7 @@
 #include <shlobj.h>
 #include "Notepad_plus_Window.h"
 #include "FileDialog.h"
+#include "CustomFileDialog.h"
 #include "EncodingMapper.h"
 #include "VerticalFileSwitcher.h"
 #include "functionListPanel.h"
@@ -2191,12 +2192,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool shou
 	if (shouldLoadFileBrowser && !session._fileBrowserRoots.empty())
 	{
 		// Force launch file browser and add roots
-		launchFileBrowser({}, {}, true);
-		for (const auto& rootFileName : session._fileBrowserRoots)
-		{
-			_pFileBrowser->addRootFolder(rootFileName);
-		}
-		_pFileBrowser->selectItemFromPath(session._fileBrowserSelectedItem);
+		launchFileBrowser(session._fileBrowserRoots, session._fileBrowserSelectedItem, true);
 	}
 
 	return allSessionFilesLoaded;
@@ -2280,7 +2276,7 @@ bool Notepad_plus::fileLoadSession(const TCHAR *fn)
 	return result;
 }
 
-const TCHAR * Notepad_plus::fileSaveSession(size_t nbFile, TCHAR ** fileNames, const TCHAR *sessionFile2save)
+const TCHAR * Notepad_plus::fileSaveSession(size_t nbFile, TCHAR ** fileNames, const TCHAR *sessionFile2save, bool includeFileBrowser)
 {
 	if (sessionFile2save)
 	{
@@ -2296,7 +2292,8 @@ const TCHAR * Notepad_plus::fileSaveSession(size_t nbFile, TCHAR ** fileNames, c
 		else
 			getCurrentOpenedFiles(currentSession);
 
-		if (_pFileBrowser && !_pFileBrowser->isClosed())
+		currentSession._includeFileBrowser = includeFileBrowser;
+		if (includeFileBrowser && _pFileBrowser && !_pFileBrowser->isClosed())
 		{
 			currentSession._fileBrowserSelectedItem = _pFileBrowser->getSelectedItemPath();
 			for (auto&& rootFileName : _pFileBrowser->getRoots())
@@ -2315,7 +2312,7 @@ const TCHAR * Notepad_plus::fileSaveSession(size_t nbFile, TCHAR ** fileNames)
 {
 	const TCHAR *sessionFileName = NULL;
 
-	FileDialog fDlg(_pPublicInterface->getHSelf(), _pPublicInterface->getHinst());
+	CustomFileDialog fDlg(_pPublicInterface->getHSelf());
 	const TCHAR *ext = NppParameters::getInstance().getNppGUI()._definedSessionExt.c_str();
 
 	generic_string sessionExt = TEXT("");
@@ -2324,14 +2321,16 @@ const TCHAR * Notepad_plus::fileSaveSession(size_t nbFile, TCHAR ** fileNames)
 		if (*ext != '.')
 			sessionExt += TEXT(".");
 		sessionExt += ext;
-		fDlg.setExtFilter(TEXT("Session file"), sessionExt.c_str(), NULL);
+		fDlg.setExtFilter(TEXT("Session file"), sessionExt.c_str());
 		fDlg.setDefExt(ext);
 		fDlg.setExtIndex(0);		// 0 index for "custom extension types"
 	}
-	fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
+	fDlg.setExtFilter(TEXT("All types"), TEXT(".*"));
+	const bool isCheckboxActive = _pFileBrowser && !_pFileBrowser->isClosed();
+	fDlg.setCheckbox(TEXT("Save Folder as Workspace"), isCheckboxActive);
 	sessionFileName = fDlg.doSaveDlg();
 
-	return fileSaveSession(nbFile, fileNames, sessionFileName);
+	return fileSaveSession(nbFile, fileNames, sessionFileName, fDlg.getCheckboxState());
 }
 
 

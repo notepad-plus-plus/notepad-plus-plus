@@ -3255,13 +3255,16 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 			}
 		}
 
-		// Node structure and naming corresponds to config.xml
-		TiXmlNode* fileBrowserRootNode = sessionNode->InsertEndChild(TiXmlElement(TEXT("FileBrowser")));
-		fileBrowserRootNode->ToElement()->SetAttribute(TEXT("latestSelectedItem"), session._fileBrowserSelectedItem.c_str());
-		for (const auto& root : session._fileBrowserRoots)
+		if (session._includeFileBrowser)
 		{
-			TiXmlNode *fileNameNode = fileBrowserRootNode->InsertEndChild(TiXmlElement(TEXT("root")));
-			(fileNameNode->ToElement())->SetAttribute(TEXT("foldername"), root.c_str());
+			// Node structure and naming corresponds to config.xml
+			TiXmlNode* fileBrowserRootNode = sessionNode->InsertEndChild(TiXmlElement(TEXT("FileBrowser")));
+			fileBrowserRootNode->ToElement()->SetAttribute(TEXT("latestSelectedItem"), session._fileBrowserSelectedItem.c_str());
+			for (const auto& root : session._fileBrowserRoots)
+			{
+				TiXmlNode *fileNameNode = fileBrowserRootNode->InsertEndChild(TiXmlElement(TEXT("root")));
+				(fileNameNode->ToElement())->SetAttribute(TEXT("foldername"), root.c_str());
+			}
 		}
 	}
 	_pXmlSessionDoc->SaveFile();

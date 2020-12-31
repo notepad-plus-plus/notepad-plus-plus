@@ -216,7 +216,7 @@ public:
 	void getCurrentOpenedFiles(Session& session, bool includUntitledDoc = false);
 
 	bool fileLoadSession(const TCHAR* fn = nullptr);
-	const TCHAR * fileSaveSession(size_t nbFile, TCHAR ** fileNames, const TCHAR *sessionFile2save);
+	const TCHAR * fileSaveSession(size_t nbFile, TCHAR ** fileNames, const TCHAR *sessionFile2save, bool includeFileBrowser = false);
 	const TCHAR * fileSaveSession(size_t nbFile = 0, TCHAR** fileNames = nullptr);
 	void changeToolBarIcons();
 

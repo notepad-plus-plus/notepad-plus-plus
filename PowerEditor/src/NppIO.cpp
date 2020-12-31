@@ -31,11 +31,13 @@
 #include <shlobj.h>
 #include "Notepad_plus_Window.h"
 #include "FileDialog.h"
+#include "CustomFileDialog.h"
 #include "EncodingMapper.h"
 #include "VerticalFileSwitcher.h"
 #include "functionListPanel.h"
 #include "ReadDirectoryChanges.h"
 #include "ReadFileChanges.h"
+#include "fileBrowser.h"
 #include <tchar.h>
 #include <unordered_set>
 
@@ -1939,7 +1941,7 @@ void Notepad_plus::loadLastSession()
 	_isFolding = false;
 }
 
-bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode)
+bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool shouldLoadFileBrowser)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	bool allSessionFilesLoaded = true;
@@ -2187,6 +2189,12 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode)
 	if (_pFileSwitcherPanel)
 		_pFileSwitcherPanel->reload();
 
+	if (shouldLoadFileBrowser && !session._fileBrowserRoots.empty())
+	{
+		// Force launch file browser and add roots
+		launchFileBrowser(session._fileBrowserRoots, session._fileBrowserSelectedItem, true);
+	}
+
 	return allSessionFilesLoaded;
 }
 
@@ -2248,7 +2256,9 @@ bool Notepad_plus::fileLoadSession(const TCHAR *fn)
 
 			if ((NppParameters::getInstance()).loadSession(session2Load, sessionFileName))
 			{
-				isAllSuccessful = loadSession(session2Load);
+				const bool isSnapshotMode = false;
+				const bool shouldLoadFileBrowser = true;
+				isAllSuccessful = loadSession(session2Load, isSnapshotMode, shouldLoadFileBrowser);
 				result = true;
 			}
 			if (!isAllSuccessful)
@@ -2266,7 +2276,7 @@ bool Notepad_plus::fileLoadSession(const TCHAR *fn)
 	return result;
 }
 
-const TCHAR * Notepad_plus::fileSaveSession(size_t nbFile, TCHAR ** fileNames, const TCHAR *sessionFile2save)
+const TCHAR * Notepad_plus::fileSaveSession(size_t nbFile, TCHAR ** fileNames, const TCHAR *sessionFile2save, bool includeFileBrowser)
 {
 	if (sessionFile2save)
 	{
@@ -2282,6 +2292,16 @@ const TCHAR * Notepad_plus::fileSaveSession(size_t nbFile, TCHAR ** fileNames, c
 		else
 			getCurrentOpenedFiles(currentSession);
 
+		currentSession._includeFileBrowser = includeFileBrowser;
+		if (includeFileBrowser && _pFileBrowser && !_pFileBrowser->isClosed())
+		{
+			currentSession._fileBrowserSelectedItem = _pFileBrowser->getSelectedItemPath();
+			for (auto&& rootFileName : _pFileBrowser->getRoots())
+			{
+				currentSession._fileBrowserRoots.push_back({ rootFileName });
+			}
+		}
+
 		(NppParameters::getInstance()).writeSession(currentSession, sessionFile2save);
 		return sessionFile2save;
 	}
@@ -2292,7 +2312,7 @@ const TCHAR * Notepad_plus::fileSaveSession(size_t nbFile, TCHAR ** fileNames)
 {
 	const TCHAR *sessionFileName = NULL;
 
-	FileDialog fDlg(_pPublicInterface->getHSelf(), _pPublicInterface->getHinst());
+	CustomFileDialog fDlg(_pPublicInterface->getHSelf());
 	const TCHAR *ext = NppParameters::getInstance().getNppGUI()._definedSessionExt.c_str();
 
 	generic_string sessionExt = TEXT("");
@@ -2301,14 +2321,16 @@ const TCHAR * Notepad_plus::fileSaveSession(size_t nbFile, TCHAR ** fileNames)
 		if (*ext != '.')
 			sessionExt += TEXT(".");
 		sessionExt += ext;
-		fDlg.setExtFilter(TEXT("Session file"), sessionExt.c_str(), NULL);
+		fDlg.setExtFilter(TEXT("Session file"), sessionExt.c_str());
 		fDlg.setDefExt(ext);
 		fDlg.setExtIndex(0);		// 0 index for "custom extension types"
 	}
-	fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
+	fDlg.setExtFilter(TEXT("All types"), TEXT(".*"));
+	const bool isCheckboxActive = _pFileBrowser && !_pFileBrowser->isClosed();
+	fDlg.setCheckbox(TEXT("Save Folder as Workspace"), isCheckboxActive);
 	sessionFileName = fDlg.doSaveDlg();
 
-	return fileSaveSession(nbFile, fileNames, sessionFileName);
+	return fileSaveSession(nbFile, fileNames, sessionFileName, fDlg.getCheckboxState());
 }
 
 

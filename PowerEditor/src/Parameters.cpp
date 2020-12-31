@@ -2204,6 +2204,28 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 		}
 	}
 
+	// Node structure and naming corresponds to config.xml
+	TiXmlNode *fileBrowserRoot = sessionRoot->FirstChildElement(TEXT("FileBrowser"));
+	if (fileBrowserRoot)
+	{
+		const TCHAR *selectedItemPath = (fileBrowserRoot->ToElement())->Attribute(TEXT("latestSelectedItem"));
+		if (selectedItemPath)
+		{
+			(*ptrSession)._fileBrowserSelectedItem = selectedItemPath;
+		}
+
+		for (TiXmlNode *childNode = fileBrowserRoot->FirstChildElement(TEXT("root"));
+			childNode;
+			childNode = childNode->NextSibling(TEXT("root")))
+		{
+			const TCHAR *fileName = (childNode->ToElement())->Attribute(TEXT("foldername"));
+			if (fileName)
+			{
+				(*ptrSession)._fileBrowserRoots.push_back({ fileName });
+			}
+		}
+	}
+
 	return true;
 }
 
@@ -3230,6 +3252,18 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 					TiXmlNode *foldNode = fileNameNode->InsertEndChild(TiXmlElement(TEXT("Fold")));
 					foldNode->ToElement()->SetAttribute(TEXT("line"), static_cast<int32_t>(foldLine));
 				}
+			}
+		}
+
+		if (session._includeFileBrowser)
+		{
+			// Node structure and naming corresponds to config.xml
+			TiXmlNode* fileBrowserRootNode = sessionNode->InsertEndChild(TiXmlElement(TEXT("FileBrowser")));
+			fileBrowserRootNode->ToElement()->SetAttribute(TEXT("latestSelectedItem"), session._fileBrowserSelectedItem.c_str());
+			for (const auto& root : session._fileBrowserRoots)
+			{
+				TiXmlNode *fileNameNode = fileBrowserRootNode->InsertEndChild(TiXmlElement(TEXT("root")));
+				(fileNameNode->ToElement())->SetAttribute(TEXT("foldername"), root.c_str());
 			}
 		}
 	}

@@ -151,7 +151,7 @@ public:
 
 	generic_string getNodePath(HTREEITEM node) const;
 	generic_string getNodeName(HTREEITEM node) const;
-	void addRootFolder(generic_string);
+	void addRootFolder(generic_string rootFolderPath);
 
 	HTREEITEM getRootFromFullPath(const generic_string & rootPath) const;
 	HTREEITEM findChildNodeFromName(HTREEITEM parent, const generic_string&) const;

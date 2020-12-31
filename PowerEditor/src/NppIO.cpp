@@ -36,6 +36,7 @@
 #include "functionListPanel.h"
 #include "ReadDirectoryChanges.h"
 #include "ReadFileChanges.h"
+#include "fileBrowser.h"
 #include <tchar.h>
 #include <unordered_set>
 
@@ -1939,7 +1940,7 @@ void Notepad_plus::loadLastSession()
 	_isFolding = false;
 }
 
-bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode)
+bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool shouldLoadFileBrowser)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	bool allSessionFilesLoaded = true;
@@ -2187,6 +2188,17 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode)
 	if (_pFileSwitcherPanel)
 		_pFileSwitcherPanel->reload();
 
+	if (shouldLoadFileBrowser && !session._fileBrowserRoots.empty())
+	{
+		// Force launch file browser and add roots
+		launchFileBrowser({}, {}, true);
+		for (const auto& rootFileName : session._fileBrowserRoots)
+		{
+			_pFileBrowser->addRootFolder(rootFileName);
+		}
+		_pFileBrowser->selectItemFromPath(session._fileBrowserSelectedItem);
+	}
+
 	return allSessionFilesLoaded;
 }
 
@@ -2248,7 +2260,9 @@ bool Notepad_plus::fileLoadSession(const TCHAR *fn)
 
 			if ((NppParameters::getInstance()).loadSession(session2Load, sessionFileName))
 			{
-				isAllSuccessful = loadSession(session2Load);
+				const bool isSnapshotMode = false;
+				const bool shouldLoadFileBrowser = true;
+				isAllSuccessful = loadSession(session2Load, isSnapshotMode, shouldLoadFileBrowser);
 				result = true;
 			}
 			if (!isAllSuccessful)
@@ -2281,6 +2295,15 @@ const TCHAR * Notepad_plus::fileSaveSession(size_t nbFile, TCHAR ** fileNames, c
 		}
 		else
 			getCurrentOpenedFiles(currentSession);
+
+		if (_pFileBrowser && !_pFileBrowser->isClosed())
+		{
+			currentSession._fileBrowserSelectedItem = _pFileBrowser->getSelectedItemPath();
+			for (auto&& rootFileName : _pFileBrowser->getRoots())
+			{
+				currentSession._fileBrowserRoots.push_back({ rootFileName });
+			}
+		}
 
 		(NppParameters::getInstance()).writeSession(currentSession, sessionFile2save);
 		return sessionFile2save;

@@ -5899,7 +5899,9 @@ std::vector<generic_string> Notepad_plus::loadCommandlineParams(const TCHAR * co
 		Session session2Load;
 		if ((NppParameters::getInstance()).loadSession(session2Load, fnss.getFileName(0)))
 		{
-			loadSession(session2Load);
+			const bool isSnapshotMode = false;
+			const bool shouldLoadFileBrowser = true;
+			loadSession(session2Load, isSnapshotMode, shouldLoadFileBrowser);
 		}
 		return std::vector<generic_string>();
 	}

@@ -823,7 +823,7 @@
 
 					<Item id="6128" name="Alternative Symbole"/>
 				</Global>
-				<Scintillas title="Editieren">
+				<Scintillas title="Bearbeiten">
 					<Item id="6216" name="Cursoreinstellungen"/>
 					<Item id="6217" name="Breite"/>
 					<Item id="6219" name="Geschwindigkeit"/>

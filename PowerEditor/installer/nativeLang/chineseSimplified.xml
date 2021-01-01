@@ -849,7 +849,7 @@ The comments are here for explanation, it's not necessary to translate them.
 用空格分隔不同数字以定义多个列标记。"/>
                     <Item id="6231" name="边框宽度"/>
                     <Item id="6235" name="无边框"/>
-                </Scintillas>
+                </MarginsBorderEdge>
 
                 <NewDoc title="新建">
                     <Item id="6401" name="格式 (行尾)"/>

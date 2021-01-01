@@ -5305,9 +5305,9 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			if (optDocPeekOnMap)
 				_nppGUI._isDocPeekOnMap = (lstrcmp(optDocPeekOnMap, TEXT("yes")) == 0);
 
-			const TCHAR* saveDlgExtFilterToAllTypesForNormText = element->Attribute(TEXT("saveDlgExtFilterToAllTypesForNormalText"));
-			if (saveDlgExtFilterToAllTypesForNormText)
-				_nppGUI._setSaveDlgExtFiltToAllTypesForNormText = (lstrcmp(saveDlgExtFilterToAllTypesForNormText, TEXT("yes")) == 0);
+			const TCHAR* saveDlgExtFilterToAllTypes = element->Attribute(TEXT("saveDlgExtFilterToAllTypes"));
+			if (saveDlgExtFilterToAllTypes)
+				_nppGUI._setSaveDlgExtFiltToAllTypes = (lstrcmp(saveDlgExtFilterToAllTypes, TEXT("yes")) == 0);
 		}
 		else if (!lstrcmp(nm, TEXT("commandLineInterpreter")))
 		{
@@ -6229,7 +6229,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("setting"), _nppGUI._multiInstSetting);
 	}
 
-	// <GUIConfig name="MISC" fileSwitcherWithoutExtColumn="no" backSlashIsEscapeCharacterForSql="yes" newStyleSaveDlg="no" isFolderDroppedOpenFiles="no" saveDlgExtFilterToAllTypesForNormalText="no" />
+	// <GUIConfig name="MISC" fileSwitcherWithoutExtColumn="no" backSlashIsEscapeCharacterForSql="yes" newStyleSaveDlg="no" isFolderDroppedOpenFiles="no" saveDlgExtFilterToAllTypes="no" />
 	{
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("MISC"));
@@ -6241,7 +6241,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("isFolderDroppedOpenFiles"), _nppGUI._isFolderDroppedOpenFiles ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("docPeekOnTab"), _nppGUI._isDocPeekOnTab ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("docPeekOnMap"), _nppGUI._isDocPeekOnMap ? TEXT("yes") : TEXT("no"));
-		GUIConfigElement->SetAttribute(TEXT("saveDlgExtFilterToAllTypesForNormalText"), _nppGUI._setSaveDlgExtFiltToAllTypesForNormText ? TEXT("yes") : TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("saveDlgExtFilterToAllTypes"), _nppGUI._setSaveDlgExtFiltToAllTypes ? TEXT("yes") : TEXT("no"));
 	}
 
 	// <GUIConfig name="Searching" "monospacedFontFindDlg"="no" stopFillingFindField="no" findDlgAlwaysVisible="no" confirmReplaceOpenDocs="yes" confirmMacroReplaceOpenDocs="yes" confirmReplaceInFiles="yes" confirmMacroReplaceInFiles="yes" />

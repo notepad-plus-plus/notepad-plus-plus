@@ -3619,8 +3619,9 @@ void Finder::wrapLongLinesToggle()
 
 bool Finder::isLineActualSearchResult(const generic_string & s) const
 {
-	const auto firstColon = s.find(TEXT("\tLine "));
-	return (firstColon == 0);
+	// actual-search-result lines are the only type that start with a tab character
+	// sample: "\tLine 123: xxxxxxHITxxxxxx"
+	return (s.find(TEXT("\t")) == 0);
 }
 
 generic_string & Finder::prepareStringForClipboard(generic_string & s) const

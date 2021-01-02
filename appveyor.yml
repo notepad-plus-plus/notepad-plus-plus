@@ -7,6 +7,7 @@ environment:
     - platform: Win32
       archi: x86
       platform_input: Win32
+      PYTHON: "C:\\Python38"
 
     - platform: x64
       archi: amd64
@@ -34,7 +35,7 @@ build_script:
     - if "%configuration%"=="Unicode Release" set scintilla_debug=
     - if "%archi%" NEQ "" nmake SUPPORT_XP=1 %scintilla_debug% -f scintilla.mak
     - if "%Platform%"=="mingw-w64_810_X64" mingw32-make -j%NUMBER_OF_PROCESSORS%
-    
+
     - cd "%APPVEYOR_BUILD_FOLDER%"\PowerEditor\visual.net\
     - if "%archi%" NEQ "" msbuild notepadPlus.vcxproj /p:configuration="%configuration%" /p:platform="%platform_input%" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
     - if "%Platform%"=="mingw-w64_810_X64" cd c:\projects\notepad-plus-plus\PowerEditor\gcc\ & mingw32-make -j%NUMBER_OF_PROCESSORS%
@@ -42,6 +43,11 @@ build_script:
 
 after_build:
     - cd "%APPVEYOR_BUILD_FOLDER%"
+    #xml files syntax checks
+    - if "%platform_input%"=="Win32" if "%configuration%"=="Unicode Debug" SET PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
+    - if "%platform_input%"=="Win32" if "%configuration%"=="Unicode Debug" python -m pip install requests rfc3987 pywin32 lxml
+    - if "%platform_input%"=="Win32" if "%configuration%"=="Unicode Debug" call python validator_xml.py
+
     - ps: >-
         $nppFileName = "Notepad++.$env:PLATFORM_INPUT.$env:CONFIGURATION.exe"
 

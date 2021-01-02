@@ -2126,7 +2126,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_SETLINENUMBERWIDTHMODE:
 		{
-			if (lParam != LINENUMWIDTH_DYNAMIC || lParam != LINENUMWIDTH_CONSTANT)
+			if (lParam != LINENUMWIDTH_DYNAMIC && lParam != LINENUMWIDTH_CONSTANT)
 				return FALSE;
 
 			ScintillaViewParams &svp = const_cast<ScintillaViewParams &>(nppParam.getSVP());

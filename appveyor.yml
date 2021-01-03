@@ -46,7 +46,7 @@ after_build:
     #xml files syntax checks
     - if "%platform_input%"=="Win32" if "%configuration%"=="Unicode Debug" SET PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
     - if "%platform_input%"=="Win32" if "%configuration%"=="Unicode Debug" python -m pip install requests rfc3987 pywin32 lxml
-    - if "%platform_input%"=="Win32" if "%configuration%"=="Unicode Debug" call python validator_xml.py
+    - if "%platform_input%"=="Win32" if "%configuration%"=="Unicode Debug" call python PowerEditor\Test\xmlValidator\validator_xml.py
 
     - ps: >-
         $nppFileName = "Notepad++.$env:PLATFORM_INPUT.$env:CONFIGURATION.exe"

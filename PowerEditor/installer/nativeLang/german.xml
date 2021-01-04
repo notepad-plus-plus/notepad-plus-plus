@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2020-12-22 by schnurlos (schnurlos@gmail.com)
+	last modified: 2021-01-04 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -823,7 +823,7 @@
 
 					<Item id="6128" name="Alternative Symbole"/>
 				</Global>
-				<Scintillas title="Editieren">
+				<Scintillas title="Bearbeiten">
 					<Item id="6216" name="Cursoreinstellungen"/>
 					<Item id="6217" name="Breite"/>
 					<Item id="6219" name="Geschwindigkeit"/>
@@ -834,7 +834,7 @@
 					<Item id="6228" name="Standard"/>
 					<Item id="6229" name="Ausgerichtet"/>
 					<Item id="6230" name="Einrücken"/>
-					<Item id="6234" name="Erweiterten Bildlauffunktion aufgrund eines Touchpad-Problems deaktivieren"/>
+					<Item id="6234" name="Erweiterte Bildlauffunktion aufgrund eines Touchpad-Problems deaktivieren"/>
 					<Item id="6214" name="Hervorhebung der aktuellen Zeile aktivieren"/>
 					<Item id="6215" name="Kantenglättung der Schriftarten"/>
 					<Item id="6236" name="Blättern über die letzte Zeile hinaus aktivieren"/>

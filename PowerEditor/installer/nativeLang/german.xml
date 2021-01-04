@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2020-12-22 by schnurlos (schnurlos@gmail.com)
+	last modified: 2021-01-26 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="7.9.2">
+	<Native-Langue name="Deutsch" filename="german.xml" version="7.9.3">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -823,7 +823,7 @@
 
 					<Item id="6128" name="Alternative Symbole"/>
 				</Global>
-				<Scintillas title="Editieren">
+				<Scintillas title="Bearbeiten">
 					<Item id="6216" name="Cursoreinstellungen"/>
 					<Item id="6217" name="Breite"/>
 					<Item id="6219" name="Geschwindigkeit"/>
@@ -834,7 +834,7 @@
 					<Item id="6228" name="Standard"/>
 					<Item id="6229" name="Ausgerichtet"/>
 					<Item id="6230" name="Einrücken"/>
-					<Item id="6234" name="Erweiterten Bildlauffunktion aufgrund eines Touchpad-Problems deaktivieren"/>
+					<Item id="6234" name="Erweiterte Bildlauffunktion aufgrund eines Touchpad-Problems deaktivieren"/>
 					<Item id="6214" name="Hervorhebung der aktuellen Zeile aktivieren"/>
 					<Item id="6215" name="Kantenglättung der Schriftarten"/>
 					<Item id="6236" name="Blättern über die letzte Zeile hinaus aktivieren"/>
@@ -1051,7 +1051,7 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Za
 					<Item id="6325" name="Nach Aktualisierung zum Ende scrollen"/>
 					<Item id="6322" name="Sitzungsdatei-Erw.:"/>
 					<Item id="6323" name="Automatische Updates aktivieren"/>
-					<Item id="6351" name="Dateifilter für den Speicherdialog auf .* anstelle von .txt für normalen Text"/>
+					<Item id="6351" name="Dateifilter für den Speicherdialog auf .* setzen"/>
 					<Item id="6324" name="Dokumentenumschalter (Strg+Tab)"/>
 					<Item id="6331" name="Nur Dateinamen in Titelleiste anzeigen"/>
 					<Item id="6334" name="Kodierung automatisch erkennen"/>
@@ -1386,9 +1386,11 @@ Finde in allen Dateien außer exe, obj &amp;&amp; log:
 			<summary-nbsel1 value=" gewählte Zeichen ("/>
 			<summary-nbsel2 value=" Bytes) in "/>
 			<summary-nbrange value=" Stufen"/>
+			<find-in-files-progress-title value="Fortschritt für die Suche in Dateien …"/>
 			<replace-in-files-confirm-title value="Sind Sie sicher?"/>
 			<replace-in-files-confirm-directory value="Sind Sie sicher dass alle Vorkommen ersetzt werden sollen in: "/>
 			<replace-in-files-confirm-filetype value="Für Dateityp: "/>
+			<replace-in-files-progress-title value="Fortschritt für das Ersetzen in Dateien …"/>
 			<replace-in-open-docs-confirm-title value="Sind Sie sicher?"/>
 			<replace-in-open-docs-confirm-message value="Sind Sie sicher dass alle Vorkommen in allen offenen Dokumenten ersetzt werden sollen?"/>
 			<find-result-caption value="Suchergebnisse"/>
@@ -1399,6 +1401,7 @@ Finde in allen Dateien außer exe, obj &amp;&amp; log:
 			<find-result-hits value="($INT_REPLACE$ Treffer)"/>
 			<find-result-line-prefix value="Zeile"/> <!-- Must not begin with space or tab character -->
 			<find-regex-zero-length-match value="Übereinstimmung Null-Längen" />
+			<session-save-folder-as-workspace value="Verzeichnis als Arbeitsbereich speichern" />
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

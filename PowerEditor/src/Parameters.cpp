@@ -1215,7 +1215,7 @@ bool NppParameters::load()
 	
 	if (!loadOkay)
 	{
-		TiXmlDeclaration* decl = new TiXmlDeclaration(TEXT("1.0"), TEXT("Windows-1252"), TEXT(""));
+		TiXmlDeclaration* decl = new TiXmlDeclaration(TEXT("1.0"), TEXT("UTF-8"), TEXT(""));
 		_pXmlUserDoc->LinkEndChild(decl);
 	}
 	else
@@ -2746,6 +2746,7 @@ std::pair<unsigned char, unsigned char> NppParameters::feedUserLang(TiXmlNode *n
 bool NppParameters::importUDLFromFile(const generic_string& sourceFile)
 {
 	TiXmlDocument *pXmlUserLangDoc = new TiXmlDocument(sourceFile);
+
 	bool loadOkay = pXmlUserLangDoc->LoadFile();
 	if (loadOkay)
 	{
@@ -2960,6 +2961,8 @@ void NppParameters::writeDefaultUDL()
 		if (!_pXmlUserLangDoc)
 		{
 			_pXmlUserLangDoc = new TiXmlDocument(_userDefineLangPath);
+			TiXmlDeclaration* decl = new TiXmlDeclaration(TEXT("1.0"), TEXT("UTF-8"), TEXT(""));
+			_pXmlUserLangDoc->LinkEndChild(decl);
 			_pXmlUserLangDoc->InsertEndChild(TiXmlElement(TEXT("NotepadPlus")));
 		}
 
@@ -3152,6 +3155,10 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 	const TCHAR *pathName = fileName?fileName:_sessionPath.c_str();
 
 	_pXmlSessionDoc = new TiXmlDocument(pathName);
+
+	TiXmlDeclaration* decl = new TiXmlDeclaration(TEXT("1.0"), TEXT("UTF-8"), TEXT(""));
+	_pXmlSessionDoc->LinkEndChild(decl);
+
 	TiXmlNode *root = _pXmlSessionDoc->InsertEndChild(TiXmlElement(TEXT("NotepadPlus")));
 
 	if (root)
@@ -3238,6 +3245,8 @@ void NppParameters::writeShortcuts()
 	{
 		//do the treatment
 		_pXmlShortcutDoc = new TiXmlDocument(_shortcutsPath);
+		TiXmlDeclaration* decl = new TiXmlDeclaration(TEXT("1.0"), TEXT("UTF-8"), TEXT(""));
+		_pXmlShortcutDoc->LinkEndChild(decl);
 	}
 
 	TiXmlNode *root = _pXmlShortcutDoc->FirstChild(TEXT("NotepadPlus"));

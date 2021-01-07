@@ -3,7 +3,7 @@
 	## Bulgarian localization for Notepad++ ##
 
 	Translators:.....: 2007–2012 – Milen Metev (Tragedy); 2014–yyyy – Rusi Dimitrov
-	Last revision:...: 18.12.2020 by Rusi Dimitrov <astral_86[at]mail[dot]bg>
+	Last revision:...: 12.01.2021 by Rusi Dimitrov <astral_86[at]mail[dot]bg>
 	Download:........: https://gist.github.com/rddim/bd37264898c3a17363e7437bcf1b4803
 -->
 <NotepadPlus>
@@ -813,7 +813,7 @@
 				</NewDoc>
 					<!-- Път по подразбиране -->
 				<DefaultDir title="Път по подразбиране">
-					<Item id="6413" name="Директория по подразбиране (Отваряне / Запис)"/>
+					<Item id="6413" name="Директория по подразбиране за отваряне/запис на файл"/>
 					<Item id="6414" name="Следване на текущия документ"/>
 					<Item id="6415" name="Запомняне на последно използваната директория"/>
 					<Item id="6431" name="Отваряне на всички файлове от папката при влаченето ѝ в прозореца"/>
@@ -993,7 +993,7 @@
 					<Item id="6313" name="Тихо обновяване"/>
 					<Item id="6325" name="Превъртане до последният ред"/>
 					<Item id="6323" name="Автоматично обновяване на Notepad++"/>
-					<Item id="6351" name="Файлово разширение .* в диалога за запис, вместо .txt за обикновен текст"/>
+					<Item id="6351" name="Файлово разширение *.* в диалога за запис"/>
 					<Item id="6334" name="Автоматично определяне кодировката на знаците"/>
 					<Item id="6308" name="Намаляване в системната област"/>
 					<Item id="6331" name="Показване само името на файла в заглавната лента"/>
@@ -1356,6 +1356,7 @@
 			<find-result-hits value="($INT_REPLACE$ съвпадения)"/>
 			<find-result-line-prefix value="Ред"/>
 			<find-regex-zero-length-match value="съвпадение с нулева дължина"/>
+			<find-in-files-progress-title value="Намиране във файлове – напредък..."/>
 				<!-- Дясно щракане върху раздел -->
 			<tabrename-title value="Преименуване на текущият раздел"/>
 			<tabrename-newname value="Ново име:"/>
@@ -1388,6 +1389,9 @@
 			<replace-in-files-confirm-filetype value="За типа файл:"/>
 			<replace-in-open-docs-confirm-title value="Сигурни ли сте?"/>
 			<replace-in-open-docs-confirm-message value="Сигурни ли сте, че искате да бъдат заменени всички съвпадения във всички отворени документи?"/>
+			<replace-in-files-progress-title value="Замяна във файлове – напредък..."/>
+				<!-- Други -->
+			<session-save-folder-as-workspace value="Запис на &quot;Директория като работно място&quot;"/>
 		</MiscStrings>
 			<!-- Меню "Изглед" - "Карта на документа" -->
 		<DocumentMap>

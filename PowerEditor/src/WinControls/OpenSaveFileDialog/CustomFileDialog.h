@@ -40,12 +40,15 @@ class CustomFileDialog
 public:
 	explicit CustomFileDialog(HWND hwnd);
 	~CustomFileDialog();
+	void setTitle(const TCHAR* title);
 	void setExtFilter(const TCHAR* text, const TCHAR* ext);
 	void setDefExt(const TCHAR* ext);
+	void setFolder(const TCHAR* folder);
 	void setCheckbox(const TCHAR* text, bool isActive = true);
 	void setExtIndex(int extTypeIndex);
 
 	const TCHAR* doSaveDlg();
+	const TCHAR* pickFolder();
 
 	bool getCheckboxState() const;
 

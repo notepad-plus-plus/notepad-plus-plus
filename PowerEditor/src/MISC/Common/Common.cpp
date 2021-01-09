@@ -27,14 +27,13 @@
 #include <algorithm>
 #include <stdexcept>
 #include <shlwapi.h>
-#include <shlobj.h>
 #include <uxtheme.h>
 #include <cassert>
 #include <codecvt>
 #include <locale>
 
 #include "StaticDialog.h"
-
+#include "CustomFileDialog.h"
 #include "Common.h"
 #include "Utf8.h"
 #include <Parameters.h>
@@ -142,113 +141,37 @@ void writeLog(const TCHAR *logFileName, const char *log2write)
 }
 
 
-// Set a call back with the handle after init to set the path.
-// http://msdn.microsoft.com/library/default.asp?url=/library/en-us/shellcc/platform/shell/reference/callbackfunctions/browsecallbackproc.asp
-static int __stdcall BrowseCallbackProc(HWND hwnd, UINT uMsg, LPARAM, LPARAM pData)
-{
-	if (uMsg == BFFM_INITIALIZED && pData != 0)
-		::SendMessage(hwnd, BFFM_SETSELECTION, TRUE, pData);
-	return 0;
-};
-
-
 generic_string folderBrowser(HWND parent, const generic_string & title, int outputCtrlID, const TCHAR *defaultStr)
 {
-	generic_string dirStr;
+	generic_string folderName;
+	CustomFileDialog dlg(parent);
+	dlg.setTitle(title.c_str());
 
-	// This code was copied and slightly modifed from:
-	// http://www.bcbdev.com/faqs/faq62.htm
+	// Get an initial directory from the edit control or from argument provided
+	TCHAR directory[MAX_PATH] = {};
+	if (outputCtrlID != 0)
+		::GetDlgItemText(parent, outputCtrlID, directory, _countof(directory));
+	directory[_countof(directory) - 1] = '\0';
+	if (!directory[0] && defaultStr)
+		dlg.setFolder(defaultStr);
+	else if (directory[0])
+		dlg.setFolder(directory);
 
-	// SHBrowseForFolder returns a PIDL. The memory for the PIDL is
-	// allocated by the shell. Eventually, we will need to free this
-	// memory, so we need to get a pointer to the shell malloc COM
-	// object that will free the PIDL later on.
-	LPMALLOC pShellMalloc = 0;
-	if (::SHGetMalloc(&pShellMalloc) == NO_ERROR)
+	const TCHAR* szDir = dlg.pickFolder();
+	if (szDir)
 	{
-		// If we were able to get the shell malloc object,
-		// then proceed by initializing the BROWSEINFO stuct
-		BROWSEINFO info;
-		memset(&info, 0, sizeof(info));
-		info.hwndOwner = parent;
-		info.pidlRoot = NULL;
-		TCHAR szDisplayName[MAX_PATH];
-		info.pszDisplayName = szDisplayName;
-		info.lpszTitle = title.c_str();
-		info.ulFlags = BIF_USENEWUI | BIF_NONEWFOLDERBUTTON;
-		info.lpfn = BrowseCallbackProc;
-
-		TCHAR directory[MAX_PATH];
+		// Send the result back to the edit control
 		if (outputCtrlID != 0)
-			::GetDlgItemText(parent, outputCtrlID, directory, _countof(directory));
-		directory[_countof(directory) - 1] = '\0';
-
-		if (!directory[0] && defaultStr)
-			info.lParam = reinterpret_cast<LPARAM>(defaultStr);
-		else
-			info.lParam = reinterpret_cast<LPARAM>(directory);
-
-		// Execute the browsing dialog.
-		LPITEMIDLIST pidl = ::SHBrowseForFolder(&info);
-
-		// pidl will be null if they cancel the browse dialog.
-		// pidl will be not null when they select a folder.
-		if (pidl)
-		{
-			// Try to convert the pidl to a display generic_string.
-			// Return is true if success.
-			TCHAR szDir[MAX_PATH];
-			if (::SHGetPathFromIDList(pidl, szDir))
-			{
-				// Set edit control to the directory path.
-				if (outputCtrlID != 0)
-					::SetDlgItemText(parent, outputCtrlID, szDir);
-				dirStr = szDir;
-			}
-			pShellMalloc->Free(pidl);
-		}
-		pShellMalloc->Release();
+			::SetDlgItemText(parent, outputCtrlID, szDir);
+		folderName = szDir;
 	}
-	return dirStr;
+	return folderName;
 }
 
 
 generic_string getFolderName(HWND parent, const TCHAR *defaultDir)
 {
-	generic_string folderName;
-	LPMALLOC pShellMalloc = 0;
-
-	if (::SHGetMalloc(&pShellMalloc) == NO_ERROR)
-	{
-		BROWSEINFO info;
-		memset(&info, 0, sizeof(info));
-		info.hwndOwner = parent;
-		info.pidlRoot = NULL;
-		TCHAR szDisplayName[MAX_PATH];
-		info.pszDisplayName = szDisplayName;
-		info.lpszTitle = TEXT("Select a folder");
-		info.ulFlags = 0;
-		info.lpfn = BrowseCallbackProc;
-		info.lParam = reinterpret_cast<LPARAM>(defaultDir);
-
-		// Execute the browsing dialog.
-		LPITEMIDLIST pidl = ::SHBrowseForFolder(&info);
-
-		// pidl will be null if they cancel the browse dialog.
-		// pidl will be not null when they select a folder.
-		if (pidl)
-		{
-			// Try to convert the pidl to a display generic_string.
-			// Return is true if success.
-			TCHAR szDir[MAX_PATH];
-			if (::SHGetPathFromIDList(pidl, szDir))
-				// Set edit control to the directory path.
-				folderName = szDir;
-			pShellMalloc->Free(pidl);
-		}
-		pShellMalloc->Release();
-	}
-	return folderName;
+	return folderBrowser(parent, TEXT("Select a folder"), 0, defaultDir);
 }
 
 

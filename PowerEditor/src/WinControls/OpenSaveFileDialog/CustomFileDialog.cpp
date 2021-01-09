@@ -55,15 +55,21 @@ public:
 			_dialog->Release();
 	}
 
-	bool initSave()
+	bool init(CLSID id)
 	{
 		if (_dialog)
 			return false; // Avoid double initizliation
 
-		HRESULT hr = CoCreateInstance(CLSID_FileSaveDialog,
+		HRESULT hr = CoCreateInstance(id,
 			NULL,
 			CLSCTX_INPROC_SERVER,
 			IID_PPV_ARGS(&_dialog));
+
+		if (SUCCEEDED(hr) && _title)
+			hr = _dialog->SetTitle(_title);
+
+		if (SUCCEEDED(hr) && _folder)
+			hr = setInitDir(_folder) ? S_OK : E_FAIL;
 
 		if (SUCCEEDED(hr) && _defExt && _defExt[0] != '\0')
 			hr = _dialog->SetDefaultExtension(_defExt);
@@ -79,7 +85,20 @@ public:
 		if (SUCCEEDED(hr) && _fileTypeIndex >= 0)
 			hr = _dialog->SetFileTypeIndex(_fileTypeIndex + 1); // This index is 1-based
 
-		return SUCCEEDED(hr);
+		if (SUCCEEDED(hr))
+			return addControls();
+
+		return false;
+	}
+
+	bool initSave()
+	{
+		return init(CLSID_FileSaveDialog);
+	}
+
+	bool initOpen()
+	{
+		return init(CLSID_FileOpenDialog);
 	}
 
 	bool addFlags(DWORD dwNewFlags)
@@ -168,14 +187,18 @@ public:
 	static const int IDC_FILE_CHECKBOX = 4;
 
 	HWND _hwndOwner = nullptr;
-	IFileDialog* _dialog = nullptr;
-	IFileDialogCustomize* _customize = nullptr;
+	const TCHAR* _title = nullptr;
 	const TCHAR* _defExt = nullptr;
+	const TCHAR* _folder = nullptr;
 	const TCHAR* _checkboxLabel = nullptr;
 	bool _isCheckboxActive = true;
 	std::vector<std::pair<generic_string, generic_string>> _filterSpec;	// text + extension
-	TCHAR _fileName[MAX_PATH * 8];
 	int _fileTypeIndex = -1;
+
+private:
+	IFileDialog* _dialog = nullptr;
+	IFileDialogCustomize* _customize = nullptr;
+	TCHAR _fileName[MAX_PATH * 8];
 };
 
 CustomFileDialog::CustomFileDialog(HWND hwnd) : _impl{std::make_unique<Impl>()}
@@ -184,6 +207,11 @@ CustomFileDialog::CustomFileDialog(HWND hwnd) : _impl{std::make_unique<Impl>()}
 }
 
 CustomFileDialog::~CustomFileDialog() = default;
+
+void CustomFileDialog::setTitle(const TCHAR* title)
+{
+	_impl->_title = title;
+}
 
 void CustomFileDialog::setExtFilter(const TCHAR *extText, const TCHAR *exts)
 {
@@ -207,6 +235,11 @@ void CustomFileDialog::setExtFilter(const TCHAR *extText, const TCHAR *exts)
 void CustomFileDialog::setDefExt(const TCHAR* ext)
 {
 	_impl->_defExt = ext;
+}
+
+void CustomFileDialog::setFolder(const TCHAR* folder)
+{
+	_impl->_folder = folder;
 }
 
 void CustomFileDialog::setCheckbox(const TCHAR* text, bool isActive)
@@ -237,7 +270,6 @@ const TCHAR* CustomFileDialog::doSaveDlg()
 	_impl->setInitDir(params.getWorkingDir());
 
 	_impl->addFlags(FOS_PATHMUSTEXIST | FOS_FILEMUSTEXIST | FOS_FORCEFILESYSTEM);
-	_impl->addControls();
 	bool bOk = _impl->show();
 
 	if (params.getNppGUI()._openSaveDir == dir_last)
@@ -247,5 +279,15 @@ const TCHAR* CustomFileDialog::doSaveDlg()
 	}
 	::SetCurrentDirectory(dir);
 
+	return bOk ? _impl->getResultFilename() : nullptr;
+}
+
+const TCHAR* CustomFileDialog::pickFolder()
+{
+	if (!_impl->initOpen())
+		return nullptr;
+
+	_impl->addFlags(FOS_PATHMUSTEXIST | FOS_FILEMUSTEXIST | FOS_FORCEFILESYSTEM | FOS_PICKFOLDERS);
+	bool bOk = _impl->show();
 	return bOk ? _impl->getResultFilename() : nullptr;
 }

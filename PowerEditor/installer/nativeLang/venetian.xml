@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     Venetian translation for Notepad++
-    Last modified Sat, December 26th, 2020.
+    Last modified Sat, January 9th, 2021.
 	Translators: 2019-xxxx, Matteo Concato (Conky77)
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 	The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="Vèneto" filename="venetian.xml" version="7.9.2">
+    <Native-Langue name="Vèneto" filename="venetian.xml" version="7.9.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -1046,7 +1046,7 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
                     <Item id="6325" name="Và a ƚ&apos;ùltima riga dopo ƚ&apos;axornamento"/>
                     <Item id="6322" name="Est. file de sesion:"/>
                     <Item id="6323" name="Axorna otomàticamente Notepad++" />
-                    <Item id="6351" name="Inposta el filtro de l'estension par la fenèstra de salvatagio a .* invese de .txt par i file de testo"/>
+                    <Item id="6351" name="Inposta el filtro de l'estension par la fenèstra de salvatagio a *.*"/>
                     <Item id="6324" name="Sostituisi Documento (Ctrl+TAB)"/>
                     <Item id="6331" name="Visuaƚixa soƚo nòme file inte ƚa bara de&apos;l tìtoƚo"/>
                     <Item id="6334" name="Riƚeva otomàticamente codefega caràtari"/>
@@ -1378,9 +1378,11 @@ Ruma en tuti i file a ecesion exe, obj &amp;&amp; log:
             <summary-nbsel1 value=" caràtari seƚesionà ("/>
             <summary-nbsel2 value=" byte) en "/>
             <summary-nbrange value=" intervaƚi"/>
+			<find-in-files-progress-title value="Serca nei file en corso..."/>
             <replace-in-files-confirm-title value="Sito sicuro?"/>
             <replace-in-files-confirm-directory value="Sito sicuro de voƚer sostituire tute cuante ƚe ocorense en:"/>
             <replace-in-files-confirm-filetype value="Par i tipi de file:"/>
+			<replace-in-files-progress-title value="Sostituisi ne i file en corso..."/>
             <replace-in-open-docs-confirm-title value="Sito sicuro?"/>
             <replace-in-open-docs-confirm-message value="Sito sicuro de voƚer sostituire tute cuante ƚe ocorense en tuti cuanti i documenti verti?"/>
             <find-result-caption value="Cata rixultadi"/>

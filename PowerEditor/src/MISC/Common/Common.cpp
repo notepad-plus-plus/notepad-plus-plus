@@ -27,7 +27,6 @@
 #include <algorithm>
 #include <stdexcept>
 #include <shlwapi.h>
-#include <shlobj.h>
 #include <uxtheme.h>
 #include <cassert>
 #include <codecvt>
@@ -142,16 +141,6 @@ void writeLog(const TCHAR *logFileName, const char *log2write)
 }
 
 
-// Set a call back with the handle after init to set the path.
-// http://msdn.microsoft.com/library/default.asp?url=/library/en-us/shellcc/platform/shell/reference/callbackfunctions/browsecallbackproc.asp
-static int __stdcall BrowseCallbackProc(HWND hwnd, UINT uMsg, LPARAM, LPARAM pData)
-{
-	if (uMsg == BFFM_INITIALIZED && pData != 0)
-		::SendMessage(hwnd, BFFM_SETSELECTION, TRUE, pData);
-	return 0;
-};
-
-
 generic_string folderBrowser(HWND parent, const generic_string & title, int outputCtrlID, const TCHAR *defaultStr)
 {
 	generic_string folderName;
@@ -182,40 +171,7 @@ generic_string folderBrowser(HWND parent, const generic_string & title, int outp
 
 generic_string getFolderName(HWND parent, const TCHAR *defaultDir)
 {
-	generic_string folderName;
-	LPMALLOC pShellMalloc = 0;
-
-	if (::SHGetMalloc(&pShellMalloc) == NO_ERROR)
-	{
-		BROWSEINFO info;
-		memset(&info, 0, sizeof(info));
-		info.hwndOwner = parent;
-		info.pidlRoot = NULL;
-		TCHAR szDisplayName[MAX_PATH];
-		info.pszDisplayName = szDisplayName;
-		info.lpszTitle = TEXT("Select a folder");
-		info.ulFlags = 0;
-		info.lpfn = BrowseCallbackProc;
-		info.lParam = reinterpret_cast<LPARAM>(defaultDir);
-
-		// Execute the browsing dialog.
-		LPITEMIDLIST pidl = ::SHBrowseForFolder(&info);
-
-		// pidl will be null if they cancel the browse dialog.
-		// pidl will be not null when they select a folder.
-		if (pidl)
-		{
-			// Try to convert the pidl to a display generic_string.
-			// Return is true if success.
-			TCHAR szDir[MAX_PATH];
-			if (::SHGetPathFromIDList(pidl, szDir))
-				// Set edit control to the directory path.
-				folderName = szDir;
-			pShellMalloc->Free(pidl);
-		}
-		pShellMalloc->Release();
-	}
-	return folderName;
+	return folderBrowser(parent, TEXT("Select a folder"), 0, defaultDir);
 }
 
 

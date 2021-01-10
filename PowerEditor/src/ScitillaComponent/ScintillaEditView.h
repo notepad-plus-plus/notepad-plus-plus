@@ -324,19 +324,7 @@ public:
     static const int _SC_MARGE_FOLDER;
 	//static const int _SC_MARGE_MODIFMARKER;
 
-    void showMargin(int whichMarge, bool willBeShowed = true) {
-        if (whichMarge == _SC_MARGE_LINENUMBER)
-			updateLineNumbersMargin();
-        else
-		{
-			int width = 3;
-			if (whichMarge == _SC_MARGE_SYBOLE)
-				width = NppParameters::getInstance()._dpiManager.scaleX(100) >= 150 ? 20 : 16;
-			else if (whichMarge == _SC_MARGE_FOLDER)
-				width = NppParameters::getInstance()._dpiManager.scaleX(100) >= 150 ? 18 : 14;
-			execute(SCI_SETMARGINWIDTHN, whichMarge, willBeShowed ? width : 0);
-		}
-    };
+    void showMargin(int whichMarge, bool willBeShowed = true);
 
     bool hasMarginShowed(int witchMarge) {
 		return (execute(SCI_GETMARGINWIDTHN, witchMarge, 0) != 0);
@@ -473,9 +461,13 @@ public:
 
 	void setLineIndent(int line, int indent) const;
 
-	void updateLineNumbersMargin() {
+	void updateLineNumbersMargin(bool forcedToHide) {
 		const ScintillaViewParams& svp = NppParameters::getInstance().getSVP();
-		if (svp._lineNumberMarginShow)
+		if (forcedToHide)
+		{
+			execute(SCI_SETMARGINWIDTHN, _SC_MARGE_LINENUMBER, 0);
+		}
+		else if (svp._lineNumberMarginShow)
 		{
 			updateLineNumberWidth();
 		}

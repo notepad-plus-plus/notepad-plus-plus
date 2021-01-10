@@ -2479,6 +2479,24 @@ void ScintillaEditView::beginOrEndSelect()
 	}
 }
 
+void ScintillaEditView::showMargin(int whichMarge, bool willBeShowed)
+{
+	if (whichMarge == _SC_MARGE_LINENUMBER)
+	{
+		bool forcedToHide = !willBeShowed;
+		updateLineNumbersMargin(forcedToHide);
+	}
+	else
+	{
+		int width = 3;
+		if (whichMarge == _SC_MARGE_SYBOLE)
+			width = NppParameters::getInstance()._dpiManager.scaleX(100) >= 150 ? 20 : 16;
+		else if (whichMarge == _SC_MARGE_FOLDER)
+			width = NppParameters::getInstance()._dpiManager.scaleX(100) >= 150 ? 18 : 14;
+		execute(SCI_SETMARGINWIDTHN, whichMarge, willBeShowed ? width : 0);
+	}
+}
+
 void ScintillaEditView::updateBeginEndSelectPosition(bool is_insert, size_t position, size_t length)
 {
 	if (_beginSelectPosition != -1 && static_cast<long long>(position) < _beginSelectPosition - 1)

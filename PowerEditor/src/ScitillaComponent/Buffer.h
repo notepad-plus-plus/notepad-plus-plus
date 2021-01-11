@@ -65,7 +65,12 @@ enum BufferStatusInfo
 //const int userLangNameMax = 16;
 const TCHAR UNTITLED_STR[] = TEXT("new ");
 
-
+enum SavingStatus
+{
+	SaveOK             = 0,
+	SaveOpenFailed     = 1,
+	SaveWrittingFailed = 2
+};
 
 //File manager class maintains all buffers
 class FileManager final
@@ -101,7 +106,7 @@ public:
 	void setLoadedBufferEncodingAndEol(Buffer* buf, const Utf8_16_Read& UnicodeConvertor, int encoding, EolType bkformat);
 	bool reloadBuffer(BufferID id);
 	bool reloadBufferDeferred(BufferID id);
-	bool saveBuffer(BufferID id, const TCHAR* filename, bool isCopy = false, generic_string * error_msg = NULL);
+	SavingStatus saveBuffer(BufferID id, const TCHAR* filename, bool isCopy = false);
 	bool backupCurrentBuffer();
 	bool deleteBufferBackup(BufferID id);
 	bool deleteFile(BufferID id);

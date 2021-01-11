@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="Windows-1252" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <NotepadPlus>
 	<AutoComplete language="SQL">
 		<Environment ignoreCase="yes" startFunc="(" stopFunc=")" paramSeparator="," terminal=";" />
@@ -83,7 +83,7 @@
 		<KeyWord name="BETWEEN" />
 		<KeyWord name="BFILE" />
 		<KeyWord name="BFILENAME" func="yes">
-			<Overload retVal="BFILE" descr="returns a BFILE locator that is associated with a physical LOB binary file on the server’s file system.">
+			<Overload retVal="BFILE" descr="returns a BFILE locator that is associated with a physical LOB binary file on the server's file system.">
 			<Param name="CHAR directory (must exist in data dictionary)" />
 			<Param name="CHAR filename" />
 			</Overload>

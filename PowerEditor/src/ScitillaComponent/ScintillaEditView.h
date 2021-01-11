@@ -324,19 +324,7 @@ public:
     static const int _SC_MARGE_FOLDER;
 	//static const int _SC_MARGE_MODIFMARKER;
 
-    void showMargin(int whichMarge, bool willBeShowed = true) {
-        if (whichMarge == _SC_MARGE_LINENUMBER)
-			showLineNumbersMargin(willBeShowed);
-        else
-		{
-			int width = 3;
-			if (whichMarge == _SC_MARGE_SYBOLE)
-				width = NppParameters::getInstance()._dpiManager.scaleX(100) >= 150 ? 20 : 16;
-			else if (whichMarge == _SC_MARGE_FOLDER)
-				width = NppParameters::getInstance()._dpiManager.scaleX(100) >= 150 ? 18 : 14;
-			execute(SCI_SETMARGINWIDTHN, whichMarge, willBeShowed ? width : 0);
-		}
-    };
+    void showMargin(int whichMarge, bool willBeShowed = true);
 
     bool hasMarginShowed(int witchMarge) {
 		return (execute(SCI_GETMARGINWIDTHN, witchMarge, 0) != 0);
@@ -473,11 +461,13 @@ public:
 
 	void setLineIndent(int line, int indent) const;
 
-	void showLineNumbersMargin(bool show)
-	{
-		if (show == _lineNumbersShown) return;
-		_lineNumbersShown = show;
-		if (show)
+	void updateLineNumbersMargin(bool forcedToHide) {
+		const ScintillaViewParams& svp = NppParameters::getInstance().getSVP();
+		if (forcedToHide)
+		{
+			execute(SCI_SETMARGINWIDTHN, _SC_MARGE_LINENUMBER, 0);
+		}
+		else if (svp._lineNumberMarginShow)
 		{
 			updateLineNumberWidth();
 		}
@@ -488,6 +478,7 @@ public:
 	}
 
 	void updateLineNumberWidth();
+	
 
 	void setCurrentLineHiLiting(bool isHiliting, COLORREF bgColor) const {
 		execute(SCI_SETCARETLINEVISIBLE, isHiliting);
@@ -560,6 +551,8 @@ public:
 		execute(SCI_INDICATORCLEARRANGE, docStart, docEnd-docStart);
 	};
 
+	bool getIndicatorRange(int indicatorNumber, int *from = NULL, int *to = NULL, int *cur = NULL);
+
 	static LanguageName langNames[L_EXTERNAL+1];
 
 	void bufferUpdated(Buffer * buffer, int mask);
@@ -594,6 +587,12 @@ public:
 		return false;
 	};
 
+	bool isPythonStyleIndentation(LangType typeDoc) const{
+		return (typeDoc == L_PYTHON || typeDoc == L_COFFEESCRIPT || typeDoc == L_HASKELL ||\
+			typeDoc == L_C || typeDoc == L_CPP || typeDoc == L_OBJC || typeDoc == L_CS || typeDoc == L_JAVA ||\
+			typeDoc == L_PHP || typeDoc == L_JS || typeDoc == L_JAVASCRIPT || typeDoc == L_MAKEFILE || typeDoc == L_ASN1);
+	};
+
 	void defineDocType(LangType typeDoc);	//setup stylers for active document
 
 	void addCustomWordChars();
@@ -619,6 +618,9 @@ public:
 	void sortLines(size_t fromLine, size_t toLine, ISorter *pSort);
 	void changeTextDirection(bool isRTL);
 	bool isTextDirectionRTL() const;
+	void setPositionRestoreNeeded(bool val) { _positionRestoreNeeded = val; };
+	void markedTextToClipboard(int indiStyle, bool doAll = false);
+	void removeAnyDuplicateLines();
 
 protected:
 	static HINSTANCE _hLib;
@@ -642,7 +644,6 @@ protected:
 	Buffer * _currentBuffer = nullptr;
 
 	int _codepage = CP_ACP;
-	bool _lineNumbersShown = false;
 	bool _wrapRestoreNeeded = false;
 	bool _positionRestoreNeeded = false;
 	uint32_t _restorePositionRetryCount = 0;

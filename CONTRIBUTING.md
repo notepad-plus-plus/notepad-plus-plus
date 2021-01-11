@@ -33,7 +33,7 @@ Opening a issue beforehand allows the administrators and the community to discus
 ### Guidelines for pull requests
 
 1. Respect Notepad++ coding style.
-2. Create a new branch for each PR. **Make sure your branch name wasn't used before** - you can add date (for example `patch3_20200528`) to ensure its unicity.
+2. Create a new branch for each PR. **Make sure your branch name wasn't used before** - you can add date (for example `patch3_20200528`) to ensure its uniqueness.
 3. Single feature or bug-fix per PR.
 4. Make single commit per PR.
 5. Make your modification compact - don't reformat source code in your request. It makes code review more difficult.
@@ -274,12 +274,12 @@ Any member variable name of class/struct should be preceded by an underscore.
   };
   ```
 
-3. ##### Prefer this form:
+3. ##### Prefer Pre-increment:
   ```cpp
   ++i
   ```
 
-  **to:**
+ ##### **Over Post-increment:**
   ```cpp
   i++
   ```

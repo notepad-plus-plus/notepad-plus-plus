@@ -116,8 +116,11 @@ IDI_UNDO_DISABLE_ICON           ICON      "icons/undo_dis.ico"
 IDI_REDO_DISABLE_ICON           ICON      "icons/redo_dis.ico"
 //
 IDI_SAVED_ICON                  ICON      "icons/saved.ico"
+IDI_SAVED_ALT_ICON              ICON      "icons/saved_alt.ico"
 IDI_UNSAVED_ICON                ICON      "icons/unsaved.ico"
+IDI_UNSAVED_ALT_ICON            ICON      "icons/unsaved_alt.ico"
 IDI_READONLY_ICON               ICON      "icons/readonly.ico"
+IDI_READONLY_ALT_ICON           ICON      "icons/readonly_alt.ico"
 IDI_MONITORING_ICON             ICON      "icons/monitoring.ico"
 IDI_DELETE_ICON                 ICON      "icons/delete.ico"
 IDI_FIND_RESULT_ICON            ICON      "icons/findResult.ico"
@@ -237,6 +240,8 @@ BEGIN
         BEGIN
             MENUITEM "Explorer",       IDM_FILE_OPEN_FOLDER
             MENUITEM "cmd",            IDM_FILE_OPEN_CMD
+			MENUITEM SEPARATOR
+            MENUITEM "Folder as Workspace", IDM_FILE_CONTAININGFOLDERASWORKSPACE
         END
         MENUITEM "Open in Default Viewer",           IDM_FILE_OPEN_DEFAULT_VIEWER
         MENUITEM "Open Folder as Workspace...",      IDM_FILE_OPENFOLDERASWORSPACE
@@ -303,7 +308,8 @@ BEGIN
         POPUP "Line Operations"
         BEGIN
             MENUITEM "Duplicate Current Line",                           IDM_EDIT_DUP_LINE
-            MENUITEM "Remove Consecutive Duplicate Lines",               IDM_EDIT_REMOVE_DUP_LINES
+            MENUITEM "Remove Duplicate Lines",                           IDM_EDIT_REMOVE_ANY_DUP_LINES
+            MENUITEM "Remove Consecutive Duplicate Lines",               IDM_EDIT_REMOVE_CONSECUTIVE_DUP_LINES
             MENUITEM "Split Lines",                                      IDM_EDIT_SPLIT_LINES
             MENUITEM "Join Lines",                                       IDM_EDIT_JOIN_LINES
             MENUITEM "Move Up Current Line",                             IDM_EDIT_LINE_UP
@@ -314,11 +320,13 @@ BEGIN
             MENUITEM "Insert Blank Line Below Current",                  IDM_EDIT_BLANKLINEBELOWCURRENT
             MENUITEM SEPARATOR
             MENUITEM "Sort Lines Lexicographically Ascending",           IDM_EDIT_SORTLINES_LEXICOGRAPHIC_ASCENDING
+            MENUITEM "Sort Lines Lex. Ascending Ignoring Case",          IDM_EDIT_SORTLINES_LEXICO_CASE_INSENS_ASCENDING
             MENUITEM "Sort Lines As Integers Ascending",                 IDM_EDIT_SORTLINES_INTEGER_ASCENDING
             MENUITEM "Sort Lines As Decimals (Comma) Ascending",         IDM_EDIT_SORTLINES_DECIMALCOMMA_ASCENDING
             MENUITEM "Sort Lines As Decimals (Dot) Ascending",           IDM_EDIT_SORTLINES_DECIMALDOT_ASCENDING
             MENUITEM SEPARATOR
             MENUITEM "Sort Lines Lexicographically Descending",          IDM_EDIT_SORTLINES_LEXICOGRAPHIC_DESCENDING
+            MENUITEM "Sort Lines Lex. Descending Ignoring Case",         IDM_EDIT_SORTLINES_LEXICO_CASE_INSENS_DESCENDING
             MENUITEM "Sort Lines As Integers Descending",                IDM_EDIT_SORTLINES_INTEGER_DESCENDING
             MENUITEM "Sort Lines As Decimals (Comma) Descending",        IDM_EDIT_SORTLINES_DECIMALCOMMA_DESCENDING
             MENUITEM "Sort Lines As Decimals (Dot) Descending",          IDM_EDIT_SORTLINES_DECIMALDOT_DESCENDING
@@ -440,6 +448,16 @@ BEGIN
             MENUITEM "4th Style",      IDM_SEARCH_GONEXTMARKER4
             MENUITEM "5th Style",      IDM_SEARCH_GONEXTMARKER5
             MENUITEM "Find Style",     IDM_SEARCH_GONEXTMARKER_DEF
+        END
+        POPUP "Copy Styled Text"
+        BEGIN
+            MENUITEM "1st Style",               IDM_SEARCH_STYLE1TOCLIP
+            MENUITEM "2nd Style",               IDM_SEARCH_STYLE2TOCLIP
+            MENUITEM "3rd Style",               IDM_SEARCH_STYLE3TOCLIP
+            MENUITEM "4th Style",               IDM_SEARCH_STYLE4TOCLIP
+            MENUITEM "5th Style",               IDM_SEARCH_STYLE5TOCLIP
+            MENUITEM "All Styles",              IDM_SEARCH_ALLSTYLESTOCLIP
+            MENUITEM "Find Style (Marked)",     IDM_SEARCH_MARKEDTOCLIP
         END
         MENUITEM SEPARATOR
         POPUP "Bookmark"
@@ -696,6 +714,8 @@ BEGIN
 
     POPUP "&Language"
     BEGIN
+        MENUITEM "None (Normal Text)",      IDM_LANG_TEXT
+        MENUITEM SEPARATOR
         MENUITEM "ActionScript",            IDM_LANG_FLASH
         MENUITEM "Ada",                     IDM_LANG_ADA
         MENUITEM "ASN.1",                   IDM_LANG_ASN1
@@ -743,7 +763,6 @@ BEGIN
         MENUITEM "MS-DOS Style",            IDM_LANG_ASCII
         MENUITEM "Nimrod",                  IDM_LANG_NIMROD
         MENUITEM "Nncrontab",               IDM_LANG_NNCRONTAB
-        MENUITEM "Normal Text",             IDM_LANG_TEXT
         MENUITEM "NSIS",                    IDM_LANG_NSIS
         MENUITEM "Objective-C",             IDM_LANG_OBJC
         MENUITEM "OScript",                 IDM_LANG_OSCRIPT
@@ -786,6 +805,8 @@ BEGIN
 
     POPUP "&Language"
     BEGIN
+    MENUITEM "None (Normal Text)",        IDM_LANG_TEXT
+    MENUITEM SEPARATOR
     POPUP "A"
     BEGIN
         MENUITEM "ActionScript",          IDM_LANG_FLASH
@@ -868,7 +889,6 @@ BEGIN
     BEGIN
         MENUITEM "Nimrod",                IDM_LANG_NIMROD
         MENUITEM "Nncrontab",             IDM_LANG_NNCRONTAB
-        MENUITEM "Normal Text",           IDM_LANG_TEXT
         MENUITEM "NSIS",                  IDM_LANG_NSIS
     END
     POPUP "O"
@@ -1025,6 +1045,7 @@ BEGIN
     //LTEXT           "Author :",IDC_STATIC,21,45,31,8
     //LTEXT           "FREE UYGHUR",IDC_AUTHOR_NAME,70,32,70,8
     LTEXT           "Stand with Hong Kong",IDC_AUTHOR_NAME,70,32,80,8
+    //LTEXT           "pour Samuel Paty",IDC_AUTHOR_NAME,70,32,80,8
     LTEXT           "Home:",IDC_STATIC,21,52,47,8
     LTEXT           "https://notepad-plus-plus.org/",IDC_HOME_ADDR,50,52,126,8
     GROUPBOX        "GNU General Public Licence",IDC_STATIC,19,75,231,131,BS_CENTER
@@ -1050,7 +1071,7 @@ EXSTYLE WS_EX_WINDOWEDGE
 CAPTION "Save"
 FONT 8, TEXT("MS Shell Dlg"), 0, 0, 0x1
 BEGIN
-    LTEXT           "",IDC_DOSAVEORNOTTEX,7,10,290,40
+    LTEXT           "",IDC_DOSAVEORNOTTEX,7,10,290,40,SS_EDITCONTROL
     DEFPUSHBUTTON   "&Yes",IDYES,10,60,50,14,BS_FLAT
     PUSHBUTTON   "&No",IDNO,65,60,50,14,BS_FLAT
     PUSHBUTTON   "&Cancel",IDCANCEL,120,60,50,14,BS_FLAT

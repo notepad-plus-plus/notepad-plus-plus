@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="Windows-1252" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <NotepadPlus>
 	<AutoComplete>
 		<Environment ignoreCase="no" startFunc="(" stopFunc=")" paramSeparator="," terminal=";" />
@@ -255,7 +255,7 @@
 		<KeyWord name="given" />
 		<KeyWord name="glob" func="yes"><Overload retVal="" descr="expand filenames using wildcards"><Param name="EXPR" /></Overload><Overload retVal="" descr="expand filenames using wildcards"><Param name="" /></Overload></KeyWord>
 		<KeyWord name="gmtime" func="yes"><Overload retVal="" descr="convert UNIX time into record or string using Greenwich time"><Param name="EXPR" /></Overload><Overload retVal="" descr="convert UNIX time into record or string using Greenwich time"><Param name="" /></Overload></KeyWord>
-		<KeyWord name="goto" func="yes"><Overload retVal="" descr="create spaghetti code"><Param name="&NAME" /></Overload><Overload retVal="" descr="create spaghetti code"><Param name="EXPR" /></Overload><Overload retVal="" descr="create spaghetti code"><Param name="LABEL" /></Overload></KeyWord>
+		<KeyWord name="goto" func="yes"><Overload retVal="" descr="create spaghetti code"><Param name="&amp;NAME" /></Overload><Overload retVal="" descr="create spaghetti code"><Param name="EXPR" /></Overload><Overload retVal="" descr="create spaghetti code"><Param name="LABEL" /></Overload></KeyWord>
 		<KeyWord name="grep" func="yes"><Overload retVal="" descr="locate elements in a list test true against a given criterion"><Param name="BLOCK LIST" /></Overload><Overload retVal="" descr="locate elements in a list test true against a given criterion"><Param name="EXPR" /><Param name="LIST" /></Overload></KeyWord>
 		<KeyWord name="groove" />
 		<KeyWord name="gt" />

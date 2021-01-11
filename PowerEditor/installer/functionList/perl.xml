@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ==========================================================================\
+|
+|   To learn how to make your own language parser, please check the following
+|   link:
+|       https://npp-user-manual.org/docs/function-list/
+|
+\=========================================================================== -->
+<NotepadPlus>
+	<functionList>
+		<!-- ======================================================== [ PERL ] -->
+		<!-- PERL - Practical Extraction and Reporting Language                -->
+
+		<parser
+			displayName="PERL"
+			id         ="perl_function"
+			commentExpr="(?x)                                               # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+							(?m-s:\x23.*$)                                  # Single Line Comment
+						"
+		>
+			<function
+				mainExpr="(?x)                                              # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+						sub
+						\s+
+						[A-Za-z_]\w*
+						(\s*\([^()]*\))?                                    # prototype or signature
+						(\s*\:\s*[^{]+)?                                    # attributes
+						\s*\{                                               # start of class body
+					"
+			>
+				<functionName>
+					<nameExpr expr="(?:sub\s+)?\K[A-Za-z_]\w*" />
+				</functionName>
+				<className>
+					<nameExpr expr="[A-Za-z_]\w*(?=\s*:{2})" />
+				</className>
+			</function>
+		</parser>
+	</functionList>
+</NotepadPlus>

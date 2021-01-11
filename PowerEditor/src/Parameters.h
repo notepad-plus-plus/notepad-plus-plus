@@ -63,6 +63,7 @@ const int TAB_VERTICAL = 64;       //0000 0100 0000
 const int TAB_MULTILINE = 128;     //0000 1000 0000
 const int TAB_HIDE = 256;          //0001 0000 0000
 const int TAB_QUITONEMPTY = 512;   //0010 0000 0000
+const int TAB_ALTICONS = 1024;     //0100 0000 0000
 
 
 enum class EolType: std::uint8_t
@@ -202,8 +203,11 @@ struct Session
 	size_t _activeView = 0;
 	size_t _activeMainIndex = 0;
 	size_t _activeSubIndex = 0;
+	bool _includeFileBrowser = false;
+	generic_string _fileBrowserSelectedItem;
 	std::vector<sessionFileInfo> _mainViewFiles;
 	std::vector<sessionFileInfo> _subViewFiles;
+	std::vector<generic_string> _fileBrowserRoots;
 };
 
 
@@ -230,6 +234,7 @@ struct CmdLineParams
 
 	LangType _langType = L_EXTERNAL;
 	generic_string _localizationPath;
+
 	generic_string _easterEggName;
 	unsigned char _quoteType = '\0';
 	int _ghostTypingSpeed = -1; // -1: initial value  1: slow  2: fast  3: speed of light
@@ -821,6 +826,7 @@ struct NppGUI final
 	bool _rememberLastSession = true; // remember next session boolean will be written in the settings
 	bool _isCmdlineNosessionActivated = false; // used for if -nosession is indicated on the launch time
 	bool _detectEncoding = true;
+	bool _setSaveDlgExtFiltToAllTypes = false;
 	bool _doTaskList = true;
 	bool _maitainIndent = true;
 	bool _enableSmartHilite = true;
@@ -847,6 +853,7 @@ struct NppGUI final
 	bool _isWordCharDefault = true;
 	std::string _customWordChars;
 	urlMode _styleURL = urlUnderLineFg;
+	generic_string _uriSchemes = TEXT("svn:// cvs:// git:// imap:// irc:// irc6:// ircs:// ldap:// ldaps:// news: telnet:// gopher:// ssh:// sftp:// smb:// skype: snmp:// spotify: steam:// sms: slack:// chrome:// bitcoin:");
 	NewDocDefaultSettings _newDocDefaultSettings;
 
 
@@ -916,6 +923,7 @@ struct NppGUI final
 struct ScintillaViewParams
 {
 	bool _lineNumberMarginShow = true;
+	bool _lineNumberMarginDynamicWidth = true;
 	bool _bookMarkMarginShow = true;
 	folderStyle  _folderStyle = FOLDER_STYLE_BOX; //"simple", "arrow", "circle", "box" and "none"
 	lineWrapMethod _lineWrapMethod = LINEWRAP_ALIGNED;
@@ -932,7 +940,7 @@ struct ScintillaViewParams
 	bool _whiteSpaceShow = false;
 	bool _eolShow = false;
 	int _borderWidth = 2;
-	bool _scrollBeyondLastLine = false;
+	bool _scrollBeyondLastLine = true;
 	bool _rightClickKeepsSelection = false;
 	bool _disableAdvancedScrolling = false;
 	bool _doSmoothFont = false;
@@ -1546,6 +1554,8 @@ public:
 	};
 
 	const std::vector<generic_string> getFileBrowserRoots() const { return _fileBrowserRoot; };
+	generic_string getFileBrowserSelectedItemPath() const { return _fileBrowserSelectedItemPath; };
+
 	void setWorkSpaceFilePath(int i, const TCHAR *wsFile);
 
 	void setWorkingDir(const TCHAR * newPath);
@@ -1672,6 +1682,11 @@ public:
 	void setUseNewStyleSaveDlg(bool v) {
 		_nppGUI._useNewStyleSaveDlg = v;
 	}
+
+	void setCmdSettingsDir(const generic_string& settingsDir) {
+		_cmdSettingsDir = settingsDir;
+	};
+
 	DPIManager _dpiManager;
 
 	generic_string static getSpecialFolderLocation(int folderKind);
@@ -1710,7 +1725,7 @@ private:
 
 	NppGUI _nppGUI;
 	ScintillaViewParams _svp;
-	Lang *_langList[NB_LANG];
+	Lang *_langList[NB_LANG] = {};
 	int _nbLang = 0;
 
 	// Recent File History
@@ -1749,6 +1764,8 @@ private:
 	WNDPROC _enableThemeDialogTextureFuncAddr = nullptr;
 	bool _isLocal;
 	bool _isx64 = false; // by default 32-bit
+
+	generic_string _cmdSettingsDir;
 
 public:
 	void setShortcutDirty() { _isAnyShortcutModified = true; };
@@ -1794,6 +1811,7 @@ private:
 	generic_string _workSpaceFilePathes[3];
 
 	std::vector<generic_string> _fileBrowserRoot;
+	generic_string _fileBrowserSelectedItemPath;
 
 	Accelerator *_pAccelerator;
 	ScintillaAccelerator * _pScintAccelerator;
@@ -1847,6 +1865,7 @@ private:
 	void feedFileListParameters(TiXmlNode *node);
 	void feedScintillaParam(TiXmlNode *node);
 	void feedDockingManager(TiXmlNode *node);
+	void duplicateDockingManager(TiXmlNode *dockMngNode, TiXmlElement* dockMngElmt2Clone);
 	void feedFindHistoryParameters(TiXmlNode *node);
 	void feedProjectPanelsParameters(TiXmlNode *node);
 	void feedFileBrowserParameters(TiXmlNode *node);

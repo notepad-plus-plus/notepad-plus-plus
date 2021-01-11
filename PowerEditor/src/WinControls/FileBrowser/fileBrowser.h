@@ -44,6 +44,9 @@
 #define FB_OPENINNPP          TEXT("Open")
 #define FB_SHELLEXECUTE       TEXT("Run by system")
 
+#define FOLDERASWORKSPACE_NODE "FolderAsWorkspace"
+
+
 class TiXmlNode;
 class FileBrowser;
 class FolderInfo;
@@ -120,6 +123,7 @@ struct SortingData4lParam {
 
 	SortingData4lParam(generic_string rootPath, generic_string label, bool isFolder) : _rootPath(rootPath), _label(label), _isFolder(isFolder) {}
 };
+;
 
 class FileBrowser : public DockingDlgInterface {
 public:
@@ -147,7 +151,7 @@ public:
 
 	generic_string getNodePath(HTREEITEM node) const;
 	generic_string getNodeName(HTREEITEM node) const;
-	void addRootFolder(generic_string);
+	void addRootFolder(generic_string rootFolderPath);
 
 	HTREEITEM getRootFromFullPath(const generic_string & rootPath) const;
 	HTREEITEM findChildNodeFromName(HTREEITEM parent, const generic_string&) const;
@@ -163,6 +167,8 @@ public:
 
 	std::vector<generic_string> getRoots() const;
 	generic_string getSelectedItemPath() const;
+
+	bool selectItemFromPath(const generic_string& itemPath) const;
 
 protected:
 	HWND _hToolbarMenu = nullptr;
@@ -180,12 +186,17 @@ protected:
 
 	std::vector<SortingData4lParam*> sortingDataArray;
 
+	generic_string _expandAllFolders = TEXT("Expand all folders");
+	generic_string _collapseAllFolders = TEXT("Collapse all folders");
+	generic_string _locateCurrentFile = TEXT("Locate current file");
+
 	void initPopupMenus();
 	void destroyMenus();
 	BOOL setImageList(int root_open_id, int root_close_id, int open_node_id, int closed_node_id, int leaf_id);
 
 	BrowserNodeType getNodeType(HTREEITEM hItem);
 	void popupMenuCmd(int cmdID);
+
 	bool selectCurrentEditingFile() const;
 
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);

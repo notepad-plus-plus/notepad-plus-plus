@@ -7,11 +7,11 @@ Last update: 2009 July 07
 -->
 <!--
 Uzbek (Latin) translation for Notepad++
-Updated to v7.6.2:
+Updated to v7.9:
 Updater: Shamsiddinov Zafar
 -->
 <NotepadPlus>
-	<Native-Langue name="O‘zbekcha" filename="uzbek.xml" version="7.6.2">
+	<Native-Langue name="O‘zbekcha" filename="uzbek.xml" version="7.9">
 		<Menu>
 			<Main>
 
@@ -73,6 +73,7 @@ Updater: Shamsiddinov Zafar
 					<Item subMenuId="encoding-turkish" name="Turkcha"/>
 					<Item subMenuId="encoding-westernEuropean" name="G‘arbiy Yevropa tillarida"/>
 					<Item subMenuId="encoding-vietnamese" name="Vetnamcha"/>
+					<Item subMenuId="language-userDefinedLanguage" name="Foydalanuvchi belgilagan til"/>
 					<Item subMenuId="settings-import"  name="Import qilmoq"/>
 					<Item subMenuId="tools-md5"  name="MD5"/>
                     <Item subMenuId="tools-sha256"  name="SHA-256"/>
@@ -750,6 +751,9 @@ Updater: Shamsiddinov Zafar
 					<Item id="6234" name="Yurg‘izish funksiyasini o‘chirib qo‘ymoq&#x0A; (agar tapchadda probel bo‘lsa)"/>
 					<Item id="6235" name="Gardishsiz"/>
 					<Item id="6236" name="So‘nggi satrgacha yurg‘izmoq"/>
+					<Item id="6237" name="Oʻnlik sonda koʻrsatgan holda oʻz ustuningiz markerini qoʻshing.
+Siz bir necha marker ustunlarini probellar orqali belgilashingiz mumkin."/>
+					<Item id="6239" name="Sichqn. oʻng tugm. bosilmaganda ham belgilashni saqlamoq"/>
 				</Scintillas>
 				<NewDoc title = "Yangi fayl">
 					<Item id="6401" name="Formati"/>
@@ -774,6 +778,7 @@ Updater: Shamsiddinov Zafar
 					<Item id="6431" name="Dasturga surib olib kelingan jilddagi barcha fayllarni ochmoq"/>
 				</DefaultDir>
 				<FileAssoc title = "Fayllar birikuvi">
+					<Item id="4008" name="Notepad++ dasturiga Maʼmur (Admin) nomi bilan kirsangiz ushbu funksiya faollashadi."/>
 					<Item id="4009" name="Qo‘llovchi formatlar:"/>
 					<Item id="4010" name="Qayd etilgan formatlar:"/>
 				</FileAssoc>
@@ -806,6 +811,12 @@ Updater: Shamsiddinov Zafar
 					<Item id="6727" name="Qaysi qism..."/>
 					<Item id="6728" name="Kolontitullar"/>
 				</Print>
+				<Searching title="Izlash">
+					<Item id="6901" name="Izlash darchasidagi maydonni belgilangan soʻz bilan toʻldirmaslik"/>
+					<Item id="6902" name="Izlash darchasida monoenli shriftdan foydalanmoq (dasturga qayta kirish kerak)"/>
+					<Item id="6903" name="Izlash bajarilgandan soʻng ham Izlash darchasida qolmoq"/>
+					<Item id="6904" name="Almashtirish amalini barcha ochilgan oynalarda bajarmoq"/>
+				</Searching>
 				<RecentFilesHistory title="Ochish tarixi">
 					<Item id="6304" name="So‘nggi Yopilgan Fayllar Tarixi"/>
 					<Item id="6305" name="Kirganda tekshirmaslik"/>
@@ -859,6 +870,8 @@ Updater: Shamsiddinov Zafar
 					<Item id="6344" name="Faylni Ko‘rmoq"/>
 					<Item id="6345" name="Xatcho‘plar ostida miniatura"/>
 					<Item id="6346" name="Fayl xaritasida ko‘rsatmoq"/>
+					<Item id="6349" name="DirectWrite funksiyasidan foydalanmoq (Notepad++ dasturiga qayta kirish talab etiladi)"/>
+					<Item id="6350" name="Toʻldirish rejimini qoʻllamoq"/>
 				</MISC>
 				<MultiInstance title = "Kirish rejimi">
 					<Item id="6151" name="Fayl ochish rejimi"/>

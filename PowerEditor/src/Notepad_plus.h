@@ -61,8 +61,6 @@
 #define MENU 0x01
 #define TOOLBAR 0x02
 
-#define URL_REG_EXPR "[A-Za-z]+://[A-Za-z0-9_\\-\\+~.:?&@=/%#,;\\{\\}\\(\\)\\[\\]\\|\\*\\!\\\\]+"
-
 enum FileTransferMode {
 	TransferClone		= 0x01,
 	TransferMove		= 0x02
@@ -218,7 +216,7 @@ public:
 	void getCurrentOpenedFiles(Session& session, bool includUntitledDoc = false);
 
 	bool fileLoadSession(const TCHAR* fn = nullptr);
-	const TCHAR * fileSaveSession(size_t nbFile, TCHAR ** fileNames, const TCHAR *sessionFile2save);
+	const TCHAR * fileSaveSession(size_t nbFile, TCHAR ** fileNames, const TCHAR *sessionFile2save, bool includeFileBrowser = false);
 	const TCHAR * fileSaveSession(size_t nbFile = 0, TCHAR** fileNames = nullptr);
 	void changeToolBarIcons();
 
@@ -230,7 +228,7 @@ public:
 	void macroPlayback(Macro);
 
     void loadLastSession();
-	bool loadSession(Session & session, bool isSnapshotMode = false);
+	bool loadSession(Session & session, bool isSnapshotMode = false, bool shouldLoadFileBrowser = false);
 
 	void prepareBufferChangedDialog(Buffer * buffer);
 	void notifyBufferChanged(Buffer * buffer, int mask);
@@ -260,6 +258,9 @@ public:
 	generic_string getPluginListVerStr() const {
 		return _pluginsAdminDlg.getPluginListVerStr();
 	};
+
+	void minimizeDialogs();
+	void restoreMinimizeDialogs();
 
 private:
 	Notepad_plus_Window *_pPublicInterface = nullptr;
@@ -293,6 +294,7 @@ private:
 
 	ToolBar	_toolBar;
 	IconList _docTabIconList;
+	IconList _docTabIconListAlt;
 
     StatusBar _statusBar;
 	bool _toReduceTabBar = false;
@@ -404,6 +406,8 @@ private:
 	DocumentMap* _pDocMap = nullptr;
 	FunctionListPanel* _pFuncList = nullptr;
 
+	std::vector<HWND> _sysTrayHiddenHwnd;
+
 	BOOL notify(SCNotification *notification);
 	void command(int id);
 
@@ -465,6 +469,7 @@ private:
 	void checkUndoState();
 	void checkMacroState();
 	void checkSyncState();
+	void setupColorSampleBitmapsOnMainMenuItems();
 	void dropFiles(HDROP hdrop);
 	void checkModifiedDocument(bool bCheckOnlyCurrentBuffer);
 
@@ -566,6 +571,7 @@ private:
 	void showPathCompletion();
 
 	//void changeStyleCtrlsLang(HWND hDlg, int *idArray, const char **translatedText);
+	void setCodePageForInvisibleView(Buffer const* pBuffer);
 	bool replaceInOpenedFiles();
 	bool findInOpenedFiles();
 	bool findInCurrentFile(bool isEntireDoc);
@@ -607,7 +613,7 @@ private:
 	void launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int panelID);
 	void launchDocMap();
 	void launchFunctionList();
-	void launchFileBrowser(const std::vector<generic_string> & folders, bool fromScratch = false);
+	void launchFileBrowser(const std::vector<generic_string> & folders, const generic_string& selectedItemPath, bool fromScratch = false);
 	void showAllQuotes() const;
 	static DWORD WINAPI threadTextPlayer(void *text2display);
 	static DWORD WINAPI threadTextTroller(void *params);

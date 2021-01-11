@@ -43,16 +43,14 @@ public:
 	DockingDlgInterface() = default;
 	explicit DockingDlgInterface(int dlgID): _dlgID(dlgID) {}
 
-	virtual void init(HINSTANCE hInst, HWND parent)
-	{
+	virtual void init(HINSTANCE hInst, HWND parent) {
 		StaticDialog::init(hInst, parent);
 		TCHAR temp[MAX_PATH];
 		::GetModuleFileName(reinterpret_cast<HMODULE>(hInst), temp, MAX_PATH);
 		_moduleName = ::PathFindFileName(temp);
 	}
 
-    void create(tTbData * data, bool isRTL = false)
-	{
+    void create(tTbData* data, bool isRTL = false) {
 		assert(data != nullptr);
 		StaticDialog::create(_dlgID, isRTL);
 		TCHAR temp[MAX_PATH];
@@ -60,18 +58,17 @@ public:
 		_pluginName = temp;
 
         // user information
-		data->hClient		= _hSelf;
-		data->pszName		= _pluginName.c_str();
+		data->hClient = _hSelf;
+		data->pszName = _pluginName.c_str();
 
 		// supported features by plugin
-		data->uMask			= 0;
+		data->uMask = 0;
 
 		// additional info
-		data->pszAddInfo	= NULL;
+		data->pszAddInfo = NULL;
 	}
 
-	virtual void updateDockingDlg()
-	{
+	virtual void updateDockingDlg() {
 		::SendMessage(_hParent, NPPM_DMMUPDATEDISPINFO, 0, reinterpret_cast<LPARAM>(_hSelf));
 	}
 
@@ -97,11 +94,16 @@ public:
 	}
 
 protected :
-	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM, LPARAM lParam)
-	{
-		switch (message) 
-		{
+	int	_dlgID = -1;
+	bool _isFloating = true;
+	int _iDockedPos = 0;
+	generic_string _moduleName;
+	generic_string _pluginName;
+	bool _isClosed = false;
 
+	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM, LPARAM lParam) {
+		switch (message)
+		{
 			case WM_NOTIFY: 
 			{
 				LPNMHDR	pnmh = reinterpret_cast<LPNMHDR>(lParam);
@@ -136,13 +138,4 @@ protected :
 		}
 		return FALSE;
 	};
-	
-	// Handles
-    HWND			_HSource = NULL;
-	int				_dlgID = -1;
-	bool            _isFloating = true;
-	int				_iDockedPos = 0;
-	generic_string  _moduleName;
-	generic_string  _pluginName;
-	bool			_isClosed = false;
 };

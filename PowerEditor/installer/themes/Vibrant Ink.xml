@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="Windows-1252" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!-- 
 Style Name: Port VibrantInk
 Description: Based on the Textmate theme VibrantInk (http://alternateidea.com/blog/articles/2006/01/03/textmate-vibrant-ink-theme-and-prototype-bundle) by Justin Palmer
@@ -212,7 +212,7 @@ http://sourceforge.net/donate/index.php?group_id=95717
             <WordsStyle name="STRING" styleID="85" fgColor="66FF00" bgColor="C4F9FD" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="STRINGEOL" styleID="87" fgColor="66FF00" bgColor="C4F9FD" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="IDENTIFIER" styleID="86" fgColor="FFFFFF" bgColor="C4F9FD" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="ASPSYBOL" styleID="15" fgColor="FFFFFF" bgColor="000000" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="ASPSYMBOL" styleID="15" fgColor="FFFFFF" bgColor="000000" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="SCRIPTTYPE" styleID="16" fgColor="FFFFFF" bgColor="FFC000" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
         <LexerType name="xml" desc="XML" ext="">
@@ -351,7 +351,7 @@ http://sourceforge.net/donate/index.php?group_id=95717
             <WordsStyle name="COMMENT" styleID="1" fgColor="9933CC" bgColor="000000" fontName="" fontStyle="0" fontSize="8" />
             <WordsStyle name="KEYWORDS" styleID="2" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="instre1" />
             <WordsStyle name="LABEL" styleID="3" fgColor="99CC99" bgColor="FFFF80" fontName="" fontStyle="1" fontSize="" />
-            <WordsStyle name="HIDE SYBOL" styleID="4" fgColor="FF00FF" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="HIDE SYMBOL" styleID="4" fgColor="FF00FF" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMAND" styleID="5" fgColor="339999" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="VARIABLE" styleID="6" fgColor="FF8000" bgColor="FCFFF0" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="OPERATOR" styleID="7" fgColor="99CC99" bgColor="000000" fontName="" fontStyle="1" fontSize="" />
@@ -742,7 +742,9 @@ http://sourceforge.net/donate/index.php?group_id=95717
         <WidgetStyle name="Find Mark Style" styleID="31" fgColor="FFFF00" bgColor="FF0000" fontName="" fontStyle="1" fontSize="" />
         <WidgetStyle name="Edge colour" styleID="0" fgColor="80FFFF" bgColor="F3F3F3" fontSize="8" fontStyle="0" />
         <WidgetStyle name="Line number margin" styleID="33" fgColor="E4E4E4" bgColor="333333" fontName="" fontStyle="0" fontSize="" />
+        <WidgetStyle name="Bookmark margin" styleID="0" bgColor="333333" />
         <WidgetStyle name="Fold" styleID="0" fgColor="999999" bgColor="333333" fontSize="" fontStyle="0" />
+        <WidgetStyle name="Fold active" styleID="0" fgColor="999999" />
         <WidgetStyle name="Fold margin" styleID="0" fgColor="222222" bgColor="111111" />
         <WidgetStyle name="White space symbol" styleID="0" fgColor="FF8080" bgColor="000000" />
         <WidgetStyle name="Smart HighLighting" styleID="29" bgColor="00FF00" fgColor="555753" />

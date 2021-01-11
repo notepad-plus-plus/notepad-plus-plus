@@ -275,10 +275,14 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath)
 		s += USERMSG;
 		if (::MessageBox(NULL, s.c_str(), pluginFilePath, MB_YESNO) == IDYES)
 		{
+			if (pi && pi->_hLib)
+			{
+				::FreeLibrary(pi->_hLib);
+			}
 			::DeleteFile(pluginFilePath);
 		}
 		delete pi;
-        return -1;
+		return -1;
 	}
 	catch (...)
 	{
@@ -288,10 +292,14 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath)
 		msg += USERMSG;
 		if (::MessageBox(NULL, msg.c_str(), pluginFilePath, MB_YESNO) == IDYES)
 		{
+			if (pi && pi->_hLib)
+			{
+				::FreeLibrary(pi->_hLib);
+			}
 			::DeleteFile(pluginFilePath);
 		}
 		delete pi;
-        return -1;
+		return -1;
 	}
 }
 

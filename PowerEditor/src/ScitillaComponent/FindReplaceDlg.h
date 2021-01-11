@@ -28,6 +28,7 @@
 
 #pragma once
 
+#include <map>
 #include "FindReplaceDlg_rc.h"
 #include "ScintillaEditView.h"
 #include "DockingDlgInterface.h"
@@ -166,8 +167,9 @@ private:
 	int _lastSearchHeaderPos = 0;
 
 	bool _canBeVolatiled = true;
-
 	bool _longLinesAreWrapped = false;
+
+	generic_string _prefixLineStr;
 
 	void setFinderReadOnly(bool isReadOnly) {
 		_scintView.execute(SCI_SETREADONLY, isReadOnly);
@@ -315,7 +317,7 @@ public :
 		// Show finder and set focus
 		if (_pFinder) 
 		{
-			::SendMessage(_hParent, NPPM_DMMSHOW, 0, reinterpret_cast<LPARAM>(_pFinder->getHSelf()));
+			_pFinder->display();
 			_pFinder->_scintView.getFocus();
 		}
 	};
@@ -359,7 +361,7 @@ private :
 	LONG _initialClientWidth;
 
 	DIALOG_TYPE _currentStatus;
-	RECT _findClosePos, _replaceClosePos, _findInFilesClosePos;
+	RECT _findClosePos, _replaceClosePos, _findInFilesClosePos, _markClosePos;
 	RECT _countInSelFramePos, _replaceInSelFramePos;
 	RECT _countInSelCheckPos, _replaceInSelCheckPos;
 
@@ -387,6 +389,11 @@ private :
 	FindStatus _statusbarFindStatus;
 
 	HFONT _hMonospaceFont = nullptr;
+
+	std::map<int, bool> _controlEnableMap;
+
+	void enableFindDlgItem(int dlgItemID, bool isEnable = true);
+	void showFindDlgItem(int dlgItemID, bool isShow = true);
 
 	void enableReplaceFunc(bool isEnable);
 	void enableFindInFilesControls(bool isEnable = true);

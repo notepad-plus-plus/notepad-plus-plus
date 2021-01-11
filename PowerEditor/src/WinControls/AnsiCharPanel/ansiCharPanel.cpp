@@ -68,6 +68,13 @@ INT_PTR CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 		{
 			switch (((LPNMHDR)lParam)->code)
 			{
+				case DMN_CLOSE:
+				{
+					::SendMessage(_hParent, WM_COMMAND, IDM_EDIT_CHAR_PANEL, 0);
+
+					return TRUE;
+				}
+
 				case NM_DBLCLK:
 				{
 					LPNMITEMACTIVATE lpnmitem = (LPNMITEMACTIVATE) lParam;

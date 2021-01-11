@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="Windows-1252" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <NotepadPlus>
 	<AutoComplete>
 		<Environment ignoreCase="yes" startFunc="(" stopFunc=")" paramSeparator="," terminal=";" additionalWordChar="@"/>
@@ -7415,7 +7415,7 @@
 			</Overload>
 		</KeyWord>
 		<KeyWord name="_GUICtrlListBox_SetAnchorIndex" func="yes">
-			<Overload retVal="" descr="Set the anchor item—that is, the item from which a multiple selection starts &amp;#x0a;(Requires: #Include &lt;GuiListBox.au3&gt;)">
+			<Overload retVal="" descr="Set the anchor item - that is, the item from which a multiple selection starts &amp;#x0a;(Requires: #Include &lt;GuiListBox.au3&gt;)">
 				<Param name="$hWnd" />
 				<Param name="$iIndex" />
 			</Overload>

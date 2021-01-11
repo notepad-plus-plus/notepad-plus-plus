@@ -47,7 +47,7 @@ class ContextMenu final
 public:
 	~ContextMenu();
 
-	void create(HWND hParent, const std::vector<MenuItemUnit> & menuItemArray, const HMENU mainMenuHandle = NULL);
+	void create(HWND hParent, const std::vector<MenuItemUnit> & menuItemArray, const HMENU mainMenuHandle = NULL, bool copyLink = false);
 	bool isCreated() const {return _hMenu != NULL;}
 	
 	void display(const POINT & p) const {

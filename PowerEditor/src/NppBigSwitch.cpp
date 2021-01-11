@@ -525,9 +525,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				_pDocMap->reloadMap();
 			}
 
-			addHotSpot(_pEditView);
-			addHotSpot(_pNonEditView);
-
 			result = TRUE;
 			break;
 		}
@@ -645,6 +642,13 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				MainFileManager.backupCurrentBuffer();
 			}
 
+			return TRUE;
+		}
+
+		case NPPM_INTERNAL_CHANGETABBAEICONS:
+		{
+			_mainDocTab.changeIcons(static_cast<unsigned char>(lParam));
+			_subDocTab.changeIcons(static_cast<unsigned char>(lParam));
 			return TRUE;
 		}
 
@@ -1425,7 +1429,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_SCROLLBEYONDLASTLINE:
 		{
-			const bool endAtLastLine = not (nppParam.getSVP())._scrollBeyondLastLine;
+			const bool endAtLastLine = !(nppParam.getSVP())._scrollBeyondLastLine;
 			_mainEditView.execute(SCI_SETENDATLASTLINE, endAtLastLine);
 			_subEditView.execute(SCI_SETENDATLASTLINE, endAtLastLine);
 			return TRUE;
@@ -1512,7 +1516,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					::GetCursorPos(&p);
 					ContextMenu scintillaContextmenu;
 					std::vector<MenuItemUnit>& tmp = nppParam.getContextMenuItems();
-					scintillaContextmenu.create(hwnd, tmp, _mainMenuHandle);
+					bool copyLink = (_pEditView->getSelectedTextCount() == 0) && _pEditView->getIndicatorRange(URL_INDIC);
+					scintillaContextmenu.create(hwnd, tmp, _mainMenuHandle, copyLink);
 					scintillaContextmenu.display(p);
 					return TRUE;
 				}
@@ -1645,11 +1650,14 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case WM_ACTIVATE:
 		{
-			_pEditView->getFocus();
-			auto x = _pEditView->execute(SCI_GETXOFFSET);
-			_pEditView->execute(SCI_SETXOFFSET, x);
-			x = _pNonEditView->execute(SCI_GETXOFFSET);
-			_pNonEditView->execute(SCI_SETXOFFSET, x);
+			if (wParam != WA_INACTIVE)
+			{
+				_pEditView->getFocus();
+				auto x = _pEditView->execute(SCI_GETXOFFSET);
+				_pEditView->execute(SCI_SETXOFFSET, x);
+				x = _pNonEditView->execute(SCI_GETXOFFSET);
+				_pNonEditView->execute(SCI_SETXOFFSET, x);
+			}
 			return TRUE;
 		}
 
@@ -1740,6 +1748,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			scnN.nmhdr.hwndFrom = hwnd;
 			scnN.nmhdr.idFrom = (uptr_t) _pEditView->getCurrentBufferID();
 			_pluginsManager.notify(&scnN);
+			return TRUE;
+		}
+
+		case WM_UPDATEMAINMENUBITMAPS:
+		{
+			setupColorSampleBitmapsOnMainMenuItems();
 			return TRUE;
 		}
 
@@ -1899,12 +1913,14 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case WM_SYSCOMMAND:
 		{
 			const NppGUI & nppgui = (nppParam.getNppGUI());
-			if (((nppgui._isMinimizedToTray && !_isAdministrator) || _pPublicInterface->isPrelaunch()) && (wParam == SC_MINIMIZE))
+			if ((nppgui._isMinimizedToTray || _pPublicInterface->isPrelaunch()) && (wParam == SC_MINIMIZE))
 			{
 				if (nullptr == _pTrayIco)
-					_pTrayIco = new trayIconControler(hwnd, IDI_M30ICON, IDC_MINIMIZED_TRAY, ::LoadIcon(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDI_M30ICON)), TEXT(""));
+					_pTrayIco = new trayIconControler(hwnd, IDI_M30ICON, NPPM_INTERNAL_MINIMIZED_TRAY, ::LoadIcon(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDI_M30ICON)), TEXT(""));
 
 				_pTrayIco->doTrayIcon(ADD);
+				_dockingManager.showFloatingContainers(false);
+				minimizeDialogs();
 				::ShowWindow(hwnd, SW_HIDE);
 				return TRUE;
 			}
@@ -1927,7 +1943,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
-		case IDC_MINIMIZED_TRAY:
+		case NPPM_INTERNAL_MINIMIZED_TRAY:
 		{
 			switch (lParam)
 			{
@@ -1936,6 +1952,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				{
 					_pEditView->getFocus();
 					::ShowWindow(hwnd, SW_SHOW);
+					_dockingManager.showFloatingContainers(true);
+					restoreMinimizeDialogs();
+
 					if (!_pPublicInterface->isPrelaunch())
 						_pTrayIco->doTrayIcon(REMOVE);
 					::SendMessage(hwnd, WM_SIZE, 0, 0);
@@ -2088,6 +2107,39 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				lstrcpy(reinterpret_cast<TCHAR *>(lParam), pluginHomePath.c_str());
 			}
 			return pluginHomePath.length();
+		}
+
+		case NPPM_GETSETTINGSONCLOUDPATH:
+		{
+			const NppGUI & nppGUI = nppParam.getNppGUI();
+			generic_string settingsOnCloudPath = nppGUI._cloudPath;
+			if (lParam != 0)
+			{
+				if (settingsOnCloudPath.length() >= static_cast<size_t>(wParam))
+				{
+					return 0;
+				}
+				lstrcpy(reinterpret_cast<TCHAR *>(lParam), settingsOnCloudPath.c_str());
+			}
+			return settingsOnCloudPath.length();
+		}
+
+		case NPPM_SETLINENUMBERWIDTHMODE:
+		{
+			if (lParam != LINENUMWIDTH_DYNAMIC && lParam != LINENUMWIDTH_CONSTANT)
+				return FALSE;
+
+			ScintillaViewParams &svp = const_cast<ScintillaViewParams &>(nppParam.getSVP());
+			svp._lineNumberMarginDynamicWidth = lParam == LINENUMWIDTH_DYNAMIC;
+			::SendMessage(hwnd, WM_COMMAND, IDM_VIEW_LINENUMBER, 0);
+
+			return TRUE;
+		}
+
+		case NPPM_GETLINENUMBERWIDTHMODE:
+		{
+			const ScintillaViewParams &svp = nppParam.getSVP();
+			return svp._lineNumberMarginDynamicWidth ? LINENUMWIDTH_DYNAMIC : LINENUMWIDTH_CONSTANT;
 		}
 
 		case NPPM_MSGTOPLUGIN :
@@ -2353,7 +2405,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			_mainEditView.execute(SCI_MULTIEDGECLEARALL);
 			_subEditView.execute(SCI_MULTIEDGECLEARALL);
 
-			ScintillaViewParams & svp = (ScintillaViewParams &)nppParam.getSVP();
+			ScintillaViewParams &svp = const_cast<ScintillaViewParams &>(nppParam.getSVP());
 
 			StyleArray & stylers = NppParameters::getInstance().getMiscStylerArray();
 			COLORREF multiEdgeColor = liteGrey;
@@ -2461,8 +2513,16 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_UPDATECLICKABLELINKS:
 		{
-			addHotSpot(_pEditView);
-			addHotSpot(_pNonEditView);
+			ScintillaEditView* pView = reinterpret_cast<ScintillaEditView*>(wParam);
+			if (pView == NULL)
+			{
+				addHotSpot(_pEditView);
+				addHotSpot(_pNonEditView);
+			}
+			else
+			{
+				addHotSpot(pView);
+			}
 		}
 
 		default:

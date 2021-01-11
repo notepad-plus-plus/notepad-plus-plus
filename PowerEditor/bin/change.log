@@ -1,14 +1,47 @@
-Notepad++ v7.8.9 Enhancements & bug-fixes:
+Notepad++ v7.9.2 Enhancements & bug-fixes:
 
-1.  Fix Line operations (join lines, split lines, remove duplicate lines and sort lines) doing one too many lines issue.
-2.  Fix the regression of jump line failure via command line (-n).
-3.  Fix URL Hovered colour disappears after modifying any Clickable Link Settings regression.
-4.  Fix URL is not clickable in certain stuation while wrapped is enabled.
-5.  Fix "Save" not working in Windows dialog.
-6.  Fix Flickering cursor after double clicking a found line in find results.
-7.  Fix Found line may not be centered by double clicking in find results, if word wrap is on.
-8.  Fix wrong horizontal scroll bar position after restoring Window position.
-9.  Fix Find result window output TAB-width incoherent issue.
+1.  Fix regression of auto-Indent.
+2.  Add custom URI schemes ability.
+3.  Improve URL parser: fix apostrophe in an URL issue.
+4.  Add context menu with "Copy link" ability.
+5.  Add color samples on menu items for styling features.
+6.  Add "-settingsDir" argument for overriding default settings path.
+7.  Fix crash while exit command issued by plugin.
+8.  Fix several bugs of PHP parser rule for function list.
+9.  Move "Normal Text" to top in Languages Menu.
+10. Add new API NPPM_GETSETTINGSONCLOUDPATH for plugins.
+11. Add an option for displaying constant line number width.
+12. Fix function list is empty with new user profile in the same PC issue.
+13. Fix single-quoted string being badly recognized as attribute value in XML.
+14. Fix docked panels appear with "-nosession" cmd line parameters.
+15. Improve text selection after Replace All In Selection operation.
+16. Add the number of total documents on windows dialog's title bar.
+17. Fix scroll to last line problem after main window resizing.
+18. Fix Plugin admin display UTF-8 issue in its description.
+19. Fix Search result's text direction (RTL) not always synchronized with main edit zone's one issue.
+20. Fix dockable panels display issue in RTL direction.
+21. Fix Search result line number highlighting inaccurate issue.
+22. Make "Line" preceding each line number on Search Results translatable.
+23. Fix menu check marks not being removed after closing "Clipboard History" and "Character Panel" panels.
+24. Fix command line arguments -p, -n & -c negative value's undefined behaviour.
+25. Add new Margin/Border/Edge sub-page in Preferences.
+26. Fix find in files failure issue due to directory path with leading/trailing spaces.
+27. Fix folder icon display issue in "Folder as Workspace" after "Expand/Collapse All".
+28. Make "Clipboard History" and "Character Panel" togglable.
+29. Fix Find in found results dialog launch failure after macro execution.
+30. Disallow Goto dlg offset option from moving to position inside multi-byte char or between CR and LF.
+31. Fix "Go to..." dialog wrong Offset value in empty files.
+32. Prevent corruption possibility when using -p command line parameter in a UTF file.
+33. Improve indent guidelines on non-brace control block languages.
+34. Prevent names of untitled tabs from duplication.
+35. Add tooltips for Folder as Workspace 3 commands.
+36. Fix "SCI_NEWLINE" inside a macro not working issue.
+37. Fix bug where search-results won't open 'new 1' file.
+38. Fix tab close button remain pushed issue.
+39. Enhance ghost typing command line argument feature - using white space directly instead of %20.
+
+More fixes & implementations detail:
+https://notepad-plus-plus.org/downloads/v7.9.2/
 
 
 Included plugins:

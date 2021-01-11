@@ -656,10 +656,10 @@ bool loadFromJson(PluginViewList & pl, const json& j)
 			pi->_displayName = wmc.char2wchar(valStr.c_str(), CP_ACP);
 
 			valStr = i.at("author").get<std::string>();
-			pi->_author = wmc.char2wchar(valStr.c_str(), CP_ACP);
+			pi->_author = wmc.char2wchar(valStr.c_str(), CP_UTF8);
 
 			valStr = i.at("description").get<std::string>();
-			pi->_description = wmc.char2wchar(valStr.c_str(), CP_ACP);
+			pi->_description = wmc.char2wchar(valStr.c_str(), CP_UTF8);
 
 			valStr = i.at("id").get<std::string>();
 			pi->_id = wmc.char2wchar(valStr.c_str(), CP_ACP);

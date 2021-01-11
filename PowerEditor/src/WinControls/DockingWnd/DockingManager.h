@@ -60,6 +60,8 @@ public :
 		onSize();
 	}
 
+	void showFloatingContainers(bool show);
+
 	void updateContainerInfo(HWND hClient);
 	void createDockableDlg(tTbData data, int iCont = CONT_LEFT, bool isVisible = false);
 	void setActiveTab(int iCont, int iItem);

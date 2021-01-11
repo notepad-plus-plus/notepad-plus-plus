@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-        Slovenian localization for Notepad++ v7.8.7
-        Last modified 12. June 2020 by Vinko Kastelic
+        Slovenian localization for Notepad++ v7.9
+        Last modified 28. Sept 2020 by Vinko Kastelic
         
 -->
 <NotepadPlus>
-    <Native-Langue name="Slovenski jezik" filename="slovenian.xml" version="7.8.7">
+    <Native-Langue name="Slovenski jezik" filename="slovenian.xml" version="7.9">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -49,7 +49,7 @@
 					<Item subMenuId="view-moveCloneDocument" name="Premakni/Kloniraj trenutni dokument"/>
 					<Item subMenuId="view-tab"  name="Tabulator"/>                
 					<Item subMenuId="view-collapseLevel" name="Strni raven"/>
-					<Item subMenuId="view-uncollapseLevel" name="Razprostri raven"/>
+					<Item subMenuId="view-uncollapseLevel" name="Razgrni raven"/>
 					<Item subMenuId="view-project" name="Projekt"/>
 					<Item subMenuId="encoding-characterSets"  name="Nabor znakov"/>
 					<Item subMenuId="encoding-arabic"  name="arabski"/>
@@ -125,6 +125,7 @@
                     <Item id="42064" name="Razvrsti vrstice kot decimalke (z vejico) Padajoče"/>
                     <Item id="42065" name="Razvrsti vrstice kot decimalke (s piko) Naraščujoče"/>
                     <Item id="42066" name="Razvrsti vrstice kot decimalke (s piko) Padajoče"/>
+                    <Item id="42078" name="Razvrsti vrstice naključno"/>
                     <Item id="42016" name="&amp;V VELIKE ČRKE"/>
                     <Item id="42017" name="v &amp;male črke"/>
 					<Item id="42067" name="&amp;Primerne črke"/>
@@ -235,9 +236,9 @@
                     <Item id="44024" name="Po&amp;manjšaj (Ctrl+Kolešček miške dol)"/>
                     <Item id="44025" name="Pokaži presledke in tabulatorje"/>
                     <Item id="44026" name="Pokaži konce vrstic"/>
-                    <Item id="44029" name="Razprostri vse"/>
+                    <Item id="44029" name="Razgrni vse"/>
                     <Item id="44030" name="Strni trenutno raven"/>
-                    <Item id="44031" name="Razprostri trenutno raven"/>                   
+                    <Item id="44031" name="Razgrni trenutno raven"/>                   
 					<Item id="44049" name="Povzetek..."/>
 					<Item id="44080" name="Mapa dokumenta"/>
                     <Item id="44084" name="Seznam funkcij"/>
@@ -324,8 +325,6 @@
 					<Item id="50000" name="Dopolnjevanje funkcij"/>
 					<Item id="50001" name="Dopolnjevanje besed"/>
 					<Item id="50002" name="Namig za parametre funkcij"/>
-					<Item id="50003" name="Preklopi na predhodni dokument"/>
-					<Item id="50004" name="Preklopi na naslednji dokument"/>
 					<Item id="50005" name="Preklop makro zapisa"/>
 					<Item id="50006" name="Pot dopolnitev"/>
 					<Item id="44042" name="Skrij vrstice"/>
@@ -395,7 +394,7 @@
 				<Item id="1624" name="Način iskanja"/>
 				<Item id="1625" name="&amp;Navaden"/>
 				<Item id="1626" name="Ra&amp;zširjen (\n, \r, \t, \0, \x...)"/>
-				<Item id="1660" name="Z&amp;amenjaj v datotekah"/>
+				<Item id="1660" name="Zamenjaj v datotekah"/>
                 <Item id="1661" name="Sledi trenutni dok."/>
 				<Item id="1641" name="Najdi vse v trenutnem dokumentu"/>
 				<Item id="1686" name="Proso&amp;jnost"/>
@@ -444,7 +443,7 @@
                 <Item id="1934" name="Kopiraj v odložišče"/>
                 <Item id="2"    name="Zapri"/>
             </MD5FromTextDlg>
-				
+			
 			<SHA256FromFilesDlg title="Generiraj SHA-256 povzetek iz datotek">
 				<Item id="1922" name="Izberite datoteke za generiranje SHA-256..."/>
 				<Item id="1924" name="Kopiraj v odložišče"/>
@@ -516,6 +515,71 @@
                 <ScintillaCommandsTab name="Ukazi Scintilla"/>
                 <ConflictInfoOk name="Za to postavko ni konfliktov z bližnjico."/>
                 <ConflictInfoEditing name="Ni konfliktov . . ."/>
+				<MainCommandNames>
+				    <Item id="41019" name="Odpri vsebino mape v Raziskovalcu"/>
+                    <Item id="41020" name="Odpri vsebino mape v ukaznem pozivu"/>
+                    <Item id="41021" name="Obnovi nedavno zaprto datoteko"/>
+                    <Item id="45001" name="EOL pretvorba v Windows (CR LF)"/>
+                    <Item id="45002" name="EOL pretvorba v Unix (LF)"/>
+                    <Item id="45003" name="EOL pretvorba v Macintosh (CR)"/>
+                    <Item id="43022" name="Označi rezultate iskanja z uporabo 1.sloga"/>
+                    <Item id="43024" name="Označi rezultate iskanja z uporabo 2.sloga"/>
+                    <Item id="43026" name="Označi rezultate iskanja z uporabo 3.sloga"/>
+                    <Item id="43028" name="Označi rezultate iskanja z uporabo 4.sloga"/>
+                    <Item id="43030" name="Označi rezultate iskanja z uporabo 5.sloga"/>
+                    <Item id="43023" name="Počisti oznake z uporabo 1.sloga"/>
+                    <Item id="43025" name="Počisti oznake z uporabo 2.sloga"/>
+                    <Item id="43027" name="Počisti oznake z uporabo 3.sloga"/>
+                    <Item id="43029" name="Počisti oznake z uporabo 4.sloga"/>
+                    <Item id="43031" name="Počisti oznake z uporabo 5.sloga"/>
+                    <Item id="43032" name="Počisti oznake z uporabo poljubnega sloga"/>
+                    <Item id="43033" name="Predhodna oznaka z uporabo 1.sloga"/>
+                    <Item id="43034" name="Predhodna oznaka z uporabo 2.sloga"/>
+                    <Item id="43035" name="Predhodna oznaka z uporabo 3.sloga"/>
+                    <Item id="43036" name="Predhodna oznaka z uporabo 4.sloga"/>
+                    <Item id="43037" name="Predhodna oznaka z uporabo 5.sloga"/>
+                    <Item id="43038" name="Predhodna oznaka ustvarjena z Mark"/>
+                    <Item id="43039" name="Naslednja oznaka z uporabo 1.sloga"/>
+                    <Item id="43040" name="Naslednja oznaka z uporabo 2.sloga"/>
+                    <Item id="43041" name="Naslednja oznaka z uporabo 3.sloga"/>
+                    <Item id="43042" name="Naslednja oznaka z uporabo 4.sloga"/>
+                    <Item id="43043" name="Naslednja oznaka z uporabo 5.sloga"/>
+                    <Item id="43044" name="Naslednja oznaka ustvarjena z Mark"/>
+                    <Item id="44100" name="Poglej trenutno datoteko v Firefox"/>
+                    <Item id="44101" name="Poglej trenutno datoteko v Chrome"/>
+                    <Item id="44103" name="Poglej trenutno datoteko v IE"/>
+                    <Item id="44102" name="Poglej trenutno datoteko v"/>
+					<Item id="50003" name="Preklopi na predhodni dokument"/>
+					<Item id="50004" name="Preklopi na naslednji dokument"/>
+                    <Item id="44051" name="Strni raven 1"/>
+                    <Item id="44052" name="Strni raven 2"/>
+                    <Item id="44053" name="Strni raven 3"/>
+                    <Item id="44054" name="Strni raven 4"/>
+                    <Item id="44055" name="Strni raven 5"/>
+                    <Item id="44056" name="Strni raven 6"/>
+                    <Item id="44057" name="Strni raven 7"/>
+                    <Item id="44058" name="Strni raven 8"/>
+                    <Item id="44061" name="Razgrni raven 1"/>
+                    <Item id="44062" name="Razgrni raven 2"/>
+                    <Item id="44063" name="Razgrni raven 3"/>
+                    <Item id="44064" name="Razgrni raven 4"/>
+                    <Item id="44065" name="Razgrni raven 5"/>
+                    <Item id="44066" name="Razgrni raven 6"/>
+                    <Item id="44067" name="Razgrni raven 7"/>
+                    <Item id="44068" name="Razgrni raven 8"/>
+                    <Item id="44081" name="Vklopi projektni panel 1"/>
+                    <Item id="44082" name="Vklopi projektni panel 2"/>
+                    <Item id="44083" name="Vklopi projektni panel 3"/>
+                    <Item id="44085" name="Vklopi mapo kot delovni prostor"/>
+                    <Item id="44080" name="Vklopi mapo dokumentov"/>
+                    <Item id="44084" name="Vklopi seznam funkcij"/>
+                    <Item id="50005" name="Vklopi snemanje makra"/>
+                    <Item id="44104" name="Preklopi v projektni panel 1"/>
+                    <Item id="44105" name="Preklopi v projektni panel 2"/>
+                    <Item id="44106" name="Preklopi v projektni panel 3"/>
+                    <Item id="44107" name="Preklopi v mapo kot delovni prostor"/>
+                    <Item id="44108" name="Preklopi v seznam funkcij"/>
+                </MainCommandNames>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="Bližnjica">
                 <Item id="1" name="V redu"/>
@@ -761,6 +825,7 @@ Lahko določite več označevalcev stolpcev z uporabo belega presledka za ločev
 					<Item id="6231" name="Širina obrobe"/>
 					<Item id="6235" name="Brez roba"/>
                     <Item id="6236" name="Omogoči pomikanje izven zadnje vrstice"/>
+                    <Item id="6239" name="Obdrži izbor, ko z desno miškino tipko kliknete zunaj izbora"/>			
 				</Scintillas>
 	
 				<NewDoc title="Nov dokument">
@@ -846,7 +911,14 @@ Lahko določite več označevalcev stolpcev z uporabo belega presledka za ločev
 					<Item id="6727" name="Tukaj so prikazane vaše variabilne nastavitve"/>
 					<Item id="6728" name="Glava in noga"/>
 				</Print>
-                
+				
+                <Searching title="Iskanje">
+                    <Item id="6901" name="Ne izpolni polja za iskanje v pogovornem oknu Najdi z izbrano besedo"/>
+                    <Item id="6902" name="V pogovornem oknu za iskanje uporabite monospace pisave (zahteva ponovni zagon Notepad++)"/>
+                    <Item id="6903" name="Pogovorno okno za iskanje ostane odprto po iskanju, ki se prikaže v oknu z rezultati"/>
+                    <Item id="6904" name="Potrdite Zamenjaj vse v vseh odprtih dokumentih"/>
+                </Searching>
+
 				<RecentFilesHistory title="Nastavitev zgodovine datotek">
 					<Item id="6304" name="Nastavitev zgodovine datotek"/>
 					<Item id="6306" name="Maks. število vnosov:"/>					
@@ -947,15 +1019,15 @@ Lahko določite več označevalcev stolpcev z uporabo belega presledka za ločev
 					<Item id="6323" name="Omogoči samodejno posodabljanje Notepada++"/>
 					<Item id="6324" name="Preklopnik dokumentov (Ctrl+TAB)"/>
 					<Item id="6331" name="V naslovni vrstici pokaži le ime datoteke"/>
-					<Item id="6334" name="Samodejno zaznavanje kodiranja znakov"/>
-					<Item id="6314" name="Use monospaced font in Find dialog (Need to restart Notepad++)"/>
+					<Item id="6334" name="Samodejno zaznavanje kodiranja znakov"/>			
+					<Item id="6349" name="Uporabite DirectWrite (lahko izboljša upodabljanje posebnih znakov; ponovno morate zagnati Notepad++)"/>
+                    <Item id="6350" name="Omogoči način fullbox"/>					
 					<Item id="6337" name="Delovni prostor pripone datoteke:"/>
 					<Item id="6114" name="Omogoči"/>
 					<Item id="6117" name="Omogoči MRU obnašanje"/>	
                     <Item id="6344" name="Ogledovalec dokumenta"/>
                     <Item id="6345" name="Pokukaj v zavihek"/>
                     <Item id="6346" name="Pokukaj v mapo dokumentov"/>
-					<Item id="6348" name="Ne izpolnite polja za iskanje v pog. oknu Najdi z izbrano besedo"/>
 				</MISC>
 			</Preference>
 			<MultiMacro title="Večkratni zagon makra">
@@ -974,17 +1046,17 @@ Lahko določite več označevalcev stolpcev z uporabo belega presledka za ločev
 				<Item id="7004" name="Razvrsti &amp;zavihke"/> 
 			</Window>
 			<ColumnEditor title="Urejevalnik stolpcev">
-				<Item id="2023" name="Besedilo za vstavljanje"/>
-				<Item id="2033" name="Številka za vstavljanje"/>
-				<Item id="2030" name="Začetna številka:"/>
-				<Item id="2031" name="Povečaj za:"/>
-				<Item id="2035" name="Vodilne ničle"/>
-	            <Item id="2036" name="Ponovi:"/>			
+				<Item id="2023" name="&amp;Besedilo za vstavljanje"/>
+				<Item id="2033" name="&amp;Številka za vstavljanje"/>
+				<Item id="2030" name="&amp;Začetna številka:"/>
+				<Item id="2031" name="Povečaj z&amp;a:"/>
+				<Item id="2035" name="Vodilne &amp;ničle"/>
+	            <Item id="2036" name="&amp;Ponovi:"/>			
 				<Item id="2032" name="Format"/>
-				<Item id="2024" name="Dec"/>
-				<Item id="2025" name="Oct"/>
-				<Item id="2026" name="Hex"/>
-				<Item id="2027" name="Bin"/>
+				<Item id="2024" name="&amp;Dec"/>
+				<Item id="2025" name="&amp;Oct"/>
+				<Item id="2026" name="&amp;Hex"/>
+				<Item id="2027" name="&amp;Bin"/>
 				<Item id="1" name="V redu"/>
 				<Item id="2" name="Prekliči"/>
 			</ColumnEditor>
@@ -1001,7 +1073,7 @@ Lahko določite več označevalcev stolpcev z uporabo belega presledka za ločev
 				<Item id="1718" name="Ra&amp;zširjen (\n, \r, \t, \0, \x...)"/>
 				<Item id="1720" name="&amp;. se ujema z novo vrstico"/> 
 			</FindInFinder>
-			<DoSaveOrNot title="Shrani"> 
+			<DoSaveOrNot title="Shrani">
                 <Item id="1761" name="Shrani datoteko &quot;$STR_REPLACE$&quot; ?"/>
                 <Item id="6" name="&amp;Da"/>
                 <Item id="7" name="&amp;Ne"/>
@@ -1239,14 +1311,19 @@ Najdi v vseh datotekah, razen exe, obj &amp;&amp; log:
 			<find-status-replace-not-found value="Zamenjaj: ni bilo nobene pojavitve"/>
 			<find-status-replace-readonly value="Zamenjaj: Besedilo ni mogoče zamenjati. Trenutni dokument je samo za branje"/>
 			<find-status-cannot-find value="Najdi: Besedila ni mogoče najti &quot;$STR_REPLACE$&quot;"/>
+            <find-status-scope-selection value="v izbranem besedilu"/>
+            <find-status-scope-all value="v celotni datoteki"/>
+            <find-status-scope-backward value="od začetka datoteke do karete"/>
+            <find-status-scope-forward value="od karete do konca datoteke"/>
 			<finder-find-in-finder value="Najdi v teh najdenih rezultatih..."/>
 			<finder-close-this value="Zapri ta iskalnik"/>
-			<finder-collapse-all value="Collapse all"/>
+			<finder-collapse-all value="Strni vse"/>
 			<finder-uncollapse-all value="Razgrni vse"/>
 			<finder-copy value="Kopiraj"/>
 			<finder-select-all value="Izberi vse"/>
 			<finder-clear-all value="Počisti vse"/>
 			<finder-open-all value="Odpri vse"/>
+			<finder-wrap-long-lines value="Prelomi dolge vrstice"/>
 			<common-ok value="V redu"/>
             <common-cancel value="Prekliči"/>
             <common-name value="Ime: "/>
@@ -1273,11 +1350,16 @@ Najdi v vseh datotekah, razen exe, obj &amp;&amp; log:
 		   <replace-in-files-confirm-title value="Ali ste prepričani?"/>
             <replace-in-files-confirm-directory value="Ali ste prepričani, da želite zamenjati vse pojavitve v :"/>
             <replace-in-files-confirm-filetype value="Za vrsto datoteke :"/>
-            <find-result-caption value="Poišči rezultat"/>
+            <replace-in-open-docs-confirm-title value="Ali ste prepričani?"/>
+            <replace-in-open-docs-confirm-message value="Ali ste prepričani, da želite zamenjati vse pojavitve v vseh odprtih dokumentih?"/>
+			<find-result-caption value="Poišči rezultat"/>
             <find-result-title value="Iskanje"/>
             <find-result-title-info value="($INT_REPLACE1$ zadetkov v $INT_REPLACE2$ datotek od $INT_REPLACE3$ iskanih)"/>
-            <find-result-title-info-extra value=" - Način linijskega filtra: prikaže samo filtrirane rezultate"/>
+            <find-result-title-info-selections value="($INT_REPLACE1$ zadetkov v $INT_REPLACE2$ izbirah od $INT_REPLACE3$ iskanih)"/>
+			<find-result-title-info-extra value=" - Način linijskega filtra: prikaže samo filtrirane rezultate"/>
             <find-result-hits value="($INT_REPLACE$ zadetkov)"/>
+			<find-regex-zero-length-match value="ujemanje ničelne dolžine" />
 		</MiscStrings>					
     </Native-Langue>
 </NotepadPlus>
+					

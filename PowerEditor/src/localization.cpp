@@ -30,6 +30,7 @@
 #include "ShortcutMapper.h"
 #include "EncodingMapper.h"
 #include "localization.h"
+#include "fileBrowser.h"
 
 using namespace std;
 
@@ -69,7 +70,8 @@ MenuPosition menuPos[] = {
 	{ 2, 19, -1, "search-unmarkAll" },
 	{ 2, 20, -1, "search-jumpUp" },
 	{ 2, 21, -1, "search-jumpDown" },
-	{ 2, 23, -1, "search-bookmark" },
+	{ 2, 22, -1, "search-copyStyledText" },
+	{ 2, 24, -1, "search-bookmark" },
 
 	{ 3,  4, -1, "view-currentFileIn" },
 	{ 3,  6, -1, "view-showSymbol" },
@@ -98,7 +100,7 @@ MenuPosition menuPos[] = {
 	{ 4,  5, 14, "encoding-westernEuropean" },
 	{ 4,  5, 15, "encoding-vietnamese" },
 
-	{ 5, 23, -1, "language-userDefinedLanguage" },
+	{ 5, 25, -1, "language-userDefinedLanguage" },
 
 	{ 6,  4, -1, "settings-import" },
 
@@ -404,32 +406,33 @@ static const int tabContextMenuItemPos[] =
 {
 //  +-------------- The order in tab menu (NppNotification.cpp : if (!_tabPopupMenu.isCreated())
 //  |
-//  |       +------ Number in english.xml (<language>.xml) : <TabBar>
-//  |       |
-    0,   // 0 : Close
-    1,   // 1 : Close ALL BUT This
-    5,   // 2 : Save
-    6,   // 3 : Save As
-    10,  // 4 : Print
-    24,  // 5 : Move to Other View
-    25,  // 6 : Clone to Other View
-    20,  // 7 : Full File Path to Clipboard
-    21,  // 8 : Filename to Clipboard
-    22,  // 9 : Current Dir. Path to Clipboard
+//  |        +------ Number in english.xml (<language>.xml) : <TabBar>
+//  |        |
+    0,   //  0: Close
+    1,   //  1: Close ALL BUT This
+    5,   //  2: Save
+    6,   //  3: Save As
+   10,   //  4: Print
+   25,   //  5: Move to Other View
+   26,   //  6: Clone to Other View
+   21,   //  7: Full File Path to Clipboard
+   22,   //  8: Filename to Clipboard
+   23,   //  9: Current Dir. Path to Clipboard
     7,   // 10: Rename
     8,   // 11: Move to Recycle Bin
-    17,  // 12: Read-Only
-    18,  // 13: Clear Read-Only Flag
-    26,  // 14: Move to New Instance
-    27,  // 15: Open to New Instance
+   18,   // 12: Read-Only
+   19,   // 13: Clear Read-Only Flag
+   27,   // 14: Move to New Instance
+   28,   // 15: Open to New Instance
     9,   // 16: Reload
     2,   // 17: Close ALL to the Left
     3,   // 18: Close ALL to the Right
-    12,  // 19: Open Containing Folder in Explorer
-    13,  // 20: Open Containing Folder in cmd
-    15,  // 21: Open in Default Viewer
+   12,   // 19: Open Containing Folder in Explorer
+   13,   // 20: Open Containing Folder in cmd
+   16,   // 21: Open in Default Viewer
     4,   // 22: Close ALL Unchanged
-    -1   //-------End
+   14,   // 23: Open Containing Folder as Workspace
+   -1    //-------End
 };
 
 
@@ -861,34 +864,42 @@ void NativeLangSpeaker::changePrefereceDlgLang(PreferenceDlg & preference)
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	const size_t titreMaxSize = 128;
 	char titre[titreMaxSize];
-	changeDlgLang(preference._barsDlg.getHSelf(), "Global", titre, titreMaxSize);
+	changeDlgLang(preference._generalSubDlg.getHSelf(), "Global", titre, titreMaxSize);
 	if (titre[0] != '\0')
 	{
 		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
 		preference.renameDialogTitle(TEXT("Global"), nameW);
 	}
-	changeDlgLang(preference._marginsDlg.getHSelf(), "Scintillas", titre, titreMaxSize);
+
+	changeDlgLang(preference._editingSubDlg.getHSelf(), "Scintillas", titre, titreMaxSize);
 	if (titre[0] != '\0')
 	{
 		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
 		preference.renameDialogTitle(TEXT("Scintillas"), nameW);
 	}
 
-	changeDlgLang(preference._defaultNewDocDlg.getHSelf(), "NewDoc", titre, titreMaxSize);
+	changeDlgLang(preference._marginsBorderEdgeSubDlg.getHSelf(), "MarginsBorderEdge", titre, titreMaxSize);
+	if (titre[0] != '\0')
+	{
+		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
+		preference.renameDialogTitle(TEXT("MarginsBorderEdge"), nameW);
+	}
+
+	changeDlgLang(preference._newDocumentSubDlg.getHSelf(), "NewDoc", titre, titreMaxSize);
 	if (titre[0] != '\0')
 	{
 		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
 		preference.renameDialogTitle(TEXT("NewDoc"), nameW);
 	}
 
-	changeDlgLang(preference._defaultDirectoryDlg.getHSelf(), "DefaultDir", titre, titreMaxSize);
+	changeDlgLang(preference._defaultDirectorySubDlg.getHSelf(), "DefaultDir", titre, titreMaxSize);
 	if (titre[0] != '\0')
 	{
 		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
 		preference.renameDialogTitle(TEXT("DefaultDir"), nameW);
 	}
 
-	changeDlgLang(preference._recentFilesHistoryDlg.getHSelf(), "RecentFilesHistory", titre, titreMaxSize);
+	changeDlgLang(preference._recentFilesHistorySubDlg.getHSelf(), "RecentFilesHistory", titre, titreMaxSize);
 	if (titre[0] != '\0')
 	{
 		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
@@ -902,76 +913,76 @@ void NativeLangSpeaker::changePrefereceDlgLang(PreferenceDlg & preference)
 		preference.renameDialogTitle(TEXT("FileAssoc"), nameW);
 	}
 
-	changeDlgLang(preference._langMenuDlg.getHSelf(), "Language", titre, titreMaxSize);
+	changeDlgLang(preference._languageSubDlg.getHSelf(), "Language", titre, titreMaxSize);
 	if (titre[0] != '\0')
 	{
 		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
 		preference.renameDialogTitle(TEXT("Language"), nameW);
 	}
 
-	changeDlgLang(preference._highlighting.getHSelf(), "Highlighting", titre, titreMaxSize);
+	changeDlgLang(preference._highlightingSubDlg.getHSelf(), "Highlighting", titre, titreMaxSize);
 	if (titre[0] != '\0')
 	{
 		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
 		preference.renameDialogTitle(TEXT("Highlighting"), nameW);
 	}
 
-	changeDlgLang(preference._printSettingsDlg.getHSelf(), "Print", titre, titreMaxSize);
+	changeDlgLang(preference._printSubDlg.getHSelf(), "Print", titre, titreMaxSize);
 	if (titre[0] != '\0')
 	{
 		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
 		preference.renameDialogTitle(TEXT("Print"), nameW);
 	}
 
-	changeDlgLang(preference._searchingSettingsDlg.getHSelf(), "Searching", titre, titreMaxSize);
+	changeDlgLang(preference._searchingSubDlg.getHSelf(), "Searching", titre, titreMaxSize);
 	if (titre[0] != '\0')
 	{
 		const wchar_t* nameW = wmc.char2wchar(titre, _nativeLangEncoding);
 		preference.renameDialogTitle(TEXT("Searching"), nameW);
 	}
 
-	changeDlgLang(preference._settingsDlg.getHSelf(), "MISC", titre, titreMaxSize);
+	changeDlgLang(preference._miscSubDlg.getHSelf(), "MISC", titre, titreMaxSize);
 	if (titre[0] != '\0')
 	{
 		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
 		preference.renameDialogTitle(TEXT("MISC"), nameW);
 	}
-	changeDlgLang(preference._backupDlg.getHSelf(), "Backup", titre, titreMaxSize);
+	changeDlgLang(preference._backupSubDlg.getHSelf(), "Backup", titre, titreMaxSize);
 	if (titre[0] != '\0')
 	{
 		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
 		preference.renameDialogTitle(TEXT("Backup"), nameW);
 	}
 
-	changeDlgLang(preference._autoCompletionDlg.getHSelf(), "AutoCompletion", titre, titreMaxSize);
+	changeDlgLang(preference._autoCompletionSubDlg.getHSelf(), "AutoCompletion", titre, titreMaxSize);
 	if (titre[0] != '\0')
 	{
 		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
 		preference.renameDialogTitle(TEXT("AutoCompletion"), nameW);
 	}
 
-	changeDlgLang(preference._multiInstDlg.getHSelf(), "MultiInstance", titre, titreMaxSize);
+	changeDlgLang(preference._multiInstanceSubDlg.getHSelf(), "MultiInstance", titre, titreMaxSize);
 	if (titre[0] != '\0')
 	{
 		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
 		preference.renameDialogTitle(TEXT("MultiInstance"), nameW);
 	}
 
-	changeDlgLang(preference._delimiterSettingsDlg.getHSelf(), "Delimiter", titre, titreMaxSize);
+	changeDlgLang(preference._delimiterSubDlg.getHSelf(), "Delimiter", titre, titreMaxSize);
 	if (titre[0] != '\0')
 	{
 		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
 		preference.renameDialogTitle(TEXT("Delimiter"), nameW);
 	}
 
-	changeDlgLang(preference._settingsOnCloudDlg.getHSelf(), "Cloud", titre, titreMaxSize);
+	changeDlgLang(preference._cloudAndLinkSubDlg.getHSelf(), "Cloud", titre, titreMaxSize);
 	if (titre[0] != '\0')
 	{
 		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
 		preference.renameDialogTitle(TEXT("Cloud"), nameW);
 	}
 
-	changeDlgLang(preference._searchEngineDlg.getHSelf(), "SearchEngine", titre, titreMaxSize);
+	changeDlgLang(preference._searchEngineSubDlg.getHSelf(), "SearchEngine", titre, titreMaxSize);
 	if (titre[0] != '\0')
 	{
 		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
@@ -1252,7 +1263,7 @@ generic_string NativeLangSpeaker::getFileBrowserLangMenuStr(int cmdID, const TCH
 {
 	if (!_nativeLangA) return defaultStr;
 
-	TiXmlNodeA *targetNode = _nativeLangA->FirstChild("FolderAsWorkspace");
+	TiXmlNodeA *targetNode = _nativeLangA->FirstChild(FOLDERASWORKSPACE_NODE);
 	if (!targetNode) return defaultStr;
 
 	targetNode = targetNode->FirstChild("Menus");
@@ -1319,7 +1330,7 @@ generic_string NativeLangSpeaker::getProjectPanelLangMenuStr(const char * nodeNa
 	return defaultStr;
 }
 
-generic_string NativeLangSpeaker::getAttrNameStr(const TCHAR *defaultStr, const char *nodeL1Name, const char *nodeL2Name) const
+generic_string NativeLangSpeaker::getAttrNameStr(const TCHAR *defaultStr, const char *nodeL1Name, const char *nodeL2Name, const char *nodeL3Name) const
 {
 	if (!_nativeLangA) return defaultStr;
 
@@ -1330,7 +1341,7 @@ generic_string NativeLangSpeaker::getAttrNameStr(const TCHAR *defaultStr, const 
 
 	if (!targetNode) return defaultStr;
 
-	const char *name = (targetNode->ToElement())->Attribute("name");
+	const char *name = (targetNode->ToElement())->Attribute(nodeL3Name);
 	if (name && name[0])
 	{
 		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();

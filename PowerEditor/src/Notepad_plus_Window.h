@@ -31,12 +31,12 @@
 
 const TCHAR COMMAND_ARG_HELP[] = TEXT("Usage :\r\
 \r\
-notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-LlangCode] [-nLineNumber] [-cColumnNumber] [-pPosition] [-xLeftPos] [-yTopPos] [-nosession] [-notabbar] [-ro] [-systemtray] [-loadingTime] [-alwaysOnTop] [-openSession] [-r] [-qnEasterEggName | -qtText | -qfCntentFileName] [-qSpeed1|2|3] [-quickPrint] [-openFoldersAsWorkspace] [filePath]\r\
+notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-LlangCode] [-nLineNumber] [-cColumnNumber] [-pPosition] [-xLeftPos] [-yTopPos] [-nosession] [-notabbar] [-ro] [-systemtray] [-loadingTime] [-alwaysOnTop] [-openSession] [-r] [-qn=\"Easter egg name\" | -qt=\"a text to display.\" | -qf=\"D:\\my quote.txt\"] [-qSpeed1|2|3] [-quickPrint] [-settingsDir=\"d:\\your settings dir\\\"] [-openFoldersAsWorkspace] [filePath]\r\
 \r\
 --help : This help message\r\
 -multiInst : Launch another Notepad++ instance\r\
 -noPlugin : Launch Notepad++ without loading any plugin\r\
--l : Open file or display ghost typing with syntax highlighting of choice\r\
+-l : Open file or Ghost type with syntax highlighting of choice\r\
 -L : Apply indicated localization, langCode is browser language code\r\
 -n : Scroll to indicated line on filePath\r\
 -c : Scroll to indicated column on filePath\r\
@@ -52,11 +52,12 @@ notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-LlangCode] [-nLineNum
 -openSession : Open a session. filePath must be a session file\r\
 -r : Open files recursively. This argument will be ignored\r\
      if filePath contain no wildcard character\r\
--qn : Launch ghost typing to display easter egg via its name\r\
--qt : Launch ghost typing to display a text via the given text\r\
--qf : Launch ghost typing to display a file content via the file path\r\
+-qn=\"Easter egg name\": Ghost type easter egg via its name\r\
+-qt=\"text to display.\": Ghost type the given text\r\
+-qf=\"D:\\my quote.txt\": Ghost type a file content via the file path\r\
 -qSpeed : Ghost typing speed. Value from 1 to 3 for slow, fast and fastest\r\
 -quickPrint : Print the file given as argument then quit Notepad++\r\
+-settingsDir=\"d:\\your settings dir\\\": Override the default settings dir\r\
 -openFoldersAsWorkspace: open filePath of folder(s) as workspace\r\
 filePath : file or folder name to open (absolute or relative path name)\r\
 ");

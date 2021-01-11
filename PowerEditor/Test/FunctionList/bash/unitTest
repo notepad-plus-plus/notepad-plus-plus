@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# bash parser should be fixed so we can use the content of "unitTest.expected.result.correct".
+# Check the bug here:
+# https://github.com/notepad-plus-plus/notepad-plus-plus/issues/9019
 
 setenv()
 
@@ -117,7 +120,6 @@ LIBIFSNAME="/QSYS.LIB/${TARGETLIB}.LIB"
 #       exit 0 (succeeds) if some action has to be taken, else 1.
 
 action_needed()
-
 {
         [ ! -e "${1}" ] && return 0
         [ "${2}" ] || return 1
@@ -132,9 +134,7 @@ action_needed()
 #       - Absolute
 #       - No . or .. component.
 
-canonicalize_path()
-
-{
+canonicalize_path(){
         if expr "${1}" : '^/' > /dev/null
         then    P="${1}"
         else    P="`pwd`/${1}"
@@ -167,9 +167,7 @@ canonicalize_path()
 #       As side effect, append the module name to variable MODULES.
 #       Set LINK to "YES" if the module has been compiled.
 
-make_module()
-
-{
+make_module() {
         MODULES="${MODULES} ${1}"
         MODIFSNAME="${LIBIFSNAME}/${1}.MODULE"
         action_needed "${MODIFSNAME}" "${2}" || return 0;

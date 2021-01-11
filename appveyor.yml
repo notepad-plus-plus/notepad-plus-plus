@@ -1,4 +1,4 @@
-version: 7.8.{build}
+version: 7.9.{build}
 image: Visual Studio 2017
 
 
@@ -7,6 +7,7 @@ environment:
     - platform: Win32
       archi: x86
       platform_input: Win32
+      PYTHON: "C:\\Python38"
 
     - platform: x64
       archi: amd64
@@ -34,7 +35,7 @@ build_script:
     - if "%configuration%"=="Unicode Release" set scintilla_debug=
     - if "%archi%" NEQ "" nmake SUPPORT_XP=1 %scintilla_debug% -f scintilla.mak
     - if "%Platform%"=="mingw-w64_810_X64" mingw32-make -j%NUMBER_OF_PROCESSORS%
-    
+
     - cd "%APPVEYOR_BUILD_FOLDER%"\PowerEditor\visual.net\
     - if "%archi%" NEQ "" msbuild notepadPlus.vcxproj /p:configuration="%configuration%" /p:platform="%platform_input%" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
     - if "%Platform%"=="mingw-w64_810_X64" cd c:\projects\notepad-plus-plus\PowerEditor\gcc\ & mingw32-make -j%NUMBER_OF_PROCESSORS%
@@ -42,8 +43,15 @@ build_script:
 
 after_build:
     - cd "%APPVEYOR_BUILD_FOLDER%"
+    #xml files syntax checks
+    - if "%platform_input%"=="Win32" if "%configuration%"=="Unicode Debug" SET PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
+    - if "%platform_input%"=="Win32" if "%configuration%"=="Unicode Debug" python -m pip install requests rfc3987 pywin32 lxml
+    - if "%platform_input%"=="Win32" if "%configuration%"=="Unicode Debug" call python PowerEditor\Test\xmlValidator\validator_xml.py
+
     - ps: >-
         $nppFileName = "Notepad++.$env:PLATFORM_INPUT.$env:CONFIGURATION.exe"
+
+        Push-AppveyorArtifact "scintilla\bin\SciLexer.dll" -FileName "SciLexer.$env:PLATFORM.$env:CONFIGURATION.dll"
 
         if ($env:PLATFORM_INPUT -eq "x64" -and $env:CONFIGURATION -eq "Unicode Release") {
             Push-AppveyorArtifact "PowerEditor\bin64\Notepad++.exe" -FileName "$nppFileName"
@@ -59,6 +67,23 @@ after_build:
 
         if ($env:PLATFORM_INPUT -eq "Win32" -and $env:CONFIGURATION -eq "Unicode Debug") {
             Push-AppveyorArtifact "PowerEditor\visual.net\Unicode Debug\Notepad++.exe" -FileName "$nppFileName"
+
+            Start-FileDownload 'https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v7.9/npp.7.9.portable.minimalist.7z'
+            7z x -y npp.7.9.portable.minimalist.7z | Out-Null
+            #take SciLexer.dll from downloaded version due to dependency of the functionlist tests on a version build with boost regex
+            #what is not the case for the dll build on appveyor CI (would either need a very time consuming boost build or usage of nuget packages)
+            Copy-Item "$env:APPVEYOR_BUILD_FOLDER\SciLexer.dll" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
+            Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\visual.net\Unicode Debug\Notepad++.exe" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
+            Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\src\langs.model.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
+            Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\src\stylers.model.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
+            Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\src\shortcuts.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
+            Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\src\contextMenu.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
+            Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\installer\functionList" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin" -Recurse
+            cd .\PowerEditor\Test\FunctionList\
+            .\unitTestLauncher.ps1
+            #ATTENTION: current working dir is no longer at APPVEYOR_BUILD_FOLDER
+            cd ..\UrlDetection
+            .\verifyUrlDetection.ps1
         }
 
         if ($env:PLATFORM_INPUT -eq "mingw") {
@@ -66,4 +91,4 @@ after_build:
             Push-AppveyorArtifact "PowerEditor\bin\NotepadPP.exe_dynamic" -FileName "$nppFileName_dynamic"
         }
 
-        Push-AppveyorArtifact "scintilla\bin\SciLexer.dll" -FileName "SciLexer.$env:PLATFORM.$env:CONFIGURATION.dll"
+

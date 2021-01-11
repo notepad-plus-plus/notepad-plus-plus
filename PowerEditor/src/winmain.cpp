@@ -77,21 +77,76 @@ void allowWmCopydataMessages(Notepad_plus_Window& notepad_plus_plus, const NppPa
 	}
 }
 
-//commandLine should contain path to n++ executable running
-ParamVector parseCommandLine(const TCHAR* commandLine)
+// parseCommandLine() takes command line arguments part string, cuts arguments by using white space as separater.
+// Only white space in double quotes will be kept, such as file path argument or "-settingsDir=" argument (ex.: -settingsDir="c:\my settings\my folder\")
+void parseCommandLine(const TCHAR* commandLine, ParamVector& paramVector)
 {
-	ParamVector result;
-	if ( commandLine[0] != '\0' )
+	if (!commandLine)
+		return;
+	
+	TCHAR* cmdLine = new TCHAR[lstrlen(commandLine) + 1];
+	lstrcpy(cmdLine, commandLine);
+
+	TCHAR* cmdLinePtr = cmdLine;
+
+	bool isInFile = false;
+	bool isStringInArg = false;
+	bool isInWhiteSpace = true;
+
+	size_t commandLength = lstrlen(cmdLinePtr);
+	std::vector<TCHAR *> args;
+	for (size_t i = 0; i < commandLength; ++i)
 	{
-		int numArgs;
-		LPWSTR* tokenizedCmdLine = CommandLineToArgvW( commandLine, &numArgs );
-		if ( tokenizedCmdLine != nullptr )
+		switch (cmdLinePtr[i])
 		{
-			result.assign( tokenizedCmdLine, tokenizedCmdLine+numArgs );
-			LocalFree( tokenizedCmdLine );
+			case '\"': //quoted filename, ignore any following whitespace
+			{
+				if (!isStringInArg && i > 0 && cmdLinePtr[i - 1] == '=')
+				{
+					isStringInArg = true;
+				}
+				else if (isStringInArg)
+				{
+					isStringInArg = false;
+					//cmdLinePtr[i] = 0;
+				}
+				else if (!isInFile)	//" will always be treated as start or end of param, in case the user forgot to add an space
+				{
+					args.push_back(cmdLinePtr + i + 1);	//add next param(since zero terminated original, no overflow of +1)
+					isInFile = true;
+					cmdLinePtr[i] = 0;
+				}
+				else if (isInFile)
+				{
+					isInFile = false;
+					//because we dont want to leave in any quotes in the filename, remove them now (with zero terminator)
+					cmdLinePtr[i] = 0;
+				}
+				isInWhiteSpace = false;
+			}
+			break;
+
+			case '\t': //also treat tab as whitespace
+			case ' ':
+			{
+				isInWhiteSpace = true;
+				if (!isInFile && !isStringInArg)
+					cmdLinePtr[i] = 0;		//zap spaces into zero terminators, unless its part of a filename	
+			}
+			break;
+
+			default: //default TCHAR, if beginning of word, add it
+			{
+				if (!isInFile && !isStringInArg && isInWhiteSpace)
+				{
+					args.push_back(cmdLinePtr + i);	//add next param
+					isInWhiteSpace = false;
+				}
+			}
 		}
 	}
-	return result;
+	paramVector.assign(args.begin(), args.end());
+	delete[] cmdLine;
 }
 
 // 1. Converts /p to -quickPrint if it exists as the first parameter
@@ -207,15 +262,14 @@ int getNumberFromParam(char paramName, ParamVector & params, bool & isParamePres
 generic_string getEasterEggNameFromParam(ParamVector & params, unsigned char & type)
 {
 	generic_string EasterEggName;
-	if (!getParamValFromString(TEXT("-qn"), params, EasterEggName))  // get internal easter egg
+	if (!getParamValFromString(TEXT("-qn="), params, EasterEggName))  // get internal easter egg
 	{
-		if (!getParamValFromString(TEXT("-qt"), params, EasterEggName)) // get user quote from cmdline argument
+		if (!getParamValFromString(TEXT("-qt="), params, EasterEggName)) // get user quote from cmdline argument
 		{
-			if (!getParamValFromString(TEXT("-qf"), params, EasterEggName)) // get user quote from a content of file
+			if (!getParamValFromString(TEXT("-qf="), params, EasterEggName)) // get user quote from a content of file
 				return TEXT("");
 			else
 			{
-				EasterEggName = relativeFilePathToFullFilePath(EasterEggName.c_str());
 				type = 2; // quote content in file
 			}
 		}
@@ -225,14 +279,13 @@ generic_string getEasterEggNameFromParam(ParamVector & params, unsigned char & t
 	else
 		type = 0; // easter egg
 
-	generic_string percentTwentyStr = TEXT("%20");
-	generic_string spaceStr = TEXT(" ");
-	size_t start_pos = 0;
-	while ((start_pos = EasterEggName.find(percentTwentyStr, start_pos)) != std::string::npos)
+	if (EasterEggName.c_str()[0] == '"' && EasterEggName.c_str()[EasterEggName.length() - 1] == '"')
 	{
-		EasterEggName.replace(start_pos, percentTwentyStr.length(), spaceStr);
-		start_pos += spaceStr.length(); // Handles case where 'to' is a substring of 'from'
+		EasterEggName = EasterEggName.substr(1, EasterEggName.length() - 2);
 	}
+
+	if (type == 2)
+		EasterEggName = relativeFilePathToFullFilePath(EasterEggName.c_str());
 
 	return EasterEggName;
 }
@@ -265,6 +318,7 @@ const TCHAR FLAG_FUNCLSTEXPORT[] = TEXT("-export=functionList");
 const TCHAR FLAG_PRINTANDQUIT[] = TEXT("-quickPrint");
 const TCHAR FLAG_NOTEPAD_COMPATIBILITY[] = TEXT("-notepadStyleCmdline");
 const TCHAR FLAG_OPEN_FOLDERS_AS_WORKSPACE[] = TEXT("-openFoldersAsWorkspace");
+const TCHAR FLAG_SETTINGS_DIR[] = TEXT("-settingsDir=");
 
 void doException(Notepad_plus_Window & notepad_plus_plus)
 {
@@ -360,7 +414,8 @@ PWSTR stripIgnoredParams(ParamVector & params, PWSTR pCmdLine)
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 {
-	ParamVector params = parseCommandLine(pCmdLine);
+	ParamVector params;
+	parseCommandLine(pCmdLine, params);
 	PWSTR pCmdLineWithoutIgnores = stripIgnoredParams(params, pCmdLine);
 
 	MiniDumper mdump;	//for debugging purposes.
@@ -394,6 +449,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 	cmdLineParams._isSessionFile = isInList(FLAG_OPENSESSIONFILE, params);
 	cmdLineParams._isRecursive = isInList(FLAG_RECURSIVE, params);
 	cmdLineParams._openFoldersAsWorkspace = isInList(FLAG_OPEN_FOLDERS_AS_WORKSPACE, params);
+
 	cmdLineParams._langType = getLangTypeFromParam(params);
 	cmdLineParams._localizationPath = getLocalizationPathFromParam(params);
 	cmdLineParams._easterEggName = getEasterEggNameFromParam(params, cmdLineParams._quoteType);
@@ -406,11 +462,23 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 	cmdLineParams._point.x = getNumberFromParam('x', params, cmdLineParams._isPointXValid);
 	cmdLineParams._point.y = getNumberFromParam('y', params, cmdLineParams._isPointYValid);
 
+	NppParameters& nppParameters = NppParameters::getInstance();
+
+	generic_string path;
+	if (getParamValFromString(FLAG_SETTINGS_DIR, params, path))
+	{
+		// path could contain double quotes if path contains white space
+		if (path.c_str()[0] == '"' && path.c_str()[path.length() - 1] == '"')
+		{
+			path = path.substr(1, path.length() - 2);
+		}
+		nppParameters.setCmdSettingsDir(path);
+	}
 
 	if (showHelp)
 		::MessageBox(NULL, COMMAND_ARG_HELP, TEXT("Notepad++ Command Argument Help"), MB_OK);
 
-	NppParameters& nppParameters = NppParameters::getInstance();
+
 
 	if (cmdLineParams._localizationPath != TEXT(""))
 	{

@@ -57,6 +57,7 @@
 #define FB_CMD_FOLDALL 2
 #define FB_CMD_EXPANDALL 3
 
+
 FileBrowser::~FileBrowser()
 {
 	for (const auto folder : _folderUpdaters)
@@ -140,6 +141,12 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			tbButtons[2].fsState = TBSTATE_ENABLED;
 			tbButtons[2].fsStyle = BTNS_BUTTON | BTNS_AUTOSIZE;
 			tbButtons[2].iString = reinterpret_cast<INT_PTR>(TEXT(""));
+
+			// tips text for toolbar buttons
+			NativeLangSpeaker *pNativeSpeaker = nppParam.getNativeLangSpeaker();
+			_expandAllFolders = pNativeSpeaker->getAttrNameStr(_expandAllFolders.c_str(), FOLDERASWORKSPACE_NODE, "ExpandAllFoldersTip");
+			_collapseAllFolders = pNativeSpeaker->getAttrNameStr(_collapseAllFolders.c_str(), FOLDERASWORKSPACE_NODE, "CollapseAllFoldersTip");
+			_locateCurrentFile = pNativeSpeaker->getAttrNameStr(_locateCurrentFile.c_str(), FOLDERASWORKSPACE_NODE, "LocateCurrentFileTip");
 
 			::SendMessage(_hToolbarMenu, TB_BUTTONSTRUCTSIZE, sizeof(TBBUTTON), 0);
 			::SendMessage(_hToolbarMenu, TB_SETBUTTONSIZE, 0, MAKELONG(nppParam._dpiManager.scaleX(20), nppParam._dpiManager.scaleY(20)));
@@ -383,21 +390,34 @@ void FileBrowser::initPopupMenus()
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_CMDHERE, cmdHere.c_str());
 }
 
-bool FileBrowser::selectCurrentEditingFile() const
+bool FileBrowser::selectItemFromPath(const generic_string& itemPath) const
 {
-	TCHAR currentDocPath[MAX_PATH] = { '0' };
-	::SendMessage(_hParent, NPPM_GETFULLCURRENTPATH, MAX_PATH, reinterpret_cast<LPARAM>(currentDocPath));
-	generic_string rootFolderPath = currentDocPath;
+	if (itemPath.empty())
+		return false;
+
+	size_t itemPathLen = itemPath.size();
 
 	for (const auto f : _folderUpdaters)
 	{
-		if (isRelatedRootFolder(f->_rootFolder._rootPath, rootFolderPath))
+		if (isRelatedRootFolder(f->_rootFolder._rootPath, itemPath))
 		{
 			generic_string rootPath = f->_rootFolder._rootPath;
-			generic_string pathSuffix = rootFolderPath.substr(rootPath.size() + 1, rootFolderPath.size() - rootPath.size());
-			vector<generic_string> linarPathArray = split(pathSuffix, '\\');
+			size_t rootPathLen = rootPath.size();
+			if (rootPathLen > itemPathLen) // It should never happen
+				return false;
 
+			vector<generic_string> linarPathArray;
+			if (rootPathLen == itemPathLen)
+			{
+				// Do nothing and use empty linarPathArray
+			}
+			else
+			{
+				generic_string pathSuffix = itemPath.substr(rootPathLen + 1, itemPathLen - rootPathLen);
+				linarPathArray = split(pathSuffix, '\\');
+			}
 			HTREEITEM foundItem = findInTree(rootPath, nullptr, linarPathArray);
+
 			if (foundItem)
 			{
 				_treeView.selectItem(foundItem);
@@ -407,6 +427,15 @@ bool FileBrowser::selectCurrentEditingFile() const
 		}
 	}
 	return false;
+}
+
+bool FileBrowser::selectCurrentEditingFile() const
+{
+	TCHAR currentDocPath[MAX_PATH] = { '0' };
+	::SendMessage(_hParent, NPPM_GETFULLCURRENTPATH, MAX_PATH, reinterpret_cast<LPARAM>(currentDocPath));
+	generic_string currentDocPathStr = currentDocPath;
+
+	return selectItemFromPath(currentDocPathStr);
 }
 
 BOOL FileBrowser::setImageList(int root_clean_id, int root_dirty_id, int open_node_id, int closed_node_id, int leaf_id) 
@@ -531,6 +560,24 @@ void FileBrowser::notified(LPNMHDR notification)
 	{
 		::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FILEBROWSER, 0);
 	}
+	else if (notification->code == TTN_GETDISPINFO)
+	{
+		LPTOOLTIPTEXT lpttt = (LPTOOLTIPTEXT)notification;
+		lpttt->hinst = NULL;
+
+		if (notification->idFrom == FB_CMD_AIMFILE)
+		{
+			wcscpy_s(lpttt->szText, _locateCurrentFile.c_str());
+		}
+		else if (notification->idFrom == FB_CMD_FOLDALL)
+		{
+			wcscpy_s(lpttt->szText, _collapseAllFolders.c_str());
+		}
+		else if (notification->idFrom == FB_CMD_EXPANDALL)
+		{
+			wcscpy_s(lpttt->szText, _expandAllFolders.c_str());
+		}
+	}
 	else if ((notification->hwndFrom == _treeView.getHSelf()))
 	{
 		TCHAR textBuffer[MAX_PATH];
@@ -611,6 +658,9 @@ void FileBrowser::notified(LPNMHDR notification)
 			}
 			break;
 
+			case NM_RETURN:
+				SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, 1);
+			break;
 
 			case TVN_KEYDOWN:
 			{
@@ -625,16 +675,14 @@ void FileBrowser::notified(LPNMHDR notification)
 					else
 						_treeView.toggleExpandCollapse(hItem);
 				}
-				/*
 				else if (ptvkd->wVKey == VK_DELETE)
 				{
 					HTREEITEM hItem = _treeView.getSelection();
 					BrowserNodeType nType = getNodeType(hItem);
-					if (nType == browserNodeType_folder)
-						popupMenuCmd(IDM_FILEBROWSER_DELETEFOLDER);
-					else if (nType == browserNodeType_file)
-						popupMenuCmd(IDM_FILEBROWSER_DELETEFILE);
+					if (nType == browserNodeType_root)
+						popupMenuCmd(IDM_FILEBROWSER_REMOVEROOTFOLDER);
 				}
+				/*
 				else if (ptvkd->wVKey == VK_UP)
 				{
 					if (0x80 & GetKeyState(VK_CONTROL))
@@ -869,7 +917,7 @@ void FileBrowser::popupMenuCmd(int cmdID)
 		case IDM_FILEBROWSER_ADDROOT:
 		{
 			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-			generic_string openWorkspaceStr = pNativeSpeaker->getAttrNameStr(TEXT("Select a folder to add in Folder as Workspace panel"), "FolderAsWorkspace", "SelectFolderFromBrowserString");
+			generic_string openWorkspaceStr = pNativeSpeaker->getAttrNameStr(TEXT("Select a folder to add in Folder as Workspace panel"), FOLDERASWORKSPACE_NODE, "SelectFolderFromBrowserString");
 			generic_string folderPath = folderBrowser(_hParent, openWorkspaceStr.c_str());
 			if (!folderPath.empty())
 			{
@@ -1012,7 +1060,7 @@ void FileBrowser::addRootFolder(generic_string rootFolderPath)
 				NppParameters::getInstance().getNativeLangSpeaker()->messageBox("FolderAsWorspaceSubfolderExists",
 					_hParent,
 					TEXT("A sub-folder of the folder you want to add exists.\rPlease remove its root from the panel before you add folder \"$STR_REPLACE$\"."),
-					TEXT("Folder as Worspace adding folder problem"),
+					TEXT("Folder as Workspace adding folder problem"),
 					MB_OK,
 					0, // not used
 					rootFolderPath.c_str());
@@ -1227,7 +1275,11 @@ HTREEITEM FileBrowser::findInTree(const generic_string& rootPath, HTREEITEM node
 			return nullptr;
 	}
 
-	if (linarPathArray.size() == 1)
+	if (linarPathArray.empty()) // nothing to search, return node
+	{
+		return node;
+	}
+	else if (linarPathArray.size() == 1)
 	{
 		// Search
 		return findChildNodeFromName(node, linarPathArray[0]);

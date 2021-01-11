@@ -85,14 +85,12 @@ Function copyCommonFiles
 	SetOverwrite off
 	SetOutPath "$UPDATE_PATH\"
 	File "..\bin\contextMenu.xml"
-	File "..\bin\functionList.xml"
 	
 	SetOverwrite on
 	SetOutPath "$INSTDIR\"
 	File "..\bin\langs.model.xml"
 	File "..\bin\stylers.model.xml"
 	File "..\bin\contextMenu.xml"
-	File "..\bin\functionList.xml"
 
 	SetOverwrite off
 	File "..\bin\shortcuts.xml"
@@ -115,7 +113,8 @@ Function copyCommonFiles
 
 	; Markdown in user defined languages
 	SetOutPath "$UPDATE_PATH\userDefineLangs\"
-	File "..\bin\userDefineLangs\userDefinedLang-markdown.default.modern.xml"
+	Delete "$UPDATE_PATH\userDefineLangs\userDefinedLang-markdown.default.modern.xml"
+	File "..\bin\userDefineLangs\markdown._preinstalled.udl.xml"
 
 	; Localization
 	; Default language English 

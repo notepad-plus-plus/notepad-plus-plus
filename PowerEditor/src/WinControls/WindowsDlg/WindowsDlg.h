@@ -83,6 +83,7 @@ protected :
 	void updateButtonState();
 	void activateCurrent();
 	void doColumnSort();
+	void doCount();
 
 	HWND _hList = nullptr;
 	static RECT _lastKnownLocation;

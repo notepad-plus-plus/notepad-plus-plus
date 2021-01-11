@@ -62,11 +62,19 @@ INT_PTR CALLBACK GoToLineDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 						}
 						else
 						{
-							auto sci_line = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, line);
+							int posToGoto = 0;
+							if (line > 0)
+							{
+								// make sure not jumping into the middle of a multibyte character
+								// or into the middle of a CR/LF pair for Windows files
+								auto before = (*_ppEditView)->execute(SCI_POSITIONBEFORE, line);
+								posToGoto = static_cast<int>((*_ppEditView)->execute(SCI_POSITIONAFTER, before));
+							}
+							auto sci_line = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, posToGoto);
 							(*_ppEditView)->execute(SCI_ENSUREVISIBLE, sci_line);
-							(*_ppEditView)->execute(SCI_GOTOPOS, line);
+							(*_ppEditView)->execute(SCI_GOTOPOS, posToGoto);
 						}
-                    }
+					}
 
 					SCNotification notification = {};
 					notification.nmhdr.code = SCN_PAINTED;
@@ -100,6 +108,7 @@ INT_PTR CALLBACK GoToLineDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 					updateLinesNumbers();
 					return TRUE;
 				}
+
 				default :
 				{
 					switch (HIWORD(wParam))
@@ -134,7 +143,8 @@ void GoToLineDlg::updateLinesNumbers() const
 	else
 	{
 		current = static_cast<unsigned int>((*_ppEditView)->execute(SCI_GETCURRENTPOS));
-		limit = static_cast<unsigned int>((*_ppEditView)->getCurrentDocLen() - 1);
+		int currentDocLength = (*_ppEditView)->getCurrentDocLen();
+		limit = static_cast<unsigned int>(currentDocLength > 0 ? currentDocLength - 1 : 0);
 	}
     ::SetDlgItemInt(_hSelf, ID_CURRLINE, current, FALSE);
     ::SetDlgItemInt(_hSelf, ID_LASTLINE, limit, FALSE);

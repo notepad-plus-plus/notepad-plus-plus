@@ -2326,7 +2326,9 @@ const TCHAR * Notepad_plus::fileSaveSession(size_t nbFile, TCHAR ** fileNames)
 	}
 	fDlg.setExtFilter(TEXT("All types"), TEXT(".*"));
 	const bool isCheckboxActive = _pFileBrowser && !_pFileBrowser->isClosed();
-	fDlg.setCheckbox(TEXT("Save Folder as Workspace"), isCheckboxActive);
+	const generic_string checkboxLabel = _nativeLangSpeaker.getLocalizedStrFromID("session-save-folder-as-workspace",
+		TEXT("Save Folder as Workspace"));
+	fDlg.setCheckbox(checkboxLabel.c_str(), isCheckboxActive);
 	sessionFileName = fDlg.doSaveDlg();
 
 	return fileSaveSession(nbFile, fileNames, sessionFileName, fDlg.getCheckboxState());

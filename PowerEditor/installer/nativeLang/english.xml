@@ -1392,6 +1392,7 @@ Find in all files except exe, obj &amp;&amp; log:
             <find-result-hits value="($INT_REPLACE$ hits)"/>
             <find-result-line-prefix value="Line"/> <!-- Must not begin with space or tab character -->
             <find-regex-zero-length-match value="zero length match" />
+            <session-save-folder-as-workspace value="Save Folder as Workspace" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

@@ -865,12 +865,16 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			COMBOBOXINFO cbinfo = { sizeof(COMBOBOXINFO) };
 			GetComboBoxInfo(hFindCombo, &cbinfo);
 			originalComboEditProc = SetWindowLongPtr(cbinfo.hwndItem, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(comboEditProc));
+			SetWindowLongPtr(cbinfo.hwndItem, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(cbinfo.hwndCombo));
 			GetComboBoxInfo(hReplaceCombo, &cbinfo);
 			SetWindowLongPtr(cbinfo.hwndItem, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(comboEditProc));
+			SetWindowLongPtr(cbinfo.hwndItem, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(cbinfo.hwndCombo));
 			GetComboBoxInfo(hFiltersCombo, &cbinfo);
 			SetWindowLongPtr(cbinfo.hwndItem, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(comboEditProc));
+			SetWindowLongPtr(cbinfo.hwndItem, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(cbinfo.hwndCombo));
 			GetComboBoxInfo(hDirCombo, &cbinfo);
 			SetWindowLongPtr(cbinfo.hwndItem, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(comboEditProc));
+			SetWindowLongPtr(cbinfo.hwndItem, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(cbinfo.hwndCombo));
 
 			if ((NppParameters::getInstance()).getNppGUI()._monospacedFontFindDlg)
 			{
@@ -3245,7 +3249,31 @@ LRESULT FAR PASCAL FindReplaceDlg::finderProc(HWND hwnd, UINT message, WPARAM wP
 
 LRESULT FAR PASCAL FindReplaceDlg::comboEditProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	if (message == WM_CHAR && wParam == 0x7F) // ASCII "DEL" (Ctrl+Backspace)
+	HWND hwndCombo = reinterpret_cast<HWND>(GetWindowLongPtr(hwnd, GWLP_USERDATA));
+
+	bool isDropped = ::SendMessage(hwndCombo, CB_GETDROPPEDSTATE, 0, 0) != 0;
+
+	if (isDropped && (message == WM_KEYDOWN) && (wParam == VK_DELETE))
+	{
+		int curSel = static_cast<int>(::SendMessage(hwndCombo, CB_GETCURSEL, 0, 0));
+		if (curSel != CB_ERR)
+		{
+			int itemsRemaining = static_cast<int>(::SendMessage(hwndCombo, CB_DELETESTRING, curSel, 0));
+			// if we close the dropdown and reopen it, it will be correctly-sized for remaining items
+			::SendMessage(hwndCombo, CB_SHOWDROPDOWN, FALSE, 0);
+			if (itemsRemaining > 0)
+			{
+				if (itemsRemaining == curSel)
+				{
+					--curSel;
+				}
+				::SendMessage(hwndCombo, CB_SETCURSEL, curSel, 0);
+				::SendMessage(hwndCombo, CB_SHOWDROPDOWN, TRUE, 0);
+			}
+			return 0;
+		}
+	}
+	else if (message == WM_CHAR && wParam == 0x7F) // ASCII "DEL" (Ctrl+Backspace)
 	{
 		delLeftWordInEdit(hwnd);
 		return 0;

@@ -1598,14 +1598,22 @@ void Notepad_plus::command(int id)
 				auto caretPos = _pEditView->execute(SCI_GETLINEENDPOSITION, lineRange.second);
 				_pEditView->execute(SCI_SETSELECTION, caretPos, anchorPos);
 				_pEditView->execute(SCI_TARGETFROMSELECTION);
-				if (_pEditView->execute(SCI_GETEDGEMODE) == EDGE_NONE)
+				int edgeMode = static_cast<int>(_pEditView->execute(SCI_GETEDGEMODE));
+				if (edgeMode == EDGE_NONE)
 				{
-					_pEditView->execute(SCI_LINESSPLIT);
+					_pEditView->execute(SCI_LINESSPLIT, 0);
 				}
 				else
 				{
-					auto textWidth = _pEditView->execute(SCI_TEXTWIDTH, STYLE_LINENUMBER, reinterpret_cast<LPARAM>("P"));
-					auto edgeCol = _pEditView->execute(SCI_GETEDGECOLUMN);
+					auto textWidth = _pEditView->execute(SCI_TEXTWIDTH, STYLE_DEFAULT, reinterpret_cast<LPARAM>("P"));
+					auto edgeCol = _pEditView->execute(SCI_GETEDGECOLUMN); // will work for edgeMode == EDGE_BACKGROUND
+					if (edgeMode == EDGE_MULTILINE)
+					{
+						NppParameters& nppParam = NppParameters::getInstance();
+						ScintillaViewParams& svp = const_cast<ScintillaViewParams&>(nppParam.getSVP());
+						edgeCol = svp._edgeMultiColumnPos.back();  // the LAST edge column specified by the user
+					}
+					++edgeCol;  // compensate for zero-based column number
 					_pEditView->execute(SCI_LINESSPLIT, textWidth * edgeCol);
 				}
 			}

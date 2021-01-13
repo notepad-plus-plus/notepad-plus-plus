@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2021-01-08 by schnurlos (schnurlos@gmail.com)
+	last modified: 2021-01-13 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -1402,6 +1402,7 @@ Finde in allen Dateien außer exe, obj &amp;&amp; log:
 			<find-result-hits value="($INT_REPLACE$ Treffer)"/>
 			<find-result-line-prefix value="Zeile"/> <!-- Must not begin with space or tab character -->
 			<find-regex-zero-length-match value="Übereinstimmung Null-Längen" />
+			<session-save-folder-as-workspace value="Verzeichnis als Arbeitsbereich speichern" />
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 7.9.1  24/Oct/2020  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 7.9.3  28/Jan/2021  by Ondřej Müller (mullero@email.cz)
 	- N++ Community:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="7.9.1">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="7.9.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -181,6 +181,7 @@
 					<Item id = "42079" name = "Odstranit duplicitní řádky"/>
 					<Item id = "42080" name = "Setřídit řádky (ignorovat velikost písmen) vzestupně"/>
 					<Item id = "42081" name = "Setřídit řádky (ignorovat velikost písmen) sestupně"/>
+					<Item id = "42082" name = "Kopírovat odkaz"/>
 					<Item id = "43001" name = "&amp;Najít..."/>
 					<Item id = "43002" name = "Najít &amp;další"/>
 					<Item id = "43003" name = "Nahradit..."/>
@@ -369,13 +370,13 @@
 				<Item CMID = "1" name = "Zavřít vše kromě aktuálního"/>
 				<Item CMID = "2" name = "Uložit"/>
 				<Item CMID = "3" name = "Uložit jako..."/>
-				<Item CMID = "4" name = "Tisk"/>
+				<Item CMID = "4" name = "Tisk..."/>
 				<Item CMID = "5" name = "Přepnout náhled"/>
 				<Item CMID = "6" name = "Vytvořit kopii v samostatném náhledu"/>
 				<Item CMID = "7" name = "Jméno souboru i s cestou do Schránky"/>
 				<Item CMID = "8" name = "Jméno souboru do Schránky"/>
 				<Item CMID = "9" name = "Jméno aktuálního adresáře do Schránky"/>
-				<Item CMID = "10" name = "Přejmenovat"/>
+				<Item CMID = "10" name = "Přejmenovat..."/>
 				<Item CMID = "11" name = "Smazat"/>
 				<Item CMID = "12" name = "Pouze ke čtení"/>
 				<Item CMID = "13" name = "Vymazat příznak Pouze ke čtení"/>
@@ -567,11 +568,11 @@
 					<Item id = "45001" name = "Konverze konců řádků (EOL) na CR LF (Windows)"/>
 					<Item id = "45002" name = "Konverze konců řádků (EOL) na LF (Unix)"/>
 					<Item id = "45003" name = "Konverze konců řádků (EOL) na CR (Macintosh)"/>
-					<Item id = "43022" name = "Označit výsledky hledání 1. stylem"/>
-					<Item id = "43024" name = "Označit výsledky hledání 2. stylem"/>
-					<Item id = "43026" name = "Označit výsledky hledání 3. stylem"/>
-					<Item id = "43028" name = "Označit výsledky hledání 4. stylem"/>
-					<Item id = "43030" name = "Označit výsledky hledání 5. stylem"/>
+					<Item id = "43022" name = "Označit text 1. stylem"/>
+					<Item id = "43024" name = "Označit text 2. stylem"/>
+					<Item id = "43026" name = "Označit text 3. stylem"/>
+					<Item id = "43028" name = "Označit text 4. stylem"/>
+					<Item id = "43030" name = "Označit text 5. stylem"/>
 					<Item id = "43023" name = "Odstranit označení 1. stylem"/>
 					<Item id = "43025" name = "Odstranit označení 2. stylem"/>
 					<Item id = "43027" name = "Odstranit označení 3. stylem"/>
@@ -878,39 +879,41 @@
 					<Item id = "6128" name = "Alternativní ikony"/>
 				</Global>
 				<Scintillas title = "Editace">
-					<Item id = "6201" name = "Stromový styl"/>
-					<Item id = "6202" name = "Jednoduchý"/>
-					<Item id = "6203" name = "Se šipkami"/>
-					<Item id = "6204" name = "S kruhy"/>
-					<Item id = "6205" name = "Se čtverci"/>
-					<Item id = "6206" name = "Zobrazit okrajový pruh s čísly řádků"/>
-					<Item id = "6207" name = "Zobrazit okrajový pruh záložek"/>
-					<Item id = "6208" name = "Zobrazit"/>
-					<Item id = "6211" name = "Nastavení svislé vodící čáry"/>
-					<Item id = "6212" name = "Okraj"/>
-					<Item id = "6213" name = "Režim s pozadím"/>
 					<Item id = "6214" name = "Zvýraznit aktivní řádek"/>
 					<Item id = "6215" name = "Povolit vyhlazování fontu"/>
 					<Item id = "6216" name = "Nastavení kurzoru"/>
-					<Item id = "6217" name = "Šířka:"/>
-					<Item id = "6219" name = "Rychlost blikání:"/>
+					<Item id = "6217" name = "Šířka: "/>
+					<Item id = "6219" name = "Rychlost blikání: "/>
 					<Item id = "6221" name = "R"/>
 					<Item id = "6222" name = "P"/>
-					<Item id = "6224" name = "Vícenásobná editace"/>
-					<Item id = "6225" name = "Povolit (Ctrl+Myš(kliknutí/výběr))"/>
-					<Item id = "6226" name = "Žádný"/>
+					<Item id = "6225" name = "Povolit vícenásobnou editaci (Ctrl+Myš kliknutí/výběr)"/>
 					<Item id = "6227" name = "Zalomení řádky"/>
 					<Item id = "6228" name = "Implicitní"/>
 					<Item id = "6229" name = "Jen zarovnání"/>
 					<Item id = "6230" name = "S odsazením"/>
-					<Item id = "6231" name = "Šířka okraje"/>
 					<Item id = "6234" name = "Zakázat funkci vylepšeného rolování (jestliže máte problém s touchpadem)"/>
-					<Item id = "6235" name = "Bez okraje"/>
 					<Item id = "6236" name = "Povolit rolování za poslední řádku"/>
-					<Item id = "6237" name = "Přidejte Vaši sloupcovou značku poukázáním na její pozici (decimální číslo).
-Můžete definovat více značek sloupců použitím více čísel oddělených mezerami."/>
 					<Item id = "6239" name = "Ponechat výběr, když kliknete pravým tlačítkem mimo výběr"/>
 				</Scintillas>
+				<MarginsBorderEdge title="Okraje/Lem/Hrana">
+					<Item id = "6201" name = "Styl sbalovače na okraji"/>
+					<Item id = "6202" name = "Jednoduchý"/>
+					<Item id = "6203" name = "Se šipkami"/>
+					<Item id = "6204" name = "S kruhy"/>
+					<Item id = "6205" name = "Se čtverci"/>
+					<Item id = "6206" name = "Zobrazit"/>
+					<Item id = "6207" name = "Zobrazit záložky"/>
+					<Item id = "6211" name = "Nastavení svislé vodící čáry"/>
+					<Item id = "6213" name = "Režim s pozadím"/>
+					<Item id = "6226" name = "Žádný"/>
+					<Item id = "6231" name = "Šířka okraje"/>
+					<Item id = "6235" name = "Bez okraje"/>
+					<Item id = "6237" name = "Přidejte Vaši sloupcovou značku poukázáním na její pozici (decimální číslo).
+Můžete definovat více značek sloupců použitím více čísel oddělených mezerami."/>
+					<Item id = "6291" name = "Číslo řádku"/>
+					<Item id = "6292" name = "Dynamická šířka"/>
+					<Item id = "6293" name = "Konstantní šířka"/>
+				</MarginsBorderEdge>
 				<NewDoc title = "Nový dokument">
 					<Item id = "6401" name = "Formát"/>
 					<Item id = "6402" name = "Windows"/>
@@ -1019,9 +1022,6 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id = "6308" name = "Minimalizovat do oznamovací oblasti"/>
 					<Item id = "6312" name = "Automatická detekce stavu souboru"/>
 					<Item id = "6313" name = "Aktualizovat skrytě"/>
-					<Item id = "6318" name = "Nastavení hyperlinků"/>
-					<Item id = "6319" name = "Povolit"/>
-					<Item id = "6320" name = "Nepodtrhávat"/>
 					<Item id = "6322" name = "Přípona souboru relace:"/>
 					<Item id = "6323" name = "Povolit autom. aktualizaci Notepadu++"/>
 					<Item id = "6324" name = "Přepínač dokumentů (Ctrl+TAB)"/>
@@ -1033,8 +1033,7 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id = "6345" name = "Na oušku (tab) dokumentu"/>
 					<Item id = "6346" name = "Na přehledné mapě dokumentu"/>
 					<Item id = "6349" name = "Používat DirectWrite (může zlepšit zobrazení speciálních znaků, vyžadován restart Notepadu++)"/>
-					<Item id = "6350" name = "Povolit fullbox mód"/>
-					<Item id = "6351" name = "U normálního textu nastavit filtr přípony souboru v dialogu Uložit na .* místo .txt"/>
+					<Item id = "6351" name = "Nastavit filtr přípony souboru v dialogu Uložit na *.*"/>
 				</MISC>
 				<Backup title = "Zálohování">
 					<Item id = "6219" name = "Uživatelsky definovaný adresář pro zálohování"/>
@@ -1089,11 +1088,16 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id = "6162" name = "Použít implicitní seznam znaků pro Slova tak, jak je"/>
 					<Item id = "6163" name = "Přidat Váš vlastní znak jako součást slova (nepoužívejte tuto volbu, pokud si nejste jisti tím, co děláte)"/>
 				</Delimiter>
-				<Cloud title = "Cloud (i-úložišťě)">
+				<Cloud title = "Cloud a hyperlinky">
 					<Item id = "6261" name = "Pro aktivaci změn prosím restartujte Notepad++."/>
 					<Item id = "6262" name = "Nastavení internetového úložišťě"/>
-					<Item id = "6263" name = "bez cloudu"/>
+					<Item id = "6263" name = "Bez cloudu"/>
 					<Item id = "6267" name = "Zde nastavte cestu k Vašemu i-úložišti:"/>
+					<Item id = "6318" name = "Nastavení klikatelných odkazů"/>
+					<Item id = "6319" name = "Povolit"/>
+					<Item id = "6320" name = "Bez podtržení"/>
+					<Item id = "6350" name = "Povolit fullbox mód"/>
+					<Item id = "6264" name = "Přizpůsobené URI vzory:"/>
 				</Cloud>
 				<SearchEngine title = "Vyhledávač">
 					<Item id = "6271" name = "Vyhledávač (pro příkaz “Vyhledat na Internetu”)"/>
@@ -1140,7 +1144,7 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 				<Item id = "2" name = "Storno"/>
 			</ColumnEditor>
 
-			<FindInFinder title="Najít ve vyhledávání">
+			<FindInFinder title="Najít ve výsledcích vyhledávání">
 				<Item id = "1" name = "N&amp;ajít vše"/>
 				<Item id = "2" name = "&amp;Zavřít"/>
 				<Item id = "1711" name = "Najít &amp;co:"/>
@@ -1174,6 +1178,7 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 			<DocReloadWarning title = "Znovu otevřít" message = "Jste si jisti, že chcete znovu načíst aktuální soubor a ztratit tak změny udělané v Notepadu++?"/>
 			<FileLockedWarning title = "Uložení selhalo" message = "Prosím zkontrolujte, zda tento soubor není otevřen jiným programem"/>
 			<FileAlreadyOpenedInNpp title = "" message = "Tento soubor je již otevřen v Notepadu++."/>
+			<RenameTabTemporaryNameAlreadyInUse title = "Přejmenování selhalo" message = "Specifikované jméno je již použito na jiné záložce."/> <!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
 			<DeleteFileFailed title = "Odstranit Soubor" message = "Odstranění souboru selhalo"/>
 			<NbFileToOpenImportantWarning title = "Velmi mnoho souborů k otevření" message = "$INT_REPLACE$ souborů má být otevřeno.\rJste si tím jisti?"/>
 			<SettingsOnCloudError title = "Nastavení cloudu" message = "Zdá se, že nastavená cesta k i-úložišti ukazuje na jednotku, která je určena pouze ke čtení\r nebo na složku bez oprávnění k zápisu.\rVaše nastavení i-úložiště bude zrušeno. Prosím nastavte znovu odpovídající hodnotu v dialogu Volby..."/>
@@ -1239,6 +1244,7 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 			<ColumnPath name = "Cesta"/>
 			<ColumnType name = "Typ"/>
 			<ColumnSize name = "Velikost"/>
+			<NbDocsTotal name = "celkem dokumentů:"/>
 		</WindowsDlg>
 		
 		<AsciiInsertion>
@@ -1263,6 +1269,9 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 		<FolderAsWorkspace>
 			<PanelTitle name = "Složka jako Pracovní plocha"/>
 			<SelectFolderFromBrowserString name = "Vyberte složku, kterou chcete přidat do Pracovní plochy"/>
+			<ExpandAllFoldersTip name = "Rozbalit všechny složky"/>
+			<CollapseAllFoldersTip name = "Sbalit všechny složky"/>
+			<LocateCurrentFileTip name = "Zjistit, kde je aktuální soubor"/>
 			<Menus>
 				<Item id = "3511" name = "Odebrat"/>
 				<Item id = "3512" name = "Odebrat vše"/>
@@ -1369,11 +1378,12 @@ Najít ve všech souborech mimo exe, obj &amp;&amp; log:
 			<find-status-scope-all value = "v celém souboru"/>
 			<find-status-scope-backward value = "od začátku souboru až ke kurzoru"/>
 			<find-status-scope-forward value = "od kurzoru až do konce souboru"/>
-			<finder-find-in-finder value = "Nalézt v těchto nalezených výsledcích..."/>
-			<finder-close-this value = "Zavřít tento vyhledávač"/>
+			<finder-find-in-finder value = "Nalézt v těchto výsledcích hledání..."/>
+			<finder-close-this value = "Zavřít tyto vyhledané výsledky"/>
 			<finder-collapse-all value = "Sbalit vše"/>
 			<finder-uncollapse-all value = "Rozbalit vše"/>
-			<finder-copy value = "Kopírovat"/>
+			<finder-copy value = "Kopírovat vybrané řádky"/>
+			<finder-copy-verbatim value = "Kopírovat"/>
 			<finder-select-all value = "Vybrat vše"/>
 			<finder-clear-all value = "Smazat vše"/>
 			<finder-open-all value = "Otevřít vše"/>
@@ -1395,24 +1405,28 @@ Najít ve všech souborech mimo exe, obj &amp;&amp; log:
 			<summary-filecreatetime value = "Vytvořeno: "/>
 			<summary-filemodifytime value = "Modifikováno: "/>
 			<summary-nbchar value = "Znaky (bez konců řádek): "/>
-			<summary-nbword value = "Slova: "/>
+			<summary-nbword value = "Slova: "/>	
 			<summary-nbline value = "Řádky: "/>
 			<summary-nbbyte value = "Délka dokumentu: "/>
 			<summary-nbsel1 value = " vybraných znaků ("/>
 			<summary-nbsel2 value = " bytů) v "/>
 			<summary-nbrange value = " oblastech"/>
+			<find-in-files-progress-title value = "Průběh hledání v souborech ..."/>
 			<replace-in-files-confirm-title value = "Jste si jistí?"/>
 			<replace-in-files-confirm-directory value = "Jste si jistí, že chcete nahradit všechny výskyty v:"/>
 			<replace-in-files-confirm-filetype value = "Pro typ souboru:"/>
+			<replace-in-files-progress-title value = "Průběh zaměňování v souborech ..."/>
 			<replace-in-open-docs-confirm-title value = "Jste si jistí?"/>
 			<replace-in-open-docs-confirm-message value = "Opravdu chcete zaměnit všechny výskyty ve všech otevřených dokumentech?"/>
-			<find-result-caption value = "Výsledek hledání"/>
-			<find-result-title value = "Vyhledávání"/>
+			<find-result-caption value = "Výsledky vyhledávání"/>
+			<find-result-title value = "Vyhledávání"/> <!-- Must not begin with space or tab character -->
 			<find-result-title-info value = "($INT_REPLACE1$ výskytů v $INT_REPLACE2$ souborech z $INT_REPLACE3$ prohledaných)"/>
 			<find-result-title-info-selections value = "($INT_REPLACE1$ výskytů v $INT_REPLACE2$ výběrech z $INT_REPLACE3$ prohledávaných)"/>
 			<find-result-title-info-extra value = " - Režim řádkového filtru: zobrazení pouze filtrovaných výsledků"/>
 			<find-result-hits value = "(výskytů: $INT_REPLACE$)"/>
+			<find-result-line-prefix value = "Řádek"/> <!-- Must not begin with space or tab character -->
 			<find-regex-zero-length-match value = "shoda nulové délky" />
+			<session-save-folder-as-workspace value = "Uložit složku jako pracovní plochu"/>
 		</MiscStrings>
 
 	</Native-Langue>

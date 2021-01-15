@@ -688,15 +688,15 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	// launch the plugin dlg memorized at the last session
 	//
 
+	DockingManagerData& dmd = nppGUI._dockingData;
+
+	_dockingManager.setDockedContSize(CONT_LEFT, nppGUI._dockingData._leftWidth);
+	_dockingManager.setDockedContSize(CONT_RIGHT, nppGUI._dockingData._rightWidth);
+	_dockingManager.setDockedContSize(CONT_TOP, nppGUI._dockingData._topHeight);
+	_dockingManager.setDockedContSize(CONT_BOTTOM, nppGUI._dockingData._bottomHight);
+
 	if (!nppGUI._isCmdlineNosessionActivated)
 	{
-		DockingManagerData& dmd = nppGUI._dockingData;
-
-		_dockingManager.setDockedContSize(CONT_LEFT, nppGUI._dockingData._leftWidth);
-		_dockingManager.setDockedContSize(CONT_RIGHT, nppGUI._dockingData._rightWidth);
-		_dockingManager.setDockedContSize(CONT_TOP, nppGUI._dockingData._topHeight);
-		_dockingManager.setDockedContSize(CONT_BOTTOM, nppGUI._dockingData._bottomHight);
-
 		for (size_t i = 0, len = dmd._pluginDockInfo.size(); i < len; ++i)
 		{
 			PluginDlgDockingInfo& pdi = dmd._pluginDockInfo[i];

@@ -1407,7 +1407,6 @@ INT_PTR CALLBACK DefaultDirectorySubDlg::run_dlgProc(UINT message, WPARAM wParam
 			if (enableDlgTheme)
 				enableDlgTheme(_hSelf, ETDT_ENABLETAB);
 
-			::SendDlgItemMessage(_hSelf, IDC_OPENSAVEDIR_CHECK_USENEWSTYLESAVEDIALOG, BM_SETCHECK, nppGUI._useNewStyleSaveDlg ? BST_CHECKED : BST_UNCHECKED, 0);
 			::SendDlgItemMessage(_hSelf, IDC_OPENSAVEDIR_CHECK_DRROPFOLDEROPENFILES, BM_SETCHECK, nppGUI._isFolderDroppedOpenFiles ? BST_CHECKED : BST_UNCHECKED, 0);
 		}
 
@@ -1449,10 +1448,6 @@ INT_PTR CALLBACK DefaultDirectorySubDlg::run_dlgProc(UINT message, WPARAM wParam
 
 				case IDD_OPENSAVEDIR_ALWAYSON_BROWSE_BUTTON :
 					folderBrowser(_hSelf, TEXT("Select a folder as default directory"), IDC_OPENSAVEDIR_ALWAYSON_EDIT);
-					return TRUE;
-
-				case IDC_OPENSAVEDIR_CHECK_USENEWSTYLESAVEDIALOG:
-					nppGUI._useNewStyleSaveDlg = isCheckedOrNot(IDC_OPENSAVEDIR_CHECK_USENEWSTYLESAVEDIALOG);
 					return TRUE;
 
 				case IDC_OPENSAVEDIR_CHECK_DRROPFOLDEROPENFILES:

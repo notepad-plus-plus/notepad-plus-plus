@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2021 Don HO <don.h@free.fr>
+// Copyright (C) 2021 The Notepad++ Contributors.
 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -31,15 +31,21 @@ public:
 	~CustomFileDialog();
 	void setTitle(const TCHAR* title);
 	void setExtFilter(const TCHAR* text, const TCHAR* ext);
+	void setExtFilter(const TCHAR* text, std::initializer_list<const TCHAR*> exts);
 	void setDefExt(const TCHAR* ext);
+	void setDefFileName(const TCHAR *fn);
 	void setFolder(const TCHAR* folder);
 	void setCheckbox(const TCHAR* text, bool isActive = true);
 	void setExtIndex(int extTypeIndex);
 
-	const TCHAR* doSaveDlg();
-	const TCHAR* pickFolder();
+	// Empty string is not a valid file name and may signal that the dialog was canceled.
+	generic_string doSaveDlg();
+	generic_string pickFolder();
+	generic_string doOpenSingleFileDlg();
+	std::vector<generic_string> doOpenMultiFilesDlg();
 
 	bool getCheckboxState() const;
+	bool isReadOnly() const;
 
 private:
 	class Impl;

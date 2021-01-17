@@ -19,7 +19,7 @@
 #include "ProjectPanel.h"
 #include "resource.h"
 #include "tinyxml.h"
-#include "FileDialog.h"
+#include "CustomFileDialog.h"
 #include "localization.h"
 #include "Parameters.h"
 
@@ -439,7 +439,7 @@ bool ProjectPanel::saveWorkSpace()
 	} 
 }
 
-bool ProjectPanel::writeWorkSpace(TCHAR *projectFileName)
+bool ProjectPanel::writeWorkSpace(const TCHAR *projectFileName)
 {
     //write <NotepadPlus>: use the default file name if new file name is not given
 	const TCHAR * fn2write = projectFileName?projectFileName:_workSpaceFilePath.c_str();
@@ -1032,11 +1032,12 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 			if (!saveWorkspaceRequest())
 				break;
 
-			FileDialog fDlg(_hSelf, ::GetModuleHandle(NULL));
+			CustomFileDialog fDlg(_hSelf);
 			setFileExtFilter(fDlg);
-			if (TCHAR *fn = fDlg.doOpenSingleFileDlg())
+			const generic_string fn = fDlg.doOpenSingleFileDlg();
+			if (!fn.empty())
 			{
-				if (!openWorkSpace(fn, true))
+				if (!openWorkSpace(fn.c_str(), true))
 				{
 					NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 					pNativeSpeaker->messageBox("ProjectPanelOpenFailed",
@@ -1183,13 +1184,14 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 
 bool ProjectPanel::saveWorkSpaceAs(bool saveCopyAs)
 {
-	FileDialog fDlg(_hSelf, ::GetModuleHandle(NULL));
+	CustomFileDialog fDlg(_hSelf);
 	setFileExtFilter(fDlg);
 	fDlg.setExtIndex(0);		// 0 index for "custom extention" type if any else for "All types *.*"
 
-	if (TCHAR *fn = fDlg.doSaveDlg())
+	const generic_string fn = fDlg.doSaveDlg();
+	if (!fn.empty())
 	{
-		writeWorkSpace(fn);
+		writeWorkSpace(fn.c_str());
 		if (!saveCopyAs)
 		{
 			_workSpaceFilePath = fn;
@@ -1200,7 +1202,7 @@ bool ProjectPanel::saveWorkSpaceAs(bool saveCopyAs)
 	return false;
 }
 
-void ProjectPanel::setFileExtFilter(FileDialog & fDlg)
+void ProjectPanel::setFileExtFilter(CustomFileDialog & fDlg)
 {
 	const TCHAR *ext = NppParameters::getInstance().getNppGUI()._definedWorkspaceExt.c_str();
 	generic_string workspaceExt = TEXT("");
@@ -1209,25 +1211,26 @@ void ProjectPanel::setFileExtFilter(FileDialog & fDlg)
 		if (*ext != '.')
 			workspaceExt += TEXT(".");
 		workspaceExt += ext;
-		fDlg.setExtFilter(TEXT("Workspace file"), workspaceExt.c_str(), NULL);
+		fDlg.setExtFilter(TEXT("Workspace file"), workspaceExt.c_str());
 		fDlg.setDefExt(ext);
 	}
-	fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
+	fDlg.setExtFilter(TEXT("All types"), TEXT(".*"));
 }
 
 void ProjectPanel::addFiles(HTREEITEM hTreeItem)
 {
-	FileDialog fDlg(_hSelf, ::GetModuleHandle(NULL));
-	fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
+	CustomFileDialog fDlg(_hSelf);
+	fDlg.setExtFilter(TEXT("All types"), TEXT(".*"));
 
-	if (stringVector *pfns = fDlg.doOpenMultiFilesDlg())
+	const auto& fns = fDlg.doOpenMultiFilesDlg();
+	if (!fns.empty())
 	{
-		size_t sz = pfns->size();
+		size_t sz = fns.size();
 		for (size_t i = 0 ; i < sz ; ++i)
 		{
-			TCHAR *strValueLabel = ::PathFindFileName(pfns->at(i).c_str());
+			TCHAR *strValueLabel = ::PathFindFileName(fns.at(i).c_str());
 
-			generic_string* pathFileStr = new generic_string(pfns->at(i));
+			generic_string* pathFileStr = new generic_string(fns.at(i));
 			fullPathStrs.push_back(pathFileStr);
 			LPARAM lParamPathFileStr = reinterpret_cast<LPARAM>(pathFileStr);
 

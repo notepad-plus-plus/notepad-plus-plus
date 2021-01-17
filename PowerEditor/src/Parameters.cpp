@@ -18,7 +18,6 @@
 #include <shlwapi.h>
 #include <shlobj.h>
 #include "Parameters.h"
-#include "FileDialog.h"
 #include "ScintillaEditView.h"
 #include "keys.h"
 #include "localization.h"
@@ -841,8 +840,6 @@ winVer NppParameters::getWindowsVersion()
 
    return WV_UNKNOWN;
 }
-
-int FileDialog::_dialogFileBoxId = (NppParameters::getInstance()).getWinVersion() < WV_W2K?edt1:cmb13;
 
 
 NppParameters::NppParameters()
@@ -5266,10 +5263,6 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			if (optNameWriteTechnologyEngine)
 				_nppGUI._writeTechnologyEngine = (lstrcmp(optNameWriteTechnologyEngine, TEXT("1")) == 0) ? directWriteTechnology : defaultTechnology;
 
-			const TCHAR * optNameNewStyleSaveDlg = element->Attribute(TEXT("newStyleSaveDlg"));
-			if (optNameNewStyleSaveDlg)
-				_nppGUI._useNewStyleSaveDlg = (lstrcmp(optNameNewStyleSaveDlg, TEXT("yes")) == 0);
-
 			const TCHAR * optNameFolderDroppedOpenFiles = element->Attribute(TEXT("isFolderDroppedOpenFiles"));
 			if (optNameFolderDroppedOpenFiles)
 				_nppGUI._isFolderDroppedOpenFiles = (lstrcmp(optNameFolderDroppedOpenFiles, TEXT("yes")) == 0);
@@ -6206,7 +6199,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("setting"), _nppGUI._multiInstSetting);
 	}
 
-	// <GUIConfig name="MISC" fileSwitcherWithoutExtColumn="no" backSlashIsEscapeCharacterForSql="yes" newStyleSaveDlg="no" isFolderDroppedOpenFiles="no" saveDlgExtFilterToAllTypes="no" />
+	// <GUIConfig name="MISC" fileSwitcherWithoutExtColumn="no" backSlashIsEscapeCharacterForSql="yes" isFolderDroppedOpenFiles="no" saveDlgExtFilterToAllTypes="no" />
 	{
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("MISC"));
@@ -6214,7 +6207,6 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("fileSwitcherWithoutExtColumn"), _nppGUI._fileSwitcherWithoutExtColumn ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("backSlashIsEscapeCharacterForSql"), _nppGUI._backSlashIsEscapeCharacterForSql ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("writeTechnologyEngine"), _nppGUI._writeTechnologyEngine);
-		GUIConfigElement->SetAttribute(TEXT("newStyleSaveDlg"), _nppGUI._useNewStyleSaveDlg ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("isFolderDroppedOpenFiles"), _nppGUI._isFolderDroppedOpenFiles ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("docPeekOnTab"), _nppGUI._isDocPeekOnTab ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("docPeekOnMap"), _nppGUI._isDocPeekOnMap ? TEXT("yes") : TEXT("no"));

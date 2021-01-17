@@ -19,7 +19,7 @@
 #include "sha-256.h"
 #include "md5Dlgs.h"
 #include "md5Dlgs_rc.h"
-#include "FileDialog.h"
+#include "CustomFileDialog.h"
 #include "Parameters.h"
 #include <shlwapi.h>
 
@@ -63,13 +63,14 @@ INT_PTR CALLBACK HashFromFilesDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
 				case IDC_HASH_FILEBROWSER_BUTTON:
 				{
-					FileDialog fDlg(_hSelf, ::GetModuleHandle(NULL));
-					fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
+					CustomFileDialog fDlg(_hSelf);
+					fDlg.setExtFilter(TEXT("All types"), TEXT(".*"));
 
-					if (stringVector *pfns = fDlg.doOpenMultiFilesDlg())
+					const auto& fns = fDlg.doOpenMultiFilesDlg();
+					if (!fns.empty())
 					{
 						std::wstring files2check, hashResultStr;
-						for (const auto& it : *pfns)
+						for (const auto& it : fns)
 						{
 							if (_ht == hashType::hash_md5)
 							{

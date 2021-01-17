@@ -23,7 +23,7 @@
 #endif
 
 #include <shobjidl.h>
-#include <Shlwapi.h>	// QISearch
+#include <shlwapi.h>	// PathIsDirectory
 
 #include "CustomFileDialog.h"
 #include "Parameters.h"
@@ -64,12 +64,18 @@ public:
 
 	IFACEMETHODIMP QueryInterface(REFIID riid, void** ppv) override
 	{
-		static const QITAB qit[] =
+		// Always set out parameter to NULL, validating it first.
+		if (!ppv)
+			return E_INVALIDARG;
+		*ppv = nullptr;
+		if (riid == __uuidof(IUnknown) || riid == __uuidof(IFileDialogEvents))
 		{
-			QITABENT(FileDialogEventHandler, IFileDialogEvents),
-			{ 0 }
-		};
-		return QISearch(this, qit, riid, ppv);
+			// Increment the reference count and return the pointer.
+			*ppv = static_cast<IFileDialogEvents*>(this);
+			AddRef();
+			return NOERROR;
+		}
+		return E_NOINTERFACE;
 	}
 
 	IFACEMETHODIMP_(ULONG) AddRef() override

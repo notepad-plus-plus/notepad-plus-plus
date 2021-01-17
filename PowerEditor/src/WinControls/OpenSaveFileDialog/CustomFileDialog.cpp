@@ -23,9 +23,238 @@
 #endif
 
 #include <shobjidl.h>
+#include <Shlwapi.h>	// QISearch
 
 #include "CustomFileDialog.h"
 #include "Parameters.h"
+
+namespace // anonymous
+{
+	bool setDialogFolder(IFileDialog* dialog, const TCHAR* folder)
+	{
+		IShellItem* psi = nullptr;
+		HRESULT hr = SHCreateItemFromParsingName(folder,
+			0,
+			IID_IShellItem,
+			reinterpret_cast<void**>(&psi));
+		if (SUCCEEDED(hr))
+			hr = dialog->SetFolder(psi);
+		return SUCCEEDED(hr);
+	}
+
+} // anonymous namespace
+
+class FileDialogEventHandler : public IFileDialogEvents
+{
+public:
+	static HRESULT createInstance(REFIID riid, void **ppv)
+	{
+		*ppv = nullptr;
+		FileDialogEventHandler *pDialogEventHandler = new (std::nothrow) FileDialogEventHandler();
+		HRESULT hr = pDialogEventHandler ? S_OK : E_OUTOFMEMORY;
+		if (SUCCEEDED(hr))
+		{
+			hr = pDialogEventHandler->QueryInterface(riid, ppv);
+			pDialogEventHandler->Release();
+		}
+		return hr;
+	}
+
+	// IUnknown methods
+
+	IFACEMETHODIMP QueryInterface(REFIID riid, void** ppv) override
+	{
+		static const QITAB qit[] =
+		{
+			QITABENT(FileDialogEventHandler, IFileDialogEvents),
+			{ 0 }
+		};
+		return QISearch(this, qit, riid, ppv);
+	}
+
+	IFACEMETHODIMP_(ULONG) AddRef() override
+	{
+		return InterlockedIncrement(&_cRef);
+	}
+
+	IFACEMETHODIMP_(ULONG) Release() override
+	{
+		long cRef = InterlockedDecrement(&_cRef);
+		if (!cRef)
+			delete this;
+		return cRef;
+	}
+
+	// IFileDialogEvents methods
+
+	IFACEMETHODIMP OnFileOk(IFileDialog*) override
+	{
+		return S_OK;
+	}
+	IFACEMETHODIMP OnFolderChange(IFileDialog* dlg) override
+	{
+		// First launch order: 3. Custom controls are added but inactive.
+		if (!_dialog)
+			initDialog(dlg);
+		return S_OK;
+	}
+	IFACEMETHODIMP OnFolderChanging(IFileDialog*, IShellItem*) override
+	{
+		// First launch order: 2. Buttons are added, correct window title.
+		return S_OK;
+	}
+	IFACEMETHODIMP OnSelectionChange(IFileDialog*) override
+	{
+		// First launch order: 4. Main window is shown.
+		return S_OK;
+	}
+	IFACEMETHODIMP OnShareViolation(IFileDialog*, IShellItem*, FDE_SHAREVIOLATION_RESPONSE*) override
+	{
+		return S_OK;
+	}
+	IFACEMETHODIMP OnTypeChange(IFileDialog*) override
+	{
+		// First launch order: 1. Inactive, window title might be wrong.
+		return S_OK;
+	}
+	IFACEMETHODIMP OnOverwrite(IFileDialog*, IShellItem*, FDE_OVERWRITE_RESPONSE*) override
+	{
+		return S_OK;
+	}
+
+private:
+
+	// Use createInstance() instead
+	FileDialogEventHandler() : _cRef(1)
+	{
+		_staticThis = this;
+	}
+	~FileDialogEventHandler()
+	{
+		_staticThis = nullptr;
+	}
+	FileDialogEventHandler(const FileDialogEventHandler&) = delete;
+	FileDialogEventHandler& operator=(const FileDialogEventHandler&) = delete;
+	FileDialogEventHandler(FileDialogEventHandler&&) = delete;
+	FileDialogEventHandler& operator=(FileDialogEventHandler&&) = delete;
+
+	void initDialog(IFileDialog * d)
+	{
+		assert(!_dialog);
+		_dialog = d;
+		_okButtonProc = nullptr;
+		IOleWindow* pOleWnd = nullptr;
+		HRESULT hr = _dialog->QueryInterface(&pOleWnd);
+		if (SUCCEEDED(hr) && pOleWnd)
+		{
+			HWND hwndDlg = nullptr;
+			hr = pOleWnd->GetWindow(&hwndDlg);
+			if (SUCCEEDED(hr) && hwndDlg)
+			{
+				EnumChildWindows(hwndDlg, &EnumChildProc, 0);
+			}
+		}
+	}
+
+	// Called after the user input but before OnFileOk() and before any name validation.
+	void onPreFileOk()
+	{
+		if (!_dialog)	// Unlikely.
+			return;
+		// Get the entered name.
+		PWSTR pszFilePath = nullptr;
+		_dialog->GetFileName(&pszFilePath);
+		generic_string fileName = pszFilePath;
+		CoTaskMemFree(pszFilePath);
+		// Transform to a Windows path.
+		std::replace(fileName.begin(), fileName.end(), '/', '\\');
+		// Update the controls.
+		if (::PathIsDirectory(fileName.c_str()))
+		{
+			// Name is a directory, update the address bar text.
+			setDialogFolder(_dialog, fileName.c_str());
+			// Empty the edit box.
+			_dialog->SetFileName(L"");
+		}
+		else
+		{
+			// Name is a file path, update the edit box text.
+			_dialog->SetFileName(fileName.c_str());
+		}
+	}
+
+	// Enumerates the child windows of a dialog.
+	// Sets up window procedure overrides for "OK" button and file name edit box.
+	static BOOL CALLBACK EnumChildProc(HWND hwnd, LPARAM)
+	{
+		const int bufferLen = MAX_PATH;
+		static TCHAR buffer[bufferLen];
+		if (GetClassName(hwnd, buffer, bufferLen) != 0)
+		{
+			if (lstrcmpi(buffer, _T("ComboBox")) == 0)
+			{
+				// The edit box of interest is a child of the combo box and has empty window text.
+				// Note that file type dropdown is a combo box also (but without an edit box).
+				HWND hwndChild = FindWindowEx(hwnd, nullptr, _T("Edit"), _T(""));
+				if (hwndChild)
+					_fileNameProc = (WNDPROC)SetWindowLongPtr(hwndChild, GWLP_WNDPROC, (LPARAM)&FileNameWndProc);
+			}
+			else if (lstrcmpi(buffer, _T("Button")) == 0)
+			{
+				// The button of interest has a focus by default.
+				LONG style = GetWindowLong(hwnd, GWL_STYLE);
+				if (style & BS_DEFPUSHBUTTON)
+					_okButtonProc = (WNDPROC)SetWindowLongPtr(hwnd, GWLP_WNDPROC, (LPARAM)&OkButtonWndProc);
+			}
+		}
+		if (_okButtonProc && _fileNameProc)
+			return FALSE;	// Found all children, stop enumeration.
+		return TRUE;
+	}
+
+	static LRESULT CALLBACK OkButtonWndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
+	{
+		if (msg == WM_LBUTTONDOWN)
+			_staticThis->onPreFileOk();
+		return CallWindowProc(_okButtonProc, hwnd, msg, wparam, lparam);
+	}
+
+	static LRESULT CALLBACK FileNameWndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
+	{
+		// WM_KEYDOWN isn't delivered here. So watch the input while we have focus.
+		static bool checkInput = false;
+		switch (msg)
+		{
+		case WM_SETFOCUS:
+			checkInput = true;
+			break;
+		case WM_KILLFOCUS:
+			checkInput = false;
+			break;
+		}
+		if (checkInput)
+		{
+			SHORT state = GetAsyncKeyState(VK_RETURN);
+			if (state & 0x8000)
+			{
+				_staticThis->onPreFileOk();
+				checkInput = false;
+			}
+		}
+		return CallWindowProc(_fileNameProc, hwnd, msg, wparam, lparam);
+	}
+
+	static WNDPROC _okButtonProc;
+	static WNDPROC _fileNameProc;
+	static FileDialogEventHandler* _staticThis;
+
+	long _cRef;
+	IFileDialog* _dialog = nullptr;
+};
+
+WNDPROC FileDialogEventHandler::_okButtonProc;
+WNDPROC FileDialogEventHandler::_fileNameProc;
+FileDialogEventHandler* FileDialogEventHandler::_staticThis;
 
 // Private impelemnation to avoid pollution with includes and defines in header.
 class CustomFileDialog::Impl
@@ -58,7 +287,7 @@ public:
 			hr = _dialog->SetTitle(_title);
 
 		if (SUCCEEDED(hr) && _folder)
-			hr = setInitDir(_folder) ? S_OK : E_FAIL;
+			hr = setFolder(_folder) ? S_OK : E_FAIL;
 
 		if (SUCCEEDED(hr) && _defExt && _defExt[0] != '\0')
 			hr = _dialog->SetDefaultExtension(_defExt);
@@ -119,22 +348,29 @@ public:
 		return SUCCEEDED(hr);
 	}
 
-	bool setInitDir(const TCHAR* dir)
+	bool setFolder(const TCHAR* dir)
 	{
-		IShellItem* psi = nullptr;
-		HRESULT hr = SHCreateItemFromParsingName(dir,
-			0,
-			IID_IShellItem,
-			reinterpret_cast<void**>(&psi));
-		if (SUCCEEDED(hr))
-			hr = _dialog->SetFolder(psi);
-		return SUCCEEDED(hr);
+		return setDialogFolder(_dialog, dir);
 	}
 
 	bool show()
 	{
-		HRESULT hr = _dialog->Show(_hwndOwner);
-		return SUCCEEDED(hr);
+		bool okPressed = false;
+		HRESULT hr = FileDialogEventHandler::createInstance(IID_PPV_ARGS(&_events));
+		if (SUCCEEDED(hr))
+		{
+			DWORD dwCookie;
+			hr = _dialog->Advise(_events, &dwCookie);
+			if (SUCCEEDED(hr))
+			{
+				hr = _dialog->Show(_hwndOwner);
+				okPressed = SUCCEEDED(hr);
+
+				_dialog->Unadvise(dwCookie);
+				_events->Release();
+			}
+		}
+		return okPressed;
 	}
 
 	BOOL getCheckboxState() const
@@ -187,6 +423,7 @@ public:
 private:
 	IFileDialog* _dialog = nullptr;
 	IFileDialogCustomize* _customize = nullptr;
+	IFileDialogEvents* _events = nullptr;
 	TCHAR _fileName[MAX_PATH * 8];
 };
 
@@ -256,7 +493,7 @@ const TCHAR* CustomFileDialog::doSaveDlg()
 	::GetCurrentDirectory(MAX_PATH, dir);
 
 	NppParameters& params = NppParameters::getInstance();
-	_impl->setInitDir(params.getWorkingDir());
+	_impl->setFolder(params.getWorkingDir());
 
 	_impl->addFlags(FOS_PATHMUSTEXIST | FOS_FILEMUSTEXIST | FOS_FORCEFILESYSTEM);
 	bool bOk = _impl->show();

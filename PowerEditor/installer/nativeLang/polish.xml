@@ -1351,7 +1351,7 @@ Szukaj wśród wszystkich plików z wyjątkiem exe, obj i log:
             <find-status-replace-readonly value="Zamienianie: Nie można zamienić. Plik jest dostępny tylko do odczytu."/>
             <find-status-cannot-find value="Szukanie: Nie udało się znaleźć „$STR_REPLACE$”."/>
             <find-status-scope-selection value="w zaznaczonym tekście"/>
-            <find-status-scope-all value="w cały pliku"/>
+            <find-status-scope-all value="w całym pliku"/>
             <find-status-scope-backward value="od początku pliku do aktualnego położenia kursora"/>
             <find-status-scope-forward value="od aktualnego położenia kursora do końca pliku"/>
             <finder-find-in-finder value="Znajdź w tych wynikach wyszukiwania..."/>

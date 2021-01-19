@@ -38,6 +38,32 @@
 #include "CustomFileDialog.h"
 #include "Parameters.h"
 
+namespace // anonymous
+{
+	IShellItem* createShellItem(const TCHAR* name)
+	{
+		using SHCreateItemFromParsingName_t =
+			HRESULT(WINAPI *)(PCWSTR pszPath, IBindCtx *pbc, REFIID riid, void **ppv);
+		static SHCreateItemFromParsingName_t pCreateShellItem = nullptr;
+
+		// Load a symbol at runtime. Otherwise, the application won't start on Windows XP.
+		if (!pCreateShellItem)
+		{
+			HMODULE hShell32 = ::GetModuleHandle(_T("shell32.dll"));
+			pCreateShellItem = (SHCreateItemFromParsingName_t)GetProcAddress(hShell32, "SHCreateItemFromParsingName");
+		}
+
+		if (pCreateShellItem)
+		{
+			IShellItem* psi = nullptr;
+			pCreateShellItem(name, nullptr, IID_PPV_ARGS(&psi));
+			return psi;
+		}
+		return nullptr;
+	}
+
+} // anonymous namespace
+
 // Private impelemnation to avoid pollution with includes and defines in header.
 class CustomFileDialog::Impl
 {
@@ -132,14 +158,13 @@ public:
 
 	bool setInitDir(const TCHAR* dir)
 	{
-		IShellItem* psi = nullptr;
-		HRESULT hr = SHCreateItemFromParsingName(dir,
-			0,
-			IID_IShellItem,
-			reinterpret_cast<void**>(&psi));
-		if (SUCCEEDED(hr))
-			hr = _dialog->SetFolder(psi);
-		return SUCCEEDED(hr);
+		IShellItem* psi = createShellItem(dir);
+		if (psi)
+		{
+			HRESULT hr = _dialog->SetFolder(psi);
+			return SUCCEEDED(hr);
+		}
+		return false;
 	}
 
 	bool show()

@@ -2344,5 +2344,5 @@ void Notepad_plus::saveSession(const Session & session)
 
 void Notepad_plus::saveCurrentSession()
 {
-	::PostMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_SAVECURRENTSESSION, 0, 0);
+	::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_SAVECURRENTSESSION, 0, 0);
 }

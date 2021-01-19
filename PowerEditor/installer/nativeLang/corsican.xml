@@ -1,9 +1,10 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
+		- Updated on January 27th, 2021 for version 7.9.3 by Patriccollu di Santa Maria è Sichè
 		- Updated on November 4th, 2020 for version 7.9.2 by Patriccollu di Santa Maria è Sichè
 		- Updated on September 16th, 2020 for version 7.9.1 by Patriccollu di Santa Maria è Sichè
 		- Updated on June 28th, 2020 for version 7.8.9 by Patriccollu di Santa Maria è Sichè
@@ -21,7 +22,7 @@ The comments are here for explanation, it's not necessary to translate them.
 	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/corsican.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="Corsu" filename="corsican.xml" version="7.9.2">
+    <Native-Langue name="Corsu" filename="corsican.xml" version="7.9.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -839,7 +840,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6219" name="Cinnulamentu :"/>
                     <Item id="6221" name="9"/>
                     <Item id="6222" name="1"/>
-                    <Item id="6225" name="Attivà a multi-mudificazione (Ctrl+Cliccu/Selez. cù Topu)"/>
+                    <Item id="6225" name="Attivà a multi-mudificazione (Ctrl+cliccu/selez. cù topu)"/>
                     <Item id="6227" name="Ritornu à a linea"/>
                     <Item id="6228" name="Predefinitu"/>
                     <Item id="6229" name="Aliniatu"/>
@@ -888,7 +889,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                 </NewDoc>
 
                 <DefaultDir title="Cartulare predefinitu">
-                    <Item id="6413" name="Cartulare predefinitu (apre è arregistrà)"/>
+                    <Item id="6413" name="Cartulare predefinitu per apre è arregistrà i schedarii"/>
                     <Item id="6414" name="Seguità u ducumentu attuale"/>
                     <Item id="6415" name="Arricurdassi di l’ultimu cartulare impiegatu"/>
                     <Item id="6431" name="À u depone d’un cartulare, apre tutti i schedarii invece d’impiegallu cum’è spaziu di travagliu"/>
@@ -908,7 +909,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                     <Item id="6302" name="Rimpiazzà cù spaziu"/>
                     <Item id="6303" name="Dimensione : "/>
                     <Item id="6510" name="Impiegà u valore predefinitu"/>
-                    <Item id="6335" name="« \ » hè u caratteru di scappamentu per SQL"/>
+                    <Item id="6335" name="« \ » hè u caratteru di scappamentu per SQL"/>
                 </Language>
 
                 <Highlighting title="Sopralineamentu">
@@ -958,7 +959,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                     <Item id="6901" name="Ùn micca riempie u campu di ricerca cù a parolla selezziunata"/>
                     <Item id="6902" name="Impiegà a grafia à spaziamentu fissu in u dialogu di ricerca (Richiede di rilancià Notepad++)"/>
                     <Item id="6903" name="U dialogu di ricerca sta apertu dopu una ricerca chì s’affisseghja in a finestra di risultati"/>
-                    <Item id="6904" name="Cunfirmà tutti i rimpiazamenti in tutti i ducumenti aperti"/>
+                    <Item id="6904" name="Cunfirmà tutti i rimpiazzamenti in tutti i ducumenti aperti"/>
                 </Searching>
 
                 <RecentFilesHistory title="Schedarii recenti">
@@ -1017,7 +1018,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                 </MultiInstance>
 
                 <Delimiter title="Delimitatore">
-                    <Item id="6251" name="Preferenze di selezzione di delimitatore (Ctrl+Topu doppiu cliccu)"/>
+                    <Item id="6251" name="Preferenze di selezzione di delimitatore (Ctrl+doppiu cliccu di topu)"/>
                     <Item id="6252" name="Principiu"/>
                     <Item id="6255" name="Fine"/>
                     <Item id="6256" name="Permette nant’à parechje linee"/>
@@ -1041,7 +1042,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                 </Cloud>
 
                 <SearchEngine title="Mutore di ricerca">
-                    <Item id="6271" name="Mutore di ricerca (per a cumanda « Circà nant’à Internet »)"/>
+                    <Item id="6271" name="Mutore di ricerca (per a cumanda « Circà nant’à Internet »)"/>
                     <Item id="6272" name="DuckDuckGo"/>
                     <Item id="6273" name="Google"/>
                     <Item id="6274" name="Bing"/>
@@ -1063,7 +1064,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                     <Item id="6325" name="Andà à l’ultima linea dopu a mudificazione"/>
                     <Item id="6322" name="Estensione di sched. di sessione :"/>
                     <Item id="6323" name="Attivà u rinnovu autumaticu di Notepad++"/>
-                    <Item id="6351" name="Definisce u filtru d’estensione di u dialogu d’arregistramentu à .* invece di .txt per u schedariu di testu nurmale"/>
+                    <Item id="6351" name="Definisce u filtru d’estensione di u dialogu d’arregistramentu à *.*"/>
                     <Item id="6324" name="Cambiamentu di ducumentu (Ctrl+Tabul.)"/>
                     <Item id="6331" name="Affissà solu u nome di schedariu in a barra di titulu"/>
                     <Item id="6334" name="Detezione autumatica di cudificazione di caratteru"/>
@@ -1120,7 +1121,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                 <Item id="1720" name="&amp;. cum’è nova linea"/>
             </FindInFinder>
             <DoSaveOrNot title="Arregistrà">
-                <Item id="1761" name="Arregistrà u schedariu « $STR_REPLACE$ » ?"/>
+                <Item id="1761" name="Arregistrà u schedariu « $STR_REPLACE$ » ?"/>
                 <Item id="6" name="&amp;Iè"/>
                 <Item id="7" name="In&amp;nò"/>
                 <Item id="2" name="&amp;Abbandunà"/>
@@ -1154,23 +1155,23 @@ E vostre preferenze di nivulu anu da esse abbandunate. Ci vole à rimette un val
             <FilePathNotFoundWarning title="Apertura di schedariu" message="U schedariu chì voi pruvate d’apre ùn esiste micca."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <SessionFileInvalidError title="Ùn pò micca caricà una sessione" message="U schedariu di sessione hè sia alteratu, sia micca accettevule."/> <!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
             <DroppingFolderAsProjectModeWarning title="Azzione inaccetevule" message="Pudete depone solu schedarii o cartulari ma micca tremindui, perchè site in u modu di dipositu Cartulare cum’è spaziu di travagliu.
-Ci vole à attivà l’ozzione « À u depone d’un cartulare, apre tutti i schedarii invece d’impiegallu cum’è spaziu di travagliu» in a sezzione « Cartulare predefinitu » di e Preferenze per fà què."/>
+Ci vole à attivà l’ozzione « À u depone d’un cartulare, apre tutti i schedarii invece d’impiegallu cum’è spaziu di travagliu » in a sezzione « Cartulare predefinitu » di e Preferenze per fà què."/>
             <SortingError title="Sbagliu di classificazione" message="Impussibule di fà una classificazione numerica per via di a linea $INT_REPLACE$."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-            <ColumnModeTip title="Minichichja di modu culonna" message="Ci vole à impiegà « ALT+Selez. cù Topu » o « Alt+Maiusc+Fleccia » per passà à u modu culonna."/>
+            <ColumnModeTip title="Minichichja di modu culonna" message="Ci vole à impiegà « ALT+selez. cù topu » o « Alt+Maiusc+fleccia » per passà à u modu culonna."/>
             <BufferInvalidWarning title="Arregistramentu fiascu" message="Ùn pò micca arregistrà : U stampone hè inaccetevule."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-            <DoCloseOrNot title="Cunservà u schedariu inesistente" message="U schedariu « $STR_REPLACE$ » ùn esiste più.
+            <DoCloseOrNot title="Cunservà u schedariu inesistente" message="U schedariu « $STR_REPLACE$ » ùn esiste più.
 Cunservà stu schedariu in l’editore ?"/>
-            <DoDeleteOrNot title="Squassà u schedariu" message="U schedariu « $STR_REPLACE$ »
+            <DoDeleteOrNot title="Squassà u schedariu" message="U schedariu « $STR_REPLACE$ »
 serà dispiazzatu ver di a vostra Rumenzula è stu ducumentu serà chjosu.
 Cuntinuà ?"/>
             <NoBackupDoSaveFile title="Arregistrà" message="U vostru schedariu di salvaguardia ùn si trova più (squassatu da fora).
 Arregistratelu osinnò i vostri dati seranu persi
-Vulete arregistrà u schedariu « $STR_REPLACE$ » ?"/>
-            <DoReloadOrNot title="Ricaricà" message="« $STR_REPLACE$ »
+Vulete arregistrà u schedariu « $STR_REPLACE$ » ?"/>
+            <DoReloadOrNot title="Ricaricà" message="« $STR_REPLACE$ »
 
 Stu schedariu hè statu mudificatu da un’altru prugramma.
 Vulete ricaricallu ?"/>
-            <DoReloadOrNotAndLooseChange title="Ricaricà" message="« $STR_REPLACE$ »
+            <DoReloadOrNotAndLooseChange title="Ricaricà" message="« $STR_REPLACE$ »
 
 Stu schedariu hè statu mudificatu da un’altru prugramma.
 Vulete ricaricallu è perde cusì i cambiamenti fatti cù Notepad++ ?"/>
@@ -1181,18 +1182,18 @@ Vulete andà nant’à a pagina di Notepad++ per scaricà l’ultima versione ?
             <DocTooDirtyToMonitor title="Penseru d’appustamentu" message="U ducumentu hè brutu. Ci vole à arregistrà a mudificazione nanzu à appustallu."/>
             <DocNoExistToMonitor title="Penseru d’appustamentu" message="U schedariu deve esiste per esse appustatu."/>
             <FileTooBigToOpen title="Penseru di dimensione di schedariu" message="U schedariu hè troppu maiò per esse apertu da Notepad++"/> <!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
-            <CreateNewFileOrNot title="Creà un novu schedariu" message="« $STR_REPLACE$ » ùn esiste. Creallu ?"/>
-            <CreateNewFileError title="Creà un novu schedariu" message="Ùn pò micca creà u schedariu « $STR_REPLACE$ »."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-            <OpenFileError title="SBAGLIU" message="Ùn pò micca apre u schedariu « $STR_REPLACE$ »."/>
-            <FileBackupFailed title="Fiascu di salvaguardia di schedariu" message="A versione precedente di u schedariu ùn pò micca esse arregistrata in u cartulare di salvaguardia : « $STR_REPLACE$ ».
+            <CreateNewFileOrNot title="Creà un novu schedariu" message="« $STR_REPLACE$ » ùn esiste. Creallu ?"/>
+            <CreateNewFileError title="Creà un novu schedariu" message="Ùn pò micca creà u schedariu « $STR_REPLACE$ »."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+            <OpenFileError title="SBAGLIU" message="Ùn pò micca apre u schedariu « $STR_REPLACE$ »."/>
+            <FileBackupFailed title="Fiascu di salvaguardia di schedariu" message="A versione precedente di u schedariu ùn pò micca esse arregistrata in u cartulare di salvaguardia : « $STR_REPLACE$ ».
 
 Vulete arregistrà u schedariu attuale quantunque ?"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-            <LoadStylersFailed title="Caricamentu fiascu di stylers.xml" message="Caricamentu fiascu di « $STR_REPLACE$ » !"/>
+            <LoadStylersFailed title="Caricamentu fiascu di stylers.xml" message="Caricamentu fiascu di « $STR_REPLACE$ » !"/>
             <LoadLangsFailed title="Cunfiguratore" message="Caricamentu fiascu di langs.xml !
 Vulete ricuperà u vostru langs.xml ?"/> <!-- HowToReproduce: Close Notepad++. Use another editor to remove all content of "langs.xml" (0 length) then save it. Open Notepad++. -->
             <LoadLangsFailedFinal title="Cunfiguratore" message="Caricamentu fiascu di langs.xml !"/> <!-- HowToReproduce: Close Notepad++. Use another editor to make "langs.xml" an invalid xml file then save it. Open Notepad++. -->
             <FolderAsWorspaceSubfolderExists title="Penseru à l’aghjuntu di cartulare cum’è spaziu di travagliu" message="Un sottu-cartulare di u cartulare chì voi vulete aghjunghje esiste dighjà.
-Ci vole à caccià a so radica da u pannellu nanzu d’aghjunghje u cartulare « $STR_REPLACE$ »."/> <!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
+Ci vole à caccià a so radica da u pannellu nanzu d’aghjunghje u cartulare « $STR_REPLACE$ »."/> <!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
 
             <ProjectPanelChanged title="$STR_REPLACE$" message="U spaziu di travagliu hè statu mudificatu. Vulete arregistrallu ?"/>
             <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="U vostru spaziu di travagliu ùn hè micca statu arregistratu."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
@@ -1320,7 +1321,7 @@ Cuntinuà ?"/>
         </ProjectManager>
         <MiscStrings>
             <!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
-            <word-chars-list-tip value="Què permette d’include caratteri addiziunali in i caratteri di parolle currente quandu ci hè un doppiu cliccu per selezziunà o una ricerca cù l’ozzione « Parolla sana deve currisponde » selezziunata."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
+            <word-chars-list-tip value="Què permette d’include caratteri addiziunali in i caratteri di parolle currente quandu ci hè un doppiu cliccu per selezziunà o una ricerca cù l’ozzione « Parolla sana deve currisponde » selezziunata."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
 
             <word-chars-list-warning-begin value="Fate casu : "/>
             <word-chars-list-space-warning value="$INT_REPLACE$ spaziu(i)"/>
@@ -1360,7 +1361,7 @@ Circà in tutti i schedarii fora di exe, obj è log :
             <find-status-replaced-next-not-found value="Rimpiazzà : 1 occurrenza hè stata rimpiazzata. Alcuna altra occurrenza trova."/>
             <find-status-replace-not-found value="Rimpiazzà : alcuna occurrenza trova"/>
             <find-status-replace-readonly value="Rimpiazzà : Ùn si pò rimpiazzà u testu. U ducumentu attuale pò solu si leghje"/>
-            <find-status-cannot-find value="Circà : Ùn si pò truvà u testu « $STR_REPLACE$ »"/>
+            <find-status-cannot-find value="Circà : Ùn si pò truvà u testu « $STR_REPLACE$ »"/>
             <find-status-scope-selection value="in u testu selezziunatu"/>
             <find-status-scope-all value="in u schedariu sanu"/>
             <find-status-scope-backward value="da u principiu di schedariu à u cursore"/>
@@ -1398,9 +1399,11 @@ Circà in tutti i schedarii fora di exe, obj è log :
             <summary-nbsel1 value=" caratteri selezziunati ("/>
             <summary-nbsel2 value=" ottetti) in "/>
             <summary-nbrange value=" selezzioni"/>
+            <find-in-files-progress-title value="Prugressione di a ricerca in i schedarii…"/>
             <replace-in-files-confirm-title value="Cunfirmazione"/>
             <replace-in-files-confirm-directory value="Vulete rimpiazzà tutte l’occurrenze in :"/>
             <replace-in-files-confirm-filetype value="Per u(i) tipu(i) di schedariu :"/>
+            <replace-in-files-progress-title value="Prugressione di u rimpiazzamentu in i schedarii…"/>
             <replace-in-open-docs-confirm-title value="Cunfirmazione"/>
             <replace-in-open-docs-confirm-message value="Vulete rimpiazzà tutte l’occurrenze in tutti i schedarii aperti ?"/>
             <find-result-caption value="Risultati di ricerca"/>
@@ -1410,7 +1413,8 @@ Circà in tutti i schedarii fora di exe, obj è log :
             <find-result-title-info-extra value=" - Modu di filtru di linea : affisseghja solu i risultati filtrati"/>
             <find-result-hits value="($INT_REPLACE$ risultati)"/>
             <find-result-line-prefix value="Linea"/> <!-- Must not begin with space or tab character -->
-            <find-regex-zero-length-match value="currispundenza di longhezza à zeru" />
+            <find-regex-zero-length-match value="currispundenza di longhezza à zeru"/>
+            <session-save-folder-as-workspace value="Arregistrà u cartulare cum’è spaziu di travagliu"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

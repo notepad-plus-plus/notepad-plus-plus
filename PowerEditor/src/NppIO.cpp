@@ -1485,6 +1485,11 @@ bool Notepad_plus::fileCloseAllButCurrent()
 	return true;
 }
 
+#if defined(_WIN32_WINNT) && (!defined(_WIN32_WINNT_VISTA) || (_WIN32_WINNT < _WIN32_WINNT_VISTA))
+#undef _WIN32_WINNT
+#define _WIN32_WINNT _WIN32_WINNT_VISTA
+#endif
+
 bool Notepad_plus::fileSave(BufferID id)
 {
 	BufferID bufferID = id;

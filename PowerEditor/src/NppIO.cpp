@@ -1485,10 +1485,6 @@ bool Notepad_plus::fileCloseAllButCurrent()
 	return true;
 }
 
-#ifndef COPY_FILE_NO_BUFFERING
-#define COPY_FILE_NO_BUFFERING                0x00001000
-#endif
-
 bool Notepad_plus::fileSave(BufferID id)
 {
 	BufferID bufferID = id;

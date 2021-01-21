@@ -112,15 +112,18 @@ void ContextMenu::create(HWND hParent, const std::vector<MenuItemUnit> & menuIte
 		{
 			lastIsSep = true;
 		}
-
 		if (mainMenuHandle)
 		{
-			bool isEnabled = (::GetMenuState(mainMenuHandle, item._cmdID, MF_BYCOMMAND)&(MF_DISABLED|MF_GRAYED)) == 0;
-			bool isChecked = (::GetMenuState(mainMenuHandle, item._cmdID, MF_BYCOMMAND)&(MF_CHECKED)) != 0;
-			if (!isEnabled)
-				enableItem(item._cmdID, isEnabled);
-			if (isChecked)
-				checkItem(item._cmdID, isChecked);
+			UINT s = ::GetMenuState(mainMenuHandle, item._cmdID, MF_BYCOMMAND);
+			if (s != -1)
+			{
+				bool isEnabled = (s & (MF_DISABLED | MF_GRAYED)) == 0;
+				bool isChecked = (s & (MF_CHECKED)) != 0;
+				if (!isEnabled)
+					enableItem(item._cmdID, isEnabled);
+				if (isChecked)
+					checkItem(item._cmdID, isChecked);
+			}
 
 			// set up any menu item bitmaps in the context menu, using main menu bitmaps
 			memset(&mii, 0, sizeof(mii));

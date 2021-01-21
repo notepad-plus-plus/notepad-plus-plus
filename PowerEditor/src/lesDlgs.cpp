@@ -72,11 +72,16 @@ int ValueDlg::reSizeValueBox()
 	// convert screen coordonnees to client coordonnees
 	::ScreenToClient(_hSelf, &p);
 
-	int unit = w / (DEFAULT_NB_NUMBER + 2);
-	int extraSize = (_nbNumber-DEFAULT_NB_NUMBER)*unit;
-	::MoveWindow(hEdit, p.x, p.y, w + extraSize, h, FALSE);
-
-	return extraSize;
+	RECT rcText;
+	::SendMessage(hEdit, EM_GETRECT, 0, reinterpret_cast<LPARAM>(&rcText));
+	DWORD m = (DWORD)::SendMessage(hEdit, EM_GETMARGINS, 0, 0);
+	int margins = LOWORD(m) + HIWORD(m);
+	int textWidth = rcText.right - rcText.left;
+	int frameWidth = w - textWidth;
+	int newTextWidth = ((textWidth - margins) * _nbNumber / DEFAULT_NB_NUMBER) + margins + 1;
+	int newWidth = newTextWidth + frameWidth;
+	::MoveWindow(hEdit, p.x, p.y, newWidth, h, FALSE);
+	return newWidth - w;
 }
 
 INT_PTR CALLBACK ValueDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM) 
@@ -89,9 +94,9 @@ INT_PTR CALLBACK ValueDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 			::SetDlgItemInt(_hSelf, IDC_VALUE_EDIT, _defaultValue, FALSE);
 
 			RECT rc;
-			::GetClientRect(_hSelf, &rc);
+			::GetWindowRect(_hSelf, &rc);
 			int size = reSizeValueBox();
-			::MoveWindow(_hSelf, _p.x, _p.y, rc.right - rc.left + size, rc.bottom - rc.top + 30, TRUE);
+			::MoveWindow(_hSelf, _p.x, _p.y, rc.right - rc.left + size, rc.bottom - rc.top, TRUE);
 			
 			return TRUE;
 		}

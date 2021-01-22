@@ -165,28 +165,68 @@ private:
 	// Called after the user input but before OnFileOk() and before any name validation.
 	void onPreFileOk()
 	{
-		if (!_dialog)	// Unlikely.
+		if (!_dialog)
 			return;
 		// Get the entered name.
-		PWSTR pszFilePath = nullptr;
-		_dialog->GetFileName(&pszFilePath);
-		generic_string fileName = pszFilePath;
-		CoTaskMemFree(pszFilePath);
-		// Transform to a Windows path.
-		std::replace(fileName.begin(), fileName.end(), '/', '\\');
+		generic_string fileName = getDialogFileName();
+		if (!transformPath(fileName))
+			return;
 		// Update the controls.
 		if (::PathIsDirectory(fileName.c_str()))
 		{
 			// Name is a directory, update the address bar text.
-			setDialogFolder(_dialog, fileName.c_str());
+			setDialogAddress(fileName.c_str());
 			// Empty the edit box.
-			_dialog->SetFileName(L"");
+			setDialogFileName(_T(""));
 		}
 		else
 		{
 			// Name is a file path, update the edit box text.
-			_dialog->SetFileName(fileName.c_str());
+			setDialogFileName(fileName.c_str());
 		}
+	}
+
+	bool transformPath(generic_string& fileName)
+	{
+		if (fileName.empty())
+			return false;
+		bool transformed = false;
+		// Transform to a Windows path.
+		size_t pos = 0;
+		while ((pos = fileName.find('/', pos)) != generic_string::npos)
+		{
+			fileName[pos] = '\\';
+			++pos;
+			transformed = true;
+		}
+		// If there are two or more double backslash, then change it to single.
+		while (fileName.find(_T("\\\\")) != generic_string::npos)
+		{
+			fileName.replace(fileName.find(_T("\\\\")), 2, _T("\\"));
+			transformed = true;
+		}
+		return transformed;
+	}
+
+	generic_string getDialogFileName()
+	{
+		PWSTR pszFilePath = nullptr;
+		_dialog->GetFileName(&pszFilePath);
+		generic_string fileName = pszFilePath;
+		CoTaskMemFree(pszFilePath);
+		return fileName;
+	}
+
+	void setDialogFileName(const TCHAR* name)
+	{
+		// Don't use IFileDialog::SetFileName() because it could be not delivered.
+		// Probably, it sends messages asynchronously via PostMessage.
+		::SendMessage(_hwndNameEdit, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(name));
+	}
+
+	void setDialogAddress(const TCHAR* name)
+	{
+		setDialogFolder(_dialog, name);
 	}
 
 	// Enumerates the child windows of a dialog.
@@ -203,7 +243,10 @@ private:
 				// Note that file type dropdown is a combo box also (but without an edit box).
 				HWND hwndChild = FindWindowEx(hwnd, nullptr, _T("Edit"), _T(""));
 				if (hwndChild)
+				{
 					_fileNameProc = (WNDPROC)SetWindowLongPtr(hwndChild, GWLP_WNDPROC, (LPARAM)&FileNameWndProc);
+					_staticThis->_hwndNameEdit = hwndChild;
+				}
 			}
 			else if (lstrcmpi(buffer, _T("Button")) == 0)
 			{
@@ -227,24 +270,29 @@ private:
 
 	static LRESULT CALLBACK FileNameWndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 	{
-		// WM_KEYDOWN isn't delivered here. So watch the input while we have focus.
-		static bool checkInput = false;
+		// WM_KEYDOWN with wparam == VK_RETURN isn't delivered here.
+		// So watch for the keyboard input while the control has focus.
+		// Initially, the control has focus.
+		// WM_SETFOCUS is sent if control regains focus after losing it.
+		static bool processingReturn = false;
 		switch (msg)
 		{
 		case WM_SETFOCUS:
-			checkInput = true;
+			_staticThis->_monitorKeyboard = true;
 			break;
 		case WM_KILLFOCUS:
-			checkInput = false;
+			_staticThis->_monitorKeyboard = false;
 			break;
 		}
-		if (checkInput)
+		if (_staticThis->_monitorKeyboard && !processingReturn)
 		{
 			SHORT state = GetAsyncKeyState(VK_RETURN);
 			if (state & 0x8000)
 			{
+				// Avoid re-entrance because the call might generate some messages.
+				processingReturn = true;
 				_staticThis->onPreFileOk();
-				checkInput = false;
+				processingReturn = false;
 			}
 		}
 		return CallWindowProc(_fileNameProc, hwnd, msg, wparam, lparam);
@@ -256,6 +304,8 @@ private:
 
 	long _cRef;
 	IFileDialog* _dialog = nullptr;
+	HWND _hwndNameEdit = nullptr;
+	bool _monitorKeyboard = true;
 };
 
 WNDPROC FileDialogEventHandler::_okButtonProc;

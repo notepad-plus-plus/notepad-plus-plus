@@ -305,7 +305,7 @@ WNDPROC FileDialogEventHandler::_okButtonProc;
 WNDPROC FileDialogEventHandler::_fileNameProc;
 FileDialogEventHandler* FileDialogEventHandler::_staticThis;
 
-// Private impelemnation to avoid pollution with includes and defines in header.
+// Private implementation to avoid pollution with includes and defines in header.
 class CustomFileDialog::Impl
 {
 public:
@@ -325,7 +325,7 @@ public:
 	bool init(CLSID id)
 	{
 		if (_dialog)
-			return false; // Avoid double initizliation
+			return false; // Avoid double initialization
 
 		HRESULT hr = CoCreateInstance(id,
 			NULL,

@@ -122,15 +122,33 @@ Function preventInstallInWin9x
 	${GetWindowsVersion} $WinVer
 	
 	StrCmp $WinVer "95" 0 +3
-		MessageBox MB_OK "This version of Notepad++ does not support your OS.$\nPlease download zipped package of version 5.9 and use ANSI version. You can find v5.9 here:$\nhttp://notepad-plus-plus.org/release/5.9"
+		MessageBox MB_OK "Notepad++ does not support your OS. The installation will be aborted."
 		Abort
 		
 	StrCmp $WinVer "98" 0 +3
-		MessageBox MB_OK "This version of Notepad++ does not support your OS.$\nPlease download zipped package of version 5.9 and use ANSI version. You can find v5.9 here:$\nhttp://notepad-plus-plus.org/release/5.9"
+		MessageBox MB_OK "Notepad++ does not support your OS. The installation will be aborted."
 		Abort
 		
 	StrCmp $WinVer "ME" 0 +3
-		MessageBox MB_OK "This version of Notepad++ does not support your OS.$\nPlease download zipped package of version 5.9 and use ANSI version. You can find v5.9 here:$\nhttp://notepad-plus-plus.org/release/5.9"
+		MessageBox MB_OK "Notepad++ does not support your OS. The installation will be aborted."
+		Abort
+		
+	StrCmp $WinVer "2000" 0 +3 ; Windows 2000
+		MessageBox MB_OK "Notepad++ does not support your OS. The installation will be aborted."
+		Abort
+		
+	StrCmp $WinVer "XP" 0 +3 ; XP
+		MessageBox MB_YESNO "This version of Notepad++ doesn't support Windows XP. The installation will be aborted.$\nDo you want to go to Notepad++ download page for downloading the last version which supports XP (v7.9.2)?" IDYES xp_openDlPage IDNO xp_goQuit
+xp_openDlPage:
+		ExecShell "open" "https://notepad-plus-plus.org/downloads/v7.9.2/"
+xp_goQuit:
+		Abort
+		
+	StrCmp $WinVer "2003" 0 +3 ; Windows Server 2003
+		MessageBox MB_YESNO "This version of Notepad++ doesn't support Windows Server 2003. The installation will be aborted.$\nDo you want to go to Notepad++ download page for downloading the last version which supports this OS?" IDYES ws2003_openDlPage IDNO ws2003_goQuit
+ws2003_openDlPage:
+		ExecShell "open" "https://notepad-plus-plus.org/downloads/v7.9.2/"
+ws2003_goQuit:
 		Abort
 FunctionEnd
 

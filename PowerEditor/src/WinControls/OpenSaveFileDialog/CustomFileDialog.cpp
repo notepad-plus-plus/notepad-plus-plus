@@ -15,13 +15,6 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-// Windows Vista is a minimum required version for Common File Dialogs.
-// Define it only for current source file.
-#if defined(_WIN32_WINNT) && (!defined(_WIN32_WINNT_VISTA) || (_WIN32_WINNT < _WIN32_WINNT_VISTA))
-#undef _WIN32_WINNT
-#define _WIN32_WINNT _WIN32_WINNT_VISTA
-#endif
-
 #include <shobjidl.h>
 #include <shlwapi.h>	// PathIsDirectory
 

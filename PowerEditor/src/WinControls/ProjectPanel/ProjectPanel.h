@@ -52,7 +52,7 @@ enum NodeType {
 };
 
 class TiXmlNode;
-class FileDialog;
+class CustomFileDialog;
 
 class ProjectPanel : public DockingDlgInterface {
 public:
@@ -124,7 +124,7 @@ protected:
 	void recursiveAddFilesFrom(const TCHAR *folderPath, HTREEITEM hTreeItem);
 	HTREEITEM addFolder(HTREEITEM hTreeItem, const TCHAR *folderName);
 
-	bool writeWorkSpace(TCHAR *projectFileName = NULL);
+	bool writeWorkSpace(const TCHAR *projectFileName = NULL);
 	generic_string getRelativePath(const generic_string & fn, const TCHAR *workSpaceFileName);
 	void buildProjectXml(TiXmlNode *root, HTREEITEM hItem, const TCHAR* fn2write);
 	NodeType getNodeType(HTREEITEM hItem);
@@ -139,7 +139,7 @@ protected:
 	HMENU getMenuHandler(HTREEITEM selectedItem);
 	generic_string getAbsoluteFilePath(const TCHAR * relativePath);
 	void openSelectFile();
-	void setFileExtFilter(FileDialog & fDlg);
+	void setFileExtFilter(CustomFileDialog & fDlg);
 	std::vector<generic_string*> fullPathStrs;
 };
 

@@ -146,13 +146,12 @@ generic_string folderBrowser(HWND parent, const generic_string & title, int outp
 	else if (directory[0])
 		dlg.setFolder(directory);
 
-	const TCHAR* szDir = dlg.pickFolder();
-	if (szDir)
+	folderName = dlg.pickFolder();
+	if (!folderName.empty())
 	{
 		// Send the result back to the edit control
 		if (outputCtrlID != 0)
-			::SetDlgItemText(parent, outputCtrlID, szDir);
-		folderName = szDir;
+			::SetDlgItemText(parent, outputCtrlID, folderName.c_str());
 	}
 	return folderName;
 }

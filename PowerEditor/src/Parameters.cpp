@@ -18,7 +18,6 @@
 #include <shlwapi.h>
 #include <shlobj.h>
 #include "Parameters.h"
-#include "FileDialog.h"
 #include "ScintillaEditView.h"
 #include "keys.h"
 #include "localization.h"
@@ -841,8 +840,6 @@ winVer NppParameters::getWindowsVersion()
 
    return WV_UNKNOWN;
 }
-
-int FileDialog::_dialogFileBoxId = (NppParameters::getInstance()).getWinVersion() < WV_W2K?edt1:cmb13;
 
 
 NppParameters::NppParameters()

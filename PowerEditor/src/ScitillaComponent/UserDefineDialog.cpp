@@ -21,7 +21,7 @@
 #include "Parameters.h"
 #include "resource.h"
 #include "Notepad_plus_msgs.h"
-#include "FileDialog.h"
+#include "CustomFileDialog.h"
 #include "Common.h"
 
 using namespace std;
@@ -1260,11 +1260,10 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
                     }
                     case IDC_IMPORT_BUTTON :
                     {
-                        FileDialog fDlg(_hSelf, ::GetModuleHandle(NULL));
-                        fDlg.setExtFilter(TEXT("UDL"), TEXT(".xml"), NULL);
-                        TCHAR *fn = fDlg.doOpenSingleFileDlg();
-                        if (!fn) break;
-                        generic_string sourceFile = fn;
+                        CustomFileDialog fDlg(_hSelf);
+                        fDlg.setExtFilter(TEXT("UDL"), TEXT(".xml"));
+                        generic_string sourceFile = fDlg.doOpenSingleFileDlg();
+                        if (sourceFile.empty()) break;
 
                         bool isSuccessful = nppParam.importUDLFromFile(sourceFile);
                         if (isSuccessful)
@@ -1291,12 +1290,11 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
                             break;
                         }
 
-                        FileDialog fDlg(_hSelf, ::GetModuleHandle(NULL));
-                        fDlg.setExtFilter(TEXT("UDL"), TEXT(".xml"), NULL);
+                        CustomFileDialog fDlg(_hSelf);
+                        fDlg.setExtFilter(TEXT("UDL"), TEXT(".xml"));
 						fDlg.setExtIndex(0);		// 0 Default index else file will be saved without extension
-                        TCHAR *fn = fDlg.doSaveDlg();
-                        if (!fn) break;
-                        generic_string fileName2save = fn;
+						generic_string fileName2save = fDlg.doSaveDlg();
+                        if (fileName2save.empty()) break;
 
                         if (i2Export > 0)
                         {

@@ -301,7 +301,6 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClCompile Include="..\src\ScitillaComponent\DocTabView.cpp" />
     <ClCompile Include="..\src\WinControls\DocumentMap\documentMap.cpp" />
     <ClCompile Include="..\src\EncodingMapper.cpp" />
-    <ClCompile Include="..\src\WinControls\OpenSaveFileDialog\FileDialog.cpp" />
     <ClCompile Include="..\src\WinControls\FindCharsInRange\FindCharsInRange.cpp" />
     <ClCompile Include="..\src\ScitillaComponent\FindReplaceDlg.cpp" />
     <ClCompile Include="..\src\ScitillaComponent\FunctionCallTip.cpp" />
@@ -594,7 +593,6 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClInclude Include="..\src\ScitillaComponent\DocTabView.h" />
     <ClInclude Include="..\src\WinControls\DocumentMap\documentMap.h" />
     <ClInclude Include="..\src\EncodingMapper.h" />
-    <ClInclude Include="..\src\WinControls\OpenSaveFileDialog\FileDialog.h" />
     <ClInclude Include="..\src\MISC\FileNameStringSplitter.h" />
     <ClInclude Include="..\src\WinControls\FindCharsInRange\FindCharsInRange.h" />
     <ClInclude Include="..\src\ScitillaComponent\FindReplaceDlg.h" />

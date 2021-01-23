@@ -16,7 +16,7 @@
 
 #include "StaticDialog.h"
 #include "RunDlg.h"
-#include "FileDialog.h"
+#include "CustomFileDialog.h"
 #include "Notepad_plus_msgs.h"
 #include "shortcut.h"
 #include "Parameters.h"
@@ -318,13 +318,14 @@ INT_PTR CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 
 				case IDC_BUTTON_FILE_BROWSER :
 				{
-					FileDialog fd(_hSelf, _hInst);
-					fd.setExtFilter(TEXT("Executable file : "), TEXT(".exe"), TEXT(".com"), TEXT(".cmd"), TEXT(".bat"), NULL);
-					fd.setExtFilter(TEXT("All files : "), TEXT(".*"), NULL);
+					CustomFileDialog fd(_hSelf);
+					fd.setExtFilter(TEXT("Executable file : "), { TEXT(".exe"), TEXT(".com"), TEXT(".cmd"), TEXT(".bat") });
+					fd.setExtFilter(TEXT("All files : "), TEXT(".*"));
 
-					if (const TCHAR *fn = fd.doOpenSingleFileDlg())
+					generic_string fn = fd.doOpenSingleFileDlg();
+					if (!fn.empty())
 					{
-						if (wcschr(fn, ' ') != NULL)
+						if (fn.find(' ') != generic_string::npos)
 						{
 							generic_string fn_quotes(fn);
 							fn_quotes = TEXT("\"") + fn_quotes + TEXT("\"");
@@ -332,7 +333,7 @@ INT_PTR CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 						}
 						else
 						{
-							addTextToCombo(fn);
+							addTextToCombo(fn.c_str());
 						}
 					}
 					return TRUE;

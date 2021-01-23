@@ -19,7 +19,7 @@
 #include <wininet.h>
 #include "Notepad_plus.h"
 #include "Notepad_plus_Window.h"
-#include "FileDialog.h"
+#include "CustomFileDialog.h"
 #include "Printer.h"
 #include "FileNameStringSplitter.h"
 #include "lesDlgs.h"
@@ -6022,12 +6022,13 @@ void Notepad_plus::setFindReplaceFolderFilter(const TCHAR *dir, const TCHAR *fil
 
 vector<generic_string> Notepad_plus::addNppComponents(const TCHAR *destDir, const TCHAR *extFilterName, const TCHAR *extFilter)
 {
-	FileDialog fDlg(_pPublicInterface->getHSelf(), _pPublicInterface->getHinst());
-    fDlg.setExtFilter(extFilterName, extFilter, NULL);
+	CustomFileDialog fDlg(_pPublicInterface->getHSelf());
+	fDlg.setExtFilter(extFilterName, extFilter);
 
     vector<generic_string> copiedFiles;
 
-    if (stringVector *pfns = fDlg.doOpenMultiFilesDlg())
+	const auto& fns = fDlg.doOpenMultiFilesDlg();
+    if (!fns.empty())
     {
         // Get plugins dir
 		generic_string destDirName = (NppParameters::getInstance()).getNppPath();
@@ -6040,15 +6041,15 @@ vector<generic_string> Notepad_plus::addNppComponents(const TCHAR *destDir, cons
 
         destDirName += TEXT("\\");
 
-        size_t sz = pfns->size();
+        size_t sz = fns.size();
         for (size_t i = 0 ; i < sz ; ++i)
         {
-            if (::PathFileExists(pfns->at(i).c_str()))
+            if (::PathFileExists(fns.at(i).c_str()))
             {
                 // copy to plugins directory
                 generic_string destName = destDirName;
-                destName += ::PathFindFileName(pfns->at(i).c_str());
-                if (::CopyFile(pfns->at(i).c_str(), destName.c_str(), FALSE))
+                destName += ::PathFindFileName(fns.at(i).c_str());
+                if (::CopyFile(fns.at(i).c_str(), destName.c_str(), FALSE))
                     copiedFiles.push_back(destName.c_str());
             }
         }
@@ -6058,12 +6059,13 @@ vector<generic_string> Notepad_plus::addNppComponents(const TCHAR *destDir, cons
 
 vector<generic_string> Notepad_plus::addNppPlugins(const TCHAR *extFilterName, const TCHAR *extFilter)
 {
-	FileDialog fDlg(_pPublicInterface->getHSelf(), _pPublicInterface->getHinst());
-    fDlg.setExtFilter(extFilterName, extFilter, NULL);
+	CustomFileDialog fDlg(_pPublicInterface->getHSelf());
+    fDlg.setExtFilter(extFilterName, extFilter);
 
     vector<generic_string> copiedFiles;
 
-    if (stringVector *pfns = fDlg.doOpenMultiFilesDlg())
+	const auto& fns = fDlg.doOpenMultiFilesDlg();
+	if (!fns.empty())
     {
         // Get plugins dir
 		generic_string destDirName = (NppParameters::getInstance()).getPluginRootDir();
@@ -6073,15 +6075,15 @@ vector<generic_string> Notepad_plus::addNppPlugins(const TCHAR *extFilterName, c
             ::CreateDirectory(destDirName.c_str(), NULL);
         }
 
-        size_t sz = pfns->size();
+        size_t sz = fns.size();
         for (size_t i = 0 ; i < sz ; ++i)
         {
-            if (::PathFileExists(pfns->at(i).c_str()))
+            if (::PathFileExists(fns.at(i).c_str()))
             {
                 // copy to plugins directory
                 generic_string destName = destDirName;
 				
-				generic_string nameExt = ::PathFindFileName(pfns->at(i).c_str());
+				generic_string nameExt = ::PathFindFileName(fns.at(i).c_str());
 				auto pos = nameExt.find_last_of(TEXT("."));
 				if (pos == generic_string::npos)
 					continue;
@@ -6094,7 +6096,7 @@ vector<generic_string> Notepad_plus::addNppPlugins(const TCHAR *extFilterName, c
 				}
 				PathAppend(destName, nameExt);
 
-                if (::CopyFile(pfns->at(i).c_str(), destName.c_str(), FALSE))
+                if (::CopyFile(fns.at(i).c_str(), destName.c_str(), FALSE))
                     copiedFiles.push_back(destName.c_str());
             }
         }

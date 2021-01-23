@@ -127,7 +127,7 @@ struct QuoteParams
 	const wchar_t* _quote = nullptr;
 };
 
-class FileDialog;
+class CustomFileDialog;
 class Notepad_plus_Window;
 class AnsiCharPanel;
 class ClipboardHistoryPanel;
@@ -575,7 +575,7 @@ private:
 	generic_string getLangFromMenu(const Buffer * buf);
 
     generic_string exts2Filters(const generic_string& exts, int maxExtsLen = -1) const; // maxExtsLen default value -1 makes no limit of whole exts length
-	int setFileOpenSaveDlgFilters(FileDialog & fDlg, bool showAllExt, int langType = -1); // showAllExt should be true if it's used for open file dialog - all set exts should be used for filtering files
+	int setFileOpenSaveDlgFilters(CustomFileDialog & fDlg, bool showAllExt, int langType = -1); // showAllExt should be true if it's used for open file dialog - all set exts should be used for filtering files
 	Style * getStyleFromName(const TCHAR *styleName);
 	bool dumpFiles(const TCHAR * outdir, const TCHAR * fileprefix = TEXT(""));	//helper func
 	void drawTabbarColoursFromStylerArray();

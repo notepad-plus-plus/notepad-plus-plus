@@ -28,6 +28,13 @@ _Since the release of version 7.6.5 Notepad++ is signed using GPG with the follo
 https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/nppGpgPub.asc
 
 
+Supported OS
+------------
+
+All the Windows systems still supported by Microsoft are supported by Notepad++. However, not all Notepad++ uses can afford a modern system. Here are the [table of supported system](SUPPORTED_SYSTEM.md) in case you are one of them.
+
+
+
 Build Notepad++
 ---------------
 

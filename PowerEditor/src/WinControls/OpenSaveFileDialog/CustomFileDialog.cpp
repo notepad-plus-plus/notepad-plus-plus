@@ -236,7 +236,7 @@ public:
 		// First launch order: 1. Inactive, window title might be wrong.
 		generic_string name = getDialogFileName(dlg);
 		if (changeExt(name, dlg))
-			setDialogFileName(name.c_str());
+			dlg->SetFileName(name.c_str());
 		return S_OK;
 	}
 	IFACEMETHODIMP OnOverwrite(IFileDialog*, IShellItem*, FDE_OVERWRITE_RESPONSE*) override
@@ -295,6 +295,8 @@ private:
 	}
 
 	// Called after the user input but before OnFileOk() and before any name validation.
+	// Prefer SendMessage communication with the edit box here rather than IFileDialog methods.
+	// The setter methods post the message to the queue, and it may not be processed in time.
 	void onPreFileOk()
 	{
 		if (!_dialog)
@@ -310,7 +312,7 @@ private:
 				// Name is a directory, update the address bar text.
 				setDialogAddress(fileName.c_str());
 				// Empty the edit box.
-				setDialogFileName(_T(""));
+				sendDialogFileName(_T(""));
 			}
 		}
 		else
@@ -321,7 +323,7 @@ private:
 				nameChanged |= changeExt(fileName, _dialog);
 			// Update the edit box text.
 			if (nameChanged)
-				setDialogFileName(fileName.c_str());
+				sendDialogFileName(fileName.c_str());
 		}
 	}
 
@@ -348,10 +350,9 @@ private:
 		return transformed;
 	}
 
-	void setDialogFileName(const TCHAR* name)
+	// Sets the file name and waits until it is processed by the edit control.
+	void sendDialogFileName(const TCHAR* name)
 	{
-		// Don't use IFileDialog::SetFileName() because it could be not delivered.
-		// Probably, it sends messages asynchronously via PostMessage.
 		::SendMessage(_hwndNameEdit, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(name));
 	}
 

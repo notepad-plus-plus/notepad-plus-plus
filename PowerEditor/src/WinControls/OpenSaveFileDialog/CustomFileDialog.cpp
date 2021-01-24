@@ -305,26 +305,17 @@ private:
 		generic_string fileName = getDialogFileName(_dialog);
 		bool nameChanged = transformPath(fileName);
 		// Update the controls.
-		if (::PathIsDirectory(fileName.c_str()))
-		{
-			if (nameChanged)
-			{
-				// Name is a directory, update the address bar text.
-				setDialogAddress(fileName.c_str());
-				// Empty the edit box.
-				sendDialogFileName(_T(""));
-			}
-		}
-		else
+		if (not ::PathIsDirectory(fileName.c_str()))
 		{
 			// Name is a file path.
 			// Add file extension if missing.
 			if (!hasExt(fileName))
 				nameChanged |= changeExt(fileName, _dialog);
-			// Update the edit box text.
-			if (nameChanged)
-				sendDialogFileName(fileName.c_str());
 		}
+		// Update the edit box text.
+		// It will update the address if the path is a directory.
+		if (nameChanged)
+			sendDialogFileName(fileName.c_str());
 	}
 
 	// Transforms a forward-slash path to a canonical Windows path.
@@ -354,11 +345,6 @@ private:
 	void sendDialogFileName(const TCHAR* name)
 	{
 		::SendMessage(_hwndNameEdit, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(name));
-	}
-
-	void setDialogAddress(const TCHAR* name)
-	{
-		setDialogFolder(_dialog, name);
 	}
 
 	// Enumerates the child windows of a dialog.

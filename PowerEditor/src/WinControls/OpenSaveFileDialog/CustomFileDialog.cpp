@@ -459,6 +459,10 @@ public:
 		if (_dialog)
 			return false; // Avoid double initialization
 
+		// Sanitize data.
+		if (_fileTypeIndex >= _filterSpec.size())
+			_fileTypeIndex = 0;
+
 		HRESULT hr = CoCreateInstance(id,
 			NULL,
 			CLSCTX_INPROC_SERVER,
@@ -476,7 +480,7 @@ public:
 		if (SUCCEEDED(hr) && _initialFileName)
 		{
 			generic_string newFileName = _initialFileName;
-			if (_fileTypeIndex >= 0)
+			if (_fileTypeIndex >= 0 && _fileTypeIndex < _filterSpec.size())
 			{
 				if (!hasExt(newFileName))
 				{
@@ -497,6 +501,7 @@ public:
 			hr = _dialog->SetFileTypes(static_cast<UINT>(fileTypes.size()), fileTypes.data());
 		}
 
+		// The selected index should be set after the file types are set.
 		if (SUCCEEDED(hr) && _fileTypeIndex >= 0)
 			hr = _dialog->SetFileTypeIndex(_fileTypeIndex + 1); // This index is 1-based
 

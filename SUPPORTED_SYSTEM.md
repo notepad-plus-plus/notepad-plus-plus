@@ -3,7 +3,7 @@
 
 * The column **OS** is the list of different MS Windows generations.
 * The column **can be run (version can be run)** is for the status of the latest release to be run under the OS. If the latest version cannot be run under the specific OS (with the status "NO"), then the last version number which can be run will be indicated in the paratheses.
-* The column **supported** contains the status of Notepad++ team supporting Notepad++ under the specific OS. It means if a bug is present under a OS no more supported, but not under supported OS, then this issue won't be treated by team.
+* The column **supported** contains the status of Notepad++ team supporting Notepad++ under the specific OS. It means if a bug is present under a OS no more supported but not under supported OS, then this issue won't be treated by team.
 
 |           OS            | can be run (version can be run) |      supported            |
 |-------------------------|---------------------------------|---------------------------|

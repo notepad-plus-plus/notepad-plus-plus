@@ -706,7 +706,6 @@
                     <Item id="6413" name="Default Directory (Open/Save)"/>
                     <Item id="6414" name="Follow current document"/>
                     <Item id="6415" name="Remember last used directory"/>
-                    <Item id="6430" name="Use new style save dialog (without file extension feature)"/>
                     <Item id="6431" name="Open all files of folder instead of launching Folder as Workspace on folder dropping"/>
                 </DefaultDir>
 

@@ -737,7 +737,6 @@
                     <Item id="6413" name="Direktori Baku (Buka/Simpan)"/>
                     <Item id="6414" name="Ikuti dokumen aktif"/>
                     <Item id="6415" name="Ingat direktori terakhir"/>
-                    <Item id="6430" name="Gunakan dialog gaya baru (tanpa fitur ekstensi file dan kapasitas jalur gaya Unix)"/>
                     <Item id="6431" name="Buka semua file dari folder bukan meluncurkan folder sebagai Ruang kerja saat menjatuhkan folder"/>
                 </DefaultDir>
 

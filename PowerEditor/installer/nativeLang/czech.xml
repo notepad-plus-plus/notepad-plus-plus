@@ -931,7 +931,6 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id = "6413" name = "Implicitní adresář pro otevírání/ukládání souborů"/>
 					<Item id = "6414" name = "Podle aktuálního dokumentu"/>
 					<Item id = "6415" name = "Zapamatovat si poslední používaný adresář"/>
-					<Item id = "6430" name = "Použít nový styl dialogu (bez možnosti Unixových cest /)"/>
 					<Item id = "6431" name = "Otevírat všechny soubory ve složce při přetažení myší (místo zdroje pro pracovní plochu)"/>
 				</DefaultDir>
 				<FileAssoc title = "Asociovat se soubory">

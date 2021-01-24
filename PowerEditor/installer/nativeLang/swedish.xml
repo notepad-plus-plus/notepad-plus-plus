@@ -779,7 +779,6 @@
 					<Item id="6413" name="Standardmapp (öppna/spara)"/>
 					<Item id="6414" name="Använd det aktuella dokumentet"/>
 					<Item id="6415" name="Kom ihåg senast använd mapp"/>
-					<Item id="6430" name="Använd moderna dialogrutor (utan hantering av filtillägg &amp;&amp; möjlighet för sökvägar i Unix-format)"/>
 					<Item id="6431" name="Öppna alla filer i mapp istället för att starta en mapp som en arbetsyta när en mapp dras in"/>
 				</DefaultDir>
 

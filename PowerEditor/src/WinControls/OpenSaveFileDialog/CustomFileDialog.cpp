@@ -461,7 +461,7 @@ public:
 			return false; // Avoid double initialization
 
 		// Sanitize data.
-		if (_fileTypeIndex >= _filterSpec.size())
+		if (_fileTypeIndex >= static_cast<int>(_filterSpec.size()))
 			_fileTypeIndex = 0;
 
 		HRESULT hr = CoCreateInstance(id,
@@ -481,7 +481,7 @@ public:
 		if (SUCCEEDED(hr) && _initialFileName)
 		{
 			generic_string newFileName = _initialFileName;
-			if (_fileTypeIndex >= 0 && _fileTypeIndex < _filterSpec.size())
+			if (_fileTypeIndex >= 0 && _fileTypeIndex < static_cast<int>(_filterSpec.size()))
 			{
 				if (!hasExt(newFileName))
 				{

@@ -1158,7 +1158,7 @@ E vostre preferenze di nivulu anu da esse abbandunate. Ci vole à rimette un val
             <DroppingFolderAsProjectModeWarning title="Azzione inaccetevule" message="Pudete depone solu schedarii o cartulari ma micca tremindui, perchè site in u modu di dipositu Cartulare cum’è spaziu di travagliu.
 Ci vole à attivà l’ozzione « À u depone d’un cartulare, apre tutti i schedarii invece d’impiegallu cum’è spaziu di travagliu » in a sezzione « Cartulare predefinitu » di e Preferenze per fà què."/>
             <SortingError title="Sbagliu di classificazione" message="Impussibule di fà una classificazione numerica per via di a linea $INT_REPLACE$."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-            <ColumnModeTip title="Minichichja di modu culonna" message="Ci vole à impiegà « ALT+Selez. cù Topu » o « Alt+Maiusc+Fleccia » per passà à u modu culonna."/>
+            <ColumnModeTip title="Minichichja di modu culonna" message="Ci vole à impiegà « ALT+selez. cù topu » o « Alt+Maiusc+fleccia » per passà à u modu culonna."/>
             <BufferInvalidWarning title="Arregistramentu fiascu" message="Ùn pò micca arregistrà : U stampone hè inaccetevule."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <DoCloseOrNot title="Cunservà u schedariu inesistente" message="U schedariu « $STR_REPLACE$ » ùn esiste più.
 Cunservà stu schedariu in l’editore ?"/>

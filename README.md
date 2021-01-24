@@ -31,7 +31,8 @@ https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/nppGpgPub.asc
 Supported OS
 ------------
 
-All the Windows systems still supported by Microsoft are supported by Notepad++. However, not all Notepad++ users can afford a modern system. Here are the [Supported systems information](SUPPORTED_SYSTEM.md) you may need in case you are one of them.
+All the Windows systems still supported by Microsoft are supported by Notepad++. However, not all Notepad++ users can afford a modern system. Here is the [Supported systems information](SUPPORTED_SYSTEM.md) you may need in case you are one of them.
+
 
 
 
@@ -47,5 +48,4 @@ Contribution
 Code contribution is welcome. Here are some [rules](CONTRIBUTING.md) that your should follow to make your contribution accepted easily. 
 
 [Notepad++ Contributors](https://github.com/notepad-plus-plus/notepad-plus-plus/graphs/contributors)
-
 

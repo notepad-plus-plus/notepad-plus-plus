@@ -17,24 +17,39 @@
 
 #include <shobjidl.h>
 #include <shlwapi.h>	// PathIsDirectory
-#include <comip.h>		// _com_ptr_t
+#ifdef __MINGW32__
+#include <cwchar>
+#endif
 #include <comdef.h>		// _com_error
+#include <comip.h>		// _com_ptr_t
 
 #include "CustomFileDialog.h"
 #include "Parameters.h"
 
+// Workaround for MinGW because its implementation of __uuidof is different.
+template<class T>
+struct ComTraits
+{
+	static const GUID uid;
+};
+template<class T>
+const GUID ComTraits<T>::uid = __uuidof(T);
+
 // Smart pointer alias for COM objects that makes reference counting easier.
 template<class T>
-using com_ptr = _com_ptr_t<_com_IIID<T, &__uuidof(T)>>;
+using com_ptr = _com_ptr_t<_com_IIID<T, &ComTraits<T>::uid>>;
 
 // _com_ptr_t needs this function.
 // Define it here to avoid linking with "comsupp.lib".
+// MinGW defines its own version of this function.
+#ifndef __MINGW32__
 void __stdcall _com_issue_error(HRESULT hr)
 {
 	generic_string msg = _T("File Dialog: ");
 	msg += _com_error(hr).ErrorMessage();
 	throw std::runtime_error(ws2s(msg).c_str());
 }
+#endif
 
 namespace // anonymous
 {

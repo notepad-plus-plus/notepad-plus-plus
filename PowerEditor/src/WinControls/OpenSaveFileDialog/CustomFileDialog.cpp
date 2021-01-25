@@ -39,17 +39,6 @@ const GUID ComTraits<T>::uid = __uuidof(T);
 template<class T>
 using com_ptr = _com_ptr_t<_com_IIID<T, &ComTraits<T>::uid>>;
 
-// _com_ptr_t needs this function.
-// Define it here to avoid linking with "comsupp.lib".
-// MinGW defines its own version of this function.
-#ifndef __MINGW32__
-void __stdcall _com_issue_error(HRESULT hr)
-{
-	generic_string msg = _T("File Dialog: ");
-	msg += _com_error(hr).ErrorMessage();
-	throw std::runtime_error(ws2s(msg).c_str());
-}
-#endif
 
 namespace // anonymous
 {

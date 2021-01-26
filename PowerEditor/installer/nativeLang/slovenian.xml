@@ -848,8 +848,7 @@ Lahko določite več označevalcev stolpcev z uporabo belega presledka za ločev
 					<Item id="6413" name="Privzeti imenik (Odpri/Shrani)"/>
 					<Item id="6414" name="Sledi trenutnemu dokumentu"/>
 					<Item id="6415" name="Zapomni si zadnji uporabljen imenik"/>
-					<Item id="6430" name="Uporabi nov slog pogovornega okna (brez zmogljivosti poti Unix sloga)"/>
-                    <Item id="6431" name="Odpri vse datoteke mape namesto začete Mape kot delovni prostor na spuščajočih mapah"/>
+					<Item id="6431" name="Odpri vse datoteke mape namesto začete Mape kot delovni prostor na spuščajočih mapah"/>
 				</DefaultDir>
 				
 				<FileAssoc title="Povezave datotek">

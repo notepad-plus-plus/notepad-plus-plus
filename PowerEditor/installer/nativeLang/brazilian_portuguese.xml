@@ -783,7 +783,6 @@
                     <Item id="6413" name="Diretório padrão (Abrir/Salvar)"/>
                     <Item id="6414" name="De acordo com documento atual"/>
                     <Item id="6415" name="Lembrar último diretório"/>
-                    <Item id="6430" name="Usar o novo estilo de diálogo Salvar (sem função de extensão de arquivo)"/>
                     <Item id="6431" name="Abrir todos os arquivos da pasta em vez de usar a pasta como espaço de trabalho"/>
                 </DefaultDir>
 

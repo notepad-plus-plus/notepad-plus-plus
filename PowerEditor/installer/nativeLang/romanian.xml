@@ -771,7 +771,6 @@
                     <Item id="6413" name="Folder implicit (Deschidere/Salvare)"/>
                     <Item id="6414" name="Folder document curent"/>
                     <Item id="6415" name="Memorare ultimul folder folosit"/>
-                    <Item id="6430" name="Utilizare stil nou dialog salvare (fără extensii fişiere predefinite &amp;&amp; stil cale tip Unix disponibil)" />
                     <Item id="6431" name="La plasarea unui folder, se deschid fișierele din el, fără a-l stabili ca spațiu de lucru"/>
                 </DefaultDir>
 

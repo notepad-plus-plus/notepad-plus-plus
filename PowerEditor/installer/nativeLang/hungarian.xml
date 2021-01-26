@@ -788,7 +788,6 @@
                     <Item id="6413" name="Alapértelmezett mappa (megnyitáskor és mentéskor)"/>
                     <Item id="6414" name="Ugyanott, mint a jelenlegi dokumentum"/>
                     <Item id="6415" name="Utoljára használt mappa megjegyzése"/>
-                    <Item id="6430" name="Újabb típusú dialógus használata (fájl kiterjesztés nélküli funkció)"/>
                     <Item id="6431" name="Mappa behúzásakor minden ottlévő fájl megnyitása, a Mappa mint Munkaterület helyett"/>
                 </DefaultDir>
 

@@ -881,7 +881,6 @@ Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych lic
                     <Item id="6413" name="Domyślna ścieżka odczytu i zapisu"/>
                     <Item id="6414" name="Bieżącego pliku"/>
                     <Item id="6415" name="Pamiętaj ostatnio używaną"/>
-                    <Item id="6430" name="Używaj nowego okna zapisu (bez ścieżki w stylu Unix)"/>
                     <Item id="6431" name="Nie traktuj przenoszonego folderu jako obszaru roboczego, tylko ładuj wszystkie jego pliki"/>
                 </DefaultDir>
 

@@ -871,7 +871,6 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6413" name="文件打开/保存路径"/>
                     <Item id="6414" name="与当前文件一致"/>
                     <Item id="6415" name="记住最后的操作路径"/>
-                    <Item id="6430" name="使用新样式对话框(无UNIX路径支持功能)"/>
                     <Item id="6431" name="拖放文件夹时开启文件夹中所有文件，而不开启文件夹工作区"/>
                 </DefaultDir>
 

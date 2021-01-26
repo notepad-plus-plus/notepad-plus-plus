@@ -844,7 +844,6 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="6413" name="Carpeta por defecto (Abrir/Guardar)"/>
 					<Item id="6414" name="Seguir documento actual"/>
 					<Item id="6415" name="Recordar última carpeta"/>
-					<Item id="6430" name="Usar nuevo estilo de diálogo Guardar (sin función de extensión de archivo)"/>
 					<Item id="6431" name="Abrir todos los archivos de la carpeta en lugar de usar la carpeta como área de trabajo"/>
 				</DefaultDir>
 				<FileAssoc title="Asociación de archivos">

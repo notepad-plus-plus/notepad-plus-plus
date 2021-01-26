@@ -783,7 +783,6 @@
 					<Item id="6413" name="Standaardlocatie voor laden en opslaan"/>
 					<Item id="6414" name="Huidige documentlocatie"/>
 					<Item id="6415" name="Laatst gekozen map"/>
-					<Item id="6430" name="Gebruik vensters nieuwe stijl (zonder Unix stijl paden)"/>
 					<Item id="6431" name="Bij neerzetten, alle bestanden uit map openen ipv map als werkomgeving te openen"/>
 				</DefaultDir>
 

@@ -761,7 +761,6 @@
 					<Item id="6413" name="Oletuskansio avattaessa ja tallennettaessa"/>
 					<Item id="6414" name="Seuraa nykyistä asiakirjaa"/>
 					<Item id="6415" name="Muista viimeksi käytetty"/>
-					<Item id="6430" name="Käytä uutta tyyli-ikkunaa (ilman tiedostopäätettä ja Unix-tyylin polkukapasiteettia)"/>
                     <Item id="6431" name="Avaa kaikki kansion tiedostot sen sijaan, että avaisit kansion työtilana kansiota pudotettaessa"/>
 				</DefaultDir>
 				

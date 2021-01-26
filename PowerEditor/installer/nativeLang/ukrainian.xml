@@ -869,7 +869,6 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6413" name="Типова тека (Відкриття/Збереження)"/>
                     <Item id="6414" name="Наслідувати поточний документ"/>
                     <Item id="6415" name="Пам'ятати останню теку"/>
-                    <Item id="6430" name="Використовувати новий стиль діалогу (без шляху в стилі Unix)"/>
                     <Item id="6431" name="Відкривати всі файли теки, замість відкриття теки в якості робочого простору"/>
                 </DefaultDir>
 

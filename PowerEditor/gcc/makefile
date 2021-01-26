@@ -34,7 +34,7 @@ MISC_DIR		= $(NPP_DIR)/MISC
  REGEXT_DIR		= $(MISC_DIR)/RegExt
 
 #ScintillaComponent:
-SCINT_DIR		= $(NPP_DIR)/ScitillaComponent
+SCINT_DIR		= $(NPP_DIR)/ScintillaComponent
 
 #TinyXml
 TIXML_DIR		= $(NPP_DIR)/TinyXml

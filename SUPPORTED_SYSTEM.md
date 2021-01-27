@@ -20,3 +20,5 @@
 | **Windows 8**           | YES                             |          YES              |
 | **Windows 8.1**         | YES                             |          YES              |
 | **Windows 10**          | YES                             |          YES              |
+
+*Note that the list is meant for the last SP of each version*

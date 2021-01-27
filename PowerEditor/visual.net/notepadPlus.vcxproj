@@ -95,7 +95,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
-      <AdditionalIncludeDirectories>..\src\WinControls\AboutDlg;..\..\scintilla\include;..\include;..\src\WinControls;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\TabBar;..\src\WinControls\ToolBar;..\src\MISC\Process;..\src\ScitillaComponent;..\src\MISC;..\src\MISC\SysMsg;..\src\WinControls\StatusBar;..\src;..\src\WinControls\StaticDialog\RunDlg;..\src\tinyxml;..\src\WinControls\ColourPicker;..\src\Win32Explr;..\src\MISC\RegExt;..\src\WinControls\TrayIcon;..\src\WinControls\shortcut;..\src\WinControls\Grid;..\src\WinControls\ContextMenu;..\src\MISC\PluginsManager;..\src\WinControls\Preference;..\src\WinControls\WindowsDlg;..\src\WinControls\TaskList;..\src\WinControls\DockingWnd;..\src\WinControls\TreeView;..\src\WinControls\ToolTip;..\src\MISC\Exception;..\src\MISC\Common;..\src\tinyxml\tinyXmlA;..\src\WinControls\AnsiCharPanel;..\src\WinControls\ClipboardHistory;..\src\WinControls\FindCharsInRange;..\src\WinControls\VerticalFileSwitcher;..\src\WinControls\ProjectPanel;..\src\WinControls\DocumentMap;..\src\WinControls\FunctionList;..\src\uchardet;..\src\WinControls\FileBrowser;..\src\WinControls\ReadDirectoryChanges;..\src\MISC\md5;..\src\WinControls\PluginsAdmin;..\src\json;..\src\MISC\sha2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\src\WinControls\AboutDlg;..\..\scintilla\include;..\include;..\src\WinControls;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\TabBar;..\src\WinControls\ToolBar;..\src\MISC\Process;..\src\ScintillaComponent;..\src\MISC;..\src\MISC\SysMsg;..\src\WinControls\StatusBar;..\src;..\src\WinControls\StaticDialog\RunDlg;..\src\tinyxml;..\src\WinControls\ColourPicker;..\src\Win32Explr;..\src\MISC\RegExt;..\src\WinControls\TrayIcon;..\src\WinControls\shortcut;..\src\WinControls\Grid;..\src\WinControls\ContextMenu;..\src\MISC\PluginsManager;..\src\WinControls\Preference;..\src\WinControls\WindowsDlg;..\src\WinControls\TaskList;..\src\WinControls\DockingWnd;..\src\WinControls\TreeView;..\src\WinControls\ToolTip;..\src\MISC\Exception;..\src\MISC\Common;..\src\tinyxml\tinyXmlA;..\src\WinControls\AnsiCharPanel;..\src\WinControls\ClipboardHistory;..\src\WinControls\FindCharsInRange;..\src\WinControls\VerticalFileSwitcher;..\src\WinControls\ProjectPanel;..\src\WinControls\DocumentMap;..\src\WinControls\FunctionList;..\src\uchardet;..\src\WinControls\FileBrowser;..\src\WinControls\ReadDirectoryChanges;..\src\MISC\md5;..\src\WinControls\PluginsAdmin;..\src\json;..\src\MISC\sha2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WIN32_WINNT=0x0600;_WINDOWS;_USE_64BIT_TIME_T;TIXML_USE_STL;TIXMLA_USE_STL;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_SWPRINTFS=1;_CRT_NON_CONFORMING_WCSTOK;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ExceptionHandling>Async</ExceptionHandling>
       <BasicRuntimeChecks>UninitializedLocalUsageCheck</BasicRuntimeChecks>
@@ -134,7 +134,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
-      <AdditionalIncludeDirectories>..\src\WinControls\AboutDlg;..\..\scintilla\include;..\include;..\src\WinControls;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\TabBar;..\src\WinControls\ToolBar;..\src\MISC\Process;..\src\ScitillaComponent;..\src\MISC;..\src\MISC\SysMsg;..\src\WinControls\StatusBar;..\src;..\src\WinControls\StaticDialog\RunDlg;..\src\tinyxml;..\src\WinControls\ColourPicker;..\src\Win32Explr;..\src\MISC\RegExt;..\src\WinControls\TrayIcon;..\src\WinControls\shortcut;..\src\WinControls\Grid;..\src\WinControls\ContextMenu;..\src\MISC\PluginsManager;..\src\WinControls\Preference;..\src\WinControls\WindowsDlg;..\src\WinControls\TaskList;..\src\WinControls\DockingWnd;..\src\WinControls\TreeView;..\src\WinControls\ToolTip;..\src\MISC\Exception;..\src\MISC\Common;..\src\tinyxml\tinyXmlA;..\src\WinControls\AnsiCharPanel;..\src\WinControls\ClipboardHistory;..\src\WinControls\FindCharsInRange;..\src\WinControls\VerticalFileSwitcher;..\src\WinControls\ProjectPanel;..\src\WinControls\DocumentMap;..\src\WinControls\FunctionList;..\src\uchardet;..\src\WinControls\FileBrowser;..\src\WinControls\ReadDirectoryChanges;..\src\MISC\md5;..\src\WinControls\PluginsAdmin;..\src\json;..\src\MISC\sha2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\src\WinControls\AboutDlg;..\..\scintilla\include;..\include;..\src\WinControls;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\TabBar;..\src\WinControls\ToolBar;..\src\MISC\Process;..\src\ScintillaComponent;..\src\MISC;..\src\MISC\SysMsg;..\src\WinControls\StatusBar;..\src;..\src\WinControls\StaticDialog\RunDlg;..\src\tinyxml;..\src\WinControls\ColourPicker;..\src\Win32Explr;..\src\MISC\RegExt;..\src\WinControls\TrayIcon;..\src\WinControls\shortcut;..\src\WinControls\Grid;..\src\WinControls\ContextMenu;..\src\MISC\PluginsManager;..\src\WinControls\Preference;..\src\WinControls\WindowsDlg;..\src\WinControls\TaskList;..\src\WinControls\DockingWnd;..\src\WinControls\TreeView;..\src\WinControls\ToolTip;..\src\MISC\Exception;..\src\MISC\Common;..\src\tinyxml\tinyXmlA;..\src\WinControls\AnsiCharPanel;..\src\WinControls\ClipboardHistory;..\src\WinControls\FindCharsInRange;..\src\WinControls\VerticalFileSwitcher;..\src\WinControls\ProjectPanel;..\src\WinControls\DocumentMap;..\src\WinControls\FunctionList;..\src\uchardet;..\src\WinControls\FileBrowser;..\src\WinControls\ReadDirectoryChanges;..\src\MISC\md5;..\src\WinControls\PluginsAdmin;..\src\json;..\src\MISC\sha2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WIN32_WINNT=0x0600;_WINDOWS;_USE_64BIT_TIME_T;TIXML_USE_STL;TIXMLA_USE_STL;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_SWPRINTFS=1;_CRT_NON_CONFORMING_WCSTOK;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ExceptionHandling>Async</ExceptionHandling>
       <BasicRuntimeChecks>UninitializedLocalUsageCheck</BasicRuntimeChecks>
@@ -176,7 +176,7 @@
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>false</OmitFramePointers>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\src\WinControls\AboutDlg;..\..\scintilla\include;..\include;..\src\WinControls;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\TabBar;..\src\WinControls\ToolBar;..\src\MISC\Process;..\src\ScitillaComponent;..\src\MISC;..\src\MISC\SysMsg;..\src\WinControls\StatusBar;..\src;..\src\WinControls\StaticDialog\RunDlg;..\src\tinyxml;..\src\WinControls\ColourPicker;..\src\Win32Explr;..\src\MISC\RegExt;..\src\WinControls\TrayIcon;..\src\WinControls\shortcut;..\src\WinControls\Grid;..\src\WinControls\ContextMenu;..\src\MISC\PluginsManager;..\src\WinControls\Preference;..\src\WinControls\WindowsDlg;..\src\WinControls\TaskList;..\src\WinControls\DockingWnd;..\src\WinControls\TreeView;..\src\WinControls\ToolTip;..\src\MISC\Exception;..\src\MISC\Common;..\src\tinyxml\tinyXmlA;..\src\WinControls\AnsiCharPanel;..\src\WinControls\ClipboardHistory;..\src\WinControls\FindCharsInRange;..\src\WinControls\VerticalFileSwitcher;..\src\WinControls\ProjectPanel;..\src\WinControls\DocumentMap;..\src\WinControls\FunctionList;..\src\uchardet;..\src\WinControls\FileBrowser;..\src\WinControls\ReadDirectoryChanges;..\src\MISC\md5;..\src\WinControls\PluginsAdmin;..\src\json;..\src\MISC\sha2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\src\WinControls\AboutDlg;..\..\scintilla\include;..\include;..\src\WinControls;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\TabBar;..\src\WinControls\ToolBar;..\src\MISC\Process;..\src\ScintillaComponent;..\src\MISC;..\src\MISC\SysMsg;..\src\WinControls\StatusBar;..\src;..\src\WinControls\StaticDialog\RunDlg;..\src\tinyxml;..\src\WinControls\ColourPicker;..\src\Win32Explr;..\src\MISC\RegExt;..\src\WinControls\TrayIcon;..\src\WinControls\shortcut;..\src\WinControls\Grid;..\src\WinControls\ContextMenu;..\src\MISC\PluginsManager;..\src\WinControls\Preference;..\src\WinControls\WindowsDlg;..\src\WinControls\TaskList;..\src\WinControls\DockingWnd;..\src\WinControls\TreeView;..\src\WinControls\ToolTip;..\src\MISC\Exception;..\src\MISC\Common;..\src\tinyxml\tinyXmlA;..\src\WinControls\AnsiCharPanel;..\src\WinControls\ClipboardHistory;..\src\WinControls\FindCharsInRange;..\src\WinControls\VerticalFileSwitcher;..\src\WinControls\ProjectPanel;..\src\WinControls\DocumentMap;..\src\WinControls\FunctionList;..\src\uchardet;..\src\WinControls\FileBrowser;..\src\WinControls\ReadDirectoryChanges;..\src\MISC\md5;..\src\WinControls\PluginsAdmin;..\src\json;..\src\MISC\sha2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WIN32_WINNT=0x0600;NDEBUG;_WINDOWS;_USE_64BIT_TIME_T;TIXML_USE_STL;TIXMLA_USE_STL;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_SWPRINTFS=1;_CRT_NON_CONFORMING_WCSTOK;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessToFile>false</PreprocessToFile>
       <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
@@ -228,7 +228,7 @@ copy ..\src\contextMenu.xml ..\bin\contextMenu.xml
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>false</OmitFramePointers>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\src\WinControls\AboutDlg;..\..\scintilla\include;..\include;..\src\WinControls;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\TabBar;..\src\WinControls\ToolBar;..\src\MISC\Process;..\src\ScitillaComponent;..\src\MISC;..\src\MISC\SysMsg;..\src\WinControls\StatusBar;..\src;..\src\WinControls\StaticDialog\RunDlg;..\src\tinyxml;..\src\WinControls\ColourPicker;..\src\Win32Explr;..\src\MISC\RegExt;..\src\WinControls\TrayIcon;..\src\WinControls\shortcut;..\src\WinControls\Grid;..\src\WinControls\ContextMenu;..\src\MISC\PluginsManager;..\src\WinControls\Preference;..\src\WinControls\WindowsDlg;..\src\WinControls\TaskList;..\src\WinControls\DockingWnd;..\src\WinControls\TreeView;..\src\WinControls\ToolTip;..\src\MISC\Exception;..\src\MISC\Common;..\src\tinyxml\tinyXmlA;..\src\WinControls\AnsiCharPanel;..\src\WinControls\ClipboardHistory;..\src\WinControls\FindCharsInRange;..\src\WinControls\VerticalFileSwitcher;..\src\WinControls\ProjectPanel;..\src\WinControls\DocumentMap;..\src\WinControls\FunctionList;..\src\uchardet;..\src\WinControls\FileBrowser;..\src\WinControls\ReadDirectoryChanges;..\src\MISC\md5;..\src\WinControls\PluginsAdmin;..\src\json;..\src\MISC\sha2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\src\WinControls\AboutDlg;..\..\scintilla\include;..\include;..\src\WinControls;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\TabBar;..\src\WinControls\ToolBar;..\src\MISC\Process;..\src\ScintillaComponent;..\src\MISC;..\src\MISC\SysMsg;..\src\WinControls\StatusBar;..\src;..\src\WinControls\StaticDialog\RunDlg;..\src\tinyxml;..\src\WinControls\ColourPicker;..\src\Win32Explr;..\src\MISC\RegExt;..\src\WinControls\TrayIcon;..\src\WinControls\shortcut;..\src\WinControls\Grid;..\src\WinControls\ContextMenu;..\src\MISC\PluginsManager;..\src\WinControls\Preference;..\src\WinControls\WindowsDlg;..\src\WinControls\TaskList;..\src\WinControls\DockingWnd;..\src\WinControls\TreeView;..\src\WinControls\ToolTip;..\src\MISC\Exception;..\src\MISC\Common;..\src\tinyxml\tinyXmlA;..\src\WinControls\AnsiCharPanel;..\src\WinControls\ClipboardHistory;..\src\WinControls\FindCharsInRange;..\src\WinControls\VerticalFileSwitcher;..\src\WinControls\ProjectPanel;..\src\WinControls\DocumentMap;..\src\WinControls\FunctionList;..\src\uchardet;..\src\WinControls\FileBrowser;..\src\WinControls\ReadDirectoryChanges;..\src\MISC\md5;..\src\WinControls\PluginsAdmin;..\src\json;..\src\MISC\sha2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WIN32_WINNT=0x0600;NDEBUG;_WINDOWS;_USE_64BIT_TIME_T;TIXML_USE_STL;TIXMLA_USE_STL;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_SWPRINTFS=1;_CRT_NON_CONFORMING_WCSTOK;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessToFile>false</PreprocessToFile>
       <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
@@ -279,17 +279,17 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClCompile Include="..\src\MISC\sha2\sha-256.cpp" />
     <ClCompile Include="..\src\WinControls\AboutDlg\AboutDlg.cpp" />
     <ClCompile Include="..\src\WinControls\AnsiCharPanel\ansiCharPanel.cpp" />
-    <ClCompile Include="..\src\ScitillaComponent\AutoCompletion.cpp" />
+    <ClCompile Include="..\src\ScintillaComponent\AutoCompletion.cpp" />
     <ClCompile Include="..\src\WinControls\AnsiCharPanel\asciiListView.cpp" />
     <ClCompile Include="..\src\WinControls\DocumentMap\documentSnapshot.cpp" />
     <ClCompile Include="..\src\WinControls\Grid\BabyGrid.cpp" />
     <ClCompile Include="..\src\WinControls\Grid\BabyGridWrapper.cpp" />
-    <ClCompile Include="..\src\ScitillaComponent\Buffer.cpp" />
+    <ClCompile Include="..\src\ScintillaComponent\Buffer.cpp" />
     <ClCompile Include="..\src\uchardet\CharDistribution.cpp" />
     <ClCompile Include="..\src\WinControls\ClipboardHistory\clipboardHistoryPanel.cpp" />
     <ClCompile Include="..\src\WinControls\ColourPicker\ColourPicker.cpp" />
     <ClCompile Include="..\src\WinControls\ColourPicker\ColourPopup.cpp" />
-    <ClCompile Include="..\src\ScitillaComponent\columnEditor.cpp" />
+    <ClCompile Include="..\src\ScintillaComponent\columnEditor.cpp" />
     <ClCompile Include="..\src\MISC\Common\Common.cpp" />
     <ClCompile Include="..\src\WinControls\ContextMenu\ContextMenu.cpp" />
     <ClCompile Include="..\src\WinControls\OpenSaveFileDialog\CustomFileDialog.cpp" />
@@ -298,16 +298,15 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClCompile Include="..\src\WinControls\DockingWnd\DockingCont.cpp" />
     <ClCompile Include="..\src\WinControls\DockingWnd\DockingManager.cpp" />
     <ClCompile Include="..\src\WinControls\DockingWnd\DockingSplitter.cpp" />
-    <ClCompile Include="..\src\ScitillaComponent\DocTabView.cpp" />
+    <ClCompile Include="..\src\ScintillaComponent\DocTabView.cpp" />
     <ClCompile Include="..\src\WinControls\DocumentMap\documentMap.cpp" />
     <ClCompile Include="..\src\EncodingMapper.cpp" />
-    <ClCompile Include="..\src\WinControls\OpenSaveFileDialog\FileDialog.cpp" />
     <ClCompile Include="..\src\WinControls\FindCharsInRange\FindCharsInRange.cpp" />
-    <ClCompile Include="..\src\ScitillaComponent\FindReplaceDlg.cpp" />
-    <ClCompile Include="..\src\ScitillaComponent\FunctionCallTip.cpp" />
+    <ClCompile Include="..\src\ScintillaComponent\FindReplaceDlg.cpp" />
+    <ClCompile Include="..\src\ScintillaComponent\FunctionCallTip.cpp" />
     <ClCompile Include="..\src\WinControls\FunctionList\functionListPanel.cpp" />
     <ClCompile Include="..\src\WinControls\FunctionList\functionParser.cpp" />
-    <ClCompile Include="..\src\ScitillaComponent\GoToLineDlg.cpp" />
+    <ClCompile Include="..\src\ScintillaComponent\GoToLineDlg.cpp" />
     <ClCompile Include="..\src\WinControls\DockingWnd\Gripper.cpp" />
     <ClCompile Include="..\src\MISC\PluginsManager\IDAllocator.cpp" />
     <ClCompile Include="..\src\WinControls\ImageListSet\ImageListSet.cpp" />
@@ -349,19 +348,19 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClCompile Include="..\src\Parameters.cpp" />
     <ClCompile Include="..\src\Misc\PluginsManager\PluginsManager.cpp" />
     <ClCompile Include="..\src\WinControls\Preference\preferenceDlg.cpp" />
-    <ClCompile Include="..\src\ScitillaComponent\Printer.cpp" />
+    <ClCompile Include="..\src\ScintillaComponent\Printer.cpp" />
     <ClCompile Include="..\src\MISC\Process\Processus.cpp" />
     <ClCompile Include="..\src\WinControls\ProjectPanel\ProjectPanel.cpp" />
     <ClCompile Include="..\src\MISC\RegExt\regExtDlg.cpp" />
     <ClCompile Include="..\src\WinControls\StaticDialog\RunDlg\RunDlg.cpp" />
     <ClCompile Include="..\src\WinControls\shortcut\RunMacroDlg.cpp" />
-    <ClCompile Include="..\src\ScitillaComponent\ScintillaCtrls.cpp" />
-    <ClCompile Include="..\src\ScitillaComponent\ScintillaEditView.cpp" />
+    <ClCompile Include="..\src\ScintillaComponent\ScintillaCtrls.cpp" />
+    <ClCompile Include="..\src\ScintillaComponent\ScintillaEditView.cpp" />
     <ClCompile Include="..\src\WinControls\shortcut\shortcut.cpp" />
     <ClCompile Include="..\src\WinControls\Grid\ShortcutMapper.cpp" />
     <ClCompile Include="..\src\WinControls\TreeView\TreeView.cpp" />
     <ClCompile Include="..\src\WinControls\WindowsDlg\SizeableDlg.cpp" />
-    <ClCompile Include="..\src\ScitillaComponent\SmartHighlighter.cpp" />
+    <ClCompile Include="..\src\ScintillaComponent\SmartHighlighter.cpp" />
     <ClCompile Include="..\src\WinControls\SplitterContainer\Splitter.cpp" />
     <ClCompile Include="..\src\WinControls\SplitterContainer\SplitterContainer.cpp" />
     <ClCompile Include="..\src\WinControls\StaticDialog\StaticDialog.cpp" />
@@ -383,7 +382,7 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClCompile Include="..\src\uchardet\uchardet.cpp" />
     <ClCompile Include="..\src\UniConversion.cpp" />
     <ClCompile Include="..\src\WinControls\AboutDlg\URLCtrl.cpp" />
-    <ClCompile Include="..\src\ScitillaComponent\UserDefineDialog.cpp" />
+    <ClCompile Include="..\src\ScintillaComponent\UserDefineDialog.cpp" />
     <ClCompile Include="..\src\Utf8_16.cpp" />
     <ClCompile Include="..\src\WinControls\VerticalFileSwitcher\VerticalFileSwitcher.cpp" />
     <ClCompile Include="..\src\WinControls\VerticalFileSwitcher\VerticalFileSwitcherListView.cpp" />
@@ -393,7 +392,7 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClCompile Include="..\src\WinControls\WindowsDlg\WinMgr.cpp" />
     <ClCompile Include="..\src\WinControls\WindowsDlg\WinRect.cpp" />
     <ClCompile Include="..\src\WinControls\ColourPicker\WordStyleDlg.cpp" />
-    <ClCompile Include="..\src\ScitillaComponent\xmlMatchedTagsHighlighter.cpp" />
+    <ClCompile Include="..\src\ScintillaComponent\xmlMatchedTagsHighlighter.cpp" />
     <ClCompile Include="..\src\WinControls\FileBrowser\fileBrowser.cpp" />
     <ClCompile Include="..\src\WinControls\ReadDirectoryChanges\ReadDirectoryChanges.cpp" />
     <ClCompile Include="..\src\WinControls\ReadDirectoryChanges\ReadDirectoryChangesPrivate.cpp" />
@@ -511,12 +510,12 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ResourceCompile Include="..\src\WinControls\AnsiCharPanel\ansiCharPanel.rc" />
     <ResourceCompile Include="..\src\WinControls\ClipboardHistory\clipboardHistoryPanel.rc" />
     <ResourceCompile Include="..\src\WinControls\ColourPicker\ColourPopup.rc" />
-    <ResourceCompile Include="..\src\ScitillaComponent\columnEditor.rc" />
+    <ResourceCompile Include="..\src\ScintillaComponent\columnEditor.rc" />
     <ResourceCompile Include="..\src\WinControls\DockingWnd\DockingGUIWidget.rc" />
     <ResourceCompile Include="..\src\WinControls\DocumentMap\documentMap.rc" />
     <ResourceCompile Include="..\src\WinControls\DocumentMap\documentSnapshot.rc" />
     <ResourceCompile Include="..\src\WinControls\FindCharsInRange\findCharsInRange.rc" />
-    <ResourceCompile Include="..\src\ScitillaComponent\FindReplaceDlg.rc" />
+    <ResourceCompile Include="..\src\ScintillaComponent\FindReplaceDlg.rc" />
     <ResourceCompile Include="..\src\WinControls\FunctionList\functionListPanel.rc" />
     <ResourceCompile Include="..\src\Notepad_plus.rc" />
     <ResourceCompile Include="..\src\WinControls\PluginsAdmin\pluginsAdmin.rc" />
@@ -528,7 +527,7 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ResourceCompile Include="..\src\WinControls\shortcut\shortcut.rc" />
     <ResourceCompile Include="..\src\WinControls\Grid\ShortcutMapper.rc" />
     <ResourceCompile Include="..\src\WinControls\TaskList\TaskListDlg.rc" />
-    <ResourceCompile Include="..\src\ScitillaComponent\UserDefineDialog.rc" />
+    <ResourceCompile Include="..\src\ScintillaComponent\UserDefineDialog.rc" />
     <ResourceCompile Include="..\src\WinControls\VerticalFileSwitcher\VerticalFileSwitcher.rc" />
     <ResourceCompile Include="..\src\WinControls\WindowsDlg\WindowsDlg.rc" />
     <ResourceCompile Include="..\src\WinControls\ColourPicker\WordStyleDlg.rc" />
@@ -550,13 +549,13 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClInclude Include="..\src\MISC\md5\md5Dlgs.h" />
     <ClInclude Include="..\src\MISC\md5\md5Dlgs_rc.h" />
     <ClInclude Include="..\src\MISC\sha2\sha-256.h" />
-    <ClInclude Include="..\src\ScitillaComponent\columnEditor_rc.h" />
-    <ClInclude Include="..\src\ScitillaComponent\FindReplaceDlg_rc.h" />
-    <ClInclude Include="..\src\ScitillaComponent\ScintillaRef.h" />
+    <ClInclude Include="..\src\ScintillaComponent\columnEditor_rc.h" />
+    <ClInclude Include="..\src\ScintillaComponent\FindReplaceDlg_rc.h" />
+    <ClInclude Include="..\src\ScintillaComponent\ScintillaRef.h" />
     <ClInclude Include="..\src\Utf8.h" />
     <ClInclude Include="..\src\WinControls\AboutDlg\AboutDlg.h" />
     <ClInclude Include="..\src\WinControls\AnsiCharPanel\ansiCharPanel.h" />
-    <ClInclude Include="..\src\ScitillaComponent\AutoCompletion.h" />
+    <ClInclude Include="..\src\ScintillaComponent\AutoCompletion.h" />
     <ClInclude Include="..\src\WinControls\AnsiCharPanel\ansiCharPanel_rc.h" />
     <ClInclude Include="..\src\WinControls\AnsiCharPanel\asciiListView.h" />
     <ClInclude Include="..\src\WinControls\ColourPicker\ColourPopupResource.h" />
@@ -567,14 +566,14 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClInclude Include="..\src\WinControls\FindCharsInRange\findCharsInRange_rc.h" />
     <ClInclude Include="..\src\WinControls\Grid\BabyGrid.h" />
     <ClInclude Include="..\src\WinControls\Grid\BabyGridWrapper.h" />
-    <ClInclude Include="..\src\ScitillaComponent\Buffer.h" />
+    <ClInclude Include="..\src\ScintillaComponent\Buffer.h" />
     <ClInclude Include="..\src\uchardet\CharDistribution.h" />
     <ClInclude Include="..\src\WinControls\ClipboardHistory\clipboardHistoryPanel.h" />
     <ClInclude Include="..\src\WinControls\ClipboardHistory\clipboardHistoryPanel_rc.h" />
-    <ClInclude Include="..\src\ScitillaComponent\colors.h" />
+    <ClInclude Include="..\src\ScintillaComponent\colors.h" />
     <ClInclude Include="..\src\WinControls\ColourPicker\ColourPicker.h" />
     <ClInclude Include="..\src\WinControls\ColourPicker\ColourPopup.h" />
-    <ClInclude Include="..\src\ScitillaComponent\columnEditor.h" />
+    <ClInclude Include="..\src\ScintillaComponent\columnEditor.h" />
     <ClInclude Include="..\src\MISC\Common\Common.h" />
     <ClInclude Include="..\src\WinControls\ContextMenu\ContextMenu.h" />
     <ClInclude Include="..\src\WinControls\OpenSaveFileDialog\CustomFileDialog.h" />
@@ -591,18 +590,17 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClInclude Include="..\src\WinControls\DockingWnd\DockingManager.h" />
     <ClInclude Include="..\src\WinControls\DockingWnd\dockingResource.h" />
     <ClInclude Include="..\src\WinControls\DockingWnd\DockingSplitter.h" />
-    <ClInclude Include="..\src\ScitillaComponent\DocTabView.h" />
+    <ClInclude Include="..\src\ScintillaComponent\DocTabView.h" />
     <ClInclude Include="..\src\WinControls\DocumentMap\documentMap.h" />
     <ClInclude Include="..\src\EncodingMapper.h" />
-    <ClInclude Include="..\src\WinControls\OpenSaveFileDialog\FileDialog.h" />
     <ClInclude Include="..\src\MISC\FileNameStringSplitter.h" />
     <ClInclude Include="..\src\WinControls\FindCharsInRange\FindCharsInRange.h" />
-    <ClInclude Include="..\src\ScitillaComponent\FindReplaceDlg.h" />
-    <ClInclude Include="..\src\ScitillaComponent\FunctionCallTip.h" />
+    <ClInclude Include="..\src\ScintillaComponent\FindReplaceDlg.h" />
+    <ClInclude Include="..\src\ScintillaComponent\FunctionCallTip.h" />
     <ClInclude Include="..\src\WinControls\FunctionList\functionListPanel.h" />
     <ClInclude Include="..\src\WinControls\FunctionList\functionListPanel_rc.h" />
     <ClInclude Include="..\src\WinControls\FunctionList\functionParser.h" />
-    <ClInclude Include="..\src\ScitillaComponent\GoToLineDlg.h" />
+    <ClInclude Include="..\src\ScintillaComponent\GoToLineDlg.h" />
     <ClInclude Include="..\src\WinControls\DockingWnd\Gripper.h" />
     <ClInclude Include="..\src\MISC\PluginsManager\IDAllocator.h" />
     <ClInclude Include="..\src\WinControls\ImageListSet\ImageListSet.h" />
@@ -638,7 +636,7 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClInclude Include="..\src\MISC\PluginsManager\PluginInterface.h" />
     <ClInclude Include="..\src\MISC\PluginsManager\PluginsManager.h" />
     <ClInclude Include="..\src\WinControls\Preference\preferenceDlg.h" />
-    <ClInclude Include="..\src\ScitillaComponent\Printer.h" />
+    <ClInclude Include="..\src\ScintillaComponent\Printer.h" />
     <ClInclude Include="..\src\uchardet\prmem.h" />
     <ClInclude Include="..\src\MISC\Process\Processus.h" />
     <ClInclude Include="..\src\WinControls\ProjectPanel\ProjectPanel.h" />
@@ -649,14 +647,14 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClInclude Include="..\src\WinControls\StaticDialog\RunDlg\RunDlg.h" />
     <ClInclude Include="..\src\WinControls\shortcut\RunMacroDlg.h" />
     <ClInclude Include="..\src\WinControls\shortcut\RunMacroDlg_rc.h" />
-    <ClInclude Include="..\src\ScitillaComponent\ScintillaCtrls.h" />
-    <ClInclude Include="..\src\ScitillaComponent\ScintillaEditView.h" />
+    <ClInclude Include="..\src\ScintillaComponent\ScintillaCtrls.h" />
+    <ClInclude Include="..\src\ScintillaComponent\ScintillaEditView.h" />
     <ClInclude Include="..\src\WinControls\shortcut\shortcut.h" />
     <ClInclude Include="..\src\WinControls\Grid\ShortcutMapper.h" />
     <ClInclude Include="..\src\WinControls\Grid\ShortcutMapper_rc.h" />
     <ClInclude Include="..\src\WinControls\TreeView\TreeView.h" />
     <ClInclude Include="..\src\WinControls\WindowsDlg\SizeableDlg.h" />
-    <ClInclude Include="..\src\ScitillaComponent\SmartHighlighter.h" />
+    <ClInclude Include="..\src\ScintillaComponent\SmartHighlighter.h" />
     <ClInclude Include="..\src\WinControls\SplitterContainer\Splitter.h" />
     <ClInclude Include="..\src\WinControls\SplitterContainer\SplitterContainer.h" />
     <ClInclude Include="..\src\WinControls\StaticDialog\StaticDialog.h" />
@@ -675,9 +673,9 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClInclude Include="..\src\uchardet\uchardet.h" />
     <ClInclude Include="..\src\UniConversion.h" />
     <ClInclude Include="..\src\WinControls\AboutDlg\URLCtrl.h" />
-    <ClInclude Include="..\src\ScitillaComponent\UserDefineDialog.h" />
-    <ClInclude Include="..\src\ScitillaComponent\UserDefineLangReference.h" />
-    <ClInclude Include="..\src\ScitillaComponent\UserDefineResource.h" />
+    <ClInclude Include="..\src\ScintillaComponent\UserDefineDialog.h" />
+    <ClInclude Include="..\src\ScintillaComponent\UserDefineLangReference.h" />
+    <ClInclude Include="..\src\ScintillaComponent\UserDefineResource.h" />
     <ClInclude Include="..\src\Utf8_16.h" />
     <ClInclude Include="..\src\WinControls\VerticalFileSwitcher\VerticalFileSwitcher.h" />
     <ClInclude Include="..\src\WinControls\VerticalFileSwitcher\VerticalFileSwitcher_rc.h" />
@@ -688,7 +686,7 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClInclude Include="..\src\WinControls\WindowsDlg\WindowsDlgRc.h" />
     <ClInclude Include="..\src\WinControls\WindowsDlg\WinMgr.h" />
     <ClInclude Include="..\src\WinControls\ColourPicker\WordStyleDlg.h" />
-    <ClInclude Include="..\src\ScitillaComponent\xmlMatchedTagsHighlighter.h" />
+    <ClInclude Include="..\src\ScintillaComponent\xmlMatchedTagsHighlighter.h" />
     <ClInclude Include="..\src\rgba_icons.h" />
     <ClInclude Include="..\src\WinControls\FileBrowser\fileBrowser.h" />
     <ClInclude Include="..\src\WinControls\FileBrowser\fileBrowser_rc.h" />

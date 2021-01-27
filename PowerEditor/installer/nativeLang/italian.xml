@@ -870,7 +870,6 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
                     <Item id = "6413" name = "Cartella Predefinita (Apri/Salva)" />
                     <Item id = "6414" name = "Secondo il documento attuale" />
                     <Item id = "6415" name = "Ricorda l&apos;ultima cartella utilizzata" />
-                    <Item id = "6430" name = "Non selezionare estensione predefinita nella finestra di salvataggio" />
                     <Item id = "6431" name = "Apri tutti i file della cartella invece di avviare Cartella come Workspace al trascinamento" />
                 </DefaultDir>
                 <RecentFilesHistory title = "File recenti">

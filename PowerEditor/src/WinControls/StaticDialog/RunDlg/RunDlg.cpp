@@ -1,23 +1,22 @@
-//this file is part of notepad++
-//Copyright (C)2020 Don HO ( donho@altern.org )
+// This file is part of Notepad++ project
+// Copyright (C)2021 Don HO <don.h@free.fr>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
 //
-//This program is free software; you can redistribute it and/or
-//modify it under the terms of the GNU General Public License
-//as published by the Free Software Foundation; either
-//version 2 of the License, or (at your option) any later version.
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
 //
-//This program is distributed in the hope that it will be useful,
-//but WITHOUT ANY WARRANTY; without even the implied warranty of
-//MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//GNU General Public License for more details.
-//
-//You should have received a copy of the GNU General Public License
-//along with this program; if not, write to the Free Software
-//Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #include "StaticDialog.h"
 #include "RunDlg.h"
-#include "FileDialog.h"
+#include "CustomFileDialog.h"
 #include "Notepad_plus_msgs.h"
 #include "shortcut.h"
 #include "Parameters.h"
@@ -319,13 +318,14 @@ INT_PTR CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 
 				case IDC_BUTTON_FILE_BROWSER :
 				{
-					FileDialog fd(_hSelf, _hInst);
-					fd.setExtFilter(TEXT("Executable file : "), TEXT(".exe"), TEXT(".com"), TEXT(".cmd"), TEXT(".bat"), NULL);
-					fd.setExtFilter(TEXT("All files : "), TEXT(".*"), NULL);
+					CustomFileDialog fd(_hSelf);
+					fd.setExtFilter(TEXT("Executable file : "), { TEXT(".exe"), TEXT(".com"), TEXT(".cmd"), TEXT(".bat") });
+					fd.setExtFilter(TEXT("All files : "), TEXT(".*"));
 
-					if (const TCHAR *fn = fd.doOpenSingleFileDlg())
+					generic_string fn = fd.doOpenSingleFileDlg();
+					if (!fn.empty())
 					{
-						if (wcschr(fn, ' ') != NULL)
+						if (fn.find(' ') != generic_string::npos)
 						{
 							generic_string fn_quotes(fn);
 							fn_quotes = TEXT("\"") + fn_quotes + TEXT("\"");
@@ -333,7 +333,7 @@ INT_PTR CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 						}
 						else
 						{
-							addTextToCombo(fn);
+							addTextToCombo(fn.c_str());
 						}
 					}
 					return TRUE;

@@ -874,7 +874,6 @@ U kunt verschillende kolommarkeringen vastleggen door gebruik te maken van spati
                     <Item id="6413" name="Standaardmap voor openen/opslaan"/>
                     <Item id="6414" name="Huidig document volgen"/>
                     <Item id="6415" name="Laatst gebruikte map onthouden"/>
-                    <Item id="6430" name="Vensters met nieuwe stijl gebruiken (zonder pad-capaciteit van Unix-stijl)"/>
                     <Item id="6431" name="Bij neerzetten van een map alle bestanden openen in plaats van de map als werkruimte te starten"/>
                 </DefaultDir>
 

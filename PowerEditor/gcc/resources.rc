@@ -2,9 +2,9 @@
 
 #define TEXT(quote)	quote
 
-#include "../src/ScitillaComponent/columnEditor.rc"
-#include "../src/ScitillaComponent/FindReplaceDlg.rc"
-#include "../src/ScitillaComponent/UserDefineDialog.rc"
+#include "../src/ScintillaComponent/columnEditor.rc"
+#include "../src/ScintillaComponent/FindReplaceDlg.rc"
+#include "../src/ScintillaComponent/UserDefineDialog.rc"
 #include "../src/MISC/md5/md5Dlgs.rc"
 #include "../src/MISC/RegExt/regExtDlg.rc"
 #include "../src/WinControls/AnsiCharPanel/ansiCharPanel.rc"

@@ -87,6 +87,7 @@ PowerEditor/visual.net/x64/Unicode Release/
 # scintilla - generated files
 scintilla/bin/SciLexer.*
 scintilla/bin/Scintilla.*
+scintilla/bin/libscintilla.a
 scintilla/bin/libscintilla.lib
 scintilla/win32/*.lib
 scintilla/win32/Lexers.a
@@ -139,6 +140,7 @@ PowerEditor/bin/SourceCodePro-Regular.ttf
 *.o
 /PowerEditor/gcc/resources.res
 /PowerEditor/bin/NotepadPP.exe
+/PowerEditor/bin/NotepadPP.exe_dynamic
 
 #-- Generated manually to make Notepad++ execute properly on Linux using Wine
 /PowerEditor/bin/libgcc_s_sjlj-1.dll

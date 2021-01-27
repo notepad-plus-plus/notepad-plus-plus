@@ -22,7 +22,7 @@ SET(projIncludDir	../../scintilla/include/
 					./WinControls/TabBar/
 					./WinControls/ToolBar/
 					./MISC/Process/
-					./ScitillaComponent/
+					./ScintillaComponent/
 					./MISC/
 					./MISC/SysMsg/
 					./WinControls/StatusBar/
@@ -68,17 +68,17 @@ SET(src_files
 			./MISC/Process/Processus.cpp
 			./WinControls/AboutDlg/AboutDlg.cpp
 			./WinControls/AnsiCharPanel/ansiCharPanel.cpp
-			./ScitillaComponent/AutoCompletion.cpp
+			./ScintillaComponent/AutoCompletion.cpp
 			./WinControls/AnsiCharPanel/asciiListView.cpp
 			./WinControls/FileBrowser/fileBrowser.cpp
 			./WinControls/Grid/BabyGrid.cpp
 			./WinControls/Grid/BabyGridWrapper.cpp
-			./ScitillaComponent/Buffer.cpp
+			./ScintillaComponent/Buffer.cpp
 			./uchardet/CharDistribution.cpp
 			./WinControls/ClipboardHistory/clipboardHistoryPanel.cpp
 			./WinControls/ColourPicker/ColourPicker.cpp
 			./WinControls/ColourPicker/ColourPopup.cpp
-			./ScitillaComponent/columnEditor.cpp
+			./ScintillaComponent/columnEditor.cpp
 			./MISC/Common/Common.cpp
 			./WinControls/ContextMenu/ContextMenu.cpp
 			./WinControls/PluginsAdmin/pluginsAdmin.cpp
@@ -88,17 +88,17 @@ SET(src_files
 			./WinControls/DockingWnd/DockingCont.cpp
 			./WinControls/DockingWnd/DockingManager.cpp
 			./WinControls/DockingWnd/DockingSplitter.cpp
-			./ScitillaComponent/DocTabView.cpp
+			./ScintillaComponent/DocTabView.cpp
 			./WinControls/DocumentMap/documentMap.cpp
 			./WinControls/DocumentMap/documentSnapshot.cpp
 			./EncodingMapper.cpp
 			./WinControls/OpenSaveFileDialog/FileDialog.cpp
 			./WinControls/FindCharsInRange/FindCharsInRange.cpp
-			./ScitillaComponent/FindReplaceDlg.cpp
-			./ScitillaComponent/FunctionCallTip.cpp
+			./ScintillaComponent/FindReplaceDlg.cpp
+			./ScintillaComponent/FunctionCallTip.cpp
 			./WinControls/FunctionList/functionListPanel.cpp
 			./WinControls/FunctionList/functionParser.cpp
-			./ScitillaComponent/GoToLineDlg.cpp
+			./ScintillaComponent/GoToLineDlg.cpp
 			./WinControls/DockingWnd/Gripper.cpp
 			./MISC/PluginsManager/IDAllocator.cpp
 			./WinControls/ImageListSet/ImageListSet.cpp
@@ -140,17 +140,17 @@ SET(src_files
 			./Parameters.cpp
 			./Misc/PluginsManager/PluginsManager.cpp
 			./WinControls/Preference/preferenceDlg.cpp
-			./ScitillaComponent/Printer.cpp
+			./ScintillaComponent/Printer.cpp
 			./WinControls/ProjectPanel/ProjectPanel.cpp
 			./MISC/RegExt/regExtDlg.cpp
 			./WinControls/StaticDialog/RunDlg/RunDlg.cpp
 			./WinControls/shortcut/RunMacroDlg.cpp
-			./ScitillaComponent/ScintillaCtrls.cpp
-			./ScitillaComponent/ScintillaEditView.cpp
+			./ScintillaComponent/ScintillaCtrls.cpp
+			./ScintillaComponent/ScintillaEditView.cpp
 			./WinControls/shortcut/shortcut.cpp
 			./WinControls/Grid/ShortcutMapper.cpp
 			./WinControls/WindowsDlg/SizeableDlg.cpp
-			./ScitillaComponent/SmartHighlighter.cpp
+			./ScintillaComponent/SmartHighlighter.cpp
 			./WinControls/SplitterContainer/Splitter.cpp
 			./WinControls/SplitterContainer/SplitterContainer.cpp
 			./WinControls/StaticDialog/StaticDialog.cpp
@@ -173,7 +173,7 @@ SET(src_files
 			./uchardet/uchardet.cpp
 			./UniConversion.cpp
 			./WinControls/AboutDlg/URLCtrl.cpp
-			./ScitillaComponent/UserDefineDialog.cpp
+			./ScintillaComponent/UserDefineDialog.cpp
 			./Utf8_16.cpp
 			./WinControls/VerticalFileSwitcher/VerticalFileSwitcher.cpp
 			./WinControls/VerticalFileSwitcher/VerticalFileSwitcherListView.cpp
@@ -183,7 +183,7 @@ SET(src_files
 			./WinControls/WindowsDlg/WinMgr.cpp
 			./WinControls/WindowsDlg/WinRect.cpp
 			./WinControls/ColourPicker/WordStyleDlg.cpp
-			./ScitillaComponent/xmlMatchedTagsHighlighter.cpp
+			./ScintillaComponent/xmlMatchedTagsHighlighter.cpp
 			./dpiAware.manifest
 			./notepad++.exe.manifest
 )
@@ -195,20 +195,20 @@ SET(include_files
 			./MISC/Process/Processus.h
 			./WinControls/AboutDlg/AboutDlg.h
 			./WinControls/AnsiCharPanel/ansiCharPanel.h
-			./ScitillaComponent/AutoCompletion.h
+			./ScintillaComponent/AutoCompletion.h
 			./WinControls/AnsiCharPanel/asciiListView.h
 			./WinControls/FileBrowser/fileBrowser.h
 			./WinControls/FileBrowser/fileBrowser_rc.h
 			./WinControls/Grid/BabyGrid.h
 			./WinControls/Grid/BabyGridWrapper.h
-			./ScitillaComponent/Buffer.h
+			./ScintillaComponent/Buffer.h
 			./uchardet/CharDistribution.h
 			./WinControls/ClipboardHistory/clipboardHistoryPanel.h
 			./WinControls/ClipboardHistory/clipboardHistoryPanel_rc.h
-			./ScitillaComponent/colors.h
+			./ScintillaComponent/colors.h
 			./WinControls/ColourPicker/ColourPicker.h
 			./WinControls/ColourPicker/ColourPopup.h
-			./ScitillaComponent/columnEditor.h
+			./ScintillaComponent/columnEditor.h
 			./MISC/Common/Common.h
 			./WinControls/ContextMenu/ContextMenu.h
 			./WinControls/PluginsAdmin/pluginsAdmin.h
@@ -223,19 +223,19 @@ SET(include_files
 			./WinControls/DockingWnd/DockingManager.h
 			./WinControls/DockingWnd/dockingResource.h
 			./WinControls/DockingWnd/DockingSplitter.h
-			./ScitillaComponent/DocTabView.h
+			./ScintillaComponent/DocTabView.h
 			./WinControls/DocumentMap/documentMap.h
 			./WinControls/DocumentMap/documentSnapshot.h
 			./EncodingMapper.h
 			./WinControls/OpenSaveFileDialog/FileDialog.h
 			./MISC/FileNameStringSplitter.h
 			./WinControls/FindCharsInRange/FindCharsInRange.h
-			./ScitillaComponent/FindReplaceDlg.h
-			./ScitillaComponent/FunctionCallTip.h
+			./ScintillaComponent/FindReplaceDlg.h
+			./ScintillaComponent/FunctionCallTip.h
 			./WinControls/FunctionList/functionListPanel.h
 			./WinControls/FunctionList/functionListPanel_rc.h
 			./WinControls/FunctionList/functionParser.h
-			./ScitillaComponent/GoToLineDlg.h
+			./ScintillaComponent/GoToLineDlg.h
 			./WinControls/DockingWnd/Gripper.h
 			./MISC/PluginsManager/IDAllocator.h
 			./WinControls/ImageListSet/ImageListSet.h
@@ -272,7 +272,7 @@ SET(include_files
 			./MISC/PluginsManager/PluginInterface.h
 			./MISC/PluginsManager/PluginsManager.h
 			./WinControls/Preference/preferenceDlg.h
-			./ScitillaComponent/Printer.h
+			./ScintillaComponent/Printer.h
 			./uchardet/prmem.h
 			./WinControls/ProjectPanel/ProjectPanel.h
 			./WinControls/ProjectPanel/ProjectPanel_rc.h
@@ -282,13 +282,13 @@ SET(include_files
 			./WinControls/StaticDialog/RunDlg/RunDlg.h
 			./WinControls/shortcut/RunMacroDlg.h
 			./WinControls/shortcut/RunMacroDlg_rc.h
-			./ScitillaComponent/ScintillaCtrls.h
-			./ScitillaComponent/ScintillaEditView.h
+			./ScintillaComponent/ScintillaCtrls.h
+			./ScintillaComponent/ScintillaEditView.h
 			./WinControls/shortcut/shortcut.h
 			./WinControls/Grid/ShortcutMapper.h
 			./WinControls/Grid/ShortcutMapper_rc.h
 			./WinControls/WindowsDlg/SizeableDlg.h
-			./ScitillaComponent/SmartHighlighter.h
+			./ScintillaComponent/SmartHighlighter.h
 			./WinControls/SplitterContainer/Splitter.h
 			./WinControls/SplitterContainer/SplitterContainer.h
 			./WinControls/StaticDialog/StaticDialog.h
@@ -308,9 +308,9 @@ SET(include_files
 			./uchardet/uchardet.h
 			./UniConversion.h
 			./WinControls/AboutDlg/URLCtrl.h
-			./ScitillaComponent/UserDefineDialog.h
-			./ScitillaComponent/UserDefineLangReference.h
-			./ScitillaComponent/UserDefineResource.h
+			./ScintillaComponent/UserDefineDialog.h
+			./ScintillaComponent/UserDefineLangReference.h
+			./ScintillaComponent/UserDefineResource.h
 			./Utf8_16.h
 			./WinControls/VerticalFileSwitcher/VerticalFileSwitcher.h
 			./WinControls/VerticalFileSwitcher/VerticalFileSwitcher_rc.h
@@ -321,7 +321,7 @@ SET(include_files
 			./WinControls/WindowsDlg/WindowsDlgRc.h
 			./WinControls/WindowsDlg/WinMgr.h
 			./WinControls/ColourPicker/WordStyleDlg.h
-			./ScitillaComponent/xmlMatchedTagsHighlighter.h
+			./ScintillaComponent/xmlMatchedTagsHighlighter.h
 			./rgba_icons.h
 )
 
@@ -331,13 +331,13 @@ SET(rcFiles
 			./WinControls/AnsiCharPanel/ansiCharPanel.rc
 			./WinControls/ClipboardHistory/clipboardHistoryPanel.rc
 			./WinControls/ColourPicker/ColourPopup.rc
-			./ScitillaComponent/columnEditor.rc
+			./ScintillaComponent/columnEditor.rc
 			./WinControls/DockingWnd/DockingGUIWidget.rc
 			./WinControls/DocumentMap/documentMap.rc
 			./WinControls/DocumentMap/documentSnapshot.rc
 			./WinControls/FileBrowser/fileBrowser.rc
 			./WinControls/FindCharsInRange/findCharsInRange.rc
-			./ScitillaComponent/FindReplaceDlg.rc
+			./ScintillaComponent/FindReplaceDlg.rc
 			./WinControls/FunctionList/functionListPanel.rc
 			./Notepad_plus.rc
 			./WinControls/PluginsAdmin/pluginsAdmin.rc
@@ -349,7 +349,7 @@ SET(rcFiles
 			./WinControls/shortcut/shortcut.rc
 			./WinControls/Grid/ShortcutMapper.rc
 			./WinControls/TaskList/TaskListDlg.rc
-			./ScitillaComponent/UserDefineDialog.rc
+			./ScintillaComponent/UserDefineDialog.rc
 			./WinControls/VerticalFileSwitcher/VerticalFileSwitcher.rc
 			./WinControls/WindowsDlg/WindowsDlg.rc
 			./WinControls/ColourPicker/WordStyleDlg.rc

@@ -770,7 +770,6 @@ By Hiro5 <groccat at gmail>
 					<Item id="6413" name="Directori d'obertura/emmagatzematge"/>
 					<Item id="6414" name="Segons el document actual"/>
 					<Item id="6415" name="Segons l'últim directori emprat"/>
-					<Item id="6430" name="Diàleg de desament sense capacitat de camí d'estil Unix"/>
 					<Item id="6431" name="Obre els fitxers d'una carpeta arrossegada en comptes d'obrir a Carpetes de treball"/>
 				</DefaultDir>
 				<RecentFilesHistory title="Historial de fitxers recents">

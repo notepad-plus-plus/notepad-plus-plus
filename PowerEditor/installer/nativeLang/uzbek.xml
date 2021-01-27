@@ -774,7 +774,6 @@ Siz bir necha marker ustunlarini probellar orqali belgilashingiz mumkin."/>
 					<Item id="6413" name="Standart Yo‘lak (Ochish/Saqlash)"/>
 					<Item id="6414" name="Joriy faylga o‘tish"/>
 					<Item id="6415" name="So‘nggi jild yo‘lagini saqlab qolmoq"/>
-					<Item id="6430" name="Faylni saqlashning yangi darchasi (fayl kengaytmasi so‘rovisiz)"/>
 					<Item id="6431" name="Dasturga surib olib kelingan jilddagi barcha fayllarni ochmoq"/>
 				</DefaultDir>
 				<FileAssoc title = "Fayllar birikuvi">

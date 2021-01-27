@@ -4,7 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
-		- Updated on January 19th, 2021 for version 7.9.3 by Patriccollu di Santa Maria è Sichè
+		- Updated on January 27th, 2021 for version 7.9.3 by Patriccollu di Santa Maria è Sichè
 		- Updated on November 4th, 2020 for version 7.9.2 by Patriccollu di Santa Maria è Sichè
 		- Updated on September 16th, 2020 for version 7.9.1 by Patriccollu di Santa Maria è Sichè
 		- Updated on June 28th, 2020 for version 7.8.9 by Patriccollu di Santa Maria è Sichè
@@ -840,7 +840,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6219" name="Cinnulamentu :"/>
                     <Item id="6221" name="9"/>
                     <Item id="6222" name="1"/>
-                    <Item id="6225" name="Attivà a multi-mudificazione (Ctrl+Cliccu/Selez. cù Topu)"/>
+                    <Item id="6225" name="Attivà a multi-mudificazione (Ctrl+cliccu/selez. cù topu)"/>
                     <Item id="6227" name="Ritornu à a linea"/>
                     <Item id="6228" name="Predefinitu"/>
                     <Item id="6229" name="Aliniatu"/>
@@ -892,7 +892,6 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                     <Item id="6413" name="Cartulare predefinitu per apre è arregistrà i schedarii"/>
                     <Item id="6414" name="Seguità u ducumentu attuale"/>
                     <Item id="6415" name="Arricurdassi di l’ultimu cartulare impiegatu"/>
-                    <Item id="6430" name="Impiegà u dialogu di stilu novu (senza accettà u stilu di chjassu Unix)"/>
                     <Item id="6431" name="À u depone d’un cartulare, apre tutti i schedarii invece d’impiegallu cum’è spaziu di travagliu"/>
                 </DefaultDir>
 
@@ -1019,7 +1018,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                 </MultiInstance>
 
                 <Delimiter title="Delimitatore">
-                    <Item id="6251" name="Preferenze di selezzione di delimitatore (Ctrl+Topu doppiu cliccu)"/>
+                    <Item id="6251" name="Preferenze di selezzione di delimitatore (Ctrl+doppiu cliccu di topu)"/>
                     <Item id="6252" name="Principiu"/>
                     <Item id="6255" name="Fine"/>
                     <Item id="6256" name="Permette nant’à parechje linee"/>

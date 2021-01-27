@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="香港廣東話" filename="hongKongCantonese.xml" version="7.9.2">
+    <Native-Langue name="香港廣東話" filename="hongKongCantonese.xml" version="7.9.3">
         <!--//
         This localization project is maintained by real Hongkongers who speak native Hong Kong Cantonese.
         Welcome issues and pull requests in Github repository:
@@ -382,8 +382,6 @@
                     <Item id="50002" name="功能參數提示"/>
 
                     <!-- menu: items in Shortcut Mapper dialog -->
-                    <Item id="50003" name="跳去上一份文件"/> <!-- legacy command <= v7.8.9 -->
-                    <Item id="50004" name="跳去下一份文件"/> <!-- legacy command <= v7.8.9 -->
                     <Item id="50005" name="開始/停止錄製 macro"/>
 
                     <!-- menu: Edit (cont'd) -->
@@ -883,7 +881,6 @@
                     <Item id="6219" name="眨嘅頻率："/>
                     <Item id="6221" name="快"/>
                     <Item id="6222" name="慢"/>
-                    <Item id="6224" name="幾個位置同時改嘢"/> <!-- #legacy <= v7.9.1 -->
                     <Item id="6225" name="幾個位置同時改嘢（Ctrl + 撳／撳著滑鼠掣）"/>
                     <Item id="6227" name="自動換行"/> <!-- #moved in v7.9.2 -->
                     <Item id="6228" name="預設"/> <!-- #moved in v7.9.2 -->
@@ -903,29 +900,17 @@
                     <Item id="6204" name="圓形"/>
                     <Item id="6205" name="方形"/>
                     <Item id="6226" name="冇"/>
-                    <Item id="6227" name="自動換行"/> <!-- #legacy <= v7.9.1 -->
-                    <Item id="6228" name="預設"/> <!-- #legacy <= v7.9.1 -->
-                    <Item id="6229" name="對齊"/> <!-- #legacy <= v7.9.1 -->
-                    <Item id="6230" name="縮排"/> <!-- #legacy <= v7.9.1 -->
-                    <Item id="6206" name="顯示行數號碼"/> <!-- #legacy <= v7.9.1 -->
                     <Item id="6291" name="行數號碼"/> <!-- #new v7.9.2 -->
-                    <Item id="6206" name="顯示"/> <!-- #new v7.9.2 -->
+                    <Item id="6206" name="顯示"/>
                     <Item id="6292" name="動態闊度"/> <!-- #new v7.9.2 -->
                     <Item id="6293" name="固定闊度"/> <!-- #new v7.9.2 -->
                     <Item id="6207" name="顯示書籤"/>
-                    <Item id="6208" name="顯示垂直邊緣線"/> <!-- #legacy <= v7.9.1 -->
-                    <Item id="6234" name="將進階上下轆功能熄咗佢
-（可能解決一啲觸控板問題）"/> <!-- #legacy <= v7.9.1 -->
                     <Item id="6211" name="垂直邊緣線設定"/>
                     <Item id="6213" name="背景色模式"/>
                     <Item id="6237" name="條線用嚟參考每行字數嘅上限，輸入十進制數字去決定條線嘅位置。
 想劃多啲線嘅話，用空格分隔多組數字就得。"/>
-                    <Item id="6214" name="突顯改緊嘢嗰行嘅顏色"/> <!-- #legacy <= v7.9.1 -->
-                    <Item id="6215" name="啟用順滑字體"/> <!-- #legacy <= v7.9.1 -->
                     <Item id="6231" name="邊框闊度"/>
                     <Item id="6235" name="無邊框"/>
-                    <Item id="6236" name="轆到超出至最後一行"/> <!-- #legacy <= v7.9.1 -->
-                    <Item id="6239" name="喺揀選範圍以外撳滑鼠右掣，保留揀選範圍"/> <!-- #legacy <= v7.9.1 -->
                 </MarginsBorderEdge>
 
                 <NewDoc title="新文件">
@@ -948,7 +933,6 @@
                     <Item id="6413" name="預設資料夾（打開或者 save 檔案嗰陣）"/>
                     <Item id="6414" name="跟著而家份文件嘅資料夾"/>
                     <Item id="6415" name="記住上次用過嘅資料夾"/>
-                    <Item id="6430" name="用新式檔案對話框（不過會認唔到 Unix 路徑）"/> <!-- #legacy <= v7.9.2 -->
                     <Item id="6431" name="拖放資料夾去視窗嗰陣，會打開資料夾裏面所有檔案，而唔係放入去資料夾工作區"/>
                 </DefaultDir>
 
@@ -1117,26 +1101,20 @@
                     <Item id="6308" name="最小化視窗嗰陣縮去系統匣"/>
                     <Item id="6312" name="自動偵測檔案狀態"/>
                     <Item id="6313" name="靜靜雞喺背景更新"/>
-                    <Item id="6318" name="Click 得嘅連結設定"/> <!-- #legacy <= v7.9.1 -->
                     <Item id="6325" name="更新後轆去最後一行"/>
-                    <Item id="6319" name="啟用"/> <!-- #legacy <= v7.9.1 -->
-                    <Item id="6320" name="唔顯示連結底線"/> <!-- #legacy <= v7.9.1 -->
                     <Item id="6322" name="工作階段檔案副檔名："/>
                     <Item id="6323" name="自動更新 Notepad++"/>
                     <Item id="6351" name="Save 對話框將副檔名過濾成 *.* 而唔係 *.txt"/> <!-- #new v7.9.1 -->
                     <Item id="6324" name="文件切換器（Ctrl + Tab 掣）"/>
                     <Item id="6331" name="標題列淨係顯示檔案名"/>
                     <Item id="6334" name="自動偵測檔案編碼"/>
-                    <Item id="6314" name="搵／取代對話框啲字用等寬字型（需要重開 Notepad++）"/> <!-- legacy command <= v7.8.9 -->
                     <Item id="6349" name="使用 DirectWrite（可以令特殊字符呈現得好啲，需要重開 Notepad++）"/>
-                    <Item id="6350" name="Fullbox 模式（Hover 嗰陣時反白）"/> <!-- #legacy <= v7.9.1 -->
                     <Item id="6337" name="資料夾工作區檔案副檔名："/>
                     <Item id="6114" name="啟用"/>
                     <Item id="6117" name="啟用 MRU 行為功能"/>
                     <Item id="6344" name="文件偷睇功能（Mouse 指著 tab 嗰陣時）"/>
                     <Item id="6345" name="喺 tab 度偷睇"/>
                     <Item id="6346" name="喺文件地圖度偷睇"/>
-                    <Item id="6348" name="撳搵嘢／取代嗰陣，唔好將揀咗嘅字自動輸入去對話框"/> <!-- legacy command <= v7.8.9 -->
                 </MISC>
             </Preference>
 
@@ -1200,8 +1178,6 @@
         <MessageBox> <!-- $INT_REPLACE$ 係 placeholder 嚟，唔好改啊嗱 -->
             <ContextMenuXmlEditWarning title="編輯快顯功能表" message="編輯 contextMenu.xml 可以修改 Notepad++ 嘅快顯功能表。
 改完記得重新啟動 Notepad++，咁先至會生效。"/>
-            <NppHelpAbsentWarning title="檔案唔存在" message="
-冇喺度，去 Notepad++ 網站下載返啦。"/> <!-- legacy command <= v7.9 -->
             <SaveCurrentModifWarning title="Save 而家嘅改動" message="您必須要 save 低而家嘅改動。
 留意返，save 咗就冇得復原。
 

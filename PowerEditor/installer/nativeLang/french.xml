@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Français" filename="french.xml" version="7.9.2">
+    <Native-Langue name="Français" filename="french.xml" version="7.9.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -836,7 +836,7 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                 </NewDoc>
 
                 <DefaultDir title="Dossier par défaut">
-                    <Item id="6413" name="Dossier par défaut (ouvrir/enregistrer)"/>
+                    <Item id="6413" name="Dossier par défaut pour ouvrir/enregistrer les fichiers"/>
                     <Item id="6414" name="Utiliser celui du document actuel"/>
                     <Item id="6415" name="Mémoriser le dernier dossier utilisé"/>
                     <Item id="6431" name="Lors de glisser-déposer d'un dossier, ouvrir tous les fichiers dans le dossier"/>
@@ -1007,6 +1007,7 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                     <Item id="6313" name="Mise à jour sans alerte"/>
                     <Item id="6322" name="Ext. fichier session :"/>
                     <Item id="6323" name="Activer la mise à jour automatique"/>
+                    <Item id="6351" name="Definir *.* comme le seul filtre d'extension dans la boite de dialogue Enregistrer"/>
                     <Item id="6324" name="Commutateur de documents (Ctrl+Tab)"/>
                     <Item id="6325" name="Aller à la dernière ligne après mise à jour"/>
                     <Item id="6331" name="Afficher seulement le nom du fichier dans la barre de titre"/>
@@ -1332,9 +1333,11 @@ Rechercher dans tous les fichiers sauf exe, obj &amp;&amp; log:
             <summary-nbsel1 value=" caractères sélectionnés ("/>
             <summary-nbsel2 value=" octets) dans "/>
             <summary-nbrange value=" sélections"/>
+            <find-in-files-progress-title value="Rechercher dans les fichiers en cours..."/>
             <replace-in-files-confirm-title value="Confirmation"/>
             <replace-in-files-confirm-directory value="Voulez-vous remplacer toutes les occurrences dans :"/>
             <replace-in-files-confirm-filetype value="Pour le(s) type(s) de fichier :"/>
+            <replace-in-files-progress-title value="Remplacer dans les fichiers en cours..."/>
             <replace-in-open-docs-confirm-title value="Confirmation"/>
             <replace-in-open-docs-confirm-message value="Voulez-vous vraiment remplacer toutes les occurrences dans tous les documents ouverts ?"/>
             <find-result-caption value="Résultats de recherche"/>
@@ -1344,6 +1347,7 @@ Rechercher dans tous les fichiers sauf exe, obj &amp;&amp; log:
             <find-result-hits value="($INT_REPLACE$ résultats)"/>
             <find-result-line-prefix value="Ligne"/> <!-- Must not begin with space or tab character -->
             <find-regex-zero-length-match value="la chaîne vide trouvée" />
+            <session-save-folder-as-workspace value="&quot;Dossier en tant qu'espace de travail&quot; inclus" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

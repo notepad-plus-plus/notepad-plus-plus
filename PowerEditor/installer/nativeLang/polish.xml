@@ -5,7 +5,7 @@ The comments are here for explanation, it's not necessary to translate them.
 <!--
     History of Polish translation for Notepad++:
 
-        - Updated by Arkadiusz Michalski (webref.pl) to version 7.9.2 (22.12.2020)
+        - Updated by Arkadiusz Michalski (webref.pl) to version 7.9.3 (27.01.2021)
         - Updated by Cezariusz Marek to version 7.8.3 (11.01.2020)
         - Translated by Patryk Skorupa (ppskorupa@outlook.com) and up-to-date as of version 7.7.2 (29/07/2019)
     
@@ -13,7 +13,7 @@ The comments are here for explanation, it's not necessary to translate them.
         https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/polish.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="polski" filename="polish.xml" version="7.9.1">
+    <Native-Langue name="polski" filename="polish.xml" version="7.9.3">
         <Menu>
             <Main>
                 <!-- Główne menu -->
@@ -1051,7 +1051,7 @@ Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych lic
                     <Item id="6325" name="Przewiń na koniec po uaktualnieniu"/>
                     <Item id="6322" name="Rozszerzenie pliku sesji:"/>
                     <Item id="6323" name="Automatycznie aktualizuj Notepad++"/>
-                    <Item id="6351" name="W oknie zapisu dla Normal Text ustaw filtr rozszerzenia pliku na .* zamiast .txt"/>
+                    <Item id="6351" name="W oknie zapisu ustaw filtr rozszerzenia pliku na *.*"/>
                     <Item id="6324" name="Przełączanie dokumentów (Ctrl+TAB)"/>
                     <Item id="6331" name="Pokazuj w pasku tytułu tylko nazwę pliku"/>
                     <Item id="6334" name="Automatycznie wykrywaj kodowanie"/>
@@ -1223,7 +1223,7 @@ Kontynuować?"/>
             <ColumnPath name="Ścieżka"/>
             <ColumnType name="Typ"/>
             <ColumnSize name="Rozmiar"/>
-            <NbDocsTotal name="wszystkie dokumenty:"/>
+            <NbDocsTotal name="wszystkie dokumenty: "/>
         </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name="Tablica znaków ASCII"/>
@@ -1350,7 +1350,7 @@ Szukaj wśród wszystkich plików z wyjątkiem exe, obj i log:
             <find-status-replace-readonly value="Zamienianie: Nie można zamienić. Plik jest dostępny tylko do odczytu."/>
             <find-status-cannot-find value="Szukanie: Nie udało się znaleźć „$STR_REPLACE$”."/>
             <find-status-scope-selection value="w zaznaczonym tekście"/>
-            <find-status-scope-all value="w cały pliku"/>
+            <find-status-scope-all value="w całym pliku"/>
             <find-status-scope-backward value="od początku pliku do aktualnego położenia kursora"/>
             <find-status-scope-forward value="od aktualnego położenia kursora do końca pliku"/>
             <finder-find-in-finder value="Znajdź w tych wynikach wyszukiwania..."/>
@@ -1386,9 +1386,11 @@ Szukaj wśród wszystkich plików z wyjątkiem exe, obj i log:
             <summary-nbsel1 value=" zaznaczonych znaków ("/>
             <summary-nbsel2 value=" bajtów) w "/>
             <summary-nbrange value=" zakresach"/>
+            <find-in-files-progress-title value="Szukanie w plikach w toku..."/>
             <replace-in-files-confirm-title value="Na pewno chcesz kontynuować?"/>
             <replace-in-files-confirm-directory value="Czy na pewno chcesz zastąpić wszystkie wystąpienia w:"/>
             <replace-in-files-confirm-filetype value="Dla plików pasujących do filtrów:"/>
+            <replace-in-files-progress-title value="Zastępowanie w plikach w toku..."/>
             <replace-in-open-docs-confirm-title value="Na pewno chcesz kontynuować?"/>
             <replace-in-open-docs-confirm-message value="Czy na pewno chcesz zastąpić wszystkie wystąpienia we wszystkich otwartych plikach?"/>
             <find-result-caption value="Wyniki wyszukiwania"/>
@@ -1399,6 +1401,7 @@ Szukaj wśród wszystkich plików z wyjątkiem exe, obj i log:
             <find-result-hits value="($INT_REPLACE$ trafień)"/>
             <find-result-line-prefix value="Linia"/> <!-- Must not begin with space or tab character -->
             <find-regex-zero-length-match value="dopasowanie o zerowej długości" />
+            <session-save-folder-as-workspace value="Zapisz obszar roboczy" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

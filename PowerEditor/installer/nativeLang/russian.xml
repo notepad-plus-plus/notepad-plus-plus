@@ -903,10 +903,9 @@ Updated to v7.9.3:
 					<Item id="6420" name="Применить к откр. ANSI файлам"/>
 				</NewDoc>
 				<DefaultDir title="Путь По Умолчанию">
-					<Item id="6413" name="Задать Директорию По Умолчанию"/>
-					<Item id="6414" name="Директория текущего документа"/>
+					<Item id="6413" name="Директория Сохранения и Открытия Файла"/>
+					<Item id="6414" name="Директория текущего на данный момент документа"/>
 					<Item id="6415" name="Запоминать последнюю используемую директорию"/>
-					<Item id="6430" name="Новый диалог сохранения файла (без возможности пути в стиле Unix)"/>
 					<Item id="6431" name="Открывать все файлы папки при перетаскивании в окно Notepad++"/>
 				</DefaultDir>
 				<FileAssoc title = "Ассоциация Файлов">
@@ -1205,7 +1204,7 @@ Updated to v7.9.3:
 			<ColumnPath  name="Путь"/>
 			<ColumnType  name="Тип"/>
 			<ColumnSize  name="Размер"/>
-			<NbDocsTotal name="всего документов:"/>
+			<NbDocsTotal name="всего : "/>
 		</WindowsDlg>
 		<AsciiInsertion>
 			<PanelTitle       name="Таблица символов ASCII"/>

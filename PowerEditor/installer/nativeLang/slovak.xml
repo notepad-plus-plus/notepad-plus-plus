@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-    <Native-Langue name="Slovenčina" filename="slovak.xml" version="7.9.2">
+    <Native-Langue name="Slovenčina" filename="slovak.xml" version="7.9.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -404,7 +404,7 @@
                 <Item id="1654" name="Filtre:"/>
                 <Item id="1655" name="Priečinok:"/>
                 <Item id="1656" name="Hľadať všetko"/>
-                <Item id="1658" name="Vo všetkých podpriečinkoch"/>
+                <Item id="1658" name="Vo všet. podpriečinkoch"/>
                 <Item id="1659" name="V skrytých priečinkoch"/>
                 <Item id="1624" name="Režim vyhľadávania"/>
                 <Item id="1625" name="Normálny"/>
@@ -1043,7 +1043,7 @@ Zadať môžete viacero značiek pomocou medzery na oddelenie rôznych čísel."
                     <Item id="6325" name="Skočiť po aktualizácii na posledný riadok"/>
                     <Item id="6322" name="Prípona súboru relácie:"/>
                     <Item id="6323" name="Povoliť automatické aktualizácie programu Notepad++"/>
-                    <Item id="6351" name="Pre normálny text nastaviť v dialógovom okne Uložiť príponu .* namiesto .txt"/>
+                    <Item id="6351" name="V dialógovom okne Uložiť nastaviť filter prípony na *.*"/>
                     <Item id="6324" name="Prepínanie dokumentov (Ctrl+Tab)"/>
                     <Item id="6331" name="Zobrazovať v záhlaví okna iba názov súboru"/>
                     <Item id="6334" name="Automatické zisťovanie kódovania znakov"/>
@@ -1377,9 +1377,11 @@ Hľadať vo všetkých súboroch okrem exe, obj &amp;&amp; log:
             <summary-nbsel1 value=" označených znakov ("/>
             <summary-nbsel2 value=" bajtov) v "/>
             <summary-nbrange value=" oblastiach"/>
+            <find-in-files-progress-title value="Prebieha hľadanie v súboroch…"/>
             <replace-in-files-confirm-title value="Naozaj?"/>
-            <replace-in-files-confirm-directory value="Naozaj chcete nahradiť všetky výskyty v :"/>
-            <replace-in-files-confirm-filetype value="Pre typ súboru :"/>
+            <replace-in-files-confirm-directory value="Naozaj chcete nahradiť všetky výskyty v:"/>
+            <replace-in-files-confirm-filetype value="Pre typ súboru:"/>
+            <replace-in-files-progress-title value="Prebieha nahradzovanie v súboroch…"/>
             <replace-in-open-docs-confirm-title value="Naozaj?"/>
             <replace-in-open-docs-confirm-message value="Naozaj chcete nahradiť všetky výskyty vo všetkých otvorených dokumentoch"/>
             <find-result-caption value="Výsledky vyhľadávania"/>
@@ -1390,6 +1392,7 @@ Hľadať vo všetkých súboroch okrem exe, obj &amp;&amp; log:
             <find-result-hits value="($INT_REPLACE$ výskytov)"/>
             <find-result-line-prefix value="Riadok"/>
             <find-regex-zero-length-match value="výskyt nulovej dĺžky" />
+            <session-save-folder-as-workspace value="Uložiť priečinok ako pracovný priestor" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

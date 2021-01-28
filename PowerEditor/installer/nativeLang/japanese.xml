@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="7.9.2">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="7.9.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -20,7 +20,7 @@
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item subMenuId="file-openFolder" name="このファイルのあるフォルダを開く"/>
+                    <Item subMenuId="file-openFolder" name="このファイルのあるフォルダーを開く"/>
                     <Item subMenuId="file-closeMore" name="他のファイルを閉じる"/>
                     <Item subMenuId="file-recentFiles" name="最近使用したファイル(&amp;R)"/>
                     <Item subMenuId="edit-copyToClipboard" name="クリップボードにコピー"/>
@@ -404,13 +404,13 @@
                 <Item id="1654" name="フィルタ(&amp;S):"/>
                 <Item id="1655" name="ﾃﾞｨﾚｸﾄﾘ(&amp;E):"/>
                 <Item id="1656" name="すべて検索"/>
-                <Item id="1658" name="サブフォルダも検索(&amp;B)"/>
-                <Item id="1659" name="隠しフォルダも検索(&amp;H)"/>
+                <Item id="1658" name="サブフォルダーも検索(&amp;B)"/>
+                <Item id="1659" name="隠しフォルダーも検索(&amp;H)"/>
                 <Item id="1624" name="検索モード"/>
                 <Item id="1625" name="標準(&amp;N)"/>
                 <Item id="1626" name="拡張(\n, \r, \t, \0, \x...) (&amp;X)"/>
                 <Item id="1660" name="ファイル内置換"/>
-                <Item id="1661" name="現在のフォルダ"/>
+                <Item id="1661" name="現在のフォルダー"/>
                 <Item id="1641" name="現在の文書内で検索"/>
                 <Item id="1686" name="透明化(&amp;Y)"/>
                 <Item id="1703" name="&amp;.は改行と一致"/>
@@ -532,8 +532,8 @@
                 <ConflictInfoOk name="この項目と競合するショートカットはありません。"/>
                 <ConflictInfoEditing name="競合しません..."/>
                 <MainCommandNames>
-                    <Item id="41019" name="このファイルのあるフォルダをエクスプローラーで開く"/>
-                    <Item id="41020" name="このファイルのあるフォルダをコマンドプロンプトで開く"/>
+                    <Item id="41019" name="このファイルのあるフォルダーをエクスプローラーで開く"/>
+                    <Item id="41020" name="このファイルのあるフォルダーをコマンドプロンプトで開く"/>
                     <Item id="41021" name="直前に閉じたファイルを開く"/>
                     <Item id="45001" name="改行コードを Windows (CR LF) に変換"/>
                     <Item id="45002" name="改行コードを Unix (LF) に変換"/>
@@ -871,7 +871,7 @@
                 </NewDoc>
 
                 <DefaultDir title="既定のディレクトリ">
-                    <Item id="6413" name="既定ディレクトリ(開く/保存)"/>
+                    <Item id="6413" name="開く/保存する時の既定のディレクトリ"/>
                     <Item id="6414" name="現在の文書に従う"/>
                     <Item id="6415" name="最後に使ったディレクトリ"/>
                     <Item id="6431" name="フォルダーをドロップした時、ワークスペースとせずに すべてのファイルを開く"/>
@@ -1045,7 +1045,7 @@
                     <Item id="6325" name="更新後最後の行にスクロール"/>
                     <Item id="6322" name="セッションファイルの拡張子:"/>
                     <Item id="6323" name="Notepad++の自動アップデートを有効にする"/>
-                    <Item id="6351" name="標準テキスト形式を保存するとき、ファイルの種類を .txt ではなく .* にする"/>
+                    <Item id="6351" name="保存ダイアログの「ファイルの種類」を *.* にする"/>
                     <Item id="6324" name="ビューの切り替え(Ctrl+Tab)"/>
                     <Item id="6331" name="タイトルバーにファイル名のみ表示"/>
                     <Item id="6334" name="文字コードを自動判別"/>
@@ -1130,7 +1130,7 @@
 
             <NbFileToOpenImportantWarning title="大量のファイルを開こうとしています" message="$INT_REPLACE$ 個のファイルを開こうとしています。
 本当に開きますか?"/>
-            <SettingsOnCloudError title="警告: クラウド設定" message="クラウドのパスが、読み込み専用ドライブか、書き込み権限が必要なフォルダに設定されています。
+            <SettingsOnCloudError title="警告: クラウド設定" message="クラウドのパスが、読み込み専用ドライブか、書き込み権限が必要なフォルダーに設定されています。
 クラウドの設定はキャンセルされます。環境設定画面で正しい場所を指定し直して下さい。"/>
 
             <FilePathNotFoundWarning title="警告: ファイルを開く" message="指定されたファイルは存在しません。"/>
@@ -1258,7 +1258,7 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <PanelTitle name="プロジェクト"/>
             <WorkspaceRootName name="ワークスペース"/>
             <NewProjectName name="プロジェクト名"/>
-            <NewFolderName name="フォルダ名"/>
+            <NewFolderName name="フォルダー名"/>
             <Menus>
                 <Entries>
                     <Item id="0" name="ワークスペース"/>
@@ -1275,7 +1275,7 @@ Notepad++ を管理者権限で立ち上げますか？"/>
                 </WorkspaceMenu>
                 <ProjectMenu>
                     <Item id="3111" name="名前の変更"/>
-                    <Item id="3112" name="フォルダを追加"/>
+                    <Item id="3112" name="フォルダーを追加"/>
                     <Item id="3113" name="ファイルを追加..."/>
                     <Item id="3117" name="ディレクトリからファイルを追加..."/>
                     <Item id="3114" name="取り除く"/>
@@ -1284,7 +1284,7 @@ Notepad++ を管理者権限で立ち上げますか？"/>
                 </ProjectMenu>
                 <FolderMenu>
                     <Item id="3111" name="名前の変更"/>
-                    <Item id="3112" name="フォルダを追加"/>
+                    <Item id="3112" name="フォルダーを追加"/>
                     <Item id="3113" name="ファイルを追加..."/>
                     <Item id="3117" name="ディレクトリからファイルを追加..."/>
                     <Item id="3114" name="取り除く"/>
@@ -1379,9 +1379,11 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <summary-nbsel1 value=" 文字を選択（"/>
             <summary-nbsel2 value=" バイト）/ "/>
             <summary-nbrange value=" 個の選択範囲"/>
+            <find-in-files-progress-title value="複数ファイル内を検索中..."/>
             <replace-in-files-confirm-title value="本当によろしいですか？"/>
             <replace-in-files-confirm-directory value="下記ディレクトリ内の該当箇所をすべて置換しようとしています。よろしいですか？"/>
             <replace-in-files-confirm-filetype value="ファイルの種類："/>
+            <replace-in-files-progress-title value="複数ファイル内で置換中..."/>
             <replace-in-open-docs-confirm-title value="本当によろしいですか？"/>
             <replace-in-open-docs-confirm-message value="開いているすべての文書にて、すべての該当箇所を置換しようとしています。よろしいですか？"/>
             <find-result-caption value="検索結果"/>
@@ -1392,6 +1394,7 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <find-result-hits value="($INT_REPLACE$ 件の一致)"/>
             <find-result-line-prefix value="行番号"/> <!-- Must not begin with space or tab character -->
             <find-regex-zero-length-match value="長さ0で一致しました" />
+            <session-save-folder-as-workspace value="「フォルダーをワークスペースとして開く」の状態を保存" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

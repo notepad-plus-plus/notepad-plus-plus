@@ -98,6 +98,44 @@ namespace // anonymous
 		return pos != s.npos && ((s.length() - pos) == suffix.length());
 	}
 
+	void expandEnv(generic_string& s)
+	{
+		TCHAR buffer[MAX_PATH] = { 0 };
+		// This returns the resulting string length or 0 in case of error.
+		DWORD ret = ExpandEnvironmentStrings(s.c_str(), buffer, static_cast<DWORD>(std::size(buffer)));
+		if (ret != 0)
+		{
+			if (ret == static_cast<DWORD>(lstrlen(buffer) + 1))
+			{
+				s = buffer;
+			}
+			else
+			{
+				// Buffer was too small, try with a bigger buffer of the required size.
+				std::vector<TCHAR> buffer2(ret, 0);
+				ret = ExpandEnvironmentStrings(s.c_str(), buffer2.data(), static_cast<DWORD>(buffer2.size()));
+				assert(ret == static_cast<DWORD>(lstrlen(buffer2.data()) + 1));
+				s = buffer2.data();
+			}
+		}
+	}
+
+	generic_string getFilename(IShellItem* psi)
+	{
+		generic_string result;
+		if (psi)
+		{
+			PWSTR pszFilePath = nullptr;
+			HRESULT hr = psi->GetDisplayName(SIGDN_FILESYSPATH, &pszFilePath);
+			if (SUCCEEDED(hr) && pszFilePath)
+			{
+				result = pszFilePath;
+				CoTaskMemFree(pszFilePath);
+			}
+		}
+		return result;
+	}
+
 	bool setDialogFolder(IFileDialog* dialog, const TCHAR* folder)
 	{
 		IShellItem* psi = nullptr;
@@ -112,11 +150,24 @@ namespace // anonymous
 
 	generic_string getDialogFileName(IFileDialog* dialog)
 	{
+		generic_string fileName;
 		PWSTR pszFilePath = nullptr;
-		dialog->GetFileName(&pszFilePath);
-		generic_string fileName = pszFilePath;
-		CoTaskMemFree(pszFilePath);
+		HRESULT hr = dialog->GetFileName(&pszFilePath);
+		if (SUCCEEDED(hr) && pszFilePath)
+		{
+			fileName = pszFilePath;
+			CoTaskMemFree(pszFilePath);
+		}
 		return fileName;
+	}
+
+	generic_string getDialogFolder(IFileDialog* dialog)
+	{
+		com_ptr<IShellItem> psi;
+		HRESULT hr = dialog->GetFolder(&psi);
+		if (SUCCEEDED(hr))
+			return getFilename(psi);
+		return {};
 	}
 
 	// Backups the current directory in constructor and restores it in destructor.
@@ -283,6 +334,19 @@ private:
 		return false;
 	}
 
+	generic_string getAbsPath(const generic_string& fileName)
+	{
+		if (::PathIsRelative(fileName.c_str()))
+		{
+			TCHAR buffer[MAX_PATH] = { 0 };
+			const generic_string folder = getDialogFolder(_dialog);
+			LPTSTR ret = ::PathCombine(buffer, folder.c_str(), fileName.c_str());
+			if (ret)
+				return buffer;
+		}
+		return fileName;
+	}
+
 	// Called after the user input but before OnFileOk() and before any name validation.
 	// Prefer SendMessage communication with the edit box here rather than IFileDialog methods.
 	// The setter methods post the message to the queue, and it may not be processed in time.
@@ -292,9 +356,10 @@ private:
 			return;
 		// Get the entered name.
 		generic_string fileName = getDialogFileName(_dialog);
+		expandEnv(fileName);
 		bool nameChanged = transformPath(fileName);
 		// Update the controls.
-		if (not ::PathIsDirectory(fileName.c_str()))
+		if (!::PathIsDirectory(getAbsPath(fileName).c_str()))
 		{
 			// Name is a file path.
 			// Add file extension if missing.
@@ -391,7 +456,9 @@ private:
 			_staticThis->_monitorKeyboard = false;
 			break;
 		}
-		if (_staticThis->_monitorKeyboard && !processingReturn)
+		// Avoid unnecessary processing by polling keyboard only on some messages.
+		bool checkMsg = msg > WM_USER;
+		if (_staticThis->_monitorKeyboard && !processingReturn && checkMsg)
 		{
 			SHORT state = GetAsyncKeyState(VK_RETURN);
 			if (state & 0x8000)
@@ -573,19 +640,6 @@ public:
 			_hasReadonly = hasReadonlyAttr(psiResult);
 		}
 		return fileName;
-	}
-
-	static generic_string getFilename(IShellItem* psi)
-	{
-		generic_string result;
-		PWSTR pszFilePath = NULL;
-		HRESULT hr = psi->GetDisplayName(SIGDN_FILESYSPATH, &pszFilePath);
-		if (SUCCEEDED(hr) && pszFilePath)
-		{
-			result = pszFilePath;
-			CoTaskMemFree(pszFilePath);
-		}
-		return result;
 	}
 
 	static bool hasReadonlyAttr(IShellItem* psi)

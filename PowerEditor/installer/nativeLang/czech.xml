@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 7.9.3  14/Jan/2021  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 7.9.3  28/Jan/2021  by Ondřej Müller (mullero@email.cz)
 	- N++ Community:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 -->
@@ -896,7 +896,7 @@
 					<Item id = "6239" name = "Ponechat výběr, když kliknete pravým tlačítkem mimo výběr"/>
 				</Scintillas>
 				<MarginsBorderEdge title="Okraje/Lem/Hrana">
-                    <Item id = "6201" name = "Styl sbalovače na okraji"/>
+					<Item id = "6201" name = "Styl sbalovače na okraji"/>
 					<Item id = "6202" name = "Jednoduchý"/>
 					<Item id = "6203" name = "Se šipkami"/>
 					<Item id = "6204" name = "S kruhy"/>
@@ -905,7 +905,7 @@
 					<Item id = "6207" name = "Zobrazit záložky"/>
 					<Item id = "6211" name = "Nastavení svislé vodící čáry"/>
 					<Item id = "6213" name = "Režim s pozadím"/>
-                    <Item id = "6226" name = "Žádný"/>
+					<Item id = "6226" name = "Žádný"/>
 					<Item id = "6231" name = "Šířka okraje"/>
 					<Item id = "6235" name = "Bez okraje"/>
 					<Item id = "6237" name = "Přidejte Vaši sloupcovou značku poukázáním na její pozici (decimální číslo).
@@ -913,7 +913,7 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id = "6291" name = "Číslo řádku"/>
 					<Item id = "6292" name = "Dynamická šířka"/>
 					<Item id = "6293" name = "Konstantní šířka"/>
-                </MarginsBorderEdge>
+				</MarginsBorderEdge>
 				<NewDoc title = "Nový dokument">
 					<Item id = "6401" name = "Formát"/>
 					<Item id = "6402" name = "Windows"/>
@@ -934,7 +934,6 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id = "6413" name = "Implicitní adresář pro otevírání/ukládání souborů"/>
 					<Item id = "6414" name = "Podle aktuálního dokumentu"/>
 					<Item id = "6415" name = "Zapamatovat si poslední používaný adresář"/>
-					<Item id = "6430" name = "Použít nový styl dialogu (bez možnosti Unixových cest /)"/>
 					<Item id = "6431" name = "Otevírat všechny soubory ve složce při přetažení myší (místo zdroje pro pracovní plochu)"/>
 				</DefaultDir>
 				<FileAssoc title = "Asociovat se soubory">
@@ -1034,7 +1033,7 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id = "6345" name = "Na oušku (tab) dokumentu"/>
 					<Item id = "6346" name = "Na přehledné mapě dokumentu"/>
 					<Item id = "6349" name = "Používat DirectWrite (může zlepšit zobrazení speciálních znaků, vyžadován restart Notepadu++)"/>
-					<Item id = "6351" name = "U normálního textu nastavit filtr přípony souboru v dialogu Uložit na .* místo .txt"/>
+					<Item id = "6351" name = "Nastavit filtr přípony souboru v dialogu Uložit na *.*"/>
 				</MISC>
 				<Backup title = "Zálohování">
 					<Item id = "6219" name = "Uživatelsky definovaný adresář pro zálohování"/>
@@ -1095,10 +1094,10 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id = "6263" name = "Bez cloudu"/>
 					<Item id = "6267" name = "Zde nastavte cestu k Vašemu i-úložišti:"/>
 					<Item id = "6318" name = "Nastavení klikatelných odkazů"/>
-                    <Item id = "6319" name = "Povolit"/>
-                    <Item id = "6320" name = "Bez podtržení"/>
-                    <Item id = "6350" name = "Povolit fullbox mód"/>
-                    <Item id = "6264" name = "Přizpůsobené URI vzory:"/>
+					<Item id = "6319" name = "Povolit"/>
+					<Item id = "6320" name = "Bez podtržení"/>
+					<Item id = "6350" name = "Povolit fullbox mód"/>
+					<Item id = "6264" name = "Přizpůsobené URI vzory:"/>
 				</Cloud>
 				<SearchEngine title = "Vyhledávač">
 					<Item id = "6271" name = "Vyhledávač (pro příkaz “Vyhledat na Internetu”)"/>
@@ -1271,8 +1270,8 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 			<PanelTitle name = "Složka jako Pracovní plocha"/>
 			<SelectFolderFromBrowserString name = "Vyberte složku, kterou chcete přidat do Pracovní plochy"/>
 			<ExpandAllFoldersTip name = "Rozbalit všechny složky"/>
-            <CollapseAllFoldersTip name = "Sbalit všechny složky"/>
-            <LocateCurrentFileTip name = "Zjistit, kde je aktuální soubor"/>
+			<CollapseAllFoldersTip name = "Sbalit všechny složky"/>
+			<LocateCurrentFileTip name = "Zjistit, kde je aktuální soubor"/>
 			<Menus>
 				<Item id = "3511" name = "Odebrat"/>
 				<Item id = "3512" name = "Odebrat vše"/>

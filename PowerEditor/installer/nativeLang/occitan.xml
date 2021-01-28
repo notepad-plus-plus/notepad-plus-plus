@@ -750,7 +750,6 @@
 					<Item id="6413" name="Dorsièr per default (Dobertura/Enregistrament)"/>
 					<Item id="6414" name="Seguir lo document actiu"/>
 					<Item id="6415" name="Remembrar lo darrièr dorsièr utilizat"/>
-					<Item id="6430" name="Utilizar la nòva fenèstra d'enregistrement (sens fonccionalitat ext. de fichièr)"/>
 					<Item id="6431" name="Dobrir totes los fichièrs del dorsièr al moment del rebalar-depausar"/>
 				</DefaultDir>
 				

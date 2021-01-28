@@ -1,20 +1,19 @@
 echo off
-rem this file is part of installer for Notepad++
-rem Copyright (C)2006 Don HO <don.h@free.fr>
-rem 
-rem This program is free software; you can redistribute it and/or
-rem modify it under the terms of the GNU General Public License
-rem as published by the Free Software Foundation; either
-rem version 2 of the License, or (at your option) any later version.
-rem 
+rem This file is part of Notepad++ project
+rem Copyright (C)2021 Don HO <don.h@free.fr>
+rem
+rem This program is free software: you can redistribute it and/or modify
+rem it under the terms of the GNU General Public License as published by
+rem the Free Software Foundation, either version 3 of the License, or
+rem at your option any later version.
+rem
 rem This program is distributed in the hope that it will be useful,
 rem but WITHOUT ANY WARRANTY; without even the implied warranty of
-rem MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+rem MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 rem GNU General Public License for more details.
-rem 
+rem
 rem You should have received a copy of the GNU General Public License
-rem along with this program; if not, write to the Free Software
-rem Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+rem along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 echo on
 

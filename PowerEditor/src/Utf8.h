@@ -2,20 +2,19 @@
 // Copyright (C)2010 Francois-R.Boyer@PolyMtl.ca
 // First version 2010-08
 //
-// Written for notepad++, and distributed under same license:
+// Written for Notepad++, and distributed under same license:
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
 // as published by the Free Software Foundation; either
-// version 2 of the License, or (at your option) any later version.
-
+// version 3 of the License, or at your option any later version.
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
-
+//
 // You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 namespace Utf8 { // could be a static class, instead of a namespace, if it needs private members
 	// basic classification of UTF-8 bytes

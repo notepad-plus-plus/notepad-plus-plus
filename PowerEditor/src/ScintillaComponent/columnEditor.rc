@@ -1,0 +1,51 @@
+// This file is part of Notepad++ project
+// Copyright (C)2021 Don HO <don.h@free.fr>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
+#include <windows.h>
+#include "columnEditor_rc.h"
+
+
+IDD_COLUMNEDIT DIALOGEX 26, 41, 223, 221
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_TOOLWINDOW | WS_EX_WINDOWEDGE
+		CAPTION "Column / Multi-Selection Editor"
+FONT 8, TEXT("MS Shell Dlg"), 0, 0, 0x0
+BEGIN
+    GROUPBOX        "",IDC_COL_TEXT_GRP_STATIC,12,14,124,50
+    GROUPBOX        "",IDC_COL_NUM_GRP_STATIC,12,79,204,135
+    CONTROL         "&Text to Insert",IDC_COL_TEXT_RADIO,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP | WS_GROUP,7,5,124,9
+    CONTROL         "&Number to Insert",IDC_COL_NUM_RADIO,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP | WS_GROUP, 7,70,204,9
+    EDITTEXT        IDC_COL_TEXT_EDIT,25,32,97,14,ES_AUTOHSCROLL     
+    RTEXT           "&Initial number :",IDC_COL_INITNUM_STATIC,15,91,76,8
+    EDITTEXT        IDC_COL_INITNUM_EDIT,95,89,38,12,ES_NUMBER
+	
+    RTEXT           "Increase b&y :",IDC_COL_INCRNUM_STATIC,16,112,75,8
+    EDITTEXT        IDC_COL_INCREASENUM_EDIT,95,110,38,12,ES_NUMBER
+
+	RTEXT           "&Repeat :",IDC_COL_REPEATNUM_STATIC,16,133,75,8
+	EDITTEXT        IDC_COL_REPEATNUM_EDIT,95,131,38,12,ES_NUMBER
+
+	CONTROL         "Leading &zeros", IDC_COL_LEADZERO_CHECK,"Button", BS_AUTOCHECKBOX | WS_TABSTOP,140,133,70,10
+	
+    CONTROL         "&Dec",IDC_COL_DEC_RADIO,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,30,169,70,10
+    CONTROL         "&Hex",IDC_COL_HEX_RADIO,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,124,169,70,10
+    CONTROL         "&Oct",IDC_COL_OCT_RADIO,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,30,188,70,10
+    CONTROL         "&Bin",IDC_COL_BIN_RADIO,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,124,188,70,10
+    GROUPBOX        "Format",IDC_COL_FORMAT_GRP_STATIC,20,153,188,54,BS_CENTER
+    DEFPUSHBUTTON   "OK",IDOK,145,13,70,14,BS_NOTIFY
+    PUSHBUTTON      "Cancel",IDCANCEL,145,36,70,14,BS_NOTIFY
+END

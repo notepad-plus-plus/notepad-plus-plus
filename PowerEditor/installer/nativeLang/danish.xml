@@ -845,7 +845,6 @@ Du kan definere adskillige kolonnemarkører ved at bruge blanktegn til at adskil
                     <Item id="6413" name="Standardmappe (åbn/gem)"/>
                     <Item id="6414" name="Følg nuværende dokument"/>
                     <Item id="6415" name="Husk sidste anvendte mappe"/>
-                    <Item id="6430" name="Brug gem-dialog med nyt udseende (uden stikapacitet i Unix-stil)"/>
                     <Item id="6431" name="Åbn alle mappens filer ved slip af mappe, fremfor at starte mappe som arbejdsområde"/>
                 </DefaultDir>
 

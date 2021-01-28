@@ -1,35 +1,23 @@
 // This file is part of Notepad++ project
-// Copyright (C)2020 Don HO <don.h@free.fr>
-//
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either
-// version 2 of the License, or (at your option) any later version.
-//
-// Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid
-// misunderstandings, we consider an application to constitute a
-// "derivative work" for the purpose of this license if it does any of the
-// following:
-// 1. Integrates source code from Notepad++.
-// 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
-//	installer, such as those produced by InstallShield.
-// 3. Links to a library or executes a program that does any of the above.
+// Copyright (C)2021 Don HO <don.h@free.fr>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
 //
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #include <time.h>
 #include <shlwapi.h>
 #include <shlobj.h>
 #include "Parameters.h"
-#include "FileDialog.h"
 #include "ScintillaEditView.h"
 #include "keys.h"
 #include "localization.h"
@@ -853,8 +841,6 @@ winVer NppParameters::getWindowsVersion()
    return WV_UNKNOWN;
 }
 
-int FileDialog::_dialogFileBoxId = (NppParameters::getInstance()).getWinVersion() < WV_W2K?edt1:cmb13;
-
 
 NppParameters::NppParameters()
 {
@@ -1433,20 +1419,19 @@ bool NppParameters::load()
 	const NppGUI & nppGUI = (NppParameters::getInstance()).getNppGUI();
 	if (nppGUI._rememberLastSession)
 	{
-		_pXmlSessionDoc = new TiXmlDocument(_sessionPath);
+		TiXmlDocument* pXmlSessionDoc = new TiXmlDocument(_sessionPath);
 
-		loadOkay = _pXmlSessionDoc->LoadFile();
+		loadOkay = pXmlSessionDoc->LoadFile();
 		if (!loadOkay)
 			isAllLaoded = false;
 		else
-			getSessionFromXmlTree();
+			getSessionFromXmlTree(pXmlSessionDoc, _session);
 
-		delete _pXmlSessionDoc;
+		delete pXmlSessionDoc;
+
 		for (size_t i = 0, len = _pXmlExternalLexerDoc.size() ; i < len ; ++i)
 			if (_pXmlExternalLexerDoc[i])
 				delete _pXmlExternalLexerDoc[i];
-
-		_pXmlSessionDoc = nullptr;
 	}
 
 	//------------------------------//
@@ -1482,7 +1467,6 @@ void NppParameters::destroyInstance()
 	delete _pXmlToolIconsDoc;
 	delete _pXmlShortcutDoc;
 	delete _pXmlContextMenuDocA;
-	delete _pXmlSessionDoc;
 	delete _pXmlBlacklistDoc;
 	delete 	getInstancePointer();
 }
@@ -2048,31 +2032,19 @@ bool NppParameters::loadSession(Session & session, const TCHAR *sessionFileName)
 	TiXmlDocument *pXmlSessionDocument = new TiXmlDocument(sessionFileName);
 	bool loadOkay = pXmlSessionDocument->LoadFile();
 	if (loadOkay)
-		loadOkay = getSessionFromXmlTree(pXmlSessionDocument, &session);
+		loadOkay = getSessionFromXmlTree(pXmlSessionDocument, session);
 
 	delete pXmlSessionDocument;
 	return loadOkay;
 }
 
 
-bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *pSession)
+bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session& session)
 {
-	if ((pSessionDoc) && (!pSession))
+	if (!pSessionDoc)
 		return false;
-
-	TiXmlDocument **ppSessionDoc = &_pXmlSessionDoc;
-	Session *ptrSession = &_session;
-
-	if (pSessionDoc)
-	{
-		ppSessionDoc = &pSessionDoc;
-		ptrSession = pSession;
-	}
-
-	if (!*ppSessionDoc)
-		return false;
-
-	TiXmlNode *root = (*ppSessionDoc)->FirstChild(TEXT("NotepadPlus"));
+	
+	TiXmlNode *root = pSessionDoc->FirstChild(TEXT("NotepadPlus"));
 	if (!root)
 		return false;
 
@@ -2085,7 +2057,7 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 	const TCHAR *str = actView->Attribute(TEXT("activeView"), &index);
 	if (str)
 	{
-		(*ptrSession)._activeView = index;
+		session._activeView = index;
 	}
 
 	const size_t nbView = 2;
@@ -2102,9 +2074,9 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 			if (str)
 			{
 				if (k == 0)
-					(*ptrSession)._activeMainIndex = index2;
+					session._activeMainIndex = index2;
 				else // k == 1
-					(*ptrSession)._activeSubIndex = index2;
+					session._activeSubIndex = index2;
 			}
 			for (TiXmlNode *childNode = viewRoots[k]->FirstChildElement(TEXT("File"));
 				childNode ;
@@ -2196,9 +2168,9 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 						}
 					}
 					if (k == 0)
-						(*ptrSession)._mainViewFiles.push_back(sfi);
+						session._mainViewFiles.push_back(sfi);
 					else // k == 1
-						(*ptrSession)._subViewFiles.push_back(sfi);
+						session._subViewFiles.push_back(sfi);
 				}
 			}
 		}
@@ -2211,7 +2183,7 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 		const TCHAR *selectedItemPath = (fileBrowserRoot->ToElement())->Attribute(TEXT("latestSelectedItem"));
 		if (selectedItemPath)
 		{
-			(*ptrSession)._fileBrowserSelectedItem = selectedItemPath;
+			session._fileBrowserSelectedItem = selectedItemPath;
 		}
 
 		for (TiXmlNode *childNode = fileBrowserRoot->FirstChildElement(TEXT("root"));
@@ -2221,7 +2193,7 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 			const TCHAR *fileName = (childNode->ToElement())->Attribute(TEXT("foldername"));
 			if (fileName)
 			{
-				(*ptrSession)._fileBrowserRoots.push_back({ fileName });
+				session._fileBrowserRoots.push_back({ fileName });
 			}
 		}
 	}
@@ -3176,12 +3148,12 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 {
 	const TCHAR *pathName = fileName?fileName:_sessionPath.c_str();
 
-	_pXmlSessionDoc = new TiXmlDocument(pathName);
+	TiXmlDocument* pXmlSessionDoc = new TiXmlDocument(pathName);
 
 	TiXmlDeclaration* decl = new TiXmlDeclaration(TEXT("1.0"), TEXT("UTF-8"), TEXT(""));
-	_pXmlSessionDoc->LinkEndChild(decl);
+	pXmlSessionDoc->LinkEndChild(decl);
 
-	TiXmlNode *root = _pXmlSessionDoc->InsertEndChild(TiXmlElement(TEXT("NotepadPlus")));
+	TiXmlNode *root = pXmlSessionDoc->InsertEndChild(TiXmlElement(TEXT("NotepadPlus")));
 
 	if (root)
 	{
@@ -3267,7 +3239,9 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 			}
 		}
 	}
-	_pXmlSessionDoc->SaveFile();
+	pXmlSessionDoc->SaveFile();
+
+	delete pXmlSessionDoc;
 }
 
 
@@ -5289,10 +5263,6 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			if (optNameWriteTechnologyEngine)
 				_nppGUI._writeTechnologyEngine = (lstrcmp(optNameWriteTechnologyEngine, TEXT("1")) == 0) ? directWriteTechnology : defaultTechnology;
 
-			const TCHAR * optNameNewStyleSaveDlg = element->Attribute(TEXT("newStyleSaveDlg"));
-			if (optNameNewStyleSaveDlg)
-				_nppGUI._useNewStyleSaveDlg = (lstrcmp(optNameNewStyleSaveDlg, TEXT("yes")) == 0);
-
 			const TCHAR * optNameFolderDroppedOpenFiles = element->Attribute(TEXT("isFolderDroppedOpenFiles"));
 			if (optNameFolderDroppedOpenFiles)
 				_nppGUI._isFolderDroppedOpenFiles = (lstrcmp(optNameFolderDroppedOpenFiles, TEXT("yes")) == 0);
@@ -6229,7 +6199,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("setting"), _nppGUI._multiInstSetting);
 	}
 
-	// <GUIConfig name="MISC" fileSwitcherWithoutExtColumn="no" backSlashIsEscapeCharacterForSql="yes" newStyleSaveDlg="no" isFolderDroppedOpenFiles="no" saveDlgExtFilterToAllTypes="no" />
+	// <GUIConfig name="MISC" fileSwitcherWithoutExtColumn="no" backSlashIsEscapeCharacterForSql="yes" isFolderDroppedOpenFiles="no" saveDlgExtFilterToAllTypes="no" />
 	{
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("MISC"));
@@ -6237,7 +6207,6 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("fileSwitcherWithoutExtColumn"), _nppGUI._fileSwitcherWithoutExtColumn ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("backSlashIsEscapeCharacterForSql"), _nppGUI._backSlashIsEscapeCharacterForSql ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("writeTechnologyEngine"), _nppGUI._writeTechnologyEngine);
-		GUIConfigElement->SetAttribute(TEXT("newStyleSaveDlg"), _nppGUI._useNewStyleSaveDlg ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("isFolderDroppedOpenFiles"), _nppGUI._isFolderDroppedOpenFiles ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("docPeekOnTab"), _nppGUI._isDocPeekOnTab ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("docPeekOnMap"), _nppGUI._isDocPeekOnMap ? TEXT("yes") : TEXT("no"));

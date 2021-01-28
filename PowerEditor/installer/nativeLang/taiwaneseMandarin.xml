@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="7.9.2">
+    <Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="7.9.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -392,7 +392,7 @@
                 <Item id="1661" name="使用目前文件資料夾位置"/>
                 <Item id="1641" name="在目前文件中全部尋找"/>
                 <Item id="1686" name="透明"/>
-                <Item id="1703" name="「.」包含換行"/>
+                <Item id="1703" name="「.」包含換行字元"/>
                 <Item id="1721" name="▲"/>
                 <Item id="1723" name="▼ 找下一個"/>
             </Find>
@@ -843,10 +843,9 @@
                 </NewDoc>
 
                 <DefaultDir title="預設資料夾">
-                    <Item id="6413" name="開啟/儲存預設資料夾"/>
+                    <Item id="6413" name="開啟/儲存檔案預設資料夾"/>
                     <Item id="6414" name="使用目前文件資料夾位置"/>
                     <Item id="6415" name="記住上次使用的資料夾"/>
-                    <Item id="6430" name="使用新式對話方塊（不含 UNIX 路徑支援）"/>
                     <Item id="6431" name="拖放資料夾時開啟資料夾中所有文件，而不啟動資料夾工作區"/>
                 </DefaultDir>
 
@@ -1014,6 +1013,7 @@
                     <Item id="6325" name="更新後捲動至最後一行"/>
                     <Item id="6322" name="工作階段檔案副檔名："/>
                     <Item id="6323" name="自動更新 Notepad++"/>
+                    <Item id="6351" name="將「保存」對話方塊的副檔名濾鏡設置為 *.*"/>
                     <Item id="6324" name="文件切換器（Ctrl + TAB）"/>
                     <Item id="6331" name="在標題列僅顯示檔案名稱（隱藏資料夾路徑）"/>
                     <Item id="6334" name="自動偵測檔案編碼"/>
@@ -1068,7 +1068,7 @@
                 <Item id="1717" name="一般"/>
                 <Item id="1719" name="規則運算式(&amp;E)"/>
                 <Item id="1718" name="延伸（\n, \r, \t, \0, \x...）"/>
-                <Item id="1720" name="「.」包含換行"/>
+                <Item id="1720" name="「.」包含換行字元"/>
             </FindInFinder>
             <DoSaveOrNot title="儲存檔案"> 
                 <Item id="1761" name="您要儲存「$STR_REPLACE$」嗎？"/>
@@ -1310,16 +1310,18 @@
             <summary-filecreatetime value="建檔時間： "/>
             <summary-filemodifytime value="修改時間： "/>
             <summary-filelen value="文件長度（以位元為單位）： "/>
-            <summary-nbchar value="字元數（不含行結尾）： "/>
+            <summary-nbchar value="字元數（不含換行字元）： "/>
             <summary-nbword value="字數： "/>
             <summary-nbline value="行數： "/>
             <summary-nbbyte value="文件長度： "/>
             <summary-nbsel1 value=" 個選取字元（ "/>
             <summary-nbsel2 value=" 位元）在 "/>
             <summary-nbrange value=" 個選取範圍中"/>
+            <find-in-files-progress-title value="在檔案中尋找中..."/>
             <replace-in-files-confirm-title value="確認"/>
             <replace-in-files-confirm-directory value="是否要替換所有匹配項在此目錄中："/>
             <replace-in-files-confirm-filetype value="向所有擁有下列副檔名的檔案："/>
+            <replace-in-files-progress-title value="在多個檔案中取代中..."/>
             <replace-in-open-docs-confirm-title value="替換確認"/>
             <replace-in-open-docs-confirm-message value="您確定要替換所有打開的文檔中的所有匹配項嗎？"/>
             <find-result-caption value="搜尋結果"/>
@@ -1329,6 +1331,7 @@
             <find-result-hits value="（$INT_REPLACE$ 個結果）"/>
             <find-result-line-prefix value="行號"/> <!-- Must not begin with space or tab character -->
             <find-regex-zero-length-match value="零長度的字元相符" />
+            <session-save-folder-as-workspace value="包含「資料夾工作區」" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

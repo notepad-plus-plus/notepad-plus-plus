@@ -712,7 +712,6 @@ https://github.com/AndresTraks/
                     <Item id="6413" name="Vaikekaust (avamisel ja salvestamisel)"/>
                     <Item id="6414" name="Kasuta avatud dokumendi kausta"/>
                     <Item id="6415" name="Jäta meelde viimati kasutatud kaust"/>
-                    <Item id="6430" name="Kasuta uues stiilis salvestamise dialoogi (faililaiendi täiendusteta)"/>
                     <Item id="6431" name="Kausta pukseerimisel ava kõik kaustas asuvad failid tööruumina avamise asemel"/>
                 </DefaultDir>
 

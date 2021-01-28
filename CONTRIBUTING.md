@@ -35,10 +35,11 @@ Opening a issue beforehand allows the administrators and the community to discus
 1. Respect Notepad++ coding style.
 2. Create a new branch for each PR. **Make sure your branch name wasn't used before** - you can add date (for example `patch3_20200528`) to ensure its uniqueness.
 3. Single feature or bug-fix per PR.
-4. Make single commit per PR.
+4. Create a PR with a single commit to make the review process easier.
 5. Make your modification compact - don't reformat source code in your request. It makes code review more difficult.
 6. PR of reformatting (changing of ws/TAB, line endings or coding style) of source code won't be accepted. Use issue trackers for your request instead.
 7. Typo fixing and code refactoring won't be accepted - please create issues with title started with `TYPO` to request the changing.
+8. Address the review change requests by pushing new commits to the same PR. Avoid amending a commit and then force pushing it. All the PR commits are squashed before merging to the main branch.
 
 In short: The easier the code review is, the better the chance your pull request will get accepted.
 

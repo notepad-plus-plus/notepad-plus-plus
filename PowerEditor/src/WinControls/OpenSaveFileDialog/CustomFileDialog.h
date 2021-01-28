@@ -1,29 +1,18 @@
 // This file is part of Notepad++ project
 // Copyright (C) 2021 The Notepad++ Contributors.
-//
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either
-// version 2 of the License, or (at your option) any later version.
-//
-// Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
-// "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
-// 1. Integrates source code from Notepad++.
-// 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
-//    installer, such as those produced by InstallShield.
-// 3. Links to a library or executes a program that does any of the above.
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
 //
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
 #pragma once
@@ -42,15 +31,21 @@ public:
 	~CustomFileDialog();
 	void setTitle(const TCHAR* title);
 	void setExtFilter(const TCHAR* text, const TCHAR* ext);
+	void setExtFilter(const TCHAR* text, std::initializer_list<const TCHAR*> exts);
 	void setDefExt(const TCHAR* ext);
+	void setDefFileName(const TCHAR *fn);
 	void setFolder(const TCHAR* folder);
 	void setCheckbox(const TCHAR* text, bool isActive = true);
 	void setExtIndex(int extTypeIndex);
 
-	const TCHAR* doSaveDlg();
-	const TCHAR* pickFolder();
+	// Empty string is not a valid file name and may signal that the dialog was canceled.
+	generic_string doSaveDlg();
+	generic_string pickFolder();
+	generic_string doOpenSingleFileDlg();
+	std::vector<generic_string> doOpenMultiFilesDlg();
 
 	bool getCheckboxState() const;
+	bool isReadOnly() const;
 
 private:
 	class Impl;

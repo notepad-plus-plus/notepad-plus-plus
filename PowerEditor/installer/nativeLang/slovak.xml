@@ -873,7 +873,6 @@ Zadať môžete viacero značiek pomocou medzery na oddelenie rôznych čísel."
                     <Item id="6413" name="Predvolený priečinok pre otvorenie a uloženie súborov"/>
                     <Item id="6414" name="Riadiť sa aktuálnym dokumentom"/>
                     <Item id="6415" name="Pamätať si posledný použitý priečinok"/>
-                    <Item id="6430" name="Použiť nový štýl dialógového okna (bez Unixového zápisu)"/>
                     <Item id="6431" name="Pri pretiahnutí priečinka myšou otvoriť súbory v priečinku, nie panel prac. priestoru"/>
                 </DefaultDir>
 

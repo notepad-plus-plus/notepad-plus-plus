@@ -860,7 +860,6 @@
                     <Item id="6414" name="Sukladno tekućem dokumentu"/>
                     <Item id="6415" name="Upamti popis posljednje korištenih mapa"/>
                     <Item id="6418" name="..."/>
-                    <Item id="6430" name="Upotrijebi novi dijalog stila (bez nastavka datoteke i puta u Unix stilu)"/>
                     <Item id="6431" name="Otvori sve datoteke mape umjesto pokretanja 'Mapa kao radna površina' pri prenošenju mape"/>
                 </DefaultDir>
 

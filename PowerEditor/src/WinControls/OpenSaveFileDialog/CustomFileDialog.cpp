@@ -154,8 +154,10 @@ namespace // anonymous
 		PWSTR pszFilePath = nullptr;
 		HRESULT hr = dialog->GetFileName(&pszFilePath);
 		if (SUCCEEDED(hr) && pszFilePath)
+		{
 			fileName = pszFilePath;
-		CoTaskMemFree(pszFilePath);
+			CoTaskMemFree(pszFilePath);
+		}
 		return fileName;
 	}
 
@@ -357,7 +359,7 @@ private:
 		expandEnv(fileName);
 		bool nameChanged = transformPath(fileName);
 		// Update the controls.
-		if (not ::PathIsDirectory(getAbsPath(fileName).c_str()))
+		if (!::PathIsDirectory(getAbsPath(fileName).c_str()))
 		{
 			// Name is a file path.
 			// Add file extension if missing.

@@ -21,6 +21,8 @@
 #include "ToolTip.h"
 #include "Parameters.h"
 
+#include <windowsx.h>
+
 using namespace std;
 
 #ifndef WH_MOUSE_LL
@@ -68,9 +70,7 @@ DockingCont::DockingCont()
 	_beginDrag			= FALSE;
 	_prevItem			= 0;
 	_hFont				= NULL;
-	_bTabTTHover		= FALSE;
 	_bCaptionTT			= FALSE;
-	_bCapTTHover		= FALSE;
 	_hoverMPos			= posClose;
 	_bDrawOgLine		= TRUE;
 	_vTbData.clear();
@@ -368,52 +368,38 @@ LRESULT DockingCont::runProcCaption(HWND hwnd, UINT Message, WPARAM wParam, LPAR
 					}
 				}
 			}
-			else if (_bCapTTHover == FALSE)
+			else if (!toolTip.trackingMouse())
 			{
 				_hoverMPos = isInRect(hwnd, LOWORD(lParam), HIWORD(lParam));
 
 				if ((_bCaptionTT == TRUE) || (_hoverMPos == posClose))
 				{
-					TRACKMOUSEEVENT tme;
-					tme.cbSize = sizeof(tme);
-					tme.hwndTrack = hwnd;
-					tme.dwFlags = TME_LEAVE | TME_HOVER;
-					tme.dwHoverTime = 1000;
-					_bCapTTHover = _TrackMouseEvent(&tme);
+					toolTip.trackMouse(hwnd);
 				}
 			}
-			else if ((_bCapTTHover == TRUE) &&
+			else if (toolTip.trackingMouse() &&
 				(_hoverMPos != isInRect(hwnd, LOWORD(lParam), HIWORD(lParam))))
 			{
 				toolTip.destroy();
-				_bCapTTHover = FALSE;
 			}
 			return TRUE;
 		}
 		case WM_MOUSEHOVER:
 		{
-			RECT	rc	= {0};
-			POINT	pt	= {0};
-
-
-			// get mouse position
-			::GetCursorPos(&pt);
-
 			toolTip.init(_hInst, hwnd);
 			if (_hoverMPos == posCaption)
 			{
-				toolTip.Show(rc, _pszCaption.c_str(), pt.x, pt.y + 20);
+				toolTip.showAtCursor(_pszCaption.c_str());
 			}
 			else
 			{
-				toolTip.Show(rc, TEXT("Close"), pt.x, pt.y + 20);
+				toolTip.showAtCursor(TEXT("Close"));
 			}
 			return TRUE;
 		}
 		case WM_MOUSELEAVE:
 		{
 			toolTip.destroy();
-			_bCapTTHover = FALSE;
 			return TRUE;
 		}
 		case WM_SIZE:
@@ -708,26 +694,19 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
             {
 				int	iItemSel = static_cast<int32_t>(::SendMessage(hwnd, TCM_GETCURSEL, 0, 0));
 
-				if ((_bTabTTHover == FALSE) && (iItem != iItemSel))
+				if (!toolTip.trackingMouse() && (iItem != iItemSel))
 				{
-					TRACKMOUSEEVENT tme;
-					tme.cbSize = sizeof(tme);
-					tme.hwndTrack = hwnd;
-					tme.dwFlags = TME_LEAVE | TME_HOVER;
-					tme.dwHoverTime = 1000;
-					_bTabTTHover = _TrackMouseEvent(&tme);
+					toolTip.trackMouse(hwnd);
 				}
 				else
 				{
 					if (iItem == iItemSel)
 					{
 						toolTip.destroy();
-						_bTabTTHover = FALSE;
 					}
 					else if (iItem != _iLastHovered)
 					{
 						TCITEM	tcItem	= {0};
-						RECT	rc		= {0};
 
 						// destroy old tooltip
 						toolTip.destroy();
@@ -742,7 +721,7 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 							return FALSE;
 
 						toolTip.init(_hInst, hwnd);
-						toolTip.Show(rc, (reinterpret_cast<tTbData*>(tcItem.lParam))->pszName, info.pt.x, info.pt.y + 20);
+						toolTip.show((reinterpret_cast<tTbData*>(tcItem.lParam))->pszName, info.pt.x, info.pt.y);
 					}
 				}
 
@@ -758,12 +737,11 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 		{
 			int				iItem	= 0;
 			TCITEM			tcItem	= {0};
-			RECT			rc		= {0};
 			TCHITTESTINFO	info	= {0};
 
 			// get selected sub item
-			info.pt.x = LOWORD(lParam);
-			info.pt.y = HIWORD(lParam);
+			info.pt.x = GET_X_LPARAM(lParam);
+			info.pt.y = GET_Y_LPARAM(lParam);
 			iItem = static_cast<int32_t>(::SendMessage(hwnd, TCM_HITTEST, 0, reinterpret_cast<LPARAM>(&info)));
 
 			// recalc mouse position
@@ -776,14 +754,13 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 				return FALSE;
 
 			toolTip.init(_hInst, hwnd);
-			toolTip.Show(rc, ((tTbData*)tcItem.lParam)->pszName, info.pt.x, info.pt.y + 20);
+			toolTip.show(((tTbData*)tcItem.lParam)->pszName, info.pt.x, info.pt.y);
 			return TRUE;
 		}
 
 		case WM_MOUSELEAVE:
 		{
 			toolTip.destroy();
-			_bTabTTHover = FALSE;
 			return TRUE;
 		}
 

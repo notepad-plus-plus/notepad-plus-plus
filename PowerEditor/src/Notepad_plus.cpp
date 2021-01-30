@@ -5148,27 +5148,7 @@ void Notepad_plus::fullScreenToggle()
 		_beforeSpecialView._winPlace.length = sizeof(_beforeSpecialView._winPlace);
 		::GetWindowPlacement(_pPublicInterface->getHSelf(), &_beforeSpecialView._winPlace);
 
-		RECT fullscreenArea;		//RECT used to calculate window fullscreen size
-		//Preset view area, in case something fails, primary monitor values
-		fullscreenArea.top = 0;
-		fullscreenArea.left = 0;
-		fullscreenArea.right = GetSystemMetrics(SM_CXSCREEN);
-		fullscreenArea.bottom = GetSystemMetrics(SM_CYSCREEN);
-
-		//if (_winVersion != WV_NT)
-		{
-			HMONITOR currentMonitor;	//Handle to monitor where fullscreen should go
-			MONITORINFO mi;				//Info of that monitor
-			//Caution, this will not work on windows 95, so probably add some checking of some sorts like Unicode checks, IF 95 were to be supported
-			currentMonitor = ::MonitorFromWindow(_pPublicInterface->getHSelf(), MONITOR_DEFAULTTONEAREST);	//should always be valid monitor handle
-			mi.cbSize = sizeof(MONITORINFO);
-			if (::GetMonitorInfo(currentMonitor, &mi) != FALSE)
-			{
-				fullscreenArea = mi.rcMonitor;
-				fullscreenArea.right -= fullscreenArea.left;
-				fullscreenArea.bottom -= fullscreenArea.top;
-			}
-		}
+		RECT fullscreenArea = getDisplayRect(_pPublicInterface->getHSelf());
 
 		//Setup GUI
         int bs = buttonStatus_fullscreen;

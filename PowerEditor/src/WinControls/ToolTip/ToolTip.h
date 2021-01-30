@@ -29,6 +29,7 @@ public :
 	void destroy(){
 		::DestroyWindow(_hSelf);
 		_hSelf = NULL;
+		_bTrackMouse = FALSE;
 	};
 
 // Attributes
@@ -37,9 +38,14 @@ public:
 // Implementation
 public:
 	virtual void init(HINSTANCE hInst, HWND hParent);
-	void Show(RECT rectTitle, const TCHAR* pszTitleText, int iXOff = 0, int iWidthOff = 0);
+	void show(const TCHAR* pszTitleText, int iXOff = 0, int iYOff = 0, const RECT& rectTitle = {});
+	void showAtCursor(const TCHAR* pszTitleText);
 
-protected:
+	// Post mouse events to hwnd as specified by flags
+	void trackMouse(HWND hwnd, DWORD flags = TME_HOVER | TME_LEAVE);
+	bool trackingMouse() const { return _bTrackMouse; }
+
+private:
     WNDPROC		_defaultProc = nullptr;
 	BOOL		_bTrackMouse = FALSE;
 	TOOLINFO	_ti;
@@ -48,5 +54,6 @@ protected:
         return (((ToolTip *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA)))->runProc(Message, wParam, lParam));
     };
 	LRESULT runProc(UINT Message, WPARAM wParam, LPARAM lParam);
+	void reposition(const POINT& pt);
 };
 

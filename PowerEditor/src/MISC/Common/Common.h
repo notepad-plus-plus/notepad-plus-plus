@@ -73,6 +73,13 @@ std::vector<generic_string> tokenizeString(const generic_string & tokenString, c
 
 void ClientRectToScreenRect(HWND hWnd, RECT* rect);
 void ScreenRectToClientRect(HWND hWnd, RECT* rect);
+inline bool isInRect(const RECT& rect, int x, int y)
+{
+	return x > rect.left && y > rect.top && x < rect.right && y < rect.bottom;
+}
+
+// Returns bounds for the display that the window belongs to
+RECT getDisplayRect(HWND hwnd);
 
 std::wstring string2wstring(const std::string & rString, UINT codepage);
 std::string wstring2string(const std::wstring & rwString, UINT codepage);
@@ -226,3 +233,6 @@ template<typename T> size_t vecRemoveDuplicates(std::vector<T>& vec, bool isSort
 void trim(generic_string& str);
 
 int nbDigitsFromNbLines(size_t nbLines);
+
+// Returns menu item position by id or -1
+int findMenuItem(HMENU hmenu, UINT id);

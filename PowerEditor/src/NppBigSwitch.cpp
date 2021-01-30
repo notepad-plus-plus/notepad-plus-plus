@@ -17,6 +17,7 @@
 
 #include <algorithm>
 #include <shlwapi.h>
+#include <windowsx.h>
 #include "Notepad_plus_Window.h"
 #include "TaskListDlg.h"
 #include "ImageListSet.h"
@@ -28,6 +29,7 @@
 #include "documentMap.h"
 #include "functionListPanel.h"
 #include "fileBrowser.h"
+#include "ToolTip/ToolTip.h"
 
 using namespace std;
 
@@ -121,6 +123,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 {
 	LRESULT result = FALSE;
 	NppParameters& nppParam = NppParameters::getInstance();
+	static ToolTip mainTooltip;
 
 	switch (message)
 	{
@@ -1532,6 +1535,46 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 			return notify(notification);
 		}
+
+		case WM_NCMOUSEMOVE:
+		{
+			int pos = findMenuItem(_mainMenuHandle, IDM_FILE_CLOSE);
+			if (pos >= 0)
+			{
+				// hit test menu item
+				RECT rect{};
+				GetMenuItemRect(hwnd, _mainMenuHandle, pos, &rect);
+				int x = GET_X_LPARAM(lParam);
+				int y = GET_Y_LPARAM(lParam);
+				bool isInMenu = isInRect(rect, x, y);
+
+				// track mouse
+				if (!mainTooltip.trackingMouse() && isInMenu)
+				{
+					mainTooltip.trackMouse(hwnd, TME_HOVER | TME_LEAVE | TME_NONCLIENT);
+				}
+				else if (mainTooltip.trackingMouse() && !isInMenu)
+				{
+					mainTooltip.destroy();
+				}
+			}
+		}
+			break;
+		case WM_NCMOUSEHOVER:
+		{
+			if (wParam == HTMENU && mainTooltip.trackingMouse())
+			{
+				mainTooltip.init(_pPublicInterface->getHinst(), hwnd);
+				const generic_string tooltipText = _nativeLangSpeaker.getLocalizedStrFromID("menu-close-tab",
+					TEXT("Close tab"));
+				mainTooltip.showAtCursor(tooltipText.c_str());
+			}
+		}
+		break;
+
+		case WM_NCMOUSELEAVE:
+			mainTooltip.destroy();
+			break;
 
 		case WM_ACTIVATEAPP:
 		{

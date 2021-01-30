@@ -206,11 +206,9 @@ private:
 	BOOL					_beginDrag;
 
 	// Is tooltip
-	BOOL					_bTabTTHover;
 	INT						_iLastHovered;
 
 	BOOL					_bCaptionTT;
-	BOOL					_bCapTTHover;
 	eMousePos				_hoverMPos;
 
 	int _captionHeightDynamic = HIGH_CAPTION;

@@ -18,6 +18,7 @@
 #include <iostream>
 #include <stdexcept>
 #include "ToolTip.h"
+#include "Common.h"
 
 void ToolTip::init(HINSTANCE hInst, HWND hParent)
 {
@@ -38,7 +39,7 @@ void ToolTip::init(HINSTANCE hInst, HWND hParent)
 }
 
 
-void ToolTip::Show(RECT rectTitle, const TCHAR * pszTitle, int iXOff, int iWidthOff)
+void ToolTip::show(const TCHAR * pszTitle, int iXOff, int iWidthOff, const RECT& rectTitle)
 {
 	if (isVisible())
 		destroy();
@@ -66,11 +67,64 @@ void ToolTip::Show(RECT rectTitle, const TCHAR * pszTitle, int iXOff, int iWidth
 	::SendMessage(_hSelf, TTM_ADDTOOL, 0, reinterpret_cast<LPARAM>(&_ti));
 	::SendMessage(_hSelf, TTM_TRACKPOSITION, 0, MAKELONG(_ti.rect.left + iXOff, _ti.rect.top + iWidthOff));
 	::SendMessage(_hSelf, TTM_TRACKACTIVATE, true, reinterpret_cast<LPARAM>(&_ti));
+
+	reposition({ iXOff, iWidthOff });
 }
 
+void ToolTip::reposition(const POINT& pt)
+{
+	LRESULT size = ::SendMessage(_hSelf, TTM_GETBUBBLESIZE, 0, reinterpret_cast<LPARAM>(&_ti));
+	LONG width = LOWORD(size);
+	LONG height = HIWORD(size);
+
+	// Vertical offset so that the tooltip is below the cursor.
+	// This is roughly the height of the visible cursor area.
+	// To get more precise value, one would need to analyze DIB of the cursor info.
+	static const int kCursorHeight = 20;
+
+	RECT rc;
+	rc.left = pt.x;
+	rc.top = pt.y + kCursorHeight;
+	rc.right = rc.left + width;
+	rc.bottom = rc.top + height;
+
+	// Fit it within the display
+	RECT displayRc = getDisplayRect(_hSelf);
+
+	int dx = 0;
+	if (rc.left < displayRc.left)
+		dx = width;
+	else if (rc.right > displayRc.right)
+		dx = -width;
+	int dy = 0;
+	if (rc.top < displayRc.top)
+		dy = height;
+	else if (rc.bottom > displayRc.bottom)
+		dy = -height;
+
+	OffsetRect(&rc, dx, dy);
+
+	::SetWindowPos(_hSelf, NULL, rc.left, rc.top, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
+}
+
+void ToolTip::showAtCursor(const TCHAR* pszTitleText)
+{
+	POINT pt{};
+	if (::GetCursorPos(&pt))
+		show(pszTitleText, pt.x, pt.y);
+}
 
 LRESULT ToolTip::runProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	return ::CallWindowProc(_defaultProc, _hSelf, message, wParam, lParam);
 }
 
+void ToolTip::trackMouse(HWND hwnd, DWORD flags)
+{
+	TRACKMOUSEEVENT tme{};
+	tme.cbSize = sizeof(tme);
+	tme.hwndTrack = hwnd;
+	tme.dwFlags = flags;
+	tme.dwHoverTime = 1000;
+	_bTrackMouse = _TrackMouseEvent(&tme);
+}

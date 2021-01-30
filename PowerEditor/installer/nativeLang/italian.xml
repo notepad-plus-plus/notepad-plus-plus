@@ -1,11 +1,11 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-    Italian translation for Notepad++ 7.9.1
-    Last modified Sat, Oct 24th, 2020.
+    Italian translation for Notepad++ 7.9.3
+    Last modified Sat, Jan 30th, 2021.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 <NotepadPlus>
-    <Native-Langue name = "Italiano" filename = "italian.xml" version = "7.9.1">
+    <Native-Langue name = "Italiano" filename = "italian.xml" version = "7.9.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -26,15 +26,15 @@
                 <!-- Sub Menu Entries -->
                 <SubEntries>
                     <Item subMenuId = "file-openFolder" name = "Apri cartella file" />
-                    <Item subMenuId = "file-recentFiles" name = "File recenti" />
                     <Item subMenuId = "file-closeMore" name = "Chiudi di più" />
+                    <Item subMenuId = "file-recentFiles" name = "File recenti" />
                     <Item subMenuId = "edit-copyToClipboard" name = "Copia negli Appunti" />
                     <Item subMenuId = "edit-indent" name = "Indenta" />
                     <Item subMenuId = "edit-convertCaseTo" name = "Converti caratteri" />
-                    <Item subMenuId = "edit-lineOperations" name = "Operazioni sulle linee" />
-                    <Item subMenuId = "edit-comment" name = "Commenta/decommenta" />
+                    <Item subMenuId = "edit-lineOperations" name = "Operazioni sulle righe" />
+                    <Item subMenuId = "edit-comment" name = "Commenta/Rimuovi commenti" />
                     <Item subMenuId = "edit-autoCompletion" name = "Auto-completamento" />
-                    <Item subMenuId = "edit-eolConversion" name = "Converti carattere di fine linea" />
+                    <Item subMenuId = "edit-eolConversion" name = "Converti carattere di fine riga" />
                     <Item subMenuId = "edit-blankOperations" name = "Operazioni sugli spazi" />
                     <Item subMenuId = "edit-pasteSpecial" name = "Incolla speciale" />
                     <Item subMenuId = "edit-onSelection" name = "Testo selezionato" />
@@ -128,7 +128,7 @@
                     <Item id = "42019" name = "&amp;Ferma registrazione" />
                     <Item id = "42020" name = "Inizio/Fine selezione" />
                     <Item id = "42021" name = "&amp;Esegui la macro" />
-                    <Item id = "42022" name = "Commenta / Decommenta singola riga" />
+                    <Item id = "42022" name = "Commenta / Rimuovi Commento per singola riga" />
                     <Item id = "42023" name = "Commenta blocco" />
                     <Item id = "42024" name = "Elimina spazi a fine riga" />
                     <Item id = "42025" name = "Salva la macro registrata..." />
@@ -142,7 +142,7 @@
                     <Item id = "42033" name = "Pulisci il flag di sola lettura" />
                     <Item id = "42034" name = "Editor a colonne..." />
                     <Item id = "42035" name = "Commenta singola riga" />
-                    <Item id = "42036" name = "Decommenta singola riga" />
+                    <Item id = "42036" name = "Rimuovi commento per singola riga" />
                     <Item id = "42037" name = "Modalità colonna..." />
                     <Item id = "42038" name = "Incolla contenuto HTML" />
                     <Item id = "42039" name = "Incolla contenuto RTF" />
@@ -153,10 +153,11 @@
                     <Item id = "42044" name = "Converti EOL in Spazio" />
                     <Item id = "42045" name = "Rimuovi spazi e EOL non necessari" />
                     <Item id = "42046" name = "Converti TAB in spazi" />
-                    <Item id = "42047" name = "Decommenta blocco" />
+                    <Item id = "42047" name = "Rimuovi commenti per il blocco" />
                     <Item id = "42048" name = "Copia contenuto binario" />
                     <Item id = "42049" name = "Taglia contenuto binario" />
                     <Item id = "42050" name = "Incolla contenuto binario" />
+					<Item id = "42082" name = "Copia link"/> 
                     <Item id = "42051" name = "Pannello caratteri" />
                     <Item id = "42052" name = "Cronologia Appunti" />
                     <Item id = "42053" name = "Converti spazi in tabulazioni (a inizio riga)" />
@@ -184,9 +185,9 @@
                     <Item id = "42074" name = "Apri cartella in Esplora Risorse" />
                     <Item id = "42075" name = "Cerca in Internet" />
                     <Item id = "42076" name = "Modifica motore di ricerca..." />
-                    <Item id = "42077" name = "Rimuovi linee duplicate consecutive" />
+                    <Item id = "42077" name = "Rimuovi le righe duplicate consecutive" />
                     <Item id = "42078" name = "Ordina righe in modo casuale" />
-                    <Item id = "42079" name = "Rimuovi linee duplicate" />
+                    <Item id = "42079" name = "Rimuovi righe duplicate" />
                     <Item id = "42080" name = "Ordina righe in modo crescente ignorando maiuscole/minuscole"/>
                     <Item id = "42081" name = "Ordina righe in modo decrescente ignorando maiuscole/minuscole"/>
 
@@ -363,13 +364,13 @@
                 <Item CMID = "1" name = "Chiudi tutte tranne questa" />
                 <Item CMID = "2" name = "Salva" />
                 <Item CMID = "3" name = "Salva come..." />
-                <Item CMID = "4" name = "Stampa" />
+                <Item CMID = "4" name = "Stampa..." />
                 <Item CMID = "5" name = "Sposta nell&apos;altra vista" />
                 <Item CMID = "6" name = "Copia nell&apos;altra vista" />
                 <Item CMID = "7" name = "Copia percorso file" />
                 <Item CMID = "8" name = "Copia nome file" />
                 <Item CMID = "9" name = "Copia percorso cartella" />
-                <Item CMID = "10" name = "Rinomina file" />
+                <Item CMID = "10" name = "Rinomina file..." />
                 <Item CMID = "11" name = "Elimina file" />
                 <Item CMID = "12" name = "Sola lettura" />
                 <Item CMID = "13" name = "Reimposta flag sola lettura" />
@@ -532,14 +533,14 @@
                     <Item id = "41019" name = "Apri la cartella in Explorer" />
                     <Item id = "41020" name = "Apri la cartella nel Prompt dei Comandi" />
                     <Item id = "41021" name = "Ripristina i file recenti" />
-                    <Item id = "45001" name = "Fine linea in formato Windows (CR+LF)" />
-                    <Item id = "45002" name = "Fine linea in formato UNIX (LF)" />
-                    <Item id = "45003" name = "Fine linea in formato Macintosh (CR)" />
-                    <Item id = "43022" name = "Segna i risultati di ricerca usando il 1º stile" />
-                    <Item id = "43024" name = "Segna i risultati di ricerca usando il 2º stile" />
-                    <Item id = "43026" name = "Segna i risultati di ricerca usando il 3º stile" />
-                    <Item id = "43028" name = "Segna i risultati di ricerca usando il 4º stile" />
-                    <Item id = "43030" name = "Segna i risultati di ricerca usando il 5º stile" />
+                    <Item id = "45001" name = "Fine riga in formato Windows (CR+LF)" />
+                    <Item id = "45002" name = "Fine riga in formato UNIX (LF)" />
+                    <Item id = "45003" name = "Fine riga in formato Macintosh (CR)" />
+                    <Item id = "43022" name = "Segna il testo usando il 1º stile" />
+                    <Item id = "43024" name = "Segna il testo usando il 2º stile" />
+                    <Item id = "43026" name = "Segna il testo usando il 3º stile" />
+                    <Item id = "43028" name = "Segna il testo usando il 4º stile" />
+                    <Item id = "43030" name = "Segna il testo usando il 5º stile" />
                     <Item id = "43023" name = "Pulisci i segni che utilizzano il 1º stile" />
                     <Item id = "43025" name = "Pulisci i segni che utilizzano il 2º stile" />
                     <Item id = "43027" name = "Pulisci i segni che utilizzano il 3º stile" />
@@ -763,7 +764,7 @@
                     <Item id = "25014" name = "Delimitatore 7" />
                     <Item id = "25015" name = "Delimitatore 8" />
                     <Item id = "25016" name = "Commento" />
-                    <Item id = "25017" name = "Linea di commento" />
+                    <Item id = "25017" name = "Riga di commento" />
                     <Item id = "25018" name = "Parola chiave 1" />
                     <Item id = "25019" name = "Parola chiave 2" />
                     <Item id = "25020" name = "Parola chiave 3" />
@@ -818,39 +819,38 @@
                     <Item id = "6219" name = "Velocità:" />
                     <Item id = "6221" name = "V" />
                     <Item id = "6222" name = "L" />
-
-                    <Item id = "6224" name = "Selezione Multipla" />
                     <Item id = "6225" name = "Abilita (Ctrl+clic/selezione)" />
 
+                    <Item id = "6227" name = "A Capo Automatico" />
+                    <Item id = "6228" name = "Predefinito" />
+                    <Item id = "6229" name = "Allineato" />
+                    <Item id = "6230" name = "Indentato" />
+                    <Item id = "6234" name = "Disabilita scrolling avanzato&#xA;(in caso di problemi con touchpad)" />
+                    <Item id = "6214" name = "Evidenzia la riga attuale" />
+                    <Item id = "6215" name = "Abilita antialiasing caratteri" />
+                    <Item id = "6236" name = "Abilita scorrimento oltre l&apos;ultima riga" />
+                    <Item id = "6239" name = "Mantieni la selezione quando clicchi con il destro fuori da essa" />
+                </Scintillas>
+		        <MarginsBorderEdge title="Margins/Border/Edge"> 
                     <Item id = "6201" name = "Stile Raggruppamenti" />
                     <Item id = "6202" name = "Semplice" />
                     <Item id = "6203" name = "Freccia" />
                     <Item id = "6204" name = "Cerchio" />
                     <Item id = "6205" name = "Quadrato" />
                     <Item id = "6226" name = "Nessuno" />
-
-                    <Item id = "6211" name = "Limite Di Colonna" />
-                    <Item id = "6208" name = "Visualizza il limite di colonna" />
-                    <Item id = "6213" name = "Modalità &apos;sfondo&apos;" />
-
-                    <Item id = "6227" name = "A Capo Automatico" />
-                    <Item id = "6228" name = "Predefinito" />
-                    <Item id = "6229" name = "Allineato" />
-                    <Item id = "6230" name = "Indentato" />
-
-                    <Item id = "6231" name = "Spessore Bordo Editor" />
-
-                    <Item id = "6206" name = "Visualizza i numeri di riga" />
+                    <Item id = "6291" name = "Numeri di riga"/> 
+                    <Item id = "6206" name = "Visualizza" />
+ 		            <Item id = "6292" name = "Larghezza dinamica"/> 
+ 		            <Item id = "6293" name = "Larghezza costante"/> 
                     <Item id = "6207" name = "Visualizza i segnalibri" />
-                    <Item id = "6214" name = "Evidenzia la riga attuale" />
-                    <Item id = "6215" name = "Abilita antialiasing caratteri" />
-                    <Item id = "6234" name = "Disabilita scrolling avanzato&#xA;(in caso di problemi con touchpad)" />
-                    <Item id = "6235" name = "Nessun bordo" />
-                    <Item id = "6236" name = "Abilita scorrimento oltre l&apos;ultima riga" />
+                    <Item id = "6211" name = "Limite Di Colonna" />
+                    <Item id = "6213" name = "Modalità &apos;sfondo&apos;" />
                     <Item id = "6237" name = "Aggiungi il tuo delimitatore di colonna indicante la sua posizione con un numero decimale.
 Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i diversi numeri." />
-                    <Item id = "6239" name = "Mantieni la selezione quando clicchi con il destro fuori da essa" />
-                </Scintillas>
+                    <Item id = "6231" name = "Spessore Bordo Editor" />
+                    <Item id = "6235" name = "Nessun bordo" />
+		        </MarginsBorderEdge> 				
+				
                 <NewDoc title = "Nuovo documento">
                     <Item id = "6401" name = "Formato (fine riga)" />
                     <Item id = "6402" name = "Windows (CR+LF)" />
@@ -867,21 +867,12 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
                     <Item id = "6420" name = "Applica all&apos;apertura di file ANSI" />
                 </NewDoc>
                 <DefaultDir title = "Cartella predefinita">
-                    <Item id = "6413" name = "Cartella Predefinita (Apri/Salva)" />
+                    <Item id = "6413" name = "Cartella Predefinita per Apri/Salva" />
                     <Item id = "6414" name = "Secondo il documento attuale" />
                     <Item id = "6415" name = "Ricorda l&apos;ultima cartella utilizzata" />
+					<Item id = "6430" name = "Usa nuovo stile di dialogo (senza funzionalità percorso di stile Unix)"/> 
                     <Item id = "6431" name = "Apri tutti i file della cartella invece di avviare Cartella come Workspace al trascinamento" />
                 </DefaultDir>
-                <RecentFilesHistory title = "File recenti">
-                    <Item id = "6304" name = "Lista Documenti Recenti" />
-                    <Item id = "6305" name = "Non controllare all&apos;avvio" />
-                    <Item id = "6306" name = "Massimo numero di voci:" />
-                    <Item id = "6424" name = "In un sottomenù" />
-                    <Item id = "6425" name = "Solo nome file" />
-                    <Item id = "6426" name = "Intero percorso" />
-                    <Item id = "6427" name = "Personalizza lunghezza massima:" />
-                    <Item id = "6429" name = "Visualizza" />
-                </RecentFilesHistory>
                 <FileAssoc title = "Associazione file">
                     <Item id = "4008" name = "Per favore chiudi Notepad++ e rilancia Notepad++ con privilegi di Amministratore per usare questa funzionalità" />
                     <Item id = "4009" name = "Estensioni supportate:" />
@@ -945,6 +936,17 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
                     <Item id = "6903" name = "La finestra di ricerca rimane aperta dopo ricerche inviate alla finestra dei risultati" />
                     <Item id = "6904" name = "Chiedi conferma prima di sostituire tutto in tutti i documenti" />
                 </Searching> 
+                <RecentFilesHistory title = "File recenti">
+                    <Item id = "6304" name = "Lista Documenti Recenti" />
+                    <Item id = "6305" name = "Non controllare all&apos;avvio" />
+                    <Item id = "6306" name = "Massimo numero di voci:" />
+                    <Item id = "6424" name = "In un sottomenù" />
+                    <Item id = "6425" name = "Solo nome file" />
+                    <Item id = "6426" name = "Intero percorso" />
+                    <Item id = "6427" name = "Personalizza lunghezza massima:" />
+                    <Item id = "6429" name = "Visualizza" />
+                </RecentFilesHistory>
+				
                 <Backup title = "Backup">
                     <Item id = "6817" name = "Snapshot Sessione e Backup Periodico" />
                     <Item id = "6309" name = "Ricorda sessione attuale al prossimo avvio" />
@@ -991,21 +993,31 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
                     <Item id = "6251" name = "Impostazioni Selezione Delimitatori (Ctrl+doppio clic)" />
                     <Item id = "6252" name = "Apri" />
                     <Item id = "6255" name = "Chiudi" />
-                    <Item id = "6256" name = "Permetti su più linee" />
+                    <Item id = "6256" name = "Permetti su più righe" />
                     <Item id = "6161" name = "Lista caratteri delimitatori di parola" />
                     <Item id = "6162" name = "Utilizza i delimitatori di parola standard" />
                     <Item id = "6163" name = "Aggiungi i tuoi caratteri delimitatori di parola
 (non selezionarlo se non sai cosa stai facendo)" />
                 </Delimiter>
-                <Cloud title = "Cloud">
+                <Cloud title = "Cloud e link">
                     <Item id = "6262" name = "Impostazioni Sul Cloud" />
                     <Item id = "6263" name = "Nessun servizio cloud" />
+                    <Item id = "6267" name = "Imposta qui il percorso della tua cartella cloud:" />
+                    <Item id = "6318" name = "Link Cliccabili" />
+                    <Item id = "6319" name = "Abilita" />
+                    <Item id = "6320" name = "Non sottolineare" />
+                    <Item id = "6350" name = "Abilita modalità fullbox" />
+					<Item id = "6264" name = "Schema personalizzabile URI"/> 
+					
                     <!--Item id = "6264" name = "Dropbox" />
                     <Item id = "6265" name = "OneDrive" />
                     <Item id = "6266" name = "Google Drive" />
                     <Item id = "6261" name = "Riavvia Notepad++ per applicare le modifiche." />-->
-                    <Item id = "6267" name = "Imposta qui il percorso della tua cartella cloud:" />
                 </Cloud>
+				
+				
+				
+				
                 <SearchEngine title = "Motore di ricerca" >
                     <Item id = "6271" name = "Motore Di Ricerca (per il commando 'Cerca in Internet')" />
                     <Item id = "6272" name = "DuckDuckGo" />
@@ -1022,31 +1034,23 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
                         <Element name = "Attiva per tutti i tab" />
                         <Element name = "Disattiva" />
                     </ComboBox>
-                    <Item id = "6324" name = "Cambia Documento (Ctrl+TAB)" />
-                    <Item id = "6114" name = "Abilita" />
-                    <Item id = "6117" name = "Precedenza ai file più recenti" />
-
-                    <Item id = "6344" name = "Anteprima documenti" />
-                    <Item id = "6345" name = "Anteprima sulle schede" />
-                    <Item id = "6346" name = "Anteprima sulla mappa documento" />
-
-                    <Item id = "6318" name = "Link Cliccabili" />
-                    <Item id = "6319" name = "Abilita" />
-                    <Item id = "6320" name = "Non sottolineare" />
-
+                    <Item id = "6308" name = "Minimizza nell&apos;area di notifica" />
                     <Item id = "6312" name = "Rilevamento Stato File" />
                     <Item id = "6313" name = "Aggiorna senza notifica" />
                     <Item id = "6325" name = "Vai all&apos;ultima riga dopo l&apos;aggiornamento" />
-
-                    <Item id = "6334" name = "Rileva automaticamente codifica caratteri" />
-                    <Item id = "6308" name = "Minimizza nell&apos;area di notifica" />
-                    <Item id = "6331" name = "Visualizza solo nome file nella barra del titolo" />
-                    <Item id = "6323" name = "Aggiorna automaticamente Notepad++" />
-                    <Item id = "6349" name = "Utilizza DirectWrite (può migliorare la visualizzazione dei caratteri speciali, necessita riavvio di Notepad++)" />
-                    <Item id = "6350" name = "Abilita modalità fullbox" />
                     <Item id = "6322" name = "Est. file di sessione:" />
+                    <Item id = "6323" name = "Aggiorna automaticamente Notepad++" />
+                    <Item id = "6351" name = "Imposta il filtro dell'estensione della finestra di dialogo a .*"/>
+                    <Item id = "6324" name = "Cambia Documento (Ctrl+TAB)" />
+                    <Item id = "6331" name = "Visualizza solo nome file nella barra del titolo" />
+                    <Item id = "6334" name = "Rileva automaticamente codifica caratteri" />
+                    <Item id = "6349" name = "Utilizza DirectWrite (può migliorare la visualizzazione dei caratteri speciali, necessita riavvio di Notepad++)" />
                     <Item id = "6337" name = "Est. file workspace:" />
-                    <Item id = "6351" name = "Imposta il filtro dell'estensione della finestra di dialogo a .* invece di .txt per i file di testo"/>
+                    <Item id = "6114" name = "Abilita" />
+                    <Item id = "6117" name = "Precedenza ai file più recenti" />
+                    <Item id = "6344" name = "Anteprima documenti" />
+                    <Item id = "6345" name = "Anteprima sulle schede" />
+                    <Item id = "6346" name = "Anteprima sulla mappa documento" />
                 </MISC>
             </Preference>
             <MultiMacro title = "Esegui macro più volte">
@@ -1116,7 +1120,8 @@ Continuare?" />
             <DocReloadWarning title = "Ricarica" message = "Sei sicuro di voler ricaricare il file? Ogni modifica apportata andrà persa." />
             <FileLockedWarning title = "Salvataggio fallito" message = "Verificare che il file non sia aperto con un altro programma." />
             <FileAlreadyOpenedInNpp title = "" message = "Il file è già aperto in Notepad++." />
-            <DeleteFileFailed title = "Eliminazione file" message = "Eliminazione del file fallita." />
+            <RenameTabTemporaryNameAlreadyInUse title="Rinomina fallita" message="Il file specificato è già in uso su un'altro tab."/> <!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
+			<DeleteFileFailed title = "Eliminazione file" message = "Eliminazione del file fallita." />
             <NbFileToOpenImportantWarning title = "Il numero di file da aprire è troppo grande" message = "Si stanno aprendo $INT_REPLACE$ file.
 Sicuro di volerli aprire?" />
             <SettingsOnCloudError title = "Impostazioni Cloud" message = "Sembra che il percorso per le impostazioni nel cloud sia impostato su una cartella in sola lettura,
@@ -1205,6 +1210,7 @@ Vuoi continuare?" />
             <ColumnPath name = "Percorso" />
             <ColumnType name = "Tipo" />
             <ColumnSize name = "Dimensione" />
+			<NbDocsTotal name="documenti totali:"/> 
         </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name = "Pannello Inserimento ASCII" />
@@ -1225,6 +1231,9 @@ Vuoi continuare?" />
         <FolderAsWorkspace>
             <PanelTitle name = "Cartella come Workspace" />
             <SelectFolderFromBrowserString name = "Seleziona una cartella da aggiungere come pannello spazio lavoro" />
+            <ExpandAllFoldersTip name = "Espandi tutte le cartelle"/> 
+ 		    <CollapseAllFoldersTip name = "Riduci tutte le cartelle"/> 
+ 		    <LocateCurrentFileTip name = "Individua il file corrente"/> 
             <Menus>
                 <Item id = "3511" name = "Rimuovi" />
                 <Item id = "3512" name = "Rimuovi tutto" />
@@ -1333,11 +1342,12 @@ Cerca in tutti i file eccetto exe, obj &amp;&amp; log:
             <finder-close-this value = "Chiudi i risultati" />
             <finder-collapse-all value = "Collassa tutto" />
             <finder-uncollapse-all value = "Espandi tutto" />
-            <finder-copy value = "Copia" />
+            <finder-copy value = "Copia righe selezionate" />
+			<finder-copy-verbatim value="Copia"/>
             <finder-select-all value = "Seleziona tutto" />
             <finder-clear-all value = "Pulisci tutto" />
             <finder-open-all value = "Apri tutto" />
-            <finder-wrap-long-lines value = "A capo nelle linee lunghe" />
+            <finder-wrap-long-lines value = "A capo nelle righe lunghe" />
             <common-ok value="OK" />
             <common-cancel value="Annulla" />
             <common-name value="Nome: " />
@@ -1354,25 +1364,29 @@ Cerca in tutti i file eccetto exe, obj &amp;&amp; log:
             <summary-filepath value="Percorso completo file: " />
             <summary-filecreatetime value="Creato: " />
             <summary-filemodifytime value="Modificato: " />
-            <summary-nbchar value="N. caratteri (esclusi caratteri fine linea): " />
+            <summary-nbchar value="N. caratteri (esclusi caratteri fine riga): " />
             <summary-nbword value="Parole: " />
-            <summary-nbline value="Linee: " />
-            <summary-nbbyte value="Lunghezza documento: " />
+            <summary-nbline value="Righe: " />
+            <summary-nbbyte value="Dimensioni documento: " />
             <summary-nbsel1 value=" caratteri selezionati (" />
             <summary-nbsel2 value=" byte) in " />
             <summary-nbrange value=" intervalli" />
+			<find-in-files-progress-title value="Trova nei file in corso..."/>
             <replace-in-files-confirm-title value="Sei sicuro?" />
             <replace-in-files-confirm-directory value="Sei sicuro di voler sostituire tutte le occorrenze in: " />
             <replace-in-files-confirm-filetype value="Per i tipi di file: " />
-            <replace-in-open-docs-confirm-title value="Conferma" />
+            <replace-in-files-progress-title value="Sostituisci nei file in corso..."/>
+			<replace-in-open-docs-confirm-title value="Conferma" />
             <replace-in-open-docs-confirm-message value="Sei sicuro di voler sostituire tutte le occorrenze in tutti i file aperti?" />
             <find-result-caption value="Trova risultati" />
-            <find-result-title value="Trova" />
+            <find-result-title value="Trova" /> <!-- Must not begin with space or tab character -->
             <find-result-title-info value="($INT_REPLACE1$ occorrenze in $INT_REPLACE2$ files di $INT_REPLACE3$ ricercati)" />
             <find-result-title-info-selections value="($INT_REPLACE1$ occorrenze in $INT_REPLACE2$ selezioni di $INT_REPLACE3$ trovate)" />
-            <find-result-title-info-extra value=" - Modalità filtro linea: mostra solo i risultati filtrati" />
+            <find-result-title-info-extra value=" - Modalità filtro riga: mostra solo i risultati filtrati" />
             <find-result-hits value="($INT_REPLACE$ occorrenze)" />
+			<find-result-line-prefix value="Righe"/> <!-- Must not begin with space or tab character -->
             <find-regex-zero-length-match value="nessun risultato trovato" />
+			<session-save-folder-as-workspace value="Salva Cartella come Workspace" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

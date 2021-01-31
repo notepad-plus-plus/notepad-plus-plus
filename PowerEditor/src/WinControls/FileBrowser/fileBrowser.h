@@ -103,6 +103,8 @@ private:
 	HANDLE _watchThreadHandle = nullptr;
 	HANDLE _EventHandle = nullptr;
 	static DWORD WINAPI watching(void *param);
+
+	static void processChange(DWORD dwAction, std::vector<generic_string> filesToChange, FolderUpdater* thisFolderUpdater);
 };
 
 struct SortingData4lParam {
@@ -143,11 +145,10 @@ public:
 	void addRootFolder(generic_string rootFolderPath);
 
 	HTREEITEM getRootFromFullPath(const generic_string & rootPath) const;
-	HTREEITEM findChildNodeFromName(HTREEITEM parent, const generic_string&) const;
+	HTREEITEM findChildNodeFromName(HTREEITEM parent, const generic_string& label) const;
 
-	bool addInTree(const generic_string& rootPath, const generic_string& addItemFullPath, HTREEITEM node, std::vector<generic_string> linarPathArray);
 	HTREEITEM findInTree(const generic_string& rootPath, HTREEITEM node, std::vector<generic_string> linarPathArray) const;
-	bool deleteFromTree(const generic_string& rootPath, HTREEITEM node, const std::vector<generic_string>& linarPathArray);
+
 	void deleteAllFromTree() {
 		popupMenuCmd(IDM_FILEBROWSER_REMOVEALLROOTS);
 	};
@@ -187,6 +188,25 @@ protected:
 	void popupMenuCmd(int cmdID);
 
 	bool selectCurrentEditingFile() const;
+
+	struct FilesToChange {
+		generic_string _commonPath; // Common path between all the files. _rootPath + _linarWithoutLastPathElement
+		generic_string _rootPath;
+		std::vector<generic_string> _linarWithoutLastPathElement;
+		std::vector<generic_string> _files; // file/folder names
+	};
+
+	std::vector<FilesToChange> getFilesFromParam(LPARAM lParam) const;
+
+	bool addToTree(FilesToChange & group, HTREEITEM node);
+
+	bool deleteFromTree(FilesToChange & group);
+
+	std::vector<HTREEITEM> findInTree(FilesToChange & group, HTREEITEM node) const;
+
+	std::vector<HTREEITEM> findChildNodesFromNames(HTREEITEM parent, std::vector<generic_string> & labels) const;
+
+	void removeNamesAlreadyInNode(HTREEITEM parent, std::vector<generic_string> & labels) const;
 
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void notified(LPNMHDR notification);

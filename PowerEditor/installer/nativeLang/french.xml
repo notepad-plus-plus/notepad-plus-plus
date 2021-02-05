@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Français" filename="french.xml" version="7.9.3">
+    <Native-Langue name="français" filename="french.xml" version="7.9.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->

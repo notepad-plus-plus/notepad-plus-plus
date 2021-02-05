@@ -17,6 +17,9 @@
 
 SectionGroup "Localization" localization
 	SetOverwrite on
+	${MementoUnselectedSection} "Abkhazian" abkhazian
+		CopyFiles "$PLUGINSDIR\nppLocalization\abkhazian.xml" "$INSTDIR\localization\abkhazian.xml"
+	${MementoSectionEnd}
 	${MementoUnselectedSection} "Afrikaans" afrikaans
 		CopyFiles "$PLUGINSDIR\nppLocalization\afrikaans.xml" "$INSTDIR\localization\afrikaans.xml"
 	${MementoSectionEnd}
@@ -294,6 +297,9 @@ SectionGroup "Localization" localization
 SectionGroupEnd
 
 SectionGroup un.localization
+	Section un.abkhazian
+		Delete "$INSTDIR\localization\abkhazian.xml"
+	SectionEnd
 	Section un.afrikaans
 		Delete "$INSTDIR\localization\afrikaans.xml"
 	SectionEnd

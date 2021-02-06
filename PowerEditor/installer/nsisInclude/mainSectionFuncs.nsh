@@ -121,9 +121,11 @@ Function copyCommonFiles
 	IfFileExists "$INSTDIR\nativeLang.xml" 0 +2
 		Delete "$INSTDIR\nativeLang.xml"
 
-	StrCmp $LANGUAGE ${LANG_ENGLISH} +3 0
+	StrCmp $LANGUAGE ${LANG_ENGLISH} +5 0
 	CopyFiles "$PLUGINSDIR\nppLocalization\$(langFileName)" "$UPDATE_PATH\nativeLang.xml"
 	CopyFiles "$PLUGINSDIR\nppLocalization\$(langFileName)" "$INSTDIR\localization\$(langFileName)"
+	IfFileExists "$PLUGINSDIR\gupLocalization\$(langFileName)" 0 +2
+		CopyFiles "$PLUGINSDIR\gupLocalization\$(langFileName)" "$INSTDIR\updater\nativeLang.xml"
 FunctionEnd
 
 	

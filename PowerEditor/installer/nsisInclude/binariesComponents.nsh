@@ -76,6 +76,8 @@ ${MementoSection} "Auto-Updater" AutoUpdater
 	File "..\bin\updater\LICENSE"
 	File "..\bin\updater\README.md"
 !endif
+	SetOutPath "$PLUGINSDIR\gupLocalization"
+	File "..\bin\updater\translations\"
 ${MementoSectionEnd}
 
 ${MementoSection} "Plugins Admin" PluginsAdmin
@@ -143,6 +145,7 @@ Section un.AutoUpdater
 	Delete "$INSTDIR\updater\readme.txt"
 	Delete "$INSTDIR\updater\README.md"
 	Delete "$INSTDIR\updater\getDownLoadUrl.php"
+	Delete "$INSTDIR\updater\nativeLang.xml"
 	RMDir "$INSTDIR\updater"
 SectionEnd
 

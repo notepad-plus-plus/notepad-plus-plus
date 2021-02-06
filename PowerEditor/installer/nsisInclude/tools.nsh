@@ -127,19 +127,21 @@ Function preventInstallInWin9x
 		MessageBox MB_OK "Notepad++ does not support your OS. The installation will be aborted."
 		Abort
 		
-	StrCmp $WinVer "XP" 0 +3 ; XP
+	StrCmp $WinVer "XP" 0 xp_endTest ; XP
 		MessageBox MB_YESNO "This version of Notepad++ doesn't support Windows XP. The installation will be aborted.$\nDo you want to go to Notepad++ download page for downloading the last version which supports XP (v7.9.2)?" IDYES xp_openDlPage IDNO xp_goQuit
 xp_openDlPage:
 		ExecShell "open" "https://notepad-plus-plus.org/downloads/v7.9.2/"
 xp_goQuit:
 		Abort
+xp_endTest:
 		
-	StrCmp $WinVer "2003" 0 +3 ; Windows Server 2003
+	StrCmp $WinVer "2003" 0 ws2003_endTest ; Windows Server 2003
 		MessageBox MB_YESNO "This version of Notepad++ doesn't support Windows Server 2003. The installation will be aborted.$\nDo you want to go to Notepad++ download page for downloading the last version which supports this OS?" IDYES ws2003_openDlPage IDNO ws2003_goQuit
 ws2003_openDlPage:
 		ExecShell "open" "https://notepad-plus-plus.org/downloads/v7.9.2/"
 ws2003_goQuit:
 		Abort
+ws2003_endTest:
 FunctionEnd
 
 Var noUserDataChecked

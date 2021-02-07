@@ -17,6 +17,8 @@
 #include <stdexcept>
 #include <windows.h>
 #include "SplitterContainer.h"
+#include "Parameters.h"
+#include "localization.h"
 #include <cassert>
 
 
@@ -179,12 +181,12 @@ LRESULT SplitterContainer::runProc(UINT message, WPARAM wParam, LPARAM lParam)
 		{
 			switch (LOWORD(wParam))
 			{
-				case ROTATION_A_GAUCHE:
+				case ROTATION_LEFT:
 				{
 					rotateTo(DIRECTION::LEFT);
 					break;
 				}
-				case ROTATION_A_DROITE:
+				case ROTATION_RIGHT:
 				{
 					rotateTo(DIRECTION::RIGHT);
 					break;
@@ -240,8 +242,15 @@ LRESULT SplitterContainer::runProc(UINT message, WPARAM wParam, LPARAM lParam)
 				if (!_hPopupMenu)
 				{
 					_hPopupMenu = ::CreatePopupMenu();
-					::InsertMenu(_hPopupMenu, 1, MF_BYPOSITION, ROTATION_A_GAUCHE, TEXT("Rotate to left"));
-					::InsertMenu(_hPopupMenu, 0, MF_BYPOSITION, ROTATION_A_DROITE, TEXT("Rotate to right"));
+
+					NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
+					const generic_string textLeft =
+						nativeLangSpeaker->getLocalizedStrFromID("splitter-rotate-left", TEXT("Rotate to left"));
+					const generic_string textRight =
+						nativeLangSpeaker->getLocalizedStrFromID("splitter-rotate-right", TEXT("Rotate to right"));
+
+					::InsertMenu(_hPopupMenu, 1, MF_BYPOSITION, ROTATION_LEFT, textLeft.c_str());
+					::InsertMenu(_hPopupMenu, 0, MF_BYPOSITION, ROTATION_RIGHT, textRight.c_str());
 				}
 
 				::TrackPopupMenu(_hPopupMenu, TPM_LEFTALIGN, p.x, p.y, 0, _hSelf, NULL);

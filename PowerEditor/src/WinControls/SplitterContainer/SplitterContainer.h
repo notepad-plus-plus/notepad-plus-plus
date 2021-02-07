@@ -20,8 +20,8 @@
 
 #define SPC_CLASS_NAME TEXT("splitterContainer")
 
-#define ROTATION_A_GAUCHE 2000
-#define ROTATION_A_DROITE 2001
+#define ROTATION_LEFT 2000
+#define ROTATION_RIGHT 2001
 
 
 enum class DIRECTION

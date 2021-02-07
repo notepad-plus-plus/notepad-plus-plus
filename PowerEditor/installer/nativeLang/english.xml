@@ -428,6 +428,12 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="2910" name="Find"/>
             </FindCharsInRange>
 
+            <FindIncremental title="">
+                <Item id="1681" name="Find: "/>
+                <Item id="1690" name="&amp;Highlight all"/>
+                <Item id="1685" name="Match &amp;case"/>
+            </FindIncremental>
+
             <GoToLine title="Go to...">
                 <Item id="2007" name="&amp;Line"/>
                 <Item id="2008" name="&amp;Offset"/>
@@ -1358,6 +1364,8 @@ Find in all files except exe, obj &amp;&amp; log:
             <common-name value="Name: "/>
             <tabrename-title value="Rename Current Tab"/>
             <tabrename-newname value="New Name: "/>
+            <splitter-rotate-left value="Rotate to left"/>
+            <splitter-rotate-right value="Rotate to right"/>
             <recent-file-history-maxfile value="Max File: "/>
             <language-tabsize value="Tab Size: "/>
             <userdefined-title-new value="Create New Language..."/>

@@ -438,6 +438,11 @@ public :
 		return _findStatus;
 	}
 
+	const char* getTagName() const
+	{
+		return "FindIncremental";
+	}
+
 	void addToRebar(ReBar * rebar);
 private :
 	bool _isRTL = false;

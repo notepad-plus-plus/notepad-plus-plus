@@ -3993,6 +3993,13 @@ INT_PTR CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 {
 	switch (message)
 	{
+		case WM_INITDIALOG:
+		{
+			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+			pNativeSpeaker->changeDlgLang(_hSelf, getTagName());
+		}
+		return TRUE;
+
 		// Make edit field red if not found
 		case WM_CTLCOLOREDIT :
 		{

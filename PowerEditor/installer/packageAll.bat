@@ -69,7 +69,7 @@ rmdir /S /Q .\minimalist
 mkdir .\minimalist
 mkdir .\minimalist\userDefineLangs
 
-copy /Y ..\bin\license.txt .\minimalist\
+copy /Y ..\..\LICENSE .\minimalist\license.txt
 If ErrorLevel 1 goto End
 copy /Y ..\bin\readme.txt .\minimalist\
 If ErrorLevel 1 goto End
@@ -96,7 +96,7 @@ rmdir /S /Q .\minimalist64
 mkdir .\minimalist64
 mkdir .\minimalist64\userDefineLangs
 
-copy /Y ..\bin\license.txt .\minimalist64\
+copy /Y ..\..\LICENSE .\minimalist64\license.txt
 If ErrorLevel 1 goto End
 copy /Y ..\bin\readme.txt .\minimalist64\
 If ErrorLevel 1 goto End
@@ -156,7 +156,7 @@ mkdir .\zipped.package.release64\plugins\Config
 mkdir .\zipped.package.release64\plugins\doc
 
 rem Basic: Copy needed files into Notepad++ 32-bit package folders
-copy /Y ..\bin\license.txt .\zipped.package.release\
+copy /Y ..\..\LICENSE .\zipped.package.release\license.txt
 If ErrorLevel 1 goto End
 copy /Y ..\bin\readme.txt .\zipped.package.release\
 If ErrorLevel 1 goto End
@@ -179,7 +179,7 @@ If ErrorLevel 1 goto End
 
 
 rem Basic Copy needed files into Notepad++ 64-bit package folders
-copy /Y ..\bin\license.txt .\zipped.package.release64\
+copy /Y ..\..\LICENSE .\zipped.package.release64\license.txt
 If ErrorLevel 1 goto End
 copy /Y ..\bin\readme.txt .\zipped.package.release64\
 If ErrorLevel 1 goto End

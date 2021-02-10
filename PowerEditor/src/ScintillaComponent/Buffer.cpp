@@ -1501,8 +1501,9 @@ int FileManager::getFileNameFromBuffer(BufferID id, TCHAR * fn2copy)
 
 int FileManager::docLength(Buffer* buffer) const
 {
+	Document curDoc = _pscratchTilla->execute(SCI_GETDOCPOINTER);
 	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, buffer->_doc);
 	int docLen = _pscratchTilla->getCurrentDocLen();
-	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
+	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, curDoc);
 	return docLen;
 }

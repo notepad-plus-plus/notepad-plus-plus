@@ -6279,11 +6279,6 @@ bool Notepad_plus::reloadLang()
 		_nativeLangSpeaker.changeFindReplaceDlgLang(_findReplaceDlg);
 	}
 
-	if (_incrementFindDlg.isCreated())
-	{
-		_nativeLangSpeaker.changeDlgLang(_incrementFindDlg.getHSelf(), _incrementFindDlg.getTagName());
-	}
-
 	if (_goToLineDlg.isCreated())
 	{
 		_nativeLangSpeaker.changeDlgLang(_goToLineDlg.getHSelf(), "GoToLine");

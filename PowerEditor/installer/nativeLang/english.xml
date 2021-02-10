@@ -428,12 +428,6 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="2910" name="Find"/>
             </FindCharsInRange>
 
-            <FindIncremental title="">
-                <Item id="1681" name="Find: "/>
-                <Item id="1690" name="&amp;Highlight all"/>
-                <Item id="1685" name="Match &amp;case"/>
-            </FindIncremental>
-
             <GoToLine title="Go to...">
                 <Item id="2007" name="&amp;Line"/>
                 <Item id="2008" name="&amp;Offset"/>

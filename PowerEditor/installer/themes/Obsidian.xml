@@ -758,6 +758,22 @@ Notepad++ Custom Style
             <WordsStyle name="Selected Line" styleID="5" fgColor="FF8409" bgColor="2F393C" fontName="" fontStyle="1" fontSize="">if else for while</WordsStyle>
             <WordsStyle name="Current line background colour" styleID="6" bgColor="2F393C" fgColor="E0E2E4" fontSize="" fontStyle="0">bool long int char</WordsStyle>
         </LexerType>
+        <LexerType name="json" desc="JSON" ext="">
+            <WordsStyle name="DEFAULT" styleID="0" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="NUMBER" styleID="1" fgColor="FFCD22" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING" styleID="2" fgColor="EC7600" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRINGEOL" styleID="3" fgColor="808080" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="PROPERTYNAME" styleID="4" fgColor="678CB1" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="ESCAPESEQUENCE" styleID="5" fgColor="FF8409" bgColor="293134" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="LINECOMMENT" styleID="6" fgColor="008000" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="BLOCKCOMMENT" styleID="7" fgColor="008000" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="OPERATOR" styleID="8" fgColor="E8E2B7" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="URI" styleID="9" fgColor="EC7600" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="COMPACTIRI" styleID="10" fgColor="0000A0" bgColor="293134" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="KEYWORD" styleID="11" fgColor="93C763" bgColor="293134" fontName="" fontStyle="1" fontSize="" keywordClass="instre1" />
+            <WordsStyle name="LDKEYWORD" styleID="12" fgColor="FF0000" bgColor="293134" fontName="" fontStyle="0" fontSize="" keywordClass="instre2" />
+            <WordsStyle name="ERROR" styleID="13" fgColor="D03565" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+        </LexerType>
     </LexerStyles>
     <GlobalStyles>
         <!-- Attention : Don't modify the name of styleID="0" -->

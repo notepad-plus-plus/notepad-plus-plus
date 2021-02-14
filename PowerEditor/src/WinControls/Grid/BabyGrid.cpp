@@ -1191,9 +1191,10 @@ void DisplayEditString(HWND hWnd,int SI, const TCHAR* tstring)
 		   wcscat_s(BGHS[SI].editstringdisplay,BGHS[SI].editstring);
            }
        else
-           {
-            MessageBeep(0);
-           }
+		{
+			if (!NppParameters::getInstance().getNppGUI()._muteSounds)
+				MessageBeep(0);
+		}
 
        holdfont=(HFONT)SelectObject(cdc,BGHS[SI].hfont);
        rt.right -= 5;
@@ -1400,7 +1401,8 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
              GetClientRect(hWnd, &rect);
              InvalidateRect(hWnd,&rect,TRUE);
              UpdateWindow(hWnd);
-             MessageBeep(0);
+			if (!NppParameters::getInstance().getNppGUI()._muteSounds)
+				MessageBeep(0);
         }
         break;
 
@@ -1669,9 +1671,10 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			  FindResult = static_cast<int32_t>(SendMessage(BGHS[SelfIndex].hlist1, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(buffer)));
 
               if(FindResult==LB_ERR)
-                  {
-                   MessageBeep(0);
-                  }
+			  {
+				if (!NppParameters::getInstance().getNppGUI()._muteSounds)
+					MessageBeep(0);
+			  }
                   {
                    RECT rect;
                    rect=GetCellRect(hWnd,SelfIndex,LPBGcell->row,LPBGcell->col);

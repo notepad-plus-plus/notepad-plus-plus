@@ -1,47 +1,29 @@
-Notepad++ v7.9.2 Enhancements & bug-fixes:
+Notepad++ v7.9.3 Enhancements & bug-fixes:
 
-1.  Fix regression of auto-Indent.
-2.  Add custom URI schemes ability.
-3.  Improve URL parser: fix apostrophe in an URL issue.
-4.  Add context menu with "Copy link" ability.
-5.  Add color samples on menu items for styling features.
-6.  Add "-settingsDir" argument for overriding default settings path.
-7.  Fix crash while exit command issued by plugin.
-8.  Fix several bugs of PHP parser rule for function list.
-9.  Move "Normal Text" to top in Languages Menu.
-10. Add new API NPPM_GETSETTINGSONCLOUDPATH for plugins.
-11. Add an option for displaying constant line number width.
-12. Fix function list is empty with new user profile in the same PC issue.
-13. Fix single-quoted string being badly recognized as attribute value in XML.
-14. Fix docked panels appear with "-nosession" cmd line parameters.
-15. Improve text selection after Replace All In Selection operation.
-16. Add the number of total documents on windows dialog's title bar.
-17. Fix scroll to last line problem after main window resizing.
-18. Fix Plugin admin display UTF-8 issue in its description.
-19. Fix Search result's text direction (RTL) not always synchronized with main edit zone's one issue.
-20. Fix dockable panels display issue in RTL direction.
-21. Fix Search result line number highlighting inaccurate issue.
-22. Make "Line" preceding each line number on Search Results translatable.
-23. Fix menu check marks not being removed after closing "Clipboard History" and "Character Panel" panels.
-24. Fix command line arguments -p, -n & -c negative value's undefined behaviour.
-25. Add new Margin/Border/Edge sub-page in Preferences.
-26. Fix find in files failure issue due to directory path with leading/trailing spaces.
-27. Fix folder icon display issue in "Folder as Workspace" after "Expand/Collapse All".
-28. Make "Clipboard History" and "Character Panel" togglable.
-29. Fix Find in found results dialog launch failure after macro execution.
-30. Disallow Goto dlg offset option from moving to position inside multi-byte char or between CR and LF.
-31. Fix "Go to..." dialog wrong Offset value in empty files.
-32. Prevent corruption possibility when using -p command line parameter in a UTF file.
-33. Improve indent guidelines on non-brace control block languages.
-34. Prevent names of untitled tabs from duplication.
-35. Add tooltips for Folder as Workspace 3 commands.
-36. Fix "SCI_NEWLINE" inside a macro not working issue.
-37. Fix bug where search-results won't open 'new 1' file.
-38. Fix tab close button remain pushed issue.
-39. Enhance ghost typing command line argument feature - using white space directly instead of %20.
+1.  Discontinued support for Windows XP due to technical reasons. Notepad++ 7.9.2 is the last version to run on Windows XP.
+2.  Upgrade Notepad++ License: update GPL version from v2 to v3.
+3.  Fix the regression of copying line data from search results.
+4.  Fix "Print Line Number" preference is ignored for printing regression.
+5.  Fix a regression in Chinese Simplified localization.
+6.  Fix dockable panels not being displayed regression due to multi-instance mode activation.
+7.  Make split-lines feature work again with multi-edge rightmost specified edge.
+8.  Enhance modern style file dialog for allowing UNIX style file path.
+9.  Use the modern browse folder dialog to get folder path.
+10. Improve option for setting save dialog filter to All Types.
+11. Add ability to delete entries from combo box history in Find dialog with DELETE key.
+12. Fix lost session issue on Windows reboot/shutdown.
+13. Add "save Folder as Workspace in session" option in save session dialog.
+14. Make value dialog height accurate in any DPI.
+15. Fix issue that Switch-To-Panel keyboard shortcuts cannot be used in context menu.
+16. Fix a memory leak issue.
+17. Fix blurry display problem on an extended monitor.
+18. Fix incompatible plugin not being deleted issue.
+19. Synchronize GUP localization file (if available) with Notepad++ in installer.
+20. Enhance “No update” dialog with the download page link in the Notepad++ updater.
+21. Fix NPPM_SETLINENUMBERWIDTHMODE API not working issue.
 
 More fixes & implementations detail:
-https://notepad-plus-plus.org/downloads/v7.9.2/
+https://notepad-plus-plus.org/downloads/v7.9.3/
 
 
 Included plugins:
@@ -53,4 +35,4 @@ Included plugins:
 
 Updater (Installer only):
 
-* WinGup (for Notepad++) v5.1.1
+* WinGup (for Notepad++) v5.1.2

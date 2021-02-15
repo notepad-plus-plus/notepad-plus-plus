@@ -772,7 +772,7 @@ Notepad++ Custom Style
             <WordsStyle name="COMPACTIRI" styleID="10" fgColor="0000A0" bgColor="293134" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="KEYWORD" styleID="11" fgColor="93C763" bgColor="293134" fontName="" fontStyle="1" fontSize="" keywordClass="instre1" />
             <WordsStyle name="LDKEYWORD" styleID="12" fgColor="FF0000" bgColor="293134" fontName="" fontStyle="0" fontSize="" keywordClass="instre2" />
-            <WordsStyle name="ERROR" styleID="13" fgColor="FFFF80" bgColor="FF0000" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="ERROR" styleID="13" fgColor="D03565" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
     </LexerStyles>
     <GlobalStyles>

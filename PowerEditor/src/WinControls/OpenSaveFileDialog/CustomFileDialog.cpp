@@ -369,7 +369,11 @@ private:
 		// Update the edit box text.
 		// It will update the address if the path is a directory.
 		if (nameChanged)
-			sendDialogFileName(fileName.c_str());
+		{
+			// Clear the name first to ensure it's updated properly.
+			_dialog->SetFileName(_T(""));
+			_dialog->SetFileName(fileName.c_str());
+		}
 	}
 
 	// Transforms a forward-slash path to a canonical Windows path.
@@ -393,12 +397,6 @@ private:
 			transformed = true;
 		}
 		return transformed;
-	}
-
-	// Sets the file name and waits until it is processed by the edit control.
-	void sendDialogFileName(const TCHAR* name)
-	{
-		::SendMessage(_hwndNameEdit, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(name));
 	}
 
 	// Enumerates the child windows of a dialog.
@@ -435,7 +433,23 @@ private:
 
 	static LRESULT CALLBACK OkButtonWndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 	{
-		if (msg == WM_LBUTTONDOWN)
+		// The ways to press a button:
+		// 1. space/enter is pressed when the button has focus (WM_KEYDOWN)
+		// 2. left mouse click on a button (WM_LBUTTONDOWN)
+		// 3. Alt + S
+		bool pressed = false;
+		switch (msg)
+		{
+		case BM_SETSTATE:
+			// Sent after all press events above except when press return while focused.
+			pressed = (wparam == TRUE);
+			break;
+		case WM_GETDLGCODE:
+			// Sent for the keyboard input.
+			pressed = (wparam == VK_RETURN);
+			break;
+		}
+		if (pressed)
 			_staticThis->onPreFileOk();
 		return CallWindowProc(_okButtonProc, hwnd, msg, wparam, lparam);
 	}

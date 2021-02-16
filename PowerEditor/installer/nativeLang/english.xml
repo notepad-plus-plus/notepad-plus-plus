@@ -96,7 +96,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="41013" name="Save Session..."/>
                     <Item id="41014" name="Re&amp;load from Disk"/>
                     <Item id="41015" name="Save a Copy As..."/>
-                    <Item id="41016" name="Move to Recycle Bin"/>
+                    <Item id="41016" name="Move to Recycle Bin..."/>
                     <Item id="41017" name="Rename..."/>
                     <Item id="41021" name="Restore Recent Closed File"/>
                     <Item id="41022" name="Open Folder as Workspace..."/>
@@ -308,7 +308,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="46300" name="Open User Defined Language folder..."/>
                     <Item id="46180" name="User-Defined"/>
                     <Item id="47000" name="About Notepad++"/>
-                    <Item id="47010" name="Command Line Arguments..."/>
+                    <Item id="47010" name="Command Line Arguments"/>
                     <Item id="47001" name="Notepad++ Home"/>
                     <Item id="47002" name="Notepad++ Project Page"/>
                     <Item id="47003" name="Online Documentation"/>
@@ -359,7 +359,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item CMID="8" name="Filename to Clipboard"/>
                     <Item CMID="9" name="Current Dir. Path to Clipboard"/>
                     <Item CMID="10" name="Rename..."/>
-                    <Item CMID="11" name="Move to Recycle Bin"/>
+                    <Item CMID="11" name="Move to Recycle Bin..."/>
                     <Item CMID="12" name="Read-Only"/>
                     <Item CMID="13" name="Clear Read-Only Flag"/>
                     <Item CMID="14" name="Move to New Instance"/>

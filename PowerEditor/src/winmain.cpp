@@ -543,15 +543,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 			// First of all, destroy static object NppParameters
 			nppParameters.destroyInstance();
 
-			int sw = 0;
-
 			if (::IsZoomed(hNotepad_plus))
-				sw = SW_MAXIMIZE;
+				::ShowWindow(hNotepad_plus, SW_MAXIMIZE);
 			else if (::IsIconic(hNotepad_plus))
-				sw = SW_RESTORE;
-
-			if (sw != 0)
-				::ShowWindow(hNotepad_plus, sw);
+				::ShowWindow(hNotepad_plus, SW_RESTORE);
 
 			::SetForegroundWindow(hNotepad_plus);
 

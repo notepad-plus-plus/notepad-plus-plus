@@ -398,6 +398,9 @@ private:
 	// Sets the file name and waits until it is processed by the edit control.
 	void sendDialogFileName(const TCHAR* name)
 	{
+		// Update both the edit control and the dialog internal data.
+		if (_dialog)
+			_dialog->SetFileName(name);
 		::SendMessage(_hwndNameEdit, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(name));
 	}
 
@@ -435,7 +438,12 @@ private:
 
 	static LRESULT CALLBACK OkButtonWndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 	{
-		if (msg == WM_LBUTTONDOWN)
+		// The callback should be called when:
+		// 1. space/enter is pressed when the button has focus (WM_KEYDOWN)
+		// 2. left mouse click on a button (WM_LBUTTONDOWN)
+		// 3. Alt + S
+		// BM_SETSTATE is sent directly after those events.
+		if (msg == BM_SETSTATE && wparam == TRUE)
 			_staticThis->onPreFileOk();
 		return CallWindowProc(_okButtonProc, hwnd, msg, wparam, lparam);
 	}

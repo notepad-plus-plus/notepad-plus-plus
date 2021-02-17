@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-	<Native-Langue name="Turkish" filename="turkish.xml" version="7.9.2">
+	<Native-Langue name="Turkish" filename="turkish.xml" version="7.9.3">
 		<Menu>
 			<Main>
 				<!-- Ana Menü Girişleri -->
@@ -374,7 +374,7 @@
 		</Menu>
 
 		<Dialog>
-			<Find title="" titleFind="Bul" titleReplace="Değiştir" titleFindInFiles="Dosyalarda Bul" titleMark="İşaretle">
+			<Find title="" titleFind="Bul" titleReplace="Değiştir" titleFindInFiles="Dosyalarda Bul" titleFindInProjects="Projelerde Bul" titleMark="İşaretle">
 				<Item id="1" name="&amp;Sonrakini Bul"/>
 				<Item id="1722" name="Geriye Doğru"/>
 				<Item id="2" name="&amp;Kapat"/>
@@ -408,10 +408,14 @@
 			 	<Item id="1625" name="&amp;Normal"/>
 			 	<Item id="1626" name="&amp;Genişletilmiş (\r, \n, \t, \0, \x…)"/>
 			 	<Item id="1660" name="Dosyalarda Değiştir"/>
-				<Item id="1661" name="Geçerli belgeyi takip et"/>
+				<Item id="1665" name="Projelerde Değiştir"/>
+				<Item id="1661" name="Geçerli Belgeyi Takip Et"/>
+				<Item id="1662" name="Proje Paneli 1"/>
+				<Item id="1663" name="Proje Paneli 2"/>
+				<Item id="1664" name="Proje Paneli 3"/>
 			 	<Item id="1641" name="Geçerli Belgede Tümünü Bul"/>
 			 	<Item id="1686" name="Saydamlaş&amp;tır"/>
-				<Item id="1703" name="&amp;. yeni satırı eşle"/>
+				<Item id="1703" name="&amp;. Yeni Satırı Eşle"/>
 				<Item id="1721" name="▲"/>
 				<Item id="1723" name="▼ Sonrakini Bul"/>
 				<Item id="1725" name="İşaretli Yazıyı Kopyala"/>
@@ -870,7 +874,7 @@ Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasın
 				</NewDoc>
 
 				<DefaultDir title="Varsayılan Dizin">
-					<Item id="6413" name="Varsayılan Dizin (Aç/Kaydet)"/>
+					<Item id="6413" name="Varsayılan Aç/Kaydet Dosya Dizini"/>
 					<Item id="6414" name="Geçerli belgeyi takip et"/>
 					<Item id="6415" name="Son kullanılan dizini hatırla"/>
 					<Item id="6431" name="Klasör taşıyarak Çalışma Alanı Klasörleri başlatıldığında klasörün tüm dosyalarını aç"/>
@@ -1043,7 +1047,7 @@ Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasın
 					<Item id="6325" name="Güncellemeden sonra son satıra kaydır"/>
 					<Item id="6322" name="Oturumun dosya uzantısı:"/>
 					<Item id="6323" name="Notepad++'ı otomatik güncelle"/>
-					<Item id="6351" name="Normal Yazı için, dosya uzantısı kaydetme filtresinde .txt yerine .* kullanmaya ayarla"/>
+					<Item id="6351" name="Normal Yazı için, dosya uzantısı kaydetme filtresinde *.* kullanmaya ayarla"/>
 					<Item id="6324" name="Belge Değiştirici (Ctrl + Tab)"/>
 					<Item id="6331" name="Başlık çubuğunda sadece dosya adını göster"/>
 					<Item id="6334" name="Karakter kodlamasını otomatik olarak algıla"/>
@@ -1055,6 +1059,7 @@ Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasın
 					<Item id="6344" name="Belge İzleyici"/>
 					<Item id="6345" name="Sekmede İzle"/>
 					<Item id="6346" name="Belge Haritasında İzle"/>
+					<Item id="6360" name="Tüm Sesleri Sustur"/>
 				</MISC>
 			</Preference>
 			<MultiMacro title="Makroyu Birden Çok Kez Çalıştır">
@@ -1174,7 +1179,8 @@ Kendi langs.xml dosyanızı kurtarmak ister misiniz?"/>
 &quot;$STR_REPLACE$&quot; klasörünü eklemeden önce Panelden ana klasörü kaldırın."/>
 
             <ProjectPanelChanged title="$STR_REPLACE$" message="Çalışma alanı değiştirildi. Kaydetmek istiyor musunuz?"/>
-            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Çalışma alanınız kaydedilemedi."/>
+            <ProjectPanelSaveError title="$STR_REPLACE$" message="Çalışma alanı dosyanız yazılırken bir hata oluştu.
+Çalışma alanınız kaydedilemedi."/> <!-- NasılTekrarlanır: bu mesaj sistem hatasını önler. Tekrarlaması zor. -->
             <ProjectPanelOpenDoSaveDirtyWsOrNot title="Çalışma Alanı Aç" message="Şu anki çalışma alanı değiştirildi. Şu anki projeyi kaydetmek istiyor musunuz?"/>
             <ProjectPanelNewDoSaveDirtyWsOrNot title="Yeni Çalışma Alanı" message="Şu anki çalışma alanı değiştirildi. Şu anki projeyi kaydetmek istiyor musunuz?"/>
             <ProjectPanelOpenFailed title="Çalışma Alanı Aç" message="Çalışma alanı açılamadı.
@@ -1269,6 +1275,7 @@ Devam edilsin mi?"/>
 					<Item id="3126" name="Farklı Kaydet"/>
 					<Item id="3127" name="Kopya Olarak Kaydet"/>
 					<Item id="3121" name="Yeni Proje Ekle"/>
+					<Item id="3128" name="Projelerde Bul..."/>
 				</WorkspaceMenu>
 				<ProjectMenu>
 					<Item id="3111" name="Yeniden adlandır"/>
@@ -1359,6 +1366,8 @@ Devam edilsin mi?"/>
 			<common-name value="İsim: "/>
 			<tabrename-title value="Şimdiki Sekmeyi Yeniden Adlandır"/>
 			<tabrename-newname value="Yeni İsim: "/>
+			<splitter-rotate-left value="Sola Döndür"/>
+			<splitter-rotate-right value="Sağa Döndür"/>
 			<recent-file-history-maxfile value="En Fazla Dosya: "/>
 			<language-tabsize value="Sekme Ölçüsü: "/>
 			<userdefined-title-new value="Yeni Dil Üret..."/>
@@ -1377,9 +1386,13 @@ Devam edilsin mi?"/>
 			<summary-nbsel1 value=" seçili karakterler ("/>
 			<summary-nbsel2 value=" bayt) içinde "/>
 			<summary-nbrange value=" mesafe"/>
+			<find-in-files-progress-title value="Dosyalarda Bul işleniyor..."/>
 			<replace-in-files-confirm-title value="Emin misiniz?"/>
 			<replace-in-files-confirm-directory value="Şuradaki tüm bulunanları değiştirmek istediğinize emin misiniz :"/>
 			<replace-in-files-confirm-filetype value="Dosya türü için :"/>
+			<replace-in-files-progress-title value="Dosyalarda Değiştir işleniyor..."/>
+			<replace-in-projects-confirm-title value="Emin misiniz?"/>
+			<replace-in-projects-confirm-message value="Seçili Proje Panellerinin içindeki tüm dosyalardaki tüm eşleşmeleri değiştirmek istediğinize emin misiniz?"/>
 			<replace-in-open-docs-confirm-title value="Emin misiniz?"/>
 			<replace-in-open-docs-confirm-message value="Açık tüm dosyalardaki tüm eşleşmeleri değiştirmek istediğine emin misiniz?"/>
 			<find-result-caption value="Arama Sonuçları"/>
@@ -1389,6 +1402,7 @@ Devam edilsin mi?"/>
 			<find-result-title-info-extra value=" - Satır Filtresi Modu: sadece filtrelenmiş sonuçları göster"/>
 			<find-result-hits value="($INT_REPLACE$ eşleşme)"/>
 			<find-regex-zero-length-match value="sıfır uzunluk eşleşmesi" />
+			<session-save-folder-as-workspace value="Klasörü Çalışma Alanı Olarak Kaydet" />
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

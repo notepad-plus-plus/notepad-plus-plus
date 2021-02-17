@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-	<Native-Langue name="Turkish" filename="turkish.xml" version="7.9.2">
+	<Native-Langue name="Turkish" filename="turkish.xml" version="7.9.3">
 		<Menu>
 			<Main>
 				<!-- Ana Menü Girişleri -->
@@ -870,7 +870,7 @@ Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasın
 				</NewDoc>
 
 				<DefaultDir title="Varsayılan Dizin">
-					<Item id="6413" name="Varsayılan Dizin (Aç/Kaydet)"/>
+					<Item id="6413" name="Varsayılan Aç/Kaydet Dosya Dizini"/>
 					<Item id="6414" name="Geçerli belgeyi takip et"/>
 					<Item id="6415" name="Son kullanılan dizini hatırla"/>
 					<Item id="6431" name="Klasör taşıyarak Çalışma Alanı Klasörleri başlatıldığında klasörün tüm dosyalarını aç"/>
@@ -1043,7 +1043,7 @@ Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasın
 					<Item id="6325" name="Güncellemeden sonra son satıra kaydır"/>
 					<Item id="6322" name="Oturumun dosya uzantısı:"/>
 					<Item id="6323" name="Notepad++'ı otomatik güncelle"/>
-					<Item id="6351" name="Normal Yazı için, dosya uzantısı kaydetme filtresinde .txt yerine .* kullanmaya ayarla"/>
+					<Item id="6351" name="Normal Yazı için, dosya uzantısı kaydetme filtresinde *.* kullanmaya ayarla"/>
 					<Item id="6324" name="Belge Değiştirici (Ctrl + Tab)"/>
 					<Item id="6331" name="Başlık çubuğunda sadece dosya adını göster"/>
 					<Item id="6334" name="Karakter kodlamasını otomatik olarak algıla"/>
@@ -1377,9 +1377,11 @@ Devam edilsin mi?"/>
 			<summary-nbsel1 value=" seçili karakterler ("/>
 			<summary-nbsel2 value=" bayt) içinde "/>
 			<summary-nbrange value=" mesafe"/>
+			<find-in-files-progress-title value="Dosyalarda Bul işleniyor..."/>
 			<replace-in-files-confirm-title value="Emin misiniz?"/>
 			<replace-in-files-confirm-directory value="Şuradaki tüm bulunanları değiştirmek istediğinize emin misiniz :"/>
 			<replace-in-files-confirm-filetype value="Dosya türü için :"/>
+			<replace-in-files-progress-title value="Dosyalarda Değiştir işleniyor..."/>
 			<replace-in-open-docs-confirm-title value="Emin misiniz?"/>
 			<replace-in-open-docs-confirm-message value="Açık tüm dosyalardaki tüm eşleşmeleri değiştirmek istediğine emin misiniz?"/>
 			<find-result-caption value="Arama Sonuçları"/>
@@ -1389,6 +1391,7 @@ Devam edilsin mi?"/>
 			<find-result-title-info-extra value=" - Satır Filtresi Modu: sadece filtrelenmiş sonuçları göster"/>
 			<find-result-hits value="($INT_REPLACE$ eşleşme)"/>
 			<find-regex-zero-length-match value="sıfır uzunluk eşleşmesi" />
+			<session-save-folder-as-workspace value="Klasörü Çalışma Alanı Olarak Kaydet" />
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

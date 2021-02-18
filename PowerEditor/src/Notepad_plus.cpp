@@ -1708,19 +1708,9 @@ bool Notepad_plus::findInFiles()
 {
 	const TCHAR *dir2Search = _findReplaceDlg.getDir2Search();
 
-	if (!dir2Search[0] || !::PathFileExists(dir2Search))
-	{
-		return false;
-	}
-
-	bool isRecursive = _findReplaceDlg.isRecursive();
-	bool isInHiddenDir = _findReplaceDlg.isInHiddenDir();
-	int nbTotal = 0;
-	ScintillaEditView *pOldView = _pEditView;
-	_pEditView = &_invisibleEditView;
-	Document oldDoc = _invisibleEditView.execute(SCI_GETDOCPOINTER);
-
+	vector<generic_string> fileNames;
 	vector<generic_string> patterns2Match;
+
 	_findReplaceDlg.getPatterns(patterns2Match);
 	if (patterns2Match.size() == 0)
 	{
@@ -1732,8 +1722,44 @@ bool Notepad_plus::findInFiles()
 		patterns2Match.insert(patterns2Match.begin(), TEXT("*.*"));
 	}
 
-	vector<generic_string> fileNames;
-	getMatchedFileNames(dir2Search, patterns2Match, fileNames, isRecursive, isInHiddenDir);
+	if (not dir2Search [0])
+	{ // search workspace files
+		if (_findReplaceDlg.isProjectPanel_1() && _pProjectPanel_1)
+		{
+			_pProjectPanel_1->enumWorkSpaceFiles (NULL, patterns2Match, fileNames);
+		}
+		if (_findReplaceDlg.isProjectPanel_2() && _pProjectPanel_2)
+		{
+			_pProjectPanel_2->enumWorkSpaceFiles (NULL, patterns2Match, fileNames);
+		}
+		if (_findReplaceDlg.isProjectPanel_3() && _pProjectPanel_3)
+		{
+			_pProjectPanel_3->enumWorkSpaceFiles (NULL, patterns2Match, fileNames);
+		}
+		if (fileNames.size() == 0) return false;
+	}
+	else if (not ::PathFileExists(dir2Search))
+	{
+		return false;
+	}
+	else
+	{
+		bool isRecursive = _findReplaceDlg.isRecursive();
+		bool isInHiddenDir = _findReplaceDlg.isInHiddenDir();
+		vector<generic_string> patterns2Match;
+		_findReplaceDlg.getPatterns(patterns2Match);
+		if (patterns2Match.size() == 0)
+		{
+			_findReplaceDlg.setFindInFilesDirFilter(NULL, TEXT("*.*"));
+			_findReplaceDlg.getPatterns(patterns2Match);
+		}
+		getMatchedFileNames(dir2Search, patterns2Match, fileNames, isRecursive, isInHiddenDir);
+	}
+
+	int nbTotal = 0;
+	ScintillaEditView *pOldView = _pEditView;
+	_pEditView = &_invisibleEditView;
+	Document oldDoc = _invisibleEditView.execute(SCI_GETDOCPOINTER);
 
 	_findReplaceDlg.beginNewFilesSearch();
 

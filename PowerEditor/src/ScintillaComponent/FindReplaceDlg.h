@@ -73,6 +73,9 @@ struct FindOption
 	generic_string _directory;
 	bool _isRecursive = true;
 	bool _isInHiddenDir = false;
+	bool _isProjectPanel_1 = false;
+	bool _isProjectPanel_2 = false;
+	bool _isProjectPanel_3 = false;
 	bool _dotMatchesNewline = false;
 	bool _isMatchLineNumber = true; // only for Find in Folder
 };
@@ -269,6 +272,8 @@ public :
 	};
 
 	void setFindInFilesDirFilter(const TCHAR *dir, const TCHAR *filters);
+	void setProjectCheckmarks(FindHistory *findHistory, int Msk);
+	void enableProjectCheckmarks();
 
 	generic_string getText2search() const {
 		return _env->_str2Search;
@@ -279,6 +284,9 @@ public :
 	const FindOption & getCurrentOptions() const {return *_env;};
 	bool isRecursive() const { return _env->_isRecursive; };
 	bool isInHiddenDir() const { return _env->_isInHiddenDir; };
+	bool isProjectPanel_1() const { return _env->_isProjectPanel_1; };
+	bool isProjectPanel_2() const { return _env->_isProjectPanel_2; };
+	bool isProjectPanel_3() const { return _env->_isProjectPanel_3; };
 	void saveFindHistory();
 	void changeTabName(DIALOG_TYPE index, const TCHAR *name2change) {
 		TCITEM tie;

@@ -408,6 +408,9 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="1626" name="E&amp;xtended (\n, \r, \t, \0, \x...)"/>
                 <Item id="1660" name="Replace in Files"/>
                 <Item id="1661" name="Follow current doc."/>
+                <Item id="1662" name="Project Panel 1"/>
+                <Item id="1663" name="Project Panel 2"/>
+                <Item id="1664" name="Project Panel 3"/>
                 <Item id="1641" name="Find All in Current Document"/>
                 <Item id="1686" name="Transparenc&amp;y"/>
                 <Item id="1703" name="&amp;. matches newline"/>
@@ -1269,6 +1272,7 @@ Continue?"/>
                     <Item id="3126" name="Save As..."/>
                     <Item id="3127" name="Save a Copy As..."/>
                     <Item id="3121" name="Add New Project"/>
+                    <Item id="3128" name="Find in Files.../>
                 </WorkspaceMenu>
                 <ProjectMenu>
                     <Item id="3111" name="Rename"/>

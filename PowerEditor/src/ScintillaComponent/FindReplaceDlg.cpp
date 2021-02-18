@@ -334,6 +334,10 @@ void FindReplaceDlg::fillFindHistory()
 	::SendDlgItemMessage(_hSelf, IDD_FINDINFILES_RECURSIVE_CHECK, BM_SETCHECK, findHistory._isFifRecuisive, 0);
     ::SendDlgItemMessage(_hSelf, IDD_FINDINFILES_FOLDERFOLLOWSDOC_CHECK, BM_SETCHECK, findHistory._isFolderFollowDoc, 0);
 
+	::SendDlgItemMessage(_hSelf, IDD_FINDINFILES_PROJECT1_CHECK, BM_SETCHECK, findHistory._isFifProjectPanel_1, 0);
+	::SendDlgItemMessage(_hSelf, IDD_FINDINFILES_PROJECT2_CHECK, BM_SETCHECK, findHistory._isFifProjectPanel_2, 0);
+	::SendDlgItemMessage(_hSelf, IDD_FINDINFILES_PROJECT3_CHECK, BM_SETCHECK, findHistory._isFifProjectPanel_3, 0);
+
 	::SendDlgItemMessage(_hSelf, IDNORMAL, BM_SETCHECK, findHistory._searchMode == FindHistory::normal, 0);
 	::SendDlgItemMessage(_hSelf, IDEXTENDED, BM_SETCHECK, findHistory._searchMode == FindHistory::extended, 0);
 	::SendDlgItemMessage(_hSelf, IDREGEXP, BM_SETCHECK, findHistory._searchMode == FindHistory::regExpr, 0);
@@ -772,6 +776,7 @@ void FindReplaceDlg::resizeDialogElements(LONG newWidth)
 	//elements that need to be moved
 	const auto moveWindowIDs = {
 		IDD_FINDINFILES_FOLDERFOLLOWSDOC_CHECK,IDD_FINDINFILES_RECURSIVE_CHECK, IDD_FINDINFILES_INHIDDENDIR_CHECK,
+		IDD_FINDINFILES_PROJECT1_CHECK, IDD_FINDINFILES_PROJECT2_CHECK, IDD_FINDINFILES_PROJECT3_CHECK,
 		IDC_TRANSPARENT_GRPBOX, IDC_TRANSPARENT_CHECK, IDC_TRANSPARENT_LOSSFOCUS_RADIO, IDC_TRANSPARENT_ALWAYS_RADIO,
 		IDC_PERCENTAGE_SLIDER , IDC_REPLACEINSELECTION , IDC_IN_SELECTION_CHECK,
 
@@ -1054,6 +1059,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			{
 				enableFindDlgItem(IDREDOTMATCHNL, false);
 			}
+			enableProjectCheckmarks();
 			return TRUE;
 		}
 
@@ -1231,17 +1237,16 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						{
 							_options._directory += TEXT("\\");
 						}
-
-						HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
-						combo2ExtendedMode(IDFINDWHAT);
-						_options._str2Search = getTextFromCombo(hFindCombo);
-						updateCombo(IDFINDWHAT);
-
-						nppParamInst._isFindReplacing = true;
-						if (isMacroRecording) saveInMacro(wParam, FR_OP_FIND + FR_OP_FIF);
-						findAllIn(FILES_IN_DIR);
-						nppParamInst._isFindReplacing = false;
 					}
+					HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
+					combo2ExtendedMode(IDFINDWHAT);
+					_options._str2Search = getTextFromCombo(hFindCombo);
+					updateCombo(IDFINDWHAT);
+
+					nppParamInst._isFindReplacing = true;
+					if (isMacroRecording) saveInMacro(wParam, FR_OP_FIND + FR_OP_FIF);
+					findAllIn(FILES_IN_DIR);
+					nppParamInst._isFindReplacing = false;
 				}
 				return TRUE;
 
@@ -1603,7 +1608,8 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				{
 					if (_currentStatus == FINDINFILES_DLG)
 						findHistory._isFifRecuisive = _options._isRecursive = isCheckedOrNot(IDD_FINDINFILES_RECURSIVE_CHECK);
-					
+					if (findHistory._isFifRecuisive) 
+						setProjectCheckmarks (& findHistory, 0);
 				}
 				return TRUE;
 
@@ -1611,7 +1617,41 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				{
 					if (_currentStatus == FINDINFILES_DLG)
 						findHistory._isFifInHiddenFolder = _options._isInHiddenDir = isCheckedOrNot(IDD_FINDINFILES_INHIDDENDIR_CHECK);
+					if (findHistory._isFifInHiddenFolder)
+						setProjectCheckmarks (& findHistory, 0);
+				}
+				return TRUE;
 					
+				case IDD_FINDINFILES_PROJECT1_CHECK:
+				case IDD_FINDINFILES_PROJECT2_CHECK:
+				case IDD_FINDINFILES_PROJECT3_CHECK:
+				{
+					if (_currentStatus == FINDINFILES_DLG)
+					{
+						switch (LOWORD(wParam))
+						{
+							case IDD_FINDINFILES_PROJECT1_CHECK:
+								findHistory._isFifProjectPanel_1 = _options._isProjectPanel_1 = isCheckedOrNot(IDD_FINDINFILES_PROJECT1_CHECK);
+								break;
+							case IDD_FINDINFILES_PROJECT2_CHECK:
+								findHistory._isFifProjectPanel_2 = _options._isProjectPanel_2 = isCheckedOrNot(IDD_FINDINFILES_PROJECT2_CHECK);
+								break;
+							case IDD_FINDINFILES_PROJECT3_CHECK:
+								findHistory._isFifProjectPanel_3 = _options._isProjectPanel_3 = isCheckedOrNot(IDD_FINDINFILES_PROJECT3_CHECK);
+								break;
+						}
+
+						if (findHistory._isFifProjectPanel_1 || findHistory._isFifProjectPanel_2 || findHistory._isFifProjectPanel_3)
+						{
+							findHistory._isFolderFollowDoc = false;
+							findHistory._isFifInHiddenFolder = _options._isInHiddenDir = false;
+							findHistory._isFifRecuisive = _options._isRecursive = false;
+							::SendDlgItemMessage(_hSelf, IDD_FINDINFILES_INHIDDENDIR_CHECK, BM_SETCHECK, findHistory._isFifInHiddenFolder, 0);
+							::SendDlgItemMessage(_hSelf, IDD_FINDINFILES_RECURSIVE_CHECK, BM_SETCHECK, findHistory._isFifRecuisive, 0);
+							::SendDlgItemMessage(_hSelf, IDD_FINDINFILES_FOLDERFOLLOWSDOC_CHECK, BM_SETCHECK, findHistory._isFolderFollowDoc, 0);
+							::SetDlgItemText(_hSelf, IDD_FINDINFILES_DIR_COMBO, L"");
+						}
+					}
 				}
 				return TRUE;
 
@@ -1625,6 +1665,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
                         NppParameters& nppParam = NppParameters::getInstance();
                         const TCHAR * dir = nppParam.getWorkingDir();
                         ::SetDlgItemText(_hSelf, IDD_FINDINFILES_DIR_COMBO, dir);
+						setProjectCheckmarks (& findHistory, 0);
                     }
 					
 				}
@@ -1633,7 +1674,41 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				case IDD_FINDINFILES_BROWSE_BUTTON :
 				{
 					if (_currentStatus == FINDINFILES_DLG)
+					{
 						folderBrowser(_hSelf, TEXT("Select a folder to search from"), IDD_FINDINFILES_DIR_COMBO, _options._directory.c_str());
+
+						TCHAR dir [MAX_PATH];
+						::GetDlgItemText(_hSelf, IDD_FINDINFILES_DIR_COMBO, dir, _countof (dir));
+						if (dir [0])
+						{
+							setProjectCheckmarks (& findHistory, 0);
+						}
+					}
+				}
+				return TRUE;
+
+				case IDD_FINDINFILES_DIR_COMBO:
+				{
+					if (_currentStatus == FINDINFILES_DLG)
+					{
+						if (HIWORD (wParam) == CBN_SELCHANGE)
+						{	// CBN_SELCHANGE is sent before the dialog item text is actually updated.
+							// No CBN_EDIT* message is sent after CBN_SELCHANGE immediatly, so that
+							// selecting a directory from history does not uncheck the Project Panel
+							// checkmarks immediatly. Workaround:
+							PostMessage (_hSelf, WM_COMMAND, IDD_FINDINFILES_DIR_COMBO | (CBN_EDITCHANGE << 16), lParam);
+							// At the time this message arrives, the dialog item text is updated.
+						}
+						else
+						{
+							TCHAR dir [MAX_PATH];
+							::GetDlgItemText(_hSelf, IDD_FINDINFILES_DIR_COMBO, dir, _countof (dir));
+							if (dir [0])
+							{
+								setProjectCheckmarks (& findHistory, 0);
+							}
+						}
+					}
 				}
 				return TRUE;
 
@@ -2749,6 +2824,9 @@ void FindReplaceDlg::enableFindInFilesControls(bool isEnable)
 	showFindDlgItem(IDD_FINDINFILES_FIND_BUTTON, isEnable);
 	showFindDlgItem(IDD_FINDINFILES_RECURSIVE_CHECK, isEnable);
 	showFindDlgItem(IDD_FINDINFILES_INHIDDENDIR_CHECK, isEnable);
+	showFindDlgItem(IDD_FINDINFILES_PROJECT1_CHECK, isEnable);
+	showFindDlgItem(IDD_FINDINFILES_PROJECT2_CHECK, isEnable);
+	showFindDlgItem(IDD_FINDINFILES_PROJECT3_CHECK, isEnable);
 	showFindDlgItem(IDD_FINDINFILES_FOLDERFOLLOWSDOC_CHECK, isEnable);
 }
 
@@ -2780,6 +2858,9 @@ void FindReplaceDlg::saveInMacro(size_t cmd, int cmdType)
 		::SendMessage(_hParent, WM_FRSAVE_STR, IDD_FINDINFILES_FILTERS_COMBO, reinterpret_cast<LPARAM>(_options._filters.c_str()));
 		booleans |= _options._isRecursive?IDF_FINDINFILES_RECURSIVE_CHECK:0;
 		booleans |= _options._isInHiddenDir?IDF_FINDINFILES_INHIDDENDIR_CHECK:0;
+		booleans |= _options._isProjectPanel_1?IDF_FINDINFILES_PROJECT1_CHECK:0;
+		booleans |= _options._isProjectPanel_2?IDF_FINDINFILES_PROJECT2_CHECK:0;
+		booleans |= _options._isProjectPanel_3?IDF_FINDINFILES_PROJECT3_CHECK:0;
 	}
 	else if (!(cmdType & FR_OP_GLOBAL))
 	{
@@ -2880,6 +2961,9 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const generic_st
 				_env->_isMatchCase = ((intValue & IDF_MATCHCASE) > 0);
 				_env->_isRecursive = ((intValue & IDF_FINDINFILES_RECURSIVE_CHECK) > 0);
 				_env->_isInHiddenDir = ((intValue & IDF_FINDINFILES_INHIDDENDIR_CHECK) > 0);
+				_env->_isProjectPanel_1 = ((intValue & IDF_FINDINFILES_PROJECT1_CHECK) > 0);
+				_env->_isProjectPanel_2 = ((intValue & IDF_FINDINFILES_PROJECT2_CHECK) > 0);
+				_env->_isProjectPanel_3 = ((intValue & IDF_FINDINFILES_PROJECT3_CHECK) > 0);
 				_env->_doPurge = ((intValue & IDF_PURGE_CHECK) > 0);
 				_env->_doMarkLine = ((intValue & IDF_MARKLINE_CHECK) > 0);
 				_env->_isInSelection = ((intValue & IDF_IN_SELECTION_CHECK) > 0);
@@ -3165,6 +3249,61 @@ void FindReplaceDlg::setFindInFilesDirFilter(const TCHAR *dir, const TCHAR *filt
 	}
 }
 
+void FindReplaceDlg::enableProjectCheckmarks()
+{
+	NppParameters& nppParams = NppParameters::getInstance();
+	FindHistory & findHistory = nppParams.getFindHistory();
+	HMENU hMenu = (HMENU) ::SendMessage (_hParent, NPPM_INTERNAL_GETMENU, 0, 0);
+	if (hMenu)
+	{
+		int   idm [3] = {IDM_VIEW_PROJECT_PANEL_1, IDM_VIEW_PROJECT_PANEL_2, IDM_VIEW_PROJECT_PANEL_3};
+		int   idd [3] = {IDD_FINDINFILES_PROJECT1_CHECK, IDD_FINDINFILES_PROJECT2_CHECK, IDD_FINDINFILES_PROJECT3_CHECK};
+		bool *opt [3] = {&_options._isProjectPanel_1, &_options._isProjectPanel_2, &_options._isProjectPanel_3};
+		bool *hst [3] = {&findHistory._isFifProjectPanel_1, &findHistory._isFifProjectPanel_2, &findHistory._isFifProjectPanel_3};
+		for (int i = 0; i < 3; i++)
+		{
+			UINT s = GetMenuState (hMenu, idm [i], MF_BYCOMMAND);
+			if (s != -1)
+			{
+				if (s & MF_CHECKED)
+				{
+					enableFindDlgItem (idd [i], true);
+				}
+				else
+				{
+					*opt [i] = 0;
+					*hst [i] = 0;
+					::SendDlgItemMessage(_hSelf, idd [i], BM_SETCHECK, 0, 0);
+					enableFindDlgItem (idd [i], false);
+				}
+			}
+		}
+	}
+}
+
+void FindReplaceDlg::setProjectCheckmarks(FindHistory *findHistory, int Msk)
+{
+	_options._isProjectPanel_1 = (Msk & 1) ? true : false;
+	_options._isProjectPanel_2 = (Msk & 2) ? true : false;
+	_options._isProjectPanel_3 = (Msk & 4) ? true : false;
+	FindHistory *fh = findHistory;
+	if (! fh)
+	{
+		NppParameters& nppParams = NppParameters::getInstance();
+		fh = & nppParams.getFindHistory();
+	}
+
+	if (fh)
+	{
+		fh->_isFifProjectPanel_1 = _options._isProjectPanel_1;
+		fh->_isFifProjectPanel_2 = _options._isProjectPanel_2;
+		fh->_isFifProjectPanel_3 = _options._isProjectPanel_3;
+	}
+	::SendDlgItemMessage(_hSelf, IDD_FINDINFILES_PROJECT1_CHECK, BM_SETCHECK, _options._isProjectPanel_1, 0);
+	::SendDlgItemMessage(_hSelf, IDD_FINDINFILES_PROJECT2_CHECK, BM_SETCHECK, _options._isProjectPanel_2, 0);
+	::SendDlgItemMessage(_hSelf, IDD_FINDINFILES_PROJECT3_CHECK, BM_SETCHECK, _options._isProjectPanel_3, 0);
+}
+
 void FindReplaceDlg::initOptionsFromDlg()
 {
 	_options._isWholeWord = isCheckedOrNot(IDWHOLEWORD);
@@ -3181,6 +3320,9 @@ void FindReplaceDlg::initOptionsFromDlg()
 	
 	_options._isRecursive = isCheckedOrNot(IDD_FINDINFILES_RECURSIVE_CHECK);
 	_options._isInHiddenDir = isCheckedOrNot(IDD_FINDINFILES_INHIDDENDIR_CHECK);
+	_options._isProjectPanel_1 =  isCheckedOrNot(IDD_FINDINFILES_PROJECT1_CHECK);
+	_options._isProjectPanel_2 =  isCheckedOrNot(IDD_FINDINFILES_PROJECT2_CHECK);
+	_options._isProjectPanel_3 =  isCheckedOrNot(IDD_FINDINFILES_PROJECT3_CHECK);
 }
 
 void FindInFinderDlg::doDialog(Finder *launcher, bool isRTL)

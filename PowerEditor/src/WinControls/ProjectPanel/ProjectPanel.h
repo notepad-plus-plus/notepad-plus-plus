@@ -33,6 +33,7 @@
 #define PM_SAVEASWORKSPACE         TEXT("Save As...")
 #define PM_SAVEACOPYASWORKSPACE    TEXT("Save a Copy As...")
 #define PM_NEWPROJECTWORKSPACE     TEXT("Add New Project")
+#define PM_FINDINFILESWORKSPACE    TEXT("Find in Projects...")
 
 #define PM_EDITRENAME              TEXT("Rename")
 #define PM_EDITNEWFOLDER           TEXT("Add Folder")
@@ -101,6 +102,7 @@ public:
 	virtual void setForegroundColor(COLORREF fgColour) {
 		TreeView_SetTextColor(_treeView.getHSelf(), fgColour);
     };
+	bool enumWorkSpaceFiles(HTREEITEM tvFrom, const std::vector<generic_string> & patterns, std::vector<generic_string> & fileNames);
 
 protected:
 	TreeView _treeView;

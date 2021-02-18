@@ -65,6 +65,8 @@ typedef void * SCINTILLA_PTR;
 #define WM_FRSAVE_INT               (SCINTILLA_USER + 12)
 #define WM_FRSAVE_STR               (SCINTILLA_USER + 13)
 #define WM_FINDALL_INCURRENTFINDER  (SCINTILLA_USER + 14)
+#define WM_FINDINPROJECTS           (SCINTILLA_USER + 15)
+#define WM_REPLACEINPROJECTS        (SCINTILLA_USER + 16)
 
 const int NB_FOLDER_STATE = 7;
 

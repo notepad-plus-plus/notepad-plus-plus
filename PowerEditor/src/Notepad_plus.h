@@ -222,8 +222,16 @@ public:
 	void prepareBufferChangedDialog(Buffer * buffer);
 	void notifyBufferChanged(Buffer * buffer, int mask);
 	bool findInFinderFiles(FindersInfo *findInFolderInfo);
+
+	bool createFilelistForFiles(std::vector<generic_string> & fileNames);
+	bool createFilelistForProjects(std::vector<generic_string> & fileNames);
 	bool findInFiles();
+	bool findInProjects();
+	bool findInFilelist(std::vector<generic_string> & fileList);
 	bool replaceInFiles();
+	bool replaceInProjects();
+	bool replaceInFilelist(std::vector<generic_string> & fileList);
+
 	void setFindReplaceFolderFilter(const TCHAR *dir, const TCHAR *filters);
 	std::vector<generic_string> addNppComponents(const TCHAR *destDir, const TCHAR *extFilterName, const TCHAR *extFilter);
 	std::vector<generic_string> addNppPlugins(const TCHAR *extFilterName, const TCHAR *extFilter);

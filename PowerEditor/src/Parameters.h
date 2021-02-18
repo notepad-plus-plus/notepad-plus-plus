@@ -1165,6 +1165,9 @@ struct FindHistory final
 
 	bool _isFifRecuisive = true;
 	bool _isFifInHiddenFolder = false;
+    bool _isFifProjectPanel_1 = false;
+    bool _isFifProjectPanel_2 = false;
+    bool _isFifProjectPanel_3 = false;
 
 	searchMode _searchMode = normal;
 	transparencyMode _transparencyMode = onLossingFocus;
@@ -1575,6 +1578,7 @@ public:
 		generic_string _find;
 		generic_string _replace;
 		generic_string _findInFiles;
+		generic_string _findInProjects;
 		generic_string _mark;
 	};
 

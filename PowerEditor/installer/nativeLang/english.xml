@@ -1272,7 +1272,7 @@ Continue?"/>
                     <Item id="3126" name="Save As..."/>
                     <Item id="3127" name="Save a Copy As..."/>
                     <Item id="3121" name="Add New Project"/>
-                    <Item id="3128" name="Find in Files.../>
+                    <Item id="3128" name="Find in Files..."/>
                 </WorkspaceMenu>
                 <ProjectMenu>
                     <Item id="3111" name="Rename"/>

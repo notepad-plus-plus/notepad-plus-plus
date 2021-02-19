@@ -920,6 +920,7 @@ const char* TiXmlUnknownA::Parse( const char* p, TiXmlParsingDataA* data )
 	if ( !p )
 	{
 		if ( document )	document->SetError( TIXMLA_ERROR_PARSING_UNKNOWN, 0, 0 );
+		return 0;
 	}
 	if ( *p == '>' )
 		return p+1;

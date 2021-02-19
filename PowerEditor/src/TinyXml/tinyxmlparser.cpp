@@ -902,6 +902,7 @@ const TCHAR* TiXmlUnknown::Parse( const TCHAR* p, TiXmlParsingData* data )
 	if ( !p )
 	{
 		if ( document )	document->SetError( TIXML_ERROR_PARSING_UNKNOWN, 0, 0 );
+		return 0;
 	}
 	if ( *p == '>' )
 		return p+1;

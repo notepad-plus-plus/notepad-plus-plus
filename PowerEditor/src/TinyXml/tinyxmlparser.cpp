@@ -275,7 +275,7 @@ bool TiXmlBase::StringEqual( const TCHAR* p,
 	{
 		const TCHAR* q = p;
 
-		if (ignoreCase)
+		if (!ignoreCase)
 		{
 			while ( *q && *tag && *q == *tag )
 			{

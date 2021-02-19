@@ -3,7 +3,7 @@
 Dutch localization for Notepad++ 7.9.3
 Modifications on 2018-03-26 by Klaas Nekeman. Please e-mail errors, suggestions etc. to knekeman(at)gmail.com.
 Modifications on 2020-05-26 by xylographe <wr86420@gmail.com>.
-Modifications on 2021-01-28 by Thomas De Rocker (RockyTDR): added and translated missing strings for Notepad++ version 7.9.3. 
+Modifications on 2021-02-19 by Thomas De Rocker (RockyTDR). 
 -->
 <NotepadPlus>
     <Native-Langue name="Nederlands" filename="dutch.xml" version="7.9.3">
@@ -1055,6 +1055,7 @@ U kunt verschillende kolommarkeringen vastleggen door gebruik te maken van spati
                     <Item id="6344" name="Document kort weergeven"/>
                     <Item id="6345" name="Kort weergeven bij tab"/>
                     <Item id="6346" name="Kort weergeven bij overzichtskaart"/>
+                    <Item id="6360" name="Alle geluiden dempen"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Macro meerdere keren uitvoeren">
@@ -1361,6 +1362,8 @@ In alle bestanden behalve exe, obj en log zoeken:
             <common-name value="Naam: "/>
             <tabrename-title value="Huidige tab hernoemen"/>
             <tabrename-newname value="Nieuwe naam: "/>
+            <splitter-rotate-left value="Linksom draaien"/>
+            <splitter-rotate-right value="Rechtsom draaien"/>
             <recent-file-history-maxfile value="Max. bestanden: "/>
             <language-tabsize value="Tabgrootte: "/>
             <userdefined-title-new value="Nieuwe syntaxis aanmaken..."/>

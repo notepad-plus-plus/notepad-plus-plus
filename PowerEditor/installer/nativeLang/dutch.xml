@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
 Dutch localization for Notepad++ 7.9.3
-Modifications on 2018-03-26 by Klaas Nekeman. Please e-mail errors, suggestions etc. to knekeman(at)gmail.com.
+Modifications on 2018-03-26 by Klaas Nekeman (knekeman(at)gmail.com).
 Modifications on 2020-05-26 by xylographe <wr86420@gmail.com>.
-Modifications on 2021-01-28 by Thomas De Rocker (RockyTDR): added and translated missing strings for Notepad++ version 7.9.3. 
+Last modified on 2021-03-07 by Thomas De Rocker (RockyTDR).
 -->
 <NotepadPlus>
-    <Native-Langue name="Nederlands" filename="dutch.xml" version="7.9.3">
+    <Native-Langue name="Nederlands" filename="dutch.xml" version="7.9.4">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -58,7 +58,7 @@ Modifications on 2021-01-28 by Thomas De Rocker (RockyTDR): added and translated
                     <Item subMenuId="encoding-baltic"  name="Baltisch"/>
                     <Item subMenuId="encoding-celtic"  name="Keltisch"/>
                     <Item subMenuId="encoding-cyrillic"  name="Cyrillisch"/>
-                    <Item subMenuId="encoding-centralEuropean" name="Centraal-Europees"/>
+                    <Item subMenuId="encoding-centralEuropean"  name="Centraal-Europees"/>
                     <Item subMenuId="encoding-chinese"  name="Chinees"/>
                     <Item subMenuId="encoding-easternEuropean" name="Oost-Europees"/>
                     <Item subMenuId="encoding-greek"  name="Grieks"/>
@@ -79,7 +79,7 @@ Modifications on 2021-01-28 by Thomas De Rocker (RockyTDR): added and translated
                 <!-- all menu items -->
                 <Commands>
                     <Item id="41001" name="&amp;Nieuw"/>
-                    <Item id="41002" name="&amp;Openen"/>
+                    <Item id="41002" name="&amp;Openen..."/>
                     <Item id="41019" name="in Windows Verkenner"/>
                     <Item id="41020" name="in opdrachtprompt"/>
                     <Item id="41025" name="Map als werkruimte"/>
@@ -379,7 +379,7 @@ Modifications on 2021-01-28 by Thomas De Rocker (RockyTDR): added and translated
         </Menu>
 
         <Dialog>
-            <Find title="" titleFind="Zoeken" titleReplace="Vervangen" titleFindInFiles="Zoeken in bestanden" titleMark="Markeren">
+            <Find title="" titleFind="Zoeken" titleReplace="Vervangen" titleFindInFiles="Zoeken in bestanden" titleFindInProjects="Zoeken in projecten" titleMark="Markeren">
                 <Item id="1"    name="Volgende zoeken"/>
                 <Item id="1722" name="Achterwaarts"/>
                 <Item id="2"    name="Sluiten"/>
@@ -410,7 +410,11 @@ Modifications on 2021-01-28 by Thomas De Rocker (RockyTDR): added and translated
                 <Item id="1625" name="&amp;Normaal"/>
                 <Item id="1626" name="&amp;Uitgebreid (\n, \r, \t, \0, \x...)"/>
                 <Item id="1660" name="Vervangen in bestanden"/>
+                <Item id="1665" name="Vervangen in projecten"/>
                 <Item id="1661" name="Huidige bestandsmap"/>
+                <Item id="1662" name="Projectpaneel 1"/>
+                <Item id="1663" name="Projectpaneel 2"/>
+                <Item id="1664" name="Projectpaneel 3"/>
                 <Item id="1641" name="Alles in dit document zoeken"/>
                 <Item id="1686" name="Transparantie"/>
                 <Item id="1703" name="&amp;. vindt \n en \r"/>
@@ -1055,6 +1059,7 @@ U kunt verschillende kolommarkeringen vastleggen door gebruik te maken van spati
                     <Item id="6344" name="Document kort weergeven"/>
                     <Item id="6345" name="Kort weergeven bij tab"/>
                     <Item id="6346" name="Kort weergeven bij overzichtskaart"/>
+                    <Item id="6360" name="Alle geluiden dempen"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Macro meerdere keren uitvoeren">
@@ -1176,7 +1181,8 @@ Wilt u uw langs.xml herstellen?"/> <!-- HowToReproduce: Close Notepad++. Use ano
 Verwijder zijn hoofdmap van het venster voordat u map &quot;$STR_REPLACE$&quot; toevoegt."/> <!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
 
             <ProjectPanelChanged title="$STR_REPLACE$" message="De werkruimte is gewijzigd. Wilt u ze opslaan?"/>
-            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Uw werkruimte is niet opgeslagen."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+            <ProjectPanelSaveError title="$STR_REPLACE$" message="Er is een fout opgetreden tijdens het schrijven van uw werkruimtebestand.
+Uw werkruimte is niet opgeslagen."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <ProjectPanelOpenDoSaveDirtyWsOrNot title="Werkruimte openen" message="De huidige werkruimte is gewijzigd. Wilt u het huidige project opslaan?"/>
             <ProjectPanelNewDoSaveDirtyWsOrNot title="Nieuwe werkruimte" message="De huidige werkruimte is gewijzigd. Wilt u het huidige project opslaan?"/>
             <ProjectPanelOpenFailed title="Werkruimte openen" message="De werkruimte kon niet geopend worden.
@@ -1216,7 +1222,7 @@ Doorgaan?"/>
             <ColumnPath name="Pad"/>
             <ColumnType name="Type"/>
             <ColumnSize name="Grootte"/>
-            <NbDocsTotal name="totaal aantal documenten:"/>
+            <NbDocsTotal name="totaal aantal documenten: "/>
         </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name="ASCII-tekens / HTML-entiteiten"/>
@@ -1271,6 +1277,7 @@ Doorgaan?"/>
                     <Item id="3126" name="Opslaan als..."/>
                     <Item id="3127" name="Kopie opslaan als..."/>
                     <Item id="3121" name="Nieuw project toevoegen"/>
+                    <Item id="3128" name="Zoeken in projecten..."/>
                 </WorkspaceMenu>
                 <ProjectMenu>
                     <Item id="3111" name="Naam wijzigen"/>
@@ -1361,6 +1368,8 @@ In alle bestanden behalve exe, obj en log zoeken:
             <common-name value="Naam: "/>
             <tabrename-title value="Huidige tab hernoemen"/>
             <tabrename-newname value="Nieuwe naam: "/>
+            <splitter-rotate-left value="Linksom draaien"/>
+            <splitter-rotate-right value="Rechtsom draaien"/>
             <recent-file-history-maxfile value="Max. bestanden: "/>
             <language-tabsize value="Tabgrootte: "/>
             <userdefined-title-new value="Nieuwe syntaxis aanmaken..."/>
@@ -1384,6 +1393,8 @@ In alle bestanden behalve exe, obj en log zoeken:
             <replace-in-files-confirm-directory value="Wilt u alle overeenkomsten vervangen in: "/>
             <replace-in-files-confirm-filetype value="Voor bestandstype:"/>
             <replace-in-files-progress-title value="Voortgang van vervangen in bestanden..."/>
+            <replace-in-projects-confirm-title value="Weet u het zeker?"/>
+            <replace-in-projects-confirm-message value="Wilt u alle overeenkomsten in alle documenten in de geselecteerde projectpanelen vervangen?"/>
             <replace-in-open-docs-confirm-title value="Weet u het zeker?"/>
             <replace-in-open-docs-confirm-message value="Weet u zeker dat u alle overeenkomsten in alle geopende documenten wilt vervangen?"/>
             <find-result-caption value="Zoekresultaten"/>

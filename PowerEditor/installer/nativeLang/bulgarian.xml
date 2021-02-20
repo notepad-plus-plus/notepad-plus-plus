@@ -3,7 +3,7 @@
 	## Bulgarian localization for Notepad++ ##
 
 	Translators:.....: 2007–2012 – Milen Metev (Tragedy); 2014–yyyy – Rusi Dimitrov
-	Last revision:...: 12.01.2021 by Rusi Dimitrov <astral_86[at]mail[dot]bg>
+	Last revision:...: 08.03.2021 by Rusi Dimitrov <astral_86[at]mail[dot]bg>
 	Download:........: https://gist.github.com/rddim/bd37264898c3a17363e7437bcf1b4803
 -->
 <NotepadPlus>
@@ -88,7 +88,7 @@
 				<Commands>
 				<!-- Меню "Файл" начало -->
 					<Item id="41001" name="&amp;Нов"/>
-					<Item id="41002" name="&amp;Отваряне"/>
+					<Item id="41002" name="&amp;Отваряне..."/>
 						<!-- Подменю "Местоположение на файла" -->
 					<Item id="41019" name="Отваряне на папката"/>
 					<Item id="41020" name="Отваряне в cmd конзола"/>
@@ -215,7 +215,7 @@
 				<!-- Меню "Редактиране" край -->
 				<!-- Меню "Търсене" начало -->
 					<Item id="43001" name="&amp;Търсене..."/>
-					<Item id="43013" name="Търсене във файлове"/>
+					<Item id="43013" name="Търсене във &amp;файлове..."/>
 					<Item id="43002" name="Намиране на &amp;следващ"/>
 					<Item id="43010" name="Намиране на &amp;предходен"/>
 					<Item id="43048" name="Маркиране и намиране на следващ"/>
@@ -223,7 +223,7 @@
 					<Item id="43014" name="Намиране (с регистър) на следващ"/>
 					<Item id="43015" name="Намиране (с регистър) на предходен"/>
 					<Item id="43003" name="&amp;Замяна..."/>
-					<Item id="43011" name="&amp;Търсене, докато се пише"/>
+					<Item id="43011" name="Търсене, &amp;докато се пише"/>
 					<Item id="43045" name="Прозорец с резултати от търсене"/>
 					<Item id="43046" name="Следващ резултат от търсене"/>
 					<Item id="43047" name="Предходен резултат от търсене"/>
@@ -463,27 +463,30 @@
 				<Item id="2"    name="Отказ"/>
 			</ColumnEditor>
 			<!-- Прозорец за търсене -->
-			<Find title="" titleFind="Търсене" titleReplace="Замяна" titleFindInFiles="Търсене във файлове" titleMark="Маркиране">
-				<!-- Диалог за "Търсене, Замяна, Търсене във файлове, Маркиране" -->
-				<Item id="1"    name="Намиране на &amp;следващ"/>
-				<Item id="2"    name="Затваряне"/>
+			<Find title="" titleFind="Търсене" titleReplace="Замяна" titleFindInFiles="Търсене във файлове" titleFindInProjects="Търсене в проекти" titleMark="Маркиране">
+				<!-- "Търсене", "Замяна", "Търсене във файлове", "Търсене в проекти", "Маркиране" -->
 				<Item id="1620" name="&amp;Търсене на:"/>
-				<Item id="1721" name="▲"/>
-				<Item id="1723" name="▼ Следващ"/>
-				<Item id="1722" name="Обратна посока"/>
+				<Item id="2"    name="Затваряне"/>
 				<Item id="1603" name="Само &amp;цели думи"/>
 				<Item id="1604" name="&amp;Главни / малки букви"/>
-				<Item id="1606" name="&amp;Кръгово търсене"/>
 				<Item id="1624" name="Режим на търсене"/>
 				<Item id="1625" name="&amp;Нормален"/>
 				<Item id="1626" name="&amp;Разширен (\n, \r, \t, \0, \x...)"/>
 				<Item id="1605" name="Р&amp;егулярен израз"/>
 				<Item id="1703" name=". и &amp;нов ред"/>
+				<Item id="1686" name="Прозра&amp;чност"/>
 				<Item id="1687" name="При неактивност"/>
 				<Item id="1688" name="Винаги"/>
+				<!-- "Търсене", "Замяна", "Маркиране" -->
+				<Item id="1722" name="Обратна посока"/>
+				<Item id="1606" name="&amp;Кръгово търсене"/>
 				<Item id="1632" name="В &amp;избраното"/>
+				<!-- "Търсене", "Замяна" -->
+				<Item id="1"    name="Намиране на &amp;следващ"/>
+				<Item id="1721" name="▲"/>
+				<Item id="1723" name="▼ Следващ"/>
+				<!-- "Замяна", "Търсене във файлове", "Търсене в проекти" -->
 				<Item id="1611" name="З&amp;амяна с:"/>
-				<Item id="1686" name="Прозра&amp;чност"/>
 				<!-- "Търсене" -->
 				<Item id="1614" name="&amp;Брой съвпадения"/>
 				<Item id="1641" name="Намиране на &amp;всичко в текущият файл"/>
@@ -492,14 +495,20 @@
 				<Item id="1608" name="&amp;Замяна"/>
 				<Item id="1609" name="Замяна на &amp;всичко"/>
 				<Item id="1635" name="Замяна на всичко във всички &amp;отворени"/>
-				<!-- "Търсене във файлове" -->
-				<Item id="1656" name="Намиране на всички"/>
-				<Item id="1660" name="Замяна във файловете"/>
+				<!-- "Търсене във файлове" и "Търсене в проекти" -->
 				<Item id="1654" name="&amp;Филтри:"/>
+				<Item id="1656" name="Намиране на всички"/>
+				<!-- "Търсене във файлове" -->
 				<Item id="1655" name="П&amp;апка:"/>
-				<Item id="1661" name="Според текущия файл"/>
+				<Item id="1660" name="Замяна във файловете"/>
+				<Item id="1661" name="Според текущият файл"/>
 				<Item id="1658" name="Във всички по&amp;дпапки"/>
 				<Item id="1659" name="В &amp;скрити папки"/>
+				<!-- "Търсене в проекти" -->
+				<Item id="1665" name="Замяна в проектите"/>
+				<Item id="1662" name="Проектен панел 1"/>
+				<Item id="1663" name="Проектен панел 2"/>
+				<Item id="1664" name="Проектен панел 3"/>
 				<!-- "Маркиране" -->
 				<Item id="1615" name="Маркиране на всички"/>
 				<Item id="1633" name="Изчистване на всички"/>
@@ -536,7 +545,7 @@
 				<Item id="2008" name="&amp;Отместване"/>
 				<Item id="2004" name="Сега сте на:"/>
 				<Item id="2005" name="Отиване на:"/>
-				<Item id="2006" name="Последен ред:"/>
+				<Item id="2006" name="Последен ред / позиция:"/>
 				<Item id="1"    name="Отиване"/>
 				<Item id="2"    name="Никъде не отивам"/>
 			</GoToLine>
@@ -978,12 +987,6 @@
 				</SearchEngine>
 					<!-- Разни -->
 				<MISC title="Разни">
-					<Item id="6324" name="Превключване между раздели (Ctrl + Tab)"/>
-					<Item id="6114" name="Включено"/>
-					<Item id="6117" name="Приоритет на последно използваните"/>
-					<Item id="6344" name="Надникване в документи"/>
-					<Item id="6345" name="Надникване в раздел"/>
-					<Item id="6346" name="Надникване в &quot;Карта на документа&quot;"/>
 					<Item id="6312" name="Авто-проверка за състоянието на файла"/>
 					<ComboBox id="6347">
 						<Element name="Включено"/>
@@ -993,11 +996,18 @@
 					<Item id="6313" name="Тихо обновяване"/>
 					<Item id="6325" name="Превъртане до последният ред"/>
 					<Item id="6323" name="Автоматично обновяване на Notepad++"/>
+					<Item id="6360" name="Изключване на всички звуци"/>
 					<Item id="6351" name="Файлово разширение *.* в диалога за запис"/>
 					<Item id="6334" name="Автоматично определяне кодировката на знаците"/>
 					<Item id="6308" name="Намаляване в системната област"/>
 					<Item id="6331" name="Показване само името на файла в заглавната лента"/>
 					<Item id="6349" name="Използване на DirectWrite за изобразяване на текст (изисква се рестартиране на Notepad++)"/>
+					<Item id="6324" name="Превключване между раздели (Ctrl + Tab)"/>
+					<Item id="6114" name="Включено"/>
+					<Item id="6117" name="Приоритет на последно използваните"/>
+					<Item id="6344" name="Надникване в документи"/>
+					<Item id="6345" name="Надникване в раздел"/>
+					<Item id="6346" name="Надникване в &quot;Карта на документа&quot;"/>
 					<Item id="6322" name="Файлово разширение за сесии:"/>
 					<Item id="6337" name="Разширение за работно място:"/>
 				</MISC>
@@ -1240,6 +1250,7 @@
 					<Item id="3126" name="Запис като..."/>
 					<Item id="3127" name="Запис на копие като..."/>
 					<Item id="3121" name="Добавяне на нов проект"/>
+					<Item id="3128" name="Търсене в проекти..."/>
 				</WorkspaceMenu>
 				<ProjectMenu>
 					<Item id="3118" name="Преместване нагоре"/>
@@ -1356,7 +1367,7 @@
 			<find-result-hits value="($INT_REPLACE$ съвпадения)"/>
 			<find-result-line-prefix value="Ред"/>
 			<find-regex-zero-length-match value="съвпадение с нулева дължина"/>
-			<find-in-files-progress-title value="Намиране във файлове – напредък..."/>
+			<find-in-files-progress-title value="Намиране във файлове..."/>
 				<!-- Дясно щракане върху раздел -->
 			<tabrename-title value="Преименуване на текущият раздел"/>
 			<tabrename-newname value="Ново име:"/>
@@ -1383,15 +1394,21 @@
 			<summary-nbsel1 value=" маркиран(и) символ(а) ("/>
 			<summary-nbsel2 value=" байта) в "/>
 			<summary-nbrange value=" обхват(а)"/>
-				<!-- Замяна във файлове -->
+				<!-- "Замяна" - Замяна на всичко във всички отворени -->
+			<replace-in-open-docs-confirm-title value="Сигурни ли сте?"/>
+			<replace-in-open-docs-confirm-message value="Сигурни ли сте, че искате да бъдат заменени всички съвпадения във всички отворени документи?"/>
+				<!-- "Търсене във файлове" - Замяна във файловете -->
 			<replace-in-files-confirm-title value="Сигурни ли сте?"/>
 			<replace-in-files-confirm-directory value="Сигурни ли сте, че искате да бъдат заменени всички съвпадения в:"/>
 			<replace-in-files-confirm-filetype value="За типа файл:"/>
-			<replace-in-open-docs-confirm-title value="Сигурни ли сте?"/>
-			<replace-in-open-docs-confirm-message value="Сигурни ли сте, че искате да бъдат заменени всички съвпадения във всички отворени документи?"/>
-			<replace-in-files-progress-title value="Замяна във файлове – напредък..."/>
+			<replace-in-files-progress-title value="Замяна във файлове..."/>
+				<!-- "Търсене в проекти" - Замяна в проектите -->
+			<replace-in-projects-confirm-title value="Сигурни ли сте?"/>
+			<replace-in-projects-confirm-message value="Сигурни ли сте, че искате да бъдат заменени всички съвпадения във всички документи в избраните проектни панели?"/>
 				<!-- Други -->
 			<session-save-folder-as-workspace value="Запис на &quot;Директория като работно място&quot;"/>
+			<splitter-rotate-left value="Завъртане наляво"/>
+			<splitter-rotate-right value="Завъртане надясно"/>
 		</MiscStrings>
 			<!-- Меню "Изглед" - "Карта на документа" -->
 		<DocumentMap>
@@ -1411,7 +1428,7 @@
 		</DocSwitcher>
 			<!-- Меню "Прозорци" - "Прозорци..." -->
 		<WindowsDlg>
-			<NbDocsTotal name="общо документи: "/>
+			<NbDocsTotal name="общо документи:"/>
 			<ColumnName name="Име"/>
 			<ColumnPath name="Път"/>
 			<ColumnType name="Тип"/>
@@ -1509,7 +1526,8 @@
 
 Премахнете я от панела преди да добавите &quot;$STR_REPLACE$&quot;."/>
 			<ProjectPanelChanged title="$STR_REPLACE$" message="Работната област е променена. Искате ли да бъде запазена?"/>
-			<ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Работната област не е запазена"/>
+			<ProjectPanelSaveError title="$STR_REPLACE$" message="Възникна грешка при запис на файла.
+Работната област не е запазена."/>
 			<ProjectPanelOpenDoSaveDirtyWsOrNot title="Отваряне на работна област" message="Текущата работна област е променена.
 
 Искате ли проекта да бъде запазен?"/>

@@ -32,7 +32,7 @@ Opening a issue beforehand allows the administrators and the community to discus
 
 ### Guidelines for pull requests
 
-1. Respect Notepad++ coding style.
+1. Respect existing Notepad++ coding style. Observe the code near your intended change, and attempt to preserve the style of that code with the changes you make.
 2. Create a new branch for each PR. **Make sure your branch name wasn't used before** - you can add date (for example `patch3_20200528`) to ensure its uniqueness.
 3. Single feature or bug-fix per PR.
 4. Create a PR with a single commit to make the review process easier.
@@ -192,6 +192,17 @@ In short: The easier the code review is, the better the chance your pull request
     char aChar = (char)_pEditView->execute(SCI_GETCHARAT, j);
     ```
 
+13. ##### Use `!` instead of `not`, `&&` instead of `and`, `||` instead of `or`.
+
+  * ###### Good:
+    ```cpp
+    if (!::PathFileExists(dir2Search))
+    ```
+
+  * ###### Bad:
+    ```cpp
+    if (not ::PathFileExists(dir2Search))
+    ```
 
 #### NAMING CONVENTIONS
 

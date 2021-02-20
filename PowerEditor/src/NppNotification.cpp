@@ -46,7 +46,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 	{
 		case SCN_MODIFIED:
 		{
-			if (not notifyView)
+			if (!notifyView)
 				return FALSE;
 
 			static bool prevWasEdit = false;
@@ -549,7 +549,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			_tabPopupMenu.checkItem(IDM_EDIT_SETREADONLY, isUserReadOnly);
 
 			bool isSysReadOnly = buf->getFileReadOnly();
-			_tabPopupMenu.enableItem(IDM_EDIT_SETREADONLY, not isSysReadOnly && not buf->isMonitoringOn());
+			_tabPopupMenu.enableItem(IDM_EDIT_SETREADONLY, !isSysReadOnly && !buf->isMonitoringOn());
 			_tabPopupMenu.enableItem(IDM_EDIT_CLEARREADONLY, isSysReadOnly);
 
 			bool isFileExisting = PathFileExists(buf->getFullPathName()) != FALSE;
@@ -659,7 +659,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		case SCN_DOUBLECLICK:
 		{
-			if (not notifyView)
+			if (!notifyView)
 				return FALSE;
 
 			if (notification->modifiers == SCMOD_CTRL)
@@ -835,7 +835,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		case SCN_UPDATEUI:
 		{
-			if (not notifyView)
+			if (!notifyView)
 				return FALSE;
 
 			NppParameters& nppParam = NppParameters::getInstance();
@@ -962,7 +962,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		case SCN_ZOOM:
 		{
-			if (not notifyView)
+			if (!notifyView)
 				return FALSE;
 
 			ScintillaEditView * unfocusView = isFromPrimary ? &_subEditView : &_mainEditView;
@@ -985,7 +985,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		case SCN_PAINTED:
 		{
-			if (not notifyView)
+			if (!notifyView)
 				return FALSE;
 
 			// Check if a restore position is needed. 
@@ -1021,7 +1021,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				_linkTriggered = false;
 			}
 
-			if (_pDocMap && (not _pDocMap->isClosed()) && _pDocMap->isVisible() && not _pDocMap->isTemporarilyShowing())
+			if (_pDocMap && (!_pDocMap->isClosed()) && _pDocMap->isVisible() && !_pDocMap->isTemporarilyShowing())
 			{
 				_pDocMap->wrapMap();
 				_pDocMap->scrollMap();

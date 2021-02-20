@@ -1496,7 +1496,7 @@ bool Notepad_plus::fileSave(BufferID id)
 			TCHAR *name = ::PathFindFileName(fn);
 			generic_string fn_bak;
 
-			if (nppgui._useDir && not nppgui._backupDir.empty())
+			if (nppgui._useDir && !nppgui._backupDir.empty())
 			{
 				// Get the custom directory, make sure it has a trailing slash
 				fn_bak = nppgui._backupDir;

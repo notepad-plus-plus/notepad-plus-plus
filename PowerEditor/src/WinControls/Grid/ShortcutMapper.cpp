@@ -536,7 +536,7 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 		case NPPM_INTERNAL_FINDKEYCONFLICTS:
 		{
-			if (not wParam || not lParam)
+			if (!wParam || !lParam)
 				break;
 
 			generic_string conflictInfo;
@@ -684,7 +684,7 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 					}
 
-					if (not isModified)
+					if (!isModified)
 						::SendMessage(_hSelf, WM_COMMAND, MAKEWPARAM(IDD_BABYGRID_ID1, BGN_ROWCHANGED), row);
 					
 					return TRUE;
@@ -842,7 +842,7 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						break;  
 					}
 
-					if (not isModified)
+					if (!isModified)
 						::SendMessage(_hSelf, WM_COMMAND, MAKEWPARAM(IDD_BABYGRID_ID1, BGN_ROWCHANGED), row);
 
 					return TRUE;
@@ -1135,7 +1135,7 @@ bool ShortcutMapper::findKeyConflicts(__inout_opt generic_string * const keyConf
 				size_t nbItems = vShortcuts.size();
 				for (size_t itemIndex = 0; itemIndex < nbItems; ++itemIndex)
 				{
-					if (not vShortcuts[itemIndex].isEnabled()) //no key assignment
+					if (!vShortcuts[itemIndex].isEnabled()) //no key assignment
 						continue;
 
 					if ((itemIndex == itemIndexToTest) && (gridState == static_cast<size_t>(_currentState))) //don't catch oneself
@@ -1148,7 +1148,7 @@ bool ShortcutMapper::findKeyConflicts(__inout_opt generic_string * const keyConf
 							return retIsConflict;
 						else
 						{
-							if (not keyConflictLocation->empty())
+							if (!keyConflictLocation->empty())
 								*keyConflictLocation += TEXT("\r\n");
 							*keyConflictLocation += _tabNames[gridState];
 							*keyConflictLocation += TEXT("  |  ");
@@ -1169,7 +1169,7 @@ bool ShortcutMapper::findKeyConflicts(__inout_opt generic_string * const keyConf
 				size_t nbItems = vShortcuts.size();
 				for (size_t itemIndex = 0; itemIndex < nbItems; ++itemIndex)
 				{
-					if (not vShortcuts[itemIndex].isEnabled()) //no key assignment
+					if (!vShortcuts[itemIndex].isEnabled()) //no key assignment
 						continue;
 
 					if ((itemIndex == itemIndexToTest) && (gridState == static_cast<size_t>(_currentState))) //don't catch oneself
@@ -1182,7 +1182,7 @@ bool ShortcutMapper::findKeyConflicts(__inout_opt generic_string * const keyConf
 							return retIsConflict;
 						else
 						{
-							if (not keyConflictLocation->empty())
+							if (!keyConflictLocation->empty())
 								*keyConflictLocation += TEXT("\r\n");
 							*keyConflictLocation += _tabNames[gridState];
 							*keyConflictLocation += TEXT("  |  ");
@@ -1203,7 +1203,7 @@ bool ShortcutMapper::findKeyConflicts(__inout_opt generic_string * const keyConf
 				size_t nbItems = vShortcuts.size();
 				for (size_t itemIndex = 0; itemIndex < nbItems; ++itemIndex)
 				{
-					if (not vShortcuts[itemIndex].isEnabled()) //no key assignment
+					if (!vShortcuts[itemIndex].isEnabled()) //no key assignment
 						continue;
 
 					if ((itemIndex == itemIndexToTest) && (gridState == static_cast<size_t>(_currentState))) //don't catch oneself
@@ -1216,7 +1216,7 @@ bool ShortcutMapper::findKeyConflicts(__inout_opt generic_string * const keyConf
 							return retIsConflict;
 						else
 						{
-							if (not keyConflictLocation->empty())
+							if (!keyConflictLocation->empty())
 								*keyConflictLocation += TEXT("\r\n");
 							*keyConflictLocation += _tabNames[gridState];
 							*keyConflictLocation += TEXT("  |  ");
@@ -1237,7 +1237,7 @@ bool ShortcutMapper::findKeyConflicts(__inout_opt generic_string * const keyConf
 				size_t nbItems = vShortcuts.size();
 				for (size_t itemIndex = 0; itemIndex < nbItems; ++itemIndex)
 				{
-					if (not vShortcuts[itemIndex].isEnabled()) //no key assignment
+					if (!vShortcuts[itemIndex].isEnabled()) //no key assignment
 						continue;
 
 					if ((itemIndex == itemIndexToTest) && (gridState == static_cast<size_t>(_currentState))) //don't catch oneself
@@ -1250,7 +1250,7 @@ bool ShortcutMapper::findKeyConflicts(__inout_opt generic_string * const keyConf
 							return retIsConflict;
 						else
 						{
-							if (not keyConflictLocation->empty())
+							if (!keyConflictLocation->empty())
 								*keyConflictLocation += TEXT("\r\n");
 							*keyConflictLocation += _tabNames[gridState];
 							*keyConflictLocation += TEXT("  |  ");
@@ -1271,7 +1271,7 @@ bool ShortcutMapper::findKeyConflicts(__inout_opt generic_string * const keyConf
 				size_t nbItems = vShortcuts.size();
 				for (size_t itemIndex = 0; itemIndex < nbItems; ++itemIndex)
 				{
-					if (not vShortcuts[itemIndex].isEnabled()) //no key assignment
+					if (!vShortcuts[itemIndex].isEnabled()) //no key assignment
 						continue;
 
 					if ((itemIndex == itemIndexToTest) && (gridState == static_cast<size_t>(_currentState))) //don't catch oneself
@@ -1287,7 +1287,7 @@ bool ShortcutMapper::findKeyConflicts(__inout_opt generic_string * const keyConf
 								return retIsConflict;
 							else
 							{
-								if (not keyConflictLocation->empty())
+								if (!keyConflictLocation->empty())
 									*keyConflictLocation += TEXT("\r\n");
 								*keyConflictLocation += _tabNames[gridState];
 								*keyConflictLocation += TEXT("  |  ");

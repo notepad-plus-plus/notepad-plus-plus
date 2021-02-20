@@ -1642,7 +1642,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                   }
               wsprintf(buffer, TEXT("%05d-%03d"), LPBGcell->row,LPBGcell->col);
 
-			  if (not BGHS[SelfIndex].INITIALCONTENT) // performance enhancement while adding new data
+			  if (!BGHS[SelfIndex].INITIALCONTENT) // performance enhancement while adding new data
 			  {
 				  //see if that cell is already loaded
 				  FindResult = BinarySearchListBox(BGHS[SelfIndex].hlist1,buffer);
@@ -2988,7 +2988,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			//This function needs a static placement position inside a parent window (default in Npp).
 			//For a dynamic position (e.g. sizing of the parenet window) an adjustment to this function is needed!
 
-			if (not BGHS[SelfIndex].SHOWINTEGRALROWS)
+			if (!BGHS[SelfIndex].SHOWINTEGRALROWS)
 				break;
 
 			ShowHscroll(hWnd, SelfIndex);

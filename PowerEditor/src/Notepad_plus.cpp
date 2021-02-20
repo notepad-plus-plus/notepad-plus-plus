@@ -271,8 +271,8 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_mainEditView.execute(SCI_SETCARETLINEVISIBLE, svp1._currentLineHilitingShow);
 	_subEditView.execute(SCI_SETCARETLINEVISIBLE, svp1._currentLineHilitingShow);
 
-	_mainEditView.execute(SCI_SETENDATLASTLINE, not svp1._scrollBeyondLastLine);
-	_subEditView.execute(SCI_SETENDATLASTLINE, not svp1._scrollBeyondLastLine);
+	_mainEditView.execute(SCI_SETENDATLASTLINE, !svp1._scrollBeyondLastLine);
+	_subEditView.execute(SCI_SETENDATLASTLINE, !svp1._scrollBeyondLastLine);
 
 	if (svp1._doSmoothFont)
 	{
@@ -1708,7 +1708,7 @@ bool Notepad_plus::findInFiles()
 {
 	const TCHAR *dir2Search = _findReplaceDlg.getDir2Search();
 
-	if (not dir2Search[0] || not ::PathFileExists(dir2Search))
+	if (!dir2Search[0] || !::PathFileExists(dir2Search))
 	{
 		return false;
 	}
@@ -2098,7 +2098,7 @@ void Notepad_plus::checkDocState()
 	bool isSysReadOnly = curBuf->getFileReadOnly();
 	enableCommand(IDM_EDIT_CLEARREADONLY, isSysReadOnly, MENU);
 
-	bool doEnable = not (curBuf->isMonitoringOn() || isSysReadOnly);
+	bool doEnable = !(curBuf->isMonitoringOn() || isSysReadOnly);
 	enableCommand(IDM_EDIT_SETREADONLY, doEnable, MENU);
 
 	bool isUserReadOnly = curBuf->getUserReadOnly();
@@ -2124,7 +2124,7 @@ void Notepad_plus::checkDocState()
 	if (_pAnsiCharPanel)
 		_pAnsiCharPanel->switchEncoding();
 
-	enableCommand(IDM_VIEW_MONITORING, not curBuf->isUntitled(), MENU | TOOLBAR);
+	enableCommand(IDM_VIEW_MONITORING, !curBuf->isUntitled(), MENU | TOOLBAR);
 	checkMenuItem(IDM_VIEW_MONITORING, curBuf->isMonitoringOn());
 	_toolBar.setCheck(IDM_VIEW_MONITORING, curBuf->isMonitoringOn());
 }
@@ -3181,14 +3181,14 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 
 BOOL Notepad_plus::processFindAccel(MSG *msg) const
 {
-	if (not ::IsChild(_findReplaceDlg.getHSelf(), ::GetFocus()))
+	if (!::IsChild(_findReplaceDlg.getHSelf(), ::GetFocus()))
 		return FALSE;
 	return ::TranslateAccelerator(_findReplaceDlg.getHSelf(), _accelerator.getFindAccTable(), msg);
 }
 
 BOOL Notepad_plus::processIncrFindAccel(MSG *msg) const
 {
-	if (not ::IsChild(_incrementFindDlg.getHSelf(), ::GetFocus()))
+	if (!::IsChild(_incrementFindDlg.getHSelf(), ::GetFocus()))
 		return FALSE;
 	return ::TranslateAccelerator(_incrementFindDlg.getHSelf(), _accelerator.getIncrFindAccTable(), msg);
 }
@@ -3786,7 +3786,7 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 				switchToFile(lastOpened);
 			}
 		}
-		else if (not isOldMode && (folderPaths.size() != 0 && filePaths.size() != 0)) // new mode && both folders & files
+		else if (!isOldMode && (folderPaths.size() != 0 && filePaths.size() != 0)) // new mode && both folders & files
 		{
 			// display error & do nothing
 			_nativeLangSpeaker.messageBox("DroppingFolderAsProjectModeWarning",
@@ -3795,7 +3795,7 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 				TEXT("Invalid action"),
 				MB_OK | MB_APPLMODAL);
 		}
-		else if (not isOldMode && (folderPaths.size() != 0 && filePaths.size() == 0)) // new mode && only folders
+		else if (!isOldMode && (folderPaths.size() != 0 && filePaths.size() == 0)) // new mode && only folders
 		{
 			// process new mode
 			generic_string emptyStr;
@@ -4627,7 +4627,7 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 	const TCHAR aSpace[] { TEXT(" ") };
 
 	//Only values that have passed through will be assigned, to be sure they are valid!
-	if (not isSingleLineAdvancedMode)
+	if (!isSingleLineAdvancedMode)
 	{
 		comment = commentLineSymbol;
 
@@ -4690,7 +4690,7 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 
    		if (currCommentMode != cm_comment) // uncomment/toggle
 		{
-			if (not isSingleLineAdvancedMode)
+			if (!isSingleLineAdvancedMode)
 			{
 				// In order to do get case insensitive comparison use strnicmp() instead case-sensitive comparison.
 				//      Case insensitive comparison is needed e.g. for "REM" and "rem" in Batchfiles.
@@ -4778,7 +4778,7 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 
 		if (currCommentMode != cm_uncomment) // comment/toggle
 		{
-			if (not isSingleLineAdvancedMode)
+			if (!isSingleLineAdvancedMode)
 			{
 				_pEditView->insertGenericTextFrom(lineIndent, comment.c_str());
 

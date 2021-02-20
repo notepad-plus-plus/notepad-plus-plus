@@ -68,7 +68,7 @@ Version::Version(const generic_string& versionStr)
 
 void Version::setVersionFrom(const generic_string& filePath)
 {
-	if (not filePath.empty() && ::PathFileExists(filePath.c_str()))
+	if (!filePath.empty() && ::PathFileExists(filePath.c_str()))
 	{
 		DWORD handle = 0;
 		DWORD bufferSize = ::GetFileVersionInfoSize(filePath.c_str(), &handle);
@@ -169,20 +169,20 @@ generic_string PluginUpdateInfo::describe()
 {
 	generic_string desc;
 	const TCHAR *EOL = TEXT("\r\n");
-	if (not _description.empty())
+	if (!_description.empty())
 	{
 		desc = _description;
 		desc += EOL;
 	}
 
-	if (not _author.empty())
+	if (!_author.empty())
 	{
 		desc += TEXT("Author: ");
 		desc += _author;
 		desc += EOL;
 	}
 
-	if (not _homepage.empty())
+	if (!_homepage.empty())
 	{
 		desc += TEXT("Homepage: ");
 		desc += _homepage;

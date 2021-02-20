@@ -238,22 +238,22 @@ generic_string NativeLangSpeaker::getShortcutNameString(int itemID) const
 
 generic_string NativeLangSpeaker::getLocalizedStrFromID(const char *strID, const generic_string& defaultString) const
 {
-	if (not _nativeLangA)
+	if (!_nativeLangA)
 		return defaultString;
 
-	if (not strID)
+	if (!strID)
 		return defaultString;
 
 	TiXmlNodeA *node = _nativeLangA->FirstChild("MiscStrings");
-	if (not node) return defaultString;
+	if (!node) return defaultString;
 
 	node = node->FirstChild(strID);
-	if (not node) return defaultString;
+	if (!node) return defaultString;
 
 	TiXmlElementA *element = node->ToElement();
 
 	const char *value = element->Attribute("value");
-	if (not value) return defaultString;
+	if (!value) return defaultString;
 
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	return wmc.char2wchar(value, _nativeLangEncoding);

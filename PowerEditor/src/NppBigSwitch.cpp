@@ -239,7 +239,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			const int strSize = FINDREPLACE_MAXLENGTH;
 			TCHAR str[strSize];
 
-			bool isFirstTime = not _findReplaceDlg.isCreated();
+			bool isFirstTime = !_findReplaceDlg.isCreated();
 			_findReplaceDlg.doDialog(FIND_DLG, _nativeLangSpeaker.isRTL());
 			
 			const NppGUI & nppGui = nppParam.getNppGUI();
@@ -263,7 +263,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			TCHAR str[strSize];
 			Finder *launcher = reinterpret_cast<Finder *>(wParam);
 
-			bool isFirstTime = not _findInFinderDlg.isCreated();
+			bool isFirstTime = !_findInFinderDlg.isCreated();
 
 			_findInFinderDlg.doDialog(launcher, _nativeLangSpeaker.isRTL());
 
@@ -1360,7 +1360,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_FINDKEYCONFLICTS:
 		{
-			if (not wParam || not lParam) // Clean up current session
+			if (!wParam || !lParam) // Clean up current session
 			{
 				delete _pShortcutMapper;
 				_pShortcutMapper = nullptr;

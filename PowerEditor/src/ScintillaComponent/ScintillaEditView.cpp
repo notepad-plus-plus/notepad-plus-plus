@@ -1312,13 +1312,13 @@ void ScintillaEditView::addCustomWordChars()
 				break;
 			}
 		}
-		if (not found)
+		if (!found)
 		{
 			chars2addStr.push_back(char2check);
 		}
 	}
 
-	if (not chars2addStr.empty())
+	if (!chars2addStr.empty())
 	{
 		string newCharList = _defaultCharList;
 		newCharList += chars2addStr;
@@ -1837,7 +1837,7 @@ void ScintillaEditView::restoreCurrentPosPreStep()
 	execute(SCI_SETANCHOR, pos._startPos);
 	execute(SCI_SETCURRENTPOS, pos._endPos);
 	execute(SCI_CANCEL);							//disable
-	if (not isWrap()) //only offset if not wrapping, otherwise the offset isnt needed at all
+	if (!isWrap()) //only offset if not wrapping, otherwise the offset isnt needed at all
 	{
 		execute(SCI_SETSCROLLWIDTH, pos._scrollWidth);
 		execute(SCI_SETXOFFSET, pos._xOffset);
@@ -2877,7 +2877,7 @@ void ScintillaEditView::changeCase(__inout wchar_t * const strWToConvert, const 
 			{
 				if (::IsCharAlphaW(strWToConvert[i]))
 				{
-					if ((i < 1) ? true : not ::IsCharAlphaNumericW(strWToConvert[i - 1]))
+					if ((i < 1) ? true : !::IsCharAlphaNumericW(strWToConvert[i - 1]))
 						strWToConvert[i] = (WCHAR)(UINT_PTR)::CharUpperW((LPWSTR)strWToConvert[i]);
 					else if (caseToConvert == TITLECASE_FORCE)
 						strWToConvert[i] = (WCHAR)(UINT_PTR)::CharLowerW((LPWSTR)strWToConvert[i]);

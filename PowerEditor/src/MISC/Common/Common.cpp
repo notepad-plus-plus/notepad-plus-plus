@@ -616,21 +616,21 @@ generic_string PathAppend(generic_string& strDest, const generic_string& str2app
 		return strDest;
 	}
 
-	if (strDest.empty() && not str2append.empty()) // "" + titi
+	if (strDest.empty() && !str2append.empty()) // "" + titi
 	{
 		strDest = str2append;
 		return strDest;
 	}
 
-	if (strDest[strDest.length() - 1] == '\\' && (not str2append.empty() && str2append[0] == '\\')) // toto\ + \titi
+	if (strDest[strDest.length() - 1] == '\\' && (!str2append.empty() && str2append[0] == '\\')) // toto\ + \titi
 	{
 		strDest.erase(strDest.length() - 1, 1);
 		strDest += str2append;
 		return strDest;
 	}
 
-	if ((strDest[strDest.length() - 1] == '\\' && (not str2append.empty() && str2append[0] != '\\')) // toto\ + titi
-		|| (strDest[strDest.length() - 1] != '\\' && (not str2append.empty() && str2append[0] == '\\'))) // toto + \titi
+	if ((strDest[strDest.length() - 1] == '\\' && (!str2append.empty() && str2append[0] != '\\')) // toto\ + titi
+		|| (strDest[strDest.length() - 1] != '\\' && (!str2append.empty() && str2append[0] == '\\'))) // toto + \titi
 	{
 		strDest += str2append;
 		return strDest;
@@ -945,7 +945,7 @@ bool allPatternsAreExclusion(const std::vector<generic_string> patterns)
 			break;
 		}
 	}
-	return not oneInclusionPatternFound;
+	return !oneInclusionPatternFound;
 }
 
 generic_string GetLastErrorAsString(DWORD errorCode)
@@ -1087,7 +1087,7 @@ bool isCertificateValidated(const generic_string & fullFilePath, const generic_s
 		CertInfo.SerialNumber = pSignerInfo->SerialNumber;
 
 		pCertContext = CertFindCertificateInStore(hStore, X509_ASN_ENCODING | PKCS_7_ASN_ENCODING, 0, CERT_FIND_SUBJECT_CERT, (PVOID)&CertInfo, NULL);
-		if (not pCertContext)
+		if (!pCertContext)
 		{
 			generic_string errorMessage = TEXT("Certificate context: ");
 			errorMessage += GetLastErrorAsString(GetLastError());

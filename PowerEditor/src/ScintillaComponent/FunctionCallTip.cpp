@@ -86,13 +86,13 @@ void FunctionCallTip::setLanguageXML(TiXmlElement * pXmlKeyword)
 
 bool FunctionCallTip::updateCalltip(int ch, bool needShown)
 {
-	if (not needShown && ch != _start && ch != _param && not isVisible())		//must be already visible
+	if (!needShown && ch != _start && ch != _param && !isVisible())		//must be already visible
 		return false;
 
 	_curPos = static_cast<int32_t>(_pEditView->execute(SCI_GETCURRENTPOS));
 
 	//recalculate everything
-	if (not getCursorFunction())
+	if (!getCursorFunction())
 	{	//cannot display calltip (anymore)
 		close();
 		return false;

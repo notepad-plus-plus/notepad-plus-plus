@@ -245,7 +245,7 @@ void PreferenceDlg::makeCategoryList()
 
 int32_t PreferenceDlg::getIndexFromName(const TCHAR *name) const
 {
-	if (not name)
+	if (!name)
 		return -1;
 
 	int32_t i = 0;
@@ -3047,7 +3047,7 @@ generic_string DelimiterSubDlg::getWarningText(size_t nbSp, size_t nbTab) const
 		generic_string warnEnd = pNativeSpeaker->getLocalizedStrFromID("word-chars-list-warning-end", TEXT(""));
 
 		// half translation is not allowed
-		if (not warnBegin.empty() && not space.empty() && not tab.empty() && not warnEnd.empty())
+		if (!warnBegin.empty() && !space.empty() && !tab.empty() && !warnEnd.empty())
 		{
 			space = stringReplace(space, TEXT("$INT_REPLACE$"), nbSpStr);
 			tab = stringReplace(tab, TEXT("$INT_REPLACE$"), nbTabStr);
@@ -3066,7 +3066,7 @@ generic_string DelimiterSubDlg::getWarningText(size_t nbSp, size_t nbTab) const
 			msg += TEXT(" TAB(s) in your character list.");
 		}
 	}
-	else if (nbSp && not nbTab)
+	else if (nbSp && !nbTab)
 	{
 		generic_string nbSpStr = std::to_wstring(nbSp);
 		generic_string warnBegin = pNativeSpeaker->getLocalizedStrFromID("word-chars-list-warning-begin", TEXT(""));
@@ -3074,7 +3074,7 @@ generic_string DelimiterSubDlg::getWarningText(size_t nbSp, size_t nbTab) const
 		generic_string warnEnd = pNativeSpeaker->getLocalizedStrFromID("word-chars-list-warning-end", TEXT(""));
 
 		// half translation is not allowed
-		if (not warnBegin.empty() && not space.empty() && not warnEnd.empty())
+		if (!warnBegin.empty() && !space.empty() && !warnEnd.empty())
 		{
 			space = stringReplace(space, TEXT("$INT_REPLACE$"), nbSpStr);
 			msg = warnBegin;
@@ -3088,7 +3088,7 @@ generic_string DelimiterSubDlg::getWarningText(size_t nbSp, size_t nbTab) const
 			msg += TEXT(" space(s) in your character list.");
 		}
 	}
-	else if (not nbSp && nbTab)
+	else if (!nbSp && nbTab)
 	{
 		generic_string nbTabStr = std::to_wstring(nbTab);
 		generic_string warnBegin = pNativeSpeaker->getLocalizedStrFromID("word-chars-list-warning-begin", TEXT(""));
@@ -3096,7 +3096,7 @@ generic_string DelimiterSubDlg::getWarningText(size_t nbSp, size_t nbTab) const
 		generic_string warnEnd = pNativeSpeaker->getLocalizedStrFromID("word-chars-list-warning-end", TEXT(""));
 
 		// half translation is not allowed
-		if (not warnBegin.empty() && not tab.empty() && not warnEnd.empty())
+		if (!warnBegin.empty() && !tab.empty() && !warnEnd.empty())
 		{
 			tab = stringReplace(tab, TEXT("$INT_REPLACE$"), nbTabStr);
 			msg = warnBegin;
@@ -3110,7 +3110,7 @@ generic_string DelimiterSubDlg::getWarningText(size_t nbSp, size_t nbTab) const
 			msg += TEXT(" TAB(s) in your character list.");
 		}
 	}
-	else //(not nbSp && not nbTab)
+	else // (!nbSp && !nbTab)
 	{
 		// do nothing
 	}
@@ -3122,7 +3122,7 @@ void DelimiterSubDlg::setWarningIfNeed() const
 {
 	generic_string msg;
 	NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance()).getNppGUI());
-	if (not nppGUI._isWordCharDefault)
+	if (!nppGUI._isWordCharDefault)
 	{
 		int nbSp = 0;
 		int nbTab = 0;
@@ -3185,8 +3185,8 @@ INT_PTR CALLBACK DelimiterSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			
 			::SetDlgItemTextA(_hSelf, IDC_WORDCHAR_CUSTOM_EDIT, nppGUI._customWordChars.c_str());
 			::SendDlgItemMessage(_hSelf, IDC_RADIO_WORDCHAR_DEFAULT, BM_SETCHECK, nppGUI._isWordCharDefault ? BST_CHECKED : BST_UNCHECKED, 0);
-			::SendDlgItemMessage(_hSelf, IDC_RADIO_WORDCHAR_CUSTOM, BM_SETCHECK, not nppGUI._isWordCharDefault ? BST_CHECKED : BST_UNCHECKED, 0);
-			::EnableWindow(::GetDlgItem(_hSelf, IDC_WORDCHAR_CUSTOM_EDIT), not nppGUI._isWordCharDefault);
+			::SendDlgItemMessage(_hSelf, IDC_RADIO_WORDCHAR_CUSTOM, BM_SETCHECK, !nppGUI._isWordCharDefault ? BST_CHECKED : BST_UNCHECKED, 0);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_WORDCHAR_CUSTOM_EDIT), !nppGUI._isWordCharDefault);
 
 			setWarningIfNeed();
 
@@ -3280,7 +3280,7 @@ INT_PTR CALLBACK DelimiterSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					::SendDlgItemMessage(_hSelf, IDC_RADIO_WORDCHAR_CUSTOM, BM_SETCHECK, BST_UNCHECKED, 0);
 					nppGUI._isWordCharDefault = true;
 					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETWORDCHARS, 0, 0);
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_WORDCHAR_CUSTOM_EDIT), not nppGUI._isWordCharDefault);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_WORDCHAR_CUSTOM_EDIT), !nppGUI._isWordCharDefault);
 					::SetDlgItemText(_hSelf, IDD_STATIC_WORDCHAR_WARNING, TEXT(""));
 					return TRUE;
 				}
@@ -3290,7 +3290,7 @@ INT_PTR CALLBACK DelimiterSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					::SendDlgItemMessage(_hSelf, IDC_RADIO_WORDCHAR_DEFAULT, BM_SETCHECK, BST_UNCHECKED, 0);
 					nppGUI._isWordCharDefault = false;
 					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETWORDCHARS, 0, 0);
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_WORDCHAR_CUSTOM_EDIT), not nppGUI._isWordCharDefault);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_WORDCHAR_CUSTOM_EDIT), !nppGUI._isWordCharDefault);
 					setWarningIfNeed();
 					return TRUE;
 				}

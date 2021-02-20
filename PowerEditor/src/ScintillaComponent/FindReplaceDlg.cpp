@@ -589,13 +589,13 @@ vector<generic_string> Finder::getResultFilePaths() const
 		// make sure that path is not already in
 		generic_string & path2add = (*_pMainFoundInfos)[i]._fullPath;
 		bool found = path2add.empty();
-		for (size_t j = 0; j < paths.size() && not found; ++j)
+		for (size_t j = 0; j < paths.size() && !found; ++j)
 		{
 			if (paths[j] == path2add)
 				found = true;
 
 		}
-		if (not found)
+		if (!found)
 			paths.push_back(path2add);
 	}
 	return paths;
@@ -2038,7 +2038,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 {
 	int nbProcessed = 0;
 	
-	if (!isCreated() && not findReplaceInfo._txt2find)
+	if (!isCreated() && !findReplaceInfo._txt2find)
 		return nbProcessed;
 
 	ScintillaEditView *pEditView = *_ppEditView;
@@ -2057,7 +2057,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 	LRESULT stringSizeReplace = 0;
 
 	TCHAR *pTextFind = NULL;
-	if (not findReplaceInfo._txt2find)
+	if (!findReplaceInfo._txt2find)
 	{
 		HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
 		generic_string str2Search = getTextFromCombo(hFindCombo);
@@ -2081,7 +2081,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 	TCHAR *pTextReplace = NULL;
 	if (op == ProcessReplaceAll)
 	{
-		if (not findReplaceInfo._txt2replace)
+		if (!findReplaceInfo._txt2replace)
 		{
 			HWND hReplaceCombo = ::GetDlgItem(_hSelf, IDREPLACEWITH);
 			generic_string str2Replace = getTextFromCombo(hReplaceCombo);
@@ -2193,7 +2193,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 
 			case ProcessFindInFinder:
 			{
-				if (not pFindersInfo || not pFindersInfo->_pSourceFinder || not pFindersInfo->_pDestFinder)
+				if (!pFindersInfo || !pFindersInfo->_pSourceFinder || !pFindersInfo->_pDestFinder)
 					break;
 
 				const TCHAR *pFileName = pFindersInfo->_pFileName ? pFindersInfo->_pFileName : TEXT("");

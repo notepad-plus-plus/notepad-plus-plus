@@ -529,7 +529,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				}
 				setActiveTab(tabIndex);
 			}
-			else if (not _isMultiLine) // don't scroll if in multi-line mode
+			else if (!_isMultiLine) // don't scroll if in multi-line mode
 			{
 				RECT rcTabCtrl, rcLastTab;
 				::SendMessage(_hSelf, TCM_GETITEMRECT, lastTabIndex, reinterpret_cast<LPARAM>(&rcLastTab));
@@ -549,7 +549,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				LONG maxLengthUpDownCtrl = NppParameters::getInstance()._dpiManager.scaleX(44); // sufficient static value
 
 				// scroll forward as long as the last tab is hidden; scroll backward till the first tab
-				if ((_isVertical ? ((rcTabCtrl.bottom - rcLastTab.bottom) < maxLengthUpDownCtrl) : ((rcTabCtrl.right - rcLastTab.right) < maxLengthUpDownCtrl)) || not isForward)
+				if ((_isVertical ? ((rcTabCtrl.bottom - rcLastTab.bottom) < maxLengthUpDownCtrl) : ((rcTabCtrl.right - rcLastTab.right) < maxLengthUpDownCtrl)) || !isForward)
 				{
 					if (isForward)
 						++scrollTabIndex;

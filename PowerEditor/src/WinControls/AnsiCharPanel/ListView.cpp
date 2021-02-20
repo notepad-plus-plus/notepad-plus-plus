@@ -84,7 +84,7 @@ void ListView::destroy()
 
 void ListView::addLine(const vector<generic_string> & values2Add, LPARAM lParam, int pos2insert)
 {
-	if (not values2Add.size())
+	if (!values2Add.size())
 		return;
 
 	if (pos2insert == -1)

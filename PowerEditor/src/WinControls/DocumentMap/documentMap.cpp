@@ -220,7 +220,7 @@ void DocumentMap::scrollMap()
 		// Get bottom position of orange marker window
 		LRESULT lowerY = 0;
 		LRESULT lineHeightMapView  = _pMapView->execute(SCI_TEXTHEIGHT, 0);
-		if (not (*_ppEditView)->isWrap())
+		if (!(*_ppEditView)->isWrap())
 		{ // not wrapped: mimic height of edit view
 			LRESULT lineHeightEditView = (*_ppEditView)->execute(SCI_TEXTHEIGHT, 0);
 			lowerY = higherY + lineHeightMapView * (rcEditView.bottom - rcEditView.top) / lineHeightEditView;
@@ -261,7 +261,7 @@ void DocumentMap::scrollMapWith(const MapPosition & mapPos)
 		// Get the editor's higher/lower Y, then compute the map's higher/lower Y
 		LRESULT higherY = 0;
 		LRESULT lowerY = 0;
-		if (not mapPos._isWrap)
+		if (!mapPos._isWrap)
 		{
 			auto higherPos = _pMapView->execute(SCI_POSITIONFROMLINE, mapPos._firstVisibleDocLine);
 			auto lowerPos = _pMapView->execute(SCI_POSITIONFROMLINE, mapPos._lastVisibleDocLine);

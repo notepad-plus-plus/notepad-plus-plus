@@ -425,7 +425,7 @@ void FunctionParser::funcParse(std::vector<foundInfo> & foundInfos, size_t begin
 				fi._pos = foundPos;
 			}
 
-			if (not classStructName.empty())
+			if (!classStructName.empty())
 			{
 				fi._data2 = classStructName;
 				fi._pos2 = -1; // change -1 valeur for validated data2
@@ -585,7 +585,7 @@ void FunctionZoneParser::classParse(vector<foundInfo> & foundInfos, vector< pair
 		generic_string classStructName = parseSubLevel(targetStart, targetEnd, _classNameExprArray, foundPos, ppEditView);
 		
 
-		if (not _openSymbole.empty() && not _closeSymbole.empty())
+		if (!_openSymbole.empty() && !_closeSymbole.empty())
 		{
 			targetEnd = static_cast<int32_t>(getBodyClosePos(targetEnd, _openSymbole.c_str(), _closeSymbole.c_str(), commentZones, ppEditView));
 		}

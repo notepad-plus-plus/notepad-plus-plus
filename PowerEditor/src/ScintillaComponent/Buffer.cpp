@@ -220,14 +220,14 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 	bool isWow64Off = false;
 	NppParameters& nppParam = NppParameters::getInstance();
 
-	if (not PathFileExists(_fullPathName.c_str()))
+	if (!PathFileExists(_fullPathName.c_str()))
 	{
 		nppParam.safeWow64EnableWow64FsRedirection(FALSE);
 		isWow64Off = true;
 	}
 
 	bool isOK = false;
-	if (_currentStatus != DOC_DELETED && not PathFileExists(_fullPathName.c_str()))	//document has been deleted
+	if (_currentStatus != DOC_DELETED && !PathFileExists(_fullPathName.c_str()))	//document has been deleted
 	{
 		_currentStatus = DOC_DELETED;
 		_isFileReadOnly = false;
@@ -917,7 +917,7 @@ bool FileManager::backupCurrentBuffer()
 	else // buffer not dirty, sync: delete the backup file
 	{
 		generic_string backupFilePath = buffer->getBackupFileName();
-		if (not backupFilePath.empty())
+		if (!backupFilePath.empty())
 		{
 			// delete backup file
 			generic_string file2Delete = buffer->getBackupFileName();
@@ -945,7 +945,7 @@ bool FileManager::deleteBufferBackup(BufferID id)
 	Buffer* buffer = getBufferByID(id);
 	bool result = true;
 	generic_string backupFilePath = buffer->getBackupFileName();
-	if (not backupFilePath.empty())
+	if (!backupFilePath.empty())
 	{
 		// delete backup file
 		buffer->setBackupFileName(generic_string());
@@ -1062,7 +1062,7 @@ SavingStatus FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool i
 		_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
 
 		generic_string backupFilePath = buffer->getBackupFileName();
-		if (not backupFilePath.empty())
+		if (!backupFilePath.empty())
 		{
 			// delete backup file
 			buffer->setBackupFileName(generic_string());
@@ -1260,7 +1260,7 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data, Utf8_16_Read * unicodeConvertor, LoadedFileFormat& fileFormat)
 {
 	FILE *fp = generic_fopen(filename, TEXT("rb"));
-	if (not fp)
+	if (!fp)
 		return false;
 
 	//Get file size

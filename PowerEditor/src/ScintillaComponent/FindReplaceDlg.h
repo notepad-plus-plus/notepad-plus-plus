@@ -29,14 +29,14 @@
 
 #define FINDREPLACE_MAXLENGTH 2048
 
-enum DIALOG_TYPE {FIND_DLG, REPLACE_DLG, FINDINFILES_DLG, MARK_DLG};
+enum DIALOG_TYPE {FIND_DLG, REPLACE_DLG, FINDINFILES_DLG, FINDINPROJECTS_DLG,MARK_DLG};
 
 #define DIR_DOWN true
 #define DIR_UP false
 
 //#define FIND_REPLACE_STR_MAX 256
 
-enum InWhat{ALL_OPEN_DOCS, FILES_IN_DIR, CURRENT_DOC, CURR_DOC_SELECTION};
+enum InWhat{ALL_OPEN_DOCS, FILES_IN_DIR, CURRENT_DOC, CURR_DOC_SELECTION, FILES_IN_PROJECT};
 
 struct FoundInfo {
 	FoundInfo(int start, int end, size_t lineNumber, const TCHAR *fullPath)
@@ -393,8 +393,9 @@ private :
 	void showFindDlgItem(int dlgItemID, bool isShow = true);
 
 	void enableReplaceFunc(bool isEnable);
-	void enableFindInFilesControls(bool isEnable = true);
+	void enableFindInFilesControls(bool isEnable, bool projectPanels);
 	void enableFindInFilesFunc();
+	void enableFindInProjectsFunc();
 	void enableMarkAllControls(bool isEnable);
 	void enableMarkFunc();
 

@@ -279,11 +279,13 @@ void FindReplaceDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	const TCHAR *find = TEXT("Find");
 	const TCHAR *replace = TEXT("Replace");
 	const TCHAR *findInFiles = TEXT("Find in Files");
+	const TCHAR *findInProjects = TEXT("Find in Projects");
 	const TCHAR *mark = TEXT("Mark");
 
 	_tab.insertAtEnd(find);
 	_tab.insertAtEnd(replace);
 	_tab.insertAtEnd(findInFiles);
+	_tab.insertAtEnd(findInProjects);
 	_tab.insertAtEnd(mark);
 
 	_tab.reSizeTo(rect);
@@ -782,7 +784,7 @@ void FindReplaceDlg::resizeDialogElements(LONG newWidth)
 
 		IDD_FINDINFILES_BROWSE_BUTTON, IDCMARKALL, IDC_CLEAR_ALL, IDCCOUNTALL, IDC_FINDALL_OPENEDFILES, IDC_FINDALL_CURRENTFILE,
 		IDREPLACE, IDREPLACEALL,IDC_REPLACE_OPENEDFILES, IDD_FINDINFILES_FIND_BUTTON, IDD_FINDINFILES_REPLACEINFILES, IDOK, IDCANCEL,
-		IDC_FINDPREV, IDC_FINDNEXT, IDC_2_BUTTONS_MODE, IDC_COPY_MARKED_TEXT
+		IDC_FINDPREV, IDC_FINDNEXT, IDC_2_BUTTONS_MODE, IDC_COPY_MARKED_TEXT, IDD_FINDINFILES_REPLACEINPROJECTS
 	};
 
 	const UINT flags = SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOACTIVATE | SWP_NOCOPYBITS;
@@ -1245,11 +1247,12 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 					nppParamInst._isFindReplacing = true;
 					if (isMacroRecording) saveInMacro(wParam, FR_OP_FIND + FR_OP_FIF);
-					findAllIn(FILES_IN_DIR);
+					findAllIn((_currentStatus == REPLACE_DLG) ? FILES_IN_DIR : FILES_IN_PROJECT);
 					nppParamInst._isFindReplacing = false;
 				}
 				return TRUE;
 
+				case IDD_FINDINFILES_REPLACEINPROJECTS:
 				case IDD_FINDINFILES_REPLACEINFILES:
 				{
 					std::lock_guard<std::mutex> lock(findOps_mutex);
@@ -1626,7 +1629,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				case IDD_FINDINFILES_PROJECT2_CHECK:
 				case IDD_FINDINFILES_PROJECT3_CHECK:
 				{
-					if (_currentStatus == FINDINFILES_DLG)
+					if (_currentStatus == FINDINPROJECTS_DLG)
 					{
 						switch (LOWORD(wParam))
 						{
@@ -2727,7 +2730,7 @@ void FindReplaceDlg::enableReplaceFunc(bool isEnable)
 	RECT *pInSelectionFramePos = isEnable ? &_replaceInSelFramePos : &_countInSelFramePos;
 	RECT *pInSectionCheckPos = isEnable ? &_replaceInSelCheckPos : &_countInSelCheckPos;
 
-	enableFindInFilesControls(false);
+	enableFindInFilesControls(false, false);
 	enableMarkAllControls(false);
 	// replace controls
 	showFindDlgItem(ID_STATICTEXT_REPLACE, isEnable);
@@ -2772,7 +2775,7 @@ void FindReplaceDlg::enableMarkAllControls(bool isEnable)
 	showFindDlgItem(IDC_COPY_MARKED_TEXT, isEnable);
 }
 
-void FindReplaceDlg::enableFindInFilesControls(bool isEnable)
+void FindReplaceDlg::enableFindInFilesControls(bool isEnable, bool projectPanels)
 {
 	// Hide Items
 	showFindDlgItem(IDC_BACKWARDDIRECTION, !isEnable);
@@ -2815,19 +2818,20 @@ void FindReplaceDlg::enableFindInFilesControls(bool isEnable)
 		showFindDlgItem(ID_STATICTEXT_REPLACE);
 		showFindDlgItem(IDREPLACEWITH);
 	}
-	showFindDlgItem(IDD_FINDINFILES_REPLACEINFILES, isEnable);
+	showFindDlgItem(IDD_FINDINFILES_REPLACEINFILES, isEnable && (!projectPanels));
+	showFindDlgItem(IDD_FINDINFILES_REPLACEINPROJECTS, isEnable && projectPanels);
 	showFindDlgItem(IDD_FINDINFILES_FILTERS_STATIC, isEnable);
 	showFindDlgItem(IDD_FINDINFILES_FILTERS_COMBO, isEnable);
-	showFindDlgItem(IDD_FINDINFILES_DIR_STATIC, isEnable);
-	showFindDlgItem(IDD_FINDINFILES_DIR_COMBO, isEnable);
-	showFindDlgItem(IDD_FINDINFILES_BROWSE_BUTTON, isEnable);
+	showFindDlgItem(IDD_FINDINFILES_DIR_STATIC, isEnable && (!projectPanels));
+	showFindDlgItem(IDD_FINDINFILES_DIR_COMBO, isEnable && (!projectPanels));
+	showFindDlgItem(IDD_FINDINFILES_BROWSE_BUTTON, isEnable && (!projectPanels));
 	showFindDlgItem(IDD_FINDINFILES_FIND_BUTTON, isEnable);
-	showFindDlgItem(IDD_FINDINFILES_RECURSIVE_CHECK, isEnable);
-	showFindDlgItem(IDD_FINDINFILES_INHIDDENDIR_CHECK, isEnable);
-	showFindDlgItem(IDD_FINDINFILES_PROJECT1_CHECK, isEnable);
-	showFindDlgItem(IDD_FINDINFILES_PROJECT2_CHECK, isEnable);
-	showFindDlgItem(IDD_FINDINFILES_PROJECT3_CHECK, isEnable);
-	showFindDlgItem(IDD_FINDINFILES_FOLDERFOLLOWSDOC_CHECK, isEnable);
+	showFindDlgItem(IDD_FINDINFILES_RECURSIVE_CHECK, isEnable && (!projectPanels));
+	showFindDlgItem(IDD_FINDINFILES_INHIDDENDIR_CHECK, isEnable && (!projectPanels));
+	showFindDlgItem(IDD_FINDINFILES_PROJECT1_CHECK, isEnable && projectPanels);
+	showFindDlgItem(IDD_FINDINFILES_PROJECT2_CHECK, isEnable && projectPanels);
+	showFindDlgItem(IDD_FINDINFILES_PROJECT3_CHECK, isEnable && projectPanels);
+	showFindDlgItem(IDD_FINDINFILES_FOLDERFOLLOWSDOC_CHECK, isEnable && (!projectPanels));
 }
 
 void FindReplaceDlg::getPatterns(vector<generic_string> & patternVect)
@@ -3350,6 +3354,8 @@ void FindReplaceDlg::doDialog(DIALOG_TYPE whichType, bool isRTL, bool toShow)
 
 	if (whichType == FINDINFILES_DLG)
 		enableFindInFilesFunc();
+	else if (whichType == FINDINPROJECTS_DLG)
+		enableFindInProjectsFunc();
 	else if (whichType == MARK_DLG)
 		enableMarkFunc();
 	else
@@ -3414,8 +3420,20 @@ LRESULT FAR PASCAL FindReplaceDlg::comboEditProc(HWND hwnd, UINT message, WPARAM
 
 void FindReplaceDlg::enableFindInFilesFunc()
 {
-	enableFindInFilesControls();
+	enableFindInFilesControls(true, false);
 	_currentStatus = FINDINFILES_DLG;
+	gotoCorrectTab();
+	::MoveWindow(::GetDlgItem(_hSelf, IDCANCEL), _findInFilesClosePos.left + _deltaWidth, _findInFilesClosePos.top, _findInFilesClosePos.right, _findInFilesClosePos.bottom, TRUE);
+	TCHAR label[MAX_PATH];
+	_tab.getCurrentTitle(label, MAX_PATH);
+	::SetWindowText(_hSelf, label);
+	setDefaultButton(IDD_FINDINFILES_FIND_BUTTON);
+}
+
+void FindReplaceDlg::enableFindInProjectsFunc()
+{
+	enableFindInFilesControls(true, true);
+	_currentStatus = FINDINPROJECTS_DLG;
 	gotoCorrectTab();
 	::MoveWindow(::GetDlgItem(_hSelf, IDCANCEL), _findInFilesClosePos.left + _deltaWidth, _findInFilesClosePos.top, _findInFilesClosePos.right, _findInFilesClosePos.bottom, TRUE);
 	TCHAR label[MAX_PATH];
@@ -3426,7 +3444,7 @@ void FindReplaceDlg::enableFindInFilesFunc()
 
 void FindReplaceDlg::enableMarkFunc()
 {
-	enableFindInFilesControls(false);
+	enableFindInFilesControls(false, false);
 	enableMarkAllControls(true);
 
 	// Replace controls to hide

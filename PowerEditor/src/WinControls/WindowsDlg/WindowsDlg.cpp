@@ -868,6 +868,7 @@ void WindowsDlg::doCount()
 	generic_string msg = pNativeSpeaker->getAttrNameStr(TEXT("Windows"), "Dialog", "Window", "title");
 	msg += TEXT(" - ");
 	msg += pNativeSpeaker->getAttrNameStr(TEXT("Total documents: "), WD_ROOTNODE, WD_NBDOCSTOTAL);
+	msg += TEXT(" ");
 	msg += to_wstring(_idxMap.size());
 	SetWindowText(_hSelf,msg.c_str());
 }

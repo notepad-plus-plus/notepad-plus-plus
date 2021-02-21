@@ -382,18 +382,25 @@ private:
 		if (fileName.empty())
 			return false;
 		bool transformed = false;
-		// Transform to a Windows path.
-		size_t pos = 0;
-		while ((pos = fileName.find('/', pos)) != generic_string::npos)
-		{
-			fileName[pos] = '\\';
-			++pos;
-			transformed = true;
-		}
+		// Replace a forward-slash with a backslash.
+		std::replace_if(fileName.begin(), fileName.end(),
+			[&transformed](generic_string::value_type c)
+			{
+				const bool eq = (c == '/');
+				transformed |= eq;
+				return eq;
+			},
+			'\\');
 		// If there are two or more double backslash, then change it to single.
-		while (fileName.find(_T("\\\\")) != generic_string::npos)
+		// Start from 2nd element to keep a path that starts from "\\".
+		auto last = std::unique(fileName.begin() + 1, fileName.end(),
+			[](generic_string::value_type a, generic_string::value_type b)
+			{
+				return a == b && a == '\\';
+			});
+		if (last != fileName.end())
 		{
-			fileName.replace(fileName.find(_T("\\\\")), 2, _T("\\"));
+			fileName.erase(last, fileName.end());
 			transformed = true;
 		}
 		return transformed;

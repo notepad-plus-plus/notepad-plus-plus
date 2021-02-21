@@ -2,7 +2,7 @@
 # CheckMentioned.py
 # Find all the symbols in scintilla/include/Scintilla.h and check if they
 # are mentioned in scintilla/doc/ScintillaDoc.html.
-# Requires Python 2.7 or later
+# Requires Python 3.6 or later
 
 import re, string, sys
 
@@ -11,7 +11,6 @@ srcRoot = "../.."
 sys.path.append(srcRoot + "/scintilla/scripts")
 
 import Face
-import ScintillaData
 
 uninteresting = {
 	"SCINTILLA_H", "SCI_START", "SCI_LEXER_START", "SCI_OPTIONAL_START",
@@ -22,10 +21,7 @@ uninteresting = {
 
 incFileName = srcRoot + "/scintilla/include/Scintilla.h"
 docFileName = srcRoot + "/scintilla/doc/ScintillaDoc.html"
-try:	# Old Python
-	identCharacters = "_" + string.letters + string.digits
-except AttributeError:	# Python 3.x
-	identCharacters = "_" + string.ascii_letters + string.digits
+identCharacters = "_" + string.ascii_letters + string.digits
 
 # Convert all punctuation characters except '_' into spaces.
 def depunctuate(s):
@@ -107,7 +103,6 @@ def makeSig(params):
 pathIface = srcRoot + "/scintilla/include/Scintilla.iface"
 
 def retrieveFeatures():
-	sci = ScintillaData.ScintillaData(srcRoot + "/scintilla/")
 	face = Face.Face()
 	face.ReadFromFile(pathIface)
 	sciToFeature = {}

@@ -225,7 +225,7 @@ class LexerNim : public DefaultLexer {
 
 public:
     LexerNim() :
-        DefaultLexer(lexicalClasses, ELEMENTS(lexicalClasses)),
+        DefaultLexer("nim", SCLEX_NIM, lexicalClasses, ELEMENTS(lexicalClasses)),
         setWord(CharacterSet::setAlphaNum, "_", 0x80, true) { }
 
     virtual ~LexerNim() { }
@@ -235,7 +235,7 @@ public:
     }
 
     int SCI_METHOD Version() const noexcept override {
-        return lvRelease4;
+        return lvRelease5;
     }
 
     const char * SCI_METHOD PropertyNames() override {
@@ -251,6 +251,10 @@ public:
     }
 
     Sci_Position SCI_METHOD PropertySet(const char *key, const char *val) override;
+
+	const char * SCI_METHOD PropertyGet(const char* key) override {
+		return osNim.PropertyGet(key);
+	}
 
     const char * SCI_METHOD DescribeWordListSets() override {
         return osNim.DescribeWordListSets();
@@ -273,7 +277,7 @@ public:
         return style;
     }
 
-    static ILexer4 *LexerFactoryNim() {
+    static ILexer5 *LexerFactoryNim() {
         return new LexerNim();
     }
 };

@@ -60,7 +60,7 @@ LineLayout::LineLayout(int maxLineLength_) :
 	maxLineLength(-1),
 	numCharsInLine(0),
 	numCharsBeforeEOL(0),
-	validity(llInvalid),
+	validity(ValidLevel::invalid),
 	xHighlightGuide(0),
 	highlightColumn(false),
 	containsCaret(false),
@@ -108,12 +108,12 @@ void LineLayout::Free() noexcept {
 	bidiData.reset();
 }
 
-void LineLayout::Invalidate(validLevel validity_) {
+void LineLayout::Invalidate(ValidLevel validity_) noexcept {
 	if (validity > validity_)
 		validity = validity_;
 }
 
-int LineLayout::LineStart(int line) const {
+int LineLayout::LineStart(int line) const noexcept {
 	if (line <= 0) {
 		return 0;
 	} else if ((line >= lines) || !lineStarts) {
@@ -123,7 +123,7 @@ int LineLayout::LineStart(int line) const {
 	}
 }
 
-int Scintilla::LineLayout::LineLength(int line) const {
+int Scintilla::LineLayout::LineLength(int line) const noexcept {
 	if (!lineStarts) {
 		return numCharsInLine;
 	} if (line >= lines - 1) {
@@ -133,7 +133,7 @@ int Scintilla::LineLayout::LineLength(int line) const {
 	}
 }
 
-int LineLayout::LineLastVisible(int line, Scope scope) const {
+int LineLayout::LineLastVisible(int line, Scope scope) const noexcept {
 	if (line < 0) {
 		return 0;
 	} else if ((line >= lines-1) || !lineStarts) {
@@ -143,16 +143,16 @@ int LineLayout::LineLastVisible(int line, Scope scope) const {
 	}
 }
 
-Range LineLayout::SubLineRange(int subLine, Scope scope) const {
+Range LineLayout::SubLineRange(int subLine, Scope scope) const noexcept {
 	return Range(LineStart(subLine), LineLastVisible(subLine, scope));
 }
 
-bool LineLayout::InLine(int offset, int line) const {
+bool LineLayout::InLine(int offset, int line) const noexcept {
 	return ((offset >= LineStart(line)) && (offset < LineStart(line + 1))) ||
 		((offset == numCharsInLine) && (line == (lines-1)));
 }
 
-int LineLayout::SubLineFromPosition(int posInLine, PointEnd pe) const {
+int LineLayout::SubLineFromPosition(int posInLine, PointEnd pe) const noexcept {
 	if (!lineStarts || (posInLine > maxLineLength)) {
 		return lines - 1;
 	}
@@ -225,7 +225,7 @@ void LineLayout::RestoreBracesHighlight(Range rangeLine, const Sci::Position bra
 	xHighlightGuide = 0;
 }
 
-int LineLayout::FindBefore(XYPOSITION x, Range range) const {
+int LineLayout::FindBefore(XYPOSITION x, Range range) const noexcept {
 	Sci::Position lower = range.start;
 	Sci::Position upper = range.end;
 	do {
@@ -241,7 +241,7 @@ int LineLayout::FindBefore(XYPOSITION x, Range range) const {
 }
 
 
-int LineLayout::FindPositionFromX(XYPOSITION x, Range range, bool charPosition) const {
+int LineLayout::FindPositionFromX(XYPOSITION x, Range range, bool charPosition) const noexcept {
 	int pos = FindBefore(x, range);
 	while (pos < range.end) {
 		if (charPosition) {
@@ -258,7 +258,7 @@ int LineLayout::FindPositionFromX(XYPOSITION x, Range range, bool charPosition) 
 	return static_cast<int>(range.end);
 }
 
-Point LineLayout::PointFromPosition(int posInLine, int lineHeight, PointEnd pe) const {
+Point LineLayout::PointFromPosition(int posInLine, int lineHeight, PointEnd pe) const noexcept {
 	Point pt;
 	// In case of very long line put x at arbitrary large position
 	if (posInLine > maxLineLength) {
@@ -287,7 +287,7 @@ Point LineLayout::PointFromPosition(int posInLine, int lineHeight, PointEnd pe) 
 	return pt;
 }
 
-int LineLayout::EndLineStyle() const {
+int LineLayout::EndLineStyle() const noexcept {
 	return styles[numCharsBeforeEOL > 0 ? numCharsBeforeEOL-1 : 0];
 }
 
@@ -321,7 +321,7 @@ size_t ScreenLine::Length() const {
 size_t ScreenLine::RepresentationCount() const {
 	return std::count_if(&ll->bidiData->widthReprs[start],
 		&ll->bidiData->widthReprs[start + len],
-		[](XYPOSITION w) {return w > 0.0f; });
+		[](XYPOSITION w) noexcept { return w > 0.0f; });
 }
 
 XYPOSITION ScreenLine::Width() const {
@@ -397,14 +397,14 @@ void LineLayoutCache::Deallocate() noexcept {
 	cache.clear();
 }
 
-void LineLayoutCache::Invalidate(LineLayout::validLevel validity_) {
+void LineLayoutCache::Invalidate(LineLayout::ValidLevel validity_) noexcept {
 	if (!cache.empty() && !allInvalidated) {
 		for (const std::unique_ptr<LineLayout> &ll : cache) {
 			if (ll) {
 				ll->Invalidate(validity_);
 			}
 		}
-		if (validity_ == LineLayout::llInvalid) {
+		if (validity_ == LineLayout::ValidLevel::invalid) {
 			allInvalidated = true;
 		}
 	}
@@ -422,7 +422,7 @@ LineLayout *LineLayoutCache::Retrieve(Sci::Line lineNumber, Sci::Line lineCaret,
                                       Sci::Line linesOnScreen, Sci::Line linesInDoc) {
 	AllocateForLevel(linesOnScreen, linesInDoc);
 	if (styleClock != styleClock_) {
-		Invalidate(LineLayout::llCheckTextAndStyle);
+		Invalidate(LineLayout::ValidLevel::checkTextAndStyle);
 		styleClock = styleClock_;
 	}
 	allInvalidated = false;
@@ -478,7 +478,7 @@ void LineLayoutCache::Dispose(LineLayout *ll) noexcept {
 }
 
 // Simply pack the (maximum 4) character bytes into an int
-static unsigned int KeyFromString(const char *charBytes, size_t len) {
+static unsigned int KeyFromString(const char *charBytes, size_t len) noexcept {
 	PLATFORM_ASSERT(len <= 4);
 	unsigned int k=0;
 	for (size_t i=0; i<len && charBytes[i]; i++) {
@@ -489,7 +489,7 @@ static unsigned int KeyFromString(const char *charBytes, size_t len) {
 	return k;
 }
 
-SpecialRepresentations::SpecialRepresentations() noexcept {
+SpecialRepresentations::SpecialRepresentations() {
 	const short none = 0;
 	std::fill(startByteHasReprs, std::end(startByteHasReprs), none);
 }
@@ -613,10 +613,10 @@ TextSegment BreakFinder::Next() {
 		const int prev = nextBreak;
 		while (nextBreak < lineRange.end) {
 			int charWidth = 1;
-			if (encodingFamily == efUnicode)
+			if (encodingFamily == EncodingFamily::unicode)
 				charWidth = UTF8DrawBytes(reinterpret_cast<unsigned char *>(&ll->chars[nextBreak]),
 					static_cast<int>(lineRange.end - nextBreak));
-			else if (encodingFamily == efDBCS)
+			else if (encodingFamily == EncodingFamily::dbcs)
 				charWidth = pdoc->DBCSDrawBytes(
 					std::string_view(&ll->chars[nextBreak], lineRange.end - nextBreak));
 			const Representation *repr = preprs->RepresentationFromCharacter(&ll->chars[nextBreak], charWidth);
@@ -710,7 +710,7 @@ void PositionCacheEntry::Clear() noexcept {
 }
 
 bool PositionCacheEntry::Retrieve(unsigned int styleNumber_, const char *s_,
-	unsigned int len_, XYPOSITION *positions_) const {
+	unsigned int len_, XYPOSITION *positions_) const noexcept {
 	if ((styleNumber == styleNumber_) && (len == len_) &&
 		(memcmp(&positions[len], s_, len)== 0)) {
 		for (unsigned int i=0; i<len; i++) {

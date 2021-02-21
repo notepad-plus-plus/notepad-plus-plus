@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Requires Python 2.7 or later
 
@@ -128,6 +129,19 @@ class TestWins(unittest.TestCase):
 		self.assertEquals(self.ed.GetStatus(), 0)
 		self.assertEquals(lenData, 2)
 		self.assertEquals(data.value, "ab")
+
+	def testGetTextLongNonASCII(self):
+		# With 1 multibyte character in document ask for 4 and ensure 1 character
+		# returned correctly.
+		self.ed.SetCodePage(65001)
+		t = "å"
+		tu8 = t.encode("UTF-8")
+		self.SetText(tu8)
+		data = ctypes.create_unicode_buffer(100)
+		lenData = self.GetText(4, data)
+		self.assertEquals(self.ed.GetStatus(), 0)
+		self.assertEquals(lenData, 1)
+		self.assertEquals(data.value, t)
 
 	def testGetTextShort(self):
 		self.assertEquals(self.ed.GetStatus(), 0)

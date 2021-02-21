@@ -252,8 +252,8 @@ static void FoldNoBoxVHDLDoc(
   if(lineCurrent > 0)
     levelCurrent        = styler.LevelAt(lineCurrent-1) >> 16;
   //int levelMinCurrent   = levelCurrent;
-  int levelMinCurrentElse = levelCurrent;   //< Used for folding at 'else'
-  int levelMinCurrentBegin = levelCurrent;  //< Used for folding at 'begin'
+  int levelMinCurrentElse = levelCurrent;   ///< Used for folding at 'else'
+  int levelMinCurrentBegin = levelCurrent;  ///< Used for folding at 'begin'
   int levelNext         = levelCurrent;
 
   /***************************************/

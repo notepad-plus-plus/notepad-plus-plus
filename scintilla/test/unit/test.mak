@@ -1,5 +1,5 @@
 # Build all the unit tests with Microsoft Visual C++ using nmake
-# Tested with Visual C++ 2010 and 2013
+# Tested with Visual C++ 2019
 
 DEL = del /q
 EXE = unitTest.exe
@@ -17,6 +17,7 @@ TESTEDSRC=\
  ../../src/CharClassify.cxx \
  ../../src/ContractionState.cxx \
  ../../src/Decoration.cxx \
+ ../../src/PerLine.cxx \
  ../../src/RunStyles.cxx \
  ../../src/UniConversion.cxx \
  ../../src/UniqueString.cxx

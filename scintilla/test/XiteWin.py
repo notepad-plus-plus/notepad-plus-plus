@@ -1,5 +1,6 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Requires Python 2.7 or later
+# Requires Python 3.6 or later
 
 from __future__ import with_statement
 from __future__ import unicode_literals
@@ -25,8 +26,6 @@ sys.path.append(scintillaScriptsDirectory)
 import Face
 
 scintillaBinDirectory = os.path.join(scintillaDirectory, "bin")
-os.environ['PATH'] = os.environ['PATH']  + ";" + scintillaBinDirectory
-#print(os.environ['PATH'])
 
 WFUNC = ctypes.WINFUNCTYPE(c_int, HWND, c_uint, WPARAM, LPARAM)
 
@@ -183,9 +182,9 @@ class XiteWin():
 
 	def OnCreate(self, hwnd):
 		self.win = hwnd
-		# Side effect: loads the DLL
 		try:
-			x = ctypes.windll.SciLexer.Scintilla_DirectFunction
+			scintillaDLLPath = os.path.join(scintillaBinDirectory, "SciLexer.DLL")
+			ctypes.cdll.LoadLibrary(scintillaDLLPath)
 		except OSError:
 			print("Can't find SciLexer.DLL")
 			print("Python is built for " + " ".join(platform.architecture()))

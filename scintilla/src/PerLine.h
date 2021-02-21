@@ -40,7 +40,8 @@ public:
 	bool InsertHandle(int handle, int markerNum);
 	void RemoveHandle(int handle);
 	bool RemoveNumber(int markerNum, bool all);
-	void CombineWith(MarkerHandleSet *other);
+	void CombineWith(MarkerHandleSet *other) noexcept;
+	MarkerHandleNumber const *GetMarkerHandleNumber(int which) const noexcept;
 };
 
 class LineMarkers : public PerLine {
@@ -58,15 +59,18 @@ public:
 	~LineMarkers() override;
 	void Init() override;
 	void InsertLine(Sci::Line line) override;
+	void InsertLines(Sci::Line line, Sci::Line lines) override;
 	void RemoveLine(Sci::Line line) override;
 
-	int MarkValue(Sci::Line line) noexcept;
-	Sci::Line MarkerNext(Sci::Line lineStart, int mask) const;
+	int MarkValue(Sci::Line line) const noexcept;
+	Sci::Line MarkerNext(Sci::Line lineStart, int mask) const noexcept;
 	int AddMark(Sci::Line line, int markerNum, Sci::Line lines);
 	void MergeMarkers(Sci::Line line);
 	bool DeleteMark(Sci::Line line, int markerNum, bool all);
 	void DeleteMarkFromHandle(int markerHandle);
-	Sci::Line LineFromHandle(int markerHandle);
+	Sci::Line LineFromHandle(int markerHandle) const noexcept;
+	int HandleFromLine(Sci::Line line, int which) const noexcept;
+	int NumberFromLine(Sci::Line line, int which) const noexcept;
 };
 
 class LineLevels : public PerLine {
@@ -82,12 +86,13 @@ public:
 	~LineLevels() override;
 	void Init() override;
 	void InsertLine(Sci::Line line) override;
+	void InsertLines(Sci::Line line, Sci::Line lines) override;
 	void RemoveLine(Sci::Line line) override;
 
 	void ExpandLevels(Sci::Line sizeNew=-1);
 	void ClearLevels();
 	int SetLevel(Sci::Line line, int level, Sci::Line lines);
-	int GetLevel(Sci::Line line) const;
+	int GetLevel(Sci::Line line) const noexcept;
 };
 
 class LineState : public PerLine {
@@ -103,11 +108,12 @@ public:
 	~LineState() override;
 	void Init() override;
 	void InsertLine(Sci::Line line) override;
+	void InsertLines(Sci::Line line, Sci::Line lines) override;
 	void RemoveLine(Sci::Line line) override;
 
 	int SetLineState(Sci::Line line, int state);
 	int GetLineState(Sci::Line line);
-	Sci::Line GetMaxLineState() const;
+	Sci::Line GetMaxLineState() const noexcept;
 };
 
 class LineAnnotation : public PerLine {
@@ -123,18 +129,19 @@ public:
 	~LineAnnotation() override;
 	void Init() override;
 	void InsertLine(Sci::Line line) override;
+	void InsertLines(Sci::Line line, Sci::Line lines) override;
 	void RemoveLine(Sci::Line line) override;
 
-	bool MultipleStyles(Sci::Line line) const;
-	int Style(Sci::Line line) const;
-	const char *Text(Sci::Line line) const;
-	const unsigned char *Styles(Sci::Line line) const;
+	bool MultipleStyles(Sci::Line line) const noexcept;
+	int Style(Sci::Line line) const noexcept;
+	const char *Text(Sci::Line line) const noexcept;
+	const unsigned char *Styles(Sci::Line line) const noexcept;
 	void SetText(Sci::Line line, const char *text);
 	void ClearAll();
 	void SetStyle(Sci::Line line, int style);
 	void SetStyles(Sci::Line line, const unsigned char *styles);
-	int Length(Sci::Line line) const;
-	int Lines(Sci::Line line) const;
+	int Length(Sci::Line line) const noexcept;
+	int Lines(Sci::Line line) const noexcept;
 };
 
 typedef std::vector<int> TabstopList;
@@ -152,11 +159,12 @@ public:
 	~LineTabstops() override;
 	void Init() override;
 	void InsertLine(Sci::Line line) override;
+	void InsertLines(Sci::Line line, Sci::Line lines) override;
 	void RemoveLine(Sci::Line line) override;
 
-	bool ClearTabstops(Sci::Line line);
+	bool ClearTabstops(Sci::Line line) noexcept;
 	bool AddTabstop(Sci::Line line, int x);
-	int GetNextTabstop(Sci::Line line, int x) const;
+	int GetNextTabstop(Sci::Line line, int x) const noexcept;
 };
 
 }

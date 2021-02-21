@@ -72,7 +72,7 @@ public:
 		width(0),
 		chNext(0),
 		widthNext(1) {
-		if (styler.Encoding() != enc8bit) {
+		if (styler.Encoding() != EncodingType::eightBit) {
 			multiByteAccess = styler.MultiByteAccess();
 		}
 		styler.StartAt(startPos /*, chMask*/);
@@ -100,7 +100,7 @@ public:
 		styler.ColourTo(currentPos - ((currentPos > lengthDocument) ? 2 : 1), state);
 		styler.Flush();
 	}
-	bool More() const {
+	bool More() const noexcept {
 		return currentPos < endPos;
 	}
 	void Forward() {
@@ -139,7 +139,7 @@ public:
 			}
 		}
 	}
-	void ChangeState(int state_) {
+	void ChangeState(int state_) noexcept {
 		state = state_;
 	}
 	void SetState(int state_) {
@@ -154,8 +154,8 @@ public:
 	Sci_Position LengthCurrent() const {
 		return currentPos - styler.GetStartSegment();
 	}
-	int GetRelative(Sci_Position n) {
-		return static_cast<unsigned char>(styler.SafeGetCharAt(currentPos+n, 0));
+	int GetRelative(Sci_Position n, char chDefault='\0') {
+		return static_cast<unsigned char>(styler.SafeGetCharAt(currentPos+n, chDefault));
 	}
 	int GetRelativeCharacter(Sci_Position n) {
 		if (n == 0)
@@ -204,7 +204,6 @@ public:
 	// Non-inline
 	bool MatchIgnoreCase(const char *s);
 	bool MatchIgnoreCase2(const char *s);
-	
 	void GetCurrent(char *s, Sci_PositionU len);
 	void GetCurrentLowered(char *s, Sci_PositionU len);
 };

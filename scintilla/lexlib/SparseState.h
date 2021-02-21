@@ -17,12 +17,12 @@ class SparseState {
 	struct State {
 		Sci_Position position;
 		T value;
-		State(Sci_Position position_, T value_) : position(position_), value(value_) {
+		constexpr State(Sci_Position position_, T value_) noexcept : position(position_), value(value_) {
 		}
-		inline bool operator<(const State &other) const {
+		inline bool operator<(const State &other) const noexcept {
 			return position < other.position;
 		}
-		inline bool operator==(const State &other) const {
+		inline bool operator==(const State &other) const noexcept {
 			return (position == other.position) && (value == other.value);
 		}
 	};
@@ -31,7 +31,7 @@ class SparseState {
 	stateVector states;
 
 	typename stateVector::iterator Find(Sci_Position position) {
-		State searchValue(position, T());
+		const State searchValue(position, T());
 		return std::lower_bound(states.begin(), states.end(), searchValue);
 	}
 

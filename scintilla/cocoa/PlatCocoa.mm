@@ -1,6 +1,6 @@
 /**
  * Scintilla source code edit control
- * PlatCocoa.mm - implementation of platform facilities on MacOS X/Cocoa
+ * @file PlatCocoa.mm - implementation of platform facilities on MacOS X/Cocoa
  *
  * Written by Mike Lischke
  * Based on PlatMacOSX.cxx
@@ -27,13 +27,13 @@
 #include <memory>
 #include <numeric>
 
+#include <dlfcn.h>
 #include <sys/time.h>
 
 #import <Foundation/NSGeometry.h>
 
 #import "Platform.h"
 
-#include "StringCopy.h"
 #include "XPM.h"
 #include "UniConversion.h"
 
@@ -2132,14 +2132,51 @@ void Platform::Assert(const char *c, const char *file, int line) {
 //----------------- DynamicLibrary -----------------------------------------------------------------
 
 /**
- * Implements the platform specific part of library loading.
- *
- * @param modulePath The path to the module to load.
- * @return A library instance or nullptr if the module could not be found or another problem occurred.
+ * Platform-specific module loading and access.
+ * Uses POSIX calls dlopen, dlsym, dlclose.
  */
-DynamicLibrary *DynamicLibrary::Load(const char * /* modulePath */) {
-	// Not implemented.
-	return nullptr;
+
+class DynamicLibraryImpl : public DynamicLibrary {
+protected:
+	void *m;
+public:
+	explicit DynamicLibraryImpl(const char *modulePath) noexcept {
+		m = dlopen(modulePath, RTLD_LAZY);
+	}
+	// Deleted so DynamicLibraryImpl objects can not be copied.
+	DynamicLibraryImpl(const DynamicLibraryImpl&) = delete;
+	DynamicLibraryImpl(DynamicLibraryImpl&&) = delete;
+	DynamicLibraryImpl&operator=(const DynamicLibraryImpl&) = delete;
+	DynamicLibraryImpl&operator=(DynamicLibraryImpl&&) = delete;
+
+	~DynamicLibraryImpl() override {
+		if (m)
+			dlclose(m);
+	}
+
+	// Use dlsym to get a pointer to the relevant function.
+	Function FindFunction(const char *name) override {
+		if (m) {
+			return dlsym(m, name);
+		} else {
+			return nullptr;
+		}
+	}
+
+	bool IsValid() override {
+		return m != nullptr;
+	}
+};
+
+/**
+* Implements the platform specific part of library loading.
+*
+* @param modulePath The path to the module to load.
+* @return A library instance or nullptr if the module could not be found or another problem occurred.
+*/
+
+DynamicLibrary *DynamicLibrary::Load(const char *modulePath) {
+	return static_cast<DynamicLibrary *>(new DynamicLibraryImpl(modulePath));
 }
 
 //--------------------------------------------------------------------------------------------------

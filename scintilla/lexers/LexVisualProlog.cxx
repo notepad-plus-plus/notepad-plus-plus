@@ -71,7 +71,7 @@ class LexerVisualProlog : public DefaultLexer {
     OptionsVisualProlog options;
     OptionSetVisualProlog osVisualProlog;
 public:
-    LexerVisualProlog() {
+    LexerVisualProlog() : DefaultLexer("visualprolog", SCLEX_VISUALPROLOG) {
     }
     virtual ~LexerVisualProlog() {
     }
@@ -79,7 +79,7 @@ public:
         delete this;
     }
     int SCI_METHOD Version() const override {
-        return lvRelease4;
+        return lvRelease5;
     }
     const char * SCI_METHOD PropertyNames() override {
         return osVisualProlog.PropertyNames();
@@ -91,6 +91,9 @@ public:
         return osVisualProlog.DescribeProperty(name);
     }
     Sci_Position SCI_METHOD PropertySet(const char *key, const char *val) override;
+	const char * SCI_METHOD PropertyGet(const char *key) override {
+		return osVisualProlog.PropertyGet(key);
+	}
     const char * SCI_METHOD DescribeWordListSets() override {
         return osVisualProlog.DescribeWordListSets();
     }
@@ -102,7 +105,7 @@ public:
         return 0;
     }
 
-    static ILexer4 *LexerFactoryVisualProlog() {
+    static ILexer5 *LexerFactoryVisualProlog() {
         return new LexerVisualProlog();
     }
 };

@@ -1,0 +1,12 @@
+{1}% Some example code
+{0}
+        {1}% Set the address of the program initially to 0x100.
+{0}        {5}LOC{7}   {14}#100{1}
+{0}
+{2}Main{4}    {5}GETA{7}  {13}$255{15},{10}string{1}
+{0}
+        {5}TRAP{7}  {9}0{15},{16}Fputs{15},{16}StdOut{1}
+{0}
+        {5}TRAP{7}  {9}0{15},{10}Halt{15},{9}0{1}
+{0}
+{2}string{4}  {5}BYTE{7}  {12}"Hello, world!"{15},{14}#a{15},{9}0{1}

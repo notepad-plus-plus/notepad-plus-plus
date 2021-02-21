@@ -2,6 +2,7 @@
 /**
  * Copyright 2009 Sun Microsystems, Inc. All rights reserved.
  * This file is dual licensed under LGPL v2.1 and the Scintilla license (http://www.scintilla.org/License.txt).
+ * @file PlatCocoa.h
  */
 
 #ifndef PLATCOCOA_H

@@ -10,22 +10,18 @@
 !IFDEF BOOSTPATH
 !IFDEF BOOSTREGEXLIBPATH
 
-SOBJS=\
-	$(SOBJS)\
+SRC_OBJS=\
+	$(SRC_OBJS)\
 	$(DIR_O)\BoostRegexSearch.obj\
 	$(DIR_O)\UTF8DocumentIterator.obj
 
-SCILEXOBJS=\
-	$(SCILEXOBJS)\
-	$(DIR_O)\BoostRegexSearch.obj\
-	$(DIR_O)\UTF8DocumentIterator.obj
-	
-LOBJS=\
-	$(LOBJS)\
+LEX_OBJS=\
+	$(LEX_OBJS)\
 	$(DIR_O)\BoostRegexSearch.obj\
 	$(DIR_O)\UTF8DocumentIterator.obj
 
-INCLUDEDIRS=$(INCLUDEDIRS) -I$(BOOSTPATH)
+
+INCLUDES=$(INCLUDES) -I$(BOOSTPATH)
 
 CXXFLAGS=$(CXXFLAGS) -DSCI_OWNREGEX
 LDFLAGS=$(LDFLAGS) -LIBPATH:$(BOOSTREGEXLIBPATH)

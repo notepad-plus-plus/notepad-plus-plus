@@ -17,6 +17,9 @@
 #include "FontQuality.h"
 
 #include <QApplication>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#include <QScreen>
+#endif
 #include <QFont>
 #include <QColor>
 #include <QRect>
@@ -109,15 +112,25 @@ public:
 		pfont = nullptr;
 	}
 };
-static int FontCharacterSet(Font &f)
-{
-	return reinterpret_cast<FontAndCharacterSet *>(f.GetID())->characterSet;
+
+namespace {
+
+FontAndCharacterSet *AsFontAndCharacterSet(const Font &f) {
+	return reinterpret_cast<FontAndCharacterSet *>(f.GetID());
 }
 
-static QFont *FontPointer(Font &f)
+int FontCharacterSet(const Font &f)
 {
-	return reinterpret_cast<FontAndCharacterSet *>(f.GetID())->pfont;
+	return AsFontAndCharacterSet(f)->characterSet;
 }
+
+QFont *FontPointer(const Font &f)
+{
+	return AsFontAndCharacterSet(f)->pfont;
+}
+
+}
+
 Font::Font() noexcept : fid(nullptr) {}
 Font::~Font()
 {
@@ -142,7 +155,7 @@ void Font::Create(const FontParameters &fp)
 	QFont *font = new QFont;
 	font->setStyleStrategy(ChooseStrategy(fp.extraFontFlag));
 	font->setFamily(QString::fromUtf8(fp.faceName));
-	font->setPointSize(fp.size);
+	font->setPointSizeF(fp.size);
 	font->setBold(fp.weight > 500);
 	font->setItalic(fp.italic);
 
@@ -201,7 +214,7 @@ void SurfaceImpl::InitPixMap(int width,
 	if (height < 1) height = 1;
 	deviceOwned = true;
 	device = new QPixmap(width, height);
-	SurfaceImpl *psurfOther = static_cast<SurfaceImpl *>(surface);
+	SurfaceImpl *psurfOther = dynamic_cast<SurfaceImpl *>(surface);
 	SetUnicodeMode(psurfOther->unicodeMode);
 	SetDBCSMode(psurfOther->codePage);
 }
@@ -213,7 +226,7 @@ void SurfaceImpl::Release()
 
 bool SurfaceImpl::Initialised()
 {
-	return device != 0;
+	return device != nullptr;
 }
 
 void SurfaceImpl::PenColour(ColourDesired fore)
@@ -228,7 +241,7 @@ void SurfaceImpl::BrushColour(ColourDesired back)
 	GetPainter()->setBrush(QBrush(QColorFromCA(back)));
 }
 
-void SurfaceImpl::SetCodec(Font &font)
+void SurfaceImpl::SetCodec(const Font &font)
 {
 	if (font.GetID()) {
 		const char *csid = "UTF-8";
@@ -241,7 +254,7 @@ void SurfaceImpl::SetCodec(Font &font)
 	}
 }
 
-void SurfaceImpl::SetFont(Font &font)
+void SurfaceImpl::SetFont(const Font &font)
 {
 	if (font.GetID()) {
 		GetPainter()->setFont(*FontPointer(font));
@@ -307,7 +320,7 @@ void SurfaceImpl::FillRectangle(PRectangle rc, ColourDesired back)
 void SurfaceImpl::FillRectangle(PRectangle rc, Surface &surfacePattern)
 {
 	// Tile pattern over rectangle
-	SurfaceImpl *surface = static_cast<SurfaceImpl *>(&surfacePattern);
+	SurfaceImpl *surface = dynamic_cast<SurfaceImpl *>(&surfacePattern);
 	// Currently assumes 8x8 pattern
 	int widthPat = 8;
 	int heightPat = 8;
@@ -329,7 +342,7 @@ void SurfaceImpl::RoundedRectangle(PRectangle rc,
 {
 	PenColour(fore);
 	BrushColour(back);
-	GetPainter()->drawRoundRect(QRectFFromPRect(rc));
+	GetPainter()->drawRoundedRect(QRectFFromPRect(RectangleInset(rc, 0.5f)), 3.0f, 3.0f);
 }
 
 void SurfaceImpl::AlphaRectangle(PRectangle rc,
@@ -340,18 +353,34 @@ void SurfaceImpl::AlphaRectangle(PRectangle rc,
                                  int alphaOutline,
                                  int /*flags*/)
 {
-	QColor qOutline = QColorFromCA(outline);
-	qOutline.setAlpha(alphaOutline);
-	GetPainter()->setPen(QPen(qOutline));
+	const QColor qFill = QColorFromColourAlpha(ColourAlpha(fill, alphaFill));
+	const QBrush brushFill(qFill);
+	GetPainter()->setBrush(brushFill);
 
-	QColor qFill = QColorFromCA(fill);
-	qFill.setAlpha(alphaFill);
-	GetPainter()->setBrush(QBrush(qFill));
+	if ((fill == outline) && (alphaFill == alphaOutline)) {
+		painter->setPen(Qt::NoPen);
+		const QRectF rect = QRectFFromPRect(rc);
+		if (cornerSize > 0.0f) {
+			// A radius of 1 shows no curve so add 1
+			qreal radius = cornerSize+1;
+			GetPainter()->drawRoundedRect(rect, radius, radius);
+		} else {
+			GetPainter()->fillRect(rect, brushFill);
+		}
+	} else {
+		const QColor qOutline = QColorFromColourAlpha(ColourAlpha(outline, alphaOutline));
+		const QPen penOutline(qOutline);
+		GetPainter()->setPen(penOutline);
 
-	// A radius of 1 shows no curve so add 1
-	qreal radius = cornerSize+1;
-	QRectF rect(rc.left, rc.top, rc.Width() - 1, rc.Height() - 1);
-	GetPainter()->drawRoundedRect(rect, radius, radius);
+		const QRectF rect(rc.left, rc.top, rc.Width() - 1.5, rc.Height() - 1.5);
+		if (cornerSize > 0.0f) {
+			// A radius of 1 shows no curve so add 1
+			qreal radius = cornerSize+1;
+			GetPainter()->drawRoundedRect(rect, radius, radius);
+		} else {
+			GetPainter()->drawRect(rect);
+		}
+	}
 }
 
 void SurfaceImpl::GradientRectangle(PRectangle rc, const std::vector<ColourStop> &stops, GradientOptions options) {
@@ -403,7 +432,7 @@ void SurfaceImpl::Ellipse(PRectangle rc,
 
 void SurfaceImpl::Copy(PRectangle rc, Point from, Surface &surfaceSource)
 {
-	SurfaceImpl *source = static_cast<SurfaceImpl *>(&surfaceSource);
+	SurfaceImpl *source = dynamic_cast<SurfaceImpl *>(&surfaceSource);
 	QPixmap *pixmap = static_cast<QPixmap *>(source->GetPaintDevice());
 
 	GetPainter()->drawPixmap(rc.left, rc.top, *pixmap, from.x, from.y, -1, -1);
@@ -608,10 +637,23 @@ Surface *Surface::Allocate(int)
 //----------------------------------------------------------------------
 
 namespace {
+
 QWidget *window(WindowID wid) noexcept
 {
 	return static_cast<QWidget *>(wid);
 }
+
+QRect ScreenRectangleForPoint(QPoint posGlobal)
+{
+#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
+	const QScreen *screen = QGuiApplication::screenAt(posGlobal);
+	return screen->availableGeometry();
+#else
+	const QDesktopWidget *desktop = QApplication::desktop();
+	return desktop->availableGeometry(posGlobal);
+#endif
+}
+
 }
 
 Window::~Window() {}
@@ -642,8 +684,7 @@ void Window::SetPositionRelative(PRectangle rc, const Window *relativeTo)
 	ox += rc.left;
 	oy += rc.top;
 
-	QDesktopWidget *desktop = QApplication::desktop();
-	QRect rectDesk = desktop->availableGeometry(QPoint(ox, oy));
+	const QRect rectDesk = ScreenRectangleForPoint(QPoint(ox, oy));
 	/* do some corrections to fit into screen */
 	int sizex = rc.right - rc.left;
 	int sizey = rc.bottom - rc.top;
@@ -721,13 +762,11 @@ void Window::SetCursor(Cursor curs)
    window coordinates */
 PRectangle Window::GetMonitorRect(Point pt)
 {
-	QPoint originGlobal = window(wid)->mapToGlobal(QPoint(0, 0));
-	QPoint posGlobal = window(wid)->mapToGlobal(QPoint(pt.x, pt.y));
-	QDesktopWidget *desktop = QApplication::desktop();
-	QRect rectScreen = desktop->availableGeometry(posGlobal);
+	const QPoint posGlobal = window(wid)->mapToGlobal(QPoint(pt.x, pt.y));
+	const QPoint originGlobal = window(wid)->mapToGlobal(QPoint(0, 0));
+	QRect rectScreen = ScreenRectangleForPoint(posGlobal);
 	rectScreen.translate(-originGlobal.x(), -originGlobal.y());
-	return PRectangle(rectScreen.left(), rectScreen.top(),
-	        rectScreen.right(), rectScreen.bottom());
+	return PRectFromQRect(rectScreen);
 }
 
 //----------------------------------------------------------------------
@@ -737,10 +776,11 @@ public:
 	virtual ~ListWidget();
 
 	void setDelegate(IListBoxDelegate *lbDelegate);
-	void selectionChanged();
+
+	int currentSelection();
 
 protected:
-	void mouseReleaseEvent(QMouseEvent * event) override;
+	void selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) override;
 	void mouseDoubleClickEvent(QMouseEvent *event) override;
 	QStyleOptionViewItem viewOptions() const override;
 
@@ -776,7 +816,7 @@ public:
 	void SetDelegate(IListBoxDelegate *lbDelegate) override;
 	void SetList(const char *list, char separator, char typesep) override;
 
-	ListWidget *GetWidget() const;
+	ListWidget *GetWidget() const noexcept;
 private:
 	bool unicodeMode;
 	int visibleRows;
@@ -920,12 +960,11 @@ void ListBoxImpl::Select(int n)
 		}
 	}
 	list->setCurrentRow(n);
-	list->selectionChanged();
 }
 int ListBoxImpl::GetSelection()
 {
 	ListWidget *list = GetWidget();
-	return list->currentRow();
+	return list->currentSelection();
 }
 int ListBoxImpl::Find(const char *prefix)
 {
@@ -1015,7 +1054,7 @@ void ListBoxImpl::SetList(const char *list, char separator, char typesep)
 		Append(startword, numword?atoi(numword + 1):-1);
 	}
 }
-ListWidget *ListBoxImpl::GetWidget() const
+ListWidget *ListBoxImpl::GetWidget() const noexcept
 {
 	return static_cast<ListWidget *>(wid);
 }
@@ -1037,11 +1076,23 @@ void ListWidget::setDelegate(IListBoxDelegate *lbDelegate)
 	delegate = lbDelegate;
 }
 
-void ListWidget::selectionChanged() {
+void ListWidget::selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) {
+	QListWidget::selectionChanged(selected, deselected);
 	if (delegate) {
-		ListBoxEvent event(ListBoxEvent::EventType::selectionChange);
-		delegate->ListNotify(&event);
+		const int selection = currentSelection();
+		if (selection >= 0) {
+			ListBoxEvent event(ListBoxEvent::EventType::selectionChange);
+			delegate->ListNotify(&event);
+		}
 	}
+}
+
+int ListWidget::currentSelection() {
+	const QModelIndexList indices = selectionModel()->selectedRows();
+	foreach (const QModelIndex ind, indices) {
+		return ind.row();
+	}
+	return -1;
 }
 
 void ListWidget::mouseDoubleClickEvent(QMouseEvent * /* event */)
@@ -1050,11 +1101,6 @@ void ListWidget::mouseDoubleClickEvent(QMouseEvent * /* event */)
 		ListBoxEvent event(ListBoxEvent::EventType::doubleClick);
 		delegate->ListNotify(&event);
 	}
-}
-
-void ListWidget::mouseReleaseEvent(QMouseEvent * /* event */)
-{
-	selectionChanged();
 }
 
 QStyleOptionViewItem ListWidget::viewOptions() const
@@ -1109,17 +1155,17 @@ public:
 	}
 	Function FindFunction(const char *name) override {
 		if (lib) {
-			// C++ standard doesn't like casts between function pointers and void pointers so use a union
-			union {
+			// Use memcpy as it doesn't invoke undefined or conditionally defined behaviour.
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-				QFunctionPointer fp;
+			QFunctionPointer fp {};
 #else
-				void *fp;
+			void *fp = nullptr;
 #endif
-				Function f;
-			} fnConv;
-			fnConv.fp = lib->resolve(name);
-			return fnConv.f;
+			fp = lib->resolve(name);
+			Function f = nullptr;
+			static_assert(sizeof(f) == sizeof(fp));
+			memcpy(&f, &fp, sizeof(f));
+			return f;
 		}
 		return nullptr;
 	}

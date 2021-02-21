@@ -1742,8 +1742,34 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 
 	(*_ppEditView)->execute(SCI_SETSEARCHFLAGS, flags);
 
+	bool regexSearchContainsBackslashK = false;
+	if ((pOptions->_searchType == FindRegex) && 
+		((findNextType == FINDNEXTTYPE_REPLACENEXT) ||
+		(findNextType == FINDNEXTTYPE_FINDNEXTFORREPLACE)))
+	{
+		for (TCHAR const *p = pText; ; ++p)
+		{
+			p = wcsstr(p, TEXT("\\K"));
+			if (p == NULL)
+			{
+				break;
+			}
+			if ((p == pText) || (*(p - 1) != TEXT('\\')))
+			{
+				regexSearchContainsBackslashK = true;
+				break;
+			}
+		}
+	}
 
-	posFind = (*_ppEditView)->searchInTarget(pText, stringSizeFind, startPosition, endPosition);
+	if (regexSearchContainsBackslashK)
+	{
+		posFind = (*_ppEditView)->searchInTargetWithReachback(pText, stringSizeFind, startPosition, endPosition);
+	}
+	else
+	{
+		posFind = (*_ppEditView)->searchInTarget(pText, stringSizeFind, startPosition, endPosition);
+	}
 	if (posFind == -1) //no match found in target, check if a new target should be used
 	{
 		if (pOptions->_isWrapAround) 
@@ -1765,7 +1791,14 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 			}
 
 			//new target, search again
-			posFind = (*_ppEditView)->searchInTarget(pText, stringSizeFind, startPosition, endPosition);
+			if (regexSearchContainsBackslashK)
+			{
+				posFind = (*_ppEditView)->searchInTargetWithReachback(pText, stringSizeFind, startPosition, endPosition);
+			}
+			else
+			{
+				posFind = (*_ppEditView)->searchInTarget(pText, stringSizeFind, startPosition, endPosition);
+			}
 		}
 
 		if (posFind == -1)

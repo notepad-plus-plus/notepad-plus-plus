@@ -1,0 +1,19 @@
+{1}# Convert all punctuation characters except '_', '*', and '.' into spaces.{0}
+{5}def{0} {9}depunctuate{10}({11}s{10}):{0}
+	{6}'''A docstring'''{0}
+	{7}"""Docstring 2"""{0}
+	{11}d{0} {10}={0} {3}""{0}
+	{5}for{0} {11}ch{0} {5}in{0} {11}s{10}:{0}
+		{5}if{0} {11}ch{0} {5}in{0} {4}'abcde'{10}:{0}
+			{11}d{0} {10}={0} {11}d{0} {10}+{0} {11}ch{0}
+		{5}else{10}:{0}
+			{11}d{0} {10}={0} {11}d{0} {10}+{0} {3}" "{0}
+	{5}return{0} {11}d{0}
+
+{5}import{0} {11}contextlib{0}
+
+{15}@contextlib{10}.{11}contextmanager{0}
+{5}def{0} {9}singleuse{10}():{0}
+	{5}print{10}({3}"Before"{10}){0}
+	{5}yield{0}
+{5}with{0} {11}singleuse{10}():{0} {5}pass{0}

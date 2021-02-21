@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # ScintillaData.py - implemented 2013 by Neil Hodgson neilh@scintilla.org
 # Released to the public domain.
 
@@ -30,18 +31,16 @@
 #         dictionary of file names { SCLEX_ID: file name }
 
 # This file can be run to see the data it provides.
-# Requires Python 2.7 or later
+# Requires Python 3.6 or later
 
-from __future__ import with_statement
-
-import codecs, datetime, glob, os, sys, textwrap
+import datetime, pathlib, sys, textwrap
 
 import FileGenerator
 
 def FindModules(lexFile):
     modules = []
     partLine = ""
-    with open(lexFile) as f:
+    with lexFile.open() as f:
         for l in f.readlines():
             l = l.rstrip()
             if partLine or l.startswith("LexerModule"):
@@ -115,7 +114,7 @@ def FindProperties(lexFile):
 
 def FindPropertyDocumentation(lexFile):
     documents = {}
-    with open(lexFile) as f:
+    with lexFile.open() as f:
         name = ""
         for l in f.readlines():
             l = l.strip()
@@ -157,7 +156,7 @@ def FindPropertyDocumentation(lexFile):
 def FindCredits(historyFile):
     credits = []
     stage = 0
-    with codecs.open(historyFile, "r", "utf-8") as f:
+    with historyFile.open(encoding="utf-8") as f:
         for l in f.readlines():
             l = l.strip()
             if stage == 0 and l == "<table>":
@@ -178,29 +177,21 @@ def FindCredits(historyFile):
                 credits.append(credit)
     return credits
 
-def ciCompare(a,b):
-    return cmp(a.lower(), b.lower())
-
 def ciKey(a):
-    return a.lower()
+    return str(a).lower()
 
 def SortListInsensitive(l):
-    try:    # Try key function
-        l.sort(key=ciKey)
-    except TypeError:    # Earlier version of Python, so use comparison function
-        l.sort(ciCompare)
+    l.sort(key=ciKey)
 
 class ScintillaData:
     def __init__(self, scintillaRoot):
-        # Discover verion information
-        with open(scintillaRoot + "version.txt") as f:
-            self.version = f.read().strip()
+        # Discover version information
+        self.version = (scintillaRoot / "version.txt").read_text().strip()
         self.versionDotted = self.version[0] + '.' + self.version[1] + '.' + \
             self.version[2]
-        self.versionCommad = self.version[0] + ', ' + self.version[1] + ', ' + \
-            self.version[2] + ', 0'
+        self.versionCommad = self.versionDotted.replace(".", ", ") + ', 0'
 
-        with open(scintillaRoot + "doc/index.html") as f:
+        with (scintillaRoot / "doc" / "index.html").open() as f:
             self.dateModified = [l for l in f.readlines() if "Date.Modified" in l]\
                 [0].split('\"')[3]
             # 20130602
@@ -218,9 +209,9 @@ class ScintillaData:
             self.myModified = monthModified + " " + self.yearModified
 
         # Find all the lexer source code files
-        lexFilePaths = glob.glob(scintillaRoot + "lexers/Lex*.cxx")
+        lexFilePaths = list((scintillaRoot / "lexers").glob("Lex*.cxx"))
         SortListInsensitive(lexFilePaths)
-        self.lexFiles = [os.path.basename(f)[:-4] for f in lexFilePaths]
+        self.lexFiles = [f.stem for f in lexFilePaths]
         self.lexerModules = []
         lexerProperties = set()
         self.propertyDocuments = {}
@@ -242,14 +233,15 @@ class ScintillaData:
         self.lexerProperties = list(lexerProperties)
         SortListInsensitive(self.lexerProperties)
 
-        self.lexersXcode = FindLexersInXcode(scintillaRoot + "cocoa/ScintillaFramework/ScintillaFramework.xcodeproj/project.pbxproj")
-        self.credits = FindCredits(scintillaRoot + "doc/ScintillaHistory.html")
+        self.lexersXcode = FindLexersInXcode(scintillaRoot /
+            "cocoa/ScintillaFramework/ScintillaFramework.xcodeproj/project.pbxproj")
+        self.credits = FindCredits(scintillaRoot / "doc" / "ScintillaHistory.html")
 
 def printWrapped(text):
     print(textwrap.fill(text, subsequent_indent="    "))
 
 if __name__=="__main__":
-    sci = ScintillaData("../")
+    sci = ScintillaData(pathlib.Path(__file__).resolve().parent.parent)
     print("Version   %s   %s   %s" % (sci.version, sci.versionDotted, sci.versionCommad))
     print("Date last modified    %s   %s   %s   %s   %s" % (
         sci.dateModified, sci.yearModified, sci.mdyModified, sci.dmyModified, sci.myModified))
@@ -261,7 +253,7 @@ if __name__=="__main__":
     lexNames = sorted(sci.sclexFromName.keys())
     for lexName in lexNames:
         sclex = sci.sclexFromName[lexName]
-        fileName = os.path.basename(sci.fileFromSclex[sclex])
+        fileName = sci.fileFromSclex[sclex].name
         print("    " + lexName + " -> " + sclex + " in " + fileName)
     printWrapped("Lexer properties: " + ", ".join(sci.lexerProperties))
     print("Lexer property documentation:")
@@ -273,7 +265,4 @@ if __name__=="__main__":
             subsequent_indent="        "))
     print("Credits:")
     for c in sci.credits:
-        if sys.version_info[0] == 2:
-            print("    " + c.encode("utf-8"))
-        else:
-            sys.stdout.buffer.write(b"    " + c.encode("utf-8") + b"\n")
+        sys.stdout.buffer.write(b"    " + c.encode("utf-8") + b"\n")

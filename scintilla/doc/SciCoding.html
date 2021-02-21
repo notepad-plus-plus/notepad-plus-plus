@@ -113,7 +113,9 @@
 	</p>
 	<p>
 	The <a href="http://astyle.sourceforge.net/">AStyle</a> formatting
-	program with '-taOHUKk3 -M8' arguments formats code in much the right way although
+	program with '--style=attach --indent=force-tab=8 --keep-one-line-blocks
+--pad-header --unpad-paren --pad-comma --indent-cases --align-pointer=name --pad-method-prefix
+--pad-return-type --pad-param-type --align-method-colon --pad-method-colon=after' arguments formats code in much the right way although
 	there are a few bugs in AStyle.
 	</p>
     <h3>
@@ -132,7 +134,6 @@
 	Exceptions and templates may be used but, since Scintilla can be used from C as well as
 	C++, exceptions may not be thrown out of Scintilla and all exceptions should be caught
 	before returning from Scintilla.
-	Run-time type information adds to memory use so is turned off.
 	A 'Scintilla' name space is used. This helps with name clashes on OS X.
 	</p>
 	<p>

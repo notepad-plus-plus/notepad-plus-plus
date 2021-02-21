@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Requires Python 2.7 or later
 
@@ -609,6 +610,26 @@ class TestSimple(unittest.TestCase):
 		self.ed.ReplaceTargetRE(len(rep), rep)
 		self.assertEquals(self.ed.Contents(), b"a\\nd")
 
+	def testTargetVirtualSpace(self):
+		self.ed.SetContents(b"a\nbcd")
+		self.assertEquals(self.ed.TargetStart, 0)
+		self.assertEquals(self.ed.TargetStartVirtualSpace, 0)
+		self.assertEquals(self.ed.TargetEnd, 5)
+		self.assertEquals(self.ed.TargetEndVirtualSpace, 0)
+		self.ed.TargetStart = 1
+		self.ed.TargetStartVirtualSpace = 2
+		self.ed.TargetEnd = 3
+		self.ed.TargetEndVirtualSpace = 4
+		# Adds 2 spaces to first line due to virtual space, and replace 2 characters with 3
+		rep = b"12\n"
+		self.ed.ReplaceTarget(len(rep), rep)
+		self.assertEquals(self.ed.Contents(), b"a  12\ncd")
+		# 1+2v realized to 3
+		self.assertEquals(self.ed.TargetStart, 3)
+		self.assertEquals(self.ed.TargetStartVirtualSpace, 0)
+		self.assertEquals(self.ed.TargetEnd, 6)
+		self.assertEquals(self.ed.TargetEndVirtualSpace, 0)
+
 	def testPointsAndPositions(self):
 		self.ed.AddText(1, b"x")
 		# Start of text
@@ -980,6 +1001,39 @@ class TestMarkers(unittest.TestCase):
 		self.ed.MarkerDefine(1,3)
 		self.assertEquals(self.ed.MarkerSymbolDefined(1), 3)
 
+	def markerFromLineIndex(self, line, index):
+		""" Helper that returns (handle, number) """
+		return (self.ed.MarkerHandleFromLine(line, index), self.ed.MarkerNumberFromLine(line, index))
+
+	def markerSetFromLine(self, line):
+		""" Helper that returns set of (handle, number) """
+		markerSet = set()
+		index = 0
+		while 1:
+			marker = self.markerFromLineIndex(line, index)
+			if marker[0] == -1:
+				return markerSet
+			markerSet.add(marker)
+			index += 1
+
+	def testMarkerFromLine(self):
+		self.assertEquals(self.ed.MarkerHandleFromLine(1, 0), -1)
+		self.assertEquals(self.ed.MarkerNumberFromLine(1, 0), -1)
+		self.assertEquals(self.markerFromLineIndex(1, 0), (-1, -1))
+		self.assertEquals(self.markerSetFromLine(1), set())
+
+		handle = self.ed.MarkerAdd(1,10)
+		self.assertEquals(self.markerFromLineIndex(1, 0), (handle, 10))
+		self.assertEquals(self.markerFromLineIndex(1, 1), (-1, -1))
+		self.assertEquals(self.markerSetFromLine(1), {(handle, 10)})
+
+		handle2 = self.ed.MarkerAdd(1,11)
+		# Don't want to depend on ordering so check as sets
+		self.assertEquals(self.markerSetFromLine(1), {(handle, 10), (handle2, 11)})
+
+		self.ed.MarkerDeleteHandle(handle2)
+		self.assertEquals(self.markerSetFromLine(1), {(handle, 10)})
+
 class TestIndicators(unittest.TestCase):
 
 	def setUp(self):
@@ -987,6 +1041,10 @@ class TestIndicators(unittest.TestCase):
 		self.ed = self.xite.ed
 		self.ed.ClearAll()
 		self.ed.EmptyUndoBuffer()
+
+	def indicatorValueString(self, indicator):
+		# create a string with -/X where indicator off/on to make checks simple
+		return "".join("-X"[self.ed.IndicatorValueAt(indicator, index)] for index in range(self.ed.TextLength))
 
 	def testSetIndicator(self):
 		self.assertEquals(self.ed.IndicGetStyle(0), 1)
@@ -1000,9 +1058,7 @@ class TestIndicators(unittest.TestCase):
 		self.ed.InsertText(0, b"abc")
 		self.ed.IndicatorCurrent = 3
 		self.ed.IndicatorFillRange(1,1)
-		self.assertEquals(self.ed.IndicatorValueAt(3, 0), 0)
-		self.assertEquals(self.ed.IndicatorValueAt(3, 1), 1)
-		self.assertEquals(self.ed.IndicatorValueAt(3, 2), 0)
+		self.assertEquals(self.indicatorValueString(3), "-X-")
 		self.assertEquals(self.ed.IndicatorStart(3, 0), 0)
 		self.assertEquals(self.ed.IndicatorEnd(3, 0), 1)
 		self.assertEquals(self.ed.IndicatorStart(3, 1), 1)
@@ -1028,6 +1084,41 @@ class TestIndicators(unittest.TestCase):
 		self.assertEquals(self.ed.IndicatorEnd(3, 0), 0)
 		self.assertEquals(self.ed.IndicatorStart(3, 1), 0)
 		self.assertEquals(self.ed.IndicatorEnd(3, 1), 0)
+
+	def testIndicatorMovement(self):
+		# Create a two character indicator over "BC" in "aBCd" and ensure that it doesn't
+		# leak onto surrounding characters when insertions made at either end but
+		# insertion inside indicator does extend length
+		self.ed.InsertText(0, b"aBCd")
+		self.ed.IndicatorCurrent = 3
+		self.ed.IndicatorFillRange(1,2)
+		self.assertEquals(self.indicatorValueString(3), "-XX-")
+
+		# Insertion 1 before
+		self.ed.InsertText(0, b"1")
+		self.assertEquals(b"1aBCd", self.ed.Contents())
+		self.assertEquals(self.indicatorValueString(3), "--XX-")
+
+		# Insertion at start of indicator
+		self.ed.InsertText(2, b"2")
+		self.assertEquals(b"1a2BCd", self.ed.Contents())
+		self.assertEquals(self.indicatorValueString(3), "---XX-")
+
+		# Insertion inside indicator
+		self.ed.InsertText(4, b"3")
+		self.assertEquals(b"1a2B3Cd", self.ed.Contents())
+		self.assertEquals(self.indicatorValueString(3), "---XXX-")
+
+		# Insertion at end of indicator
+		self.ed.InsertText(6, b"4")
+		self.assertEquals(b"1a2B3C4d", self.ed.Contents())
+		self.assertEquals(self.indicatorValueString(3), "---XXX--")
+
+		# Insertion 1 after
+		self.ed.InsertText(8, b"5")
+		self.assertEquals(self.indicatorValueString(3), "---XXX---")
+		self.assertEquals(b"1a2B3C4d5", self.ed.Contents())
+
 
 class TestScrolling(unittest.TestCase):
 
@@ -1320,6 +1411,17 @@ class TestAnnotation(unittest.TestCase):
 		self.assertEquals(self.ed.AnnotationGetVisible(), 2)
 		self.ed.AnnotationSetVisible(0)
 
+def selectionPositionRepresentation(selectionPosition):
+	position, virtualSpace = selectionPosition
+	representation = str(position)
+	if virtualSpace > 0:
+		representation += "+" + str(virtualSpace) + "v"
+	return representation
+
+def selectionRangeRepresentation(selectionRange):
+	anchor, caret = selectionRange
+	return selectionPositionRepresentation(anchor) + "-" + selectionPositionRepresentation(caret)
+
 class TestMultiSelection(unittest.TestCase):
 
 	def setUp(self):
@@ -1330,6 +1432,11 @@ class TestMultiSelection(unittest.TestCase):
 		# 3 lines of 3 characters
 		t = b"xxx\nxxx\nxxx"
 		self.ed.AddText(len(t), t)
+
+	def textOfSelection(self, n):
+		self.ed.TargetStart = self.ed.GetSelectionNStart(n)
+		self.ed.TargetEnd = self.ed.GetSelectionNEnd(n)
+		return bytes(self.ed.GetTargetText())
 
 	def testSelectionCleared(self):
 		self.ed.ClearSelections()
@@ -1407,10 +1514,14 @@ class TestMultiSelection(unittest.TestCase):
 		self.assertEquals(self.ed.GetSelectionNCaretVirtualSpace(0), 3)
 		self.ed.SetSelectionNAnchorVirtualSpace(0, 2)
 		self.assertEquals(self.ed.GetSelectionNAnchorVirtualSpace(0), 2)
+		self.assertEquals(self.ed.GetSelectionNStartVirtualSpace(0), 3)
+		self.assertEquals(self.ed.GetSelectionNEndVirtualSpace(0), 2)
 		# Does not check that virtual space is valid by being at end of line
 		self.ed.SetSelection(1, 1)
 		self.ed.SetSelectionNCaretVirtualSpace(0, 3)
 		self.assertEquals(self.ed.GetSelectionNCaretVirtualSpace(0), 3)
+		self.assertEquals(self.ed.GetSelectionNStartVirtualSpace(0), 0)
+		self.assertEquals(self.ed.GetSelectionNEndVirtualSpace(0), 3)
 
 	def testRectangularVirtualSpace(self):
 		self.ed.VirtualSpaceOptions=1
@@ -1480,6 +1591,132 @@ class TestMultiSelection(unittest.TestCase):
 		self.ed.MainSelection = 0
 		self.ed.DropSelectionN(0)
 		self.assertEquals(self.ed.MainSelection, 2)
+
+	def partFromSelection(self, n):
+		# Return a tuple (order, text) from a selection part
+		# order is a boolean whether the caret is before the anchor
+		self.ed.TargetStart = self.ed.GetSelectionNStart(n)
+		self.ed.TargetEnd = self.ed.GetSelectionNEnd(n)
+		return (self.ed.GetSelectionNCaret(n) < self.ed.GetSelectionNAnchor(n), self.textOfSelection(n))
+
+	def replacePart(self, n, part):
+		startSelection = self.ed.GetSelectionNStart(n)
+		self.ed.TargetStart = startSelection
+		self.ed.TargetEnd = self.ed.GetSelectionNEnd(n)
+		direction, text = part
+		length = len(text)
+		self.ed.ReplaceTarget(len(text), text)
+		if direction:
+			self.ed.SetSelectionNCaret(n, startSelection)
+			self.ed.SetSelectionNAnchor(n, startSelection + length)
+		else:
+			self.ed.SetSelectionNAnchor(n, startSelection)
+			self.ed.SetSelectionNCaret(n, startSelection + length)
+
+	def swapSelections(self):
+		# Swap the selections
+		part0 = self.partFromSelection(0)
+		part1 = self.partFromSelection(1)
+
+		self.replacePart(1, part0)
+		self.replacePart(0, part1)
+
+	def checkAdjacentSelections(self, selections, invert):
+		# Only called from testAdjacentSelections to try one permutation
+		self.ed.ClearAll()
+		self.ed.EmptyUndoBuffer()
+		t = b"ab"
+		texts = (b'b', b'a') if invert else (b'a', b'b')
+		self.ed.AddText(len(t), t)
+		sel0, sel1 = selections
+		self.ed.SetSelection(sel0[0], sel0[1])
+		self.ed.AddSelection(sel1[0], sel1[1])
+		self.assertEquals(self.ed.Selections, 2)
+		self.assertEquals(self.textOfSelection(0), texts[0])
+		self.assertEquals(self.textOfSelection(1), texts[1])
+		self.swapSelections()
+		self.assertEquals(self.ed.Contents(), b'ba')
+		self.assertEquals(self.ed.Selections, 2)
+		self.assertEquals(self.textOfSelection(0), texts[1])
+		self.assertEquals(self.textOfSelection(1), texts[0])
+
+	def selectionRepresentation(self, n):
+		anchor = (self.ed.GetSelectionNAnchor(0), self.ed.GetSelectionNAnchorVirtualSpace(0))
+		caret = (self.ed.GetSelectionNCaret(0), self.ed.GetSelectionNCaretVirtualSpace(0))
+		return selectionRangeRepresentation((anchor, caret))
+
+	def testAdjacentSelections(self):
+		# For various permutations of selections, try swapping the text and ensure that the
+		# selections remain distinct
+		self.checkAdjacentSelections(((1, 0),(1, 2)), False)
+		self.checkAdjacentSelections(((0, 1),(1, 2)), False)
+		self.checkAdjacentSelections(((1, 0),(2, 1)), False)
+		self.checkAdjacentSelections(((0, 1),(2, 1)), False)
+
+		# Reverse order, first selection is after second
+		self.checkAdjacentSelections(((1, 2),(1, 0)), True)
+		self.checkAdjacentSelections(((1, 2),(0, 1)), True)
+		self.checkAdjacentSelections(((2, 1),(1, 0)), True)
+		self.checkAdjacentSelections(((2, 1),(0, 1)), True)
+
+	def testInsertBefore(self):
+		self.ed.ClearAll()
+		t = b"a"
+		self.ed.AddText(len(t), t)
+		self.ed.SetSelection(0, 1)
+		self.assertEquals(self.textOfSelection(0), b'a')
+
+		self.ed.SetTargetRange(0, 0)
+		self.ed.ReplaceTarget(1, b'1')
+		self.assertEquals(self.ed.Contents(), b'1a')
+		self.assertEquals(self.textOfSelection(0), b'a')
+
+	def testInsertAfter(self):
+		self.ed.ClearAll()
+		t = b"a"
+		self.ed.AddText(len(t), t)
+		self.ed.SetSelection(0, 1)
+		self.assertEquals(self.textOfSelection(0), b'a')
+
+		self.ed.SetTargetRange(1, 1)
+		self.ed.ReplaceTarget(1, b'9')
+		self.assertEquals(self.ed.Contents(), b'a9')
+		self.assertEquals(self.textOfSelection(0), b'a')
+
+	def testInsertBeforeVirtualSpace(self):
+		self.ed.SetContents(b"a")
+		self.ed.SetSelection(1, 1)
+		self.ed.SetSelectionNAnchorVirtualSpace(0, 2)
+		self.ed.SetSelectionNCaretVirtualSpace(0, 2)
+		self.assertEquals(self.selectionRepresentation(0), "1+2v-1+2v")
+		self.assertEquals(self.textOfSelection(0), b'')
+
+		# Append '1'
+		self.ed.SetTargetRange(1, 1)
+		self.ed.ReplaceTarget(1, b'1')
+		# Selection moved on 1, but still empty
+		self.assertEquals(self.selectionRepresentation(0), "2+1v-2+1v")
+		self.assertEquals(self.ed.Contents(), b'a1')
+		self.assertEquals(self.textOfSelection(0), b'')
+
+	def testInsertThroughVirtualSpace(self):
+		self.ed.SetContents(b"a")
+		self.ed.SetSelection(1, 1)
+		self.ed.SetSelectionNAnchorVirtualSpace(0, 2)
+		self.ed.SetSelectionNCaretVirtualSpace(0, 3)
+		self.assertEquals(self.selectionRepresentation(0), "1+2v-1+3v")
+		self.assertEquals(self.textOfSelection(0), b'')
+
+		# Append '1' past current virtual space
+		self.ed.SetTargetRange(1, 1)
+		self.ed.SetTargetStartVirtualSpace(4)
+		self.ed.SetTargetEndVirtualSpace(5)
+		self.ed.ReplaceTarget(1, b'1')
+		# Virtual space of selection all converted to real positions
+		self.assertEquals(self.selectionRepresentation(0), "3-4")
+		self.assertEquals(self.ed.Contents(), b'a    1')
+		self.assertEquals(self.textOfSelection(0), b' ')
+
 
 class TestModalSelection(unittest.TestCase):
 
@@ -2081,6 +2318,46 @@ class TestCallTip(unittest.TestCase):
 		self.assertEquals(self.ed.CallTipPosStart(), 1)
 		self.ed.CallTipCancel()
 		self.assertEquals(self.ed.CallTipActive(), 0)
+
+class TestEdge(unittest.TestCase):
+
+	def setUp(self):
+		self.xite = Xite.xiteFrame
+		self.ed = self.xite.ed
+		self.ed.ClearAll()
+
+	def testBasics(self):
+		self.ed.EdgeColumn = 3
+		self.assertEquals(self.ed.EdgeColumn, 3)
+		self.ed.SetEdgeColour(0xA0)
+		self.assertEquals(self.ed.GetEdgeColour(), 0xA0)
+
+	def testMulti(self):
+		self.assertEquals(self.ed.GetMultiEdgeColumn(-1), -1)
+		self.assertEquals(self.ed.GetMultiEdgeColumn(0), -1)
+		self.ed.MultiEdgeAddLine(5, 0x50)
+		self.assertEquals(self.ed.GetMultiEdgeColumn(0), 5)
+		self.assertEquals(self.ed.GetMultiEdgeColumn(1), -1)
+		self.ed.MultiEdgeAddLine(6, 0x60)
+		self.assertEquals(self.ed.GetMultiEdgeColumn(0), 5)
+		self.assertEquals(self.ed.GetMultiEdgeColumn(1), 6)
+		self.assertEquals(self.ed.GetMultiEdgeColumn(2), -1)
+		self.ed.MultiEdgeAddLine(4, 0x40)
+		self.assertEquals(self.ed.GetMultiEdgeColumn(0), 4)
+		self.assertEquals(self.ed.GetMultiEdgeColumn(1), 5)
+		self.assertEquals(self.ed.GetMultiEdgeColumn(2), 6)
+		self.assertEquals(self.ed.GetMultiEdgeColumn(3), -1)
+		self.ed.MultiEdgeClearAll()
+		self.assertEquals(self.ed.GetMultiEdgeColumn(0), -1)
+
+	def testSameTwice(self):
+		# Tests that adding a column twice retains both
+		self.ed.MultiEdgeAddLine(5, 0x50)
+		self.ed.MultiEdgeAddLine(5, 0x55)
+		self.assertEquals(self.ed.GetMultiEdgeColumn(0), 5)
+		self.assertEquals(self.ed.GetMultiEdgeColumn(1), 5)
+		self.assertEquals(self.ed.GetMultiEdgeColumn(2), -1)
+		self.ed.MultiEdgeClearAll()
 
 class TestAutoComplete(unittest.TestCase):
 

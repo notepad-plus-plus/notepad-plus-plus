@@ -1,5 +1,6 @@
 // Scintilla source code edit control
 // Copyright 1998-2002 by Neil Hodgson <neilh@scintilla.org>
+// @file LexGui4Cli.cxx
 /*
 This is the Lexer for Gui4Cli, included in SciLexer.dll
 - by d. Keletsekis, 2/10/2003

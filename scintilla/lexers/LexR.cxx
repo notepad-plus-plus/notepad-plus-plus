@@ -1,5 +1,5 @@
 // Scintilla source code edit control
-/** @file Lexr.cxx
+/** @file LexR.cxx
  ** Lexer for R, S, SPlus Statistics Program (Heavily derived from CPP Lexer).
  **
  **/

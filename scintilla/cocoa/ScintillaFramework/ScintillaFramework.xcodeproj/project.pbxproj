@@ -234,6 +234,8 @@
 		FDC7442CAD70B9A67EF1639D /* LexSAS.cxx in Sources */ = {isa = PBXBuildFile; fileRef = A95147A1AB7CADB00DAFE724 /* LexSAS.cxx */; };
 		AE894E1CB7328CAE5B2EF47E /* LexX12.cxx in Sources */ = {isa = PBXBuildFile; fileRef = ADA64364A443F3E3F02D294E /* LexX12.cxx */; };
 		902B40FE926FE48538B168F1 /* LexDataflex.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 362E48F5A7F79598CB0B037D /* LexDataflex.cxx */; };
+		4AA242EE8F0CCEA01AB59842 /* LexHollywood.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 96884184929F317E72FC1BE8 /* LexHollywood.cxx */; };
+		513A4B43B903344E142C441E /* LexRaku.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 48484CD7A1F20D09703376E5 /* LexRaku.cxx */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -471,6 +473,8 @@
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		ADA64364A443F3E3F02D294E /* LexX12.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexX12.cxx; path = ../../lexers/LexX12.cxx; sourceTree = SOURCE_ROOT; };
 		362E48F5A7F79598CB0B037D /* LexDataflex.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexDataflex.cxx; path = ../../lexers/LexDataflex.cxx; sourceTree = SOURCE_ROOT; };
+		96884184929F317E72FC1BE8 /* LexHollywood.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexHollywood.cxx; path = ../../lexers/LexHollywood.cxx; sourceTree = SOURCE_ROOT; };
+		48484CD7A1F20D09703376E5 /* LexRaku.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexRaku.cxx; path = ../../lexers/LexRaku.cxx; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -613,6 +617,7 @@
 				114B6EDB11FA7526004FB6AB /* LexGui4Cli.cxx */,
 				114B6EDC11FA7526004FB6AB /* LexHaskell.cxx */,
 				28A067101A36B42600B4966A /* LexHex.cxx */,
+				96884184929F317E72FC1BE8 /* LexHollywood.cxx */,
 				114B6EDD11FA7526004FB6AB /* LexHTML.cxx */,
 				282E41F3B9E2BFEDD6A05BE7 /* LexIndent.cxx */,
 				114B6EDE11FA7526004FB6AB /* LexInno.cxx */,
@@ -653,6 +658,7 @@
 				114B6EF711FA7526004FB6AB /* LexPS.cxx */,
 				114B6EF811FA7526004FB6AB /* LexPython.cxx */,
 				114B6EF911FA7526004FB6AB /* LexR.cxx */,
+				48484CD7A1F20D09703376E5 /* LexRaku.cxx */,
 				114B6EFA11FA7526004FB6AB /* LexRebol.cxx */,
 				28A7D6041995E47D0062D204 /* LexRegistry.cxx */,
 				114B6EFB11FA7526004FB6AB /* LexRuby.cxx */,
@@ -1138,6 +1144,8 @@
 				00724A59981D34F11A3D162F /* LexCIL.cxx in Sources */,
 				AE894E1CB7328CAE5B2EF47E /* LexX12.cxx in Sources */,
 				902B40FE926FE48538B168F1 /* LexDataflex.cxx in Sources */,
+				4AA242EE8F0CCEA01AB59842 /* LexHollywood.cxx in Sources */,
+				513A4B43B903344E142C441E /* LexRaku.cxx in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1204,7 +1212,10 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Scintilla_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = SCI_LEXER;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					SCI_LEXER,
+					NDEBUG,
+				);
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				GCC_WARN_UNKNOWN_PRAGMAS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;

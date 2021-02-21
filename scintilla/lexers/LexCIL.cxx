@@ -114,7 +114,7 @@ class LexerCIL : public DefaultLexer {
     OptionSetCIL osCIL;
 
 public:
-    LexerCIL() : DefaultLexer(lexicalClasses, ELEMENTS(lexicalClasses)) { }
+    LexerCIL() : DefaultLexer("cil", SCLEX_CIL, lexicalClasses, ELEMENTS(lexicalClasses)) { }
 
     virtual ~LexerCIL() { }
 
@@ -123,7 +123,7 @@ public:
     }
 
     int SCI_METHOD Version() const override {
-        return lvRelease4;
+        return lvRelease5;
     }
 
     const char * SCI_METHOD PropertyNames() override {
@@ -139,6 +139,10 @@ public:
     }
 
     Sci_Position SCI_METHOD PropertySet(const char *key, const char *val) override;
+
+	const char * SCI_METHOD PropertyGet(const char* key) override {
+		return osCIL.PropertyGet(key);
+	}
 
     const char * SCI_METHOD DescribeWordListSets() override {
         return osCIL.DescribeWordListSets();
@@ -161,7 +165,7 @@ public:
         return style;
     }
 
-    static ILexer4 *LexerFactoryCIL() {
+    static ILexer5 *LexerFactoryCIL() {
         return new LexerCIL();
     }
 };

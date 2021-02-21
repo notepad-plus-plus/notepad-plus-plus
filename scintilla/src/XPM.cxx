@@ -24,7 +24,7 @@ using namespace Scintilla;
 
 namespace {
 
-const char *NextField(const char *s) {
+const char *NextField(const char *s) noexcept {
 	// In case there are leading spaces in the string
 	while (*s == ' ') {
 		s++;
@@ -39,7 +39,7 @@ const char *NextField(const char *s) {
 }
 
 // Data lines in XPM can be terminated either with NUL or "
-size_t MeasureLength(const char *s) {
+size_t MeasureLength(const char *s) noexcept {
 	size_t i = 0;
 	while (s[i] && (s[i] != '\"'))
 		i++;
@@ -67,7 +67,7 @@ ColourDesired ColourFromHex(const char *val) noexcept {
 }
 
 
-ColourDesired XPM::ColourFromCode(int ch) const {
+ColourDesired XPM::ColourFromCode(int ch) const noexcept {
 	return colourCodeTable[ch];
 }
 
@@ -170,7 +170,7 @@ void XPM::Draw(Surface *surface, const PRectangle &rc) {
 	}
 }
 
-void XPM::PixelAt(int x, int y, ColourDesired &colour, bool &transparent) const {
+void XPM::PixelAt(int x, int y, ColourDesired &colour, bool &transparent) const noexcept {
 	if (pixels.empty() || (x<0) || (x >= width) || (y<0) || (y >= height)) {
 		colour = ColourDesired(0);
 		transparent = true;
@@ -247,21 +247,36 @@ RGBAImage::RGBAImage(const XPM &xpm) {
 RGBAImage::~RGBAImage() {
 }
 
-int RGBAImage::CountBytes() const {
+int RGBAImage::CountBytes() const noexcept {
 	return width * height * 4;
 }
 
-const unsigned char *RGBAImage::Pixels() const {
+const unsigned char *RGBAImage::Pixels() const noexcept {
 	return &pixelBytes[0];
 }
 
-void RGBAImage::SetPixel(int x, int y, ColourDesired colour, int alpha) {
+void RGBAImage::SetPixel(int x, int y, ColourDesired colour, int alpha) noexcept {
 	unsigned char *pixel = &pixelBytes[0] + (y*width+x) * 4;
 	// RGBA
 	pixel[0] = colour.GetRed();
 	pixel[1] = colour.GetGreen();
 	pixel[2] = colour.GetBlue();
 	pixel[3] = static_cast<unsigned char>(alpha);
+}
+
+// Transform a block of pixels from RGBA to BGRA with premultiplied alpha.
+// Used for DrawRGBAImage on some platforms.
+void RGBAImage::BGRAFromRGBA(unsigned char *pixelsBGRA, const unsigned char *pixelsRGBA, size_t count) noexcept {
+	for (size_t i = 0; i < count; i++) {
+		const unsigned char alpha = pixelsRGBA[3];
+		// Input is RGBA, output is BGRA with premultiplied alpha
+		pixelsBGRA[2] = pixelsRGBA[0] * alpha / 255;
+		pixelsBGRA[1] = pixelsRGBA[1] * alpha / 255;
+		pixelsBGRA[0] = pixelsRGBA[2] * alpha / 255;
+		pixelsBGRA[3] = alpha;
+		pixelsRGBA += bytesPerPixel;
+		pixelsBGRA += bytesPerPixel;
+	}
 }
 
 RGBAImageSet::RGBAImageSet() : height(-1), width(-1) {
@@ -272,7 +287,7 @@ RGBAImageSet::~RGBAImageSet() {
 }
 
 /// Remove all images.
-void RGBAImageSet::Clear() {
+void RGBAImageSet::Clear() noexcept {
 	images.clear();
 	height = -1;
 	width = -1;

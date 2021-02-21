@@ -1,4 +1,5 @@
 // Scintilla Lexer for X12
+// @file LexX12.cxx
 // Written by Iain Clarke, IMCSoft & Inobiz AB.
 // X12 official documentation is behind a paywall, but there's a description of the syntax here:
 // http://www.rawlinsecconsulting.com/x12tutorial/x12syn.html
@@ -29,13 +30,13 @@ public:
 	LexerX12();
 	virtual ~LexerX12() {} // virtual destructor, as we inherit from ILexer
 
-	static ILexer4 *Factory() {
+	static ILexer5 *Factory() {
 		return new LexerX12;
 	}
 
 	int SCI_METHOD Version() const override
 	{
-		return lvRelease4;
+		return lvRelease5;
 	}
 	void SCI_METHOD Release() override
 	{
@@ -65,6 +66,9 @@ public:
 			return 0;
 		}
 		return -1;
+	}
+	const char * SCI_METHOD PropertyGet(const char *) override {
+		return "";
 	}
 	const char * SCI_METHOD DescribeWordListSets() override
 	{
@@ -108,7 +112,7 @@ LexerModule lmX12(SCLEX_X12, LexerX12::Factory, "x12");
 
 ///////////////////////////////////////////////////////////////////////////////
 
-LexerX12::LexerX12()
+LexerX12::LexerX12() : DefaultLexer("x12", SCLEX_X12)
 {
 	m_bFold = false;
 	m_chSegment[0] = m_chSegment[1] = m_chSegment[2] = m_chElement = m_chSubElement = 0;

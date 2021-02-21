@@ -82,7 +82,7 @@ static inline bool IsAlNumSym(int ch) {
  * \param  startPos Where to start scanning
  * \param  length Where to scan to
  * \param  initStyle The style at the initial point, not used in this folder
- * \param  keywordslists The keywordslists, currently, number 5 is used
+ * \param  keywordlists The keywordslists, currently, number 5 is used
  * \param  styler The styler
  */
 static void ColouriseMagikDoc(Sci_PositionU startPos, Sci_Position length, int initStyle,
@@ -328,7 +328,7 @@ static const char * const magikWordListDesc[] = {
  *
  * \param  keywordslist The list of keywords that are scanned, they should only
  *         contain the start keywords, not the end keywords
- * \param  The actual keyword
+ * \param  keyword The actual keyword
  * \return 1 if it is a folding start-keyword, -1 if it is a folding end-keyword
  *         0 otherwise
  */

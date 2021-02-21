@@ -1,8 +1,8 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # DepGen.py - produce a make dependencies file for Scintilla
 # Copyright 2019 by Neil Hodgson <neilh@scintilla.org>
 # The License.txt file describes the conditions under which this software may be distributed.
-# Requires Python 2.7 or later
+# Requires Python 3.6 or later
 
 import sys
 
@@ -10,7 +10,7 @@ sys.path.append("..")
 
 from scripts import Dependencies
 
-topComment = "# Created by DepGen.py. To recreate, run 'python DepGen.py'.\n"
+topComment = "# Created by DepGen.py. To recreate, run DepGen.py.\n"
 
 def Generate():
 	sources = ["../src/*.cxx", "../lexlib/*.cxx", "../lexers/*.cxx"]
@@ -22,8 +22,8 @@ def Generate():
 	# Add ScintillaBaseL as the same as ScintillaBase
 	deps = Dependencies.InsertSynonym(deps, "ScintillaBase.o", "ScintillaBaseL.o")
 
-	# Add ScintillaWinL as the same as ScintillaWin
-	deps = Dependencies.InsertSynonym(deps, "ScintillaWin.o", "ScintillaWinL.o")
+	# Add CatalogueL as the same as Catalogue
+	deps = Dependencies.InsertSynonym(deps, "Catalogue.o", "CatalogueL.o")
 
 	Dependencies.UpdateDependencies("../win32/deps.mak", deps, topComment)
 

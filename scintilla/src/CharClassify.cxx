@@ -34,7 +34,7 @@ void CharClassify::SetDefaultCharClasses(bool includeWordClass) {
 }
 
 void CharClassify::SetCharClasses(const unsigned char *chars, cc newCharClass) {
-	// Apply the newCharClass to the specifed chars
+	// Apply the newCharClass to the specified chars
 	if (chars) {
 		while (*chars) {
 			charClass[*chars] = static_cast<unsigned char>(newCharClass);
@@ -43,7 +43,7 @@ void CharClassify::SetCharClasses(const unsigned char *chars, cc newCharClass) {
 	}
 }
 
-int CharClassify::GetCharsOfClass(cc characterClass, unsigned char *buffer) const {
+int CharClassify::GetCharsOfClass(cc characterClass, unsigned char *buffer) const noexcept {
 	// Get characters belonging to the given char class; return the number
 	// of characters (if the buffer is NULL, don't write to it).
 	int count = 0;

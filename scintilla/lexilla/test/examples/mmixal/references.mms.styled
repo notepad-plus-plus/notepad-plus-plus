@@ -1,0 +1,16 @@
+{1}# Bug #2019 Buffer over-read in MMIXAL lexer
+{2}label{4}
+{0}        {5}PREFIX{7}  {10}Foo:{1}
+% Relative reference (uses PREFIX)
+{0}        {5}JMP{7} {10}label{1}
+%
+{0}        {5}JMP{7} {10}@label{1}
+% Absolute reference (does not use PREFIX)
+{0}        {5}JMP{7} {10}:label{1}
+% In register list so treated as register
+{0}        {5}JMP{7} {13}:rA{1}
+% Too long for buffer so truncated
+{0}        {5}JMP{7} {10}l1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890{1}
+% Too long for buffer so truncated then treated as absolute
+{0}        {5}JMP{7} {10}:l1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890{1}
+%

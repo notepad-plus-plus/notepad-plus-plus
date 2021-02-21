@@ -151,10 +151,16 @@ fun position GetStyledText=2015(, textrange tr)
 fun bool CanRedo=2016(,)
 
 # Retrieve the line number at which a particular marker is located.
-fun int MarkerLineFromHandle=2017(int markerHandle,)
+fun line MarkerLineFromHandle=2017(int markerHandle,)
 
 # Delete a marker.
 fun void MarkerDeleteHandle=2018(int markerHandle,)
+
+# Retrieve marker handles of a line
+fun int MarkerHandleFromLine=2732(line line, int which)
+
+# Retrieve marker number of a marker handle
+fun int MarkerNumberFromLine=2733(line line, int which)
 
 # Is undo history being collected?
 get bool GetUndoCollection=2019(,)
@@ -252,6 +258,12 @@ set void SetTabWidth=2036(int tabWidth,)
 # Retrieve the visible size of a tab.
 get int GetTabWidth=2121(,)
 
+# Set the minimum visual width of a tab.
+set void SetTabMinimumWidth=2724(int pixels,)
+
+# Get the minimum visual width of a tab.
+get int GetTabMinimumWidth=2725(,)
+
 # Clear explicit tabstops on a line.
 fun void ClearTabStops=2675(line line,)
 
@@ -276,8 +288,23 @@ val SC_IME_INLINE=1
 # Is the IME displayed in a window or inline?
 get IMEInteraction GetIMEInteraction=2678(,)
 
-# Choose to display the the IME in a winow or inline.
+# Choose to display the IME in a window or inline.
 set void SetIMEInteraction=2679(IMEInteraction imeInteraction,)
+
+enu Alpha=SC_ALPHA_
+val SC_ALPHA_TRANSPARENT=0
+val SC_ALPHA_OPAQUE=255
+val SC_ALPHA_NOALPHA=256
+
+ali SC_ALPHA_NOALPHA=NO_ALPHA
+
+enu CursorShape=SC_CURSOR
+val SC_CURSORNORMAL=-1
+val SC_CURSORARROW=2
+val SC_CURSORWAIT=4
+val SC_CURSORREVERSEARROW=7
+
+ali SC_CURSORREVERSEARROW=REVERSE_ARROW
 
 enu MarkerSymbol=SC_MARK_
 val MARKER_MAX=31
@@ -376,7 +403,7 @@ set void MarkerSetBack=2042(int markerNumber, colour back)
 # Set the background colour used for a particular marker number when its folding block is selected.
 set void MarkerSetBackSelected=2292(int markerNumber, colour back)
 
-# Enable/disable highlight for current folding bloc (smallest one that contains the caret)
+# Enable/disable highlight for current folding block (smallest one that contains the caret)
 fun void MarkerEnableHighlight=2293(bool enabled,)
 
 # Add a marker to a line, returning an ID which can be used to find or delete the marker.
@@ -1202,12 +1229,24 @@ set void SetTargetStart=2190(position start,)
 # Get the position that starts the target.
 get position GetTargetStart=2191(,)
 
+# Sets the virtual space of the target start
+set void SetTargetStartVirtualSpace=2728(position space,)
+
+# Get the virtual space of the target start
+get position GetTargetStartVirtualSpace=2729(,)
+
 # Sets the position that ends the target which is used for updating the
 # document without affecting the scroll position.
 set void SetTargetEnd=2192(position end,)
 
 # Get the position that ends the target.
 get position GetTargetEnd=2193(,)
+
+# Sets the virtual space of the target end
+set void SetTargetEndVirtualSpace=2730(position space,)
+
+# Get the virtual space of the target end
+get position GetTargetEndVirtualSpace=2731(,)
 
 # Sets both the start and end of the target in one call.
 fun void SetTargetRange=2686(position start, position end)
@@ -1261,7 +1300,7 @@ fun position CallTipPosStart=2203(,)
 set void CallTipSetPosStart=2214(position posStart,)
 
 # Highlight a segment of the definition.
-fun void CallTipSetHlt=2204(int highlightStart, int highlightEnd)
+fun void CallTipSetHlt=2204(position highlightStart, position highlightEnd)
 
 # Set the background colour for the call tip.
 set void CallTipSetBack=2205(colour back,)
@@ -1837,6 +1876,9 @@ fun void BraceBadLightIndicator=2499(bool useSetting, int indicator)
 # The maxReStyle must be 0 for now. It may be defined in a future release.
 fun position BraceMatch=2353(position pos, int maxReStyle)
 
+# Similar to BraceMatch, but matching starts at the explicit start position.
+fun position BraceMatchNext=2369(position pos, position startPos)
+
 # Are the end of line characters visible?
 get bool GetViewEOL=2355(,)
 
@@ -1885,6 +1927,9 @@ fun void MultiEdgeAddLine=2694(position column, colour edgeColour)
 
 # Clear all vertical edges.
 fun void MultiEdgeClearAll=2695(,)
+
+# Get multi edge positions.
+get position GetMultiEdgeColumn=2749(int which,)
 
 # Sets the current caret position to be the search anchor.
 fun void SearchAnchor=2366(,)
@@ -1973,14 +2018,6 @@ set void SetMouseWheelCaptures=2696(bool captures,)
 # Get whether mouse wheel can be active outside the window.
 get bool GetMouseWheelCaptures=2697(,)
 
-enu CursorShape=SC_CURSOR
-val SC_CURSORNORMAL=-1
-val SC_CURSORARROW=2
-val SC_CURSORWAIT=4
-val SC_CURSORREVERSEARROW=7
-
-ali SC_CURSORREVERSEARROW=REVERSE_ARROW
-
 # Sets the cursor to one of the SC_CURSOR* values.
 set void SetCursor=2386(CursorShape cursorType,)
 # Get cursor type.
@@ -2007,6 +2044,7 @@ fun void WordPartRightExtend=2393(,)
 enu VisiblePolicy=VISIBLE_
 val VISIBLE_SLOP=0x01
 val VISIBLE_STRICT=0x04
+
 # Set the way the display area is determined when a particular line
 # is to be moved to by Find, FindNext, GotoLine, etc.
 fun void SetVisiblePolicy=2394(VisiblePolicy visiblePolicy, int visibleSlop)
@@ -2093,10 +2131,13 @@ get bool GetHotspotSingleLine=2497(,)
 
 # Move caret down one paragraph (delimited by empty lines).
 fun void ParaDown=2413(,)
+
 # Extend selection down one paragraph (delimited by empty lines).
 fun void ParaDownExtend=2414(,)
+
 # Move caret up one paragraph (delimited by empty lines).
 fun void ParaUp=2415(,)
+
 # Extend selection up one paragraph (delimited by empty lines).
 fun void ParaUpExtend=2416(,)
 
@@ -2283,18 +2324,18 @@ fun position EncodedFromUTF8=2449(string utf8, stringresult encoded)
 # multi-byte characters. If beyond end of line, return line end position.
 fun position FindColumn=2456(line line, position column)
 
-# Can the caret preferred x position only be changed by explicit movement commands?
-get CaretSticky GetCaretSticky=2457(,)
-
-# Stop the caret preferred x position changing when the user types.
-set void SetCaretSticky=2458(CaretSticky useCaretStickyBehaviour,)
-
 enu CaretSticky=SC_CARETSTICKY_
 val SC_CARETSTICKY_OFF=0
 val SC_CARETSTICKY_ON=1
 val SC_CARETSTICKY_WHITESPACE=2
 
 ali SC_CARETSTICKY_WHITESPACE=WHITE_SPACE
+
+# Can the caret preferred x position only be changed by explicit movement commands?
+get CaretSticky GetCaretSticky=2457(,)
+
+# Stop the caret preferred x position changing when the user types.
+set void SetCaretSticky=2458(CaretSticky useCaretStickyBehaviour,)
 
 # Switch between sticky and non-sticky: meant to be bound to a key.
 fun void ToggleCaretSticky=2459(,)
@@ -2307,13 +2348,6 @@ get bool GetPasteConvertEndings=2468(,)
 
 # Duplicate the selection. If selection empty duplicate the line containing the caret.
 fun void SelectionDuplicate=2469(,)
-
-enu Alpha=SC_ALPHA_
-val SC_ALPHA_TRANSPARENT=0
-val SC_ALPHA_OPAQUE=255
-val SC_ALPHA_NOALPHA=256
-
-ali SC_ALPHA_NOALPHA=NO_ALPHA
 
 # Set background alpha of the caret line.
 set void SetCaretLineBackAlpha=2470(Alpha alpha,)
@@ -2361,10 +2395,10 @@ fun int IndicatorAllOnFor=2506(position pos,)
 fun int IndicatorValueAt=2507(int indicator, position pos)
 
 # Where does a particular indicator start?
-fun int IndicatorStart=2508(int indicator, position pos)
+fun position IndicatorStart=2508(int indicator, position pos)
 
 # Where does a particular indicator end?
-fun int IndicatorEnd=2509(int indicator, position pos)
+fun position IndicatorEnd=2509(int indicator, position pos)
 
 # Set number of entries in position cache
 set void SetPositionCache=2514(int size,)
@@ -2572,18 +2606,25 @@ get int GetMainSelection=2575(,)
 
 # Set the caret position of the nth selection.
 set void SetSelectionNCaret=2576(int selection, position caret)
+
 # Return the caret position of the nth selection.
 get position GetSelectionNCaret=2577(int selection,)
+
 # Set the anchor position of the nth selection.
 set void SetSelectionNAnchor=2578(int selection, position anchor)
+
 # Return the anchor position of the nth selection.
 get position GetSelectionNAnchor=2579(int selection,)
+
 # Set the virtual space of the caret of the nth selection.
 set void SetSelectionNCaretVirtualSpace=2580(int selection, position space)
+
 # Return the virtual space of the caret of the nth selection.
 get position GetSelectionNCaretVirtualSpace=2581(int selection,)
+
 # Set the virtual space of the anchor of the nth selection.
 set void SetSelectionNAnchorVirtualSpace=2582(int selection, position space)
+
 # Return the virtual space of the anchor of the nth selection.
 get position GetSelectionNAnchorVirtualSpace=2583(int selection,)
 
@@ -2593,26 +2634,39 @@ set void SetSelectionNStart=2584(int selection, position anchor)
 # Returns the position at the start of the selection.
 get position GetSelectionNStart=2585(int selection,)
 
+# Returns the virtual space at the start of the selection.
+get position GetSelectionNStartVirtualSpace=2726(int selection,)
+
 # Sets the position that ends the selection - this becomes the currentPosition.
 set void SetSelectionNEnd=2586(int selection, position caret)
+
+# Returns the virtual space at the end of the selection.
+get position GetSelectionNEndVirtualSpace=2727(int selection,)
 
 # Returns the position at the end of the selection.
 get position GetSelectionNEnd=2587(int selection,)
 
 # Set the caret position of the rectangular selection.
 set void SetRectangularSelectionCaret=2588(position caret,)
+
 # Return the caret position of the rectangular selection.
 get position GetRectangularSelectionCaret=2589(,)
+
 # Set the anchor position of the rectangular selection.
 set void SetRectangularSelectionAnchor=2590(position anchor,)
+
 # Return the anchor position of the rectangular selection.
 get position GetRectangularSelectionAnchor=2591(,)
+
 # Set the virtual space of the caret of the rectangular selection.
 set void SetRectangularSelectionCaretVirtualSpace=2592(position space,)
+
 # Return the virtual space of the caret of the rectangular selection.
 get position GetRectangularSelectionCaretVirtualSpace=2593(,)
+
 # Set the virtual space of the anchor of the rectangular selection.
 set void SetRectangularSelectionAnchorVirtualSpace=2594(position space,)
+
 # Return the virtual space of the anchor of the rectangular selection.
 get position GetRectangularSelectionAnchorVirtualSpace=2595(,)
 
@@ -2628,6 +2682,7 @@ ali SCVS_NOWRAPLINESTART=NO_WRAP_LINE_START
 
 # Set options for virtual space behaviour.
 set void SetVirtualSpaceOptions=2596(VirtualSpace virtualSpaceOptions,)
+
 # Return options for virtual space behaviour.
 get VirtualSpace GetVirtualSpaceOptions=2597(,)
 
@@ -2788,6 +2843,38 @@ get int GetRepresentation=2666(string encodedCharacter, stringresult representat
 # Remove a character representation.
 fun void ClearRepresentation=2667(string encodedCharacter,)
 
+# Set the end of line annotation text for a line
+set void EOLAnnotationSetText=2740(line line, string text)
+
+# Get the end of line annotation text for a line
+get int EOLAnnotationGetText=2741(line line, stringresult text)
+
+# Set the style number for the end of line annotations for a line
+set void EOLAnnotationSetStyle=2742(line line, int style)
+
+# Get the style number for the end of line annotations for a line
+get int EOLAnnotationGetStyle=2743(line line,)
+
+# Clear the end of annotations from all lines
+fun void EOLAnnotationClearAll=2744(,)
+
+enu EOLAnnotationVisible=EOLANNOTATION_
+val EOLANNOTATION_HIDDEN=0
+val EOLANNOTATION_STANDARD=1
+val EOLANNOTATION_BOXED=2
+
+# Set the visibility for the end of line annotations for a view
+set void EOLAnnotationSetVisible=2745(EOLAnnotationVisible visible,)
+
+# Get the visibility for the end of line annotations for a view
+get EOLAnnotationVisible EOLAnnotationGetVisible=2746(,)
+
+# Get the start of the range of style numbers used for end of line annotations
+set void EOLAnnotationSetStyleOffset=2747(int style,)
+
+# Get the start of the range of style numbers used for end of line annotations
+get int EOLAnnotationGetStyleOffset=2748(,)
+
 # Start notifying the container of all key presses and commands.
 fun void StartRecord=3001(,)
 
@@ -2907,6 +2994,9 @@ fun int TagsOfStyle=4031(int style, stringresult tags)
 # Result is NUL-terminated.
 fun int DescriptionOfStyle=4032(int style, stringresult description)
 
+# Set the lexer from an ILexer*.
+set void SetILexer=4033(, pointer ilexer)
+
 # Notifications
 # Type of modification and the action which caused the modification.
 # These are defined as a bit mask to make it easy to specify which notifications are wanted.
@@ -2935,7 +3025,8 @@ val SC_MOD_CONTAINER=0x40000
 val SC_MOD_LEXERSTATE=0x80000
 val SC_MOD_INSERTCHECK=0x100000
 val SC_MOD_CHANGETABSTOPS=0x200000
-val SC_MODEVENTMASKALL=0x3FFFFF
+val SC_MOD_CHANGEEOLANNOTATION=0x400000
+val SC_MODEVENTMASKALL=0x7FFFFF
 
 ali SC_MOD_INSERTTEXT=INSERT_TEXT
 ali SC_MOD_DELETETEXT=DELETE_TEXT
@@ -2955,6 +3046,7 @@ ali SC_MOD_CHANGEANNOTATION=CHANGE_ANNOTATION
 ali SC_MOD_LEXERSTATE=LEXER_STATE
 ali SC_MOD_INSERTCHECK=INSERT_CHECK
 ali SC_MOD_CHANGETABSTOPS=CHANGE_TAB_STOPS
+ali SC_MOD_CHANGEEOLANNOTATION=CHANGE_E_O_L_ANNOTATION
 ali SC_MODEVENTMASKALL=EVENT_MASK_ALL
 
 enu Update=SC_UPDATE_
@@ -3157,6 +3249,8 @@ val SCLEX_NIM=126
 val SCLEX_CIL=127
 val SCLEX_X12=128
 val SCLEX_DATAFLEX=129
+val SCLEX_HOLLYWOOD=130
+val SCLEX_RAKU=131
 
 # When a lexer specifies its language as SCLEX_AUTOMATIC it receives a
 # value assigned in sequence from SCLEX_AUTOMATIC+1.
@@ -3583,6 +3677,7 @@ val SCE_ERR_VALUE=21
 val SCE_ERR_GCC_INCLUDED_FROM=22
 val SCE_ERR_ESCSEQ=23
 val SCE_ERR_ESCSEQ_UNKNOWN=24
+val SCE_ERR_GCC_EXCERPT=25
 val SCE_ERR_ES_BLACK=40
 val SCE_ERR_ES_RED=41
 val SCE_ERR_ES_GREEN=42
@@ -5110,7 +5205,7 @@ val SCE_SAS_MACRO_KEYWORD=12
 val SCE_SAS_BLOCK_KEYWORD=13
 val SCE_SAS_MACRO_FUNCTION=14
 val SCE_SAS_STATEMENT=15
-# Lexical states for SCLEX_NIM 
+# Lexical states for SCLEX_NIM
 lex Nim=SCLEX_NIM SCE_NIM_
 val SCE_NIM_DEFAULT=0
 val SCE_NIM_COMMENT=1
@@ -5170,6 +5265,54 @@ val SCE_DF_STRINGEOL=11
 val SCE_DF_SCOPEWORD=12
 val SCE_DF_OPERATOR=13
 val SCE_DF_ICODE=14
+# Lexical states for SCLEX_HOLLYWOOD
+lex Hollywood=SCLEX_HOLLYWOOD SCE_HOLLYWOOD_
+val SCE_HOLLYWOOD_DEFAULT=0
+val SCE_HOLLYWOOD_COMMENT=1
+val SCE_HOLLYWOOD_COMMENTBLOCK=2
+val SCE_HOLLYWOOD_NUMBER=3
+val SCE_HOLLYWOOD_KEYWORD=4
+val SCE_HOLLYWOOD_STDAPI=5
+val SCE_HOLLYWOOD_PLUGINAPI=6
+val SCE_HOLLYWOOD_PLUGINMETHOD=7
+val SCE_HOLLYWOOD_STRING=8
+val SCE_HOLLYWOOD_STRINGBLOCK=9
+val SCE_HOLLYWOOD_PREPROCESSOR=10
+val SCE_HOLLYWOOD_OPERATOR=11
+val SCE_HOLLYWOOD_IDENTIFIER=12
+val SCE_HOLLYWOOD_CONSTANT=13
+val SCE_HOLLYWOOD_HEXNUMBER=14
+# Lexical states for SCLEX_RAKU
+lex Raku=SCLEX_RAKU SCE_RAKU_
+val SCE_RAKU_DEFAULT=0
+val SCE_RAKU_ERROR=1
+val SCE_RAKU_COMMENTLINE=2
+val SCE_RAKU_COMMENTEMBED=3
+val SCE_RAKU_POD=4
+val SCE_RAKU_CHARACTER=5
+val SCE_RAKU_HEREDOC_Q=6
+val SCE_RAKU_HEREDOC_QQ=7
+val SCE_RAKU_STRING=8
+val SCE_RAKU_STRING_Q=9
+val SCE_RAKU_STRING_QQ=10
+val SCE_RAKU_STRING_Q_LANG=11
+val SCE_RAKU_STRING_VAR=12
+val SCE_RAKU_REGEX=13
+val SCE_RAKU_REGEX_VAR=14
+val SCE_RAKU_ADVERB=15
+val SCE_RAKU_NUMBER=16
+val SCE_RAKU_PREPROCESSOR=17
+val SCE_RAKU_OPERATOR=18
+val SCE_RAKU_WORD=19
+val SCE_RAKU_FUNCTION=20
+val SCE_RAKU_IDENTIFIER=21
+val SCE_RAKU_TYPEDEF=22
+val SCE_RAKU_MU=23
+val SCE_RAKU_POSITIONAL=24
+val SCE_RAKU_ASSOCIATIVE=25
+val SCE_RAKU_CALLABLE=26
+val SCE_RAKU_GRAMMAR=27
+val SCE_RAKU_CLASS=28
 
 # Events
 

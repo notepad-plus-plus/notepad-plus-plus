@@ -119,7 +119,7 @@
 
     <h1>Scintilla Documentation</h1>
 
-    <p>Last edited 22 June 2019 NH</p>
+    <p>Last edited 9 September 2020 NH</p>
 
     <p>There is <a class="jump" href="Design.html">an overview of the internal design of
     Scintilla</a>.<br />
@@ -131,6 +131,8 @@
     Visual Basic</a>.<br />
      <a class="jump" href="https://www.scintilla.org/bait.zip">Bait is a tiny sample using Scintilla
      on GTK</a>.<br />
+     <a class="jump" href="https://www.scintilla.org/ScintillaTest.zip">ScintillaTest is a more complete
+     GTK sample which can be used to find bugs or prototype new features.</a><br />
      <a class="jump" href="Lexer.txt">A detailed description of how to write a lexer, including a
     discussion of folding</a>.<br />
      <a class="jump" href="http://sphere.sourceforge.net/flik/docs/scintilla-container_lexer.html">
@@ -265,6 +267,44 @@
         </tr>
       </tbody>
     </table>
+
+    <h2 class="provisional">Lexilla</h2>
+
+    <p>For Scintilla 5.0, lexers will be split off into a separate Lexilla library.
+    Scintilla will be responsible for the GUI and calling lexers with Lexilla providing the lexers.
+    To allow work towards this with Scintilla 4.x, the first stage is to allow building Lexilla but
+    also include the lexers in Scintilla.</p>
+
+    <p>Lexilla is built as both a shared library and static library and applications may choose to
+    link to one or the other.</p>
+
+    <p>To build Lexilla, in the lexilla/src directory, run make (for gcc or clang)<br />
+    <code>make</code><br />
+    or nmake for MSVC<br />
+    <code>nmake -f lexilla.mak</code><br />
+    </p>
+
+    <p>Lexilla follows the <a class="seealso" href="#SCI_LOADLEXERLIBRARY">external lexer protocol</a>
+    so can be loaded by applications that support this.
+    As the protocol only supports object lexers, an additional function <code>CreateLexer(const char *name)</code>
+    is exposed which will create a lexer object (ILexer5 *) for any object lexer or function lexer.
+    </p>
+   
+    <p>Lexer libraries that provide the same functions as Lexilla may provide lexers for use by Scintilla,
+    augmenting or replacing those provided by Lexilla.
+    To allow initialisation of lexer libraries, a <code>SetLibraryProperty(const char *key, const char *value)</code>
+    may optionally be implemented. For example, a lexer library that uses XML based lexer definitions may
+    be provided with a directory to search for such definitions.
+    Lexer libraries should ignore any properties that they do not understand.
+    The set of properties supported by a lexer library is specified as a '\n' separated list of property names by
+    an optional <code>const char *GetLibraryPropertyNames()</code> function.
+    </p>
+
+    <p>A lexer created by Lexilla may be used in Scintilla by calling
+    <a class="seealso" href="#SCI_SETILEXER">SCI_SETILEXER</a>.</p>
+
+    <p>Lexilla and its contained lexers can be tested with the TestLexers program in lexilla/test.
+    Read lexilla/test/README for information on building and using TestLexers.</p>
 
     <h2 id="MessageCategories">Contents</h2>
 
@@ -426,6 +466,8 @@
         </tr>
         <tr>
           <td>&cir; <a class="toc" href="#BuildingScintilla">Building Scintilla</a></td>
+
+          <td>&cir; <a class="toc" href="#EndOfLineAnnotations">End of Line Annotations</a></td>
 
         </tr>
       </tbody>
@@ -711,10 +753,15 @@ struct Sci_TextRange {
     <code>SCI_SEARCHINTARGET</code> such as <code>SCFIND_MATCHCASE</code>,
     <code>SCFIND_WHOLEWORD</code>, <code>SCFIND_WORDSTART</code>, and <code>SCFIND_REGEXP</code>
     can be set with <code>SCI_SETSEARCHFLAGS</code>.</p>
-    <code><a class="message" href="#SCI_SETTARGETSTART">SCI_SETTARGETSTART(position start)</a><br />
+    <code>
+     <a class="message" href="#SCI_SETTARGETSTART">SCI_SETTARGETSTART(position start)</a><br />
      <a class="message" href="#SCI_GETTARGETSTART">SCI_GETTARGETSTART &rarr; position</a><br />
+     <a class="message" href="#SCI_SETTARGETSTARTVIRTUALSPACE">SCI_SETTARGETSTARTVIRTUALSPACE(position space)</a><br />
+     <a class="message" href="#SCI_GETTARGETSTARTVIRTUALSPACE">SCI_GETTARGETSTARTVIRTUALSPACE &rarr; position</a><br />
      <a class="message" href="#SCI_SETTARGETEND">SCI_SETTARGETEND(position end)</a><br />
      <a class="message" href="#SCI_GETTARGETEND">SCI_GETTARGETEND &rarr; position</a><br />
+     <a class="message" href="#SCI_SETTARGETENDVIRTUALSPACE">SCI_SETTARGETENDVIRTUALSPACE(position space)</a><br />
+     <a class="message" href="#SCI_GETTARGETENDVIRTUALSPACE">SCI_GETTARGETENDVIRTUALSPACE &rarr; position</a><br />
      <a class="message" href="#SCI_SETTARGETRANGE">SCI_SETTARGETRANGE(position start, position end)</a><br />
      <a class="message" href="#SCI_TARGETFROMSELECTION">SCI_TARGETFROMSELECTION</a><br />
      <a class="message" href="#SCI_TARGETWHOLEDOCUMENT">SCI_TARGETWHOLEDOCUMENT</a><br />
@@ -729,13 +776,22 @@ struct Sci_TextRange {
 
     <p><b id="SCI_SETTARGETSTART">SCI_SETTARGETSTART(position start)</b><br />
      <b id="SCI_GETTARGETSTART">SCI_GETTARGETSTART &rarr; position</b><br />
+     <b id="SCI_SETTARGETSTARTVIRTUALSPACE">SCI_SETTARGETSTARTVIRTUALSPACE(position space)</b><br />
+     <b id="SCI_GETTARGETSTARTVIRTUALSPACE">SCI_GETTARGETSTARTVIRTUALSPACE &rarr; position</b><br />
      <b id="SCI_SETTARGETEND">SCI_SETTARGETEND(position end)</b><br />
      <b id="SCI_GETTARGETEND">SCI_GETTARGETEND &rarr; position</b><br />
+     <b id="SCI_SETTARGETENDVIRTUALSPACE">SCI_SETTARGETENDVIRTUALSPACE(position space)</b><br />
+     <b id="SCI_GETTARGETENDVIRTUALSPACE">SCI_GETTARGETENDVIRTUALSPACE &rarr; position</b><br />
      <b id="SCI_SETTARGETRANGE">SCI_SETTARGETRANGE(position start, position end)</b><br />
      These functions set and return the start and end of the target. When searching
      you can set start greater than end to find the last matching text in the
-    target rather than the first matching text. The target is also set by a successful
+    target rather than the first matching text.
+    Setting a target position with <code>SCI_SETTARGETSTART</code>, <code>SCI_SETTARGETEND</code>, or <code>SCI_SETTARGETRANGE</code>
+    sets the virtual space to 0.
+    The target is also set by a successful
     <code>SCI_SEARCHINTARGET</code>.</p>
+    <p>The virtual space of the target range can be set and retrieved with the corresponding <code>...VIRTUALSPACE</code>
+    methods. This allows text to be inserted in virtual space more easily.</p>
 
      <p><b id="SCI_TARGETFROMSELECTION">SCI_TARGETFROMSELECTION</b><br />
      Set the target start and end to the start and end positions of the selection.</p>
@@ -1639,8 +1695,10 @@ struct Sci_TextToFind {
      <a class="message" href="#SCI_GETSELECTIONNANCHORVIRTUALSPACE">SCI_GETSELECTIONNANCHORVIRTUALSPACE(int selection) &rarr; position</a><br />
      <a class="message" href="#SCI_SETSELECTIONNSTART">SCI_SETSELECTIONNSTART(int selection, position anchor)</a><br />
      <a class="message" href="#SCI_GETSELECTIONNSTART">SCI_GETSELECTIONNSTART(int selection) &rarr; position</a><br />
+     <a class="message" href="#SCI_GETSELECTIONNSTARTVIRTUALSPACE">SCI_GETSELECTIONNSTARTVIRTUALSPACE(int selection) &rarr; position</a><br />
      <a class="message" href="#SCI_SETSELECTIONNEND">SCI_SETSELECTIONNEND(int selection, position caret)</a><br />
      <a class="message" href="#SCI_GETSELECTIONNEND">SCI_GETSELECTIONNEND(int selection) &rarr; position</a><br />
+     <a class="message" href="#SCI_GETSELECTIONNENDVIRTUALSPACE">SCI_GETSELECTIONNENDVIRTUALSPACE(int selection) &rarr; position</a><br />
      <br />
 
      <a class="message" href="#SCI_SETRECTANGULARSELECTIONCARET">SCI_SETRECTANGULARSELECTIONCARET(position caret)</a><br />
@@ -1790,9 +1848,12 @@ struct Sci_TextToFind {
     <p>
      <b id="SCI_SETSELECTIONNSTART">SCI_SETSELECTIONNSTART(int selection, position anchor)</b><br />
      <b id="SCI_GETSELECTIONNSTART">SCI_GETSELECTIONNSTART(int selection) &rarr; position</b><br />
+     <b id="SCI_GETSELECTIONNSTARTVIRTUALSPACE">SCI_GETSELECTIONNSTARTVIRTUALSPACE(int selection) &rarr; position</b><br />
      <b id="SCI_SETSELECTIONNEND">SCI_SETSELECTIONNEND(int selection, position caret)</b><br />
      <b id="SCI_GETSELECTIONNEND">SCI_GETSELECTIONNEND(int selection) &rarr; position</b><br />
+     <b id="SCI_GETSELECTIONNENDVIRTUALSPACE">SCI_GETSELECTIONNENDVIRTUALSPACE(int selection) &rarr; position</b><br />
      Set or query the start and end position of each already existing selection.
+     Query the virtual space at start and end of each selection.
      Mostly of use to query each range for its text. The selection parameter is zero-based. </p>
 
     <p>
@@ -2292,6 +2353,7 @@ struct Sci_TextToFind {
      <b id="SCI_GETWHITESPACESIZE">SCI_GETWHITESPACESIZE &rarr; int</b><br />
      <code>SCI_SETWHITESPACESIZE</code> sets the size of the dots used for mark space characters.
      The <code>SCI_GETWHITESPACESIZE</code> message retrieves the current size.
+     The value 0 is valid and makes the dots invisible.
     </p>
 
     <p><b id="SCI_SETTABDRAWMODE">SCI_SETTABDRAWMODE(int tabDrawMode)</b><br />
@@ -3271,9 +3333,9 @@ struct Sci_TextToFind {
     <p><b id="SCI_SETCARETWIDTH">SCI_SETCARETWIDTH(int pixelWidth)</b><br />
      <b id="SCI_GETCARETWIDTH">SCI_GETCARETWIDTH &rarr; int</b><br />
      The width of the line caret can be set with <code>SCI_SETCARETWIDTH</code> to a value of
-    0, 1, 2 or 3 pixels. The default width is 1 pixel. You can read back the current width with
-    <code>SCI_GETCARETWIDTH</code>. A width of 0 makes the caret invisible (added at version
-    1.50), similar to setting the caret style to CARETSTYLE_INVISIBLE (though not interchangeable).
+    between 0 and 20 pixels. The default width is 1 pixel. You can read back the current width with
+    <code>SCI_GETCARETWIDTH</code>. A width of 0 makes the caret invisible,
+    similar to setting the caret style to CARETSTYLE_INVISIBLE (though not interchangeable).
     This setting only affects the width of the cursor when the cursor style is set to line caret
     mode, it does not affect the width for a block caret.</p>
 
@@ -3675,6 +3737,99 @@ struct Sci_TextToFind {
     before <code>SCI_ANNOTATIONSETSTYLEOFFSET</code> and use the result as the argument to <code>SCI_ANNOTATIONSETSTYLEOFFSET</code>.
     </p>
 
+    <h2 id="EndOfLineAnnotations">End of Line Annotations</h2>
+
+    <p>End of Line Annotations are read-only lines of text at the end of each line of editable text.
+    End of Line Annotations can be used to display an assembler version of code for debugging or to show diagnostic messages inline or to
+    line up different versions of text in a merge tool.</p>
+
+    <p>End of Line Annotations used to display an assembler version of code for debugging</p>
+    <p><img src="eolannotation.png" alt="End of Line Annotations used to display an assembler version of code for debugging" /></p>
+
+    <code>
+     <a class="message" href="#SCI_EOLANNOTATIONSETTEXT">SCI_EOLANNOTATIONSETTEXT(line line, const char *text)</a><br />
+     <a class="message" href="#SCI_EOLANNOTATIONGETTEXT">SCI_EOLANNOTATIONGETTEXT(line line, char *text) &rarr; int</a><br />
+     <a class="message" href="#SCI_EOLANNOTATIONSETSTYLE">SCI_EOLANNOTATIONSETSTYLE(line line, int style)</a><br />
+     <a class="message" href="#SCI_EOLANNOTATIONGETSTYLE">SCI_EOLANNOTATIONGETSTYLE(line line) &rarr; int</a><br />
+     <a class="message" href="#SCI_EOLANNOTATIONCLEARALL">SCI_EOLANNOTATIONCLEARALL</a><br />
+     <a class="message" href="#SCI_EOLANNOTATIONSETVISIBLE">SCI_EOLANNOTATIONSETVISIBLE(int visible)</a><br />
+     <a class="message" href="#SCI_EOLANNOTATIONGETVISIBLE">SCI_EOLANNOTATIONGETVISIBLE &rarr; int</a><br />
+     <a class="message" href="#SCI_EOLANNOTATIONSETSTYLEOFFSET">SCI_EOLANNOTATIONSETSTYLEOFFSET(int style)</a><br />
+     <a class="message" href="#SCI_EOLANNOTATIONGETSTYLEOFFSET">SCI_EOLANNOTATIONGETSTYLEOFFSET &rarr; int</a><br />
+    </code>
+
+    <p>
+     <b id="SCI_EOLANNOTATIONSETTEXT">SCI_EOLANNOTATIONSETTEXT(line line, const char *text)</b><br />
+     <b id="SCI_EOLANNOTATIONGETTEXT">SCI_EOLANNOTATIONGETTEXT(line line, char *text) &rarr; int</b><br />
+     <b id="SCI_EOLANNOTATIONSETSTYLE">SCI_EOLANNOTATIONSETSTYLE(line line, int style)</b><br />
+     <b id="SCI_EOLANNOTATIONGETSTYLE">SCI_EOLANNOTATIONGETSTYLE(line line) &rarr; int</b><br />
+     <b id="SCI_EOLANNOTATIONCLEARALL">SCI_EOLANNOTATIONCLEARALL</b><br />
+     A different string may be set for each line with <code>SCI_EOLANNOTATIONSETTEXT</code>.
+     To clear end of line annotations call <code>SCI_EOLANNOTATIONSETTEXT</code> with a NULL pointer.
+     The whole of the text EOLANNOTATION on a line may be displayed in a particular style with
+     <code>SCI_EOLANNOTATIONSETSTYLE</code> or each character may be individually styled with
+     of the corresponding text byte similar to <code>SCI_SETSTYLINGEX</code>. The text must be set first as it
+     specifies how long the end of line annotation is so how many bytes of styling to read.
+     Setting an end of line annotation will cause a
+     <a class="message" href="#SC_MOD_CHANGEEOLANNOTATION"><code>SC_MOD_CHANGEEOLANNOTATION</code></a>
+     notification to be sent.
+    </p>
+    <p>
+    All the lines can be cleared of end of line annotations with <code>SCI_EOLANNOTATIONCLEARALL</code>
+    which is equivalent to clearing each line (setting to 0) and then deleting other memory used for this feature.
+    </p>
+    <p>
+    Only some style attributes are active in end of line annotations: font, size/sizeFractional, bold/weight, italics, fore, back, and characterSet.
+    </p>
+    <p>
+     <b id="SCI_EOLANNOTATIONSETVISIBLE">SCI_EOLANNOTATIONSETVISIBLE(int visible)</b><br />
+     <b id="SCI_EOLANNOTATIONGETVISIBLE">SCI_EOLANNOTATIONGETVISIBLE &rarr; int</b><br />
+     End of Line Annotations can be made visible in a view and there is a choice of display style when visible.
+     The two messages set and get the annotation display mode. The <code class="parameter">visible</code>
+     argument can be one of:</p>
+
+    <table class="standard" summary="End of Line Annotation visibility">
+      <tbody valign="top">
+        <tr>
+          <th align="left"><code>EOLANNOTATION_HIDDEN</code></th>
+
+          <td>0</td>
+
+          <td>End of Line Annotations are not displayed.</td>
+        </tr>
+
+        <tr>
+          <th align="left"><code>EOLANNOTATION_STANDARD</code></th>
+
+          <td>1</td>
+
+          <td>End of Line Annotations are drawn left justified with no adornment.</td>
+        </tr>
+
+        <tr>
+          <th align="left"><code>EOLANNOTATION_BOXED</code></th>
+
+          <td>2</td>
+
+          <td>End of Line Annotations are indented to match the text and are surrounded by a box.</td>
+        </tr>
+
+      </tbody>
+    </table>
+
+    <p>
+     <b id="SCI_EOLANNOTATIONSETSTYLEOFFSET">SCI_EOLANNOTATIONSETSTYLEOFFSET(int style)</b><br />
+     <b id="SCI_EOLANNOTATIONGETSTYLEOFFSET">SCI_EOLANNOTATIONGETSTYLEOFFSET &rarr; int</b><br />
+    End of Line Annotation styles may be completely separated from standard text styles by setting a style offset. For example,
+    <code>SCI_EOLANNOTATIONSETSTYLEOFFSET(512)</code> would allow the end of line  annotation styles to be numbered from
+    512 up to 767 so they do not overlap styles set by lexers (or margins if margins offset is 256).
+    Each style number set with <code>SCI_EOLANNOTATIONSETSTYLE</code>
+    or <code>SCI_EOLANNOTATIONSETSTYLES</code> has the offset added before looking up the style.
+    </p>
+    <p>
+    Always call <a class="seealso" href="#SCI_ALLOCATEEXTENDEDSTYLES">SCI_ALLOCATEEXTENDEDSTYLES</a>
+    before <code>SCI_EOLANNOTATIONSETSTYLEOFFSET</code> and use the result as the argument to <code>SCI_EOLANNOTATIONSETSTYLEOFFSET</code>.
+    </p>
     <h2 id="OtherSettings">Other settings</h2>
     <code>
      <a class="message" href="#SCI_SETBUFFEREDDRAW">SCI_SETBUFFEREDDRAW(bool buffered)</a><br />
@@ -3702,10 +3857,10 @@ struct Sci_TextToFind {
     <code>SendMessage(hScintilla, WM_XXXX, WPARAM, LPARAM)</code> where <code>hScintilla</code> is
     the handle to the Scintilla window you created as your editor.</p>
 
-    <p>While we are on the subject of forwarding messages in Windows, the top level window should
-    forward any <code>WM_SETTINGCHANGE</code> messages to Scintilla (this is currently used to
-    collect changes to mouse settings, but could be used for other user interface items in the
-    future).</p>
+    <p>On Windows, the top level window should forward any <code>WM_SETTINGCHANGE</code>,
+    <code>WM_SYSCOLORCHANGE</code>, and
+    <code>WM_DPICHANGED</code> messages to Scintilla as this allows Scintilla to respond to changes to
+    mouse settings, monitor resolution, colour scheme and similar system properties.</p>
 
     <p><b id="SCI_SETBUFFEREDDRAW">SCI_SETBUFFEREDDRAW(bool buffered)</b><br />
      <b id="SCI_GETBUFFEREDDRAW">SCI_GETBUFFEREDDRAW &rarr; bool</b><br />
@@ -3861,6 +4016,7 @@ struct Sci_TextToFind {
      <a class="message" href="#SCI_BRACEHIGHLIGHTINDICATOR">SCI_BRACEHIGHLIGHTINDICATOR(bool useSetting, int indicator)</a><br />
      <a class="message" href="#SCI_BRACEBADLIGHTINDICATOR">SCI_BRACEBADLIGHTINDICATOR(bool useSetting, int indicator)</a><br />
      <a class="message" href="#SCI_BRACEMATCH">SCI_BRACEMATCH(position pos, int maxReStyle) &rarr; position</a><br />
+     <a class="message" href="#SCI_BRACEMATCHNEXT">SCI_BRACEMATCHNEXT(position pos, position startPos) &rarr; position</a><br />
     </code>
 
     <p><b id="SCI_BRACEHIGHLIGHT">SCI_BRACEHIGHLIGHT(position posA, position posB)</b><br />
@@ -3896,6 +4052,10 @@ struct Sci_TextToFind {
     <code class="parameter">maxReStyle</code> parameter must currently be 0 - it may be used in the future to limit
     the length of brace searches.</p>
 
+    <p><b id="SCI_BRACEMATCHNEXT">SCI_BRACEMATCHNEXT(position pos, position startPos) &rarr; position</b><br />
+     Similar to <code>SCI_BRACEMATCH</code>, but matching starts at the explicit start position <code>startPos</code>
+     instead of the implicitly next position <code>pos &plusmn; 1</code>.</p>
+
     <h2 id="TabsAndIndentationGuides">Tabs and Indentation Guides</h2>
 
     <p>Indentation (the white space at the start of a line) is often used by programmers to clarify
@@ -3912,8 +4072,11 @@ struct Sci_TextToFind {
     inserting a tab at the current character position and backspace unindents the line rather than
     deleting a character. Scintilla can also display indentation guides (vertical lines) to help
     you to generate code.</p>
-    <code><a class="message" href="#SCI_SETTABWIDTH">SCI_SETTABWIDTH(int tabWidth)</a><br />
+    <code>
+     <a class="message" href="#SCI_SETTABWIDTH">SCI_SETTABWIDTH(int tabWidth)</a><br />
      <a class="message" href="#SCI_GETTABWIDTH">SCI_GETTABWIDTH &rarr; int</a><br />
+     <a class="message" href="#SCI_SETTABMINIMUMWIDTH">SCI_SETTABMINIMUMWIDTH(int pixels)</a><br />
+     <a class="message" href="#SCI_GETTABMINIMUMWIDTH">SCI_GETTABMINIMUMWIDTH &rarr; int</a><br />
      <a class="message" href="#SCI_CLEARTABSTOPS">SCI_CLEARTABSTOPS(line line)</a><br />
      <a class="message" href="#SCI_ADDTABSTOP">SCI_ADDTABSTOP(line line, int x)</a><br />
      <a class="message" href="#SCI_GETNEXTTABSTOP">SCI_GETNEXTTABSTOP(line line, int x) &rarr; int</a><br />
@@ -3935,6 +4098,15 @@ struct Sci_TextToFind {
      <a class="message" href="#SCI_SETHIGHLIGHTGUIDE">SCI_SETHIGHLIGHTGUIDE(position column)</a><br />
      <a class="message" href="#SCI_GETHIGHLIGHTGUIDE">SCI_GETHIGHLIGHTGUIDE &rarr; position</a><br />
     </code>
+
+    <p><b id="SCI_SETTABMINIMUMWIDTH">SCI_SETTABMINIMUMWIDTH(int pixels)</b><br />
+     <b id="SCI_GETTABMINIMUMWIDTH">SCI_GETTABMINIMUMWIDTH &rarr; int</b><br />
+     <code>SCI_SETTABMINIMUMWIDTH</code> sets the minimum size of a tab in pixels to ensure that the tab
+     can be seen. The default value is 2. This is particularly useful with proportional fonts with fractional widths where
+     the character before the tab may end a fraction of a pixel before a tab stop, causing the tab to only be a fraction of
+     a pixel wide without this setting.
+     Where displaying a miniaturized version of the document, setting this to 0 may make the miniaturized
+     version lay out more like the normal size version.</p>
 
     <p><b id="SCI_SETTABWIDTH">SCI_SETTABWIDTH(int tabWidth)</b><br />
      <b id="SCI_GETTABWIDTH">SCI_GETTABWIDTH &rarr; int</b><br />
@@ -4083,8 +4255,10 @@ struct Sci_TextToFind {
      <a class="message" href="#SCI_MARKERGET">SCI_MARKERGET(line line) &rarr; int</a><br />
      <a class="message" href="#SCI_MARKERNEXT">SCI_MARKERNEXT(line lineStart, int markerMask) &rarr; line</a><br />
      <a class="message" href="#SCI_MARKERPREVIOUS">SCI_MARKERPREVIOUS(line lineStart, int markerMask) &rarr; line</a><br />
-     <a class="message" href="#SCI_MARKERLINEFROMHANDLE">SCI_MARKERLINEFROMHANDLE(int markerHandle) &rarr; int</a><br />
+     <a class="message" href="#SCI_MARKERLINEFROMHANDLE">SCI_MARKERLINEFROMHANDLE(int markerHandle) &rarr; line</a><br />
      <a class="message" href="#SCI_MARKERDELETEHANDLE">SCI_MARKERDELETEHANDLE(int markerHandle)</a><br />
+     <a class="message" href="#SCI_MARKERHANDLEFROMLINE">SCI_MARKERHANDLEFROMLINE(line line, int which) &rarr; int</a><br />
+     <a class="message" href="#SCI_MARKERNUMBERFROMLINE">SCI_MARKERNUMBERFROMLINE(line line, int which) &rarr; int</a><br />
     </code>
 
     <p><b id="SCI_MARKERDEFINE">SCI_MARKERDEFINE(int markerNumber, int markerSymbol)</b><br />
@@ -4341,7 +4515,7 @@ struct Sci_TextToFind {
     message returns the line number of the first line that contains one of the markers in
     <code class="parameter">markerMask</code> or -1 if no marker is found.</p>
 
-    <p><b id="SCI_MARKERLINEFROMHANDLE">SCI_MARKERLINEFROMHANDLE(int markerHandle) &rarr; int</b><br />
+    <p><b id="SCI_MARKERLINEFROMHANDLE">SCI_MARKERLINEFROMHANDLE(int markerHandle) &rarr; line</b><br />
      The <code class="parameter">markerHandle</code> argument is an identifier for a marker returned by <a
     class="message" href="#SCI_MARKERADD"><code>SCI_MARKERADD</code></a>. This function searches
     the document for the marker with this handle and returns the line number that contains it or -1
@@ -4351,6 +4525,12 @@ struct Sci_TextToFind {
      The <code class="parameter">markerHandle</code> argument is an identifier for a marker returned by <a
     class="message" href="#SCI_MARKERADD"><code>SCI_MARKERADD</code></a>. This function searches
     the document for the marker with this handle and deletes the marker if it is found.</p>
+
+    <p><b id="SCI_MARKERHANDLEFROMLINE">SCI_MARKERHANDLEFROMLINE(line line, int which) &rarr; int</b><br />
+    <b id="SCI_MARKERNUMBERFROMLINE">SCI_MARKERNUMBERFROMLINE(line line, int which) &rarr; int</b><br />
+	 These messages returns the Nth marker handle or marker number in a given <code class="parameter">line</code>.
+	 Handles are returned by <a class="message" href="#SCI_MARKERADD"><code>SCI_MARKERADD</code></a>.
+	 If <code class="parameter">which</code> is greater or equal to the number of markers on a line, this returns -1;</p>
 
     <h2 id="Indicators">Indicators</h2>
 
@@ -4419,8 +4599,8 @@ struct Sci_TextToFind {
      <a class="message" href="#SCI_INDICATORCLEARRANGE">SCI_INDICATORCLEARRANGE(position start, position lengthClear)</a><br />
      <a class="message" href="#SCI_INDICATORALLONFOR">SCI_INDICATORALLONFOR(position pos) &rarr; int</a><br />
      <a class="message" href="#SCI_INDICATORVALUEAT">SCI_INDICATORVALUEAT(int indicator, position pos) &rarr; int</a><br />
-     <a class="message" href="#SCI_INDICATORSTART">SCI_INDICATORSTART(int indicator, position pos) &rarr; int</a><br />
-     <a class="message" href="#SCI_INDICATOREND">SCI_INDICATOREND(int indicator, position pos) &rarr; int</a><br />
+     <a class="message" href="#SCI_INDICATORSTART">SCI_INDICATORSTART(int indicator, position pos) &rarr; position</a><br />
+     <a class="message" href="#SCI_INDICATOREND">SCI_INDICATOREND(int indicator, position pos) &rarr; position</a><br />
 
      <a class="message" href="#SCI_FINDINDICATORSHOW">SCI_FINDINDICATORSHOW(position start, position end)</a><br />
      <a class="message" href="#SCI_FINDINDICATORFLASH">SCI_FINDINDICATORFLASH(position start, position end)</a><br />
@@ -4742,8 +4922,8 @@ struct Sci_TextToFind {
     </p>
 
     <p>
-    <b id="SCI_INDICATORSTART">SCI_INDICATORSTART(int indicator, position pos) &rarr; int</b><br />
-    <b id="SCI_INDICATOREND">SCI_INDICATOREND(int indicator, position pos) &rarr; int</b><br />
+    <b id="SCI_INDICATORSTART">SCI_INDICATORSTART(int indicator, position pos) &rarr; position</b><br />
+    <b id="SCI_INDICATOREND">SCI_INDICATOREND(int indicator, position pos) &rarr; position</b><br />
     Find the start or end of a range with one value from a position within the range.
     Can be used to iterate through the document to discover all the indicator positions.
     </p>
@@ -5079,7 +5259,7 @@ struct Sci_TextToFind {
      <a class="message" href="#SCI_CALLTIPACTIVE">SCI_CALLTIPACTIVE &rarr; bool</a><br />
      <a class="message" href="#SCI_CALLTIPPOSSTART">SCI_CALLTIPPOSSTART &rarr; position</a><br />
      <a class="message" href="#SCI_CALLTIPSETPOSSTART">SCI_CALLTIPSETPOSSTART(position posStart)</a><br />
-     <a class="message" href="#SCI_CALLTIPSETHLT">SCI_CALLTIPSETHLT(int highlightStart, int
+     <a class="message" href="#SCI_CALLTIPSETHLT">SCI_CALLTIPSETHLT(position highlightStart, position
     highlightEnd)</a><br />
      <a class="message" href="#SCI_CALLTIPSETBACK">SCI_CALLTIPSETBACK(colour back)</a><br />
      <a class="message" href="#SCI_CALLTIPSETFORE">SCI_CALLTIPSETFORE(colour fore)</a><br />
@@ -5118,7 +5298,7 @@ struct Sci_TextToFind {
      This message returns or sets the value of the current position when <code>SCI_CALLTIPSHOW</code>
     started to display the tip.</p>
 
-    <p><b id="SCI_CALLTIPSETHLT">SCI_CALLTIPSETHLT(int highlightStart, int highlightEnd)</b><br />
+    <p><b id="SCI_CALLTIPSETHLT">SCI_CALLTIPSETHLT(position highlightStart, position highlightEnd)</b><br />
      This sets the region of the call tips text to display in a highlighted style.
     <code class="parameter">highlightStart</code> is the zero-based index into the string of the first character to
     highlight and <code class="parameter">highlightEnd</code> is the index of the first character after the highlight.
@@ -5489,6 +5669,12 @@ struct Sci_TextToFind {
     If you are building a table, you might
     want to use <code>SCMOD_NORM</code>, which has the value 0, to mean no modifiers.</p>
 
+    <p>On Win32, the numeric keypad with Alt pressed can be used to enter characters by number.
+    This can produce unexpected results in non-numlock mode when function keys are assigned so
+    potentially problematic keys are ignored. For example, setting
+    <code>SCMOD_ALT</code>,<code>SCK_UP</code> will only be active for the Up key on the
+    main cursor keys, not the numeric keypad.</p>
+
     <p><b id="SCI_ASSIGNCMDKEY">SCI_ASSIGNCMDKEY(int <a class="jump"
     href="#keyDefinition">keyDefinition</a>, int sciCommand)</b><br />
      This assigns the given key definition to a Scintilla command identified by
@@ -5732,17 +5918,16 @@ struct Sci_RangeToFormat {
     <p><b id="SCI_SETPRINTWRAPMODE">SCI_SETPRINTWRAPMODE(int wrapMode)</b><br />
      <b id="SCI_GETPRINTWRAPMODE">SCI_GETPRINTWRAPMODE &rarr; int</b><br />
      These two functions get and set the printer wrap mode. <code class="parameter">wrapMode</code> can be
-     set to <code>SC_WRAP_NONE</code> (0), <code>SC_WRAP_WORD</code> (1) or
-     <code>SC_WRAP_CHAR</code> (2). The default is
+     set to <code>SC_WRAP_NONE</code> (0) or <code>SC_WRAP_WORD</code> (1).
+     The default is
      <code>SC_WRAP_WORD</code>, which wraps printed output so that all characters fit
      into the print rectangle. If you set <code>SC_WRAP_NONE</code>, each line of text
      generates one line of output and the line is truncated if it is too long to fit
      into the print area.<br />
      <code>SC_WRAP_WORD</code> tries to wrap only between words as indicated by
      white space or style changes although if a word is longer than a line, it will be wrapped before
-     the line end. <code>SC_WRAP_CHAR</code> is preferred to
-     <code>SC_WRAP_WORD</code> for Asian languages where there is no white space
-     between words.</p>
+     the line end. <br />
+     <code>SC_WRAP_CHAR</code> is not supported for printing.</p>
 
     <h2 id="DirectAccess">Direct access</h2>
     <code><a class="message" href="#SCI_GETDIRECTFUNCTION">SCI_GETDIRECTFUNCTION &rarr; pointer</a><br />
@@ -6681,6 +6866,8 @@ sptr_t CallScintilla(unsigned int iMessage, uptr_t wParam, sptr_t lParam){
      <br />
      <a class="message" href="#SCI_MULTIEDGEADDLINE">SCI_MULTIEDGEADDLINE(position column, colour edgeColour)</a><br />
      <a class="message" href="#SCI_MULTIEDGECLEARALL">SCI_MULTIEDGECLEARALL</a><br />
+     <a class="message" href="#SCI_GETMULTIEDGECOLUMN">SCI_GETMULTIEDGECOLUMN(int which)</a>
+     <br />
     </code>
 
     <p><b id="SCI_SETEDGEMODE">SCI_SETEDGEMODE(int edgeMode)</b><br />
@@ -6758,10 +6945,13 @@ sptr_t CallScintilla(unsigned int iMessage, uptr_t wParam, sptr_t lParam){
     <p><b id="SCI_MULTIEDGEADDLINE">SCI_MULTIEDGEADDLINE(position column,
     <a class="jump" href="#colour">colour</a> edgeColour)</b><br />
      <b id="SCI_MULTIEDGECLEARALL">SCI_MULTIEDGECLEARALL</b><br />
+     <b id="SCI_GETMULTIEDGECOLUMN">SCI_GETMULTIEDGECOLUMN(int which)</b><br />
      <code>SCI_MULTIEDGEADDLINE</code> adds a new vertical edge to the view. The edge will be
     displayed at the given column number. The resulting edge position depends on the metric
     of a space character in <code>STYLE_DEFAULT</code>. All the edges can be cleared with
-    <code>SCI_MULTIEDGECLEARALL</code>.</p>
+    <code>SCI_MULTIEDGECLEARALL</code>. <code>SCI_GETMULTIEDGECOLUMN</code> returns the column of the
+    Nth vertical edge (indexed from 0). If <code class="parameter">which</code> is greater or equal
+    to the number of vertical edges, this returns -1.</p>
 
     <h2 id="Accessibility">Accessibility</h2>
 
@@ -6825,14 +7015,19 @@ sptr_t CallScintilla(unsigned int iMessage, uptr_t wParam, sptr_t lParam){
     styling and fold points for an unsupported language you can either do this in the container or
     better still, write your own lexer following the pattern of one of the existing ones.</p>
 
-    <p>Scintilla also supports external lexers. These are DLLs (on Windows) or .so modules (on GTK/Linux) that export three
+    <p>If the symbol <code>SCI_EMPTYCATALOGUE</code> is defined when building
+    Scintilla, then no lexers are made available but other lexing support code may be present.</p>
+
+    <p>Scintilla also supports external lexers. These are DLLs (on Windows), .dylib modules (on macOS),
+    or .so modules (on GTK/Linux) that export three
     functions: <code>GetLexerCount</code>, <code>GetLexerName</code>, and
-    <code>GetLexerFactory</code>. See <code>externalLexer.cxx</code> for more.</p>
+    <code>GetLexerFactory</code>. See <code>ExternalLexer.cxx</code> for more information.</p>
      <a class="message" href="#SCI_SETLEXER">SCI_SETLEXER(int lexer)</a><br />
      <a class="message" href="#SCI_GETLEXER">SCI_GETLEXER &rarr; int</a><br />
      <a class="message" href="#SCI_SETLEXERLANGUAGE">SCI_SETLEXERLANGUAGE(&lt;unused&gt;, const char
     *language)</a><br />
      <a class="message" href="#SCI_GETLEXERLANGUAGE">SCI_GETLEXERLANGUAGE(&lt;unused&gt;, char *language) &rarr; int</a><br />
+     <a class="message" href="#SCI_SETILEXER">SCI_SETILEXER(&lt;unused&gt;, pointer ilexer)</a><br />
      <a class="message" href="#SCI_LOADLEXERLIBRARY">SCI_LOADLEXERLIBRARY(&lt;unused&gt;, const char
     *path)</a><br />
      <a class="message" href="#SCI_COLOURISE">SCI_COLOURISE(position start, position end)</a><br />
@@ -6883,14 +7078,18 @@ sptr_t CallScintilla(unsigned int iMessage, uptr_t wParam, sptr_t lParam){
     <code>Lex*.cxx</code> file and search for <code>LexerModule</code>. The third argument in the
     <code>LexerModule</code> constructor is the name to use.</p>
 
-    <p>To test if your lexer assignment worked, use <a class="message"
+     <p class="provisional"><b id="SCI_SETILEXER">SCI_SETILEXER(&lt;unused&gt;, pointer ilexer)</b><br />
+     <code>SCI_SETILEXER</code> allows setting a lexer as an <code>ILexer5*</code>.
+     The lexer may be implemented by an application or a shared library such as Lexilla.</p>
+
+    <p>To test if your lexer assignment worked, use <a class="seealso"
     href="#SCI_GETLEXER"><code>SCI_GETLEXER</code></a> before and after setting the new lexer to
     see if the lexer number changed.</p>
 
     <p><code>SCI_GETLEXERLANGUAGE</code> retrieves the name of the lexer.</p>
 
     <p><b id="SCI_LOADLEXERLIBRARY">SCI_LOADLEXERLIBRARY(&lt;unused&gt;, const char *path)</b><br />
-     Load a lexer implemented in a shared library. This is a .so file on GTK/Linux or a .DLL file on Windows.
+     Load a lexer implemented in a shared library. This is a .so file on GTK/Linux, a .dylib file on macOS, or a .DLL file on Windows.
      </p>
 
     <p><b id="SCI_COLOURISE">SCI_COLOURISE(position start, position end)</b><br />
@@ -7065,6 +7264,8 @@ sptr_t CallScintilla(unsigned int iMessage, uptr_t wParam, sptr_t lParam){
     can be used during lexing. For example a C++ lexer may store a set of preprocessor definitions
     or variable declarations and style these depending on their role.</p>
 
+    <p class="provisional">ILexer4 is extended with the provisional ILexer5 interface to support use of Lexilla.</p>
+
     <p>A set of helper classes allows older lexers defined by functions to be used in Scintilla.</p>
 <h4>ILexer4</h4>
 
@@ -7097,6 +7298,18 @@ sptr_t CallScintilla(unsigned int iMessage, uptr_t wParam, sptr_t lParam){
 <span class="S0">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="S5">virtual</span><span class="S0"> </span><span class="S5">const</span><span class="S0"> </span><span class="S5">char</span><span class="S0"> </span><span class="S10">*</span><span class="S0"> </span>SCI_METHOD<span class="S0"> </span>TagsOfStyle<span class="S10">(</span><span class="S5">int</span><span class="S0"> </span>style<span class="S10">)</span><span class="S0"> </span><span class="S10">=</span><span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br />
 <span class="S0">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="S5">virtual</span><span class="S0"> </span><span class="S5">const</span><span class="S0"> </span><span class="S5">char</span><span class="S0"> </span><span class="S10">*</span><span class="S0"> </span>SCI_METHOD<span class="S0"> </span>DescriptionOfStyle<span class="S10">(</span><span class="S5">int</span><span class="S0"> </span>style<span class="S10">)</span><span class="S0"> </span><span class="S10">=</span><span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br />
 <span class="S10">};</span><br />
+</div>
+
+<h4 class="provisional">ILexer5</h4>
+
+<div class="highlighted">
+<span><span class="S5">class</span><span class="S0"> </span>ILexer5<span class="S0"> </span><span class="S10">:</span><span class="S0"> </span><span class="S5">public</span><span class="S0"> </span>ILexer4<span class="S0"> </span><span class="S10">{</span><br />
+<span class="S5">public</span><span class="S10">:</span><br />
+<span class="S0">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="S5">virtual</span><span class="S0"> </span><span class="S5">const</span><span class="S0"> </span><span class="S5">char</span><span class="S0"> </span><span class="S10">*</span><span class="S0"> </span>SCI_METHOD<span class="S0"> </span>GetName<span class="S10">()</span><span class="S0"> </span><span class="S10">=</span><span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br />
+<span class="S0">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="S5">virtual</span><span class="S0"> </span><span class="S5">int</span><span class="S0"> </span>SCI_METHOD<span class="S0"> &nbsp;</span>GetIdentifier<span class="S10">()</span><span class="S0"> </span><span class="S10">=</span><span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br />
+<span class="S0">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="S5">virtual</span><span class="S0"> </span><span class="S5">const</span><span class="S0"> </span><span class="S5">char</span><span class="S0"> </span><span class="S10">*</span><span class="S0"> </span>SCI_METHOD<span class="S0"> </span>PropertyGet<span class="S10">(</span><span class="S5">const</span><span class="S0"> </span><span class="S5">char</span><span class="S0"> </span><span class="S10">*</span>key<span class="S10">)</span><span class="S0"> </span><span class="S10">=</span><span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br />
+<span class="S10">};</span><br />
+<span class="S0"></span></span>
 </div>
 
 <p>
@@ -7145,6 +7358,15 @@ are used to provide information on the set of styles used by this lexer.
 A set of common tags and conventions for combining them is <a  class="jump" href="StyleMetadata.html">described here</a>.
 <code>DescriptionOfStyle</code> is an English description of the style like "<code>Function or method name definition</code>".
 </p>
+
+<p class="provisional"><code>GetName</code> and <code>GetIdentifier</code> may be called
+to discover the identity of a lexer and be used to implement
+<a class="seealso" href="#SCI_GETLEXERLANGUAGE">SCI_GETLEXERLANGUAGE</a> and
+<a class="seealso" href="#SCI_GETLEXER">SCI_GETLEXER</a>.</p>
+
+<p class="provisional"><code>PropertyGet</code> may be called
+to discover the value of a property stored by a lexer and be used to implement
+<a class="seealso" href="#SCI_GETPROPERTY">SCI_GETPROPERTY</a>.</p>
 
 <h4>IDocument</h4>
 
@@ -8555,7 +8777,7 @@ EM_SETTARGETDEVICE
     <p>To change the set of lexers in Scintilla, add and remove lexer source files
     (<code>Lex*.cxx</code>) from the <code>scintilla/lexers directory</code> and run the
     <code>scripts/LexGen.py</code> script from the <code>scripts</code> directory to update the make files
-    and <code>Catalogue.cxx</code>. <code>LexGen.py</code> requires Python 2.5 or later. If you do
+    and <code>Catalogue.cxx</code>. <code>LexGen.py</code> requires Python 3.6 or later. If you do
     not have access to Python, you can hand edit <code>Catalogue.cxx</code> in a simple-minded way,
     following the patterns of other lexers. The important thing is to include
     <code>LINK_LEXER(lmMyLexer);</code> to correspond with the <code>LexerModule

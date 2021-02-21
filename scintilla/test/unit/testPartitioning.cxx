@@ -95,6 +95,32 @@ TEST_CASE("Partitioning") {
 		REQUIRE(8 == part.PositionFromPartition(2));
 	}
 
+	SECTION("InsertMultiple") {
+		part.InsertText(0, 10);
+		const Sci::Position positions[] { 2, 5, 7 };
+		part.InsertPartitions(1, positions, std::size(positions));
+		REQUIRE(4 == part.Partitions());
+		REQUIRE(0 == part.PositionFromPartition(0));
+		REQUIRE(2 == part.PositionFromPartition(1));
+		REQUIRE(5 == part.PositionFromPartition(2));
+		REQUIRE(7 == part.PositionFromPartition(3));
+		REQUIRE(10 == part.PositionFromPartition(4));
+	}
+
+	SECTION("InsertMultipleWithCast") {
+		part.InsertText(0, 9);
+		REQUIRE(1 == part.Partitions());
+		const ptrdiff_t positionsp[]{ 2, 4, 6, 8 };
+		part.InsertPartitionsWithCast(1, positionsp, std::size(positionsp));
+		REQUIRE(5 == part.Partitions());
+		REQUIRE(0 == part.PositionFromPartition(0));
+		REQUIRE(2 == part.PositionFromPartition(1));
+		REQUIRE(4 == part.PositionFromPartition(2));
+		REQUIRE(6 == part.PositionFromPartition(3));
+		REQUIRE(8 == part.PositionFromPartition(4));
+		REQUIRE(9 == part.PositionFromPartition(5));
+	}
+
 	SECTION("InsertReversed") {
 		part.InsertText(0, 3);
 		part.InsertPartition(1, 2);

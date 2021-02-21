@@ -1747,17 +1747,21 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 		((findNextType == FINDNEXTTYPE_REPLACENEXT) ||
 		(findNextType == FINDNEXTTYPE_FINDNEXTFORREPLACE)))
 	{
-		for (TCHAR const *p = pText; ; ++p)
+		bool escaped = false;
+		for (TCHAR const *p = pText; *p != 0; ++p)
 		{
-			p = wcsstr(p, TEXT("\\K"));
-			if (p == NULL)
+			if (escaped)
 			{
-				break;
+				if (*p == TEXT('K'))
+				{
+					regexSearchContainsBackslashK = true;
+					break;
+				}
+				escaped = false;
 			}
-			if ((p == pText) || (*(p - 1) != TEXT('\\')))
+			else if (*p == TEXT('\\'))
 			{
-				regexSearchContainsBackslashK = true;
-				break;
+				escaped = true;
 			}
 		}
 	}

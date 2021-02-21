@@ -249,7 +249,7 @@ BEGIN
             MENUITEM "Close All to the Right",           IDM_FILE_CLOSEALL_TORIGHT
             MENUITEM "Close All Unchanged",              IDM_FILE_CLOSEALL_UNCHANGED
         END
-        MENUITEM "Move to Recycle Bin",              IDM_FILE_DELETE
+        MENUITEM "Move to Recycle Bin...",           IDM_FILE_DELETE
         MENUITEM SEPARATOR
         MENUITEM "Load Session...",                  IDM_FILE_LOADSESSION
         MENUITEM "Save Session...",                  IDM_FILE_SAVESESSION
@@ -987,7 +987,7 @@ BEGIN
 
     POPUP "&?"
     BEGIN
-        MENUITEM "Command Line Arguments...",      IDM_CMDLINEARGUMENTS
+        MENUITEM "Command Line Arguments",         IDM_CMDLINEARGUMENTS
         MENUITEM SEPARATOR
         MENUITEM "Notepad++ Home",                 IDM_HOMESWEETHOME
         MENUITEM "Notepad++ Project Page",         IDM_PROJECTPAGE

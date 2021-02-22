@@ -376,7 +376,7 @@ The comments are here for explanation, it's not necessary to translate them.
         </Menu>
 
         <Dialog>
-            <Find title="" titleFind="Find" titleReplace="Replace" titleFindInFiles="Find in Files" titleMark="Mark">
+            <Find title="" titleFind="Find" titleReplace="Replace" titleFindInFiles="Find in Files" titleFindInProjects="Find in Projects" titleMark="Mark">
                 <Item id="1"    name="Find Next"/>
                 <Item id="1722" name="Backward direction"/>
                 <Item id="2"    name="Close"/>
@@ -407,6 +407,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="1625" name="&amp;Normal"/>
                 <Item id="1626" name="E&amp;xtended (\n, \r, \t, \0, \x...)"/>
                 <Item id="1660" name="Replace in Files"/>
+                <Item id="1665" name="Replace in Projects"/>
                 <Item id="1661" name="Follow current doc."/>
                 <Item id="1662" name="Project Panel 1"/>
                 <Item id="1663" name="Project Panel 2"/>
@@ -1272,7 +1273,7 @@ Continue?"/>
                     <Item id="3126" name="Save As..."/>
                     <Item id="3127" name="Save a Copy As..."/>
                     <Item id="3121" name="Add New Project"/>
-                    <Item id="3128" name="Find in Files..."/>
+                    <Item id="3128" name="Find in Projects..."/>
                 </WorkspaceMenu>
                 <ProjectMenu>
                     <Item id="3111" name="Rename"/>
@@ -1388,6 +1389,8 @@ Find in all files except exe, obj &amp;&amp; log:
             <replace-in-files-confirm-directory value="Are you sure you want to replace all occurrences in :"/>
             <replace-in-files-confirm-filetype value="For file type :"/>
             <replace-in-files-progress-title value="Replace In Files progress..."/>
+            <replace-in-projects-confirm-title value="Are you sure?"/>
+            <replace-in-projects-confirm-message value="Do you want to replace all occurrences in all documents in the selected Project Panel(s)?"/>
             <replace-in-open-docs-confirm-title value="Are you sure?"/>
             <replace-in-open-docs-confirm-message value="Are you sure you want to replace all occurrences in all open documents?"/>
             <find-result-caption value="Search results"/>

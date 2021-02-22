@@ -217,6 +217,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return findInFiles();
 		}
 
+		case WM_FINDINPROJECTS:
+		{
+			return findInProjects();
+		}
+
 		case WM_FINDALL_INCURRENTFINDER:
 		{
 			FindersInfo *findInFolderInfo = reinterpret_cast<FindersInfo *>(wParam);
@@ -230,6 +235,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case WM_REPLACEINFILES:
 		{
 			replaceInFiles();
+			return TRUE;
+		}
+
+		case WM_REPLACEINPROJECTS:
+		{
+			replaceInProjects();
 			return TRUE;
 		}
 
@@ -257,7 +268,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
-		case NPPM_INTERNAL_FINDINPROJECTPANEL:
+		case NPPM_INTERNAL_FINDINPROJECTS:
 		{
 			const int strSize = FINDREPLACE_MAXLENGTH;
 			TCHAR str[strSize];
@@ -269,8 +280,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			_findReplaceDlg.setSearchText(str);
 			if (isFirstTime)
 				_nativeLangSpeaker.changeDlgLang(_findReplaceDlg.getHSelf(), "Find");
-			_findReplaceDlg.launchFindInFilesDlg();
-			_findReplaceDlg.setFindInFilesDirFilter(L"", L"*.*");
+			_findReplaceDlg.launchFindInProjectsDlg();
 			_findReplaceDlg.setProjectCheckmarks(NULL, (int) wParam);
 			return TRUE;
 		}

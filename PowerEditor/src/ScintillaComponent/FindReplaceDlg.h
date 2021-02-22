@@ -29,14 +29,14 @@
 
 #define FINDREPLACE_MAXLENGTH 2048
 
-enum DIALOG_TYPE {FIND_DLG, REPLACE_DLG, FINDINFILES_DLG, FINDINPROJECTS_DLG,MARK_DLG};
+enum DIALOG_TYPE {FIND_DLG, REPLACE_DLG, FINDINFILES_DLG, FINDINPROJECTS_DLG, MARK_DLG};
 
 #define DIR_DOWN true
 #define DIR_UP false
 
 //#define FIND_REPLACE_STR_MAX 256
 
-enum InWhat{ALL_OPEN_DOCS, FILES_IN_DIR, CURRENT_DOC, CURR_DOC_SELECTION, FILES_IN_PROJECT};
+enum InWhat{ALL_OPEN_DOCS, FILES_IN_DIR, CURRENT_DOC, CURR_DOC_SELECTION, FILES_IN_PROJECTS};
 
 struct FoundInfo {
 	FoundInfo(int start, int end, size_t lineNumber, const TCHAR *fullPath)
@@ -266,9 +266,14 @@ public :
 	const TCHAR * getDir2Search() const {return _env->_directory.c_str();};
 
 	void getPatterns(std::vector<generic_string> & patternVect);
+	void getAndValidatePatterns(std::vector<generic_string> & patternVect);
 
 	void launchFindInFilesDlg() {
 		doDialog(FINDINFILES_DLG);
+	};
+
+	void launchFindInProjectsDlg() {
+		doDialog(FINDINPROJECTS_DLG);
 	};
 
 	void setFindInFilesDirFilter(const TCHAR *dir, const TCHAR *filters);
@@ -338,6 +343,7 @@ public :
 	generic_string getScopeInfoForStatusBar(FindOption const *pFindOpt) const;
 	Finder * createFinder();
 	bool removeFinder(Finder *finder2remove);
+	DIALOG_TYPE getCurrentStatus() {return _currentStatus;};
 
 protected :
 	void resizeDialogElements(LONG newWidth);
@@ -422,9 +428,11 @@ private :
 	static const int FR_OP_REPLACE = 2;
 	static const int FR_OP_FIF = 4;
 	static const int FR_OP_GLOBAL = 8;
+	static const int FR_OP_FIP = 16;
 	void saveInMacro(size_t cmd, int cmdType);
 	void drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct);
 	bool replaceInFilesConfirmCheck(generic_string directory, generic_string fileTypes);
+	bool replaceInProjectsConfirmCheck();
 	bool replaceInOpenDocsConfirmCheck(void);
 };
 

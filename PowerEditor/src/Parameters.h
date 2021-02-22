@@ -26,6 +26,7 @@
 #include "shortcut.h"
 #include "ContextMenu.h"
 #include "dpiManager.h"
+#include "NppDarkMode.h"
 #include <assert.h>
 #include <tchar.h>
 
@@ -921,6 +922,8 @@ struct NppGUI final
 
 	bool _isDocPeekOnTab = false;
 	bool _isDocPeekOnMap = false;
+
+	NppDarkMode::Options _darkmode;
 };
 
 struct ScintillaViewParams
@@ -1470,6 +1473,8 @@ public:
 	void setFontList(HWND hWnd);
 	bool isInFontList(const generic_string& fontName2Search) const;
 	const std::vector<generic_string>& getFontList() const { return _fontlist; }
+
+	HFONT getDefaultUIFont();
 
 	int getNbUserLang() const {return _nbUserLang;}
 	UserLangContainer & getULCFromIndex(size_t i) {return *_userLangArray[i];};

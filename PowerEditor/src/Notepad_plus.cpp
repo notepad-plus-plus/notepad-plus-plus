@@ -39,6 +39,7 @@
 #include "functionListPanel.h"
 #include "fileBrowser.h"
 #include "Common.h"
+#include "NppDarkMode.h"
 
 using namespace std;
 
@@ -280,8 +281,16 @@ LRESULT Notepad_plus::init(HWND hwnd)
 		_subEditView.execute(SCI_SETFONTQUALITY, SC_EFF_QUALITY_LCD_OPTIMIZED);
 	}
 
-	_mainEditView.setBorderEdge(svp._showBorderEdge);
-	_subEditView.setBorderEdge(svp._showBorderEdge);
+	if (NppDarkMode::isEnabled())
+	{
+		_mainEditView.setBorderEdge(false);
+		_subEditView.setBorderEdge(false);
+	}
+	else
+	{
+		_mainEditView.setBorderEdge(svp._showBorderEdge);
+		_subEditView.setBorderEdge(svp._showBorderEdge);
+	}
 
 	_mainEditView.execute(SCI_SETCARETLINEVISIBLEALWAYS, true);
 	_subEditView.execute(SCI_SETCARETLINEVISIBLEALWAYS, true);
@@ -7489,6 +7498,12 @@ void Notepad_plus::restoreMinimizeDialogs()
 		::ShowWindow(_sysTrayHiddenHwnd[i], SW_SHOW);
 		_sysTrayHiddenHwnd.erase(_sysTrayHiddenHwnd.begin() + i);
 	}
+}
+
+void Notepad_plus::refreshDarkMode()
+{
+	SendMessage(_pPublicInterface->getHSelf(), NPPM_SETEDITORBORDEREDGE, 0, NppParameters::getInstance().getSVP()._showBorderEdge);
+	RedrawWindow(_pPublicInterface->getHSelf(), nullptr, nullptr, RDW_INVALIDATE | RDW_ERASE | RDW_FRAME | RDW_ALLCHILDREN);
 }
 
 void Notepad_plus::launchDocumentBackupTask()

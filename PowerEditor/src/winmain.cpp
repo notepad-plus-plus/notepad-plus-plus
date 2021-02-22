@@ -19,6 +19,7 @@
 #include "Win32Exception.h"	//Win32 exception
 #include "MiniDumper.h"			//Write dump files
 #include "verifySignedfile.h"
+#include "NppDarkMode.h"
 
 typedef std::vector<generic_string> ParamVector;
 
@@ -491,7 +492,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 	}
 
 	nppParameters.load();
+
 	NppGUI & nppGui = nppParameters.getNppGUI();
+
+	NppDarkMode::initDarkMode();
 
 	bool doUpdateNpp = nppGui._autoUpdateOpt._doAutoUpdate;
 	bool doUpdatePluginList = nppGui._autoUpdateOpt._doAutoUpdate;

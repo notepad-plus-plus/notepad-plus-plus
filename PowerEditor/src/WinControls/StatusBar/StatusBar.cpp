@@ -21,6 +21,8 @@
 #include "StatusBar.h"
 #include <algorithm>
 #include <cassert>
+#include "Parameters.h"
+#include "NppDarkMode.h"
 
 //#define IDC_STATUSBAR 789
 
@@ -45,6 +47,97 @@ void StatusBar::init(HINSTANCE /*hInst*/, HWND /*hPere*/)
 	assert(false and "should never be called");
 }
 
+constexpr UINT_PTR g_statusBarSubclassID = 42;
+
+LRESULT CALLBACK StatusBarSubclass(
+	HWND hWnd,
+	UINT uMsg,
+	WPARAM wParam,
+	LPARAM lParam,
+	UINT_PTR uIdSubclass,
+	DWORD_PTR dwRefData
+)
+{
+	UNREFERENCED_PARAMETER(dwRefData);
+	UNREFERENCED_PARAMETER(uIdSubclass);
+
+	switch (uMsg) {
+	case WM_ERASEBKGND:
+	{
+		if (!NppDarkMode::isEnabled())
+		{
+			return DefSubclassProc(hWnd, uMsg, wParam, lParam);
+		}
+
+		RECT rc;
+		GetClientRect(hWnd, &rc);
+		FillRect((HDC)wParam, &rc, NppDarkMode::getBackgroundBrush());
+		return TRUE;
+	}
+	case WM_PAINT:
+	{
+		if (!NppDarkMode::isEnabled())
+		{
+			return DefSubclassProc(hWnd, uMsg, wParam, lParam);
+		}
+
+		struct {
+			int horizontal;
+			int vertical;
+			int between;
+		} borders = { 0 };
+
+		SendMessage(hWnd, SB_GETBORDERS, 0, (LPARAM)&borders);
+
+		PAINTSTRUCT ps;
+		HDC hdc = BeginPaint(hWnd, &ps);
+
+		HFONT holdFont = (HFONT)::SelectObject(hdc, NppParameters::getInstance().getDefaultUIFont());
+
+		RECT rcClient;
+		GetClientRect(hWnd, &rcClient);
+
+		FillRect(hdc, &ps.rcPaint, NppDarkMode::getBackgroundBrush());
+
+		int nParts = static_cast<int>(SendMessage(hWnd, SB_GETPARTS, 0, 0));
+		std::vector<wchar_t> str;
+		for (int i = 0; i < nParts; ++i)
+		{
+			RECT rcPart = { 0 };
+			SendMessage(hWnd, SB_GETRECT, i, (LPARAM)&rcPart);
+			RECT rcIntersect = { 0 };
+			if (!IntersectRect(&rcIntersect, &rcPart, &ps.rcPaint))
+			{
+				continue;
+			}
+
+			RECT rcDivider = { rcPart.right - borders.vertical, rcPart.top, rcPart.right, rcPart.bottom };
+
+			DWORD cchText = LOWORD(SendMessage(hWnd, SB_GETTEXTLENGTH, i, 0));
+			str.resize(cchText + 1);
+			SendMessage(hWnd, SB_GETTEXT, i, (LPARAM)str.data());
+			SetBkMode(hdc, TRANSPARENT);
+			SetTextColor(hdc, NppDarkMode::getTextColor());
+
+			rcPart.left += borders.between;
+			rcPart.right -= borders.vertical;
+
+			DrawText(hdc, str.data(), cchText, &rcPart, DT_SINGLELINE | DT_VCENTER | DT_LEFT);
+
+			FillRect(hdc, &rcDivider, NppDarkMode::getSofterBackgroundBrush());
+		}
+
+		::SelectObject(hdc, holdFont);
+
+		EndPaint(hWnd, &ps);
+		return 0;
+	}
+	case WM_NCDESTROY:
+		RemoveWindowSubclass(hWnd, StatusBarSubclass, g_statusBarSubclassID);
+		break;
+	}
+	return DefSubclassProc(hWnd, uMsg, wParam, lParam);
+}
 
 void StatusBar::init(HINSTANCE hInst, HWND hPere, int nbParts)
 {
@@ -63,6 +156,10 @@ void StatusBar::init(HINSTANCE hInst, HWND hPere, int nbParts)
 	if (!_hSelf)
 		throw std::runtime_error("StatusBar::init : CreateWindowEx() function return null");
 
+	if (nbParts > 0)
+	{
+		SetWindowSubclass(_hSelf, StatusBarSubclass, g_statusBarSubclassID, 0);
+	}
 
 	_partWidthArray.clear();
 	if (nbParts > 0)

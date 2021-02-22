@@ -875,6 +875,13 @@ void NativeLangSpeaker::changePrefereceDlgLang(PreferenceDlg & preference)
 		preference.renameDialogTitle(TEXT("Scintillas"), nameW);
 	}
 
+	changeDlgLang(preference._darkModeSubDlg.getHSelf(), "DarkMode", titre, titreMaxSize);
+	if (titre[0] != '\0')
+	{
+		const wchar_t* nameW = wmc.char2wchar(titre, _nativeLangEncoding);
+		preference.renameDialogTitle(TEXT("DarkMode"), nameW);
+	}
+
 	changeDlgLang(preference._marginsBorderEdgeSubDlg.getHSelf(), "MarginsBorderEdge", titre, titreMaxSize);
 	if (titre[0] != '\0')
 	{

@@ -1055,6 +1055,7 @@ Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasın
 					<Item id="6344" name="Belge İzleyici"/>
 					<Item id="6345" name="Sekmede İzle"/>
 					<Item id="6346" name="Belge Haritasında İzle"/>
+					<Item id="6360" name="Tüm Sesleri Sustur"/>
 				</MISC>
 			</Preference>
 			<MultiMacro title="Makroyu Birden Çok Kez Çalıştır">
@@ -1359,6 +1360,8 @@ Devam edilsin mi?"/>
 			<common-name value="İsim: "/>
 			<tabrename-title value="Şimdiki Sekmeyi Yeniden Adlandır"/>
 			<tabrename-newname value="Yeni İsim: "/>
+			<splitter-rotate-left value="Sola Döndür"/>
+			<splitter-rotate-right value="Sağa Döndür"/>
 			<recent-file-history-maxfile value="En Fazla Dosya: "/>
 			<language-tabsize value="Sekme Ölçüsü: "/>
 			<userdefined-title-new value="Yeni Dil Üret..."/>

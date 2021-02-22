@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="7.9.3">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="7.9.4">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -73,7 +73,7 @@
                 <!-- all menu item -->
                 <Commands>
                     <Item id="41001" name="新規作成(&amp;N)"/>
-                    <Item id="41002" name="開く(&amp;O)"/>
+                    <Item id="41002" name="開く(&amp;O)..."/>
                     <Item id="41019" name="エクスプローラー"/>
                     <Item id="41020" name="コマンドプロンプト"/>
                     <Item id="41025" name="フォルダーをワークスペースとして開く"/>
@@ -379,7 +379,7 @@
         </Menu>
 
         <Dialog>
-            <Find title="" titleFind="検索" titleReplace="置換" titleFindInFiles="ファイル内検索" titleMark="マーク">
+            <Find title="" titleFind="検索" titleReplace="置換" titleFindInFiles="ファイル内検索" titleFindInProjects="プロジェクト内検索" titleMark="マーク">
                 <Item id="1"    name="次を検索"/>
                 <Item id="1722" name="逆方向に検索する"/>
                 <Item id="2"    name="閉じる"/>
@@ -410,7 +410,11 @@
                 <Item id="1625" name="標準(&amp;N)"/>
                 <Item id="1626" name="拡張(\n, \r, \t, \0, \x...) (&amp;X)"/>
                 <Item id="1660" name="ファイル内置換"/>
+                <Item id="1665" name="プロジェクト内置換"/>
                 <Item id="1661" name="現在のフォルダー"/>
+                <Item id="1662" name="プロジェクトパネル 1"/>
+                <Item id="1663" name="プロジェクトパネル 2"/>
+                <Item id="1664" name="プロジェクトパネル 3"/>
                 <Item id="1641" name="現在の文書内で検索"/>
                 <Item id="1686" name="透明化(&amp;Y)"/>
                 <Item id="1703" name="&amp;.は改行と一致"/>
@@ -1056,6 +1060,7 @@
                     <Item id="6344" name="タブのプレビュー"/>
                     <Item id="6345" name="タブの近くに表示する"/>
                     <Item id="6346" name="文書マップに表示する"/>
+                    <Item id="6360" name="音を鳴らさないようにする"/>
                 </MISC>
             </Preference>
             <MultiMacro title="指定マクロを複数回実行">
@@ -1177,7 +1182,8 @@ langs.xml を復元しますか？"/>
 該当フォルダーのルートをパネルから取り除いてから、フォルダー &quot;$STR_REPLACE$&quot; を追加して下さい。"/>
 
             <ProjectPanelChanged title="$STR_REPLACE$" message="ワークスペースは変更されています。保存しますか？"/>
-            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="ワークスペースは保存されませんでした。"/>
+            <ProjectPanelSaveError title="$STR_REPLACE$" message="ワークスペースファイルを保存中にエラーが発生しました。
+ワークスペースは保存されませんでした。"/>
             <ProjectPanelOpenDoSaveDirtyWsOrNot title="ワークスペースを開く" message="現在のワークスペースは変更されています。現在のプロジェクトを保存しますか？"/>
             <ProjectPanelNewDoSaveDirtyWsOrNot title="新規ワークスペース" message="現在のワークスペースは変更されています。現在のプロジェクトを保存しますか？"/>
             <ProjectPanelOpenFailed title="ワークスペースを開く" message="ワークスペースを開くことができませんでした。
@@ -1272,6 +1278,7 @@ Notepad++ を管理者権限で立ち上げますか？"/>
                     <Item id="3126" name="名前を付けて保存..."/>
                     <Item id="3127" name="複製を別名で保存..."/>
                     <Item id="3121" name="新規プロジェクトを追加"/>
+                    <Item id="3128" name="プロジェクト内を検索..."/>
                 </WorkspaceMenu>
                 <ProjectMenu>
                     <Item id="3111" name="名前の変更"/>
@@ -1361,6 +1368,8 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <common-name value="名前: "/>
             <tabrename-title value="現ﾀﾌﾞのﾌｧｲﾙ名を変更"/>
             <tabrename-newname value="新ﾌｧｲﾙ名: "/>
+            <splitter-rotate-left value="左回りに回す"/>
+            <splitter-rotate-right value="右回りに回す"/>
             <recent-file-history-maxfile value="最大数: "/>
             <language-tabsize value="タブ幅: "/>
             <userdefined-title-new value="新しい言語定義を作成..."/>
@@ -1384,6 +1393,8 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <replace-in-files-confirm-directory value="下記ディレクトリ内の該当箇所をすべて置換しようとしています。よろしいですか？"/>
             <replace-in-files-confirm-filetype value="ファイルの種類："/>
             <replace-in-files-progress-title value="複数ファイル内で置換中..."/>
+            <replace-in-projects-confirm-title value="本当によろしいですか？"/>
+            <replace-in-projects-confirm-message value="選択したプロジェクトパネル内のすべての文書にて、すべての該当箇所を置換しようとしています。よろしいですか？"/>
             <replace-in-open-docs-confirm-title value="本当によろしいですか？"/>
             <replace-in-open-docs-confirm-message value="開いているすべての文書にて、すべての該当箇所を置換しようとしています。よろしいですか？"/>
             <find-result-caption value="検索結果"/>

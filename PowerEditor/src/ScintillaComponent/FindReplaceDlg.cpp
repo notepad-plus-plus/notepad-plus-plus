@@ -1743,9 +1743,7 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 	(*_ppEditView)->execute(SCI_SETSEARCHFLAGS, flags);
 
 	bool regexSearchContainsBackslashK = false;
-	if ((pOptions->_searchType == FindRegex) && 
-		((findNextType == FINDNEXTTYPE_REPLACENEXT) ||
-		(findNextType == FINDNEXTTYPE_FINDNEXTFORREPLACE)))
+	if ((pOptions->_searchType == FindRegex) && (findNextType == FINDNEXTTYPE_FINDNEXTFORREPLACE))
 	{
 		bool escaped = false;
 		for (TCHAR const *p = pText; *p != 0; ++p)
@@ -1795,14 +1793,7 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 			}
 
 			//new target, search again
-			if (regexSearchContainsBackslashK)
-			{
-				posFind = (*_ppEditView)->searchInTargetWithReachback(pText, stringSizeFind, startPosition, endPosition);
-			}
-			else
-			{
-				posFind = (*_ppEditView)->searchInTarget(pText, stringSizeFind, startPosition, endPosition);
-			}
+			posFind = (*_ppEditView)->searchInTarget(pText, stringSizeFind, startPosition, endPosition);
 		}
 
 		if (posFind == -1)

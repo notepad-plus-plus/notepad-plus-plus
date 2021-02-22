@@ -1646,6 +1646,17 @@ bool NppParameters::isInFontList(const generic_string& fontName2Search) const
 	return false;
 }
 
+HFONT NppParameters::getDefaultUIFont()
+{
+	static HFONT g_defaultMessageFont = []() {
+		NONCLIENTMETRICS ncm = { sizeof(ncm) };
+		SystemParametersInfo(SPI_GETNONCLIENTMETRICS, sizeof(ncm), &ncm, 0);
+
+		return CreateFontIndirect(&ncm.lfMessageFont);
+	}();
+	return g_defaultMessageFont;
+}
+
 void NppParameters::getLangKeywordsFromXmlTree()
 {
 	TiXmlNode *root =

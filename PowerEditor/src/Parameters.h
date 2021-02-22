@@ -1458,6 +1458,8 @@ public:
 	bool isInFontList(const generic_string& fontName2Search) const;
 	const std::vector<generic_string>& getFontList() const { return _fontlist; }
 
+	HFONT getDefaultUIFont();
+
 	int getNbUserLang() const {return _nbUserLang;}
 	UserLangContainer & getULCFromIndex(size_t i) {return *_userLangArray[i];};
 	UserLangContainer * getULCFromName(const TCHAR *userLangName);

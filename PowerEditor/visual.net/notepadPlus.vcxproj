@@ -407,6 +407,7 @@ copy ..\src\contextMenu.xml ..\binarm64\contextMenu.xml
     <ClCompile Include="..\src\MISC\Common\verifySignedfile.cpp" />
     <ClCompile Include="..\src\MISC\md5\md5Dlgs.cpp" />
     <ClCompile Include="..\src\MISC\sha2\sha-256.cpp" />
+    <ClCompile Include="..\src\NppDarkMode.cpp" />
     <ClCompile Include="..\src\WinControls\AboutDlg\AboutDlg.cpp" />
     <ClCompile Include="..\src\WinControls\AnsiCharPanel\ansiCharPanel.cpp" />
     <ClCompile Include="..\src\ScintillaComponent\AutoCompletion.cpp" />
@@ -669,6 +670,9 @@ copy ..\src\contextMenu.xml ..\binarm64\contextMenu.xml
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\clipboardFormats.h" />
+    <ClInclude Include="..\src\DarkMode\DarkMode.ipp" />
+    <ClInclude Include="..\src\DarkMode\IatHook.h" />
+    <ClInclude Include="..\src\DarkMode\UAHMenuBar.h" />
     <ClInclude Include="..\src\dpiManager.h" />
     <ClInclude Include="..\src\keys.h" />
     <ClInclude Include="..\src\localizationString.h" />
@@ -678,6 +682,7 @@ copy ..\src\contextMenu.xml ..\binarm64\contextMenu.xml
     <ClInclude Include="..\src\MISC\md5\md5Dlgs.h" />
     <ClInclude Include="..\src\MISC\md5\md5Dlgs_rc.h" />
     <ClInclude Include="..\src\MISC\sha2\sha-256.h" />
+    <ClInclude Include="..\src\NppDarkMode.h" />
     <ClInclude Include="..\src\ScintillaComponent\columnEditor_rc.h" />
     <ClInclude Include="..\src\ScintillaComponent\FindReplaceDlg_rc.h" />
     <ClInclude Include="..\src\ScintillaComponent\ScintillaRef.h" />

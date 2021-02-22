@@ -188,7 +188,7 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 
 	Window::init(hInst, hPere);
    _hSelf = ::CreateWindowEx(
-					WS_EX_CLIENTEDGE,\
+					0,\
 					TEXT("Scintilla"),\
 					TEXT("Notepad++"),\
 					WS_CHILD | WS_VSCROLL | WS_HSCROLL | WS_CLIPCHILDREN | WS_EX_RTLREADING,\

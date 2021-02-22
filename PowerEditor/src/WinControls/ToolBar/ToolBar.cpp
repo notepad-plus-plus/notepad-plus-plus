@@ -20,6 +20,8 @@
 #include "Parameters.h"
 #include "FindReplaceDlg_rc.h"
 
+#include "NppDarkMode.h"
+
 const int WS_TOOLBARSTYLE = WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | TBSTYLE_TOOLTIPS |TBSTYLE_FLAT | CCS_TOP | BTNS_AUTOSIZE | CCS_NOPARENTALIGN | CCS_NORESIZE | CCS_NODIVIDER;
 
 void ToolBar::initTheme(TiXmlDocument *toolIconsDocRoot)
@@ -253,11 +255,17 @@ void ToolBar::reset(bool create)
 
 	if (!_hSelf)
 	{
+		DWORD dwExtraStyle = 0;
+		if (NppDarkMode::isEnabled())
+		{
+			dwExtraStyle = TBSTYLE_CUSTOMERASE;
+		}
+
 		_hSelf = ::CreateWindowEx(
 					WS_EX_PALETTEWINDOW,
 					TOOLBARCLASSNAME,
 					TEXT(""),
-					WS_TOOLBARSTYLE,
+					WS_TOOLBARSTYLE | dwExtraStyle,
 					0, 0,
 					0, 0,
 					_hParent,
@@ -408,16 +416,47 @@ void ToolBar::addToRebar(ReBar * rebar)
 	_rbBand.fMask   = RBBIM_CHILD | RBBIM_CHILDSIZE | RBBIM_IDEALSIZE | RBBIM_SIZE;
 }
 
+constexpr UINT_PTR g_rebarSubclassID = 42;
+
+LRESULT CALLBACK RebarSubclass(
+	HWND hWnd,
+	UINT uMsg,
+	WPARAM wParam,
+	LPARAM lParam,
+	UINT_PTR uIdSubclass,
+	DWORD_PTR dwRefData
+)
+{
+	UNREFERENCED_PARAMETER(dwRefData);
+	UNREFERENCED_PARAMETER(uIdSubclass);
+
+	switch (uMsg) {
+	case WM_ERASEBKGND:
+		if (NppDarkMode::isEnabled())
+		{
+			RECT rc;
+			GetClientRect(hWnd, &rc);
+			FillRect((HDC)wParam, &rc, NppDarkMode::getBackgroundBrush());
+			return 1;
+		}
+		else {
+			break;
+		}
+	}
+	return DefSubclassProc(hWnd, uMsg, wParam, lParam);
+}
+
 void ReBar::init(HINSTANCE hInst, HWND hPere)
 {
 	Window::init(hInst, hPere);
-	
 	_hSelf = CreateWindowEx(WS_EX_TOOLWINDOW,
 							REBARCLASSNAME,
 							NULL,
 							WS_CHILD|WS_VISIBLE|WS_CLIPSIBLINGS|WS_CLIPCHILDREN|RBS_VARHEIGHT|
-							RBS_BANDBORDERS | CCS_NODIVIDER | CCS_NOPARENTALIGN,
+							CCS_NODIVIDER | CCS_NOPARENTALIGN,
 							0,0,0,0, _hParent, NULL, _hInst, NULL);
+
+	SetWindowSubclass(_hSelf, RebarSubclass, g_rebarSubclassID, 0);
 
 	REBARINFO rbi;
 	ZeroMemory(&rbi, sizeof(REBARINFO));

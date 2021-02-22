@@ -19,6 +19,7 @@
 #include "Win32Exception.h"	//Win32 exception
 #include "MiniDumper.h"			//Write dump files
 #include "verifySignedfile.h"
+#include "NppDarkMode.h"
 
 typedef std::vector<generic_string> ParamVector;
 
@@ -404,6 +405,8 @@ PWSTR stripIgnoredParams(ParamVector & params, PWSTR pCmdLine)
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 {
+	NppDarkMode::initDarkMode();
+
 	generic_string cmdLineString = pCmdLine ? pCmdLine : _T("");
 	ParamVector params;
 	parseCommandLine(pCmdLine, params);

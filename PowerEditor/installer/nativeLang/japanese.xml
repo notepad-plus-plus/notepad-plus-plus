@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="7.9.3">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="7.9.4">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -1056,6 +1056,7 @@
                     <Item id="6344" name="タブのプレビュー"/>
                     <Item id="6345" name="タブの近くに表示する"/>
                     <Item id="6346" name="文書マップに表示する"/>
+                    <Item id="6360" name="音を鳴らさないようにする"/>
                 </MISC>
             </Preference>
             <MultiMacro title="指定マクロを複数回実行">
@@ -1361,6 +1362,8 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <common-name value="名前: "/>
             <tabrename-title value="現ﾀﾌﾞのﾌｧｲﾙ名を変更"/>
             <tabrename-newname value="新ﾌｧｲﾙ名: "/>
+            <splitter-rotate-left value="左回りに回す"/>
+            <splitter-rotate-right value="右回りに回す"/>
             <recent-file-history-maxfile value="最大数: "/>
             <language-tabsize value="タブ幅: "/>
             <userdefined-title-new value="新しい言語定義を作成..."/>

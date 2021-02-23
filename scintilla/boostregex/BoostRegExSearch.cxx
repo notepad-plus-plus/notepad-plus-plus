@@ -345,7 +345,13 @@ BoostRegexSearch::Match BoostRegexSearch::EncodingDependent<CharT, CharacterIter
 	bool match_is_valid = false;
 	do {
 		const bool end_reached = next_search_from_position > search._endPosition;
-		found = !end_reached && boost::regex_search(CharacterIterator(search._document, next_search_from_position, search._endPosition), endIterator, _match, _regex, search._boostRegexFlags, baseIterator);
+		try {
+			found = !end_reached && boost::regex_search(CharacterIterator(search._document, next_search_from_position, search._endPosition), endIterator, _match, _regex, search._boostRegexFlags, baseIterator);
+		}
+		catch (...)
+		{
+			found = false;
+		}
 		if (found) {
 			const Sci::Position  position = _match[0].first.pos();
 			const Sci::Position  length   = _match[0].second.pos() - position;

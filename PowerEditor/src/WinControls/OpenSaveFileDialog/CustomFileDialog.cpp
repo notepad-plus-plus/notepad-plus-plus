@@ -535,8 +535,16 @@ public:
 		if (SUCCEEDED(hr) && _title)
 			hr = _dialog->SetTitle(_title);
 
-		if (SUCCEEDED(hr) && _folder)
-			hr = setFolder(_folder) ? S_OK : E_FAIL;
+		if (SUCCEEDED(hr))
+		{
+			// Do not fail the initialization if failed to set a folder.
+			bool isFolderSet = false;
+			if (!_initialFolder.empty())
+				isFolderSet = setDialogFolder(_dialog, _initialFolder.c_str());
+
+			if (!isFolderSet && !_fallbackFolder.empty())
+				isFolderSet = setDialogFolder(_dialog, _fallbackFolder.c_str());
+		}
 
 		if (SUCCEEDED(hr) && _defExt && _defExt[0] != '\0')
 			hr = _dialog->SetDefaultExtension(_defExt);
@@ -612,11 +620,6 @@ public:
 			}
 		}
 		return true;
-	}
-
-	bool setFolder(const TCHAR* dir)
-	{
-		return setDialogFolder(_dialog, dir);
 	}
 
 	bool show()
@@ -708,7 +711,8 @@ public:
 	HWND _hwndOwner = nullptr;
 	const TCHAR* _title = nullptr;
 	const TCHAR* _defExt = nullptr;
-	const TCHAR* _folder = nullptr;
+	generic_string _initialFolder;
+	generic_string _fallbackFolder;
 	const TCHAR* _checkboxLabel = nullptr;
 	const TCHAR* _initialFileName = nullptr;
 	bool _isCheckboxActive = true;
@@ -727,6 +731,11 @@ private:
 CustomFileDialog::CustomFileDialog(HWND hwnd) : _impl{std::make_unique<Impl>()}
 {
 	_impl->_hwndOwner = hwnd;
+
+	NppParameters& params = NppParameters::getInstance();
+	const TCHAR* workDir = params.getWorkingDir();
+	if (workDir)
+		_impl->_fallbackFolder = workDir;
 }
 
 CustomFileDialog::~CustomFileDialog() = default;
@@ -755,7 +764,6 @@ void CustomFileDialog::setExtFilter(const TCHAR *extText, const TCHAR *exts)
 	_impl->_filterSpec.push_back({ extText, newExts });
 }
 
-
 void CustomFileDialog::setExtFilter(const TCHAR *extText, std::initializer_list<const TCHAR*> extList)
 {
 	generic_string exts;
@@ -780,7 +788,7 @@ void CustomFileDialog::setDefFileName(const TCHAR* fn)
 
 void CustomFileDialog::setFolder(const TCHAR* folder)
 {
-	_impl->_folder = folder;
+	_impl->_initialFolder = folder ? folder : _T("");
 }
 
 void CustomFileDialog::setCheckbox(const TCHAR* text, bool isActive)
@@ -811,9 +819,6 @@ generic_string CustomFileDialog::doSaveDlg()
 
 	CurrentDirBackup backup;
 
-	NppParameters& params = NppParameters::getInstance();
-	_impl->setFolder(params.getWorkingDir());
-
 	_impl->addFlags(FOS_PATHMUSTEXIST | FOS_FILEMUSTEXIST | FOS_FORCEFILESYSTEM);
 	bool bOk = _impl->show();
 	return bOk ? _impl->getResultFilename() : _T("");
@@ -826,9 +831,6 @@ generic_string CustomFileDialog::doOpenSingleFileDlg()
 
 	CurrentDirBackup backup;
 
-	NppParameters& params = NppParameters::getInstance();
-	_impl->setFolder(params.getWorkingDir());
-
 	_impl->addFlags(FOS_PATHMUSTEXIST | FOS_FILEMUSTEXIST | FOS_FORCEFILESYSTEM);
 	bool bOk = _impl->show();
 	return bOk ? _impl->getResultFilename() : _T("");
@@ -840,9 +842,6 @@ std::vector<generic_string> CustomFileDialog::doOpenMultiFilesDlg()
 		return {};
 
 	CurrentDirBackup backup;
-
-	NppParameters& params = NppParameters::getInstance();
-	_impl->setFolder(params.getWorkingDir());
 
 	_impl->addFlags(FOS_PATHMUSTEXIST | FOS_FILEMUSTEXIST | FOS_FORCEFILESYSTEM | FOS_ALLOWMULTISELECT);
 	bool bOk = _impl->show();

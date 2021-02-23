@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2021-01-26 by schnurlos (schnurlos@gmail.com)
+	last modified: 2021-02-23 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -1062,6 +1062,7 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Za
 					<Item id="6344" name="Momentaufnahme des Dokuments"/>
 					<Item id="6345" name="Momentaufnahme in Tab"/>
 					<Item id="6346" name="Momentaufnahme in Miniaturansicht"/>
+					<Item id="6360" name="Alle Klänge stummschalten"/>
 				</MISC>
 			</Preference>
 			<MultiMacro title="Makro mehrfach ausführen">
@@ -1368,6 +1369,8 @@ Finde in allen Dateien außer exe, obj &amp;&amp; log:
 			<common-name value="Name: "/>
 			<tabrename-title value="Akt. Register umbenennen"/>
 			<tabrename-newname value="Neuer Name: "/>
+			<splitter-rotate-left value="Nach links drehen"/>
+            <splitter-rotate-right value="Nach rechts drehen"/>
 			<recent-file-history-maxfile value="Max. Datei: "/>
 			<language-tabsize value="Registergröße: "/>
 			<userdefined-title-new value="Neue Sprache erstellen …"/>
@@ -1405,4 +1408,3 @@ Finde in allen Dateien außer exe, obj &amp;&amp; log:
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>
-

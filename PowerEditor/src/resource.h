@@ -161,6 +161,8 @@
 #define IDI_VIEW_MONITORING_ON_ICON    639
 #define IDI_VIEW_MONITORING_OFF_ICON   640
 
+#define IDI_MORE_ON_TOOLTIP            641
+
 
 
 #define IDC_MY_CUR     1402

@@ -991,7 +991,7 @@ int Notepad_plus::getHtmlXmlEncoding(const TCHAR *fileName) const
 		_invisibleEditView.execute(SCI_SETTARGETRANGE, startPos, endPos);
 
 		auto posFound = _invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(xmlHeaderRegExpr), reinterpret_cast<LPARAM>(xmlHeaderRegExpr));
-		if (posFound != -1 && posFound != -2)
+		if (posFound >= 0)
 		{
             const char *encodingBlockRegExpr = "encoding[ \\t]*=[ \\t]*\"[^\".]+\"";
 			_invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(encodingBlockRegExpr), reinterpret_cast<LPARAM>(encodingBlockRegExpr));
@@ -1035,10 +1035,10 @@ int Notepad_plus::getHtmlXmlEncoding(const TCHAR *fileName) const
 
 		int posFound = static_cast<int32_t>(_invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(htmlHeaderRegExpr), reinterpret_cast<LPARAM>(htmlHeaderRegExpr)));
 
-		if (posFound == -1 || posFound == -2)
+		if (posFound < 0)
 		{
 			posFound = static_cast<int32_t>(_invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(htmlHeaderRegExpr2), reinterpret_cast<LPARAM>(htmlHeaderRegExpr2)));
-			if (posFound == -1 || posFound == -2)
+			if (posFound < 0)
 				return -1;
 		}
 		_invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(charsetBlock), reinterpret_cast<LPARAM>(charsetBlock));
@@ -3000,7 +3000,7 @@ bool Notepad_plus::isConditionExprLine(int lineNumber)
 	const char ifElseForWhileExpr[] = "((else[ \t]+)?if|for|while)[ \t]*[(].*[)][ \t]*|else[ \t]*";
 
 	auto posFound = _pEditView->execute(SCI_SEARCHINTARGET, strlen(ifElseForWhileExpr), reinterpret_cast<LPARAM>(ifElseForWhileExpr));
-	if (posFound != -1 && posFound != -2)
+	if (posFound >= 0)
 	{
 		auto end = _pEditView->execute(SCI_GETTARGETEND);
 		if (end == endPos)
@@ -3147,7 +3147,7 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 				const char braceExpr[] = "[ \t]*\\{.*";
 
 				int posFound = static_cast<int32_t>(_pEditView->execute(SCI_SEARCHINTARGET, strlen(braceExpr), reinterpret_cast<LPARAM>(braceExpr)));
-				if (posFound != -1 && posFound != -2)
+				if (posFound >= 0)
 				{
 					int end = int(_pEditView->execute(SCI_GETTARGETEND));
 					if (end == endPos2)

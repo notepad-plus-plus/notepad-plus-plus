@@ -12,7 +12,6 @@
 #include <stdlib.h>
 #include <iterator> 
 #include <vector>
-
 #include "Scintilla.h"
 #include "Platform.h"
 #include "ILoader.h"
@@ -251,6 +250,8 @@ RegexSearchBase *CreateRegexSearch(CharClassify* /* charClassTable */)
 #endif
 }
 
+std::string g_exceptionMessage;
+
 /**
  * Find text in document, supporting both forward and backward
  * searches (just pass startPosition > endPosition to do a backward search).
@@ -259,6 +260,7 @@ RegexSearchBase *CreateRegexSearch(CharClassify* /* charClassTable */)
 Sci::Position BoostRegexSearch::FindText(Document* doc, Sci::Position startPosition, Sci::Position endPosition, const char *regexString,
                         bool caseSensitive, bool /*word*/, bool /*wordStart*/, int sciSearchFlags, Sci::Position *lengthRet) 
 {
+	g_exceptionMessage.clear();
 	try {
 		SearchParameters search;
 		
@@ -319,10 +321,23 @@ Sci::Position BoostRegexSearch::FindText(Document* doc, Sci::Position startPosit
 		}
 	}
 
-	catch(regex_error& /*ex*/)
+	catch(regex_error& ex)
 	{
 		// -1 is normally used for not found, -2 is used here for invalid regex
+		g_exceptionMessage = ex.what();
 		return -2;
+	}
+
+	catch(boost::wrapexcept<std::runtime_error>& ex)
+	{
+		g_exceptionMessage = ex.what();
+		return -3;
+	}
+
+	catch(...)
+	{
+		g_exceptionMessage = "Unexpected exception while searching";
+		return -3;
 	}
 }
 

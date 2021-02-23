@@ -9,4 +9,8 @@
 #define SCFIND_REGEXP_EMPTYMATCH_ALLOWATSTART  0x80000000
 #define SCFIND_REGEXP_SKIPCRLFASONE			   0x08000000
 
+#ifdef SCI_OWNREGEX
+extern std::string g_exceptionMessage;
+#endif
+
 #endif

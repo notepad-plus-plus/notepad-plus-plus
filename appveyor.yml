@@ -33,7 +33,7 @@ build_script:
     - cd "%APPVEYOR_BUILD_FOLDER%"\scintilla\win32
     - if "%configuration%"=="Unicode Debug" set scintilla_debug=DEBUG=1
     - if "%configuration%"=="Unicode Release" set scintilla_debug=
-    - if "%archi%" NEQ "" nmake SUPPORT_XP=1 %scintilla_debug% BOOSTPATH=C:\Libraries\boost_1_69_0\ BOOSTREGEXLIBPATH=C:\Libraries\boost_1_70_0\lib32-msvc-14.1\ -f scintilla.mak
+    - if "%archi%" NEQ "" nmake SUPPORT_XP=1 %scintilla_debug% BOOSTPATH=C:\Libraries\boost_1_70_0\ BOOSTREGEXLIBPATH=C:\Libraries\boost_1_70_0\lib32-msvc-14.1\ -f scintilla.mak
     - if "%Platform%"=="mingw-w64_810_X64" mingw32-make -j%NUMBER_OF_PROCESSORS%
     - cd "%APPVEYOR_BUILD_FOLDER%"\PowerEditor\visual.net\
     - if "%archi%" NEQ "" msbuild notepadPlus.vcxproj /p:configuration="%configuration%" /p:platform="%platform_input%" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"

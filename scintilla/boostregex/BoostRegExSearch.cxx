@@ -12,9 +12,9 @@
 #include <stdlib.h>
 #include <iterator> 
 #include <vector>
-
 #include "Scintilla.h"
 #include "Platform.h"
+#include <windows.h>
 #include "ILoader.h"
 #include "ILexer.h"
 #include "Position.h"
@@ -251,6 +251,17 @@ RegexSearchBase *CreateRegexSearch(CharClassify* /* charClassTable */)
 #endif
 }
 
+void propagateErrorMessage(char const *msg)
+{
+	TCHAR szClassname [256];
+	wsprintf(szClassname, ERRORPROPWINDOWCLASS, GetCurrentProcessId());
+	HWND wnd = FindWindow(szClassname, NULL);
+	if (wnd)
+	{
+		SetWindowTextA(wnd, msg);
+	}
+}
+
 /**
  * Find text in document, supporting both forward and backward
  * searches (just pass startPosition > endPosition to do a backward search).
@@ -319,9 +330,22 @@ Sci::Position BoostRegexSearch::FindText(Document* doc, Sci::Position startPosit
 		}
 	}
 
-	catch(regex_error& /*ex*/)
+	catch(regex_error& ex)
 	{
 		// -1 is normally used for not found, -2 is used here for invalid regex
+		propagateErrorMessage(ex.what ());
+		return -2;
+	}
+
+	catch(boost::wrapexcept<std::runtime_error>& ex)
+	{
+		propagateErrorMessage(ex.what ());
+		return -2;
+	}
+
+	catch(...)
+	{
+		propagateErrorMessage("Unexpected exception while searching");
 		return -2;
 	}
 }
@@ -345,13 +369,7 @@ BoostRegexSearch::Match BoostRegexSearch::EncodingDependent<CharT, CharacterIter
 	bool match_is_valid = false;
 	do {
 		const bool end_reached = next_search_from_position > search._endPosition;
-		try {
-			found = !end_reached && boost::regex_search(CharacterIterator(search._document, next_search_from_position, search._endPosition), endIterator, _match, _regex, search._boostRegexFlags, baseIterator);
-		}
-		catch (...)
-		{
-			found = false;
-		}
+		found = !end_reached && boost::regex_search(CharacterIterator(search._document, next_search_from_position, search._endPosition), endIterator, _match, _regex, search._boostRegexFlags, baseIterator);
 		if (found) {
 			const Sci::Position  position = _match[0].first.pos();
 			const Sci::Position  length   = _match[0].second.pos() - position;

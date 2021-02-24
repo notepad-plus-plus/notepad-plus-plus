@@ -215,6 +215,22 @@ private:
 	void writeOptions();
 };
 
+class RegExErrorMessage : public Window
+{
+public:
+	RegExErrorMessage() {
+		_classname [0] = 0;
+		_errorMessage [0] = 0;
+	}
+	void init(HINSTANCE hInst);
+    virtual void destroy();
+
+	TCHAR const * getErrorText();
+private:
+	TCHAR _classname [256];
+	TCHAR _errorMessage [512];
+};
+
 class FindReplaceDlg : public StaticDialog
 {
 friend class FindIncrementDlg;
@@ -234,6 +250,7 @@ public :
 		if (!ppEditView)
 			throw std::runtime_error("FindIncrementDlg::init : ppEditView is null.");
 		_ppEditView = ppEditView;
+		_regExErrorMessage.init(hInst);
 	};
 
 	virtual void create(int dialogID, bool isRTL = false, bool msgDestParent = true);
@@ -417,6 +434,7 @@ private :
 	void drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct);
 	bool replaceInFilesConfirmCheck(generic_string directory, generic_string fileTypes);
 	bool replaceInOpenDocsConfirmCheck(void);
+	RegExErrorMessage _regExErrorMessage;
 };
 
 //FindIncrementDlg: incremental search dialog, docked in rebar

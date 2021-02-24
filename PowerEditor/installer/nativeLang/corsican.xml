@@ -4,6 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
+		- Updated on March 7th, 2021 for version 7.9.4 by Patriccollu di Santa Maria è Sichè
 		- Updated on January 27th, 2021 for version 7.9.3 by Patriccollu di Santa Maria è Sichè
 		- Updated on November 4th, 2020 for version 7.9.2 by Patriccollu di Santa Maria è Sichè
 		- Updated on September 16th, 2020 for version 7.9.1 by Patriccollu di Santa Maria è Sichè
@@ -22,7 +23,7 @@ The comments are here for explanation, it's not necessary to translate them.
 	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/corsican.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="Corsu" filename="corsican.xml" version="7.9.3">
+    <Native-Langue name="Corsu" filename="corsican.xml" version="7.9.4">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -186,7 +187,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42052" name="Cronolugia di u preme’papei"/>
                     <Item id="42025" name="&amp;Arregistrà a macro arricurdata…"/>
                     <Item id="42026" name="Testu da diritta à manca"/>
-                    <Item id="42027" name="Testu da manca à dirittu"/>
+                    <Item id="42027" name="Testu da manca à diritta"/>
                     <Item id="42028" name="Lettura-sola per u ducumentu attuale"/>
                     <Item id="42029" name="Cupià u chjassu cumpletu di u ducumentu attuale"/>
                     <Item id="42030" name="Cupià u nome di schedariu di u ducumentu attuale"/>
@@ -395,7 +396,7 @@ The comments are here for explanation, it's not necessary to translate them.
         </Menu>
 
         <Dialog>
-            <Find title="" titleFind="Circà" titleReplace="Rimpiazzà" titleFindInFiles="Circà in schedarii" titleMark="Marcà">
+            <Find title="" titleFind="Circà" titleReplace="Rimpiazzà" titleFindInFiles="Circà in schedarii" titleFindInProjects="Circà in prughjetti" titleMark="Marcà">
                 <Item id="1"    name="Circà a seguente"/>
                 <Item id="1722" name="Circà à l’arritrosa"/>
                 <Item id="2"    name="Chjode"/>
@@ -428,7 +429,11 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="1625" name="&amp;Nurmale"/>
                 <Item id="1626" name="&amp;Allungatu (\n, \r, \t, \0, \x…)"/>
                 <Item id="1660" name="Rimpiazzà in schedarii"/>
+                <Item id="1665" name="Rimpiazzà in prughjetti"/>
                 <Item id="1661" name="Seguità ducum. attuale"/>
+                <Item id="1662" name="Pannellu di prughjettu 1"/>
+                <Item id="1663" name="Pannellu di prughjettu 2"/>
+                <Item id="1664" name="Pannellu di prughjettu 3"/>
                 <Item id="1641" name="Circalle tutte in u ducumentu attuale"/>
                 <Item id="1686" name="Traspar&amp;enza"/>
                 <Item id="1703" name=". cum’è n&amp;ova linea"/>
@@ -501,7 +506,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="2"    name="Chjode"/>
             </PluginsAdminDlg>
 
-            <StyleConfig title="Cunfiguratore di stilu">
+            <StyleConfig title="Cunfiguratore di u stilu">
                 <Item id="2"    name="Abbandunà"/>
                 <Item id="2301" name="Arregistrà è chjode"/>
                 <Item id="2303" name="Trasparenza"/>
@@ -509,13 +514,13 @@ The comments are here for explanation, it's not necessary to translate them.
                 <SubDialog>
                     <Item id="2204" name="Grassu"/>
                     <Item id="2205" name="Italicu"/>
-                    <Item id="2206" name="Culore di primu pianu"/>
+                    <Item id="2206" name="Culore 1ᵘ pianu"/>
                     <Item id="2207" name="Culore di fondu"/>
-                    <Item id="2208" name="Nome di grafia :"/>
-                    <Item id="2209" name="Dimensione di grafia :"/>
+                    <Item id="2208" name="Nome :"/>
+                    <Item id="2209" name="Dimensione :"/>
                     <Item id="2211" name="Stilu :"/>
-                    <Item id="2212" name="Culori di stilu"/>
-                    <Item id="2213" name="Grafia di stilu"/>
+                    <Item id="2212" name="Culori di u stilu"/>
+                    <Item id="2213" name="Grafia di u stilu"/>
                     <Item id="2214" name="Est. predefinita :"/>
                     <Item id="2216" name="Est. utilizatore :"/>
                     <Item id="2218" name="Sottulineatu"/>
@@ -644,7 +649,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="20011" name="Trasparenza"/>
                 <Item id="20015" name="Impurtà…"/>
                 <Item id="20016" name="Espurtà…"/>
-                <StylerDialog title="Dialogu di Stilu">
+                <StylerDialog title="Dialogu di u stilu">
                     <Item id="25030" name="Ozzioni di grafia :"/>
                     <Item id="25006" name="Culore di primu pianu"/>
                     <Item id="25007" name="Culore di fondu"/>
@@ -1075,6 +1080,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                     <Item id="6344" name="Fighjata di ducumentu"/>
                     <Item id="6345" name="Fighjata da l’unghjetta"/>
                     <Item id="6346" name="Fighjata da a cartugrafia di ducumentu"/>
+                    <Item id="6360" name="Ammutulisce tutti i soni"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Eseguisce una macro parechje volte">
@@ -1196,7 +1202,8 @@ Vulete ricuperà u vostru langs.xml ?"/> <!-- HowToReproduce: Close Notepad++. 
 Ci vole à caccià a so radica da u pannellu nanzu d’aghjunghje u cartulare « $STR_REPLACE$ »."/> <!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
 
             <ProjectPanelChanged title="$STR_REPLACE$" message="U spaziu di travagliu hè statu mudificatu. Vulete arregistrallu ?"/>
-            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="U vostru spaziu di travagliu ùn hè micca statu arregistratu."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+            <ProjectPanelSaveError title="$STR_REPLACE$" message="Un sbagliu hè accadutu à a scrittura di u schedariu di u spaziu di travagliu..
+U vostru spaziu di travagliu ùn hè micca statu arregistratu."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <ProjectPanelOpenDoSaveDirtyWsOrNot title="Apre u spaziu di travagliu" message="U spaziu di travagliu attuale hè statu mudificatu. Vulete arregistrà u prughjettu attuale ?"/>
             <ProjectPanelNewDoSaveDirtyWsOrNot title="Novu spaziu di travagliu" message="U spaziu di travagliu attuale hè statu mudificatu. Vulete arregistrà u prughjettu attuale ?"/>
             <ProjectPanelOpenFailed title="Apre u spaziu di travagliu" message="U spaziu di travagliu ùn pò micca esse apertu.
@@ -1291,6 +1298,7 @@ Cuntinuà ?"/>
                     <Item id="3126" name="Arregistrà cù u nome…"/>
                     <Item id="3127" name="Arregistrà una copia cù u nome…"/>
                     <Item id="3121" name="Aghjunghje un novu prughjettu"/>
+                    <Item id="3128" name="Circà in prughjetti…"/>
                 </WorkspaceMenu>
                 <ProjectMenu>
                     <Item id="3111" name="Rinuminà"/>
@@ -1381,8 +1389,10 @@ Circà in tutti i schedarii fora di exe, obj è log :
             <common-name value="Nome : "/>
             <tabrename-title value="Rinuminà l’unghjetta attuale"/>
             <tabrename-newname value="Novu nome : "/>
-            <recent-file-history-maxfile value="Mass. Sched. : "/>
-            <language-tabsize value="Dimens. Unghj. : "/>
+            <splitter-rotate-left value="Girà à manca"/>
+            <splitter-rotate-right value="Girà à diritta"/>
+            <recent-file-history-maxfile value="Mass. sched. : "/>
+            <language-tabsize value="Dimens. tabul. : "/>
             <userdefined-title-new value="Creà un novu linguaghju…"/>
             <userdefined-title-save value="Arregistrà u nome di u linguaghju attuale cum’è…"/>
             <userdefined-title-rename value="Rinuminà u nome di u linguaghju attuale"/>
@@ -1404,8 +1414,10 @@ Circà in tutti i schedarii fora di exe, obj è log :
             <replace-in-files-confirm-directory value="Vulete rimpiazzà tutte l’occurrenze in :"/>
             <replace-in-files-confirm-filetype value="Per u(i) tipu(i) di schedariu :"/>
             <replace-in-files-progress-title value="Prugressione di u rimpiazzamentu in i schedarii…"/>
+            <replace-in-projects-confirm-title value="Cunfirmazione?"/>
+            <replace-in-projects-confirm-message value="Vulete rimpiazzà tutte l’occurrenze in tutti i ducumenti nant’à i pannelli di prughjetti selezziunati ?"/>
             <replace-in-open-docs-confirm-title value="Cunfirmazione"/>
-            <replace-in-open-docs-confirm-message value="Vulete rimpiazzà tutte l’occurrenze in tutti i schedarii aperti ?"/>
+            <replace-in-open-docs-confirm-message value="Vulete rimpiazzà tutte l’occurrenze in tutti i ducumenti aperti ?"/>
             <find-result-caption value="Risultati di ricerca"/>
             <find-result-title value="Circà"/> <!-- Must not begin with space or tab character -->
             <find-result-title-info value="($INT_REPLACE1$ risultati in $INT_REPLACE2$ ducumenti frà $INT_REPLACE3$ ducumenti circati)"/>

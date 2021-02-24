@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v7.9.3:
+Updated to v7.9.4:
 - added new lines
-- fixed description
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="7.9.3">
+	<Native-Langue name="Русский" filename="russian.xml" version="7.9.4">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -306,9 +305,9 @@ Updated to v7.9.3:
 					<Item id="44031" name="Развернуть текущий блок"/>
 					<Item id="44049" name="Информация о файле..."/>
 
-					<Item id="44081" name="Панель проекта 1"/>
-					<Item id="44082" name="Панель проекта 2"/>
-					<Item id="44083" name="Панель проекта 3"/>
+					<Item id="44081" name="Проект-панель 1"/>
+					<Item id="44082" name="Проект-панель 2"/>
+					<Item id="44083" name="Проект-панель 3"/>
 
 					<Item id="44085" name="Папка как Проект"/>
 					<Item id="44080" name="Карта Документа"/>
@@ -418,7 +417,7 @@ Updated to v7.9.3:
 			</TabBar>
 		</Menu>
 		<Dialog>
-			<Find title="" titleFind="Найти" titleReplace="Замена" titleFindInFiles="Найти в файлах" titleMark="Пометки">
+			<Find title="" titleFind="Найти" titleReplace="Замена" titleFindInFiles="Найти в файлах" titleFindInProjects="Найти в Проектах" titleMark="Пометки">
 				<Item id="1"    name="Найти Далее"/>
 				<Item id="2"    name="Закрыть"/>
 				<Item id="1603" name="Только целые слова"/>
@@ -448,6 +447,10 @@ Updated to v7.9.3:
 				<Item id="1659" name="В скрытых папках"/>
 				<Item id="1660" name="Заменить в Файлах"/>
 				<Item id="1661" name="Папка текущего док."/>
+				<Item id="1662" name="Проект-панель 1"/>
+				<Item id="1663" name="Проект-панель 2"/>
+				<Item id="1664" name="Проект-панель 3"/>
+				<Item id="1665" name="Замена в Проектах"/>
 				<Item id="1686" name="Прозрачность"/>
 				<Item id="1687" name="Когда неактивно"/>
 				<Item id="1688" name="Всегда"/>
@@ -622,16 +625,16 @@ Updated to v7.9.3:
 					<Item id="44066" name="Развернуть уровень 6"/>
 					<Item id="44067" name="Развернуть уровень 7"/>
 					<Item id="44068" name="Развернуть уровень 8"/>
-					<Item id="44081" name="Вкл./Выкл. Панель проекта 1"/>
-					<Item id="44082" name="Вкл./Выкл. Панель проекта 2"/>
-					<Item id="44083" name="Вкл./Выкл. Панель проекта 3"/>
+					<Item id="44081" name="Вкл./Выкл. Проект-панель 1"/>
+					<Item id="44082" name="Вкл./Выкл. Проект-панель 2"/>
+					<Item id="44083" name="Вкл./Выкл. Проект-панель 3"/>
 					<Item id="44085" name="Вкл./Выкл. Папка как Проект"/>
 					<Item id="44080" name="Вкл./Выкл. Карты Документа"/>
 					<Item id="44084" name="Вкл./Выкл. Список Функций"/>
 					<Item id="50005" name="Запись Макроса  (старт/стоп)"/>
-					<Item id="44104" name="Перекл. на Панель проекта 1"/>
-					<Item id="44105" name="Перекл. на Панель проекта 2"/>
-					<Item id="44106" name="Перекл. на Панель проекта 3"/>
+					<Item id="44104" name="Перекл. на Проект-панель 1"/>
+					<Item id="44105" name="Перекл. на Проект-панель 2"/>
+					<Item id="44106" name="Перекл. на Проект-панель 3"/>
 					<Item id="44107" name="Перекл. на Папка как Проект"/>
 					<Item id="44108" name="Перекл. на Список Функций"/>
 				</MainCommandNames>
@@ -999,7 +1002,8 @@ Updated to v7.9.3:
 					<Item id="6345" name="Миниатюра под Вкладкой"/>
 					<Item id="6346" name="Отображать в Карте Документа"/>
 					<Item id="6349" name="Использ. DirectWrite (это может улучшить отображение спецсимволов, требуется перезапуск)"/>
-					<Item id="6351" name="Не указывать расширение при сохранении файла 'Обычного Текста'"/> 
+					<Item id="6351" name="Не указывать расширение при сохранении файла 'Обычного Текста'"/>
+					<Item id="6360" name="Отключить все звуки"/>
 				</MISC>
 				<MultiInstance title = "Режимы Запуска">
 					<Item id="6151" name="Режим Открытия Файлов"/>
@@ -1167,11 +1171,11 @@ Updated to v7.9.3:
 			<FolderAsWorspaceSubfolderExists title="Проблема при добавлении &quot;Папка как Рабочая Область&quot;" message="Подпапка папки, которую вы хотите добавить, уже существует.&#x0A;Пожалуйста, удалите её корень, прежде чем добавить папку &quot;$STR_REPLACE$&quot;."/>
 			<ConfirmSaveAs               title="Подтверждение &quot;Сохранить как...&quot;" message="$STR_REPLACE$ уже существует.&#x0A;Вы хотите его заменить?"/>
 
-			<ProjectPanelChanged                 title="$STR_REPLACE$"                message="Рабочая область была изменена. Вы хотите сохранить её?"/>
-			<ProjectPanelChangedSaveError        title="$STR_REPLACE$"                message="Ваше рабочая область не сохранена."/>
-			<ProjectPanelOpenDoSaveDirtyWsOrNot  title="Открытие Рабочей Области"     message="Текущая рабочая область была изменена. Вы хотите сохранить текущий проект?"/>
-			<ProjectPanelNewDoSaveDirtyWsOrNot   title="Новая Рабочая Область"        message="Текущая рабочая область была изменена. Вы хотите сохранить текущий проект?"/>
-			<ProjectPanelOpenFailed              title="Открытие Рабочей Области"     message="Не удалось открыть рабочую область.&#x0A;Похоже файл, который нужно открыть, является недопустимым файлом проекта."/>
+			<ProjectPanelChanged                 title="$STR_REPLACE$"                message="Рабочая область была изменена.&#x0A;Вы хотите сохранить её?"/>
+			<ProjectPanelSaveError               title="$STR_REPLACE$"                message="Произошла ошибка при записи файла рабочей области.&#x0A;Ваша рабочая область не была сохранена."/>
+			<ProjectPanelOpenDoSaveDirtyWsOrNot  title="Открытие Рабочей Области"     message="Текущая рабочая область была изменена.&#x0A;Вы хотите сохранить текущий проект?"/>
+			<ProjectPanelNewDoSaveDirtyWsOrNot   title="Новая Рабочая Область"        message="Текущая рабочая область была изменена.&#x0A;Вы хотите сохранить текущий проект?"/>
+			<ProjectPanelOpenFailed              title="Открытие Рабочей Области"     message="Не удалось открыть рабочую область.&#x0A;Файл, который нужно открыть, не является файлом проекта."/>
 			<ProjectPanelRemoveFolderFromProject title="Удаление папки из проекта"    message="Все подэлементы будут удалены.&#x0A;Вы действительно хотите удалить эту папку из проекта?"/>
 			<ProjectPanelRemoveFileFromProject   title="Удаление файла из проекта"    message="Вы действительно хотите удалить этот файл из проекта?"/>
 			<ProjectPanelReloadError             title="Перезагрузка Рабочей Области" message="Не удается найти файл для перезагрузки."/>
@@ -1200,7 +1204,7 @@ Updated to v7.9.3:
 			<ColumnPath  name="Путь"/>
 			<ColumnType  name="Тип"/>
 			<ColumnSize  name="Размер"/>
-			<NbDocsTotal name="всего : "/>
+			<NbDocsTotal name="всего :"/>
 		</WindowsDlg>
 		<AsciiInsertion>
 			<PanelTitle       name="Таблица символов ASCII"/>
@@ -1255,6 +1259,7 @@ Updated to v7.9.3:
 					<Item id="3126" name="Сохранить как..."/>
 					<Item id="3127" name="Сохранить копию как..."/>
 					<Item id="3121" name="Добавить Новый проект"/>
+					<Item id="3128" name="Найти в Проекте..."/>
 				</WorkspaceMenu>
 				<ProjectMenu>
 					<Item id="3111" name="Переименовать"/>
@@ -1340,6 +1345,8 @@ Updated to v7.9.3:
 			<common-name                 value="Имя: "/>
 			<tabrename-title             value="Задать Новое Имя"/>
 			<tabrename-newname           value="Новое имя: "/>
+			<splitter-rotate-left        value="Вращение влево"/>
+			<splitter-rotate-right       value="Вращение вправо"/>
 			<recent-file-history-maxfile value="Файлов: "/>
 			<language-tabsize            value="Табуляция: "/>
 			<userdefined-title-new       value="Создать Новый Синтаксис..."/>
@@ -1361,11 +1368,13 @@ Updated to v7.9.3:
 			<summary-nbrange             value=" диапазоне(ах)"/>
 			<find-in-files-progress-title         value="Прогресс поиска в файлах..."/>
 			<replace-in-files-confirm-title       value="Вы уверены?"/>
-			<replace-in-files-confirm-directory   value="Вы точно хотите заменить все совпадения в каталоге :"/>
+			<replace-in-files-confirm-directory   value="Вы точно хотите заменить все совпадения в директории :"/>
 			<replace-in-files-confirm-filetype    value="Для типа файла(ов) :"/>
 			<replace-in-files-progress-title      value="Прогресс замены в файлах..."/>
+			<replace-in-projects-confirm-title    value="Вы уверены?"/>
+			<replace-in-projects-confirm-message  value="Вы точно хотите заменить все совпадения во всех документах в выбранных панелях Проекта?"/>
 			<replace-in-open-docs-confirm-title   value="Вы уверены?"/>
-			<replace-in-open-docs-confirm-message value="Вы уверены, что хотите заменить все совпадения во всех открытых документах?"/>
+			<replace-in-open-docs-confirm-message value="Вы точно хотите заменить все совпадения во всех открытых документах?"/>
 			<find-result-caption                  value="Результаты поиска"/>
 			<find-result-title                    value="Поиск"/>  <!-- Не должно начинаться с пробела или табуляции -->
 			<find-result-line-prefix              value="Строка"/> <!-- Не должно начинаться с пробела или табуляции -->

@@ -4,6 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
+		- Updated on February 24th, 2021 for version 7.9.4 by Patriccollu di Santa Maria è Sichè
 		- Updated on January 27th, 2021 for version 7.9.3 by Patriccollu di Santa Maria è Sichè
 		- Updated on November 4th, 2020 for version 7.9.2 by Patriccollu di Santa Maria è Sichè
 		- Updated on September 16th, 2020 for version 7.9.1 by Patriccollu di Santa Maria è Sichè
@@ -186,7 +187,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42052" name="Cronolugia di u preme’papei"/>
                     <Item id="42025" name="&amp;Arregistrà a macro arricurdata…"/>
                     <Item id="42026" name="Testu da diritta à manca"/>
-                    <Item id="42027" name="Testu da manca à dirittu"/>
+                    <Item id="42027" name="Testu da manca à diritta"/>
                     <Item id="42028" name="Lettura-sola per u ducumentu attuale"/>
                     <Item id="42029" name="Cupià u chjassu cumpletu di u ducumentu attuale"/>
                     <Item id="42030" name="Cupià u nome di schedariu di u ducumentu attuale"/>
@@ -501,7 +502,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="2"    name="Chjode"/>
             </PluginsAdminDlg>
 
-            <StyleConfig title="Cunfiguratore di stilu">
+            <StyleConfig title="Cunfiguratore di u stilu">
                 <Item id="2"    name="Abbandunà"/>
                 <Item id="2301" name="Arregistrà è chjode"/>
                 <Item id="2303" name="Trasparenza"/>
@@ -509,13 +510,13 @@ The comments are here for explanation, it's not necessary to translate them.
                 <SubDialog>
                     <Item id="2204" name="Grassu"/>
                     <Item id="2205" name="Italicu"/>
-                    <Item id="2206" name="Culore di primu pianu"/>
+                    <Item id="2206" name="Culore 1ᵘ pianu"/>
                     <Item id="2207" name="Culore di fondu"/>
-                    <Item id="2208" name="Nome di grafia :"/>
-                    <Item id="2209" name="Dimensione di grafia :"/>
+                    <Item id="2208" name="Nome :"/>
+                    <Item id="2209" name="Dimensione :"/>
                     <Item id="2211" name="Stilu :"/>
-                    <Item id="2212" name="Culori di stilu"/>
-                    <Item id="2213" name="Grafia di stilu"/>
+                    <Item id="2212" name="Culori di u stilu"/>
+                    <Item id="2213" name="Grafia di u stilu"/>
                     <Item id="2214" name="Est. predefinita :"/>
                     <Item id="2216" name="Est. utilizatore :"/>
                     <Item id="2218" name="Sottulineatu"/>
@@ -644,7 +645,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="20011" name="Trasparenza"/>
                 <Item id="20015" name="Impurtà…"/>
                 <Item id="20016" name="Espurtà…"/>
-                <StylerDialog title="Dialogu di Stilu">
+                <StylerDialog title="Dialogu di u stilu">
                     <Item id="25030" name="Ozzioni di grafia :"/>
                     <Item id="25006" name="Culore di primu pianu"/>
                     <Item id="25007" name="Culore di fondu"/>
@@ -1075,6 +1076,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                     <Item id="6344" name="Fighjata di ducumentu"/>
                     <Item id="6345" name="Fighjata da l’unghjetta"/>
                     <Item id="6346" name="Fighjata da a cartugrafia di ducumentu"/>
+                    <Item id="6360" name="Ammutulisce tutti i soni"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Eseguisce una macro parechje volte">
@@ -1381,8 +1383,10 @@ Circà in tutti i schedarii fora di exe, obj è log :
             <common-name value="Nome : "/>
             <tabrename-title value="Rinuminà l’unghjetta attuale"/>
             <tabrename-newname value="Novu nome : "/>
-            <recent-file-history-maxfile value="Mass. Sched. : "/>
-            <language-tabsize value="Dimens. Unghj. : "/>
+            <splitter-rotate-left value="Girà à manca"/>
+            <splitter-rotate-right value="Girà à diritta"/>
+            <recent-file-history-maxfile value="Mass. sched. : "/>
+            <language-tabsize value="Dimens. tabul. : "/>
             <userdefined-title-new value="Creà un novu linguaghju…"/>
             <userdefined-title-save value="Arregistrà u nome di u linguaghju attuale cum’è…"/>
             <userdefined-title-rename value="Rinuminà u nome di u linguaghju attuale"/>

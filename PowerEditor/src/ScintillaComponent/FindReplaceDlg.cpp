@@ -4512,7 +4512,7 @@ void RegExErrorMessage::init(HINSTANCE hInst)
 	c.lpszClassName = _classname;
 	if (::RegisterClass(&c))
 	{
-		_hSelf = CreateWindow (_classname, L"", 0, 0, 0, 0, 0, 0, 0, hInst, 0);
+		_hSelf = CreateWindow (_classname, TEXT(""), 0, 0, 0, 0, 0, 0, 0, hInst, 0);
 		Window::init (hInst, 0);
 	}
 }
@@ -4530,7 +4530,7 @@ TCHAR const * RegExErrorMessage::getErrorText()
 	if (_hSelf)
 	{
 		GetWindowText(_hSelf, _errorMessage, _countof(_errorMessage));
-		SetWindowText(_hSelf, L"");
+		SetWindowText(_hSelf, TEXT(""));
 	}
 	else
 	{

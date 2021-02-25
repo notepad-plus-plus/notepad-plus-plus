@@ -1797,7 +1797,8 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 	}
 	else if (posFind == -2) // Invalid Regular expression
 	{
-		generic_string msg = _regExErrorMessage.getErrorText();
+		const char* msgA = (*_ppEditView)->getExceptionMessage();
+		generic_string msg = s2ws(msgA ? msgA : "");
 		if (msg.length() == 0)
 		{
 			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
@@ -4494,47 +4495,4 @@ LRESULT APIENTRY Progress::wndProc(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM l
 	}
 
 	return ::DefWindowProc(hwnd, umsg, wparam, lparam);
-}
-
-void RegExErrorMessage::init(HINSTANCE hInst)
-{
-	WNDCLASS c;
-	wsprintf(_classname, ERRORPROPWINDOWCLASS, GetCurrentProcessId());
-	c.style = 0;
-	c.lpfnWndProc = DefWindowProc;
-	c.cbClsExtra = 0;
-	c.cbWndExtra = 0;
-	c.hInstance = hInst;
-	c.hIcon = 0;
-	c.hCursor = 0;
-	c.hbrBackground = 0;
-	c.lpszMenuName = NULL;
-	c.lpszClassName = _classname;
-	if (::RegisterClass(&c))
-	{
-		_hSelf = CreateWindow (_classname, TEXT(""), 0, 0, 0, 0, 0, 0, 0, hInst, 0);
-		Window::init (hInst, 0);
-	}
-}
-
-void RegExErrorMessage::destroy()
-{
-	if (_hSelf)
-	{
-		DestroyWindow(_hSelf);
-	}
-}
-
-TCHAR const * RegExErrorMessage::getErrorText()
-{
-	if (_hSelf)
-	{
-		GetWindowText(_hSelf, _errorMessage, _countof(_errorMessage));
-		SetWindowText(_hSelf, TEXT(""));
-	}
-	else
-	{
-		_errorMessage [0] = 0;
-	}
-	return _errorMessage;
 }

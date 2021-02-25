@@ -14,7 +14,6 @@
 #include <vector>
 #include "Scintilla.h"
 #include "Platform.h"
-#include <windows.h>
 #include "ILoader.h"
 #include "ILexer.h"
 #include "Position.h"
@@ -251,15 +250,20 @@ RegexSearchBase *CreateRegexSearch(CharClassify* /* charClassTable */)
 #endif
 }
 
-void propagateErrorMessage(char const *msg)
+std::string g_exceptionMessage;
+
+#ifndef BOOST_REGEX_SEARCH_API
+#ifdef _WIN32
+#define BOOST_REGEX_SEARCH_API extern "C" __declspec(dllexport)
+#else
+#define BOOST_REGEX_SEARCH_API
+#endif
+#endif
+
+BOOST_REGEX_SEARCH_API
+const char* GetBoostExceptionMessage()
 {
-	TCHAR szClassname [256];
-	wsprintf(szClassname, ERRORPROPWINDOWCLASS, GetCurrentProcessId());
-	HWND wnd = FindWindow(szClassname, NULL);
-	if (wnd)
-	{
-		SetWindowTextA(wnd, msg);
-	}
+	return g_exceptionMessage.c_str();
 }
 
 /**
@@ -270,6 +274,7 @@ void propagateErrorMessage(char const *msg)
 Sci::Position BoostRegexSearch::FindText(Document* doc, Sci::Position startPosition, Sci::Position endPosition, const char *regexString,
                         bool caseSensitive, bool /*word*/, bool /*wordStart*/, int sciSearchFlags, Sci::Position *lengthRet) 
 {
+	g_exceptionMessage.clear();
 	try {
 		SearchParameters search;
 		
@@ -333,19 +338,19 @@ Sci::Position BoostRegexSearch::FindText(Document* doc, Sci::Position startPosit
 	catch(regex_error& ex)
 	{
 		// -1 is normally used for not found, -2 is used here for invalid regex
-		propagateErrorMessage(ex.what ());
+		g_exceptionMessage = ex.what();
 		return -2;
 	}
 
 	catch(boost::wrapexcept<std::runtime_error>& ex)
 	{
-		propagateErrorMessage(ex.what ());
+		g_exceptionMessage = ex.what();
 		return -2;
 	}
 
 	catch(...)
 	{
-		propagateErrorMessage("Unexpected exception while searching");
+		g_exceptionMessage = "Unexpected exception while searching";
 		return -2;
 	}
 }

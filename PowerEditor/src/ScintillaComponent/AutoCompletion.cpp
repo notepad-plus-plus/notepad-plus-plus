@@ -155,7 +155,7 @@ void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beg
 	_pEditView->execute(SCI_SETSEARCHFLAGS, flags);
 	int posFind = _pEditView->searchInTarget(expr.c_str(), int(expr.length()), 0, docLength);
 
-	while (posFind != -1 && posFind != -2)
+	while (posFind >= 0)
 	{
 		int wordStart = int(_pEditView->execute(SCI_GETTARGETSTART));
 		int wordEnd = int(_pEditView->execute(SCI_GETTARGETEND));
@@ -432,7 +432,7 @@ void AutoCompletion::getCloseTag(char *closeTag, size_t closeTagSize, size_t car
 
 	int targetStart = _pEditView->searchInTarget(tag2find, lstrlen(tag2find), caretPos, 0);
 
-	if (targetStart == -1 || targetStart == -2)
+	if (targetStart < 0)
 		return;
 
 	int targetEnd = int(_pEditView->execute(SCI_GETTARGETEND));

@@ -1324,6 +1324,7 @@ Find in all files except exe, obj &amp;&amp; log:
             <find-status-replaceinopenedfiles-nb-replaced value="Replace in Opened Files: $INT_REPLACE$ occurrences were replaced"/>
             <find-status-mark-re-malformed value="Mark: The regular expression to search is malformed"/>
             <find-status-invalid-re value="Find: Invalid regular expression"/>
+            <find-status-search-failed value="Find: Search failed"/>
             <find-status-mark-1-match value="Mark: 1 match"/>
             <find-status-mark-nb-matches value="Mark: $INT_REPLACE$ matches"/>
             <find-status-count-re-malformed value="Count: The regular expression to search is malformed"/>

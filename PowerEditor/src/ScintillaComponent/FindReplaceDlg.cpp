@@ -1769,7 +1769,7 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 		}
 
 		if (posFind == -1)
-		{
+		{ // not found
 			if (oFindStatus)
 				*oFindStatus = FSNotFound;
 			//failed, or failed twice with wrap
@@ -1795,16 +1795,39 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 			return false;
 		}
 	}
-	else if (posFind == -2) // Invalid Regular expression
-	{
-		const char* msgA = (*_ppEditView)->getExceptionMessage();
-		generic_string msg = s2ws(msgA ? msgA : "");
-		if (msg.length() == 0)
+	else if (posFind < -1) 
+	{ // error
+		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+		generic_string  msgGeneral;
+		if (posFind == -2)
 		{
-			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-			msg = pNativeSpeaker->getLocalizedStrFromID("find-status-invalid-re", TEXT("Find: Invalid regular expression"));
+			 msgGeneral = pNativeSpeaker->getLocalizedStrFromID("find-status-invalid-re", TEXT("Find: Invalid regular expression"));
 		}
-		setStatusbarMessage(msg, FSNotFound);
+		else
+		{
+			msgGeneral = pNativeSpeaker->getLocalizedStrFromID("find-status-search-failed", TEXT("Find: Search failed"));
+		}
+		setStatusbarMessage(msgGeneral, FSNotFound);
+
+		const char* msg = (*_ppEditView)->getExceptionMessage();
+		generic_string msgDetailed = s2ws(msg ? msg : "");
+		if (msgDetailed.length() > 0)
+		{ // present original message as tool tip.
+			RECT rcToolTip;
+			::GetClientRect(_statusBar.getHSelf(), &rcToolTip);
+			{ // Limit tool tip rectangle to the area of status bar which contains visible text.
+			  // This avoids, that if moving the cursor at far right in the status bar, the tool tip is displayed without apparent reason
+				SIZE size;
+				HDC hdc = GetDC(_hSelf);
+				if (::GetTextExtentPoint32(hdc, msgGeneral.c_str(), (int)msgGeneral.length(), &size))
+				{
+					int rgt = rcToolTip.left + size.cx;
+					if (rgt < rcToolTip.right) rcToolTip.right = rgt;
+				}
+				ReleaseDC(_hSelf, hdc);
+			}
+			_statusBarTip = CreateToolTipRect(1, _statusBar.getHSelf(), _hInst, const_cast<PTSTR>(msgDetailed.c_str()), rcToolTip);
+		}
 		return false;
 	}
 
@@ -2136,7 +2159,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 	
 	bool findAllFileNameAdded = false;
 
-	while (targetStart != -1 && targetStart != -2)
+	while (targetStart >= 0)
 	{
 		targetStart = pEditView->searchInTarget(pTextFind, stringSizeFind, findReplaceInfo._startRange, findReplaceInfo._endRange);
 
@@ -2808,6 +2831,12 @@ void FindReplaceDlg::saveInMacro(size_t cmd, int cmdType)
 
 void FindReplaceDlg::setStatusbarMessage(const generic_string & msg, FindStatus staus)
 {
+	if (_statusBarTip)
+	{
+		::DestroyWindow(_statusBarTip);
+		_statusBarTip = nullptr;
+	}
+
 	if (staus == FSNotFound)
 	{
 		if (!NppParameters::getInstance().getNppGUI()._muteSounds)

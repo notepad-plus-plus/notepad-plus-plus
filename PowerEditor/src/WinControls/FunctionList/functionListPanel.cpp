@@ -100,13 +100,13 @@ size_t FunctionListPanel::getBodyClosePos(size_t begin, const TCHAR *bodyOpenSym
 
 	do
 	{
-		if (targetStart != -1 && targetStart != -2) // found open or close symbol
+		if (targetStart >= 0) // found open or close symbol
 		{
 			targetEnd = int((*_ppEditView)->execute(SCI_GETTARGETEND));
 
 			// Now we determinate the symbol (open or close)
 			int tmpStart = (*_ppEditView)->searchInTarget(bodyOpenSymbol, lstrlen(bodyOpenSymbol), targetStart, targetEnd);
-			if (tmpStart != -1 && tmpStart != -2) // open symbol found
+			if (tmpStart >= 0) // open symbol found
 			{
 				++cntOpen;
 			}
@@ -145,7 +145,7 @@ generic_string FunctionListPanel::parseSubLevel(size_t begin, size_t end, std::v
 	const TCHAR *regExpr2search = dataToSearch[0].c_str();
 	int targetStart = (*_ppEditView)->searchInTarget(regExpr2search, lstrlen(regExpr2search), begin, end);
 
-	if (targetStart == -1 || targetStart == -2)
+	if (targetStart < 0)
 	{
 		foundPos = -1;
 		return TEXT("");

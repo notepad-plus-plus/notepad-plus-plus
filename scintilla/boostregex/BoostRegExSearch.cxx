@@ -345,13 +345,13 @@ Sci::Position BoostRegexSearch::FindText(Document* doc, Sci::Position startPosit
 	catch(boost::wrapexcept<std::runtime_error>& ex)
 	{
 		g_exceptionMessage = ex.what();
-		return -2;
+		return -3;
 	}
 
 	catch(...)
 	{
 		g_exceptionMessage = "Unexpected exception while searching";
-		return -2;
+		return -3;
 	}
 }
 

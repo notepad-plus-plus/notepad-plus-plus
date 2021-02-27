@@ -1383,8 +1383,8 @@ Notepad++会在所有安装结束后重新启动。
             <replace-in-open-docs-confirm-message value="您是否要在所有打开的文档中替换所有匹配项？"/>
             <find-result-caption value="搜索结果"/>
             <find-result-title value="搜索"/> <!-- Must not begin with space or tab character -->
-            <find-result-title-info value="（$INT_REPLACE2$个文件中匹配到$INT_REPLACE1$次，总计查找$INT_REPLACE3）"/>
-            <find-result-title-info-selections value="（$INT_REPLACE2$个选区中匹配到$INT_REPLACE1$次，总计查找$INT_REPLACE3$）"/>
+            <find-result-title-info value="（$INT_REPLACE2$个文件中匹配到$INT_REPLACE1$次，总计查找$INT_REPLACE3$次）"/>
+            <find-result-title-info-selections value="（$INT_REPLACE2$个选区中匹配到$INT_REPLACE1$次，总计查找$INT_REPLACE3$次）"/>
             <find-result-title-info-extra value=" - 仅在搜索结果中查找"/>
             <find-result-hits value="（匹配$INT_REPLACE$次）"/>
             <find-result-line-prefix value="行"/> <!-- Must not begin with space or tab character -->

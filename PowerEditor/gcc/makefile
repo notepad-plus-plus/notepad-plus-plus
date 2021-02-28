@@ -243,15 +243,15 @@ endif
 
 # Parameters
 INCLUDESPECIAL	= -include./include/various.h
-#    Comment this out for ANSI build
-UNICODE         = -DUNICODE -D_UNICODE
+UNICODE			= -DUNICODE -D_UNICODE
 
 CXX				= $(CROSS_COMPILE)g++
 #CXXFLAGS		= -O2 $(INCLUDESPECIAL)
-CXXFLAGS		= $(INCLUDESPECIAL) -DTIXML_USE_STL -DTIXMLA_USE_STL $(UNICODE) -std=c++17 -fpermissive
+CXXFLAGS		= $(INCLUDESPECIAL) -D_WIN32_WINNT=0x0600 -DTIXML_USE_STL -DTIXMLA_USE_STL $(UNICODE) -std=c++17 -fpermissive
 INCLUDES		= $(patsubst %,-I%,$(DIRS)) -I./include
 LDFLAGS			= -Wl,--subsystem,windows -municode -mwindows
 LIBS			= -lcomdlg32 -lcomctl32 -lgdi32 -lole32 -loleacc -lshell32 -lshlwapi -ldbghelp -lversion -lcrypt32 -lsensapi -lwininet -lwintrust -luuid
+LIBSCILEX		= -L$(SCI_DIR)/../bin  -lscilexer -loleaut32 -limm32 -lmsimg32
 
 RC				= $(CROSS_COMPILE)windres
 
@@ -267,8 +267,8 @@ all: NotepadPP xmlcfg
 NotepadPP: $(EXEC)
 
 $(EXEC): $(OBJS) $(OBJ_RES)
-	$(CXX) $(LDFLAGS) $^ $(LIBS) -o $@_dynamic
-	$(CXX) $(LDFLAGS) $^ $(LIBS) -static -o $@
+	$(CXX) $(LDFLAGS) $^ $(LIBSCILEX) $(LIBS) -o $@_dynamic
+	$(CXX) $(LDFLAGS) $^ $(LIBSCILEX) $(LIBS) -static -o $@
 	
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -MMD -c $< -o $@

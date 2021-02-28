@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2021-01-26 by schnurlos (schnurlos@gmail.com)
+	last modified: 2021-02-28 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -386,7 +386,7 @@
 		</Menu>
 
 		<Dialog>
-			<Find title="Suchen und ersetzen" titleFind="Suchen" titleReplace="Ersetzen" titleFindInFiles="In Dateien suchen" titleMark="Hervorheben">
+			<Find title="Suchen und ersetzen" titleFind="Suchen" titleReplace="Ersetzen" titleFindInFiles="In Dateien suchen" titleFindInProjects="In Projekten suchen" titleMark="Hervorheben">
 				<Item id="1"    name="Weiter &amp;suchen"/>
 				<Item id="1722" name="&amp;Rückwärts suchen"/>
 				<Item id="2"    name="S&amp;chließen"/>
@@ -417,7 +417,11 @@
 				<Item id="1625" name="Norma&amp;l"/>
 				<Item id="1626" name="Erwe&amp;itert (\n, \r, \t, \0, \x…)"/>
 				<Item id="1660" name="Ersetzen in Dateien"/>
+				<Item id="1665" name="Ersetzen in Projekten"/>
 				<Item id="1661" name="&amp;Ordner aktueller Datei"/>
+				<Item id="1662" name="Projekt Tafel 1"/>
+				<Item id="1663" name="Projekt Tafel 2"/>
+				<Item id="1664" name="Projekt Tafel 3"/>
 				<Item id="1641" name="Alle in aktiver &amp;Datei suchen"/>
 				<Item id="1686" name="Transparenz"/>
 				<Item id="1703" name="&amp;. findet \r und \n"/>
@@ -1062,6 +1066,7 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Za
 					<Item id="6344" name="Momentaufnahme des Dokuments"/>
 					<Item id="6345" name="Momentaufnahme in Tab"/>
 					<Item id="6346" name="Momentaufnahme in Miniaturansicht"/>
+					<Item id="6360" name="Alle Klänge stummschalten"/>
 				</MISC>
 			</Preference>
 			<MultiMacro title="Makro mehrfach ausführen">
@@ -1278,6 +1283,7 @@ Fortsetzen?"/>
 					<Item id="3126" name="Speichern unter …"/>
 					<Item id="3127" name="Kopie speichern unter …"/>
 					<Item id="3121" name="Neues Projekt hinzufügen"/>
+					<Item id="3128" name="In Projekten suchen …"/>
 				</WorkspaceMenu>
 				<ProjectMenu>
 					<Item id="3111" name="Umbenennen"/>
@@ -1368,6 +1374,8 @@ Finde in allen Dateien außer exe, obj &amp;&amp; log:
 			<common-name value="Name: "/>
 			<tabrename-title value="Akt. Register umbenennen"/>
 			<tabrename-newname value="Neuer Name: "/>
+			<splitter-rotate-left value="Nach links drehen"/>
+			<splitter-rotate-right value="Nach rechts drehen"/>
 			<recent-file-history-maxfile value="Max. Datei: "/>
 			<language-tabsize value="Registergröße: "/>
 			<userdefined-title-new value="Neue Sprache erstellen …"/>
@@ -1391,6 +1399,8 @@ Finde in allen Dateien außer exe, obj &amp;&amp; log:
 			<replace-in-files-confirm-directory value="Sind Sie sicher dass alle Vorkommen ersetzt werden sollen in: "/>
 			<replace-in-files-confirm-filetype value="Für Dateityp: "/>
 			<replace-in-files-progress-title value="Fortschritt für das Ersetzen in Dateien …"/>
+			<replace-in-projects-confirm-title value="Sind Sie sicher?"/>
+			<replace-in-projects-confirm-message value="Sollen wirklich alle Vorkommen in allen Dokumenten im gewählten Projekt ersetzt werden sollen?"/>
 			<replace-in-open-docs-confirm-title value="Sind Sie sicher?"/>
 			<replace-in-open-docs-confirm-message value="Sind Sie sicher dass alle Vorkommen in allen offenen Dokumenten ersetzt werden sollen?"/>
 			<find-result-caption value="Suchergebnisse"/>
@@ -1405,4 +1415,3 @@ Finde in allen Dateien außer exe, obj &amp;&amp; log:
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>
-

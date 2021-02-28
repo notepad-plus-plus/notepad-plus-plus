@@ -26,17 +26,7 @@
 using namespace std;
 
 // initialize the static variable
-
-// get full ScinLexer.dll path to avoid hijack
-TCHAR * getSciLexerFullPathName(TCHAR * moduleFileName, size_t len)
-{
-	::GetModuleFileName(NULL, moduleFileName, static_cast<int32_t>(len));
-	::PathRemoveFileSpec(moduleFileName);
-	::PathAppend(moduleFileName, TEXT("SciLexer.dll"));
-	return moduleFileName;
-};
-
-HINSTANCE ScintillaEditView::_hLib = loadSciLexerDll();
+bool ScintillaEditView::_SciInit = false;
 int ScintillaEditView::_refCount = 0;
 UserDefineDialog ScintillaEditView::_userDefineDlg;
 
@@ -185,37 +175,15 @@ int getNbDigits(int aNum, int base)
 	return nbChiffre;
 }
 
-TCHAR moduleFileName[1024];
-
-HMODULE loadSciLexerDll()
-{
-	generic_string sciLexerPath = getSciLexerFullPathName(moduleFileName, 1024);
-
-	// Do not check dll signature if npp is running in debug mode
-	// This is helpful for developers to skip signature checking
-	// while analyzing issue or modifying the lexer dll
-#ifndef _DEBUG
-	SecurityGard securityGard;
-	bool isOK = securityGard.checkModule(sciLexerPath, nm_scilexer);
-
-	if (!isOK)
-	{
-		::MessageBox(NULL,
-			TEXT("Authenticode check failed:\rsigning certificate or hash is not recognized"),
-			TEXT("Library verification failed"),
-			MB_OK | MB_ICONERROR);
-		return nullptr;
-	}
-#endif // !_DEBUG
-
-	return ::LoadLibrary(sciLexerPath.c_str());
-}
-
 void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 {
-	if (!_hLib)
+	if (!_SciInit)
 	{
-		throw std::runtime_error("ScintillaEditView::init : SCINTILLA ERROR - Can not load the dynamic library");
+		if (!Scintilla_RegisterClasses(hInst))
+		{
+			throw std::runtime_error("ScintillaEditView::init : SCINTILLA ERROR - Can not load the dynamic library");
+		}
+		_SciInit = true;
 	}
 
 	Window::init(hInst, hPere);

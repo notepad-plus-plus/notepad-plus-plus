@@ -3937,8 +3937,13 @@ void Finder::beginNewFilesSearch()
 	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 	_prefixLineStr = pNativeSpeaker->getLocalizedStrFromID("find-result-line-prefix", TEXT("Line"));
 
+	// Use SCI_SETSEL(0, 0) instead of SCI_SETCURRENTPOS(0) to workaround 
+	// an eventual regression or a change of behaviour in Scintilla 4.4.6
+	// ref: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/9595#issuecomment-789824579
+	//
+	_scintView.execute(SCI_SETSEL, 0, 0);
+	//_scintView.execute(SCI_SETCURRENTPOS, 0);
 
-	_scintView.execute(SCI_SETCURRENTPOS, 0);
 	_pMainFoundInfos = _pMainFoundInfos == &_foundInfos1 ? &_foundInfos2 : &_foundInfos1;
 	_pMainMarkings = _pMainMarkings == &_markings1 ? &_markings2 : &_markings1;
 	_nbFoundFiles = 0;

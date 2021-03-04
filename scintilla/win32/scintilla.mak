@@ -16,7 +16,7 @@ DIR_BIN=..\bin
 COMPONENT=$(DIR_BIN)\Scintilla.dll
 LEXCOMPONENT=$(DIR_BIN)\SciLexer.dll
 LIBSCI=$(DIR_BIN)\libscintilla.lib
-LIBLEX=$(DIR_BIN)\liblexer.lib
+LIBLEX=$(DIR_BIN)\libscilexer.lib
 
 LD=link
 

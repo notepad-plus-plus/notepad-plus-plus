@@ -14,6 +14,7 @@ DIR_BIN=../bin
 COMPONENT = $(DIR_BIN)/Scintilla.dll
 LEXCOMPONENT = $(DIR_BIN)/SciLexer.dll
 LIBSCI = $(DIR_BIN)/libscintilla.a
+LIBLEX=$(DIR_BIN)/libscilexer.a
 
 WARNINGS = -Wpedantic -Wall
 
@@ -66,10 +67,10 @@ endif
 CXX_BASE_FLAGS =--std=c++17 $(BASE_FLAGS)
 CXX_ALL_FLAGS =$(DEFINES) $(INCLUDES) $(CXX_BASE_FLAGS)
 
-all:	$(COMPONENT) $(LEXCOMPONENT) $(LIBSCI)
+all:	$(COMPONENT) $(LEXCOMPONENT) $(LIBSCI) $(LIBLEX) 
 
 clean:
-	$(DEL) *.exe *.o *.a *.obj *.dll *.res *.map *.plist $(call normalize,$(LIBSCI))
+	$(DEL) *.exe *.o *.a *.obj *.dll *.res *.map *.plist $(call normalize,$(LIBSCI)) $(call normalize,$(LIBLEX))
 
 %.o: %.cxx
 	$(CXX) $(CXX_ALL_FLAGS) $(CXXFLAGS) -c $<
@@ -164,6 +165,10 @@ $(LEXCOMPONENT): $(LEXCOMPONENT_OBJS)
 	$(CXX) $(LDFLAGS) -o $@ $(STRIPFLAG) $^ $(CXXFLAGS) $(LIBS)
 
 $(LIBSCI): $(COMPONENT_OBJS)
+	$(AR) $(ARFLAGS) $@ $^
+	$(RANLIB) $@
+
+$(LIBLEX): $(LEXCOMPONENT_OBJS)
 	$(AR) $(ARFLAGS) $@ $^
 	$(RANLIB) $@
 

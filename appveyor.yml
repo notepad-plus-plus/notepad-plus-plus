@@ -35,10 +35,10 @@ build_script:
     - if "%configuration%"=="Unicode Release" set scintilla_debug=
     - if "%archi%"=="x86" nmake %scintilla_debug% BOOSTPATH=C:\Libraries\boost_1_69_0\ BOOSTREGEXLIBPATH=C:\Libraries\boost_1_69_0\lib32-msvc-14.1\ -f scintilla.mak
     - if "%archi%"=="amd64" nmake %scintilla_debug% BOOSTPATH=C:\Libraries\boost_1_69_0\ BOOSTREGEXLIBPATH=C:\Libraries\boost_1_69_0\lib64-msvc-14.1\ -f scintilla.mak
-    - if "%Platform%"=="mingw-w64_810_X64" mingw32-make -j%NUMBER_OF_PROCESSORS%
+    - if "%Platform%"=="mingw-w64_810_X64" mingw32-make %scintilla_debug% -j%NUMBER_OF_PROCESSORS%
     - cd "%APPVEYOR_BUILD_FOLDER%"\PowerEditor\visual.net\
     - if "%archi%" NEQ "" msbuild notepadPlus.vcxproj /p:configuration="%configuration%" /p:platform="%platform_input%" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
-    - if "%Platform%"=="mingw-w64_810_X64" cd c:\projects\notepad-plus-plus\PowerEditor\gcc\ & mingw32-make -j%NUMBER_OF_PROCESSORS%
+    - if "%Platform%"=="mingw-w64_810_X64" cd c:\projects\notepad-plus-plus\PowerEditor\gcc\ & mingw32-make %scintilla_debug% -j%NUMBER_OF_PROCESSORS%
 
 
 after_build:
@@ -50,8 +50,6 @@ after_build:
 
     - ps: >-
         $nppFileName = "Notepad++.$env:PLATFORM_INPUT.$env:CONFIGURATION.exe"
-
-        #Push-AppveyorArtifact "scintilla\bin\SciLexer.dll" -FileName "SciLexer.$env:PLATFORM.$env:CONFIGURATION.dll"
 
         if ($env:PLATFORM_INPUT -eq "x64" -and $env:CONFIGURATION -eq "Unicode Release") {
             Push-AppveyorArtifact "PowerEditor\bin64\Notepad++.exe" -FileName "$nppFileName"
@@ -68,8 +66,6 @@ after_build:
         if ($env:PLATFORM_INPUT -eq "Win32" -and $env:CONFIGURATION -eq "Unicode Debug") {
             Push-AppveyorArtifact "PowerEditor\visual.net\Unicode Debug\Notepad++.exe" -FileName "$nppFileName"
 
-            #take SciLexer.dll from build since dependency of the functionlist tests on a version build with boost regex is fullfilled also for appveyor
-            Copy-Item "$env:APPVEYOR_BUILD_FOLDER\scintilla\bin\SciLexer.dll" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
             Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\visual.net\Unicode Debug\Notepad++.exe" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
             Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\src\langs.model.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
             Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\src\stylers.model.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"

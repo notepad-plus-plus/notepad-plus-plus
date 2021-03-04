@@ -181,7 +181,7 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	{
 		if (!Scintilla_RegisterClasses(hInst))
 		{
-			throw std::runtime_error("ScintillaEditView::init : SCINTILLA ERROR - Can not load the dynamic library");
+			throw std::runtime_error("ScintillaEditView::init : SCINTILLA ERROR - Scintilla_RegisterClasses failed");
 		}
 		_SciInit = true;
 	}

@@ -16,6 +16,7 @@ DIR_BIN=..\bin
 COMPONENT=$(DIR_BIN)\Scintilla.dll
 LEXCOMPONENT=$(DIR_BIN)\SciLexer.dll
 LIBSCI=$(DIR_BIN)\libscintilla.lib
+LIBLEX=$(DIR_BIN)\liblexer.lib
 
 LD=link
 
@@ -66,12 +67,12 @@ CXXFLAGS=$(CXXFLAGS) $(INCLUDES)
 
 
 
-all:	$(COMPONENT) $(LEXCOMPONENT) $(LIBSCI)
+all:	$(COMPONENT) $(LEXCOMPONENT) $(LIBSCI) $(LIBLEX)
 
 clean:
 	-del /q $(DIR_O)\*.obj $(DIR_O)\*.pdb $(DIR_O)\*.asm $(COMPONENT) $(LEXCOMPONENT) \
 	$(DIR_O)\*.res $(DIR_BIN)\*.map $(DIR_BIN)\*.exp $(DIR_BIN)\*.pdb \
-	$(DIR_BIN)\Scintilla.lib $(DIR_BIN)\SciLexer.lib $(LIBSCI)
+	$(DIR_BIN)\Scintilla.lib $(DIR_BIN)\SciLexer.lib $(LIBSCI) $(LIBLEX)
 
 depend:
 	pyw DepGen.py
@@ -295,6 +296,9 @@ $(LEXCOMPONENT): $(LEXCOMPONENT_OBJS) $(DIR_O)\ScintRes.res
 	$(LD) $(LDFLAGS) -DEF:Scintilla.def -DLL -OUT:$@ $** $(LIBS)
 
 $(LIBSCI): $(COMPONENT_OBJS)
+	LIB /OUT:$@ $**
+
+$(LIBLEX): $(LEXCOMPONENT_OBJS)
 	LIB /OUT:$@ $**
 
 # Define how to build all the objects and what they depend on

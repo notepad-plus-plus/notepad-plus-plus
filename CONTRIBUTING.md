@@ -141,8 +141,8 @@ In short: The easier the code review is, the better the chance your pull request
 
   * ###### Good:
     ```cpp
-    if (foo < I_CAN_PUSH_ON_THE_RED_BUTTON)
-        startThermoNuclearWar();
+    if (foo == I_CAN_PUSH_ON_THE_RED_BUTTON)
+        startTheNuclearWar();
     ```
 
   * ###### Bad:

@@ -1178,7 +1178,8 @@ Do you want to recover your langs.xml?"/> <!-- HowToReproduce: Close Notepad++. 
 Please remove its root from the panel before you add folder &quot;$STR_REPLACE$&quot;."/> <!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
 
             <ProjectPanelChanged title="$STR_REPLACE$" message="The workspace was modified. Do you want to save it?"/>
-            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Your workspace has not been saved."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+            <ProjectPanelSaveError title="$STR_REPLACE$" message="An error occurred while writing your workspace file.
+Your workspace has not been saved."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <ProjectPanelOpenDoSaveDirtyWsOrNot title="Open Workspace" message="The current workspace was modified. Do you want to save the current project?"/>
             <ProjectPanelNewDoSaveDirtyWsOrNot title="New Workspace" message="The current workspace was modified. Do you want to save the current project?"/>
             <ProjectPanelOpenFailed title="Open Workspace" message="The workspace could not be opened.

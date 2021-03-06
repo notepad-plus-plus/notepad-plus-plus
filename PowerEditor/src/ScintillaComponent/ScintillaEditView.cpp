@@ -2368,12 +2368,12 @@ int ScintillaEditView::searchInTargetWithReachback(const TCHAR* text2Find, size_
 	LRESULT sf = execute(SCI_GETSEARCHFLAGS);
 	if ((sf & SCFIND_REGEXP) && (fromPos < toPos))
 	{
-		size_t fp = 0;
+		size_t fp = 0;  // start searching at beginning of document
 		execute(SCI_SETTARGETRANGE, fp, toPos);
 		int fa = static_cast<int32_t>(execute(SCI_SEARCHINTARGET, len, reinterpret_cast<LPARAM>(text2FindA)));
 		while ((fa >= 0) && (fa < (int)fromPos))
 		{
-			fp = fa + 1;
+			fp = fa + ((fa > fp) ? 0 : 1);
 			execute(SCI_SETTARGETRANGE, fp, toPos);
 			fa = static_cast<int32_t>(execute(SCI_SEARCHINTARGET, len, reinterpret_cast<LPARAM>(text2FindA)));
 		}

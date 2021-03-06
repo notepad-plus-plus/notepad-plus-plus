@@ -143,6 +143,11 @@ INT_PTR CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /
 			_debugInfoStr += nppFullPath;
 			_debugInfoStr += TEXT("\r\n");
 
+			// Command line as specified for program launch
+			_debugInfoStr += TEXT("Command Line : ");
+			_debugInfoStr += nppParam.getCmdLineString();
+			_debugInfoStr += TEXT("\r\n");
+
 			// Administrator mode
 			_debugInfoStr += TEXT("Admin mode : ");
 			_debugInfoStr += (_isAdmin ? TEXT("ON") : TEXT("OFF"));
@@ -152,6 +157,12 @@ INT_PTR CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /
 			_debugInfoStr += TEXT("Local Conf mode : ");
 			bool doLocalConf = (NppParameters::getInstance()).isLocal();
 			_debugInfoStr += (doLocalConf ? TEXT("ON") : TEXT("OFF"));
+			_debugInfoStr += TEXT("\r\n");
+
+			// Cloud config directory
+			_debugInfoStr += TEXT("Cloud Config : ");
+			const generic_string& cloudPath = nppParam.getNppGUI()._cloudPath;
+			_debugInfoStr += cloudPath.empty() ? _T("OFF") : cloudPath;
 			_debugInfoStr += TEXT("\r\n");
 
 			// OS information

@@ -403,6 +403,7 @@ PWSTR stripIgnoredParams(ParamVector & params, PWSTR pCmdLine)
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 {
+	generic_string cmdLineString = pCmdLine ? pCmdLine : _T("");
 	ParamVector params;
 	parseCommandLine(pCmdLine, params);
 	PWSTR pCmdLineWithoutIgnores = stripIgnoredParams(params, pCmdLine);
@@ -452,6 +453,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 	cmdLineParams._point.y = getNumberFromParam('y', params, cmdLineParams._isPointYValid);
 
 	NppParameters& nppParameters = NppParameters::getInstance();
+
+	nppParameters.setCmdLineString(cmdLineString);
 
 	generic_string path;
 	if (getParamValFromString(FLAG_SETTINGS_DIR, params, path))

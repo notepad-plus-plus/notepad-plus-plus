@@ -1504,6 +1504,9 @@ public:
 	}
 	const CmdLineParamsDTO & getCmdLineParams() const {return _cmdLineParams;};
 
+	const generic_string& getCmdLineString() const { return _cmdLineString; }
+	void setCmdLineString(const generic_string& str) { _cmdLineString = str; }
+
 	void setFileSaveDlgFilterIndex(int ln) {_fileSaveDlgFilterIndex = ln;};
 	int getFileSaveDlgFilterIndex() const {return _fileSaveDlgFilterIndex;};
 
@@ -1731,6 +1734,7 @@ private:
 	int _nbExternalLang = 0;
 
 	CmdLineParamsDTO _cmdLineParams;
+	generic_string _cmdLineString;
 
 	int _fileSaveDlgFilterIndex = -1;
 

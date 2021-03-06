@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 7.9.3  28/Jan/2021  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 7.9.4  7/Mar/2021  by Ondřej Müller (mullero@email.cz)
 	- N++ Community:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="7.9.3">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="7.9.4">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -79,7 +79,7 @@
 				<!-- all menu item -->
 				<Commands>
 					<Item id = "41001" name = "&amp;Nový"/>
-					<Item id = "41002" name = "&amp;Otevřít"/>
+					<Item id = "41002" name = "&amp;Otevřít..."/>
 					<Item id = "41003" name = "Zavřít aktuální"/>
 					<Item id = "41004" name = "Za&amp;vřít vše"/>
 					<Item id = "41005" name = "Zavřít vše KROMĚ aktuálního dokumentu"/>
@@ -395,7 +395,7 @@
 
 		<Dialog>
 
-			<Find title = "" titleFind = "Najít" titleReplace = "Nahradit" titleFindInFiles = "Najít v souborech" titleMark="Označit">
+			<Find title = "" titleFind = "Najít" titleReplace = "Nahradit" titleFindInFiles = "Najít v souborech" titleFindInProjects = "Najít v projektech" titleMark = "Označit">
 				<!--
 				<Item id = "1" name = "Najít &gt;&gt;"/>
 				-->
@@ -438,6 +438,10 @@
 				<Item id = "1626" name = "Rozšířený (\n, \r, \t, \x..., \0)"/>
 				<Item id = "1660" name = "Nahradit v souborech"/>
 				<Item id = "1661" name = "Podle aktuál. dokumentu"/>
+				<Item id = "1662" name = "Projektový panel 1"/>
+				<Item id = "1663" name = "Projektový panel 2"/>
+				<Item id = "1664" name = "Projektový panel 3"/>
+				<Item id = "1665" name = "Nahradit v projektech"/>
 				<Item id = "1686" name = "Průhle&amp;dnost"/>
 				<Item id = "1703" name = "&amp;. označuje nový ř."/>
 				<Item id = "1721" name = "▲"/> 
@@ -620,9 +624,9 @@
 					<Item id = "44066" name = "Rozbalit Úroveň 6"/>
 					<Item id = "44067" name = "Rozbalit Úroveň 7"/>
 					<Item id = "44068" name = "Rozbalit Úroveň 8"/>
-					<Item id = "44081" name = "Přepnout na Projektový Panel 1"/>
-					<Item id = "44082" name = "Přepnout na Projektový Panel 2"/>
-					<Item id = "44083" name = "Přepnout na Projektový Panel 3"/>
+					<Item id = "44081" name = "Přepnout na Projektový panel 1"/>
+					<Item id = "44082" name = "Přepnout na Projektový panel 2"/>
+					<Item id = "44083" name = "Přepnout na Projektový panel 3"/>
 					<Item id = "44085" name = "Přepnout na Složku jako Pracovní plochu"/>
 					<Item id = "44080" name = "Přepnout Mapu dokumentů"/>
 					<Item id = "44084" name = "Přepnout Seznam funkcí"/>
@@ -1034,6 +1038,7 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id = "6346" name = "Na přehledné mapě dokumentu"/>
 					<Item id = "6349" name = "Používat DirectWrite (může zlepšit zobrazení speciálních znaků, vyžadován restart Notepadu++)"/>
 					<Item id = "6351" name = "Nastavit filtr přípony souboru v dialogu Uložit na *.*"/>
+					<Item id = "6360" name = "Ztlumit všechny zvuky"/>
 				</MISC>
 				<Backup title = "Zálohování">
 					<Item id = "6219" name = "Uživatelsky definovaný adresář pro zálohování"/>
@@ -1209,7 +1214,8 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 			<LoadLangsFailedFinal title = "Konfigurátor" message = "Nepodařilo se načíst soubor langs.xml!"/>
 			<FolderAsWorspaceSubfolderExists title = "Problém s přidávaním složek do Složky jako pracovní plochy" message = "Podsložka složky, kterou chcete přidat, již existuje. Odeberte její kořenovou složku prosím z panelu předtím, než přidáte složku &quot;$STR_REPLACE$&quot;."/>
 			<ProjectPanelChanged title = "$STR_REPLACE$" message = "Pracovní plocha byla modifikována. Přejete si ji uložit?"/>
-			<ProjectPanelChangedSaveError title = "$STR_REPLACE$" message = "Vaše pracovní plocha nebyla uložena."/>
+			<ProjectPanelSaveError title="$STR_REPLACE$" message="Při ukládání souboru Vaší pracovní plochy došlo k chybě. 
+Vaše pracovní plocha nebyla uložena."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<ProjectPanelOpenDoSaveDirtyWsOrNot title = "Otevření pracovní plochy" message = "Nyní používaná pracovní plocha byla modifikována. Přejete si uložit současný projekt?"/>
 			<ProjectPanelNewDoSaveDirtyWsOrNot title = "Nová pracovní plocha" message = "Nyní používaná pracovní plocha byla modifikována. Přejete si uložit současný projekt?"/>
 			<ProjectPanelOpenFailed title = "Otevření pracovní plochy" message = "Pracovní plocha nemohla být načtena. Vypadá to, že soubor k otevření není platnou pracovní plochou."/>
@@ -1304,6 +1310,7 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id = "3126" name = "Uložit jako..."/>
 					<Item id = "3127" name = "Uložit kopii jako..."/>
 					<Item id = "3121" name = "Přidat nový projekt"/>
+					<Item id = "3128" name = "Najít v projektech..."/>
 				</WorkspaceMenu>
 				<ProjectMenu>
 					<Item id = "3111" name = "Přejmenovat"/>
@@ -1393,6 +1400,8 @@ Najít ve všech souborech mimo exe, obj &amp;&amp; log:
 			<common-name value = "Jméno: "/>
 			<tabrename-title value = "Přejmenovat aktuální záložku (Tab)"/>
 			<tabrename-newname value = "Nové jméno: "/>
+			<splitter-rotate-left value="Otočit doleva"/>
+			<splitter-rotate-right value="Otočit doprava"/>
 			<recent-file-history-maxfile value = "Max. soubor: "/>
 			<language-tabsize value = "Velikost záložky (Tab): "/>
 			<userdefined-title-new value = "Vytvořit novou syntaxi..."/>
@@ -1416,6 +1425,8 @@ Najít ve všech souborech mimo exe, obj &amp;&amp; log:
 			<replace-in-files-confirm-directory value = "Jste si jistí, že chcete nahradit všechny výskyty v:"/>
 			<replace-in-files-confirm-filetype value = "Pro typ souboru:"/>
 			<replace-in-files-progress-title value = "Průběh zaměňování v souborech ..."/>
+			<replace-in-projects-confirm-title value = "Jste si jistí?"/>
+			<replace-in-projects-confirm-message value = "Chcete zaměnit všechny výskyty ve všech dokumentech vybraných projektových panelů?"/>
 			<replace-in-open-docs-confirm-title value = "Jste si jistí?"/>
 			<replace-in-open-docs-confirm-message value = "Opravdu chcete zaměnit všechny výskyty ve všech otevřených dokumentech?"/>
 			<find-result-caption value = "Výsledky vyhledávání"/>

@@ -1172,7 +1172,7 @@ Updated to v7.9.4:
 			<ConfirmSaveAs               title="Подтверждение &quot;Сохранить как...&quot;" message="$STR_REPLACE$ уже существует.&#x0A;Вы хотите его заменить?"/>
 
 			<ProjectPanelChanged                 title="$STR_REPLACE$"                message="Рабочая область была изменена.&#x0A;Вы хотите сохранить её?"/>
-			<ProjectPanelChangedSaveError        title="$STR_REPLACE$"                message="Ваше рабочая область не сохранена."/>
+			<ProjectPanelSaveError               title="$STR_REPLACE$"                message="Произошла ошибка при записи файла рабочей области.&#x0A;Ваша рабочая область не была сохранена."/>
 			<ProjectPanelOpenDoSaveDirtyWsOrNot  title="Открытие Рабочей Области"     message="Текущая рабочая область была изменена.&#x0A;Вы хотите сохранить текущий проект?"/>
 			<ProjectPanelNewDoSaveDirtyWsOrNot   title="Новая Рабочая Область"        message="Текущая рабочая область была изменена.&#x0A;Вы хотите сохранить текущий проект?"/>
 			<ProjectPanelOpenFailed              title="Открытие Рабочей Области"     message="Не удалось открыть рабочую область.&#x0A;Файл, который нужно открыть, не является файлом проекта."/>

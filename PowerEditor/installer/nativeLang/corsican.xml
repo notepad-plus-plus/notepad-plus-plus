@@ -4,7 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
-		- Updated on February 28th, 2021 for version 7.9.4 by Patriccollu di Santa Maria è Sichè
+		- Updated on March 7th, 2021 for version 7.9.4 by Patriccollu di Santa Maria è Sichè
 		- Updated on January 27th, 2021 for version 7.9.3 by Patriccollu di Santa Maria è Sichè
 		- Updated on November 4th, 2020 for version 7.9.2 by Patriccollu di Santa Maria è Sichè
 		- Updated on September 16th, 2020 for version 7.9.1 by Patriccollu di Santa Maria è Sichè
@@ -1202,7 +1202,8 @@ Vulete ricuperà u vostru langs.xml ?"/> <!-- HowToReproduce: Close Notepad++. 
 Ci vole à caccià a so radica da u pannellu nanzu d’aghjunghje u cartulare « $STR_REPLACE$ »."/> <!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
 
             <ProjectPanelChanged title="$STR_REPLACE$" message="U spaziu di travagliu hè statu mudificatu. Vulete arregistrallu ?"/>
-            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="U vostru spaziu di travagliu ùn hè micca statu arregistratu."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+            <ProjectPanelSaveError title="$STR_REPLACE$" message="Un sbagliu hè accadutu à a scrittura di u schedariu di u spaziu di travagliu..
+U vostru spaziu di travagliu ùn hè micca statu arregistratu."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <ProjectPanelOpenDoSaveDirtyWsOrNot title="Apre u spaziu di travagliu" message="U spaziu di travagliu attuale hè statu mudificatu. Vulete arregistrà u prughjettu attuale ?"/>
             <ProjectPanelNewDoSaveDirtyWsOrNot title="Novu spaziu di travagliu" message="U spaziu di travagliu attuale hè statu mudificatu. Vulete arregistrà u prughjettu attuale ?"/>
             <ProjectPanelOpenFailed title="Apre u spaziu di travagliu" message="U spaziu di travagliu ùn pò micca esse apertu.

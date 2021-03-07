@@ -3,10 +3,10 @@
 Dutch localization for Notepad++ 7.9.3
 Modifications on 2018-03-26 by Klaas Nekeman (knekeman(at)gmail.com).
 Modifications on 2020-05-26 by xylographe <wr86420@gmail.com>.
-Last modified on 2021-03-07 by Thomas De Rocker (RockyTDR).
+Last modified on 2021-02-28 by Thomas De Rocker (RockyTDR).
 -->
 <NotepadPlus>
-    <Native-Langue name="Nederlands" filename="dutch.xml" version="7.9.3">
+    <Native-Langue name="Nederlands" filename="dutch.xml" version="7.9.4">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -79,7 +79,7 @@ Last modified on 2021-03-07 by Thomas De Rocker (RockyTDR).
                 <!-- all menu items -->
                 <Commands>
                     <Item id="41001" name="&amp;Nieuw"/>
-                    <Item id="41002" name="&amp;Openen"/>
+                    <Item id="41002" name="&amp;Openen..."/>
                     <Item id="41019" name="in Windows Verkenner"/>
                     <Item id="41020" name="in opdrachtprompt"/>
                     <Item id="41025" name="Map als werkruimte"/>

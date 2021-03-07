@@ -374,7 +374,7 @@
 		</Menu>
 
 		<Dialog>
-			<Find title="" titleFind="Bul" titleReplace="Değiştir" titleFindInFiles="Dosyalarda Bul" titleMark="İşaretle">
+			<Find title="" titleFind="Bul" titleReplace="Değiştir" titleFindInFiles="Dosyalarda Bul" titleFindInProjects="Projelerde Bul" titleMark="İşaretle">
 				<Item id="1" name="&amp;Sonrakini Bul"/>
 				<Item id="1722" name="Geriye Doğru"/>
 				<Item id="2" name="&amp;Kapat"/>
@@ -408,7 +408,11 @@
 			 	<Item id="1625" name="&amp;Normal"/>
 			 	<Item id="1626" name="&amp;Genişletilmiş (\r, \n, \t, \0, \x…)"/>
 			 	<Item id="1660" name="Dosyalarda Değiştir"/>
-				<Item id="1661" name="Geçerli belgeyi takip et"/>
+				<Item id="1665" name="Projelerde Değiştir"/>
+				<Item id="1661" name="Geçerli Belgeyi Takip Et"/>
+				<Item id="1662" name="Proje Paneli 1"/>
+				<Item id="1663" name="Proje Paneli 2"/>
+				<Item id="1664" name="Proje Paneli 3"/>
 			 	<Item id="1641" name="Geçerli Belgede Tümünü Bul"/>
 			 	<Item id="1686" name="Saydamlaş&amp;tır"/>
 				<Item id="1703" name="&amp;. yeni satırı eşle"/>
@@ -1175,7 +1179,8 @@ Kendi langs.xml dosyanızı kurtarmak ister misiniz?"/>
 &quot;$STR_REPLACE$&quot; klasörünü eklemeden önce Panelden ana klasörü kaldırın."/>
 
             <ProjectPanelChanged title="$STR_REPLACE$" message="Çalışma alanı değiştirildi. Kaydetmek istiyor musunuz?"/>
-            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Çalışma alanınız kaydedilemedi."/>
+            <ProjectPanelSaveError title="$STR_REPLACE$" message="Çalışma alanı dosyanız yazılırken bir hata oluştu.
+Çalışma alanınız kaydedilemedi."/> <!-- NasılTekrarlanır: bu mesaj sistem hatasını önler. Tekrarlaması zor. -->
             <ProjectPanelOpenDoSaveDirtyWsOrNot title="Çalışma Alanı Aç" message="Şu anki çalışma alanı değiştirildi. Şu anki projeyi kaydetmek istiyor musunuz?"/>
             <ProjectPanelNewDoSaveDirtyWsOrNot title="Yeni Çalışma Alanı" message="Şu anki çalışma alanı değiştirildi. Şu anki projeyi kaydetmek istiyor musunuz?"/>
             <ProjectPanelOpenFailed title="Çalışma Alanı Aç" message="Çalışma alanı açılamadı.
@@ -1270,6 +1275,7 @@ Devam edilsin mi?"/>
 					<Item id="3126" name="Farklı Kaydet"/>
 					<Item id="3127" name="Kopya Olarak Kaydet"/>
 					<Item id="3121" name="Yeni Proje Ekle"/>
+					<Item id="3128" name="Projelerde Bul..."/>
 				</WorkspaceMenu>
 				<ProjectMenu>
 					<Item id="3111" name="Yeniden adlandır"/>
@@ -1385,6 +1391,8 @@ Devam edilsin mi?"/>
 			<replace-in-files-confirm-directory value="Şuradaki tüm bulunanları değiştirmek istediğinize emin misiniz :"/>
 			<replace-in-files-confirm-filetype value="Dosya türü için :"/>
 			<replace-in-files-progress-title value="Dosyalarda Değiştir işleniyor..."/>
+			<replace-in-projects-confirm-title value="Emin misiniz?"/>
+			<replace-in-projects-confirm-message value="Seçili Proje Panellerinin içindeki tüm dosyalardaki tüm eşleşmeleri değiştirmek istediğine emin misiniz?"/>
 			<replace-in-open-docs-confirm-title value="Emin misiniz?"/>
 			<replace-in-open-docs-confirm-message value="Açık tüm dosyalardaki tüm eşleşmeleri değiştirmek istediğine emin misiniz?"/>
 			<find-result-caption value="Arama Sonuçları"/>

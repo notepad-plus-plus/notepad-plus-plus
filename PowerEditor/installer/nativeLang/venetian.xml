@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     Venetian translation for Notepad++
-    Last modified Tho, January 28th, 2021.
+    Last modified Sun, March 7th, 2021.
 	Translators: 2019-xxxx, Matteo Concato (Conky77)
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 	The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="Vèneto" filename="venetian.xml" version="7.9.3">
+    <Native-Langue name="Vèneto" filename="venetian.xml" version="7.9.4">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -380,7 +380,7 @@
         </Menu>
 
 		<Dialog>
-            <Find title="" titleFind="Cata" titleReplace="Sostituisi" titleFindInFiles="Ruma inte i file" titleMark="Evidensia">
+            <Find title="" titleFind="Cata" titleReplace="Sostituisi" titleFindInFiles="Ruma inte i file" titleFindInProjects="Ruma inte'l progeto" titleMark="Evidensia">
                 <Item id="1" name="Cata el Seguente"/>
                 <Item id="1722" name="Cata el Presedente"/>
                 <Item id="2" name="Sara su"/>
@@ -411,7 +411,12 @@
                 <Item id="1625" name="Normaƚe"/>
                 <Item id="1626" name="Sƚargà (\n, \r, \t, \0, \x...)"/>
                 <Item id="1660" name="Sostituisi inte i file"/>
+				<Item id="1665" name="Sostituisi inte i Progeti"/>
                 <Item id="1661" name="Segui documento corente"/>
+                <Item id="1662" name="Paneƚo de el Progeto 1"/>
+                <Item id="1663" name="Paneƚo de el Progeto 2"/>
+                <Item id="1664" name="Paneƚo de el Progeto 3"/>
+
                 <Item id="1641" name="Cata tuto cuanto inte&apos;l documento corente"/>
                 <Item id="1686" name="T&amp;rasparensa"/>
                 <Item id="1703" name="&amp;. vol dire &apos;a capo&apos;"/>
@@ -1056,6 +1061,7 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
                     <Item id="6344" name="Anteprima documenti"/>
                     <Item id="6345" name="Anteprima so ƚe schede"/>
                     <Item id="6346" name="Anteprima so ƚa mapa documento"/>
+					<Item id="6360" name="Fa star xiti tuti cuanti i soni"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Exegui macro pì volte">
@@ -1176,8 +1182,9 @@ Vuto ripristinare el file langs.xml?"/> <!-- HowToReproduce: Close Notepad++. Us
 Rimovi ƚa carteƚa da&apos;l paneƚo vanti de xontare &quot;$STR_REPLACE$&quot;."/>  <!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
 
             <ProjectPanelChanged title="$STR_REPLACE$" message="El workspace el xe stà modifegà. Vuto salvarƚo?"/>
-            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="El to workspace no&apos;l xe stà salvà."/>  <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-            <ProjectPanelOpenDoSaveDirtyWsOrNot title="Vèrxi Workspace" message="El workspace corente el xe stà modifegà. Vuto salvare el progeto corente?"/>
+            <ProjectPanelSaveError title="$STR_REPLACE$" message="An error occurred while writing your workspace file.
+Your workspace has not been saved."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<ProjectPanelOpenDoSaveDirtyWsOrNot title="Vèrxi Workspace" message="El workspace corente el xe stà modifegà. Vuto salvare el progeto corente?"/>
             <ProjectPanelNewDoSaveDirtyWsOrNot title="Novo Workspace" message="El workspace corente el xe stà xà modifegà. Vuto salvare el progeto corente?"/>
             <ProjectPanelOpenFailed title="Vèrxi Workspace" message="El workspace no&apos;l poƚe èsare vèrto.
 Senbra che el file da vèrxare no&apos;l sia on file de progeto vaƚido."/>
@@ -1271,6 +1278,7 @@ Vuto continuare?"/>
                     <Item id="3126" name="Salva cofà..."/>
                     <Item id="3127" name="Salva na còpia cofà..."/>
                     <Item id="3121" name="Xonta novo progeto"/>
+                    <Item id="3128" name="Cata inte i Progeti..."/>
                 </WorkspaceMenu>
                 <ProjectMenu>
                     <Item id="3111" name="Rinomina"/>
@@ -1361,6 +1369,8 @@ Ruma en tuti i file a ecesion exe, obj &amp;&amp; log:
             <common-name value="Nòme: "/>
             <tabrename-title value="Rinomina tab corente"/>
             <tabrename-newname value="Novo nòme: "/>
+            <splitter-rotate-left value="Menare a sanca"/>
+            <splitter-rotate-right value="Menare a drita"/>
             <recent-file-history-maxfile value="File max: "/>
             <language-tabsize value="Dimension Tabuƚasion: "/>
             <userdefined-title-new value="Crea novo ƚenguagio..."/>
@@ -1380,6 +1390,8 @@ Ruma en tuti i file a ecesion exe, obj &amp;&amp; log:
             <summary-nbsel2 value=" byte) en "/>
             <summary-nbrange value=" intervaƚi"/>
 			<find-in-files-progress-title value="Serca nei file en corso..."/>
+            <replace-in-projects-confirm-title value="Sito sicuro?"/>
+            <replace-in-projects-confirm-message value="Sito sicuro de voƚer sostituire tute cuante ƚe ocorense in tuti cuanti i documenti inte i paneƚi de i progeti selesionà?"/>
             <replace-in-files-confirm-title value="Sito sicuro?"/>
             <replace-in-files-confirm-directory value="Sito sicuro de voƚer sostituire tute cuante ƚe ocorense en:"/>
             <replace-in-files-confirm-filetype value="Par i tipi de file:"/>

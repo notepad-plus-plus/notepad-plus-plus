@@ -1135,7 +1135,7 @@ Voulez-vous récupérer &quot;langs.xml&quot; ?"/>
 Veuillez supprimer le sous-dossier avant d'ajouter &quot;$STR_REPLACE$&quot;."/>
 
             <ProjectPanelChanged title="$STR_REPLACE$" message="L'espace de travail a été modifié. Voulez-vous l'enregistrer ?"/>
-            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Une erreur s'est produite lors de l'écriture de votre fichier d'espace de travail. Votre espace de travail n'a pas encore été sauvegardé."/>
+            <ProjectPanelSaveError title="$STR_REPLACE$" message="Une erreur s'est produite lors de l'écriture de votre fichier d'espace de travail. Votre espace de travail n'a pas encore été sauvegardé."/>
             <ProjectPanelOpenDoSaveDirtyWsOrNot title="Ouvrir espace de travail" message="L'espace de travail actuel a été modifié. Voulez-vous enregistrer le projet actuel ?"/>
             <ProjectPanelNewDoSaveDirtyWsOrNot title="Nouvel espace de travail" message="L'espace de travail actuel a été modifié. Voulez-vous enregistrer le projet actuel ?"/>
             <ProjectPanelOpenFailed title="Ouvrir espace de travail" message="L'espace de travail n'a pas pu être ouvert.

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 7.9.4  28/Feb/2021  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 7.9.4  7/Mar/2021  by Ondřej Müller (mullero@email.cz)
 	- N++ Community:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 -->
@@ -79,7 +79,7 @@
 				<!-- all menu item -->
 				<Commands>
 					<Item id = "41001" name = "&amp;Nový"/>
-					<Item id = "41002" name = "&amp;Otevřít"/>
+					<Item id = "41002" name = "&amp;Otevřít..."/>
 					<Item id = "41003" name = "Zavřít aktuální"/>
 					<Item id = "41004" name = "Za&amp;vřít vše"/>
 					<Item id = "41005" name = "Zavřít vše KROMĚ aktuálního dokumentu"/>
@@ -1214,7 +1214,8 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 			<LoadLangsFailedFinal title = "Konfigurátor" message = "Nepodařilo se načíst soubor langs.xml!"/>
 			<FolderAsWorspaceSubfolderExists title = "Problém s přidávaním složek do Složky jako pracovní plochy" message = "Podsložka složky, kterou chcete přidat, již existuje. Odeberte její kořenovou složku prosím z panelu předtím, než přidáte složku &quot;$STR_REPLACE$&quot;."/>
 			<ProjectPanelChanged title = "$STR_REPLACE$" message = "Pracovní plocha byla modifikována. Přejete si ji uložit?"/>
-			<ProjectPanelChangedSaveError title = "$STR_REPLACE$" message = "Vaše pracovní plocha nebyla uložena."/>
+			<ProjectPanelSaveError title="$STR_REPLACE$" message="Při ukládání souboru Vaší pracovní plochy došlo k chybě. 
+Vaše pracovní plocha nebyla uložena."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<ProjectPanelOpenDoSaveDirtyWsOrNot title = "Otevření pracovní plochy" message = "Nyní používaná pracovní plocha byla modifikována. Přejete si uložit současný projekt?"/>
 			<ProjectPanelNewDoSaveDirtyWsOrNot title = "Nová pracovní plocha" message = "Nyní používaná pracovní plocha byla modifikována. Přejete si uložit současný projekt?"/>
 			<ProjectPanelOpenFailed title = "Otevření pracovní plochy" message = "Pracovní plocha nemohla být načtena. Vypadá to, že soubor k otevření není platnou pracovní plochou."/>

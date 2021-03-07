@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="English" filename="english.xml" version="7.9.3">
+    <Native-Langue name="English" filename="english.xml" version="7.9.4">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -76,7 +76,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <!-- all menu item -->
                 <Commands>
                     <Item id="41001" name="&amp;New"/>
-                    <Item id="41002" name="&amp;Open"/>
+                    <Item id="41002" name="&amp;Open..."/>
                     <Item id="41019" name="Explorer"/>
                     <Item id="41020" name="cmd"/>
                     <Item id="41025" name="Folder as Workspace"/>

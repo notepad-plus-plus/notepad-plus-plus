@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="français" filename="french.xml" version="7.9.3">
+    <Native-Langue name="français" filename="french.xml" version="7.9.4">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -359,7 +359,7 @@
             </TabBar>
         </Menu>
         <Dialog>
-            <Find title="" titleFind="Rechercher" titleReplace="Remplacer" titleFindInFiles="Rechercher dans les fichiers d'un dossier" titleMark="Marquer">
+            <Find title="" titleFind="Rechercher" titleReplace="Remplacer" titleFindInFiles="Rechercher dans les fichiers" titleFindInProjects="Rechercher dans les projets" titleMark="Marquer">
                 <Item id="1" name="Suivant"/>
                 <Item id="1722" name="Rechercher vers l'arrière"/>
                 <Item id="1603" name="Mot entier &amp;uniquement"/>
@@ -388,7 +388,11 @@
                 <Item id="1658" name="Sous-dossiers"/>
                 <Item id="1659" name="Dossiers cachés"/>
                 <Item id="1660" name="Remplacer tout"/>
+                <Item id="1665" name="Remplacer tout"/>
                 <Item id="1661" name="Suivre le doc. actuel"/>
+                <Item id="1662" name="Panneau de Projet #1"/>
+                <Item id="1663" name="Panneau de Projet #2"/>
+                <Item id="1664" name="Panneau de Projet #3"/>
                 <Item id="1686" name="Transparence"/>
                 <Item id="1687" name="à la perte du focus"/>
                 <Item id="1688" name="persistante"/>
@@ -1017,6 +1021,7 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                     <Item id="6344" name="Aperçu du document"/>
                     <Item id="6345" name="Aperçu à onglet"/>
                     <Item id="6346" name="Aperçu à commutateur de documents"/>
+                    <Item id="6360" name="Chut !"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Exécuter une macro en boucle">
@@ -1130,7 +1135,7 @@ Voulez-vous récupérer &quot;langs.xml&quot; ?"/>
 Veuillez supprimer le sous-dossier avant d'ajouter &quot;$STR_REPLACE$&quot;."/>
 
             <ProjectPanelChanged title="$STR_REPLACE$" message="L'espace de travail a été modifié. Voulez-vous l'enregistrer ?"/>
-            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Votre espace de travail n'a pas encore été enregistré."/>
+            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Une erreur s'est produite lors de l'écriture de votre fichier d'espace de travail. Votre espace de travail n'a pas encore été sauvegardé."/>
             <ProjectPanelOpenDoSaveDirtyWsOrNot title="Ouvrir espace de travail" message="L'espace de travail actuel a été modifié. Voulez-vous enregistrer le projet actuel ?"/>
             <ProjectPanelNewDoSaveDirtyWsOrNot title="Nouvel espace de travail" message="L'espace de travail actuel a été modifié. Voulez-vous enregistrer le projet actuel ?"/>
             <ProjectPanelOpenFailed title="Ouvrir espace de travail" message="L'espace de travail n'a pas pu être ouvert.
@@ -1225,6 +1230,7 @@ Voulez-vous les poursuivez ?"/>
                     <Item id="3125" name="Enregistrer"/>
                     <Item id="3126" name="Enregistrer sous..."/>
                     <Item id="3127" name="Enregistrer une copie..."/>
+                    <Item id="3128" name="Rechercher dans les projets..."/>
                 </WorkspaceMenu>
                 <ProjectMenu>
                     <Item id="3111" name="Renommer"/>
@@ -1301,6 +1307,8 @@ Rechercher dans tous les fichiers sauf exe, obj &amp;&amp; log:
             <find-status-scope-backward value="du début du fichier au curseur"/>
             <find-status-scope-forward value="du curseur à la fin du fichier"/>
             <finder-find-in-finder value="Rechercher dans les résultats..."/>
+            <replace-in-projects-confirm-title value="Confirmation"/>
+            <replace-in-projects-confirm-message value="Voulez-vous remplacer toutes les occurrences dans tous les documents de(s) projet(s) sélectionné(s) ?"/>
             <finder-close-this value="Fermer le dialogue des résultats"/>
             <finder-collapse-all value="Replier tout"/>
             <finder-uncollapse-all value="Déplier tout"/>
@@ -1315,6 +1323,8 @@ Rechercher dans tous les fichiers sauf exe, obj &amp;&amp; log:
             <common-name value="Nom : "/>
             <tabrename-title value="Renommer onglet actuel"/>
             <tabrename-newname value="Nom nouveau : "/>
+            <splitter-rotate-left value="Tourner vers la gauche"/>
+            <splitter-rotate-right value="Tourner vers la droite"/>
             <recent-file-history-maxfile value="Max. fichier : "/>
             <language-tabsize value="Taille tabulation : "/>
             <userdefined-title-new value="Langage nouveau..."/>

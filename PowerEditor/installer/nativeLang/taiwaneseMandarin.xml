@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="7.9.3">
+    <Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="7.9.4">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -358,7 +358,7 @@
             </TabBar>
         </Menu>
         <Dialog>
-            <Find title="" titleFind="尋找" titleReplace="取代" titleFindInFiles="在多個檔案中尋找" titleMark="標記">
+            <Find title="" titleFind="尋找" titleReplace="取代" titleFindInFiles="在多個檔案中尋找" titleFindInProjects="在專案中多個檔案中尋找" titleMark="標記">
                 <Item id="1"    name="找下一個"/>
                 <Item id="1722" name="向上搜尋"/>
                 <Item id="2"    name="關閉"/>
@@ -389,7 +389,11 @@
                 <Item id="1625" name="一般"/>
                 <Item id="1626" name="延伸（\n, \r, \t, \0, \x...）"/>
                 <Item id="1660" name="在多個檔案中取代"/>
+                <Item id="1665" name="在專案中多個檔案中取代"/>
                 <Item id="1661" name="使用目前文件資料夾位置"/>
+                <Item id="1662" name="專案管理員 1"/>
+                <Item id="1663" name="專案管理員 2"/>
+                <Item id="1664" name="專案管理員 3"/>
                 <Item id="1641" name="在目前文件中全部尋找"/>
                 <Item id="1686" name="透明"/>
                 <Item id="1703" name="「.」包含換行字元"/>
@@ -1024,6 +1028,7 @@
                     <Item id="6344" name="窺視檔案"/>
                     <Item id="6345" name="於頁籤窺視檔案"/>
                     <Item id="6346" name="於文件導覽窺視檔案"/>
+                    <Item id="6360" name="靜音"/>
                 </MISC>
             </Preference>
 
@@ -1130,7 +1135,7 @@
 您必須從資料夾工作區中刪除該資料夾，才可添加「$STR_REPLACE$」。"/>
 
             <ProjectPanelChanged title="$STR_REPLACE$" message="工作區已被修改。您要儲存它嗎？"/>
-            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="工作區儲存失敗。"/>
+            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="寫入工作區文件時發生錯誤。工作區儲存失敗。"/>
             <ProjectPanelOpenDoSaveDirtyWsOrNot title="開啟工作區" message="目前的工作區已被修改。您要儲存目前的專案嗎？"/>
             <ProjectPanelNewDoSaveDirtyWsOrNot title="新工作區" message="目前的工作區已被修改。您要儲存目前的專案嗎？"/>
             <ProjectPanelOpenFailed title="無法開啟工作區" message="工作區檔案無效或已被損毀。"/>
@@ -1210,6 +1215,7 @@
                     <Item id="3126" name="另存新檔..."/>
                     <Item id="3127" name="另存複本..."/>
                     <Item id="3121" name="新增專案"/>
+                    <Item id="3128" name="在專案中多個檔案中尋找..."/>
                 </WorkspaceMenu>
                 <ProjectMenu>
                     <Item id="3111" name="重新命名"/>
@@ -1298,6 +1304,8 @@
             <common-name value="名稱："/>
             <tabrename-title value="重新命名現有頁籤"/>
             <tabrename-newname value="新的名稱："/>
+            <splitter-rotate-left value="向左旋轉"/>
+            <splitter-rotate-right value="向右旋轉"/>
             <recent-file-history-maxfile value="最大數量："/>
             <language-tabsize value="TAB 大小："/>
             <userdefined-title-new value="開新語言"/>
@@ -1322,6 +1330,8 @@
             <replace-in-files-confirm-directory value="是否要替換所有匹配項在此目錄中："/>
             <replace-in-files-confirm-filetype value="向所有擁有下列副檔名的檔案："/>
             <replace-in-files-progress-title value="在多個檔案中取代中..."/>
+            <replace-in-projects-confirm-title value="確認"/>
+            <replace-in-projects-confirm-message value="是否要替換所選專案項目中所有文檔中的所有匹配項？"/>
             <replace-in-open-docs-confirm-title value="替換確認"/>
             <replace-in-open-docs-confirm-message value="您確定要替換所有打開的文檔中的所有匹配項嗎？"/>
             <find-result-caption value="搜尋結果"/>

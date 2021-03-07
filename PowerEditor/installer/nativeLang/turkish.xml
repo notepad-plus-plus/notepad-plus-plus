@@ -415,7 +415,7 @@
 				<Item id="1664" name="Proje Paneli 3"/>
 			 	<Item id="1641" name="Geçerli Belgede Tümünü Bul"/>
 			 	<Item id="1686" name="Saydamlaş&amp;tır"/>
-				<Item id="1703" name="&amp;. yeni satırı eşle"/>
+				<Item id="1703" name="&amp;. Yeni Satırı Eşle"/>
 				<Item id="1721" name="▲"/>
 				<Item id="1723" name="▼ Sonrakini Bul"/>
 				<Item id="1725" name="İşaretli Yazıyı Kopyala"/>
@@ -1392,7 +1392,7 @@ Devam edilsin mi?"/>
 			<replace-in-files-confirm-filetype value="Dosya türü için :"/>
 			<replace-in-files-progress-title value="Dosyalarda Değiştir işleniyor..."/>
 			<replace-in-projects-confirm-title value="Emin misiniz?"/>
-			<replace-in-projects-confirm-message value="Seçili Proje Panellerinin içindeki tüm dosyalardaki tüm eşleşmeleri değiştirmek istediğine emin misiniz?"/>
+			<replace-in-projects-confirm-message value="Seçili Proje Panellerinin içindeki tüm dosyalardaki tüm eşleşmeleri değiştirmek istediğinize emin misiniz?"/>
 			<replace-in-open-docs-confirm-title value="Emin misiniz?"/>
 			<replace-in-open-docs-confirm-message value="Açık tüm dosyalardaki tüm eşleşmeleri değiştirmek istediğine emin misiniz?"/>
 			<find-result-caption value="Arama Sonuçları"/>

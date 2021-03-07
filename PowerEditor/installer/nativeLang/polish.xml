@@ -5,7 +5,7 @@ The comments are here for explanation, it's not necessary to translate them.
 <!--
     History of Polish translation for Notepad++:
 
-        - Updated by Arkadiusz Michalski (webref.pl) to version 7.9.3 (27.01.2021)
+        - Updated by Arkadiusz Michalski (webref.pl) to version 7.9.4 (07.03.2021)
         - Updated by Cezariusz Marek to version 7.8.3 (11.01.2020)
         - Translated by Patryk Skorupa (ppskorupa@outlook.com) and up-to-date as of version 7.7.2 (29/07/2019)
     
@@ -13,7 +13,7 @@ The comments are here for explanation, it's not necessary to translate them.
         https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/polish.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="polski" filename="polish.xml" version="7.9.3">
+    <Native-Langue name="polski" filename="polish.xml" version="7.9.4">
         <Menu>
             <Main>
                 <!-- Główne menu -->
@@ -86,7 +86,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <!-- Menu rozwijane, dokładniej -->
                 <Commands>
                     <Item id="41001" name="&amp;Nowy"/>
-                    <Item id="41002" name="&amp;Otwórz"/>
+                    <Item id="41002" name="&amp;Otwórz..."/>
                     <Item id="41019" name="W eksploratorze plików"/>
                     <Item id="41020" name="W wierszu poleceń"/>
                     <Item id="41025" name="W obszarze roboczym"/>
@@ -386,7 +386,7 @@ The comments are here for explanation, it's not necessary to translate them.
         </Menu>
 
         <Dialog>
-            <Find title="" titleFind="Szukaj" titleReplace="Zastąp" titleFindInFiles="Szukaj w plikach" titleMark="Oznacz">
+            <Find title="" titleFind="Szukaj" titleReplace="Zastąp" titleFindInFiles="Szukaj w plikach" titleFindInProjects="Szukaj w projektach" titleMark="Oznacz">
                 <Item id="1"    name="Znajdź następny"/> <!-- Find Next -->
                 <Item id="1722" name="W tekście wyżej"/>
                 <Item id="2"    name="Zamknij"/>
@@ -417,7 +417,11 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="1625" name="&amp;Normalny"/>
                 <Item id="1626" name="&amp;Rozszerzony (\n, \r, \t, \0, \x...)"/>
                 <Item id="1660" name="Zamień w plikach"/>
+                <Item id="1665" name="Zamień w projektach"/>
                 <Item id="1661" name="Ścieżka bież. dok."/>
+                <Item id="1662" name="Panel 1. projektu"/>
+                <Item id="1663" name="Panel 2. projektu"/>
+                <Item id="1664" name="Panel 3. projektu"/>
                 <Item id="1641" name="Znajdź w bieżącym dokumencie"/>
                 <Item id="1686" name="&amp;Przeźroczystość okna"/>
                 <Item id="1703" name="&amp;. jako nowa linia"/>
@@ -1062,6 +1066,7 @@ Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych lic
                     <Item id="6344" name="Podgląd dokumentów"/>
                     <Item id="6345" name="Po najechaniu na kartę"/>
                     <Item id="6346" name="Po najechaniu na mapę dokumentu"/>
+                    <Item id="6360" name="Wycisz wszystkie dźwięki"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Uruchom makro wielokrotnie">
@@ -1183,7 +1188,8 @@ Odzyskać go?"/> <!-- HowToReproduce: Close Notepad++. Use another editor to rem
 należy usunąć z niego podfolder."/> <!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
 
             <ProjectPanelChanged title="$STR_REPLACE$" message="Obszar roboczy został zmodyfikowany. Zapisać go?"/>
-            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Twój obszar roboczy nie został zapisany."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+            <ProjectPanelSaveError title="$STR_REPLACE$" message="Wystąpił błąd podczas zapisywania pliku projektu.
+Twój obszar roboczy nie został zapisany."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <ProjectPanelOpenDoSaveDirtyWsOrNot title="Otwarcie obszaru roboczego" message="Bieżący obszar roboczy został zmodyfikowany. Zapisać bieżący projekt?"/>
             <ProjectPanelNewDoSaveDirtyWsOrNot title="Nowy obszar roboczy" message="Bieżący obszar roboczy został zmodyfikowany. Zapisać bieżący projekt?"/>
             <ProjectPanelOpenFailed title="Otwarcie obszaru roboczego" message="Nie udało się otworzyć projektu.
@@ -1223,7 +1229,7 @@ Kontynuować?"/>
             <ColumnPath name="Ścieżka"/>
             <ColumnType name="Typ"/>
             <ColumnSize name="Rozmiar"/>
-            <NbDocsTotal name="wszystkie dokumenty: "/>
+            <NbDocsTotal name="wszystkie dokumenty:"/>
         </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name="Tablica znaków ASCII"/>
@@ -1278,6 +1284,7 @@ Kontynuować?"/>
                     <Item id="3126" name="Zapisz jako..."/>
                     <Item id="3127" name="Zapisz kopię jako..."/>
                     <Item id="3121" name="Dodaj nowy projekt"/>
+                    <Item id="3128" name="Szukaj w projektach..."/>
                 </WorkspaceMenu>
                 <ProjectMenu>
                     <Item id="3111" name="Zmień nazwę"/>
@@ -1368,6 +1375,8 @@ Szukaj wśród wszystkich plików z wyjątkiem exe, obj i log:
             <common-name value="Nazwa: "/>
             <tabrename-title value="Zmień nazwę bieżącej karty"/>
             <tabrename-newname value="Nowa nazwa: "/>
+            <splitter-rotate-left value="Obróć w lewo"/>
+            <splitter-rotate-right value="Obróć w prawo"/>
             <recent-file-history-maxfile value="Maks. plików: "/>
             <language-tabsize value="Rozmiar tabulatora: "/>
             <userdefined-title-new value="Nowy język..."/>
@@ -1391,6 +1400,8 @@ Szukaj wśród wszystkich plików z wyjątkiem exe, obj i log:
             <replace-in-files-confirm-directory value="Czy na pewno chcesz zastąpić wszystkie wystąpienia w:"/>
             <replace-in-files-confirm-filetype value="Dla plików pasujących do filtrów:"/>
             <replace-in-files-progress-title value="Zastępowanie w plikach w toku..."/>
+            <replace-in-projects-confirm-title value="Na pewno chcesz kontynuować?"/>
+            <replace-in-projects-confirm-message value="Czy na pewno chcesz zastąpić wszystkie wystąpienia we wszystkich dokumentach w wybranych panelach projektów?"/>
             <replace-in-open-docs-confirm-title value="Na pewno chcesz kontynuować?"/>
             <replace-in-open-docs-confirm-message value="Czy na pewno chcesz zastąpić wszystkie wystąpienia we wszystkich otwartych plikach?"/>
             <find-result-caption value="Wyniki wyszukiwania"/>

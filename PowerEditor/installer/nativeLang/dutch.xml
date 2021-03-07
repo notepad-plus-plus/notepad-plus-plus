@@ -3,7 +3,7 @@
 Dutch localization for Notepad++ 7.9.3
 Modifications on 2018-03-26 by Klaas Nekeman (knekeman(at)gmail.com).
 Modifications on 2020-05-26 by xylographe <wr86420@gmail.com>.
-Last modified on 2021-02-28 by Thomas De Rocker (RockyTDR).
+Last modified on 2021-03-07 by Thomas De Rocker (RockyTDR).
 -->
 <NotepadPlus>
     <Native-Langue name="Nederlands" filename="dutch.xml" version="7.9.3">
@@ -1181,7 +1181,8 @@ Wilt u uw langs.xml herstellen?"/> <!-- HowToReproduce: Close Notepad++. Use ano
 Verwijder zijn hoofdmap van het venster voordat u map &quot;$STR_REPLACE$&quot; toevoegt."/> <!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
 
             <ProjectPanelChanged title="$STR_REPLACE$" message="De werkruimte is gewijzigd. Wilt u ze opslaan?"/>
-            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Uw werkruimte is niet opgeslagen."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+            <ProjectPanelSaveError title="$STR_REPLACE$" message="Er is een fout opgetreden tijdens het schrijven van uw werkruimtebestand.
+Uw werkruimte is niet opgeslagen."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <ProjectPanelOpenDoSaveDirtyWsOrNot title="Werkruimte openen" message="De huidige werkruimte is gewijzigd. Wilt u het huidige project opslaan?"/>
             <ProjectPanelNewDoSaveDirtyWsOrNot title="Nieuwe werkruimte" message="De huidige werkruimte is gewijzigd. Wilt u het huidige project opslaan?"/>
             <ProjectPanelOpenFailed title="Werkruimte openen" message="De werkruimte kon niet geopend worden.

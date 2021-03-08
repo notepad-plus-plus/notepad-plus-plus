@@ -73,7 +73,7 @@
                 <!-- all menu item -->
                 <Commands>
                     <Item id="41001" name="新規作成(&amp;N)"/>
-                    <Item id="41002" name="開く(&amp;O)"/>
+                    <Item id="41002" name="開く(&amp;O)..."/>
                     <Item id="41019" name="エクスプローラー"/>
                     <Item id="41020" name="コマンドプロンプト"/>
                     <Item id="41025" name="フォルダーをワークスペースとして開く"/>

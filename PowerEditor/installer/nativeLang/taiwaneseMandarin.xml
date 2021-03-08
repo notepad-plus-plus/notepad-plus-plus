@@ -1135,7 +1135,7 @@
 您必須從資料夾工作區中刪除該資料夾，才可添加「$STR_REPLACE$」。"/>
 
             <ProjectPanelChanged title="$STR_REPLACE$" message="工作區已被修改。您要儲存它嗎？"/>
-            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="寫入工作區文件時發生錯誤。工作區儲存失敗。"/>
+            <ProjectPanelSaveError title="$STR_REPLACE$" message="寫入工作區文件時發生錯誤。工作區儲存失敗。"/>
             <ProjectPanelOpenDoSaveDirtyWsOrNot title="開啟工作區" message="目前的工作區已被修改。您要儲存目前的專案嗎？"/>
             <ProjectPanelNewDoSaveDirtyWsOrNot title="新工作區" message="目前的工作區已被修改。您要儲存目前的專案嗎？"/>
             <ProjectPanelOpenFailed title="無法開啟工作區" message="工作區檔案無效或已被損毀。"/>

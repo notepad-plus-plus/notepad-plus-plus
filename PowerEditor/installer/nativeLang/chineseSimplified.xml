@@ -76,7 +76,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <!-- all menu item -->
                 <Commands>
                     <Item id="41001" name="新建(&amp;N)"/>
-                    <Item id="41002" name="打开(&amp;O)"/>
+                    <Item id="41002" name="打开(&amp;O)..."/>
                     <Item id="41019" name="文件管理器"/>
                     <Item id="41020" name="命令行"/>
                     <Item id="41025" name="文件夹工作区"/>
@@ -376,7 +376,7 @@ The comments are here for explanation, it's not necessary to translate them.
         </Menu>
 
         <Dialog>
-            <Find title="" titleFind="查找" titleReplace="替换" titleFindInFiles="文件查找" titleMark="标记">
+            <Find title="" titleFind="查找" titleReplace="替换" titleFindInFiles="文件查找" titleFindInProjects="工程中查找" titleMark="标记">
                 <Item id="1" name="查找下一个"/>
                 <Item id="1722" name="反向查找"/>
                 <Item id="2" name="取消"/>
@@ -407,7 +407,11 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="1625" name="普通(&amp;N)"/>
                 <Item id="1626" name="扩展(&amp;X) (\n, \r, \t, \0, \x...)"/>
                 <Item id="1660" name="在文件中替换"/>
+                <Item id="1665" name="在工程中替换"/>
                 <Item id="1661" name="当前文件夹。"/>
+                <Item id="1662" name="工程面板1"/>
+                <Item id="1663" name="工程面板2"/>
+                <Item id="1664" name="工程面板3"/>
                 <Item id="1641" name="在当前文件中查找"/>
                 <Item id="1686" name="透明度(&amp;Y)"/>
                 <Item id="1703" name="&amp;. 匹配新行"/>
@@ -868,7 +872,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 </NewDoc>
 
                 <DefaultDir title="默认目录">
-                    <Item id="6413" name="文件打开/保存路径"/>
+                    <Item id="6413" name="默认文件打开/保存目录"/>
                     <Item id="6414" name="与当前文件一致"/>
                     <Item id="6415" name="记住最后的操作路径"/>
                     <Item id="6431" name="拖放文件夹时开启文件夹中所有文件，而不开启文件夹工作区"/>
@@ -1041,7 +1045,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6325" name="更新后定位到末行"/>
                     <Item id="6322" name="会话文件扩展名:"/>
                     <Item id="6323" name="启用 Notepad++ 自动更新"/>
-                    <Item id="6351" name="将保存对话框中的文本文档扩展名过滤器设置为 .* 以代替 .txt"/>
+                    <Item id="6351" name="将保存对话框中的文件扩展名过滤器设为 *.*"/>
                     <Item id="6324" name="文档切换 (Ctrl+TAB)"/>
                     <Item id="6331" name="在标题栏仅显示文件名"/>
                     <Item id="6334" name="自动检测字符编码"/>
@@ -1052,6 +1056,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6344" name="文档速览图"/>
                     <Item id="6345" name="在标签中启用速览"/>
                     <Item id="6346" name="在文档结构图中启用速览"/>
+                    <Item id="6360" name="全部静音"/>
                 </MISC>
             </Preference>
             <MultiMacro title="重复运行宏">
@@ -1173,7 +1178,8 @@ The comments are here for explanation, it's not necessary to translate them.
 请您在添加文件夹“$STR_REPLACE$”之前从面板移除此根文件夹。"/> <!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
 
             <ProjectPanelChanged title="$STR_REPLACE$" message="工作区已修改，是否保存？"/>
-            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="您的工作区尚未保存。"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+            <ProjectPanelSaveError title="$STR_REPLACE$" message="写入您工作区的文件时出现了错误。
+您的工作区尚未保存。"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <ProjectPanelOpenDoSaveDirtyWsOrNot title="打开工作区" message="当前工作区已修改。您是否要保存当前项目？"/>
             <ProjectPanelNewDoSaveDirtyWsOrNot title="新工作区" message="当前工作区已修改。您是否要保存当前项目？"/>
             <ProjectPanelOpenFailed title="打开工作区" message="工作区无法打开。
@@ -1268,6 +1274,7 @@ Notepad++会在所有安装结束后重新启动。
                     <Item id="3126" name="另存为..."/>
                     <Item id="3127" name="另存为副本..."/>
                     <Item id="3121" name="增加新工程"/>
+                    <Item id="3128" name="在工程中查找..."/>
                 </WorkspaceMenu>
                 <ProjectMenu>
                     <Item id="3111" name="重命名"/>
@@ -1358,6 +1365,8 @@ Notepad++会在所有安装结束后重新启动。
             <common-name value="名称："/>
             <tabrename-title value="重命名当前文件"/>
             <tabrename-newname value="新名称："/>
+            <splitter-rotate-left value="向左旋转"/>
+            <splitter-rotate-right value="向右旋转"/>
             <recent-file-history-maxfile value="最大条数："/>
             <language-tabsize value="宽度："/>
             <userdefined-title-new value="创建新语言..."/>
@@ -1376,9 +1385,13 @@ Notepad++会在所有安装结束后重新启动。
             <summary-nbsel1 value=" 个选中字符（"/>
             <summary-nbsel2 value=" 字节）在"/>
             <summary-nbrange value=" 个选取范围中"/>
+            <find-in-files-progress-title value="文件查找进度..."/>
             <replace-in-files-confirm-title value="确认"/>
             <replace-in-files-confirm-directory value="您是否要替换下列范围内的所有匹配项："/>
             <replace-in-files-confirm-filetype value="对这些文件类型："/>
+            <replace-in-files-progress-title value="文件替换进度..."/>
+            <replace-in-projects-confirm-title value="您确定么？"/>
+            <replace-in-projects-confirm-message value="您是否要替换所选工程面板中所有文档中的所有匹配项？"/>
             <replace-in-open-docs-confirm-title value="替换确认"/>
             <replace-in-open-docs-confirm-message value="您是否要在所有打开的文档中替换所有匹配项？"/>
             <find-result-caption value="搜索结果"/>
@@ -1389,6 +1402,7 @@ Notepad++会在所有安装结束后重新启动。
             <find-result-hits value="（匹配$INT_REPLACE$次）"/>
             <find-result-line-prefix value="行"/> <!-- Must not begin with space or tab character -->
             <find-regex-zero-length-match value="零长度字符匹配" />
+            <session-save-folder-as-workspace value="保存文件夹工作区" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

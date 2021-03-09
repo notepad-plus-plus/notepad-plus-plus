@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2021-02-28 by schnurlos (schnurlos@gmail.com)
+	last modified: 2021-03-09 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="7.9.3">
+	<Native-Langue name="Deutsch" filename="german.xml" version="7.9.4">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -1188,7 +1188,8 @@ Soll die Datei 'langs.xml' wieder hergestellt werden?"/>
 Bitte dieses Verzeichnis vorher entfernen bevor das Verzeichnis &quot;$STR_REPLACE$&quot; hinzugefügt wird."/>
 
 			<ProjectPanelChanged title="$STR_REPLACE$" message="Der Arbeitsbereich wurde geändert. Soll er jetzt gespeichert werden?"/>
-			<ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Der Arbeitsbereich wurde nicht gespeichert."/>
+			<ProjectPanelSaveError title="$STR_REPLACE$" message="Ein Fehler ist beim Speichern der Arbeitsbereichsdatei aufgetreten.
+Der Arbeitsbereich wurde daher nicht gespeichert."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<ProjectPanelOpenDoSaveDirtyWsOrNot title="Offener Arbeitsbereich" message="Der aktuelle Arbeitsbereich wurde geändert. Soll das aktuelle Projekt gespeichert werden?"/>
 			<ProjectPanelNewDoSaveDirtyWsOrNot title="Neuer Arbeitsbereich" message="Der aktuelle Arbeitsbereich wurde geändert. Soll das aktuelle Projekt gespeichert werden?"/>
 			<ProjectPanelOpenFailed title="Offener Arbeitsbereich" message="Der Arbeitsbereich konnte nicht geöffnet werden.

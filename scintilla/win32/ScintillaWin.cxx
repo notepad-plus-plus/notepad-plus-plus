@@ -88,6 +88,7 @@
 #include "PlatWin.h"
 #include "HanjaDic.h"
 #include "ScintillaWin.h"
+#include "BoostRegexSearch.h"
 
 #ifndef SPI_GETWHEELSCROLLLINES
 #define SPI_GETWHEELSCROLLLINES   104
@@ -1800,6 +1801,22 @@ sptr_t ScintillaWin::SciMessage(unsigned int iMessage, uptr_t wParam, sptr_t lPa
 	case SCI_GETDIRECTPOINTER:
 		return reinterpret_cast<sptr_t>(this);
 
+#ifdef SCI_OWNREGEX
+	case SCI_GETBOOSTREGEXERRMSG:
+	{
+		// copies behavior of SCI_GETTEXT
+		if (lParam == 0)
+			return g_exceptionMessage.length() + 1;
+		if (wParam == 0)
+			return 0;
+		char *ptr = CharPtrFromSPtr(lParam);
+		const Sci_Position len = std::min<Sci_Position>(wParam - 1, g_exceptionMessage.length());
+		strncpy (ptr, g_exceptionMessage.c_str(), len);
+		ptr [len] = '\0';
+		return len;
+	}
+#endif
+
 	case SCI_GRABFOCUS:
 		::SetFocus(MainHWND());
 		break;
@@ -2031,6 +2048,9 @@ sptr_t ScintillaWin::WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lParam
 
 		case SCI_GETDIRECTFUNCTION:
 		case SCI_GETDIRECTPOINTER:
+#ifdef SCI_OWNREGEX
+		case SCI_GETBOOSTREGEXERRMSG:
+#endif
 		case SCI_GRABFOCUS:
 #ifdef INCLUDE_DEPRECATED_FEATURES
 		case SCI_SETKEYSUNICODE:

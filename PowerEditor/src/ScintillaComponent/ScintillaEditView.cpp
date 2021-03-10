@@ -340,8 +340,6 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	}
 	//Get the startup document and make a buffer for it so it can be accessed like a file
 	attachDefaultDoc();
-
-	_pGetExceptionMsgFunc = reinterpret_cast<GetExceptionMessageFunc>(::GetProcAddress(_hLib, "GetBoostExceptionMessage"));
 }
 
 LRESULT CALLBACK ScintillaEditView::scintillaStatic_Proc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)

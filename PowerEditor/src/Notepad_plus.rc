@@ -218,6 +218,7 @@ IDI_VIEW_FILEBROWSER_OFF_ICON   ICON        "icons/fileBrowser_off.ico"
 IDI_VIEW_MONITORING_ON_ICON     ICON        "icons/monitoring_on.ico"
 IDI_VIEW_MONITORING_OFF_ICON    ICON        "icons/monitoring_off.ico"
 
+IDI_MORE_ON_TOOLTIP             ICON        "icons/MoreOnTooltip.ico"
 
 IDR_M30_MENU MENU
 BEGIN

@@ -252,20 +252,6 @@ RegexSearchBase *CreateRegexSearch(CharClassify* /* charClassTable */)
 
 std::string g_exceptionMessage;
 
-#ifndef BOOST_REGEX_SEARCH_API
-#ifdef _WIN32
-#define BOOST_REGEX_SEARCH_API extern "C" __declspec(dllexport)
-#else
-#define BOOST_REGEX_SEARCH_API
-#endif
-#endif
-
-BOOST_REGEX_SEARCH_API
-const char* GetBoostExceptionMessage()
-{
-	return g_exceptionMessage.c_str();
-}
-
 /**
  * Find text in document, supporting both forward and backward
  * searches (just pass startPosition > endPosition to do a backward search).

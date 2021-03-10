@@ -610,12 +610,6 @@ public:
 	void setPositionRestoreNeeded(bool val) { _positionRestoreNeeded = val; };
 	void markedTextToClipboard(int indiStyle, bool doAll = false);
 	void removeAnyDuplicateLines();
-	const char* getExceptionMessage()
-	{
-		if (_pGetExceptionMsgFunc)
-			return _pGetExceptionMsgFunc();
-		return nullptr;
-	}
 
 protected:
 	static HINSTANCE _hLib;
@@ -629,8 +623,6 @@ protected:
 	static LRESULT CALLBACK scintillaStatic_Proc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 	LRESULT scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 
-	using GetExceptionMessageFunc = const char* (*)();
-	GetExceptionMessageFunc _pGetExceptionMsgFunc = nullptr;
 	SCINTILLA_FUNC _pScintillaFunc = nullptr;
 	SCINTILLA_PTR  _pScintillaPtr = nullptr;
 	static WNDPROC _scintillaDefaultProc;

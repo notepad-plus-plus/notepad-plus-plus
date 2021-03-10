@@ -1173,6 +1173,8 @@ typedef sptr_t (*SciFnDirect)(sptr_t ptr, unsigned int iMessage, uptr_t wParam, 
 #define SCI_INDEXPOSITIONFROMLINE 2714
 #endif
 
+#define SCI_GETBOOSTREGEXERRMSG 5000
+
 #define SCN_SCROLLED 2080
 #define SCN_FOLDINGSTATECHANGED 2081
 

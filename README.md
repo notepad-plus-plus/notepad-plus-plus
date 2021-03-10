@@ -23,7 +23,7 @@ _Since the release of version 7.6.5 Notepad++ is signed using GPG with the follo
 - **Key fingerprint:** 14BC E436 2749 B2B5 1F8C 7122 6C42 9F1D 8D84 F46E
 - **Key type:** RSA 4096/4096
 - **Created:** 2019-03-11
-- **Expiries:** 2021-03-10
+- **Expiries:** 2024-03-11
 
 https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/nppGpgPub.asc
 

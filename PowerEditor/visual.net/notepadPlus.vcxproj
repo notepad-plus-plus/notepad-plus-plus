@@ -664,6 +664,7 @@ copy ..\src\contextMenu.xml ..\binarm64\contextMenu.xml
     <ResourceCompile Include="..\src\WinControls\FileBrowser\fileBrowser.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\src\.editorconfig" />
     <None Include="..\src\cursors\drag.cur" />
     <None Include="..\src\cursors\drag_interdit.cur" />
     <None Include="..\src\cursors\drag_plus.cur" />

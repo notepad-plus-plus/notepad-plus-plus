@@ -2354,7 +2354,7 @@ int ScintillaEditView::searchInTarget(const TCHAR * text2Find, size_t lenOfText2
 	UINT cp = static_cast<UINT>(execute(SCI_GETCODEPAGE));
 	const char *text2FindA = wmc.wchar2char(text2Find, cp);
 	size_t text2FindALen = strlen(text2FindA);
-   	size_t len = (lenOfText2Find > text2FindALen) ? lenOfText2Find : text2FindALen;
+	size_t len = (lenOfText2Find > text2FindALen) ? lenOfText2Find : text2FindALen;
 	return static_cast<int32_t>(execute(SCI_SEARCHINTARGET, len, reinterpret_cast<LPARAM>(text2FindA)));
 }
 
@@ -2368,16 +2368,21 @@ int ScintillaEditView::searchInTargetWithReachback(const TCHAR* text2Find, size_
 	LRESULT sf = execute(SCI_GETSEARCHFLAGS);
 	if ((sf & SCFIND_REGEXP) && (fromPos < toPos))
 	{
-		size_t fp = 0;  // start searching at beginning of document
-		execute(SCI_SETTARGETRANGE, fp, toPos);
-		int fa = static_cast<int32_t>(execute(SCI_SEARCHINTARGET, len, reinterpret_cast<LPARAM>(text2FindA)));
-		while ((fa >= 0) && (fa < (int)fromPos))
+		size_t reachbackPos = 0;  // start reachback search at beginning of document
+		while (1)
 		{
-			fp = fa + ((fa > fp) ? 0 : 1);
-			execute(SCI_SETTARGETRANGE, fp, toPos);
-			fa = static_cast<int32_t>(execute(SCI_SEARCHINTARGET, len, reinterpret_cast<LPARAM>(text2FindA)));
+			execute(SCI_SETTARGETRANGE, reachbackPos, toPos);
+			int foundPos = static_cast<int32_t>(execute(SCI_SEARCHINTARGET, len, reinterpret_cast<LPARAM>(text2FindA)));
+			if ((foundPos < 0) || (foundPos >= (int)fromPos))
+			{
+				return foundPos;
+			}
+			if ((size_t)foundPos == reachbackPos)
+			{
+				++foundPos;
+			}
+			reachbackPos = foundPos;
 		}
-		return fa;
 	}
 	execute(SCI_SETTARGETRANGE, fromPos, toPos);
 	return static_cast<int32_t>(execute(SCI_SEARCHINTARGET, len, reinterpret_cast<LPARAM>(text2FindA)));

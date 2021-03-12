@@ -91,7 +91,7 @@
                     <Item id="41012" name="開啟工作階段..."/>
                     <Item id="41013" name="儲存目前工作階段..."/>
                     <Item id="41014" name="從電腦重新載入此檔案(&amp;L)"/>
-                    <Item id="41015" name="另存拷貝至..."/>
+                    <Item id="41015" name="另存複本至..."/>
                     <Item id="41016" name="從電腦刪除此檔案"/>
                     <Item id="41017" name="重新命名此檔案..."/>
                     <Item id="41021" name="重新開啟最近關閉的檔案"/>
@@ -125,7 +125,7 @@
                     <Item id="42072" name="隨機大小寫"/>
                     <Item id="42073" name="開啟檔案"/>
                     <Item id="42074" name="於檔案總管開啟檔案位置"/>
-                    <Item id="42075" name="於網上搜尋"/>
+                    <Item id="42075" name="網頁搜尋"/>
                     <Item id="42076" name="更改搜尋引擎..."/>
                     <Item id="42018" name="開始錄製巨集"/>
                     <Item id="42019" name="停止錄製巨集"/>
@@ -293,8 +293,8 @@
                     <Item id="47000" name="關於 Notepad++..."/>
                     <Item id="47001" name="Notepad++ 官方網站"/>
                     <Item id="47002" name="Notepad++ GitHub 專案頁"/>
-                    <Item id="47003" name="網上支援"/>
-                    <Item id="47004" name="網上論壇"/>
+                    <Item id="47003" name="線上支援"/>
+                    <Item id="47004" name="線上論壇"/>
                     <Item id="47005" name="下載更多外掛模組"/>
                     <Item id="47006" name="檢查 Notepad++ 更新"/>
                     <Item id="47008" name="使用說明"/>
@@ -540,10 +540,10 @@
                     <Item id="43042" name="至下個格式四標記"/>
                     <Item id="43043" name="至下個格式五標記"/>
                     <Item id="43044" name="至下個格式搜尋標記"/>
-                    <Item id="44100" name="在 Firefox 中開啟此文件"/>
-                    <Item id="44101" name="在 Chrome 中開啟此文件"/>
-                    <Item id="44103" name="在 IE 中開啟此文件"/>
-                    <Item id="44102" name="在 Edge 中開啟此文件"/>
+                    <Item id="44100" name="在 Firefox 中開啟此檔案"/>
+                    <Item id="44101" name="在 Chrome 中開啟此檔案"/>
+                    <Item id="44103" name="在 IE 中開啟此檔案"/>
+                    <Item id="44102" name="在 Edge 中開啟此檔案"/>
                     <Item id="50003" name="切換到上一文件"/>
                     <Item id="50004" name="切換到下一文件"/>
                     <Item id="44051" name="收折層數 1"/>
@@ -644,7 +644,7 @@
                 <Folder title="摺疊設定與預設樣式">
                     <Item id="21101" name="預設樣式設定"/>
                     <Item id="21102" name="樣式"/>
-                    <Item id="21105" name="資訊與教程："/>
+                    <Item id="21105" name="說明文件："/>
                     <Item id="21104" name="臨時文件網站："/>
                     <Item id="21106" name="最大化摺疊（包括空行）"/>
                     <Item id="21220" name="摺疊設定一："/>
@@ -780,7 +780,7 @@
                     <Item id="6110" name="使用中的頁籤加色條"/>
                     <Item id="6111" name="顯示狀態列"/>
                     <Item id="6112" name="在每個頁籤顯示關閉按鈕"/>
-                    <Item id="6113" name="雙擊滑鼠關閉文件"/>
+                    <Item id="6113" name="按兩下關閉文件"/>
                     <Item id="6118" name="隱藏"/>
                     <Item id="6119" name="多行"/>
                     <Item id="6120" name="直式"/>
@@ -824,7 +824,7 @@
                     <Item id="6207" name="顯示標記"/>
                     <Item id="6211" name="行界線設定"/>
                     <Item id="6213" name="背景色模式"/>
-                    <Item id="6237" name="如欲添加列標記可以在下面以數字指示其列位置。
+                    <Item id="6237" name="如欲加入列標記可以在下面以數字指示其列位置。
 使用空格分隔不同數字來定義多個列標記。"/>
                     <Item id="6231" name="邊框寬度"/>
                     <Item id="6235" name="無邊框"/>
@@ -850,7 +850,7 @@
                     <Item id="6413" name="開啟/儲存檔案預設資料夾"/>
                     <Item id="6414" name="使用目前文件資料夾位置"/>
                     <Item id="6415" name="記住上次使用的資料夾"/>
-                    <Item id="6431" name="拖放資料夾時開啟資料夾中所有文件，而不啟動資料夾工作區"/>
+                    <Item id="6431" name="拖放資料夾時開啟資料夾中所有檔案，而不啟動資料夾工作區"/>
                 </DefaultDir>
 
                 <FileAssoc title="副檔名連結設定">
@@ -980,7 +980,7 @@
                     <Item id="6256" name="允許多行選取"/>
                     <Item id="6161" name="分隔單字字元集"/>
                     <Item id="6162" name="使用預設的單字字元集（建議）"/>
-                    <Item id="6163" name="添加字元（不了解此選項的話不建議選取）"/>
+                    <Item id="6163" name="加入字元（不了解此選項的話不建議選取）"/>
                 </Delimiter>
 
                 <Cloud title="雲端與連結">
@@ -988,14 +988,14 @@
                     <Item id="6263" name="不使用雲端"/>
                     <Item id="6267" name="雲端路徑："/>
                     <Item id="6318" name="連結設定"/>
-                    <Item id="6319" name="將連結設為可點擊"/>
+                    <Item id="6319" name="將連結設為可點選"/>
                     <Item id="6320" name="隱藏連結底線"/>
                     <Item id="6350" name="啟動背景模式"/>
                     <Item id="6264" name="自訂 URI 格式："/>
                 </Cloud>
 
                 <SearchEngine title="搜尋引擎">
-                    <Item id="6271" name="搜尋引擎（適用於「於網上搜尋」選單指令）"/>
+                    <Item id="6271" name="搜尋引擎（適用於「網頁搜尋」選單指令）"/>
                     <Item id="6272" name="DuckDuckGo"/>
                     <Item id="6273" name="Google"/>
                     <Item id="6274" name="Bing"/>
@@ -1007,7 +1007,7 @@
                 <MISC title="其他">
                     <ComboBox id="6347">
                         <Element name="啟用"/>
-                        <Element name="啟用於所有開啟文件"/>
+                        <Element name="啟用於所有已開啟的檔案"/>
                         <Element name="停止啟用"/>
                     </ComboBox>
                     <Item id="6307" name="啟用"/>
@@ -1017,7 +1017,7 @@
                     <Item id="6325" name="更新後捲動至最後一行"/>
                     <Item id="6322" name="工作階段檔案副檔名："/>
                     <Item id="6323" name="自動更新 Notepad++"/>
-                    <Item id="6351" name="將「保存」對話方塊的副檔名濾鏡設置為 *.*"/>
+                    <Item id="6351" name="將「儲存」對話方塊的副檔名濾鏡設定為 *.*"/>
                     <Item id="6324" name="文件切換器（Ctrl + TAB）"/>
                     <Item id="6331" name="在標題列僅顯示檔案名稱（隱藏資料夾路徑）"/>
                     <Item id="6334" name="自動偵測檔案編碼"/>
@@ -1025,9 +1025,9 @@
                     <Item id="6337" name="資料夾工作區檔案副檔名："/>
                     <Item id="6114" name="啟動"/>
                     <Item id="6117" name="開啟「最近使用的檔案」功能"/>
-                    <Item id="6344" name="窺視檔案"/>
-                    <Item id="6345" name="於頁籤窺視檔案"/>
-                    <Item id="6346" name="於文件導覽窺視檔案"/>
+                    <Item id="6344" name="預覽檔案"/>
+                    <Item id="6345" name="於頁籤預覽檔案"/>
+                    <Item id="6346" name="於文件導覽預覽檔案"/>
                     <Item id="6360" name="靜音"/>
                 </MISC>
             </Preference>
@@ -1099,48 +1099,48 @@
             <NbFileToOpenImportantWarning title="開啟檔案" message="您確定要開啟全數 $INT_REPLACE$ 個檔案嗎？"/>
             <SettingsOnCloudError title="雲端設定" message="設定的雲端路徑位於一個唯讀的磁碟或未擁有寫入權限的資料夾，因此您的「雲端」設定將被清除。
 請在「偏好設定」中重新設定。"/>
-            <FilePathNotFoundWarning title="開啟檔案" message="您試圖開啟的文件不存在。"/>
+            <FilePathNotFoundWarning title="開啟檔案" message="您試圖開啟的檔案不存在。"/>
             <SessionFileInvalidError title="無法開啟工作階段" message="工作階段檔案無效或已被損毀。"/>
-            <DroppingFolderAsProjectModeWarning title="操作無效" message="由於您在「偏好設定」「預設資料夾」中關閉了「拖放資料夾時開啟資料夾中所有文件，而不啟動資料夾工作區」的選項，您只能拖放文件或資料夾的其中之一。
+            <DroppingFolderAsProjectModeWarning title="操作無效" message="由於您在「偏好設定」「預設資料夾」中關閉了「拖放資料夾時開啟資料夾中所有檔案，而不啟動資料夾工作區」的選項，您只能拖放檔案或資料夾的其中之一。
 請啟用此選項，然後再試一次。"/>
             <SortingError title="排序錯誤" message="第 $INT_REPLACE$ 行無法執行數字排序。"/>
             <ColumnModeTip title="多欄選取提示" message="請使用「ALT + 滑鼠選擇」或「Alt + Shift + 方向鍵」以切換到多欄選取。"/>
             <BufferInvalidWarning title="儲存失敗" message="緩衝區無效。"/>
-            <DoCloseOrNot title="保留文件" message="檔案「$STR_REPLACE$」已不存在。
-您要在 Notepad++ 中保留這個文件嗎？"/>
+            <DoCloseOrNot title="保留檔案" message="檔案「$STR_REPLACE$」已不存在。
+您要在 Notepad++ 中保留這個檔案嗎？"/>
             <DoDeleteOrNot title="刪除檔案" message="您確定要刪除並關閉「$STR_REPLACE$」嗎？"/>
-            <NoBackupDoSaveFile title="儲存" message="您的備份文件已從外部刪除。
-請儲存「$STR_REPLACE$」，否則您的數據將會遺失。
+            <NoBackupDoSaveFile title="儲存" message="您的備份檔案已從外部刪除。
+請儲存「$STR_REPLACE$」，否則您的資料將會遺失。
 您要儲存嗎？"/>
             <DoReloadOrNot title="重新載入" message="「$STR_REPLACE$」已被其他程式修改。
-您要重新載入此文件嗎？"/>
+您要重新載入此檔案嗎？"/>
             <DoReloadOrNotAndLooseChange title="重新載入" message="「$STR_REPLACE$」已被其他程式修改。
 您要重新載入並捨棄在 Notepad++ 中所做的修改嗎？"/>
             <PrehistoricSystemDetected title="系統過舊" message="很抱歉，此功能不適用於過舊的系統。"/>
-            <XpUpdaterProblem title="Notepad++ 更新程式" message="由於 XP 的安全機制過舊，更新程式與 XP 並不兼容。
+            <XpUpdaterProblem title="Notepad++ 更新程式" message="由於 XP 的安全機制過舊，更新程式與 XP 並不相容。
 您要直接到 Notepad++ 網站下載最新版本嗎？"/>
             <GUpProxyConfNeedAdminMode title="代理伺服器設定" message="請關閉 Notepad++，並在系統管理員模式下重新啟動 Notepad++ 以設定代理伺服器。"/>
             <DocTooDirtyToMonitor title="監控錯誤" message="文件已被修改，請在監視前儲存文件。"/>
-            <DocNoExistToMonitor title="監控錯誤" message="文件不存在，因此無法進行監視。"/>
-            <FileTooBigToOpen title="文件太大" message="文件太大，無法使用 Notepad++ 開啟。"/>
+            <DocNoExistToMonitor title="監控錯誤" message="檔案不存在，因此無法進行監視。"/>
+            <FileTooBigToOpen title="檔案過大" message="檔案過大，無法使用 Notepad++ 開啟。"/>
             <CreateNewFileOrNot title="開新檔案" message="「$STR_REPLACE$」不存在。您要開新檔案嗎？"/>
             <CreateNewFileError title="開新檔案" message="無法開新檔案「$STR_REPLACE$」。"/>
             <OpenFileError title="錯誤" message="無法開啟「$STR_REPLACE$」"/>
-            <FileBackupFailed title="文件備份失敗" message="檔案的過往版本無法儲存到「$STR_REPLACE$」的備份資料夾中。您要儲存此文件嗎？"/>
+            <FileBackupFailed title="檔案備份失敗" message="檔案的過往版本無法儲存到「$STR_REPLACE$」的備份資料夾中。您要儲存此檔案嗎？"/>
             <LoadStylersFailed title="載入失敗" message="載入「$STR_REPLACE$」失敗。"/>
             <LoadLangsFailed title="載入失敗" message="載入 langs.xml 失敗。
 您要回復它嗎？"/>
             <LoadLangsFailedFinal title="載入失敗" message="載入 langs.xml 失敗。"/>
-            <FolderAsWorspaceSubfolderExists title="加入錯誤" message="工作區內的其中一個資料夾已包含您要添加的資料夾。
-您必須從資料夾工作區中刪除該資料夾，才可添加「$STR_REPLACE$」。"/>
+            <FolderAsWorspaceSubfolderExists title="加入錯誤" message="工作區內的其中一個資料夾已包含您要加入的資料夾。
+您必須從資料夾工作區中刪除該資料夾，才可加入「$STR_REPLACE$」。"/>
 
             <ProjectPanelChanged title="$STR_REPLACE$" message="工作區已被修改。您要儲存它嗎？"/>
-            <ProjectPanelSaveError title="$STR_REPLACE$" message="寫入工作區文件時發生錯誤。工作區儲存失敗。"/>
+            <ProjectPanelSaveError title="$STR_REPLACE$" message="寫入工作區檔案時發生錯誤。工作區儲存失敗。"/>
             <ProjectPanelOpenDoSaveDirtyWsOrNot title="開啟工作區" message="目前的工作區已被修改。您要儲存目前的專案嗎？"/>
             <ProjectPanelNewDoSaveDirtyWsOrNot title="新工作區" message="目前的工作區已被修改。您要儲存目前的專案嗎？"/>
             <ProjectPanelOpenFailed title="無法開啟工作區" message="工作區檔案無效或已被損毀。"/>
             <ProjectPanelRemoveFolderFromProject title="從專案中刪除資料夾" message="此資料夾下的所有子資料夾亦將被刪除。您確定要從專案中刪除此資料夾嗎？"/>
-            <ProjectPanelRemoveFileFromProject title="從專案中刪除文件" message="您確定要從專案中刪除此文件嗎？"/>
+            <ProjectPanelRemoveFileFromProject title="從專案中刪除檔案" message="您確定要從專案中刪除此檔案嗎？"/>
             <ProjectPanelReloadError title="重新載入工作區" message="找不到要重新載入的檔案。"/>
             <ProjectPanelReloadDirty title="重新載入工作區" message="目前的工作區已被修改。您要重新載入並捨棄所做的修改嗎？"/>
             <UDLNewNameError title="自訂程式語言錯誤" message="此名稱已被另一個程式語言使用。請重新命名。"/>
@@ -1184,9 +1184,9 @@
         <FolderAsWorkspace>
             <PanelTitle name="資料夾工作區"/>
             <SelectFolderFromBrowserString name="選擇一個資料夾以加入資料夾工作區"/>
-            <ExpandAllFoldersTip name="展開所有文件夾"/>
-            <CollapseAllFoldersTip name="收折所有文件夾"/>
-            <LocateCurrentFileTip name="現行文件位置"/>
+            <ExpandAllFoldersTip name="展開所有資料夾"/>
+            <CollapseAllFoldersTip name="收折所有資料夾"/>
+            <LocateCurrentFileTip name="目前檔案位置"/>
             <Menus>
                 <Item id="3511" name="移除"/>
                 <Item id="3512" name="全部移除"/>
@@ -1245,7 +1245,7 @@
             </Menus>
         </ProjectManager>
         <MiscStrings>
-            <word-chars-list-tip value="這允許您在目前單字字元集中附加字元，當滑鼠雙擊以進行選擇或以「僅符合整個單字」選項進行搜尋。"/>
+            <word-chars-list-tip value="這允許您在目前單字字元集中附加字元，當按兩下滑鼠以進行選擇或以「僅符合整個單字」選項進行搜尋。"/>
             <word-chars-list-warning-begin value="警告："/>
             <word-chars-list-space-warning value="$INT_REPLACE$ 個空格"/>
             <word-chars-list-tab-warning value="$INT_REPLACE$ 個 TAB"/>
@@ -1264,9 +1264,9 @@
             <find-status-end-reached value="搜尋：從上面找到相符的字串。搜尋已抵達文件結尾。"/>
             <find-status-replaceinfiles-1-replaced value="在檔案中取代：取代了 1 個字串。"/>
             <find-status-replaceinfiles-nb-replaced value="在檔案中取代：取代了 $INT_REPLACE$ 個字串。"/>
-            <find-status-replaceinfiles-re-malformed value="在所有開啟文件中取代：無效的規則運算式。"/>
-            <find-status-replaceinopenedfiles-1-replaced value="在所有開啟文件中取代：取代了 1 個字串。"/>
-            <find-status-replaceinopenedfiles-nb-replaced value="在所有開啟文件中取代：取代了 $INT_REPLACE$ 個字串。"/>
+            <find-status-replaceinfiles-re-malformed value="在所有開啟檔案中取代：無效的規則運算式。"/>
+            <find-status-replaceinopenedfiles-1-replaced value="在所有開啟檔案中取代：取代了 1 個字串。"/>
+            <find-status-replaceinopenedfiles-nb-replaced value="在所有開啟檔案中取代：取代了 $INT_REPLACE$ 個字串。"/>
             <find-status-mark-re-malformed value="無效的規則運算式。"/>
             <find-status-invalid-re value="搜尋：無效的規則運算式。"/>
             <find-status-mark-1-match value="1 個相符。"/>
@@ -1287,8 +1287,8 @@
             <find-status-cannot-find value="搜尋：找不到搜尋字串「$STR_REPLACE$」。"/>
             <find-status-scope-selection value="在所選取的字串中"/>
             <find-status-scope-all value="在整個檔案中"/>
-            <find-status-scope-backward value="從文件開始到游標位置"/>
-            <find-status-scope-forward value="從游標位置到文件結尾"/>
+            <find-status-scope-backward value="從檔案開始到游標位置"/>
+            <find-status-scope-forward value="從游標位置到檔案結尾"/>
             <finder-find-in-finder value="在此搜尋結果中尋找..."/>
             <finder-close-this value="關閉這個搜尋結果"/>
             <finder-collapse-all value="層數全部收折"/>
@@ -1314,10 +1314,10 @@
             <autocomplete-nb-char value="字元數量："/>
             <edit-verticaledge-nb-col value="欄數量："/>
             <summary value="統計資料"/>
-            <summary-filepath value="完整文件路徑： "/>
+            <summary-filepath value="完整檔案路徑： "/>
             <summary-filecreatetime value="建檔時間： "/>
             <summary-filemodifytime value="修改時間： "/>
-            <summary-filelen value="文件長度（以位元為單位）： "/>
+            <summary-filelen value="檔案長度（以位元為單位）： "/>
             <summary-nbchar value="字元數（不含換行字元）： "/>
             <summary-nbword value="字數： "/>
             <summary-nbline value="行數： "/>
@@ -1336,7 +1336,7 @@
             <replace-in-open-docs-confirm-message value="您確定要替換所有打開的文檔中的所有匹配項嗎？"/>
             <find-result-caption value="搜尋結果"/>
             <find-result-title value="搜尋"/> <!-- Must not begin with space or tab character -->
-            <find-result-title-info value="（找到 $INT_REPLACE1$ 個結果在 $INT_REPLACE2$ 的文件中。搜尋文件量： $INT_REPLACE3$）"/>
+            <find-result-title-info value="（找到 $INT_REPLACE1$ 個結果在 $INT_REPLACE2$ 的檔案中。搜尋檔案量： $INT_REPLACE3$）"/>
             <find-result-title-info-extra value=" - 僅在搜尋結果中尋找"/>
             <find-result-hits value="（$INT_REPLACE$ 個結果）"/>
             <find-result-line-prefix value="行號"/> <!-- Must not begin with space or tab character -->

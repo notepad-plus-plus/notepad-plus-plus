@@ -111,7 +111,7 @@
     </ClCompile>
     <Link>
       <AdditionalOptions>/fixed:no %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>comctl32.lib;shlwapi.lib;shell32.lib;Oleacc.lib;Dbghelp.lib;Version.lib;Crypt32.lib;wintrust.lib;Sensapi.lib;wininet.lib;libscilexer.lib;Imm32.lib;msimg32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>comctl32.lib;shlwapi.lib;shell32.lib;Oleacc.lib;Dbghelp.lib;Version.lib;Crypt32.lib;wintrust.lib;Sensapi.lib;wininet.lib;libscilexer.lib;imm32.lib;msimg32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ShowProgress>LinkVerboseLib</ShowProgress>
       <OutputFile>$(OutDir)notepad++.exe</OutputFile>
       <Version>1.0</Version>
@@ -122,7 +122,7 @@
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
       <MinimumRequiredVersion>5.01</MinimumRequiredVersion>
-      <AdditionalLibraryDirectories>..\..\scintilla\bin;C:\Libraries\boost_1_69_0\lib32-msvc-14.1\</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\scintilla\bin;$(IntDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Manifest>
       <AdditionalManifestFiles>..\src\dpiAware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
@@ -151,7 +151,7 @@
     </ClCompile>
     <Link>
       <AdditionalOptions>/fixed:no %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>comctl32.lib;shlwapi.lib;shell32.lib;Oleacc.lib;Dbghelp.lib;Version.lib;Crypt32.lib;wintrust.lib;Sensapi.lib;wininet.lib;libscilexer.lib;Imm32.lib;msimg32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>comctl32.lib;shlwapi.lib;shell32.lib;Oleacc.lib;Dbghelp.lib;Version.lib;Crypt32.lib;wintrust.lib;Sensapi.lib;wininet.lib;libscilexer.lib;imm32.lib;msimg32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ShowProgress>LinkVerboseLib</ShowProgress>
       <OutputFile>$(OutDir)notepad++.exe</OutputFile>
       <Version>1.0</Version>
@@ -161,7 +161,7 @@
       <ProgramDatabaseFile>$(OutDir)notepadPlus.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
       <MinimumRequiredVersion>5.02</MinimumRequiredVersion>
-      <AdditionalLibraryDirectories>..\..\scintilla\bin;C:\Libraries\boost_1_69_0\lib64-msvc-14.1\</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\scintilla\bin;$(IntDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Manifest>
       <AdditionalManifestFiles>..\src\dpiAware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
@@ -196,7 +196,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>comctl32.lib;shlwapi.lib;shell32.lib;Oleacc.lib;Dbghelp.lib;Version.lib;Crypt32.lib;wintrust.lib;Sensapi.lib;wininet.lib;libscilexer.lib;Imm32.lib;msimg32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>comctl32.lib;shlwapi.lib;shell32.lib;Oleacc.lib;Dbghelp.lib;Version.lib;Crypt32.lib;wintrust.lib;Sensapi.lib;wininet.lib;libscilexer.lib;imm32.lib;msimg32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ShowProgress>LinkVerboseLib</ShowProgress>
       <OutputFile>$(OutDir)notepad++.exe</OutputFile>
       <Version>1.0</Version>
@@ -210,7 +210,7 @@
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
       <TargetMachine>MachineX86</TargetMachine>
       <MinimumRequiredVersion>5.01</MinimumRequiredVersion>
-      <AdditionalLibraryDirectories>..\..\scintilla\bin;C:\Libraries\boost_1_69_0\lib32-msvc-14.1\</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\scintilla\bin;$(IntDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Manifest>
       <AdditionalManifestFiles>..\src\dpiAware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
@@ -249,7 +249,7 @@ copy ..\src\contextMenu.xml ..\bin\contextMenu.xml
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>comctl32.lib;shlwapi.lib;shell32.lib;Oleacc.lib;Dbghelp.lib;Version.lib;Crypt32.lib;wintrust.lib;Sensapi.lib;wininet.lib;libscilexer.lib;Imm32.lib;msimg32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>comctl32.lib;shlwapi.lib;shell32.lib;Oleacc.lib;Dbghelp.lib;Version.lib;Crypt32.lib;wintrust.lib;Sensapi.lib;wininet.lib;libscilexer.lib;imm32.lib;msimg32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ShowProgress>LinkVerboseLib</ShowProgress>
       <OutputFile>$(OutDir)notepad++.exe</OutputFile>
       <Version>1.0</Version>
@@ -263,7 +263,7 @@ copy ..\src\contextMenu.xml ..\bin\contextMenu.xml
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
       <MinimumRequiredVersion>5.02</MinimumRequiredVersion>
-      <AdditionalLibraryDirectories>..\..\scintilla\bin;C:\Libraries\boost_1_69_0\lib64-msvc-14.1\</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\scintilla\bin;$(IntDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Manifest>
       <AdditionalManifestFiles>..\src\dpiAware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
@@ -540,6 +540,7 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <None Include="..\src\cursors\drag.cur" />
     <None Include="..\src\cursors\drag_interdit.cur" />
     <None Include="..\src\cursors\drag_plus.cur" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\clipboardFormats.h" />
@@ -702,5 +703,14 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="packages\boost.1.72.0.0\build\boost.targets" Condition="Exists('packages\boost.1.72.0.0\build\boost.targets')" />
+    <Import Project="packages\boost_regex-vc141.1.72.0.0\build\boost_regex-vc141.targets" Condition="Exists('packages\boost_regex-vc141.1.72.0.0\build\boost_regex-vc141.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Dieses Projekt verweist auf mindestens ein NuGet-Paket, das auf diesem Computer fehlt. Verwenden Sie die Wiederherstellung von NuGet-Paketen, um die fehlenden Dateien herunterzuladen. Weitere Informationen finden Sie unter "http://go.microsoft.com/fwlink/?LinkID=322105". Die fehlende Datei ist "{0}".</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\boost.1.72.0.0\build\boost.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\boost.1.72.0.0\build\boost.targets'))" />
+    <Error Condition="!Exists('packages\boost_regex-vc141.1.72.0.0\build\boost_regex-vc141.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\boost_regex-vc141.1.72.0.0\build\boost_regex-vc141.targets'))" />
+  </Target>
 </Project>

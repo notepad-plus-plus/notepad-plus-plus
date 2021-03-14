@@ -1709,7 +1709,7 @@ DWORD WINAPI FolderUpdater::watching(void *params)
 						else
 						{
 							// Different action. Process the previous batch and start saving a new one
-							processChange(dwAction, filesToChange, thisFolderUpdater);
+							processChange(dwPreviousAction, filesToChange, thisFolderUpdater);
 							filesToChange.clear();
 
 							dwPreviousAction = dwAction;

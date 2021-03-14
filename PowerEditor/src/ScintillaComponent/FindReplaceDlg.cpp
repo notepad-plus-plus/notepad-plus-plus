@@ -2498,6 +2498,8 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		_pFinder->_scintView.setWrapMode(LINEWRAP_INDENT);
 		_pFinder->_scintView.showWrapSymbol(true);
 
+		_pFinder->_purgeBeforeEverySearch = nppGUI._finderPurgeBeforeEverySearch;
+
 		// allow user to start selecting as a stream block, then switch to a column block by adding Alt keypress
 		_pFinder->_scintView.execute(SCI_SETMOUSESELECTIONRECTANGULARSWITCH, true);
 
@@ -2515,6 +2517,11 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		justCreated = true;
 	}
 	_pFinder->setFinderStyle();
+
+	if (_pFinder->_purgeBeforeEverySearch)
+	{
+		_pFinder->removeAll();
+	}
 
 	if (justCreated)
 	{
@@ -3910,6 +3917,19 @@ void Finder::wrapLongLinesToggle()
 	}
 }
 
+void Finder::purgeToggle()
+{
+	_purgeBeforeEverySearch = !_purgeBeforeEverySearch;
+
+	if (!_canBeVolatiled)
+	{
+		// only remember this setting from the original finder
+		NppParameters& nppParam = NppParameters::getInstance();
+		NppGUI& nppGUI = const_cast<NppGUI&>(nppParam.getNppGUI());
+		nppGUI._finderPurgeBeforeEverySearch = _purgeBeforeEverySearch;
+	}
+}
+
 bool Finder::isLineActualSearchResult(const generic_string & s) const
 {
 	// actual-search-result lines are the only type that start with a tab character
@@ -4159,6 +4179,12 @@ INT_PTR CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 					return TRUE;
 				}
 
+				case NPPM_INTERNAL_SCINTILLAFINDERPURGE:
+				{
+					purgeToggle();
+					return TRUE;
+				}
+
 				default :
 				{
 					return FALSE;
@@ -4185,6 +4211,7 @@ INT_PTR CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 				generic_string copyVerbatim = pNativeSpeaker->getLocalizedStrFromID("finder-copy-verbatim", TEXT("Copy"));
 				generic_string selectAll = pNativeSpeaker->getLocalizedStrFromID("finder-select-all", TEXT("Select all"));
 				generic_string clearAll = pNativeSpeaker->getLocalizedStrFromID("finder-clear-all", TEXT("Clear all"));
+				generic_string purgeForEverySearch = pNativeSpeaker->getLocalizedStrFromID("finder-purge-for-every-search", TEXT("Purge for every search"));
 				generic_string openAll = pNativeSpeaker->getLocalizedStrFromID("finder-open-all", TEXT("Open all"));
 				generic_string wrapLongLines = pNativeSpeaker->getLocalizedStrFromID("finder-wrap-long-lines", TEXT("Word wrap long lines"));
 
@@ -4201,12 +4228,17 @@ INT_PTR CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINDERCLEARALL, clearAll));
 				tmp.push_back(MenuItemUnit(0, TEXT("Separator")));
 				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINDEROPENALL, openAll));
+				// configuration items go at the bottom:
 				tmp.push_back(MenuItemUnit(0, TEXT("Separator")));
 				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINDERWRAP, wrapLongLines));
+				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINDERPURGE, purgeForEverySearch));
 
 				scintillaContextmenu.create(_hSelf, tmp);
 
 				scintillaContextmenu.enableItem(NPPM_INTERNAL_SCINTILLAFINDERCLEARALL, !_canBeVolatiled);
+				
+				scintillaContextmenu.enableItem(NPPM_INTERNAL_SCINTILLAFINDERPURGE, !_canBeVolatiled);
+				scintillaContextmenu.checkItem(NPPM_INTERNAL_SCINTILLAFINDERPURGE, _purgeBeforeEverySearch && !_canBeVolatiled);
 
 				scintillaContextmenu.checkItem(NPPM_INTERNAL_SCINTILLAFINDERWRAP, _longLinesAreWrapped);
 

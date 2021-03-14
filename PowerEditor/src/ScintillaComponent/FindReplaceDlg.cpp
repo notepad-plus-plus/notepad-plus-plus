@@ -3315,7 +3315,7 @@ void FindReplaceDlg::enableProjectCheckmarks()
 				}
 			}
 		}
-		enableFindDlgItem (IDD_FINDINFILES_FIND_BUTTON, enable);
+		enableFindDlgItem (IDD_FINDINFILES_FIND_BUTTON, enable || (_currentStatus != FINDINPROJECTS_DLG));
 		enableFindDlgItem (IDD_FINDINFILES_REPLACEINPROJECTS, enable);
 	}
 }

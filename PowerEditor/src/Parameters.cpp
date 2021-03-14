@@ -4682,6 +4682,11 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			{
 				_nppGUI._finderLinesAreCurrentlyWrapped = (!lstrcmp(val, TEXT("yes")));
 			}
+			val = element->Attribute(TEXT("clearBeforeEverySearch"));
+			if (val)
+			{
+				_nppGUI._finderClearBeforeEverySearch = (!lstrcmp(val, TEXT("yes")));
+			}
 		}
 
 		else if (!lstrcmp(nm, TEXT("NewDocDefaultSettings")))
@@ -5926,12 +5931,14 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("bottom"), _nppGUI._findWindowPos.bottom);
 	}
 
-	// <GUIConfig name="FinderConfig" wrappedLines="no" />
+	// <GUIConfig name="FinderConfig" wrappedLines="no" clearBeforeEverySearch="no"/>
 	{
 		TiXmlElement* GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("FinderConfig"));
 		const TCHAR* pStr = _nppGUI._finderLinesAreCurrentlyWrapped ? TEXT("yes") : TEXT("no");
 		GUIConfigElement->SetAttribute(TEXT("wrappedLines"), pStr);
+		pStr = _nppGUI._finderClearBeforeEverySearch ? TEXT("yes") : TEXT("no");
+		GUIConfigElement->SetAttribute(TEXT("clearBeforeEverySearch"), pStr);
 	}
 
 	// <GUIConfig name="noUpdate" intervalDays="15" nextUpdateDate="20161022">no</GUIConfig>

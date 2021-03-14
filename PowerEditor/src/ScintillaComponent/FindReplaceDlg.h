@@ -160,6 +160,7 @@ private:
 
 	bool _canBeVolatiled = true;
 	bool _longLinesAreWrapped = false;
+	bool _clearBeforeEverySearch = false;
 
 	generic_string _prefixLineStr;
 

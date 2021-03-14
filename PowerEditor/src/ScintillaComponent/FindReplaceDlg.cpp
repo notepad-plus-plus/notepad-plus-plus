@@ -2498,6 +2498,8 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		_pFinder->_scintView.setWrapMode(LINEWRAP_INDENT);
 		_pFinder->_scintView.showWrapSymbol(true);
 
+		_pFinder->_clearBeforeEverySearch = nppGUI._finderClearBeforeEverySearch;
+
 		// allow user to start selecting as a stream block, then switch to a column block by adding Alt keypress
 		_pFinder->_scintView.execute(SCI_SETMOUSESELECTIONRECTANGULARSWITCH, true);
 
@@ -2515,6 +2517,11 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		justCreated = true;
 	}
 	_pFinder->setFinderStyle();
+
+	if (_pFinder->_clearBeforeEverySearch)
+	{
+		_pFinder->removeAll();
+	}
 
 	if (justCreated)
 	{
@@ -4143,7 +4150,29 @@ INT_PTR CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 
 				case NPPM_INTERNAL_SCINTILLAFINDERCLEARALL:
 				{
-					removeAll();
+					bool old = _clearBeforeEverySearch;
+					
+					if (_clearBeforeEverySearch)
+					{
+						_clearBeforeEverySearch = false;
+					}
+					else
+					{
+						if (_scintView.execute(SCI_GETLENGTH) == 0)
+						{
+							_clearBeforeEverySearch = true;
+						}
+						removeAll();
+					}
+
+					if (!_canBeVolatiled && _clearBeforeEverySearch != old)
+					{
+						// only remember this setting from the original finder
+						NppParameters& nppParam = NppParameters::getInstance();
+						NppGUI& nppGUI = const_cast<NppGUI&>(nppParam.getNppGUI());
+						nppGUI._finderClearBeforeEverySearch = _clearBeforeEverySearch;
+					}
+
 					return TRUE;
 				}
 
@@ -4207,6 +4236,7 @@ INT_PTR CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 				scintillaContextmenu.create(_hSelf, tmp);
 
 				scintillaContextmenu.enableItem(NPPM_INTERNAL_SCINTILLAFINDERCLEARALL, !_canBeVolatiled);
+				scintillaContextmenu.checkItem(NPPM_INTERNAL_SCINTILLAFINDERCLEARALL, _clearBeforeEverySearch && !_canBeVolatiled);
 
 				scintillaContextmenu.checkItem(NPPM_INTERNAL_SCINTILLAFINDERWRAP, _longLinesAreWrapped);
 

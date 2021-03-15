@@ -1,29 +1,19 @@
-Notepad++ v7.9.3 Enhancements & bug-fixes:
+Notepad++ v7.9.4 Enhancements & bug-fixes:
 
-1.  Discontinued support for Windows XP due to technical reasons. Notepad++ 7.9.2 is the last version to run on Windows XP.
-2.  Upgrade Notepad++ License: update GPL version from v2 to v3.
-3.  Fix the regression of copying line data from search results.
-4.  Fix "Print Line Number" preference is ignored for printing regression.
-5.  Fix a regression in Chinese Simplified localization.
-6.  Fix dockable panels not being displayed regression due to multi-instance mode activation.
-7.  Make split-lines feature work again with multi-edge rightmost specified edge.
-8.  Enhance modern style file dialog for allowing UNIX style file path.
-9.  Use the modern browse folder dialog to get folder path.
-10. Improve option for setting save dialog filter to All Types.
-11. Add ability to delete entries from combo box history in Find dialog with DELETE key.
-12. Fix lost session issue on Windows reboot/shutdown.
-13. Add "save Folder as Workspace in session" option in save session dialog.
-14. Make value dialog height accurate in any DPI.
-15. Fix issue that Switch-To-Panel keyboard shortcuts cannot be used in context menu.
-16. Fix a memory leak issue.
-17. Fix blurry display problem on an extended monitor.
-18. Fix incompatible plugin not being deleted issue.
-19. Synchronize GUP localization file (if available) with Notepad++ in installer.
-20. Enhance “No update” dialog with the download page link in the Notepad++ updater.
-21. Fix NPPM_SETLINENUMBERWIDTHMODE API not working issue.
+1.  Upgrade Scintilla from v4.2.0 to v4.4.6.
+2.  Fix DPI scaling broken while dragging Notepad++ into the 2nd monitor regression.
+3.  Add "Find in Projects" feature.
+4.	Fix project workspace changes lost on save cancel issue.
+5.  Fix folder picker not being launched issue because provided directory is invalid.
+6.  Fix network path (UNC path) not working in file dialog.
+7.  Fix shortcut name more than 64 characters makes a menu entry empty name issue.
+8.  Fix extension appending issue in file dialog.
+9.  Fix file not turning to modified state (with Session Manager plugin) bug after its content being changed.
+10. Add an option to mute all sounds in preferences dialog.
+11. Make JSON auto-indent for brace.
 
 More fixes & implementations detail:
-https://notepad-plus-plus.org/downloads/v7.9.3/
+https://notepad-plus-plus.org/downloads/v7.9.4/
 
 
 Included plugins:
@@ -35,4 +25,4 @@ Included plugins:
 
 Updater (Installer only):
 
-* WinGup (for Notepad++) v5.1.2
+* WinGup (for Notepad++) v5.1.3

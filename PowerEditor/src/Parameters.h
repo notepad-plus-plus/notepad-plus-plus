@@ -801,7 +801,7 @@ struct NppGUI final
 	bool _tabReplacedBySpace = false;
 
 	bool _finderLinesAreCurrentlyWrapped = false;
-	bool _finderClearBeforeEverySearch = false;
+	bool _finderPurgeBeforeEverySearch = false;
 
 	int _fileAutoDetection = cdEnabledNew;
 

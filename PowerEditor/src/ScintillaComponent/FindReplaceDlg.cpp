@@ -2498,7 +2498,7 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		_pFinder->_scintView.setWrapMode(LINEWRAP_INDENT);
 		_pFinder->_scintView.showWrapSymbol(true);
 
-		_pFinder->_clearBeforeEverySearch = nppGUI._finderClearBeforeEverySearch;
+		_pFinder->_purgeBeforeEverySearch = nppGUI._finderPurgeBeforeEverySearch;
 
 		// allow user to start selecting as a stream block, then switch to a column block by adding Alt keypress
 		_pFinder->_scintView.execute(SCI_SETMOUSESELECTIONRECTANGULARSWITCH, true);
@@ -2518,7 +2518,7 @@ void FindReplaceDlg::findAllIn(InWhat op)
 	}
 	_pFinder->setFinderStyle();
 
-	if (_pFinder->_clearBeforeEverySearch)
+	if (_pFinder->_purgeBeforeEverySearch)
 	{
 		_pFinder->removeAll();
 	}
@@ -3917,6 +3917,19 @@ void Finder::wrapLongLinesToggle()
 	}
 }
 
+void Finder::purgeToggle()
+{
+	_purgeBeforeEverySearch = !_purgeBeforeEverySearch;
+
+	if (!_canBeVolatiled)
+	{
+		// only remember this setting from the original finder
+		NppParameters& nppParam = NppParameters::getInstance();
+		NppGUI& nppGUI = const_cast<NppGUI&>(nppParam.getNppGUI());
+		nppGUI._finderPurgeBeforeEverySearch = _purgeBeforeEverySearch;
+	}
+}
+
 bool Finder::isLineActualSearchResult(const generic_string & s) const
 {
 	// actual-search-result lines are the only type that start with a tab character
@@ -4150,29 +4163,7 @@ INT_PTR CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 
 				case NPPM_INTERNAL_SCINTILLAFINDERCLEARALL:
 				{
-					bool old = _clearBeforeEverySearch;
-					
-					if (_clearBeforeEverySearch)
-					{
-						_clearBeforeEverySearch = false;
-					}
-					else
-					{
-						if (_scintView.execute(SCI_GETLENGTH) == 0)
-						{
-							_clearBeforeEverySearch = true;
-						}
-						removeAll();
-					}
-
-					if (!_canBeVolatiled && _clearBeforeEverySearch != old)
-					{
-						// only remember this setting from the original finder
-						NppParameters& nppParam = NppParameters::getInstance();
-						NppGUI& nppGUI = const_cast<NppGUI&>(nppParam.getNppGUI());
-						nppGUI._finderClearBeforeEverySearch = _clearBeforeEverySearch;
-					}
-
+					removeAll();
 					return TRUE;
 				}
 
@@ -4185,6 +4176,12 @@ INT_PTR CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 				case NPPM_INTERNAL_SCINTILLAFINDERWRAP:
 				{
 					wrapLongLinesToggle();
+					return TRUE;
+				}
+
+				case NPPM_INTERNAL_SCINTILLAFINDERPURGE:
+				{
+					purgeToggle();
 					return TRUE;
 				}
 
@@ -4214,6 +4211,7 @@ INT_PTR CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 				generic_string copyVerbatim = pNativeSpeaker->getLocalizedStrFromID("finder-copy-verbatim", TEXT("Copy"));
 				generic_string selectAll = pNativeSpeaker->getLocalizedStrFromID("finder-select-all", TEXT("Select all"));
 				generic_string clearAll = pNativeSpeaker->getLocalizedStrFromID("finder-clear-all", TEXT("Clear all"));
+				generic_string purgeForEverySearch = pNativeSpeaker->getLocalizedStrFromID("finder-purge-for-every-search", TEXT("Purge for every search"));
 				generic_string openAll = pNativeSpeaker->getLocalizedStrFromID("finder-open-all", TEXT("Open all"));
 				generic_string wrapLongLines = pNativeSpeaker->getLocalizedStrFromID("finder-wrap-long-lines", TEXT("Word wrap long lines"));
 
@@ -4229,14 +4227,27 @@ INT_PTR CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINDERSELECTALL, selectAll));
 				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINDERCLEARALL, clearAll));
 				tmp.push_back(MenuItemUnit(0, TEXT("Separator")));
+<<<<<<< HEAD
 				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINDEROPENALL, openAll));
+=======
+				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINFEROPENALL, openAll));
+				// configuration items go at the bottom:
+>>>>>>> Add ability to avoid accumulating multiple search results
 				tmp.push_back(MenuItemUnit(0, TEXT("Separator")));
 				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINDERWRAP, wrapLongLines));
+				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINDERPURGE, purgeForEverySearch));
 
 				scintillaContextmenu.create(_hSelf, tmp);
 
+<<<<<<< HEAD
 				scintillaContextmenu.enableItem(NPPM_INTERNAL_SCINTILLAFINDERCLEARALL, !_canBeVolatiled);
 				scintillaContextmenu.checkItem(NPPM_INTERNAL_SCINTILLAFINDERCLEARALL, _clearBeforeEverySearch && !_canBeVolatiled);
+=======
+				scintillaContextmenu.enableItem(NPPM_INTERNAL_SCINTILLAFINFERCLEARALL, !_canBeVolatiled);
+				
+				scintillaContextmenu.enableItem(NPPM_INTERNAL_SCINTILLAFINDERPURGE, !_canBeVolatiled);
+				scintillaContextmenu.checkItem(NPPM_INTERNAL_SCINTILLAFINDERPURGE, _purgeBeforeEverySearch && !_canBeVolatiled);
+>>>>>>> Add ability to avoid accumulating multiple search results
 
 				scintillaContextmenu.checkItem(NPPM_INTERNAL_SCINTILLAFINDERWRAP, _longLinesAreWrapped);
 

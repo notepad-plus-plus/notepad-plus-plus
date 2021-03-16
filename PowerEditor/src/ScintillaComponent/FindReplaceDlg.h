@@ -124,6 +124,7 @@ public:
 	void removeAll();
 	void openAll();
 	void wrapLongLinesToggle();
+	void purgeToggle();
 	void copy();
 	void beginNewFilesSearch();
 	void finishFilesSearch(int count, int searchedCount, bool isMatchLines, bool searchedEntireNotSelection);
@@ -160,7 +161,7 @@ private:
 
 	bool _canBeVolatiled = true;
 	bool _longLinesAreWrapped = false;
-	bool _clearBeforeEverySearch = false;
+	bool _purgeBeforeEverySearch = false;
 
 	generic_string _prefixLineStr;
 

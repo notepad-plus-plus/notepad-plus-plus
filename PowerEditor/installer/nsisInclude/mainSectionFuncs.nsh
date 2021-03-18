@@ -128,9 +128,104 @@ Function copyCommonFiles
 		CopyFiles "$PLUGINSDIR\gupLocalization\$(langFileName)" "$INSTDIR\updater\nativeLang.xml"
 FunctionEnd
 
-	
-Function removeUnstablePlugins
+; Source from: https://nsis.sourceforge.io/VersionCompare
+Function VersionCompare
+	!define VersionCompare `!insertmacro VersionCompareCall`
+ 
+	!macro VersionCompareCall _VER1 _VER2 _RESULT
+		Push `${_VER1}`
+		Push `${_VER2}`
+		Call VersionCompare
+		Pop ${_RESULT}
+	!macroend
+ 
+	Exch $1
+	Exch
+	Exch $0
+	Exch
+	Push $2
+	Push $3
+	Push $4
+	Push $5
+	Push $6
+	Push $7
+ 
+	begin:
+	StrCpy $2 -1
+	IntOp $2 $2 + 1
+	StrCpy $3 $0 1 $2
+	StrCmp $3 '' +2
+	StrCmp $3 '.' 0 -3
+	StrCpy $4 $0 $2
+	IntOp $2 $2 + 1
+	StrCpy $0 $0 '' $2
+ 
+	StrCpy $2 -1
+	IntOp $2 $2 + 1
+	StrCpy $3 $1 1 $2
+	StrCmp $3 '' +2
+	StrCmp $3 '.' 0 -3
+	StrCpy $5 $1 $2
+	IntOp $2 $2 + 1
+	StrCpy $1 $1 '' $2
+ 
+	StrCmp $4$5 '' equal
+ 
+	StrCpy $6 -1
+	IntOp $6 $6 + 1
+	StrCpy $3 $4 1 $6
+	StrCmp $3 '0' -2
+	StrCmp $3 '' 0 +2
+	StrCpy $4 0
+ 
+	StrCpy $7 -1
+	IntOp $7 $7 + 1
+	StrCpy $3 $5 1 $7
+	StrCmp $3 '0' -2
+	StrCmp $3 '' 0 +2
+	StrCpy $5 0
+ 
+	StrCmp $4 0 0 +2
+	StrCmp $5 0 begin newer2
+	StrCmp $5 0 newer1
+	IntCmp $6 $7 0 newer1 newer2
+ 
+	StrCpy $4 '1$4'
+	StrCpy $5 '1$5'
+	IntCmp $4 $5 begin newer2 newer1
+ 
+	equal:
+	StrCpy $0 0
+	goto end
+	newer1:
+	StrCpy $0 1
+	goto end
+	newer2:
+	StrCpy $0 2
+ 
+	end:
+	Pop $7
+	Pop $6
+	Pop $5
+	Pop $4
+	Pop $3
+	Pop $2
+	Pop $1
+	Exch $0
+FunctionEnd
 
+Function removeUnstablePlugins
+	; remove unstable plugins
+	CreateDirectory "$INSTDIR\plugins\disabled"
+	
+	IfFileExists "$INSTDIR\plugins\NppSaveAsAdmin\NppSaveAsAdmin.dll" 0 +6  ; NppSaveAsAdmin makes Notepad++ crash. "1.0.211.0" is its 1st version which contains the fix
+		${GetFileVersion} "$INSTDIR\plugins\NppSaveAsAdmin\NppSaveAsAdmin.dll" $R0
+		${VersionCompare} $R0 "1.0.211.0" $R1 ;   0: equal to 1.0.211.0   1: $R0 is newer   2: 1.0.211.0 is newer
+		StrCmp $R1 "0" +5 0 ; if equal skip all & go to end, else go to next
+		StrCmp $R1 "1" +4 0 ; if newer skip all & go to end, else older (2) then go to next
+		MessageBox MB_OK "Due to NppSaveAsAdmin plugin's incompatibility issue in version $R0, NppSaveAsAdmin.dll will be deleted. Use Plugins Admin to add back (the latest version of) NppSaveAsAdmin." /SD IDOK
+		Rename "$INSTDIR\plugins\NppSaveAsAdmin\NppSaveAsAdmin.dll" "$INSTDIR\plugins\disabled\NppSaveAsAdmin.dll"
+		Delete "$INSTDIR\plugins\NppSaveAsAdmin\NppSaveAsAdmin.dll"
 FunctionEnd
 
 Function removeOldContextMenu

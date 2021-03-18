@@ -1016,6 +1016,7 @@
 		<KeyWord name="virtual" />
 		<KeyWord name="void" />
 		<KeyWord name="volatile" />
+		<KeyWord name="when" />
 		<KeyWord name="while" />
 	</AutoComplete>
 </NotepadPlus>

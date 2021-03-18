@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-        Slovenian localization for Notepad++ v7.9.3
-        Last modified 15. Feb 2021 by dr. Vinko Kastelic
+        Slovenian localization for Notepad++ v7.9.4
+        Last modified 15. Mar 2021 by dr. Vinko Kastelic
         
 -->
 <NotepadPlus>
-    <Native-Langue name="Slovenski jezik" filename="slovenian.xml" version="7.9.3">
+    <Native-Langue name="Slovenski jezik" filename="slovenian.xml" version="7.9.4">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -78,7 +78,7 @@
                 <!-- all menu item -->
                 <Commands>
 					<Item id="41001" name="&amp;Nova"/>
-                    <Item id="41002" name="&amp;Odpri"/>
+                    <Item id="41002" name="&amp;Odpri..."/>
 					<Item id="41019" name="Raziskovalec"/>
                     <Item id="41020" name="cmd.exe"/>
                     <Item id="41025" name="Mapa kot delovni prostor"/>					
@@ -378,7 +378,7 @@
         </Menu>
 
         <Dialog>
-			<Find title="" titleFind="Najdi" titleReplace="Zamenjaj" titleFindInFiles="Najdi v datotekah" titleMark="Označi">
+			<Find title="" titleFind="Najdi" titleReplace="Zamenjaj" titleFindInFiles="Najdi v datotekah" titleFindInProjects="Najdi v projektih" titleMark="Označi">
                 <Item id="1"    name="Najdi naslednjega"/>
                 <Item id="1722" name="V smeri nazaj"/>				
                 <Item id="2"    name="Zapri"/>
@@ -409,7 +409,11 @@
 				<Item id="1625" name="&amp;Navaden"/>
 				<Item id="1626" name="Ra&amp;zširjen (\n, \r, \t, \0, \x...)"/>
 				<Item id="1660" name="Zamenjaj v datotekah"/>
-                <Item id="1661" name="Sledi trenutni dok."/>
+                <Item id="1665" name="Zamenjaj v projektih"/>				
+                <Item id="1661" name="Sledi trenutnem dok."/>
+                <Item id="1662" name="Panel projekta 1"/>
+                <Item id="1663" name="Panel projekta 2"/>
+                <Item id="1664" name="Panel projekta 3"/>				
 				<Item id="1641" name="Najdi vse v trenutnem dokumentu"/>
 				<Item id="1686" name="Proso&amp;jnost"/>
 				<Item id="1703" name="&amp;. se ujema z novo vrstico"/>
@@ -1054,6 +1058,7 @@ Lahko določite več označevalcev stolpcev z uporabo belega presledka za ločev
                     <Item id="6344" name="Ogledovalec dokumenta"/>
                     <Item id="6345" name="Pokukaj v zavihek"/>
                     <Item id="6346" name="Pokukaj v mapo dokumentov"/>
+                    <Item id="6360" name="Izključi vse zvoke"/>					
 				</MISC>
 			</Preference>
 			<MultiMacro title="Večkratni zagon makra">
@@ -1175,7 +1180,8 @@ Ali želite prenesti najnovejšo različico z Notepad++ strani?"/> <!-- HowToRep
 Odstranite ta koren iz panela, preden dodate mapo &quot;$STR_REPLACE$&quot;."/> <!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
 
 			<ProjectPanelChanged title="$STR_REPLACE$" message="Delovni prostor je bil spremenjen. Ali ga želite shraniti?"/>
-			<ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Vaš delovni prostor ni bil shranjen."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+            <ProjectPanelSaveError title="$STR_REPLACE$" message="Med zapisom datoteke delovnega prostora je prišlo do napake.
+Vaš delovni prostor ni bil shranjen."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<ProjectPanelOpenDoSaveDirtyWsOrNot title="Odpri delovni prostor" message="Trenutni delovni prostor je bil spremenjen. Želite shraniti trenutni projekt?"/>
 			<ProjectPanelNewDoSaveDirtyWsOrNot title="Nov delovni prostor" message="Trenutni delovni prostor je bil spremenjen. Želite shraniti trenutni projekt?"/>
 			<ProjectPanelOpenFailed title="Odpri delovni prostor" message="Delovni prostor ni bilo mogoče odpreti.
@@ -1270,6 +1276,7 @@ Nadaljujem?"/>
                     <Item id="3126" name="Shrani kot..."/>
                     <Item id="3127" name="Shrani kopijo kot..."/>
                     <Item id="3121" name="Dodaj nov projekt"/>
+                    <Item id="3128" name="Poišči v projektih..."/>					
                 </WorkspaceMenu>
                 <ProjectMenu>
                     <Item id="3111" name="Preimenuj"/>
@@ -1360,6 +1367,8 @@ Najdi v vseh datotekah, razen exe, obj &amp;&amp; log:
             <common-name value="Ime: "/>
             <tabrename-title value="Preimenovanje trenutnega zavihka"/>
             <tabrename-newname value="Novo ime: "/>
+            <splitter-rotate-left value="Zasuk na levo"/>
+            <splitter-rotate-right value="Zasuk v desno"/>			
             <recent-file-history-maxfile value="Maks. datotek: "/>
             <language-tabsize value="Velikost zavihka: "/>
             <userdefined-title-new value="Ustvari nov jezik..."/>
@@ -1383,7 +1392,9 @@ Najdi v vseh datotekah, razen exe, obj &amp;&amp; log:
             <replace-in-files-confirm-directory value="Ali ste prepričani, da želite zamenjati vse pojavitve v :"/>
             <replace-in-files-confirm-filetype value="Za vrsto datoteke :"/>
             <replace-in-files-progress-title value="Potek zamenjave v datotekah..."/>		
-            <replace-in-open-docs-confirm-title value="Ali ste prepričani?"/>
+            <replace-in-projects-confirm-title value="Ali ste prepričani?"/>
+            <replace-in-projects-confirm-message value="Ali želite zamenjati vse pojavitve v vseh dokumentih v izbranih panelih projektov?"/>            
+			<replace-in-open-docs-confirm-title value="Ali ste prepričani?"/>
             <replace-in-open-docs-confirm-message value="Ali ste prepričani, da želite zamenjati vse pojavitve v vseh odprtih dokumentih?"/>
 			<find-result-caption value="Rezultati iskanja"/>
             <find-result-title value="Iskanje"/> <!-- Must not begin with space or tab character -->

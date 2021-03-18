@@ -1,11 +1,11 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
     Italian translation for Notepad++ 7.9.4
-    Last modified Wed, March 10th, 2021.
+    Last modified Tho, March 18th, 2021.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 <NotepadPlus>
-    <Native-Langue name = "Italiano" filename = "italian.xml" version = "7.9.3">
+    <Native-Langue name = "Italiano" filename = "italian.xml" version = "7.9.4">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -38,8 +38,8 @@
                     <Item subMenuId="edit-blankOperations" name="Operazioni sugli spazi"/>
                     <Item subMenuId="edit-pasteSpecial" name="Incolla speciale"/>
                     <Item subMenuId="edit-onSelection" name="Testo selezionato"/>
-                    <Item subMenuId="search-markAll" name="Marca tutti"/>
-                    <Item subMenuId="search-unmarkAll" name="Rimuovi marcatura"/>
+                    <Item subMenuId="search-markAll" name="Evidenzia tutti"/>
+                    <Item subMenuId="search-unmarkAll" name="Rimuovi evidenziazione"/>
                     <Item subMenuId="search-jumpUp" name="Vai su"/>
                     <Item subMenuId="search-jumpDown" name="Vai giù"/>
                     <Item subMenuId="search-copyStyledText" name="Copia il testo in stile"/>
@@ -418,7 +418,7 @@
                 <Item id="1703" name="&amp;. significa &apos;a capo&apos;"/>
                 <Item id="1721" name="▲"/>
                 <Item id="1723" name="▼ Trova successivo"/>
-                <Item id="1725" name= "Copia il testo marcato negli appunti"/>
+                <Item id="1725" name= "Copia il testo evidenziato"/>
             </Find>
 
             <FindCharsInRange title="Cerca caratteri...">

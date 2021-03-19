@@ -250,11 +250,9 @@ public:
 	{
 		return S_OK;
 	}
-	IFACEMETHODIMP OnFolderChange(IFileDialog* dlg) override
+	IFACEMETHODIMP OnFolderChange(IFileDialog*) override
 	{
 		// First launch order: 3. Custom controls are added but inactive.
-		if (!_dialog)
-			initDialog(dlg);
 		return S_OK;
 	}
 	IFACEMETHODIMP OnFolderChanging(IFileDialog*, IShellItem*) override
@@ -262,9 +260,11 @@ public:
 		// First launch order: 2. Buttons are added, correct window title.
 		return S_OK;
 	}
-	IFACEMETHODIMP OnSelectionChange(IFileDialog*) override
+	IFACEMETHODIMP OnSelectionChange(IFileDialog* dlg) override
 	{
 		// First launch order: 4. Main window is shown.
+		if (!_dialog)
+			initDialog(dlg);
 		return S_OK;
 	}
 	IFACEMETHODIMP OnShareViolation(IFileDialog*, IShellItem*, FDE_SHAREVIOLATION_RESPONSE*) override
@@ -300,6 +300,8 @@ private:
 	FileDialogEventHandler(FileDialogEventHandler&&) = delete;
 	FileDialogEventHandler& operator=(FileDialogEventHandler&&) = delete;
 
+	// Inits dialog pointer and overrides window procedures for file name edit and ok button.
+	// Call this as late as possible to ensure all the controls of the dialog are created.
 	void initDialog(IFileDialog * d)
 	{
 		assert(!_dialog);
@@ -347,9 +349,8 @@ private:
 		return fileName;
 	}
 
+	// Modifies the file name if necesary after user confirmed input.
 	// Called after the user input but before OnFileOk() and before any name validation.
-	// Prefer SendMessage communication with the edit box here rather than IFileDialog methods.
-	// The setter methods post the message to the queue, and it may not be processed in time.
 	void onPreFileOk()
 	{
 		if (!_dialog)

@@ -142,6 +142,11 @@ SectionGroup "Auto-completion Files" autoCompletionComponent
 		SetOutPath "$INSTDIR\autoCompletion"
 		File ".\APIs\autoit.xml"
 	${MementoSectionEnd}
+
+	${MementoSection} "COBOL" COBOL
+		SetOutPath "$INSTDIR\autoCompletion"
+		File ".\APIs\cobol.xml"
+	${MementoSectionEnd}
 SectionGroupEnd
 
 
@@ -245,6 +250,10 @@ SectionGroup un.autoCompletionComponent
 
 	Section un.autoit
 		Delete "$INSTDIR\autoCompletion\autoit.xml"
+	SectionEnd
+
+	Section un.cobol
+		Delete "$INSTDIR\autoCompletion\cobol.xml"
 	SectionEnd
 
 SectionGroupEnd

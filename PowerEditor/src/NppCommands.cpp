@@ -1989,6 +1989,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_VIEW_IN_FIREFOX:
 		case IDM_VIEW_IN_CHROME:
+		case IDM_VIEW_IN_EDGE:
 		case IDM_VIEW_IN_IE:
 		{
 			auto currentBuf = _pEditView->getCurrentBuffer();
@@ -2003,6 +2004,10 @@ void Notepad_plus::command(int id)
 				else if (id == IDM_VIEW_IN_CHROME)
 				{
 					appName = TEXT("chrome.exe");
+				}
+				else if (id == IDM_VIEW_IN_EDGE)
+				{
+					appName = TEXT("msedge.exe");
 				}
 				else // if (id == IDM_VIEW_IN_IE)
 				{
@@ -2027,7 +2032,18 @@ void Notepad_plus::command(int id)
 				{
 					::ShellExecute(NULL, TEXT("open"), valData, fullCurrentPath.c_str(), NULL, SW_SHOWNORMAL);
 				}
-				else
+				else if (id == IDM_VIEW_IN_EDGE)
+				{
+					// Try the Legacy version
+
+					// Don't put the quots for Edge, otherwise it doesn't work
+					//fullCurrentPath = TEXT("\"");
+					generic_string fullCurrentPath = currentBuf->getFullPathName();
+					//fullCurrentPath += TEXT("\"");
+
+					::ShellExecute(NULL, TEXT("open"), TEXT("shell:Appsfolder\\Microsoft.MicrosoftEdge_8wekyb3d8bbwe!MicrosoftEdge"), fullCurrentPath.c_str(), NULL, SW_SHOW);
+				} 
+				else 
 				{
 					_nativeLangSpeaker.messageBox("ViewInBrowser",
 						_pPublicInterface->getHSelf(),
@@ -2036,21 +2052,6 @@ void Notepad_plus::command(int id)
 						MB_OK);
 				}
 				::RegCloseKey(hKey2Check);
-			}
-		}
-		break;
-		
-		case IDM_VIEW_IN_EDGE:
-		{
-			auto currentBuf = _pEditView->getCurrentBuffer();
-			if (!currentBuf->isUntitled())
-			{
-				// Don't put the quots for Edge, otherwise it doesn't work
-				//fullCurrentPath = TEXT("\"");
-				generic_string fullCurrentPath = currentBuf->getFullPathName();
-				//fullCurrentPath += TEXT("\"");
-
-				ShellExecute(NULL, TEXT("open"), TEXT("shell:Appsfolder\\Microsoft.MicrosoftEdge_8wekyb3d8bbwe!MicrosoftEdge"), fullCurrentPath.c_str(), NULL, SW_SHOW);
 			}
 		}
 		break;

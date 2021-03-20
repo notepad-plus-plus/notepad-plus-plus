@@ -1628,6 +1628,9 @@ bool Notepad_plus::fileSaveAs(BufferID id, bool isSaveCopy)
 		bufferID = _pEditView->getCurrentBufferID();
 	Buffer * buf = MainFileManager.getBufferByID(bufferID);
 
+	generic_string origPathname = buf->getFullPathName();
+	bool wasUntitled = buf->isUntitled();
+
 	CustomFileDialog fDlg(_pPublicInterface->getHSelf());
 
 	fDlg.setExtFilter(TEXT("All types"), TEXT(".*"));
@@ -1665,6 +1668,10 @@ bool Notepad_plus::fileSaveAs(BufferID id, bool isSaveCopy)
 			bool res = doSave(bufferID, fn.c_str(), isSaveCopy);
 			//buf->setNeedsLexing(true);	//commented to fix wrapping being removed after save as (due to SCI_CLEARSTYLE or something, seems to be Scintilla bug)
 			//Changing lexer after save seems to work properly
+			if (!wasUntitled && !isSaveCopy)
+			{
+				_lastRecentFileList.add(origPathname.c_str());
+			}
 			return res;
 		}
 		else		//cannot save, other view has buffer already open, activate it
@@ -1679,10 +1686,10 @@ bool Notepad_plus::fileSaveAs(BufferID id, bool isSaveCopy)
 		}
 	}
 	else // cancel button is pressed
-    {
-        checkModifiedDocument(true);
+	{
+		checkModifiedDocument(true);
 		return false;
-    }
+	}
 }
 
 bool Notepad_plus::fileRename(BufferID id)

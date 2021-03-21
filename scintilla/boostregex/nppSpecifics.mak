@@ -7,8 +7,6 @@
 # Set your boost path (the root of where you've unpacked your boost zip).
 # Boost is available from www.boost.org
 
-!IFDEF BOOSTPATH
-!IFDEF BOOSTREGEXLIBPATH
 
 SRC_OBJS=\
 	$(SRC_OBJS)\
@@ -21,10 +19,9 @@ LEX_OBJS=\
 	$(DIR_O)\UTF8DocumentIterator.obj
 
 
-INCLUDES=$(INCLUDES) -I$(BOOSTPATH)
+INCLUDES=$(INCLUDES) -I../boostregex
 
 CXXFLAGS=$(CXXFLAGS) -DSCI_OWNREGEX
-LDFLAGS=$(LDFLAGS) -LIBPATH:$(BOOSTREGEXLIBPATH)
 
 
 $(DIR_O)\UTF8DocumentIterator.obj:: ../boostregex/UTF8DocumentIterator.cxx
@@ -32,7 +29,4 @@ $(DIR_O)\UTF8DocumentIterator.obj:: ../boostregex/UTF8DocumentIterator.cxx
 	
 $(DIR_O)\BoostRegexSearch.obj:: ../boostregex/BoostRegexSearch.cxx ../src/CharClassify.h ../src/RESearch.h	
 	$(CC) $(CXXFLAGS) -D_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS -c ../boostregex/BoostRegexSearch.cxx
-
-!ENDIF
-!ENDIF
 

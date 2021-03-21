@@ -2032,7 +2032,18 @@ void Notepad_plus::command(int id)
 				{
 					::ShellExecute(NULL, TEXT("open"), valData, fullCurrentPath.c_str(), NULL, SW_SHOWNORMAL);
 				}
-				else
+				else if (id == IDM_VIEW_IN_EDGE)
+				{
+					// Try the Legacy version
+
+					// Don't put the quots for Edge, otherwise it doesn't work
+					//fullCurrentPath = TEXT("\"");
+					generic_string fullCurrentPath = currentBuf->getFullPathName();
+					//fullCurrentPath += TEXT("\"");
+
+					::ShellExecute(NULL, TEXT("open"), TEXT("shell:Appsfolder\\Microsoft.MicrosoftEdge_8wekyb3d8bbwe!MicrosoftEdge"), fullCurrentPath.c_str(), NULL, SW_SHOW);
+				} 
+				else 
 				{
 					_nativeLangSpeaker.messageBox("ViewInBrowser",
 						_pPublicInterface->getHSelf(),

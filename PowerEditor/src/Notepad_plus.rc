@@ -412,6 +412,14 @@ BEGIN
             MENUITEM "Using 4th Style",    IDM_SEARCH_MARKALLEXT4
             MENUITEM "Using 5th Style",    IDM_SEARCH_MARKALLEXT5
         END
+        POPUP "Mark One"
+        BEGIN
+            MENUITEM "Using 1st Style",    IDM_SEARCH_MARKONEEXT1
+            MENUITEM "Using 2nd Style",    IDM_SEARCH_MARKONEEXT2
+            MENUITEM "Using 3rd Style",    IDM_SEARCH_MARKONEEXT3
+            MENUITEM "Using 4th Style",    IDM_SEARCH_MARKONEEXT4
+            MENUITEM "Using 5th Style",    IDM_SEARCH_MARKONEEXT5
+        END
         POPUP "Unmark All"
         BEGIN
             MENUITEM "Clear 1st Style",     IDM_SEARCH_UNMARKALLEXT1

@@ -1,3 +1,10 @@
+Notepad++ v7.9.5 bug-fixes:
+
+1.  Fix Notepad++ not starting up due to SaveAsAdmin plugin (for installer package).
+2.  Fix UNC path with quotes handling in folder & file Open/Save dialog.
+3.  Fix file doesn't save as extension type on Windows 7.
+
+
 Notepad++ v7.9.4 Enhancements & bug-fixes:
 
 1.  Upgrade Scintilla from v4.2.0 to v4.4.6.
@@ -13,7 +20,7 @@ Notepad++ v7.9.4 Enhancements & bug-fixes:
 11. Make JSON auto-indent for brace.
 
 More fixes & implementations detail:
-https://notepad-plus-plus.org/downloads/v7.9.4/
+https://notepad-plus-plus.org/downloads/v7.9.5/
 
 
 Included plugins:

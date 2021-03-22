@@ -589,15 +589,16 @@ void Notepad_plus::command(int id)
 			{
 				if (_pEditView->execute(SCI_SELECTIONISRECTANGLE))
 				{
-					ColumnModeInfos colInfos = _pEditView->getColumnModeSelectInfo();
-					int leftPos = colInfos.begin()->_selLpos;
-					int rightPos = colInfos.rbegin()->_selRpos;
-					int startPos = min(leftPos, rightPos);
-					int endPos = max(leftPos, rightPos);
-					fromLine = _pEditView->execute(SCI_LINEFROMPOSITION, startPos);
-					toLine = _pEditView->execute(SCI_LINEFROMPOSITION, endPos);
-					fromColumn = _pEditView->execute(SCI_GETCOLUMN, leftPos);
-					toColumn = _pEditView->execute(SCI_GETCOLUMN, rightPos);
+					size_t rectSelAnchor = _pEditView->execute(SCI_GETRECTANGULARSELECTIONANCHOR);
+					size_t rectSelCaret = _pEditView->execute(SCI_GETRECTANGULARSELECTIONCARET);
+					size_t anchorLine = _pEditView->execute(SCI_LINEFROMPOSITION, rectSelAnchor);
+					size_t caretLine = _pEditView->execute(SCI_LINEFROMPOSITION, rectSelCaret);
+					fromLine = min(anchorLine, caretLine);
+					toLine = max(anchorLine, caretLine);
+					size_t anchorLineOffset = rectSelAnchor - _pEditView->execute(SCI_POSITIONFROMLINE, anchorLine) + _pEditView->execute(SCI_GETRECTANGULARSELECTIONANCHORVIRTUALSPACE);
+					size_t caretLineOffset = rectSelCaret - _pEditView->execute(SCI_POSITIONFROMLINE, caretLine) + _pEditView->execute(SCI_GETRECTANGULARSELECTIONCARETVIRTUALSPACE);
+					fromColumn = min(anchorLineOffset, caretLineOffset);
+					toColumn = max(anchorLineOffset, caretLineOffset);
 				}
 				else
 				{

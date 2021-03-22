@@ -596,8 +596,10 @@ void Notepad_plus::command(int id)
 					int endPos = max(leftPos, rightPos);
 					fromLine = _pEditView->execute(SCI_LINEFROMPOSITION, startPos);
 					toLine = _pEditView->execute(SCI_LINEFROMPOSITION, endPos);
-					fromColumn = _pEditView->execute(SCI_GETCOLUMN, leftPos);
-					toColumn = _pEditView->execute(SCI_GETCOLUMN, rightPos);
+					size_t fromLineStartPos = _pEditView->execute(SCI_POSITIONFROMLINE, fromLine);
+					size_t toLineStartPos = _pEditView->execute(SCI_POSITIONFROMLINE, toLine);
+					fromColumn = leftPos - fromLineStartPos;
+					toColumn = rightPos - toLineStartPos;
 				}
 				else
 				{

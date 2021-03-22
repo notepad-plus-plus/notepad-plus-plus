@@ -218,7 +218,8 @@ Function removeUnstablePlugins
 	; remove unstable plugins
 	CreateDirectory "$INSTDIR\plugins\disabled"
 	
-	IfFileExists "$INSTDIR\plugins\NppSaveAsAdmin\NppSaveAsAdmin.dll" 0 +6  ; NppSaveAsAdmin makes Notepad++ crash. "1.0.211.0" is its 1st version which contains the fix
+	; NppSaveAsAdmin makes Notepad++ crash. "1.0.211.0" is its 1st version which contains the fix
+	IfFileExists "$INSTDIR\plugins\NppSaveAsAdmin\NppSaveAsAdmin.dll" 0 NppSaveAsAdminTestEnd
 		${GetFileVersion} "$INSTDIR\plugins\NppSaveAsAdmin\NppSaveAsAdmin.dll" $R0
 		${VersionCompare} $R0 "1.0.211.0" $R1 ;   0: equal to 1.0.211.0   1: $R0 is newer   2: 1.0.211.0 is newer
 		StrCmp $R1 "0" +5 0 ; if equal skip all & go to end, else go to next
@@ -226,6 +227,8 @@ Function removeUnstablePlugins
 		MessageBox MB_OK "Due to NppSaveAsAdmin plugin's incompatibility issue in version $R0, NppSaveAsAdmin.dll will be deleted. Use Plugins Admin to add back (the latest version of) NppSaveAsAdmin." /SD IDOK
 		Rename "$INSTDIR\plugins\NppSaveAsAdmin\NppSaveAsAdmin.dll" "$INSTDIR\plugins\disabled\NppSaveAsAdmin.dll"
 		Delete "$INSTDIR\plugins\NppSaveAsAdmin\NppSaveAsAdmin.dll"
+
+	NppSaveAsAdminTestEnd:
 FunctionEnd
 
 Function removeOldContextMenu

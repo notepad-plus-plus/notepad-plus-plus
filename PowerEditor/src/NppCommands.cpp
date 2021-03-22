@@ -1255,20 +1255,39 @@ void Notepad_plus::command(int id)
 			else // (id == IDM_SEARCH_MARKALLEXT5)
 				styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT5;
 
-			const int strSize = FINDREPLACE_MAXLENGTH;
-			TCHAR text2Find[strSize];
-			TCHAR text2Find2[strSize];
-
-			_pEditView->getGenericSelectedText(text2Find, strSize, false);
-			_pEditView->getGenericWordOnCaretPos(text2Find2, strSize);
-
-            if (text2Find[0] == '\0')
-            {
-                _findReplaceDlg.markAll(text2Find2, styleID, true);
-            }
+			const NppGUI& nppGui = (NppParameters::getInstance()).getNppGUI();
+			if (nppGui._styleOnlySingleOccurrence)
+			{
+				Sci_CharacterRange range = _pEditView->getSelection();
+				if (range.cpMin == range.cpMax)
+				{
+					auto caretPos = _pEditView->execute(SCI_GETCURRENTPOS, 0, 0);
+					range.cpMin = static_cast<int>(_pEditView->execute(SCI_WORDSTARTPOSITION, caretPos, true));
+					range.cpMax = static_cast<int>(_pEditView->execute(SCI_WORDENDPOSITION, caretPos, true));
+				}
+				if (range.cpMax > range.cpMin)
+				{
+					_pEditView->execute(SCI_SETINDICATORCURRENT, styleID);
+					_pEditView->execute(SCI_INDICATORFILLRANGE, range.cpMin, range.cpMax - range.cpMin);
+				}
+			}
 			else
 			{
-				_findReplaceDlg.markAll(text2Find, styleID, lstrlen(text2Find) == lstrlen(text2Find2));
+				const int strSize = FINDREPLACE_MAXLENGTH;
+				TCHAR text2Find[strSize];
+				TCHAR text2Find2[strSize];
+
+				_pEditView->getGenericSelectedText(text2Find, strSize, false);
+				_pEditView->getGenericWordOnCaretPos(text2Find2, strSize);
+
+				if (text2Find[0] == '\0')
+				{
+					_findReplaceDlg.markAll(text2Find2, styleID, true);
+				}
+				else
+				{
+					_findReplaceDlg.markAll(text2Find, styleID, lstrlen(text2Find) == lstrlen(text2Find2));
+				}
 			}
 		}
 		break;

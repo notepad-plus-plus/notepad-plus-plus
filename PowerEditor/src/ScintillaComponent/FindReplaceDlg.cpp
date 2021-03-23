@@ -4053,44 +4053,44 @@ INT_PTR CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 					return TRUE;
 				}
 
-				case NPPM_INTERNAL_SCINTILLAFINFERCOLLAPSE :
+				case NPPM_INTERNAL_SCINTILLAFINDERCOLLAPSE :
 				{
 					_scintView.foldAll(fold_collapse);
 					return TRUE;
 				}
 
-				case NPPM_INTERNAL_SCINTILLAFINFERUNCOLLAPSE :
+				case NPPM_INTERNAL_SCINTILLAFINDERUNCOLLAPSE :
 				{
 					_scintView.foldAll(fold_uncollapse);
 					return TRUE;
 				}
 
-				case NPPM_INTERNAL_SCINTILLAFINFERCOPY :
+				case NPPM_INTERNAL_SCINTILLAFINDERCOPY :
 				{
 					copy();
 					return TRUE;
 				}
 
-				case NPPM_INTERNAL_SCINTILLAFINFERCOPYVERBATIM:
+				case NPPM_INTERNAL_SCINTILLAFINDERCOPYVERBATIM:
 				{
 					_scintView.execute(SCI_COPY);
 
 					return TRUE;
 				}
 
-				case NPPM_INTERNAL_SCINTILLAFINFERSELECTALL :
+				case NPPM_INTERNAL_SCINTILLAFINDERSELECTALL :
 				{
 					_scintView.execute(SCI_SELECTALL);
 					return TRUE;
 				}
 
-				case NPPM_INTERNAL_SCINTILLAFINFERCLEARALL:
+				case NPPM_INTERNAL_SCINTILLAFINDERCLEARALL:
 				{
 					removeAll();
 					return TRUE;
 				}
 
-				case NPPM_INTERNAL_SCINTILLAFINFEROPENALL:
+				case NPPM_INTERNAL_SCINTILLAFINDEROPENALL:
 				{
 					openAll();
 					return TRUE;
@@ -4135,21 +4135,21 @@ INT_PTR CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 				if (_canBeVolatiled)
 					tmp.push_back(MenuItemUnit(NPPM_INTERNAL_REMOVEFINDER, closeThis));
 				tmp.push_back(MenuItemUnit(0, TEXT("Separator")));
-				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINFERCOLLAPSE, collapseAll));
-				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINFERUNCOLLAPSE, uncollapseAll));
+				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINDERCOLLAPSE, collapseAll));
+				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINDERUNCOLLAPSE, uncollapseAll));
 				tmp.push_back(MenuItemUnit(0, TEXT("Separator")));
-				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINFERCOPYVERBATIM, copyVerbatim));
-				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINFERCOPY, copyLines));
-				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINFERSELECTALL, selectAll));
-				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINFERCLEARALL, clearAll));
+				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINDERCOPYVERBATIM, copyVerbatim));
+				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINDERCOPY, copyLines));
+				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINDERSELECTALL, selectAll));
+				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINDERCLEARALL, clearAll));
 				tmp.push_back(MenuItemUnit(0, TEXT("Separator")));
-				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINFEROPENALL, openAll));
+				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINDEROPENALL, openAll));
 				tmp.push_back(MenuItemUnit(0, TEXT("Separator")));
 				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINDERWRAP, wrapLongLines));
 
 				scintillaContextmenu.create(_hSelf, tmp);
 
-				scintillaContextmenu.enableItem(NPPM_INTERNAL_SCINTILLAFINFERCLEARALL, !_canBeVolatiled);
+				scintillaContextmenu.enableItem(NPPM_INTERNAL_SCINTILLAFINDERCLEARALL, !_canBeVolatiled);
 
 				scintillaContextmenu.checkItem(NPPM_INTERNAL_SCINTILLAFINDERWRAP, _longLinesAreWrapped);
 

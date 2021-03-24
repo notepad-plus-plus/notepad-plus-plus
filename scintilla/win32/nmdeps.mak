@@ -1454,6 +1454,18 @@ $(DIR_O)/LexNull.obj: \
 	../lexlib/StyleContext.h \
 	../lexlib/CharacterSet.h \
 	../lexlib/LexerModule.h
+$(DIR_O)/LexObjC.obj: \
+	../lexers/LexObjC.cxx \
+	../include/ILexer.h \
+	../include/Sci_Position.h \
+	../lexlib/LexAccessor.h \
+	../lexlib/Accessor.h \
+	../lexlib/StyleContext.h \
+	../lexlib/WordList.h \
+	../lexlib/CharacterSet.h \
+	../lexlib/LexerModule.h \
+	../include/Scintilla.h \
+	../include/SciLexer.h
 $(DIR_O)/LexOpal.obj: \
 	../lexers/LexOpal.cxx \
 	../include/ILexer.h \
@@ -1732,6 +1744,18 @@ $(DIR_O)/LexScriptol.obj: \
 	../lexlib/StyleContext.h \
 	../lexlib/CharacterSet.h \
 	../lexlib/LexerModule.h
+$(DIR_O)/LexSearchResult.obj: \
+	../lexers/LexSearchResult.cxx \
+	../include/ILexer.h \
+	../include/Sci_Position.h \
+	../lexlib/LexAccessor.h \
+	../lexlib/PropSetSimple.h \
+	../lexlib/Accessor.h \
+	../lexlib/WordList.h \
+	../include/Scintilla.h \
+	../include/SciLexer.h \
+	../lexlib/CharacterSet.h \
+	../lexlib/LexerModule.h
 $(DIR_O)/LexSmalltalk.obj: \
 	../lexers/LexSmalltalk.cxx \
 	../include/ILexer.h \
@@ -1915,6 +1939,18 @@ $(DIR_O)/LexTxt2tags.obj: \
 	../lexlib/StyleContext.h \
 	../lexlib/CharacterSet.h \
 	../lexlib/LexerModule.h
+$(DIR_O)/LexUser.obj: \
+	../lexers/LexUser.cxx \
+	../include/ILexer.h \
+	../include/Sci_Position.h \
+	../lexlib/LexAccessor.h \
+	../lexlib/Accessor.h \
+	../lexlib/StyleContext.h \
+	../lexlib/WordList.h \
+	../include/Scintilla.h \
+	../include/SciLexer.h \
+	../lexlib/LexerModule.h \
+	../lexlib/PropSetSimple.h
 $(DIR_O)/LexVB.obj: \
 	../lexers/LexVB.cxx \
 	../include/ILexer.h \
@@ -1989,3 +2025,42 @@ $(DIR_O)/LexYAML.obj: \
 	../lexlib/StyleContext.h \
 	../lexlib/CharacterSet.h \
 	../lexlib/LexerModule.h
+$(DIR_O)/BoostRegExSearch.obj: \
+	../boostregex/BoostRegExSearch.cxx \
+	../include/Scintilla.h \
+	../include/Sci_Position.h \
+	../include/Platform.h \
+	../include/ILoader.h \
+	../include/ILexer.h \
+	../src/Position.h \
+	../src/UniqueString.h \
+	../src/SplitVector.h \
+	../src/Partitioning.h \
+	../src/RunStyles.h \
+	../src/ContractionState.h \
+	../src/CellBuffer.h \
+	../src/CharClassify.h \
+	../src/Decoration.h \
+	../src/CaseFolder.h \
+	../lexlib/CharacterCategory.h \
+	../src/Document.h \
+	../src/UniConversion.h \
+	../boostregex/UTF8DocumentIterator.h \
+	../boostregex/AnsiDocumentIterator.h \
+	../include/BoostRegexSearch.h
+$(DIR_O)/UTF8DocumentIterator.obj: \
+	../boostregex/UTF8DocumentIterator.cxx \
+	../include/ILoader.h \
+	../include/Sci_Position.h \
+	../include/ILexer.h \
+	../include/Scintilla.h \
+	../lexlib/CharacterCategory.h \
+	../src/Position.h \
+	../src/SplitVector.h \
+	../src/Partitioning.h \
+	../src/RunStyles.h \
+	../src/CellBuffer.h \
+	../src/CharClassify.h \
+	../src/Decoration.h \
+	../src/CaseFolder.h \
+	../src/Document.h

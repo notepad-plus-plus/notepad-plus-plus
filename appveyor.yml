@@ -16,6 +16,11 @@ environment:
     - platform: mingw-w64_810_X64
       platform_input: mingw
 
+    - platform: arm64
+      archi: amd64_arm64
+      platform_input: arm64
+
+
 configuration:
     - Unicode Release
     - Unicode Debug
@@ -82,6 +87,14 @@ after_build:
             #ATTENTION: current working dir is no longer at APPVEYOR_BUILD_FOLDER
             cd ..\UrlDetection
             .\verifyUrlDetection.ps1
+        }
+
+        if ($env:PLATFORM_INPUT -eq "arm64" -and $env:CONFIGURATION -eq "Unicode Release") {
+            Push-AppveyorArtifact "PowerEditor\binarm64\Notepad++.exe" -FileName "$nppFileName"
+        }
+
+        if ($env:PLATFORM_INPUT -eq "arm64" -and $env:CONFIGURATION -eq "Unicode Debug") {
+            Push-AppveyorArtifact "PowerEditor\visual.net\arm64\Unicode Debug\Notepad++.exe" -FileName "$nppFileName"
         }
 
         if ($env:PLATFORM_INPUT -eq "mingw") {

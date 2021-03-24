@@ -20,12 +20,14 @@ Global
 		Unicode Release|x64 = Unicode Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FCF60E65-1B78-4D1D-AB59-4FC00AC8C248}.Unicode Debug|ARM64.ActiveCfg = Unicode Debug|Win32
+		{FCF60E65-1B78-4D1D-AB59-4FC00AC8C248}.Unicode Debug|ARM64.ActiveCfg = Unicode Debug|ARM64
+		{FCF60E65-1B78-4D1D-AB59-4FC00AC8C248}.Unicode Debug|ARM64.Build.0 = Unicode Debug|ARM64
 		{FCF60E65-1B78-4D1D-AB59-4FC00AC8C248}.Unicode Debug|Win32.ActiveCfg = Unicode Debug|Win32
 		{FCF60E65-1B78-4D1D-AB59-4FC00AC8C248}.Unicode Debug|Win32.Build.0 = Unicode Debug|Win32
 		{FCF60E65-1B78-4D1D-AB59-4FC00AC8C248}.Unicode Debug|x64.ActiveCfg = Unicode Debug|x64
 		{FCF60E65-1B78-4D1D-AB59-4FC00AC8C248}.Unicode Debug|x64.Build.0 = Unicode Debug|x64
-		{FCF60E65-1B78-4D1D-AB59-4FC00AC8C248}.Unicode Release|ARM64.ActiveCfg = Unicode Release|Win32
+		{FCF60E65-1B78-4D1D-AB59-4FC00AC8C248}.Unicode Release|ARM64.ActiveCfg = Unicode Release|ARM64
+		{FCF60E65-1B78-4D1D-AB59-4FC00AC8C248}.Unicode Release|ARM64.Build.0 = Unicode Release|ARM64
 		{FCF60E65-1B78-4D1D-AB59-4FC00AC8C248}.Unicode Release|Win32.ActiveCfg = Unicode Release|Win32
 		{FCF60E65-1B78-4D1D-AB59-4FC00AC8C248}.Unicode Release|Win32.Build.0 = Unicode Release|Win32
 		{FCF60E65-1B78-4D1D-AB59-4FC00AC8C248}.Unicode Release|x64.ActiveCfg = Unicode Release|x64

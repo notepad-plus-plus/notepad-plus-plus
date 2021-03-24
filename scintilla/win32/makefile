@@ -20,7 +20,7 @@ WARNINGS = -Wpedantic -Wall
 
 ifdef CLANG
 CXX = clang++
-DEFINES += -D_CRT_SECURE_NO_DEPRECATE
+DEFINES += -D_CRT_SECURE_NO_DEPRECATE -DSCI_OWNREGEX
 else
 # MinGW GCC
 LIBSMINGW = -lstdc++
@@ -43,13 +43,13 @@ else
 DEL = rm -f
 endif
 
-vpath %.h ../src ../include ../lexlib
-vpath %.cxx ../src ../lexlib ../lexers
+vpath %.h ../src ../include ../lexlib ../boostregex
+vpath %.cxx ../src ../lexlib ../lexers ../boostregex
 
 LDFLAGS=-shared -static -mwindows
 LIBS=-lgdi32 -luser32 -limm32 -lole32 -luuid -loleaut32 -lmsimg32 $(LIBSMINGW)
 
-INCLUDES=-I ../include -I ../src -I../lexlib
+INCLUDES=-I ../include -I ../src -I../lexlib -I../boostregex
 
 BASE_FLAGS += $(WARNINGS)
 
@@ -76,7 +76,7 @@ clean:
 	$(CXX) $(CXX_ALL_FLAGS) $(CXXFLAGS) -c $<
 
 analyze:
-	$(CXX) --analyze $(CXX_ALL_FLAGS) $(CXXFLAGS) *.cxx ../src/*.cxx ../lexlib/*.cxx ../lexers/*.cxx
+	$(CXX) --analyze $(CXX_ALL_FLAGS) $(CXXFLAGS) *.cxx ../src/*.cxx ../lexlib/*.cxx ../lexers/*.cxx ../boostregex/*.cxx
 
 depend deps.mak:
 	$(PYTHON) DepGen.py
@@ -116,6 +116,11 @@ SRC_OBJS = \
 	ViewStyle.o \
 	XPM.o
 
+# + boost regex addons for own regex
+BOOST_OBJS = \
+	BoostRegExSearch.o\
+	UTF8DocumentIterator.o
+
 # Required by lexers
 LEXLIB_OBJS = \
 	Accessor.o \
@@ -131,6 +136,7 @@ LEXLIB_OBJS = \
 # Required by libraries and DLLs that include lexing
 SCILEX_OBJS=\
 	$(SRC_OBJS) \
+	$(BOOST_OBJS) \
 	$(LEXLIB_OBJS) \
 	$(LEX_OBJS) \
 	HanjaDic.o \
@@ -140,6 +146,7 @@ SCILEX_OBJS=\
 
 COMPONENT_OBJS = \
 	$(SRC_OBJS) \
+	$(BOOST_OBJS) \
 	Accessor.o \
 	Catalogue.o \
 	HanjaDic.o \

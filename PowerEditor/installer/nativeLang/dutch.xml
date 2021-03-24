@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-Dutch localization for Notepad++ 7.9.3
-Modifications on 2018-03-26 by Klaas Nekeman (knekeman(at)gmail.com).
-Modifications on 2020-05-26 by xylographe <wr86420@gmail.com>.
-Last modified on 2021-03-07 by Thomas De Rocker (RockyTDR).
+Dutch localization for Notepad++ 7.9.4
+Modifications until 2018-03-26 by Klaas Nekeman (knekeman(at)gmail.com).
+Modifications until 2020-05-26 by xylographe <wr86420@gmail.com>.
+Modifications from 2020-01-28 and onwards by Thomas De Rocker (RockyTDR)
+
+Last modified on 2021-05-12 by Thomas De Rocker (RockyTDR).
 -->
 <NotepadPlus>
     <Native-Langue name="Nederlands" filename="dutch.xml" version="7.9.4">
@@ -40,6 +42,7 @@ Last modified on 2021-03-07 by Thomas De Rocker (RockyTDR).
                     <Item subMenuId="edit-pasteSpecial" name="Plakken speciaal"/>
                     <Item subMenuId="edit-onSelection" name="Voor selectie"/>
                     <Item subMenuId="search-markAll" name="Alles markeren"/>
+                    <Item subMenuId="search-markOne" name="Eén markeren"/>
                     <Item subMenuId="search-unmarkAll" name="Alle markeringen wissen"/>
                     <Item subMenuId="search-jumpUp" name="Omhoog springen"/>
                     <Item subMenuId="search-jumpDown" name="Omlaag springen"/>
@@ -131,6 +134,7 @@ Last modified on 2021-03-07 by Thomas De Rocker (RockyTDR).
                     <Item id="42064" name="Regels als decimalen (komma) aflopend sorteren"/>
                     <Item id="42065" name="Regels als decimalen (punt) oplopend sorteren"/>
                     <Item id="42066" name="Regels als decimalen (punt) aflopend sorteren"/>
+                    <Item id="42083" name="Regelvolgorde omkeren"/>
                     <Item id="42078" name="Regels willekeurig sorteren"/>
                     <Item id="42016" name="HOOFDLETTERS"/>
                     <Item id="42017" name="kleine letters"/>
@@ -205,15 +209,15 @@ Last modified on 2021-03-07 by Thomas De Rocker (RockyTDR).
                     <Item id="43013" name="Zoeken in bestanden"/>
                     <Item id="43014" name="(Vluchtig) volgende zoeken"/>
                     <Item id="43015" name="(Vluchtig) vorige zoeken"/>
-                    <Item id="43022" name="Met behulp van stijl 1"/>
+                    <Item id="43022" name="Met stijl 1"/>
                     <Item id="43023" name="Stijl 1 wissen"/>
-                    <Item id="43024" name="Met behulp van stijl 2"/>
+                    <Item id="43024" name="Met stijl 2"/>
                     <Item id="43025" name="Stijl 2 wissen"/>
-                    <Item id="43026" name="Met behulp van stijl 3"/>
+                    <Item id="43026" name="Met stijl 3"/>
                     <Item id="43027" name="Stijl 3 wissen"/>
-                    <Item id="43028" name="Met behulp van stijl 4"/>
+                    <Item id="43028" name="Met stijl 4"/>
                     <Item id="43029" name="Stijl 4 wissen"/>
-                    <Item id="43030" name="Met behulp van stijl 5"/>
+                    <Item id="43030" name="Met stijl 5"/>
                     <Item id="43031" name="Stijl 5 wissen"/>
                     <Item id="43032" name="Alle stijlen wissen"/>
                     <Item id="43033" name="Stijl 1"/>
@@ -235,6 +239,11 @@ Last modified on 2021-03-07 by Thomas De Rocker (RockyTDR).
                     <Item id="43059" name="Stijl 5"/>
                     <Item id="43060" name="Alle stijlen"/>
                     <Item id="43061" name="Stijl zoeken (gemarkeerd)"/>
+                    <Item id="43062" name="Met stijl 1"/>
+                    <Item id="43063" name="Met stijl 2"/>
+                    <Item id="43064" name="Met stijl 3"/>
+                    <Item id="43065" name="Met stijl 4"/>
+                    <Item id="43066" name="Met stijl 5"/>
                     <Item id="43045" name="Gevonden resultaten"/>
                     <Item id="43046" name="Volgend zoekresultaat"/>
                     <Item id="43047" name="Vorig zoekresultaat"/>
@@ -243,6 +252,7 @@ Last modified on 2021-03-07 by Thomas De Rocker (RockyTDR).
                     <Item id="43054" name="Markeren..."/>
                     <Item id="44009" name="Interface verbergen"/>
                     <Item id="44010" name="Gegevensstructuur samenvouwen"/>
+                    <Item id="44011" name="Afleidingsvrije modus"/>
                     <Item id="44019" name="Alle tekens weergeven"/>
                     <Item id="44020" name="Aanduiding voor inspringing weergeven"/>
                     <Item id="44022" name="Automatische terugloop"/>
@@ -286,14 +296,14 @@ Last modified on 2021-03-07 by Thomas De Rocker (RockyTDR).
                     <Item id="45003" name="Macintosh (CR)"/>
                     <Item id="45004" name="ANSI"/>
                     <Item id="45005" name="UTF-8-BOM"/>
-                    <Item id="45006" name="UCS-2 BE BOM"/>
-                    <Item id="45007" name="UCS-2 LE BOM"/>
+                    <Item id="45006" name="UTF-16 BE BOM"/>
+                    <Item id="45007" name="UTF-16 LE BOM"/>
                     <Item id="45008" name="UTF-8"/>
                     <Item id="45009" name="Converteren naar ANSI"/>
                     <Item id="45010" name="Converteren naar UTF-8"/>
                     <Item id="45011" name="Converteren naar UTF-8-BOM"/>
-                    <Item id="45012" name="Converteren naar UCS-2 BE BOM"/>
-                    <Item id="45013" name="Converteren naar UCS-2 LE BOM"/>
+                    <Item id="45012" name="Converteren naar UTF-16 BE BOM"/>
+                    <Item id="45013" name="Converteren naar UTF-16 LE BOM"/>
                     <Item id="45060" name="Big5 (traditioneel)"/>
                     <Item id="45061" name="GB2312 (vereenvoudigd)"/>
                     <Item id="45054" name="OEM 861: Ĳslands"/>
@@ -542,11 +552,16 @@ Last modified on 2021-03-07 by Thomas De Rocker (RockyTDR).
                     <Item id="45001" name="Regeleinde-conversie naar Windows (CR LF)"/>
                     <Item id="45002" name="Regeleinde-conversie naar Unix (LF)"/>
                     <Item id="45003" name="Regeleinde-conversie naar Macintosh (CR)"/>
-                    <Item id="43022" name="Tekst markeren met stijl 1"/>
-                    <Item id="43024" name="Tekst markeren met stijl 2"/>
-                    <Item id="43026" name="Tekst markeren met stijl 3"/>
-                    <Item id="43028" name="Tekst markeren met stijl 4"/>
-                    <Item id="43030" name="Tekst markeren met stijl 5"/>
+                    <Item id="43022" name="Alles markeren met stijl 1"/>
+                    <Item id="43024" name="Alles markeren met stijl 2"/>
+                    <Item id="43026" name="Alles markeren met stijl 3"/>
+                    <Item id="43028" name="Alles markeren met stijl 4"/>
+                    <Item id="43030" name="Alles markeren met stijl 5"/>
+                    <Item id="43062" name="Eén markeren met stijl 1"/>
+                    <Item id="43063" name="Eén markeren met stijl 2"/>
+                    <Item id="43064" name="Eén markeren met stijl 3"/>
+                    <Item id="43065" name="Eén markeren met stijl 4"/>
+                    <Item id="43066" name="Eén markeren met stijl 5"/>
                     <Item id="43023" name="Markeringen met stijl 1 wissen"/>
                     <Item id="43025" name="Markeringen met stijl 2 wissen"/>
                     <Item id="43027" name="Markeringen met stijl 3 wissen"/>
@@ -793,9 +808,11 @@ Last modified on 2021-03-07 by Thomas De Rocker (RockyTDR).
                 <Global title="Algemeen">
                     <Item id="6101" name="Werkbalk"/>
                     <Item id="6102" name="Verbergen"/>
-                    <Item id="6103" name="Kleine pictogrammen"/>
-                    <Item id="6104" name="Grote pictogrammen"/>
-                    <Item id="6105" name="Standaardpictogrammen"/>
+                    <Item id="6103" name="Vloeiende UI: klein"/>
+                    <Item id="6104" name="Vloeiende UI: groot"/>
+                    <Item id="6129" name="Gevulde vloeiende UI: klein"/>
+                    <Item id="6130" name="Gevulde vloeiende UI: groot"/>
+                    <Item id="6105" name="Standaardpictogrammen: klein"/>
 
                     <Item id="6106" name="Tabblad-balk"/>
                     <Item id="6107" name="Kleine tabs"/>
@@ -838,6 +855,11 @@ Last modified on 2021-03-07 by Thomas De Rocker (RockyTDR).
                     <Item id="6239" name="Selectie behouden bij rechtsklikken buiten selectie"/>
                 </Scintillas>
 
+                <DarkMode title="Donkere modus">
+                    <Item id="7101" name="Donkere modus inschakelen"/>
+                    <Item id="7106" name="* Notepad++ moet opnieuw worden gestart om volledig van kracht te worden"/>
+                </DarkMode>
+
                 <MarginsBorderEdge title="Marges/grens/rand">
                     <Item id="6201" name="Stijl map-marge"/>
                     <Item id="6202" name="Eenvoudig"/>
@@ -856,6 +878,10 @@ Last modified on 2021-03-07 by Thomas De Rocker (RockyTDR).
 U kunt verschillende kolommarkeringen vastleggen door gebruik te maken van spaties om de verschillende getallen van elkaar te scheiden."/>
                     <Item id="6231" name="Breedte rand"/>
                     <Item id="6235" name="Geen rand"/>
+                    <Item id="6208" name="Vulling"/>
+                    <Item id="6209" name="Links"/>
+                    <Item id="6210" name="Rechts"/>
+                    <Item id="6212" name="Afleidingsvrij"/>
                 </MarginsBorderEdge>
 
                 <NewDoc title="Nieuw document">
@@ -867,8 +893,8 @@ U kunt verschillende kolommarkeringen vastleggen door gebruik te maken van spati
                     <Item id="6406" name="ANSI"/>
                     <Item id="6407" name="UTF-8"/>
                     <Item id="6408" name="UTF-8 met BOM"/>
-                    <Item id="6409" name="UCS-2 Big Endian met BOM"/>
-                    <Item id="6410" name="UCS-2 Little Endian met BOM"/>
+                    <Item id="6409" name="UTF-16 Big Endian met BOM"/>
+                    <Item id="6410" name="UTF-16 Little Endian met BOM"/>
                     <Item id="6411" name="Standaard syntaxis:"/>
                     <Item id="6419" name="Nieuw document"/>
                     <Item id="6420" name="Toepassen op geopende ANSI-bestanden"/>
@@ -899,8 +925,12 @@ U kunt verschillende kolommarkeringen vastleggen door gebruik te maken van spati
                 </Language>
 
                 <Highlighting title="Markeren">
+                    <Item id="6351" name="Alles markeren"/>
+                    <Item id="6352" name="Hoofdlettergevoelig"/>
+                    <Item id="6353" name="Alleen volledige woorden"/>
                     <Item id="6333" name="Slim markeren"/>
                     <Item id="6326" name="Inschakelen"/>
+                    <Item id="6354" name="Overeenkomsten"/>
                     <Item id="6332" name="Hoofdlettergevoelig"/>
                     <Item id="6338" name="Alleen volledige woorden"/>
                     <Item id="6339" name="Zoekvensterinstellingen gebruiken"/>
@@ -946,6 +976,7 @@ U kunt verschillende kolommarkeringen vastleggen door gebruik te maken van spati
                     <Item id="6902" name="Monospace-lettertype gebruiken in het zoekvenster (Notepad++ moet opnieuw worden opgestart)"/>
                     <Item id="6903" name="Zoekvenster blijft open na zoekopdracht die naar het resultaatvenster uitvoert"/>
                     <Item id="6904" name="Alles vervangen in alle geopende documenten bevestigen"/>
+                    <Item id="6905" name="Vervangen: niet naar de volgende overeenkomst gaan"/>
                 </Searching>
 
                 <RecentFilesHistory title="Recente bestanden">
@@ -1026,7 +1057,7 @@ U kunt verschillende kolommarkeringen vastleggen door gebruik te maken van spati
                 </Cloud>
 
                 <SearchEngine title="Zoekmachine">
-                    <Item id="6271" name="Zoekmachine (voor &quot;zoeken op Internet&quot;)"/>
+                    <Item id="6271" name="Zoekmachine (voor &quot;zoeken op internet&quot;)"/>
                     <Item id="6272" name="DuckDuckGo"/>
                     <Item id="6273" name="Google"/>
                     <Item id="6274" name="Bing"/>
@@ -1045,14 +1076,13 @@ U kunt verschillende kolommarkeringen vastleggen door gebruik te maken van spati
                     <Item id="6308" name="Naar systeemvak minimaliseren"/>
                     <Item id="6312" name="Bestandswijziging detecteren"/>
                     <Item id="6313" name="In stilte bijwerken"/>
-                    <Item id="6325" name="Ga naar de laatste regel na bijwerken"/>
+                    <Item id="6325" name="Na bijwerken naar de laatste regel gaan"/>
                     <Item id="6322" name="Bestandsextensie sessie:"/>
                     <Item id="6323" name="Notepad++ automatisch bijwerken"/>
-                    <Item id="6351" name="Filter voor bestandsextensie in het opslaan-dialoogvenster instellen op *.*"/>
                     <Item id="6324" name="Wisselen tussen documenten (Ctrl+Tab)"/>
                     <Item id="6331" name="Alleen de bestandsnaam in de titelbalk weergeven"/>
                     <Item id="6334" name="Tekenset automatisch detecteren"/>
-                    <Item id="6349" name="DirectWrite gebruiken (kan de weergave van speciale tekens verbeteren. Notepad++ moet opnieuw gestart worden)"/>
+                    <Item id="6349" name="DirectWrite gebruiken (kan weergave van speciale tekens verbeteren. Notepad++ moet opnieuw gestart worden)"/>
                     <Item id="6337" name="Bestandsextensie werkruimte:"/>
                     <Item id="6114" name="Inschakelen"/>
                     <Item id="6117" name="Volgorde van wisselen onthouden"/>
@@ -1307,7 +1337,7 @@ Doorgaan?"/>
             </Menus>
         </ProjectManager>
         <MiscStrings>
-            <!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders -->
+            <!-- $INT_REPLACE$  and $STR_REPLACE$ are place holders, don't translate these place holders -->
             <word-chars-list-tip value="Hiermee kan een extra teken aan de huidige woordtekenlijst worden toegevoegd. Deze lijst bepaalt wat als woord wordt gezien bij dubbelklikken op een selectie en bij het zoeken met de optie &quot;volledige woorden&quot; aangevinkt."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
 
             <word-chars-list-warning-begin value="Let op: "/>
@@ -1333,6 +1363,7 @@ In alle bestanden behalve exe, obj en log zoeken:
             <find-status-replaceinopenedfiles-nb-replaced value="Vervangen in geopende bestanden: $INT_REPLACE$ overeenkomsten vervangen"/>
             <find-status-mark-re-malformed value="Markeren: de reguliere expressie om te zoeken is misvormd"/>
             <find-status-invalid-re value="Zoeken: ongeldige reguliere expressie"/>
+            <find-status-search-failed value="Zoeken: zoeken mislukt"/>
             <find-status-mark-1-match value="Markeren: 1 overeenkomst"/>
             <find-status-mark-nb-matches value="Markeren: $INT_REPLACE$ overeenkomsten"/>
             <find-status-count-re-malformed value="Tellen: de reguliere expressie om te zoeken is misvormd"/>
@@ -1345,6 +1376,7 @@ In alle bestanden behalve exe, obj en log zoeken:
             <find-status-replace-end-reached value="Vervangen: eerste overeenkomst vanaf begin van document vervangen. Het einde van het document is bereikt"/>
             <find-status-replace-top-reached value="Vervangen: eerste overeenkomst vanaf einde van document vervangen. Het begin van het document is bereikt"/>
             <find-status-replaced-next-found value="Vervangen: 1 overeenkomst vervangen. Volgende overeenkomst gevonden"/>
+            <find-status-replaced-without-continuing value="Vervangen: 1 overeenkomst vervangen."/>
             <find-status-replaced-next-not-found value="Vervangen: 1 overeenkomst vervangen. Geen nieuwe overeenkomsten gevonden"/>
             <find-status-replace-not-found value="Vervangen: geen overeenkomst gevonden"/>
             <find-status-replace-readonly value="Vervangen: kan tekst niet vervangen. Huidig document is alleen-lezen"/>
@@ -1359,9 +1391,11 @@ In alle bestanden behalve exe, obj en log zoeken:
             <finder-uncollapse-all value="Alles uitvouwen"/>
             <finder-copy value="Geselecteerde regel(s) kopiëren"/>
             <finder-copy-verbatim value="Kopiëren"/>
+            <finder-copy-paths value="Padnaam/-namen kopiëren"/>
             <finder-select-all value="Alles selecteren"/>
             <finder-clear-all value="Alles wissen"/>
             <finder-open-all value="Alles openen"/>
+            <finder-purge-for-every-search value="Leegmaken voor elke zoekopdracht"/>
             <finder-wrap-long-lines value="Lange regels laten teruglopen"/>
             <common-ok value="Ok"/>
             <common-cancel value="Annuleren"/>
@@ -1406,6 +1440,8 @@ In alle bestanden behalve exe, obj en log zoeken:
             <find-result-line-prefix value="Regel"/> <!-- Must not begin with space or tab character -->
             <find-regex-zero-length-match value="nullengte-overeenkomst" />
             <session-save-folder-as-workspace value="Map als werkruimte opslaan" />
+            <tab-untitled-string value="nieuw " />
+            <file-save-assign-type value="&amp;Extensie toevoegen" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

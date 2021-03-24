@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <iterator> 
 #include <vector>
+#include <memory>
 #include "Scintilla.h"
 #include "Platform.h"
 #include "ILoader.h"
@@ -35,6 +36,7 @@
 #include "AnsiDocumentIterator.h"
 #include "BoostRegexSearch.h"
 #include <boost/regex.hpp>
+#include <boost/throw_exception.hpp>
 #define CP_UTF8 65001
 #define SC_CP_UTF8 65001
 

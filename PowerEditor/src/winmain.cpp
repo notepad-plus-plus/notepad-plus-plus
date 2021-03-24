@@ -308,6 +308,7 @@ const TCHAR FLAG_PRINTANDQUIT[] = TEXT("-quickPrint");
 const TCHAR FLAG_NOTEPAD_COMPATIBILITY[] = TEXT("-notepadStyleCmdline");
 const TCHAR FLAG_OPEN_FOLDERS_AS_WORKSPACE[] = TEXT("-openFoldersAsWorkspace");
 const TCHAR FLAG_SETTINGS_DIR[] = TEXT("-settingsDir=");
+const TCHAR FLAG_TITLEBAR_ADD[] = TEXT("-titleAdd=");
 
 void doException(Notepad_plus_Window & notepad_plus_plus)
 {
@@ -464,10 +465,19 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 		nppParameters.setCmdSettingsDir(path);
 	}
 
+	generic_string titleBarAdditional;
+	if (getParamValFromString(FLAG_TITLEBAR_ADD, params, titleBarAdditional))
+	{
+		// could contain double quotes if contains white space
+		if (titleBarAdditional.c_str()[0] == '"' && titleBarAdditional.c_str()[titleBarAdditional.length() - 1] == '"')
+		{
+			titleBarAdditional = titleBarAdditional.substr(1, titleBarAdditional.length() - 2);
+		}
+		nppParameters.setTitleBarAdd(titleBarAdditional);
+	}
+
 	if (showHelp)
 		::MessageBox(NULL, COMMAND_ARG_HELP, TEXT("Notepad++ Command Argument Help"), MB_OK);
-
-
 
 	if (cmdLineParams._localizationPath != TEXT(""))
 	{

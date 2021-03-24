@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-    <Native-Langue name="Slovenčina" filename="slovak.xml" version="7.9.3">
+    <Native-Langue name="Slovenčina" filename="slovak.xml" version="7.9.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -128,7 +128,6 @@
                     <Item id="42064" name="Usporiadať riadky ako desatinné čísla (s čiarkou) zostupne"/>
                     <Item id="42065" name="Usporiadať riadky ako desatinné čísla (s bodkou) vzostupne"/>
                     <Item id="42066" name="Usporiadať riadky ako desatinné čísla (s bodkou) zostupne"/>
-                    <Item id="42078" name="Usporiadať riadky náhodne"/>
                     <Item id="42078" name="Usporiadať riadky náhodne"/>
                     <Item id="42016" name="VEĽKÉ PÍSMENÁ"/>
                     <Item id="42017" name="malé písmená"/>
@@ -337,8 +336,6 @@
                     <Item id="50000" name="Dokončovanie funkcií"/>
                     <Item id="50001" name="Dokončovanie slov"/>
                     <Item id="50002" name="Pomôcka k parametrom funkcie"/>
-                    <Item id="50003" name="Prepnúť na predchádzajúci dokument"/>
-                    <Item id="50004" name="Prepnúť na nasledujúci dokument"/>
                     <Item id="50005" name="Prepnúť nahrávanie makra"/>
                     <Item id="50006" name="Dokončovanie cesty"/>
                     <Item id="44042" name="Skryť riadky"/>
@@ -379,7 +376,7 @@
         </Menu>
 
         <Dialog>
-            <Find title="" titleFind="Hľadať" titleReplace="Nahradiť" titleFindInFiles="Hľadať v súboroch" titleMark="Označiť">
+            <Find title="" titleFind="Hľadať" titleReplace="Nahradiť" titleFindInFiles="Hľadať v súboroch" titleFindInProjects="Hľadať v projektoch" titleMark="Označiť">
                 <Item id="1" 	name="Hľadať ďalší"/>
                 <Item id="1722" name="Smerom dozadu"/>
                 <Item id="2" 	name="Zatvoriť"/>
@@ -410,7 +407,11 @@
                 <Item id="1625" name="Normálny"/>
                 <Item id="1626" name="Rozšírený (\n, \r, \t, \0, \x...)"/>
                 <Item id="1660" name="Nahradiť v súboroch"/>
+                <Item id="1665" name="Nahradiť v projektoch"/>
                 <Item id="1661" name="Podľa aktuálneho dok."/>
+                <Item id="1662" name="Panel projektu 1"/>
+                <Item id="1663" name="Panel projektu 2"/>
+                <Item id="1664" name="Panel projektu 3"/>
                 <Item id="1641" name="Hľadať všetko v aktuálnom dokumente"/>
                 <Item id="1686" name="Priehľadnosť"/>
                 <Item id="1703" name=". -> nový riadok"/>
@@ -1054,6 +1055,7 @@ Zadať môžete viacero značiek pomocou medzery na oddelenie rôznych čísel."
                     <Item id="6344" name="Náhľad neaktívnych dokumentov"/>
                     <Item id="6345" name="Náhľad na karte dokumentu"/>
                     <Item id="6346" name="Náhľad na mape dokumentu"/>
+                    <Item id="6360" name="Stlmiť všetky zvuky"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Spustiť makro viacnásobne">
@@ -1175,7 +1177,8 @@ Chcete váš súbor langs.xml obnoviť?"/>
 Predtým ako pridáte na panel priečinok &quot;$STR_REPLACE$&quot; odstráňte, prosím, jeho koreňový priečinok."/>
 
             <ProjectPanelChanged title="$STR_REPLACE$" message="Pracovný priestor bol zmenený. Chcete ho uložiť?"/>
-            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Váš pracovný priestor nebol uložený."/>
+            <ProjectPanelSaveError title="$STR_REPLACE$" message="Pri zápise súboru pracovného priestoru došlo k chybe.
+Váš pracovný priestor nebol uložený."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <ProjectPanelOpenDoSaveDirtyWsOrNot title="Otvoriť pracovný priestor" message="Aktuálny pracovný priestor bol zmenený. Chcete uložiť aktuálny projekt?"/>
             <ProjectPanelNewDoSaveDirtyWsOrNot title="Nový pracovný priestor" message="Aktuálny pracovný priestor bol zmenený. Chcete uložiť aktuálny projekt?"/>
             <ProjectPanelOpenFailed title="Otvoriť pracovný priestor" message="Pracovný priestor sa nepodarilo otvoriť.
@@ -1270,6 +1273,7 @@ Continue?"/>
                     <Item id="3126" name="Uložiť ako..."/>
                     <Item id="3127" name="Uložiť kópiu ako..."/>
                     <Item id="3121" name="Pridať nový projekt"/>
+                    <Item id="3128" name="Hľadať v projektoch..."/>
                 </WorkspaceMenu>
                 <ProjectMenu>
                     <Item id="3111" name="Premenovať"/>
@@ -1324,6 +1328,7 @@ Hľadať vo všetkých súboroch okrem exe, obj &amp;&amp; log:
             <find-status-replaceinopenedfiles-nb-replaced value="Nahradiť v otvorených súboroch: Bolo nahradených $INT_REPLACE$ výskytov hľadaného výrazu."/>
             <find-status-mark-re-malformed value="Označiť: Neplatný regulárny výraz vyhľadávania"/>
             <find-status-invalid-re value="Hľadať: Neplatný regulárny výraz"/>
+            <find-status-search-failed value="Hľadať: Hľadanie zlyhalo"/>
             <find-status-mark-1-match value="Označiť: 1 výskyt"/>
             <find-status-mark-nb-matches value="$INT_REPLACE$ výskytov"/>
             <find-status-count-re-malformed value="Spočítať: Neplatný regulárny výraz vyhľadávania"/>
@@ -1359,6 +1364,8 @@ Hľadať vo všetkých súboroch okrem exe, obj &amp;&amp; log:
             <common-name value="Názov: "/>
             <tabrename-title value="Premenovať aktuálnu kartu"/>
             <tabrename-newname value="Nový názov: "/>
+            <splitter-rotate-left value="Otočiť doľava"/>
+            <splitter-rotate-right value="Otočiť doprava"/>
             <recent-file-history-maxfile value="Max. súbor: "/>
             <language-tabsize value="Veľkosť karty: "/>
             <userdefined-title-new value="Vytvoriť nový jazyk"/>
@@ -1382,6 +1389,8 @@ Hľadať vo všetkých súboroch okrem exe, obj &amp;&amp; log:
             <replace-in-files-confirm-directory value="Naozaj chcete nahradiť všetky výskyty v:"/>
             <replace-in-files-confirm-filetype value="Pre typ súboru:"/>
             <replace-in-files-progress-title value="Prebieha nahradzovanie v súboroch…"/>
+            <replace-in-projects-confirm-title value="Ste si istý?"/>
+            <replace-in-projects-confirm-message value="Chcete nahradiť všetky výskyty vo všetkých dokumentoch vo vybraných paneloch projektu?"/>
             <replace-in-open-docs-confirm-title value="Naozaj?"/>
             <replace-in-open-docs-confirm-message value="Naozaj chcete nahradiť všetky výskyty vo všetkých otvorených dokumentoch"/>
             <find-result-caption value="Výsledky vyhľadávania"/>

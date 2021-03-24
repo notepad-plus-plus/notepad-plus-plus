@@ -3466,6 +3466,13 @@ void Notepad_plus::setTitle()
 	if (_isAdministrator)
 		result += TEXT(" [Administrator]");
 
+	generic_string tbAdd = (NppParameters::getInstance()).getTitleBarAdd();
+	if (!tbAdd.empty())
+	{
+		result += TEXT(" - ");
+		result += tbAdd;
+	}
+
 	::SendMessage(_pPublicInterface->getHSelf(), WM_SETTEXT, 0, reinterpret_cast<LPARAM>(result.c_str()));
 }
 

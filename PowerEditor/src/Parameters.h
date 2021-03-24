@@ -1676,6 +1676,16 @@ public:
 		_cmdSettingsDir = settingsDir;
 	};
 
+	void setTitleBarAdd(const generic_string& titleAdd)
+	{
+		_titleBarAdditional = titleAdd;
+	}
+
+	const generic_string& getTitleBarAdd() const
+	{
+		return _titleBarAdditional;
+	}
+
 	DPIManager _dpiManager;
 
 	generic_string static getSpecialFolderLocation(int folderKind);
@@ -1755,6 +1765,8 @@ private:
 	bool _isx64 = false; // by default 32-bit
 
 	generic_string _cmdSettingsDir;
+
+	generic_string _titleBarAdditional;
 
 public:
 	void setShortcutDirty() { _isAnyShortcutModified = true; };

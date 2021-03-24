@@ -3,7 +3,7 @@
 Dutch localization for Notepad++ 7.9.3
 Modifications on 2018-03-26 by Klaas Nekeman (knekeman(at)gmail.com).
 Modifications on 2020-05-26 by xylographe <wr86420@gmail.com>.
-Last modified on 2021-03-07 by Thomas De Rocker (RockyTDR).
+Last modified on 2021-03-24 by Thomas De Rocker (RockyTDR).
 -->
 <NotepadPlus>
     <Native-Langue name="Nederlands" filename="dutch.xml" version="7.9.4">
@@ -1333,6 +1333,7 @@ In alle bestanden behalve exe, obj en log zoeken:
             <find-status-replaceinopenedfiles-nb-replaced value="Vervangen in geopende bestanden: $INT_REPLACE$ overeenkomsten vervangen"/>
             <find-status-mark-re-malformed value="Markeren: de reguliere expressie om te zoeken is misvormd"/>
             <find-status-invalid-re value="Zoeken: ongeldige reguliere expressie"/>
+            <find-status-search-failed value="Zoeken: zoeken mislukt"/>
             <find-status-mark-1-match value="Markeren: 1 overeenkomst"/>
             <find-status-mark-nb-matches value="Markeren: $INT_REPLACE$ overeenkomsten"/>
             <find-status-count-re-malformed value="Tellen: de reguliere expressie om te zoeken is misvormd"/>

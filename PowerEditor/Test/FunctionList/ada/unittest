@@ -1,0 +1,43 @@
+                                       -- Chapter 24 - Program 1 from https://perso.telecom-paristech.fr/pautet/Ada95/e_c24_p1.ada
+with Ada.Text_IO;
+use Ada.Text_IO;
+with Ada.Sequential_IO;
+
+procedure BiSeqOut is
+
+   type MY_REC is
+      record
+         Age     : INTEGER;
+         Sex     : CHARACTER;
+         Initial : CHARACTER;
+      end record;
+
+   package Seq_IO is new Ada.Sequential_IO(MY_REC);
+   use Seq_IO;
+
+   Myself      : MY_REC;
+   My_Out_File : Seq_IO.FILE_TYPE;
+
+begin
+
+   Create(My_Out_File, Out_File, "NAMEFILE.TXT");
+
+   Myself.Sex := 'M';
+   Myself.Initial := 'X';
+
+   for Index in 1..100 loop
+      Myself.Age := Index;
+      Write(My_Out_File, Myself);
+   end loop;
+
+   Close(My_Out_File);
+
+end BiSeqOut;
+
+
+
+
+-- Result of Execution
+
+--   (The only output is a binary file named NAMEFILE.TXT)
+

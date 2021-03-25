@@ -17,12 +17,12 @@
 
 SectionGroup "Function List Files" functionListComponent
 	SetOverwrite on
-	
+
 	${MementoSection} "C" C_FL
 		SetOutPath "$INSTDIR\functionList"
 		File ".\functionList\c.xml"
 	${MementoSectionEnd}
-	
+
 	${MementoSection} "C++" C++_FL
 		SetOutPath "$INSTDIR\functionList"
 		File ".\functionList\cpp.xml"
@@ -37,22 +37,22 @@ SectionGroup "Function List Files" functionListComponent
 		SetOutPath "$INSTDIR\functionList"
 		File ".\functionList\cs.xml"
 	${MementoSectionEnd}
-	
+
 	${MementoSection} "Assembly" Assembly_FL
 		SetOutPath "$INSTDIR\functionList"
 		File ".\functionList\asm.xml"
 	${MementoSectionEnd}
-	
+
 	${MementoSection} "Bash" Bash_FL
 		SetOutPath "$INSTDIR\functionList"
 		File ".\functionList\bash.xml"
 	${MementoSectionEnd}
-	
+
 	${MementoSection} "SQL" SQL_FL
 		SetOutPath "$INSTDIR\functionList"
 		File ".\functionList\sql.xml"
 	${MementoSectionEnd}
-	
+
 	${MementoSection} "PHP" PHP_FL
 		SetOutPath "$INSTDIR\functionList"
 		File ".\functionList\php.xml"
@@ -72,7 +72,7 @@ SectionGroup "Function List Files" functionListComponent
 		SetOutPath "$INSTDIR\functionList"
 		File ".\functionList\perl.xml"
 	${MementoSectionEnd}
-	
+
 	${MementoSection} "JavaScript" JavaScript_FL
 		SetOutPath "$INSTDIR\functionList"
 		File ".\functionList\javascript.js.xml"
@@ -82,32 +82,32 @@ SectionGroup "Function List Files" functionListComponent
 		SetOutPath "$INSTDIR\functionList"
 		File ".\functionList\python.xml"
 	${MementoSectionEnd}
-	
+
 	${MementoSection} "ini" ini_FL
 		SetOutPath "$INSTDIR\functionList"
 		File ".\functionList\ini.xml"
 	${MementoSectionEnd}
-	
+
 	${MementoSection} "Inno Setup" Innosetup_FL
 		SetOutPath "$INSTDIR\functionList"
 		File ".\functionList\inno.xml"
 	${MementoSectionEnd}
-	
+
 	${MementoSection} "VHDL" VHDL_FL
 		SetOutPath "$INSTDIR\functionList"
 		File ".\functionList\vhdl.xml"
 	${MementoSectionEnd}
-	
+
 	${MementoSection} "KRL" KRL_FL
 		SetOutPath "$INSTDIR\functionList"
 		File ".\functionList\krl.xml"
 	${MementoSectionEnd}
-	
+
 	${MementoSection} "NSIS" NSIS_FL
 		SetOutPath "$INSTDIR\functionList"
 		File ".\functionList\nsis.xml"
 	${MementoSectionEnd}
-	
+
 	${MementoSection} "PowerShell" PowerShell_FL
 		SetOutPath "$INSTDIR\functionList"
 		File ".\functionList\powershell.xml"
@@ -117,7 +117,7 @@ SectionGroup "Function List Files" functionListComponent
 		SetOutPath "$INSTDIR\functionList"
 		File ".\functionList\batch.xml"
 	${MementoSectionEnd}
-	
+
 	${MementoSection} "Ruby" Ruby_FL
 		SetOutPath "$INSTDIR\functionList"
 		File ".\functionList\ruby.xml"
@@ -147,7 +147,32 @@ SectionGroup "Function List Files" functionListComponent
 		SetOutPath "$INSTDIR\functionList"
 		File ".\functionList\xml.xml"
 	${MementoSectionEnd}
-	
+
+	${MementoSection} "Ada" Ada_FL
+		SetOutPath "$INSTDIR\functionList"
+		File ".\functionList\ada.xml"
+	${MementoSectionEnd}
+
+	${MementoSection} "Fortan" Fortan_FL
+		SetOutPath "$INSTDIR\functionList"
+		File ".\functionList\fortan.xml"
+	${MementoSectionEnd}
+
+	${MementoSection} "Fortan77" Fortan77_FL
+		SetOutPath "$INSTDIR\functionList"
+		File ".\functionList\fortan77.xml"
+	${MementoSectionEnd}
+
+	${MementoSection} "Haskell" Haskell_FL
+		SetOutPath "$INSTDIR\functionList"
+		File ".\functionList\haskell.xml"
+	${MementoSectionEnd}
+
+	${MementoSection} "Rust" Rust_FL
+		SetOutPath "$INSTDIR\functionList"
+		File ".\functionList\rust.xml"
+	${MementoSectionEnd}
+
 	SetOverwrite off
 	${MementoSection} "Override Map" OverrideMap_FL
 		SetOutPath "$INSTDIR\functionList"
@@ -161,15 +186,15 @@ SectionGroup un.functionListComponent
 	Section un.PHP_FL
 		Delete "$INSTDIR\functionList\php.xml"
 	SectionEnd
-	
+
 	Section un.Assembly_FL
 		Delete "$INSTDIR\functionList\asm.xml"
 	SectionEnd
-	
+
 	Section un.SQL_FL
 		Delete "$INSTDIR\functionList\sql.xml"
 	SectionEnd
-	
+
 	Section un.Bash_FL
 		Delete "$INSTDIR\functionList\bash.xml"
 	SectionEnd
@@ -185,19 +210,19 @@ SectionGroup un.functionListComponent
 	Section un.C_FL
 		Delete "$INSTDIR\functionList\c.xml"
 	SectionEnd
-	
+
 	Section un.C++_FL
 		Delete "$INSTDIR\functionList\cpp.xml"
 	SectionEnd
-	
+
 	Section un.Java_FL
 		Delete "$INSTDIR\functionList\java.xml"
 	SectionEnd
-	
+
 	Section un.C#_FL
 		Delete "$INSTDIR\functionList\cs.xml"
 	SectionEnd
-	
+
 	Section un.JavaScript_FL
 		Delete "$INSTDIR\functionList\javascript.js.xml"
 	SectionEnd
@@ -209,27 +234,27 @@ SectionGroup un.functionListComponent
 	Section un.COBOL_FL
 		Delete "$INSTDIR\functionList\cobol.xml"
 	SectionEnd
-	
+
 	Section un.ini_FL
 		Delete "$INSTDIR\functionList\ini.xml"
 	SectionEnd
-	
+
 	Section un.VHDL_FL
 		Delete "$INSTDIR\functionList\vhdl.xml"
-	SectionEnd	
-	
+	SectionEnd
+
 	Section un.Innosetup_FL
 		Delete "$INSTDIR\functionList\inno.xml"
 	SectionEnd
-	
+
 	Section un.XML_FL
 		Delete "$INSTDIR\functionList\xml.xml"
 	SectionEnd
-	
+
 	Section un.NSIS_FL
 		Delete "$INSTDIR\functionList\nsis.xml"
 	SectionEnd
-	
+
 	Section un.KRL_FL
 		Delete "$INSTDIR\functionList\krl.xml"
 	SectionEnd
@@ -237,7 +262,7 @@ SectionGroup un.functionListComponent
 	Section un.BATCH_FL
 		Delete "$INSTDIR\functionList\batch.xml"
 	SectionEnd
-	
+
 	Section un.OverrideMap_FL
 		Delete "$INSTDIR\functionList\overrideMap.xml"
 	SectionEnd
@@ -265,5 +290,26 @@ SectionGroup un.functionListComponent
 	Section un.Sinumerik_FL
 		Delete "$INSTDIR\functionList\sinumerik.xml"
 	SectionEnd
+
+	Section un.Ada_FL
+		Delete "$INSTDIR\functionList\ada.xml"
+	SectionEnd
+
+	Section un.Fortan_FL
+		Delete "$INSTDIR\functionList\fortan.xml"
+	SectionEnd
+
+	Section un.Fortan77_FL
+		Delete "$INSTDIR\functionList\fortan77.xml"
+	SectionEnd
+
+	Section un.Haskell_FL
+		Delete "$INSTDIR\functionList\haskell.xml"
+	SectionEnd
+
+	Section un.Rust_FL
+		Delete "$INSTDIR\functionList\rust.xml"
+	SectionEnd
+
 
 SectionGroupEnd

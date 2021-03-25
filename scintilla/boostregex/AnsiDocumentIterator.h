@@ -10,10 +10,10 @@ class AnsiDocumentIterator : public std::iterator<std::bidirectional_iterator_ta
 public:
 	AnsiDocumentIterator() {};
 
-	AnsiDocumentIterator(Document* doc, Sci::Position pos, Sci::Position end) : 
-		m_doc(doc),
+	AnsiDocumentIterator(Document* doc, Sci::Position pos, Sci::Position end) :
 		m_pos(pos),
-		m_end(end)
+		m_end(end),
+		m_doc(doc)
 	{
 		// Check for debug builds
 		PLATFORM_ASSERT(m_pos <= m_end);
@@ -26,9 +26,10 @@ public:
 	}
 
 	AnsiDocumentIterator(const AnsiDocumentIterator& copy) :
-		m_doc(copy.m_doc),
 		m_pos(copy.m_pos),
-		m_end(copy.m_end)
+		m_end(copy.m_end),
+		m_doc(copy.m_doc)
+
 	{
 		// Check for debug builds
 		PLATFORM_ASSERT(m_pos <= m_end);

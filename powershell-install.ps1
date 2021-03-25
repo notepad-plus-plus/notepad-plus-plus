@@ -9,7 +9,7 @@
 # File browser for install path seleciton
 if ($null -eq $args[0])
 {	
-	Add-Type -AssemblyName System.Windows.Forms
+    Add-Type -AssemblyName System.Windows.Forms
     $FolderBrowserDialog = New-Object System.Windows.Forms.FolderBrowserDialog
     $FolderBrowserDialog.RootFolder = 'MyComputer'
     $FolderBrowserDialog.ShowDialog()
@@ -39,13 +39,13 @@ $version_string = $version_tag.replace("v", "")
 
 if ([System.Environment]::Is64BitOperatingSystem)
 {
-$download_url = "https://github.com/${repo_name}/releases/download/${version_tag}/npp.${version_string}.portable.x64.zip"
-$portable_zip = "npp.${version_string}.portable.x64.zip"
+    $download_url = "https://github.com/${repo_name}/releases/download/${version_tag}/npp.${version_string}.portable.x64.zip"
+    $portable_zip = "npp.${version_string}.portable.x64.zip"
 }
 else
 {
-$download_url = "https://github.com/${repo_name}/releases/download/${version_tag}/npp.${version_string}.portable.zip"
-$portable_zip = "npp.${version_string}.portable.zip"
+    $download_url = "https://github.com/${repo_name}/releases/download/${version_tag}/npp.${version_string}.portable.zip"
+    $portable_zip = "npp.${version_string}.portable.zip"
 }
 
 

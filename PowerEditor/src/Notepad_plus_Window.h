@@ -48,6 +48,7 @@ notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-LlangCode] [-nLineNum
 -quickPrint : Print the file given as argument then quit Notepad++\r\
 -settingsDir=\"d:\\your settings dir\\\": Override the default settings dir\r\
 -openFoldersAsWorkspace: open filePath of folder(s) as workspace\r\
+-titleAdd=\"string\": add string to Notepad++ title bar\r\
 filePath : file or folder name to open (absolute or relative path name)\r\
 ");
 

@@ -2580,13 +2580,13 @@ void Notepad_plus::setUniModeText()
 			case uniUTF8:
 				uniModeTextString = TEXT("UTF-8-BOM"); break;
 			case uni16BE:
-				uniModeTextString = TEXT("UCS-2 BE BOM"); break;
+				uniModeTextString = TEXT("UTF-16 BE BOM"); break;
 			case uni16LE:
-				uniModeTextString = TEXT("UCS-2 LE BOM"); break;
+				uniModeTextString = TEXT("UTF-16 LE BOM"); break;
 			case uni16BE_NoBOM:
-				uniModeTextString = TEXT("UCS-2 Big Endian"); break;
+				uniModeTextString = TEXT("UTF-16 Big Endian"); break;
 			case uni16LE_NoBOM:
-				uniModeTextString = TEXT("UCS-2 Little Endian"); break;
+				uniModeTextString = TEXT("UTF-16 Little Endian"); break;
 			case uniCookie:
 				uniModeTextString = TEXT("UTF-8"); break;
 			default :
@@ -4463,8 +4463,8 @@ void Notepad_plus::checkUnicodeMenuItems() const
 	switch (um)
 	{
 		case uniUTF8   : id = IDM_FORMAT_UTF_8; break;
-		case uni16BE   : id = IDM_FORMAT_UCS_2BE; break;
-		case uni16LE   : id = IDM_FORMAT_UCS_2LE; break;
+		case uni16BE   : id = IDM_FORMAT_UTF_16BE; break;
+		case uni16LE   : id = IDM_FORMAT_UTF_16LE; break;
 		case uniCookie : id = IDM_FORMAT_AS_UTF_8; break;
 		case uni8Bit   : id = IDM_FORMAT_ANSI; break;
 	}

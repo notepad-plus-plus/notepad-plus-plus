@@ -1677,7 +1677,7 @@ public:
 		_titleBarAdditional = titleAdd;
 	}
 
-	generic_string getTitleBarAdd()
+	const generic_string& getTitleBarAdd() const
 	{
 		return _titleBarAdditional;
 	}

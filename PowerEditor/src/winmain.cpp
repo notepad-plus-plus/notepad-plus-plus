@@ -468,10 +468,12 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 	generic_string titleBarAdditional;
 	if (getParamValFromString(FLAG_TITLEBAR_ADD, params, titleBarAdditional))
 	{
-		// could contain double quotes if contains white space
-		if (titleBarAdditional.c_str()[0] == '"' && titleBarAdditional.c_str()[titleBarAdditional.length() - 1] == '"')
+		if (titleBarAdditional.length() > 2)
 		{
-			titleBarAdditional = titleBarAdditional.substr(1, titleBarAdditional.length() - 2);
+			if (titleBarAdditional.front() == '"' && titleBarAdditional.back() == '"')
+			{
+				titleBarAdditional = titleBarAdditional.substr(1, titleBarAdditional.length() - 2);
+			}
 		}
 		nppParameters.setTitleBarAdd(titleBarAdditional);
 	}

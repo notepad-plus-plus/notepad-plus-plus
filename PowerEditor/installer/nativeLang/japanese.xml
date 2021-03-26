@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="7.9.4">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="7.9.6">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -1333,6 +1333,7 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <find-status-replaceinopenedfiles-nb-replaced value="すべての文書で置換：$INT_REPLACE$ 件を置換しました"/>
             <find-status-mark-re-malformed value="マーク：検索語の正規表現が不正な形式です"/>
             <find-status-invalid-re value="検索：不正な正規表現です"/>
+            <find-status-search-failed value="検索：検索に失敗しました"/>
             <find-status-mark-1-match value="マーク：1 件の一致"/>
             <find-status-mark-nb-matches value="マーク：$INT_REPLACE$ 件の一致"/>
             <find-status-count-re-malformed value="数える：検索語の正規表現が不正な形式です"/>

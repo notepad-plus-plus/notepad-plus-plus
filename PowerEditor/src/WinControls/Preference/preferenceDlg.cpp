@@ -1207,10 +1207,10 @@ INT_PTR CALLBACK NewDocumentSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 			switch (ndds._unicodeMode)
 			{
 				case uni16BE :
-					ID2Check = IDC_RADIO_UCS2BIG;
+					ID2Check = IDC_RADIO_UTF16BIG;
 					break;
 				case uni16LE :
-					ID2Check = IDC_RADIO_UCS2SMALL;
+					ID2Check = IDC_RADIO_UTF16SMALL;
 					break;
 				case uniUTF8 :
 					ID2Check = IDC_RADIO_UTF8;
@@ -1287,14 +1287,14 @@ INT_PTR CALLBACK NewDocumentSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 		case WM_COMMAND:
 			switch (wParam)
 			{
-				case IDC_RADIO_UCS2BIG:
+				case IDC_RADIO_UTF16BIG:
 					ndds._unicodeMode = uni16BE;
 					ndds._openAnsiAsUtf8 = false;
 					makeOpenAnsiAsUtf8(false);
 					ndds._codepage = -1;
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_COMBO_OTHERCP), false);
 					return TRUE;
-				case IDC_RADIO_UCS2SMALL:
+				case IDC_RADIO_UTF16SMALL:
 					ndds._unicodeMode = uni16LE;
 					ndds._openAnsiAsUtf8 = false;
 					makeOpenAnsiAsUtf8(false);

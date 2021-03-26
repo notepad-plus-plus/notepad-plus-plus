@@ -19,7 +19,6 @@
 #include "FindReplaceDlg.h"
 #include "ScintillaEditView.h"
 #include "Notepad_plus_msgs.h"
-#include "UniConversion.h"
 #include "localization.h"
 #include "Utf8.h"
 

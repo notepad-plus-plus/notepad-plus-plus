@@ -380,7 +380,6 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClCompile Include="..\src\WinControls\ToolTip\ToolTip.cpp" />
     <ClCompile Include="..\src\WinControls\TrayIcon\trayIconControler.cpp" />
     <ClCompile Include="..\src\uchardet\uchardet.cpp" />
-    <ClCompile Include="..\src\UniConversion.cpp" />
     <ClCompile Include="..\src\WinControls\AboutDlg\URLCtrl.cpp" />
     <ClCompile Include="..\src\ScintillaComponent\UserDefineDialog.cpp" />
     <ClCompile Include="..\src\Utf8_16.cpp" />
@@ -671,7 +670,6 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClInclude Include="..\src\WinControls\ToolTip\ToolTip.h" />
     <ClInclude Include="..\src\WinControls\TrayIcon\trayIconControler.h" />
     <ClInclude Include="..\src\uchardet\uchardet.h" />
-    <ClInclude Include="..\src\UniConversion.h" />
     <ClInclude Include="..\src\WinControls\AboutDlg\URLCtrl.h" />
     <ClInclude Include="..\src\ScintillaComponent\UserDefineDialog.h" />
     <ClInclude Include="..\src\ScintillaComponent\UserDefineLangReference.h" />

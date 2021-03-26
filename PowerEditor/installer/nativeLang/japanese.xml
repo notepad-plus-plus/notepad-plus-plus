@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="7.9.4">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="7.9.6">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -34,6 +34,7 @@
                     <Item subMenuId="edit-pasteSpecial" name="特殊な貼り付け"/>
                     <Item subMenuId="edit-onSelection" name="選択した文字列を"/>
                     <Item subMenuId="search-markAll" name="すべてマーク"/>
+                    <Item subMenuId="search-markOne" name="一つだけマーク"/>
                     <Item subMenuId="search-unmarkAll" name="マークをすべて解除"/>
                     <Item subMenuId="search-jumpUp" name="前のマークに移動"/>
                     <Item subMenuId="search-jumpDown" name="次のマークに移動"/>
@@ -125,6 +126,7 @@
                     <Item id="42064" name="選択行を　実数(コンマが小数点)として降順ソート"/>
                     <Item id="42065" name="選択行を　実数(ピリオドが小数点)として昇順ソート"/>
                     <Item id="42066" name="選択行を　実数(ピリオドが小数点)として降順ソート"/>
+                    <Item id="42083" name="選択行を　上下逆の並びにする"/>
                     <Item id="42078" name="選択行を　ランダムに入れ替える"/>
                     <Item id="42016" name="大文字に変換(&amp;U)"/>
                     <Item id="42017" name="小文字に変換(&amp;L)"/>
@@ -229,6 +231,11 @@
                     <Item id="43059" name="スタイル5"/>
                     <Item id="43060" name="すべてのスタイル"/>
                     <Item id="43061" name="マーク画面で作成されたマーク"/>
+                    <Item id="43062" name="スタイル1を適用"/>
+                    <Item id="43063" name="スタイル2を適用"/>
+                    <Item id="43064" name="スタイル3を適用"/>
+                    <Item id="43065" name="スタイル4を適用"/>
+                    <Item id="43066" name="スタイル5を適用"/>
                     <Item id="43045" name="検索結果ウィンドウ"/>
                     <Item id="43046" name="次の検索結果"/>
                     <Item id="43047" name="前の検索結果"/>
@@ -237,6 +244,7 @@
                     <Item id="43054" name="マーク(&amp;K)..."/>
                     <Item id="44009" name="テキスト領域以外を非表示"/>
                     <Item id="44010" name="すべて畳む"/>
+                    <Item id="44011" name="集中モード"/>
                     <Item id="44019" name="制御文字をすべて表示"/>
                     <Item id="44020" name="インデントガイドを表示"/>
                     <Item id="44022" name="画面端で折り返す"/>
@@ -280,14 +288,14 @@
                     <Item id="45003" name="Macintosh (CR)"/>
                     <Item id="45004" name="ANSI"/>
                     <Item id="45005" name="UTF-8-BOM"/>
-                    <Item id="45006" name="UCS-2 BE BOM"/>
-                    <Item id="45007" name="UCS-2 LE BOM"/>
+                    <Item id="45006" name="UTF-16 BE BOM"/>
+                    <Item id="45007" name="UTF-16 LE BOM"/>
                     <Item id="45008" name="UTF-8"/>
                     <Item id="45009" name="ANSI に変換"/>
                     <Item id="45010" name="UTF-8 に変換"/>
                     <Item id="45011" name="UTF-8-BOM に変換"/>
-                    <Item id="45012" name="UCS-2 BE BOM に変換"/>
-                    <Item id="45013" name="UCS-2 LE BOM に変換"/>
+                    <Item id="45012" name="UTF-16 BE BOM に変換"/>
+                    <Item id="45013" name="UTF-16 LE BOM に変換"/>
                     <Item id="45060" name="Big5(繁体字)"/>
                     <Item id="45061" name="GB2312(簡体字)"/>
                     <Item id="45054" name="OEM 861: アイスランド語"/>
@@ -542,11 +550,16 @@
                     <Item id="45001" name="改行コードを Windows (CR LF) に変換"/>
                     <Item id="45002" name="改行コードを Unix (LF) に変換"/>
                     <Item id="45003" name="改行コードを Macintosh (CR) に変換"/>
-                    <Item id="43022" name="スタイル1でマーク"/>
-                    <Item id="43024" name="スタイル2でマーク"/>
-                    <Item id="43026" name="スタイル3でマーク"/>
-                    <Item id="43028" name="スタイル4でマーク"/>
-                    <Item id="43030" name="スタイル5でマーク"/>
+                    <Item id="43022" name="スタイル1ですべてマーク"/>
+                    <Item id="43024" name="スタイル2ですべてマーク"/>
+                    <Item id="43026" name="スタイル3ですべてマーク"/>
+                    <Item id="43028" name="スタイル4ですべてマーク"/>
+                    <Item id="43030" name="スタイル5ですべてマーク"/>
+                    <Item id="43062" name="スタイル1で一つのみマーク"/>
+                    <Item id="43063" name="スタイル2で一つのみマーク"/>
+                    <Item id="43064" name="スタイル3で一つのみマーク"/>
+                    <Item id="43065" name="スタイル4で一つのみマーク"/>
+                    <Item id="43066" name="スタイル5で一つのみマーク"/>
                     <Item id="43023" name="スタイル1のマークを解除"/>
                     <Item id="43025" name="スタイル2のマークを解除"/>
                     <Item id="43027" name="スタイル3のマークを解除"/>
@@ -793,9 +806,12 @@
                 <Global title="全般設定">
                     <Item id="6101" name="ツールバー"/>
                     <Item id="6102" name="隠す"/>
-                    <Item id="6103" name="小さなアイコン"/>
-                    <Item id="6104" name="大きなアイコン"/>
-                    <Item id="6105" name="標準アイコン"/>
+                    <Item id="6103" name="Fluent UI 小"/>
+                    <Item id="6104" name="Fluent UI 大"/>
+                    <Item id="6129" name="Filled Fluent UI 小"/>
+                    <Item id="6130" name="Filled Fluent UI 大"/>
+                    <Item id="6105" name="標準アイコン 小"/>
+
 
                     <Item id="6106" name="タブバー"/>
                     <Item id="6107" name="小さく表示"/>
@@ -838,6 +854,11 @@
                     <Item id="6239" name="選択範囲外を右クリックしたときに選択を解除しない"/>
                 </Scintillas>
 
+                <DarkMode title="ダークモード">
+                    <Item id="7101" name="ダークモードを有効にする"/>
+                    <Item id="7106" name="* 完全に有効にするには、Notepad++ を再起動してください。"/>
+                </DarkMode>
+
                 <MarginsBorderEdge title="余白部/枠線/ガイド線">
                     <Item id="6201" name="折り畳み表示スタイル"/>
                     <Item id="6202" name="シンプル"/>
@@ -856,6 +877,10 @@
 複数の値を半角スペースで区切って記入することで、複数の線を表示できます。"/>
                     <Item id="6231" name="枠線幅"/>
                     <Item id="6235" name="枠を非表示"/>
+                    <Item id="6208" name="余白"/>
+                    <Item id="6209" name="左"/>
+                    <Item id="6210" name="右"/>
+                    <Item id="6212" name="集中モード時"/>
                 </MarginsBorderEdge>
 
                 <NewDoc title="新規文書">
@@ -867,8 +892,8 @@
                     <Item id="6406" name="ANSI"/>
                     <Item id="6407" name="UTF-8"/>
                     <Item id="6408" name="UTF-8 (BOM付)"/>
-                    <Item id="6409" name="UCS-2 Big Endian (BOM付)"/>
-                    <Item id="6410" name="UCS-2 Little Endian (BOM付)"/>
+                    <Item id="6409" name="UTF-16 Big Endian (BOM付)"/>
+                    <Item id="6410" name="UTF-16 Little Endian (BOM付)"/>
                     <Item id="6411" name="デフォルトの言語:"/>
                     <Item id="6419" name="新規文書"/>
                     <Item id="6420" name="開いているANSIファイルに適用"/>
@@ -899,8 +924,12 @@
                 </Language>
 
                 <Highlighting title="強調表示">
+                    <Item id="6351" name="すべてマーク"/>
+                    <Item id="6352" name="大/小文字を区別"/>
+                    <Item id="6353" name="単語単位"/>
                     <Item id="6333" name="スマート強調表示"/>
                     <Item id="6326" name="有効"/>
+                    <Item id="6354" name="一致させる条件"/>
                     <Item id="6332" name="大/小文字を区別"/>
                     <Item id="6338" name="単語単位"/>
                     <Item id="6339" name="検索ダイアログの設定に従う"/>
@@ -946,6 +975,7 @@
                     <Item id="6902" name="検索画面で固定幅フォントを使用する（Notepad++ の再起動が必要）"/>
                     <Item id="6903" name="検索結果を結果ウィンドウに表示する時に、検索画面を自動で閉じないようにする"/>
                     <Item id="6904" name="「すべての文書で置換」を実行する前に、確認する"/>
+                    <Item id="6905" name="置換時に、次の出現箇所に移動しない"/>
                 </Searching>
 
 
@@ -1049,7 +1079,6 @@
                     <Item id="6325" name="更新後最後の行にスクロール"/>
                     <Item id="6322" name="セッションファイルの拡張子:"/>
                     <Item id="6323" name="Notepad++の自動アップデートを有効にする"/>
-                    <Item id="6351" name="保存ダイアログの「ファイルの種類」を *.* にする"/>
                     <Item id="6324" name="ビューの切り替え(Ctrl+Tab)"/>
                     <Item id="6331" name="タイトルバーにファイル名のみ表示"/>
                     <Item id="6334" name="文字コードを自動判別"/>
@@ -1333,6 +1362,7 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <find-status-replaceinopenedfiles-nb-replaced value="すべての文書で置換：$INT_REPLACE$ 件を置換しました"/>
             <find-status-mark-re-malformed value="マーク：検索語の正規表現が不正な形式です"/>
             <find-status-invalid-re value="検索：不正な正規表現です"/>
+            <find-status-search-failed value="検索：検索に失敗しました"/>
             <find-status-mark-1-match value="マーク：1 件の一致"/>
             <find-status-mark-nb-matches value="マーク：$INT_REPLACE$ 件の一致"/>
             <find-status-count-re-malformed value="数える：検索語の正規表現が不正な形式です"/>
@@ -1345,6 +1375,7 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <find-status-replace-end-reached value="置換：先頭からの最初の一致を置換しました。文書の末尾を通過しました"/>
             <find-status-replace-top-reached value="置換：末尾からの最初の一致を置換しました。文書の先頭を通過しました"/>
             <find-status-replaced-next-found value="置換：1 件を置換しました。次の一致が見つかりました"/>
+            <find-status-replaced-without-continuing value="置換：1 件を置換しました。"/>
             <find-status-replaced-next-not-found value="置換：1 件を置換しました。一致するものはありません"/>
             <find-status-replace-not-found value="置換：一致するものはありません"/>
             <find-status-replace-readonly value="置換：置換できません。この文書は読み取り専用です"/>
@@ -1359,9 +1390,11 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <finder-uncollapse-all value="すべて展開する"/>
             <finder-copy value="選択行をコピー"/>
             <finder-copy-verbatim value="コピー"/>
+            <finder-copy-paths value="すべてのパスをコピー"/>
             <finder-select-all value="すべて選択"/>
             <finder-clear-all value="すべてクリア"/>
             <finder-open-all value="すべて開く"/>
+            <finder-purge-for-every-search value="検索時に以前の結果をクリア"/>
             <finder-wrap-long-lines value="長い行を折り返す"/>
             <common-ok value="OK"/>
             <common-cancel value="ｷｬﾝｾﾙ"/>
@@ -1406,6 +1439,8 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <find-result-line-prefix value="行番号"/> <!-- Must not begin with space or tab character -->
             <find-regex-zero-length-match value="長さ0で一致しました" />
             <session-save-folder-as-workspace value="「フォルダーをワークスペースとして開く」の状態を保存" />
+            <tab-untitled-string value="新規" />
+            <file-save-assign-type value="拡張子をつける(&amp;A)" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

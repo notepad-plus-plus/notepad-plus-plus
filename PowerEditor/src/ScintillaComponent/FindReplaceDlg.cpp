@@ -4227,27 +4227,18 @@ INT_PTR CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINDERSELECTALL, selectAll));
 				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINDERCLEARALL, clearAll));
 				tmp.push_back(MenuItemUnit(0, TEXT("Separator")));
-<<<<<<< HEAD
 				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINDEROPENALL, openAll));
-=======
-				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINFEROPENALL, openAll));
 				// configuration items go at the bottom:
->>>>>>> Add ability to avoid accumulating multiple search results
 				tmp.push_back(MenuItemUnit(0, TEXT("Separator")));
 				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINDERWRAP, wrapLongLines));
 				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINDERPURGE, purgeForEverySearch));
 
 				scintillaContextmenu.create(_hSelf, tmp);
 
-<<<<<<< HEAD
 				scintillaContextmenu.enableItem(NPPM_INTERNAL_SCINTILLAFINDERCLEARALL, !_canBeVolatiled);
-				scintillaContextmenu.checkItem(NPPM_INTERNAL_SCINTILLAFINDERCLEARALL, _clearBeforeEverySearch && !_canBeVolatiled);
-=======
-				scintillaContextmenu.enableItem(NPPM_INTERNAL_SCINTILLAFINFERCLEARALL, !_canBeVolatiled);
 				
 				scintillaContextmenu.enableItem(NPPM_INTERNAL_SCINTILLAFINDERPURGE, !_canBeVolatiled);
 				scintillaContextmenu.checkItem(NPPM_INTERNAL_SCINTILLAFINDERPURGE, _purgeBeforeEverySearch && !_canBeVolatiled);
->>>>>>> Add ability to avoid accumulating multiple search results
 
 				scintillaContextmenu.checkItem(NPPM_INTERNAL_SCINTILLAFINDERWRAP, _longLinesAreWrapped);
 

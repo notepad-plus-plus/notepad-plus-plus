@@ -3,7 +3,7 @@
 Dutch localization for Notepad++ 7.9.3
 Modifications on 2018-03-26 by Klaas Nekeman (knekeman(at)gmail.com).
 Modifications on 2020-05-26 by xylographe <wr86420@gmail.com>.
-Last modified on 2021-03-24 by Thomas De Rocker (RockyTDR).
+Last modified on 2021-03-27 by Thomas De Rocker (RockyTDR).
 -->
 <NotepadPlus>
     <Native-Langue name="Nederlands" filename="dutch.xml" version="7.9.4">
@@ -286,14 +286,14 @@ Last modified on 2021-03-24 by Thomas De Rocker (RockyTDR).
                     <Item id="45003" name="Macintosh (CR)"/>
                     <Item id="45004" name="ANSI"/>
                     <Item id="45005" name="UTF-8-BOM"/>
-                    <Item id="45006" name="UCS-2 BE BOM"/>
-                    <Item id="45007" name="UCS-2 LE BOM"/>
+                    <Item id="45006" name="UTF-16 BE BOM"/>
+                    <Item id="45007" name="UTF-16 LE BOM"/>
                     <Item id="45008" name="UTF-8"/>
                     <Item id="45009" name="Converteren naar ANSI"/>
                     <Item id="45010" name="Converteren naar UTF-8"/>
                     <Item id="45011" name="Converteren naar UTF-8-BOM"/>
-                    <Item id="45012" name="Converteren naar UCS-2 BE BOM"/>
-                    <Item id="45013" name="Converteren naar UCS-2 LE BOM"/>
+                    <Item id="45012" name="Converteren naar UTF-16 BE BOM"/>
+                    <Item id="45013" name="Converteren naar UTF-16 LE BOM"/>
                     <Item id="45060" name="Big5 (traditioneel)"/>
                     <Item id="45061" name="GB2312 (vereenvoudigd)"/>
                     <Item id="45054" name="OEM 861: Ĳslands"/>
@@ -867,8 +867,8 @@ U kunt verschillende kolommarkeringen vastleggen door gebruik te maken van spati
                     <Item id="6406" name="ANSI"/>
                     <Item id="6407" name="UTF-8"/>
                     <Item id="6408" name="UTF-8 met BOM"/>
-                    <Item id="6409" name="UCS-2 Big Endian met BOM"/>
-                    <Item id="6410" name="UCS-2 Little Endian met BOM"/>
+                    <Item id="6409" name="UTF-16 Big Endian met BOM"/>
+                    <Item id="6410" name="UTF-16 Little Endian met BOM"/>
                     <Item id="6411" name="Standaard syntaxis:"/>
                     <Item id="6419" name="Nieuw document"/>
                     <Item id="6420" name="Toepassen op geopende ANSI-bestanden"/>
@@ -1333,7 +1333,7 @@ In alle bestanden behalve exe, obj en log zoeken:
             <find-status-replaceinopenedfiles-nb-replaced value="Vervangen in geopende bestanden: $INT_REPLACE$ overeenkomsten vervangen"/>
             <find-status-mark-re-malformed value="Markeren: de reguliere expressie om te zoeken is misvormd"/>
             <find-status-invalid-re value="Zoeken: ongeldige reguliere expressie"/>
-            <find-status-search-failed value="Zoeken: zoeken mislukt"/>
+            <find-status-search-failed value="Find: Search failed"/>
             <find-status-mark-1-match value="Markeren: 1 overeenkomst"/>
             <find-status-mark-nb-matches value="Markeren: $INT_REPLACE$ overeenkomsten"/>
             <find-status-count-re-malformed value="Tellen: de reguliere expressie om te zoeken is misvormd"/>
@@ -1363,6 +1363,7 @@ In alle bestanden behalve exe, obj en log zoeken:
             <finder-select-all value="Alles selecteren"/>
             <finder-clear-all value="Alles wissen"/>
             <finder-open-all value="Alles openen"/>
+            <finder-purge-for-every-search value="Leegmaken voor elke zoekopdracht"/>
             <finder-wrap-long-lines value="Lange regels laten teruglopen"/>
             <common-ok value="Ok"/>
             <common-cancel value="Annuleren"/>

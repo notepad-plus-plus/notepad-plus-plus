@@ -1196,22 +1196,22 @@ std::vector<FileBrowser::FilesToChange> FileBrowser::getFilesFromParam(LPARAM lP
 
 		commonPath.append(TEXT("\\"));
 
-		const auto it = std::find_if(groupedFiles.begin(), groupedFiles.end(), [&commonPath](const auto & group) { return group.commonPath == commonPath; });
+		const auto it = std::find_if(groupedFiles.begin(), groupedFiles.end(), [&commonPath](const auto & group) { return group._commonPath == commonPath; });
 
 		if (it == groupedFiles.end())
 		{
 			// Add a new file group
 			FilesToChange group;
-			group.commonPath = commonPath;
-			group.rootPath = rootPath;
-			group.linarWithoutLastPathElement = linarPathArray;
-			group.files.push_back(lastElement);
+			group._commonPath = commonPath;
+			group._rootPath = rootPath;
+			group._linarWithoutLastPathElement = linarPathArray;
+			group._files.push_back(lastElement);
 			groupedFiles.push_back(group);
 		}
 		else
 		{
 			// Add to an existing file group
-			it->files.push_back(lastElement);
+			it->_files.push_back(lastElement);
 		}
 	}
 
@@ -1223,35 +1223,35 @@ bool FileBrowser::addToTree(FilesToChange & group, HTREEITEM node)
 	if (node == nullptr) // it's a root. Search the right root with rootPath
 	{
 		// Search
-		if ((node = getRootFromFullPath(group.rootPath)) == nullptr)
+		if ((node = getRootFromFullPath(group._rootPath)) == nullptr)
 			return false;
 	}
 
-	if (group.linarWithoutLastPathElement.size() == 0)
+	if (group._linarWithoutLastPathElement.size() == 0)
 	{
 		// Items to add should exist on the disk
-		group.files.erase(std::remove_if(group.files.begin(), group.files.end(), 
+		group._files.erase(std::remove_if(group._files.begin(), group._files.end(), 
 			[&group](const auto & file)
 			{
-				return !::PathFileExists((group.commonPath + file).c_str());
+				return !::PathFileExists((group._commonPath + file).c_str());
 			}),
-			group.files.end());
+			group._files.end());
 
-		if (group.files.empty()) 
+		if (group._files.empty()) 
 		{
 			return false;
 		}
 
 		// Search: if not found, add
-		removeNamesAlreadyInNode(node, group.files);
-		if (group.files.empty()) 
+		removeNamesAlreadyInNode(node, group._files);
+		if (group._files.empty()) 
 		{
 			return false;
 		}
 
 		// Not found, good - Action
-		for (auto & file : group.files) {
-			if (::PathIsDirectory((group.commonPath + file).c_str()))
+		for (auto & file : group._files) {
+			if (::PathIsDirectory((group._commonPath + file).c_str()))
 			{
 				SortingData4lParam* customData = new SortingData4lParam(TEXT(""), file, true);
 				sortingDataArray.push_back(customData);
@@ -1283,10 +1283,10 @@ bool FileBrowser::addToTree(FilesToChange & group, HTREEITEM node)
 			tvItem.hItem = hItemNode;
 			SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 
-			if (group.linarWithoutLastPathElement[0] == tvItem.pszText)
+			if (group._linarWithoutLastPathElement[0] == tvItem.pszText)
 			{
 				// search recursively the node for an action
-				group.linarWithoutLastPathElement.erase(group.linarWithoutLastPathElement.begin());
+				group._linarWithoutLastPathElement.erase(group._linarWithoutLastPathElement.begin());
 				return addToTree(group, hItemNode);
 			}
 		}
@@ -1360,16 +1360,16 @@ std::vector<HTREEITEM> FileBrowser::findInTree(FilesToChange & group, HTREEITEM 
 	if (node == nullptr) // it's a root. Search the right root with rootPath
 	{
 		// Search
-		if ((node = getRootFromFullPath(group.rootPath)) == nullptr)
+		if ((node = getRootFromFullPath(group._rootPath)) == nullptr)
 		{
 			return {};
 		}
 	}
 
-	if (group.linarWithoutLastPathElement.empty())
+	if (group._linarWithoutLastPathElement.empty())
 	{
 		// Search
-		return findChildNodesFromNames(node, group.files);
+		return findChildNodesFromNames(node, group._files);
 	}
 	else
 	{
@@ -1385,10 +1385,10 @@ std::vector<HTREEITEM> FileBrowser::findInTree(FilesToChange & group, HTREEITEM 
 			tvItem.hItem = hItemNode;
 			SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 
-			if (group.linarWithoutLastPathElement[0] == tvItem.pszText)
+			if (group._linarWithoutLastPathElement[0] == tvItem.pszText)
 			{
 				// search recursively the node for an action
-				group.linarWithoutLastPathElement.erase(group.linarWithoutLastPathElement.begin());
+				group._linarWithoutLastPathElement.erase(group._linarWithoutLastPathElement.begin());
 				return findInTree(group, hItemNode);
 			}
 		}

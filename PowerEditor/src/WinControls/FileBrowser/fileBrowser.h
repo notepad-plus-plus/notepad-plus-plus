@@ -190,10 +190,10 @@ protected:
 	bool selectCurrentEditingFile() const;
 
 	struct FilesToChange {
-		generic_string commonPath; // Common path between all the files. rootPath + linarWithoutLastPathElement
-		generic_string rootPath;
-		std::vector<generic_string> linarWithoutLastPathElement;
-		std::vector<generic_string> files; // file/folder names
+		generic_string _commonPath; // Common path between all the files. _rootPath + _linarWithoutLastPathElement
+		generic_string _rootPath;
+		std::vector<generic_string> _linarWithoutLastPathElement;
+		std::vector<generic_string> _files; // file/folder names
 	};
 
 	std::vector<FilesToChange> getFilesFromParam(LPARAM lParam) const;

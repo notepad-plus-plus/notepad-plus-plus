@@ -1333,7 +1333,7 @@ In alle bestanden behalve exe, obj en log zoeken:
             <find-status-replaceinopenedfiles-nb-replaced value="Vervangen in geopende bestanden: $INT_REPLACE$ overeenkomsten vervangen"/>
             <find-status-mark-re-malformed value="Markeren: de reguliere expressie om te zoeken is misvormd"/>
             <find-status-invalid-re value="Zoeken: ongeldige reguliere expressie"/>
-            <find-status-search-failed value="Find: Search failed"/>
+            <find-status-search-failed value="Zoeken: zoeken mislukt"/>
             <find-status-mark-1-match value="Markeren: 1 overeenkomst"/>
             <find-status-mark-nb-matches value="Markeren: $INT_REPLACE$ overeenkomsten"/>
             <find-status-count-re-malformed value="Tellen: de reguliere expressie om te zoeken is misvormd"/>

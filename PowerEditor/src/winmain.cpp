@@ -468,7 +468,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 	generic_string titleBarAdditional;
 	if (getParamValFromString(FLAG_TITLEBAR_ADD, params, titleBarAdditional))
 	{
-		if (titleBarAdditional.length() > 2)
+		if (titleBarAdditional.length() >= 2)
 		{
 			if (titleBarAdditional.front() == '"' && titleBarAdditional.back() == '"')
 			{

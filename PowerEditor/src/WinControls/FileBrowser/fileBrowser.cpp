@@ -1364,15 +1364,9 @@ std::vector<HTREEITEM> FileBrowser::findInTree(FilesToChange & group, HTREEITEM 
 		{
 			return {};
 		}
-
-		if (group.linarWithoutLastPathElement.empty())
-		{
-			// this is the root, nothing to search, return node
-			return { node };
-		}
 	}
 
-	if (group.linarWithoutLastPathElement.empty()) // nothing to search, return node
+	if (group.linarWithoutLastPathElement.empty())
 	{
 		// Search
 		return findChildNodesFromNames(node, group.files);

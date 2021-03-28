@@ -280,14 +280,14 @@
                     <Item id="45003" name="Macintosh (CR)"/>
                     <Item id="45004" name="ANSI"/>
                     <Item id="45005" name="UTF-8-BOM"/>
-                    <Item id="45006" name="UCS-2 BE BOM"/>
-                    <Item id="45007" name="UCS-2 LE BOM"/>
+                    <Item id="45006" name="UTF-16 BE BOM"/>
+                    <Item id="45007" name="UTF-16 LE BOM"/>
                     <Item id="45008" name="UTF-8"/>
                     <Item id="45009" name="ANSI に変換"/>
                     <Item id="45010" name="UTF-8 に変換"/>
                     <Item id="45011" name="UTF-8-BOM に変換"/>
-                    <Item id="45012" name="UCS-2 BE BOM に変換"/>
-                    <Item id="45013" name="UCS-2 LE BOM に変換"/>
+                    <Item id="45012" name="UTF-16 BE BOM に変換"/>
+                    <Item id="45013" name="UTF-16 LE BOM に変換"/>
                     <Item id="45060" name="Big5(繁体字)"/>
                     <Item id="45061" name="GB2312(簡体字)"/>
                     <Item id="45054" name="OEM 861: アイスランド語"/>
@@ -867,8 +867,8 @@
                     <Item id="6406" name="ANSI"/>
                     <Item id="6407" name="UTF-8"/>
                     <Item id="6408" name="UTF-8 (BOM付)"/>
-                    <Item id="6409" name="UCS-2 Big Endian (BOM付)"/>
-                    <Item id="6410" name="UCS-2 Little Endian (BOM付)"/>
+                    <Item id="6409" name="UTF-16 Big Endian (BOM付)"/>
+                    <Item id="6410" name="UTF-16 Little Endian (BOM付)"/>
                     <Item id="6411" name="デフォルトの言語:"/>
                     <Item id="6419" name="新規文書"/>
                     <Item id="6420" name="開いているANSIファイルに適用"/>
@@ -1363,6 +1363,7 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <finder-select-all value="すべて選択"/>
             <finder-clear-all value="すべてクリア"/>
             <finder-open-all value="すべて開く"/>
+            <finder-purge-for-every-search value="検索時に以前の結果をクリア"/>
             <finder-wrap-long-lines value="長い行を折り返す"/>
             <common-ok value="OK"/>
             <common-cancel value="ｷｬﾝｾﾙ"/>

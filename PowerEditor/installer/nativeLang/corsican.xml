@@ -4,7 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
-		- Updated on March 7th, 2021 for version 7.9.4 by Patriccollu di Santa Maria è Sichè
+		- Updated on March 28th, 2021 for version 7.9.6 by Patriccollu di Santa Maria è Sichè
 		- Updated on January 27th, 2021 for version 7.9.3 by Patriccollu di Santa Maria è Sichè
 		- Updated on November 4th, 2020 for version 7.9.2 by Patriccollu di Santa Maria è Sichè
 		- Updated on September 16th, 2020 for version 7.9.1 by Patriccollu di Santa Maria è Sichè
@@ -23,7 +23,7 @@ The comments are here for explanation, it's not necessary to translate them.
 	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/corsican.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="Corsu" filename="corsican.xml" version="7.9.4">
+    <Native-Langue name="Corsu" filename="corsican.xml" version="7.9.6">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -56,8 +56,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item subMenuId="edit-blankOperations" name="Operazioni nant’à u spaziu"/>
                     <Item subMenuId="edit-pasteSpecial" name="Incullatura speziale"/>
                     <Item subMenuId="edit-onSelection" name="Per a selezzione"/>
-                    <Item subMenuId="search-markAll" name="Marcalle tutte"/>
-                    <Item subMenuId="search-unmarkAll" name="Caccià tutte e marche"/>
+                    <Item subMenuId="search-markAll" name="Piazzà marche"/>
+                    <Item subMenuId="search-unmarkAll" name="Squassà tutte e marche"/>
                     <Item subMenuId="search-jumpUp" name="Andà insù"/>
                     <Item subMenuId="search-jumpDown" name="Andà inghjò"/>
                     <Item subMenuId="search-copyStyledText" name="Cupià u testu di stilu"/>
@@ -96,7 +96,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <!-- all menu item -->
                 <Commands>
                     <Item id="41001" name="&amp;Novu"/>
-                    <Item id="41002" name="&amp;Apre"/>
+                    <Item id="41002" name="&amp;Apre…"/>
                     <Item id="41019" name="Espluratore"/>
                     <Item id="41020" name="Invitu di cumanda"/>
                     <Item id="41025" name="Cartulare cum’è spaziu di travagliu"/>
@@ -127,7 +127,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42004" name="&amp;Rifà"/>
                     <Item id="42005" name="&amp;Incullà"/>
                     <Item id="42006" name="&amp;Squassà"/>
-                    <Item id="42007" name="Selezziunà t&amp;uttu"/>
+                    <Item id="42007" name="T&amp;uttu selezziunà"/>
                     <Item id="42020" name="Principiu è fine di a selezzione"/>
                     <Item id="42008" name="Aghjunghje una tabulazione nant’à a linea"/>
                     <Item id="42009" name="Caccià una tabulazione da a linea"/>
@@ -303,14 +303,14 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="45003" name="Macintosh (CR)"/>
                     <Item id="45004" name="ANSI"/>
                     <Item id="45005" name="UTF-8 cù BOM"/>
-                    <Item id="45006" name="UCS-2 Big Endian cù BOM"/>
-                    <Item id="45007" name="UCS-2 Little Endian cù BOM"/>
+                    <Item id="45006" name="UTF-16 Big Endian cù BOM"/>
+                    <Item id="45007" name="UTF-16 Little Endian cù BOM"/>
                     <Item id="45008" name="UTF-8"/>
                     <Item id="45009" name="Cunvertisce ver di ANSI"/>
                     <Item id="45010" name="Cunvertisce ver di UTF-8"/>
                     <Item id="45011" name="Cunvertisce ver di UTF-8 cù BOM"/>
-                    <Item id="45012" name="Cunvertisce ver di UCS-2 Big Endian cù BOM"/>
-                    <Item id="45013" name="Cunvertisce ver di UCS-2 Little Endian cù BOM"/>
+                    <Item id="45012" name="Cunvertisce ver di UTF-16 Big Endian cù BOM"/>
+                    <Item id="45013" name="Cunvertisce ver di UTF-16 Little Endian cù BOM"/>
                     <Item id="45060" name="Big5 (Tradiziunale)"/>
                     <Item id="45061" name="GB2312 (Semplificatu)"/>
                     <Item id="45054" name="OEM 861 : Islandese"/>
@@ -340,7 +340,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="47009" name="Parametri di u proxy di l’Updater…"/>
                     <Item id="48005" name="Impurtà l’estensione(i)…"/>
                     <Item id="48006" name="Impurtà u(i) tema(i) di stilu…"/>
-                    <Item id="48018" name="&amp;Finestra di mudificazione di ContextMenu"/>
+                    <Item id="48018" name="&amp;Mudificà l’ozzioni di u listinu cuntestuale"/>
                     <Item id="48009" name="&amp;Definizione di l’accurtatoghji di tastera…"/>
                     <Item id="48011" name="&amp;Preferenze…"/>
                     <Item id="48014" name="Apre u cartulare di l’estensioni…"/>
@@ -439,7 +439,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="1703" name=". cum’è n&amp;ova linea"/>
                 <Item id="1721" name="▲"/>
                 <Item id="1723" name="▼ Circà a seguente"/>
-                <Item id="1725" name="Cupià testu marcatu"/>
+                <Item id="1725" name="Cupià u testu marcatu"/>
             </Find>
 
             <FindCharsInRange title="Circà caratteri in una stesa…">
@@ -886,8 +886,8 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                     <Item id="6406" name="ANSI"/>
                     <Item id="6407" name="UTF-8"/>
                     <Item id="6408" name="UTF-8 cù BOM"/>
-                    <Item id="6409" name="UCS-2 Big Endian cù BOM"/>
-                    <Item id="6410" name="UCS-2 Little Endian cù BOM"/>
+                    <Item id="6409" name="UTF-16 Big Endian cù BOM"/>
+                    <Item id="6410" name="UTF-16 Little Endian cù BOM"/>
                     <Item id="6411" name="Linguaghju predefinitu :"/>
                     <Item id="6419" name="Novu ducumentu"/>
                     <Item id="6420" name="Appiecà à i schedarii ANSI aperti"/>
@@ -960,7 +960,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                     <Item id="6728" name="Intestatura è bassu di pagina"/>
                 </Print>
 
-                <Searching title="Searching">
+                <Searching title="Ricerche">
                     <Item id="6901" name="Ùn micca riempie u campu di ricerca cù a parolla selezziunata"/>
                     <Item id="6902" name="Impiegà a grafia à spaziamentu fissu in u dialogu di ricerca (Richiede di rilancià Notepad++)"/>
                     <Item id="6903" name="U dialogu di ricerca sta apertu dopu una ricerca chì s’affisseghja in a finestra di risultati"/>
@@ -1136,7 +1136,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
             </DoSaveOrNot>
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
-            <ContextMenuXmlEditWarning title="Mudificazione di contextMenu" message="A mudificazione di contextMenu.xml vi permette di cambià u listinu cuntestuale di Notepad++.
+            <ContextMenuXmlEditWarning title="Mudificazione di u listinu cuntestuale" message="A mudificazione di contextMenu.xml vi permette di cambià l’ozzioni u listinu cuntestuale di Notepad++.
 Ci vole à rilancià Notepad++ per piglià in contu e mudificazioni di contextMenu.xml."/>
             <SaveCurrentModifWarning title="Arregistrà a mudificazione currente" message="Ci vuleria à arregistrà e mudificazioni currente.
 Tutte e mudificazioni arregistrate ùn pudenu micca esse disfatte.
@@ -1354,6 +1354,7 @@ Circà in tutti i schedarii fora di exe, obj è log :
             <find-status-replaceinopenedfiles-nb-replaced value="Rimpiazzà in schedarii aperti : $INT_REPLACE$ occurrenze sò state rimpiazzate"/>
             <find-status-mark-re-malformed value="Marcà : A spressione regulare per ricercà hè mal’cuncilia"/>
             <find-status-invalid-re value="Circà : Espressione regulare inaccettevule"/>
+			<find-status-search-failed value="Circà : Ricerca fiasca"/>
             <find-status-mark-1-match value="Marca : 1 cuncurdanza"/>
             <find-status-mark-nb-matches value="Marca : $INT_REPLACE$ cuncurdanze"/>
             <find-status-count-re-malformed value="Cuntà : A spressione regulare per ricercà hè mal’cuncilia"/>
@@ -1383,6 +1384,7 @@ Circà in tutti i schedarii fora di exe, obj è log :
             <finder-select-all value="Tuttu selezziunà"/>
             <finder-clear-all value="Tuttu viutà"/>
             <finder-open-all value="Tuttu apre"/>
+            <finder-purge-for-every-search value="Spurgulà per ogni ricerca"/>
             <finder-wrap-long-lines value="Ritornu autumaticu à a linea per e linee longhe"/>
             <common-ok value="Vai"/>
             <common-cancel value="Abbandunà"/>
@@ -1425,7 +1427,7 @@ Circà in tutti i schedarii fora di exe, obj è log :
             <find-result-title-info-extra value=" - Modu di filtru di linea : affisseghja solu i risultati filtrati"/>
             <find-result-hits value="($INT_REPLACE$ risultati)"/>
             <find-result-line-prefix value="Linea"/> <!-- Must not begin with space or tab character -->
-            <find-regex-zero-length-match value="currispundenza di longhezza à zeru"/>
+            <find-regex-zero-length-match value="currispondenza di longhezza à zeru"/>
             <session-save-folder-as-workspace value="Arregistrà u cartulare cum’è spaziu di travagliu"/>
         </MiscStrings>
     </Native-Langue>

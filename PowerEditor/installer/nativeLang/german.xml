@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2021-03-09 by schnurlos (schnurlos@gmail.com)
+	last modified: 2021-03-28 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="7.9.4">
+	<Native-Langue name="Deutsch" filename="german.xml" version="7.9.6">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -293,14 +293,14 @@
 					<Item id="45003" name="&amp;Macintosh (CR)"/>
 					<Item id="45004" name="&amp;ANSI"/>
 					<Item id="45005" name="UTF-&amp;8-BOM"/>
-					<Item id="45006" name="UCS-2 &amp;BE-BOM"/>
-					<Item id="45007" name="UCS-2 &amp;LE-BOM"/>
+					<Item id="45006" name="UTF-16 &amp;BE-BOM"/>
+					<Item id="45007" name="UTF-16 &amp;LE-BOM"/>
 					<Item id="45008" name="UT&amp;F-8"/>
 					<Item id="45009" name="Ko&amp;nvertiere zu ANSI"/>
 					<Item id="45010" name="Kon&amp;vertiere zu UTF-8"/>
 					<Item id="45011" name="Konv&amp;ertiere zu UTF-8-BOM"/>
-					<Item id="45012" name="Konve&amp;rtiere zu UCS-2 BE-BOM"/>
-					<Item id="45013" name="Konver&amp;tiere zu UCS-2 LE-BOM"/>
+					<Item id="45012" name="Konve&amp;rtiere zu UTF-16 BE-BOM"/>
+					<Item id="45013" name="Konver&amp;tiere zu UTF-16 LE-BOM"/>
 					<Item id="45060" name="Big5 (Traditionell)"/>
 					<Item id="45061" name="GB2312 (Vereinfacht)"/>
 					<Item id="45054" name="OEM 861: Isländisch"/>
@@ -874,8 +874,8 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Za
 					<Item id="6406" name="ANSI"/>
 					<Item id="6407" name="UTF-8"/>
 					<Item id="6408" name="UTF-8 mit BOM"/>
-					<Item id="6409" name="UCS-2 Big Endian mit BOM"/>
-					<Item id="6410" name="UCS-2 Little Endian mit BOM"/>
+					<Item id="6409" name="UTF-16 Big Endian mit BOM"/>
+					<Item id="6410" name="UTF-16 Little Endian mit BOM"/>
 					<Item id="6411" name="Standardsprache"/>
 					<Item id="6419" name="Neues Dokument"/>
 					<Item id="6420" name="Auch beim Öffnen von ANSI-Dateien"/>
@@ -1340,6 +1340,7 @@ Finde in allen Dateien außer exe, obj &amp;&amp; log:
 			<find-status-replaceinopenedfiles-nb-replaced value="Ersetzen in geöffneten Dateien: $INT_REPLACE$ Vorkommen wurden ersetzt"/>
 			<find-status-mark-re-malformed value="Achtung: Der Ausdruck für die Suche ist nicht passend"/>
 			<find-status-invalid-re value="Suche: Ungültiger Ausdruck"/>
+			<find-status-search-failed value="Suche: Fehlgeschlagen"/>
 			<find-status-mark-1-match value="Ausdruck: 1 Treffer"/>
 			<find-status-mark-nb-matches value="Ausdruck: $INT_REPLACE$ Treffer"/>
 			<find-status-count-re-malformed value="Zähler: Der Ausdruck für die Suche ist nicht passend"/>
@@ -1369,6 +1370,7 @@ Finde in allen Dateien außer exe, obj &amp;&amp; log:
 			<finder-select-all value="Alles wählen"/>
 			<finder-clear-all value="Alles löschen"/>
 			<finder-open-all value="Alles öffnen"/>
+			<finder-purge-for-every-search value="Für jede Suche neu eingeben"/>
 			<finder-wrap-long-lines value="Zeilenumbruch bei langen Zeilen"/>
 			<common-ok value="OK"/>
 			<common-cancel value="Abbruch"/>

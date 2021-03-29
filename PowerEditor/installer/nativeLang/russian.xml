@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v7.9.4:
+Updated to v7.9.6:
 - added new lines
+- minor fix
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="7.9.4">
+	<Native-Langue name="Русский" filename="russian.xml" version="7.9.6">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -323,14 +324,14 @@ Updated to v7.9.4:
 
 					<Item id="45004" name="Кодировка ANSI"/>
 					<Item id="45005" name="Кодировка UTF-8 с BOM"/>
-					<Item id="45006" name="Кодировка UCS-2 BE с BOM"/>
-					<Item id="45007" name="Кодировка UCS-2 LE с BOM"/>
+					<Item id="45006" name="Кодировка UTF-16 BE с BOM"/>
+					<Item id="45007" name="Кодировка UTF-16 LE с BOM"/>
 					<Item id="45008" name="Кодировка UTF-8"/>
 					<Item id="45009" name="Преобразовать в ANSI"/>
 					<Item id="45010" name="Преобразовать в UTF-8"/>
 					<Item id="45011" name="Преобразовать в UTF-8 с BOM"/>
-					<Item id="45012" name="Преобразовать в UCS-2 BE с BOM"/>
-					<Item id="45013" name="Преобразовать в UCS-2 LE с BOM"/>
+					<Item id="45012" name="Преобразовать в UTF-16 BE с BOM"/>
+					<Item id="45013" name="Преобразовать в UTF-16 LE с BOM"/>
 					<Item id="45060" name="Big5 (Традиционный)"/>
 					<Item id="45061" name="GB2312 (Упрощенный)"/>
 					<Item id="45054" name="OEM 861: Исландский"/>
@@ -397,9 +398,9 @@ Updated to v7.9.4:
 					<Item CMID="4"  name="Печать..."/>
 					<Item CMID="5"  name="Переместить в Другую Область"/>
 					<Item CMID="6"  name="Дублировать в Другой Области"/>
-					<Item CMID="7"  name="Путь к файлу с Именем (в буфер)"/>
+					<Item CMID="7"  name="Полный путь с Именем (в буфер)"/>
 					<Item CMID="8"  name="Имя файла (в буфер)"/>
-					<Item CMID="9"  name="Путь к директории файла (в буфер)"/>
+					<Item CMID="9"  name="Только путь к директории (в буфер)"/>
 					<Item CMID="10" name="Переименовать..."/>
 					<Item CMID="11" name="Удалить файл (в корзину)"/>
 					<Item CMID="12" name="&quot;Только Чтение&quot; файла"/>
@@ -895,8 +896,8 @@ Updated to v7.9.4:
 					<Item id="6406" name="ANSI"/>
 					<Item id="6407" name="UTF-8"/>
 					<Item id="6408" name="UTF-8 c BOM"/>
-					<Item id="6409" name="UCS-2 Big Endian c BOM"/>
-					<Item id="6410" name="UCS-2 Little Endian c BOM"/>
+					<Item id="6409" name="UTF-16 Big Endian c BOM"/>
+					<Item id="6410" name="UTF-16 Little Endian c BOM"/>
 					<Item id="6411" name="Синтаксис по умолч.:"/>
 					<Item id="6419" name="Новый Документ"/>
 					<Item id="6420" name="Применить к откр. ANSI файлам"/>
@@ -1002,7 +1003,7 @@ Updated to v7.9.4:
 					<Item id="6345" name="Миниатюра под Вкладкой"/>
 					<Item id="6346" name="Отображать в Карте Документа"/>
 					<Item id="6349" name="Использ. DirectWrite (это может улучшить отображение спецсимволов, требуется перезапуск)"/>
-					<Item id="6351" name="Не указывать расширение при сохранении файла 'Обычного Текста'"/>
+					<Item id="6351" name="Не указывать расширение при сохранении 'Обычного Текста'"/>
 					<Item id="6360" name="Отключить все звуки"/>
 				</MISC>
 				<MultiInstance title = "Режимы Запуска">
@@ -1309,6 +1310,7 @@ Updated to v7.9.4:
 			<find-status-replaceinopenedfiles-1-replaced  value="Замена в открытых файлах: заменено 1 совпадение"/>
 			<find-status-replaceinopenedfiles-nb-replaced value="Замена в открытых файлах: заменено $INT_REPLACE$ совпадений"/>
 			<find-status-mark-re-malformed        value="Пометки: Регулярное выражение для поиска искажено"/>
+			<find-status-search-failed            value="Поиск: Ошибка поиска"/>
 			<find-status-invalid-re               value="Поиск: Недопустимое регулярное выражение"/>
 			<find-status-mark-1-match             value="Пометки: 1 совпадение"/>
 			<find-status-mark-nb-matches          value="Пометки: $INT_REPLACE$ совпадений"/>
@@ -1331,11 +1333,12 @@ Updated to v7.9.4:
 			<find-status-scope-backward           value="от начала файла до знак вставки"/>
 			<find-status-scope-forward            value="от знак вставки до конца файла"/>
 			<finder-find-in-finder                value="Поиск в найденном..."/>
-			<finder-close-this                    value="Закрыть этот поиск"/>
+			<finder-close-this                    value="Закрыть эту вкладку поиска"/>
+			<finder-purge-for-every-search        value="Очистка при каждом поиске"/>
 			<finder-collapse-all         value="Свернуть всё"/>
 			<finder-uncollapse-all       value="Развернуть всё"/>
 			<finder-copy                 value="Копировать (строки целиком)"/>
-			<finder-copy-verbatim        value="Копировать"/>
+			<finder-copy-verbatim        value="Копировать выделенное"/>
 			<finder-select-all           value="Выделить всё"/>
 			<finder-clear-all            value="Очистить всё"/>
 			<finder-open-all             value="Открыть все файлы"/>

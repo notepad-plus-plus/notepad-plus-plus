@@ -545,16 +545,16 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="45001" name="EOL Conversion to Windows (CR LF)"/>
                     <Item id="45002" name="EOL Conversion to Unix (LF)"/>
                     <Item id="45003" name="EOL Conversion to Macintosh (CR)"/>
-                    <Item id="43022" name="Mark all occurrences of selected text using 1st style"/>
-                    <Item id="43024" name="Mark all occurrences of selected text using 2nd style"/>
-                    <Item id="43026" name="Mark all occurrences of selected text using 3rd style"/>
-                    <Item id="43028" name="Mark all occurrences of selected text using 4th style"/>
-                    <Item id="43030" name="Mark all occurrences of selected text using 5th style"/>
-                    <Item id="43062" name="Mark selected text using 1st style"/>
-                    <Item id="43063" name="Mark selected text using 2nd style"/>
-                    <Item id="43064" name="Mark selected text using 3rd style"/>
-                    <Item id="43065" name="Mark selected text using 4th style"/>
-                    <Item id="43066" name="Mark selected text using 5th style"/>
+                    <Item id="43022" name="Mark all using 1st style"/>
+                    <Item id="43024" name="Mark all using 2nd style"/>
+                    <Item id="43026" name="Mark all using 3rd style"/>
+                    <Item id="43028" name="Mark all using 4th style"/>
+                    <Item id="43030" name="Mark all using 5th style"/>
+                    <Item id="43062" name="Mark one using 1st style"/>
+                    <Item id="43063" name="Mark one using 2nd style"/>
+                    <Item id="43064" name="Mark one using 3rd style"/>
+                    <Item id="43065" name="Mark one using 4th style"/>
+                    <Item id="43066" name="Mark one using 5th style"/>
                     <Item id="43023" name="Clear marks using 1st style"/>
                     <Item id="43025" name="Clear marks using 2nd style"/>
                     <Item id="43027" name="Clear marks using 3rd style"/>

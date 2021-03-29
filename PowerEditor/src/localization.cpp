@@ -56,11 +56,12 @@ MenuPosition menuPos[] = {
 	{ 1, 19, -1, "edit-onSelection" },
 
 	{ 2, 18, -1, "search-markAll" },
-	{ 2, 19, -1, "search-unmarkAll" },
-	{ 2, 20, -1, "search-jumpUp" },
-	{ 2, 21, -1, "search-jumpDown" },
-	{ 2, 22, -1, "search-copyStyledText" },
-	{ 2, 24, -1, "search-bookmark" },
+	{ 2, 19, -1, "search-markOne" },
+	{ 2, 20, -1, "search-unmarkAll" },
+	{ 2, 21, -1, "search-jumpUp" },
+	{ 2, 22, -1, "search-jumpDown" },
+	{ 2, 23, -1, "search-copyStyledText" },
+	{ 2, 25, -1, "search-bookmark" },
 
 	{ 3,  4, -1, "view-currentFileIn" },
 	{ 3,  6, -1, "view-showSymbol" },

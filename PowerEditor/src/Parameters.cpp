@@ -188,11 +188,16 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_B,       IDM_SEARCH_GOTOMATCHINGBRACE,                 true,  false, false, nullptr },
 	{ VK_B,       IDM_SEARCH_SELECTMATCHINGBRACES,              true,  true,  false, nullptr },
 	{ VK_M,       IDM_SEARCH_MARK,                              true,  false, false, nullptr },
-	{ VK_NULL,    IDM_SEARCH_MARKALLEXT1,                       false, false, false, TEXT("Mark search results using 1st style") },
-	{ VK_NULL,    IDM_SEARCH_MARKALLEXT2,                       false, false, false, TEXT("Mark search results using 2nd style") },
-	{ VK_NULL,    IDM_SEARCH_MARKALLEXT3,                       false, false, false, TEXT("Mark search results using 3rd style") },
-	{ VK_NULL,    IDM_SEARCH_MARKALLEXT4,                       false, false, false, TEXT("Mark search results using 4th style") },
-	{ VK_NULL,    IDM_SEARCH_MARKALLEXT5,                       false, false, false, TEXT("Mark search results using 5th style") },
+	{ VK_NULL,    IDM_SEARCH_MARKALLEXT1,                       false, false, false, TEXT("Mark all occurrences of selected text using 1st style") },
+	{ VK_NULL,    IDM_SEARCH_MARKALLEXT2,                       false, false, false, TEXT("Mark all occurrences of selected text using 2nd style") },
+	{ VK_NULL,    IDM_SEARCH_MARKALLEXT3,                       false, false, false, TEXT("Mark all occurrences of selected text using 3rd style") },
+	{ VK_NULL,    IDM_SEARCH_MARKALLEXT4,                       false, false, false, TEXT("Mark all occurrences of selected text using 4th style") },
+	{ VK_NULL,    IDM_SEARCH_MARKALLEXT5,                       false, false, false, TEXT("Mark all occurrences of selected text using 5th style") },
+	{ VK_NULL,    IDM_SEARCH_MARKONEEXT1,                       false, false, false, TEXT("Mark selected text using 1st style") },
+	{ VK_NULL,    IDM_SEARCH_MARKONEEXT2,                       false, false, false, TEXT("Mark selected text using 2nd style") },
+	{ VK_NULL,    IDM_SEARCH_MARKONEEXT3,                       false, false, false, TEXT("Mark selected text using 3rd style") },
+	{ VK_NULL,    IDM_SEARCH_MARKONEEXT4,                       false, false, false, TEXT("Mark selected text using 4th style") },
+	{ VK_NULL,    IDM_SEARCH_MARKONEEXT5,                       false, false, false, TEXT("Mark selected text using 5th style") },
 	{ VK_NULL,    IDM_SEARCH_UNMARKALLEXT1,                     false, false, false, TEXT("Clear marks using 1st style") },
 	{ VK_NULL,    IDM_SEARCH_UNMARKALLEXT2,                     false, false, false, TEXT("Clear marks using 2nd style") },
 	{ VK_NULL,    IDM_SEARCH_UNMARKALLEXT3,                     false, false, false, TEXT("Clear marks using 3rd style") },
@@ -5262,10 +5267,6 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			const TCHAR* optConfirmReplaceOpenDocs = element->Attribute(TEXT("confirmReplaceInAllOpenDocs"));
 			if (optConfirmReplaceOpenDocs)
 				_nppGUI._confirmReplaceInAllOpenDocs = (lstrcmp(optConfirmReplaceOpenDocs, TEXT("yes")) == 0);
-
-			const TCHAR* optStyleOnlySingleOccurrence = element->Attribute(TEXT("styleOnlySingleOccurrence"));
-			if (optStyleOnlySingleOccurrence)
-				_nppGUI._styleOnlySingleOccurrence = (lstrcmp(optStyleOnlySingleOccurrence, TEXT("yes")) == 0);
 		}
 		else if (!lstrcmp(nm, TEXT("MISC")))
 		{
@@ -6236,7 +6237,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("muteSounds"), _nppGUI._muteSounds ? TEXT("yes") : TEXT("no"));
 	}
 
-	// <GUIConfig name="Searching" "monospacedFontFindDlg"="no" stopFillingFindField="no" findDlgAlwaysVisible="no" confirmReplaceOpenDocs="yes" confirmMacroReplaceOpenDocs="yes" confirmReplaceInFiles="yes" confirmMacroReplaceInFiles="yes" styleOnlySingleOccurrence="no" />
+	// <GUIConfig name="Searching" "monospacedFontFindDlg"="no" stopFillingFindField="no" findDlgAlwaysVisible="no" confirmReplaceOpenDocs="yes" confirmMacroReplaceOpenDocs="yes" confirmReplaceInFiles="yes" confirmMacroReplaceInFiles="yes" />
 	{
 		TiXmlElement* GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("Searching"));
@@ -6245,7 +6246,6 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("stopFillingFindField"), _nppGUI._stopFillingFindField ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("findDlgAlwaysVisible"), _nppGUI._findDlgAlwaysVisible ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("confirmReplaceInAllOpenDocs"), _nppGUI._confirmReplaceInAllOpenDocs ? TEXT("yes") : TEXT("no"));
-		GUIConfigElement->SetAttribute(TEXT("styleOnlySingleOccurrence"), _nppGUI._styleOnlySingleOccurrence ? TEXT("yes") : TEXT("no"));
 	}
 
 	// <GUIConfig name="searchEngine" searchEngineChoice="2" searchEngineCustom="" />

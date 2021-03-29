@@ -1255,39 +1255,53 @@ void Notepad_plus::command(int id)
 			else // (id == IDM_SEARCH_MARKALLEXT5)
 				styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT5;
 
-			const NppGUI& nppGui = (NppParameters::getInstance()).getNppGUI();
-			if (nppGui._styleOnlySingleOccurrence)
+			const int strSize = FINDREPLACE_MAXLENGTH;
+			TCHAR text2Find[strSize];
+			TCHAR text2Find2[strSize];
+
+			_pEditView->getGenericSelectedText(text2Find, strSize, false);
+			_pEditView->getGenericWordOnCaretPos(text2Find2, strSize);
+
+			if (text2Find[0] == '\0')
 			{
-				Sci_CharacterRange range = _pEditView->getSelection();
-				if (range.cpMin == range.cpMax)
-				{
-					auto caretPos = _pEditView->execute(SCI_GETCURRENTPOS, 0, 0);
-					range.cpMin = static_cast<int>(_pEditView->execute(SCI_WORDSTARTPOSITION, caretPos, true));
-					range.cpMax = static_cast<int>(_pEditView->execute(SCI_WORDENDPOSITION, caretPos, true));
-				}
-				if (range.cpMax > range.cpMin)
-				{
-					_pEditView->execute(SCI_SETINDICATORCURRENT, styleID);
-					_pEditView->execute(SCI_INDICATORFILLRANGE, range.cpMin, range.cpMax - range.cpMin);
-				}
+				_findReplaceDlg.markAll(text2Find2, styleID, true);
 			}
 			else
 			{
-				const int strSize = FINDREPLACE_MAXLENGTH;
-				TCHAR text2Find[strSize];
-				TCHAR text2Find2[strSize];
+				_findReplaceDlg.markAll(text2Find, styleID, lstrlen(text2Find) == lstrlen(text2Find2));
+			}
+		}
+		break;
 
-				_pEditView->getGenericSelectedText(text2Find, strSize, false);
-				_pEditView->getGenericWordOnCaretPos(text2Find2, strSize);
+		case IDM_SEARCH_MARKONEEXT1:
+		case IDM_SEARCH_MARKONEEXT2:
+		case IDM_SEARCH_MARKONEEXT3:
+		case IDM_SEARCH_MARKONEEXT4:
+		case IDM_SEARCH_MARKONEEXT5:
+		{
+			int styleID;
+			if (id == IDM_SEARCH_MARKONEEXT1)
+				styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT1;
+			else if (id == IDM_SEARCH_MARKONEEXT2)
+				styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT2;
+			else if (id == IDM_SEARCH_MARKONEEXT3)
+				styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT3;
+			else if (id == IDM_SEARCH_MARKONEEXT4)
+				styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT4;
+			else // (id == IDM_SEARCH_MARKONEEXT5)
+				styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT5;
 
-				if (text2Find[0] == '\0')
-				{
-					_findReplaceDlg.markAll(text2Find2, styleID, true);
-				}
-				else
-				{
-					_findReplaceDlg.markAll(text2Find, styleID, lstrlen(text2Find) == lstrlen(text2Find2));
-				}
+			Sci_CharacterRange range = _pEditView->getSelection();
+			if (range.cpMin == range.cpMax)
+			{
+				auto caretPos = _pEditView->execute(SCI_GETCURRENTPOS, 0, 0);
+				range.cpMin = static_cast<int>(_pEditView->execute(SCI_WORDSTARTPOSITION, caretPos, true));
+				range.cpMax = static_cast<int>(_pEditView->execute(SCI_WORDENDPOSITION, caretPos, true));
+			}
+			if (range.cpMax > range.cpMin)
+			{
+				_pEditView->execute(SCI_SETINDICATORCURRENT, styleID);
+				_pEditView->execute(SCI_INDICATORFILLRANGE, range.cpMin, range.cpMax - range.cpMin);
 			}
 		}
 		break;
@@ -3700,14 +3714,19 @@ void Notepad_plus::command(int id)
 			case IDM_SEARCH_DELETEMARKEDLINES   :
 			case IDM_SEARCH_DELETEUNMARKEDLINES :
 			case IDM_SEARCH_MARKALLEXT1      :
-			case IDM_SEARCH_UNMARKALLEXT1    :
 			case IDM_SEARCH_MARKALLEXT2      :
-			case IDM_SEARCH_UNMARKALLEXT2    :
 			case IDM_SEARCH_MARKALLEXT3      :
-			case IDM_SEARCH_UNMARKALLEXT3    :
 			case IDM_SEARCH_MARKALLEXT4      :
-			case IDM_SEARCH_UNMARKALLEXT4    :
 			case IDM_SEARCH_MARKALLEXT5      :
+			case IDM_SEARCH_MARKONEEXT1      :
+			case IDM_SEARCH_MARKONEEXT2      :
+			case IDM_SEARCH_MARKONEEXT3      :
+			case IDM_SEARCH_MARKONEEXT4      :
+			case IDM_SEARCH_MARKONEEXT5      :
+			case IDM_SEARCH_UNMARKALLEXT1    :
+			case IDM_SEARCH_UNMARKALLEXT2    :
+			case IDM_SEARCH_UNMARKALLEXT3    :
+			case IDM_SEARCH_UNMARKALLEXT4    :
 			case IDM_SEARCH_UNMARKALLEXT5    :
 			case IDM_SEARCH_CLEARALLMARKS    :
 			case IDM_FORMAT_TODOS  :

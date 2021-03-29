@@ -236,6 +236,12 @@
     #define    IDM_SEARCH_ALLSTYLESTOCLIP      (IDM_SEARCH + 60)
     #define    IDM_SEARCH_MARKEDTOCLIP         (IDM_SEARCH + 61)
 
+    #define    IDM_SEARCH_MARKONEEXT1          (IDM_SEARCH + 62)
+    #define    IDM_SEARCH_MARKONEEXT2          (IDM_SEARCH + 63)
+    #define    IDM_SEARCH_MARKONEEXT3          (IDM_SEARCH + 64)
+    #define    IDM_SEARCH_MARKONEEXT4          (IDM_SEARCH + 65)
+    #define    IDM_SEARCH_MARKONEEXT5          (IDM_SEARCH + 66)
+
 #define    IDM_MISC    (IDM + 3500)
     #define    IDM_FILESWITCHER_FILESCLOSE            (IDM_MISC + 1)
     #define    IDM_FILESWITCHER_FILESCLOSEOTHERS      (IDM_MISC + 2)

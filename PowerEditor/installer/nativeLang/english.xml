@@ -37,6 +37,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item subMenuId="edit-pasteSpecial" name="Paste Special"/>
                     <Item subMenuId="edit-onSelection" name="On Selection"/>
                     <Item subMenuId="search-markAll" name="Mark All"/>
+                    <Item subMenuId="search-markOne" name="Mark One"/>
                     <Item subMenuId="search-unmarkAll" name="Unmark All"/>
                     <Item subMenuId="search-jumpUp" name="Jump Up"/>
                     <Item subMenuId="search-jumpDown" name="Jump Down"/>
@@ -232,6 +233,11 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43059" name="5th Style"/>
                     <Item id="43060" name="All Styles"/>
                     <Item id="43061" name="Find Style (Marked)"/>
+                    <Item id="43062" name="Using 1st Style"/>
+                    <Item id="43063" name="Using 2nd Style"/>
+                    <Item id="43064" name="Using 3rd Style"/>
+                    <Item id="43065" name="Using 4th Style"/>
+                    <Item id="43066" name="Using 5th Style"/>
                     <Item id="43045" name="Search Results Window"/>
                     <Item id="43046" name="Next Search Result"/>
                     <Item id="43047" name="Previous Search Result"/>
@@ -539,11 +545,16 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="45001" name="EOL Conversion to Windows (CR LF)"/>
                     <Item id="45002" name="EOL Conversion to Unix (LF)"/>
                     <Item id="45003" name="EOL Conversion to Macintosh (CR)"/>
-                    <Item id="43022" name="Mark text using 1st style"/>
-                    <Item id="43024" name="Mark text using 2nd style"/>
-                    <Item id="43026" name="Mark text using 3rd style"/>
-                    <Item id="43028" name="Mark text using 4th style"/>
-                    <Item id="43030" name="Mark text using 5th style"/>
+                    <Item id="43022" name="Mark all occurrences of selected text using 1st style"/>
+                    <Item id="43024" name="Mark all occurrences of selected text using 2nd style"/>
+                    <Item id="43026" name="Mark all occurrences of selected text using 3rd style"/>
+                    <Item id="43028" name="Mark all occurrences of selected text using 4th style"/>
+                    <Item id="43030" name="Mark all occurrences of selected text using 5th style"/>
+                    <Item id="43062" name="Mark selected text using 1st style"/>
+                    <Item id="43063" name="Mark selected text using 2nd style"/>
+                    <Item id="43064" name="Mark selected text using 3rd style"/>
+                    <Item id="43065" name="Mark selected text using 4th style"/>
+                    <Item id="43066" name="Mark selected text using 5th style"/>
                     <Item id="43023" name="Clear marks using 1st style"/>
                     <Item id="43025" name="Clear marks using 2nd style"/>
                     <Item id="43027" name="Clear marks using 3rd style"/>
@@ -943,7 +954,6 @@ You can define several column markers by using white space to separate the diffe
                     <Item id="6902" name="Use monospaced font in Find dialog (Need to restart Notepad++)"/>
                     <Item id="6903" name="Find dialog remains open after search that outputs to results window"/>
                     <Item id="6904" name="Confirm Replace All in All Opened Documents"/>
-                    <Item id="6905" name="Style single occurrence when mark with #1 - #5"/>
                 </Searching>
 
                 <RecentFilesHistory title="Recent Files History">

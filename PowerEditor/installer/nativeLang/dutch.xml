@@ -3,7 +3,7 @@
 Dutch localization for Notepad++ 7.9.3
 Modifications on 2018-03-26 by Klaas Nekeman (knekeman(at)gmail.com).
 Modifications on 2020-05-26 by xylographe <wr86420@gmail.com>.
-Last modified on 2021-03-27 by Thomas De Rocker (RockyTDR).
+Last modified on 2021-03-30 by Thomas De Rocker (RockyTDR).
 -->
 <NotepadPlus>
     <Native-Langue name="Nederlands" filename="dutch.xml" version="7.9.4">
@@ -40,6 +40,7 @@ Last modified on 2021-03-27 by Thomas De Rocker (RockyTDR).
                     <Item subMenuId="edit-pasteSpecial" name="Plakken speciaal"/>
                     <Item subMenuId="edit-onSelection" name="Voor selectie"/>
                     <Item subMenuId="search-markAll" name="Alles markeren"/>
+                    <Item subMenuId="search-markOne" name="Eén markeren"/>
                     <Item subMenuId="search-unmarkAll" name="Alle markeringen wissen"/>
                     <Item subMenuId="search-jumpUp" name="Omhoog springen"/>
                     <Item subMenuId="search-jumpDown" name="Omlaag springen"/>
@@ -205,15 +206,15 @@ Last modified on 2021-03-27 by Thomas De Rocker (RockyTDR).
                     <Item id="43013" name="Zoeken in bestanden"/>
                     <Item id="43014" name="(Vluchtig) volgende zoeken"/>
                     <Item id="43015" name="(Vluchtig) vorige zoeken"/>
-                    <Item id="43022" name="Met behulp van stijl 1"/>
+                    <Item id="43022" name="Met stijl 1"/>
                     <Item id="43023" name="Stijl 1 wissen"/>
-                    <Item id="43024" name="Met behulp van stijl 2"/>
+                    <Item id="43024" name="Met stijl 2"/>
                     <Item id="43025" name="Stijl 2 wissen"/>
-                    <Item id="43026" name="Met behulp van stijl 3"/>
+                    <Item id="43026" name="Met stijl 3"/>
                     <Item id="43027" name="Stijl 3 wissen"/>
-                    <Item id="43028" name="Met behulp van stijl 4"/>
+                    <Item id="43028" name="Met stijl 4"/>
                     <Item id="43029" name="Stijl 4 wissen"/>
-                    <Item id="43030" name="Met behulp van stijl 5"/>
+                    <Item id="43030" name="Met stijl 5"/>
                     <Item id="43031" name="Stijl 5 wissen"/>
                     <Item id="43032" name="Alle stijlen wissen"/>
                     <Item id="43033" name="Stijl 1"/>
@@ -235,6 +236,11 @@ Last modified on 2021-03-27 by Thomas De Rocker (RockyTDR).
                     <Item id="43059" name="Stijl 5"/>
                     <Item id="43060" name="Alle stijlen"/>
                     <Item id="43061" name="Stijl zoeken (gemarkeerd)"/>
+                    <Item id="43062" name="Met stijl 1"/>
+                    <Item id="43063" name="Met stijl 2"/>
+                    <Item id="43064" name="Met stijl 3"/>
+                    <Item id="43065" name="Met stijl 4"/>
+                    <Item id="43066" name="Met stijl 5"/>
                     <Item id="43045" name="Gevonden resultaten"/>
                     <Item id="43046" name="Volgend zoekresultaat"/>
                     <Item id="43047" name="Vorig zoekresultaat"/>
@@ -542,11 +548,16 @@ Last modified on 2021-03-27 by Thomas De Rocker (RockyTDR).
                     <Item id="45001" name="Regeleinde-conversie naar Windows (CR LF)"/>
                     <Item id="45002" name="Regeleinde-conversie naar Unix (LF)"/>
                     <Item id="45003" name="Regeleinde-conversie naar Macintosh (CR)"/>
-                    <Item id="43022" name="Tekst markeren met stijl 1"/>
-                    <Item id="43024" name="Tekst markeren met stijl 2"/>
-                    <Item id="43026" name="Tekst markeren met stijl 3"/>
-                    <Item id="43028" name="Tekst markeren met stijl 4"/>
-                    <Item id="43030" name="Tekst markeren met stijl 5"/>
+                    <Item id="43022" name="Alles markeren met stijl 1"/>
+                    <Item id="43024" name="Alles markeren met stijl 2"/>
+                    <Item id="43026" name="Alles markeren met stijl 3"/>
+                    <Item id="43028" name="Alles markeren met stijl 4"/>
+                    <Item id="43030" name="Alles markeren met stijl 5"/>
+                    <Item id="43062" name="Eén markeren met stijl 1"/>
+                    <Item id="43063" name="Eén markeren met stijl 2"/>
+                    <Item id="43064" name="Eén markeren met stijl 3"/>
+                    <Item id="43065" name="Eén markeren met stijl 4"/>
+                    <Item id="43066" name="Eén markeren met stijl 5"/>
                     <Item id="43023" name="Markeringen met stijl 1 wissen"/>
                     <Item id="43025" name="Markeringen met stijl 2 wissen"/>
                     <Item id="43027" name="Markeringen met stijl 3 wissen"/>

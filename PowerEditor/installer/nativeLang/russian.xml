@@ -2,7 +2,6 @@
 <!-- Russian translation for Notepad++
 Updated to v7.9.6:
 - added new lines
-- minor fix
 -->
 <NotepadPlus>
 	<Native-Langue name="Русский" filename="russian.xml" version="7.9.6">
@@ -37,11 +36,12 @@ Updated to v7.9.6:
 					<Item subMenuId="edit-blankOperations"      name="Операции с Пробелами"/>
 					<Item subMenuId="edit-pasteSpecial"         name="Специальная Вставка"/>
 					<Item subMenuId="edit-onSelection"          name="Выделенное"/>
-					<Item subMenuId="search-markAll"            name="Пометить выделенное"/>
-					<Item subMenuId="search-unmarkAll"          name="Убрать Пометки"/>
-					<Item subMenuId="search-jumpUp"             name="Перейти вверх"/>
-					<Item subMenuId="search-jumpDown"           name="Перейти вниз"/>
-					<Item subMenuId="search-copyStyledText"     name="Копировать Помеченный Текст"/>
+					<Item subMenuId="search-markAll"            name="Пометить все совпадения"/>
+					<Item subMenuId="search-markOne"            name="Пометить только одно"/>
+					<Item subMenuId="search-unmarkAll"          name="Очистить пометки"/>
+					<Item subMenuId="search-jumpUp"             name="Предыдущая пометка"/>
+					<Item subMenuId="search-jumpDown"           name="Следующая пометка"/>
+					<Item subMenuId="search-copyStyledText"     name="Копировать помеченный текст"/>
 					<Item subMenuId="search-bookmark"           name="&amp;Закладки"/>
 					<Item subMenuId="view-currentFileIn"        name="Открыть текущий файл в..."/>
 					<Item subMenuId="view-showSymbol"           name="Отображение символов"/>
@@ -191,7 +191,7 @@ Updated to v7.9.6:
 					<Item id="42073" name="Открыть Файл"/>
 					<Item id="42074" name="Открыть папку Документа"/>
 					<Item id="42075" name="Поиск в Интернете"/>
-					<Item id="42076" name="Сменить Поисковую Систему..."/>
+					<Item id="42076" name="Сменить поисковую систему..."/>
 
 					<Item id="42037" name="Выделение Столбцом..."/>
 					<Item id="42034" name="Генератор столбца..."/>
@@ -250,6 +250,12 @@ Updated to v7.9.6:
 					<Item id="43059" name="5-й стиль"/>
 					<Item id="43060" name="Все стили"/>
 					<Item id="43061" name="Стиль из меню Пометки"/>
+
+					<Item id="43062" name="Используя 1-й стиль"/>
+					<Item id="43063" name="Используя 2-й стиль"/>
+					<Item id="43064" name="Используя 3-й стиль"/>
+					<Item id="43065" name="Используя 4-й стиль"/>
+					<Item id="43066" name="Используя 5-й стиль"/>
 
 					<Item id="43005" name="Закладка (поставить / снять)"/>
 					<Item id="43006" name="К следующей закладке"/>
@@ -574,11 +580,16 @@ Updated to v7.9.6:
 					<Item id="45001" name="Преобразовать в Windows (CR LF)"/>
 					<Item id="45002" name="Преобразовать в Unix (LF)"/>
 					<Item id="45003" name="Преобразовать в Macintosh (CR)"/>
-					<Item id="43022" name="Пометить текст используя 1-й стиль"/>
-					<Item id="43024" name="Пометить текст используя 2-й стиль"/>
-					<Item id="43026" name="Пометить текст используя 3-й стиль"/>
-					<Item id="43028" name="Пометить текст используя 4-й стиль"/>
-					<Item id="43030" name="Пометить текст используя 5-й стиль"/>
+					<Item id="43022" name="Пометить все используя 1-й стиль"/>
+					<Item id="43024" name="Пометить все используя 2-й стиль"/>
+					<Item id="43026" name="Пометить все используя 3-й стиль"/>
+					<Item id="43028" name="Пометить все используя 4-й стиль"/>
+					<Item id="43030" name="Пометить все используя 5-й стиль"/>
+					<Item id="43062" name="Пометить одно используя 1-й стиль"/>
+					<Item id="43063" name="Пометить одно используя 2-й стиль"/>
+					<Item id="43064" name="Пометить одно используя 3-й стиль"/>
+					<Item id="43065" name="Пометить одно используя 4-й стиль"/>
+					<Item id="43066" name="Пометить одно используя 5-й стиль"/>
 					<Item id="43023" name="Убрать пометки использ. 1-й стиль"/>
 					<Item id="43025" name="Убрать пометки использ. 2-й стиль"/>
 					<Item id="43027" name="Убрать пометки использ. 3-й стиль"/>

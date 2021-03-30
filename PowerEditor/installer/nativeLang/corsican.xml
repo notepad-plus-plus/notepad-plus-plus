@@ -4,7 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
-		- Updated on March 28th, 2021 for version 7.9.6 by Patriccollu di Santa Maria è Sichè
+		- Updated on March 30th, 2021 for version 7.9.6 by Patriccollu di Santa Maria è Sichè
 		- Updated on January 27th, 2021 for version 7.9.3 by Patriccollu di Santa Maria è Sichè
 		- Updated on November 4th, 2020 for version 7.9.2 by Patriccollu di Santa Maria è Sichè
 		- Updated on September 16th, 2020 for version 7.9.1 by Patriccollu di Santa Maria è Sichè
@@ -56,7 +56,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item subMenuId="edit-blankOperations" name="Operazioni nant’à u spaziu"/>
                     <Item subMenuId="edit-pasteSpecial" name="Incullatura speziale"/>
                     <Item subMenuId="edit-onSelection" name="Per a selezzione"/>
-                    <Item subMenuId="search-markAll" name="Piazzà marche"/>
+                    <Item subMenuId="search-markAll" name="Tuttu marcà"/>
+                    <Item subMenuId="search-markOne" name="Marcane una"/>
                     <Item subMenuId="search-unmarkAll" name="Squassà tutte e marche"/>
                     <Item subMenuId="search-jumpUp" name="Andà insù"/>
                     <Item subMenuId="search-jumpDown" name="Andà inghjò"/>
@@ -252,6 +253,11 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43059" name="5ᵘ stilu"/>
                     <Item id="43060" name="Tutti i stili"/>
                     <Item id="43061" name="Circà u stilu (marcatu)"/>
+                    <Item id="43062" name="Impieghendu u 1ᵘ stilu"/>
+                    <Item id="43063" name="Impieghendu u 2ᵘ stilu"/>
+                    <Item id="43064" name="Impieghendu u 3ᵘ stilu"/>
+                    <Item id="43065" name="Impieghendu u 4ᵘ stilu"/>
+                    <Item id="43066" name="Impieghendu u 5ᵘ stilu"/>
                     <Item id="43045" name="Finestra di risultatu di ricerca"/>
                     <Item id="43046" name="Prossimu risultatu di ricerca"/>
                     <Item id="43047" name="Precedente risultatu di ricerca"/>
@@ -558,14 +564,19 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="41019" name="Apre cù l’espluratore u cartulare cuntenendu u schedariu"/>
                     <Item id="41020" name="Apre cù l’invitu di cumanda u cartulare cuntenendu u schedariu"/>
                     <Item id="41021" name="Apre u schedariu chjosu pocu fà"/>
-                    <Item id="45001" name="Cunversione di fine di linea ver di u furmatu Windows (CR LF)"/>
-                    <Item id="45002" name="Cunversione di fine di linea ver di u furmatu Unix (LF)"/>
-                    <Item id="45003" name="Cunversione di fine di linea ver di u furmatu Macintosh (CR)"/>
-                    <Item id="43022" name="Marcà u testu impieghendu u 1ᵘ stilu"/>
-                    <Item id="43024" name="Marcà u testu impieghendu u 2ᵘ stilu"/>
-                    <Item id="43026" name="Marcà u testu impieghendu u 3ᵘ stilu"/>
-                    <Item id="43028" name="Marcà u testu impieghendu u 4ᵘ stilu"/>
-                    <Item id="43030" name="Marcà u testu impieghendu u 5ᵘ stilu"/>
+                    <Item id="45001" name="Cunversione di fine di linea à u furmatu Windows (CR LF)"/>
+                    <Item id="45002" name="Cunversione di fine di linea à u furmatu Unix (LF)"/>
+                    <Item id="45003" name="Cunversione di fine di linea à u furmatu Macintosh (CR)"/>
+                    <Item id="43022" name="Tuttu marcà impieghendu u 1ᵘ stilu"/>
+                    <Item id="43024" name="Tuttu marcà impieghendu u 2ᵘ stilu"/>
+                    <Item id="43026" name="Tuttu marcà impieghendu u 3ᵘ stilu"/>
+                    <Item id="43028" name="Tuttu marcà impieghendu u 4ᵘ stilu"/>
+                    <Item id="43030" name="Tuttu marcà impieghendu u 5ᵘ stilu"/>
+                    <Item id="43062" name="Marcane una impieghendu u 1ᵘ stilu"/>
+                    <Item id="43063" name="Marcane una impieghendu u 2ᵘ stilu"/>
+                    <Item id="43064" name="Marcane una impieghendu u 3ᵘ stilu"/>
+                    <Item id="43065" name="Marcane una impieghendu u 4ᵘ stilu"/>
+                    <Item id="43066" name="Marcane una impieghendu u 5ᵘ stilu"/>
                     <Item id="43023" name="Squassà e marche impieghendu u 1ᵘ stilu"/>
                     <Item id="43025" name="Squassà e marche impieghendu u 2ᵘ stilu"/>
                     <Item id="43027" name="Squassà e marche impieghendu u 3ᵘ stilu"/>

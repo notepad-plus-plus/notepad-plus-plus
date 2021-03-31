@@ -4203,8 +4203,18 @@ void Notepad_plus::docOpenInNewInstance(FileTransferMode mode, int x, int y)
 		command += pY;
 	}
 
-	command += TEXT(" -l");
-	command += ScintillaEditView::langNames[buf->getLangType()].lexerName;
+	LangType lt = buf->getLangType();
+
+	// In case of UDL, "-lLANG" argument part is ignored.
+	// We let new instance detect the user lang type via file extension -
+	// it works in the most of case, except if user applies an UDL manually. 
+	// For example,  this workaround won't work under the following situation:
+	// user applies Markdown to a file named "myMarkdown.abc".
+	if (lt != L_USER)
+	{
+		command += TEXT(" -l");
+		command += ScintillaEditView::langNames[lt].lexerName;
+	}
 	command += TEXT(" -n");
 	command += to_wstring(_pEditView->getCurrentLineNumber() + 1);
 	command += TEXT(" -c");

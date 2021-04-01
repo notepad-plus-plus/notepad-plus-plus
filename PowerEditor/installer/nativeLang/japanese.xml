@@ -34,6 +34,7 @@
                     <Item subMenuId="edit-pasteSpecial" name="特殊な貼り付け"/>
                     <Item subMenuId="edit-onSelection" name="選択した文字列を"/>
                     <Item subMenuId="search-markAll" name="すべてマーク"/>
+                    <Item subMenuId="search-markOne" name="一つだけマーク"/>
                     <Item subMenuId="search-unmarkAll" name="マークをすべて解除"/>
                     <Item subMenuId="search-jumpUp" name="前のマークに移動"/>
                     <Item subMenuId="search-jumpDown" name="次のマークに移動"/>
@@ -229,6 +230,11 @@
                     <Item id="43059" name="スタイル5"/>
                     <Item id="43060" name="すべてのスタイル"/>
                     <Item id="43061" name="マーク画面で作成されたマーク"/>
+                    <Item id="43062" name="スタイル1を適用"/>
+                    <Item id="43063" name="スタイル2を適用"/>
+                    <Item id="43064" name="スタイル3を適用"/>
+                    <Item id="43065" name="スタイル4を適用"/>
+                    <Item id="43066" name="スタイル5を適用"/>
                     <Item id="43045" name="検索結果ウィンドウ"/>
                     <Item id="43046" name="次の検索結果"/>
                     <Item id="43047" name="前の検索結果"/>
@@ -542,11 +548,16 @@
                     <Item id="45001" name="改行コードを Windows (CR LF) に変換"/>
                     <Item id="45002" name="改行コードを Unix (LF) に変換"/>
                     <Item id="45003" name="改行コードを Macintosh (CR) に変換"/>
-                    <Item id="43022" name="スタイル1でマーク"/>
-                    <Item id="43024" name="スタイル2でマーク"/>
-                    <Item id="43026" name="スタイル3でマーク"/>
-                    <Item id="43028" name="スタイル4でマーク"/>
-                    <Item id="43030" name="スタイル5でマーク"/>
+                    <Item id="43022" name="スタイル1ですべてマーク"/>
+                    <Item id="43024" name="スタイル2ですべてマーク"/>
+                    <Item id="43026" name="スタイル3ですべてマーク"/>
+                    <Item id="43028" name="スタイル4ですべてマーク"/>
+                    <Item id="43030" name="スタイル5ですべてマーク"/>
+                    <Item id="43062" name="スタイル1で一つのみマーク"/>
+                    <Item id="43063" name="スタイル2で一つのみマーク"/>
+                    <Item id="43064" name="スタイル3で一つのみマーク"/>
+                    <Item id="43065" name="スタイル4で一つのみマーク"/>
+                    <Item id="43066" name="スタイル5で一つのみマーク"/>
                     <Item id="43023" name="スタイル1のマークを解除"/>
                     <Item id="43025" name="スタイル2のマークを解除"/>
                     <Item id="43027" name="スタイル3のマークを解除"/>

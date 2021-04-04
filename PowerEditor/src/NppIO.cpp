@@ -1637,15 +1637,16 @@ bool Notepad_plus::fileSaveAs(BufferID id, bool isSaveCopy)
 
 	LangType langType = buf->getLangType();
 
-	int langTypeIndex = 0;
-	if (!((NppParameters::getInstance()).getNppGUI()._setSaveDlgExtFiltToAllTypes)) 
-	{
-		langTypeIndex = setFileOpenSaveDlgFilters(fDlg, false, langType);
-	}
+	const bool defaultAllTypes = NppParameters::getInstance().getNppGUI()._setSaveDlgExtFiltToAllTypes;
+	const int langTypeIndex = setFileOpenSaveDlgFilters(fDlg, false, langType);
 	
 	fDlg.setDefFileName(buf->getFileName());
 
 	fDlg.setExtIndex(langTypeIndex + 1); // +1 for "All types"
+
+	const generic_string checkboxLabel = _nativeLangSpeaker.getLocalizedStrFromID("file-save-assign-type",
+		TEXT("&Assign file type"));
+	fDlg.enableFileTypeCheckbox(checkboxLabel, !defaultAllTypes);
 
 	// Disable file autodetection before opening save dialog to prevent use-after-delete bug.
 	NppParameters& nppParam = NppParameters::getInstance();
@@ -1653,6 +1654,9 @@ bool Notepad_plus::fileSaveAs(BufferID id, bool isSaveCopy)
 	(const_cast<NppGUI &>(nppParam.getNppGUI()))._fileAutoDetection = cdDisabled;
 
 	generic_string fn = fDlg.doSaveDlg();
+
+	// Remember the selected state
+	nppParam.getNppGUIMutable()._setSaveDlgExtFiltToAllTypes = !fDlg.getFileTypeCheckboxValue();
 
 	// Enable file autodetection again.
 	(const_cast<NppGUI &>(nppParam.getNppGUI()))._fileAutoDetection = cdBefore;

@@ -38,6 +38,9 @@ public:
 	void setCheckbox(const TCHAR* text, bool isActive = true);
 	void setExtIndex(int extTypeIndex);
 
+	void enableFileTypeCheckbox(const generic_string& text, bool value);
+	bool getFileTypeCheckboxValue() const;
+
 	// Empty string is not a valid file name and may signal that the dialog was canceled.
 	generic_string doSaveDlg();
 	generic_string pickFolder();

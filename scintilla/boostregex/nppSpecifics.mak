@@ -13,12 +13,6 @@ SRC_OBJS=\
 	$(DIR_O)\BoostRegexSearch.obj\
 	$(DIR_O)\UTF8DocumentIterator.obj
 
-LEX_OBJS=\
-	$(LEX_OBJS)\
-	$(DIR_O)\BoostRegexSearch.obj\
-	$(DIR_O)\UTF8DocumentIterator.obj
-
-
 INCLUDES=$(INCLUDES) -I../boostregex
 
 CXXFLAGS=$(CXXFLAGS) -DSCI_OWNREGEX

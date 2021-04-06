@@ -1342,6 +1342,7 @@
             <find-result-line-prefix value="行號"/> <!-- Must not begin with space or tab character -->
             <find-regex-zero-length-match value="零長度的字元相符" />
             <session-save-folder-as-workspace value="包含「資料夾工作區」" />
+            <tab-untitled-string value="新文件 " />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

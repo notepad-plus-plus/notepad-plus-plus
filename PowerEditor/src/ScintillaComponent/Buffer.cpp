@@ -497,6 +497,9 @@ void FileManager::init(Notepad_plus * pNotepadPlus, ScintillaEditView * pscratch
 	_pscratchTilla->execute(SCI_SETUNDOCOLLECTION, false);	//dont store any undo information
 	_scratchDocDefault = (Document)_pscratchTilla->execute(SCI_GETDOCPOINTER);
 	_pscratchTilla->execute(SCI_ADDREFDOCUMENT, 0, _scratchDocDefault);
+
+	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+	_untitled_str = pNativeSpeaker->getLocalizedStrFromID("tab-untitled-string", UNTITLED_STR);
 }
 
 void FileManager::checkFilesystemChanges(bool bCheckOnlyCurrentBuffer)

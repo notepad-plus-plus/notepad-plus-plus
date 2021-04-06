@@ -58,6 +58,8 @@ enum SavingStatus
 	SaveWrittingFailed = 2
 };
 
+const TCHAR UNTITLED_STR[] = TEXT("new ");
+
 //File manager class maintains all buffers
 class FileManager final
 {
@@ -138,7 +140,7 @@ private:
 	std::vector<Buffer*> _buffers;
 	BufferID _nextBufferID = 0;
 	size_t _nbBufs = 0;
-	generic_string _untitled_str = TEXT("new ");
+	generic_string _untitled_str = UNTITLED_STR;
 };
 
 #define MainFileManager FileManager::getInstance()

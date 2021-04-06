@@ -407,7 +407,7 @@ private:
 		return changeExt(name, dialogIndex - 1);
 	}
 
-	bool changeExt(generic_string& name, int extIndex)
+	bool changeExt(generic_string& name, size_t extIndex)
 	{
 		if (extIndex >= 0 && extIndex < _filterSpec.size())
 		{

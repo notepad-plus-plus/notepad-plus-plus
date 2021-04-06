@@ -51,9 +51,6 @@ enum BufferStatusInfo
 	BufferChangeMask		= 0x3FF   // Mask: covers all changes
 };
 
-//const int userLangNameMax = 16;
-const TCHAR UNTITLED_STR[] = TEXT("new ");
-
 enum SavingStatus
 {
 	SaveOK             = 0,
@@ -141,6 +138,7 @@ private:
 	std::vector<Buffer*> _buffers;
 	BufferID _nextBufferID = 0;
 	size_t _nbBufs = 0;
+	generic_string _untitled_str = TEXT("new ");
 };
 
 #define MainFileManager FileManager::getInstance()

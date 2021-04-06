@@ -1084,7 +1084,7 @@ size_t FileManager::nextUntitledNewNumber() const
 			// if untitled document is invisible, then don't put its number into array (so its number is available to be used)
 			if ((buf->_referees[0])->isVisible())
 			{
-				TCHAR *numberStr = buf->_fileName + lstrlen(UNTITLED_STR);
+				TCHAR *numberStr = buf->_fileName + _untitled_str.length();
 				int usedNumber = generic_atoi(numberStr);
 				usedNumbers.push_back(usedNumber);
 			}
@@ -1120,7 +1120,7 @@ size_t FileManager::nextUntitledNewNumber() const
 
 BufferID FileManager::newEmptyDocument()
 {
-	generic_string newTitle = UNTITLED_STR;
+	generic_string newTitle = _untitled_str;
 	TCHAR nb[10];
 	wsprintf(nb, TEXT("%d"), nextUntitledNewNumber());
 	newTitle += nb;
@@ -1137,7 +1137,7 @@ BufferID FileManager::newEmptyDocument()
 
 BufferID FileManager::bufferFromDocument(Document doc, bool dontIncrease, bool dontRef)
 {
-	generic_string newTitle = UNTITLED_STR;
+	generic_string newTitle = _untitled_str;
 	TCHAR nb[10];
 	wsprintf(nb, TEXT("%d"), nextUntitledNewNumber());
 	newTitle += nb;

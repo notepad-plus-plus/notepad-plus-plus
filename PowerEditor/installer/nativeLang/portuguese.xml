@@ -1416,6 +1416,7 @@ Procurar em todos os ficheiros, exceto exe, obj &amp;&amp; log:
             <find-result-line-prefix value="Linha"/> <!-- Must not begin with space or tab character -->
             <find-regex-zero-length-match value="correspondência de comprimento zero" />
             <session-save-folder-as-workspace value="Guardar pasta como área de trabalho" />
+			<tab-untitled-string value="novo " />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

@@ -416,7 +416,7 @@ void BoostRegexSearch::EncodingDependent<CharT, CharacterIterator>::compileRegex
 {
 	if (_lastCompileFlags != compileFlags || _lastRegexString != regex)
 	{
-		std::locale l = std::locale("");
+		std::locale l = std::locale::global(std::locale(""));
 		_regex = Regex(CharTPtr(regex), static_cast<regex_constants::syntax_option_type>(compileFlags));
 		std::locale::global(l);
 		_lastRegexString = regex;

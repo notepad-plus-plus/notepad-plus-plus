@@ -397,12 +397,12 @@ private:
 	}
 
 	// Changes the name extension according to currently selected file type index.
-	bool changeExt(generic_string& name, IFileDialog* dlg)
+	bool changeExt(generic_string& name)
 	{
-		if (!dlg)
+		if (!_dialog)
 			return false;
 		UINT dialogIndex = 0;
-		if (FAILED(dlg->GetFileTypeIndex(&dialogIndex)) || dialogIndex == 0)
+		if (FAILED(_dialog->GetFileTypeIndex(&dialogIndex)) || dialogIndex == 0)
 			return false;
 		return changeExt(name, dialogIndex - 1);
 	}
@@ -447,7 +447,7 @@ private:
 			// Name is a file path.
 			// Add file extension if missing.
 			if (!hasExt(fileName))
-				nameChanged |= changeExt(fileName, _dialog);
+				nameChanged |= changeExt(fileName);
 		}
 		// Update the edit box text.
 		// It will update the address if the path is a directory.

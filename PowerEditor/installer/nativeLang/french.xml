@@ -1358,6 +1358,7 @@ Rechercher dans tous les fichiers sauf exe, obj &amp;&amp; log:
             <find-result-line-prefix value="Ligne"/> <!-- Must not begin with space or tab character -->
             <find-regex-zero-length-match value="la chaîne vide trouvée" />
             <session-save-folder-as-workspace value="&quot;Dossier en tant qu'espace de travail&quot; inclus" />
+            <tab-untitled-string value="nouveau " />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

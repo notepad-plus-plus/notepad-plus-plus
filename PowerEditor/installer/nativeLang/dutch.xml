@@ -3,7 +3,7 @@
 Dutch localization for Notepad++ 7.9.3
 Modifications on 2018-03-26 by Klaas Nekeman (knekeman(at)gmail.com).
 Modifications on 2020-05-26 by xylographe <wr86420@gmail.com>.
-Last modified on 2021-03-30 by Thomas De Rocker (RockyTDR).
+Last modified on 2021-04-07 by Thomas De Rocker (RockyTDR).
 -->
 <NotepadPlus>
     <Native-Langue name="Nederlands" filename="dutch.xml" version="7.9.4">
@@ -1037,7 +1037,7 @@ U kunt verschillende kolommarkeringen vastleggen door gebruik te maken van spati
                 </Cloud>
 
                 <SearchEngine title="Zoekmachine">
-                    <Item id="6271" name="Zoekmachine (voor &quot;zoeken op Internet&quot;)"/>
+                    <Item id="6271" name="Zoekmachine (voor &quot;zoeken op internet&quot;)"/>
                     <Item id="6272" name="DuckDuckGo"/>
                     <Item id="6273" name="Google"/>
                     <Item id="6274" name="Bing"/>
@@ -1318,7 +1318,7 @@ Doorgaan?"/>
             </Menus>
         </ProjectManager>
         <MiscStrings>
-            <!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders -->
+            <!-- $INT_REPLACE$  and $STR_REPLACE$ are place holders, don't translate these place holders -->
             <word-chars-list-tip value="Hiermee kan een extra teken aan de huidige woordtekenlijst worden toegevoegd. Deze lijst bepaalt wat als woord wordt gezien bij dubbelklikken op een selectie en bij het zoeken met de optie &quot;volledige woorden&quot; aangevinkt."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
 
             <word-chars-list-warning-begin value="Let op: "/>
@@ -1419,6 +1419,7 @@ In alle bestanden behalve exe, obj en log zoeken:
             <find-result-line-prefix value="Regel"/> <!-- Must not begin with space or tab character -->
             <find-regex-zero-length-match value="nullengte-overeenkomst" />
             <session-save-folder-as-workspace value="Map als werkruimte opslaan" />
+            <tab-untitled-string value="nieuw " />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

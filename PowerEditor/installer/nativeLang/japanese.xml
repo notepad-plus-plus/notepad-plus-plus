@@ -1419,6 +1419,7 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <find-result-line-prefix value="行番号"/> <!-- Must not begin with space or tab character -->
             <find-regex-zero-length-match value="長さ0で一致しました" />
             <session-save-folder-as-workspace value="「フォルダーをワークスペースとして開く」の状態を保存" />
+            <tab-untitled-string value="新規" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

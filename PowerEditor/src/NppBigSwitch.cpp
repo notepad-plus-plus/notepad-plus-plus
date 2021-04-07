@@ -1831,9 +1831,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					return FALSE;
 				}
 
-				if (_beforeSpecialView.isFullScreen)	//closing, return to windowed mode
+				if (_beforeSpecialView._isFullScreen)	//closing, return to windowed mode
 					fullScreenToggle();
-				if (_beforeSpecialView.isPostIt)		//closing, return to windowed mode
+				if (_beforeSpecialView._isPostIt)		//closing, return to windowed mode
 					postItToggle();
 
 				if (_configStyleDlg.isCreated() && ::IsWindowVisible(_configStyleDlg.getHSelf()))

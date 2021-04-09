@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 7.9.4  7/Mar/2021  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 7.9.6  9/Apr/2021  by Ondřej Müller (mullero@email.cz)
 	- N++ Community:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="7.9.4">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="7.9.6">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -40,6 +40,7 @@
 					<Item subMenuId = "edit-pasteSpecial" name = "Vložit nestandardně"/>
 					<Item subMenuId = "edit-onSelection" name = "Vybraný text"/>
 					<Item subMenuId = "search-markAll" name = "Označit vše"/>
+					<Item subMenuId = "search-markOne" name = "Označit jeden"/>
 					<Item subMenuId = "search-unmarkAll" name = "Odznačit vše"/>
 					<Item subMenuId = "search-jumpUp" name = "Skočit nahoru"/>
 					<Item subMenuId = "search-jumpDown" name = "Skočit dolů"/>
@@ -242,6 +243,11 @@
 					<Item id = "43059" name = "5. styl"/>
 					<Item id = "43060" name = "Všechny styly"/>
 					<Item id = "43061" name = "Najít styl (označený)"/>
+					<Item id = "43062" name = "Použít 1. styl"/>
+					<Item id = "43063" name = "Použít 2. styl"/>
+					<Item id = "43064" name = "Použít 3. styl"/>
+					<Item id = "43065" name = "Použít 4. styl"/>
+					<Item id = "43066" name = "Použít 5. styl"/>
 					<Item id = "44009" name = "Zobrazit pouze okno dokumentu"/>
 					<Item id = "44010" name = "Sbalit vše"/>
 					<Item id = "44011" name = "Panel Uživatelsky definované syntaxe"/>
@@ -291,14 +297,14 @@
 					<Item id = "45003" name = "Konvertovat do formátu MAC"/>
 					<Item id = "45004" name = "Změnit kódování na ANSI"/>
 					<Item id = "45005" name = "Změnit kódování na UTF-8 s BOM"/>
-					<Item id = "45006" name = "Změnit kódování na UCS-2 Big Endian"/>
-					<Item id = "45007" name = "Změnit kódování na UCS-2 Little Endian"/>
+					<Item id = "45006" name = "Změnit kódování na UTF-16 Big Endian"/>
+					<Item id = "45007" name = "Změnit kódování na UTF-16 Little Endian"/>
 					<Item id = "45008" name = "Změnit kódování na UTF-8 bez BOM"/>
 					<Item id = "45009" name = "Konvertovat do ANSI"/>
 					<Item id = "45010" name = "Konvertovat do UTF-8 bez BOM"/>
 					<Item id = "45011" name = "Konvertovat do UTF-8 s BOM"/>
-					<Item id = "45012" name = "Konvertovat do UCS-2 Big Endian"/>
-					<Item id = "45013" name = "Konvertovat do UCS-2 Little Endian"/>
+					<Item id = "45012" name = "Konvertovat do UTF-16 Big Endian"/>
+					<Item id = "45013" name = "Konvertovat do UTF-16 Little Endian"/>
 					<Item id = "45060" name = "Big5 (tradiční)"/>
 					<Item id = "45061" name = "GB2312 (zjednodušená)"/>
 					<Item id = "45054" name = "OEM 861: Islandština"/>
@@ -572,11 +578,11 @@
 					<Item id = "45001" name = "Konverze konců řádků (EOL) na CR LF (Windows)"/>
 					<Item id = "45002" name = "Konverze konců řádků (EOL) na LF (Unix)"/>
 					<Item id = "45003" name = "Konverze konců řádků (EOL) na CR (Macintosh)"/>
-					<Item id = "43022" name = "Označit text 1. stylem"/>
-					<Item id = "43024" name = "Označit text 2. stylem"/>
-					<Item id = "43026" name = "Označit text 3. stylem"/>
-					<Item id = "43028" name = "Označit text 4. stylem"/>
-					<Item id = "43030" name = "Označit text 5. stylem"/>
+					<Item id = "43022" name = "Označit vše 1. stylem"/>
+					<Item id = "43024" name = "Označit vše 2. stylem"/>
+					<Item id = "43026" name = "Označit vše 3. stylem"/>
+					<Item id = "43028" name = "Označit vše 4. stylem"/>
+					<Item id = "43030" name = "Označit vše 5. stylem"/>
 					<Item id = "43023" name = "Odstranit označení 1. stylem"/>
 					<Item id = "43025" name = "Odstranit označení 2. stylem"/>
 					<Item id = "43027" name = "Odstranit označení 3. stylem"/>
@@ -602,6 +608,11 @@
 					<Item id = "43059" name = "Kopírovat stylizovaný text - 5. stylem"/>
 					<Item id = "43060" name = "Kopírovat stylizovaný text - Všemi styly"/>
 					<Item id = "43061" name = "Kopírovat stylizovaný text - Nalezený styl (označený)"/>
+					<Item id = "43062" name = "Označit jeden 1. stylem"/>
+					<Item id = "43063" name = "Označit jeden 2. stylem"/>
+					<Item id = "43064" name = "Označit jeden 3. stylem"/>
+					<Item id = "43065" name = "Označit jeden 4. stylem"/>
+					<Item id = "43066" name = "Označit jeden 5. stylem"/>
 					<Item id = "44100" name = "Zobrazit aktuální soubor ve Firefoxu"/>
 					<Item id = "44101" name = "Zobrazit aktuální soubor v Chrome"/>
 					<Item id = "44103" name = "Zobrazit aktuální soubor v IE"/>
@@ -927,8 +938,8 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id = "6406" name = "ANSI"/>
 					<Item id = "6407" name = "UTF-8 (bez BOM)"/>
 					<Item id = "6408" name = "UTF-8"/>
-					<Item id = "6409" name = "UCS-2 (Big endian)"/>
-					<Item id = "6410" name = "UCS-2 (Little endian)"/>
+					<Item id = "6409" name = "UTF-16 (Big endian)"/>
+					<Item id = "6410" name = "UTF-16 (Little endian)"/>
 					<Item id = "6411" name = "Implicitní syntaxe:"/>
 					<Item id = "6419" name = "Nový dokument"/>
 					<Item id = "6420" name = "Aplikovat při otevř. ANSI-souboru"/>
@@ -1365,6 +1376,7 @@ Najít ve všech souborech mimo exe, obj &amp;&amp; log:
 			<find-status-replaceinopenedfiles-nb-replaced value = "Nahrazování v otevřených souborech: $INT_REPLACE$ výskytů nahrazeno"/>
 			<find-status-mark-re-malformed value = "Označování: Regulární výraz pro vyhledávání je vadný"/>
 			<find-status-invalid-re value = "Vyhledávání: Neplatný regulární výraz"/>
+			<find-status-search-failed value="Vyhledávání: Hledání bylo neúspěšné"/>
 			<find-status-mark-1-match value = "Značka: 1 nález"/>
 			<find-status-mark-nb-matches value = "Značka: $INT_REPLACE$ nálezů"/>
 			<find-status-count-re-malformed value = "Počet: Regulární výraz pro vyhledávání je vadný"/>
@@ -1394,6 +1406,7 @@ Najít ve všech souborech mimo exe, obj &amp;&amp; log:
 			<finder-select-all value = "Vybrat vše"/>
 			<finder-clear-all value = "Smazat vše"/>
 			<finder-open-all value = "Otevřít vše"/>
+			<finder-purge-for-every-search value="Vymazat před každým vyhledáváním"/>
 			<finder-wrap-long-lines value = "Zalomit dlouhé řádky"/>
 			<common-ok value = "OK"/>
 			<common-cancel value = "Storno"/>

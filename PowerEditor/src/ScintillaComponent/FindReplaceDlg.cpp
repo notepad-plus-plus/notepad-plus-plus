@@ -1894,10 +1894,13 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 
 	setStatusbarMessage(TEXT(""), FSNoMessage);	
 
-	// to make sure the found result is visible:
-	// prevent recording of absolute positioning commands issued in the process
-	(*_ppEditView)->execute(SCI_STOPRECORD);
-	Searching::displaySectionCentered(start, end, *_ppEditView, pOptions->_whichDirection == DIR_DOWN);
+	if (findNextType != FINDNEXTTYPE_REPLACENEXT || !pOptions->_isNoNext)
+	{
+		// to make sure the found result is visible:
+		// prevent recording of absolute positioning commands issued in the process
+		(*_ppEditView)->execute(SCI_STOPRECORD);
+		Searching::displaySectionCentered(start, end, *_ppEditView, pOptions->_whichDirection == DIR_DOWN);
+	}
 	// Show a calltip for a zero length match
 	if (start == end) 
 	{

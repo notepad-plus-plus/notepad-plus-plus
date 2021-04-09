@@ -34,6 +34,7 @@
 #define	IDREPLACE						1608
 #define	IDREPLACEALL					1609
 #define	ID_STATICTEXT_REPLACE			1611
+#define IDC_NONEXT                      1612
 //#define	IDDIRECTIONUP					1612
 //#define	IDDIRECTIONDOWN 				1613
 #define IDF_WHICH_DIRECTION	512

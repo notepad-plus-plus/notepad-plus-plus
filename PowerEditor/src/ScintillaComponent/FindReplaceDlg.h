@@ -58,6 +58,7 @@ enum ProcessOperation { ProcessFindAll, ProcessReplaceAll, ProcessCountAll, Proc
 
 struct FindOption
 {
+	bool _isNoNext = true;
 	bool _isWholeWord = true;
 	bool _isMatchCase = true;
 	bool _isWrapAround = true;

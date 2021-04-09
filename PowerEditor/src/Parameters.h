@@ -1158,6 +1158,7 @@ struct FindHistory final
 	std::vector<generic_string> _findHistoryFinds;
 	std::vector<generic_string> _findHistoryReplaces;
 
+	bool _isNoNext = false;
 	bool _isMatchWord = false;
 	bool _isMatchCase = false;
 	bool _isWrap = true;

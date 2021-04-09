@@ -326,6 +326,7 @@ void FindReplaceDlg::fillFindHistory()
 	fillComboHistory(IDD_FINDINFILES_FILTERS_COMBO, findHistory._findHistoryFilters);
     fillComboHistory(IDD_FINDINFILES_DIR_COMBO, findHistory._findHistoryPaths);
 
+	::SendDlgItemMessage(_hSelf, IDC_NONEXT, BM_SETCHECK, findHistory._isNoNext, 0);
 	::SendDlgItemMessage(_hSelf, IDWRAP, BM_SETCHECK, findHistory._isWrap, 0);
 	::SendDlgItemMessage(_hSelf, IDWHOLEWORD, BM_SETCHECK, findHistory._isMatchWord, 0);
 	::SendDlgItemMessage(_hSelf, IDMATCHCASE, BM_SETCHECK, findHistory._isMatchCase, 0);
@@ -1510,6 +1511,10 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 //Option actions
 				case IDREDOTMATCHNL:
 					findHistory._dotMatchesNewline = _options._dotMatchesNewline = isCheckedOrNot(IDREDOTMATCHNL);
+					return TRUE;
+
+				case IDC_NONEXT:
+					findHistory._isNoNext = _options._isNoNext = isCheckedOrNot(IDC_NONEXT);
 					return TRUE;
 
 				case IDWHOLEWORD :
@@ -2745,6 +2750,7 @@ void FindReplaceDlg::enableReplaceFunc(bool isEnable)
 	enableFindInFilesControls(false, false);
 	enableMarkAllControls(false);
 	// replace controls
+	showFindDlgItem(IDC_NONEXT, isEnable);
 	showFindDlgItem(ID_STATICTEXT_REPLACE, isEnable);
 	showFindDlgItem(IDREPLACE, isEnable);
 	showFindDlgItem(IDREPLACEWITH, isEnable);
@@ -2823,6 +2829,7 @@ void FindReplaceDlg::enableFindInFilesControls(bool isEnable, bool projectPanels
 	showFindDlgItem(IDC_REPLACEINSELECTION, !isEnable);
 	showFindDlgItem(IDREPLACEALL, !isEnable);
 	showFindDlgItem(IDC_REPLACE_OPENEDFILES, !isEnable);
+	showFindDlgItem(IDC_NONEXT, !isEnable);
 
 	// Show Items
 	if (isEnable)
@@ -3375,6 +3382,7 @@ void FindReplaceDlg::setProjectCheckmarks(FindHistory *findHistory, int msk)
 
 void FindReplaceDlg::initOptionsFromDlg()
 {
+	_options._isNoNext = isCheckedOrNot(IDC_NONEXT);
 	_options._isWholeWord = isCheckedOrNot(IDWHOLEWORD);
 	_options._isMatchCase = isCheckedOrNot(IDMATCHCASE);
 	_options._searchType = isCheckedOrNot(IDREGEXP)?FindRegex:isCheckedOrNot(IDEXTENDED)?FindExtended:FindNormal;
@@ -3523,6 +3531,7 @@ void FindReplaceDlg::enableMarkFunc()
 	showFindDlgItem(IDREPLACEALL, false);
 	showFindDlgItem(IDC_REPLACE_OPENEDFILES, false);
 	showFindDlgItem(IDC_REPLACEINSELECTION, false);
+	showFindDlgItem(IDC_NONEXT, false);
 
 	// find controls to hide
 	showFindDlgItem(IDC_FINDALL_OPENEDFILES, false);

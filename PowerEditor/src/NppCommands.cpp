@@ -1835,10 +1835,6 @@ void Notepad_plus::command(int id)
 			inverseMarks();
 			break;
 
-		case IDM_VIEW_FULLSCREENTOGGLE :
-			fullScreenToggle();
-			break;
-
 	    case IDM_VIEW_ALWAYSONTOP:
 		{
 			int check = (::GetMenuState(_mainMenuHandle, id, MF_BYCOMMAND) == MF_CHECKED)?MF_UNCHECKED:MF_CHECKED;
@@ -2015,9 +2011,25 @@ void Notepad_plus::command(int id)
 			break;
 		}
 
+		case IDM_VIEW_FULLSCREENTOGGLE:
+		{
+			if (!_beforeSpecialView._isDistractionFree)
+				fullScreenToggle();
+		}
+		break;
+
 		case IDM_VIEW_POSTIT :
 		{
-			postItToggle();
+			if (!_beforeSpecialView._isDistractionFree)
+				postItToggle();
+		}
+		break;
+
+		case IDM_VIEW_DISTRACTIONFREE:
+		{
+			if (((_beforeSpecialView._isDistractionFree && _beforeSpecialView._isFullScreen && _beforeSpecialView._isPostIt)) ||
+				((!_beforeSpecialView._isDistractionFree && !_beforeSpecialView._isFullScreen && !_beforeSpecialView._isPostIt)))
+				distractionFreeToggle();
 		}
 		break;
 

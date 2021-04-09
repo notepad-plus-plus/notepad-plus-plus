@@ -233,6 +233,7 @@
                     <Item id="43054" name="Marquer..."/>
                     <Item id="44009" name="Post-it"/>
                     <Item id="44010" name="Replier tous les blocs"/>
+                    <Item id="44011" name="Mode sans distraction"/>
                     <Item id="44019" name="Afficher tous les caractères"/>
                     <Item id="44020" name="Afficher le guide d'indentation"/>
                     <Item id="44022" name="Retour automatique à la ligne"/>

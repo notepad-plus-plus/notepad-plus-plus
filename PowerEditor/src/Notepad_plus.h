@@ -82,8 +82,9 @@ struct VisibleGUIConf final
 {
 	bool _isPostIt = false;
 	bool _isFullScreen = false;
+	bool _isDistractionFree = false;
 
-	//Used by 2 modes
+	//Used by 3 modes
 	bool _isMenuShown = true;
 	DWORD_PTR _preStyle = (WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN);
 
@@ -336,6 +337,7 @@ private:
 	VisibleGUIConf	_beforeSpecialView;
 	void fullScreenToggle();
 	void postItToggle();
+	void distractionFreeToggle();
 
 	// Keystroke macro recording and playback
 	Macro _macro;

@@ -480,6 +480,7 @@ BEGIN
         MENUITEM "Always on Top",              IDM_VIEW_ALWAYSONTOP
         MENUITEM "Toggle Full Screen Mode",    IDM_VIEW_FULLSCREENTOGGLE
         MENUITEM "Post-It",                    IDM_VIEW_POSTIT
+        MENUITEM "Distraction Free Mode",      IDM_VIEW_DISTRACTIONFREE
 
         MENUITEM SEPARATOR
         POPUP "View Current File in"

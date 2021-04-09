@@ -5338,10 +5338,9 @@ void Notepad_plus::fullScreenToggle()
 
 void Notepad_plus::postItToggle()
 {
-	NppParameters& nppParam = NppParameters::getInstance();
 	if (!_beforeSpecialView._isPostIt)	// PostIt disabled, enable it
 	{
-		NppGUI & nppGUI = const_cast<NppGUI &>(nppParam.getNppGUI());
+		NppGUI & nppGUI = const_cast<NppGUI &>(NppParameters::getInstance().getNppGUI());
 		// get current status before switch to postIt
 		//check these always
 		{
@@ -5446,6 +5445,51 @@ void Notepad_plus::postItToggle()
 
 	_beforeSpecialView._isPostIt = !_beforeSpecialView._isPostIt;
 	::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
+}
+
+// Distraction Free mode uses full screen mode + post-it mode + setting padding on the both left & right sides.
+// In order to keep the coherence of data, when full screen mode or (and) post-it mode is (are) active,
+// Distraction Free mode should be innaccible, and vice versa.
+void Notepad_plus::distractionFreeToggle()
+{
+	// Toggle Distraction Free Mode
+	fullScreenToggle();
+	postItToggle();
+
+	// Get padding info
+	const ScintillaViewParams& svp = NppParameters::getInstance().getSVP();
+	int paddingLeft = 0;
+	int paddingRight = 0;
+
+	// Enable or disable Distraction Free Mode
+	if (_beforeSpecialView._isDistractionFree)
+	{
+		// disable it
+		paddingLeft = svp._paddingLeft;
+		paddingRight = svp._paddingRight;
+
+		_restoreButton.setButtonStatus(0);
+		_restoreButton.display(false);
+	}
+	else
+	{
+		// enable it
+		const int defaultDiviser = 4;
+		int diviser = svp._distractionFreeDivPart > 2 ? svp._distractionFreeDivPart : defaultDiviser;
+		int w = _pEditView->getWidth();
+		int paddingLen = w / diviser;
+		if (paddingLen <= 0)
+			paddingLen =  w / defaultDiviser;
+
+		paddingLeft = paddingRight = paddingLen;
+		_restoreButton.setButtonStatus(buttonStatus_distractionFree);
+	}
+
+	_beforeSpecialView._isDistractionFree = !_beforeSpecialView._isDistractionFree;
+
+	// set Distraction Free Mode paddin or restore the normal padding
+	_pEditView->execute(SCI_SETMARGINLEFT, 0, paddingLeft);
+	_pEditView->execute(SCI_SETMARGINRIGHT, 0, paddingRight);
 }
 
 void Notepad_plus::doSynScorll(HWND whichView)

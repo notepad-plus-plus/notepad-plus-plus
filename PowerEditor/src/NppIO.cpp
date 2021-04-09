@@ -1271,6 +1271,18 @@ bool Notepad_plus::fileCloseAllUnchanged()
 	return fileCloseAllGiven(vecIndexesToClose);
 }
 
+bool Notepad_plus::fileMoveToFront()
+{
+	_pDocTab->moveTabFront();
+	return true;
+}
+
+bool Notepad_plus::fileMoveToEnd()
+{
+	_pDocTab->moveTabEnd();
+	return true;
+}
+
 bool Notepad_plus::fileCloseAllButCurrent()
 {
 	BufferID current = _pEditView->getCurrentBufferID();

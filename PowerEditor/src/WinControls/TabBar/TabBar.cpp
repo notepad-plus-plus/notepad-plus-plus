@@ -401,6 +401,23 @@ void TabBarPlus::setColour(COLORREF colour2Set, tabColourIndex i)
 	doOwnerDrawTab();
 }
 
+void TabBarPlus::moveTabFront()
+{
+	int moveTabIndex = getCurrentTabIndex();
+	for (int i = moveTabIndex - 1; i >= 0; --i) {
+		exchangeTabItemData(i + 1, i);
+	}
+	
+}
+
+void TabBarPlus::moveTabEnd()
+{
+	int moveTabIndex = getCurrentTabIndex();
+	int lastTabIndex = static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETITEMCOUNT, 0, 0) - 1);
+	for (int i = moveTabIndex + 1; i <= lastTabIndex; ++i) {
+		exchangeTabItemData(i - 1, i);
+	}
+}
 
 void TabBarPlus::doVertical()
 {

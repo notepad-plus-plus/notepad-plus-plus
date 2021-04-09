@@ -422,6 +422,8 @@ static const int tabContextMenuItemPos[] =
    16,   // 21: Open in Default Viewer
     4,   // 22: Close ALL Unchanged
    14,   // 23: Open Containing Folder as Workspace
+   29,   // 24: Move Tab to Front
+   30,   // 25: Move Tab to End
    -1    //-------End
 };
 

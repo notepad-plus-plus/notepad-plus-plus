@@ -535,6 +535,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_CLONE_TO_ANOTHER_VIEW, TEXT("Clone to Other View")));
 				itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_NEW_INSTANCE, TEXT("Move to New Instance")));
 				itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_LOAD_IN_NEW_INSTANCE, TEXT("Open in New Instance")));
+				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_MOVETOFRONT, TEXT("Move Tab to Front")));
+				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_MOVETOEND, TEXT("Move Tab to End")));
 				// IMPORTANT: If list above is modified, you have to change the value of tabContextMenuItemPos[] in localization.cpp file
 
 				_tabPopupMenu.create(_pPublicInterface->getHSelf(), itemUnitArray);

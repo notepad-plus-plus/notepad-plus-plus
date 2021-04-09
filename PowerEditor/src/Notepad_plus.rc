@@ -249,6 +249,8 @@ BEGIN
             MENUITEM "Close All to the Left",            IDM_FILE_CLOSEALL_TOLEFT
             MENUITEM "Close All to the Right",           IDM_FILE_CLOSEALL_TORIGHT
             MENUITEM "Close All Unchanged",              IDM_FILE_CLOSEALL_UNCHANGED
+			MENUITEM "Move Tab to Front",              IDM_FILE_MOVETOFRONT
+			MENUITEM "Move Tab to End",              IDM_FILE_MOVETOEND
         END
         MENUITEM "Move to Recycle Bin",              IDM_FILE_DELETE
         MENUITEM SEPARATOR

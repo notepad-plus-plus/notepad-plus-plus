@@ -189,8 +189,8 @@
         </Language>
         <Language name="ihex" ext="hex" />
         <Language name="java" ext="java" commentLine="//" commentStart="/*" commentEnd="*/">
-            <Keywords name="instre1">instanceof assert if else switch case default break goto return for while do continue new throw throws try catch finally this super extends implements import true false null</Keywords>
-            <Keywords name="type1">package transient strictfp void char short int long double float const static volatile byte boolean class interface native private protected public final abstract synchronized enum</Keywords>
+            <Keywords name="instre1">instanceof assert if else switch case default break goto return for while do continue new throw throws try catch finally this super extends implements permits import true false null</Keywords>
+            <Keywords name="type1">package transient strictfp void char short int long double float const static volatile byte boolean class interface native private protected public final abstract synchronized enum sealed non-sealed</Keywords>
         </Language>
 		<!-- Embedded javascript -->
         <Language name="javascript" ext="" commentLine="//" commentStart="/*" commentEnd="*/">

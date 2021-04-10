@@ -1454,18 +1454,6 @@ $(DIR_O)/LexNull.obj: \
 	../lexlib/StyleContext.h \
 	../lexlib/CharacterSet.h \
 	../lexlib/LexerModule.h
-$(DIR_O)/LexObjC.obj: \
-	../lexers/LexObjC.cxx \
-	../include/ILexer.h \
-	../include/Sci_Position.h \
-	../lexlib/LexAccessor.h \
-	../lexlib/Accessor.h \
-	../lexlib/StyleContext.h \
-	../lexlib/WordList.h \
-	../lexlib/CharacterSet.h \
-	../lexlib/LexerModule.h \
-	../include/Scintilla.h \
-	../include/SciLexer.h
 $(DIR_O)/LexOpal.obj: \
 	../lexers/LexOpal.cxx \
 	../include/ILexer.h \
@@ -1744,18 +1732,6 @@ $(DIR_O)/LexScriptol.obj: \
 	../lexlib/StyleContext.h \
 	../lexlib/CharacterSet.h \
 	../lexlib/LexerModule.h
-$(DIR_O)/LexSearchResult.obj: \
-	../lexers/LexSearchResult.cxx \
-	../include/ILexer.h \
-	../include/Sci_Position.h \
-	../lexlib/LexAccessor.h \
-	../lexlib/PropSetSimple.h \
-	../lexlib/Accessor.h \
-	../lexlib/WordList.h \
-	../include/Scintilla.h \
-	../include/SciLexer.h \
-	../lexlib/CharacterSet.h \
-	../lexlib/LexerModule.h
 $(DIR_O)/LexSmalltalk.obj: \
 	../lexers/LexSmalltalk.cxx \
 	../include/ILexer.h \
@@ -1939,18 +1915,6 @@ $(DIR_O)/LexTxt2tags.obj: \
 	../lexlib/StyleContext.h \
 	../lexlib/CharacterSet.h \
 	../lexlib/LexerModule.h
-$(DIR_O)/LexUser.obj: \
-	../lexers/LexUser.cxx \
-	../include/ILexer.h \
-	../include/Sci_Position.h \
-	../lexlib/LexAccessor.h \
-	../lexlib/Accessor.h \
-	../lexlib/StyleContext.h \
-	../lexlib/WordList.h \
-	../include/Scintilla.h \
-	../include/SciLexer.h \
-	../lexlib/LexerModule.h \
-	../lexlib/PropSetSimple.h
 $(DIR_O)/LexVB.obj: \
 	../lexers/LexVB.cxx \
 	../include/ILexer.h \

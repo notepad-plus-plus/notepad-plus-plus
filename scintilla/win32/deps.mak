@@ -1454,18 +1454,6 @@ LexNull.o: \
 	../lexlib/StyleContext.h \
 	../lexlib/CharacterSet.h \
 	../lexlib/LexerModule.h
-LexObjC.o: \
-	../lexers/LexObjC.cxx \
-	../include/ILexer.h \
-	../include/Sci_Position.h \
-	../lexlib/LexAccessor.h \
-	../lexlib/Accessor.h \
-	../lexlib/StyleContext.h \
-	../lexlib/WordList.h \
-	../lexlib/CharacterSet.h \
-	../lexlib/LexerModule.h \
-	../include/Scintilla.h \
-	../include/SciLexer.h
 LexOpal.o: \
 	../lexers/LexOpal.cxx \
 	../include/ILexer.h \
@@ -1744,18 +1732,6 @@ LexScriptol.o: \
 	../lexlib/StyleContext.h \
 	../lexlib/CharacterSet.h \
 	../lexlib/LexerModule.h
-LexSearchResult.o: \
-	../lexers/LexSearchResult.cxx \
-	../include/ILexer.h \
-	../include/Sci_Position.h \
-	../lexlib/LexAccessor.h \
-	../lexlib/PropSetSimple.h \
-	../lexlib/Accessor.h \
-	../lexlib/WordList.h \
-	../include/Scintilla.h \
-	../include/SciLexer.h \
-	../lexlib/CharacterSet.h \
-	../lexlib/LexerModule.h
 LexSmalltalk.o: \
 	../lexers/LexSmalltalk.cxx \
 	../include/ILexer.h \
@@ -1939,18 +1915,6 @@ LexTxt2tags.o: \
 	../lexlib/StyleContext.h \
 	../lexlib/CharacterSet.h \
 	../lexlib/LexerModule.h
-LexUser.o: \
-	../lexers/LexUser.cxx \
-	../include/ILexer.h \
-	../include/Sci_Position.h \
-	../lexlib/LexAccessor.h \
-	../lexlib/Accessor.h \
-	../lexlib/StyleContext.h \
-	../lexlib/WordList.h \
-	../include/Scintilla.h \
-	../include/SciLexer.h \
-	../lexlib/LexerModule.h \
-	../lexlib/PropSetSimple.h
 LexVB.o: \
 	../lexers/LexVB.cxx \
 	../include/ILexer.h \
@@ -2025,42 +1989,3 @@ LexYAML.o: \
 	../lexlib/StyleContext.h \
 	../lexlib/CharacterSet.h \
 	../lexlib/LexerModule.h
-BoostRegExSearch.o: \
-	../boostregex/BoostRegExSearch.cxx \
-	../include/Scintilla.h \
-	../include/Sci_Position.h \
-	../include/Platform.h \
-	../include/ILoader.h \
-	../include/ILexer.h \
-	../src/Position.h \
-	../src/UniqueString.h \
-	../src/SplitVector.h \
-	../src/Partitioning.h \
-	../src/RunStyles.h \
-	../src/ContractionState.h \
-	../src/CellBuffer.h \
-	../src/CharClassify.h \
-	../src/Decoration.h \
-	../src/CaseFolder.h \
-	../lexlib/CharacterCategory.h \
-	../src/Document.h \
-	../src/UniConversion.h \
-	../boostregex/UTF8DocumentIterator.h \
-	../boostregex/AnsiDocumentIterator.h \
-	../include/BoostRegexSearch.h
-UTF8DocumentIterator.o: \
-	../boostregex/UTF8DocumentIterator.cxx \
-	../include/ILoader.h \
-	../include/Sci_Position.h \
-	../include/ILexer.h \
-	../include/Scintilla.h \
-	../lexlib/CharacterCategory.h \
-	../src/Position.h \
-	../src/SplitVector.h \
-	../src/Partitioning.h \
-	../src/RunStyles.h \
-	../src/CellBuffer.h \
-	../src/CharClassify.h \
-	../src/Decoration.h \
-	../src/CaseFolder.h \
-	../src/Document.h

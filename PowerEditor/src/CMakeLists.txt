@@ -173,7 +173,6 @@ SET(src_files
 			./WinControls/ToolTip/ToolTip.cpp
 			./WinControls/TrayIcon/trayIconControler.cpp
 			./uchardet/uchardet.cpp
-			./UniConversion.cpp
 			./WinControls/AboutDlg/URLCtrl.cpp
 			./ScintillaComponent/UserDefineDialog.cpp
 			./Utf8_16.cpp
@@ -323,7 +322,6 @@ SET(include_files
 			./WinControls/ToolTip/ToolTip.h
 			./WinControls/TrayIcon/trayIconControler.h
 			./uchardet/uchardet.h
-			./UniConversion.h
 			./WinControls/AboutDlg/URLCtrl.h
 			./ScintillaComponent/UserDefineDialog.h
 			./ScintillaComponent/UserDefineLangReference.h

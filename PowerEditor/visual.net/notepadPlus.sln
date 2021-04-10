@@ -8,7 +8,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Notepad++", "notepadPlus.vc
 		{FBE04237-9C7B-4973-9C60-505975998B39} = {FBE04237-9C7B-4973-9C60-505975998B39}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libSciLexer", "..\..\scintilla\win32\libSciLexer.vcxproj", "{FBE04237-9C7B-4973-9C60-505975998B39}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libSciLexer", "..\..\scintilla\win32\SciLexer.vcxproj", "{FBE04237-9C7B-4973-9C60-505975998B39}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

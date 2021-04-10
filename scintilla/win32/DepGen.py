@@ -13,8 +13,8 @@ from scripts import Dependencies
 topComment = "# Created by DepGen.py. To recreate, run DepGen.py.\n"
 
 def Generate():
-	sources = ["../src/*.cxx", "../lexlib/*.cxx", "../lexers/*.cxx", "../boostregex/*.cxx"]
-	includes = ["../include", "../src", "../lexlib", "../boostregex"]
+	sources = ["../src/*.cxx", "../lexlib/*.cxx", "../lexers/*.cxx"]
+	includes = ["../include", "../src", "../lexlib"]
 
 	# Create the dependencies file for g++
 	deps = Dependencies.FindDependencies(["../win32/*.cxx"] + sources,  ["../win32"] + includes, ".o", "../win32/")

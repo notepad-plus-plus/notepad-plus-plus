@@ -20,7 +20,7 @@ WARNINGS = -Wpedantic -Wall
 
 ifdef CLANG
 CXX = clang++
-DEFINES += -D_CRT_SECURE_NO_DEPRECATE -DSCI_OWNREGEX
+DEFINES += -D_CRT_SECURE_NO_DEPRECATE
 else
 # MinGW GCC
 LIBSMINGW = -lstdc++
@@ -43,13 +43,13 @@ else
 DEL = rm -f
 endif
 
-vpath %.h ../src ../include ../lexlib ../boostregex
-vpath %.cxx ../src ../lexlib ../lexers ../boostregex
+vpath %.h ../src ../include ../lexlib
+vpath %.cxx ../src ../lexlib ../lexers
 
 LDFLAGS=-shared -static -mwindows
 LIBS=-lgdi32 -luser32 -limm32 -lole32 -luuid -loleaut32 -lmsimg32 $(LIBSMINGW)
 
-INCLUDES=-I ../include -I ../src -I../lexlib -I../boostregex
+INCLUDES=-I ../include -I ../src -I../lexlib
 
 BASE_FLAGS += $(WARNINGS)
 
@@ -70,13 +70,13 @@ CXX_ALL_FLAGS =$(DEFINES) $(INCLUDES) $(CXX_BASE_FLAGS)
 all:	$(COMPONENT) $(LEXCOMPONENT) $(LIBSCI) $(LIBLEX) 
 
 clean:
-	$(DEL) *.exe *.o *.a *.obj *.dll *.res *.map *.plist $(call normalize,$(LIBSCI)) $(call normalize,$(LIBLEX))
+	$(DEL) *.exe *.o *.a *.obj *.dll *.res *.map *.plist $(call normalize,$(LIBSCI))
 
 %.o: %.cxx
 	$(CXX) $(CXX_ALL_FLAGS) $(CXXFLAGS) -c $<
 
 analyze:
-	$(CXX) --analyze $(CXX_ALL_FLAGS) $(CXXFLAGS) *.cxx ../src/*.cxx ../lexlib/*.cxx ../lexers/*.cxx ../boostregex/*.cxx
+	$(CXX) --analyze $(CXX_ALL_FLAGS) $(CXXFLAGS) *.cxx ../src/*.cxx ../lexlib/*.cxx ../lexers/*.cxx
 
 depend deps.mak:
 	$(PYTHON) DepGen.py
@@ -116,10 +116,8 @@ SRC_OBJS = \
 	ViewStyle.o \
 	XPM.o
 
-# + boost regex addons for own regex
-BOOST_OBJS = \
-	BoostRegExSearch.o\
-	UTF8DocumentIterator.o
+# To have PCRE boost regex with header only is integrated and not just the one from std
+include ../../boostregex/nppSpecifics_mingw.mak
 
 # Required by lexers
 LEXLIB_OBJS = \
@@ -136,7 +134,6 @@ LEXLIB_OBJS = \
 # Required by libraries and DLLs that include lexing
 SCILEX_OBJS=\
 	$(SRC_OBJS) \
-	$(BOOST_OBJS) \
 	$(LEXLIB_OBJS) \
 	$(LEX_OBJS) \
 	HanjaDic.o \
@@ -146,7 +143,6 @@ SCILEX_OBJS=\
 
 COMPONENT_OBJS = \
 	$(SRC_OBJS) \
-	$(BOOST_OBJS) \
 	Accessor.o \
 	Catalogue.o \
 	HanjaDic.o \

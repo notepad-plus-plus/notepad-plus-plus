@@ -80,20 +80,20 @@ struct TaskListInfo;
 
 struct VisibleGUIConf final
 {
-	bool isPostIt = false;
-	bool isFullScreen = false;
+	bool _isPostIt = false;
+	bool _isFullScreen = false;
+	bool _isDistractionFree = false;
 
-	//Used by both views
-	bool isMenuShown = true;
-	//bool isToolbarShown;	//toolbar forcefully hidden by hiding rebar
-	DWORD_PTR preStyle = (WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN);
+	//Used by 3 modes
+	bool _isMenuShown = true;
+	DWORD_PTR _preStyle = (WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN);
 
-	//used by postit only
-	bool isTabbarShown = true;
-	bool isAlwaysOnTop = false;
-	bool isStatusbarShown = true;
+	//used by postit & distractionFree
+	bool _isTabbarShown = true;
+	bool _isAlwaysOnTop = false;
+	bool _isStatusbarShown = true;
 
-	//used by fullscreen only
+	//used by fullscreen & distractionFree
 	WINDOWPLACEMENT _winPlace;
 
 	VisibleGUIConf()
@@ -337,6 +337,7 @@ private:
 	VisibleGUIConf	_beforeSpecialView;
 	void fullScreenToggle();
 	void postItToggle();
+	void distractionFreeToggle();
 
 	// Keystroke macro recording and playback
 	Macro _macro;

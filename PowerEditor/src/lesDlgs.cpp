@@ -132,10 +132,16 @@ INT_PTR CALLBACK ButtonDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 				case IDC_RESTORE_BUTTON :
 				{
                     int bs = getButtonStatus();
+
+                    bool isDistractionFree = (bs & buttonStatus_distractionFree) != 0;
                     bool isFullScreen = (bs & buttonStatus_fullscreen) != 0;
                     bool isPostIt = (bs & buttonStatus_postit) != 0;
                     int cmd = 0;
-                    if (isFullScreen && isPostIt)
+                    if (isDistractionFree)
+                    {
+                        cmd = IDM_VIEW_DISTRACTIONFREE;
+                    }
+                    else if (isFullScreen && isPostIt)
                     {
                         // remove postit firstly
                         cmd = IDM_VIEW_POSTIT;

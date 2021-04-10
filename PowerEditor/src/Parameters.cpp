@@ -238,6 +238,7 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_NULL,    IDM_VIEW_ALWAYSONTOP,                         false, false, false, nullptr },
 	{ VK_F11,     IDM_VIEW_FULLSCREENTOGGLE,                    false, false, false, nullptr },
 	{ VK_F12,     IDM_VIEW_POSTIT,                              false, false, false, nullptr },
+	{ VK_NULL,    IDM_VIEW_DISTRACTIONFREE,                     false, false, false, nullptr },
 
 	{ VK_NULL,    IDM_VIEW_IN_FIREFOX,                          false, false, false, TEXT("View current file in Firefox") },
 	{ VK_NULL,    IDM_VIEW_IN_CHROME,                           false, false, false, TEXT("View current file in Chrome") },
@@ -5528,6 +5529,27 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 		else if (!lstrcmp(nm, TEXT("no")))
 			_svp._doSmoothFont = false;
 	}
+
+	nm = element->Attribute(TEXT("paddingLeft"), &val);
+	if (nm)
+	{
+		if (val >= 0 && val <= 9)
+			_svp._paddingLeft = static_cast<unsigned char>(val);
+	}
+
+	nm = element->Attribute(TEXT("paddingRight"), &val);
+	if (nm)
+	{
+		if (val >= 0 && val <= 9)
+			_svp._paddingRight = static_cast<unsigned char>(val);
+	}
+
+	nm = element->Attribute(TEXT("distractionFreeDivPart"), &val);
+	if (nm)
+	{
+		if (val >= 3 && val <= 255)
+			_svp._borderWidth = static_cast<unsigned char>(val);
+	}
 }
 
 
@@ -5781,6 +5803,9 @@ bool NppParameters::writeScintillaParams()
 	(scintNode->ToElement())->SetAttribute(TEXT("eolShow"), _svp._eolShow?TEXT("show"):TEXT("hide"));
 	(scintNode->ToElement())->SetAttribute(TEXT("borderWidth"), _svp._borderWidth);
 	(scintNode->ToElement())->SetAttribute(TEXT("smoothFont"), _svp._doSmoothFont ? TEXT("yes") : TEXT("no"));
+	(scintNode->ToElement())->SetAttribute(TEXT("paddingLeft"), _svp._paddingLeft);
+	(scintNode->ToElement())->SetAttribute(TEXT("paddingRight"), _svp._paddingRight);
+	(scintNode->ToElement())->SetAttribute(TEXT("distractionFreeDivPart"), _svp._distractionFreeDivPart);
 	return true;
 }
 

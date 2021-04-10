@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2021-04-04 by schnurlos (schnurlos@gmail.com)
+	last modified: 2021-04-10 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -256,6 +256,7 @@
 					<Item id="43054" name="&amp;Hervorheben …"/>
 					<Item id="44009" name="&amp;Post-It"/>
 					<Item id="44010" name="A&amp;lle Textblöcke schließen"/>
+					<Item id="44011" name="Ablenkungsfreier Modus"/>
 					<Item id="44019" name="&amp;Alle Zeichen anzeigen"/>
 					<Item id="44020" name="&amp;Einrückung anzeigen"/>
 					<Item id="44022" name="Automatischer Zeilen&amp;umbruch"/>
@@ -1381,7 +1382,7 @@ Finde in allen Dateien außer exe, obj &amp;&amp; log:
 			<finder-select-all value="Alles wählen"/>
 			<finder-clear-all value="Alles löschen"/>
 			<finder-open-all value="Alles öffnen"/>
-			<finder-purge-for-every-search value="Für jede Suche neu eingeben"/>
+			<finder-purge-for-every-search value="Vor jeder Suche leeren"/>
 			<finder-wrap-long-lines value="Zeilenumbruch bei langen Zeilen"/>
 			<common-ok value="OK"/>
 			<common-cancel value="Abbruch"/>
@@ -1426,6 +1427,7 @@ Finde in allen Dateien außer exe, obj &amp;&amp; log:
 			<find-result-line-prefix value="Zeile"/> <!-- Must not begin with space or tab character -->
 			<find-regex-zero-length-match value="Übereinstimmung Null-Längen" />
 			<session-save-folder-as-workspace value="Verzeichnis als Arbeitsbereich speichern" />
+			<tab-untitled-string value="neu " />
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

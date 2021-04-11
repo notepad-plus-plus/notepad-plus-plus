@@ -2542,6 +2542,25 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			}
 		}
 
+		case NPPM_INTERNAL_UPDATETEXTZONEPADDING:
+		{
+			ScintillaViewParams &svp = const_cast<ScintillaViewParams &>(nppParam.getSVP());
+			if (_beforeSpecialView._isDistractionFree)
+			{
+				int paddingLen = svp.getDistractionFreePadding(_pEditView->getWidth());
+				_pEditView->execute(SCI_SETMARGINLEFT, 0, paddingLen);
+				_pEditView->execute(SCI_SETMARGINRIGHT, 0, paddingLen);
+			}
+			else
+			{
+				_mainEditView.execute(SCI_SETMARGINLEFT, 0, svp._paddingLeft);
+				_mainEditView.execute(SCI_SETMARGINRIGHT, 0, svp._paddingRight);
+				_subEditView.execute(SCI_SETMARGINLEFT, 0, svp._paddingLeft);
+				_subEditView.execute(SCI_SETMARGINRIGHT, 0, svp._paddingRight);
+			}
+			return TRUE;
+		}
+
 		default:
 		{
 			if (message == WDN_NOTIFY)

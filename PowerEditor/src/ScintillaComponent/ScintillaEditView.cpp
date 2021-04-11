@@ -3755,6 +3755,19 @@ void ScintillaEditView::getFoldColor(COLORREF& fgColor, COLORREF& bgColor, COLOR
 	}
 }
 
+int ScintillaEditView::getTextZoneWidth() const
+{
+	RECT editorRect;
+	getClientRect(editorRect);
+
+	int marginWidths = 0;
+	for (int m = 0; m < 4; ++m)
+	{
+		marginWidths += static_cast<int32_t>(execute(SCI_GETMARGINWIDTHN, m));
+	}
+	return editorRect.right - editorRect.left - marginWidths;
+}
+
 pair<int, int> ScintillaEditView::getSelectedCharsAndLinesCount(int maxSelectionsForLineCount /* = -1 */) const
 {
 	pair<int, int> selectedCharsAndLines(0, 0);

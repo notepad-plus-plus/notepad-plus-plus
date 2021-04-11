@@ -2027,8 +2027,8 @@ void Notepad_plus::command(int id)
 
 		case IDM_VIEW_DISTRACTIONFREE:
 		{
-			if (((_beforeSpecialView._isDistractionFree && _beforeSpecialView._isFullScreen && _beforeSpecialView._isPostIt)) ||
-				((!_beforeSpecialView._isDistractionFree && !_beforeSpecialView._isFullScreen && !_beforeSpecialView._isPostIt)))
+			if ((_beforeSpecialView._isDistractionFree && _beforeSpecialView._isFullScreen && _beforeSpecialView._isPostIt) ||
+				(!_beforeSpecialView._isDistractionFree && !_beforeSpecialView._isFullScreen && !_beforeSpecialView._isPostIt))
 				distractionFreeToggle();
 		}
 		break;

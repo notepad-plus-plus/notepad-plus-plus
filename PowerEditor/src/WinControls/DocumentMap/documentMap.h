@@ -127,7 +127,6 @@ public:
 protected:
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	bool needToRecomputeWith(const ScintillaEditView *editView = nullptr);
-	int getEditorTextZoneWidth(const ScintillaEditView *editView = nullptr);
 
 private:
 	ScintillaEditView **_ppEditView = nullptr;

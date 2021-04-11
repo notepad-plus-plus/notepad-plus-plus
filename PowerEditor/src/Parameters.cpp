@@ -5533,22 +5533,22 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 	nm = element->Attribute(TEXT("paddingLeft"), &val);
 	if (nm)
 	{
-		if (val >= 0 && val <= 9)
+		if (val >= 0 && val <= 30)
 			_svp._paddingLeft = static_cast<unsigned char>(val);
 	}
 
 	nm = element->Attribute(TEXT("paddingRight"), &val);
 	if (nm)
 	{
-		if (val >= 0 && val <= 9)
+		if (val >= 0 && val <= 30)
 			_svp._paddingRight = static_cast<unsigned char>(val);
 	}
 
 	nm = element->Attribute(TEXT("distractionFreeDivPart"), &val);
 	if (nm)
 	{
-		if (val >= 3 && val <= 255)
-			_svp._borderWidth = static_cast<unsigned char>(val);
+		if (val >= 3 && val <= 9)
+			_svp._distractionFreeDivPart = static_cast<unsigned char>(val);
 	}
 }
 

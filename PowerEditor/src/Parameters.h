@@ -941,7 +941,16 @@ struct ScintillaViewParams
 
 	// distractionFreeDivPart is used for divising the fullscreen pixel width.
 	// the result of division will be the left & right padding in Distraction Free mode
-	unsigned char _distractionFreeDivPart = 4;     // 3-255 parts
+	unsigned char _distractionFreeDivPart = 4;     // 3-9 parts
+
+	int getDistractionFreePadding(int editViewWidth) const {
+		const int defaultDiviser = 4;
+		int diviser = _distractionFreeDivPart > 2 ? _distractionFreeDivPart : defaultDiviser;
+		int paddingLen = editViewWidth / diviser;
+		if (paddingLen <= 0)
+			paddingLen = editViewWidth / defaultDiviser;
+		return paddingLen;
+	};
 };
 
 const int NB_LIST = 20;

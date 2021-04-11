@@ -865,6 +865,10 @@ The comments are here for explanation, it's not necessary to translate them.
 You can define several column markers by using white space to separate the different numbers."/>
                     <Item id="6231" name="Border Width"/>
                     <Item id="6235" name="No edge"/>
+                    <Item id="6208" name="Padding"/>
+                    <Item id="6209" name="Left"/>
+                    <Item id="6210" name="Right"/>
+                    <Item id="6212" name="Distraction Free"/>
                 </MarginsBorderEdge>
 
                 <NewDoc title="New Document">

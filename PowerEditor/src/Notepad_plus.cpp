@@ -219,7 +219,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_mainWindowStatus = WindowMainActive;
 	_activeView = MAIN_VIEW;
 
-	const ScintillaViewParams & svp1 = nppParam.getSVP();
+	const ScintillaViewParams & svp = nppParam.getSVP();
 
 	int tabBarStatus = nppGUI._tabStatus;
 
@@ -243,13 +243,13 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_invisibleEditView.wrap(false); // Make sure no slow down
 
 	// Configuration of 2 scintilla views
-	_mainEditView.showMargin(ScintillaEditView::_SC_MARGE_LINENUMBER, svp1._lineNumberMarginShow);
-	_subEditView.showMargin(ScintillaEditView::_SC_MARGE_LINENUMBER, svp1._lineNumberMarginShow);
-	_mainEditView.showMargin(ScintillaEditView::_SC_MARGE_SYBOLE, svp1._bookMarkMarginShow);
-	_subEditView.showMargin(ScintillaEditView::_SC_MARGE_SYBOLE, svp1._bookMarkMarginShow);
+	_mainEditView.showMargin(ScintillaEditView::_SC_MARGE_LINENUMBER, svp._lineNumberMarginShow);
+	_subEditView.showMargin(ScintillaEditView::_SC_MARGE_LINENUMBER, svp._lineNumberMarginShow);
+	_mainEditView.showMargin(ScintillaEditView::_SC_MARGE_SYBOLE, svp._bookMarkMarginShow);
+	_subEditView.showMargin(ScintillaEditView::_SC_MARGE_SYBOLE, svp._bookMarkMarginShow);
 
-	_mainEditView.showIndentGuideLine(svp1._indentGuideLineShow);
-	_subEditView.showIndentGuideLine(svp1._indentGuideLineShow);
+	_mainEditView.showIndentGuideLine(svp._indentGuideLineShow);
+	_subEditView.showIndentGuideLine(svp._indentGuideLineShow);
 
 	::SendMessage(hwnd, NPPM_INTERNAL_SETCARETWIDTH, 0, 0);
 	::SendMessage(hwnd, NPPM_INTERNAL_SETCARETBLINKRATE, 0, 0);
@@ -259,53 +259,53 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_pluginsAdminDlg.init(_pPublicInterface->getHinst(), hwnd);
 
 	//Marker Margin config
-	_mainEditView.setMakerStyle(svp1._folderStyle);
-	_subEditView.setMakerStyle(svp1._folderStyle);
+	_mainEditView.setMakerStyle(svp._folderStyle);
+	_subEditView.setMakerStyle(svp._folderStyle);
 	_mainEditView.defineDocType(_mainEditView.getCurrentBuffer()->getLangType());
 	_subEditView.defineDocType(_subEditView.getCurrentBuffer()->getLangType());
 
 	//Line wrap method
-	_mainEditView.setWrapMode(svp1._lineWrapMethod);
-	_subEditView.setWrapMode(svp1._lineWrapMethod);
+	_mainEditView.setWrapMode(svp._lineWrapMethod);
+	_subEditView.setWrapMode(svp._lineWrapMethod);
 
-	_mainEditView.execute(SCI_SETCARETLINEVISIBLE, svp1._currentLineHilitingShow);
-	_subEditView.execute(SCI_SETCARETLINEVISIBLE, svp1._currentLineHilitingShow);
+	_mainEditView.execute(SCI_SETCARETLINEVISIBLE, svp._currentLineHilitingShow);
+	_subEditView.execute(SCI_SETCARETLINEVISIBLE, svp._currentLineHilitingShow);
 
-	_mainEditView.execute(SCI_SETENDATLASTLINE, !svp1._scrollBeyondLastLine);
-	_subEditView.execute(SCI_SETENDATLASTLINE, !svp1._scrollBeyondLastLine);
+	_mainEditView.execute(SCI_SETENDATLASTLINE, !svp._scrollBeyondLastLine);
+	_subEditView.execute(SCI_SETENDATLASTLINE, !svp._scrollBeyondLastLine);
 
-	if (svp1._doSmoothFont)
+	if (svp._doSmoothFont)
 	{
 		_mainEditView.execute(SCI_SETFONTQUALITY, SC_EFF_QUALITY_LCD_OPTIMIZED);
 		_subEditView.execute(SCI_SETFONTQUALITY, SC_EFF_QUALITY_LCD_OPTIMIZED);
 	}
 
-	_mainEditView.setBorderEdge(svp1._showBorderEdge);
-	_subEditView.setBorderEdge(svp1._showBorderEdge);
+	_mainEditView.setBorderEdge(svp._showBorderEdge);
+	_subEditView.setBorderEdge(svp._showBorderEdge);
 
 	_mainEditView.execute(SCI_SETCARETLINEVISIBLEALWAYS, true);
 	_subEditView.execute(SCI_SETCARETLINEVISIBLEALWAYS, true);
 
-	_mainEditView.wrap(svp1._doWrap);
-	_subEditView.wrap(svp1._doWrap);
+	_mainEditView.wrap(svp._doWrap);
+	_subEditView.wrap(svp._doWrap);
 
 	::SendMessage(hwnd, NPPM_INTERNAL_EDGEMULTISETSIZE, 0, 0);
 
-	_mainEditView.showEOL(svp1._eolShow);
-	_subEditView.showEOL(svp1._eolShow);
+	_mainEditView.showEOL(svp._eolShow);
+	_subEditView.showEOL(svp._eolShow);
 
-	_mainEditView.showWSAndTab(svp1._whiteSpaceShow);
-	_subEditView.showWSAndTab(svp1._whiteSpaceShow);
+	_mainEditView.showWSAndTab(svp._whiteSpaceShow);
+	_subEditView.showWSAndTab(svp._whiteSpaceShow);
 
-	_mainEditView.showWrapSymbol(svp1._wrapSymbolShow);
-	_subEditView.showWrapSymbol(svp1._wrapSymbolShow);
+	_mainEditView.showWrapSymbol(svp._wrapSymbolShow);
+	_subEditView.showWrapSymbol(svp._wrapSymbolShow);
 
 	_mainEditView.performGlobalStyles();
 	_subEditView.performGlobalStyles();
 
 	_zoomOriginalValue = static_cast<int32_t>(_pEditView->execute(SCI_GETZOOM));
-	_mainEditView.execute(SCI_SETZOOM, svp1._zoom);
-	_subEditView.execute(SCI_SETZOOM, svp1._zoom2);
+	_mainEditView.execute(SCI_SETZOOM, svp._zoom);
+	_subEditView.execute(SCI_SETZOOM, svp._zoom2);
 
 	::SendMessage(hwnd, NPPM_INTERNAL_SETMULTISELCTION, 0, 0);
 
@@ -328,6 +328,12 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	// Let Scintilla deal with some of the folding functionality
 	_mainEditView.execute(SCI_SETAUTOMATICFOLD, SC_AUTOMATICFOLD_SHOW);
 	_subEditView.execute(SCI_SETAUTOMATICFOLD, SC_AUTOMATICFOLD_SHOW);
+
+	// Set padding info
+	_mainEditView.execute(SCI_SETMARGINLEFT, 0, svp._paddingLeft);
+	_mainEditView.execute(SCI_SETMARGINRIGHT, 0, svp._paddingRight);
+	_subEditView.execute(SCI_SETMARGINLEFT, 0, svp._paddingLeft);
+	_subEditView.execute(SCI_SETMARGINRIGHT, 0, svp._paddingRight);
 
 	TabBarPlus::doDragNDrop(true);
 
@@ -5474,14 +5480,7 @@ void Notepad_plus::distractionFreeToggle()
 	else
 	{
 		// enable it
-		const int defaultDiviser = 4;
-		int diviser = svp._distractionFreeDivPart > 2 ? svp._distractionFreeDivPart : defaultDiviser;
-		int w = _pEditView->getWidth();
-		int paddingLen = w / diviser;
-		if (paddingLen <= 0)
-			paddingLen =  w / defaultDiviser;
-
-		paddingLeft = paddingRight = paddingLen;
+		paddingLeft = paddingRight = svp.getDistractionFreePadding(_pEditView->getWidth());;
 		_restoreButton.setButtonStatus(buttonStatus_distractionFree);
 	}
 

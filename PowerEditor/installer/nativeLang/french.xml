@@ -822,6 +822,10 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                     <Item id="6292" name="Largeur dynamique"/>
                     <Item id="6293" name="Largeur constante"/>
                     <Item id="6207" name="Afficher la marge de signet"/>
+                    <Item id="6208" name="Padding"/>
+                    <Item id="6209" name="Gauche"/>
+                    <Item id="6210" name="Droite"/>
+                    <Item id="6212" name="Sans distraction"/>
                 </MarginsBorderEdge>
 
                 <NewDoc title="Nouveau document">

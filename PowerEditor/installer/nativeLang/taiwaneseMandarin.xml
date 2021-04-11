@@ -829,6 +829,10 @@
 使用空格分隔不同數字來定義多個列標記。"/>
                     <Item id="6231" name="邊框寬度"/>
                     <Item id="6235" name="無邊框"/>
+                    <Item id="6208" name="填充"/>
+                    <Item id="6209" name="左"/>
+                    <Item id="6210" name="右"/>
+                    <Item id="6212" name="免干擾模式"/>
                 </MarginsBorderEdge>
 
                 <NewDoc title="新文件預設設定">

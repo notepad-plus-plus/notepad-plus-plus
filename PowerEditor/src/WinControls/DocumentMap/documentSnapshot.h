@@ -40,7 +40,7 @@ public:
         _hParent = parent2set;
     };
 
-	void scrollSnapshotWith(const MapPosition & mapPos);
+	void scrollSnapshotWith(const MapPosition & mapPos, int textZoneWidth);
 	void saveCurrentSnapshot(ScintillaEditView & editView);
 
 protected:

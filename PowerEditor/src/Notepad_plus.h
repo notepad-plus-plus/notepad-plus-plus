@@ -333,7 +333,7 @@ private:
 	// make sure we don't recursively call doClose when closing the last file with -quitOnEmpty
 	bool _isAttemptingCloseOnQuit = false;
 
-	// For FullScreen/PostIt features
+	// For FullScreen/PostIt/DistractionFree features
 	VisibleGUIConf	_beforeSpecialView;
 	void fullScreenToggle();
 	void postItToggle();

@@ -429,6 +429,8 @@ public:
 		return long(execute(SCI_TEXTHEIGHT));
 	};
 
+	int getTextZoneWidth() const;
+
 	void gotoLine(int line){
 		if (line < execute(SCI_GETLINECOUNT))
 			execute(SCI_GOTOLINE,line);

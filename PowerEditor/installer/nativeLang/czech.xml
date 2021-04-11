@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 7.9.6  9/Apr/2021  by Ondřej Müller (mullero@email.cz)
-	- N++ Community:  https://notepad-plus-plus.org/community/topic/87/czech-translations
+	- last change:  Notepad++ 7.9.6  11/Apr/2021  by Ondřej Müller (mullero@email.cz)
+	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
+	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
 	<Native-Langue name = "Čeština" filename="czech.xml" version="7.9.6">
@@ -248,12 +249,9 @@
 					<Item id = "43064" name = "Použít 3. styl"/>
 					<Item id = "43065" name = "Použít 4. styl"/>
 					<Item id = "43066" name = "Použít 5. styl"/>
-					<Item id = "44009" name = "Zobrazit pouze okno dokumentu"/>
+					<Item id = "44009" name = "Zobrazit pouze okno dokumentu (Post-It mód)"/>
 					<Item id = "44010" name = "Sbalit vše"/>
-					<Item id = "44011" name = "Panel Uživatelsky definované syntaxe"/>
-					<Item id = "44012" name = "Skrýt okrajový pruh s čísly řádků"/>
-					<Item id = "44013" name = "Skrýt okrajový pruh se záložkami"/>
-					<Item id = "44014" name = "Skrýt okrajový pruh pro sbalení/rozbalení"/>
+					<Item id = "44011" name = "Zobrazit pouze čistý text (nerušivý mód)"/>
 					<Item id = "44019" name = "Zobrazit všechny znaky"/>
 					<Item id = "44020" name = "Zobrazit odsazovací pomocné čáry"/>
 					<Item id = "44022" name = "Zalomit řádky"/>

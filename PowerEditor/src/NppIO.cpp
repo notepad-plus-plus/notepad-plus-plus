@@ -1645,7 +1645,7 @@ bool Notepad_plus::fileSaveAs(BufferID id, bool isSaveCopy)
 	fDlg.setExtIndex(langTypeIndex + 1); // +1 for "All types"
 
 	const generic_string checkboxLabel = _nativeLangSpeaker.getLocalizedStrFromID("file-save-assign-type",
-		TEXT("&Assign file type"));
+		TEXT("&Append extension"));
 	fDlg.enableFileTypeCheckbox(checkboxLabel, !defaultAllTypes);
 
 	// Disable file autodetection before opening save dialog to prevent use-after-delete bug.

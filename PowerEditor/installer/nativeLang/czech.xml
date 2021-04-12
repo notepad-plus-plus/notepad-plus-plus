@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 7.9.6  11/Apr/2021  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 7.9.6  12/Apr/2021  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
@@ -916,7 +916,11 @@
 					<Item id = "6205" name = "Se čtverci"/>
 					<Item id = "6206" name = "Zobrazit"/>
 					<Item id = "6207" name = "Zobrazit záložky"/>
+					<Item id = "6208" name = "Tloušťka ohraničující výplně"/>
+					<Item id = "6209" name = "Vlevo"/>
+					<Item id = "6210" name = "Vpravo"/>
 					<Item id = "6211" name = "Nastavení svislé vodící čáry"/>
+					<Item id = "6212" name = "Nerušivý mód"/>
 					<Item id = "6213" name = "Režim s pozadím"/>
 					<Item id = "6226" name = "Žádný"/>
 					<Item id = "6231" name = "Šířka okraje"/>
@@ -1449,6 +1453,7 @@ Najít ve všech souborech mimo exe, obj &amp;&amp; log:
 			<find-result-line-prefix value = "Řádek"/> <!-- Must not begin with space or tab character -->
 			<find-regex-zero-length-match value = "shoda nulové délky" />
 			<session-save-folder-as-workspace value = "Uložit složku jako pracovní plochu"/>
+			<tab-untitled-string value = "nový " />
 		</MiscStrings>
 
 	</Native-Langue>

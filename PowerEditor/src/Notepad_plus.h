@@ -84,17 +84,20 @@ struct VisibleGUIConf final
 	bool _isFullScreen = false;
 	bool _isDistractionFree = false;
 
-	//Used by 3 modes
+	//Used by postit & fullscreen
 	bool _isMenuShown = true;
 	DWORD_PTR _preStyle = (WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN);
 
-	//used by postit & distractionFree
+	//used by postit
 	bool _isTabbarShown = true;
 	bool _isAlwaysOnTop = false;
 	bool _isStatusbarShown = true;
 
-	//used by fullscreen & distractionFree
+	//used by fullscreen
 	WINDOWPLACEMENT _winPlace;
+
+	//used by distractionFree
+	bool _was2ViewModeOn = false;
 
 	VisibleGUIConf()
 	{

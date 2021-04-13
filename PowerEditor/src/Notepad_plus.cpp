@@ -5466,21 +5466,44 @@ void Notepad_plus::distractionFreeToggle()
 	const ScintillaViewParams& svp = NppParameters::getInstance().getSVP();
 	int paddingLeft = 0;
 	int paddingRight = 0;
+	
 
 	// Enable or disable Distraction Free Mode
-	if (_beforeSpecialView._isDistractionFree)
+	if (_beforeSpecialView._isDistractionFree) // disable it
 	{
-		// disable it
+		// restore padding
 		paddingLeft = svp._paddingLeft;
 		paddingRight = svp._paddingRight;
 
+		// restore another view if 2 views mode was on
+		if (_beforeSpecialView._was2ViewModeOn)
+		{
+			showView(otherView());
+			_beforeSpecialView._was2ViewModeOn = false;
+		}
+
+		// hide restore button
 		_restoreButton.setButtonStatus(0);
 		_restoreButton.display(false);
 	}
-	else
+	else // enable it
 	{
-		// enable it
-		paddingLeft = paddingRight = svp.getDistractionFreePadding(_pEditView->getWidth());;
+		// set padding
+		paddingLeft = paddingRight = svp.getDistractionFreePadding(_pEditView->getWidth());
+
+		// check if 2 views mode is on
+		ScintillaEditView & nonFocusedView = (otherView() == MAIN_VIEW) ? _mainEditView : _subEditView;
+		if (nonFocusedView.isVisible())
+		{
+			hideView(otherView());
+			_beforeSpecialView._was2ViewModeOn = true;
+		}
+		else
+		{
+			_beforeSpecialView._was2ViewModeOn = false;
+		}
+
+		// set state of restore button (it's already shown by fullScreen & postIt toggling)
 		_restoreButton.setButtonStatus(buttonStatus_distractionFree);
 	}
 

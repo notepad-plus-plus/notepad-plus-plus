@@ -499,13 +499,33 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				}
 			}
 			else // From tool bar
+			{
+				LPNMMOUSE lpnm = (LPNMMOUSE)notification;
+				if (lpnm->dwItemSpec == IDM_VIEW_ALL_CHARACTERS)
+				{
+					ContextMenu viewAllCharsToolbarButtonContextMenu;
+					std::vector<MenuItemUnit> itemUnitArray;
+					NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
+					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_TAB_SPACE, 
+						nativeLangSpeaker->getNativeLangMenuString(IDM_VIEW_TAB_SPACE, TEXT("Show White Space and TAB"))));
+					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_EOL, 
+						nativeLangSpeaker->getNativeLangMenuString(IDM_VIEW_EOL, TEXT("Show End of Line"))));
+					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_ALL_CHARACTERS, 
+						nativeLangSpeaker->getNativeLangMenuString(IDM_VIEW_ALL_CHARACTERS, TEXT("Show All Characters"))));
+					viewAllCharsToolbarButtonContextMenu.create(_pPublicInterface->getHSelf(), itemUnitArray);
+					ScintillaViewParams& svp = (ScintillaViewParams&)(NppParameters::getInstance()).getSVP();
+					viewAllCharsToolbarButtonContextMenu.checkItem(IDM_VIEW_TAB_SPACE, svp._whiteSpaceShow && !svp._eolShow);
+					viewAllCharsToolbarButtonContextMenu.checkItem(IDM_VIEW_EOL, !svp._whiteSpaceShow && svp._eolShow);
+					viewAllCharsToolbarButtonContextMenu.checkItem(IDM_VIEW_ALL_CHARACTERS, svp._whiteSpaceShow && svp._eolShow);
+					viewAllCharsToolbarButtonContextMenu.display(p);
+				}
 				return TRUE;
-			//break;
+			}
 
 			if (!_tabPopupMenu.isCreated())
 			{
 				// IMPORTANT: If list below is modified, you have to change the value of tabContextMenuItemPos[] in localization.cpp file
-                std::vector<MenuItemUnit> itemUnitArray;
+				std::vector<MenuItemUnit> itemUnitArray;
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSE, TEXT("Close")));
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_BUT_CURRENT, TEXT("Close All BUT This")));
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_TOLEFT, TEXT("Close All to the Left")));

@@ -868,6 +868,10 @@
 複数の値を半角スペースで区切って記入することで、複数の線を表示できます。"/>
                     <Item id="6231" name="枠線幅"/>
                     <Item id="6235" name="枠を非表示"/>
+                    <Item id="6208" name="余白"/>
+                    <Item id="6209" name="左"/>
+                    <Item id="6210" name="右"/>
+                    <Item id="6212" name="集中モード時"/>
                 </MarginsBorderEdge>
 
                 <NewDoc title="新規文書">

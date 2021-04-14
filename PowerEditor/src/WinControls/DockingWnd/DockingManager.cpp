@@ -200,15 +200,6 @@ void DockingManager::updateContainerInfo(HWND hClient)
 	}
 }
 
-void DockingManager::showContainer(HWND hCont, bool display)
-{
-	for (size_t iCont = 0, len = _vContainer.size(); iCont < len; ++iCont)
-	{
-		if (_vContainer[iCont]->getHSelf() == hCont)
-			showContainer(iCont, display);
-	}
-}
-
 void DockingManager::showFloatingContainers(bool show)
 {
 	for (size_t i=0; i < _vContainer.size(); i++)
@@ -240,7 +231,7 @@ LRESULT DockingManager::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
 		case WM_MOVE:
 		case WM_SIZE:
 		{
-			onSize();
+			resize();
 			break;
 		}
 		case WM_DESTROY:
@@ -344,7 +335,7 @@ LRESULT DockingManager::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
 							}
 							break;
 					}
-					onSize();
+					resize();
 					break;
 				}
 			}
@@ -394,7 +385,7 @@ LRESULT DockingManager::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
 	return ::DefWindowProc(_hSelf, message, wParam, lParam);
 }
 
-void DockingManager::onSize()
+void DockingManager::resize()
 {
     reSizeTo(_rect);
 }
@@ -724,7 +715,7 @@ void DockingManager::setDockedContSize(int iCont, int iSize)
 		_dockData.rcRegion[iCont].right = iSize;
 	else
 		return;
-	onSize();
+	resize();
 }
 
 int DockingManager::getDockedContSize(int iCont)
@@ -813,7 +804,7 @@ DockingCont* DockingManager::toggleVisTb(DockingCont* pContSrc, UINT message, LP
 
 	// at first hide container and resize
 	pContSrc->doDialog(false);
-	onSize();
+	resize();
 
 	for (size_t iTb = 0, len = vTbData.size(); iTb < len; ++iTb)
 	{
@@ -874,7 +865,7 @@ void DockingManager::toggleVisTb(DockingCont* pContSrc, DockingCont* pContTgt)
 
 	// at first hide container and resize
 	pContSrc->doDialog(false);
-	onSize();
+	resize();
 
 	for (size_t iTb = 0, len = vTbData.size(); iTb < len; ++iTb)
 	{

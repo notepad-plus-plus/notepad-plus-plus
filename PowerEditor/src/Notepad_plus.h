@@ -98,6 +98,7 @@ struct VisibleGUIConf final
 
 	//used by distractionFree
 	bool _was2ViewModeOn = false;
+	std::vector<DockingCont*> _pVisibleDockingContainers;
 
 	VisibleGUIConf()
 	{

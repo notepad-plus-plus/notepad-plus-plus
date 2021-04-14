@@ -5482,6 +5482,13 @@ void Notepad_plus::distractionFreeToggle()
 			_beforeSpecialView._was2ViewModeOn = false;
 		}
 
+		// restore dockable panels
+		for (auto i : _beforeSpecialView._pVisibleDockingContainers)
+		{
+			i->display();
+		}
+		_dockingManager.resize();
+
 		// hide restore button
 		_restoreButton.setButtonStatus(0);
 		_restoreButton.display(false);
@@ -5502,6 +5509,23 @@ void Notepad_plus::distractionFreeToggle()
 		{
 			_beforeSpecialView._was2ViewModeOn = false;
 		}
+
+		// check if any dockable panel is visible
+		std::vector<DockingCont*> & container = _dockingManager.getContainerInfo();
+		_beforeSpecialView._pVisibleDockingContainers.clear();
+		for (auto i : container)
+		{
+			if (i->isVisible())
+			{
+				_beforeSpecialView._pVisibleDockingContainers.push_back(i);
+			}
+		}
+		
+		for (auto i : _beforeSpecialView._pVisibleDockingContainers)
+		{
+			i->display(false);
+		}
+		_dockingManager.resize();
 
 		// set state of restore button (it's already shown by fullScreen & postIt toggling)
 		_restoreButton.setButtonStatus(buttonStatus_distractionFree);

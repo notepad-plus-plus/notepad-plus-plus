@@ -3,9 +3,9 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-	<Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="7.9.4">
-		<Menu>
-			<Main>
+    <Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="7.9.4">
+        <Menu>
+            <Main>
                 <!-- Main Menu Entries -->
                 <Entries>
                     <Item menuId="file" name="&amp;Ficheiro"/>
@@ -15,7 +15,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item menuId="encoding" name="&amp;Codificação"/>
                     <Item menuId="language" name="&amp;Linguagem"/>
                     <Item menuId="settings" name="C&amp;onfiguração"/>
-					<Item menuId="tools" name="F&amp;erramentas"/>
+                    <Item menuId="tools" name="F&amp;erramentas"/>
                     <Item menuId="macro" name="&amp;Macro"/>
                     <Item menuId="run" name="E&amp;xecutar"/>
                     <Item idName="Plugins" name="P&amp;lugins"/>
@@ -23,32 +23,32 @@ The comments are here for explanation, it's not necessary to translate them.
                 </Entries>
 				<!-- Sub Menu Entries -->
                 <SubEntries>
-				    <Item subMenuId="file-openFolder" name="Abrir Pasta Recipiente"/>
-					<Item subMenuId="file-closeMore" name="Fechar Mais"/>
+                    <Item subMenuId="file-openFolder" name="Abrir Pasta Recipiente"/>
+                    <Item subMenuId="file-closeMore" name="Fechar Mais"/>
                     <Item subMenuId="file-recentFiles" name="Ficheiros Recentes"/>
-					<Item subMenuId="edit-copyToClipboard" name="Copiar p/ a Área de Transferência"/>
-					<Item subMenuId="edit-indent" name="Indentação"/>
-					<Item subMenuId="edit-convertCaseTo" name="Converter Letra para"/>
-					<Item subMenuId="edit-lineOperations" name="Operações de Linha"/>					
+                    <Item subMenuId="edit-copyToClipboard" name="Copiar p/ a Área de Transferência"/>
+                    <Item subMenuId="edit-indent" name="Indentação"/>
+                    <Item subMenuId="edit-convertCaseTo" name="Converter Letra para"/>
+                    <Item subMenuId="edit-lineOperations" name="Operações de Linha"/>					
                     <Item subMenuId="edit-comment" name="Comentario"/>
-					<Item subMenuId="edit-autoCompletion" name="Conclusão Automática"/>
-					<Item subMenuId="edit-eolConversion" name="Conversão EOL (fim da linha)"/>
-					<Item subMenuId="edit-blankOperations" name="Operação em Branco"/>
-					<Item subMenuId="edit-pasteSpecial" name="Colar Especial"/>
-					<Item subMenuId="edit-onSelection" name="Na Selecção"/>
-					<Item subMenuId="search-markAll" name="Marcar Tudo"/>
-					<Item subMenuId="search-markOne" name="Marcar Uma"/>
-					<Item subMenuId="search-unmarkAll" name="Desmarcar Tudo"/>
+                    <Item subMenuId="edit-autoCompletion" name="Conclusão Automática"/>
+                    <Item subMenuId="edit-eolConversion" name="Conversão EOL (fim da linha)"/>
+                    <Item subMenuId="edit-blankOperations" name="Operação em Branco"/>
+                    <Item subMenuId="edit-pasteSpecial" name="Colar Especial"/>
+                    <Item subMenuId="edit-onSelection" name="Na Selecção"/>
+                    <Item subMenuId="search-markAll" name="Marcar Tudo"/>
+                    <Item subMenuId="search-markOne" name="Marcar Uma"/>
+                    <Item subMenuId="search-unmarkAll" name="Desmarcar Tudo"/>
                     <Item subMenuId="search-jumpUp" name="Ir para Cima"/>
                     <Item subMenuId="search-jumpDown" name="Ir para Baixo"/>
-					<Item subMenuId="search-copyStyledText" name="Copiar Texto com Estilo"/>
+                    <Item subMenuId="search-copyStyledText" name="Copiar Texto com Estilo"/>
                     <Item subMenuId="search-bookmark" name="Marcador"/>
-					<Item subMenuId="view-currentFileIn" name="Ver Ficheiro Actual em"/>
+                    <Item subMenuId="view-currentFileIn" name="Ver Ficheiro Actual em"/>
                     <Item subMenuId="view-showSymbol" name="Mostrar Símbolo"/>
                     <Item subMenuId="view-zoom" name="Zoom"/>
                     <Item subMenuId="view-moveCloneDocument" name="Mover/Clonar Documento Atual"/>
                     <Item subMenuId="view-tab"  name="Separador"/>
-					<Item subMenuId="view-collapseLevel" name="Ocultar Nível"/>
+                    <Item subMenuId="view-collapseLevel" name="Ocultar Nível"/>
                     <Item subMenuId="view-uncollapseLevel" name="Expandir Nível"/>
                     <Item subMenuId="view-project" name="Projeto"/>
                     <Item subMenuId="encoding-characterSets" name="Código de Carateres"/>
@@ -68,38 +68,38 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item subMenuId="encoding-turkish" name="Turco"/>
                     <Item subMenuId="encoding-westernEuropean" name="Europa Ocidental"/>
                     <Item subMenuId="encoding-vietnamese" name="Vietnamita"/>
-					<Item subMenuId="language-userDefinedLanguage" name="Idioma Definido pelo Utilizador"/>
+                    <Item subMenuId="language-userDefinedLanguage" name="Idioma Definido pelo Utilizador"/>
                     <Item subMenuId="settings-import" name="Importar"/>
-					<Item subMenuId="tools-md5" name="MD5"/>
-					<Item subMenuId="tools-sha256" name="SHA-256"/>
+                    <Item subMenuId="tools-md5" name="MD5"/>
+                    <Item subMenuId="tools-sha256" name="SHA-256"/>
                 </SubEntries>
 
                 <!-- all menu item -->
                 <Commands>
-					<Item id="41001" name="&amp;Novo"/>
+                    <Item id="41001" name="&amp;Novo"/>
                     <Item id="41002" name="&amp;Abrir"/>
-					<Item id="41019" name="Explorador"/>
+                    <Item id="41019" name="Explorador"/>
                     <Item id="41020" name="Cmd"/>
                     <Item id="41025" name="Pasta como Área de Trabalho"/>
-					<Item id="41003" name="Fe&amp;char"/>
+                    <Item id="41003" name="Fe&amp;char"/>
                     <Item id="41004" name="F&amp;echar Tudo"/>
                     <Item id="41005" name="Fechar TUDO Exceto Documento Atual"/>
-					<Item id="41009" name="Fechar TUDO à Esquerda"/>
+                    <Item id="41009" name="Fechar TUDO à Esquerda"/>
                     <Item id="41018" name="Fechar TUDO à Direita"/>
                     <Item id="41024" name="Fechar TUDO Inalterado"/>
-					<Item id="41006" name="&amp;Guardar"/>
+                    <Item id="41006" name="&amp;Guardar"/>
                     <Item id="41007" name="Guardar Tudo"/>
                     <Item id="41008" name="Guardar &amp;Como..."/>
                     <Item id="41010" name="Imprimir..."/>
-					<Item id="1001"  name="Imprimir Agora"/>
+                    <Item id="1001"  name="Imprimir Agora"/>
                     <Item id="41011" name="&amp;Sair"/>
                     <Item id="41012" name="Carregar Sessão..."/>
                     <Item id="41013" name="Guardar Sessão..."/>
                     <Item id="41014" name="Recarregar do Disco"/>
                     <Item id="41015" name="Guardar uma Cópia Como..."/>
-					<Item id="41016" name="Mover Para a Reciclagem"/>
-					<Item id="41017" name="Renomear..."/>
-					<Item id="41021" name="Restaurar Ficheiro Fechado Recentemente"/>
+                    <Item id="41016" name="Mover Para a Reciclagem"/>
+                    <Item id="41017" name="Renomear..."/>
+                    <Item id="41021" name="Restaurar Ficheiro Fechado Recentemente"/>
                     <Item id="41022" name="Abrir Pasta Como Área de Trabalho..."/>
                     <Item id="41023" name="Abrir no Visualizador Predefinido"/>
                     <Item id="42001" name="Cor&amp;tar"/>
@@ -109,7 +109,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42005" name="Co&amp;lar"/>
                     <Item id="42006" name="A&amp;pagar"/>
                     <Item id="42007" name="Selecionar T&amp;udo"/>
-					<Item id="42020" name="Selecionar Início/Fim"/>
+                    <Item id="42020" name="Selecionar Início/Fim"/>
                     <Item id="42008" name="Aumentar Indentação da Linha"/>
                     <Item id="42009" name="Diminuir Indentação da Linha"/>
                     <Item id="42010" name="Duplicar Linha Atual"/>
@@ -119,9 +119,9 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42013" name="Unir Linhas"/>
                     <Item id="42014" name="Mover a Linha Atual para Cima"/>
                     <Item id="42015" name="Mover a Linha Atual para Baixo"/>
-					<Item id="42059" name="Ordenar Linhas pela Ordem Ascendente"/>
-					<Item id="42060" name="Ordenar Linhas pela Ordem Descendente"/>
-					<Item id="42080" name="Ordenar Linhas pela Ordem Asc. Ignorando M/m"/>
+                    <Item id="42059" name="Ordenar Linhas pela Ordem Ascendente"/>
+                    <Item id="42060" name="Ordenar Linhas pela Ordem Descendente"/>
+                    <Item id="42080" name="Ordenar Linhas pela Ordem Asc. Ignorando M/m"/>
                     <Item id="42081" name="Ordenar Linhas pela Ordem Des. Ignorando M/m"/>
                     <Item id="42061" name="Ordenar Linhas Como Inteiras Ascendente"/>
                     <Item id="42062" name="Ordenar Linhas Como Inteiras Descendente"/>
@@ -132,7 +132,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42078" name="Ordenar Linhas Aleatóriamente"/>
                     <Item id="42016" name="MAIÚSCULA"/>
                     <Item id="42017" name="minúscula"/>
-					<Item id="42067" name="&amp;Letra Adequada"/>
+                    <Item id="42067" name="&amp;Letra Adequada"/>
                     <Item id="42068" name="Letra Adequada (misturar)"/>
                     <Item id="42069" name="&amp;Letra da frase"/>
                     <Item id="42070" name="Letra da frase (misturar)"/>
@@ -147,26 +147,26 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42021" name="&amp;Reproduzir"/>
                     <Item id="42022" name="Alternar Comentário de Linha"/>
                     <Item id="42023" name="Bloquear Comentário"/>
-					<Item id="42047" name="Bloquear Descomentar"/>
-					<Item id="42024" name="Remover o Espaço do Fim da Linha"/>
-					<Item id="42042" name="Remover Espaço no Início da Linha"/>
-					<Item id="42043" name="Remover o Espaço no Início e no Fim da Linha"/>
-					<Item id="42044" name="Fim da Linha do Espaço"/>
-					<Item id="42045" name="Remover o Espaço em Branco e do Fim da Linha"/>
-					<Item id="42046" name="TAB para Espaço"/>
-					<Item id="42054" name="Espaço para TAB (Tudo)"/>
+                    <Item id="42047" name="Bloquear Descomentar"/>
+                    <Item id="42024" name="Remover o Espaço do Fim da Linha"/>
+                    <Item id="42042" name="Remover Espaço no Início da Linha"/>
+                    <Item id="42043" name="Remover o Espaço no Início e no Fim da Linha"/>
+                    <Item id="42044" name="Fim da Linha do Espaço"/>
+                    <Item id="42045" name="Remover o Espaço em Branco e do Fim da Linha"/>
+                    <Item id="42046" name="TAB para Espaço"/>
+                    <Item id="42054" name="Espaço para TAB (Tudo)"/>
                     <Item id="42053" name="Espaço para TAB (Leading)"/>
                     <Item id="42038" name="Colar Conteúdo HTML"/>
                     <Item id="42039" name="Colar Conteúdo RTF"/>
                     <Item id="42048" name="Copiar Conteúdo Binário"/>
                     <Item id="42049" name="Cortar Conteúdo Binário"/>
                     <Item id="42050" name="Colar Conteúdo Binário"/>
-					<Item id="42082" name="Copiar Ligação"/>
+                    <Item id="42082" name="Copiar Ligação"/>
                     <Item id="42037" name="Modo de Coluna..."/>
                     <Item id="42034" name="Editor de Coluna..."/>
                     <Item id="42051" name="Painel Carateres"/>
                     <Item id="42052" name="Hístórico da Área de Transferência"/>
-					<Item id="42025" name="Guardar a Macro Atualmente Gravada"/>
+                    <Item id="42025" name="Guardar a Macro Atualmente Gravada"/>
                     <Item id="42026" name="Direção do Texto - Direita para a Esquerda"/>
                     <Item id="42027" name="Direção do Texto - Esquerda para a Direita"/>
                     <Item id="42028" name="Definir como Só de Leitura"/>
@@ -175,13 +175,13 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42031" name="Caminho Dir. Atual para a Área de Transferência"/>
                     <Item id="42032" name="Executar Macro Múltiplas Vezes..."/>
                     <Item id="42033" name="Limpar Símbolo Só de Leitura"/>
-					<Item id="42035" name="Comentar Bloco"/>
+                    <Item id="42035" name="Comentar Bloco"/>
                     <Item id="42036" name="Descomentar Bloco"/>
-					<Item id="42055" name="Remover Linhas em Branco"/>
+                    <Item id="42055" name="Remover Linhas em Branco"/>
                     <Item id="42056" name="Remover Linhas em Branco (Com Carateres em Branco)"/>
-					<Item id="42057" name="Inserir Linha em Branco por Cima da Atual"/>
-					<Item id="42058" name="Inserir Linha em Branco por Baixo da Atual"/>
-					<Item id="43001" name="&amp;Encontrar..."/>
+                    <Item id="42057" name="Inserir Linha em Branco por Cima da Atual"/>
+                    <Item id="42058" name="Inserir Linha em Branco por Baixo da Atual"/>
+                    <Item id="43001" name="&amp;Encontrar..."/>
                     <Item id="43002" name="&amp;Encontrar Seguinte"/>
                     <Item id="43003" name="Substituir..."/>
                     <Item id="43004" name="Ir para..."/>
@@ -193,18 +193,18 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43019" name="Copiar Linhas Marcadas"/>
                     <Item id="43020" name="Colar (Substituir) Linhas Marcadas"/>
                     <Item id="43021" name="Remover Linhas Marcadas"/>
-					<Item id="43051" name="Remover Linhas Desmarcadas"/>
-					<Item id="43050" name="Inverter Marcador"/>
-					<Item id="43052" name="Encontrar Carateres..."/>
-					<Item id="43053" name="Selecionar Tudo Entre as Chavetas Correspondidas"/>
-					<Item id="43009" name="Ir para a Chaveta Correspondida"/>
+                    <Item id="43051" name="Remover Linhas Desmarcadas"/>
+                    <Item id="43050" name="Inverter Marcador"/>
+                    <Item id="43052" name="Encontrar Carateres..."/>
+                    <Item id="43053" name="Selecionar Tudo Entre as Chavetas Correspondidas"/>
+                    <Item id="43009" name="Ir para a Chaveta Correspondida"/>
                     <Item id="43010" name="Encontrar Anterior"/>
                     <Item id="43011" name="Procura &amp;Progressiva"/>
                     <Item id="43013" name="Encontrar nos Ficheiros"/>
                     <Item id="43014" name="Encontrar Seguinte (temporário)"/>
                     <Item id="43015" name="Encontrar Anterior (temporário)"/>
-					<Item id="43022" name="Usar 1º Estilo"/>
-					<Item id="43023" name="Limpar 1º Estilo"/>
+                    <Item id="43022" name="Usar 1º Estilo"/>
+                    <Item id="43023" name="Limpar 1º Estilo"/>
                     <Item id="43024" name="Usar 2º Estilo"/>
                     <Item id="43025" name="Limpar 2º Estilo"/>
                     <Item id="43026" name="Usar 3º Estilo"/>
@@ -226,7 +226,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43042" name="4º Estilo"/>
                     <Item id="43043" name="5º Estilo"/>
                     <Item id="43044" name="Estilo da Procura"/>
-					<Item id="43055" name="1º Estilo"/>
+                    <Item id="43055" name="1º Estilo"/>
                     <Item id="43056" name="2º Estilo"/>
                     <Item id="43057" name="3º Estilo"/>
                     <Item id="43058" name="4º Estilo"/>
@@ -244,11 +244,11 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43048" name="Selecionar e Encontrar Seguinte"/>
                     <Item id="43049" name="Selecionar e Encontrar Anterior"/>
                     <Item id="43054" name="Marcar..."/>
-					<Item id="44009" name="Anotação"/>
+                    <Item id="44009" name="Anotação"/>
                     <Item id="44010" name="Fechar Tudo"/>
-					<Item id="44011" name="Modo Sem Distração"/>
-					<Item id="44019" name="Mostrar Todos os Carateres"/>
-					<Item id="44020" name="Mostrar Guia de Indentação"/>
+                    <Item id="44011" name="Modo Sem Distração"/>
+                    <Item id="44019" name="Mostrar Todos os Carateres"/>
+                    <Item id="44020" name="Mostrar Guia de Indentação"/>
                     <Item id="44022" name="Moldar Texto"/>
                     <Item id="44023" name="Zoom &amp;+ Ctrl+Roda do Rato p/ Cima"/>
                     <Item id="44024" name="Zoom &amp;- Ctrl+Roda do Rato p/ Baixo"/>
@@ -257,11 +257,11 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44029" name="Expandir Tudo"/>
                     <Item id="44030" name="Ocultar Nível Atual"/>
                     <Item id="44031" name="Expandir Nível Atual"/>
-					<Item id="44049" name="Resumo..."/>
-					<Item id="44080" name="Mapa Documento"/>
+                    <Item id="44049" name="Resumo..."/>
+                    <Item id="44080" name="Mapa Documento"/>
                     <Item id="44084" name="Lista Função"/>
-					<Item id="44085" name="Pasta Como Área de Trabalho"/>
-					<Item id="44086" name="1º Separador"/>
+                    <Item id="44085" name="Pasta Como Área de Trabalho"/>
+                    <Item id="44086" name="1º Separador"/>
                     <Item id="44087" name="2º Separador"/>
                     <Item id="44088" name="3º Separador"/>
                     <Item id="44089" name="4º Separador"/>
@@ -272,19 +272,19 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44094" name="9º Separador"/>
                     <Item id="44095" name="Separador Seguinte"/>
                     <Item id="44096" name="Separador Anterior"/>
-					<Item id="44097" name="Monitorização (tail -f)"/>
+                    <Item id="44097" name="Monitorização (tail -f)"/>
                     <Item id="44098" name="Mover Separador Para Frente"/>
                     <Item id="44099" name="Mover Separador Para Trás"/>
-					<Item id="44032" name="Alternar Modo de Ecrã Inteiro"/>
+                    <Item id="44032" name="Alternar Modo de Ecrã Inteiro"/>
                     <Item id="44033" name="Restaurar Zoom Predefinido"/>
                     <Item id="44034" name="Sempre no Topo"/>
-					<Item id="44035" name="Sincronizar Deslocamento Vertical"/>
+                    <Item id="44035" name="Sincronizar Deslocamento Vertical"/>
                     <Item id="44036" name="Sincronizar Deslocamento Horizontal"/>
                     <Item id="44041" name="Mostrar Símbolo de Moldar Texto"/>
                     <Item id="44072" name="Alternar Separador"/>
-					<Item id="44081" name="Painel do Projeto 1"/>
-					<Item id="44082" name="Painel do Projeto 2"/>
-					<Item id="44083" name="Painel do Projeto 3"/>
+                    <Item id="44081" name="Painel do Projeto 1"/>
+                    <Item id="44082" name="Painel do Projeto 2"/>
+                    <Item id="44083" name="Painel do Projeto 3"/>
                     <Item id="45001" name="Converter para o Formato do Windows"/>
                     <Item id="45002" name="Converter para o Formato UNIX"/>
                     <Item id="45003" name="Converter para o Formato MAC"/>
@@ -298,39 +298,39 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="45011" name="Converter para UTF-8-BOM"/>
                     <Item id="45012" name="Converter para UTF-16 BE BOM"/>
                     <Item id="45013" name="Converter para UTF-16 LE BOM"/>
-					<Item id="45060" name="Codificar em Big5 (Tradicional)"/>
+                    <Item id="45060" name="Codificar em Big5 (Tradicional)"/>
                     <Item id="45061" name="Codificar em GB2312 (Simplificado)"/>
                     <Item id="45054" name="Codificar em OEM 861: Islandês"/>
                     <Item id="45057" name="Codificar em OEM 865: Nórdico"/>
                     <Item id="45053" name="Codificar em OEM 860: Português"/>
                     <Item id="45056" name="Codificar em OEM 863: Francês"/>
 
-					<Item id="10001" name="Mostrar Separador Lado-a-Lado"/>
+                    <Item id="10001" name="Mostrar Separador Lado-a-Lado"/>
                     <Item id="10002" name="Clonar para Outro Separador"/>
                     <Item id="10003" name="Mover para a Nova Instância"/>
                     <Item id="10004" name="Abrir numa Nova Instância"/>
 
-					<Item id="46001" name="Configurador do Estilo..."/>
-					<Item id="46250" name="Defina o seu idioma..."/>
-					<Item id="46300" name="Abrir Pasta de Idioma Definido Pelo Utilizador..."/>
-					<Item id="46180" name="Definida pelo Utilizador"/>
+                    <Item id="46001" name="Configurador do Estilo..."/>
+                    <Item id="46250" name="Defina o seu idioma..."/>
+                    <Item id="46300" name="Abrir Pasta de Idioma Definido Pelo Utilizador..."/>
+                    <Item id="46180" name="Definida pelo Utilizador"/>
                     <Item id="47000" name="Acerca do Notepad++..."/>
-					<Item id="47010" name="Argumentos da Linha de Comando..."/>
+                    <Item id="47010" name="Argumentos da Linha de Comando..."/>
                     <Item id="47001" name="Página da Notepad++"/>
                     <Item id="47002" name="Página do Projeto Notepad++"/>
                     <Item id="47003" name="Documentação na Internet"/>
                     <Item id="47004" name="Fórum"/>
-					<Item id="47011" name="Apoio ao vivo"/>
-					<Item id="47012" name="Informações de Depuração..."/>
+                    <Item id="47011" name="Apoio ao vivo"/>
+                    <Item id="47012" name="Informações de Depuração..."/>
                     <Item id="47005" name="Obter Mais Plugins"/>
                     <Item id="47006" name="Atualizar o Notepad++"/>
                     <Item id="47009" name="Definir Proxy Atualizador..."/>
                     <Item id="48005" name="Importar Plugin(s)..."/>
                     <Item id="48006" name="Importar Tema(s)..."/>
-					<Item id="48018" name="Editar Janela do Menu de Contexto"/>
+                    <Item id="48018" name="Editar Janela do Menu de Contexto"/>
                     <Item id="48009" name="Configurador de Atalho(s)..."/>
-					<Item id="48011" name="Preferências..."/>
-					<Item id="48014" name="Abrir Pasta de Plugins..."/>
+                    <Item id="48011" name="Preferências..."/>
+                    <Item id="48014" name="Abrir Pasta de Plugins..."/>
                     <Item id="48015" name="Admin de Plugins..."/>
                     <Item id="48501" name="Gerar..."/>
                     <Item id="48502" name="Gerar dos ficheiros..."/>
@@ -338,19 +338,19 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="48504" name="Gerar..."/>
                     <Item id="48505" name="Gerar dos ficheiros..."/>
                     <Item id="48506" name="Gerar da selecção para a área de transferência"/>
-					<Item id="49000" name="&amp;Executar..."/>
+                    <Item id="49000" name="&amp;Executar..."/>
 
-					<Item id="50000" name="Conclusão da Função"/>
+                    <Item id="50000" name="Conclusão da Função"/>
                     <Item id="50001" name="Conclusão da Palavra"/>
                     <Item id="50002" name="Dica dos Parâmetros da Função"/>
-					<Item id="50005" name="Alternar para gravação de macro"/>
-					<Item id="50006" name="Conclusão do Caminho"/>
-					<Item id="44042" name="Ocultar Linhas"/>
-					<Item id="42040" name="Abrir Todos os Ficheiros Recentes"/>
-					<Item id="42041" name="Limpar a Lista dos Ficheiros Recentes"/>
-					<Item id="48016" name="Modificar Atalho / Apagar Macro..."/>
-					<Item id="48017" name="Modificar Atalho / Apagar Comando..."/>
-				</Commands>
+                    <Item id="50005" name="Alternar para gravação de macro"/>
+                    <Item id="50006" name="Conclusão do Caminho"/>
+                    <Item id="44042" name="Ocultar Linhas"/>
+                    <Item id="42040" name="Abrir Todos os Ficheiros Recentes"/>
+                    <Item id="42041" name="Limpar a Lista dos Ficheiros Recentes"/>
+                    <Item id="48016" name="Modificar Atalho / Apagar Macro..."/>
+                    <Item id="48017" name="Modificar Atalho / Apagar Comando..."/>
+                </Commands>
             </Main>
             <Splitter>
             </Splitter>
@@ -371,63 +371,63 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item CMID="13" name="Limpar Símbolo Só-de-leitura"/>
                     <Item CMID="14" name="Mover para Nova Janela"/>
                     <Item CMID="15" name="Abrir numa Nova Janela"/>
-					<Item CMID="16" name="Recarregar"/>
-					<Item CMID="17" name="Fechar TUDO para a Esquerda"/>
+                    <Item CMID="16" name="Recarregar"/>
+                    <Item CMID="17" name="Fechar TUDO para a Esquerda"/>
                     <Item CMID="18" name="Fechar TUDO para a Direita"/>
-					<Item CMID="19" name="Abrir Pasta Recipiente no Explorador"/>
+                    <Item CMID="19" name="Abrir Pasta Recipiente no Explorador"/>
                     <Item CMID="20" name="Abrir Pasta Recipiente na Janela do CMD"/>
-					<Item CMID="21" name="Abrir no Visualizador Predefinido"/>
+                    <Item CMID="21" name="Abrir no Visualizador Predefinido"/>
                     <Item CMID="22" name="Fechar TUDO Inalterado"/>
                     <Item CMID="23" name="Abrir Pasta de Conteúdo Como Área de Trabalho"/>
             </TabBar>
         </Menu>
 
         <Dialog>
-		    <Find title="" titleFind="Encontrar" titleReplace="Substituir" titleFindInFiles="Encontrar nos Ficheiros" titleMark="Marca">
+            <Find title="" titleFind="Encontrar" titleReplace="Substituir" titleFindInFiles="Encontrar nos Ficheiros" titleMark="Marca">
                 <Item id="1"    name="Encontrar Seguinte"/>
-				<Item id="1722" name="Direcção para trás"/>
+                <Item id="1722" name="Direcção para trás"/>
                 <Item id="2"    name="Fechar"/>
-				<Item id="1620" name="Encontrar o quê?"/>
-				<Item id="1603" name="Corresponder à &amp;Palavra Completa"/>
+                <Item id="1620" name="Encontrar o quê?"/>
+                <Item id="1603" name="Corresponder à &amp;Palavra Completa"/>
                 <Item id="1604" name="Corresponder &amp;MAI/MIN"/>
                 <Item id="1605" name="&amp;Expressão Regular "/>
-				<Item id="1606" name="&amp;Voltar ao início"/>
-				<Item id="1614" name="Contar"/>
-				<Item id="1615" name="Encontrar Tudo"/>
+                <Item id="1606" name="&amp;Voltar ao início"/>
+                <Item id="1614" name="Contar"/>
+                <Item id="1615" name="Encontrar Tudo"/>
                 <Item id="1616" name="Marcar Linha"/>
                 <Item id="1618" name="Limpar para Cada Procura"/>
-				<Item id="1611" name="Subs&amp;tituir com:"/>
-				<Item id="1608" name="&amp;Substituir"/>
+                <Item id="1611" name="Subs&amp;tituir com:"/>
+                <Item id="1608" name="&amp;Substituir"/>
                 <Item id="1609" name="Substituir &amp;Tudo"/>
-				<Item id="1687" name="Ao deixar a janela"/>
-			 	<Item id="1688" name="Sempre"/>
-				<Item id="1632" name="Na selecção"/>
-			 	<Item id="1633" name="Limpar"/>
-				<Item id="1635" name="Substituir Tudo em Todos os Documentos Abertos"/>
-			 	<Item id="1636" name="Encontrar Tudo em Todos os Documentos Abertos"/>
-				<Item id="1654" name="Filtros:"/>
-			 	<Item id="1655" name="Pasta:"/>
-			 	<Item id="1656" name="Encontrar Tudo"/>
-			 	<Item id="1658" name="Em todas as subpastas"/>
-				<Item id="1659" name="Nas pastas ocultas"/>
-				<Item id="1624" name="Modo de procura"/>
-			 	<Item id="1625" name="Normal"/>
-			 	<Item id="1626" name="Estendido (\n, \r, \t, \0, \x...)"/>
-				<Item id="1660" name="Substituir nos Ficheiros"/>
-				<Item id="1665" name="Substituir em Projectos"/>
+                <Item id="1687" name="Ao deixar a janela"/>
+                <Item id="1688" name="Sempre"/>
+                <Item id="1632" name="Na selecção"/>
+                <Item id="1633" name="Limpar"/>
+                <Item id="1635" name="Substituir Tudo em Todos os Documentos Abertos"/>
+                <Item id="1636" name="Encontrar Tudo em Todos os Documentos Abertos"/>
+                <Item id="1654" name="Filtros:"/>
+                <Item id="1655" name="Pasta:"/>
+                <Item id="1656" name="Encontrar Tudo"/>
+                <Item id="1658" name="Em todas as subpastas"/>
+                <Item id="1659" name="Nas pastas ocultas"/>
+                <Item id="1624" name="Modo de procura"/>
+                <Item id="1625" name="Normal"/>
+                <Item id="1626" name="Estendido (\n, \r, \t, \0, \x...)"/>
+                <Item id="1660" name="Substituir nos Ficheiros"/>
+                <Item id="1665" name="Substituir em Projectos"/>
                 <Item id="1661" name="Seguir Documento Atual"/>
-				<Item id="1662" name="Painel do Projeto 1"/>
+                <Item id="1662" name="Painel do Projeto 1"/>
                 <Item id="1663" name="Painel do Projeto 2"/>
                 <Item id="1664" name="Painel do Projeto 3"/>
-			 	<Item id="1641" name="Encontrar Tudo no Documento Atual"/>
-				<Item id="1686" name="Transparência"/>
-				<Item id="1703" name="&amp;. Corresponde com a nova linha"/>
-				<Item id="1721" name="▲"/>
+                <Item id="1641" name="Encontrar Tudo no Documento Atual"/>
+                <Item id="1686" name="Transparência"/>
+                <Item id="1703" name="&amp;. Corresponde com a nova linha"/>
+                <Item id="1721" name="▲"/>
                 <Item id="1723" name="▼ Encontrar Seguinte"/>
                 <Item id="1725" name="Copiar Texto Marcado"/>
-			</Find>
+            </Find>
 			
-			<FindCharsInRange title="Encontrar Caracteres no Alcance...">
+            <FindCharsInRange title="Encontrar Caracteres no Alcance...">
                 <Item id="2" name="Fechar"/>
                 <Item id="2901" name="Caracteres Não-ASCII (128-255)"/>
                 <Item id="2902" name="Caracteres ASCII (0-127)"/>
@@ -439,24 +439,24 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="2910" name="Encontrar"/>
             </FindCharsInRange>
 			
-			<GoToLine title="Ir para...">
-				<Item id="2007" name="Linha"/>
+            <GoToLine title="Ir para...">
+                <Item id="2007" name="Linha"/>
                 <Item id="2008" name="Posição"/>
-				<Item id="1"    name="&amp;Ir"/>
+                <Item id="1"    name="&amp;Ir"/>
                 <Item id="2"    name="Sair"/>
                 <Item id="2004" name="Está aqui:"/>
                 <Item id="2005" name="Deseja ir para:"/>
                 <Item id="2006" name="Não pode ir além de:"/>
             </GoToLine>
 
-			<Run title="Executar...">
-				<Item id="1903" name="Programa a Executar"/>
-				<Item id="1"    name="Executar"/>
+            <Run title="Executar...">
+                <Item id="1903" name="Programa a Executar"/>
+                <Item id="1"    name="Executar"/>
                 <Item id="2"    name="Cancelar"/>
                 <Item id="1904" name="Guardar..."/>
             </Run>
 			
-			<MD5FromFilesDlg title="Gerar resumo MD5 de ficheiros">
+            <MD5FromFilesDlg title="Gerar resumo MD5 de ficheiros">
                 <Item id="1922" name="Escolher ficheiros para gerar MD5..."/>
                 <Item id="1924" name="Copiar p/ a área de transferência"/>
                 <Item id="2"    name="Fechar"/>
@@ -491,7 +491,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="2"    name="Fechar"/>
             </PluginsAdminDlg>
 
-			<StyleConfig title="Configurador de Estilos">
+            <StyleConfig title="Configurador de Estilos">
                 <Item id="2"    name="Cancelar"/>
                 <Item id="2301" name="Guardar e &amp;Fechar"/>
                 <Item id="2303" name="Transparência"/>
@@ -503,8 +503,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="2207" name="Cor do fundo"/>
                     <Item id="2208" name="Nome:"/>
                     <Item id="2209" name="Tamanho:"/>
-					<Item id="2211" name="Estilo:"/>
-					<Item id="2212" name="Estilo da Cor "/>
+                    <Item id="2211" name="Estilo:"/>
+                    <Item id="2212" name="Estilo da Cor "/>
                     <Item id="2213" name="Estilo do Tipo de Letra "/>
                     <Item id="2214" name="Extensão Predefinida:"/>
                     <Item id="2216" name="Extensão do Utilizador:"/>
@@ -522,7 +522,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 </SubDialog>
             </StyleConfig>
 			
-			<ShortcutMapper title="Configurador de atalhos">
+            <ShortcutMapper title="Configurador de atalhos">
                 <Item id="2602" name="Modificar"/>
                 <Item id="2603" name="Eliminar"/>
                 <Item id="2606" name="Limpar"/>
@@ -628,64 +628,64 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="5012" name="CONFLITO ENCONTRADO!"/>
             </ShortcutMapperSubDialg>
             <UserDefine title="Definido pelo Utilizador">
-				<Item id="20001" name="Inic. Rápida"/>
-				<Item id="20002" name="Renomear"/>
+                <Item id="20001" name="Inic. Rápida"/>
+                <Item id="20002" name="Renomear"/>
                 <Item id="20003" name="Criar Novo..."/>
                 <Item id="20004" name="Remover"/>
                 <Item id="20005" name="Guardar Como..."/>
                 <Item id="20007" name="Idioma do Utilizador: "/>
                 <Item id="20009" name="Ext.:"/>
-				<Item id="20012" name="Ignorar MAI/MIN"/>
-				<Item id="20011" name="Transparência"/>
+                <Item id="20012" name="Ignorar MAI/MIN"/>
+                <Item id="20011" name="Transparência"/>
                 <Item id="20015" name="Importar..."/>
-				<Item id="20016" name="Exportar..."/>
-				<StylerDialog title="Janela do Estilo">
-					<Item id="25030" name="Opções do Tipo de Letra:"/>
-					<Item id="25006" name="Cor do Primeiro Plano"/>
-					<Item id="25007" name="Cor do Fundo"/>
-					<Item id="25031" name="Nome:"/>
-					<Item id="25032" name="Tamanho:"/>
-					<Item id="25001" name="Negrito"/>
-					<Item id="25002" name="Itálico"/>
-					<Item id="25003" name="Sublinhar"/>
-					<Item id="25029" name="Distribuição:"/>
-					<Item id="25008" name="Delimitador 1"/>
-					<Item id="25009" name="Delimitador 2"/>
-					<Item id="25010" name="Delimitador 3"/>
-					<Item id="25011" name="Delimitador 4"/>
-					<Item id="25012" name="Delimitador 5"/>
-					<Item id="25013" name="Delimitador 6"/>
-					<Item id="25014" name="Delimitador 7"/>
-					<Item id="25015" name="Delimitador 8"/>
-					<Item id="25018" name="Palavra-chave 1"/>
-					<Item id="25019" name="Palavra-chave 2"/>
-					<Item id="25020" name="Palavra-chave 3"/>
-					<Item id="25021" name="Palavra-chave 4"/>
-					<Item id="25022" name="Palavra-chave 5"/>
-					<Item id="25023" name="Palavra-chave 6"/>
-					<Item id="25024" name="Palavra-chave 7"/>
-					<Item id="25025" name="Palavra-chave 8"/>
-					<Item id="25016" name="Comentário"/>
-					<Item id="25017" name="Linha do Comentário"/>
-					<Item id="25026" name="Operador 1"/>
-					<Item id="25027" name="Operador 2"/>
-					<Item id="25028" name="Números"/>
-					<Item id="1" name="OK"/>
+                <Item id="20016" name="Exportar..."/>
+                <StylerDialog title="Janela do Estilo">
+                    <Item id="25030" name="Opções do Tipo de Letra:"/>
+                    <Item id="25006" name="Cor do Primeiro Plano"/>
+                    <Item id="25007" name="Cor do Fundo"/>
+                    <Item id="25031" name="Nome:"/>
+                    <Item id="25032" name="Tamanho:"/>
+                    <Item id="25001" name="Negrito"/>
+                    <Item id="25002" name="Itálico"/>
+                    <Item id="25003" name="Sublinhar"/>
+                    <Item id="25029" name="Distribuição:"/>
+                    <Item id="25008" name="Delimitador 1"/>
+                    <Item id="25009" name="Delimitador 2"/>
+                    <Item id="25010" name="Delimitador 3"/>
+                    <Item id="25011" name="Delimitador 4"/>
+                    <Item id="25012" name="Delimitador 5"/>
+                    <Item id="25013" name="Delimitador 6"/>
+                    <Item id="25014" name="Delimitador 7"/>
+                    <Item id="25015" name="Delimitador 8"/>
+                    <Item id="25018" name="Palavra-chave 1"/>
+                    <Item id="25019" name="Palavra-chave 2"/>
+                    <Item id="25020" name="Palavra-chave 3"/>
+                    <Item id="25021" name="Palavra-chave 4"/>
+                    <Item id="25022" name="Palavra-chave 5"/>
+                    <Item id="25023" name="Palavra-chave 6"/>
+                    <Item id="25024" name="Palavra-chave 7"/>
+                    <Item id="25025" name="Palavra-chave 8"/>
+                    <Item id="25016" name="Comentário"/>
+                    <Item id="25017" name="Linha do Comentário"/>
+                    <Item id="25026" name="Operador 1"/>
+                    <Item id="25027" name="Operador 2"/>
+                    <Item id="25028" name="Números"/>
+                    <Item id="1" name="OK"/>
                     <Item id="2" name="Cancelar"/>
-				</StylerDialog>
-				<Folder title="Pasta &amp;Predefinida">
+                </StylerDialog>
+                <Folder title="Pasta &amp;Predefinida">
                     <Item id="21101" name="Estilo Predefinido"/>
-					<Item id="21102" name="Estilizar"/>
+                    <Item id="21102" name="Estilizar"/>
                     <Item id="21105" name="Documentação:"/>
                     <Item id="21104" name="Site do doc. temporário:"/>
                     <Item id="21106" name="Fold compact (Também dobrar linhas sem dados)"/>
-					<Item id="21220" name="Dobrar no código estilo 1:"/>
-					<Item id="21224" name="Abrir:"/>
+                    <Item id="21220" name="Dobrar no código estilo 1:"/>
+                    <Item id="21224" name="Abrir:"/>
                     <Item id="21225" name="Meio:"/>
                     <Item id="21226" name="Fechar:"/>
                     <Item id="21227" name="Estilizar"/>
-					<Item id="21320" name="Dobrar no código estilo 2 (necessário separadores):"/>
-					<Item id="21324" name="Abrir:"/>
+                    <Item id="21320" name="Dobrar no código estilo 2 (necessário separadores):"/>
+                    <Item id="21324" name="Abrir:"/>
                     <Item id="21325" name="Meio:"/>
                     <Item id="21326" name="Fechar:"/>
                     <Item id="21327" name="Estilizar"/>
@@ -694,7 +694,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="21425" name="Meio:"/>
                     <Item id="21426" name="Fechar:"/>
                     <Item id="21127" name="Estilizar"/>
-				</Folder>
+                </Folder>
                 <Keywords title="Listas das Palavras-chave">
                     <Item id="22101" name="1º Grupo"/>
                     <Item id="22201" name="2º Grupo"/>
@@ -704,7 +704,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="22501" name="6º Grupo"/>
                     <Item id="22551" name="7º Grupo"/>
                     <Item id="22601" name="8º Grupo"/>
-					<Item id="22121" name="Modo Prefixo"/>
+                    <Item id="22121" name="Modo Prefixo"/>
                     <Item id="22221" name="Modo Prefixo"/>
                     <Item id="22321" name="Modo Prefixo"/>
                     <Item id="22421" name="Modo Prefixo"/>
@@ -712,7 +712,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="22521" name="Modo Prefixo"/>
                     <Item id="22571" name="Modo Prefixo"/>
                     <Item id="22621" name="Modo Prefixo"/>
-					<Item id="22122" name="Estilizar"/>
+                    <Item id="22122" name="Estilizar"/>
                     <Item id="22222" name="Estilizar"/>
                     <Item id="22322" name="Estilizar"/>
                     <Item id="22422" name="Estilizar"/>
@@ -720,9 +720,9 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="22522" name="Estilizar"/>
                     <Item id="22572" name="Estilizar"/>
                     <Item id="22622" name="Estilizar"/>
-				</Keywords>
+                </Keywords>
                 <Comment title="Comentário &amp; Número">
-					<Item id="23003" name="Posição linha comentário"/>
+                    <Item id="23003" name="Posição linha comentário"/>
                     <Item id="23004" name="Permitir em qualquer parte"/>
                     <Item id="23005" name="Forçar no início da linha"/>
                     <Item id="23006" name="Permitir espaço em branco precedente"/>
@@ -732,7 +732,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="23324" name="Continuar caráter"/>
                     <Item id="23325" name="Fechar"/>
                     <Item id="23301" name="Linha do Comentário"/>
-					<Item id="23124" name="Estilizar"/>
+                    <Item id="23124" name="Estilizar"/>
                     <Item id="23122" name="Abrir"/>
                     <Item id="23123" name="Fechar"/>
                     <Item id="23101" name="Bloco do Comentário"/>
@@ -752,52 +752,52 @@ The comments are here for explanation, it's not necessary to translate them.
                 </Comment>
                 <Operator title="Operadores">
                     <Item id="24101" name="Operadores Ativados:"/>
-					<Item id="24113" name="Estilizar"/>
-					<Item id="24116" name="Operadores 1"/>
-					<Item id="24117" name="Operadores 2 (necessário separadores)"/>
+                    <Item id="24113" name="Estilizar"/>
+                    <Item id="24116" name="Operadores 1"/>
+                    <Item id="24117" name="Operadores 2 (necessário separadores)"/>
                     <Item id="24201" name="Delimitador 1"/>
-					<Item id="24220" name="Abrir:"/>
+                    <Item id="24220" name="Abrir:"/>
                     <Item id="24221" name="Esc:"/>
                     <Item id="24222" name="Fechar:"/>
                     <Item id="24223" name="Estilizar"/>
-					<Item id="24301" name="Delimitador 2"/>
-					<Item id="24320" name="Abrir:"/>
+                    <Item id="24301" name="Delimitador 2"/>
+                    <Item id="24320" name="Abrir:"/>
                     <Item id="24321" name="Esc:"/>
                     <Item id="24322" name="Fechar:"/>
                     <Item id="24323" name="Estilizar"/>
                     <Item id="24401" name="Delimitador - Estilo 3"/>
-					<Item id="24420" name="Abrir:"/>
+                    <Item id="24420" name="Abrir:"/>
                     <Item id="24421" name="Esc:"/>
                     <Item id="24422" name="Fechar:"/>
                     <Item id="24423" name="Estilizar"/>
                     <Item id="24451" name="Delimitador - Estilo 4"/>
-					<Item id="24470" name="Abrir:"/>
+                    <Item id="24470" name="Abrir:"/>
                     <Item id="24471" name="Esc:"/>
                     <Item id="24472" name="Fechar:"/>
                     <Item id="24473" name="Estilizar"/>
                     <Item id="24501" name="Delimitador - Estilo 5"/>
-					<Item id="24520" name="Abrir:"/>
+                    <Item id="24520" name="Abrir:"/>
                     <Item id="24521" name="Esc:"/>
                     <Item id="24522" name="Fechar:"/>
                     <Item id="24523" name="Estilizar"/>
                     <Item id="24551" name="Delimitador - Estilo 6"/>
-					<Item id="24570" name="Abrir:"/>
+                    <Item id="24570" name="Abrir:"/>
                     <Item id="24571" name="Esc:"/>
                     <Item id="24572" name="Fechar:"/>
                     <Item id="24573" name="Estilizar"/>
                     <Item id="24601" name="Delimitador - Estilo 7"/>
-					<Item id="24620" name="Abrir:"/>
+                    <Item id="24620" name="Abrir:"/>
                     <Item id="24621" name="Esc:"/>
                     <Item id="24622" name="Fechar:"/>
                     <Item id="24623" name="Estilizar"/>
                     <Item id="24651" name="Delimitador - Estilo 8"/>
-					<Item id="24670" name="Abrir:"/>
+                    <Item id="24670" name="Abrir:"/>
                     <Item id="24671" name="Esc:"/>
                     <Item id="24672" name="Fechar:"/>
                     <Item id="24673" name="Estilizar"/>
 				</Operator>
             </UserDefine>
-			<Preference title="Preferências">
+            <Preference title="Preferências">
                 <Item id="6001" name="Fechar"/>
                 <Global title="Geral">
                     <Item id="6101" name="Barra de Ferramentas"/>
@@ -823,31 +823,31 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6122" name="Ocultar (utilizar Alt ou F10 para alternar)"/>
                     <Item id="6123" name="Localização"/>
 
-					<Item id="6125" name="Painel Lista Documento"/>
+                    <Item id="6125" name="Painel Lista Documento"/>
                     <Item id="6126" name="Mostrar"/>
-					<Item id="6127" name="Desativar coluna da extensão"/>
+                    <Item id="6127" name="Desativar coluna da extensão"/>
 					
-					<Item id="6128" name="Alternar ícones"/>
-				</Global>
+                    <Item id="6128" name="Alternar ícones"/>
+                </Global>
                 <Scintillas title="Edição">
-					<Item id="6216" name="Definições do Cursor"/>
+                    <Item id="6216" name="Definições do Cursor"/>
                     <Item id="6217" name="Largura:"/>
                     <Item id="6219" name="Cintilação:"/>
                     <Item id="6221" name="R"/> <!-- Rápida -->
                     <Item id="6222" name="L"/> <!-- Lenta -->
                     <Item id="6225" name="Ativar (Ctrl+ Clique Rato/seleção)"/>
-					<Item id="6227" name="Continuar Linha"/>
-					<Item id="6228" name="Predefinição"/>
-					<Item id="6229" name="Alinhada"/>
+                    <Item id="6227" name="Continuar Linha"/>
+                    <Item id="6228" name="Predefinição"/>
+                    <Item id="6229" name="Alinhada"/>
                     <Item id="6230" name="Indentar"/>
-					<Item id="6234" name="Desativar a função de deslocamento avançada se tiver problemas com o painel tátil"/>
-					<Item id="6214" name="Ativar o realce da linha atual"/>
-					<Item id="6215" name="Ativar Letra Suave"/>
-					<Item id="6236" name="Ativar deslizamento para além da última linha"/>
+                    <Item id="6234" name="Desativar a função de deslocamento avançada se tiver problemas com o painel tátil"/>
+                    <Item id="6214" name="Ativar o realce da linha atual"/>
+                    <Item id="6215" name="Ativar Letra Suave"/>
+                    <Item id="6236" name="Ativar deslizamento para além da última linha"/>
                     <Item id="6239" name="Manter selecção quando clicar com o botão direito do rato fora da selecção"/>
                 </Scintillas>
 				
-				<MarginsBorderEdge title="Margens/Borda/Limite">
+                <MarginsBorderEdge title="Margens/Borda/Limite">
                     <Item id="6201" name="Estilo de margem da pasta"/>
                     <Item id="6202" name="Simples"/>
                     <Item id="6203" name="Seta"/>
@@ -885,33 +885,33 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
                     <Item id="6411" name="Linguagem Predefinida:"/>
                     <Item id="6419" name="Novo Documento"/>
                     <Item id="6420" name="Aplicar aos ficheiros abertos ANSI"/>
-				</NewDoc>
+                </NewDoc>
 
-				<DefaultDir title="Pasta Predefinida">
-					<Item id="6413" name="Pasta Predefinida (Abrir/Guardar)"/>
+                <DefaultDir title="Pasta Predefinida">
+                    <Item id="6413" name="Pasta Predefinida (Abrir/Guardar)"/>
                     <Item id="6414" name="Acompanhar o documento atual"/>
                     <Item id="6415" name="Lembrar a última pasta utilizada"/>
-					<Item id="6431" name="Abrir todos os ficheiros da pasta em vez de lançar a Pasta como área de trabalho ao largar a pasta"/>
-				</DefaultDir>
+                    <Item id="6431" name="Abrir todos os ficheiros da pasta em vez de lançar a Pasta como área de trabalho ao largar a pasta"/>
+                </DefaultDir>
 
-				<FileAssoc title="Associação de Ficheiro">
-				    <Item id="4008" name="Saia do Notepad ++ e reinicie o Notepad ++ no modo Administrador para utilizar esta funcionalidade."/>
+                <FileAssoc title="Associação de Ficheiro">
+                    <Item id="4008" name="Saia do Notepad ++ e reinicie o Notepad ++ no modo Administrador para utilizar esta funcionalidade."/>
                     <Item id="4009" name="Extensões suportadas:"/>
                     <Item id="4010" name="Extensões registadas:"/>
                 </FileAssoc>
-				<Language title="Linguagem">
+                <Language title="Linguagem">
                     <Item id="6505" name="Itens Disponíveis"/>
                     <Item id="6506" name="Itens Desativados"/>
                     <Item id="6507" name="Compactar o Menu da Linguagem"/>
                     <Item id="6508" name="Menu da Linguagem"/>
-					<Item id="6301" name="Definições das Tabulações"/>
+                    <Item id="6301" name="Definições das Tabulações"/>
                     <Item id="6302" name="Substituir com espaço"/>
                     <Item id="6303" name="Tamanho do separador: "/>
                     <Item id="6510" name="Usar valor predefinido"/>
                     <Item id="6335" name="Tratar a barra invertida como carácter escape para SQL"/>
                 </Language>
 
-				<Highlighting title="A Destacar">
+                <Highlighting title="A Destacar">
                     <Item id="6333" name="Destaque inteligente"/>
                     <Item id="6326" name="Ativar"/>
                     <Item id="6332" name="Letra correspondente"/>
@@ -950,8 +950,8 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
                     <Item id="6722" name="Parte Direita"/>
 	                <Item id="6723" name="Adicionar"/>
                     <Item id="6725" name="Variável:"/>
-					<Item id="6727" name="Aqui mostra as definições da sua variável"/>
-					<Item id="6728" name="Cabeçalho e Rodapé"/>
+                    <Item id="6727" name="Aqui mostra as definições da sua variável"/>
+                    <Item id="6728" name="Cabeçalho e Rodapé"/>
                 </Print>
 				
 				<Searching title="A Procurar">
@@ -961,45 +961,45 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
                     <Item id="6904" name="Confirmar Substituir Tudo em Todos os Documentos Abertos"/>
                 </Searching>
 
-				<RecentFilesHistory title="Histórico Fic. Recentes">
+                <RecentFilesHistory title="Histórico Fic. Recentes">
                     <Item id="6304" name="Histórico dos Ficheiros Recentes"/>
-	                <Item id="6306" name="Número Máximo de Entradas:"/>
-					<Item id="6305" name="Não Verificar ao Iniciar"/>
-					<Item id="6429" name="Exibir"/>
+                    <Item id="6306" name="Número Máximo de Entradas:"/>
+                    <Item id="6305" name="Não Verificar ao Iniciar"/>
+                    <Item id="6429" name="Exibir"/>
                     <Item id="6424" name="Sem Submenu"/>
                     <Item id="6425" name="Só Nome do Ficheiro"/>
                     <Item id="6426" name="Caminho Completo Nome Ficheiro"/>
                     <Item id="6427" name="Personalizar comprimento máximo:"/>
                 </RecentFilesHistory>
 
-				<Backup title="Cópia de Segurança">
-					<Item id="6817" name="Captura de ecrã da sessão e cópia periódica"/>
-					<Item id="6818" name="Ativar a Captura de ecrã da sessão e cópia periódica"/>
-					<Item id="6819" name="Efetuar cópia a cada"/>
-					<Item id="6821" name="segundos"/>
-					<Item id="6822" name="Caminho da Cópia:"/>
-					<Item id="6309" name="Lembrar a sessão atual para a próxima execução"/>
-					<Item id="6801" name="Cópia de Segurança"/>
-					<Item id="6315" name="Nenhuma"/>
+                <Backup title="Cópia de Segurança">
+                    <Item id="6817" name="Captura de ecrã da sessão e cópia periódica"/>
+                    <Item id="6818" name="Ativar a Captura de ecrã da sessão e cópia periódica"/>
+                    <Item id="6819" name="Efetuar cópia a cada"/>
+                    <Item id="6821" name="segundos"/>
+                    <Item id="6822" name="Caminho da Cópia:"/>
+                    <Item id="6309" name="Lembrar a sessão atual para a próxima execução"/>
+                    <Item id="6801" name="Cópia de Segurança"/>
+                    <Item id="6315" name="Nenhuma"/>
                     <Item id="6316" name="Cópia de Segurança Simples"/>
                     <Item id="6317" name="Cópia de Segurança Completa"/>
                     <Item id="6804" name="Personalizar Pasta"/>
                     <Item id="6803" name="Pasta: "/>
-				</Backup>
+                </Backup>
 
 				<AutoCompletion title="Conclusão Automática">
 					<Item id="6115" name="Indentação Automática"/>
 					<Item id="6807" name="Conclusão Automática"/>
-	                <Item id="6808" name="Ativar conclusão automática"/>
+                    <Item id="6808" name="Ativar conclusão automática"/>
                     <Item id="6809" name="Completar função"/>
                     <Item id="6810" name="Completar palavra"/>
-					<Item id="6816" name="Completar função e palavra"/>
-					<Item id="6824" name="Ignorar números"/>
+                    <Item id="6816" name="Completar função e palavra"/>
+                    <Item id="6824" name="Ignorar números"/>
                     <Item id="6811" name="De"/>
                     <Item id="6813" name="º. caráter"/>
                     <Item id="6814" name="Valor válido: 1 - 9"/>
                     <Item id="6815" name="Sugerir dicas da função ao escrever"/>
-					<Item id="6851" name="Inserir Automático"/>
+                    <Item id="6851" name="Inserir Automático"/>
                     <Item id="6857" name="Etiqueta Fechar html/xml"/>
                     <Item id="6858" name="Abrir"/>
                     <Item id="6859" name="Fechar"/>
@@ -1008,7 +1008,7 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
                     <Item id="6866" name="Par 3 Correspondido:"/>
                 </AutoCompletion>
 
-				<MultiInstance title="Múltiplas Instâncias">
+                <MultiInstance title="Múltiplas Instâncias">
                     <Item id="6151" name="Definições das Múltiplas Instâncias"/>
                     <Item id="6152" name="Abrir sessão numa nova instância do Notepad++"/>
                     <Item id="6153" name="Sempre no modo de Múltiplas Instâncias"/>
@@ -1021,13 +1021,13 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
                     <Item id="6252" name="Abrir"/>
                     <Item id="6255" name="Fechar"/>
                     <Item id="6256" name="Permitir em várias linhas"/>
-					<Item id="6161" name="Lista de caracteres de palavras"/>
+                    <Item id="6161" name="Lista de caracteres de palavras"/>
                     <Item id="6162" name="Usar a lista de caracteres de palavra predefinida como está"/>
                     <Item id="6163" name="Adicione o seu carácter como parte da palavra
 (não o escolha a menos que saiba o que está a fazer)"/>
-				</Delimiter>
+                </Delimiter>
 
-				<Cloud title="&amp; Ligação Cloud">
+                <Cloud title="&amp; Ligação Cloud">
                     <Item id="6262" name="Definições na nuvem"/>
                     <Item id="6263" name="Sem Nuvem"/>
                     <Item id="6267" name="Defina o seu caminho de localização na nuvem aqui:"/>
@@ -1038,7 +1038,7 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
                     <Item id="6264" name="Esquemas personalizados URI:"/>
                 </Cloud>
 				
-				<SearchEngine title="Motor de Busca">
+                <SearchEngine title="Motor de Busca">
                     <Item id="6271" name="Motor de Busca (para comando &quot;Pesquisar na Internet&quot;)"/>
                     <Item id="6272" name="DuckDuckGo"/>
                     <Item id="6273" name="Google"/>
@@ -1049,8 +1049,8 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
                     <Item id="6278" name="Exemplo: https://www.google.com/search?q=$(CURRENT_WORD)"/>
                 </SearchEngine>
 
-				<MISC title="Diversos">
-				    <ComboBox id="6347">
+                <MISC title="Diversos">
+                    <ComboBox id="6347">
                         <Element name="Ativar"/>
                         <Element name="Ativar para todos os ficheiros abertos"/>
                         <Element name="Desativar"/>
@@ -1061,11 +1061,11 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
                     <Item id="6325" name="Depois de atualizar, ir para a última linha"/>
                     <Item id="6322" name="Extensão do Ficheiro da Sessão:"/>
                     <Item id="6323" name="Ativar Atualização Autom. do Notepad++"/>
-					<Item id="6351" name="Defina Guardar filtro de extensão de ficheiro da janela para *.*"/>
+                    <Item id="6351" name="Defina Guardar filtro de extensão de ficheiro da janela para *.*"/>
                     <Item id="6324" name="Mudança de Documento (Ctrl+TAB)"/>
-					<Item id="6331" name="Só mostrar o nome do ficheiro na Barra do Título"/>
-					<Item id="6334" name="Detetar automaticamente a codificação de caráter"/>
-					<Item id="6349" name="Usar DirectWrite (pode melhorar a renderização de caracteres especiais, é necessário reiniciar o Notepad ++)"/>
+                    <Item id="6331" name="Só mostrar o nome do ficheiro na Barra do Título"/>
+                    <Item id="6334" name="Detetar automaticamente a codificação de caráter"/>
+                    <Item id="6349" name="Usar DirectWrite (pode melhorar a renderização de caracteres especiais, é necessário reiniciar o Notepad ++)"/>
                     <Item id="6337" name="Extensão de ficheiro da área de trabalho:"/>
                     <Item id="6114" name="Ativar"/>
                     <Item id="6117" name="Ativar comportamento MRU"/>
@@ -1073,39 +1073,39 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
                     <Item id="6345" name="Espreitar no separador"/>
                     <Item id="6346" name="Espreitar no mapa do documento"/>
                     <Item id="6360" name="Silenciar todos os sons"/>
-				</MISC>
-			</Preference>
-			<MultiMacro title="Executar uma Macro Várias Vezes">
+                </MISC>
+            </Preference>
+            <MultiMacro title="Executar uma Macro Várias Vezes">
                 <Item id="1" name="Executar"/>
                 <Item id="2" name="Cancelar"/>
-				<Item id="8006" name="Macro a executar:"/>
-				<Item id="8001" name="Executar:"/>
-				<Item id="8005" name="vez(es)"/>
-				<Item id="8002" name="Executar até ao fim do ficheiro"/>
+                <Item id="8006" name="Macro a executar:"/>
+                <Item id="8001" name="Executar:"/>
+                <Item id="8005" name="vez(es)"/>
+                <Item id="8002" name="Executar até ao fim do ficheiro"/>
             </MultiMacro>
-			<Window title="Janelas">
+            <Window title="Janelas">
                 <Item id="1" name="Ativar"/>
                 <Item id="2" name="Confirmar"/>
                 <Item id="7002" name="Guardar"/>
                 <Item id="7003" name="Fechar janela(s)"/>
                 <Item id="7004" name="Ordenar separadores"/>
-			</Window>
-			<ColumnEditor title="Editor de Coluna">
-				<Item id="2023" name="Texto a inserir "/>
-				<Item id="2033" name="Número a inserir "/>
+            </Window>
+            <ColumnEditor title="Editor de Coluna">
+                <Item id="2023" name="Texto a inserir "/>
+                <Item id="2033" name="Número a inserir "/>
                 <Item id="2030" name="Número inicial:"/>
-				<Item id="2031" name="Aumentar em:"/>
-				<Item id="2035" name="Zeros no início"/>
-				<Item id="2036" name="&amp;Repetir :"/>
-				<Item id="2032" name="Formato"/>
-				<Item id="2024" name="Dec"/>
+                <Item id="2031" name="Aumentar em:"/>
+                <Item id="2035" name="Zeros no início"/>
+                <Item id="2036" name="&amp;Repetir :"/>
+                <Item id="2032" name="Formato"/>
+                <Item id="2024" name="Dec"/>
                 <Item id="2025" name="Oct"/>
                 <Item id="2026" name="Hex"/>
                 <Item id="2027" name="Bin"/>
-				<Item id="1" name="Confirmar"/>
+                <Item id="1" name="Confirmar"/>
                 <Item id="2" name="Cancelar"/>
             </ColumnEditor>
-			<FindInFinder title="Encontrar em resultados de pesquisa">
+            <FindInFinder title="Encontrar em resultados de pesquisa">
                 <Item id="1"    name="Encontrar Tudo"/>
                 <Item id="2"    name="Fechar"/>
                 <Item id="1711" name="Encontrar o quê :"/>
@@ -1126,11 +1126,11 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
                 <Item id="4" name="Sim a tudo"/>
                 <Item id="5" name="Não a tudo"/>
             </DoSaveOrNot>
-		</Dialog>
-		<MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
-			<ContextMenuXmlEditWarning title="Editar contextMenu" message="Editar o contextMenu.xml permite-lhe modificar o menu de contexto do Notepad++.
+        </Dialog>
+        <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <ContextMenuXmlEditWarning title="Editar contextMenu" message="Editar o contextMenu.xml permite-lhe modificar o menu de contexto do Notepad++.
 Tem de reiniciar o seu Notepad++ para que as alterações do contextMenu.xml tenham efeito."/>
-			<SaveCurrentModifWarning title="Guardar Modificação Atual" message="Deve guardar a modificação atual.
+            <SaveCurrentModifWarning title="Guardar Modificação Atual" message="Deve guardar a modificação atual.
 Todas as modificações guardadas não podem ser anuladas.
 
 Continuar?"/> <!-- HowToReproduce: when you openned file is modified but unsaved yet, and you are changing file encoding. -->
@@ -1145,7 +1145,7 @@ Continuar?"/> <!-- HowToReproduce: when you openned file is modified and saved, 
             <RenameTabTemporaryNameAlreadyInUse title="Falha ao Renomear" message="O nome especificado já está a ser utilizado noutro separador."/> <!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
             <DeleteFileFailed title="Eliminar ficheiro" message="Falha ao eliminar o ficheiro."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			
-			<NbFileToOpenImportantWarning title="Está a tentar abrir demasiados ficheiros." message="Está prestes a abrir $INT_REPLACE$ ficheiros.
+            <NbFileToOpenImportantWarning title="Está a tentar abrir demasiados ficheiros." message="Está prestes a abrir $INT_REPLACE$ ficheiros.
 Tem a certeza que os deseja abrir?"/> <!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into Notepad++. -->
             <SettingsOnCloudError title="Definições na Nuvem" message="Parece que o caminho das definições na nuvem é definido numa unidade de leitura apenas,
 ou sobre uma pasta com direitos de privilégio necessários para acesso à escrita.
@@ -1223,14 +1223,14 @@ Continuar?"/>
             <NeedToRestartToLoadPlugins title="O Notepad++ necessita de ser iniciado novamente" message="Tem de reiniciar o Notepad++ para carregar os plugins que instalou."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
 		</MessageBox>
 		<ClipboardHistory>
-			<PanelTitle name="Histórico da Área de Transferência"/>
+            <PanelTitle name="Histórico da Área de Transferência"/>
         </ClipboardHistory>
         <DocSwitcher>
-			<PanelTitle name="Mudança de Documento"/>
-			<ColumnName name="Nome"/>
-			<ColumnExt name="Ext."/>
+            <PanelTitle name="Mudança de Documento"/>
+            <ColumnName name="Nome"/>
+            <ColumnExt name="Ext."/>
         </DocSwitcher>
-		<WindowsDlg>
+        <WindowsDlg>
             <ColumnName name="Nome"/>
             <ColumnPath name="Caminho"/>
             <ColumnType name="Tipo"/>
@@ -1238,22 +1238,22 @@ Continuar?"/>
             <NbDocsTotal name="total de documentos:"/>
         </WindowsDlg>
         <AsciiInsertion>
-			<PanelTitle name="Painel de Inserção ASCII"/>
-			<ColumnVal name="Valor"/>
-			<ColumnHex name="Hex"/>
-			<ColumnChar name="Caráter"/>
-			<ColumnHtmlNumber name="Número HTML"/>
+            <PanelTitle name="Painel de Inserção ASCII"/>
+            <ColumnVal name="Valor"/>
+            <ColumnHex name="Hex"/>
+            <ColumnChar name="Caráter"/>
+            <ColumnHtmlNumber name="Número HTML"/>
             <ColumnHtmlName name="Código HTML"/>
         </AsciiInsertion>
         <DocumentMap>
-			<PanelTitle name="Mapa Documento"/>
+            <PanelTitle name="Mapa Documento"/>
         </DocumentMap>
         <FunctionList>
-			<PanelTitle name="Lista da Função"/>
-			<SortTip name="Ordenar" />
-			<ReloadTip name="Recarregar" />
+            <PanelTitle name="Lista da Função"/>
+            <SortTip name="Ordenar" />
+            <ReloadTip name="Recarregar" />
         </FunctionList>
-		<FolderAsWorkspace>
+        <FolderAsWorkspace>
             <PanelTitle name="Pasta como área de trabalho"/>
             <SelectFolderFromBrowserString name="Selecione uma pasta para adicionar em Pasta como painel de Área de trabalho"/>
             <ExpandAllFoldersTip name="Expandir todas as pastas"/>
@@ -1272,54 +1272,54 @@ Continuar?"/>
                 <Item id="3520" name="Copiar nome do ficheiro"/>
             </Menus>
         </FolderAsWorkspace>
-		<ProjectManager>
-			<PanelTitle name="Projeto"/>
-			<WorkspaceRootName name="Área de Trabalho"/>
-			<NewProjectName name="Nome do Projeto"/>
-			<NewFolderName name="Nome da Pasta"/>
-			<Menus>
-				<Entries>
-					<Item id="0" name="Área de Trabalho"/>
-					<Item id="1" name="Editar"/>
-				</Entries>
-				<WorkspaceMenu>
-					<Item id="3122" name="Nova Área de Trabalho"/>
-					<Item id="3123" name="Abrir Área de Trabalho"/>
-					<Item id="3124" name="Recarregar Área de Trabalho"/>
-					<Item id="3125" name="Guardar"/>
-					<Item id="3126" name="Guardar Como..."/>
-					<Item id="3127" name="Guardar uma Cópia Como..."/>
-					<Item id="3121" name="Adicionar Novo Projeto"/>
-					<Item id="3128" name="Encontrar em Projetos..."/>
-				</WorkspaceMenu>
-				<ProjectMenu>
-					<Item id="3111" name="Renomear"/>
-					<Item id="3112" name="Adicionar Pasta"/>
-					<Item id="3113" name="Adicionar Ficheiros..."/>
-					<Item id="3117" name="Adicionar Ficheiros da Pasta..."/>
-					<Item id="3114" name="Remover"/>
-					<Item id="3118" name="Mover para Cima"/>
-					<Item id="3119" name="Mover Para Baixo"/>
-				</ProjectMenu>
-				<FolderMenu>
-					<Item id="3111" name="Renomear"/>
-					<Item id="3112" name="Adicionar Pasta"/>
-					<Item id="3113" name="Adicionar Ficheiros..."/>
-					<Item id="3114" name="Remover"/>
-					<Item id="3117" name="Adicionar Ficheiros da Pasta..."/>
-					<Item id="3118" name="Mover para Cima"/>
-					<Item id="3119" name="Mover Para Baixo"/>
-				</FolderMenu>
-				<FileMenu>
-					<Item id="3111" name="Renomear"/>
-					<Item id="3115" name="Remover"/>
-					<Item id="3116" name="Modificar Caminho do Ficheiro"/>
-					<Item id="3118" name="Mover para Cima"/>
-					<Item id="3119" name="Mover Para Baixo"/>
-				</FileMenu>
-			</Menus>
-		</ProjectManager>
-		<MiscStrings>
+        <ProjectManager>
+            <PanelTitle name="Projeto"/>
+            <WorkspaceRootName name="Área de Trabalho"/>
+            <NewProjectName name="Nome do Projeto"/>
+            <NewFolderName name="Nome da Pasta"/>
+            <Menus>
+            	<Entries>
+                    <Item id="0" name="Área de Trabalho"/>
+                    <Item id="1" name="Editar"/>
+                </Entries>
+                <WorkspaceMenu>
+                    <Item id="3122" name="Nova Área de Trabalho"/>
+                    <Item id="3123" name="Abrir Área de Trabalho"/>
+                    <Item id="3124" name="Recarregar Área de Trabalho"/>
+                    <Item id="3125" name="Guardar"/>
+                    <Item id="3126" name="Guardar Como..."/>
+                    <Item id="3127" name="Guardar uma Cópia Como..."/>
+                    <Item id="3121" name="Adicionar Novo Projeto"/>
+                    <Item id="3128" name="Encontrar em Projetos..."/>
+                </WorkspaceMenu>
+                <ProjectMenu>
+                    <Item id="3111" name="Renomear"/>
+                    <Item id="3112" name="Adicionar Pasta"/>
+                    <Item id="3113" name="Adicionar Ficheiros..."/>
+                    <Item id="3117" name="Adicionar Ficheiros da Pasta..."/>
+                    <Item id="3114" name="Remover"/>
+                    <Item id="3118" name="Mover para Cima"/>
+                    <Item id="3119" name="Mover Para Baixo"/>
+                </ProjectMenu>
+                <FolderMenu>
+                    <Item id="3111" name="Renomear"/>
+                    <Item id="3112" name="Adicionar Pasta"/>
+                    <Item id="3113" name="Adicionar Ficheiros..."/>
+                    <Item id="3114" name="Remover"/>
+                    <Item id="3117" name="Adicionar Ficheiros da Pasta..."/>
+                    <Item id="3118" name="Mover para Cima"/>
+                    <Item id="3119" name="Mover Para Baixo"/>
+                </FolderMenu>
+                <FileMenu>
+                    <Item id="3111" name="Renomear"/>
+                    <Item id="3115" name="Remover"/>
+                    <Item id="3116" name="Modificar Caminho do Ficheiro"/>
+                    <Item id="3118" name="Mover para Cima"/>
+                    <Item id="3119" name="Mover Para Baixo"/>
+                </FileMenu>
+            </Menus>
+        </ProjectManager>
+        <MiscStrings>
             <!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
             <word-chars-list-tip value="Isto permite que inclua caracteres adicionais nos caracteres da palavra atual ao clicar duas vezes para selecionar ou pesquisar com a opção &quot;Corresponder apenas à palavra inteira&quot; marcada."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
 
@@ -1421,7 +1421,7 @@ Procurar em todos os ficheiros, exceto exe, obj &amp;&amp; log:
             <find-result-line-prefix value="Linha"/> <!-- Must not begin with space or tab character -->
             <find-regex-zero-length-match value="correspondência de comprimento zero" />
             <session-save-folder-as-workspace value="Guardar pasta como área de trabalho" />
-			<tab-untitled-string value="novo " />
+            <tab-untitled-string value="novo " />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>
@@ -1445,7 +1445,7 @@ João Pereira <joaopereira@openmailbox.org>
 29/07/2015
 
 Hugo Carvalho <hugokarvalho@hotmail.com>
-12/04/2021 (versão 7.9.4 e 7.9.5)
+14/04/2021 (versão 7.9.4, 7.9.5, 7.9.6)
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.	

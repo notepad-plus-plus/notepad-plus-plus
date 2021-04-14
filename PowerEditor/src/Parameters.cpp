@@ -193,6 +193,10 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_NULL,    IDM_SEARCH_MARKALLEXT3,                       false, false, false, TEXT("Mark all using 3rd style") },
 	{ VK_NULL,    IDM_SEARCH_MARKALLEXT4,                       false, false, false, TEXT("Mark all using 4th style") },
 	{ VK_NULL,    IDM_SEARCH_MARKALLEXT5,                       false, false, false, TEXT("Mark all using 5th style") },
+	{ VK_NULL,    IDM_SEARCH_MARKALLCASESENS,                   false, false, false, TEXT("Mark all settings - Match case") },
+	{ VK_NULL,    IDM_SEARCH_MARKALLWHOLEWORD,                  false, false, false, TEXT("Mark all settings - Match whole word only") },
+	{ VK_NULL,    IDM_SEARCH_MARKALLCLASSICSETTINGS,            false, false, false, TEXT("Mark all settings - Use Mark All classic case/word settings") },
+	{ VK_NULL,    IDM_SEARCH_MARKALLUSEFINDSETTINGS,            false, false, false, TEXT("Mark all settings - Use Find dialog case/word settings") },
 	{ VK_NULL,    IDM_SEARCH_MARKONEEXT1,                       false, false, false, TEXT("Mark one using 1st style") },
 	{ VK_NULL,    IDM_SEARCH_MARKONEEXT2,                       false, false, false, TEXT("Mark one using 2nd style") },
 	{ VK_NULL,    IDM_SEARCH_MARKONEEXT3,                       false, false, false, TEXT("Mark one using 3rd style") },
@@ -4441,6 +4445,44 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				}
 			}
 		}
+		else if (!lstrcmp(nm, TEXT("MarkAll")))
+		{
+			const TCHAR* val = element->Attribute(TEXT("matchCase"));
+			if (val)
+			{
+				if (lstrcmp(val, TEXT("yes")) == 0)
+					_nppGUI._markAllCaseSensitive = true;
+				else if (!lstrcmp(val, TEXT("no")))
+					_nppGUI._markAllCaseSensitive = false;
+			}
+
+			val = element->Attribute(TEXT("wholeWordOnly"));
+			if (val)
+			{
+				if (lstrcmp(val, TEXT("yes")) == 0)
+					_nppGUI._markAllWordOnly = true;
+				else if (!lstrcmp(val, TEXT("no")))
+					_nppGUI._markAllWordOnly = false;
+			}
+
+			val = element->Attribute(TEXT("useClassicSettings"));
+			if (val)
+			{
+				if (lstrcmp(val, TEXT("yes")) == 0)
+					_nppGUI._markAllUseClassicSettings = true;
+				else if (!lstrcmp(val, TEXT("no")))
+					_nppGUI._markAllUseClassicSettings = false;
+			}
+
+			val = element->Attribute(TEXT("useFindSettings"));
+			if (val)
+			{
+				if (lstrcmp(val, TEXT("yes")) == 0)
+					_nppGUI._markAllUseFindSettings = true;
+				else if (!lstrcmp(val, TEXT("no")))
+					_nppGUI._markAllUseFindSettings = false;
+			}
+		}
 
 		else if (!lstrcmp(nm, TEXT("TagsMatchHighLight")))
 		{
@@ -6270,6 +6312,16 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("wholeWordOnly"), _nppGUI._smartHiliteWordOnly ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("useFindSettings"), _nppGUI._smartHiliteUseFindSettings ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("onAnotherView"), _nppGUI._smartHiliteOnAnotherView ? TEXT("yes") : TEXT("no"));
+	}
+
+	// <GUIConfig name="MarkAll" matchCase="no" wholeWordOnly="yes" useFindSettings="no" </GUIConfig>
+	{
+		TiXmlElement* GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
+		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("MarkAll"));
+		GUIConfigElement->SetAttribute(TEXT("matchCase"), _nppGUI._markAllCaseSensitive ? TEXT("yes") : TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("wholeWordOnly"), _nppGUI._markAllWordOnly ? TEXT("yes") : TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("useClassicSettings"), _nppGUI._markAllUseClassicSettings ? TEXT("yes") : TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("useFindSettings"), _nppGUI._markAllUseFindSettings ? TEXT("yes") : TEXT("no"));
 	}
 
 	// <GUIConfig name="commandLineInterpreter">powershell</GUIConfig>

@@ -4435,12 +4435,19 @@ void Notepad_plus::staticCheckMenuAndTB() const
 	checkMenuItem(IDM_VIEW_INDENT_GUIDE, b);
 	_toolBar.setCheck(IDM_VIEW_INDENT_GUIDE, b);
 
-
 	// Wrap
 	b = _pEditView->isWrap();
 	checkMenuItem(IDM_VIEW_WRAP, b);
 	_toolBar.setCheck(IDM_VIEW_WRAP, b);
 	checkMenuItem(IDM_VIEW_WRAP_SYMBOL, _pEditView->isWrapSymbolVisible());
+
+	// Mark All settings
+	NppParameters& nppParam = NppParameters::getInstance();
+	NppGUI& nppGUI = (NppGUI&)nppParam.getNppGUI();
+	checkMenuItem(IDM_SEARCH_MARKALLCASESENS, nppGUI._markAllCaseSensitive);
+	checkMenuItem(IDM_SEARCH_MARKALLWHOLEWORD, nppGUI._markAllWordOnly);
+	checkMenuItem(IDM_SEARCH_MARKALLCLASSICSETTINGS, nppGUI._markAllUseClassicSettings);
+	checkMenuItem(IDM_SEARCH_MARKALLUSEFINDSETTINGS, nppGUI._markAllUseFindSettings);
 }
 
 

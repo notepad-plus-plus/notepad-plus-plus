@@ -1257,22 +1257,85 @@ void Notepad_plus::command(int id)
 				styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT5;
 
 			const int strSize = FINDREPLACE_MAXLENGTH;
-			TCHAR text2Find[strSize];
-			TCHAR text2Find2[strSize];
+			TCHAR selectedText[strSize];
+			TCHAR wordOnCaret[strSize];
 
-			_pEditView->getGenericSelectedText(text2Find, strSize, false);
-			_pEditView->getGenericWordOnCaretPos(text2Find2, strSize);
+			_pEditView->getGenericSelectedText(selectedText, strSize, false);
+			_pEditView->getGenericWordOnCaretPos(wordOnCaret, strSize);
 
-			if (text2Find[0] == '\0')
+			if (selectedText[0] == '\0')
 			{
-				_findReplaceDlg.markAll(text2Find2, styleID, true);
+				if (lstrlen(wordOnCaret) > 0)
+				{
+					_findReplaceDlg.markAll(wordOnCaret, styleID, true);
+				}
 			}
 			else
 			{
-				_findReplaceDlg.markAll(text2Find, styleID, lstrlen(text2Find) == lstrlen(text2Find2));
+				_findReplaceDlg.markAll(selectedText, styleID, lstrlen(selectedText) == lstrlen(wordOnCaret));
 			}
 		}
 		break;
+
+		case IDM_SEARCH_MARKALLCASESENS:
+		{
+			bool isChecked = !(::GetMenuState(_mainMenuHandle, IDM_SEARCH_MARKALLCASESENS, MF_BYCOMMAND) == MF_CHECKED);
+			::CheckMenuItem(_mainMenuHandle, IDM_SEARCH_MARKALLCASESENS, MF_BYCOMMAND | (isChecked ? MF_CHECKED : MF_UNCHECKED));
+			::CheckMenuItem(_mainMenuHandle, IDM_SEARCH_MARKALLCLASSICSETTINGS, MF_BYCOMMAND | MF_UNCHECKED);
+			::CheckMenuItem(_mainMenuHandle, IDM_SEARCH_MARKALLUSEFINDSETTINGS, MF_BYCOMMAND | MF_UNCHECKED);
+			NppParameters& nppParam = NppParameters::getInstance();
+			NppGUI& nppGUI = (NppGUI&)nppParam.getNppGUI();
+			nppGUI._markAllCaseSensitive = isChecked;
+			nppGUI._markAllUseClassicSettings = false;
+			nppGUI._markAllUseFindSettings = false;
+			break;
+		}
+
+		case IDM_SEARCH_MARKALLWHOLEWORD:
+		{
+			bool isChecked = !(::GetMenuState(_mainMenuHandle, IDM_SEARCH_MARKALLWHOLEWORD, MF_BYCOMMAND) == MF_CHECKED);
+			::CheckMenuItem(_mainMenuHandle, IDM_SEARCH_MARKALLWHOLEWORD, MF_BYCOMMAND | (isChecked ? MF_CHECKED : MF_UNCHECKED));
+			::CheckMenuItem(_mainMenuHandle, IDM_SEARCH_MARKALLCLASSICSETTINGS, MF_BYCOMMAND | MF_UNCHECKED);
+			::CheckMenuItem(_mainMenuHandle, IDM_SEARCH_MARKALLUSEFINDSETTINGS, MF_BYCOMMAND | MF_UNCHECKED);
+			NppParameters& nppParam = NppParameters::getInstance();
+			NppGUI& nppGUI = (NppGUI&)nppParam.getNppGUI();
+			nppGUI._markAllWordOnly = isChecked;
+			nppGUI._markAllUseClassicSettings = false;
+			nppGUI._markAllUseFindSettings = false;
+			break;
+		}
+
+		case IDM_SEARCH_MARKALLCLASSICSETTINGS:
+		{
+			bool isChecked = !(::GetMenuState(_mainMenuHandle, IDM_SEARCH_MARKALLCLASSICSETTINGS, MF_BYCOMMAND) == MF_CHECKED);
+			::CheckMenuItem(_mainMenuHandle, IDM_SEARCH_MARKALLCASESENS, MF_BYCOMMAND | MF_UNCHECKED);
+			::CheckMenuItem(_mainMenuHandle, IDM_SEARCH_MARKALLWHOLEWORD, MF_BYCOMMAND | MF_UNCHECKED);
+			::CheckMenuItem(_mainMenuHandle, IDM_SEARCH_MARKALLCLASSICSETTINGS, MF_BYCOMMAND | (isChecked ? MF_CHECKED : MF_UNCHECKED));
+			::CheckMenuItem(_mainMenuHandle, IDM_SEARCH_MARKALLUSEFINDSETTINGS, MF_BYCOMMAND | MF_UNCHECKED);
+			NppParameters& nppParam = NppParameters::getInstance();
+			NppGUI& nppGUI = (NppGUI&)nppParam.getNppGUI();
+			nppGUI._markAllCaseSensitive = false;
+			nppGUI._markAllWordOnly = false;
+			nppGUI._markAllUseClassicSettings = isChecked;
+			nppGUI._markAllUseFindSettings = false;
+			break;
+		}
+
+		case IDM_SEARCH_MARKALLUSEFINDSETTINGS:
+		{
+			bool isChecked = !(::GetMenuState(_mainMenuHandle, IDM_SEARCH_MARKALLUSEFINDSETTINGS, MF_BYCOMMAND) == MF_CHECKED);
+			::CheckMenuItem(_mainMenuHandle, IDM_SEARCH_MARKALLCASESENS, MF_BYCOMMAND | MF_UNCHECKED);
+			::CheckMenuItem(_mainMenuHandle, IDM_SEARCH_MARKALLWHOLEWORD, MF_BYCOMMAND | MF_UNCHECKED);
+			::CheckMenuItem(_mainMenuHandle, IDM_SEARCH_MARKALLCLASSICSETTINGS, MF_BYCOMMAND | MF_UNCHECKED);
+			::CheckMenuItem(_mainMenuHandle, IDM_SEARCH_MARKALLUSEFINDSETTINGS, MF_BYCOMMAND | (isChecked ? MF_CHECKED : MF_UNCHECKED));
+			NppParameters& nppParam = NppParameters::getInstance();
+			NppGUI& nppGUI = (NppGUI&)nppParam.getNppGUI();
+			nppGUI._markAllCaseSensitive = false;
+			nppGUI._markAllWordOnly = false;
+			nppGUI._markAllUseClassicSettings = false;
+			nppGUI._markAllUseFindSettings = isChecked;
+			break;
+		}
 
 		case IDM_SEARCH_MARKONEEXT1:
 		case IDM_SEARCH_MARKONEEXT2:
@@ -3720,6 +3783,10 @@ void Notepad_plus::command(int id)
 			case IDM_SEARCH_MARKALLEXT3      :
 			case IDM_SEARCH_MARKALLEXT4      :
 			case IDM_SEARCH_MARKALLEXT5      :
+			case IDM_SEARCH_MARKALLCASESENS:
+			case IDM_SEARCH_MARKALLWHOLEWORD:
+			case IDM_SEARCH_MARKALLCLASSICSETTINGS:
+			case IDM_SEARCH_MARKALLUSEFINDSETTINGS:
 			case IDM_SEARCH_MARKONEEXT1      :
 			case IDM_SEARCH_MARKONEEXT2      :
 			case IDM_SEARCH_MARKONEEXT3      :

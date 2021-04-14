@@ -2005,21 +2005,45 @@ bool FindReplaceDlg::processReplace(const TCHAR *txt2find, const TCHAR *txt2repl
 	return moreMatches;	
 }
 
-
-
-int FindReplaceDlg::markAll(const TCHAR *txt2find, int styleID, bool isWholeWordSelected)
+int FindReplaceDlg::markAll(const TCHAR* txt2find, int styleID, bool isWholeWordSelected)
 {
-	FindOption opt;
-	opt._isMatchCase = _options._isMatchCase;
-	// if whole word is selected for being colorized, isWholeWord option in Find/Replace dialog will be checked
-	// otherwise this option is false, because user may want to find the words contain the parts to search 
-	opt._isWholeWord = isWholeWordSelected?_options._isWholeWord:false;
-	opt._str2Search = txt2find;
+	// fetch find dialog's settings
+	bool findDialogIsMatchCase = isCheckedOrNot(IDMATCHCASE);
+	bool findDialogIsMatchWord = isCheckedOrNot(IDWHOLEWORD);
+	if (!isCreated())
+	{
+		NppParameters& nppParams = NppParameters::getInstance();
+		const FindHistory& findHistory = nppParams.getFindHistory();
+		findDialogIsMatchCase = findHistory._isMatchCase;
+		findDialogIsMatchWord = findHistory._isMatchWord;
+	}
 
-	int nbFound = processAll(ProcessMarkAllExt, &opt, true, NULL, styleID);
+	FindOption markAllOpt;
+	const NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
+
+	if (nppGUI._markAllUseClassicSettings)
+	{
+		markAllOpt._isMatchCase = findDialogIsMatchCase;
+		// if whole word is selected for being colorized, isWholeWord option in Find/Replace dialog will be checked
+		// otherwise this option is false, because user may want to find the words contain the parts to search 
+		markAllOpt._isWholeWord = isWholeWordSelected ? findDialogIsMatchWord : false;
+	}
+	else if (nppGUI._markAllUseFindSettings)
+	{
+		markAllOpt._isMatchCase = findDialogIsMatchCase;
+		markAllOpt._isWholeWord = findDialogIsMatchWord;
+	}
+	else
+	{
+		markAllOpt._isMatchCase = nppGUI._markAllCaseSensitive;
+		markAllOpt._isWholeWord = nppGUI._markAllWordOnly;
+	}
+
+	markAllOpt._str2Search = txt2find;
+
+	int nbFound = processAll(ProcessMarkAllExt, &markAllOpt, true, NULL, styleID);
 	return nbFound;
 }
-
 
 int FindReplaceDlg::markAllInc(const FindOption *opt)
 {

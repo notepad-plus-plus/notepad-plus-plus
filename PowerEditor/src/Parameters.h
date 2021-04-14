@@ -826,6 +826,11 @@ struct NppGUI final
 	bool _smartHiliteUseFindSettings = false;
 	bool _smartHiliteOnAnotherView = false;
 
+	bool _markAllCaseSensitive = false;
+	bool _markAllWordOnly = false;
+	bool _markAllUseClassicSettings = true;  // default
+	bool _markAllUseFindSettings = false;
+
 	bool _disableSmartHiliteTmp = false;
 	bool _enableTagsMatchHilite = true;
 	bool _enableTagAttrsHilite = true;

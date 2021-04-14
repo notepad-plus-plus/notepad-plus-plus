@@ -37,6 +37,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item subMenuId="edit-pasteSpecial" name="Paste Special"/>
                     <Item subMenuId="edit-onSelection" name="On Selection"/>
                     <Item subMenuId="search-markAll" name="Mark All"/>
+                    <Item subMenuId="search-markAllSettings" name="Mark All Settings"/>
                     <Item subMenuId="search-markOne" name="Mark One"/>
                     <Item subMenuId="search-unmarkAll" name="Unmark All"/>
                     <Item subMenuId="search-jumpUp" name="Jump Up"/>
@@ -238,6 +239,10 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43064" name="Using 3rd Style"/>
                     <Item id="43065" name="Using 4th Style"/>
                     <Item id="43066" name="Using 5th Style"/>
+                    <Item id="43067" name="Match case"/>
+                    <Item id="43068" name="Match whole word only"/>
+                    <Item id="43069" name="Use Mark All classic case/word settings"/>
+                    <Item id="43070" name="Use Find dialog case/word settings"/>
                     <Item id="43045" name="Search Results Window"/>
                     <Item id="43046" name="Next Search Result"/>
                     <Item id="43047" name="Previous Search Result"/>
@@ -550,6 +555,10 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43026" name="Mark all using 3rd style"/>
                     <Item id="43028" name="Mark all using 4th style"/>
                     <Item id="43030" name="Mark all using 5th style"/>
+                    <Item id="43067" name="Mark all settings - Match case"/>
+                    <Item id="43068" name="Mark all settings - Match whole word only"/>
+                    <Item id="43069" name="Mark all settings - Use Mark All classic case/word settings"/>
+                    <Item id="43070" name="Mark all settings - Use Find dialog case/word settings"/>
                     <Item id="43062" name="Mark one using 1st style"/>
                     <Item id="43063" name="Mark one using 2nd style"/>
                     <Item id="43064" name="Mark one using 3rd style"/>

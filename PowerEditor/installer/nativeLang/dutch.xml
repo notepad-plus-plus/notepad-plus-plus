@@ -3,7 +3,7 @@
 Dutch localization for Notepad++ 7.9.3
 Modifications on 2018-03-26 by Klaas Nekeman (knekeman(at)gmail.com).
 Modifications on 2020-05-26 by xylographe <wr86420@gmail.com>.
-Last modified on 2021-04-07 by Thomas De Rocker (RockyTDR).
+Last modified on 2021-04-15 by Thomas De Rocker (RockyTDR).
 -->
 <NotepadPlus>
     <Native-Langue name="Nederlands" filename="dutch.xml" version="7.9.4">
@@ -249,6 +249,7 @@ Last modified on 2021-04-07 by Thomas De Rocker (RockyTDR).
                     <Item id="43054" name="Markeren..."/>
                     <Item id="44009" name="Interface verbergen"/>
                     <Item id="44010" name="Gegevensstructuur samenvouwen"/>
+                    <Item id="44011" name="Afleidingsvrije modus"/>
                     <Item id="44019" name="Alle tekens weergeven"/>
                     <Item id="44020" name="Aanduiding voor inspringing weergeven"/>
                     <Item id="44022" name="Automatische terugloop"/>
@@ -867,6 +868,10 @@ Last modified on 2021-04-07 by Thomas De Rocker (RockyTDR).
 U kunt verschillende kolommarkeringen vastleggen door gebruik te maken van spaties om de verschillende getallen van elkaar te scheiden."/>
                     <Item id="6231" name="Breedte rand"/>
                     <Item id="6235" name="Geen rand"/>
+                    <Item id="6208" name="Vulling"/>
+                    <Item id="6209" name="Links"/>
+                    <Item id="6210" name="Rechts"/>
+                    <Item id="6212" name="Afleidingsvrij"/>
                 </MarginsBorderEdge>
 
                 <NewDoc title="Nieuw document">

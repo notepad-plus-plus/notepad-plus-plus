@@ -36,9 +36,8 @@ template<class T>
 const GUID ComTraits<T>::uid = __uuidof(T);
 
 // Smart pointer alias for COM objects that makes reference counting easier.
-template<class T>
-using com_ptr = _com_ptr_t<_com_IIID<T, &ComTraits<T>::uid>>;
-
+template<class T, class InterfaceT = T>
+using com_ptr = _com_ptr_t<_com_IIID<T, &ComTraits<InterfaceT>::uid>>;
 
 namespace // anonymous
 {
@@ -187,12 +186,6 @@ namespace // anonymous
 		}
 		~CurrentDirBackup()
 		{
-			NppParameters& params = NppParameters::getInstance();
-			if (params.getNppGUI()._openSaveDir == dir_last)
-			{
-				::GetCurrentDirectory(MAX_PATH, _dir);
-				params.setWorkingDir(_dir);
-			}
 			::SetCurrentDirectory(_dir);
 		}
 	private:
@@ -206,21 +199,6 @@ namespace // anonymous
 class FileDialogEventHandler : public IFileDialogEvents, public IFileDialogControlEvents
 {
 public:
-	static HRESULT createInstance(IFileDialog* dlg, const std::vector<Filter>& filterSpec,
-		int fileIndex, int wildcardIndex, REFIID riid, void **ppv)
-	{
-		*ppv = nullptr;
-		FileDialogEventHandler* pDialogEventHandler =
-			new (std::nothrow) FileDialogEventHandler(dlg, filterSpec, fileIndex, wildcardIndex);
-		HRESULT hr = pDialogEventHandler ? S_OK : E_OUTOFMEMORY;
-		if (SUCCEEDED(hr))
-		{
-			hr = pDialogEventHandler->QueryInterface(riid, ppv);
-			pDialogEventHandler->Release();
-		}
-		return hr;
-	}
-
 	// IUnknown methods
 
 	IFACEMETHODIMP QueryInterface(REFIID riid, void** ppv) override
@@ -261,8 +239,9 @@ public:
 
 	// IFileDialogEvents methods
 
-	IFACEMETHODIMP OnFileOk(IFileDialog*) override
+	IFACEMETHODIMP OnFileOk(IFileDialog* dlg) override
 	{
+		_lastUsedFolder = getDialogFolder(dlg);
 		return S_OK;
 	}
 	IFACEMETHODIMP OnFolderChange(IFileDialog*) override
@@ -270,9 +249,11 @@ public:
 		// First launch order: 3. Custom controls are added but inactive.
 		return S_OK;
 	}
-	IFACEMETHODIMP OnFolderChanging(IFileDialog*, IShellItem*) override
+	IFACEMETHODIMP OnFolderChanging(IFileDialog*, IShellItem* psi) override
 	{
+		// Called when the current dialog folder is about to change.
 		// First launch order: 2. Buttons are added, correct window title.
+		_lastUsedFolder = getFilename(psi);
 		return S_OK;
 	}
 	IFACEMETHODIMP OnSelectionChange(IFileDialog*) override
@@ -354,19 +335,22 @@ public:
 		return E_NOTIMPL;
 	}
 
-private:
 
-	// Use createInstance() instead
 	FileDialogEventHandler(IFileDialog* dlg, const std::vector<Filter>& filterSpec, int fileIndex, int wildcardIndex)
 		: _cRef(1), _dialog(dlg), _customize(dlg), _filterSpec(filterSpec), _lastSelectedType(fileIndex + 1),
 		_wildcardType(wildcardIndex >= 0 ? wildcardIndex + 1 : 0)
 	{
 		_staticThis = this;
 	}
+
 	~FileDialogEventHandler()
 	{
 		_staticThis = nullptr;
 	}
+
+	const generic_string& getLastUsedFolder() const { return _lastUsedFolder; }
+
+private:
 	FileDialogEventHandler(const FileDialogEventHandler&) = delete;
 	FileDialogEventHandler& operator=(const FileDialogEventHandler&) = delete;
 	FileDialogEventHandler(FileDialogEventHandler&&) = delete;
@@ -572,6 +556,7 @@ private:
 	com_ptr<IFileDialog> _dialog;
 	com_ptr<IFileDialogCustomize> _customize;
 	const std::vector<Filter> _filterSpec;
+	generic_string _lastUsedFolder;
 	HWND _hwndNameEdit = nullptr;
 	bool _monitorKeyboard = true;
 	UINT _lastSelectedType = 0;
@@ -610,7 +595,7 @@ public:
 		// Init the event handler.
 		// Pass the initially selected file type.
 		if (SUCCEEDED(hr))
-			hr = FileDialogEventHandler::createInstance(_dialog, _filterSpec, _fileTypeIndex, _wildcardIndex, IID_PPV_ARGS(&_events));
+			_events.Attach(new FileDialogEventHandler(_dialog, _filterSpec, _fileTypeIndex, _wildcardIndex));
 
 		// If "assign type" is OFF, then change the file type to *.*
 		if (_enableFileTypeCheckbox && !_fileTypeCheckboxValue && _wildcardIndex >= 0)
@@ -723,11 +708,12 @@ public:
 
 		HRESULT hr = S_OK;
 		DWORD dwCookie = 0;
-		if (_events)
+		com_ptr<IFileDialogEvents> dialogEvents = _events;
+		if (dialogEvents)
 		{
-			hr = _dialog->Advise(_events, &dwCookie);
+			hr = _dialog->Advise(dialogEvents, &dwCookie);
 			if (FAILED(hr))
-				_events.Release();
+				dialogEvents.Release();
 		}
 
 		bool okPressed = false;
@@ -735,9 +721,17 @@ public:
 		{
 			hr = _dialog->Show(_hwndOwner);
 			okPressed = SUCCEEDED(hr);
+
+			NppParameters& params = NppParameters::getInstance();
+			if (params.getNppGUI()._openSaveDir == dir_last)
+			{
+				// Note: IFileDialog doesn't modify the current directory.
+				// At least, after it is hidden, the current directory is the same as before it was shown.
+				params.setWorkingDir(_events->getLastUsedFolder().c_str());
+			}
 		}
 
-		if (_events)
+		if (dialogEvents)
 			_dialog->Unadvise(dwCookie);
 
 		return okPressed;
@@ -827,7 +821,7 @@ public:
 private:
 	com_ptr<IFileDialog> _dialog;
 	com_ptr<IFileDialogCustomize> _customize;
-	com_ptr<IFileDialogEvents> _events;
+	com_ptr<FileDialogEventHandler, IFileDialogEvents> _events;
 };
 
 ///////////////////////////////////////////////////////////////////////////////

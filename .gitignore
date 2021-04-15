@@ -95,6 +95,7 @@ PowerEditor/src/tools/NppShell/build_x64
 # scintilla - generated files
 scintilla/bin/SciLexer.*
 scintilla/bin/Scintilla.*
+scintilla/bin/libscilexer.a
 scintilla/bin/libscintilla.a
 scintilla/bin/libscintilla.lib
 scintilla/win32/*.lib

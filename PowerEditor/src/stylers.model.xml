@@ -760,7 +760,7 @@
             <WordsStyle name="FUNCTION DEFINITIONS" styleID="17" fgColor="0000FF" bgColor="FFFFFF" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="COMMENT" styleID="18" fgColor="008000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
-        <LexerType name="nimrod" desc="Nimrod" ext="">
+        <LexerType name="nim" desc="Nim" ext="">
             <WordsStyle name="WHITE SPACE" styleID="0" fgColor="808080" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT" styleID="1" fgColor="007F00" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="NUMBER" styleID="2" fgColor="007F7F" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />

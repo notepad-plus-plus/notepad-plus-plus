@@ -3413,8 +3413,8 @@ LangType Notepad_plus::menuID2LangType(int cmdID)
             return L_LATEX;
         case IDM_LANG_MMIXAL :
             return L_MMIXAL;
-        case IDM_LANG_NIMROD :
-            return L_NIMROD;
+        case IDM_LANG_NIM :
+            return L_NIM;
         case IDM_LANG_NNCRONTAB :
             return L_NNCRONTAB;
         case IDM_LANG_OSCRIPT :

@@ -146,7 +146,7 @@ LanguageName ScintillaEditView::langNames[L_EXTERNAL+1] = {
 {TEXT("forth"),			TEXT("Forth"),				TEXT("Forth file"),										L_FORTH,		SCLEX_FORTH},
 {TEXT("latex"),			TEXT("LaTeX"),				TEXT("LaTeX file"),										L_LATEX,		SCLEX_LATEX},
 {TEXT("mmixal"),		TEXT("MMIXAL"),				TEXT("MMIXAL file"),									L_MMIXAL,		SCLEX_MMIXAL},
-{TEXT("nimrod"),		TEXT("Nimrod"),				TEXT("Nimrod file"),									L_NIMROD,		SCLEX_NIMROD},
+{TEXT("nim"),			TEXT("Nim"),				TEXT("Nim file"),										L_NIM,			SCLEX_NIMROD},
 {TEXT("nncrontab"),		TEXT("Nncrontab"),			TEXT("extended crontab file"),							L_NNCRONTAB,	SCLEX_NNCRONTAB},
 {TEXT("oscript"),		TEXT("OScript"),			TEXT("OScript source file"),							L_OSCRIPT,		SCLEX_OSCRIPT},
 {TEXT("rebol"),			TEXT("REBOL"),				TEXT("REBOL file"),										L_REBOL,		SCLEX_REBOL},
@@ -1708,7 +1708,7 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 		case L_MMIXAL :
 			setMMIXALLexer(); break;
 
-		case L_NIMROD :
+		case L_NIM :
 			setNimrodLexer(); break;
 
 		case L_NNCRONTAB :

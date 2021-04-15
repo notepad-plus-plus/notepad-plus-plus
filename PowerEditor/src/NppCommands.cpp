@@ -3265,7 +3265,7 @@ void Notepad_plus::command(int id)
         case IDM_LANG_FORTH :
         case IDM_LANG_LATEX :
         case IDM_LANG_MMIXAL :
-        case IDM_LANG_NIMROD :
+        case IDM_LANG_NIM :
         case IDM_LANG_NNCRONTAB :
         case IDM_LANG_OSCRIPT :
         case IDM_LANG_REBOL :

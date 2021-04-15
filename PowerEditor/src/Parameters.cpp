@@ -6754,8 +6754,8 @@ int NppParameters::langTypeToCommandID(LangType lt) const
 		case L_MMIXAL :
 			id = IDM_LANG_MMIXAL; break;
 
-		case L_NIMROD :
-			id = IDM_LANG_NIMROD; break;
+		case L_NIM :
+			id = IDM_LANG_NIM; break;
 
 		case L_NNCRONTAB :
 			id = IDM_LANG_NNCRONTAB; break;

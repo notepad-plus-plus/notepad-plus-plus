@@ -506,7 +506,7 @@
     #define    IDM_LANG_FORTH              (IDM_LANG + 72)
     #define    IDM_LANG_LATEX              (IDM_LANG + 73)
     #define    IDM_LANG_MMIXAL             (IDM_LANG + 74)
-    #define    IDM_LANG_NIMROD             (IDM_LANG + 75)
+    #define    IDM_LANG_NIM                (IDM_LANG + 75)
     #define    IDM_LANG_NNCRONTAB          (IDM_LANG + 76)
     #define    IDM_LANG_OSCRIPT            (IDM_LANG + 77)
     #define    IDM_LANG_REBOL              (IDM_LANG + 78)

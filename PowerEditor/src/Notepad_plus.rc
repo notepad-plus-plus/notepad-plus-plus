@@ -760,7 +760,7 @@ BEGIN
         MENUITEM "Matlab",                  IDM_LANG_MATLAB
         MENUITEM "MMIXAL",                  IDM_LANG_MMIXAL
         MENUITEM "MS-DOS Style",            IDM_LANG_ASCII
-        MENUITEM "Nimrod",                  IDM_LANG_NIMROD
+        MENUITEM "Nim",                     IDM_LANG_NIM
         MENUITEM "Nncrontab",               IDM_LANG_NNCRONTAB
         MENUITEM "NSIS",                    IDM_LANG_NSIS
         MENUITEM "Objective-C",             IDM_LANG_OBJC
@@ -886,7 +886,7 @@ BEGIN
     END
     POPUP "N"
     BEGIN
-        MENUITEM "Nimrod",                IDM_LANG_NIMROD
+        MENUITEM "Nim",                   IDM_LANG_NIM
         MENUITEM "Nncrontab",             IDM_LANG_NNCRONTAB
         MENUITEM "NSIS",                  IDM_LANG_NSIS
     END

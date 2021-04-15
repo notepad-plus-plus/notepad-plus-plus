@@ -920,7 +920,7 @@ protected:
 	};
 
 	void setNimrodLexer() {
-		setLexer(SCLEX_NIMROD, L_NIMROD, LIST_0);
+		setLexer(SCLEX_NIMROD, L_NIM, LIST_0);
 	};
 
 	void setNncrontabLexer() {

@@ -1656,7 +1656,7 @@ bool Notepad_plus::fileSaveAs(BufferID id, bool isSaveCopy)
 	generic_string fn = fDlg.doSaveDlg();
 
 	// Remember the selected state
-	nppParam.getNppGUIMutable()._setSaveDlgExtFiltToAllTypes = !fDlg.getFileTypeCheckboxValue();
+	const_cast<NppGUI&>(nppParam.getNppGUI())._setSaveDlgExtFiltToAllTypes = !fDlg.getFileTypeCheckboxValue();
 
 	// Enable file autodetection again.
 	(const_cast<NppGUI &>(nppParam.getNppGUI()))._fileAutoDetection = cdBefore;

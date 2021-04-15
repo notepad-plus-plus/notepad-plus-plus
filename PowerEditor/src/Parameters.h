@@ -1339,8 +1339,6 @@ public:
 		return _nppGUI;
 	}
 
-	NppGUI& getNppGUIMutable() { return _nppGUI; }
-
 	const TCHAR * getWordList(LangType langID, int typeIndex) const
 	{
 		Lang *pLang = getLangFromID(langID);

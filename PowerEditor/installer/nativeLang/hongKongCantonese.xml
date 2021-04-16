@@ -40,6 +40,7 @@
                     <Item subMenuId="edit-pasteSpecial" name="特殊貼上"/>
                     <Item subMenuId="edit-onSelection" name="處理揀選範圍"/>
                     <Item subMenuId="search-markAll" name="全部標記"/>
+                    <Item subMenuId="search-markOne" name="單一標記"/> <!-- #new #next -->
                     <Item subMenuId="search-unmarkAll" name="去除標記"/>
                     <Item subMenuId="search-jumpUp" name="上個標記"/>
                     <Item subMenuId="search-jumpDown" name="下個標記"/>
@@ -255,6 +256,11 @@
                     <Item id="43059" name="格式五"/> <!-- #new v7.9.1 -->
                     <Item id="43060" name="所有格式"/> <!-- #new v7.9.1 -->
                     <Item id="43061" name="搵嘢標記"/> <!-- #new v7.9.1 -->
+                    <Item id="43062" name="格式一"/> <!-- #new #next -->
+                    <Item id="43063" name="格式二"/> <!-- #new #next -->
+                    <Item id="43064" name="格式三"/> <!-- #new #next -->
+                    <Item id="43065" name="格式四"/> <!-- #new #next -->
+                    <Item id="43066" name="格式五"/> <!-- #new #next -->
                     <Item id="43045" name="顯示搜尋結果視窗"/>
                     <Item id="43046" name="下一個搜尋結果"/>
                     <Item id="43047" name="上一個搜尋結果"/>
@@ -265,6 +271,7 @@
                     <!-- menu: View (cont'd) -->
                     <Item id="44009" name="Post-It 便利貼模式"/>
                     <Item id="44010" name="摺埋所有層級"/>
+                    <Item id="44011" name="免干擾模式"/> <!-- #new #next -->
                     <Item id="44019" name="顯示所有字元"/>
                     <Item id="44020" name="顯示縮排輔助線"/>
                     <Item id="44022" name="自動換行"/>
@@ -312,14 +319,14 @@
                     <!-- menu: Encoding -->
                     <Item id="45004" name="ANSI"/>
                     <Item id="45005" name="UTF-8 with BOM"/>
-                    <Item id="45006" name="UCS-2BE with BOM"/>
-                    <Item id="45007" name="UCS-2LE with BOM"/>
+                    <Item id="45006" name="UTF-16 BE BOM"/>
+                    <Item id="45007" name="UTF-16 LE BOM"/>
                     <Item id="45008" name="UTF-8"/>
                     <Item id="45009" name="轉做 ANSI"/>
                     <Item id="45010" name="轉做 UTF-8"/>
                     <Item id="45011" name="轉做 UTF-8 with BOM"/>
-                    <Item id="45012" name="轉做 UCS-2BE with BOM"/>
-                    <Item id="45013" name="轉做 UCS-2LE with BOM"/>
+                    <Item id="45012" name="轉做 UTF-16 BE BOM"/>
+                    <Item id="45013" name="轉做 UTF-16 LE BOM"/>
                     <Item id="45060" name="Big5（正體中文）"/>
                     <Item id="45061" name="GB2312（簡體中文）"/>
                     <Item id="45054" name="OEM 861: 冰島文"/>
@@ -601,6 +608,11 @@
                     <Item id="43026" name="全部標記：使用格式三嘅顏色"/>
                     <Item id="43028" name="全部標記：使用格式四嘅顏色"/>
                     <Item id="43030" name="全部標記：使用格式五嘅顏色"/>
+                    <Item id="43062" name="單一標記：使用格式一嘅顏色"/> <!-- #new #next -->
+                    <Item id="43063" name="單一標記：使用格式二嘅顏色"/> <!-- #new #next -->
+                    <Item id="43064" name="單一標記：使用格式三嘅顏色"/> <!-- #new #next -->
+                    <Item id="43065" name="單一標記：使用格式四嘅顏色"/> <!-- #new #next -->
+                    <Item id="43066" name="單一標記：使用格式五嘅顏色"/> <!-- #new #next -->
                     <Item id="43023" name="去除標記：清除格式一嘅顏色"/>
                     <Item id="43025" name="去除標記：清除格式二嘅顏色"/>
                     <Item id="43027" name="去除標記：清除格式三嘅顏色"/>
@@ -915,6 +927,10 @@
 想劃多啲線嘅話，用空格分隔多組數字就得。"/>
                     <Item id="6231" name="邊框闊度"/>
                     <Item id="6235" name="無邊框"/>
+                    <Item id="6208" name="框內留白"/> <!-- #new #next -->
+                    <Item id="6209" name="左"/> <!-- #new #next -->
+                    <Item id="6210" name="右"/> <!-- #new #next -->
+                    <Item id="6212" name="免干擾模式"/> <!-- #new #next -->
                 </MarginsBorderEdge>
 
                 <NewDoc title="新文件">
@@ -926,8 +942,8 @@
                     <Item id="6406" name="ANSI"/>
                     <Item id="6407" name="UTF-8"/>
                     <Item id="6408" name="UTF-8 with BOM"/>
-                    <Item id="6409" name="UCS-2 Big Endian with BOM"/>
-                    <Item id="6410" name="UCS-2 Little Endian with BOM"/>
+                    <Item id="6409" name="UTF-16 Big Endian with BOM"/>
+                    <Item id="6410" name="UTF-16 Little Endian with BOM"/>
                     <Item id="6411" name="預設程式語言："/>
                     <Item id="6419" name="新文件"/>
                     <Item id="6420" name="套用到打開咗嗰啲 ANSI 檔案"/>
@@ -1108,7 +1124,7 @@
                     <Item id="6325" name="更新後轆去最後一行"/>
                     <Item id="6322" name="工作階段檔案副檔名："/>
                     <Item id="6323" name="自動更新 Notepad++"/>
-                    <Item id="6351" name="Save 對話框將副檔名過濾成 *.* 而唔係 *.txt"/> <!-- #new v7.9.1 -->
+                    <Item id="6351" name="Save 對話框將副檔名過濾成 *.* 而唔係 *.txt"/> <!-- #legacy #next --> <!-- #new v7.9.1 -->
                     <Item id="6324" name="文件切換器（Ctrl + Tab 掣）"/>
                     <Item id="6331" name="標題列淨係顯示檔案名"/>
                     <Item id="6334" name="自動偵測檔案編碼"/>
@@ -1397,6 +1413,7 @@ Reload 會放棄您喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
             <find-status-replaceinopenedfiles-nb-replaced value="喺所有打開咗嘅文件執行取代：取代咗 $INT_REPLACE$ 次。"/>
             <find-status-mark-re-malformed value="標記：規則運算式無效。"/>
             <find-status-invalid-re value="搵嘢：規則運算式無效。"/>
+            <find-status-search-failed value="搵嘢：搜尋失敗，衰咗。"/> <!-- #new #next -->
             <find-status-mark-1-match value="標記： 1 個符合結果。"/>
             <find-status-mark-nb-matches value="標記： $INT_REPLACE$ 個符合結果。"/>
             <find-status-count-re-malformed value="數量：規則運算式無效。"/>
@@ -1426,6 +1443,7 @@ Reload 會放棄您喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
             <finder-select-all value="揀晒"/>
             <finder-clear-all value="全部清除"/>
             <finder-open-all value="全部打開"/>
+            <finder-purge-for-every-search value="次次都清走搜尋結果"/> <!-- #new #next -->
             <finder-wrap-long-lines value="自動換行"/>
             <common-ok value="OK"/>
             <common-cancel value="取消"/>
@@ -1470,6 +1488,8 @@ Reload 會放棄您喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
             <find-result-line-prefix value="行數"/> <!-- Must not begin with space or tab character --> <!-- #new v7.9.2 -->
             <find-regex-zero-length-match value="我覺得自己係零囉" /> <!-- 字元相符不過長度係零 -->
             <session-save-folder-as-workspace value="Save 埋資料夾工作區" /> <!-- #new v7.9.3 -->
+            <tab-untitled-string value="new " /> <!-- #new #next -->
+            <file-save-assign-type value="追加副檔名(&amp;A)" /> <!-- #new #next -->
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

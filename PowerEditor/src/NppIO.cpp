@@ -198,11 +198,11 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 	{
 		wcscpy_s(longFileName, targetFileName.c_str());
 	}
-    _lastRecentFileList.remove(longFileName);
 
 	generic_string fileName2Find;
 	generic_string gs_fileName{ targetFileName };
 
+	bool removeFileFromList = true;
 
 	// "fileName" could be:
 	// 1. full file path to open or create
@@ -232,17 +232,20 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
                 ::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
             }
         }
+		_lastRecentFileList.remove(longFileName);
         return foundBufID;
     }
 
     if (isFileSession(longFileName) && PathFileExists(longFileName))
     {
+		_lastRecentFileList.remove(longFileName);
         fileLoadSession(longFileName);
         return BUFFER_INVALID;
     }
 
 	if (isFileWorkspace(longFileName) && PathFileExists(longFileName))
 	{
+		_lastRecentFileList.remove(longFileName);
 		nppParam.setWorkSpaceFilePath(0, longFileName);
 		// This line switches to Project Panel 1 while starting up Npp
 		// and after dragging a workspace file to Npp:
@@ -302,8 +305,14 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 				str2display += longFileName;
 				str2display += TEXT("\" cannot be opened:\nFolder \"");
 				str2display += longFileDir;
-				str2display += TEXT("\" doesn't exist.");
-				::MessageBox(_pPublicInterface->getHSelf(), str2display.c_str(), TEXT("Cannot open file"), MB_OK);
+				str2display += TEXT("\" doesn't exist."); 
+				str2display += TEXT("Do you wish to remove the file from the recent list?");
+				int msgBoxResponse = ::MessageBox(_pPublicInterface->getHSelf(), str2display.c_str(), TEXT("Cannot open file"), MB_YESNO);
+
+				if (msgBoxResponse == IDNO)
+				{
+					removeFileFromList = false;
+				}
 			}
 
 			if (!isCreateFileSuccessful)
@@ -313,9 +322,20 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 					nppParam.safeWow64EnableWow64FsRedirection(TRUE);
 					isWow64Off = false;
 				}
+
+				if (removeFileFromList)
+				{
+					_lastRecentFileList.remove(longFileName);
+				}
+
 				return BUFFER_INVALID;
 			}
 		}
+	}
+
+	if (removeFileFromList)
+	{
+		_lastRecentFileList.remove(longFileName);
 	}
 
     // Notify plugins that current file is about to load

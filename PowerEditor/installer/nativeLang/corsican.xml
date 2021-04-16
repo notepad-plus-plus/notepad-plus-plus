@@ -4,7 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
-		- Updated on April 12th, 2021 for version 7.9.6 by Patriccollu di Santa Maria è Sichè
+		- Updated on April 16th, 2021 for version 7.9.6 by Patriccollu di Santa Maria è Sichè
 		- Updated on January 27th, 2021 for version 7.9.3 by Patriccollu di Santa Maria è Sichè
 		- Updated on November 4th, 2020 for version 7.9.2 by Patriccollu di Santa Maria è Sichè
 		- Updated on September 16th, 2020 for version 7.9.1 by Patriccollu di Santa Maria è Sichè
@@ -1085,7 +1085,6 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                     <Item id="6325" name="Andà à l’ultima linea dopu a mudificazione"/>
                     <Item id="6322" name="Estensione di sched. di sessione :"/>
                     <Item id="6323" name="Attivà u rinnovu autumaticu di Notepad++"/>
-                    <Item id="6351" name="Definisce u filtru d’estensione di u dialogu d’arregistramentu à *.*"/>
                     <Item id="6324" name="Cambiamentu di ducumentu (Ctrl+Tabul.)"/>
                     <Item id="6331" name="Affissà solu u nome di schedariu in a barra di titulu"/>
                     <Item id="6334" name="Detezione autumatica di cudificazione di caratteru"/>
@@ -1445,7 +1444,8 @@ Circà in tutti i schedarii fora di exe, obj è log :
             <find-result-line-prefix value="Linea"/> <!-- Must not begin with space or tab character -->
             <find-regex-zero-length-match value="currispondenza di longhezza à zeru"/>
             <session-save-folder-as-workspace value="Arregistrà u cartulare cum’è spaziu di travagliu"/>
-            <tab-untitled-string value="novu " />
+            <tab-untitled-string value="novu "/>
+            <file-save-assign-type value="&amp;Aghjunghje un’estensione"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

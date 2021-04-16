@@ -1065,7 +1065,6 @@
                     <Item id="6325" name="更新後最後の行にスクロール"/>
                     <Item id="6322" name="セッションファイルの拡張子:"/>
                     <Item id="6323" name="Notepad++の自動アップデートを有効にする"/>
-                    <Item id="6351" name="保存ダイアログの「ファイルの種類」を *.* にする"/>
                     <Item id="6324" name="ビューの切り替え(Ctrl+Tab)"/>
                     <Item id="6331" name="タイトルバーにファイル名のみ表示"/>
                     <Item id="6334" name="文字コードを自動判別"/>
@@ -1425,6 +1424,7 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <find-regex-zero-length-match value="長さ0で一致しました" />
             <session-save-folder-as-workspace value="「フォルダーをワークスペースとして開く」の状態を保存" />
             <tab-untitled-string value="新規" />
+            <file-save-assign-type value="拡張子をつける(&amp;A)" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

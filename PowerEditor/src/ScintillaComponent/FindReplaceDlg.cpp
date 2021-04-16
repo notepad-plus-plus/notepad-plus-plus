@@ -304,7 +304,7 @@ void FindReplaceDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 		enableDlgTheme(_hSelf, ETDT_ENABLETAB);
 
 	NppParameters& nppParam = NppParameters::getInstance();
-	NppGUI& nppGUI = const_cast<NppGUI&>(nppParam.getNppGUI());
+	NppGUI& nppGUI = nppParam.getNppGUI();
 	if (nppGUI._findWindowPos.bottom - nppGUI._findWindowPos.top != 0)  // check height against 0 as a test of valid data from config
 	{
 		RECT rc = getViewablePositionRect(nppGUI._findWindowPos);
@@ -2492,7 +2492,7 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		_pFinder->_scintView.execute(SCI_SETTABWIDTH, 4);
 
 		NppParameters& nppParam = NppParameters::getInstance();
-		NppGUI& nppGUI = const_cast<NppGUI&>(nppParam.getNppGUI());
+		NppGUI& nppGUI = nppParam.getNppGUI();
 		_pFinder->_longLinesAreWrapped = nppGUI._finderLinesAreCurrentlyWrapped;
 		_pFinder->_scintView.wrap(_pFinder->_longLinesAreWrapped);
 		_pFinder->_scintView.setWrapMode(LINEWRAP_INDENT);
@@ -3912,7 +3912,7 @@ void Finder::wrapLongLinesToggle()
 	{
 		// only remember this setting from the original finder
 		NppParameters& nppParam = NppParameters::getInstance();
-		NppGUI& nppGUI = const_cast<NppGUI&>(nppParam.getNppGUI());
+		NppGUI& nppGUI = nppParam.getNppGUI();
 		nppGUI._finderLinesAreCurrentlyWrapped = _longLinesAreWrapped;
 	}
 }
@@ -3925,7 +3925,7 @@ void Finder::purgeToggle()
 	{
 		// only remember this setting from the original finder
 		NppParameters& nppParam = NppParameters::getInstance();
-		NppGUI& nppGUI = const_cast<NppGUI&>(nppParam.getNppGUI());
+		NppGUI& nppGUI = nppParam.getNppGUI();
 		nppGUI._finderPurgeBeforeEverySearch = _purgeBeforeEverySearch;
 	}
 }

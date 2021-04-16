@@ -3383,7 +3383,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_SYSTRAYPOPUP_NEWDOC:
 		{
-			NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance()).getNppGUI());
+			NppGUI & nppGUI = (NppParameters::getInstance()).getNppGUI();
 			::ShowWindow(_pPublicInterface->getHSelf(), nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
 			_dockingManager.showFloatingContainers(true);
 			restoreMinimizeDialogs();
@@ -3393,7 +3393,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_SYSTRAYPOPUP_ACTIVATE :
 		{
-			NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance()).getNppGUI());
+			NppGUI & nppGUI = (NppParameters::getInstance()).getNppGUI();
 			::ShowWindow(_pPublicInterface->getHSelf(), nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
 			_dockingManager.showFloatingContainers(true);
 			restoreMinimizeDialogs();
@@ -3405,7 +3405,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_SYSTRAYPOPUP_NEW_AND_PASTE:
 		{
-			NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance()).getNppGUI());
+			NppGUI & nppGUI = (NppParameters::getInstance()).getNppGUI();
 			::ShowWindow(_pPublicInterface->getHSelf(), nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
 			_dockingManager.showFloatingContainers(true);
 			restoreMinimizeDialogs();
@@ -3422,7 +3422,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_SYSTRAYPOPUP_OPENFILE:
 		{
-			NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance()).getNppGUI());
+			NppGUI & nppGUI = (NppParameters::getInstance()).getNppGUI();
 			::ShowWindow(_pPublicInterface->getHSelf(), nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
 			_dockingManager.showFloatingContainers(true);
 			restoreMinimizeDialogs();

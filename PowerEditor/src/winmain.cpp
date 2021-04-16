@@ -491,7 +491,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 	}
 
 	nppParameters.load();
-	NppGUI & nppGui = const_cast<NppGUI &>(nppParameters.getNppGUI());
+	NppGUI & nppGui = nppParameters.getNppGUI();
 
 	bool doUpdateNpp = nppGui._autoUpdateOpt._doAutoUpdate;
 	bool doUpdatePluginList = nppGui._autoUpdateOpt._doAutoUpdate;

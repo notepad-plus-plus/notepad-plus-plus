@@ -513,7 +513,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_DISABLEAUTOUPDATE:
 		{
-			NppGUI & nppGUI = const_cast<NppGUI &>(nppParam.getNppGUI());
+			NppGUI & nppGUI = nppParam.getNppGUI();
 			nppGUI._autoUpdateOpt._doAutoUpdate = false;
 			return TRUE;
 		}
@@ -1652,7 +1652,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_ENABLECHECKDOCOPT:
 		{
-			NppGUI& nppgui = const_cast<NppGUI&>((nppParam.getNppGUI()));
+			NppGUI& nppgui = nppParam.getNppGUI();
 			if (wParam == CHECKDOCOPT_NONE)
 				nppgui._fileAutoDetection = cdDisabled;
 			else if (wParam == CHECKDOCOPT_UPDATESILENTLY)
@@ -2188,7 +2188,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			DocTabView::setHideTabBarStatus(hide);
 			::SendMessage(hwnd, WM_SIZE, 0, 0);
 
-			NppGUI & nppGUI = const_cast<NppGUI &>(((NppParameters::getInstance()).getNppGUI()));
+			NppGUI & nppGUI = (NppParameters::getInstance()).getNppGUI();
 			if (hide)
 				nppGUI._tabStatus |= TAB_HIDE;
 			else
@@ -2223,7 +2223,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			if (hide == isHidden)
 				return isHidden;
 
-			NppGUI & nppGUI = const_cast<NppGUI &>(nppParam.getNppGUI());
+			NppGUI & nppGUI = nppParam.getNppGUI();
 			nppGUI._menuBarShow = !hide;
 			if (nppGUI._menuBarShow)
 				::SetMenu(hwnd, _mainMenuHandle);
@@ -2241,7 +2241,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_HIDESTATUSBAR:
 		{
 			bool show = (lParam != TRUE);
-			NppGUI & nppGUI = const_cast<NppGUI &>(nppParam.getNppGUI());
+			NppGUI & nppGUI = nppParam.getNppGUI();
 			bool oldVal = nppGUI._statusBarShow;
 			if (show == oldVal)
 				return oldVal;
@@ -2319,7 +2319,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_INTERNAL_DISABLEAUTOUPDATE:
 		{
 			//printStr(TEXT("you've got me"));
-			NppGUI & nppGUI = const_cast<NppGUI &>(nppParam.getNppGUI());
+			NppGUI & nppGUI = nppParam.getNppGUI();
 			nppGUI._autoUpdateOpt._doAutoUpdate = false;
 			return TRUE;
 		}
@@ -2343,7 +2343,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_DOCSWITCHERDISABLECOLUMN:
 		{
 			BOOL isOff = static_cast<BOOL>(lParam);
-			NppGUI & nppGUI = const_cast<NppGUI &>(nppParam.getNppGUI());
+			NppGUI & nppGUI = nppParam.getNppGUI();
 			nppGUI._fileSwitcherWithoutExtColumn = isOff == TRUE;
 
 			if (_pFileSwitcherPanel)

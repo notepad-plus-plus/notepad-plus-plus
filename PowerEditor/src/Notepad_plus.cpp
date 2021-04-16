@@ -192,7 +192,7 @@ Notepad_plus::~Notepad_plus()
 LRESULT Notepad_plus::init(HWND hwnd)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
-	NppGUI & nppGUI = const_cast<NppGUI &>(nppParam.getNppGUI());
+	NppGUI & nppGUI = nppParam.getNppGUI();
 
 	// Menu
 	_mainMenuHandle = ::GetMenu(hwnd);
@@ -750,7 +750,7 @@ void Notepad_plus::killAllChildren()
 
 bool Notepad_plus::saveGUIParams()
 {
-	NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance()).getNppGUI());
+	NppGUI & nppGUI = (NppParameters::getInstance()).getNppGUI();
 	nppGUI._toolbarShow = _rebarTop.getIDVisible(REBAR_BAR_TOOLBAR);
 	nppGUI._toolBarStatus = _toolBar.getState();
 
@@ -830,7 +830,7 @@ bool Notepad_plus::saveFileBrowserParam()
 
 void Notepad_plus::saveDockingParams()
 {
-	NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance()).getNppGUI());
+	NppGUI & nppGUI = (NppParameters::getInstance()).getNppGUI();
 
 	// Save the docking information
 	nppGUI._dockingData._leftWidth		= _dockingManager.getDockedContSize(CONT_LEFT);
@@ -1840,8 +1840,8 @@ bool Notepad_plus::findInFilelist(std::vector<generic_string> & fileNames)
 
 	if (nbTotal != 0)
 	{
-		const NppParameters& nppParam = NppParameters::getInstance();
-		const NppGUI& nppGui = nppParam.getNppGUI();
+		NppParameters& nppParam = NppParameters::getInstance();
+		NppGUI& nppGui = nppParam.getNppGUI();
 		if (!nppGui._findDlgAlwaysVisible)
 		{
 			_findReplaceDlg.display(false);
@@ -1914,8 +1914,8 @@ bool Notepad_plus::findInOpenedFiles()
 
 	if (nbTotal != 0)
 	{
-		const NppParameters& nppParam = NppParameters::getInstance();
-		const NppGUI& nppGui = nppParam.getNppGUI();
+		NppParameters& nppParam = NppParameters::getInstance();
+		NppGUI& nppGui = nppParam.getNppGUI();
 		if (!nppGui._findDlgAlwaysVisible)
 		{
 			_findReplaceDlg.display(false);
@@ -1971,8 +1971,8 @@ bool Notepad_plus::findInCurrentFile(bool isEntireDoc)
 
 	if (nbTotal != 0)
 	{
-		const NppParameters& nppParam = NppParameters::getInstance();
-		const NppGUI& nppGui = nppParam.getNppGUI();
+		NppParameters& nppParam = NppParameters::getInstance();
+		NppGUI& nppGui = nppParam.getNppGUI();
 		if (!nppGui._findDlgAlwaysVisible)
 		{
 			_findReplaceDlg.display(false);
@@ -5129,7 +5129,7 @@ bool Notepad_plus::goToPreviousIndicator(int indicID2Search, bool isWrap) const
 	// found
 	if (_pEditView->execute(SCI_INDICATORVALUEAT, indicID2Search, posStart))
 	{
-		NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance()).getNppGUI());
+		NppGUI & nppGUI = (NppParameters::getInstance()).getNppGUI();
 		nppGUI._disableSmartHiliteTmp = true;
 
         auto currentline = _pEditView->execute(SCI_LINEFROMPOSITION, posEnd);
@@ -5182,7 +5182,7 @@ bool Notepad_plus::goToNextIndicator(int indicID2Search, bool isWrap) const
 	// found
 	if (_pEditView->execute(SCI_INDICATORVALUEAT, indicID2Search, posStart))
 	{
-		NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance()).getNppGUI());
+		NppGUI & nppGUI = (NppParameters::getInstance()).getNppGUI();
 		nppGUI._disableSmartHiliteTmp = true;
 
         auto currentline = _pEditView->execute(SCI_LINEFROMPOSITION, posEnd);
@@ -5346,7 +5346,7 @@ void Notepad_plus::postItToggle()
 {
 	if (!_beforeSpecialView._isPostIt)	// PostIt disabled, enable it
 	{
-		NppGUI & nppGUI = const_cast<NppGUI &>(NppParameters::getInstance().getNppGUI());
+		NppGUI & nppGUI = NppParameters::getInstance().getNppGUI();
 		// get current status before switch to postIt
 		//check these always
 		{

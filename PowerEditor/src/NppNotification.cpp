@@ -839,7 +839,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				return FALSE;
 
 			NppParameters& nppParam = NppParameters::getInstance();
-			NppGUI & nppGui = const_cast<NppGUI &>(nppParam.getNppGUI());
+			NppGUI & nppGui = nppParam.getNppGUI();
 
 			// replacement for obsolete custom SCN_SCROLLED
 			if (notification->updated & SC_UPDATE_V_SCROLL)

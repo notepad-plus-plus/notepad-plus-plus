@@ -490,14 +490,14 @@ INT_PTR CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 
 				case IDC_CHECK_TAB_LAST_EXIT:
 				{
-					NppGUI & nppGUI = const_cast<NppGUI &>(nppParam.getNppGUI());
+					NppGUI & nppGUI = nppParam.getNppGUI();
 					nppGUI._tabStatus ^= TAB_QUITONEMPTY;
 				}
 				return TRUE;
 
 				case IDC_CHECK_TAB_ALTICONS:
 				{
-					NppGUI& nppGUI = const_cast<NppGUI&>(nppParam.getNppGUI());
+					NppGUI& nppGUI = nppParam.getNppGUI();
 					nppGUI._tabStatus ^= TAB_ALTICONS;
 					bool isChecked = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_ALTICONS, BM_GETCHECK, 0, 0));
 					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_CHANGETABBAEICONS, 0, isChecked ? 1 : 0);
@@ -638,7 +638,7 @@ static LRESULT CALLBACK editNumSpaceProc(HWND hwnd, UINT message, WPARAM wParam,
 INT_PTR CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
-	NppGUI & nppGUI = const_cast<NppGUI &>(nppParam.getNppGUI());
+	NppGUI & nppGUI = nppParam.getNppGUI();
 	switch (message) 
 	{
 		case WM_INITDIALOG :
@@ -987,7 +987,7 @@ const size_t fileUpdateChoiceDisable = 2;
 INT_PTR CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
-	NppGUI & nppGUI = const_cast<NppGUI &>(nppParam.getNppGUI());
+	NppGUI & nppGUI = nppParam.getNppGUI();
 	switch (message) 
 	{
 		case WM_INITDIALOG :
@@ -1652,7 +1652,7 @@ INT_PTR CALLBACK RecentFilesHistorySubDlg::run_dlgProc(UINT message, WPARAM wPar
 INT_PTR CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
-	NppGUI & nppGUI = const_cast<NppGUI &>(nppParam.getNppGUI());
+	NppGUI & nppGUI = nppParam.getNppGUI();
 	NativeLangSpeaker *pNativeSpeaker = nppParam.getNativeLangSpeaker();
 
 	switch (message) 
@@ -2524,7 +2524,7 @@ INT_PTR CALLBACK PrintSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 INT_PTR CALLBACK BackupSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
-	NppGUI & nppGUI = const_cast<NppGUI &>(nppParam.getNppGUI());
+	NppGUI & nppGUI = nppParam.getNppGUI();
 	switch (message) 
 	{
 		case WM_INITDIALOG :
@@ -2718,7 +2718,7 @@ void BackupSubDlg::updateBackupGUI()
 INT_PTR CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
-	NppGUI & nppGUI = const_cast<NppGUI &>(nppParam.getNppGUI());
+	NppGUI & nppGUI = nppParam.getNppGUI();
 	switch (message) 
 	{
 		case WM_INITDIALOG :
@@ -3018,7 +3018,7 @@ INT_PTR CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam, 
 
 INT_PTR CALLBACK MultiInstanceSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
-	NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance()).getNppGUI());
+	NppGUI & nppGUI = (NppParameters::getInstance()).getNppGUI();
 	switch (message) 
 	{
 		case WM_INITDIALOG :
@@ -3164,7 +3164,7 @@ generic_string DelimiterSubDlg::getWarningText(size_t nbSp, size_t nbTab) const
 void DelimiterSubDlg::setWarningIfNeed() const
 {
 	generic_string msg;
-	NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance()).getNppGUI());
+	NppGUI & nppGUI = (NppParameters::getInstance()).getNppGUI();
 	if (!nppGUI._isWordCharDefault)
 	{
 		int nbSp = 0;
@@ -3177,7 +3177,7 @@ void DelimiterSubDlg::setWarningIfNeed() const
 
 INT_PTR CALLBACK DelimiterSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
-	NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance()).getNppGUI());
+	NppGUI & nppGUI = (NppParameters::getInstance()).getNppGUI();
 	switch (message) 
 	{
 		case WM_INITDIALOG :
@@ -3351,7 +3351,7 @@ INT_PTR CALLBACK DelimiterSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 INT_PTR CALLBACK CloudAndLinkSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppParameters& nppParams = NppParameters::getInstance();
-	NppGUI & nppGUI = const_cast<NppGUI &>(nppParams.getNppGUI());
+	NppGUI & nppGUI = nppParams.getNppGUI();
 	const size_t uriSchemesMaxLength = 2048;
 
 	if (HIWORD(wParam) == EN_CHANGE)
@@ -3527,7 +3527,7 @@ INT_PTR CALLBACK CloudAndLinkSubDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 INT_PTR CALLBACK SearchEngineSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppParameters& nppParams = NppParameters::getInstance();
-	NppGUI & nppGUI = const_cast<NppGUI &>(nppParams.getNppGUI());
+	NppGUI & nppGUI = nppParams.getNppGUI();
 
 	if (HIWORD(wParam) == EN_CHANGE)
 	{
@@ -3624,7 +3624,7 @@ INT_PTR CALLBACK SearchEngineSubDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 INT_PTR CALLBACK SearchingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppParameters& nppParams = NppParameters::getInstance();
-	NppGUI& nppGUI = const_cast<NppGUI&>(nppParams.getNppGUI());
+	NppGUI& nppGUI = nppParams.getNppGUI();
 
 	switch (message)
 	{

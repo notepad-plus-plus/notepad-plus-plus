@@ -406,18 +406,16 @@ BEGIN
 
         POPUP "Mark All"
         BEGIN
-            MENUITEM "Using 1st Style",    IDM_SEARCH_MARKALLEXT1
-            MENUITEM "Using 2nd Style",    IDM_SEARCH_MARKALLEXT2
-            MENUITEM "Using 3rd Style",    IDM_SEARCH_MARKALLEXT3
-            MENUITEM "Using 4th Style",    IDM_SEARCH_MARKALLEXT4
-            MENUITEM "Using 5th Style",    IDM_SEARCH_MARKALLEXT5
-        END
-        POPUP "Mark All Settings"
-        BEGIN
-            MENUITEM "Match case",                                IDM_SEARCH_MARKALLCASESENS
-            MENUITEM "Match whole word only",                     IDM_SEARCH_MARKALLWHOLEWORD
-            MENUITEM "Use Mark All classic case/word settings",   IDM_SEARCH_MARKALLCLASSICSETTINGS
-            MENUITEM "Use Find dialog case/word settings",        IDM_SEARCH_MARKALLUSEFINDSETTINGS
+            MENUITEM "Using 1st Style",                     IDM_SEARCH_MARKALLEXT1
+            MENUITEM "Using 2nd Style",                     IDM_SEARCH_MARKALLEXT2
+            MENUITEM "Using 3rd Style",                     IDM_SEARCH_MARKALLEXT3
+            MENUITEM "Using 4th Style",                     IDM_SEARCH_MARKALLEXT4
+            MENUITEM "Using 5th Style",                     IDM_SEARCH_MARKALLEXT5
+            MENUITEM SEPARATOR
+            MENUITEM "Match case",                          IDM_SEARCH_MARKALLCASESENS
+            MENUITEM "Match whole word only",               IDM_SEARCH_MARKALLWHOLEWORD
+            MENUITEM "Use classic case/word settings",      IDM_SEARCH_MARKALLCLASSICSETTINGS
+            MENUITEM "Use Find dialog case/word settings",  IDM_SEARCH_MARKALLUSEFINDSETTINGS
         END
         POPUP "Mark One"
         BEGIN

@@ -1124,6 +1124,18 @@ namespace std{ using ::type_info; }
 #endif
 
 //
+// Define composite agregate macros:
+//
+#include <boost/config/detail/cxx_composite.hpp>
+
+//
+// Define the std level that the compiler claims to support:
+//
+#ifndef BOOST_CXX_VERSION
+#  define BOOST_CXX_VERSION __cplusplus
+#endif
+
+//
 // Finish off with checks for macros that are depricated / no longer supported,
 // if any of these are set then it's very likely that much of Boost will no
 // longer work.  So stop with a #error for now, but give the user a chance

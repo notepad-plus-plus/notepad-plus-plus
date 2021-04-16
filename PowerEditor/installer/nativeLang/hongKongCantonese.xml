@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="香港廣東話" filename="hongKongCantonese.xml" version="7.9.4">
+    <Native-Langue name="香港廣東話" filename="hongKongCantonese.xml" version="7.9.6">
         <!--//
         This localization project is maintained by real Hongkongers who speak native Hong Kong Cantonese.
         Welcome issues and pull requests in Github repository:
@@ -40,6 +40,7 @@
                     <Item subMenuId="edit-pasteSpecial" name="特殊貼上"/>
                     <Item subMenuId="edit-onSelection" name="處理揀選範圍"/>
                     <Item subMenuId="search-markAll" name="全部標記"/>
+                    <Item subMenuId="search-markOne" name="單一標記"/> <!-- #new v7.9.6 -->
                     <Item subMenuId="search-unmarkAll" name="去除標記"/>
                     <Item subMenuId="search-jumpUp" name="上個標記"/>
                     <Item subMenuId="search-jumpDown" name="下個標記"/>
@@ -135,7 +136,8 @@
                     <Item id="42064" name="跟小數位調轉咁排（「,」當做小數點）"/>
                     <Item id="42065" name="跟小數位排（「.」當做小數點）"/>
                     <Item id="42066" name="跟小數位調轉咁排（「.」當做小數點）"/>
-                    <Item id="42078" name="求其咁排"/>
+                    <Item id="42083" name="反轉排"/> <!-- #new v7.9.6 -->
+                    <Item id="42078" name="求其排"/>
                     <Item id="42016" name="轉大楷(&amp;U)"/>
                     <Item id="42017" name="轉細楷(&amp;L)"/>
                     <Item id="42067" name="每個單字字首大楷，其它細楷(&amp;P)"/>
@@ -255,6 +257,11 @@
                     <Item id="43059" name="格式五"/> <!-- #new v7.9.1 -->
                     <Item id="43060" name="所有格式"/> <!-- #new v7.9.1 -->
                     <Item id="43061" name="搵嘢標記"/> <!-- #new v7.9.1 -->
+                    <Item id="43062" name="格式一"/> <!-- #new v7.9.6 -->
+                    <Item id="43063" name="格式二"/> <!-- #new v7.9.6 -->
+                    <Item id="43064" name="格式三"/> <!-- #new v7.9.6 -->
+                    <Item id="43065" name="格式四"/> <!-- #new v7.9.6 -->
+                    <Item id="43066" name="格式五"/> <!-- #new v7.9.6 -->
                     <Item id="43045" name="顯示搜尋結果視窗"/>
                     <Item id="43046" name="下一個搜尋結果"/>
                     <Item id="43047" name="上一個搜尋結果"/>
@@ -265,6 +272,7 @@
                     <!-- menu: View (cont'd) -->
                     <Item id="44009" name="Post-It 便利貼模式"/>
                     <Item id="44010" name="摺埋所有層級"/>
+                    <Item id="44011" name="免干擾模式"/> <!-- #new v7.9.6 -->
                     <Item id="44019" name="顯示所有字元"/>
                     <Item id="44020" name="顯示縮排輔助線"/>
                     <Item id="44022" name="自動換行"/>
@@ -312,14 +320,14 @@
                     <!-- menu: Encoding -->
                     <Item id="45004" name="ANSI"/>
                     <Item id="45005" name="UTF-8 with BOM"/>
-                    <Item id="45006" name="UCS-2BE with BOM"/>
-                    <Item id="45007" name="UCS-2LE with BOM"/>
+                    <Item id="45006" name="UTF-16 BE BOM"/>
+                    <Item id="45007" name="UTF-16 LE BOM"/>
                     <Item id="45008" name="UTF-8"/>
                     <Item id="45009" name="轉做 ANSI"/>
                     <Item id="45010" name="轉做 UTF-8"/>
                     <Item id="45011" name="轉做 UTF-8 with BOM"/>
-                    <Item id="45012" name="轉做 UCS-2BE with BOM"/>
-                    <Item id="45013" name="轉做 UCS-2LE with BOM"/>
+                    <Item id="45012" name="轉做 UTF-16 BE BOM"/>
+                    <Item id="45013" name="轉做 UTF-16 LE BOM"/>
                     <Item id="45060" name="Big5（正體中文）"/>
                     <Item id="45061" name="GB2312（簡體中文）"/>
                     <Item id="45054" name="OEM 861: 冰島文"/>
@@ -337,7 +345,7 @@
                     <Item id="46001" name="主題風格設定..."/>
 
                     <!-- menu: Language -->
-                    <Item id="46250" name="定義您嘅程式語言..."/>
+                    <Item id="46250" name="定義你嘅程式語言..."/>
                     <Item id="46300" name="打開自訂程式語言嘅資料夾..."/>
                     <Item id="46180" name="通用使用者設定"/>
 
@@ -494,8 +502,8 @@
                 <Item id="2008" name="字元位置(&amp;O)"/>
                 <Item id="1"    name="跳過去"/>
                 <Item id="2"    name="邊度都唔去"/>
-                <Item id="2004" name="您喺呢度："/>
-                <Item id="2005" name="您想去："/>
+                <Item id="2004" name="你喺呢度："/>
+                <Item id="2005" name="你想去："/>
                 <Item id="2006" name="去到盡喺呢度："/>
             </GoToLine>
 
@@ -601,6 +609,11 @@
                     <Item id="43026" name="全部標記：使用格式三嘅顏色"/>
                     <Item id="43028" name="全部標記：使用格式四嘅顏色"/>
                     <Item id="43030" name="全部標記：使用格式五嘅顏色"/>
+                    <Item id="43062" name="單一標記：使用格式一嘅顏色"/> <!-- #new v7.9.6 -->
+                    <Item id="43063" name="單一標記：使用格式二嘅顏色"/> <!-- #new v7.9.6 -->
+                    <Item id="43064" name="單一標記：使用格式三嘅顏色"/> <!-- #new v7.9.6 -->
+                    <Item id="43065" name="單一標記：使用格式四嘅顏色"/> <!-- #new v7.9.6 -->
+                    <Item id="43066" name="單一標記：使用格式五嘅顏色"/> <!-- #new v7.9.6 -->
                     <Item id="43023" name="去除標記：清除格式一嘅顏色"/>
                     <Item id="43025" name="去除標記：清除格式二嘅顏色"/>
                     <Item id="43027" name="去除標記：清除格式三嘅顏色"/>
@@ -856,9 +869,11 @@
                 <Global title="一般">
                     <Item id="6101" name="工具列"/>
                     <Item id="6102" name="隱藏"/>
-                    <Item id="6103" name="細圖示"/>
-                    <Item id="6104" name="大圖示"/>
-                    <Item id="6105" name="標準圖示"/>
+                    <Item id="6103" name="滑脫脫介面：細圖示"/> <!-- "Fluent UI" -->
+                    <Item id="6104" name="滑脫脫介面：大圖示"/> <!-- "Fluent UI" -->
+                    <Item id="6129" name="肥嘟嘟介面：細圖示"/> <!-- "Filled Fluent UI" --> <!-- #new v7.9.6 -->
+                    <Item id="6130" name="肥嘟嘟介面：大圖示"/> <!-- "Filled Fluent UI" --> <!-- #new v7.9.6 -->
+                    <Item id="6105" name="標準介面：細圖示"/>
                     <Item id="6106" name="Tab Bar"/>
                     <Item id="6107" name="縮細"/>
                     <Item id="6108" name="鎖定（唔畀 drag-and-drop）"/>
@@ -897,6 +912,11 @@
                     <Item id="6239" name="喺揀選範圍以外撳滑鼠右掣，保留揀選範圍"/> <!-- #moved in v7.9.2 -->
                 </Scintillas>
 
+                <DarkMode title="Dark Mode"> <!-- #new v7.9.6 -->
+                    <Item id="7101" name="啟用 dark mode"/> <!-- #new v7.9.6 -->
+                    <Item id="7106" name="* 重新啟動 Notepad++ 先至會完整生效"/> <!-- #new v7.9.6 -->
+                </DarkMode>
+
                 <MarginsBorderEdge title="邊界／邊框／邊緣線">
                     <Item id="6201" name="摺疊符號風格"/>
                     <Item id="6202" name="精簡"/>
@@ -915,6 +935,10 @@
 想劃多啲線嘅話，用空格分隔多組數字就得。"/>
                     <Item id="6231" name="邊框闊度"/>
                     <Item id="6235" name="無邊框"/>
+                    <Item id="6208" name="框內留白"/> <!-- #new v7.9.6 -->
+                    <Item id="6209" name="左"/> <!-- #new v7.9.6 -->
+                    <Item id="6210" name="右"/> <!-- #new v7.9.6 -->
+                    <Item id="6212" name="免干擾模式"/> <!-- #new v7.9.6 -->
                 </MarginsBorderEdge>
 
                 <NewDoc title="新文件">
@@ -926,8 +950,8 @@
                     <Item id="6406" name="ANSI"/>
                     <Item id="6407" name="UTF-8"/>
                     <Item id="6408" name="UTF-8 with BOM"/>
-                    <Item id="6409" name="UCS-2 Big Endian with BOM"/>
-                    <Item id="6410" name="UCS-2 Little Endian with BOM"/>
+                    <Item id="6409" name="UTF-16 Big Endian with BOM"/>
+                    <Item id="6410" name="UTF-16 Little Endian with BOM"/>
                     <Item id="6411" name="預設程式語言："/>
                     <Item id="6419" name="新文件"/>
                     <Item id="6420" name="套用到打開咗嗰啲 ANSI 檔案"/>
@@ -941,7 +965,7 @@
                 </DefaultDir>
 
                 <FileAssoc title="檔案關聯">
-                    <Item id="4008" name="想改下面啲設定，麻煩您閂咗個 Notepad++，然後「以系統管理員身份執行」重新打開 Notepad++。"/>
+                    <Item id="4008" name="想改下面啲設定，麻煩你閂咗個 Notepad++，然後「以系統管理員身份執行」重新打開 Notepad++。"/>
                     <Item id="4009" name="支援嘅副檔名："/>
                     <Item id="4010" name="登記咗嘅副檔名："/>
                 </FileAssoc>
@@ -959,8 +983,12 @@
                 </Language>
 
                 <Highlighting title="醒目提示">
+                    <Item id="6351" name="全部標記"/> <!-- #new v7.9.6 -->
+                    <Item id="6352" name="符合大細楷"/> <!-- #new v7.9.6 -->
+                    <Item id="6353" name="符合完整單字"/> <!-- #new v7.9.6 -->
                     <Item id="6333" name="醒目提示"/>
                     <Item id="6326" name="啟動"/>
+                    <Item id="6354" name="配對方式"/> <!-- #new v7.9.6 -->
                     <Item id="6332" name="符合大細楷"/>
                     <Item id="6338" name="符合完整單字"/>
                     <Item id="6339" name="套用搵同取代功能對話框嘅設定"/>
@@ -997,7 +1025,7 @@
                     <Item id="6722" name="右邊"/>
                     <Item id="6723" name="加入"/>
                     <Item id="6725" name="變數："/>
-                    <Item id="6727" name="呢度會顯示您啲變數設定"/>
+                    <Item id="6727" name="呢度會顯示你啲變數設定"/>
                     <Item id="6728" name="頁首同埋頁尾"/>
                 </Print>
 
@@ -1006,6 +1034,7 @@
                     <Item id="6902" name="搵／取代對話框啲字用等寬字型（需要重開 Notepad++）"/>
                     <Item id="6903" name="搵完嘢，保持開著個對話框"/>
                     <Item id="6904" name="喺所有打開咗嘅文件執行取代之前，要再次確認"/>
+                    <Item id="6905" name="取代完唔好跳去另一個關鍵字"/> <!-- #new v7.9.6 -->
                 </Searching>
 
                 <RecentFilesHistory title="最近用過嘅檔案記錄">
@@ -1071,7 +1100,7 @@
                     <Item id="6161" name="單字字元清單"/>
                     <Item id="6162" name="用預設嘅單字字元清單"/>
                     <Item id="6163" name="加啲字作為單字嘅一部分
-（唔好揀呢項，除非您知道搞緊咩啦）"/>
+（唔好揀呢項，除非你知道搞緊咩啦）"/>
                 </Delimiter>
 
                 <Cloud title="雲端同埋連結">
@@ -1091,7 +1120,7 @@
                     <Item id="6273" name="Google"/>
                     <Item id="6274" name="Bing"/>
                     <Item id="6275" name="Yahoo!"/>
-                    <Item id="6276" name="Set 您想要嘅搜尋器："/>
+                    <Item id="6276" name="Set 你想要嘅搜尋器："/>
                     <!-- 嗱！咪撚搞「例子：」後面啲字呀嗱 -->
                     <Item id="6278" name="例子： https://www.google.com/search?q=$(CURRENT_WORD)"/>
                 </SearchEngine>
@@ -1108,7 +1137,6 @@
                     <Item id="6325" name="更新後轆去最後一行"/>
                     <Item id="6322" name="工作階段檔案副檔名："/>
                     <Item id="6323" name="自動更新 Notepad++"/>
-                    <Item id="6351" name="Save 對話框將副檔名過濾成 *.* 而唔係 *.txt"/> <!-- #new v7.9.1 -->
                     <Item id="6324" name="文件切換器（Ctrl + Tab 掣）"/>
                     <Item id="6331" name="標題列淨係顯示檔案名"/>
                     <Item id="6334" name="自動偵測檔案編碼"/>
@@ -1183,29 +1211,29 @@
         <MessageBox> <!-- $INT_REPLACE$ 係 placeholder 嚟，唔好改啊嗱 -->
             <ContextMenuXmlEditWarning title="編輯快顯功能表" message="編輯 contextMenu.xml 可以修改 Notepad++ 嘅快顯功能表。
 改完記得重新啟動 Notepad++，咁先至會生效。"/>
-            <SaveCurrentModifWarning title="Save 而家嘅改動" message="您必須要 save 低而家嘅改動。
+            <SaveCurrentModifWarning title="Save 而家嘅改動" message="你必須要 save 低而家嘅改動。
 留意返，save 咗就冇得復原。
 
 仲繼唔繼續？"/>
-            <LoseUndoAbilityWarning title="警告：冇得復原" message="您必須要 save 低而家嘅改動。
+            <LoseUndoAbilityWarning title="警告：冇得復原" message="你必須要 save 低而家嘅改動。
 留意返，save 咗就冇得復原。
 
 仲繼唔繼續？"/>
             <CannotMoveDoc title="搬去新嘅 Notepad++ 個體" message="份文件有嘢改過，save 咗佢再試吓啦。"/>
             <DocReloadWarning title="喺磁碟重新 load 過" message="留意返！改過嘅嘢會冇晒，係咪真係要再 load 過呢個檔案？"/>
-            <FileLockedWarning title="儲存失敗" message="麻煩您檢查吓，係咪有其它應用程式開咗呢個檔案。"/>
+            <FileLockedWarning title="儲存失敗" message="麻煩你檢查吓，係咪有其它應用程式開咗呢個檔案。"/>
             <FileAlreadyOpenedInNpp title="" message="已經喺 Notepad++ 度開咗呢個檔案。"/>
-            <RenameTabTemporaryNameAlreadyInUse title="Rename failed" message="您改呢個名已經用緊喺另一個 tab 度。"/> <!-- #new v7.9.2 -->
+            <RenameTabTemporaryNameAlreadyInUse title="Rename failed" message="你改呢個名已經用緊喺另一個 tab 度。"/> <!-- #new v7.9.2 -->
             <DeleteFileFailed title="掉去垃圾桶" message="剷唔走個檔案。"/>
 
             <NbFileToOpenImportantWarning title="太多檔案" message="成 $INT_REPLACE$ 個檔案咁多，
 係咪真係要開晒先？"/>
             <SettingsOnCloudError title="雲端設定" message="條雲端路徑似乎 set 咗喺唯讀磁碟，又或者
-資料夾冇足夠嘅寫入權限，而家清除您嘅雲端設定，
+資料夾冇足夠嘅寫入權限，而家清除你嘅雲端設定，
 麻煩去「偏好設定」重新 set 過。"/>
-            <FilePathNotFoundWarning title="打開檔案" message="您想打開嘅檔案唔存在。"/>
+            <FilePathNotFoundWarning title="打開檔案" message="你想打開嘅檔案唔存在。"/>
             <SessionFileInvalidError title="Load 唔到個工作階段" message="個工作階段檔案損毀咗或者無效。"/>
-            <DroppingFolderAsProjectModeWarning title="操作無效" message="由於您喺「偏好設定：預設資料夾」閂咗「拖放資料夾去視窗嗰陣，會打開資料夾裏面所有檔案，而唔係放入去資料夾工作區」呢個選項，您只能夠拖放文件或者資料夾其中一種。
+            <DroppingFolderAsProjectModeWarning title="操作無效" message="由於你喺「偏好設定：預設資料夾」閂咗「拖放資料夾去視窗嗰陣，會打開資料夾裏面所有檔案，而唔係放入去資料夾工作區」呢個選項，你只能夠拖放文件或者資料夾其中一種。
 有需要就啟用呢個選項，然後再試一次。"/>
             <SortingError title="排次序出錯" message="第 $INT_REPLACE$ 行出問題，無法子以整數排次序。"/>
             <ColumnModeTip title="欄位模式" message="貼士：用「Alt + 滑鼠拖拉揀選」或者「Alt + Shift + keyboard 方向掣」嚟切換去欄位模式。"/>
@@ -1217,7 +1245,7 @@ $STR_REPLACE$
 」，係咪真係要剷先？"/>
             <NoBackupDoSaveFile title="Save" message="檔案嘅備份已經畀另一個程式剷走咗。
 如果唔想遺失數據就 save 低佢啦。
-您想唔想 save「$STR_REPLACE$」呢？"/>
+你想唔想 save「$STR_REPLACE$」呢？"/>
             <DoReloadOrNot title="Reload" message="「$STR_REPLACE$」
 
 已經畀另一個程式改過嘢。
@@ -1225,8 +1253,8 @@ $STR_REPLACE$
             <DoReloadOrNotAndLooseChange title="Reload" message="「$STR_REPLACE$」
 
 已經畀另一個程式改過嘢。
-Reload 會放棄您喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
-            <PrehistoricSystemDetected title="系統太舊" message="似乎您個系統太舊啦喂，呢個功能唔 work，真係唔好意思。"/>
+Reload 會放棄你喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
+            <PrehistoricSystemDetected title="系統太舊" message="似乎你個系統太舊啦喂，呢個功能唔 work，真係唔好意思。"/>
             <XpUpdaterProblem title="更新 Notepad++" message="由於 Windows XP 嘅安全機制太過舊，更新程式唔再兼容 XP 系統啦。
 要唔要去 Notepad++ 網站，下載最新嘅版本呢？"/>
             <GUpProxyConfNeedAdminMode title="設定更新程式嘅代理伺服器" message="麻煩「以系統管理員身份執行」Notepad++，再設定代理伺服器。"/>
@@ -1243,13 +1271,13 @@ Reload 會放棄您喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
             <LoadLangsFailed title="設定" message="Load 唔到「langs.xml」。
 使唔使回復個檔案？"/>
             <LoadLangsFailedFinal title="設定" message="Load 唔到「langs.xml」。"/>
-            <FolderAsWorspaceSubfolderExists title="資料夾工作區問題" message="您要加入嘅資料夾「$STR_REPLACE$」，已經以子資料夾嘅形式出現喺工作區裏面。
-如果您仍然想咁做，唯有喺工作區剷走包含佢嘅資料夾，先至可以加返上去。"/>
+            <FolderAsWorspaceSubfolderExists title="資料夾工作區問題" message="你要加入嘅資料夾「$STR_REPLACE$」，已經以子資料夾嘅形式出現喺工作區裏面。
+如果你仍然想咁做，唯有喺工作區剷走包含佢嘅資料夾，先至可以加返上去。"/>
 
             <ProjectPanelChanged title="$STR_REPLACE$" message="Project 工作區有嘢改動過，使唔使 save？"/>
             <ProjectPanelSaveError title="$STR_REPLACE$" message="寫入 project 工作區檔案嗰陣出錯，save 唔到。"/> <!-- #new v7.9.4 -->
-            <ProjectPanelOpenDoSaveDirtyWsOrNot title="打開工作區" message="您用緊呢個工作區改過嘢，使唔使 save 咗佢先呢？"/>
-            <ProjectPanelNewDoSaveDirtyWsOrNot title="新工作區" message="您用緊呢個工作區改過嘢，使唔使 save 咗佢先呢？"/>
+            <ProjectPanelOpenDoSaveDirtyWsOrNot title="打開工作區" message="你用緊呢個工作區改過嘢，使唔使 save 咗佢先呢？"/>
+            <ProjectPanelNewDoSaveDirtyWsOrNot title="新工作區" message="你用緊呢個工作區改過嘢，使唔使 save 咗佢先呢？"/>
             <ProjectPanelOpenFailed title="打開工作區" message="打唔開個工作區。
 似乎係個工作區檔案無效又或者損毀咗。"/>
             <ProjectPanelRemoveFolderFromProject title="喺 project 度剷走資料夾" message="咁樣會剷走埋佢啲子項目。
@@ -1262,7 +1290,7 @@ Reload 會放棄您喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
 唔該改另一個名啦。"/>
             <UDLRemoveCurrentLang title="剷除程式語言" message="係咪真係要咁做？"/>
             <SCMapperDoDeleteOrNot title="剷除快捷鍵" message="係咪真係要咁做"/>
-            <FindCharRangeValueError title="輸入值範圍錯誤" message="您輸入嘅數值應該要介乎 0 到 255 之間先至啱。"/>
+            <FindCharRangeValueError title="輸入值範圍錯誤" message="你輸入嘅數值應該要介乎 0 到 255 之間先至啱。"/>
             <OpenInAdminMode title="Save 唔到" message="Save 唔到，可能係因為個檔案喺保護狀態。
 想唔想用系統管理員身份重新打開 Notepad++？"/>
             <OpenInAdminModeWithoutCloseCurrent title="Save 唔到" message="Save 唔到，可能係因為個檔案喺保護狀態。
@@ -1272,7 +1300,7 @@ Reload 會放棄您喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
             <ExitToUpdatePlugins title="即將會閂 Notepad++" message="係嘅話，Notepad++ 會自己摺埋，然後安裝更新或者剷走 plugin(s)。
 搞掂晒安裝程序，Notepad++ 就會重新啟動。
 係咪繼續？"/>
-            <NeedToRestartToLoadPlugins title="重新啟動 Notepad++" message="您必須重新啟動 Notepad++ 先至可以 load 啲外掛。"/>
+            <NeedToRestartToLoadPlugins title="重新啟動 Notepad++" message="你必須重新啟動 Notepad++ 先至可以 load 啲外掛。"/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="剪貼簿記錄"/>
@@ -1374,7 +1402,7 @@ Reload 會放棄您喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
         <MiscStrings>
             <!-- $INT_REPLACE$ 同埋 $STR_REPLACE$ 係 placeholders 嚟，唔好改啊嗱 -->
             <word-chars-list-tip value="呢度要嚟喺現時嘅單字字元清單附加字元，double-click 揀字又或者剔咗「符合完整單字」嚟搵嘢就會包埋。"/>
-            <word-chars-list-warning-begin value="留意返：您嘅清單裏頭有"/>
+            <word-chars-list-warning-begin value="留意返：你嘅清單裏頭有"/>
             <word-chars-list-space-warning value=" $INT_REPLACE$ 個空格"/>
             <word-chars-list-tab-warning value=" $INT_REPLACE$ 個 tab "/>
             <word-chars-list-warning-end value="。"/>
@@ -1397,6 +1425,7 @@ Reload 會放棄您喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
             <find-status-replaceinopenedfiles-nb-replaced value="喺所有打開咗嘅文件執行取代：取代咗 $INT_REPLACE$ 次。"/>
             <find-status-mark-re-malformed value="標記：規則運算式無效。"/>
             <find-status-invalid-re value="搵嘢：規則運算式無效。"/>
+            <find-status-search-failed value="搵嘢：搜尋失敗，衰咗。"/> <!-- #new v7.9.6 -->
             <find-status-mark-1-match value="標記： 1 個符合結果。"/>
             <find-status-mark-nb-matches value="標記： $INT_REPLACE$ 個符合結果。"/>
             <find-status-count-re-malformed value="數量：規則運算式無效。"/>
@@ -1409,8 +1438,9 @@ Reload 會放棄您喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
             <find-status-replace-end-reached value="取代：由上而下取代咗 1 次，已經過咗文件結尾。"/>
             <find-status-replace-top-reached value="取代：由下而上取代咗 1 次，已經過咗文件開端。"/>
             <find-status-replaced-next-found value="取代：取代咗 1 次，搵到下一個。"/>
+            <find-status-replaced-without-continuing value="取代：取代咗 1 次。"/> <!-- #new v7.9.6 -->
             <find-status-replaced-next-not-found value="取代：取代咗 1 次，再搵唔到下一個喇。"/>
-            <find-status-replace-not-found value="取代：搵唔到您要嘅嘢。"/>
+            <find-status-replace-not-found value="取代：搵唔到你要嘅嘢。"/>
             <find-status-replace-readonly value="取代：無法取代，因為檔案屬性係唯讀。"/>
             <find-status-cannot-find value="搵：搵唔到「$STR_REPLACE$」。"/>
             <find-status-scope-selection value="（限揀選範圍）"/>
@@ -1423,9 +1453,11 @@ Reload 會放棄您喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
             <finder-uncollapse-all value="展開所有層級"/>
             <finder-copy value="抄低呢（幾）行"/>
             <finder-copy-verbatim value="抄"/> <!-- #new v7.9.2 -->
+            <finder-copy-paths value="抄低檔案路徑"/> <!-- #new v7.9.6 -->
             <finder-select-all value="揀晒"/>
             <finder-clear-all value="全部清除"/>
             <finder-open-all value="全部打開"/>
+            <finder-purge-for-every-search value="次次都清走搜尋結果"/> <!-- #new v7.9.6 -->
             <finder-wrap-long-lines value="自動換行"/>
             <common-ok value="OK"/>
             <common-cancel value="取消"/>
@@ -1452,11 +1484,11 @@ Reload 會放棄您喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
             <summary-nbsel1 value=" 個揀咗嘅字元（"/>
             <summary-nbsel2 value=" bytes），揀咗 "/>
             <summary-nbrange value=" 個範圍數"/>
-            <find-in-files-progress-title value="等我搵搵先啊吓，幫緊您幫緊您..."/> <!-- #new v7.9.3 -->
+            <find-in-files-progress-title value="等我搵搵先啊吓，幫緊你幫緊你..."/> <!-- #new v7.9.3 -->
             <replace-in-files-confirm-title value="係咪真係先？"/>
             <replace-in-files-confirm-directory value="係咪真係要喺呢度執行取代："/>
             <replace-in-files-confirm-filetype value="檔案類型："/>
-            <replace-in-files-progress-title value="幫您搞緊啦吓，幫緊您幫緊您..."/> <!-- #new v7.9.3 -->
+            <replace-in-files-progress-title value="幫你搞緊啦吓，幫緊你幫緊你..."/> <!-- #new v7.9.3 -->
             <replace-in-projects-confirm-title value="係咪真係先？"/> <!-- #new v7.9.4 -->
             <replace-in-projects-confirm-message value="係咪真係要喺 Project Panel(s) 嘅所有文件執行取代？"/> <!-- #new v7.9.4 -->
             <replace-in-open-docs-confirm-title value="係咪真係先？"/>
@@ -1470,6 +1502,8 @@ Reload 會放棄您喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
             <find-result-line-prefix value="行數"/> <!-- Must not begin with space or tab character --> <!-- #new v7.9.2 -->
             <find-regex-zero-length-match value="我覺得自己係零囉" /> <!-- 字元相符不過長度係零 -->
             <session-save-folder-as-workspace value="Save 埋資料夾工作區" /> <!-- #new v7.9.3 -->
+            <tab-untitled-string value="new " /> <!-- #new v7.9.6 -->
+            <file-save-assign-type value="追加副檔名(&amp;A)" /> <!-- #new v7.9.6 -->
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

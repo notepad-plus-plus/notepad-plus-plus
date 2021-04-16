@@ -1061,7 +1061,6 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
                     <Item id="6325" name="Depois de atualizar, ir para a última linha"/>
                     <Item id="6322" name="Extensão do Ficheiro da Sessão:"/>
                     <Item id="6323" name="Ativar Atualização Autom. do Notepad++"/>
-                    <Item id="6351" name="Defina Guardar filtro de extensão de ficheiro da janela para *.*"/>
                     <Item id="6324" name="Mudança de Documento (Ctrl+TAB)"/>
                     <Item id="6331" name="Só mostrar o nome do ficheiro na Barra do Título"/>
                     <Item id="6334" name="Detetar automaticamente a codificação de caráter"/>
@@ -1422,6 +1421,7 @@ Procurar em todos os ficheiros, exceto exe, obj &amp;&amp; log:
             <find-regex-zero-length-match value="correspondência de comprimento zero" />
             <session-save-folder-as-workspace value="Guardar pasta como área de trabalho" />
             <tab-untitled-string value="novo " />
+            <file-save-assign-type value="&amp;Adicionar extensão" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>
@@ -1445,7 +1445,7 @@ João Pereira <joaopereira@openmailbox.org>
 29/07/2015
 
 Hugo Carvalho <hugokarvalho@hotmail.com>
-14/04/2021 (versão 7.9.4, 7.9.5, 7.9.6)
+16/04/2021 (versão 7.9.4, 7.9.5, 7.9.6)
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.	

@@ -36,9 +36,8 @@ template<class T>
 const GUID ComTraits<T>::uid = __uuidof(T);
 
 // Smart pointer alias for COM objects that makes reference counting easier.
-template<class T>
-using com_ptr = _com_ptr_t<_com_IIID<T, &ComTraits<T>::uid>>;
-
+template<class T, class InterfaceT = T>
+using com_ptr = _com_ptr_t<_com_IIID<T, &ComTraits<InterfaceT>::uid>>;
 
 namespace // anonymous
 {
@@ -822,7 +821,7 @@ public:
 private:
 	com_ptr<IFileDialog> _dialog;
 	com_ptr<IFileDialogCustomize> _customize;
-	com_ptr<FileDialogEventHandler> _events;
+	com_ptr<FileDialogEventHandler, IFileDialogEvents> _events;
 };
 
 ///////////////////////////////////////////////////////////////////////////////

@@ -29,6 +29,7 @@
 #include <cctype>
 #include <locale>
 #include <cwctype>
+#include <limits>
 
 namespace boost{ namespace BOOST_REGEX_DETAIL_NS{
 

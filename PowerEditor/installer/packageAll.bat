@@ -23,10 +23,6 @@ signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://not
 If ErrorLevel 1 goto End
 signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin64\notepad++.exe
 If ErrorLevel 1 goto End
-signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin\SciLexer.dll
-If ErrorLevel 1 goto End
-signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin64\SciLexer.dll
-If ErrorLevel 1 goto End
 
 signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin\NppShell_06.dll
 If ErrorLevel 1 goto End
@@ -89,8 +85,6 @@ copy /Y ..\bin\doLocalConf.xml .\minimalist\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\"notepad++.exe" .\minimalist\
 If ErrorLevel 1 goto End
-copy /Y ..\bin\SciLexer.dll .\minimalist\
-If ErrorLevel 1 goto End
 
 rmdir /S /Q .\minimalist64
 mkdir .\minimalist64
@@ -115,8 +109,6 @@ If ErrorLevel 1 goto End
 copy /Y ..\bin\doLocalConf.xml .\minimalist64\
 If ErrorLevel 1 goto End
 copy /Y ..\bin64\"notepad++.exe" .\minimalist64\
-If ErrorLevel 1 goto End
-copy /Y ..\bin64\SciLexer.dll .\minimalist64\
 If ErrorLevel 1 goto End
 
 rem Remove old built Notepad++ 32-bit package
@@ -174,8 +166,6 @@ copy /Y ..\bin\doLocalConf.xml .\zipped.package.release\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\"notepad++.exe" .\zipped.package.release\
 If ErrorLevel 1 goto End
-copy /Y ..\bin\SciLexer.dll .\zipped.package.release\
-If ErrorLevel 1 goto End
 
 
 rem Basic Copy needed files into Notepad++ 64-bit package folders
@@ -196,8 +186,6 @@ If ErrorLevel 1 goto End
 copy /Y ..\bin\doLocalConf.xml .\zipped.package.release64\
 If ErrorLevel 1 goto End
 copy /Y ..\bin64\"notepad++.exe" .\zipped.package.release64\
-If ErrorLevel 1 goto End
-copy /Y ..\bin64\SciLexer.dll .\zipped.package.release64\
 If ErrorLevel 1 goto End
 
 

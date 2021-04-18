@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2021-04-10 by schnurlos (schnurlos@gmail.com)
+	last modified: 2021-04-18 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -875,6 +875,10 @@
 Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Zahlen durch Leerzeichen getrennt werden."/>
 					<Item id="6231" name="Rahmenbreite"/>
 					<Item id="6235" name="Kein Rand"/>
+					<Item id="6208" name="Ausgefüllt"/>
+					<Item id="6209" name="Links"/>
+					<Item id="6210" name="Rechts"/>
+					<Item id="6212" name="Ablenkungsfrei"/>
 				</MarginsBorderEdge>
 
 				<NewDoc title="Neues Dokument">
@@ -1067,7 +1071,6 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Za
 					<Item id="6325" name="Nach Aktualisierung zum Ende scrollen"/>
 					<Item id="6322" name="Sitzungsdatei-Erw.:"/>
 					<Item id="6323" name="Automatische Updates aktivieren"/>
-					<Item id="6351" name="Dateifilter für den Speicherdialog auf .* setzen"/>
 					<Item id="6324" name="Dokumentenumschalter (Strg+Tab)"/>
 					<Item id="6331" name="Nur Dateinamen in Titelleiste anzeigen"/>
 					<Item id="6334" name="Kodierung automatisch erkennen"/>
@@ -1428,6 +1431,7 @@ Finde in allen Dateien außer exe, obj &amp;&amp; log:
 			<find-regex-zero-length-match value="Übereinstimmung Null-Längen" />
 			<session-save-folder-as-workspace value="Verzeichnis als Arbeitsbereich speichern" />
 			<tab-untitled-string value="neu " />
+			<file-save-assign-type value="Erweiterung &amp;anfügen" />
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

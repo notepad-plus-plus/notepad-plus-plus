@@ -308,19 +308,6 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 					MB_YESNO,
 					0,
 					longFileName);
-
-				//generic_string str2display = TEXT("\"$STR_REPLACE$\" cannot be opened:\nFolder \"$STR_REPLACE$\" doesn't exist. \nDo you wish to remove the file from the recent list?");
-				//str2display += longFileName;
-				//str2display += TEXT("\" cannot be opened:\nFolder \"");
-				//str2display += longFileDir;
-				//str2display += TEXT("\" doesn't exist."); 
-				//str2display += TEXT("Do you wish to remove the file from the recent list?");
-				//int msgBoxResponse = ::MessageBox(_pPublicInterface->getHSelf(), str2display.c_str(), TEXT("Cannot open file"), MB_YESNO);
-				//
-				//if (msgBoxResponse == IDNO)
-				//{
-				//	removeFileFromList = false;
-				//}
 			}
 
 			if (!isCreateFileSuccessful)

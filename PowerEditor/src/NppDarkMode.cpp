@@ -3,15 +3,91 @@
 #include "DarkMode/DarkMode.ipp"
 #include "DarkMode/UAHMenuBar.h"
 
+#include "Parameters.h"
+#include "resource.h"
+
 #include <Shlwapi.h>
 
 #pragma comment(lib, "uxtheme.lib")
 
 namespace NppDarkMode
 {
+	static Options _options;			// actual runtime options
+
+	const Options& configuredOptions()
+	{
+		return NppParameters::getInstance().getNppGUI()._darkmode;
+	}
+
+	void initDarkMode()
+	{
+		_options = configuredOptions();
+
+		if (_options.enableExperimental)
+		{
+			initExperimentalDarkMode(_options.enableScrollbarHack);
+		}
+	}
+
+	// attempts to apply new options from NppParameters, sends NPPM_INTERNAL_REFRESHDARKMODE to hwnd's top level parent
+	void refreshDarkMode(HWND hwnd, bool forceRefresh)
+	{
+		bool supportedChanged = false;
+
+		auto& config = configuredOptions();
+
+		if (_options.enable != config.enable)
+		{
+			supportedChanged = true;
+			_options.enable = config.enable;
+		}
+
+		if (_options.enableMenubar != config.enableMenubar)
+		{
+			supportedChanged = true;
+			_options.enableMenubar = config.enableMenubar;
+		}
+
+		// other options not supported to change at runtime currently
+
+		if (!supportedChanged && !forceRefresh)
+		{
+			// nothing to refresh, changes were not supported.
+			return;
+		}
+
+		HWND hwndRoot = GetAncestor(hwnd, GA_ROOTOWNER);
+		::SendMessage(hwndRoot, NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+	}
+
 	bool isEnabled()
 	{
+		return _options.enable;
+	}
+
+	bool isDarkMenuEnabled()
+	{
+		return _options.enableMenubar;
+	}
+
+	bool isExperimentalEnabled()
+	{
+		return _options.enableExperimental;
+	}
+
+	bool isScrollbarHackEnabled()
+	{
+		return _options.enableScrollbarHack;
+	}
+
+	bool isExperimentalActive()
+	{
 		return g_darkModeEnabled;
+	}
+
+	bool isExperimentalSupported()
+	{
+		return g_darkModeSupported;
 	}
 
 	COLORREF invertLightness(COLORREF c)
@@ -49,7 +125,17 @@ namespace NppDarkMode
 
 	COLORREF getSofterBackgroundColor()
 	{
-		return RGB(0x30, 0x30, 0x30);
+		return RGB(0x2B, 0x2B, 0x2B);
+	}
+
+	COLORREF getHotBackgroundColor()
+	{
+		return RGB(0x4D, 0x4D, 0x4D);
+	}
+
+	COLORREF getPureBackgroundColor()
+	{
+		return RGB(0, 0, 0);
 	}
 
 	COLORREF getTextColor()
@@ -79,10 +165,27 @@ namespace NppDarkMode
 		return g_hbrSofterBackground;
 	}
 
+	HBRUSH getHotBackgroundBrush()
+	{
+		static HBRUSH g_hbrHotBackground = ::CreateSolidBrush(getHotBackgroundColor());
+		return g_hbrHotBackground;
+	}
+
+	HBRUSH getPureBackgroundBrush()
+	{
+		static HBRUSH g_hbrPureBackground = (HBRUSH)::GetStockObject(BLACK_BRUSH);
+		return g_hbrPureBackground;
+	}
+
 	// handle events
 
 	bool handleSettingChange(HWND hwnd, LPARAM lParam) // true if dark mode toggled
 	{
+		if (!isExperimentalEnabled())
+		{
+			return false;
+		}
+
 		bool toggled = false;
 		if (IsColorSchemeChangeMessage(lParam))
 		{
@@ -94,7 +197,6 @@ namespace NppDarkMode
 			if (!!darkModeWasEnabled != !!g_darkModeEnabled)
 			{
 				toggled = true;
-				RedrawWindow(hwnd, nullptr, nullptr, RDW_INVALIDATE | RDW_ERASE | RDW_FRAME | RDW_ALLCHILDREN);
 			}
 		}
 
@@ -105,11 +207,6 @@ namespace NppDarkMode
 	// return true if handled, false to continue with normal processing in your wndproc
 	bool runUAHWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam, LRESULT* lr)
 	{
-		if (!NppDarkMode::isEnabled())
-		{
-			return false;
-		}
-
 		static HTHEME g_menuTheme = nullptr;
 
 		UNREFERENCED_PARAMETER(wParam);
@@ -135,7 +232,7 @@ namespace NppDarkMode
 					rc.top -= 1;
 				}
 
-				FillRect(pUDM->hdc, &rc, NppDarkMode::getBackgroundBrush());
+				FillRect(pUDM->hdc, &rc, NppDarkMode::getPureBackgroundBrush());
 
 				*lr = 0;
 
@@ -199,7 +296,11 @@ namespace NppDarkMode
 
 				if (iBackgroundStateID == MPI_NORMAL || iBackgroundStateID == MPI_DISABLED)
 				{
-					FillRect(pUDMI->um.hdc, &pUDMI->dis.rcItem, NppDarkMode::getBackgroundBrush());
+					FillRect(pUDMI->um.hdc, &pUDMI->dis.rcItem, NppDarkMode::getPureBackgroundBrush());
+				}
+				else if (iBackgroundStateID == MPI_HOT || iBackgroundStateID == MPI_DISABLEDHOT)
+				{
+					FillRect(pUDMI->um.hdc, &pUDMI->dis.rcItem, NppDarkMode::getHotBackgroundBrush());
 				}
 				else
 				{
@@ -234,9 +335,9 @@ namespace NppDarkMode
 
 	// from DarkMode.h
 
-	void initDarkMode()
+	void initExperimentalDarkMode(bool fixDarkScrollbar)
 	{
-		::InitDarkMode();
+		::InitDarkMode(fixDarkScrollbar);
 	}
 
 	void allowDarkModeForApp(bool allow)

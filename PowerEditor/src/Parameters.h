@@ -26,6 +26,7 @@
 #include "shortcut.h"
 #include "ContextMenu.h"
 #include "dpiManager.h"
+#include "NppDarkMode.h"
 #include <assert.h>
 #include <tchar.h>
 
@@ -908,6 +909,8 @@ struct NppGUI final
 
 	bool _isDocPeekOnTab = false;
 	bool _isDocPeekOnMap = false;
+
+	NppDarkMode::Options _darkmode;
 };
 
 struct ScintillaViewParams

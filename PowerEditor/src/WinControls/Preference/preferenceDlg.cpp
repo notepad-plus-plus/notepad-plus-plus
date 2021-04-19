@@ -106,6 +106,9 @@ INT_PTR CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			_editingSubDlg.init(_hInst, _hSelf);
 			_editingSubDlg.create(IDD_PREFERENCE_SUB_EDITING, false, false);
 
+			_darkModeSubDlg.init(_hInst, _hSelf);
+			_darkModeSubDlg.create(IDD_PREFERENCE_SUB_DARKMODE, false, false);
+
 			_marginsBorderEdgeSubDlg.init(_hInst, _hSelf);
 			_marginsBorderEdgeSubDlg.create(IDD_PREFERENCE_SUB_MARGING_BORDER_EDGE, false, false);
 			
@@ -152,11 +155,11 @@ INT_PTR CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			_cloudAndLinkSubDlg.create(IDD_PREFERENCE_SUB_CLOUD_LINK, false, false);
 
 			_searchEngineSubDlg.init(_hInst, _hSelf);
-			_searchEngineSubDlg.create(IDD_PREFERENCE_SUB_SEARCHENGINE, false, false);
-
+			_searchEngineSubDlg.create(IDD_PREFERENCE_SUB_SEARCHENGINE, false, false);			
 
 			_wVector.push_back(DlgInfo(&_generalSubDlg, TEXT("General"), TEXT("Global")));
 			_wVector.push_back(DlgInfo(&_editingSubDlg, TEXT("Editing"), TEXT("Scintillas")));
+			_wVector.push_back(DlgInfo(&_darkModeSubDlg, TEXT("Dark Mode"), TEXT("DarkMode")));
 			_wVector.push_back(DlgInfo(&_marginsBorderEdgeSubDlg, TEXT("Margins/Border/Edge"), TEXT("MarginsBorderEdge")));
 			_wVector.push_back(DlgInfo(&_newDocumentSubDlg, TEXT("New Document"), TEXT("NewDoc")));
 			_wVector.push_back(DlgInfo(&_defaultDirectorySubDlg, TEXT("Default Directory"), TEXT("DefaultDir")));
@@ -185,6 +188,7 @@ INT_PTR CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			
 			_generalSubDlg.reSizeTo(rc);
 			_editingSubDlg.reSizeTo(rc);
+			_darkModeSubDlg.reSizeTo(rc);
 			_marginsBorderEdgeSubDlg.reSizeTo(rc);
 			_miscSubDlg.reSizeTo(rc);
 			_newDocumentSubDlg.reSizeTo(rc);
@@ -338,6 +342,7 @@ void PreferenceDlg::destroy()
 {
 	_generalSubDlg.destroy();
 	_editingSubDlg.destroy();
+	_darkModeSubDlg.destroy();
 	_marginsBorderEdgeSubDlg.destroy();
 	_miscSubDlg.destroy();
 	_fileAssocDlg.destroy();
@@ -746,6 +751,71 @@ INT_PTR CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 						break;
 					}
 			}
+		}
+	}
+	return FALSE;
+}
+
+void DarkModeSubDlg::enableDependentControls()
+{
+	bool experimentalEnabled = isCheckedOrNot(IDC_CHECK_DARKMODE_ENABLE_EXPERIMENTAL);
+	EnableWindow(GetDlgItem(_hSelf, IDC_CHECK_DARKMODE_ENABLE_SCROLLBAR_HACK), experimentalEnabled ? TRUE : FALSE);
+}
+
+INT_PTR CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+{
+	UNREFERENCED_PARAMETER(lParam);
+
+	NppParameters& nppParam = NppParameters::getInstance();
+	NppGUI& nppGUI = nppParam.getNppGUI();
+	switch (message)
+	{
+		case WM_INITDIALOG:
+		{
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_DARKMODE_ENABLE, BM_SETCHECK, nppGUI._darkmode.enable, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_DARKMODE_ENABLE_EXPERIMENTAL, BM_SETCHECK, nppGUI._darkmode.enableExperimental, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_DARKMODE_ENABLE_MENUBAR, BM_SETCHECK, nppGUI._darkmode.enableMenubar, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_DARKMODE_ENABLE_SCROLLBAR_HACK, BM_SETCHECK, nppGUI._darkmode.enableScrollbarHack, 0);
+
+			enableDependentControls();
+
+			ETDTProc enableDlgTheme = (ETDTProc)nppParam.getEnableThemeDlgTexture();
+			if (enableDlgTheme)
+				enableDlgTheme(_hSelf, ETDT_ENABLETAB);
+			return TRUE;
+		}
+
+		case WM_COMMAND:
+		{
+			bool changed = false;
+			switch (wParam)
+			{
+				case IDC_CHECK_DARKMODE_ENABLE:
+					nppGUI._darkmode.enable = isCheckedOrNot(static_cast<int>(wParam));
+					changed = true;
+					break;
+				case IDC_CHECK_DARKMODE_ENABLE_EXPERIMENTAL:
+					nppGUI._darkmode.enableExperimental = isCheckedOrNot(static_cast<int>(wParam));
+					changed = true;
+					break;
+				case IDC_CHECK_DARKMODE_ENABLE_MENUBAR:
+					nppGUI._darkmode.enableMenubar = isCheckedOrNot(static_cast<int>(wParam));
+					changed = true;
+					break;
+				case IDC_CHECK_DARKMODE_ENABLE_SCROLLBAR_HACK:
+					nppGUI._darkmode.enableScrollbarHack = isCheckedOrNot(static_cast<int>(wParam));
+					changed = true;
+					break;
+			}
+
+			if (changed)
+			{
+				NppDarkMode::refreshDarkMode(_hSelf);
+				enableDependentControls();
+				return TRUE;
+			}
+
+			return FALSE;
 		}
 	}
 	return FALSE;

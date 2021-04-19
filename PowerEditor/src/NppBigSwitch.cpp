@@ -70,7 +70,10 @@ LRESULT CALLBACK Notepad_plus_Window::Notepad_plus_Proc(HWND hwnd, UINT message,
 			pM30ide->_hSelf = hwnd;
 			::SetWindowLongPtr(hwnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pM30ide));
 
-			NppDarkMode::enableDarkScrollBarForWindowAndChildren(hwnd);
+			if (NppDarkMode::isExperimentalEnabled() && NppDarkMode::isScrollbarHackEnabled())
+			{
+				NppDarkMode::enableDarkScrollBarForWindowAndChildren(hwnd);
+			}
 
 			return TRUE;
 		}
@@ -91,7 +94,7 @@ LRESULT Notepad_plus_Window::runProc(HWND hwnd, UINT message, WPARAM wParam, LPA
 		{
 			try
 			{
-				if (NppDarkMode::isEnabled())
+				if (NppDarkMode::isExperimentalEnabled())
 				{
 					NppDarkMode::allowDarkModeForWindow(hwnd, true);
 					NppDarkMode::refreshTitleBarThemeColor(hwnd);
@@ -100,7 +103,7 @@ LRESULT Notepad_plus_Window::runProc(HWND hwnd, UINT message, WPARAM wParam, LPA
 				_notepad_plus_plus_core._pPublicInterface = this;
 				LRESULT lRet = _notepad_plus_plus_core.init(hwnd);
 
-				if (NppDarkMode::isEnabled())
+				if (NppDarkMode::isExperimentalEnabled())
 				{
 					RECT rcClient;
 					GetWindowRect(hwnd, &rcClient);
@@ -147,7 +150,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 	LRESULT result = FALSE;
 	NppParameters& nppParam = NppParameters::getInstance();
 
-	if (NppDarkMode::runUAHWndProc(hwnd, message, wParam, lParam, &result))
+	if (NppDarkMode::isDarkMenuEnabled() && NppDarkMode::runUAHWndProc(hwnd, message, wParam, lParam, &result))
 	{
 		return result;
 	}
@@ -180,12 +183,17 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			if (NppDarkMode::handleSettingChange(hwnd, lParam))
 			{
-				// dark mode may have been toggled. Reset anything here!
-
-				SendMessage(hwnd, NPPM_SETEDITORBORDEREDGE, 0, NppParameters::getInstance().getSVP()._showBorderEdge);
+				// dark mode may have been toggled by the OS
+				NppDarkMode::refreshDarkMode(hwnd, true);
 			}
 
 			return ::DefWindowProc(hwnd, message, wParam, lParam);
+		}
+
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			refreshDarkMode();
+			return TRUE;
 		}
 
 		case WM_DRAWITEM:
@@ -1618,7 +1626,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				{
 					if (NppDarkMode::isEnabled())
 					{
-						FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getBackgroundBrush());
+						FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getPureBackgroundBrush());
 						nmtbcd->clrText = NppDarkMode::getTextColor();
 						SetTextColor(nmtbcd->nmcd.hdc, NppDarkMode::getTextColor());
 						return CDRF_SKIPDEFAULT;

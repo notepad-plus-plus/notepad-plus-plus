@@ -5329,6 +5329,25 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 					_nppGUI._commandLineInterpreter.assign(cli);
 			}
 		}
+		else if (!lstrcmp(nm, TEXT("DarkMode")))
+		{
+			auto parseYesNoBoolAttribute = [&element](const TCHAR* name, bool defaultValue = false)->bool {
+				const TCHAR* val = element->Attribute(name);
+				if (val)
+				{
+					if (!lstrcmp(val, TEXT("yes")))
+						return true;
+					else if (!lstrcmp(val, TEXT("no")))
+						return false;
+				}
+				return defaultValue;
+			};
+
+			_nppGUI._darkmode.enable = parseYesNoBoolAttribute(TEXT("enable"));
+			_nppGUI._darkmode.enableExperimental = parseYesNoBoolAttribute(TEXT("enableExperimental"));
+			_nppGUI._darkmode.enableMenubar = parseYesNoBoolAttribute(TEXT("enableMenubar"));
+			_nppGUI._darkmode.enableScrollbarHack = parseYesNoBoolAttribute(TEXT("enableScrollbarHack"));
+		}
 	}
 }
 
@@ -6314,6 +6333,22 @@ void NppParameters::createXmlTreeFromGUIParams()
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("commandLineInterpreter"));
 		GUIConfigElement->InsertEndChild(TiXmlText(_nppGUI._commandLineInterpreter.c_str()));
+	}
+
+	// <GUIConfig name="DarkMode" enable="no" enableExperimental="no" enableMenubar="no" enableScrollbarHack="no" />
+	{
+		TiXmlElement* GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
+		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("DarkMode"));
+
+		auto setYesNoBoolAttribute = [&GUIConfigElement](const TCHAR* name, bool value) {
+			const TCHAR* pStr = value ? TEXT("yes") : TEXT("no");
+			GUIConfigElement->SetAttribute(name, pStr);
+		};
+
+		setYesNoBoolAttribute(TEXT("enable"), _nppGUI._darkmode.enable);
+		setYesNoBoolAttribute(TEXT("enableExperimental"), _nppGUI._darkmode.enableExperimental);
+		setYesNoBoolAttribute(TEXT("enableMenubar"), _nppGUI._darkmode.enableMenubar);
+		setYesNoBoolAttribute(TEXT("enableScrollbarHack"), _nppGUI._darkmode.enableScrollbarHack);
 	}
 
 	// <GUIConfig name="ScintillaPrimaryView" lineNumberMargin="show" bookMarkMargin="show" indentGuideLine="show" folderMarkStyle="box" lineWrapMethod="aligned" currentLineHilitingShow="show" scrollBeyondLastLine="no" rightClickKeepsSelection="no" disableAdvancedScrolling="no" wrapSymbolShow="hide" Wrap="no" borderEdge="yes" edge="no" edgeNbColumn="80" zoom="0" zoom2="0" whiteSpaceShow="hide" eolShow="hide" borderWidth="2" smoothFont="no" />

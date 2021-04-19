@@ -405,8 +405,6 @@ PWSTR stripIgnoredParams(ParamVector & params, PWSTR pCmdLine)
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 {
-	NppDarkMode::initDarkMode();
-
 	generic_string cmdLineString = pCmdLine ? pCmdLine : _T("");
 	ParamVector params;
 	parseCommandLine(pCmdLine, params);
@@ -494,7 +492,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 	}
 
 	nppParameters.load();
+
 	NppGUI & nppGui = nppParameters.getNppGUI();
+
+	NppDarkMode::initDarkMode();
 
 	bool doUpdateNpp = nppGui._autoUpdateOpt._doAutoUpdate;
 	bool doUpdatePluginList = nppGui._autoUpdateOpt._doAutoUpdate;

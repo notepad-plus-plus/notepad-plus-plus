@@ -436,7 +436,7 @@ LRESULT CALLBACK RebarSubclass(
 		{
 			RECT rc;
 			GetClientRect(hWnd, &rc);
-			FillRect((HDC)wParam, &rc, NppDarkMode::getBackgroundBrush());
+			FillRect((HDC)wParam, &rc, NppDarkMode::getPureBackgroundBrush());
 			return 1;
 		}
 		else {

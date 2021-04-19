@@ -220,7 +220,7 @@ constexpr bool CheckBuildNumber(DWORD buildNumber)
 		buildNumber == 19043);  // 21H1
 }
 
-void InitDarkMode()
+void InitDarkMode(bool fixDarkScrollbar)
 {
 	auto RtlGetNtVersionNumbers = reinterpret_cast<fnRtlGetNtVersionNumbers>(GetProcAddress(GetModuleHandleW(L"ntdll.dll"), "RtlGetNtVersionNumbers"));
 	if (RtlGetNtVersionNumbers)
@@ -265,7 +265,10 @@ void InitDarkMode()
 
 					g_darkModeEnabled = _ShouldAppsUseDarkMode() && !IsHighContrast();
 
-					FixDarkScrollBar();
+					if (fixDarkScrollbar)
+					{
+						FixDarkScrollBar();
+					}
 				}
 			}
 		}

@@ -153,6 +153,11 @@ namespace NppDarkMode
 		return RGB(0x80, 0x80, 0x80);
 	}
 
+	COLORREF getErrorBackgroundColor()
+	{
+		return RGB(0xB0, 0x00, 0x00);
+	}
+
 	HBRUSH getBackgroundBrush()
 	{
 		static HBRUSH g_hbrBackground = ::CreateSolidBrush(getBackgroundColor());
@@ -175,6 +180,12 @@ namespace NppDarkMode
 	{
 		static HBRUSH g_hbrPureBackground = (HBRUSH)::GetStockObject(BLACK_BRUSH);
 		return g_hbrPureBackground;
+	}
+
+	HBRUSH getErrorBackgroundBrush()
+	{
+		static HBRUSH g_hbrErrorBackground = ::CreateSolidBrush(getErrorBackgroundColor());
+		return g_hbrErrorBackground;
 	}
 
 	// handle events
@@ -358,6 +369,209 @@ namespace NppDarkMode
 	void enableDarkScrollBarForWindowAndChildren(HWND hwnd)
 	{
 		::EnableDarkScrollBarForWindowAndChildren(hwnd);
+	}
+
+	struct ButtonData
+	{
+		HTHEME hTheme = nullptr;
+
+		~ButtonData()
+		{
+			closeTheme();
+		}
+
+		bool ensureTheme(HWND hwnd)
+		{
+			if (!hTheme)
+			{
+				hTheme = OpenThemeData(hwnd, L"Button");
+			}
+			return hTheme != nullptr;
+		}
+
+		void closeTheme()
+		{
+			if (hTheme)
+			{
+				CloseThemeData(hTheme);
+				hTheme = nullptr;
+			}
+		}
+	};
+
+	void paintButton(HWND hwnd, HDC hdc, ButtonData& buttonData)
+	{
+		RECT rcClient = { 0 };
+		WCHAR szText[256] = { 0 };
+		DWORD nState = static_cast<DWORD>(SendMessage(hwnd, BM_GETSTATE, 0, 0));
+		bool isEnabled = IsWindowEnabled(hwnd);;
+		DWORD uiState = static_cast<DWORD>(SendMessage(hwnd, WM_QUERYUISTATE, 0, 0));
+		DWORD nStyle = GetWindowLong(hwnd, GWL_STYLE);
+		DWORD nButtonStyle = nStyle & 0xF;
+
+		int iPartID = BP_CHECKBOX;
+		if (nButtonStyle == BS_CHECKBOX || nButtonStyle == BS_AUTOCHECKBOX)
+		{
+			iPartID = BP_CHECKBOX;
+		}
+		else if (nButtonStyle == BS_RADIOBUTTON || nButtonStyle == BS_AUTORADIOBUTTON)
+		{
+			iPartID = BP_RADIOBUTTON;
+		}
+		else
+		{
+			assert(false);
+		}
+
+		// states of BP_CHECKBOX and BP_RADIOBUTTON are the same
+		int iStateID = RBS_UNCHECKEDNORMAL;
+
+		if (!isEnabled)					iStateID = RBS_UNCHECKEDDISABLED;
+		else if (nState & BST_PUSHED)	iStateID = RBS_UNCHECKEDPRESSED;
+		else if (nState & BST_HOT)		iStateID = RBS_UNCHECKEDHOT;
+
+		if (nState & BST_CHECKED)		iStateID += 4;
+
+		HFONT hFont = nullptr;
+		HFONT hOldFont = nullptr;
+		HFONT hCreatedFont = nullptr;
+		LOGFONT lf = { 0 };
+		if (SUCCEEDED(GetThemeFont(buttonData.hTheme, hdc, iPartID, iStateID, TMT_FONT, &lf)))
+		{
+			hCreatedFont = CreateFontIndirect(&lf);
+			hFont = hCreatedFont;
+		}
+
+		if (!hFont) {
+			hFont = reinterpret_cast<HFONT>(SendMessage(hwnd, WM_GETFONT, 0, 0));
+		}
+
+		SelectObject(hdc, hFont);
+
+		DWORD dtFlags = DT_LEFT; // DT_LEFT is 0
+		dtFlags |= (nStyle & BS_MULTILINE) ? DT_WORDBREAK : DT_SINGLELINE;
+		dtFlags |= ((nStyle & BS_CENTER) == BS_CENTER) ? DT_CENTER : (nStyle & BS_RIGHT) ? DT_RIGHT : 0;
+		dtFlags |= ((nStyle & BS_VCENTER) == BS_VCENTER) ? DT_VCENTER : (nStyle & BS_BOTTOM) ? DT_BOTTOM : 0;
+		dtFlags |= (uiState & UISF_HIDEACCEL) ? DT_HIDEPREFIX : 0;
+
+		if (!(nStyle & BS_MULTILINE) && !(nStyle & BS_BOTTOM) && !(nStyle & BS_TOP))
+		{
+			dtFlags |= DT_VCENTER;
+		}
+
+		GetClientRect(hwnd, &rcClient);
+		GetWindowText(hwnd, szText, _countof(szText));
+
+		SIZE szBox = { 13, 13 };
+		GetThemePartSize(buttonData.hTheme, hdc, iPartID, iStateID, NULL, TS_DRAW, &szBox);
+
+		RECT rcText = rcClient;
+		GetThemeBackgroundContentRect(buttonData.hTheme, hdc, iPartID, iStateID, &rcClient, &rcText);
+
+		RECT rcBackground = rcClient;
+		if (dtFlags & DT_SINGLELINE)
+		{
+			rcBackground.top += (rcText.bottom - rcText.top - szBox.cy) / 2;
+		}
+		rcBackground.bottom = rcBackground.top + szBox.cy;
+		rcBackground.right = rcBackground.left + szBox.cx;
+		rcText.left = rcBackground.right + 3;
+
+		DrawThemeParentBackground(hwnd, hdc, &rcClient);
+		DrawThemeBackground(buttonData.hTheme, hdc, iPartID, iStateID, &rcBackground, nullptr);
+
+		DTTOPTS dtto = { sizeof(DTTOPTS), DTT_TEXTCOLOR };
+		dtto.crText = NppDarkMode::getTextColor();
+
+		DrawThemeTextEx(buttonData.hTheme, hdc, iPartID, iStateID, szText, -1, dtFlags, &rcText, &dtto);
+
+		if ((nState & BST_FOCUS) && !(uiState & UISF_HIDEFOCUS))
+		{
+			RECT rcTextOut = rcText;
+			dtto.dwFlags |= DTT_CALCRECT;
+			DrawThemeTextEx(buttonData.hTheme, hdc, iPartID, iStateID, szText, -1, dtFlags | DT_CALCRECT, &rcTextOut, &dtto);
+			RECT rcFocus = rcTextOut;
+			rcFocus.bottom++;
+			rcFocus.left--;
+			rcFocus.right++;
+			DrawFocusRect(hdc, &rcFocus);
+		}
+
+		if (hCreatedFont) DeleteObject(hCreatedFont);
+		SelectObject(hdc, hOldFont);
+	}
+
+	constexpr UINT_PTR g_buttonSubclassID = 42;
+
+	LRESULT CALLBACK ButtonSubclass(
+		HWND hWnd,
+		UINT uMsg,
+		WPARAM wParam,
+		LPARAM lParam,
+		UINT_PTR uIdSubclass,
+		DWORD_PTR dwRefData
+	)
+	{
+		UNREFERENCED_PARAMETER(uIdSubclass);
+
+		auto pButtonData = reinterpret_cast<ButtonData*>(dwRefData);
+
+		switch (uMsg)
+		{
+			case WM_UPDATEUISTATE:
+				if (HIWORD(wParam) & (UISF_HIDEACCEL | UISF_HIDEFOCUS))
+				{
+					InvalidateRect(hWnd, nullptr, FALSE);
+				}
+				break;
+			case WM_NCDESTROY:
+				RemoveWindowSubclass(hWnd, ButtonSubclass, g_buttonSubclassID);
+				delete pButtonData;
+				break;
+			case WM_ERASEBKGND:
+				if (NppDarkMode::isEnabled() && pButtonData->ensureTheme(hWnd))
+				{
+					return TRUE;
+				}
+				else
+				{
+					break;
+				}
+			case WM_THEMECHANGED:
+				pButtonData->closeTheme();
+				break;
+			case WM_PRINTCLIENT:
+			case WM_PAINT:
+				if (NppDarkMode::isEnabled() && pButtonData->ensureTheme(hWnd))
+				{
+					PAINTSTRUCT ps = { 0 };
+					HDC hdc = reinterpret_cast<HDC>(wParam);
+					if (!hdc)
+					{
+						hdc = BeginPaint(hWnd, &ps);
+					}
+
+					paintButton(hWnd, hdc, *pButtonData);
+
+					if (ps.hdc)
+					{
+						EndPaint(hWnd, &ps);
+					}
+
+					return 0;
+				}
+				else
+				{
+					break;
+				}
+		}
+		return DefSubclassProc(hWnd, uMsg, wParam, lParam);
+	}
+
+	void subclassButtonControl(HWND hwnd)
+	{
+		DWORD_PTR pButtonData = reinterpret_cast<DWORD_PTR>(new ButtonData());
+		SetWindowSubclass(hwnd, ButtonSubclass, g_buttonSubclassID, pButtonData);
 	}
 }
 

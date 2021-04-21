@@ -4313,8 +4313,25 @@ INT_PTR CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 		// Make edit field red if not found
 		case WM_CTLCOLOREDIT :
 		{
+			if (NppDarkMode::isEnabled())
+			{
+				if (FSNotFound != getFindStatus())
+				{
+					SetTextColor((HDC)wParam, NppDarkMode::getTextColor());
+					SetBkColor((HDC)wParam, NppDarkMode::getPureBackgroundColor());
+					return (LRESULT)NppDarkMode::getPureBackgroundBrush();
+				}
+				else // text not found
+				{
+					SetTextColor((HDC)wParam, NppDarkMode::getTextColor());
+					SetBkColor((HDC)wParam, NppDarkMode::getErrorBackgroundColor());
+					return (LRESULT)NppDarkMode::getErrorBackgroundBrush();
+				}
+			}
+
 			// if the text not found modify the background color of the editor
 			static HBRUSH hBrushBackground = CreateSolidBrush(BCKGRD_COLOR);
+
 			if (FSNotFound != getFindStatus())
 				return FALSE; // text found, use the default color
 
@@ -4322,6 +4339,27 @@ INT_PTR CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			SetTextColor((HDC)wParam, TXT_COLOR);
 			SetBkColor((HDC)wParam, BCKGRD_COLOR);
 			return (LRESULT)hBrushBackground;
+		}
+
+		case WM_CTLCOLORDLG:
+		case WM_CTLCOLORSTATIC:
+		{
+			if (!NppDarkMode::isEnabled())
+			{
+				return DefWindowProc(getHSelf(), message, wParam, lParam);
+			}
+
+			SetTextColor((HDC)wParam, NppDarkMode::getTextColor());
+			SetBkColor((HDC)wParam, NppDarkMode::getPureBackgroundColor());
+			return (LRESULT)GetStockObject(BLACK_BRUSH);
+		}
+
+		case WM_INITDIALOG:
+		{
+			LRESULT lr = DefWindowProc(getHSelf(), message, wParam, lParam);
+			NppDarkMode::subclassButtonControl(GetDlgItem(getHSelf(), IDC_INCFINDHILITEALL));
+			NppDarkMode::subclassButtonControl(GetDlgItem(getHSelf(), IDC_INCFINDMATCHCASE));
+			return lr;
 		}
 
 		case WM_COMMAND : 

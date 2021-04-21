@@ -132,6 +132,9 @@ LRESULT CALLBACK StatusBarSubclass(
 		EndPaint(hWnd, &ps);
 		return 0;
 	}
+	case WM_NCDESTROY:
+		RemoveWindowSubclass(hWnd, StatusBarSubclass, g_statusBarSubclassID);
+		break;
 	}
 	return DefSubclassProc(hWnd, uMsg, wParam, lParam);
 }

@@ -33,11 +33,13 @@ namespace NppDarkMode
 	COLORREF getTextColor();
 	COLORREF getDarkerTextColor();
 	COLORREF getEdgeColor();
+	COLORREF getErrorBackgroundColor();
 
 	HBRUSH getBackgroundBrush();
 	HBRUSH getPureBackgroundBrush();
 	HBRUSH getSofterBackgroundBrush();
 	HBRUSH getHotBackgroundBrush();
+	HBRUSH getErrorBackgroundBrush();
 
 	// handle events
 	bool handleSettingChange(HWND hwnd, LPARAM lParam); // true if dark mode toggled
@@ -54,5 +56,7 @@ namespace NppDarkMode
 
 	// enhancements to DarkMode.h
 	void enableDarkScrollBarForWindowAndChildren(HWND hwnd);
+
+	void subclassButtonControl(HWND hwnd);
 }
 

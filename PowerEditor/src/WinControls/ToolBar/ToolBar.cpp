@@ -442,6 +442,9 @@ LRESULT CALLBACK RebarSubclass(
 		else {
 			break;
 		}
+	case WM_NCDESTROY:
+		RemoveWindowSubclass(hWnd, RebarSubclass, g_rebarSubclassID);
+		break;
 	}
 	return DefSubclassProc(hWnd, uMsg, wParam, lParam);
 }

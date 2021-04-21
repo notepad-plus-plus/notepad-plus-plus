@@ -37,6 +37,8 @@ ManifestDPIAware true
 
 !ifdef ARCH64
 OutFile ".\build\npp.${APPVERSION}.Installer.x64.exe"
+!else ifdef ARCHARM64
+OutFile ".\build\npp.${APPVERSION}.Installer.arm64.exe"
 !else
 OutFile ".\build\npp.${APPVERSION}.Installer.exe"
 !endif
@@ -168,6 +170,10 @@ noDelete32:
 		MessageBox MB_OK "You cannot install Notepad++ 64-bit version on your 32-bit system.$\nPlease download and install Notepad++ 32-bit version instead."
 		Abort
 	${EndIf}
+!else ifdef ARCHARM64
+	; Notepad++ ARM64 installer is a 32 bits application so it can be run under x86/x64/arm64 device.
+	; Since there's no way to detect ARM device in NSIS, here we do nothing.
+	; The ARM64 binaries are able to be deployed on non ARM devices after installation, but they can't be executed.
 !else ; 32-bit installer
 	${If} ${RunningX64}
 		; check if 64-bit version has been installed if yes, ask user to remove it
@@ -221,10 +227,12 @@ ${MementoSection} "Context Menu Entry" explorerContextMenu
 	
 	; There is no need to keep x86 NppShell_06.dll in 64 bit installer
 	; But in 32bit installer both the Dlls are required
-	; 	As user can install 32bit npp version on x64 bit machine, that time x64 bit NppShell is required.
+	; As user can install 32bit npp version on x64 bit machine, that time x64 bit NppShell is required.
 	
 	!ifdef ARCH64
 		File /oname=$INSTDIR\NppShell_06.dll "..\bin\NppShell64_06.dll"
+	!else ifdef ARCHARM64
+		File /oname=$INSTDIR\NppShell_06.dll "..\binarm64\NppShell64.dll"
 	!else
 		${If} ${RunningX64}
 			File /oname=$INSTDIR\NppShell_06.dll "..\bin\NppShell64_06.dll"

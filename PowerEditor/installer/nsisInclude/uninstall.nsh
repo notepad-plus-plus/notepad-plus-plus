@@ -139,6 +139,8 @@ FunctionEnd
 	;Remove from registry...
 !ifdef ARCH64
 	SetRegView 32
+!else ifdef ARCHARM64
+	SetRegView 32
 !else
 	SetRegView 64
 !endif
@@ -146,6 +148,8 @@ FunctionEnd
 	DeleteRegKey HKLM "SOFTWARE\${APPNAME}"
 	;DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\notepad++.exe"
 !ifdef ARCH64
+	SetRegView 64
+!else ifdef ARCHARM64
 	SetRegView 64
 !else
 	SetRegView 32
@@ -173,6 +177,8 @@ FunctionEnd
 
 Section Uninstall
 !ifdef ARCH64
+	SetRegView 64
+!else ifdef ARCHARM64
 	SetRegView 64
 !else
 	SetRegView 32

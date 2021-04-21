@@ -94,6 +94,8 @@ Function copyCommonFiles
 	
 !ifdef ARCH64
 	File "..\bin64\notepad++.exe"
+!else ifdef ARCHARM64
+	File "..\binarm64\notepad++.exe"
 !else
 	File "..\bin\notepad++.exe"
 !endif

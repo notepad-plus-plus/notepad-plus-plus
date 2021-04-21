@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-	<Native-Langue name="Finnish" filename="finnish.xml" version="7.8.2">
+	<Native-Langue name="Suomi" filename="finnish.xml" version="7.8.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -902,7 +902,7 @@
                     <Item id="6275" name="Yahoo!"/>
                     <Item id="6276" name="Aseta hakukone tässä:"/>
                     <!-- Don't change anything after Example: -->
-                    <Item id="6278" name="Example: https://www.google.com/search?q=$(CURRENT_WORD)"/>
+                    <Item id="6278" name="Esimerkiksi: https://www.google.com/search?q=$(CURRENT_WORD)"/>
                 </SearchEngine>
 				
 				<MISC title="Sekalaiset">
@@ -915,8 +915,8 @@
 					<Item id="6117" name="Ota käyttöön MRU-käyttäytyminen"/>
 					<Item id="6308" name="Pienennä ilmoitusalueelle"/>
 					<Item id="6312" name="Tiedostotilan automaattinen tunnistus"/>
-					<Item id="6313" name="Äänetön päivitys"/>
-					<Item id="6314" name="Käytä tasalevyistä fonttia hakuikkunassa (Notepad++ käynnistettävä uudelleen)"/>
+					<Item id="6313" name="Hiljainen päivitys"/>
+					<Item id="6314" name="Käytä tasalevyistä fonttia hakuikkunassa (Notepad++ täytyy käynnistää uudelleen)"/>
 					<Item id="6318" name="Klikattavien linkkien asetukset"/>
 					<Item id="6319" name="Käytä"/>
 					<Item id="6320" name="Ilman alleviivausta"/>

@@ -153,14 +153,14 @@ SectionGroup "Function List Files" functionListComponent
 		File ".\functionList\ada.xml"
 	${MementoSectionEnd}
 
-	${MementoSection} "Fortan" Fortan_FL
+	${MementoSection} "Fortran" Fortran_FL
 		SetOutPath "$INSTDIR\functionList"
-		File ".\functionList\fortan.xml"
+		File ".\functionList\fortran.xml"
 	${MementoSectionEnd}
 
-	${MementoSection} "Fortan77" Fortan77_FL
+	${MementoSection} "Fortran77" Fortran77_FL
 		SetOutPath "$INSTDIR\functionList"
-		File ".\functionList\fortan77.xml"
+		File ".\functionList\fortran77.xml"
 	${MementoSectionEnd}
 
 	${MementoSection} "Haskell" Haskell_FL
@@ -295,12 +295,12 @@ SectionGroup un.functionListComponent
 		Delete "$INSTDIR\functionList\ada.xml"
 	SectionEnd
 
-	Section un.Fortan_FL
-		Delete "$INSTDIR\functionList\fortan.xml"
+	Section un.Fortran_FL
+		Delete "$INSTDIR\functionList\fortran.xml"
 	SectionEnd
 
-	Section un.Fortan77_FL
-		Delete "$INSTDIR\functionList\fortan77.xml"
+	Section un.Fortran77_FL
+		Delete "$INSTDIR\functionList\fortran77.xml"
 	SectionEnd
 
 	Section un.Haskell_FL

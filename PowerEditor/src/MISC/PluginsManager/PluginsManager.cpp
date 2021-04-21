@@ -27,9 +27,17 @@ using namespace std;
 const TCHAR * USERMSG = TEXT(" is not compatible with the current version of Notepad++.\n\n\
 Do you want to remove this plugin from the plugins directory to prevent this message from the next launch?");
 
+
 #ifdef _WIN64
+
+#ifdef _M_ARM64
+#define ARCH_TYPE IMAGE_FILE_MACHINE_ARM64
+const TCHAR *ARCH_ERR_MSG = TEXT("Cannot load 32-bit or non-ARM64 plugin.");
+#else
 #define ARCH_TYPE IMAGE_FILE_MACHINE_AMD64
 const TCHAR *ARCH_ERR_MSG = TEXT("Cannot load 32-bit plugin.");
+#endif
+
 #else
 #define ARCH_TYPE IMAGE_FILE_MACHINE_I386
 const TCHAR *ARCH_ERR_MSG = TEXT("Cannot load 64-bit plugin.");

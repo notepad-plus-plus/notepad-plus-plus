@@ -902,7 +902,7 @@
                     <Item id="6275" name="Yahoo!"/>
                     <Item id="6276" name="Aseta hakukone tässä:"/>
                     <!-- Don't change anything after Example: -->
-                    <Item id="6278" name="Example: https://www.google.com/search?q=$(CURRENT_WORD)"/>
+                    <Item id="6278" name="Esimerkiksi: https://www.google.com/search?q=$(CURRENT_WORD)"/>
                 </SearchEngine>
 				
 				<MISC title="Sekalaiset">

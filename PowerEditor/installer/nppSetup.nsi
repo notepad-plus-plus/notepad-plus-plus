@@ -144,7 +144,7 @@ updaterDone:
 		
 	!insertmacro MUI_LANGDLL_DISPLAY
 
-!ifdef ARCH64
+!ifdef ARCH64 || ARCHARM64 ; x64 or ARM64
 	${If} ${RunningX64}
 		; disable registry redirection (enable access to 64-bit portion of registry)
 		SetRegView 64
@@ -170,10 +170,7 @@ noDelete32:
 		MessageBox MB_OK "You cannot install Notepad++ 64-bit version on your 32-bit system.$\nPlease download and install Notepad++ 32-bit version instead."
 		Abort
 	${EndIf}
-!else ifdef ARCHARM64
-	; Notepad++ ARM64 installer is a 32 bits application so it can be run under x86/x64/arm64 device.
-	; Since there's no way to detect ARM device in NSIS, here we do nothing.
-	; The ARM64 binaries are able to be deployed on non ARM devices after installation, but they can't be executed.
+
 !else ; 32-bit installer
 	${If} ${RunningX64}
 		; check if 64-bit version has been installed if yes, ask user to remove it

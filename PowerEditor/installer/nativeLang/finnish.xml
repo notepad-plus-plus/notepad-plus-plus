@@ -915,7 +915,7 @@
 					<Item id="6117" name="Ota käyttöön MRU-käyttäytyminen"/>
 					<Item id="6308" name="Pienennä ilmoitusalueelle"/>
 					<Item id="6312" name="Tiedostotilan automaattinen tunnistus"/>
-					<Item id="6313" name="Äänetön päivitys"/>
+					<Item id="6313" name="Hiljainen päivitys"/>
 					<Item id="6314" name="Käytä tasalevyistä fonttia hakuikkunassa (Notepad++ täytyy käynnistää uudelleen)"/>
 					<Item id="6318" name="Klikattavien linkkien asetukset"/>
 					<Item id="6319" name="Käytä"/>

@@ -1061,14 +1061,13 @@ U kunt verschillende kolommarkeringen vastleggen door gebruik te maken van spati
                     <Item id="6308" name="Naar systeemvak minimaliseren"/>
                     <Item id="6312" name="Bestandswijziging detecteren"/>
                     <Item id="6313" name="In stilte bijwerken"/>
-                    <Item id="6325" name="Ga naar de laatste regel na bijwerken"/>
+                    <Item id="6325" name="Na bijwerken naar de laatste regel gaan"/>
                     <Item id="6322" name="Bestandsextensie sessie:"/>
                     <Item id="6323" name="Notepad++ automatisch bijwerken"/>
-                    <Item id="6351" name="Filter voor bestandsextensie in het opslaan-dialoogvenster instellen op *.*"/>
                     <Item id="6324" name="Wisselen tussen documenten (Ctrl+Tab)"/>
                     <Item id="6331" name="Alleen de bestandsnaam in de titelbalk weergeven"/>
                     <Item id="6334" name="Tekenset automatisch detecteren"/>
-                    <Item id="6349" name="DirectWrite gebruiken (kan de weergave van speciale tekens verbeteren. Notepad++ moet opnieuw gestart worden)"/>
+                    <Item id="6349" name="DirectWrite gebruiken (kan weergave van speciale tekens verbeteren. Notepad++ moet opnieuw gestart worden)"/>
                     <Item id="6337" name="Bestandsextensie werkruimte:"/>
                     <Item id="6114" name="Inschakelen"/>
                     <Item id="6117" name="Volgorde van wisselen onthouden"/>
@@ -1425,6 +1424,7 @@ In alle bestanden behalve exe, obj en log zoeken:
             <find-regex-zero-length-match value="nullengte-overeenkomst" />
             <session-save-folder-as-workspace value="Map als werkruimte opslaan" />
             <tab-untitled-string value="nieuw " />
+            <file-save-assign-type value="&amp;Extensie toevoegen" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

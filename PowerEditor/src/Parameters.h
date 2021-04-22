@@ -29,6 +29,19 @@
 #include <assert.h>
 #include <tchar.h>
 
+#ifdef _WIN64
+
+#ifdef _M_ARM64
+#define ARCH_TYPE IMAGE_FILE_MACHINE_ARM64
+#else
+#define ARCH_TYPE IMAGE_FILE_MACHINE_AMD64
+#endif
+
+#else
+#define ARCH_TYPE IMAGE_FILE_MACHINE_I386
+
+#endif
+
 class NativeLangSpeaker;
 
 const bool POS_VERTICAL = true;
@@ -1670,8 +1683,7 @@ public:
 	void setCloudChoice(const TCHAR *pathChoice);
 	void removeCloudChoice();
 	bool isCloudPathChanged() const;
-	bool isx64() const { return _isx64; };
-
+	int archType() const { return ARCH_TYPE; };
 	COLORREF getCurrentDefaultBgColor() const {
 		return _currentDefaultBgColor;
 	}

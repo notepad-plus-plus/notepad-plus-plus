@@ -3153,10 +3153,14 @@ void Notepad_plus::command(int id)
 					{
 						param = TEXT("-verbose -v");
 						param += VERSION_VALUE;
-
-						if (NppParameters::getInstance().isx64())
+						int archType = NppParameters::getInstance().archType();
+						if (archType == IMAGE_FILE_MACHINE_AMD64)
 						{
 							param += TEXT(" -px64");
+						}
+						else if (archType == IMAGE_FILE_MACHINE_ARM64)
+						{
+							param += TEXT(" -parm64");
 						}
 					}
 					Process updater(updaterFullPath.c_str(), param.c_str(), updaterDir.c_str());

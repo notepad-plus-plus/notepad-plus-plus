@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-	<Native-Langue name="Finnish" filename="finnish.xml" version="7.8.2">
+	<Native-Langue name="Suomi" filename="finnish.xml" version="7.8.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->

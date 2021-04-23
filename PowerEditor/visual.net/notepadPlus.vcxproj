@@ -404,6 +404,7 @@ copy ..\src\contextMenu.xml ..\binarm64\contextMenu.xml
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\DarkMode\DarkMode.cpp" />
     <ClCompile Include="..\src\MISC\Common\verifySignedfile.cpp" />
     <ClCompile Include="..\src\MISC\md5\md5Dlgs.cpp" />
     <ClCompile Include="..\src\MISC\sha2\sha-256.cpp" />
@@ -664,14 +665,13 @@ copy ..\src\contextMenu.xml ..\binarm64\contextMenu.xml
     <ResourceCompile Include="..\src\WinControls\FileBrowser\fileBrowser.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\src\.editorconfig" />
     <None Include="..\src\cursors\drag.cur" />
     <None Include="..\src\cursors\drag_interdit.cur" />
     <None Include="..\src\cursors\drag_plus.cur" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\clipboardFormats.h" />
-    <ClInclude Include="..\src\DarkMode\DarkMode.ipp" />
+    <ClInclude Include="..\src\DarkMode\DarkMode.h" />
     <ClInclude Include="..\src\DarkMode\IatHook.h" />
     <ClInclude Include="..\src\DarkMode\UAHMenuBar.h" />
     <ClInclude Include="..\src\dpiManager.h" />

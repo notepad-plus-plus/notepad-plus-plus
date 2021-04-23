@@ -1,4 +1,9 @@
 #pragma once
+
+#include <Windows.h>
+
+#include "DarkMode.h"
+
 #include "IatHook.h"
 
 #include <Uxtheme.h>
@@ -94,6 +99,16 @@ fnSetPreferredAppMode _SetPreferredAppMode = nullptr;
 bool g_darkModeSupported = false;
 bool g_darkModeEnabled = false;
 DWORD g_buildNumber = 0;
+
+bool ShouldAppsUseDarkMode()
+{
+	if (!_ShouldAppsUseDarkMode)
+	{
+		return false;
+	}
+
+	return _ShouldAppsUseDarkMode();
+}
 
 bool AllowDarkModeForWindow(HWND hWnd, bool allow)
 {

@@ -1,7 +1,10 @@
 #include "nppDarkMode.h"
 
-#include "DarkMode/DarkMode.ipp"
+#include "DarkMode/DarkMode.h"
 #include "DarkMode/UAHMenuBar.h"
+
+#include <Uxtheme.h>
+#include <Vssym32.h>
 
 #include "Parameters.h"
 #include "resource.h"
@@ -201,7 +204,7 @@ namespace NppDarkMode
 		if (IsColorSchemeChangeMessage(lParam))
 		{
 			bool darkModeWasEnabled = g_darkModeEnabled;
-			g_darkModeEnabled = _ShouldAppsUseDarkMode() && !IsHighContrast();
+			g_darkModeEnabled = ShouldAppsUseDarkMode() && !IsHighContrast();
 
 			NppDarkMode::refreshTitleBarThemeColor(hwnd);
 

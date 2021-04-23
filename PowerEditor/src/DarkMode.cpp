@@ -2,9 +2,9 @@
 
 #include <Windows.h>
 
-#include "DarkMode.h"
+#include "DarkMode/DarkMode.h"
 
-#include "IatHook.h"
+#include "DarkMode/IatHook.h"
 
 #include <Uxtheme.h>
 #include <Vssym32.h>

@@ -7504,6 +7504,7 @@ void Notepad_plus::refreshDarkMode()
 {
 	SendMessage(_pPublicInterface->getHSelf(), NPPM_SETEDITORBORDEREDGE, 0, NppParameters::getInstance().getSVP()._showBorderEdge);
 	RedrawWindow(_pPublicInterface->getHSelf(), nullptr, nullptr, RDW_INVALIDATE | RDW_ERASE | RDW_FRAME | RDW_ALLCHILDREN);
+	RedrawWindow(_findReplaceDlg.getHSelf(), nullptr, nullptr, RDW_INVALIDATE | RDW_ERASE | RDW_FRAME | RDW_ALLCHILDREN);
 }
 
 void Notepad_plus::launchDocumentBackupTask()

@@ -56,7 +56,7 @@ BEGIN
     CONTROL         "Backward direction", IDC_BACKWARDDIRECTION, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 12, 76, 140, 15
     CONTROL         "Match &whole word only",IDWHOLEWORD,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,88,140,15
     CONTROL         "Match &case",IDMATCHCASE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,100,140,15
-    CONTROL         "Wra&p around",IDWRAP,"Button",BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,12,112,140,15
+    CONTROL         "Wra&p around",IDWRAP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,112,140,15
     GROUPBOX        "Search Mode",IDC_MODE_STATIC,6,131,159,48
     CONTROL         "&Normal",IDNORMAL,"Button",BS_AUTORADIOBUTTON | WS_GROUP,12,143,126,10
     CONTROL         "E&xtended (\\n, \\r, \\t, \\0, \\x...)",IDEXTENDED,

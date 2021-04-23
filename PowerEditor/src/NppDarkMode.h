@@ -58,6 +58,8 @@ namespace NppDarkMode
 	void enableDarkScrollBarForWindowAndChildren(HWND hwnd);
 
 	void subclassButtonControl(HWND hwnd);
+	void subclassGroupboxControl(HWND hwnd);
 	void subclassToolbarControl(HWND hwnd);
+	void subclassTabControl(HWND hwnd);
 }
 

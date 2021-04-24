@@ -1257,19 +1257,22 @@ void Notepad_plus::command(int id)
 				styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT5;
 
 			const int strSize = FINDREPLACE_MAXLENGTH;
-			TCHAR text2Find[strSize];
-			TCHAR text2Find2[strSize];
+			TCHAR selectedText[strSize];
+			TCHAR wordOnCaret[strSize];
 
-			_pEditView->getGenericSelectedText(text2Find, strSize, false);
-			_pEditView->getGenericWordOnCaretPos(text2Find2, strSize);
+			_pEditView->getGenericSelectedText(selectedText, strSize, false);
+			_pEditView->getGenericWordOnCaretPos(wordOnCaret, strSize);
 
-			if (text2Find[0] == '\0')
+			if (selectedText[0] == '\0')
 			{
-				_findReplaceDlg.markAll(text2Find2, styleID, true);
+				if (lstrlen(wordOnCaret) > 0)
+				{
+					_findReplaceDlg.markAll(wordOnCaret, styleID, true);
+				}
 			}
 			else
 			{
-				_findReplaceDlg.markAll(text2Find, styleID, lstrlen(text2Find) == lstrlen(text2Find2));
+				_findReplaceDlg.markAll(selectedText, styleID, lstrlen(selectedText) == lstrlen(wordOnCaret));
 			}
 		}
 		break;

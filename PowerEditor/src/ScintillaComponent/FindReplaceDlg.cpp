@@ -2009,14 +2009,18 @@ bool FindReplaceDlg::processReplace(const TCHAR *txt2find, const TCHAR *txt2repl
 
 int FindReplaceDlg::markAll(const TCHAR *txt2find, int styleID, bool isWholeWordSelected)
 {
-	FindOption opt;
-	opt._isMatchCase = _options._isMatchCase;
+	const NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
+	FindOption markAllOpt;
+
+	markAllOpt._isMatchCase = nppGUI._markAllCaseSensitive;
+
 	// if whole word is selected for being colorized, isWholeWord option in Find/Replace dialog will be checked
 	// otherwise this option is false, because user may want to find the words contain the parts to search 
-	opt._isWholeWord = isWholeWordSelected?_options._isWholeWord:false;
-	opt._str2Search = txt2find;
+	markAllOpt._isWholeWord = isWholeWordSelected ? nppGUI._markAllWordOnly : false;
+	
+	markAllOpt._str2Search = txt2find;
 
-	int nbFound = processAll(ProcessMarkAllExt, &opt, true, NULL, styleID);
+	int nbFound = processAll(ProcessMarkAllExt, &markAllOpt, true, NULL, styleID);
 	return nbFound;
 }
 

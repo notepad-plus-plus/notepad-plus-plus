@@ -4401,6 +4401,27 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				}
 			}
 		}
+		// <GUIConfig name="MarkAll" matchCase="yes" wholeWordOnly="yes" </GUIConfig>
+		else if (!lstrcmp(nm, TEXT("MarkAll")))
+		{
+			const TCHAR* val = element->Attribute(TEXT("matchCase"));
+			if (val)
+			{
+				if (lstrcmp(val, TEXT("yes")) == 0)
+					_nppGUI._markAllCaseSensitive = true;
+				else if (!lstrcmp(val, TEXT("no")))
+					_nppGUI._markAllCaseSensitive = false;
+			}
+
+			val = element->Attribute(TEXT("wholeWordOnly"));
+			if (val)
+			{
+				if (lstrcmp(val, TEXT("yes")) == 0)
+					_nppGUI._markAllWordOnly = true;
+				else if (!lstrcmp(val, TEXT("no")))
+					_nppGUI._markAllWordOnly = false;
+			}
+		}
 		// <GUIConfig name="SmartHighLight" matchCase="yes" wholeWordOnly="yes" useFindSettings="no">yes</GUIConfig>
 		else if (!lstrcmp(nm, TEXT("SmartHighLight")))
 		{
@@ -6316,6 +6337,14 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("searchEngine"));
 		GUIConfigElement->SetAttribute(TEXT("searchEngineChoice"), _nppGUI._searchEngineChoice);
 		GUIConfigElement->SetAttribute(TEXT("searchEngineCustom"), _nppGUI._searchEngineCustom);
+	}
+
+	// <GUIConfig name="MarkAll" matchCase="no" wholeWordOnly="yes" </GUIConfig>
+	{
+		TiXmlElement* GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
+		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("MarkAll"));
+		GUIConfigElement->SetAttribute(TEXT("matchCase"), _nppGUI._markAllCaseSensitive ? TEXT("yes") : TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("wholeWordOnly"), _nppGUI._markAllWordOnly ? TEXT("yes") : TEXT("no"));
 	}
 
 	// <GUIConfig name="SmartHighLight" matchCase="no" wholeWordOnly="yes" useFindSettings="no" onAnotherView="no">yes</GUIConfig>

@@ -2143,6 +2143,9 @@ INT_PTR CALLBACK HighlightingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 	{
 		case WM_INITDIALOG :
 		{
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_MARKALLCASESENSITIVE, BM_SETCHECK, nppGUI._markAllCaseSensitive, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_MARKALLWHOLEWORDONLY, BM_SETCHECK, nppGUI._markAllWordOnly, 0);
+
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLSMARTHILITE, BM_SETCHECK, nppGUI._enableSmartHilite, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_SMARTHILITECASESENSITIVE, BM_SETCHECK, nppGUI._smartHiliteCaseSensitive, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_SMARTHILITEWHOLEWORDONLY, BM_SETCHECK, nppGUI._smartHiliteWordOnly, 0);
@@ -2171,7 +2174,23 @@ INT_PTR CALLBACK HighlightingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 		case WM_COMMAND : 
 		{
 			switch (wParam)
-            {
+			{
+				case IDC_CHECK_MARKALLCASESENSITIVE:
+				{
+					nppGUI._markAllCaseSensitive = isCheckedOrNot(IDC_CHECK_MARKALLCASESENSITIVE);
+					HWND grandParent = ::GetParent(_hParent);
+					::SendMessage(grandParent, NPPM_INTERNAL_CLEARINDICATOR, 0, 0);
+					return TRUE;
+				}
+
+				case IDC_CHECK_MARKALLWHOLEWORDONLY:
+				{
+					nppGUI._markAllWordOnly = isCheckedOrNot(IDC_CHECK_MARKALLWHOLEWORDONLY);
+					HWND grandParent = ::GetParent(_hParent);
+					::SendMessage(grandParent, NPPM_INTERNAL_CLEARINDICATOR, 0, 0);
+					return TRUE;
+				}
+
 				case IDC_CHECK_ENABLSMARTHILITE:
 				{
 					nppGUI._enableSmartHilite = !nppGUI._enableSmartHilite;
@@ -2201,6 +2220,7 @@ INT_PTR CALLBACK HighlightingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 					::SendMessage(grandParent, NPPM_INTERNAL_CLEARINDICATOR, 0, 0);
 					return TRUE;
 				}
+
 				case IDC_CHECK_SMARTHILITEWHOLEWORDONLY:
 				{
 					nppGUI._smartHiliteWordOnly = isCheckedOrNot(IDC_CHECK_SMARTHILITEWHOLEWORDONLY);
@@ -2213,6 +2233,7 @@ INT_PTR CALLBACK HighlightingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 					::SendMessage(grandParent, NPPM_INTERNAL_CLEARINDICATOR, 0, 0);
 					return TRUE;
 				}
+
 				case IDC_CHECK_SMARTHILITEUSEFINDSETTINGS:
 				{
 					nppGUI._smartHiliteUseFindSettings = isCheckedOrNot(IDC_CHECK_SMARTHILITEUSEFINDSETTINGS);
@@ -2227,6 +2248,7 @@ INT_PTR CALLBACK HighlightingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 					::SendMessage(grandParent, NPPM_INTERNAL_CLEARINDICATOR, 0, 0);
 					return TRUE;
 				}
+
 				case IDC_CHECK_SMARTHILITEANOTHERRVIEW:
 				{
 					nppGUI._smartHiliteOnAnotherView = isCheckedOrNot(IDC_CHECK_SMARTHILITEANOTHERRVIEW);

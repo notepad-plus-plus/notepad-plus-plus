@@ -912,8 +912,12 @@ You can define several column markers by using white space to separate the diffe
                 </Language>
 
                 <Highlighting title="Highlighting">
+                    <Item id="6351" name="Mark All"/>
+                    <Item id="6352" name="Match case"/>
+                    <Item id="6353" name="Match whole word only"/>
                     <Item id="6333" name="Smart Highlighting"/>
                     <Item id="6326" name="Enable"/>
+                    <Item id="6354" name="Matching"/>
                     <Item id="6332" name="Match case"/>
                     <Item id="6338" name="Match whole word only"/>
                     <Item id="6339" name="Use Find dialog settings"/>

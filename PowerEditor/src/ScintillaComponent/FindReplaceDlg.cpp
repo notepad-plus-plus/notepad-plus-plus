@@ -2791,6 +2791,7 @@ void FindReplaceDlg::enableFindInFilesControls(bool isEnable, bool projectPanels
 {
 	// Hide Items
 	showFindDlgItem(IDC_BACKWARDDIRECTION, !isEnable);
+	showFindDlgItem(IDWHOLEWORD, !isEnable);
 	showFindDlgItem(IDWRAP, !isEnable);
 	showFindDlgItem(IDCCOUNTALL, !isEnable);
 	showFindDlgItem(IDC_FINDALL_OPENEDFILES, !isEnable);

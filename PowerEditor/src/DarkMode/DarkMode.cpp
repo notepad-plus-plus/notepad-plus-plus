@@ -1,5 +1,3 @@
-#pragma once
-
 #include <Windows.h>
 
 #include "DarkMode.h"

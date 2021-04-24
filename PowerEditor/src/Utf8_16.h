@@ -40,9 +40,6 @@ class Utf16_Iter : public Utf8_16 {
 public:
 	enum eState {
 	    eStart,
-	    e2Bytes2,
-	    e3Bytes2,
-	    e3Bytes3,
 		eSurrogate
 	};
 
@@ -52,7 +49,7 @@ public:
 	bool get(utf8 *c);
 	void operator++();
 	eState getState() { return m_eState; };
-	operator bool() { return m_pRead < m_pEnd; };
+	operator bool() { return (m_pRead < m_pEnd) || (m_out1st != m_outLst); };
 
 protected:
 	void read();
@@ -81,7 +78,7 @@ public:
 	bool canGet() const { return m_out1st != m_outLst; }
 	void toStart();
 	void operator++();
-	operator bool() { return m_pRead < m_pEnd; }
+	operator bool() { return (m_pRead < m_pEnd) || (m_out1st != m_outLst); }
 
 protected:
 	enum eState {eStart, eFollow};

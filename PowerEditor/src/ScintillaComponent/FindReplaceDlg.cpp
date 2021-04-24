@@ -2014,7 +2014,7 @@ int FindReplaceDlg::markAll(const TCHAR *txt2find, int styleID, bool isWholeWord
 
 	markAllOpt._isMatchCase = nppGUI._markAllCaseSensitive;
 
-	// if whole word is selected for being colorized, isWholeWord option in Find/Replace dialog will be checked
+	// if whole word is selected for being colorized, isWholeWord setting in Preferences will be checked
 	// otherwise this option is false, because user may want to find the words contain the parts to search 
 	markAllOpt._isWholeWord = isWholeWordSelected ? nppGUI._markAllWordOnly : false;
 	

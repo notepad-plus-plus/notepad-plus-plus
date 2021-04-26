@@ -58,5 +58,8 @@ namespace NppDarkMode
 	void subclassGroupboxControl(HWND hwnd);
 	void subclassToolbarControl(HWND hwnd);
 	void subclassTabControl(HWND hwnd);
+
+	void autoSubclassAndThemeChildControls(HWND hwndParent, bool subclass = true, bool theme = true);
+	void autoThemeChildControls(HWND hwndParent);
 }
 

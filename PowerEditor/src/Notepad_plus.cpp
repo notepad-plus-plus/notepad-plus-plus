@@ -7511,6 +7511,8 @@ void Notepad_plus::refreshDarkMode()
 		NppDarkMode::setTitleBarThemeColor(_pPublicInterface->getHSelf(), NppDarkMode::isEnabled());
 		NppDarkMode::setTitleBarThemeColor(_findReplaceDlg.getHSelf(), NppDarkMode::isEnabled());
 	}
+	SendMessage(_findReplaceDlg.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+	SendMessage(_incrementFindDlg.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
 	RedrawWindow(_pPublicInterface->getHSelf(), nullptr, nullptr, RDW_INVALIDATE | RDW_ERASE | RDW_FRAME | RDW_ALLCHILDREN);
 	RedrawWindow(_findReplaceDlg.getHSelf(), nullptr, nullptr, RDW_INVALIDATE | RDW_ERASE | RDW_FRAME | RDW_ALLCHILDREN);
 

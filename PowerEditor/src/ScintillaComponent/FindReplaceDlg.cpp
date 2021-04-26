@@ -876,6 +876,12 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			return TRUE;
 		}
 
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::autoThemeChildControls(_hSelf);
+			return TRUE;
+		}
+
 		case WM_INITDIALOG :
 		{
 			if (NppDarkMode::isExperimentalEnabled())
@@ -884,26 +890,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				NppDarkMode::setTitleBarThemeColor(_hSelf, NppDarkMode::isEnabled());
 			}
 
-			EnumChildWindows(_hSelf, [](HWND hwnd, LPARAM) {
-				wchar_t className[16] = { 0 };
-				GetClassName(hwnd, className, 9);
-				if (wcscmp(className, L"Button")) {
-					return TRUE;
-				}
-				DWORD nButtonStyle = (DWORD)GetWindowLong(hwnd, GWL_STYLE) & 0xF;
-				switch (nButtonStyle) {
-				case BS_CHECKBOX:
-				case BS_AUTOCHECKBOX:
-				case BS_RADIOBUTTON:
-				case BS_AUTORADIOBUTTON:
-					NppDarkMode::subclassButtonControl(hwnd);
-					break;
-				case BS_GROUPBOX:
-					NppDarkMode::subclassGroupboxControl(hwnd);
-					break;
-				}
-				return TRUE;
-			}, NULL);
+			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
 			HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
 			HWND hReplaceCombo = ::GetDlgItem(_hSelf, IDREPLACEWITH);
@@ -3689,12 +3676,45 @@ void FindReplaceDlg::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	{
 		ptStr = TEXT("");
 	}
+
+	if (NppDarkMode::isEnabled())
+	{
+		fgColor = NppDarkMode::getTextColor();
+
+		if (_statusbarFindStatus == FSNotFound)
+		{
+			fgColor = RGB(0xFF, 0x50, 0x50); // red
+		}
+		else if (_statusbarFindStatus == FSMessage)
+		{
+			fgColor = RGB(0x50, 0x50, 0xFF); // blue
+		}
+		else if (_statusbarFindStatus == FSTopReached || _statusbarFindStatus == FSEndReached)
+		{
+			fgColor = RGB(0x50, 0xFF, 0x50); // green
+		}
+	}
 	
 	SetTextColor(lpDrawItemStruct->hDC, fgColor);
-	COLORREF bgColor = getCtrlBgColor(_statusBar.getHSelf());
+
+	COLORREF bgColor;
+	if (NppDarkMode::isEnabled())
+	{
+		bgColor = NppDarkMode::getBackgroundColor();
+	}
+	else
+	{
+		bgColor = getCtrlBgColor(_statusBar.getHSelf());
+	}
 	::SetBkColor(lpDrawItemStruct->hDC, bgColor);
 	RECT rect;
 	_statusBar.getClientRect(rect);
+
+	if (NppDarkMode::isEnabled())
+	{
+		rect.left += 2;
+	}
+
 	::DrawText(lpDrawItemStruct->hDC, ptStr, lstrlen(ptStr), &rect, DT_SINGLELINE | DT_VCENTER | DT_LEFT);
 
 	if (_statusbarTooltipMsg.length() == 0) return;
@@ -4427,11 +4447,17 @@ INT_PTR CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			return (LRESULT)GetStockObject(BLACK_BRUSH);
 		}
 
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::autoThemeChildControls(getHSelf());
+			return TRUE;
+		}
+
 		case WM_INITDIALOG:
 		{
 			LRESULT lr = DefWindowProc(getHSelf(), message, wParam, lParam);
-			NppDarkMode::subclassButtonControl(GetDlgItem(getHSelf(), IDC_INCFINDHILITEALL));
-			NppDarkMode::subclassButtonControl(GetDlgItem(getHSelf(), IDC_INCFINDMATCHCASE));
+
+			NppDarkMode::autoSubclassAndThemeChildControls(getHSelf());
 			return lr;
 		}
 

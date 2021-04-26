@@ -923,5 +923,63 @@ namespace NppDarkMode
 	{
 		SetWindowSubclass(hwnd, TabSubclass, g_tabSubclassID, 0);
 	}
+
+	void autoSubclassAndThemeChildControls(HWND hwndParent, bool subclass, bool theme)
+	{
+		struct Params
+		{
+			const wchar_t* themeClassName = nullptr;
+			bool subclass = false;
+			bool theme = false;
+		};
+
+		Params p{ 
+			NppDarkMode::isEnabled() ? L"DarkMode_Explorer" : L"Button" 
+			, subclass
+			, theme
+		};
+		
+		EnumChildWindows(hwndParent, [](HWND hwnd, LPARAM lParam) {
+			auto& p = *reinterpret_cast<Params*>(lParam);
+			wchar_t className[16] = { 0 };
+			GetClassName(hwnd, className, 9);
+			if (wcscmp(className, L"Button"))
+			{
+				return TRUE;
+			}
+			DWORD nButtonStyle = (DWORD)GetWindowLong(hwnd, GWL_STYLE) & 0xF;
+			switch (nButtonStyle) 
+			{
+			case BS_CHECKBOX:
+			case BS_AUTOCHECKBOX:
+			case BS_RADIOBUTTON:
+			case BS_AUTORADIOBUTTON:
+				if (p.subclass)
+				{
+					NppDarkMode::subclassButtonControl(hwnd);
+				}
+				break;
+			case BS_GROUPBOX:
+				if (p.subclass)
+				{
+					NppDarkMode::subclassGroupboxControl(hwnd);
+				}
+				break;
+			case BS_DEFPUSHBUTTON:
+			case BS_PUSHBUTTON:
+				if (p.theme)
+				{
+					SetWindowTheme(hwnd, p.themeClassName, nullptr);
+				}
+				break;
+			}
+			return TRUE;
+		}, reinterpret_cast<LPARAM>(&p));
+	}
+
+	void autoThemeChildControls(HWND hwndParent)
+	{
+		autoSubclassAndThemeChildControls(hwndParent, false, true); 
+	}
 }
 

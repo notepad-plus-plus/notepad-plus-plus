@@ -28,7 +28,7 @@ namespace NppDarkMode
 
 		if (_options.enableExperimental)
 		{
-			initExperimentalDarkMode(_options.enableScrollbarHack);
+			initExperimentalDarkMode(_options.enableScrollbarHack, _options.enable);
 		}
 	}
 
@@ -193,28 +193,19 @@ namespace NppDarkMode
 
 	// handle events
 
-	bool handleSettingChange(HWND hwnd, LPARAM lParam) // true if dark mode toggled
+	void handleSettingChange(HWND hwnd, LPARAM lParam)
 	{
+		UNREFERENCED_PARAMETER(hwnd);
+
 		if (!isExperimentalEnabled())
 		{
-			return false;
+			return;
 		}
 
-		bool toggled = false;
 		if (IsColorSchemeChangeMessage(lParam))
 		{
-			bool darkModeWasEnabled = g_darkModeEnabled;
 			g_darkModeEnabled = ShouldAppsUseDarkMode() && !IsHighContrast();
-
-			NppDarkMode::refreshTitleBarThemeColor(hwnd);
-
-			if (!!darkModeWasEnabled != !!g_darkModeEnabled)
-			{
-				toggled = true;
-			}
 		}
-
-		return toggled;
 	}
 
 	// processes messages related to UAH / custom menubar drawing.
@@ -349,9 +340,9 @@ namespace NppDarkMode
 
 	// from DarkMode.h
 
-	void initExperimentalDarkMode(bool fixDarkScrollbar)
+	void initExperimentalDarkMode(bool fixDarkScrollbar, bool dark)
 	{
-		::InitDarkMode(fixDarkScrollbar);
+		::InitDarkMode(fixDarkScrollbar, dark);
 	}
 
 	void allowDarkModeForApp(bool allow)
@@ -364,9 +355,9 @@ namespace NppDarkMode
 		return ::AllowDarkModeForWindow(hWnd, allow);
 	}
 
-	void refreshTitleBarThemeColor(HWND hWnd)
+	void setTitleBarThemeColor(HWND hWnd, bool dark)
 	{
-		::RefreshTitleBarThemeColor(hWnd);
+		::SetTitleBarThemeColor(hWnd, dark);
 	}
 
 	void enableDarkScrollBarForWindowAndChildren(HWND hwnd)

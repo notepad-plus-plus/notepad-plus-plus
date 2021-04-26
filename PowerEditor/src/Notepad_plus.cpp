@@ -7503,8 +7503,39 @@ void Notepad_plus::restoreMinimizeDialogs()
 void Notepad_plus::refreshDarkMode()
 {
 	SendMessage(_pPublicInterface->getHSelf(), NPPM_SETEDITORBORDEREDGE, 0, NppParameters::getInstance().getSVP()._showBorderEdge);
+	if (NppDarkMode::isExperimentalEnabled())
+	{
+		NppDarkMode::allowDarkModeForApp(NppDarkMode::isEnabled());
+		NppDarkMode::allowDarkModeForWindow(_pPublicInterface->getHSelf(), NppDarkMode::isEnabled());
+		NppDarkMode::allowDarkModeForWindow(_findReplaceDlg.getHSelf(), NppDarkMode::isEnabled());
+		NppDarkMode::setTitleBarThemeColor(_pPublicInterface->getHSelf(), NppDarkMode::isEnabled());
+		NppDarkMode::setTitleBarThemeColor(_findReplaceDlg.getHSelf(), NppDarkMode::isEnabled());
+	}
 	RedrawWindow(_pPublicInterface->getHSelf(), nullptr, nullptr, RDW_INVALIDATE | RDW_ERASE | RDW_FRAME | RDW_ALLCHILDREN);
 	RedrawWindow(_findReplaceDlg.getHSelf(), nullptr, nullptr, RDW_INVALIDATE | RDW_ERASE | RDW_FRAME | RDW_ALLCHILDREN);
+
+	if (NppDarkMode::isExperimentalEnabled())
+	{
+		RECT rcClient;
+		
+		GetWindowRect(_pPublicInterface->getHSelf(), &rcClient);
+
+		// Inform application of the frame change.
+		SetWindowPos(_pPublicInterface->getHSelf(),
+			NULL,
+			rcClient.left, rcClient.top,
+			rcClient.right - rcClient.left, rcClient.bottom - rcClient.top,
+			SWP_FRAMECHANGED);
+
+		GetWindowRect(_findReplaceDlg.getHSelf(), &rcClient);
+
+		// Inform application of the frame change.
+		SetWindowPos(_findReplaceDlg.getHSelf(),
+			NULL,
+			rcClient.left, rcClient.top,
+			rcClient.right - rcClient.left, rcClient.bottom - rcClient.top,
+			SWP_FRAMECHANGED);
+	}
 }
 
 void Notepad_plus::launchDocumentBackupTask()

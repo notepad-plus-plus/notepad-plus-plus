@@ -876,22 +876,12 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			return TRUE;
 		}
 
-		case WM_SETTINGCHANGE:
-		{
-			if (NppDarkMode::handleSettingChange(_hSelf, lParam))
-			{
-				// dark mode may have been toggled by the OS
-				NppDarkMode::refreshDarkMode(_hSelf, true);
-			}
-			break;
-		}
-
 		case WM_INITDIALOG :
 		{
 			if (NppDarkMode::isExperimentalEnabled())
 			{
-				NppDarkMode::allowDarkModeForWindow(_hSelf, true);
-				NppDarkMode::refreshTitleBarThemeColor(_hSelf);
+				NppDarkMode::allowDarkModeForWindow(_hSelf, NppDarkMode::isEnabled());
+				NppDarkMode::setTitleBarThemeColor(_hSelf, NppDarkMode::isEnabled());
 			}
 
 			EnumChildWindows(_hSelf, [](HWND hwnd, LPARAM) {

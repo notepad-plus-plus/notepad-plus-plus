@@ -70,7 +70,7 @@ LRESULT CALLBACK Notepad_plus_Window::Notepad_plus_Proc(HWND hwnd, UINT message,
 			pM30ide->_hSelf = hwnd;
 			::SetWindowLongPtr(hwnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pM30ide));
 
-			if (NppDarkMode::isExperimentalEnabled() && NppDarkMode::isScrollbarHackEnabled())
+			if (NppDarkMode::isExperimentalEnabled() && NppDarkMode::isEnabled() && NppDarkMode::isScrollbarHackEnabled())
 			{
 				NppDarkMode::enableDarkScrollBarForWindowAndChildren(hwnd);
 			}
@@ -96,14 +96,14 @@ LRESULT Notepad_plus_Window::runProc(HWND hwnd, UINT message, WPARAM wParam, LPA
 			{
 				if (NppDarkMode::isExperimentalEnabled())
 				{
-					NppDarkMode::allowDarkModeForWindow(hwnd, true);
-					NppDarkMode::refreshTitleBarThemeColor(hwnd);
+					NppDarkMode::allowDarkModeForWindow(hwnd, NppDarkMode::isEnabled());
+					NppDarkMode::setTitleBarThemeColor(hwnd, NppDarkMode::isEnabled());
 				}
 
 				_notepad_plus_plus_core._pPublicInterface = this;
 				LRESULT lRet = _notepad_plus_plus_core.init(hwnd);
 
-				if (NppDarkMode::isExperimentalEnabled())
+				if (NppDarkMode::isExperimentalEnabled() && NppDarkMode::isEnabled())
 				{
 					RECT rcClient;
 					GetWindowRect(hwnd, &rcClient);
@@ -150,7 +150,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 	LRESULT result = FALSE;
 	NppParameters& nppParam = NppParameters::getInstance();
 
-	if (NppDarkMode::isDarkMenuEnabled() && NppDarkMode::runUAHWndProc(hwnd, message, wParam, lParam, &result))
+	if (NppDarkMode::isDarkMenuEnabled() && NppDarkMode::isEnabled() && NppDarkMode::runUAHWndProc(hwnd, message, wParam, lParam, &result))
 	{
 		return result;
 	}
@@ -181,11 +181,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case WM_SETTINGCHANGE:
 		{
-			if (NppDarkMode::handleSettingChange(hwnd, lParam))
-			{
-				// dark mode may have been toggled by the OS
-				NppDarkMode::refreshDarkMode(hwnd, true);
-			}
+			NppDarkMode::handleSettingChange(hwnd, lParam);
 
 			return ::DefWindowProc(hwnd, message, wParam, lParam);
 		}

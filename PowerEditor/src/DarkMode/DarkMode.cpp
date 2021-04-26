@@ -123,6 +123,17 @@ bool IsHighContrast()
 	return false;
 }
 
+void SetTitleBarThemeColor(HWND hWnd, BOOL dark)
+{
+	if (g_buildNumber < 18362)
+		SetPropW(hWnd, L"UseImmersiveDarkModeColors", reinterpret_cast<HANDLE>(static_cast<INT_PTR>(dark)));
+	else if (_SetWindowCompositionAttribute)
+	{
+		WINDOWCOMPOSITIONATTRIBDATA data = { WCA_USEDARKMODECOLORS, &dark, sizeof(dark) };
+		_SetWindowCompositionAttribute(hWnd, &data);
+	}
+}
+
 void RefreshTitleBarThemeColor(HWND hWnd)
 {
 	BOOL dark = FALSE;
@@ -132,13 +143,8 @@ void RefreshTitleBarThemeColor(HWND hWnd)
 	{
 		dark = TRUE;
 	}
-	if (g_buildNumber < 18362)
-		SetPropW(hWnd, L"UseImmersiveDarkModeColors", reinterpret_cast<HANDLE>(static_cast<INT_PTR>(dark)));
-	else if (_SetWindowCompositionAttribute)
-	{
-		WINDOWCOMPOSITIONATTRIBDATA data = { WCA_USEDARKMODECOLORS, &dark, sizeof(dark) };
-		_SetWindowCompositionAttribute(hWnd, &data);
-	}
+
+	SetTitleBarThemeColor(hWnd, dark);
 }
 
 bool IsColorSchemeChangeMessage(LPARAM lParam)
@@ -165,7 +171,7 @@ void AllowDarkModeForApp(bool allow)
 	if (_AllowDarkModeForApp)
 		_AllowDarkModeForApp(allow);
 	else if (_SetPreferredAppMode)
-		_SetPreferredAppMode(allow ? AllowDark : Default);
+		_SetPreferredAppMode(allow ? ForceDark : Default);
 }
 
 // limit dark scroll bar to specific windows and their children
@@ -233,7 +239,7 @@ constexpr bool CheckBuildNumber(DWORD buildNumber)
 		buildNumber == 19043);  // 21H1
 }
 
-void InitDarkMode(bool fixDarkScrollbar)
+void InitDarkMode(bool fixDarkScrollbar, bool dark)
 {
 	auto RtlGetNtVersionNumbers = reinterpret_cast<fnRtlGetNtVersionNumbers>(GetProcAddress(GetModuleHandleW(L"ntdll.dll"), "RtlGetNtVersionNumbers"));
 	if (RtlGetNtVersionNumbers)
@@ -273,7 +279,7 @@ void InitDarkMode(bool fixDarkScrollbar)
 				{
 					g_darkModeSupported = true;
 
-					AllowDarkModeForApp(true);
+					AllowDarkModeForApp(dark);
 					_RefreshImmersiveColorPolicyState();
 
 					g_darkModeEnabled = _ShouldAppsUseDarkMode() && !IsHighContrast();

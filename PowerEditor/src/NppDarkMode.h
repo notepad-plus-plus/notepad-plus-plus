@@ -20,9 +20,6 @@ namespace NppDarkMode
 	bool isExperimentalEnabled();
 	bool isScrollbarHackEnabled();
 
-	bool isExperimentalActive();
-	bool isExperimentalSupported();
-
 	COLORREF invertLightness(COLORREF c);
 	COLORREF invertLightnessSofter(COLORREF c);
 
@@ -42,17 +39,17 @@ namespace NppDarkMode
 	HBRUSH getErrorBackgroundBrush();
 
 	// handle events
-	bool handleSettingChange(HWND hwnd, LPARAM lParam); // true if dark mode toggled
+	void handleSettingChange(HWND hwnd, LPARAM lParam);
 
 	// processes messages related to UAH / custom menubar drawing.
 	// return true if handled, false to continue with normal processing in your wndproc
 	bool runUAHWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam, LRESULT* lr);
 
 	// from DarkMode.h
-	void initExperimentalDarkMode(bool fixDarkScrollbar);
+	void initExperimentalDarkMode(bool fixDarkScrollbar, bool dark);
 	void allowDarkModeForApp(bool allow);
 	bool allowDarkModeForWindow(HWND hWnd, bool allow);
-	void refreshTitleBarThemeColor(HWND hWnd);
+	void setTitleBarThemeColor(HWND hWnd, bool dark);
 
 	// enhancements to DarkMode.h
 	void enableDarkScrollBarForWindowAndChildren(HWND hwnd);
@@ -61,5 +58,8 @@ namespace NppDarkMode
 	void subclassGroupboxControl(HWND hwnd);
 	void subclassToolbarControl(HWND hwnd);
 	void subclassTabControl(HWND hwnd);
+
+	void autoSubclassAndThemeChildControls(HWND hwndParent, bool subclass = true, bool theme = true);
+	void autoThemeChildControls(HWND hwndParent);
 }
 

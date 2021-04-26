@@ -28,7 +28,7 @@ namespace NppDarkMode
 
 		if (_options.enableExperimental)
 		{
-			initExperimentalDarkMode(_options.enableScrollbarHack);
+			initExperimentalDarkMode(_options.enableScrollbarHack, _options.enable);
 		}
 	}
 
@@ -193,28 +193,19 @@ namespace NppDarkMode
 
 	// handle events
 
-	bool handleSettingChange(HWND hwnd, LPARAM lParam) // true if dark mode toggled
+	void handleSettingChange(HWND hwnd, LPARAM lParam)
 	{
+		UNREFERENCED_PARAMETER(hwnd);
+
 		if (!isExperimentalEnabled())
 		{
-			return false;
+			return;
 		}
 
-		bool toggled = false;
 		if (IsColorSchemeChangeMessage(lParam))
 		{
-			bool darkModeWasEnabled = g_darkModeEnabled;
 			g_darkModeEnabled = ShouldAppsUseDarkMode() && !IsHighContrast();
-
-			NppDarkMode::refreshTitleBarThemeColor(hwnd);
-
-			if (!!darkModeWasEnabled != !!g_darkModeEnabled)
-			{
-				toggled = true;
-			}
 		}
-
-		return toggled;
 	}
 
 	// processes messages related to UAH / custom menubar drawing.
@@ -349,9 +340,9 @@ namespace NppDarkMode
 
 	// from DarkMode.h
 
-	void initExperimentalDarkMode(bool fixDarkScrollbar)
+	void initExperimentalDarkMode(bool fixDarkScrollbar, bool dark)
 	{
-		::InitDarkMode(fixDarkScrollbar);
+		::InitDarkMode(fixDarkScrollbar, dark);
 	}
 
 	void allowDarkModeForApp(bool allow)
@@ -364,9 +355,9 @@ namespace NppDarkMode
 		return ::AllowDarkModeForWindow(hWnd, allow);
 	}
 
-	void refreshTitleBarThemeColor(HWND hWnd)
+	void setTitleBarThemeColor(HWND hWnd, bool dark)
 	{
-		::RefreshTitleBarThemeColor(hWnd);
+		::SetTitleBarThemeColor(hWnd, dark);
 	}
 
 	void enableDarkScrollBarForWindowAndChildren(HWND hwnd)
@@ -931,6 +922,64 @@ namespace NppDarkMode
 	void subclassTabControl(HWND hwnd)
 	{
 		SetWindowSubclass(hwnd, TabSubclass, g_tabSubclassID, 0);
+	}
+
+	void autoSubclassAndThemeChildControls(HWND hwndParent, bool subclass, bool theme)
+	{
+		struct Params
+		{
+			const wchar_t* themeClassName = nullptr;
+			bool subclass = false;
+			bool theme = false;
+		};
+
+		Params p{ 
+			NppDarkMode::isEnabled() ? L"DarkMode_Explorer" : L"Button" 
+			, subclass
+			, theme
+		};
+		
+		EnumChildWindows(hwndParent, [](HWND hwnd, LPARAM lParam) {
+			auto& p = *reinterpret_cast<Params*>(lParam);
+			wchar_t className[16] = { 0 };
+			GetClassName(hwnd, className, 9);
+			if (wcscmp(className, L"Button"))
+			{
+				return TRUE;
+			}
+			DWORD nButtonStyle = (DWORD)GetWindowLong(hwnd, GWL_STYLE) & 0xF;
+			switch (nButtonStyle) 
+			{
+			case BS_CHECKBOX:
+			case BS_AUTOCHECKBOX:
+			case BS_RADIOBUTTON:
+			case BS_AUTORADIOBUTTON:
+				if (p.subclass)
+				{
+					NppDarkMode::subclassButtonControl(hwnd);
+				}
+				break;
+			case BS_GROUPBOX:
+				if (p.subclass)
+				{
+					NppDarkMode::subclassGroupboxControl(hwnd);
+				}
+				break;
+			case BS_DEFPUSHBUTTON:
+			case BS_PUSHBUTTON:
+				if (p.theme)
+				{
+					SetWindowTheme(hwnd, p.themeClassName, nullptr);
+				}
+				break;
+			}
+			return TRUE;
+		}, reinterpret_cast<LPARAM>(&p));
+	}
+
+	void autoThemeChildControls(HWND hwndParent)
+	{
+		autoSubclassAndThemeChildControls(hwndParent, false, true); 
 	}
 }
 

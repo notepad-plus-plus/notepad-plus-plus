@@ -23,6 +23,8 @@
 #include <cassert>
 #include "Parameters.h"
 #include "NppDarkMode.h"
+#include <Uxtheme.h>
+#include <Vssym32.h>
 
 //#define IDC_STATUSBAR 789
 
@@ -47,6 +49,34 @@ void StatusBar::init(HINSTANCE /*hInst*/, HWND /*hPere*/)
 	assert(false and "should never be called");
 }
 
+struct StatusBarSubclassInfo
+{
+	HTHEME hTheme = nullptr;
+
+	~StatusBarSubclassInfo()
+	{
+		closeTheme();
+	}
+
+	bool ensureTheme(HWND hwnd)
+	{
+		if (!hTheme)
+		{
+			hTheme = OpenThemeData(hwnd, L"Status");
+		}
+		return hTheme != nullptr;
+	}
+
+	void closeTheme()
+	{
+		if (hTheme)
+		{
+			CloseThemeData(hTheme);
+			hTheme = nullptr;
+		}
+	}
+};
+
 constexpr UINT_PTR g_statusBarSubclassID = 42;
 
 LRESULT CALLBACK StatusBarSubclass(
@@ -58,8 +88,9 @@ LRESULT CALLBACK StatusBarSubclass(
 	DWORD_PTR dwRefData
 )
 {
-	UNREFERENCED_PARAMETER(dwRefData);
 	UNREFERENCED_PARAMETER(uIdSubclass);
+
+	StatusBarSubclassInfo* pStatusBarInfo = reinterpret_cast<StatusBarSubclassInfo*>(dwRefData);
 
 	switch (uMsg) {
 	case WM_ERASEBKGND:
@@ -89,6 +120,9 @@ LRESULT CALLBACK StatusBarSubclass(
 
 		SendMessage(hWnd, SB_GETBORDERS, 0, (LPARAM)&borders);
 
+		DWORD style = GetWindowLong(hWnd, GWL_STYLE);
+		bool isSizeGrip = style & SBARS_SIZEGRIP;
+
 		PAINTSTRUCT ps;
 		HDC hdc = BeginPaint(hWnd, &ps);
 
@@ -100,7 +134,7 @@ LRESULT CALLBACK StatusBarSubclass(
 		FillRect(hdc, &ps.rcPaint, NppDarkMode::getBackgroundBrush());
 
 		int nParts = static_cast<int>(SendMessage(hWnd, SB_GETPARTS, 0, 0));
-		std::vector<wchar_t> str;
+		std::wstring str;
 		for (int i = 0; i < nParts; ++i)
 		{
 			RECT rcPart = { 0 };
@@ -113,18 +147,59 @@ LRESULT CALLBACK StatusBarSubclass(
 
 			RECT rcDivider = { rcPart.right - borders.vertical, rcPart.top, rcPart.right, rcPart.bottom };
 
-			DWORD cchText = LOWORD(SendMessage(hWnd, SB_GETTEXTLENGTH, i, 0));
+			DWORD cchText = 0;
+			cchText = LOWORD(SendMessage(hWnd, SB_GETTEXTLENGTH, i, 0));
 			str.resize(cchText + 1);
-			SendMessage(hWnd, SB_GETTEXT, i, (LPARAM)str.data());
+			LRESULT lr = SendMessage(hWnd, SB_GETTEXT, i, (LPARAM)str.data());
+			bool ownerDraw = false;
+			if (cchText == 0 && (lr & ~(SBT_NOBORDERS | SBT_POPOUT | SBT_RTLREADING)) != 0)
+			{
+				// this is a pointer to the text
+				ownerDraw = true;
+			}
 			SetBkMode(hdc, TRANSPARENT);
 			SetTextColor(hdc, NppDarkMode::getTextColor());
 
 			rcPart.left += borders.between;
 			rcPart.right -= borders.vertical;
 
-			DrawText(hdc, str.data(), cchText, &rcPart, DT_SINGLELINE | DT_VCENTER | DT_LEFT);
+			if (ownerDraw)
+			{
+				UINT id = GetDlgCtrlID(hWnd);
+				DRAWITEMSTRUCT dis = {
+					0
+					, 0
+					, static_cast<UINT>(i)
+					, ODA_DRAWENTIRE
+					, id
+					, hWnd
+					, hdc
+					, rcPart
+					, static_cast<ULONG_PTR>(lr)
+				};
 
-			FillRect(hdc, &rcDivider, NppDarkMode::getSofterBackgroundBrush());
+				SendMessage(GetParent(hWnd), WM_DRAWITEM, id, (LPARAM)&dis);
+			}
+			else
+			{
+				DrawText(hdc, str.data(), static_cast<int>(str.size()), &rcPart, DT_SINGLELINE | DT_VCENTER | DT_LEFT);
+			}
+
+			if (!isSizeGrip && i < (nParts - 1))
+			{
+				FillRect(hdc, &rcDivider, NppDarkMode::getSofterBackgroundBrush());
+			}
+		}
+
+		if (isSizeGrip)
+		{
+			pStatusBarInfo->ensureTheme(hWnd);
+			SIZE gripSize = { 0 };
+			GetThemePartSize(pStatusBarInfo->hTheme, hdc, SP_GRIPPER, 0, &rcClient, TS_DRAW, &gripSize);
+			RECT rc = rcClient;
+			rc.left = rc.right - gripSize.cx;
+			rc.top = rc.bottom - gripSize.cy;
+			DrawThemeBackground(pStatusBarInfo->hTheme, hdc, SP_GRIPPER, 0, &rc, nullptr);
 		}
 
 		::SelectObject(hdc, holdFont);
@@ -134,6 +209,10 @@ LRESULT CALLBACK StatusBarSubclass(
 	}
 	case WM_NCDESTROY:
 		RemoveWindowSubclass(hWnd, StatusBarSubclass, g_statusBarSubclassID);
+		delete pStatusBarInfo;
+		break;
+	case WM_THEMECHANGED:
+		pStatusBarInfo->closeTheme();
 		break;
 	}
 	return DefSubclassProc(hWnd, uMsg, wParam, lParam);
@@ -156,10 +235,9 @@ void StatusBar::init(HINSTANCE hInst, HWND hPere, int nbParts)
 	if (!_hSelf)
 		throw std::runtime_error("StatusBar::init : CreateWindowEx() function return null");
 
-	if (nbParts > 0)
-	{
-		SetWindowSubclass(_hSelf, StatusBarSubclass, g_statusBarSubclassID, 0);
-	}
+	auto* pStatusBarInfo = new StatusBarSubclassInfo();
+
+	SetWindowSubclass(_hSelf, StatusBarSubclass, g_statusBarSubclassID, reinterpret_cast<DWORD_PTR>(pStatusBarInfo));
 
 	_partWidthArray.clear();
 	if (nbParts > 0)

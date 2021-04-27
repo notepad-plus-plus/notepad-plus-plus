@@ -975,8 +975,12 @@
                 </Language>
 
                 <Highlighting title="醒目提示">
+                    <Item id="6351" name="全部標記"/> <!-- #new #next -->
+                    <Item id="6352" name="符合大細楷"/> <!-- #new #next -->
+                    <Item id="6353" name="符合完整單字"/> <!-- #new #next -->
                     <Item id="6333" name="醒目提示"/>
                     <Item id="6326" name="啟動"/>
+                    <Item id="6354" name="配對方式"/> <!-- #new #next -->
                     <Item id="6332" name="符合大細楷"/>
                     <Item id="6338" name="符合完整單字"/>
                     <Item id="6339" name="套用搵同取代功能對話框嘅設定"/>
@@ -1022,6 +1026,7 @@
                     <Item id="6902" name="搵／取代對話框啲字用等寬字型（需要重開 Notepad++）"/>
                     <Item id="6903" name="搵完嘢，保持開著個對話框"/>
                     <Item id="6904" name="喺所有打開咗嘅文件執行取代之前，要再次確認"/>
+                    <Item id="6905" name="取代完唔好跳去另一個關鍵字"/> <!-- #new #next -->
                 </Searching>
 
                 <RecentFilesHistory title="最近用過嘅檔案記錄">
@@ -1426,6 +1431,7 @@ Reload 會放棄您喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
             <find-status-replace-end-reached value="取代：由上而下取代咗 1 次，已經過咗文件結尾。"/>
             <find-status-replace-top-reached value="取代：由下而上取代咗 1 次，已經過咗文件開端。"/>
             <find-status-replaced-next-found value="取代：取代咗 1 次，搵到下一個。"/>
+            <find-status-replaced-without-continuing value="取代：取代咗 1 次。"/> <!-- #new #next -->
             <find-status-replaced-next-not-found value="取代：取代咗 1 次，再搵唔到下一個喇。"/>
             <find-status-replace-not-found value="取代：搵唔到您要嘅嘢。"/>
             <find-status-replace-readonly value="取代：無法取代，因為檔案屬性係唯讀。"/>

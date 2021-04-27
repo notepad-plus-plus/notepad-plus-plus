@@ -97,9 +97,9 @@ bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type, ToolBar
 {
 	Window::init(hInst, hPere);
 	_state = type;
-	int iconSize = NppParameters::getInstance()._dpiManager.scaleX(_state == TB_LARGE?32:16);
+	int iconSize = NppParameters::getInstance()._dpiManager.scaleX(_state == TB_LARGE || _state == TB_LARGE2 ? 32 : 16);
 
-	_toolBarIcons.init(buttonUnitArray, arraySize);
+	_toolBarIcons.init(buttonUnitArray, arraySize, _vDynBtnReg);
 	_toolBarIcons.create(_hInst, iconSize);
 	
 	INITCOMMONCONTROLSEX icex;
@@ -129,7 +129,7 @@ bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type, ToolBar
 			style = BTNS_SEP;
 		}
 
-		_pTBB[i].iBitmap = (cmd != 0?bmpIndex:0);
+		_pTBB[i].iBitmap = (cmd != 0 ? bmpIndex : 0);
 		_pTBB[i].idCommand = cmd;
 		_pTBB[i].fsState = TBSTATE_ENABLED;
 		_pTBB[i].fsStyle = (BYTE)style; 
@@ -147,10 +147,11 @@ bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type, ToolBar
 		_pTBB[i].dwData = 0; 
 		_pTBB[i].iString = 0;
 		++i;
+
 		//add plugin buttons
 		for (size_t j = 0; j < _nbDynButtons ; ++j, ++i)
 		{
-			cmd = _vDynBtnReg[j].message;
+			cmd = _vDynBtnReg[j]._message;
 			++bmpIndex;
 
 			_pTBB[i].iBitmap = bmpIndex;
@@ -207,9 +208,8 @@ void ToolBar::reduce()
 
 	int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(16);
 	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
-	bool recreate = (_state == TB_STANDARD || _state == TB_LARGE);
 	setState(TB_SMALL);
-	reset(recreate);	//recreate toolbar if previous state was Std icons or Big icons
+	reset(true);	//recreate toolbar if previous state was Std icons or Big icons
 	Window::redraw();
 }
 
@@ -220,13 +220,37 @@ void ToolBar::enlarge()
 
 	int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(32);
 	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
-	bool recreate = (_state == TB_STANDARD || _state == TB_SMALL);
 	setState(TB_LARGE);
-	reset(recreate);	//recreate toolbar if previous state was Std icons or Small icons
+	reset(true);	//recreate toolbar if previous state was Std icons or Small icons
 	Window::redraw();
 }
 
-void ToolBar::setToUglyIcons()
+void ToolBar::reduceToSet2()
+{
+	if (_state == TB_SMALL2)
+		return;
+
+	int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(16);
+	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
+
+	setState(TB_SMALL2);
+	reset(true);
+	Window::redraw();
+}
+
+void ToolBar::enlargeToSet2()
+{
+	if (_state == TB_LARGE2)
+		return;
+
+	int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(32);
+	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
+	setState(TB_LARGE2);
+	reset(true);	//recreate toolbar if previous state was Std icons or Small icons
+	Window::redraw();
+}
+
+void ToolBar::setToBmpIcons()
 {
 	if (_state == TB_STANDARD) 
 		return;
@@ -237,7 +261,7 @@ void ToolBar::setToUglyIcons()
 }
 
 
-void ToolBar::reset(bool create) 
+void ToolBar::reset(bool create)
 {
 
 	if (create && _hSelf)
@@ -283,12 +307,18 @@ void ToolBar::reset(bool create)
 		throw std::runtime_error("ToolBar::reset : CreateWindowEx() function return null");
 	}
 
-	if (_state != TB_STANDARD)
+	if (_state != TB_STANDARD) //If non standard icons, use custom imagelists
 	{
-		//If non standard icons, use custom imagelists
-		setDefaultImageList();
-		setHotImageList();
-		setDisableImageList();
+		if (_state == TB_SMALL || _state == TB_LARGE)
+		{
+			setDefaultImageList();
+			setDisableImageList();
+		}
+		else
+		{
+			setDefaultImageList2();
+			setDisableImageList2();
+		}
 	}
 	else
 	{
@@ -296,7 +326,6 @@ void ToolBar::reset(bool create)
 		int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(16);
 		::SendMessage(_hSelf, TB_SETBITMAPSIZE, 0, MAKELPARAM(iconDpiDynamicalSize, iconDpiDynamicalSize));
 
-		//TBADDBITMAP addbmp = {_hInst, 0};
 		TBADDBITMAP addbmp = {0, 0};
 		TBADDBITMAP addbmpdyn = {0, 0};
 		for (size_t i = 0 ; i < _nbButtons ; ++i)
@@ -312,7 +341,7 @@ void ToolBar::reset(bool create)
 		{
 			for (size_t j = 0; j < _nbDynButtons; ++j)
 			{
-				addbmpdyn.nID = reinterpret_cast<UINT_PTR>(_vDynBtnReg.at(j).hBmp);
+				addbmpdyn.nID = reinterpret_cast<UINT_PTR>(_vDynBtnReg.at(j)._hBmp);
 				::SendMessage(_hSelf, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmpdyn));
 			}
 		}
@@ -325,8 +354,16 @@ void ToolBar::reset(bool create)
 		WORD btnSize = (_state == TB_LARGE?32:16);
 		::SendMessage(_hSelf, TB_SETBUTTONSIZE , 0, MAKELONG(btnSize, btnSize));
 		::SendMessage(_hSelf, TB_ADDBUTTONS, nbBtnToAdd, reinterpret_cast<LPARAM>(_pTBB));
+
+		HIMAGELIST hImgLst = (HIMAGELIST)::SendMessage(_hSelf, TB_GETIMAGELIST, 0, 0);
+		for (size_t j = 0; j < _nbDynButtons; ++j)
+		{
+			ImageList_AddIcon(hImgLst, _vDynBtnReg.at(j)._hIcon);
+		}
 	}
 	::SendMessage(_hSelf, TB_AUTOSIZE, 0, 0);
+
+
 
 	if (_pRebar)
 	{
@@ -343,12 +380,12 @@ void ToolBar::reset(bool create)
 void ToolBar::registerDynBtn(UINT messageID, toolbarIcons* tIcon)
 {
 	// Note: Register of buttons only possible before init!
-	if ((_hSelf == NULL) && (messageID != 0) && (tIcon->hToolbarBmp != NULL))
+	if ((_hSelf == NULL) && (messageID != 0) && (tIcon->hToolbarBmp != NULL) && (tIcon->hToolbarIcon != NULL))
 	{
-		tDynamicList		dynList;
-		dynList.message		= messageID;
-		dynList.hBmp		= tIcon->hToolbarBmp;
-		dynList.hIcon		= tIcon->hToolbarIcon;
+		DynamicCmdIcoBmp dynList;
+		dynList._message = messageID;
+		dynList._hBmp = tIcon->hToolbarBmp;
+		dynList._hIcon = tIcon->hToolbarIcon;
 		_vDynBtnReg.push_back(dynList);
 	}
 }

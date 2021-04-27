@@ -1917,13 +1917,37 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
+		case IDM_VIEW_TOOLBAR_REDUCE_SET2:
+		{
+			toolBarStatusType state = _toolBar.getState();
+
+			if (state != TB_SMALL2)
+			{
+				_toolBar.reduceToSet2();
+				changeToolBarIcons();
+			}
+		}
+		break;
+
+		case IDM_VIEW_TOOLBAR_ENLARGE_SET2:
+		{
+			toolBarStatusType state = _toolBar.getState();
+
+			if (state != TB_LARGE2)
+			{
+				_toolBar.enlargeToSet2();
+				changeToolBarIcons();
+			}
+		}
+		break;
+
 		case IDM_VIEW_TOOLBAR_STANDARD:
 		{
 			toolBarStatusType state = _toolBar.getState();
 
             if (state != TB_STANDARD)
             {
-				_toolBar.setToUglyIcons();
+				_toolBar.setToBmpIcons();
 			}
 		}
 		break;
@@ -1940,7 +1964,7 @@ void Notepad_plus::command(int id)
 			int tabDpiDynamicalHeight = NppParameters::getInstance()._dpiManager.scaleY(_toReduceTabBar?22:25);
 			TabCtrl_SetItemSize(_mainDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
 			TabCtrl_SetItemSize(_subDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
-			_docTabIconList.setIconSize(iconDpiDynamicalSize);
+			_docTabIconList.addIcons(iconDpiDynamicalSize);
 
 			//change the font
 			int stockedFont = _toReduceTabBar?DEFAULT_GUI_FONT:SYSTEM_FONT;

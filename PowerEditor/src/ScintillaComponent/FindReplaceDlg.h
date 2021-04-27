@@ -249,7 +249,7 @@ public :
 	bool processFindNext(const TCHAR *txt2find, const FindOption *options = NULL, FindStatus *oFindStatus = NULL, FindNextType findNextType = FINDNEXTTYPE_FINDNEXT);
 	bool processReplace(const TCHAR *txt2find, const TCHAR *txt2replace, const FindOption *options = NULL);
 
-	int markAll(const TCHAR *txt2find, int styleID, bool isWholeWordSelected);
+	int markAll(const TCHAR *txt2find, int styleID);
 	int markAllInc(const FindOption *opt);
 	
 

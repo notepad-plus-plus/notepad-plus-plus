@@ -1267,12 +1267,12 @@ void Notepad_plus::command(int id)
 			{
 				if (lstrlen(wordOnCaret) > 0)
 				{
-					_findReplaceDlg.markAll(wordOnCaret, styleID, true);
+					_findReplaceDlg.markAll(wordOnCaret, styleID);
 				}
 			}
 			else
 			{
-				_findReplaceDlg.markAll(selectedText, styleID, lstrlen(selectedText) == lstrlen(wordOnCaret));
+				_findReplaceDlg.markAll(selectedText, styleID);
 			}
 		}
 		break;

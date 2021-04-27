@@ -2062,17 +2062,13 @@ bool FindReplaceDlg::processReplace(const TCHAR *txt2find, const TCHAR *txt2repl
 
 
 
-int FindReplaceDlg::markAll(const TCHAR *txt2find, int styleID, bool isWholeWordSelected)
+int FindReplaceDlg::markAll(const TCHAR *txt2find, int styleID)
 {
 	const NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
 	FindOption markAllOpt;
 
 	markAllOpt._isMatchCase = nppGUI._markAllCaseSensitive;
-
-	// if whole word is selected for being colorized, isWholeWord setting in Preferences will be checked
-	// otherwise this option is false, because user may want to find the words contain the parts to search 
-	markAllOpt._isWholeWord = isWholeWordSelected ? nppGUI._markAllWordOnly : false;
-	
+	markAllOpt._isWholeWord = nppGUI._markAllWordOnly;
 	markAllOpt._str2Search = txt2find;
 
 	int nbFound = processAll(ProcessMarkAllExt, &markAllOpt, true, NULL, styleID);

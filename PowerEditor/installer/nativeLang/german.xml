@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2021-04-18 by schnurlos (schnurlos@gmail.com)
+	last modified: 2021-04-28 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -922,8 +922,12 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Za
 				</Language>
 
 				<Highlighting title="Hervorhebung">
+					<Item id="6351" name="Alle markieren"/>
+					<Item id="6352" name="Übereinstimmung der Groß-/Kleinschreibung"/>
+					<Item id="6353" name="Übereinstimmung ganzes Wort"/>
 					<Item id="6333" name="Automatische Hervorhebung bei Auswahl"/>
 					<Item id="6326" name="Hervorhebung aktivieren"/>
+					<Item id="6354" name="Übereinstimmung"/>
 					<Item id="6332" name="Groß-/Kleinschreibung beachten"/>
 					<Item id="6338" name="Übereinstimmung mit ganzem Wort"/>
 					<Item id="6339" name="Sucheinstellungen benutzen"/>
@@ -969,6 +973,7 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Za
 					<Item id="6902" name="Festbreitenschrift im Dialogfeld 'Suchen' verwenden (Neustart von Notepad++ erforderlich)."/>
 					<Item id="6903" name="Der Suchdialog bleibt nach der Suche geöffnet, die im Ergebnisfenster ausgegeben wird"/>
 					<Item id="6904" name="Bestätigung für 'Alle Ersetzen' in allen offenen Dokumenten"/>
+					<Item id="6905" name="Ersetzen: Folgendes Vorkommen nicht verschieben"/>
 				</Searching>
 
 				<RecentFilesHistory title="Zuletzt geöffn. Dateien">
@@ -1368,6 +1373,7 @@ Finde in allen Dateien außer exe, obj &amp;&amp; log:
 			<find-status-replace-end-reached value="Ersetzen: 1. Vorkommen von oben wurde ersetzt. Das Ende des Dokumentes wurde erreicht"/>
 			<find-status-replace-top-reached value="Ersetzen: 1. Vorkommen von unten wurde ersetzt. Der Anfang des Dokumentes wurde erreicht"/>
 			<find-status-replaced-next-found value="Ersetzen: 1 Vorkommen wurde ersetzt. Nächster Treffer gefunden"/>
+			<find-status-replaced-without-continuing value="Ersetzen: 1 Vorkommen wurde ersetzt."/>
 			<find-status-replaced-next-not-found value="Ersetzen: 1 Vorkommen wurde ersetzt. Keine weiteren Treffer gefunden"/>
 			<find-status-replace-not-found value="Ersetzen: Kein Vorkommen gefunden"/>
 			<find-status-replace-readonly value="Ersetzen: Konnte Text wegen schreibgeschützter Datei nicht ersetzen"/>

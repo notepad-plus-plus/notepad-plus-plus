@@ -4,7 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
-		- Updated on April 16th, 2021 for version 7.9.6 by Patriccollu di Santa Maria è Sichè
+		- Updated on April 28th, 2021 for version 7.9.6 by Patriccollu di Santa Maria è Sichè
 		- Updated on January 27th, 2021 for version 7.9.3 by Patriccollu di Santa Maria è Sichè
 		- Updated on November 4th, 2020 for version 7.9.2 by Patriccollu di Santa Maria è Sichè
 		- Updated on September 16th, 2020 for version 7.9.1 by Patriccollu di Santa Maria è Sichè
@@ -934,8 +934,12 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                 </Language>
 
                 <Highlighting title="Sopralineamentu">
+                    <Item id="6351" name="Tuttu marcà"/>
+                    <Item id="6352" name="Rispettà Maiuscule è minuscule"/>
+                    <Item id="6353" name="Parolla sana deve currisponde"/>
                     <Item id="6333" name="Sopralineamentu astutu"/>
                     <Item id="6326" name="Attivà"/>
+                    <Item id="6354" name="Currispundenza"/>
                     <Item id="6332" name="Rispettà Maiuscule è minuscule"/>
                     <Item id="6338" name="Parolla sana deve currisponde"/>
                     <Item id="6339" name="Impiegà e preferenze di dialogu di ricerca"/>
@@ -981,6 +985,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                     <Item id="6902" name="Impiegà a grafia à spaziamentu fissu in u dialogu di ricerca (Richiede di rilancià Notepad++)"/>
                     <Item id="6903" name="U dialogu di ricerca sta apertu dopu una ricerca chì s’affisseghja in a finestra di risultati"/>
                     <Item id="6904" name="Cunfirmà tutti i rimpiazzamenti in tutti i ducumenti aperti"/>
+                    <Item id="6905" name="Rimpiazzà : ùn movesi micca à a prossima occurrenza"/>
                 </Searching>
 
                 <RecentFilesHistory title="Schedarii recenti">
@@ -1382,6 +1387,7 @@ Circà in tutti i schedarii fora di exe, obj è log :
             <find-status-replace-end-reached value="Rimpiazzà : 1ᵃ occurrenza rimpiazzata da u principiu. A fine di u ducumentu hè stata tocca"/>
             <find-status-replace-top-reached value="Rimpiazzà : 1ᵃ occurrenza rimpiazzata da a fine. U principiu di u ducumentu hè statu toccu"/>
             <find-status-replaced-next-found value="Rimpiazzà : 1 occurrenza hè stata rimpiazzata. A prossima occurrenza trova."/>
+            <find-status-replaced-without-continuing value="Rimpiazzà : 1 occurrenza hè stata rimpiazzata."/>
             <find-status-replaced-next-not-found value="Rimpiazzà : 1 occurrenza hè stata rimpiazzata. Alcuna altra occurrenza trova."/>
             <find-status-replace-not-found value="Rimpiazzà : alcuna occurrenza trova"/>
             <find-status-replace-readonly value="Rimpiazzà : Ùn si pò rimpiazzà u testu. U ducumentu attuale pò solu si leghje"/>

@@ -915,8 +915,12 @@
                 </Language>
 
                 <Highlighting title="強調表示">
+                    <Item id="6351" name="すべてマーク"/>
+                    <Item id="6352" name="大/小文字を区別"/>
+                    <Item id="6353" name="単語単位"/>
                     <Item id="6333" name="スマート強調表示"/>
                     <Item id="6326" name="有効"/>
+                    <Item id="6354" name="一致させる条件"/>
                     <Item id="6332" name="大/小文字を区別"/>
                     <Item id="6338" name="単語単位"/>
                     <Item id="6339" name="検索ダイアログの設定に従う"/>
@@ -962,6 +966,7 @@
                     <Item id="6902" name="検索画面で固定幅フォントを使用する（Notepad++ の再起動が必要）"/>
                     <Item id="6903" name="検索結果を結果ウィンドウに表示する時に、検索画面を自動で閉じないようにする"/>
                     <Item id="6904" name="「すべての文書で置換」を実行する前に、確認する"/>
+                    <Item id="6905" name="置換時に、次の出現箇所に移動しない"/>
                 </Searching>
 
 
@@ -1361,6 +1366,7 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <find-status-replace-end-reached value="置換：先頭からの最初の一致を置換しました。文書の末尾を通過しました"/>
             <find-status-replace-top-reached value="置換：末尾からの最初の一致を置換しました。文書の先頭を通過しました"/>
             <find-status-replaced-next-found value="置換：1 件を置換しました。次の一致が見つかりました"/>
+            <find-status-replaced-without-continuing value="置換：1 件を置換しました。"/>
             <find-status-replaced-next-not-found value="置換：1 件を置換しました。一致するものはありません"/>
             <find-status-replace-not-found value="置換：一致するものはありません"/>
             <find-status-replace-readonly value="置換：置換できません。この文書は読み取り専用です"/>

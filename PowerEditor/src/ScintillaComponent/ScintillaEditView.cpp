@@ -2566,24 +2566,26 @@ void ScintillaEditView::performGlobalStyles()
 		execute(SCI_SETCARETLINEBACK, style._bgColor);
 	}
 
-    COLORREF selectColorBack = grey;
-
+	COLORREF selectColorBack = grey;
+	COLORREF selectColorFore = black;
 	i = stylers.getStylerIndexByName(TEXT("Selected text colour"));
 	if (i != -1)
-    {
-        Style & style = stylers.getStyler(i);
+	{
+		Style & style = stylers.getStyler(i);
 		selectColorBack = style._bgColor;
-    }
+		selectColorFore = style._fgColor;
+	}
 	execute(SCI_SETSELBACK, 1, selectColorBack);
+	execute(SCI_SETSELFORE, 1, selectColorFore);
 
-    COLORREF caretColor = black;
+	COLORREF caretColor = black;
 	i = stylers.getStylerIndexByID(SCI_SETCARETFORE);
 	if (i != -1)
-    {
-        Style & style = stylers.getStyler(i);
-        caretColor = style._fgColor;
-    }
-    execute(SCI_SETCARETFORE, caretColor);
+	{
+		Style & style = stylers.getStyler(i);
+		caretColor = style._fgColor;
+	}
+	execute(SCI_SETCARETFORE, caretColor);
 
 	COLORREF edgeColor = liteGrey;
 	i = stylers.getStylerIndexByName(TEXT("Edge colour"));

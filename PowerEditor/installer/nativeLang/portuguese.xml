@@ -963,6 +963,7 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
                     <Item id="6902" name="Usar letra monoespaçada na janela Encontrar (é necessário reiniciar o Notepad ++)"/>
                     <Item id="6903" name="A janela Encontrar permanece aberta após a pesquisa que resulta na janela de resultados"/>
                     <Item id="6904" name="Confirmar Substituir Tudo em Todos os Documentos Abertos"/>
+                    <Item id="6905" name="Substituir: Não mover para a seguinte ocorrência"/>
                 </Searching>
 
                 <RecentFilesHistory title="Histórico Fic. Recentes">
@@ -1147,7 +1148,7 @@ Continuar?"/> <!-- HowToReproduce: when you openned file is modified and saved, 
             <FileAlreadyOpenedInNpp title="" message="O ficheiro já está aberto no Notepad++."/> <!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
             <RenameTabTemporaryNameAlreadyInUse title="Falha ao Renomear" message="O nome especificado já está a ser utilizado noutro separador."/> <!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
             <DeleteFileFailed title="Eliminar ficheiro" message="Falha ao eliminar o ficheiro."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-			
+
             <NbFileToOpenImportantWarning title="Está a tentar abrir demasiados ficheiros." message="Está prestes a abrir $INT_REPLACE$ ficheiros.
 Tem a certeza que os deseja abrir?"/> <!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into Notepad++. -->
             <SettingsOnCloudError title="Definições na Nuvem" message="Parece que o caminho das definições na nuvem é definido numa unidade de leitura apenas,
@@ -1224,8 +1225,8 @@ Deseja iniciar o Notepad++ em modo de Administrador?"/>
 O Notepad++ será reiniciado após a conclusão de todas as operações.
 Continuar?"/>
             <NeedToRestartToLoadPlugins title="O Notepad++ necessita de ser iniciado novamente" message="Tem de reiniciar o Notepad++ para carregar os plugins que instalou."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
-		</MessageBox>
-		<ClipboardHistory>
+        </MessageBox>
+        <ClipboardHistory>
             <PanelTitle name="Histórico da Área de Transferência"/>
         </ClipboardHistory>
         <DocSwitcher>
@@ -1281,7 +1282,7 @@ Continuar?"/>
             <NewProjectName name="Nome do Projeto"/>
             <NewFolderName name="Nome da Pasta"/>
             <Menus>
-            	<Entries>
+                <Entries>
                     <Item id="0" name="Área de Trabalho"/>
                     <Item id="1" name="Editar"/>
                 </Entries>
@@ -1308,8 +1309,8 @@ Continuar?"/>
                     <Item id="3111" name="Renomear"/>
                     <Item id="3112" name="Adicionar Pasta"/>
                     <Item id="3113" name="Adicionar Ficheiros..."/>
-                    <Item id="3114" name="Remover"/>
                     <Item id="3117" name="Adicionar Ficheiros da Pasta..."/>
+                    <Item id="3114" name="Remover"/>
                     <Item id="3118" name="Mover para Cima"/>
                     <Item id="3119" name="Mover Para Baixo"/>
                 </FolderMenu>

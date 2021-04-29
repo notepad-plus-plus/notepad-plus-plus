@@ -21,7 +21,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item idName="Plugins" name="P&amp;lugins"/>
                     <Item idName="Window" name="J&amp;anela"/>
                 </Entries>
-				<!-- Sub Menu Entries -->
+                <!-- Sub Menu Entries -->
                 <SubEntries>
                     <Item subMenuId="file-openFolder" name="Abrir Pasta Recipiente"/>
                     <Item subMenuId="file-closeMore" name="Fechar Mais"/>
@@ -113,7 +113,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42008" name="Aumentar Indentação da Linha"/>
                     <Item id="42009" name="Diminuir Indentação da Linha"/>
                     <Item id="42010" name="Duplicar Linha Atual"/>
-				    <Item id="42079" name="Remover Linhas Duplicadas"/>
+                    <Item id="42079" name="Remover Linhas Duplicadas"/>
                     <Item id="42077" name="Remover Linhas Duplicadas Consecutivas"/>
                     <Item id="42012" name="Dividir Linhas"/>
                     <Item id="42013" name="Unir Linhas"/>
@@ -426,7 +426,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="1723" name="▼ Encontrar Seguinte"/>
                 <Item id="1725" name="Copiar Texto Marcado"/>
             </Find>
-			
+
             <FindCharsInRange title="Encontrar Caracteres no Alcance...">
                 <Item id="2" name="Fechar"/>
                 <Item id="2901" name="Caracteres Não-ASCII (128-255)"/>
@@ -438,7 +438,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="2909" name="Moldar à volta"/>
                 <Item id="2910" name="Encontrar"/>
             </FindCharsInRange>
-			
+
             <GoToLine title="Ir para...">
                 <Item id="2007" name="Linha"/>
                 <Item id="2008" name="Posição"/>
@@ -455,7 +455,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="2"    name="Cancelar"/>
                 <Item id="1904" name="Guardar..."/>
             </Run>
-			
+
             <MD5FromFilesDlg title="Gerar resumo MD5 de ficheiros">
                 <Item id="1922" name="Escolher ficheiros para gerar MD5..."/>
                 <Item id="1924" name="Copiar p/ a área de transferência"/>
@@ -497,7 +497,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="2303" name="Transparência"/>
                 <Item id="2306" name="Selecionar Tema: "/>
                 <SubDialog>
-                	<Item id="2204" name="Negrito"/>
+                    <Item id="2204" name="Negrito"/>
                     <Item id="2205" name="Itálico"/>
                     <Item id="2206" name="Cor do Primeiro plano"/>
                     <Item id="2207" name="Cor do fundo"/>
@@ -521,7 +521,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="2232" name="Ativar estilo do tipo de letra sublinhada global"/>
                 </SubDialog>
             </StyleConfig>
-			
+
             <ShortcutMapper title="Configurador de atalhos">
                 <Item id="2602" name="Modificar"/>
                 <Item id="2603" name="Eliminar"/>
@@ -795,7 +795,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="24671" name="Esc:"/>
                     <Item id="24672" name="Fechar:"/>
                     <Item id="24673" name="Estilizar"/>
-				</Operator>
+                </Operator>
             </UserDefine>
             <Preference title="Preferências">
                 <Item id="6001" name="Fechar"/>
@@ -803,7 +803,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6101" name="Barra de Ferramentas"/>
                     <Item id="6102" name="Ocultar"/>
                     <Item id="6103" name="Ícones Pequenos"/>
-	                <Item id="6104" name="Ícones Grandes"/>
+                    <Item id="6104" name="Ícones Grandes"/>
                     <Item id="6105" name="Ícones Normais"/>
 
                     <Item id="6106" name="Barra do Separador "/>
@@ -819,14 +819,14 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6119" name="Múltiplas linhas"/>
                     <Item id="6120" name="Vertical"/>
                     <Item id="6121" name="Sair ao fechar o último separador"/>
-					
+
                     <Item id="6122" name="Ocultar (utilizar Alt ou F10 para alternar)"/>
                     <Item id="6123" name="Localização"/>
 
                     <Item id="6125" name="Painel Lista Documento"/>
                     <Item id="6126" name="Mostrar"/>
                     <Item id="6127" name="Desativar coluna da extensão"/>
-					
+
                     <Item id="6128" name="Alternar ícones"/>
                 </Global>
                 <Scintillas title="Edição">
@@ -846,7 +846,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6236" name="Ativar deslizamento para além da última linha"/>
                     <Item id="6239" name="Manter selecção quando clicar com o botão direito do rato fora da selecção"/>
                 </Scintillas>
-				
+
                 <MarginsBorderEdge title="Margens/Borda/Limite">
                     <Item id="6201" name="Estilo de margem da pasta"/>
                     <Item id="6202" name="Simples"/>
@@ -872,10 +872,10 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
                 </MarginsBorderEdge>
 
                 <NewDoc title="Novo Documento">
-				    <Item id="6401" name="Formato (Fim da linha)"/>
+                    <Item id="6401" name="Formato (Fim da linha)"/>
                     <Item id="6402" name="Windows"/>
                     <Item id="6403" name="Unix"/>
-	                <Item id="6404" name="Mac"/>
+                    <Item id="6404" name="Mac"/>
                     <Item id="6405" name="Codificação"/>
                     <Item id="6406" name="ANSI"/>
                     <Item id="6407" name="UTF-8"/>
@@ -912,8 +912,12 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
                 </Language>
 
                 <Highlighting title="A Destacar">
+                    <Item id="6351" name="Marcar tudo"/>
+                    <Item id="6352" name="Correspondência de letras"/>
+                    <Item id="6353" name="Corresponder apenas a palavra inteira"/>
                     <Item id="6333" name="Destaque inteligente"/>
                     <Item id="6326" name="Ativar"/>
+                    <Item id="6354" name="Correspondente"/>
                     <Item id="6332" name="Letra correspondente"/>
                     <Item id="6338" name="Corresponder apenas a palavra inteira"/>
                     <Item id="6339" name="Usar as definições da janela Encontrar"/>
@@ -929,7 +933,7 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
                     <Item id="6602" name="Opções da Cor"/>
                     <Item id="6603" name="O que Vê é o que Obtém (WYSIWYG)"/>
                     <Item id="6604" name="Inverter"/>
-	                <Item id="6605" name="Preto sobre Branco"/>
+                    <Item id="6605" name="Preto sobre Branco"/>
                     <Item id="6606" name="Sem Cor de Fundo"/>
                     <Item id="6607" name="Definições da Margem (mm)"/>
                     <Item id="6612" name="Esquerda"/>
@@ -940,21 +944,21 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
                     <Item id="6707" name="Itálico"/>
                     <Item id="6708" name="Cabeçalho"/>
                     <Item id="6709" name="Parte Esquerda"/>
-	                <Item id="6710" name="Parte Central"/>
+                    <Item id="6710" name="Parte Central"/>
                     <Item id="6711" name="Parte Direita"/>
                     <Item id="6717" name="Negrito"/>
                     <Item id="6718" name="Itálico"/>
                     <Item id="6719" name="Rodapé"/>
                     <Item id="6720" name="Parte Esquerda"/>
-	                <Item id="6721" name="Parte Central"/>
+                    <Item id="6721" name="Parte Central"/>
                     <Item id="6722" name="Parte Direita"/>
-	                <Item id="6723" name="Adicionar"/>
+                    <Item id="6723" name="Adicionar"/>
                     <Item id="6725" name="Variável:"/>
                     <Item id="6727" name="Aqui mostra as definições da sua variável"/>
                     <Item id="6728" name="Cabeçalho e Rodapé"/>
                 </Print>
-				
-				<Searching title="A Procurar">
+
+                <Searching title="A Procurar">
                     <Item id="6901" name="Não preencha o campo Encontrar na janela Encontrar com a palavra selecionada"/>
                     <Item id="6902" name="Usar letra monoespaçada na janela Encontrar (é necessário reiniciar o Notepad ++)"/>
                     <Item id="6903" name="A janela Encontrar permanece aberta após a pesquisa que resulta na janela de resultados"/>
@@ -987,9 +991,9 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
                     <Item id="6803" name="Pasta: "/>
                 </Backup>
 
-				<AutoCompletion title="Conclusão Automática">
-					<Item id="6115" name="Indentação Automática"/>
-					<Item id="6807" name="Conclusão Automática"/>
+                <AutoCompletion title="Conclusão Automática">
+                    <Item id="6115" name="Indentação Automática"/>
+                    <Item id="6807" name="Conclusão Automática"/>
                     <Item id="6808" name="Ativar conclusão automática"/>
                     <Item id="6809" name="Completar função"/>
                     <Item id="6810" name="Completar palavra"/>
@@ -1037,7 +1041,7 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
                     <Item id="6350" name="Ativar o modo caixa cheia"/>
                     <Item id="6264" name="Esquemas personalizados URI:"/>
                 </Cloud>
-				
+
                 <SearchEngine title="Motor de Busca">
                     <Item id="6271" name="Motor de Busca (para comando &quot;Pesquisar na Internet&quot;)"/>
                     <Item id="6272" name="DuckDuckGo"/>
@@ -1445,7 +1449,7 @@ João Pereira <joaopereira@openmailbox.org>
 29/07/2015
 
 Hugo Carvalho <hugokarvalho@hotmail.com>
-16/04/2021 (versão 7.9.4, 7.9.5, 7.9.6)
+29/04/2021 (versão 7.9.4, 7.9.5, 7.9.6)
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.	

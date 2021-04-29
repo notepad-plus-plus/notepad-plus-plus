@@ -150,7 +150,7 @@ bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type, ToolBar
 		//add plugin buttons
 		for (size_t j = 0; j < _nbDynButtons ; ++j, ++i)
 		{
-			cmd = _vDynBtnReg[j].message;
+			cmd = _vDynBtnReg[j]._message;
 			++bmpIndex;
 
 			_pTBB[i].iBitmap = bmpIndex;
@@ -237,7 +237,7 @@ void ToolBar::setToUglyIcons()
 }
 
 
-void ToolBar::reset(bool create) 
+void ToolBar::reset(bool create)
 {
 
 	if (create && _hSelf)
@@ -296,7 +296,6 @@ void ToolBar::reset(bool create)
 		int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(16);
 		::SendMessage(_hSelf, TB_SETBITMAPSIZE, 0, MAKELPARAM(iconDpiDynamicalSize, iconDpiDynamicalSize));
 
-		//TBADDBITMAP addbmp = {_hInst, 0};
 		TBADDBITMAP addbmp = {0, 0};
 		TBADDBITMAP addbmpdyn = {0, 0};
 		for (size_t i = 0 ; i < _nbButtons ; ++i)
@@ -312,7 +311,7 @@ void ToolBar::reset(bool create)
 		{
 			for (size_t j = 0; j < _nbDynButtons; ++j)
 			{
-				addbmpdyn.nID = reinterpret_cast<UINT_PTR>(_vDynBtnReg.at(j).hBmp);
+				addbmpdyn.nID = reinterpret_cast<UINT_PTR>(_vDynBtnReg.at(j)._hBmp);
 				::SendMessage(_hSelf, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmpdyn));
 			}
 		}
@@ -346,9 +345,9 @@ void ToolBar::registerDynBtn(UINT messageID, toolbarIcons* tIcon)
 	if ((_hSelf == NULL) && (messageID != 0) && (tIcon->hToolbarBmp != NULL))
 	{
 		tDynamicList		dynList;
-		dynList.message		= messageID;
-		dynList.hBmp		= tIcon->hToolbarBmp;
-		dynList.hIcon		= tIcon->hToolbarIcon;
+		dynList._message		= messageID;
+		dynList._hBmp		= tIcon->hToolbarBmp;
+		dynList._hIcon		= tIcon->hToolbarIcon;
 		_vDynBtnReg.push_back(dynList);
 	}
 }

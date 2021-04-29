@@ -25,7 +25,7 @@ void IconList::create(HINSTANCE hInst, int iconSize)
 	_iconSize = iconSize; 
 	_hImglst = ImageList_Create(iconSize, iconSize, ILC_COLOR32 | ILC_MASK, 0, nbMax);
 	if (!_hImglst)
-		throw std::runtime_error("IconList::create : ImageList_Create() function return null");
+		throw std::runtime_error("IconList::create : ImageList_Create() function returns null");
 };
 
 void IconList::create(int iconSize, HINSTANCE hInst, int *iconIDArray, int iconIDArraySize)
@@ -108,7 +108,6 @@ void ToolBarIcons::destroy()
 	_iconListVector[HLIST_DEFAULT].destroy();
 	_iconListVector[HLIST_HOT].destroy();
 	_iconListVector[HLIST_DISABLE].destroy();
-	//_iconListVector[HLIST_UGLY].destroy();
 }
 
 

@@ -146,7 +146,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64 };
 	//void WM_PIMENU_CHECK(UINT	funcItem[X]._cmdID, TRUE/FALSE)
 
 	#define NPPM_ADDTOOLBARICON (NPPMSG + 41)
-	//void WM_ADDTOOLBARICON(UINT funcItem[X]._cmdID, toolbarIcons icon)
+	//void NPPM_ADDTOOLBARICON(UINT funcItem[X]._cmdID, toolbarIcons icon)
 		struct toolbarIcons {
 			HBITMAP	hToolbarBmp;
 			HICON	hToolbarIcon;

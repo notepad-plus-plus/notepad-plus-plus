@@ -34,9 +34,9 @@ enum toolBarStatusType {TB_SMALL, TB_LARGE, TB_STANDARD};
 
 
 typedef struct {
-	UINT		message;		// identification of icon in tool bar (menu ID)
-	HBITMAP		hBmp;			// bitmap for toolbar
-	HICON		hIcon;			// icon for toolbar
+	UINT		_message;		// identification of icon in tool bar (menu ID)
+	HBITMAP		_hBmp;			// bitmap for toolbar
+	HICON		_hIcon;			// icon for toolbar
 } tDynamicList;
 
 struct iconLocator {

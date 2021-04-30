@@ -1363,6 +1363,7 @@ Procurar em todos os ficheiros, exceto exe, obj &amp;&amp; log:
             <find-status-replace-end-reached value="Substituir: Substituída a 1ª ocorrência a partir do início. O final do documento foi alcançado"/>
             <find-status-replace-top-reached value="Substituir: Substituída a 1ª ocorrência a partir do final. O início do documento foi alcançado"/>
             <find-status-replaced-next-found value="Substituir: 1 ocorrência foi substituída. A ocorrência seguinte encontrada."/>
+            <find-status-replaced-without-continuing value="Substituir: 1 ocorrência foi substituída."/>
             <find-status-replaced-next-not-found value="Substituir: 1 ocorrência foi substituída. Não foram encontradas mais ocorrências."/>
             <find-status-replace-not-found value="Substituir: nenhuma ocorrência encontrada"/>
             <find-status-replace-readonly value="Substituir: Texto não substituído. O documento é apenas de leitura"/>
@@ -1450,7 +1451,7 @@ João Pereira <joaopereira@openmailbox.org>
 29/07/2015
 
 Hugo Carvalho <hugokarvalho@hotmail.com>
-29/04/2021 (versão 7.9.4, 7.9.5, 7.9.6)
+30/04/2021 (versão 7.9.4, 7.9.5, 7.9.6)
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.	

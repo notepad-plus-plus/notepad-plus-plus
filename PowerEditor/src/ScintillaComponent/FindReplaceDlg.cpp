@@ -3988,7 +3988,7 @@ void Finder::removeAll()
 
 void Finder::openAll()
 {
-	for (generic_string path : getResultFilePaths())
+	for (auto&& path : getResultFilePaths())
 	{
 		::SendMessage(_hParent, WM_DOOPEN, 0, reinterpret_cast<LPARAM>(path.c_str()));
 	}

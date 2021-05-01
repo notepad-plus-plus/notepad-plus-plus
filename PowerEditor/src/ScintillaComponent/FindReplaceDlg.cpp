@@ -3988,11 +3988,9 @@ void Finder::removeAll()
 
 void Finder::openAll()
 {
-	size_t sz = _pMainFoundInfos->size();
-
-	for (size_t i = 0; i < sz; ++i)
+	for (generic_string path : getResultFilePaths())
 	{
-		::SendMessage(_hParent, WM_DOOPEN, 0, reinterpret_cast<LPARAM>(_pMainFoundInfos->at(i)._fullPath.c_str()));
+		::SendMessage(_hParent, WM_DOOPEN, 0, reinterpret_cast<LPARAM>(path.c_str()));
 	}
 }
 

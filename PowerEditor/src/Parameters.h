@@ -1810,6 +1810,7 @@ public:
 	void setAdminMode(bool isAdmin) { _isAdminMode = isAdmin; }
 	bool isAdmin() const { return _isAdminMode; }
 	bool regexBackward4PowerUser() const { return _findHistory._regexBackward4PowerUser; }
+	bool isSelectFgColorEnabled() const { return _isSelectFgColorEnabled; };
 
 private:
 	bool _isAnyShortcutModified = false;
@@ -1837,7 +1838,6 @@ private:
 	generic_string _shortcutsPath;
 	generic_string _contextMenuPath;
 	generic_string _sessionPath;
-	generic_string _blacklistPath;
 	generic_string _nppPath;
 	generic_string _userPath;
 	generic_string _stylerPath;
@@ -1872,6 +1872,8 @@ private:
 	generic_string _wingupDir;
 	bool _isElevationRequired = false;
 	bool _isAdminMode = false;
+
+	bool _isSelectFgColorEnabled = false;
 
 public:
 	generic_string getWingupFullPath() const { return _wingupFullPath; };

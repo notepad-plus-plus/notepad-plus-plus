@@ -1440,18 +1440,17 @@ bool NppParameters::load()
 				delete _pXmlExternalLexerDoc[i];
 	}
 
-	//------------------------------//
-	// blacklist.xml : for per user //
-	//------------------------------//
-	_blacklistPath = _userPath;
-	PathAppend(_blacklistPath, TEXT("blacklist.xml"));
+	//-------------------------------------------------------------//
+	// enableSelectFgColor.xml : for per user                      //
+	// This empty xmj file is optional - user adds this empty file //
+	// manually in order to set selected text's foreground color.  //
+	//-------------------------------------------------------------//
+	generic_string enableSelectFgColorPath = _userPath;
+	PathAppend(enableSelectFgColorPath, TEXT("enableSelectFgColor.xml"));
 
-	if (PathFileExists(_blacklistPath.c_str()))
+	if (PathFileExists(enableSelectFgColorPath.c_str()))
 	{
-		_pXmlBlacklistDoc = new TiXmlDocument(_blacklistPath);
-		loadOkay = _pXmlBlacklistDoc->LoadFile();
-		if (loadOkay)
-			getBlackListFromXmlTree();
+		_isSelectFgColorEnabled = true;
 	}
 	return isAllLaoded;
 }

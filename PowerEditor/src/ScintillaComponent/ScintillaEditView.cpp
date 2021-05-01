@@ -2557,7 +2557,8 @@ void ScintillaEditView::expand(size_t& line, bool doExpand, bool force, int visL
 
 void ScintillaEditView::performGlobalStyles()
 {
-	StyleArray & stylers = NppParameters::getInstance().getMiscStylerArray();
+	NppParameters& nppParams = NppParameters::getInstance();
+	StyleArray & stylers = nppParams.getMiscStylerArray();
 
 	int i = stylers.getStylerIndexByName(TEXT("Current line background colour"));
 	if (i != -1)
@@ -2576,7 +2577,9 @@ void ScintillaEditView::performGlobalStyles()
 		selectColorFore = style._fgColor;
 	}
 	execute(SCI_SETSELBACK, 1, selectColorBack);
-	execute(SCI_SETSELFORE, 1, selectColorFore);
+
+	if (nppParams.isSelectFgColorEnabled())
+		execute(SCI_SETSELFORE, 1, selectColorFore);
 
 	COLORREF caretColor = black;
 	i = stylers.getStylerIndexByID(SCI_SETCARETFORE);
@@ -2640,7 +2643,7 @@ void ScintillaEditView::performGlobalStyles()
 	COLORREF foldfgColor = white, foldbgColor = grey, activeFoldFgColor = red;
 	getFoldColor(foldfgColor, foldbgColor, activeFoldFgColor);
 
-	ScintillaViewParams & svp = (ScintillaViewParams &)NppParameters::getInstance().getSVP();
+	ScintillaViewParams & svp = (ScintillaViewParams &)nppParams.getSVP();
 	for (int j = 0 ; j < NB_FOLDER_STATE ; ++j)
 		defineMarker(_markersArray[FOLDER_TYPE][j], _markersArray[svp._folderStyle][j], foldfgColor, foldbgColor, activeFoldFgColor);
 

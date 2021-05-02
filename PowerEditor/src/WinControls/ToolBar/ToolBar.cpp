@@ -129,7 +129,7 @@ bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type, ToolBar
 			style = BTNS_SEP;
 		}
 
-		_pTBB[i].iBitmap = (cmd != 0?bmpIndex:0);
+		_pTBB[i].iBitmap = (cmd != 0 ? bmpIndex : 0);
 		_pTBB[i].idCommand = cmd;
 		_pTBB[i].fsState = TBSTATE_ENABLED;
 		_pTBB[i].fsStyle = (BYTE)style; 
@@ -342,7 +342,7 @@ void ToolBar::reset(bool create)
 void ToolBar::registerDynBtn(UINT messageID, toolbarIcons* tIcon)
 {
 	// Note: Register of buttons only possible before init!
-	if ((_hSelf == NULL) && (messageID != 0) && (tIcon->hToolbarBmp != NULL))
+	if ((_hSelf == NULL) && (messageID != 0) && (tIcon->hToolbarBmp != NULL) && (tIcon->hToolbarIcon != NULL))
 	{
 		tDynamicList		dynList;
 		dynList._message		= messageID;

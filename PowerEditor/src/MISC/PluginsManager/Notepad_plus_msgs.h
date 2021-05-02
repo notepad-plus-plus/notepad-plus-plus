@@ -485,7 +485,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64 };
 	//scnNotification->nmhdr.idFrom = 0;
 
 	#define NPPN_TBMODIFICATION (NPPN_FIRST + 2) // To notify plugins that toolbar icons can be registered
-	//scnNotification->nmhdr.code = NPPN_TB_MODIFICATION;
+	//scnNotification->nmhdr.code = NPPN_TBMODIFICATION;
 	//scnNotification->nmhdr.hwndFrom = hwndNpp;
 	//scnNotification->nmhdr.idFrom = 0;
 

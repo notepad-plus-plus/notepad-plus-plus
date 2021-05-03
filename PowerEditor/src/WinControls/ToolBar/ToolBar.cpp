@@ -147,6 +147,7 @@ bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type, ToolBar
 		_pTBB[i].dwData = 0; 
 		_pTBB[i].iString = 0;
 		++i;
+
 		//add plugin buttons
 		for (size_t j = 0; j < _nbDynButtons ; ++j, ++i)
 		{
@@ -159,6 +160,8 @@ bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type, ToolBar
 			_pTBB[i].fsStyle = BTNS_BUTTON; 
 			_pTBB[i].dwData = 0; 
 			_pTBB[i].iString = 0;
+
+			addIconToImgLsts(_vDynBtnReg[j]._hIcon);
 		}
 	}
 
@@ -287,7 +290,6 @@ void ToolBar::reset(bool create)
 	{
 		//If non standard icons, use custom imagelists
 		setDefaultImageList();
-		setHotImageList();
 		setDisableImageList();
 	}
 	else
@@ -324,8 +326,16 @@ void ToolBar::reset(bool create)
 		WORD btnSize = (_state == TB_LARGE?32:16);
 		::SendMessage(_hSelf, TB_SETBUTTONSIZE , 0, MAKELONG(btnSize, btnSize));
 		::SendMessage(_hSelf, TB_ADDBUTTONS, nbBtnToAdd, reinterpret_cast<LPARAM>(_pTBB));
+
+		HIMAGELIST hImgLst = (HIMAGELIST)::SendMessage(_hSelf, TB_GETIMAGELIST, 0, 0);
+		for (size_t j = 0; j < _nbDynButtons; ++j)
+		{
+			ImageList_AddIcon(hImgLst, _vDynBtnReg.at(j)._hIcon);
+		}
 	}
 	::SendMessage(_hSelf, TB_AUTOSIZE, 0, 0);
+
+
 
 	if (_pRebar)
 	{

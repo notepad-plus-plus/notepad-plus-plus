@@ -18,12 +18,14 @@
 #include <stdexcept>
 #include "ImageListSet.h"
 
+
 void IconList::create(HINSTANCE hInst, int iconSize) 
 {
 	InitCommonControls();
 	_hInst = hInst;
-	_iconSize = iconSize; 
-	_hImglst = ImageList_Create(iconSize, iconSize, ILC_COLOR32 | ILC_MASK, 0, nbMax);
+	_iconSize = iconSize;
+	const int nbMore = 45;
+	_hImglst = ImageList_Create(iconSize, iconSize, ILC_COLOR32 | ILC_MASK, 0, nbMore);
 	if (!_hImglst)
 		throw std::runtime_error("IconList::create : ImageList_Create() function returns null");
 };
@@ -70,13 +72,11 @@ void ToolBarIcons::init(ToolBarButtonUnit *buttonUnitArray, int arraySize)
 {
 	for (int i = 0 ; i < arraySize ; ++i)
 		_tbiis.push_back(buttonUnitArray[i]);
-	_nbCmd = arraySize;
 }
 
 void ToolBarIcons::reInit(int size)
 {
 	ImageList_SetIconSize(getDefaultLst(), size, size);
-	ImageList_SetIconSize(getHotLst(), size, size);
 	ImageList_SetIconSize(getDisableLst(), size, size);
 
 	for (size_t i = 0, len = _tbiis.size(); i < len; ++i)
@@ -84,7 +84,6 @@ void ToolBarIcons::reInit(int size)
 		if (_tbiis[i]._defaultIcon != -1)
 		{
 			_iconListVector[HLIST_DEFAULT].addIcon(_tbiis[i]._defaultIcon);
-			_iconListVector[HLIST_HOT].addIcon(_tbiis[i]._hotIcon);
 			_iconListVector[HLIST_DISABLE].addIcon(_tbiis[i]._grayIcon);
 		}
 	}
@@ -94,10 +93,8 @@ void ToolBarIcons::create(HINSTANCE hInst, int iconSize)
 {
 	_iconListVector.push_back(IconList());
 	_iconListVector.push_back(IconList());
-	_iconListVector.push_back(IconList());
 
 	_iconListVector[HLIST_DEFAULT].create(hInst, iconSize);
-	_iconListVector[HLIST_HOT].create(hInst, iconSize);
 	_iconListVector[HLIST_DISABLE].create(hInst, iconSize);
 
 	reInit(iconSize);
@@ -106,7 +103,6 @@ void ToolBarIcons::create(HINSTANCE hInst, int iconSize)
 void ToolBarIcons::destroy()
 {
 	_iconListVector[HLIST_DEFAULT].destroy();
-	_iconListVector[HLIST_HOT].destroy();
 	_iconListVector[HLIST_DISABLE].destroy();
 }
 

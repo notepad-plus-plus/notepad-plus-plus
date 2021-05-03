@@ -86,9 +86,13 @@ public :
 		return _state;
 	};
 
+	bool addIconToImgLsts(HICON hIcon) {
+		return _toolBarIcons.addIcon(hIcon);
+	};
+
     bool changeIcons() {    
-	    if (!_toolIcons)
-		    return false;
+	    if (!_toolIcons) return false;
+
 	    for (size_t i = 0, len = _customIconVect.size(); i < len; ++i)
 		    changeIcons(_customIconVect[i].listIndex, _customIconVect[i].iconIndex, (_customIconVect[i].iconLocation).c_str());
         return true;
@@ -121,9 +125,7 @@ private :
 	void setDefaultImageList() {
 		::SendMessage(_hSelf, TB_SETIMAGELIST, 0, reinterpret_cast<LPARAM>(_toolBarIcons.getDefaultLst()));
 	};
-	void setHotImageList() {
-		::SendMessage(_hSelf, TB_SETHOTIMAGELIST, 0, reinterpret_cast<LPARAM>(_toolBarIcons.getHotLst()));
-	};
+
 	void setDisableImageList() {
 		::SendMessage(_hSelf, TB_SETDISABLEDIMAGELIST, 0, reinterpret_cast<LPARAM>(_toolBarIcons.getDisableLst()));
 	};

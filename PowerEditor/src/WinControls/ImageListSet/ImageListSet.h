@@ -21,7 +21,6 @@
 #include <windows.h>
 #include <commctrl.h>
 
-const int nbMax = 45;
 #define	IDI_SEPARATOR_ICON -1
 
 class IconList
@@ -52,7 +51,6 @@ typedef struct
 	int _cmdID;
 
 	int _defaultIcon;
-	int _hotIcon;
 	int _grayIcon;
 
 	int _stdIcon;
@@ -75,8 +73,7 @@ protected :
 };
 
 const int HLIST_DEFAULT = 0;
-const int HLIST_HOT = 1;
-const int HLIST_DISABLE = 2;
+const int HLIST_DISABLE = 1;
 
 class ToolBarIcons : public IconLists
 {
@@ -91,37 +88,40 @@ public :
 		return IconLists::getImageListHandle(HLIST_DEFAULT);
 	};
 
-	HIMAGELIST getHotLst() const {
-		return IconLists::getImageListHandle(HLIST_HOT);
-	};
-
 	HIMAGELIST getDisableLst() const {
 		return IconLists::getImageListHandle(HLIST_DISABLE);
 	};
 
-	unsigned int getNbCommand() const {return _nbCmd;};
 	void resizeIcon(int size) {
 		reInit(size);
 	};
 
 	void reInit(int size);
 
-	int getNbIcon() const {
-		return int(_tbiis.size());
-	};
-
 	int getStdIconAt(int i) const {
 		return _tbiis[i]._stdIcon;
 	};
 
 	bool replaceIcon(int witchList, int iconIndex, const TCHAR *iconLocation) const {
-		if ((witchList != HLIST_DEFAULT) && (witchList != HLIST_HOT) && (witchList != HLIST_DISABLE))
+		if ((witchList != HLIST_DEFAULT) /*&& (witchList != HLIST_HOT)*/ && (witchList != HLIST_DISABLE))
 			return false;
 		return _iconListVector[witchList].changeIcon(iconIndex, iconLocation);
 	};
 
+	bool addIcon(HICON hIcon) {
+		HIMAGELIST l0 = getDefaultLst();
+		HIMAGELIST l2 = getDisableLst();
+
+		int res = ImageList_ReplaceIcon(l0, -1, hIcon);
+		if (res == -1) return false;
+
+		res = ImageList_ReplaceIcon(l2, -1, hIcon);
+		if (res == -1) return false;
+
+		return true;
+	}
+
 private :
 	ToolBarIconIDs _tbiis;
-	unsigned int _nbCmd = 0;
 };
 

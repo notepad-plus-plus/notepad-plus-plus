@@ -4152,7 +4152,11 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 						_nppGUI._toolBarStatus = TB_SMALL;
 					else if (!lstrcmp(val, TEXT("large")))
 						_nppGUI._toolBarStatus = TB_LARGE;
-					else// if (!lstrcmp(val, TEXT("standard")))	//assume standard in all other cases
+					else if (!lstrcmp(val, TEXT("small2")))
+						_nppGUI._toolBarStatus = TB_SMALL2;
+					else if (!lstrcmp(val, TEXT("large2")))
+						_nppGUI._toolBarStatus = TB_LARGE2;
+					else //if (!lstrcmp(val, TEXT("standard")))
 						_nppGUI._toolBarStatus = TB_STANDARD;
 				}
 			}
@@ -5917,7 +5921,17 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("ToolBar"));
 		const TCHAR *pStr = (_nppGUI._toolbarShow) ? TEXT("yes") : TEXT("no");
 		GUIConfigElement->SetAttribute(TEXT("visible"), pStr);
-		pStr = _nppGUI._toolBarStatus == TB_SMALL ? TEXT("small") : (_nppGUI._toolBarStatus == TB_STANDARD ? TEXT("standard") : TEXT("large"));
+
+		if (_nppGUI._toolBarStatus == TB_SMALL)
+			pStr = TEXT("small");
+		else if (_nppGUI._toolBarStatus == TB_LARGE)
+			pStr = TEXT("large");
+		else if (_nppGUI._toolBarStatus == TB_SMALL2)
+			pStr = TEXT("small2");
+		else if (_nppGUI._toolBarStatus == TB_LARGE2)
+			pStr = TEXT("large2");
+		else //if (_nppGUI._toolBarStatus == TB_STANDARD)
+			pStr = TEXT("standard");
 		GUIConfigElement->InsertEndChild(TiXmlText(pStr));
 	}
 

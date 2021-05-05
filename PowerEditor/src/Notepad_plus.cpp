@@ -52,70 +52,69 @@ int docTabIconIDs_alt[] = { IDI_SAVED_ALT_ICON, IDI_UNSAVED_ALT_ICON, IDI_READON
 
 
 ToolBarButtonUnit toolBarIcons[] = {
-    {IDM_FILE_NEW,                      IDI_NEW_OFF_ICON,               IDI_NEW_OFF_ICON,                  IDR_FILENEW},
-    {IDM_FILE_OPEN,                     IDI_OPEN_OFF_ICON,              IDI_OPEN_OFF_ICON,                 IDR_FILEOPEN},
-    {IDM_FILE_SAVE,                     IDI_SAVE_OFF_ICON,              IDI_SAVE_DISABLE_ICON,             IDR_FILESAVE},
-    {IDM_FILE_SAVEALL,                  IDI_SAVEALL_OFF_ICON,           IDI_SAVEALL_DISABLE_ICON,          IDR_SAVEALL},
-    {IDM_FILE_CLOSE,                    IDI_CLOSE_OFF_ICON,             IDI_CLOSE_OFF_ICON,                IDR_CLOSEFILE},
-    {IDM_FILE_CLOSEALL,                 IDI_CLOSEALL_OFF_ICON,          IDI_CLOSEALL_OFF_ICON,             IDR_CLOSEALL},
-    {IDM_FILE_PRINT,                    IDI_PRINT_OFF_ICON,             IDI_PRINT_OFF_ICON,                IDR_PRINT},
-
-    //---------------------------------------------------------------------------------------------------------------------------//
-    {0,                                 IDI_SEPARATOR_ICON,             IDI_SEPARATOR_ICON,                IDI_SEPARATOR_ICON},
-    //---------------------------------------------------------------------------------------------------------------------------//
-
-    {IDM_EDIT_CUT,                      IDI_CUT_OFF_ICON,               IDI_CUT_DISABLE_ICON,              IDR_CUT},
-    {IDM_EDIT_COPY,                     IDI_COPY_OFF_ICON,              IDI_COPY_DISABLE_ICON,             IDR_COPY},
-    {IDM_EDIT_PASTE,                    IDI_PASTE_OFF_ICON,             IDI_PASTE_DISABLE_ICON,            IDR_PASTE},
-
-    //---------------------------------------------------------------------------------------------------------------------------//
-    {0,                                 IDI_SEPARATOR_ICON,             IDI_SEPARATOR_ICON,                IDI_SEPARATOR_ICON},
-    //---------------------------------------------------------------------------------------------------------------------------//
-
-    {IDM_EDIT_UNDO,                     IDI_UNDO_OFF_ICON,              IDI_UNDO_DISABLE_ICON,             IDR_UNDO},
-    {IDM_EDIT_REDO,                     IDI_REDO_OFF_ICON,              IDI_REDO_DISABLE_ICON,             IDR_REDO},
-    //---------------------------------------------------------------------------------------------------------------------------//
-    {0,                                 IDI_SEPARATOR_ICON,             IDI_SEPARATOR_ICON,                IDI_SEPARATOR_ICON},
-    //---------------------------------------------------------------------------------------------------------------------------//
-
-    {IDM_SEARCH_FIND,                   IDI_FIND_OFF_ICON,              IDI_FIND_OFF_ICON,                 IDR_FIND},
-    {IDM_SEARCH_REPLACE,                IDI_REPLACE_OFF_ICON,           IDI_REPLACE_OFF_ICON,              IDR_REPLACE},
-
-    //---------------------------------------------------------------------------------------------------------------------------//
-    {0,                                 IDI_SEPARATOR_ICON,             IDI_SEPARATOR_ICON,                IDI_SEPARATOR_ICON},
-    //---------------------------------------------------------------------------------------------------------------------------//
-    {IDM_VIEW_ZOOMIN,                   IDI_ZOOMIN_OFF_ICON,            IDI_ZOOMIN_OFF_ICON,               IDR_ZOOMIN},
-    {IDM_VIEW_ZOOMOUT,                  IDI_ZOOMOUT_OFF_ICON,           IDI_ZOOMOUT_OFF_ICON,              IDR_ZOOMOUT},
-
-    //---------------------------------------------------------------------------------------------------------------------------//
-    {0,                                 IDI_SEPARATOR_ICON,             IDI_SEPARATOR_ICON,                IDI_SEPARATOR_ICON},
-    //---------------------------------------------------------------------------------------------------------------------------//
-    {IDM_VIEW_SYNSCROLLV,               IDI_SYNCV_OFF_ICON,             IDI_SYNCV_DISABLE_ICON,            IDR_SYNCV},
-    {IDM_VIEW_SYNSCROLLH,               IDI_SYNCH_OFF_ICON,             IDI_SYNCH_DISABLE_ICON,            IDR_SYNCH},
-
-    //---------------------------------------------------------------------------------------------------------------------------//
-    {0,                                 IDI_SEPARATOR_ICON,             IDI_SEPARATOR_ICON,                IDI_SEPARATOR_ICON},
-    //---------------------------------------------------------------------------------------------------------------------------//
-    {IDM_VIEW_WRAP,                     IDI_VIEW_WRAP_OFF_ICON,         IDI_VIEW_WRAP_OFF_ICON,            IDR_WRAP},
-    {IDM_VIEW_ALL_CHARACTERS,           IDI_VIEW_ALL_CHAR_OFF_ICON,     IDI_VIEW_ALL_CHAR_OFF_ICON,        IDR_INVISIBLECHAR},
-    {IDM_VIEW_INDENT_GUIDE,             IDI_VIEW_INDENT_OFF_ICON,       IDI_VIEW_INDENT_OFF_ICON,          IDR_INDENTGUIDE},
-    {IDM_LANG_USER_DLG,                 IDI_VIEW_UD_DLG_OFF_ICON,       IDI_VIEW_UD_DLG_OFF_ICON,          IDR_SHOWPANNEL},
-    {IDM_VIEW_DOC_MAP,                  IDI_VIEW_DOC_MAP_OFF_ICON,      IDI_VIEW_DOC_MAP_OFF_ICON,         IDR_DOCMAP},
-    {IDM_VIEW_FUNC_LIST,                IDI_VIEW_FUNCLIST_OFF_ICON,     IDI_VIEW_FUNCLIST_OFF_ICON,        IDR_FUNC_LIST},
-    {IDM_VIEW_FILEBROWSER,              IDI_VIEW_FILEBROWSER_OFF_ICON,  IDI_VIEW_FILEBROWSER_OFF_ICON,     IDR_FILEBROWSER},
-    {IDM_VIEW_MONITORING,               IDI_VIEW_MONITORING_OFF_ICON,   IDI_VIEW_MONITORING_OFF_ICON,      IDR_FILEMONITORING},
- 
-    //---------------------------------------------------------------------------------------------------------------------------//
-    {0,                                 IDI_SEPARATOR_ICON,             IDI_SEPARATOR_ICON,                IDI_SEPARATOR_ICON},
-    //---------------------------------------------------------------------------------------------------------------------------//
-
-    {IDM_MACRO_STARTRECORDINGMACRO,     IDI_STARTRECORD_OFF_ICON,       IDI_STARTRECORD_DISABLE_ICON,      IDR_STARTRECORD},
-    {IDM_MACRO_STOPRECORDINGMACRO,      IDI_STOPRECORD_OFF_ICON,        IDI_STOPRECORD_DISABLE_ICON,       IDR_STOPRECORD},
-    {IDM_MACRO_PLAYBACKRECORDEDMACRO,   IDI_PLAYRECORD_OFF_ICON,        IDI_PLAYRECORD_DISABLE_ICON,       IDR_PLAYRECORD},
-    {IDM_MACRO_RUNMULTIMACRODLG,        IDI_MMPLAY_OFF_ICON,            IDI_MMPLAY_DIS_ICON,               IDR_M_PLAYRECORD},
-    {IDM_MACRO_SAVECURRENTMACRO,        IDI_SAVERECORD_OFF_ICON,        IDI_SAVERECORD_DISABLE_ICON,       IDR_SAVERECORD}
+    {IDM_FILE_NEW,                     IDI_NEW_ICON,               IDI_NEW_ICON,                  IDI_NEW_ICON2,              IDI_NEW_ICON2,                 IDR_FILENEW},
+    {IDM_FILE_OPEN,                    IDI_OPEN_ICON,              IDI_OPEN_ICON,                 IDI_OPEN_ICON2,             IDI_OPEN_ICON2,                IDR_FILEOPEN},
+    {IDM_FILE_SAVE,                    IDI_SAVE_ICON,              IDI_SAVE_DISABLE_ICON,         IDI_SAVE_ICON2,             IDI_SAVE_DISABLE_ICON2,        IDR_FILESAVE},
+    {IDM_FILE_SAVEALL,                 IDI_SAVEALL_ICON,           IDI_SAVEALL_DISABLE_ICON,      IDI_SAVEALL_ICON2,          IDI_SAVEALL_DISABLE_ICON2,     IDR_SAVEALL},
+    {IDM_FILE_CLOSE,                   IDI_CLOSE_ICON,             IDI_CLOSE_ICON,                IDI_CLOSE_ICON2,            IDI_CLOSE_ICON2,               IDR_CLOSEFILE},
+    {IDM_FILE_CLOSEALL,                IDI_CLOSEALL_ICON,          IDI_CLOSEALL_ICON,             IDI_CLOSEALL_ICON2,         IDI_CLOSEALL_ICON2,            IDR_CLOSEALL},
+    {IDM_FILE_PRINT,                   IDI_PRINT_ICON,             IDI_PRINT_ICON,                IDI_PRINT_ICON2,            IDI_PRINT_ICON2,               IDR_PRINT},
+																																						  
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+    {0,                                IDI_SEPARATOR_ICON,         IDI_SEPARATOR_ICON,            IDI_SEPARATOR_ICON,         IDI_SEPARATOR_ICON,            IDI_SEPARATOR_ICON},
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+																																						  
+    {IDM_EDIT_CUT,                     IDI_CUT_ICON,               IDI_CUT_DISABLE_ICON,          IDI_CUT_ICON2,              IDI_CUT_DISABLE_ICON2,         IDR_CUT},
+    {IDM_EDIT_COPY,                    IDI_COPY_ICON,              IDI_COPY_DISABLE_ICON,         IDI_COPY_ICON2,             IDI_COPY_DISABLE_ICON2,        IDR_COPY},
+    {IDM_EDIT_PASTE,                   IDI_PASTE_ICON,             IDI_PASTE_DISABLE_ICON,        IDI_PASTE_ICON2,            IDI_PASTE_DISABLE_ICON2,       IDR_PASTE},
+																																						  
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+    {0,                                IDI_SEPARATOR_ICON,         IDI_SEPARATOR_ICON,            IDI_SEPARATOR_ICON,         IDI_SEPARATOR_ICON,            IDI_SEPARATOR_ICON},
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+																																						  
+    {IDM_EDIT_UNDO,                    IDI_UNDO_ICON,              IDI_UNDO_DISABLE_ICON,         IDI_UNDO_ICON2,             IDI_UNDO_DISABLE_ICON2,        IDR_UNDO},
+    {IDM_EDIT_REDO,                    IDI_REDO_ICON,              IDI_REDO_DISABLE_ICON,         IDI_REDO_ICON2,             IDI_REDO_DISABLE_ICON2,        IDR_REDO},
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+    {0,                                IDI_SEPARATOR_ICON,         IDI_SEPARATOR_ICON,            IDI_SEPARATOR_ICON,         IDI_SEPARATOR_ICON,            IDI_SEPARATOR_ICON},
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+																																						  
+    {IDM_SEARCH_FIND,                  IDI_FIND_ICON,              IDI_FIND_ICON,                 IDI_FIND_ICON2,             IDI_FIND_ICON2,                IDR_FIND},
+    {IDM_SEARCH_REPLACE,               IDI_REPLACE_ICON,           IDI_REPLACE_ICON,              IDI_REPLACE_ICON2,          IDI_REPLACE_ICON2,             IDR_REPLACE},
+																																						  
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+    {0,                                IDI_SEPARATOR_ICON,         IDI_SEPARATOR_ICON,            IDI_SEPARATOR_ICON,         IDI_SEPARATOR_ICON,            IDI_SEPARATOR_ICON},
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+    {IDM_VIEW_ZOOMIN,                  IDI_ZOOMIN_ICON,            IDI_ZOOMIN_ICON,               IDI_ZOOMIN_ICON2,           IDI_ZOOMIN_ICON2,              IDR_ZOOMIN},
+    {IDM_VIEW_ZOOMOUT,                 IDI_ZOOMOUT_ICON,           IDI_ZOOMOUT_ICON,              IDI_ZOOMOUT_ICON2,          IDI_ZOOMOUT_ICON2,             IDR_ZOOMOUT},
+																																						  
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+    {0,                                IDI_SEPARATOR_ICON,         IDI_SEPARATOR_ICON,            IDI_SEPARATOR_ICON,         IDI_SEPARATOR_ICON,            IDI_SEPARATOR_ICON},
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+    {IDM_VIEW_SYNSCROLLV,              IDI_SYNCV_ICON,             IDI_SYNCV_DISABLE_ICON,        IDI_SYNCV_ICON2,            IDI_SYNCV_DISABLE_ICON2,       IDR_SYNCV},
+    {IDM_VIEW_SYNSCROLLH,              IDI_SYNCH_ICON,             IDI_SYNCH_DISABLE_ICON,        IDI_SYNCH_ICON2,            IDI_SYNCH_DISABLE_ICON2,       IDR_SYNCH},
+																																						  
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+    {0,                                IDI_SEPARATOR_ICON,         IDI_SEPARATOR_ICON,            IDI_SEPARATOR_ICON,         IDI_SEPARATOR_ICON,            IDI_SEPARATOR_ICON},
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+    {IDM_VIEW_WRAP,                    IDI_VIEW_WRAP_ICON,         IDI_VIEW_WRAP_ICON,            IDI_VIEW_WRAP_ICON2,        IDI_VIEW_WRAP_ICON2,           IDR_WRAP},
+    {IDM_VIEW_ALL_CHARACTERS,          IDI_VIEW_ALL_CHAR_ICON,     IDI_VIEW_ALL_CHAR_ICON,        IDI_VIEW_ALL_CHAR_ICON2,    IDI_VIEW_ALL_CHAR_ICON2,       IDR_INVISIBLECHAR},
+    {IDM_VIEW_INDENT_GUIDE,            IDI_VIEW_INDENT_ICON,       IDI_VIEW_INDENT_ICON,          IDI_VIEW_INDENT_ICON2,      IDI_VIEW_INDENT_ICON2,         IDR_INDENTGUIDE},
+    {IDM_LANG_USER_DLG,                IDI_VIEW_UD_DLG_ICON,       IDI_VIEW_UD_DLG_ICON,          IDI_VIEW_UD_DLG_ICON2,      IDI_VIEW_UD_DLG_ICON2,         IDR_SHOWPANNEL},
+    {IDM_VIEW_DOC_MAP,                 IDI_VIEW_DOC_MAP_ICON,      IDI_VIEW_DOC_MAP_ICON,         IDI_VIEW_DOC_MAP_ICON2,     IDI_VIEW_DOC_MAP_ICON2,        IDR_DOCMAP},
+    {IDM_VIEW_FUNC_LIST,               IDI_VIEW_FUNCLIST_ICON,     IDI_VIEW_FUNCLIST_ICON,        IDI_VIEW_FUNCLIST_ICON2,    IDI_VIEW_FUNCLIST_ICON2,       IDR_FUNC_LIST},
+    {IDM_VIEW_FILEBROWSER,             IDI_VIEW_FILEBROWSER_ICON,  IDI_VIEW_FILEBROWSER_ICON,     IDI_VIEW_FILEBROWSER_ICON2, IDI_VIEW_FILEBROWSER_ICON2,    IDR_FILEBROWSER},
+    {IDM_VIEW_MONITORING,              IDI_VIEW_MONITORING_ICON,   IDI_VIEW_MONITORING_ICON,      IDI_VIEW_MONITORING_ICON2,  IDI_VIEW_MONITORING_ICON2,     IDR_FILEMONITORING},
+																																						  
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+    {0,                                IDI_SEPARATOR_ICON,         IDI_SEPARATOR_ICON,            IDI_SEPARATOR_ICON,         IDI_SEPARATOR_ICON,            IDI_SEPARATOR_ICON},
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+																																						  
+    {IDM_MACRO_STARTRECORDINGMACRO,    IDI_STARTRECORD_ICON,       IDI_STARTRECORD_DISABLE_ICON,  IDI_STARTRECORD_ICON2,      IDI_STARTRECORD_DISABLE_ICON2, IDR_STARTRECORD},
+    {IDM_MACRO_STOPRECORDINGMACRO,     IDI_STOPRECORD_ICON,        IDI_STOPRECORD_DISABLE_ICON,   IDI_STOPRECORD_ICON2,       IDI_STOPRECORD_DISABLE_ICON2,  IDR_STOPRECORD},
+    {IDM_MACRO_PLAYBACKRECORDEDMACRO,  IDI_PLAYRECORD_ICON,        IDI_PLAYRECORD_DISABLE_ICON,   IDI_PLAYRECORD_ICON2,       IDI_PLAYRECORD_DISABLE_ICON2,  IDR_PLAYRECORD},
+    {IDM_MACRO_RUNMULTIMACRODLG,       IDI_MMPLAY_ICON,            IDI_MMPLAY_DIS_ICON,           IDI_MMPLAY_ICON2,           IDI_MMPLAY_DIS_ICON2,          IDR_M_PLAYRECORD},
+    {IDM_MACRO_SAVECURRENTMACRO,       IDI_SAVERECORD_ICON,        IDI_SAVERECORD_DISABLE_ICON,   IDI_SAVERECORD_ICON2,       IDI_SAVERECORD_DISABLE_ICON2,  IDR_SAVERECORD}
 };
-
 
 
 

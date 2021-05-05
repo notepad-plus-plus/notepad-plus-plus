@@ -384,6 +384,12 @@ INT_PTR CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 				case TB_LARGE :
 					ID2Check = IDC_RADIO_BIGICON;
 					break;
+				case TB_SMALL2 :
+					ID2Check = IDC_RADIO_SMALLICON2;
+					break;
+				case TB_LARGE2 :
+					ID2Check = IDC_RADIO_BIGICON2;
+					break;
 				case TB_STANDARD:
 				default :
 					ID2Check = IDC_RADIO_STANDARD;
@@ -547,7 +553,15 @@ INT_PTR CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 				case IDC_RADIO_BIGICON :
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_TOOLBAR_ENLARGE, 0);
 					return TRUE;
-					
+
+				case IDC_RADIO_SMALLICON2:
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_TOOLBAR_REDUCE_SET2, 0);
+					return TRUE;
+
+				case IDC_RADIO_BIGICON2:
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_TOOLBAR_ENLARGE_SET2, 0);
+					return TRUE;
+
 				case IDC_RADIO_STANDARD :
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_TOOLBAR_STANDARD, 0);
 					return TRUE;

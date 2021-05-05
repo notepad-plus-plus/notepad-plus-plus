@@ -97,9 +97,9 @@ bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type, ToolBar
 {
 	Window::init(hInst, hPere);
 	_state = type;
-	int iconSize = NppParameters::getInstance()._dpiManager.scaleX(_state == TB_LARGE?32:16);
+	int iconSize = NppParameters::getInstance()._dpiManager.scaleX(_state == TB_LARGE || _state == TB_LARGE2 ? 32 : 16);
 
-	_toolBarIcons.init(buttonUnitArray, arraySize);
+	_toolBarIcons.init(buttonUnitArray, arraySize, _vDynBtnReg);
 	_toolBarIcons.create(_hInst, iconSize);
 	
 	INITCOMMONCONTROLSEX icex;
@@ -160,8 +160,6 @@ bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type, ToolBar
 			_pTBB[i].fsStyle = BTNS_BUTTON; 
 			_pTBB[i].dwData = 0; 
 			_pTBB[i].iString = 0;
-
-			addIconToImgLsts(_vDynBtnReg[j]._hIcon);
 		}
 	}
 
@@ -210,9 +208,8 @@ void ToolBar::reduce()
 
 	int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(16);
 	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
-	bool recreate = (_state == TB_STANDARD || _state == TB_LARGE);
 	setState(TB_SMALL);
-	reset(recreate);	//recreate toolbar if previous state was Std icons or Big icons
+	reset(true);	//recreate toolbar if previous state was Std icons or Big icons
 	Window::redraw();
 }
 
@@ -223,13 +220,37 @@ void ToolBar::enlarge()
 
 	int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(32);
 	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
-	bool recreate = (_state == TB_STANDARD || _state == TB_SMALL);
 	setState(TB_LARGE);
-	reset(recreate);	//recreate toolbar if previous state was Std icons or Small icons
+	reset(true);	//recreate toolbar if previous state was Std icons or Small icons
 	Window::redraw();
 }
 
-void ToolBar::setToUglyIcons()
+void ToolBar::reduceToSet2()
+{
+	if (_state == TB_SMALL2)
+		return;
+
+	int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(16);
+	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
+
+	setState(TB_SMALL2);
+	reset(true);
+	Window::redraw();
+}
+
+void ToolBar::enlargeToSet2()
+{
+	if (_state == TB_LARGE2)
+		return;
+
+	int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(32);
+	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
+	setState(TB_LARGE2);
+	reset(true);	//recreate toolbar if previous state was Std icons or Small icons
+	Window::redraw();
+}
+
+void ToolBar::setToBmpIcons()
 {
 	if (_state == TB_STANDARD) 
 		return;
@@ -286,11 +307,18 @@ void ToolBar::reset(bool create)
 		throw std::runtime_error("ToolBar::reset : CreateWindowEx() function return null");
 	}
 
-	if (_state != TB_STANDARD)
+	if (_state != TB_STANDARD) //If non standard icons, use custom imagelists
 	{
-		//If non standard icons, use custom imagelists
-		setDefaultImageList();
-		setDisableImageList();
+		if (_state == TB_SMALL || _state == TB_LARGE)
+		{
+			setDefaultImageList();
+			setDisableImageList();
+		}
+		else
+		{
+			setDefaultImageList2();
+			setDisableImageList2();
+		}
 	}
 	else
 	{
@@ -354,10 +382,10 @@ void ToolBar::registerDynBtn(UINT messageID, toolbarIcons* tIcon)
 	// Note: Register of buttons only possible before init!
 	if ((_hSelf == NULL) && (messageID != 0) && (tIcon->hToolbarBmp != NULL) && (tIcon->hToolbarIcon != NULL))
 	{
-		tDynamicList		dynList;
-		dynList._message		= messageID;
-		dynList._hBmp		= tIcon->hToolbarBmp;
-		dynList._hIcon		= tIcon->hToolbarIcon;
+		DynamicCmdIcoBmp dynList;
+		dynList._message = messageID;
+		dynList._hBmp = tIcon->hToolbarBmp;
+		dynList._hIcon = tIcon->hToolbarIcon;
 		_vDynBtnReg.push_back(dynList);
 	}
 }

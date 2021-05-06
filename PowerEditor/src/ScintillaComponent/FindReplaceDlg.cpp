@@ -4320,7 +4320,7 @@ INT_PTR CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 				generic_string copyLines = pNativeSpeaker->getLocalizedStrFromID("finder-copy", TEXT("Copy Selected Line(s)"));
 				generic_string copyVerbatim = pNativeSpeaker->getLocalizedStrFromID("finder-copy-verbatim", TEXT("Copy"));
 				copyVerbatim += TEXT("\tCtrl+C");
-					generic_string copyPaths = pNativeSpeaker->getLocalizedStrFromID("finder-copy-paths", TEXT("Copy Pathname(s)"));
+				generic_string copyPaths = pNativeSpeaker->getLocalizedStrFromID("finder-copy-paths", TEXT("Copy Pathname(s)"));
 				generic_string selectAll = pNativeSpeaker->getLocalizedStrFromID("finder-select-all", TEXT("Select all"));
 				selectAll += TEXT("\tCtrl+A");
 				generic_string clearAll = pNativeSpeaker->getLocalizedStrFromID("finder-clear-all", TEXT("Clear all"));

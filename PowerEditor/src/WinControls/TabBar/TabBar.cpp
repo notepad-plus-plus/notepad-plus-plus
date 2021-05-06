@@ -1112,13 +1112,14 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 		// 3 status for each inactive tab and selected tab close item :
 		// normal / hover / pushed
 		int idCloseImg;
+		bool isDM = NppDarkMode::isEnabled();
 
 		if (_isCloseHover && (_currentHoverTabItem == nTab) && (_whichCloseClickDown == -1)) // hover
-			idCloseImg = IDR_CLOSETAB_HOVER;
+			idCloseImg = isDM ? IDR_CLOSETAB_HOVER_DM : IDR_CLOSETAB_HOVER;
 		else if (_isCloseHover && (_currentHoverTabItem == nTab) && (_whichCloseClickDown == _currentHoverTabItem)) // pushed
-			idCloseImg = IDR_CLOSETAB_PUSH;
+			idCloseImg = isDM ? IDR_CLOSETAB_PUSH_DM : IDR_CLOSETAB_PUSH;
 		else
-			idCloseImg = isSelected?IDR_CLOSETAB:IDR_CLOSETAB_INACT;
+			idCloseImg = isSelected ? (isDM ? IDR_CLOSETAB_DM : IDR_CLOSETAB) : (isDM ? IDR_CLOSETAB_INACT_DM : IDR_CLOSETAB_INACT);
 
 		HDC hdcMemory;
 		hdcMemory = ::CreateCompatibleDC(hDC);

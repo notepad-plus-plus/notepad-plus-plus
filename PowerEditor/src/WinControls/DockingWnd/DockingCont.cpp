@@ -589,7 +589,8 @@ void DockingCont::drawCaptionItem(DRAWITEMSTRUCT *pDrawItemStruct)
 
 		::DrawText(hDc, L"x", 1, &rc, DT_VCENTER | DT_CENTER | DT_SINGLELINE);
 	}
-	else {
+	else
+	{
 
 		HDC dcMem = ::CreateCompatibleDC(NULL);
 

@@ -311,13 +311,29 @@ void ToolBar::reset(bool create)
 	{
 		if (_state == TB_SMALL || _state == TB_LARGE)
 		{
-			setDefaultImageList();
-			setDisableImageList();
+			if (NppDarkMode::isEnabled())
+			{
+				setDefaultImageListDM();
+				setDisableImageListDM();
+			}
+			else
+			{
+				setDefaultImageList();
+				setDisableImageList();
+			}
 		}
 		else
 		{
-			setDefaultImageList2();
-			setDisableImageList2();
+			if (NppDarkMode::isEnabled())
+			{
+				setDefaultImageListDM2();
+				setDisableImageListDM2();
+			}
+			else
+			{
+				setDefaultImageList2();
+				setDisableImageList2();
+			}
 		}
 	}
 	else
@@ -467,21 +483,24 @@ LRESULT CALLBACK RebarSubclass(
 	UNREFERENCED_PARAMETER(dwRefData);
 	UNREFERENCED_PARAMETER(uIdSubclass);
 
-	switch (uMsg) {
-	case WM_ERASEBKGND:
-		if (NppDarkMode::isEnabled())
-		{
-			RECT rc;
-			GetClientRect(hWnd, &rc);
-			FillRect((HDC)wParam, &rc, NppDarkMode::getPureBackgroundBrush());
-			return 1;
-		}
-		else {
+	switch (uMsg)
+	{
+		case WM_ERASEBKGND:
+			if (NppDarkMode::isEnabled())
+			{
+				RECT rc;
+				GetClientRect(hWnd, &rc);
+				FillRect((HDC)wParam, &rc, NppDarkMode::getPureBackgroundBrush());
+				return TRUE;
+			}
+			else
+			{
+				break;
+			}
+
+		case WM_NCDESTROY:
+			RemoveWindowSubclass(hWnd, RebarSubclass, g_rebarSubclassID);
 			break;
-		}
-	case WM_NCDESTROY:
-		RemoveWindowSubclass(hWnd, RebarSubclass, g_rebarSubclassID);
-		break;
 	}
 	return DefSubclassProc(hWnd, uMsg, wParam, lParam);
 }

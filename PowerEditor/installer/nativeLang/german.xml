@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2021-04-28 by schnurlos (schnurlos@gmail.com)
+	last modified: 2021-05-07 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -1388,6 +1388,7 @@ Finde in allen Dateien außer exe, obj &amp;&amp; log:
 			<finder-uncollapse-all value="Alles aufmachen"/>
 			<finder-copy value="Kopiere ausgewählte Zeile(n)"/>
 			<finder-copy-verbatim value="Kopieren"/>
+			<finder-copy-paths value="Kopiere Pfadnamen"/>
 			<finder-select-all value="Alles wählen"/>
 			<finder-clear-all value="Alles löschen"/>
 			<finder-open-all value="Alles öffnen"/>

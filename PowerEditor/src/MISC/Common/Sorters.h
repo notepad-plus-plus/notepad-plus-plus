@@ -426,6 +426,18 @@ protected:
 	}
 };
 
+class ReverseSorter : public ISorter
+{
+public:
+	ReverseSorter(bool isDescending, size_t fromColumn, size_t toColumn) : ISorter(isDescending, fromColumn, toColumn) { };
+
+	std::vector<generic_string> sort(std::vector<generic_string> lines) override
+	{
+		std::reverse(lines.begin(), lines.end());
+		return lines;
+	}
+};
+
 class RandomSorter : public ISorter
 {
 public:

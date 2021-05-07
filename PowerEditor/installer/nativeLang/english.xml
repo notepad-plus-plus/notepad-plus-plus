@@ -129,6 +129,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42064" name="Sort Lines As Decimals (Comma) Descending"/>
                     <Item id="42065" name="Sort Lines As Decimals (Dot) Ascending"/>
                     <Item id="42066" name="Sort Lines As Decimals (Dot) Descending"/>
+                    <Item id="42083" name="Reverse Line Order"/>
                     <Item id="42078" name="Sort Lines Randomly"/>
                     <Item id="42016" name="&amp;UPPERCASE"/>
                     <Item id="42017" name="&amp;lowercase"/>

@@ -342,6 +342,7 @@ BEGIN
             MENUITEM "Sort Lines As Decimals (Comma) Descending",        IDM_EDIT_SORTLINES_DECIMALCOMMA_DESCENDING
             MENUITEM "Sort Lines As Decimals (Dot) Descending",          IDM_EDIT_SORTLINES_DECIMALDOT_DESCENDING
             MENUITEM SEPARATOR
+            MENUITEM "Reverse Line Order",                               IDM_EDIT_SORTLINES_REVERSE_ORDER
             MENUITEM "Sort Lines Randomly",                              IDM_EDIT_SORTLINES_RANDOMLY
         END
         POPUP "Comment/Uncomment"

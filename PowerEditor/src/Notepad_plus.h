@@ -298,6 +298,7 @@ private:
 	ToolBar	_toolBar;
 	IconList _docTabIconList;
 	IconList _docTabIconListAlt;
+	IconList _docTabIconListDarkMode;
 
     StatusBar _statusBar;
 	bool _toReduceTabBar = false;

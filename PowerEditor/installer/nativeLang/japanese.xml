@@ -1381,6 +1381,7 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <finder-uncollapse-all value="すべて展開する"/>
             <finder-copy value="選択行をコピー"/>
             <finder-copy-verbatim value="コピー"/>
+            <finder-copy-paths value="すべてのパスをコピー"/>
             <finder-select-all value="すべて選択"/>
             <finder-clear-all value="すべてクリア"/>
             <finder-open-all value="すべて開く"/>

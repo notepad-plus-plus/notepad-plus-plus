@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-Dutch localization for Notepad++ 7.9.3
-Modifications on 2018-03-26 by Klaas Nekeman (knekeman(at)gmail.com).
-Modifications on 2020-05-26 by xylographe <wr86420@gmail.com>.
-Last modified on 2021-04-15 by Thomas De Rocker (RockyTDR).
+Dutch localization for Notepad++ 7.9.4
+Modifications until 2018-03-26 by Klaas Nekeman (knekeman(at)gmail.com).
+Modifications until 2020-05-26 by xylographe <wr86420@gmail.com>.
+Modifications from 2020-01-28 and onwards by Thomas De Rocker (RockyTDR)
+
+Last modified on 2021-05-07 by Thomas De Rocker (RockyTDR).
 -->
 <NotepadPlus>
     <Native-Langue name="Nederlands" filename="dutch.xml" version="7.9.4">
@@ -915,8 +917,12 @@ U kunt verschillende kolommarkeringen vastleggen door gebruik te maken van spati
                 </Language>
 
                 <Highlighting title="Markeren">
+                    <Item id="6351" name="Alles markeren"/>
+                    <Item id="6352" name="Hoofdlettergevoelig"/>
+                    <Item id="6353" name="Alleen volledige woorden"/>
                     <Item id="6333" name="Slim markeren"/>
                     <Item id="6326" name="Inschakelen"/>
+                    <Item id="6354" name="Overeenkomsten"/>
                     <Item id="6332" name="Hoofdlettergevoelig"/>
                     <Item id="6338" name="Alleen volledige woorden"/>
                     <Item id="6339" name="Zoekvensterinstellingen gebruiken"/>
@@ -962,6 +968,7 @@ U kunt verschillende kolommarkeringen vastleggen door gebruik te maken van spati
                     <Item id="6902" name="Monospace-lettertype gebruiken in het zoekvenster (Notepad++ moet opnieuw worden opgestart)"/>
                     <Item id="6903" name="Zoekvenster blijft open na zoekopdracht die naar het resultaatvenster uitvoert"/>
                     <Item id="6904" name="Alles vervangen in alle geopende documenten bevestigen"/>
+                    <Item id="6905" name="Vervangen: niet naar de volgende overeenkomst gaan"/>
                 </Searching>
 
                 <RecentFilesHistory title="Recente bestanden">
@@ -1361,6 +1368,7 @@ In alle bestanden behalve exe, obj en log zoeken:
             <find-status-replace-end-reached value="Vervangen: eerste overeenkomst vanaf begin van document vervangen. Het einde van het document is bereikt"/>
             <find-status-replace-top-reached value="Vervangen: eerste overeenkomst vanaf einde van document vervangen. Het begin van het document is bereikt"/>
             <find-status-replaced-next-found value="Vervangen: 1 overeenkomst vervangen. Volgende overeenkomst gevonden"/>
+            <find-status-replaced-without-continuing value="Vervangen: 1 overeenkomst vervangen."/>
             <find-status-replaced-next-not-found value="Vervangen: 1 overeenkomst vervangen. Geen nieuwe overeenkomsten gevonden"/>
             <find-status-replace-not-found value="Vervangen: geen overeenkomst gevonden"/>
             <find-status-replace-readonly value="Vervangen: kan tekst niet vervangen. Huidig document is alleen-lezen"/>
@@ -1375,6 +1383,7 @@ In alle bestanden behalve exe, obj en log zoeken:
             <finder-uncollapse-all value="Alles uitvouwen"/>
             <finder-copy value="Geselecteerde regel(s) kopiëren"/>
             <finder-copy-verbatim value="Kopiëren"/>
+            <finder-copy-paths value="Padnaam/-namen kopiëren"/>
             <finder-select-all value="Alles selecteren"/>
             <finder-clear-all value="Alles wissen"/>
             <finder-open-all value="Alles openen"/>

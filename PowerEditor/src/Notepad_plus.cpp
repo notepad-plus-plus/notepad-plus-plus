@@ -7520,51 +7520,31 @@ void Notepad_plus::refreshDarkMode()
 	RedrawWindow(_findReplaceDlg.getHSelf(), nullptr, nullptr, RDW_INVALIDATE | RDW_ERASE | RDW_FRAME | RDW_ALLCHILDREN);
 	SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_CHANGETABBAEICONS, 0, NppDarkMode::isEnabled() ? 2 : 0);
 
-	
 	toolBarStatusType state = _toolBar.getState();
 	switch (state)
 	{
 		case TB_SMALL:
-		{
 			_toolBar.reduce();
-			changeToolBarIcons();
-		}
 		break;
 
 		case TB_LARGE:
-		{
 			_toolBar.enlarge();
-			changeToolBarIcons();
-		}
 		break;
 
 		case TB_SMALL2:
-		{
 			_toolBar.reduceToSet2();
-			changeToolBarIcons();
-		}
 		break;
 
 		case TB_LARGE2:
-		{
 			_toolBar.enlargeToSet2();
-			changeToolBarIcons();
-		}
 		break;
-
 		
 		case TB_STANDARD:
-		{
 			// Force standard colorful icon to Fluent UI small icon in dark mode
 			if (NppDarkMode::isEnabled())
-			{
 				_toolBar.reduce();
-				changeToolBarIcons();
-			}
-		}
 		break;
 	}
-
 
 	if (NppDarkMode::isExperimentalEnabled())
 	{

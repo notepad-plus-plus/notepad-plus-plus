@@ -3191,8 +3191,10 @@ void Notepad_plus::command(int id)
 						}
 					}
 					Process updater(updaterFullPath.c_str(), param.c_str(), updaterDir.c_str());
-
-					updater.run();
+					HANDLE updaterHandle = nullptr;
+					unsigned long exitCode = updater.runSync(false, 0, &updaterHandle);
+					if (STILL_ACTIVE == exitCode)
+						_updaterHandle = updaterHandle;
 				}
 			}
 			break;

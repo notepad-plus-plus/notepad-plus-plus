@@ -28,7 +28,9 @@ public:
 		:_command(cmd), _args(args), _curDir(cDir){}
 
 	void run(bool isElevationRequired = false) const;
-	unsigned long runSync(bool isElevationRequired = false) const;
+	unsigned long runSync(bool isElevationRequired = false,
+		DWORD timeoutMilliseconds = INFINITE,
+		HANDLE* result = nullptr) const;
 
 protected:
     generic_string _command;

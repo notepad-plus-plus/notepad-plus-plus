@@ -25,7 +25,7 @@ void Process::run(bool isElevationRequired) const
 	::ShellExecute(NULL, opVerb, _command.c_str(), _args.c_str(), _curDir.c_str(), SW_SHOWNORMAL);
 }
 
-unsigned long Process::runSync(bool isElevationRequired) const
+unsigned long Process::runSync(bool isElevationRequired, DWORD timeoutMilliseconds, HANDLE* result) const
 {
 	SHELLEXECUTEINFO ShExecInfo = { 0 };
 	ShExecInfo.cbSize = sizeof(SHELLEXECUTEINFO);
@@ -39,7 +39,12 @@ unsigned long Process::runSync(bool isElevationRequired) const
 	ShExecInfo.hInstApp = NULL;
 	
 	ShellExecuteEx(&ShExecInfo);
-	WaitForSingleObject(ShExecInfo.hProcess, INFINITE);
+	WaitForSingleObject(ShExecInfo.hProcess, timeoutMilliseconds);
+
+	if (result)
+		*result = ShExecInfo.hProcess;
+	else
+		CloseHandle(ShExecInfo.hProcess);
 
 	unsigned long exitCode;
 	if (::GetExitCodeProcess(ShExecInfo.hProcess, &exitCode) == FALSE)

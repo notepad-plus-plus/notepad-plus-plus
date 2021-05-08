@@ -412,6 +412,8 @@ private:
 
 	std::vector<HWND> _sysTrayHiddenHwnd;
 
+	HANDLE _updaterHandle = nullptr;
+
 	BOOL notify(SCNotification *notification);
 	void command(int id);
 

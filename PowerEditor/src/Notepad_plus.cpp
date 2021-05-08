@@ -167,6 +167,50 @@ Notepad_plus::Notepad_plus()
 	_isAdministrator = is_admin ? true : false;
 }
 
+void closeUpdater(HANDLE hProcess)
+{
+	// Check if the process is still running.
+	DWORD exitCode = 0;
+	::GetExitCodeProcess(hProcess, &exitCode);
+	if (exitCode != STILL_ACTIVE)
+	{
+		CloseHandle(hProcess);
+		return;
+	}
+
+	static auto callback = [](HWND hwnd, LPARAM lParam)->BOOL {
+		auto* pParam = reinterpret_cast<std::pair<DWORD, HWND>*>(lParam);
+		if (!pParam)
+			return FALSE;
+		DWORD processId = 0;
+		GetWindowThreadProcessId(hwnd, &processId);
+		if (processId == pParam->first)
+		{
+			pParam->second = hwnd;
+			return FALSE;
+		}
+		return TRUE;
+	};
+
+	// Find the main window of the process.
+	std::pair<DWORD, HWND> param;
+	param.first = GetProcessId(hProcess);
+	EnumWindows(callback, reinterpret_cast<LPARAM>(&param));
+
+	if (param.second != NULL)
+	{
+		// If it's a tool window (No update is available), then close it properly.
+		LONG styleEx = GetWindowLong(param.second, GWL_EXSTYLE);
+		bool isTool = styleEx & WS_EX_TOOLWINDOW;
+		if (isTool)
+		{
+			::PostMessage(param.second, WM_COMMAND, MAKELONG(0, IDCANCEL), 0);
+		}
+	}
+
+	CloseHandle(hProcess);
+}
+
 Notepad_plus::~Notepad_plus()
 {
 	// ATTENTION : the order of the destruction is very important
@@ -186,6 +230,12 @@ Notepad_plus::~Notepad_plus()
 	delete _pDocMap;
 	delete _pFuncList;
 	delete _pFileBrowser;
+
+	if (_updaterHandle)
+	{
+		closeUpdater(_updaterHandle);
+		_updaterHandle = nullptr;
+	}
 }
 
 LRESULT Notepad_plus::init(HWND hwnd)

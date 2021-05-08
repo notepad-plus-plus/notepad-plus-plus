@@ -49,7 +49,7 @@ void IconList::addIcon(int iconID) const
 	ImageList_AddIcon(_hImglst, hIcon);
 	::DestroyIcon(hIcon);
 };
-
+/*
 bool IconList::addInvertIcon(int iconID) const
 {
 	HICON hIcon = ::LoadIcon(_hInst, MAKEINTRESOURCE(iconID));
@@ -66,11 +66,12 @@ bool IconList::addInvertIcon(int iconID) const
 	return hColorInvertedIcon != 0;
 }
 
-HICON IconList::invertColour(HICON /*hIcon*/) const
+HICON IconList::invertColour(HICON hIcon) const
 {
 	// Light mode in, dark mode out
 	return NULL;
 }
+*/
 
 void IconList::addIcon(HICON hIcon) const
 {
@@ -113,6 +114,12 @@ void ToolBarIcons::reInit(int size)
 	ImageList_SetIconSize(getDefaultLstSet2(), size, size);
 	ImageList_SetIconSize(getDisableLstSet2(), size, size);
 
+	ImageList_SetIconSize(getDefaultLstDM(), size, size);
+	ImageList_SetIconSize(getDisableLstDM(), size, size);
+
+	ImageList_SetIconSize(getDefaultLstSetDM2(), size, size);
+	ImageList_SetIconSize(getDisableLstSetDM2(), size, size);
+
 	for (size_t i = 0, len = _tbiis.size(); i < len; ++i)
 	{
 		if (_tbiis[i]._defaultIcon != -1)
@@ -122,10 +129,10 @@ void ToolBarIcons::reInit(int size)
 			_iconListVector[HLIST_DEFAULT2].addIcon(_tbiis[i]._defaultIcon2);
 			_iconListVector[HLIST_DISABLE2].addIcon(_tbiis[i]._grayIcon2);
 
-			_iconListVector[HLIST_DEFAULT_DM].addInvertIcon(_tbiis[i]._defaultIcon);
-			_iconListVector[HLIST_DISABLE_DM].addInvertIcon(_tbiis[i]._grayIcon);
-			_iconListVector[HLIST_DEFAULT_DM2].addInvertIcon(_tbiis[i]._defaultIcon2);
-			_iconListVector[HLIST_DISABLE_DM2].addInvertIcon(_tbiis[i]._grayIcon2);
+			_iconListVector[HLIST_DEFAULT_DM].addIcon(_tbiis[i]._defaultDarkModeIcon);
+			_iconListVector[HLIST_DISABLE_DM].addIcon(_tbiis[i]._grayDarkModeIcon);
+			_iconListVector[HLIST_DEFAULT_DM2].addIcon(_tbiis[i]._defaultDarkModeIcon2);
+			_iconListVector[HLIST_DISABLE_DM2].addIcon(_tbiis[i]._grayDarkModeIcon2);
 		}
 	}
 

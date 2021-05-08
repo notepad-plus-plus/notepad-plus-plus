@@ -35,7 +35,7 @@ public :
 	};
 	HIMAGELIST getHandle() const {return _hImglst;};
 	void addIcon(int iconID) const;
-	bool addInvertIcon(int iconID) const;
+	//bool addInvertIcon(int iconID) const;
 	void addIcon(HICON hIcon) const;
 
 	bool changeIcon(int index, const TCHAR *iconLocation) const;
@@ -49,7 +49,7 @@ private :
 	int _iconIDArraySize = 0;
 	int _iconSize = 0;
 
-	HICON invertColour(HICON hIcon) const;
+	//HICON invertColour(HICON hIcon) const;
 };
 
 typedef struct 
@@ -61,6 +61,12 @@ typedef struct
 
 	int _defaultIcon2;
 	int _grayIcon2;
+
+	int _defaultDarkModeIcon;
+	int _grayDarkModeIcon;
+
+	int _defaultDarkModeIcon2;
+	int _grayDarkModeIcon2;
 
 	int _stdIcon;
 } ToolBarButtonUnit;

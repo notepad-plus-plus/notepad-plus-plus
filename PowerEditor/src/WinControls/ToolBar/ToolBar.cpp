@@ -203,9 +203,6 @@ int ToolBar::getHeight() const
 
 void ToolBar::reduce() 
 {
-	if (_state == TB_SMALL)
-		return;
-
 	int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(16);
 	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
 	setState(TB_SMALL);
@@ -215,9 +212,6 @@ void ToolBar::reduce()
 
 void ToolBar::enlarge()
 {
-	if (_state == TB_LARGE)
-		return;
-
 	int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(32);
 	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
 	setState(TB_LARGE);
@@ -227,9 +221,6 @@ void ToolBar::enlarge()
 
 void ToolBar::reduceToSet2()
 {
-	if (_state == TB_SMALL2)
-		return;
-
 	int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(16);
 	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
 
@@ -240,9 +231,6 @@ void ToolBar::reduceToSet2()
 
 void ToolBar::enlargeToSet2()
 {
-	if (_state == TB_LARGE2)
-		return;
-
 	int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(32);
 	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
 	setState(TB_LARGE2);
@@ -252,8 +240,6 @@ void ToolBar::enlargeToSet2()
 
 void ToolBar::setToBmpIcons()
 {
-	if (_state == TB_STANDARD) 
-		return;
 	bool recreate = true;
 	setState(TB_STANDARD);
 	reset(recreate);	//must recreate toolbar if setting to internal bitmaps

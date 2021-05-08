@@ -231,11 +231,11 @@
 					<Item id="43059" name="5. Stil"/>
 					<Item id="43060" name="Tüm Stiller"/>
 					<Item id="43061" name="Stili Bul (İşaretli)"/>
-                    <Item id="43062" name="1. Stili Kullanarak"/>
-                    <Item id="43063" name="2. Stili Kullanarak"/>
-                    <Item id="43064" name="3. Stili Kullanarak"/>
-                    <Item id="43065" name="4. Stili Kullanarak"/>
-                    <Item id="43066" name="5. Stili Kullanarak"/>
+					<Item id="43062" name="1. Stili Kullanarak"/>
+					<Item id="43063" name="2. Stili Kullanarak"/>
+					<Item id="43064" name="3. Stili Kullanarak"/>
+					<Item id="43065" name="4. Stili Kullanarak"/>
+					<Item id="43066" name="5. Stili Kullanarak"/>
 					<Item id="43045" name="Arama Sonuçları Penceresi"/>
 					<Item id="43046" name="Sonraki Arama Sonucu"/>
 					<Item id="43047" name="Önceki Arama Sonucu"/>
@@ -867,10 +867,10 @@
 Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasına beyaz boşluk eklemeniz yeterli."/>
 					<Item id="6231" name="Kenarlık Boyutu"/>
 					<Item id="6235" name="Kenarlık yok"/>
-                    <Item id="6208" name="Boşluk"/>
-                    <Item id="6209" name="Sol"/>
-                    <Item id="6210" name="Sağ"/>
-                    <Item id="6212" name="Dikkat Dağınıklığı Önleyici"/>
+					<Item id="6208" name="Boşluk"/>
+					<Item id="6209" name="Sol"/>
+					<Item id="6210" name="Sağ"/>
+					<Item id="6212" name="Dikkat Dağınıklığı Önleyici"/>
 				</MarginsBorderEdge>
 
 				<NewDoc title="Yeni Belge">
@@ -914,12 +914,12 @@ Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasın
 				</Language>
 				
 				<Highlighting title="Vurgulama">
-                    <Item id="6351" name="Tümünü İşaretle"/>
-                    <Item id="6352" name="Harfi Eşleştir"/>
-                    <Item id="6353" name="Sadece tüm kelimeyi eşleştir"/>
-                    <Item id="6333" name="Akıllı Vurgulama"/>
-                    <Item id="6326" name="Etkinleştir"/>
-                    <Item id="6354" name="Eşleştiriliyor"/>
+					<Item id="6351" name="Tümünü İşaretle"/>
+					<Item id="6352" name="Harfi Eşleştir"/>
+					<Item id="6353" name="Sadece tüm kelimeyi eşleştir"/>
+					<Item id="6333" name="Akıllı Vurgulama"/>
+					<Item id="6326" name="Etkinleştir"/>
+					<Item id="6354" name="Eşleştiriliyor"/>
 					<Item id="6332" name="Büyük/küçük harf eşleştir"/>
 					<Item id="6338" name="Sadece tam sözcükleri eşleştir"/>
 					<Item id="6339" name="Arama aracı ayarlarını kullan"/>
@@ -965,7 +965,7 @@ Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasın
                     <Item id="6902" name="Bul penceresinde sabit genişlikli yazıtipi kullan (Notepad++ yeniden başlatılmalıdır)"/>
                     <Item id="6903" name="Bul penceresi, arama sonuçlar penceresine yönlendirdiğinde açık kalsın"/>
                     <Item id="6904" name="Tüm Açılmış Pencerelerde Tümünü Değiştirmeyi Onayla"/>
-					<Item id="6905" name="Değiştir: Sonraki eşleşmeye geçme"/>
+                    <Item id="6905" name="Değiştir: Sonraki eşleşmeye geçme"/>
                 </Searching>
 
 				<RecentFilesHistory title="Son Kull. Dosya Geçmişi">
@@ -1351,7 +1351,7 @@ Devam edilsin mi?"/>
 			<find-status-replaceinopenedfiles-nb-replaced value="Açılmış Dosyalarda Değiştir: $INT_REPLACE$ eşleşme değiştirildi"/>
 			<find-status-mark-re-malformed value="İşaretle: Aramak için kullanılan düzenli ifade kötü biçimlendirilmiş"/>
 			<find-status-invalid-re value="Bulma: Geçersiz düzenli ifade"/>
-            <find-status-search-failed value="Bul: Başarısızları ara"/>
+			<find-status-search-failed value="Bul: Başarısızları ara"/>
 			<find-status-mark-1-match value="İşaretle: 1 eşleşme"/>
 			<find-status-mark-nb-matches value="İşaretle: $INT_REPLACE$ eşleşme"/>
 			<find-status-count-re-malformed value="Hesapla: Aramak için düzenli ifade kötü biçimlemdirilmiş"/>

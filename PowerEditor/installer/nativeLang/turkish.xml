@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-	<Native-Langue name="Turkish" filename="turkish.xml" version="7.9.3">
+	<Native-Langue name="Turkish" filename="turkish.xml" version="7.9.4">
 		<Menu>
 			<Main>
 				<!-- Ana Menü Girişleri -->
@@ -34,6 +34,7 @@
 					<Item subMenuId="edit-pasteSpecial" name="Özel Yapıştır"/>
 					<Item subMenuId="edit-onSelection" name="Seçilen Üzerinde"/>
 					<Item subMenuId="search-markAll" name="Tümünü İşaretle"/>
+					<Item subMenuId="search-markOne" name="Birini İşaretle"/>
 					<Item subMenuId="search-unmarkAll" name="Tüm İşaretleri Kaldır"/>
 					<Item subMenuId="search-jumpUp" name="Yukarı Atla"/>
 					<Item subMenuId="search-jumpDown" name="Aşağı Atla"/>
@@ -73,7 +74,7 @@
 				<!-- Tüm Menü Öğeleri -->
 				<Commands>
 					<Item id="41001" name="&amp;Yeni"/>
-					<Item id="41002" name="&amp;Aç"/>
+					<Item id="41002" name="&amp;Aç..."/>
 					<Item id="41019" name="Windows Gezgini"/>
 					<Item id="41020" name="Komut İstemi"/>
 					<Item id="41025" name="Çalışma Alanı Olarak Klasör"/>
@@ -230,6 +231,11 @@
 					<Item id="43059" name="5. Stil"/>
 					<Item id="43060" name="Tüm Stiller"/>
 					<Item id="43061" name="Stili Bul (İşaretli)"/>
+                    <Item id="43062" name="1. Stili Kullanarak"/>
+                    <Item id="43063" name="2. Stili Kullanarak"/>
+                    <Item id="43064" name="3. Stili Kullanarak"/>
+                    <Item id="43065" name="4. Stili Kullanarak"/>
+                    <Item id="43066" name="5. Stili Kullanarak"/>
 					<Item id="43045" name="Arama Sonuçları Penceresi"/>
 					<Item id="43046" name="Sonraki Arama Sonucu"/>
 					<Item id="43047" name="Önceki Arama Sonucu"/>
@@ -238,6 +244,7 @@
 					<Item id="43054" name="İşa&amp;retle…"/>
 					<Item id="44009" name="Pencereyi Ekrana Tuttur"/>
 					<Item id="44010" name="Tüm Blokları Kapat"/>
+					<Item id="44011" name="Dikkat Dağınıklığı Önleyici Mod"/>
 					<Item id="44019" name="Tüm Karakterleri Göster"/>
 					<Item id="44020" name="Girinti Kılavuzunu Göster"/>
 					<Item id="44022" name="Sözcük Kaydır"/>
@@ -281,14 +288,14 @@
 					<Item id="45003" name="Mac OS (CR)Biçimine Dönüştür"/>
 					<Item id="45004" name="ANSI"/>
 					<Item id="45005" name="UTF-8 BOM"/>
-					<Item id="45006" name="UCS-2 Big-Endian BOM"/>
-					<Item id="45007" name="UCS-2 Little-Endian BOM"/>
+					<Item id="45006" name="UTF-16 Big-Endian BOM"/>
+					<Item id="45007" name="UTF-16 Little-Endian BOM"/>
 					<Item id="45008" name="UTF-8"/>
 					<Item id="45009" name="ANSI'ye Dönüştür"/>
 					<Item id="45010" name="UTF-8'e Dönüştür"/>
 					<Item id="45011" name="UTF-8 BOM'a Dönüştür"/>
-					<Item id="45012" name="UCS-2 Big-Endian BOM'a Dönüştür"/>
-					<Item id="45013" name="UCS-2 Little-Endian BOM'a Dönüştür"/>
+					<Item id="45012" name="UTF-16 Big-Endian BOM'a Dönüştür"/>
+					<Item id="45013" name="UTF-16 Little-Endian BOM'a Dönüştür"/>
 					<Item id="45060" name="Big5 (Geleneksel)"/>
 					<Item id="45061" name="GB2312 (Basitleştirilmiş)"/>
 					<Item id="45054" name="OEM 861: İzlandaca"/>
@@ -540,11 +547,16 @@
                     <Item id="45001" name="Satır Sonu Windows (CR LF) Dönüşümü"/>
                     <Item id="45002" name="Satır Sonu Unix (LF) Dönüşümü"/>
                     <Item id="45003" name="Satır Sonu Macintos (CR) Dönüşümü"/>
-                    <Item id="43022" name="Yazıyı 1. Stili Kullanarak İşaretle"/>
-                    <Item id="43024" name="Yazıyı 2. Stili Kullanarak İşaretle"/>
-                    <Item id="43026" name="Yazıyı 3. Stili Kullanarak İşaretle"/>
-                    <Item id="43028" name="Yazıyı 4. Stili Kullanarak İşaretle"/>
-                    <Item id="43030" name="Yazıyı 5. Stili Kullanarak İşaretle"/>
+                    <Item id="43022" name="Tümünü 1. Stili Kullanarak İşaretle"/>
+                    <Item id="43024" name="Tümünü 2. Stili Kullanarak İşaretle"/>
+                    <Item id="43026" name="Tümünü 3. Stili Kullanarak İşaretle"/>
+                    <Item id="43028" name="Tümünü 4. Stili Kullanarak İşaretle"/>
+                    <Item id="43030" name="Tümünü 5. Stili Kullanarak İşaretle"/>
+                    <Item id="43062" name="Birini 1. Stili Kullanarak İşaretle"/>
+                    <Item id="43063" name="Birini 2. Stili Kullanarak İşaretle"/>
+                    <Item id="43064" name="Birini 3. Stili Kullanarak İşaretle"/>
+                    <Item id="43065" name="Birini 4. Stili Kullanarak İşaretle"/>
+                    <Item id="43066" name="Birini 5. Stili Kullanarak İşaretle"/>
                     <Item id="43023" name="İşaretleri 1. Stili Kullanarak Kaldır"/>
                     <Item id="43025" name="İşaretleri 2. Stili Kullanarak Kaldır"/>
                     <Item id="43027" name="İşaretleri 3. Stili Kullanarak Kaldır"/>
@@ -855,6 +867,10 @@
 Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasına beyaz boşluk eklemeniz yeterli."/>
 					<Item id="6231" name="Kenarlık Boyutu"/>
 					<Item id="6235" name="Kenarlık yok"/>
+                    <Item id="6208" name="Boşluk"/>
+                    <Item id="6209" name="Sol"/>
+                    <Item id="6210" name="Sağ"/>
+                    <Item id="6212" name="Dikkat Dağınıklığı Önleyici"/>
 				</MarginsBorderEdge>
 
 				<NewDoc title="Yeni Belge">
@@ -866,8 +882,8 @@ Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasın
 					<Item id="6406" name="ANSI"/>
 					<Item id="6407" name="BOM olmadan UTF-8"/>
 					<Item id="6408" name="UTF-8"/>
-					<Item id="6409" name="UCS-2 Big-Endian"/>
-					<Item id="6410" name="UCS-2 Small-Endian"/>
+					<Item id="6409" name="UTF-16 Big-Endian BOM ile"/>
+					<Item id="6410" name="UTF-16 Small-Endian Bom ile"/>
 					<Item id="6411" name="Varsayılan dil :"/>
 					<Item id="6419" name="Yeni Belge"/>
 					<Item id="6420" name="Açılmış ANSI dosyalarına uygula"/>
@@ -898,8 +914,12 @@ Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasın
 				</Language>
 				
 				<Highlighting title="Vurgulama">
+                    <Item id="6351" name="Tümünü İşaretle"/>
+                    <Item id="6352" name="Harfi Eşleştir"/>
+                    <Item id="6353" name="Sadece tüm kelimeyi eşleştir"/>
                     <Item id="6333" name="Akıllı Vurgulama"/>
                     <Item id="6326" name="Etkinleştir"/>
+                    <Item id="6354" name="Eşleştiriliyor"/>
 					<Item id="6332" name="Büyük/küçük harf eşleştir"/>
 					<Item id="6338" name="Sadece tam sözcükleri eşleştir"/>
 					<Item id="6339" name="Arama aracı ayarlarını kullan"/>
@@ -945,6 +965,7 @@ Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasın
                     <Item id="6902" name="Bul penceresinde sabit genişlikli yazıtipi kullan (Notepad++ yeniden başlatılmalıdır)"/>
                     <Item id="6903" name="Bul penceresi, arama sonuçlar penceresine yönlendirdiğinde açık kalsın"/>
                     <Item id="6904" name="Tüm Açılmış Pencerelerde Tümünü Değiştirmeyi Onayla"/>
+					<Item id="6905" name="Değiştir: Sonraki eşleşmeye geçme"/>
                 </Searching>
 
 				<RecentFilesHistory title="Son Kull. Dosya Geçmişi">
@@ -1047,7 +1068,6 @@ Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasın
 					<Item id="6325" name="Güncellemeden sonra son satıra kaydır"/>
 					<Item id="6322" name="Oturumun dosya uzantısı:"/>
 					<Item id="6323" name="Notepad++'ı otomatik güncelle"/>
-					<Item id="6351" name="Normal Yazı için, dosya uzantısı kaydetme filtresinde *.* kullanmaya ayarla"/>
 					<Item id="6324" name="Belge Değiştirici (Ctrl + Tab)"/>
 					<Item id="6331" name="Başlık çubuğunda sadece dosya adını göster"/>
 					<Item id="6334" name="Karakter kodlamasını otomatik olarak algıla"/>
@@ -1331,6 +1351,7 @@ Devam edilsin mi?"/>
 			<find-status-replaceinopenedfiles-nb-replaced value="Açılmış Dosyalarda Değiştir: $INT_REPLACE$ eşleşme değiştirildi"/>
 			<find-status-mark-re-malformed value="İşaretle: Aramak için kullanılan düzenli ifade kötü biçimlendirilmiş"/>
 			<find-status-invalid-re value="Bulma: Geçersiz düzenli ifade"/>
+            <find-status-search-failed value="Bul: Başarısızları ara"/>
 			<find-status-mark-1-match value="İşaretle: 1 eşleşme"/>
 			<find-status-mark-nb-matches value="İşaretle: $INT_REPLACE$ eşleşme"/>
 			<find-status-count-re-malformed value="Hesapla: Aramak için düzenli ifade kötü biçimlemdirilmiş"/>
@@ -1344,6 +1365,7 @@ Devam edilsin mi?"/>
 			<find-status-replace-top-reached value="Değiştir: Sondan 1. eşleşme değiştirildi. Dosyanın başına ulaşıldı"/>
 			<find-status-replaced-next-found value="Değiştir: 1 eşleşme değiştirildi. Sonraki eşleşme bulundu."/>
 			<find-status-replaced-next-not-found value="Değiştir: 1 eşleşme değiştirildi. Daha fazla eşleşme bulunamadı."/>
+			<find-status-replaced-without-continuing value="Değiştir: 1 eşleşme değiştirildi."/>
 			<find-status-replace-not-found value="Değiştir: hiçbir eşleşme bulunamadı"/>
 			<find-status-replace-readonly value="Değiştir: Yazı değiştirilemez. Şu anki dosya yalnızca okunabilir"/>
 			<find-status-cannot-find value="Bulma: &quot;$STR_REPLACE$&quot; yazısı bulunamadı"/>
@@ -1355,11 +1377,13 @@ Devam edilsin mi?"/>
 			<finder-close-this value="Bu arama sonuçlarını kapat"/>
 			<finder-collapse-all value="Tümünü Daralt"/>
 			<finder-uncollapse-all value="Tümünü Genişlet"/>
-			<finder-copy value="Seçili Satır(ları) Kopyala"/>
+			<finder-copy value="Seçili Satır(lar)ı Kopyala"/>
 			<finder-copy-verbatim value="Kopyala"/>
+			<finder-copy-paths value="Yol Ad(lar)ını Kopyala"/>
 			<finder-select-all value="Tümünü Seç"/>
 			<finder-clear-all value="Tümünü Temizle"/>
 			<finder-open-all value="Tümünü Aç"/>
+			<finder-purge-for-every-search value="Her Arama İçin Temizle"/>
 			<finder-wrap-long-lines value="Uzun Satırlarda Metin Kaydır"/>
 			<common-ok value="Tamam"/>
 			<common-cancel value="İptal"/>
@@ -1403,6 +1427,8 @@ Devam edilsin mi?"/>
 			<find-result-hits value="($INT_REPLACE$ eşleşme)"/>
 			<find-regex-zero-length-match value="sıfır uzunluk eşleşmesi" />
 			<session-save-folder-as-workspace value="Klasörü Çalışma Alanı Olarak Kaydet" />
+			<tab-untitled-string value="yeni " />
+			<file-save-assign-type value="Uz&amp;antı Ekle" />
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

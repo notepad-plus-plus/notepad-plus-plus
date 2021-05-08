@@ -39,6 +39,7 @@
 #include "functionListPanel.h"
 #include "fileBrowser.h"
 #include "Common.h"
+#include "NppDarkMode.h"
 
 using namespace std;
 
@@ -51,71 +52,69 @@ int docTabIconIDs_alt[] = { IDI_SAVED_ALT_ICON, IDI_UNSAVED_ALT_ICON, IDI_READON
 
 
 ToolBarButtonUnit toolBarIcons[] = {
-	{IDM_FILE_NEW,		IDI_NEW_OFF_ICON,		IDI_NEW_ON_ICON,		IDI_NEW_OFF_ICON, IDR_FILENEW},
-	{IDM_FILE_OPEN,		IDI_OPEN_OFF_ICON,		IDI_OPEN_ON_ICON,		IDI_OPEN_OFF_ICON, IDR_FILEOPEN},
-	{IDM_FILE_SAVE,		IDI_SAVE_OFF_ICON,		IDI_SAVE_ON_ICON,		IDI_SAVE_DISABLE_ICON, IDR_FILESAVE},
-	{IDM_FILE_SAVEALL,	IDI_SAVEALL_OFF_ICON,	IDI_SAVEALL_ON_ICON,	IDI_SAVEALL_DISABLE_ICON, IDR_SAVEALL},
-	{IDM_FILE_CLOSE,	IDI_CLOSE_OFF_ICON,		IDI_CLOSE_ON_ICON,		IDI_CLOSE_OFF_ICON, IDR_CLOSEFILE},
-	{IDM_FILE_CLOSEALL,	IDI_CLOSEALL_OFF_ICON,	IDI_CLOSEALL_ON_ICON,	IDI_CLOSEALL_OFF_ICON, IDR_CLOSEALL},
-	{IDM_FILE_PRINT,	IDI_PRINT_OFF_ICON,		IDI_PRINT_ON_ICON,		IDI_PRINT_OFF_ICON, IDR_PRINT},
-
-	//-------------------------------------------------------------------------------------//
-	{0,					IDI_SEPARATOR_ICON,		IDI_SEPARATOR_ICON,		IDI_SEPARATOR_ICON, IDI_SEPARATOR_ICON},
-	//-------------------------------------------------------------------------------------//
-
-	{IDM_EDIT_CUT,		IDI_CUT_OFF_ICON,		IDI_CUT_ON_ICON,		IDI_CUT_DISABLE_ICON, IDR_CUT},
-	{IDM_EDIT_COPY,		IDI_COPY_OFF_ICON,		IDI_COPY_ON_ICON,		IDI_COPY_DISABLE_ICON, IDR_COPY},
-	{IDM_EDIT_PASTE,	IDI_PASTE_OFF_ICON,		IDI_PASTE_ON_ICON,		IDI_PASTE_DISABLE_ICON, IDR_PASTE},
-
-	//-------------------------------------------------------------------------------------//
-	{0,					IDI_SEPARATOR_ICON,		IDI_SEPARATOR_ICON,		IDI_SEPARATOR_ICON, IDI_SEPARATOR_ICON},
-	//-------------------------------------------------------------------------------------//
-
-	{IDM_EDIT_UNDO,		IDI_UNDO_OFF_ICON,		IDI_UNDO_ON_ICON,		IDI_UNDO_DISABLE_ICON, IDR_UNDO},
-	{IDM_EDIT_REDO,		IDI_REDO_OFF_ICON,		IDI_REDO_ON_ICON,		IDI_REDO_DISABLE_ICON, IDR_REDO},
-	//-------------------------------------------------------------------------------------//
-	{0,					IDI_SEPARATOR_ICON,		IDI_SEPARATOR_ICON,		IDI_SEPARATOR_ICON, IDI_SEPARATOR_ICON},
-	//-------------------------------------------------------------------------------------//
-
-	{IDM_SEARCH_FIND,		IDI_FIND_OFF_ICON,		IDI_FIND_ON_ICON,		IDI_FIND_OFF_ICON, IDR_FIND},
-	{IDM_SEARCH_REPLACE,  IDI_REPLACE_OFF_ICON,	IDI_REPLACE_ON_ICON,	IDI_REPLACE_OFF_ICON, IDR_REPLACE},
-
-	//-------------------------------------------------------------------------------------//
-	{0,					IDI_SEPARATOR_ICON,		IDI_SEPARATOR_ICON,		IDI_SEPARATOR_ICON, IDI_SEPARATOR_ICON},
-	//-------------------------------------------------------------------------------------//
-	{IDM_VIEW_ZOOMIN,	IDI_ZOOMIN_OFF_ICON,	IDI_ZOOMIN_ON_ICON,		IDI_ZOOMIN_OFF_ICON, IDR_ZOOMIN},
-	{IDM_VIEW_ZOOMOUT,	IDI_ZOOMOUT_OFF_ICON,	IDI_ZOOMOUT_ON_ICON,	IDI_ZOOMOUT_OFF_ICON, IDR_ZOOMOUT},
-
-	//-------------------------------------------------------------------------------------//
-	{0,					IDI_SEPARATOR_ICON,		IDI_SEPARATOR_ICON,		IDI_SEPARATOR_ICON, IDI_SEPARATOR_ICON},
-	//-------------------------------------------------------------------------------------//
-	{IDM_VIEW_SYNSCROLLV,	IDI_SYNCV_OFF_ICON,	IDI_SYNCV_ON_ICON,	IDI_SYNCV_DISABLE_ICON, IDR_SYNCV},
-	{IDM_VIEW_SYNSCROLLH,	IDI_SYNCH_OFF_ICON,	IDI_SYNCH_ON_ICON,	IDI_SYNCH_DISABLE_ICON, IDR_SYNCH},
-
-	//-------------------------------------------------------------------------------------//
-	{0,					IDI_SEPARATOR_ICON,		IDI_SEPARATOR_ICON,		IDI_SEPARATOR_ICON, IDI_SEPARATOR_ICON},
-	//-------------------------------------------------------------------------------------//
-	{IDM_VIEW_WRAP,     IDI_VIEW_WRAP_OFF_ICON, IDI_VIEW_WRAP_ON_ICON,  IDI_VIEW_WRAP_OFF_ICON, IDR_WRAP},
-	{IDM_VIEW_ALL_CHARACTERS,  IDI_VIEW_ALL_CHAR_OFF_ICON,	IDI_VIEW_ALL_CHAR_ON_ICON,	IDI_VIEW_ALL_CHAR_OFF_ICON, IDR_INVISIBLECHAR},
-	{IDM_VIEW_INDENT_GUIDE,  IDI_VIEW_INDENT_OFF_ICON,	IDI_VIEW_INDENT_ON_ICON,	IDI_VIEW_INDENT_OFF_ICON, IDR_INDENTGUIDE},
-	{IDM_LANG_USER_DLG,  IDI_VIEW_UD_DLG_OFF_ICON,	IDI_VIEW_UD_DLG_ON_ICON,	IDI_VIEW_UD_DLG_OFF_ICON, IDR_SHOWPANNEL},
-	{IDM_VIEW_DOC_MAP,  IDI_VIEW_DOC_MAP_OFF_ICON, IDI_VIEW_DOC_MAP_ON_ICON, IDI_VIEW_DOC_MAP_OFF_ICON, IDR_DOCMAP},
-	//{IDM_VIEW_FUNC_LIST,  IDI_VIEW_UD_DLG_OFF_ICON, IDI_VIEW_UD_DLG_ON_ICON, IDI_VIEW_UD_DLG_OFF_ICON, IDR_FUNC_LIST},
-	{IDM_VIEW_FUNC_LIST,  IDI_VIEW_FUNCLIST_OFF_ICON, IDI_VIEW_FUNCLIST_ON_ICON, IDI_VIEW_FUNCLIST_OFF_ICON, IDR_FUNC_LIST},
-	{IDM_VIEW_FILEBROWSER, IDI_VIEW_FILEBROWSER_OFF_ICON, IDI_VIEW_FILEBROWSER_ON_ICON, IDI_VIEW_FILEBROWSER_OFF_ICON, IDR_FILEBROWSER},
-	{IDM_VIEW_MONITORING, IDI_VIEW_MONITORING_OFF_ICON, IDI_VIEW_MONITORING_ON_ICON, IDI_VIEW_MONITORING_OFF_ICON, IDR_FILEMONITORING},
-
-	//-------------------------------------------------------------------------------------//
-	{0,					IDI_SEPARATOR_ICON,		IDI_SEPARATOR_ICON,		IDI_SEPARATOR_ICON, IDI_SEPARATOR_ICON},
-	//-------------------------------------------------------------------------------------//
-
-	{IDM_MACRO_STARTRECORDINGMACRO,		IDI_STARTRECORD_OFF_ICON,	IDI_STARTRECORD_ON_ICON,	IDI_STARTRECORD_DISABLE_ICON, IDR_STARTRECORD},
-	{IDM_MACRO_STOPRECORDINGMACRO,		IDI_STOPRECORD_OFF_ICON,	IDI_STOPRECORD_ON_ICON,		IDI_STOPRECORD_DISABLE_ICON, IDR_STOPRECORD},
-	{IDM_MACRO_PLAYBACKRECORDEDMACRO,	IDI_PLAYRECORD_OFF_ICON,	IDI_PLAYRECORD_ON_ICON,		IDI_PLAYRECORD_DISABLE_ICON, IDR_PLAYRECORD},
-	{IDM_MACRO_RUNMULTIMACRODLG,			IDI_MMPLAY_OFF_ICON,		IDI_MMPLAY_ON_ICON,			IDI_MMPLAY_DIS_ICON, IDR_M_PLAYRECORD},
-	{IDM_MACRO_SAVECURRENTMACRO,			IDI_SAVERECORD_OFF_ICON,	IDI_SAVERECORD_ON_ICON,		IDI_SAVERECORD_DISABLE_ICON, IDR_SAVERECORD}
+    {IDM_FILE_NEW,                     IDI_NEW_ICON,               IDI_NEW_ICON,                  IDI_NEW_ICON2,              IDI_NEW_ICON2,                 IDR_FILENEW},
+    {IDM_FILE_OPEN,                    IDI_OPEN_ICON,              IDI_OPEN_ICON,                 IDI_OPEN_ICON2,             IDI_OPEN_ICON2,                IDR_FILEOPEN},
+    {IDM_FILE_SAVE,                    IDI_SAVE_ICON,              IDI_SAVE_DISABLE_ICON,         IDI_SAVE_ICON2,             IDI_SAVE_DISABLE_ICON2,        IDR_FILESAVE},
+    {IDM_FILE_SAVEALL,                 IDI_SAVEALL_ICON,           IDI_SAVEALL_DISABLE_ICON,      IDI_SAVEALL_ICON2,          IDI_SAVEALL_DISABLE_ICON2,     IDR_SAVEALL},
+    {IDM_FILE_CLOSE,                   IDI_CLOSE_ICON,             IDI_CLOSE_ICON,                IDI_CLOSE_ICON2,            IDI_CLOSE_ICON2,               IDR_CLOSEFILE},
+    {IDM_FILE_CLOSEALL,                IDI_CLOSEALL_ICON,          IDI_CLOSEALL_ICON,             IDI_CLOSEALL_ICON2,         IDI_CLOSEALL_ICON2,            IDR_CLOSEALL},
+    {IDM_FILE_PRINT,                   IDI_PRINT_ICON,             IDI_PRINT_ICON,                IDI_PRINT_ICON2,            IDI_PRINT_ICON2,               IDR_PRINT},
+																																						  
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+    {0,                                IDI_SEPARATOR_ICON,         IDI_SEPARATOR_ICON,            IDI_SEPARATOR_ICON,         IDI_SEPARATOR_ICON,            IDI_SEPARATOR_ICON},
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+																																						  
+    {IDM_EDIT_CUT,                     IDI_CUT_ICON,               IDI_CUT_DISABLE_ICON,          IDI_CUT_ICON2,              IDI_CUT_DISABLE_ICON2,         IDR_CUT},
+    {IDM_EDIT_COPY,                    IDI_COPY_ICON,              IDI_COPY_DISABLE_ICON,         IDI_COPY_ICON2,             IDI_COPY_DISABLE_ICON2,        IDR_COPY},
+    {IDM_EDIT_PASTE,                   IDI_PASTE_ICON,             IDI_PASTE_DISABLE_ICON,        IDI_PASTE_ICON2,            IDI_PASTE_DISABLE_ICON2,       IDR_PASTE},
+																																						  
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+    {0,                                IDI_SEPARATOR_ICON,         IDI_SEPARATOR_ICON,            IDI_SEPARATOR_ICON,         IDI_SEPARATOR_ICON,            IDI_SEPARATOR_ICON},
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+																																						  
+    {IDM_EDIT_UNDO,                    IDI_UNDO_ICON,              IDI_UNDO_DISABLE_ICON,         IDI_UNDO_ICON2,             IDI_UNDO_DISABLE_ICON2,        IDR_UNDO},
+    {IDM_EDIT_REDO,                    IDI_REDO_ICON,              IDI_REDO_DISABLE_ICON,         IDI_REDO_ICON2,             IDI_REDO_DISABLE_ICON2,        IDR_REDO},
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+    {0,                                IDI_SEPARATOR_ICON,         IDI_SEPARATOR_ICON,            IDI_SEPARATOR_ICON,         IDI_SEPARATOR_ICON,            IDI_SEPARATOR_ICON},
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+																																						  
+    {IDM_SEARCH_FIND,                  IDI_FIND_ICON,              IDI_FIND_ICON,                 IDI_FIND_ICON2,             IDI_FIND_ICON2,                IDR_FIND},
+    {IDM_SEARCH_REPLACE,               IDI_REPLACE_ICON,           IDI_REPLACE_ICON,              IDI_REPLACE_ICON2,          IDI_REPLACE_ICON2,             IDR_REPLACE},
+																																						  
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+    {0,                                IDI_SEPARATOR_ICON,         IDI_SEPARATOR_ICON,            IDI_SEPARATOR_ICON,         IDI_SEPARATOR_ICON,            IDI_SEPARATOR_ICON},
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+    {IDM_VIEW_ZOOMIN,                  IDI_ZOOMIN_ICON,            IDI_ZOOMIN_ICON,               IDI_ZOOMIN_ICON2,           IDI_ZOOMIN_ICON2,              IDR_ZOOMIN},
+    {IDM_VIEW_ZOOMOUT,                 IDI_ZOOMOUT_ICON,           IDI_ZOOMOUT_ICON,              IDI_ZOOMOUT_ICON2,          IDI_ZOOMOUT_ICON2,             IDR_ZOOMOUT},
+																																						  
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+    {0,                                IDI_SEPARATOR_ICON,         IDI_SEPARATOR_ICON,            IDI_SEPARATOR_ICON,         IDI_SEPARATOR_ICON,            IDI_SEPARATOR_ICON},
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+    {IDM_VIEW_SYNSCROLLV,              IDI_SYNCV_ICON,             IDI_SYNCV_DISABLE_ICON,        IDI_SYNCV_ICON2,            IDI_SYNCV_DISABLE_ICON2,       IDR_SYNCV},
+    {IDM_VIEW_SYNSCROLLH,              IDI_SYNCH_ICON,             IDI_SYNCH_DISABLE_ICON,        IDI_SYNCH_ICON2,            IDI_SYNCH_DISABLE_ICON2,       IDR_SYNCH},
+																																						  
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+    {0,                                IDI_SEPARATOR_ICON,         IDI_SEPARATOR_ICON,            IDI_SEPARATOR_ICON,         IDI_SEPARATOR_ICON,            IDI_SEPARATOR_ICON},
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+    {IDM_VIEW_WRAP,                    IDI_VIEW_WRAP_ICON,         IDI_VIEW_WRAP_ICON,            IDI_VIEW_WRAP_ICON2,        IDI_VIEW_WRAP_ICON2,           IDR_WRAP},
+    {IDM_VIEW_ALL_CHARACTERS,          IDI_VIEW_ALL_CHAR_ICON,     IDI_VIEW_ALL_CHAR_ICON,        IDI_VIEW_ALL_CHAR_ICON2,    IDI_VIEW_ALL_CHAR_ICON2,       IDR_INVISIBLECHAR},
+    {IDM_VIEW_INDENT_GUIDE,            IDI_VIEW_INDENT_ICON,       IDI_VIEW_INDENT_ICON,          IDI_VIEW_INDENT_ICON2,      IDI_VIEW_INDENT_ICON2,         IDR_INDENTGUIDE},
+    {IDM_LANG_USER_DLG,                IDI_VIEW_UD_DLG_ICON,       IDI_VIEW_UD_DLG_ICON,          IDI_VIEW_UD_DLG_ICON2,      IDI_VIEW_UD_DLG_ICON2,         IDR_SHOWPANNEL},
+    {IDM_VIEW_DOC_MAP,                 IDI_VIEW_DOC_MAP_ICON,      IDI_VIEW_DOC_MAP_ICON,         IDI_VIEW_DOC_MAP_ICON2,     IDI_VIEW_DOC_MAP_ICON2,        IDR_DOCMAP},
+    {IDM_VIEW_FUNC_LIST,               IDI_VIEW_FUNCLIST_ICON,     IDI_VIEW_FUNCLIST_ICON,        IDI_VIEW_FUNCLIST_ICON2,    IDI_VIEW_FUNCLIST_ICON2,       IDR_FUNC_LIST},
+    {IDM_VIEW_FILEBROWSER,             IDI_VIEW_FILEBROWSER_ICON,  IDI_VIEW_FILEBROWSER_ICON,     IDI_VIEW_FILEBROWSER_ICON2, IDI_VIEW_FILEBROWSER_ICON2,    IDR_FILEBROWSER},
+    {IDM_VIEW_MONITORING,              IDI_VIEW_MONITORING_ICON,   IDI_VIEW_MONITORING_ICON,      IDI_VIEW_MONITORING_ICON2,  IDI_VIEW_MONITORING_ICON2,     IDR_FILEMONITORING},
+																																						  
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+    {0,                                IDI_SEPARATOR_ICON,         IDI_SEPARATOR_ICON,            IDI_SEPARATOR_ICON,         IDI_SEPARATOR_ICON,            IDI_SEPARATOR_ICON},
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+																																						  
+    {IDM_MACRO_STARTRECORDINGMACRO,    IDI_STARTRECORD_ICON,       IDI_STARTRECORD_DISABLE_ICON,  IDI_STARTRECORD_ICON2,      IDI_STARTRECORD_DISABLE_ICON2, IDR_STARTRECORD},
+    {IDM_MACRO_STOPRECORDINGMACRO,     IDI_STOPRECORD_ICON,        IDI_STOPRECORD_DISABLE_ICON,   IDI_STOPRECORD_ICON2,       IDI_STOPRECORD_DISABLE_ICON2,  IDR_STOPRECORD},
+    {IDM_MACRO_PLAYBACKRECORDEDMACRO,  IDI_PLAYRECORD_ICON,        IDI_PLAYRECORD_DISABLE_ICON,   IDI_PLAYRECORD_ICON2,       IDI_PLAYRECORD_DISABLE_ICON2,  IDR_PLAYRECORD},
+    {IDM_MACRO_RUNMULTIMACRODLG,       IDI_MMPLAY_ICON,            IDI_MMPLAY_DIS_ICON,           IDI_MMPLAY_ICON2,           IDI_MMPLAY_DIS_ICON2,          IDR_M_PLAYRECORD},
+    {IDM_MACRO_SAVECURRENTMACRO,       IDI_SAVERECORD_ICON,        IDI_SAVERECORD_DISABLE_ICON,   IDI_SAVERECORD_ICON2,       IDI_SAVERECORD_DISABLE_ICON2,  IDR_SAVERECORD}
 };
-
 
 
 
@@ -192,7 +191,7 @@ Notepad_plus::~Notepad_plus()
 LRESULT Notepad_plus::init(HWND hwnd)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
-	NppGUI & nppGUI = const_cast<NppGUI &>(nppParam.getNppGUI());
+	NppGUI & nppGUI = nppParam.getNppGUI();
 
 	// Menu
 	_mainMenuHandle = ::GetMenu(hwnd);
@@ -219,7 +218,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_mainWindowStatus = WindowMainActive;
 	_activeView = MAIN_VIEW;
 
-	const ScintillaViewParams & svp1 = nppParam.getSVP();
+	const ScintillaViewParams & svp = nppParam.getSVP();
 
 	int tabBarStatus = nppGUI._tabStatus;
 
@@ -243,13 +242,13 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_invisibleEditView.wrap(false); // Make sure no slow down
 
 	// Configuration of 2 scintilla views
-	_mainEditView.showMargin(ScintillaEditView::_SC_MARGE_LINENUMBER, svp1._lineNumberMarginShow);
-	_subEditView.showMargin(ScintillaEditView::_SC_MARGE_LINENUMBER, svp1._lineNumberMarginShow);
-	_mainEditView.showMargin(ScintillaEditView::_SC_MARGE_SYBOLE, svp1._bookMarkMarginShow);
-	_subEditView.showMargin(ScintillaEditView::_SC_MARGE_SYBOLE, svp1._bookMarkMarginShow);
+	_mainEditView.showMargin(ScintillaEditView::_SC_MARGE_LINENUMBER, svp._lineNumberMarginShow);
+	_subEditView.showMargin(ScintillaEditView::_SC_MARGE_LINENUMBER, svp._lineNumberMarginShow);
+	_mainEditView.showMargin(ScintillaEditView::_SC_MARGE_SYBOLE, svp._bookMarkMarginShow);
+	_subEditView.showMargin(ScintillaEditView::_SC_MARGE_SYBOLE, svp._bookMarkMarginShow);
 
-	_mainEditView.showIndentGuideLine(svp1._indentGuideLineShow);
-	_subEditView.showIndentGuideLine(svp1._indentGuideLineShow);
+	_mainEditView.showIndentGuideLine(svp._indentGuideLineShow);
+	_subEditView.showIndentGuideLine(svp._indentGuideLineShow);
 
 	::SendMessage(hwnd, NPPM_INTERNAL_SETCARETWIDTH, 0, 0);
 	::SendMessage(hwnd, NPPM_INTERNAL_SETCARETBLINKRATE, 0, 0);
@@ -259,53 +258,61 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_pluginsAdminDlg.init(_pPublicInterface->getHinst(), hwnd);
 
 	//Marker Margin config
-	_mainEditView.setMakerStyle(svp1._folderStyle);
-	_subEditView.setMakerStyle(svp1._folderStyle);
+	_mainEditView.setMakerStyle(svp._folderStyle);
+	_subEditView.setMakerStyle(svp._folderStyle);
 	_mainEditView.defineDocType(_mainEditView.getCurrentBuffer()->getLangType());
 	_subEditView.defineDocType(_subEditView.getCurrentBuffer()->getLangType());
 
 	//Line wrap method
-	_mainEditView.setWrapMode(svp1._lineWrapMethod);
-	_subEditView.setWrapMode(svp1._lineWrapMethod);
+	_mainEditView.setWrapMode(svp._lineWrapMethod);
+	_subEditView.setWrapMode(svp._lineWrapMethod);
 
-	_mainEditView.execute(SCI_SETCARETLINEVISIBLE, svp1._currentLineHilitingShow);
-	_subEditView.execute(SCI_SETCARETLINEVISIBLE, svp1._currentLineHilitingShow);
+	_mainEditView.execute(SCI_SETCARETLINEVISIBLE, svp._currentLineHilitingShow);
+	_subEditView.execute(SCI_SETCARETLINEVISIBLE, svp._currentLineHilitingShow);
 
-	_mainEditView.execute(SCI_SETENDATLASTLINE, !svp1._scrollBeyondLastLine);
-	_subEditView.execute(SCI_SETENDATLASTLINE, !svp1._scrollBeyondLastLine);
+	_mainEditView.execute(SCI_SETENDATLASTLINE, !svp._scrollBeyondLastLine);
+	_subEditView.execute(SCI_SETENDATLASTLINE, !svp._scrollBeyondLastLine);
 
-	if (svp1._doSmoothFont)
+	if (svp._doSmoothFont)
 	{
 		_mainEditView.execute(SCI_SETFONTQUALITY, SC_EFF_QUALITY_LCD_OPTIMIZED);
 		_subEditView.execute(SCI_SETFONTQUALITY, SC_EFF_QUALITY_LCD_OPTIMIZED);
 	}
 
-	_mainEditView.setBorderEdge(svp1._showBorderEdge);
-	_subEditView.setBorderEdge(svp1._showBorderEdge);
+	if (NppDarkMode::isEnabled())
+	{
+		_mainEditView.setBorderEdge(false);
+		_subEditView.setBorderEdge(false);
+	}
+	else
+	{
+		_mainEditView.setBorderEdge(svp._showBorderEdge);
+		_subEditView.setBorderEdge(svp._showBorderEdge);
+	}
 
 	_mainEditView.execute(SCI_SETCARETLINEVISIBLEALWAYS, true);
 	_subEditView.execute(SCI_SETCARETLINEVISIBLEALWAYS, true);
 
-	_mainEditView.wrap(svp1._doWrap);
-	_subEditView.wrap(svp1._doWrap);
+	_mainEditView.wrap(svp._doWrap);
+	_subEditView.wrap(svp._doWrap);
 
 	::SendMessage(hwnd, NPPM_INTERNAL_EDGEMULTISETSIZE, 0, 0);
 
-	_mainEditView.showEOL(svp1._eolShow);
-	_subEditView.showEOL(svp1._eolShow);
+	_mainEditView.showEOL(svp._eolShow);
+	_subEditView.showEOL(svp._eolShow);
 
-	_mainEditView.showWSAndTab(svp1._whiteSpaceShow);
-	_subEditView.showWSAndTab(svp1._whiteSpaceShow);
+	_mainEditView.showWSAndTab(svp._whiteSpaceShow);
+	_subEditView.showWSAndTab(svp._whiteSpaceShow);
 
-	_mainEditView.showWrapSymbol(svp1._wrapSymbolShow);
-	_subEditView.showWrapSymbol(svp1._wrapSymbolShow);
+	_mainEditView.showWrapSymbol(svp._wrapSymbolShow);
+	_subEditView.showWrapSymbol(svp._wrapSymbolShow);
 
 	_mainEditView.performGlobalStyles();
 	_subEditView.performGlobalStyles();
 
 	_zoomOriginalValue = static_cast<int32_t>(_pEditView->execute(SCI_GETZOOM));
-	_mainEditView.execute(SCI_SETZOOM, svp1._zoom);
-	_subEditView.execute(SCI_SETZOOM, svp1._zoom2);
+	_mainEditView.execute(SCI_SETZOOM, svp._zoom);
+	_subEditView.execute(SCI_SETZOOM, svp._zoom2);
 
 	::SendMessage(hwnd, NPPM_INTERNAL_SETMULTISELCTION, 0, 0);
 
@@ -328,6 +335,12 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	// Let Scintilla deal with some of the folding functionality
 	_mainEditView.execute(SCI_SETAUTOMATICFOLD, SC_AUTOMATICFOLD_SHOW);
 	_subEditView.execute(SCI_SETAUTOMATICFOLD, SC_AUTOMATICFOLD_SHOW);
+
+	// Set padding info
+	_mainEditView.execute(SCI_SETMARGINLEFT, 0, svp._paddingLeft);
+	_mainEditView.execute(SCI_SETMARGINRIGHT, 0, svp._paddingRight);
+	_subEditView.execute(SCI_SETMARGINLEFT, 0, svp._paddingLeft);
+	_subEditView.execute(SCI_SETMARGINRIGHT, 0, svp._paddingRight);
 
 	TabBarPlus::doDragNDrop(true);
 
@@ -744,7 +757,7 @@ void Notepad_plus::killAllChildren()
 
 bool Notepad_plus::saveGUIParams()
 {
-	NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance()).getNppGUI());
+	NppGUI & nppGUI = (NppParameters::getInstance()).getNppGUI();
 	nppGUI._toolbarShow = _rebarTop.getIDVisible(REBAR_BAR_TOOLBAR);
 	nppGUI._toolBarStatus = _toolBar.getState();
 
@@ -824,7 +837,7 @@ bool Notepad_plus::saveFileBrowserParam()
 
 void Notepad_plus::saveDockingParams()
 {
-	NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance()).getNppGUI());
+	NppGUI & nppGUI = (NppParameters::getInstance()).getNppGUI();
 
 	// Save the docking information
 	nppGUI._dockingData._leftWidth		= _dockingManager.getDockedContSize(CONT_LEFT);
@@ -1834,8 +1847,8 @@ bool Notepad_plus::findInFilelist(std::vector<generic_string> & fileNames)
 
 	if (nbTotal != 0)
 	{
-		const NppParameters& nppParam = NppParameters::getInstance();
-		const NppGUI& nppGui = nppParam.getNppGUI();
+		NppParameters& nppParam = NppParameters::getInstance();
+		NppGUI& nppGui = nppParam.getNppGUI();
 		if (!nppGui._findDlgAlwaysVisible)
 		{
 			_findReplaceDlg.display(false);
@@ -1908,8 +1921,8 @@ bool Notepad_plus::findInOpenedFiles()
 
 	if (nbTotal != 0)
 	{
-		const NppParameters& nppParam = NppParameters::getInstance();
-		const NppGUI& nppGui = nppParam.getNppGUI();
+		NppParameters& nppParam = NppParameters::getInstance();
+		NppGUI& nppGui = nppParam.getNppGUI();
 		if (!nppGui._findDlgAlwaysVisible)
 		{
 			_findReplaceDlg.display(false);
@@ -1965,8 +1978,8 @@ bool Notepad_plus::findInCurrentFile(bool isEntireDoc)
 
 	if (nbTotal != 0)
 	{
-		const NppParameters& nppParam = NppParameters::getInstance();
-		const NppGUI& nppGui = nppParam.getNppGUI();
+		NppParameters& nppParam = NppParameters::getInstance();
+		NppGUI& nppGui = nppParam.getNppGUI();
 		if (!nppGui._findDlgAlwaysVisible)
 		{
 			_findReplaceDlg.display(false);
@@ -3407,8 +3420,8 @@ LangType Notepad_plus::menuID2LangType(int cmdID)
             return L_LATEX;
         case IDM_LANG_MMIXAL :
             return L_MMIXAL;
-        case IDM_LANG_NIMROD :
-            return L_NIMROD;
+        case IDM_LANG_NIM :
+            return L_NIM;
         case IDM_LANG_NNCRONTAB :
             return L_NNCRONTAB;
         case IDM_LANG_OSCRIPT :
@@ -5123,7 +5136,7 @@ bool Notepad_plus::goToPreviousIndicator(int indicID2Search, bool isWrap) const
 	// found
 	if (_pEditView->execute(SCI_INDICATORVALUEAT, indicID2Search, posStart))
 	{
-		NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance()).getNppGUI());
+		NppGUI & nppGUI = (NppParameters::getInstance()).getNppGUI();
 		nppGUI._disableSmartHiliteTmp = true;
 
         auto currentline = _pEditView->execute(SCI_LINEFROMPOSITION, posEnd);
@@ -5176,7 +5189,7 @@ bool Notepad_plus::goToNextIndicator(int indicID2Search, bool isWrap) const
 	// found
 	if (_pEditView->execute(SCI_INDICATORVALUEAT, indicID2Search, posStart))
 	{
-		NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance()).getNppGUI());
+		NppGUI & nppGUI = (NppParameters::getInstance()).getNppGUI();
 		nppGUI._disableSmartHiliteTmp = true;
 
         auto currentline = _pEditView->execute(SCI_LINEFROMPOSITION, posEnd);
@@ -5340,7 +5353,7 @@ void Notepad_plus::postItToggle()
 {
 	if (!_beforeSpecialView._isPostIt)	// PostIt disabled, enable it
 	{
-		NppGUI & nppGUI = const_cast<NppGUI &>(NppParameters::getInstance().getNppGUI());
+		NppGUI & nppGUI = NppParameters::getInstance().getNppGUI();
 		// get current status before switch to postIt
 		//check these always
 		{
@@ -5460,28 +5473,68 @@ void Notepad_plus::distractionFreeToggle()
 	const ScintillaViewParams& svp = NppParameters::getInstance().getSVP();
 	int paddingLeft = 0;
 	int paddingRight = 0;
+	
 
 	// Enable or disable Distraction Free Mode
-	if (_beforeSpecialView._isDistractionFree)
+	if (_beforeSpecialView._isDistractionFree) // disable it
 	{
-		// disable it
+		// restore another view if 2 views mode was on
+		if (_beforeSpecialView._was2ViewModeOn)
+		{
+			showView(otherView());
+			_beforeSpecialView._was2ViewModeOn = false;
+		}
+
+		// restore dockable panels
+		for (auto i : _beforeSpecialView._pVisibleDockingContainers)
+		{
+			i->display();
+		}
+		_dockingManager.resize();
+
+		// restore padding
 		paddingLeft = svp._paddingLeft;
 		paddingRight = svp._paddingRight;
 
+		// hide restore button
 		_restoreButton.setButtonStatus(0);
 		_restoreButton.display(false);
 	}
-	else
+	else // enable it
 	{
-		// enable it
-		const int defaultDiviser = 4;
-		int diviser = svp._distractionFreeDivPart > 2 ? svp._distractionFreeDivPart : defaultDiviser;
-		int w = _pEditView->getWidth();
-		int paddingLen = w / diviser;
-		if (paddingLen <= 0)
-			paddingLen =  w / defaultDiviser;
+		// check if 2 views mode is on
+		ScintillaEditView & nonFocusedView = (otherView() == MAIN_VIEW) ? _mainEditView : _subEditView;
+		if (nonFocusedView.isVisible())
+		{
+			hideView(otherView());
+			_beforeSpecialView._was2ViewModeOn = true;
+		}
+		else
+		{
+			_beforeSpecialView._was2ViewModeOn = false;
+		}
 
-		paddingLeft = paddingRight = paddingLen;
+		// check if any dockable panel is visible
+		std::vector<DockingCont*> & container = _dockingManager.getContainerInfo();
+		_beforeSpecialView._pVisibleDockingContainers.clear();
+		for (auto i : container)
+		{
+			if (i->isVisible())
+			{
+				_beforeSpecialView._pVisibleDockingContainers.push_back(i);
+			}
+		}
+		
+		for (auto i : _beforeSpecialView._pVisibleDockingContainers)
+		{
+			i->display(false);
+		}
+		_dockingManager.resize();
+
+		// set padding
+		paddingLeft = paddingRight = svp.getDistractionFreePadding(_pEditView->getWidth());
+
+		// set state of restore button (it's already shown by fullScreen & postIt toggling)
 		_restoreButton.setButtonStatus(buttonStatus_distractionFree);
 	}
 
@@ -7442,6 +7495,46 @@ void Notepad_plus::restoreMinimizeDialogs()
 	{
 		::ShowWindow(_sysTrayHiddenHwnd[i], SW_SHOW);
 		_sysTrayHiddenHwnd.erase(_sysTrayHiddenHwnd.begin() + i);
+	}
+}
+
+void Notepad_plus::refreshDarkMode()
+{
+	SendMessage(_pPublicInterface->getHSelf(), NPPM_SETEDITORBORDEREDGE, 0, NppParameters::getInstance().getSVP()._showBorderEdge);
+	if (NppDarkMode::isExperimentalEnabled())
+	{
+		NppDarkMode::allowDarkModeForApp(NppDarkMode::isEnabled());
+		NppDarkMode::allowDarkModeForWindow(_pPublicInterface->getHSelf(), NppDarkMode::isEnabled());
+		NppDarkMode::allowDarkModeForWindow(_findReplaceDlg.getHSelf(), NppDarkMode::isEnabled());
+		NppDarkMode::setTitleBarThemeColor(_pPublicInterface->getHSelf(), NppDarkMode::isEnabled());
+		NppDarkMode::setTitleBarThemeColor(_findReplaceDlg.getHSelf(), NppDarkMode::isEnabled());
+	}
+	SendMessage(_findReplaceDlg.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+	SendMessage(_incrementFindDlg.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+	RedrawWindow(_pPublicInterface->getHSelf(), nullptr, nullptr, RDW_INVALIDATE | RDW_ERASE | RDW_FRAME | RDW_ALLCHILDREN);
+	RedrawWindow(_findReplaceDlg.getHSelf(), nullptr, nullptr, RDW_INVALIDATE | RDW_ERASE | RDW_FRAME | RDW_ALLCHILDREN);
+
+	if (NppDarkMode::isExperimentalEnabled())
+	{
+		RECT rcClient;
+		
+		GetWindowRect(_pPublicInterface->getHSelf(), &rcClient);
+
+		// Inform application of the frame change.
+		SetWindowPos(_pPublicInterface->getHSelf(),
+			NULL,
+			rcClient.left, rcClient.top,
+			rcClient.right - rcClient.left, rcClient.bottom - rcClient.top,
+			SWP_FRAMECHANGED);
+
+		GetWindowRect(_findReplaceDlg.getHSelf(), &rcClient);
+
+		// Inform application of the frame change.
+		SetWindowPos(_findReplaceDlg.getHSelf(),
+			NULL,
+			rcClient.left, rcClient.top,
+			rcClient.right - rcClient.left, rcClient.bottom - rcClient.top,
+			SWP_FRAMECHANGED);
 	}
 }
 

@@ -751,6 +751,15 @@ void WordStyleDlg::setVisualFromStyleList()
 		_pFgColour->setEnabled((style._colorStyle & COLORSTYLE_FOREGROUND) != 0);
 		isEnable = true;
 	}
+
+	// Selected text colour style
+	if (style._styleDesc && lstrcmp(style._styleDesc, TEXT("Selected text colour")) == 0)
+	{
+		isEnable = false; // disable by default for "Selected text colour" style
+
+		if (NppParameters::getInstance().isSelectFgColorEnabled())
+			isEnable = true;
+	}
 	enableFg(isEnable);
 
 	isEnable = false;

@@ -26,8 +26,22 @@
 #include "shortcut.h"
 #include "ContextMenu.h"
 #include "dpiManager.h"
+#include "NppDarkMode.h"
 #include <assert.h>
 #include <tchar.h>
+
+#ifdef _WIN64
+
+#ifdef _M_ARM64
+#define ARCH_TYPE IMAGE_FILE_MACHINE_ARM64
+#else
+#define ARCH_TYPE IMAGE_FILE_MACHINE_AMD64
+#endif
+
+#else
+#define ARCH_TYPE IMAGE_FILE_MACHINE_I386
+
+#endif
 
 class NativeLangSpeaker;
 
@@ -826,6 +840,9 @@ struct NppGUI final
 	bool _smartHiliteUseFindSettings = false;
 	bool _smartHiliteOnAnotherView = false;
 
+	bool _markAllCaseSensitive = false;
+	bool _markAllWordOnly = true;
+
 	bool _disableSmartHiliteTmp = false;
 	bool _enableTagsMatchHilite = true;
 	bool _enableTagAttrsHilite = true;
@@ -839,6 +856,7 @@ struct NppGUI final
 	bool _monospacedFontFindDlg = false;
 	bool _findDlgAlwaysVisible = false;
 	bool _confirmReplaceInAllOpenDocs = true;
+	bool _replaceStopsWithoutFindingNext = false;
 	bool _muteSounds = false;
 	writeTechnologyEngine _writeTechnologyEngine = defaultTechnology;
 	bool _isWordCharDefault = true;
@@ -908,6 +926,8 @@ struct NppGUI final
 
 	bool _isDocPeekOnTab = false;
 	bool _isDocPeekOnMap = false;
+
+	NppDarkMode::Options _darkmode;
 };
 
 struct ScintillaViewParams
@@ -941,7 +961,16 @@ struct ScintillaViewParams
 
 	// distractionFreeDivPart is used for divising the fullscreen pixel width.
 	// the result of division will be the left & right padding in Distraction Free mode
-	unsigned char _distractionFreeDivPart = 4;     // 3-255 parts
+	unsigned char _distractionFreeDivPart = 4;     // 3-9 parts
+
+	int getDistractionFreePadding(int editViewWidth) const {
+		const int defaultDiviser = 4;
+		int diviser = _distractionFreeDivPart > 2 ? _distractionFreeDivPart : defaultDiviser;
+		int paddingLen = editViewWidth / diviser;
+		if (paddingLen <= 0)
+			paddingLen = editViewWidth / defaultDiviser;
+		return paddingLen;
+	};
 };
 
 const int NB_LIST = 20;
@@ -1342,7 +1371,7 @@ public:
 	bool _isTaskListRBUTTONUP_Active = false;
 	int L_END;
 
-	const NppGUI & getNppGUI() const {
+	NppGUI & getNppGUI() {
 		return _nppGUI;
 	}
 
@@ -1448,6 +1477,8 @@ public:
 	void setFontList(HWND hWnd);
 	bool isInFontList(const generic_string& fontName2Search) const;
 	const std::vector<generic_string>& getFontList() const { return _fontlist; }
+
+	HFONT getDefaultUIFont();
 
 	int getNbUserLang() const {return _nbUserLang;}
 	UserLangContainer & getULCFromIndex(size_t i) {return *_userLangArray[i];};
@@ -1661,8 +1692,7 @@ public:
 	void setCloudChoice(const TCHAR *pathChoice);
 	void removeCloudChoice();
 	bool isCloudPathChanged() const;
-	bool isx64() const { return _isx64; };
-
+	int archType() const { return ARCH_TYPE; };
 	COLORREF getCurrentDefaultBgColor() const {
 		return _currentDefaultBgColor;
 	}
@@ -1780,6 +1810,7 @@ public:
 	void setAdminMode(bool isAdmin) { _isAdminMode = isAdmin; }
 	bool isAdmin() const { return _isAdminMode; }
 	bool regexBackward4PowerUser() const { return _findHistory._regexBackward4PowerUser; }
+	bool isSelectFgColorEnabled() const { return _isSelectFgColorEnabled; };
 
 private:
 	bool _isAnyShortcutModified = false;
@@ -1807,7 +1838,6 @@ private:
 	generic_string _shortcutsPath;
 	generic_string _contextMenuPath;
 	generic_string _sessionPath;
-	generic_string _blacklistPath;
 	generic_string _nppPath;
 	generic_string _userPath;
 	generic_string _stylerPath;
@@ -1842,6 +1872,8 @@ private:
 	generic_string _wingupDir;
 	bool _isElevationRequired = false;
 	bool _isAdminMode = false;
+
+	bool _isSelectFgColorEnabled = false;
 
 public:
 	generic_string getWingupFullPath() const { return _wingupFullPath; };

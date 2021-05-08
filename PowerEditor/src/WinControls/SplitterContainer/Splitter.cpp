@@ -17,6 +17,7 @@
 #include <stdexcept>
 #include <windows.h>
 #include "Splitter.h"
+#include "NppDarkMode.h"
 
 bool Splitter::_isHorizontalRegistered = false;
 bool Splitter::_isVerticalRegistered = false;
@@ -281,7 +282,7 @@ LRESULT CALLBACK Splitter::spliterWndProc(UINT uMsg, WPARAM wParam, LPARAM lPara
 			if (isInLeftTopZone(p) || isInRightBottomZone(p))
 			{
 				//::SetCursor(::LoadCursor(_hInst, MAKEINTRESOURCE(IDC_UP_ARROW)));
-				::SetCursor(::LoadCursor(NULL, IDC_ARROW));
+				::SetCursor(::LoadCursor(NULL, IDC_HAND));
 				return TRUE;
 			}
 
@@ -385,6 +386,21 @@ LRESULT CALLBACK Splitter::spliterWndProc(UINT uMsg, WPARAM wParam, LPARAM lPara
 				_isDraged = false;
 			}
 			return 0;
+		}
+
+		case WM_ERASEBKGND:
+		{
+			if (!NppDarkMode::isEnabled())
+			{
+				break;
+			}
+
+			RECT rc = { 0 };
+			getClientRect(rc);
+
+			FillRect((HDC)wParam, &rc, NppDarkMode::getSofterBackgroundBrush());
+			
+			return 1;
 		}
 
 		case WM_PAINT:
@@ -504,6 +520,16 @@ void Splitter::drawSplitter()
 	HDC hdc = ::BeginPaint(_hSelf, &ps);
 	getClientRect(rc);
 
+	bool isDarkMode = NppDarkMode::isEnabled();
+
+	HPEN holdPen = nullptr;
+	if (isDarkMode)
+	{
+		static HPEN g_hpen = CreatePen(PS_SOLID, 1, NppDarkMode::getDarkerTextColor());
+		holdPen = (HPEN)SelectObject(hdc, g_hpen);
+		FillRect(hdc, &rc, NppDarkMode::getSofterBackgroundBrush());
+	}
+
 	if ((_splitterSize >= 4) && (_dwFlags & SV_RESIZEWTHPERCNT))
 	{
 		adjustZoneToDraw(TLrc, ZONE_TYPE::topLeft);
@@ -534,7 +560,7 @@ void Splitter::drawSplitter()
 	else
 		bottom = rc.bottom;
 
-	while (rcToDraw1.bottom <= bottom)
+	while (!isDarkMode && rcToDraw1.bottom <= bottom)
 	{
 		if (isVertical())
 		{
@@ -572,6 +598,11 @@ void Splitter::drawSplitter()
 
 	if ((_splitterSize >= 4) && (_dwFlags & SV_RESIZEWTHPERCNT))
 		paintArrow(hdc, BRrc, isVertical() ? Arrow::right : Arrow::down);
+
+	if (isDarkMode)
+	{
+		SelectObject(hdc, holdPen);
+	}
 
 	::EndPaint(_hSelf, &ps);
 }

@@ -865,6 +865,10 @@ The comments are here for explanation, it's not necessary to translate them.
 You can define several column markers by using white space to separate the different numbers."/>
                     <Item id="6231" name="Border Width"/>
                     <Item id="6235" name="No edge"/>
+                    <Item id="6208" name="Padding"/>
+                    <Item id="6209" name="Left"/>
+                    <Item id="6210" name="Right"/>
+                    <Item id="6212" name="Distraction Free"/>
                 </MarginsBorderEdge>
 
                 <NewDoc title="New Document">
@@ -908,8 +912,12 @@ You can define several column markers by using white space to separate the diffe
                 </Language>
 
                 <Highlighting title="Highlighting">
+                    <Item id="6351" name="Mark All"/>
+                    <Item id="6352" name="Match case"/>
+                    <Item id="6353" name="Match whole word only"/>
                     <Item id="6333" name="Smart Highlighting"/>
                     <Item id="6326" name="Enable"/>
+                    <Item id="6354" name="Matching"/>
                     <Item id="6332" name="Match case"/>
                     <Item id="6338" name="Match whole word only"/>
                     <Item id="6339" name="Use Find dialog settings"/>
@@ -955,6 +963,7 @@ You can define several column markers by using white space to separate the diffe
                     <Item id="6902" name="Use monospaced font in Find dialog (Need to restart Notepad++)"/>
                     <Item id="6903" name="Find dialog remains open after search that outputs to results window"/>
                     <Item id="6904" name="Confirm Replace All in All Opened Documents"/>
+                    <Item id="6905" name="Replace: Don't move to the following occurrence"/>
                 </Searching>
 
                 <RecentFilesHistory title="Recent Files History">
@@ -1057,7 +1066,6 @@ You can define several column markers by using white space to separate the diffe
                     <Item id="6325" name="Scroll to the last line after update"/>
                     <Item id="6322" name="Session file ext.:"/>
                     <Item id="6323" name="Enable Notepad++ auto-updater"/>
-                    <Item id="6351" name="Set Save dialog file extension filter to *.*"/>
                     <Item id="6324" name="Document Switcher (Ctrl+TAB)"/>
                     <Item id="6331" name="Show only filename in title bar"/>
                     <Item id="6334" name="Autodetect character encoding"/>
@@ -1355,6 +1363,7 @@ Find in all files except exe, obj &amp;&amp; log:
             <find-status-replace-end-reached value="Replace: Replaced the 1st occurrence from the top. The end of document has been reached"/>
             <find-status-replace-top-reached value="Replace: Replaced the 1st occurrence from the bottom. The begin of document has been reached"/>
             <find-status-replaced-next-found value="Replace: 1 occurrence was replaced. The next occurrence found."/>
+            <find-status-replaced-without-continuing value="Replace: 1 occurrence was replaced."/>
             <find-status-replaced-next-not-found value="Replace: 1 occurrence was replaced. No more occurrences were found."/>
             <find-status-replace-not-found value="Replace: no occurrence was found"/>
             <find-status-replace-readonly value="Replace: Cannot replace text. The current document is read only"/>
@@ -1369,6 +1378,7 @@ Find in all files except exe, obj &amp;&amp; log:
             <finder-uncollapse-all value="Uncollapse all"/>
             <finder-copy value="Copy Selected Line(s)"/>
             <finder-copy-verbatim value="Copy"/>
+            <finder-copy-paths value="Copy Pathname(s)"/>
             <finder-select-all value="Select all"/>
             <finder-clear-all value="Clear all"/>
             <finder-open-all value="Open all"/>
@@ -1418,6 +1428,7 @@ Find in all files except exe, obj &amp;&amp; log:
             <find-regex-zero-length-match value="zero length match" />
             <session-save-folder-as-workspace value="Save Folder as Workspace" />
             <tab-untitled-string value="new " />
+            <file-save-assign-type value="&amp;Append extension" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

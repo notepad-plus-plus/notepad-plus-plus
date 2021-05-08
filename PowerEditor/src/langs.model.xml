@@ -229,7 +229,7 @@
             <Keywords name="instre2">rA rB rC rD rE rF rG rH rI rJ rK rL rM rN rO rP rQ rR rS rT rU rV rW rX rY rZ rBB rTT rWW rXX rYY rZZ</Keywords>
             <Keywords name="type1">@ Text_Segment Data_Segment Pool_Segment Stack_Segment StdErr StdIn StdOut Fopen Fclose Fread Fwrite Fgets Fputs Fgetws Fputws Ftell Fseek TextRead TextWrite BinaryRead BinaryWrite BinaryReadWrite</Keywords>
         </Language>
-        <Language name="nimrod" ext="nim" commentLine="#" commentStart="" commentEnd="">
+        <Language name="nim" ext="nim" commentLine="#" commentStart="" commentEnd="">
             <Keywords name="instre1">addr and as asm block break case cast const continue converter discard div elif else end enum except exception finally for from generic if implies import in include is isnot iterator lambda macro method mod nil not notin object of or out proc ptr raise ref return shl shr template try tuple type var when where while with without xor yield</Keywords>
         </Language>
         <Language name="nncrontab" ext="tab spf" commentLine="\" commentStart="" commentEnd="">

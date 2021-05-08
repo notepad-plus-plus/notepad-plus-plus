@@ -126,6 +126,7 @@ public:
 	void wrapLongLinesToggle();
 	void purgeToggle();
 	void copy();
+	void copyPathnames();
 	void beginNewFilesSearch();
 	void finishFilesSearch(int count, int searchedCount, bool isMatchLines, bool searchedEntireNotSelection);
 	void gotoNextFoundResult(int direction);
@@ -249,7 +250,7 @@ public :
 	bool processFindNext(const TCHAR *txt2find, const FindOption *options = NULL, FindStatus *oFindStatus = NULL, FindNextType findNextType = FINDNEXTTYPE_FINDNEXT);
 	bool processReplace(const TCHAR *txt2find, const TCHAR *txt2replace, const FindOption *options = NULL);
 
-	int markAll(const TCHAR *txt2find, int styleID, bool isWholeWordSelected);
+	int markAll(const TCHAR *txt2find, int styleID);
 	int markAllInc(const FindOption *opt);
 	
 

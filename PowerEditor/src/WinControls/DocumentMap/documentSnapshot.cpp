@@ -77,7 +77,7 @@ void DocumentPeeker::syncDisplay(Buffer *buf, ScintillaEditView & scintSource)
 		MapPosition mp = buf->getMapPosition();
 		if (mp.isValid() && mp.canScroll())
 		{
-			scrollSnapshotWith(mp);
+			scrollSnapshotWith(mp, scintSource.getTextZoneWidth());
 		}
 
 		Buffer *buf = _pPeekerView->getCurrentBuffer();
@@ -94,7 +94,7 @@ void DocumentPeeker::syncDisplay(Buffer *buf, ScintillaEditView & scintSource)
 }
 
 
-void DocumentPeeker::scrollSnapshotWith(const MapPosition & mapPos)
+void DocumentPeeker::scrollSnapshotWith(const MapPosition & mapPos, int textZoneWidth)
 {
 	if (_pPeekerView)
 	{
@@ -119,6 +119,19 @@ void DocumentPeeker::scrollSnapshotWith(const MapPosition & mapPos)
 		//
 		_pPeekerView->wrap(mapPos._isWrap);
 		_pPeekerView->execute(SCI_SETWRAPINDENTMODE, mapPos._wrapIndentMode);
+
+		//
+		// Add padding
+		//
+		const ScintillaViewParams& svp = NppParameters::getInstance().getSVP();
+		if (svp._paddingLeft || svp._paddingRight)
+		{
+			int docPeekerWidth = _pPeekerView->getTextZoneWidth();
+			int paddingMapLeft = static_cast<int>(svp._paddingLeft / (textZoneWidth / docPeekerWidth));
+			int paddingMapRight = static_cast<int>(svp._paddingRight / (textZoneWidth / docPeekerWidth));
+			_pPeekerView->execute(SCI_SETMARGINLEFT, 0, paddingMapLeft);
+			_pPeekerView->execute(SCI_SETMARGINRIGHT, 0, paddingMapRight);
+		}
 
 		//
 		// Reset to zero

@@ -272,6 +272,7 @@ void FindReplaceDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	//::GetWindowRect(_hSelf, &rect);
 	getClientRect(rect);
 	_tab.init(_hInst, _hSelf, false, true);
+	NppDarkMode::subclassTabControl(_tab.getHSelf());
 	int tabDpiDynamicalHeight = NppParameters::getInstance()._dpiManager.scaleY(13);
 	_tab.setFont(TEXT("Tahoma"), tabDpiDynamicalHeight);
 	
@@ -304,7 +305,7 @@ void FindReplaceDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 		enableDlgTheme(_hSelf, ETDT_ENABLETAB);
 
 	NppParameters& nppParam = NppParameters::getInstance();
-	NppGUI& nppGUI = const_cast<NppGUI&>(nppParam.getNppGUI());
+	NppGUI& nppGUI = nppParam.getNppGUI();
 	if (nppGUI._findWindowPos.bottom - nppGUI._findWindowPos.top != 0)  // check height against 0 as a test of valid data from config
 	{
 		RECT rc = getViewablePositionRect(nppGUI._findWindowPos);
@@ -848,8 +849,49 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			return TRUE;
 		}
 
+		case WM_CTLCOLOREDIT:
+		case WM_CTLCOLORDLG:
+		case WM_CTLCOLORSTATIC:
+		{
+			if (!NppDarkMode::isEnabled())
+			{
+				break;
+			}
+
+			SetTextColor((HDC)wParam, NppDarkMode::getTextColor());
+			SetBkColor((HDC)wParam, NppDarkMode::getPureBackgroundColor());
+			return (LRESULT)GetStockObject(BLACK_BRUSH);
+		}
+		case WM_PRINTCLIENT:
+		case WM_ERASEBKGND:
+		{
+			if (!NppDarkMode::isEnabled())
+			{
+				break;
+			}
+			RECT rc = { 0 };
+			getClientRect(rc);
+			FillRect((HDC)wParam, &rc, NppDarkMode::getPureBackgroundBrush());
+			SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, TRUE);
+			return TRUE;
+		}
+
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::autoThemeChildControls(_hSelf);
+			return TRUE;
+		}
+
 		case WM_INITDIALOG :
 		{
+			if (NppDarkMode::isExperimentalEnabled())
+			{
+				NppDarkMode::allowDarkModeForWindow(_hSelf, NppDarkMode::isEnabled());
+				NppDarkMode::setTitleBarThemeColor(_hSelf, NppDarkMode::isEnabled());
+			}
+
+			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+
 			HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
 			HWND hReplaceCombo = ::GetDlgItem(_hSelf, IDREPLACEWITH);
 			HWND hFiltersCombo = ::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_COMBO);
@@ -957,6 +999,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 			::SetWindowTextW(::GetDlgItem(_hSelf, IDC_FINDPREV), TEXT("▲"));
 			::SetWindowTextW(::GetDlgItem(_hSelf, IDC_FINDNEXT), TEXT("▼ Find Next"));
+
 			return TRUE;
 		}
 
@@ -1969,29 +2012,41 @@ bool FindReplaceDlg::processReplace(const TCHAR *txt2find, const TCHAR *txt2repl
 			}
 			(*_ppEditView)->execute(SCI_SETSEL, start + replacedLen, start + replacedLen);
 
-			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-			// Do the next find
-			moreMatches = processFindNext(txt2find, &replaceOptions, &status, FINDNEXTTYPE_REPLACENEXT);
+			NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 
-			if (status == FSEndReached)
+			NppParameters& nppParam = NppParameters::getInstance();
+			const NppGUI& nppGui = nppParam.getNppGUI();
+
+			if (nppGui._replaceStopsWithoutFindingNext)
 			{
-				generic_string msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replace-end-reached", TEXT("Replace: Replaced the 1st occurrence from the top. The end of document has been reached."));
-				setStatusbarMessage(msg, FSEndReached);
-			}
-			else if (status == FSTopReached)
-			{
-				generic_string msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replace-top-reached", TEXT("Replace: Replaced the 1st occurrence from the bottom. The begin of document has been reached."));
-				setStatusbarMessage(msg, FSTopReached);
+				generic_string msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replaced-without-continuing", TEXT("Replace: 1 occurrence was replaced."));
+				setStatusbarMessage(msg, FSMessage);
 			}
 			else
 			{
-				generic_string msg;
-				if (moreMatches)
-					msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replaced-next-found", TEXT("Replace: 1 occurrence was replaced. The next occurrence found."));
-				else
-					msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replaced-next-not-found", TEXT("Replace: 1 occurrence was replaced. No more occurrences were found."));
+				// Do the next find
+				moreMatches = processFindNext(txt2find, &replaceOptions, &status, FINDNEXTTYPE_REPLACENEXT);
 
-				setStatusbarMessage(msg, FSMessage);
+				if (status == FSEndReached)
+				{
+					generic_string msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replace-end-reached", TEXT("Replace: Replaced the 1st occurrence from the top. The end of document has been reached."));
+					setStatusbarMessage(msg, FSEndReached);
+				}
+				else if (status == FSTopReached)
+				{
+					generic_string msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replace-top-reached", TEXT("Replace: Replaced the 1st occurrence from the bottom. The begin of document has been reached."));
+					setStatusbarMessage(msg, FSTopReached);
+				}
+				else
+				{
+					generic_string msg;
+					if (moreMatches)
+						msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replaced-next-found", TEXT("Replace: 1 occurrence was replaced. The next occurrence found."));
+					else
+						msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replaced-next-not-found", TEXT("Replace: 1 occurrence was replaced. No more occurrences were found."));
+
+					setStatusbarMessage(msg, FSMessage);
+				}
 			}
 		}
 	}
@@ -2007,16 +2062,16 @@ bool FindReplaceDlg::processReplace(const TCHAR *txt2find, const TCHAR *txt2repl
 
 
 
-int FindReplaceDlg::markAll(const TCHAR *txt2find, int styleID, bool isWholeWordSelected)
+int FindReplaceDlg::markAll(const TCHAR *txt2find, int styleID)
 {
-	FindOption opt;
-	opt._isMatchCase = _options._isMatchCase;
-	// if whole word is selected for being colorized, isWholeWord option in Find/Replace dialog will be checked
-	// otherwise this option is false, because user may want to find the words contain the parts to search 
-	opt._isWholeWord = isWholeWordSelected?_options._isWholeWord:false;
-	opt._str2Search = txt2find;
+	const NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
+	FindOption markAllOpt;
 
-	int nbFound = processAll(ProcessMarkAllExt, &opt, true, NULL, styleID);
+	markAllOpt._isMatchCase = nppGUI._markAllCaseSensitive;
+	markAllOpt._isWholeWord = nppGUI._markAllWordOnly;
+	markAllOpt._str2Search = txt2find;
+
+	int nbFound = processAll(ProcessMarkAllExt, &markAllOpt, true, NULL, styleID);
 	return nbFound;
 }
 
@@ -2492,7 +2547,7 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		_pFinder->_scintView.execute(SCI_SETTABWIDTH, 4);
 
 		NppParameters& nppParam = NppParameters::getInstance();
-		NppGUI& nppGUI = const_cast<NppGUI&>(nppParam.getNppGUI());
+		NppGUI& nppGUI = nppParam.getNppGUI();
 		_pFinder->_longLinesAreWrapped = nppGUI._finderLinesAreCurrentlyWrapped;
 		_pFinder->_scintView.wrap(_pFinder->_longLinesAreWrapped);
 		_pFinder->_scintView.setWrapMode(LINEWRAP_INDENT);
@@ -2791,6 +2846,7 @@ void FindReplaceDlg::enableFindInFilesControls(bool isEnable, bool projectPanels
 {
 	// Hide Items
 	showFindDlgItem(IDC_BACKWARDDIRECTION, !isEnable);
+	showFindDlgItem(IDWHOLEWORD, !isEnable);
 	showFindDlgItem(IDWRAP, !isEnable);
 	showFindDlgItem(IDCCOUNTALL, !isEnable);
 	showFindDlgItem(IDC_FINDALL_OPENEDFILES, !isEnable);
@@ -3616,12 +3672,45 @@ void FindReplaceDlg::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	{
 		ptStr = TEXT("");
 	}
+
+	if (NppDarkMode::isEnabled())
+	{
+		fgColor = NppDarkMode::getTextColor();
+
+		if (_statusbarFindStatus == FSNotFound)
+		{
+			fgColor = RGB(0xFF, 0x50, 0x50); // red
+		}
+		else if (_statusbarFindStatus == FSMessage)
+		{
+			fgColor = RGB(0x50, 0x50, 0xFF); // blue
+		}
+		else if (_statusbarFindStatus == FSTopReached || _statusbarFindStatus == FSEndReached)
+		{
+			fgColor = RGB(0x50, 0xFF, 0x50); // green
+		}
+	}
 	
 	SetTextColor(lpDrawItemStruct->hDC, fgColor);
-	COLORREF bgColor = getCtrlBgColor(_statusBar.getHSelf());
+
+	COLORREF bgColor;
+	if (NppDarkMode::isEnabled())
+	{
+		bgColor = NppDarkMode::getBackgroundColor();
+	}
+	else
+	{
+		bgColor = getCtrlBgColor(_statusBar.getHSelf());
+	}
 	::SetBkColor(lpDrawItemStruct->hDC, bgColor);
 	RECT rect;
 	_statusBar.getClientRect(rect);
+
+	if (NppDarkMode::isEnabled())
+	{
+		rect.left += 2;
+	}
+
 	::DrawText(lpDrawItemStruct->hDC, ptStr, lstrlen(ptStr), &rect, DT_SINGLELINE | DT_VCENTER | DT_LEFT);
 
 	if (_statusbarTooltipMsg.length() == 0) return;
@@ -3638,7 +3727,7 @@ void FindReplaceDlg::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 		}
 
 		if (!_statusbarTooltipIcon)
-			_statusbarTooltipIcon = (HICON)::LoadImage(_hInst, MAKEINTRESOURCE(IDI_MORE_ON_TOOLTIP), IMAGE_ICON, s, s, 0);
+			_statusbarTooltipIcon = (HICON)::LoadImage(_hInst, MAKEINTRESOURCE(IDI_GET_INFO_FROM_TOOLTIP), IMAGE_ICON, s, s, 0);
 
 		if (_statusbarTooltipIcon)
 		{
@@ -3895,11 +3984,26 @@ void Finder::removeAll()
 
 void Finder::openAll()
 {
-	size_t sz = _pMainFoundInfos->size();
-
-	for (size_t i = 0; i < sz; ++i)
+	for (auto&& path : getResultFilePaths())
 	{
-		::SendMessage(_hParent, WM_DOOPEN, 0, reinterpret_cast<LPARAM>(_pMainFoundInfos->at(i)._fullPath.c_str()));
+		::SendMessage(_hParent, WM_DOOPEN, 0, reinterpret_cast<LPARAM>(path.c_str()));
+	}
+}
+
+void Finder::copyPathnames()
+{
+	generic_string toClipboard;
+	for (auto&& path : getResultFilePaths())
+	{
+		toClipboard += path + TEXT("\r\n");
+	}
+	if (!toClipboard.empty())
+	{
+		if (!str2Clipboard(toClipboard, _hSelf))
+		{
+			assert(false);
+			::MessageBox(NULL, TEXT("Error placing pathnames into clipboard."), TEXT("Notepad++"), MB_ICONINFORMATION);
+		}
 	}
 }
 
@@ -3912,7 +4016,7 @@ void Finder::wrapLongLinesToggle()
 	{
 		// only remember this setting from the original finder
 		NppParameters& nppParam = NppParameters::getInstance();
-		NppGUI& nppGUI = const_cast<NppGUI&>(nppParam.getNppGUI());
+		NppGUI& nppGUI = nppParam.getNppGUI();
 		nppGUI._finderLinesAreCurrentlyWrapped = _longLinesAreWrapped;
 	}
 }
@@ -3925,7 +4029,7 @@ void Finder::purgeToggle()
 	{
 		// only remember this setting from the original finder
 		NppParameters& nppParam = NppParameters::getInstance();
-		NppGUI& nppGUI = const_cast<NppGUI&>(nppParam.getNppGUI());
+		NppGUI& nppGUI = nppParam.getNppGUI();
 		nppGUI._finderPurgeBeforeEverySearch = _purgeBeforeEverySearch;
 	}
 }
@@ -4155,6 +4259,12 @@ INT_PTR CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 					return TRUE;
 				}
 
+				case NPPM_INTERNAL_SCINTILLAFINDERCOPYPATHS:
+				{
+					copyPathnames();
+					return TRUE;
+				}
+
 				case NPPM_INTERNAL_SCINTILLAFINDERSELECTALL :
 				{
 					_scintView.execute(SCI_SELECTALL);
@@ -4209,6 +4319,7 @@ INT_PTR CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 				generic_string uncollapseAll = pNativeSpeaker->getLocalizedStrFromID("finder-uncollapse-all", TEXT("Uncollapse all"));
 				generic_string copyLines = pNativeSpeaker->getLocalizedStrFromID("finder-copy", TEXT("Copy Selected Line(s)"));
 				generic_string copyVerbatim = pNativeSpeaker->getLocalizedStrFromID("finder-copy-verbatim", TEXT("Copy"));
+				generic_string copyPaths = pNativeSpeaker->getLocalizedStrFromID("finder-copy-paths", TEXT("Copy Pathname(s)"));
 				generic_string selectAll = pNativeSpeaker->getLocalizedStrFromID("finder-select-all", TEXT("Select all"));
 				generic_string clearAll = pNativeSpeaker->getLocalizedStrFromID("finder-clear-all", TEXT("Clear all"));
 				generic_string purgeForEverySearch = pNativeSpeaker->getLocalizedStrFromID("finder-purge-for-every-search", TEXT("Purge for every search"));
@@ -4224,6 +4335,7 @@ INT_PTR CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 				tmp.push_back(MenuItemUnit(0, TEXT("Separator")));
 				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINDERCOPYVERBATIM, copyVerbatim));
 				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINDERCOPY, copyLines));
+				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINDERCOPYPATHS, copyPaths));
 				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINDERSELECTALL, selectAll));
 				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINDERCLEARALL, clearAll));
 				tmp.push_back(MenuItemUnit(0, TEXT("Separator")));
@@ -4234,6 +4346,9 @@ INT_PTR CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINDERPURGE, purgeForEverySearch));
 
 				scintillaContextmenu.create(_hSelf, tmp);
+
+				bool hasSomeSelectedText = _scintView.getSelectedTextCount() > 0;
+				scintillaContextmenu.enableItem(NPPM_INTERNAL_SCINTILLAFINDERCOPYVERBATIM, hasSomeSelectedText);
 
 				scintillaContextmenu.enableItem(NPPM_INTERNAL_SCINTILLAFINDERCLEARALL, !_canBeVolatiled);
 				
@@ -4310,8 +4425,25 @@ INT_PTR CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 		// Make edit field red if not found
 		case WM_CTLCOLOREDIT :
 		{
+			if (NppDarkMode::isEnabled())
+			{
+				if (FSNotFound != getFindStatus())
+				{
+					SetTextColor((HDC)wParam, NppDarkMode::getTextColor());
+					SetBkColor((HDC)wParam, NppDarkMode::getPureBackgroundColor());
+					return (LRESULT)NppDarkMode::getPureBackgroundBrush();
+				}
+				else // text not found
+				{
+					SetTextColor((HDC)wParam, NppDarkMode::getTextColor());
+					SetBkColor((HDC)wParam, NppDarkMode::getErrorBackgroundColor());
+					return (LRESULT)NppDarkMode::getErrorBackgroundBrush();
+				}
+			}
+
 			// if the text not found modify the background color of the editor
 			static HBRUSH hBrushBackground = CreateSolidBrush(BCKGRD_COLOR);
+
 			if (FSNotFound != getFindStatus())
 				return FALSE; // text found, use the default color
 
@@ -4319,6 +4451,33 @@ INT_PTR CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			SetTextColor((HDC)wParam, TXT_COLOR);
 			SetBkColor((HDC)wParam, BCKGRD_COLOR);
 			return (LRESULT)hBrushBackground;
+		}
+
+		case WM_CTLCOLORDLG:
+		case WM_CTLCOLORSTATIC:
+		{
+			if (!NppDarkMode::isEnabled())
+			{
+				return DefWindowProc(getHSelf(), message, wParam, lParam);
+			}
+
+			SetTextColor((HDC)wParam, NppDarkMode::getTextColor());
+			SetBkColor((HDC)wParam, NppDarkMode::getPureBackgroundColor());
+			return (LRESULT)GetStockObject(BLACK_BRUSH);
+		}
+
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::autoThemeChildControls(getHSelf());
+			return TRUE;
+		}
+
+		case WM_INITDIALOG:
+		{
+			LRESULT lr = DefWindowProc(getHSelf(), message, wParam, lParam);
+
+			NppDarkMode::autoSubclassAndThemeChildControls(getHSelf());
+			return lr;
 		}
 
 		case WM_COMMAND : 

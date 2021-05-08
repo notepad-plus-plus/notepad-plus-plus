@@ -28,6 +28,7 @@
 #include "documentMap.h"
 #include "functionListPanel.h"
 #include "fileBrowser.h"
+#include "NppDarkMode.h"
 
 using namespace std;
 
@@ -68,6 +69,12 @@ LRESULT CALLBACK Notepad_plus_Window::Notepad_plus_Proc(HWND hwnd, UINT message,
 			Notepad_plus_Window *pM30ide = static_cast<Notepad_plus_Window *>((reinterpret_cast<LPCREATESTRUCT>(lParam))->lpCreateParams);
 			pM30ide->_hSelf = hwnd;
 			::SetWindowLongPtr(hwnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pM30ide));
+
+			if (NppDarkMode::isExperimentalEnabled() && NppDarkMode::isEnabled() && NppDarkMode::isScrollbarHackEnabled())
+			{
+				NppDarkMode::enableDarkScrollBarForWindowAndChildren(hwnd);
+			}
+
 			return TRUE;
 		}
 
@@ -87,8 +94,29 @@ LRESULT Notepad_plus_Window::runProc(HWND hwnd, UINT message, WPARAM wParam, LPA
 		{
 			try
 			{
+				if (NppDarkMode::isExperimentalEnabled())
+				{
+					NppDarkMode::allowDarkModeForWindow(hwnd, NppDarkMode::isEnabled());
+					NppDarkMode::setTitleBarThemeColor(hwnd, NppDarkMode::isEnabled());
+				}
+
 				_notepad_plus_plus_core._pPublicInterface = this;
-				return _notepad_plus_plus_core.init(hwnd);
+				LRESULT lRet = _notepad_plus_plus_core.init(hwnd);
+
+				if (NppDarkMode::isExperimentalEnabled() && NppDarkMode::isEnabled())
+				{
+					RECT rcClient;
+					GetWindowRect(hwnd, &rcClient);
+
+					// Inform application of the frame change.
+					SetWindowPos(hwnd,
+						NULL,
+						rcClient.left, rcClient.top,
+						rcClient.right - rcClient.left, rcClient.bottom - rcClient.top,
+						SWP_FRAMECHANGED);
+				}
+
+				return lRet;
 			}
 			catch (std::exception& ex)
 			{
@@ -122,6 +150,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 	LRESULT result = FALSE;
 	NppParameters& nppParam = NppParameters::getInstance();
 
+	if (NppDarkMode::isDarkMenuEnabled() && NppDarkMode::isEnabled() && NppDarkMode::runUAHWndProc(hwnd, message, wParam, lParam, &result))
+	{
+		return result;
+	}
+
 	switch (message)
 	{
 		case WM_NCACTIVATE:
@@ -129,6 +162,34 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			// Note: lParam is -1 to prevent endless loops of calls
 			::SendMessage(_dockingManager.getHSelf(), WM_NCACTIVATE, wParam, -1);
 			return ::DefWindowProc(hwnd, message, wParam, lParam);
+		}
+
+		case WM_ERASEBKGND:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				RECT rc = { 0 };
+				GetClientRect(hwnd, &rc);
+				FillRect((HDC)wParam, &rc, NppDarkMode::getBackgroundBrush());
+				return 0;
+			}
+			else
+			{
+				return ::DefWindowProc(hwnd, message, wParam, lParam);
+			}
+		}
+
+		case WM_SETTINGCHANGE:
+		{
+			NppDarkMode::handleSettingChange(hwnd, lParam);
+
+			return ::DefWindowProc(hwnd, message, wParam, lParam);
+		}
+
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			refreshDarkMode();
+			return TRUE;
 		}
 
 		case WM_DRAWITEM:
@@ -513,7 +574,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_DISABLEAUTOUPDATE:
 		{
-			NppGUI & nppGUI = const_cast<NppGUI &>(nppParam.getNppGUI());
+			NppGUI & nppGUI = nppParam.getNppGUI();
 			nppGUI._autoUpdateOpt._doAutoUpdate = false;
 			return TRUE;
 		}
@@ -1439,8 +1500,16 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_SETEDITORBORDEREDGE:
 		{
 			bool withBorderEdge = (lParam == 1);
-			_mainEditView.setBorderEdge(withBorderEdge);
-			_subEditView.setBorderEdge(withBorderEdge);
+			if (NppDarkMode::isEnabled()) 
+			{
+				_mainEditView.setBorderEdge(false);
+				_subEditView.setBorderEdge(false);
+			}
+			else
+			{
+				_mainEditView.setBorderEdge(withBorderEdge);
+				_subEditView.setBorderEdge(withBorderEdge);
+			}
 			return TRUE;
 		}
 
@@ -1545,6 +1614,26 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case WM_NOTIFY:
 		{
+			NMHDR* nmhdr = reinterpret_cast<NMHDR*>(lParam);
+			if (nmhdr->code == NM_CUSTOMDRAW && (nmhdr->hwndFrom == _toolBar.getHSelf()))
+			{
+				NMTBCUSTOMDRAW* nmtbcd = reinterpret_cast<NMTBCUSTOMDRAW*>(lParam);
+				if (nmtbcd->nmcd.dwDrawStage == CDDS_PREERASE)
+				{
+					if (NppDarkMode::isEnabled())
+					{
+						FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getPureBackgroundBrush());
+						nmtbcd->clrText = NppDarkMode::getTextColor();
+						SetTextColor(nmtbcd->nmcd.hdc, NppDarkMode::getTextColor());
+						return CDRF_SKIPDEFAULT;
+					}
+					else
+					{
+						return CDRF_DODEFAULT;
+					}
+				}
+			}
+
 			SCNotification *notification = reinterpret_cast<SCNotification *>(lParam);
 
 			if (notification->nmhdr.code == SCN_UPDATEUI)
@@ -1652,7 +1741,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_ENABLECHECKDOCOPT:
 		{
-			NppGUI& nppgui = const_cast<NppGUI&>((nppParam.getNppGUI()));
+			NppGUI& nppgui = nppParam.getNppGUI();
 			if (wParam == CHECKDOCOPT_NONE)
 				nppgui._fileAutoDetection = cdDisabled;
 			else if (wParam == CHECKDOCOPT_UPDATESILENTLY)
@@ -1667,7 +1756,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case WM_ACTIVATE:
 		{
-			if (wParam != WA_INACTIVE)
+			if (wParam != WA_INACTIVE && _pEditView && _pNonEditView)
 			{
 				_pEditView->getFocus();
 				auto x = _pEditView->execute(SCI_GETXOFFSET);
@@ -2188,7 +2277,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			DocTabView::setHideTabBarStatus(hide);
 			::SendMessage(hwnd, WM_SIZE, 0, 0);
 
-			NppGUI & nppGUI = const_cast<NppGUI &>(((NppParameters::getInstance()).getNppGUI()));
+			NppGUI & nppGUI = (NppParameters::getInstance()).getNppGUI();
 			if (hide)
 				nppGUI._tabStatus |= TAB_HIDE;
 			else
@@ -2223,7 +2312,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			if (hide == isHidden)
 				return isHidden;
 
-			NppGUI & nppGUI = const_cast<NppGUI &>(nppParam.getNppGUI());
+			NppGUI & nppGUI = nppParam.getNppGUI();
 			nppGUI._menuBarShow = !hide;
 			if (nppGUI._menuBarShow)
 				::SetMenu(hwnd, _mainMenuHandle);
@@ -2241,7 +2330,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_HIDESTATUSBAR:
 		{
 			bool show = (lParam != TRUE);
-			NppGUI & nppGUI = const_cast<NppGUI &>(nppParam.getNppGUI());
+			NppGUI & nppGUI = nppParam.getNppGUI();
 			bool oldVal = nppGUI._statusBarShow;
 			if (show == oldVal)
 				return oldVal;
@@ -2319,7 +2408,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_INTERNAL_DISABLEAUTOUPDATE:
 		{
 			//printStr(TEXT("you've got me"));
-			NppGUI & nppGUI = const_cast<NppGUI &>(nppParam.getNppGUI());
+			NppGUI & nppGUI = nppParam.getNppGUI();
 			nppGUI._autoUpdateOpt._doAutoUpdate = false;
 			return TRUE;
 		}
@@ -2343,7 +2432,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_DOCSWITCHERDISABLECOLUMN:
 		{
 			BOOL isOff = static_cast<BOOL>(lParam);
-			NppGUI & nppGUI = const_cast<NppGUI &>(nppParam.getNppGUI());
+			NppGUI & nppGUI = nppParam.getNppGUI();
 			nppGUI._fileSwitcherWithoutExtColumn = isOff == TRUE;
 
 			if (_pFileSwitcherPanel)
@@ -2540,6 +2629,25 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			{
 				addHotSpot(pView);
 			}
+		}
+
+		case NPPM_INTERNAL_UPDATETEXTZONEPADDING:
+		{
+			ScintillaViewParams &svp = const_cast<ScintillaViewParams &>(nppParam.getSVP());
+			if (_beforeSpecialView._isDistractionFree)
+			{
+				int paddingLen = svp.getDistractionFreePadding(_pEditView->getWidth());
+				_pEditView->execute(SCI_SETMARGINLEFT, 0, paddingLen);
+				_pEditView->execute(SCI_SETMARGINRIGHT, 0, paddingLen);
+			}
+			else
+			{
+				_mainEditView.execute(SCI_SETMARGINLEFT, 0, svp._paddingLeft);
+				_mainEditView.execute(SCI_SETMARGINRIGHT, 0, svp._paddingRight);
+				_subEditView.execute(SCI_SETMARGINLEFT, 0, svp._paddingLeft);
+				_subEditView.execute(SCI_SETMARGINRIGHT, 0, svp._paddingRight);
+			}
+			return TRUE;
 		}
 
 		default:

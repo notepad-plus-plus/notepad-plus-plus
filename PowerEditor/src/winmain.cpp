@@ -19,6 +19,7 @@
 #include "Win32Exception.h"	//Win32 exception
 #include "MiniDumper.h"			//Write dump files
 #include "verifySignedfile.h"
+#include "NppDarkMode.h"
 
 typedef std::vector<generic_string> ParamVector;
 
@@ -491,7 +492,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 	}
 
 	nppParameters.load();
-	NppGUI & nppGui = const_cast<NppGUI &>(nppParameters.getNppGUI());
+
+	NppGUI & nppGui = nppParameters.getNppGUI();
+
+	NppDarkMode::initDarkMode();
 
 	bool doUpdateNpp = nppGui._autoUpdateOpt._doAutoUpdate;
 	bool doUpdatePluginList = nppGui._autoUpdateOpt._doAutoUpdate;
@@ -625,9 +629,13 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 
 	if (TheFirstOne && isUpExist && isGtXP && isSignatureOK)
 	{
-		if (nppParameters.isx64())
+		if (nppParameters.archType() == IMAGE_FILE_MACHINE_AMD64)
 		{
 			updaterParams += TEXT(" -px64");
+		}
+		else if (nppParameters.archType() == IMAGE_FILE_MACHINE_ARM64)
+		{
+			updaterParams += TEXT(" -parm64");
 		}
 
 		if (doUpdateNpp)
@@ -650,9 +658,13 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 			generic_string upPlParams = TEXT("-v"); 
 			upPlParams += notepad_plus_plus.getPluginListVerStr();
 
-			if (nppParameters.isx64())
+			if (nppParameters.archType() == IMAGE_FILE_MACHINE_AMD64)
 			{
 				upPlParams += TEXT(" -px64");
+			}
+			else if (nppParameters.archType() == IMAGE_FILE_MACHINE_ARM64)
+			{
+				upPlParams += TEXT(" -parm64");
 			}
 
 			upPlParams += TEXT(" -upZip");

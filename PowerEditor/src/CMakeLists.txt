@@ -40,6 +40,7 @@ SET(projIncludDir	../../scintilla/include/
 					./WinControls/WindowsDlg/
 					./WinControls/TaskList/
 					./WinControls/DockingWnd/
+					./WinControls/TreeView/
 					./WinControls/ToolTip/
 					./MISC/Exception/
 					./MISC/Common/
@@ -81,9 +82,11 @@ SET(src_files
 			./ScintillaComponent/columnEditor.cpp
 			./MISC/Common/Common.cpp
 			./WinControls/ContextMenu/ContextMenu.cpp
+			./WinControls/OpenSaveFileDialog/CustomFileDialog.cpp
 			./WinControls/PluginsAdmin/pluginsAdmin.cpp
 			./WinControls/ReadDirectoryChanges/ReadDirectoryChanges.cpp
 			./WinControls/ReadDirectoryChanges/ReadDirectoryChangesPrivate.cpp
+			./WinControls/ReadDirectoryChanges/ReadFileChanges.cpp
 			./WinControls/TabBar/ControlsTab.cpp
 			./WinControls/DockingWnd/DockingCont.cpp
 			./WinControls/DockingWnd/DockingManager.cpp
@@ -92,7 +95,6 @@ SET(src_files
 			./WinControls/DocumentMap/documentMap.cpp
 			./WinControls/DocumentMap/documentSnapshot.cpp
 			./EncodingMapper.cpp
-			./WinControls/OpenSaveFileDialog/FileDialog.cpp
 			./WinControls/FindCharsInRange/FindCharsInRange.cpp
 			./ScintillaComponent/FindReplaceDlg.cpp
 			./ScintillaComponent/FunctionCallTip.cpp
@@ -149,6 +151,7 @@ SET(src_files
 			./ScintillaComponent/ScintillaEditView.cpp
 			./WinControls/shortcut/shortcut.cpp
 			./WinControls/Grid/ShortcutMapper.cpp
+			./WinControls/TreeView/TreeView.cpp
 			./WinControls/WindowsDlg/SizeableDlg.cpp
 			./ScintillaComponent/SmartHighlighter.cpp
 			./WinControls/SplitterContainer/Splitter.cpp
@@ -169,9 +172,7 @@ SET(src_files
 			./WinControls/ToolBar/ToolBar.cpp
 			./WinControls/ToolTip/ToolTip.cpp
 			./WinControls/TrayIcon/trayIconControler.cpp
-			./WinControls/ProjectPanel/TreeView.cpp
 			./uchardet/uchardet.cpp
-			./UniConversion.cpp
 			./WinControls/AboutDlg/URLCtrl.cpp
 			./ScintillaComponent/UserDefineDialog.cpp
 			./Utf8_16.cpp
@@ -189,16 +190,31 @@ SET(src_files
 )
 
 SET(include_files
+			./clipboardFormats.h
+			./dpiManager.h
+			./keys.h
+			./localizationString.h
+			./MISC/Common/Sorters.h
 			./MISC/Common/verifySignedfile.h
+			./MISC/md5/md5.h
 			./MISC/md5/md5Dlgs.h
+			./MISC/md5/md5Dlgs_rc.h
 			./MISC/sha2/sha-256.h
-			./MISC/Process/Processus.h
+			./ScintillaComponent/columnEditor_rc.h
+			./ScintillaComponent/FindReplaceDlg_rc.h
+			./ScintillaComponent/ScintillaRef.h
+			./Utf8.h
 			./WinControls/AboutDlg/AboutDlg.h
 			./WinControls/AnsiCharPanel/ansiCharPanel.h
 			./ScintillaComponent/AutoCompletion.h
+			./WinControls/AnsiCharPanel/ansiCharPanel_rc.h
 			./WinControls/AnsiCharPanel/asciiListView.h
-			./WinControls/FileBrowser/fileBrowser.h
-			./WinControls/FileBrowser/fileBrowser_rc.h
+			./WinControls/ColourPicker/ColourPopupResource.h
+			./WinControls/ColourPicker/WordStyleDlgRes.h
+			./WinControls/DocumentMap/documentMap_rc.h
+			./WinControls/DocumentMap/documentSnapshot.h
+			./WinControls/DocumentMap/documentSnapshot_rc.h
+			./WinControls/FindCharsInRange/findCharsInRange_rc.h
 			./WinControls/Grid/BabyGrid.h
 			./WinControls/Grid/BabyGridWrapper.h
 			./ScintillaComponent/Buffer.h
@@ -211,11 +227,13 @@ SET(include_files
 			./ScintillaComponent/columnEditor.h
 			./MISC/Common/Common.h
 			./WinControls/ContextMenu/ContextMenu.h
+			./WinControls/OpenSaveFileDialog/CustomFileDialog.h
 			./WinControls/PluginsAdmin/pluginsAdmin.h
 			./WinControls/PluginsAdmin/pluginsAdminRes.h
-			./WinControls/ReadDirectoryChanges/ReadDirectoryChanges.h
-			./WinControls/ReadDirectoryChanges/ReadDirectoryChangesPrivate.h
-			./WinControls/ReadDirectoryChanges/ThreadSafeQueue.h
+			./WinControls/Preference/preference_rc.h
+			./WinControls/ReadDirectoryChanges/targetver.h
+			./WinControls/shortcut/shortcutRc.h
+			./WinControls/StaticDialog/RunDlg/RunDlg_rc.h
 			./WinControls/TabBar/ControlsTab.h
 			./WinControls/DockingWnd/Docking.h
 			./WinControls/DockingWnd/DockingCont.h
@@ -227,7 +245,6 @@ SET(include_files
 			./WinControls/DocumentMap/documentMap.h
 			./WinControls/DocumentMap/documentSnapshot.h
 			./EncodingMapper.h
-			./WinControls/OpenSaveFileDialog/FileDialog.h
 			./MISC/FileNameStringSplitter.h
 			./WinControls/FindCharsInRange/FindCharsInRange.h
 			./ScintillaComponent/FindReplaceDlg.h
@@ -244,7 +261,6 @@ SET(include_files
 			./lesDlgs.h
 			./WinControls/AnsiCharPanel/ListView.h
 			./localization.h
-			./localizationstring.h
 			./menuCmdID.h
 			./MISC/Exception/MiniDumper.h
 			./Notepad_plus.h
@@ -287,6 +303,7 @@ SET(include_files
 			./WinControls/shortcut/shortcut.h
 			./WinControls/Grid/ShortcutMapper.h
 			./WinControls/Grid/ShortcutMapper_rc.h
+			./WinControls/TreeView/TreeView.h
 			./WinControls/WindowsDlg/SizeableDlg.h
 			./ScintillaComponent/SmartHighlighter.h
 			./WinControls/SplitterContainer/Splitter.h
@@ -304,9 +321,7 @@ SET(include_files
 			./WinControls/ToolBar/ToolBar.h
 			./WinControls/ToolTip/ToolTip.h
 			./WinControls/TrayIcon/trayIconControler.h
-			./WinControls/ProjectPanel/TreeView.h
 			./uchardet/uchardet.h
-			./UniConversion.h
 			./WinControls/AboutDlg/URLCtrl.h
 			./ScintillaComponent/UserDefineDialog.h
 			./ScintillaComponent/UserDefineLangReference.h
@@ -357,15 +372,17 @@ SET(rcFiles
 
 IF (WIN32)
 	SET(option WIN32)
-	SET(win32_LIBRARIES comctl32 shlwapi dbghelp version crypt32 wintrust sensapi)
+	SET(win32_LIBRARIES comctl32 shlwapi dbghelp version crypt32 wintrust sensapi wininet imm32 msimg32)
 if ( MSVC )
 	#do not use for mingw builds
 	SET(CMAKE_CXX_FLAGS "/EHa /MP /W4")
-	SET(defs -DUNICODE -D_UNICODE -D_WIN32_WINNT=0x501 -D_USE_64BIT_TIME_T -DTIXML_USE_STL -DTIXMLA_USE_STL -D_CRT_NONSTDC_NO_DEPRECATE -D_CRT_SECURE_NO_WARNINGS -D_CRT_NON_CONFORMING_SWPRINTFS )
+	SET(defs -DUNICODE -D_UNICODE -D_WIN32_WINNT=0x0600 -D_USE_64BIT_TIME_T -DTIXML_USE_STL -DTIXMLA_USE_STL -D_CRT_NONSTDC_NO_DEPRECATE -D_CRT_SECURE_NO_WARNINGS -D_CRT_NON_CONFORMING_SWPRINTFS )
+	set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT")
+	set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MTd")
 else ( MSVC )
 	# For possible MinGW compilation
-	SET(CMAKE_CXX_FLAGS "-include../gcc/include/various.h -std=c++17 -fpermissive")
-	SET(defs -DUNICODE -D_UNICODE -D_USE_64BIT_TIME_T -DTIXML_USE_STL -DTIXMLA_USE_STL )
+	SET(CMAKE_CXX_FLAGS "-include../gcc/include/various.h -std=c++17 -fpermissive -municode")
+	SET(defs -DUNICODE -D_UNICODE -D_WIN32_WINNT=0x0600 -D_USE_64BIT_TIME_T -DTIXML_USE_STL -DTIXMLA_USE_STL )
 endif ( MSVC )
 ENDIF (WIN32)
 
@@ -373,7 +390,14 @@ ADD_DEFINITIONS(${defs})
 
 INCLUDE_DIRECTORIES(${projIncludDir})
 
+find_library(SCILEXER_STATIC_LIBRARY
+	NAMES libscilexer
+	HINTS "../../scintilla/bin"
+	REQUIRED
+)
+
 ADD_EXECUTABLE(notepad++ ${option} ${src_files} ${include_files} ${rcFiles})
 
-TARGET_LINK_LIBRARIES (notepad++ ${win32_LIBRARIES})
+
+TARGET_LINK_LIBRARIES (notepad++ ${win32_LIBRARIES} ${SCILEXER_STATIC_LIBRARY})
 

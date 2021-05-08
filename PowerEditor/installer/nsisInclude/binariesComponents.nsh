@@ -26,6 +26,8 @@ SectionGroup "Plugins" Plugins
 		SetOutPath "$PLUGIN_INST_PATH\NppExport"
 !ifdef ARCH64
 		File "..\bin64\plugins\NppExport\NppExport.dll"
+!else ifdef ARCHARM64
+		File "..\binarm64\plugins\NppExport\NppExport.dll"
 !else
 		File "..\bin\plugins\NppExport\NppExport.dll"
 !endif
@@ -40,6 +42,8 @@ SectionGroup "Plugins" Plugins
 		SetOutPath "$PLUGIN_INST_PATH\mimeTools"
 !ifdef ARCH64
 		File "..\bin64\plugins\mimeTools\mimeTools.dll"
+!else ifdef ARCHARM64
+		File "..\binarm64\plugins\mimeTools\mimeTools.dll"
 !else
 		File "..\bin\plugins\mimeTools\mimeTools.dll"
 !endif
@@ -53,6 +57,8 @@ SectionGroup "Plugins" Plugins
 		SetOutPath "$PLUGIN_INST_PATH\NppConverter"
 !ifdef ARCH64
 		File "..\bin64\plugins\NppConverter\NppConverter.dll"
+!else ifdef ARCHARM64
+		File "..\binarm64\plugins\NppConverter\NppConverter.dll"
 !else
 		File "..\bin\plugins\NppConverter\NppConverter.dll"
 !endif
@@ -69,6 +75,12 @@ ${MementoSection} "Auto-Updater" AutoUpdater
 	File "..\bin64\updater\gup.xml"
 	File "..\bin64\updater\LICENSE"
 	File "..\bin64\updater\README.md"
+!else ifdef ARCHARM64
+	File "..\binarm64\updater\GUP.exe"
+	File "..\binarm64\updater\libcurl.dll"
+	File "..\binarm64\updater\gup.xml"
+	File "..\binarm64\updater\LICENSE"
+	File "..\binarm64\updater\README.md"
 !else
 	File "..\bin\updater\GUP.exe"
 	File "..\bin\updater\libcurl.dll"
@@ -85,6 +97,8 @@ ${MementoSection} "Plugins Admin" PluginsAdmin
 	SetOutPath $ALLUSERS_PLUGIN_CONF_PATH
 !ifdef ARCH64
 	File "..\bin64\plugins\Config\nppPluginList.dll"
+!else ifdef ARCHARM64
+	File "..\binarm64\plugins\Config\nppPluginList.dll"
 !else
 	File "..\bin\plugins\Config\nppPluginList.dll"
 !endif

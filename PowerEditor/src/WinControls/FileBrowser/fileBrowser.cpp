@@ -103,7 +103,7 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
         case WM_INITDIALOG :
         {
 			NppParameters& nppParam = NppParameters::getInstance();
-			int style = WS_CHILD | WS_VISIBLE | CCS_ADJUSTABLE | TBSTYLE_AUTOSIZE | TBSTYLE_FLAT | TBSTYLE_LIST | TBSTYLE_TRANSPARENT | BTNS_AUTOSIZE | BTNS_SEP | TBSTYLE_TOOLTIPS;
+			int style = WS_CHILD | WS_VISIBLE | CCS_ADJUSTABLE | TBSTYLE_AUTOSIZE | TBSTYLE_FLAT | TBSTYLE_LIST | TBSTYLE_TRANSPARENT | BTNS_AUTOSIZE | BTNS_SEP | TBSTYLE_TOOLTIPS | TBSTYLE_CUSTOMERASE;
 			_hToolbarMenu = CreateWindowEx(WS_EX_LAYOUTRTL, TOOLBARCLASSNAME, NULL, style, 0, 0, 0, 0, _hSelf, nullptr, _hInst, NULL);
 			TBBUTTON tbButtons[3];
 			// Add the bmap image into toolbar's imagelist
@@ -701,6 +701,24 @@ void FileBrowser::notified(LPNMHDR notification)
 				
 			}
 			break;
+		}
+	}
+	else if (notification->code == NM_CUSTOMDRAW && (notification->hwndFrom == _hToolbarMenu))
+	{
+		NMTBCUSTOMDRAW* nmtbcd = reinterpret_cast<NMTBCUSTOMDRAW*>(notification);
+		if (nmtbcd->nmcd.dwDrawStage == CDDS_PREERASE)
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getPureBackgroundBrush());
+				nmtbcd->clrText = NppDarkMode::getTextColor();
+				SetTextColor(nmtbcd->nmcd.hdc, NppDarkMode::getTextColor());
+				SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_SKIPDEFAULT);
+			}
+			else
+			{
+				SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_DODEFAULT);
+			}
 		}
 	}
 }

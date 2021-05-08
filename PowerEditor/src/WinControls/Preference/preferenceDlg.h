@@ -51,6 +51,16 @@ private :
 	void initScintParam();
 };
 
+class DarkModeSubDlg : public StaticDialog
+{
+public:
+	DarkModeSubDlg() = default;
+
+private:
+	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	void enableDependentControls();
+};
+
 class MarginsBorderEdgeSubDlg : public StaticDialog
 {
 public :
@@ -265,6 +275,7 @@ private :
 	WindowVector _wVector;
 	GeneralSubDlg _generalSubDlg;
 	EditingSubDlg _editingSubDlg;
+	DarkModeSubDlg _darkModeSubDlg;
 	MarginsBorderEdgeSubDlg _marginsBorderEdgeSubDlg;
 	MiscSubDlg _miscSubDlg;
 	RegExtDlg _fileAssocDlg;

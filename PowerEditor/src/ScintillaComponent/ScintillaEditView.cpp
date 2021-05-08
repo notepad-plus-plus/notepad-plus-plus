@@ -26,17 +26,7 @@
 using namespace std;
 
 // initialize the static variable
-
-// get full ScinLexer.dll path to avoid hijack
-TCHAR * getSciLexerFullPathName(TCHAR * moduleFileName, size_t len)
-{
-	::GetModuleFileName(NULL, moduleFileName, static_cast<int32_t>(len));
-	::PathRemoveFileSpec(moduleFileName);
-	::PathAppend(moduleFileName, TEXT("SciLexer.dll"));
-	return moduleFileName;
-};
-
-HINSTANCE ScintillaEditView::_hLib = loadSciLexerDll();
+bool ScintillaEditView::_SciInit = false;
 int ScintillaEditView::_refCount = 0;
 UserDefineDialog ScintillaEditView::_userDefineDlg;
 
@@ -146,7 +136,7 @@ LanguageName ScintillaEditView::langNames[L_EXTERNAL+1] = {
 {TEXT("forth"),			TEXT("Forth"),				TEXT("Forth file"),										L_FORTH,		SCLEX_FORTH},
 {TEXT("latex"),			TEXT("LaTeX"),				TEXT("LaTeX file"),										L_LATEX,		SCLEX_LATEX},
 {TEXT("mmixal"),		TEXT("MMIXAL"),				TEXT("MMIXAL file"),									L_MMIXAL,		SCLEX_MMIXAL},
-{TEXT("nimrod"),		TEXT("Nimrod"),				TEXT("Nimrod file"),									L_NIMROD,		SCLEX_NIMROD},
+{TEXT("nim"),			TEXT("Nim"),				TEXT("Nim file"),										L_NIM,			SCLEX_NIMROD},
 {TEXT("nncrontab"),		TEXT("Nncrontab"),			TEXT("extended crontab file"),							L_NNCRONTAB,	SCLEX_NNCRONTAB},
 {TEXT("oscript"),		TEXT("OScript"),			TEXT("OScript source file"),							L_OSCRIPT,		SCLEX_OSCRIPT},
 {TEXT("rebol"),			TEXT("REBOL"),				TEXT("REBOL file"),										L_REBOL,		SCLEX_REBOL},
@@ -185,42 +175,20 @@ int getNbDigits(int aNum, int base)
 	return nbChiffre;
 }
 
-TCHAR moduleFileName[1024];
-
-HMODULE loadSciLexerDll()
-{
-	generic_string sciLexerPath = getSciLexerFullPathName(moduleFileName, 1024);
-
-	// Do not check dll signature if npp is running in debug mode
-	// This is helpful for developers to skip signature checking
-	// while analyzing issue or modifying the lexer dll
-#ifndef _DEBUG
-	SecurityGard securityGard;
-	bool isOK = securityGard.checkModule(sciLexerPath, nm_scilexer);
-
-	if (!isOK)
-	{
-		::MessageBox(NULL,
-			TEXT("Authenticode check failed:\rsigning certificate or hash is not recognized"),
-			TEXT("Library verification failed"),
-			MB_OK | MB_ICONERROR);
-		return nullptr;
-	}
-#endif // !_DEBUG
-
-	return ::LoadLibrary(sciLexerPath.c_str());
-}
-
 void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 {
-	if (!_hLib)
+	if (!_SciInit)
 	{
-		throw std::runtime_error("ScintillaEditView::init : SCINTILLA ERROR - Can not load the dynamic library");
+		if (!Scintilla_RegisterClasses(hInst))
+		{
+			throw std::runtime_error("ScintillaEditView::init : SCINTILLA ERROR - Scintilla_RegisterClasses failed");
+		}
+		_SciInit = true;
 	}
 
 	Window::init(hInst, hPere);
    _hSelf = ::CreateWindowEx(
-					WS_EX_CLIENTEDGE,\
+					0,\
 					TEXT("Scintilla"),\
 					TEXT("Notepad++"),\
 					WS_CHILD | WS_VSCROLL | WS_HSCROLL | WS_CLIPCHILDREN | WS_EX_RTLREADING,\
@@ -1708,7 +1676,7 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 		case L_MMIXAL :
 			setMMIXALLexer(); break;
 
-		case L_NIMROD :
+		case L_NIM :
 			setNimrodLexer(); break;
 
 		case L_NNCRONTAB :
@@ -2589,7 +2557,8 @@ void ScintillaEditView::expand(size_t& line, bool doExpand, bool force, int visL
 
 void ScintillaEditView::performGlobalStyles()
 {
-	StyleArray & stylers = NppParameters::getInstance().getMiscStylerArray();
+	NppParameters& nppParams = NppParameters::getInstance();
+	StyleArray & stylers = nppParams.getMiscStylerArray();
 
 	int i = stylers.getStylerIndexByName(TEXT("Current line background colour"));
 	if (i != -1)
@@ -2598,24 +2567,28 @@ void ScintillaEditView::performGlobalStyles()
 		execute(SCI_SETCARETLINEBACK, style._bgColor);
 	}
 
-    COLORREF selectColorBack = grey;
-
+	COLORREF selectColorBack = grey;
+	COLORREF selectColorFore = black;
 	i = stylers.getStylerIndexByName(TEXT("Selected text colour"));
 	if (i != -1)
-    {
-        Style & style = stylers.getStyler(i);
+	{
+		Style & style = stylers.getStyler(i);
 		selectColorBack = style._bgColor;
-    }
+		selectColorFore = style._fgColor;
+	}
 	execute(SCI_SETSELBACK, 1, selectColorBack);
 
-    COLORREF caretColor = black;
+	if (nppParams.isSelectFgColorEnabled())
+		execute(SCI_SETSELFORE, 1, selectColorFore);
+
+	COLORREF caretColor = black;
 	i = stylers.getStylerIndexByID(SCI_SETCARETFORE);
 	if (i != -1)
-    {
-        Style & style = stylers.getStyler(i);
-        caretColor = style._fgColor;
-    }
-    execute(SCI_SETCARETFORE, caretColor);
+	{
+		Style & style = stylers.getStyler(i);
+		caretColor = style._fgColor;
+	}
+	execute(SCI_SETCARETFORE, caretColor);
 
 	COLORREF edgeColor = liteGrey;
 	i = stylers.getStylerIndexByName(TEXT("Edge colour"));
@@ -2670,7 +2643,7 @@ void ScintillaEditView::performGlobalStyles()
 	COLORREF foldfgColor = white, foldbgColor = grey, activeFoldFgColor = red;
 	getFoldColor(foldfgColor, foldbgColor, activeFoldFgColor);
 
-	ScintillaViewParams & svp = (ScintillaViewParams &)NppParameters::getInstance().getSVP();
+	ScintillaViewParams & svp = (ScintillaViewParams &)nppParams.getSVP();
 	for (int j = 0 ; j < NB_FOLDER_STATE ; ++j)
 		defineMarker(_markersArray[FOLDER_TYPE][j], _markersArray[svp._folderStyle][j], foldfgColor, foldbgColor, activeFoldFgColor);
 
@@ -3753,6 +3726,19 @@ void ScintillaEditView::getFoldColor(COLORREF& fgColor, COLORREF& bgColor, COLOR
 		Style & style = stylers.getStyler(i);
 		activeFgColor = style._fgColor;
 	}
+}
+
+int ScintillaEditView::getTextZoneWidth() const
+{
+	RECT editorRect;
+	getClientRect(editorRect);
+
+	int marginWidths = 0;
+	for (int m = 0; m < 4; ++m)
+	{
+		marginWidths += static_cast<int32_t>(execute(SCI_GETMARGINWIDTHN, m));
+	}
+	return editorRect.right - editorRect.left - marginWidths;
 }
 
 pair<int, int> ScintillaEditView::getSelectedCharsAndLinesCount(int maxSelectionsForLineCount /* = -1 */) const

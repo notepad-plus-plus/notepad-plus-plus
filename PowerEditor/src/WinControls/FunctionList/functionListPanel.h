@@ -113,8 +113,8 @@ private:
 	long _findEndLine = -1;
 	HTREEITEM _findItem;
 
-	generic_string _sortTipStr = TEXT("Reload");
-	generic_string _reloadTipStr = TEXT("Sort");
+	generic_string _sortTipStr = TEXT("Sort");
+	generic_string _reloadTipStr = TEXT("Reload");
 
 	std::vector<foundInfo> _foundFuncInfos;
 

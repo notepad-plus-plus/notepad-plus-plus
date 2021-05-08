@@ -1257,19 +1257,22 @@ void Notepad_plus::command(int id)
 				styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT5;
 
 			const int strSize = FINDREPLACE_MAXLENGTH;
-			TCHAR text2Find[strSize];
-			TCHAR text2Find2[strSize];
+			TCHAR selectedText[strSize];
+			TCHAR wordOnCaret[strSize];
 
-			_pEditView->getGenericSelectedText(text2Find, strSize, false);
-			_pEditView->getGenericWordOnCaretPos(text2Find2, strSize);
+			_pEditView->getGenericSelectedText(selectedText, strSize, false);
+			_pEditView->getGenericWordOnCaretPos(wordOnCaret, strSize);
 
-			if (text2Find[0] == '\0')
+			if (selectedText[0] == '\0')
 			{
-				_findReplaceDlg.markAll(text2Find2, styleID, true);
+				if (lstrlen(wordOnCaret) > 0)
+				{
+					_findReplaceDlg.markAll(wordOnCaret, styleID);
+				}
 			}
 			else
 			{
-				_findReplaceDlg.markAll(text2Find, styleID, lstrlen(text2Find) == lstrlen(text2Find2));
+				_findReplaceDlg.markAll(selectedText, styleID);
 			}
 		}
 		break;
@@ -1914,13 +1917,37 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
+		case IDM_VIEW_TOOLBAR_REDUCE_SET2:
+		{
+			toolBarStatusType state = _toolBar.getState();
+
+			if (state != TB_SMALL2)
+			{
+				_toolBar.reduceToSet2();
+				changeToolBarIcons();
+			}
+		}
+		break;
+
+		case IDM_VIEW_TOOLBAR_ENLARGE_SET2:
+		{
+			toolBarStatusType state = _toolBar.getState();
+
+			if (state != TB_LARGE2)
+			{
+				_toolBar.enlargeToSet2();
+				changeToolBarIcons();
+			}
+		}
+		break;
+
 		case IDM_VIEW_TOOLBAR_STANDARD:
 		{
 			toolBarStatusType state = _toolBar.getState();
 
             if (state != TB_STANDARD)
             {
-				_toolBar.setToUglyIcons();
+				_toolBar.setToBmpIcons();
 			}
 		}
 		break;
@@ -1937,7 +1964,7 @@ void Notepad_plus::command(int id)
 			int tabDpiDynamicalHeight = NppParameters::getInstance()._dpiManager.scaleY(_toReduceTabBar?22:25);
 			TabCtrl_SetItemSize(_mainDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
 			TabCtrl_SetItemSize(_subDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
-			_docTabIconList.setIconSize(iconDpiDynamicalSize);
+			_docTabIconList.addIcons(iconDpiDynamicalSize);
 
 			//change the font
 			int stockedFont = _toReduceTabBar?DEFAULT_GUI_FONT:SYSTEM_FONT;
@@ -2027,8 +2054,8 @@ void Notepad_plus::command(int id)
 
 		case IDM_VIEW_DISTRACTIONFREE:
 		{
-			if (((_beforeSpecialView._isDistractionFree && _beforeSpecialView._isFullScreen && _beforeSpecialView._isPostIt)) ||
-				((!_beforeSpecialView._isDistractionFree && !_beforeSpecialView._isFullScreen && !_beforeSpecialView._isPostIt)))
+			if ((_beforeSpecialView._isDistractionFree && _beforeSpecialView._isFullScreen && _beforeSpecialView._isPostIt) ||
+				(!_beforeSpecialView._isDistractionFree && !_beforeSpecialView._isFullScreen && !_beforeSpecialView._isPostIt))
 				distractionFreeToggle();
 		}
 		break;
@@ -3153,10 +3180,14 @@ void Notepad_plus::command(int id)
 					{
 						param = TEXT("-verbose -v");
 						param += VERSION_VALUE;
-
-						if (NppParameters::getInstance().isx64())
+						int archType = NppParameters::getInstance().archType();
+						if (archType == IMAGE_FILE_MACHINE_AMD64)
 						{
 							param += TEXT(" -px64");
+						}
+						else if (archType == IMAGE_FILE_MACHINE_ARM64)
+						{
+							param += TEXT(" -parm64");
 						}
 					}
 					Process updater(updaterFullPath.c_str(), param.c_str(), updaterDir.c_str());
@@ -3265,7 +3296,7 @@ void Notepad_plus::command(int id)
         case IDM_LANG_FORTH :
         case IDM_LANG_LATEX :
         case IDM_LANG_MMIXAL :
-        case IDM_LANG_NIMROD :
+        case IDM_LANG_NIM :
         case IDM_LANG_NNCRONTAB :
         case IDM_LANG_OSCRIPT :
         case IDM_LANG_REBOL :
@@ -3383,7 +3414,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_SYSTRAYPOPUP_NEWDOC:
 		{
-			NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance()).getNppGUI());
+			NppGUI & nppGUI = (NppParameters::getInstance()).getNppGUI();
 			::ShowWindow(_pPublicInterface->getHSelf(), nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
 			_dockingManager.showFloatingContainers(true);
 			restoreMinimizeDialogs();
@@ -3393,7 +3424,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_SYSTRAYPOPUP_ACTIVATE :
 		{
-			NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance()).getNppGUI());
+			NppGUI & nppGUI = (NppParameters::getInstance()).getNppGUI();
 			::ShowWindow(_pPublicInterface->getHSelf(), nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
 			_dockingManager.showFloatingContainers(true);
 			restoreMinimizeDialogs();
@@ -3405,7 +3436,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_SYSTRAYPOPUP_NEW_AND_PASTE:
 		{
-			NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance()).getNppGUI());
+			NppGUI & nppGUI = (NppParameters::getInstance()).getNppGUI();
 			::ShowWindow(_pPublicInterface->getHSelf(), nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
 			_dockingManager.showFloatingContainers(true);
 			restoreMinimizeDialogs();
@@ -3422,7 +3453,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_SYSTRAYPOPUP_OPENFILE:
 		{
-			NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance()).getNppGUI());
+			NppGUI & nppGUI = (NppParameters::getInstance()).getNppGUI();
 			::ShowWindow(_pPublicInterface->getHSelf(), nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
 			_dockingManager.showFloatingContainers(true);
 			restoreMinimizeDialogs();

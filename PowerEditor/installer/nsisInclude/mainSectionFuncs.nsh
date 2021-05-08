@@ -93,10 +93,10 @@ Function copyCommonFiles
 	File "..\bin\readme.txt"
 	
 !ifdef ARCH64
-	File "..\bin64\SciLexer.dll"
 	File "..\bin64\notepad++.exe"
+!else ifdef ARCHARM64
+	File "..\binarm64\notepad++.exe"
 !else
-	File "..\bin\SciLexer.dll"
 	File "..\bin\notepad++.exe"
 !endif
 

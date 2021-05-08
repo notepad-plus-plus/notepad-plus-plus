@@ -258,7 +258,7 @@ protected:
 	static int _nbCtrl;
 	static HWND _hwndArray[nbCtrlMax];
 
-	void drawItem(DRAWITEMSTRUCT *pDrawItemStruct);
+	void drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode = false);
 	void draggingCursor(POINT screenPoint);
 
 	int getTabIndexAt(const POINT & p)

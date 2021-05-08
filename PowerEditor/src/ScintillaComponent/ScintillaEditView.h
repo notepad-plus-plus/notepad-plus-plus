@@ -193,9 +193,9 @@ public:
 	{
 		--_refCount;
 
-		if ((!_refCount)&&(_hLib))
+		if ((!_refCount)&&(_SciInit))
 		{
-			::FreeLibrary(_hLib);
+			Scintilla_ReleaseResources();
 
 			for (BufferStyleMap::iterator it(_hotspotStyles.begin()); it != _hotspotStyles.end(); ++it )
 			{
@@ -429,6 +429,8 @@ public:
 		return long(execute(SCI_TEXTHEIGHT));
 	};
 
+	int getTextZoneWidth() const;
+
 	void gotoLine(int line){
 		if (line < execute(SCI_GETLINECOUNT))
 			execute(SCI_GOTOLINE,line);
@@ -614,7 +616,7 @@ public:
 	void removeAnyDuplicateLines();
 
 protected:
-	static HINSTANCE _hLib;
+	static bool _SciInit;
 
 	static int _refCount;
 
@@ -918,7 +920,7 @@ protected:
 	};
 
 	void setNimrodLexer() {
-		setLexer(SCLEX_NIMROD, L_NIMROD, LIST_0);
+		setLexer(SCLEX_NIMROD, L_NIM, LIST_0);
 	};
 
 	void setNncrontabLexer() {

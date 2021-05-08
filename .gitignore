@@ -51,6 +51,7 @@ UpgradeLog*.htm
 *.log
 .builds
 *.pidb
+*.vcxproj.filters
 
 PowerEditor/bin/notepad++.exe
 PowerEditor/bin/SciLexer.dll
@@ -71,27 +72,39 @@ PowerEditor/bin/plugins/
 PowerEditor/bin/updater/
 PowerEditor/bin/functionList/
 PowerEditor/bin64/
+PowerEditor/binarm64/
 PowerEditor/bin/themes/
 PowerEditor/installer/bin/wingup/
 PowerEditor/installer/build/
 PowerEditor/installer/minimalist/
 PowerEditor/installer/minimalist64/
+PowerEditor/installer/minimalistArm64/
 PowerEditor/installer/zipped.package.release/
 PowerEditor/installer/zipped.package.release64/
+PowerEditor/installer/zipped.package.releaseArm64/
 PowerEditor/visual.net/Unicode Debug/
 PowerEditor/visual.net/Unicode Release/
 PowerEditor/visual.net/notepadPlus.sln
+PowerEditor/visual.net/notepadPlus.vcxproj.filters
 PowerEditor/visual.net/x64/Unicode Debug/
 PowerEditor/visual.net/x64/Unicode Release/
+PowerEditor/visual.net/ARM64
+PowerEditor/src/tools/NppShell/build_ARM64
+PowerEditor/src/tools/NppShell/build_Win32
+PowerEditor/src/tools/NppShell/build_x64
 
 # scintilla - generated files
 scintilla/bin/SciLexer.*
 scintilla/bin/Scintilla.*
+scintilla/bin/libscilexer.a
 scintilla/bin/libscintilla.a
 scintilla/bin/libscintilla.lib
 scintilla/win32/*.lib
 scintilla/win32/Lexers.a
 scintilla/win32/ScintRes.res
+scintilla/win32/ARM64
+scintilla/win32/Unicode Release/
+scintilla/win32/Unicode Debug/
 scintilla/boostregex/bin
 scintilla/boostregex/boostpath.mak
 

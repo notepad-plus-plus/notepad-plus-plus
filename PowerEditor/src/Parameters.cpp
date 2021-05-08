@@ -1440,18 +1440,17 @@ bool NppParameters::load()
 				delete _pXmlExternalLexerDoc[i];
 	}
 
-	//------------------------------//
-	// blacklist.xml : for per user //
-	//------------------------------//
-	_blacklistPath = _userPath;
-	PathAppend(_blacklistPath, TEXT("blacklist.xml"));
+	//-------------------------------------------------------------//
+	// enableSelectFgColor.xml : for per user                      //
+	// This empty xmj file is optional - user adds this empty file //
+	// manually in order to set selected text's foreground color.  //
+	//-------------------------------------------------------------//
+	generic_string enableSelectFgColorPath = _userPath;
+	PathAppend(enableSelectFgColorPath, TEXT("enableSelectFgColor.xml"));
 
-	if (PathFileExists(_blacklistPath.c_str()))
+	if (PathFileExists(enableSelectFgColorPath.c_str()))
 	{
-		_pXmlBlacklistDoc = new TiXmlDocument(_blacklistPath);
-		loadOkay = _pXmlBlacklistDoc->LoadFile();
-		if (loadOkay)
-			getBlackListFromXmlTree();
+		_isSelectFgColorEnabled = true;
 	}
 	return isAllLaoded;
 }
@@ -1644,6 +1643,17 @@ bool NppParameters::isInFontList(const generic_string& fontName2Search) const
 			return true;
 	}
 	return false;
+}
+
+HFONT NppParameters::getDefaultUIFont()
+{
+	static HFONT g_defaultMessageFont = []() {
+		NONCLIENTMETRICS ncm = { sizeof(ncm) };
+		SystemParametersInfo(SPI_GETNONCLIENTMETRICS, sizeof(ncm), &ncm, 0);
+
+		return CreateFontIndirect(&ncm.lfMessageFont);
+	}();
+	return g_defaultMessageFont;
 }
 
 void NppParameters::getLangKeywordsFromXmlTree()
@@ -4141,7 +4151,11 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 						_nppGUI._toolBarStatus = TB_SMALL;
 					else if (!lstrcmp(val, TEXT("large")))
 						_nppGUI._toolBarStatus = TB_LARGE;
-					else// if (!lstrcmp(val, TEXT("standard")))	//assume standard in all other cases
+					else if (!lstrcmp(val, TEXT("small2")))
+						_nppGUI._toolBarStatus = TB_SMALL2;
+					else if (!lstrcmp(val, TEXT("large2")))
+						_nppGUI._toolBarStatus = TB_LARGE2;
+					else //if (!lstrcmp(val, TEXT("standard")))
 						_nppGUI._toolBarStatus = TB_STANDARD;
 				}
 			}
@@ -4388,6 +4402,27 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 					else
 						_nppGUI._maitainIndent = false;
 				}
+			}
+		}
+		// <GUIConfig name="MarkAll" matchCase="yes" wholeWordOnly="yes" </GUIConfig>
+		else if (!lstrcmp(nm, TEXT("MarkAll")))
+		{
+			const TCHAR* val = element->Attribute(TEXT("matchCase"));
+			if (val)
+			{
+				if (lstrcmp(val, TEXT("yes")) == 0)
+					_nppGUI._markAllCaseSensitive = true;
+				else if (!lstrcmp(val, TEXT("no")))
+					_nppGUI._markAllCaseSensitive = false;
+			}
+
+			val = element->Attribute(TEXT("wholeWordOnly"));
+			if (val)
+			{
+				if (lstrcmp(val, TEXT("yes")) == 0)
+					_nppGUI._markAllWordOnly = true;
+				else if (!lstrcmp(val, TEXT("no")))
+					_nppGUI._markAllWordOnly = false;
 			}
 		}
 		// <GUIConfig name="SmartHighLight" matchCase="yes" wholeWordOnly="yes" useFindSettings="no">yes</GUIConfig>
@@ -5273,6 +5308,10 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			const TCHAR* optConfirmReplaceOpenDocs = element->Attribute(TEXT("confirmReplaceInAllOpenDocs"));
 			if (optConfirmReplaceOpenDocs)
 				_nppGUI._confirmReplaceInAllOpenDocs = (lstrcmp(optConfirmReplaceOpenDocs, TEXT("yes")) == 0);
+
+			const TCHAR* optReplaceStopsWithoutFindingNext = element->Attribute(TEXT("replaceStopsWithoutFindingNext"));
+			if (optReplaceStopsWithoutFindingNext)
+				_nppGUI._replaceStopsWithoutFindingNext = (lstrcmp(optReplaceStopsWithoutFindingNext, TEXT("yes")) == 0);
 		}
 		else if (!lstrcmp(nm, TEXT("MISC")))
 		{
@@ -5317,6 +5356,25 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				if (cli && cli[0])
 					_nppGUI._commandLineInterpreter.assign(cli);
 			}
+		}
+		else if (!lstrcmp(nm, TEXT("DarkMode")))
+		{
+			auto parseYesNoBoolAttribute = [&element](const TCHAR* name, bool defaultValue = false)->bool {
+				const TCHAR* val = element->Attribute(name);
+				if (val)
+				{
+					if (!lstrcmp(val, TEXT("yes")))
+						return true;
+					else if (!lstrcmp(val, TEXT("no")))
+						return false;
+				}
+				return defaultValue;
+			};
+
+			_nppGUI._darkmode.enable = parseYesNoBoolAttribute(TEXT("enable"));
+			_nppGUI._darkmode.enableExperimental = parseYesNoBoolAttribute(TEXT("enableExperimental"));
+			_nppGUI._darkmode.enableMenubar = parseYesNoBoolAttribute(TEXT("enableMenubar"));
+			_nppGUI._darkmode.enableScrollbarHack = parseYesNoBoolAttribute(TEXT("enableScrollbarHack"));
 		}
 	}
 }
@@ -5533,22 +5591,22 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 	nm = element->Attribute(TEXT("paddingLeft"), &val);
 	if (nm)
 	{
-		if (val >= 0 && val <= 9)
+		if (val >= 0 && val <= 30)
 			_svp._paddingLeft = static_cast<unsigned char>(val);
 	}
 
 	nm = element->Attribute(TEXT("paddingRight"), &val);
 	if (nm)
 	{
-		if (val >= 0 && val <= 9)
+		if (val >= 0 && val <= 30)
 			_svp._paddingRight = static_cast<unsigned char>(val);
 	}
 
 	nm = element->Attribute(TEXT("distractionFreeDivPart"), &val);
 	if (nm)
 	{
-		if (val >= 3 && val <= 255)
-			_svp._borderWidth = static_cast<unsigned char>(val);
+		if (val >= 3 && val <= 9)
+			_svp._distractionFreeDivPart = static_cast<unsigned char>(val);
 	}
 }
 
@@ -5862,7 +5920,17 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("ToolBar"));
 		const TCHAR *pStr = (_nppGUI._toolbarShow) ? TEXT("yes") : TEXT("no");
 		GUIConfigElement->SetAttribute(TEXT("visible"), pStr);
-		pStr = _nppGUI._toolBarStatus == TB_SMALL ? TEXT("small") : (_nppGUI._toolBarStatus == TB_STANDARD ? TEXT("standard") : TEXT("large"));
+
+		if (_nppGUI._toolBarStatus == TB_SMALL)
+			pStr = TEXT("small");
+		else if (_nppGUI._toolBarStatus == TB_LARGE)
+			pStr = TEXT("large");
+		else if (_nppGUI._toolBarStatus == TB_SMALL2)
+			pStr = TEXT("small2");
+		else if (_nppGUI._toolBarStatus == TB_LARGE2)
+			pStr = TEXT("large2");
+		else //if (_nppGUI._toolBarStatus == TB_STANDARD)
+			pStr = TEXT("standard");
 		GUIConfigElement->InsertEndChild(TiXmlText(pStr));
 	}
 
@@ -6269,7 +6337,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("muteSounds"), _nppGUI._muteSounds ? TEXT("yes") : TEXT("no"));
 	}
 
-	// <GUIConfig name="Searching" "monospacedFontFindDlg"="no" stopFillingFindField="no" findDlgAlwaysVisible="no" confirmReplaceOpenDocs="yes" confirmMacroReplaceOpenDocs="yes" confirmReplaceInFiles="yes" confirmMacroReplaceInFiles="yes" />
+	// <GUIConfig name="Searching" "monospacedFontFindDlg"="no" stopFillingFindField="no" findDlgAlwaysVisible="no" confirmReplaceOpenDocs="yes" confirmMacroReplaceOpenDocs="yes" confirmReplaceInFiles="yes" confirmMacroReplaceInFiles="yes" replaceStopsWithoutFindingNext="no"/>
 	{
 		TiXmlElement* GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("Searching"));
@@ -6278,6 +6346,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("stopFillingFindField"), _nppGUI._stopFillingFindField ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("findDlgAlwaysVisible"), _nppGUI._findDlgAlwaysVisible ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("confirmReplaceInAllOpenDocs"), _nppGUI._confirmReplaceInAllOpenDocs ? TEXT("yes") : TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("replaceStopsWithoutFindingNext"), _nppGUI._replaceStopsWithoutFindingNext ? TEXT("yes") : TEXT("no"));
 	}
 
 	// <GUIConfig name="searchEngine" searchEngineChoice="2" searchEngineCustom="" />
@@ -6286,6 +6355,14 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("searchEngine"));
 		GUIConfigElement->SetAttribute(TEXT("searchEngineChoice"), _nppGUI._searchEngineChoice);
 		GUIConfigElement->SetAttribute(TEXT("searchEngineCustom"), _nppGUI._searchEngineCustom);
+	}
+
+	// <GUIConfig name="MarkAll" matchCase="no" wholeWordOnly="yes" </GUIConfig>
+	{
+		TiXmlElement* GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
+		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("MarkAll"));
+		GUIConfigElement->SetAttribute(TEXT("matchCase"), _nppGUI._markAllCaseSensitive ? TEXT("yes") : TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("wholeWordOnly"), _nppGUI._markAllWordOnly ? TEXT("yes") : TEXT("no"));
 	}
 
 	// <GUIConfig name="SmartHighLight" matchCase="no" wholeWordOnly="yes" useFindSettings="no" onAnotherView="no">yes</GUIConfig>
@@ -6303,6 +6380,22 @@ void NppParameters::createXmlTreeFromGUIParams()
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("commandLineInterpreter"));
 		GUIConfigElement->InsertEndChild(TiXmlText(_nppGUI._commandLineInterpreter.c_str()));
+	}
+
+	// <GUIConfig name="DarkMode" enable="no" enableExperimental="no" enableMenubar="no" enableScrollbarHack="no" />
+	{
+		TiXmlElement* GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
+		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("DarkMode"));
+
+		auto setYesNoBoolAttribute = [&GUIConfigElement](const TCHAR* name, bool value) {
+			const TCHAR* pStr = value ? TEXT("yes") : TEXT("no");
+			GUIConfigElement->SetAttribute(name, pStr);
+		};
+
+		setYesNoBoolAttribute(TEXT("enable"), _nppGUI._darkmode.enable);
+		setYesNoBoolAttribute(TEXT("enableExperimental"), _nppGUI._darkmode.enableExperimental);
+		setYesNoBoolAttribute(TEXT("enableMenubar"), _nppGUI._darkmode.enableMenubar);
+		setYesNoBoolAttribute(TEXT("enableScrollbarHack"), _nppGUI._darkmode.enableScrollbarHack);
 	}
 
 	// <GUIConfig name="ScintillaPrimaryView" lineNumberMargin="show" bookMarkMargin="show" indentGuideLine="show" folderMarkStyle="box" lineWrapMethod="aligned" currentLineHilitingShow="show" scrollBeyondLastLine="no" rightClickKeepsSelection="no" disableAdvancedScrolling="no" wrapSymbolShow="hide" Wrap="no" borderEdge="yes" edge="no" edgeNbColumn="80" zoom="0" zoom2="0" whiteSpaceShow="hide" eolShow="hide" borderWidth="2" smoothFont="no" />
@@ -6754,8 +6847,8 @@ int NppParameters::langTypeToCommandID(LangType lt) const
 		case L_MMIXAL :
 			id = IDM_LANG_MMIXAL; break;
 
-		case L_NIMROD :
-			id = IDM_LANG_NIMROD; break;
+		case L_NIM :
+			id = IDM_LANG_NIM; break;
 
 		case L_NNCRONTAB :
 			id = IDM_LANG_NNCRONTAB; break;

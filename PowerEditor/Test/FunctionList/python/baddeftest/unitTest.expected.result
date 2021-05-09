@@ -1,0 +1,1 @@
+{"leaves":["invisible_function1()","invisible_function2()","visible_function()"],"nodes":[{"leaves":["__init__(self)"],"name":"VisibleClass1"},{"leaves":["__init__(self)"],"name":"VisibleClass2"}],"root":"unitTest"}

@@ -248,6 +248,8 @@
 #define IDI_READONLY_ALT_ICON    508
 #define IDI_SAVED_DM_ICON        509
 #define IDI_UNSAVED_DM_ICON      510
+#define IDI_MONITORING_DM_ICON   511
+#define IDI_READONLY_DM_ICON     512
 #define IDI_DELETE_ICON          525
 
 

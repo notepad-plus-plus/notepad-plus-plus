@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 7.9.6  12/Apr/2021  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 7.9.6  9/May/2021  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
@@ -970,16 +970,20 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id = "6335" name = "Zpětné lomítko je escape znak pro SQL"/>
 				</Language>
 				<Highlighting title = "Zvýrazňování">
-					<Item id = "6333" name = "Inteligentní zvýrazňování"/>
 					<Item id = "6326" name = "Povolit"/>
+					<Item id = "6327" name = "Povolit"/>
+					<Item id = "6329" name = "Zvýrazňování odpovídajících značek"/>
 					<Item id = "6332" name = "Rozlišovat velká a malá písmena"/>
+					<Item id = "6333" name = "Inteligentní zvýrazňování"/>
 					<Item id = "6338" name = "Rozlišovat pouze celá slova"/>
 					<Item id = "6339" name = "Užívat nastavení dialogu Najít"/>
 					<Item id = "6340" name = "Zvýraznění v jiném pohledu"/>
-					<Item id = "6329" name = "Zvýrazňování odpovídajících značek"/>
-					<Item id = "6327" name = "Povolit"/>
 					<Item id = "6328" name = "Zvýrazňování atributů značek"/>
 					<Item id = "6330" name = "Zvýrazňování zón komentářů/php/asp"/>
+					<Item id = "6351" name = "Označit vše"/>
+					<Item id = "6352" name = "Rozlišovat velká a malá písmena"/>
+					<Item id = "6353" name = "Rozlišovat pouze celá slova"/>
+					<Item id = "6354" name = "Rozlišování"/>
 				</Highlighting>
 				<Print title = "Tisk">
 					<Item id = "6601" name = "Tisknout čísla řádků"/>
@@ -1015,6 +1019,7 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id = "6902" name = "Použít monospace font v dialogu Najít (vyžadován restart Notepadu++)"/>
 					<Item id = "6903" name = "Dialog Najít zůstane otevřen po vyhledávání s výstupem do okna s výsledky"/>
 					<Item id = "6904" name = "Potvrzovat příkaz Zaměnit vše ve všech otevřených dokumentech"/>
+					<Item id = "6905" name = "Nahradit: Nepřesunovat se při nahrazení výrazu k následujícímu výskytu"/>
 				</Searching>
 				<RecentFilesHistory title = "Historie posl. souborů">
 					<Item id = "6304" name = "Historie posledních souborů"/>
@@ -1050,7 +1055,6 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id = "6345" name = "Na oušku (tab) dokumentu"/>
 					<Item id = "6346" name = "Na přehledné mapě dokumentu"/>
 					<Item id = "6349" name = "Používat DirectWrite (může zlepšit zobrazení speciálních znaků, vyžadován restart Notepadu++)"/>
-					<Item id = "6351" name = "Nastavit filtr přípony souboru v dialogu Uložit na *.*"/>
 					<Item id = "6360" name = "Ztlumit všechny zvuky"/>
 				</MISC>
 				<Backup title = "Zálohování">
@@ -1391,6 +1395,7 @@ Najít ve všech souborech mimo exe, obj &amp;&amp; log:
 			<find-status-replace-end-reached value = "Nahrazování: Nahrazen první výskyt od začátku. Bylo dosaženo konce dokumentu"/>
 			<find-status-replace-top-reached value = "Nahrazování: Nahrazen první výskyt od konce. Bylo dosaženo začátku dokumentu"/>
 			<find-status-replaced-next-found value = "Nahrazování: 1 výskyt byl nahrazen. Další výskyt nalezen."/>
+			<find-status-replaced-without-continuing value = "Nahrazování: 1 výskyt byl nahrazen."/>
 			<find-status-replaced-next-not-found value = "Nahrazování: 1 výskyt byl nahrazen. Další výskyt nenalezen."/>
 			<find-status-replace-not-found value = "Nahrazování: žádný výskyt nebyl nalezen"/>
 			<find-status-replace-readonly value = "Nahrazování: Nemohu nahradit text. Současný dokument je pouze pro čtení"/>
@@ -1405,6 +1410,7 @@ Najít ve všech souborech mimo exe, obj &amp;&amp; log:
 			<finder-uncollapse-all value = "Rozbalit vše"/>
 			<finder-copy value = "Kopírovat vybrané řádky"/>
 			<finder-copy-verbatim value = "Kopírovat"/>
+			<finder-copy-paths value = "Kopírovat souborovou cestu(y)"/>
 			<finder-select-all value = "Vybrat vše"/>
 			<finder-clear-all value = "Smazat vše"/>
 			<finder-open-all value = "Otevřít vše"/>
@@ -1454,6 +1460,7 @@ Najít ve všech souborech mimo exe, obj &amp;&amp; log:
 			<find-regex-zero-length-match value = "shoda nulové délky" />
 			<session-save-folder-as-workspace value = "Uložit složku jako pracovní plochu"/>
 			<tab-untitled-string value = "nový " />
+			<file-save-assign-type value = "&amp;Přidat příponu." />
 		</MiscStrings>
 
 	</Native-Langue>

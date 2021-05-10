@@ -866,7 +866,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 			RECT rc = { 0 };
 			GetClientRect(hwnd, &rc);
-			FillRect((HDC)wParam, &rc, NppDarkMode::getPureBackgroundBrush());
+			FillRect((HDC)wParam, &rc, NppDarkMode::getDarkerBackgroundBrush());
 
 			return 1;
 		}
@@ -886,7 +886,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 			PAINTSTRUCT ps;
 			HDC hdc = BeginPaint(hwnd, &ps);
-			FillRect(hdc, &ps.rcPaint, NppDarkMode::getPureBackgroundBrush());
+			FillRect(hdc, &ps.rcPaint, NppDarkMode::getDarkerBackgroundBrush());
 
 			UINT id = ::GetDlgCtrlID(hwnd);
 

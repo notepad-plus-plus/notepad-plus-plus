@@ -1277,7 +1277,7 @@ public:
 
 	void addDefaultThemeFromXml(const generic_string& xmlFullPath)
 	{
-		_themeList.push_back(std::pair<generic_string, generic_string>(TEXT("Default (stylers.xml)"), xmlFullPath));
+		_themeList.push_back(std::pair<generic_string, generic_string>(_defaultThemeLabel, xmlFullPath));
 	}
 
 	generic_string getThemeFromXmlFileName(const TCHAR *fn) const;
@@ -1312,8 +1312,15 @@ public:
 		return _themeList[index];
 	}
 
+	void setThemeDirPath(generic_string themeDirPath) { _themeDirPath = themeDirPath; }
+	generic_string getThemeDirPath() const { return _themeDirPath; }
+
+	generic_string getDefaultThemeLabel() const { return _defaultThemeLabel; }
+
 private:
 	std::vector<std::pair<generic_string, generic_string>> _themeList;
+	generic_string _themeDirPath;
+	const generic_string _defaultThemeLabel = TEXT("Default (stylers.xml)");
 	generic_string _stylesXmlPath;
 };
 
@@ -1364,7 +1371,7 @@ public:
 
 	bool load();
 	bool reloadLang();
-	bool reloadStylers(TCHAR *stylePath = nullptr);
+	bool reloadStylers(const TCHAR *stylePath = nullptr);
 	void destroyInstance();
 	generic_string getSettingsFolder();
 

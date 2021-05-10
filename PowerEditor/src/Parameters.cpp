@@ -895,7 +895,7 @@ NppParameters::~NppParameters()
 }
 
 
-bool NppParameters::reloadStylers(TCHAR* stylePath)
+bool NppParameters::reloadStylers(const TCHAR* stylePath)
 {
 	delete _pXmlUserStylerDoc;
 

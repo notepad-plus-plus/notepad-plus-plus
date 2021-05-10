@@ -107,6 +107,7 @@ public :
 	    ::SendMessage(_hSwitch2ThemeCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(themeInfo.first.c_str()));
     };
 
+	bool selectThemeByName(const TCHAR* themeName);
 
 private :
     ColourPicker *_pFgColour = nullptr;
@@ -225,4 +226,6 @@ private :
 		::ShowWindow(::GetDlgItem(_hSelf, IDC_GLOBAL_UNDERLINE_CHECK), show?SW_SHOW:SW_HIDE);
 		_isShownGOCtrls = show;
 	};
+
+	void applyCurrentSelectedThemeAndUpdateUI();
 };

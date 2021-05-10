@@ -15,6 +15,73 @@
 
 namespace NppDarkMode
 {
+	struct Colors
+	{
+		COLORREF background = 0;
+		COLORREF softerBackground = 0;
+		COLORREF hotBackground = 0;
+		COLORREF pureBackground = 0;
+		COLORREF errorBackground = 0;
+
+		COLORREF text = 0;
+		COLORREF darkerText = 0;
+		COLORREF edge = 0;
+	};
+
+	struct Brushes
+	{
+		HBRUSH background = nullptr;
+		HBRUSH softerBackground = nullptr;
+		HBRUSH hotBackground = nullptr;
+		HBRUSH pureBackground = nullptr;
+		HBRUSH errorBackground = nullptr;
+
+		Brushes(const Colors& colors)
+			: background(::CreateSolidBrush(colors.background))
+			, softerBackground(::CreateSolidBrush(colors.softerBackground))
+			, hotBackground(::CreateSolidBrush(colors.hotBackground))
+			, pureBackground(::CreateSolidBrush(colors.pureBackground))
+			, errorBackground(::CreateSolidBrush(colors.errorBackground))
+		{}
+
+		~Brushes()
+		{
+			::DeleteObject(background);			background = nullptr;
+			::DeleteObject(softerBackground);	softerBackground = nullptr;
+			::DeleteObject(hotBackground);		hotBackground = nullptr;
+			::DeleteObject(pureBackground);		pureBackground = nullptr;
+			::DeleteObject(errorBackground);	errorBackground = nullptr;
+		}
+	};
+
+	static const Colors darkColors{
+		HEXRGB(0x202020),	// background
+		HEXRGB(0x282828),	// softerBackground
+		HEXRGB(0x404040),	// hotBackground
+		HEXRGB(0x000000),	// pureBackground
+		HEXRGB(0xB00000),	// errorBackground
+		HEXRGB(0xE0E0E0),	// textColor
+		HEXRGB(0xC0C0C0),	// darkerTextColor
+		HEXRGB(0x808080),	// edgeColor
+	};
+
+	struct Theme
+	{
+		Colors colors;
+		Brushes brushes;
+
+		Theme(const Colors& colors)
+			: colors(colors)
+			, brushes(colors)
+		{}
+	};
+
+	Theme& getTheme()
+	{
+		static Theme g_theme(darkColors);
+		return g_theme;
+	}
+
 	static Options _options;			// actual runtime options
 
 	const Options& configuredOptions()
@@ -121,75 +188,20 @@ namespace NppDarkMode
 		return invert_c;
 	}
 
-	COLORREF getBackgroundColor()
-	{
-		return RGB(0x20, 0x20, 0x20);
-	}
+	COLORREF getBackgroundColor()		{ return getTheme().colors.background;	}
+	COLORREF getSofterBackgroundColor() { return getTheme().colors.softerBackground; }
+	COLORREF getHotBackgroundColor()	{ return getTheme().colors.hotBackground; }
+	COLORREF getDarkerBackgroundColor()	{ return getTheme().colors.pureBackground; }
+	COLORREF getErrorBackgroundColor()	{ return getTheme().colors.errorBackground; }
+	COLORREF getTextColor()				{ return getTheme().colors.text; }
+	COLORREF getDarkerTextColor()		{ return getTheme().colors.darkerText; }
+	COLORREF getEdgeColor()				{ return getTheme().colors.edge; }
 
-	COLORREF getSofterBackgroundColor()
-	{
-		return RGB(0x2B, 0x2B, 0x2B);
-	}
-
-	COLORREF getHotBackgroundColor()
-	{
-		return RGB(0x4D, 0x4D, 0x4D);
-	}
-
-	COLORREF getPureBackgroundColor()
-	{
-		return RGB(0, 0, 0);
-	}
-
-	COLORREF getTextColor()
-	{
-		return RGB(0xE0, 0xE0, 0xE0);
-	}
-
-	COLORREF getDarkerTextColor()
-	{
-		return RGB(0xC0, 0xC0, 0xC0);
-	}
-
-	COLORREF getEdgeColor()
-	{
-		return RGB(0x80, 0x80, 0x80);
-	}
-
-	COLORREF getErrorBackgroundColor()
-	{
-		return RGB(0xB0, 0x00, 0x00);
-	}
-
-	HBRUSH getBackgroundBrush()
-	{
-		static HBRUSH g_hbrBackground = ::CreateSolidBrush(getBackgroundColor());
-		return g_hbrBackground;
-	}
-
-	HBRUSH getSofterBackgroundBrush()
-	{
-		static HBRUSH g_hbrSofterBackground = ::CreateSolidBrush(getSofterBackgroundColor());
-		return g_hbrSofterBackground;
-	}
-
-	HBRUSH getHotBackgroundBrush()
-	{
-		static HBRUSH g_hbrHotBackground = ::CreateSolidBrush(getHotBackgroundColor());
-		return g_hbrHotBackground;
-	}
-
-	HBRUSH getPureBackgroundBrush()
-	{
-		static HBRUSH g_hbrPureBackground = (HBRUSH)::GetStockObject(BLACK_BRUSH);
-		return g_hbrPureBackground;
-	}
-
-	HBRUSH getErrorBackgroundBrush()
-	{
-		static HBRUSH g_hbrErrorBackground = ::CreateSolidBrush(getErrorBackgroundColor());
-		return g_hbrErrorBackground;
-	}
+	HBRUSH getBackgroundBrush()			{ return getTheme().brushes.background; }
+	HBRUSH getSofterBackgroundBrush()	{ return getTheme().brushes.softerBackground; }
+	HBRUSH getHotBackgroundBrush()		{ return getTheme().brushes.hotBackground; }
+	HBRUSH getDarkerBackgroundBrush()		{ return getTheme().brushes.pureBackground; }
+	HBRUSH getErrorBackgroundBrush()	{ return getTheme().brushes.errorBackground; }
 
 	// handle events
 
@@ -237,7 +249,7 @@ namespace NppDarkMode
 				rc.top -= 1;
 			}
 
-			FillRect(pUDM->hdc, &rc, NppDarkMode::getPureBackgroundBrush());
+			FillRect(pUDM->hdc, &rc, NppDarkMode::getDarkerBackgroundBrush());
 
 			*lr = 0;
 
@@ -301,7 +313,7 @@ namespace NppDarkMode
 
 			if (iBackgroundStateID == MPI_NORMAL || iBackgroundStateID == MPI_DISABLED)
 			{
-				FillRect(pUDMI->um.hdc, &pUDMI->dis.rcItem, NppDarkMode::getPureBackgroundBrush());
+				FillRect(pUDMI->um.hdc, &pUDMI->dis.rcItem, NppDarkMode::getDarkerBackgroundBrush());
 			}
 			else if (iBackgroundStateID == MPI_HOT || iBackgroundStateID == MPI_DISABLEDHOT)
 			{
@@ -824,7 +836,7 @@ namespace NppDarkMode
 
 			PAINTSTRUCT ps;
 			HDC hdc = BeginPaint(hWnd, &ps);
-			FillRect(hdc, &ps.rcPaint, NppDarkMode::getPureBackgroundBrush());
+			FillRect(hdc, &ps.rcPaint, NppDarkMode::getBackgroundBrush());
 
 			static HPEN g_hpen = CreatePen(PS_SOLID, 1, NppDarkMode::getEdgeColor());
 
@@ -870,7 +882,7 @@ namespace NppDarkMode
 
 					SetTextColor(hdc, (bHot || (i == nSelTab) ) ? NppDarkMode::getTextColor() : NppDarkMode::getDarkerTextColor());
 
-					FillRect(hdc, &rcItem, (i == nSelTab) ? NppDarkMode::getPureBackgroundBrush() : NppDarkMode::getBackgroundBrush());
+					FillRect(hdc, &rcItem, (i == nSelTab) ? NppDarkMode::getBackgroundBrush() : NppDarkMode::getSofterBackgroundBrush());
 
 					SetBkMode(hdc, TRANSPARENT);
 

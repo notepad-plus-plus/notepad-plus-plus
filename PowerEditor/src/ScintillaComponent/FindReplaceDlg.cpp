@@ -859,8 +859,8 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			}
 
 			SetTextColor((HDC)wParam, NppDarkMode::getTextColor());
-			SetBkColor((HDC)wParam, NppDarkMode::getPureBackgroundColor());
-			return (LRESULT)GetStockObject(BLACK_BRUSH);
+			SetBkColor((HDC)wParam, NppDarkMode::getBackgroundColor());
+			return (LRESULT)NppDarkMode::getBackgroundBrush();
 		}
 		case WM_PRINTCLIENT:
 		case WM_ERASEBKGND:
@@ -871,7 +871,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			}
 			RECT rc = { 0 };
 			getClientRect(rc);
-			FillRect((HDC)wParam, &rc, NppDarkMode::getPureBackgroundBrush());
+			FillRect((HDC)wParam, &rc, NppDarkMode::getBackgroundBrush());
 			SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, TRUE);
 			return TRUE;
 		}
@@ -3683,7 +3683,7 @@ void FindReplaceDlg::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 		}
 		else if (_statusbarFindStatus == FSMessage)
 		{
-			fgColor = RGB(0x50, 0x50, 0xFF); // blue
+			fgColor = RGB(0x70, 0x70, 0xFF); // blue
 		}
 		else if (_statusbarFindStatus == FSTopReached || _statusbarFindStatus == FSEndReached)
 		{
@@ -4430,8 +4430,8 @@ INT_PTR CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 				if (FSNotFound != getFindStatus())
 				{
 					SetTextColor((HDC)wParam, NppDarkMode::getTextColor());
-					SetBkColor((HDC)wParam, NppDarkMode::getPureBackgroundColor());
-					return (LRESULT)NppDarkMode::getPureBackgroundBrush();
+					SetBkColor((HDC)wParam, NppDarkMode::getBackgroundColor());
+					return (LRESULT)NppDarkMode::getBackgroundBrush();
 				}
 				else // text not found
 				{
@@ -4462,8 +4462,8 @@ INT_PTR CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			}
 
 			SetTextColor((HDC)wParam, NppDarkMode::getTextColor());
-			SetBkColor((HDC)wParam, NppDarkMode::getPureBackgroundColor());
-			return (LRESULT)GetStockObject(BLACK_BRUSH);
+			SetBkColor((HDC)wParam, NppDarkMode::getBackgroundColor());
+			return (LRESULT)NppDarkMode::getBackgroundBrush();
 		}
 
 		case NPPM_INTERNAL_REFRESHDARKMODE:
@@ -4577,15 +4577,25 @@ INT_PTR CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
 		case WM_ERASEBKGND:
 		{
-			HWND hParent = ::GetParent(_hSelf);
-			HDC winDC = (HDC)wParam;
-			//RTL handling
-			POINT pt = {0, 0}, ptOrig = {0, 0};
-			::MapWindowPoints(_hSelf, hParent, &pt, 1);
-			::OffsetWindowOrgEx((HDC)wParam, pt.x, pt.y, &ptOrig);
-			LRESULT lResult = SendMessage(hParent, WM_ERASEBKGND, reinterpret_cast<WPARAM>(winDC), 0);
-			::SetWindowOrgEx(winDC, ptOrig.x, ptOrig.y, NULL);
-			return (BOOL)lResult;
+			if (NppDarkMode::isEnabled()) 
+			{
+				RECT rcClient = { 0 };
+				GetClientRect(_hSelf, &rcClient);
+				FillRect((HDC)wParam, &rcClient, NppDarkMode::getBackgroundBrush());
+				return TRUE;
+			}
+			else
+			{
+				HWND hParent = ::GetParent(_hSelf);
+				HDC winDC = (HDC)wParam;
+				//RTL handling
+				POINT pt = { 0, 0 }, ptOrig = { 0, 0 };
+				::MapWindowPoints(_hSelf, hParent, &pt, 1);
+				::OffsetWindowOrgEx((HDC)wParam, pt.x, pt.y, &ptOrig);
+				LRESULT lResult = SendMessage(hParent, WM_ERASEBKGND, reinterpret_cast<WPARAM>(winDC), 0);
+				::SetWindowOrgEx(winDC, ptOrig.x, ptOrig.y, NULL);
+				return (BOOL)lResult;
+			}
 		}
 	}
 	return DefWindowProc(getHSelf(), message, wParam, lParam);

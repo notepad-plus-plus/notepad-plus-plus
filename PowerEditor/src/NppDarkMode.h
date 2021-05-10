@@ -2,6 +2,15 @@
 
 #include <Windows.h>
 
+constexpr COLORREF HEXRGB(DWORD rrggbb) {
+	// from 0xRRGGBB like natural #RRGGBB
+	// to the little-endian 0xBBGGRR
+	return
+		((rrggbb & 0xFF0000) >> 16) |
+		((rrggbb & 0x00FF00) ) |
+		((rrggbb & 0x0000FF) << 16);
+}
+
 namespace NppDarkMode
 {
 	struct Options
@@ -26,14 +35,15 @@ namespace NppDarkMode
 	COLORREF getBackgroundColor();
 	COLORREF getSofterBackgroundColor();
 	COLORREF getHotBackgroundColor();
-	COLORREF getPureBackgroundColor();
+	COLORREF getDarkerBackgroundColor();
+	COLORREF getErrorBackgroundColor();
+
 	COLORREF getTextColor();
 	COLORREF getDarkerTextColor();
 	COLORREF getEdgeColor();
-	COLORREF getErrorBackgroundColor();
 
 	HBRUSH getBackgroundBrush();
-	HBRUSH getPureBackgroundBrush();
+	HBRUSH getDarkerBackgroundBrush();
 	HBRUSH getSofterBackgroundBrush();
 	HBRUSH getHotBackgroundBrush();
 	HBRUSH getErrorBackgroundBrush();

@@ -203,6 +203,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
     {
         themeDir = nppParams.getAppDataNppDir();
 	    PathAppend(themeDir, TEXT("themes\\"));
+		themeSwitcher.setThemeDirPath(themeDir);
 	    _notepad_plus_plus_core.getMatchedFileNames(themeDir.c_str(), patterns, fileNames, false, false);
 	    for (size_t i = 0, len = fileNames.size() ; i < len ; ++i)
 	    {

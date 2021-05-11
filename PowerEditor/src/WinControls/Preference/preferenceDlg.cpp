@@ -791,11 +791,6 @@ INT_PTR CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 	return FALSE;
 }
 
-void DarkModeSubDlg::enableDependentControls()
-{
-	bool experimentalEnabled = isCheckedOrNot(IDC_CHECK_DARKMODE_ENABLE_EXPERIMENTAL);
-	EnableWindow(GetDlgItem(_hSelf, IDC_CHECK_DARKMODE_ENABLE_SCROLLBAR_HACK), experimentalEnabled ? TRUE : FALSE);
-}
 
 INT_PTR CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -808,11 +803,6 @@ INT_PTR CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 		case WM_INITDIALOG:
 		{
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_DARKMODE_ENABLE, BM_SETCHECK, nppGUI._darkmode.enable, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_DARKMODE_ENABLE_EXPERIMENTAL, BM_SETCHECK, nppGUI._darkmode.enableExperimental, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_DARKMODE_ENABLE_MENUBAR, BM_SETCHECK, nppGUI._darkmode.enableMenubar, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_DARKMODE_ENABLE_SCROLLBAR_HACK, BM_SETCHECK, nppGUI._darkmode.enableScrollbarHack, 0);
-
-			enableDependentControls();
 
 			ETDTProc enableDlgTheme = (ETDTProc)nppParam.getEnableThemeDlgTexture();
 			if (enableDlgTheme)
@@ -826,8 +816,12 @@ INT_PTR CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			switch (wParam)
 			{
 				case IDC_CHECK_DARKMODE_ENABLE:
-					nppGUI._darkmode.enable = isCheckedOrNot(static_cast<int>(wParam));
-					
+					bool enableDarkMode = isCheckedOrNot(static_cast<int>(wParam));
+					nppGUI._darkmode.enable = enableDarkMode;
+					nppGUI._darkmode.enableExperimental = enableDarkMode;
+					nppGUI._darkmode.enableMenubar = enableDarkMode;
+					nppGUI._darkmode.enableScrollbarHack = enableDarkMode;
+
 					// if dark mode enabled & TB_STANDARD is selected, switch to TB_SMALL
 					if (nppGUI._darkmode.enable)
 					{
@@ -838,24 +832,11 @@ INT_PTR CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					}
 					changed = true;
 					break;
-				case IDC_CHECK_DARKMODE_ENABLE_EXPERIMENTAL:
-					nppGUI._darkmode.enableExperimental = isCheckedOrNot(static_cast<int>(wParam));
-					changed = true;
-					break;
-				case IDC_CHECK_DARKMODE_ENABLE_MENUBAR:
-					nppGUI._darkmode.enableMenubar = isCheckedOrNot(static_cast<int>(wParam));
-					changed = true;
-					break;
-				case IDC_CHECK_DARKMODE_ENABLE_SCROLLBAR_HACK:
-					nppGUI._darkmode.enableScrollbarHack = isCheckedOrNot(static_cast<int>(wParam));
-					changed = true;
-					break;
 			}
 
 			if (changed)
 			{
 				NppDarkMode::refreshDarkMode(_hSelf);
-				enableDependentControls();
 				return TRUE;
 			}
 

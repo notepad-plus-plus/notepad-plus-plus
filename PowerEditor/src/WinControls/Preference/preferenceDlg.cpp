@@ -219,7 +219,7 @@ INT_PTR CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			if (!lParam)
 				return FALSE;
 
-			bool isChecked = _generalSubDlg.isCheckedOrNot(wParam);
+			bool isChecked = _generalSubDlg.isCheckedOrNot(static_cast<int>(wParam));
 			*((bool*)lParam) = isChecked;
 			return TRUE;
 		}

@@ -214,6 +214,20 @@ INT_PTR CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			return TRUE;
 		}
 
+		case PREF_MSG_ISCHECKED_GENERALPAGE:
+		{
+			if (!lParam)
+				return FALSE;
+
+			bool isChecked = _generalSubDlg.isCheckedOrNot(wParam);
+			*((bool*)lParam) = isChecked;
+			return TRUE;
+		}
+
+		case PREF_MSG_SETTOOLICONSFROMSTDTOSMALL:
+			_generalSubDlg.setToolIconsFromStdToSmall();
+			return TRUE;
+
 		case WM_COMMAND :
 		{
 			if (LOWORD(wParam) == IDC_LIST_DLGTITLE)
@@ -357,6 +371,13 @@ void PreferenceDlg::destroy()
 	_autoCompletionSubDlg.destroy();
 	_multiInstanceSubDlg.destroy();
 	_delimiterSubDlg.destroy();
+}
+
+void GeneralSubDlg::setToolIconsFromStdToSmall()
+{
+	::SendDlgItemMessage(_hSelf, IDC_RADIO_STANDARD, BM_SETCHECK, BST_UNCHECKED, 0);
+	::SendDlgItemMessage(_hSelf, IDC_RADIO_SMALLICON, BM_SETCHECK, BST_CHECKED, 0);
+	::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_TOOLBAR_REDUCE, 0);
 }
 
 INT_PTR CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
@@ -806,6 +827,15 @@ INT_PTR CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			{
 				case IDC_CHECK_DARKMODE_ENABLE:
 					nppGUI._darkmode.enable = isCheckedOrNot(static_cast<int>(wParam));
+					
+					// if dark mode enabled & TB_STANDARD is selected, switch to TB_SMALL
+					if (nppGUI._darkmode.enable)
+					{
+						bool isStandardChecked = false;
+						::SendMessage(_hParent, PREF_MSG_ISCHECKED_GENERALPAGE, IDC_RADIO_STANDARD, LPARAM(&isStandardChecked));
+						if (isStandardChecked)
+							::SendMessage(_hParent, PREF_MSG_SETTOOLICONSFROMSTDTOSMALL, 0, 0);
+					}
 					changed = true;
 					break;
 				case IDC_CHECK_DARKMODE_ENABLE_EXPERIMENTAL:

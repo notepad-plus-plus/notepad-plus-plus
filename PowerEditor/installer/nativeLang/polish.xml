@@ -5,7 +5,7 @@ The comments are here for explanation, it's not necessary to translate them.
 <!--
     History of Polish translation for Notepad++:
 
-        - Updated by Arkadiusz Michalski (webref.pl) to version 7.9.4 (07.03.2021)
+        - Updated by Arkadiusz Michalski (webref.pl) to version 7.9.6 (13.05.2021)
         - Updated by Cezariusz Marek to version 7.8.3 (11.01.2020)
         - Translated by Patryk Skorupa (ppskorupa@outlook.com) and up-to-date as of version 7.7.2 (29/07/2019)
     
@@ -13,7 +13,7 @@ The comments are here for explanation, it's not necessary to translate them.
         https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/polish.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="polski" filename="polish.xml" version="7.9.4">
+    <Native-Langue name="polski" filename="polish.xml" version="7.9.6">
         <Menu>
             <Main>
                 <!-- Główne menu -->
@@ -46,8 +46,9 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item subMenuId="edit-blankOperations" name="Działania na białych znakach"/>
                     <Item subMenuId="edit-pasteSpecial" name="Wklej specjalnie"/>
                     <Item subMenuId="edit-onSelection" name="Z zaznaczenia"/>
-                    <Item subMenuId="search-markAll" name="Zaznacz wszystko"/>
-                    <Item subMenuId="search-unmarkAll" name="Odznacz wszystko"/>
+                    <Item subMenuId="search-markAll" name="Wyróżnij każde"/>
+                    <Item subMenuId="search-markOne" name="Wyróżnij jedno"/>
+                    <Item subMenuId="search-unmarkAll" name="Usuń wyróżnienia"/>
                     <Item subMenuId="search-jumpUp" name="Przejdź wyżej"/>
                     <Item subMenuId="search-jumpDown" name="Przejdź niżej"/>
                     <Item subMenuId="search-copyStyledText" name="Kopiuj ostylowany tekst"/>
@@ -138,6 +139,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42064" name="Sortuj malejąco jako liczby dziesiętne z przecinkiem"/>
                     <Item id="42065" name="Sortuj rosnąco jako liczby dziesiętne z kropką"/>
                     <Item id="42066" name="Sortuj malejąco jako liczby dziesiętne z kropką"/>
+                    <Item id="42083" name="Odwróć kolejność linii"/>
                     <Item id="42078" name="Sortuj linie losowo"/>
                     <Item id="42016" name="&amp;MAJUSKUŁY"/>
                     <Item id="42017" name="mi&amp;nuskuły"/>
@@ -242,6 +244,11 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43059" name="Wyróżnienie 5."/>
                     <Item id="43060" name="Wszystkie wyróżnienia"/>
                     <Item id="43061" name="Wszystkie oznaczenia"/>
+                    <Item id="43062" name="Wyróżnienie 1."/>
+                    <Item id="43063" name="Wyróżnienie 2."/>
+                    <Item id="43064" name="Wyróżnienie 3."/>
+                    <Item id="43065" name="Wyróżnienie 4."/>
+                    <Item id="43066" name="Wyróżnienie 5."/>
                     <Item id="43045" name="Okno wyników wyszukiwania"/>
                     <Item id="43046" name="Następny wynik wyszukiwania"/>
                     <Item id="43047" name="Poprzedni wynik wyszukiwania"/>
@@ -250,6 +257,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43054" name="Oz&amp;nacz..."/>
                     <Item id="44009" name="Przełącz tryb Post-It"/>
                     <Item id="44010" name="Zwiń wszystko"/>
+                    <Item id="44011" name="Tryb antyrozpraszania"/> <!-- Tryb wolny od rozpraszania uwagi -->
                     <Item id="44019" name="Pokaż wszystkie znaki"/>
                     <Item id="44020" name="Pokaż prowadnice kolumn"/>
                     <Item id="44022" name="Zawijaj wiersze"/>
@@ -293,14 +301,14 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="45003" name="Konwertuj na format Macintosh (CR)"/>
                     <Item id="45004" name="Koduj w ANSI"/>
                     <Item id="45005" name="Koduj w UTF-8-BOM"/>
-                    <Item id="45006" name="Koduj w UCS-2 BE BOM"/>
-                    <Item id="45007" name="Koduj w UCS-2 LE BOM"/>
+                    <Item id="45006" name="Koduj w UTF-16 BE BOM"/>
+                    <Item id="45007" name="Koduj w UTF-16 LE BOM"/>
                     <Item id="45008" name="Koduj w UTF-8"/>
                     <Item id="45009" name="Konwertuj na format ANSI"/>
                     <Item id="45010" name="Konwertuj na format UTF-8"/>
                     <Item id="45011" name="Konwertuj na format UTF-8-BOM"/>
-                    <Item id="45012" name="Konwertuj na format UCS-2 BE BOM"/>
-                    <Item id="45013" name="Konwertuj na format UCS-2 LE BOM"/>
+                    <Item id="45012" name="Konwertuj na format UTF-16 BE BOM"/>
+                    <Item id="45013" name="Konwertuj na format UTF-16 LE BOM"/>
                     <Item id="45060" name="Big5 (Tradycyjny)"/>
                     <Item id="45061" name="GB2312 (Uproszczony)"/>
                     <Item id="45054" name="OEM 861: islandzki"/>
@@ -549,16 +557,21 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="45001" name="Konwertuj na format Windows (CR LF)"/>
                     <Item id="45002" name="Konwertuj na format Unix (LF)"/>
                     <Item id="45003" name="Konwertuj na format Macintosh (CR)"/>
-                    <Item id="43022" name="Nadaj wyróżnienie 1."/>
-                    <Item id="43024" name="Nadaj wyróżnienie 2."/>
-                    <Item id="43026" name="Nadaj wyróżnienie 3."/>
-                    <Item id="43028" name="Nadaj wyróżnienie 4."/>
-                    <Item id="43030" name="Nadaj wyróżnienie 5."/>
-                    <Item id="43023" name="Usuń wyróżnienie 1."/>
-                    <Item id="43025" name="Usuń wyróżnienie 2."/>
-                    <Item id="43027" name="Usuń wyróżnienie 3."/>
-                    <Item id="43029" name="Usuń wyróżnienie 4."/>
-                    <Item id="43031" name="Usuń wyróżnienie 5."/>
+                    <Item id="43022" name="Nadaj wyróżnienia 1."/>
+                    <Item id="43024" name="Nadaj wyróżnienia 2."/>
+                    <Item id="43026" name="Nadaj wyróżnienia 3."/>
+                    <Item id="43028" name="Nadaj wyróżnienia 4."/>
+                    <Item id="43030" name="Nadaj wyróżnienia 5."/>
+                    <Item id="43062" name="Nadaj wyróżnienie 1."/>
+                    <Item id="43063" name="Nadaj wyróżnienie 2."/>
+                    <Item id="43064" name="Nadaj wyróżnienie 3."/>
+                    <Item id="43065" name="Nadaj wyróżnienie 4."/>
+                    <Item id="43066" name="Nadaj wyróżnienie 5."/>
+                    <Item id="43023" name="Usuń wyróżnienia 1."/>
+                    <Item id="43025" name="Usuń wyróżnienia 2."/>
+                    <Item id="43027" name="Usuń wyróżnienia 3."/>
+                    <Item id="43029" name="Usuń wyróżnienia 4."/>
+                    <Item id="43031" name="Usuń wyróżnienia 5."/>
                     <Item id="43032" name="Usuń wszystkie wyróżnienia"/>
                     <Item id="43033" name="Poprzednie wyróżnienie 1."/>
                     <Item id="43034" name="Poprzednie wyróżnienie 2."/>
@@ -800,9 +813,11 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Global title="Ogólne">
                     <Item id="6101" name="Pasek narzędzi"/>
                     <Item id="6102" name="Ukryj"/>
-                    <Item id="6103" name="Małe ikony"/>
-                    <Item id="6104" name="Duże ikony"/>
-                    <Item id="6105" name="Normalne ikony"/>
+                    <Item id="6103" name="Fluent UI: małe ikony"/>
+                    <Item id="6104" name="Fluent UI: duże ikony"/>
+                    <Item id="6129" name="Filled Fluent UI: małe ikony"/>
+                    <Item id="6130" name="Filled Fluent UI: duże ikony"/>
+                    <Item id="6105" name="Klasyczny wygląd: małe ikony"/>
 
                     <Item id="6106" name="Pasek kart"/>
                     <Item id="6107" name="Mały"/>
@@ -845,6 +860,11 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6239" name="Zachowaj zaznaczenie po kliku prawym przyciskiem myszy poza zaznaczeniem"/>
                 </Scintillas>
 
+                <DarkMode title="Tryb ciemny">
+                    <Item id="7101" name="Włącz tryb ciemny"/>
+                    <Item id="7106" name="* Notepad ++ musi zostać ponownie uruchomiony, aby całkowicie zastosować te zmiany."/>
+                </DarkMode>
+
                 <MarginsBorderEdge title="Marginesy i Krawędzie"> <!-- Marginesy/Ramka/Krawędź -->
                     <Item id="6201" name="Styl marginesu"/>
                     <Item id="6202" name="Prosty"/>
@@ -863,6 +883,10 @@ The comments are here for explanation, it's not necessary to translate them.
 Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych liczb znakami spacji."/>
                     <Item id="6231" name="Grubość ramki"/>
                     <Item id="6235" name="Brak obrysu"/>
+                    <Item id="6208" name="Odstęp wewnętrzny"/>
+                    <Item id="6209" name="Lewy"/>
+                    <Item id="6210" name="Prawy"/>
+                    <Item id="6212" name="Dla antyrozpraszania"/>
                 </MarginsBorderEdge>
 
                 <NewDoc title="Nowy dokument">
@@ -874,8 +898,8 @@ Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych lic
                     <Item id="6406" name="ANSI"/>
                     <Item id="6407" name="UTF-8"/>
                     <Item id="6408" name="UTF-8 z BOM"/>
-                    <Item id="6409" name="UCS-2 Big Endian z BOM"/>
-                    <Item id="6410" name="UCS-2 Little Endian z BOM"/>
+                    <Item id="6409" name="UTF-16 Big Endian z BOM"/>
+                    <Item id="6410" name="UTF-16 Little Endian z BOM"/>
                     <Item id="6411" name="Domyślny język:"/>
                     <Item id="6419" name="Nowy dokument"/>
                     <Item id="6420" name="Stosuj do otwartych plików ANSI"/>
@@ -905,17 +929,21 @@ Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych lic
                     <Item id="6335" name="Używaj „\” jako znaku ucieczki SQL"/>
                 </Language>
 
-                <Highlighting title="Oznaczanie">
-                    <Item id="6333" name="Inteligentne oznaczanie"/>
+                <Highlighting title="Podświetlanie">
+                    <Item id="6351" name="Wyróżniając każde"/>
+                    <Item id="6352" name="Patrz na wielkość liter"/>
+                    <Item id="6353" name="Patrz tylko na całe słowa"/>
+                    <Item id="6333" name="Inteligentne podświetlanie"/>
                     <Item id="6326" name="Włącz"/>
+                    <Item id="6354" name="Dopasowując"/>
                     <Item id="6332" name="Patrz na wielkość liter"/>
                     <Item id="6338" name="Patrz tylko na całe słowa"/>
-                    <Item id="6339" name="Używaj ustawień szukania"/>
-                    <Item id="6340" name="Oznaczaj w obu widokach"/>
-                    <Item id="6329" name="Oznaczanie pasujących znaczników"/>
+                    <Item id="6339" name="Używaj ustawień z okna wyszukiwania"/>
+                    <Item id="6340" name="Podświetlaj w obu widokach"/>
+                    <Item id="6329" name="Podświetlaj pasujące znaczniki"/>
                     <Item id="6327" name="Włącz"/>
                     <Item id="6328" name="Podświetlaj atrybuty"/>
-                    <Item id="6330" name="Strefy komentarzy/php/asp"/>
+                    <Item id="6330" name="Podświetlaj strefy komentarzy/php/asp"/>
                 </Highlighting>
 
                 <Print title="Drukowanie">
@@ -953,6 +981,7 @@ Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych lic
                     <Item id="6902" name="W oknie wyszukiwania użyj nieproporcjonalnego fontu (wymagany restart Notepad++)"/>
                     <Item id="6903" name="Okno wyszukiwania pozostaje otwarte po przywołaniu okna z wynikami wyszukiwania"/>
                     <Item id="6904" name="Potwierdź operację „Zamień we wszystkich otwartych plikach”"/>
+                    <Item id="6905" name="Po wykonaniu operacji „Zamień” nie przechodź do następnego wystąpienia"/>
                 </Searching>
 
                 <RecentFilesHistory title="Historia ostatnich plików">
@@ -1055,7 +1084,6 @@ Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych lic
                     <Item id="6325" name="Przewiń na koniec po uaktualnieniu"/>
                     <Item id="6322" name="Rozszerzenie pliku sesji:"/>
                     <Item id="6323" name="Automatycznie aktualizuj Notepad++"/>
-                    <Item id="6351" name="W oknie zapisu ustaw filtr rozszerzenia pliku na *.*"/>
                     <Item id="6324" name="Przełączanie dokumentów (Ctrl+TAB)"/>
                     <Item id="6331" name="Pokazuj w pasku tytułu tylko nazwę pliku"/>
                     <Item id="6334" name="Automatycznie wykrywaj kodowanie"/>
@@ -1123,7 +1151,7 @@ Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych lic
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title="Edycja menu kontekstowego" message="Edycja pliku contextMenu.xml pozwala na zmianę menu kontekstowego dostępnego w Notepad++ pod prawym przyciskiem myszy.
-Żeby zmiany dokonane contextMenu.xml weszły w życie, konieczne jest ponowne uruchomienie Notepad++."/>
+Żeby zmiany dokonane w pliku contextMenu.xml weszły w życie, konieczne jest ponowne uruchomienie Notepad++."/>
             <SaveCurrentModifWarning title="Zapis bieżących zmian" message="Bieżące zmiany muszą zostać zapisane.
 Po zapisaniu nie będzie można ich wycofać.
 
@@ -1340,6 +1368,7 @@ Szukaj wśród wszystkich plików z wyjątkiem exe, obj i log:
             <find-status-replaceinopenedfiles-nb-replaced value="Liczba zamienionych wystąpień w otwartych plikach: $INT_REPLACE$"/>
             <find-status-mark-re-malformed value="Zaznaczanie: Wyrażenie jest zniekształcone"/>
             <find-status-invalid-re value="Szukanie: Nieprawidłowe wyrażenie"/>
+            <find-status-search-failed value="Szukanie: Nie powiodło się"/>
             <find-status-mark-1-match value="Zaznaczanie: 1 trafienie"/>
             <find-status-mark-nb-matches value="Liczba trafnych zaznaczeń: $INT_REPLACE$"/>
             <find-status-count-re-malformed value="Wystąpienia: Wyrażenie jest zniekształcone"/>
@@ -1352,6 +1381,7 @@ Szukaj wśród wszystkich plików z wyjątkiem exe, obj i log:
             <find-status-replace-end-reached value="Zamienianie: Plik przeszukano do dołu. Zamieniono 1. wystąpienie od góry."/>
             <find-status-replace-top-reached value="Zamienianie: Plik przeszukano do góry. Zamieniono 1. wystąpienie od dołu."/>
             <find-status-replaced-next-found value="Zamienianie: Zamieniono 1 wystąpienie. Znaleziono kolejne do zamiany."/>
+            <find-status-replaced-without-continuing value="Zamienianie: Zamieniono 1 wystąpienie."/>
             <find-status-replaced-next-not-found value="Zamienianie: Zamieniono 1 wystąpienie. Nie znaleziono kolejnych do zamiany."/>
             <find-status-replace-not-found value="Zamienianie: Nie znaleziono wystąpień do zamiany."/>
             <find-status-replace-readonly value="Zamienianie: Nie można zamienić. Plik jest dostępny tylko do odczytu."/>
@@ -1366,9 +1396,11 @@ Szukaj wśród wszystkich plików z wyjątkiem exe, obj i log:
             <finder-uncollapse-all value="Rozwiń wszystko"/>
             <finder-copy value="Kopiuj zaznaczone linie"/>
             <finder-copy-verbatim value="Kopiuj"/>
+            <finder-copy-paths value="Kopiuj ścieżki"/>
             <finder-select-all value="Zaznacz wszystko"/>
-            <finder-clear-all value="Odznacz wszystko"/>
+            <finder-clear-all value="Usuń wszystko"/>
             <finder-open-all value="Otwórz wszystko"/>
+            <finder-purge-for-every-search value="Wyczyść dla każdego wyszukiwania"/>
             <finder-wrap-long-lines value="Zawijaj długie wiersze"/>
             <common-ok value="OK"/>
             <common-cancel value="Anuluj"/>
@@ -1413,6 +1445,8 @@ Szukaj wśród wszystkich plików z wyjątkiem exe, obj i log:
             <find-result-line-prefix value="Linia"/> <!-- Must not begin with space or tab character -->
             <find-regex-zero-length-match value="dopasowanie o zerowej długości" />
             <session-save-folder-as-workspace value="Zapisz obszar roboczy" />
+            <tab-untitled-string value="nowy " />
+            <file-save-assign-type value="&amp;Dodaj rozszerzenie" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

@@ -771,9 +771,11 @@
                 <Global title="一般">
                     <Item id="6101" name="工具列"/>
                     <Item id="6102" name="隱藏"/>
-                    <Item id="6103" name="小圖示"/>
-                    <Item id="6104" name="大圖示"/>
-                    <Item id="6105" name="標準圖示"/>
+                    <Item id="6103" name="Fluent UI: 小圖示"/>
+                    <Item id="6104" name="Fluent UI: 大圖示"/>
+                    <Item id="6129" name="Filled Fluent UI: 小圖示"/>
+                    <Item id="6130" name="Filled Fluent UI: 大圖示"/>
+                    <Item id="6105" name="標準: : 小圖示"/>
                     <Item id="6106" name="頁籤列"/>
                     <Item id="6107" name="小型"/>
                     <Item id="6108" name="鎖定（禁止拖曳）"/>
@@ -810,6 +812,11 @@
                     <Item id="6236" name="允許捲動至超出最後一行"/>
                     <Item id="6239" name="在選擇範圍之外點擊滑鼠右鍵時仍保留選擇範圍"/> 
                 </Scintillas>
+
+                <DarkMode title="黑暗模式">
+                    <Item id="7101" name="啟動黑暗模式"/>
+                    <Item id="7106" name="* 必須重新開啟 Notepad++ 以讓黑暗模式完全啟動"/>
+                </DarkMode>
 
                 <MarginsBorderEdge title="邊距/邊界/行界線">
                     <Item id="6201" name="摺疊符號"/>
@@ -1081,7 +1088,7 @@
                 <Item id="1720" name="「.」包含換行字元"/>
             </FindInFinder>
             <DoSaveOrNot title="儲存檔案"> 
-                <Item id="1761" name="您要儲存「$STR_REPLACE$」嗎？"/>
+                <Item id="1761" name="你要儲存「$STR_REPLACE$」嗎？"/>
                 <Item id="6" name="好吧(&amp;Y)"/>
                 <Item id="7" name="不要啦(&amp;N)"/>
                 <Item id="2" name="取消(&amp;C)"/>

@@ -5,7 +5,7 @@ Modifications until 2018-03-26 by Klaas Nekeman (knekeman(at)gmail.com).
 Modifications until 2020-05-26 by xylographe <wr86420@gmail.com>.
 Modifications from 2020-01-28 and onwards by Thomas De Rocker (RockyTDR)
 
-Last modified on 2021-05-07 by Thomas De Rocker (RockyTDR).
+Last modified on 2021-05-12 by Thomas De Rocker (RockyTDR).
 -->
 <NotepadPlus>
     <Native-Langue name="Nederlands" filename="dutch.xml" version="7.9.4">
@@ -134,6 +134,7 @@ Last modified on 2021-05-07 by Thomas De Rocker (RockyTDR).
                     <Item id="42064" name="Regels als decimalen (komma) aflopend sorteren"/>
                     <Item id="42065" name="Regels als decimalen (punt) oplopend sorteren"/>
                     <Item id="42066" name="Regels als decimalen (punt) aflopend sorteren"/>
+                    <Item id="42083" name="Regelvolgorde omkeren"/>
                     <Item id="42078" name="Regels willekeurig sorteren"/>
                     <Item id="42016" name="HOOFDLETTERS"/>
                     <Item id="42017" name="kleine letters"/>
@@ -807,9 +808,11 @@ Last modified on 2021-05-07 by Thomas De Rocker (RockyTDR).
                 <Global title="Algemeen">
                     <Item id="6101" name="Werkbalk"/>
                     <Item id="6102" name="Verbergen"/>
-                    <Item id="6103" name="Kleine pictogrammen"/>
-                    <Item id="6104" name="Grote pictogrammen"/>
-                    <Item id="6105" name="Standaardpictogrammen"/>
+                    <Item id="6103" name="Vloeiende UI: klein"/>
+                    <Item id="6104" name="Vloeiende UI: groot"/>
+                    <Item id="6129" name="Gevulde vloeiende UI: klein"/>
+                    <Item id="6130" name="Gevulde vloeiende UI: groot"/>
+                    <Item id="6105" name="Standaardpictogrammen: klein"/>
 
                     <Item id="6106" name="Tabblad-balk"/>
                     <Item id="6107" name="Kleine tabs"/>
@@ -851,6 +854,11 @@ Last modified on 2021-05-07 by Thomas De Rocker (RockyTDR).
                     <Item id="6236" name="Scrollen voorbij laatste regel inschakelen"/>
                     <Item id="6239" name="Selectie behouden bij rechtsklikken buiten selectie"/>
                 </Scintillas>
+
+                <DarkMode title="Donkere modus">
+                    <Item id="7101" name="Donkere modus inschakelen"/>
+                    <Item id="7106" name="* Notepad++ moet opnieuw worden gestart om volledig van kracht te worden"/>
+                </DarkMode>
 
                 <MarginsBorderEdge title="Marges/grens/rand">
                     <Item id="6201" name="Stijl map-marge"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 7.9.6  9/May/2021  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 7.9.6  12/May/2021  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
@@ -184,6 +184,7 @@
 					<Item id = "42080" name = "Setřídit řádky (ignorovat velikost písmen) vzestupně"/>
 					<Item id = "42081" name = "Setřídit řádky (ignorovat velikost písmen) sestupně"/>
 					<Item id = "42082" name = "Kopírovat odkaz"/>
+					<Item id = "42083" name = "Obrátit pořadí řádků"/>
 					<Item id = "43001" name = "&amp;Najít..."/>
 					<Item id = "43002" name = "Najít &amp;další"/>
 					<Item id = "43003" name = "Nahradit..."/>
@@ -866,9 +867,9 @@
 				<Global title = "Obecné">
 					<Item id = "6101" name = "Nástrojová lišta"/>
 					<Item id = "6102" name = "Skrýt"/>
-					<Item id = "6103" name = "Malé ikony"/>
-					<Item id = "6104" name = "Velké ikony"/>
-					<Item id = "6105" name = "Standardní ikony"/>
+					<Item id = "6103" name = "Fluent UI: malé ikony"/>
+					<Item id = "6104" name = "Fluent UI: velké ikony"/>
+					<Item id = "6105" name = "Standardní: malé ikony"/>
 					<Item id = "6106" name = "Lišta záložek"/>
 					<Item id = "6107" name = "Zmenšit"/>
 					<Item id = "6108" name = "Uzamknout (nelze přetahovat záložky)"/>
@@ -890,6 +891,8 @@
 					<Item id = "6126" name = "Zobrazit"/>
 					<Item id = "6127" name = "Nepoužívat sloupec s extenzemi"/>
 					<Item id = "6128" name = "Alternativní ikony"/>
+					<Item id = "6129" name = "Fluent UI: malé ikony s výplní"/>
+					<Item id = "6130" name = "Fluent UI: velké ikony s výplní"/>
 				</Global>
 				<Scintillas title = "Editace">
 					<Item id = "6214" name = "Zvýraznit aktivní řádek"/>
@@ -908,6 +911,10 @@
 					<Item id = "6236" name = "Povolit rolování za poslední řádku"/>
 					<Item id = "6239" name = "Ponechat výběr, když kliknete pravým tlačítkem mimo výběr"/>
 				</Scintillas>
+				 <DarkMode title="Tmavý režim">
+					<Item id="7101" name="Povolit tmavý režim"/>
+					<Item id="7106" name="* Notepad++ musí být restartován, aby se efekt projevil kompletně"/>
+				</DarkMode>
 				<MarginsBorderEdge title="Okraje/Lem/Hrana">
 					<Item id = "6201" name = "Styl sbalovače na okraji"/>
 					<Item id = "6202" name = "Jednoduchý"/>

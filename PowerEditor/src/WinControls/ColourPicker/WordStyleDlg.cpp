@@ -226,8 +226,8 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 							NppParameters& nppParamInst = NppParameters::getInstance();
 							if (_restoreInvalid)
 							{
-								generic_string str( nppParamInst.getNppGUI()._themeName );
-								nppParamInst.reloadStylers( &str[0] );
+								generic_string str(nppParamInst.getNppGUI()._themeName);
+								nppParamInst.reloadStylers(str.c_str());
 							}
 
 							LexerStylerArray & lsArray = nppParamInst.getLStylerArray();
@@ -395,11 +395,7 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 										break;
 
 									case IDC_SWITCH2THEME_COMBO :
-										switchToTheme();
-										setVisualFromStyleList();
-										notifyDataModified();
-										_isThemeDirty = false;
-										apply();
+										applyCurrentSelectedThemeAndUpdateUI();
 										break;
 								}
 								return TRUE;
@@ -646,11 +642,33 @@ void WordStyleDlg::switchToTheme()
 		if ( mb_response == IDYES )
 			(NppParameters::getInstance()).writeStyles(_lsArray, _globalStyles);
 	}
-	nppParamInst.reloadStylers(&_themeName[0]);
+	nppParamInst.reloadStylers(_themeName.c_str());
 
 	loadLangListFromNppParam();
 	_restoreInvalid = true;
 
+}
+
+void WordStyleDlg::applyCurrentSelectedThemeAndUpdateUI()
+{
+	switchToTheme();
+	setVisualFromStyleList();
+	notifyDataModified();
+	_isThemeDirty = false;
+	apply();
+}
+
+bool WordStyleDlg::selectThemeByName(const TCHAR* themeName)
+{
+	LRESULT iTheme = ::SendMessage(_hSwitch2ThemeCombo, CB_FINDSTRING, 1, reinterpret_cast<LPARAM>(themeName));
+	if (iTheme == CB_ERR)
+		return false;
+
+	::SendMessage(_hSwitch2ThemeCombo, CB_SETCURSEL, iTheme, 0);
+
+	applyCurrentSelectedThemeAndUpdateUI();
+
+	return true;
 }
 
 void WordStyleDlg::setStyleListFromLexer(int index)

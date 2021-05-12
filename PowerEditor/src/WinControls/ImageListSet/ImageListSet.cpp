@@ -49,6 +49,29 @@ void IconList::addIcon(int iconID) const
 	ImageList_AddIcon(_hImglst, hIcon);
 	::DestroyIcon(hIcon);
 };
+/*
+bool IconList::addInvertIcon(int iconID) const
+{
+	HICON hIcon = ::LoadIcon(_hInst, MAKEINTRESOURCE(iconID));
+	if (!hIcon)
+		throw std::runtime_error("IconList::addIcon : LoadIcon() function return null");
+
+	HICON hColorInvertedIcon = invertColour(hIcon);
+
+	if (hColorInvertedIcon)
+		ImageList_AddIcon(_hImglst, hColorInvertedIcon);
+
+	::DestroyIcon(hIcon);
+
+	return hColorInvertedIcon != 0;
+}
+
+HICON IconList::invertColour(HICON hIcon) const
+{
+	// Light mode in, dark mode out
+	return NULL;
+}
+*/
 
 void IconList::addIcon(HICON hIcon) const
 {
@@ -91,6 +114,12 @@ void ToolBarIcons::reInit(int size)
 	ImageList_SetIconSize(getDefaultLstSet2(), size, size);
 	ImageList_SetIconSize(getDisableLstSet2(), size, size);
 
+	ImageList_SetIconSize(getDefaultLstDM(), size, size);
+	ImageList_SetIconSize(getDisableLstDM(), size, size);
+
+	ImageList_SetIconSize(getDefaultLstSetDM2(), size, size);
+	ImageList_SetIconSize(getDisableLstSetDM2(), size, size);
+
 	for (size_t i = 0, len = _tbiis.size(); i < len; ++i)
 	{
 		if (_tbiis[i]._defaultIcon != -1)
@@ -99,18 +128,30 @@ void ToolBarIcons::reInit(int size)
 			_iconListVector[HLIST_DISABLE].addIcon(_tbiis[i]._grayIcon);
 			_iconListVector[HLIST_DEFAULT2].addIcon(_tbiis[i]._defaultIcon2);
 			_iconListVector[HLIST_DISABLE2].addIcon(_tbiis[i]._grayIcon2);
+
+			_iconListVector[HLIST_DEFAULT_DM].addIcon(_tbiis[i]._defaultDarkModeIcon);
+			_iconListVector[HLIST_DISABLE_DM].addIcon(_tbiis[i]._grayDarkModeIcon);
+			_iconListVector[HLIST_DEFAULT_DM2].addIcon(_tbiis[i]._defaultDarkModeIcon2);
+			_iconListVector[HLIST_DISABLE_DM2].addIcon(_tbiis[i]._grayDarkModeIcon2);
 		}
 	}
 
-	// Add dynamic icons
+	// Add dynamic icons (from plugins)
 	for (auto i : _moreCmds)
 	{
 		_iconListVector[HLIST_DEFAULT].addIcon(i._hIcon);
 		_iconListVector[HLIST_DISABLE].addIcon(i._hIcon);
 		_iconListVector[HLIST_DEFAULT2].addIcon(i._hIcon);
 		_iconListVector[HLIST_DISABLE2].addIcon(i._hIcon);
+
+
+		_iconListVector[HLIST_DEFAULT_DM].addIcon(i._hIcon);
+		_iconListVector[HLIST_DISABLE_DM].addIcon(i._hIcon);
+		_iconListVector[HLIST_DEFAULT_DM2].addIcon(i._hIcon);
+		_iconListVector[HLIST_DISABLE_DM2].addIcon(i._hIcon);
 	}
 }
+
 
 void ToolBarIcons::create(HINSTANCE hInst, int iconSize)
 {
@@ -118,11 +159,22 @@ void ToolBarIcons::create(HINSTANCE hInst, int iconSize)
 	_iconListVector.push_back(IconList());
 	_iconListVector.push_back(IconList());
 	_iconListVector.push_back(IconList());
+	
+	_iconListVector.push_back(IconList());
+	_iconListVector.push_back(IconList());
+	_iconListVector.push_back(IconList());
+	_iconListVector.push_back(IconList());
+	
 
 	_iconListVector[HLIST_DEFAULT].init(hInst, iconSize);
 	_iconListVector[HLIST_DISABLE].init(hInst, iconSize);
 	_iconListVector[HLIST_DEFAULT2].init(hInst, iconSize);
 	_iconListVector[HLIST_DISABLE2].init(hInst, iconSize);
+
+	_iconListVector[HLIST_DEFAULT_DM].init(hInst, iconSize);
+	_iconListVector[HLIST_DISABLE_DM].init(hInst, iconSize);
+	_iconListVector[HLIST_DEFAULT_DM2].init(hInst, iconSize);
+	_iconListVector[HLIST_DISABLE_DM2].init(hInst, iconSize);
 
 	reInit(iconSize);
 }

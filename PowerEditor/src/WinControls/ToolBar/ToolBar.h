@@ -130,6 +130,22 @@ private :
 		::SendMessage(_hSelf, TB_SETDISABLEDIMAGELIST, 0, reinterpret_cast<LPARAM>(_toolBarIcons.getDisableLstSet2()));
 	};
 
+	void setDefaultImageListDM() {
+		::SendMessage(_hSelf, TB_SETIMAGELIST, 0, reinterpret_cast<LPARAM>(_toolBarIcons.getDefaultLstDM()));
+	};
+
+	void setDisableImageListDM() {
+		::SendMessage(_hSelf, TB_SETDISABLEDIMAGELIST, 0, reinterpret_cast<LPARAM>(_toolBarIcons.getDisableLstDM()));
+	};
+
+	void setDefaultImageListDM2() {
+		::SendMessage(_hSelf, TB_SETIMAGELIST, 0, reinterpret_cast<LPARAM>(_toolBarIcons.getDefaultLstSetDM2()));
+	};
+
+	void setDisableImageListDM2() {
+		::SendMessage(_hSelf, TB_SETDISABLEDIMAGELIST, 0, reinterpret_cast<LPARAM>(_toolBarIcons.getDisableLstSetDM2()));
+	};
+
 	void reset(bool create = false);
 	void setState(toolBarStatusType state) {
 		_state = state;

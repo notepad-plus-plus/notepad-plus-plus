@@ -4,7 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
-		- Updated on April 28th, 2021 for version 7.9.6 by Patriccollu di Santa Maria è Sichè
+		- Updated on May 12th, 2021 for version 7.9.6 by Patriccollu di Santa Maria è Sichè
 		- Updated on January 27th, 2021 for version 7.9.3 by Patriccollu di Santa Maria è Sichè
 		- Updated on November 4th, 2020 for version 7.9.2 by Patriccollu di Santa Maria è Sichè
 		- Updated on September 16th, 2020 for version 7.9.1 by Patriccollu di Santa Maria è Sichè
@@ -149,6 +149,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42064" name="Ordinà e linee cum’è numeri decimali (virgula) discendente"/>
                     <Item id="42065" name="Ordinà e linee cum’è numeri decimali (puntu) crescente"/>
                     <Item id="42066" name="Ordinà e linee cum’è numeri decimali (puntu) discendente"/>
+                    <Item id="42083" name="Arritrusà l’ordine di e linee"/>
                     <Item id="42078" name="Ordinà e linee à l’azardu"/>
                     <Item id="42016" name="&amp;MAIUSCULA"/>
                     <Item id="42017" name="mi&amp;nuscula"/>
@@ -824,10 +825,11 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Global title="Generale">
                     <Item id="6101" name="Barra d’attrezzi"/>
                     <Item id="6102" name="Piattà"/>
-                    <Item id="6103" name="Icone chjuche"/>
-                    <Item id="6104" name="Icone maiò"/>
-                    <Item id="6105" name="Icone classiche"/>
-
+                    <Item id="6103" name="Fluent UI : icone chjuche"/>
+                    <Item id="6104" name="Fluent UI : icone maiò"/>
+                    <Item id="6129" name="Filled Fluent UI : icone chjuche"/>
+                    <Item id="6130" name="Filled Fluent UI : icone maiò"/>
+                    <Item id="6105" name="Classiche : icone chjuche"/>
                     <Item id="6106" name="Barra d’unghjette"/>
                     <Item id="6107" name="Riduce"/>
                     <Item id="6108" name="Bluccà (senza sguillà é depone)"/>
@@ -868,6 +870,11 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6236" name="Permette l’affissera dopu à l’ultima linea"/>
                     <Item id="6239" name="Cunservà a selezzione in casu di cliccu dirittu fora di a selezzione"/>
                 </Scintillas>
+
+                <DarkMode title="Modu scuru">
+                    <Item id="7101" name="Attivà u modu scuru"/>
+                    <Item id="7106" name="* Notepad++ deve esse rilanciatu per piglià stu cambiamentu in contu"/>
+                </DarkMode>
 
                 <MarginsBorderEdge title="Margine è bordu">
                     <Item id="6201" name="Margine di piegatura"/>
@@ -1156,7 +1163,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
             </DoSaveOrNot>
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
-            <ContextMenuXmlEditWarning title="Mudificazione di u listinu cuntestuale" message="A mudificazione di contextMenu.xml vi permette di cambià l’ozzioni u listinu cuntestuale di Notepad++.
+            <ContextMenuXmlEditWarning title="Mudificazione di u listinu cuntestuale" message="A mudificazione di contextMenu.xml vi permette di cambià l’ozzioni di u listinu cuntestuale di Notepad++.
 Ci vole à rilancià Notepad++ per piglià in contu e mudificazioni di contextMenu.xml."/>
             <SaveCurrentModifWarning title="Arregistrà a mudificazione currente" message="Ci vuleria à arregistrà e mudificazioni currente.
 Tutte e mudificazioni arregistrate ùn pudenu micca esse disfatte.
@@ -1402,6 +1409,7 @@ Circà in tutti i schedarii fora di exe, obj è log :
             <finder-uncollapse-all value="Tuttu spiegà"/>
             <finder-copy value="Cupià a(e) linea(e) selezziunata(e)"/>
             <finder-copy-verbatim value="Cupià"/>
+            <finder-copy-paths value="Cupià u(i) nome(i) di chjassu"/>
             <finder-select-all value="Tuttu selezziunà"/>
             <finder-clear-all value="Tuttu viutà"/>
             <finder-open-all value="Tuttu apre"/>

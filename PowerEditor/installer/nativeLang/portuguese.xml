@@ -129,6 +129,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42064" name="Ordenar Linhas Como Decimais (Vírgula) Descendente"/>
                     <Item id="42065" name="Ordenar Linhas Como Decimais (Ponto) Ascendente"/>
                     <Item id="42066" name="Ordenar Linhas Como Decimais (Ponto) Descendente"/>
+                    <Item id="42083" name="Reverter Ordem das Linhas"/>
                     <Item id="42078" name="Ordenar Linhas Aleatóriamente"/>
                     <Item id="42016" name="MAIÚSCULA"/>
                     <Item id="42017" name="minúscula"/>
@@ -802,9 +803,11 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Global title="Geral">
                     <Item id="6101" name="Barra de Ferramentas"/>
                     <Item id="6102" name="Ocultar"/>
-                    <Item id="6103" name="Ícones Pequenos"/>
-                    <Item id="6104" name="Ícones Grandes"/>
-                    <Item id="6105" name="Ícones Normais"/>
+                    <Item id="6103" name="Fluent UI: ícones pequenos"/>
+                    <Item id="6104" name="Fluent UI: ícones grandes"/>
+                    <Item id="6129" name="Filled Fluent UI: ícones pequenos"/>
+                    <Item id="6130" name="Filled Fluent UI: ícones grandes"/>
+                    <Item id="6105" name="Padrão: ícones pequenos"/>
 
                     <Item id="6106" name="Barra do Separador "/>
                     <Item id="6107" name="Diminuir Tamanho"/>
@@ -846,6 +849,11 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6236" name="Ativar deslizamento para além da última linha"/>
                     <Item id="6239" name="Manter selecção quando clicar com o botão direito do rato fora da selecção"/>
                 </Scintillas>
+
+                <DarkMode title="Modo Escuro">
+                    <Item id="7101" name="Ativar modo escuro"/>
+                    <Item id="7106" name="* O Notepad++ deve ser reiniciado para ter efeito completo"/>
+                </DarkMode>
 
                 <MarginsBorderEdge title="Margens/Borda/Limite">
                     <Item id="6201" name="Estilo de margem da pasta"/>
@@ -1452,7 +1460,7 @@ João Pereira <joaopereira@openmailbox.org>
 29/07/2015
 
 Hugo Carvalho <hugokarvalho@hotmail.com>
-08/05/2021 (versão 7.9.4, 7.9.5, 7.9.6)
+12/05/2021 (versão 7.9.4, 7.9.5, 7.9.6)
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.	

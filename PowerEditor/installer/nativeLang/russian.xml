@@ -2,6 +2,7 @@
 <!-- Russian translation for Notepad++
 Updated to v7.9.6:
 - added new lines
+- minor fix
 -->
 <NotepadPlus>
 	<Native-Langue name="Русский" filename="russian.xml" version="7.9.6">
@@ -157,6 +158,7 @@ Updated to v7.9.6:
 					<Item id="42065" name="Сорт. по возрастанию десятичных чисел  (Точка)"/>
 					<Item id="42066" name="Сорт. по убыванию десятичных чисел  (Точка)"/>
 					<Item id="42078" name="Сортировать строки в случайном порядке"/>
+					<Item id="42083" name="Обратный порядок строк"/>
 
 					<Item id="42022" name="Комментирование строки (вкл./выкл.)"/>
 					<Item id="42035" name="Закомментировать строку"/>
@@ -842,9 +844,13 @@ Updated to v7.9.6:
 				<Global title = "Основные">
 					<Item id="6101" name="Панель Инструментов"/>
 					<Item id="6102" name="Скрыть"/>
-					<Item id="6103" name="Мелкие иконки"/>
-					<Item id="6104" name="Крупные иконки"/>
-					<Item id="6105" name="Стандартные иконки"/>
+
+					<Item id="6103" name="Fluent UI: мелкие"/>
+					<Item id="6104" name="Fluent UI: крупные"/>
+					<Item id="6129" name="Filled Fluent UI: мелкие"/>
+					<Item id="6130" name="Filled Fluent UI: крупные"/>
+					<Item id="6105" name="Стандартные иконки : мелкие"/>
+
 					<Item id="6106" name="Панель Вкладок"/>
 					<Item id="6107" name="Уменьшенный размер"/>
 					<Item id="6108" name="Запретить перетаскивание"/>
@@ -881,6 +887,12 @@ Updated to v7.9.6:
 					<Item id="6236" name="Прокрутка за пределы последней строки"/>
 					<Item id="6239" name="Сохранять выделение текста при правом щелчке за его пределами"/>
 				</Scintillas>
+
+				<DarkMode title="Тёмный Режим">
+					<Item id="7101" name="Включить Тёмный Режим"/>
+					<Item id="7106" name="* для корректной работы, необходимо перезапустить Notepad++"/>
+				</DarkMode>
+
 				<MarginsBorderEdge title="Блоки / Рамки / Поля">
 					<Item id="6201" name="Оформление Блока"/>
 					<Item id="6202" name="Обычное"/>
@@ -963,6 +975,7 @@ Updated to v7.9.6:
 					<Item id="6902" name="Моноширинный шрифт в окне поиска (требуется перезапуск Notepad++)"/>
 					<Item id="6903" name="Оставлять окно Поиска открытым после окончания поиска"/>
 					<Item id="6904" name="Запрашивать подтверждение операции &quot;Заменить все во Всех Открытых Документах&quot;"/>
+					<Item id="6905" name="Замена: не переходить к следующему совпадению."/>
 				</Searching>
 				<RecentFilesHistory title="История Открытия">
 					<Item id="6304" name="История Последних Закрытых Файлов"/>
@@ -975,6 +988,10 @@ Updated to v7.9.6:
 					<Item id="6427" name="Задать макс. длину:"/>
 				</RecentFilesHistory>
 				<Highlighting title="Подсветка">
+					<Item id="6351" name="Пометить все"/>
+					<Item id="6352" name="Учитывать регистр"/>
+					<Item id="6353" name="Только целые слова"/>
+					<Item id="6354" name="Парные"/>
 					<Item id="6333" name="Подсветка Совпадающих Слов"/>
 					<Item id="6326" name="Включить"/>
 					<Item id="6332" name="Учитывать регистр"/>
@@ -1019,7 +1036,6 @@ Updated to v7.9.6:
 					<Item id="6345" name="Миниатюра под Вкладкой"/>
 					<Item id="6346" name="Отображать в Карте Документа"/>
 					<Item id="6349" name="Использ. DirectWrite (это может улучшить отображение спецсимволов, требуется перезапуск)"/>
-					<Item id="6351" name="Не указывать расширение при сохранении 'Обычного Текста'"/>
 					<Item id="6360" name="Отключить все звуки"/>
 				</MISC>
 				<MultiInstance title = "Режимы Запуска">
@@ -1325,6 +1341,7 @@ Updated to v7.9.6:
 			<find-status-replaceinfiles-re-malformed      value="Замена в открытых файлах: Регулярное выражение искажено"/>
 			<find-status-replaceinopenedfiles-1-replaced  value="Замена в открытых файлах: заменено 1 совпадение"/>
 			<find-status-replaceinopenedfiles-nb-replaced value="Замена в открытых файлах: заменено $INT_REPLACE$ совпадений"/>
+			<find-status-replaced-without-continuing      value="Замена: 1 заменённое совпадение."/>
 			<find-status-mark-re-malformed        value="Пометки: Регулярное выражение для поиска искажено"/>
 			<find-status-search-failed            value="Поиск: Ошибка поиска"/>
 			<find-status-invalid-re               value="Поиск: Недопустимое регулярное выражение"/>
@@ -1341,7 +1358,7 @@ Updated to v7.9.6:
 			<find-status-replace-top-reached      value="Замена: Заменено первое совпадение снизу. Достигнуто начало документа."/>
 			<find-status-replaced-next-found      value="Замена: заменено 1 совпадение. Найдено следующее совпадение."/>
 			<find-status-replaced-next-not-found  value="Замена: заменено 1 совпадение. Совпадений больше не найдено."/>
-			<find-status-replace-not-found        value="Замена: ничего не найдено"/>
+			<find-status-replace-not-found        value="Замена: совпадений не найдено"/>
 			<find-status-replace-readonly         value="Замена: Невозможно заменить текст. Текущий документ доступен только для чтения."/>
 			<find-status-cannot-find              value="Поиск: Не удается найти текст &quot;$STR_REPLACE$&quot;"/>
 			<find-status-scope-selection          value="в выделенном тексте"/>
@@ -1353,8 +1370,9 @@ Updated to v7.9.6:
 			<finder-purge-for-every-search        value="Очистка при каждом поиске"/>
 			<finder-collapse-all         value="Свернуть всё"/>
 			<finder-uncollapse-all       value="Развернуть всё"/>
-			<finder-copy                 value="Копировать (строки целиком)"/>
-			<finder-copy-verbatim        value="Копировать выделенное"/>
+			<finder-copy                 value="Копировать (выбранные строки)"/>
+			<finder-copy-verbatim        value="Копировать"/>
+			<finder-copy-paths           value="Копировать путь(и)"/>
 			<finder-select-all           value="Выделить всё"/>
 			<finder-clear-all            value="Очистить всё"/>
 			<finder-open-all             value="Открыть все файлы"/>
@@ -1405,6 +1423,7 @@ Updated to v7.9.6:
 			<find-regex-zero-length-match         value="совпадение нулевой длины"/>
 			<session-save-folder-as-workspace     value="Сохранить Папку как Проект"/>
 			<tab-untitled-string                  value="новый "/>
+			<file-save-assign-type                value="&amp;Добавлять расширение"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

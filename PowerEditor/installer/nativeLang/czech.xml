@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 7.9.6  12/May/2021  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 7.9.6  13/May/2021  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
@@ -294,16 +294,16 @@
 					<Item id = "45001" name = "Konvertovat do formátu Windows"/>
 					<Item id = "45002" name = "Konvertovat do formátu UNIX"/>
 					<Item id = "45003" name = "Konvertovat do formátu MAC"/>
-					<Item id = "45004" name = "Změnit kódování na ANSI"/>
-					<Item id = "45005" name = "Změnit kódování na UTF-8 s BOM"/>
-					<Item id = "45006" name = "Změnit kódování na UTF-16 Big Endian"/>
-					<Item id = "45007" name = "Změnit kódování na UTF-16 Little Endian"/>
-					<Item id = "45008" name = "Změnit kódování na UTF-8 bez BOM"/>
+					<Item id = "45004" name = "ANSI"/>
+					<Item id = "45005" name = "UTF-8 s BOM"/>
+					<Item id = "45006" name = "UTF-16 BE s BOM"/>
+					<Item id = "45007" name = "UTF-16 LE s BOM"/>
+					<Item id = "45008" name = "UTF-8"/>
 					<Item id = "45009" name = "Konvertovat do ANSI"/>
-					<Item id = "45010" name = "Konvertovat do UTF-8 bez BOM"/>
+					<Item id = "45010" name = "Konvertovat do UTF-8"/>
 					<Item id = "45011" name = "Konvertovat do UTF-8 s BOM"/>
-					<Item id = "45012" name = "Konvertovat do UTF-16 Big Endian"/>
-					<Item id = "45013" name = "Konvertovat do UTF-16 Little Endian"/>
+					<Item id = "45012" name = "Konvertovat do UTF-16 BE s BOM"/>
+					<Item id = "45013" name = "Konvertovat do UTF-16 LE s BOM"/>
 					<Item id = "45060" name = "Big5 (tradiční)"/>
 					<Item id = "45061" name = "GB2312 (zjednodušená)"/>
 					<Item id = "45054" name = "OEM 861: Islandština"/>
@@ -911,7 +911,7 @@
 					<Item id = "6236" name = "Povolit rolování za poslední řádku"/>
 					<Item id = "6239" name = "Ponechat výběr, když kliknete pravým tlačítkem mimo výběr"/>
 				</Scintillas>
-				 <DarkMode title="Tmavý režim">
+				<DarkMode title="Tmavý režim">
 					<Item id="7101" name="Povolit tmavý režim"/>
 					<Item id="7106" name="* Notepad++ musí být restartován, aby se efekt projevil kompletně"/>
 				</DarkMode>
@@ -945,10 +945,10 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id = "6404" name = "Mac"/>
 					<Item id = "6405" name = "Kódování"/>
 					<Item id = "6406" name = "ANSI"/>
-					<Item id = "6407" name = "UTF-8 (bez BOM)"/>
-					<Item id = "6408" name = "UTF-8"/>
-					<Item id = "6409" name = "UTF-16 (Big endian)"/>
-					<Item id = "6410" name = "UTF-16 (Little endian)"/>
+					<Item id = "6407" name = "UTF-8"/>
+					<Item id = "6408" name = "UTF-8 s BOM"/>
+					<Item id = "6409" name = "UTF-16 Big Endian s BOM"/>
+					<Item id = "6410" name = "UTF-16 Little Endian s BOM"/>
 					<Item id = "6411" name = "Implicitní syntaxe:"/>
 					<Item id = "6419" name = "Nový dokument"/>
 					<Item id = "6420" name = "Aplikovat při otevř. ANSI-souboru"/>
@@ -1467,7 +1467,7 @@ Najít ve všech souborech mimo exe, obj &amp;&amp; log:
 			<find-regex-zero-length-match value = "shoda nulové délky" />
 			<session-save-folder-as-workspace value = "Uložit složku jako pracovní plochu"/>
 			<tab-untitled-string value = "nový " />
-			<file-save-assign-type value = "&amp;Přidat příponu." />
+			<file-save-assign-type value = "Přid&amp;at příponu." />
 		</MiscStrings>
 
 	</Native-Langue>

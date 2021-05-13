@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2021-05-07 by schnurlos (schnurlos@gmail.com)
+	last modified: 2021-05-13 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -138,6 +138,7 @@
 					<Item id="42064" name="Zeilen als Dezimalzahlen (Komma) absteigend sortieren"/>
 					<Item id="42065" name="Zeilen als Dezimalzahlen (Punkt) aufsteigend sortieren"/>
 					<Item id="42066" name="Zeilen als Dezimalzahlen (Punkt) absteigend sortieren"/>
+					<Item id="42083" name="Sortierreihenfolge der Zeilen umkehren"/>
 					<Item id="42078" name="Zeilen zufällig sortieren"/>
 					<Item id="42016" name="In &amp;GROSSBUCHSTABEN umwandeln"/>
 					<Item id="42017" name="In &amp;kleinbuchstaben umwandeln"/>
@@ -812,9 +813,11 @@
 				<Global title="Allgemein">
 					<Item id="6101" name="Symbolleiste"/>
 					<Item id="6102" name="Ausblenden"/>
-					<Item id="6103" name="Kleine Symbole"/>
-					<Item id="6104" name="Große Symbole"/>
-					<Item id="6105" name="Kleine Standard-Symbole"/>
+					<Item id="6103" name="Fluent UI: kleine Symbole"/>
+					<Item id="6104" name="Fluent UI: große Symbole"/>
+					<Item id="6129" name="Ausgefüllte Fluent UI: klein"/>
+					<Item id="6130" name="Ausgefüllte Fluent UI: groß"/>
+					<Item id="6105" name="Kleine Standard-Symbolel"/>
 
 					<Item id="6106" name="Dateireiter (Tabs)"/>
 					<Item id="6107" name="Verkleinern"/>
@@ -856,6 +859,11 @@
 					<Item id="6236" name="Blättern über die letzte Zeile hinaus aktivieren"/>
 					<Item id="6239" name="Auswahl beibehalten bei Rechtsklick außerhalb der Auswahl"/>
 				</Scintillas>
+
+				<DarkMode title="Abgedunkelter Modus">
+					<Item id="7101" name="Abgedunkelten Modus aktivieren"/>
+					<Item id="7106" name="* Notepad++ muss dafür neu gestartet werden"/>
+				</DarkMode>
 
 				<MarginsBorderEdge title="Faltung/Rahmen/Ränder">
 					<Item id="6201" name="Ordnerrandstil"/>

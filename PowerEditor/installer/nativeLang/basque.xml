@@ -129,6 +129,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42064" name="Ordenatu Lerroak Zenbaki Hamartar Gisa (Koma) Beherantz"/>
                     <Item id="42065" name="Ordenatu Lerroak Zenbaki Hamartar Gisa (Puntua) Gorantz"/>
                     <Item id="42066" name="Ordenatu Lerroak Zenbaki Hamartar Gisa (Puntua) Beherantz"/>
+                    <Item id="42083" name="Ordenatu Lerroak Alderantziz"/> 
                     <Item id="42078" name="Ordenatu Lerroak Ausaz"/>
                     <Item id="42016" name="MAIUSKULAK"/>
                     <Item id="42017" name="minuskulak"/>
@@ -802,9 +803,11 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Global title="Orokorra">
                     <Item id="6101" name="Tresna-barra"/>
                     <Item id="6102" name="Ezkutatu"/>
-                    <Item id="6103" name="Ikono txikiak"/>
-                    <Item id="6104" name="Ikono handiak"/>
-                    <Item id="6105" name="Ikono arruntak"/>
+                    <Item id="6103" name="Fluent UI: txikiak"/>
+                    <Item id="6104" name="Fluent UI: handiak"/> 
+                    <Item id="6129" name="Filled Fluent UI: txikiak"/> 
+                    <Item id="6130" name="Filled Fluent UI: handiak"/> 
+                    <Item id="6105" name="Ikono arruntak: txikiak"/>
 
                     <Item id="6106" name="Fitxa-barra"/>
                     <Item id="6107" name="Gutxitu"/>
@@ -846,6 +849,11 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6236" name="Gaitu azken lerrotik haratagoko korritzea"/>
                     <Item id="6239" name="Mantendu hautapena hautapenetik kanpo eskuin-klika egitean"/>
                 </Scintillas>
+
+                <DarkMode title="Modu Iluna"> 
+                    <Item id="7101" name="Gaitu modu iluna"/> 
+                    <Item id="7106" name="* Notepad++ berrabiarazi behar da aldaketak guztiz aplikatzeko"/> 
+                </DarkMode>
 
                 <MarginsBorderEdge title="Ertzak">
                     <Item id="6201" name="Karpetaren Ertzaren Estiloa"/>
@@ -1378,6 +1386,7 @@ Bilatu fitxategi guztietan hurrengoetan izan ezik: exe, obj eta log:
             <finder-uncollapse-all value="Zabaldu guztiak"/>
             <finder-copy value="Kopiatu Aukeratutako Lerroa(k)"/>
             <finder-copy-verbatim value="Kopiatu"/>
+            <finder-copy-paths value="Kopiatu Bide-izena(k)"/>
             <finder-select-all value="Aukeratu guztia"/>
             <finder-clear-all value="Garbitu guztia"/>
             <finder-open-all value="Ireki guztia"/>

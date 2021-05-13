@@ -126,6 +126,7 @@
                     <Item id="42064" name="選択行を　実数(コンマが小数点)として降順ソート"/>
                     <Item id="42065" name="選択行を　実数(ピリオドが小数点)として昇順ソート"/>
                     <Item id="42066" name="選択行を　実数(ピリオドが小数点)として降順ソート"/>
+                    <Item id="42083" name="選択行を　上下逆の並びにする"/>
                     <Item id="42078" name="選択行を　ランダムに入れ替える"/>
                     <Item id="42016" name="大文字に変換(&amp;U)"/>
                     <Item id="42017" name="小文字に変換(&amp;L)"/>
@@ -805,9 +806,12 @@
                 <Global title="全般設定">
                     <Item id="6101" name="ツールバー"/>
                     <Item id="6102" name="隠す"/>
-                    <Item id="6103" name="小さなアイコン"/>
-                    <Item id="6104" name="大きなアイコン"/>
-                    <Item id="6105" name="標準アイコン"/>
+                    <Item id="6103" name="Fluent UI 小"/>
+                    <Item id="6104" name="Fluent UI 大"/>
+                    <Item id="6129" name="Filled Fluent UI 小"/>
+                    <Item id="6130" name="Filled Fluent UI 大"/>
+                    <Item id="6105" name="標準アイコン 小"/>
+
 
                     <Item id="6106" name="タブバー"/>
                     <Item id="6107" name="小さく表示"/>
@@ -849,6 +853,11 @@
                     <Item id="6236" name="最終行を画面上端までスクロールできる"/>
                     <Item id="6239" name="選択範囲外を右クリックしたときに選択を解除しない"/>
                 </Scintillas>
+
+                <DarkMode title="ダークモード">
+                    <Item id="7101" name="ダークモードを有効にする"/>
+                    <Item id="7106" name="* 完全に有効にするには、Notepad++ を再起動してください。"/>
+                </DarkMode>
 
                 <MarginsBorderEdge title="余白部/枠線/ガイド線">
                     <Item id="6201" name="折り畳み表示スタイル"/>

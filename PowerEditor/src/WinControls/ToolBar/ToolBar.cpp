@@ -203,9 +203,6 @@ int ToolBar::getHeight() const
 
 void ToolBar::reduce() 
 {
-	if (_state == TB_SMALL)
-		return;
-
 	int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(16);
 	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
 	setState(TB_SMALL);
@@ -215,9 +212,6 @@ void ToolBar::reduce()
 
 void ToolBar::enlarge()
 {
-	if (_state == TB_LARGE)
-		return;
-
 	int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(32);
 	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
 	setState(TB_LARGE);
@@ -227,9 +221,6 @@ void ToolBar::enlarge()
 
 void ToolBar::reduceToSet2()
 {
-	if (_state == TB_SMALL2)
-		return;
-
 	int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(16);
 	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
 
@@ -240,9 +231,6 @@ void ToolBar::reduceToSet2()
 
 void ToolBar::enlargeToSet2()
 {
-	if (_state == TB_LARGE2)
-		return;
-
 	int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(32);
 	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
 	setState(TB_LARGE2);
@@ -252,8 +240,6 @@ void ToolBar::enlargeToSet2()
 
 void ToolBar::setToBmpIcons()
 {
-	if (_state == TB_STANDARD) 
-		return;
 	bool recreate = true;
 	setState(TB_STANDARD);
 	reset(recreate);	//must recreate toolbar if setting to internal bitmaps
@@ -311,13 +297,29 @@ void ToolBar::reset(bool create)
 	{
 		if (_state == TB_SMALL || _state == TB_LARGE)
 		{
-			setDefaultImageList();
-			setDisableImageList();
+			if (NppDarkMode::isEnabled())
+			{
+				setDefaultImageListDM();
+				setDisableImageListDM();
+			}
+			else
+			{
+				setDefaultImageList();
+				setDisableImageList();
+			}
 		}
 		else
 		{
-			setDefaultImageList2();
-			setDisableImageList2();
+			if (NppDarkMode::isEnabled())
+			{
+				setDefaultImageListDM2();
+				setDisableImageListDM2();
+			}
+			else
+			{
+				setDefaultImageList2();
+				setDisableImageList2();
+			}
 		}
 	}
 	else
@@ -467,21 +469,24 @@ LRESULT CALLBACK RebarSubclass(
 	UNREFERENCED_PARAMETER(dwRefData);
 	UNREFERENCED_PARAMETER(uIdSubclass);
 
-	switch (uMsg) {
-	case WM_ERASEBKGND:
-		if (NppDarkMode::isEnabled())
-		{
-			RECT rc;
-			GetClientRect(hWnd, &rc);
-			FillRect((HDC)wParam, &rc, NppDarkMode::getPureBackgroundBrush());
-			return 1;
-		}
-		else {
+	switch (uMsg)
+	{
+		case WM_ERASEBKGND:
+			if (NppDarkMode::isEnabled())
+			{
+				RECT rc;
+				GetClientRect(hWnd, &rc);
+				FillRect((HDC)wParam, &rc, NppDarkMode::getDarkerBackgroundBrush());
+				return TRUE;
+			}
+			else
+			{
+				break;
+			}
+
+		case WM_NCDESTROY:
+			RemoveWindowSubclass(hWnd, RebarSubclass, g_rebarSubclassID);
 			break;
-		}
-	case WM_NCDESTROY:
-		RemoveWindowSubclass(hWnd, RebarSubclass, g_rebarSubclassID);
-		break;
 	}
 	return DefSubclassProc(hWnd, uMsg, wParam, lParam);
 }

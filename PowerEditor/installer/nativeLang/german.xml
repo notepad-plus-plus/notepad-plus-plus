@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2021-03-09 by schnurlos (schnurlos@gmail.com)
+	last modified: 2021-05-13 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="7.9.4">
+	<Native-Langue name="Deutsch" filename="german.xml" version="7.9.6">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -46,6 +46,7 @@
 					<Item subMenuId="edit-pasteSpecial" name= "Einf&amp;ügen spezial"/>
 					<Item subMenuId="edit-onSelection" name="Bei Auswahl"/>
 					<Item subMenuId="search-markAll" name="Alle &amp;Vorkommnisse hervorheben"/>
+					<Item subMenuId="search-markOne" name="Ein Vorkommen hervorheben"/>
 					<Item subMenuId="search-unmarkAll" name="Alle Hervorhe&amp;bungen löschen"/>
 					<Item subMenuId="search-jumpUp" name="Zur vorherigen Hervorhebung s&amp;pringen"/>
 					<Item subMenuId="search-jumpDown" name="Zur &amp;nächsten Hervorhebung springen"/>
@@ -137,6 +138,7 @@
 					<Item id="42064" name="Zeilen als Dezimalzahlen (Komma) absteigend sortieren"/>
 					<Item id="42065" name="Zeilen als Dezimalzahlen (Punkt) aufsteigend sortieren"/>
 					<Item id="42066" name="Zeilen als Dezimalzahlen (Punkt) absteigend sortieren"/>
+					<Item id="42083" name="Sortierreihenfolge der Zeilen umkehren"/>
 					<Item id="42078" name="Zeilen zufällig sortieren"/>
 					<Item id="42016" name="In &amp;GROSSBUCHSTABEN umwandeln"/>
 					<Item id="42017" name="In &amp;kleinbuchstaben umwandeln"/>
@@ -242,6 +244,11 @@
 					<Item id="43059" name="5. Stil"/>
 					<Item id="43060" name="Alle Stile"/>
 					<Item id="43061" name="Stil finden (markiert)"/>
+					<Item id="43062" name="Verwende 1. Stil"/>
+					<Item id="43063" name="Verwende 2. Stil"/>
+					<Item id="43064" name="Verwende 3. Stil"/>
+					<Item id="43065" name="Verwende 4. Stil"/>
+					<Item id="43066" name="Verwende 5. Stil"/>
 					<Item id="43045" name="Suchergebnis-&amp;Fenster"/>
 					<Item id="43046" name="Zum n&amp;ächsten Suchergebnis springen"/>
 					<Item id="43047" name="Zum vorherigen S&amp;uchergebnis springen"/>
@@ -250,6 +257,7 @@
 					<Item id="43054" name="&amp;Hervorheben …"/>
 					<Item id="44009" name="&amp;Post-It"/>
 					<Item id="44010" name="A&amp;lle Textblöcke schließen"/>
+					<Item id="44011" name="Ablenkungsfreier Modus"/>
 					<Item id="44019" name="&amp;Alle Zeichen anzeigen"/>
 					<Item id="44020" name="&amp;Einrückung anzeigen"/>
 					<Item id="44022" name="Automatischer Zeilen&amp;umbruch"/>
@@ -293,14 +301,14 @@
 					<Item id="45003" name="&amp;Macintosh (CR)"/>
 					<Item id="45004" name="&amp;ANSI"/>
 					<Item id="45005" name="UTF-&amp;8-BOM"/>
-					<Item id="45006" name="UCS-2 &amp;BE-BOM"/>
-					<Item id="45007" name="UCS-2 &amp;LE-BOM"/>
+					<Item id="45006" name="UTF-16 &amp;BE-BOM"/>
+					<Item id="45007" name="UTF-16 &amp;LE-BOM"/>
 					<Item id="45008" name="UT&amp;F-8"/>
 					<Item id="45009" name="Ko&amp;nvertiere zu ANSI"/>
 					<Item id="45010" name="Kon&amp;vertiere zu UTF-8"/>
 					<Item id="45011" name="Konv&amp;ertiere zu UTF-8-BOM"/>
-					<Item id="45012" name="Konve&amp;rtiere zu UCS-2 BE-BOM"/>
-					<Item id="45013" name="Konver&amp;tiere zu UCS-2 LE-BOM"/>
+					<Item id="45012" name="Konve&amp;rtiere zu UTF-16 BE-BOM"/>
+					<Item id="45013" name="Konver&amp;tiere zu UTF-16 LE-BOM"/>
 					<Item id="45060" name="Big5 (Traditionell)"/>
 					<Item id="45061" name="GB2312 (Vereinfacht)"/>
 					<Item id="45054" name="OEM 861: Isländisch"/>
@@ -549,11 +557,16 @@
 					<Item id="45001" name="Zeilenende umwandeln zu Windows (CR LF)"/>
 					<Item id="45002" name="Zeilenende umwandeln zu Unix (LF)"/>
 					<Item id="45003" name="Zeilenende umwandeln zu Macintosh (CR)"/>
-					<Item id="43022" name="Text im Stil 1 markieren"/>
-					<Item id="43024" name="Text im Stil 2 markieren"/>
-					<Item id="43026" name="Text im Stil 3 markieren"/>
-					<Item id="43028" name="Text im Stil 4 markieren"/>
-					<Item id="43030" name="Text im Stil 5 markieren"/>
+					<Item id="43022" name="Jeden Text im 1. Stil markieren"/>
+					<Item id="43024" name="Jeden Text im 2. Stil markieren"/>
+					<Item id="43026" name="Jeden Text im 3. Stil markieren"/>
+					<Item id="43028" name="Jeden Text im 4. Stil markieren"/>
+					<Item id="43030" name="Jeden Text im 5. Stil markieren"/>
+					<Item id="43062" name="Einen Text im 1. Stil markieren"/>
+					<Item id="43063" name="Einen Text im 2. Stil markieren"/>
+					<Item id="43064" name="Einen Text im 3. Stil markieren"/>
+					<Item id="43065" name="Einen Text im 4. Stil markieren"/>
+					<Item id="43066" name="Einen Text im 5. Stil markieren"/>
 					<Item id="43023" name="Entferne die Hervorhebungen im Stil 1"/>
 					<Item id="43025" name="Entferne die Hervorhebungen im Stil 2"/>
 					<Item id="43027" name="Entferne die Hervorhebungen im Stil 3"/>
@@ -800,8 +813,10 @@
 				<Global title="Allgemein">
 					<Item id="6101" name="Symbolleiste"/>
 					<Item id="6102" name="Ausblenden"/>
-					<Item id="6103" name="Kleine Symbole"/>
-					<Item id="6104" name="Große Symbole"/>
+					<Item id="6103" name="Fluent UI: kleine Symbole"/>
+					<Item id="6104" name="Fluent UI: große Symbole"/>
+					<Item id="6129" name="Ausgefüllte Fluent UI: klein"/>
+					<Item id="6130" name="Ausgefüllte Fluent UI: groß"/>
 					<Item id="6105" name="Kleine Standard-Symbole"/>
 
 					<Item id="6106" name="Dateireiter (Tabs)"/>
@@ -845,6 +860,11 @@
 					<Item id="6239" name="Auswahl beibehalten bei Rechtsklick außerhalb der Auswahl"/>
 				</Scintillas>
 
+				<DarkMode title="Abgedunkelter Modus">
+					<Item id="7101" name="Abgedunkelten Modus aktivieren"/>
+					<Item id="7106" name="* Notepad++ muss dafür neu gestartet werden"/>
+				</DarkMode>
+
 				<MarginsBorderEdge title="Faltung/Rahmen/Ränder">
 					<Item id="6201" name="Ordnerrandstil"/>
 					<Item id="6202" name="Einfach"/>
@@ -863,6 +883,10 @@
 Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Zahlen durch Leerzeichen getrennt werden."/>
 					<Item id="6231" name="Rahmenbreite"/>
 					<Item id="6235" name="Kein Rand"/>
+					<Item id="6208" name="Ausgefüllt"/>
+					<Item id="6209" name="Links"/>
+					<Item id="6210" name="Rechts"/>
+					<Item id="6212" name="Ablenkungsfrei"/>
 				</MarginsBorderEdge>
 
 				<NewDoc title="Neues Dokument">
@@ -874,8 +898,8 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Za
 					<Item id="6406" name="ANSI"/>
 					<Item id="6407" name="UTF-8"/>
 					<Item id="6408" name="UTF-8 mit BOM"/>
-					<Item id="6409" name="UCS-2 Big Endian mit BOM"/>
-					<Item id="6410" name="UCS-2 Little Endian mit BOM"/>
+					<Item id="6409" name="UTF-16 Big Endian mit BOM"/>
+					<Item id="6410" name="UTF-16 Little Endian mit BOM"/>
 					<Item id="6411" name="Standardsprache"/>
 					<Item id="6419" name="Neues Dokument"/>
 					<Item id="6420" name="Auch beim Öffnen von ANSI-Dateien"/>
@@ -906,8 +930,12 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Za
 				</Language>
 
 				<Highlighting title="Hervorhebung">
+					<Item id="6351" name="Alle markieren"/>
+					<Item id="6352" name="Übereinstimmung der Groß-/Kleinschreibung"/>
+					<Item id="6353" name="Übereinstimmung ganzes Wort"/>
 					<Item id="6333" name="Automatische Hervorhebung bei Auswahl"/>
 					<Item id="6326" name="Hervorhebung aktivieren"/>
+					<Item id="6354" name="Übereinstimmung"/>
 					<Item id="6332" name="Groß-/Kleinschreibung beachten"/>
 					<Item id="6338" name="Übereinstimmung mit ganzem Wort"/>
 					<Item id="6339" name="Sucheinstellungen benutzen"/>
@@ -953,6 +981,7 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Za
 					<Item id="6902" name="Festbreitenschrift im Dialogfeld 'Suchen' verwenden (Neustart von Notepad++ erforderlich)."/>
 					<Item id="6903" name="Der Suchdialog bleibt nach der Suche geöffnet, die im Ergebnisfenster ausgegeben wird"/>
 					<Item id="6904" name="Bestätigung für 'Alle Ersetzen' in allen offenen Dokumenten"/>
+					<Item id="6905" name="Ersetzen: Folgendes Vorkommen nicht verschieben"/>
 				</Searching>
 
 				<RecentFilesHistory title="Zuletzt geöffn. Dateien">
@@ -1055,7 +1084,6 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Za
 					<Item id="6325" name="Nach Aktualisierung zum Ende scrollen"/>
 					<Item id="6322" name="Sitzungsdatei-Erw.:"/>
 					<Item id="6323" name="Automatische Updates aktivieren"/>
-					<Item id="6351" name="Dateifilter für den Speicherdialog auf .* setzen"/>
 					<Item id="6324" name="Dokumentenumschalter (Strg+Tab)"/>
 					<Item id="6331" name="Nur Dateinamen in Titelleiste anzeigen"/>
 					<Item id="6334" name="Kodierung automatisch erkennen"/>
@@ -1340,6 +1368,7 @@ Finde in allen Dateien außer exe, obj &amp;&amp; log:
 			<find-status-replaceinopenedfiles-nb-replaced value="Ersetzen in geöffneten Dateien: $INT_REPLACE$ Vorkommen wurden ersetzt"/>
 			<find-status-mark-re-malformed value="Achtung: Der Ausdruck für die Suche ist nicht passend"/>
 			<find-status-invalid-re value="Suche: Ungültiger Ausdruck"/>
+			<find-status-search-failed value="Suche: Fehlgeschlagen"/>
 			<find-status-mark-1-match value="Ausdruck: 1 Treffer"/>
 			<find-status-mark-nb-matches value="Ausdruck: $INT_REPLACE$ Treffer"/>
 			<find-status-count-re-malformed value="Zähler: Der Ausdruck für die Suche ist nicht passend"/>
@@ -1352,6 +1381,7 @@ Finde in allen Dateien außer exe, obj &amp;&amp; log:
 			<find-status-replace-end-reached value="Ersetzen: 1. Vorkommen von oben wurde ersetzt. Das Ende des Dokumentes wurde erreicht"/>
 			<find-status-replace-top-reached value="Ersetzen: 1. Vorkommen von unten wurde ersetzt. Der Anfang des Dokumentes wurde erreicht"/>
 			<find-status-replaced-next-found value="Ersetzen: 1 Vorkommen wurde ersetzt. Nächster Treffer gefunden"/>
+			<find-status-replaced-without-continuing value="Ersetzen: 1 Vorkommen wurde ersetzt."/>
 			<find-status-replaced-next-not-found value="Ersetzen: 1 Vorkommen wurde ersetzt. Keine weiteren Treffer gefunden"/>
 			<find-status-replace-not-found value="Ersetzen: Kein Vorkommen gefunden"/>
 			<find-status-replace-readonly value="Ersetzen: Konnte Text wegen schreibgeschützter Datei nicht ersetzen"/>
@@ -1366,9 +1396,11 @@ Finde in allen Dateien außer exe, obj &amp;&amp; log:
 			<finder-uncollapse-all value="Alles aufmachen"/>
 			<finder-copy value="Kopiere ausgewählte Zeile(n)"/>
 			<finder-copy-verbatim value="Kopieren"/>
+			<finder-copy-paths value="Kopiere Pfadnamen"/>
 			<finder-select-all value="Alles wählen"/>
 			<finder-clear-all value="Alles löschen"/>
 			<finder-open-all value="Alles öffnen"/>
+			<finder-purge-for-every-search value="Vor jeder Suche leeren"/>
 			<finder-wrap-long-lines value="Zeilenumbruch bei langen Zeilen"/>
 			<common-ok value="OK"/>
 			<common-cancel value="Abbruch"/>
@@ -1413,6 +1445,8 @@ Finde in allen Dateien außer exe, obj &amp;&amp; log:
 			<find-result-line-prefix value="Zeile"/> <!-- Must not begin with space or tab character -->
 			<find-regex-zero-length-match value="Übereinstimmung Null-Längen" />
 			<session-save-folder-as-workspace value="Verzeichnis als Arbeitsbereich speichern" />
+			<tab-untitled-string value="neu " />
+			<file-save-assign-type value="Erweiterung &amp;anfügen" />
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

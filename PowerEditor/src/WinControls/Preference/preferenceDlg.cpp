@@ -214,6 +214,20 @@ INT_PTR CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			return TRUE;
 		}
 
+		case PREF_MSG_ISCHECKED_GENERALPAGE:
+		{
+			if (!lParam)
+				return FALSE;
+
+			bool isChecked = _generalSubDlg.isCheckedOrNot(static_cast<int>(wParam));
+			*((bool*)lParam) = isChecked;
+			return TRUE;
+		}
+
+		case PREF_MSG_SETTOOLICONSFROMSTDTOSMALL:
+			_generalSubDlg.setToolIconsFromStdToSmall();
+			return TRUE;
+
 		case WM_COMMAND :
 		{
 			if (LOWORD(wParam) == IDC_LIST_DLGTITLE)
@@ -357,6 +371,13 @@ void PreferenceDlg::destroy()
 	_autoCompletionSubDlg.destroy();
 	_multiInstanceSubDlg.destroy();
 	_delimiterSubDlg.destroy();
+}
+
+void GeneralSubDlg::setToolIconsFromStdToSmall()
+{
+	::SendDlgItemMessage(_hSelf, IDC_RADIO_STANDARD, BM_SETCHECK, BST_UNCHECKED, 0);
+	::SendDlgItemMessage(_hSelf, IDC_RADIO_SMALLICON, BM_SETCHECK, BST_CHECKED, 0);
+	::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_TOOLBAR_REDUCE, 0);
 }
 
 INT_PTR CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
@@ -770,11 +791,6 @@ INT_PTR CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 	return FALSE;
 }
 
-void DarkModeSubDlg::enableDependentControls()
-{
-	bool experimentalEnabled = isCheckedOrNot(IDC_CHECK_DARKMODE_ENABLE_EXPERIMENTAL);
-	EnableWindow(GetDlgItem(_hSelf, IDC_CHECK_DARKMODE_ENABLE_SCROLLBAR_HACK), experimentalEnabled ? TRUE : FALSE);
-}
 
 INT_PTR CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -787,11 +803,6 @@ INT_PTR CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 		case WM_INITDIALOG:
 		{
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_DARKMODE_ENABLE, BM_SETCHECK, nppGUI._darkmode.enable, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_DARKMODE_ENABLE_EXPERIMENTAL, BM_SETCHECK, nppGUI._darkmode.enableExperimental, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_DARKMODE_ENABLE_MENUBAR, BM_SETCHECK, nppGUI._darkmode.enableMenubar, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_DARKMODE_ENABLE_SCROLLBAR_HACK, BM_SETCHECK, nppGUI._darkmode.enableScrollbarHack, 0);
-
-			enableDependentControls();
 
 			ETDTProc enableDlgTheme = (ETDTProc)nppParam.getEnableThemeDlgTexture();
 			if (enableDlgTheme)
@@ -805,19 +816,20 @@ INT_PTR CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			switch (wParam)
 			{
 				case IDC_CHECK_DARKMODE_ENABLE:
-					nppGUI._darkmode.enable = isCheckedOrNot(static_cast<int>(wParam));
-					changed = true;
-					break;
-				case IDC_CHECK_DARKMODE_ENABLE_EXPERIMENTAL:
-					nppGUI._darkmode.enableExperimental = isCheckedOrNot(static_cast<int>(wParam));
-					changed = true;
-					break;
-				case IDC_CHECK_DARKMODE_ENABLE_MENUBAR:
-					nppGUI._darkmode.enableMenubar = isCheckedOrNot(static_cast<int>(wParam));
-					changed = true;
-					break;
-				case IDC_CHECK_DARKMODE_ENABLE_SCROLLBAR_HACK:
-					nppGUI._darkmode.enableScrollbarHack = isCheckedOrNot(static_cast<int>(wParam));
+					bool enableDarkMode = isCheckedOrNot(static_cast<int>(wParam));
+					nppGUI._darkmode.enable = enableDarkMode;
+					nppGUI._darkmode.enableExperimental = enableDarkMode;
+					nppGUI._darkmode.enableMenubar = enableDarkMode;
+					nppGUI._darkmode.enableScrollbarHack = enableDarkMode;
+
+					// if dark mode enabled & TB_STANDARD is selected, switch to TB_SMALL
+					if (nppGUI._darkmode.enable)
+					{
+						bool isStandardChecked = false;
+						::SendMessage(_hParent, PREF_MSG_ISCHECKED_GENERALPAGE, IDC_RADIO_STANDARD, LPARAM(&isStandardChecked));
+						if (isStandardChecked)
+							::SendMessage(_hParent, PREF_MSG_SETTOOLICONSFROMSTDTOSMALL, 0, 0);
+					}
 					changed = true;
 					break;
 			}
@@ -825,7 +837,6 @@ INT_PTR CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			if (changed)
 			{
 				NppDarkMode::refreshDarkMode(_hSelf);
-				enableDependentControls();
 				return TRUE;
 			}
 

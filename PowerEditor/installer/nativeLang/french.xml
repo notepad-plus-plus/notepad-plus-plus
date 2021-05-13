@@ -764,9 +764,11 @@
                 <Global title="Général">
                     <Item id="6101" name="Barre d’outils"/>
                     <Item id="6102" name="Cacher"/>
-                    <Item id="6103" name="Petites icônes"/>
-                    <Item id="6104" name="Grandes icônes"/>
-                    <Item id="6105" name="Icônes standards"/>
+                    <Item id="6103" name="Fluent UI: petites icônes"/>
+                    <Item id="6104" name="Fluent UI: grandes icônes"/>
+                    <Item id="6129" name="Filled Fluent UI: petites icônes"/>
+                    <Item id="6130" name="Filled Fluent UI: grandes icônes"/>
+                    <Item id="6105" name="Standards: petites icônes"/>
                     <Item id="6106" name="Barre d’onglets"/>
                     <Item id="6107" name="Réduire la taille"/>
                     <Item id="6108" name="Verrouiller (pas de glisser-déposer)"/>
@@ -803,6 +805,11 @@
                     <Item id="6236" name="Activer le défilement au-delà de la dernière ligne"/>
                     <Item id="6239" name="Conserver la sélection lors d'un clic droit en dehors de la sélection"/> 
                 </Scintillas>
+
+                <DarkMode title="Mode Sombre">
+                    <Item id="7101" name="Activer mode sombre"/>
+                    <Item id="7106" name="* Il faut redémarrer Notepad++ pour avoir l'effet complet."/>
+                </DarkMode>
 
                 <MarginsBorderEdge title="Marges et Bordure">
                     <Item id="6201" name="Contrôle de repli de bloc"/>

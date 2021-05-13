@@ -129,6 +129,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42064" name="Sort Lines As Decimals (Comma) Descending"/>
                     <Item id="42065" name="Sort Lines As Decimals (Dot) Ascending"/>
                     <Item id="42066" name="Sort Lines As Decimals (Dot) Descending"/>
+                    <Item id="42083" name="Reverse Line Order"/>
                     <Item id="42078" name="Sort Lines Randomly"/>
                     <Item id="42016" name="&amp;UPPERCASE"/>
                     <Item id="42017" name="&amp;lowercase"/>
@@ -802,9 +803,11 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Global title="General">
                     <Item id="6101" name="Toolbar"/>
                     <Item id="6102" name="Hide"/>
-                    <Item id="6103" name="Small icons"/>
-                    <Item id="6104" name="Big icons"/>
-                    <Item id="6105" name="Standard icons"/>
+                    <Item id="6103" name="Fluent UI: small"/>
+                    <Item id="6104" name="Fluent UI: large"/>
+                    <Item id="6129" name="Filled Fluent UI: small"/>
+                    <Item id="6130" name="Filled Fluent UI: large"/>
+                    <Item id="6105" name="Standard icons: small"/>
 
                     <Item id="6106" name="Tab Bar"/>
                     <Item id="6107" name="Reduce"/>
@@ -846,6 +849,11 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6236" name="Enable scrolling beyond last line"/>
                     <Item id="6239" name="Keep selection when right-click outside of selection"/>
                 </Scintillas>
+
+                <DarkMode title="Dark Mode">
+                    <Item id="7101" name="Enable dark mode"/>
+                    <Item id="7106" name="* Notepad++ must be restarted to take effect completely"/>
+                </DarkMode>
 
                 <MarginsBorderEdge title="Margins/Border/Edge">
                     <Item id="6201" name="Folder Margin Style"/>

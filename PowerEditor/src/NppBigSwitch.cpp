@@ -1622,7 +1622,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				{
 					if (NppDarkMode::isEnabled())
 					{
-						FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getPureBackgroundBrush());
+						FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getDarkerBackgroundBrush());
 						nmtbcd->clrText = NppDarkMode::getTextColor();
 						SetTextColor(nmtbcd->nmcd.hdc, NppDarkMode::getTextColor());
 						return CDRF_SKIPDEFAULT;

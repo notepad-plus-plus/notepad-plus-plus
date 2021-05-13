@@ -35,9 +35,12 @@ public :
 	};
 	HIMAGELIST getHandle() const {return _hImglst;};
 	void addIcon(int iconID) const;
+	//bool addInvertIcon(int iconID) const;
 	void addIcon(HICON hIcon) const;
+
 	bool changeIcon(int index, const TCHAR *iconLocation) const;
 	void addIcons(int size) const;
+
 
 private :
 	HIMAGELIST _hImglst = nullptr;
@@ -45,6 +48,8 @@ private :
 	int *_pIconIDArray = nullptr;
 	int _iconIDArraySize = 0;
 	int _iconSize = 0;
+
+	//HICON invertColour(HICON hIcon) const;
 };
 
 typedef struct 
@@ -57,6 +62,12 @@ typedef struct
 	int _defaultIcon2;
 	int _grayIcon2;
 
+	int _defaultDarkModeIcon;
+	int _grayDarkModeIcon;
+
+	int _defaultDarkModeIcon2;
+	int _grayDarkModeIcon2;
+
 	int _stdIcon;
 } ToolBarButtonUnit;
 
@@ -68,11 +79,16 @@ struct DynamicCmdIcoBmp {
 
 typedef std::vector<ToolBarButtonUnit> ToolBarIconIDs;
 
-
+// Light Mode list
 const int HLIST_DEFAULT = 0;
 const int HLIST_DISABLE = 1;
 const int HLIST_DEFAULT2 = 2;
 const int HLIST_DISABLE2 = 3;
+// Dark Mode list
+const int HLIST_DEFAULT_DM = 4;
+const int HLIST_DISABLE_DM = 5;
+const int HLIST_DEFAULT_DM2 = 6;
+const int HLIST_DISABLE_DM2 = 7;
 
 class ToolBarIcons
 {
@@ -97,6 +113,22 @@ public :
 
 	HIMAGELIST getDisableLstSet2() const {
 		return _iconListVector[HLIST_DISABLE2].getHandle();
+	};
+
+	HIMAGELIST getDefaultLstDM() const {
+		return _iconListVector[HLIST_DEFAULT_DM].getHandle();
+	};
+
+	HIMAGELIST getDisableLstDM() const {
+		return _iconListVector[HLIST_DISABLE_DM].getHandle();
+	};
+
+	HIMAGELIST getDefaultLstSetDM2() const {
+		return _iconListVector[HLIST_DEFAULT_DM2].getHandle();
+	};
+
+	HIMAGELIST getDisableLstSetDM2() const {
+		return _iconListVector[HLIST_DISABLE_DM2].getHandle();
 	};
 
 	void resizeIcon(int size) {

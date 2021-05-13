@@ -23,6 +23,8 @@
 
 !ifdef ARCH64
 	!getdllversion "..\bin64\notepad++.exe" nppVer_
+!else ifdef ARCHARM64
+	!getdllversion "..\binarm64\notepad++.exe" nppVer_
 !else
 	!getdllversion "..\bin\notepad++.exe" nppVer_
 !endif

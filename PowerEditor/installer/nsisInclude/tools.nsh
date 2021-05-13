@@ -163,6 +163,8 @@ Function writeInstallInfoInRegistry
 	WriteRegStr HKLM "Software\${APPNAME}" "" "$INSTDIR"
 	!ifdef ARCH64
 		WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "DisplayName" "${APPNAME} (64-bit x64)"
+	!else ifdef ARCHARM64
+		WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "DisplayName" "${APPNAME} (ARM 64-bit)"
 	!else
 		WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "DisplayName" "${APPNAME} (32-bit x86)"
 	!endif

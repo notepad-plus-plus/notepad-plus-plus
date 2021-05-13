@@ -37,6 +37,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item subMenuId="edit-pasteSpecial" name="Paste Special"/>
                     <Item subMenuId="edit-onSelection" name="On Selection"/>
                     <Item subMenuId="search-markAll" name="Mark All"/>
+                    <Item subMenuId="search-markOne" name="Mark One"/>
                     <Item subMenuId="search-unmarkAll" name="Unmark All"/>
                     <Item subMenuId="search-jumpUp" name="Jump Up"/>
                     <Item subMenuId="search-jumpDown" name="Jump Down"/>
@@ -128,6 +129,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42064" name="Sort Lines As Decimals (Comma) Descending"/>
                     <Item id="42065" name="Sort Lines As Decimals (Dot) Ascending"/>
                     <Item id="42066" name="Sort Lines As Decimals (Dot) Descending"/>
+                    <Item id="42083" name="Reverse Line Order"/>
                     <Item id="42078" name="Sort Lines Randomly"/>
                     <Item id="42016" name="&amp;UPPERCASE"/>
                     <Item id="42017" name="&amp;lowercase"/>
@@ -232,6 +234,11 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43059" name="5th Style"/>
                     <Item id="43060" name="All Styles"/>
                     <Item id="43061" name="Find Style (Marked)"/>
+                    <Item id="43062" name="Using 1st Style"/>
+                    <Item id="43063" name="Using 2nd Style"/>
+                    <Item id="43064" name="Using 3rd Style"/>
+                    <Item id="43065" name="Using 4th Style"/>
+                    <Item id="43066" name="Using 5th Style"/>
                     <Item id="43045" name="Search Results Window"/>
                     <Item id="43046" name="Next Search Result"/>
                     <Item id="43047" name="Previous Search Result"/>
@@ -240,6 +247,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43054" name="Mar&amp;k..."/>
                     <Item id="44009" name="Post-It"/>
                     <Item id="44010" name="Fold All"/>
+                    <Item id="44011" name="Distraction Free Mode"/>
                     <Item id="44019" name="Show All Characters"/>
                     <Item id="44020" name="Show Indent Guide"/>
                     <Item id="44022" name="Word wrap"/>
@@ -283,14 +291,14 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="45003" name="Macintosh (CR)"/>
                     <Item id="45004" name="ANSI"/>
                     <Item id="45005" name="UTF-8-BOM"/>
-                    <Item id="45006" name="UCS-2 BE BOM"/>
-                    <Item id="45007" name="UCS-2 LE BOM"/>
+                    <Item id="45006" name="UTF-16 BE BOM"/>
+                    <Item id="45007" name="UTF-16 LE BOM"/>
                     <Item id="45008" name="UTF-8"/>
                     <Item id="45009" name="Convert to ANSI"/>
                     <Item id="45010" name="Convert to UTF-8"/>
                     <Item id="45011" name="Convert to UTF-8-BOM"/>
-                    <Item id="45012" name="Convert to UCS-2 BE BOM"/>
-                    <Item id="45013" name="Convert to UCS-2 LE BOM"/>
+                    <Item id="45012" name="Convert to UTF-16 BE BOM"/>
+                    <Item id="45013" name="Convert to UTF-16 LE BOM"/>
                     <Item id="45060" name="Big5 (Traditional)"/>
                     <Item id="45061" name="GB2312 (Simplified)"/>
                     <Item id="45054" name="OEM 861: Icelandic"/>
@@ -539,11 +547,16 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="45001" name="EOL Conversion to Windows (CR LF)"/>
                     <Item id="45002" name="EOL Conversion to Unix (LF)"/>
                     <Item id="45003" name="EOL Conversion to Macintosh (CR)"/>
-                    <Item id="43022" name="Mark text using 1st style"/>
-                    <Item id="43024" name="Mark text using 2nd style"/>
-                    <Item id="43026" name="Mark text using 3rd style"/>
-                    <Item id="43028" name="Mark text using 4th style"/>
-                    <Item id="43030" name="Mark text using 5th style"/>
+                    <Item id="43022" name="Mark all using 1st style"/>
+                    <Item id="43024" name="Mark all using 2nd style"/>
+                    <Item id="43026" name="Mark all using 3rd style"/>
+                    <Item id="43028" name="Mark all using 4th style"/>
+                    <Item id="43030" name="Mark all using 5th style"/>
+                    <Item id="43062" name="Mark one using 1st style"/>
+                    <Item id="43063" name="Mark one using 2nd style"/>
+                    <Item id="43064" name="Mark one using 3rd style"/>
+                    <Item id="43065" name="Mark one using 4th style"/>
+                    <Item id="43066" name="Mark one using 5th style"/>
                     <Item id="43023" name="Clear marks using 1st style"/>
                     <Item id="43025" name="Clear marks using 2nd style"/>
                     <Item id="43027" name="Clear marks using 3rd style"/>
@@ -790,9 +803,11 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Global title="General">
                     <Item id="6101" name="Toolbar"/>
                     <Item id="6102" name="Hide"/>
-                    <Item id="6103" name="Small icons"/>
-                    <Item id="6104" name="Big icons"/>
-                    <Item id="6105" name="Standard icons"/>
+                    <Item id="6103" name="Fluent UI: small"/>
+                    <Item id="6104" name="Fluent UI: large"/>
+                    <Item id="6129" name="Filled Fluent UI: small"/>
+                    <Item id="6130" name="Filled Fluent UI: large"/>
+                    <Item id="6105" name="Standard icons: small"/>
 
                     <Item id="6106" name="Tab Bar"/>
                     <Item id="6107" name="Reduce"/>
@@ -835,6 +850,11 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6239" name="Keep selection when right-click outside of selection"/>
                 </Scintillas>
 
+                <DarkMode title="Dark Mode">
+                    <Item id="7101" name="Enable dark mode"/>
+                    <Item id="7106" name="* Notepad++ must be restarted to take effect completely"/>
+                </DarkMode>
+
                 <MarginsBorderEdge title="Margins/Border/Edge">
                     <Item id="6201" name="Folder Margin Style"/>
                     <Item id="6202" name="Simple"/>
@@ -853,6 +873,10 @@ The comments are here for explanation, it's not necessary to translate them.
 You can define several column markers by using white space to separate the different numbers."/>
                     <Item id="6231" name="Border Width"/>
                     <Item id="6235" name="No edge"/>
+                    <Item id="6208" name="Padding"/>
+                    <Item id="6209" name="Left"/>
+                    <Item id="6210" name="Right"/>
+                    <Item id="6212" name="Distraction Free"/>
                 </MarginsBorderEdge>
 
                 <NewDoc title="New Document">
@@ -864,8 +888,8 @@ You can define several column markers by using white space to separate the diffe
                     <Item id="6406" name="ANSI"/>
                     <Item id="6407" name="UTF-8"/>
                     <Item id="6408" name="UTF-8 with BOM"/>
-                    <Item id="6409" name="UCS-2 Big Endian with BOM"/>
-                    <Item id="6410" name="UCS-2 Little Endian with BOM"/>
+                    <Item id="6409" name="UTF-16 Big Endian with BOM"/>
+                    <Item id="6410" name="UTF-16 Little Endian with BOM"/>
                     <Item id="6411" name="Default language :"/>
                     <Item id="6419" name="New Document"/>
                     <Item id="6420" name="Apply to opened ANSI files"/>
@@ -896,8 +920,12 @@ You can define several column markers by using white space to separate the diffe
                 </Language>
 
                 <Highlighting title="Highlighting">
+                    <Item id="6351" name="Mark All"/>
+                    <Item id="6352" name="Match case"/>
+                    <Item id="6353" name="Match whole word only"/>
                     <Item id="6333" name="Smart Highlighting"/>
                     <Item id="6326" name="Enable"/>
+                    <Item id="6354" name="Matching"/>
                     <Item id="6332" name="Match case"/>
                     <Item id="6338" name="Match whole word only"/>
                     <Item id="6339" name="Use Find dialog settings"/>
@@ -943,6 +971,7 @@ You can define several column markers by using white space to separate the diffe
                     <Item id="6902" name="Use monospaced font in Find dialog (Need to restart Notepad++)"/>
                     <Item id="6903" name="Find dialog remains open after search that outputs to results window"/>
                     <Item id="6904" name="Confirm Replace All in All Opened Documents"/>
+                    <Item id="6905" name="Replace: Don't move to the following occurrence"/>
                 </Searching>
 
                 <RecentFilesHistory title="Recent Files History">
@@ -1045,7 +1074,6 @@ You can define several column markers by using white space to separate the diffe
                     <Item id="6325" name="Scroll to the last line after update"/>
                     <Item id="6322" name="Session file ext.:"/>
                     <Item id="6323" name="Enable Notepad++ auto-updater"/>
-                    <Item id="6351" name="Set Save dialog file extension filter to *.*"/>
                     <Item id="6324" name="Document Switcher (Ctrl+TAB)"/>
                     <Item id="6331" name="Show only filename in title bar"/>
                     <Item id="6334" name="Autodetect character encoding"/>
@@ -1343,6 +1371,7 @@ Find in all files except exe, obj &amp;&amp; log:
             <find-status-replace-end-reached value="Replace: Replaced the 1st occurrence from the top. The end of document has been reached"/>
             <find-status-replace-top-reached value="Replace: Replaced the 1st occurrence from the bottom. The begin of document has been reached"/>
             <find-status-replaced-next-found value="Replace: 1 occurrence was replaced. The next occurrence found."/>
+            <find-status-replaced-without-continuing value="Replace: 1 occurrence was replaced."/>
             <find-status-replaced-next-not-found value="Replace: 1 occurrence was replaced. No more occurrences were found."/>
             <find-status-replace-not-found value="Replace: no occurrence was found"/>
             <find-status-replace-readonly value="Replace: Cannot replace text. The current document is read only"/>
@@ -1357,9 +1386,11 @@ Find in all files except exe, obj &amp;&amp; log:
             <finder-uncollapse-all value="Uncollapse all"/>
             <finder-copy value="Copy Selected Line(s)"/>
             <finder-copy-verbatim value="Copy"/>
+            <finder-copy-paths value="Copy Pathname(s)"/>
             <finder-select-all value="Select all"/>
             <finder-clear-all value="Clear all"/>
             <finder-open-all value="Open all"/>
+            <finder-purge-for-every-search value="Purge for every search"/>
             <finder-wrap-long-lines value="Word wrap long lines"/>
             <common-ok value="OK"/>
             <common-cancel value="Cancel"/>
@@ -1404,6 +1435,8 @@ Find in all files except exe, obj &amp;&amp; log:
             <find-result-line-prefix value="Line"/> <!-- Must not begin with space or tab character -->
             <find-regex-zero-length-match value="zero length match" />
             <session-save-folder-as-workspace value="Save Folder as Workspace" />
+            <tab-untitled-string value="new " />
+            <file-save-assign-type value="&amp;Append extension" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

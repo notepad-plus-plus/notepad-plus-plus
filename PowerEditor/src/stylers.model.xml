@@ -760,7 +760,7 @@
             <WordsStyle name="FUNCTION DEFINITIONS" styleID="17" fgColor="0000FF" bgColor="FFFFFF" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="COMMENT" styleID="18" fgColor="008000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
-        <LexerType name="nimrod" desc="Nimrod" ext="">
+        <LexerType name="nim" desc="Nim" ext="">
             <WordsStyle name="WHITE SPACE" styleID="0" fgColor="808080" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT" styleID="1" fgColor="007F00" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="NUMBER" styleID="2" fgColor="007F7F" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
@@ -1377,7 +1377,7 @@
         <WidgetStyle name="Brace highlight style" styleID="34" fgColor="FF0000" bgColor="FFFFFF" fontName="" fontStyle="1" fontSize="10" />
         <WidgetStyle name="Bad brace colour" styleID="35" fgColor="800000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
         <WidgetStyle name="Current line background colour" styleID="0" bgColor="E8E8FF" />
-        <WidgetStyle name="Selected text colour" styleID="0" bgColor="C0C0C0" />
+        <WidgetStyle name="Selected text colour" styleID="0" bgColor="C0C0C0" fgColor="000000" />
         <WidgetStyle name="Caret colour" styleID="2069" fgColor="8000FF" />
         <WidgetStyle name="Edge colour" styleID="0" fgColor="80FFFF" />
         <WidgetStyle name="Line number margin" styleID="33" fgColor="808080" bgColor="E4E4E4" fontName="" fontStyle="0" fontSize="" />

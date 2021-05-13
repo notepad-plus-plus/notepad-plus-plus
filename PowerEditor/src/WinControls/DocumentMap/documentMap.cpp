@@ -86,7 +86,7 @@ bool DocumentMap::needToRecomputeWith(const ScintillaEditView *editView)
 	if (_displayZoom != currentZoom)
 		return true;
 
-	int currentTextZoneWidth = getEditorTextZoneWidth(editView);
+	int currentTextZoneWidth = pEditView->getTextZoneWidth();
 	if (_displayWidth != currentTextZoneWidth)
 		return true;
 
@@ -163,7 +163,7 @@ void DocumentMap::wrapMap(const ScintillaEditView *editView)
 	if (pEditView->isWrap())
 	{
 		// get current scintilla width W1
-		int editZoneWidth = getEditorTextZoneWidth(editView);
+		int editZoneWidth = pEditView->getTextZoneWidth();
 
 		// update the wrap needed data
 		_displayWidth = editZoneWidth;
@@ -179,23 +179,18 @@ void DocumentMap::wrapMap(const ScintillaEditView *editView)
 		// sync wrapping indent mode
 		_pMapView->execute(SCI_SETWRAPINDENTMODE, pEditView->execute(SCI_GETWRAPINDENTMODE));
 
+		const ScintillaViewParams& svp = NppParameters::getInstance().getSVP();
+
+		if (svp._paddingLeft || svp._paddingRight)
+		{
+			int paddingMapLeft = static_cast<int>(svp._paddingLeft / (editZoneWidth / docMapWidth));
+			int paddingMapRight = static_cast<int>(svp._paddingRight / (editZoneWidth / docMapWidth));
+			_pMapView->execute(SCI_SETMARGINLEFT, 0, paddingMapLeft);
+			_pMapView->execute(SCI_SETMARGINRIGHT, 0, paddingMapRight);
+		}
 	}
+
 	doMove();
-}
-
-int DocumentMap::getEditorTextZoneWidth(const ScintillaEditView *editView)
-{
-	const ScintillaEditView *pEditView = editView ? editView : *_ppEditView;
-
-	RECT editorRect;
-	pEditView->getClientRect(editorRect);
-
-	int marginWidths = 0;
-	for (int m = 0; m < 4; ++m)
-	{
-		marginWidths += static_cast<int32_t>(pEditView->execute(SCI_GETMARGINWIDTHN, m));
-	}
-	return editorRect.right - editorRect.left - marginWidths;
 }
 
 void DocumentMap::scrollMap()

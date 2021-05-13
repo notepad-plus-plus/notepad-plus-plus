@@ -18,7 +18,10 @@
 NPP_DIR			= ../src
 SCI_DIR			= ../../scintilla/include
 GCC_DIR			= .
-GCCINCLUDE_DIR  = $(GCC_DIR)/include
+GCCINCLUDE_DIR	= $(GCC_DIR)/include
+
+#darkmode:
+DARKMODE_DIR	= $(NPP_DIR)/darkmode
 
 #json:
 JSON_DIR		= $(NPP_DIR)/json
@@ -79,7 +82,10 @@ WIN_DIR			= $(NPP_DIR)/WinControls
 
 # Sources:
 SRC_NPP			= $(wildcard $(NPP_DIR)/*.cpp)
-SRC_GCCINCLUDE  = $(wildcard $(GCCINCLUDE_DIR)/*.cpp)
+SRC_GCCINCLUDE	= $(wildcard $(GCCINCLUDE_DIR)/*.cpp)
+
+#DARKMODE
+SRC_DARKMODE	= $(wildcard $(DARKMODE_DIR)/*.cpp)
 
 #MISC
 SRC_MISC		= $(wildcard $(MISC_DIR)/*.cpp)
@@ -136,7 +142,10 @@ SRC_WIN			= $(wildcard $(WIN_DIR)/*.cpp)
 
 # Objects:
 OBJ_NPP			= $(patsubst %.cpp,%.o,$(SRC_NPP))
-OBJ_GCCINCLUDE  = $(patsubst %.cpp,%.o,$(SRC_GCCINCLUDE))
+OBJ_GCCINCLUDE	= $(patsubst %.cpp,%.o,$(SRC_GCCINCLUDE))
+
+#DARKMODE
+OBJ_DARKMODE	= $(patsubst %.cpp,%.o,$(SRC_DARKMODE))
 
 #MISC
 OBJ_MISC		= $(patsubst %.cpp,%.o,$(SRC_MISC))
@@ -210,8 +219,9 @@ OBJS_WIN		= $(OBJ_WIN) $(OBJ_ABOUT) $(OBJ_ANSICHAR) $(OBJ_CLIPBOARD) $(OBJ_CONTE
 OBJS_UCHARDET	= $(OBJ_UCHARDET)
 OBJS_TIXML		= $(OBJ_TIXML) $(OBJ_TIXMLA)
 OBJS_SCINT		= $(OBJ_SCINT)
+OBJS_DARKMODE	= $(OBJ_DARKMODE)
 OBJS_MISC		= $(OBJ_MISC) $(OBJ_COMMON) $(OBJ_EXCEPTION) $(OBJ_MD5) $(OBJ_SHA2) $(OBJ_PLUGINS) $(OBJ_PROCESS) $(OBJ_REGEXT)
-OBJS			= $(OBJ_NPP) $(OBJS_WIN) $(OBJS_UCHARDET) $(OBJS_TIXML) $(OBJS_SCINT) $(OBJS_MISC) $(OBJ_GCCINCLUDE)
+OBJS			= $(OBJ_NPP) $(OBJS_WIN) $(OBJS_UCHARDET) $(OBJS_TIXML) $(OBJS_SCINT) $(OBJS_MISC) $(OBJS_DARKMODE) $(OBJ_GCCINCLUDE)
 
 # Main resource file
 SRC_RES			= ./resources.rc
@@ -243,15 +253,15 @@ endif
 
 # Parameters
 INCLUDESPECIAL	= -include./include/various.h
-#    Comment this out for ANSI build
-UNICODE         = -DUNICODE -D_UNICODE
+UNICODE			= -DUNICODE -D_UNICODE
 
 CXX				= $(CROSS_COMPILE)g++
 #CXXFLAGS		= -O2 $(INCLUDESPECIAL)
-CXXFLAGS		= $(INCLUDESPECIAL) -DTIXML_USE_STL -DTIXMLA_USE_STL $(UNICODE) -std=c++17 -fpermissive
+CXXFLAGS		= $(INCLUDESPECIAL) -D_WIN32_WINNT=0x0600 -DTIXML_USE_STL -DTIXMLA_USE_STL $(UNICODE) -std=c++17 -fpermissive
 INCLUDES		= $(patsubst %,-I%,$(DIRS)) -I./include
 LDFLAGS			= -Wl,--subsystem,windows -municode -mwindows
-LIBS			= -lcomdlg32 -lcomctl32 -lgdi32 -lole32 -loleacc -lshell32 -lshlwapi -ldbghelp -lversion -lcrypt32 -lsensapi -lwininet -lwintrust -luuid
+LIBS			= -lcomdlg32 -lcomctl32 -lgdi32 -lole32 -loleacc -lshell32 -lshlwapi -ldbghelp -lversion -lcrypt32 -lsensapi -lwininet -lwintrust -luuid -luxtheme
+LIBSCILEX		= -L$(SCI_DIR)/../bin  -lscilexer -loleaut32 -limm32 -lmsimg32
 
 RC				= $(CROSS_COMPILE)windres
 
@@ -267,8 +277,8 @@ all: NotepadPP xmlcfg
 NotepadPP: $(EXEC)
 
 $(EXEC): $(OBJS) $(OBJ_RES)
-	$(CXX) $(LDFLAGS) $^ $(LIBS) -o $@_dynamic
-	$(CXX) $(LDFLAGS) $^ $(LIBS) -static -o $@
+	$(CXX) $(LDFLAGS) $^ $(LIBSCILEX) $(LIBS) -o $@_dynamic
+	$(CXX) $(LDFLAGS) $^ $(LIBSCILEX) $(LIBS) -static -o $@
 	
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -MMD -c $< -o $@

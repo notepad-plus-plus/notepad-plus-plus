@@ -27,16 +27,6 @@ using namespace std;
 const TCHAR * USERMSG = TEXT(" is not compatible with the current version of Notepad++.\n\n\
 Do you want to remove this plugin from the plugins directory to prevent this message from the next launch?");
 
-#ifdef _WIN64
-#define ARCH_TYPE IMAGE_FILE_MACHINE_AMD64
-const TCHAR *ARCH_ERR_MSG = TEXT("Cannot load 32-bit plugin.");
-#else
-#define ARCH_TYPE IMAGE_FILE_MACHINE_I386
-const TCHAR *ARCH_ERR_MSG = TEXT("Cannot load 64-bit plugin.");
-#endif
-
-
-
 
 bool PluginsManager::unloadPlugin(int index, HWND nppHandle)
 {
@@ -120,9 +110,17 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath)
 	try
 	{
 		pi->_moduleName = pluginFileName;
+		int archType = nppParams.archType();
+		if (getBinaryArchitectureType(pluginFilePath) != archType)
+		{
+			const TCHAR *archErrMsg = TEXT("Cannot load 64-bit plugin."); // IMAGE_FILE_MACHINE_I386 by default
+			if (archType == IMAGE_FILE_MACHINE_ARM64)
+				archErrMsg = TEXT("Cannot load 32-bit or non-ARM64 plugin.");
+			else if(archType == IMAGE_FILE_MACHINE_AMD64)
+				archErrMsg = TEXT("Cannot load 32-bit plugin.");
 
-		if (getBinaryArchitectureType(pluginFilePath) != ARCH_TYPE)
-			throw generic_string(ARCH_ERR_MSG);
+			throw generic_string(archErrMsg);
+		}
 
         const DWORD dwFlags = GetProcAddress(GetModuleHandle(TEXT("kernel32.dll")), "AddDllDirectory") != NULL ? LOAD_LIBRARY_SEARCH_DLL_LOAD_DIR | LOAD_LIBRARY_SEARCH_DEFAULT_DIRS : 0;
         pi->_hLib = ::LoadLibraryEx(pluginFilePath, NULL, dwFlags);

@@ -20,7 +20,7 @@
 
 const TCHAR COMMAND_ARG_HELP[] = TEXT("Usage :\r\
 \r\
-notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-LlangCode] [-nLineNumber] [-cColumnNumber] [-pPosition] [-xLeftPos] [-yTopPos] [-nosession] [-notabbar] [-ro] [-systemtray] [-loadingTime] [-alwaysOnTop] [-openSession] [-r] [-qn=\"Easter egg name\" | -qt=\"a text to display.\" | -qf=\"D:\\my quote.txt\"] [-qSpeed1|2|3] [-quickPrint] [-settingsDir=\"d:\\your settings dir\\\"] [-openFoldersAsWorkspace] [filePath]\r\
+notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-LlangCode] [-nLineNumber] [-cColumnNumber] [-pPosition] [-xLeftPos] [-yTopPos] [-nosession] [-notabbar] [-ro] [-systemtray] [-loadingTime] [-alwaysOnTop] [-openSession] [-r] [-qn=\"Easter egg name\" | -qt=\"a text to display.\" | -qf=\"D:\\my quote.txt\"] [-qSpeed1|2|3] [-quickPrint] [-settingsDir=\"d:\\your settings dir\\\"] [-openFoldersAsWorkspace]  [-titleAdd=\"additional title bar text\"][filePath]\r\
 \r\
 --help : This help message\r\
 -multiInst : Launch another Notepad++ instance\r\
@@ -48,6 +48,7 @@ notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-LlangCode] [-nLineNum
 -quickPrint : Print the file given as argument then quit Notepad++\r\
 -settingsDir=\"d:\\your settings dir\\\": Override the default settings dir\r\
 -openFoldersAsWorkspace: open filePath of folder(s) as workspace\r\
+-titleAdd=\"string\": add string to Notepad++ title bar\r\
 filePath : file or folder name to open (absolute or relative path name)\r\
 ");
 

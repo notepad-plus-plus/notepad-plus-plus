@@ -30,14 +30,8 @@
 #define _WIN32_IE	0x0600
 #endif //_WIN32_IE
 
-enum toolBarStatusType {TB_SMALL, TB_LARGE, TB_STANDARD};
+enum toolBarStatusType {TB_SMALL, TB_LARGE, TB_SMALL2, TB_LARGE2, TB_STANDARD};
 
-
-typedef struct {
-	UINT		message;		// identification of icon in tool bar (menu ID)
-	HBITMAP		hBmp;			// bitmap for toolbar
-	HICON		hIcon;			// icon for toolbar
-} tDynamicList;
 
 struct iconLocator {
 	int listIndex;
@@ -72,7 +66,9 @@ public :
 
 	void reduce();
 	void enlarge();
-	void setToUglyIcons();
+	void reduceToSet2();
+	void enlargeToSet2();
+	void setToBmpIcons();
 
 	bool getCheckState(int ID2Check) const {
 		return bool(::SendMessage(_hSelf, TB_GETSTATE, ID2Check, 0) & TBSTATE_CHECKED);
@@ -87,8 +83,8 @@ public :
 	};
 
     bool changeIcons() {    
-	    if (!_toolIcons)
-		    return false;
+	    if (!_toolIcons) return false;
+
 	    for (size_t i = 0, len = _customIconVect.size(); i < len; ++i)
 		    changeIcons(_customIconVect[i].listIndex, _customIconVect[i].iconIndex, (_customIconVect[i].iconLocation).c_str());
         return true;
@@ -108,7 +104,7 @@ private :
 	TBBUTTON *_pTBB = nullptr;
 	ToolBarIcons _toolBarIcons;
 	toolBarStatusType _state = TB_SMALL;
-	std::vector<tDynamicList> _vDynBtnReg;
+	std::vector<DynamicCmdIcoBmp> _vDynBtnReg;
 	size_t _nbButtons = 0;
 	size_t _nbDynButtons = 0;
 	size_t _nbTotalButtons = 0;
@@ -121,11 +117,33 @@ private :
 	void setDefaultImageList() {
 		::SendMessage(_hSelf, TB_SETIMAGELIST, 0, reinterpret_cast<LPARAM>(_toolBarIcons.getDefaultLst()));
 	};
-	void setHotImageList() {
-		::SendMessage(_hSelf, TB_SETHOTIMAGELIST, 0, reinterpret_cast<LPARAM>(_toolBarIcons.getHotLst()));
-	};
+
 	void setDisableImageList() {
 		::SendMessage(_hSelf, TB_SETDISABLEDIMAGELIST, 0, reinterpret_cast<LPARAM>(_toolBarIcons.getDisableLst()));
+	};
+
+	void setDefaultImageList2() {
+		::SendMessage(_hSelf, TB_SETIMAGELIST, 0, reinterpret_cast<LPARAM>(_toolBarIcons.getDefaultLstSet2()));
+	};
+
+	void setDisableImageList2() {
+		::SendMessage(_hSelf, TB_SETDISABLEDIMAGELIST, 0, reinterpret_cast<LPARAM>(_toolBarIcons.getDisableLstSet2()));
+	};
+
+	void setDefaultImageListDM() {
+		::SendMessage(_hSelf, TB_SETIMAGELIST, 0, reinterpret_cast<LPARAM>(_toolBarIcons.getDefaultLstDM()));
+	};
+
+	void setDisableImageListDM() {
+		::SendMessage(_hSelf, TB_SETDISABLEDIMAGELIST, 0, reinterpret_cast<LPARAM>(_toolBarIcons.getDisableLstDM()));
+	};
+
+	void setDefaultImageListDM2() {
+		::SendMessage(_hSelf, TB_SETIMAGELIST, 0, reinterpret_cast<LPARAM>(_toolBarIcons.getDefaultLstSetDM2()));
+	};
+
+	void setDisableImageListDM2() {
+		::SendMessage(_hSelf, TB_SETDISABLEDIMAGELIST, 0, reinterpret_cast<LPARAM>(_toolBarIcons.getDisableLstSetDM2()));
 	};
 
 	void reset(bool create = false);

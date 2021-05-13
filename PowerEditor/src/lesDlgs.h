@@ -44,12 +44,14 @@ private :
 	POINT _p = {0, 0};
 };
 
-// 0 : sans fullscreen
+// 0 : normal window
 // 1 : fullscreen
 // 2 : postit
-const int buttonStatus_nada = 0;
-const int buttonStatus_fullscreen = 1;
-const int buttonStatus_postit = 2;
+// 4 : distractionFree
+const int buttonStatus_nada = 0;            // 0000 0000
+const int buttonStatus_fullscreen = 1;      // 0000 0001
+const int buttonStatus_postit = 2;          // 0000 0010
+const int buttonStatus_distractionFree = 4; // 0000 0100
 
 class ButtonDlg : public StaticDialog
 {

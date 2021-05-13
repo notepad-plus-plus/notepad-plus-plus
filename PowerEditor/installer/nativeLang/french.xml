@@ -233,6 +233,7 @@
                     <Item id="43054" name="Marquer..."/>
                     <Item id="44009" name="Post-it"/>
                     <Item id="44010" name="Replier tous les blocs"/>
+                    <Item id="44011" name="Mode sans distraction"/>
                     <Item id="44019" name="Afficher tous les caractères"/>
                     <Item id="44020" name="Afficher le guide d'indentation"/>
                     <Item id="44022" name="Retour automatique à la ligne"/>
@@ -763,9 +764,11 @@
                 <Global title="Général">
                     <Item id="6101" name="Barre d’outils"/>
                     <Item id="6102" name="Cacher"/>
-                    <Item id="6103" name="Petites icônes"/>
-                    <Item id="6104" name="Grandes icônes"/>
-                    <Item id="6105" name="Icônes standards"/>
+                    <Item id="6103" name="Fluent UI: petites icônes"/>
+                    <Item id="6104" name="Fluent UI: grandes icônes"/>
+                    <Item id="6129" name="Filled Fluent UI: petites icônes"/>
+                    <Item id="6130" name="Filled Fluent UI: grandes icônes"/>
+                    <Item id="6105" name="Standards: petites icônes"/>
                     <Item id="6106" name="Barre d’onglets"/>
                     <Item id="6107" name="Réduire la taille"/>
                     <Item id="6108" name="Verrouiller (pas de glisser-déposer)"/>
@@ -803,6 +806,11 @@
                     <Item id="6239" name="Conserver la sélection lors d'un clic droit en dehors de la sélection"/> 
                 </Scintillas>
 
+                <DarkMode title="Mode Sombre">
+                    <Item id="7101" name="Activer mode sombre"/>
+                    <Item id="7106" name="* Il faut redémarrer Notepad++ pour avoir l'effet complet."/>
+                </DarkMode>
+
                 <MarginsBorderEdge title="Marges et Bordure">
                     <Item id="6201" name="Contrôle de repli de bloc"/>
                     <Item id="6202" name="Simple"/>
@@ -821,6 +829,10 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                     <Item id="6292" name="Largeur dynamique"/>
                     <Item id="6293" name="Largeur constante"/>
                     <Item id="6207" name="Afficher la marge de signet"/>
+                    <Item id="6208" name="Padding"/>
+                    <Item id="6209" name="Gauche"/>
+                    <Item id="6210" name="Droite"/>
+                    <Item id="6212" name="Sans distraction"/>
                 </MarginsBorderEdge>
 
                 <NewDoc title="Nouveau document">
@@ -1358,6 +1370,7 @@ Rechercher dans tous les fichiers sauf exe, obj &amp;&amp; log:
             <find-result-line-prefix value="Ligne"/> <!-- Must not begin with space or tab character -->
             <find-regex-zero-length-match value="la chaîne vide trouvée" />
             <session-save-folder-as-workspace value="&quot;Dossier en tant qu'espace de travail&quot; inclus" />
+            <tab-untitled-string value="nouveau " />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

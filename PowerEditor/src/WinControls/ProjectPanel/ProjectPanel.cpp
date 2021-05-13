@@ -1098,6 +1098,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 		case IDM_PROJECT_RELOADWS:
 		{
 			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+			bool forceOpen = false;
 			if (_isDirty)
 			{
 				int res = pNativeSpeaker->messageBox("ProjectPanelReloadDirty",
@@ -1108,7 +1109,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 
 				if (res == IDYES)
 				{
-					// Do nothing
+					forceOpen = true;
 				}
 				else if (res == IDNO)
 				{
@@ -1118,7 +1119,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 
 			if (::PathFileExists(_workSpaceFilePath.c_str()))
 			{
-				openWorkSpace(_workSpaceFilePath.c_str());
+				openWorkSpace(_workSpaceFilePath.c_str(), forceOpen);
 			}
 			else
 			{

@@ -80,21 +80,25 @@ struct TaskListInfo;
 
 struct VisibleGUIConf final
 {
-	bool isPostIt = false;
-	bool isFullScreen = false;
+	bool _isPostIt = false;
+	bool _isFullScreen = false;
+	bool _isDistractionFree = false;
 
-	//Used by both views
-	bool isMenuShown = true;
-	//bool isToolbarShown;	//toolbar forcefully hidden by hiding rebar
-	DWORD_PTR preStyle = (WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN);
+	//Used by postit & fullscreen
+	bool _isMenuShown = true;
+	DWORD_PTR _preStyle = (WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN);
 
-	//used by postit only
-	bool isTabbarShown = true;
-	bool isAlwaysOnTop = false;
-	bool isStatusbarShown = true;
+	//used by postit
+	bool _isTabbarShown = true;
+	bool _isAlwaysOnTop = false;
+	bool _isStatusbarShown = true;
 
-	//used by fullscreen only
+	//used by fullscreen
 	WINDOWPLACEMENT _winPlace;
+
+	//used by distractionFree
+	bool _was2ViewModeOn = false;
+	std::vector<DockingCont*> _pVisibleDockingContainers;
 
 	VisibleGUIConf()
 	{
@@ -259,6 +263,8 @@ public:
 	void minimizeDialogs();
 	void restoreMinimizeDialogs();
 
+	void refreshDarkMode();
+
 private:
 	Notepad_plus_Window *_pPublicInterface = nullptr;
     Window *_pMainWindow = nullptr;
@@ -292,6 +298,7 @@ private:
 	ToolBar	_toolBar;
 	IconList _docTabIconList;
 	IconList _docTabIconListAlt;
+	IconList _docTabIconListDarkMode;
 
     StatusBar _statusBar;
 	bool _toReduceTabBar = false;
@@ -333,10 +340,11 @@ private:
 	// make sure we don't recursively call doClose when closing the last file with -quitOnEmpty
 	bool _isAttemptingCloseOnQuit = false;
 
-	// For FullScreen/PostIt features
+	// For FullScreen/PostIt/DistractionFree features
 	VisibleGUIConf	_beforeSpecialView;
 	void fullScreenToggle();
 	void postItToggle();
+	void distractionFreeToggle();
 
 	// Keystroke macro recording and playback
 	Macro _macro;

@@ -19,6 +19,7 @@
 #include "Win32Exception.h"	//Win32 exception
 #include "MiniDumper.h"			//Write dump files
 #include "verifySignedfile.h"
+#include "NppDarkMode.h"
 
 typedef std::vector<generic_string> ParamVector;
 
@@ -308,6 +309,7 @@ const TCHAR FLAG_PRINTANDQUIT[] = TEXT("-quickPrint");
 const TCHAR FLAG_NOTEPAD_COMPATIBILITY[] = TEXT("-notepadStyleCmdline");
 const TCHAR FLAG_OPEN_FOLDERS_AS_WORKSPACE[] = TEXT("-openFoldersAsWorkspace");
 const TCHAR FLAG_SETTINGS_DIR[] = TEXT("-settingsDir=");
+const TCHAR FLAG_TITLEBAR_ADD[] = TEXT("-titleAdd=");
 
 void doException(Notepad_plus_Window & notepad_plus_plus)
 {
@@ -403,6 +405,7 @@ PWSTR stripIgnoredParams(ParamVector & params, PWSTR pCmdLine)
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 {
+	generic_string cmdLineString = pCmdLine ? pCmdLine : _T("");
 	ParamVector params;
 	parseCommandLine(pCmdLine, params);
 	PWSTR pCmdLineWithoutIgnores = stripIgnoredParams(params, pCmdLine);
@@ -453,6 +456,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 
 	NppParameters& nppParameters = NppParameters::getInstance();
 
+	nppParameters.setCmdLineString(cmdLineString);
+
 	generic_string path;
 	if (getParamValFromString(FLAG_SETTINGS_DIR, params, path))
 	{
@@ -464,10 +469,21 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 		nppParameters.setCmdSettingsDir(path);
 	}
 
+	generic_string titleBarAdditional;
+	if (getParamValFromString(FLAG_TITLEBAR_ADD, params, titleBarAdditional))
+	{
+		if (titleBarAdditional.length() >= 2)
+		{
+			if (titleBarAdditional.front() == '"' && titleBarAdditional.back() == '"')
+			{
+				titleBarAdditional = titleBarAdditional.substr(1, titleBarAdditional.length() - 2);
+			}
+		}
+		nppParameters.setTitleBarAdd(titleBarAdditional);
+	}
+
 	if (showHelp)
 		::MessageBox(NULL, COMMAND_ARG_HELP, TEXT("Notepad++ Command Argument Help"), MB_OK);
-
-
 
 	if (cmdLineParams._localizationPath != TEXT(""))
 	{
@@ -476,7 +492,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 	}
 
 	nppParameters.load();
-	NppGUI & nppGui = const_cast<NppGUI &>(nppParameters.getNppGUI());
+
+	NppGUI & nppGui = nppParameters.getNppGUI();
+
+	NppDarkMode::initDarkMode();
 
 	bool doUpdateNpp = nppGui._autoUpdateOpt._doAutoUpdate;
 	bool doUpdatePluginList = nppGui._autoUpdateOpt._doAutoUpdate;
@@ -610,9 +629,13 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 
 	if (TheFirstOne && isUpExist && isGtXP && isSignatureOK)
 	{
-		if (nppParameters.isx64())
+		if (nppParameters.archType() == IMAGE_FILE_MACHINE_AMD64)
 		{
 			updaterParams += TEXT(" -px64");
+		}
+		else if (nppParameters.archType() == IMAGE_FILE_MACHINE_ARM64)
+		{
+			updaterParams += TEXT(" -parm64");
 		}
 
 		if (doUpdateNpp)
@@ -635,9 +658,13 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 			generic_string upPlParams = TEXT("-v"); 
 			upPlParams += notepad_plus_plus.getPluginListVerStr();
 
-			if (nppParameters.isx64())
+			if (nppParameters.archType() == IMAGE_FILE_MACHINE_AMD64)
 			{
 				upPlParams += TEXT(" -px64");
+			}
+			else if (nppParameters.archType() == IMAGE_FILE_MACHINE_ARM64)
+			{
+				upPlParams += TEXT(" -parm64");
 			}
 
 			upPlParams += TEXT(" -upZip");

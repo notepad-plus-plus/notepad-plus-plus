@@ -1,6 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Unicode Debug|ARM64">
+      <Configuration>Unicode Debug</Configuration>
+      <Platform>ARM64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Unicode Debug|Win32">
       <Configuration>Unicode Debug</Configuration>
       <Platform>Win32</Platform>
@@ -8,6 +12,10 @@
     <ProjectConfiguration Include="Unicode Debug|x64">
       <Configuration>Unicode Debug</Configuration>
       <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Unicode Release|ARM64">
+      <Configuration>Unicode Release</Configuration>
+      <Platform>ARM64</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Unicode Release|Win32">
       <Configuration>Unicode Release</Configuration>
@@ -38,12 +46,23 @@
     <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Release|ARM64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|ARM64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
@@ -59,11 +78,19 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC70.props" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Release|ARM64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC70.props" />
+  </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC70.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC70.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|ARM64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC70.props" />
   </ImportGroup>
@@ -81,6 +108,9 @@
     <IntDir>x64\$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|ARM64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">
     <OutDir>..\bin\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
@@ -89,6 +119,10 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">
     <OutDir>..\bin64\</OutDir>
     <IntDir>x64\$(Configuration)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Release|ARM64'">
+    <OutDir>..\binarm64\</OutDir>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">
@@ -111,7 +145,7 @@
     </ClCompile>
     <Link>
       <AdditionalOptions>/fixed:no %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>comctl32.lib;shlwapi.lib;shell32.lib;Oleacc.lib;Dbghelp.lib;Version.lib;Crypt32.lib;wintrust.lib;Sensapi.lib;wininet.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>comctl32.lib;shlwapi.lib;shell32.lib;Oleacc.lib;Dbghelp.lib;Version.lib;Crypt32.lib;wintrust.lib;Sensapi.lib;wininet.lib;libscilexer.lib;imm32.lib;msimg32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ShowProgress>LinkVerboseLib</ShowProgress>
       <OutputFile>$(OutDir)notepad++.exe</OutputFile>
       <Version>1.0</Version>
@@ -122,6 +156,7 @@
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
       <MinimumRequiredVersion>5.01</MinimumRequiredVersion>
+      <AdditionalLibraryDirectories>..\..\scintilla\bin;$(IntDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Manifest>
       <AdditionalManifestFiles>..\src\dpiAware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
@@ -150,7 +185,7 @@
     </ClCompile>
     <Link>
       <AdditionalOptions>/fixed:no %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>comctl32.lib;shlwapi.lib;shell32.lib;Oleacc.lib;Dbghelp.lib;Version.lib;Crypt32.lib;wintrust.lib;Sensapi.lib;wininet.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>comctl32.lib;shlwapi.lib;shell32.lib;Oleacc.lib;Dbghelp.lib;Version.lib;Crypt32.lib;wintrust.lib;Sensapi.lib;wininet.lib;libscilexer.lib;imm32.lib;msimg32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ShowProgress>LinkVerboseLib</ShowProgress>
       <OutputFile>$(OutDir)notepad++.exe</OutputFile>
       <Version>1.0</Version>
@@ -160,6 +195,46 @@
       <ProgramDatabaseFile>$(OutDir)notepadPlus.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
       <MinimumRequiredVersion>5.02</MinimumRequiredVersion>
+      <AdditionalLibraryDirectories>..\..\scintilla\bin;$(IntDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <Manifest>
+      <AdditionalManifestFiles>..\src\dpiAware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
+    </Manifest>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|ARM64'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
+      <AdditionalIncludeDirectories>..\src\WinControls\AboutDlg;..\..\scintilla\include;..\include;..\src\WinControls;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\TabBar;..\src\WinControls\ToolBar;..\src\MISC\Process;..\src\ScintillaComponent;..\src\MISC;..\src\MISC\SysMsg;..\src\WinControls\StatusBar;..\src;..\src\WinControls\StaticDialog\RunDlg;..\src\tinyxml;..\src\WinControls\ColourPicker;..\src\Win32Explr;..\src\MISC\RegExt;..\src\WinControls\TrayIcon;..\src\WinControls\shortcut;..\src\WinControls\Grid;..\src\WinControls\ContextMenu;..\src\MISC\PluginsManager;..\src\WinControls\Preference;..\src\WinControls\WindowsDlg;..\src\WinControls\TaskList;..\src\WinControls\DockingWnd;..\src\WinControls\TreeView;..\src\WinControls\ToolTip;..\src\MISC\Exception;..\src\MISC\Common;..\src\tinyxml\tinyXmlA;..\src\WinControls\AnsiCharPanel;..\src\WinControls\ClipboardHistory;..\src\WinControls\FindCharsInRange;..\src\WinControls\VerticalFileSwitcher;..\src\WinControls\ProjectPanel;..\src\WinControls\DocumentMap;..\src\WinControls\FunctionList;..\src\uchardet;..\src\WinControls\FileBrowser;..\src\WinControls\ReadDirectoryChanges;..\src\MISC\md5;..\src\WinControls\PluginsAdmin;..\src\json;..\src\MISC\sha2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WIN32_WINNT=0x0600;_WINDOWS;_USE_64BIT_TIME_T;TIXML_USE_STL;TIXMLA_USE_STL;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_SWPRINTFS=1;_CRT_NON_CONFORMING_WCSTOK;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <BasicRuntimeChecks>UninitializedLocalUsageCheck</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <SmallerTypeCheck>false</SmallerTypeCheck>
+      <DisableSpecificWarnings>4091;4456;4457;4459</DisableSpecificWarnings>
+      <AdditionalOptions>/Zc:strictStrings %(AdditionalOptions)</AdditionalOptions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <AdditionalOptions>/fixed:no %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>comctl32.lib;shlwapi.lib;shell32.lib;Oleacc.lib;Dbghelp.lib;Version.lib;Crypt32.lib;wintrust.lib;Sensapi.lib;wininet.lib;libscilexer.lib;imm32.lib;msimg32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ShowProgress>LinkVerboseLib</ShowProgress>
+      <OutputFile>$(OutDir)notepad++.exe</OutputFile>
+      <Version>1.0</Version>
+      <TypeLibraryFile>/TLBID</TypeLibraryFile>
+      <TypeLibraryResourceID>5</TypeLibraryResourceID>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(OutDir)notepadPlus.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalLibraryDirectories>..\..\scintilla\bin;$(IntDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Manifest>
       <AdditionalManifestFiles>..\src\dpiAware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
@@ -194,7 +269,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>comctl32.lib;shlwapi.lib;shell32.lib;Oleacc.lib;Dbghelp.lib;Version.lib;Crypt32.lib;wintrust.lib;Sensapi.lib;wininet.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>comctl32.lib;shlwapi.lib;shell32.lib;Oleacc.lib;Dbghelp.lib;Version.lib;Crypt32.lib;wintrust.lib;Sensapi.lib;wininet.lib;libscilexer.lib;imm32.lib;msimg32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ShowProgress>LinkVerboseLib</ShowProgress>
       <OutputFile>$(OutDir)notepad++.exe</OutputFile>
       <Version>1.0</Version>
@@ -208,6 +283,7 @@
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
       <TargetMachine>MachineX86</TargetMachine>
       <MinimumRequiredVersion>5.01</MinimumRequiredVersion>
+      <AdditionalLibraryDirectories>..\..\scintilla\bin;$(IntDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Manifest>
       <AdditionalManifestFiles>..\src\dpiAware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
@@ -246,7 +322,7 @@ copy ..\src\contextMenu.xml ..\bin\contextMenu.xml
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>comctl32.lib;shlwapi.lib;shell32.lib;Oleacc.lib;Dbghelp.lib;Version.lib;Crypt32.lib;wintrust.lib;Sensapi.lib;wininet.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>comctl32.lib;shlwapi.lib;shell32.lib;Oleacc.lib;Dbghelp.lib;Version.lib;Crypt32.lib;wintrust.lib;Sensapi.lib;wininet.lib;libscilexer.lib;imm32.lib;msimg32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ShowProgress>LinkVerboseLib</ShowProgress>
       <OutputFile>$(OutDir)notepad++.exe</OutputFile>
       <Version>1.0</Version>
@@ -260,6 +336,7 @@ copy ..\src\contextMenu.xml ..\bin\contextMenu.xml
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
       <MinimumRequiredVersion>5.02</MinimumRequiredVersion>
+      <AdditionalLibraryDirectories>..\..\scintilla\bin;$(IntDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Manifest>
       <AdditionalManifestFiles>..\src\dpiAware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
@@ -273,10 +350,65 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Release|ARM64'">
+    <ClCompile>
+      <Optimization>Full</Optimization>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>false</OmitFramePointers>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <AdditionalIncludeDirectories>..\src\WinControls\AboutDlg;..\..\scintilla\include;..\include;..\src\WinControls;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\TabBar;..\src\WinControls\ToolBar;..\src\MISC\Process;..\src\ScintillaComponent;..\src\MISC;..\src\MISC\SysMsg;..\src\WinControls\StatusBar;..\src;..\src\WinControls\StaticDialog\RunDlg;..\src\tinyxml;..\src\WinControls\ColourPicker;..\src\Win32Explr;..\src\MISC\RegExt;..\src\WinControls\TrayIcon;..\src\WinControls\shortcut;..\src\WinControls\Grid;..\src\WinControls\ContextMenu;..\src\MISC\PluginsManager;..\src\WinControls\Preference;..\src\WinControls\WindowsDlg;..\src\WinControls\TaskList;..\src\WinControls\DockingWnd;..\src\WinControls\TreeView;..\src\WinControls\ToolTip;..\src\MISC\Exception;..\src\MISC\Common;..\src\tinyxml\tinyXmlA;..\src\WinControls\AnsiCharPanel;..\src\WinControls\ClipboardHistory;..\src\WinControls\FindCharsInRange;..\src\WinControls\VerticalFileSwitcher;..\src\WinControls\ProjectPanel;..\src\WinControls\DocumentMap;..\src\WinControls\FunctionList;..\src\uchardet;..\src\WinControls\FileBrowser;..\src\WinControls\ReadDirectoryChanges;..\src\MISC\md5;..\src\WinControls\PluginsAdmin;..\src\json;..\src\MISC\sha2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WIN32_WINNT=0x0600;NDEBUG;_WINDOWS;_USE_64BIT_TIME_T;TIXML_USE_STL;TIXMLA_USE_STL;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_SWPRINTFS=1;_CRT_NON_CONFORMING_WCSTOK;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
+      <StringPooling>true</StringPooling>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <EnableEnhancedInstructionSet>NoExtensions</EnableEnhancedInstructionSet>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DisableSpecificWarnings>4091;4456;4457;4459</DisableSpecificWarnings>
+      <AdditionalOptions>/Zc:strictStrings %(AdditionalOptions)</AdditionalOptions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>comctl32.lib;shlwapi.lib;shell32.lib;Oleacc.lib;Dbghelp.lib;Version.lib;Crypt32.lib;wintrust.lib;Sensapi.lib;wininet.lib;libscilexer.lib;imm32.lib;msimg32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ShowProgress>LinkVerboseLib</ShowProgress>
+      <OutputFile>$(OutDir)notepad++.exe</OutputFile>
+      <Version>1.0</Version>
+      <TypeLibraryFile>
+      </TypeLibraryFile>
+      <TypeLibraryResourceID>1</TypeLibraryResourceID>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(OutDir)npp.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <AdditionalLibraryDirectories>..\..\scintilla\bin;$(IntDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <Manifest>
+      <AdditionalManifestFiles>..\src\dpiAware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
+    </Manifest>
+    <PostBuildEvent>
+      <Command>
+copy ..\src\langs.model.xml ..\binarm64\langs.model.xml
+copy ..\src\stylers.model.xml ..\binarm64\stylers.model.xml
+copy ..\src\shortcuts.xml ..\binarm64\shortcuts.xml
+copy ..\src\functionList.xml ..\binarm64\functionList.xml
+copy ..\src\contextMenu.xml ..\binarm64\contextMenu.xml
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\DarkMode\DarkMode.cpp" />
     <ClCompile Include="..\src\MISC\Common\verifySignedfile.cpp" />
     <ClCompile Include="..\src\MISC\md5\md5Dlgs.cpp" />
     <ClCompile Include="..\src\MISC\sha2\sha-256.cpp" />
+    <ClCompile Include="..\src\NppDarkMode.cpp" />
     <ClCompile Include="..\src\WinControls\AboutDlg\AboutDlg.cpp" />
     <ClCompile Include="..\src\WinControls\AnsiCharPanel\ansiCharPanel.cpp" />
     <ClCompile Include="..\src\ScintillaComponent\AutoCompletion.cpp" />
@@ -380,7 +512,6 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClCompile Include="..\src\WinControls\ToolTip\ToolTip.cpp" />
     <ClCompile Include="..\src\WinControls\TrayIcon\trayIconControler.cpp" />
     <ClCompile Include="..\src\uchardet\uchardet.cpp" />
-    <ClCompile Include="..\src\UniConversion.cpp" />
     <ClCompile Include="..\src\WinControls\AboutDlg\URLCtrl.cpp" />
     <ClCompile Include="..\src\ScintillaComponent\UserDefineDialog.cpp" />
     <ClCompile Include="..\src\Utf8_16.cpp" />
@@ -540,6 +671,9 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\clipboardFormats.h" />
+    <ClInclude Include="..\src\DarkMode\DarkMode.h" />
+    <ClInclude Include="..\src\DarkMode\IatHook.h" />
+    <ClInclude Include="..\src\DarkMode\UAHMenuBar.h" />
     <ClInclude Include="..\src\dpiManager.h" />
     <ClInclude Include="..\src\keys.h" />
     <ClInclude Include="..\src\localizationString.h" />
@@ -549,6 +683,7 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClInclude Include="..\src\MISC\md5\md5Dlgs.h" />
     <ClInclude Include="..\src\MISC\md5\md5Dlgs_rc.h" />
     <ClInclude Include="..\src\MISC\sha2\sha-256.h" />
+    <ClInclude Include="..\src\NppDarkMode.h" />
     <ClInclude Include="..\src\ScintillaComponent\columnEditor_rc.h" />
     <ClInclude Include="..\src\ScintillaComponent\FindReplaceDlg_rc.h" />
     <ClInclude Include="..\src\ScintillaComponent\ScintillaRef.h" />
@@ -671,7 +806,6 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClInclude Include="..\src\WinControls\ToolTip\ToolTip.h" />
     <ClInclude Include="..\src\WinControls\TrayIcon\trayIconControler.h" />
     <ClInclude Include="..\src\uchardet\uchardet.h" />
-    <ClInclude Include="..\src\UniConversion.h" />
     <ClInclude Include="..\src\WinControls\AboutDlg\URLCtrl.h" />
     <ClInclude Include="..\src\ScintillaComponent\UserDefineDialog.h" />
     <ClInclude Include="..\src\ScintillaComponent\UserDefineLangReference.h" />

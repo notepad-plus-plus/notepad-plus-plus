@@ -101,7 +101,19 @@ bool AutoCompletion::showApiAndWordComplete()
 	bool canStop = false;
 	for (size_t i = 0, kwlen = _keyWordArray.size(); i < kwlen; ++i)
 	{
-		if (_keyWordArray[i].compare(0, len, beginChars) == 0)
+		int compareResult = 0;
+
+		if (_ignoreCase)
+		{
+			generic_string kwSufix = _keyWordArray[i].substr(0, len);
+			compareResult = generic_stricmp(beginChars, kwSufix.c_str());
+		}
+		else
+		{
+			compareResult = _keyWordArray[i].compare(0, len, beginChars);
+		}
+
+		if (compareResult == 0)
 		{
 			if (!isInList(_keyWordArray[i], wordArray))
 				wordArray.push_back(_keyWordArray[i]);

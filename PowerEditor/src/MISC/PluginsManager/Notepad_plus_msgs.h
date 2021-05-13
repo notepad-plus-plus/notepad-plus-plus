@@ -31,7 +31,7 @@ enum LangType {L_TEXT, L_PHP , L_C, L_CPP, L_CS, L_OBJC, L_JAVA, L_RC,\
 			   L_IHEX, L_TEHEX, L_SWIFT,\
 			   L_ASN1, L_AVS, L_BLITZBASIC, L_PUREBASIC, L_FREEBASIC, \
 			   L_CSOUND, L_ERLANG, L_ESCRIPT, L_FORTH, L_LATEX, \
-			   L_MMIXAL, L_NIMROD, L_NNCRONTAB, L_OSCRIPT, L_REBOL, \
+			   L_MMIXAL, L_NIM, L_NNCRONTAB, L_OSCRIPT, L_REBOL, \
 			   L_REGISTRY, L_RUST, L_SPICE, L_TXT2TAGS, L_VISUALPROLOG,\
 			   // Don't use L_JS, use L_JAVASCRIPT instead
 			   // The end of enumated language type, so it should be always at the end
@@ -146,7 +146,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64 };
 	//void WM_PIMENU_CHECK(UINT	funcItem[X]._cmdID, TRUE/FALSE)
 
 	#define NPPM_ADDTOOLBARICON (NPPMSG + 41)
-	//void WM_ADDTOOLBARICON(UINT funcItem[X]._cmdID, toolbarIcons icon)
+	//void NPPM_ADDTOOLBARICON(UINT funcItem[X]._cmdID, toolbarIcons icon)
 		struct toolbarIcons {
 			HBITMAP	hToolbarBmp;
 			HICON	hToolbarIcon;
@@ -485,7 +485,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64 };
 	//scnNotification->nmhdr.idFrom = 0;
 
 	#define NPPN_TBMODIFICATION (NPPN_FIRST + 2) // To notify plugins that toolbar icons can be registered
-	//scnNotification->nmhdr.code = NPPN_TB_MODIFICATION;
+	//scnNotification->nmhdr.code = NPPN_TBMODIFICATION;
 	//scnNotification->nmhdr.hwndFrom = hwndNpp;
 	//scnNotification->nmhdr.idFrom = 0;
 

@@ -20,6 +20,8 @@
 #include "Parameters.h"
 #include "FindReplaceDlg_rc.h"
 
+#include "NppDarkMode.h"
+
 const int WS_TOOLBARSTYLE = WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | TBSTYLE_TOOLTIPS |TBSTYLE_FLAT | CCS_TOP | BTNS_AUTOSIZE | CCS_NOPARENTALIGN | CCS_NORESIZE | CCS_NODIVIDER;
 
 void ToolBar::initTheme(TiXmlDocument *toolIconsDocRoot)
@@ -95,9 +97,9 @@ bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type, ToolBar
 {
 	Window::init(hInst, hPere);
 	_state = type;
-	int iconSize = NppParameters::getInstance()._dpiManager.scaleX(_state == TB_LARGE?32:16);
+	int iconSize = NppParameters::getInstance()._dpiManager.scaleX(_state == TB_LARGE || _state == TB_LARGE2 ? 32 : 16);
 
-	_toolBarIcons.init(buttonUnitArray, arraySize);
+	_toolBarIcons.init(buttonUnitArray, arraySize, _vDynBtnReg);
 	_toolBarIcons.create(_hInst, iconSize);
 	
 	INITCOMMONCONTROLSEX icex;
@@ -127,7 +129,7 @@ bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type, ToolBar
 			style = BTNS_SEP;
 		}
 
-		_pTBB[i].iBitmap = (cmd != 0?bmpIndex:0);
+		_pTBB[i].iBitmap = (cmd != 0 ? bmpIndex : 0);
 		_pTBB[i].idCommand = cmd;
 		_pTBB[i].fsState = TBSTATE_ENABLED;
 		_pTBB[i].fsStyle = (BYTE)style; 
@@ -145,10 +147,11 @@ bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type, ToolBar
 		_pTBB[i].dwData = 0; 
 		_pTBB[i].iString = 0;
 		++i;
+
 		//add plugin buttons
 		for (size_t j = 0; j < _nbDynButtons ; ++j, ++i)
 		{
-			cmd = _vDynBtnReg[j].message;
+			cmd = _vDynBtnReg[j]._message;
 			++bmpIndex;
 
 			_pTBB[i].iBitmap = bmpIndex;
@@ -200,34 +203,43 @@ int ToolBar::getHeight() const
 
 void ToolBar::reduce() 
 {
-	if (_state == TB_SMALL)
-		return;
-
 	int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(16);
 	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
-	bool recreate = (_state == TB_STANDARD || _state == TB_LARGE);
 	setState(TB_SMALL);
-	reset(recreate);	//recreate toolbar if previous state was Std icons or Big icons
+	reset(true);	//recreate toolbar if previous state was Std icons or Big icons
 	Window::redraw();
 }
 
 void ToolBar::enlarge()
 {
-	if (_state == TB_LARGE)
-		return;
-
 	int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(32);
 	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
-	bool recreate = (_state == TB_STANDARD || _state == TB_SMALL);
 	setState(TB_LARGE);
-	reset(recreate);	//recreate toolbar if previous state was Std icons or Small icons
+	reset(true);	//recreate toolbar if previous state was Std icons or Small icons
 	Window::redraw();
 }
 
-void ToolBar::setToUglyIcons()
+void ToolBar::reduceToSet2()
 {
-	if (_state == TB_STANDARD) 
-		return;
+	int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(16);
+	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
+
+	setState(TB_SMALL2);
+	reset(true);
+	Window::redraw();
+}
+
+void ToolBar::enlargeToSet2()
+{
+	int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(32);
+	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
+	setState(TB_LARGE2);
+	reset(true);	//recreate toolbar if previous state was Std icons or Small icons
+	Window::redraw();
+}
+
+void ToolBar::setToBmpIcons()
+{
 	bool recreate = true;
 	setState(TB_STANDARD);
 	reset(recreate);	//must recreate toolbar if setting to internal bitmaps
@@ -235,7 +247,7 @@ void ToolBar::setToUglyIcons()
 }
 
 
-void ToolBar::reset(bool create) 
+void ToolBar::reset(bool create)
 {
 
 	if (create && _hSelf)
@@ -253,11 +265,17 @@ void ToolBar::reset(bool create)
 
 	if (!_hSelf)
 	{
+		DWORD dwExtraStyle = 0;
+		if (NppDarkMode::isEnabled())
+		{
+			dwExtraStyle = TBSTYLE_CUSTOMERASE;
+		}
+
 		_hSelf = ::CreateWindowEx(
 					WS_EX_PALETTEWINDOW,
 					TOOLBARCLASSNAME,
 					TEXT(""),
-					WS_TOOLBARSTYLE,
+					WS_TOOLBARSTYLE | dwExtraStyle,
 					0, 0,
 					0, 0,
 					_hParent,
@@ -275,12 +293,34 @@ void ToolBar::reset(bool create)
 		throw std::runtime_error("ToolBar::reset : CreateWindowEx() function return null");
 	}
 
-	if (_state != TB_STANDARD)
+	if (_state != TB_STANDARD) //If non standard icons, use custom imagelists
 	{
-		//If non standard icons, use custom imagelists
-		setDefaultImageList();
-		setHotImageList();
-		setDisableImageList();
+		if (_state == TB_SMALL || _state == TB_LARGE)
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				setDefaultImageListDM();
+				setDisableImageListDM();
+			}
+			else
+			{
+				setDefaultImageList();
+				setDisableImageList();
+			}
+		}
+		else
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				setDefaultImageListDM2();
+				setDisableImageListDM2();
+			}
+			else
+			{
+				setDefaultImageList2();
+				setDisableImageList2();
+			}
+		}
 	}
 	else
 	{
@@ -288,7 +328,6 @@ void ToolBar::reset(bool create)
 		int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(16);
 		::SendMessage(_hSelf, TB_SETBITMAPSIZE, 0, MAKELPARAM(iconDpiDynamicalSize, iconDpiDynamicalSize));
 
-		//TBADDBITMAP addbmp = {_hInst, 0};
 		TBADDBITMAP addbmp = {0, 0};
 		TBADDBITMAP addbmpdyn = {0, 0};
 		for (size_t i = 0 ; i < _nbButtons ; ++i)
@@ -304,7 +343,7 @@ void ToolBar::reset(bool create)
 		{
 			for (size_t j = 0; j < _nbDynButtons; ++j)
 			{
-				addbmpdyn.nID = reinterpret_cast<UINT_PTR>(_vDynBtnReg.at(j).hBmp);
+				addbmpdyn.nID = reinterpret_cast<UINT_PTR>(_vDynBtnReg.at(j)._hBmp);
 				::SendMessage(_hSelf, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmpdyn));
 			}
 		}
@@ -317,8 +356,16 @@ void ToolBar::reset(bool create)
 		WORD btnSize = (_state == TB_LARGE?32:16);
 		::SendMessage(_hSelf, TB_SETBUTTONSIZE , 0, MAKELONG(btnSize, btnSize));
 		::SendMessage(_hSelf, TB_ADDBUTTONS, nbBtnToAdd, reinterpret_cast<LPARAM>(_pTBB));
+
+		HIMAGELIST hImgLst = (HIMAGELIST)::SendMessage(_hSelf, TB_GETIMAGELIST, 0, 0);
+		for (size_t j = 0; j < _nbDynButtons; ++j)
+		{
+			ImageList_AddIcon(hImgLst, _vDynBtnReg.at(j)._hIcon);
+		}
 	}
 	::SendMessage(_hSelf, TB_AUTOSIZE, 0, 0);
+
+
 
 	if (_pRebar)
 	{
@@ -337,10 +384,10 @@ void ToolBar::registerDynBtn(UINT messageID, toolbarIcons* tIcon)
 	// Note: Register of buttons only possible before init!
 	if ((_hSelf == NULL) && (messageID != 0) && (tIcon->hToolbarBmp != NULL))
 	{
-		tDynamicList		dynList;
-		dynList.message		= messageID;
-		dynList.hBmp		= tIcon->hToolbarBmp;
-		dynList.hIcon		= tIcon->hToolbarIcon;
+		DynamicCmdIcoBmp dynList;
+		dynList._message = messageID;
+		dynList._hBmp = tIcon->hToolbarBmp;
+		dynList._hIcon = tIcon->hToolbarIcon;
 		_vDynBtnReg.push_back(dynList);
 	}
 }
@@ -408,16 +455,53 @@ void ToolBar::addToRebar(ReBar * rebar)
 	_rbBand.fMask   = RBBIM_CHILD | RBBIM_CHILDSIZE | RBBIM_IDEALSIZE | RBBIM_SIZE;
 }
 
+constexpr UINT_PTR g_rebarSubclassID = 42;
+
+LRESULT CALLBACK RebarSubclass(
+	HWND hWnd,
+	UINT uMsg,
+	WPARAM wParam,
+	LPARAM lParam,
+	UINT_PTR uIdSubclass,
+	DWORD_PTR dwRefData
+)
+{
+	UNREFERENCED_PARAMETER(dwRefData);
+	UNREFERENCED_PARAMETER(uIdSubclass);
+
+	switch (uMsg)
+	{
+		case WM_ERASEBKGND:
+			if (NppDarkMode::isEnabled())
+			{
+				RECT rc;
+				GetClientRect(hWnd, &rc);
+				FillRect((HDC)wParam, &rc, NppDarkMode::getDarkerBackgroundBrush());
+				return TRUE;
+			}
+			else
+			{
+				break;
+			}
+
+		case WM_NCDESTROY:
+			RemoveWindowSubclass(hWnd, RebarSubclass, g_rebarSubclassID);
+			break;
+	}
+	return DefSubclassProc(hWnd, uMsg, wParam, lParam);
+}
+
 void ReBar::init(HINSTANCE hInst, HWND hPere)
 {
 	Window::init(hInst, hPere);
-	
 	_hSelf = CreateWindowEx(WS_EX_TOOLWINDOW,
 							REBARCLASSNAME,
 							NULL,
 							WS_CHILD|WS_VISIBLE|WS_CLIPSIBLINGS|WS_CLIPCHILDREN|RBS_VARHEIGHT|
-							RBS_BANDBORDERS | CCS_NODIVIDER | CCS_NOPARENTALIGN,
+							CCS_NODIVIDER | CCS_NOPARENTALIGN,
 							0,0,0,0, _hParent, NULL, _hInst, NULL);
+
+	SetWindowSubclass(_hSelf, RebarSubclass, g_rebarSubclassID, 0);
 
 	REBARINFO rbi;
 	ZeroMemory(&rbi, sizeof(REBARINFO));

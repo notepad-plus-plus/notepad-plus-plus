@@ -34,9 +34,11 @@
                     <Item subMenuId="edit-pasteSpecial" name="特殊貼上"/>
                     <Item subMenuId="edit-onSelection" name="選取字元"/>
                     <Item subMenuId="search-markAll" name="全部標記"/>
+                    <Item subMenuId="search-markOne" name="僅標記選取"/>
                     <Item subMenuId="search-unmarkAll" name="去除標記"/>
                     <Item subMenuId="search-jumpUp" name="上個標記"/>
                     <Item subMenuId="search-jumpDown" name="下個標記"/>
+                    <Item subMenuId="search-copyStyledText" name="複製標記文字"/>
                     <Item subMenuId="search-bookmark" name="書籤"/>
                     <Item subMenuId="view-currentFileIn" name="檢視檔案在"/>
                     <Item subMenuId="view-showSymbol" name="特殊字元"/>
@@ -168,12 +170,15 @@
                     <Item id="42058" name="於下方插入空行"/>
                     <Item id="42059" name="升冪排序文字"/>
                     <Item id="42060" name="降冪排序文字"/>
+                    <Item id="42080" name="不分大小寫升冪排序文字"/>
+                    <Item id="42081" name="不分大小寫降冪排序文字"/>
                     <Item id="42061" name="升冪排序整數"/>
                     <Item id="42062" name="降冪排序整數"/>
                     <Item id="42063" name="升冪排序小數（使用「,」作為小數點）"/>
                     <Item id="42064" name="降冪排序小數（使用「,」作為小數點）"/>
                     <Item id="42065" name="升冪排序小數（使用「.」作為小數點）"/>
                     <Item id="42066" name="降冪排序小數（使用「.」作為小數點）"/>
+                    <Item id="42083" name="翻轉顛倒行順序"/>
                     <Item id="42078" name="隨機排序"/> 
                     <Item id="43001" name="向上搜尋(&amp;F)..."/>
                     <Item id="43002" name="向下搜尋(&amp;N)"/>
@@ -219,6 +224,18 @@
                     <Item id="43042" name="格式四"/>
                     <Item id="43043" name="格式五"/>
                     <Item id="43044" name="格式搜尋"/>
+                    <Item id="43055" name="格式一"/>
+                    <Item id="43056" name="格式二"/>
+                    <Item id="43057" name="格式三"/>
+                    <Item id="43058" name="格式四"/>
+                    <Item id="43059" name="格式五"/>
+                    <Item id="43060" name="全部"/>
+                    <Item id="43061" name="格式搜尋"/>
+                    <Item id="43062" name="使用格式一顏色"/>
+                    <Item id="43063" name="使用格式二顏色"/>
+                    <Item id="43064" name="使用格式三顏色"/>
+                    <Item id="43065" name="使用格式四顏色"/>
+                    <Item id="43066" name="使用格式五顏色"/>
                     <Item id="43045" name="顯示搜尋結果窗格"/>
                     <Item id="43046" name="下一個搜尋結果"/>
                     <Item id="43047" name="上一個搜尋結果"/>
@@ -281,12 +298,10 @@
                     <Item id="45011" name="轉換至 UTF-8 碼格式（BOM 檔首）"/>
                     <Item id="45012" name="轉換至 UCS-2 Big Endian 碼格式"/>
                     <Item id="45013" name="轉換至 UCS-2 Little Endian 碼格式"/>
-
                     <Item id="10001" name="移動此檔案至另一個視窗"/>
                     <Item id="10002" name="複製此檔案至另一個視窗"/>
                     <Item id="10003" name="移動此檔案至新啟動的 Notepad++"/>
                     <Item id="10004" name="複製此檔案至新啟動的 Notepad++"/>
-
                     <Item id="46001" name="設定程式語言格式..."/>
                     <Item id="46250" name="定義程式語言..."/>
                     <Item id="46300" name="開啟自訂程式語言資料夾..."/>
@@ -511,6 +526,7 @@
                 <ScintillaCommandsTab name="Scintilla 指令"/>
                 <ConflictInfoOk       name="沒有與此項目衝突的快捷鍵。"/>
                 <ConflictInfoEditing  name="沒有與此項目衝突的快捷鍵..."/>
+
                 <MainCommandNames>
                     <Item id="41019" name="在檔案總管內開啟檔案位置"/>
                     <Item id="41020" name="在 CMD 內開啟檔案位置"/>
@@ -518,11 +534,16 @@
                     <Item id="45001" name="轉換成 Windows 換行格式(CR LF)"/>
                     <Item id="45002" name="轉換成 UNIX 換行格式 (LF)"/>
                     <Item id="45003" name="轉換成 Macintosh 換行格式 (CR)"/>
-                    <Item id="43022" name="使用格式一顏色標記"/>
-                    <Item id="43024" name="使用格式二顏色標記"/>
-                    <Item id="43026" name="使用格式三顏色標記"/>
-                    <Item id="43028" name="使用格式四顏色標記"/>
-                    <Item id="43030" name="使用格式五顏色標記"/>
+                    <Item id="43022" name="使用格式一顏色標記所有相同字串"/>
+                    <Item id="43024" name="使用格式二顏色標記所有相同字串"/>
+                    <Item id="43026" name="使用格式三顏色標記所有相同字串"/>
+                    <Item id="43028" name="使用格式四顏色標記所有相同字串"/>
+                    <Item id="43030" name="使用格式五顏色標記所有相同字串"/>
+                    <Item id="43062" name="使用格式一顏色只標記選擇字串"/>
+                    <Item id="43063" name="使用格式二顏色只標記選擇字串"/>
+                    <Item id="43064" name="使用格式三顏色只標記選擇字串"/>
+                    <Item id="43065" name="使用格式四顏色只標記選擇字串"/>
+                    <Item id="43066" name="使用格式五顏色只標記選擇字串"/>
                     <Item id="43023" name="清除格式一顏色標記"/>
                     <Item id="43025" name="清除格式二顏色標記"/>
                     <Item id="43027" name="清除格式三顏色標記"/>
@@ -541,6 +562,13 @@
                     <Item id="43042" name="至下個格式四標記"/>
                     <Item id="43043" name="至下個格式五標記"/>
                     <Item id="43044" name="至下個格式搜尋標記"/>
+                    <Item id="43055" name="複製格式一標記文字"/>
+                    <Item id="43056" name="複製格式二標記文字"/>
+                    <Item id="43057" name="複製格式三標記文字"/>
+                    <Item id="43058" name="複製格式四標記文字"/>
+                    <Item id="43059" name="複製格式五標記文字"/>
+                    <Item id="43060" name="複製所有標記文字"/>
+                    <Item id="43061" name="複製格式搜尋標記文字"/>
                     <Item id="44100" name="在 Firefox 中開啟此文件"/>
                     <Item id="44101" name="在 Chrome 中開啟此文件"/>
                     <Item id="44103" name="在 IE 中開啟此文件"/>
@@ -883,6 +911,9 @@
                 </Language>
 
                 <Highlighting title="醒目提示">
+                    <Item id="6351" name="全部標記"/>
+                    <Item id="6352" name="區分大小寫"/>
+                    <Item id="6353" name="僅符合整個單字"/>
                     <Item id="6333" name="智慧醒目提示"/>
                     <Item id="6326" name="啟動智慧醒目提示"/>
                     <Item id="6332" name="區分大小寫"/>
@@ -1029,7 +1060,6 @@
                     <Item id="6325" name="更新後捲動至最後一行"/>
                     <Item id="6322" name="工作階段檔案副檔名："/>
                     <Item id="6323" name="自動更新 Notepad++"/>
-                    <Item id="6351" name="將「保存」對話方塊的副檔名濾鏡設置為 *.*"/>
                     <Item id="6324" name="文件切換器（Ctrl + TAB）"/>
                     <Item id="6331" name="在標題列僅顯示檔案名稱（隱藏資料夾路徑）"/>
                     <Item id="6334" name="自動偵測檔案編碼"/>

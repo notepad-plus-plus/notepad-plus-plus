@@ -130,7 +130,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42065" name="Ordenar Linhas Como Decimais (Ponto) Ascendente"/>
                     <Item id="42066" name="Ordenar Linhas Como Decimais (Ponto) Descendente"/>
                     <Item id="42083" name="Reverter Ordem das Linhas"/>
-                    <Item id="42078" name="Ordenar Linhas Aleatóriamente"/>
+                    <Item id="42078" name="Aleatorizar Ordem das Linhas"/>
                     <Item id="42016" name="MAIÚSCULA"/>
                     <Item id="42017" name="minúscula"/>
                     <Item id="42067" name="&amp;Letra Adequada"/>
@@ -138,7 +138,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42069" name="&amp;Letra da frase"/>
                     <Item id="42070" name="Letra da frase (misturar)"/>
                     <Item id="42071" name="&amp;lETRA iNVERTIDA"/>
-                    <Item id="42072" name="&amp;LetrA invertIDa"/>
+                    <Item id="42072" name="&amp;LetrA aleatóRIa"/>
                     <Item id="42073" name="Abrir Ficheiro"/>
                     <Item id="42074" name="Abrir a Pasta de Conteúdo no Explorador"/>
                     <Item id="42075" name="Procurar na Internet"/>
@@ -1459,7 +1459,7 @@ João Pereira <joaopereira@openmailbox.org>
 29/07/2015
 
 Hugo Carvalho <hugokarvalho@hotmail.com>
-12/05/2021 (versão 7.9.4, 7.9.5, 7.9.6)
+15/05/2021 (versão 7.9.4, 7.9.5, 7.9.6)
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.	

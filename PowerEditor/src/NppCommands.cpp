@@ -3125,12 +3125,6 @@ void Notepad_plus::command(int id)
 			break;
 		}
 
-		case IDM_ONLINESUPPORT:
-		{
-			::ShellExecute(NULL, TEXT("open"), TEXT("https://gitter.im/notepad-plus-plus/notepad-plus-plus"), NULL, NULL, SW_SHOWNORMAL);
-			break;
-		}
-
 		case IDM_UPDATE_NPP :
 		case IDM_CONFUPDATERPROXY :
 		{

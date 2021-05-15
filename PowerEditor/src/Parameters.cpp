@@ -402,7 +402,7 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_NULL,    IDM_PROJECTPAGE,                              false, false, false, nullptr },
 //  { VK_NULL,    IDM_ONLINEDOCUMENT,                               false, false, false, nullptr },
 	{ VK_NULL,    IDM_FORUM,                                    false, false, false, nullptr },
-	{ VK_NULL,    IDM_ONLINESUPPORT,                            false, false, false, nullptr },
+//	{ VK_NULL,    IDM_ONLINESUPPORT,                            false, false, false, nullptr },
 //	{ VK_NULL,    IDM_PLUGINSHOME,                              false, false, false, nullptr },
 
 	// The following two commands are not in menu if (nppGUI._doesExistUpdater == 0).

@@ -2741,10 +2741,7 @@ void FindReplaceDlg::enableFindDlgItem(int dlgItemID, bool isEnable /* = true*/)
 	HWND h = ::GetDlgItem(_hSelf, dlgItemID);
 	if (!h) return;
 
-	if (::IsWindowVisible(h))
-	{
-		::EnableWindow(h, isEnable ? TRUE : FALSE);
-	}
+	::EnableWindow(h, isEnable ? TRUE : FALSE);
 
 	// remember the real state of this control being enabled/disabled
 	_controlEnableMap[dlgItemID] = isEnable;

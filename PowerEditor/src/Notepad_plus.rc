@@ -356,37 +356,37 @@ BEGIN
     BEGIN
         MENUITEM "&New",                             IDM_FILE_NEW
         MENUITEM "&Open...",                         IDM_FILE_OPEN
-        POPUP "Open Containing Folder"
+        POPUP "Open Containing &Folder"
         BEGIN
             MENUITEM "Explorer",       IDM_FILE_OPEN_FOLDER
             MENUITEM "cmd",            IDM_FILE_OPEN_CMD
 			MENUITEM SEPARATOR
             MENUITEM "Folder as Workspace", IDM_FILE_CONTAININGFOLDERASWORKSPACE
         END
-        MENUITEM "Open in Default Viewer",           IDM_FILE_OPEN_DEFAULT_VIEWER
-        MENUITEM "Open Folder as Workspace...",      IDM_FILE_OPENFOLDERASWORSPACE
+        MENUITEM "Open in &Default Viewer",          IDM_FILE_OPEN_DEFAULT_VIEWER
+        MENUITEM "Open Folder as &Workspace...",     IDM_FILE_OPENFOLDERASWORSPACE
         MENUITEM "Re&load from Disk",                IDM_FILE_RELOAD
         MENUITEM "&Save",                            IDM_FILE_SAVE
         MENUITEM "Save &As...",                      IDM_FILE_SAVEAS
-        MENUITEM "Save a Copy As...",                IDM_FILE_SAVECOPYAS
+        MENUITEM "Save a Cop&y As...",               IDM_FILE_SAVECOPYAS
         MENUITEM "Sa&ve All",                        IDM_FILE_SAVEALL
-        MENUITEM "Rename...",                        IDM_FILE_RENAME
+        MENUITEM "&Rename...",                       IDM_FILE_RENAME
         MENUITEM "&Close",                           IDM_FILE_CLOSE
         MENUITEM "Clos&e All",                       IDM_FILE_CLOSEALL
-        POPUP "Close More"
+        POPUP "Close &More"
         BEGIN
             MENUITEM "Close All but Active Document",    IDM_FILE_CLOSEALL_BUT_CURRENT
             MENUITEM "Close All to the Left",            IDM_FILE_CLOSEALL_TOLEFT
             MENUITEM "Close All to the Right",           IDM_FILE_CLOSEALL_TORIGHT
             MENUITEM "Close All Unchanged",              IDM_FILE_CLOSEALL_UNCHANGED
         END
-        MENUITEM "Move to Recycle Bin",              IDM_FILE_DELETE
+        MENUITEM "Move to Recycle &Bin",             IDM_FILE_DELETE
         MENUITEM SEPARATOR
-        MENUITEM "Load Session...",                  IDM_FILE_LOADSESSION
-        MENUITEM "Save Session...",                  IDM_FILE_SAVESESSION
+        MENUITEM "Load Sess&ion...",                 IDM_FILE_LOADSESSION
+        MENUITEM "Save Sess&ion...",                 IDM_FILE_SAVESESSION
         MENUITEM SEPARATOR
-        MENUITEM "Print...",                         IDM_FILE_PRINT
-        MENUITEM "Print Now",                        IDM_FILE_PRINTNOW
+        MENUITEM "&Print...",                        IDM_FILE_PRINT
+        MENUITEM "Print No&w",                       IDM_FILE_PRINTNOW
         MENUITEM SEPARATOR
         MENUITEM "E&xit",                            IDM_FILE_EXIT
     END
@@ -400,21 +400,21 @@ BEGIN
         MENUITEM "&Copy",                            IDM_EDIT_COPY
         MENUITEM "&Paste",                           IDM_EDIT_PASTE
         MENUITEM "&Delete",                          IDM_EDIT_DELETE
-        MENUITEM "Select A&ll",                      IDM_EDIT_SELECTALL
-        MENUITEM "Begin/End Select",                 IDM_EDIT_BEGINENDSELECT
+        MENUITEM "&Select All",                      IDM_EDIT_SELECTALL
+        MENUITEM "Begin/End &Select",                IDM_EDIT_BEGINENDSELECT
         MENUITEM SEPARATOR
-        POPUP "Copy to Clipboard"
+        POPUP "Cop&y to Clipboard"
         BEGIN
                 MENUITEM "Current Full File path to Clipboard",    IDM_EDIT_FULLPATHTOCLIP
                 MENUITEM "Current Filename to Clipboard",          IDM_EDIT_FILENAMETOCLIP
                 MENUITEM "Current Dir. Path to Clipboard",         IDM_EDIT_CURRENTDIRTOCLIP
         END
-        POPUP "Indent"
+        POPUP "&Indent"
         BEGIN
             MENUITEM "Increase Line Indent",    IDM_EDIT_INS_TAB
             MENUITEM "Decrease Line Indent",    IDM_EDIT_RMV_TAB
         END
-        POPUP "Convert Case to"
+        POPUP "Con&vert Case to"
         BEGIN
             MENUITEM "&UPPERCASE",              IDM_EDIT_UPPERCASE
             MENUITEM "&lowercase",              IDM_EDIT_LOWERCASE
@@ -425,7 +425,7 @@ BEGIN
             MENUITEM "&iNVERT cASE",             IDM_EDIT_INVERTCASE
             MENUITEM "&ranDOm CasE",             IDM_EDIT_RANDOMCASE
         END
-        POPUP "Line Operations"
+        POPUP "&Line Operations"
         BEGIN
             MENUITEM "Duplicate Current Line",                           IDM_EDIT_DUP_LINE
             MENUITEM "Remove Duplicate Lines",                           IDM_EDIT_REMOVE_ANY_DUP_LINES
@@ -453,7 +453,7 @@ BEGIN
             MENUITEM "Sort Lines As Decimals (Comma) Descending",        IDM_EDIT_SORTLINES_DECIMALCOMMA_DESCENDING
             MENUITEM "Sort Lines As Decimals (Dot) Descending",          IDM_EDIT_SORTLINES_DECIMALDOT_DESCENDING
         END
-        POPUP "Comment/Uncomment"
+        POPUP "Co&mment/Uncomment"
         BEGIN
             MENUITEM "Toggle Single Line Comment",    IDM_EDIT_BLOCK_COMMENT
             MENUITEM "Single Line Comment",           IDM_EDIT_BLOCK_COMMENT_SET
@@ -461,20 +461,20 @@ BEGIN
             MENUITEM "Block Comment",          IDM_EDIT_STREAM_COMMENT
             MENUITEM "Block Uncomment",        IDM_EDIT_STREAM_UNCOMMENT
         END
-        POPUP "Auto-Completion"
+        POPUP "&Auto-Completion"
         BEGIN
             MENUITEM "Function Completion",         IDM_EDIT_AUTOCOMPLETE
             MENUITEM "Word Completion",             IDM_EDIT_AUTOCOMPLETE_CURRENTFILE
             MENUITEM "Function Parameters Hint",    IDM_EDIT_FUNCCALLTIP
             MENUITEM "Path Completion",             IDM_EDIT_AUTOCOMPLETE_PATH
         END
-        POPUP "EOL Conversion"
+        POPUP "&EOL Conversion"
         BEGIN
             MENUITEM "Windows (CR LF)",             IDM_FORMAT_TODOS
             MENUITEM "Unix (LF)",                   IDM_FORMAT_TOUNIX
             MENUITEM "Macintosh (CR)",              IDM_FORMAT_TOMAC
         END
-        POPUP "Blank Operations"
+        POPUP "&Blank Operations"
         BEGIN
             MENUITEM "Trim Trailing Space",                IDM_EDIT_TRIMTRAILING
             MENUITEM "Trim Leading Space",                 IDM_EDIT_TRIMLINEHEAD
@@ -486,7 +486,7 @@ BEGIN
             MENUITEM "Space to TAB (All)",                 IDM_EDIT_SW2TAB_ALL
             MENUITEM "Space to TAB (Leading)",             IDM_EDIT_SW2TAB_LEADING
         END
-        POPUP "Paste Special"
+        POPUP "&Paste Special"
         BEGIN
             MENUITEM "Paste HTML Content",                 IDM_EDIT_PASTE_AS_HTML
             MENUITEM "Paste RTF Content",                  IDM_EDIT_PASTE_AS_RTF
@@ -495,7 +495,7 @@ BEGIN
             MENUITEM "Cut Binary Content",                 IDM_EDIT_CUT_BINARY
             MENUITEM "Paste Binary Content",               IDM_EDIT_PASTE_BINARY
         END
-        POPUP "On Selection"
+        POPUP "&On Selection"
         BEGIN
             MENUITEM "Open File",           IDM_EDIT_OPENASFILE
             MENUITEM "Open Containing Folder in Explorer",         IDM_EDIT_OPENINFOLDER
@@ -505,36 +505,36 @@ BEGIN
         END
         MENUITEM SEPARATOR
         MENUITEM "Column Mode...",        IDM_EDIT_COLUMNMODETIP
-        MENUITEM "Column Editor...",        IDM_EDIT_COLUMNMODE
-        MENUITEM "Character Panel",        IDM_EDIT_CHAR_PANEL
-        MENUITEM "Clipboard History",      IDM_EDIT_CLIPBOARDHISTORY_PANEL
+        MENUITEM "Colum&n Editor...",        IDM_EDIT_COLUMNMODE
+        MENUITEM "Character &Panel",        IDM_EDIT_CHAR_PANEL
+        MENUITEM "Clipboard &History",      IDM_EDIT_CLIPBOARDHISTORY_PANEL
         MENUITEM SEPARATOR
-        MENUITEM "Set Read-Only",           IDM_EDIT_SETREADONLY
+        MENUITEM "&Set Read-Only",           IDM_EDIT_SETREADONLY
         MENUITEM "Clear Read-Only Flag",    IDM_EDIT_CLEARREADONLY
     END
 
     POPUP "&Search"
     BEGIN
         MENUITEM "&Find...",                    IDM_SEARCH_FIND
-        MENUITEM "Find in Files...",            IDM_SEARCH_FINDINFILES
+        MENUITEM "Find in Fi&les...",           IDM_SEARCH_FINDINFILES
         MENUITEM "Find &Next",                  IDM_SEARCH_FINDNEXT
         MENUITEM "Find &Previous",              IDM_SEARCH_FINDPREV
-        MENUITEM "Select and Find Next",        IDM_SEARCH_SETANDFINDNEXT
-        MENUITEM "Select and Find Previous",    IDM_SEARCH_SETANDFINDPREV
-        MENUITEM "Find (Volatile) Next",        IDM_SEARCH_VOLATILE_FINDNEXT
-        MENUITEM "Find (Volatile) Previous",    IDM_SEARCH_VOLATILE_FINDPREV
+        MENUITEM "&Select and Find Next",       IDM_SEARCH_SETANDFINDNEXT
+        MENUITEM "&Select and Find Previous",   IDM_SEARCH_SETANDFINDPREV
+        MENUITEM "Find (&Volatile) Next",       IDM_SEARCH_VOLATILE_FINDNEXT
+        MENUITEM "Find (&Volatile) Previous",   IDM_SEARCH_VOLATILE_FINDPREV
         MENUITEM "&Replace...",                 IDM_SEARCH_REPLACE
         MENUITEM "&Incremental Search",         IDM_SEARCH_FINDINCREMENT
-        MENUITEM "Search Results Window",       IDM_FOCUS_ON_FOUND_RESULTS
-        MENUITEM "Next Search Result",          IDM_SEARCH_GOTONEXTFOUND
-        MENUITEM "Previous Search Result",      IDM_SEARCH_GOTOPREVFOUND
+        MENUITEM "Search Results &Window",      IDM_FOCUS_ON_FOUND_RESULTS
+        MENUITEM "Next Search Resul&t",         IDM_SEARCH_GOTONEXTFOUND
+        MENUITEM "Previous Search Resul&t",     IDM_SEARCH_GOTOPREVFOUND
         MENUITEM "&Go to...",                   IDM_SEARCH_GOTOLINE
-        MENUITEM "Go to Matching Brace",        IDM_SEARCH_GOTOMATCHINGBRACE
-        MENUITEM "Select All Between Matching Braces", IDM_SEARCH_SELECTMATCHINGBRACES
+        MENUITEM "Go to &Matching Brace",       IDM_SEARCH_GOTOMATCHINGBRACE
+        MENUITEM "Select All Between &Matching Braces", IDM_SEARCH_SELECTMATCHINGBRACES
         MENUITEM "Mar&k...",                    IDM_SEARCH_MARK
         MENUITEM SEPARATOR
 
-        POPUP "Mark All"
+        POPUP "Mark &All"
         BEGIN
             MENUITEM "Using 1st Style",    IDM_SEARCH_MARKALLEXT1
             MENUITEM "Using 2nd Style",    IDM_SEARCH_MARKALLEXT2
@@ -542,7 +542,7 @@ BEGIN
             MENUITEM "Using 4th Style",    IDM_SEARCH_MARKALLEXT4
             MENUITEM "Using 5th Style",    IDM_SEARCH_MARKALLEXT5
         END
-        POPUP "Mark One"
+        POPUP "Mark &One"
         BEGIN
             MENUITEM "Using 1st Style",    IDM_SEARCH_MARKONEEXT1
             MENUITEM "Using 2nd Style",    IDM_SEARCH_MARKONEEXT2
@@ -550,7 +550,7 @@ BEGIN
             MENUITEM "Using 4th Style",    IDM_SEARCH_MARKONEEXT4
             MENUITEM "Using 5th Style",    IDM_SEARCH_MARKONEEXT5
         END
-        POPUP "Unmark All"
+        POPUP "&Unmark All"
         BEGIN
             MENUITEM "Clear 1st Style",     IDM_SEARCH_UNMARKALLEXT1
             MENUITEM "Clear 2nd Style",     IDM_SEARCH_UNMARKALLEXT2
@@ -559,7 +559,7 @@ BEGIN
             MENUITEM "Clear 5th Style",     IDM_SEARCH_UNMARKALLEXT5
             MENUITEM "Clear all Styles",    IDM_SEARCH_CLEARALLMARKS
         END
-        POPUP "Jump up"
+        POPUP "&Jump Up"
         BEGIN
             MENUITEM "1st Style",     IDM_SEARCH_GOPREVMARKER1
             MENUITEM "2nd Style",     IDM_SEARCH_GOPREVMARKER2
@@ -568,7 +568,7 @@ BEGIN
             MENUITEM "5th Style",     IDM_SEARCH_GOPREVMARKER5
             MENUITEM "Find Style",    IDM_SEARCH_GOPREVMARKER_DEF
         END
-        POPUP "Jump down"
+        POPUP "Jump &Down"
         BEGIN
             MENUITEM "1st Style",      IDM_SEARCH_GONEXTMARKER1
             MENUITEM "2nd Style",      IDM_SEARCH_GONEXTMARKER2
@@ -577,7 +577,7 @@ BEGIN
             MENUITEM "5th Style",      IDM_SEARCH_GONEXTMARKER5
             MENUITEM "Find Style",     IDM_SEARCH_GONEXTMARKER_DEF
         END
-        POPUP "Copy Styled Text"
+        POPUP "&Copy Styled Text"
         BEGIN
             MENUITEM "1st Style",               IDM_SEARCH_STYLE1TOCLIP
             MENUITEM "2nd Style",               IDM_SEARCH_STYLE2TOCLIP
@@ -588,7 +588,7 @@ BEGIN
             MENUITEM "Find Style (Marked)",     IDM_SEARCH_MARKEDTOCLIP
         END
         MENUITEM SEPARATOR
-        POPUP "Bookmark"
+        POPUP "&Bookmark"
         BEGIN
             MENUITEM "Toggle Bookmark" ,                       IDM_SEARCH_TOGGLE_BOOKMARK
             MENUITEM "Next Bookmark",                          IDM_SEARCH_NEXT_BOOKMARK
@@ -602,7 +602,7 @@ BEGIN
             MENUITEM "Inverse Bookmark",                       IDM_SEARCH_INVERSEMARKS
         END
         MENUITEM SEPARATOR
-        MENUITEM "Find characters in range...",        IDM_SEARCH_FINDCHARINRANGE
+        MENUITEM "Find characters in rang&e...",       IDM_SEARCH_FINDCHARINRANGE
     END
 
     POPUP "&View"

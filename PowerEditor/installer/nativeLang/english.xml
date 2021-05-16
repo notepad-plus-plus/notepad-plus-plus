@@ -23,26 +23,26 @@ The comments are here for explanation, it's not necessary to translate them.
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item subMenuId="file-openFolder" name="Open Containing Folder"/>
-                    <Item subMenuId="file-closeMore" name="Close More"/>
+                    <Item subMenuId="file-openFolder" name="Open Containing &amp;Folder"/>
+                    <Item subMenuId="file-closeMore" name="Close &amp;More"/>
                     <Item subMenuId="file-recentFiles" name="&amp;Recent Files"/>
-                    <Item subMenuId="edit-copyToClipboard"  name="Copy to Clipboard"/>
-                    <Item subMenuId="edit-indent" name="Indent"/>
-                    <Item subMenuId="edit-convertCaseTo" name="Convert Case to"/>
-                    <Item subMenuId="edit-lineOperations" name="Line Operations"/>
-                    <Item subMenuId="edit-comment" name="Comment/Uncomment"/>
-                    <Item subMenuId="edit-autoCompletion" name="Auto-Completion"/>
-                    <Item subMenuId="edit-eolConversion" name="EOL Conversion"/>
-                    <Item subMenuId="edit-blankOperations" name="Blank Operations"/>
-                    <Item subMenuId="edit-pasteSpecial" name="Paste Special"/>
-                    <Item subMenuId="edit-onSelection" name="On Selection"/>
-                    <Item subMenuId="search-markAll" name="Mark All"/>
-                    <Item subMenuId="search-markOne" name="Mark One"/>
-                    <Item subMenuId="search-unmarkAll" name="Unmark All"/>
-                    <Item subMenuId="search-jumpUp" name="Jump Up"/>
-                    <Item subMenuId="search-jumpDown" name="Jump Down"/>
-                    <Item subMenuId="search-copyStyledText" name="Copy Styled Text"/>
-                    <Item subMenuId="search-bookmark" name="Bookmark"/>
+                    <Item subMenuId="edit-copyToClipboard"  name="Cop&amp;y to Clipboard"/>
+                    <Item subMenuId="edit-indent" name="&amp;Indent"/>
+                    <Item subMenuId="edit-convertCaseTo" name="Con&amp;vert Case to"/>
+                    <Item subMenuId="edit-lineOperations" name="&amp;Line Operations"/>
+                    <Item subMenuId="edit-comment" name="Co&amp;mment/Uncomment"/>
+                    <Item subMenuId="edit-autoCompletion" name="&amp;Auto-Completion"/>
+                    <Item subMenuId="edit-eolConversion" name="&amp;EOL Conversion"/>
+                    <Item subMenuId="edit-blankOperations" name="&amp;Blank Operations"/>
+                    <Item subMenuId="edit-pasteSpecial" name="&amp;Paste Special"/>
+                    <Item subMenuId="edit-onSelection" name="&amp;On Selection"/>
+                    <Item subMenuId="search-markAll" name="Mark &amp;All"/>
+                    <Item subMenuId="search-markOne" name="Mark &amp;One"/>
+                    <Item subMenuId="search-unmarkAll" name="&amp;Unmark All"/>
+                    <Item subMenuId="search-jumpUp" name="&amp;Jump Up"/>
+                    <Item subMenuId="search-jumpDown" name="Jump &amp;Down"/>
+                    <Item subMenuId="search-copyStyledText" name="&amp;Copy Styled Text"/>
+                    <Item subMenuId="search-bookmark" name="&amp;Bookmark"/>
                     <Item subMenuId="view-currentFileIn" name="View Current File in"/>
                     <Item subMenuId="view-showSymbol"  name="Show Symbol"/>
                     <Item subMenuId="view-zoom"  name="Zoom"/>
@@ -90,26 +90,26 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="41006" name="&amp;Save"/>
                     <Item id="41007" name="Sav&amp;e All"/>
                     <Item id="41008" name="Save &amp;As..."/>
-                    <Item id="41010" name="Print..."/>
-                    <Item id="1001"  name="Print Now"/>
+                    <Item id="41010" name="&amp;Print..."/>
+                    <Item id="1001"  name="Print No&amp;w"/>
                     <Item id="41011" name="E&amp;xit"/>
-                    <Item id="41012" name="Load Session..."/>
-                    <Item id="41013" name="Save Session..."/>
+                    <Item id="41012" name="Load Sess&amp;ion..."/>
+                    <Item id="41013" name="Save Sess&amp;ion..."/>
                     <Item id="41014" name="Re&amp;load from Disk"/>
-                    <Item id="41015" name="Save a Copy As..."/>
-                    <Item id="41016" name="Move to Recycle Bin"/>
-                    <Item id="41017" name="Rename..."/>
+                    <Item id="41015" name="Save a Cop&amp;y As..."/>
+                    <Item id="41016" name="Move to Recycle &amp;Bin"/>
+                    <Item id="41017" name="&amp;Rename..."/>
                     <Item id="41021" name="Restore Recent Closed File"/>
-                    <Item id="41022" name="Open Folder as Workspace..."/>
-                    <Item id="41023" name="Open in Default Viewer"/>
+                    <Item id="41022" name="Open Folder as &amp;Workspace..."/>
+                    <Item id="41023" name="Open in &amp;Default Viewer"/>
                     <Item id="42001" name="Cu&amp;t"/>
                     <Item id="42002" name="&amp;Copy"/>
                     <Item id="42003" name="&amp;Undo"/>
                     <Item id="42004" name="&amp;Redo"/>
                     <Item id="42005" name="&amp;Paste"/>
                     <Item id="42006" name="&amp;Delete"/>
-                    <Item id="42007" name="Select A&amp;ll"/>
-                    <Item id="42020" name="Begin/End Select"/>
+                    <Item id="42007" name="&amp;Select All"/>
+                    <Item id="42020" name="Begin/End &amp;Select"/>
                     <Item id="42008" name="Increase Line Indent"/>
                     <Item id="42009" name="Decrease Line Indent"/>
                     <Item id="42010" name="Duplicate Current Line"/>
@@ -164,13 +164,13 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42050" name="Paste Binary Content"/>
                     <Item id="42082" name="Copy link"/>
                     <Item id="42037" name="Column Mode..."/>
-                    <Item id="42034" name="Column Editor..."/>
-                    <Item id="42051" name="Character Panel"/>
-                    <Item id="42052" name="Clipboard History"/>
+                    <Item id="42034" name="Colum&amp;n Editor..."/>
+                    <Item id="42051" name="Character &amp;Panel"/>
+                    <Item id="42052" name="Clipboard &amp;History"/>
                     <Item id="42025" name="&amp;Save Currently Recorded Macro..."/>
                     <Item id="42026" name="Text Direction RTL"/>
                     <Item id="42027" name="Text Direction LTR"/>
-                    <Item id="42028" name="Set Read-Only"/>
+                    <Item id="42028" name="&amp;Set Read-Only"/>
                     <Item id="42029" name="Current File Path to Clipboard"/>
                     <Item id="42030" name="Current Filename to Clipboard"/>
                     <Item id="42031" name="Current Dir. Path to Clipboard"/>
@@ -196,14 +196,14 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43021" name="Remove Bookmarked Lines"/>
                     <Item id="43051" name="Remove Unmarked Lines"/>
                     <Item id="43050" name="Inverse Bookmark"/>
-                    <Item id="43052" name="Find characters in range..."/>
-                    <Item id="43053" name="Select All Between Matching Braces"/>
-                    <Item id="43009" name="Go to Matching Brace"/>
+                    <Item id="43052" name="Find characters in rang&amp;e..."/>
+                    <Item id="43053" name="Select All Between &amp;Matching Braces"/>
+                    <Item id="43009" name="Go to &amp;Matching Brace"/>
                     <Item id="43010" name="Find &amp;Previous"/>
                     <Item id="43011" name="&amp;Incremental Search"/>
-                    <Item id="43013" name="Find in Files"/>
-                    <Item id="43014" name="Find (Volatile) Next"/>
-                    <Item id="43015" name="Find (Volatile) Previous"/>
+                    <Item id="43013" name="Find in Fi&amp;les"/>
+                    <Item id="43014" name="Find (&amp;Volatile) Next"/>
+                    <Item id="43015" name="Find (&amp;Volatile) Previous"/>
                     <Item id="43022" name="Using 1st Style"/>
                     <Item id="43023" name="Clear 1st Style"/>
                     <Item id="43024" name="Using 2nd Style"/>
@@ -239,11 +239,11 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43064" name="Using 3rd Style"/>
                     <Item id="43065" name="Using 4th Style"/>
                     <Item id="43066" name="Using 5th Style"/>
-                    <Item id="43045" name="Search Results Window"/>
-                    <Item id="43046" name="Next Search Result"/>
-                    <Item id="43047" name="Previous Search Result"/>
-                    <Item id="43048" name="Select and Find Next"/>
-                    <Item id="43049" name="Select and Find Previous"/>
+                    <Item id="43045" name="Search Results &amp;Window"/>
+                    <Item id="43046" name="Next Search Resul&amp;t"/>
+                    <Item id="43047" name="Previous Search Resul&amp;t"/>
+                    <Item id="43048" name="&amp;Select and Find Next"/>
+                    <Item id="43049" name="&amp;Select and Find Previous"/>
                     <Item id="43054" name="Mar&amp;k..."/>
                     <Item id="44009" name="Post-It"/>
                     <Item id="44010" name="Fold All"/>

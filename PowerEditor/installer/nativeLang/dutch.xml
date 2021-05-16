@@ -5,7 +5,7 @@ Modifications until 2018-03-26 by Klaas Nekeman (knekeman(at)gmail.com).
 Modifications until 2020-05-26 by xylographe <wr86420@gmail.com>.
 Modifications from 2020-01-28 and onwards by Thomas De Rocker (RockyTDR)
 
-Last modified on 2021-05-12 by Thomas De Rocker (RockyTDR).
+Last modified on 2021-05-16 by Thomas De Rocker (RockyTDR).
 -->
 <NotepadPlus>
     <Native-Langue name="Nederlands" filename="dutch.xml" version="7.9.4">
@@ -135,7 +135,7 @@ Last modified on 2021-05-12 by Thomas De Rocker (RockyTDR).
                     <Item id="42065" name="Regels als decimalen (punt) oplopend sorteren"/>
                     <Item id="42066" name="Regels als decimalen (punt) aflopend sorteren"/>
                     <Item id="42083" name="Regelvolgorde omkeren"/>
-                    <Item id="42078" name="Regels willekeurig sorteren"/>
+                    <Item id="42078" name="Regelvolgorde willekeurig rangschikken"/>
                     <Item id="42016" name="HOOFDLETTERS"/>
                     <Item id="42017" name="kleine letters"/>
                     <Item id="42067" name="Beginhoofdletters"/>

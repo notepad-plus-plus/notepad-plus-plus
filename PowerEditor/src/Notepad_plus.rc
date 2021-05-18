@@ -559,7 +559,7 @@ BEGIN
             MENUITEM "Clear 5th Style",     IDM_SEARCH_UNMARKALLEXT5
             MENUITEM "Clear all Styles",    IDM_SEARCH_CLEARALLMARKS
         END
-        POPUP "&Jump up"
+        POPUP "&Jump Up"
         BEGIN
             MENUITEM "1st Style",     IDM_SEARCH_GOPREVMARKER1
             MENUITEM "2nd Style",     IDM_SEARCH_GOPREVMARKER2
@@ -568,7 +568,7 @@ BEGIN
             MENUITEM "5th Style",     IDM_SEARCH_GOPREVMARKER5
             MENUITEM "Find Style",    IDM_SEARCH_GOPREVMARKER_DEF
         END
-        POPUP "Jump &down"
+        POPUP "Jump &Down"
         BEGIN
             MENUITEM "1st Style",      IDM_SEARCH_GONEXTMARKER1
             MENUITEM "2nd Style",      IDM_SEARCH_GONEXTMARKER2

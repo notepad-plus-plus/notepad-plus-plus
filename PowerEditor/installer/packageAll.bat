@@ -85,6 +85,7 @@ rem Notepad++ minimalist package
 rmdir /S /Q .\minimalist
 mkdir .\minimalist
 mkdir .\minimalist\userDefineLangs
+mkdir .\minimalist\themes
 
 copy /Y ..\..\LICENSE .\minimalist\license.txt
 If ErrorLevel 1 goto End
@@ -106,11 +107,14 @@ copy /Y ..\bin\doLocalConf.xml .\minimalist\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\"notepad++.exe" .\minimalist\
 If ErrorLevel 1 goto End
+copy /Y ".\themes\DarkModeDefault.xml" .\minimalist\themes\
+If ErrorLevel 1 goto End
 
 
 rmdir /S /Q .\minimalist64
 mkdir .\minimalist64
 mkdir .\minimalist64\userDefineLangs
+mkdir .\minimalist64\themes
 
 copy /Y ..\..\LICENSE .\minimalist64\license.txt
 If ErrorLevel 1 goto End
@@ -132,11 +136,14 @@ copy /Y ..\bin\doLocalConf.xml .\minimalist64\
 If ErrorLevel 1 goto End
 copy /Y ..\bin64\"notepad++.exe" .\minimalist64\
 If ErrorLevel 1 goto End
+copy /Y ".\themes\DarkModeDefault.xml" .\minimalist64\themes\
+If ErrorLevel 1 goto End
 
 
 rmdir /S /Q .\minimalistArm64
 mkdir .\minimalistArm64
 mkdir .\minimalistArm64\userDefineLangs
+mkdir .\minimalistArm64\themes
 
 copy /Y ..\..\LICENSE .\minimalistArm64\license.txt
 If ErrorLevel 1 goto End
@@ -157,6 +164,8 @@ If ErrorLevel 1 goto End
 copy /Y ..\bin\doLocalConf.xml .\minimalistArm64\
 If ErrorLevel 1 goto End
 copy /Y ..\binarm64\"notepad++.exe" .\minimalistArm64\
+If ErrorLevel 1 goto End
+copy /Y ".\themes\DarkModeDefault.xml" .\minimalistArm64\themes\
 If ErrorLevel 1 goto End
 
 

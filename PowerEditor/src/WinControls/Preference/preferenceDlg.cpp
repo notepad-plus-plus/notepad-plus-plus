@@ -228,6 +228,10 @@ INT_PTR CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			_generalSubDlg.setToolIconsFromStdToSmall();
 			return TRUE;
 
+		case PREF_MSG_DISABLETABBARALTERNATEICONS:
+			_generalSubDlg.disableTabbarAlternateIcons();
+			return TRUE;
+
 		case WM_COMMAND :
 		{
 			if (LOWORD(wParam) == IDC_LIST_DLGTITLE)
@@ -379,6 +383,15 @@ void GeneralSubDlg::setToolIconsFromStdToSmall()
 	::SendDlgItemMessage(_hSelf, IDC_RADIO_SMALLICON, BM_SETCHECK, BST_CHECKED, 0);
 	::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_TOOLBAR_REDUCE, 0);
 }
+
+void GeneralSubDlg::disableTabbarAlternateIcons()
+{
+	NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
+	int altIconsBit = TAB_ALTICONS;
+	nppGUI._tabStatus &= ~altIconsBit;
+	::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_ALTICONS, BM_SETCHECK, BST_UNCHECKED, 0);
+}
+
 
 INT_PTR CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
@@ -822,13 +835,17 @@ INT_PTR CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					nppGUI._darkmode.enableMenubar = enableDarkMode;
 					nppGUI._darkmode.enableScrollbarHack = enableDarkMode;
 
-					// if dark mode enabled & TB_STANDARD is selected, switch to TB_SMALL
+					// Maintain the coherence in preferences
 					if (nppGUI._darkmode.enable)
 					{
+						// For toolbar: if dark mode enabled & TB_STANDARD is selected, switch to TB_SMALL
 						bool isStandardChecked = false;
 						::SendMessage(_hParent, PREF_MSG_ISCHECKED_GENERALPAGE, IDC_RADIO_STANDARD, LPARAM(&isStandardChecked));
 						if (isStandardChecked)
 							::SendMessage(_hParent, PREF_MSG_SETTOOLICONSFROMSTDTOSMALL, 0, 0);
+
+						// For tabbar: uncheck Alternate icons checkbox
+						::SendMessage(_hParent, PREF_MSG_DISABLETABBARALTERNATEICONS, 0, 0);
 					}
 					changed = true;
 					break;

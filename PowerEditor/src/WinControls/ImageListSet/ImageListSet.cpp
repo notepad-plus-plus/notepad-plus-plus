@@ -49,29 +49,7 @@ void IconList::addIcon(int iconID) const
 	ImageList_AddIcon(_hImglst, hIcon);
 	::DestroyIcon(hIcon);
 };
-/*
-bool IconList::addInvertIcon(int iconID) const
-{
-	HICON hIcon = ::LoadIcon(_hInst, MAKEINTRESOURCE(iconID));
-	if (!hIcon)
-		throw std::runtime_error("IconList::addIcon : LoadIcon() function return null");
 
-	HICON hColorInvertedIcon = invertColour(hIcon);
-
-	if (hColorInvertedIcon)
-		ImageList_AddIcon(_hImglst, hColorInvertedIcon);
-
-	::DestroyIcon(hIcon);
-
-	return hColorInvertedIcon != 0;
-}
-
-HICON IconList::invertColour(HICON hIcon) const
-{
-	// Light mode in, dark mode out
-	return NULL;
-}
-*/
 
 void IconList::addIcon(HICON hIcon) const
 {

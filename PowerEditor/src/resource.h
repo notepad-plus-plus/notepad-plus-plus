@@ -39,6 +39,7 @@
 //#define IDI_GILETJAUNE        102
 //#define IDI_SAMESEXMARRIAGE        102
 #define IDR_RT_MANIFEST         103
+#define IDI_ICONABSENT         104
 
 //
 // TOOLBAR ICO - set 1

@@ -55,6 +55,7 @@ IDI_CHAMELEON                   ICON      "icons/chameleon.ico"
 //IDI_JESUISCHARLIE             ICON      "icons/Je_suis_Charlie.ico"
 //IDI_GILETJAUNE                ICON      "icons/giletJaune.ico"
 //IDI_SAMESEXMARRIAGE           ICON      "icons/same-sexMarriageTaiwan.ico"
+IDI_ICONABSENT                  ICON      "icons/iconAbsent.ico"
 
 //
 // TOOLBAR ICO - set 1

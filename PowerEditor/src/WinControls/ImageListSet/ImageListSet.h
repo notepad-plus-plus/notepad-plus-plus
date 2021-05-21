@@ -35,7 +35,6 @@ public :
 	};
 	HIMAGELIST getHandle() const {return _hImglst;};
 	void addIcon(int iconID) const;
-	//bool addInvertIcon(int iconID) const;
 	void addIcon(HICON hIcon) const;
 
 	bool changeIcon(int index, const TCHAR *iconLocation) const;
@@ -48,8 +47,6 @@ private :
 	int *_pIconIDArray = nullptr;
 	int _iconIDArraySize = 0;
 	int _iconSize = 0;
-
-	//HICON invertColour(HICON hIcon) const;
 };
 
 typedef struct 

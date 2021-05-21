@@ -49,8 +49,8 @@ class TiXmlNode;
 class ToolBar : public Window
 {
 public :
-	ToolBar() = default;
-	virtual ~ToolBar() = default;
+	ToolBar();
+	~ToolBar();
 
     void initTheme(TiXmlDocument *toolIconsDocRoot);
 	virtual bool init(HINSTANCE hInst, HWND hPere, toolBarStatusType type, 
@@ -113,6 +113,7 @@ private :
 	REBARBANDINFO _rbBand;
     std::vector<iconLocator> _customIconVect;
     TiXmlNode *_toolIcons = nullptr;
+	HICON _hIconAbsent = nullptr;
 
 	void setDefaultImageList() {
 		::SendMessage(_hSelf, TB_SETIMAGELIST, 0, reinterpret_cast<LPARAM>(_toolBarIcons.getDefaultLst()));

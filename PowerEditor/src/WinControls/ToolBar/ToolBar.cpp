@@ -21,8 +21,19 @@
 #include "FindReplaceDlg_rc.h"
 
 #include "NppDarkMode.h"
+#include "resource.h"
 
 const int WS_TOOLBARSTYLE = WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | TBSTYLE_TOOLTIPS |TBSTYLE_FLAT | CCS_TOP | BTNS_AUTOSIZE | CCS_NOPARENTALIGN | CCS_NORESIZE | CCS_NODIVIDER;
+
+ToolBar::ToolBar()
+{
+	_hIconAbsent = (HICON)::LoadImage(_hInst, MAKEINTRESOURCE(IDI_ICONABSENT), IMAGE_ICON, 16, 16, 0);
+}
+
+ToolBar::~ToolBar()
+{
+	::DestroyIcon(_hIconAbsent);
+}
 
 void ToolBar::initTheme(TiXmlDocument *toolIconsDocRoot)
 {
@@ -96,6 +107,7 @@ void ToolBar::initTheme(TiXmlDocument *toolIconsDocRoot)
 bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type, ToolBarButtonUnit *buttonUnitArray, int arraySize)
 {
 	Window::init(hInst, hPere);
+	
 	_state = type;
 	int iconSize = NppParameters::getInstance()._dpiManager.scaleX(_state == TB_LARGE || _state == TB_LARGE2 ? 32 : 16);
 
@@ -351,21 +363,12 @@ void ToolBar::reset(bool create)
 
 	if (create)
 	{	//if the toolbar has been recreated, readd the buttons
-		size_t nbBtnToAdd = (_state == TB_STANDARD?_nbTotalButtons:_nbButtons);
-		_nbCurrentButtons = nbBtnToAdd;
+		_nbCurrentButtons = _nbTotalButtons;
 		WORD btnSize = (_state == TB_LARGE?32:16);
 		::SendMessage(_hSelf, TB_SETBUTTONSIZE , 0, MAKELONG(btnSize, btnSize));
-		::SendMessage(_hSelf, TB_ADDBUTTONS, nbBtnToAdd, reinterpret_cast<LPARAM>(_pTBB));
-
-		HIMAGELIST hImgLst = (HIMAGELIST)::SendMessage(_hSelf, TB_GETIMAGELIST, 0, 0);
-		for (size_t j = 0; j < _nbDynButtons; ++j)
-		{
-			ImageList_AddIcon(hImgLst, _vDynBtnReg.at(j)._hIcon);
-		}
+		::SendMessage(_hSelf, TB_ADDBUTTONS, _nbTotalButtons, reinterpret_cast<LPARAM>(_pTBB));
 	}
 	::SendMessage(_hSelf, TB_AUTOSIZE, 0, 0);
-
-
 
 	if (_pRebar)
 	{
@@ -387,7 +390,7 @@ void ToolBar::registerDynBtn(UINT messageID, toolbarIcons* tIcon)
 		DynamicCmdIcoBmp dynList;
 		dynList._message = messageID;
 		dynList._hBmp = tIcon->hToolbarBmp;
-		dynList._hIcon = tIcon->hToolbarIcon;
+		dynList._hIcon = tIcon->hToolbarIcon ? tIcon->hToolbarIcon : _hIconAbsent;
 		_vDynBtnReg.push_back(dynList);
 	}
 }

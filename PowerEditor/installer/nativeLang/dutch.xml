@@ -5,7 +5,7 @@ Modifications until 2018-03-26 by Klaas Nekeman (knekeman(at)gmail.com).
 Modifications until 2020-05-26 by xylographe <wr86420@gmail.com>.
 Modifications from 2020-01-28 and onwards by Thomas De Rocker (RockyTDR)
 
-Last modified on 2021-05-16 by Thomas De Rocker (RockyTDR).
+Last modified on 2021-05-22 by Thomas De Rocker (RockyTDR).
 -->
 <NotepadPlus>
     <Native-Langue name="Nederlands" filename="dutch.xml" version="7.9.5">
@@ -13,41 +13,41 @@ Last modified on 2021-05-16 by Thomas De Rocker (RockyTDR).
             <Main>
                 <!-- Main Menu Entries -->
                 <Entries>
-                    <Item menuId="file" name="&amp;Bestand"/>
-                    <Item menuId="edit" name="Be&amp;werken"/>
-                    <Item menuId="search" name="&amp;Zoeken"/>
-                    <Item menuId="view" name="B&amp;eeld"/>
-                    <Item menuId="encoding" name="&amp;Tekenset"/>
-                    <Item menuId="language" name="&amp;Syntaxis"/>
-                    <Item menuId="settings" name="&amp;Instellingen"/>
-                    <Item menuId="tools" name="&amp;Gereedschappen"/>
-                    <Item menuId="macro" name="&amp;Macro"/>
-                    <Item menuId="run" name="&amp;Uitvoeren"/>
-                    <Item idName="Plugins" name="&amp;Plugins"/>
-                    <Item idName="Window" name="&amp;Vensters"/>
+                    <Item menuId="file" name="Bestand"/>
+                    <Item menuId="edit" name="Bewerken"/>
+                    <Item menuId="search" name="Zoeken"/>
+                    <Item menuId="view" name="Beeld"/>
+                    <Item menuId="encoding" name="Tekenset"/>
+                    <Item menuId="language" name="Syntaxis"/>
+                    <Item menuId="settings" name="Instellingen"/>
+                    <Item menuId="tools" name="Gereedschappen"/>
+                    <Item menuId="macro" name="Macro"/>
+                    <Item menuId="run" name="Uitvoeren"/>
+                    <Item idName="Plugins" name="Plugins"/>
+                    <Item idName="Window" name="Vensters"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item subMenuId="file-openFolder" name="&amp;Bevattende map openen"/>
-                    <Item subMenuId="file-closeMore" name="&amp;Meerdere sluiten"/>
-                    <Item subMenuId="file-recentFiles" name="&amp;Recente bestanden"/>
-                    <Item subMenuId="edit-copyToClipboard"  name="Naar &amp;klembord kopiëren"/>
-                    <Item subMenuId="edit-indent" name="&amp;Inspringing tekst"/>
-                    <Item subMenuId="edit-convertCaseTo" name="&amp;Hoofdlettergebruik"/>
-                    <Item subMenuId="edit-lineOperations" name="&amp;Regels bewerken"/>
-                    <Item subMenuId="edit-comment" name="Markeren als &amp;commentaar"/>
-                    <Item subMenuId="edit-autoCompletion" name="&amp;Automatisch aanvullen"/>
-                    <Item subMenuId="edit-eolConversion" name="Regel&amp;einde-conversie"/>
-                    <Item subMenuId="edit-blankOperations" name="&amp;Witruimte-bewerkingen"/>
-                    <Item subMenuId="edit-pasteSpecial" name="&amp;Plakken speciaal"/>
-                    <Item subMenuId="edit-onSelection" name="&amp;Voor selectie"/>
-                    <Item subMenuId="search-markAll" name="&amp;Alles markeren"/>
-                    <Item subMenuId="search-markOne" name="&amp;Eén markeren"/>
-                    <Item subMenuId="search-unmarkAll" name="Alle &amp;markeringen wissen"/>
-                    <Item subMenuId="search-jumpUp" name="Om&amp;hoog springen"/>
-                    <Item subMenuId="search-jumpDown" name="Om&amp;laag springen"/>
-                    <Item subMenuId="search-copyStyledText" name="Tekst met &amp;stijl kopiëren"/>
-                    <Item subMenuId="search-bookmark" name="&amp;Bladwijzers"/>
+                    <Item subMenuId="file-openFolder" name="Bevattende map openen"/>
+                    <Item subMenuId="file-closeMore" name="Meerdere sluiten"/>
+                    <Item subMenuId="file-recentFiles" name="Recente bestanden"/>
+                    <Item subMenuId="edit-copyToClipboard"  name="Naar klembord kopiëren"/>
+                    <Item subMenuId="edit-indent" name="Inspringing tekst"/>
+                    <Item subMenuId="edit-convertCaseTo" name="Hoofdlettergebruik"/>
+                    <Item subMenuId="edit-lineOperations" name="Regels bewerken"/>
+                    <Item subMenuId="edit-comment" name="Markeren als commentaar"/>
+                    <Item subMenuId="edit-autoCompletion" name="Automatisch aanvullen"/>
+                    <Item subMenuId="edit-eolConversion" name="Regeleinde-conversie"/>
+                    <Item subMenuId="edit-blankOperations" name="Witruimte-bewerkingen"/>
+                    <Item subMenuId="edit-pasteSpecial" name="Plakken speciaal"/>
+                    <Item subMenuId="edit-onSelection" name="Voor selectie"/>
+                    <Item subMenuId="search-markAll" name="Alles markeren"/>
+                    <Item subMenuId="search-markOne" name="Eén markeren"/>
+                    <Item subMenuId="search-unmarkAll" name="Alle markeringen wissen"/>
+                    <Item subMenuId="search-jumpUp" name="Omhoog springen"/>
+                    <Item subMenuId="search-jumpDown" name="Omlaag springen"/>
+                    <Item subMenuId="search-copyStyledText" name="Tekst met stijl kopiëren"/>
+                    <Item subMenuId="search-bookmark" name="Bladwijzers"/>
                     <Item subMenuId="view-currentFileIn" name="Document weergeven in"/>
                     <Item subMenuId="view-showSymbol"  name="Niet-afdrukbare tekens"/>
                     <Item subMenuId="view-zoom"  name="Zoomen"/>
@@ -81,40 +81,40 @@ Last modified on 2021-05-16 by Thomas De Rocker (RockyTDR).
 
                 <!-- all menu items -->
                 <Commands>
-                    <Item id="41001" name="&amp;Nieuw"/>
-                    <Item id="41002" name="&amp;Openen..."/>
+                    <Item id="41001" name="Nieuw"/>
+                    <Item id="41002" name="Openen..."/>
                     <Item id="41019" name="in Windows Verkenner"/>
                     <Item id="41020" name="in opdrachtprompt"/>
                     <Item id="41025" name="Map als werkruimte"/>
-                    <Item id="41003" name="&amp;Sluiten"/>
-                    <Item id="41004" name="Alles slui&amp;ten"/>
+                    <Item id="41003" name="Sluiten"/>
+                    <Item id="41004" name="Alles sluiten"/>
                     <Item id="41005" name="Overige documenten sluiten"/>
                     <Item id="41009" name="Documenten aan de linkerkant sluiten"/>
                     <Item id="41018" name="Documenten aan de rechterkant sluiten"/>
                     <Item id="41024" name="Ongewijzigde documenten sluiten"/>
-                    <Item id="41006" name="O&amp;pslaan"/>
+                    <Item id="41006" name="Opslaan"/>
                     <Item id="41007" name="Alles opslaan"/>
-                    <Item id="41008" name="Ops&amp;laan als..."/>
-                    <Item id="41010" name="Af&amp;drukken..."/>
-                    <Item id="1001"  name="Nu afdr&amp;ukken"/>
-                    <Item id="41011" name="Af&amp;sluiten"/>
-                    <Item id="41012" name="Sessie &amp;laden..."/>
-                    <Item id="41013" name="Sessie &amp;opslaan..."/>
-                    <Item id="41014" name="Opnieuw &amp;laden vanaf schijf"/>
-                    <Item id="41015" name="&amp;Kopie opslaan als..."/>
-                    <Item id="41016" name="Naar &amp;prullenbak verplaatsen"/>
-                    <Item id="41017" name="&amp;Naam wijzigen..."/>
+                    <Item id="41008" name="Opslaan als..."/>
+                    <Item id="41010" name="Afdrukken..."/>
+                    <Item id="1001"  name="Nu afdrukken"/>
+                    <Item id="41011" name="Afsluiten"/>
+                    <Item id="41012" name="Sessie laden..."/>
+                    <Item id="41013" name="Sessie opslaan..."/>
+                    <Item id="41014" name="Opnieuw laden vanaf schijf"/>
+                    <Item id="41015" name="Kopie opslaan als..."/>
+                    <Item id="41016" name="Naar prullenbak verplaatsen"/>
+                    <Item id="41017" name="Naam wijzigen..."/>
                     <Item id="41021" name="Recent gesloten bestand opnieuw openen"/>
-                    <Item id="41022" name="Map als &amp;werkruimte openen..."/>
-                    <Item id="41023" name="In standaard&amp;viewer openen"/>
-                    <Item id="42001" name="&amp;Knippen"/>
-                    <Item id="42002" name="&amp;Kopiëren"/>
-                    <Item id="42003" name="&amp;Ongedaan maken"/>
-                    <Item id="42004" name="Opnieuw &amp;uitvoeren"/>
-                    <Item id="42005" name="&amp;Plakken"/>
-                    <Item id="42006" name="&amp;Verwijderen"/>
-                    <Item id="42007" name="&amp;Alles selecteren"/>
-                    <Item id="42020" name="&amp;Selectie starten/stoppen"/>
+                    <Item id="41022" name="Map als werkruimte openen..."/>
+                    <Item id="41023" name="In standaardviewer openen"/>
+                    <Item id="42001" name="Knippen"/>
+                    <Item id="42002" name="Kopiëren"/>
+                    <Item id="42003" name="Ongedaan maken"/>
+                    <Item id="42004" name="Opnieuw uitvoeren"/>
+                    <Item id="42005" name="Plakken"/>
+                    <Item id="42006" name="Verwijderen"/>
+                    <Item id="42007" name="Alles selecteren"/>
+                    <Item id="42020" name="Selectie starten/stoppen"/>
                     <Item id="42008" name="Inspringing van regel vergroten"/>
                     <Item id="42009" name="Inspringing van regel verkleinen"/>
                     <Item id="42010" name="Huidige regel dupliceren"/>
@@ -148,9 +148,9 @@ Last modified on 2021-05-16 by Thomas De Rocker (RockyTDR).
                     <Item id="42074" name="Bevattende map openen in Windows Verkenner"/>
                     <Item id="42075" name="Zoeken op internet"/>
                     <Item id="42076" name="Zoekmachine wijzigen..."/>
-                    <Item id="42018" name="Opname &amp;starten"/>
-                    <Item id="42019" name="Opname st&amp;oppen"/>
-                    <Item id="42021" name="&amp;Afspelen"/>
+                    <Item id="42018" name="Opname starten"/>
+                    <Item id="42019" name="Opname stoppen"/>
+                    <Item id="42021" name="Afspelen"/>
                     <Item id="42022" name="Regelcommentaar aan/uit"/>
                     <Item id="42023" name="Blokcommentaar inschakelen"/>
                     <Item id="42047" name="Blokcommentaar uitschakelen"/>
@@ -169,13 +169,13 @@ Last modified on 2021-05-16 by Thomas De Rocker (RockyTDR).
                     <Item id="42050" name="Binaire inhoud plakken"/>
                     <Item id="42082" name="Koppeling kopiëren"/>
                     <Item id="42037" name="Kolom-modus voor selecteren..."/>
-                    <Item id="42034" name="&amp;Kolom-bewerker..."/>
-                    <Item id="42051" name="ASCII-&amp;tekenvenster"/>
-                    <Item id="42052" name="&amp;Geschiedenis van klembord"/>
-                    <Item id="42025" name="Momenteel opgenomen macro ops&amp;laan..."/>
+                    <Item id="42034" name="Kolom-bewerker..."/>
+                    <Item id="42051" name="ASCII-tekenvenster"/>
+                    <Item id="42052" name="Geschiedenis van klembord"/>
+                    <Item id="42025" name="Momenteel opgenomen macro opslaan..."/>
                     <Item id="42026" name="Tekstrichting rechts-links"/>
                     <Item id="42027" name="Tekstrichting links-rechts"/>
-                    <Item id="42028" name="Instellen als alleen-&amp;lezen"/>
+                    <Item id="42028" name="Instellen als alleen-lezen"/>
                     <Item id="42029" name="Huidig bestandspad naar klembord kopiëren"/>
                     <Item id="42030" name="Huidige bestandsnaam naar klembord kopiëren"/>
                     <Item id="42031" name="Pad naar huidige map naar klembord kopiëren"/>
@@ -187,10 +187,10 @@ Last modified on 2021-05-16 by Thomas De Rocker (RockyTDR).
                     <Item id="42056" name="Lege regels (met alleen spaties of tabs) verwijderen"/>
                     <Item id="42057" name="Lege regel invoegen boven de huidige"/>
                     <Item id="42058" name="Lege regel invoegen onder de huidige"/>
-                    <Item id="43001" name="&amp;Zoeken..."/>
-                    <Item id="43002" name="&amp;Volgende zoeken"/>
-                    <Item id="43003" name="Ve&amp;rvangen..."/>
-                    <Item id="43004" name="&amp;Ga naar..."/>
+                    <Item id="43001" name="Zoeken..."/>
+                    <Item id="43002" name="Volgende zoeken"/>
+                    <Item id="43003" name="Vervangen..."/>
+                    <Item id="43004" name="Ga naar..."/>
                     <Item id="43005" name="Bladwijzer invoegen"/>
                     <Item id="43006" name="Volgende bladwijzer"/>
                     <Item id="43007" name="Vorige bladwijzer"/>
@@ -201,14 +201,14 @@ Last modified on 2021-05-16 by Thomas De Rocker (RockyTDR).
                     <Item id="43021" name="Regels met bladwijzers wissen"/>
                     <Item id="43051" name="Regels zonder bladwijzer wissen"/>
                     <Item id="43050" name="Bladwijzers omkeren"/>
-                    <Item id="43052" name="Zoeken naar tekens in &amp;bereik..."/>
-                    <Item id="43053" name="Alles selecteren tussen bij elkaar horende &amp;haakjes"/>
-                    <Item id="43009" name="Ga naar overeenkomende &amp;accolade"/>
-                    <Item id="43010" name="Vorig&amp;e zoeken"/>
-                    <Item id="43011" name="&amp;Snel zoeken..."/>
-                    <Item id="43013" name="Zoeken in &amp;bestanden"/>
-                    <Item id="43014" name="(&amp;Vluchtig) volgende zoeken"/>
-                    <Item id="43015" name="(&amp;Vluchtig) vorige zoeken"/>
+                    <Item id="43052" name="Zoeken naar tekens in bereik..."/>
+                    <Item id="43053" name="Alles selecteren tussen bij elkaar horende haakjes"/>
+                    <Item id="43009" name="Ga naar overeenkomende accolade"/>
+                    <Item id="43010" name="Vorige zoeken"/>
+                    <Item id="43011" name="Snel zoeken..."/>
+                    <Item id="43013" name="Zoeken in bestanden"/>
+                    <Item id="43014" name="(Vluchtig) volgende zoeken"/>
+                    <Item id="43015" name="(Vluchtig) vorige zoeken"/>
                     <Item id="43022" name="Met stijl 1"/>
                     <Item id="43023" name="Stijl 1 wissen"/>
                     <Item id="43024" name="Met stijl 2"/>
@@ -244,11 +244,11 @@ Last modified on 2021-05-16 by Thomas De Rocker (RockyTDR).
                     <Item id="43064" name="Met stijl 3"/>
                     <Item id="43065" name="Met stijl 4"/>
                     <Item id="43066" name="Met stijl 5"/>
-                    <Item id="43045" name="Gevonden &amp;resultaten"/>
-                    <Item id="43046" name="Volgend &amp;zoekresultaat"/>
-                    <Item id="43047" name="Vorig &amp;zoekresultaat"/>
-                    <Item id="43048" name="&amp;Selecteren en volgende zoeken"/>
-                    <Item id="43049" name="&amp;Selecteren en vorige zoeken"/>
+                    <Item id="43045" name="Gevonden resultaten"/>
+                    <Item id="43046" name="Volgend zoekresultaat"/>
+                    <Item id="43047" name="Vorig zoekresultaat"/>
+                    <Item id="43048" name="Selecteren en volgende zoeken"/>
+                    <Item id="43049" name="Selecteren en vorige zoeken"/>
                     <Item id="43054" name="Markeren..."/>
                     <Item id="44009" name="Interface verbergen"/>
                     <Item id="44010" name="Gegevensstructuur samenvouwen"/>
@@ -256,8 +256,8 @@ Last modified on 2021-05-16 by Thomas De Rocker (RockyTDR).
                     <Item id="44019" name="Alle tekens weergeven"/>
                     <Item id="44020" name="Aanduiding voor inspringing weergeven"/>
                     <Item id="44022" name="Automatische terugloop"/>
-                    <Item id="44023" name="&amp;Inzoomen (Ctrl + Omhoog scrollen)"/>
-                    <Item id="44024" name="&amp;Uitzoomen (Ctrl + Omlaag scrollen)"/>
+                    <Item id="44023" name="Inzoomen (Ctrl + Omhoog scrollen)"/>
+                    <Item id="44024" name="Uitzoomen (Ctrl + Omlaag scrollen)"/>
                     <Item id="44025" name="Spaties en tabs weergeven"/>
                     <Item id="44026" name="Regeleindemarkering weergeven"/>
                     <Item id="44029" name="Gegevensstructuur uitvouwen"/>
@@ -343,7 +343,7 @@ Last modified on 2021-05-16 by Thomas De Rocker (RockyTDR).
                     <Item id="48504" name="Genereren..."/>
                     <Item id="48505" name="Genereren van bestanden..."/>
                     <Item id="48506" name="Genereren van selectie naar klembord"/>
-                    <Item id="49000" name="Uitvoe&amp;ren..."/>
+                    <Item id="49000" name="Uitvoeren..."/>
 
                     <Item id="50000" name="Functies aanvullen"/>
                     <Item id="50001" name="Woorden aanvullen"/>
@@ -393,31 +393,31 @@ Last modified on 2021-05-16 by Thomas De Rocker (RockyTDR).
                 <Item id="1722" name="Achterwaarts"/>
                 <Item id="2"    name="Sluiten"/>
                 <Item id="1620" name="Zoeken naar:"/>
-                <Item id="1603" name="Alleen volledige &amp;woorden"/>
+                <Item id="1603" name="Alleen volledige woorden"/>
                 <Item id="1604" name="Hoofdlettergevoelig"/>
-                <Item id="1605" name="Re&amp;guliere expressie"/>
-                <Item id="1606" name="&amp;Documenteinde negeren"/>
-                <Item id="1614" name="Gevonden woorden &amp;tellen"/>
+                <Item id="1605" name="Reguliere expressie"/>
+                <Item id="1606" name="Documenteinde negeren"/>
+                <Item id="1614" name="Gevonden woorden tellen"/>
                 <Item id="1615" name="Alles markeren"/>
-                <Item id="1616" name="Blad&amp;wijzer toevoegen aan regel"/>
+                <Item id="1616" name="Bladwijzer toevoegen aan regel"/>
                 <Item id="1618" name="Markering wissen bij opnieuw zoeken"/>
                 <Item id="1611" name="Vervangen door:"/>
-                <Item id="1608" name="V&amp;ervangen"/>
-                <Item id="1609" name="&amp;Alles vervangen"/>
+                <Item id="1608" name="Vervangen"/>
+                <Item id="1609" name="Alles vervangen"/>
                 <Item id="1687" name="Bij focusverlies"/>
                 <Item id="1688" name="Altijd"/>
-                <Item id="1632" name="In select&amp;ie"/>
+                <Item id="1632" name="In selectie"/>
                 <Item id="1633" name="Alle markeringen wissen"/>
-                <Item id="1635" name="In alle ge&amp;opende bestanden vervangen"/>
-                <Item id="1636" name="In alle geopende &amp;bestanden zoeken"/>
+                <Item id="1635" name="In alle geopende bestanden vervangen"/>
+                <Item id="1636" name="In alle geopende bestanden zoeken"/>
                 <Item id="1654" name="Filters:"/>
                 <Item id="1655" name="Map:"/>
                 <Item id="1656" name="Alles zoeken"/>
                 <Item id="1658" name="In submappen"/>
                 <Item id="1659" name="In verborgen mappen"/>
                 <Item id="1624" name="Zoekmodus"/>
-                <Item id="1625" name="&amp;Normaal"/>
-                <Item id="1626" name="&amp;Uitgebreid (\n, \r, \t, \0, \x...)"/>
+                <Item id="1625" name="Normaal"/>
+                <Item id="1626" name="Uitgebreid (\n, \r, \t, \0, \x...)"/>
                 <Item id="1660" name="Vervangen in bestanden"/>
                 <Item id="1665" name="Vervangen in projecten"/>
                 <Item id="1661" name="Huidige bestandsmap"/>
@@ -426,7 +426,7 @@ Last modified on 2021-05-16 by Thomas De Rocker (RockyTDR).
                 <Item id="1664" name="Projectpaneel 3"/>
                 <Item id="1641" name="Alles in dit document zoeken"/>
                 <Item id="1686" name="Transparantie"/>
-                <Item id="1703" name="&amp;. vindt \n en \r"/>
+                <Item id="1703" name=". vindt \n en \r"/>
                 <Item id="1721" name="▲"/>
                 <Item id="1723" name="▼ Volgende"/>
                 <Item id="1725" name="Gemarkeerde tekst kopiëren"/>
@@ -437,16 +437,16 @@ Last modified on 2021-05-16 by Thomas De Rocker (RockyTDR).
                 <Item id="2901" name="Extended ASCII (128-255)"/>
                 <Item id="2902" name="ASCII (0-127)"/>
                 <Item id="2903" name="Aangepast:"/>
-                <Item id="2906" name="Om&amp;hoog"/>
-                <Item id="2907" name="Om&amp;laag"/>
+                <Item id="2906" name="Omhoog"/>
+                <Item id="2907" name="Omlaag"/>
                 <Item id="2908" name="Richting"/>
                 <Item id="2909" name="Documenteinde negeren"/>
                 <Item id="2910" name="Zoeken"/>
             </FindCharsInRange>
 
             <GoToLine title="Ga naar...">
-                <Item id="2007" name="Rege&amp;l"/>
-                <Item id="2008" name="P&amp;ositie"/>
+                <Item id="2007" name="Regel"/>
+                <Item id="2008" name="Positie"/>
                 <Item id="1"    name="Gaan"/>
                 <Item id="2"    name="Annuleren"/>
                 <Item id="2004" name="U bent hier:"/>
@@ -1092,32 +1092,32 @@ U kunt verschillende kolommarkeringen vastleggen door gebruik te maken van spati
                 </MISC>
             </Preference>
             <MultiMacro title="Macro meerdere keren uitvoeren">
-                <Item id="1" name="Sta&amp;rt"/>
-                <Item id="2" name="St&amp;op"/>
+                <Item id="1" name="Start"/>
+                <Item id="2" name="Stop"/>
                 <Item id="8006" name="Macro selecteren:"/>
                 <Item id="8001" name="Macro"/>
                 <Item id="8005" name="keer uitvoeren"/>
-                <Item id="8002" name="Uitvoeren tot document&amp;einde"/>
+                <Item id="8002" name="Uitvoeren tot documenteinde"/>
             </MultiMacro>
             <Window title="Vensters">
-                <Item id="1" name="&amp;Activeren"/>
-                <Item id="2" name="&amp;Ok"/>
-                <Item id="7002" name="Op&amp;slaan"/>
-                <Item id="7003" name="S&amp;luiten"/>
-                <Item id="7004" name="&amp;Tabs sorteren"/>
+                <Item id="1" name="Activeren"/>
+                <Item id="2" name="Ok"/>
+                <Item id="7002" name="Opslaan"/>
+                <Item id="7003" name="Sluiten"/>
+                <Item id="7004" name="Tabs sorteren"/>
             </Window>
             <ColumnEditor title="Kolom-bewerker">
-                <Item id="2023" name="&amp;Tekst invoegen"/>
-                <Item id="2033" name="&amp;Nummer invoegen"/>
-                <Item id="2030" name="Beg&amp;innummer:"/>
-                <Item id="2031" name="&amp;Verhogen met:"/>
-                <Item id="2035" name="Voor&amp;loopnullen"/>
-                <Item id="2036" name="He&amp;rhalen:"/>
+                <Item id="2023" name="Tekst invoegen"/>
+                <Item id="2033" name="Nummer invoegen"/>
+                <Item id="2030" name="Beginnummer:"/>
+                <Item id="2031" name="Verhogen met:"/>
+                <Item id="2035" name="Voorloopnullen"/>
+                <Item id="2036" name="Herhalen:"/>
                 <Item id="2032" name="Indeling"/>
-                <Item id="2024" name="&amp;Decimaal"/>
-                <Item id="2025" name="&amp;Octaal"/>
-                <Item id="2026" name="&amp;Hexadecimaal"/>
-                <Item id="2027" name="&amp;Binair"/>
+                <Item id="2024" name="Decimaal"/>
+                <Item id="2025" name="Octaal"/>
+                <Item id="2026" name="Hexadecimaal"/>
+                <Item id="2027" name="Binair"/>
                 <Item id="1" name="Ok"/>
                 <Item id="2" name="Annuleren"/>
             </ColumnEditor>
@@ -1127,20 +1127,20 @@ U kunt verschillende kolommarkeringen vastleggen door gebruik te maken van spati
                 <Item id="1711" name="Zoeken naar:"/>
                 <Item id="1713" name="Alleen zoeken in gevonden regels"/>
                 <Item id="1714" name="Alleen volledige woorden"/>
-                <Item id="1715" name="&amp;Hoofdlettergevoelig"/>
+                <Item id="1715" name="Hoofdlettergevoelig"/>
                 <Item id="1716" name="Zoekmodus"/>
-                <Item id="1717" name="&amp;Normaal"/>
-                <Item id="1719" name="Reguliere e&amp;xpressie"/>
+                <Item id="1717" name="Normaal"/>
+                <Item id="1719" name="Reguliere expressie"/>
                 <Item id="1718" name="Uitgebreid (\n, \r, \t, \0, \x...)"/>
-                <Item id="1720" name="&amp;. vindt \n en \r"/>
+                <Item id="1720" name=". vindt \n en \r"/>
             </FindInFinder>
             <DoSaveOrNot title="Opslaan">
                 <Item id="1761" name="Bestand &quot;$STR_REPLACE$&quot; opslaan?"/>
-                <Item id="6" name="&amp;Ja"/>
-                <Item id="7" name="&amp;Nee"/>
+                <Item id="6" name="Ja"/>
+                <Item id="7" name="Nee"/>
                 <Item id="2" name="Annuleren"/>
-                <Item id="4" name="J&amp;a op alles"/>
-                <Item id="5" name="N&amp;ee op alles"/>
+                <Item id="4" name="Ja op alles"/>
+                <Item id="5" name="Nee op alles"/>
             </DoSaveOrNot>
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
@@ -1440,7 +1440,7 @@ In alle bestanden behalve exe, obj en log zoeken:
             <find-regex-zero-length-match value="nullengte-overeenkomst" />
             <session-save-folder-as-workspace value="Map als werkruimte opslaan" />
             <tab-untitled-string value="nieuw " />
-            <file-save-assign-type value="&amp;Extensie toevoegen" />
+            <file-save-assign-type value="Extensie toevoegen" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

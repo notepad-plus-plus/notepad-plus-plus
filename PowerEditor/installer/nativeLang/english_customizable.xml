@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
     <Native-Langue name="English" filename="english_customizable.xml" version="7.9.5">
-       <Menu>
+        <Menu>
             <Main>
                 <!-- Main Menu Entries -->
                 <Entries>
@@ -382,7 +382,7 @@
         <Dialog>
             <Find title="" titleFind="Find" titleReplace="Replace" titleFindInFiles="Find in Files" titleFindInProjects="Find in Projects" titleMark="Mark">
                 <Item id="1"    name="Find Next"/>
-                <Item id="1722" name="Backward direction"/>
+                <Item id="1722" name="&amp;Backward direction"/>
                 <Item id="2"    name="Close"/>
                 <Item id="1620" name="&amp;Find what :"/>
                 <Item id="1603" name="Match &amp;whole word only"/>
@@ -392,36 +392,36 @@
                 <Item id="1614" name="Coun&amp;t"/>
                 <Item id="1615" name="Mark All"/>
                 <Item id="1616" name="Book&amp;mark line"/>
-                <Item id="1618" name="Purge for each search"/>
+                <Item id="1618" name="Purge for &amp;each search"/>
                 <Item id="1611" name="Rep&amp;lace with :"/>
                 <Item id="1608" name="&amp;Replace"/>
                 <Item id="1609" name="Replace &amp;All"/>
                 <Item id="1687" name="On losing focus"/>
                 <Item id="1688" name="Always"/>
                 <Item id="1632" name="In select&amp;ion"/>
-                <Item id="1633" name="Clear all marks"/>
+                <Item id="1633" name="Clear &amp;all marks"/>
                 <Item id="1635" name="Replace All in All &amp;Opened Documents"/>
                 <Item id="1636" name="Find All in All &amp;Opened Documents"/>
                 <Item id="1654" name="Filter&amp;s :"/>
-                <Item id="1655" name="Dir&amp;ectory :"/>
+                <Item id="1655" name="Direc&amp;tory :"/>
                 <Item id="1656" name="Find All"/>
-                <Item id="1658" name="In all su&amp;b-folders"/>
+                <Item id="1658" name="In all s&amp;ub-folders"/>
                 <Item id="1659" name="In &amp;hidden folders"/>
                 <Item id="1624" name="Search mode"/>
                 <Item id="1625" name="&amp;Normal"/>
                 <Item id="1626" name="E&amp;xtended (\n, \r, \t, \0, \x...)"/>
-                <Item id="1660" name="Replace in Files"/>
-                <Item id="1665" name="Replace in Projects"/>
-                <Item id="1661" name="Follow current doc."/>
-                <Item id="1662" name="Project Panel 1"/>
-                <Item id="1663" name="Project Panel 2"/>
-                <Item id="1664" name="Project Panel 3"/>
-                <Item id="1641" name="Find All in Current Document"/>
+                <Item id="1660" name="&amp;Replace in Files"/>
+                <Item id="1665" name="&amp;Replace in Projects"/>
+                <Item id="1661" name="Follow current &amp;doc."/>
+                <Item id="1662" name="Project Panel &amp;1"/>
+                <Item id="1663" name="Project Panel &amp;2"/>
+                <Item id="1664" name="Project Panel &amp;3"/>
+                <Item id="1641" name="Find &amp;All in Current Document"/>
                 <Item id="1686" name="Transparenc&amp;y"/>
                 <Item id="1703" name="&amp;. matches newline"/>
                 <Item id="1721" name="▲"/>
                 <Item id="1723" name="▼ Find Next"/>
-                <Item id="1725" name="Copy Marked Text"/>
+                <Item id="1725" name="Copy Marked &amp;Text"/>
             </Find>
 
             <FindCharsInRange title="Find Characters in Range...">

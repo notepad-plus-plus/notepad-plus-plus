@@ -6,23 +6,23 @@
                 <!-- Main Menu Entries -->
                 <Entries>
                     <Item menuId="file" name="&amp;ফাইল"/>
-                    <Item menuId="edit" name="&amp;সম্পাদন করা"/>
+                    <Item menuId="edit" name="&amp;সম্পাদনা"/>
                     <Item menuId="search" name="&amp;অনুসন্ধান"/>
                     <Item menuId="view" name="&amp;দৃশ্য"/>
                     <Item menuId="encoding" name="&amp;এনকোডিং"/>
                     <Item menuId="language" name="&amp;ভাষা"/>
-                    <Item menuId="settings" name="&amp;বিন্যাস"/>
+                    <Item menuId="settings" name="&amp;পছন্দসমূহ"/>
                     <Item menuId="macro" name="ম্যাক্রো"/>
-                    <Item menuId="run" name="চালান"/>
+                    <Item menuId="run" name="চালাও"/>
                     <Item idName="Plugins" name="প্লাগইন"/>
                     <Item idName="Window" name="জানালা"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item subMenuId="file-openFolder" name="খোলা ভাঁজ"/>
-                    <Item subMenuId="file-closeMore" name="আরো বন্ধ"/>
+                    <Item subMenuId="file-openFolder" name="ভিতরের ফোল্ডার খুলো"/>
+                    <Item subMenuId="file-closeMore" name="'আরো' বন্ধ"/>
                     <Item subMenuId="file-recentFiles" name="সাম্প্রতিক ফাইল"/>
-                    <Item subMenuId="edit-copyToClipboard"  name="কপি থেকে ক্লিপবোর্ড"/>
+                    <Item subMenuId="edit-copyToClipboard"  name="ক্লিপবোর্ড অনুলিপি"/>
                     <Item subMenuId="edit-indent" name="ছিদ্র"/>
                     <Item subMenuId="edit-convertCaseTo" name="কেস রূপান্তর"/>
                     <Item subMenuId="edit-lineOperations" name="লাইন অপারেশনস"/>

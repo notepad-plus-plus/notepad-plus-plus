@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="বাঙালি" filename="bengali.xml" >
+    <Native-Langue name="বাংলা" filename="bengali.xml" >
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->

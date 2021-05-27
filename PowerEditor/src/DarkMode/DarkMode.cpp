@@ -85,13 +85,13 @@ fnSetWindowCompositionAttribute _SetWindowCompositionAttribute = nullptr;
 fnShouldAppsUseDarkMode _ShouldAppsUseDarkMode = nullptr;
 fnAllowDarkModeForWindow _AllowDarkModeForWindow = nullptr;
 fnAllowDarkModeForApp _AllowDarkModeForApp = nullptr;
-fnFlushMenuThemes _FlushMenuThemes = nullptr;
+//fnFlushMenuThemes _FlushMenuThemes = nullptr;
 fnRefreshImmersiveColorPolicyState _RefreshImmersiveColorPolicyState = nullptr;
 fnIsDarkModeAllowedForWindow _IsDarkModeAllowedForWindow = nullptr;
 fnGetIsImmersiveColorUsingHighContrast _GetIsImmersiveColorUsingHighContrast = nullptr;
 fnOpenNcThemeData _OpenNcThemeData = nullptr;
 // 1903 18362
-fnShouldSystemUseDarkMode _ShouldSystemUseDarkMode = nullptr;
+//fnShouldSystemUseDarkMode _ShouldSystemUseDarkMode = nullptr;
 fnSetPreferredAppMode _SetPreferredAppMode = nullptr;
 
 bool g_darkModeSupported = false;
@@ -110,7 +110,7 @@ bool ShouldAppsUseDarkMode()
 
 bool AllowDarkModeForWindow(HWND hWnd, bool allow)
 {
-	if (g_darkModeSupported)
+	if (g_darkModeSupported && _AllowDarkModeForWindow)
 		return _AllowDarkModeForWindow(hWnd, allow);
 	return false;
 }
@@ -137,11 +137,12 @@ void SetTitleBarThemeColor(HWND hWnd, BOOL dark)
 void RefreshTitleBarThemeColor(HWND hWnd)
 {
 	BOOL dark = FALSE;
-	if (_IsDarkModeAllowedForWindow(hWnd) &&
-		_ShouldAppsUseDarkMode() &&
-		!IsHighContrast())
+	if (_IsDarkModeAllowedForWindow && _ShouldAppsUseDarkMode)
 	{
-		dark = TRUE;
+		if (_IsDarkModeAllowedForWindow(hWnd) && _ShouldAppsUseDarkMode() && !IsHighContrast())
+		{
+			dark = TRUE;
+		}
 	}
 
 	SetTitleBarThemeColor(hWnd, dark);
@@ -150,12 +151,13 @@ void RefreshTitleBarThemeColor(HWND hWnd)
 bool IsColorSchemeChangeMessage(LPARAM lParam)
 {
 	bool is = false;
-	if (lParam && (0 == lstrcmpi(reinterpret_cast<LPCWCH>(lParam), L"ImmersiveColorSet")))
+	if (lParam && (0 == lstrcmpi(reinterpret_cast<LPCWCH>(lParam), L"ImmersiveColorSet")) && _RefreshImmersiveColorPolicyState)
 	{
 		_RefreshImmersiveColorPolicyState();
 		is = true;
 	}
-	_GetIsImmersiveColorUsingHighContrast(IHCM_REFRESH);
+	if (_GetIsImmersiveColorUsingHighContrast)
+		_GetIsImmersiveColorUsingHighContrast(IHCM_REFRESH);
 	return is;
 }
 
@@ -209,7 +211,7 @@ void FixDarkScrollBar()
 		if (addr)
 		{
 			DWORD oldProtect;
-			if (VirtualProtect(addr, sizeof(IMAGE_THUNK_DATA), PAGE_READWRITE, &oldProtect))
+			if (VirtualProtect(addr, sizeof(IMAGE_THUNK_DATA), PAGE_READWRITE, &oldProtect) && _OpenNcThemeData)
 			{
 				auto MyOpenThemeData = [](HWND hWnd, LPCWSTR classList) -> HTHEME {
 					if (wcscmp(classList, L"ScrollBar") == 0)

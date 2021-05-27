@@ -44,7 +44,7 @@ StatusBar::~StatusBar()
 }
 
 
-void StatusBar::init(HINSTANCE /*hInst*/, HWND /*hPere*/)
+void StatusBar::init(HINSTANCE, HWND)
 {
 	assert(false and "should never be called");
 }
@@ -79,141 +79,137 @@ struct StatusBarSubclassInfo
 
 constexpr UINT_PTR g_statusBarSubclassID = 42;
 
-LRESULT CALLBACK StatusBarSubclass(
-	HWND hWnd,
-	UINT uMsg,
-	WPARAM wParam,
-	LPARAM lParam,
-	UINT_PTR uIdSubclass,
-	DWORD_PTR dwRefData
-)
+LRESULT CALLBACK StatusBarSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData)
 {
 	UNREFERENCED_PARAMETER(uIdSubclass);
 
 	StatusBarSubclassInfo* pStatusBarInfo = reinterpret_cast<StatusBarSubclassInfo*>(dwRefData);
 
-	switch (uMsg) {
-	case WM_ERASEBKGND:
+	switch (uMsg)
 	{
-		if (!NppDarkMode::isEnabled())
+		case WM_ERASEBKGND:
 		{
-			return DefSubclassProc(hWnd, uMsg, wParam, lParam);
+			if (!NppDarkMode::isEnabled())
+			{
+				return DefSubclassProc(hWnd, uMsg, wParam, lParam);
+			}
+
+			RECT rc;
+			GetClientRect(hWnd, &rc);
+			FillRect((HDC)wParam, &rc, NppDarkMode::getBackgroundBrush());
+			return TRUE;
 		}
 
-		RECT rc;
-		GetClientRect(hWnd, &rc);
-		FillRect((HDC)wParam, &rc, NppDarkMode::getBackgroundBrush());
-		return TRUE;
-	}
-	case WM_PAINT:
-	{
-		if (!NppDarkMode::isEnabled())
+		case WM_PAINT:
 		{
-			return DefSubclassProc(hWnd, uMsg, wParam, lParam);
+			if (!NppDarkMode::isEnabled())
+			{
+				return DefSubclassProc(hWnd, uMsg, wParam, lParam);
+			}
+
+			struct {
+				int horizontal;
+				int vertical;
+				int between;
+			} borders = { 0 };
+
+			SendMessage(hWnd, SB_GETBORDERS, 0, (LPARAM)&borders);
+
+			DWORD style = GetWindowLong(hWnd, GWL_STYLE);
+			bool isSizeGrip = style & SBARS_SIZEGRIP;
+
+			PAINTSTRUCT ps;
+			HDC hdc = BeginPaint(hWnd, &ps);
+
+			HFONT holdFont = (HFONT)::SelectObject(hdc, NppParameters::getInstance().getDefaultUIFont());
+
+			RECT rcClient;
+			GetClientRect(hWnd, &rcClient);
+
+			FillRect(hdc, &ps.rcPaint, NppDarkMode::getBackgroundBrush());
+
+			int nParts = static_cast<int>(SendMessage(hWnd, SB_GETPARTS, 0, 0));
+			std::wstring str;
+			for (int i = 0; i < nParts; ++i)
+			{
+				RECT rcPart = { 0 };
+				SendMessage(hWnd, SB_GETRECT, i, (LPARAM)&rcPart);
+				RECT rcIntersect = { 0 };
+				if (!IntersectRect(&rcIntersect, &rcPart, &ps.rcPaint))
+				{
+					continue;
+				}
+
+				RECT rcDivider = { rcPart.right - borders.vertical, rcPart.top, rcPart.right, rcPart.bottom };
+
+				DWORD cchText = 0;
+				cchText = LOWORD(SendMessage(hWnd, SB_GETTEXTLENGTH, i, 0));
+				str.resize(cchText + 1);
+				LRESULT lr = SendMessage(hWnd, SB_GETTEXT, i, (LPARAM)str.data());
+				bool ownerDraw = false;
+				if (cchText == 0 && (lr & ~(SBT_NOBORDERS | SBT_POPOUT | SBT_RTLREADING)) != 0)
+				{
+					// this is a pointer to the text
+					ownerDraw = true;
+				}
+				SetBkMode(hdc, TRANSPARENT);
+				SetTextColor(hdc, NppDarkMode::getTextColor());
+
+				rcPart.left += borders.between;
+				rcPart.right -= borders.vertical;
+
+				if (ownerDraw)
+				{
+					UINT id = GetDlgCtrlID(hWnd);
+					DRAWITEMSTRUCT dis = {
+						0
+						, 0
+						, static_cast<UINT>(i)
+						, ODA_DRAWENTIRE
+						, id
+						, hWnd
+						, hdc
+						, rcPart
+						, static_cast<ULONG_PTR>(lr)
+					};
+
+					SendMessage(GetParent(hWnd), WM_DRAWITEM, id, (LPARAM)&dis);
+				}
+				else
+				{
+					DrawText(hdc, str.data(), static_cast<int>(str.size()), &rcPart, DT_SINGLELINE | DT_VCENTER | DT_LEFT);
+				}
+
+				if (!isSizeGrip && i < (nParts - 1))
+				{
+					FillRect(hdc, &rcDivider, NppDarkMode::getSofterBackgroundBrush());
+				}
+			}
+
+			if (isSizeGrip)
+			{
+				pStatusBarInfo->ensureTheme(hWnd);
+				SIZE gripSize = { 0 };
+				GetThemePartSize(pStatusBarInfo->hTheme, hdc, SP_GRIPPER, 0, &rcClient, TS_DRAW, &gripSize);
+				RECT rc = rcClient;
+				rc.left = rc.right - gripSize.cx;
+				rc.top = rc.bottom - gripSize.cy;
+				DrawThemeBackground(pStatusBarInfo->hTheme, hdc, SP_GRIPPER, 0, &rc, nullptr);
+			}
+
+			::SelectObject(hdc, holdFont);
+
+			EndPaint(hWnd, &ps);
+			return FALSE;
 		}
 
-		struct {
-			int horizontal;
-			int vertical;
-			int between;
-		} borders = { 0 };
+		case WM_NCDESTROY:
+			RemoveWindowSubclass(hWnd, StatusBarSubclass, g_statusBarSubclassID);
+			break;
 
-		SendMessage(hWnd, SB_GETBORDERS, 0, (LPARAM)&borders);
-
-		DWORD style = GetWindowLong(hWnd, GWL_STYLE);
-		bool isSizeGrip = style & SBARS_SIZEGRIP;
-
-		PAINTSTRUCT ps;
-		HDC hdc = BeginPaint(hWnd, &ps);
-
-		HFONT holdFont = (HFONT)::SelectObject(hdc, NppParameters::getInstance().getDefaultUIFont());
-
-		RECT rcClient;
-		GetClientRect(hWnd, &rcClient);
-
-		FillRect(hdc, &ps.rcPaint, NppDarkMode::getBackgroundBrush());
-
-		int nParts = static_cast<int>(SendMessage(hWnd, SB_GETPARTS, 0, 0));
-		std::wstring str;
-		for (int i = 0; i < nParts; ++i)
-		{
-			RECT rcPart = { 0 };
-			SendMessage(hWnd, SB_GETRECT, i, (LPARAM)&rcPart);
-			RECT rcIntersect = { 0 };
-			if (!IntersectRect(&rcIntersect, &rcPart, &ps.rcPaint))
-			{
-				continue;
-			}
-
-			RECT rcDivider = { rcPart.right - borders.vertical, rcPart.top, rcPart.right, rcPart.bottom };
-
-			DWORD cchText = 0;
-			cchText = LOWORD(SendMessage(hWnd, SB_GETTEXTLENGTH, i, 0));
-			str.resize(cchText + 1);
-			LRESULT lr = SendMessage(hWnd, SB_GETTEXT, i, (LPARAM)str.data());
-			bool ownerDraw = false;
-			if (cchText == 0 && (lr & ~(SBT_NOBORDERS | SBT_POPOUT | SBT_RTLREADING)) != 0)
-			{
-				// this is a pointer to the text
-				ownerDraw = true;
-			}
-			SetBkMode(hdc, TRANSPARENT);
-			SetTextColor(hdc, NppDarkMode::getTextColor());
-
-			rcPart.left += borders.between;
-			rcPart.right -= borders.vertical;
-
-			if (ownerDraw)
-			{
-				UINT id = GetDlgCtrlID(hWnd);
-				DRAWITEMSTRUCT dis = {
-					0
-					, 0
-					, static_cast<UINT>(i)
-					, ODA_DRAWENTIRE
-					, id
-					, hWnd
-					, hdc
-					, rcPart
-					, static_cast<ULONG_PTR>(lr)
-				};
-
-				SendMessage(GetParent(hWnd), WM_DRAWITEM, id, (LPARAM)&dis);
-			}
-			else
-			{
-				DrawText(hdc, str.data(), static_cast<int>(str.size()), &rcPart, DT_SINGLELINE | DT_VCENTER | DT_LEFT);
-			}
-
-			if (!isSizeGrip && i < (nParts - 1))
-			{
-				FillRect(hdc, &rcDivider, NppDarkMode::getSofterBackgroundBrush());
-			}
-		}
-
-		if (isSizeGrip)
-		{
-			pStatusBarInfo->ensureTheme(hWnd);
-			SIZE gripSize = { 0 };
-			GetThemePartSize(pStatusBarInfo->hTheme, hdc, SP_GRIPPER, 0, &rcClient, TS_DRAW, &gripSize);
-			RECT rc = rcClient;
-			rc.left = rc.right - gripSize.cx;
-			rc.top = rc.bottom - gripSize.cy;
-			DrawThemeBackground(pStatusBarInfo->hTheme, hdc, SP_GRIPPER, 0, &rc, nullptr);
-		}
-
-		::SelectObject(hdc, holdFont);
-
-		EndPaint(hWnd, &ps);
-		return 0;
-	}
-	case WM_NCDESTROY:
-		RemoveWindowSubclass(hWnd, StatusBarSubclass, g_statusBarSubclassID);
-		delete pStatusBarInfo;
-		break;
-	case WM_THEMECHANGED:
-		pStatusBarInfo->closeTheme();
-		break;
+		case WM_THEMECHANGED:
+			pStatusBarInfo->closeTheme();
+			break;
 	}
 	return DefSubclassProc(hWnd, uMsg, wParam, lParam);
 }
@@ -235,7 +231,8 @@ void StatusBar::init(HINSTANCE hInst, HWND hPere, int nbParts)
 	if (!_hSelf)
 		throw std::runtime_error("StatusBar::init : CreateWindowEx() function return null");
 
-	auto* pStatusBarInfo = new StatusBarSubclassInfo();
+	StatusBarSubclassInfo* pStatusBarInfo = new StatusBarSubclassInfo();
+	_pStatusBarInfo = pStatusBarInfo;
 
 	SetWindowSubclass(_hSelf, StatusBarSubclass, g_statusBarSubclassID, reinterpret_cast<DWORD_PTR>(pStatusBarInfo));
 
@@ -268,6 +265,7 @@ bool StatusBar::setPartWidth(int whichPart, int width)
 void StatusBar::destroy()
 {
 	::DestroyWindow(_hSelf);
+	delete _pStatusBarInfo;
 }
 
 

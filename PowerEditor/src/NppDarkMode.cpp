@@ -25,6 +25,7 @@ namespace NppDarkMode
 
 		COLORREF text = 0;
 		COLORREF darkerText = 0;
+		COLORREF disabledText = 0;
 		COLORREF edge = 0;
 	};
 
@@ -62,6 +63,7 @@ namespace NppDarkMode
 		HEXRGB(0xB00000),	// errorBackground
 		HEXRGB(0xE0E0E0),	// textColor
 		HEXRGB(0xC0C0C0),	// darkerTextColor
+		HEXRGB(0x707070),	// disabledTextColor
 		HEXRGB(0x808080),	// edgeColor
 	};
 
@@ -195,12 +197,13 @@ namespace NppDarkMode
 	COLORREF getErrorBackgroundColor()	{ return getTheme().colors.errorBackground; }
 	COLORREF getTextColor()				{ return getTheme().colors.text; }
 	COLORREF getDarkerTextColor()		{ return getTheme().colors.darkerText; }
+	COLORREF getDisabledTextColor()		{ return getTheme().colors.disabledText; }
 	COLORREF getEdgeColor()				{ return getTheme().colors.edge; }
 
 	HBRUSH getBackgroundBrush()			{ return getTheme().brushes.background; }
 	HBRUSH getSofterBackgroundBrush()	{ return getTheme().brushes.softerBackground; }
 	HBRUSH getHotBackgroundBrush()		{ return getTheme().brushes.hotBackground; }
-	HBRUSH getDarkerBackgroundBrush()		{ return getTheme().brushes.pureBackground; }
+	HBRUSH getDarkerBackgroundBrush()	{ return getTheme().brushes.pureBackground; }
 	HBRUSH getErrorBackgroundBrush()	{ return getTheme().brushes.errorBackground; }
 
 	// handle events
@@ -465,6 +468,11 @@ namespace NppDarkMode
 		DTTOPTS dtto = { sizeof(DTTOPTS), DTT_TEXTCOLOR };
 		dtto.crText = NppDarkMode::getTextColor();
 
+		if (nStyle & WS_DISABLED)
+		{
+			dtto.crText = NppDarkMode::getDisabledTextColor();
+		}
+
 		DrawThemeTextEx(hTheme, hdc, iPartID, iStateID, szText, -1, dtFlags, &rcText, &dtto);
 
 		if ((nState & BST_FOCUS) && !(uiState & UISF_HIDEFOCUS))
@@ -619,6 +627,15 @@ namespace NppDarkMode
 			case WM_SIZE:
 			case WM_DESTROY:
 				BufferedPaintStopAllAnimations(hWnd);
+				break;
+			case WM_ENABLE:
+				if (NppDarkMode::isEnabled())
+				{
+					// skip the button's normal wndproc so it won't redraw out of wm_paint
+					LRESULT lr = DefWindowProc(hWnd, uMsg, wParam, lParam);
+					InvalidateRect(hWnd, nullptr, FALSE);
+					return lr;
+				}
 				break;
 		}
 		return DefSubclassProc(hWnd, uMsg, wParam, lParam);

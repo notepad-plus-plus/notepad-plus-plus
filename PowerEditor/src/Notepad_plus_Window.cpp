@@ -90,6 +90,8 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 
 	nppGUI._isCmdlineNosessionActivated = cmdLineParams->_isNoSession;
 
+	_hIconAbsent = ::LoadIcon(hInst, MAKEINTRESOURCE(IDI_ICONABSENT));
+
 	_hSelf = ::CreateWindowEx(
 		WS_EX_ACCEPTFILES | (_notepad_plus_plus_core._nativeLangSpeaker.isRTL()?WS_EX_LAYOUTRTL:0),
 		_className,

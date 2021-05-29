@@ -25,16 +25,6 @@
 
 const int WS_TOOLBARSTYLE = WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | TBSTYLE_TOOLTIPS |TBSTYLE_FLAT | CCS_TOP | BTNS_AUTOSIZE | CCS_NOPARENTALIGN | CCS_NORESIZE | CCS_NODIVIDER;
 
-ToolBar::ToolBar()
-{
-	_hIconAbsent = (HICON)::LoadImage(_hInst, MAKEINTRESOURCE(IDI_ICONABSENT), IMAGE_ICON, 16, 16, 0);
-}
-
-ToolBar::~ToolBar()
-{
-	::DestroyIcon(_hIconAbsent);
-}
-
 void ToolBar::initTheme(TiXmlDocument *toolIconsDocRoot)
 {
     _toolIcons =  toolIconsDocRoot->FirstChild(TEXT("NotepadPlus"));
@@ -382,7 +372,7 @@ void ToolBar::reset(bool create)
 	}
 }
 
-void ToolBar::registerDynBtn(UINT messageID, toolbarIcons* tIcon)
+void ToolBar::registerDynBtn(UINT messageID, toolbarIcons* tIcon, HICON absentIco)
 {
 	// Note: Register of buttons only possible before init!
 	if ((_hSelf == NULL) && (messageID != 0) && (tIcon->hToolbarBmp != NULL))
@@ -390,7 +380,7 @@ void ToolBar::registerDynBtn(UINT messageID, toolbarIcons* tIcon)
 		DynamicCmdIcoBmp dynList;
 		dynList._message = messageID;
 		dynList._hBmp = tIcon->hToolbarBmp;
-		dynList._hIcon = tIcon->hToolbarIcon ? tIcon->hToolbarIcon : _hIconAbsent;
+		dynList._hIcon = tIcon->hToolbarIcon ? tIcon->hToolbarIcon : absentIco;
 		_vDynBtnReg.push_back(dynList);
 	}
 }

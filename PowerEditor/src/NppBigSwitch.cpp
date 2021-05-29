@@ -2157,7 +2157,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_ADDTOOLBARICON:
 		{
-			_toolBar.registerDynBtn(static_cast<UINT>(wParam), reinterpret_cast<toolbarIcons*>(lParam));
+			_toolBar.registerDynBtn(static_cast<UINT>(wParam), reinterpret_cast<toolbarIcons*>(lParam), _pPublicInterface->getAbsentIcoHandle());
 			return TRUE;
 		}
 

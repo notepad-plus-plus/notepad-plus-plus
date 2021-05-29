@@ -551,11 +551,11 @@ void Gripper::drawRectangle(const POINT* pPt)
 	// finally ::LockWindowUpdate(NULL) will be called, to enable drawing for others again.
 	if (!_hdc)
 	{
-		HWND hWnd= ::GetDesktopWindow();
+		HWND hWnd = ::GetDesktopWindow();
 		#if defined (USE_LOCKWINDOWUPDATE)
-		_hdc= ::GetDCEx(hWnd, NULL, ::LockWindowUpdate(hWnd) ? DCX_WINDOW|DCX_CACHE|DCX_LOCKWINDOWUPDATE : DCX_WINDOW|DCX_CACHE);
+		_hdc = ::GetDCEx(hWnd, NULL, ::LockWindowUpdate(hWnd) ? DCX_WINDOW|DCX_CACHE|DCX_LOCKWINDOWUPDATE : DCX_WINDOW|DCX_CACHE);
 		#else
-		_hdc= ::GetDCEx(hWnd, NULL, DCX_WINDOW|DCX_CACHE);
+		_hdc = ::GetDCEx(hWnd, NULL, DCX_WINDOW|DCX_CACHE);
 		#endif
 	}
 
@@ -598,25 +598,25 @@ void Gripper::drawRectangle(const POINT* pPt)
 			rc.right -= rc.left;
 			rc.bottom-= rc.top;
 		}
-		else	rc= rcNew;	// only new rect will be drawn
+		else	rc = rcNew;	// only new rect will be drawn
 	}
-	else	rc= rcOld;	// only old rect will be drawn - to erase it
+	else	rc = rcOld;	// only old rect will be drawn - to erase it
 
 	// now rc contains the rectangle wich encloses all needed, new and/or previous rectangle
 	// because in the following we drive within a memory device context wich is limited to rc,
 	// we have to localize rcNew and rcOld within rc...
 	//
-	rcOld.left= rcOld.left - rc.left;
+	rcOld.left = rcOld.left - rc.left;
 	rcOld.top = rcOld.top  - rc.top;
-	rcNew.left= rcNew.left - rc.left;
+	rcNew.left = rcNew.left - rc.left;
 	rcNew.top = rcNew.top  - rc.top;
 
-	HDC hdcMem= ::CreateCompatibleDC(_hdc);
-	HBITMAP hBm= ::CreateCompatibleBitmap(_hdc, rc.right, rc.bottom);
-	hbrushOrig= (HBRUSH)::SelectObject(hdcMem, hBm);
+	HDC hdcMem = ::CreateCompatibleDC(_hdc);
+	HBITMAP hBm = ::CreateCompatibleBitmap(_hdc, rc.right, rc.bottom);
+	hbrushOrig = (HBRUSH)::SelectObject(hdcMem, hBm);
 
 	::SetBrushOrgEx(hdcMem, rc.left%8, rc.top%8, 0);
-	hbmOrig= (HBITMAP)::SelectObject(hdcMem, _hbrush);
+	hbmOrig = (HBITMAP)::SelectObject(hdcMem, _hbrush);
 
 	::BitBlt(hdcMem, 0, 0, rc.right, rc.bottom, _hdc, rc.left, rc.top, SRCCOPY);
 	if (_bPtOldValid)
@@ -641,14 +641,15 @@ void Gripper::drawRectangle(const POINT* pPt)
 		#if defined(USE_LOCKWINDOWUPDATE)
 		::LockWindowUpdate(NULL);
 		#endif
-		_bPtOldValid= FALSE;
+		_bPtOldValid = FALSE;
 		if (_hdc)
 		{
 			::ReleaseDC(0, _hdc);
-			_hdc= NULL;
+			_hdc = NULL;
 		}
 	}
-	else	_bPtOldValid= TRUE;
+	else
+		_bPtOldValid = TRUE;
 }
 
 

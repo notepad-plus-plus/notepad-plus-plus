@@ -122,11 +122,30 @@ void ToolBarIcons::reInit(int size)
 		_iconListVector[HLIST_DEFAULT2].addIcon(i._hIcon);
 		_iconListVector[HLIST_DISABLE2].addIcon(i._hIcon);
 
+		ICONINFO iconinfoSrc;
+		GetIconInfo(i._hIcon, &iconinfoSrc);
+		HBITMAP hBmpOld = iconinfoSrc.hbmColor;
 
-		_iconListVector[HLIST_DEFAULT_DM].addIcon(i._hIcon);
-		_iconListVector[HLIST_DISABLE_DM].addIcon(i._hIcon);
-		_iconListVector[HLIST_DEFAULT_DM2].addIcon(i._hIcon);
-		_iconListVector[HLIST_DISABLE_DM2].addIcon(i._hIcon);
+		HDC dcMem = ::CreateCompatibleDC(NULL);
+		HDC hDestDc = ::CreateCompatibleDC(NULL);
+		BITMAP bmp;
+		::GetObject(hBmpOld, sizeof(BITMAP), &bmp);
+		::SelectObject(dcMem, hBmpOld);
+		HBITMAP hBmpNew = ::CreateCompatibleBitmap(dcMem, bmp.bmWidth, bmp.bmHeight);
+		::SelectObject(hDestDc, hBmpNew);
+		::BitBlt(hDestDc, 0, 0, bmp.bmWidth, bmp.bmHeight, dcMem, 0, 0, NOTSRCCOPY);
+
+		ICONINFO iconinfoDest = { 0 };
+		iconinfoDest.fIcon = TRUE;
+		iconinfoDest.hbmColor = hBmpNew;
+		iconinfoDest.hbmMask = iconinfoSrc.hbmMask;//hbmMask;
+
+		HICON hIcon = ::CreateIconIndirect(&iconinfoDest);
+
+		_iconListVector[HLIST_DEFAULT_DM]. addIcon(hIcon);
+		_iconListVector[HLIST_DISABLE_DM]. addIcon(hIcon);
+		_iconListVector[HLIST_DEFAULT_DM2].addIcon(hIcon);
+		_iconListVector[HLIST_DISABLE_DM2].addIcon(hIcon);
 	}
 }
 

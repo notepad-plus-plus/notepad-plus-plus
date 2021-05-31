@@ -21,6 +21,7 @@
 #include "ToolTip.h"
 #include "Parameters.h"
 #include "NppDarkMode.h"
+#include "localization.h"
 
 using namespace std;
 
@@ -315,7 +316,7 @@ LRESULT DockingCont::runProcCaption(HWND hwnd, UINT Message, WPARAM wParam, LPAR
 
 				if (_isMouseOver == TRUE)
 				{
-					doClose();
+					doClose(GetKeyState(VK_SHIFT) < 0);
 				}
 				_isMouseClose	= FALSE;
 				_isMouseOver	= FALSE;
@@ -407,7 +408,9 @@ LRESULT DockingCont::runProcCaption(HWND hwnd, UINT Message, WPARAM wParam, LPAR
 			}
 			else
 			{
-				toolTip.Show(rc, TEXT("Close"), pt.x, pt.y + 20);
+				NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+				generic_string tip = pNativeSpeaker->getLocalizedStrFromID("close-panel-tip", TEXT("Close"));
+				toolTip.Show(rc, tip.c_str(), pt.x, pt.y + 20);
 			}
 			return TRUE;
 		}
@@ -1035,7 +1038,7 @@ INT_PTR CALLBACK DockingCont::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lP
 			switch (LOWORD(wParam))
 			{   
 				case IDCANCEL:
-					doClose();
+					doClose(GetKeyState(VK_SHIFT) < 0);
 					return TRUE;
 				default :
 					break;
@@ -1170,13 +1173,13 @@ void DockingCont::onSize()
 	}
 }
 
-void DockingCont::doClose()
+void DockingCont::doClose(BOOL closeAll)
 {
 	int	iItemCnt = static_cast<int32_t>(::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0));
+
+	// Always close active tab first
 	int iItemCur = getActiveTb();
-
-	TCITEM		tcItem		= {0};
-
+	TCITEM	tcItem	= {0};
 	tcItem.mask	= TCIF_PARAM;
 	::SendMessage(_hContTab, TCM_GETITEM, iItemCur, reinterpret_cast<LPARAM>(&tcItem));
 	if (tcItem.lParam)
@@ -1189,6 +1192,35 @@ void DockingCont::doClose()
 		}
 	}
 
+	// Close all other tabs if requested
+	if (closeAll)
+	{
+		iItemCnt = static_cast<int32_t>(::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0));
+		int iItemOff = 0;
+		for (int iItem = 0; iItem < iItemCnt; ++iItem)
+		{
+			TCITEM	tcItem	= {0};
+			// get item data
+			selectTab(iItemOff);
+			tcItem.mask	= TCIF_PARAM;
+			::SendMessage(_hContTab, TCM_GETITEM, iItemOff, reinterpret_cast<LPARAM>(&tcItem));
+			if (!tcItem.lParam)
+				continue;
+
+			// notify child windows
+			if (NotifyParent(DMM_CLOSE) == 0)
+			{
+				// delete tab
+				hideToolbar((tTbData*)tcItem.lParam);
+			}
+			else
+			{
+				++iItemOff;
+			}
+		}
+	}
+
+	// Hide dialog window if all tabs closed
 	iItemCnt = static_cast<int32_t>(::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0));
 	if (iItemCnt == 0)
 	{

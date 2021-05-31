@@ -1436,6 +1436,7 @@ Find in all files except exe, obj &amp;&amp; log:
             <session-save-folder-as-workspace value="Save Folder as Workspace" />
             <tab-untitled-string value="new " />
             <file-save-assign-type value="&amp;Append extension" />
+            <close-panel-tip value="Close" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

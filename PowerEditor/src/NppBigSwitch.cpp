@@ -2161,6 +2161,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_ADDTOOLBARICON_FORDARKMODE:
+		{
+			_toolBar.registerDynBtnDM(static_cast<UINT>(wParam), reinterpret_cast<toolbarIconsWithDarkMode*>(lParam));
+			return TRUE;
+		}
+
 		case NPPM_SETMENUITEMCHECK:
 		{
 			::CheckMenuItem(_mainMenuHandle, static_cast<UINT>(wParam), MF_BYCOMMAND | (static_cast<BOOL>(lParam) ? MF_CHECKED : MF_UNCHECKED));

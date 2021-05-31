@@ -69,9 +69,10 @@ typedef struct
 } ToolBarButtonUnit;
 
 struct DynamicCmdIcoBmp {
-	UINT		_message;		// identification of icon in tool bar (menu ID)
-	HBITMAP		_hBmp;			// bitmap for toolbar
-	HICON		_hIcon;			// icon for toolbar
+	UINT _message = 0;         // identification of icon in tool bar (menu ID)
+	HBITMAP _hBmp = nullptr;   // bitmap for toolbar
+	HICON _hIcon = nullptr;    // icon for toolbar
+	HICON _hIcon_DM = nullptr; // dark mode icon for toolbar
 };
 
 typedef std::vector<ToolBarButtonUnit> ToolBarIconIDs;

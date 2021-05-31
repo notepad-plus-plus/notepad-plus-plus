@@ -145,8 +145,8 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64 };
 	#define NPPM_SETMENUITEMCHECK	(NPPMSG + 40)
 	//void WM_PIMENU_CHECK(UINT	funcItem[X]._cmdID, TRUE/FALSE)
 
-	#define NPPM_ADDTOOLBARICON (NPPMSG + 41)
-	//void NPPM_ADDTOOLBARICON(UINT funcItem[X]._cmdID, toolbarIcons iconHandles)
+	#define NPPM_ADDTOOLBARICON_DEPRECATED (NPPMSG + 41)
+	//void NPPM_ADDTOOLBARICON(UINT funcItem[X]._cmdID, toolbarIcons iconHandles) -- DEPRECATED : use NPPM_ADDTOOLBARICON_FORDARKMODE instead
 	//2 formats of icon are needed: .ico & .bmp 
 	//Both handles below should be set so the icon will be displayed correctly if toolbar icon sets are changed by users
 		struct toolbarIcons {

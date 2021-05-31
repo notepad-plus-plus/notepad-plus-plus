@@ -439,7 +439,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64 };
 	// Get line number margin width in dynamic width mode (LINENUMWIDTH_DYNAMIC) or constant width mode (LINENUMWIDTH_CONSTANT)
 
 	#define NPPM_ADDTOOLBARICON_FORDARKMODE (NPPMSG + 101)
-	// void NPPM_ADDTOOLBARICON_FORDARKMODE(UINT funcItem[X]._cmdID, toolbarIconsWithDarkMode iconHandles)
+	// VOID NPPM_ADDTOOLBARICON_FORDARKMODE(UINT funcItem[X]._cmdID, toolbarIconsWithDarkMode iconHandles)
 	// Use NPPM_ADDTOOLBARICON_FORDARKMODE instead obsolete NPPM_ADDTOOLBARICON which doesn't support the dark mode
 	// 2 formats / 3 icons are needed:  1 * BMP + 2 * ICO 
 	// All 3 handles below should be set so the icon will be displayed correctly if toolbar icon sets are changed by users, also in dark mode

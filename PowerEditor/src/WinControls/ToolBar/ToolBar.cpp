@@ -372,15 +372,30 @@ void ToolBar::reset(bool create)
 	}
 }
 
-void ToolBar::registerDynBtn(UINT messageID, toolbarIcons* tIcon, HICON absentIco)
+void ToolBar::registerDynBtn(UINT messageID, toolbarIcons* iconHandles, HICON absentIco)
 {
 	// Note: Register of buttons only possible before init!
-	if ((_hSelf == NULL) && (messageID != 0) && (tIcon->hToolbarBmp != NULL))
+	if ((_hSelf == NULL) && (messageID != 0) && (iconHandles->hToolbarBmp != NULL))
 	{
 		DynamicCmdIcoBmp dynList;
 		dynList._message = messageID;
-		dynList._hBmp = tIcon->hToolbarBmp;
-		dynList._hIcon = tIcon->hToolbarIcon ? tIcon->hToolbarIcon : absentIco;
+		dynList._hBmp = iconHandles->hToolbarBmp;
+		dynList._hIcon = iconHandles->hToolbarIcon ? iconHandles->hToolbarIcon : absentIco;
+		_vDynBtnReg.push_back(dynList);
+	}
+}
+
+void ToolBar::registerDynBtnDM(UINT messageID, toolbarIconsWithDarkMode* iconHandles)
+{
+	// Note: Register of buttons only possible before init!
+	if ((_hSelf == NULL) && (messageID != 0) && (iconHandles->hToolbarBmp != NULL) && 
+		(iconHandles->hToolbarIcon != NULL) && (iconHandles->hToolbarIconDarkMode != NULL))
+	{
+		DynamicCmdIcoBmp dynList;
+		dynList._message = messageID;
+		dynList._hBmp = iconHandles->hToolbarBmp;
+		dynList._hIcon = iconHandles->hToolbarIcon;
+		dynList._hIcon_DM = iconHandles->hToolbarIconDarkMode;
 		_vDynBtnReg.push_back(dynList);
 	}
 }

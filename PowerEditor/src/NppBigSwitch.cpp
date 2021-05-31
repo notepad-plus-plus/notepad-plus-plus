@@ -2155,9 +2155,15 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return NULL;
 		}
 
-		case NPPM_ADDTOOLBARICON:
+		case NPPM_ADDTOOLBARICON_DEPRECATED:
 		{
 			_toolBar.registerDynBtn(static_cast<UINT>(wParam), reinterpret_cast<toolbarIcons*>(lParam), _pPublicInterface->getAbsentIcoHandle());
+			return TRUE;
+		}
+
+		case NPPM_ADDTOOLBARICON_FORDARKMODE:
+		{
+			_toolBar.registerDynBtnDM(static_cast<UINT>(wParam), reinterpret_cast<toolbarIconsWithDarkMode*>(lParam));
 			return TRUE;
 		}
 

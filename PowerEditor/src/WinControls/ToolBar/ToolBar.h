@@ -94,7 +94,8 @@ public :
 		return _toolBarIcons.replaceIcon(whichLst, iconIndex, iconLocation);
 	};
 
-	void registerDynBtn(UINT message, toolbarIcons* hBmp, HICON absentIco);
+	void registerDynBtn(UINT message, toolbarIcons* iconHandles, HICON absentIco);
+	void registerDynBtnDM(UINT message, toolbarIconsWithDarkMode* iconHandles);
 
 	void doPopop(POINT chevPoint);	//show the popup if buttons are hidden
 

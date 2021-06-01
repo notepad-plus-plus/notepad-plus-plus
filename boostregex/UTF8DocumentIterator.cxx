@@ -1,10 +1,14 @@
 ﻿#include "UTF8DocumentIterator.h"
 
 
+#include <string>
+#include <string_view>
+#include <stdexcept>
 
 #include "ILoader.h"
 #include "ILexer.h"
 #include "Scintilla.h"
+#include "Platform.h"
 
 
 
@@ -56,6 +60,27 @@ UTF8DocumentIterator::UTF8DocumentIterator(const UTF8DocumentIterator& copy) :
 		{
 				m_pos = m_end;
 		}
+}
+
+UTF8DocumentIterator& UTF8DocumentIterator::operator ++ ()
+{
+	PLATFORM_ASSERT(m_pos < m_end);
+	if (m_utf16Length == 2 && m_characterIndex == 0)
+	{
+		m_characterIndex = 1;
+	}
+	else
+	{
+		m_pos += m_utf8Length;
+
+		if (m_pos > m_end)
+		{
+			m_pos = m_end;
+		}
+		m_characterIndex = 0;
+		readCharacter();
+	}
+	return *this;
 }
 
 UTF8DocumentIterator& UTF8DocumentIterator::operator -- ()

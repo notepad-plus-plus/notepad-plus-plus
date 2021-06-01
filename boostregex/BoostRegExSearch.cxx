@@ -13,6 +13,9 @@
 #include <iterator> 
 #include <vector>
 #include <memory>
+#include <string>
+#include <string_view>
+#include <stdexcept>
 #include "Scintilla.h"
 #include "Platform.h"
 #include "ILoader.h"

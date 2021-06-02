@@ -22,7 +22,6 @@
 #endif
 #include <comdef.h>		// _com_error
 #include <comip.h>		// _com_ptr_t
-
 #include "CustomFileDialog.h"
 #include "Parameters.h"
 
@@ -51,6 +50,7 @@ namespace // anonymous
 
 	static const int IDC_FILE_CUSTOM_CHECKBOX = 4;
 	static const int IDC_FILE_TYPE_CHECKBOX = IDC_FILE_CUSTOM_CHECKBOX + 1;
+	static const TCHAR TEMP_OK_BUTTON_LABEL[] = _T("Save");
 
 	// Returns a first extension from the extension specification string.
 	// Multiple extensions are separated with ';'.
@@ -284,6 +284,10 @@ public:
 	{
 		if (dialogIndex == 0)
 			return false;
+		// Remember the current file type index.
+		// Since GetFileTypeIndex() might return the old value in some cases.
+		// Specifically, when called after SetFileTypeIndex().
+		_currentType = dialogIndex;
 		generic_string name = getDialogFileName(_dialog);
 		if (changeExt(name, dialogIndex - 1))
 			return SUCCEEDED(_dialog->SetFileName(name.c_str()));
@@ -311,20 +315,19 @@ public:
 	{
 		if (id == IDC_FILE_TYPE_CHECKBOX)
 		{
-			bool ok = false;
+			UINT newFileType = 0;
 			if (bChecked)
 			{
-				ok = SUCCEEDED(_dialog->SetFileTypeIndex(_lastSelectedType));
-				ok &= OnTypeChange(_lastSelectedType);
+				newFileType = _lastSelectedType;
 			}
 			else
 			{
-				UINT currentIndex = 0;
-				ok = SUCCEEDED(_dialog->GetFileTypeIndex(&currentIndex));
-				if (ok && currentIndex != 0 && currentIndex != _wildcardType)
-					_lastSelectedType = currentIndex;
-				ok &= SUCCEEDED(_dialog->SetFileTypeIndex(_wildcardType));
+				if (_currentType != 0 && _currentType != _wildcardType)
+					_lastSelectedType = _currentType;
+				newFileType = _wildcardType;
 			}
+			_dialog->SetFileTypeIndex(newFileType);
+			OnTypeChange(newFileType);
 			return S_OK;
 		}
 		return E_NOTIMPL;
@@ -337,8 +340,8 @@ public:
 
 
 	FileDialogEventHandler(IFileDialog* dlg, const std::vector<Filter>& filterSpec, int fileIndex, int wildcardIndex)
-		: _cRef(1), _dialog(dlg), _customize(dlg), _filterSpec(filterSpec), _lastSelectedType(fileIndex + 1),
-		_wildcardType(wildcardIndex >= 0 ? wildcardIndex + 1 : 0)
+		: _cRef(1), _dialog(dlg), _customize(dlg), _filterSpec(filterSpec), _currentType(fileIndex + 1),
+		_lastSelectedType(fileIndex + 1), _wildcardType(wildcardIndex >= 0 ? wildcardIndex + 1 : 0)
 	{
 		_staticThis = this;
 	}
@@ -360,8 +363,6 @@ private:
 	// Call this as late as possible to ensure all the controls of the dialog are created.
 	void initControls()
 	{
-		_okButtonProc = nullptr;
-		_fileNameProc = nullptr;
 		assert(_dialog);
 		com_ptr<IOleWindow> pOleWnd = _dialog;
 		if (pOleWnd)
@@ -373,6 +374,7 @@ private:
 				EnumChildWindows(hwndDlg, &EnumChildProc, 0);
 			}
 		}
+		_dialog->SetOkButtonLabel(nullptr);  // Reset label to default.
 	}
 
 	bool shouldInitControls() const
@@ -380,20 +382,9 @@ private:
 		return !_okButtonProc && !_fileNameProc;
 	}
 
-	// Changes the name extension according to currently selected file type index.
-	bool changeExt(generic_string& name)
+	bool changeExt(generic_string& name, int extIndex)
 	{
-		if (!_dialog)
-			return false;
-		UINT dialogIndex = 0;
-		if (FAILED(_dialog->GetFileTypeIndex(&dialogIndex)) || dialogIndex == 0)
-			return false;
-		return changeExt(name, dialogIndex - 1);
-	}
-
-	bool changeExt(generic_string& name, size_t extIndex)
-	{
-		if (extIndex >= 0 && extIndex < _filterSpec.size())
+		if (extIndex >= 0 && extIndex < static_cast<int>(_filterSpec.size()))
 		{
 			const generic_string ext = get1stExt(_filterSpec[extIndex].ext);
 			if (!endsWith(ext, _T(".*")))
@@ -431,7 +422,7 @@ private:
 			// Name is a file path.
 			// Add file extension if missing.
 			if (!hasExt(fileName))
-				nameChanged |= changeExt(fileName);
+				nameChanged |= changeExt(fileName, _currentType - 1);
 		}
 		// Update the edit box text.
 		// It will update the address if the path is a directory.
@@ -476,19 +467,29 @@ private:
 				HWND hwndChild = FindWindowEx(hwnd, nullptr, _T("Edit"), _T(""));
 				if (hwndChild)
 				{
-					_fileNameProc = (WNDPROC)SetWindowLongPtr(hwndChild, GWLP_WNDPROC, (LPARAM)&FileNameWndProc);
+					_staticThis->_fileNameProc = (WNDPROC)SetWindowLongPtr(hwndChild, GWLP_WNDPROC, (LPARAM)&FileNameWndProc);
 					_staticThis->_hwndNameEdit = hwndChild;
 				}
 			}
 			else if (lstrcmpi(buffer, _T("Button")) == 0)
 			{
-				// The button of interest has a focus by default.
 				LONG style = GetWindowLong(hwnd, GWL_STYLE);
-				if (style & BS_DEFPUSHBUTTON)
-					_okButtonProc = (WNDPROC)SetWindowLongPtr(hwnd, GWLP_WNDPROC, (LPARAM)&OkButtonWndProc);
+				if (style & (WS_CHILDWINDOW | WS_VISIBLE | WS_GROUP))
+				{
+					DWORD type = style & 0xF;
+					DWORD appearance = style & 0xF0;
+					if ((type == BS_PUSHBUTTON || type == BS_DEFPUSHBUTTON) && (appearance == BS_TEXT))
+					{
+						if (GetWindowText(hwnd, buffer, bufferLen) > 0 &&
+							wcsstr(buffer, TEMP_OK_BUTTON_LABEL) != nullptr)
+						{
+							_staticThis->_okButtonProc = (WNDPROC)SetWindowLongPtr(hwnd, GWLP_WNDPROC, (LPARAM)&OkButtonWndProc);
+						}
+					}
+				}
 			}
 		}
-		if (_okButtonProc && _fileNameProc)
+		if (_staticThis->_okButtonProc && _staticThis->_fileNameProc)
 			return FALSE;	// Found all children, stop enumeration.
 		return TRUE;
 	}
@@ -513,7 +514,7 @@ private:
 		}
 		if (pressed)
 			_staticThis->onPreFileOk();
-		return CallWindowProc(_okButtonProc, hwnd, msg, wparam, lparam);
+		return CallWindowProc(_staticThis->_okButtonProc, hwnd, msg, wparam, lparam);
 	}
 
 	static LRESULT CALLBACK FileNameWndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
@@ -545,11 +546,9 @@ private:
 				processingReturn = false;
 			}
 		}
-		return CallWindowProc(_fileNameProc, hwnd, msg, wparam, lparam);
+		return CallWindowProc(_staticThis->_fileNameProc, hwnd, msg, wparam, lparam);
 	}
 
-	static WNDPROC _okButtonProc;
-	static WNDPROC _fileNameProc;
 	static FileDialogEventHandler* _staticThis;
 
 	long _cRef;
@@ -558,13 +557,14 @@ private:
 	const std::vector<Filter> _filterSpec;
 	generic_string _lastUsedFolder;
 	HWND _hwndNameEdit = nullptr;
+	WNDPROC _okButtonProc = nullptr;
+	WNDPROC _fileNameProc = nullptr;
+	UINT _currentType = 0;  // File type currenly selected in dialog.
+	UINT _lastSelectedType = 0;  // Last selected non-wildcard file type.
+	UINT _wildcardType = 0;  // Wildcard *.* file type index (usually 1).
 	bool _monitorKeyboard = true;
-	UINT _lastSelectedType = 0;
-	UINT _wildcardType = 0;
 };
 
-WNDPROC FileDialogEventHandler::_okButtonProc;
-WNDPROC FileDialogEventHandler::_fileNameProc;
 FileDialogEventHandler* FileDialogEventHandler::_staticThis;
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -591,6 +591,10 @@ public:
 			CLSCTX_INPROC_SERVER,
 			IID_PPV_ARGS(&_dialog));
 		_customize = _dialog;
+
+		// Set label so that OK button can be differentiated during initialization.
+		// It will be reset back to default later on.
+		_dialog->SetOkButtonLabel(TEMP_OK_BUTTON_LABEL);
 
 		// Init the event handler.
 		// Pass the initially selected file type.
@@ -826,7 +830,7 @@ private:
 
 ///////////////////////////////////////////////////////////////////////////////
 
-CustomFileDialog::CustomFileDialog(HWND hwnd) : _impl{std::make_unique<Impl>()}
+CustomFileDialog::CustomFileDialog(HWND hwnd) : _impl{ std::make_unique<Impl>() }
 {
 	_impl->_hwndOwner = hwnd;
 

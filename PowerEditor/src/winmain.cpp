@@ -21,6 +21,15 @@
 #include "verifySignedfile.h"
 #include "NppDarkMode.h"
 
+// Include that contain COM classes and IDLs
+// The COM interfaces that we are about here are only available if we specify Windows 10 or higher,
+// So we override the default _WIN32_WINNT that is set in the project file for this include.
+#if defined(_WIN32_WINNT) && _WIN32_WINNT < _WIN32_WINNT_WIN10
+#	undef _WIN32_WINNT
+#endif
+#define _WIN32_WINNT _WIN32_WINNT_WIN10
+#include <ShObjIdl.h>
+
 typedef std::vector<generic_string> ParamVector;
 
 
@@ -519,13 +528,17 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 	}
 
 	// override the settings if multiInst is choosen by user in the preference dialog
-	const NppGUI & nppGUI = nppParameters.getNppGUI();
-	if (nppGUI._multiInstSetting == multiInst)
+	if (nppGui._multiInstSetting == multiInst)
 	{
 		isMultiInst = true;
 		// Only the first launch remembers the session
 		if (!TheFirstOne)
+		{
+			// TODO : This needs to be extended when the environment-awareness checkbox is set
+			// so that sessions are saved per environment. This is made difficult by the lackluster
+			// Windows APIs for this, though.
 			cmdLineParams._isNoSession = true;
+		}
 	}
 
 	generic_string quotFileName = TEXT("");
@@ -548,51 +561,126 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 	//Only after loading all the file paths set the working directory
 	::SetCurrentDirectory(NppParameters::getInstance().getNppPath().c_str());	//force working directory to path of module, preventing lock
 
-	if ((!isMultiInst) && (!TheFirstOne))
+	if (!(isMultiInst || TheFirstOne))
 	{
-		HWND hNotepad_plus = ::FindWindow(Notepad_plus_Window::getClassName(), NULL);
-		for (int i = 0 ;!hNotepad_plus && i < 5 ; ++i)
+		bool shouldTerminate = true;
+
+		static const auto FindAppWindow = []() -> HWND {
+			static constexpr const int Retries = 5;
+			static constexpr const DWORD DelayMS = 100;
+			
+			for (int i = 0; i <= Retries; ++i) {
+				if (HWND appWindow = ::FindWindow(Notepad_plus_Window::ClassName, nullptr)) {
+					return appWindow;
+				}
+				Sleep(DelayMS);
+			}
+
+			return nullptr;
+		};
+
+		// If we are set to be environment-aware, initialize the COM subsystem, and try to get an interface pointer to the VDM
+		if (nppGui._environmentAware && SUCCEEDED(::CoInitialize(nullptr)))
 		{
-			Sleep(100);
-			hNotepad_plus = ::FindWindow(Notepad_plus_Window::getClassName(), NULL);
+			IVirtualDesktopManager* pVDM = nullptr;
+			if (SUCCEEDED(::CoCreateInstance(CLSID_VirtualDesktopManager, nullptr, CLSCTX_ALL, IID_PPV_ARGS(&pVDM))))
+			{
+				// We can only pass a single LPARAM to the EnumWindows callback, so we will pack both the VDM pointer
+				// and the result boolean into a single pair, and pass that.
+				std::pair<IVirtualDesktopManager*, bool> enumWindowsDataPair = { pVDM, false };
+
+				static const auto TestWindow = [](IVirtualDesktopManager* const pVDM, HWND hWnd) -> bool {
+					// Compare the class name of the window against our expected class name.
+					// We only need to compare one additional character to know if it's different.
+					TCHAR classNameBuffer[_countof(Notepad_plus_Window::ClassName) + 1] = { _T('\0') };
+					if (SUCCEEDED(::GetClassName(hWnd, classNameBuffer, _countof(classNameBuffer))))
+					{
+						if (generic_strncmp(Notepad_plus_Window::ClassName, classNameBuffer, _countof(classNameBuffer)) == 0)
+						{
+							// This window is another Notepad++ window. Is it in our virtual desktop?
+							BOOL onCurrentVirtualDesktop = TRUE;
+							if (SUCCEEDED(pVDM->IsWindowOnCurrentVirtualDesktop(hWnd, &onCurrentVirtualDesktop)) && onCurrentVirtualDesktop)
+							{
+								// This is a Notepad++ window that is on our current virtual desktop.
+								return true;
+							}
+						}
+					}
+
+					return false;
+				};
+
+				::EnumWindows([](HWND hWnd, LPARAM lParam) -> BOOL
+				{
+					auto& inOutData = *reinterpret_cast<decltype(enumWindowsDataPair)*>(lParam);
+
+					// If we find a window that is a Notepad++ window that is a part of our current virtual desktop,
+					// report it back to the result pair and stop enumeration.
+					if (TestWindow(inOutData.first, hWnd)) {
+						inOutData.second = true;
+						return FALSE;
+					}
+
+					return TRUE;
+				}, reinterpret_cast<LPARAM>(&enumWindowsDataPair));
+				
+				// If the pair's second parameter is 'true', then an existing window was found on this virtual desktop.
+				if (!enumWindowsDataPair.second)
+				{
+					// Otherwise, let's just do a normal, quick test using FindWindow just as a sanity-check
+					if (HWND appWindow = FindAppWindow())
+					{
+						enumWindowsDataPair.second = TestWindow(pVDM, appWindow);
+					}
+
+					shouldTerminate = enumWindowsDataPair.second;
+				}
+
+				pVDM->Release();
+			}
+
+			::CoUninitialize();
 		}
 
-        if (hNotepad_plus)
-        {
-			// First of all, destroy static object NppParameters
-			nppParameters.destroyInstance();
-
-			int sw = 0;
-
-			if (::IsZoomed(hNotepad_plus))
-				sw = SW_MAXIMIZE;
-			else if (::IsIconic(hNotepad_plus))
-				sw = SW_RESTORE;
-
-			if (sw != 0)
-				::ShowWindow(hNotepad_plus, sw);
-
-			::SetForegroundWindow(hNotepad_plus);
-
-			if (params.size() > 0)	//if there are files to open, use the WM_COPYDATA system
+		if (shouldTerminate)
+		{
+			if (HWND hNotepad_plus = FindAppWindow())
 			{
-				CmdLineParamsDTO dto = CmdLineParamsDTO::FromCmdLineParams(cmdLineParams);
+				// First of all, destroy static object NppParameters
+				nppParameters.destroyInstance();
 
-				COPYDATASTRUCT paramData;
-				paramData.dwData = COPYDATA_PARAMS;
-				paramData.lpData = &dto;
-				paramData.cbData = sizeof(dto);
+				int sw = 0;
 
-				COPYDATASTRUCT fileNamesData;
-				fileNamesData.dwData = COPYDATA_FILENAMES;
-				fileNamesData.lpData = (void *)quotFileName.c_str();
-				fileNamesData.cbData = long(quotFileName.length() + 1)*(sizeof(TCHAR));
+				if (::IsZoomed(hNotepad_plus))
+					sw = SW_MAXIMIZE;
+				else if (::IsIconic(hNotepad_plus))
+					sw = SW_RESTORE;
 
-				::SendMessage(hNotepad_plus, WM_COPYDATA, reinterpret_cast<WPARAM>(hInstance), reinterpret_cast<LPARAM>(&paramData));
-				::SendMessage(hNotepad_plus, WM_COPYDATA, reinterpret_cast<WPARAM>(hInstance), reinterpret_cast<LPARAM>(&fileNamesData));
+				if (sw != 0)
+					::ShowWindow(hNotepad_plus, sw);
+
+				::SetForegroundWindow(hNotepad_plus);
+
+				if (!params.empty())	//if there are files to open, use the WM_COPYDATA system
+				{
+					CmdLineParamsDTO dto = CmdLineParamsDTO::FromCmdLineParams(cmdLineParams);
+
+					COPYDATASTRUCT paramData;
+					paramData.dwData = COPYDATA_PARAMS;
+					paramData.lpData = &dto;
+					paramData.cbData = sizeof(dto);
+
+					COPYDATASTRUCT fileNamesData;
+					fileNamesData.dwData = COPYDATA_FILENAMES;
+					fileNamesData.lpData = (void*)quotFileName.c_str();
+					fileNamesData.cbData = DWORD(quotFileName.length() + 1) * sizeof(TCHAR);
+
+					::SendMessage(hNotepad_plus, WM_COPYDATA, reinterpret_cast<WPARAM>(hInstance), reinterpret_cast<LPARAM>(&paramData));
+					::SendMessage(hNotepad_plus, WM_COPYDATA, reinterpret_cast<WPARAM>(hInstance), reinterpret_cast<LPARAM>(&fileNamesData));
+				}
+				return 0;
 			}
-			return 0;
-        }
+		}
 	}
 
 	Notepad_plus_Window notepad_plus_plus;

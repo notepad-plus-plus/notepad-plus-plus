@@ -3162,12 +3162,13 @@ INT_PTR CALLBACK MultiInstanceSubDlg::run_dlgProc(UINT message, WPARAM wParam, L
 			::SendDlgItemMessage(_hSelf, IDC_SESSIONININST_RADIO, BM_SETCHECK, multiInstSetting == multiInstOnSession?BST_CHECKED:BST_UNCHECKED, 0);
 			::SendDlgItemMessage(_hSelf, IDC_MULTIINST_RADIO, BM_SETCHECK, multiInstSetting == multiInst?BST_CHECKED:BST_UNCHECKED, 0);
 			::SendDlgItemMessage(_hSelf, IDC_MONOINST_RADIO, BM_SETCHECK, multiInstSetting == monoInst?BST_CHECKED:BST_UNCHECKED, 0);
+			::SendDlgItemMessage(_hSelf, IDC_ENVIRONMENT_AWARE_CHECK, BM_SETCHECK, nppGUI._environmentAware?BST_CHECKED:BST_UNCHECKED, 0);
 		}
 		break;
 
 		case WM_COMMAND : 
 		{
-			switch (wParam)
+			switch (LOWORD(wParam))
 			{
 				case IDC_SESSIONININST_RADIO :
 				{
@@ -3184,6 +3185,11 @@ INT_PTR CALLBACK MultiInstanceSubDlg::run_dlgProc(UINT message, WPARAM wParam, L
 				case IDC_MONOINST_RADIO :
 				{
 					nppGUI._multiInstSetting = monoInst;
+				}
+
+				case IDC_ENVIRONMENT_AWARE_CHECK:
+				{
+					nppGUI._environmentAware = HIWORD(wParam) == BN_CLICKED;
 				}
 				break;
 				default :

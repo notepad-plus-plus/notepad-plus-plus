@@ -54,6 +54,9 @@ filePath : file or folder name to open (absolute or relative path name)\r\
 class Notepad_plus_Window : public Window
 {
 public:
+	static constexpr const TCHAR ClassName[] = TEXT("Notepad++");
+
+public:
 	void init(HINSTANCE, HWND, const TCHAR *cmdLine, CmdLineParams *cmdLineParams);
 
 	bool isDlgsMsg(MSG *msg) const;
@@ -85,7 +88,7 @@ public:
 	};
 
 	static const TCHAR * getClassName() {
-		return _className;
+		return ClassName;
 	};
 
 	HICON getAbsentIcoHandle() {
@@ -100,7 +103,6 @@ private:
 	static LRESULT CALLBACK Notepad_plus_Proc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 	LRESULT runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 
-	static const TCHAR _className[32];
 	bool _isPrelaunch = false;
 	bool _disablePluginsManager = false;
 

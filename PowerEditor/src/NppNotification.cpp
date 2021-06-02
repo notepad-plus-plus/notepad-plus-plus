@@ -280,10 +280,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					fileNamesData.cbData = long(quotFileName.length() + 1)*(sizeof(TCHAR));
 
 					HWND hWinParent = ::GetParent(hWin);
-					const rsize_t classNameBufferSize = MAX_PATH;
-					TCHAR className[classNameBufferSize];
-					::GetClassName(hWinParent,className, classNameBufferSize);
-					if (lstrcmp(className, _pPublicInterface->getClassName()) == 0 && hWinParent != _pPublicInterface->getHSelf()) // another Notepad++
+					TCHAR className[_countof(Notepad_plus_Window::ClassName) + 1];
+					::GetClassName(hWinParent, className, _countof(className));
+					if (generic_strncmp(className, Notepad_plus_Window::ClassName, _countof(className)) == 0 && hWinParent != _pPublicInterface->getHSelf()) // another Notepad++
 					{
 						int index = _pDocTab->getCurrentTabIndex();
 						BufferID bufferToClose = notifyDocTab->getBufferByIndex(index);

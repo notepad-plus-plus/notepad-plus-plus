@@ -381,7 +381,8 @@ BEGIN
     CONTROL         "Open session in a new instance of Notepad++",IDC_SESSIONININST_RADIO,"Button",BS_AUTORADIOBUTTON,122,61,226,10
     CONTROL         "Always in multi-instance mode",IDC_MULTIINST_RADIO,"Button",BS_AUTORADIOBUTTON,122,80,218,10
     CONTROL         "Default (mono-instance)",IDC_MONOINST_RADIO,"Button",BS_AUTORADIOBUTTON,122,99,196,10
-    LTEXT           "* The modification of this setting needs to restart Notepad++",IDD_STATIC_RESTARTNOTE,110,124,239,20
+    CONTROL         "Windows Virtual Desktop aware",IDC_ENVIRONMENT_AWARE_CHECK,"Button",BS_AUTOCHECKBOX|WS_TABSTOP,122,118,196,10
+    LTEXT           "* The modification of this setting needs to restart Notepad++",IDD_STATIC_RESTARTNOTE,110,143,239,20
 END
 
 

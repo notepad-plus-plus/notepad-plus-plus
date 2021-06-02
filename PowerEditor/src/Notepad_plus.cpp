@@ -3479,7 +3479,7 @@ void Notepad_plus::setTitle()
 		result += buf->getFullPathName();
 	}
 	result += TEXT(" - ");
-	result += _pPublicInterface->getClassName();
+	result += Notepad_plus_Window::ClassName;
 
 	if (_isAdministrator)
 		result += TEXT(" [Administrator]");

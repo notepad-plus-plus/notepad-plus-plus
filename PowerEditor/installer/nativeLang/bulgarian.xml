@@ -3,7 +3,7 @@
 |
 |   Translators:.....: 2014–yyyy – Rusi Dimitrov;
 |                      2007–2012 – Milen Metev (Tragedy);
-|   Last revision:...: 24.05.2021 by Rusi Dimitrov <astral_86[at]mail[dot]bg>
+|   Last revision:...: 03.06.2021 by Rusi Dimitrov <astral_86[at]mail[dot]bg>
 |
 \=========================================================================== -->
 <NotepadPlus>
@@ -1443,6 +1443,7 @@
 			<splitter-rotate-left value="Завъртане наляво"/>
 			<splitter-rotate-right value="Завъртане надясно"/>
 			<tab-untitled-string value="нов "/>
+			<close-panel-tip value="Затваряне"/>
 		</MiscStrings>
 			<!-- Меню "Изглед" - "Карта на документа" -->
 		<DocumentMap>

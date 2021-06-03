@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-Dutch localization for Notepad++ 7.9.4
+Dutch localization for Notepad++
 Modifications until 2018-03-26 by Klaas Nekeman (knekeman(at)gmail.com).
 Modifications until 2020-05-26 by xylographe <wr86420@gmail.com>.
 Modifications from 2020-01-28 and onwards by Thomas De Rocker (RockyTDR)
 
-Last modified on 2021-05-22 by Thomas De Rocker (RockyTDR).
+Last modified on 2021-06-03 by Thomas De Rocker (RockyTDR).
 -->
 <NotepadPlus>
     <Native-Langue name="Nederlands" filename="dutch.xml" version="7.9.5">
@@ -726,7 +726,7 @@ Last modified on 2021-05-22 by Thomas De Rocker (RockyTDR).
                     <Item id="22572" name="Opmaak"/>
                     <Item id="22622" name="Opmaak"/>
                 </Keywords>
-                <Comment title="Commentaar / Getallen">
+                <Comment title="Commentaar en getallen">
                     <Item id="23003" name="Positie van regelcommentaar"/>
                     <Item id="23004" name="Overal toestaan"/>
                     <Item id="23005" name="Forceren aan begin van regel"/>
@@ -1441,6 +1441,7 @@ In alle bestanden behalve exe, obj en log zoeken:
             <session-save-folder-as-workspace value="Map als werkruimte opslaan" />
             <tab-untitled-string value="nieuw " />
             <file-save-assign-type value="&amp;Extensie toevoegen" />
+            <close-panel-tip value="Sluiten" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

@@ -338,6 +338,7 @@ SET(include_files
 			./WinControls/ColourPicker/WordStyleDlg.h
 			./ScintillaComponent/xmlMatchedTagsHighlighter.h
 			./rgba_icons.h
+			./MISC/VirtualDesktopManager.h
 )
 
 

@@ -21,11 +21,20 @@
 // Include that contain COM classes and IDLs
 // The COM interfaces that we are about here are only available if we specify Windows 10 or higher,
 // So we override the default _WIN32_WINNT that is set in the project file for this include.
+
+// ShObjIdl.h includes these, so let's include them prior to redefining _WIN32_WINNT
+// to make sure that the correct RPC defines get imported, just in case.
+#include <rpc.h>
+#include <rpcndr.h>
+#pragma push_macro("_WIN32_WINNT")
 #if defined(_WIN32_WINNT) && (_WIN32_WINNT < _WIN32_WINNT_WIN10)
 #	undef _WIN32_WINNT
 #endif
 #define _WIN32_WINNT _WIN32_WINNT_WIN10
+#define COM_NO_WINDOWS_H
 #include <ShObjIdl.h>
+// Restore _WIN32_WINNT back to its original value
+#pragma pop_macro("_WIN32_WINNT")
 
 // MinGW and such have IDL headers that do not have IVirtualDesktopManager.
 // Thus, we need to provide the declarations in that case, and ideally

@@ -677,12 +677,14 @@ copy ..\src\contextMenu.xml ..\binarm64\contextMenu.xml
     <ClInclude Include="..\src\dpiManager.h" />
     <ClInclude Include="..\src\keys.h" />
     <ClInclude Include="..\src\localizationString.h" />
+    <ClInclude Include="..\src\MISC\Com.h" />
     <ClInclude Include="..\src\MISC\Common\Sorters.h" />
     <ClInclude Include="..\src\MISC\Common\verifySignedfile.h" />
     <ClInclude Include="..\src\MISC\md5\md5.h" />
     <ClInclude Include="..\src\MISC\md5\md5Dlgs.h" />
     <ClInclude Include="..\src\MISC\md5\md5Dlgs_rc.h" />
     <ClInclude Include="..\src\MISC\sha2\sha-256.h" />
+    <ClInclude Include="..\src\MISC\VirtualDesktopManager.h" />
     <ClInclude Include="..\src\NppDarkMode.h" />
     <ClInclude Include="..\src\ScintillaComponent\columnEditor_rc.h" />
     <ClInclude Include="..\src\ScintillaComponent\FindReplaceDlg_rc.h" />

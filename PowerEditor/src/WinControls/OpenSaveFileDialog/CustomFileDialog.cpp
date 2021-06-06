@@ -20,24 +20,10 @@
 #ifdef __MINGW32__
 #include <cwchar>
 #endif
-#include <comdef.h>		// _com_error
-#include <comip.h>		// _com_ptr_t
 
 #include "CustomFileDialog.h"
 #include "Parameters.h"
-
-// Workaround for MinGW because its implementation of __uuidof is different.
-template<class T>
-struct ComTraits
-{
-	static const GUID uid;
-};
-template<class T>
-const GUID ComTraits<T>::uid = __uuidof(T);
-
-// Smart pointer alias for COM objects that makes reference counting easier.
-template<class T, class InterfaceT = T>
-using com_ptr = _com_ptr_t<_com_IIID<T, &ComTraits<InterfaceT>::uid>>;
+#include "MISC/Com.h"
 
 namespace // anonymous
 {

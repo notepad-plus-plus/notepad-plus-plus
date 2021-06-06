@@ -21,6 +21,7 @@
 #include "verifySignedfile.h"
 #include "NppDarkMode.h"
 
+#include "MISC/Com.h"
 #include "MISC/VirtualDesktopManager.h"
 
 typedef std::vector<generic_string> ParamVector;
@@ -555,7 +556,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 	::SetCurrentDirectory(NppParameters::getInstance().getNppPath().c_str());	//force working directory to path of module, preventing lock
 
 	{
-		IVirtualDesktopManager* pVDM = nullptr;
+		com_ptr<IVirtualDesktopManager> pVDM = nullptr;
 		if (nppGui._virtualDesktopAware && SUCCEEDED(::CoInitialize(nullptr)))
 		{
 			if (SUCCEEDED(::CoCreateInstance(CLSID_VirtualDesktopManager, nullptr, CLSCTX_ALL, IID_PPV_ARGS(&pVDM))))
@@ -590,9 +591,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 			{
 				// We can only pass a single LPARAM to the EnumWindows callback, so we will pack both the VDM pointer
 				// and the result boolean into a single pair, and pass that.
-				std::pair<IVirtualDesktopManager*, bool> enumWindowsDataPair = { pVDM, false };
+				std::pair<com_ptr<IVirtualDesktopManager>, bool> enumWindowsDataPair = { pVDM, false };
 
-				static const auto TestWindow = [](IVirtualDesktopManager* const pVDM, HWND hWnd) -> bool {
+				static const auto TestWindow = [](com_ptr<IVirtualDesktopManager> pVDM, HWND hWnd) -> bool {
 					// Compare the class name of the window against our expected class name.
 					// We only need to compare one additional character to know if it's different.
 					TCHAR classNameBuffer[_countof(Notepad_plus_Window::ClassName) + 1] = { _T('\0') };

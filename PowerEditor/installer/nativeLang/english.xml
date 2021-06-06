@@ -1084,6 +1084,7 @@ You can define several column markers by using white space to separate the diffe
                     <Item id="6345" name="Peek on tab"/>
                     <Item id="6346" name="Peek on document map"/>
                     <Item id="6360" name="Mute all sounds"/>
+                    <Item id="6361" name="Enable Save All confirm dialog"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Run a Macro Multiple Times">
@@ -1232,6 +1233,10 @@ Do you want to launch Notepad++ in Administrator mode?"/>
 Notepad++ will be restarted after all the operations are terminated.
 Continue?"/>
             <NeedToRestartToLoadPlugins title="Notepad++ need to be relaunched" message="You have to restart Notepad++ to load plugins you installed."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
+            <SaveAllConfirm title="Save All Confirmation" message="Are you sure you want to save all documents?
+
+Choose &quot;Cancel&quot; if your answer will always be &quot;Yes&quot; and you won't be asked this question again.
+You can re-activate this dialog in Preferences dialog later." /> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Clipboard History"/>

@@ -27,13 +27,15 @@
 #include <rpc.h>
 #include <rpcndr.h>
 #pragma push_macro("_WIN32_WINNT")
-#if defined(_WIN32_WINNT) && (_WIN32_WINNT < _WIN32_WINNT_WIN10)
+#pragma push_macro("COM_NO_WINDOWS_H")
+#if !defined(_WIN32_WINNT) || (_WIN32_WINNT < _WIN32_WINNT_WIN10)
 #	undef _WIN32_WINNT
+#	define _WIN32_WINNT _WIN32_WINNT_WIN10
 #endif
-#define _WIN32_WINNT _WIN32_WINNT_WIN10
 #define COM_NO_WINDOWS_H
 #include <ShObjIdl.h>
-// Restore _WIN32_WINNT back to its original value
+// Restore defines back to its original value
+#pragma pop_macro("COM_NO_WINDOWS_H")
 #pragma pop_macro("_WIN32_WINNT")
 
 // MinGW and such have IDL headers that do not have IVirtualDesktopManager.
@@ -43,6 +45,13 @@
 // These are lifted from ShObjldl.h and ShObjldl_core.h
 #ifndef __IVirtualDesktopManager_INTERFACE_DEFINED__
 #define __IVirtualDesktopManager_INTERFACE_DEFINED__
+
+#pragma push_macro("__CRT_UUID_DECL")
+#pragma push_macro("NPP_UUID_DECL")
+#pragma push_macro("NPP_STRINGIFY")
+#pragma push_macro("NPP_REG_UUID_STR")
+#pragma push_macro("NPP_IDL_UUID")
+#pragma push_macro("NPP_COM_INTERFACE_DECL")
 
 // MIDL/COM interfaces in C++ expect the IDL format for GUIDs, which is { u32, u16, u16, u8[8] }
 // However, declspec(uuid(...)) expects _registry_ format, which is { u32, u16, u16, u16, u8[6] }
@@ -98,10 +107,11 @@ NPP_COM_INTERFACE_DECL(IVirtualDesktopManager, a5cd92ff, 29be, 454c, 8d04, d8287
 	) = 0;
 };
 
-// Clean up all the macros that we'd created
-#undef NPP_UUID_DECL
-#undef NPP_STRINGIFY
-#undef NPP_REG_UUID_STR
-#undef NPP_IDL_UUID
-#undef NPP_COM_INTERFACE_DECL
+// Clean up all the macros that we'd created/modified
+#pragma pop_macro("__CRT_UUID_DECL")
+#pragma pop_macro("NPP_UUID_DECL")
+#pragma pop_macro("NPP_STRINGIFY")
+#pragma pop_macro("NPP_REG_UUID_STR")
+#pragma pop_macro("NPP_IDL_UUID")
+#pragma pop_macro("NPP_COM_INTERFACE_DECL")
 #endif

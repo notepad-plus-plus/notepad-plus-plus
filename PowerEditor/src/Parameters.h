@@ -911,7 +911,8 @@ struct NppGUI final
 	TCHAR _defaultDirExp[MAX_PATH];	//expanded environment variables
 	generic_string _themeName;
 	MultiInstSetting _multiInstSetting = monoInst;
-	bool _environmentAware = true;
+	bool _virtualDesktopAware = true;
+	bool _virtualDesktopSupported = false;
 	bool _fileSwitcherWithoutExtColumn = false;
 	bool isSnapshotMode() const {return _isSnapshotMode && _rememberLastSession && !_isCmdlineNosessionActivated;};
 	bool _isSnapshotMode = true;

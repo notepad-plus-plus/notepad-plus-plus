@@ -554,29 +554,39 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 	//Only after loading all the file paths set the working directory
 	::SetCurrentDirectory(NppParameters::getInstance().getNppPath().c_str());	//force working directory to path of module, preventing lock
 
-	if (!(isMultiInst || TheFirstOne))
 	{
-		bool shouldTerminate = true;
-
-		static const auto FindAppWindow = []() -> HWND {
-			static constexpr const int Retries = 5;
-			static constexpr const DWORD DelayMS = 100;
-			
-			for (int i = 0; i <= Retries; ++i) {
-				if (HWND appWindow = ::FindWindow(Notepad_plus_Window::ClassName, nullptr)) {
-					return appWindow;
-				}
-				Sleep(DelayMS);
-			}
-
-			return nullptr;
-		};
-
-		// If we are set to be environment-aware, initialize the COM subsystem, and try to get an interface pointer to the VDM
-		if (nppGui._environmentAware && SUCCEEDED(::CoInitialize(nullptr)))
+		IVirtualDesktopManager* pVDM = nullptr;
+		if (nppGui._virtualDesktopAware && SUCCEEDED(::CoInitialize(nullptr)))
 		{
-			IVirtualDesktopManager* pVDM = nullptr;
 			if (SUCCEEDED(::CoCreateInstance(CLSID_VirtualDesktopManager, nullptr, CLSCTX_ALL, IID_PPV_ARGS(&pVDM))))
+			{
+				nppGui._virtualDesktopSupported = true;
+			}
+			else {
+				nppGui._virtualDesktopSupported = false;
+			}
+		}
+
+		if (!(isMultiInst || TheFirstOne))
+		{
+			bool shouldTerminate = true;
+
+			static const auto FindAppWindow = []() -> HWND {
+				static constexpr const int Retries = 5;
+				static constexpr const DWORD DelayMS = 100;
+
+				for (int i = 0; i <= Retries; ++i) {
+					if (HWND appWindow = ::FindWindow(Notepad_plus_Window::ClassName, nullptr)) {
+						return appWindow;
+					}
+					Sleep(DelayMS);
+				}
+
+				return nullptr;
+			};
+
+			// If we are set to be environment-aware, initialize the COM subsystem, and try to get an interface pointer to the VDM
+			if (nppGui._virtualDesktopAware && pVDM)
 			{
 				// We can only pass a single LPARAM to the EnumWindows callback, so we will pack both the VDM pointer
 				// and the result boolean into a single pair, and pass that.
@@ -604,19 +614,19 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 				};
 
 				::EnumWindows([](HWND hWnd, LPARAM lParam) -> BOOL
-				{
-					auto& inOutData = *reinterpret_cast<decltype(enumWindowsDataPair)*>(lParam);
+					{
+						auto& inOutData = *reinterpret_cast<decltype(enumWindowsDataPair)*>(lParam);
 
-					// If we find a window that is a Notepad++ window that is a part of our current virtual desktop,
-					// report it back to the result pair and stop enumeration.
-					if (TestWindow(inOutData.first, hWnd)) {
-						inOutData.second = true;
-						return FALSE;
-					}
+						// If we find a window that is a Notepad++ window that is a part of our current virtual desktop,
+						// report it back to the result pair and stop enumeration.
+						if (TestWindow(inOutData.first, hWnd)) {
+							inOutData.second = true;
+							return FALSE;
+						}
 
-					return TRUE;
-				}, reinterpret_cast<LPARAM>(&enumWindowsDataPair));
-				
+						return TRUE;
+					}, reinterpret_cast<LPARAM>(&enumWindowsDataPair));
+
 				// If the pair's second parameter is 'true', then an existing window was found on this virtual desktop.
 				if (!enumWindowsDataPair.second)
 				{
@@ -628,51 +638,53 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 
 					shouldTerminate = enumWindowsDataPair.second;
 				}
-
-				pVDM->Release();
 			}
 
-			::CoUninitialize();
+			if (shouldTerminate)
+			{
+				if (HWND hNotepad_plus = FindAppWindow())
+				{
+					// First of all, destroy static object NppParameters
+					nppParameters.destroyInstance();
+
+					int sw = 0;
+
+					if (::IsZoomed(hNotepad_plus))
+						sw = SW_MAXIMIZE;
+					else if (::IsIconic(hNotepad_plus))
+						sw = SW_RESTORE;
+
+					if (sw != 0)
+						::ShowWindow(hNotepad_plus, sw);
+
+					::SetForegroundWindow(hNotepad_plus);
+
+					if (!params.empty())	//if there are files to open, use the WM_COPYDATA system
+					{
+						CmdLineParamsDTO dto = CmdLineParamsDTO::FromCmdLineParams(cmdLineParams);
+
+						COPYDATASTRUCT paramData;
+						paramData.dwData = COPYDATA_PARAMS;
+						paramData.lpData = &dto;
+						paramData.cbData = sizeof(dto);
+
+						COPYDATASTRUCT fileNamesData;
+						fileNamesData.dwData = COPYDATA_FILENAMES;
+						fileNamesData.lpData = (void*)quotFileName.c_str();
+						fileNamesData.cbData = DWORD(quotFileName.length() + 1) * sizeof(TCHAR);
+
+						::SendMessage(hNotepad_plus, WM_COPYDATA, reinterpret_cast<WPARAM>(hInstance), reinterpret_cast<LPARAM>(&paramData));
+						::SendMessage(hNotepad_plus, WM_COPYDATA, reinterpret_cast<WPARAM>(hInstance), reinterpret_cast<LPARAM>(&fileNamesData));
+					}
+					return 0;
+				}
+			}
 		}
 
-		if (shouldTerminate)
+		if (pVDM)
 		{
-			if (HWND hNotepad_plus = FindAppWindow())
-			{
-				// First of all, destroy static object NppParameters
-				nppParameters.destroyInstance();
-
-				int sw = 0;
-
-				if (::IsZoomed(hNotepad_plus))
-					sw = SW_MAXIMIZE;
-				else if (::IsIconic(hNotepad_plus))
-					sw = SW_RESTORE;
-
-				if (sw != 0)
-					::ShowWindow(hNotepad_plus, sw);
-
-				::SetForegroundWindow(hNotepad_plus);
-
-				if (!params.empty())	//if there are files to open, use the WM_COPYDATA system
-				{
-					CmdLineParamsDTO dto = CmdLineParamsDTO::FromCmdLineParams(cmdLineParams);
-
-					COPYDATASTRUCT paramData;
-					paramData.dwData = COPYDATA_PARAMS;
-					paramData.lpData = &dto;
-					paramData.cbData = sizeof(dto);
-
-					COPYDATASTRUCT fileNamesData;
-					fileNamesData.dwData = COPYDATA_FILENAMES;
-					fileNamesData.lpData = (void*)quotFileName.c_str();
-					fileNamesData.cbData = DWORD(quotFileName.length() + 1) * sizeof(TCHAR);
-
-					::SendMessage(hNotepad_plus, WM_COPYDATA, reinterpret_cast<WPARAM>(hInstance), reinterpret_cast<LPARAM>(&paramData));
-					::SendMessage(hNotepad_plus, WM_COPYDATA, reinterpret_cast<WPARAM>(hInstance), reinterpret_cast<LPARAM>(&fileNamesData));
-				}
-				return 0;
-			}
+			pVDM->Release();
+			::CoUninitialize();
 		}
 	}
 

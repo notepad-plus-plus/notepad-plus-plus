@@ -3159,15 +3159,31 @@ INT_PTR CALLBACK MultiInstanceSubDlg::run_dlgProc(UINT message, WPARAM wParam, L
 		{
 			MultiInstSetting multiInstSetting = nppGUI._multiInstSetting;
 
-			::SendDlgItemMessage(_hSelf, IDC_SESSIONININST_RADIO, BM_SETCHECK, multiInstSetting == multiInstOnSession?BST_CHECKED:BST_UNCHECKED, 0);
-			::SendDlgItemMessage(_hSelf, IDC_MULTIINST_RADIO, BM_SETCHECK, multiInstSetting == multiInst?BST_CHECKED:BST_UNCHECKED, 0);
-			::SendDlgItemMessage(_hSelf, IDC_MONOINST_RADIO, BM_SETCHECK, multiInstSetting == monoInst?BST_CHECKED:BST_UNCHECKED, 0);
-			::SendDlgItemMessage(_hSelf, IDC_ENVIRONMENT_AWARE_CHECK, BM_SETCHECK, nppGUI._environmentAware?BST_CHECKED:BST_UNCHECKED, 0);
+			::SendDlgItemMessage(_hSelf, IDC_SESSIONININST_RADIO, BM_SETCHECK, multiInstSetting == multiInstOnSession ? BST_CHECKED : BST_UNCHECKED, 0);
+			::SendDlgItemMessage(_hSelf, IDC_MULTIINST_RADIO, BM_SETCHECK, multiInstSetting == multiInst ? BST_CHECKED : BST_UNCHECKED, 0);
+			::SendDlgItemMessage(_hSelf, IDC_MONOINST_RADIO, BM_SETCHECK, multiInstSetting == monoInst ? BST_CHECKED : BST_UNCHECKED, 0);
+
+			if (nppGUI._virtualDesktopSupported) {
+				::SendDlgItemMessage(_hSelf, IDC_VIRTUAL_DESKTOP_AWARE_CHECK, BM_SETCHECK, nppGUI._virtualDesktopAware ? BST_CHECKED : BST_UNCHECKED, 0);
+			}
+			else {
+				// Disable the checkbox on systems where it is not supported.
+				::SendDlgItemMessage(_hSelf, IDC_VIRTUAL_DESKTOP_AWARE_CHECK, BM_SETSTYLE, BS_3STATE, TRUE);
+				::SendDlgItemMessage(_hSelf, IDC_VIRTUAL_DESKTOP_AWARE_CHECK, BM_SETCHECK, BST_INDETERMINATE, 0);
+				::SendDlgItemMessage(_hSelf, IDC_VIRTUAL_DESKTOP_AWARE_CHECK, BM_SETDONTCLICK, TRUE, 0);
+				HWND hCheckbox = ::GetDlgItem(_hSelf, IDC_VIRTUAL_DESKTOP_AWARE_CHECK);
+				::EnableWindow(hCheckbox, FALSE);
+			}
 		}
 		break;
 
 		case WM_COMMAND : 
 		{
+			if (HIWORD(wParam) != BN_CLICKED)
+			{
+				break;
+			}
+
 			switch (LOWORD(wParam))
 			{
 				case IDC_SESSIONININST_RADIO :
@@ -3186,12 +3202,15 @@ INT_PTR CALLBACK MultiInstanceSubDlg::run_dlgProc(UINT message, WPARAM wParam, L
 				{
 					nppGUI._multiInstSetting = monoInst;
 				}
+				break;
 
-				case IDC_ENVIRONMENT_AWARE_CHECK:
+				case IDC_VIRTUAL_DESKTOP_AWARE_CHECK:
 				{
-					nppGUI._environmentAware = HIWORD(wParam) == BN_CLICKED;
+					const bool isChecked = ::SendDlgItemMessage(_hSelf, IDC_VIRTUAL_DESKTOP_AWARE_CHECK, BM_GETCHECK, 0, 0) != 0;
+					nppGUI._virtualDesktopAware = isChecked;
 				}
 				break;
+
 				default :
 					return FALSE;
 			}

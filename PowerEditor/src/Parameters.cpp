@@ -5276,11 +5276,15 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 		}
 		else if (!lstrcmp(nm, TEXT("multiInst")))
 		{
-			int val = 0;
-			element->Attribute(TEXT("setting"), &val);
-			if (val < 0 || val > 2)
-				val = 0;
-			_nppGUI._multiInstSetting = (MultiInstSetting)val;
+			int multiInstValue = 0;
+			element->Attribute(TEXT("setting"), &multiInstValue);
+			if (multiInstValue < 0 || multiInstValue > 2)
+				multiInstValue = 0;
+			_nppGUI._multiInstSetting = (MultiInstSetting)multiInstValue;
+
+			int environmentAwareValue = true;
+			element->Attribute(TEXT("virtualDesktopAware"), &environmentAwareValue);
+			_nppGUI._virtualDesktopAware = (environmentAwareValue != 0);
 		}
 		else if (!lstrcmp(nm, TEXT("searchEngine")))
 		{
@@ -6321,7 +6325,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("multiInst"));
 		GUIConfigElement->SetAttribute(TEXT("setting"), _nppGUI._multiInstSetting);
-		GUIConfigElement->SetAttribute(TEXT("environmentAware"), _nppGUI._environmentAware);
+		GUIConfigElement->SetAttribute(TEXT("virtualDesktopAware"), _nppGUI._virtualDesktopAware ? 1 : 0);
 	}
 
 	// <GUIConfig name="MISC" fileSwitcherWithoutExtColumn="no" backSlashIsEscapeCharacterForSql="yes" isFolderDroppedOpenFiles="no" saveDlgExtFilterToAllTypes="no" />

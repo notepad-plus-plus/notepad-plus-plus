@@ -1598,26 +1598,54 @@ bool Notepad_plus::fileSaveSpecific(const generic_string& fileNameToSave)
 	}
 }
 
-bool Notepad_plus::fileSaveAll()
+bool Notepad_plus::fileSaveAllConfirm()
 {
-	if (viewVisible(MAIN_VIEW))
+	bool confirmed = false;
+
+	if (NppParameters::getInstance().getNppGUI()._saveAllConfirm)
 	{
-		for (size_t i = 0; i < _mainDocTab.nbItem(); ++i)
+		int answer = _nativeLangSpeaker.messageBox("SaveAllConfirm",
+			_pPublicInterface->getHSelf(),
+			TEXT("Are you sure you want to save all documents??"),
+			TEXT("Are you sure?"),
+			MB_YESNO);
+
+		if (answer == IDYES)
 		{
-			BufferID idToSave = _mainDocTab.getBufferByIndex(i);
-			fileSave(idToSave);
+			confirmed = true;
 		}
+	}
+	else
+	{
+		confirmed = true;
 	}
 
-	if (viewVisible(SUB_VIEW))
+	return confirmed;
+}
+
+bool Notepad_plus::fileSaveAll()
+{
+	if ( fileSaveAllConfirm() )
 	{
-		for (size_t i = 0; i < _subDocTab.nbItem(); ++i)
+		if (viewVisible(MAIN_VIEW))
 		{
-			BufferID idToSave = _subDocTab.getBufferByIndex(i);
-			fileSave(idToSave);
+			for (size_t i = 0; i < _mainDocTab.nbItem(); ++i)
+			{
+				BufferID idToSave = _mainDocTab.getBufferByIndex(i);
+				fileSave(idToSave);
+			}
 		}
+
+		if (viewVisible(SUB_VIEW))
+		{
+			for (size_t i = 0; i < _subDocTab.nbItem(); ++i)
+			{
+				BufferID idToSave = _subDocTab.getBufferByIndex(i);
+				fileSave(idToSave);
+			}
+		}
+		checkDocState();
 	}
-	checkDocState();
 	return true;
 }
 

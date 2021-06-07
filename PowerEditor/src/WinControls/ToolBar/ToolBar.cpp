@@ -284,6 +284,8 @@ void ToolBar::reset(bool create)
 					NULL,
 					_hInst,
 					0);
+		NppDarkMode::setDarkTooltips(_hSelf, true);
+
 		// Send the TB_BUTTONSTRUCTSIZE message, which is required for 
 		// backward compatibility.
 		::SendMessage(_hSelf, TB_BUTTONSTRUCTSIZE, sizeof(TBBUTTON), 0);

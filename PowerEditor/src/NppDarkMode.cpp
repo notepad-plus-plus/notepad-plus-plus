@@ -1010,5 +1010,23 @@ namespace NppDarkMode
 	{
 		autoSubclassAndThemeChildControls(hwndParent, false, true); 
 	}
-}
 
+	void setDarkTooltips(HWND hwnd, bool isToolbar)
+	{
+		if (NppDarkMode::isEnabled())
+		{
+			if (isToolbar)
+			{
+				auto hTips = reinterpret_cast<HWND>(SendMessage(hwnd, TB_GETTOOLTIPS, NULL, NULL));
+				if (hTips != nullptr)
+				{
+					SetWindowTheme(hTips, L"DarkMode_Explorer", NULL);
+				}
+			}
+			else
+			{
+				SetWindowTheme(hwnd, L"DarkMode_Explorer", NULL);
+			}
+		}
+	}
+}

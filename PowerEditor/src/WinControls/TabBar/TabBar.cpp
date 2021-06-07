@@ -303,6 +303,7 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isMult
 	{
 		throw std::runtime_error("TabBarPlus::init : tooltip CreateWindowEx() function return null");
 	}
+	NppDarkMode::setDarkTooltips(_tooltips, false);
 	::SendMessage(_hSelf, TCM_SETTOOLTIPS, reinterpret_cast<WPARAM>(_tooltips), 0);
 
 	if (!_hwndArray[_nbCtrl])

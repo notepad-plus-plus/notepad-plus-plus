@@ -72,5 +72,6 @@ namespace NppDarkMode
 
 	void autoSubclassAndThemeChildControls(HWND hwndParent, bool subclass = true, bool theme = true);
 	void autoThemeChildControls(HWND hwndParent);
-}
 
+	void setDarkTooltips(HWND hwnd, bool isToolbar);
+}

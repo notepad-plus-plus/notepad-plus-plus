@@ -20,6 +20,14 @@ namespace NppDarkMode
 		bool enableMenubar = false;
 		bool enableScrollbarHack = false;
 	};
+	
+	enum class ToolTipsType
+	{
+		tooltip,
+		toolbar,
+		listview,
+		treeview
+	};
 
 	void initDarkMode();				// pulls options from NppParameters
 	void refreshDarkMode(HWND hwnd, bool forceRefresh = false);	// attempts to apply new options from NppParameters, sends NPPM_INTERNAL_REFRESHDARKMODE to hwnd's top level parent
@@ -73,5 +81,6 @@ namespace NppDarkMode
 
 	void autoSubclassAndThemeChildControls(HWND hwndParent, bool subclass = true, bool theme = true);
 	void autoThemeChildControls(HWND hwndParent);
-}
 
+	void setDarkTooltips(HWND hwnd, ToolTipsType type);
+}

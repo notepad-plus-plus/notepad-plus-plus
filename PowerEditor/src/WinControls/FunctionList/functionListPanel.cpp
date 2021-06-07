@@ -771,6 +771,8 @@ INT_PTR CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPA
 			_hToolbarMenu = CreateWindowEx(0,TOOLBARCLASSNAME,NULL, style,
 								   0,0,0,0,_hSelf,nullptr, _hInst, NULL);
 
+			NppDarkMode::setDarkTooltips(_hToolbarMenu, NppDarkMode::ToolTipsType::toolbar);
+
 			oldFunclstToolbarProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hToolbarMenu, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(funclstToolbarProc)));
 			TBBUTTON tbButtons[3];
 

@@ -1038,5 +1038,40 @@ namespace NppDarkMode
 	{
 		autoSubclassAndThemeChildControls(hwndParent, false, true); 
 	}
-}
 
+	void setDarkTooltips(HWND hwnd, ToolTipsType type)
+	{
+		if (NppDarkMode::isEnabled())
+		{
+			int msg = NULL;
+			switch (type)
+			{
+			case NppDarkMode::ToolTipsType::toolbar:
+				msg = TB_GETTOOLTIPS;
+				break;
+			case NppDarkMode::ToolTipsType::listview:
+				msg = LVM_GETTOOLTIPS;
+				break;
+			case NppDarkMode::ToolTipsType::treeview:
+				msg = TVM_GETTOOLTIPS;
+				break;
+			default:
+				msg = NULL;
+				break;
+			}
+
+			if (!msg)
+			{
+				SetWindowTheme(hwnd, L"DarkMode_Explorer", NULL);
+			}
+			else
+			{
+				auto hTips = reinterpret_cast<HWND>(SendMessage(hwnd, msg, NULL, NULL));
+				if (hTips != nullptr)
+				{
+					SetWindowTheme(hTips, L"DarkMode_Explorer", NULL);
+				}
+			}
+		}
+	}
+}

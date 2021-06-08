@@ -50,7 +50,6 @@ namespace // anonymous
 
 	static const int IDC_FILE_CUSTOM_CHECKBOX = 4;
 	static const int IDC_FILE_TYPE_CHECKBOX = IDC_FILE_CUSTOM_CHECKBOX + 1;
-	static const TCHAR TEMP_OK_BUTTON_LABEL[] = _T("Save");
 
 	// Returns a first extension from the extension specification string.
 	// Multiple extensions are separated with ';'.
@@ -372,9 +371,10 @@ private:
 			if (SUCCEEDED(hr) && hwndDlg)
 			{
 				EnumChildWindows(hwndDlg, &EnumChildProc, 0);
+				if (_staticThis->_hwndButton)
+					_staticThis->_okButtonProc = (WNDPROC)SetWindowLongPtr(_staticThis->_hwndButton, GWLP_WNDPROC, (LPARAM)&OkButtonWndProc);
 			}
 		}
-		_dialog->SetOkButtonLabel(nullptr);  // Reset label to default.
 	}
 
 	bool shouldInitControls() const
@@ -458,6 +458,7 @@ private:
 	{
 		const int bufferLen = MAX_PATH;
 		static TCHAR buffer[bufferLen];
+
 		if (GetClassName(hwnd, buffer, bufferLen) != 0)
 		{
 			if (lstrcmpi(buffer, _T("ComboBox")) == 0)
@@ -473,24 +474,37 @@ private:
 			}
 			else if (lstrcmpi(buffer, _T("Button")) == 0)
 			{
+				// Find the OK button.
+				// Label could be "Open" or "Save".
+				// Label could be localized (that's why can't search by window text).
+				// Dialog could have other buttons ("Cancel", "Help", etc).
+				// Don't rely on the order of the EnumChildWindows() traversal since it could be changed.
 				LONG style = GetWindowLong(hwnd, GWL_STYLE);
-				if (style & (WS_CHILDWINDOW | WS_VISIBLE | WS_GROUP))
+				if (IsWindowEnabled(hwnd) && (style & (WS_CHILDWINDOW | WS_GROUP)))
 				{
 					DWORD type = style & 0xF;
 					DWORD appearance = style & 0xF0;
 					if ((type == BS_PUSHBUTTON || type == BS_DEFPUSHBUTTON) && (appearance == BS_TEXT))
 					{
-						if (GetWindowText(hwnd, buffer, bufferLen) > 0 &&
-							wcsstr(buffer, TEMP_OK_BUTTON_LABEL) != nullptr)
+						// Get the leftmost button.
+						if (_staticThis->_hwndButton)
 						{
-							_staticThis->_okButtonProc = (WNDPROC)SetWindowLongPtr(hwnd, GWLP_WNDPROC, (LPARAM)&OkButtonWndProc);
+							RECT rc1 = {};
+							RECT rc2 = {};
+							if (GetWindowRect(hwnd, &rc1) && GetWindowRect(_staticThis->_hwndButton, &rc2))
+							{
+								if (rc1.left < rc2.left)
+									_staticThis->_hwndButton = hwnd;
+							}
+						}
+						else
+						{
+							_staticThis->_hwndButton = hwnd;
 						}
 					}
 				}
 			}
 		}
-		if (_staticThis->_okButtonProc && _staticThis->_fileNameProc)
-			return FALSE;	// Found all children, stop enumeration.
 		return TRUE;
 	}
 
@@ -557,6 +571,7 @@ private:
 	const std::vector<Filter> _filterSpec;
 	generic_string _lastUsedFolder;
 	HWND _hwndNameEdit = nullptr;
+	HWND _hwndButton = nullptr;
 	WNDPROC _okButtonProc = nullptr;
 	WNDPROC _fileNameProc = nullptr;
 	UINT _currentType = 0;  // File type currenly selected in dialog.
@@ -591,10 +606,6 @@ public:
 			CLSCTX_INPROC_SERVER,
 			IID_PPV_ARGS(&_dialog));
 		_customize = _dialog;
-
-		// Set label so that OK button can be differentiated during initialization.
-		// It will be reset back to default later on.
-		_dialog->SetOkButtonLabel(TEMP_OK_BUTTON_LABEL);
 
 		// Init the event handler.
 		// Pass the initially selected file type.

@@ -50,7 +50,7 @@ namespace // anonymous
 
 	static const int IDC_FILE_CUSTOM_CHECKBOX = 4;
 	static const int IDC_FILE_TYPE_CHECKBOX = IDC_FILE_CUSTOM_CHECKBOX + 1;
-	static const TCHAR TEMP_OK_BUTTON_LABEL[] = _T("Save");
+	static const TCHAR TEMP_OK_BUTTON_LABEL[] = _T("Open");
 
 	// Returns a first extension from the extension specification string.
 	// Multiple extensions are separated with ';'.

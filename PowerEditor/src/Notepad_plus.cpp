@@ -534,6 +534,10 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_pluginsAdminDlg.setPluginsManager(&_pluginsManager);
 	_pluginsManager.setMenu(_mainMenuHandle, NULL, enablePluginAdmin);
 
+	//Search menu
+
+		//disable "Search Results Window" under Search Menu 
+	::EnableMenuItem(_mainMenuHandle, IDM_FOCUS_ON_FOUND_RESULTS, MF_DISABLED | MF_GRAYED | MF_BYCOMMAND);
 
 	//Main menu is loaded, now load context menu items
 	nppParam.getContextMenuFromXmlTree(_mainMenuHandle, _pluginsManager.getMenuHandle());

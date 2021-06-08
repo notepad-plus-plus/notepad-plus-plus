@@ -1,0 +1,2 @@
+This file (scintilla.original.forUpdating.7z) is the original Scintilla release of current Scintilla.
+While updating a new version of scintilla, this scintilla will be compared with Notepad++'s scitilla, in order to get the patch for adding it into new scintilla release.

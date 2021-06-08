@@ -1,0 +1,1243 @@
+// This file is part of Notepad++ project
+// Copyright (C)2021 Don HO <don.h@free.fr>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
+#include <windows.h>
+#include "resource.h"
+#include "menuCmdID.h"
+
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION    VERSION_DIGITALVALUE
+PRODUCTVERSION    VERSION_DIGITALVALUE
+FILEFLAGSMASK    0x3fL
+FILEFLAGS 0
+FILEOS VOS_NT_WINDOWS32
+FILETYPE VFT_APP
+FILESUBTYPE VFT2_UNKNOWN
+BEGIN
+    BLOCK    "VarFileInfo"
+    BEGIN
+        VALUE    "Translation",    0x409,    1200
+    END
+    BLOCK    "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE    "CompanyName",        "Don HO don.h@free.fr\0"
+            VALUE    "FileDescription",    "Notepad++ : a free (GPL) source code editor\0"
+            VALUE    "FileVersion",        VERSION_VALUE
+            VALUE    "InternalName",       "notepad++.exe\0"
+            VALUE    "LegalCopyright",     "Copyleft 1998-2021 by Don HO\0"
+            VALUE    "OriginalFilename",   "notepad++.exe\0"
+            VALUE    "ProductName",        "Notepad++\0"
+            VALUE    "ProductVersion",     VERSION_VALUE
+        END
+    END
+END
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_M30ICON                     ICON      "icons/npp.ico"
+IDI_CHAMELEON                   ICON      "icons/chameleon.ico"
+//IDI_JESUISCHARLIE             ICON      "icons/Je_suis_Charlie.ico"
+//IDI_GILETJAUNE                ICON      "icons/giletJaune.ico"
+//IDI_SAMESEXMARRIAGE           ICON      "icons/same-sexMarriageTaiwan.ico"
+IDI_ICONABSENT                  ICON      "icons/iconAbsent.ico"
+
+//
+// TOOLBAR ICO - set 1
+//
+IDI_NEW_ICON                    ICON      "icons/new_off.ico"
+IDI_OPEN_ICON                   ICON      "icons/open_off.ico"
+IDI_CLOSE_ICON                  ICON      "icons/supp_off.ico"
+IDI_CLOSEALL_ICON               ICON      "icons/suppall_off.ico"
+IDI_SAVE_ICON                   ICON      "icons/save_off.ico"
+IDI_SAVEALL_ICON                ICON      "icons/saveall_off.ico"
+IDI_CUT_ICON                    ICON      "icons/cut_off.ico"
+IDI_COPY_ICON                   ICON      "icons/dupli_off.ico"
+IDI_PASTE_ICON                  ICON      "icons/paste_off.ico"
+IDI_UNDO_ICON                   ICON      "icons/undo_off.ico"
+IDI_REDO_ICON                   ICON      "icons/redo_off.ico"
+IDI_FIND_ICON                   ICON      "icons/find_off.ico"
+IDI_REPLACE_ICON                ICON      "icons/findrep_off.ico"
+IDI_ZOOMIN_ICON                 ICON      "icons/zoomIn_off.ico"
+IDI_ZOOMOUT_ICON                ICON      "icons/zoomOut_off.ico"
+IDI_VIEW_UD_DLG_ICON            ICON      "icons/userDefineDlg_off.ico"
+IDI_PRINT_ICON                  ICON      "icons/imprim_off.ico"
+IDI_STARTRECORD_ICON            ICON      "icons/startrecord_off.ico"
+IDI_STARTRECORD_DISABLE_ICON    ICON      "icons/startrecord_dis.ico"
+IDI_STOPRECORD_ICON             ICON      "icons/stoprecord_off.ico"
+IDI_STOPRECORD_DISABLE_ICON     ICON      "icons/stoprecord_dis.ico"
+IDI_PLAYRECORD_ICON             ICON      "icons/playrecord_off.ico"
+IDI_PLAYRECORD_DISABLE_ICON     ICON      "icons/playrecord_dis.ico"
+IDI_SAVERECORD_ICON             ICON      "icons/saverecord_off.ico"
+IDI_SAVERECORD_DISABLE_ICON     ICON      "icons/saverecord_dis.ico"
+IDI_MMPLAY_DIS_ICON             ICON      "icons/playrecord_m_dis.ico"
+IDI_MMPLAY_ICON                 ICON      "icons/playrecord_m_off.ico"
+IDI_VIEW_ALL_CHAR_ICON          ICON      "icons/allChars_off.ico"
+IDI_VIEW_INDENT_ICON            ICON      "icons/indentGuide_off.ico"
+IDI_VIEW_WRAP_ICON              ICON      "icons/wrap_off.ico"
+IDI_SAVE_DISABLE_ICON           ICON      "icons/save_dis.ico"
+IDI_SAVEALL_DISABLE_ICON        ICON      "icons/saveall_dis.ico"
+IDI_CUT_DISABLE_ICON            ICON      "icons/cut_dis.ico"
+IDI_COPY_DISABLE_ICON           ICON      "icons/dupli_dis.ico"
+IDI_PASTE_DISABLE_ICON          ICON      "icons/paste_dis.ico"
+IDI_UNDO_DISABLE_ICON           ICON      "icons/undo_dis.ico"
+IDI_REDO_DISABLE_ICON           ICON      "icons/redo_dis.ico"
+IDI_SYNCV_ICON                  ICON      "icons/syncV_off.ico"
+IDI_SYNCV_DISABLE_ICON          ICON      "icons/syncV_dis.ico"
+IDI_SYNCH_ICON                  ICON      "icons/syncH_off.ico"
+IDI_SYNCH_DISABLE_ICON          ICON      "icons/syncH_dis.ico"
+IDI_VIEW_DOC_MAP_ICON           ICON      "icons/docMap_off.ico" 
+IDI_VIEW_FUNCLIST_ICON          ICON      "icons/funcList_off.ico" 
+IDI_VIEW_FILEBROWSER_ICON       ICON      "icons/fileBrowser_off.ico" 
+IDI_VIEW_MONITORING_ICON        ICON      "icons/monitoring_off.ico"
+
+//
+// TOOLBAR ICO - set 2
+//
+IDI_NEW_ICON2                   ICON      "icons/filledFluentUI/new_off.ico"
+IDI_OPEN_ICON2                  ICON      "icons/filledFluentUI/open_off.ico"
+IDI_CLOSE_ICON2                 ICON      "icons/filledFluentUI/supp_off.ico"
+IDI_CLOSEALL_ICON2              ICON      "icons/filledFluentUI/suppall_off.ico"
+IDI_SAVE_ICON2                  ICON      "icons/filledFluentUI/save_off.ico"
+IDI_SAVEALL_ICON2               ICON      "icons/filledFluentUI/saveall_off.ico"
+IDI_CUT_ICON2                   ICON      "icons/filledFluentUI/cut_off.ico"
+IDI_COPY_ICON2                  ICON      "icons/filledFluentUI/dupli_off.ico"
+IDI_PASTE_ICON2                 ICON      "icons/filledFluentUI/paste_off.ico"
+IDI_UNDO_ICON2                  ICON      "icons/filledFluentUI/undo_off.ico"
+IDI_REDO_ICON2                  ICON      "icons/filledFluentUI/redo_off.ico"
+IDI_FIND_ICON2                  ICON      "icons/filledFluentUI/find_off.ico"
+IDI_REPLACE_ICON2               ICON      "icons/filledFluentUI/findrep_off.ico"
+IDI_ZOOMIN_ICON2                ICON      "icons/filledFluentUI/zoomIn_off.ico"
+IDI_ZOOMOUT_ICON2               ICON      "icons/filledFluentUI/zoomOut_off.ico"
+IDI_VIEW_UD_DLG_ICON2           ICON      "icons/filledFluentUI/userDefineDlg_off.ico"
+IDI_PRINT_ICON2                 ICON      "icons/filledFluentUI/imprim_off.ico"
+IDI_STARTRECORD_ICON2           ICON      "icons/filledFluentUI/startrecord_off.ico"
+IDI_STARTRECORD_DISABLE_ICON2   ICON      "icons/filledFluentUI/startrecord_dis.ico"
+IDI_STOPRECORD_ICON2            ICON      "icons/filledFluentUI/stoprecord_off.ico"
+IDI_STOPRECORD_DISABLE_ICON2    ICON      "icons/filledFluentUI/stoprecord_dis.ico"
+IDI_PLAYRECORD_ICON2            ICON      "icons/filledFluentUI/playrecord_off.ico"
+IDI_PLAYRECORD_DISABLE_ICON2    ICON      "icons/filledFluentUI/playrecord_dis.ico"
+IDI_SAVERECORD_ICON2            ICON      "icons/filledFluentUI/saverecord_off.ico"
+IDI_SAVERECORD_DISABLE_ICON2    ICON      "icons/filledFluentUI/saverecord_dis.ico"
+IDI_MMPLAY_DIS_ICON2            ICON      "icons/filledFluentUI/playrecord_m_dis.ico"
+IDI_MMPLAY_ICON2                ICON      "icons/filledFluentUI/playrecord_m_off.ico"
+IDI_VIEW_ALL_CHAR_ICON2         ICON      "icons/filledFluentUI/allChars_off.ico"
+IDI_VIEW_INDENT_ICON2           ICON      "icons/filledFluentUI/indentGuide_off.ico"
+IDI_VIEW_WRAP_ICON2             ICON      "icons/filledFluentUI/wrap_off.ico"
+IDI_SAVE_DISABLE_ICON2          ICON      "icons/filledFluentUI/save_dis.ico"
+IDI_SAVEALL_DISABLE_ICON2       ICON      "icons/filledFluentUI/saveall_dis.ico"
+IDI_CUT_DISABLE_ICON2           ICON      "icons/filledFluentUI/cut_dis.ico"
+IDI_COPY_DISABLE_ICON2          ICON      "icons/filledFluentUI/dupli_dis.ico"
+IDI_PASTE_DISABLE_ICON2         ICON      "icons/filledFluentUI/paste_dis.ico"
+IDI_UNDO_DISABLE_ICON2          ICON      "icons/filledFluentUI/undo_dis.ico"
+IDI_REDO_DISABLE_ICON2          ICON      "icons/filledFluentUI/redo_dis.ico"
+IDI_SYNCV_ICON2                 ICON      "icons/filledFluentUI/syncV_off.ico"
+IDI_SYNCV_DISABLE_ICON2         ICON      "icons/filledFluentUI/syncV_dis.ico"
+IDI_SYNCH_ICON2                 ICON      "icons/filledFluentUI/syncH_off.ico"
+IDI_SYNCH_DISABLE_ICON2         ICON      "icons/filledFluentUI/syncH_dis.ico"
+IDI_VIEW_DOC_MAP_ICON2          ICON      "icons/filledFluentUI/docMap_off.ico" 
+IDI_VIEW_FUNCLIST_ICON2         ICON      "icons/filledFluentUI/funcList_off.ico" 
+IDI_VIEW_FILEBROWSER_ICON2      ICON      "icons/filledFluentUI/fileBrowser_off.ico" 
+IDI_VIEW_MONITORING_ICON2       ICON      "icons/filledFluentUI/monitoring_off.ico"
+
+//
+// TOOLBAR ICO - set 1 Dark Mode
+//
+IDI_NEW_ICON_DM                    ICON      "icons/darkMode/toolbar/FluentUI/new_off.ico"
+IDI_OPEN_ICON_DM                   ICON      "icons/darkMode/toolbar/FluentUI/open_off.ico"
+IDI_CLOSE_ICON_DM                  ICON      "icons/darkMode/toolbar/FluentUI/supp_off.ico"
+IDI_CLOSEALL_ICON_DM               ICON      "icons/darkMode/toolbar/FluentUI/suppall_off.ico"
+IDI_SAVE_ICON_DM                   ICON      "icons/darkMode/toolbar/FluentUI/save_off.ico"
+IDI_SAVEALL_ICON_DM                ICON      "icons/darkMode/toolbar/FluentUI/saveall_off.ico"
+IDI_CUT_ICON_DM                    ICON      "icons/darkMode/toolbar/FluentUI/cut_off.ico"
+IDI_COPY_ICON_DM                   ICON      "icons/darkMode/toolbar/FluentUI/dupli_off.ico"
+IDI_PASTE_ICON_DM                  ICON      "icons/darkMode/toolbar/FluentUI/paste_off.ico"
+IDI_UNDO_ICON_DM                   ICON      "icons/darkMode/toolbar/FluentUI/undo_off.ico"
+IDI_REDO_ICON_DM                   ICON      "icons/darkMode/toolbar/FluentUI/redo_off.ico"
+IDI_FIND_ICON_DM                   ICON      "icons/darkMode/toolbar/FluentUI/find_off.ico"
+IDI_REPLACE_ICON_DM                ICON      "icons/darkMode/toolbar/FluentUI/findrep_off.ico"
+IDI_ZOOMIN_ICON_DM                 ICON      "icons/darkMode/toolbar/FluentUI/zoomIn_off.ico"
+IDI_ZOOMOUT_ICON_DM                ICON      "icons/darkMode/toolbar/FluentUI/zoomOut_off.ico"
+IDI_VIEW_UD_DLG_ICON_DM            ICON      "icons/darkMode/toolbar/FluentUI/userDefineDlg_off.ico"
+IDI_PRINT_ICON_DM                  ICON      "icons/darkMode/toolbar/FluentUI/imprim_off.ico"
+IDI_STARTRECORD_ICON_DM            ICON      "icons/darkMode/toolbar/FluentUI/startrecord_off.ico"
+IDI_STARTRECORD_DISABLE_ICON_DM    ICON      "icons/darkMode/toolbar/FluentUI/startrecord_dis.ico"
+IDI_STOPRECORD_ICON_DM             ICON      "icons/darkMode/toolbar/FluentUI/stoprecord_off.ico"
+IDI_STOPRECORD_DISABLE_ICON_DM     ICON      "icons/darkMode/toolbar/FluentUI/stoprecord_dis.ico"
+IDI_PLAYRECORD_ICON_DM             ICON      "icons/darkMode/toolbar/FluentUI/playrecord_off.ico"
+IDI_PLAYRECORD_DISABLE_ICON_DM     ICON      "icons/darkMode/toolbar/FluentUI/playrecord_dis.ico"
+IDI_SAVERECORD_ICON_DM             ICON      "icons/darkMode/toolbar/FluentUI/saverecord_off.ico"
+IDI_SAVERECORD_DISABLE_ICON_DM     ICON      "icons/darkMode/toolbar/FluentUI/saverecord_dis.ico"
+IDI_MMPLAY_DIS_ICON_DM             ICON      "icons/darkMode/toolbar/FluentUI/playrecord_m_dis.ico"
+IDI_MMPLAY_ICON_DM                 ICON      "icons/darkMode/toolbar/FluentUI/playrecord_m_off.ico"
+IDI_VIEW_ALL_CHAR_ICON_DM          ICON      "icons/darkMode/toolbar/FluentUI/allChars_off.ico"
+IDI_VIEW_INDENT_ICON_DM            ICON      "icons/darkMode/toolbar/FluentUI/indentGuide_off.ico"
+IDI_VIEW_WRAP_ICON_DM              ICON      "icons/darkMode/toolbar/FluentUI/wrap_off.ico"
+IDI_SAVE_DISABLE_ICON_DM           ICON      "icons/darkMode/toolbar/FluentUI/save_dis.ico"
+IDI_SAVEALL_DISABLE_ICON_DM        ICON      "icons/darkMode/toolbar/FluentUI/saveall_dis.ico"
+IDI_CUT_DISABLE_ICON_DM            ICON      "icons/darkMode/toolbar/FluentUI/cut_dis.ico"
+IDI_COPY_DISABLE_ICON_DM           ICON      "icons/darkMode/toolbar/FluentUI/dupli_dis.ico"
+IDI_PASTE_DISABLE_ICON_DM          ICON      "icons/darkMode/toolbar/FluentUI/paste_dis.ico"
+IDI_UNDO_DISABLE_ICON_DM           ICON      "icons/darkMode/toolbar/FluentUI/undo_dis.ico"
+IDI_REDO_DISABLE_ICON_DM           ICON      "icons/darkMode/toolbar/FluentUI/redo_dis.ico"
+IDI_SYNCV_ICON_DM                  ICON      "icons/darkMode/toolbar/FluentUI/syncV_off.ico"
+IDI_SYNCV_DISABLE_ICON_DM          ICON      "icons/darkMode/toolbar/FluentUI/syncV_dis.ico"
+IDI_SYNCH_ICON_DM                  ICON      "icons/darkMode/toolbar/FluentUI/syncH_off.ico"
+IDI_SYNCH_DISABLE_ICON_DM          ICON      "icons/darkMode/toolbar/FluentUI/syncH_dis.ico"
+IDI_VIEW_DOC_MAP_ICON_DM           ICON      "icons/darkMode/toolbar/FluentUI/docMap_off.ico" 
+IDI_VIEW_FUNCLIST_ICON_DM          ICON      "icons/darkMode/toolbar/FluentUI/funcList_off.ico" 
+IDI_VIEW_FILEBROWSER_ICON_DM       ICON      "icons/darkMode/toolbar/FluentUI/fileBrowser_off.ico" 
+IDI_VIEW_MONITORING_ICON_DM        ICON      "icons/darkMode/toolbar/FluentUI/monitoring_off.ico"
+
+//
+// TOOLBAR ICO - set 2 Dark Mode
+//
+IDI_NEW_ICON_DM2                   ICON      "icons/darkMode/toolbar/filledFluentUI/new_off.ico"
+IDI_OPEN_ICON_DM2                  ICON      "icons/darkMode/toolbar/filledFluentUI/open_off.ico"
+IDI_CLOSE_ICON_DM2                 ICON      "icons/darkMode/toolbar/filledFluentUI/supp_off.ico"
+IDI_CLOSEALL_ICON_DM2              ICON      "icons/darkMode/toolbar/filledFluentUI/suppall_off.ico"
+IDI_SAVE_ICON_DM2                  ICON      "icons/darkMode/toolbar/filledFluentUI/save_off.ico"
+IDI_SAVEALL_ICON_DM2               ICON      "icons/darkMode/toolbar/filledFluentUI/saveall_off.ico"
+IDI_CUT_ICON_DM2                   ICON      "icons/darkMode/toolbar/filledFluentUI/cut_off.ico"
+IDI_COPY_ICON_DM2                  ICON      "icons/darkMode/toolbar/filledFluentUI/dupli_off.ico"
+IDI_PASTE_ICON_DM2                 ICON      "icons/darkMode/toolbar/filledFluentUI/paste_off.ico"
+IDI_UNDO_ICON_DM2                  ICON      "icons/darkMode/toolbar/filledFluentUI/undo_off.ico"
+IDI_REDO_ICON_DM2                  ICON      "icons/darkMode/toolbar/filledFluentUI/redo_off.ico"
+IDI_FIND_ICON_DM2                  ICON      "icons/darkMode/toolbar/filledFluentUI/find_off.ico"
+IDI_REPLACE_ICON_DM2               ICON      "icons/darkMode/toolbar/filledFluentUI/findrep_off.ico"
+IDI_ZOOMIN_ICON_DM2                ICON      "icons/darkMode/toolbar/filledFluentUI/zoomIn_off.ico"
+IDI_ZOOMOUT_ICON_DM2               ICON      "icons/darkMode/toolbar/filledFluentUI/zoomOut_off.ico"
+IDI_VIEW_UD_DLG_ICON_DM2           ICON      "icons/darkMode/toolbar/filledFluentUI/userDefineDlg_off.ico"
+IDI_PRINT_ICON_DM2                 ICON      "icons/darkMode/toolbar/filledFluentUI/imprim_off.ico"
+IDI_STARTRECORD_ICON_DM2           ICON      "icons/darkMode/toolbar/filledFluentUI/startrecord_off.ico"
+IDI_STARTRECORD_DISABLE_ICON_DM2   ICON      "icons/darkMode/toolbar/filledFluentUI/startrecord_dis.ico"
+IDI_STOPRECORD_ICON_DM2            ICON      "icons/darkMode/toolbar/filledFluentUI/stoprecord_off.ico"
+IDI_STOPRECORD_DISABLE_ICON_DM2    ICON      "icons/darkMode/toolbar/filledFluentUI/stoprecord_dis.ico"
+IDI_PLAYRECORD_ICON_DM2            ICON      "icons/darkMode/toolbar/filledFluentUI/playrecord_off.ico"
+IDI_PLAYRECORD_DISABLE_ICON_DM2    ICON      "icons/darkMode/toolbar/filledFluentUI/playrecord_dis.ico"
+IDI_SAVERECORD_ICON_DM2            ICON      "icons/darkMode/toolbar/filledFluentUI/saverecord_off.ico"
+IDI_SAVERECORD_DISABLE_ICON_DM2    ICON      "icons/darkMode/toolbar/filledFluentUI/saverecord_dis.ico"
+IDI_MMPLAY_DIS_ICON_DM2            ICON      "icons/darkMode/toolbar/filledFluentUI/playrecord_m_dis.ico"
+IDI_MMPLAY_ICON_DM2                ICON      "icons/darkMode/toolbar/filledFluentUI/playrecord_m_off.ico"
+IDI_VIEW_ALL_CHAR_ICON_DM2         ICON      "icons/darkMode/toolbar/filledFluentUI/allChars_off.ico"
+IDI_VIEW_INDENT_ICON_DM2           ICON      "icons/darkMode/toolbar/filledFluentUI/indentGuide_off.ico"
+IDI_VIEW_WRAP_ICON_DM2             ICON      "icons/darkMode/toolbar/filledFluentUI/wrap_off.ico"
+IDI_SAVE_DISABLE_ICON_DM2          ICON      "icons/darkMode/toolbar/filledFluentUI/save_dis.ico"
+IDI_SAVEALL_DISABLE_ICON_DM2       ICON      "icons/darkMode/toolbar/filledFluentUI/saveall_dis.ico"
+IDI_CUT_DISABLE_ICON_DM2           ICON      "icons/darkMode/toolbar/filledFluentUI/cut_dis.ico"
+IDI_COPY_DISABLE_ICON_DM2          ICON      "icons/darkMode/toolbar/filledFluentUI/dupli_dis.ico"
+IDI_PASTE_DISABLE_ICON_DM2         ICON      "icons/darkMode/toolbar/filledFluentUI/paste_dis.ico"
+IDI_UNDO_DISABLE_ICON_DM2          ICON      "icons/darkMode/toolbar/filledFluentUI/undo_dis.ico"
+IDI_REDO_DISABLE_ICON_DM2          ICON      "icons/darkMode/toolbar/filledFluentUI/redo_dis.ico"
+IDI_SYNCV_ICON_DM2                 ICON      "icons/darkMode/toolbar/filledFluentUI/syncV_off.ico"
+IDI_SYNCV_DISABLE_ICON_DM2         ICON      "icons/darkMode/toolbar/filledFluentUI/syncV_dis.ico"
+IDI_SYNCH_ICON_DM2                 ICON      "icons/darkMode/toolbar/filledFluentUI/syncH_off.ico"
+IDI_SYNCH_DISABLE_ICON_DM2         ICON      "icons/darkMode/toolbar/filledFluentUI/syncH_dis.ico"
+IDI_VIEW_DOC_MAP_ICON_DM2          ICON      "icons/darkMode/toolbar/filledFluentUI/docMap_off.ico" 
+IDI_VIEW_FUNCLIST_ICON_DM2         ICON      "icons/darkMode/toolbar/filledFluentUI/funcList_off.ico" 
+IDI_VIEW_FILEBROWSER_ICON_DM2      ICON      "icons/darkMode/toolbar/filledFluentUI/fileBrowser_off.ico" 
+IDI_VIEW_MONITORING_ICON_DM2       ICON      "icons/darkMode/toolbar/filledFluentUI/monitoring_off.ico"
+
+
+
+
+
+
+IDI_SAVED_ICON                  ICON      "icons/saved.ico"
+IDI_SAVED_DM_ICON               ICON      "icons/darkMode/tabbar/saved.ico"
+IDI_SAVED_ALT_ICON              ICON      "icons/saved_alt.ico"
+IDI_UNSAVED_ICON                ICON      "icons/unsaved.ico"
+IDI_UNSAVED_DM_ICON             ICON      "icons/darkMode/tabbar/unsaved.ico"
+IDI_UNSAVED_ALT_ICON            ICON      "icons/unsaved_alt.ico"
+IDI_READONLY_ICON               ICON      "icons/readonly.ico"
+IDI_READONLY_DM_ICON            ICON      "icons/darkMode/tabbar/readonly.ico"
+IDI_READONLY_ALT_ICON           ICON      "icons/readonly_alt.ico"
+IDI_MONITORING_ICON             ICON      "icons/monitoring.ico"
+IDI_MONITORING_DM_ICON          ICON      "icons/darkMode/tabbar/monitoring.ico"
+IDI_DELETE_ICON                 ICON      "icons/delete.ico"
+IDI_FIND_RESULT_ICON            ICON      "icons/findResult.ico"
+
+IDC_DRAG_TAB                    CURSOR    "cursors/drag.cur"
+IDC_DRAG_INTERDIT_TAB           CURSOR    "cursors/drag_interdit.cur"
+IDC_DRAG_PLUS_TAB               CURSOR    "cursors/drag_plus.cur"
+IDC_DRAG_OUT_TAB                CURSOR    "cursors/drag_out.cur"
+
+IDR_FILENEW                     BITMAP    "icons/newFile.bmp"
+IDR_FILEOPEN                    BITMAP    "icons/openFile.bmp"
+IDR_FILESAVE                    BITMAP    "icons/saveFile.bmp"
+IDR_SAVEALL                     BITMAP    "icons/saveAll.bmp"
+IDR_CLOSEFILE                   BITMAP    "icons/closeFile.bmp"
+IDR_CLOSEALL                    BITMAP    "icons/closeAll.bmp"
+IDR_FIND                        BITMAP    "icons/find.bmp"
+IDR_REPLACE                     BITMAP    "icons/findReplace.bmp"
+IDR_ZOOMIN                      BITMAP    "icons/zoomIn.bmp"
+IDR_ZOOMOUT                     BITMAP    "icons/zoomOut.bmp"
+IDR_WRAP                        BITMAP    "icons/wrap.bmp"
+IDR_INVISIBLECHAR               BITMAP    "icons/invisibleChar.bmp"
+IDR_INDENTGUIDE                 BITMAP    "icons/indentGuide.bmp"
+IDR_SHOWPANNEL                  BITMAP    "icons/showPannel.bmp"
+IDR_STARTRECORD                 BITMAP    "icons/startRecord.bmp"
+IDR_STOPRECORD                  BITMAP    "icons/stopRecord.bmp"
+IDR_PLAYRECORD                  BITMAP    "icons/playRecord.bmp"
+IDR_M_PLAYRECORD                BITMAP    "icons/playRecord_m.bmp"
+IDR_SAVERECORD                  BITMAP    "icons/saveRecord.bmp"
+IDR_CUT                         BITMAP    "icons/cut.bmp"
+IDR_COPY                        BITMAP    "icons/copy.bmp"
+IDR_PASTE                       BITMAP    "icons/paste.bmp"
+IDR_UNDO                        BITMAP    "icons/undo.bmp"
+IDR_REDO                        BITMAP    "icons/redo.bmp"
+IDR_SYNCV                       BITMAP    "icons/syncV.bmp"
+IDR_SYNCH                       BITMAP    "icons/syncH.bmp"
+IDR_PRINT                       BITMAP    "icons/print.bmp"
+IDR_CLOSETAB                    BITMAP    "icons/closeTabButton.bmp"
+IDR_CLOSETAB_INACT              BITMAP    "icons/closeTabButton_inact.bmp"
+IDR_CLOSETAB_HOVER              BITMAP    "icons/closeTabButton_hover.bmp"
+IDR_CLOSETAB_PUSH               BITMAP    "icons/closeTabButton_push.bmp"
+IDR_CLOSETAB_DM                 BITMAP    "icons/darkMode/tabbar/closeTabButton.bmp"
+IDR_CLOSETAB_INACT_DM           BITMAP    "icons/darkMode/tabbar/closeTabButton_inact.bmp"
+IDR_CLOSETAB_HOVER_DM           BITMAP    "icons/darkMode/tabbar/closeTabButton_hover.bmp"
+IDR_CLOSETAB_PUSH_DM            BITMAP    "icons/darkMode/tabbar/closeTabButton_push.bmp"
+IDR_DOCMAP                      BITMAP    "icons/docMap.bmp"
+IDR_FUNC_LIST                   BITMAP    "icons/functionList.bmp"
+IDR_FILEBROWSER                 BITMAP    "icons/fileBrowser.bmp"
+IDR_FILEMONITORING              BITMAP    "icons/fileMonitoring.bmp"
+
+IDR_DOCMAP_ICO                  ICON      "icons/docMap.ico"
+IDR_FUNC_LIST_ICO               ICON      "icons/functionList.ico"
+IDR_PROJECTPANEL_ICO            ICON      "icons/projectPanel.ico"
+IDR_FILEBROWSER_ICO             ICON      "icons/fileBrowser.ico"
+IDR_CLIPBOARDPANEL_ICO          ICON      "icons/clipboardPanel.ico"
+IDR_ASCIIPANEL_ICO              ICON      "icons/asciiPanel.ico"
+IDR_DOCSWITCHER_ICO             ICON      "icons/docSwitcher.ico"
+
+
+IDI_PROJECT_WORKSPACE           BITMAP      "icons/project_work_space.bmp"
+IDI_PROJECT_WORKSPACEDIRTY      BITMAP      "icons/project_work_space_dirty.bmp"
+IDI_PROJECT_PROJECT             BITMAP      "icons/project_root.bmp"
+IDI_PROJECT_FOLDEROPEN          BITMAP      "icons/project_folder_open.bmp"
+IDI_PROJECT_FOLDERCLOSE         BITMAP      "icons/project_folder_close.bmp"
+IDI_PROJECT_FILE                BITMAP      "icons/project_file.bmp"
+IDI_PROJECT_FILEINVALID         BITMAP      "icons/project_file_invalid.bmp"
+IDI_FB_ROOTOPEN                 BITMAP      "icons/fb_root_open.bmp"
+IDI_FB_ROOTCLOSE                BITMAP      "icons/fb_root_close.bmp"
+
+IDI_FB_SELECTCURRENTFILE        BITMAP      "icons/fb_select_current_file.bmp"
+IDI_FB_FOLDALL                  BITMAP      "icons/fb_fold_all.bmp"
+IDI_FB_EXPANDALL                BITMAP      "icons/fb_expand_all.bmp"
+
+IDI_FUNCLIST_ROOT               BITMAP      "icons/project_file.bmp"
+IDI_FUNCLIST_NODE               BITMAP      "icons/funcList_node.bmp"
+IDI_FUNCLIST_LEAF               BITMAP      "icons/funcList_leaf.bmp"
+
+IDI_FUNCLIST_SORTBUTTON         BITMAP      "icons/funclstSort.bmp"
+IDI_FUNCLIST_RELOADBUTTON       BITMAP      "icons/funclstReload.bmp"
+
+
+
+IDI_GET_INFO_FROM_TOOLTIP       ICON        "icons/MoreOnTooltip.ico"
+
+IDR_M30_MENU MENU
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&New",                             IDM_FILE_NEW
+        MENUITEM "&Open...",                         IDM_FILE_OPEN
+        POPUP "Open Containing &Folder"
+        BEGIN
+            MENUITEM "Explorer",       IDM_FILE_OPEN_FOLDER
+            MENUITEM "cmd",            IDM_FILE_OPEN_CMD
+			MENUITEM SEPARATOR
+            MENUITEM "Folder as Workspace", IDM_FILE_CONTAININGFOLDERASWORKSPACE
+        END
+        MENUITEM "Open in &Default Viewer",          IDM_FILE_OPEN_DEFAULT_VIEWER
+        MENUITEM "Open Folder as &Workspace...",     IDM_FILE_OPENFOLDERASWORSPACE
+        MENUITEM "Re&load from Disk",                IDM_FILE_RELOAD
+        MENUITEM "&Save",                            IDM_FILE_SAVE
+        MENUITEM "Save &As...",                      IDM_FILE_SAVEAS
+        MENUITEM "Save a Cop&y As...",               IDM_FILE_SAVECOPYAS
+        MENUITEM "Sa&ve All",                        IDM_FILE_SAVEALL
+        MENUITEM "&Rename...",                       IDM_FILE_RENAME
+        MENUITEM "&Close",                           IDM_FILE_CLOSE
+        MENUITEM "Clos&e All",                       IDM_FILE_CLOSEALL
+        POPUP "Close &More"
+        BEGIN
+            MENUITEM "Close All but Active Document",    IDM_FILE_CLOSEALL_BUT_CURRENT
+            MENUITEM "Close All to the Left",            IDM_FILE_CLOSEALL_TOLEFT
+            MENUITEM "Close All to the Right",           IDM_FILE_CLOSEALL_TORIGHT
+            MENUITEM "Close All Unchanged",              IDM_FILE_CLOSEALL_UNCHANGED
+        END
+        MENUITEM "Move to Recycle &Bin",             IDM_FILE_DELETE
+        MENUITEM SEPARATOR
+        MENUITEM "Load Sess&ion...",                 IDM_FILE_LOADSESSION
+        MENUITEM "Save Sess&ion...",                 IDM_FILE_SAVESESSION
+        MENUITEM SEPARATOR
+        MENUITEM "&Print...",                        IDM_FILE_PRINT
+        MENUITEM "Print No&w",                       IDM_FILE_PRINTNOW
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",                            IDM_FILE_EXIT
+    END
+
+    POPUP "&Edit"
+    BEGIN
+        MENUITEM "&Undo",                            IDM_EDIT_UNDO
+        MENUITEM "&Redo",                            IDM_EDIT_REDO
+        MENUITEM SEPARATOR
+        MENUITEM "Cu&t",                             IDM_EDIT_CUT
+        MENUITEM "&Copy",                            IDM_EDIT_COPY
+        MENUITEM "&Paste",                           IDM_EDIT_PASTE
+        MENUITEM "&Delete",                          IDM_EDIT_DELETE
+        MENUITEM "&Select All",                      IDM_EDIT_SELECTALL
+        MENUITEM "Begin/End &Select",                IDM_EDIT_BEGINENDSELECT
+        MENUITEM SEPARATOR
+        POPUP "Cop&y to Clipboard"
+        BEGIN
+                MENUITEM "Current Full File path to Clipboard",    IDM_EDIT_FULLPATHTOCLIP
+                MENUITEM "Current Filename to Clipboard",          IDM_EDIT_FILENAMETOCLIP
+                MENUITEM "Current Dir. Path to Clipboard",         IDM_EDIT_CURRENTDIRTOCLIP
+        END
+        POPUP "&Indent"
+        BEGIN
+            MENUITEM "Increase Line Indent",    IDM_EDIT_INS_TAB
+            MENUITEM "Decrease Line Indent",    IDM_EDIT_RMV_TAB
+        END
+        POPUP "Con&vert Case to"
+        BEGIN
+            MENUITEM "&UPPERCASE",              IDM_EDIT_UPPERCASE
+            MENUITEM "&lowercase",              IDM_EDIT_LOWERCASE
+            MENUITEM "&Proper Case",            IDM_EDIT_PROPERCASE_FORCE
+            MENUITEM "Proper Case (blend)",      IDM_EDIT_PROPERCASE_BLEND
+            MENUITEM "&Sentence case",          IDM_EDIT_SENTENCECASE_FORCE
+            MENUITEM "Sentence case (blend)",   IDM_EDIT_SENTENCECASE_BLEND
+            MENUITEM "&iNVERT cASE",             IDM_EDIT_INVERTCASE
+            MENUITEM "&ranDOm CasE",             IDM_EDIT_RANDOMCASE
+        END
+        POPUP "&Line Operations"
+        BEGIN
+            MENUITEM "Duplicate Current Line",                           IDM_EDIT_DUP_LINE
+            MENUITEM "Remove Duplicate Lines",                           IDM_EDIT_REMOVE_ANY_DUP_LINES
+            MENUITEM "Remove Consecutive Duplicate Lines",               IDM_EDIT_REMOVE_CONSECUTIVE_DUP_LINES
+            MENUITEM "Split Lines",                                      IDM_EDIT_SPLIT_LINES
+            MENUITEM "Join Lines",                                       IDM_EDIT_JOIN_LINES
+            MENUITEM "Move Up Current Line",                             IDM_EDIT_LINE_UP
+            MENUITEM "Move Down Current Line",                           IDM_EDIT_LINE_DOWN
+            MENUITEM "Remove Empty Lines",                               IDM_EDIT_REMOVEEMPTYLINES
+            MENUITEM "Remove Empty Lines (Containing Blank characters)", IDM_EDIT_REMOVEEMPTYLINESWITHBLANK
+            MENUITEM "Insert Blank Line Above Current",                  IDM_EDIT_BLANKLINEABOVECURRENT
+            MENUITEM "Insert Blank Line Below Current",                  IDM_EDIT_BLANKLINEBELOWCURRENT
+            MENUITEM "Reverse Line Order",                               IDM_EDIT_SORTLINES_REVERSE_ORDER
+            MENUITEM "Randomize Line Order",                             IDM_EDIT_SORTLINES_RANDOMLY
+            MENUITEM SEPARATOR
+            MENUITEM "Sort Lines Lexicographically Ascending",           IDM_EDIT_SORTLINES_LEXICOGRAPHIC_ASCENDING
+            MENUITEM "Sort Lines Lex. Ascending Ignoring Case",          IDM_EDIT_SORTLINES_LEXICO_CASE_INSENS_ASCENDING
+            MENUITEM "Sort Lines As Integers Ascending",                 IDM_EDIT_SORTLINES_INTEGER_ASCENDING
+            MENUITEM "Sort Lines As Decimals (Comma) Ascending",         IDM_EDIT_SORTLINES_DECIMALCOMMA_ASCENDING
+            MENUITEM "Sort Lines As Decimals (Dot) Ascending",           IDM_EDIT_SORTLINES_DECIMALDOT_ASCENDING
+            MENUITEM SEPARATOR
+            MENUITEM "Sort Lines Lexicographically Descending",          IDM_EDIT_SORTLINES_LEXICOGRAPHIC_DESCENDING
+            MENUITEM "Sort Lines Lex. Descending Ignoring Case",         IDM_EDIT_SORTLINES_LEXICO_CASE_INSENS_DESCENDING
+            MENUITEM "Sort Lines As Integers Descending",                IDM_EDIT_SORTLINES_INTEGER_DESCENDING
+            MENUITEM "Sort Lines As Decimals (Comma) Descending",        IDM_EDIT_SORTLINES_DECIMALCOMMA_DESCENDING
+            MENUITEM "Sort Lines As Decimals (Dot) Descending",          IDM_EDIT_SORTLINES_DECIMALDOT_DESCENDING
+        END
+        POPUP "Co&mment/Uncomment"
+        BEGIN
+            MENUITEM "Toggle Single Line Comment",    IDM_EDIT_BLOCK_COMMENT
+            MENUITEM "Single Line Comment",           IDM_EDIT_BLOCK_COMMENT_SET
+            MENUITEM "Single Line Uncomment",         IDM_EDIT_BLOCK_UNCOMMENT
+            MENUITEM "Block Comment",          IDM_EDIT_STREAM_COMMENT
+            MENUITEM "Block Uncomment",        IDM_EDIT_STREAM_UNCOMMENT
+        END
+        POPUP "&Auto-Completion"
+        BEGIN
+            MENUITEM "Function Completion",         IDM_EDIT_AUTOCOMPLETE
+            MENUITEM "Word Completion",             IDM_EDIT_AUTOCOMPLETE_CURRENTFILE
+            MENUITEM "Function Parameters Hint",    IDM_EDIT_FUNCCALLTIP
+            MENUITEM "Path Completion",             IDM_EDIT_AUTOCOMPLETE_PATH
+        END
+        POPUP "&EOL Conversion"
+        BEGIN
+            MENUITEM "Windows (CR LF)",             IDM_FORMAT_TODOS
+            MENUITEM "Unix (LF)",                   IDM_FORMAT_TOUNIX
+            MENUITEM "Macintosh (CR)",              IDM_FORMAT_TOMAC
+        END
+        POPUP "&Blank Operations"
+        BEGIN
+            MENUITEM "Trim Trailing Space",                IDM_EDIT_TRIMTRAILING
+            MENUITEM "Trim Leading Space",                 IDM_EDIT_TRIMLINEHEAD
+            MENUITEM "Trim Leading and Trailing Space",    IDM_EDIT_TRIM_BOTH
+            MENUITEM "EOL to Space",                       IDM_EDIT_EOL2WS
+            MENUITEM "Remove Unnecessary Blank and EOL",   IDM_EDIT_TRIMALL
+            MENUITEM SEPARATOR
+            MENUITEM "TAB to Space",                       IDM_EDIT_TAB2SW
+            MENUITEM "Space to TAB (All)",                 IDM_EDIT_SW2TAB_ALL
+            MENUITEM "Space to TAB (Leading)",             IDM_EDIT_SW2TAB_LEADING
+        END
+        POPUP "&Paste Special"
+        BEGIN
+            MENUITEM "Paste HTML Content",                 IDM_EDIT_PASTE_AS_HTML
+            MENUITEM "Paste RTF Content",                  IDM_EDIT_PASTE_AS_RTF
+            MENUITEM SEPARATOR
+            MENUITEM "Copy Binary Content",                IDM_EDIT_COPY_BINARY
+            MENUITEM "Cut Binary Content",                 IDM_EDIT_CUT_BINARY
+            MENUITEM "Paste Binary Content",               IDM_EDIT_PASTE_BINARY
+        END
+        POPUP "&On Selection"
+        BEGIN
+            MENUITEM "Open File",           IDM_EDIT_OPENASFILE
+            MENUITEM "Open Containing Folder in Explorer",         IDM_EDIT_OPENINFOLDER
+            MENUITEM SEPARATOR
+            MENUITEM "Search on Internet",     IDM_EDIT_SEARCHONINTERNET
+            MENUITEM "Change Search Engine...", IDM_EDIT_CHANGESEARCHENGINE
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "Column Mode...",        IDM_EDIT_COLUMNMODETIP
+        MENUITEM "Colum&n Editor...",        IDM_EDIT_COLUMNMODE
+        MENUITEM "Character &Panel",        IDM_EDIT_CHAR_PANEL
+        MENUITEM "Clipboard &History",      IDM_EDIT_CLIPBOARDHISTORY_PANEL
+        MENUITEM SEPARATOR
+        MENUITEM "&Set Read-Only",           IDM_EDIT_SETREADONLY
+        MENUITEM "Clear Read-Only Flag",    IDM_EDIT_CLEARREADONLY
+    END
+
+    POPUP "&Search"
+    BEGIN
+        MENUITEM "&Find...",                    IDM_SEARCH_FIND
+        MENUITEM "Find in Fi&les...",           IDM_SEARCH_FINDINFILES
+        MENUITEM "Find &Next",                  IDM_SEARCH_FINDNEXT
+        MENUITEM "Find &Previous",              IDM_SEARCH_FINDPREV
+        MENUITEM "&Select and Find Next",       IDM_SEARCH_SETANDFINDNEXT
+        MENUITEM "&Select and Find Previous",   IDM_SEARCH_SETANDFINDPREV
+        MENUITEM "Find (&Volatile) Next",       IDM_SEARCH_VOLATILE_FINDNEXT
+        MENUITEM "Find (&Volatile) Previous",   IDM_SEARCH_VOLATILE_FINDPREV
+        MENUITEM "&Replace...",                 IDM_SEARCH_REPLACE
+        MENUITEM "&Incremental Search",         IDM_SEARCH_FINDINCREMENT
+        MENUITEM "Search Results &Window",      IDM_FOCUS_ON_FOUND_RESULTS
+        MENUITEM "Next Search Resul&t",         IDM_SEARCH_GOTONEXTFOUND
+        MENUITEM "Previous Search Resul&t",     IDM_SEARCH_GOTOPREVFOUND
+        MENUITEM "&Go to...",                   IDM_SEARCH_GOTOLINE
+        MENUITEM "Go to &Matching Brace",       IDM_SEARCH_GOTOMATCHINGBRACE
+        MENUITEM "Select All Between &Matching Braces", IDM_SEARCH_SELECTMATCHINGBRACES
+        MENUITEM "Mar&k...",                    IDM_SEARCH_MARK
+        MENUITEM SEPARATOR
+
+        POPUP "Mark &All"
+        BEGIN
+            MENUITEM "Using 1st Style",    IDM_SEARCH_MARKALLEXT1
+            MENUITEM "Using 2nd Style",    IDM_SEARCH_MARKALLEXT2
+            MENUITEM "Using 3rd Style",    IDM_SEARCH_MARKALLEXT3
+            MENUITEM "Using 4th Style",    IDM_SEARCH_MARKALLEXT4
+            MENUITEM "Using 5th Style",    IDM_SEARCH_MARKALLEXT5
+        END
+        POPUP "Mark &One"
+        BEGIN
+            MENUITEM "Using 1st Style",    IDM_SEARCH_MARKONEEXT1
+            MENUITEM "Using 2nd Style",    IDM_SEARCH_MARKONEEXT2
+            MENUITEM "Using 3rd Style",    IDM_SEARCH_MARKONEEXT3
+            MENUITEM "Using 4th Style",    IDM_SEARCH_MARKONEEXT4
+            MENUITEM "Using 5th Style",    IDM_SEARCH_MARKONEEXT5
+        END
+        POPUP "&Unmark All"
+        BEGIN
+            MENUITEM "Clear 1st Style",     IDM_SEARCH_UNMARKALLEXT1
+            MENUITEM "Clear 2nd Style",     IDM_SEARCH_UNMARKALLEXT2
+            MENUITEM "Clear 3rd Style",     IDM_SEARCH_UNMARKALLEXT3
+            MENUITEM "Clear 4th Style",     IDM_SEARCH_UNMARKALLEXT4
+            MENUITEM "Clear 5th Style",     IDM_SEARCH_UNMARKALLEXT5
+            MENUITEM "Clear all Styles",    IDM_SEARCH_CLEARALLMARKS
+        END
+        POPUP "&Jump Up"
+        BEGIN
+            MENUITEM "1st Style",     IDM_SEARCH_GOPREVMARKER1
+            MENUITEM "2nd Style",     IDM_SEARCH_GOPREVMARKER2
+            MENUITEM "3rd Style",     IDM_SEARCH_GOPREVMARKER3
+            MENUITEM "4th Style",     IDM_SEARCH_GOPREVMARKER4
+            MENUITEM "5th Style",     IDM_SEARCH_GOPREVMARKER5
+            MENUITEM "Find Style",    IDM_SEARCH_GOPREVMARKER_DEF
+        END
+        POPUP "Jump &Down"
+        BEGIN
+            MENUITEM "1st Style",      IDM_SEARCH_GONEXTMARKER1
+            MENUITEM "2nd Style",      IDM_SEARCH_GONEXTMARKER2
+            MENUITEM "3rd Style",      IDM_SEARCH_GONEXTMARKER3
+            MENUITEM "4th Style",      IDM_SEARCH_GONEXTMARKER4
+            MENUITEM "5th Style",      IDM_SEARCH_GONEXTMARKER5
+            MENUITEM "Find Style",     IDM_SEARCH_GONEXTMARKER_DEF
+        END
+        POPUP "&Copy Styled Text"
+        BEGIN
+            MENUITEM "1st Style",               IDM_SEARCH_STYLE1TOCLIP
+            MENUITEM "2nd Style",               IDM_SEARCH_STYLE2TOCLIP
+            MENUITEM "3rd Style",               IDM_SEARCH_STYLE3TOCLIP
+            MENUITEM "4th Style",               IDM_SEARCH_STYLE4TOCLIP
+            MENUITEM "5th Style",               IDM_SEARCH_STYLE5TOCLIP
+            MENUITEM "All Styles",              IDM_SEARCH_ALLSTYLESTOCLIP
+            MENUITEM "Find Style (Marked)",     IDM_SEARCH_MARKEDTOCLIP
+        END
+        MENUITEM SEPARATOR
+        POPUP "&Bookmark"
+        BEGIN
+            MENUITEM "Toggle Bookmark" ,                       IDM_SEARCH_TOGGLE_BOOKMARK
+            MENUITEM "Next Bookmark",                          IDM_SEARCH_NEXT_BOOKMARK
+            MENUITEM "Previous Bookmark",                      IDM_SEARCH_PREV_BOOKMARK
+            MENUITEM "Clear All Bookmarks",                    IDM_SEARCH_CLEAR_BOOKMARKS
+            MENUITEM "Cut Bookmarked Lines",                   IDM_SEARCH_CUTMARKEDLINES
+            MENUITEM "Copy Bookmarked Lines",                  IDM_SEARCH_COPYMARKEDLINES
+            MENUITEM "Paste to (Replace) Bookmarked Lines",    IDM_SEARCH_PASTEMARKEDLINES
+            MENUITEM "Remove Bookmarked Lines",                IDM_SEARCH_DELETEMARKEDLINES
+            MENUITEM "Remove Unmarked Lines",                  IDM_SEARCH_DELETEUNMARKEDLINES
+            MENUITEM "Inverse Bookmark",                       IDM_SEARCH_INVERSEMARKS
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "Find characters in rang&e...",       IDM_SEARCH_FINDCHARINRANGE
+    END
+
+    POPUP "&View"
+    BEGIN
+        MENUITEM "Always on Top",              IDM_VIEW_ALWAYSONTOP
+        MENUITEM "Toggle Full Screen Mode",    IDM_VIEW_FULLSCREENTOGGLE
+        MENUITEM "Post-It",                    IDM_VIEW_POSTIT
+        MENUITEM "Distraction Free Mode",      IDM_VIEW_DISTRACTIONFREE
+
+        MENUITEM SEPARATOR
+        POPUP "View Current File in"
+        BEGIN
+            MENUITEM "Firefox", IDM_VIEW_IN_FIREFOX
+            MENUITEM "Chrome", IDM_VIEW_IN_CHROME
+            MENUITEM "Edge", IDM_VIEW_IN_EDGE
+            MENUITEM "IE", IDM_VIEW_IN_IE
+        END
+        MENUITEM SEPARATOR
+        POPUP "Show Symbol"
+        BEGIN
+            MENUITEM "Show White Space and TAB",    IDM_VIEW_TAB_SPACE
+            MENUITEM "Show End of Line",            IDM_VIEW_EOL
+            MENUITEM "Show All Characters",         IDM_VIEW_ALL_CHARACTERS
+            MENUITEM SEPARATOR
+            MENUITEM "Show Indent Guide",           IDM_VIEW_INDENT_GUIDE
+            MENUITEM "Show Wrap Symbol",            IDM_VIEW_WRAP_SYMBOL
+        END
+        POPUP "Zoom"
+        BEGIN
+            MENUITEM "Zoom &In (Ctrl+Mouse Wheel Up)",       IDM_VIEW_ZOOMIN
+            MENUITEM "Zoom &Out (Ctrl+Mouse Wheel Down)",    IDM_VIEW_ZOOMOUT
+            MENUITEM "Restore Default Zoom",                 IDM_VIEW_ZOOMRESTORE
+        END
+        POPUP "Move/Clone Current Document"
+        BEGIN
+            MENUITEM "Move to Other View",      IDM_VIEW_GOTO_ANOTHER_VIEW
+            MENUITEM "Clone to Other View",     IDM_VIEW_CLONE_TO_ANOTHER_VIEW
+            MENUITEM "Move to New Instance",    IDM_VIEW_GOTO_NEW_INSTANCE
+            MENUITEM "Open in New Instance",    IDM_VIEW_LOAD_IN_NEW_INSTANCE
+        END
+        
+        POPUP "Tab"
+        BEGIN
+            MENUITEM "1st Tab",                 IDM_VIEW_TAB1
+            MENUITEM "2nd Tab",                 IDM_VIEW_TAB2
+            MENUITEM "3rd Tab",                 IDM_VIEW_TAB3
+            MENUITEM "4th Tab",                 IDM_VIEW_TAB4
+            MENUITEM "5th Tab",                 IDM_VIEW_TAB5
+            MENUITEM "6th Tab",                 IDM_VIEW_TAB6
+            MENUITEM "7th Tab",                 IDM_VIEW_TAB7
+            MENUITEM "8th Tab",                 IDM_VIEW_TAB8
+            MENUITEM "9th Tab",                 IDM_VIEW_TAB9
+            MENUITEM SEPARATOR
+            MENUITEM "Next Tab",                IDM_VIEW_TAB_NEXT
+            MENUITEM "Previous Tab",            IDM_VIEW_TAB_PREV
+            MENUITEM SEPARATOR
+            MENUITEM "Move Tab Forward",        IDM_VIEW_TAB_MOVEFORWARD
+            MENUITEM "Move Tab Backward",       IDM_VIEW_TAB_MOVEBACKWARD
+        END
+        MENUITEM "Word wrap",                   IDM_VIEW_WRAP
+        MENUITEM "Focus on Another View",         IDM_VIEW_SWITCHTO_OTHER_VIEW
+        MENUITEM "Hide Lines",                  IDM_VIEW_HIDELINES
+        MENUITEM SEPARATOR
+        MENUITEM "Fold All",                    IDM_VIEW_TOGGLE_FOLDALL
+        MENUITEM "Unfold All",                  IDM_VIEW_TOGGLE_UNFOLDALL
+        MENUITEM "Collapse Current Level",      IDM_VIEW_FOLD_CURRENT
+        MENUITEM "Uncollapse Current Level",    IDM_VIEW_UNFOLD_CURRENT
+        POPUP "Collapse Level"
+        BEGIN
+            MENUITEM "1",   IDM_VIEW_FOLD_1
+            MENUITEM "2",   IDM_VIEW_FOLD_2
+            MENUITEM "3",   IDM_VIEW_FOLD_3
+            MENUITEM "4",   IDM_VIEW_FOLD_4
+            MENUITEM "5",   IDM_VIEW_FOLD_5
+            MENUITEM "6",   IDM_VIEW_FOLD_6
+            MENUITEM "7",   IDM_VIEW_FOLD_7
+            MENUITEM "8",   IDM_VIEW_FOLD_8
+        END
+        POPUP "Uncollapse Level"
+        BEGIN
+            MENUITEM "1",    IDM_VIEW_UNFOLD_1
+            MENUITEM "2",    IDM_VIEW_UNFOLD_2
+            MENUITEM "3",    IDM_VIEW_UNFOLD_3
+            MENUITEM "4",    IDM_VIEW_UNFOLD_4
+            MENUITEM "5",    IDM_VIEW_UNFOLD_5
+            MENUITEM "6",    IDM_VIEW_UNFOLD_6
+            MENUITEM "7",    IDM_VIEW_UNFOLD_7
+            MENUITEM "8",    IDM_VIEW_UNFOLD_8
+        END
+
+        MENUITEM SEPARATOR
+            MENUITEM "Summary...",  IDM_VIEW_SUMMARY
+        MENUITEM SEPARATOR
+            POPUP "Project Panels"
+            BEGIN
+                MENUITEM "Project Panel 1",          IDM_VIEW_PROJECT_PANEL_1
+                MENUITEM "Project Panel 2",          IDM_VIEW_PROJECT_PANEL_2
+                MENUITEM "Project Panel 3",          IDM_VIEW_PROJECT_PANEL_3
+            END
+        MENUITEM "Folder as Workspace",   IDM_VIEW_FILEBROWSER
+        MENUITEM "Document Map",          IDM_VIEW_DOC_MAP
+        MENUITEM "Function List",         IDM_VIEW_FUNC_LIST
+        MENUITEM SEPARATOR
+        MENUITEM "Synchronize Vertical Scrolling",      IDM_VIEW_SYNSCROLLV
+        MENUITEM "Synchronize Horizontal Scrolling",    IDM_VIEW_SYNSCROLLH
+        MENUITEM SEPARATOR
+        MENUITEM "Text Direction RTL",                  IDM_EDIT_RTL
+        MENUITEM "Text Direction LTR",                  IDM_EDIT_LTR
+        MENUITEM SEPARATOR
+        MENUITEM "Monitoring (tail -f)",    IDM_VIEW_MONITORING
+    END
+
+    POPUP "E&ncoding"
+    BEGIN
+        MENUITEM "ANSI",                    IDM_FORMAT_ANSI
+        MENUITEM "UTF-8",                   IDM_FORMAT_AS_UTF_8
+        MENUITEM "UTF-8-BOM",               IDM_FORMAT_UTF_8
+        MENUITEM "UTF-16 BE BOM",           IDM_FORMAT_UTF_16BE
+        MENUITEM "UTF-16 LE BOM",           IDM_FORMAT_UTF_16LE
+        POPUP "Character sets"
+        BEGIN
+            POPUP "Arabic"
+            BEGIN
+                MENUITEM "ISO 8859-6",          IDM_FORMAT_ISO_8859_6
+                MENUITEM "OEM 720",             IDM_FORMAT_DOS_720
+                MENUITEM "Windows-1256",        IDM_FORMAT_WIN_1256
+            END
+
+            POPUP "Baltic"
+            BEGIN
+                MENUITEM "ISO 8859-4",          IDM_FORMAT_ISO_8859_4
+                MENUITEM "ISO 8859-13",         IDM_FORMAT_ISO_8859_13
+                MENUITEM "OEM 775",             IDM_FORMAT_DOS_775
+                MENUITEM "Windows-1257",        IDM_FORMAT_WIN_1257
+            END
+            POPUP "Celtic"
+            BEGIN
+                MENUITEM "ISO 8859-14",               IDM_FORMAT_ISO_8859_14
+            END
+            POPUP "Cyrillic"
+            BEGIN
+                MENUITEM "ISO 8859-5",          IDM_FORMAT_ISO_8859_5
+                MENUITEM "KOI8-R",              IDM_FORMAT_KOI8R_CYRILLIC
+                MENUITEM "KOI8-U",              IDM_FORMAT_KOI8U_CYRILLIC
+                MENUITEM "Macintosh",           IDM_FORMAT_MAC_CYRILLIC
+                MENUITEM "OEM 855",             IDM_FORMAT_DOS_855
+                MENUITEM "OEM 866",             IDM_FORMAT_DOS_866
+                MENUITEM "Windows-1251",        IDM_FORMAT_WIN_1251
+            END
+
+            POPUP "Central European"
+            BEGIN
+                MENUITEM "OEM 852",             IDM_FORMAT_DOS_852
+                MENUITEM "Windows-1250",        IDM_FORMAT_WIN_1250
+            END
+
+            POPUP "Chinese"
+            BEGIN
+                MENUITEM "Big5 (Traditional)",  IDM_FORMAT_BIG5
+                MENUITEM "GB2312 (Simplified)",     IDM_FORMAT_GB2312
+            END
+
+            POPUP "Eastern European"
+            BEGIN
+                MENUITEM "ISO 8859-2",          IDM_FORMAT_ISO_8859_2
+            END
+
+            POPUP "Greek"
+            BEGIN
+                MENUITEM "ISO 8859-7",          IDM_FORMAT_ISO_8859_7
+                MENUITEM "OEM 737",             IDM_FORMAT_DOS_737
+                MENUITEM "OEM 869",             IDM_FORMAT_DOS_869
+                MENUITEM "Windows-1253",        IDM_FORMAT_WIN_1253
+            END
+
+            POPUP "Hebrew"
+            BEGIN
+                MENUITEM "ISO 8859-8",          IDM_FORMAT_ISO_8859_8
+                MENUITEM "OEM 862",             IDM_FORMAT_DOS_862
+                MENUITEM "Windows-1255",        IDM_FORMAT_WIN_1255
+            END
+
+            POPUP "Japanese"
+            BEGIN
+                MENUITEM "Shift-JIS",           IDM_FORMAT_SHIFT_JIS
+            END
+
+            POPUP "Korean"
+            BEGIN
+                MENUITEM "Windows 949",              IDM_FORMAT_KOREAN_WIN
+                MENUITEM "EUC-KR",              IDM_FORMAT_EUC_KR
+            END
+
+            POPUP "North European"
+            BEGIN
+                MENUITEM "OEM 861 : Icelandic",   IDM_FORMAT_DOS_861
+                MENUITEM "OEM 865 : Nordic",   IDM_FORMAT_DOS_865
+            END
+
+            POPUP "Thai"
+            BEGIN
+                MENUITEM "TIS-620",                 IDM_FORMAT_TIS_620
+            END
+
+            POPUP "Turkish"
+            BEGIN
+                MENUITEM "ISO 8859-3",          IDM_FORMAT_ISO_8859_3
+                MENUITEM "ISO 8859-9",          IDM_FORMAT_ISO_8859_9
+                MENUITEM "OEM 857",             IDM_FORMAT_DOS_857
+                MENUITEM "Windows-1254",        IDM_FORMAT_WIN_1254
+            END
+
+            POPUP "Western European"
+            BEGIN
+                MENUITEM "ISO 8859-1",          IDM_FORMAT_ISO_8859_1
+                //MENUITEM "ISO 8859-10",         IDM_FORMAT_ISO_8859_10
+                MENUITEM "ISO 8859-15",         IDM_FORMAT_ISO_8859_15
+                MENUITEM "OEM 850",             IDM_FORMAT_DOS_850
+                MENUITEM "OEM 858",             IDM_FORMAT_DOS_858
+                MENUITEM "OEM 860 : Portuguese",  IDM_FORMAT_DOS_860
+                MENUITEM "OEM 863 : French",      IDM_FORMAT_DOS_863
+                MENUITEM "OEM-US",              IDM_FORMAT_DOS_437
+                MENUITEM "Windows-1252",        IDM_FORMAT_WIN_1252
+            END
+
+            POPUP "Vietnamese"
+            BEGIN
+                MENUITEM "Windows-1258",        IDM_FORMAT_WIN_1258
+            END
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "Convert to ANSI",            IDM_FORMAT_CONV2_ANSI
+        MENUITEM "Convert to UTF-8",           IDM_FORMAT_CONV2_AS_UTF_8
+        MENUITEM "Convert to UTF-8-BOM",       IDM_FORMAT_CONV2_UTF_8
+        MENUITEM "Convert to UTF-16 BE BOM",   IDM_FORMAT_CONV2_UTF_16BE
+        MENUITEM "Convert to UTF-16 LE BOM",   IDM_FORMAT_CONV2_UTF_16LE
+    END
+
+    POPUP "&Language"
+    BEGIN
+        MENUITEM "None (Normal Text)",      IDM_LANG_TEXT
+        MENUITEM SEPARATOR
+        MENUITEM "ActionScript",            IDM_LANG_FLASH
+        MENUITEM "Ada",                     IDM_LANG_ADA
+        MENUITEM "ASN.1",                   IDM_LANG_ASN1
+        MENUITEM "ASP",                     IDM_LANG_ASP
+        MENUITEM "Assembly",                IDM_LANG_ASM
+        MENUITEM "AutoIt",                  IDM_LANG_AU3
+        MENUITEM "AviSynth",                IDM_LANG_AVS
+        MENUITEM "BaanC",                   IDM_LANG_BAANC
+        MENUITEM "Batch",                   IDM_LANG_BATCH
+        MENUITEM "Blitzbasic",              IDM_LANG_BLITZBASIC
+        MENUITEM "C",                       IDM_LANG_C
+        MENUITEM "C#",                      IDM_LANG_CS
+        MENUITEM "C++",                     IDM_LANG_CPP
+        MENUITEM "Caml",                    IDM_LANG_CAML
+        MENUITEM "CMake",                   IDM_LANG_CMAKE
+        MENUITEM "COBOL",                   IDM_LANG_COBOL
+        MENUITEM "CSound",                  IDM_LANG_CSOUND
+        MENUITEM "CoffeeScript",            IDM_LANG_COFFEESCRIPT
+        MENUITEM "CSS",                     IDM_LANG_CSS
+        MENUITEM "D",                       IDM_LANG_D
+        MENUITEM "Diff",                    IDM_LANG_DIFF
+        MENUITEM "Erlang",                  IDM_LANG_ERLANG
+        MENUITEM "ESCRIPT",                 IDM_LANG_ESCRIPT
+        MENUITEM "Forth",                   IDM_LANG_FORTH
+        MENUITEM "Fortran (free form)",     IDM_LANG_FORTRAN
+        MENUITEM "Fortran (fixed form)",    IDM_LANG_FORTRAN_77
+        MENUITEM "Freebasic",               IDM_LANG_FREEBASIC
+        MENUITEM "Gui4Cli",                 IDM_LANG_GUI4CLI
+        MENUITEM "Haskell",                 IDM_LANG_HASKELL
+        MENUITEM "HTML",                    IDM_LANG_HTML
+        MENUITEM "INI file",                IDM_LANG_INI
+        MENUITEM "Inno Setup",              IDM_LANG_INNO
+        MENUITEM "Intel HEX",               IDM_LANG_IHEX
+        MENUITEM "Java",                    IDM_LANG_JAVA
+        MENUITEM "JavaScript",              IDM_LANG_JS
+        MENUITEM "JSON",                    IDM_LANG_JSON
+        MENUITEM "JSP",                     IDM_LANG_JSP
+        MENUITEM "KIXtart",                 IDM_LANG_KIX
+        MENUITEM "LISP",                    IDM_LANG_LISP
+        MENUITEM "LaTeX",                   IDM_LANG_LATEX
+        MENUITEM "Lua",                     IDM_LANG_LUA
+        MENUITEM "Makefile",                IDM_LANG_MAKEFILE
+        MENUITEM "Matlab",                  IDM_LANG_MATLAB
+        MENUITEM "MMIXAL",                  IDM_LANG_MMIXAL
+        MENUITEM "MS-DOS Style",            IDM_LANG_ASCII
+        MENUITEM "Nim",                     IDM_LANG_NIM
+        MENUITEM "Nncrontab",               IDM_LANG_NNCRONTAB
+        MENUITEM "NSIS",                    IDM_LANG_NSIS
+        MENUITEM "Objective-C",             IDM_LANG_OBJC
+        MENUITEM "OScript",                 IDM_LANG_OSCRIPT
+        MENUITEM "Pascal",                  IDM_LANG_PASCAL
+        MENUITEM "Perl",                    IDM_LANG_PERL
+        MENUITEM "PHP",                     IDM_LANG_PHP
+        MENUITEM "PostScript",              IDM_LANG_PS
+        MENUITEM "PowerShell",              IDM_LANG_POWERSHELL
+        MENUITEM "Properties",              IDM_LANG_PROPS
+        MENUITEM "Purebasic",               IDM_LANG_PUREBASIC
+        MENUITEM "Python",                  IDM_LANG_PYTHON
+        MENUITEM "R",                       IDM_LANG_R
+        MENUITEM "REBOL",                   IDM_LANG_REBOL
+        MENUITEM "Registry",                IDM_LANG_REGISTRY
+        MENUITEM "Resource file",           IDM_LANG_RC
+        MENUITEM "Ruby",                    IDM_LANG_RUBY
+        MENUITEM "Rust",                    IDM_LANG_RUST
+        MENUITEM "Shell",                   IDM_LANG_BASH
+        MENUITEM "Scheme",                  IDM_LANG_SCHEME
+        MENUITEM "Smalltalk",               IDM_LANG_SMALLTALK
+        MENUITEM "Spice",                   IDM_LANG_SPICE
+        MENUITEM "SQL",                     IDM_LANG_SQL
+        MENUITEM "Swift",                  IDM_LANG_SWIFT
+        MENUITEM "S-Record",                IDM_LANG_SREC
+        MENUITEM "TCL",                     IDM_LANG_TCL
+        MENUITEM "Tektronix extended HEX",  IDM_LANG_TEHEX
+        MENUITEM "TeX",                     IDM_LANG_TEX
+        MENUITEM "txt2tags",                IDM_LANG_TXT2TAGS
+        MENUITEM "Verilog",                 IDM_LANG_VERILOG
+        MENUITEM "VHDL",                    IDM_LANG_VHDL
+        MENUITEM "Visual Basic",            IDM_LANG_VB
+        MENUITEM "Visual Prolog",           IDM_LANG_VISUALPROLOG
+        MENUITEM "XML",                     IDM_LANG_XML
+        MENUITEM "YAML",                    IDM_LANG_YAML
+        MENUITEM SEPARATOR
+        MENUITEM "Define your language...", IDM_LANG_USER_DLG
+        MENUITEM "Open User Defined Language folder...",      IDM_LANG_OPENUDLDIR
+        MENUITEM "User-Defined",            IDM_LANG_USER
+    END
+
+    POPUP "&Language"
+    BEGIN
+    MENUITEM "None (Normal Text)",        IDM_LANG_TEXT
+    MENUITEM SEPARATOR
+    POPUP "A"
+    BEGIN
+        MENUITEM "ActionScript",          IDM_LANG_FLASH
+        MENUITEM "Ada",                   IDM_LANG_ADA
+        MENUITEM "ASN.1",                 IDM_LANG_ASN1
+        MENUITEM "ASP",                   IDM_LANG_ASP
+        MENUITEM "Assembly",              IDM_LANG_ASM
+        MENUITEM "AutoIt",                IDM_LANG_AU3
+        MENUITEM "AviSynth",              IDM_LANG_AVS
+    END
+    POPUP "B"
+    BEGIN
+        MENUITEM "BaanC",                 IDM_LANG_BAANC
+        MENUITEM "Batch",                 IDM_LANG_BATCH
+        MENUITEM "Blitzbasic",            IDM_LANG_BLITZBASIC
+    END
+    POPUP "C"
+    BEGIN
+        MENUITEM "C",                     IDM_LANG_C
+        MENUITEM "C#",                    IDM_LANG_CS
+        MENUITEM "C++",                   IDM_LANG_CPP
+        MENUITEM "Caml",                  IDM_LANG_CAML
+        MENUITEM "CMake",                 IDM_LANG_CMAKE
+        MENUITEM "COBOL",                 IDM_LANG_COBOL
+        MENUITEM "CSound",                IDM_LANG_CSOUND
+        MENUITEM "CoffeeScript",          IDM_LANG_COFFEESCRIPT
+        MENUITEM "CSS",                   IDM_LANG_CSS
+    END
+    POPUP "D"
+    BEGIN
+        MENUITEM "D",                     IDM_LANG_D
+        MENUITEM "Diff",                  IDM_LANG_DIFF
+    END
+    POPUP "E"
+    BEGIN
+        MENUITEM "Erlang",                IDM_LANG_ERLANG
+        MENUITEM "ESCRIPT",               IDM_LANG_ESCRIPT
+    END
+    POPUP "F"
+    BEGIN
+        MENUITEM "Forth",                 IDM_LANG_FORTH
+        MENUITEM "Fortran (free form)",   IDM_LANG_FORTRAN
+        MENUITEM "Fortran (fixed form)",  IDM_LANG_FORTRAN_77
+        MENUITEM "Freebasic",             IDM_LANG_FREEBASIC
+    END
+    MENUITEM "Gui4Cli",                   IDM_LANG_GUI4CLI
+    POPUP "H"
+    BEGIN
+        MENUITEM "Haskell",               IDM_LANG_HASKELL
+        MENUITEM "HTML",                  IDM_LANG_HTML
+    END
+    POPUP "I"
+    BEGIN
+        MENUITEM "INI file",              IDM_LANG_INI
+        MENUITEM "Inno Setup",            IDM_LANG_INNO
+        MENUITEM "Intel HEX",             IDM_LANG_IHEX
+    END
+    POPUP "J"
+    BEGIN
+        MENUITEM "Java",                  IDM_LANG_JAVA
+        MENUITEM "JavaScript",            IDM_LANG_JS
+        MENUITEM "JSON",                  IDM_LANG_JSON
+        MENUITEM "JSP",                   IDM_LANG_JSP
+    END
+    MENUITEM "KIXtart",                   IDM_LANG_KIX
+    POPUP "L"
+    BEGIN
+        MENUITEM "LaTeX",                 IDM_LANG_LATEX
+        MENUITEM "LISP",                  IDM_LANG_LISP
+        MENUITEM "Lua",                   IDM_LANG_LUA
+    END
+     POPUP "M"
+    BEGIN
+        MENUITEM "Makefile",              IDM_LANG_MAKEFILE
+        MENUITEM "Matlab",                IDM_LANG_MATLAB
+        MENUITEM "MMIXAL",                IDM_LANG_MMIXAL
+        MENUITEM "MS-DOS Style",          IDM_LANG_ASCII
+    END
+    POPUP "N"
+    BEGIN
+        MENUITEM "Nim",                   IDM_LANG_NIM
+        MENUITEM "Nncrontab",             IDM_LANG_NNCRONTAB
+        MENUITEM "NSIS",                  IDM_LANG_NSIS
+    END
+    POPUP "O"
+    BEGIN
+        MENUITEM "Objective-C",           IDM_LANG_OBJC
+        MENUITEM "OScript",               IDM_LANG_OSCRIPT
+    END
+    POPUP "P"
+    BEGIN
+        MENUITEM "Pascal",                IDM_LANG_PASCAL
+        MENUITEM "Perl",                  IDM_LANG_PERL
+        MENUITEM "PHP",                   IDM_LANG_PHP
+        MENUITEM "PostScript",            IDM_LANG_PS
+        MENUITEM "PowerShell",            IDM_LANG_POWERSHELL
+        MENUITEM "Properties",            IDM_LANG_PROPS
+        MENUITEM "Purebasic",             IDM_LANG_PUREBASIC
+        MENUITEM "Python",                IDM_LANG_PYTHON
+    END
+    POPUP "R"
+    BEGIN
+        MENUITEM "R",                     IDM_LANG_R
+        MENUITEM "REBOL",                 IDM_LANG_REBOL
+        MENUITEM "Registry",              IDM_LANG_REGISTRY
+        MENUITEM "Resource file",         IDM_LANG_RC
+        MENUITEM "Ruby",                  IDM_LANG_RUBY
+        MENUITEM "Rust",                  IDM_LANG_RUST
+    END
+    POPUP "S"
+    BEGIN
+        MENUITEM "Shell",                 IDM_LANG_BASH
+        MENUITEM "Scheme",                IDM_LANG_SCHEME
+        MENUITEM "Smalltalk",             IDM_LANG_SMALLTALK
+        MENUITEM "Spice",                 IDM_LANG_SPICE
+        MENUITEM "SQL",                   IDM_LANG_SQL
+        MENUITEM "Swift",                IDM_LANG_SWIFT
+        MENUITEM "S-Record",              IDM_LANG_SREC
+    END
+    POPUP "T"
+    BEGIN
+        MENUITEM "TCL",                   IDM_LANG_TCL
+        MENUITEM "Tektronix extended HEX",IDM_LANG_TEHEX
+        MENUITEM "TeX",                   IDM_LANG_TEX
+        MENUITEM "txt2tags",              IDM_LANG_TXT2TAGS
+    END
+    POPUP "V"
+    BEGIN
+        MENUITEM "Visual Basic",          IDM_LANG_VB
+        MENUITEM "Visual Prolog",         IDM_LANG_VISUALPROLOG
+        MENUITEM "VHDL",                  IDM_LANG_VHDL
+        MENUITEM "Verilog",               IDM_LANG_VERILOG
+    END
+    MENUITEM "XML",                       IDM_LANG_XML
+    MENUITEM "YAML",                      IDM_LANG_YAML
+    MENUITEM SEPARATOR
+    POPUP "User Defined Language"
+    BEGIN
+        MENUITEM "Define your language...",   IDM_LANG_USER_DLG
+        MENUITEM "Open User Defined Language folder...",        IDM_LANG_OPENUDLDIR
+    END
+    MENUITEM "User-Defined",              IDM_LANG_USER
+    END
+
+    POPUP "Se&ttings"
+    BEGIN
+        MENUITEM "Preferences...",          IDM_SETTING_PREFERENCE
+        MENUITEM "Style Configurator...",   IDM_LANGSTYLE_CONFIG_DLG
+        MENUITEM "Shortcut Mapper...",      IDM_SETTING_SHORTCUT_MAPPER
+        MENUITEM SEPARATOR
+        POPUP "Import"
+        BEGIN
+            MENUITEM "Import plugin(s)...",         IDM_SETTING_IMPORTPLUGIN
+            MENUITEM "Import style theme(s)...",    IDM_SETTING_IMPORTSTYLETHEMS
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "Edit Popup ContextMenu",      IDM_SETTING_EDITCONTEXTMENU
+    END
+
+    POPUP "T&ools"
+    BEGIN
+        POPUP "MD5"
+        BEGIN
+            MENUITEM "Generate...",                            IDM_TOOL_MD5_GENERATE
+            MENUITEM "Generate from files...",                 IDM_TOOL_MD5_GENERATEFROMFILE
+            MENUITEM "Generate from selection into clipboard", IDM_TOOL_MD5_GENERATEINTOCLIPBOARD
+        END
+        POPUP "SHA-256"
+        BEGIN
+            MENUITEM "Generate...", IDM_TOOL_SHA256_GENERATE
+            MENUITEM "Generate from files...", IDM_TOOL_SHA256_GENERATEFROMFILE
+            MENUITEM "Generate from selection into clipboard", IDM_TOOL_SHA256_GENERATEINTOCLIPBOARD
+        END
+    END
+    
+    POPUP "&Macro"
+    BEGIN
+        MENUITEM "Start Re&cording",                   IDM_MACRO_STARTRECORDINGMACRO
+        MENUITEM "S&top Recording",                    IDM_MACRO_STOPRECORDINGMACRO
+        MENUITEM "&Playback",                          IDM_MACRO_PLAYBACKRECORDEDMACRO
+        MENUITEM "&Save Current Recorded Macro...",    IDM_MACRO_SAVECURRENTMACRO
+        MENUITEM "&Run a Macro Multiple Times...",     IDM_MACRO_RUNMULTIMACRODLG
+    END
+
+    POPUP "&Run"
+    BEGIN
+        MENUITEM "&Run...",    IDM_EXECUTE
+    END
+
+    POPUP "&?"
+    BEGIN
+        MENUITEM "Command Line Arguments...",      IDM_CMDLINEARGUMENTS
+        MENUITEM SEPARATOR
+        MENUITEM "Notepad++ Home",                 IDM_HOMESWEETHOME
+        MENUITEM "Notepad++ Project Page",         IDM_PROJECTPAGE
+        MENUITEM "Notepad++ Online Document",      IDM_ONLINEDOCUMENT
+        MENUITEM "Notepad++ Community (Forum)",    IDM_FORUM
+        MENUITEM SEPARATOR
+        MENUITEM "Update Notepad++",               IDM_UPDATE_NPP
+        MENUITEM "Set Updater Proxy...",           IDM_CONFUPDATERPROXY
+        MENUITEM SEPARATOR
+        MENUITEM "Debug Info...",                  IDM_DEBUGINFO
+        MENUITEM "About Notepad++",                IDM_ABOUT
+    END
+
+    MENUITEM "X",    IDM_FILE_CLOSE, HELP
+END
+
+IDR_SYSTRAYPOPUP_MENU MENU
+BEGIN
+    POPUP "Popup"
+    BEGIN
+        MENUITEM "Activate",            IDM_SYSTRAYPOPUP_ACTIVATE
+        MENUITEM SEPARATOR
+        MENUITEM "New",                 IDM_SYSTRAYPOPUP_NEWDOC
+        MENUITEM "New and Paste",       IDM_SYSTRAYPOPUP_NEW_AND_PASTE
+        MENUITEM "Open...",             IDM_SYSTRAYPOPUP_OPENFILE
+        MENUITEM "Find in Files...",    IDM_SEARCH_FINDINFILES
+        MENUITEM SEPARATOR
+        MENUITEM "Close Tray Icon",     IDM_SYSTRAYPOPUP_CLOSE
+    END
+END
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 271, 240
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_BORDER | WS_SYSMENU
+FONT 8, TEXT("MS Shell Dlg"), 0, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_BUILD_DATETIME,150,2,150,10, ES_READONLY | NOT WS_BORDER
+    CONTROL         "",IDI_CHAMELEON,"Static",SS_OWNERDRAW,20,5,64,64
+    //CONTROL         "",IDI_JESUISCHARLIE,"Static",SS_OWNERDRAW,20,5,64,64
+    //CONTROL         "",IDI_GILETJAUNE,"Static",SS_OWNERDRAW,20,5,64,64
+    //CONTROL         "", IDI_SAMESEXMARRIAGE,"Static",SS_OWNERDRAW,20,5,64,64
+    LTEXT           NOTEPAD_PLUS_VERSION, IDC_STATIC,70,20,140,11
+    LTEXT           "bit",IDC_VERSION_BIT,150,20,140,11
+    //LTEXT           "Author :",IDC_STATIC,21,45,31,8
+    //LTEXT           "FREE UYGHUR",IDC_AUTHOR_NAME,70,32,70,8
+    //LTEXT           "Stand with Hong Kong",IDC_AUTHOR_NAME,70,32,80,8
+    //LTEXT           "pour Samuel Paty",IDC_AUTHOR_NAME,70,32,80,8
+    LTEXT           "Home:",IDC_STATIC,21,52,47,8
+    LTEXT           "https://notepad-plus-plus.org/",IDC_HOME_ADDR,50,52,126,8
+    GROUPBOX        "GNU General Public Licence",IDC_STATIC,19,75,231,131,BS_CENTER
+    DEFPUSHBUTTON   "OK",IDOK,106,215,50,14,BS_FLAT
+    // IDC_LICENCE_EDIT should be the last line, don't know why
+    EDITTEXT        IDC_LICENCE_EDIT,31,99,209,96,ES_MULTILINE | ES_AUTOVSCROLL | ES_READONLY | NOT WS_BORDER | WS_VSCROLL
+END
+
+IDD_DEBUGINFOBOX DIALOGEX 0, 0, 271, 200
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_TOOLWINDOW | WS_EX_WINDOWEDGE
+CAPTION "Debug Info"
+FONT 8, TEXT("MS Shell Dlg"), 0, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_DEBUGINFO_EDIT,31,20,220,96,ES_MULTILINE | ES_AUTOVSCROLL | ES_READONLY | NOT WS_BORDER | WS_VSCROLL
+    LTEXT           "Copy debug info into clipboard",IDC_DEBUGINFO_COPYLINK,31,120,126,8
+    DEFPUSHBUTTON   "OK",IDOK,106,160,50,14,BS_FLAT
+END
+
+IDD_DOSAVEORNOTBOX DIALOGEX 0, 0, 310, 80
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_WINDOWEDGE
+CAPTION "Save"
+FONT 8, TEXT("MS Shell Dlg"), 0, 0, 0x1
+BEGIN
+    LTEXT           "",IDC_DOSAVEORNOTTEX,7,10,290,40,SS_EDITCONTROL
+    DEFPUSHBUTTON   "&Yes",IDYES,10,60,50,14,BS_FLAT
+    PUSHBUTTON   "&No",IDNO,65,60,50,14,BS_FLAT
+    PUSHBUTTON   "&Cancel",IDCANCEL,120,60,50,14,BS_FLAT
+    PUSHBUTTON   "Yes to &all",IDRETRY,175,60,60,14,BS_FLAT
+    PUSHBUTTON   "N&o to all",IDIGNORE,240,60,60,14,BS_FLAT
+END
+
+IDD_GOLINE DIALOGEX 26, 41, 261, 88
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_TOOLWINDOW | WS_EX_WINDOWEDGE
+CAPTION "Go To..."
+FONT 8, TEXT("MS Shell Dlg"), 0, 0, 0x0
+BEGIN
+    CONTROL         "&Line",IDC_RADIO_GOTOLINE,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,5,9,80,10
+    CONTROL         "&Offset",IDC_RADIO_GOTOOFFSET,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,98,9,80,10
+    LTEXT           "You are here :",ID_URHERE_STATIC,5,34,95,8,NOT WS_GROUP
+    LTEXT           "0123456789",ID_CURRLINE,100,34,45,8,NOT WS_GROUP
+    LTEXT           "You want to &go to :",ID_UGO_STATIC,5,51,95,8
+    EDITTEXT        ID_GOLINE_EDIT,98,49,71,12,ES_NUMBER
+    LTEXT           "You can't go further than :",ID_NOMORETHAN_STATIC,5,68,92,8,NOT WS_GROUP
+    LTEXT           "0123456789",ID_LASTLINE,100,68,45,8,NOT WS_GROUP
+    DEFPUSHBUTTON   "Go",IDOK,181,48,70,14,BS_NOTIFY
+    PUSHBUTTON      "I'm going nowhere",IDCANCEL,181,66,70,14,BS_NOTIFY
+END
+
+IDD_VALUE_DLG DIALOGEX 0, 0, 74, 17
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_TOOLWINDOW
+FONT 8, TEXT("MS Shell Dlg"), 0, 0, 0x1
+BEGIN
+    LTEXT             "STATIC :",IDC_VALUE_STATIC,6,4,45,8
+    EDITTEXT        IDC_VALUE_EDIT,49,2,18,14,ES_NUMBER,WS_EX_DLGMODALFRAME
+END
+
+IDD_BUTTON_DLG DIALOGEX 0, 0, 12, 10
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP
+FONT 8, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    PUSHBUTTON      "+",IDC_RESTORE_BUTTON,0,0,12,10
+END

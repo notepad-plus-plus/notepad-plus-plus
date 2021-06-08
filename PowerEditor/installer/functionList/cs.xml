@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ==========================================================================\
+|
+|   To learn how to make your own language parser, please check the following
+|   link:
+|       https://npp-user-manual.org/docs/function-list/
+|
+\=========================================================================== -->
+<NotepadPlus>
+	<functionList>
+		<!-- ========================================================== [ C# ] -->
+
+		<!--
+		|   Based on:
+		|       http://sourceforge.net/p/notepad-plus/patches/613/
+		\-->
+		<parser
+			displayName="C#"
+			id         ="csharp_class"
+			commentExpr="(?s:/\*.*?\*/)|(?m-s://.*?$)"
+		>
+			<classRange
+				mainExpr    ="^[\t\x20]*((public|protected|private|internal)\s+)?(\w+\s*)?(class|struct|interface)[\t\x20]+[^\{]+\{"
+				openSymbole ="\{"
+				closeSymbole="\}"
+			>
+				<className>
+					<nameExpr expr="(class|struct|interface)[\t\x20]+\w+" />
+					<nameExpr expr="[\t\x20]+\w+" />
+					<nameExpr expr="\w+" />
+				</className>
+				<function
+					mainExpr="^[^\S\r\n]*(?&lt;modifier1&gt;(?:public|protected|internal|private)\s*)?(?&lt;modifier2&gt;(?:new|static|virtual|sealed|override|abstract|extern)\s*)?(partial\s*)?(?&lt;type&gt;(?!(return|if|else))\w+(?&lt;genericType&gt;&lt;[\w,\s&lt;&gt;]+&gt;)?\s+)(?&lt;name&gt;\w+(?&lt;genericNameType&gt;&lt;[\w,\s&lt;&gt;]+&gt;)?\s?)\((?&lt;params&gt;[\w\s,&lt;&gt;\[\]\:=\.]*)\)(?&lt;ctorChain&gt;\s*\:\s*(?:base|this)\s*\((?&lt;ctorParams&gt;[\w\s,&lt;&gt;\[\]\:=\.]*)\))?[\w\s&lt;&gt;\:,\(\)\[\]]*(?:\{|;)"
+				>
+					<functionName>
+						<funcNameExpr expr="(\w+(&lt;[\w,\s&lt;&gt;]+&gt;)?\s?)\(" />
+						<funcNameExpr expr="(\w+(&lt;[\w,\s&lt;&gt;]+&gt;)?\s?)" />
+					</functionName>
+				</function>
+			</classRange>
+		</parser>
+	</functionList>
+</NotepadPlus>

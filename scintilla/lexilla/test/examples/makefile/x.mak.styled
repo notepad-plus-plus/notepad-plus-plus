@@ -1,0 +1,16 @@
+{1}# '# comment' comment=1
+# comment
+{0}
+{1}# '.SUFFIXES' target=5, ':' operator=4
+{5}.SUFFIXES{4}:{0}
+
+{1}# 'LD' identifier=3, '=' operator=4, 'link' default=0
+{3}LD{4}={0}link
+
+{1}# '!IFDEF DEBUG' preprocessor=2
+{2}!IFDEF DEBUG
+{0}
+{1}# '$(' ID EOL=9
+{3}X{4}={9}$(
+{0}
+{1}# End of file

@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- traduzón: nunhes - un galego non avaliado que se rí da oficialidade adormecida e inoperante -->
+<!-- by ambosass.com 2008 -->
+<!-- admitense correccións ;) -->
+<!-- 20111122 correccións realizadas por damufo. Proxecto Trasno (trasno.net) -->
+<!-- damufo. engadidos un par de novas traducións aínda -->
+<!-- damufo. faltan bastantes con respecto á version en inglés -->
+<NotepadPlus>
+	<Native-Langue name = "Galego" filename="galician.xml" >
+		<Menu>
+			<Main>
+                <!-- Entradas de menú principal -->
+				<Entries>
+					<Item menuId="file" name = "A&amp;rquivo"/>
+					<Item menuId="edit" name = "&amp;Editar"/>
+					<Item menuId="search" name = "&amp;Buscar"/>
+					<Item menuId="view" name = "&amp;Ver"/>
+					<Item menuId="encoding" name = "For&amp;mato"/>
+					<Item menuId="language" name = "&amp;Linguaxe"/>
+					<Item menuId="settings" name = "C&amp;onfigurar"/>
+					<Item menuId="macro" name = "Macro"/>
+					<Item menuId="run" name = "Executar"/>
+					<Item idName = "Plugins" name = "Engadidos"/>
+					<Item idName = "Window" name = "Xanelas"/>
+				</Entries>
+
+                <!-- Entradas de Sub-menú -->
+                <SubEntries>
+                    <Item subMenuId="view-collapseLevel" name = "Encoller nivel"/>
+                    <Item subMenuId="view-uncollapseLevel" name = "Expandir nivel"/>
+                </SubEntries>
+
+                <!-- opcións de menú -->
+                <Commands>
+                    <Item id = "41001" name = "&amp;Novo"/>
+                    <Item id = "41002" name = "&amp;Abrir"/>
+                    <Item id = "41003" name = "Pechar"/>
+                    <Item id = "41004" name = "P&amp;echar todo"/>
+                    <Item id = "41005" name = "Pechar todo agás actual"/>
+                    <Item id = "41006" name = "&amp;Gardar"/>
+                    <Item id = "41007" name = "Gardar t&amp;odo"/>
+                    <Item id = "41008" name = "Gardar &amp;como..."/>
+                    <Item id = "41010" name = "Imprimir..."/>
+                    <Item id = "1001"  name = "Imprimir agora!"/>
+                    <Item id = "41011" name = "S&amp;aír"/>
+					<Item id = "41012" name = "Cargar sesión..."/>
+                    <Item id = "41013" name = "Gardar sesión..."/>
+                    <Item id = "41014" name = "Recargar dendo disco"/>
+
+                    <Item id = "42001" name = "Cor&amp;tar"/>
+                    <Item id = "42002" name = "&amp;Copiar"/>
+                    <Item id = "42003" name = "&amp;Desfacer"/>
+                    <Item id = "42004" name = "&amp;Refacer"/>
+                    <Item id = "42005" name = "&amp;Pegar"/>
+                    <Item id = "42006" name = "&amp;Borrar"/>
+                    <Item id = "42007" name = "Seleccionar t&amp;odo"/>
+                    <Item id = "42008" name = "Incrementar tabulación"/>
+                    <Item id = "42009" name = "Diminuir tabulación"/>
+                    <Item id = "42010" name = "Duplicar liña actual"/>
+                    <Item id = "42012" name = "Dividir liñas"/>
+                    <Item id = "42013" name = "Xuntar liñas"/>
+                    <Item id = "42014" name = "Subir liña actual"/>
+                    <Item id = "42015" name = "Baixar liña actual"/>
+                    <Item id = "42016" name = "Converter a MAIÚSCULAS"/>
+                    <Item id = "42017" name = "Converter a minúsculas"/>
+                    <Item id = "42018" name = "&amp;Encetar gravación"/>
+                    <Item id = "42019" name = "&amp;Parar gravación"/>
+                    <Item id = "42021" name = "&amp;Reproducir"/>
+                    <Item id = "42022" name = "Comentar/Descomentar a selección"/>
+                    <Item id = "42023" name = "Comentario simple"/>
+                    <Item id = "42024" name = "Eliminar espazos ao final"/>
+                    <Item id = "42025" name = "Gardar macro gravada actual"/>
+                    <Item id = "42026" name = "Dirección do texto Der a Esq"/>
+                    <Item id = "42027" name = "Dirección do texto Esq a Der"/>
+                    <Item id = "42028" name = "Só letura"/>
+                    <Item id = "42029" name = "Copiar ruta do arquivo ao Portapapeis"/>
+                    <Item id = "42030" name = "Copiar nome de arquivo ao Portapapeis"/>
+                    <Item id = "42031" name = "Copiar ruta do arquivo ao Portapapeis"/>
+                    <Item id = "42032" name = "Executar unha macro varias veces..."/>
+                    <Item id = "42033" name = "Quitar marca de só letura"/>
+					<Item id = "42035" name = "Comentar selección"/>
+					<Item id = "42036" name = "Descomentar selección"/>
+
+                    <Item id = "43001" name = "&amp;Buscar..."/>
+                    <Item id = "43002" name = "Buscar &amp;seguinte"/>
+                    <Item id = "43003" name = "Reemprazar..."/>
+                    <Item id = "43004" name = "Ir a liña..."/>
+                    <Item id = "43005" name = "Marcar/Desmarcar"/>
+                    <Item id = "43006" name = "Marca seguinte"/>
+                    <Item id = "43007" name = "Marca anterior"/>
+                    <Item id = "43008" name = "Quitar todas as marcas"/>
+                    <Item id = "43009" name = "Ir ao delimitador asociado"/>
+                    <Item id = "43010" name = "Buscar anterior"/>
+                    <Item id = "43011" name = "Búsqueda &amp;rápida..."/>
+                    <Item id = "43013" name = "Buscar en arquivos"/>
+                    <Item id = "43014" name = "Buscar seguinte (polo ar)"/>
+                    <Item id = "43015" name = "Buscar anterior (polo ar)"/>
+                    <Item id = "43016" name = "Marcar todos"/>
+                    <Item id = "43017" name = "Desmarcar todos"/>
+
+                    <Item id = "44010" name = "Encoller todo"/>
+                    <Item id = "44011" name = "Atallos persoais"/>
+                    <Item id = "44019" name = "Amosar todo os caracteres"/>
+                    <Item id = "44020" name = "Amosar sangrías"/>
+                    <Item id = "44022" name = "Axuste da liña"/>
+                    <Item id = "44023" name = "&amp;Aumentar zoom	Ctrl-Mouse Wheel Up"/>
+                    <Item id = "44024" name = "&amp;Diminuir zoom	Ctrl-Mouse Wheel Down"/>
+                    <Item id = "44025" name = "Amosar espazos e tabulacións"/>
+                    <Item id = "44026" name = "Amosar salto de liña"/>
+                    <Item id = "44029" name = "Expandir todo"/>
+                    <Item id = "44030" name = "Encoller nivel actual"/>
+                    <Item id = "44031" name = "Expandir nivel actual"/>
+                    <Item id = "44032" name = "Pantalla enteira"/>
+                    <Item id = "44033" name = "Restaurar zoom por defecto	Ctrl+/(keypad)"/>
+                    <Item id = "44034" name = "Sempre á vista"/>
+                    <Item id = "44035" name = "Sincronización vertical"/>
+                    <Item id = "44036" name = "Sincronización horizontal"/>
+                    <Item id = "44041" name = "Amosar símbolo de axuste"/>
+
+                    <Item id = "45001" name = "Converter a formato Windows"/>
+                    <Item id = "45002" name = "Converter a formato UNIX"/>
+                    <Item id = "45003" name = "Converter a formato MAC"/>
+                    <Item id = "45004" name = "Codificar en ANSI"/>
+                    <Item id = "45005" name = "Codificar en UTF-8"/>
+                    <Item id = "45006" name = "Codificar en UCS-2 Big Endian"/>
+                    <Item id = "45007" name = "Codificar en UCS-2 Little Endian"/>
+                    <Item id = "45008" name = "Codificar en UTF-8 sen BOM"/>
+			<Item id = "45009" name = "Converter en ANSI"/>
+			<Item id = "45010" name = "Converter en UTF-8 sen BOM"/>
+			<Item id = "45011" name = "Converter en UTF-8"/>
+			<Item id = "45012" name = "Converter en UCS-2 Big Endian"/>
+			<Item id = "45013" name = "Converter en UCS-2 Little Endian"/>
+
+                    <Item id = "10001" name = "Ir a outra vista"/>
+                    <Item id = "10002" name = "Clonar noutra vista"/>
+                    <Item id = "10003" name = "Mover a nova xanela"/>
+                    <Item id = "10004" name = "Abrir en nova xanela"/>
+
+                    <Item id = "46001" name = "Configurador de estilo..."/>
+                    <Item id = "47000" name = "Sobre o Notepad++..."/>
+                    <Item id = "47001" name = "Web de Notepad++"/>
+                    <Item id = "47002" name = "Proxecto Notepad++ en Sourceforge"/>
+                    <Item id = "47003" name = "Axuda en liña"/>
+                    <Item id = "47004" name = "Foro"/>
+                    <Item id = "47005" name = "Descargar máis 'engadidos'"/>
+
+                    <Item id = "48009" name = "Xestor de atallos de teclado..."/>
+                    <Item id = "48011" name = "Preferencias..."/>
+                    <Item id = "49000" name = "&amp;Executar..."/>
+
+					<Item id = "50000" name = "Completar función"/>
+                    <Item id = "50001" name = "Completar verba"/>
+                    <Item id = "42034" name = "Editor de columnas..."/>
+                    <Item id = "44042" name = "Agochar liñas"/>
+                    <Item id = "42040" name = "Abrir tódolos arquivos recentes"/>
+                    <Item id = "42041" name = "Borrar historial de recentes"/>
+
+                </Commands>
+            </Main>
+            <Splitter>
+            </Splitter>
+            <TabBar>
+                    <Item CMID = "0" name = "Pechar"/>
+                    <Item CMID = "1" name = "Pechar todos excepto o actual"/>
+                    <Item CMID = "2" name = "Gardar"/>
+                    <Item CMID = "3" name = "Gardar como..."/>
+                    <Item CMID = "4" name = "Imprimir"/>
+                    <Item CMID = "5" name = "Abrir noutra vista"/>
+                    <Item CMID = "6" name = "Clonar noutra vista"/>
+            </TabBar>
+        </Menu>
+
+        <Dialog>
+            <Find title = "" titleFind = "Buscar" titleReplace = "Reemprazar" titleFindInFiles = "Buscar en arquivos">
+                <Item id = "1" name = "Buscar seguinte"/>
+                <Item id = "2" name = "Pechar"/>
+                <Item id = "1620" name = "Buscar:"/>
+                <Item id = "1603" name = "Só &amp;verbas enteiras"/>
+                <Item id = "1604" name = "Coincidir &amp;mAiÚsCuLaS"/>
+                <Item id = "1605" name = "Expresión &amp;regular"/>
+                <Item id = "1606" name = "Buscar en todo o d&amp;ocumento"/>
+                <Item id = "1612" name = "&amp;Arriba"/>
+                <Item id = "1613" name = "A&amp;baixo"/>
+                <Item id = "1614" name = "Contar"/>
+                <Item id = "1615" name = "Buscar todo"/>
+                <Item id = "1616" name = "Marcar liña"/>
+                <Item id = "1617" name = "Marcar o atopado"/>
+                <Item id = "1618" name = "Purgar en cada busca"/>
+                <Item id = "1621" name = "Dirección"/>
+                <Item id = "1611" name = "Reem&amp;prazar con:"/>
+                <Item id = "1608" name = "&amp;Reemprazar"/>
+                <Item id = "1609" name = "Reemprazar &amp;todo"/>
+			 	<Item id = "1623" name = "Transparencia"/>
+			 	<Item id = "1687" name = "Na selección"/>
+			 	<Item id = "1688" name = "Sempre"/>
+			 	<Item id = "1632" name = "Na selección"/>
+			 	<Item id = "1633" name = "Limpar"/>
+			 	<Item id = "1635" name = "Reemprazar en tódolos documentos abertos"/>
+			 	<Item id = "1636" name = "Buscar en tódolos documentos abertos"/>
+			 	<Item id = "1637" name = "Atopar nos arquivos"/>
+			 	<Item id = "1640" name = "Diálogo"/>
+			 	<Item id = "1654" name = "Filtros:"/>
+			 	<Item id = "1655" name = "Cartafol:"/>
+			 	<Item id = "1656" name = "Buscar todo"/>
+			 	<Item id = "1658" name = "En tódolos subcartafoles"/>
+            </Find>
+            <GoToLine title = "Ir á liña #">
+                <Item id = "1" name = "&amp;Ir"/>
+                <Item id = "2" name = "Esquecer"/>
+                <Item id = "2004" name = "Atópase aquí:"/>
+                <Item id = "2005" name = "Quere ir a:"/>
+                <Item id = "2006" name = "Non pode ir máis alá de:"/>
+            </GoToLine>
+
+            <Run title = "Executar...">
+                <Item id = "1903" name = "Escriba a ruta do programa a executar"/>
+                <Item id = "1" name = "Executar"/>
+                <Item id = "2" name = "Esquecer"/>
+                <Item id = "1904" name = "Gardar..."/>
+            </Run>
+
+            <StyleConfig title = "Configurador de estilo">
+				<Item id = "1" name = "Probar!"/>
+				<Item id = "2" name = "Esquecer"/>
+				<Item id = "2301" name = "Gardar &amp;&amp; Pechar"/>
+				<Item id = "2303" name = "Transparencia"/>
+
+                <SubDialog>
+                	<Item id = "2204" name = "Grosa"/>
+                    <Item id = "2205" name = "Cursiva"/>
+                    <Item id = "2206" name = "Cor da tipografía"/>
+                    <Item id = "2207" name = "Cor do fondo"/>
+                    <Item id = "2208" name = "Tipo da tipografía:"/>
+                    <Item id = "2209" name = "Tamaño da tipografía:"/>
+					<!--
+                    <Item id = "2210" name = "Atención: esta será a definición predeterminada para tódolos estilos non definidos"/>\
+					-->
+                    <Item id = "2211" name = "Descripción do estilo:"/>
+                    <Item id = "2212" name = "Cor"/>
+                    <Item id = "2213" name = "Tipografía"/>
+                    <Item id = "2214" name = "Ext. predet.:"/>
+                    <Item id = "2216" name = "Ext. usuario:"/>
+                    <Item id = "2218" name = "Subliñado"/>
+                    <Item id = "2219" name = "Verbas clave predeterminadas"/>
+                    <Item id = "2221" name = "Verbas clave do usuario"/>
+                    <Item id = "2225" name = "Linguaxe:"/>
+                    <Item id = "2226" name = "Activar cor xeral de primer plano"/>
+                    <Item id = "2227" name = "Activar cor xeral de fondo"/>
+                    <Item id = "2228" name = "Activar tipografía xeral"/>
+                    <Item id = "2229" name = "Activar tamaño de tipografía xeral"/>
+                    <Item id = "2230" name = "Activar tipografía xeral en grosa"/>
+                    <Item id = "2231" name = "Activar tipografía xeral en cursiva"/>
+                    <Item id = "2232" name = "Activar tipografía xeral en subliñar"/>
+                </SubDialog>
+
+            </StyleConfig>
+
+            <UserDefine title = "Definido polo usuario">
+				<Item id = "20002" name = "Renomear"/>
+				<Item id = "20003" name = "Crear novo..."/>
+				<Item id = "20004" name = "Borrar"/>
+				<Item id = "20005" name = "Gardar como..."/>
+				<Item id = "20007" name = "Linguaxe do usuario: "/>
+				<Item id = "20009" name = "Ext. :"/>
+				<Item id = "20012" name = "Ignorar MAI./min."/>
+				<Item id = "20011" name = "Transparencia"/>
+				<Item id = "0" name = "Cor do estilo"/>
+				<Item id = "1" name = "Cor do frente"/>
+				<Item id = "2" name = "Cor do fondo"/>
+				<Item id = "3" name = "Estilo da tipografía"/>
+				<Item id = "4" name = "Tipografía:"/>
+				<Item id = "5" name = "Tamaño:"/>
+				<Item id = "6" name = "Grosa"/>
+				<Item id = "7" name = "Cursiva"/>
+				<Item id = "8" name = "Subliñado"/>
+                <Folder title = "Cartafol &amp;&amp; predeterminado">
+					<Item id = "21101" name = "Configuración de estilo predeterminado"/>
+					<Item id = "21201" name = "Configurar verbas clave de apertura"/>
+					<Item id = "21301" name = "Configurar verbas clave de peche"/>
+                </Folder>
+                <Keywords title = "Listas de verbas clave">
+					<Item id = "22101" name = "1º grupo"/>
+					<Item id = "22201" name = "2º grupo"/>
+					<Item id = "22301" name = "3º grupo"/>
+					<Item id = "22401" name = "4º grupo"/>
+					<Item id = "22113" name = "Xeito prefixo"/>
+					<Item id = "22213" name = "Xeito prefixo"/>
+					<Item id = "22313" name = "Xeito prefixo"/>
+					<Item id = "22413" name = "Xeito prefixo"/>
+                </Keywords>
+                <Comment title = "Comentarios &amp;&amp; Números">
+					<Item id = "23301" name = "Comentario da liña"/>
+					<Item id = "23101" name = "Comentario do bloque"/>
+					<Item id = "23113" name = "Abrir comentario:"/>
+					<Item id = "23115" name = "Pechar comentario:"/>
+					<Item id = "23116" name = "Tratar verba clave como símbolo"/>
+					<Item id = "23117" name = "Tratar verbas clave como símbolos"/>
+					<Item id = "23201" name = "Número"/>
+                </Comment>
+                <Operator title = "Operadores">
+					<Item id = "24107" name = "Operador"/>
+					<Item id = "24103" name = "Símbolos dispoñíbeis"/>
+					<Item id = "24101" name = "Operadores activados"/>
+					<Item id = "24201" name = "Delimitador 1"/>
+					<Item id = "24211" name = "Límite aberto:"/>
+					<Item id = "24214" name = "Límite pechado:"/>
+					<Item id = "24301" name = "Delimitador 2"/>
+					<Item id = "24311" name = "Límite aberto:"/>
+					<Item id = "24314" name = "Límite pechado:"/>
+                </Operator>
+            </UserDefine>
+			<Preference title = "Preferencias">
+                <Item id = "6001" name = "Pechar"/>
+				<Global title = "Xerais">
+					<Item id = "6101" name = "Barra de ferramentas"/>
+					<Item id = "6102" name = "Agochar"/>
+					<Item id = "6103" name = "Iconas pequenas"/>
+	                <Item id = "6104" name = "Iconas grandes"/>
+					<Item id = "6105" name = "Iconas pequenas predeterminadas"/>
+
+					<Item id = "6106" name = "Barra de lapelas"/>
+					<Item id = "6107" name = "Reducir texto"/>
+					<Item id = "6108" name = "Bloquear (impedir arrastrar e soltar)"/>
+					<Item id = "6109" name = "Amosar xanelas inactivas"/>
+					<Item id = "6110" name = "Amosar liña laranxa na activa"/>
+
+					<Item id = "6111" name = "Amosar barra de estado"/>
+					<Item id = "6112" name = "Botón de peche en cada lapela"/>
+					<Item id = "6113" name = "Duplo click para pechar un documento"/>
+					<Item id = "6118" name = "Agochar"/>
+					<Item id = "6119" name = "Multi-liña"/>
+					<Item id = "6120" name = "Vertical"/>
+				</Global>
+                <Scintillas title = "Opcións visuais">
+					<Item id = "6201" name = "Estilo visual dos niveis"/>
+					<Item id = "6202" name = "Simple"/>
+					<Item id = "6203" name = "Frechas"/>
+	                <Item id = "6204" name = "Cercos"/>
+					<Item id = "6205" name = "Cadros"/>
+
+					<Item id = "6206" name = "Amosar número de liña"/>
+					<Item id = "6207" name = "Amosar marcas"/>
+					<Item id = "6208" name = "Amosar limite vertical"/>
+					<Item id = "6209" name = "Número de columna: "/>
+
+					<Item id = "6211" name = "Límite vertical"/>
+					<Item id = "6212" name = "Xeito liñal"/>
+					<Item id = "6213" name = "Xeito de fondo"/>
+					<Item id = "6214" name = "Realzar a liña activa"/>
+                </Scintillas>
+				<NewDoc title = "Documento novo">
+					<Item id = "6401" name = "Formato"/>
+					<Item id = "6402" name = "Windows"/>
+					<Item id = "6403" name = "Unix"/>
+	                <Item id = "6404" name = "Mac"/>
+					<Item id = "6405" name = "Codificación"/>
+					<Item id = "6406" name = "ANSI"/>
+					<Item id = "6407" name = "UTF-8 sen BOM"/>
+					<Item id = "6408" name = "UTF-8"/>
+					<Item id = "6409" name = "UCS2 Big endian"/>
+					<Item id = "6410" name = "UCS2 small endian"/>
+					<Item id = "6411" name = "Linguaxe predeterminada:"/>
+                </NewDoc>
+				<FileAssoc title = "Asociación de arquivos">
+					<Item id = "4009" name = "Ext. dispoñíbeis:"/>
+					<Item id = "4010" name = "Ext. asociadas:"/>
+                </FileAssoc>
+				<LangMenu title = "Menú de linguaxes">
+					<Item id = "6505" name = "Dispoñíbeis"/>
+					<Item id = "6506" name = "Desactivados"/>
+                </LangMenu>
+				<Print title = "Imprimir">
+					<Item id = "6601" name = "Imprimir número de liña"/>
+					<Item id = "6602" name = "Opcións da cor"/>
+					<Item id = "6603" name = "'WYSIWYG'"/>
+					<Item id = "6604" name = "Invertir"/>
+	                <Item id = "6605" name = "B/N"/>
+					<Item id = "6606" name = "Sen a cor de fondo"/>
+					<Item id = "6607" name = "Marxes (mm)"/>
+					<Item id = "6612" name = "Esquerdo"/>
+					<Item id = "6613" name = "Superior"/>
+					<Item id = "6614" name = "Dereito"/>
+					<Item id = "6615" name = "Inferior"/>
+					<Item id = "6706" name = "Grosa"/>
+					<Item id = "6707" name = "Cursiva"/>
+					<Item id = "6708" name = "Cabeceira"/>
+					<Item id = "6709" name = "Parte esquerda"/>
+	                <Item id = "6710" name = "Parte central"/>
+					<Item id = "6711" name = "Parte dereita"/>
+					<Item id = "6717" name = "Grosa"/>
+					<Item id = "6718" name = "Cursiva"/>
+					<Item id = "6719" name = "Pé"/>
+					<Item id = "6720" name = "Parte esquerda"/>
+	                <Item id = "6721" name = "Parte central"/>
+					<Item id = "6722" name = "Parte dereita"/>
+	                <Item id = "6723" name = "Engadir"/>
+					<Item id = "6725" name = "Variable:"/>
+                </Print>
+				<MISC title = "Miscelánea">
+					<Item id = "6301" name = "Tabulación"/>
+					<Item id = "6302" name = "Sustituir por espazos"/>
+					<Item id = "6303" name = "Tamaño:"/>
+					<Item id = "6304" name = "Historial de arquivos recentes"/>
+	                <Item id = "6305" name = "No comprobar ao encetar"/>
+					<Item id = "6306" name = "Número máximo de arquivos:"/>
+					<Item id = "6307" name = "Activar"/>
+					<Item id = "6308" name = "Minimizar á bandexa do sistema"/>
+					<Item id = "6309" name = "Lembrar sesión actual no próximo inicio"/>
+					<Item id = "6312" name = "Auto-detectar estado do arquivo"/>
+					<Item id = "6313" name = "Actualización automática"/>
+					<Item id = "6318" name = "Propiedades das ligazóns"/>
+					<Item id = "6319" name = "Activar"/>
+					<Item id = "6320" name = "Non debuxar subliñado"/>
+					<Item id = "6323" name = "Activar actualización automática"/>
+					<Item id = "6324" name = "Alternar documentos (Ctrl+TAB)"/>
+
+					<Item id = "6114" name = "Permitir alternar documentos (Ctrl+Tab)"/>
+					<Item id = "6115" name = "Sangría automática"/>
+					<Item id = "6116" name = "Lembrar o último cartafol usado"/>
+					<Item id = "6117" name = "Activar xeito MRU ao alternar documentos"/>
+                </MISC>
+				<Backup title = "Copia de seguranza/Autocompletar">
+					<Item id = "6801" name = "Copia de seguranza"/>
+					<Item id = "6315" name = "Non facer"/>
+					<Item id = "6316" name = "Copia simple"/>
+					<Item id = "6317" name = "Copia detallada"/>
+					<Item id = "6804" name = "Cartafol do usuario para copia de seguranza personalizado"/>
+					<Item id = "6803" name = "Cartafol:"/>
+					<Item id = "6807" name = "Autocompletar"/>
+	                <Item id = "6808" name = "Activar autocompletar en cada entrada"/>
+					<Item id = "6809" name = "Completar función"/>
+					<Item id = "6810" name = "Completar verba"/>
+					<Item id = "6811" name = "De"/>
+					<Item id = "6813" name = "Caracteres"/>
+					<Item id = "6814" name = "Valores válidos: 1 - 9"/>
+                </Backup>
+            </Preference>
+			<MultiMacro title = "Execución múltiple de macro">
+                <Item id = "1" name = "Executar"/>
+                <Item id = "2" name = "Esquecer"/>
+                <Item id = "8006" name = "Macro a executar:"/>
+                <Item id = "8001" name = "Executar"/>
+                <Item id = "8005" name = "veces"/>
+                <Item id = "8002" name = "Até o fin do arquivo"/>
+            </MultiMacro>
+			<Window title = "Xanelas">
+                <Item id = "1" name = "Activar"/>
+                <Item id = "2" name = "Aceptar"/>
+                <Item id = "7002" name = "Gardar"/>
+                <Item id = "7003" name = "Pechar xanela(s)"/>
+                <Item id = "7004" name = "Ordenar lapelas"/>
+            </Window>
+			<ColumnEditor title = "Editor de columnas">
+                <Item id = "2023" name = "Texto a inserir"/>
+                <Item id = "2033" name = "Número a inserir"/>
+                <Item id = "2030" name = "Número inicial:"/>
+                <Item id = "2031" name = "Incrementar en:"/>
+                <Item id = "2035" name = "Ceros diante"/>
+                <Item id = "2032" name = "Formato"/>
+                <Item id = "2024" name = "Dec"/>
+                <Item id = "2025" name = "Oct"/>
+                <Item id = "2026" name = "Hex"/>
+                <Item id = "2027" name = "Bin"/>
+				<Item id = "1" name = "Aceptar"/>
+				<Item id = "2" name = "Esquecer"/>
+            </ColumnEditor>
+		</Dialog>
+    </Native-Langue>
+</NotepadPlus>

@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="utf-8"?>
+<NotepadPlus>
+	<Native-Langue name = "Aranese" filename="aranese.xml" >
+		<Menu>
+			<Main>
+                <!-- Main Menu Entries -->
+				<Entries>
+					<Item menuId="file" name = "&amp;Archiu"/>
+					<Item menuId="edit" name = "&amp;Editar"/>
+					<Item menuId="search" name = "&amp;Cercar"/>
+					<Item menuId="view" name = "&amp;Veir"/>
+					<Item menuId="encoding" name = "Fo&amp;rmat"/>
+					<Item menuId="language" name = "&amp;Lenguatge"/>
+					<Item menuId="settings" name = "Con&amp;figuracions"/>
+					<Item menuId="macro" name = "&amp;Macro"/>
+					<Item menuId="run" name = "La&amp;nçar"/>
+					<Item idName = "Plugins" name = "&amp;Pedaçi"/>
+					<Item idName = "Window" name = "&amp;Hiestra"/>
+				</Entries>
+
+                <!-- Sub Menu Entries -->
+                <SubEntries>
+                    <Item subMenuId="view-collapseLevel" name = "Comprimir eth nivèu"/>
+                    <Item subMenuId="view-uncollapseLevel" name = "Expandir eth nivèu"/>
+                </SubEntries>
+
+                <!-- all menu item -->
+                <Commands>
+                    <Item id = "41001" name = "&amp;Nau	Ctrl+N"/>
+                    <Item id = "41002" name = "&amp;Daurir	Ctrl+O"/>
+                    <Item id = "41003" name = "&amp;Barrar	Ctrl+W"/>
+                    <Item id = "41004" name = "Barrar T&amp;ot"/>
+                    <Item id = "41005" name = "Barrar Tot MENS eth Document Actuau"/>
+                    <Item id = "41006" name = "&amp;Sauvar	Ctrl+S"/>
+                    <Item id = "41007" name = "Sau&amp;var Tot	Ctrl+Majús+S"/>
+                    <Item id = "41008" name = "Sauvar &amp;Coma..."/>
+                    <Item id = "41010" name = "Imprimir...	Ctrl+P"/>
+                    <Item id = "1001"  name = "Imprimir Ara!"/>
+                    <Item id = "41011" name = "G&amp;esser"/>
+					<Item id = "41012" name = "Carregar Session..."/>
+                    <Item id = "41013" name = "Sauvar Session..."/>
+                    <Item id = "42001" name = "Ta&amp;lhar	Ctrl+X"/>
+                    <Item id = "42002" name = "&amp;Copiar	Ctrl+C"/>
+                    <Item id = "42003" name = "&amp;Desheir	Ctrl+Z"/>
+                    <Item id = "42004" name = "&amp;Tornar a Hèr	Ctrl+Y"/>
+                    <Item id = "42005" name = "&amp;Pegar	Ctrl+V"/>
+                    <Item id = "42006" name = "&amp;Borrar	Del"/>
+                    <Item id = "42007" name = "Seleccio&amp;nar Tot	Ctrl+A"/>
+                    <Item id = "42008" name = "Mèter TAB (Endicar)	TAB"/>
+                    <Item id = "42009" name = "Treir TAB (Desendicar)	Majús+TAB"/>
+                    <Item id = "42010" name = "Duplicar era linha actuau	Ctrl+D"/>
+                    <Item id = "42012" name = "Talhar linhes	Ctrl+I"/>
+                    <Item id = "42013" name = "Júnher linhes	Ctrl+J"/>
+                    <Item id = "42014" name = "Botjar entà  Naut era linha actuau	Ctrl+Majús+Naut"/>
+                    <Item id = "42015" name = "Botjar entà  Baish era linha actuau	Ctrl+Majús+Baish"/>
+                    <Item id = "42016" name = "Méter en Majúscules	Ctrl+Majús+U"/>
+                    <Item id = "42017" name = "Méter en Minúscules	Ctrl+U"/>
+                    <Item id = "42018" name = "&amp;Començar Grabacion	Ctrl+Majús+R"/>
+                    <Item id = "42019" name = "&amp;Arturar Grabacion	Ctrl+Majús+R"/>
+                    <Item id = "42021" name = "&amp;Tornar a Vèir	Ctrl+Majús+P"/>
+                    <Item id = "42022" name = "Bloquejar comentar/descomentar"/>
+                    <Item id = "42023" name = "Comentari comun"/>
+                    <Item id = "42024" name = "Talhar peth Rastre d'Espais"/>
+                    <Item id = "42025" name = "Sauvar eth macro gravat ara"/>
+                    <Item id = "42026" name = "Direccion deth tèxte RTL	Ctrl+Alt+R"/>
+                    <Item id = "42027" name = "Direccion deth tèxte LTR	Ctrl+Alt+L"/>
+                    <Item id = "42028" name = "Mèter Sonque Lectura"/>
+                    <Item id = "42029" name = "Mèter era direccion sencera actuau en eth Pòrta Papèrs"/>
+                    <Item id = "42030" name = "Mèter eth nòm deth document actuau en eth Pòrta Papèrs"/>
+                    <Item id = "42031" name = "Mèter era direccion actuau en eth Pòrta Papèrs"/>
+                    <Item id = "42032" name = "Lançar eth macro molti viatges..."/>
+
+                    <Item id = "43001" name = "&amp;Cercar...	Ctrl+F"/>
+                    <Item id = "43002" name = "Cercar &amp;Següent	F3"/>
+                    <Item id = "43003" name = "&amp;Escambiar...	Ctrl+H"/>
+                    <Item id = "43004" name = "Anar entà  era lihna...	Ctrl+G"/>
+                    <Item id = "43005" name = "Fixar Mèrca	Ctrl+F2"/>
+                    <Item id = "43006" name = "Següenta Mèrca	F2"/>
+                    <Item id = "43007" name = "Mèrca Anterior	Majús+F2"/>
+                    <Item id = "43008" name = "Borra totes es Mèrques"/>
+                    <Item id = "43009" name = "Anar entà era cerca corresponenta	Ctrl+B"/>
+                    <Item id = "43010" name = "Cercar &amp;Anterior	Majús+F3"/>
+                    <Item id = "43011" name = "Cerca Incrementau...	Ctrl+Alt+I"/>
+                    <Item id = "43013" name = "Cercar en archius	Ctrl+Majús+F"/>
+                    <Item id = "43014" name = "Cercar (volatil) Següent	Ctrl+F3"/>
+                    <Item id = "43015" name = "Cercar (volatil) Anterior	Ctrl+Majús+F3"/>
+
+                    <Item id = "44010" name = "Direccionar tot	Alt+0"/>
+                    <Item id = "44011" name = "Preferències d'usuari"/>
+                    <Item id = "44019" name = "Ensenhar toti es caracters"/>
+                    <Item id = "44020" name = "Ensenhar era guia d'endicat"/>
+                    <Item id = "44022" name = "Plegar"/>
+                    <Item id = "44023" name = "&amp;Ampliar Vision	Ctrl-Arrat Rodar Naut"/>
+                    <Item id = "44024" name = "&amp;Reduir Vision	Ctrl-Arrat Rodar Baish"/>
+                    <Item id = "44025" name = "Ensenhar Espais en Blanc e TAB"/>
+                    <Item id = "44026" name = "Ensenhar Finau de Linha"/>
+                    <Item id = "44029" name = "Unfold all	Alt+Majús+0"/>
+                    <Item id = "44030" name = "Comprimir eth nivèu actuau	Ctrl+Alt+F"/>
+                    <Item id = "44031" name = "Expandir eth nivèu actuau	Ctrl+Alt+Majús+F"/>
+                    <Item id = "44032" name = "Mèter en Mode Pantalla	F11"/>
+                    <Item id = "44033" name = "Mèter era ampliacion per defecte	Ctrl+/(keypad)"/>
+                    <Item id = "44034" name = "Tostemp naut"/>
+                    <Item id = "44035" name = "Sincronitzar era Barra de Desplaçament Verticau"/>
+                    <Item id = "44036" name = "Sincronitzar era Barra de Desplaçament Horitzontau"/>
+
+                    <Item id = "45001" name = "Convertir entà  Format de Windows"/>
+                    <Item id = "45002" name = "Convertir entà  Format de UNIX"/>
+                    <Item id = "45003" name = "Convertir entà  format MAC"/>
+                    <Item id = "45004" name = "Codificar en ANSI"/>
+                    <Item id = "45005" name = "Codificar en UTF-8"/>
+                    <Item id = "45006" name = "Codificar en UCS-2 Indi Expandit"/>
+                    <Item id = "45007" name = "Codificar en UCS-2 Indi Reduít"/>
+                    <Item id = "45008" name = "Codificar en UTF-8 (sense BOM)"/>
+
+                    <Item id = "10001" name = "Anar entà auta Vista"/>
+                    <Item id = "10002" name = "Duplicar entà auta Vista"/>
+
+                    <Item id = "46001" name = "Configurador D'estil..."/>
+                    <Item id = "47000" name = "Sus...	F1"/>
+                    <Item id = "48009" name = "Dresseres..."/>
+                    <Item id = "48011" name = "Preferències..."/>
+                    <Item id = "49000" name = "&amp;Lançar..."/>
+                </Commands>
+            </Main>
+            <Splitter>
+            </Splitter>
+            <TabBar>
+                    <Item CMID = "0" name = "Barrar aguesta"/>
+                    <Item CMID = "1" name = "Barrar totes excepte aguesta"/>
+                    <Item CMID = "2" name = "Sauvar aguesta"/>
+                    <Item CMID = "3" name = "Sauvar aguesta coma..."/>
+                    <Item CMID = "4" name = "Imprimir aguesta"/>
+                    <Item CMID = "5" name = "Anar a d'auta Vista"/>
+                    <Item CMID = "6" name = "Duplicar en auta Vista"/>
+            </TabBar>
+        </Menu>
+
+        <Dialog>
+            <Find title = "Find...">
+                <Item id = "1" name = "Cercar Següent"/>
+                <Item id = "2" name = "&amp;Barrar"/>
+                <Item id = "1620" name = "&amp;Que cercar :"/>
+                <Item id = "1603" name = "Trapar &amp;paraules senceres"/>
+                <Item id = "1604" name = "Trapar ma&amp;júscules"/>
+                <Item id = "1605" name = "Expression &amp;Regular"/>
+                <Item id = "1606" name = "Cercar en tot eth &amp;Document"/>
+                <Item id = "1612" name = "&amp;Naut"/>
+                <Item id = "1613" name = "B&amp;aish"/>
+                <Item id = "1614" name = "Condar"/>
+                <Item id = "1615" name = "Cercar totes"/>
+                <Item id = "1616" name = "Mercar Linha"/>
+                <Item id = "1617" name = "Trapar Mèrques d'estil"/>
+                <Item id = "1618" name = "Trèir en cada cerca"/>
+                <Item id = "1621" name = "Direccion"/>
+                <Item id = "1611" name = "Esca&amp;mbiar per :"/>
+                <Item id = "1608" name = "&amp;Escambiar"/>
+                <Item id = "1609" name = "Escambia'c &amp;Tot"/>
+			 	<Item id = "1623" name = "Transparencia"/>
+			 	<Item id = "1632" name = "Ena seleccion"/>
+			 	<Item id = "1633" name = "Limpiar"/>
+			 	<Item id = "1635" name = "Escambia'c tot en toti es documents duberts"/>
+			 	<Item id = "1636" name = "Cerca'c tot en toti es documents duberts"/>
+			 	<Item id = "1637" name = "Cercar en es archius"/>
+			 	<Item id = "1640" name = "Cambiar dialòg"/>
+            </Find>
+            <GoToLine title = "Anar ara Linha #">
+                <Item id = "1" name = "&amp;Anar !"/>
+                <Item id = "2" name = "Non estongui anant en lòc"/>
+                <Item id = "2004" name = "Tu es ena linha :"/>
+                <Item id = "2005" name = "A quina linha vòs anar :"/>
+                <Item id = "2006" name = "Non pòs anar mès enlà de:"/>
+            </GoToLine>
+
+            <Run title = "Lançar...">
+                <Item id = "1903" name = "Escriu eth tòn programa enta lança-lo"/>
+                <Item id = "1" name = "Lançar!"/>
+                <Item id = "2" name = "Cancellar"/>
+                <Item id = "1904" name = "Sauvar..."/>
+            </Run>
+
+            <StyleConfig title = "Configurador d'Estil">
+				<Item id = "1" name = "&amp;Provar!"/>
+				<Item id = "2" name = "&amp;Cancellar"/>
+				<Item id = "2301" name = "Sauvar e Ba&amp;rrar"/>
+				<Item id = "2303" name = "Transparencia"/>
+
+                <SubDialog>
+                	<Item id = "2204" name = "Nereta"/>
+                    <Item id = "2205" name = "Cursiva"/>
+                    <Item id = "2206" name = "Color de letra"/>
+                    <Item id = "2207" name = "Color de fons"/>
+                    <Item id = "2208" name = "Nòm dera Hont :"/>
+                    <Item id = "2209" name = "Granor :"/>
+                    <Item id = "2210" name = "Atencion : Era definicion d'aguest estil serà  era definicion per defecte entà  toti es estils non definits"/>
+                    <Item id = "2211" name = "Descripcion d'Estil :"/>
+                    <Item id = "2212" name = "Color d'estil"/>
+                    <Item id = "2213" name = "Hont d'estil"/>
+                    <Item id = "2214" name = "Exten. per Defecte :"/>
+                    <Item id = "2216" name = "Exten. d'Usuari :"/>
+                    <Item id = "2218" name = "Suslinhat"/>
+                    <Item id = "2219" name = "Paraules clau per defecte"/>
+                    <Item id = "2221" name = "Paraules clau entà  er usuari"/>
+                </SubDialog>
+
+            </StyleConfig>
+
+            <UserDefine title = "Definicions d'Usuari">
+				<Item id = "20002" name = "Renombrar"/>
+				<Item id = "20003" name = "Crar Nau..."/>
+				<Item id = "20004" name = "Borrar"/>
+				<Item id = "20005" name = "Sauvar Coma..."/>
+				<Item id = "20007" name = "Lenguatge d'usuari : "/>
+				<Item id = "20009" name = "Extension :"/>
+				<Item id = "20012" name = "Ignorar majúsc."/>
+				<Item id = "20011" name = "Transparencia"/>
+				<Item id = "0" name = "Color d'estil"/>
+				<Item id = "1" name = "Color de letra"/>
+				<Item id = "2" name = "Color de fons"/>
+				<Item id = "3" name = "Estil dera Hont"/>
+				<Item id = "4" name = "Nòm :"/>
+				<Item id = "5" name = "Granor :"/>
+				<Item id = "6" name = "Nereta"/>
+				<Item id = "7" name = "Cursiva"/>
+				<Item id = "8" name = "Suslinhat"/>
+                <Folder title = "Direcctòri e preferències">
+					<Item id = "21101" name = "Configuracion d'Estil per Defecte"/>
+					<Item id = "21201" name = "Eth directòri Daurís era configuracion des Paraules clau"/>
+					<Item id = "21301" name = "Eth directòri Barre era configuracion des Paraules clau"/>
+                </Folder>
+                <Keywords title = "Lista Paraules Clau">
+					<Item id = "22101" name = "1er Grup"/>
+					<Item id = "22201" name = "2on Grup"/>
+					<Item id = "22301" name = "3au Grup"/>
+					<Item id = "22401" name = "4au Grup"/>
+					<Item id = "22113" name = "Mòde Prefixe"/>
+					<Item id = "22213" name = "Mòde Prefixe"/>
+					<Item id = "22313" name = "Mòde Prefixe"/>
+					<Item id = "22413" name = "Mòde Prefixe"/>
+                </Keywords>
+                <Comment title = "Comentaris e Nombres">
+					<Item id = "23301" name = "Comentari Linha"/>
+					<Item id = "23101" name = "Comentari Blòc"/>
+					<Item id = "23113" name = "Comentari Daurir :"/>
+					<Item id = "23115" name = "Comentari Barrar :"/>
+					<Item id = "23116" name = "Tractar paraula clau coma simbol"/>
+					<Item id = "23117" name = "Tractar paraules clau coma simbols"/>
+					<Item id = "23201" name = "Nombre"/>
+                </Comment>
+                <Operator title = "Operadors">
+					<Item id = "24107" name = "Operador"/>
+					<Item id = "24103" name = "Simbols Disponibles"/>
+					<Item id = "24101" name = "Operadors Activats"/>
+					<Item id = "24201" name = "Delimitador 1"/>
+					<Item id = "24211" name = "Limit entà  daurir :"/>
+					<Item id = "24214" name = "Limit entà  barrar :"/>
+					<Item id = "24301" name = "Delimitador 2"/>
+					<Item id = "24311" name = "Limit entà  daurir :"/>
+					<Item id = "24314" name = "Limit entà  barrar :"/>
+                </Operator>
+            </UserDefine>
+			<Preference title = "Preferències">
+                <Item id = "6001" name = "Barrar"/>
+				<Global title = "Globau">
+					<Item id = "6101" name = "Barra d'utís"/>
+					<Item id = "6102" name = "Amagar"/>
+					<Item id = "6103" name = "Icònes petites"/>
+	                <Item id = "6104" name = "Icònes Granes"/>
+					<Item id = "6105" name = "Icònes petites estandard"/>
+
+					<Item id = "6106" name = "Barra de pestanhes"/>
+					<Item id = "6107" name = "Reduir"/>
+					<Item id = "6108" name = "Bloquejar (Non Arrastar)"/>
+					<Item id = "6109" name = "Diboishar es pestanhes inactiues"/>
+					<Item id = "6110" name = "Diboishar era barra iranja de naut"/>
+
+					<Item id = "6111" name = "Ensenhar era Barra d'Estat"/>
+				</Global>
+                <Scintillas title = "Editar Components">
+					<Item id = "6201" name = "Estil deth marge des directòris"/>
+					<Item id = "6202" name = "Simple"/>
+					<Item id = "6203" name = "Corsor"/>
+	                <Item id = "6204" name = "Circle tree"/>
+					<Item id = "6205" name = "Arbe de carpetes"/>
+
+					<Item id = "6206" name = "Ensenahar es nombres de linha en eth marge"/>
+					<Item id = "6207" name = "Ensenhar es Mèrques en eth marge"/>
+					<Item id = "6208" name = "Ensenhar Vòra Verticau"/>
+					<Item id = "6209" name = "Nombre de columna : "/>
+
+					<Item id = "6211" name = "Configuracion dera Vòra Verticau"/>
+					<Item id = "6212" name = "Mode de Linha"/>
+					<Item id = "6213" name = "Mode de fons"/>
+					<Item id = "6214" name = "Activar Active lum de linha actuau"/>
+                </Scintillas>
+				<NewDoc title = "Nau Document">
+					<Item id = "6401" name = "Format"/>
+					<Item id = "6402" name = "Windows"/>
+					<Item id = "6403" name = "Unix"/>
+	                <Item id = "6404" name = "Mac"/>
+					<Item id = "6405" name = "Codificacion"/>
+					<Item id = "6406" name = "ANSI"/>
+					<Item id = "6407" name = "UTF-8 sense BOM"/>
+					<Item id = "6408" name = "UTF-8"/>
+					<Item id = "6409" name = "UCS2 Indi extenut"/>
+					<Item id = "6410" name = "UCS2 Indi reduí­t"/>
+					<Item id = "6411" name = "Lenguatge per defecte :"/>
+                </NewDoc>
+				<FileAssoc title = "Associacion d'Archius">
+					<Item id = "4009" name = "Extens. Suportades :"/>
+					<Item id = "4010" name = "Extens. Registrades :"/>
+                </FileAssoc>
+				<LangMenu title = "Menu Lenguatges">
+					<Item id = "6505" name = "Elements disponibles"/>
+					<Item id = "6506" name = "Elements desactivats"/>
+                </LangMenu>
+				<Print title = "Imprimir">
+					<Item id = "6601" name = "Imprimir Nombre de Linhes"/>
+					<Item id = "6602" name = "Opcion de Color"/>
+					<Item id = "6603" name = "WYSIWYG"/>
+					<Item id = "6604" name = "Invertir"/>
+	                <Item id = "6605" name = "Nere sus Blanc"/>
+					<Item id = "6606" name = "Sense color de fons"/>
+					<Item id = "6607" name = "Configuracion des Marges (Unitat:mm)"/>
+					<Item id = "6612" name = "Quèrra"/>
+					<Item id = "6613" name = "Naut"/>
+					<Item id = "6614" name = "Dreta"/>
+					<Item id = "6615" name = "Baish"/>
+					<Item id = "6706" name = "Nereta"/>
+					<Item id = "6707" name = "Cursiva"/>
+					<Item id = "6708" name = "Entesta"/>
+					<Item id = "6709" name = "Part quèrra"/>
+	                <Item id = "6710" name = "Part centrau"/>
+					<Item id = "6711" name = "Part dreta"/>
+					<Item id = "6717" name = "Nereta"/>
+					<Item id = "6718" name = "Cursiva"/>
+					<Item id = "6719" name = "Pè"/>
+					<Item id = "6720" name = "Part esquerra"/>
+	                <Item id = "6721" name = "Part centrau"/>
+					<Item id = "6722" name = "Part dreta"/>
+	                <Item id = "6723" name = "Híger"/>
+					<Item id = "6725" name = "Variable :"/>
+                </Print>
+				<MISC title = "MISC">
+					<Item id = "6301" name = "Configuracion de pestanhes"/>
+					<Item id = "6302" name = "Cambiar damb espai"/>
+					<Item id = "6303" name = "Granor dera Pestanha : "/>
+					<Item id = "6304" name = "Configuracion der Istòria de archius"/>
+	                <Item id = "6305" name = "Non comprovar quan se daurís"/>
+					<Item id = "6306" name = "Nombre màxim deth archiu de istòria :"/>
+					<Item id = "6307" name = "Activar"/>
+					<Item id = "6308" name = "Minimitzar ena barra"/>
+					<Item id = "6309" name = "Rebrembar es sessions actuaus entà auta session"/>
+					<Item id = "6312" name = "Auto-detecion de Estat des Fichers"/>
+					<Item id = "6313" name = "Actualitzar sileciosament"/>
+                </MISC>
+            </Preference>
+
+			<MultiMacro title = "Lançar Macro Multi Viatges">
+                <Item id = "1" name = "Lançar"/>
+                <Item id = "2" name = "Cancellar"/>
+                <Item id = "8006" name = "Macro entà  lançar :"/>
+                <Item id = "8001" name = "Lançar"/>
+                <Item id = "8005" name = "viatges"/>
+                <Item id = "8002" name = "Lançar enquia eth fin"/>
+            </MultiMacro>
+			<Window title = "Hiestres">
+                <Item id = "1" name = "Activar"/>
+                <Item id = "2" name = "D'acord"/>
+                <Item id = "7002" name = "Sauvar"/>
+                <Item id = "7003" name = "Barrar Hiestres"/>
+                <Item id = "7004" name = "Ordenar Pest."/>
+            </Window>
+		</Dialog>
+    </Native-Langue>
+</NotepadPlus>

@@ -1,0 +1,612 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	::Marathi language file for Notepad++ ::
+
+	** created By:- Nikhil Tamhankar **
+		Email- iamnik.mailme@gmail.com
+
+	**modified by:kumar gagare
+		Email-kumargagare1@gmail.com
+
+-->
+<NotepadPlus>
+	<Native-Langue name="मराठी" filename="marathi.xml">
+		<Menu>
+			<Main>
+                <!-- Main Menu Entries -->
+                <Entries>
+                    <Item menuId="file" name="&amp;फाईल"/>
+                    <Item menuId="edit" name="&amp;एडिट"/>
+                    <Item menuId="search" name="&amp;सर्च"/>
+                    <Item menuId="view" name="&amp;व्यू"/>
+                    <Item menuId="encoding" name="&amp;एन्कोडिंग"/>
+                    <Item menuId="language" name="&amp;भाषा"/>
+                    <Item menuId="settings" name="&amp;सेटिंग"/>
+                    <Item menuId="macro" name="मॅक्रो"/>
+                    <Item menuId="run" name="चलाये"/>
+                    <Item idName="Plugins" name="प्लगइन्स"/>
+                    <Item idName="Window" name="विन्डों"/>
+                </Entries>
+
+                <!-- Sub Menu Entries -->
+                <SubEntries>
+                    <Item subMenuId="edit-copyToClipboard" name="क्लिपबोर्डवर कॉपी"/>
+                    <Item subMenuId="edit-indent" name="इंडेन्ट"/>
+                    <Item subMenuId="edit-convertCaseTo" name="केस रुपांतर"/>
+                    <Item subMenuId="edit-lineOperations" name="ओळ ऑपरेशन"/>
+                    <Item subMenuId="edit-comment" name="नोंद/टीका"/>
+                    <Item subMenuId="edit-autoCompletion" name="स्वयं पूर्णता"/>
+                    <Item subMenuId="edit-eolConversion" name="EOL रुपांतर"/>
+					<Item subMenuId="edit-blankOperations" name="रिक्त/ब्लैंक ऑपरेशन"/>
+                    <Item subMenuId="search-markAll" name="सर्व चिन्हांकित करा"/>
+                    <Item subMenuId="search-unmarkAll" name="सर्व चिन्ह काढा"/>
+                    <Item subMenuId="search-jumpUp" name="वर उडी"/>
+                    <Item subMenuId="search-jumpDown" name="खाली उडी"/>
+                    <Item subMenuId="search-bookmark" name="बूकमार्क"/>
+                    <Item subMenuId="view-showSymbol" name="चिन्ह दाखवा"/>
+                    <Item subMenuId="view-zoom" name="झूम पाहा"/>
+                    <Item subMenuId="view-moveCloneDocument" name="डॉक्युमेंट क्लोन करा/हलवा"/>
+                    <Item subMenuId="view-collapseLevel" name="लेवल कोलेप्स करा"/>
+                    <Item subMenuId="view-uncollapseLevel" name="लेवल अनकोलेप्स करा"/>
+                    <Item subMenuId="encoding-characterSets" name="वर्ण सेट"/>
+                    <Item subMenuId="encoding-arabic" name="अरबी"/>
+                    <Item subMenuId="encoding-baltic" name="बाल्टिक"/>
+                    <Item subMenuId="encoding-celtic" name="केल्ट भाषा"/>
+                    <Item subMenuId="encoding-cyrillic" name="साल्व्हनिक भाषा"/>
+                    <Item subMenuId="encoding-centralEuropean" name="मध्य यूरोप"/>
+                    <Item subMenuId="encoding-chinese" name="चिनी"/>
+                    <Item subMenuId="encoding-easternEuropean" name="पूर्व यूरोप"/>
+                    <Item subMenuId="encoding-greek" name="ग्रीस भाषा"/>
+                    <Item subMenuId="encoding-hebrew" name="यहुदी भाषा"/>
+                    <Item subMenuId="encoding-japanese" name="जपानी भाषा"/>
+                    <Item subMenuId="encoding-korean" name="कोरियन"/>
+                    <Item subMenuId="encoding-northEuropean" name="उत्तर यूरोप"/>
+                    <Item subMenuId="encoding-thai" name="थाई"/>
+                    <Item subMenuId="encoding-turkish" name="तुर्क भाषा"/>
+                    <Item subMenuId="encoding-westernEuropean" name="पश्चिम यूरोप"/>
+                    <Item subMenuId="encoding-vietnamese" name="वियतनाव"/>
+                    <Item subMenuId="settings-import" name="आयात"/>
+                </SubEntries>
+
+                <!-- all menu item -->
+                <Commands>
+                    <Item id="41001" name="&amp;नवीन"/>
+                    <Item id="41002" name="&amp;उघडा"/>
+                    <Item id="41003" name="बंद करा"/>
+                    <Item id="41004" name="&amp;सर्व बंद करा"/>
+                    <Item id="41005" name="चालू डॉक्युमेंट व्यतिरिक्त सर्व बंद करा"/>
+                    <Item id="41006" name="&amp;सेव्ह करा"/>
+                    <Item id="41007" name="&amp;सर्व सेव्ह करा"/>
+                    <Item id="41008" name="&amp;असे सेव्ह करा..."/>
+                    <Item id="41010" name="छापा..."/>
+                    <Item id="1001" name="आता छापा"/>
+                    <Item id="41011" name="&amp;बाहेर पडण्यासाठी"/>
+                    <Item id="41012" name="सत्र लोड करा..."/>
+                    <Item id="41013" name="सत्र सेव्ह करा..."/>
+                    <Item id="41014" name="डिस्क वरून रीलोड करा"/>
+                    <Item id="41015" name="प्रतिरूप अस सेव्ह करा..."/>
+                    <Item id="41016" name="डिस्क वरून नष्ट करा"/>
+                    <Item id="41017" name="नाव बदला..."/>
+
+                    <Item id="42001" name="&amp;कापा (cut)"/>
+                    <Item id="42002" name="&amp;कॉपी (copy)"/>
+                    <Item id="42003" name="&amp;पूर्ववत करा (Undo)"/>
+                    <Item id="42004" name="&amp;पुन्हा करा (Redo)"/>
+                    <Item id="42005" name="&amp;पेस्ट करा (Paste)"/>
+                    <Item id="42006" name="&amp;नष्ट करा (Delete)"/>
+                    <Item id="42007" name="&amp;सर्व निवडा (Select All)"/>
+                    <Item id="42008" name="लाईन इंडेंट वाढवा"/>
+                    <Item id="42009" name="लाईन इंडेंट कमी करा"/>
+                    <Item id="42010" name="सध्याची लाइन डुप्लिकेट करा"/>
+                    <Item id="42012" name="लाईन विभाजित करा"/>
+                    <Item id="42013" name="लाईन जोड़ा"/>
+                    <Item id="42014" name="सध्याची लाईन वर्ती हलवा"/>
+                    <Item id="42015" name="सध्याची लाईन खाली हलवा"/>
+                    <Item id="42016" name="अपरकेस करा"/>
+                    <Item id="42017" name="लोअरकेस करा"/>
+                    <Item id="42018" name="&amp;रेकॉर्डिंग प्रारंभ करा"/>
+                    <Item id="42019" name="&amp;रिकॉर्डिंग थांबवा"/>
+                    <Item id="42021" name="&amp;रेकॉर्डिंग पहा/प्लेबैक"/>
+                    <Item id="42022" name="एकओळ टीका टॉगल करा"/>
+                    <Item id="42023" name="टीका ब्लॉक करा"/>
+					<Item id="42042" name="पुढची स्पेस कमी करा"/>
+					<Item id="42043" name="पुढची आणि माघची स्पेस कमी करा"/>
+					<Item id="42044" name="EOL पासून स्पेस"/>
+					<Item id="42045" name="अनावश्यक ब्लैंक आणि EOL काढा"/>
+					<Item id="42046" name="टैब/TAB पासून स्पेस"/>
+					<Item id="42047" name="स्पेस पासून टैब/TAB"/>
+                    <Item id="42024" name="मागील स्पेस कमी करा"/>
+                    <Item id="42025" name="सध्या रिकार्डेड मॅक्रो सेव्ह करा"/>
+                    <Item id="42026" name="उजवीकडून डावीकडे अक्षर दिशा "/>
+                    <Item id="42027" name="डावीकडून उजवीकडे अक्षर दिशा "/>
+                    <Item id="42028" name="फाइल फक्त-वाचण्याकरीता/Read-only सेट करा"/>
+                    <Item id="42029" name="सध्याच्या फाइलच पथ क्लिपबोर्ड वर घ्या"/>
+                    <Item id="42030" name="सध्याच्या फाइलच नाव क्लिपबोर्ड वर घ्या"/>
+                    <Item id="42031" name="सध्याच्या डिरेक्टरिच पथ क्लिपबोर्ड वर घ्या"/>
+                    <Item id="42032" name="मैक्रो अनेक वेळा चालवा..."/>
+                    <Item id="42033" name="फाइलच फक्त-वाचण्याकरीता/Read-Only फ्लेग काढा"/>
+                    <Item id="42035" name="एकओळ टीका"/>
+                    <Item id="42036" name="एकओळ टीका काढा"/>
+					<Item id="42055" name="रिकामे रेषा काढा"/>
+                    <Item id="42056" name="रिकामे रेषा काढा (रिकामे असलेले वर्ण)"/>
+
+                    <Item id="43001" name="&amp;शोधा..."/>
+                    <Item id="43002" name="&amp;पुढील शोधा"/>
+                    <Item id="43003" name="बदला(replace)..."/>
+                    <Item id="43004" name="तेथे जा..."/>
+                    <Item id="43005" name="बुकमार्क टॉगल करा"/>
+                    <Item id="43006" name="पुढील बुकमार्क"/>
+                    <Item id="43007" name="पूर्वीच बुकमार्क"/>
+                    <Item id="43008" name="सर्व बुकमार्क साफ करा"/>
+                    <Item id="43009" name="जुळणारे ब्रेकेट वर जा"/>
+                    <Item id="43010" name="पूर्वीच शोधा"/>
+                    <Item id="43011" name="&amp;प्रगतीशील शोधा"/>
+                    <Item id="43013" name="फाईलमध्ये शोधा"/>
+                    <Item id="43014" name="पुढील (Volatile) शोधा"/>
+                    <Item id="43015" name="पूर्वीच (Volatile) शोधा"/>
+                    <Item id="43016" name="सर्व चिन्हांकित करा"/>
+                    <Item id="43017" name="सर्व चिन्हांकित काढा"/>
+                    <Item id="43018" name="बुकमार्क लाइन कट करा"/>
+                    <Item id="43019" name="बुकमार्क लाइन कॉपी करा"/>
+                    <Item id="43020" name="बुकमार्क लाइन पेस्ट करा (Replace)"/>
+                    <Item id="43021" name="बुकमार्क लाइन नष्ट करा (delete) करो"/>
+                    <Item id="43022" name="१ली स्टाईल वापरा"/>
+                    <Item id="43023" name="१ली स्टाईल काढा"/>
+                    <Item id="43024" name="२री स्टाईल वापरा"/>
+                    <Item id="43025" name="२री स्टाईल काढा"/>
+                    <Item id="43026" name="३री स्टाईल वापरा"/>
+                    <Item id="43027" name="३री स्टाईल काढा"/>
+                    <Item id="43028" name="४थी स्टाईल वापरा"/>
+                    <Item id="43029" name="४थी स्टाईल काढा"/>
+                    <Item id="43030" name="५वी स्टाईल वापरा"/>
+                    <Item id="43031" name="५वी स्टाईल काढा"/>
+                    <Item id="43032" name="सभी स्टाईल काढा"/>
+                    <Item id="43033" name="१ली स्टाईल"/>
+                    <Item id="43034" name="२री स्टाईल"/>
+                    <Item id="43035" name="३री स्टाईल"/>
+                    <Item id="43036" name="४थी स्टाईल"/>
+                    <Item id="43037" name="५वी स्टाईल"/>
+                    <Item id="43038" name="स्टाईल शोधा"/>
+                    <Item id="43039" name="१ला स्टाईल"/>
+                    <Item id="43040" name="२रा स्टाईल"/>
+                    <Item id="43041" name="३री स्टाईल"/>
+                    <Item id="43042" name="४थी स्टाईल"/>
+                    <Item id="43043" name="५वी स्टाईल"/>
+                    <Item id="43044" name="स्टाईल शोधा"/>
+                    <Item id="43045" name="परिणाम विंडो शोधा"/>
+                    <Item id="43046" name="पुढील शोध परिणाम"/>
+                    <Item id="43047" name="मागील शोध परिणाम"/>
+                    <Item id="43048" name="निवडा आणि पुढील शोधा"/>
+                    <Item id="43049" name="निवडा आणि मागील शोधा"/>
+                    <Item id="43050" name="उलटा बुकमार्क"/>
+                    <Item id="44009" name="पोस्ट करा"/>
+                    <Item id="44010" name="सर्व दुमडा"/>
+                    <Item id="44011" name="उपयोग कर्ता द्वारा सांगितलेला डायलोग..."/>
+                    <Item id="44019" name="सर्व वर्ण/केरेक्टर दाखवा"/>
+                    <Item id="44020" name="ईन्डेन्ट मार्ग दर्शक दाखवा"/>
+                    <Item id="44022" name="लपेटा (Wrap)"/>
+                    <Item id="44023" name="&amp;आकार वाढवा Ctrl+Mouse Wheel Up"/>
+                    <Item id="44024" name="&amp;आकार छोटा करा Ctrl+Mouse Wheel Down"/>
+                    <Item id="44025" name="रिकामी जागा आणि टॅब दर्शवा"/>
+                    <Item id="44026" name="लाईनच शेवट दर्शवा"/>
+                    <Item id="44029" name="सर्व घडी खोला"/>
+                    <Item id="44030" name="सध्याच्या स्तर संकुचित करा"/>
+                    <Item id="44031" name="सध्याच्या स्तर असंकुचित करा"/>
+                    <Item id="44032" name="पूर्ण स्क्रीन करा"/>
+                    <Item id="44033" name="मुलभूत झूम पुनर्संचयित करा"/>
+                    <Item id="44034" name="नेहेमी वर"/>
+					<Item id="44049" name="सारांश..."/>
+                    <Item id="44035" name="अनुलंब स्क्रोलिंग सिंक्रोंनाईज़ करा"/>
+                    <Item id="44036" name="कआडवा सस्क्रोलिंग सिंक्रोंनाईज़ करा"/>
+                    <Item id="44041" name="लपेटा (Wrap) चिन्ह दाखवा"/>
+                    <Item id="44072" name="दूसरा व्यू फोकस करा"/>
+
+                    <Item id="45001" name="विंडोज स्वरुपात रुपांतरित करा"/>
+                    <Item id="45002" name="उनिक्स स्वरुपात रुपांतरित करा"/>
+                    <Item id="45003" name="MAC स्वरुपात रुपांतरित करा"/>
+                    <Item id="45004" name="ANSI स्वरुपात एन्कोड करा"/>
+                    <Item id="45005" name="UTF-8 स्वरुपात एन्कोड करा"/>
+                    <Item id="45006" name="UCS-2 Big Endian स्वरुपात एन्कोड करा"/>
+                    <Item id="45007" name="UCS-2 Little Endian स्वरुपात एन्कोड करा"/>
+                    <Item id="45008" name="UTF-8 without BOM स्वरुपात एन्कोड करा"/>
+                    <Item id="45009" name="ANSI स्वरुपात रूपांतरित करा"/>
+                    <Item id="45010" name="UTF-8 without BOM स्वरुपात रूपांतरित करा"/>
+                    <Item id="45011" name="UTF-8 स्वरुपात रूपांतरित करा"/>
+                    <Item id="45012" name="UCS-2 Big Endian स्वरुपात रूपांतरित करा"/>
+                    <Item id="45013" name="UCS-2 Little Endian स्वरुपात रूपांतरित करा"/>
+
+                    <Item id="10001" name="इतर व्यू मधे जा"/>
+                    <Item id="10002" name="दूसरे व्यू मधे क्लोन करा"/>
+                    <Item id="10003" name="नविन इन्स्टन्स वर जा"/>
+                    <Item id="10004" name="नविन इन्स्टन्स उघडा"/>
+
+
+                    <Item id="46001" name="शैली संरचना..."/>
+                    <Item id="46180" name="वापरकर्ता परिभाषित"/>
+		     <Item id="46250" name="तुमची भाषा निश्चित करा..."/>
+                    <Item id="47000" name="नोटपैड++ बद्दल..."/>
+                    <Item id="47001" name="नोटपैड++ मुख्य पान"/>
+                    <Item id="47002" name="नोटपैड++ प्रकल्प(project) पान"/>
+                    <Item id="47003" name="ऑनलाईन प्रलेखन"/>
+                    <Item id="47004" name="चर्चामंच"/>
+                    <Item id="47005" name="अधिक प्लगिन्स मिळवा"/>
+                    <Item id="47006" name="अपडेट नोटपैड++"/>
+                    <Item id="47008" name="मदत सामग्री"/>
+                    <Item id="48005" name="प्लगइन आयात करा..."/>
+                    <Item id="48006" name="थीम आयात करा..."/>
+                    <Item id="48009" name="शॉर्टकट मॅपर..."/>
+                    <Item id="48011" name="प्राधान्ये (Preferences)..."/>
+                    <Item id="49000" name="&amp;चालवा (Run)..."/>
+
+                    <Item id="50000" name="फंकशन पूर्णांकन"/>
+                    <Item id="50001" name="शब्द पूर्णांकन"/>
+                    <Item id="50002" name="फंकशन पेरमीटर संकेत"/>
+                    <Item id="42034" name="कॉलम संपादक (एडिटर)..."/>
+                    <Item id="44042" name="लाईन्स लपवा"/>
+                    <Item id="42040" name="सर्व अलीकडील फायली उघडा"/>
+                    <Item id="42041" name="अलीकडील फायली यादी रिकामी करा"/>
+					<Item id="48016" name="शॉर्टकट संपादीत करा / मॅक्रो हटवा..."/>
+					<Item id="48017" name="शॉर्टकट संपादीत / आदेश हटवा..."/>
+					<Item id="48018" name="पॉपअप संदर्भ मेन्यू संपादित करा"/>
+                </Commands>
+            </Main>
+            <Splitter>
+            </Splitter>
+            <TabBar>
+                    <Item CMID="0" name="बंद करा"/>
+                    <Item CMID="1" name="हे वगळता सर्व बंद करा"/>
+                    <Item CMID="2" name="सेव्ह"/>
+                    <Item CMID="3" name="या रुपात सेव्ह करा..."/>
+                    <Item CMID="4" name="छापा"/>
+                    <Item CMID="5" name="इतर व्यू पाहा"/>
+                    <Item CMID="6" name="दूसरे व्यू क्लोन करा"/>
+                    <Item CMID="7" name="पूर्ण फाइल पथ क्लिपबोर्ड वर घ्या"/>
+                    <Item CMID="8" name="पूर्ण फाइल नाव क्लिपबोर्ड वर घ्या"/>
+                    <Item CMID="9" name="सध्याच्या डिरेक्टरी पथ क्लिपबोर्ड वर घ्या"/>
+                    <Item CMID="10" name="नाव बदला"/>
+                    <Item CMID="11" name="नष्ट करा"/>
+                    <Item CMID="12" name="केवळ वाचनीय"/>
+                    <Item CMID="13" name="केवळ वाचनीय फ्लेग काढा"/>
+                    <Item CMID="14" name="नवीन इन्स्टन्समध्ये जा"/>
+                    <Item CMID="15" name="नवीन इन्स्टन्स उघडा"/>
+            </TabBar>
+        </Menu>
+
+        <Dialog>
+            <Find title="" titleFind="शोधा" titleReplace="बदला (replace)" titleFindInFiles="फाईल मे ख़ोजे" titleMark="चिन्हित">
+                <Item id="1" name="पुढील शोधा"/>
+                <Item id="2" name="बंद"/>
+                <Item id="1620" name="काय हवे:"/>
+                <Item id="1603" name="&amp;संपूर्ण शब्द जुळणारे"/>
+                <Item id="1604" name="&amp;केस (case) जुळणारे"/>
+                <Item id="1605" name="&amp;रेग्युलर एक्स्प्रेशन (expression)"/>
+                <Item id="1606" name="&amp;सुमारे लपेटा"/>
+                <Item id="1612" name="&amp;वर"/>
+                <Item id="1613" name="&amp;खाली"/>
+                <Item id="1614" name="मोजणा"/>
+                <Item id="1615" name="सर्व शोधा"/>
+                <Item id="1616" name="लाईन चिन्हांकित करा"/>
+                <Item id="1617" name="शैलीने टोकन शोधले"/>
+                <Item id="1618" name="प्रत्येक शोधासाठी कोठा साफ करा"/>
+                <Item id="1621" name="दिशा"/>
+                <Item id="1611" name="&amp;यासह बदला:"/>
+                <Item id="1608" name="&amp;बदला"/>
+                <Item id="1609" name="&amp;सर्व बदला"/>
+			 	<Item id="1623" name="पारदर्शिता"/>
+			 	<Item id="1687" name="फोकस गमावल्यावर"/>
+			 	<Item id="1688" name="नेहमी"/>
+			 	<Item id="1632" name="निवड मध्ये"/>
+			 	<Item id="1633" name="साफ करा"/>
+			 	<Item id="1635" name="सर्व उघडलेले डॉक्युमेंटमध्ये बदला"/>
+			 	<Item id="1636" name="सर्व उघडलेले डॉक्युमेंटमध्ये शोधा"/>
+			 	<Item id="1637" name="फायली शोधा"/>
+			 	<Item id="1654" name="फिल्टर्स:"/>
+			 	<Item id="1655" name="डिरेक्टरी:"/>
+			 	<Item id="1656" name="सर्व शोधा"/>
+			 	<Item id="1658" name="सर्व उप-फोल्डर मध्ये"/>
+			 	<Item id="1659" name="लपलेले फोल्डर मध्ये"/>
+			 	<Item id="1624" name="शोध मोड"/>
+			 	<Item id="1625" name="सामान्य"/>
+			 	<Item id="1626" name="विस्तारित (\n, \r, \t, \0, \x...)"/>
+			 	<Item id="1660" name="फाइल्स् मध्ये बदला"/>
+                <Item id="1661" name="सध्याच्या डॉक्युमेंटच अनुसरण करा"/>
+			 	<Item id="1641" name="वर्तमान दस्तऐवजावरील सर्व शोधा"/>
+			 	<Item id="1686" name="पारदर्शिता"/>
+            </Find>
+            <GoToLine title="तेथे जा...">
+                <Item id="2007" name="लाईन"/>
+                <Item id="2008" name="बरोबरी करा/ऑफसेट"/>
+                <Item id="1" name="&amp;जा"/>
+                <Item id="2" name="मी कुठेही जात नाही"/>
+                <Item id="2004" name="आपण येथे आहात:"/>
+                <Item id="2005" name="आपण येथे जाऊ इच्छित:"/>
+                <Item id="2006" name="आपण यापुढे जाऊ शकत नाही:"/>
+            </GoToLine>
+
+            <Run title="चालवा (Run)...">
+                <Item id="1903" name="चालवण्यासाठी कार्यक्रम"/>
+                <Item id="1" name="चालवा"/>
+                <Item id="2" name="रद्द करा"/>
+                <Item id="1904" name="सेव्ह..."/>
+            </Run>
+
+            <StyleConfig title="शैली व्यूहरचनाकार">
+                <Item id="2" name="रद्द"/>
+                <Item id="2301" name="सेव्ह करा &amp;आणि बंध करा"/>
+                <Item id="2303" name="पारदर्शिता"/>
+                <Item id="2306" name="थीम पसंद करा: "/>
+                <SubDialog>
+                	<Item id="2204" name="ठळक"/>
+                    <Item id="2205" name="इटालिक"/>
+                    <Item id="2206" name="अग्रभाग रंग"/>
+                    <Item id="2207" name="पार्श्वभूमीच रंग"/>
+                    <Item id="2208" name="फॉन्टच नाव:"/>
+                    <Item id="2209" name="फॉन्टच साइज़:"/>
+                    <Item id="2212" name="रंग शैली"/>
+                    <Item id="2213" name="फॉन्ट शैली"/>
+                    <Item id="2214" name="मुलभूत ext.:"/>
+                    <Item id="2216" name="उपयोक्ता ext.:"/>
+                    <Item id="2218" name="अधोरेखित करा"/>
+                    <Item id="2219" name="मुलभूत मुख्यशब्द"/>
+                    <Item id="2221" name="उपयोक्ता-वर्णनीय मुख्यशब्द"/>
+					<Item id="2225" name="भाषा:"/>
+                    <Item id="2226" name="वैश्विक अग्रभाग रंग सक्रिय करा"/>
+                    <Item id="2227" name="वैश्विक पार्श्वभूमीच रंग सक्रिय करा"/>
+                    <Item id="2228" name="वैश्विक फ़ॉन्ट सक्रिय करा"/>
+                    <Item id="2229" name="वैश्विक फ़ॉन्ट आकार सक्रिय करा"/>
+                    <Item id="2230" name="वैश्विक ठळक फ़ॉन्ट शैली सक्रिय करा"/>
+                    <Item id="2231" name="वैश्विक इटालिक फ़ॉन्ट शैली सक्रिय करा"/>
+                    <Item id="2232" name="वैश्विक अंडरलाइन फ़ॉन्ट शैली सक्रिय करा"/>
+                </SubDialog>
+
+            </StyleConfig>
+            <UserDefine title="उपयोक्ता-वर्णनीय">
+                <Item id="20002" name="नाव बदला"/>
+                <Item id="20003" name="नवीन तयार करा..."/>
+                <Item id="20004" name="काढा"/>
+                <Item id="20005" name="सेव्ह एज़..."/>
+                <Item id="20007" name="उपयोग कर्ता भाषा:"/>
+                <Item id="20009" name="Ext.:"/>
+                <Item id="20012" name="केस दुर्लक्ष करा"/>
+                <Item id="20011" name="पारदर्शिता"/>
+				<Item id="20016" name="आयात..."/>
+				<Item id="20015" name="निर्यात..."/>
+                <Item id="0" name="रंग शैली"/>
+                <Item id="1" name="अग्रभाग रंग"/>
+                <Item id="2" name="पार्श्वभूमीच रंग"/>
+                <Item id="3" name="फॉन्ट शैली"/>
+                <Item id="4" name="फॉन्टच नाव:"/>
+                <Item id="5" name="फॉन्टच आकार:"/>
+                <Item id="6" name="ठळक"/>
+                <Item id="7" name="तिरपा"/>
+                <Item id="8" name="अधोरेखित करा"/>
+                <Folder title="फोंल्डर मुलभूत">
+                    <Item id="21101" name="मुलभूत शैली सेटिंग"/>
+                    <Item id="21201" name="फोल्डर उघडण्यासाठी कीवर्ड सेटिंग्ज"/>
+                    <Item id="21301" name="फोंल्डर बंध करण्याचे कीवर्ड सेटिंग"/>
+                </Folder>
+                <Keywords title="किवर्ड लिस्ट">
+                    <Item id="22101" name="१ला समूह"/>
+                    <Item id="22201" name="२रा समूह"/>
+                    <Item id="22301" name="३रा समूह"/>
+                    <Item id="22401" name="४था समूह"/>
+                    <Item id="22113" name="उपसर्ग (Prefix) मोड" />
+                    <Item id="22213" name="उपसर्ग (Prefix) मोड"/>
+                    <Item id="22313" name="उपसर्ग (Prefix) मोड"/>
+                    <Item id="22413" name="उपसर्ग (Prefix) मोड"/>
+                </Keywords>
+                <Comment title="टीका &amp;&amp; नंबर">
+                    <Item id="23301" name="टीका लाईन"/>
+                    <Item id="23101" name="टीका ब्लॉक"/>
+                    <Item id="23113" name="टीका खोला:"/>
+                    <Item id="23115" name="टीका बंध:"/>
+                    <Item id="23116" name="कीवर्डला प्रतीक म्हणून घ्या"/>
+                    <Item id="23117" name="कीवर्ड्स प्रतीक म्हणून घ्या"/>
+                    <Item id="23201" name="क्रमांक शैली"/>
+                </Comment>
+                <Operator title="ऑपरेटर">
+                    <Item id="24107" name="ऑपरेटर"/>
+                    <Item id="24103" name="उपलब्ध चिन्ह"/>
+                    <Item id="24101" name="सक्रिय ऑपरेटर"/>
+                    <Item id="24201" name="डिलिमिटर-1"/>
+                    <Item id="24211" name="सीमा उघडा:"/>
+                    <Item id="24214" name="सीमा बंध:"/>
+                    <Item id="24301" name="डिलिमिटर-2"/>
+                    <Item id="24311" name="सीमा ओपन:"/>
+                    <Item id="24314" name="सीमा बंध:"/>
+                </Operator>
+                <Item id="24001" name="वर्ण निसटणे सक्षम करा:"/>
+            </UserDefine>
+			<Preference title="प्राधान्ये (Preferences)">
+                <Item id="6001" name="बंध"/>
+                <Global title="समान्य">
+                    <Item id="6101" name="टूलबार"/>
+                    <Item id="6102" name="लपवा"/>
+                    <Item id="6103" name="छोटे आइकॉनस"/>
+	                <Item id="6104" name="मोठे आइकॉनस"/>
+                    <Item id="6105" name="आदर्श आइकॉन"/>
+
+                    <Item id="6106" name="टॅब बार"/>
+                    <Item id="6107" name="कमी करा"/>
+                    <Item id="6108" name="लॉक करा (no drag and drop)"/>
+                    <Item id="6109" name="निष्क्रिय टैब काळा करा"/>
+                    <Item id="6110" name="सक्रिय टॅबचा एक रंगीत पट्टी रेखांकित करा"/>
+
+                    <Item id="6111" name="स्टेटस बार दाखवा"/>
+                    <Item id="6112" name="प्रत्येक टैब वर बंध का बटन दाखवा"/>
+                    <Item id="6113" name="दस्तऐवज बंद करण्यासाठी डबल क्लिक करा"/>
+                    <Item id="6118" name="लपवा"/>
+                    <Item id="6119" name="मल्टी-लाईन"/>
+                    <Item id="6120" name="उभा (Vertical)"/>
+
+                    <Item id="6121" name="मेन्यू बार"/>
+                    <Item id="6122" name="लपवा (टॉगल करण्यासाठी Alt किंवा F10 कळ वापरा)"/>
+                    <Item id="6123" name="स्थानिकीकरण"/>
+                </Global>
+                <Scintillas title="संपादन">
+                    <Item id="6216" name="कैरेट (Caret) संरचना"/>
+                    <Item id="6217" name="रुंदी:"/>
+                    <Item id="6219" name="मिच्कावण्याचे रेट:"/>
+                    <Item id="6221" name="F"/>
+                    <Item id="6222" name="S"/>
+                    <Item id="6224" name="बहु-संपादन संरचना"/>
+                    <Item id="6225" name="सक्रिय (Ctrl+Mouse click/selection)"/>
+                    <Item id="6201" name="फोंल्डर मार्जिन शैली"/>
+                    <Item id="6202" name="साधा (Simple)"/>
+                    <Item id="6203" name="बाण (Arrow)"/>
+	                <Item id="6204" name="सर्कल ट्री"/>
+                    <Item id="6205" name="बॉक्स ट्री"/>
+                    <Item id="6226" name="काहीही नाही (None)"/>
+
+                    <Item id="6227" name="लाईन wrap"/>
+                    <Item id="6228" name="मुलभूत (Default) "/>
+                    <Item id="6229" name="संरेखित (Aligned)"/>
+                    <Item id="6230" name="इंडेंट करा (Indent)"/>
+
+                    <Item id="6206" name="लाईन नंबर दाखवा"/>
+                    <Item id="6207" name="बूकमार्क दाखवा"/>
+                    <Item id="6208" name="अनुलंब किनारा दर्शवा"/>
+                    <Item id="6209" name="कॉलम संख्या: "/>
+
+                    <Item id="6211" name="अनुलंब किनारा संरचना"/>
+                    <Item id="6212" name="लाईन मोड"/>
+                    <Item id="6213" name="पार्श्वभूमी मोड"/>
+                    <Item id="6214" name="सध्याच्या लाईन हाइलाईटिंग सक्रिय करा"/>
+                </Scintillas>
+                <NewDoc title="नए दस्तावेज़/मुलभूत डिरेक्टोरी">
+                    <Item id="6401" name="स्वरूप"/>
+                    <Item id="6402" name="विंडोज"/>
+                    <Item id="6403" name="उनिक्स"/>
+	                <Item id="6404" name="मॅक"/>
+                    <Item id="6405" name="एन्कोडिंग"/>
+                    <Item id="6406" name="ANSI"/>
+                    <Item id="6407" name="UTF-8 without BOM"/>
+                    <Item id="6408" name="UTF-8"/>
+                    <Item id="6409" name="UCS-2 Big Endian"/>
+                    <Item id="6410" name="UCS-2 Little Endian"/>
+                    <Item id="6411" name="मुलभूत भाषा:"/>
+                    <Item id="6413" name="मुलभूत डिरेक्टोरी (Open/Save)"/>
+                    <Item id="6414" name="सध्याच्या दस्तावेज़ अनुसरे"/>
+                    <Item id="6415" name="पिछली बार ईस्तेमाल डिरेक्टरी याद रखे"/>
+                    <Item id="6419" name="नया दस्तावेज़"/>
+                    <Item id="6420" name="खुली ANSI फाईल पर लागु करा"/>
+                </NewDoc>
+                <FileAssoc title="फाईल एसोसिएशन">
+                    <Item id="4009" name="Supported exts:"/>
+                    <Item id="4010" name="Registered exts:"/>
+                </FileAssoc>
+                <LangMenu title="भाषा मेन्यू/ टेब संरचना">
+                    <Item id="6301" name="टैब सेटिंग"/>
+                    <Item id="6302" name="स्पेसने बदला"/>
+                    <Item id="6303" name="टैब साइज़:"/>
+                    <Item id="6505" name="उपलब्ध वस्तु"/>
+                    <Item id="6506" name="निष्क्रिय वस्तुए"/>
+                    <Item id="6507" name="भाषा मेन्यू छोटा करा"/>
+                    <Item id="6508" name="भाषा मेन्यू"/>
+                    <Item id="6510" name="मुलभूत मूल्य वापरा करा"/>
+                </LangMenu>
+                <Print title="छपाई (Print)">
+                    <Item id="6601" name="लाईन नंबर छापा"/>
+                    <Item id="6602" name="रंग विकल्प"/>
+                    <Item id="6603" name="WYSIWYG"/>
+                    <Item id="6604" name="उल्टा"/>
+	                <Item id="6605" name="सफ़ेद वर काळा"/>
+                    <Item id="6606" name="रंगहिन पृस्ठभुमि"/>
+                    <Item id="6607" name="Marge Settings (Unit:mm)"/>
+                    <Item id="6612" name="डावे"/>
+                    <Item id="6613" name="शीर्ष"/>
+                    <Item id="6614" name="उजवे"/>
+                    <Item id="6615" name="तळ"/>
+                    <Item id="6706" name="ठळक"/>
+                    <Item id="6707" name="इटालिक"/>
+                    <Item id="6708" name="शिर्षक"/>
+                    <Item id="6709" name="डावा भाग"/>
+	                <Item id="6710" name="मध्य भाग"/>
+                    <Item id="6711" name="उजवा भाग"/>
+                    <Item id="6717" name="ठळक"/>
+                    <Item id="6718" name="ईटालिक"/>
+                    <Item id="6719" name="फ़ूटर (Footer)"/>
+                    <Item id="6720" name="डावा भाग"/>
+	                <Item id="6721" name="मध्य भाग"/>
+                    <Item id="6722" name="उजवा भाग"/>
+	                <Item id="6723" name="जोडा"/>
+                    <Item id="6725" name="वेरिएबल:"/>
+                    <Item id="6728" name="शिर्षक और फ़ूटर"/>
+                </Print>
+                <MISC title="नानाविध (MISC.)">
+                    <Item id="6304" name="ताजा फाईल ईतिहास"/>
+	                <Item id="6305" name="ललाँच वेळी तपासू नका"/>
+                    <Item id="6306" name="एन्ट्री ची अधिकतम सीमा:"/>
+                    <Item id="6307" name="सक्रिय"/>
+                    <Item id="6308" name="सिस्टम ट्रे ला लहान करा"/>
+                    <Item id="6309" name="पुढील लाँचसाठी सध्याचे सत्र लक्षात ठेवा"/>
+                    <Item id="6312" name="फाइल स्थिती स्वयं ओळखणे"/>
+                    <Item id="6313" name="चुपचाप अपडेट करा"/>
+                    <Item id="6318" name="क्लिक योग्य लिंक चे सेटिंग"/>
+                    <Item id="6325" name="सुधारणा नंतर अंतिम ओळ स्क्रोल करा"/>
+                    <Item id="6319" name="सक्रिय"/>
+                    <Item id="6320" name="अधोरेखित नाही"/>
+                    <Item id="6322" name="सेशन फाईल ext.:"/>
+                    <Item id="6323" name="नोटपैड++ स्वचालित-अपडेटर सक्रिय करा"/>
+                    <Item id="6324" name="डॉकयुमेंट स्वीचर (Ctrl+TAB)"/>
+                    <Item id="6326" name="स्मार्ट हाईलाईटिंग सक्रिय करा"/>
+                    <Item id="6329" name="जुळणार्या टॅग्ज हायलाइट करा"/>
+                    <Item id="6327" name="सक्रिय"/>
+                    <Item id="6328" name="टैग attributes हाईलाईट करा"/>
+                    <Item id="6330" name="comment/php/asp हिस्सा हाईलाईट करा"/>
+
+                    <Item id="6331" name="शीर्षक बार मध्ये फक्त फाइलनाव दर्शवा"/>
+                    <Item id="6114" name="सक्रिय"/>
+                    <Item id="6115" name="स्वचालित इंडेंट"/>
+                    <Item id="6117" name="MRU वर्तणूक सक्रिय करा"/>
+
+                </MISC>
+                <Backup title="बॅकअप/ऑटो-कम्प्लिशन">
+                    <Item id="6801" name="बॅकअप"/>
+                    <Item id="6315" name="None"/>
+                    <Item id="6316" name="सामान्य बॅकअप"/>
+                    <Item id="6317" name="वर्बोस (Verbose) बॅकअप"/>
+                    <Item id="6804" name="कस्टम बॅकअप डिरेक्टरी"/>
+                    <Item id="6803" name="डिरेक्टरी:"/>
+                    <Item id="6807" name="स्व-पूर्ति (Auto-Completion)"/>
+	                <Item id="6808" name="प्रत्येक इनपुट वर स्वयं-पूर्णत्व सक्षम करा"/>
+                    <Item id="6809" name="फंक्शन पूर्ति"/>
+                    <Item id="6810" name="शब्द-पूर्ति"/>
+                    <Item id="6811" name="पासून"/>
+                    <Item id="6813" name="था अक्षर"/>
+                    <Item id="6814" name="मान्य क़ीमत: १ - ९"/>
+                    <Item id="6815" name="फंक्शन घटके इनपुट वर संकेत"/>
+                </Backup>
+            </Preference>
+			<MultiMacro title="मॅक्रो अनेक वेळा चालवा">
+                <Item id="1" name="चालवा"/>
+                <Item id="2" name="रद्द"/>
+                <Item id="8006" name="चालवण्यासाठी मॅक्रो:"/>
+                <Item id="8001" name="चालवा"/>
+                <Item id="8005" name="वेळा (times)"/>
+                <Item id="8002" name="फाइल शेवटपर्यंत चालवा"/>
+            </MultiMacro>
+			<Window title="विंडोज">
+                <Item id="1" name="सक्रिय"/>
+                <Item id="2" name="ठीक"/>
+                <Item id="7002" name="संग्रह"/>
+                <Item id="7003" name="विंडो/विंडोज बंध करा"/>
+                <Item id="7004" name="टॅब क्रमवारी लावा"/>
+            </Window>
+			<ColumnEditor title="कॉलम एडिटर">
+                <Item id="2023" name="घालण्यास टेक्स्ट (text to insert)"/>
+                <Item id="2033" name="घालण्यास अंक (Number to insert)"/>
+                <Item id="2030" name="आरंभिक क्रमांक:"/>
+                <Item id="2031" name="ने वाढवा:"/>
+                <Item id="2035" name="Leading zeros"/>
+                <Item id="2032" name="स्वरूप"/>
+                <Item id="2024" name="Dec"/>
+                <Item id="2025" name="Oct"/>
+                <Item id="2026" name="Hex"/>
+                <Item id="2027" name="Bin"/>
+                <Item id="1" name="ठीक"/>
+                <Item id="2" name="रद्द"/>
+            </ColumnEditor>
+		</Dialog>
+    </Native-Langue>
+</NotepadPlus>

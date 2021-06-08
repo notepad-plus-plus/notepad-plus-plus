@@ -1,0 +1,376 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta name="generator" content="HTML Tidy, see www.w3.org" />
+    <meta name="generator" content="SciTE" />
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Scintilla Usage Notes
+    </title>
+<style type="text/css">
+SPAN {
+    font-family: Verdana, Arial, Helvetica;
+    font-size: 9pt;
+}
+.S0 {
+    color: #808080;
+    font-family: Verdana, Arial, Helvetica;
+}
+.S1 {
+    font-family: Comic Sans MS, Times New Roman, Times;
+    color: #007F00;
+    font-size: 8pt;
+}
+.S2 {
+    font-family: Comic Sans MS, Times New Roman, Times;
+    color: #007F00;
+    font-size: 8pt;
+}
+.S3 {
+    font-family: Verdana, Arial, Helvetica;
+    color: #7F7F7F;
+}
+.S4 {
+    font-family: Verdana, Arial, Helvetica;
+    color: #007F7F;
+}
+.S5 {
+    color: #00007F;
+    font-weight: bold;
+    font-family: Verdana, Arial, Helvetica;
+}
+.S6 {
+    color: #7F007F;
+    font-family: Courier New, Courier;
+}
+.S7 {
+    color: #7F007F;
+    font-family: Courier New, Courier;
+}
+.S8 {
+    color: #007F7F;
+}
+.S9 {
+    color: #7F7F00;
+}
+.S10 {
+    font-weight: bold;
+}
+</style>
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000">
+    <table bgcolor="#000000" width="100%" cellspacing="0" cellpadding="0" border="0">
+      <tr>
+        <td>
+          <img src="SciTEIco.png" border="3" height="64" width="64" alt="Scintilla icon" />
+        </td>
+        <td>
+          <a href="index.html" style="color:white;text-decoration:none"><font size="5">Scintilla
+          Usage Notes</font></a>
+        </td>
+      </tr>
+    </table>
+    <h2>
+       Implementing Auto-Indent
+    </h2>
+    <p>
+       The key idea is to use the SCN_CHARADDED notification to add indentation after a newline.
+    </p>
+    <p>
+       The lParam on the notification is a pointer to a SCNotification structure whose ch member
+      specifies the character added. If a newline was added, the previous line can be retrieved and
+      the same indentation can be added to the new line.
+    </p>
+    <p>
+       Here is the relevant portion of code from SciTE: (SciTE.cxx SciTEWindow::CharAdded)
+    </p>
+    <span class='S5'>if</span><span class='S0'>&nbsp;</span> <span class='S10'>(</span><span
+    class='S11'>ch</span><span class='S0'>&nbsp;</span> <span class='S10'>==</span><span
+    class='S0'>&nbsp;</span> <span class='S7'>'\r'</span><span class='S0'>&nbsp;</span> <span
+    class='S10'>||</span><span class='S0'>&nbsp;</span> <span class='S11'>ch</span><span
+    class='S0'>&nbsp;</span> <span class='S10'>==</span><span class='S0'>&nbsp;</span> <span
+    class='S7'>'\n'</span><span class='S10'>)</span><span class='S0'>&nbsp;</span> <span
+    class='S10'>{</span><span class='S0'><br />
+     &nbsp;&nbsp;&nbsp;&nbsp;</span> <span class='S5'>char</span><span class='S0'>&nbsp;</span>
+    <span class='S11'>linebuf</span><span class='S10'>[</span><span class='S4'>1000</span><span
+    class='S10'>];</span><span class='S0'><br />
+     &nbsp;&nbsp;&nbsp;&nbsp;</span> <span class='S5'>int</span><span class='S0'>&nbsp;</span>
+    <span class='S11'>curLine</span><span class='S0'>&nbsp;</span> <span class='S10'>=</span><span
+    class='S0'>&nbsp;</span> <span class='S11'>GetCurrentLineNumber</span><span
+    class='S10'>();</span><span class='S0'><br />
+     &nbsp;&nbsp;&nbsp;&nbsp;</span> <span class='S5'>int</span><span class='S0'>&nbsp;</span>
+    <span class='S11'>lineLength</span><span class='S0'>&nbsp;</span> <span class='S10'>
+    =</span><span class='S0'>&nbsp;</span> <span class='S11'>SendEditor</span><span
+    class='S10'>(</span><span class='S11'>SCI_LINELENGTH</span><span class='S10'>,</span><span
+    class='S0'>&nbsp;</span> <span class='S11'>curLine</span><span class='S10'>);</span><span
+    class='S0'><br />
+     &nbsp;&nbsp;&nbsp;&nbsp;</span> <span class='S2'>
+    //Platform::DebugPrintf("[CR]&nbsp;%d&nbsp;len&nbsp;=&nbsp;%d\n",&nbsp;curLine,&nbsp;lineLength);</span><span
+     class='S0'><br />
+     &nbsp;&nbsp;&nbsp;&nbsp;</span> <span class='S5'>if</span><span class='S0'>&nbsp;</span> <span
+    class='S10'>(</span><span class='S11'>curLine</span><span class='S0'>&nbsp;</span> <span
+    class='S10'>&gt;</span><span class='S0'>&nbsp;</span> <span class='S4'>0</span><span
+    class='S0'>&nbsp;</span> <span class='S10'>&amp;&amp;</span><span class='S0'>&nbsp;</span>
+    <span class='S11'>lineLength</span><span class='S0'>&nbsp;</span> <span class='S10'>
+    &lt;=</span><span class='S0'>&nbsp;</span> <span class='S4'>2</span><span
+    class='S10'>)</span><span class='S0'>&nbsp;</span> <span class='S10'>{</span><span
+    class='S0'><br />
+     &nbsp;&nbsp;&nbsp;&nbsp;</span> <span class='S5'>int</span><span class='S0'>&nbsp;</span>
+    <span class='S11'>prevLineLength</span><span class='S0'>&nbsp;</span> <span class='S10'>
+    =</span><span class='S0'>&nbsp;</span> <span class='S11'>SendEditor</span><span
+    class='S10'>(</span><span class='S11'>SCI_LINELENGTH</span><span class='S10'>,</span><span
+    class='S0'>&nbsp;</span> <span class='S11'>curLine</span><span class='S0'>&nbsp;</span> <span
+    class='S10'>-</span><span class='S0'>&nbsp;</span> <span class='S4'>1</span><span
+    class='S10'>);</span><span class='S0'><br />
+     &nbsp;&nbsp;&nbsp;&nbsp;</span> <span class='S5'>if</span><span class='S0'>&nbsp;</span> <span
+    class='S10'>(</span><span class='S11'>prevLineLength</span><span class='S0'>&nbsp;</span> <span
+    class='S10'>&lt;</span><span class='S0'>&nbsp;</span> <span class='S5'>sizeof</span><span
+    class='S10'>(</span><span class='S11'>linebuf</span><span class='S10'>))</span><span
+    class='S0'>&nbsp;</span> <span class='S10'>{</span><span class='S0'><br />
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class='S11'>WORD</span><span
+    class='S0'>&nbsp;</span> <span class='S11'>buflen</span><span class='S0'>&nbsp;</span> <span
+    class='S10'>=</span><span class='S0'>&nbsp;</span> <span class='S5'>sizeof</span><span
+    class='S10'>(</span><span class='S11'>linebuf</span><span class='S10'>);</span><span
+    class='S0'><br />
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class='S11'>memcpy</span><span
+    class='S10'>(</span><span class='S11'>linebuf</span><span class='S10'>,</span><span
+    class='S0'>&nbsp;</span> <span class='S10'>&amp;</span><span class='S11'>buflen</span><span
+    class='S10'>,</span><span class='S0'>&nbsp;</span> <span class='S5'>sizeof</span><span
+    class='S10'>(</span><span class='S11'>buflen</span><span class='S10'>));</span><span
+    class='S0'><br />
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class='S11'>
+    SendEditor</span><span class='S10'>(</span><span class='S11'>EM_GETLINE</span><span
+    class='S10'>,</span><span class='S0'>&nbsp;</span> <span class='S11'>curLine</span><span
+    class='S0'>&nbsp;</span> <span class='S10'>-</span><span class='S0'>&nbsp;</span> <span
+    class='S4'>1</span><span class='S10'>,</span><span class='S0'><br />
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <span class='S5'>reinterpret_cast</span><span class='S10'>&lt;</span><span
+    class='S11'>LPARAM</span><span class='S10'>&gt;(</span><span class='S5'>static_cast</span><span
+    class='S10'>&lt;</span><span class='S5'>char</span><span class='S0'>&nbsp;</span> <span
+    class='S10'>*&gt;(</span><span class='S11'>linebuf</span><span class='S10'>)));</span><span
+    class='S0'><br />
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class='S11'>linebuf</span><span
+    class='S10'>[</span><span class='S11'>prevLineLength</span><span class='S10'>]</span><span
+    class='S0'>&nbsp;</span> <span class='S10'>=</span><span class='S0'>&nbsp;</span> <span
+    class='S7'>'\0'</span><span class='S10'>;</span><span class='S0'><br />
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class='S5'>for</span><span
+    class='S0'>&nbsp;</span> <span class='S10'>(</span><span class='S5'>int</span><span
+    class='S0'>&nbsp;</span> <span class='S11'>pos</span><span class='S0'>&nbsp;</span> <span
+    class='S10'>=</span><span class='S0'>&nbsp;</span> <span class='S4'>0</span><span
+    class='S10'>;</span><span class='S0'>&nbsp;</span> <span class='S11'>linebuf</span><span
+    class='S10'>[</span><span class='S11'>pos</span><span class='S10'>];</span><span
+    class='S0'>&nbsp;</span> <span class='S11'>pos</span><span class='S10'>++)</span><span
+    class='S0'>&nbsp;</span> <span class='S10'>{</span><span class='S0'><br />
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <span
+    class='S5'>if</span><span class='S0'>&nbsp;</span> <span class='S10'>(</span><span
+    class='S11'>linebuf</span><span class='S10'>[</span><span class='S11'>pos</span><span
+    class='S10'>]</span><span class='S0'>&nbsp;</span> <span class='S10'>!=</span><span
+    class='S0'>&nbsp;</span> <span class='S7'>'&nbsp;'</span><span class='S0'>&nbsp;</span> <span
+    class='S10'>&amp;&amp;</span><span class='S0'>&nbsp;</span> <span class='S11'>
+    linebuf</span><span class='S10'>[</span><span class='S11'>pos</span><span
+    class='S10'>]</span><span class='S0'>&nbsp;</span> <span class='S10'>!=</span><span
+    class='S0'>&nbsp;</span> <span class='S7'>'\t'</span><span class='S10'>)</span><span
+    class='S0'><br />
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <span class='S11'>linebuf</span><span class='S10'>[</span><span class='S11'>pos</span><span
+    class='S10'>]</span><span class='S0'>&nbsp;</span> <span class='S10'>=</span><span
+    class='S0'>&nbsp;</span> <span class='S7'>'\0'</span><span class='S10'>;</span><span
+    class='S0'><br />
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class='S10'>}</span><span
+    class='S0'><br />
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class='S11'>
+    SendEditor</span><span class='S10'>(</span><span class='S11'>EM_REPLACESEL</span><span
+    class='S10'>,</span><span class='S0'>&nbsp;</span> <span class='S4'>0</span><span
+    class='S10'>,</span><span class='S0'>&nbsp;</span> <span class='S5'>
+    reinterpret_cast</span><span class='S10'>&lt;</span><span class='S11'>LPARAM</span><span
+    class='S10'>&gt;(</span><span class='S5'>static_cast</span><span class='S10'>&lt;</span><span
+    class='S5'>char</span><span class='S0'>&nbsp;</span> <span class='S10'>*&gt;(</span><span
+    class='S11'>linebuf</span><span class='S10'>)));</span><span class='S0'><br />
+     &nbsp;&nbsp;&nbsp;&nbsp;</span> <span class='S10'>}</span><span class='S0'><br />
+    </span> <span class='S10'>}</span><br />
+
+    <p style="margin-bottom: 0in">
+       Of course, fancier handling could be implemented. For example, if the previous line was the
+      start of a control construct, the next line could be automatically indented one tab further.
+      (Assuming that is your indenting style.)
+    </p>
+    <h2>
+       Implementing Syntax Styling
+    </h2>
+    <p>
+       Syntax styling is handled by the SCN_STYLENEEDED notification. Scintilla keeps track of the
+      end of the styled text - this is retrieved with SCI_GETENDSTYLED. In response to the
+      SCN_STYLENEEDED notification, you should apply styles to the text from ENDSTYLED to the
+      position specified by the notification.
+    </p>
+    <p>
+       Here is the relevant portion of code from SciTE: (SciTE.cxx)
+    </p>
+    <span class='S5'>void</span><span class='S0'>&nbsp;</span> <span class='S11'>
+    SciTEWindow</span><span class='S10'>::</span><span class='S11'>Notify</span><span
+    class='S10'>(</span><span class='S11'>SCNotification</span><span class='S0'>&nbsp;</span> <span
+    class='S10'>*</span><span class='S11'>notification</span><span class='S10'>)</span><span
+    class='S0'>&nbsp;</span> <span class='S10'>{</span><span class='S0'><br />
+     &nbsp;&nbsp;&nbsp;&nbsp;</span> <span class='S5'>switch</span><span class='S0'>&nbsp;</span>
+    <span class='S10'>(</span><span class='S11'>notification</span><span
+    class='S10'>-&gt;</span><span class='S11'>nmhdr.code</span><span class='S10'>)</span><span
+    class='S0'>&nbsp;</span> <span class='S10'>{</span><span class='S0'><br />
+     &nbsp;&nbsp;&nbsp;&nbsp;</span> <span class='S5'>case</span><span class='S0'>&nbsp;</span>
+    <span class='S11'>SCN_STYLENEEDED</span><span class='S10'>:</span><span
+    class='S0'>&nbsp;</span> <span class='S10'>{</span><span class='S0'><br />
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <span
+    class='S5'>if</span><span class='S0'>&nbsp;</span> <span class='S10'>(</span><span
+    class='S11'>notification</span><span class='S10'>-&gt;</span><span
+    class='S11'>nmhdr.idFrom</span><span class='S0'>&nbsp;</span> <span class='S10'>==</span><span
+    class='S0'>&nbsp;</span> <span class='S11'>IDM_SRCWIN</span><span class='S10'>)</span><span
+    class='S0'>&nbsp;</span> <span class='S10'>{</span><span class='S0'><br />
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <span class='S5'>int</span><span class='S0'>&nbsp;</span> <span class='S11'>
+    endStyled</span><span class='S0'>&nbsp;</span> <span class='S10'>=</span><span
+    class='S0'>&nbsp;</span> <span class='S11'>SendEditor</span><span class='S10'>(</span><span
+    class='S11'>SCI_GETENDSTYLED</span><span class='S10'>);</span><span class='S0'><br />
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <span class='S5'>int</span><span class='S0'>&nbsp;</span> <span class='S11'>
+    lineEndStyled</span><span class='S0'>&nbsp;</span> <span class='S10'>=</span><span
+    class='S0'>&nbsp;</span> <span class='S11'>SendEditor</span><span class='S10'>(</span><span
+    class='S11'>EM_LINEFROMCHAR</span><span class='S10'>,</span><span class='S0'>&nbsp;</span>
+    <span class='S11'>endStyled</span><span class='S10'>);</span><span class='S0'><br />
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <span class='S11'>endStyled</span><span class='S0'>&nbsp;</span> <span class='S10'>
+    =</span><span class='S0'>&nbsp;</span> <span class='S11'>SendEditor</span><span
+    class='S10'>(</span><span class='S11'>EM_LINEINDEX</span><span class='S10'>,</span><span
+    class='S0'>&nbsp;</span> <span class='S11'>lineEndStyled</span><span class='S10'>);</span><span
+    class='S0'><br />
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <span class='S11'>Colourise</span><span class='S10'>(</span><span
+    class='S11'>endStyled</span><span class='S10'>,</span><span class='S0'>&nbsp;</span> <span
+    class='S11'>notification</span><span class='S10'>-&gt;</span><span
+    class='S11'>position</span><span class='S10'>);</span><br />
+
+    <p>
+       Colourize(start, end) retrieves the specified range of text and then calls ColourizeDoc in
+      keywords.cxx. It starts the process by calling:
+    </p>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class='S11'>SendMessage</span><span class='S10'>(</span><span
+    class='S11'>hwnd</span><span class='S10'>,</span><span class='S0'>&nbsp;</span> <span
+    class='S11'>SCI_STARTSTYLING</span><span class='S10'>,</span><span class='S0'>&nbsp;</span>
+    <span class='S11'>startPos</span><span class='S10'>,</span><span class='S0'>&nbsp;</span> <span
+    class='S4'>31</span><span class='S10'>);</span><br />
+
+    <p>
+       and then for each token of the text, calling:
+    </p>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class='S11'>SendMessage</span><span class='S10'>(</span><span
+    class='S11'>hwnd</span><span class='S10'>,</span><span class='S0'>&nbsp;</span> <span
+    class='S11'>SCI_SETSTYLING</span><span class='S10'>,</span><span class='S0'>&nbsp;</span> <span
+    class='S11'>length</span><span class='S10'>,</span><span class='S0'>&nbsp;</span> <span
+    class='S11'>style</span><span class='S10'>);</span><br />
+
+    <p>
+       where style is a number from 0 to 31 whose appearance has been defined using the
+      SCI_STYLESET... messages.
+    </p>
+    <h2>
+       Implementing Calltips
+    </h2>
+    <p>
+       Again, the SCN_CHARADDED notification is used to catch when an opening parenthesis is added.
+      The preceding word can then be retrieved from the current line:
+    </p>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class='S5'>char</span><span class='S0'>&nbsp;</span> <span
+    class='S11'>linebuf</span><span class='S10'>[</span><span class='S4'>1000</span><span
+    class='S10'>];</span><span class='S0'><br />
+    </span> &nbsp;&nbsp;&nbsp;&nbsp;<span class='S5'>int</span><span class='S0'>&nbsp;</span> <span
+    class='S11'>current</span><span class='S0'>&nbsp;</span> <span class='S10'>=</span><span
+    class='S0'>&nbsp;</span> <span class='S11'>SendEditor</span><span class='S10'>(</span><span
+    class='S11'>SCI_GETCURLINE</span><span class='S10'>,</span><span class='S0'>&nbsp;</span> <span
+    class='S5'>sizeof</span><span class='S10'>(</span><span class='S11'>linebuf</span><span
+    class='S10'>),</span><span class='S0'><br />
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class='S5'>
+    reinterpret_cast</span><span class='S10'>&lt;</span><span class='S11'>LPARAM</span><span
+    class='S10'>&gt;(</span><span class='S5'>static_cast</span><span class='S10'>&lt;</span><span
+    class='S5'>char</span><span class='S0'>&nbsp;</span> <span class='S10'>*&gt;(</span><span
+    class='S11'>linebuf</span><span class='S10'>)));</span><span class='S0'><br />
+    </span> &nbsp;&nbsp;&nbsp;&nbsp;<span class='S5'>int</span><span class='S0'>&nbsp;</span> <span
+    class='S11'>pos</span><span class='S0'>&nbsp;</span> <span class='S10'>=</span><span
+    class='S0'>&nbsp;</span> <span class='S11'>SendEditor</span><span class='S10'>(</span><span
+    class='S11'>SCI_GETCURRENTPOS</span><span class='S10'>);</span><span class='S0'><br />
+    <br />
+    </span> &nbsp;&nbsp;&nbsp;&nbsp;<span class='S5'>int</span><span class='S0'>&nbsp;</span> <span
+    class='S11'>startword</span><span class='S0'>&nbsp;</span> <span class='S10'>=</span><span
+    class='S0'>&nbsp;</span> <span class='S11'>current</span><span class='S0'>&nbsp;</span> <span
+    class='S10'>-</span><span class='S0'>&nbsp;</span> <span class='S4'>1</span><span
+    class='S10'>;</span><span class='S0'><br />
+    </span> &nbsp;&nbsp;&nbsp;&nbsp;<span class='S5'>while</span><span class='S0'>&nbsp;</span>
+    <span class='S10'>(</span><span class='S11'>startword</span><span class='S0'>&nbsp;</span>
+    <span class='S10'>&gt;</span><span class='S0'>&nbsp;</span> <span class='S4'>0</span><span
+    class='S0'>&nbsp;</span> <span class='S10'>&amp;&amp;</span><span class='S0'>&nbsp;</span>
+    <span class='S11'>isalpha</span><span class='S10'>(</span><span class='S11'>linebuf</span><span
+    class='S10'>[</span><span class='S11'>startword</span><span class='S0'>&nbsp;</span> <span
+    class='S10'>-</span><span class='S0'>&nbsp;</span> <span class='S4'>1</span><span
+    class='S10'>]))</span><span class='S0'><br />
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class='S11'>
+    startword</span><span class='S10'>--;</span><span class='S0'><br />
+    </span> &nbsp;&nbsp;&nbsp;&nbsp;<span class='S11'>linebuf</span><span class='S10'>[</span><span
+    class='S11'>current</span><span class='S0'>&nbsp;</span> <span class='S10'>-</span><span
+    class='S0'>&nbsp;</span> <span class='S4'>1</span><span class='S10'>]</span><span
+    class='S0'>&nbsp;</span> <span class='S10'>=</span><span class='S0'>&nbsp;</span> <span
+    class='S7'>'\0'</span><span class='S10'>;</span><span class='S0'><br />
+    </span> &nbsp;&nbsp;&nbsp;&nbsp;<span class='S5'>char</span><span class='S10'>*</span><span
+    class='S0'>&nbsp;</span> <span class='S11'>word</span><span class='S0'>&nbsp;</span> <span
+    class='S10'>=</span><span class='S0'>&nbsp;</span> <span class='S11'>linebuf</span><span
+    class='S0'>&nbsp;</span> <span class='S10'>+</span><span class='S0'>&nbsp;</span> <span
+    class='S11'>startword</span><span class='S10'>;</span><br />
+
+    <p>
+       Then if a calltip is available it can be displayed. The calltip appears immediately below
+      the position specified. The calltip can be multiple lines separated by newlines (\n).
+    </p>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class='S11'>pos</span><span class='S0'>&nbsp;</span> <span
+    class='S10'>=</span><span class='S0'>&nbsp;</span> <span class='S11'>SendMessage</span><span
+    class='S10'>(</span><span class='S11'>hwnd</span><span class='S10'>,</span><span
+    class='S0'>&nbsp;</span> <span class='S11'>SCI_GETCURRENTPOS</span><span
+    class='S10'>,</span><span class='S0'>&nbsp;</span> <span class='S4'>0</span><span
+    class='S10'>,</span><span class='S0'>&nbsp;</span> <span class='S4'>0</span><span
+    class='S10'>);</span><span class='S0'><br />
+    </span> &nbsp;&nbsp;&nbsp;&nbsp;<span class='S11'>SendMessageText</span><span
+    class='S10'>(</span><span class='S11'>hwnd</span><span class='S10'>,</span><span
+    class='S0'>&nbsp;</span> <span class='S11'>SCI_CALLTIPSHOW</span><span
+    class='S10'>,</span><span class='S0'>&nbsp;</span> <span class='S11'>pos</span><span
+    class='S0'>&nbsp;</span> <span class='S10'>-</span><span class='S0'>&nbsp;</span> <span
+    class='S11'>wordLen</span><span class='S0'>&nbsp;</span> <span class='S10'>-</span><span
+    class='S0'>&nbsp;</span> <span class='S4'>1</span><span class='S10'>,</span><span
+    class='S0'>&nbsp;</span> <span class='S11'>calltip</span><span class='S10'>);</span><br />
+
+    <p>
+       The calltip can be removed when a closing parenthesis is entered:
+    </p>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class='S5'>if</span><span class='S0'>&nbsp;</span> <span
+    class='S10'>(</span><span class='S11'>SendMessage</span><span class='S10'>(</span><span
+    class='S11'>hwnd</span><span class='S10'>,</span><span class='S0'>&nbsp;</span> <span
+    class='S11'>SCI_CALLTIPACTIVE</span><span class='S10'>,</span><span class='S0'>&nbsp;</span>
+    <span class='S4'>0</span><span class='S10'>,</span><span class='S0'>&nbsp;</span> <span
+    class='S4'>0</span><span class='S10'>))</span><span class='S0'><br />
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class='S11'>
+    SendMessage</span><span class='S10'>(</span><span class='S11'>hwnd</span><span
+    class='S10'>,</span><span class='S0'>&nbsp;</span> <span class='S11'>
+    SCI_CALLTIPCANCEL</span><span class='S10'>,</span><span class='S0'>&nbsp;</span> <span
+    class='S4'>0</span><span class='S10'>,</span><span class='S0'>&nbsp;</span> <span class='S4'>
+    0</span><span class='S10'>);</span><br />
+
+    <p>
+       Obviously, it is up the application to look after supplying the appropriate calltip text.
+    </p>
+    <p>
+       SciTE goes one step further, counting the commas between arguments and highlighting the
+      corresponding part of the calltip. This code is in ContinueCallTip.
+    </p>
+    <p>
+       <i>Page contributed by Andrew McKinlay.</i>
+    </p>
+  </body>
+</html>
+

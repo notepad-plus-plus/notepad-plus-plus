@@ -1,0 +1,77 @@
+// This file is part of Notepad++ project
+// Copyright (C)2021 Don HO <don.h@free.fr>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+import org.apache.commons.codec.binary.Base64;
+import java.util.zip.*;
+import java.util.*;
+import java.text.*;
+import java.io.*;
+
+class zipB64 {
+
+    protected static String encodeMessage(String messageStr) {
+        try {
+            ByteArrayOutputStream bytesOut = new ByteArrayOutputStream();
+            Deflater deflater = new Deflater(Deflater.DEFLATED);
+            DeflaterOutputStream deflaterStream = new DeflaterOutputStream(bytesOut, deflater);
+            deflaterStream.write(messageStr.getBytes("UTF-8"));
+            deflaterStream.finish();
+
+            Base64 b = new Base64(-1);
+            return new String(b.encode(bytesOut.toByteArray()));            
+		} catch (Exception e) {
+			return "crotte";
+		}
+    }
+
+    protected static String decodeMessage(String encodedMessage) {
+		try {
+			Base64 b = new Base64();
+			byte[] decodedBase64 = b.decode(encodedMessage.getBytes());
+
+			// Decompress the bytes
+			
+			ByteArrayInputStream bytesIn = new ByteArrayInputStream(decodedBase64);
+			InflaterInputStream inflater = new InflaterInputStream(bytesIn);
+
+			int nbRead = 0;
+			StringBuilder sb = new StringBuilder();
+			while (nbRead >= 0) {
+				byte[] result = new byte[500];
+				nbRead = inflater.read(result,0,result.length);
+				if (nbRead > 0) {
+					sb.append(new String(result, 0, nbRead, "UTF-8"));
+				}
+			}
+			return sb.toString();
+		} catch (Exception e) {
+			return "zut";
+		}
+    }
+
+	public static void main (String args[]) {
+		if (args.length != 2 || (args[0].compareTo("-zip") != 0 && args[0].compareTo("-unzip") != 0)) 
+		{
+			System.out.println("java zipB64 <-zip|-unzip> \"message\"");
+			return;
+		}
+		boolean doZip = args[0].compareTo("-zip") == 0;
+		if (doZip)
+			System.out.println(encodeMessage(args[1]));
+		else
+			System.out.println(decodeMessage(args[1]));
+	}
+}

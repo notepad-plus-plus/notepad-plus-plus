@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<NotepadPlus>
+	<Native-Langue name = "Estremeñu" filename="extremaduran.xml" >
+		<Menu>
+			<Main>
+                <!-- Main Menu Entries -->
+				<Entries>
+					<Item menuId="file" name = "A&amp;rchivu"/>
+					<Item menuId="edit" name = "&amp;Eital"/>
+					<Item menuId="search" name = "&amp;Landeal"/>
+					<Item menuId="view" name = "&amp;Vel"/>
+					<Item menuId="encoding" name = "Hor&amp;matu"/>
+					<Item menuId="language" name = "L&amp;uenga"/>
+					<Item menuId="settings" name = "&amp;Configurazión"/>
+					<Item menuId="macro" name = "Macru"/>
+					<Item menuId="run" name = "Ehecutal"/>
+					<Item idName = "Plugins" name = "'Plugins'"/>
+					<Item idName = "Window" name = "Ventana"/>
+				</Entries>
+
+                <!-- Sub Menu Entries -->
+                <SubEntries>
+                    <Item subMenuId="view-collapseLevel" name = "Estrechal el nivel"/>
+                    <Item subMenuId="view-uncollapseLevel" name = "Espandil"/>
+                </SubEntries>
+
+                <!-- all menu item -->
+                <Commands>
+                    <Item id = "41001" name = "&amp;Nuevu"/>
+                    <Item id = "41002" name = "&amp;Abril"/>
+                    <Item id = "41003" name = "Fechal"/>
+                    <Item id = "41004" name = "F&amp;echal tó"/>
+                    <Item id = "41005" name = "Fechal tó ezeutu ahtual"/>
+                    <Item id = "41006" name = "&amp;Guardal"/>
+                    <Item id = "41007" name = "Guardal &amp;tós"/>
+                    <Item id = "41008" name = "Guardal &amp;comu..."/>
+                    <Item id = "41010" name = "Imprental..."/>
+                    <Item id = "1001"  name = "Imprental zuta!"/>
+                    <Item id = "41011" name = "&amp;Salil"/>
+					<Item id = "41012" name = "Cargal sesión..."/>
+                    <Item id = "41013" name = "Guardal sesión..."/>
+                    <Item id = "41014" name = "Recargal dendi'l discu"/>
+
+                    <Item id = "42001" name = "Cor&amp;tal"/>
+                    <Item id = "42002" name = "&amp;Copial"/>
+                    <Item id = "42003" name = "&amp;Deshazel"/>
+                    <Item id = "42004" name = "&amp;Rehazel"/>
+                    <Item id = "42005" name = "&amp;Pegal"/>
+                    <Item id = "42006" name = "&amp;Borral"/>
+                    <Item id = "42007" name = "Selezional &amp;tó"/>
+                    <Item id = "42008" name = "Insertal tabulazión"/>
+                    <Item id = "42009" name = "Borral tabulazión"/>
+                    <Item id = "42010" name = "Duplical línia ahtual"/>
+                    <Item id = "42012" name = "Desapartal línias"/>
+                    <Item id = "42013" name = "Unil línias"/>
+                    <Item id = "42014" name = "Movel línia ahtual pa zimará"/>
+                    <Item id = "42015" name = "Movel línia ahtual pa embahu"/>
+                    <Item id = "42016" name = "Escambial a mayúsculas"/>
+                    <Item id = "42017" name = "Escambial a minúsculas"/>
+                    <Item id = "42018" name = "&amp;Cominzial grabazión"/>
+                    <Item id = "42019" name = "&amp;Paral grabazión"/>
+                    <Item id = "42021" name = "&amp;Ehecutal macru"/>
+                    <Item id = "42022" name = "(Des)comental selezión"/>
+                    <Item id = "42023" name = "Convertil en comentariu"/>
+                    <Item id = "42024" name = "Eliminal espazius finalis"/>
+                    <Item id = "42025" name = "Guardal macru grabá ahtual"/>
+                    <Item id = "42026" name = "Testu e direcha a gocha"/>
+                    <Item id = "42027" name = "Testu e gocha a direcha"/>
+                    <Item id = "42028" name = "Sólu lehtura"/>
+                    <Item id = "42029" name = "Copial ruta i nombri el ficheru al portapapelis"/>
+                    <Item id = "42030" name = "Copial nombri el ficheru al portapapelis"/>
+                    <Item id = "42031" name = "Copial ruta el ficheru al portapapelis"/>
+                    <Item id = "42032" name = "Ehecutal un macru varias vezis..."/>
+                    <Item id = "42033" name = "Quital etiqueta e sólu lehtura"/>
+					<Item id = "42035" name = "Comental selezión"/>
+					<Item id = "42036" name = "Descomental selezión"/>
+
+                    <Item id = "43001" name = "&amp;Landeal..."/>
+                    <Item id = "43002" name = "Landeal &amp;siguienti"/>
+                    <Item id = "43003" name = "Remprazal..."/>
+                    <Item id = "43004" name = "Dil pa la línia..."/>
+                    <Item id = "43005" name = "(Des)marcal amelgaol"/>
+                    <Item id = "43006" name = "Siguienti amelgaol"/>
+                    <Item id = "43007" name = "Anteriol amelgaol"/>
+                    <Item id = "43008" name = "Achinal tolus amelgaoris"/>
+                    <Item id = "43009" name = "Dil pa testu coincienti"/>
+                    <Item id = "43010" name = "Landeal anteriol"/>
+                    <Item id = "43011" name = "Landéu &amp;incremental..."/>
+                    <Item id = "43013" name = "Landeal en ficherus"/>
+                    <Item id = "43014" name = "Landeal siguienti (volatil)"/>
+                    <Item id = "43015" name = "Landeal anteriol (siguienti)"/>
+                    <Item id = "43016" name = "Amelgal tós"/>
+                    <Item id = "43017" name = "Desamelgal tós"/>
+
+                    <Item id = "44010" name = "Plegal tó"/>
+                    <Item id = "44011" name = "Panel de definizionis del usuariu"/>
+                    <Item id = "44019" name = "Muestral tolus carahteris"/>
+                    <Item id = "44020" name = "Muestral guías de sangráu"/>
+                    <Item id = "44022" name = "Ahusti e línia"/>
+                    <Item id = "44023" name = "&amp;Aumental 'zoom' Ctrl-Mouse Wheel Up"/>
+                    <Item id = "44024" name = "&amp;Disminuil 'zoom'	Ctrl-Mouse Wheel Down"/>
+                    <Item id = "44025" name = "Muestral espazius en brancu i tabulazionis"/>
+                    <Item id = "44026" name = "Muestral acabaizu e línia"/>
+                    <Item id = "44029" name = "Despregal tó"/>
+                    <Item id = "44030" name = "Estrechal el nivel ahtual"/>
+                    <Item id = "44031" name = "Espandil"/>
+                    <Item id = "44032" name = "Escambial a pantalla compreta"/>
+                    <Item id = "44033" name = "Golvel a 'zoom' pol defeutu	Ctrl+/(keypad)"/>
+                    <Item id = "44034" name = "Siempri'n zimará"/>
+                    <Item id = "44035" name = "Sincronizal desprazamientu vertical"/>
+                    <Item id = "44036" name = "Sincronizal desprazamientu orizontal"/>
+                    <Item id = "44041" name = "Muestral símbolu d'ahusti"/>
+
+                    <Item id = "45001" name = "Convertil a hormatu Windows"/>
+                    <Item id = "45002" name = "Convertil a hormatu UNIX"/>
+                    <Item id = "45003" name = "Convertil a hormatu MAC"/>
+                    <Item id = "45004" name = "Coifical en ANSI"/>
+                    <Item id = "45005" name = "Coifical en UTF-8"/>
+                    <Item id = "45006" name = "Coifical en UCS-2 Big Endian"/>
+                    <Item id = "45007" name = "Coifical en UCS-2 Little Endian"/>
+                    <Item id = "45008" name = "Coifical en UTF-8 sin BOM"/>
+			<Item id = "45009" name = "Convertil a ANSI"/>
+			<Item id = "45010" name = "Convertil a UTF-8 sin BOM"/>
+			<Item id = "45011" name = "Convertil a UTF-8"/>
+			<Item id = "45012" name = "Convertil a UCS-2 Big Endian"/>
+			<Item id = "45013" name = "Convertil a UCS-2 Little Endian"/>
+
+                    <Item id = "10001" name = "Dil pa otra vista"/>
+                    <Item id = "10002" name = "Clonal n'otra vista"/>
+
+                    <Item id = "46001" name = "Configuraol d'estilus..."/>
+                    <Item id = "47000" name = "Azerca e..."/>
+                    <Item id = "47001" name = "'Web' d'iniziu e Notepad++"/>
+                    <Item id = "47002" name = "Proyehtu en Sourceforge"/>
+                    <Item id = "47003" name = "Ayúa'n línia"/>
+                    <Item id = "47004" name = "Foru"/>
+                    <Item id = "47005" name = "Descargal mas 'plugins'"/>
+
+                    <Item id = "48009" name = "Atahus de tecláu..."/>
+                    <Item id = "48011" name = "Configurazión..."/>
+                    <Item id = "49000" name = "&amp;Ehecutal..."/>
+
+					<Item id = "50000" name = "Compretal hunzionis"/>
+                    <Item id = "50001" name = "Compretal parabras"/>
+                    <Item id = "42034" name = "Eitol de colunas..."/>
+                    <Item id = "44042" name = "Escuendel línias"/>
+                    <Item id = "42040" name = "Abril tolus archivus rezientis"/>
+                    <Item id = "42041" name = "Achinal listáu d'archivus rezientis"/>
+
+                </Commands>
+            </Main>
+            <Splitter>
+            </Splitter>
+            <TabBar>
+                    <Item CMID = "0" name = "Fechal"/>
+                    <Item CMID = "1" name = "Fechal tó ezeutu l'ahtual"/>
+                    <Item CMID = "2" name = "Guardal"/>
+                    <Item CMID = "3" name = "Guardal comu..."/>
+                    <Item CMID = "4" name = "Imprental"/>
+                    <Item CMID = "5" name = "Dil pa otru mó e vista"/>
+                    <Item CMID = "6" name = "Clonal n'otra vista"/>
+            </TabBar>
+        </Menu>
+
+        <Dialog>
+            <Find title = "" titleFind = "Landeal" titleReplace = "Remprazal" titleFindInFiles = "Landeal en archivus">
+                <Item id = "1" name = "Landeal siguienti"/>
+                <Item id = "2" name = "Fechal"/>
+                <Item id = "1620" name = "Landeal qué :"/>
+                <Item id = "1603" name = "Coincíl &amp;parabra compreta sólu"/>
+                <Item id = "1604" name = "Coincíl &amp;may./min."/>
+                <Item id = "1605" name = "&amp;Espresión regulal"/>
+                <Item id = "1606" name = "Landeal en tó el &amp;documentu"/>
+                <Item id = "1612" name = "&amp;Zimará"/>
+                <Item id = "1613" name = "&amp;Embahu"/>
+                <Item id = "1614" name = "Cuental"/>
+                <Item id = "1615" name = "Landeal tó"/>
+                <Item id = "1616" name = "Marcal la línia"/>
+                <Item id = "1617" name = "Marcal tó lu alcuentráu"/>
+                <Item id = "1618" name = "Achinal en cá landéu"/>
+                <Item id = "1621" name = "Direzión"/>
+                <Item id = "1611" name = "Re&amp;mprazal con :"/>
+                <Item id = "1608" name = "&amp;Remprazal"/>
+                <Item id = "1609" name = "Remprazar &amp;tó"/>
+			 	<Item id = "1623" name = "Trasparenzia"/>
+			 	<Item id = "1687" name = "Nel focu escambullíu"/>
+			 	<Item id = "1688" name = "Siempri"/>
+			 	<Item id = "1632" name = "Ena selezión"/>
+			 	<Item id = "1633" name = "Achinal"/>
+			 	<Item id = "1635" name = "Remprazal tó en tolos documentus abiertus"/>
+			 	<Item id = "1636" name = "Landeal tó en tolos documentus abiertus"/>
+			 	<Item id = "1637" name = "Landeal en ficherus"/>
+			 	<Item id = "1640" name = "Diálogu"/>
+			 	<Item id = "1654" name = "Filtrus :"/>
+			 	<Item id = "1655" name = "Direhtoriu :"/>
+			 	<Item id = "1656" name = "Landealus tós"/>
+			 	<Item id = "1658" name = "En tolos sudirehtorius"/>
+            </Find>
+            <GoToLine title = "Dil pa la línia #">
+                <Item id = "1" name = "&amp;Dil !"/>
+                <Item id = "2" name = "Nu voi a nenguna parti"/>
+                <Item id = "2004" name = "Está aquina :"/>
+                <Item id = "2005" name = "Quieri dil pa :"/>
+                <Item id = "2006" name = "Nu puei dil más p'allá e :"/>
+            </GoToLine>
+
+            <Run title = "Ehecutal...">
+                <Item id = "1903" name = "Escreba la ruta u el pograma aquina"/>
+                <Item id = "1" name = "Ehecutal!"/>
+                <Item id = "2" name = "Canzelal"/>
+                <Item id = "1904" name = "Guardal..."/>
+            </Run>
+
+            <StyleConfig title = "Configuraol d'estilu">
+				<Item id = "1" name = "Prebal!"/>
+				<Item id = "2" name = "Canzelal"/>
+				<Item id = "2301" name = "Guardal &amp;&amp; Fechal"/>
+				<Item id = "2303" name = "Trasparenzia"/>
+
+                <SubDialog>
+                	<Item id = "2204" name = "Negrina"/>
+                    <Item id = "2205" name = "Cursiva"/>
+                    <Item id = "2206" name = "Colol de tipografía"/>
+                    <Item id = "2207" name = "Colol de hondón"/>
+                    <Item id = "2208" name = "Tipografía :"/>
+                    <Item id = "2209" name = "Tamañu la tipografía :"/>
+					<!--
+                    <Item id = "2210" name = "Alvertenzia: esti estulu sedrá'l estabrezíu pol defeutu pa tolos ficherus sin estilu definíu"/>\
+					-->
+                    <Item id = "2211" name = "Descrizión el estilu :"/>
+                    <Item id = "2212" name = "Colol del estilu"/>
+                    <Item id = "2213" name = "Estilu la tipografía"/>
+                    <Item id = "2214" name = "Est. pol defeutu :"/>
+                    <Item id = "2216" name = "Est. del usuariu :"/>
+                    <Item id = "2218" name = "Surrayal"/>
+                    <Item id = "2219" name = "Parabras cravi pol defeutu"/>
+                    <Item id = "2221" name = "Parabras cravi definías pol usuariu"/>
+                    <Item id = "2225" name = "Luenga :"/>
+                    <Item id = "2226" name = "Ahtival colol de tipografía global"/>
+                    <Item id = "2227" name = "Ahtival colol de hondón global"/>
+                    <Item id = "2228" name = "Ahtival tipografía global"/>
+                    <Item id = "2229" name = "Ahtival tamañu e tipografía global"/>
+                    <Item id = "2230" name = "Ahtival estilu global e tipografía'n negrina"/>
+                    <Item id = "2231" name = "Ahtival estilu global e tipografía'n cursiva"/>
+                    <Item id = "2232" name = "Ahtival estilu global e tipografía surrayá"/>
+                </SubDialog>
+
+            </StyleConfig>
+
+            <UserDefine title = "Definíu pol usuariu">
+				<Item id = "20002" name = "Renombral"/>
+				<Item id = "20003" name = "Creal nuevu..."/>
+				<Item id = "20004" name = "Borral"/>
+				<Item id = "20005" name = "Guardal comu..."/>
+				<Item id = "20007" name = "Luenga l'usuariu : "/>
+				<Item id = "20009" name = "Est :"/>
+				<Item id = "20012" name = "Inoral MAY./mín."/>
+				<Item id = "20011" name = "Trasparenzia"/>
+				<Item id = "0" name = "Estilu e colol"/>
+				<Item id = "1" name = "Colol e tipografía"/>
+				<Item id = "2" name = "Colol de hondón"/>
+				<Item id = "3" name = "Estilu e tipografía"/>
+				<Item id = "4" name = "Nombri e tipografía :"/>
+				<Item id = "5" name = "Tamañu e tipografía :"/>
+				<Item id = "6" name = "Negrina"/>
+				<Item id = "7" name = "Cursiva"/>
+				<Item id = "8" name = "Surrayáu"/>
+                <Folder title = "Direhtoriu &amp;&amp; pol defeutu">
+					<Item id = "21101" name = "Config. d'estilu pol defeutu"/>
+					<Item id = "21201" name = "Cunfig. de parabras cravi p'abril direhtoriu"/>
+					<Item id = "21301" name = "Cunfig. de parabras cravi pa fechal direhtoriu"/>
+                </Folder>
+                <Keywords title = "Listáu e parabras cravi">
+					<Item id = "22101" name = "1el grupu"/>
+					<Item id = "22201" name = "2u grupu"/>
+					<Item id = "22301" name = "3el grupu"/>
+					<Item id = "22401" name = "4u grupu"/>
+					<Item id = "22113" name = "Mó e prefihu"/>
+					<Item id = "22213" name = "Mó e prefihu"/>
+					<Item id = "22313" name = "Mó e prefihu"/>
+					<Item id = "22413" name = "Mó e prefihu"/>
+                </Keywords>
+                <Comment title = "Comentariu &amp;&amp; Númiru">
+					<Item id = "23301" name = "Línia e comentariu"/>
+					<Item id = "23101" name = "Selezión de comentariu"/>
+					<Item id = "23113" name = "Apertura e comentariu :"/>
+					<Item id = "23115" name = "Fechaúra e comentariu :"/>
+					<Item id = "23116" name = "Tratal parabra cravi comu símbolu"/>
+					<Item id = "23117" name = "Tratal parabras cravi comu símbolus"/>
+					<Item id = "23201" name = "Númiru"/>
+                </Comment>
+                <Operator title = "Operaoris">
+					<Item id = "24107" name = "Operaol"/>
+					<Item id = "24103" name = "Símbolus dispunibris"/>
+					<Item id = "24101" name = "Operaoris ahtivaus"/>
+					<Item id = "24201" name = "Delimitaol 1"/>
+					<Item id = "24211" name = "Límiti d'apertura :"/>
+					<Item id = "24214" name = "Límiti e fechaúra :"/>
+					<Item id = "24301" name = "Delimitaol 2"/>
+					<Item id = "24311" name = "Límiti d'apertura :"/>
+					<Item id = "24314" name = "Límiti e fechaúra :"/>
+                </Operator>
+            </UserDefine>
+			<Preference title = "Ozionis">
+                <Item id = "6001" name = "Fechal"/>
+				<Global title = "Global">
+					<Item id = "6101" name = "Barra e herramientas"/>
+					<Item id = "6102" name = "Escuendel"/>
+					<Item id = "6103" name = "Iconus caquerus"/>
+	                <Item id = "6104" name = "Iconus grandis"/>
+					<Item id = "6105" name = "Iconus caquerus pol defeutu"/>
+
+					<Item id = "6106" name = "Barra e pestañas"/>
+					<Item id = "6107" name = "Reuzil"/>
+					<Item id = "6108" name = "Bloqueal (impíl horreal i soltal)"/>
+					<Item id = "6109" name = "Muestral pestañas inahtivas"/>
+					<Item id = "6110" name = "Muestra barra naranha ena pestaña ahtiva"/>
+
+					<Item id = "6111" name = "Muestral barra estáu"/>
+					<Item id = "6112" name = "Botón de fechaúra huntu a cá pestaña"/>
+					<Item id = "6113" name = "Hadel dobli 'click' pa fechal documentu"/>
+					<Item id = "6118" name = "Escuendel"/>
+					<Item id = "6119" name = "Multi-línia"/>
+					<Item id = "6120" name = "Vertical"/>
+				</Global>
+                <Scintillas title = "Eital compunentis">
+					<Item id = "6201" name = "Estilu e nivelis en marhin"/>
+					<Item id = "6202" name = "Guionis"/>
+					<Item id = "6203" name = "Frechas"/>
+	                <Item id = "6204" name = "Círculus"/>
+					<Item id = "6205" name = "Cuairaus"/>
+
+					<Item id = "6206" name = "Muestral númirus de línia'n marhin"/>
+					<Item id = "6207" name = "Muestral amelgaoris en marhin"/>
+					<Item id = "6208" name = "Muestral franha vertical"/>
+					<Item id = "6209" name = "Númiru e colunas : "/>
+
+					<Item id = "6211" name = "Configuración de franha vertical"/>
+					<Item id = "6212" name = "Mó e línia"/>
+					<Item id = "6213" name = "Mó e hondón"/>
+					<Item id = "6214" name = "Muestral coloreá la línia ahtual"/>
+                </Scintillas>
+				<NewDoc title = "Nuevu documentu">
+					<Item id = "6401" name = "Hormatu"/>
+					<Item id = "6402" name = "Windows"/>
+					<Item id = "6403" name = "Unix"/>
+	                <Item id = "6404" name = "Mac"/>
+					<Item id = "6405" name = "Coificazión"/>
+					<Item id = "6406" name = "ANSI"/>
+					<Item id = "6407" name = "UTF-8 sin BOM"/>
+					<Item id = "6408" name = "UTF-8"/>
+					<Item id = "6409" name = "UCS2 Big endian"/>
+					<Item id = "6410" name = "UCS2 small endian"/>
+					<Item id = "6411" name = "Luenga pol defeutu :"/>
+                </NewDoc>
+				<FileAssoc title = "Asoziazión d'archivus">
+					<Item id = "4009" name = "Est. soportás :"/>
+					<Item id = "4010" name = "Est. asoziás :"/>
+                </FileAssoc>
+				<LangMenu title = "Menú e luengas">
+					<Item id = "6505" name = "Elementus dispunibris"/>
+					<Item id = "6506" name = "Elementus nu ahtivaus"/>
+                </LangMenu>
+				<Print title = "Imprental">
+					<Item id = "6601" name = "Imprental númirus de línia"/>
+					<Item id = "6602" name = "Ozionis de colol"/>
+					<Item id = "6603" name = "'WYSIWYG'"/>
+					<Item id = "6604" name = "Invertil"/>
+	                <Item id = "6605" name = "Brancu i nigru"/>
+					<Item id = "6606" name = "Sin colol de hondón"/>
+					<Item id = "6607" name = "Márhenis (en milímetrus)"/>
+					<Item id = "6612" name = "Gocha"/>
+					<Item id = "6613" name = "Zimará"/>
+					<Item id = "6614" name = "Direcha"/>
+					<Item id = "6615" name = "Embahu"/>
+					<Item id = "6706" name = "Negrina"/>
+					<Item id = "6707" name = "Cursiva"/>
+					<Item id = "6708" name = "Encabezá"/>
+					<Item id = "6709" name = "Parti gocha"/>
+	                <Item id = "6710" name = "Parti el meyu"/>
+					<Item id = "6711" name = "Parti direcha"/>
+					<Item id = "6717" name = "Negrina"/>
+					<Item id = "6718" name = "Cursiva"/>
+					<Item id = "6719" name = "Pie"/>
+					<Item id = "6720" name = "Parti gocha"/>
+	                <Item id = "6721" name = "Parti el meyu"/>
+					<Item id = "6722" name = "Parti direcha"/>
+	                <Item id = "6723" name = "Añíl"/>
+					<Item id = "6725" name = "Variabri :"/>
+                </Print>
+				<MISC title = "Varius">
+					<Item id = "6301" name = "Configurazión de tabulazionis"/>
+					<Item id = "6302" name = "Remprazal pol espazius"/>
+					<Item id = "6303" name = "Tamañu e tabulazión : "/>
+					<Item id = "6304" name = "Cunfiguración del historial d'archivus"/>
+	                <Item id = "6305" name = "Nu comprebal al comincial"/>
+					<Item id = "6306" name = "Másimu d'archivus nel historial :"/>
+					<Item id = "6307" name = "Ahtival"/>
+					<Item id = "6308" name = "Minimizal a bandeha e sistema"/>
+					<Item id = "6309" name = "Recuerdal sesión ahtual pa la prózima vezi"/>
+					<Item id = "6312" name = "Auto-comprebal el estáu el archivu"/>
+					<Item id = "6313" name = "Ahtualizal automáticamenti"/>
+					<Item id = "6318" name = "Configurazión d'enlazis"/>
+					<Item id = "6319" name = "Ahtival"/>
+					<Item id = "6320" name = "Nu surrayal"/>
+					<Item id = "6323" name = "Ahtival ahtualizazionis automáticas"/>
+					<Item id = "6324" name = "Escambiaol de documentus (Ctrl+TAB)"/>
+
+					<Item id = "6114" name = "Ahtival escambiaol de documentus (Ctrl+Tab)"/>
+					<Item id = "6115" name = "Autu-sangría"/>
+					<Item id = "6116" name = "Recuerdal el direhtoriu e la úrtima operazión"/>
+					<Item id = "6117" name = "Ahtival mó MRU pal escambiaol de documentus"/>
+                </MISC>
+				<Backup title = "Copia e siguriá/Compretal automáticamenti">
+					<Item id = "6801" name = "Copia e siguriá"/>
+					<Item id = "6315" name = "Nengunu"/>
+					<Item id = "6316" name = "Copia e siguriá simpri"/>
+					<Item id = "6317" name = "Copia e siguriá detallá"/>
+					<Item id = "6804" name = "Direhtoriu pa copias de siguriá personalizau"/>
+					<Item id = "6803" name = "Direhtoriu :"/>
+					<Item id = "6807" name = "Compretal automáticamenti"/>
+	                <Item id = "6808" name = "Ahtival compretal automáticamenti'n cá entrá"/>
+					<Item id = "6809" name = "Compretal hunzionis"/>
+					<Item id = "6810" name = "Compretal parabras"/>
+					<Item id = "6811" name = "Dendi"/>
+					<Item id = "6813" name = "s carahteris"/>
+					<Item id = "6814" name = "Valol váliu : 1 - 9"/>
+                </Backup>
+            </Preference>
+			<MultiMacro title = "Ehecutal macru varias vezis">
+                <Item id = "1" name = "Ehecutal"/>
+                <Item id = "2" name = "Canzelal"/>
+                <Item id = "8006" name = "Macru pa ehecutal :"/>
+                <Item id = "8001" name = "Ehecutal"/>
+                <Item id = "8005" name = "vezis"/>
+                <Item id = "8002" name = "Hasta'l acabaizu el ficheru"/>
+            </MultiMacro>
+			<Window title = "Ventanas">
+                <Item id = "1" name = "Ahtival"/>
+                <Item id = "2" name = "Azehtal"/>
+                <Item id = "7002" name = "Guardal"/>
+                <Item id = "7003" name = "Fechal ventana(s)"/>
+                <Item id = "7004" name = "Ordinal pestañas"/>
+            </Window>
+			<ColumnEditor title = "Eitol de colunas">
+                <Item id = "2023" name = "Testu pa insertal"/>
+                <Item id = "2033" name = "Númiru pa insertal"/>
+                <Item id = "2030" name = "Númiru e comienzu :"/>
+                <Item id = "2031" name = "Incrementáu'n :"/>
+                <Item id = "2035" name = "Zerus delanti"/>
+                <Item id = "2032" name = "Hormatu"/>
+                <Item id = "2024" name = "Dez"/>
+                <Item id = "2025" name = "Oht"/>
+                <Item id = "2026" name = "Hes"/>
+                <Item id = "2027" name = "Bin"/>
+				<Item id = "1" name = "Azehtal"/>
+				<Item id = "2" name = "Canzelal"/>
+            </ColumnEditor>
+		</Dialog>
+    </Native-Langue>
+</NotepadPlus>

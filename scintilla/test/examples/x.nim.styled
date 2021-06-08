@@ -1,0 +1,28 @@
+{3}# Tests for Nim
+{8}let{0} {16}s{0} {15}={0} {6}"foobar"{0}
+
+{3}# Feature #1260
+{15}{.{16}ident{15}.}{0}
+{16}stdin{15}.{16}readLine{15}.{16}split{15}.{16}map{15}({16}parseInt{15}).{16}max{15}.{11}`$`{15}.{16}echo{15}({6}" is the maximum!"{15}){0}
+
+{3}# Feature #1261
+# IsFuncName("proc") so style ticks as SCE_NIM_FUNCNAME:
+{8}proc{0} {12}`$`{0} {15}({16}x{15}:{0} {16}myDataType{15}):{0} {16}string{0} {15}={0} {15}...{0}
+{3}# Style ticks as SCE_NIM_BACKTICKS:
+{8}if{0} {11}`==`{15}({0} {11}`+`{15}({5}3{15},{5}4{15}),{5}7{15}):{0} {16}echo{0} {6}"True"{0}
+
+{3}# Feature #1262
+# Standard raw string identifier:
+{8}let{0} {16}standardDoubleLitRawStr{0} {15}={0} {6}R"A raw string\"{0}
+{8}let{0} {16}standardTripleLitRawStr{0} {15}={0} {10}R"""A triple-double raw string\""""{0}
+{3}# Style of 'customIdent' is determined by lexer.nim.raw.strings.highlight.ident. 16 if false, 6 or 10 if true
+{8}let{0} {16}customDoubleLitRawStr{0} {15}={0} {16}customIdent{6}"A string\"{0}
+{8}let{0} {16}customTripleLitRawStr{0} {15}={0} {16}customIdent{10}"""A triple-double raw string\""""{0}
+
+{3}# Feature #1268
+{5}10_000{0}
+{5}10{16}__000{0}
+{5}10{16}_{0}
+{5}1{15}....{5}5{0}
+{5}1{15}.{16}ident{0}
+{5}1{15}.{16}_ident{0}

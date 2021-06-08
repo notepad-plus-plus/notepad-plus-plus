@@ -1,0 +1,45 @@
+// This file is part of Notepad++ project
+// Copyright (C)2021 Don HO <don.h@free.fr>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
+#include "windows.h"
+#include "pluginsAdminRes.h"
+
+#ifndef IDC_STATIC 
+#define IDC_STATIC -1
+#endif
+
+IDD_PLUGINSADMIN_DLG DIALOGEX 36, 44, 500, 300
+STYLE DS_SETFONT | DS_3DLOOK | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_TOOLWINDOW
+CAPTION "Plugins Admin"
+FONT 8, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+	RTEXT           "Search: ",IDC_PLUGINADM_SEARCH_STATIC,50,38,50,8
+	EDITTEXT        IDC_PLUGINADM_SEARCH_EDIT,160,35,150,14,ES_AUTOHSCROLL
+	PUSHBUTTON      "Next", IDC_PLUGINADM_RESEARCH_NEXT,332,35,57,14
+	PUSHBUTTON      "Install", IDC_PLUGINADM_INSTALL,432,35,57,14
+	PUSHBUTTON      "Update", IDC_PLUGINADM_UPDATE,432,35,57,14
+	PUSHBUTTON      "Remove", IDC_PLUGINADM_REMOVE,432,35,57,14
+	//LISTBOX         IDC_PLUGINADM_LISTVIEW,30,20,78,120,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+	EDITTEXT        IDC_PLUGINADM_EDIT,30,160,220,80,ES_MULTILINE | ES_AUTOVSCROLL | ES_READONLY | WS_BORDER | WS_VSCROLL
+	
+	PUSHBUTTON      "Close", IDCANCEL, 225, 270, 57, 14
+
+	//PUSHBUTTON      "Close", IDCANCEL,332,270,57,14
+    //PUSHBUTTON      "Settings",IDC_PLUGINADM_SETTINGS_BUTTON,255,270,69,14
+END
+

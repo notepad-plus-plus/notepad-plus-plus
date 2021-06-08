@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	Luxembourgish translation for Notepad++ 5.1.
+	Last modified 02 December 2008 by Steve Gengler.
+-->
+<NotepadPlus>
+	<Native-Langue name = "Lëtzebuergesch" filename="luxembourgish.xml" >
+		<Menu>
+			<Main>
+				<!-- Main Menu Titles -->
+				<Entries>
+					<Item menuId="file" name = "&amp;Datei"/>
+					<Item menuId="edit" name = "&amp;Beaarbechten"/>
+					<Item menuId="search" name = "&amp;Sichen"/>
+					<Item menuId="view" name = "&amp;Usiicht"/>
+					<Item menuId="encoding" name = "&amp;Format"/>
+					<Item menuId="language" name = "S&amp;prooch"/>
+					<Item menuId="settings" name = "&amp;Astellungen"/>
+					<Item menuId="macro" name = "&amp;Makro"/>
+					<Item menuId="run" name = "Ausféie&amp;ren"/>
+					<Item idName = "Plugins" name = "Er&amp;weiderungen"/>
+					<Item idName = "Window" name = "Fë&amp;nster"/>
+				</Entries>
+				<!-- Sub Menu Entries -->
+				<SubEntries>
+					<Item subMenuId="view-collapseLevel" name = "Te&amp;xtbléck opmaachen"/>
+					<Item subMenuId="view-uncollapseLevel" name = "Te&amp;xtbléck zoumaachen"/>
+				</SubEntries>
+				<!-- all menu items -->
+				<Commands>
+					<Item id = "41001" name = "&amp;Nei"/>
+					<Item id = "41002" name = "&amp;Opmaachen"/>
+					<Item id = "41003" name = "&amp;Zoumaachen"/>
+					<Item id = "41004" name = "All&amp;es zoumaachen"/>
+					<Item id = "41005" name = "Alles zoumaachen bis op dat aktuellt Dokumen&amp;t"/>
+					<Item id = "41006" name = "&amp;Späicheren"/>
+					<Item id = "41007" name = "&amp;Alles späicheren"/>
+					<Item id = "41008" name = "Späicheren &amp;ënnert ..."/>
+					<Item id = "41010" name = "&amp;Drécken ..."/>
+					<Item id = "1001"  name = "&amp;Elo drécken!"/>
+					<Item id = "41011" name = "B&amp;eenden"/>
+					<Item id = "41012" name = "Sët&amp;zung opmaachen ..."/>
+					<Item id = "41013" name = "Sët&amp;zung späicheren ..."/>
+					<Item id = "41014" name = "Nei &amp;lueden"/>
+					<Item id = "41015" name = "&amp;Kopie späicheren ënnert ..."/>
+					<Item id = "41016" name = "Vum Datendr&amp;éier läschen"/>
+					<Item id = "41017" name = "Ëm&amp;benennen ..."/>
+					<Item id = "42001" name = "Aus&amp;schneiden"/>
+					<Item id = "42002" name = "&amp;Kopéieren"/>
+					<Item id = "42003" name = "&amp;Réckgängeg"/>
+					<Item id = "42004" name = "&amp;Widderhuelen"/>
+					<Item id = "42005" name = "&amp;Afügen"/>
+					<Item id = "42006" name = "&amp;Läschen"/>
+					<Item id = "42007" name = "&amp;Alles auswielen"/>
+					<Item id = "42008" name = "Tab afügen (arécke&amp;n)"/>
+					<Item id = "42009" name = "Tab läschen (ausr&amp;écken)"/>
+					<Item id = "42010" name = "Zeil wie&amp;derhuelen"/>
+					<Item id = "42012" name = "Zeil am Fënsterrand &amp;deelen"/>
+					<Item id = "42013" name = "&amp;Zeilen zesummefaassen"/>
+					<Item id = "42014" name = "Zeil &amp;erop réckelen"/>
+					<Item id = "42015" name = "Zeil e&amp;rof réckelen"/>
+					<Item id = "42016" name = "An &amp;Groussbuschtawen ëmwandelen"/>
+					<Item id = "42017" name = "An Klengbuschtawen ëmw&amp;andelen"/>
+					<Item id = "42018" name = "Opzeechnung s&amp;tarten"/>
+					<Item id = "42019" name = "Opzeechnung st&amp;oppen"/>
+					<Item id = "42021" name = "Makro ausféie&amp;ren"/>
+					<Item id = "42022" name = "Zeilenwais an-/auskommentéieren"/>
+					<Item id = "42023" name = "Markéierung auskommentéieren"/>
+					<Item id = "42024" name = "Ofstand um Zeilenenn l&amp;äschen"/>
+					<Item id = "42025" name = "Opgehuelenen Makro s&amp;päicheren"/>
+					<Item id = "42026" name = "Schreif&amp;richtung R->L"/>
+					<Item id = "42027" name = "Schreif&amp;richtung L->R"/>
+					<Item id = "42028" name = "Schreifschut&amp;z"/>
+					<Item id = "42029" name = "Gesamten akt. Datei&amp;pad kopéieren"/>
+					<Item id = "42030" name = "Aktiven Datei&amp;numm kopéieren"/>
+					<Item id = "42031" name = "Aktiven &amp;Repertoire kopéieren"/>
+					<Item id = "42032" name = "Makro &amp;puer mol ausféieren ..."/>
+					<Item id = "42033" name = "Schreifschut&amp;z ophiewen"/>
+					<Item id = "42034" name = "&amp;Block-Editor ..."/>
+					<Item id = "42035" name = "Block auskommentéieren"/>
+					<Item id = "42036" name = "Block ankommentéieren"/>
+					<Item id = "42040" name = "Alleguer fir d'lescht &amp;benotzt Dateien opmaachen"/>
+					<Item id = "42041" name = "D'Lëscht vun den fir d'lescht benot&amp;zten Dateien läschen"/>
+					<Item id = "43001" name = "&amp;Sichen ..."/>
+					<Item id = "43002" name = "&amp;Weidersichen"/>
+					<Item id = "43003" name = "&amp;Ersetzen ..."/>
+					<Item id = "43004" name = "&amp;Goen bei ..."/>
+					<Item id = "43005" name = "&amp;Lieszeechen setzen/läschen"/>
+					<Item id = "43006" name = "&amp;Nächst Lieszeechen"/>
+					<Item id = "43007" name = "&amp;Viregt Lieszeechen"/>
+					<Item id = "43008" name = "Lieszeechen alleguer l&amp;äschen"/>
+					<Item id = "43009" name = "Déi zugehéiereg &amp;Klammer sichen"/>
+					<Item id = "43010" name = "&amp;Hannertzeg sichen"/>
+					<Item id = "43011" name = "&amp;Inkrementel Sich"/>
+					<Item id = "43013" name = "An &amp;Dateien sichen"/>
+					<Item id = "43014" name = "Wuert ab dem &amp;Cursor sichen"/>
+					<Item id = "43015" name = "Wuert ab dem Cursor h&amp;annertzeg sichen"/>
+					<Item id = "43016" name = "All déi gläich Wierder &amp;markéieren"/>
+					<Item id = "43017" name = "All M&amp;arkéierungen läschen"/>
+					<Item id = "43018" name = "&amp;Zeilen mat Lieszeechen ausschneiden"/>
+					<Item id = "43019" name = "&amp;Zeilen mat Lieszeechen kopéieren"/>
+					<Item id = "43020" name = "&amp;Zeilen mat Lieszeechen duerch Tëschentablag ersetzen"/>
+					<Item id = "43021" name = "&amp;Zeilen mat Lieszeechen läschen"/>
+					<Item id = "44010" name = "D'Te&amp;xtbléck alleguer zoumaachen"/>
+					<Item id = "44011" name = "Benotzerdefinéiert Sproo&amp;ch ..."/>
+					<Item id = "44019" name = "D'Zeechen &amp;alleguer uweisen"/>
+					<Item id = "44020" name = "Anzich uw&amp;eisen"/>
+					<Item id = "44022" name = "Zeilen&amp;ëmbroch"/>
+					<Item id = "44023" name = "Schrëft ver&amp;gréisseren"/>
+					<Item id = "44024" name = "Schrëft ver&amp;klengeren"/>
+					<Item id = "44025" name = "Ofstänn an Tabu&amp;latoren uweisen"/>
+					<Item id = "44026" name = "Zeilenenn uwe&amp;isen"/>
+					<Item id = "44029" name = "D'Te&amp;xtbléck alleguer opmaachen"/>
+					<Item id = "44030" name = "Te&amp;xtblock zoumaachen"/>
+					<Item id = "44031" name = "Te&amp;xtblock opmaachen"/>
+					<Item id = "44032" name = "Voll&amp;bild"/>
+					<Item id = "44033" name = "Standardgréi&amp;sst"/>
+					<Item id = "44034" name = "Ëmmer am Vierdergrond &amp;halen"/>
+					<Item id = "44035" name = "S&amp;ynchront vertikalt Scrollen"/>
+					<Item id = "44036" name = "Synchront &amp;horizontalt Scrollen"/>
+					<Item id = "44041" name = "Symbol bei &amp;Zeilenëmbroch uweisen"/>
+					<Item id = "44070" name = "&amp;Primär Usiicht aktivéieren"/>
+					<Item id = "44071" name = "&amp;Sekundär Usiicht aktivéieren"/>
+					<Item id = "44042" name = "&amp;Zeilen ausblenden"/>
+					<Item id = "45001" name = "Zu &amp;Windows konvertéieren"/>
+					<Item id = "45002" name = "Zu &amp;Unix konvertéieren"/>
+					<Item id = "45003" name = "Zu &amp;Mac konvertéieren"/>
+					<Item id = "45004" name = "&amp;ANSI"/>
+					<Item id = "45005" name = "UTF-&amp;8"/>
+					<Item id = "45006" name = "UCS-2 &amp;Big Endian"/>
+					<Item id = "45007" name = "UCS-2 &amp;Little Endian"/>
+					<Item id = "45008" name = "UTF-8 &amp;ouni BOM"/>
+					<Item id = "45009" name = "Zu ANSI Ko&amp;nvertéieren"/>
+					<Item id = "45010" name = "Zu UTF-8 ouni BOM kon&amp;vertéieren"/>
+					<Item id = "45011" name = "Zu UTF-8 konv&amp;ertéieren"/>
+					<Item id = "45012" name = "Zu UCS-2 Big Endian konve&amp;rtéieren"/>
+					<Item id = "45013" name = "Zu UCS-2 Little Endian konver&amp;téieren"/>
+					<Item id = "10001" name = "An déi z&amp;weet Usiicht réckelen"/>
+					<Item id = "10002" name = "An der zweeter Usiicht k&amp;opéieren"/>
+					<Item id = "10003" name = "An eng &amp;nei Instanz réckelen"/>
+					<Item id = "10004" name = "An eng nei Instan&amp;z kopéieren"/>
+					<Item id = "46001" name = "&amp;Stile ..."/>
+					<Item id = "46180" name = "Benotzerdefinéiert"/>
+					<Item id = "47000" name = "&amp;Info ..."/>
+					<Item id = "47001" name = "Notepad++ am &amp;Web"/>
+					<Item id = "47002" name = "Notepad++ bei &amp;Sourceforge"/>
+					<Item id = "47003" name = "Online-&amp;Hëllef"/>
+					<Item id = "47004" name = "&amp;Forum"/>
+					<Item id = "47005" name = "&amp;Erweiderungen"/>
+					<Item id = "48009" name = "&amp;Tastatur ..."/>
+					<Item id = "48011" name = "&amp;Astellungen ..."/>
+					<Item id = "49000" name = "&amp;Ausféieren ..."/>
+					<Item id = "50000" name = "Funktiounsvervollstännegung"/>
+					<Item id = "50001" name = "Wuertvervollstännegung"/>
+					<Item id = "50002" name = "Funktiounsparameter uweisen"/>
+				</Commands>
+			</Main>
+			<Splitter />
+			<TabBar>
+				<Item CMID = "0" name = "Zoumaa&amp;chen"/>
+				<Item CMID = "1" name = "&amp;All déi anner zoumaachen"/>
+				<Item CMID = "2" name = "S&amp;päicheren"/>
+				<Item CMID = "3" name = "Späicheren &amp;ënnert ..."/>
+				<Item CMID = "10" name = "Datei ëm&amp;benennen"/>
+				<Item CMID = "11" name = "Datei &amp;läschen"/>
+				<Item CMID = "4" name = "&amp;Drécken"/>
+				<Item CMID = "12" name = "Schreifschut&amp;z"/>
+				<Item CMID = "13" name = "Schreifschutz ophiwen"/>
+				<Item CMID = "7" name = "Vollstännegen Pad &amp;kopéieren"/>
+				<Item CMID = "8" name = "Nëmmen d'Datei&amp;nimm kopéieren"/>
+				<Item CMID = "9" name = "Nëmmen d'Repertoire&amp;pied kopéieren"/>
+				<Item CMID = "5" name = "An déi z&amp;weeter Usiicht réckelen"/>
+				<Item CMID = "6" name = "An der zwee&amp;ter Usiicht kopéieren"/>
+				<Item CMID = "14" name = "An eng nei &amp;Instanz réckelen"/>
+				<Item CMID = "15" name = "An eng nei Instan&amp;z kopéieren"/>
+			</TabBar>
+		</Menu>
+		<Dialog>
+			<Find title = "" titleFind = "Sichen" titleReplace = "Remplacéieren" titleFindInFiles = "An Dateien sichen">
+				<Item id = "1" name = "&amp;Weidersichen"/>
+				<Item id = "2" name = "Zoumaac&amp;hen"/>
+				<Item id = "1620" name = "Sichen no"/>
+				<Item id = "1603" name = "Nëmmen &amp;ganz Wierder sichen"/>
+				<Item id = "1604" name = "Grouss-/&amp;Klengbuschtawen"/>
+				<Item id = "1605" name = "&amp;Regulär Ausdréck"/>
+				<Item id = "1606" name = "&amp;Um Enn erëm vun vir ufängen"/>
+				<Item id = "1612" name = "H&amp;annertzeg"/>
+				<Item id = "1613" name = "&amp;Vijenzeg"/>
+				<Item id = "1614" name = "&amp;Zielen"/>
+				<Item id = "1615" name = "Alleguer sichen"/>
+				<Item id = "1616" name = "&amp;Lieszeechen setzen"/>
+				<Item id = "1617" name = "&amp;Treffer markéieren"/>
+				<Item id = "1618" name = "Fir &amp;jidder Sich läschen"/>
+				<Item id = "1621" name = "Sichrichtung"/>
+				<Item id = "1611" name = "&amp;Remplacéieren duerch"/>
+				<Item id = "1608" name = "&amp;Remplacéieren"/>
+				<Item id = "1609" name = "&amp;Alles remplacéieren"/>
+				<Item id = "1623" name = "Transparenz"/>
+				<Item id = "1624" name = "Sichmodus"/>
+				<Item id = "1625" name = "&amp;Normal"/>
+				<Item id = "1626" name = "&amp;Erweidert (\n, \r, \t, \0, \x ...)"/>
+				<Item id = "1627" name = "Ënnen"/>
+				<Item id = "1632" name = "An d'&amp;Markéierung"/>
+				<Item id = "1633" name = "Zrécksetzen"/>
+				<Item id = "1635" name = "Alles wat fonnd ginn ass, an allen &amp;oppenen Dateien ersetzen"/>
+				<Item id = "1636" name = "Sichen an allen &amp;oppen Dateien"/>
+				<Item id = "1637" name = "An Dateien sichen"/>
+				<Item id = "1640" name = "Ëmschaltdialog"/>
+				<Item id = "1659" name = "&amp;Verstoppen Repertoiren"/>
+				<Item id = "1654" name = "Filter"/>
+				<Item id = "1655" name = "Repertoire"/>
+				<Item id = "1656" name = "Alleguer sichen"/>
+				<Item id = "1658" name = "&amp;Ënnerrepertoiren"/>
+				<Item id = "1687" name = "Wann inaktiv"/>
+				<Item id = "1688" name = "Ëmmer"/>
+			</Find>
+			<GoToLine title = "Gehe zu">
+				<Item id = "1" name = "&amp;Goen bei"/>
+				<Item id = "2" name = "&amp;Ofbriechen"/>
+				<Item id = "2004" name = "Aktuell"/>
+				<Item id = "2005" name = "Ziel"/>
+				<Item id = "2006" name = "Insgesamt an der Datei"/>
+				<Item id = "2007" name = "&amp;Zeil"/>
+				<Item id = "2008" name = "Z&amp;eechen"/>
+			</GoToLine>
+			<Run title = "Ausféieren ...">
+				<Item id = "1903" name = "Auszeféierenden Programm hei aginn"/>
+				<Item id = "1" name = "&amp;Ausféieren"/>
+				<Item id = "2" name = "O&amp;fbriechen"/>
+				<Item id = "1904" name = "&amp;Späicheren"/>
+			</Run>
+			<StyleConfig title = "Stile">
+				<Item id = "1" name = "Iwwerhuelen"/>
+				<Item id = "2" name = "Ofbriechen"/>
+				<Item id = "2301" name = "Späicheren"/>
+				<Item id = "2303" name = "Transparenz"/>
+				<SubDialog>
+					<Item id = "2204" name = "Fett"/>
+					<Item id = "2205" name = "Kursiv"/>
+					<Item id = "2206" name = "Vierdergrondfaarf"/>
+					<Item id = "2207" name = "Hannergrondfaarf"/>
+					<Item id = "2208" name = "Schrëftart"/>
+					<Item id = "2209" name = "Gréisst"/>
+					<Item id = "2211" name = "Stilbeschreiwung"/>
+					<Item id = "2212" name = "Faarfen"/>
+					<Item id = "2213" name = "Schrëften"/>
+					<Item id = "2214" name = "Standard-Erw."/>
+					<Item id = "2216" name = "Benotzer-Erw."/>
+					<Item id = "2218" name = "Ënnerstrach"/>
+					<Item id = "2219" name = "Standard-Schlësselwierder"/>
+					<Item id = "2221" name = "Benotzerdefinéiert Schlësselwierder"/>
+					<Item id = "2225" name = "Sprooch"/>
+					<Item id = "2226" name = "Standard-Vierdergrondfaarf"/>
+					<Item id = "2227" name = "Standard-Hannergrondfaarf"/>
+					<Item id = "2228" name = "Schrëft als Standard setzen"/>
+					<Item id = "2229" name = "Schrëftgréisst als Standard setzen"/>
+					<Item id = "2230" name = "Fettschrëft als Standard setzen"/>
+					<Item id = "2231" name = "Kursivschrëft als Standard setzen"/>
+					<Item id = "2232" name = "Ënnerstrach als Standard setzen"/>
+				</SubDialog>
+			</StyleConfig>
+			<UserDefine title = "Benotzerdefinéiert Sprooch">
+				<Item id = "20002" name = "Ëmbenennen"/>
+				<Item id = "20003" name = "Nei erstellen"/>
+				<Item id = "20004" name = "Läschen"/>
+				<Item id = "20005" name = "Späicheren ënnert"/>
+				<Item id = "20007" name = "Benotzersprooch"/>
+				<Item id = "20009" name = "Erw."/>
+				<Item id = "20012" name = "Grouss/kleng ignoréieren"/>
+				<Item id = "20011" name = "Transparenz"/>
+				<Item id = "0" name = "Faarfen"/>
+				<Item id = "1" name = "Vierdergrond"/>
+				<Item id = "2" name = "Hannergrond"/>
+				<Item id = "3" name = "Schrëften"/>
+				<Item id = "4" name = "Schrëftart"/>
+				<Item id = "5" name = "Gréisst"/>
+				<Item id = "6" name = "Fett"/>
+				<Item id = "7" name = "Kursiv"/>
+				<Item id = "8" name = "Ënnerstrach"/>
+				<Folder title = "Textblockdef. &amp;&amp; Virastellungen">
+					<Item id = "21101" name = "Standard Stil-Astellungen"/>
+					<Item id = "21201" name = "Schlësselwierder Textblockufank"/>
+					<Item id = "21301" name = "Schlësselwierder Textblockenn"/>
+				</Folder>
+				<Keywords title = "Schlësselwierder">
+					<Item id = "22101" name = "1. Grupp"/>
+					<Item id = "22201" name = "2. Grupp"/>
+					<Item id = "22301" name = "3. Grupp"/>
+					<Item id = "22401" name = "4. Grupp"/>
+					<Item id = "22113" name = "Präfixmodus"/>
+					<Item id = "22213" name = "Präfixmodus"/>
+					<Item id = "22313" name = "Präfixmodus"/>
+					<Item id = "22413" name = "Präfixmodus"/>
+				</Keywords>
+				<Comment title = "Kommentar &amp;&amp; Zuelen">
+					<Item id = "23301" name = "Kommentarzeil"/>
+					<Item id = "23101" name = "Kommentarblock"/>
+					<Item id = "23113" name = "Kommentarufank"/>
+					<Item id = "23115" name = "Kommentarenn"/>
+					<Item id = "23116" name = "Wierder wei Symboler behandelen"/>
+					<Item id = "23117" name = "Wierder wei Symboler behandelen"/>
+					<Item id = "23201" name = "Zuelen"/>
+				</Comment>
+				<Operator title = "Operatoren">
+					<Item id = "24107" name = "Operatoren"/>
+					<Item id = "24103" name = "Disponibel Symboler"/>
+					<Item id = "24101" name = "Aktivéiert Operatoren"/>
+					<Item id = "24201" name = "Trenner 1"/>
+					<Item id = "24211" name = "Ufankszeechen"/>
+					<Item id = "24214" name = "Ofschlosszeechen"/>
+					<Item id = "24301" name = "Trenner 2"/>
+					<Item id = "24311" name = "Ufankszeechen"/>
+					<Item id = "24314" name = "Ofschlosszeechen"/>
+				</Operator>
+			</UserDefine>
+			<Preference title = "Astellungen">
+				<Item id = "6001" name = "Zoumaachen"/>
+				<Global title = "Allgemein">
+					<Item id = "6101" name = "Symbolleescht"/>
+					<Item id = "6102" name = "Ausblenden"/>
+					<Item id = "6103" name = "Kleng Icons"/>
+					<Item id = "6104" name = "Grouss Icons"/>
+					<Item id = "6105" name = "Kleng Standard-Icons"/>
+					<Item id = "6106" name = "Tableescht"/>
+					<Item id = "6107" name = "Verklengeren"/>
+					<Item id = "6108" name = "Sperren (keen Drag &amp;&amp; Drop)"/>
+					<Item id = "6109" name = "Inaktiv Reiter gro markéieren"/>
+					<Item id = "6110" name = "Aktiv Reiter orange markéieren"/>
+					<Item id = "6111" name = "Weis Statusleescht"/>
+					<Item id = "6112" name = "Zoumaachen-Kräiz op jieder Tab"/>
+					<Item id = "6113" name = "Duebbelklick mächt d'Dokument zou"/>
+					<Item id = "6118" name = "Ausblenden"/>
+					<Item id = "6119" name = "Mehrzeileg"/>
+					<Item id = "6120" name = "Vertikal"/>
+					<Item id = "6121" name = "Menüleescht"/>
+					<Item id = "6122" name = "Ausblenden (Wiesselen: Alt oder F10)"/>
+				</Global>
+				<Scintillas title = "Usiicht">
+					<Item id = "6216" name = "Cursor"/>
+					<Item id = "6217" name = "Breet"/>
+					<Item id = "6219" name = "Vitesse"/>
+					<Item id = "6221" name = "S"/>
+					<Item id = "6222" name = "L"/>
+					<Item id = "6301" name = "Tabulatoren"/>
+					<Item id = "6302" name = "duerch Ofstänn ersetzen"/>
+					<Item id = "6303" name = "Tabulatorbreet:"/>
+					<Item id = "6201" name = "Textblock-Faltung"/>
+					<Item id = "6202" name = "Einfachen Stil"/>
+					<Item id = "6203" name = "Feilstil"/>
+					<Item id = "6204" name = "Krees-Bamstil"/>
+					<Item id = "6205" name = "Boxen-Baumstil"/>
+					<Item id = "6206" name = "Zeilennummerenrand"/>
+					<Item id = "6207" name = "Lieszeechenrand"/>
+					<Item id = "6208" name = "Begrenzung uweisen"/>
+					<Item id = "6209" name = "Unzuel vun den Spalten:"/>
+					<Item id = "6211" name = "Rietsen Rand"/>
+					<Item id = "6212" name = "Vertikale Line"/>
+					<Item id = "6213" name = "faarfegen Hannergrond"/>
+					<Item id = "6214" name = "Aktuell Zeil hervirhiewen"/>
+				</Scintillas>
+				<NewDoc title = "Nei/Opmaachen/Späicheren">
+					<Item id = "-1" name = "Nei Datei"/>
+					<Item id = "6401" name = "Format"/>
+					<Item id = "6402" name = "Windows"/>
+					<Item id = "6403" name = "UNIX"/>
+					<Item id = "6404" name = "Mac"/>
+					<Item id = "6405" name = "Kodierung"/>
+					<Item id = "6406" name = "ANSI"/>
+					<Item id = "6407" name = "UTF-8 ouni BOM"/>
+					<Item id = "6408" name = "UTF-8"/>
+					<Item id = "6409" name = "UCS2 Big Endian"/>
+					<Item id = "6410" name = "UCS2 Little Endian"/>
+					<Item id = "6411" name = "Standardsprooch"/>
+					<Item id = "6413" name = "Repertoire beim Öpmaachen/Späicheren"/>
+					<Item id = "6414" name = "Wei déi aktuell Datei"/>
+					<Item id = "6415" name = "Leschten Repertoire mierken"/>
+				</NewDoc>
+				<FileAssoc title = "Datei-Verknëppungen">
+					<Item id = "4009" name = "Ënnerstëtzt Erw.:"/>
+					<Item id = "4010" name = "Registréiert Erw.:"/>
+				</FileAssoc>
+				<LangMenu title = "Sproochmenü">
+					<Item id = "6505" name = "Disponibel ..."/>
+					<Item id = "6506" name = "Deaktivéiert ..."/>
+				</LangMenu>
+				<Print title = "Drécken Faarfen &amp;&amp; Ränner">
+					<Item id = "6601" name = "Zeilennummeren drécken"/>
+					<Item id = "6602" name = "Faarfoptiounen"/>
+					<Item id = "6603" name = "Wéi ugewies"/>
+					<Item id = "6604" name = "Invertéieren"/>
+					<Item id = "6605" name = "Schwaarz op Wäiss"/>
+					<Item id = "6606" name = "Keng Hannergrondfaarf"/>
+					<Item id = "6607" name = "Säitenränner (mm)"/>
+					<Item id = "6612" name = "Lénks"/>
+					<Item id = "6613" name = "Uewen"/>
+					<Item id = "6614" name = "Riets"/>
+					<Item id = "6615" name = "Ënnen"/>
+					<Item id = "6706" name = "Fett"/>
+					<Item id = "6707" name = "Kursiv"/>
+					<Item id = "6708" name = "Kappdeel"/>
+					<Item id = "6709" name = "Lénks Säit"/>
+					<Item id = "6710" name = "Mëttelsten Deel"/>
+					<Item id = "6711" name = "Riets Säit"/>
+					<Item id = "6717" name = "Fett"/>
+					<Item id = "6718" name = "Kursiv"/>
+					<Item id = "6719" name = "Foussdeel"/>
+					<Item id = "6720" name = "Lénks Säit"/>
+					<Item id = "6721" name = "Mëttelsten Deel"/>
+					<Item id = "6722" name = "Riets Säit"/>
+					<Item id = "6723" name = "Bäifügen"/>
+					<Item id = "6725" name = "Element"/>
+				</Print>
+				<MISC title = "Diverses">
+					<Item id = "6304" name = "Dateiverlaf"/>
+					<Item id = "6305" name = "Beim Start net iwwerpréiwen"/>
+					<Item id = "6306" name = "Max. Gréisst vum Dateiverlaf:"/>
+					<Item id = "6307" name = "Aktivéieren"/>
+					<Item id = "6308" name = "An den Infoberäich miniméieren"/>
+					<Item id = "6309" name = "Aktuell Sëtzung bis zum nächsten Start behalen"/>
+					<Item id = "6312" name = "Automatesch Ännerungserkennung"/>
+					<Item id = "6313" name = "Ouni Réckfro aktualiséieren"/>
+					<Item id = "6114" name = "Aktivéieren"/>
+					<Item id = "6115" name = "Automatesch Zeilenanzuch"/>
+					<Item id = "6116" name = "Den leschten benotzten Repertoire behalen"/>
+					<Item id = "6117" name = "Aktivéier MRU-Verhaaen"/>
+					<Item id = "6318" name = "Klickbar Links"/>
+					<Item id = "6319" name = "Aktivéieren"/>
+					<Item id = "6320" name = "Links net ënnersträichen"/>
+					<Item id = "6322" name = "Sëtzungsdatei Erw.:"/>
+					<Item id = "6323" name = "Automatesch Updates aktivéieren"/>
+					<Item id = "6324" name = "Dokumentenëmschalter (Strg+Tab)"/>
+					<Item id = "6325" name = "No der Aktualiséierung un den Schluss scrollen"/>
+					<Item id = "6326" name = "Intelligent Ervirhiewen"/>
+					<Item id = "6327" name = "Tags ervirhiewen"/>
+					<Item id = "6328" name = "Attributer ervirhiewen"/>
+					<Item id = "6329" name = "Tag-Ervirhiewung"/>
+					<Item id = "6330" name = "PHP/ASP ervirhiewen"/>
+					<Item id = "6331" name = "Nëmmen d'Dateinimm an der Titelleescht uweisen"/>
+				</MISC>
+				<Backup title = "Sécherheetskopie/Autovervollstännegen">
+					<Item id = "6801" name = "Sécherheetskopie"/>
+					<Item id = "6315" name = "Keng"/>
+					<Item id = "6316" name = "Einfach"/>
+					<Item id = "6317" name = "Erweidert"/>
+					<Item id = "6804" name = "Repertoire uginn fir d'Sécherheetskopien"/>
+					<Item id = "6803" name = "Repertoire"/>
+					<Item id = "6807" name = "Autovervollstännegung"/>
+					<Item id = "6808" name = "Autovervollstännegung aktivéieren"/>
+					<Item id = "6809" name = "Funktiounsvervollstännegung"/>
+					<Item id = "6810" name = "Wierdervervollstännegung"/>
+					<Item id = "6811" name = "Ab"/>
+					<Item id = "6813" name = "Zeechen"/>
+					<Item id = "6814" name = "Méiglech Wäerter: 1-9"/>
+					<Item id = "6815" name = "Funktiounsparameter ablennen"/>
+				</Backup>
+			</Preference>
+			<MultiMacro title = "Makro">
+				<Item id = "1" name = "Ausféie&amp;ren"/>
+				<Item id = "2" name = "Of&amp;briechen"/>
+				<Item id = "8006" name = "Makro auswielen"/>
+				<Item id = "8001" name = "&amp;Starten"/>
+				<Item id = "8005" name = "Mol"/>
+				<Item id = "8002" name = "Bis zum &amp;Enn vun der Datei ausféieren"/>
+			</MultiMacro>
+			<Window title = "Fënster">
+				<Item id = "1" name = "Ervir&amp;hiewen"/>
+				<Item id = "2" name = "&amp;OK"/>
+				<Item id = "7002" name = "S&amp;päicheren"/>
+				<Item id = "7003" name = "Fën&amp;ster zoumaachen"/>
+				<Item id = "7004" name = "Tabs &amp;sortéieren"/>
+			</Window>
+			<ColumnEditor title = "Block-Editor">
+				<Item id = "2023" name = "Text afügen"/>
+				<Item id = "2033" name = "Zuelen afügen"/>
+				<Item id = "2030" name = "Ufänken mat"/>
+				<Item id = "2031" name = "Erhéijen ëm"/>
+				<Item id = "2035" name = "Féierend Nullen"/>
+				<Item id = "2032" name = "Format"/>
+				<Item id = "2024" name = "Dec"/>
+				<Item id = "2025" name = "Oct"/>
+				<Item id = "2026" name = "Hex"/>
+				<Item id = "2027" name = "Bin"/>
+				<Item id = "1" name = "Ausféie&amp;ren"/>
+				<Item id = "2" name = "Of&amp;briechen"/>
+			</ColumnEditor>
+		</Dialog>
+	</Native-Langue>
+</NotepadPlus>

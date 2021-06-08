@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ==========================================================================\
+|
+|   To learn how to make your own language parser, please check the following
+|   link:
+|       https://npp-user-manual.org/docs/function-list/
+|
+\=========================================================================== -->
+<NotepadPlus>
+	<functionList>
+		<!-- ========================================= [ Initialisation File ] -->
+		<!-- File format used for: .INF / .INI / .REG / .editorconfig          -->
+
+		<parser
+			displayName="INI Section"
+			id         ="ini_section"
+			commentExpr="(?x)
+							(?m-s:[;\#].*$)                                 # Single Line Comment
+						"
+		>
+			<function
+				mainExpr="^\h*[\[&quot;][\w*.;\x20()\-]+[&quot;\]]"
+			>
+				<functionName>
+					<nameExpr expr="[^[\]&quot;]*" />
+				</functionName>
+			</function>
+		</parser>
+	</functionList>
+</NotepadPlus>

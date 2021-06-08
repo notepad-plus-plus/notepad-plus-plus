@@ -1,0 +1,246 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta name="generator" content="HTML Tidy, see www.w3.org" />
+    <meta name="generator" content="SciTE" />
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Scintilla and SciTE
+    </title>
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000">
+    <table bgcolor="#000000" width="100%" cellspacing="0" cellpadding="0" border="0">
+      <tr>
+        <td>
+          <img src="SciTEIco.png" border="3" height="64" width="64" alt="Scintilla icon" />
+        </td>
+        <td>
+          <a href="index.html" style="color:white;text-decoration:none"><font size="5">Scintilla
+          Component Design</font></a>
+        </td>
+      </tr>
+    </table>
+    <h2>
+       Top level structure
+    </h2>
+    <p>
+       Scintilla consists of three major layers of C++ code
+    </p>
+    <ul>
+      <li>
+        Portability Library
+      </li>
+      <li>
+        Core Code
+      </li>
+      <li>
+        Platform Events and API
+      </li>
+    </ul>
+    <p>
+       The primary purpose of this structure is to separate the platform dependent code from the
+      platform independent core code. This makes it easier to port Scintilla to a new platform and
+      ensures that most readers of the code do not have to deal with platform details. To minimise
+      portability problems and avoid code bloat, a conservative subset of C++ is used in Scintilla
+      with no exception handling, run time type information or use of the standard C++
+      library and with limited use of templates.
+    </p>
+    <p>
+       The currently supported platforms, Windows, GTK/Linux, Cocoa and wxWidgets are fairly similar in
+      many ways.
+      Each has windows, menus and bitmaps. These features generally work in similar ways so each
+      has a way to move a window or draw a red line. Sometimes one platform requires a sequence of
+      calls rather than a single call. At other times, the differences are more profound. Reading
+      the Windows clipboard occurs synchronously but reading the GTK clipboard requires a request
+      call that will be asynchronously answered with a message containing the clipboard data.
+      The wxWidgets platform is available from the <a href="http://wxwidgets.org/">wxWidgets site</a>
+    </p>
+    <br />
+    <h3>
+       Portability Library
+    </h3>
+    <p>
+       This is a fairly small and thin layer over the platform's native capabilities.
+    </p>
+    <p>
+       The portability library is defined in Platform.h and is implemented once for each platform.
+      PlatWin.cxx defines the Windows variants of the methods and PlatGTK.cxx the GTK variants.
+    </p>
+    <p>
+       Several of the classes here hold platform specific object identifiers and act as proxies to
+      these platform objects. Most client code can thus manipulate the platform objects without
+      caring which is the current platform. Sometimes client code needs access to the underlying
+      object identifiers and this is provided by the GetID method. The underlying types of the
+      platform specific identifiers are typedefed to common names to allow them to be transferred
+      around in client code where needed.
+    </p>
+    <h4>
+       Point, PRectangle
+    </h4>
+    <p>
+       These are simple classes provided to hold the commonly used geometric primitives. A
+      PRectangle follows the Mac / Windows convention of not including its bottom and right sides
+      instead of including all its sides as is normal in GTK. It is not called Rectangle as this may be
+      the name of a macro on Windows.
+    </p>
+    <h4>
+       ColourDesired
+    </h4>
+    <p>
+       This is a simple class holding an expected colour. It is internally represented as a single
+      32 bit integer in BGR format with 8 bits per colour, but also provides a convenient API to fetch
+      each component separately.
+       As a platform might not be able to represent the exact desired colour if it doesn't have 24 bit
+      depth available, it might not actually represent the exact desired colour but select a best fit
+      that it can actually render.
+    </p>
+    <h4>
+       Font
+    </h4>
+    <p>
+       Font holds a platform specific font identifier - HFONT for Windows, PangoFontDescription* for GTK. It
+      does not own the identifier and so will not delete the platform font object in its
+      destructor. Client code should call Destroy at appropriate times.
+    </p>
+    <h4>
+       Surface
+    </h4>
+    <p>
+       Surface is an abstraction over each platform's concept of somewhere that graphical drawing
+      operations can be done. It may wrap an already created drawing place such as a window or be
+      used to create a bitmap that can be drawn into and later copied onto another surface. On
+      Windows it wraps a HDC and possibly a HBITMAP. On GTK it wraps a cairo_surface_t*.
+      Other platform specific objects are created (and correctly destroyed) whenever
+      required to perform drawing actions.
+    </p>
+    <p>
+       Drawing operations provided include drawing filled and unfilled polygons, lines, rectangles,
+      ellipses and text. The height and width of text as well as other details can be measured.
+      Operations can be clipped to a rectangle. Most of the calls are stateless with all parameters
+      being passed at each call. The exception to this is line drawing which is performed by
+      calling MoveTo and then LineTo.
+    </p>
+    <h4>
+       Window
+    </h4>
+    <p>
+       Window acts as a proxy to a platform window allowing operations such as showing, moving,
+      redrawing, and destroying to be performed. It contains a platform specific window identifier
+      - HWND for Windows, GtkWidget* for GTK.
+    </p>
+    <h4>
+       ListBox
+    </h4>
+    <p>
+       ListBox is a subclass of Window and acts as a proxy to a platform listbox adding methods for
+      operations such as adding, retrieving, and selecting items.
+    </p>
+    <h4>
+       Menu
+    </h4>
+    <p>
+       Menu is a small helper class for constructing popup menus. It contains the platform specific
+      menu identifier - HMENU for Windows, GtkMenu* for GTK. Most of the work in
+      constructing menus requires access to platform events and so is done in the Platform Events
+      and API layer.
+    </p>
+    <h4>
+       Platform
+    </h4>
+    <p>
+       The Platform class is used to access the facilities of the platform. System wide parameters
+      such as double click speed and chrome colour are available from Platform. Utility functions
+      such as DebugPrintf are also available from Platform.
+    </p>
+    <h3>
+       Core Code
+    </h3>
+    <p>
+       The bulk of Scintilla's code is platform independent. This is made up of the CellBuffer,
+      ContractionState, Document, Editor, Indicator, LineMarker, Style, ViewStyle, KeyMap,
+      ScintillaBase, CallTip,
+      and AutoComplete primary classes.
+    </p>
+    <h4>
+       CellBuffer
+    </h4>
+    <p>
+       A CellBuffer holds text and styling information, the undo stack, the assignment of line
+      markers to lines, and the fold structure.
+    </p>
+    <p>
+       A cell contains a character byte and its associated style byte. The current state of the
+      cell buffer is the sequence of cells that make up the text and a sequence of line information
+      containing the starting position of each line and any markers assigned to each line.
+    </p>
+    <p>
+       The undo stack holds a sequence of actions on the cell buffer. Each action is one of a text
+      insertion, a text deletion or an undo start action. The start actions are used to group
+      sequences of text insertions and deletions together so they can be undone together. To
+      perform an undo operation, each insertion or deletion is undone in reverse sequence.
+      Similarly, redo reapplies each action to the buffer in sequence. Whenever a character is
+      inserted in the buffer either directly through a call such as InsertString or through undo or
+      redo, its styling byte is initially set to zero. Client code is responsible for styling each
+      character whenever convenient. Styling information is not stored in undo actions.
+    </p>
+    <h4>
+       Document
+    </h4>
+    <p>
+       A document contains a CellBuffer and deals with some higher level abstractions such as
+      words, DBCS character sequences and line end character sequences. It is responsible for
+      managing the styling process and for notifying other objects when changes occur to the
+      document.
+    </p>
+    <h4>
+       Editor
+    </h4>
+    <p>
+       The Editor object is central to Scintilla. It is responsible for displaying a document and
+      responding to user actions and requests from the container. It uses ContractionState, Indicator,
+      LineMarker, Style, and ViewStyle objects to display the document and a KeyMap class to
+      map key presses to functions.
+      The visibility of each line is kept in the ContractionState which is also responsible for mapping
+      from display lines to documents lines and vice versa.
+    </p>
+    <p>
+       There may be multiple Editor objects attached to one Document object. Changes to a
+       document are broadcast to the editors through the DocWatcher mechanism.
+    </p>
+    <h4>
+       ScintillaBase
+    </h4>
+    <p>
+       ScintillaBase is a subclass of Editor and adds extra windowing features including display of
+      calltips, autocompletion lists and context menus. These features use CallTip and AutoComplete
+      objects. This class is optional so a lightweight implementation of Scintilla may bypass it if
+      the added functionality is not required.
+    </p>
+    <h3>
+       Platform Events and API
+    </h3>
+    <p>
+       Each platform uses different mechanisms for receiving events. On Windows, events are
+      received through messages and COM. On GTK, callback functions are used.
+    </p>
+    <p>
+       For each platform, a class is derived from ScintillaBase (and thus from Editor). This is
+      ScintillaWin on Windows and ScintillaGTK on GTK. These classes are responsible for
+      connecting to the platforms event mechanism and also to implement some virtual methods in
+      Editor and ScintillaBase which are different on the platforms. For example, this layer has to
+      support this difference between the synchronous Windows clipboard and the asynchronous GTK
+      clipboard.
+    </p>
+    <p>
+       The external API is defined in this layer as each platform has different preferred styles of
+      API - messages on Windows and function calls on GTK. This also allows multiple APIs to be
+      defined on a platform. The currently available API on GTK is similar to the Windows API and
+      does not follow platform conventions well. A second API could be implemented here that did
+      follow platform conventions.
+    </p>
+  </body>
+</html>
+

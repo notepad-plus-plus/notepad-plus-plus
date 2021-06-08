@@ -1,0 +1,87 @@
+README for building of ScintillaEditPy on Qt with PySide
+
+This directory is for building a Python encapsulation of Scintilla for use
+with PySide. For C++ libraries see the README in the parent directory.
+
+	Prerequisites
+
+PySide and ScintillaEditPy currently only support Python 2.x.
+
+CMake may be used to rebuild PySide and is required on Windows.
+It can be downloaded from
+http://www.cmake.org/cmake/resources/software.html
+
+On Windows, PySide only supports Visual C++ 2008. The "Visual Studio 2008
+Command Prompt" should be used to run all build commands.
+Visual C++ 2008 Express Edition can be downloaded from
+http://msdn.microsoft.com/en-us/express/future/bb421473
+
+Download and install PySide. Instructions are on the PySide web site
+http://developer.qt.nokia.com/wiki/Category:LanguageBindings::PySide::Downloads
+
+For Linux, there may be both PySide library packages and PySide development
+files. Both should be installed as ScintillaEditPy needs the headers and
+libraries from the development package and runs with the normal library package.
+On apt-based systems, the packages are libshiboken-dev, shiboken, libpyside-dev,
+and python-pyside. python-dev is also needed for Python language headers.
+On yum-based systems the packages are shiboken-devel, python-pyside-devel,
+and python-devel.
+The qmake program may be called qmake-qt5 or qmake-qt4.
+It can be found with:
+which qmake-qt5 || which qmake-qt4 || which qmake
+
+On Windows, the PySide library packages can be downloaded from
+http://developer.qt.nokia.com/wiki/PySide_Binaries_Windows
+The PySide development files must be built from source using CMake as
+described on the PySide site. This will create a Unix-style set of [bin, include,
+lib, and share] directories in packaging\setuptools\install-py<ver>-qt<qver>.
+There is no standard place for the PySide development files so copy them
+to "\usr", creating it if needed.
+
+On OS X, a combined package with PySide libraries and PySide development
+files can be downloaded from
+http://developer.qt.nokia.com/wiki/PySide_Binaries_MacOSX
+This package works best in combination with the Qt libraries for Mac from
+http://qt.nokia.com/downloads/downloads#qt-lib
+
+The path should be modified so that a Python 2.x interpreter and Qt's "qmake"
+program can be run by typing "python" or "qmake".
+
+	Building
+
+There are several steps to building and they are encapsulated in the sepbuild.py
+script which is run:
+
+python sepbuild.py
+
+This script first runs the WidgetGen.py script to fill out the ScintillaEdit.h,
+ScintillaEdit.cpp and ScintillaConstants.py files.
+
+A short file "sepbuild.pri" is written out which contains a series of version and
+path properties discovered by sepbuild.py which are used by qmake.
+
+Then it runs PySide's "shiboken" program to create C++ code that will act as a
+bridge between Python and the C++ libraries. This code goes into the
+ScintillaEditPy/ScintillaEditPy directory. Several log files are produced which can
+help uncover problems in the bridge if it fails to build.
+
+The qmake program is run to produce make files from ScintillaEditPy.pro.
+
+The system make program is then run to build the library. The library is located in
+the scintilla/bin directory as ScintillaEditPy.so for Unix systems and
+ScintillaEditPy.pyd for Windows.
+
+A demonstration program can be run:
+
+python testsepq.py
+
+The individual steps in the script can be run manually if wanted although the
+shiboken program has complex arguments and differs between systems so run
+sepbuild.py and copy the section starting with a line containing "generatorrunner"
+and continuing to "typesystem_ScintillaEdit.xml".
+
+On Windows, it is more difficult to set up an environment to debug ScintillaEditPy
+since all the libraries have to be debug or all have to be release. The easy path
+is to always build for release with "nmake release".
+
+To remove generated code, run "python sepbuild.py --clean".

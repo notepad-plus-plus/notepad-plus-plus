@@ -1,0 +1,15 @@
+The test/unit directory contains unit tests for Scintilla data structures.
+
+The tests can be run on Windows, OS X, or Linux using g++ and GNU make.
+The Catch test framework is used.
+https://github.com/philsquared/Catch
+The file catch.hpp is under the Boost Software License which is contained in LICENSE_1_0.txt
+
+   To run the tests on OS X or Linux:
+make test
+
+   To run the tests on Windows:
+mingw32-make test
+
+   Visual C++ (2010+) and nmake can also be used on Windows:
+nmake -f test.mak test

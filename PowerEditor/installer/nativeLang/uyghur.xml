@@ -1,0 +1,665 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Uyghur(ئۇيغۇرچە,China) translation made by: -->
+<!-- Yasinjan Ghupur <yasenghupur@sina.com> 21 march 2012,revised: 25 April 2012-->
+<!-- If you want to see RTL direction, please rewrite  <Native-Langue name="Uyghurche" RTL="yes" filename="uyghur.xml" > -->
+<!--ئوڭدىن سولغا كۆرمەكچى بولسىڭىز،بۇنى 2-قۇر بىلەن ئالماشتۇرۇڭ <Native-Langue name="Uyghurche" RTL="yes" filename="uyghur.xml" >-->
+<NotepadPlus>
+	<Native-Langue name="Uyghurche" RTL="yes" filename="uyghur.xml" >
+		<Menu>
+			<Main>
+                <!-- Main Menu Entries -->
+                <Entries>
+                    <Item menuId="file" name="ھۈججەت"/>
+                    <Item menuId="edit" name="&amp;تەھرىرلەش"/>
+                    <Item menuId="search" name="&amp;ئىزدەش"/>
+                    <Item menuId="view" name="&amp;كۆرۈنۈش"/>
+                    <Item menuId="encoding" name="كودلاش"/>
+                    <Item menuId="language" name="&amp;پروگرامما تىلى"/>
+                    <Item menuId="settings" name="تەڭشەك"/>
+                    <Item menuId="macro" name="ماكرو"/>
+                    <Item menuId="run" name="ئىجرا"/>
+                    <Item idName="Plugins" name="قېتىلما"/>
+                    <Item idName="Window" name="كۆزنەك"/>
+                </Entries>
+
+                <!-- Sub Menu Entries -->
+                <SubEntries>
+                    <Item subMenuId="edit-copyToClipboard"  name=" ئىشتاختىغا كۆچۈرۈش"/>
+                    <Item subMenuId="edit-indent" name="ئابزاسبېشى"/>
+                    <Item subMenuId="edit-convertCaseTo" name=" ھەرپ ئۆزگەرتىش"/>
+                    <Item subMenuId="edit-lineOperations" name="قۇر مەشغۇلاتى"/>
+                    <Item subMenuId="edit-comment" name="ئىزاھلاش/ئىزاھسىزلاش"/>
+                    <Item subMenuId="edit-autoCompletion" name="ئاپتوماتىك-تاماملاش"/>
+                    <Item subMenuId="edit-eolConversion" name=" نى ئۆزگەرتىشEOL"/>
+					<Item subMenuId="edit-blankOperations" name="بوشلۇق مەشغۇلاتى"/>
+					<Item subMenuId="edit-pasteSpecial" name=" ئالاھىدە چاپلاش "/>
+                    <Item subMenuId="search-markAll" name="  بەلگىلەش"/>
+                    <Item subMenuId="search-unmarkAll" name=" بەلگىسىزلەش"/>
+                    <Item subMenuId="search-jumpUp" name=" يۇقۇرىغا يۆتكەش"/>
+                    <Item subMenuId="search-jumpDown" name=" تۆۋەنگە يۆتكەش "/>
+                    <Item subMenuId="search-bookmark" name="بەتكۈش"/>
+                    <Item subMenuId="view-showSymbol"  name="بەلگىنى كۆرسىتىش"/>
+                    <Item subMenuId="view-zoom"  name="نىسبەت"/>
+                    <Item subMenuId="view-moveCloneDocument"  name=" ھۆججەتنى يۆتكەش/كۆچۈرۈش"/>
+                    <Item subMenuId="view-collapseLevel" name=" قاتلامنى يىغىش"/>
+                    <Item subMenuId="view-uncollapseLevel" name=" قاتلامنى يېيىش"/>
+                    <Item subMenuId="view-project" name="ئىشتۈرى"/>
+                    <Item subMenuId="encoding-characterSets"  name="ھەرپ تەڭشەش"/>
+                    <Item subMenuId="encoding-arabic"  name="ئەرەپچە"/>
+                    <Item subMenuId="encoding-baltic"  name="بالتىقچە"/>
+                    <Item subMenuId="encoding-celtic"  name="كېلىتچە"/>
+                    <Item subMenuId="encoding-cyrillic"  name="سىلاۋىيانچە"/>
+                    <Item subMenuId="encoding-centralEuropean"  name="مەركىزى ياۋروپاچە"/>
+                    <Item subMenuId="encoding-chinese"  name="خەنزۇچە"/>
+                    <Item subMenuId="encoding-easternEuropean"  name="شەرقى ياۋروپاچە"/>
+                    <Item subMenuId="encoding-greek"  name="گىرىكچە"/>
+                    <Item subMenuId="encoding-hebrew"  name="يەھۇدىيچە"/>
+                    <Item subMenuId="encoding-japanese"  name="ياپونچە"/>
+                    <Item subMenuId="encoding-korean" name="كورىيەچە"/>
+                    <Item subMenuId="encoding-northEuropean" name="شىمالى ياۋروپاچە"/>
+                    <Item subMenuId="encoding-thai" name="تايلاندچە"/>
+                    <Item subMenuId="encoding-turkish" name="تۈرۈكچە"/>
+                    <Item subMenuId="encoding-westernEuropean" name="غەربى ياۋروپاچە"/>
+                    <Item subMenuId="encoding-vietnamese" name="ۋېيىتنامچە"/>
+                    <Item subMenuId="settings-import"  name="كىرگۈزۈش"/>
+                </SubEntries>
+
+                <!-- all menu item -->
+                <Commands>
+                    <Item id="41001" name="&amp;يېڭى"/>
+                    <Item id="41002" name="&amp;ئېچىش"/>
+                    <Item id="41003" name="يېپىش"/>
+                    <Item id="41004" name="ھەممىنى يېپىش"/>
+                    <Item id="41005" name="باشقىنى يېپىش"/>
+                    <Item id="41006" name="&amp;ساقلاش"/>
+                    <Item id="41007" name=" ھەممىنى ساقلاش"/>
+                    <Item id="41008" name=" پەرىقلىق ساقلاش..."/>
+                    <Item id="41010" name="بېسىش..."/>
+                    <Item id="1001"  name=" ھازىرلا بېسىش "/>
+                    <Item id="41011" name="چىقىش"/>
+                    <Item id="41012" name=" سۆھبەت يۈكلەش ..."/>
+                    <Item id="41013" name=" سۆھبەت ساقلاش..."/>
+                    <Item id="41014" name=" دېسكىدىن يۈكلەش"/>
+                    <Item id="41015" name=" نۇسخىسىنى  ساقلاش..."/>
+                    <Item id="41016" name=" دېسكىدىن ئۆچۈرۈش"/>
+                    <Item id="41017" name="نامىنى ئۆزگەرتىش..."/>
+
+                    <Item id="42001" name="كېسىش"/>
+                    <Item id="42002" name="&amp;كۆچۈرۈش"/>
+                    <Item id="42003" name="&amp;يېنىۋېلىش"/>
+                    <Item id="42004" name="&amp;قايتىلاش"/>
+                    <Item id="42005" name="&amp;چاپلاش"/>
+                    <Item id="42006" name="&amp;ئۆچۈرۈش"/>
+                    <Item id="42007" name=" ھەممىنى تاللاش"/>
+                    <Item id="42008" name="ئابزاسبېشىنى كېڭەيتىش"/>
+                    <Item id="42009" name="ئابزاسبېشىنى تارايتىش"/>
+                    <Item id="42010" name="قۇرنى كۆچۈرۈش"/>
+                    <Item id="42012" name="قۇرلارغا بۈلۈش"/>
+                    <Item id="42013" name="قۇرلارنى ئۇلاش"/>
+                    <Item id="42014" name="قۇرنى يۇقۇرىغا يۆتكەش"/>
+                    <Item id="42015" name="قۇرنى تۆۋەنگە يۆتكەش"/>
+                    <Item id="42016" name="چوڭ يېزىلىشى"/>
+                    <Item id="42017" name="كىچىك يېزىلىشى"/>
+                    <Item id="42018" name="&amp;خاتىرلەشنى باشلاش"/>
+                    <Item id="42019" name="&amp;خاتىرلەشنى توختىتىش"/>
+                    <Item id="42021" name="&amp;قايتا قويۇش"/>
+                    <Item id="42022" name="قۇر ئىزاھاتى قوشۇش\ئۆچۈرۈش"/>
+                    <Item id="42023" name="بۆلەك ئىزاھاتى"/>
+					<Item id="42042" name=" قۇربېشىدىكى بوشلۇقنى ئۆچۈرۈش"/>
+					<Item id="42043" name=" قۇربېشى ۋە ئاخىرىدىكى بوشلۇقنى ئۆچۈرۈش"/>
+					<Item id="42044" name="نى بوشلۇققا ئالماشتۇرۇشEOL"/>
+					<Item id="42045" name="ۋە بوشلۇقنى ئالماشتۇرۇش EOL  ئارتۇقچە"/>
+					<Item id="42046" name="نى بوشلۇققا ئالماشتۇرۇش  TAB"/>
+					<Item id="42047" name="غا ئالماشتۇرۇش TAB  بوشلۇقنى "/>
+                    <Item id="42024" name="قۇرئاخىرىدىكى بوشلۇقنى ئۆچۈرۈش"/>
+                    <Item id="42025" name="خاتىرلەنگەن ماكرونى ساقلاش"/>
+                    <Item id="42026" name="يېزىش يۆنىلىشى ئوڭدىن سولغا RTL"/>
+                    <Item id="42027" name="يېزىش يۆنىلىشى سولدىن ئوڭغا LTR"/>
+                    <Item id="42028" name="پەقەت ئوقۇش خاسلىقىغا تەڭشەش"/>
+                    <Item id="42029" name="ھۆججەت يولىنى ئىشتاختىغا كۆچۈرۈش"/>
+                    <Item id="42030" name="ھۆججەت   نامىنى  ئىشتاختىغا كۆچۈرۈش"/>
+                    <Item id="42031" name="مۇندەرىجە يولىنى ئىشتاختىغا كۆچۈرۈش"/>
+                    <Item id="42032" name=" ماكرونى قايتا ئىجرا قىلىش ..."/>
+                    <Item id="42033" name=" پەقەت ئوقۇش خاسلىقىنى تازىلاش"/>
+                    <Item id="42035" name="قۇر ئىزاھلاش"/>
+                    <Item id="42036" name="قۇر ئىزاھسىزلاش"/>
+
+                    <Item id="43001" name="&amp;ئىزدەش..."/>
+                    <Item id="43002" name=" تۆۋەنگە ئىزدەش"/>
+                    <Item id="43003" name="ئالماشتۇرۇش..."/>
+                    <Item id="43004" name="قۇرغا بېرىش..."/>
+                    <Item id="43005" name="بەتكۈش قوشۇش\ئۆچۈرۈش "/>
+                    <Item id="43006" name="تۆۋەنكى بەتكۈش"/>
+                    <Item id="43007" name="يۇقۇرىقى بەتكۈش"/>
+                    <Item id="43008" name="بەتكۈشلەرنى تازىلاش"/>
+                    <Item id="43009" name=" ماس بەلگىگە بېرىش"/>
+                    <Item id="43010" name="يۇقۇرىغا ئىزدەش"/>
+                    <Item id="43011" name="&amp;ئاشۇرۇلما ئىزدەش"/>
+                    <Item id="43013" name="ھۈججەتلەردىن ئىزدەش"/>
+                    <Item id="43014" name="تۆۋەنگە ئىزدەش (Volatile) "/>
+                    <Item id="43015" name="يۇقۇرىغا ئىزدەش (Volatile) "/>
+                    <Item id="43016" name="  بەلگىلەش"/>
+                    <Item id="43017" name=" بەلگىسىزلەش"/>
+                    <Item id="43018" name=" بەتكۈشلەنگەن قۇرلارنى كېسىش"/>
+                    <Item id="43019" name="بەتكۈشلەنگەن قۇرلارنى كۆچۈرۈش "/>
+                    <Item id="43020" name=" (بەتكۈشلەنگەن قۇرلارنى چاپلاش( ئالماشتۇرۇش "/>
+                    <Item id="43021" name=" بەتكۈشلەنگەن قۇرلارنى ئۆچۈرۈش"/>
+                    <Item id="43022" name="بىرىنجى ئۇسلوبنى ئىشلىتىش  "/>
+                    <Item id="43023" name="بىرىنجى ئۇسلوبنى تازىلاش  "/>
+                    <Item id="43024" name="ئككىنجى ئۇسلوبنى ئىشلىتىش  "/>
+                    <Item id="43025" name="ئىككىنجى ئۇسلوبنى تازىلاش  "/>
+                    <Item id="43026" name="ئۈچىنجى ئۇسلوبنى ئىشلىتىش  "/>
+                    <Item id="43027" name="ئۈچىنجى ئۇسلوبنى تازىلاش  "/>
+                    <Item id="43028" name="تۆتىنجى ئۇسلوبنى ئىشلىتىش  "/>
+                    <Item id="43029" name="تۆتىنجى ئۇسلوبنى تازىلاش  "/>
+                    <Item id="43030" name="بەشىنجى ئۇسلوبنى ئىشلىتىش  "/>
+                    <Item id="43031" name="بەشىنجى ئۇسلوبنى تازىلاش  "/>
+                    <Item id="43032" name="ئۇسلوبلارنى تازىلاش"/>
+                    <Item id="43033" name="بىرىنجى ئۇسلوب  "/>
+                    <Item id="43034" name="ئككىنجى ئۇسلوب  "/>
+                    <Item id="43035" name="ئۈچىنجى ئۇسلوب  "/>
+                    <Item id="43036" name="تۆتىنجى ئۇسلوب  "/>
+                    <Item id="43037" name="بەشىنجى ئۇسلوب  "/>
+                    <Item id="43038" name="ئىزدەش ئۇسلوبى"/>
+                    <Item id="43039" name="بىرىنجى ئۇسلوب  "/>
+                    <Item id="43040" name="ئككىنجى ئۇسلوب  "/>
+                    <Item id="43041" name="ئۈچىنجى ئۇسلوب  "/>
+                    <Item id="43042" name="تۆتىنجى ئۇسلوب  "/>
+                    <Item id="43043" name="بەشىنجى ئۇسلوب  "/>
+                    <Item id="43044" name="ئىزدەش ئۇسلوبى"/>
+                    <Item id="43045" name="ئىزدەش نەتىجىسى كۆزنەكى"/>
+                    <Item id="43046" name="تۆۋەنگە ئىزدەش نەتىجىسى"/>
+                    <Item id="43047" name="يۇقۇرىغا ئىزدەش نەتىجىسى"/>
+                    <Item id="43048" name=" تۆۋەنگە تاللاش ۋە ئىزدەش "/>
+                    <Item id="43049" name="يۇقۇرىغا تاللاش ۋە ئىزدەش "/>
+                    <Item id="43050" name="ئەكسىچە بەتكۈشلەش"/>
+                    <Item id="44009" name="قولاي بەتكۈش شەكلىدە"/>
+                    <Item id="44010" name=" ھەممە قاتلاملارنى يىغىش"/>
+                    <Item id="44011" name="ئۆزى بېكىتىش سۆھبەت رامكىسى..."/>
+                    <Item id="44019" name="  ھەرپنى كۆرسىتىش"/>
+                    <Item id="44020" name=" ئابزاسبېشى سىزىقىنى كۆرسىتىش"/>
+                    <Item id="44022" name="قۇر ئالماشتۇرۇش"/>
+                    <Item id="44023" name="نىسبەتنى چوڭايتىش	   Ctrl+مائۇس دومىلىغىچىنى يۇقۇرىغا دومىلاتقاندا"/>
+                    <Item id="44024" name="نىسبەتنى كىچكلىتىش	   Ctrl+مائۇس دومىلىغىچىنى تۆۋەنگە دومىلاتقاندا"/>
+                    <Item id="44025" name="ۋە بوشلۇقنى كۆرسىتىش TAB"/>
+                    <Item id="44026" name=" قۇر ئاخىرىنى كۆرسىتىش"/>
+                    <Item id="44029" name=" ھەممىنى يېيىش"/>
+                    <Item id="44030" name=" ھازىرقى قاتلامنى يىغىش"/>
+                    <Item id="44031" name="ھازىرقى قاتلامنى يېيىش "/>
+                    <Item id="44032" name=" چوڭ ئېكران شەكلى قوشۇش\ئۆچۈرۈش"/>
+                    <Item id="44033" name="كۆڭۈلدىكى نىسبەتگە ئەكىلىش"/>
+                    <Item id="44034" name="ھەمىشە يۇقۇرىدا"/>
+					<Item id="44049" name="خۇلاسىلاش..."/>
+                    <Item id="44035" name="قەدەمداش  بويىغا دومىلاتقۇچ"/>
+                    <Item id="44036" name="قەدەمداش  توغرىسىغا دومىلاتقۇچ"/>
+                    <Item id="44041" name=" قۇر ئالماشتۇرۇشنى كۆرسىتىش"/>
+                    <Item id="44072" name="باشقا كۆرۈنۈشكە توغۇرلاش "/>
+                   <Item id="44081" name=" بىرىنجى ئىشتۈرى تاختىسى "/>
+						<Item id="44082" name=" ئىككىنجى ئىشتۈرى تاختىسى "/>
+						<Item id="44083" name=" ئۈچىنجى ئىشتۈرى تاختىسى "/>
+                    <Item id="45001" name="ئۇسلوبىغا ئۆزگەرتىش Windows "/>
+                    <Item id="45002" name="ئۇسلوبىغا ئۆزگەرتىش UNIX "/>
+                    <Item id="45003" name=" ئۇسلوبىغا ئۆزگەرتىش MAC"/>
+                    <Item id="45004" name="دا كودلاش ANSI"/>
+                    <Item id="45005" name="دا كودلاش UTF-8"/>
+                    <Item id="45006" name="دا كودلاش UCS-2 Big Endian"/>
+                    <Item id="45007" name="دا كودلاش UCS-2 Little Endian"/>
+                    <Item id="45008" name="دا كودلاش UTF-8 without BOM"/>
+                    <Item id="45009" name="غا ئۆزگەرتىش ANSI"/>
+                    <Item id="45010" name="غا ئۆزگەرتىش UTF-8 without BOM"/>
+                    <Item id="45011" name="غا ئۆزگەرتىش UTF-8"/>
+                    <Item id="45012" name="غا ئۆزگەرتىش UCS-2 Big Endian"/>
+                    <Item id="45013" name="غا ئۆزگەرتىش UCS-2 Little Endian"/>
+
+                    <Item id="10001" name=" باشقا كۆرۈنۈشكە يۆتكەش"/>
+                    <Item id="10002" name=" باشقا كۆرۈنۈشكە كۆچۈرۈش"/>
+                    <Item id="10003" name="  يېڭى كۆزنەككە يۆتكەش"/>
+                    <Item id="10004" name=" يېڭى كۆزنەكتە ئېچىش"/>
+
+
+                    <Item id="46001" name="ئۇسلوب تەڭشىكى..."/>
+                    <Item id="46180" name="ئۆزى بېكىتىش"/>
+                    <Item id="47000" name="ھەققىدە Notepad++..."/>
+                    <Item id="47001" name=" توربېتى  Notepad++      "/>
+                    <Item id="47002" name="ئىشتۈرى توربېتى  Notepad++      "/>
+                    <Item id="47003" name="توردىكى ئوقۇشلۇق"/>
+                    <Item id="47004" name="مۇنبەر"/>
+                    <Item id="47005" name="  قېتىلما چۈشۈرۈش"/>
+                    <Item id="47006" name="يېڭىلاش Notepad++"/>
+                    <Item id="47008" name="توردىكى ياردەم"/>
+                    <Item id="48005" name=" قېتىلما كىرگۈزۈش ..."/>
+                    <Item id="48006" name=" تېما كىرگۈزۈش ..."/>
+                    <Item id="48009" name="تېزكۆرگۈچ باشقۇرغۇچ..."/>
+                    <Item id="48011" name="تاللاشلار..."/>
+                    <Item id="49000" name="&amp;ئىجرا..."/>
+
+                    <Item id="50000" name="فونكىتسىيەلەرنى تاماملاش"/>
+                    <Item id="50001" name="سۆزلەرنى تاماملاش"/>
+                    <Item id="50002" name="فونكىتسىيە پارامېتېرلىرىنى ئەسكەرتىش"/>
+                    <Item id="42034" name="ئىستون تەھرىرلىگۈچ..."/>
+                    <Item id="44042" name=" قۇرلارنى يوشۇرۇش"/>
+                    <Item id="42040" name="يېقىنقى ھۈججەتلەرنى ئېچىش"/>
+                    <Item id="42041" name=" ھۆججەتلەر تىزىملىكىنى تازىلاش"/>
+					<Item id="48016" name="تېزكۆرگۈچ  ئۆزگەرتىش / ماكرو ئۆچۈرۈش..."/>
+					<Item id="48017" name=" تېزكۆرگۈچ  بۇيرۇقىنى ئۆزگەرتىش /ئۆچۈرۈش ..."/>
+					<Item id="48018" name=" ئاسما تىزىملىكنى تەھرىرلەش"/>
+                </Commands>
+            </Main>
+            <Splitter>
+            </Splitter>
+            <TabBar>
+                    <Item CMID="0" name="يېپىش"/>
+                    <Item CMID="1" name="باشقىنى يېپىش"/>
+                    <Item CMID="2" name="ساقلاش"/>
+                    <Item CMID="3" name=" پەرىقلىق ساقلاش..."/>
+                    <Item CMID="4" name="بېسىش"/>
+                    <Item CMID="5" name=" باشقا كۆرۈنۈشكە يۆتكەش"/>
+                    <Item CMID="6" name=" باشقا كۆرۈنۈشكە كۆچۈرۈش"/>
+                    <Item CMID="7" name="ھۈججەت يولىنى ئىشتاختىغا كۆچۈرۈش"/>
+                    <Item CMID="8" name="ھۈججەت نامىنى ئىشتاختىغا كۆچۈرۈش"/>
+                    <Item CMID="9" name="مۇندەرىجە يولىنى ئىشتاختىغا كۆچۈرۈش"/>
+                    <Item CMID="10" name="نامىنى ئۆزگەرتىش"/>
+                    <Item CMID="11" name="ئۆچۈرۈش"/>
+                    <Item CMID="12" name="پەقەت ئوقۇش خاسلىقى"/>
+                    <Item CMID="13" name=" پەقەت ئوقۇش خاسلىقىنى تازىلاش"/>
+                    <Item CMID="14" name="  يېڭى كۆزنەككە يۆتكەش"/>
+                    <Item CMID="15" name=" يېڭى كۆزنەكتە ئېچىش"/>
+            </TabBar>
+        </Menu>
+
+        <Dialog>
+            <Find title="" titleFind="ئىزدەش" titleReplace="ئالماشتۇرۇش" titleFindInFiles="ھۈججەتلەردىن ئىزدەش" titleMark="بەلگىلەش">
+                <Item id="1"    name=" تۆۋەنگە ئىزدەش"/>
+                <Item id="2"    name="يېپىش"/>
+                <Item id="1620" name="ئىزدەش ئوبېكتى:"/>
+                <Item id="1603" name="پۈتۈن سۆز ماس كەلسۇن"/>
+                <Item id="1604" name="چوڭكىچىك يېزىلىشى ماس كەلسۇن"/>
+                <Item id="1605" name="تۇراقلىق ئىبارىلەر"/>
+                <Item id="1606" name="قۇر ئالماشتۇرۇپ دەۋرىي ئىزدەش"/>
+                <Item id="1612" name="&amp;يۇقۇرىغا"/>
+                <Item id="1613" name="&amp;تۆۋەنگە"/>
+                <Item id="1614" name="ساناش"/>
+                <Item id="1615" name=" ھەممىنى ئىزدەش"/>
+                <Item id="1616" name=" قۇر بەلگىلەش"/>
+                <Item id="1617" name="تاپتىم ئۇسلوبى"/>
+                <Item id="1618" name=" تاپتىم بەلگىسىنى ئۆچۈرۈش"/>
+                <Item id="1621" name="يۆنىلىش"/>
+                <Item id="1611" name="بىلەن ئالماشتۇرۇش:"/>
+                <Item id="1608" name="&amp;ئالماشتۇرۇش"/>
+                <Item id="1609" name=" ھەممىنى ئالماشتۇرۇش "/>
+			 	<Item id="1623" name="سۈزۈكلىكى"/>
+			 	<Item id="1687" name="توغۇرلانمىغاندا"/>
+			 	<Item id="1688" name="ھەرۋاقىت"/>
+			 	<Item id="1632" name="تاللاندى"/>
+			 	<Item id="1633" name="تازىلاش"/>
+			 	<Item id="1635" name="ئېچىلغان ھۈججەتلەردە ئالماشتۇرۇش"/>
+			 	<Item id="1636" name=" ئېچىلغان ھۈججەتلەردە ئىزدەش"/>
+			 	<Item id="1637" name="ھۈججەتلەردىن ئىزدەش"/>
+			 	<Item id="1654" name="سۈزۈش:"/>
+			 	<Item id="1655" name="مۇندەرىجە:"/>
+			 	<Item id="1656" name=" ھەممىنى ئىزدەش"/>
+			 	<Item id="1658" name="قىسمى مۇندەرىجىلەردە"/>
+			 	<Item id="1659" name="يوشۇرۇن مۇندەرىجىلەردە"/>
+			 	<Item id="1624" name="ئىزدەش شەكلى "/>
+			 	<Item id="1625" name="ئادەتتىكى"/>
+			 	<Item id="1626" name="كېڭەيتىلگەن (\n, \r, \t, \0, \x...)"/>
+			 	<Item id="1660" name="ھۈججەتلەردە ئالماشتۇرۇش "/>
+                <Item id="1661" name="مۇندەرىجىدە"/>
+			 	<Item id="1641" name="ھۈججەتتە ئىزدەش"/>
+			 	<Item id="1686" name="سۈزۈكلىكى"/>
+            </Find>
+            <GoToLine title="قۇرغا بېرىش...">
+                <Item id="2007" name="قۇر"/>
+                <Item id="2008" name="ئاغما"/>
+                <Item id="1"    name="&amp;كەتتۇق"/>
+                <Item id="2"    name="قالدۇرۇش"/>
+                <Item id="2004" name="ئورنىڭىز:"/>
+                <Item id="2005" name="نىشان قۇرىڭىز:"/>
+                <Item id="2006" name="ئاخىرقى قۇر:"/>
+            </GoToLine>
+
+            <Run title="ئىجرا...">
+                <Item id="1903" name="پروگرامما ئىجرا قىلىش"/>
+                <Item id="1"    name="ئىجرا"/>
+                <Item id="2"    name="قالدۇرۇش"/>
+                <Item id="1904" name="ساقلاش..."/>
+            </Run>
+
+            <StyleConfig title="ئۇسلوب تەڭشىكى">
+                <Item id="2"    name="قالدۇرۇش"/>
+                <Item id="2301" name="ساقلاش &amp;&amp; يېپىش"/>
+                <Item id="2303" name="سۈزۈكلىكى"/>
+                <Item id="2306" name=" تېما  تاللاش : "/>
+                <SubDialog>
+                	<Item id="2204" name="توم"/>
+                    <Item id="2205" name="يانتۇ"/>
+                    <Item id="2206" name="ئالدىيۈز رەڭگى"/>
+                    <Item id="2207" name="تەگلىك رەڭگى"/>
+                    <Item id="2208" name="فونت ئىسمى:"/>
+                    <Item id="2209" name="فونت رەزمى:"/>
+                    <Item id="2212" name="رەڭ ئۇسلوبى"/>
+                    <Item id="2213" name="فونت ئۇسلوبى"/>
+                    <Item id="2214" name="كۆڭۈلدىكى تىپ نامى :"/>
+                    <Item id="2216" name="ئىشلەتكۈچى تىپ نامى :"/>
+                    <Item id="2218" name="ئاستىسىزىق"/>
+                    <Item id="2219" name="كۆڭۈلدىكى ئاچقۇچسۆز"/>
+                    <Item id="2221" name="ئۆزى بېكىتكەن ئاچقۇچسۆز"/>
+                    <Item id="2225" name="پروگرامما تىلى:"/>
+                    <Item id="2226" name=" ئومۇمىي ئالدىيۈز رەڭگى قوزغىتىش"/>
+                    <Item id="2227" name=" ئومۇمىي تەگلىك رەڭگى قوزغىتىش"/>
+                    <Item id="2228" name=" ئومۇمىي فونت قوزغىتىش"/>
+                    <Item id="2229" name=" ئومۇمىي فونت رەزمى قوزغىتىش"/>
+                    <Item id="2230" name=" ئومۇمىي توم فونت ئۇسلوبىنى قوزغىتىش"/>
+                    <Item id="2231" name=" ئومۇمىي يانتۇ فونت ئۇسلوبنى قوزغىتىش"/>
+                    <Item id="2232" name=" ئومۇمىي ئاستىسىزىق فونت ئۇسلوبنى قوزغىتىش"/>
+                </SubDialog>
+
+            </StyleConfig>
+
+            <UserDefine title="ئۆزى بېكىتىش">
+                <Item id="20002" name="نامىنى ئۆزگەرتىش"/>
+                <Item id="20003" name="يېڭى..."/>
+                <Item id="20004" name="ئۆچۈرۈش"/>
+                <Item id="20005" name=" پەرىقلىق ساقلاش..."/>
+                <Item id="20007" name="ئىشلەتكۈچى پروگرامما تىلى: "/>
+                <Item id="20009" name="تىپ نامى :"/>
+                <Item id="20012" name="چوڭكىچىك ھەرپ پەرىقسىز"/>
+                <Item id="20011" name="سۈزۈكلىكى"/>
+				<Item id="20016" name="كىرگۈزۈش..."/>
+				<Item id="20015" name="چىقىرىش..."/>
+                <Item id="0"     name="رەڭ ئۇسلوبى"/>
+                <Item id="1"     name="ئالدىيۈز رەڭگى"/>
+                <Item id="2"     name="تەگلىك رەڭگى"/>
+                <Item id="3"     name="فونت ئۇسلوبى"/>
+                <Item id="4"     name="فونت ئىسمى:"/>
+                <Item id="5"     name="فونت رەزمى:"/>
+                <Item id="6"     name="توم"/>
+                <Item id="7"     name="يانتۇ"/>
+                <Item id="8"     name="ئاستىسىزىق"/>
+                <Folder title="قاتلام &amp;&amp; كۆڭۈلدىكى">
+                    <Item id="21101" name="كۆڭۈلدىكى ئۇسلوبقا تەڭشەك"/>
+                    <Item id="21201" name="قاتلام يېيىش ئاچقۇچسۆزى تەڭشەش"/>
+                    <Item id="21301" name="قاتلام يىغىش ئاچقۇچسۆزى تەڭشەش"/>
+                </Folder>
+                <Keywords title="ئاچقۇچسۆز تىزىملىكى">
+                    <Item id="22101" name="بىرىنجى گۇرۇپپا"/>
+                    <Item id="22201" name="ئىككىنجى گۇرۇپپا"/>
+                    <Item id="22301" name="ئۈچىنجى گۇرۇپپا"/>
+                    <Item id="22401" name="تۆتىنجى گۇرۇپپا"/>
+                    <Item id="22113" name="قوشۇمچە شەكلى"/>
+                    <Item id="22213" name="قوشۇمچە شەكلى"/>
+                    <Item id="22313" name="قوشۇمچە شەكلى"/>
+                    <Item id="22413" name="قوشۇمچە شەكلى"/>
+                </Keywords>
+                <Comment title="(ئىزاھات ۋە نومۇر(رەقەم">
+                    <Item id="23301" name=" قۇر ئىزاھلاش"/>
+                    <Item id="23101" name=" قۇر ئىزاھلاش"/>
+                    <Item id="23113" name="ئىزاھلاش ئېچىش:"/>
+                    <Item id="23115" name="ئىزاھلاش يېپىش:"/>
+                    <Item id="23116" name="ئاچقۇچسۆزنى بەلگە دەپ قاراش"/>
+                    <Item id="23117" name="ئاچقۇچسۆزنى بەلگىلەر دەپ قاراش"/>
+                    <Item id="23201" name=" ( نومۇر(رەقەم"/>
+                </Comment>
+                <Operator title="ئەمەللەر">
+                    <Item id="24107" name="ئەمەللەر"/>
+                    <Item id="24103" name="تەمىنلەنگەن بەلگىلەر"/>
+                    <Item id="24101" name="قوللانغان ئەمەللەر"/>
+                    <Item id="24201" name="چېگرا بەلگىسى 1"/>
+                    <Item id="24211" name="چېگرا  ئېچىش:"/>
+                    <Item id="24214" name="چېگرا  يېپىش:"/>
+                    <Item id="24301" name="چېگرا بەلگىسى 2"/>
+                    <Item id="24311" name="چېگرا  ئېچىش:"/>
+                    <Item id="24314" name="چېگرا  يېپىش:"/>
+                </Operator>
+                <Item id="24001" name=" ھەرپىنى قوزغىتىش escape:"/>
+            </UserDefine>
+			<Preference title="تاللاشلار">
+                <Item id="6001" name="يېپىش"/>
+                <Global title="ئومونىي">
+                    <Item id="6101" name="قورال ئىستون"/>
+                    <Item id="6102" name="يوشۇرۇش"/>
+                    <Item id="6103" name="كىچىك سىنبەلگە"/>
+	                <Item id="6104" name="چوڭ سىنبەلگە"/>
+                    <Item id="6105" name="ئۆلچەملىك سىنبەلگە"/>
+
+                    <Item id="6106" name="خەتكۈش ئىستونى"/>
+                    <Item id="6107" name="كىچىكلىتىش"/>
+                    <Item id="6108" name="قولۇپلاش (no drag ۋە drop)"/>
+                    <Item id="6109" name="ئىشلەتمىگەن خەتكۈش بوزرەڭدە"/>
+                    <Item id="6110" name="ئىشلىتىۋاتقان خەتكۈش توقرەڭدە"/>
+
+                    <Item id="6111" name=" ھالەت ئىستونى كۆرسىتىش"/>
+                    <Item id="6112" name="خەتكۈش يېپىشنى كۆرسىتىش"/>
+                    <Item id="6113" name="قوشچېكىپ ھۈججەت يېپىش"/>
+                    <Item id="6118" name="يوشۇرۇش"/>
+                    <Item id="6119" name="كۆپقۇر خەتكۈچى"/>
+                    <Item id="6120" name="بويىغا"/>
+
+                    <Item id="6121" name="تىزىملىك ئىستونى"/>
+                    <Item id="6122" name="يوشۇرۇش (use Alt or F10 key to قوشۇش\ئۆچۈرۈش)"/>
+                    <Item id="6123" name="تىلىنى يەرلەشتۈرۈش"/>
+                </Global>
+                <Scintillas title="تەھرىرلەش">
+                    <Item id="6216" name="قىستۇرۇش بەلگىسىنى تەڭشەك"/>
+                    <Item id="6217" name="كەڭلىك:"/>
+                    <Item id="6219" name="يورۇتۇش تەكرارلىقى:"/>
+                    <Item id="6221" name="تېز"/>
+                    <Item id="6222" name="ئاستا"/>
+                    <Item id="6224" name="كۆپ ئىستونلۇق تەھرىرلەش"/>
+                    <Item id="6225" name="قوزغىتىش (Ctrl+Mouse click/selection)"/>
+                    <Item id="6201" name="كود قاتلاش ئۇسلوبى"/>
+                    <Item id="6202" name="ئاددىي"/>
+                    <Item id="6203" name="ئىستىرېلكا"/>
+	                <Item id="6204" name="چەمبەرلىك"/>
+                    <Item id="6205" name="چاسا"/>
+                    <Item id="6226" name="يوق"/>
+
+                    <Item id="6227" name="قۇر ئالماشتۇرۇش"/>
+                    <Item id="6228" name="كۆڭۈلدىكى"/>
+                    <Item id="6229" name="ئۇدۇللانغان"/>
+                    <Item id="6230" name="ئابزاسبېشى"/>
+
+                    <Item id="6206" name="قۇر نومۇرى كۆرسىتىش "/>
+                    <Item id="6207" name="بەتكۈشلەرنى كۆرسىتىش "/>
+                    <Item id="6208" name="بويىغا بەتيېنىنى كۆرسىتىش "/>
+                    <Item id="6209" name="ئىستون نومۇرى: "/>
+
+                    <Item id="6211" name="بويىغا بەتيېنىنى تەڭشەش"/>
+                    <Item id="6212" name="قۇر شەكلى"/>
+                    <Item id="6213" name="تەگلىك شەكلى"/>
+                    <Item id="6214" name="ھازىرقى قۇرنى يورۇتۇش "/>
+                </Scintillas>
+                <NewDoc title="يېڭى ھۈججەت/كۆڭۈلدىكى مۇندەرىجە">
+                    <Item id="6401" name="ئۇسلوبى"/>
+                    <Item id="6402" name="Windows"/>
+                    <Item id="6403" name="Unix"/>
+	                <Item id="6404" name="Mac"/>
+                    <Item id="6405" name="كودلاش"/>
+                    <Item id="6406" name="ANSI"/>
+                    <Item id="6407" name="UTF-8 without BOM"/>
+                    <Item id="6408" name="UTF-8"/>
+                    <Item id="6409" name="UCS-2 Big Endian"/>
+                    <Item id="6410" name="UCS-2 Little Endian"/>
+                    <Item id="6411" name="كۆڭۈلدىكى پروگرامما تىلى:"/>
+                    <Item id="6413" name="(كۆڭۈلدىكى مۇندەرىجە (ئېچىش/ساقلاش"/>
+                    <Item id="6414" name="ھازىرقى ھۈججەت بىلەن بىردەك"/>
+                    <Item id="6415" name="ئىشلەتكەن مۇندەرىجىنى ئەستە ساقلاڭ"/>
+                    <Item id="6419" name="يېڭى ھۈججەت"/>
+                    <Item id="6420" name="دە ئېچش  ANSI ھۈججەتلەرنى"/>
+                </NewDoc>
+                <FileAssoc title="ھۈججەت باغلانمىسى">
+                    <Item id="4009" name="قوللايدىغان تىپناملار :"/>
+                    <Item id="4010" name="رويخەتتىكى تىپناملار :"/>
+                </FileAssoc>
+                <LangMenu title="پروگرامما تىلى تىزىملىكى/خەتكۈش تەڭشەش">
+                    <Item id="6301" name="خەتكۈش تەڭشەش"/>
+                    <Item id="6302" name="بوشلۇققا ئالماشتۇرۇش"/>
+                    <Item id="6303" name="خەتكۈش رەزمى: "/>
+                    <Item id="6505" name="تەمىنلەنگەن تىللار"/>
+                    <Item id="6506" name="ئۆچۈرۈلگەن تىللار"/>
+                    <Item id="6507" name=" پروگرامما تىلى تىزىملىكىنى ئىخچاملاش "/>
+                    <Item id="6508" name="پروگرامما تىلى تىزىملىكى"/>
+                    <Item id="6510" name="كۆڭۈلدىكى قىممىتىنى ئىشلىتىش"/>
+                </LangMenu>
+                <Print title="بېسىش">
+                    <Item id="6601" name=" قۇر نومۇرىنى بېسىش"/>
+                    <Item id="6602" name="رەڭ تاللاش"/>
+                    <Item id="6603" name="كۆرگەنگە ئېرىشىش"/>
+                    <Item id="6604" name="ئەكسىچە رەڭلەر"/>
+	                <Item id="6605" name="ئاق تەگلىك قارا خەت"/>
+                    <Item id="6606" name="  تەگلىك رەڭگى يوق"/>
+                    <Item id="6607" name="بەتيېنىنى تەڭشەش (Unit:mm)"/>
+                    <Item id="6612" name="سول"/>
+                    <Item id="6613" name="ئۈستى"/>
+                    <Item id="6614" name="ئوڭ"/>
+                    <Item id="6615" name="ئاستى"/>
+                    <Item id="6706" name="توم"/>
+                    <Item id="6707" name="يانتۇ"/>
+                    <Item id="6708" name="بەت بېشى"/>
+                    <Item id="6709" name="سول قىسمى"/>
+	                <Item id="6710" name="ئوتتۇرا قىسمى"/>
+                    <Item id="6711" name="ئوڭ قىسمى"/>
+                    <Item id="6717" name="توم"/>
+                    <Item id="6718" name="يانتۇ"/>
+                    <Item id="6719" name="بەتئايىقى"/>
+                    <Item id="6720" name="سول قىسمى"/>
+	                <Item id="6721" name="ئوتتۇرا قىسمى"/>
+                    <Item id="6722" name="ئوڭ قىسمى"/>
+	                <Item id="6723" name="قوشۇش"/>
+                    <Item id="6725" name="ئۆزگەرگۈچى:"/>
+                    <Item id="6728" name="بەت بېشى ۋە بەتئايىقى"/>
+                </Print>
+                <MISC title="MISC.">
+                    <Item id="6304" name="يېقىنقى ھۈججەتلەر تارىخى"/>
+	                <Item id="6305" name="ئاچقاندا تەكشۈرمىسۇن"/>
+                    <Item id="6306" name=" كۆپ ئېچىلغان  ھۈججەت سانى:"/>
+                    <Item id="6307" name="قوزغىتىش"/>
+                    <Item id="6308" name="ۋەزىپە ئىستونىغا كىچىكلىتىش "/>
+                    <Item id="6309" name="سۆھبەتنى ئەستە ساقلىسۇن"/>
+                    <Item id="6312" name="ھۈججەت ھالىتىنى ئاپتوماتىك تەكشۈرۈش"/>
+                    <Item id="6313" name="جىممىدە يېڭىلاش"/>
+                    <Item id="6318" name="ئۇلىنىشنى تەڭشەش"/>
+                    <Item id="6325" name="يېڭىلانغاندا ئاخىرقى قۇرغا قايتىش"/>
+                    <Item id="6319" name="قوزغىتىش"/>
+                    <Item id="6320" name="ئاستىغا سىزماسلىق"/>
+                    <Item id="6322" name="سۆھبەت ھۈججىتى تىپ نامى :"/>
+                    <Item id="6323" name=" يېڭىلاشنى قوزغىتىشNotepad++"/>
+                    <Item id="6324" name="ھۈججەت ئالماشتۇرغۇچ (Ctrl+TAB)"/>
+                    <Item id="6326" name=" ئەقلىي  يورۇتۇش "/>
+                    <Item id="6329" name="ماس خەتكۈشلەرنى  يورۇتۇش "/>
+                    <Item id="6327" name="قوزغىتىش"/>
+                    <Item id="6328" name="خەتكۈش خاسلىقىنى  يورۇتۇش "/>
+                    <Item id="6330" name="ئىزاھاتنى  يورۇتۇش  /php/asp"/>
+
+                    <Item id="6331" name="تېما ئىستونىدا ھۈججەت ئىسمىنىلا كۆرسىتىش"/>
+                    <Item id="6114" name="قوزغىتىش"/>
+                    <Item id="6115" name="ئاپتوماتىك-ئابزاسبېشى"/>
+                    <Item id="6117" name=" ئىقتىدارىنى قوزغىتىش MRU "/>
+
+                </MISC>
+                <Backup title="زاپاسلاش/ئاپتوماتىك-تاماملاش">
+                    <Item id="6801" name="زاپاسلاش"/>
+                    <Item id="6315" name="يوق"/>
+                    <Item id="6316" name="ئاددىي زاپاسلاش"/>
+                    <Item id="6317" name="تەپسىلى زاپاسلاش"/>
+                    <Item id="6804" name=" ئۆزەمنىڭ مۇندەرىجىسىگە زاپاسلاش"/>
+                    <Item id="6803" name="مۇندەرىجە:"/>
+                    <Item id="6807" name="ئاپتوماتىك-تاماملاش"/>
+	                <Item id="6808" name="كىرگۈزگەندە ئاپتوماتىك-تاماملاش"/>
+                    <Item id="6809" name="فونكىتسىيەلەرنى تاماملاش"/>
+                    <Item id="6810" name="سۆزلەرنى تاماملاش"/>
+                    <Item id="6811" name="دىن-"/>
+                    <Item id="6813" name="ھەرىپى-"/>
+                    <Item id="6814" name="ئىناۋەتلىك قىممىتى: 1 - 9"/>
+                    <Item id="6815" name=" كىرگۈزگەندە پارامېتېرنى ئەسكەرتىش "/>
+                </Backup>
+            </Preference>
+			<MultiMacro title=" ماكرونى قايتا ئىجرا قىلىش ">
+                <Item id="1" name="ئىجرا"/>
+                <Item id="2" name="قالدۇرۇش"/>
+                <Item id="8006" name="ماكرونى ئىجرا قىلىش:"/>
+                <Item id="8001" name="ئىجرا"/>
+                <Item id="8005" name="قېتىم"/>
+                <Item id="8002" name="ھۈججەت ئاخىرىغىچە ئىجرا قىلىش"/>
+            </MultiMacro>
+			<Window title="كۆزنەكs">
+                <Item id="1" name="جانلاندۇرۇش"/>
+                <Item id="2" name="جەزىملەش"/>
+                <Item id="7002" name="ساقلاش"/>
+                <Item id="7003" name="كۆزنەكلەرنى يېپىش"/>
+                <Item id="7004" name="خەتكۈچلەرنى تەرتىپلەش"/>
+            </Window>
+			<ColumnEditor title="ئىستون تەھرىرلىگۈچ">
+                <Item id="2023" name="سۆز قىستۇرۇش"/>
+                <Item id="2033" name="رەقەم  قىستۇرۇش"/>
+                <Item id="2030" name="دەسلەپكى نومۇرى:"/>
+                <Item id="2031" name="ئاشۇرۇش:"/>
+                <Item id="2035" name="ئالدى نۆللەر"/>
+                <Item id="2032" name="ئۇسلوبى"/>
+                <Item id="2024" name="ئونلۇق"/>
+                <Item id="2025" name="سەككىزلىك"/>
+                <Item id="2026" name="ئون ئالتىلىك"/>
+                <Item id="2027" name="ئىككىلىك"/>
+                <Item id="1" name="جەزىملەش"/>
+                <Item id="2" name="قالدۇرۇش"/>
+            </ColumnEditor>
+		</Dialog>
+		<MessageBox>
+			<ContextMenuXmlEditWarning title="تىزىملىك تەھرىرلەش" message=".نى قايتا ئاچسىڭىز ،  ئاسما تىزىملىك ئۆزگىرەيدۇNotepad++ ،نى ئۆزگەرتىپcontextMenu.xml"/>
+			<NppHelpAbsentWarning title="ھۈججەت مەۋجۇت ئەمەس" message="\rتوربېتىدىن چۈشۈرۈڭ  Notepad++  ،ھۈججەت مەۋجۇت ئەمەس."/>
+			<SaveCurrentModifWarning title="ھازىرقى ئۆزگەرتىشنى ساقلاش" message="ئۆزگەرىتكەن ھۈججەتنى چوقۇم ساقلاڭ\rساقلىغاندىن كېيىن يېنىۋېلىش ئىشلىمەيدۇ.\rداۋاملاشتۇرامسىز?"/>
+			<LoseUndoAbilityWarning title="يېنىۋېلىش ئىقتىدارى ئىشلىمەيدۇ" message="ئۆزگەرىتكەن ھۈججەتنى چوقۇم ساقلاڭ\rساقلىغاندىن كېيىن يېنىۋېلىش ئىشلىمەيدۇ.\rداۋاملاشتۇرامسىز?"/>
+			<CannotMoveDoc title="  يېڭى كۆزنىكىگە يۆتكەش  Notepad++ " message="ھۈججەت ئۆزگەرتىلدى،ساقلىۋېلىپ ئاندىن سىناڭ"/>
+			<DocReloadWarning title="يۈكلەش" message="ھۆججەتنى ئۆزگەرتىشلىرىڭىز بىلەن كارىڭىز بولماي يۈكلىمەكچىمۇ؟"/>
+			<FileLockedWarning title="ساقلىيالمىدى" message="بۇ ھۈججەت باشقا پروگراممىلاردا ئېچىقلىقمۇ تەكشۈرۈپ بېقىڭ"/>
+			<FileAlreadyOpenedInNpp title="ھۈججەت ئېچىقلىق" message=" دە ئېچىقلىق  Notepad++بۇ ھۈججەت"/>
+			<DeleteFileFailed title="ھۈججەت ئۆچۈرۈش" message="ھۈججەت ئۆچۈرۈلمىدى"/>
+		</MessageBox>
+		<ProjectManager>
+			<PanelTitle name="ئىشتۈرى"/>
+			<WorkspaceRootName name="ئىشكۆزنىكى"/>
+			<NewProjectName name="ئىشتۈرى ئىسمى"/>
+			<NewFolderName name="قىسقۇچ ئىسمى"/>
+			<Menus>
+				<Entries>
+					<Item id="0" name="ئىشكۆزنىكى"/>
+					<Item id="1" name="تەھرىرلەش"/>
+				</Entries>
+				<WorkspaceMenu>
+					<Item id="3122" name="يېڭى ئىشكۆزنىكى"/>
+					<Item id="3123" name=" ئىشكۆزنىكى ئېچىش"/>
+					<Item id="3124" name=" ئىشكۆزنىكى يۈكلەش"/>
+					<Item id="3125" name="ساقلاش"/>
+					<Item id="3126" name=" پەرىقلىق ساقلاش..."/>
+					<Item id="3127" name=" نۇسخىسىنى  ساقلاش..."/>
+					<Item id="3121" name=" يېڭى ئىشتۈرى قوشۇش"/>
+				</WorkspaceMenu>
+				<ProjectMenu>
+					<Item id="3111" name="نامىنى ئۆزگەرتىش"/>
+					<Item id="3112" name=" قىسقۇچ قوشۇش "/>
+					<Item id="3113" name=" ھۈججەتلەرنى قوشۇش..."/>
+					<Item id="3117" name=" مۇندەرىجەدىن ھۈججەتلەرنى قوشۇش  ..."/>
+					<Item id="3114" name="ئۆچۈرۈش"/>
+					<Item id="3118" name=" يۇقۇرىغا يۆتكەش"/>
+					<Item id="3119" name=" تۆۋەنگە يۆتكەش "/>
+				</ProjectMenu>
+				<FolderMenu>
+					<Item id="3111" name="نامىنى ئۆزگەرتىش"/>
+					<Item id="3112" name=" قىسقۇچ قوشۇش "/>
+					<Item id="3113" name=" ھۈججەتلەرنى قوشۇش..."/>
+					<Item id="3117" name=" مۇندەرىجەدىن ھۈججەتلەرنى قوشۇش  ..."/>
+					<Item id="3114" name="ئۆچۈرۈش"/>
+					<Item id="3118" name=" يۇقۇرىغا يۆتكەش"/>
+					<Item id="3119" name=" تۆۋەنگە يۆتكەش "/>
+				</FolderMenu>
+				<FileMenu>
+					<Item id="3111" name="نامىنى ئۆزگەرتىش"/>
+					<Item id="3115" name="ئۆچۈرۈش"/>
+					<Item id="3116" name=" ھۈججەت يولىنى ئۆزگەرتىش"/>
+					<Item id="3118" name=" يۇقۇرىغا يۆتكەش"/>
+					<Item id="3119" name=" تۆۋەنگە يۆتكەش "/>
+				</FileMenu>
+			</Menus>
+		</ProjectManager>
+    </Native-Langue>
+</NotepadPlus>

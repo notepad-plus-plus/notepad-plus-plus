@@ -1,0 +1,692 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	Georgian localization for Notepad++ 6.2.3
+	Translated By UGLT.
+	Contact Us: info@uglt.org
+-->
+<NotepadPlus>
+	<Native-Langue name="ქართული" filename="georgian.xml" >
+        <Menu>
+            <Main>
+                <!-- Main Menu Entries -->
+                <Entries>
+                    <Item menuId="file" name="&amp;ფაილი"/>
+                    <Item menuId="edit" name="&amp;დამუშავება"/>
+                    <Item menuId="search" name="&amp;ძებნა"/>
+                    <Item menuId="view" name="&amp;ხედი"/>
+                    <Item menuId="encoding" name="&amp;კოდირება"/>
+                    <Item menuId="language" name="&amp;სინტაქსი"/>
+                    <Item menuId="settings" name="გამართვა"/>
+                    <Item menuId="macro" name="მაკრო"/>
+                    <Item menuId="run" name="გაშვება"/>
+                    <Item idName="Plugins" name="დანამატები"/>
+                    <Item idName="Window" name="ფანჯარა"/>
+                </Entries>
+
+                <!-- Sub Menu Entries -->
+                <SubEntries>
+                    <Item subMenuId="edit-copyToClipboard"  name="ბუფერში კოპირება"/>
+                    <Item subMenuId="edit-indent" name="აბზაცი"/>
+                    <Item subMenuId="edit-convertCaseTo" name="რეგისტრის გადაყვანა"/>
+                    <Item subMenuId="edit-lineOperations" name="სტრიქონის დამუშავება"/>
+                    <Item subMenuId="edit-comment" name="კომენტარი"/>
+                    <Item subMenuId="edit-autoCompletion" name="ავტ. დასრულება"/>
+                    <Item subMenuId="edit-eolConversion" name="ბოლო სიმბოლოს გარდაქმნა"/>
+                    <Item subMenuId="edit-blankOperations" name="მოქმედება დაშორებაზე"/>
+                    <Item subMenuId="edit-pasteSpecial" name="საგანგებოდ ჩასმა"/>
+                    <Item subMenuId="search-markAll" name="ყველაფრის მონიშვნა"/>
+                    <Item subMenuId="search-unmarkAll" name="მონიშვნის მოხსნა"/>
+                    <Item subMenuId="search-jumpUp" name="სტილის ძებნა (მაღლა)"/>
+                    <Item subMenuId="search-jumpDown" name="სტილის ძებნა (დაბლა)"/>
+                    <Item subMenuId="search-bookmark" name="სანიშნი"/>
+                    <Item subMenuId="view-showSymbol"  name="სიმბოლოს ჩვენება"/>
+                    <Item subMenuId="view-zoom"  name="მასშტაბი"/>
+                    <Item subMenuId="view-moveCloneDocument"  name="მიმდინარე დოკუმენტის გადატანა/კოპირება"/>
+                    <Item subMenuId="view-collapseLevel" name="დონის ჩაშლა"/>
+                    <Item subMenuId="view-uncollapseLevel" name="დონის აკეცვა"/>
+                    <Item subMenuId="view-project" name="პროექტი"/>
+                    <Item subMenuId="encoding-characterSets"  name="კოდირება"/>
+                    <Item subMenuId="encoding-arabic"  name="არაბული"/>
+                    <Item subMenuId="encoding-baltic"  name="ბალტიკური"/>
+                    <Item subMenuId="encoding-celtic"  name="კელტური"/>
+                    <Item subMenuId="encoding-cyrillic"  name="კირილიცა"/>
+                    <Item subMenuId="encoding-centralEuropean"  name="შუა ევროპული"/>
+                    <Item subMenuId="encoding-chinese"  name="ჩინური"/>
+                    <Item subMenuId="encoding-easternEuropean"  name="აღმოსავლეთ ევროპული"/>
+                    <Item subMenuId="encoding-greek"  name="ბერძნული"/>
+                    <Item subMenuId="encoding-hebrew"  name="ებრაული"/>
+                    <Item subMenuId="encoding-japanese"  name="იაპონური"/>
+                    <Item subMenuId="encoding-korean" name="კორეული"/>
+                    <Item subMenuId="encoding-northEuropean" name="ჩრდილო ევროპული"/>
+                    <Item subMenuId="encoding-thai" name="ტაილანდური"/>
+                    <Item subMenuId="encoding-turkish" name="თურქული"/>
+                    <Item subMenuId="encoding-westernEuropean" name="დასავლეთ ევროპული"/>
+                    <Item subMenuId="encoding-vietnamese" name="ვიეტნამური"/>
+                    <Item subMenuId="settings-import"  name="იმპორტი"/>
+                </SubEntries>
+
+                <!-- all menu item -->
+                <Commands>
+                    <Item id="41001" name="&amp;ახალი"/>
+                    <Item id="41002" name="&amp;გახსნა"/>
+                    <Item id="41003" name="დახურვა"/>
+                    <Item id="41004" name="ყველა&amp;ფრის დახურვა"/>
+                    <Item id="41005" name="მიმდინარეს გარდა ყველა დოკუმენტის დახურვა"/>
+                    <Item id="41006" name="&amp;შენახვა"/>
+                    <Item id="41007" name="ყველაფრ&amp;ის შენახვა"/>
+                    <Item id="41008" name="შენახვა &amp;როგორც..."/>
+                    <Item id="41010" name="ბეჭდვა..."/>
+                    <Item id="1001"  name="მყისიერი ბეჭდვა"/>
+                    <Item id="41011" name="გამოს&amp;ვლა"/>
+                    <Item id="41012" name="სესიის ჩატვირთვა..."/>
+                    <Item id="41013" name="სესიის შენახვა..."/>
+                    <Item id="41014" name="ხელახლა წაკითხვა დისკიდან"/>
+                    <Item id="41015" name="ასლის შენახვა როგორც..."/>
+                    <Item id="41016" name="დისკიდან წაშლა"/>
+                    <Item id="41017" name="სახელის შეცვლა..."/>
+
+                    <Item id="42001" name="ა&amp;მოჭრა"/>
+                    <Item id="42002" name="&amp;კოპირება"/>
+                    <Item id="42003" name="&amp;დაბრუნება"/>
+                    <Item id="42004" name="&amp;გამეორება"/>
+                    <Item id="42005" name="&amp;ჩასმა"/>
+                    <Item id="42006" name="&amp;წაშლა"/>
+                    <Item id="42007" name="ყველაფრის &amp;მონიშვნა"/>
+                    <Item id="42008" name="აბზაცის გაზრდა"/>
+                    <Item id="42009" name="აბზაცის შემცირება"/>
+                    <Item id="42010" name="მიმდინარე ხაზის დუბლირება"/>
+                    <Item id="42012" name="ხაზების დაყოფა"/>
+                    <Item id="42013" name="ხაზების შეერთება"/>
+                    <Item id="42014" name="მიმდინარე ხაზის მაღლა აწევა"/>
+                    <Item id="42015" name="მიმდინარე ხაზის დაბლა ჩაწევა"/>
+                    <Item id="42016" name="მთავრული (ABC)"/>
+                    <Item id="42017" name="მხედრული (abc)"/>
+                    <Item id="42018" name="&amp;ჩაწერის დაწყება"/>
+                    <Item id="42019" name="&amp;ჩაწერის გაჩერება"/>
+                    <Item id="42021" name="&amp;გაშვება"/>
+                    <Item id="42022" name="ხაზზე კომენტარის ჩართვა/გამორთვა"/>
+                    <Item id="42023" name="ტექსტის დაკომენტარება"/>
+                    <Item id="42042" name="წინა დაშორების მოცილება"/>
+                    <Item id="42043" name="წინა და ბოლო დაშორების მოცილება"/>
+                    <Item id="42044" name="ბოლო სიმბოლოს დაშორებად გადაყვანა"/>
+                    <Item id="42045" name="უსარგებლო ცარიელი და ბოლო სიმბოლოების მოცილება"/>
+                    <Item id="42046" name="TAB-ის სიმბოლო დაშორებად გადაყვანა"/>
+                    <Item id="42047" name="დაშორების TAB-ის სიმბოლოდ გადაყვანა"/>
+                    <Item id="42024" name="ბოლო დაშორების მოცილება"/>
+                    <Item id="42025" name="ჩაწერილი მაკროს შენახვა"/>
+                    <Item id="42026" name="ტექსტის მიმართულება: მარჯვნიდან მარცხნივ"/>
+                    <Item id="42027" name="ტექსტის მიმართულება: მარცხნიდან მარჯვნივ"/>
+                    <Item id="42028" name="ატრიბუტის 'მხოლოდ წაკითხვა' მინიჭება"/>
+                    <Item id="42029" name="მიმდინარე ფაილის მისამართის კოპირება"/>
+                    <Item id="42030" name="მიმდინარე ფაილის სახელის კოპირება"/>
+                    <Item id="42031" name="მიმდინარე საქაღალდის მისამართის კოპირება"/>
+                    <Item id="42032" name="მაკროს რამდენჯერმე გაშვება..."/>
+                    <Item id="42033" name="ატრიბუტის 'მხოლოდ წაკითხვა' მოცილება"/>
+                    <Item id="42035" name="კომენტარის ბლოკი ხაზზე"/>
+                    <Item id="42036" name="ხაზზე კომენტარის ბლოკის მოცილება"/>
+
+                    <Item id="43001" name="&amp;ძებნა..."/>
+                    <Item id="43002" name="შემდეგი &amp;შედეგი"/>
+                    <Item id="43003" name="ჩანაცვლება..."/>
+                    <Item id="43004" name="გადასვლა..."/>
+                    <Item id="43005" name="სანიშნის დასმა"/>
+                    <Item id="43006" name="შემდეგი სანიშნი"/>
+                    <Item id="43007" name="წინა სანიშნი"/>
+                    <Item id="43008" name="ყველა სანიშნის მოცილება"/>
+                    <Item id="43009" name="დამთხვეულ სამაგრზე გადასვლა"/>
+                    <Item id="43010" name="წინა შედეგი"/>
+                    <Item id="43011" name="&amp;აკრეფვისას ძებნა"/>
+                    <Item id="43013" name="ფაილებში ძებნა"/>
+                    <Item id="43014" name="შემდეგი (სწრაფი) ძებნა"/>
+                    <Item id="43015" name="წინა (სწრაფი) ძებნა"/>
+                    <Item id="43016" name="ყველაფრის მონიშვნა"/>
+                    <Item id="43017" name="მონიშვნის გაუქმება"/>
+                    <Item id="43018" name="დანიშნული ხაზების ამოჭრა"/>
+                    <Item id="43019" name="დანიშნული ხაზების კოპირება"/>
+                    <Item id="43020" name="დანიშნულ ხაზებში ჩასმა (ჩანაცვლება)"/>
+                    <Item id="43021" name="დანიშნული ხაზების წაშლა"/>
+                    <Item id="43022" name="1-ლი სტილის გამოყენება"/>
+                    <Item id="43023" name="1-ლი სტილის მოცილება"/>
+                    <Item id="43024" name="მე-2 სტილის გამოყენება"/>
+                    <Item id="43025" name="მე-2 სტილის მოცილება"/>
+                    <Item id="43026" name="მე-3 სტილის გამოყენება"/>
+                    <Item id="43027" name="მე-3 სტილის მოცილება"/>
+                    <Item id="43028" name="მე-4 სტილის გამოყენება"/>
+                    <Item id="43029" name="მე-4 სტილის მოცილება"/>
+                    <Item id="43030" name="მე-5 სტილის გამოყენება"/>
+                    <Item id="43031" name="მე-5 სტილის მოცილება"/>
+                    <Item id="43032" name="ყველა სტილის მოცილება"/>
+                    <Item id="43033" name="1-ლი სტილი"/>
+                    <Item id="43034" name="მე-2 სტილი"/>
+                    <Item id="43035" name="მე-3 სტილი"/>
+                    <Item id="43036" name="მე-4 სტილი"/>
+                    <Item id="43037" name="მე-5 სტილი"/>
+                    <Item id="43038" name="სტილის ძებნა"/>
+                    <Item id="43039" name="1-ლი სტილი"/>
+                    <Item id="43040" name="მე-2 სტილი"/>
+                    <Item id="43041" name="მე-3 სტილი"/>
+                    <Item id="43042" name="მე-4 სტილი"/>
+                    <Item id="43043" name="მე-5 სტილი"/>
+                    <Item id="43044" name="სტილის ძებნა"/>
+                    <Item id="43045" name="ძებნის შედეგის ფანჯარა"/>
+                    <Item id="43046" name="ძებნის შემდეგი შედეგი"/>
+                    <Item id="43047" name="ძებნის წინა შედეგი"/>
+                    <Item id="43048" name="მონიშვნა და შემდეგის მოძებნა"/>
+                    <Item id="43049" name="მონიშვნა და წინას მოძებნა"/>
+                    <Item id="43050" name="მონიშნულთა გაცვლა"/>
+                    <Item id="44009" name="მხოლოდ ტექსტის ჩვენება"/>
+                    <Item id="44010" name="ყველა ბლოკის აკეცვა"/>
+                    <Item id="44011" name="მომხმარებლის დიალოგი..."/>
+                    <Item id="44019" name="ყველა სიმბოლოს ჩვენება"/>
+                    <Item id="44020" name="აბზაცის ხაზის ჩვენება"/>
+                    <Item id="44022" name="გადატანა"/>
+                    <Item id="44023" name="&amp;მიახლოება Ctrl+თაგვის გორგოლაჭი ზემოთ"/>
+                    <Item id="44024" name="&amp;დაშორება    Ctrl+თაგვის გორგოლაჭი ქვემოთ"/>
+                    <Item id="44025" name="ცარიელი სივრცის და 'TAB'-ის ჩვენება"/>
+                    <Item id="44026" name="სტრიქონის ბოლოს ჩვენება"/>
+                    <Item id="44029" name="ყველა ბლოკის ჩამოშლა"/>
+                    <Item id="44030" name="მიმდინარე ბლოკის ჩაშლა"/>
+                    <Item id="44031" name="მიმდინარე ბლოკის აკეცვა"/>
+                    <Item id="44032" name="მთელ ეკრანზე გაშლა"/>
+                    <Item id="44033" name="საწყის მასშტაბზე დაბრუნება"/>
+                    <Item id="44034" name="წინა პლანზე დარჩენა"/>
+                    <Item id="44049" name="სტატისტიკა..."/>
+                    <Item id="44035" name="შვეულად სრიალის სინქრონიზაცია"/>
+                    <Item id="44036" name="თარაზულად სრიალის სინქრონიზაცია"/>
+                    <Item id="44041" name="გადატანის სიმბოლოს ჩვენება"/>
+                    <Item id="44072" name="სხვა ხედზე ფოკუსირება"/>
+                    <Item id="44081" name="1-ლი პროექტის პანელი"/>
+                    <Item id="44082" name="მე-2 პროექტის პანელი"/>
+                    <Item id="44083" name="მე-3 პროექტის პანელი"/>
+                    <Item id="45001" name="Windows-ის ფორმატში გადაყვანა"/>
+                    <Item id="45002" name="UNIX-ის ფორმატში გადაყვანა"/>
+                    <Item id="45003" name="MAC-ის ფორმატში გადაყვანა"/>
+                    <Item id="45004" name="ANSI-ში კოდირება"/>
+                    <Item id="45005" name="UTF-8-ში კოდირება"/>
+                    <Item id="45006" name="UCS-2 Big Endian-ში კოდირება"/>
+                    <Item id="45007" name="UCS-2 Little Endian-ში კოდირება"/>
+                    <Item id="45008" name="UTF-8 without BOM-ში კოდირება"/>
+                    <Item id="45009" name="ANSI-ში გადაყვანა"/>
+                    <Item id="45010" name="UTF-8 without BOM-ში გადაყვანა"/>
+                    <Item id="45011" name="UTF-8-ში გადაყვანა"/>
+                    <Item id="45012" name="UCS-2 Big Endian-ში გადაყვანა"/>
+                    <Item id="45013" name="UCS-2 Little Endian-ში გადაყვანა"/>
+
+                    <Item id="10001" name="სხვა ხედში გადატანა"/>
+                    <Item id="10002" name="სხვა ხედში კლონირება"/>
+                    <Item id="10003" name="ახალ ფანჯარაში გადატანა"/>
+                    <Item id="10004" name="ახალ ფანჯარაში გახსნა"/>
+
+                    <Item id="46001" name="სტილის კონფიგურაცია..."/>
+                    <Item id="46180" name="მომხმარებლის მიერ განსაზღვრული"/>
+                    <Item id="47000" name="Notepad++-ის შესახებ..."/>
+                    <Item id="47001" name="Notepad++-ის ვებ-გვერდი"/>
+                    <Item id="47002" name="Notepad++-ის პროექტის გვერდი"/>
+                    <Item id="47003" name="ინტერნეტ-დოკუმენტაცია"/>
+                    <Item id="47004" name="ფორუმი"/>
+                    <Item id="47005" name="სხვა დანამატების გადმოწერა"/>
+                    <Item id="47006" name="Notepad++-ის განახლება"/>
+                    <Item id="47008" name="დახმარება"/>
+                    <Item id="48005" name="დანამატის იმპორტი..."/>
+                    <Item id="48006" name="გაფორმების იმპორტი..."/>
+                    <Item id="48009" name="ცხელი კლავიშები..."/>
+                    <Item id="48011" name="პარამეტრები..."/>
+                    <Item id="49000" name="&amp;გაშვება..."/>
+
+                    <Item id="50000" name="ფუნქციის დასრულება"/>
+                    <Item id="50001" name="სიტყვის დასრულება"/>
+                    <Item id="50002" name="ფუნქციის პარამეტრის შემოთავაზება"/>
+                    <Item id="42034" name="სვეტის რედაქტორი..."/>
+                    <Item id="44042" name="ხაზ(ებ)ის დამალვა"/>
+                    <Item id="42040" name="ბოლოს გამოყენებული ფაილების გახსნა"/>
+                    <Item id="42041" name="ბოლოს გამოყენებული ფაილების სიის წაშლა"/>
+					<Item id="48016" name="ცხელი კლავიშის ჩასწორება/მაკროს წაშლა..."/>
+					<Item id="48017" name="ცხელი კლავიშის ჩასწორება/ბრძანების წაშლა..."/>
+                    <Item id="48018" name="კონტექსტური მენიუს შეცვლა"/>
+                </Commands>
+            </Main>
+            <Splitter>
+            </Splitter>
+            <TabBar>
+                    <Item CMID="0" name="დახურვა"/>
+                    <Item CMID="1" name="ამის გარდა ყველას დახურვა"/>
+                    <Item CMID="2" name="შენახვა"/>
+                    <Item CMID="3" name="შენახვა როგორც..."/>
+                    <Item CMID="4" name="ბეჭდვა"/>
+                    <Item CMID="5" name="სხვა ხედში გადატანა"/>
+                    <Item CMID="6" name="სხვა ხედში კლონირება"/>
+                    <Item CMID="7" name="ფაილის მისამართის ბუფერში კოპირება"/>
+                    <Item CMID="8" name="ფაილის სახელის ბუფერში კოპირება"/>
+                    <Item CMID="9" name="მიმდინარე საქაღალდის მისამარის კოპირება"/>
+                    <Item CMID="10" name="სახელის შეცვლა"/>
+                    <Item CMID="11" name="წაშლა"/>
+                    <Item CMID="12" name="'მხოლოდ წაკითხვა'"/>
+                    <Item CMID="13" name="ატრიბუტის 'მხოლოდ წაკითხვა' წაშლა"/>
+                    <Item CMID="14" name="ახალ ფანჯარაში გადატანა"/>
+                    <Item CMID="15" name="ახალ ფანჯარაში გახსნა"/>
+                    <Item CMID="16" name="განახლება"/>
+            </TabBar>
+        </Menu>
+
+        <Dialog>
+            <Find title="" titleFind="ძებნა" titleReplace="ჩანაცვლება" titleFindInFiles="ფაილში ძებნა" titleMark="დანიშვნა">
+                <Item id="1"    name="შემდეგი შედეგი"/>
+                <Item id="2"    name="დახურვა"/>
+                <Item id="1620" name="საძიებო სიტყვა:"/>
+                <Item id="1603" name="მხოლოდ ტექსტის &amp;სრული დამთხვევით"/>
+                <Item id="1604" name="რეგისტრის &amp;დამთხვევა"/>
+                <Item id="1605" name="ზოგადი &amp;დამთხვევა"/>
+                <Item id="1606" name="მთლიან დოკუმენტში &amp;ძებნა"/>
+                <Item id="1612" name="&amp;მაღლა"/>
+                <Item id="1613" name="&amp;დაბლა"/>
+                <Item id="1614" name="რაოდენობა"/>
+                <Item id="1615" name="ყველგან მოძებნა"/>
+                <Item id="1616" name="ხაზის დანიშვნა"/>
+                <Item id="1617" name="ნაპოვნის მონიშვნა"/>
+                <Item id="1618" name="წინა (ძებნის დროს) სანიშნების მოცილება"/>
+                <Item id="1621" name="მიმართულება"/>
+                <Item id="1611" name="ჩანა&amp;ცვლება:"/>
+                <Item id="1608" name="&amp;ჩანაცვლება"/>
+                <Item id="1609" name="ყველას ჩ&amp;ანაცვლება"/>
+                <Item id="1623" name="გამჭვირვალობა"/>
+                <Item id="1687" name="ფოკუსის დაკარგვისას"/>
+                <Item id="1688" name="ყოველთვის"/>
+                <Item id="1632" name="მონიშნულში"/>
+                <Item id="1633" name="გასუფთავება"/>
+                <Item id="1635" name="ყველა გახსნილ დოკუმენტში ჩანაცვლება"/>
+                <Item id="1636" name="ყველა გახსნილ დოკუმენტში ძებნა"/>
+                <Item id="1637" name="ფაილებში ძებნა"/>
+                <Item id="1654" name="ფილტრი:"/>
+                <Item id="1655" name="საქაღალდე:"/>
+                <Item id="1656" name="ყველგან ძებნა"/>
+                <Item id="1658" name="ყველა ქვე-საქაღალდეში"/>
+                <Item id="1659" name="დამალულ საქაღალდეებში"/>
+                <Item id="1624" name="ძებნის რეჟიმი"/>
+                <Item id="1625" name="ჩვეულებრივი"/>
+                <Item id="1626" name="გაფართოებული (\n, \r, \t, \0, \x...)"/>
+                <Item id="1660" name="ფაილებში ჩანაცვლება"/>
+                <Item id="1661" name="მიმდ. დოკ-ში "/>
+                <Item id="1641" name="მიმდინარე დოკუმენტში ყველა დამთხვევის ძებნა"/>
+                <Item id="1686" name="გამჭვირვალობა"/>
+            </Find>
+            <GoToLine title="გადასვლა...">
+                <Item id="2007" name="ხაზზე"/>
+                <Item id="2008" name="სვეტში"/>
+                <Item id="1"    name="&amp;გადასვლა"/>
+                <Item id="2"    name="გაუქმება"/>
+                <Item id="2004" name="აქ ხართ:"/>
+                <Item id="2005" name="გსურთ, გადახვიდეთ:"/>
+                <Item id="2006" name="მაქსიმალური მნიშვნელობა:"/>
+            </GoToLine>
+
+            <Run title="გაშვება...">
+                <Item id="1903" name="გასაშვები პროგრამა"/>
+                <Item id="1"    name="გაშვება"/>
+                <Item id="2"    name="გაუქმება"/>
+                <Item id="1904" name="შენახვა..."/>
+            </Run>
+
+            <StyleConfig title="სტილის კონფიგურაცია">
+                <Item id="2"    name="გაუქმება"/>
+                <Item id="2301" name="შენახვა და დახურვა"/>
+                <Item id="2303" name="გამჭვირვალობა"/>
+                <Item id="2306" name="გაფორმების მონიშვნა: "/>
+                <SubDialog>
+                    <Item id="2204" name="მუქი"/>
+                    <Item id="2205" name="ირიბი"/>
+                    <Item id="2206" name="წინა პლანის ფერი"/>
+                    <Item id="2207" name="ფონის ფერი"/>
+                    <Item id="2208" name="შრიფტი:"/>
+                    <Item id="2209" name="შრიფტის ზომა:"/>
+                    <Item id="2212" name="ფერის სტილი"/>
+                    <Item id="2213" name="შრიფტის სტილი"/>
+                    <Item id="2214" name="საწ. გაფართოება:"/>
+                    <Item id="2216" name="მომხმ. გაფართოება:"/>
+                    <Item id="2218" name="ხაზგასმული"/>
+                    <Item id="2219" name="საწყისი საკვანძო სიტყვები"/>
+                    <Item id="2221" name="მომხმარებლის საკვანძო სიტყვები"/>
+                    <Item id="2225" name="ენა:"/>
+                    <Item id="2226" name="ძირითადი წინა პლანის ფერის გამოყენება"/>
+                    <Item id="2227" name="ძირითადი ფონის ფერის გამოყენება"/>
+                    <Item id="2228" name="ძირითადი შრიფტის გამოყენება"/>
+                    <Item id="2229" name="ძირითადი შრიფტის ზომის გამოყენება"/>
+                    <Item id="2230" name="ძირითადი სქელი შრიფტის გამოყენება"/>
+                    <Item id="2231" name="ძირითადი დახრილი შრიფტის გამოყენება"/>
+                    <Item id="2232" name="ძირითადი ხაზგასმული შრიფტის გამოყენება"/>
+                </SubDialog>
+
+            </StyleConfig>
+
+            <UserDefine title="მომხმარებლის მიერ განსაზღვრული">
+                <Item id="20002" name="სახელის შეცვლა"/>
+                <Item id="20003" name="ახალი..."/>
+                <Item id="20004" name="მოცილება"/>
+                <Item id="20005" name="შენახვა როგორც..."/>
+                <Item id="20007" name="მომხმ. ენა: "/>
+                <Item id="20009" name="გაფ.:"/>
+                <Item id="20012" name="რეგისტრის მიუხედავად"/>
+                <Item id="20011" name="გამჭვირვალობა"/>
+                <Item id="20015" name="იმპორტი..."/>
+                <Item id="20016" name="ექსპორტი..."/>
+				<StylerDialog title="სტილის კონფიგურაცია">
+                    <Item id="25030" name="შრიფტის პარამეტრები:"/>
+					<Item id="25006" name="შრიფტის ფერი"/>
+					<Item id="25007" name="ფონის ფერი"/>
+					<Item id="25031" name="სახელი:"/>
+					<Item id="25032" name="ზომა:"/>
+					<Item id="25001" name="მუქი"/>
+					<Item id="25002" name="ირიბი"/>
+					<Item id="25003" name="ხაზგასმული"/>
+					<Item id="25029" name="დაჯგუფება:"/>
+					<Item id="25008" name="გამყოფი 1"/>
+					<Item id="25009" name="გამყოფი 2"/>
+					<Item id="25010" name="გამყოფი 3"/>
+					<Item id="25011" name="გამყოფი 4"/>
+					<Item id="25012" name="გამყოფი 5"/>
+					<Item id="25013" name="გამყოფი 6"/>
+					<Item id="25014" name="გამყოფი 7"/>
+					<Item id="25015" name="გამყოფი 8"/>
+					<Item id="25018" name="საკვანძო სიტყვა 1"/>
+					<Item id="25019" name="საკვანძო სიტყვა 2"/>
+					<Item id="25020" name="საკვანძო სიტყვა 3"/>
+					<Item id="25021" name="საკვანძო სიტყვა 4"/>
+					<Item id="25022" name="საკვანძო სიტყვა 5"/>
+					<Item id="25023" name="საკვანძო სიტყვა 6"/>
+					<Item id="25024" name="საკვანძო სიტყვა 7"/>
+					<Item id="25025" name="საკვანძო სიტყვა 8"/>
+					<Item id="25016" name="კომენტარი"/>
+					<Item id="25017" name="კომენტარის ხაზი"/>
+					<Item id="25026" name="ოპერატორი 1"/>
+					<Item id="25027" name="ოპერატორი 2"/>
+					<Item id="25028" name="ციფრები"/>
+                </StylerDialog>
+                <Folder title="სტანდარტული">
+                    <Item id="21101" name="სტანდარტული სტილის პარამეტრები"/>
+                    <Item id="21201" name="საქაღალდის გახსნის კომბინაციის პარამეტრები"/>
+                    <Item id="21301" name="საქაღალდის დახურვის კომბინაციის პარამეტრები"/>
+                </Folder>
+                <Keywords title="საკვანძო სიტყვათა სია">
+                    <Item id="22101" name="1-ლი ჯგუფი"/>
+                    <Item id="22201" name="მე-2 ჯგუფი"/>
+                    <Item id="22301" name="მე-3 ჯგუფი"/>
+                    <Item id="22401" name="მე-4 ჯგუფი"/>
+                    <Item id="22113" name="თავსართი"/>
+                    <Item id="22213" name="თავსართი"/>
+                    <Item id="22313" name="თავსართი"/>
+                    <Item id="22413" name="თავსართი"/>
+                </Keywords>
+                <Comment title="კომენტარი და რიცხვი">
+                    <Item id="23301" name="კომენტარის ხაზზე"/>
+                    <Item id="23101" name="კომენტარის ბლოკი"/>
+                    <Item id="23113" name="კომენტარის გახსნა:"/>
+                    <Item id="23115" name="კომენტარის დახურვა:"/>
+                    <Item id="23116" name="საკვანძო სიტყვა როგორც სიმბოლო"/>
+                    <Item id="23117" name="საკვანძო სიტყვები როგორც სიმბოლოები"/>
+                    <Item id="23201" name="რიცხვი"/>
+                </Comment>
+                <Operator title="ოპერატორები">
+                    <Item id="24107" name="ოპერატორი"/>
+                    <Item id="24103" name="ხელმისაწვდომი სიმბოლოები"/>
+                    <Item id="24101" name="აქტიური ოპერატორები"/>
+                    <Item id="24201" name="გამყოფი 1"/>
+                    <Item id="24211" name="საზღვრის გახსნა:"/>
+                    <Item id="24214" name="საზღვრის დახურვა:"/>
+                    <Item id="24301" name="გამყოფი 2"/>
+                    <Item id="24311" name="საზღვრის გახსნა:"/>
+                    <Item id="24314" name="საზღვრის დახურვა:"/>
+                </Operator>
+                <Item id="24001" name="Escape სიმბოლოს დაშვება:"/>
+            </UserDefine>
+            <Preference title="პარამეტრები">
+                <Item id="6001" name="დახურვა"/>
+                <Global title="ზოგადი">
+                    <Item id="6101" name="ხელსაწყოთა პანელი"/>
+                    <Item id="6102" name="დამალვა"/>
+                    <Item id="6103" name="პატარა ხატულები"/>
+                    <Item id="6104" name="დიდი ხატულები"/>
+                    <Item id="6105" name="სტანდარტული ხატულები"/>
+
+                    <Item id="6106" name="ჩანართების პანელი"/>
+                    <Item id="6107" name="შემცირება"/>
+                    <Item id="6108" name="ჩაკეტვა (გადაადგილების შეზღუდვა)"/>
+                    <Item id="6109" name="უმოქმედო ჩანართების ჩაბნელება"/>
+                    <Item id="6110" name="აქტიურ ჩანართზე ფერადი ზოლის ჩვენება"/>
+
+                    <Item id="6111" name="სტატუსის პანელის ჩვენება"/>
+                    <Item id="6112" name="ჩანართებზე დახურვის ღილაკის ჩვენება"/>
+                    <Item id="6113" name="დაწკაპებისას ჩანართის დახურვა"/>
+                    <Item id="6118" name="დამალვა"/>
+                    <Item id="6119" name="მრავალ-ხაზიანი"/>
+                    <Item id="6120" name="შვეული"/>
+
+                    <Item id="6121" name="მენიუს პანელი"/>
+                    <Item id="6122" name="დამალვა (გამოსაჩენად გამოიყენეთ ღილაკი Alt ან F10)"/>
+                    <Item id="6123" name="ენა"/>
+                </Global>
+                <Scintillas title="რედაქტირება">
+                    <Item id="6216" name="კურსორის პარამეტრები"/>
+                    <Item id="6217" name="სიგანე:"/>
+                    <Item id="6219" name="ციმციმის სიხშირე:"/>
+                    <Item id="6221" name="+"/>
+                    <Item id="6222" name="-"/>
+                    <Item id="6224" name="მრავალი ჩასწორების რეჟიმი"/>
+                    <Item id="6225" name="ჩართვა (Ctrl+მარც. ღილაკი/მონიშვნა)"/>
+                    <Item id="6201" name="ასაკეცის სტილი"/>
+                    <Item id="6202" name="მარტივი"/>
+                    <Item id="6203" name="ისარი"/>
+                    <Item id="6204" name="წრე"/>
+                    <Item id="6205" name="ოთხკუთხედი"/>
+                    <Item id="6226" name="გათიშვა"/>
+
+                    <Item id="6227" name="ხაზის გადატანა"/>
+                    <Item id="6228" name="სტანდარტული"/>
+                    <Item id="6229" name="ჩამწკრივებული"/>
+                    <Item id="6230" name="აბზაცი"/>
+
+                    <Item id="6206" name="ხაზების დანომრვა"/>
+                    <Item id="6207" name="სანიშნების გამოჩენა"/>
+                    <Item id="6208" name="შვეული კიდეს ჩვენება"/>
+                    <Item id="6209" name="სვეტები:"/>
+
+                    <Item id="6211" name="შვეული კიდეს პარამეტრები"/>
+                    <Item id="6212" name="ხაზი"/>
+                    <Item id="6213" name="ფონი"/>
+                    <Item id="6214" name="მიმდინარე ხაზის გამოკვეთა"/>
+                </Scintillas>
+                <NewDoc title="ახალი დოკუმენტი/საწყისი საქაღალდე">
+                    <Item id="6401" name="ფორმატი"/>
+                    <Item id="6402" name="Windows"/>
+                    <Item id="6403" name="Unix"/>
+                    <Item id="6404" name="Mac"/>
+                    <Item id="6405" name="კოდირება"/>
+                    <Item id="6406" name="ANSI"/>
+                    <Item id="6407" name="UTF-8 without BOM"/>
+                    <Item id="6408" name="UTF-8"/>
+                    <Item id="6409" name="UCS-2 Big Endian"/>
+                    <Item id="6410" name="UCS-2 Little Endian"/>
+                    <Item id="6411" name="სინტაქსი:"/>
+                    <Item id="6413" name="საწყისი საქაღალდე (გახსნა/შენახვა)"/>
+                    <Item id="6414" name="მიმდინარე დოკუმენტის საქაღალდე"/>
+                    <Item id="6415" name="ბოლოს გამოყენებული საქაღალდის დამახსოვრება"/>
+                    <Item id="6419" name="ახალი დოკუმენტი"/>
+                    <Item id="6420" name="გახსნილ ANSI ფაილებზე მიღება"/>
+                </NewDoc>
+                <FileAssoc title="ფაილის სახეობა">
+                    <Item id="4009" name="მხარდაჭერილი გაფ.:"/>
+                    <Item id="4010" name="დარეგისტრ. გაფ.:"/>
+                </FileAssoc>
+                <LangMenu title="სინტაქსის მენიუ/ჩანართის პარამეტრები">
+                    <Item id="6301" name="ჩანართის პარამეტრები"/>
+                    <Item id="6302" name="დაშორებით ჩანაცვლება"/>
+                    <Item id="6303" name="ჩანართის ზომა: "/>
+                    <Item id="6505" name="არსებული ელემენტები"/>
+                    <Item id="6506" name="გათიშული ელემენტები"/>
+                    <Item id="6507" name="სინტაქსის მენიუს შემცირება"/>
+                    <Item id="6508" name="სინტაქსის მენიუ"/>
+                    <Item id="6510" name="საწყისი მნიშვნელობა"/>
+                </LangMenu>
+                <Print title="ბეჭდვა">
+                    <Item id="6601" name="ხაზის ნომრის დაბეჭდვა"/>
+                    <Item id="6602" name="ფერის პარამეტრები"/>
+                    <Item id="6603" name="WYSIWYG"/>
+                    <Item id="6604" name="ფერების გაცვლა"/>
+                    <Item id="6605" name="შავით თეთრზე"/>
+                    <Item id="6606" name="ფონის ფერის გარეშე"/>
+                    <Item id="6607" name="კიდეები (ერთეული:მმ)"/>
+                    <Item id="6612" name="მარცხენა"/>
+                    <Item id="6613" name="ზედა"/>
+                    <Item id="6614" name="მარჯვენა"/>
+                    <Item id="6615" name="ქვედა"/>
+                    <Item id="6706" name="მუქი"/>
+                    <Item id="6707" name="ირიბი"/>
+                    <Item id="6708" name="თავსართი"/>
+                    <Item id="6709" name="მარცხენა ნაწილი"/>
+                    <Item id="6710" name="შუა ნაწილი"/>
+                    <Item id="6711" name="მარჯვენა ნაწილი"/>
+                    <Item id="6717" name="მუქი"/>
+                    <Item id="6718" name="ირიბი"/>
+                    <Item id="6719" name="ქვესართი"/>
+                    <Item id="6720" name="მარცხენა ნაწილი"/>
+                    <Item id="6721" name="შუა ნაწილი"/>
+                    <Item id="6722" name="მარჯვენა ნაწილი"/>
+                    <Item id="6723" name="დამატება"/>
+                    <Item id="6725" name="ცვლადი:"/>
+                    <Item id="6728" name="თავსართი და ქვესართი"/>
+                </Print>
+                <MISC title="სხვადასხვა">
+                    <Item id="6304" name="ბოლო ფაილების ისტორია"/>
+                    <Item id="6305" name="გაშვებისას არ შეამოწმო"/>
+                    <Item id="6306" name="მაქს. რაოდენობა:"/>
+                    <Item id="6307" name="ჩართვა"/>
+                    <Item id="6308" name="სისტემურ თრეიში ჩაკეცვა"/>
+                    <Item id="6309" name="შემდეგი გაშვებისთვის მიმდინარე სესიის დამახსოვრება"/>
+                    <Item id="6312" name="ფაილის სტატუსის ავტ.დადგენა"/>
+                    <Item id="6313" name="ჩუმი განახლება"/>
+                    <Item id="6318" name="ბმულის პარამეტრები"/>
+                    <Item id="6325" name="განახლების შემდეგ ბოლო ხაზზე გადასვლა"/>
+                    <Item id="6319" name="ჩართვა"/>
+                    <Item id="6320" name="ხაზგასმის გარეშე"/>
+                    <Item id="6322" name="სესიის ფაილის გაფ.:"/>
+                    <Item id="6323" name="Notepad++-ის ავტ.განახლების ჩართვა"/>
+                    <Item id="6324" name="დოკუმენტის გადამრთველი (Ctrl+TAB)"/>
+                    <Item id="6326" name="საზრიანი გამოკვეთის ჩართვა"/>
+                    <Item id="6329" name="ერთნაირი ტეგების გამოკვეთა"/>
+                    <Item id="6327" name="ჩართვა"/>
+                    <Item id="6328" name="ტეგის ატრიბუტების გამოკვეთა"/>
+                    <Item id="6330" name="ველების გამოკვეთა: კომენტარი/php/asp"/>
+
+                    <Item id="6331" name="სათაურის ზოლში მხოლოდ ფაილის სახელის ჩვენება"/>
+                    <Item id="6114" name="ჩართვა"/>
+                    <Item id="6115" name="ავტ.აბზაცი"/>
+                    <Item id="6117" name="MRU-ს ჩართვა"/>
+
+                </MISC>
+                <Backup title="დარეზერვება/ავტ.დასრულება">
+                    <Item id="6801" name="დარეზერვება"/>
+                    <Item id="6315" name="გამორთვა"/>
+                    <Item id="6316" name="მარტივი რეზერვი"/>
+                    <Item id="6317" name="სრული რეზერვი"/>
+                    <Item id="6804" name="რეზერვის საქაღალდე"/>
+                    <Item id="6803" name="საქაღალდე:"/>
+                    <Item id="6807" name="ავტ. დასრულება"/>
+	                <Item id="6808" name="ავტ.დასრულება ყოველი შეყვანისას"/>
+                    <Item id="6809" name="ფუნქციის დასრულება"/>
+                    <Item id="6810" name="სიტყვის დასრულება"/>
+                    <Item id="6811" name="#"/>
+                    <Item id="6813" name="სიმბოლოდან"/>
+                    <Item id="6814" name="მნიშვნელობა: 1 - 9"/>
+                    <Item id="6815" name="ფუნქციის შეყვანისას პარამეტრების შეთავაზება"/>
+                 </Backup>
+            </Preference>
+			<MultiMacro title="მაკროს რამდენჯერმე გაშვება">
+                <Item id="1" name="გაშვება"/>
+                <Item id="2" name="გაუქმება"/>
+                <Item id="8006" name="გასაშვები მაკრო:"/>
+                <Item id="8001" name="გაშვება"/>
+                <Item id="8005" name="ჯერ"/>
+                <Item id="8002" name="გაშვება ფაილის ბოლომდე"/>
+            </MultiMacro>
+            <Window title="Windows">
+                <Item id="1" name="გააქტიურება"/>
+                <Item id="2" name="კარგი"/>
+                <Item id="7002" name="შენახვა"/>
+                <Item id="7003" name="ფანჯ. დახურვა"/>
+                <Item id="7004" name="ჩან. დახარისხება"/>
+            </Window>
+            <ColumnEditor title="სვეტის რედაქტორი">
+                <Item id="2023" name="ჩასასმელი ტექსტი"/>
+                <Item id="2033" name="ჩასასმელი რიცხვი"/>
+                <Item id="2030" name="საწყისი რიცხვი:"/>
+                <Item id="2031" name="გაზრდა რიცხვით:"/>
+                <Item id="2035" name="წინ ნულებით"/>
+                <Item id="2032" name="ფორმატი"/>
+                <Item id="2024" name="ათობითი"/>
+                <Item id="2025" name="რვაობით"/>
+                <Item id="2026" name="თექვსმეტობითი"/>
+                <Item id="2027" name="ორობითი"/>
+                <Item id="1" name="კარგი"/>
+                <Item id="2" name="გაუქმება"/>
+            </ColumnEditor>
+        </Dialog>
+        <MessageBox>
+            <ContextMenuXmlEditWarning title="კონტექსტური მენიუს შეცვლა" message="ფაილის contextMenu.xml შეცვლა საშუალებას მოგცემთ შეცვალოთ Notepad++-ის კონტექსტური მენიუს პუნქტები.\rcontextMenu.xml-ის შეცვლის შემდეგ გადატვირთეთ Notepad++."/>
+            <NppHelpAbsentWarning title="ფაილი არ არსებობს" message="\rარ არსებობს. გადმოწერეთ იგი Notepad++-ის ვებ-გვერდიდან."/>
+            <SaveCurrentModifWarning title="მიმდინარე ცვლილების შენახვა" message="შეინახეთ მიმდინარე ცვლილება.\rშენახული ცვლილების გაუქმება შეუძლებელია.\r\rგსურთ გაგრძელება?"/>
+            <LoseUndoAbilityWarning title="გაუქმების შესაძლებლობის დაკარგვა" message="შეინახეთ მიმდინარე ცვლილება.\rენახული ცვლილების გაუქმება შეუძლებელია.\r\rგსურთ გაგრძელება?"/>
+            <CannotMoveDoc title="Notepad++-ის ახალ ინსტანციაში გადატანა" message="დოკუმენტი შეიცვალა. შეინახეთ და სცადეთ ხელახლა."/>
+            <DocReloadWarning title="განახლება" message="ნამდვილად გსურთ, მიმდინარე ფაილის განახლება და Notepad++-ით მოხდენილი ყველა ცვლილების გაუქმება?"/>
+            <FileLockedWarning title="შენახვა არ მოხერხდა" message="დარწმუნდით, რომ ეს ფაილი არ არის გახსნილი სხვა პროგრამაში"/>
+            <FileAlreadyOpenedInNpp title="" message="ფაილი უკვე გახსნილია Notepad++-შო."/>
+            <DeleteFileFailed title="ფაილის წაშლა" message="ფაილის წაშლა არ მოხერხდა"/>
+
+            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <NbFileToOpenImportantWarning title="გასახსნელი ფაილების რაოდენობა ძალიან ბევრია" message="გაიხსნება $INT_REPLACE$ ფაილი.\rგსურთ მათი გახსნა?"/>
+        </MessageBox>
+        <ProjectManager>
+            <PanelTitle name="პროექტი"/>
+            <WorkspaceRootName name="სამუშაო გარემო"/>
+            <NewProjectName name="პროექტის სახელი"/>
+            <NewFolderName name="საქაღალდე"/>
+            <Menus>
+                <Entries>
+                    <Item id="0" name="სამუშაო გარემო"/>
+                    <Item id="1" name="შეცვლა"/>
+                </Entries>
+                <WorkspaceMenu>
+                    <Item id="3122" name="ახალი სამუშაო გარემო"/>
+                    <Item id="3123" name="სამუშაო გარემოს გახსნა"/>
+                    <Item id="3124" name="სამუშაო გარემოს განახლება"/>
+                    <Item id="3125" name="შენახვა"/>
+                    <Item id="3126" name="შენახვა როგორც..."/>
+                    <Item id="3127" name="ასლის შენახვა როგორც..."/>
+                    <Item id="3121" name="ახალი პროექტის დამატება"/>
+                </WorkspaceMenu>
+                <ProjectMenu>
+                    <Item id="3111" name="სახელის შეცვლა"/>
+                    <Item id="3112" name="საქაღალდის დამატება"/>
+                    <Item id="3113" name="ფაილების დამატება..."/>
+                    <Item id="3117" name="საქაღალდიდან ფაილების დამატება..."/>
+                    <Item id="3114" name="მოცილება"/>
+                    <Item id="3118" name="მაღლა აწევა"/>
+                    <Item id="3119" name="დაბლა ჩაწევა"/>
+                </ProjectMenu>
+                <FolderMenu>
+                    <Item id="3111" name="სახელის შეცვლა"/>
+                    <Item id="3112" name="საქაღალდის დამატება"/>
+                    <Item id="3113" name="ფაილების დამატება..."/>
+                    <Item id="3117" name="საქაღალდიდან ფაილების დამატება..."/>
+                    <Item id="3114" name="მოცილება"/>
+                    <Item id="3118" name="მაღლა აწევა"/>
+                    <Item id="3119" name="დაბლა ჩაწევა"/>
+                </FolderMenu>
+                <FileMenu>
+                    <Item id="3111" name="სახელის შეცვლა"/>
+                    <Item id="3115" name="მოცილება"/>
+                    <Item id="3116" name="ფაილის მისამართის შეცვლა"/>
+                    <Item id="3118" name="მაღლა აწევა"/>
+                    <Item id="3119" name="დაბლა ჩაწევა"/>
+                </FileMenu>
+            </Menus>
+        </ProjectManager>
+    </Native-Langue>
+</NotepadPlus>

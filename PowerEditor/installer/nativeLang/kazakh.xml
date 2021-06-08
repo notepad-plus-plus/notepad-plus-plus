@@ -1,0 +1,542 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<NotepadPlus>
+	<Native-Langue name = "Қазақша" filename="kazakh.xml" >
+		<Menu>
+			<Main>
+				<!-- Main Menu Entries -->
+				<Entries>
+					<Item menuId="file" name = "Файл"/>
+					<Item menuId="edit" name = "Өңдеу"/>
+					<Item menuId="search" name = "Іздеу"/>
+					<Item menuId="view" name = "Көрініс"/>
+					<Item menuId="encoding" name = "Кодтау"/>
+					<Item menuId="language" name = "Бағдарламалық тіл"/>
+					<Item menuId="settings" name = "Теңшеу"/>
+					<Item menuId="macro" name = "Макростар"/>
+					<Item menuId="run" name = "Жегу"/>
+					<Item idName = "Plugins" name = "Қондырмалар"/>
+					<Item idName = "Window" name = "Терезе"/>
+				</Entries>
+
+				<!-- Sub Menu Entries -->
+				<SubEntries>
+					<Item subMenuId="edit-copyToClipboard" name = "Аралық сақтағышқа көшіру"/>
+					<Item subMenuId="edit-indent" name = "Шегініс"/>
+					<Item subMenuId="edit-convertCaseTo" name = "Үлкен-кішілігін түрлендіру"/>
+					<Item subMenuId="edit-lineOperations" name = "Жол амалдары"/>
+					<Item subMenuId="edit-comment" name = "Мәндемелеу/Мәндемелемеу"/>
+					<Item subMenuId="edit-autoCompletion" name = "Өздігінен толтыру"/>
+					<Item subMenuId="search-markAll" name = "Бәрін шендеу"/>
+					<Item subMenuId="search-unmarkAll" name = "Бәрін шендемеу"/>
+					<Item subMenuId="view-showSymbol" name = "Нышандар көрсету"/>
+					<Item subMenuId="view-zoom" name = "Ұлғайту"/>
+					<Item subMenuId="view-moveCloneDocument" name = "Ағымдық құжатты көшіру/жылжыту"/>
+
+					<Item subMenuId="view-collapseLevel" name = "Деңгейді қайыру"/>
+					<Item subMenuId="view-uncollapseLevel" name = "Деңгейді жазу"/>
+				</SubEntries>
+
+				<!-- all menu item -->
+				<Commands>
+					<Item id = "41001" name = "Жаңа"/>
+					<Item id = "41002" name = "Ашу"/>
+					<Item id = "41003" name = "Жабу"/>
+                    <Item id = "41004" name = "Бәрін жабу"/>
+                    <Item id = "41005" name = "Ағымдық құжаттан ТЫС бәрін жабу"/>
+                    <Item id = "41006" name = "Сақтау"/>
+					<Item id = "41007" name = "Бәрін сақтау"/>
+					<Item id = "41008" name = "Басқаша сақтау..."/>
+					<Item id = "41010" name = "Басып шығару..."/>
+					<Item id = "1001"  name = "Жылдам басып шығару!"/>
+					<Item id = "41011" name = "Шығу"/>
+					<Item id = "41012" name = "Сеансты қайта қотару..."/>
+					<Item id = "41013" name = "Сеансты сақтау..."/>
+					<Item id = "41014" name = "Дискіден қайта қотару"/>
+					<Item id = "41015" name = "Көшірмені басқаша сақтау..."/>
+					<Item id = "41016" name = "Дискіден жою"/>
+					<Item id = "41017" name = "Қайта атау..."/>
+
+					<Item id = "42001" name = "Қиып алу"/>
+					<Item id = "42002" name = "Көшіру"/>
+					<Item id = "42003" name = "Болдырмау"/>
+					<Item id = "42004" name = "Қайтару"/>
+					<Item id = "42005" name = "Қою"/>
+					<Item id = "42006" name = "Жою"/>
+					<Item id = "42007" name = "Бәрін бөлектеу"/>
+					<Item id = "42008" name = "Жол шегінісін ұлғайту"/>
+					<Item id = "42009" name = "Жол шегінісін кішірейту"/>
+					<Item id = "42010" name = "Ағымдық жолдың телнұсқасы"/>
+					<Item id = "42012" name = "Жолдарды бөлу"/>
+					<Item id = "42013" name = "Жолдарды біріктіру"/>
+					<Item id = "42014" name = "Ағымдық жолды көтеру"/>
+					<Item id = "42015" name = "Ағымдық жолды түсіру"/>
+					<Item id = "42016" name = "БАС әріптермен"/>
+					<Item id = "42017" name = "кіші әріптермен"/>
+					<Item id = "42018" name = "Макросты жазу"/>
+					<Item id = "42019" name = "Жазуды тоқтату"/>
+					<Item id = "42021" name = "Іске қосу"/>
+					<Item id = "42022" name = "Телімдік мәндемені ажыратып қосу"/>
+					<Item id = "42023" name = "Қатарынан берілетін мәндеме"/>
+					<Item id = "42024" name = "Артқы бос орындарды кесіп алу"/>
+					<Item id = "42025" name = "Ағымда жазылған макросты сақтау"/>
+					<Item id = "42026" name = "Оңнан солға қарай жазу"/>
+					<Item id = "42027" name = "Солдан оңға қарай жазу"/>
+					<Item id = "42028" name = "Тек оқу үшін төлсипатын келтіру"/>
+					<Item id = "42029" name = "Ағымдық файлдың толық жолын аралық сақтағышқа"/>
+					<Item id = "42030" name = "Ағымдық файл атын аралық сақтағышқа"/>
+					<Item id = "42031" name = "Ағымдық қалта жолын аралық сақтағышқа"/>
+					<Item id = "42032" name = "Макросты бірнеше рет жегу..."/>
+					<Item id = "42033" name = "Тек оқу үшін төлсипатын өшіру"/>
+					<Item id = "42035" name = "Телімді мәндемелеу"/>
+					<Item id = "42036" name = "Телімді мәндемелемеу"/>
+
+					<Item id = "43001" name = "Табу..."/>
+					<Item id = "43002" name = "Келесісін табу"/>
+					<Item id = "43003" name = "Ауыстыру..."/>
+					<Item id = "43004" name = "Керек жолға өту..."/>
+					<Item id = "43005" name = "Бетбелгі айырып қосқышы"/>
+					<Item id = "43006" name = "Келесі бетбелгі"/>
+					<Item id = "43007" name = "Алдыңғы бетбелгі"/>
+					<Item id = "43008" name = "Бетбелгілердің бәрін аластау"/>
+					<Item id = "43009" name = "Сәйкес жақшаға өту"/>
+					<Item id = "43010" name = "Алдыңғысын табу"/>
+					<Item id = "43011" name = "Терумен қадамдас іздеу..."/>
+					<Item id = "43013" name = "Файлдардан табу"/>
+					<Item id = "43014" name = "(құбылмалы) Келесісін табу"/>
+					<Item id = "43015" name = "(құбылмалы) Алдыңғысын табу"/>
+					<Item id = "43016" name = "Бәрін шендеу"/>
+					<Item id = "43017" name = "Бәрін шендемеу"/>
+					<Item id = "43018" name = "Бетбелгісі бар жолдарды қиып алу"/>
+					<Item id = "43019" name = "Бетбелгісі бар жолдарды көшіру"/>
+					<Item id = "43020" name = "Бетбелгісі бар жолдарға (ауыстрып) қою"/>
+					<Item id = "43021" name = "Бетбелгісі бар жолдарды жою"/>
+					<Item id = "43022" name = "1-ші мәнерді қолданып"/>
+					<Item id = "43023" name = "1-ші мәнерді аластап"/>
+					<Item id = "43024" name = "2-ші мәнерді қолданып"/>
+					<Item id = "43025" name = "2-ші мәнерді аластап"/>
+					<Item id = "43026" name = "3-ші мәнерді қолданып"/>
+					<Item id = "43027" name = "3-ші мәнерді аластап"/>
+					<Item id = "43028" name = "4-ші мәнерді қолданып"/>
+					<Item id = "43029" name = "4-ші мәнерді аластап"/>
+					<Item id = "43030" name = "5-ші мәнерді қолданып"/>
+					<Item id = "43031" name = "5-ші мәнерді аластап"/>
+					<Item id = "43032" name = "Мәнерлердің бәрін аластап"/>
+					<Item id = "44009" name = "Жапсырмалы"/>
+					<Item id = "44010" name = "Бәрін жинау"/>
+					<Item id = "44011" name = "Пайдаланушы тағайындаған тілқатысу"/>
+					<Item id = "44019" name = "Таңбалардың бәрін көрсету"/>
+					<Item id = "44020" name = "Шегініс бағдарын көрсету"/>
+					<Item id = "44022" name = "Сөздерді тасымалдау"/>
+					<Item id = "44023" name = "Ірілеу	Ctrl-Тінтуір дөңгелекшесі жоғарыға"/>
+					<Item id = "44024" name = "Кішілеу	Ctrl-Тінтуір дөңгелекшесі төменге"/>
+					<Item id = "44025" name = "Бос орын және қадамды шегініс таңбаларын көрсету"/>
+					<Item id = "44026" name = "Жол соңы таңбасын көрсету"/>
+					<Item id = "44029" name = "Бәрін жаю"/>
+					<Item id = "44030" name = "Ағымдық деңгейді қайыру"/>
+					<Item id = "44031" name = "Ағымдық деңгейді жазу"/>
+					<Item id = "44032" name = "Толық бейнебетке"/>
+					<Item id = "44033" name = "Ұлғайту деңгейін әдепкісіне келтіру"/>
+					<Item id = "44034" name = "Әрқашан басқа терезелер үстінде"/>
+					<Item id = "44035" name = "Тігінен айналдыруды қадамдастыру"/>
+					<Item id = "44036" name = "Көлденең айналдыруды қадамдастыру"/>
+					<Item id = "44041" name = "Тасымалдау нышанын көрсету"/>
+					<Item id = "44072" name = "Кезелім басқа қойындыға"/>
+					<Item id = "45001" name = "Windows пішіміне түрлендіру"/>
+					<Item id = "45002" name = "UNIX пішіміне түрлендіру"/>
+					<Item id = "45003" name = "MAC пішіміне түрлендіру"/>
+					<Item id = "45004" name = "ANSI кодтауы"/>
+					<Item id = "45005" name = "UTF-8 кодтауы"/>
+					<Item id = "45006" name = "UCS-2 Big Endian кодтауы"/>
+					<Item id = "45007" name = "UCS-2 Little Endian кодтауы"/>
+					<Item id = "45008" name = "UTF-8 without BOM кодтауы"/>
+			<Item id = "45009" name = "ANSI кодтауына түрлендіру"/>
+			<Item id = "45010" name = "UTF-8 without BOM кодтауына түрлендіру"/>
+			<Item id = "45011" name = "UTF-8 кодтауына түрлендіру"/>
+			<Item id = "45012" name = "UCS-2 Big Endian кодтауына түрлендіру"/>
+			<Item id = "45013" name = "UCS-2 Little Endian кодтауына түрлендіру"/>
+					<Item id = "10001" name = "Басқа қойындыға жылжыту"/>
+					<Item id = "10002" name = "Басқа қойындыға көшіру"/>
+					<Item id = "10003" name = "Жаңа терезеге жылжыту"/>
+					<Item id = "10004" name = "Жаңа терезеде ашу"/>
+					<Item id = "46001" name = "Мәнер ішқұрылымы..."/>
+					<Item id = "46015" name = "MS-DOS мәнері"/>
+					<Item id = "46016" name = "Кәдімгі мәтін"/>
+					<Item id = "46017" name = "RC Resource файлы"/>
+					<Item id = "46019" name = "MS INI файлы"/>
+					<Item id = "46180" name = "Пайдаланушы тағайындаған"/>
+					<Item id = "47000" name = "Notepad++ туралы..."/>
+					<Item id = "47001" name = "Өзіндік бет"/>
+					<Item id = "47002" name = "Жоба беті"/>
+					<Item id = "47003" name = "Желідегі анықтама"/>
+					<Item id = "47004" name = "Алқа"/>
+					<Item id = "47005" name = "Қондырмаларды көбірек қотару"/>
+					<Item id = "47006" name = "Жаңартуларды қотару"/>
+					<Item id = "47008" name = "Анықтама"/>
+					<Item id = "48009" name = "Перне тіркесімдері тізімі..."/>
+					<Item id = "48011" name = "Теңшеу..."/>
+					<Item id = "49000" name = "Жегу..."/>
+					<Item id = "50000" name = "Жетелерді толтыру"/>
+					<Item id = "50001" name = "Сөздерді толтыру"/>
+					<Item id = "50002" name = "Жете параметрлері туралы кеңес"/>
+					<Item id = "42034" name = "Бағандар өңдеу..."/>
+					<Item id = "44042" name = "Жолдарды жасыру"/>
+					<Item id = "42040" name = "Жуырдағы файлдардың бәрін ашу"/>
+					<Item id = "42041" name = "Жуырдағы файлдар тізімін тазалау"/>
+				</Commands>
+			</Main>
+			<Splitter>
+			</Splitter>
+			<TabBar>
+				<Item CMID = "0" name = "Бұны жабу"/>
+				<Item CMID = "1" name = "Бұндан тыс бәрін жабу"/>
+				<Item CMID = "2" name = "Бұны сақтау"/>
+				<Item CMID = "3" name = "Бұны басқаша сақта..."/>
+				<Item CMID = "4" name = "Бұны басып шығару"/>
+				<Item CMID = "5" name = "Басқа қойындыға өту"/>
+				<Item CMID = "6" name = "Басқа қойындыға көшіру"/>
+				<Item CMID = "7" name = "Файлдың толық жолын аралық сақтағышқа"/>
+				<Item CMID = "8" name = "Файл атын аралық сақтағышқа"/>
+				<Item CMID = "9" name = "Ағымдық қалта жолын аралық сақтағышқа"/>
+				<Item CMID = "10" name = "Бұны қайта атау"/>
+				<Item CMID = "11" name = "Бұны жою"/>
+				<Item CMID = "12" name = "Тек оқу үшін"/>
+				<Item CMID = "13" name = "Тек оқу үшін төлсипатын аластау"/>
+				<Item CMID = "14" name = "Жаңа терезеге өту"/>
+				<Item CMID = "15" name = "Жаңа терезеде ашу"/>
+			</TabBar>
+		</Menu>
+
+		<Dialog>
+			<Find title = "" titleFind = "Табу" titleReplace = "Ауыстыру" titleFindInFiles = "Файлдардан табу">
+				<Item id = "1" name = "Келесісін табу"/>
+				<Item id = "2" name = "Жабу"/>
+				<Item id = "1620" name = "Бұны іздеу:"/>
+				<Item id = "1603" name = "Тек тұтас сөзді ғана табу"/>
+				<Item id = "1604" name = "Үлкен-кішілігін ескеріп"/>
+				<Item id = "1605" name = "Қайталанатын өрнек"/>
+				<Item id = "1606" name = "Сөздерді тасымалдау"/>
+				<Item id = "1612" name = "Жоғарылату"/>
+				<Item id = "1613" name = "Төмендету"/>
+				<Item id = "1614" name = "Санақ"/>
+				<Item id = "1615" name = "Бәрін табу"/>
+				<Item id = "1616" name = "Жолды шендеу"/>
+				<Item id = "1617" name = "Нәтижелерді мәнерлеу"/>
+				<Item id = "1618" name = "Әрбір іздеу үшін өшіру"/>
+				<Item id = "1621" name = "Бағыт"/>
+				<Item id = "1611" name = "Ауыстыру:"/>
+				<Item id = "1608" name = "Ауыстыру"/>
+				<Item id = "1609" name = "Бәрін ауыстыру"/>
+				<Item id = "1623" name = "Мөлдірлілік қосу"/>
+				<Item id = "1687" name = "Енжарға"/>
+				<Item id = "1688" name = "Әрқашанда"/>
+				<Item id = "1632" name = "Бөлектелгенде"/>
+				<Item id = "1633" name = "Аластау"/>
+				<Item id = "1635" name = "Барлық ашық құжаттарда бәрін ауыстыру"/>
+				<Item id = "1636" name = "Барлық ашық құжаттарда бәрін табу"/>
+				<Item id = "1637" name = "Файлдардан табу"/>
+				<Item id = "1640" name = "Тілқатысуды ауыстыру"/>
+				<Item id = "1654" name = "Сүзгілер:"/>
+				<Item id = "1655" name = "Тізімдеме:"/>
+			 	<Item id = "1656" name = "Бұлардың бәрін табу"/>
+				<Item id = "1658" name = "Барлық ішкі қалталарда"/>
+				<Item id = "1659" name = "Жасырын қалталарда"/>
+				<Item id = "1624" name = "Іздеу әдісі"/>
+				<Item id = "1625" name = "Қалыпты"/>
+				<Item id = "1626" name = "Кеңейтілген (\n, \r, \t, \0, \x...)"/>
+				<Item id = "1660" name = "Файлдарда ауыстыру"/>
+				<Item id = "1641" name = "Ағымдық құжатта бәрін табу"/>
+				<Item id = "1686" name = "Мөлдірлілік қосу"/>
+			</Find>
+			<GoToLine title = "Керек жолға өту">
+				<Item id = "2007" name = "Жол"/>
+				<Item id = "2008" name = "Ығысуы"/>
+				<Item id = "1" name = "Өту!"/>
+				<Item id = "2" name = "Ешқайда бармайымыз"/>
+				<Item id = "2004" name = "Бұнда тұрмыз:"/>
+				<Item id = "2005" name = "Бұнда барамыз:"/>
+				<Item id = "2006" name = "Бұдан әрі жол жоқ:"/>
+			</GoToLine>
+
+			<Run title = "Жегу...">
+				<Item id = "1903" name = "Жегілетін бағдарлама атауын бұнда теріңіз"/>
+				<Item id = "1" name = "Жегу!"/>
+				<Item id = "2" name = "Болдырмау"/>
+				<Item id = "1904" name = "Сақтау..."/>
+			</Run>
+
+			<StyleConfig title = "Мәнер ішқұрылымы">
+				<Item id = "1" name = "Бұны сынай көрейік!"/>
+				<Item id = "2" name = "Болдырмау"/>
+				<Item id = "2301" name = "Сақтап жабу"/>
+				<Item id = "2303" name = "Мөлдірлілік қосу"/>
+				<Item id = "2306" name = "Тақырыпты таңдау: "/>
+				<SubDialog>
+					<Item id = "2204" name = "Қалың"/>
+					<Item id = "2205" name = "Көлбеу"/>
+					<Item id = "2206" name = "Үстілік түсі"/>
+					<Item id = "2207" name = "Өң түсі"/>
+					<Item id = "2208" name = "Қаріп:"/>
+					<Item id = "2209" name = "Өлшемі:"/>
+					<!--
+                    <Item id = "2210" name = "Attention : The definition of this style will be the default definition for all non defined styles"/>\
+					-->
+					<Item id = "2211" name = "Мәнер сипаттамасы:"/>
+					<Item id = "2212" name = "Түс мәнері"/>
+					<Item id = "2213" name = "Қаріп мәнері"/>
+					<Item id = "2214" name = "Әдепкі кеңейтім:"/>
+					<Item id = "2216" name = "Пайдаланушы кеңейтімі:"/>
+					<Item id = "2218" name = "Асты сызылған"/>
+					<Item id = "2219" name = "Әдепкі кілт сөздері"/>
+					<Item id = "2221" name = "Пайдаланушы тағайындаған кілт сөздер"/>
+					<Item id = "2225" name = "Бағдарлау тілі:"/>
+					<Item id = "2226" name = "Жалпы үстілік түс"/>
+					<Item id = "2227" name = "Жалпы өң түсі"/>
+					<Item id = "2228" name = "Жалпы қаріп"/>
+					<Item id = "2229" name = "Қаріп өлшемі жалпымен"/>
+					<Item id = "2230" name = "Барлық қаріп қалың мәнерімен"/>
+					<Item id = "2231" name = "Барлық қаріп көлбеу мәнерімен"/>
+					<Item id = "2232" name = "Барлық қаріп асты сызылған"/>
+				</SubDialog>
+
+			</StyleConfig>
+
+			<UserDefine title = "Пайдаланушы тағайындаған">
+				<Item id = "20002" name = "Қайта атау"/>
+				<Item id = "20003" name = "Жаңадан бастау..."/>
+				<Item id = "20004" name = "Кетіру"/>
+				<Item id = "20005" name = "Басқаша сақтау..."/>
+				<Item id = "20007" name = "Бағдарлау тілі: "/>
+				<Item id = "20009" name = "Кеңейтім:"/>
+				<Item id = "20012" name = "Үлкен-кішілігін елемеу"/>
+				<Item id = "20011" name = "Мөлдірлілік қосу"/>
+				<Item id = "0" name = "Түс мәнері"/>
+				<Item id = "1" name = "Үстілік түс"/>
+				<Item id = "2" name = "Өң түсі"/>
+				<Item id = "3" name = "Қаріп мәнері"/>
+				<Item id = "4" name = "Қаріп:"/>
+				<Item id = "5" name = "Өлшемі:"/>
+				<Item id = "6" name = "Қалың"/>
+				<Item id = "7" name = "Көлбеу"/>
+				<Item id = "8" name = "Асты сызылған"/>
+				<Folder title = "Қалталар / Әдепкілер">
+					<Item id = "21101" name = "Әдепкі мәнерін теңшеу"/>
+					<Item id = "21201" name = "Қалта ашық кілт сөздерін теңшеу"/>
+					<Item id = "21301" name = "Қалта жабық кілт сөздерін теңшеу"/>
+				</Folder>
+				<Keywords title = "Кілт сөз тізімі">
+					<Item id = "22101" name = "1-ші топ"/>
+					<Item id = "22201" name = "2-ші топ"/>
+					<Item id = "22301" name = "3-ші топ"/>
+					<Item id = "22401" name = "4-ші топ"/>
+					<Item id = "22113" name = "Префикс режімі"/>
+					<Item id = "22213" name = "Префикс режімі"/>
+					<Item id = "22313" name = "Префикс режімі"/>
+					<Item id = "22413" name = "Префикс режімі"/>
+				</Keywords>
+				<Comment title = "Мәндемелер және нөмірлеу">
+					<Item id = "23301" name = "Жол мәндемесі"/>
+					<Item id = "23101" name = "Телім мәндемесі"/>
+					<Item id = "23113" name = "Ашылу мәндемесі:"/>
+					<Item id = "23115" name = "Жабылу мәндемесі:"/>
+					<Item id = "23116" name = "Кілт сөз нышан ретінде"/>
+					<Item id = "23117" name = "Кілт сөздер нышандар ретінде"/>
+					<Item id = "23201" name = "Нөмірлеу"/>
+				</Comment>
+				<Operator title = "Амалдағыштар">
+					<Item id = "24107" name = "Амалдағыш"/>
+					<Item id = "24103" name = "Жетімді нышандар"/>
+					<Item id = "24101" name = "Белсенді амалдағыштар"/>
+					<Item id = "24201" name = "Бөлгі № 1"/>
+					<Item id = "24211" name = "Шет ашылуы:"/>
+					<Item id = "24214" name = "Шет жабылуы:"/>
+					<Item id = "24301" name = "Бөлгі № 2"/>
+					<Item id = "24311" name = "Шет ашылуы:"/>
+					<Item id = "24314" name = "Шет жабылуы:"/>
+				</Operator>
+			</UserDefine>
+			<Preference title = "Теңшеу">
+				<Item id = "6001" name = "Жабу"/>
+				<Global title = "Жалпы">
+					<Item id = "6101" name = "Құралдар жолағы"/>
+					<Item id = "6102" name = "Жасыру"/>
+					<Item id = "6103" name = "Ұсақ белгішелер"/>
+					<Item id = "6104" name = "Ірі белгішелер"/>
+					<Item id = "6105" name = "Әдепкі белгішелер"/>
+
+					<Item id = "6106" name = "Қойынды жолағы"/>
+					<Item id = "6107" name = "Кішірейту"/>
+					<Item id = "6108" name = "Бұғаттау (апарып тастатқызбау)"/>
+					<Item id = "6109" name = "Белсенді емес қойындыларды суреттеу"/>
+					<Item id = "6110" name = "Үстінде қызғылт сары жолақ суреттеу"/>
+					<Item id = "6111" name = "Күй жолағы"/>
+
+					<Item id = "6112" name = "Жабу түймешігі әрбір қойындыда"/>
+					<Item id = "6113" name = "Құжат жабу үшін қос нұқу"/>
+					<Item id = "6118" name = "Жасыру"/>
+					<Item id = "6119" name = "Бірнеше жолдық"/>
+					<Item id = "6120" name = "Тігінен"/>
+
+					<Item id = "6121" name = "Мәзір жолағы"/>
+					<Item id = "6122" name = "Жасыру (Alt не F10 пернесін қолданыңыз)"/>
+					<Item id = "6123" name = "Жерсіндіру тілі"/>
+				</Global>
+				<Scintillas title = "Өңдеу құраластары">
+					<Item id = "6216" name = "Жүгіргі теңшелімдері"/>
+					<Item id = "6217" name = "Еңі:"/>
+					<Item id = "6219" name = "Жыпылықтау жиілігі:"/>
+					<Item id = "6221" name = "Е."/>
+					<Item id = "6222" name = "Ж."/>
+
+					<Item id = "6301" name = "Қадамды шегініс теңшелімі"/>
+					<Item id = "6302" name = "Бос орынбен ауыстыру"/>
+					<Item id = "6303" name = "Қадамды шегініс өлшемі: "/>
+
+					<Item id = "6201" name = "Қалта жақтауларының мәнері"/>
+					<Item id = "6202" name = "Қарапайым"/>
+					<Item id = "6203" name = "Жебешелер"/>
+					<Item id = "6204" name = "Шеңберлер"/>
+					<Item id = "6205" name = "Шаршылар"/>
+
+					<Item id = "6206" name = "Жол нөмірі аумағын көрсету"/>
+					<Item id = "6207" name = "Бетбелгі аумағын көрсету"/>
+					<Item id = "6208" name = "Тік шекараны көрсету"/>
+					<Item id = "6209" name = "Баған саны: "/>
+
+					<Item id = "6211" name = "Тік шекара теңшелімі"/>
+					<Item id = "6212" name = "Жол режімі"/>
+					<Item id = "6213" name = "Өң режімі"/>
+					<Item id = "6214" name = "Ағымдық жолды жарықтпату"/>
+				</Scintillas>
+				<NewDoc title = "Жаңа құжат/Әдепкі қалта">
+					<Item id = "6419" name = "Жаңа құжат"/>
+					<Item id = "6401" name = "Пішім"/>
+					<Item id = "6402" name = "Windows"/>
+					<Item id = "6403" name = "Unix"/>
+					<Item id = "6404" name = "Mac"/>
+					<Item id = "6405" name = "Кодтау"/>
+					<Item id = "6406" name = "ANSI"/>
+					<Item id = "6407" name = "UTF-8 without BOM"/>
+					<Item id = "6408" name = "UTF-8"/>
+					<Item id = "6409" name = "UCS-2 Big endian"/>
+					<Item id = "6410" name = "UCS-2 small endian"/>
+					<Item id = "6411" name = "Әдепкі бағдарлау тілі:"/>
+					<Item id = "6413" name = "Файлды ашу/сақтау қалтасы"/>
+					<Item id = "6414" name = "Ағымдық құжатқа еру"/>
+					<Item id = "6415" name = "Жуырдағы қалтаны ұмытпау"/>
+					<Item id = "6420" name = "ANSI файлын ашқанда"/>
+				</NewDoc>
+				<FileAssoc title = "Файл салғастырымы">
+					<Item id = "4009" name = "Қолдаудағы түрлер:"/>
+					<Item id = "4010" name = "Тіркелген түрлер:"/>
+				</FileAssoc>
+				<LangMenu title = "Бағдарлау тілі">
+					<Item id = "6505" name = "Жетімді бірліктер"/>
+					<Item id = "6506" name = "Өшірілген бірліктер"/>
+					<Item id = "6507" name = "Бағдарлау тілі мәзірін ықшамдау"/>
+				</LangMenu>
+				<Print1 title = "Басып шығару: түстер/жақтаулар">
+					<Item id = "6601" name = "Жол нөмірлерін басып шығару"/>
+					<Item id = "6602" name = "Түс параметрі"/>
+					<Item id = "6603" name = "Тура басып шығару"/>
+					<Item id = "6604" name = "Керілеу"/>
+					<Item id = "6605" name = "Ақ үстінде қара"/>
+					<Item id = "6606" name = "Өң түсісіз"/>
+					<Item id = "6607" name = "Жақтау аралары (мм)"/>
+					<Item id = "6612" name = "Солға"/>
+					<Item id = "6613" name = "Басына"/>
+					<Item id = "6614" name = "Оңға"/>
+					<Item id = "6615" name = "Соңына"/>
+				</Print1>
+				<Print2 title = "Басып шығару: деректемелер">
+					<Item id = "6706" name = "Қалың"/>
+					<Item id = "6707" name = "Көлбеу"/>
+					<Item id = "6708" name = "Үстіңгі деректеме"/>
+					<Item id = "6709" name = "Сол бөлігі"/>
+					<Item id = "6710" name = "Ортаңғы бөлігі"/>
+					<Item id = "6711" name = "Оң бөлігі"/>
+					<Item id = "6717" name = "Қалың"/>
+					<Item id = "6718" name = "Көлбеу"/>
+					<Item id = "6719" name = "Төменгі деректеме"/>
+					<Item id = "6720" name = "Сол бөлігі"/>
+					<Item id = "6721" name = "Ортаңғы бөлігі"/>
+					<Item id = "6722" name = "Оң бөлігі"/>
+					<Item id = "6723" name = "Үстеу"/>
+					<Item id = "6725" name = "Айнымалы:"/>
+				</Print2>
+				<MISC title = "Тағы">
+					<Item id = "6304" name = "Файл тарихы теңшелімі"/>
+					<Item id = "6305" name = "Іске қосқанда тексермеу"/>
+					<Item id = "6306" name = "Файл тарихының төбелігі:"/>
+					<Item id = "6307" name = "Қосу"/>
+					<Item id = "6308" name = "Тапсырмалар тақтасына қайыру"/>
+					<Item id = "6309" name = "Келесі іске қосу үшін ағымдағы сеансты ұмытпау"/>
+					<Item id = "6312" name = "Файл күйін өздігінен байқалымы"/>
+					<Item id = "6313" name = "Сабырлы жаңарту"/>
+					<Item id = "6318" name = "Нұқымды сілтеме теңшелімі"/>
+					<Item id = "6325" name = "Кейін ақырғы жолға дейін айналдыру"/>
+					<Item id = "6319" name = "Қосу"/>
+					<Item id = "6320" name = "Асты сызылғандарды шиірлемеу"/>
+					<Item id = "6322" name = "Сеанс файлының түрі:"/>
+					<Item id = "6323" name = "Өздігінен жаңартуды қосу"/>
+					<Item id = "6324" name = "Құжаттар айырып-қосқышы (Ctrl+TAB)"/>
+					<Item id = "6326" name = "Ақылды бөлектеуді қосу"/>
+					<Item id="6329" name="Сәйкес шендерді жарықтату"/>
+					<Item id="6327" name="Қосу"/>
+					<Item id="6328" name="Шен төлсипаттарын жарықтату"/>
+					<Item id="6330" name="Мәндеме/php/asp аймағын жарықтату"/>
+					<Item id = "6331" name = "Терезе тақырыбында тек файл атын көрсету"/>
+					<Item id = "6114" name = "Қосу"/>
+					<Item id = "6115" name = "Өздігінен шегіндіру"/>
+					<Item id = "6117" name = "Жуырдағы тізім тәлімін қосу"/>
+
+				</MISC>
+				<Backup title = "Сақтық көшірмелеу/Өздігінен бітіру">
+					<Item id = "6801" name = "Сақтық көшірмелеу"/>
+					<Item id = "6315" name = "Ешқандай"/>
+					<Item id = "6316" name = "Қарапайым сақтық көшірмелеу"/>
+					<Item id = "6317" name = "Егжей-тегжейлі сақтық көшірмелеу"/>
+					<Item id = "6804" name = "Сақтық көшірмелеудің пайдаланушы қалтасы"/>
+					<Item id = "6803" name = "Тізімдеме:"/>
+					<Item id = "6807" name = "Өздігінен толтыру"/>
+					<Item id = "6808" name = "Өздігінен толтыруді әр терген кезде қосу"/>
+					<Item id = "6809" name = "Жетені толтыру"/>
+					<Item id = "6810" name = "Сөзді толтыру"/>
+					<Item id = "6811" name = "Қосылуы"/>
+					<Item id = "6813" name = " т. тергенде"/>
+					<Item id = "6814" name = "Шектік мәні: 1 - 9"/>
+					<Item id = "6815" name = "Тергенде жете параметрлері туралы кеңес"/>
+				</Backup>
+			</Preference>
+			<MultiMacro title = "Макросты бірнеше рет жегу">
+				<Item id = "1" name = "Жегу"/>
+				<Item id = "2" name = "Болдырмау"/>
+				<Item id = "8006" name = "Жегілетін макрос:"/>
+				<Item id = "8001" name = "Жегу"/>
+				<Item id = "8005" name = "рет"/>
+				<Item id = "8002" name = "Файл соңына дейін жеегу"/>
+			</MultiMacro>
+			<Window title = "Терезелер">
+				<Item id = "1" name = "Белсендіру"/>
+				<Item id = "2" name = "Жарайды"/>
+				<Item id = "7002" name = "Сақтау"/>
+				<Item id = "7003" name = "Жабу"/>
+				<Item id = "7004" name = "Сұрыптау"/>
+			</Window>
+			<ColumnEditor title = "Бағандар өңдеуіші">
+				<Item id = "2023" name = "Кірістірілетін мәтін"/>
+				<Item id = "2033" name = "Кірістірілетін нөмір"/>
+				<Item id = "2030" name = "Бастауыш нөмір:"/>
+				<Item id = "2031" name = "Үлкейту қадамы:"/>
+				<Item id = "2035" name = "Алдыңғы нөлдер"/>
+				<Item id = "2032" name = "Пішім"/>
+				<Item id = "2024" name = "Dec"/>
+				<Item id = "2025" name = "Oct"/>
+				<Item id = "2026" name = "Hex"/>
+				<Item id = "2027" name = "Bin"/>
+				<Item id = "1" name = "Жарайды"/>
+				<Item id = "2" name = "Болдырмау"/>
+			</ColumnEditor>
+		</Dialog>
+	</Native-Langue>
+</NotepadPlus>
+<!-- Kazakh translation by Askar M. v. 1.01 -->

@@ -1,0 +1,697 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	Sardininian translation for Notepad++ 5.9.6.1
+	Last modified Sat, December 24th, 2011 01:10 GMT by Marco Solinas.
+	Please e-mail errors, suggestions etc. to solinas.marco(at)libero.it.
+	For updates, see https://sourceforge.net/projects/notepad-plus/forums/forum/558104/topic/1853765
+
+	Custa tradutzioni est fata sighendu is arrégulas de sa "Limba Sarda Comuna". Custu scioberu
+	ndi benit de sa necessidadi de dhi donai a sa comunidadi informàtica sarda un'aina chi potzat
+	essi imperada de totus, in Sardu, sentza de fai distintzioni peruna tra variantis. Ammarolla, ca
+	dèu etotu soi unu "cabesutesu", sa basi de su Sardu chi dhui at, in custa faina, a suta de sa LSC
+	est cussu chi apu sempri intèndiu allegai dèu: s'Olliastrinu de costera. In dónnia manera, ca
+	dèu soi unu de cussus chi funt cumbintus chi totugantu su Sardu apartenit a totus is Sardus, timoria
+	de is préstitus internus no ndi tèngiu: tandu, candu apu agatau una calisisiat paràulas de una
+	calisiollat de is atras variantis chi fut sa mellus po sa craresa de unu cuncetu informàticu,
+	dh'apu scioberada sentza de nci pensai mancu pagu pagu.
+
+	Ia a bolli torrai gràtzias a totus is amigus chi m'ant donau una manu de agiudu in custa
+	faina de tradutzioni. Mescamenti, unu gràtzias mannu meda tocat a si dhu torrai a su
+	prof. Roberto Bolognesi e a su dot. Cristiano Becciu, po sa passiéntzia chi ant tentu in
+	su processu de curretzioni de custu file.
+
+	Gràtzias de coru!
+	Marco
+-->
+<NotepadPlus>
+	<Native-Langue name = "Sardu" filename="sardinian.xml" >
+		<Menu>
+			<Main>
+                <!-- Main Menu Entries -->
+				<Entries>
+					<Item menuId="file" name = "&amp;File"/>
+					<Item menuId="edit" name = "&amp;Muda"/>
+					<Item menuId="search" name = "C&amp;hirca"/>
+					<Item menuId="view" name = "&amp;Faghe a bìdere"/>
+					<Item menuId="encoding" name = "For&amp;madu"/>
+					<Item menuId="language" name = "&amp;Limbàgiu"/>
+					<Item menuId="settings" name = "C&amp;onfiguratzione"/>
+					<Item menuId="macro" name = "Macro"/>
+					<Item menuId="run" name = "Esecuta"/>
+					<Item idName = "Plugins" name = "Plugins"/>
+					<Item idName = "Window" name = "Ventana"/>
+				</Entries>
+                <!-- Sub Menu Entries -->
+                <SubEntries>
+                    <Item subMenuId="file-recentFiles" name = "Files reghentes"/>
+					<Item subMenuId="edit-copyToClipboard" name = "Còpia in is notas"/>
+					<Item subMenuId="edit-indent" name = "Indenta"/>
+					<Item subMenuId="edit-convertCaseTo" name = "Cunverte caràteres"/>
+					<Item subMenuId="edit-lineOperations" name = "Operatziones in is lìnias"/>
+					<Item subMenuId="edit-comment" name = "Pone a cummentu / sena cummentu"/>
+					<Item subMenuId="edit-autoCompletion" name = "Auto-cumprimentu"/>
+					<Item subMenuId="edit-eolConversion" name = "Cunverte caràteres de fine lìnia"/>
+					<Item subMenuId="edit-blankOperations" name = "Operatziones in is ispàtzios"/>
+					<Item subMenuId="edit-pasteSpecial" name = "Apìtziga ispetziale"/>
+					<Item subMenuId="search-markAll" name = "Sinna totu"/>
+					<Item subMenuId="search-unmarkAll" name = "Boga·nche marcadura"/>
+					<Item subMenuId="search-jumpUp" name = "Brinca a susu"/>
+					<Item subMenuId="search-jumpDown" name = "Brinca a giosso"/>
+                    <Item subMenuId="search-bookmark" name = "Sinnalibros"/>
+					<Item subMenuId="view-showSymbol" name = "Ammustra sìmbolos"/>
+					<Item subMenuId="view-zoom" name = "Zoom"/>
+					<Item subMenuId="view-moveCloneDocument" name = "Move/Clona documentu currente"/>
+					<Item subMenuId="view-collapseLevel" name = "Cuntrae livellu:"/>
+					<Item subMenuId="view-uncollapseLevel" name = "Islarga livellu:"/>
+					<Item subMenuId="view-project" name = "Progetos"/>
+					<Item subMenuId="encoding-characterSets" name = "Set de caràteres"/>
+                    <Item subMenuId="encoding-arabic" name="Àrabu"/>
+                    <Item subMenuId="encoding-baltic" name="Bàlticu"/>
+                    <Item subMenuId="encoding-celtic" name="Tzèlticu"/>
+                    <Item subMenuId="encoding-cyrillic" name="Tzirìllicu"/>
+                    <Item subMenuId="encoding-centralEuropean" name="Europa Tzentrale"/>
+                    <Item subMenuId="encoding-chinese" name="Tzinesu"/>
+                    <Item subMenuId="encoding-easternEuropean" name="Europa orientale"/>
+                    <Item subMenuId="encoding-greek" name="Grecu"/>
+                    <Item subMenuId="encoding-hebrew" name="Ebràicu"/>
+                    <Item subMenuId="encoding-japanese" name="Giaponesu"/>
+                    <Item subMenuId="encoding-korean" name="Coreanu"/>
+                    <Item subMenuId="encoding-northEuropean" name="Europa de su nord"/>
+                    <Item subMenuId="encoding-thai" name="Tailandesu"/>
+                    <Item subMenuId="encoding-turkish" name="Turcu"/>
+                    <Item subMenuId="encoding-westernEuropean" name="Europa Otzidentale"/>
+                    <Item subMenuId="encoding-vietnamese" name="Vietnamita"/>
+					<Item subMenuId="settings-import" name="Importa" />
+                </SubEntries>
+                <!-- all menu item -->
+                <Commands>
+                    <Item id = "41001" name = "&amp;Nou"/>
+                    <Item id = "41002" name = "&amp;Aberi..."/>
+                    <Item id = "41003" name = "Serra"/>
+                    <Item id = "41004" name = "S&amp;erra totus"/>
+                    <Item id = "41005" name = "Serra totus francu su documentu currente"/>
+                    <Item id = "41006" name = "&amp;Sarba"/>
+                    <Item id = "41007" name = "Sarba t&amp;otu"/>
+                    <Item id = "41008" name = "S&amp;arba comente..."/>
+                    <Item id = "41010" name = "Imprenta..."/>
+                    <Item id = "1001"  name = "Imprenta luego!"/>
+                    <Item id = "41011" name = "&amp;Essi"/>
+                    <Item id = "41012" name = "Aberi sessione..."/>
+                    <Item id = "41013" name = "Sarba sessione..."/>
+                    <Item id = "41014" name = "Càrriga torra dae su discu"/>
+					<Item id = "41015" name = "Sarba una còpia comente..."/>
+					<Item id = "41016" name = "Burra dae su discu"/>
+                    <Item id = "41017" name = "Torra a numenare..."/>
+                    <Item id = "42001" name = "Se&amp;ga"/>
+                    <Item id = "42002" name = "&amp;Còpia"/>
+                    <Item id = "42003" name = "Ann&amp;udda"/>
+                    <Item id = "42004" name = "&amp;Torra·nche"/>
+                    <Item id = "42005" name = "&amp;Apìtziga"/>
+                    <Item id = "42006" name = "&amp;Burra"/>
+                    <Item id = "42007" name = "Seletziona t&amp;otu"/>
+                    <Item id = "42008" name = "Pone·nche tabulatzione (indent)"/>
+                    <Item id = "42009" name = "Boga·nche tabulatzione (outdent)"/>
+                    <Item id = "42010" name = "Addòpia custa riga"/>
+                    <Item id = "42012" name = "Partzi rigas"/>
+                    <Item id = "42013" name = "Auni rigas"/>
+                    <Item id = "42014" name = "Move a susu custa riga"/>
+                    <Item id = "42015" name = "Move a giosso custa riga"/>
+                    <Item id = "42016" name = "Totu in majùscolu"/>
+                    <Item id = "42017" name = "Totu in minùscolu"/>
+                    <Item id = "42018" name = "&amp;Cumentza registratzione"/>
+                    <Item id = "42019" name = "&amp;Firma registratzione"/>
+                    <Item id = "42021" name = "&amp;Esecuta sa macro"/>
+                    <Item id = "42022" name = "Pone sa seletzione a/sena cummentu"/>
+                    <Item id = "42023" name = "Pone sa seletzione a cummentu"/>
+                    <Item id = "42024" name = "Burra ispàtzios de badas"/>
+                    <Item id = "42025" name = "Sarba sa macro registrada immoe"/>
+                    <Item id = "42026" name = "Diretzione de su testu RTL"/>
+                    <Item id = "42027" name = "Diretzione de su testu LTR"/>
+                    <Item id = "42028" name = "File in letura isceti"/>
+                    <Item id = "42029" name = "Àndala file currente"/>
+                    <Item id = "42030" name = "Nùmene file currente"/>
+                    <Item id = "42031" name = "Cartella currente"/>
+                    <Item id = "42032" name = "Esecuta una macro medas bortas..."/>
+                    <Item id = "42033" name = "Lìmpia su flag de letura isceti"/>
+					<Item id = "42034" name = "Editor a culunnas..."/>
+					<Item id = "42035" name = "Pone a cummentu su blocu (onni riga)"/>
+					<Item id = "42036" name = "Pone sena cummentu su blocu (onni riga)"/>
+					<Item id = "42037" name = "Modalidade culunna..."/>
+					<Item id = "42038" name = "Apìtziga càbidu HTML"/>
+					<Item id = "42039" name = "Apìtziga càbidu RTF"/>
+					<Item id = "42040" name = "Aberi totu is files reghentes"/>
+					<Item id = "42041" name = "Lìmpia lista files reghentes"/>
+                    <Item id = "42042" name = "Burra ispàtzios in cummentzu"/>
+                    <Item id = "42043" name = "Burra ispàtzios in cummentzu e acabbu"/>
+                    <Item id = "42044" name = "Cunverte EOL in ispàtziu"/>
+                    <Item id = "42045" name = "Boga·nche ispàtzios e EOL de badas"/>
+                    <Item id = "42046" name = "Cunverte TAB in ispàtzios"/>
+                    <Item id = "42047" name = "Cunverte ispàtzios in TAB"/>
+                    <Item id = "42048" name = "Còpia càbidu binàriu"/>
+                    <Item id = "42049" name = "Sega càbidu binàriu"/>
+                    <Item id = "42050" name = "Apìtziga càbidu binàriu"/>
+                    <Item id = "42051" name = "Pannellu caràteres"/>
+                    <Item id = "42052" name = "Istòria notas"/>
+                    <Item id = "43001" name = "&amp;Agata..."/>
+                    <Item id = "43002" name = "Agata &amp;su chi sighit"/>
+                    <Item id = "43003" name = "Muda cun..."/>
+                    <Item id = "43004" name = "Bae a sa riga..."/>
+                    <Item id = "43005" name = "Sinnalibru"/>
+                    <Item id = "43006" name = "Sinnalibru chi sighit"/>
+                    <Item id = "43007" name = "Sinnalibru de in antis"/>
+                    <Item id = "43008" name = "Burra totus is Sinnalibros"/>
+                    <Item id = "43009" name = "Bae a sa parèntesi chi currispondet"/>
+                    <Item id = "43010" name = "Agata su de in antis"/>
+                    <Item id = "43011" name = "Chirca incrementale"/>
+                    <Item id = "43013" name = "Agata in is files..."/>
+                    <Item id = "43014" name = "Agata (volàtile) su chi sighit"/>
+                    <Item id = "43015" name = "Agata (volàtile) su de in antis"/>
+                    <Item id = "43016" name = "Marca totu"/>
+                    <Item id = "43017" name = "Boga·nche marcadura"/>
+					<Item id = "43018" name = "Sega rigas cun sinnalibros"/>
+					<Item id = "43019" name = "Còpia rigas cun sinnalibros"/>
+					<Item id = "43020" name = "Apìtziga (càmbia) rigas cun sinnalibros"/>
+					<Item id = "43021" name = "Burra rigas cun sinnalibros"/>
+					<Item id = "43022" name = "Imprea 1º istile"/>
+					<Item id = "43024" name = "Imprea 2º istile"/>
+					<Item id = "43026" name = "Imprea 3º istile"/>
+					<Item id = "43028" name = "Imprea 4º istile"/>
+					<Item id = "43030" name = "Imprea 5º istile"/>
+					<Item id = "43023" name = "Iscantzella 1º istile"/>
+					<Item id = "43025" name = "Iscantzella 2º istile"/>
+					<Item id = "43027" name = "Iscantzella 3º istile"/>
+					<Item id = "43029" name = "Iscantzella 4º istile"/>
+					<Item id = "43031" name = "Iscantzella 5º istile"/>
+					<Item id = "43032" name = "Iscantzella totus is istiles"/>
+					<Item id = "43033" name = "1º istile"/>
+					<Item id = "43034" name = "2º istile"/>
+					<Item id = "43035" name = "3º istile"/>
+					<Item id = "43036" name = "4º istile"/>
+					<Item id = "43037" name = "5º istile"/>
+					<Item id = "43038" name = "Agata istile"/>
+					<Item id = "43039" name = "1º istile"/>
+					<Item id = "43040" name = "2º istile"/>
+					<Item id = "43041" name = "3º istile"/>
+					<Item id = "43042" name = "4º istile"/>
+					<Item id = "43043" name = "5º istile"/>
+					<Item id = "43044" name = "Agata istile"/>
+					<Item id = "43045" name = "Ventana resurtados de chirca"/>
+					<Item id = "43046" name = "Resurtadu de chirca chi sighit"/>
+					<Item id = "43047" name = "Resurtadu de chirca de in antis"/>
+					<Item id = "43048" name = "Sèbera e agata su chi sighit"/>
+					<Item id = "43049" name = "Sèbera e agata su de in antis"/>
+                    <Item id = "43050" name = "Fùrria sinnalibros"/>
+                    <Item id = "43051" name = "Boga·nche lìnias non sèberadas"/>
+                    <Item id = "43052" name = "Chirca caràteres..."/>
+					<Item id = "44009" name = "Modalidade Post-it"/>
+                    <Item id = "44010" name = "Cuntrae totus is livellos"/>
+                    <Item id = "44011" name = "Ventana impostatziones personalizadas"/>
+                    <Item id = "44019" name = "Ammustra totus is caràteres"/>
+                    <Item id = "44020" name = "Ammustra ghias de indentatzione"/>
+                    <Item id = "44022" name = "A capu automàticu"/>
+                    <Item id = "44023" name = "&amp;Ismànnia testu"/>
+                    <Item id = "44024" name = "&amp;Ismèngua testu"/>
+                    <Item id = "44025" name = "Ammustra ispàtzios e tabulatziones"/>
+                    <Item id = "44026" name = "Ammustra acabu de riga"/>
+                    <Item id = "44029" name = "Islarga totus is livellos"/>
+                    <Item id = "44030" name = "Cuntrae custu livellu"/>
+                    <Item id = "44031" name = "Islarga custu livellu"/>
+                    <Item id = "44032" name = "Càstia a ischermu intreu"/>
+                    <Item id = "44033" name = "Torra a su zoom predefinidu"/>
+                    <Item id = "44034" name = "Semper in primu pranu"/>
+                    <Item id = "44035" name = "Sincroniza iscurrimentu verticale"/>
+                    <Item id = "44036" name = "Sincroniza iscurrimentu orizontale"/>
+                    <Item id = "44041" name = "Ammustra sìmbulu de a capu automàticu"/>
+					<Item id = "44042" name = "Cua rigas"/>
+                    <Item id = "44049" name = "Informatziones file..."/>
+					<Item id = "44072" name = "Ativa àtera bista"/>
+					<Item id = "44081" name = "Pannellu 1"/>
+					<Item id = "44082" name = "Pannellu 2"/>
+					<Item id = "44083" name = "Pannellu 3"/>
+                    <Item id = "45001" name = "Formadu Windows"/>
+                    <Item id = "45002" name = "Formadu UNIX"/>
+                    <Item id = "45003" name = "Formadu MAC"/>
+                    <Item id = "45004" name = "Codìfica in ANSI"/>
+                    <Item id = "45005" name = "Codìfica in UTF-8"/>
+                    <Item id = "45006" name = "Codìfica in UCS-2 Big Endian"/>
+                    <Item id = "45007" name = "Codìfica in UCS-2 Little Endian"/>
+                    <Item id = "45008" name = "Codìfica in UTF-8 (sena BOM)"/>
+					<Item id = "45009" name = "Cunverte in ANSI"/>
+					<Item id = "45010" name = "Cunverte in UTF-8 (sena BOM)"/>
+					<Item id = "45011" name = "Cunverte in UTF-8"/>
+					<Item id = "45012" name = "Cunverte in UCS-2 Big Endian"/>
+					<Item id = "45013" name = "Cunverte in UCS-2 Little Endian"/>
+					<Item id = "10001" name = "Move a s'àtera bista"/>
+                    <Item id = "10002" name = "Còpia in s'àtera bista"/>
+					<Item id = "10003" name = "Move a una ventana noa"/>
+                    <Item id = "10004" name = "Còpia in una ventana noa"/>
+                    <Item id = "46001" name = "Configura is istiles..."/>
+					<Item id = "46015" name = "Istile MS-DOS"/>
+					<Item id = "46016" name = "Testu normale"/>
+					<Item id = "46017" name = "File de resursas"/>
+					<Item id = "46019" name = "File MS INI"/>
+					<Item id = "46180" name = "Definidu dae s'impitadore"/>
+                    <Item id = "47000" name = "Informatziones a pitzu de..."/>
+                    <Item id = "47001" name = "Pàgina printzipale Notepad++"/>
+                    <Item id = "47002" name = "Pàgina progetu Notepad++"/>
+                    <Item id = "47003" name = "Agitòriu in lìnia"/>
+                    <Item id = "47004" name = "Forum"/>
+                    <Item id = "47005" name = "Otenni àteros plugin"/>
+					<Item id = "47006" name = "Annoa Notepad++"/>
+					<Item id = "47008" name = "Ghia..."/>
+					<Item id = "48005" name = "Importa Plugin..." />
+					<Item id = "48006" name = "Importa Tema(s) ..." />
+					<Item id = "48009" name = "Teclas de sèberu lestru..."/>
+                    <Item id = "48011" name = "Preferèntzias..."/>
+                    <Item id = "48016" name = "Muda Incurtziadòrgios/Burra Macro..."/>
+                    <Item id = "48017" name = "Muda Incurtziadòrgios/Burra Cumandu..."/>
+                    <Item id = "48018" name = "Muda Menù Contestuale..."/>
+					<Item id = "49000" name = "E&amp;secuta..."/>
+                    <Item id = "50000" name = "Cumpri funtzione"/>
+                    <Item id = "50001" name = "Cumpri paràula"/>
+					<Item id = "50002" name = "Paràmetros funtzione"/>
+                </Commands>
+            </Main>
+			<Splitter />
+            <TabBar>
+				<Item CMID = "0" name = "Serra"/>
+				<Item CMID = "1" name = "Serra totas francu custa"/>
+				<Item CMID = "2" name = "Sarba"/>
+				<Item CMID = "3" name = "Sarba comente..."/>
+				<Item CMID = "4" name = "Imprenta"/>
+				<Item CMID = "5" name = "Move a s'àtera bista"/>
+				<Item CMID = "6" name = "Còpia in s'àtera bista"/>
+				<Item CMID = "7" name = "Còpia àndala file"/>
+				<Item CMID = "8" name = "Còpia nùmene file"/>
+				<Item CMID = "9" name = "Còpia àndala cartella"/>
+				<Item CMID = "10" name = "Torra a numenare file"/>
+				<Item CMID = "11" name = "Burra file"/>
+				<Item CMID = "12" name = "Letura isceti"/>
+				<Item CMID = "13" name = "Torra a impostare su flag de letura isceti"/>
+				<Item CMID = "14" name = "Move a una ventana noa"/>
+				<Item CMID = "15" name = "Còpia in una ventana noa"/>
+            </TabBar>
+        </Menu>
+        <Dialog>
+            <Find title = "Chirca..." titleFind = "Agata" titleReplace = "Càmbia" titleFindInFiles = "Chirca in is files" titleMark="Evidèntzia">>
+                <Item id = "1" name = "Agata su chi sighit"/>
+                <Item id = "2" name = "Serra"/>
+                <Item id = "1603" name = "Paràulas intreas isceti"/>
+                <Item id = "1604" name = "Distinghe lìteras majùscolas e minùscolas"/>
+                <Item id = "1605" name = "Espressione regulare"/>
+                <Item id = "1606" name = "Torra a susu si lompet a sa fine"/>
+				<Item id = "1608" name = "Càmbia"/>
+                <Item id = "1609" name = "Càmbia &amp;totus"/>
+                <Item id = "1611" name = "Càmbia cun: "/>
+				<Item id = "1612" name = "A susu"/>
+                <Item id = "1613" name = "A giosso"/>
+                <Item id = "1614" name = "Conta ocurrèntzias"/>
+                <Item id = "1615" name = "Agata totus"/>
+                <Item id = "1616" name = "Imposta sinnalibru in sa riga"/>
+                <Item id = "1617" name = "Evidèntzia is resurtados"/>
+                <Item id = "1618" name = "Lìmpia pro onni chirca"/>
+				<Item id = "1620" name = "Agata:"/>
+                <Item id = "1621" name = "Diretzione"/>
+				<Item id = "1624" name = "Tipu de chirca"/>
+                <Item id = "1625" name = "Normale"/>
+                <Item id = "1626" name = "Islargada (\n, \r, \t, \0, \x...)"/>
+                <Item id = "1632" name = "In sa seletzione"/>
+                <Item id = "1633" name = "Lìmpia"/>
+                <Item id = "1635" name = "Càmbia totu in is documentos abertos"/>
+                <Item id = "1636" name = "Chirca in is documentos abertos"/>
+                <Item id = "1637" name = "Chirca in is file"/>
+                <Item id = "1640" name = "Intrèvera ventana"/>
+				<Item id = "1641" name = "Agata totu in su documentu currente"/>
+                <Item id = "1654" name = "Filtros:"/>
+                <Item id = "1655" name = "Cartella:"/>
+                <Item id = "1656" name = "Agata totus"/>
+                <Item id = "1658" name = "In is sutacartellas"/>
+				<Item id = "1659" name = "In is sutacartellas cuadas"/>
+				<Item id = "1660" name = "&amp;Càmbia in is files"/>
+				<Item id = "1661" name = "Sighe documentu currente"/>
+				<Item id = "1686" name = "T&amp;rasparèntzia"/>
+				<Item id = "1687" name = "Si perdet su focus"/>
+                <Item id = "1688" name = "Semper"/>
+            </Find>
+            <FindCharsInRange title = "Chirca caràteres...">
+                <Item id="2910" name="Chirca"/>
+                <Item id="2" name="Serra"/>
+                <Item id="2901" name="Caràteres No-ASCII (128-255)"/>
+                <Item id="2902" name="Caràteres ASCII (0 - 127)"/>
+                <Item id="2903" name="Intervallu:"/>
+                <Item id="2906" name="A Susu"/>
+                <Item id="2907" name="A Giosso"/>
+                <Item id="2908" name="Diretzione"/>
+                <Item id="2909" name="Torra a susu si si lompet a sa fine"/>
+            </FindCharsInRange>
+            <GoToLine title = "Bae a sa riga #">
+                <Item id = "1" name = "&amp;Bae !"/>
+                <Item id = "2" name = "Annudda"/>
+                <Item id = "2004" name = "Ses in sa riga:"/>
+                <Item id = "2005" name = "Bae a sa riga:"/>
+                <Item id = "2006" name = "Ùrtima riga fasia:"/>
+				<Item id = "2007" name = "Riga"/>
+                <Item id = "2008" name = "Offset"/>
+            </GoToLine>
+            <Run title = "Esecuta...">
+                <Item id = "1903" name = "Programma chi si depet esecutare"/>
+                <Item id = "1" name = "Esecuta!"/>
+                <Item id = "2" name = "Annudda"/>
+                <Item id = "1904" name = "Sarba..."/>
+            </Run>
+            <StyleConfig title = "Configuradore de istilos">
+                <Item id = "2" name = "Annudda"/>
+                <Item id = "2301" name = "Sarba e Serra"/>
+                <Item id = "2303" name = "Trasparèntzia"/>
+				<Item id = "2306" name = "Sèbera tema: "/>
+                <SubDialog>
+                    <Item id = "2204" name = "Grussitu"/>
+                    <Item id = "2205" name = "Corsivu"/>
+                    <Item id = "2206" name = "Primu pranu: "/>
+                    <Item id = "2207" name = "Isfundu: "/>
+                    <Item id = "2208" name = "Tipu: "/>
+                    <Item id = "2209" name = "Mannària: "/>
+                    <Item id = "2211" name = "Istile:"/>
+                    <Item id = "2212" name = "Colore"/>
+                    <Item id = "2213" name = "Caràtere"/>
+                    <Item id = "2214" name = "Est. predefinidas:"/>
+                    <Item id = "2216" name = "Est. de s'impitadore:"/>
+                    <Item id = "2218" name = "Sutalineadu"/>
+                    <Item id = "2219" name = "Paràulas crae predefinidas"/>
+                    <Item id = "2221" name = "Paràulas crae definidas d/ s'impitadore"/>
+					<!-- Custu "d/" est po "dae": addolumannu est necessàriu ca chi nou no imbucat in sa label!-->
+                    <Item id = "2225" name = "Limbàgiu: "/>
+                    <Item id = "2226" name = "Abìlita colore globale in primu pranu"/>
+                    <Item id = "2227" name = "Abìlita colore globale pro s'isfundu"/>
+                    <Item id = "2228" name = "Abìlita istile globale de su caràtere"/>
+                    <Item id = "2229" name = "Abìlita mannària globale"/>
+                    <Item id = "2230" name = "Abìlita istile globale pro su grussitu"/>
+                    <Item id = "2231" name = "Abìlita istile globale pro su corsivu"/>
+                    <Item id = "2232" name = "Abìlita istile globale pro su sutalineadu"/>
+                </SubDialog>
+            </StyleConfig>
+            <UserDefine title = "Impostatziones personalizadas">
+				<Item id = "20001" name = "Àncora"/>
+				<Item id = "20002" name = "Torra a nùmenare"/>
+				<Item id = "20003" name = "Crea nou..."/>
+				<Item id = "20004" name = "Boga·nche"/>
+				<Item id = "20005" name = "Sarba comente..."/>
+				<Item id = "20007" name = "Limbàgiu personalizadu: "/>
+				<Item id = "20009" name = "Estensione:"/>
+				<Item id = "20011" name = "Trasparèntzia"/>
+				<Item id = "20012" name = "Inniora majùs/minùs"/>
+				<Item id = "20015" name = "Importa..."/>
+				<Item id = "20016" name = "Esporta..."/>
+				<Item id = "0" name = "Colore"/>
+				<Item id = "1" name = "Caràtere"/>
+				<Item id = "2" name = "Isfundu"/>
+				<Item id = "3" name = "Istile de su caràtere"/>
+				<Item id = "4" name = "Caràtere:"/>
+				<Item id = "5" name = "Mannària:"/>
+				<Item id = "6" name = "Grussitu"/>
+				<Item id = "7" name = "Corsivu"/>
+				<Item id = "8" name = "Sutaliniadu"/>
+				<Folder title = "Cartellas e Predefinidos">
+					<Item id = "21101" name = "Impostatziones istile predefinidu"/>
+					<Item id = "21201" name = "Impostatziones paràulas crae de abertura brocu"/>
+					<Item id = "21301" name = "Impostatziones paràulas crae de serradura brocu"/>
+                </Folder>
+                <Keywords title = "Lista Paràulas crae">
+					<Item id = "22101" name = "1º Grupu"/>
+					<Item id = "22201" name = "2º Grupu"/>
+					<Item id = "22301" name = "3º Grupu"/>
+					<Item id = "22401" name = "4º Grupu"/>
+					<Item id = "22113" name = "Prefissu"/>
+					<Item id = "22213" name = "Prefissu"/>
+					<Item id = "22313" name = "Prefissu"/>
+					<Item id = "22413" name = "Prefissu"/>
+                </Keywords>
+                <Comment title = "Cummentos e Nùmeros">
+					<Item id = "23301" name = "Riga a cummentu"/>
+					<Item id = "23101" name = "Blocu de cummentos"/>
+					<Item id = "23113" name = "Abertura cummentu:"/>
+					<Item id = "23115" name = "Serradura cummentu:"/>
+					<Item id = "23116" name = "Paràula crae comente sìmbulu"/>
+					<Item id = "23117" name = "Paràulas crae comente sìmbulos"/>
+					<Item id = "23201" name = "Numeros"/>
+                </Comment>
+                <Operator title = "Operadores">
+                    <Item id = "24001" name = "Abìlita caràtere de escape:"/>
+					<Item id = "24107" name = "Operadore"/>
+					<Item id = "24103" name = "Sìmbulos fasios"/>
+					<Item id = "24101" name = "Operadores ativados"/>
+					<Item id = "24201" name = "Delimitadore 1"/>
+					<Item id = "24211" name = "Delimitatzione aberta:"/>
+					<Item id = "24214" name = "Delimitatzione serrada:"/>
+					<Item id = "24301" name = "Delimitadore 2"/>
+					<Item id = "24311" name = "Delimitatzione aberta:"/>
+					<Item id = "24314" name = "Delimitatzione serrada:"/>
+                </Operator>
+            </UserDefine>
+			<Preference title = "Preferèntzias">
+				<Item id = "6001" name = "Serra"/>
+				<Global title = "Generale">
+					<Item id = "6101" name = "Barra de is istrumentos"/>
+					<Item id = "6102" name = "Cua"/>
+					<Item id = "6103" name = "Iconas piticas"/>
+					<Item id = "6104" name = "Iconas mannas"/>
+					<Item id = "6105" name = "Iconas istandard"/>
+					<Item id = "6106" name = "Barra de is ischedas"/>
+					<Item id = "6107" name = "Ammustra ischedas piticas"/>
+					<Item id = "6108" name = "Arrea (tragu disabilitadu)"/>
+					<Item id = "6109" name = "Iscùriga is ischedas inativas"/>
+					<Item id = "6110" name = "Pone sa lìnia colorada in s'ischeda ativa"/>
+					<Item id = "6111" name = "Ammustra sa barra de istadu"/>
+					<Item id = "6112" name = "Tastu pro serrare in onni ischeda"/>
+					<Item id = "6113" name = "Dòpiu click serrat un'ischeda"/>
+					<Item id = "6118" name = "Cua"/>
+					<Item id = "6119" name = "Imprea prus rigas"/>
+					<Item id = "6120" name = "Verticale"/>
+					<Item id = "6121" name = "Barra de is menus"/>
+					<Item id = "6122" name = "Cua (Alt o F10 pro ammustrare)"/>
+					<Item id = "6123" name = "Seletziona Limba"/>
+					<Item id = "6125" name = "Documentos abertos"/>
+					<Item id = "6126" name = "Faghe a bìdere"/>
+				</Global>
+				<Scintillas title = "Personalizatzione cumponentes">
+					<Item id = "6216" name = "Impostatziones cursore"/>
+					<Item id = "6217" name = "Largària:"/>
+					<Item id = "6219" name = "Lestresa:"/>
+					<Item id = "6221" name = "V"/>
+					<Item id = "6222" name = "L"/>
+
+					<Item id = "6303" name = "Dimensione: "/>
+
+					<Item id = "6201" name = "Istile de s'acàbidu"/>
+					<Item id = "6202" name = "Simple"/>
+					<Item id = "6203" name = "Fritza"/>
+					<Item id = "6204" name = "Chircu"/>
+					<Item id = "6205" name = "Cuadradu"/>
+
+					<Item id = "6206" name = "Faghe a bìdere is nùmeros de riga"/>
+					<Item id = "6207" name = "Faghe a bìdere is sinnalibros"/>
+					<Item id = "6208" name = "Faghe a bìdere làcana de culunna"/>
+					<Item id = "6209" name = "Nùmeru de culunna: "/>
+
+					<Item id = "6211" name = "Impostatzione de sa làcana de culunna"/>
+					<Item id = "6212" name = "Modalidade 'lìnia'"/>
+					<Item id = "6213" name = "Modalidade 'isfundu'"/>
+					<Item id = "6214" name = "Evidèntzia custa riga"/>
+					<Item id = "6224" name = "Impostatziones sèberu mùltiplu"/>
+					<Item id = "6225" name = "Abìlita (Ctrl+Click/seletzione)"/>
+                    <Item id = "6226" name = "Perunu"/>
+                    <Item id = "6227" name = "A capu automàticu"/>
+                    <Item id = "6228" name = "Default"/>
+                    <Item id = "6229" name = "Alliniadu"/>
+                    <Item id = "6230" name = "Indentadu"/>
+                </Scintillas>
+				<NewDoc title = "Documentu/Directory nou predefinidu">
+					<Item id = "-1" name="Ammustra"/>
+					<Item id = "6304" name = "Documentos reghentes"/>
+					<Item id = "6305" name = "Non compides a s'aviu"/>
+					<Item id = "6306" name = "Elementos impreados dae pagu"/>
+					<Item id = "6401" name = "Formadu"/>
+					<Item id = "6402" name = "Windows"/>
+					<Item id = "6403" name = "Unix"/>
+					<Item id = "6404" name = "Mac"/>
+					<Item id = "6405" name = "Codìfica"/>
+					<Item id = "6406" name = "ANSI"/>
+					<Item id = "6407" name = "UTF-8 sena BOM"/>
+					<Item id = "6408" name = "UTF-8"/>
+					<Item id = "6409" name = "UCS-2 Big endian"/>
+					<Item id = "6410" name = "UCS-2 Little endian"/>
+					<Item id = "6411" name = "Limbàgiu predefinidu:"/>
+					<Item id = "6413" name = "Aberi file/Sarba cartella"/>
+                    <Item id = "6414" name = "Segundu su documentu currente"/>
+                    <Item id = "6415" name = "Ammenta s'ùrtima cartella impreada"/>
+                    <Item id = "6419" name = "Documentu nou"/>
+                    <Item id = "6420" name = "Àplica a s'aberta de files ANSI"/>
+					<Item id = "6424" name = "In unu sutamenù"/>
+					<Item id = "6425" name = "Nùmene file isceti"/>
+					<Item id = "6426" name = "Àndala intrea"/>
+					<Item id = "6427" name = "Personaliza longària màssima:"/>
+                </NewDoc>
+				<FileAssoc title = "Assòtziu tipos de file">
+					<Item id = "4009" name = "Estens. suportadas:"/>
+					<Item id = "4010" name = "Estens. registradas:"/>
+                </FileAssoc>
+				<LangMenu title = "Menù Limbàgiu/Impostatziones tabulatziones">
+					<Item id = "6505" name = "A disponimentu"/>
+					<Item id = "6506" name = "No abilitados"/>
+					<Item id = "6507" name = "Abbàtziga su menù"/>
+					<Item id = "6508" name = "Menù &quot;Limbàgios&quot;" />
+					<Item id = "6510" name = "Imprea predefinidu" />
+					<Item id = "6301" name = "Impostatziones Tabulatziones" />
+					<Item id = "6302" name = "Càmbia cun ispàtzios" />
+					<Item id = "6303" name = "Dimensione tabulatzione:" />
+                </LangMenu>
+				<Print title = "Imprenta">
+					<Item id = "6601" name = "Nùmeros de riga"/>
+					<Item id = "6602" name = "Optziones colore"/>
+					<Item id = "6603" name = "WYSIWYG"/>
+					<Item id = "6604" name = "Fùrria"/>
+					<Item id = "6605" name = "Biancu e nieddu"/>
+					<Item id = "6606" name = "No imprentes is colores de isfundu"/>
+					<Item id = "6607" name = "Impostatzione de is làcanas (unidade: mm)"/>
+					<Item id = "6612" name = "Manca"/>
+					<Item id = "6613" name = "Susu"/>
+					<Item id = "6614" name = "Dereta"/>
+					<Item id = "6615" name = "Giosso"/>
+					<Item id = "6706" name = "Grussitu"/>
+					<Item id = "6707" name = "Corsivu"/>
+					<Item id = "6708" name = "Intestatzione"/>
+					<Item id = "6709" name = "Setzione de manca"/>
+					<Item id = "6710" name = "Setzione tzentrale"/>
+					<Item id = "6711" name = "Setzione de dereta"/>
+					<Item id = "6717" name = "Grussitu"/>
+					<Item id = "6718" name = "Corsivu"/>
+					<Item id = "6719" name = "Pee de pàgina"/>
+					<Item id = "6720" name = "Setzione de manca"/>
+					<Item id = "6721" name = "Setzione tzentrale"/>
+					<Item id = "6722" name = "Setzione de dereta"/>
+					<Item id = "6723" name = "Annànghere"/>
+					<Item id = "6725" name = "Variàbile:"/>
+					<Item id = "6727" name = "Sèbera parte"/>
+					<Item id = "6728" name = "Intestatzione e pee de pàgina" />
+                </Print>
+				<MISC title = "Vàrias">
+					<Item id = "6307" name = "Ativa autorilevamentu"/>
+					<Item id = "6308" name = "Mìnima in s'àrea de notìfica"/>
+					<Item id = "6309" name = "Ammenta sa sessione currente a s'aviu chi sighit"/>
+					<Item id = "6312" name = "Autorilevamentu de s'istadu de su file"/>
+					<Item id = "6313" name = "Annoa sena notìfica"/>
+					<Item id = "6114" name = "Abìlita"/>
+					<Item id = "6115" name = "Indentatzione automàtica"/>
+					<Item id = "6117" name = "Pretzedèntzia a is files prus reghentes"/>
+					<Item id = "6318" name = "Impostatziones acàpios cracàbiles"/>
+					<Item id = "6319" name = "Abìlita"/>
+					<Item id = "6320" name = "Non disìnnnies sutaliniadura"/>
+					<Item id = "6322" name = "Est. file de sessione:"/>
+					<Item id = "6323" name = "Annoa automaticamente Notepad++"/>
+					<Item id = "6324" name = "Càmbia documentu (CTRL+TAB)"/>
+					<Item id = "6325" name = "Bae a s'ùrtima riga a pustis de s'annou"/>
+					<Item id = "6326" name = "Evidentziatzione intelligente"/>
+					<Item id = "6327" name = "Abìlita"/>
+					<Item id = "6328" name = "Evidèntzia atributos"/>
+					<Item id = "6329" name = "Evidèntzia tag currispondentes"/>
+					<Item id = "6330" name = "Evidèntzia partes php/asp"/>
+					<Item id = "6331" name = "Ammustra isceti nùmene file in sa barra de su tìtulu"/>
+                </MISC>
+				<Backup title = "Backup/Auto-cumprimentu">
+					<Item id = "6801" name = "Backup"/>
+					<Item id = "6803" name = "Cartella:"/>
+					<Item id = "6804" name = "Cartella de backup personalizada:"/>
+					<Item id = "6807" name = "Auto-cumprimentu"/>
+					<Item id = "6808" name = "Ativa s'auto-cumprimentu pro cada input"/>
+					<Item id = "6809" name = "Cumprimentu funtzione"/>
+					<Item id = "6810" name = "Cumprimentu paràula"/>
+					<Item id = "6811" name = "Dae"/>
+					<Item id = "6813" name = "º caràtere"/>
+					<Item id = "6814" name = "Valores vàlidos: 1 - 9"/>
+					<Item id = "6815" name = "Ammustra paràm. funtziones insertende·ddos"/>
+					<Item id = "6315" name = "Perunu"/>
+					<Item id = "6316" name = "Backup simpli"/>
+					<Item id = "6317" name = "Backup cun detàllios"/>
+                </Backup>
+            </Preference>
+			<MultiMacro title = "Esecuta macros medas bortas">
+                <Item id = "1" name = "Esecuta"/>
+                <Item id = "2" name = "Annudda"/>
+                <Item id = "8006" name = "Macro chi si depet esecutare: "/>
+                <Item id = "8001" name = "Esecuta"/>
+                <Item id = "8005" name = "bortas"/>
+                <Item id = "8002" name = "Esecuta finas a sa fine de su file"/>
+            </MultiMacro>
+			<Window title = "Ventanas">
+                <Item id = "1" name = "Ativa"/>
+                <Item id = "2" name = "OK"/>
+                <Item id = "7002" name = "Sarba"/>
+                <Item id = "7003" name = "Serra is ventanas"/>
+                <Item id = "7004" name = "Òrdina is ischedas"/>
+            </Window>
+			<ColumnEditor title = "Editor a culunnas">
+                <Item id = "2023" name = "Testu de pònnere"/>
+                <Item id = "2033" name = "Nùmeru de pònnere"/>
+                <Item id = "2030" name = "Nùmeru de cumentzu: "/>
+                <Item id = "2031" name = "Cresche de: "/>
+                <Item id = "2035" name = "Zeros in cumentzu"/>
+                <Item id = "2032" name = "Formadu"/>
+                <Item id = "2024" name = "Detzimale"/>
+                <Item id = "2025" name = "Otale"/>
+                <Item id = "2026" name = "Esadetzimale"/>
+                <Item id = "2027" name = "Binàriu"/>
+                <Item id = "1" name = "OK"/>
+                <Item id = "2" name = "Annudda"/>
+            </ColumnEditor>
+		</Dialog>
+        <MessageBox>
+			<ContextMenuXmlEditWarning title="Muda menù contestuale" message="Sa modìfica de su file contextMenu.xml permitit de mudare su menù contestuale de Notepad++.&#x0A;Est pretzisu aviare torra Notepad++ pro chi is modìficas fatas in su file contextMenu.xml fatzant efetu."/>
+			<NppHelpAbsentWarning title="Su file no esistit" message="&#x0A;no esistit. Iscàrriga su file dae su giassu de Notepad++."/>
+			<SaveCurrentModifWarning title="Sarba modìficas currentes" message="Depes sarbare is modìficas currentes.&#x0A;Totu is modìficas sarbadas non podent èssere annuddadas.&#x0A;&#x0A;Boles sighire?"/>
+			<LoseUndoAbilityWarning title="Atentzione: Pèrdida de sa possibbilidade de ripristinare" message="Depes sarbare is modìficas currentes.&#x0A;Totu is modìficas sarbadas non podent èssere annuddadas.&#x0A;&#x0A;Boles sighire?"/>
+			<CannotMoveDoc title="Invia a una istànzia noa de Notepad++" message="Su documentu est istadu modificadu, est a ddu sarbare in antis de sighire."/>
+			<DocReloadWarning title="Càrriga torra" message="Ses seguru chi boles carrigare torra su file? Onni Muda fata s'at a pèrdere."/>
+			<FileLockedWarning title="Sarbamentu faddidu" message="Verificare chi su file non siat abertu cun carchi àteru programma."/>
+			<FileAlreadyOpenedInNpp title="" message="Su file est già abertu in Notepad++."/>
+			<DeleteFileFailed title="Eliminatzione file" message="Eliminatzione de su file faddida."/>
+		</MessageBox>
+		<ProjectManager>
+			<PanelTitle name="Progetos"/>
+			<WorkspaceRootName name="Workspace"/>
+			<Menus>
+				<Entries>
+					<Item id="0" name="Workspace"/>
+					<Item id="1" name="Muda"/>
+				</Entries>
+				<WorkspaceMenu>
+					<Item id="3122" name="Workspace nou"/>
+					<Item id="3123" name="Aberi workspace"/>
+					<Item id="3124" name="Càrriga torra Workspace"/>
+					<Item id="3125" name="Sarba"/>
+					<Item id="3126" name="Sarba comente..."/>
+					<Item id="3127" name="Sarba una còpia comente..."/>
+					<Item id="3121" name="Annanghe unu progetu nou"/>
+				</WorkspaceMenu>
+				<ProjectMenu>
+					<Item id="3111" name="Càmbia su nùmene"/>
+					<Item id="3112" name="Annanghe cartella"/>
+					<Item id="3113" name="Annanghe files..."/>
+					<Item id="3114" name="Boga·nche"/>
+					<Item id="3117" name="Annanghe files dae una cartella..."/>
+				</ProjectMenu>
+				<FolderMenu>
+					<Item id="3111" name="Càmbia su nùmene"/>
+					<Item id="3112" name="Annanghe cartella"/>
+					<Item id="3113" name="Annanghe files..."/>
+					<Item id="3114" name="Boga·nche"/>
+                    <Item id="3117" name="Annanghe files dae una cartella..."/>
+				</FolderMenu>
+				<FileMenu>
+					<Item id="3111" name="Càmbia su nùmene"/>
+					<Item id="3115" name="Boga·nche"/>
+					<Item id="3116" name="Muda s'andala de su file"/>
+				</FileMenu>
+			</Menus>
+		</ProjectManager>
+    </Native-Langue>
+</NotepadPlus>

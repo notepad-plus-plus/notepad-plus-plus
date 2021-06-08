@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	Macedonian localization for Notepad++
+	Last modified Wednesday, November 11th 2009 18:06 GMT by Kiril Sardjoski.
+	Please e-mail errors, suggestions etc. to kiril.sardjoski(at)gmail(dot)com.
+-->
+<NotepadPlus>
+	<Native-Langue name = "Macedonian" filename="macedonian.xml" >
+		<Menu>
+			<Main>
+                <!-- Main Menu Entries -->
+				<Entries>
+					<Item menuId="file" name = "&amp;Фајл"/>
+					<Item menuId="edit" name = "&amp;Едитирање"/>
+					<Item menuId="search" name = "&amp;Барај"/>
+					<Item menuId="view" name = "&amp;Поглед"/>
+					<Item menuId="encoding" name = "Фор&amp;мат"/>
+					<Item menuId="language" name = "&amp;Јазик"/>
+					<Item menuId="settings" name = "По&amp;десувања"/>
+					<Item menuId="macro" name = "Macro"/>
+					<Item menuId="run" name = "Вклучи"/>
+					<Item idName = "Plugins" name = "Plugin-ови"/>
+					<Item idName = "Window" name = "Прозорец"/>
+				</Entries>
+
+                <!-- Sub Menu Entries -->
+                <SubEntries>
+                    <Item subMenuId="edit-copyToClipboard" name = "Копирај во Складиште"/>
+                    <Item subMenuId="edit-indent" name = "Indent"/>
+                    <Item subMenuId="edit-convertCaseTo" name = "Промени ги буквите во"/>
+                    <Item subMenuId="edit-lineOperations" name = "Операции на Линии"/>
+                    <Item subMenuId="edit-comment" name = "Коментирај/Од-коментирај"/>
+                    <Item subMenuId="edit-autoCompletion" name = "Авто-пополнување"/>
+                    <Item subMenuId="search-markAll" name = "Обележи Се"/>
+                    <Item subMenuId="search-unmarkAll" name = "Од-обележи Се"/>
+                    <Item subMenuId="view-showSymbol" name = "Покажи ги Симболите"/>
+                    <Item subMenuId="view-zoom" name = "Зголеми"/>
+                    <Item subMenuId="view-moveCloneDocument" name = "Помести/Клонирај го Одредениот Документ"/>
+
+                    <Item subMenuId="view-collapseLevel" name = "Падни го Нивото"/>
+                    <Item subMenuId="view-uncollapseLevel" name = "Крени го Нивото"/>
+                </SubEntries>
+
+                <!-- all menu item -->
+                <Commands>
+                    <Item id = "41001" name = "&amp;Нов"/>
+                    <Item id = "41002" name = "От&amp;вори"/>
+                    <Item id = "41003" name = "Затвори"/>
+                    <Item id = "41004" name = "За&amp;твори Се"/>
+                    <Item id = "41005" name = "Затвори ги сите ОСВЕН Одредениот Документ"/>
+                    <Item id = "41006" name = "&amp;Зачувај"/>
+                    <Item id = "41007" name = "За&amp;чувај Се"/>
+                    <Item id = "41008" name = "Зачувај Како&amp;..."/>
+                    <Item id = "41010" name = "Печати..."/>
+                    <Item id = "1001"  name = "Печати Веднаш"/>
+                    <Item id = "41011" name = "Из&amp;лез"/>
+					<Item id = "41012" name = "Активирај ја Сесијата..."/>
+                    <Item id = "41013" name = "Зачувај ја Сесијата..."/>
+                    <Item id = "41014" name = "Вчитај повторно од Дискот"/>
+                    <Item id = "41015" name = "Зачувај ја Копијата како..."/>
+                    <Item id = "41016" name = "Избриши од Дискот"/>
+                    <Item id = "41017" name = "Преимени..."/>
+
+                    <Item id = "42001" name = "Пре&amp;мести"/>
+                    <Item id = "42002" name = "&amp;Копирај"/>
+                    <Item id = "42003" name = "Пони&amp;шти"/>
+                    <Item id = "42004" name = "&amp;Повтори"/>
+                    <Item id = "42005" name = "&amp;Додади"/>
+                    <Item id = "42006" name = "&amp;Избриши"/>
+                    <Item id = "42007" name = "&amp;Одбери Се"/>
+                    <Item id = "42008" name = "Зголеми го линискиот простор (Indent)"/>
+                    <Item id = "42009" name = "Намали го линискиот простор (Indent)"/>
+                    <Item id = "42010" name = "Двојник на Одредената Линија"/>
+                    <Item id = "42012" name = "Раздели ги Линиите"/>
+                    <Item id = "42013" name = "Спои ги Линиите"/>
+                    <Item id = "42014" name = "Оди над Одредената Линија"/>
+                    <Item id = "42015" name = "Оди под Одредената Линија"/>
+                    <Item id = "42016" name = "ГОЛЕМИ БУКВИ"/>
+                    <Item id = "42017" name = "мали букви"/>
+                    <Item id = "42018" name = "Почеток на Снимање"/>
+                    <Item id = "42019" name = "Крај на Снимање"/>
+                    <Item id = "42021" name = "Приказ на снименото"/>
+                    <Item id = "42022" name = "Вклучи го Коментираниот Блок"/>
+                    <Item id = "42023" name = "Тековен Коментар"/>
+                    <Item id = "42024" name = "Отстрани ги ознаките од преостанатиот простор"/>
+                    <Item id = "42025" name = "Зачувај го Моментално Сниманото Macro"/>
+                    <Item id = "42026" name = "Насока на тексот RTL"/>
+                    <Item id = "42027" name = "Насока на тексот LTR"/>
+                    <Item id = "42028" name = "Постави Само за читање"/>
+                    <Item id = "42029" name = "Складирај ја патека на одредениот фајл"/>
+                    <Item id = "42030" name = "Складирај го името на фајлот"/>
+                    <Item id = "42031" name = "Складирај ја патеката на одредениот директориум"/>
+                    <Item id = "42032" name = "Вклучи Macro Повеќе Пати..."/>
+                    <Item id = "42033" name = "Исчисти го знаменцето Само за читање"/>
+					<Item id = "42035" name = "Коментирај го Блокот"/>
+					<Item id = "42036" name = "Од-коментирај го Блокот"/>
+
+                    <Item id = "43001" name = "&amp;Барај..."/>
+                    <Item id = "43002" name = "Барај &amp;Следно"/>
+                    <Item id = "43003" name = "Замени..."/>
+                    <Item id = "43004" name = "Оди на..."/>
+                    <Item id = "43005" name = "Покажи ги Омилените"/>
+                    <Item id = "43006" name = "Следно Омилено"/>
+                    <Item id = "43007" name = "Претходно Омилено"/>
+                    <Item id = "43008" name = "Исчисти ги Сите Омилени"/>
+                    <Item id = "43009" name = "Оди до соодветната заграда"/>
+                    <Item id = "43010" name = "Барај Претходно"/>
+                    <Item id = "43011" name = "Инкрементално Бара&amp;ње"/>
+                    <Item id = "43013" name = "Барај во Фајловите"/>
+                    <Item id = "43014" name = "Барај (Volatile) Следно"/>
+                    <Item id = "43015" name = "Барај (Volatile) Претходно"/>
+                    <Item id = "43016" name = "Обележи Се"/>
+                    <Item id = "43017" name = "Од-обележи се"/>
+                    <Item id = "43018" name = "Премести ги Омилените Линии"/>
+                    <Item id = "43019" name = "Копирај ги Омилените Линии"/>
+                    <Item id = "43020" name = "Додади ги (Замени) Омилените Линии"/>
+                    <Item id = "43021" name = "Избриши ги Омилените Линии"/>
+                    <Item id = "43022" name = "Користи го 1-от Стил"/>
+                    <Item id = "43023" name = "Исчисти го 1-от Стил"/>
+                    <Item id = "43024" name = "Користи го 2-от Стил"/>
+                    <Item id = "43025" name = "Исчисти го 2-от Стил"/>
+                    <Item id = "43026" name = "Користи го 3-от Стил"/>
+                    <Item id = "43027" name = "Исчисти го 3-от Стил"/>
+                    <Item id = "43028" name = "Користи го 4t-от Стил"/>
+                    <Item id = "43029" name = "Исчисти го 4-от Стил"/>
+                    <Item id = "43030" name = "Користи го 5-от Стил"/>
+                    <Item id = "43031" name = "Исчисти го 5-от Стил"/>
+                    <Item id = "43032" name = "Исчисти ги Сите Стилови"/>
+					<Item id = "44009" name = "Post-It"/>
+                    <Item id = "44010" name = "Смотај се"/>
+                    <Item id = "44011" name = "Кориснички дефиниран прозорец..."/>
+                    <Item id = "44019" name = "Покажи ги сите карактери"/>
+                    <Item id = "44020" name = "Покажи го водичот за простори (Indent)"/>
+                    <Item id = "44022" name = "Wrap"/>
+                    <Item id = "44023" name = "Зголеми Ctrl-Нагоре на тркалото на Глушецот"/>
+                    <Item id = "44024" name = "Намали Ctrl-Надоле на тркалото на Глушецот"/>
+                    <Item id = "44025" name = "Покажи го белиот простор и TAB"/>
+                    <Item id = "44026" name = "Покажи го крајот на Линијата"/>
+                    <Item id = "44029" name = "Одсмотај се"/>
+                    <Item id = "44030" name = "Падни го Одреденото Ниво"/>
+                    <Item id = "44031" name = "Крени го Одреденото Ниво"/>
+                    <Item id = "44032" name = "Цел Екран"/>
+                    <Item id = "44033" name = "Врати го зголемувањето по дефиниција"/>
+                    <Item id = "44034" name = "Секогаш во преден план"/>
+                    <Item id = "44035" name = "Синхронизирај го Вертикалното Лизгање"/>
+                    <Item id = "44036" name = "Синхронизирај го Хоризонталното Лизгање"/>
+                    <Item id = "44041" name = "Покажи го Wrap Симболот"/>
+                    <Item id = "44072" name = "Фокус на Другиот Поглед"/>
+
+                    <Item id = "45001" name = "Промени во Windows Формат"/>
+                    <Item id = "45002" name = "Промени во UNIX Формат"/>
+                    <Item id = "45003" name = "Промени во MAC Формат"/>
+                    <Item id = "45004" name = "Кодирај во ANSI"/>
+                    <Item id = "45005" name = "Кодирај во UTF-8"/>
+                    <Item id = "45006" name = "Кодирај во UCS-2 Big Endian"/>
+                    <Item id = "45007" name = "Кодирај во UCS-2 Little Endian"/>
+                    <Item id = "45008" name = "Кодирај во UTF-8 без BOM"/>
+			<Item id = "45009" name = "Промени во ANSI"/>
+			<Item id = "45010" name = "Промени во UTF-8 без BOM"/>
+			<Item id = "45011" name = "Промени во UTF-8"/>
+			<Item id = "45012" name = "Промени во UCS-2 Big Endian"/>
+			<Item id = "45013" name = "Промени во UCS-2 Little Endian"/>
+
+                    <Item id = "10001" name = "Промена во друг поглед"/>
+                    <Item id = "10002" name = "Клонирај во друг поглед"/>
+                    <Item id = "10003" name = "Помести во нова инстанца"/>
+                    <Item id = "10004" name = "Отвори во нова инстанца"/>
+
+
+                    <Item id = "46001" name = "Прилагодување на стилови..."/>
+                    <Item id = "47000" name = "Околу Notepad++..."/>
+                    <Item id = "47001" name = "Notepad++ Дома"/>
+                    <Item id = "47002" name = "Страна на Notepad++ Проектот"/>
+                    <Item id = "47003" name = "NpWiki++ (Помош преку Интернет)"/>
+                    <Item id = "47004" name = "Форум"/>
+                    <Item id = "47005" name = "Набави повеќе Plugin-ови"/>
+
+                    <Item id = "48009" name = "Означување на кратенки..."/>
+                    <Item id = "48011" name = "Претпоставки..."/>
+                    <Item id = "49000" name = "Вкл&amp;учи..."/>
+
+					<Item id = "50000" name = "Авто-пополнување на функции"/>
+                    <Item id = "50001" name = "Авто-пополнување на зборови"/>
+                    <Item id = "50002" name = "Ознака на функциски параметри"/>
+                    <Item id = "42034" name = "Едитор на колони..."/>
+                    <Item id = "44042" name = "Скриј ги линиите"/>
+                    <Item id = "42040" name = "Отвори ги сите Минати фајлови"/>
+                    <Item id = "42041" name = "Испразни ја листата со Минати фајлови"/>
+
+                </Commands>
+            </Main>
+            <Splitter>
+            </Splitter>
+            <TabBar>
+                    <Item CMID = "0" name = "Затвори"/>
+                    <Item CMID = "1" name = "Затвори ги сите освен Ова"/>
+                    <Item CMID = "2" name = "Зачувај"/>
+                    <Item CMID = "3" name = "Зачувај како..."/>
+                    <Item CMID = "4" name = "Печати"/>
+                    <Item CMID = "5" name = "Промена во друг поглед"/>
+                    <Item CMID = "6" name = "Клонирај во друг поглед"/>
+					<Item CMID = "7" name = "Складирај ја целосната патека на фајлот"/>
+					<Item CMID = "8" name = "Складирај го името на фајлот"/>
+					<Item CMID = "9" name = "Складирај ја патеката на одредениот директориум"/>
+					<Item CMID = "10" name = "Преимени"/>
+					<Item CMID = "11" name = "Избриши"/>
+					<Item CMID = "12" name = "Само за читање"/>
+					<Item CMID = "13" name = "Исчисти го знаменцето Само за читање"/>
+					<Item CMID = "14" name = "Помести во нова инстанца"/>
+					<Item CMID = "15" name = "Отвори во нова инстанца"/>
+            </TabBar>
+        </Menu>
+
+        <Dialog>
+            <Find title = "" titleFind = "Барај" titleReplace = "Замени" titleFindInFiles = "Барај во фајловите">
+                <Item id = "1" name = "Барај Следно"/>
+                <Item id = "2" name = "Затвори"/>
+                <Item id = "1620" name = "Барај го :"/>
+                <Item id = "1603" name = "Целосно &amp;ист збор"/>
+                <Item id = "1604" name = "Исти &amp;големи/мали букви"/>
+                <Item id = "1605" name = "Но&amp;рмални изрази"/>
+                <Item id = "1606" name = "Свиткај окол&amp;у"/>
+                <Item id = "1612" name = "&amp;Нагоре"/>
+                <Item id = "1613" name = "Н&amp;адоле"/>
+                <Item id = "1614" name = "Брои"/>
+                <Item id = "1615" name = "Барај се"/>
+                <Item id = "1616" name = "Означи ја линијата"/>
+                <Item id = "1617" name = "Означи го симболот"/>
+                <Item id = "1618" name = "Исчисти при секое барање"/>
+                <Item id = "1621" name = "Правец"/>
+                <Item id = "1611" name = "За&amp;мени со :"/>
+                <Item id = "1608" name = "&amp;Замени"/>
+                <Item id = "1609" name = "Замени ги си&amp;те"/>
+			 	<Item id = "1623" name = "Проѕирност"/>
+			 	<Item id = "1687" name = "При губење на фокусот"/>
+			 	<Item id = "1688" name = "Секогаш"/>
+			 	<Item id = "1632" name = "Во одбраниот дел"/>
+			 	<Item id = "1633" name = "Исчисти"/>
+			 	<Item id = "1635" name = "Замени ги сите во сите Отворени документи"/>
+			 	<Item id = "1636" name = "Барај ги сите во сите Отворени документи"/>
+			 	<Item id = "1637" name = "Барај во фајловите"/>
+			 	<Item id = "1654" name = "Филтри :"/>
+			 	<Item id = "1655" name = "Директориум :"/>
+			 	<Item id = "1656" name = "Барај се"/>
+			 	<Item id = "1658" name = "Во сите под-фолдери"/>
+			 	<Item id = "1659" name = "Во скриени фолдери"/>
+			 	<Item id = "1624" name = "Начин на барање"/>
+			 	<Item id = "1625" name = "Нормално"/>
+			 	<Item id = "1626" name = "Напредно (\n, \r, \t, \0, \x...)"/>
+			 	<Item id = "1660" name = "Замени во фајловите"/>
+			 	<Item id = "1641" name = "Барај ги сите во одредениот документ"/>
+			 	<Item id = "1686" name = "Проѕирност"/>
+            </Find>
+            <GoToLine title = "Оди на линијата...">
+                <Item id = "2007" name = "Линија"/>
+                <Item id = "2008" name = "Огранок"/>
+                <Item id = "1" name = "&amp;Оди"/>
+                <Item id = "2" name = "Не оди никаде"/>
+                <Item id = "2004" name = "Вие сте овде :"/>
+                <Item id = "2005" name = "Сакате да одите :"/>
+                <Item id = "2006" name = "Не може да одите понатаму од :"/>
+            </GoToLine>
+
+            <Run title = "Вклучи...">
+                <Item id = "1903" name = "Име на програмата која треба да се вклучи"/>
+                <Item id = "1" name = "Вклучи"/>
+                <Item id = "2" name = "Откажи"/>
+                <Item id = "1904" name = "Зачувај..."/>
+            </Run>
+
+            <StyleConfig title = "Прилагодување на стилови">
+				<Item id = "2" name = "Откажи"/>
+				<Item id = "2301" name = "Зачувај &amp;&amp; Затвори"/>
+				<Item id = "2303" name = "Проѕирност"/>
+				<Item id = "2306" name = "Одбери тема : "/>
+                <SubDialog>
+                	<Item id = "2204" name = "Подебело"/>
+                    <Item id = "2205" name = "Накосо"/>
+                    <Item id = "2206" name = "Боја на текстот"/>
+                    <Item id = "2207" name = "Позадинска боја"/>
+                    <Item id = "2208" name = "Име на фонт :"/>
+                    <Item id = "2209" name = "Големина на фонт :"/>
+                    <Item id = "2212" name = "Стил на боја"/>
+                    <Item id = "2213" name = "Стил на фонт"/>
+                    <Item id = "2214" name = "Екстензии по Дефиниција :"/>
+                    <Item id = "2216" name = "Кориснички екстензии :"/>
+                    <Item id = "2218" name = "Подвлечи"/>
+                    <Item id = "2219" name = "Клучни зборови по Дефиниција"/>
+                    <Item id = "2221" name = "Клучни зборови дефинирани од корисникот"/>
+                    <Item id = "2225" name = "Јазик :"/>
+                    <Item id = "2226" name = "Стандардна боја на текст"/>
+                    <Item id = "2227" name = "Стандардна позадинска боја"/>
+                    <Item id = "2228" name = "Стандарден фонт"/>
+                    <Item id = "2229" name = "Стандардна големина на фонт"/>
+                    <Item id = "2230" name = "Стандарден подебел стил на фонт"/>
+                    <Item id = "2231" name = "Стандарден кос стил на фонт"/>
+                    <Item id = "2232" name = "Стандарден подвлечен стил на фонт"/>
+                </SubDialog>
+
+            </StyleConfig>
+
+            <UserDefine title = "Дефинирано од Корисникот">
+				<Item id = "20002" name = "Преимени"/>
+				<Item id = "20003" name = "Креирај нов..."/>
+				<Item id = "20004" name = "Отстрани"/>
+				<Item id = "20005" name = "Зачувај како..."/>
+				<Item id = "20007" name = "Кориснички Јазик : "/>
+				<Item id = "20009" name = "Екстензии :"/>
+				<Item id = "20012" name = "Игнорирај голема/мала буква"/>
+				<Item id = "20011" name = "Проѕирно"/>
+				<Item id = "0" name = "Стил на боја"/>
+				<Item id = "1" name = "Боја на текстот"/>
+				<Item id = "2" name = "Позадинска боја"/>
+				<Item id = "3" name = "Стил на фонт"/>
+				<Item id = "4" name = "Име на фонт :"/>
+				<Item id = "5" name = "Големина на фонт :"/>
+				<Item id = "6" name = "Подебело"/>
+				<Item id = "7" name = "Накосо"/>
+				<Item id = "8" name = "Подвлечено"/>
+                <Folder title = "Фолдер &amp;&amp; по Дефиниција">
+					<Item id = "21101" name = "Подесувања на Стилот по Дефиниција"/>
+					<Item id = "21201" name = "Подесувања на клучните зборови при Отворен фолдер"/>
+					<Item id = "21301" name = "Подесувања на клучните зборови при Затворен фолдер"/>
+                </Folder>
+                <Keywords title = "Листа на клучни зборови">
+					<Item id = "22101" name = "1-ва Група"/>
+					<Item id = "22201" name = "2-ра Група"/>
+					<Item id = "22301" name = "3-та Група"/>
+					<Item id = "22401" name = "4-та Група"/>
+					<Item id = "22113" name = "Префикс"/>
+					<Item id = "22213" name = "Префикс"/>
+					<Item id = "22313" name = "Префикс"/>
+					<Item id = "22413" name = "Префикс"/>
+                </Keywords>
+                <Comment title = "Коментар &amp;&amp; Број">
+					<Item id = "23301" name = "Коментирај ја Линијата"/>
+					<Item id = "23101" name = "Коментирај го Блокот"/>
+					<Item id = "23113" name = "Отвори коментар :"/>
+					<Item id = "23115" name = "Затвори коментар :"/>
+					<Item id = "23116" name = "Постави го клучниот збор како симбол"/>
+					<Item id = "23117" name = "Постави ги клучните зборови како симболи"/>
+					<Item id = "23201" name = "Број"/>
+                </Comment>
+                <Operator title = "Оператори">
+					<Item id = "24107" name = "Оператор"/>
+					<Item id = "24103" name = "Достапни симболи"/>
+					<Item id = "24101" name = "Активирани оператори"/>
+					<Item id = "24201" name = "Разделник 1"/>
+					<Item id = "24211" name = "Отвори граничник :"/>
+					<Item id = "24214" name = "Затвори граничник :"/>
+					<Item id = "24301" name = "Разделник 2"/>
+					<Item id = "24311" name = "Отвори граничник :"/>
+					<Item id = "24314" name = "Затвори граничник :"/>
+                </Operator>
+                <Item id = "24001" name = "Овозможи карактер за излез :"/>
+            </UserDefine>
+			<Preference title = "Претпоставки">
+                <Item id = "6001" name = "Затвори"/>
+				<Global title = "Главно">
+					<Item id = "6101" name = "Мени со алатки"/>
+					<Item id = "6102" name = "Скриј"/>
+					<Item id = "6103" name = "Мали икони"/>
+	                <Item id = "6104" name = "Големи икони"/>
+					<Item id = "6105" name = "Стандардни икони"/>
+
+					<Item id = "6106" name = "Мени со јазичиња"/>
+					<Item id = "6107" name = "Намали"/>
+					<Item id = "6108" name = "Заклучи (без drag and drop)"/>
+					<Item id = "6109" name = "Затемни ги неактивните јазичиња"/>
+					<Item id = "6110" name = "Портокалово мени на активното јазиче"/>
+
+					<Item id = "6111" name = "Прикажи го статус менито"/>
+					<Item id = "6112" name = "Затвори копчето на секое јазиче"/>
+					<Item id = "6113" name = "Двоклик за затворање на документот"/>
+					<Item id = "6118" name = "Скриј"/>
+					<Item id = "6119" name = "Повеќе-линии"/>
+					<Item id = "6120" name = "Вертикално"/>
+
+					<Item id = "6121" name = "Мени"/>
+					<Item id = "6122" name = "Скриј (користи Alt или F10 за поместување)"/>
+					<Item id = "6123" name = "Локализација"/>
+				</Global>
+          <Scintillas title="Едитирање">
+					<Item id="6216" name="Подесувања на покажувачот"/>
+					<Item id="6217" name="Ширина :"/>
+					<Item id="6219" name="Брзина на трепкање :"/>
+					<Item id="6221" name="F"/>
+					<Item id="6222" name="S"/>
+					<Item id = "6201" name = "Стил на ивици на директориуми"/>
+					<Item id = "6202" name = "Едноставно"/>
+					<Item id = "6203" name = "Стрелка"/>
+	                <Item id = "6204" name = "Кружница"/>
+					<Item id = "6205" name = "Квадрат"/>
+
+					<Item id = "6206" name = "Прикажи ја ивицата на бројот на линијата"/>
+					<Item id = "6207" name = "Прикажи ја ивицата на омилените"/>
+					<Item id = "6208" name = "Прикажи ја вертикалната ивица"/>
+					<Item id = "6209" name = "Број на колони : "/>
+
+					<Item id = "6211" name = "Подесувања на вертикалната ивица"/>
+					<Item id = "6212" name = "Линиски начин"/>
+					<Item id = "6213" name = "Позадински начин"/>
+					<Item id = "6214" name = "Овозможи посочување на одредената линија"/>
+                </Scintillas>
+				<NewDoc title="Нов документ/Директориум по дефиниција">
+					<Item id="6419" name="Нов документ"/>
+					<Item id="6401" name="Формат"/>
+					<Item id="6402" name="Windows"/>
+					<Item id="6403" name="UNIX"/>
+	                <Item id="6404" name="Mac"/>
+					<Item id="6405" name="Кодирање"/>
+					<Item id="6406" name="ANSI"/>
+					<Item id="6407" name="UTF-8 без BOM-a"/>
+					<Item id="6408" name="UTF-8"/>
+					<Item id="6409" name="UCS-2 Big-Endian"/>
+					<Item id="6410" name="UCS-2 Little-Endian"/>
+					<Item id="6411" name="Јазик по дефиниција :"/>
+					<Item id="6413" name="Директориум по дефиниција (Отвори/Зачувај) "/>
+					<Item id="6414" name="Следење на одредениот документ"/>
+					<Item id="6415" name="Запомни го последниот користен директориум"/>
+                </NewDoc>
+				<FileAssoc title="Поврзување на фајлови">
+					<Item id="4009" name="Подржани екстензии :"/>
+					<Item id="4010" name="Регистрирани екстензии :"/>
+                </FileAssoc>
+				<LangMenu title="Мени за јазици/Подесувања за јазичиња">
+					<Item id="6505" name="Достапни предмети"/>
+					<Item id="6506" name="Пасивни предмети"/>
+					<Item id = "6507" name = "Направи го менито за јазици компактно"/>
+					<Item id = "6301" name = "Подесувања за јазичиња"/>
+					<Item id = "6302" name = "Замени со простор"/>
+					<Item id = "6303" name = "Големина на јазичиња : "/>
+                </LangMenu>
+				<Print title="Печати">
+					<Item id="6601" name="Печати броеви на страни"/>
+					<Item id="6602" name="Опции за бои"/>
+					<Item id="6603" name="WYSIWYG"/>
+					<Item id="6604" name="Обратно"/>
+	                <Item id="6605" name="Црно на бело"/>
+					<Item id="6606" name="Без позадинска боја"/>
+					<Item id="6607" name="Подесувања на странични ивици"/>
+					<Item id="6612" name="Лево"/>
+					<Item id="6613" name="Врв"/>
+					<Item id="6614" name="Десно"/>
+					<Item id="6615" name="Дно"/>
+					<Item id="6706" name="Подебело"/>
+					<Item id="6707" name="Накосо"/>
+					<Item id="6708" name="Наслов"/>
+					<Item id="6709" name="Лев дел"/>
+	                <Item id="6710" name="Среден дел"/>
+					<Item id="6711" name="Десен дел"/>
+					<Item id="6717" name="Подебело"/>
+					<Item id="6718" name="Накосо"/>
+					<Item id="6719" name="Подножје"/>
+					<Item id="6720" name="Лев дел"/>
+	                <Item id="6721" name="Среден дел"/>
+					<Item id="6722" name="Десен дел"/>
+	                <Item id="6723" name="Додај"/>
+					<Item id="6725" name="Променливо :"/>
+					<Item id="6728" name="Наслов и подножје"/>
+                </Print>
+				<MISC title="Разно">
+					<Item id="6304" name="Претходни подесувања на фајлови"/>
+	                <Item id="6305" name="Не проверувај при активирање"/>
+					<Item id="6306" name="Најголем број на влезови:"/>
+					<Item id="6307" name="Овозможи"/>
+					<Item id="6308" name="Минимализирај во system tray-от"/>
+					<Item id="6309" name="Запомни ја сегашната сесија на следното активирање"/>
+					<Item id="6312" name="Автоматско препознавање на статусот на фајловите"/>
+					<Item id="6313" name="Тивко ажурирање"/>
+					<Item id="6318" name="Подесување на активни линкови"/>
+					<Item id="6325" name="Оди на последната линија после ажурирањето"/>
+					<Item id="6319" name="Овозможи"/>
+					<Item id="6320" name="Не прави подвлекувања"/>
+					<Item id="6322" name="Екстензија на фајлот со сесијата:"/>
+					<Item id="6323" name="Овозможи само-ажурирање"/>
+					<Item id="6324" name="Промена низ документи (Ctrl+TAB)"/>
+					<Item id="6326" name="Овозможи интелегентно посочување"/>
+					<Item id="6329" name="Посочи совпаѓачки Tag-ови"/>
+					<Item id="6327" name="Овозможи"/>
+					<Item id="6328" name="Посочи атрибути на Tag-ови"/>
+					<Item id="6330" name="Посочи кон php/asp подрачјето"/>
+
+					<Item id="6331" name="Покажи го само името на фајлот во насловната трака"/>
+					<Item id="6114" name="Овозможи"/>
+					<Item id="6115" name="Автоматско правење на простор(indent)"/>
+					<Item id="6117" name="Овозможи MRU однесување"/>
+
+                </MISC>
+				<Backup title="Правење на резерви/Авто-пополнување">
+					<Item id="6801" name="Правење на резерви"/>
+					<Item id="6315" name="Никакво"/>
+					<Item id="6316" name="Едноставно правење на резерви"/>
+					<Item id="6317" name="Опширно правење на резерви"/>
+					<Item id="6804" name="Кориснички зададен директориум за правење на резерви"/>
+					<Item id="6803" name="Директориум :"/>
+					<Item id="6807" name="Авто-пополнување"/>
+	                <Item id="6808" name="Активно авто-пополнување при секој влез"/>
+					<Item id="6809" name="Дополнување на функција"/>
+					<Item id="6810" name="Дополнување на збор"/>
+					<Item id="6811" name="од"/>
+					<Item id="6813" name="-от знак"/>
+					<Item id="6814" name="Можна вредност : 1 - 9"/>
+					<Item id="6815" name="Функциски параметри зададени при влез"/>
+                </Backup>
+            </Preference>
+			<MultiMacro title="Вклучи го Macro-то неколку пати">
+                <Item id="1" name="Вклучи"/>
+                <Item id="2" name="Откажи"/>
+                <Item id="8006" name="Вклучи го Macro-то :"/>
+                <Item id="8001" name="Вклучи"/>
+                <Item id="8005" name="Повтори"/>
+                <Item id="8002" name="Оди до крајот на фајлот"/>
+            </MultiMacro>
+			<Window title="Прозорци">
+                <Item id="1" name="Активирај"/>
+                <Item id="2" name="Во ред"/>
+                <Item id="7002" name="Зачувај"/>
+                <Item id="7003" name="Затвори"/>
+                <Item id="7004" name="Сортирај"/>
+            </Window>
+			<ColumnEditor title="Едитор за колони">
+                <Item id="2023" name="Текст за додавање"/>
+                <Item id="2033" name="Број за додавање"/>
+                <Item id="2030" name="Иницијален број :"/>
+                <Item id="2031" name="Зголеми за :"/>
+                <Item id="2035" name="Водечки нули"/>
+                <Item id="2032" name="Формат"/>
+                <Item id="2024" name="Дец"/>
+                <Item id="2025" name="Окт"/>
+                <Item id="2026" name="Хекс"/>
+                <Item id="2027" name="Бин"/>
+				<Item id="1" name="Во Ред"/>
+				<Item id="2" name="Откажи"/>
+            </ColumnEditor>
+		</Dialog>
+    </Native-Langue>
+</NotepadPlus>

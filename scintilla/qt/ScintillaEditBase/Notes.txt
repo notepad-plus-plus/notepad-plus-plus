@@ -1,0 +1,18 @@
+
+Issues with Scintilla for Qt
+
+Qt reports character descenders are 1 pixel shorter than they really are.
+There is a tweak in the code to add a pixel in. This may have to be reviewed for Qt 5.
+There's a comment in the Qt code for Windows:
+       // ### we subtract 1 to even out the historical +1 in QFontMetrics's
+       // ### height=asc+desc+1 equation. Fix in Qt5.
+
+The clocks used aren't great. QTime is a time since midnight clock so wraps around and
+is only accurate to, at best, milliseconds.
+
+On OS X drawing text into a pixmap moves it around 1 pixel to the right compared to drawing
+it directly onto a window. Buffered drawing turned off by default to avoid this.
+Reported as QTBUG-19483.
+
+Only one QPainter can be active on any widget at a time. Scintilla only draws into one
+widget but reenters for measurement.

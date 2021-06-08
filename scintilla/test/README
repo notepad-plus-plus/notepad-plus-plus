@@ -1,0 +1,30 @@
+The test directory contains some unit and performance tests for Scintilla.
+
+The tests can only be run on Windows or Linux/Qt using Python 2.7 or 3.x.
+Python 2.7+ is required because the bytes string type and literals are available.
+Scintilla must be built before running any tests.
+
+A test application for Windows only is in xite.py and this can be run to experiment:
+pythonw xite.py
+
+To run the basic tests:
+python simpleTests.py
+
+There are some lexing tests with simple input files in several languages in the examples
+subdirectory and their expected lexed states in *.styled where the start of each style
+is marked with {styleNumber}, for example:
+{15}<%@{16}language=javas{15}%>{0}
+
+To run the lexing tests:
+python lexTests.py
+
+To check for performance regressions:
+python performanceTests.py
+While each test run will be different and the timer has only limited granularity, some results
+from a 2 GHz Athlon with a DEBUG build are:
+ 0.187 testAddLine
+. 0.203 testAddLineMiddle
+. 0.171 testHuge
+. 0.203 testHugeInserts
+. 0.312 testHugeReplace
+.

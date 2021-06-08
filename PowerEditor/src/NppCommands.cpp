@@ -494,16 +494,12 @@ void Notepad_plus::command(int id)
 
 				if (url.empty() || (httpPos != 0 && httpsPos != 0)) // if string is not a url (for launching only browser)
 				{
-					url = TEXT("https://www.google.com/search?q=$(CURRENT_WORD)");
+					url = TEXT("https://duckduckgo.com/?q=$(CURRENT_WORD)");
 				}
 			}
 			else if (nppGui._searchEngineChoice == nppGui.se_duckDuckGo || nppGui._searchEngineChoice == nppGui.se_bing)
 			{
 				url = TEXT("https://duckduckgo.com/?q=$(CURRENT_WORD)");
-			}
-			else if (nppGui._searchEngineChoice == nppGui.se_google)
-			{
-				url = TEXT("https://www.google.com/search?q=$(CURRENT_WORD)");
 			}
 			else if (nppGui._searchEngineChoice == nppGui.se_yahoo)
 			{

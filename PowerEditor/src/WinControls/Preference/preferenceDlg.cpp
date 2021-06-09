@@ -3155,29 +3155,40 @@ INT_PTR CALLBACK MultiInstanceSubDlg::run_dlgProc(UINT message, WPARAM wParam, L
 	NppGUI & nppGUI = (NppParameters::getInstance()).getNppGUI();
 	switch (message) 
 	{
-		case WM_INITDIALOG :
+		case WM_INITDIALOG:
 		{
 			MultiInstSetting multiInstSetting = nppGUI._multiInstSetting;
 
-			::SendDlgItemMessage(_hSelf, IDC_SESSIONININST_RADIO, BM_SETCHECK, multiInstSetting == multiInstOnSession ? BST_CHECKED : BST_UNCHECKED, 0);
-			::SendDlgItemMessage(_hSelf, IDC_MULTIINST_RADIO, BM_SETCHECK, multiInstSetting == multiInst ? BST_CHECKED : BST_UNCHECKED, 0);
-			::SendDlgItemMessage(_hSelf, IDC_MONOINST_RADIO, BM_SETCHECK, multiInstSetting == monoInst ? BST_CHECKED : BST_UNCHECKED, 0);
+			const auto SetChecked = [this](int item, bool checked)
+			{
+				::SendDlgItemMessage(_hSelf, item, BM_SETCHECK, checked ? BST_CHECKED : BST_UNCHECKED, 0);
+			};
 
-			if (nppGUI._virtualDesktopSupported) {
-				::SendDlgItemMessage(_hSelf, IDC_VIRTUAL_DESKTOP_AWARE_CHECK, BM_SETCHECK, nppGUI._virtualDesktopAware ? BST_CHECKED : BST_UNCHECKED, 0);
+			SetChecked(IDC_SESSIONININST_RADIO, multiInstSetting == multiInstOnSession);
+			SetChecked(IDC_MULTIINST_RADIO, multiInstSetting == multiInst);
+			SetChecked(IDC_MONOINST_RADIO, multiInstSetting == monoInst);
+
+			if (nppGUI._virtualDesktopSupported)
+			{
+				SetChecked(IDC_VIRTUAL_DESKTOP_AWARE_CHECK, nppGUI._virtualDesktopAware);
 			}
-			else {
+			else
+			{
+				// We save, and restore, this value because otherwise, setting the check state causes WM_COMMAND
+				// to be called, and thus will clobber the value.
+				bool originalSetting = nppGUI._virtualDesktopAware;
 				// Disable the checkbox on systems where it is not supported.
 				::SendDlgItemMessage(_hSelf, IDC_VIRTUAL_DESKTOP_AWARE_CHECK, BM_SETSTYLE, BS_3STATE, TRUE);
 				::SendDlgItemMessage(_hSelf, IDC_VIRTUAL_DESKTOP_AWARE_CHECK, BM_SETCHECK, BST_INDETERMINATE, 0);
 				::SendDlgItemMessage(_hSelf, IDC_VIRTUAL_DESKTOP_AWARE_CHECK, BM_SETDONTCLICK, TRUE, 0);
 				HWND hCheckbox = ::GetDlgItem(_hSelf, IDC_VIRTUAL_DESKTOP_AWARE_CHECK);
 				::EnableWindow(hCheckbox, FALSE);
+				nppGUI._virtualDesktopAware = originalSetting;
 			}
 		}
 		break;
 
-		case WM_COMMAND : 
+		case WM_COMMAND:
 		{
 			if (HIWORD(wParam) != BN_CLICKED)
 			{
@@ -3186,19 +3197,19 @@ INT_PTR CALLBACK MultiInstanceSubDlg::run_dlgProc(UINT message, WPARAM wParam, L
 
 			switch (LOWORD(wParam))
 			{
-				case IDC_SESSIONININST_RADIO :
+				case IDC_SESSIONININST_RADIO:
 				{
 					nppGUI._multiInstSetting = multiInstOnSession;
 				}
 				break;
 
-				case IDC_MULTIINST_RADIO :
+				case IDC_MULTIINST_RADIO:
 				{
 					nppGUI._multiInstSetting = multiInst;
 				}
 				break;
 
-				case IDC_MONOINST_RADIO :
+				case IDC_MONOINST_RADIO:
 				{
 					nppGUI._multiInstSetting = monoInst;
 				}
@@ -3210,9 +3221,6 @@ INT_PTR CALLBACK MultiInstanceSubDlg::run_dlgProc(UINT message, WPARAM wParam, L
 					nppGUI._virtualDesktopAware = isChecked;
 				}
 				break;
-
-				default :
-					return FALSE;
 			}
 		}
 		break;

@@ -555,15 +555,21 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 	//Only after loading all the file paths set the working directory
 	::SetCurrentDirectory(NppParameters::getInstance().getNppPath().c_str());	//force working directory to path of module, preventing lock
 
+	// This and the uninitializer are outside of the scope block so that it uninitializes *after* any com_ptrs are destroyed.
+	bool comInitialized = false;
 	{
+		// Try to get a pointer to the iVDM, and mark it as unsupported if we fail (primarily for systems before Windows 10)
 		com_ptr<IVirtualDesktopManager> pVDM = nullptr;
-		if (nppGui._virtualDesktopAware && SUCCEEDED(::CoInitialize(nullptr)))
+		if (SUCCEEDED(::CoInitialize(nullptr)))
 		{
+			comInitialized = true;
+
 			if (SUCCEEDED(::CoCreateInstance(CLSID_VirtualDesktopManager, nullptr, CLSCTX_ALL, IID_PPV_ARGS(&pVDM))))
 			{
 				nppGui._virtualDesktopSupported = true;
 			}
-			else {
+			else
+			{
 				nppGui._virtualDesktopSupported = false;
 			}
 		}
@@ -572,12 +578,16 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 		{
 			bool shouldTerminate = true;
 
-			static const auto FindAppWindow = []() -> HWND {
+			// Try to find a Notepad++ window, retrying multiple times
+			static const auto FindAppWindow = []() -> HWND
+			{
 				static constexpr const int Retries = 5;
 				static constexpr const DWORD DelayMS = 100;
 
-				for (int i = 0; i <= Retries; ++i) {
-					if (HWND appWindow = ::FindWindow(Notepad_plus_Window::ClassName, nullptr)) {
+				for (int i = 0; i <= Retries; ++i)
+				{
+					if (HWND appWindow = ::FindWindow(Notepad_plus_Window::ClassName, nullptr))
+					{
 						return appWindow;
 					}
 					Sleep(DelayMS);
@@ -591,9 +601,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 			{
 				// We can only pass a single LPARAM to the EnumWindows callback, so we will pack both the VDM pointer
 				// and the result boolean into a single pair, and pass that.
-				std::pair<com_ptr<IVirtualDesktopManager>, bool> enumWindowsDataPair = { pVDM, false };
+				std::pair<com_ptr<IVirtualDesktopManager>&, bool> enumWindowsDataPair = { pVDM, false };
 
-				static const auto TestWindow = [](com_ptr<IVirtualDesktopManager> pVDM, HWND hWnd) -> bool {
+				static const auto TestWindow = [](com_ptr<IVirtualDesktopManager>& pVDM, HWND hWnd) -> bool
+				{
 					// Compare the class name of the window against our expected class name.
 					// We only need to compare one additional character to know if it's different.
 					TCHAR classNameBuffer[_countof(Notepad_plus_Window::ClassName) + 1] = { _T('\0') };
@@ -614,19 +625,25 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 					return false;
 				};
 
-				::EnumWindows([](HWND hWnd, LPARAM lParam) -> BOOL
+				// Iterate over every window, seeing if it is a Notepad++ window. We cannot use FindWindow because we need to check
+				// _every_ potential Notepad++ window, not just the first found.
+				::EnumWindows(
+					[](HWND hWnd, LPARAM lParam) -> BOOL
 					{
 						auto& inOutData = *reinterpret_cast<decltype(enumWindowsDataPair)*>(lParam);
 
 						// If we find a window that is a Notepad++ window that is a part of our current virtual desktop,
 						// report it back to the result pair and stop enumeration.
-						if (TestWindow(inOutData.first, hWnd)) {
+						if (TestWindow(inOutData.first, hWnd))
+						{
 							inOutData.second = true;
 							return FALSE;
 						}
 
 						return TRUE;
-					}, reinterpret_cast<LPARAM>(&enumWindowsDataPair));
+					},
+					reinterpret_cast<LPARAM>(&enumWindowsDataPair)
+				);
 
 				// If the pair's second parameter is 'true', then an existing window was found on this virtual desktop.
 				if (!enumWindowsDataPair.second)
@@ -681,12 +698,11 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 				}
 			}
 		}
-
-		if (pVDM)
-		{
-			pVDM->Release();
-			::CoUninitialize();
-		}
+	}
+	if (comInitialized)
+	{
+		::CoUninitialize();
+		comInitialized = false;
 	}
 
 	Notepad_plus_Window notepad_plus_plus;

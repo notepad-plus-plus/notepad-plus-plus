@@ -19,33 +19,33 @@
                     <Item menuId="language" name="語言(&amp;L)"/>
                     <Item menuId="settings" name="設定(&amp;T)"/>
                     <Item menuId="tools" name="架撐(&amp;O)"/>
-                    <Item menuId="macro" name="Macro(&amp;M)"/>
+                    <Item menuId="macro" name="&amp;Macro"/>
                     <Item menuId="run" name="執行(&amp;R)"/>
                     <Item idName="Plugins" name="外掛(&amp;P)"/>
                     <Item idName="Window" name="視窗(&amp;W)"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item subMenuId="file-openFolder" name="打開檔案嘅資料夾"/>
-                    <Item subMenuId="file-closeMore" name="閂咁啲檔案"/>
+                    <Item subMenuId="file-openFolder" name="打開檔案嘅資料夾(&amp;F)"/>
+                    <Item subMenuId="file-closeMore" name="閂咁啲檔案(&amp;M)"/>
                     <Item subMenuId="file-recentFiles" name="最近用過嘅檔案"/>
-                    <Item subMenuId="edit-copyToClipboard" name="抄去剪貼簿"/>
-                    <Item subMenuId="edit-indent" name="縮排"/>
-                    <Item subMenuId="edit-convertCaseTo" name="轉換大細楷"/>
-                    <Item subMenuId="edit-lineOperations" name="處理呢（幾）行"/>
-                    <Item subMenuId="edit-comment" name="註解"/>
-                    <Item subMenuId="edit-autoCompletion" name="自動完成"/>
-                    <Item subMenuId="edit-eolConversion" name="行尾格式（EOL）"/>
-                    <Item subMenuId="edit-blankOperations" name="空格處理"/>
-                    <Item subMenuId="edit-pasteSpecial" name="特殊貼上"/>
-                    <Item subMenuId="edit-onSelection" name="處理揀選範圍"/>
-                    <Item subMenuId="search-markAll" name="全部標記"/>
-                    <Item subMenuId="search-markOne" name="單一標記"/> <!-- #new v7.9.6 -->
-                    <Item subMenuId="search-unmarkAll" name="去除標記"/>
-                    <Item subMenuId="search-jumpUp" name="上個標記"/>
-                    <Item subMenuId="search-jumpDown" name="下個標記"/>
-                    <Item subMenuId="search-copyStyledText" name="抄低標記咗嘅字"/> <!-- #new v7.9.1 -->
-                    <Item subMenuId="search-bookmark" name="書籤"/>
+                    <Item subMenuId="edit-copyToClipboard" name="抄去剪貼簿(&amp;Y)"/>
+                    <Item subMenuId="edit-indent" name="縮排(&amp;I)"/>
+                    <Item subMenuId="edit-convertCaseTo" name="轉換大細楷(&amp;V)"/>
+                    <Item subMenuId="edit-lineOperations" name="處理呢（幾）行(&amp;L)"/>
+                    <Item subMenuId="edit-comment" name="註解(&amp;M)"/>
+                    <Item subMenuId="edit-autoCompletion" name="自動完成(&amp;A)"/>
+                    <Item subMenuId="edit-eolConversion" name="行尾格式（&amp;EOL）"/>
+                    <Item subMenuId="edit-blankOperations" name="空格處理(&amp;B)"/>
+                    <Item subMenuId="edit-pasteSpecial" name="特殊貼上(&amp;P)"/>
+                    <Item subMenuId="edit-onSelection" name="處理揀選範圍(&amp;O)"/>
+                    <Item subMenuId="search-markAll" name="全部標記(&amp;A)"/>
+                    <Item subMenuId="search-markOne" name="單一標記(&amp;O)"/> <!-- #new v7.9.6 -->
+                    <Item subMenuId="search-unmarkAll" name="去除標記(&amp;U)"/>
+                    <Item subMenuId="search-jumpUp" name="上個標記(&amp;J)"/>
+                    <Item subMenuId="search-jumpDown" name="下個標記(&amp;D)"/>
+                    <Item subMenuId="search-copyStyledText" name="抄低標記咗嘅字(&amp;C)"/> <!-- #new v7.9.1 -->
+                    <Item subMenuId="search-bookmark" name="書籤(&amp;B)"/>
                     <Item subMenuId="view-currentFileIn" name="喺第二度睇呢個檔案"/>
                     <Item subMenuId="view-showSymbol" name="特殊字元"/>
                     <Item subMenuId="view-zoom" name="Zoom"/>
@@ -92,21 +92,21 @@
                     <Item id="41009" name="閂晒左邊所有檔案"/>
                     <Item id="41018" name="閂晒右邊所有檔案"/>
                     <Item id="41024" name="閂晒啲 save 咗兼冇改過嘅檔案"/>
-                    <Item id="41006" name="Save (&amp;S)"/>
-                    <Item id="41007" name="Save 晒所有檔案(&amp;V)"/>
-                    <Item id="41008" name="Save 做新檔案(&amp;A)..."/>
-                    <Item id="41010" name="Print 出嚟(&amp;P)..."/>
-                    <Item id="1001"  name="即刻 print 佢出嚟"/>
+                    <Item id="41006" name="&amp;Save"/>
+                    <Item id="41007" name="Sa&amp;ve 晒所有檔案"/>
+                    <Item id="41008" name="S&amp;ave 做新檔案..."/>
+                    <Item id="41010" name="&amp;Print 出嚟..."/>
+                    <Item id="1001"  name="即刻 print 佢出嚟(&amp;W)"/>
                     <Item id="41011" name="散水(&amp;X)"/>
-                    <Item id="41012" name="開返個工作階段出嚟..."/>
-                    <Item id="41013" name="Save 低個工作階段..."/>
-                    <Item id="41014" name="喺磁碟重新 load 過(&amp;L)"/>
-                    <Item id="41015" name="Save 多份 copy..."/>
-                    <Item id="41016" name="掉去垃圾桶"/>
-                    <Item id="41017" name="改名..."/>
+                    <Item id="41012" name="開返個工作階段出嚟(&amp;I)..."/>
+                    <Item id="41013" name="Save 低個工作階段(&amp;I)..."/>
+                    <Item id="41014" name="喺磁碟重新 &amp;load 過"/>
+                    <Item id="41015" name="Save 多份 cop&amp;y..."/>
+                    <Item id="41016" name="掉去垃圾桶(&amp;B)"/>
+                    <Item id="41017" name="改名(&amp;R)..."/>
                     <Item id="41021" name="開返閂咗嘅檔案"/>
                     <Item id="41022" name="喺工作區打開資料夾(&amp;W)..."/>
-                    <Item id="41023" name="喺系統預設程式度打開"/>
+                    <Item id="41023" name="喺系統預設程式度打開(&amp;D)"/>
 
                     <!-- menu: Edit -->
                     <Item id="42001" name="剪(&amp;T)"/>
@@ -115,8 +115,8 @@
                     <Item id="42004" name="重做(&amp;R)"/>
                     <Item id="42005" name="貼(&amp;P)"/>
                     <Item id="42006" name="剷(&amp;D)"/>
-                    <Item id="42007" name="揀晒(&amp;A)"/>
-                    <Item id="42020" name="開始揀/揀完"/>
+                    <Item id="42007" name="揀晒(&amp;S)"/>
+                    <Item id="42020" name="開始揀/揀完(&amp;S)"/>
                     <Item id="42008" name="增加縮排"/>
                     <Item id="42009" name="減少縮排"/>
                     <Item id="42010" name="重複呢行"/>
@@ -175,25 +175,25 @@
                     <Item id="42050" name="貼上 binary 內容（包埋 NULL 字元）"/>
                     <Item id="42082" name="抄低條 link"/> <!-- #new v7.9.2 -->
                     <Item id="42037" name="欄位模式..."/>
-                    <Item id="42034" name="欄位編輯器..."/>
-                    <Item id="42051" name="打開 panel：ASCII 字元表"/>
-                    <Item id="42052" name="打開 panel：剪貼簿記錄"/>
+                    <Item id="42034" name="欄位編輯器(&amp;N)..."/>
+                    <Item id="42051" name="打開 &amp;panel：ASCII 字元表"/>
+                    <Item id="42052" name="打開 panel：剪貼簿記錄(&amp;H)"/>
 
                     <!-- menu: Macro (cont'd) -->
-                    <Item id="42025" name="Save 低啱啱錄咗嘅 macro (&amp;S)..."/>
+                    <Item id="42025" name="&amp;Save 低啱啱錄咗嘅 macro..."/>
 
                     <!-- menu: View -->
                     <Item id="42026" name="文字方向：右至左"/>
                     <Item id="42027" name="文字方向：左至右"/>
 
                     <!-- menu: Edit (cont'd) -->
-                    <Item id="42028" name="將檔案 set 做唯讀"/>
+                    <Item id="42028" name="將檔案 &amp;set 做唯讀"/>
                     <Item id="42029" name="檔案路徑 → 剪貼簿"/>
                     <Item id="42030" name="檔名 → 剪貼簿"/>
                     <Item id="42031" name="資料夾路徑 → 剪貼簿"/>
 
                     <!-- menu: Macro (cont'd) -->
-                    <Item id="42032" name="係咁執行 macro (&amp;R)..."/>
+                    <Item id="42032" name="係咁執行 mac&amp;ro..."/>
 
                     <!-- menu: Edit (cont'd) -->
                     <Item id="42033" name="取消唯讀屬性"/>
@@ -219,14 +219,14 @@
                     <Item id="43021" name="剷走書籤嗰幾行"/>
                     <Item id="43051" name="剷走冇書籤標記嗰幾行"/>
                     <Item id="43050" name="反向標記書籤"/>
-                    <Item id="43052" name="以字元編號搵字元..."/>
-                    <Item id="43053" name="揀選括號之間全部字元"/>
-                    <Item id="43009" name="跳去對應括號"/>
+                    <Item id="43052" name="以字元編號搵字元(&amp;E)..."/>
+                    <Item id="43053" name="揀選括號之間全部字元(&amp;M)"/>
+                    <Item id="43009" name="跳去對應括號(&amp;M)"/>
                     <Item id="43010" name="搵上一個(&amp;P)"/>
                     <Item id="43011" name="遞增式咁搵(&amp;I)..."/>
-                    <Item id="43013" name="喺一咋檔案搵"/>
-                    <Item id="43014" name="揀字然後搵下個（唔記錄關鍵字）"/>
-                    <Item id="43015" name="揀字然後搵上個（唔記錄關鍵字）"/>
+                    <Item id="43013" name="喺一咋檔案搵(&amp;L)"/>
+                    <Item id="43014" name="揀字然後搵下個（唔記錄關鍵字）(&amp;V)"/>
+                    <Item id="43015" name="揀字然後搵上個（唔記錄關鍵字）(&amp;V)"/>
                     <Item id="43022" name="使用格式一嘅顏色"/>
                     <Item id="43023" name="清除格式一嘅顏色"/>
                     <Item id="43024" name="使用格式二嘅顏色"/>
@@ -262,11 +262,11 @@
                     <Item id="43064" name="格式三"/> <!-- #new v7.9.6 -->
                     <Item id="43065" name="格式四"/> <!-- #new v7.9.6 -->
                     <Item id="43066" name="格式五"/> <!-- #new v7.9.6 -->
-                    <Item id="43045" name="顯示搜尋結果視窗"/>
-                    <Item id="43046" name="下一個搜尋結果"/>
-                    <Item id="43047" name="上一個搜尋結果"/>
-                    <Item id="43048" name="揀字然後搵下個"/>
-                    <Item id="43049" name="揀字然後搵上個"/>
+                    <Item id="43045" name="顯示搜尋結果視窗(&amp;W)"/>
+                    <Item id="43046" name="下一個搜尋結果(&amp;T)"/>
+                    <Item id="43047" name="上一個搜尋結果(&amp;T)"/>
+                    <Item id="43048" name="揀字然後搵下個(&amp;S)"/>
+                    <Item id="43049" name="揀字然後搵上個(&amp;S)"/>
                     <Item id="43054" name="標記(&amp;K)..."/>
 
                     <!-- menu: View (cont'd) -->
@@ -1161,10 +1161,10 @@
 
             <Window title="視窗">
                 <Item id="1" name="啟用(&amp;A)"/>
-                <Item id="2" name="OK (&amp;O)"/>
-                <Item id="7002" name="Save (&amp;S)"/>
+                <Item id="2" name="&amp;OK"/>
+                <Item id="7002" name="&amp;Save"/>
                 <Item id="7003" name="閂視窗(&amp;C)"/>
-                <Item id="7004" name="Tabs 排次序(&amp;T)"/>
+                <Item id="7004" name="&amp;Tabs 排次序"/>
             </Window>
 
             <ColumnEditor title="欄位編輯器">

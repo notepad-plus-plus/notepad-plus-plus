@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!--
-	## Bulgarian localization for Notepad++ ##
-
-	Translators:.....: 2007–2012 – Milen Metev (Tragedy); 2014–yyyy – Rusi Dimitrov
-	Last revision:...: 12.05.2021 by Rusi Dimitrov <astral_86[at]mail[dot]bg>
-	Download:........: https://gist.github.com/rddim/bd37264898c3a17363e7437bcf1b4803
--->
+<!-- =========================================== [ Bulgarian localization ] ===\
+|
+|   Translators:.....: 2014–yyyy – Rusi Dimitrov;
+|                      2007–2012 – Milen Metev (Tragedy);
+|   Last revision:...: 24.05.2021 by Rusi Dimitrov <astral_86[at]mail[dot]bg>
+|
+\=========================================================================== -->
 <NotepadPlus>
 	<Native-Langue name="Български" filename="bulgarian.xml">
 		<Menu>
@@ -160,6 +160,8 @@
 					<Item id="42056" name="Премахване на празни редове (съдържащи интервал)"/>
 					<Item id="42057" name="Вмъкване на празен ред над текущия"/>
 					<Item id="42058" name="Вмъкване на празен ред под текущия"/>
+					<Item id="42083" name="Обръщане реда на редовете"/>
+					<Item id="42078" name="Произволно сортиране на редове"/>
 					<Item id="42059" name="Сортиране по възходящ ред"/>
 					<Item id="42080" name="Сортиране по възходящ ред (без регистър)"/>
 					<Item id="42061" name="Възходящо сортиране като цели числа"/>
@@ -170,8 +172,6 @@
 					<Item id="42062" name="Низходящо сортиране като цели числа"/>
 					<Item id="42064" name="Низходящо сортиране като десетични знаци (запетая)"/>
 					<Item id="42066" name="Низходящо сортиране като десетични знаци (точка)"/>
-					<Item id="42083" name="Обръщане реда на редовете"/>
-					<Item id="42078" name="Произволно сортиране на редове"/>
 						<!-- Подменю "Коментари" -->
 					<Item id="42022" name="(Раз)коментиране на ред"/>
 					<Item id="42035" name="Коментиране на ред"/>
@@ -495,7 +495,7 @@
 				<!-- "Замяна", "Търсене във файлове", "Търсене в проекти" -->
 				<Item id="1611" name="З&amp;амяна с:"/>
 				<!-- "Търсене" -->
-				<Item id="1614" name="&amp;Брой съвпадения"/>
+				<Item id="1614" name="&amp;Брой повторения"/>
 				<Item id="1641" name="Намиране на &amp;всичко в текущият файл"/>
 				<Item id="1636" name="Намиране на всичко във всички &amp;отворени"/>
 				<!-- "Замяна" -->
@@ -927,7 +927,7 @@
 					<Item id="6902" name="Равноширок шрифт в диалога за търсене (изисква се рестартиране на Notepad++)"/>
 					<Item id="6903" name="Диалога за търсене остава отворен, след като резултатите бъдат изведени в прозореца"/>
 					<Item id="6904" name="Потвърждение при &quot;Замяна на всичко във всички отворени&quot; документи"/>
-					<Item id="6905" name="Без преместване към следващото съвпадение при замяна"/>
+					<Item id="6905" name="Без преместване към следващото повторение при замяна"/>
 				</Searching>
 					<!-- Резервно копие -->
 				<Backup title="Резервно копие">
@@ -1017,7 +1017,7 @@
 						<Element name="Изключено"/>
 					</ComboBox>
 					<Item id="6313" name="Тихо обновяване"/>
-					<Item id="6325" name="Превъртане до последният ред"/>
+					<Item id="6325" name="Превъртане до последния ред"/>
 					<Item id="6323" name="Автоматично обновяване на Notepad++"/>
 					<Item id="6360" name="Изключване на всички звуци"/>
 					<Item id="6334" name="Автоматично определяне кодировката на знаците"/>
@@ -1342,33 +1342,33 @@
 				<!-- Меню "Търсене" - "Търсене", "Замяна", "Търсене във файлове", "Търсене в проекти", "Маркиране" -->
 			<shift-change-direction-tip value="Търсене в обратна посока чрез Shift+Enter"/>
 			<two-find-buttons-tip value="Режим за търсене с два бутона"/>
-			<find-status-top-reached value="Търсене: Намерено е първото съвпадение от краят. Началото на документа е достигнато."/>
-			<find-status-end-reached value="Търсене: Намерено е първото съвпадение от началото. Краят на документа е достигнат."/>
+			<find-status-top-reached value="Търсене: Намерено е първото повторение от краят. Началото на документа е достигнато."/>
+			<find-status-end-reached value="Търсене: Намерено е първото повторение от началото. Краят на документа е достигнат."/>
 			<find-status-invalid-re value="Търсене: Неправилен регулярен израз"/>
 			<find-status-search-failed value="Търсене: Търсенето е неуспешно"/>
 			<find-status-cannot-find value="Търсене: Текстът &quot;$STR_REPLACE$&quot; не може да бъде намерен"/>
-			<find-status-replaceinfiles-1-replaced value="Замяна във Файлове: Заменено е 1 съвпадение"/>
-			<find-status-replaceinfiles-nb-replaced value="Замяна във Файлове: Заменени са $INT_REPLACE$ съвпадения"/>
+			<find-status-replaceinfiles-1-replaced value="Замяна във Файлове: Заменено е 1 повторение"/>
+			<find-status-replaceinfiles-nb-replaced value="Замяна във Файлове: Заменени са $INT_REPLACE$ повторения"/>
 			<find-status-replaceinfiles-re-malformed value="Замяна в отворените файлове: Регулярният израз е неправилно формиран"/>
-			<find-status-replaceinopenedfiles-1-replaced value="Замяна в отворените файлове: Заменено е 1 съвпадение"/>
-			<find-status-replaceinopenedfiles-nb-replaced value="Замяна в отворените файлове: Заменени са $INT_REPLACE$ съвпадения"/>
+			<find-status-replaceinopenedfiles-1-replaced value="Замяна в отворените файлове: Заменено е 1 повторение"/>
+			<find-status-replaceinopenedfiles-nb-replaced value="Замяна в отворените файлове: Заменени са $INT_REPLACE$ повторения"/>
 			<find-status-replaceall-re-malformed value="Замяна на всичко: Регулярният израз е неправилно формиран"/>
-			<find-status-replaceall-1-replaced value="Замяна на всичко: Заменено е 1 съвпадение"/>
-			<find-status-replaceall-nb-replaced value="Замяна на всичко: Заменени са $INT_REPLACE$ съвпадения"/>
+			<find-status-replaceall-1-replaced value="Замяна на всичко: Заменено е 1 повторение"/>
+			<find-status-replaceall-nb-replaced value="Замяна на всичко: Заменени са $INT_REPLACE$ повторения"/>
 			<find-status-replaceall-readonly value="Замяна на всичко: Текстът не може да бъде заменен. Текущият документ е само за четене"/>
-			<find-status-replace-end-reached value="Замяна: Заменено е първото съвпадение от началото. Краят на документа е достигнат"/>
-			<find-status-replace-top-reached value="Замяна: Заменено е първото съвпадение от краят. Началото на документа е достигнато"/>
-			<find-status-replaced-next-found value="Замяна: Заменено е 1 съвпадение. Намерено е следващото съвпадение"/>
-			<find-status-replaced-without-continuing value="Замяна: Заменено е 1 съвпадение."/>
-			<find-status-replaced-next-not-found value="Замяна: Заменено е 1 съвпадение. Не бяха намерени повече съвпадения"/>
-			<find-status-replace-not-found value="Замяна: Не е намерено съвпадение"/>
+			<find-status-replace-end-reached value="Замяна: Заменено е първото повторение от началото. Краят на документа е достигнат"/>
+			<find-status-replace-top-reached value="Замяна: Заменено е първото повторение от краят. Началото на документа е достигнато"/>
+			<find-status-replaced-next-found value="Замяна: Заменено е 1 повторение. Намерено е следващото повторение"/>
+			<find-status-replaced-without-continuing value="Замяна: Заменено е 1 повторение."/>
+			<find-status-replaced-next-not-found value="Замяна: Заменено е 1 повторение. Не бяха намерени повече повторения"/>
+			<find-status-replace-not-found value="Замяна: Не е намерено повторение"/>
 			<find-status-replace-readonly value="Замяна: Текстът не може да бъде заменен. Текущият документ е само за четене"/>
 			<find-status-mark-re-malformed value="Маркиране: Регулярният израз за търсене е неправилно формиран"/>
-			<find-status-mark-1-match value="Маркиране: 1 съвпадение"/>
-			<find-status-mark-nb-matches value="Маркиране: $INT_REPLACE$ съвпадения"/>
+			<find-status-mark-1-match value="Маркиране: 1 повторение"/>
+			<find-status-mark-nb-matches value="Маркиране: $INT_REPLACE$ повторения"/>
 			<find-status-count-re-malformed value="Брой: Регулярният израз за търсене е неправилно формиран"/>
-			<find-status-count-1-match value="Брой съвпадения: 1"/>
-			<find-status-count-nb-matches value="Брой съвпадения: $INT_REPLACE$"/>
+			<find-status-count-1-match value="Брой повторения: 1"/>
+			<find-status-count-nb-matches value="Брой повторения: $INT_REPLACE$"/>
 			<find-status-scope-selection value="в избраният текст"/>
 			<find-status-scope-all value="в целият файл"/>
 			<find-status-scope-backward value="от началото на файла до курсора"/>
@@ -1393,15 +1393,15 @@
 				<!-- Меню "Търсене" - "Търсене във файлове" - "Намиране на всички" -->
 			<find-result-caption value="Намерени резултати"/>
 			<find-result-title value="Търсене на"/>
-			<find-result-title-info value="($INT_REPLACE1$ съвпадения в $INT_REPLACE2$ файл(а) от $INT_REPLACE3$ претърсен(и))"/>
-			<find-result-title-info-selections value="($INT_REPLACE1$ съвпадения в $INT_REPLACE2$ избран(и) от $INT_REPLACE3$ претърсен(и))"/>
+			<find-result-title-info value="($INT_REPLACE1$ повторения в $INT_REPLACE2$ файл(а) от $INT_REPLACE3$ претърсен(и))"/>
+			<find-result-title-info-selections value="($INT_REPLACE1$ повторения в $INT_REPLACE2$ избран(и) от $INT_REPLACE3$ претърсен(и))"/>
 			<find-result-title-info-extra value=" - Режим за филтриране на редове: показват се само филтрираните резултати"/>
-			<find-result-hits value="($INT_REPLACE$ съвпадения)"/>
+			<find-result-hits value="($INT_REPLACE$ повторения)"/>
 			<find-result-line-prefix value="Ред"/>
-			<find-regex-zero-length-match value="съвпадение с нулева дължина"/>
+			<find-regex-zero-length-match value="повторение с нулева дължина"/>
 			<find-in-files-progress-title value="Намиране във файлове..."/>
 				<!-- Дясно щракане върху раздел -->
-			<tabrename-title value="Преименуване на текущият раздел"/>
+			<tabrename-title value="Преименуване на раздела"/>
 			<tabrename-newname value="Ново име:"/>
 			<common-ok value="Добре"/>
 			<common-cancel value="Отказ"/>
@@ -1428,15 +1428,15 @@
 			<summary-nbrange value=" обхват(а)"/>
 				<!-- "Замяна" - "Замяна на всичко във всички отворени" -->
 			<replace-in-open-docs-confirm-title value="Сигурни ли сте?"/>
-			<replace-in-open-docs-confirm-message value="Сигурни ли сте, че искате да бъдат заменени всички съвпадения във всички отворени документи?"/>
+			<replace-in-open-docs-confirm-message value="Сигурни ли сте, че искате да бъдат заменени всички повторения във всички отворени документи?"/>
 				<!-- "Търсене във файлове" - "Замяна във файловете" -->
 			<replace-in-files-confirm-title value="Сигурни ли сте?"/>
-			<replace-in-files-confirm-directory value="Сигурни ли сте, че искате да бъдат заменени всички съвпадения в:"/>
+			<replace-in-files-confirm-directory value="Сигурни ли сте, че искате да бъдат заменени всички повторения в:"/>
 			<replace-in-files-confirm-filetype value="За типа файл:"/>
 			<replace-in-files-progress-title value="Замяна във файлове..."/>
 				<!-- "Търсене в проекти" - "Замяна в проектите" -->
 			<replace-in-projects-confirm-title value="Сигурни ли сте?"/>
-			<replace-in-projects-confirm-message value="Сигурни ли сте, че искате да бъдат заменени всички съвпадения във всички документи в избраните проектни панели?"/>
+			<replace-in-projects-confirm-message value="Сигурни ли сте, че искате да бъдат заменени всички повторения във всички документи в избраните проектни панели?"/>
 				<!-- Други -->
 			<session-save-folder-as-workspace value="&amp;Запис на &quot;Директория като работно място&quot;"/>
 			<file-save-assign-type value="&amp;Добавяне на разширение"/>

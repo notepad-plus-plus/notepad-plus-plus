@@ -125,10 +125,10 @@ void ToolBarIcons::reInit(int size)
 
 		if (i._hIcon_DM)
 		{
-			_iconListVector[HLIST_DEFAULT_DM].addIcon(i._hIcon_DM ? i._hIcon_DM : i._hIcon);
-			_iconListVector[HLIST_DISABLE_DM].addIcon(i._hIcon_DM ? i._hIcon_DM : i._hIcon);
-			_iconListVector[HLIST_DEFAULT_DM2].addIcon(i._hIcon_DM ? i._hIcon_DM : i._hIcon);
-			_iconListVector[HLIST_DISABLE_DM2].addIcon(i._hIcon_DM ? i._hIcon_DM : i._hIcon);
+			_iconListVector[HLIST_DEFAULT_DM].addIcon(i._hIcon_DM);
+			_iconListVector[HLIST_DISABLE_DM].addIcon(i._hIcon_DM);
+			_iconListVector[HLIST_DEFAULT_DM2].addIcon(i._hIcon_DM);
+			_iconListVector[HLIST_DISABLE_DM2].addIcon(i._hIcon_DM);
 		}
 		else
 		{

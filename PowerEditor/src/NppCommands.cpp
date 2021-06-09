@@ -497,17 +497,13 @@ void Notepad_plus::command(int id)
 					url = TEXT("https://www.google.com/search?q=$(CURRENT_WORD)");
 				}
 			}
-			else if (nppGui._searchEngineChoice == nppGui.se_duckDuckGo)
+			else if (nppGui._searchEngineChoice == nppGui.se_duckDuckGo || nppGui._searchEngineChoice == nppGui.se_bing)
 			{
 				url = TEXT("https://duckduckgo.com/?q=$(CURRENT_WORD)");
 			}
 			else if (nppGui._searchEngineChoice == nppGui.se_google)
 			{
 				url = TEXT("https://www.google.com/search?q=$(CURRENT_WORD)");
-			}
-			else if (nppGui._searchEngineChoice == nppGui.se_bing)
-			{
-				url = TEXT("https://www.bing.com/search?q=$(CURRENT_WORD)");
 			}
 			else if (nppGui._searchEngineChoice == nppGui.se_yahoo)
 			{

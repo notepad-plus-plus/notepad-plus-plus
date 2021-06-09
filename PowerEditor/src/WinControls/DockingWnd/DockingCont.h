@@ -155,7 +155,7 @@ protected :
 	eMousePos isInRect(HWND hwnd, int x, int y);
 
 	// handling of toolbars
-	void doClose();
+	void doClose(BOOL closeAll);
 
 	// return new item
 	int  searchPosInTab(tTbData* pTbData);

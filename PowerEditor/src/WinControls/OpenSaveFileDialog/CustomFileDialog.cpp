@@ -658,7 +658,7 @@ public:
 
 	bool addFlags(DWORD dwNewFlags)
 	{
-		// Before setting, always get the options first in order 
+		// Before setting, always get the options first in order
 		// not to override existing options.
 		DWORD dwOldFlags = 0;
 		HRESULT hr = _dialog->GetOptions(&dwOldFlags);

@@ -161,7 +161,22 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			// Note: lParam is -1 to prevent endless loops of calls
 			::SendMessage(_dockingManager.getHSelf(), WM_NCACTIVATE, wParam, -1);
-			return ::DefWindowProc(hwnd, message, wParam, lParam);
+			result = ::DefWindowProc(hwnd, message, wParam, lParam);
+			if (NppDarkMode::isDarkMenuEnabled() && NppDarkMode::isEnabled())
+			{
+				NppDarkMode::drawUAHMenuNCBottomLine(hwnd);
+			}
+			return result;
+		}
+
+		case WM_NCPAINT:
+		{
+			result = ::DefWindowProc(hwnd, message, wParam, lParam);
+			if (NppDarkMode::isDarkMenuEnabled() && NppDarkMode::isEnabled())
+			{
+				NppDarkMode::drawUAHMenuNCBottomLine(hwnd);
+			}
+			return result;
 		}
 
 		case WM_ERASEBKGND:

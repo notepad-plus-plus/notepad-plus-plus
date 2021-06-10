@@ -353,6 +353,34 @@ namespace NppDarkMode
 		}
 	}
 
+	void drawUAHMenuNCBottomLine(HWND hWnd)
+	{
+		MENUBARINFO mbi = { sizeof(mbi) };
+		if (!GetMenuBarInfo(hWnd, OBJID_MENU, 0, &mbi))
+		{
+			return;
+		}
+
+		RECT rcClient = { 0 };
+		GetClientRect(hWnd, &rcClient);
+		MapWindowPoints(hWnd, nullptr, (POINT*)&rcClient, 2);
+
+		RECT rcWindow = { 0 };
+		GetWindowRect(hWnd, &rcWindow);
+
+		OffsetRect(&rcClient, -rcWindow.left, -rcWindow.top);
+
+		// the rcBar is offset by the window rect
+		RECT rcAnnoyingLine = rcClient;
+		rcAnnoyingLine.bottom = rcAnnoyingLine.top;
+		rcAnnoyingLine.top--;
+
+
+		HDC hdc = GetWindowDC(hWnd);
+		FillRect(hdc, &rcAnnoyingLine, NppDarkMode::getDarkerBackgroundBrush());
+		ReleaseDC(hWnd, hdc);
+	}
+
 	// from DarkMode.h
 
 	void initExperimentalDarkMode(bool fixDarkScrollbar, bool dark)

@@ -123,12 +123,11 @@ void ToolBarIcons::reInit(int size)
 		_iconListVector[HLIST_DEFAULT2].addIcon(i._hIcon);
 		_iconListVector[HLIST_DISABLE2].addIcon(i._hIcon);
 
+		HICON hIcon = nullptr;
+
 		if (i._hIcon_DM)
 		{
-			_iconListVector[HLIST_DEFAULT_DM].addIcon(i._hIcon_DM);
-			_iconListVector[HLIST_DISABLE_DM].addIcon(i._hIcon_DM);
-			_iconListVector[HLIST_DEFAULT_DM2].addIcon(i._hIcon_DM);
-			_iconListVector[HLIST_DISABLE_DM2].addIcon(i._hIcon_DM);
+			hIcon = i._hIcon_DM;
 		}
 		else
 		{
@@ -138,65 +137,72 @@ void ToolBarIcons::reInit(int size)
 			HDC dcScreen = ::GetDC(NULL);
 
 			BITMAP bmp;
-			::GetObject(iconinfoSrc.hbmColor, sizeof(BITMAP), &bmp);
+			int nbByteBmp = ::GetObject(iconinfoSrc.hbmColor, sizeof(BITMAP), &bmp);
 
-			BITMAPINFOHEADER bi = { 0 };
-
-			bi.biSize = sizeof(BITMAPINFOHEADER);
-			bi.biWidth = bmp.bmWidth;
-			bi.biHeight = bmp.bmHeight;
-			bi.biPlanes = 1;
-			bi.biBitCount = 32;
-			bi.biCompression = BI_RGB;
-			bi.biSizeImage = 0;
-			bi.biXPelsPerMeter = 0;
-			bi.biYPelsPerMeter = 0;
-			bi.biClrUsed = 0;
-			bi.biClrImportant = 0;
-
-			DWORD dwLineSize = ((bmp.bmWidth * bi.biBitCount + 31) / 32) * 4;
-			DWORD dwBmpSize = dwLineSize * bmp.bmHeight;
-
-			std::unique_ptr<BYTE[]> dibits(new BYTE[dwBmpSize]);
-
-			GetDIBits(dcScreen, iconinfoSrc.hbmColor, 0, bi.biHeight, dibits.get(), (BITMAPINFO*)&bi, DIB_RGB_COLORS);
-
-			for (int scanLine = 0; scanLine < bi.biHeight; ++scanLine)
+			if (!nbByteBmp)
 			{
-				BYTE* rawLine = dibits.get() + (dwLineSize * scanLine);
-				RGBQUAD* pLine = (RGBQUAD*)rawLine;
-
-				for (int pixel = 0; pixel < bi.biWidth; ++pixel)
-				{
-					RGBQUAD rgba = pLine[pixel];
-
-					COLORREF c = RGB(rgba.rgbRed, rgba.rgbGreen, rgba.rgbBlue);
-					COLORREF invert = NppDarkMode::invertLightness(c);
-
-					rgba.rgbRed = GetRValue(invert);
-					rgba.rgbBlue = GetBValue(invert);
-					rgba.rgbGreen = GetGValue(invert);
-
-					pLine[pixel] = rgba;
-				}
+				hIcon = i._hIcon;
 			}
+			else
+			{
+				BITMAPINFOHEADER bi = { 0 };
 
-			HBITMAP hBmpNew = ::CreateCompatibleBitmap(dcScreen, bmp.bmWidth, bmp.bmHeight);
+				bi.biSize = sizeof(BITMAPINFOHEADER);
+				bi.biWidth = bmp.bmWidth;
+				bi.biHeight = bmp.bmHeight;
+				bi.biPlanes = 1;
+				bi.biBitCount = 32;
+				bi.biCompression = BI_RGB;
+				bi.biSizeImage = 0;
+				bi.biXPelsPerMeter = 0;
+				bi.biYPelsPerMeter = 0;
+				bi.biClrUsed = 0;
+				bi.biClrImportant = 0;
 
-			SetDIBits(dcScreen, hBmpNew, 0, bi.biHeight, dibits.get(), (BITMAPINFO*)&bi, DIB_RGB_COLORS);
+				DWORD dwLineSize = ((bmp.bmWidth * bi.biBitCount + 31) / 32) * 4;
+				DWORD dwBmpSize = dwLineSize * bmp.bmHeight;
 
-			::ReleaseDC(NULL, dcScreen);
+				std::unique_ptr<BYTE[]> dibits(new BYTE[dwBmpSize]);
 
-			ICONINFO iconinfoDest = { 0 };
-			iconinfoDest.fIcon = TRUE;
-			iconinfoDest.hbmColor = hBmpNew;
-			iconinfoDest.hbmMask = iconinfoSrc.hbmMask;
+				GetDIBits(dcScreen, iconinfoSrc.hbmColor, 0, bi.biHeight, dibits.get(), (BITMAPINFO*)&bi, DIB_RGB_COLORS);
 
-			HICON hIcon = ::CreateIconIndirect(&iconinfoDest);
+				for (int scanLine = 0; scanLine < bi.biHeight; ++scanLine)
+				{
+					BYTE* rawLine = dibits.get() + (dwLineSize * scanLine);
+					RGBQUAD* pLine = (RGBQUAD*)rawLine;
 
-			::DeleteObject(hBmpNew);
-			::DeleteObject(iconinfoSrc.hbmColor);
-			::DeleteObject(iconinfoSrc.hbmMask);
+					for (int pixel = 0; pixel < bi.biWidth; ++pixel)
+					{
+						RGBQUAD rgba = pLine[pixel];
+
+						COLORREF c = RGB(rgba.rgbRed, rgba.rgbGreen, rgba.rgbBlue);
+						COLORREF invert = NppDarkMode::invertLightness(c);
+
+						rgba.rgbRed = GetRValue(invert);
+						rgba.rgbBlue = GetBValue(invert);
+						rgba.rgbGreen = GetGValue(invert);
+
+						pLine[pixel] = rgba;
+					}
+				}
+
+				HBITMAP hBmpNew = ::CreateCompatibleBitmap(dcScreen, bmp.bmWidth, bmp.bmHeight);
+
+				SetDIBits(dcScreen, hBmpNew, 0, bi.biHeight, dibits.get(), (BITMAPINFO*)&bi, DIB_RGB_COLORS);
+
+				::ReleaseDC(NULL, dcScreen);
+
+				ICONINFO iconinfoDest = { 0 };
+				iconinfoDest.fIcon = TRUE;
+				iconinfoDest.hbmColor = hBmpNew;
+				iconinfoDest.hbmMask = iconinfoSrc.hbmMask;
+
+				hIcon = ::CreateIconIndirect(&iconinfoDest);
+
+				::DeleteObject(hBmpNew);
+				::DeleteObject(iconinfoSrc.hbmColor);
+				::DeleteObject(iconinfoSrc.hbmMask);
+			}
 
 			_iconListVector[HLIST_DEFAULT_DM].addIcon(hIcon);
 			_iconListVector[HLIST_DISABLE_DM].addIcon(hIcon);

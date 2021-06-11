@@ -193,9 +193,9 @@ public:
 	{
 		--_refCount;
 
-		if ((!_refCount)&&(_SciInit))
+		if ((!_refCount)&&(_hLib))
 		{
-			Scintilla_ReleaseResources();
+			::FreeLibrary(_hLib);
 
 			for (BufferStyleMap::iterator it(_hotspotStyles.begin()); it != _hotspotStyles.end(); ++it )
 			{
@@ -616,7 +616,7 @@ public:
 	void removeAnyDuplicateLines();
 
 protected:
-	static bool _SciInit;
+	static HINSTANCE _hLib;
 
 	static int _refCount;
 

@@ -997,6 +997,8 @@ HWND CreateToolTip(int toolID, HWND hDlg, HINSTANCE hInst, const PTSTR pszText)
 		return NULL;
 	}
 
+	NppDarkMode::setDarkTooltips(hwndTip, NppDarkMode::ToolTipsType::tooltip);
+
 	// Associate the tooltip with the tool.
 	TOOLINFO toolInfo = { 0 };
 	toolInfo.cbSize = sizeof(toolInfo);
@@ -1014,7 +1016,7 @@ HWND CreateToolTip(int toolID, HWND hDlg, HINSTANCE hInst, const PTSTR pszText)
 	SendMessage(hwndTip, TTM_SETMAXTIPWIDTH, 0, 200);
 	// Make tip stay 15 seconds
 	SendMessage(hwndTip, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM((15000), (0)));
-	NppDarkMode::setDarkTooltips(hwndTip, false);
+
 	return hwndTip;
 }
 

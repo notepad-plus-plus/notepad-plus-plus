@@ -4,6 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
+		- Updated on June 14th, 2021 for version 8.0.0 by Patriccollu di Santa Maria è Sichè
 		- Updated on May 20th, 2021 for version 7.9.6 by Patriccollu di Santa Maria è Sichè
 		- Updated on May 12th, 2021 for version 7.9.6 by Patriccollu di Santa Maria è Sichè
 		- Updated on January 27th, 2021 for version 7.9.3 by Patriccollu di Santa Maria è Sichè
@@ -24,7 +25,7 @@ The comments are here for explanation, it's not necessary to translate them.
 	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/corsican.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="Corsu" filename="corsican.xml" version="7.9.6">
+    <Native-Langue name="Corsu" filename="corsican.xml" version="8.0.0">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -1460,6 +1461,7 @@ Circà in tutti i schedarii fora di exe, obj è log :
             <session-save-folder-as-workspace value="Arregistrà u cartulare cum’è spaziu di travagliu"/>
             <tab-untitled-string value="novu "/>
             <file-save-assign-type value="&amp;Aghjunghje un’estensione"/>
+            <close-panel-tip value="Chjode"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

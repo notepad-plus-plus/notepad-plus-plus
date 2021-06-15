@@ -57,13 +57,12 @@ namespace NppDarkMode
 
 	static const Colors darkColors{
 		HEXRGB(0x202020),	// background
-		HEXRGB(0x282828),	// softerBackground
+		HEXRGB(0x404040),	// softerBackground
 		HEXRGB(0x404040),	// hotBackground
-		HEXRGB(0x000000),	// pureBackground
+		HEXRGB(0x202020),	// pureBackground
 		HEXRGB(0xB00000),	// errorBackground
 		HEXRGB(0xE0E0E0),	// textColor
 		HEXRGB(0xC0C0C0),	// darkerTextColor
-		HEXRGB(0x707070),	// disabledTextColor
 		HEXRGB(0x808080),	// edgeColor
 	};
 

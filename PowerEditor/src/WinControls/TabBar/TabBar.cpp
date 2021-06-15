@@ -882,7 +882,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			}
 
 			LONG_PTR dwStyle = GetWindowLongPtr(hwnd, GWL_STYLE);
-			if (!(dwStyle & TCS_OWNERDRAWFIXED) || (dwStyle & TCS_BOTTOM) || (dwStyle & TCS_BUTTONS))
+			if (!(dwStyle & TCS_OWNERDRAWFIXED))
 			{
 				break;
 			}

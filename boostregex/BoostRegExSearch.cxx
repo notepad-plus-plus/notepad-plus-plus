@@ -306,11 +306,9 @@ Sci::Position BoostRegexSearch::FindText(Document* doc, Sci::Position startPosit
 			);
 		search._skip_windows_line_end_as_one_character = (sciSearchFlags & SCFIND_REGEXP_SKIPCRLFASONE) != 0;
 		
-		std::locale l = std::locale::global(std::locale(""));
 		Match match =
 			isUtf8 ? _utf8.FindText(search)
 			       : _ansi.FindText(search);
-		std::locale::global(l);
 
 		if (match.found())
 		{

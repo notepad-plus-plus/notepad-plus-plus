@@ -203,12 +203,11 @@ void ToolBarIcons::reInit(int size)
 				::DeleteObject(iconinfoSrc.hbmColor);
 				::DeleteObject(iconinfoSrc.hbmMask);
 			}
-
-			_iconListVector[HLIST_DEFAULT_DM].addIcon(hIcon);
-			_iconListVector[HLIST_DISABLE_DM].addIcon(hIcon);
-			_iconListVector[HLIST_DEFAULT_DM2].addIcon(hIcon);
-			_iconListVector[HLIST_DISABLE_DM2].addIcon(hIcon);
 		}
+		_iconListVector[HLIST_DEFAULT_DM].addIcon(hIcon);
+		_iconListVector[HLIST_DISABLE_DM].addIcon(hIcon);
+		_iconListVector[HLIST_DEFAULT_DM2].addIcon(hIcon);
+		_iconListVector[HLIST_DISABLE_DM2].addIcon(hIcon);
 	}
 }
 

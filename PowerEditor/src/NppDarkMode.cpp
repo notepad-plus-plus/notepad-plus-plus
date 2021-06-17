@@ -1038,6 +1038,20 @@ namespace NppDarkMode
 		autoSubclassAndThemeChildControls(hwndParent, false, true); 
 	}
 
+	void setDarkThemeViaWinAPI(HWND hwnd, bool setTitle)
+	{
+		if (NppDarkMode::isExperimentalEnabled() && NppDarkMode::isEnabled())
+		{
+			NppDarkMode::allowDarkModeForWindow(hwnd, true);
+			SetWindowTheme(hwnd, L"Explorer", nullptr);
+
+			if (setTitle)
+			{
+				NppDarkMode::setTitleBarThemeColor(hwnd, true);
+			}
+		}
+	}
+
 	void setDarkTooltips(HWND hwnd, ToolTipsType type)
 	{
 		if (NppDarkMode::isEnabled())

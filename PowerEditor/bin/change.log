@@ -1,3 +1,14 @@
+Notepad++ v8.1 bug-fixes & enhancements:
+
+1.  Fix regression of auto-completion performance issue.
+2.  Fix Open dialog with "Save" label for "Open" button.
+3.  Fix Notepad++ crash on dark mode while starting up.
+4.  Improve look & feel in dark mode.
+5.  Adapt Tooltips in dark mode.
+6.  Remove white line under menubar in dark mode.
+7.  Make multiline and vertical tabs work in dark mode.
+
+
 Notepad++ v8 new features, enhancements & bug-fixes:
 
 1.  Add Dark Mode.
@@ -41,7 +52,7 @@ Notepad++ v8 new features, enhancements & bug-fixes:
 39. Remove Microsoft Bing from search engines for Search on Internet command.
 
 More fixes & implementations detail:
-https://notepad-plus-plus.org/downloads/v8/
+https://notepad-plus-plus.org/downloads/v8.1/
 
 
 Included plugins:

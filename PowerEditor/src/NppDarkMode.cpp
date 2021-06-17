@@ -1039,6 +1039,23 @@ namespace NppDarkMode
 		autoSubclassAndThemeChildControls(hwndParent, false, true); 
 	}
 
+	void setDarkTitleBar(HWND hwnd)
+	{
+		bool useDark = NppDarkMode::isExperimentalEnabled() && NppDarkMode::isEnabled();
+
+		NppDarkMode::allowDarkModeForWindow(hwnd, useDark);
+		NppDarkMode::setTitleBarThemeColor(hwnd, useDark);
+
+		if (useDark)
+		{
+			SetWindowTheme(hwnd, L"Explorer", nullptr);
+		}
+		else
+		{
+			SetWindowTheme(hwnd, nullptr, nullptr);
+		}
+	}
+
 	void setDarkTooltips(HWND hwnd, ToolTipsType type)
 	{
 		if (NppDarkMode::isEnabled())

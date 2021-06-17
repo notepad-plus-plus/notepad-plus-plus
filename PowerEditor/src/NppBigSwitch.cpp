@@ -94,11 +94,7 @@ LRESULT Notepad_plus_Window::runProc(HWND hwnd, UINT message, WPARAM wParam, LPA
 		{
 			try
 			{
-				if (NppDarkMode::isExperimentalEnabled())
-				{
-					NppDarkMode::allowDarkModeForWindow(hwnd, NppDarkMode::isEnabled());
-					NppDarkMode::setTitleBarThemeColor(hwnd, NppDarkMode::isEnabled());
-				}
+				NppDarkMode::setDarkTitleBar(hwnd);
 
 				_notepad_plus_plus_core._pPublicInterface = this;
 				LRESULT lRet = _notepad_plus_plus_core.init(hwnd);

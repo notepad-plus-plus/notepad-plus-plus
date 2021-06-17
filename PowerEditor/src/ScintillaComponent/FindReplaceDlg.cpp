@@ -884,12 +884,6 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 		case WM_INITDIALOG :
 		{
-			if (NppDarkMode::isExperimentalEnabled())
-			{
-				NppDarkMode::allowDarkModeForWindow(_hSelf, NppDarkMode::isEnabled());
-				NppDarkMode::setTitleBarThemeColor(_hSelf, NppDarkMode::isEnabled());
-			}
-
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
 			HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);

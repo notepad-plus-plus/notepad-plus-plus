@@ -7512,11 +7512,18 @@ void Notepad_plus::refreshDarkMode()
 	if (NppDarkMode::isExperimentalEnabled())
 	{
 		NppDarkMode::allowDarkModeForApp(NppDarkMode::isEnabled());
-		NppDarkMode::allowDarkModeForWindow(_pPublicInterface->getHSelf(), NppDarkMode::isEnabled());
-		NppDarkMode::allowDarkModeForWindow(_findReplaceDlg.getHSelf(), NppDarkMode::isEnabled());
-		NppDarkMode::setTitleBarThemeColor(_pPublicInterface->getHSelf(), NppDarkMode::isEnabled());
-		NppDarkMode::setTitleBarThemeColor(_findReplaceDlg.getHSelf(), NppDarkMode::isEnabled());
 	}
+	NppDarkMode::setDarkTitleBar(_pPublicInterface->getHSelf());
+
+	for (auto &hwndDlg : _hModelessDlgs)
+	{
+		NppDarkMode::setDarkTitleBar(hwndDlg);
+	}
+	for (auto &docCont : _dockingManager.getContainerInfo())
+	{
+		NppDarkMode::setDarkTitleBar(docCont->getCaptionWnd());
+	}
+
 	SendMessage(_findReplaceDlg.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
 	SendMessage(_incrementFindDlg.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
 	RedrawWindow(_pPublicInterface->getHSelf(), nullptr, nullptr, RDW_INVALIDATE | RDW_ERASE | RDW_FRAME | RDW_ALLCHILDREN);

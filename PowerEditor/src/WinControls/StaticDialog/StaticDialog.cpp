@@ -18,6 +18,7 @@
 #include <windows.h>
 #include "StaticDialog.h"
 #include "Common.h"
+#include "NppDarkMode.h"
 
 StaticDialog::~StaticDialog()
 {

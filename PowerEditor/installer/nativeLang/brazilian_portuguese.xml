@@ -1023,7 +1023,7 @@ As modificações salvas não poderão ser desfeitas.
 Deseja continuar?"/>
             <CannotMoveDoc title="Mover para nova instância do Notepad++" message="Documento alterado, salve-o e tente novamente."/>
             <DocReloadWarning title="Recarregar" message="Deseja recarregar o arquivo atual e perder as modificações feitas no Notepad++?"/>
-            <FileLockedWarning title="Falha ao salvar" message="Por favor, verifique se este arquivo está aberto em outro programa"/>
+            <FileLockedWarning title="Falha ao salvar" message="$STR_REPLACE$\rPor favor, verifique se este arquivo está aberto em outro programa"/>
             <FileAlreadyOpenedInNpp title="" message="O arquivo já está aberto no Notepad++."/>
             <DeleteFileFailed title="Excluir Arquivo" message="Falha ao excluir arquivo"/>
 

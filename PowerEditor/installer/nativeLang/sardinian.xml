@@ -651,7 +651,7 @@
 			<LoseUndoAbilityWarning title="Atentzione: Pèrdida de sa possibbilidade de ripristinare" message="Depes sarbare is modìficas currentes.&#x0A;Totu is modìficas sarbadas non podent èssere annuddadas.&#x0A;&#x0A;Boles sighire?"/>
 			<CannotMoveDoc title="Invia a una istànzia noa de Notepad++" message="Su documentu est istadu modificadu, est a ddu sarbare in antis de sighire."/>
 			<DocReloadWarning title="Càrriga torra" message="Ses seguru chi boles carrigare torra su file? Onni Muda fata s'at a pèrdere."/>
-			<FileLockedWarning title="Sarbamentu faddidu" message="Verificare chi su file non siat abertu cun carchi àteru programma."/>
+			<FileLockedWarning title="Sarbamentu faddidu" message="$STR_REPLACE$\rVerificare chi su file non siat abertu cun carchi àteru programma."/>
 			<FileAlreadyOpenedInNpp title="" message="Su file est già abertu in Notepad++."/>
 			<DeleteFileFailed title="Eliminatzione file" message="Eliminatzione de su file faddida."/>
 		</MessageBox>

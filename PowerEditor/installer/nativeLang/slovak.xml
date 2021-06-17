@@ -1150,7 +1150,7 @@ Uložené zmeny nie je možné vrátiť.
 Pokračovať?"/>
             <CannotMoveDoc title="Presunúť do novej inštancie programu Notepad++" message="Dokument bol zmenený. Uložte zmeny a skúste to znova."/>
             <DocReloadWarning title="Obnoviť" message="Ste si istý, že chcete obnoviť aktuálny súbor a stratiť tak zmeny vykonané v programe Notepad++?"/>
-            <FileLockedWarning title="Uloženie zlyhalo" message="Skontrolujte, prosím, či súbor nie je otvorený v inom programe."/>
+            <FileLockedWarning title="Uloženie zlyhalo" message="$STR_REPLACE$\rSkontrolujte, prosím, či súbor nie je otvorený v inom programe."/>
             <FileAlreadyOpenedInNpp title="" message="Súbor je už otvorený v programe Notepad++."/>
             <RenameTabTemporaryNameAlreadyInUse title="Premenovanie zlyhalo" message="Tento názov je už použitý pre inú kartu."/>
             <DeleteFileFailed title="Odstrániť súbor" message="Odstránenie súboru zlyhalo."/>

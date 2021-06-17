@@ -1151,7 +1151,7 @@ All the saved modifications can not be undone.
 Continue?"/> <!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
             <CannotMoveDoc title="Move to new Notepad++ Instance" message="Document is modified, save it then try again."/> <!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
             <DocReloadWarning title="Reload" message="Are you sure you want to reload the current file and lose the changes made in Notepad++?"/>
-            <FileLockedWarning title="Save failed" message="Please check whether if this file is opened in another program"/>
+            <FileLockedWarning title="Save failed" message="$STR_REPLACE$\rPlease check whether if this file is opened in another program"/>
             <FileAlreadyOpenedInNpp title="" message="The file is already opened in Notepad++."/> <!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
             <RenameTabTemporaryNameAlreadyInUse title="Rename failed" message="The specified name is already in use on another tab."/> <!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
             <DeleteFileFailed title="Delete File" message="Delete File failed"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->

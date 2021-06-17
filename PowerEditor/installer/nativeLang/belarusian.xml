@@ -1017,7 +1017,7 @@
 Працягнуць?"/>
             <CannotMoveDoc title="Перамясціць у новае акно Notepad++" message="Дакумент зменены. Захавайце яго і паспрабуйце зноў."/>
             <DocReloadWarning title="Перазагрузіць" message="Вы ўпэўненыя, што хочаце перазагрузіць бягучы файл і згубіць усе змены, якія былі зробленыя ў Notepad++?"/>
-            <FileLockedWarning title="Памылка захавання" message="Праверце, ці не адкрыты гэты файл у іншай праграме"/>
+            <FileLockedWarning title="Памылка захавання" message="$STR_REPLACE$\rПраверце, ці не адкрыты гэты файл у іншай праграме"/>
             <FileAlreadyOpenedInNpp title="" message="Файл ужо адкрыты ў Notepad++."/>
             <DeleteFileFailed title="Выдаліць файл" message="Не атрымалася выдаліць файл"/>
 

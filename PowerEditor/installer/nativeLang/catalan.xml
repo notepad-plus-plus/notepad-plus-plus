@@ -990,7 +990,7 @@ By Hiro5 <groccat at gmail>
 			<LoseUndoAbilityWarning title="Avís de pèrdua d'habilitat de desfer" message="Hauríeu de desar la modificació actual.&#xD;Totes les modificacions desades no es podran desfer.&#xD;&#xD;Voleu continuar?"/>
 			<CannotMoveDoc title="Mou a una nova finestra de Notepad++" message="El document s'ha modificat, l'heu de desar abans i tornar a intentar-ho."/>
 			<DocReloadWarning title="Recarrega" message="Segur que voleu recarregar el fitxer actual i perdre els canvis fets amb Notepad++?"/>
-			<FileLockedWarning title="No s'ha pogut desar" message="Comproveu si aquest fitxer està obert amb un altre programa"/>
+			<FileLockedWarning title="No s'ha pogut desar" message="$STR_REPLACE$\rComproveu si aquest fitxer està obert amb un altre programa"/>
 			<FileAlreadyOpenedInNpp title="" message="El fitxer ja està obert al Notepad++."/>
 			<DeleteFileFailed title="Esborra fitxer" message="No s'ha pogut esborrar el fitxer"/>
 			<NbFileToOpenImportantWarning title="Massa fitxers per obrir" message="Esteu a punt d'obrir $INT_REPLACE$ fitxers.&#xD;Segur que voleu obrir-los?"/>

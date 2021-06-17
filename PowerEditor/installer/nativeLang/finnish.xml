@@ -1158,7 +1158,7 @@ Updated to v8.0.0:
 			<LoseUndoAbilityWarning 	title="Varoitus muutosten peruuttaamattomuudesta" 	message="Tehdyt muutokset pitää tallentaa. Tallennuksen jälkeen muutoksia ei voi peruuttaa. Jatketaanko?"/>
 			<CannotMoveDoc 				title="Avaa uuteen Notepad++ -istuntoon" 			message="Tiedostoa on muokattu, tallenna se ja yritä sitten uudelleen."/>
 			<DocReloadWarning 			title="Uudelleenlataus" 							message="Avataanko tiedosto uudelleen hyläten edellisen avauksen jälkeiset muutokset?"/>
-			<FileLockedWarning 			title="Tallennus epäonnistui" 						message="Varmista, että muut sovellukset eivä käytä tätä tiedostoa"/>
+			<FileLockedWarning 			title="Tallennus epäonnistui" 						message="$STR_REPLACE$\rVarmista, että muut sovellukset eivä käytä tätä tiedostoa"/>
 			<FileAlreadyOpenedInNpp 	title="" 											message="Tiedosto on jo avoimena sovelluksessa Notepad++."/>
 			<DeleteFileFailed 			title="Tiedoston poisto" 							message="Tiedoston poisto epäonnistui"/>
 			<RenameTabTemporaryNameAlreadyInUse title="Uudelleennimeäminen epäonnistui"    	message="Määritetty nimi on jo toisen välilehden käytössä."/>

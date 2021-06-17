@@ -999,7 +999,7 @@ Toate modificările salvate nu vor putea fi refăcute.
 Continuați?"/>
             <CannotMoveDoc title="Mutare în instanță nouă Notepad++" message="Documentul este modificat, salvați-l și încercați din nou."/>
             <DocReloadWarning title="Reîncărcare" message="Sigur doriți să reîncărcați fișierul curent și să pierdeți modificările efectuate în Notepad++?"/>
-            <FileLockedWarning title="Salvare eșuată" message="Verificați dacă acest fișier nu este accesat și de un alt program."/>
+            <FileLockedWarning title="Salvare eșuată" message="$STR_REPLACE$\rVerificați dacă acest fișier nu este accesat și de un alt program."/>
             <FileAlreadyOpenedInNpp title="" message="Fișierul este deja deschis în Notepad++."/>
             <DeleteFileFailed title="Ștergere fișier" message="Ștergere fișier eșuată."/>
 

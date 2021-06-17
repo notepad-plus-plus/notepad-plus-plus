@@ -636,7 +636,7 @@
 			<LoseUndoAbilityWarning title="Губи способност смањења опозива" message="Требало би да сачувате тренутну промену.\rСве сачуване измене се не могу опозвати.\r\rНастављате?"/>
 			<CannotMoveDoc title="Премести у нову Notepad++ инстанцу" message="Документ је измењен, сачувајте га а затим покушајте поново."/>
 			<DocReloadWarning title="Поново учитај" message="Желите да поново учутате тренутну датотеку и изгубите направљене промене у Notepad++?"/>
-			<FileLockedWarning title="Неуспешно чување" message="Проверите да ли је ова датотека отворена у другом програму"/>
+			<FileLockedWarning title="Неуспешно чување" message="$STR_REPLACE$\rПроверите да ли је ова датотека отворена у другом програму"/>
 			<FileAlreadyOpenedInNpp title="" message="Датотека је већ отворена у Notepad++."/>
 			<DeleteFileFailed title="Избриши датотеку" message="Неуспешно брисање датотеке"/>
 

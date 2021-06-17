@@ -1161,7 +1161,7 @@ Alle gespeicherten Änderungen können nicht rückgängig gemacht werden.
 Fortfahren?"/> <!-- HowToReproduce: when you openned file is modified but unsaved yet, and you are changing file encoding. -->
 			<CannotMoveDoc title="In neue Instanz verschieben" message="Dokument wurde geändert.&#x0A;Bitte zuerst speichern und erneut versuchen."/>
 			<DocReloadWarning title="Datei wurde geändert!" message="Sind Sie sicher, dass Sie die Datei in der zuletzt&#x0A;gespeicherten Version erneut laden und die&#x0A;in Notepad++ gemachten Änderungen verwerfen wollen?"/>
-			<FileLockedWarning title="Speichern fehlgeschlagen!" message="Datei konnte von Notepad++ nicht gespeichert werden. &#x0A;Bitte überprüfen Sie, ob die Datei in einem anderen Programm geöffnet ist."/>
+			<FileLockedWarning title="Speichern fehlgeschlagen!" message="$STR_REPLACE$\rDatei konnte von Notepad++ nicht gespeichert werden. &#x0A;Bitte überprüfen Sie, ob die Datei in einem anderen Programm geöffnet ist."/>
 			<FileAlreadyOpenedInNpp title="Datei bereits geöffnet" message="Die Datei ist bereits in Notepad++ geöffnet."/>
 			<RenameTabTemporaryNameAlreadyInUse title="Umbenennen fehlgeschlagen" message="Der angegebene Name wird bereits in einem anderen Tab verwendet."/> <!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
 			<DeleteFileFailed title="Löschen fehlgeschlagen!" message="Datei konnte nicht gelöscht werden."/>

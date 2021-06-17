@@ -1151,7 +1151,7 @@ Tutte le modifiche salvate non possono essere ripristinate.
 Continuare?"/> <!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
             <CannotMoveDoc title="Invia a una nuova istanza di Notepad++" message="Il documento è stato modificato, salvarlo prima di continuare."/>
             <DocReloadWarning title="Ricarica" message="Sei sicuro di voler ricaricare il file? Ogni modifica apportata andrà persa."/>
-            <FileLockedWarning title="Salvataggio fallito" message="Verificare che il file non sia aperto con un altro programma."/>
+            <FileLockedWarning title="Salvataggio fallito" message="$STR_REPLACE$\rVerificare che il file non sia aperto con un altro programma."/>
             <FileAlreadyOpenedInNpp title="" message="Il file è già aperto in Notepad++."/>
             <RenameTabTemporaryNameAlreadyInUse title="Rinomina fallita" message="Il file specificato è già in uso su un'altro tab."/> <!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
             <DeleteFileFailed title="Eliminazione file" message="Eliminazione del file fallita."/>

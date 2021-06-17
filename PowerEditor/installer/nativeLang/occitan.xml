@@ -955,7 +955,7 @@ Deuretz tornar lançar Notepad++ per que siá efectiu."/>
 			Contunhar ?"/>
 			<CannotMoveDoc title="Desplaçar dins una nòva instància de Notepad++" message="Lo document es estat modificat, salvatz e tornatz ensajar."/>
 			<DocReloadWarning title="Tornar cargar" message="Sètz segur(a) de voler tornar cargar lo document actiu e pèrdre los cambiaments efectuats dins Notepad++ ?"/>
-			<FileLockedWarning title="Salvar lo fichièr" message="Mercés de verificar s'aquel fichièr es dobèrt dins un autre programa"/>
+			<FileLockedWarning title="Salvar lo fichièr" message="$STR_REPLACE$\rMercés de verificar s'aquel fichièr es dobèrt dins un autre programa"/>
 			<FileAlreadyOpenedInNpp title="" message="Aqueste fichièr es dejà dobèrt dins Notepad++."/>
 			<DeleteFileFailed title="Suprimir lo fichièr" message="La supression del fichièr a pas capitat"/>
 

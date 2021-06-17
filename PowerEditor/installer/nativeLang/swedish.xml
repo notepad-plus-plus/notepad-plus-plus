@@ -1015,7 +1015,7 @@ Fortsätt?"/>
 
 			<CannotMoveDoc title="Flytta till en ny instans av Notepad++" message="Dokumentet är ändrat, spara det och försök igen."/>
 			<DocReloadWarning title="Ladda om" message="Är det säkert att du vill ladda om aktuell fil och förlora de ändringar som gjorts i Notepad++?"/>
-			<FileLockedWarning title="Kunde inte spara" message="Kontrollera om filen är öppen i ett annat program"/>
+			<FileLockedWarning title="Kunde inte spara" message="$STR_REPLACE$\rKontrollera om filen är öppen i ett annat program"/>
 			<FileAlreadyOpenedInNpp title="" message="Filen är redan öppen i Notepad++."/>
 			<DeleteFileFailed title="Ta bort fil" message="Kunde inte ta bort fil"/>
 

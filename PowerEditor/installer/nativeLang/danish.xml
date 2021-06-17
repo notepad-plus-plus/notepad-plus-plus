@@ -1092,7 +1092,7 @@ Alle gemte ændringer kan ikke fortrydes.
 Fortsæt?"/>
             <CannotMoveDoc title="Flyt til ny instans af Notepad++" message="Dokument er ændret. Gem det og prøv igen."/>
             <DocReloadWarning title="Genindlæs" message="Er du sikker på, at du vil genindlæse den nuværende fil og miste de ændringer der er lavet i Notepad++?"/>
-            <FileLockedWarning title="Gemning mislykkedes" message="Tjek venligst om filen allerede er åbnet i et andet program"/>
+            <FileLockedWarning title="Gemning mislykkedes" message="$STR_REPLACE$\rTjek venligst om filen allerede er åbnet i et andet program"/>
             <FileAlreadyOpenedInNpp title="" message="Filen er allerede åbnet i Notepad++."/>
             <DeleteFileFailed title="Slet fil" message="Sletning af filen mislykkedes"/>
 

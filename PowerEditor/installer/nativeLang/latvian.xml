@@ -853,7 +853,7 @@
             <LoseUndoAbilityWarning title="Brīdinājums par atsaukšanas iespēju zaudēšanu" message="Tev jāsaglabā patreizējās izmaiņas. Saglabātās izmaiņas NEVAR tikt atsauktas. Vai turpināt?"/>
             <CannotMoveDoc title="Pārvieto uz jaunu Notepad++" message="Dokuments ir izmainīts. Saglabā un mēģini vēlreiz."/>
             <DocReloadWarning title="Atjaunot" message="Vai tiešam gribi ielasīt dokumentu no jauna pazaudējot programmā „Notepad++”  veiktās izmaiņas?"/>
-            <FileLockedWarning title="Neizdevās saglabāt" message="Pārbaudi vai fails nav atvērts arī ar kādu citu programmu, vai arī to atļauts dotajā mapē saglabāt."/>
+            <FileLockedWarning title="Neizdevās saglabāt" message="$STR_REPLACE$\rPārbaudi vai fails nav atvērts arī ar kādu citu programmu, vai arī to atļauts dotajā mapē saglabāt."/>
             <FileAlreadyOpenedInNpp title="" message="Fails jau ir atvērts ar Notepad++."/>
             <DeleteFileFailed title="Faila dzēšana" message="Failu izdzēst neizdevās."/>
 

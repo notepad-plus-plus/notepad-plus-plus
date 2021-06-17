@@ -695,7 +695,7 @@
            <LoseUndoAbilityWarning title="Lose Undo Ability Waning" message="වත්මන් විකරණය සුරැකීම අත්‍යාවශ්‍යය වේ.සිදු කල සියලු විකරණයන් ප්‍රතිවර්ත කල නොහැ.r\rඉදිරියට යාම ??"/>
            <CannotMoveDoc title="Move to new Notepad++ Instance" message="ලේඛනය විකරණය වී ඇත.ගොනුව සුරැකීමට ලක් කොට නැවත උත්සහා කරන්න."/>
            <DocReloadWarning title="Reload" message="වත්මන් ගොනුව නැවත විවෘත කොට සිදු කල Notepad++ වෙනස් කිරීම් අහිමි කර ගැනීමට අවශ්‍යද?"/>
-           <FileLockedWarning title="Save failed" message="කරුණාකර මෙම ලේඛනය වෙනත් වැඩසටහනක් මගින් විවෘත කොට ඇත්දයි පරික්ෂා කොට බලන්න"/>
+           <FileLockedWarning title="Save failed" message="$STR_REPLACE$\rකරුණාකර මෙම ලේඛනය වෙනත් වැඩසටහනක් මගින් විවෘත කොට ඇත්දයි පරික්ෂා කොට බලන්න"/>
            <FileAlreadyOpenedInNpp title="" message="මෙම ලේඛනය Notepad++ මගින් දැනටමත් විවෘත කොට පවතී."/>
            <DeleteFileFailed title="Delete File" message="ලේඛනය මැකීම අසාර්ථකයි"/>
 

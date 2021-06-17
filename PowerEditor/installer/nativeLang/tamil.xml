@@ -608,7 +608,7 @@
 			<LoseUndoAbilityWarning title="Lose Undo Ability Waning" message="நீங்கள் நடப்பு மாற்றங்களை சேமிக்கவேண்டும்.\rஅனைத்து சேமித்த மாற்றங்களும் திறும்ப பெற இயலாது.\r\rதொடரவா?"/>
 			<CannotMoveDoc title="Move to new Notepad++ Instance" message="கோப்பு மாற்றப்பட்டூள்ளது. சேமி, பிறகு முயற்சி செய்"/>
 			<DocReloadWarning title="Reload" message="உறுதியாக நடப்பு கோப்பை மறு ஏற்றம் செய்யவா? செய்த மாற்றங்களை இழப்பீர்கள்"/>
-			<FileLockedWarning title="Save failed" message="இந்த கோப்பு மற்றுமொறு நிரலில் திறக்கப்பட்டுள்ளதா எனச் சோதி"/>
+			<FileLockedWarning title="Save failed" message="$STR_REPLACE$\rஇந்த கோப்பு மற்றுமொறு நிரலில் திறக்கப்பட்டுள்ளதா எனச் சோதி"/>
 			<FileAlreadyOpenedInNpp title="" message="இந்த கோப்பு ஏற்கனவே Notepad++ல் திறக்கப்பட்டுள்ளது."/>
 			<DeleteFileFailed title="Delete File" message="கோப்பு 'நீக்கம் வெற்றியடையவில்லை"/>
 

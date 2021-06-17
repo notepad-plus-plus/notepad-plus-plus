@@ -785,7 +785,7 @@ By ChesÃƒÂºs D. Trigo [xuxinho7@gmail.com] & softaragones [softaragones@soft
 			<LoseUndoAbilityWarning title="Aviso de perda de l'habilidat de desfer" message="HabrÃƒÂ­a de alzar a modificaciÃƒÂ³n actual.  Todas as modificacions alzadas no se poderÃƒÂ¡n desfer.    Quiere continar?"/>
 			<CannotMoveDoc title="Mover ta una nueva finestra de Notepad++" message="O documento s'ha modificau, l'ha d'alzar antes y mirar de fer-lo de nuevas."/>
 			<DocReloadWarning title="Recargar" message="Ye seguro que quiere recargar o fichero actual y perder os cambeos feitos con Notepad++?"/>
-			<FileLockedWarning title="No s'ha puesto alzar" message="Comprebe si iste fichero ye ubierto con unatro programa"/>
+			<FileLockedWarning title="No s'ha puesto alzar" message="$STR_REPLACE$\rComprebe si iste fichero ye ubierto con unatro programa"/>
 			<FileAlreadyOpenedInNpp title="" message="O fichero ya ye ubierto con Notepad++."/>
 			<DeleteFileFailed title="Eliminar fichero" message="No s'ha puesto eliminar o fichero"/>
 

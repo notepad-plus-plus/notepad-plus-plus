@@ -837,7 +837,7 @@ gan/by Aled Powell
             <LoseUndoAbilityWarning title="Rhybydd Collli Gallu Dadwneud" message="Dylech gadw'r newidiadau presennol.\rNid yw'n bosib dad-wneud newidiadau ar ôl eu cadw.\r\rParhau?"/>
             <CannotMoveDoc title="Symud i Ystyr Notepad++ Newydd" message="Mae'r Dogfen wedi ei addasu. Cadwch y ddogfen, yna ceisiwch eto."/>
             <DocReloadWarning title="Ail-lwytho" message="Ydych yn sicr eich bod eisiau ail-agor y ffeil bresennol a cholli'r newidiadau gwnaed yn Notepad++?"/>
-            <FileLockedWarning title="Methwyd Cadw" message="Gwiriwch nad yw'r ffeil ar agor mewn rhaglen arall."/>
+            <FileLockedWarning title="Methwyd Cadw" message="$STR_REPLACE$\rGwiriwch nad yw'r ffeil ar agor mewn rhaglen arall."/>
             <FileAlreadyOpenedInNpp title="" message="Mae'r ffeil eisoes ar agor yn Notepad++."/>
             <DeleteFileFailed title="Dileu Ffeil" message="Methwyd dileu'r ffeil"/>
 

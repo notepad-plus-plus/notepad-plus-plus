@@ -866,7 +866,7 @@
 			<LoseUndoAbilityWarning title="Atentu: perdo de ebleco malfari" message="Vi devas konservi faritajn modifiojn.&#x0A;Ne eblas malfari iun konservitan modifion.&#x0A;&#x0A;Ĉu vi volas daŭrigi?"/>
 			<CannotMoveDoc title="Malfermo en alia ekzemplo de Notepad++" message="La dokumento estas modifita, konservu antaŭ daŭrigi."/>
 			<DocReloadWarning title="Reŝargo" message="Ĉu vi certe volas reŝargi la dosieron? Ĉiuj modifioj faritaj estos perditaj."/>
-			<FileLockedWarning title="Nesukcesa konservo" message="Kontrolu ĉu la dosiero estas malfermita en alia programo."/>
+			<FileLockedWarning title="Nesukcesa konservo" message="$STR_REPLACE$\rKontrolu ĉu la dosiero estas malfermita en alia programo."/>
 			<FileAlreadyOpenedInNpp title="Dosiero malfermita" message="La dosiero estas jam malfermita en Notepad++."/>
 			<DeleteFileFailed title="Forigo de dosiero" message="La forigo de la dosiero ne sukcesis."/>
 

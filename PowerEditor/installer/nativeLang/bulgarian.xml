@@ -1486,7 +1486,7 @@
 Продължаване?"/>
 			<CannotMoveDoc title="Преместване в нов прозорец на Notepad++" message="Документът е променен, запишете го и опитайте отново"/>
 			<DocReloadWarning title="Презареждане" message="Сигурни ли сте, че искате текущият документ да бъде презареден и да се загубят направените с Notepad++ промени?"/>
-			<FileLockedWarning title="Неуспешно записване" message="Проверете дали файлът не е отворен от друга програма"/>
+			<FileLockedWarning title="Неуспешно записване" message="$STR_REPLACE$\rПроверете дали файлът не е отворен от друга програма"/>
 			<FileAlreadyOpenedInNpp title="" message="Файлът вече е отворен в Notepad++"/>
 			<RenameTabTemporaryNameAlreadyInUse title="Преименуването е неуспешно" message="Посоченото име вече се използва в друг раздел"/>
 			<DeleteFileFailed title="Изтриване на файл" message="Изтриването на файла е неуспешно"/>

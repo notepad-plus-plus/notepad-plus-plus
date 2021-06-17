@@ -1013,7 +1013,7 @@ N'heller ket distreiñ war ar c'hemmoù enrollet avat.
 Kenderc'hel ganti?"/>
             <CannotMoveDoc title="Fiñval en un iñstañs nevez eus Notepad++" message="An teuliad a zo kemmet anezhañ, enrollit anezhañ ha klaskit adarre."/>
             <DocReloadWarning title="Adkargañ" message="Ha sur oc'h da gaout c'hoant da adkargañ ar restr-red ha koll diwar neuze an holl cheñchamantoù bet graet e Notepad++?"/>
-            <FileLockedWarning title="Argerzh enrollañ c'hwitet" message="Kit da sellet hag-eñ neket digoret ar restr-mañ gant ur programm all"/>
+            <FileLockedWarning title="Argerzh enrollañ c'hwitet" message="$STR_REPLACE$\rKit da sellet hag-eñ neket digoret ar restr-mañ gant ur programm all"/>
             <FileAlreadyOpenedInNpp title="" message="Ar restr a zo digoret e-barzh Notepad++ endeo."/>
             <DeleteFileFailed title="Dilemel ar restr" message="Argerzh dilemel ar restr c'hwitet"/>
 

@@ -565,7 +565,7 @@ bool Notepad_plus::doSave(BufferID id, const TCHAR * filename, bool isCopy)
 			_pPublicInterface->getHSelf(),
 			TEXT("Failed to save file.\nIt seems there's not enough space on disk to save file."),
 			TEXT("Save failed"),
-			MB_OK);
+			MB_OK | MB_ICONERROR);
 	}
 	else if (res == SavingStatus::SaveOpenFailed)
 	{
@@ -599,7 +599,7 @@ bool Notepad_plus::doSave(BufferID id, const TCHAR * filename, bool isCopy)
 							_pPublicInterface->getHSelf(),
 							TEXT("Notepad++ cannot be opened in Administrator mode."),
 							TEXT("Open in Administrator mode failed"),
-							MB_OK);
+							MB_OK | MB_ICONERROR);
 					}
 					else
 					{
@@ -643,11 +643,23 @@ bool Notepad_plus::doSave(BufferID id, const TCHAR * filename, bool isCopy)
 							_pPublicInterface->getHSelf(),
 							TEXT("Notepad++ cannot be opened in Administrator mode."),
 							TEXT("Open in Administrator mode failed"),
-							MB_OK);
+							MB_OK | MB_ICONERROR);
 					}
 				}
 			}
 
+		}
+		else
+		{
+			DWORD errorCode = GetLastError();
+			generic_string errorMessage = GetLastErrorAsString(errorCode);
+			_nativeLangSpeaker.messageBox("FileLockedWarning",
+				_pPublicInterface->getHSelf(),
+				TEXT("Please check whether if this file is opened in another program"),
+				TEXT("Save failed"),
+				MB_OK | MB_ICONWARNING,
+				0,
+				errorMessage.c_str());
 		}
 	}
 

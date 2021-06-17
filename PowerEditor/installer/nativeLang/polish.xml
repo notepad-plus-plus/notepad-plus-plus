@@ -1161,7 +1161,7 @@ Po zapisaniu nie będzie można ich wycofać.
 Kontynuować?"/> <!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
             <CannotMoveDoc title="Przeniesienie do nowej instancji Notepad++" message="Dokument został zmodyfikowany. Zapisz go i spróbuj ponownie."/> <!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
             <DocReloadWarning title="Ponowne załadowanie" message="Czy na pewno chcesz ponownie załadować bieżący plik i stracić wszystkie dokonane w nim zmiany?"/>
-            <FileLockedWarning title="Nieudany zapis" message="Plik może być obecnie otwarty w innym programie."/>
+            <FileLockedWarning title="Nieudany zapis" message="$STR_REPLACE$\rPlik może być obecnie otwarty w innym programie."/>
             <FileAlreadyOpenedInNpp title="" message="Plik jest już otwarty w Notepad++."/> <!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
             <RenameTabTemporaryNameAlreadyInUse title="Nieudana zmiana nazwy" message="Podana nazwa jest używana przez inną kartę."/> <!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
             <DeleteFileFailed title="Usuwanie pliku" message="Nie udało się usunąć pliku."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->

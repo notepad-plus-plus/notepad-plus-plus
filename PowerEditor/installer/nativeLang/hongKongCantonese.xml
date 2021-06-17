@@ -1220,7 +1220,7 @@
 仲繼唔繼續？"/>
             <CannotMoveDoc title="搬去新嘅 Notepad++ 個體" message="份文件有嘢改過，save 咗佢再試吓啦。"/>
             <DocReloadWarning title="喺磁碟重新 load 過" message="留意返！改過嘅嘢會冇晒，係咪真係要再 load 過呢個檔案？"/>
-            <FileLockedWarning title="儲存失敗" message="麻煩你檢查吓，係咪有其它應用程式開咗呢個檔案。"/>
+            <FileLockedWarning title="儲存失敗" message="$STR_REPLACE$\r麻煩你檢查吓，係咪有其它應用程式開咗呢個檔案。"/>
             <FileAlreadyOpenedInNpp title="" message="已經喺 Notepad++ 度開咗呢個檔案。"/>
             <RenameTabTemporaryNameAlreadyInUse title="Rename failed" message="你改呢個名已經用緊喺另一個 tab 度。"/> <!-- #new v7.9.2 -->
             <DeleteFileFailed title="掉去垃圾桶" message="剷唔走個檔案。"/>

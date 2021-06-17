@@ -652,7 +652,7 @@
             <LoseUndoAbilityWarning title="Lose Undo Ability Waning" message="Du bør lagre gjeldande endring.\rAlle endringane du har gjort kan ikkje gjerast om.\r\rHald fram?"/>
             <CannotMoveDoc title="Flytt til nytt Notepad++-vindauge" message="Du har endra dokumentet. Lagre det og prøv om att."/>
             <DocReloadWarning title="Last inn på nytt" message="Er du heilt trygg på at du vil laste inn att den gjeldande fila og misse alle endringane du har gjort i Notepad++?"/>
-            <FileLockedWarning title="Klarte ikkje å lagre" message="Sjekk om denne fila er open i eit anna program"/>
+            <FileLockedWarning title="Klarte ikkje å lagre" message="$STR_REPLACE$\rSjekk om denne fila er open i eit anna program"/>
             <FileAlreadyOpenedInNpp title="" message="Denne fila er allereie open i Notepad++."/>
             <DeleteFileFailed title="Slett fil" message="Klarte ikkje å slette fila"/>
 

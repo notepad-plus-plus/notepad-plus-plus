@@ -856,7 +856,7 @@
             <LoseUndoAbilityWarning title="Аз даст додани имкони беасарсозӣ" message="Шумо бояд тағйироти феълиро захира намоед.\r.\r\rИдома медиҳед?"/>
             <CannotMoveDoc title="Гузариш ба нусхаи нави Notepad++" message="Санад тағйир ёфтааст, онро захира намуда аз нав сайъ кунед."/>
             <DocReloadWarning title="Бозгирии муҷаддад" message="Оё мехоҳед файли феълиро бозгирии муҷаддад карда ва тағйироти эҷодшуда тавассути барномаро аз даст диҳед?"/>
-            <FileLockedWarning title="Мувафақ ба захира нашуд" message="Лутфан, боз будани ин файро дар барномаи дигар баррасӣ кунед"/>
+            <FileLockedWarning title="Мувафақ ба захира нашуд" message="$STR_REPLACE$\rЛутфан, боз будани ин файро дар барномаи дигар баррасӣ кунед"/>
             <FileAlreadyOpenedInNpp title="" message="Файл аз қабл дар барномаи Notepad++ боз шудааст."/>
             <DeleteFileFailed title="Ҳазфи файл" message="Файл ҳазф нашуд"/>
 

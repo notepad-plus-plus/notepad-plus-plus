@@ -635,7 +635,7 @@
             <LoseUndoAbilityWarning title="გაუქმების შესაძლებლობის დაკარგვა" message="შეინახეთ მიმდინარე ცვლილება.\rენახული ცვლილების გაუქმება შეუძლებელია.\r\rგსურთ გაგრძელება?"/>
             <CannotMoveDoc title="Notepad++-ის ახალ ინსტანციაში გადატანა" message="დოკუმენტი შეიცვალა. შეინახეთ და სცადეთ ხელახლა."/>
             <DocReloadWarning title="განახლება" message="ნამდვილად გსურთ, მიმდინარე ფაილის განახლება და Notepad++-ით მოხდენილი ყველა ცვლილების გაუქმება?"/>
-            <FileLockedWarning title="შენახვა არ მოხერხდა" message="დარწმუნდით, რომ ეს ფაილი არ არის გახსნილი სხვა პროგრამაში"/>
+            <FileLockedWarning title="შენახვა არ მოხერხდა" message="$STR_REPLACE$\rდარწმუნდით, რომ ეს ფაილი არ არის გახსნილი სხვა პროგრამაში"/>
             <FileAlreadyOpenedInNpp title="" message="ფაილი უკვე გახსნილია Notepad++-შო."/>
             <DeleteFileFailed title="ფაილის წაშლა" message="ფაილის წაშლა არ მოხერხდა"/>
 

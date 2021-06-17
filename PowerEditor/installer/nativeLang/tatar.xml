@@ -893,7 +893,7 @@
             <LoseUndoAbilityWarning title="Кайтару мөмкинлеге югалды" message="Хәзерге үзгәрешләрне саклагыз.&#x0A;Бөтен сакланган үзгәрешләр кире үзгәртелә алмаячаклар.&#x0A;&#x0A;Дәвам итәргәме?"/>
             <CannotMoveDoc title="Notepad++ -ның яңа нөсхәсенә күчү" message="Документ үзгәртелгән иде, аны саклагыз һәм яңадан башкарып карагыз."/>
             <DocReloadWarning title="Яңабаштан җибәрү" message="Бөтен кертелгән үзгәрешләр югалачак!&#x0A;Дәвам итәргәме?"/>
-            <FileLockedWarning title="Саклап булмады" message="Бу файл башка кушымтада ачылмаганын тикшерүегез сорала."/>
+            <FileLockedWarning title="Саклап булмады" message="$STR_REPLACE$\rБу файл башка кушымтада ачылмаганын тикшерүегез сорала."/>
             <FileAlreadyOpenedInNpp title="" message="Файл инде Notepad++ -та ачылган."/>
             <DeleteFileFailed title="Файлны бетерү" message="Файлны бетереп булмады"/>
 

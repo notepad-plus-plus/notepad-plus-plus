@@ -611,7 +611,7 @@
 			<LoseUndoAbilityWarning title="يېنىۋېلىش ئىقتىدارى ئىشلىمەيدۇ" message="ئۆزگەرىتكەن ھۈججەتنى چوقۇم ساقلاڭ\rساقلىغاندىن كېيىن يېنىۋېلىش ئىشلىمەيدۇ.\rداۋاملاشتۇرامسىز?"/>
 			<CannotMoveDoc title="  يېڭى كۆزنىكىگە يۆتكەش  Notepad++ " message="ھۈججەت ئۆزگەرتىلدى،ساقلىۋېلىپ ئاندىن سىناڭ"/>
 			<DocReloadWarning title="يۈكلەش" message="ھۆججەتنى ئۆزگەرتىشلىرىڭىز بىلەن كارىڭىز بولماي يۈكلىمەكچىمۇ؟"/>
-			<FileLockedWarning title="ساقلىيالمىدى" message="بۇ ھۈججەت باشقا پروگراممىلاردا ئېچىقلىقمۇ تەكشۈرۈپ بېقىڭ"/>
+			<FileLockedWarning title="ساقلىيالمىدى" message="$STR_REPLACE$\rبۇ ھۈججەت باشقا پروگراممىلاردا ئېچىقلىقمۇ تەكشۈرۈپ بېقىڭ"/>
 			<FileAlreadyOpenedInNpp title="ھۈججەت ئېچىقلىق" message=" دە ئېچىقلىق  Notepad++بۇ ھۈججەت"/>
 			<DeleteFileFailed title="ھۈججەت ئۆچۈرۈش" message="ھۈججەت ئۆچۈرۈلمىدى"/>
 		</MessageBox>

@@ -1156,7 +1156,7 @@ Tute ƚe modìfeghe salvà no ƚe poƚe èsare ripristinà.
 Continuare?"/> <!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
             <CannotMoveDoc title="Manda a na nova istansa de Notepad++" message="El documento el xe stà modifegà, salvarƚo vanti de continuare."/> <!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
             <DocReloadWarning title="Carga de novo" message="Sito sicuro de voƚer cargare de novo el file? Ogni modìfega aportà ƚa vegnerà persa."/>
-            <FileLockedWarning title="Salvatagio faƚìo" message="Verificare che el file no&apos;l sia vèrto co &apos;n altro programa."/>
+            <FileLockedWarning title="Salvatagio faƚìo" message="$STR_REPLACE$\rVerificare che el file no&apos;l sia vèrto co &apos;n altro programa."/>
             <FileAlreadyOpenedInNpp title="" message="El file el xe xà vèrto en Notepad++."/> <!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
             <RenameTabTemporaryNameAlreadyInUse title="Rinomina falìa" message="El nome indicà el xe xà en uxo so nantro tab."/> <!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
             <DeleteFileFailed title="Scanseƚasion file" message="Scanseƚasion de&apos;l file faƚìa."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->

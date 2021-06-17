@@ -863,7 +863,7 @@
             <LoseUndoAbilityWarning title="Humb paralajmërimin e aftësisë mosbëj" message="Duhet të ruani modifikimin aktual.\rTë gjitha modifikimet e ruajtura nuk mund të ribëhen.\r\rVazhdo?"/>
             <CannotMoveDoc title="Lëviz për tek Instanca e re Notepad++" message="Dokumenti është modifikuar, ruaje atë pastaj provo përsëri."/>
             <DocReloadWarning title="Ringarko" message="A jeni i sigurtë se doni të ringarkomi filin aktual dhe humbni ndryshimet e bëra në Notepad++?"/>
-            <FileLockedWarning title="Ruajtja dështoi" message="Ju lutem, kontrollo nëse ky fil është i hapur në ndonjë program tjetër"/>
+            <FileLockedWarning title="Ruajtja dështoi" message="$STR_REPLACE$\rJu lutem, kontrollo nëse ky fil është i hapur në ndonjë program tjetër"/>
             <FileAlreadyOpenedInNpp title="" message="Fili është ndërkohë i hapur në Notepad++."/>
             <DeleteFileFailed title="Fshij filin" message="Fshirja e filit dështoi"/>
             

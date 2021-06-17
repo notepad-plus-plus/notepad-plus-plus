@@ -964,7 +964,7 @@ Visi išsaugoti pakeitimai bus negrįžtami.
 Ar norite tęsti??"/>
             <CannotMoveDoc title="Pereiti prie naujo Notepad++ programos lango" message="Dokumentas yra pakeistas, išsaugokite ir mėginkite dar kartą."/>
             <DocReloadWarning title="Įkėlimas iš naujo" message="Ar jūs tikrai norite iš naujo įkelti dabartinę bylą ir prarasti visus pakeitimus atliktus su Notepad++?"/>
-            <FileLockedWarning title="Nepavyko išsaugoti" message="Prašome patikrinti ar šis failas nėra atidaryta kitoje programoje"/>
+            <FileLockedWarning title="Nepavyko išsaugoti" message="$STR_REPLACE$\rPrašome patikrinti ar šis failas nėra atidaryta kitoje programoje"/>
             <FileAlreadyOpenedInNpp title="" message="Failas jau yra atidarytas su Notepad++."/>
             <DeleteFileFailed title="Failo šalinimas" message="Nepavyko pašalinti failo"/>
             

@@ -1134,7 +1134,7 @@
 您確定要繼續嗎？"/>
             <CannotMoveDoc title="移至新的 Notepad++ 實體" message="文件已被修改，請在儲存後再試一次。"/>
             <DocReloadWarning title="重新載入" message="您確定要重新載入目前文件，並捨棄在 Notepad++ 中所做的修改嗎？"/>
-            <FileLockedWarning title="儲存失敗" message="請檢查其他應用程式是否已開啟此檔案。"/>
+            <FileLockedWarning title="儲存失敗" message="$STR_REPLACE$\r請檢查其他應用程式是否已開啟此檔案。"/>
             <FileAlreadyOpenedInNpp title="已開啟" message="這個檔案已在 Notepad++ 中開啟。"/>
             <DeleteFileFailed title="刪除失敗" message="檔案刪除失敗。"/>
             <NbFileToOpenImportantWarning title="開啟檔案" message="您確定要開啟全數 $INT_REPLACE$ 個檔案嗎？"/>

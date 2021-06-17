@@ -1003,7 +1003,7 @@
             <LoseUndoAbilityWarning title="تحذير من فقد القدرة على التراجع" message="يجب عليك حفظ التعديلات الحالية.&#xA;كل التعديلات التي سوف يتم حفظها لا يمكن التراجع عنها.&#xA;&#xA;متابعة؟"/>
             <CannotMoveDoc title="نقل إلى مثيل Notepad++ جديد" message="المستند تم تعديله، قم بحفظه ثم حاول مرة آخرى."/>
             <DocReloadWarning title="إعادة تحميل" message="هل تريد بالتأكيد إعادة تحميل الملف الحالي وفقد كل التعديلات التي عملها داخل Notepad++؟"/>
-            <FileLockedWarning title="فشل الحفظ" message="الرجاء التحقق من أن هذا الملف مفتوح في برنامج أخر"/>
+            <FileLockedWarning title="فشل الحفظ" message="$STR_REPLACE$\rالرجاء التحقق من أن هذا الملف مفتوح في برنامج أخر"/>
             <FileAlreadyOpenedInNpp title="" message="هذا الملف مفتوح بالفعل في Notepad++."/>
             <DeleteFileFailed title="حذف الملف" message="فشل حذف الملف"/>
 

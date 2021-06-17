@@ -810,7 +810,7 @@
 			<LoseUndoAbilityWarning title="Desactivar la opción de deshacer cambios" message="Desea guardar las modificaciones actuales.\rTodas las modificaciones no podrán deshacerse.\r\r¿Continuar?"/>
 			<CannotMoveDoc title="Mover a una ventana nueva de Notepad++" message="El documento se a modificado, guárdelo e inténtelo nuevamente."/>
 			<DocReloadWarning title="Releer" message="¿Está seguro de querer releer el archivo actual y perder los cambios hechos en Notepad++?"/>
-			<FileLockedWarning title="Guardado fallido" message="Por favor compruebe que éste archivo no esté abierto con otro programa"/>
+			<FileLockedWarning title="Guardado fallido" message="$STR_REPLACE$\rPor favor compruebe que éste archivo no esté abierto con otro programa"/>
 			<FileAlreadyOpenedInNpp title="" message="El archivo ya está abierto en Notepad++."/>
 			<DeleteFileFailed title="Eliminar archivo" message="Eliminación de archivo fallida"/>
 

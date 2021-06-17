@@ -1109,7 +1109,7 @@
 			<LoseUndoAbilityWarning     title="Шьҭахьҟа ахынҳәра Алшара Ацәыӡра"             message="Шәара еиқәшәырхароуп уажәтәи аԥсахрақәа.&#x0A;Еиқәырхоу аԥсахрақәа зегьы раԥыхра ауам.&#x0A;&#x0A;Иацҵатәума?"/>
 			<CannotMoveDoc              title="Notepad++ иҿыцу аекземплиар ахь аиасра" message="Адокумент ԥсахын, еиқәшәырха нас еиҭанашәыгӡа."/>
 			<DocReloadWarning           title="Аиҭадәықәҵара"                          message="Notepad++ аҟны иҟаҵаз аԥсахрақәа зегьы ырӡхоит!&#x0A;Иацҵатәума?"/>
-			<FileLockedWarning          title="Аиқәырхара амуӡеит"                 message="Игәашәҭ, ари афаил даҽа программак аҟны иаарту иаартыму."/>
+			<FileLockedWarning          title="Аиқәырхара амуӡеит"                 message="$STR_REPLACE$\rИгәашәҭ, ари афаил даҽа программак аҟны иаарту иаартыму."/>
 			<FileAlreadyOpenedInNpp     title=""                                      message="Афаил аартуп Notepad++ аҟны."/>
 			<DeleteFileFailed           title="Афаил Аныхра"                        message="Афаил аныхра амуӡеит"/>
 

@@ -1030,7 +1030,7 @@ Siz bir necha marker ustunlarini probellar orqali belgilashingiz mumkin."/>
             <LoseUndoAbilityWarning title="Bekor qilish imkoniyati yoʻqotildi" message="Joriy oʻzgarish saqlanmogʻi lozim.&#x0A;Barcha saqlangan oʻzgarishlarni bekor qilib boʻlmaydi.&#x0A;&#x0A;Davom ettirilsinmi?"/>
             <CannotMoveDoc title="Notepad++ dasturining yangi namunasiga oʻtish" message="Faylda oʻzgarish mavjud. Uni saqlang va qayta urinib koʻring."/>
             <DocReloadWarning title="Qayta yuklash" message="Barcha kiritilgan oʻzgarishlar yoʻqotiladi!&#x0A;Davom ettirilsinmi?"/>
-            <FileLockedWarning title="Saqlashning imkoni yoʻq" message="Fayl boshqa dasturda ochilganligini tekshirib koʻring."/>
+            <FileLockedWarning title="Saqlashning imkoni yoʻq" message="$STR_REPLACE$\rFayl boshqa dasturda ochilganligini tekshirib koʻring."/>
             <FileAlreadyOpenedInNpp title="" message="Fayl allaqachon Notepad++ dasturida ochilgan."/>
             <DeleteFileFailed title="Faylni olib tashlash" message="Faylni yoʻqotib boʻlmadi."/>
 

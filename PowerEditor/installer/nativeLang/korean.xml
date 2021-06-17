@@ -1148,7 +1148,7 @@
 그래도 계속 하시겠습니까?"/> <!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
   <CannotMoveDoc title="새로운 Notepad++ 인스턴스로 이동" message="문서가 수정되었습니다. 저장 후 다시 시도해 주십시오."/>  <!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
   <DocReloadWarning title="다시 불러오기" message="변경 사항을 무시하고 현재 파일을 다시 불러오시겠습니까?"/>
-  <FileLockedWarning title="저장 실패" message="다른 프로그램에서 파일을 사용하는지 확인하십시오."/>
+  <FileLockedWarning title="저장 실패" message="$STR_REPLACE$\r다른 프로그램에서 파일을 사용하는지 확인하십시오."/>
   <FileAlreadyOpenedInNpp title="" message="이미 Notepad++에 열려 있는 파일입니다."/> <!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
   <RenameTabTemporaryNameAlreadyInUse title="이름바꾸기 실패w" message="이름이 이미 다른 탭에서 사용중입니다."/> <!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
   <DeleteFileFailed title="파일 삭제" message="파일을 삭제하지 못했습니다"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->

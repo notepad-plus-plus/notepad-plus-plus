@@ -1236,7 +1236,7 @@
             <LoseUndoAbilityWarning title="Upozorenje: Nema poništavanja" message="Trebate snimiti trenutnu izmjenu.\rSnimljene izmjene ne mogu biti poništene.\r\rNastaviti?"/>
             <CannotMoveDoc title="Premjesti u novu Notepad++ instancu" message="Dokument is izmijenjen, snimite ga i onda pokušajte ponovo."/>
             <DocReloadWarning title="Ponovo učitaj" message="Jeste li sigurni da želite ponovo učitati trenutnu datoteku i izgubite sve izmjene koje ste učinili u Notepadu++?"/>
-            <FileLockedWarning title="Neuspjelo snimanje" message="Molim provjerite da ta datoteka nije otvorena u k+nekom drugom programu"/>
+            <FileLockedWarning title="Neuspjelo snimanje" message="$STR_REPLACE$\rMolim provjerite da ta datoteka nije otvorena u k+nekom drugom programu"/>
             <FileAlreadyOpenedInNpp title="" message="Datoteka je već otvorena u Notepadu++."/>
             <RenameTabTemporaryNameAlreadyInUse title="Neuspjelo preimenovanje" message="Dato ime je već u upotrebi u drugoj kartici."/>
             <!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->

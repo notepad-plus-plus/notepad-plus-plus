@@ -1156,7 +1156,7 @@
 続行しますか?"/>
             <CannotMoveDoc title="新しいウィンドウに移動" message="ドキュメントが変更されました。保存してやり直してください。"/>
             <DocReloadWarning title="再読み込み" message="変更が失われますが、このドキュメントを本当に開き直しますか?"/>
-            <FileLockedWarning title="警告: 保存失敗" message="このファイルを別のプログラムで開いていないか確認してください。"/>
+            <FileLockedWarning title="警告: 保存失敗" message="$STR_REPLACE$\rこのファイルを別のプログラムで開いていないか確認してください。"/>
             <FileAlreadyOpenedInNpp title="" message="そのファイルは既にNotepad++で開かれています。"/>
             <RenameTabTemporaryNameAlreadyInUse title="名前の変更に失敗" message="指定された名前は、ほかのタブで使用されています。"/> <!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
             <DeleteFileFailed title="削除失敗" message="ファイルの削除に失敗しました。"/>

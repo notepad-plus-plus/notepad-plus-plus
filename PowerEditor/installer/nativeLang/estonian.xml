@@ -914,7 +914,7 @@ Pärast faili salvestamist tuleb muudatuste rakendamiseks Notepad++ uuesti käiv
             <LoseUndoAbilityWarning title="Tagasi võtmise võimalus kaob" message="Praegune muudatus tuleks salvestada.\rKõiki salvestatud muudatusi ei saa tagasi võtta.\r\rKas soovid jätkata?"/>
             <CannotMoveDoc title="Uude Notepad++-i protsessi liigutamine" message="Dokumenti on muudetud, salvesta see ja proovi uuesti."/>
             <DocReloadWarning title="Uuesti laadimine" message="Kas soovid kindlasti lahtioleva faili uuesti laadida? Tehtud muudatused ei jää alles."/>
-            <FileLockedWarning title="Salvestamine ebaõnnestus" message="Fail võib olla avatud mõnes muus programmis"/>
+            <FileLockedWarning title="Salvestamine ebaõnnestus" message="$STR_REPLACE$\rFail võib olla avatud mõnes muus programmis"/>
             <FileAlreadyOpenedInNpp title="" message="Fail on juba Notepad++-is avatud."/>
             <DeleteFileFailed title="Faili kustutamine" message="Faili kustutamine ebaõnnestus"/>
 

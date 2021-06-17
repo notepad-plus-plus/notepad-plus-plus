@@ -1125,7 +1125,7 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
             <DeleteFileFailed title="Suppression du fichier" message="La suppression du fichier a échoué."/>
             <DocReloadWarning title="Recharger" message="Êtes-vous sûr de vouloir recharger le fichier en cours et de perdre les modifications apportées dans Notepad++ ?"/>
             <FileAlreadyOpenedInNpp title="" message="Le fichier est toujours ouvert dans Notepad++."/>
-            <FileLockedWarning title="Échec de la sauvegarde" message="Veuillez vérifier si ce fichier est ouvert par un autre programme"/>
+            <FileLockedWarning title="Échec de la sauvegarde" message="$STR_REPLACE$\rVeuillez vérifier si ce fichier est ouvert par un autre programme"/>
             <LoseUndoAbilityWarning title="Perte de la capacité d'annulation" message="Vous devez enregistrer la modification en cours. Toutes les modifications enregistrées ne peuvent pas être annulées. Continuer ?"/>
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <NbFileToOpenImportantWarning title="Quantité de fichiers à ouvrir trop grande." message="$INT_REPLACE$ fichiers sont sur le point d'être ouverts. Êtes-vous sûr de les ouvrir ?"/>

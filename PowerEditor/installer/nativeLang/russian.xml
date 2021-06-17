@@ -1170,7 +1170,7 @@ Updated to v8.0.1:
 			<LoseUndoAbilityWarning     title="Потеря Возможности Отката"             message="Вы должны сохранить текущие изменения.&#x0A;Все сохраненные изменения не смогут быть отменены.&#x0A;&#x0A;Продолжить?"/>
 			<CannotMoveDoc              title="Переход к новому экземпляру Notepad++" message="Документ был изменен, сохраните его и повторите попытку."/>
 			<DocReloadWarning           title="Перезагрузка"                          message="Все внесенные изменения будут потеряны!&#x0A;Продолжить?"/>
-			<FileLockedWarning          title="Сохранение не удалось"                 message="Пожалуйста, проверьте открыт ли этот файл в другом приложении."/>
+			<FileLockedWarning          title="Сохранение не удалось"                 message="$STR_REPLACE$\rПожалуйста, проверьте открыт ли этот файл в другом приложении."/>
 			<FileAlreadyOpenedInNpp     title=""                                      message="Файл уже открыт в Notepad++."/>
 			<DeleteFileFailed           title="Удаление Файла"                        message="Не удалось удалить файл"/>
 

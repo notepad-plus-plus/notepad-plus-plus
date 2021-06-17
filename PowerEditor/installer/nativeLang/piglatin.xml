@@ -973,7 +973,7 @@
             <LoseUndoAbilityWarning title="Oselay Undoyay Abilityyay Arningway" message="Youyay ouldshay avesay ethay urrentcay odificationmay. Allyay ethay avedsay odificationsmay ancay otnay ebay undoneyay.  Ontinuecay?"/>
             <CannotMoveDoc title="Ovemay otay ewnay Notepad++ Instanceyay" message="Ocumentday isyay odified,may avesay ityay enthay ytray againyay."/>
             <DocReloadWarning title="Eloadray" message="Areyay youyay uresay youyay antway otay eloadray ethay urrentcay ilefay andyay oselay ethay angeschay ademay inyay Otepad++nay?"/>
-            <FileLockedWarning title="Avesay ailedfay" message="Easeplay eckchay etherwhay ifyay isthay ilefay isyay openedyay inyay anotheryay ogrampray"/>
+            <FileLockedWarning title="Avesay ailedfay" message="$STR_REPLACE$\rEaseplay eckchay etherwhay ifyay isthay ilefay isyay openedyay inyay anotheryay ogrampray"/>
             <FileAlreadyOpenedInNpp title="" message="Ethay ilefay isyay alreadyyay openedyay inyay ethay Otepad++nay."/>
             <DeleteFileFailed title="Eleteday Ilefay" message="Eleteday Ilefay ailedfay"/>
             <NbFileToOpenImportantWarning title="Amountyay ofyay ilesfay otay openyay isyay ootay argelay" message="$INT_REPLACE$ ilesfay areyay aboutyay otay ebay openedyay. Areyay youyay uresay otay openyay emthay?"/>

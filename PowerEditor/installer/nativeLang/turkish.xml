@@ -1154,7 +1154,7 @@ Kaydedilen değişiklikler geri alınamaz.
 Devam etmek istiyor musunuz?"/>
 			<CannotMoveDoc title="Yeni Notepad++ Penceresine Taşı" message="Belge değiştirilmiş, kaydedip yeniden deneyin."/>
 			<DocReloadWarning title="Yeniden Yükle" message="Geçerli dosyayı yeniden yüklerseniz yaptığınız değişiklikler kaybolacak. Devam etmek istiyor musunuz?"/>
-			<FileLockedWarning title="Kaydedilemedi" message="Dosyanın başka bir yazılım tarafından kullanılmadığından emin olun."/>
+			<FileLockedWarning title="Kaydedilemedi" message="$STR_REPLACE$\rDosyanın başka bir yazılım tarafından kullanılmadığından emin olun."/>
 			<FileAlreadyOpenedInNpp title="Dosya Aç" message="Dosya zaten Notepad++ içinde açık."/>
 			<RenameTabTemporaryNameAlreadyInUse title="Yeniden Adlandırma Başarısız" message="Belirtilen isim başka bir sekmede kullanımda."/>
 			<DeleteFileFailed title="Dosya Sil" message="Dosya silinemedi"/>

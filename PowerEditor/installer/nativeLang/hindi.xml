@@ -1008,7 +1008,7 @@
       <LoseUndoAbilityWarning title="पूर्ववत करने की क्षमता के खोने की चेतावनी" message="आपको वर्तमान संशोधन रक्षित करना चाहिए| सभी रक्षित संशोधन वापिस नहीं बदले जा सकते हैं|    जारी रखें?"/>
       <CannotMoveDoc title="नए Notepad++ इंस्टैंस में मूव करें" message="दस्तावेज़ संशोधित किया गया है, इसे सेव करें, उसके बाद फिर से प्रयास करें।"/>
       <DocReloadWarning title="रीलोड (Reload)" message="क्या आप मौजूदा फाइल में Notepad++ में किए गए परिवर्तनों को भूल कर इसे फिर से लोड करना चाहते हैं?"/>
-      <FileLockedWarning title="सेव फेल हुआ (Save failed)" message="जाँच करें कि क्या किसी अन्य कार्यक्रम ने इस फाइल को खोल रखा है!"/>
+      <FileLockedWarning title="सेव फेल हुआ (Save failed)" message="$STR_REPLACE$\rजाँच करें कि क्या किसी अन्य कार्यक्रम ने इस फाइल को खोल रखा है!"/>
       <FileAlreadyOpenedInNpp title="" message="यह फाइल पहले से ही Notepad++ में खुली हुयी है।"/>
       <DeleteFileFailed title="फाइल नष्ट करें" message="फाइल को नष्ट करना विफल रहा है।"/>
 

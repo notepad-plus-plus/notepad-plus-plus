@@ -972,7 +972,7 @@
 Zonke izinguquko ezilondoloziwe azikwazi ukuhlehliswa.Qhubeka?"/>
             <CannotMoveDoc title="Hambisa kusikhungo esisha se-Notepad ++" message="Idokhumenti ishintshiwe, yilondoloze bese uzama futhi."/>
             <DocReloadWarning title="Phinda ulayishe kabusha" message="Ingabe uqinisekile ukuthi ufuna ukulayisha kabusha ifayela lamanje futhi ulahlekelwe izinguquko ezenziwe ku-Notepad ++?"/>
-            <FileLockedWarning title="Ukulondoloza kuhlulekile" message="Sicela uhlole ukuthi ngabe leli fayela livuliwe yini kwenye uhlelo"/>
+            <FileLockedWarning title="Ukulondoloza kuhlulekile" message="$STR_REPLACE$\rSicela uhlole ukuthi ngabe leli fayela livuliwe yini kwenye uhlelo"/>
             <FileAlreadyOpenedInNpp title="" message="Ifayela selivele livuliwe ku-Notepad ++."/>
             <DeleteFileFailed title="Susa ifayela" message="Ukususa Ifayela kuhlulekile"/>
 

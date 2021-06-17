@@ -1153,7 +1153,7 @@ Vse shranjene spremembe ni mogoče razveljaviti.
 Nadaljujem?"/> <!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
             <CannotMoveDoc title="Premakni v novo Notepad++ pojavitev" message="Dokument je spremenjen.Shranite ga nato poskusite znova."/> <!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
             <DocReloadWarning title="Osveži" message="Ali ste prepričani, da želite znova naložiti trenutno datoteko in izgubiti spremembe v Notepad++?"/>
-            <FileLockedWarning title="Shranjevanje ni uspelo" message="Prosimo, preverite, ali je ta datoteka odprta v drugem programu"/>
+            <FileLockedWarning title="Shranjevanje ni uspelo" message="$STR_REPLACE$\rProsimo, preverite, ali je ta datoteka odprta v drugem programu"/>
             <FileAlreadyOpenedInNpp title="" message="Datoteka je že odprta v Notepad++."/> <!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
             <RenameTabTemporaryNameAlreadyInUse title="Preimenovanje ni uspelo" message="Navedeno ime je že uporabljeno za drugi zavihek."/> <!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
             <DeleteFileFailed title="Brisanje datoteke" message="Brisanje datoteke ni uspelo"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->

@@ -1082,7 +1082,7 @@ Las modificaciones guardadas no se pueden deshacer.
 			<CannotMoveDoc title="Move to new Notepad++ Instance" message="El documento se modifica. Guárdelo y vuelva a intentarlo."/>
 			<!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
 			<DocReloadWarning title="Reload" message="¿Está seguro de que desea volver a cargar el archivo actual y perder los cambios realizados en Notepad++?"/>
-			<FileLockedWarning title="Save failed" message="Compruebe si este archivo está abierto en otro programa"/>
+			<FileLockedWarning title="Save failed" message="$STR_REPLACE$\rCompruebe si este archivo está abierto en otro programa"/>
 			<FileAlreadyOpenedInNpp title="" message="El archivo ya está abierto en Notepad++."/>
 			<!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
 			<DeleteFileFailed title="Delete File" message="Fallo al borrar el archivo"/>

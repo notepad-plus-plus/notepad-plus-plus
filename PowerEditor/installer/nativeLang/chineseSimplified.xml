@@ -1123,7 +1123,7 @@ The comments are here for explanation, it's not necessary to translate them.
 继续？"/> <!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
             <CannotMoveDoc title="移动到新的Notepad++窗口" message="文件已修改，请保存并重试。"/> <!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
             <DocReloadWarning title="重载警告" message="您确定要重新加载当前文件并失去在Notepad++所做的修改吗？"/>
-            <FileLockedWarning title="保存失败" message="请检查文件是否在别的程序中打开"/>
+            <FileLockedWarning title="保存失败" message="$STR_REPLACE$\r请检查文件是否在别的程序中打开"/>
             <FileAlreadyOpenedInNpp title="" message="此文件已经在Notepad++中打开。"/> <!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
             <RenameTabTemporaryNameAlreadyInUse title="重命名失败" message="此名称已在其他标签页使用。"/> <!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
             <DeleteFileFailed title="删除文件" message="文件删除失败"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->

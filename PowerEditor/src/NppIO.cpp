@@ -655,7 +655,7 @@ bool Notepad_plus::doSave(BufferID id, const TCHAR * filename, bool isCopy)
 			generic_string errorMessage = GetLastErrorAsString(errorCode);
 			_nativeLangSpeaker.messageBox("FileLockedWarning",
 				_pPublicInterface->getHSelf(),
-				TEXT("Please check whether if this file is opened in another program"),
+				TEXT("$STR_REPLACE$\rPlease check whether if this file is opened in another program"),
 				TEXT("Save failed"),
 				MB_OK | MB_ICONWARNING,
 				0,

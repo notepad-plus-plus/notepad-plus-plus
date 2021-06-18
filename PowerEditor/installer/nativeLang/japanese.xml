@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="8.0">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="8.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -1440,6 +1440,7 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <session-save-folder-as-workspace value="「フォルダーをワークスペースとして開く」の状態を保存" />
             <tab-untitled-string value="新規" />
             <file-save-assign-type value="拡張子をつける(&amp;A)" />
+            <close-panel-tip value="閉じる" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

@@ -501,7 +501,7 @@ void ProjectPanel::buildProjectXml(TiXmlNode *node, HTREEITEM hItem, const TCHAR
 	{
 		tvItem.hItem = hItemNode;
 		SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
-		if (tvItem.lParam != NULL)
+		if (tvItem.lParam != 0)
 		{
 			generic_string *fn = (generic_string *)tvItem.lParam;
 			generic_string newFn = getRelativePath(*fn, fn2write);
@@ -829,7 +829,7 @@ NodeType ProjectPanel::getNodeType(HTREEITEM hItem)
 		return nodeType_project;
 	}
 	// Folder
-	else if (tvItem.lParam == NULL)
+	else if (tvItem.lParam == 0)
 	{
 		return nodeType_folder;
 	}

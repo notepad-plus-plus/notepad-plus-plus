@@ -2656,7 +2656,7 @@ bool isUrlTextChar(TCHAR const c)
 		case '{':
 		case '}':
 		case '?':
-		case '\0x7f':
+		case '\u007F':
 			return false;
 	}
 	return true;

@@ -323,7 +323,7 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
     SCNotification scnN;
     scnN.nmhdr.code = NPPN_FILEBEFORELOAD;
     scnN.nmhdr.hwndFrom = _pPublicInterface->getHSelf();
-    scnN.nmhdr.idFrom = NULL;
+    scnN.nmhdr.idFrom = 0;
     _pluginsManager.notify(&scnN);
 
     if (encoding == -1)
@@ -334,7 +334,7 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 	BufferID buffer;
 	if (isSnapshotMode)
 	{
-		buffer = MainFileManager.loadFile(longFileName, NULL, encoding, backupFileName, fileNameTimestamp);
+		buffer = MainFileManager.loadFile(longFileName, Document{}, encoding, backupFileName, fileNameTimestamp);
 
 		if (buffer != BUFFER_INVALID)
 		{
@@ -354,7 +354,7 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 	}
 	else
 	{
-		buffer = MainFileManager.loadFile(longFileName, NULL, encoding);
+		buffer = MainFileManager.loadFile(longFileName, Document{}, encoding);
 	}
 
     if (buffer != BUFFER_INVALID)

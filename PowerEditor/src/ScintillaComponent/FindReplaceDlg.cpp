@@ -56,7 +56,7 @@ void delLeftWordInEdit(HWND hEdit)
 	TCHAR str[FINDREPLACE_MAXLENGTH];
 	::SendMessage(hEdit, WM_GETTEXT, FINDREPLACE_MAXLENGTH - 1, reinterpret_cast<LPARAM>(str));
 	WORD cursor;
-	::SendMessage(hEdit, EM_GETSEL, (WPARAM)&cursor, NULL);
+	::SendMessage(hEdit, EM_GETSEL, (WPARAM)&cursor, LPARAM{});
 	WORD wordstart = cursor;
 	while (wordstart > 0) {
 		TCHAR c = str[wordstart - 1];
@@ -227,8 +227,8 @@ void Searching::displaySectionCentered(int posStart, int posEnd, ScintillaEditVi
 	pEditView->execute(SCI_CHOOSECARETX);
 }
 
-LONG_PTR FindReplaceDlg::originalFinderProc = NULL;
-LONG_PTR FindReplaceDlg::originalComboEditProc = NULL;
+LONG_PTR FindReplaceDlg::originalFinderProc = {};
+LONG_PTR FindReplaceDlg::originalComboEditProc = {};
 
 // important : to activate all styles
 const int STYLING_MASK = 255;

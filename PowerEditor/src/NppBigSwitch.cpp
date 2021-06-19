@@ -1335,7 +1335,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_CREATESCINTILLAHANDLE:
 		{
-			return (LRESULT)_scintillaCtrls4Plugins.createSintilla((lParam == NULL?hwnd:reinterpret_cast<HWND>(lParam)));
+			return (LRESULT)_scintillaCtrls4Plugins.createSintilla((lParam == 0?hwnd:reinterpret_cast<HWND>(lParam)));
 		}
 
 		case NPPM_INTERNAL_GETSCINTEDTVIEW:
@@ -1413,7 +1413,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			else if (wParam == NPPMAINMENU)
 				return (LRESULT)_mainMenuHandle;
 			else
-				return NULL;
+				return FALSE;
 		}
 
 		case NPPM_LOADSESSION:
@@ -1573,7 +1573,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				for (size_t i = 0, len = _hModelessDlgs.size() ; i < len ; ++i)
 				{
 					if (_hModelessDlgs[i] == reinterpret_cast<HWND>(lParam))
-						return NULL;
+						return FALSE;
 				}
 
 				_hModelessDlgs.push_back(reinterpret_cast<HWND>(lParam));
@@ -1589,7 +1589,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 						{
 							vector<HWND>::iterator hDlg = _hModelessDlgs.begin() + i;
 							_hModelessDlgs.erase(hDlg);
-							return NULL;
+							return FALSE;
 						}
 					}
 					return lParam;
@@ -2146,7 +2146,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_DMMGETPLUGINHWNDBYNAME : //(const TCHAR *windowName, const TCHAR *moduleName)
 		{
 			if (!lParam)
-				return NULL;
+				return FALSE;
 
 			TCHAR *moduleName = reinterpret_cast<TCHAR *>(lParam);
 			TCHAR *windowName = reinterpret_cast<TCHAR *>(wParam);
@@ -2167,7 +2167,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					}
 				}
 			}
-			return NULL;
+			return FALSE;
 		}
 
 		case NPPM_ADDTOOLBARICON_DEPRECATED:

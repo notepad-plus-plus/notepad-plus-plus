@@ -1042,7 +1042,7 @@ namespace NppDarkMode
 	{
 		if (NppDarkMode::isEnabled())
 		{
-			int msg = NULL;
+			UINT msg = 0;
 			switch (type)
 			{
 			case NppDarkMode::ToolTipsType::toolbar:
@@ -1055,7 +1055,7 @@ namespace NppDarkMode
 				msg = TVM_GETTOOLTIPS;
 				break;
 			default:
-				msg = NULL;
+				msg = 0;
 				break;
 			}
 
@@ -1065,7 +1065,7 @@ namespace NppDarkMode
 			}
 			else
 			{
-				auto hTips = reinterpret_cast<HWND>(SendMessage(hwnd, msg, NULL, NULL));
+				auto hTips = reinterpret_cast<HWND>(SendMessage(hwnd, msg, WPARAM{}, LPARAM{}));
 				if (hTips != nullptr)
 				{
 					SetWindowTheme(hTips, L"DarkMode_Explorer", NULL);

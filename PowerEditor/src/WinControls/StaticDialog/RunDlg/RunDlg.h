@@ -39,7 +39,7 @@ void expandNppEnvironmentStrs(const TCHAR *strSrc, TCHAR *stringDest, size_t str
 class Command {
 public :
 	Command() = default;
-	explicit Command(TCHAR *cmd) : _cmdLine(cmd){};
+	explicit Command(const TCHAR *cmd) : _cmdLine(cmd){};
 	explicit Command(const generic_string& cmd) : _cmdLine(cmd){};
 	HINSTANCE run(HWND hWnd);
 	HINSTANCE run(HWND hWnd, const TCHAR* cwd);

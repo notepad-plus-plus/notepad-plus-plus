@@ -802,6 +802,24 @@ void ProjectPanel::notified(LPNMHDR notification)
 			break;
 		}
 	}
+	else if (notification->code == NM_CUSTOMDRAW && (notification->hwndFrom == _hToolbarMenu))
+	{
+		NMTBCUSTOMDRAW* nmtbcd = reinterpret_cast<NMTBCUSTOMDRAW*>(notification);
+		//if (nmtbcd->nmcd.dwDrawStage == CDDS_PREERASE)
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getBackgroundBrush());
+				nmtbcd->clrText = NppDarkMode::getTextColor();
+				SetTextColor(nmtbcd->nmcd.hdc, NppDarkMode::getTextColor());
+				SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_SKIPDEFAULT);
+			}
+			else
+			{
+				SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_DODEFAULT);
+			}
+		}
+	}
 }
 
 void ProjectPanel::setWorkSpaceDirty(bool isDirty)

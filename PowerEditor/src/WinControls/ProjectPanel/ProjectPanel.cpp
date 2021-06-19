@@ -810,6 +810,32 @@ void ProjectPanel::notified(LPNMHDR notification)
 			break;
 		}
 	}
+	else if (notification->code == NM_CUSTOMDRAW && (notification->hwndFrom == _hToolbarMenu))
+	{
+		if (NppDarkMode::isEnabled())
+		{
+			static bool isVSDisabled = false;
+			if (!isVSDisabled)
+			{
+				NppDarkMode::disableVisualStyle(_hToolbarMenu);
+				isVSDisabled = true;
+			}
+
+			auto nmtbcd = reinterpret_cast<LPNMTBCUSTOMDRAW>(notification);
+			FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getBackgroundBrush());
+			nmtbcd->clrText = NppDarkMode::getTextColor();
+			// highlight color when hover
+			// same color when hovering above menu 
+			// RGB(65, 65, 65) should be added to NppDarkMode.cpp
+			// needed because, visual style is disabled
+			nmtbcd->clrHighlightHotTrack = RGB(65, 65, 65);
+			SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_NOTIFYSUBITEMDRAW | TBCDRF_HILITEHOTTRACK);
+		}
+		else
+		{
+			SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_DODEFAULT);
+		}
+	}
 }
 
 void ProjectPanel::setWorkSpaceDirty(bool isDirty)

@@ -981,6 +981,11 @@ namespace NppDarkMode
 		SetWindowSubclass(hwnd, TabSubclass, g_tabSubclassID, 0);
 	}
 
+	void disableVisualStyle(HWND hwnd)
+	{
+		SetWindowTheme(hwnd, L"", L"");
+	}
+
 	void autoSubclassAndThemeChildControls(HWND hwndParent, bool subclass, bool theme)
 	{
 		struct Params

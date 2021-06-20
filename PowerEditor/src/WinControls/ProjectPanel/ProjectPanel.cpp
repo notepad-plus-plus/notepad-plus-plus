@@ -54,6 +54,9 @@ INT_PTR CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 			int style = WS_CHILD | WS_VISIBLE | CCS_ADJUSTABLE | TBSTYLE_AUTOSIZE | TBSTYLE_FLAT | TBSTYLE_LIST;
 			_hToolbarMenu = CreateWindowEx(0,TOOLBARCLASSNAME,NULL, style,
 								   0,0,0,0,_hSelf, nullptr, _hInst, nullptr);
+
+			NppDarkMode::setDarkLineAbovePanelToolbar(_hToolbarMenu);
+
 			TBBUTTON tbButtons[2];
 
 			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
@@ -91,10 +94,15 @@ INT_PTR CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 			if (!openWorkSpace(_workSpaceFilePath.c_str(), true))
 				newWorkSpace();
 
-            return TRUE;
-        }
+			return TRUE;
+		}
 
-		
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::setDarkLineAbovePanelToolbar(_hToolbarMenu);
+			break;
+		}
+
 		case WM_MOUSEMOVE:
 			if (_treeView.isDragging())
 				_treeView.dragItem(_hSelf, LOWORD(lParam), HIWORD(lParam));

@@ -7524,6 +7524,27 @@ void Notepad_plus::refreshDarkMode()
 		NppDarkMode::setDarkTitleBar(docCont->getCaptionWnd());
 	}
 
+	if (_pProjectPanel_1)
+	{
+		::SendMessage(_pProjectPanel_1->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+	}
+	if (_pProjectPanel_2)
+	{
+		::SendMessage(_pProjectPanel_2->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+	}
+	if (_pProjectPanel_3)
+	{
+		::SendMessage(_pProjectPanel_3->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+	}
+	if (_pFuncList)
+	{
+		::SendMessage(_pFuncList->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+	}
+	if (_pFileBrowser)
+	{
+		::SendMessage(_pFileBrowser->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+	}
+
 	SendMessage(_findReplaceDlg.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
 	SendMessage(_incrementFindDlg.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
 	RedrawWindow(_pPublicInterface->getHSelf(), nullptr, nullptr, RDW_INVALIDATE | RDW_ERASE | RDW_FRAME | RDW_ALLCHILDREN);

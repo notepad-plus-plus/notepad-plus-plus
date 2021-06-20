@@ -94,7 +94,7 @@ LRESULT Notepad_plus_Window::runProc(HWND hwnd, UINT message, WPARAM wParam, LPA
 		{
 			try
 			{
-				NppDarkMode::setDarkThemeViaWinAPI(hwnd, true);
+				NppDarkMode::setDarkTitleBar(hwnd);
 
 				_notepad_plus_plus_core._pPublicInterface = this;
 				LRESULT lRet = _notepad_plus_plus_core.init(hwnd);

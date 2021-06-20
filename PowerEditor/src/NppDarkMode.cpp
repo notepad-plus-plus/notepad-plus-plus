@@ -1038,17 +1038,14 @@ namespace NppDarkMode
 		autoSubclassAndThemeChildControls(hwndParent, false, true); 
 	}
 
-	void setDarkThemeViaWinAPI(HWND hwnd, bool setTitle)
+	void setDarkTitleBar(HWND hwnd)
 	{
 		if (NppDarkMode::isExperimentalEnabled() && NppDarkMode::isEnabled())
 		{
 			NppDarkMode::allowDarkModeForWindow(hwnd, true);
 			SetWindowTheme(hwnd, L"Explorer", nullptr);
 
-			if (setTitle)
-			{
-				NppDarkMode::setTitleBarThemeColor(hwnd, true);
-			}
+			NppDarkMode::setTitleBarThemeColor(hwnd, true);
 		}
 	}
 

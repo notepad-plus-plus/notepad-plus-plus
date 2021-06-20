@@ -7510,7 +7510,7 @@ void Notepad_plus::refreshDarkMode()
 	{
 		NppDarkMode::allowDarkModeForApp(NppDarkMode::isEnabled());
 	}
-	NppDarkMode::setDarkThemeViaWinAPI(_pPublicInterface->getHSelf(), true);
+	NppDarkMode::setDarkTitleBar(_pPublicInterface->getHSelf());
 
 	SendMessage(_findReplaceDlg.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
 	SendMessage(_incrementFindDlg.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);

@@ -55,7 +55,6 @@ void VerticalFileSwitcherListView::init(HINSTANCE hInst, HWND parent, HIMAGELIST
 		throw std::runtime_error("VerticalFileSwitcherListView::init : CreateWindowEx() function return null");
 	}
 
-	NppDarkMode::setDarkThemeViaWinAPI(_hSelf, false);
 	NppDarkMode::setDarkTooltips(_hSelf, NppDarkMode::ToolTipsType::listview);
 
 	::SetWindowLongPtr(_hSelf, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));

@@ -63,7 +63,8 @@ namespace NppDarkMode
 		HEXRGB(0xB00000),	// errorBackground
 		HEXRGB(0xE0E0E0),	// textColor
 		HEXRGB(0xC0C0C0),	// darkerTextColor
-		HEXRGB(0x808080),	// edgeColor
+		HEXRGB(0x808080),	// disabledTextColor
+		HEXRGB(0x808080)	// edgeColor
 	};
 
 	struct Theme

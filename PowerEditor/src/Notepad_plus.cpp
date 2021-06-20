@@ -7512,9 +7512,13 @@ void Notepad_plus::refreshDarkMode()
 	}
 	NppDarkMode::setDarkTitleBar(_pPublicInterface->getHSelf());
 
-	for (auto hwndDlg : _hModelessDlgs)
+	for (auto &hwndDlg : _hModelessDlgs)
 	{
 		NppDarkMode::setDarkTitleBar(hwndDlg);
+	}
+	for (auto &docCont : _dockingManager.getContainerInfo())
+	{
+		NppDarkMode::setDarkTitleBar(docCont->getCaptionWnd());
 	}
 
 	SendMessage(_findReplaceDlg.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);

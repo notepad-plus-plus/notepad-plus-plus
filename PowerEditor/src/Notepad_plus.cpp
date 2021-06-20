@@ -7512,6 +7512,11 @@ void Notepad_plus::refreshDarkMode()
 	}
 	NppDarkMode::setDarkTitleBar(_pPublicInterface->getHSelf());
 
+	for (auto hwndDlg : _hModelessDlgs)
+	{
+		NppDarkMode::setDarkTitleBar(hwndDlg);
+	}
+
 	SendMessage(_findReplaceDlg.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
 	SendMessage(_incrementFindDlg.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
 	RedrawWindow(_pPublicInterface->getHSelf(), nullptr, nullptr, RDW_INVALIDATE | RDW_ERASE | RDW_FRAME | RDW_ALLCHILDREN);

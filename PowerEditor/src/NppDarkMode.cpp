@@ -1040,12 +1040,18 @@ namespace NppDarkMode
 
 	void setDarkTitleBar(HWND hwnd)
 	{
-		if (NppDarkMode::isExperimentalEnabled() && NppDarkMode::isEnabled())
-		{
-			NppDarkMode::allowDarkModeForWindow(hwnd, true);
-			SetWindowTheme(hwnd, L"Explorer", nullptr);
+		bool useDark = NppDarkMode::isExperimentalEnabled() && NppDarkMode::isEnabled();
 
-			NppDarkMode::setTitleBarThemeColor(hwnd, true);
+		NppDarkMode::allowDarkModeForWindow(hwnd, useDark);
+		NppDarkMode::setTitleBarThemeColor(hwnd, useDark);
+
+		if (useDark)
+		{
+			SetWindowTheme(hwnd, L"Explorer", nullptr);
+		}
+		else
+		{
+			SetWindowTheme(hwnd, nullptr, nullptr);
 		}
 	}
 

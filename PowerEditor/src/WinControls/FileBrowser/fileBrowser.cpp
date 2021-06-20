@@ -107,6 +107,7 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			_hToolbarMenu = CreateWindowEx(WS_EX_LAYOUTRTL, TOOLBARCLASSNAME, NULL, style, 0, 0, 0, 0, _hSelf, nullptr, _hInst, NULL);
 
 			NppDarkMode::setDarkTooltips(_hToolbarMenu, NppDarkMode::ToolTipsType::toolbar);
+			NppDarkMode::setDarkLineAbovePanelToolbar(_hToolbarMenu);
 
 			TBBUTTON tbButtons[3];
 			// Add the bmap image into toolbar's imagelist
@@ -166,8 +167,14 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			_treeView.makeLabelEditable(false);
 			_treeView.display();
 
-            return TRUE;
-        }
+			return TRUE;
+		}
+
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::setDarkLineAbovePanelToolbar(_hToolbarMenu);
+			break;
+		}
 
 		case WM_MOUSEMOVE:
 			if (_treeView.isDragging())

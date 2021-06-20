@@ -1091,4 +1091,23 @@ namespace NppDarkMode
 			}
 		}
 	}
+
+	void setDarkLineAbovePanelToolbar(HWND hwnd)
+	{
+		COLORSCHEME scheme;
+		scheme.dwSize = sizeof(COLORSCHEME);
+
+		if (NppDarkMode::isEnabled())
+		{
+			scheme.clrBtnHighlight = NppDarkMode::getBackgroundColor();
+			scheme.clrBtnShadow = NppDarkMode::getBackgroundColor();
+		}
+		else
+		{
+			scheme.clrBtnHighlight = CLR_DEFAULT;
+			scheme.clrBtnShadow = CLR_DEFAULT;
+		}
+
+		::SendMessage(hwnd, TB_SETCOLORSCHEME, 0, reinterpret_cast<LPARAM>(&scheme));
+	}
 }

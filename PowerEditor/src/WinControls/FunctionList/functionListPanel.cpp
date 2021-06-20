@@ -772,6 +772,7 @@ INT_PTR CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPA
 								   0,0,0,0,_hSelf,nullptr, _hInst, NULL);
 
 			NppDarkMode::setDarkTooltips(_hToolbarMenu, NppDarkMode::ToolTipsType::toolbar);
+			NppDarkMode::setDarkLineAbovePanelToolbar(_hToolbarMenu);
 
 			oldFunclstToolbarProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hToolbarMenu, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(funclstToolbarProc)));
 			TBBUTTON tbButtons[3];
@@ -831,8 +832,14 @@ INT_PTR CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPA
 			setTreeViewImageList(IDI_FUNCLIST_ROOT, IDI_FUNCLIST_NODE, IDI_FUNCLIST_LEAF);
 
 			_treeView.display();
-            return TRUE;
-        }
+			return TRUE;
+		}
+
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::setDarkLineAbovePanelToolbar(_hToolbarMenu);
+			break;
+		}
 
 		case WM_DESTROY:
 			_treeView.destroy();

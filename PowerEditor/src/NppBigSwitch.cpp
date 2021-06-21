@@ -1413,7 +1413,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			else if (wParam == NPPMAINMENU)
 				return (LRESULT)_mainMenuHandle;
 			else
-				return FALSE;
+				return 0;
 		}
 
 		case NPPM_LOADSESSION:
@@ -1573,7 +1573,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				for (size_t i = 0, len = _hModelessDlgs.size() ; i < len ; ++i)
 				{
 					if (_hModelessDlgs[i] == reinterpret_cast<HWND>(lParam))
-						return FALSE;
+						return 0;
 				}
 
 				_hModelessDlgs.push_back(reinterpret_cast<HWND>(lParam));
@@ -1589,7 +1589,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 						{
 							vector<HWND>::iterator hDlg = _hModelessDlgs.begin() + i;
 							_hModelessDlgs.erase(hDlg);
-							return FALSE;
+							return 0;
 						}
 					}
 					return lParam;
@@ -2146,7 +2146,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_DMMGETPLUGINHWNDBYNAME : //(const TCHAR *windowName, const TCHAR *moduleName)
 		{
 			if (!lParam)
-				return FALSE;
+				return 0;
 
 			TCHAR *moduleName = reinterpret_cast<TCHAR *>(lParam);
 			TCHAR *windowName = reinterpret_cast<TCHAR *>(wParam);
@@ -2167,7 +2167,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					}
 				}
 			}
-			return FALSE;
+			return 0;
 		}
 
 		case NPPM_ADDTOOLBARICON_DEPRECATED:

@@ -1065,7 +1065,7 @@ namespace NppDarkMode
 			}
 			else
 			{
-				auto hTips = reinterpret_cast<HWND>(SendMessage(hwnd, msg, WPARAM{}, LPARAM{}));
+				auto hTips = reinterpret_cast<HWND>(SendMessage(hwnd, msg, 0, 0));
 				if (hTips != nullptr)
 				{
 					SetWindowTheme(hTips, L"DarkMode_Explorer", NULL);

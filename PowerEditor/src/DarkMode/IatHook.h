@@ -30,7 +30,6 @@ PIMAGE_THUNK_DATA FindAddressByName(void *moduleBase, PIMAGE_THUNK_DATA impName,
 			continue;
 
 		auto import = RVA2VA<PIMAGE_IMPORT_BY_NAME>(moduleBase, impName->u1.AddressOfData);
-		static_assert(sizeof(*(import->Name)) == sizeof(char), "Name should be 1 byte");
 		if (strcmp(reinterpret_cast<const char*>(import->Name), funcName) != 0)
 			continue;
 		return impAddr;

@@ -346,7 +346,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 	{
 		case WM_MOUSEHWHEEL :
 		{
-			::CallWindowProc(_scintillaDefaultProc, hwnd, WM_HSCROLL, ((short)HIWORD(wParam) > 0)?SB_LINERIGHT:SB_LINELEFT, LPARAM{});
+			::CallWindowProc(_scintillaDefaultProc, hwnd, WM_HSCROLL, ((short)HIWORD(wParam) > 0)?SB_LINERIGHT:SB_LINELEFT, 0);
 			break;
 		}
 
@@ -361,9 +361,9 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 			if (LOWORD(wParam) & MK_SHIFT)
 			{
 				// move 3 columns at a time
-				::CallWindowProc(_scintillaDefaultProc, hwnd, WM_HSCROLL, ((short)HIWORD(wParam) < 0) ? SB_LINERIGHT : SB_LINELEFT, LPARAM{});
-				::CallWindowProc(_scintillaDefaultProc, hwnd, WM_HSCROLL, ((short)HIWORD(wParam) < 0) ? SB_LINERIGHT : SB_LINELEFT, LPARAM{});
-				::CallWindowProc(_scintillaDefaultProc, hwnd, WM_HSCROLL, ((short)HIWORD(wParam) < 0) ? SB_LINERIGHT : SB_LINELEFT, LPARAM{});
+				::CallWindowProc(_scintillaDefaultProc, hwnd, WM_HSCROLL, ((short)HIWORD(wParam) < 0) ? SB_LINERIGHT : SB_LINELEFT, 0);
+				::CallWindowProc(_scintillaDefaultProc, hwnd, WM_HSCROLL, ((short)HIWORD(wParam) < 0) ? SB_LINERIGHT : SB_LINELEFT, 0);
+				::CallWindowProc(_scintillaDefaultProc, hwnd, WM_HSCROLL, ((short)HIWORD(wParam) < 0) ? SB_LINERIGHT : SB_LINELEFT, 0);
 				return TRUE;
 			}
 
@@ -2829,12 +2829,18 @@ void ScintillaEditView::changeCase(__inout wchar_t * const strWToConvert, const 
 	{
 		case UPPERCASE:
 		{
-			::CharUpperBuffW(strWToConvert, nbChars);
+			for (int i = 0; i < nbChars; ++i)
+			{
+				strWToConvert[i] = (WCHAR)(UINT_PTR)::CharUpperW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
+			}
 			break; 
 		} //case UPPERCASE
 		case LOWERCASE:
 		{
-			::CharLowerBuffW(strWToConvert, nbChars);
+			for (int i = 0; i < nbChars; ++i)
+			{
+				strWToConvert[i] = (WCHAR)(UINT_PTR)::CharLowerW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
+			}
 			break; 
 		} //case LOWERCASE
 		case TITLECASE_FORCE:

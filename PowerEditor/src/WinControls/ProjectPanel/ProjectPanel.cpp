@@ -804,20 +804,28 @@ void ProjectPanel::notified(LPNMHDR notification)
 	}
 	else if (notification->code == NM_CUSTOMDRAW && (notification->hwndFrom == _hToolbarMenu))
 	{
-		NMTBCUSTOMDRAW* nmtbcd = reinterpret_cast<NMTBCUSTOMDRAW*>(notification);
-		//if (nmtbcd->nmcd.dwDrawStage == CDDS_PREERASE)
+		if (NppDarkMode::isEnabled())
 		{
-			if (NppDarkMode::isEnabled())
+			static bool isVSDisabled = false;
+			if (!isVSDisabled)
 			{
-				FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getBackgroundBrush());
-				nmtbcd->clrText = NppDarkMode::getTextColor();
-				SetTextColor(nmtbcd->nmcd.hdc, NppDarkMode::getTextColor());
-				SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_SKIPDEFAULT);
+				NppDarkMode::disableVisualStyle(_hToolbarMenu);
+				isVSDisabled = true;
 			}
-			else
-			{
-				SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_DODEFAULT);
-			}
+
+			auto nmtbcd = reinterpret_cast<LPNMTBCUSTOMDRAW>(notification);
+			FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getBackgroundBrush());
+			nmtbcd->clrText = NppDarkMode::getTextColor();
+			// highlight color when hover
+			// same color when hovering above menu 
+			// RGB(65, 65, 65) should be added to NppDarkMode.cpp
+			// needed because, visual style is disabled
+			nmtbcd->clrHighlightHotTrack = RGB(65, 65, 65);
+			SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_NOTIFYSUBITEMDRAW | TBCDRF_HILITEHOTTRACK);
+		}
+		else
+		{
+			SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_DODEFAULT);
 		}
 	}
 }

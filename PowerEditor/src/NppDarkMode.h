@@ -86,4 +86,6 @@ namespace NppDarkMode
 	void setDarkTitleBar(HWND hwnd);
 	void setDarkTooltips(HWND hwnd, ToolTipsType type);
 	void setDarkLineAbovePanelToolbar(HWND hwnd);
+
+	void setExplorerTheme(HWND hwnd);
 }

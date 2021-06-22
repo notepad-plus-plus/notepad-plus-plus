@@ -721,8 +721,6 @@ void FileBrowser::notified(LPNMHDR notification)
 			if (NppDarkMode::isEnabled())
 			{
 				FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getBackgroundBrush());
-				nmtbcd->clrText = NppDarkMode::getTextColor();
-				SetTextColor(nmtbcd->nmcd.hdc, NppDarkMode::getTextColor());
 				SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_SKIPDEFAULT);
 			}
 			else

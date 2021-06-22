@@ -227,8 +227,8 @@ void Searching::displaySectionCentered(int posStart, int posEnd, ScintillaEditVi
 	pEditView->execute(SCI_CHOOSECARETX);
 }
 
-LONG_PTR FindReplaceDlg::originalFinderProc = {};
-LONG_PTR FindReplaceDlg::originalComboEditProc = {};
+LONG_PTR FindReplaceDlg::originalFinderProc = NULL;
+LONG_PTR FindReplaceDlg::originalComboEditProc = NULL;
 
 // important : to activate all styles
 const int STYLING_MASK = 255;

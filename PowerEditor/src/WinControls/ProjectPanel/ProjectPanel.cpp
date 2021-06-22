@@ -44,10 +44,10 @@ ProjectPanel::~ProjectPanel()
 
 INT_PTR CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
-    switch (message)
-    {
-        case WM_INITDIALOG :
-        {
+	switch (message)
+	{
+		case WM_INITDIALOG :
+		{
 			ProjectPanel::initMenus();
 
 			// Create toolbar menu
@@ -100,7 +100,8 @@ INT_PTR CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 		case NPPM_INTERNAL_REFRESHDARKMODE:
 		{
 			NppDarkMode::setDarkLineAbovePanelToolbar(_hToolbarMenu);
-			break;
+			NppDarkMode::setExplorerTheme(_treeView.getHSelf());
+			return TRUE;
 		}
 
 		case WM_MOUSEMOVE:

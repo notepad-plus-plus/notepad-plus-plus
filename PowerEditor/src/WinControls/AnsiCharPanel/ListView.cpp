@@ -54,11 +54,13 @@ void ListView::init(HINSTANCE hInst, HWND parent)
 		throw std::runtime_error("ListView::init : CreateWindowEx() function return null");
 	}
 
+	NppDarkMode::setExplorerTheme(_hSelf);
+
 	::SetWindowLongPtr(_hSelf, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
 	_defaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(staticProc)));
 
 	DWORD exStyle = ListView_GetExtendedListViewStyle(_hSelf);
-	exStyle |= LVS_EX_FULLROWSELECT | LVS_EX_BORDERSELECT | _extraStyle;
+	exStyle |= LVS_EX_FULLROWSELECT | LVS_EX_BORDERSELECT | LVS_EX_DOUBLEBUFFER | _extraStyle;
 	ListView_SetExtendedListViewStyle(_hSelf, exStyle);
 
 	if (_columnInfos.size())

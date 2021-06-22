@@ -41,7 +41,7 @@ void VerticalFileSwitcherListView::init(HINSTANCE hInst, HWND parent, HIMAGELIST
 
 	_hSelf = ::CreateWindow(WC_LISTVIEW,
                                 TEXT(""),
-                                WS_CHILD | listViewStyles,
+                                WS_CHILD | WS_BORDER | listViewStyles,
                                 0,
                                 0,
                                 0,
@@ -55,12 +55,13 @@ void VerticalFileSwitcherListView::init(HINSTANCE hInst, HWND parent, HIMAGELIST
 		throw std::runtime_error("VerticalFileSwitcherListView::init : CreateWindowEx() function return null");
 	}
 
+	NppDarkMode::setExplorerTheme(_hSelf);
 	NppDarkMode::setDarkTooltips(_hSelf, NppDarkMode::ToolTipsType::listview);
 
 	::SetWindowLongPtr(_hSelf, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
 	_defaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(staticProc)));
 
-	ListView_SetExtendedListViewStyle(_hSelf, LVS_EX_FULLROWSELECT | LVS_EX_BORDERSELECT | LVS_EX_INFOTIP);
+	ListView_SetExtendedListViewStyle(_hSelf, LVS_EX_FULLROWSELECT | LVS_EX_BORDERSELECT | LVS_EX_INFOTIP | LVS_EX_DOUBLEBUFFER);
 	ListView_SetItemCountEx(_hSelf, 50, LVSICF_NOSCROLL);
 	ListView_SetImageList(_hSelf, _hImaLst, LVSIL_SMALL);
 }

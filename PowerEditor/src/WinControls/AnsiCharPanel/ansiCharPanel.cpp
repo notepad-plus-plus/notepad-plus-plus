@@ -27,10 +27,10 @@ void AnsiCharPanel::switchEncoding()
 
 INT_PTR CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
-    switch (message)
-    {
-        case WM_INITDIALOG :
-        {
+	switch (message)
+	{
+		case WM_INITDIALOG :
+		{
 			NppParameters& nppParam = NppParameters::getInstance();
 			NativeLangSpeaker *pNativeSpeaker = nppParam.getNativeLangSpeaker();
 			generic_string valStr = pNativeSpeaker->getAttrNameStr(TEXT("Value"), "AsciiInsertion", "ColumnVal");
@@ -50,8 +50,14 @@ INT_PTR CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			_listView.setValues(codepage==-1?0:codepage);
 			_listView.display();
 
-            return TRUE;
-        }
+			return TRUE;
+		}
+
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::setExplorerTheme(_listView.getHSelf());
+			return TRUE;
+		}
 
 		case WM_NOTIFY:
 		{

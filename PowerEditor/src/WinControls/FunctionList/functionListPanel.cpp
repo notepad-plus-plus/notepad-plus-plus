@@ -595,6 +595,34 @@ void FunctionListPanel::notified(LPNMHDR notification)
 	{
 		::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FUNC_LIST, 0);
 	}
+	else if (notification->code == NM_CUSTOMDRAW && (notification->hwndFrom == _hToolbarMenu))
+	{
+		if (NppDarkMode::isEnabled())
+		{
+			static bool isVSDisabled = false;
+			if (!isVSDisabled)
+			{
+				NppDarkMode::setExplorerTheme(_hToolbarMenu, false);
+				isVSDisabled = true;
+			}
+
+			auto nmtbcd = reinterpret_cast<LPNMTBCUSTOMDRAW>(notification);
+			FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getBackgroundBrush());
+			nmtbcd->clrText = NppDarkMode::getTextColor();
+
+			// highlight color when hover
+			// same color when hovering above menu 
+			// RGB(65, 65, 65) should be added to NppDarkMode.cpp
+			// needed because, visual style is disabled
+			nmtbcd->clrHighlightHotTrack = RGB(65, 65, 65);
+
+			SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_NOTIFYSUBITEMDRAW | TBCDRF_HILITEHOTTRACK);
+		}
+		else
+		{
+			SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_DODEFAULT);
+		}
+	}
 }
 
 BOOL FunctionListPanel::setTreeViewImageList(int root_id, int node_id, int leaf_id)

@@ -595,6 +595,41 @@ void FunctionListPanel::notified(LPNMHDR notification)
 	{
 		::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FUNC_LIST, 0);
 	}
+	else if (notification->code == NM_CUSTOMDRAW && (notification->hwndFrom == _hToolbarMenu))
+	{
+		static bool becomeDarkMode = false;
+		static bool becomeLightMode = false;
+		if (NppDarkMode::isEnabled())
+		{
+			if (!becomeDarkMode)
+			{
+				NppDarkMode::setExplorerTheme(_hToolbarMenu, false);
+				becomeDarkMode = true;
+			}
+			becomeLightMode = false;
+
+			auto nmtbcd = reinterpret_cast<LPNMTBCUSTOMDRAW>(notification);
+			FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getBackgroundBrush());
+			nmtbcd->clrText = NppDarkMode::getTextColor();
+
+			// highlight color when hover
+			// same color when hovering above menu 
+			// RGB(65, 65, 65) should be added to NppDarkMode.cpp
+			// needed because, visual style is disabled
+			nmtbcd->clrHighlightHotTrack = RGB(65, 65, 65);
+			SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_NOTIFYSUBITEMDRAW | TBCDRF_HILITEHOTTRACK);
+		}
+		else
+		{
+			if (!becomeLightMode)
+			{
+				NppDarkMode::setExplorerTheme(_hToolbarMenu, true);
+				becomeLightMode = true;
+			}
+			becomeDarkMode = false;
+			SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_DODEFAULT);
+		}
+	}
 }
 
 BOOL FunctionListPanel::setTreeViewImageList(int root_id, int node_id, int leaf_id)
@@ -737,24 +772,45 @@ INT_PTR CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPA
 		// Make edit field red if not found
 		case WM_CTLCOLOREDIT :
 		{
-			// if the text not found modify the background color of the editor
-			static HBRUSH hBrushBackground = CreateSolidBrush(BCKGRD_COLOR);
 			TCHAR text2search[MAX_PATH] ;
 			::SendMessage(_hSearchEdit, WM_GETTEXT, MAX_PATH, reinterpret_cast<LPARAM>(text2search));
+			bool textFound = false;
 			if (text2search[0] == '\0')
 			{
-				return FALSE; // no text, use the default color
+				textFound = true; // no text, use the default color
 			}
 
-			HTREEITEM searchViewRoot = _treeViewSearchResult.getRoot();
-			if (searchViewRoot)
+			if (!textFound)
 			{
-				if (_treeViewSearchResult.getChildFrom(searchViewRoot))
-					return FALSE; // children on root found, use the default color
+				HTREEITEM searchViewRoot = _treeViewSearchResult.getRoot();
+				if (searchViewRoot)
+				{
+					if (_treeViewSearchResult.getChildFrom(searchViewRoot))
+					{
+						textFound = true; // children on root found, use the default color
+					}
+				}
+				else
+				{
+					textFound = true; // no root (no parser), use the default color
+				}
 			}
-			else
-				return FALSE; // no root (no parser), use the default color
+
+			if (textFound)
+			{
+				if (NppDarkMode::isEnabled())
+				{
+					SetTextColor((HDC)wParam, NppDarkMode::getTextColor());
+					SetBkColor((HDC)wParam, NppDarkMode::getBackgroundColor());
+					return (LRESULT)NppDarkMode::getBackgroundBrush();
+				}
+				else
+					return FALSE;
+			}
+
 			// text not found
+			// if the text not found modify the background color of the editor
+			static HBRUSH hBrushBackground = CreateSolidBrush(BCKGRD_COLOR);
 			SetTextColor((HDC)wParam, TXT_COLOR);
 			SetBkColor((HDC)wParam, BCKGRD_COLOR);
 			return (LRESULT)hBrushBackground;

@@ -981,11 +981,6 @@ namespace NppDarkMode
 		SetWindowSubclass(hwnd, TabSubclass, g_tabSubclassID, 0);
 	}
 
-	void disableVisualStyle(HWND hwnd)
-	{
-		SetWindowTheme(hwnd, L"", L"");
-	}
-
 	void autoSubclassAndThemeChildControls(HWND hwndParent, bool subclass, bool theme)
 	{
 		struct Params
@@ -1116,9 +1111,16 @@ namespace NppDarkMode
 		::SendMessage(hwnd, TB_SETCOLORSCHEME, 0, reinterpret_cast<LPARAM>(&scheme));
 	}
 
-	void setExplorerTheme(HWND hwnd)
+	void setExplorerTheme(HWND hwnd, bool doEnable)
 	{
-		NppDarkMode::allowDarkModeForWindow(hwnd, NppDarkMode::isEnabled() && NppDarkMode::isExperimentalEnabled());
-		SetWindowTheme(hwnd, L"Explorer", nullptr);
+		if (doEnable)
+		{
+			NppDarkMode::allowDarkModeForWindow(hwnd, NppDarkMode::isEnabled() && NppDarkMode::isExperimentalEnabled());
+			SetWindowTheme(hwnd, L"Explorer", nullptr);
+		}
+		else
+		{
+			SetWindowTheme(hwnd, L"", L"");
+		}
 	}
 }

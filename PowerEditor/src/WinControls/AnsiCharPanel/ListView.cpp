@@ -54,7 +54,7 @@ void ListView::init(HINSTANCE hInst, HWND parent)
 		throw std::runtime_error("ListView::init : CreateWindowEx() function return null");
 	}
 
-	NppDarkMode::setExplorerTheme(_hSelf);
+	NppDarkMode::setExplorerTheme(_hSelf, true);
 
 	::SetWindowLongPtr(_hSelf, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
 	_defaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(staticProc)));

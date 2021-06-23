@@ -73,7 +73,7 @@ INT_PTR CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, 
 
 		case NPPM_INTERNAL_REFRESHDARKMODE:
 		{
-			NppDarkMode::setExplorerTheme(_fileListView.getHSelf());
+			NppDarkMode::setExplorerTheme(_fileListView.getHSelf(), true);
 			return TRUE;
 		}
 

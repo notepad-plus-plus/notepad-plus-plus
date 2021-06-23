@@ -838,7 +838,7 @@ INT_PTR CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPA
 		case NPPM_INTERNAL_REFRESHDARKMODE:
 		{
 			NppDarkMode::setDarkLineAbovePanelToolbar(_hToolbarMenu);
-			NppDarkMode::setExplorerTheme(_treeView.getHSelf());
+			NppDarkMode::setExplorerTheme(_treeView.getHSelf(), true);
 			return TRUE;
 		}
 

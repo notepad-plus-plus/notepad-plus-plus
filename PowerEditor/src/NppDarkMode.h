@@ -78,7 +78,6 @@ namespace NppDarkMode
 	void subclassGroupboxControl(HWND hwnd);
 	void subclassToolbarControl(HWND hwnd);
 	void subclassTabControl(HWND hwnd);
-	void disableVisualStyle(HWND hwnd);
 
 	void autoSubclassAndThemeChildControls(HWND hwndParent, bool subclass = true, bool theme = true);
 	void autoThemeChildControls(HWND hwndParent);
@@ -87,5 +86,5 @@ namespace NppDarkMode
 	void setDarkTooltips(HWND hwnd, ToolTipsType type);
 	void setDarkLineAbovePanelToolbar(HWND hwnd);
 
-	void setExplorerTheme(HWND hwnd);
+	void setExplorerTheme(HWND hwnd, bool doEnable);
 }

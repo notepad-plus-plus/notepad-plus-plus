@@ -100,7 +100,7 @@ INT_PTR CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 		case NPPM_INTERNAL_REFRESHDARKMODE:
 		{
 			NppDarkMode::setDarkLineAbovePanelToolbar(_hToolbarMenu);
-			NppDarkMode::setExplorerTheme(_treeView.getHSelf());
+			NppDarkMode::setExplorerTheme(_treeView.getHSelf(), true);
 			return TRUE;
 		}
 
@@ -813,15 +813,16 @@ void ProjectPanel::notified(LPNMHDR notification)
 	}
 	else if (notification->code == NM_CUSTOMDRAW && (notification->hwndFrom == _hToolbarMenu))
 	{
+		static bool becomeDarkMode = false;
+		static bool becomeLightMode = false;
 		if (NppDarkMode::isEnabled())
 		{
-			static bool isVSDisabled = false;
-			if (!isVSDisabled)
+			if (!becomeDarkMode)
 			{
-				NppDarkMode::disableVisualStyle(_hToolbarMenu);
-				isVSDisabled = true;
+				NppDarkMode::setExplorerTheme(_hToolbarMenu, false);
+				becomeDarkMode = true;
 			}
-
+			becomeLightMode = false;
 			auto nmtbcd = reinterpret_cast<LPNMTBCUSTOMDRAW>(notification);
 			FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getBackgroundBrush());
 			nmtbcd->clrText = NppDarkMode::getTextColor();
@@ -834,6 +835,12 @@ void ProjectPanel::notified(LPNMHDR notification)
 		}
 		else
 		{
+			if (!becomeLightMode)
+			{
+				NppDarkMode::setExplorerTheme(_hToolbarMenu, true);
+				becomeLightMode = true;
+			}
+			becomeDarkMode = false;
 			SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_DODEFAULT);
 		}
 	}

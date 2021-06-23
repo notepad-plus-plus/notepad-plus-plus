@@ -173,7 +173,7 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 		case NPPM_INTERNAL_REFRESHDARKMODE:
 		{
 			NppDarkMode::setDarkLineAbovePanelToolbar(_hToolbarMenu);
-			NppDarkMode::setExplorerTheme(_treeView.getHSelf());
+			NppDarkMode::setExplorerTheme(_treeView.getHSelf(), true);
 			return TRUE;
 		}
 

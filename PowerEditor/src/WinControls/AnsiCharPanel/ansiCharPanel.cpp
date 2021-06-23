@@ -55,7 +55,7 @@ INT_PTR CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 
 		case NPPM_INTERNAL_REFRESHDARKMODE:
 		{
-			NppDarkMode::setExplorerTheme(_listView.getHSelf());
+			NppDarkMode::setExplorerTheme(_listView.getHSelf(), true);
 			return TRUE;
 		}
 

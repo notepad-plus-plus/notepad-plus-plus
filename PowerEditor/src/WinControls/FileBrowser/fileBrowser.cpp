@@ -23,7 +23,6 @@
 #include "RunDlg.h"
 #include "ReadDirectoryChanges.h"
 #include "menuCmdID.h"
-#include "Parameters.h"
 
 #define CX_BITMAP         16
 #define CY_BITMAP         16

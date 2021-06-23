@@ -19,7 +19,6 @@
 #include <stdexcept>
 #include "TabBar.h"
 #include "Parameters.h"
-#include "NppDarkMode.h"
 
 #define	IDC_DRAG_TAB     1404
 #define	IDC_DRAG_INTERDIT_TAB 1405

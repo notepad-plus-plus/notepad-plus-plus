@@ -23,7 +23,6 @@
 #include "RunDlg.h"
 #include "ReadDirectoryChanges.h"
 #include "menuCmdID.h"
-#include "Parameters.h"
 
 #define CX_BITMAP         16
 #define CY_BITMAP         16
@@ -172,8 +171,11 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
 		case NPPM_INTERNAL_REFRESHDARKMODE:
 		{
+			NppDarkMode::setDarkTooltips(_hToolbarMenu, NppDarkMode::ToolTipsType::toolbar);
 			NppDarkMode::setDarkLineAbovePanelToolbar(_hToolbarMenu);
+
 			NppDarkMode::setExplorerTheme(_treeView.getHSelf(), true);
+			NppDarkMode::setDarkTooltips(_treeView.getHSelf(), NppDarkMode::ToolTipsType::treeview);
 			return TRUE;
 		}
 

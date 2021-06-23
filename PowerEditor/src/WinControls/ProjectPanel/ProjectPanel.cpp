@@ -100,7 +100,9 @@ INT_PTR CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 		case NPPM_INTERNAL_REFRESHDARKMODE:
 		{
 			NppDarkMode::setDarkLineAbovePanelToolbar(_hToolbarMenu);
+			
 			NppDarkMode::setExplorerTheme(_treeView.getHSelf(), true);
+			NppDarkMode::setDarkTooltips(_treeView.getHSelf(), NppDarkMode::ToolTipsType::treeview);
 			return TRUE;
 		}
 

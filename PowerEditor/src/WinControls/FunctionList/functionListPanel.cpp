@@ -837,8 +837,11 @@ INT_PTR CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPA
 
 		case NPPM_INTERNAL_REFRESHDARKMODE:
 		{
+			NppDarkMode::setDarkTooltips(_hToolbarMenu, NppDarkMode::ToolTipsType::toolbar);
 			NppDarkMode::setDarkLineAbovePanelToolbar(_hToolbarMenu);
+
 			NppDarkMode::setExplorerTheme(_treeView.getHSelf(), true);
+			NppDarkMode::setDarkTooltips(_treeView.getHSelf(), NppDarkMode::ToolTipsType::treeview);
 			return TRUE;
 		}
 
@@ -871,7 +874,7 @@ INT_PTR CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPA
 			}
 
 			switch (LOWORD(wParam))
-            {
+			{
 				case IDC_SORTBUTTON_FUNCLIST:
 				{
 					sortOrUnsort();

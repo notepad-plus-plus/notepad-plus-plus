@@ -1044,25 +1044,16 @@ namespace NppDarkMode
 		bool useDark = NppDarkMode::isExperimentalEnabled() && NppDarkMode::isEnabled();
 
 		NppDarkMode::allowDarkModeForWindow(hwnd, useDark);
-		NppDarkMode::setTitleBarThemeColor(hwnd, useDark);
+		SetWindowTheme(hwnd, useDark ? L"Explorer" : nullptr, nullptr);
 
-		if (useDark)
-		{
-			SetWindowTheme(hwnd, L"Explorer", nullptr);
-		}
-		else
-		{
-			SetWindowTheme(hwnd, nullptr, nullptr);
-		}
+		NppDarkMode::setTitleBarThemeColor(hwnd, useDark);
 	}
 
 	void setDarkTooltips(HWND hwnd, ToolTipsType type)
 	{
-		if (NppDarkMode::isEnabled())
+		UINT msg = 0;
+		switch (type)
 		{
-			UINT msg = 0;
-			switch (type)
-			{
 			case NppDarkMode::ToolTipsType::toolbar:
 				msg = TB_GETTOOLTIPS;
 				break;
@@ -1072,22 +1063,24 @@ namespace NppDarkMode
 			case NppDarkMode::ToolTipsType::treeview:
 				msg = TVM_GETTOOLTIPS;
 				break;
+			case NppDarkMode::ToolTipsType::tabbar:
+				msg = TCM_GETTOOLTIPS;
+				break;
 			default:
 				msg = 0;
 				break;
-			}
+		}
 
-			if (!msg)
+		if (msg == 0)
+		{
+			SetWindowTheme(hwnd, NppDarkMode::isEnabled() ? L"DarkMode_Explorer" : nullptr, nullptr);
+		}
+		else
+		{
+			auto hTips = reinterpret_cast<HWND>(::SendMessage(hwnd, msg, 0, 0));
+			if (hTips != nullptr)
 			{
-				SetWindowTheme(hwnd, L"DarkMode_Explorer", NULL);
-			}
-			else
-			{
-				auto hTips = reinterpret_cast<HWND>(SendMessage(hwnd, msg, 0, 0));
-				if (hTips != nullptr)
-				{
-					SetWindowTheme(hTips, L"DarkMode_Explorer", NULL);
-				}
+				SetWindowTheme(hTips, NppDarkMode::isEnabled() ? L"DarkMode_Explorer" : nullptr, nullptr);
 			}
 		}
 	}

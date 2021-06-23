@@ -26,7 +26,8 @@ namespace NppDarkMode
 		tooltip,
 		toolbar,
 		listview,
-		treeview
+		treeview,
+		tabbar
 	};
 
 	void initDarkMode();				// pulls options from NppParameters

@@ -597,14 +597,16 @@ void FunctionListPanel::notified(LPNMHDR notification)
 	}
 	else if (notification->code == NM_CUSTOMDRAW && (notification->hwndFrom == _hToolbarMenu))
 	{
+		static bool becomeDarkMode = false;
+		static bool becomeLightMode = false;
 		if (NppDarkMode::isEnabled())
 		{
-			static bool isVSDisabled = false;
-			if (!isVSDisabled)
+			if (!becomeDarkMode)
 			{
 				NppDarkMode::setExplorerTheme(_hToolbarMenu, false);
-				isVSDisabled = true;
+				becomeDarkMode = true;
 			}
+			becomeLightMode = false;
 
 			auto nmtbcd = reinterpret_cast<LPNMTBCUSTOMDRAW>(notification);
 			FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getBackgroundBrush());
@@ -615,12 +617,16 @@ void FunctionListPanel::notified(LPNMHDR notification)
 			// RGB(65, 65, 65) should be added to NppDarkMode.cpp
 			// needed because, visual style is disabled
 			nmtbcd->clrHighlightHotTrack = RGB(65, 65, 65);
-
 			SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_NOTIFYSUBITEMDRAW | TBCDRF_HILITEHOTTRACK);
-
 		}
 		else
 		{
+			if (!becomeLightMode)
+			{
+				NppDarkMode::setExplorerTheme(_hToolbarMenu, true);
+				becomeLightMode = true;
+			}
+			becomeDarkMode = false;
 			SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_DODEFAULT);
 		}
 	}

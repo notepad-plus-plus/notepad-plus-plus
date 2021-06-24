@@ -23,7 +23,6 @@
 #include "RunDlg.h"
 #include "ReadDirectoryChanges.h"
 #include "menuCmdID.h"
-#include "Parameters.h"
 
 #define CX_BITMAP         16
 #define CY_BITMAP         16
@@ -98,13 +97,17 @@ bool isRelatedRootFolder(const generic_string & relatedRoot, const generic_strin
 
 INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
-    switch (message)
-    {
-        case WM_INITDIALOG :
-        {
+	switch (message)
+	{
+		case WM_INITDIALOG :
+		{
 			NppParameters& nppParam = NppParameters::getInstance();
 			int style = WS_CHILD | WS_VISIBLE | CCS_ADJUSTABLE | TBSTYLE_AUTOSIZE | TBSTYLE_FLAT | TBSTYLE_LIST | TBSTYLE_TRANSPARENT | BTNS_AUTOSIZE | BTNS_SEP | TBSTYLE_TOOLTIPS | TBSTYLE_CUSTOMERASE;
 			_hToolbarMenu = CreateWindowEx(WS_EX_LAYOUTRTL, TOOLBARCLASSNAME, NULL, style, 0, 0, 0, 0, _hSelf, nullptr, _hInst, NULL);
+
+			NppDarkMode::setDarkTooltips(_hToolbarMenu, NppDarkMode::ToolTipsType::toolbar);
+			NppDarkMode::setDarkLineAbovePanelToolbar(_hToolbarMenu);
+
 			TBBUTTON tbButtons[3];
 			// Add the bmap image into toolbar's imagelist
 			TBADDBITMAP addbmp = { _hInst, 0 };
@@ -163,8 +166,18 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			_treeView.makeLabelEditable(false);
 			_treeView.display();
 
-            return TRUE;
-        }
+			return TRUE;
+		}
+
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::setDarkTooltips(_hToolbarMenu, NppDarkMode::ToolTipsType::toolbar);
+			NppDarkMode::setDarkLineAbovePanelToolbar(_hToolbarMenu);
+
+			NppDarkMode::setExplorerTheme(_treeView.getHSelf(), true);
+			NppDarkMode::setDarkTooltips(_treeView.getHSelf(), NppDarkMode::ToolTipsType::treeview);
+			return TRUE;
+		}
 
 		case WM_MOUSEMOVE:
 			if (_treeView.isDragging())
@@ -711,8 +724,6 @@ void FileBrowser::notified(LPNMHDR notification)
 			if (NppDarkMode::isEnabled())
 			{
 				FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getBackgroundBrush());
-				nmtbcd->clrText = NppDarkMode::getTextColor();
-				SetTextColor(nmtbcd->nmcd.hdc, NppDarkMode::getTextColor());
 				SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_SKIPDEFAULT);
 			}
 			else
@@ -736,7 +747,7 @@ BrowserNodeType FileBrowser::getNodeType(HTREEITEM hItem)
 		return browserNodeType_file;
 	}
 	// Root
-	else if (tvItem.lParam != NULL && !reinterpret_cast<SortingData4lParam*>(tvItem.lParam)->_rootPath.empty())
+	else if (tvItem.lParam && !reinterpret_cast<SortingData4lParam*>(tvItem.lParam)->_rootPath.empty())
 	{
 		return browserNodeType_root;
 	}

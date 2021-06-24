@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="7.9.6">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="8.0">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -20,26 +20,26 @@
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item subMenuId="file-openFolder" name="このファイルのあるフォルダーを開く"/>
-                    <Item subMenuId="file-closeMore" name="他のファイルを閉じる"/>
+                    <Item subMenuId="file-openFolder" name="このファイルのあるフォルダーを開く(&amp;F)"/>
+                    <Item subMenuId="file-closeMore" name="他のファイルを閉じる(&amp;M)"/>
                     <Item subMenuId="file-recentFiles" name="最近使用したファイル(&amp;R)"/>
-                    <Item subMenuId="edit-copyToClipboard" name="クリップボードにコピー"/>
-                    <Item subMenuId="edit-indent" name="インデント"/>
-                    <Item subMenuId="edit-convertCaseTo" name="大文字/小文字変換"/>
-                    <Item subMenuId="edit-lineOperations" name="行の操作"/>
-                    <Item subMenuId="edit-comment" name="コメント化/解除"/>
-                    <Item subMenuId="edit-autoCompletion" name="自動補完"/>
-                    <Item subMenuId="edit-eolConversion" name="改行コード変換"/>
-                    <Item subMenuId="edit-blankOperations" name="空白文字の操作"/>
-                    <Item subMenuId="edit-pasteSpecial" name="特殊な貼り付け"/>
-                    <Item subMenuId="edit-onSelection" name="選択した文字列を"/>
-                    <Item subMenuId="search-markAll" name="すべてマーク"/>
-                    <Item subMenuId="search-markOne" name="一つだけマーク"/>
-                    <Item subMenuId="search-unmarkAll" name="マークをすべて解除"/>
-                    <Item subMenuId="search-jumpUp" name="前のマークに移動"/>
-                    <Item subMenuId="search-jumpDown" name="次のマークに移動"/>
-                    <Item subMenuId="search-copyStyledText" name="スタイル付きの文字列をコピー"/>
-                    <Item subMenuId="search-bookmark" name="ブックマーク"/>
+                    <Item subMenuId="edit-copyToClipboard" name="クリップボードにコピー(&amp;Y)"/>
+                    <Item subMenuId="edit-indent" name="インデント(&amp;I)"/>
+                    <Item subMenuId="edit-convertCaseTo" name="大文字/小文字変換(&amp;V)"/>
+                    <Item subMenuId="edit-lineOperations" name="行の操作(&amp;L)"/>
+                    <Item subMenuId="edit-comment" name="コメント化/解除(&amp;M)"/>
+                    <Item subMenuId="edit-autoCompletion" name="自動補完(&amp;A)"/>
+                    <Item subMenuId="edit-eolConversion" name="改行コード変換(&amp;E)"/>
+                    <Item subMenuId="edit-blankOperations" name="空白文字の操作(&amp;B)"/>
+                    <Item subMenuId="edit-pasteSpecial" name="特殊な貼り付け(&amp;P)"/>
+                    <Item subMenuId="edit-onSelection" name="選択した文字列を(&amp;O)"/>
+                    <Item subMenuId="search-markAll" name="すべてマーク(&amp;A)"/>
+                    <Item subMenuId="search-markOne" name="一つだけマーク(&amp;O)"/>
+                    <Item subMenuId="search-unmarkAll" name="マークをすべて解除(&amp;U)"/>
+                    <Item subMenuId="search-jumpUp" name="前のマークに移動(&amp;J)"/>
+                    <Item subMenuId="search-jumpDown" name="次のマークに移動(&amp;D)"/>
+                    <Item subMenuId="search-copyStyledText" name="スタイル付きの文字列をコピー(&amp;C)"/>
+                    <Item subMenuId="search-bookmark" name="ブックマーク(&amp;B)"/>
                     <Item subMenuId="view-currentFileIn" name="ブラウザーで開く"/>
                     <Item subMenuId="view-showSymbol" name="制御文字の表示"/>
                     <Item subMenuId="view-zoom" name="ズーム"/>
@@ -87,26 +87,26 @@
                     <Item id="41006" name="上書き保存(&amp;S)"/>
                     <Item id="41007" name="すべて保存(&amp;E)"/>
                     <Item id="41008" name="名前を付けて保存(&amp;A)..."/>
-                    <Item id="41010" name="印刷..."/>
-                    <Item id="1001"  name="今すぐ印刷"/>
+                    <Item id="41010" name="印刷(&amp;P)..."/>
+                    <Item id="1001"  name="今すぐ印刷(&amp;W)"/>
                     <Item id="41011" name="終了(&amp;X)"/>
-                    <Item id="41012" name="セッションを読み込む..."/>
-                    <Item id="41013" name="セッションを保存..."/>
+                    <Item id="41012" name="セッションを読み込む(&amp;I)..."/>
+                    <Item id="41013" name="セッションを保存(&amp;I)..."/>
                     <Item id="41014" name="再読み込み(&amp;L)"/>
-                    <Item id="41015" name="複製を別名で保存..."/>
-                    <Item id="41016" name="ごみ箱に移動"/>
-                    <Item id="41017" name="名前の変更..."/>
+                    <Item id="41015" name="複製を別名で保存(&amp;Y)..."/>
+                    <Item id="41016" name="ごみ箱に移動(&amp;B)"/>
+                    <Item id="41017" name="名前の変更(&amp;R)..."/>
                     <Item id="41021" name="直前に閉じたファイルを開く"/>
-                    <Item id="41022" name="フォルダーをワークスペースとして開く..."/>
-                    <Item id="41023" name="既定のアプリで開く"/>
+                    <Item id="41022" name="フォルダーをワークスペースとして開く(&amp;W)..."/>
+                    <Item id="41023" name="既定のアプリで開く(&amp;D)"/>
                     <Item id="42001" name="切り取り(&amp;T)"/>
                     <Item id="42002" name="コピー(&amp;C)"/>
                     <Item id="42003" name="元に戻す(&amp;U)"/>
                     <Item id="42004" name="やり直し(&amp;R)"/>
                     <Item id="42005" name="貼り付け(&amp;P)"/>
                     <Item id="42006" name="削除(&amp;D)"/>
-                    <Item id="42007" name="すべて選択(&amp;L)"/>
-                    <Item id="42020" name="選択を開始/終了"/>
+                    <Item id="42007" name="すべて選択(&amp;S)"/>
+                    <Item id="42020" name="選択を開始/終了(&amp;S)"/>
                     <Item id="42008" name="インデントを増やす"/>
                     <Item id="42009" name="インデントを減らす"/>
                     <Item id="42010" name="カーソル行を複製"/>
@@ -161,13 +161,13 @@
                     <Item id="42050" name="バイナリコンテンツを貼り付け"/>
                     <Item id="42082" name="リンクをコピー"/>
                     <Item id="42037" name="矩形モード..."/>
-                    <Item id="42034" name="矩形編集..."/>
-                    <Item id="42051" name="文字コード表"/>
-                    <Item id="42052" name="クリップボード履歴"/>
+                    <Item id="42034" name="矩形編集(&amp;N)..."/>
+                    <Item id="42051" name="文字コード表(&amp;P)"/>
+                    <Item id="42052" name="クリップボード履歴(&amp;H)"/>
                     <Item id="42025" name="記録したマクロを保存(&amp;S)..."/>
                     <Item id="42026" name="書字方向を右から左へ"/>
                     <Item id="42027" name="書字方向を左から右へ"/>
-                    <Item id="42028" name="読み取り専用モード"/>
+                    <Item id="42028" name="読み取り専用モード(&amp;S)"/>
                     <Item id="42029" name="現在の文書のフルパス"/>
                     <Item id="42030" name="現在の文書のファイル名"/>
                     <Item id="42031" name="現在の文書のディレクトリ"/>
@@ -193,14 +193,14 @@
                     <Item id="43021" name="ブックマークした行を削除"/>
                     <Item id="43051" name="ブックマークしていない行を削除"/>
                     <Item id="43050" name="ブックマークを反転"/>
-                    <Item id="43052" name="文字範囲を指定して検索..."/>
-                    <Item id="43053" name="対応する括弧内を選択"/>
-                    <Item id="43009" name="対応する括弧へジャンプ"/>
+                    <Item id="43052" name="文字範囲を指定して検索(&amp;E)..."/>
+                    <Item id="43053" name="対応する括弧内を選択(&amp;M)"/>
+                    <Item id="43009" name="対応する括弧へジャンプ(&amp;M)"/>
                     <Item id="43010" name="前を検索(&amp;P)"/>
                     <Item id="43011" name="インクリメンタルサーチ(&amp;I)"/>
-                    <Item id="43013" name="複数ファイル内を検索"/>
-                    <Item id="43014" name="次を検索(カーソル位置の単語:記憶しない)"/>
-                    <Item id="43015" name="前を検索(カーソル位置の単語:記憶しない)"/>
+                    <Item id="43013" name="複数ファイル内を検索(&amp;L)"/>
+                    <Item id="43014" name="次を検索(カーソル位置の単語:記憶しない)(&amp;V)"/>
+                    <Item id="43015" name="前を検索(カーソル位置の単語:記憶しない)(&amp;V)"/>
                     <Item id="43022" name="スタイル1を適用"/>
                     <Item id="43023" name="スタイル1を解除"/>
                     <Item id="43024" name="スタイル2を適用"/>
@@ -236,11 +236,11 @@
                     <Item id="43064" name="スタイル3を適用"/>
                     <Item id="43065" name="スタイル4を適用"/>
                     <Item id="43066" name="スタイル5を適用"/>
-                    <Item id="43045" name="検索結果ウィンドウ"/>
-                    <Item id="43046" name="次の検索結果"/>
-                    <Item id="43047" name="前の検索結果"/>
-                    <Item id="43048" name="次を検索(カーソル位置の単語)"/>
-                    <Item id="43049" name="前を検索(カーソル位置の単語)"/>
+                    <Item id="43045" name="検索結果ウィンドウ(&amp;W)"/>
+                    <Item id="43046" name="次の検索結果(&amp;T)"/>
+                    <Item id="43047" name="前の検索結果(&amp;T)"/>
+                    <Item id="43048" name="次を検索(カーソル位置の単語)(&amp;S)"/>
+                    <Item id="43049" name="前を検索(カーソル位置の単語)(&amp;S)"/>
                     <Item id="43054" name="マーク(&amp;K)..."/>
                     <Item id="44009" name="テキスト領域以外を非表示"/>
                     <Item id="44010" name="すべて畳む"/>
@@ -324,7 +324,6 @@
                     <Item id="47002" name="Notepad++のプロジェクトページ"/>
                     <Item id="47003" name="オンラインドキュメント"/>
                     <Item id="47004" name="Notepad++のコミュニティ(フォーラム)"/>
-                    <Item id="47011" name="ライブサポート"/>
                     <Item id="47012" name="デバッグ情報..."/>
                     <Item id="47005" name="プラグインを探す"/>
                     <Item id="47006" name="Notepad++をアップデート"/>

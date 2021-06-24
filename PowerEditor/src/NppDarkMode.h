@@ -20,6 +20,15 @@ namespace NppDarkMode
 		bool enableMenubar = false;
 		bool enableScrollbarHack = false;
 	};
+	
+	enum class ToolTipsType
+	{
+		tooltip,
+		toolbar,
+		listview,
+		treeview,
+		tabbar
+	};
 
 	void initDarkMode();				// pulls options from NppParameters
 	void refreshDarkMode(HWND hwnd, bool forceRefresh = false);	// attempts to apply new options from NppParameters, sends NPPM_INTERNAL_REFRESHDARKMODE to hwnd's top level parent
@@ -40,6 +49,7 @@ namespace NppDarkMode
 
 	COLORREF getTextColor();
 	COLORREF getDarkerTextColor();
+	COLORREF getDisabledTextColor();
 	COLORREF getEdgeColor();
 
 	HBRUSH getBackgroundBrush();
@@ -54,6 +64,7 @@ namespace NppDarkMode
 	// processes messages related to UAH / custom menubar drawing.
 	// return true if handled, false to continue with normal processing in your wndproc
 	bool runUAHWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam, LRESULT* lr);
+	void drawUAHMenuNCBottomLine(HWND hWnd);
 
 	// from DarkMode.h
 	void initExperimentalDarkMode(bool fixDarkScrollbar, bool dark);
@@ -71,5 +82,10 @@ namespace NppDarkMode
 
 	void autoSubclassAndThemeChildControls(HWND hwndParent, bool subclass = true, bool theme = true);
 	void autoThemeChildControls(HWND hwndParent);
-}
 
+	void setDarkTitleBar(HWND hwnd);
+	void setDarkTooltips(HWND hwnd, ToolTipsType type);
+	void setDarkLineAbovePanelToolbar(HWND hwnd);
+
+	void setExplorerTheme(HWND hwnd, bool doEnable);
+}

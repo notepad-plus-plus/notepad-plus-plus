@@ -19,6 +19,11 @@ SectionGroup "Themes" Themes
 	SetOverwrite off
 	; UPDATE_PATH: the value is $INSTDIR if doLocalConf.xml exit,
 	;              otherwise the value is $APPDATA\${APPNAME}
+	Section "-Dark Mode Default" DarkModeDefault
+		SetOutPath "$UPDATE_PATH\themes"
+		File ".\themes\DarkModeDefault.xml"
+	SectionEnd
+	
 	${MementoSection} "Black Board" BlackBoard
 		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Black board.xml"
@@ -127,6 +132,12 @@ SectionGroupEnd
 
 
 SectionGroup un.Themes
+	
+	Section un.DarkModeDefault
+	${If} $keepUserData == "false"
+		Delete "$installPath\themes\DarkModeDefault.xml"
+	${endIf}
+	SectionEnd
 	
 	Section un.BlackBoard
 	${If} $keepUserData == "false"

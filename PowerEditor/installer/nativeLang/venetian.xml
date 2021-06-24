@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     Venetian translation for Notepad++
-    Last modified Sun, March 7th, 2021.
-	Translators: 2019-xxxx, Matteo Concato (Conky77)
+    Last modified Sat, June 5th, 2021.
+    Translators: 2019-xxxx, Matteo Concato (Conky77)
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
-	The comments are here for explanation, it's not necessary to translate them.
+    The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="Vèneto" filename="venetian.xml" version="7.9.4">
+    <Native-Langue name="Vèneto" filename="venetian.xml" version="8.0.0">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -41,6 +41,7 @@
                     <Item subMenuId="edit-pasteSpecial" name="Incoƚa speciaƚe"/>
                     <Item subMenuId="edit-onSelection" name="Testo seƚesionà"/>
                     <Item subMenuId="search-markAll" name="Marca tuti cuanti"/>
+                    <Item subMenuId="search-markOne" name="Evidenziane &amp;uno"/>
                     <Item subMenuId="search-unmarkAll" name="Rimovi marcadura"/>
                     <Item subMenuId="search-jumpUp" name="Va sora"/>
                     <Item subMenuId="search-jumpDown" name="Và xo"/>
@@ -132,6 +133,7 @@
                     <Item id="42064" name="Órdena righe cofà vaƚori desimaƚi (virgoƚa) en maniera decresente"/>
                     <Item id="42065" name="Órdena righe cofà vaƚori desimaƚi (punto) en maniera cresente"/>
                     <Item id="42066" name="Órdena righe cofà vaƚori desimaƚi (punto) en maniera decresente"/>
+                    <Item id="42083" name="Inverti l'órdene deƚe righe"/>
                     <Item id="42078" name="Órdena righe a caxo"/>
                     <Item id="42016" name="TUTO MAIÙSCOȽE"/>
                     <Item id="42017" name="tuto minùscoƚe"/>
@@ -236,6 +238,11 @@
                     <Item id="43059" name="5° Stiƚe"/>
                     <Item id="43060" name="Tuti cuanti i Stiƚi"/>
                     <Item id="43061" name="Cata Stiƚe (Evidensià)"/>
+                    <Item id="43062" name="Che utilixa el 1° stiƚe"/> 
+                    <Item id="43063" name="Che utilixa el 2° stiƚe"/> 
+                    <Item id="43064" name="Che utilixa el 3° stiƚe"/> 
+                    <Item id="43065" name="Che utilixa el 4° stiƚe"/> 
+                    <Item id="43066" name="Che utilixa el 5° stiƚe"/>
                     <Item id="43045" name="Fenèstra rixultadi de riserca"/>
                     <Item id="43046" name="Rixultado de riserca seguente"/>
                     <Item id="43047" name="Rixultado de riserca presedente"/>
@@ -244,6 +251,7 @@
                     <Item id="43054" name="Evidensia..."/>
                     <Item id="44009" name="Modaƚità Post-it"/>
                     <Item id="44010" name="Conprimi tute ƚe struture"/>
+                    <Item id="44011" name="Modaƚità sensa distrasion"/>
                     <Item id="44019" name="Visuaƚixa tuti i caràtari"/>
                     <Item id="44020" name="Visuaƚixa guide de indentasion"/>
                     <Item id="44022" name="Ativa a capo otomàtico"/>
@@ -287,14 +295,14 @@
                     <Item id="45003" name="Formato Macintosh (CR)"/>
                     <Item id="45004" name="Codefega en ANSI"/>
                     <Item id="45005" name="Codefega en UTF-8-BOM"/>
-                    <Item id="45006" name="Codefega en UCS-2 BE BOM"/>
-                    <Item id="45007" name="Codefega en UCS-2 LE BOM"/>
+                    <Item id="45006" name="Codefega en UTF-16 BE BOM"/>
+                    <Item id="45007" name="Codefega en UTF-16 LE BOM"/>
                     <Item id="45008" name="Codefega en UTF-8"/>
                     <Item id="45009" name="Converti en ANSI"/>
                     <Item id="45010" name="Converti en UTF-8"/>
                     <Item id="45011" name="Converti en UTF-8-BOM"/>
-                    <Item id="45012" name="Converti en UCS-2 BE BOM"/>
-                    <Item id="45013" name="Converti en UCS-2 LE BOM"/>
+                    <Item id="45012" name="Converti en UTF-16 BE BOM"/>
+                    <Item id="45013" name="Converti en UTF-16 LE BOM"/>
                     <Item id="45060" name="Big5 (tradisionaƚe)"/>
                     <Item id="45061" name="GB2312 (senplificà)"/>
                     <Item id="45054" name="OEM 861: Ixƚandexe"/>
@@ -317,7 +325,6 @@
                     <Item id="47002" name="Progeto Notepad++"/>
                     <Item id="47003" name="Documentasion online"/>
                     <Item id="47004" name="Community Notepad++ (Forum)"/>
-                    <Item id="47011" name="Supporto Live"/>
                     <Item id="47012" name="Informasion de debug..."/>
                     <Item id="47005" name="Otieni altri plugin"/>
                     <Item id="47006" name="Axorna Notepad++"/>
@@ -379,7 +386,7 @@
             </TabBar>
         </Menu>
 
-		<Dialog>
+        <Dialog>
             <Find title="" titleFind="Cata" titleReplace="Sostituisi" titleFindInFiles="Ruma inte i file" titleFindInProjects="Ruma inte'l progeto" titleMark="Evidensia">
                 <Item id="1" name="Cata el Seguente"/>
                 <Item id="1722" name="Cata el Presedente"/>
@@ -411,7 +418,7 @@
                 <Item id="1625" name="Normaƚe"/>
                 <Item id="1626" name="Sƚargà (\n, \r, \t, \0, \x...)"/>
                 <Item id="1660" name="Sostituisi inte i file"/>
-				<Item id="1665" name="Sostituisi inte i Progeti"/>
+                <Item id="1665" name="Sostituisi inte i Progeti"/>
                 <Item id="1661" name="Segui documento corente"/>
                 <Item id="1662" name="Paneƚo de el Progeto 1"/>
                 <Item id="1663" name="Paneƚo de el Progeto 2"/>
@@ -549,6 +556,11 @@
                     <Item id="43026" name="Marca el testo col 3º stiƚe"/>
                     <Item id="43028" name="Marca el testo col 4º stiƚe"/>
                     <Item id="43030" name="Marca el testo col 5º stiƚe"/>
+                    <Item id="43062" name="Evidenziane uno uxando el 1° stiƚe"/>
+                    <Item id="43063" name="Evidenziane uno uxando el 2° stiƚe"/>
+                    <Item id="43064" name="Evidenziane uno uxando el 3° stiƚe"/>
+                    <Item id="43065" name="Evidenziane uno uxando el 4° stiƚe"/>
+                    <Item id="43066" name="Evidenziane uno uxando el 5° stiƚe"/>
                     <Item id="43023" name="Scanseƚa marcadura de el 1º stiƚe"/>
                     <Item id="43025" name="Scanseƚa marcadura de el 2º stiƚe"/>
                     <Item id="43027" name="Scanseƚa marcadura de el 3º stiƚe"/>
@@ -608,7 +620,7 @@
                     <Item id="44106" name="Pasa a Projeto Paneƚo 3"/>
                     <Item id="44107" name="Pasa a Carteƚa cofà Workspace"/>
                     <Item id="44108" name="Pasa a Ƚista funsion"/>
-                </MainCommandNames>								  
+                </MainCommandNames>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="Sèlta ràpida">
                 <Item id="1" name="Ok"/>
@@ -795,8 +807,10 @@
                 <Global title="Generaƚe">
                     <Item id="6101" name="Bara angagni"/>
                     <Item id="6102" name="Scondi"/>
-                    <Item id="6103" name="Icone picinine"/>
-                    <Item id="6104" name="Icone grandi"/>
+                    <Item id="6103" name="Fluent UI: Icone picinine"/>
+                    <Item id="6104" name="Fluent UI: Icone grandi"/>
+                    <Item id="6129" name="Filled Fluent UI: Icone picinine"/> 
+                    <Item id="6130" name="Filled Fluent UI: Icone grandi"/> 
                     <Item id="6105" name="Icone standard"/>
 
                     <Item id="6106" name="Bara schede"/>
@@ -837,8 +851,13 @@
                     <Item id="6214" name="Evidensìa ƚa riga corente"/>
                     <Item id="6215" name="Abìƚita antialiasing caràtari"/>
                     <Item id="6236" name="Abìƚita scorimento oltre ƚ&apos;ùltima riga"/>
-                    <Item id="6239" name="Mantien ƚa seƚesion cò the clichi col tasto de drita fora de ƚa seƚesion"/>																			 
+                    <Item id="6239" name="Mantien ƚa seƚesion cò the clichi col tasto de drita fora de ƚa seƚesion"/>
                 </Scintillas>
+
+               <DarkMode title="Modaƚità scura"> 
+                            <Item id="7101" name="Abiƚità modaƚità scura"/> 
+                            <Item id="7106" name="* Ƚa modifega ƚa gaverà efeto completo soƚo dopo aver invià de novo Notepad++"/> 
+               </DarkMode>
 
                 <MarginsBorderEdge title="Margini/Bordi">
                     <Item id="6201" name="Stiƚe Ragrupamenti"/>
@@ -858,6 +877,10 @@
 Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i diversi nùmari."/>
                     <Item id="6231" name="Spesore Bordo Editor"/>
                     <Item id="6235" name="Nisun bordo"/>
+                    <Item id="6208" name="Padding"/> 
+                     <Item id="6209" name="Sanca"/> 
+                     <Item id="6210" name="Drita"/> 
+                     <Item id="6212" name="Anti Distrasion"/> 
                 </MarginsBorderEdge>
 
                 <NewDoc title="Novo documento">
@@ -869,8 +892,8 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
                     <Item id="6406" name="ANSI"/>
                     <Item id="6407" name="UTF-8"/>
                     <Item id="6408" name="UTF-8 co BOM"/>
-                    <Item id="6409" name="UCS-2 Big Endian co BOM"/>
-                    <Item id="6410" name="UCS-2 Little Endian co BOM"/>
+                    <Item id="6409" name="UTF-16 Big Endian co BOM"/>
+                    <Item id="6410" name="UTF-16 Little Endian co BOM"/>
                     <Item id="6411" name="Ƚenguagio predefinìo:"/>
                     <Item id="6419" name="Novo Documento"/>
                     <Item id="6420" name="Aplica ƚa vertaura de file ANSI"/>
@@ -901,10 +924,14 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
                 </Language>
 
                 <Highlighting title="Evidensiasion">
+                    <Item id="6351" name="Evidensia tuto cuanto"/> 
+                     <Item id="6352" name="Ƚ&apos;evidensiasion ƚa xe case-sensitive"/> 
+                     <Item id="6353" name="Identifega soƚo paròƚe intiere"/> 
                     <Item id="6333" name="Evidensiasion Inteƚigente"/>
                     <Item id="6326" name="Abìƚita"/>
+                    <Item id="6354" name="Corispondente"/>
                     <Item id="6332" name="Ƚ&apos;evidensiasion ƚa xe case-sensitive"/>
-                    <Item id="6338" name="Identifica soƚo paròƚe intiere"/>
+                    <Item id="6338" name="Identifega soƚo paròƚe intiere"/>
                     <Item id="6339" name="Utiƚixa inpostasion fenèstra de riserca"/>
                     <Item id="6340" name="Evidensia anca inte ƚ&apos;altra vista"/>
                     <Item id="6329" name="Evidensia Tag Corespondenti"/>
@@ -948,6 +975,7 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
                     <Item id="6902" name="Uxa caràtare a spasiatura fisa inte ƚa fenèstra de riserca (Te devi inviare de novo Notepad++)"/>
                     <Item id="6903" name="Lasa vèrta ƚa fenèstra de dialogo dopo aver catà cuel output inte ƚa fenèstra de i rixultadi"/>
                     <Item id="6904" name="Conferma Sostituisi tuto cuanto en tuti i documenti vèrti"/>
+                    <Item id="6905" name="Sostituisi: sensa spostamento a la ocorensa sucesiva"/>
                 </Searching>
 
                 <RecentFilesHistory title="File resenti">
@@ -1024,7 +1052,7 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
                     <Item id="6319" name="Abìƚita"/>
                     <Item id="6320" name="No sotoƚineare"/>
                     <Item id="6350" name="Abiƚita ƚa modaƚità fullbox"/>
-                    <Item id="6264" name="URI customized schemes:"/>					
+                    <Item id="6264" name="URI customized schemes:"/>                    
                 </Cloud>
 
                 <SearchEngine title="Motore de riserca" >
@@ -1050,7 +1078,6 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
                     <Item id="6325" name="Và a ƚ&apos;ùltima riga dopo ƚ&apos;axornamento"/>
                     <Item id="6322" name="Est. file de sesion:"/>
                     <Item id="6323" name="Axorna otomàticamente Notepad++" />
-                    <Item id="6351" name="Inposta el filtro de l'estension par la fenèstra de salvatagio a *.*"/>
                     <Item id="6324" name="Sostituisi Documento (Ctrl+TAB)"/>
                     <Item id="6331" name="Visuaƚixa soƚo nòme file inte ƚa bara de&apos;l tìtoƚo"/>
                     <Item id="6334" name="Riƚeva otomàticamente codefega caràtari"/>
@@ -1061,7 +1088,7 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
                     <Item id="6344" name="Anteprima documenti"/>
                     <Item id="6345" name="Anteprima so ƚe schede"/>
                     <Item id="6346" name="Anteprima so ƚa mapa documento"/>
-					<Item id="6360" name="Fa star xiti tuti cuanti i soni"/>
+                    <Item id="6360" name="Fa star xiti tuti cuanti i soni"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Exegui macro pì volte">
@@ -1119,7 +1146,7 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title="Modìfega menu contestuaƚe" message="Ƚa modìfega de&apos;l file contextMenu.xml parmete de modifegare el menu contestuaƚe de Notepad++.
 Bisogna inviare de novo Notepad++ parchè ƚe modìfeghe aportà a&apos;l file contextMenu.xml ƚe gàpia efeto."/>
-			<SaveCurrentModifWarning title="Salva modìfeghe corenti" message="Te devi salvare ƚe modìfeghe corenti.
+            <SaveCurrentModifWarning title="Salva modìfeghe corenti" message="Te devi salvare ƚe modìfeghe corenti.
 Tute ƚe modìfeghe salvà no ƚe poƚe èsare ripristinà.
 
 Continuare?"/> <!-- HowToReproduce: when you openned file is modified but unsaved yet, and you are changing file encoding. -->
@@ -1132,7 +1159,7 @@ Continuare?"/> <!-- HowToReproduce: when you openned file is modified and saved,
             <FileLockedWarning title="Salvatagio faƚìo" message="Verificare che el file no&apos;l sia vèrto co &apos;n altro programa."/>
             <FileAlreadyOpenedInNpp title="" message="El file el xe xà vèrto en Notepad++."/> <!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
             <RenameTabTemporaryNameAlreadyInUse title="Rinomina falìa" message="El nome indicà el xe xà en uxo so nantro tab."/> <!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
-			<DeleteFileFailed title="Scanseƚasion file" message="Scanseƚasion de&apos;l file faƚìa."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+            <DeleteFileFailed title="Scanseƚasion file" message="Scanseƚasion de&apos;l file faƚìa."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 
             <NbFileToOpenImportantWarning title="El nùmaro de file da vèrxare el xe masa grando" message="Se xe drìo vèrxare $INT_REPLACE$ file.
 Sito sicuro de voƚerƚi vèrxare?"/> <!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into Notepad++. -->
@@ -1184,7 +1211,7 @@ Rimovi ƚa carteƚa da&apos;l paneƚo vanti de xontare &quot;$STR_REPLACE$&quot;
             <ProjectPanelChanged title="$STR_REPLACE$" message="El workspace el xe stà modifegà. Vuto salvarƚo?"/>
             <ProjectPanelSaveError title="$STR_REPLACE$" message="An error occurred while writing your workspace file.
 Your workspace has not been saved."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-			<ProjectPanelOpenDoSaveDirtyWsOrNot title="Vèrxi Workspace" message="El workspace corente el xe stà modifegà. Vuto salvare el progeto corente?"/>
+            <ProjectPanelOpenDoSaveDirtyWsOrNot title="Vèrxi Workspace" message="El workspace corente el xe stà modifegà. Vuto salvare el progeto corente?"/>
             <ProjectPanelNewDoSaveDirtyWsOrNot title="Novo Workspace" message="El workspace corente el xe stà xà modifegà. Vuto salvare el progeto corente?"/>
             <ProjectPanelOpenFailed title="Vèrxi Workspace" message="El workspace no&apos;l poƚe èsare vèrto.
 Senbra che el file da vèrxare no&apos;l sia on file de progeto vaƚido."/>
@@ -1310,7 +1337,7 @@ Vuto continuare?"/>
         <MiscStrings>
             <!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
             <word-chars-list-tip value="Parmete de includare caràtari xontà inte ƚa ƚista de i caràtari considerà na paròƚa, cuando te fè on dopio clic par seƚesionare, o te efetui na riserca co ƚ&apos;opsion &quot;Soƚo paròƚe intiere&quot; seƚesionà"/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
-			
+            
             <word-chars-list-warning-begin value="Òcio: "/>
             <word-chars-list-space-warning value="$INT_REPLACE$ spasi"/>
             <word-chars-list-tab-warning value="$INT_REPLACE$ tab"/>
@@ -1334,6 +1361,7 @@ Ruma en tuti i file a ecesion exe, obj &amp;&amp; log:
             <find-status-replaceinopenedfiles-nb-replaced value="Sostituisi inte i file vèrti: $INT_REPLACE$ ocorense ƚe xe stà sostituìe"/>
             <find-status-mark-re-malformed value="Evidensia: ƚ&apos;espresion regoƚare da sercare no ƚa xe mìa vaƚida"/>
             <find-status-invalid-re value="Ruma: espresion regoƚare no vaƚida"/>
+            <find-status-search-failed value="Cerca: ricerca falìa"/>
             <find-status-mark-1-match value="Evidensìa: 1 corispondensa catà"/>
             <find-status-mark-nb-matches value="Evidensìa: $INT_REPLACE$ corispondense catà"/>
             <find-status-count-re-malformed value="Conta: ƚ&apos;espresion regoƚare da sercare no ƚa xe vaƚida"/>
@@ -1346,6 +1374,7 @@ Ruma en tuti i file a ecesion exe, obj &amp;&amp; log:
             <find-status-replace-end-reached value="Sostituisi: sostituìa ƚa prima ocorensa da ƚ&apos;alto. Se xe rivà a ƚa fine de&apos;l documento "/>
             <find-status-replace-top-reached value="Sostituisi: sostituìa ƚa prima ocorensa da&apos;l baso. Se xe rivà a&apos;l prinsipio de&apos;l documento"/>
             <find-status-replaced-next-found value="Sostituisi: 1 ocorensa ƚa xe stà sostituìa. Xe stà catà ƚ&apos;ocorensa sucesiva."/>
+            <find-status-replaced-without-continuing value="Sostituisi:1 ocorensa ƚa xe stà sostituìa."/>
             <find-status-replaced-next-not-found value="Sostituisi:1 ocorensa ƚa xe stà sostituìa. Nisuna ocorensa sucesiva."/>
             <find-status-replace-not-found value="Sostituisi: nisuna ocorensa catà"/>
             <find-status-replace-readonly value="Sostituisi: inposibiƚe canbiare el testo. El documento corente el xe en soƚa ƚetura"/>
@@ -1353,17 +1382,19 @@ Ruma en tuti i file a ecesion exe, obj &amp;&amp; log:
             <find-status-scope-selection value="inte'l testo seƚesionà"/>
             <find-status-scope-all value="intel file intiero"/>
             <find-status-scope-backward value="da inisio-de-el-file fino al cursore"/>
-            <find-status-scope-forward value="da el cursore a ƚa fine-de-el-file"/>																		  
+            <find-status-scope-forward value="da el cursore a ƚa fine-de-el-file"/>                                                                          
             <finder-find-in-finder value="Ruma en sti rixultadi..."/>
             <finder-close-this value="Sara su i rixultadi"/>
             <finder-collapse-all value="Coƚasa tuto cuanto\"/>
             <finder-uncollapse-all value="Espandi tuto cuanto"/>
             <finder-copy value="Còpia ƚe righe seƚesionà"/>
             <finder-copy-verbatim value="Còpia"/>
+            <finder-copy-paths value="Còpia Percorso/i"/>
             <finder-select-all value="Seƚesion tuto cuanto"/>
             <finder-clear-all value="Puƚisi tuto cuanto"/>
             <finder-open-all value="Vèrxi tuto cuanto"/>
-            <finder-wrap-long-lines value="A capo otomàtico par ƚe righe ƚonghe"/>													  
+            <finder-purge-for-every-search value="Pulisi par ogni riserca"/>
+            <finder-wrap-long-lines value="A capo otomàtico par ƚe righe ƚonghe"/>                                                      
             <common-ok value="OK"/>
             <common-cancel value="Anuƚa"/>
             <common-name value="Nòme: "/>
@@ -1389,13 +1420,13 @@ Ruma en tuti i file a ecesion exe, obj &amp;&amp; log:
             <summary-nbsel1 value=" caràtari seƚesionà ("/>
             <summary-nbsel2 value=" byte) en "/>
             <summary-nbrange value=" intervaƚi"/>
-			<find-in-files-progress-title value="Serca nei file en corso..."/>
+            <find-in-files-progress-title value="Serca nei file en corso..."/>
             <replace-in-projects-confirm-title value="Sito sicuro?"/>
             <replace-in-projects-confirm-message value="Sito sicuro de voƚer sostituire tute cuante ƚe ocorense in tuti cuanti i documenti inte i paneƚi de i progeti selesionà?"/>
             <replace-in-files-confirm-title value="Sito sicuro?"/>
             <replace-in-files-confirm-directory value="Sito sicuro de voƚer sostituire tute cuante ƚe ocorense en:"/>
             <replace-in-files-confirm-filetype value="Par i tipi de file:"/>
-			<replace-in-files-progress-title value="Sostituisi ne i file en corso..."/>
+            <replace-in-files-progress-title value="Sostituisi ne i file en corso..."/>
             <replace-in-open-docs-confirm-title value="Sito sicuro?"/>
             <replace-in-open-docs-confirm-message value="Sito sicuro de voƚer sostituire tute cuante ƚe ocorense en tuti cuanti i documenti verti?"/>
             <find-result-caption value="Cata rixultadi"/>
@@ -1407,6 +1438,8 @@ Ruma en tuti i file a ecesion exe, obj &amp;&amp; log:
             <find-result-line-prefix value="Riga"/> <!-- Must not begin with space or tab character -->
             <find-regex-zero-length-match value="corispondensa de ƚonghesa xero" />
             <session-save-folder-as-workspace value="Salva Carteƚa cofà Workspace" />
+            <tab-untitled-string value="novo " />
+             <file-save-assign-type value="Xont&amp;a estension" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

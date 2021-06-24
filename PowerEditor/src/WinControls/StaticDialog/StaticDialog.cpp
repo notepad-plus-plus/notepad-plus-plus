@@ -18,13 +18,14 @@
 #include <windows.h>
 #include "StaticDialog.h"
 #include "Common.h"
+#include "NppDarkMode.h"
 
 StaticDialog::~StaticDialog()
 {
 	if (isCreated())
 	{
 		// Prevent run_dlgProc from doing anything, since its virtual
-		::SetWindowLongPtr(_hSelf, GWLP_USERDATA, NULL);
+		::SetWindowLongPtr(_hSelf, GWLP_USERDATA, 0);
 		destroy();
 	}
 }
@@ -222,6 +223,8 @@ void StaticDialog::create(int dialogID, bool isRTL, bool msgDestParent)
 		return;
 	}
 
+	NppDarkMode::setDarkTitleBar(_hSelf);
+
 	// if the destination of message NPPM_MODELESSDIALOG is not its parent, then it's the grand-parent
 	::SendMessage(msgDestParent ? _hParent : (::GetParent(_hParent)), NPPM_MODELESSDIALOG, MODELESSDIALOGADD, reinterpret_cast<WPARAM>(_hSelf));
 }
@@ -232,6 +235,8 @@ INT_PTR CALLBACK StaticDialog::dlgProc(HWND hwnd, UINT message, WPARAM wParam, L
 	{
 		case WM_INITDIALOG:
 		{
+			NppDarkMode::setDarkTitleBar(hwnd);
+
 			StaticDialog *pStaticDlg = reinterpret_cast<StaticDialog *>(lParam);
 			pStaticDlg->_hSelf = hwnd;
 			::SetWindowLongPtr(hwnd, GWLP_USERDATA, static_cast<LONG_PTR>(lParam));

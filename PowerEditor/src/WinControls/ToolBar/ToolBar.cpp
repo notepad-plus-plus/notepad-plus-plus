@@ -21,6 +21,7 @@
 #include "FindReplaceDlg_rc.h"
 
 #include "NppDarkMode.h"
+#include "resource.h"
 
 const int WS_TOOLBARSTYLE = WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | TBSTYLE_TOOLTIPS |TBSTYLE_FLAT | CCS_TOP | BTNS_AUTOSIZE | CCS_NOPARENTALIGN | CCS_NORESIZE | CCS_NODIVIDER;
 
@@ -96,6 +97,7 @@ void ToolBar::initTheme(TiXmlDocument *toolIconsDocRoot)
 bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type, ToolBarButtonUnit *buttonUnitArray, int arraySize)
 {
 	Window::init(hInst, hPere);
+	
 	_state = type;
 	int iconSize = NppParameters::getInstance()._dpiManager.scaleX(_state == TB_LARGE || _state == TB_LARGE2 ? 32 : 16);
 
@@ -282,6 +284,9 @@ void ToolBar::reset(bool create)
 					NULL,
 					_hInst,
 					0);
+
+		NppDarkMode::setDarkTooltips(_hSelf, NppDarkMode::ToolTipsType::toolbar);
+
 		// Send the TB_BUTTONSTRUCTSIZE message, which is required for 
 		// backward compatibility.
 		::SendMessage(_hSelf, TB_BUTTONSTRUCTSIZE, sizeof(TBBUTTON), 0);
@@ -351,21 +356,12 @@ void ToolBar::reset(bool create)
 
 	if (create)
 	{	//if the toolbar has been recreated, readd the buttons
-		size_t nbBtnToAdd = (_state == TB_STANDARD?_nbTotalButtons:_nbButtons);
-		_nbCurrentButtons = nbBtnToAdd;
+		_nbCurrentButtons = _nbTotalButtons;
 		WORD btnSize = (_state == TB_LARGE?32:16);
 		::SendMessage(_hSelf, TB_SETBUTTONSIZE , 0, MAKELONG(btnSize, btnSize));
-		::SendMessage(_hSelf, TB_ADDBUTTONS, nbBtnToAdd, reinterpret_cast<LPARAM>(_pTBB));
-
-		HIMAGELIST hImgLst = (HIMAGELIST)::SendMessage(_hSelf, TB_GETIMAGELIST, 0, 0);
-		for (size_t j = 0; j < _nbDynButtons; ++j)
-		{
-			ImageList_AddIcon(hImgLst, _vDynBtnReg.at(j)._hIcon);
-		}
+		::SendMessage(_hSelf, TB_ADDBUTTONS, _nbTotalButtons, reinterpret_cast<LPARAM>(_pTBB));
 	}
 	::SendMessage(_hSelf, TB_AUTOSIZE, 0, 0);
-
-
 
 	if (_pRebar)
 	{
@@ -379,15 +375,30 @@ void ToolBar::reset(bool create)
 	}
 }
 
-void ToolBar::registerDynBtn(UINT messageID, toolbarIcons* tIcon)
+void ToolBar::registerDynBtn(UINT messageID, toolbarIcons* iconHandles, HICON absentIco)
 {
 	// Note: Register of buttons only possible before init!
-	if ((_hSelf == NULL) && (messageID != 0) && (tIcon->hToolbarBmp != NULL))
+	if ((_hSelf == NULL) && (messageID != 0) && (iconHandles->hToolbarBmp != NULL))
 	{
 		DynamicCmdIcoBmp dynList;
 		dynList._message = messageID;
-		dynList._hBmp = tIcon->hToolbarBmp;
-		dynList._hIcon = tIcon->hToolbarIcon;
+		dynList._hBmp = iconHandles->hToolbarBmp;
+		dynList._hIcon = iconHandles->hToolbarIcon ? iconHandles->hToolbarIcon : absentIco;
+		_vDynBtnReg.push_back(dynList);
+	}
+}
+
+void ToolBar::registerDynBtnDM(UINT messageID, toolbarIconsWithDarkMode* iconHandles)
+{
+	// Note: Register of buttons only possible before init!
+	if ((_hSelf == NULL) && (messageID != 0) && (iconHandles->hToolbarBmp != NULL) && 
+		(iconHandles->hToolbarIcon != NULL) && (iconHandles->hToolbarIconDarkMode != NULL))
+	{
+		DynamicCmdIcoBmp dynList;
+		dynList._message = messageID;
+		dynList._hBmp = iconHandles->hToolbarBmp;
+		dynList._hIcon = iconHandles->hToolbarIcon;
+		dynList._hIcon_DM = iconHandles->hToolbarIconDarkMode;
 		_vDynBtnReg.push_back(dynList);
 	}
 }

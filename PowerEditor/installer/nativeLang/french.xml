@@ -34,9 +34,11 @@
                     <Item subMenuId="edit-pasteSpecial" name="Collage spécial"/>
                     <Item subMenuId="edit-onSelection" name="Pour la sélection"/>
                     <Item subMenuId="search-markAll" name="Marquer tout"/>
+                    <Item subMenuId="search-markOne" name="Marquer uniquement la séléction"/>
                     <Item subMenuId="search-unmarkAll" name="Enlever toutes les marques"/>
                     <Item subMenuId="search-jumpUp" name="Aller vers le haut"/>
                     <Item subMenuId="search-jumpDown" name="Aller vers le bas"/>
+                    <Item subMenuId="search-copyStyledText" name="Copier le texte marqué"/>
                     <Item subMenuId="search-bookmark" name="Signet"/>
                     <Item subMenuId="view-currentFileIn" name="Afficher le fichier dans"/>
                     <Item subMenuId="view-showSymbol" name="Symboles spéciaux"/>
@@ -158,9 +160,12 @@
                     <Item id="42063" name="Trier les lignes dans l'ordre décimal (virgule) croissant"/>
                     <Item id="42065" name="Trier les lignes dans l'ordre décimal (point) croissant"/>
                     <Item id="42060" name="Trier les lignes dans l'ordre lexicographique décroissant"/>
+                    <Item id="42080" name="Trier les lignes dans l'ordre lexico. croissant en ignorant la casse"/>
+                    <Item id="42081" name="Trier les lignes dans l'ordre lexico. décroissant en ignorant la casse"/>
                     <Item id="42062" name="Trier les lignes dans l'ordre d'entier décroissant"/>
                     <Item id="42064" name="Trier les lignes dans l'ordre décimal (virgule) décroissant"/>
                     <Item id="42066" name="Trier les lignes dans l'ordre décimal (point) décroissant"/>
+                    <Item id="42083" name="Inverser l'ordre des lignes"/>
                     <Item id="42078" name="Trier aléatoirement les lignes"/>
                     <Item id="42037" name="Sélection en mode colonne..."/>
                     <Item id="42040" name="Ouvrir tous les fichiers récents"/>
@@ -209,6 +214,11 @@
                     <Item id="43030" name="Appliquer le style 5"/>
                     <Item id="43031" name="Dégager le style 5"/>
                     <Item id="43032" name="Dégager tous les styles"/>
+                    <Item id="43062" name="Appliquer le style 1 uniquement sur l'occurrence sélectionnée"/>
+                    <Item id="43063" name="Appliquer le style 2 uniquement sur l'occurrence sélectionnée"/>
+                    <Item id="43064" name="Appliquer le style 3 uniquement sur l'occurrence sélectionnée"/>
+                    <Item id="43065" name="Appliquer le style 4 uniquement sur l'occurrence sélectionnée"/>
+                    <Item id="43066" name="Appliquer le style 5 uniquement sur l'occurrence sélectionnée"/>
                     <Item id="43033" name="Style 1"/>
                     <Item id="43034" name="Style 2"/>
                     <Item id="43035" name="Style 3"/>
@@ -221,6 +231,18 @@
                     <Item id="43042" name="Style 4"/>
                     <Item id="43043" name="Style 5"/>
                     <Item id="43044" name="Style de recherche"/>
+                    <Item id="43055" name="Style 1"/>
+                    <Item id="43056" name="Style 2"/>
+                    <Item id="43057" name="Style 3"/>
+                    <Item id="43058" name="Style 4"/>
+                    <Item id="43059" name="Style 5"/>
+                    <Item id="43060" name="Tous"/>
+                    <Item id="43061" name="Style de Marquer tout"/>
+                    <Item id="43062" name="Appliquer le style 1"/>
+                    <Item id="43063" name="Appliquer le style 2"/>
+                    <Item id="43064" name="Appliquer le style 3"/>
+                    <Item id="43065" name="Appliquer le style 4"/>
+                    <Item id="43066" name="Appliquer le style 5"/>
                     <Item id="43045" name="Fenêtre des résultats de recherche"/>
                     <Item id="43046" name="Résultat de recherche suivant"/>
                     <Item id="43047" name="Résultat de recherche précédent"/>
@@ -305,7 +327,6 @@
                     <Item id="47006" name="Mettre à jour Notepad++"/>
                     <Item id="47009" name="Paramétrer le proxy de mise à jour..."/>
                     <Item id="47010" name="Arguments de la ligne de commande..."/>
-                    <Item id="47011" name="Support en direct"/>
                     <Item id="47012" name="Informations de débogage..."/>
                     <Item id="48005" name="Importer un complément..."/>
                     <Item id="48006" name="Importer un thème..."/>
@@ -543,6 +564,13 @@
                     <Item id="43042" name="Marque suivantte du 4ème style"/>
                     <Item id="43043" name="Marque suivantte du 5ème style"/>
                     <Item id="43044" name="Marque suivantte du &quot;Marquer&quot;"/>
+                    <Item id="43055" name="Copier le texte marqué du style 1"/>
+                    <Item id="43056" name="Copier le texte marqué du style 2"/>
+                    <Item id="43057" name="Copier le texte marqué du style 3"/>
+                    <Item id="43058" name="Copier le texte marqué du style 4"/>
+                    <Item id="43059" name="Copier le texte marqué du style 5"/>
+                    <Item id="43060" name="Copier le texte marqué de tous les styles"/>
+                    <Item id="43061" name="Copier le texte marqué du style de Marquer tout"/>
                     <Item id="44100" name="Afficher le fichier dans Firefox"/>
                     <Item id="44101" name="Afficher le fichier dans Chrome"/>
                     <Item id="44103" name="Afficher le fichier dans IE"/>
@@ -875,6 +903,9 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                     <Item id="6335" name="Contre-oblique : caractère d'échappement pour SQL"/>
                 </Language>
                 <Highlighting title="Coloration">
+                    <Item id="6351" name="Marquer tout"/>
+                    <Item id="6352" name="Sensible à la casse"/>
+                    <Item id="6353" name="Mot entier uniquement"/>
                     <Item id="6333" name="Sélectionner et montrer tout"/>
                     <Item id="6326" name="Activer le coloriage automatique"/>
                     <Item id="6332" name="Sensible à la casse"/>
@@ -1023,7 +1054,6 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                     <Item id="6313" name="Mise à jour sans alerte"/>
                     <Item id="6322" name="Ext. fichier session :"/>
                     <Item id="6323" name="Activer la mise à jour automatique"/>
-                    <Item id="6351" name="Definir *.* comme le seul filtre d'extension dans la boite de dialogue Enregistrer"/>
                     <Item id="6324" name="Commutateur de documents (Ctrl+Tab)"/>
                     <Item id="6325" name="Aller à la dernière ligne après mise à jour"/>
                     <Item id="6331" name="Afficher seulement le nom du fichier dans la barre de titre"/>

@@ -228,6 +228,10 @@ INT_PTR CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			_generalSubDlg.setToolIconsFromStdToSmall();
 			return TRUE;
 
+		case PREF_MSG_DISABLETABBARALTERNATEICONS:
+			_generalSubDlg.disableTabbarAlternateIcons();
+			return TRUE;
+
 		case WM_COMMAND :
 		{
 			if (LOWORD(wParam) == IDC_LIST_DLGTITLE)
@@ -379,6 +383,15 @@ void GeneralSubDlg::setToolIconsFromStdToSmall()
 	::SendDlgItemMessage(_hSelf, IDC_RADIO_SMALLICON, BM_SETCHECK, BST_CHECKED, 0);
 	::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_TOOLBAR_REDUCE, 0);
 }
+
+void GeneralSubDlg::disableTabbarAlternateIcons()
+{
+	NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
+	int altIconsBit = TAB_ALTICONS;
+	nppGUI._tabStatus &= ~altIconsBit;
+	::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_ALTICONS, BM_SETCHECK, BST_UNCHECKED, 0);
+}
+
 
 INT_PTR CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
@@ -822,13 +835,17 @@ INT_PTR CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					nppGUI._darkmode.enableMenubar = enableDarkMode;
 					nppGUI._darkmode.enableScrollbarHack = enableDarkMode;
 
-					// if dark mode enabled & TB_STANDARD is selected, switch to TB_SMALL
+					// Maintain the coherence in preferences
 					if (nppGUI._darkmode.enable)
 					{
+						// For toolbar: if dark mode enabled & TB_STANDARD is selected, switch to TB_SMALL
 						bool isStandardChecked = false;
 						::SendMessage(_hParent, PREF_MSG_ISCHECKED_GENERALPAGE, IDC_RADIO_STANDARD, LPARAM(&isStandardChecked));
 						if (isStandardChecked)
 							::SendMessage(_hParent, PREF_MSG_SETTOOLICONSFROMSTDTOSMALL, 0, 0);
+
+						// For tabbar: uncheck Alternate icons checkbox
+						::SendMessage(_hParent, PREF_MSG_DISABLETABBARALTERNATEICONS, 0, 0);
 					}
 					changed = true;
 					break;
@@ -3671,10 +3688,12 @@ INT_PTR CALLBACK SearchEngineSubDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 					nppGUI._searchEngineChoice = nppGUI.se_google;
 				}
 			}
+			if (nppGUI._searchEngineChoice == nppGUI.se_bing)
+				nppGUI._searchEngineChoice = nppGUI.se_duckDuckGo;
+
 			::SendDlgItemMessage(_hSelf, IDC_SEARCHENGINE_CUSTOM_RADIO, BM_SETCHECK, nppGUI._searchEngineChoice == nppGUI.se_custom ? BST_CHECKED : BST_UNCHECKED, 0);
 			::SendDlgItemMessage(_hSelf, IDC_SEARCHENGINE_DUCKDUCKGO_RADIO, BM_SETCHECK, nppGUI._searchEngineChoice == nppGUI.se_duckDuckGo ? BST_CHECKED : BST_UNCHECKED, 0);
 			::SendDlgItemMessage(_hSelf, IDC_SEARCHENGINE_GOOGLE_RADIO, BM_SETCHECK, nppGUI._searchEngineChoice == nppGUI.se_google ? BST_CHECKED : BST_UNCHECKED, 0);
-			::SendDlgItemMessage(_hSelf, IDC_SEARCHENGINE_BING_RADIO, BM_SETCHECK, nppGUI._searchEngineChoice == nppGUI.se_bing ? BST_CHECKED : BST_UNCHECKED, 0);
 			::SendDlgItemMessage(_hSelf, IDC_SEARCHENGINE_YAHOO_RADIO, BM_SETCHECK, nppGUI._searchEngineChoice == nppGUI.se_yahoo ? BST_CHECKED : BST_UNCHECKED, 0);
 			::SendDlgItemMessage(_hSelf, IDC_SEARCHENGINE_STACKOVERFLOW_RADIO, BM_SETCHECK, nppGUI._searchEngineChoice == nppGUI.se_stackoverflow ? BST_CHECKED : BST_UNCHECKED, 0);
 
@@ -3697,13 +3716,6 @@ INT_PTR CALLBACK SearchEngineSubDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 				case IDC_SEARCHENGINE_GOOGLE_RADIO:
 				{
 					nppGUI._searchEngineChoice = nppGUI.se_google;
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_SEARCHENGINE_EDIT), false);
-				}
-				break;
-
-				case IDC_SEARCHENGINE_BING_RADIO:
-				{
-					nppGUI._searchEngineChoice = nppGUI.se_bing;
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_SEARCHENGINE_EDIT), false);
 				}
 				break;

@@ -35,7 +35,6 @@ public :
 	};
 	HIMAGELIST getHandle() const {return _hImglst;};
 	void addIcon(int iconID) const;
-	//bool addInvertIcon(int iconID) const;
 	void addIcon(HICON hIcon) const;
 
 	bool changeIcon(int index, const TCHAR *iconLocation) const;
@@ -48,8 +47,6 @@ private :
 	int *_pIconIDArray = nullptr;
 	int _iconIDArraySize = 0;
 	int _iconSize = 0;
-
-	//HICON invertColour(HICON hIcon) const;
 };
 
 typedef struct 
@@ -72,9 +69,10 @@ typedef struct
 } ToolBarButtonUnit;
 
 struct DynamicCmdIcoBmp {
-	UINT		_message;		// identification of icon in tool bar (menu ID)
-	HBITMAP		_hBmp;			// bitmap for toolbar
-	HICON		_hIcon;			// icon for toolbar
+	UINT _message = 0;         // identification of icon in tool bar (menu ID)
+	HBITMAP _hBmp = nullptr;   // bitmap for toolbar
+	HICON _hIcon = nullptr;    // icon for toolbar
+	HICON _hIcon_DM = nullptr; // dark mode icon for toolbar
 };
 
 typedef std::vector<ToolBarButtonUnit> ToolBarIconIDs;

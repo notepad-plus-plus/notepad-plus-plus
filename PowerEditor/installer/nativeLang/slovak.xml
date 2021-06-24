@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-    <Native-Langue name="Slovenčina" filename="slovak.xml" version="7.9.6">
+    <Native-Langue name="Slovenčina" filename="slovak.xml" version="8.0.0">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -23,26 +23,26 @@
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item subMenuId="file-openFolder" name="Otvoriť priečinok súboru"/>
-                    <Item subMenuId="file-closeMore" name="Zatvoriť viacero súborov"/>
-                    <Item subMenuId="file-recentFiles" name="Naposledy otvorené súbory"/>
-                    <Item subMenuId="edit-copyToClipboard"  name="Skopírovať do schránky"/>
-                    <Item subMenuId="edit-indent" name="Odsadiť"/>
-                    <Item subMenuId="edit-convertCaseTo" name="Konverzia znakov"/>
-                    <Item subMenuId="edit-lineOperations" name="Operácie s riadkom"/>
-                    <Item subMenuId="edit-comment" name="Zakomentovať/Odkomentovať"/>
-                    <Item subMenuId="edit-autoCompletion" name="Automatické dokončovanie"/>
-                    <Item subMenuId="edit-eolConversion" name="EOL konverzia"/>
-                    <Item subMenuId="edit-blankOperations" name="Operácie s prázdnym znakom"/>
-                    <Item subMenuId="edit-pasteSpecial" name="Prilepiť špeciálne"/>
-                    <Item subMenuId="edit-onSelection" name="Vybraný text"/>
-                    <Item subMenuId="search-markAll" name="Označiť všetko"/>
-                    <Item subMenuId="search-markOne" name="Označiť jeden"/>
-                    <Item subMenuId="search-unmarkAll" name="Odznačiť všetko"/>
-                    <Item subMenuId="search-jumpUp" name="Skok nahor"/>
-                    <Item subMenuId="search-jumpDown" name="Skok nadol"/>
-                    <Item subMenuId="search-copyStyledText" name="Kopírovať štylizovaný text"/>
-                    <Item subMenuId="search-bookmark" name="Záložka"/>
+                    <Item subMenuId="file-openFolder" name="Otvoriť priečinok &amp;súboru"/>
+                    <Item subMenuId="file-closeMore" name="Zatvoriť &amp;viacero súborov"/>
+                    <Item subMenuId="file-recentFiles" name="&amp;Naposledy otvorené súbory"/>
+                    <Item subMenuId="edit-copyToClipboard"  name="Skopírovať do s&amp;chránky"/>
+                    <Item subMenuId="edit-indent" name="&amp;Odsadiť"/>
+                    <Item subMenuId="edit-convertCaseTo" name="&amp;Konverzia znakov"/>
+                    <Item subMenuId="edit-lineOperations" name="Operácie s &amp;riadkom"/>
+                    <Item subMenuId="edit-comment" name="Z&amp;akomentovať/Odkomentovať"/>
+                    <Item subMenuId="edit-autoCompletion" name="A&amp;utomatické dokončovanie"/>
+                    <Item subMenuId="edit-eolConversion" name="&amp;EOL konverzia"/>
+                    <Item subMenuId="edit-blankOperations" name="Operácie s &amp;prázdnym znakom"/>
+                    <Item subMenuId="edit-pasteSpecial" name="Prilepiť špeciá&amp;lne"/>
+                    <Item subMenuId="edit-onSelection" name="V&amp;ybraný text"/>
+                    <Item subMenuId="search-markAll" name="Označiť vše&amp;tko"/>
+                    <Item subMenuId="search-markOne" name="Označiť &amp;jeden"/>
+                    <Item subMenuId="search-unmarkAll" name="Odznač&amp;iť všetko"/>
+                    <Item subMenuId="search-jumpUp" name="Skok na&amp;hor"/>
+                    <Item subMenuId="search-jumpDown" name="Skok na&amp;dol"/>
+                    <Item subMenuId="search-copyStyledText" name="Kopírovať štylizovaný te&amp;xt"/>
+                    <Item subMenuId="search-bookmark" name="Zálo&amp;žka"/>
                     <Item subMenuId="view-currentFileIn" name="Zobraziť aktuálny súbor v"/>
                     <Item subMenuId="view-showSymbol"  name="Zobraziť znak"/>
                     <Item subMenuId="view-zoom"  name="Lupa"/>
@@ -90,26 +90,26 @@
                     <Item id="41006" name="&amp;Uložiť"/>
                     <Item id="41007" name="Ulo&amp;žiť všetko"/>
                     <Item id="41008" name="Uložiť &amp;ako..."/>
-                    <Item id="41010" name="Tlačiť..."/>
-                    <Item id="1001"  name="Tlačiť okamžite"/>
+                    <Item id="41010" name="&amp;Tlačiť..."/>
+                    <Item id="1001"  name="Tlačiť oka&amp;mžite"/>
                     <Item id="41011" name="U&amp;končiť"/>
-                    <Item id="41012" name="Načítať reláciu..."/>
-                    <Item id="41013" name="Uložiť reláciu..."/>
-                    <Item id="41014" name="Obnoviť z disku"/>
-                    <Item id="41015" name="Uložiť kópiu ako..."/>
-                    <Item id="41016" name="Presunúť do koša…"/>
-                    <Item id="41017" name="Premenovať..."/>
+                    <Item id="41012" name="Na&amp;čítať reláciu..."/>
+                    <Item id="41013" name="Uloži&amp;ť reláciu..."/>
+                    <Item id="41014" name="Obnoviť z d&amp;isku"/>
+                    <Item id="41015" name="Uložiť kó&amp;piu ako..."/>
+                    <Item id="41016" name="P&amp;resunúť do koša…"/>
+                    <Item id="41017" name="Premeno&amp;vať..."/>
                     <Item id="41021" name="Obnoviť naposledy zatvorený súbor"/>
-                    <Item id="41022" name="Otvoriť priečinok ako pracovný priestor..."/>
-                    <Item id="41023" name="Otvoriť v predvolenom prehliadači"/>
+                    <Item id="41022" name="Otvoriť priečinok ako pracovn&amp;ý priestor..."/>
+                    <Item id="41023" name="Otvoriť v pre&amp;dvolenom prehliadači"/>
                     <Item id="42001" name="&amp;Vystrihnúť"/>
                     <Item id="42002" name="&amp;Kopírovať"/>
                     <Item id="42003" name="&amp;Späť"/>
                     <Item id="42004" name="&amp;Opakovať"/>
                     <Item id="42005" name="&amp;Prilepiť"/>
-                    <Item id="42006" name="&amp;Odstrániť"/>
-                    <Item id="42007" name="Vybrať všetko"/>
-                    <Item id="42020" name="Vybrať Začiatok/Koniec"/>
+                    <Item id="42006" name="O&amp;dstrániť"/>
+                    <Item id="42007" name="V&amp;ybrať všetko"/>
+                    <Item id="42020" name="Vybrať Začiatok/Konie&amp;c"/>
                     <Item id="42008" name="Zväčšiť odsadenie riadka"/>
                     <Item id="42009" name="Zmenšiť odsadenie riadka"/>
                     <Item id="42010" name="Duplikovať aktuálny riadok"/>
@@ -130,7 +130,7 @@
                     <Item id="42065" name="Usporiadať riadky ako desatinné čísla (s bodkou) vzostupne"/>
                     <Item id="42066" name="Usporiadať riadky ako desatinné čísla (s bodkou) zostupne"/>
                     <Item id="42083" name="Usporiadať riadky opačne"/>
-                    <Item id="42078" name="Usporiadať riadky náhodne"/>
+                    <Item id="42078" name="Náhodné poradie riadkov"/>
                     <Item id="42016" name="VEĽKÉ PÍSMENÁ"/>
                     <Item id="42017" name="malé písmená"/>
                     <Item id="42067" name="Prvý Znak Slova Veľký"/>
@@ -163,14 +163,14 @@
                     <Item id="42049" name="Vystrihnúť Binárny obsah"/>
                     <Item id="42050" name="Prilepiť Binárny obsah"/>
                     <Item id="42082" name="Kopírovať odkaz"/>
-                    <Item id="42037" name="Stĺpcový režim..."/>
-                    <Item id="42034" name="Stĺpcový editor..."/>
-                    <Item id="42051" name="Panel ASCII znakov"/>
-                    <Item id="42052" name="História schránky"/>
-                    <Item id="42025" name="Uložiť aktuálne zaznamenané makro..."/>
+                    <Item id="42037" name="Stĺpcový reži&amp;m..."/>
+                    <Item id="42034" name="S&amp;tĺpcový editor..."/>
+                    <Item id="42051" name="Panel &amp;ASCII znakov"/>
+                    <Item id="42052" name="&amp;História schránky"/>
+                    <Item id="42025" name="Uložiť aktuálne zaznamenané ma&amp;kro..."/>
                     <Item id="42026" name="Smer textu sprava doľava"/>
                     <Item id="42027" name="Smer textu zľava doprava"/>
-                    <Item id="42028" name="Nastaviť 'Iba na čítanie'"/>
+                    <Item id="42028" name="&amp;Nastaviť 'Iba na čítanie'"/>
                     <Item id="42029" name="Skopírovať cestu k aktuálnemu súboru do schránky"/>
                     <Item id="42030" name="Skopírovať názov aktuálneho súboru do schránky"/>
                     <Item id="42031" name="Skopírovať cestu k aktuálnemu priečinku do schránky"/>
@@ -196,14 +196,14 @@
                     <Item id="43021" name="Odstrániť riadky označené záložkami"/>
                     <Item id="43051" name="Odstrániť riadky neoznačené záložkami"/>
                     <Item id="43050" name="Invertovať záložky"/>
-                    <Item id="43052" name="Hľadať znaky v rozsahu..."/>
-                    <Item id="43053" name="Vybrať všetko medzi párovými zátvorkami"/>
-                    <Item id="43009" name="Prejsť na párovú zátvorku"/>
-                    <Item id="43010" name="Hľadať predchádzajúci"/>
+                    <Item id="43052" name="Hľadať znaky v &amp;rozsahu..."/>
+                    <Item id="43053" name="&amp;Vybrať všetko medzi párovými zátvorkami"/>
+                    <Item id="43009" name="Prejsť na párovú &amp;zátvorku"/>
+                    <Item id="43010" name="Hľadať predchádzajú&amp;ci"/>
                     <Item id="43011" name="&amp;Postupné vyhľadávanie"/>
-                    <Item id="43013" name="Hľadať v súboroch…"/>
-                    <Item id="43014" name="Hľadať ďalší (Volatilne)"/>
-                    <Item id="43015" name="Hľadať predchádzajúci (Volatilne)"/>
+                    <Item id="43013" name="Hľadať v &amp;súboroch…"/>
+                    <Item id="43014" name="Hľadať ďalší (V&amp;olatilne)"/>
+                    <Item id="43015" name="Hľa&amp;dať predchádzajúci (Volatilne)"/>
                     <Item id="43022" name="Použiť 1. štýl"/>
                     <Item id="43023" name="Odstrániť 1. štýl"/>
                     <Item id="43024" name="Použiť 2. štýl"/>
@@ -239,20 +239,20 @@
                     <Item id="43064" name="Pomocou 3. štýlu"/>
                     <Item id="43065" name="Pomocou 4. štýlu"/>
                     <Item id="43066" name="Pomocou 5. štýlu"/>
-                    <Item id="43045" name="Okno s výsledkami hľadania"/>
-                    <Item id="43046" name="Ďalší výsledok hľadania"/>
-                    <Item id="43047" name="Predchádzajúci výsledok hľadania"/>
-                    <Item id="43048" name="Vybrať a hľadať ďalší"/>
-                    <Item id="43049" name="Vybrať a hľadať predchádzajúci"/>
-                    <Item id="43054" name="Označiť..."/>
+                    <Item id="43045" name="O&amp;kno s výsledkami hľadania"/>
+                    <Item id="43046" name="Ď&amp;alší výsledok hľadania"/>
+                    <Item id="43047" name="Pr&amp;edchádzajúci výsledok hľadania"/>
+                    <Item id="43048" name="V&amp;ybrať a hľadať ďalší"/>
+                    <Item id="43049" name="Vy&amp;brať a hľadať predchádzajúci"/>
+                    <Item id="43054" name="Oz&amp;načiť..."/>
                     <Item id="44009" name="Pripnúť"/>
                     <Item id="44010" name="Zbaliť všetko"/>
                     <Item id="44011" name="Režim bez vyrušovania"/>
                     <Item id="44019" name="Zobraziť všetky znaky"/>
                     <Item id="44020" name="Zobraziť pomocné čiary odsadenia"/>
                     <Item id="44022" name="Zalomiť riadky"/>
-                    <Item id="44023" name="Priblížiť   (Ctrl+Koliesko myši nahor)"/>
-                    <Item id="44024" name="Oddialiť  (Ctrl+Koliesko myši nadol)"/>
+                    <Item id="44023" name="&amp;Priblížiť  (Ctrl+Koliesko myši nahor)"/>
+                    <Item id="44024" name="&amp;Oddialiť  (Ctrl+Koliesko myši nadol)"/>
                     <Item id="44025" name="Zobraziť medzery a tabulátory"/>
                     <Item id="44026" name="Zobraziť konce riadkov"/>
                     <Item id="44029" name="Rozbaliť všetko"/>
@@ -321,7 +321,6 @@
                     <Item id="47002" name="Stránka projektu Notepad++"/>
                     <Item id="47003" name="Online dokumentácia"/>
                     <Item id="47004" name="Notepad++ komunita (Fórum)"/>
-                    <Item id="47011" name="Online podpora"/>
                     <Item id="47012" name="Informácie pre ladenie..."/>
                     <Item id="47005" name="Získať viac doplnkov"/>
                     <Item id="47006" name="Aktualizovať Notepad++"/>

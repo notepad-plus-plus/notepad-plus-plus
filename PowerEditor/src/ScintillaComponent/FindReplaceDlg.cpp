@@ -56,7 +56,7 @@ void delLeftWordInEdit(HWND hEdit)
 	TCHAR str[FINDREPLACE_MAXLENGTH];
 	::SendMessage(hEdit, WM_GETTEXT, FINDREPLACE_MAXLENGTH - 1, reinterpret_cast<LPARAM>(str));
 	WORD cursor;
-	::SendMessage(hEdit, EM_GETSEL, (WPARAM)&cursor, NULL);
+	::SendMessage(hEdit, EM_GETSEL, (WPARAM)&cursor, 0);
 	WORD wordstart = cursor;
 	while (wordstart > 0) {
 		TCHAR c = str[wordstart - 1];
@@ -878,18 +878,15 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 		case NPPM_INTERNAL_REFRESHDARKMODE:
 		{
+			NppDarkMode::setDarkTooltips(_shiftTrickUpTip, NppDarkMode::ToolTipsType::tooltip);
+			NppDarkMode::setDarkTooltips(_2ButtonsTip, NppDarkMode::ToolTipsType::tooltip);
+			NppDarkMode::setDarkTooltips(_filterTip, NppDarkMode::ToolTipsType::tooltip);
 			NppDarkMode::autoThemeChildControls(_hSelf);
 			return TRUE;
 		}
 
 		case WM_INITDIALOG :
 		{
-			if (NppDarkMode::isExperimentalEnabled())
-			{
-				NppDarkMode::allowDarkModeForWindow(_hSelf, NppDarkMode::isEnabled());
-				NppDarkMode::setTitleBarThemeColor(_hSelf, NppDarkMode::isEnabled());
-			}
-
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
 			HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
@@ -2584,6 +2581,9 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		char ptrword[sizeof(void*)*2+1];
 		sprintf(ptrword, "%p", &_pFinder->_markingsStruct);
 		_pFinder->_scintView.execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("@MarkingsStruct"), reinterpret_cast<LPARAM>(ptrword));
+		
+		//enable "Search Results Window" under Search Menu 
+		::EnableMenuItem(::GetMenu(_hParent), IDM_FOCUS_ON_FOUND_RESULTS, MF_ENABLED | MF_BYCOMMAND);
 	}
 	
 	::SendMessage(_pFinder->getHSelf(), WM_SIZE, 0, 0);
@@ -2741,10 +2741,7 @@ void FindReplaceDlg::enableFindDlgItem(int dlgItemID, bool isEnable /* = true*/)
 	HWND h = ::GetDlgItem(_hSelf, dlgItemID);
 	if (!h) return;
 
-	if (::IsWindowVisible(h))
-	{
-		::EnableWindow(h, isEnable ? TRUE : FALSE);
-	}
+	::EnableWindow(h, isEnable ? TRUE : FALSE);
 
 	// remember the real state of this control being enabled/disabled
 	_controlEnableMap[dlgItemID] = isEnable;
@@ -2846,7 +2843,6 @@ void FindReplaceDlg::enableFindInFilesControls(bool isEnable, bool projectPanels
 {
 	// Hide Items
 	showFindDlgItem(IDC_BACKWARDDIRECTION, !isEnable);
-	showFindDlgItem(IDWHOLEWORD, !isEnable);
 	showFindDlgItem(IDWRAP, !isEnable);
 	showFindDlgItem(IDCCOUNTALL, !isEnable);
 	showFindDlgItem(IDC_FINDALL_OPENEDFILES, !isEnable);

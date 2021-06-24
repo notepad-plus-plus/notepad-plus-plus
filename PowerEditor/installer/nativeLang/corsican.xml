@@ -4,6 +4,8 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
+		- Updated on June 14th, 2021 for version 8.0.0 by Patriccollu di Santa Maria è Sichè
+		- Updated on May 20th, 2021 for version 7.9.6 by Patriccollu di Santa Maria è Sichè
 		- Updated on May 12th, 2021 for version 7.9.6 by Patriccollu di Santa Maria è Sichè
 		- Updated on January 27th, 2021 for version 7.9.3 by Patriccollu di Santa Maria è Sichè
 		- Updated on November 4th, 2020 for version 7.9.2 by Patriccollu di Santa Maria è Sichè
@@ -23,7 +25,7 @@ The comments are here for explanation, it's not necessary to translate them.
 	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/corsican.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="Corsu" filename="corsican.xml" version="7.9.6">
+    <Native-Langue name="Corsu" filename="corsican.xml" version="8.0.0">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -43,26 +45,26 @@ The comments are here for explanation, it's not necessary to translate them.
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item subMenuId="file-openFolder" name="Apre u cartulare cuntenendu u schedariu"/>
-                    <Item subMenuId="file-closeMore" name="Chjode altrimente"/>
+                    <Item subMenuId="file-openFolder" name="A&amp;pre u cartulare cuntenendu u schedariu"/>
+                    <Item subMenuId="file-closeMore" name="C&amp;hjode altrimente"/>
                     <Item subMenuId="file-recentFiles" name="Schedarii &amp;recenti"/>
-                    <Item subMenuId="edit-copyToClipboard"  name="Cupià in u preme’papei"/>
-                    <Item subMenuId="edit-indent" name="Indentazione"/>
-                    <Item subMenuId="edit-convertCaseTo" name="Cunvertisce i caratteri"/>
-                    <Item subMenuId="edit-lineOperations" name="Operazioni nant’à a linea"/>
-                    <Item subMenuId="edit-comment" name="Cummentu o senza cummentu"/>
-                    <Item subMenuId="edit-autoCompletion" name="Empiimentu autumaticu"/>
-                    <Item subMenuId="edit-eolConversion" name="Cunversione di fine di linea"/>
-                    <Item subMenuId="edit-blankOperations" name="Operazioni nant’à u spaziu"/>
-                    <Item subMenuId="edit-pasteSpecial" name="Incullatura speziale"/>
-                    <Item subMenuId="edit-onSelection" name="Per a selezzione"/>
-                    <Item subMenuId="search-markAll" name="Tuttu marcà"/>
-                    <Item subMenuId="search-markOne" name="Marcane una"/>
-                    <Item subMenuId="search-unmarkAll" name="Squassà tutte e marche"/>
-                    <Item subMenuId="search-jumpUp" name="Andà insù"/>
-                    <Item subMenuId="search-jumpDown" name="Andà inghjò"/>
-                    <Item subMenuId="search-copyStyledText" name="Cupià u testu di stilu"/>
-                    <Item subMenuId="search-bookmark" name="Indetta"/>
+                    <Item subMenuId="edit-copyToClipboard"  name="Cupià in u &amp;preme’papei"/>
+                    <Item subMenuId="edit-indent" name="I&amp;ndentazione"/>
+                    <Item subMenuId="edit-convertCaseTo" name="Cun&amp;vertisce i caratteri"/>
+                    <Item subMenuId="edit-lineOperations" name="Operazioni nant’à a &amp;linea"/>
+                    <Item subMenuId="edit-comment" name="Cu&amp;mmentu o senza cummentu"/>
+                    <Item subMenuId="edit-autoCompletion" name="&amp;Empiimentu autumaticu"/>
+                    <Item subMenuId="edit-eolConversion" name="Cunversione di &amp;fine di linea"/>
+                    <Item subMenuId="edit-blankOperations" name="&amp;Operazioni nant’à u spaziu"/>
+                    <Item subMenuId="edit-pasteSpecial" name="Incullatura spe&amp;ziale"/>
+                    <Item subMenuId="edit-onSelection" name="Per &amp;a selezzione"/>
+                    <Item subMenuId="search-markAll" name="&amp;Tuttu marcà"/>
+                    <Item subMenuId="search-markOne" name="Ma&amp;rcane una"/>
+                    <Item subMenuId="search-unmarkAll" name="S&amp;quassà tutte e marche"/>
+                    <Item subMenuId="search-jumpUp" name="And&amp;à insù"/>
+                    <Item subMenuId="search-jumpDown" name="Andà in&amp;ghjò"/>
+                    <Item subMenuId="search-copyStyledText" name="Cupià u t&amp;estu di stilu"/>
+                    <Item subMenuId="search-bookmark" name="In&amp;detta"/>
                     <Item subMenuId="view-currentFileIn" name="Fighjà u schedariu attuale in"/>
                     <Item subMenuId="view-showSymbol"  name="Affissà i simbuli"/>
                     <Item subMenuId="view-zoom"  name="Ingrandamentu"/>
@@ -108,20 +110,20 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="41018" name="Chjode tuttu ciò chì hè à manu diritta"/>
                     <Item id="41024" name="Chjode tuttu ciò ch’ùn hè micca cambiatu"/>
                     <Item id="41006" name="Arre&amp;gistrà"/>
-                    <Item id="41007" name="Arre&amp;gistralli tutti"/>
+                    <Item id="41007" name="Arregistra&amp;lli tutti"/>
                     <Item id="41008" name="Arregistrà cù &amp;u nome…"/>
-                    <Item id="41010" name="&amp;Stampà…"/>
-                    <Item id="1001"  name="Stampà subitu"/>
+                    <Item id="41010" name="Sta&amp;mpà…"/>
+                    <Item id="1001"  name="Stampà su&amp;bitu"/>
                     <Item id="41011" name="&amp;Esce"/>
-                    <Item id="41012" name="Caricà una sessione…"/>
-                    <Item id="41013" name="Arregistrà una sessione…"/>
+                    <Item id="41012" name="Caricà una &amp;sessione…"/>
+                    <Item id="41013" name="Arregistrà una sess&amp;ione…"/>
                     <Item id="41014" name="Ricaricà da u &amp;discu"/>
-                    <Item id="41015" name="Arregistrà una copia cù u nome…"/>
-                    <Item id="41016" name="Dispiazzà in a curbella"/>
+                    <Item id="41015" name="Arregistrà una c&amp;opia cù u nome…"/>
+                    <Item id="41016" name="Dispia&amp;zzà in a curbella"/>
                     <Item id="41017" name="&amp;Rinuminà…"/>
                     <Item id="41021" name="Apre u schedariu chjosu pocu fà"/>
-                    <Item id="41022" name="Apre u cartulare cum’è spaziu di travagliu…"/>
-                    <Item id="41023" name="Apre in l’appiecazione predefinita"/>
+                    <Item id="41022" name="Apre u cartulare cum’è spaziu di tra&amp;vagliu…"/>
+                    <Item id="41023" name="Apre in l’appiecazione prede&amp;finita"/>
                     <Item id="42001" name="&amp;Taglià"/>
                     <Item id="42002" name="&amp;Cupià"/>
                     <Item id="42003" name="&amp;Disfà"/>
@@ -129,7 +131,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42005" name="&amp;Incullà"/>
                     <Item id="42006" name="&amp;Squassà"/>
                     <Item id="42007" name="T&amp;uttu selezziunà"/>
-                    <Item id="42020" name="Principiu è fine di a selezzione"/>
+                    <Item id="42020" name="Principiu è &amp;fine di a selezzione"/>
                     <Item id="42008" name="Aghjunghje una tabulazione nant’à a linea"/>
                     <Item id="42009" name="Caccià una tabulazione da a linea"/>
                     <Item id="42010" name="Duplicà a linea attuale"/>
@@ -150,7 +152,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42065" name="Ordinà e linee cum’è numeri decimali (puntu) crescente"/>
                     <Item id="42066" name="Ordinà e linee cum’è numeri decimali (puntu) discendente"/>
                     <Item id="42083" name="Arritrusà l’ordine di e linee"/>
-                    <Item id="42078" name="Ordinà e linee à l’azardu"/>
+                    <Item id="42078" name="Cambià à l’azardu l’ordine di e linee"/>
                     <Item id="42016" name="&amp;MAIUSCULA"/>
                     <Item id="42017" name="mi&amp;nuscula"/>
                     <Item id="42067" name="Maiuscula À &amp;Ogni Parolla"/>
@@ -184,13 +186,13 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42050" name="Incullà cuntenutu binariu"/>
                     <Item id="42082" name="Cupià u liame"/>
                     <Item id="42037" name="Selezzione in modu culonna…"/>
-                    <Item id="42034" name="Mudificazione in modu culonna…"/>
-                    <Item id="42051" name="Pannellu di i caratteri"/>
-                    <Item id="42052" name="Cronolugia di u preme’papei"/>
+                    <Item id="42034" name="&amp;Mudificazione in modu culonna…"/>
+                    <Item id="42051" name="&amp;Pannellu di i caratteri"/>
+                    <Item id="42052" name="Cr&amp;onolugia di u preme’papei"/>
                     <Item id="42025" name="&amp;Arregistrà a macro arricurdata…"/>
                     <Item id="42026" name="Testu da diritta à manca"/>
                     <Item id="42027" name="Testu da manca à diritta"/>
-                    <Item id="42028" name="Lettura-sola per u ducumentu attuale"/>
+                    <Item id="42028" name="&amp;Lettura-sola per u ducumentu attuale"/>
                     <Item id="42029" name="Cupià u chjassu cumpletu di u ducumentu attuale"/>
                     <Item id="42030" name="Cupià u nome di schedariu di u ducumentu attuale"/>
                     <Item id="42031" name="Cupià u chjassu cumpletu di u cartulare attuale"/>
@@ -216,14 +218,14 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43021" name="Caccià e linee indettate"/>
                     <Item id="43051" name="Caccià e linee senza marca"/>
                     <Item id="43050" name="Arritrusà l’indette"/>
-                    <Item id="43052" name="Circà caratteri in una stesa…"/>
-                    <Item id="43053" name="Tuttu selezziunà trà e parentesi chì currispondenu"/>
-                    <Item id="43009" name="Andà à a parentesi chì currisponde"/>
+                    <Item id="43052" name="Circà caratteri in &amp;una stesa…"/>
+                    <Item id="43053" name="Tuttu selezziunà trà e parentesi chì currisp&amp;ondenu"/>
+                    <Item id="43009" name="A&amp;ndà à a parentesi chì currisponde"/>
                     <Item id="43010" name="Circà &amp;precedente"/>
                     <Item id="43011" name="Ricerca &amp;interattiva"/>
-                    <Item id="43013" name="Circà in schedarii"/>
-                    <Item id="43014" name="Ricerca (vulatile) seguente"/>
-                    <Item id="43015" name="Ricerca (vulatile) precedente"/>
+                    <Item id="43013" name="Circà in sc&amp;hedarii"/>
+                    <Item id="43014" name="Ricerca (&amp;vulatile) seguente"/>
+                    <Item id="43015" name="Ricerca (&amp;vulatile) precedente"/>
                     <Item id="43022" name="Impiegà u 1ᵘ stilu"/>
                     <Item id="43023" name="Viutà u 1ᵘ stilu"/>
                     <Item id="43024" name="Impiegà u 2ᵘ stilu"/>
@@ -259,11 +261,11 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43064" name="Impieghendu u 3ᵘ stilu"/>
                     <Item id="43065" name="Impieghendu u 4ᵘ stilu"/>
                     <Item id="43066" name="Impieghendu u 5ᵘ stilu"/>
-                    <Item id="43045" name="Finestra di risultatu di ricerca"/>
-                    <Item id="43046" name="Prossimu risultatu di ricerca"/>
-                    <Item id="43047" name="Precedente risultatu di ricerca"/>
-                    <Item id="43048" name="Selezzione è ricerca seguente"/>
-                    <Item id="43049" name="Selezzione è ricerca precedente"/>
+                    <Item id="43045" name="&amp;Finestra di risultatu di ricerca"/>
+                    <Item id="43046" name="Prossimu risu&amp;ltatu di ricerca"/>
+                    <Item id="43047" name="Precedente risu&amp;ltatu di ricerca"/>
+                    <Item id="43048" name="Sele&amp;zzione è ricerca seguente"/>
+                    <Item id="43049" name="Sele&amp;zzione è ricerca precedente"/>
                     <Item id="43054" name="&amp;Marcà…"/>
                     <Item id="44009" name="Post-it"/>
                     <Item id="44010" name="Piegà tutti i livelli"/>
@@ -341,7 +343,6 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="47002" name="Pagina di prughjettu Notepad++"/>
                     <Item id="47003" name="Documentazione in linea"/>
                     <Item id="47004" name="Cumunità Notepad++ (Foru)"/>
-                    <Item id="47011" name="Assistenza diretta"/>
                     <Item id="47012" name="Infurmazioni di diagnosticu…"/>
                     <Item id="47005" name="Ottene più d’estensioni"/>
                     <Item id="47006" name="Rinnovà Notepad++"/>
@@ -1460,6 +1461,7 @@ Circà in tutti i schedarii fora di exe, obj è log :
             <session-save-folder-as-workspace value="Arregistrà u cartulare cum’è spaziu di travagliu"/>
             <tab-untitled-string value="novu "/>
             <file-save-assign-type value="&amp;Aghjunghje un’estensione"/>
+            <close-panel-tip value="Chjode"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

@@ -497,17 +497,13 @@ void Notepad_plus::command(int id)
 					url = TEXT("https://www.google.com/search?q=$(CURRENT_WORD)");
 				}
 			}
-			else if (nppGui._searchEngineChoice == nppGui.se_duckDuckGo)
+			else if (nppGui._searchEngineChoice == nppGui.se_duckDuckGo || nppGui._searchEngineChoice == nppGui.se_bing)
 			{
 				url = TEXT("https://duckduckgo.com/?q=$(CURRENT_WORD)");
 			}
 			else if (nppGui._searchEngineChoice == nppGui.se_google)
 			{
 				url = TEXT("https://www.google.com/search?q=$(CURRENT_WORD)");
-			}
-			else if (nppGui._searchEngineChoice == nppGui.se_bing)
-			{
-				url = TEXT("https://www.bing.com/search?q=$(CURRENT_WORD)");
 			}
 			else if (nppGui._searchEngineChoice == nppGui.se_yahoo)
 			{
@@ -3122,12 +3118,6 @@ void Notepad_plus::command(int id)
 		case IDM_FORUM:
 		{
 			::ShellExecute(NULL, TEXT("open"), TEXT("https://community.notepad-plus-plus.org/"), NULL, NULL, SW_SHOWNORMAL);
-			break;
-		}
-
-		case IDM_ONLINESUPPORT:
-		{
-			::ShellExecute(NULL, TEXT("open"), TEXT("https://gitter.im/notepad-plus-plus/notepad-plus-plus"), NULL, NULL, SW_SHOWNORMAL);
 			break;
 		}
 

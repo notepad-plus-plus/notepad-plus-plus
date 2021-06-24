@@ -44,16 +44,19 @@ ProjectPanel::~ProjectPanel()
 
 INT_PTR CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
-    switch (message)
-    {
-        case WM_INITDIALOG :
-        {
+	switch (message)
+	{
+		case WM_INITDIALOG :
+		{
 			ProjectPanel::initMenus();
 
 			// Create toolbar menu
 			int style = WS_CHILD | WS_VISIBLE | CCS_ADJUSTABLE | TBSTYLE_AUTOSIZE | TBSTYLE_FLAT | TBSTYLE_LIST;
 			_hToolbarMenu = CreateWindowEx(0,TOOLBARCLASSNAME,NULL, style,
 								   0,0,0,0,_hSelf, nullptr, _hInst, nullptr);
+
+			NppDarkMode::setDarkLineAbovePanelToolbar(_hToolbarMenu);
+
 			TBBUTTON tbButtons[2];
 
 			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
@@ -91,10 +94,18 @@ INT_PTR CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 			if (!openWorkSpace(_workSpaceFilePath.c_str(), true))
 				newWorkSpace();
 
-            return TRUE;
-        }
+			return TRUE;
+		}
 
-		
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::setDarkLineAbovePanelToolbar(_hToolbarMenu);
+			
+			NppDarkMode::setExplorerTheme(_treeView.getHSelf(), true);
+			NppDarkMode::setDarkTooltips(_treeView.getHSelf(), NppDarkMode::ToolTipsType::treeview);
+			return TRUE;
+		}
+
 		case WM_MOUSEMOVE:
 			if (_treeView.isDragging())
 				_treeView.dragItem(_hSelf, LOWORD(lParam), HIWORD(lParam));
@@ -501,7 +512,7 @@ void ProjectPanel::buildProjectXml(TiXmlNode *node, HTREEITEM hItem, const TCHAR
 	{
 		tvItem.hItem = hItemNode;
 		SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
-		if (tvItem.lParam != NULL)
+		if (tvItem.lParam)
 		{
 			generic_string *fn = (generic_string *)tvItem.lParam;
 			generic_string newFn = getRelativePath(*fn, fn2write);
@@ -802,6 +813,39 @@ void ProjectPanel::notified(LPNMHDR notification)
 			break;
 		}
 	}
+	else if (notification->code == NM_CUSTOMDRAW && (notification->hwndFrom == _hToolbarMenu))
+	{
+		static bool becomeDarkMode = false;
+		static bool becomeLightMode = false;
+		if (NppDarkMode::isEnabled())
+		{
+			if (!becomeDarkMode)
+			{
+				NppDarkMode::setExplorerTheme(_hToolbarMenu, false);
+				becomeDarkMode = true;
+			}
+			becomeLightMode = false;
+			auto nmtbcd = reinterpret_cast<LPNMTBCUSTOMDRAW>(notification);
+			FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getBackgroundBrush());
+			nmtbcd->clrText = NppDarkMode::getTextColor();
+			// highlight color when hover
+			// same color when hovering above menu 
+			// RGB(65, 65, 65) should be added to NppDarkMode.cpp
+			// needed because, visual style is disabled
+			nmtbcd->clrHighlightHotTrack = RGB(65, 65, 65);
+			SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_NOTIFYSUBITEMDRAW | TBCDRF_HILITEHOTTRACK);
+		}
+		else
+		{
+			if (!becomeLightMode)
+			{
+				NppDarkMode::setExplorerTheme(_hToolbarMenu, true);
+				becomeLightMode = true;
+			}
+			becomeDarkMode = false;
+			SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_DODEFAULT);
+		}
+	}
 }
 
 void ProjectPanel::setWorkSpaceDirty(bool isDirty)
@@ -829,7 +873,7 @@ NodeType ProjectPanel::getNodeType(HTREEITEM hItem)
 		return nodeType_project;
 	}
 	// Folder
-	else if (tvItem.lParam == NULL)
+	else if (!tvItem.lParam)
 	{
 		return nodeType_folder;
 	}

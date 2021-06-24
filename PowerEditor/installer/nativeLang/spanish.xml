@@ -309,7 +309,6 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="47002" name="Página de proyecto Notepad++"/>
 					<Item id="47003" name="Documentación online"/>
 					<Item id="47004" name="Comunidad Notepad++ (Foro)"/>
-					<Item id="47011" name="Soporte directo"/>
 					<Item id="47012" name="Depuración..."/>
 					<Item id="47005" name="Obtener más Plugins"/>
 					<Item id="47006" name="Actualizar Notepad++"/>
@@ -403,7 +402,7 @@ The comments are here for explanation, it's not necessary to translate them.
 				<Item id="1661" name="Seguir archivo actual"/>
 				<Item id="1641" name="Buscar solo en el archivo actual"/>
 				<Item id="1686" name="Transparencia"/>
-				<Item id="1703" name="&amp;. se ajusta a línea nueva"/>
+				<Item id="1703" name="&amp;. para nueva línea"/>
 				<Item id="1721" name="▲"/>
 				<Item id="1723" name="▼ Siguiente"/>
 				<Item id="1725" name="Copiar el texto marcado"/>

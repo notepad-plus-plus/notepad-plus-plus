@@ -38,6 +38,7 @@ class GeneralSubDlg : public StaticDialog
 public :
 	GeneralSubDlg() = default;
 	void setToolIconsFromStdToSmall();
+	void disableTabbarAlternateIcons();
 
 private :
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);

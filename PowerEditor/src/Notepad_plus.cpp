@@ -534,6 +534,9 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_pluginsAdminDlg.setPluginsManager(&_pluginsManager);
 	_pluginsManager.setMenu(_mainMenuHandle, NULL, enablePluginAdmin);
 
+	//Search menu
+	//disable "Search Results Window" under Search Menu 
+	::EnableMenuItem(_mainMenuHandle, IDM_FOCUS_ON_FOUND_RESULTS, MF_DISABLED | MF_GRAYED | MF_BYCOMMAND);
 
 	//Main menu is loaded, now load context menu items
 	nppParam.getContextMenuFromXmlTree(_mainMenuHandle, _pluginsManager.getMenuHandle());
@@ -2656,7 +2659,7 @@ bool isUrlTextChar(TCHAR const c)
 		case '{':
 		case '}':
 		case '?':
-		case '\0x7f':
+		case '\u007F':
 			return false;
 	}
 	return true;
@@ -7509,11 +7512,51 @@ void Notepad_plus::refreshDarkMode()
 	if (NppDarkMode::isExperimentalEnabled())
 	{
 		NppDarkMode::allowDarkModeForApp(NppDarkMode::isEnabled());
-		NppDarkMode::allowDarkModeForWindow(_pPublicInterface->getHSelf(), NppDarkMode::isEnabled());
-		NppDarkMode::allowDarkModeForWindow(_findReplaceDlg.getHSelf(), NppDarkMode::isEnabled());
-		NppDarkMode::setTitleBarThemeColor(_pPublicInterface->getHSelf(), NppDarkMode::isEnabled());
-		NppDarkMode::setTitleBarThemeColor(_findReplaceDlg.getHSelf(), NppDarkMode::isEnabled());
 	}
+	NppDarkMode::setDarkTitleBar(_pPublicInterface->getHSelf());
+
+	for (auto &hwndDlg : _hModelessDlgs)
+	{
+		NppDarkMode::setDarkTitleBar(hwndDlg);
+	}
+	for (auto &docCont : _dockingManager.getContainerInfo())
+	{
+		NppDarkMode::setDarkTitleBar(docCont->getCaptionWnd());
+	}
+
+	if (_pProjectPanel_1)
+	{
+		::SendMessage(_pProjectPanel_1->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+	}
+	if (_pProjectPanel_2)
+	{
+		::SendMessage(_pProjectPanel_2->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+	}
+	if (_pProjectPanel_3)
+	{
+		::SendMessage(_pProjectPanel_3->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+	}
+	if (_pFuncList)
+	{
+		::SendMessage(_pFuncList->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+	}
+	if (_pFileBrowser)
+	{
+		::SendMessage(_pFileBrowser->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+	}
+
+	if (_pAnsiCharPanel)
+	{
+		::SendMessage(_pAnsiCharPanel->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+	}
+	if (_pFileSwitcherPanel)
+	{
+		::SendMessage(_pFileSwitcherPanel->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+	}
+
+	::SendMessage(_mainDocTab.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+	::SendMessage(_subDocTab.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+
 	SendMessage(_findReplaceDlg.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
 	SendMessage(_incrementFindDlg.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
 	RedrawWindow(_pPublicInterface->getHSelf(), nullptr, nullptr, RDW_INVALIDATE | RDW_ERASE | RDW_FRAME | RDW_ALLCHILDREN);

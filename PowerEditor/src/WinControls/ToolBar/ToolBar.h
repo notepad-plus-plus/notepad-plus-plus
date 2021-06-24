@@ -50,7 +50,7 @@ class ToolBar : public Window
 {
 public :
 	ToolBar() = default;
-	virtual ~ToolBar() = default;
+	~ToolBar() = default;
 
     void initTheme(TiXmlDocument *toolIconsDocRoot);
 	virtual bool init(HINSTANCE hInst, HWND hPere, toolBarStatusType type, 
@@ -94,7 +94,8 @@ public :
 		return _toolBarIcons.replaceIcon(whichLst, iconIndex, iconLocation);
 	};
 
-	void registerDynBtn(UINT message, toolbarIcons* hBmp);
+	void registerDynBtn(UINT message, toolbarIcons* iconHandles, HICON absentIco);
+	void registerDynBtnDM(UINT message, toolbarIconsWithDarkMode* iconHandles);
 
 	void doPopop(POINT chevPoint);	//show the popup if buttons are hidden
 

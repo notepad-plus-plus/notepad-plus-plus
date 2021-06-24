@@ -94,11 +94,7 @@ LRESULT Notepad_plus_Window::runProc(HWND hwnd, UINT message, WPARAM wParam, LPA
 		{
 			try
 			{
-				if (NppDarkMode::isExperimentalEnabled())
-				{
-					NppDarkMode::allowDarkModeForWindow(hwnd, NppDarkMode::isEnabled());
-					NppDarkMode::setTitleBarThemeColor(hwnd, NppDarkMode::isEnabled());
-				}
+				NppDarkMode::setDarkTitleBar(hwnd);
 
 				_notepad_plus_plus_core._pPublicInterface = this;
 				LRESULT lRet = _notepad_plus_plus_core.init(hwnd);
@@ -161,7 +157,22 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			// Note: lParam is -1 to prevent endless loops of calls
 			::SendMessage(_dockingManager.getHSelf(), WM_NCACTIVATE, wParam, -1);
-			return ::DefWindowProc(hwnd, message, wParam, lParam);
+			result = ::DefWindowProc(hwnd, message, wParam, lParam);
+			if (NppDarkMode::isDarkMenuEnabled() && NppDarkMode::isEnabled())
+			{
+				NppDarkMode::drawUAHMenuNCBottomLine(hwnd);
+			}
+			return result;
+		}
+
+		case WM_NCPAINT:
+		{
+			result = ::DefWindowProc(hwnd, message, wParam, lParam);
+			if (NppDarkMode::isDarkMenuEnabled() && NppDarkMode::isEnabled())
+			{
+				NppDarkMode::drawUAHMenuNCBottomLine(hwnd);
+			}
+			return result;
 		}
 
 		case WM_ERASEBKGND:
@@ -1320,7 +1331,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_CREATESCINTILLAHANDLE:
 		{
-			return (LRESULT)_scintillaCtrls4Plugins.createSintilla((lParam == NULL?hwnd:reinterpret_cast<HWND>(lParam)));
+			return (LRESULT)_scintillaCtrls4Plugins.createSintilla((lParam ? reinterpret_cast<HWND>(lParam) : hwnd));
 		}
 
 		case NPPM_INTERNAL_GETSCINTEDTVIEW:
@@ -2155,9 +2166,15 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return NULL;
 		}
 
-		case NPPM_ADDTOOLBARICON:
+		case NPPM_ADDTOOLBARICON_DEPRECATED:
 		{
-			_toolBar.registerDynBtn(static_cast<UINT>(wParam), reinterpret_cast<toolbarIcons*>(lParam));
+			_toolBar.registerDynBtn(static_cast<UINT>(wParam), reinterpret_cast<toolbarIcons*>(lParam), _pPublicInterface->getAbsentIcoHandle());
+			return TRUE;
+		}
+
+		case NPPM_ADDTOOLBARICON_FORDARKMODE:
+		{
+			_toolBar.registerDynBtnDM(static_cast<UINT>(wParam), reinterpret_cast<toolbarIconsWithDarkMode*>(lParam));
 			return TRUE;
 		}
 

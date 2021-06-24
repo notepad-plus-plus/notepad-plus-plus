@@ -23,6 +23,7 @@
 #include "Common.h"
 #include <vector>
 
+struct StatusBarSubclassInfo;
 
 
 class StatusBar final : public Window
@@ -51,4 +52,5 @@ private:
     std::vector<int> _partWidthArray;
 	int *_lpParts = nullptr;
 	generic_string _lastSetText;
+	StatusBarSubclassInfo* _pStatusBarInfo = nullptr;
 };

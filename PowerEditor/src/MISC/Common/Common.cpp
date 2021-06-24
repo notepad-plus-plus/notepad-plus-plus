@@ -997,6 +997,8 @@ HWND CreateToolTip(int toolID, HWND hDlg, HINSTANCE hInst, const PTSTR pszText)
 		return NULL;
 	}
 
+	NppDarkMode::setDarkTooltips(hwndTip, NppDarkMode::ToolTipsType::tooltip);
+
 	// Associate the tooltip with the tool.
 	TOOLINFO toolInfo = { 0 };
 	toolInfo.cbSize = sizeof(toolInfo);

@@ -26,16 +26,25 @@ void TreeView::init(HINSTANCE hInst, HWND parent, int treeViewID)
 	Window::init(hInst, parent);
 	_hSelf = ::GetDlgItem(parent, treeViewID);
 
+	auto treeViewStyles = WS_HSCROLL | WS_TABSTOP | TVS_LINESATROOT\
+						| TVS_HASLINES | TVS_HASBUTTONS | TVS_SHOWSELALWAYS\
+						| TVS_EDITLABELS | TVS_INFOTIP | TVS_TRACKSELECT;
+
 	_hSelf = CreateWindowEx(0,
-                            WC_TREEVIEW,
-                            TEXT("Tree View"),
-                            WS_CHILD | WS_BORDER | WS_HSCROLL | WS_TABSTOP | TVS_LINESATROOT | TVS_HASLINES |
-							TVS_HASBUTTONS | TVS_SHOWSELALWAYS | TVS_EDITLABELS | TVS_INFOTIP,
-                            0,  0,  0, 0,
-                            _hParent,
-                            NULL,
-                            _hInst,
-                            (LPVOID)0);
+							WC_TREEVIEW,
+							TEXT("Tree View"),
+							WS_CHILD | WS_BORDER | treeViewStyles,
+							0,
+							0,
+							0,
+							0,
+							_hParent,
+							nullptr,
+							_hInst,
+							nullptr);
+
+	NppDarkMode::setExplorerTheme(_hSelf, true);
+	NppDarkMode::setDarkTooltips(_hSelf, NppDarkMode::ToolTipsType::treeview);
 
 	int itemHeight = NppParameters::getInstance()._dpiManager.scaleY(CY_ITEMHEIGHT);
 	TreeView_SetItemHeight(_hSelf, itemHeight);

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="English" filename="english_customizable.xml" version="7.9.2">
-        <Menu>
+    <Native-Langue name="English" filename="english_customizable.xml" version="7.9.5">
+       <Menu>
             <Main>
                 <!-- Main Menu Entries -->
                 <Entries>
@@ -20,25 +20,26 @@
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item subMenuId="file-openFolder" name="Open Containing Folder"/>
-                    <Item subMenuId="file-closeMore" name="Close More"/>
+                    <Item subMenuId="file-openFolder" name="Open Containing &amp;Folder"/>
+                    <Item subMenuId="file-closeMore" name="Close &amp;More"/>
                     <Item subMenuId="file-recentFiles" name="&amp;Recent Files"/>
-                    <Item subMenuId="edit-copyToClipboard"  name="Copy to Clipboard"/>
-                    <Item subMenuId="edit-indent" name="Indent"/>
-                    <Item subMenuId="edit-convertCaseTo" name="Convert Case to"/>
-                    <Item subMenuId="edit-lineOperations" name="Line Operations"/>
-                    <Item subMenuId="edit-comment" name="Comment/Uncomment"/>
-                    <Item subMenuId="edit-autoCompletion" name="Auto-Completion"/>
-                    <Item subMenuId="edit-eolConversion" name="EOL Conversion"/>
-                    <Item subMenuId="edit-blankOperations" name="Blank Operations"/>
-                    <Item subMenuId="edit-pasteSpecial" name="Paste Special"/>
-                    <Item subMenuId="edit-onSelection" name="On Selection"/>
-                    <Item subMenuId="search-markAll" name="Mark All"/>
-                    <Item subMenuId="search-unmarkAll" name="Unmark All"/>
-                    <Item subMenuId="search-jumpUp" name="Jump Up"/>
-                    <Item subMenuId="search-jumpDown" name="Jump Down"/>
-                    <Item subMenuId="search-copyStyledText" name="Copy Styled Text"/>
-                    <Item subMenuId="search-bookmark" name="Bookmark"/>
+                    <Item subMenuId="edit-copyToClipboard"  name="Cop&amp;y to Clipboard"/>
+                    <Item subMenuId="edit-indent" name="&amp;Indent"/>
+                    <Item subMenuId="edit-convertCaseTo" name="Con&amp;vert Case to"/>
+                    <Item subMenuId="edit-lineOperations" name="&amp;Line Operations"/>
+                    <Item subMenuId="edit-comment" name="Co&amp;mment/Uncomment"/>
+                    <Item subMenuId="edit-autoCompletion" name="&amp;Auto-Completion"/>
+                    <Item subMenuId="edit-eolConversion" name="&amp;EOL Conversion"/>
+                    <Item subMenuId="edit-blankOperations" name="&amp;Blank Operations"/>
+                    <Item subMenuId="edit-pasteSpecial" name="&amp;Paste Special"/>
+                    <Item subMenuId="edit-onSelection" name="&amp;On Selection"/>
+                    <Item subMenuId="search-markAll" name="Mark &amp;All"/>
+                    <Item subMenuId="search-markOne" name="Mark &amp;One"/>
+                    <Item subMenuId="search-unmarkAll" name="&amp;Unmark All"/>
+                    <Item subMenuId="search-jumpUp" name="&amp;Jump Up"/>
+                    <Item subMenuId="search-jumpDown" name="Jump &amp;Down"/>
+                    <Item subMenuId="search-copyStyledText" name="&amp;Copy Styled Text"/>
+                    <Item subMenuId="search-bookmark" name="&amp;Bookmark"/>
                     <Item subMenuId="view-currentFileIn" name="View Current File in"/>
                     <Item subMenuId="view-showSymbol"  name="Show Symbol"/>
                     <Item subMenuId="view-zoom"  name="Zoom"/>
@@ -73,7 +74,7 @@
                 <!-- all menu item -->
                 <Commands>
                     <Item id="41001" name="&amp;New"/>
-                    <Item id="41002" name="&amp;Open"/>
+                    <Item id="41002" name="&amp;Open..."/>
                     <Item id="41019" name="Explorer"/>
                     <Item id="41020" name="cmd"/>
                     <Item id="41025" name="Folder as Workspace"/>
@@ -86,26 +87,26 @@
                     <Item id="41006" name="&amp;Save"/>
                     <Item id="41007" name="Sav&amp;e All"/>
                     <Item id="41008" name="Save &amp;As..."/>
-                    <Item id="41010" name="Print..."/>
-                    <Item id="1001"  name="Print Now"/>
+                    <Item id="41010" name="&amp;Print..."/>
+                    <Item id="1001"  name="Print No&amp;w"/>
                     <Item id="41011" name="E&amp;xit"/>
-                    <Item id="41012" name="Load Session..."/>
-                    <Item id="41013" name="Save Session..."/>
+                    <Item id="41012" name="Load Sess&amp;ion..."/>
+                    <Item id="41013" name="Save Sess&amp;ion..."/>
                     <Item id="41014" name="Re&amp;load from Disk"/>
-                    <Item id="41015" name="Save a Copy As..."/>
-                    <Item id="41016" name="Move to Recycle Bin"/>
-                    <Item id="41017" name="Rename..."/>
+                    <Item id="41015" name="Save a Cop&amp;y As..."/>
+                    <Item id="41016" name="Move to Recycle &amp;Bin"/>
+                    <Item id="41017" name="&amp;Rename..."/>
                     <Item id="41021" name="Restore Recent Closed File"/>
-                    <Item id="41022" name="Open Folder as Workspace..."/>
-                    <Item id="41023" name="Open in Default Viewer"/>
+                    <Item id="41022" name="Open Folder as &amp;Workspace..."/>
+                    <Item id="41023" name="Open in &amp;Default Viewer"/>
                     <Item id="42001" name="Cu&amp;t"/>
                     <Item id="42002" name="&amp;Copy"/>
                     <Item id="42003" name="&amp;Undo"/>
                     <Item id="42004" name="&amp;Redo"/>
                     <Item id="42005" name="&amp;Paste"/>
                     <Item id="42006" name="&amp;Delete"/>
-                    <Item id="42007" name="Select A&amp;ll"/>
-                    <Item id="42020" name="Begin/End Select"/>
+                    <Item id="42007" name="&amp;Select All"/>
+                    <Item id="42020" name="Begin/End &amp;Select"/>
                     <Item id="42008" name="Increase Line Indent"/>
                     <Item id="42009" name="Decrease Line Indent"/>
                     <Item id="42010" name="Duplicate Current Line"/>
@@ -125,7 +126,8 @@
                     <Item id="42064" name="Sort Lines As Decimals (Comma) Descending"/>
                     <Item id="42065" name="Sort Lines As Decimals (Dot) Ascending"/>
                     <Item id="42066" name="Sort Lines As Decimals (Dot) Descending"/>
-                    <Item id="42078" name="Sort Lines Randomly"/>
+                    <Item id="42083" name="Reverse Line Order"/>
+                    <Item id="42078" name="Randomize Line Order"/>
                     <Item id="42016" name="&amp;UPPERCASE"/>
                     <Item id="42017" name="&amp;lowercase"/>
                     <Item id="42067" name="&amp;Proper Case"/>
@@ -159,13 +161,13 @@
                     <Item id="42050" name="Paste Binary Content"/>
                     <Item id="42082" name="Copy link"/>
                     <Item id="42037" name="Column Mode..."/>
-                    <Item id="42034" name="Column Editor..."/>
-                    <Item id="42051" name="Character Panel"/>
-                    <Item id="42052" name="Clipboard History"/>
+                    <Item id="42034" name="Colum&amp;n Editor..."/>
+                    <Item id="42051" name="Character &amp;Panel"/>
+                    <Item id="42052" name="Clipboard &amp;History"/>
                     <Item id="42025" name="&amp;Save Currently Recorded Macro..."/>
                     <Item id="42026" name="Text Direction RTL"/>
                     <Item id="42027" name="Text Direction LTR"/>
-                    <Item id="42028" name="Set Read-Only"/>
+                    <Item id="42028" name="&amp;Set Read-Only"/>
                     <Item id="42029" name="Current File Path to Clipboard"/>
                     <Item id="42030" name="Current Filename to Clipboard"/>
                     <Item id="42031" name="Current Dir. Path to Clipboard"/>
@@ -191,14 +193,14 @@
                     <Item id="43021" name="Remove Bookmarked Lines"/>
                     <Item id="43051" name="Remove Unmarked Lines"/>
                     <Item id="43050" name="Inverse Bookmark"/>
-                    <Item id="43052" name="Find characters in range..."/>
-                    <Item id="43053" name="Select All Between Matching Braces"/>
-                    <Item id="43009" name="Go to Matching Brace"/>
+                    <Item id="43052" name="Find characters in rang&amp;e..."/>
+                    <Item id="43053" name="Select All Between &amp;Matching Braces"/>
+                    <Item id="43009" name="Go to &amp;Matching Brace"/>
                     <Item id="43010" name="Find &amp;Previous"/>
                     <Item id="43011" name="&amp;Incremental Search"/>
-                    <Item id="43013" name="Find in Files"/>
-                    <Item id="43014" name="Find (Volatile) Next"/>
-                    <Item id="43015" name="Find (Volatile) Previous"/>
+                    <Item id="43013" name="Find in Fi&amp;les"/>
+                    <Item id="43014" name="Find (&amp;Volatile) Next"/>
+                    <Item id="43015" name="Find (&amp;Volatile) Previous"/>
                     <Item id="43022" name="Using 1st Style"/>
                     <Item id="43023" name="Clear 1st Style"/>
                     <Item id="43024" name="Using 2nd Style"/>
@@ -229,14 +231,20 @@
                     <Item id="43059" name="5th Style"/>
                     <Item id="43060" name="All Styles"/>
                     <Item id="43061" name="Find Style (Marked)"/>
-                    <Item id="43045" name="Search Results Window"/>
-                    <Item id="43046" name="Next Search Result"/>
-                    <Item id="43047" name="Previous Search Result"/>
-                    <Item id="43048" name="Select and Find Next"/>
-                    <Item id="43049" name="Select and Find Previous"/>
+                    <Item id="43062" name="Using 1st Style"/>
+                    <Item id="43063" name="Using 2nd Style"/>
+                    <Item id="43064" name="Using 3rd Style"/>
+                    <Item id="43065" name="Using 4th Style"/>
+                    <Item id="43066" name="Using 5th Style"/>
+                    <Item id="43045" name="Search Results &amp;Window"/>
+                    <Item id="43046" name="Next Search Resul&amp;t"/>
+                    <Item id="43047" name="Previous Search Resul&amp;t"/>
+                    <Item id="43048" name="&amp;Select and Find Next"/>
+                    <Item id="43049" name="&amp;Select and Find Previous"/>
                     <Item id="43054" name="Mar&amp;k..."/>
                     <Item id="44009" name="Post-It"/>
                     <Item id="44010" name="Fold All"/>
+                    <Item id="44011" name="Distraction Free Mode"/>
                     <Item id="44019" name="Show All Characters"/>
                     <Item id="44020" name="Show Indent Guide"/>
                     <Item id="44022" name="Word wrap"/>
@@ -280,14 +288,14 @@
                     <Item id="45003" name="Macintosh (CR)"/>
                     <Item id="45004" name="ANSI"/>
                     <Item id="45005" name="UTF-8-BOM"/>
-                    <Item id="45006" name="UCS-2 BE BOM"/>
-                    <Item id="45007" name="UCS-2 LE BOM"/>
+                    <Item id="45006" name="UTF-16 BE BOM"/>
+                    <Item id="45007" name="UTF-16 LE BOM"/>
                     <Item id="45008" name="UTF-8"/>
                     <Item id="45009" name="Convert to ANSI"/>
                     <Item id="45010" name="Convert to UTF-8"/>
                     <Item id="45011" name="Convert to UTF-8-BOM"/>
-                    <Item id="45012" name="Convert to UCS-2 BE BOM"/>
-                    <Item id="45013" name="Convert to UCS-2 LE BOM"/>
+                    <Item id="45012" name="Convert to UTF-16 BE BOM"/>
+                    <Item id="45013" name="Convert to UTF-16 LE BOM"/>
                     <Item id="45060" name="Big5 (Traditional)"/>
                     <Item id="45061" name="GB2312 (Simplified)"/>
                     <Item id="45054" name="OEM 861: Icelandic"/>
@@ -310,7 +318,6 @@
                     <Item id="47002" name="Notepad++ Project Page"/>
                     <Item id="47003" name="Online Documentation"/>
                     <Item id="47004" name="Notepad++ Community (Forum)"/>
-                    <Item id="47011" name="Live Support"/>
                     <Item id="47012" name="Debug Info..."/>
                     <Item id="47005" name="Get More Plugins"/>
                     <Item id="47006" name="Update Notepad++"/>
@@ -373,7 +380,7 @@
         </Menu>
 
         <Dialog>
-            <Find title="" titleFind="Find" titleReplace="Replace" titleFindInFiles="Find in Files" titleMark="Mark">
+            <Find title="" titleFind="Find" titleReplace="Replace" titleFindInFiles="Find in Files" titleFindInProjects="Find in Projects" titleMark="Mark">
                 <Item id="1"    name="Find Next"/>
                 <Item id="1722" name="Backward direction"/>
                 <Item id="2"    name="Close"/>
@@ -404,7 +411,11 @@
                 <Item id="1625" name="&amp;Normal"/>
                 <Item id="1626" name="E&amp;xtended (\n, \r, \t, \0, \x...)"/>
                 <Item id="1660" name="Replace in Files"/>
+                <Item id="1665" name="Replace in Projects"/>
                 <Item id="1661" name="Follow current doc."/>
+                <Item id="1662" name="Project Panel 1"/>
+                <Item id="1663" name="Project Panel 2"/>
+                <Item id="1664" name="Project Panel 3"/>
                 <Item id="1641" name="Find All in Current Document"/>
                 <Item id="1686" name="Transparenc&amp;y"/>
                 <Item id="1703" name="&amp;. matches newline"/>
@@ -532,11 +543,16 @@
                     <Item id="45001" name="EOL Conversion to Windows (CR LF)"/>
                     <Item id="45002" name="EOL Conversion to Unix (LF)"/>
                     <Item id="45003" name="EOL Conversion to Macintosh (CR)"/>
-                    <Item id="43022" name="Mark text using 1st style"/>
-                    <Item id="43024" name="Mark text using 2nd style"/>
-                    <Item id="43026" name="Mark text using 3rd style"/>
-                    <Item id="43028" name="Mark text using 4th style"/>
-                    <Item id="43030" name="Mark text using 5th style"/>
+                    <Item id="43022" name="Mark all using 1st style"/>
+                    <Item id="43024" name="Mark all using 2nd style"/>
+                    <Item id="43026" name="Mark all using 3rd style"/>
+                    <Item id="43028" name="Mark all using 4th style"/>
+                    <Item id="43030" name="Mark all using 5th style"/>
+                    <Item id="43062" name="Mark one using 1st style"/>
+                    <Item id="43063" name="Mark one using 2nd style"/>
+                    <Item id="43064" name="Mark one using 3rd style"/>
+                    <Item id="43065" name="Mark one using 4th style"/>
+                    <Item id="43066" name="Mark one using 5th style"/>
                     <Item id="43023" name="Clear marks using 1st style"/>
                     <Item id="43025" name="Clear marks using 2nd style"/>
                     <Item id="43027" name="Clear marks using 3rd style"/>
@@ -783,9 +799,11 @@
                 <Global title="General">
                     <Item id="6101" name="Toolbar"/>
                     <Item id="6102" name="Hide"/>
-                    <Item id="6103" name="Small icons"/>
-                    <Item id="6104" name="Big icons"/>
-                    <Item id="6105" name="Standard icons"/>
+                    <Item id="6103" name="Fluent UI: small"/>
+                    <Item id="6104" name="Fluent UI: large"/>
+                    <Item id="6129" name="Filled Fluent UI: small"/>
+                    <Item id="6130" name="Filled Fluent UI: large"/>
+                    <Item id="6105" name="Standard icons: small"/>
 
                     <Item id="6106" name="Tab Bar"/>
                     <Item id="6107" name="Reduce"/>
@@ -828,6 +846,11 @@
                     <Item id="6239" name="Keep selection when right-click outside of selection"/>
                 </Scintillas>
 
+                <DarkMode title="Dark Mode">
+                    <Item id="7101" name="Enable dark mode"/>
+                    <Item id="7106" name="* Notepad++ must be restarted to take effect completely"/>
+                </DarkMode>
+
                 <MarginsBorderEdge title="Margins/Border/Edge">
                     <Item id="6201" name="Folder Margin Style"/>
                     <Item id="6202" name="Simple"/>
@@ -846,6 +869,10 @@
 You can define several column markers by using white space to separate the different numbers."/>
                     <Item id="6231" name="Border Width"/>
                     <Item id="6235" name="No edge"/>
+                    <Item id="6208" name="Padding"/>
+                    <Item id="6209" name="Left"/>
+                    <Item id="6210" name="Right"/>
+                    <Item id="6212" name="Distraction Free"/>
                 </MarginsBorderEdge>
 
                 <NewDoc title="New Document">
@@ -857,15 +884,15 @@ You can define several column markers by using white space to separate the diffe
                     <Item id="6406" name="ANSI"/>
                     <Item id="6407" name="UTF-8"/>
                     <Item id="6408" name="UTF-8 with BOM"/>
-                    <Item id="6409" name="UCS-2 Big Endian with BOM"/>
-                    <Item id="6410" name="UCS-2 Little Endian with BOM"/>
+                    <Item id="6409" name="UTF-16 Big Endian with BOM"/>
+                    <Item id="6410" name="UTF-16 Little Endian with BOM"/>
                     <Item id="6411" name="Default language :"/>
                     <Item id="6419" name="New Document"/>
                     <Item id="6420" name="Apply to opened ANSI files"/>
                 </NewDoc>
 
                 <DefaultDir title="Default Directory">
-                    <Item id="6413" name="Default Directory (Open/Save)"/>
+                    <Item id="6413" name="Default Open/Save file Directory"/>
                     <Item id="6414" name="Follow current document"/>
                     <Item id="6415" name="Remember last used directory"/>
                     <Item id="6431" name="Open all files of folder instead of launching Folder as Workspace on folder dropping"/>
@@ -889,8 +916,12 @@ You can define several column markers by using white space to separate the diffe
                 </Language>
 
                 <Highlighting title="Highlighting">
+                    <Item id="6351" name="Mark All"/>
+                    <Item id="6352" name="Match case"/>
+                    <Item id="6353" name="Match whole word only"/>
                     <Item id="6333" name="Smart Highlighting"/>
                     <Item id="6326" name="Enable"/>
+                    <Item id="6354" name="Matching"/>
                     <Item id="6332" name="Match case"/>
                     <Item id="6338" name="Match whole word only"/>
                     <Item id="6339" name="Use Find dialog settings"/>
@@ -936,6 +967,7 @@ You can define several column markers by using white space to separate the diffe
                     <Item id="6902" name="Use monospaced font in Find dialog (Need to restart Notepad++)"/>
                     <Item id="6903" name="Find dialog remains open after search that outputs to results window"/>
                     <Item id="6904" name="Confirm Replace All in All Opened Documents"/>
+                    <Item id="6905" name="Replace: Don't move to the following occurrence"/>
                 </Searching>
 
                 <RecentFilesHistory title="Recent Files History">
@@ -1038,7 +1070,6 @@ You can define several column markers by using white space to separate the diffe
                     <Item id="6325" name="Scroll to the last line after update"/>
                     <Item id="6322" name="Session file ext.:"/>
                     <Item id="6323" name="Enable Notepad++ auto-updater"/>
-                    <Item id="6351" name="Set Save dialog file extension filter to .* instead of .txt for Normal Text"/>
                     <Item id="6324" name="Document Switcher (Ctrl+TAB)"/>
                     <Item id="6331" name="Show only filename in title bar"/>
                     <Item id="6334" name="Autodetect character encoding"/>
@@ -1049,6 +1080,7 @@ You can define several column markers by using white space to separate the diffe
                     <Item id="6344" name="Document Peeker"/>
                     <Item id="6345" name="Peek on tab"/>
                     <Item id="6346" name="Peek on document map"/>
+                    <Item id="6360" name="Mute all sounds"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Run a Macro Multiple Times">
@@ -1170,7 +1202,8 @@ Do you want to recover your langs.xml?"/> <!-- HowToReproduce: Close Notepad++. 
 Please remove its root from the panel before you add folder &quot;$STR_REPLACE$&quot;."/> <!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
 
             <ProjectPanelChanged title="$STR_REPLACE$" message="The workspace was modified. Do you want to save it?"/>
-            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Your workspace has not been saved."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+            <ProjectPanelSaveError title="$STR_REPLACE$" message="An error occurred while writing your workspace file.
+Your workspace has not been saved."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <ProjectPanelOpenDoSaveDirtyWsOrNot title="Open Workspace" message="The current workspace was modified. Do you want to save the current project?"/>
             <ProjectPanelNewDoSaveDirtyWsOrNot title="New Workspace" message="The current workspace was modified. Do you want to save the current project?"/>
             <ProjectPanelOpenFailed title="Open Workspace" message="The workspace could not be opened.
@@ -1210,6 +1243,7 @@ Continue?"/>
             <ColumnPath name="Path"/>
             <ColumnType name="Type"/>
             <ColumnSize name="Size"/>
+            <NbDocsTotal name="total documents:"/>
         </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name="ASCII Codes Insertion Panel"/>
@@ -1264,6 +1298,7 @@ Continue?"/>
                     <Item id="3126" name="Save As..."/>
                     <Item id="3127" name="Save a Copy As..."/>
                     <Item id="3121" name="Add New Project"/>
+                    <Item id="3128" name="Find in Projects..."/>
                 </WorkspaceMenu>
                 <ProjectMenu>
                     <Item id="3111" name="Rename"/>
@@ -1319,6 +1354,7 @@ Find in all files except exe, obj &amp;&amp; log:
             <find-status-replaceinopenedfiles-nb-replaced value="Replace in Opened Files: $INT_REPLACE$ occurrences were replaced"/>
             <find-status-mark-re-malformed value="Mark: The regular expression to search is malformed"/>
             <find-status-invalid-re value="Find: Invalid regular expression"/>
+            <find-status-search-failed value="Find: Search failed"/>
             <find-status-mark-1-match value="Mark: 1 match"/>
             <find-status-mark-nb-matches value="Mark: $INT_REPLACE$ matches"/>
             <find-status-count-re-malformed value="Count: The regular expression to search is malformed"/>
@@ -1331,6 +1367,7 @@ Find in all files except exe, obj &amp;&amp; log:
             <find-status-replace-end-reached value="Replace: Replaced the 1st occurrence from the top. The end of document has been reached"/>
             <find-status-replace-top-reached value="Replace: Replaced the 1st occurrence from the bottom. The begin of document has been reached"/>
             <find-status-replaced-next-found value="Replace: 1 occurrence was replaced. The next occurrence found."/>
+            <find-status-replaced-without-continuing value="Replace: 1 occurrence was replaced."/>
             <find-status-replaced-next-not-found value="Replace: 1 occurrence was replaced. No more occurrences were found."/>
             <find-status-replace-not-found value="Replace: no occurrence was found"/>
             <find-status-replace-readonly value="Replace: Cannot replace text. The current document is read only"/>
@@ -1345,15 +1382,19 @@ Find in all files except exe, obj &amp;&amp; log:
             <finder-uncollapse-all value="Uncollapse all"/>
             <finder-copy value="Copy Selected Line(s)"/>
             <finder-copy-verbatim value="Copy"/>
+            <finder-copy-paths value="Copy Pathname(s)"/>
             <finder-select-all value="Select all"/>
             <finder-clear-all value="Clear all"/>
             <finder-open-all value="Open all"/>
+            <finder-purge-for-every-search value="Purge for every search"/>
             <finder-wrap-long-lines value="Word wrap long lines"/>
             <common-ok value="OK"/>
             <common-cancel value="Cancel"/>
             <common-name value="Name: "/>
             <tabrename-title value="Rename Current Tab"/>
             <tabrename-newname value="New Name: "/>
+            <splitter-rotate-left value="Rotate to left"/>
+            <splitter-rotate-right value="Rotate to right"/>
             <recent-file-history-maxfile value="Max File: "/>
             <language-tabsize value="Tab Size: "/>
             <userdefined-title-new value="Create New Language..."/>
@@ -1372,9 +1413,13 @@ Find in all files except exe, obj &amp;&amp; log:
             <summary-nbsel1 value=" selected characters ("/>
             <summary-nbsel2 value=" bytes) in "/>
             <summary-nbrange value=" ranges"/>
+            <find-in-files-progress-title value="Find In Files progress..."/>
             <replace-in-files-confirm-title value="Are you sure?"/>
             <replace-in-files-confirm-directory value="Are you sure you want to replace all occurrences in :"/>
             <replace-in-files-confirm-filetype value="For file type :"/>
+            <replace-in-files-progress-title value="Replace In Files progress..."/>
+            <replace-in-projects-confirm-title value="Are you sure?"/>
+            <replace-in-projects-confirm-message value="Do you want to replace all occurrences in all documents in the selected Project Panel(s)?"/>
             <replace-in-open-docs-confirm-title value="Are you sure?"/>
             <replace-in-open-docs-confirm-message value="Are you sure you want to replace all occurrences in all open documents?"/>
             <find-result-caption value="Search results"/>
@@ -1385,6 +1430,9 @@ Find in all files except exe, obj &amp;&amp; log:
             <find-result-hits value="($INT_REPLACE$ hits)"/>
             <find-result-line-prefix value="Line"/> <!-- Must not begin with space or tab character -->
             <find-regex-zero-length-match value="zero length match" />
+            <session-save-folder-as-workspace value="Save Folder as Workspace" />
+            <tab-untitled-string value="new " />
+            <file-save-assign-type value="&amp;Append extension" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

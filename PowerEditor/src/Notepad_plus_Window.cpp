@@ -90,6 +90,8 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 
 	nppGUI._isCmdlineNosessionActivated = cmdLineParams->_isNoSession;
 
+	_hIconAbsent = ::LoadIcon(hInst, MAKEINTRESOURCE(IDI_ICONABSENT));
+
 	_hSelf = ::CreateWindowEx(
 		WS_EX_ACCEPTFILES | (_notepad_plus_plus_core._nativeLangSpeaker.isRTL()?WS_EX_LAYOUTRTL:0),
 		_className,
@@ -215,6 +217,10 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	themeDir.clear();
 	themeDir = nppDir.c_str(); // <- should use the pointer to avoid the constructor of copy
 	PathAppend(themeDir, TEXT("themes\\"));
+
+	if (themeSwitcher.getThemeDirPath().empty())
+		themeSwitcher.setThemeDirPath(themeDir);
+
 	_notepad_plus_plus_core.getMatchedFileNames(themeDir.c_str(), patterns, fileNames, false, false);
 	for (size_t i = 0, len = fileNames.size(); i < len ; ++i)
 	{

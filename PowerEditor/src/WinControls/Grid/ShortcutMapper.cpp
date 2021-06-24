@@ -1119,7 +1119,7 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 bool ShortcutMapper::findKeyConflicts(__inout_opt generic_string * const keyConflictLocation,
 										const KeyCombo & itemKeyComboToTest, const size_t & itemIndexToTest) const
 {
-	if (itemKeyComboToTest._key == NULL) //no key assignment
+	if (itemKeyComboToTest._key == 0) //no key assignment
 		return false;
 
 	bool retIsConflict = false; //returns true when a conflict is found

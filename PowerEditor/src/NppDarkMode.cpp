@@ -25,6 +25,7 @@ namespace NppDarkMode
 
 		COLORREF text = 0;
 		COLORREF darkerText = 0;
+		COLORREF disabledText = 0;
 		COLORREF edge = 0;
 	};
 
@@ -56,13 +57,14 @@ namespace NppDarkMode
 
 	static const Colors darkColors{
 		HEXRGB(0x202020),	// background
-		HEXRGB(0x282828),	// softerBackground
+		HEXRGB(0x404040),	// softerBackground
 		HEXRGB(0x404040),	// hotBackground
-		HEXRGB(0x000000),	// pureBackground
+		HEXRGB(0x202020),	// pureBackground
 		HEXRGB(0xB00000),	// errorBackground
 		HEXRGB(0xE0E0E0),	// textColor
 		HEXRGB(0xC0C0C0),	// darkerTextColor
-		HEXRGB(0x808080),	// edgeColor
+		HEXRGB(0x808080),	// disabledTextColor
+		HEXRGB(0x808080)	// edgeColor
 	};
 
 	struct Theme
@@ -195,12 +197,13 @@ namespace NppDarkMode
 	COLORREF getErrorBackgroundColor()	{ return getTheme().colors.errorBackground; }
 	COLORREF getTextColor()				{ return getTheme().colors.text; }
 	COLORREF getDarkerTextColor()		{ return getTheme().colors.darkerText; }
+	COLORREF getDisabledTextColor()		{ return getTheme().colors.disabledText; }
 	COLORREF getEdgeColor()				{ return getTheme().colors.edge; }
 
 	HBRUSH getBackgroundBrush()			{ return getTheme().brushes.background; }
 	HBRUSH getSofterBackgroundBrush()	{ return getTheme().brushes.softerBackground; }
 	HBRUSH getHotBackgroundBrush()		{ return getTheme().brushes.hotBackground; }
-	HBRUSH getDarkerBackgroundBrush()		{ return getTheme().brushes.pureBackground; }
+	HBRUSH getDarkerBackgroundBrush()	{ return getTheme().brushes.pureBackground; }
 	HBRUSH getErrorBackgroundBrush()	{ return getTheme().brushes.errorBackground; }
 
 	// handle events
@@ -350,6 +353,34 @@ namespace NppDarkMode
 		}
 	}
 
+	void drawUAHMenuNCBottomLine(HWND hWnd)
+	{
+		MENUBARINFO mbi = { sizeof(mbi) };
+		if (!GetMenuBarInfo(hWnd, OBJID_MENU, 0, &mbi))
+		{
+			return;
+		}
+
+		RECT rcClient = { 0 };
+		GetClientRect(hWnd, &rcClient);
+		MapWindowPoints(hWnd, nullptr, (POINT*)&rcClient, 2);
+
+		RECT rcWindow = { 0 };
+		GetWindowRect(hWnd, &rcWindow);
+
+		OffsetRect(&rcClient, -rcWindow.left, -rcWindow.top);
+
+		// the rcBar is offset by the window rect
+		RECT rcAnnoyingLine = rcClient;
+		rcAnnoyingLine.bottom = rcAnnoyingLine.top;
+		rcAnnoyingLine.top--;
+
+
+		HDC hdc = GetWindowDC(hWnd);
+		FillRect(hdc, &rcAnnoyingLine, NppDarkMode::getDarkerBackgroundBrush());
+		ReleaseDC(hWnd, hdc);
+	}
+
 	// from DarkMode.h
 
 	void initExperimentalDarkMode(bool fixDarkScrollbar, bool dark)
@@ -464,6 +495,11 @@ namespace NppDarkMode
 
 		DTTOPTS dtto = { sizeof(DTTOPTS), DTT_TEXTCOLOR };
 		dtto.crText = NppDarkMode::getTextColor();
+
+		if (nStyle & WS_DISABLED)
+		{
+			dtto.crText = NppDarkMode::getDisabledTextColor();
+		}
 
 		DrawThemeTextEx(hTheme, hdc, iPartID, iStateID, szText, -1, dtFlags, &rcText, &dtto);
 
@@ -619,6 +655,15 @@ namespace NppDarkMode
 			case WM_SIZE:
 			case WM_DESTROY:
 				BufferedPaintStopAllAnimations(hWnd);
+				break;
+			case WM_ENABLE:
+				if (NppDarkMode::isEnabled())
+				{
+					// skip the button's normal wndproc so it won't redraw out of wm_paint
+					LRESULT lr = DefWindowProc(hWnd, uMsg, wParam, lParam);
+					InvalidateRect(hWnd, nullptr, FALSE);
+					return lr;
+				}
 				break;
 		}
 		return DefSubclassProc(hWnd, uMsg, wParam, lParam);
@@ -993,5 +1038,82 @@ namespace NppDarkMode
 	{
 		autoSubclassAndThemeChildControls(hwndParent, false, true); 
 	}
-}
 
+	void setDarkTitleBar(HWND hwnd)
+	{
+		bool useDark = NppDarkMode::isExperimentalEnabled() && NppDarkMode::isEnabled();
+
+		NppDarkMode::allowDarkModeForWindow(hwnd, useDark);
+		SetWindowTheme(hwnd, useDark ? L"Explorer" : nullptr, nullptr);
+
+		NppDarkMode::setTitleBarThemeColor(hwnd, useDark);
+	}
+
+	void setDarkTooltips(HWND hwnd, ToolTipsType type)
+	{
+		UINT msg = 0;
+		switch (type)
+		{
+			case NppDarkMode::ToolTipsType::toolbar:
+				msg = TB_GETTOOLTIPS;
+				break;
+			case NppDarkMode::ToolTipsType::listview:
+				msg = LVM_GETTOOLTIPS;
+				break;
+			case NppDarkMode::ToolTipsType::treeview:
+				msg = TVM_GETTOOLTIPS;
+				break;
+			case NppDarkMode::ToolTipsType::tabbar:
+				msg = TCM_GETTOOLTIPS;
+				break;
+			default:
+				msg = 0;
+				break;
+		}
+
+		if (msg == 0)
+		{
+			SetWindowTheme(hwnd, NppDarkMode::isEnabled() ? L"DarkMode_Explorer" : nullptr, nullptr);
+		}
+		else
+		{
+			auto hTips = reinterpret_cast<HWND>(::SendMessage(hwnd, msg, 0, 0));
+			if (hTips != nullptr)
+			{
+				SetWindowTheme(hTips, NppDarkMode::isEnabled() ? L"DarkMode_Explorer" : nullptr, nullptr);
+			}
+		}
+	}
+
+	void setDarkLineAbovePanelToolbar(HWND hwnd)
+	{
+		COLORSCHEME scheme;
+		scheme.dwSize = sizeof(COLORSCHEME);
+
+		if (NppDarkMode::isEnabled())
+		{
+			scheme.clrBtnHighlight = NppDarkMode::getBackgroundColor();
+			scheme.clrBtnShadow = NppDarkMode::getBackgroundColor();
+		}
+		else
+		{
+			scheme.clrBtnHighlight = CLR_DEFAULT;
+			scheme.clrBtnShadow = CLR_DEFAULT;
+		}
+
+		::SendMessage(hwnd, TB_SETCOLORSCHEME, 0, reinterpret_cast<LPARAM>(&scheme));
+	}
+
+	void setExplorerTheme(HWND hwnd, bool doEnable)
+	{
+		if (doEnable)
+		{
+			NppDarkMode::allowDarkModeForWindow(hwnd, NppDarkMode::isEnabled() && NppDarkMode::isExperimentalEnabled());
+			SetWindowTheme(hwnd, L"Explorer", nullptr);
+		}
+		else
+		{
+			SetWindowTheme(hwnd, L"", L"");
+		}
+	}
+}

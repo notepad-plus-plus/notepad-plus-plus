@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2021-05-13 by schnurlos (schnurlos@gmail.com)
+	last modified: 2021-06-06 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="7.9.6">
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.0.0">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -331,7 +331,6 @@
 					<Item id="47002" name="Notepad++ bei &amp;GitHub"/>
 					<Item id="47003" name="Online-Dokumentation"/>
 					<Item id="47004" name="Notepad++ Online-Forum"/>
-					<Item id="47011" name="&amp;Support im Chat"/>
 					<Item id="47012" name="Debug-Info"/>
 					<Item id="47005" name="&amp;Erweiterungen"/>
 					<Item id="47006" name="Notepad++ &amp;aktualisieren"/>
@@ -1447,6 +1446,7 @@ Finde in allen Dateien außer exe, obj &amp;&amp; log:
 			<session-save-folder-as-workspace value="Verzeichnis als Arbeitsbereich speichern" />
 			<tab-untitled-string value="neu " />
 			<file-save-assign-type value="Erweiterung &amp;anfügen" />
+			<close-panel-tip value="Schließen" />
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

@@ -1,11 +1,11 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-    Italian translation for Notepad++ 7.9.4
-    Last modified Wed, March 10th, 2021.
+    Italian translation for Notepad++ 8.0.0
+    Last modified Sat, June 5th, 2021.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 <NotepadPlus>
-    <Native-Langue name = "Italiano" filename = "italian.xml" version = "7.9.3">
+    <Native-Langue name = "Italiano" filename = "italian.xml" version = "8.0.0">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -38,8 +38,9 @@
                     <Item subMenuId="edit-blankOperations" name="Operazioni sugli spazi"/>
                     <Item subMenuId="edit-pasteSpecial" name="Incolla speciale"/>
                     <Item subMenuId="edit-onSelection" name="Testo selezionato"/>
-                    <Item subMenuId="search-markAll" name="Marca tutti"/>
-                    <Item subMenuId="search-unmarkAll" name="Rimuovi marcatura"/>
+                    <Item subMenuId="search-markAll" name="Evidenzia tutti"/>
+                    <Item subMenuId="search-markOne" name="Evidenziane &amp;uno"/>
+                    <Item subMenuId="search-unmarkAll" name="Rimuovi evidenziazione"/>
                     <Item subMenuId="search-jumpUp" name="Vai su"/>
                     <Item subMenuId="search-jumpDown" name="Vai giù"/>
                     <Item subMenuId="search-copyStyledText" name="Copia il testo in stile"/>
@@ -130,6 +131,7 @@
                     <Item id="42064" name="Ordina righe come valori decimali (virgola) in modo decrescente"/>
                     <Item id="42065" name="Ordina righe come valori decimali (punto) in modo crescente"/>
                     <Item id="42066" name="Ordina righe come valori decimali (punto) in modo decrescente"/>
+                    <Item id="42083" name="Inverti l'ordine delle righe"/>
                     <Item id="42078" name="Ordina righe in modo casuale"/>
                     <Item id="42016" name="TUTTO MAIUSCOLE"/>
                     <Item id="42017" name="tutto minuscole"/>
@@ -234,6 +236,11 @@
                     <Item id="43059" name="5º stile"/>
                     <Item id="43060" name="Tutti gli stili"/>
                     <Item id="43061" name="Trova stile (Evidenziata)"/>
+                    <Item id="43062" name="Che utilizza il 1° stile"/>
+                    <Item id="43063" name="Che utilizza il 2° stile"/>
+                    <Item id="43064" name="Che utilizza il 3° stile"/>
+                    <Item id="43065" name="Che utilizza il 4° stile"/>
+                    <Item id="43066" name="Che utilizza il 5° stile"/>
                     <Item id="43045" name="Finestra risultati di ricerca"/>
                     <Item id="43046" name="Risultato di ricerca successivo"/>
                     <Item id="43047" name="Risultato di ricerca precedente"/>
@@ -242,6 +249,7 @@
                     <Item id="43054" name="Evidenzia..."/>
                     <Item id="44009" name="Modalità Post-it"/>
                     <Item id="44010" name="Comprimi tutte le strutture"/>
+                    <Item id="44011" name="Modalità senza distrazioni"/>
                     <Item id="44019" name="Visualizza tutti i caratteri"/>
                     <Item id="44020" name="Visualizza guide di indentazione"/>
                     <Item id="44022" name="Attiva a capo automatico"/>
@@ -285,14 +293,14 @@
                     <Item id="45003" name="Formato Macintosh (CR)"/>
                     <Item id="45004" name="Codifica in ANSI"/>
                     <Item id="45005" name="Codifica in UTF-8-BOM"/>
-                    <Item id="45006" name="Codifica in UCS-2 BE BOM"/>
-                    <Item id="45007" name="Codifica in UCS-2 LE BOM"/>
+                    <Item id="45006" name="Codifica in UTF-16 BE BOM"/>
+                    <Item id="45007" name="Codifica in UTF-16 LE BOM"/>
                     <Item id="45008" name="Codifica in UTF-8"/>
                     <Item id="45009" name="Converti in ANSI"/>
                     <Item id="45010" name="Converti in UTF-8"/>
                     <Item id="45011" name="Converti in UTF-8-BOM"/>
-                    <Item id="45012" name="Converti in UCS-2 BE BOM"/>
-                    <Item id="45013" name="Converti in UCS-2 LE BOM"/>
+                    <Item id="45012" name="Converti in UTF-16 BE BOM"/>
+                    <Item id="45013" name="Converti in UTF-16 LE BOM"/>
                     <Item id="45060" name="Big5 (tradizionale)"/>
                     <Item id="45061" name="GB2312 (semplificato)"/>
                     <Item id="45054" name="OEM 861: Islandese"/>
@@ -315,7 +323,6 @@
                     <Item id="47002" name="Progetto Notepad++"/>
                     <Item id="47003" name="Documentazione online"/>
                     <Item id="47004" name="Community Notepad++ (Forum)"/>
-                    <Item id="47011" name="Supporto Live"/>
                     <Item id="47012" name="Informazioni di debug..."/>
                     <Item id="47005" name="Ottieni altri plugin"/>
                     <Item id="47006" name="Aggiorna Notepad++"/>
@@ -418,7 +425,7 @@
                 <Item id="1703" name="&amp;. significa &apos;a capo&apos;"/>
                 <Item id="1721" name="▲"/>
                 <Item id="1723" name="▼ Trova successivo"/>
-                <Item id="1725" name= "Copia il testo marcato negli appunti"/>
+                <Item id="1725" name= "Copia il testo evidenziato"/>
             </Find>
 
             <FindCharsInRange title="Cerca caratteri...">
@@ -539,11 +546,16 @@
                     <Item id="45001" name="Fine riga in formato Windows (CR+LF)"/>
                     <Item id="45002" name="Fine riga in formato UNIX (LF)"/>
                     <Item id="45003" name="Fine riga in formato Macintosh (CR)"/>
-                    <Item id="43022" name="Segna il testo usando il 1º stile"/>
-                    <Item id="43024" name="Segna il testo usando il 2º stile"/>
-                    <Item id="43026" name="Segna il testo usando il 3º stile"/>
-                    <Item id="43028" name="Segna il testo usando il 4º stile"/>
-                    <Item id="43030" name="Segna il testo usando il 5º stile"/>
+                    <Item id="43022" name="Evidenzia tutto il testo usando il 1º stile"/>
+                    <Item id="43024" name="Evidenzia tutto il testo usando il 2º stile"/>
+                    <Item id="43026" name="Evidenzia tutto il testo usando il 3º stile"/>
+                    <Item id="43028" name="Evidenzia tutto il testo usando il 4º stile"/>
+                    <Item id="43030" name="Evidenzia tutto il testo usando il 5º stile"/>
+                    <Item id="43062" name="Evidenziane uno usando il 1° stile"/>
+                    <Item id="43063" name="Evidenziane uno usando il 2° stile"/>
+                    <Item id="43064" name="Evidenziane uno usando il 3° stile"/>
+                    <Item id="43065" name="Evidenziane uno usando il 4° stile"/>
+                    <Item id="43066" name="Evidenziane uno usando il 5° stile"/>
                     <Item id="43023" name="Pulisci i segni che utilizzano il 1º stile"/>
                     <Item id="43025" name="Pulisci i segni che utilizzano il 2º stile"/>
                     <Item id="43027" name="Pulisci i segni che utilizzano il 3º stile"/>
@@ -790,8 +802,10 @@
                 <Global title="Generale">
                     <Item id="6101" name="Barra strumenti"/>
                     <Item id="6102" name="Nascondi"/>
-                    <Item id="6103" name="Icone piccole"/>
-                    <Item id="6104" name="Icone grandi"/>
+                    <Item id="6103" name="Fluent UI: Icone piccole"/>
+                    <Item id="6104" name="Fluent UI: Icone grandi"/>
+                    <Item id="6129" name="Filled Fluent UI: Icone piccole"/>
+                    <Item id="6130" name="Filled Fluent UI: Icone grandi"/>
                     <Item id="6105" name="Icone standard"/>
 
                     <Item id="6106" name="Barra schede"/>
@@ -835,6 +849,11 @@
                     <Item id="6239" name="Mantieni la selezione quando clicchi con il destro fuori da essa"/>
                 </Scintillas>
 
+               <DarkMode title="Modalità scura">
+                            <Item id="7101" name="Abilità modalità scura"/>
+                            <Item id="7106" name="* La modifica avrà effetto completo solo dopo il riavvio di Notepad++"/>
+               </DarkMode>
+
                 <MarginsBorderEdge title="Margini e Bordi">
                     <Item id="6201" name="Stile Raggruppamenti"/>
                     <Item id="6202" name="Semplice"/>
@@ -853,6 +872,10 @@
 Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i diversi numeri."/>
                     <Item id="6231" name="Spessore Bordo Editor"/>
                     <Item id="6235" name="Nessun bordo"/>
+                    <Item id="6208" name="Padding"/>
+                     <Item id="6209" name="Sinistra"/>
+                     <Item id="6210" name="Destra"/>
+                     <Item id="6212" name="Anti Distrazione"/>
                 </MarginsBorderEdge>
 
                 <NewDoc title="Nuovo documento">
@@ -864,8 +887,8 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
                     <Item id="6406" name="ANSI"/>
                     <Item id="6407" name="UTF-8"/>
                     <Item id="6408" name="UTF-8 con BOM"/>
-                    <Item id="6409" name="UCS-2 Big Endian con BOM"/>
-                    <Item id="6410" name="UCS-2 Little Endian con BOM"/>
+                    <Item id="6409" name="UTF-16 Big Endian con BOM"/>
+                    <Item id="6410" name="UTF-16 Little Endian con BOM"/>
                     <Item id="6411" name="Linguaggio predefinito:"/>
                     <Item id="6419" name="Nuovo Documento"/>
                     <Item id="6420" name="Applica all&apos;apertura di file ANSI"/>
@@ -896,8 +919,12 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
                 </Language>
 
                 <Highlighting title="Evidenziazione">
+                    <Item id="6351" name="Evidenzia tutto"/>
+                     <Item id="6352" name="L&apos;evidenziazione è case-sensitive"/>
+                     <Item id="6353" name="Identifica solo parole intere"/>
                     <Item id="6333" name="Evidenziazione Intelligente"/>
                     <Item id="6326" name="Abilita"/>
+                    <Item id="6354" name="Corrispondente"/>
                     <Item id="6332" name="L&apos;evidenziazione è case-sensitive"/>
                     <Item id="6338" name="Identifica solo parole intere"/>
                     <Item id="6339" name="Utilizza impostazioni finestra di ricerca"/>
@@ -943,6 +970,7 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
                     <Item id="6902" name="Usa carattere a spaziatura fissa nella finestra di ricerca (necessita riavvio di Notepad++)"/>
                     <Item id="6903" name="La finestra di ricerca rimane aperta dopo ricerche inviate alla finestra dei risultati"/>
                     <Item id="6904" name="Chiedi conferma prima di sostituire tutto in tutti i documenti"/>
+                    <Item id="6905" name="Sostituisci: senza spostamento all'occorrenza successiva"/>
                 </Searching>
 
                 <RecentFilesHistory title="File recenti">
@@ -1045,7 +1073,6 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
                     <Item id="6325" name="Vai all&apos;ultima riga dopo l&apos;aggiornamento"/>
                     <Item id="6322" name="Est. file di sessione:"/>
                     <Item id="6323" name="Aggiorna automaticamente Notepad++"/>
-                    <Item id="6351" name="Imposta il filtro dell'estensione della finestra di dialogo a .*"/>
                     <Item id="6324" name="Cambia Documento (Ctrl+TAB)"/>
                     <Item id="6331" name="Visualizza solo nome file nella barra del titolo"/>
                     <Item id="6334" name="Rileva automaticamente codifica caratteri"/>
@@ -1330,6 +1357,7 @@ Cerca in tutti i file eccetto exe, obj &amp;&amp; log:
             <find-status-replaceinopenedfiles-nb-replaced value="Sostituisci nei file aperti: $INT_REPLACE$ occorrenze sono state sostituite"/>
             <find-status-mark-re-malformed value="Evidenzia: l&apos;espressione regolare da cercare non è valida"/>
             <find-status-invalid-re value="Cerca: espressione regolare non valida"/>
+            <find-status-search-failed value="Cerca: ricerca fallita"/>
             <find-status-mark-1-match value="Evidenzia: 1 corrispondenza trovata"/>
             <find-status-mark-nb-matches value="Evidenzia: $INT_REPLACE$ corrispondenze trovate"/>
             <find-status-count-re-malformed value="Conta: l&apos;espressione regolare da cercare non è valida"/>
@@ -1342,6 +1370,7 @@ Cerca in tutti i file eccetto exe, obj &amp;&amp; log:
             <find-status-replace-end-reached value="Sostituisci: sostituita la prima occorrenza dall&apos;alto. È stata raggiunta la fine del documento"/>
             <find-status-replace-top-reached value="Sostituisci: sostituita la prima occorrenza dal basso. È stato raggiunto l&apos;inizio del documento"/>
             <find-status-replaced-next-found value="Sostituisci: 1 occorrenza è stata sostituita. Trovata l'occorrenza successiva"/>
+            <find-status-replaced-without-continuing value="Sostituisci: 1 occorrenza è stata sostituita."/>
             <find-status-replaced-next-not-found value="Sostituisci: 1 occorrenza è stata sostituita. Nessuna occorrenza successiva"/>
             <find-status-replace-not-found value="Sostituisci: nessuna occorrenza trovata"/>
             <find-status-replace-readonly value="Sostituisci: impossibile sostituire il testo. Il documento attuale è in sola lettura"/>
@@ -1356,9 +1385,11 @@ Cerca in tutti i file eccetto exe, obj &amp;&amp; log:
             <finder-uncollapse-all value="Espandi tutto"/>
             <finder-copy value="Copia righe selezionate"/>
             <finder-copy-verbatim value="Copia"/>
+            <finder-copy-paths value="Copia Percorso/i"/>
             <finder-select-all value="Seleziona tutto"/>
             <finder-clear-all value="Pulisci tutto"/>
             <finder-open-all value="Apri tutto"/>
+            <finder-purge-for-every-search value="Pulisci per ogni ricerca"/>
             <finder-wrap-long-lines value="A capo nelle righe lunghe"/>
             <common-ok value="OK"/>
             <common-cancel value="Annulla"/>
@@ -1403,6 +1434,8 @@ Cerca in tutti i file eccetto exe, obj &amp;&amp; log:
             <find-result-line-prefix value="Righe"/> <!-- Must not begin with space or tab character -->
             <find-regex-zero-length-match value="nessun risultato trovato"/>
             <session-save-folder-as-workspace value="Salva Cartella come Workspace"/>
+            <tab-untitled-string value="nuovo " />
+             <file-save-assign-type value="&amp;Accoda estension" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

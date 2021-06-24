@@ -1104,9 +1104,13 @@ namespace NppDarkMode
 		::SendMessage(hwnd, TB_SETCOLORSCHEME, 0, reinterpret_cast<LPARAM>(&scheme));
 	}
 
-	void setExplorerTheme(HWND hwnd, bool doEnable)
+	void setExplorerTheme(HWND hwnd, bool doEnable, bool isTreeView)
 	{
-		if (doEnable)
+		if (isTreeView)
+		{
+			SetWindowTheme(hwnd, nullptr, nullptr);
+		}
+		else if (doEnable)
 		{
 			NppDarkMode::allowDarkModeForWindow(hwnd, NppDarkMode::isEnabled() && NppDarkMode::isExperimentalEnabled());
 			SetWindowTheme(hwnd, L"Explorer", nullptr);

@@ -671,6 +671,112 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 
 	switch (Message)
 	{
+		case WM_ERASEBKGND:
+		{
+			if (!NppDarkMode::isEnabled())
+			{
+				break;
+			}
+
+			return TRUE;
+		}
+
+		case WM_PAINT:
+		{
+			if (!NppDarkMode::isEnabled())
+			{
+				break;
+			}
+
+			LONG_PTR dwStyle = GetWindowLongPtr(hwnd, GWL_STYLE);
+			if (!(dwStyle & TCS_OWNERDRAWFIXED))
+			{
+				break;
+			}
+
+			PAINTSTRUCT ps;
+			HDC hdc = BeginPaint(hwnd, &ps);
+			FillRect(hdc, &ps.rcPaint, NppDarkMode::getBackgroundBrush());
+
+			UINT id = ::GetDlgCtrlID(hwnd);
+
+			static HPEN g_hpen = CreatePen(PS_SOLID, 1, NppDarkMode::getEdgeColor());
+
+			HPEN holdPen = (HPEN)SelectObject(hdc, g_hpen);
+
+			HRGN holdClip = CreateRectRgn(0, 0, 0, 0);
+			if (1 != GetClipRgn(hdc, holdClip))
+			{
+				DeleteObject(holdClip);
+				holdClip = nullptr;
+			}
+
+			int nTabs = TabCtrl_GetItemCount(hwnd);
+			int nFocusTab = TabCtrl_GetCurFocus(hwnd);
+			int nSelTab = TabCtrl_GetCurSel(hwnd);
+			for (int i = 0; i < nTabs; ++i)
+			{
+				DRAWITEMSTRUCT dis = { ODT_TAB, id, (UINT)i, ODA_DRAWENTIRE, ODS_DEFAULT, hwnd, hdc };
+				TabCtrl_GetItemRect(hwnd, i, &dis.rcItem);
+
+				if (i == nFocusTab)
+				{
+					dis.itemState |= ODS_FOCUS;
+				}
+				if (i == nSelTab)
+				{
+					dis.itemState |= ODS_SELECTED;
+				}
+
+				dis.itemState |= ODS_NOFOCUSRECT; // maybe, does it handle it already?
+
+				RECT rcIntersect = { 0 };
+				if (IntersectRect(&rcIntersect, &ps.rcPaint, &dis.rcItem))
+				{
+					if (i == 0)
+					{
+						POINT edges[] = {
+							{dis.rcItem.left - 1, dis.rcItem.top},
+							{dis.rcItem.left - 1, dis.rcItem.bottom + 2}
+						};
+						Polyline(hdc, edges, _countof(edges));
+					}
+					
+					{
+						POINT edges[] = {
+							{dis.rcItem.right - 1, dis.rcItem.top},
+							{dis.rcItem.right - 1, dis.rcItem.bottom + 2}
+						};
+						Polyline(hdc, edges, _countof(edges));
+						dis.rcItem.right -= 1;
+						dis.rcItem.bottom += 2;
+					}
+
+					HRGN hClip = CreateRectRgnIndirect(&dis.rcItem);
+
+					SelectClipRgn(hdc, hClip);
+
+					drawTabItem(&dis);
+
+					DeleteObject(hClip);
+
+					SelectClipRgn(hdc, holdClip);
+				}
+			}
+
+			SelectClipRgn(hdc, holdClip);
+			if (holdClip)
+			{
+				DeleteObject(holdClip);
+				holdClip = nullptr;
+			}
+
+			SelectObject(hdc, holdPen);
+
+			EndPaint(hwnd, &ps);
+			return 0;
+		}
+
 		case WM_LBUTTONDOWN:
 		{
 			_beginDrag	= TRUE;
@@ -742,8 +848,8 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 				NotifyParent(DMM_MOVE);
 				_beginDrag = FALSE;
 			}
-            else
-            {
+			else
+			{
 				int	iItemSel = static_cast<int32_t>(::SendMessage(hwnd, TCM_GETCURSEL, 0, 0));
 
 				if ((_bTabTTHover == FALSE) && (iItem != iItemSel))
@@ -878,20 +984,27 @@ void DockingCont::drawTabItem(DRAWITEMSTRUCT *pDrawItemStruct)
 	rc.top += ::GetSystemMetrics(SM_CYEDGE);
 
 	::SetBkMode(hDc, TRANSPARENT);
-	HBRUSH hBrush = ::CreateSolidBrush(::GetSysColor(COLOR_BTNFACE));
-	::FillRect(hDc, &rc, hBrush);
-	::DeleteObject((HGDIOBJ)hBrush);
+	HBRUSH hBrush;
+
+	if (NppDarkMode::isEnabled() && isSelected)
+	{
+		RECT selectedRect = rc;
+		selectedRect.top -= NppParameters::getInstance()._dpiManager.scaleY(2);
+		selectedRect.bottom += NppParameters::getInstance()._dpiManager.scaleX(4);
+		hBrush = ::CreateSolidBrush(NppDarkMode::getSofterBackgroundColor());
+		::FillRect(hDc, &selectedRect, hBrush);
+		::DeleteObject((HGDIOBJ)hBrush);
+	}
 
 	// draw orange bar
-	if (_bDrawOgLine && isSelected)
+	if (!NppDarkMode::isEnabled() && _bDrawOgLine && isSelected)
 	{
-		RECT barRect  = rc;
-		barRect.top  += rc.bottom - 4;
+		RECT barRect = rc;
+		barRect.top += rc.bottom - 4;
 
 		hBrush = ::CreateSolidBrush(RGB(250, 170, 60));
 		::FillRect(hDc, &barRect, hBrush);
 		::DeleteObject((HGDIOBJ)hBrush);
-
 	}
 
 	// draw icon if enabled
@@ -921,7 +1034,7 @@ void DockingCont::drawTabItem(DRAWITEMSTRUCT *pDrawItemStruct)
 	if (isSelected)
 	{
 		COLORREF _unselectedColor = RGB(0, 0, 0);
-		::SetTextColor(hDc, _unselectedColor);
+		::SetTextColor(hDc, NppDarkMode::isEnabled() ? NppDarkMode::getTextColor() : _unselectedColor);
 
 		// draw text
 		rc.top -= ::GetSystemMetrics(SM_CYEDGE);
@@ -991,8 +1104,12 @@ INT_PTR CALLBACK DockingCont::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lP
 			// draw tab or caption
 			if (reinterpret_cast<DRAWITEMSTRUCT *>(lParam)->CtlID == IDC_TAB_CONT)
 			{
-				drawTabItem(reinterpret_cast<DRAWITEMSTRUCT *>(lParam));
-				return TRUE;
+				if (!NppDarkMode::isEnabled())
+				{
+					drawTabItem(reinterpret_cast<DRAWITEMSTRUCT*>(lParam));
+					return TRUE;
+				}
+				break;
 			}
 			else
 			{

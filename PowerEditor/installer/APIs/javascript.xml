@@ -53,6 +53,7 @@
 		<KeyWord name="below" />
 		<KeyWord name="bgColor" />
 		<KeyWord name="big" />
+		<KeyWord name="BigInt" />
 		<KeyWord name="blink" />
 		<KeyWord name="blob" />
 		<KeyWord name="blur" />
@@ -144,6 +145,7 @@
 		<KeyWord name="defineProperty" />
 		<KeyWord name="defineProperties" />
 		<KeyWord name="delete" />
+		<KeyWord name="depth" />
 		<KeyWord name="description" />
 		<KeyWord name="detachEvent" />
 		<KeyWord name="dialogArguments" />
@@ -209,6 +211,8 @@
 		<KeyWord name="findIndex" />
 		<KeyWord name="firstChild" />
 		<KeyWord name="fixed" />
+		<KeyWord name="flat" />
+		<KeyWord name="flatMap" />
 		<KeyWord name="float" />
 		<KeyWord name="floor" />
 		<KeyWord name="focus" />
@@ -273,6 +277,7 @@
 		<KeyWord name="getUTCSeconds" />
 		<KeyWord name="getYear" />
 		<KeyWord name="global" />
+		<KeyWord name="globalThis" />
 		<KeyWord name="go" />
 		<KeyWord name="goto" />
 		<KeyWord name="handleEvent" />
@@ -535,7 +540,6 @@
 		<KeyWord name="plugins" />
 		<KeyWord name="plugins.refresh" />
 		<KeyWord name="pop" />
-		<KeyWord name="pow" />
 		<KeyWord name="port" />
 		<KeyWord name="POSITIVE_INFINITY" />
 		<KeyWord name="pow" />

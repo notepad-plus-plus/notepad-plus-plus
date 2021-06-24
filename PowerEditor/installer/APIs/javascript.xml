@@ -12,9 +12,11 @@
 		<KeyWord name="align" />
 		<KeyWord name="aLinkcolor" />
 		<KeyWord name="all" />
+		<KeyWord name="allSettled" />
 		<KeyWord name="Anchor" />
 		<KeyWord name="anchor" />
 		<KeyWord name="anchors" />
+		<KeyWord name="any" />
 		<KeyWord name="appCodeName" />
 		<KeyWord name="appCore" />
 		<KeyWord name="appendChild" />
@@ -37,6 +39,7 @@
 		<KeyWord name="atan" />
 		<KeyWord name="atan2" />
 		<KeyWord name="atob" />
+		<KeyWord name="Atomics" />
 		<KeyWord name="attachEvent" />
 		<KeyWord name="attributes" />
 		<KeyWord name="availHeight" />
@@ -159,6 +162,7 @@
 		<KeyWord name="disconnect" />
 		<KeyWord name="dispatchEvent" />
 		<KeyWord name="display" />
+		<KeyWord name="DisplayNames" />
 		<KeyWord name="do" />
 		<KeyWord name="doctype" />
 		<KeyWord name="document" />
@@ -205,6 +209,7 @@
 		<KeyWord name="FileUpload" />
 		<KeyWord name="filter" />
 		<KeyWord name="final" />
+		<KeyWord name="FinalizationRegistry" />
 		<KeyWord name="finally" />
 		<KeyWord name="find" />
 		<KeyWord name="findAll" />
@@ -234,6 +239,7 @@
 		<KeyWord name="freeze" />
 		<KeyWord name="from" />
 		<KeyWord name="fromCharCode" />
+		<KeyWord name="fromEntries" />
 		<KeyWord name="Function" />
 		<KeyWord name="function" />
 		<KeyWord name="get" />
@@ -339,6 +345,7 @@
 		<KeyWord name="JavaObject" />
 		<KeyWord name="JavaPackage" />
 		<KeyWord name="join" />
+		<KeyWord name="JSON" />
 		<KeyWord name="keys" />
 		<KeyWord name="language" />
 		<KeyWord name="lastChild" />
@@ -361,6 +368,7 @@
 		<KeyWord name="Link" />
 		<KeyWord name="linkColor" />
 		<KeyWord name="links" />
+		<KeyWord name="ListFormat" />
 		<KeyWord name="listStyleType" />
 		<KeyWord name="LN10" />
 		<KeyWord name="LN2" />
@@ -384,6 +392,7 @@
 		<KeyWord name="margins" />
 		<KeyWord name="marginTop" />
 		<KeyWord name="match" />
+		<KeyWord name="matchAll" />
 		<KeyWord name="matches" />
 		<KeyWord name="matchesSelector" />
 		<KeyWord name="Math" />
@@ -421,9 +430,11 @@
 		<KeyWord name="nodeName" />
 		<KeyWord name="nodeType" />
 		<KeyWord name="nodeValue" />
+		<KeyWord name="notify" />
 		<KeyWord name="now" />
 		<KeyWord name="null" />
 		<KeyWord name="Number" />
+		<KeyWord name="NumberFormat" />
 		<KeyWord name="Object" />
 		<KeyWord name="observe" />
 		<KeyWord name="of" />
@@ -539,6 +550,7 @@
 		<KeyWord name="Plugin" />
 		<KeyWord name="plugins" />
 		<KeyWord name="plugins.refresh" />
+		<KeyWord name="PluralRules" />
 		<KeyWord name="pop" />
 		<KeyWord name="port" />
 		<KeyWord name="POSITIVE_INFINITY" />
@@ -567,6 +579,7 @@
 		<KeyWord name="queryCommandValue" />
 		<KeyWord name="querySelector" />
 		<KeyWord name="querySelectorAll" />
+		<KeyWord name="race" />
 		<KeyWord name="Radio" />
 		<KeyWord name="random" />
 		<KeyWord name="readyState" />
@@ -576,6 +589,7 @@
 		<KeyWord name="reject" />
 		<KeyWord name="referrer" />
 		<KeyWord name="RegExp" />
+		<KeyWord name="RelativeTimeFormat" />
 		<KeyWord name="releaseCapture" />
 		<KeyWord name="releaseEvents" />
 		<KeyWord name="reload" />
@@ -586,6 +600,7 @@
 		<KeyWord name="removeEventListener" />
 		<KeyWord name="removeNamedItem" />
 		<KeyWord name="replace" />
+		<KeyWord name="replaceAll" />
 		<KeyWord name="Reset" />
 		<KeyWord name="reset" />
 		<KeyWord name="resizeBy" />
@@ -747,6 +762,8 @@
 		<KeyWord name="toUTCString" />
 		<KeyWord name="transient" />
 		<KeyWord name="trim" />
+		<KeyWord name="trimEnd" />
+		<KeyWord name="trimStart" />
 		<KeyWord name="true" />
 		<KeyWord name="trunc" />
 		<KeyWord name="try" />
@@ -779,7 +796,12 @@
 		<KeyWord name="void" />
 		<KeyWord name="volatile" />
 		<KeyWord name="vspace" />
+		<KeyWord name="wait" />
+		<KeyWord name="waitAsync" />
 		<KeyWord name="watch" />
+		<KeyWord name="WeakMap" />
+		<KeyWord name="WeakRef" />
+		<KeyWord name="WeakSets" />
 		<KeyWord name="while" />
 		<KeyWord name="whiteSpace" />
 		<KeyWord name="width" />

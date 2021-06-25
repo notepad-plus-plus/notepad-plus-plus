@@ -678,9 +678,6 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 				break;
 			}
 
-			RECT rc = { 0 };
-			::GetClientRect(hwnd, &rc);
-			::FillRect((HDC)wParam, &rc, NppDarkMode::getBackgroundBrush());
 			return TRUE;
 		}
 
@@ -714,8 +711,6 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 				holdClip = nullptr;
 			}
 
-			//int topBarHeight = NppParameters::getInstance()._dpiManager.scaleX(4);
-
 			int nTabs = TabCtrl_GetItemCount(hwnd);
 			int nFocusTab = TabCtrl_GetCurFocus(hwnd);
 			int nSelTab = TabCtrl_GetCurSel(hwnd);
@@ -738,6 +733,15 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 				RECT rcIntersect = { 0 };
 				if (IntersectRect(&rcIntersect, &ps.rcPaint, &dis.rcItem))
 				{
+					if (i == 0)
+					{
+						POINT edges[] = {
+							{dis.rcItem.left - 1, dis.rcItem.top},
+							{dis.rcItem.left - 1, dis.rcItem.bottom + 2}
+						};
+						Polyline(hdc, edges, _countof(edges));
+					}
+					
 					{
 						POINT edges[] = {
 							{dis.rcItem.right - 1, dis.rcItem.top},
@@ -1103,8 +1107,9 @@ INT_PTR CALLBACK DockingCont::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lP
 				if (!NppDarkMode::isEnabled())
 				{
 					drawTabItem(reinterpret_cast<DRAWITEMSTRUCT*>(lParam));
+					return TRUE;
 				}
-				return TRUE;
+				break;
 			}
 			else
 			{

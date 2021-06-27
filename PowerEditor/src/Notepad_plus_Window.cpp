@@ -205,7 +205,6 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
     {
 		appDataThemeDir = nppParams.getAppDataNppDir();
 	    PathAppend(appDataThemeDir, TEXT("themes\\"));
-		themeSwitcher.setThemeDirPath(appDataThemeDir);
 	    _notepad_plus_plus_core.getMatchedFileNames(appDataThemeDir.c_str(), patterns, fileNames, false, false);
 	    for (size_t i = 0, len = fileNames.size() ; i < len ; ++i)
 	    {
@@ -219,8 +218,8 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	nppThemeDir = nppDir.c_str(); // <- should use the pointer to avoid the constructor of copy
 	PathAppend(nppThemeDir, TEXT("themes\\"));
 
-	if (themeSwitcher.getThemeDirPath().empty())
-		themeSwitcher.setThemeDirPath(nppThemeDir);
+	// Set theme directory to their installation directory
+	themeSwitcher.setThemeDirPath(nppThemeDir);
 
 	_notepad_plus_plus_core.getMatchedFileNames(nppThemeDir.c_str(), patterns, fileNames, false, false);
 	for (size_t i = 0, len = fileNames.size(); i < len ; ++i)

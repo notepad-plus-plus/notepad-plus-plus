@@ -278,7 +278,10 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 							_isDirty = false;
 						}
 						_isThemeDirty = false;
-						(NppParameters::getInstance()).writeStyles(_lsArray, _globalStyles);
+						auto newSavedFilePath = (NppParameters::getInstance()).writeStyles(_lsArray, _globalStyles);
+						if (!newSavedFilePath.empty())
+							updateThemeName(newSavedFilePath);
+
 						::EnableWindow(::GetDlgItem(_hSelf, IDC_SAVECLOSE_BUTTON), FALSE);
 						//_isSync = true;
 						display(false);

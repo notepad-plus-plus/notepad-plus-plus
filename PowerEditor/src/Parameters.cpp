@@ -6929,7 +6929,7 @@ generic_string NppParameters::getWinVerBitStr() const
 	}
 }
 
-void NppParameters::writeStyles(LexerStylerArray & lexersStylers, StyleArray & globalStylers)
+generic_string NppParameters::writeStyles(LexerStylerArray & lexersStylers, StyleArray & globalStylers)
 {
 	TiXmlNode *lexersRoot = (_pXmlUserStylerDoc->FirstChild(TEXT("NotepadPlus")))->FirstChildElement(TEXT("LexerStyles"));
 	for (TiXmlNode *childNode = lexersRoot->FirstChildElement(TEXT("LexerType"));
@@ -7023,7 +7023,17 @@ void NppParameters::writeStyles(LexerStylerArray & lexersStylers, StyleArray & g
 		}
 	}
 
-	_pXmlUserStylerDoc->SaveFile();
+	bool isSaved = _pXmlUserStylerDoc->SaveFile();
+	if (!isSaved)
+	{
+		auto savePath = _themeSwitcher.getSavePathFrom(_pXmlUserStylerDoc->Value());
+		if (!savePath.empty())
+		{
+			_pXmlUserStylerDoc->SaveFile(savePath.c_str());
+			return savePath;
+		}
+	}
+	return TEXT("");
 }
 
 

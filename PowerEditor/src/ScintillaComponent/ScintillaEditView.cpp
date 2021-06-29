@@ -187,7 +187,7 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	}
 
 	Window::init(hInst, hPere);
-   _hSelf = ::CreateWindowEx(
+	_hSelf = ::CreateWindowEx(
 					0,\
 					TEXT("Scintilla"),\
 					TEXT("Notepad++"),\
@@ -203,10 +203,12 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 		throw std::runtime_error("ScintillaEditView::init : CreateWindowEx() function return null");
 	}
 
+	NppDarkMode::setDarkScrollBar(_hSelf);
+
 	_pScintillaFunc = (SCINTILLA_FUNC)::SendMessage(_hSelf, SCI_GETDIRECTFUNCTION, 0, 0);
 	_pScintillaPtr = (SCINTILLA_PTR)::SendMessage(_hSelf, SCI_GETDIRECTPOINTER, 0, 0);
 
-    _userDefineDlg.init(_hInst, _hParent, this);
+	_userDefineDlg.init(_hInst, _hParent, this);
 
 	if (!_pScintillaFunc)
 	{
@@ -218,10 +220,10 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 		throw std::runtime_error("ScintillaEditView::init : SCI_GETDIRECTPOINTER message failed");
 	}
 
-    execute(SCI_SETMARGINMASKN, _SC_MARGE_FOLDER, SC_MASK_FOLDERS);
-    showMargin(_SC_MARGE_FOLDER, true);
+	execute(SCI_SETMARGINMASKN, _SC_MARGE_FOLDER, SC_MASK_FOLDERS);
+	showMargin(_SC_MARGE_FOLDER, true);
 
-    execute(SCI_SETMARGINMASKN, _SC_MARGE_SYBOLE, (1<<MARK_BOOKMARK) | (1<<MARK_HIDELINESBEGIN) | (1<<MARK_HIDELINESEND) | (1<<MARK_HIDELINESUNDERLINE));
+	execute(SCI_SETMARGINMASKN, _SC_MARGE_SYBOLE, (1<<MARK_BOOKMARK) | (1<<MARK_HIDELINESBEGIN) | (1<<MARK_HIDELINESEND) | (1<<MARK_HIDELINESUNDERLINE));
 
 	execute(SCI_MARKERSETALPHA, MARK_BOOKMARK, 70);
 
@@ -344,6 +346,12 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 {
 	switch (Message)
 	{
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::setDarkScrollBar(_hSelf);
+			return TRUE;
+		}
+
 		case WM_MOUSEHWHEEL :
 		{
 			::CallWindowProc(_scintillaDefaultProc, hwnd, WM_HSCROLL, ((short)HIWORD(wParam) > 0)?SB_LINERIGHT:SB_LINELEFT, 0);

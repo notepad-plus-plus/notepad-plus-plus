@@ -84,6 +84,32 @@ void VerticalFileSwitcherListView::destroy()
 
 LRESULT VerticalFileSwitcherListView::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 {
+	switch (Message)
+	{
+		case WM_DRAWITEM:
+		{
+			DRAWITEMSTRUCT* pdis = (DRAWITEMSTRUCT*)lParam;
+
+			HDITEM hdi;
+			TCHAR  lpBuffer[256];
+
+			hdi.mask = HDI_TEXT;
+			hdi.pszText = lpBuffer;
+			hdi.cchTextMax = 256;
+
+			Header_GetItem(pdis->hwndItem, pdis->itemID, &hdi);
+
+			COLORREF textColor = RGB(0, 0, 0);
+			if (NppDarkMode::isEnabled())
+				textColor = NppDarkMode::getDarkerTextColor();
+
+			SetTextColor(pdis->hDC, textColor);
+			SetBkMode(pdis->hDC, TRANSPARENT);
+
+			::DrawText(pdis->hDC, lpBuffer, lstrlen(lpBuffer), &(pdis->rcItem), DT_SINGLELINE | DT_VCENTER | DT_CENTER);
+		}
+		return TRUE;
+	}
 	return ::CallWindowProc(_defaultProc, hwnd, Message, wParam, lParam);
 }
 
@@ -353,9 +379,10 @@ void VerticalFileSwitcherListView::insertColumn(const TCHAR *name, int width, in
 {
 	LVCOLUMN lvColumn;
  
-	lvColumn.mask = LVCF_TEXT | LVCF_WIDTH;
+	lvColumn.mask = LVCF_TEXT | LVCF_WIDTH | LVCF_FMT;
 	lvColumn.cx = width;
 	lvColumn.pszText = (TCHAR *)name;
+	lvColumn.fmt = HDF_OWNERDRAW;
 	ListView_InsertColumn(_hSelf, index, &lvColumn);
 }
 

@@ -7554,6 +7554,14 @@ void Notepad_plus::refreshDarkMode()
 		::SendMessage(_pFileSwitcherPanel->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
 	}
 
+	if (_pClipboardHistoryPanel)
+	{
+		::SendMessage(_pClipboardHistoryPanel->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+	}
+
+	::SendMessage(_subEditView.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+	::SendMessage(_mainEditView.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+
 	::SendMessage(_mainDocTab.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
 	::SendMessage(_subDocTab.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
 

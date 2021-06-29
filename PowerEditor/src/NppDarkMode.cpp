@@ -1052,6 +1052,16 @@ namespace NppDarkMode
 		NppDarkMode::setTitleBarThemeColor(hwnd, useDark);
 	}
 
+	void setDarkExplorerTheme(HWND hwnd)
+	{
+		SetWindowTheme(hwnd, NppDarkMode::isEnabled() ? L"DarkMode_Explorer" : nullptr, nullptr);
+	}
+
+	void setDarkScrollBar(HWND hwnd)
+	{
+		NppDarkMode::setDarkExplorerTheme(hwnd);
+	}
+
 	void setDarkTooltips(HWND hwnd, ToolTipsType type)
 	{
 		UINT msg = 0;
@@ -1076,14 +1086,14 @@ namespace NppDarkMode
 
 		if (msg == 0)
 		{
-			SetWindowTheme(hwnd, NppDarkMode::isEnabled() ? L"DarkMode_Explorer" : nullptr, nullptr);
+			NppDarkMode::setDarkExplorerTheme(hwnd);
 		}
 		else
 		{
 			auto hTips = reinterpret_cast<HWND>(::SendMessage(hwnd, msg, 0, 0));
 			if (hTips != nullptr)
 			{
-				SetWindowTheme(hTips, NppDarkMode::isEnabled() ? L"DarkMode_Explorer" : nullptr, nullptr);
+				NppDarkMode::setDarkExplorerTheme(hTips);
 			}
 		}
 	}

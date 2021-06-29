@@ -881,6 +881,13 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			NppDarkMode::setDarkTooltips(_shiftTrickUpTip, NppDarkMode::ToolTipsType::tooltip);
 			NppDarkMode::setDarkTooltips(_2ButtonsTip, NppDarkMode::ToolTipsType::tooltip);
 			NppDarkMode::setDarkTooltips(_filterTip, NppDarkMode::ToolTipsType::tooltip);
+
+			HWND finder = getHFindResults();
+			if (finder)
+			{
+				NppDarkMode::setDarkScrollBar(finder);
+			}
+
 			NppDarkMode::autoThemeChildControls(_hSelf);
 			return TRUE;
 		}

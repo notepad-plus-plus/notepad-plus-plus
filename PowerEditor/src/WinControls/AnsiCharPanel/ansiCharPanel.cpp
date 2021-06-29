@@ -119,6 +119,40 @@ INT_PTR CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 				}
 				break;
 
+				case NM_CUSTOMDRAW:
+				{
+					static bool becomeDarkMode = false;
+					static bool becomeLightMode = false;
+					HWND hHeader = ListView_GetHeader(_listView.getHSelf());
+					if (NppDarkMode::isEnabled())
+					{
+						if (!becomeDarkMode)
+						{
+							NppDarkMode::setExplorerTheme(hHeader, false);
+							becomeDarkMode = true;
+						}
+						becomeLightMode = false;
+
+						auto nmtbcd = reinterpret_cast<LPNMTBCUSTOMDRAW>((LPNMHDR)lParam);
+						SetBkMode(nmtbcd->nmcd.hdc, TRANSPARENT);
+						FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getBackgroundBrush());
+						nmtbcd->clrText = RGB(255, 255, 255);
+						SetTextColor(nmtbcd->nmcd.hdc, RGB(255, 255, 255));
+						SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_NOTIFYSUBITEMDRAW);
+					}
+					else
+					{
+						if (!becomeLightMode)
+						{
+							NppDarkMode::setExplorerTheme(hHeader, true);
+							becomeLightMode = true;
+						}
+						becomeDarkMode = false;
+						SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_DODEFAULT);
+					}
+				}
+				break;
+
 				default:
 					break;
 			}

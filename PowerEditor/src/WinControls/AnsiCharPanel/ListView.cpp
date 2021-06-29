@@ -66,14 +66,15 @@ void ListView::init(HINSTANCE hInst, HWND parent)
 	if (_columnInfos.size())
 	{
 		LVCOLUMN lvColumn;
-		lvColumn.mask = LVCF_TEXT | LVCF_WIDTH;
+		lvColumn.mask = LVCF_TEXT | LVCF_WIDTH | LVCF_FMT;
+		lvColumn.fmt = HDF_OWNERDRAW;
 
 		short i = 0;
 		for (auto it = _columnInfos.begin(); it != _columnInfos.end(); ++it)
 		{
 			lvColumn.cx = static_cast<int>(it->_width);
 			lvColumn.pszText = const_cast<TCHAR *>(it->_label.c_str());
-			ListView_InsertColumn(_hSelf, ++i, &lvColumn);
+			ListView_InsertColumn(_hSelf, ++i, &lvColumn);  // index is not 0 based but 1 based
 		}
 	}
 }
@@ -168,6 +169,33 @@ std::vector<size_t> ListView::getCheckedIndexes() const
 
 LRESULT ListView::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 {
+	switch (Message)
+	{
+		case WM_DRAWITEM:
+		{
+			DRAWITEMSTRUCT* pdis = (DRAWITEMSTRUCT*)lParam;
+
+
+			HDITEM hdi;
+			TCHAR  lpBuffer[256];
+
+			hdi.mask = HDI_TEXT;
+			hdi.pszText = lpBuffer;
+			hdi.cchTextMax = 256;
+
+			Header_GetItem(pdis->hwndItem, pdis->itemID, &hdi);
+			
+			COLORREF textColor = RGB(0, 0, 0);
+			if (NppDarkMode::isEnabled())
+				textColor = NppDarkMode::getDarkerTextColor();
+
+			SetTextColor(pdis->hDC, textColor);
+			SetBkMode(pdis->hDC, TRANSPARENT);
+
+			::DrawText(pdis->hDC, lpBuffer, lstrlen(lpBuffer), &(pdis->rcItem), DT_SINGLELINE | DT_VCENTER | DT_CENTER);
+		}
+		return TRUE;
+	}
 	return ::CallWindowProc(_defaultProc, hwnd, Message, wParam, lParam);
 }
 

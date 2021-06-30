@@ -80,14 +80,15 @@ INT_PTR CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, 
 
 		case WM_NOTIFY:
 		{
-			switch (((LPNMHDR)lParam)->code)
+			LPNMHDR notif = reinterpret_cast<LPNMHDR>(lParam);
+			switch (notif->code)
 			{
 				case NM_CUSTOMDRAW:
 				{
 					static bool becomeDarkMode = false;
 					static bool becomeLightMode = false;
 					HWND hHeader = ListView_GetHeader(_fileListView.getHSelf());
-					if (NppDarkMode::isEnabled())
+					if (NppDarkMode::isEnabled() && (notif->hwndFrom == hHeader))
 					{
 						if (!becomeDarkMode)
 						{
@@ -96,11 +97,9 @@ INT_PTR CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, 
 						}
 						becomeLightMode = false;
 
-						auto nmtbcd = reinterpret_cast<LPNMTBCUSTOMDRAW>((LPNMHDR)lParam);
+						auto nmtbcd = reinterpret_cast<LPNMTBCUSTOMDRAW>(notif);
 						SetBkMode(nmtbcd->nmcd.hdc, TRANSPARENT);
 						FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getBackgroundBrush());
-						nmtbcd->clrText = RGB(255, 255, 255);
-						SetTextColor(nmtbcd->nmcd.hdc, RGB(255, 255, 255));
 						SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_NOTIFYSUBITEMDRAW);
 					}
 					else
@@ -115,6 +114,7 @@ INT_PTR CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, 
 					}
 				}
 				break;
+
 				case NM_DBLCLK:
 				{
 					LPNMITEMACTIVATE lpnmitem = (LPNMITEMACTIVATE) lParam;

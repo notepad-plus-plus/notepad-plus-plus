@@ -828,11 +828,7 @@ void ProjectPanel::notified(LPNMHDR notification)
 			auto nmtbcd = reinterpret_cast<LPNMTBCUSTOMDRAW>(notification);
 			FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getBackgroundBrush());
 			nmtbcd->clrText = NppDarkMode::getTextColor();
-			// highlight color when hover
-			// same color when hovering above menu 
-			// RGB(65, 65, 65) should be added to NppDarkMode.cpp
-			// needed because, visual style is disabled
-			nmtbcd->clrHighlightHotTrack = RGB(65, 65, 65);
+			nmtbcd->clrHighlightHotTrack = NppDarkMode::getHighlightHotTrackColor();
 			SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_NOTIFYSUBITEMDRAW | TBCDRF_HILITEHOTTRACK);
 		}
 		else

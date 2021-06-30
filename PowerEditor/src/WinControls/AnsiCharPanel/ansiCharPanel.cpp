@@ -133,11 +133,9 @@ INT_PTR CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 						}
 						becomeLightMode = false;
 
-						auto nmtbcd = reinterpret_cast<LPNMTBCUSTOMDRAW>((LPNMHDR)lParam);
+						auto nmtbcd = reinterpret_cast<LPNMTBCUSTOMDRAW>(lParam);
 						SetBkMode(nmtbcd->nmcd.hdc, TRANSPARENT);
 						FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getBackgroundBrush());
-						nmtbcd->clrText = RGB(255, 255, 255);
-						SetTextColor(nmtbcd->nmcd.hdc, RGB(255, 255, 255));
 						SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_NOTIFYSUBITEMDRAW);
 					}
 					else

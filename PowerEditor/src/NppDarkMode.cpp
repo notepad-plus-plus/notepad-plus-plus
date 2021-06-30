@@ -27,6 +27,7 @@ namespace NppDarkMode
 		COLORREF darkerText = 0;
 		COLORREF disabledText = 0;
 		COLORREF edge = 0;
+		COLORREF highlightHotTrack = 0;
 	};
 
 	struct Brushes
@@ -64,7 +65,8 @@ namespace NppDarkMode
 		HEXRGB(0xE0E0E0),	// textColor
 		HEXRGB(0xC0C0C0),	// darkerTextColor
 		HEXRGB(0x808080),	// disabledTextColor
-		HEXRGB(0x808080)	// edgeColor
+		HEXRGB(0x808080),	// edgeColor
+		HEXRGB(0x414141)	// highlightHotTrack
 	};
 
 	struct Theme
@@ -190,21 +192,22 @@ namespace NppDarkMode
 		return invert_c;
 	}
 
-	COLORREF getBackgroundColor()		{ return getTheme().colors.background;	}
-	COLORREF getSofterBackgroundColor() { return getTheme().colors.softerBackground; }
-	COLORREF getHotBackgroundColor()	{ return getTheme().colors.hotBackground; }
-	COLORREF getDarkerBackgroundColor()	{ return getTheme().colors.pureBackground; }
-	COLORREF getErrorBackgroundColor()	{ return getTheme().colors.errorBackground; }
-	COLORREF getTextColor()				{ return getTheme().colors.text; }
-	COLORREF getDarkerTextColor()		{ return getTheme().colors.darkerText; }
-	COLORREF getDisabledTextColor()		{ return getTheme().colors.disabledText; }
-	COLORREF getEdgeColor()				{ return getTheme().colors.edge; }
+	COLORREF getBackgroundColor()         { return getTheme().colors.background; }
+	COLORREF getSofterBackgroundColor()   { return getTheme().colors.softerBackground; }
+	COLORREF getHotBackgroundColor()      { return getTheme().colors.hotBackground; }
+	COLORREF getDarkerBackgroundColor()   { return getTheme().colors.pureBackground; }
+	COLORREF getErrorBackgroundColor()    { return getTheme().colors.errorBackground; }
+	COLORREF getTextColor()               { return getTheme().colors.text; }
+	COLORREF getDarkerTextColor()         { return getTheme().colors.darkerText; }
+	COLORREF getDisabledTextColor()       { return getTheme().colors.disabledText; }
+	COLORREF getEdgeColor()               { return getTheme().colors.edge; }
+	COLORREF getHighlightHotTrackColor()  { return getTheme().colors.highlightHotTrack; }
 
-	HBRUSH getBackgroundBrush()			{ return getTheme().brushes.background; }
-	HBRUSH getSofterBackgroundBrush()	{ return getTheme().brushes.softerBackground; }
-	HBRUSH getHotBackgroundBrush()		{ return getTheme().brushes.hotBackground; }
-	HBRUSH getDarkerBackgroundBrush()	{ return getTheme().brushes.pureBackground; }
-	HBRUSH getErrorBackgroundBrush()	{ return getTheme().brushes.errorBackground; }
+	HBRUSH getBackgroundBrush()           { return getTheme().brushes.background; }
+	HBRUSH getSofterBackgroundBrush()     { return getTheme().brushes.softerBackground; }
+	HBRUSH getHotBackgroundBrush()        { return getTheme().brushes.hotBackground; }
+	HBRUSH getDarkerBackgroundBrush()     { return getTheme().brushes.pureBackground; }
+	HBRUSH getErrorBackgroundBrush()      { return getTheme().brushes.errorBackground; }
 
 	// handle events
 

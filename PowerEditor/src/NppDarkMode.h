@@ -51,6 +51,7 @@ namespace NppDarkMode
 	COLORREF getDarkerTextColor();
 	COLORREF getDisabledTextColor();
 	COLORREF getEdgeColor();
+	COLORREF getHighlightHotTrackColor();
 
 	HBRUSH getBackgroundBrush();
 	HBRUSH getDarkerBackgroundBrush();

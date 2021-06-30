@@ -74,7 +74,7 @@ void ListView::init(HINSTANCE hInst, HWND parent)
 		{
 			lvColumn.cx = static_cast<int>(it->_width);
 			lvColumn.pszText = const_cast<TCHAR *>(it->_label.c_str());
-			ListView_InsertColumn(_hSelf, ++i, &lvColumn);
+			ListView_InsertColumn(_hSelf, ++i, &lvColumn);  // index is not 0 based but 1 based
 		}
 	}
 }

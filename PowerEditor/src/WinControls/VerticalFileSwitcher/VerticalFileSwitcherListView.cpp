@@ -106,7 +106,7 @@ LRESULT VerticalFileSwitcherListView::runProc(HWND hwnd, UINT Message, WPARAM wP
 			SetTextColor(pdis->hDC, textColor);
 			SetBkMode(pdis->hDC, TRANSPARENT);
 
-			::DrawText(pdis->hDC, lpBuffer, lstrlen(lpBuffer), &(pdis->rcItem), DT_SINGLELINE | DT_VCENTER | DT_CENTER);
+			::DrawText(pdis->hDC, lpBuffer, lstrlen(lpBuffer), &(pdis->rcItem), DT_SINGLELINE | DT_VCENTER | DT_LEFT);
 		}
 		return TRUE;
 	}
@@ -129,11 +129,12 @@ void VerticalFileSwitcherListView::initList()
 		RECT rc;
 		::GetClientRect(_hParent, &rc);
 		int totalWidth = rc.right - rc.left;
-		
+		const int extColWidth =80;
+
 		if (columnCount == 0)
 		{
 			generic_string nameStr = pNativeSpeaker->getAttrNameStr(TEXT("Name"), FS_ROOTNODE, FS_CLMNNAME);
-			insertColumn(nameStr.c_str(), (isExtColumn ? totalWidth - 50 : totalWidth), 0);
+			insertColumn(nameStr.c_str(), (isExtColumn ? totalWidth - extColWidth : totalWidth), 1);
 		}
 		
 		if (isExtColumn)
@@ -143,14 +144,14 @@ void VerticalFileSwitcherListView::initList()
 			lvc.mask = LVCF_WIDTH;
 			SendMessage(_hSelf, LVM_GETCOLUMN, 0, reinterpret_cast<LPARAM>(&lvc));
 			
-			if (lvc.cx + 50 > totalWidth)
+			if (lvc.cx + extColWidth > totalWidth)
 			{
-				lvc.cx = totalWidth - 50;
+				lvc.cx = totalWidth - extColWidth;
 				SendMessage(_hSelf, LVM_SETCOLUMN, 0, reinterpret_cast<LPARAM>(&lvc));
 			}
 			
 			generic_string extStr = pNativeSpeaker->getAttrNameStr(TEXT("Ext."), FS_ROOTNODE, FS_CLMNEXT);
-			insertColumn(extStr.c_str(), 50, 1);
+			insertColumn(extStr.c_str(), extColWidth, 2);
 		}
 	}
 	
@@ -383,7 +384,7 @@ void VerticalFileSwitcherListView::insertColumn(const TCHAR *name, int width, in
 	lvColumn.cx = width;
 	lvColumn.pszText = (TCHAR *)name;
 	lvColumn.fmt = HDF_OWNERDRAW;
-	ListView_InsertColumn(_hSelf, index, &lvColumn);
+	ListView_InsertColumn(_hSelf, index, &lvColumn); // index is not 0 based but 1 based
 }
 
 void VerticalFileSwitcherListView::resizeColumns(int totalWidth)

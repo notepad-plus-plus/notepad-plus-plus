@@ -1132,7 +1132,7 @@ BEGIN
         MENUITEM SEPARATOR
         MENUITEM "Notepad++ Home",                 IDM_HOMESWEETHOME
         MENUITEM "Notepad++ Project Page",         IDM_PROJECTPAGE
-        MENUITEM "Notepad++ Online Document",      IDM_ONLINEDOCUMENT
+        MENUITEM "Notepad++ Online User Manual",   IDM_ONLINEDOCUMENT
         MENUITEM "Notepad++ Community (Forum)",    IDM_FORUM
         MENUITEM SEPARATOR
         MENUITEM "Update Notepad++",               IDM_UPDATE_NPP

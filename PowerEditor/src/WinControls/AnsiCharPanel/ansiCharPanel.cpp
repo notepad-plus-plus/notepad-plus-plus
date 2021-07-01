@@ -124,7 +124,7 @@ INT_PTR CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 					static bool becomeDarkMode = false;
 					static bool becomeLightMode = false;
 					HWND hHeader = ListView_GetHeader(_listView.getHSelf());
-					if (NppDarkMode::isEnabled())
+					if (NppDarkMode::isEnabled() && reinterpret_cast<LPNMHDR>(lParam)->hwndFrom == hHeader)
 					{
 						if (!becomeDarkMode)
 						{

@@ -815,16 +815,14 @@ void ProjectPanel::notified(LPNMHDR notification)
 	}
 	else if (notification->code == NM_CUSTOMDRAW && (notification->hwndFrom == _hToolbarMenu))
 	{
-		static bool becomeDarkMode = false;
-		static bool becomeLightMode = false;
 		if (NppDarkMode::isEnabled())
 		{
-			if (!becomeDarkMode)
+			if (!_becomeDarkMode)
 			{
 				NppDarkMode::setExplorerTheme(_hToolbarMenu, false);
-				becomeDarkMode = true;
+				_becomeDarkMode = true;
 			}
-			becomeLightMode = false;
+			_becomeLightMode = false;
 			auto nmtbcd = reinterpret_cast<LPNMTBCUSTOMDRAW>(notification);
 			FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getBackgroundBrush());
 			nmtbcd->clrText = NppDarkMode::getTextColor();
@@ -833,12 +831,12 @@ void ProjectPanel::notified(LPNMHDR notification)
 		}
 		else
 		{
-			if (!becomeLightMode)
+			if (!_becomeLightMode)
 			{
 				NppDarkMode::setExplorerTheme(_hToolbarMenu, true);
-				becomeLightMode = true;
+				_becomeLightMode = true;
 			}
-			becomeDarkMode = false;
+			_becomeDarkMode = false;
 			SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_DODEFAULT);
 		}
 	}

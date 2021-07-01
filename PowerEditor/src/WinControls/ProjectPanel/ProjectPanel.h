@@ -117,6 +117,8 @@ protected:
 	generic_string _selDirOfFilesFromDirDlg;
 	bool _isDirty = false;
 	int _panelID = 0;
+	bool _becomeDarkMode = false;
+	bool _becomeLightMode = false;
 
 	void initMenus();
 	void destroyMenus();

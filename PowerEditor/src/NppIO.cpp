@@ -1717,7 +1717,7 @@ bool Notepad_plus::fileRename(BufferID id)
 
 		fDlg.setExtFilter(TEXT("All types"), TEXT(".*"));
 		setFileOpenSaveDlgFilters(fDlg, false);
-
+		fDlg.setFolder(buf->getFullPathName());
 		fDlg.setDefFileName(buf->getFileName());
 		generic_string fn = fDlg.doSaveDlg();
 

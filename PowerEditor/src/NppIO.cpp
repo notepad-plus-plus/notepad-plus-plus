@@ -1753,8 +1753,12 @@ bool Notepad_plus::fileRename(BufferID id)
 
 		fDlg.setExtFilter(TEXT("All types"), TEXT(".*"));
 		setFileOpenSaveDlgFilters(fDlg, false);
-
+		fDlg.setFolder(buf->getFullPathName());
 		fDlg.setDefFileName(buf->getFileName());
+
+		generic_string title = _nativeLangSpeaker.getLocalizedStrFromID("file-rename-title", TEXT("Rename"));
+		fDlg.setTitle(title.c_str());
+
 		generic_string fn = fDlg.doSaveDlg();
 
 		if (!fn.empty())
@@ -1769,10 +1773,10 @@ bool Notepad_plus::fileRename(BufferID id)
 		// Reserved characters: < > : " / \ | ? *
 		std::wstring reservedChars = TEXT("<>:\"/\\|\?*");
 
-		generic_string title = _nativeLangSpeaker.getLocalizedStrFromID("tabrename-title", TEXT("Rename Current Tab"));
 		generic_string staticName = _nativeLangSpeaker.getLocalizedStrFromID("tabrename-newname", TEXT("New Name: "));
 
 		StringDlg strDlg;
+		generic_string title = _nativeLangSpeaker.getLocalizedStrFromID("tabrename-title", TEXT("Rename Current Tab"));
 		strDlg.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), title.c_str(), staticName.c_str(), buf->getFileName(), 0, reservedChars.c_str(), true);
 
 		TCHAR *tabNewName = reinterpret_cast<TCHAR *>(strDlg.doDialog());

@@ -6049,6 +6049,7 @@ std::vector<generic_string> Notepad_plus::loadCommandlineParams(const TCHAR * co
 	}
 
  	LangType lt = pCmdParams->_langType;
+	generic_string udl = pCmdParams->_udlName;
 	int lineNumber =  pCmdParams->_line2go;
 	int columnNumber = pCmdParams->_column2go;
 	int positionNumber = pCmdParams->_pos2go;
@@ -6074,10 +6075,14 @@ std::vector<generic_string> Notepad_plus::loadCommandlineParams(const TCHAR * co
 			continue;
 
 		lastOpened = bufID;
+		Buffer* pBuf = MainFileManager.getBufferByID(bufID);
 
-		if (lt != L_EXTERNAL && lt < nppParams.L_END)
+		if (!udl.empty())
 		{
-			Buffer * pBuf = MainFileManager.getBufferByID(bufID);
+			pBuf->setLangType(L_USER, udl.c_str());
+		}
+		else if (lt != L_EXTERNAL && lt < nppParams.L_END)
+		{
 			pBuf->setLangType(lt);
 		}
 

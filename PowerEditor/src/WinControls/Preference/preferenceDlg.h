@@ -242,7 +242,7 @@ private :
 class PreferenceDlg : public StaticDialog
 {
 friend class NativeLangSpeaker;
-
+friend class Notepad_plus;
 public :
 	PreferenceDlg() = default;
 

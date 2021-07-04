@@ -458,7 +458,7 @@ BEGIN
     CONTROL         "Minimize to system tray",IDC_CHECK_MIN2SYSTRAY,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,37,139,217,10
     CONTROL         "Show only filename in title bar",IDC_CHECK_SHORTTITLE,"Button",BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,37,154,217,10
     CONTROL         "Use DirectWrite (May improve rendering special characters, need to restart Notepad++)",IDC_CHECK_DIRECTWRITE_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,37,169,377,10
-    CONTROL         "Save All confirm dialog", IDC_CHECK_SAVEALLCONFIRM, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 37, 184, 217, 10
+    CONTROL         "Enable Save All confirm dialog", IDC_CHECK_SAVEALLCONFIRM, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 37, 184, 217, 10
     COMBOBOX        IDC_COMBO_FILEUPDATECHOICE,44,16,140,100,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     CONTROL         "Update silently",IDC_CHECK_UPDATESILENTLY,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,44,32,140,10
     CONTROL         "Scroll to the last line after update",IDC_CHECK_UPDATEGOTOEOF,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,44,44,140,10

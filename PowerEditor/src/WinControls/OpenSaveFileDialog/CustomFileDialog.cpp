@@ -137,15 +137,21 @@ namespace // anonymous
 		return result;
 	}
 
-	bool setDialogFolder(IFileDialog* dialog, const TCHAR* folder)
+	bool setDialogFolder(IFileDialog* dialog, const TCHAR* path)
 	{
-		IShellItem* psi = nullptr;
-		HRESULT hr = SHCreateItemFromParsingName(folder,
-			0,
-			IID_IShellItem,
-			reinterpret_cast<void**>(&psi));
+		com_ptr<IShellItem> shellItem;
+		HRESULT hr = SHCreateItemFromParsingName(path,
+			nullptr,
+			IID_PPV_ARGS(&shellItem));
+		if (SUCCEEDED(hr) && shellItem && !::PathIsDirectory(path))
+		{
+			com_ptr<IShellItem> parentItem;
+			hr = shellItem->GetParent(&parentItem);
+			if (SUCCEEDED(hr))
+				shellItem = parentItem;
+		}
 		if (SUCCEEDED(hr))
-			hr = dialog->SetFolder(psi);
+			hr = dialog->SetFolder(shellItem);
 		return SUCCEEDED(hr);
 	}
 

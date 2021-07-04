@@ -24,6 +24,7 @@ notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-LlangCode] [-nLineNum
 -multiInst : Launch another Notepad++ instance\r\
 -noPlugin : Launch Notepad++ without loading any plugin\r\
 -l : Open file or Ghost type with syntax highlighting of choice\r\
+-udl=\"My UDL Name\": Open file by applying User Defined Language\r\
 -L : Apply indicated localization, langCode is browser language code\r\
 -n : Scroll to indicated line on filePath\r\
 -c : Scroll to indicated column on filePath\r\

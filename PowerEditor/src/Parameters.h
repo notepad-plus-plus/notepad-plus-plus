@@ -238,6 +238,7 @@ struct CmdLineParams
 
 	LangType _langType = L_EXTERNAL;
 	generic_string _localizationPath;
+	generic_string _udlName;
 
 	generic_string _easterEggName;
 	unsigned char _quoteType = '\0';
@@ -269,6 +270,7 @@ struct CmdLineParamsDTO
 	int _pos2go = 0;
 
 	LangType _langType = L_EXTERNAL;
+	generic_string _udlName;
 
 	static CmdLineParamsDTO FromCmdLineParams(const CmdLineParams& params)
 	{
@@ -284,7 +286,7 @@ struct CmdLineParamsDTO
 		dto._pos2go = params._pos2go;
 		
 		dto._langType = params._langType;
-
+		dto._udlName = params._udlName;
 		return dto;
 	}
 };
@@ -1821,7 +1823,6 @@ private:
 	bool _isx64 = false; // by default 32-bit
 
 	generic_string _cmdSettingsDir;
-
 	generic_string _titleBarAdditional;
 
 public:

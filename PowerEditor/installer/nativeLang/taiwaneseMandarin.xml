@@ -317,7 +317,7 @@
                     <Item id="47001" name="Notepad++ 首頁"/>
                     <Item id="47002" name="Notepad++ 專案網頁"/>
                     <Item id="47003" name="線上文件"/>
-                    <Item id="47004" name=""Notepad++ 社群(論壇)"/>
+                    <Item id="47004" name="Notepad++ 社群(論壇)"/>
                     <Item id="47012" name="除錯資訊..."/>
                     <Item id="47005" name="取得更多外掛模組"/>
                     <Item id="47006" name="更新 Notepad++"/>
@@ -360,7 +360,7 @@
                     <Item CMID="5" name="移動到另一檢視"/>
                     <Item CMID="6" name="仿製到另一檢視"/>
                     <Item CMID="7" name="複製完整路徑檔名"/>
-                    <Item CMID="8" name="複製檔名/>
+                    <Item CMID="8" name="複製檔名"/>
                     <Item CMID="9" name="複製路徑"/>
                     <Item CMID="10" name="重新命名..."/>
                     <Item CMID="11" name="移至回收筒"/>

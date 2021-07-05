@@ -73,48 +73,15 @@ INT_PTR CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, 
 
 		case NPPM_INTERNAL_REFRESHDARKMODE:
 		{
-			NppDarkMode::setExplorerTheme(_fileListView.getHSelf(), true);
+			NppDarkMode::setDarkListView(_fileListView.getHSelf());
 			NppDarkMode::setDarkTooltips(_fileListView.getHSelf(), NppDarkMode::ToolTipsType::listview);
 			return TRUE;
 		}
 
 		case WM_NOTIFY:
 		{
-			LPNMHDR notif = reinterpret_cast<LPNMHDR>(lParam);
-			switch (notif->code)
+			switch (reinterpret_cast<LPNMHDR>(lParam)->code)
 			{
-				case NM_CUSTOMDRAW:
-				{
-					static bool becomeDarkMode = false;
-					static bool becomeLightMode = false;
-					HWND hHeader = ListView_GetHeader(_fileListView.getHSelf());
-					if (NppDarkMode::isEnabled() && (notif->hwndFrom == hHeader))
-					{
-						if (!becomeDarkMode)
-						{
-							NppDarkMode::setExplorerTheme(hHeader, false);
-							becomeDarkMode = true;
-						}
-						becomeLightMode = false;
-
-						auto nmtbcd = reinterpret_cast<LPNMTBCUSTOMDRAW>(notif);
-						SetBkMode(nmtbcd->nmcd.hdc, TRANSPARENT);
-						FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getBackgroundBrush());
-						SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_NOTIFYSUBITEMDRAW);
-					}
-					else
-					{
-						if (!becomeLightMode)
-						{
-							NppDarkMode::setExplorerTheme(hHeader, true);
-							becomeLightMode = true;
-						}
-						becomeDarkMode = false;
-						SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_DODEFAULT);
-					}
-				}
-				break;
-
 				case NM_DBLCLK:
 				{
 					LPNMITEMACTIVATE lpnmitem = (LPNMITEMACTIVATE) lParam;

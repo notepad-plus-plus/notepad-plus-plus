@@ -26,14 +26,14 @@ using namespace std;
 void ListView::init(HINSTANCE hInst, HWND parent)
 {
 	Window::init(hInst, parent);
-    INITCOMMONCONTROLSEX icex;
+	INITCOMMONCONTROLSEX icex;
 
-    // Ensure that the common control DLL is loaded.
-    icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
-    icex.dwICC  = ICC_LISTVIEW_CLASSES;
-    InitCommonControlsEx(&icex);
+	// Ensure that the common control DLL is loaded.
+	icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
+	icex.dwICC  = ICC_LISTVIEW_CLASSES;
+	InitCommonControlsEx(&icex);
 
-    // Create the list-view window in report view with label editing enabled.
+	// Create the list-view window in report view with label editing enabled.
 	int listViewStyles = LVS_REPORT | LVS_NOSORTHEADER\
 						| LVS_SINGLESEL | LVS_AUTOARRANGE\
 						| LVS_SHAREIMAGELISTS | LVS_SHOWSELALWAYS;
@@ -54,7 +54,7 @@ void ListView::init(HINSTANCE hInst, HWND parent)
 		throw std::runtime_error("ListView::init : CreateWindowEx() function return null");
 	}
 
-	NppDarkMode::setExplorerTheme(_hSelf, true);
+	NppDarkMode::setDarkListView(_hSelf);
 
 	::SetWindowLongPtr(_hSelf, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
 	_defaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(staticProc)));
@@ -66,8 +66,7 @@ void ListView::init(HINSTANCE hInst, HWND parent)
 	if (_columnInfos.size())
 	{
 		LVCOLUMN lvColumn;
-		lvColumn.mask = LVCF_TEXT | LVCF_WIDTH | LVCF_FMT;
-		lvColumn.fmt = HDF_OWNERDRAW;
+		lvColumn.mask = LVCF_TEXT | LVCF_WIDTH;
 
 		short i = 0;
 		for (auto it = _columnInfos.begin(); it != _columnInfos.end(); ++it)
@@ -171,30 +170,32 @@ LRESULT ListView::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 {
 	switch (Message)
 	{
-		case WM_DRAWITEM:
+		case WM_NOTIFY:
 		{
-			DRAWITEMSTRUCT* pdis = (DRAWITEMSTRUCT*)lParam;
+			switch (reinterpret_cast<LPNMHDR>(lParam)->code)
+			{
+				case NM_CUSTOMDRAW:
+				{
+					LPNMCUSTOMDRAW nmcd = reinterpret_cast<LPNMCUSTOMDRAW>(lParam);
+					switch (nmcd->dwDrawStage)
+					{
+						case CDDS_PREPAINT:
+						{
+							return CDRF_NOTIFYITEMDRAW;
+						}
 
-
-			HDITEM hdi;
-			TCHAR  lpBuffer[256];
-
-			hdi.mask = HDI_TEXT;
-			hdi.pszText = lpBuffer;
-			hdi.cchTextMax = 256;
-
-			Header_GetItem(pdis->hwndItem, pdis->itemID, &hdi);
-			
-			COLORREF textColor = RGB(0, 0, 0);
-			if (NppDarkMode::isEnabled())
-				textColor = NppDarkMode::getDarkerTextColor();
-
-			SetTextColor(pdis->hDC, textColor);
-			SetBkMode(pdis->hDC, TRANSPARENT);
-
-			::DrawText(pdis->hDC, lpBuffer, lstrlen(lpBuffer), &(pdis->rcItem), DT_SINGLELINE | DT_VCENTER | DT_CENTER);
+						case CDDS_ITEMPREPAINT:
+						{
+							SetTextColor(nmcd->hdc, NppDarkMode::isEnabled() ? NppDarkMode::getDarkerTextColor() : GetSysColor(COLOR_BTNTEXT));
+							return CDRF_DODEFAULT;
+						}
+						break;
+					}
+				}
+				break;
+			}
 		}
-		return TRUE;
+		break;
 	}
 	return ::CallWindowProc(_defaultProc, hwnd, Message, wParam, lParam);
 }

@@ -744,7 +744,7 @@ public:
 			okPressed = SUCCEEDED(hr);
 
 			NppParameters& params = NppParameters::getInstance();
-			if (params.getNppGUI()._openSaveDir == dir_last)
+			if (okPressed && params.getNppGUI()._openSaveDir == dir_last)
 			{
 				// Note: IFileDialog doesn't modify the current directory.
 				// At least, after it is hidden, the current directory is the same as before it was shown.

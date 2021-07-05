@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v8.0.1:
+Updated to v8.1.2:
 - added new lines
-- minor fix
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.0.1">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.1.2">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -386,7 +385,7 @@ Updated to v8.0.1:
 					<Item id="47010" name="Параметры командной строки"/>
 					<Item id="47001" name="Сайт проекта Notepad++"/>
 					<Item id="47002" name="Страница проекта Notepad++"/>
-					<Item id="47003" name="Документация Онлайн"/>
+					<Item id="47003" name="Руководство онлайн"/>
 					<Item id="47004" name="Форум"/>
 					<Item id="47006" name="Обновить Notepad++"/>
 					<Item id="47009" name="Задать прокси обновления..."/>
@@ -890,7 +889,25 @@ Updated to v8.0.1:
 
 				<DarkMode title="Тёмный Режим">
 					<Item id="7101" name="Включить 'Тёмный Режим'"/>
-					<Item id="7106" name="* Для корректной работы, необходимо перезапустить Notepad++"/>
+					<Item id="7102" name="Чёрная тема"/>
+					<Item id="7103" name="Красная тема"/>
+					<Item id="7104" name="Зелёная тема"/>
+					<Item id="7105" name="Синяя тема"/>
+					<Item id="7107" name="Фиолетовая тема"/>
+					<Item id="7108" name="Голубая тема"/>
+					<Item id="7109" name="Оливковая тема"/>
+
+					<Item id="7115" name="Настраиваемая тема"/>
+					<Item id="7116" name="Панель"/>
+					<Item id="7117" name="Текущий выбор"/>
+					<Item id="7118" name="Активная"/>
+					<Item id="7119" name="Основа"/>
+					<Item id="7120" name="Ошибка"/>
+					<Item id="7121" name="Текст"/>
+					<Item id="7122" name="Темный текст"/>
+					<Item id="7123" name="Отключенный текст"/>
+					<Item id="7124" name="Край вкладки"/>  <!-- ??? -->
+					<Item id="7130" name="Сбросить"/>
 				</DarkMode>
 
 				<MarginsBorderEdge title="Блоки / Рамки / Поля">
@@ -1037,6 +1054,7 @@ Updated to v8.0.1:
 					<Item id="6346" name="Отображать в Карте Документа"/>
 					<Item id="6349" name="Использ. DirectWrite (это может улучшить отображение спецсимволов, требуется перезапуск)"/>
 					<Item id="6360" name="Отключить все звуки"/>
+					<Item id="6361" name="Включить подтверждение Сохранить Все"/>
 				</MISC>
 				<MultiInstance title = "Режимы Запуска">
 					<Item id="6151" name="Режим Открытия Файлов"/>
@@ -1223,6 +1241,7 @@ Updated to v8.0.1:
 			<ViewInBrowser                       title="Открыть текущий файл в Браузере"            message="Приложение не найдено в вашей системе."/>
 			<ExitToUpdatePlugins                 title="Завершение работы Notepad++"                message="Notepad++ завершит работу для продолжения операции.&#x0A;Программа будет перезапущена после завершения всех операций.&#x0A;Продолжить?"/>
 			<NeedToRestartToLoadPlugins          title="Необходимо перезапустить Notepad++"         message="Необходимо перезапустить Notepad++ для установки загруженных плагинов."/>
+			<SaveAllConfirm                      title="Подтверждение Сохранить Все"                message="Вы уверены, что хотите сохранить все документы?&#x0A;&#x0A;Выберите &quot;Отмена&quot; если ваш ответ всегда будет &quot;Да&quot; и вам больше не будет задаться этот вопрос.&#x0A;Вы можете повторно активировать это диалоговое окно в опциях меню Настройки."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="История Буфера"/>
@@ -1424,6 +1443,8 @@ Updated to v8.0.1:
 			<session-save-folder-as-workspace     value="Сохранить Папку как Проект"/>
 			<tab-untitled-string                  value="новый "/>
 			<file-save-assign-type                value="&amp;Добавлять расширение"/>
+			<file-rename-title                    value="Переименовать"/>
+			<close-panel-tip                      value="Закрыть"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

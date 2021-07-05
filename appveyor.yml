@@ -83,9 +83,11 @@ after_build:
             Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\src\contextMenu.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
             Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\installer\functionList" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin" -Recurse
            
-dir 
 
+            dir "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
+            
             Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\Test\testFiles\userDefineLang.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
+            
             cd .\PowerEditor\Test\FunctionList\
             .\unitTestLauncher.ps1
             if ($LastExitCode -ne 0) { $host.SetShouldExit($LastExitCode)  }

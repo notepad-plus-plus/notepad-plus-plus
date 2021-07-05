@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v8.0.1:
-- added new lines
-- minor fix
+Updated to v8.1.2:
+- added new line
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.0.1">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.1.2">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -386,7 +385,7 @@ Updated to v8.0.1:
 					<Item id="47010" name="Параметры командной строки"/>
 					<Item id="47001" name="Сайт проекта Notepad++"/>
 					<Item id="47002" name="Страница проекта Notepad++"/>
-					<Item id="47003" name="Документация Онлайн"/>
+					<Item id="47003" name="Руководство польз. онлайн"/>
 					<Item id="47004" name="Форум"/>
 					<Item id="47006" name="Обновить Notepad++"/>
 					<Item id="47009" name="Задать прокси обновления..."/>
@@ -1424,6 +1423,7 @@ Updated to v8.0.1:
 			<session-save-folder-as-workspace     value="Сохранить Папку как Проект"/>
 			<tab-untitled-string                  value="новый "/>
 			<file-save-assign-type                value="&amp;Добавлять расширение"/>
+			<close-panel-tip                      value="Закрыть"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

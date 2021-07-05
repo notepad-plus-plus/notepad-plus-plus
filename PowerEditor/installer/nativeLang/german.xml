@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2021-06-06 by schnurlos (schnurlos@gmail.com)
+	last modified: 2021-07-15 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.0.0">
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.1.2">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -329,7 +329,7 @@
 					<Item id="47010" name="&amp;Kommandozeilenparameter …"/>
 					<Item id="47001" name="Notepad++ im &amp;Web"/>
 					<Item id="47002" name="Notepad++ bei &amp;GitHub"/>
-					<Item id="47003" name="Online-Dokumentation"/>
+					<Item id="47003" name="Notepad++ Online-Dokumentation"/>
 					<Item id="47004" name="Notepad++ Online-Forum"/>
 					<Item id="47012" name="Debug-Info"/>
 					<Item id="47005" name="&amp;Erweiterungen"/>
@@ -861,7 +861,24 @@
 
 				<DarkMode title="Abgedunkelter Modus">
 					<Item id="7101" name="Abgedunkelten Modus aktivieren"/>
-					<Item id="7106" name="* Notepad++ muss dafür neu gestartet werden"/>
+					<Item id="7102" name="Schwarzer Ton"/>
+					<Item id="7103" name="Roter Ton"/>
+					<Item id="7104" name="Grüner Ton"/>
+					<Item id="7105" name="Blauer Ton"/>
+					<Item id="7107" name="Violetter Ton"/>
+					<Item id="7108" name="Cyan-Ton"/>
+					<Item id="7109" name="Oliv-Ton"/>
+					<Item id="7115" name="Benutzerdefinierter Ton"/>
+					<Item id="7116" name="Oben"/>
+					<Item id="7117" name="Menü Hot Track"/>
+					<Item id="7118" name="Aktiv"/>
+					<Item id="7119" name="Haupt"/>
+					<Item id="7120" name="Fehler"/>
+					<Item id="7121" name="Text"/>
+					<Item id="7122" name="Dunklerer Text"/>
+					<Item id="7123" name="Deaktivierter Text"/>
+					<Item id="7124" name="Registerkarte Rand"/>
+					<Item id="7130" name="Zurücksetzen"/>
 				</DarkMode>
 
 				<MarginsBorderEdge title="Faltung/Rahmen/Ränder">
@@ -1094,6 +1111,7 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Za
 					<Item id="6345" name="Momentaufnahme in Tab"/>
 					<Item id="6346" name="Momentaufnahme in Miniaturansicht"/>
 					<Item id="6360" name="Alle Klänge stummschalten"/>
+					<Item id="6361" name="Dialogfeld 'Alles Speichern' aktivieren"/>
 				</MISC>
 			</Preference>
 			<MultiMacro title="Makro mehrfach ausführen">
@@ -1242,6 +1260,10 @@ Soll dazu Notepad++ im Administrator-Modus gestartet werden?"/>
 Notepad++ wird neu gestartet.
 Fortsetzen?"/>
 			<NeedToRestartToLoadPlugins title="Notepad++ muss neu gestartet werden" message="Ein Neustart von Notepad++ zum Laden der Plugins ist erforderlich."/>
+			<SaveAllConfirm title="'Alles Speichern' Bestätigung" message="Sollen wirklich alle Dokumente gespeichert werden?
+
+&quot;Abbrechen&quot; wählen wenn die Antwort immer &quot;Ja&quot; lautet und die Frage nicht mehr gestellt werden soll.
+Diese Antwort kann in den Einstellungen jederzeit wieder geändert werden." /> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Zwischenablage"/>
@@ -1353,6 +1375,7 @@ Fortsetzen?"/>
 			<cloud-select-folder value="Verzeichnis wählen von wo/wohin Notepad++ seine Einstellungen liest bzw. schreibt"/>
 			<shift-change-direction-tip value="Shift+Enter verwenden um die Suchrichtung umzudrehen."/>
 			<two-find-buttons-tip value="Modus mit 2 Suchknöpfen"/>
+			<file-rename-title value="Umbenennen"/>
 			<find-in-files-filter-tip value="Finde in cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 

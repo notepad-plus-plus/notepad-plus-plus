@@ -3,9 +3,9 @@
 Dutch localization for Notepad++
 Modifications until 2018-03-26 by Klaas Nekeman (knekeman(at)gmail.com).
 Modifications until 2020-05-26 by xylographe <wr86420@gmail.com>.
-Modifications from 2020-01-28 and onwards by Thomas De Rocker (RockyTDR)
+Modifications from 2021-01-28 and onwards by Thomas De Rocker (RockyTDR)
 
-Last modified on 2021-06-03 by Thomas De Rocker (RockyTDR).
+Last modified on 2021-06-14 by Thomas De Rocker (RockyTDR).
 -->
 <NotepadPlus>
     <Native-Langue name="Nederlands" filename="dutch.xml" version="7.9.5">
@@ -324,7 +324,7 @@ Last modified on 2021-06-03 by Thomas De Rocker (RockyTDR).
                     <Item id="47010" name="Opdrachtregel-argumenten..."/>
                     <Item id="47001" name="Notepad++ website"/>
                     <Item id="47002" name="Notepad++ projectpagina"/>
-                    <Item id="47003" name="Online documentatie"/>
+                    <Item id="47003" name="Notepad++ online gebruikershandleiding"/>
                     <Item id="47004" name="Notepad++ gemeenschap (forum)"/>
                     <Item id="47012" name="Foutopsporingsinformatie..."/>
                     <Item id="47005" name="Meer plugins zoeken"/>
@@ -807,10 +807,10 @@ Last modified on 2021-06-03 by Thomas De Rocker (RockyTDR).
                 <Global title="Algemeen">
                     <Item id="6101" name="Werkbalk"/>
                     <Item id="6102" name="Verbergen"/>
-                    <Item id="6103" name="Vloeiende UI: klein"/>
-                    <Item id="6104" name="Vloeiende UI: groot"/>
-                    <Item id="6129" name="Gevulde vloeiende UI: klein"/>
-                    <Item id="6130" name="Gevulde vloeiende UI: groot"/>
+                    <Item id="6103" name="Fluent UI: klein"/>
+                    <Item id="6104" name="Fluent UI: groot"/>
+                    <Item id="6129" name="Gevulde fluent UI: klein"/>
+                    <Item id="6130" name="Gevulde fluent UI: groot"/>
                     <Item id="6105" name="Standaardpictogrammen: klein"/>
 
                     <Item id="6106" name="Tabblad-balk"/>
@@ -856,7 +856,24 @@ Last modified on 2021-06-03 by Thomas De Rocker (RockyTDR).
 
                 <DarkMode title="Donkere modus">
                     <Item id="7101" name="Donkere modus inschakelen"/>
-                    <Item id="7106" name="* Notepad++ moet opnieuw worden gestart om volledig van kracht te worden"/>
+                    <Item id="7102" name="Zwarte tint"/>
+                    <Item id="7103" name="Rode tint"/>
+                    <Item id="7104" name="Groene tint"/>
+                    <Item id="7105" name="Blauwe tint"/>
+                    <Item id="7107" name="Paarse tint"/>
+                    <Item id="7108" name="Cyaan tint"/>
+                    <Item id="7109" name="Olijf tint"/>
+                    <Item id="7115" name="Aangepaste tint"/>
+                    <Item id="7116" name="Bovenkant"/>
+                    <Item id="7117" name="Opgelicht menu (hot-track)"/>
+                    <Item id="7118" name="Actief"/>
+                    <Item id="7119" name="Hoofd"/>
+                    <Item id="7120" name="Fout"/>
+                    <Item id="7121" name="Tekst"/>
+                    <Item id="7122" name="Donkerdere tekst"/>
+                    <Item id="7123" name="Uitgeschakelde text"/>
+                    <Item id="7124" name="Tab-rand"/>
+                    <Item id="7130" name="Herstellen"/>
                 </DarkMode>
 
                 <MarginsBorderEdge title="Marges/grens/rand">
@@ -1089,6 +1106,7 @@ U kunt verschillende kolommarkeringen vastleggen door gebruik te maken van spati
                     <Item id="6345" name="Kort weergeven bij tab"/>
                     <Item id="6346" name="Kort weergeven bij overzichtskaart"/>
                     <Item id="6360" name="Alle geluiden dempen"/>
+                    <Item id="6361" name="Bevestigingsvenster inschakelen voor alles opslaan"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Macro meerdere keren uitvoeren">
@@ -1237,6 +1255,10 @@ Wilt u Notepad++ starten in beheerdersmodus?"/>
 Notepad++ zal opnieuw starten nadat alle acties afgewerkt zijn.
 Doorgaan?"/>
             <NeedToRestartToLoadPlugins title="Notepad++ moet opnieuw gestart worden" message="U moet Notepad++ opnieuw starten om de geïnstalleerde plug-ins te laden."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
+            <SaveAllConfirm title="Bevestiging voor alles opslaan" message="Weet u zeker dat u alle documenten wilt opslaan?
+
+&quot;Annuleren&quot; kiezen als uw antwoord altijd &quot;ja&quot; zal zijn en deze vraag zal u niet meer gesteld worden.
+U kunt dit dialoogvenster later opnieuw activeren in het voorkeurenvenster." /> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Geschiedenis van klembord"/>
@@ -1348,6 +1370,7 @@ Doorgaan?"/>
             <cloud-select-folder value="Selecteer een map waar Notepad++ instellingen leest en opslaat"/><!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
             <shift-change-direction-tip value="Gebruik Shift + Enter om in omgekeerde richting te zoeken"/>
             <two-find-buttons-tip value="modus met 2-zoekknoppen"/>
+            <file-rename-title value="Naam wijzigen"/>
             <find-in-files-filter-tip value="In cpp, cxx, h, hxx en hpp- bestanden zoeken:
 *.cpp *.cxx *.h *.hxx *.hpp
 

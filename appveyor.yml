@@ -84,10 +84,13 @@ after_build:
             Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\installer\functionList" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin" -Recurse
            
 
+            dir "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin\"
             
-            Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\Test\testFiles\regexGlobalTest.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin\userDefineLangs\"
+            Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\Test\testFiles\regexGlobalTest.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
             
-            dir "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin\binuserDefineLangs\"
+            dir "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin\"
+            
+         
 
             cd .\PowerEditor\Test\FunctionList\
             .\unitTestLauncher.ps1

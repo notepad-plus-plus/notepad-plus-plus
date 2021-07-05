@@ -89,6 +89,7 @@ namespace NppDarkMode
 	void setDarkScrollBar(HWND hwnd);
 	void setDarkTooltips(HWND hwnd, ToolTipsType type);
 	void setDarkLineAbovePanelToolbar(HWND hwnd);
+	void setDarkListView(HWND hwnd);
 
 	void setExplorerTheme(HWND hwnd, bool doEnable, bool isTreeView = false);
 }

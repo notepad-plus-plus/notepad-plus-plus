@@ -1117,6 +1117,18 @@ namespace NppDarkMode
 		::SendMessage(hwnd, TB_SETCOLORSCHEME, 0, reinterpret_cast<LPARAM>(&scheme));
 	}
 
+	void setDarkListView(HWND hwnd)
+	{
+		bool useDark = NppDarkMode::isEnabled() && NppDarkMode::isExperimentalEnabled();
+
+		HWND hHeader = ListView_GetHeader(hwnd);
+		NppDarkMode::allowDarkModeForWindow(hHeader, useDark);
+		SetWindowTheme(hHeader, L"ItemsView", nullptr);
+
+		NppDarkMode::allowDarkModeForWindow(hwnd, useDark);
+		SetWindowTheme(hwnd, L"Explorer", nullptr);
+	}
+
 	void setExplorerTheme(HWND hwnd, bool doEnable, bool isTreeView)
 	{
 		if (isTreeView)

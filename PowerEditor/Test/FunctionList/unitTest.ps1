@@ -22,10 +22,12 @@ Try {
 		if ($langName.StartsWith("udl-"))
 		{
 			$langName = $langName.Replace("udl-", "")
-			..\..\bin\notepad++.exe -export=functionList -udl="$langName" $testRoot$dirName\unitTest | Out-Null
+			Write-Host ..\..\bin\notepad++.exe -export=functionList -udl="`"$langName"`" $testRoot$dirName\unitTest | Out-Null
+			..\..\bin\notepad++.exe -export=functionList -udl="`"$langName"`" $testRoot$dirName\unitTest | Out-Null
 		}
 		else
 		{
+			Write-Host ..\..\bin\notepad++.exe -export=functionList -l"$langName" $testRoot$dirName\unitTest | Out-Null
 			..\..\bin\notepad++.exe -export=functionList -l"$langName" $testRoot$dirName\unitTest | Out-Null
 		}
 

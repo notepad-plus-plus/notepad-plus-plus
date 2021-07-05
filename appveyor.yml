@@ -87,7 +87,7 @@ after_build:
             
             Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\Test\testFiles\regexGlobalTest.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin\userDefineLangs\"
             
-            dir "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\binuserDefineLangs\"
+            dir "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin\binuserDefineLangs\"
 
             cd .\PowerEditor\Test\FunctionList\
             .\unitTestLauncher.ps1

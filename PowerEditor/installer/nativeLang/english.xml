@@ -1233,7 +1233,7 @@ Do you want to launch Notepad++ in Administrator mode?"/>
 Notepad++ will be restarted after all the operations are terminated.
 Continue?"/>
             <NeedToRestartToLoadPlugins title="Notepad++ need to be relaunched" message="You have to restart Notepad++ to load plugins you installed."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
-            <SaveAllConfirm title="Are you sure?" message="Are you sure you want to save all documents?
+            <SaveAllConfirm title="Save All Confirmation" message="Are you sure you want to save all documents?
 
 Choose &quot;Cancel&quot; if your answer will always be &quot;Yes&quot; and you won't be asked this question again.
 You can re-activate this dialog in Preferences dialog later." /> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->

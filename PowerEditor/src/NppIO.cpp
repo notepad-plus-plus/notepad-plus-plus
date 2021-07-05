@@ -1607,7 +1607,7 @@ bool Notepad_plus::fileSaveAllConfirm()
 		int answer = _nativeLangSpeaker.messageBox("SaveAllConfirm",
 			_pPublicInterface->getHSelf(),
 			TEXT("Are you sure you want to save all documents?\r\rChoose \"Cancel\" if your answer will always be \"Yes\" and you won't be asked this question again.\rYou can re-activate this dialog in Preferences dialog later."),
-			TEXT("Are you sure?"),
+			TEXT("Save All Confirmation"),
 			MB_YESNOCANCEL | MB_DEFBUTTON2);
 
 		if (answer == IDYES)

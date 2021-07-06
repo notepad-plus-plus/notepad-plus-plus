@@ -1083,7 +1083,7 @@ Zadať môžete viacero značiek pomocou medzery na oddelenie rôznych čísel."
                     <Item id="6345" name="Náhľad na karte dokumentu"/>
                     <Item id="6346" name="Náhľad na mape dokumentu"/>
                     <Item id="6360" name="Stlmiť všetky zvuky"/>
-					<Item id="6361" name="Povoliť potvrdzovacie dialógové okno Uložiť všetko"/>
+                    <Item id="6361" name="Povoliť potvrdzovacie dialógové okno Uložiť všetko"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Spustiť makro viacnásobne">
@@ -1232,7 +1232,7 @@ Chcete spustiť Notepad++ v režime správcu?"/>
 Notepad++ will be restarted after all the operations are terminated.
 Continue?"/>
             <NeedToRestartToLoadPlugins title="Notepad++ need to be relaunched" message="You have to restart Notepad++ to load plugins you installed."/>
-			<SaveAllConfirm title="Potvrdenie Uložiť všetko" message="Naozaj chcete uložiť všetky dokumenty?
+            <SaveAllConfirm title="Potvrdenie Uložiť všetko" message="Naozaj chcete uložiť všetky dokumenty?
 Vyberte &quot;Zrušiť&quot; ak vaša odpoveď bude vždy &quot;Áno&quot; a nechcete túto otázku znova zobrazovať.
 Toto dialógové okno môžete neskôr znovu aktivovať v dialógovom okne Preferencie." />
         </MessageBox>

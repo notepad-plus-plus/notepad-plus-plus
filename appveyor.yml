@@ -84,9 +84,8 @@ after_build:
             Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\installer\functionList" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin" -Recurse
            
 
-            dir "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin\"
+            dir "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin\functionList"
             
-            Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\Test\testFiles\userDefineLang.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
             
             "           "
             dir "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin\userDefineLangs"

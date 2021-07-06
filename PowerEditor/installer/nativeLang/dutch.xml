@@ -1089,6 +1089,7 @@ U kunt verschillende kolommarkeringen vastleggen door gebruik te maken van spati
                     <Item id="6345" name="Kort weergeven bij tab"/>
                     <Item id="6346" name="Kort weergeven bij overzichtskaart"/>
                     <Item id="6360" name="Alle geluiden dempen"/>
+                    <Item id="6361" name="Bevestigingsvenster inschakelen voor alles opslaan"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Macro meerdere keren uitvoeren">
@@ -1237,6 +1238,10 @@ Wilt u Notepad++ starten in beheerdersmodus?"/>
 Notepad++ zal opnieuw starten nadat alle acties afgewerkt zijn.
 Doorgaan?"/>
             <NeedToRestartToLoadPlugins title="Notepad++ moet opnieuw gestart worden" message="U moet Notepad++ opnieuw starten om de geïnstalleerde plug-ins te laden."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
+            <SaveAllConfirm title="Bevestiging voor alles opslaan" message="Weet u zeker dat u alle documenten wilt opslaan?
+
+&quot;Annuleren&quot; kiezen als uw antwoord altijd &quot;ja&quot; zal zijn en deze vraag zal u niet meer gesteld worden.
+U kunt dit dialoogvenster later opnieuw activeren in het voorkeurenvenster." /> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Geschiedenis van klembord"/>
@@ -1348,6 +1353,7 @@ Doorgaan?"/>
             <cloud-select-folder value="Selecteer een map waar Notepad++ instellingen leest en opslaat"/><!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
             <shift-change-direction-tip value="Gebruik Shift + Enter om in omgekeerde richting te zoeken"/>
             <two-find-buttons-tip value="modus met 2-zoekknoppen"/>
+            <file-rename-title value="Naam wijzigen"/>
             <find-in-files-filter-tip value="In cpp, cxx, h, hxx en hpp- bestanden zoeken:
 *.cpp *.cxx *.h *.hxx *.hpp
 

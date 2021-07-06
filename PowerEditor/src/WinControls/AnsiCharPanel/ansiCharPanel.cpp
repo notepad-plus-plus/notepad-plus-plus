@@ -55,13 +55,13 @@ INT_PTR CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 
 		case NPPM_INTERNAL_REFRESHDARKMODE:
 		{
-			NppDarkMode::setExplorerTheme(_listView.getHSelf(), true);
+			NppDarkMode::setDarkListView(_listView.getHSelf());
 			return TRUE;
 		}
 
 		case WM_NOTIFY:
 		{
-			switch (((LPNMHDR)lParam)->code)
+			switch (reinterpret_cast<LPNMHDR>(lParam)->code)
 			{
 				case DMN_CLOSE:
 				{
@@ -119,65 +119,33 @@ INT_PTR CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 				}
 				break;
 
-				case NM_CUSTOMDRAW:
-				{
-					static bool becomeDarkMode = false;
-					static bool becomeLightMode = false;
-					HWND hHeader = ListView_GetHeader(_listView.getHSelf());
-					if (NppDarkMode::isEnabled() && reinterpret_cast<LPNMHDR>(lParam)->hwndFrom == hHeader)
-					{
-						if (!becomeDarkMode)
-						{
-							NppDarkMode::setExplorerTheme(hHeader, false);
-							becomeDarkMode = true;
-						}
-						becomeLightMode = false;
-
-						auto nmtbcd = reinterpret_cast<LPNMTBCUSTOMDRAW>(lParam);
-						SetBkMode(nmtbcd->nmcd.hdc, TRANSPARENT);
-						FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getBackgroundBrush());
-						SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_NOTIFYSUBITEMDRAW);
-					}
-					else
-					{
-						if (!becomeLightMode)
-						{
-							NppDarkMode::setExplorerTheme(hHeader, true);
-							becomeLightMode = true;
-						}
-						becomeDarkMode = false;
-						SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_DODEFAULT);
-					}
-				}
-				break;
-
 				default:
 					break;
 			}
 		}
 		return TRUE;
 
-        case WM_SIZE:
-        {
-            int width = LOWORD(lParam);
-            int height = HIWORD(lParam);
+		case WM_SIZE:
+		{
+			int width = LOWORD(lParam);
+			int height = HIWORD(lParam);
 			::MoveWindow(_listView.getHSelf(), 0, 0, width, height, TRUE);
-            break;
-        }
+			break;
+		}
 
-        default :
-            return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
-    }
+		default :
+			return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
+	}
 	return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
 }
 
 void AnsiCharPanel::insertChar(unsigned char char2insert) const
 {
-    char charStr[2];
-    charStr[0] = char2insert;
-    charStr[1] = '\0';
-    wchar_t wCharStr[10];
-    char multiByteStr[10];
+	char charStr[2];
+	charStr[0] = char2insert;
+	charStr[1] = '\0';
+	wchar_t wCharStr[10];
+	char multiByteStr[10];
 	int codepage = (*_ppEditView)->getCurrentBuffer()->getEncoding();
 	if (codepage == -1)
 	{

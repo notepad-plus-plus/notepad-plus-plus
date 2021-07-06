@@ -182,6 +182,7 @@ public:
 	bool fileCloseAllToRight();
 	bool fileCloseAllUnchanged();
 	bool fileSave(BufferID id = BUFFER_INVALID);
+	bool fileSaveAllConfirm();
 	bool fileSaveAll();
 	bool fileSaveSpecific(const generic_string& fileNameToSave);
 	bool fileSaveAs(BufferID id = BUFFER_INVALID, bool isSaveCopy = false);

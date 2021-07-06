@@ -28,14 +28,14 @@ void VerticalFileSwitcherListView::init(HINSTANCE hInst, HWND parent, HIMAGELIST
 {
 	Window::init(hInst, parent);
 	_hImaLst = hImaLst;
-    INITCOMMONCONTROLSEX icex;
-    
-    // Ensure that the common control DLL is loaded. 
-    icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
-    icex.dwICC  = ICC_LISTVIEW_CLASSES;
-    InitCommonControlsEx(&icex);
-    
-    // Create the list-view window in report view with label editing enabled.
+	INITCOMMONCONTROLSEX icex;
+
+	// Ensure that the common control DLL is loaded. 
+	icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
+	icex.dwICC  = ICC_LISTVIEW_CLASSES;
+	InitCommonControlsEx(&icex);
+
+	// Create the list-view window in report view with label editing enabled.
 	int listViewStyles = LVS_REPORT /*| LVS_SINGLESEL*/ | LVS_AUTOARRANGE\
 						| LVS_SHAREIMAGELISTS | LVS_SHOWSELALWAYS;
 
@@ -55,7 +55,7 @@ void VerticalFileSwitcherListView::init(HINSTANCE hInst, HWND parent, HIMAGELIST
 		throw std::runtime_error("VerticalFileSwitcherListView::init : CreateWindowEx() function return null");
 	}
 
-	NppDarkMode::setExplorerTheme(_hSelf, true);
+	NppDarkMode::setDarkListView(_hSelf);
 	NppDarkMode::setDarkTooltips(_hSelf, NppDarkMode::ToolTipsType::listview);
 
 	::SetWindowLongPtr(_hSelf, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
@@ -86,29 +86,33 @@ LRESULT VerticalFileSwitcherListView::runProc(HWND hwnd, UINT Message, WPARAM wP
 {
 	switch (Message)
 	{
-		case WM_DRAWITEM:
+		case WM_NOTIFY:
 		{
-			DRAWITEMSTRUCT* pdis = (DRAWITEMSTRUCT*)lParam;
+			switch (reinterpret_cast<LPNMHDR>(lParam)->code)
+			{
+				case NM_CUSTOMDRAW:
+				{
+					LPNMCUSTOMDRAW nmcd = reinterpret_cast<LPNMCUSTOMDRAW>(lParam);
+					switch (nmcd->dwDrawStage)
+					{
+						case CDDS_PREPAINT:
+						{
+							return CDRF_NOTIFYITEMDRAW;
+						}
 
-			HDITEM hdi;
-			TCHAR  lpBuffer[256];
-
-			hdi.mask = HDI_TEXT;
-			hdi.pszText = lpBuffer;
-			hdi.cchTextMax = 256;
-
-			Header_GetItem(pdis->hwndItem, pdis->itemID, &hdi);
-
-			COLORREF textColor = RGB(0, 0, 0);
-			if (NppDarkMode::isEnabled())
-				textColor = NppDarkMode::getDarkerTextColor();
-
-			SetTextColor(pdis->hDC, textColor);
-			SetBkMode(pdis->hDC, TRANSPARENT);
-
-			::DrawText(pdis->hDC, lpBuffer, lstrlen(lpBuffer), &(pdis->rcItem), DT_SINGLELINE | DT_VCENTER | DT_LEFT);
+						case CDDS_ITEMPREPAINT:
+						{
+							bool isDarkModeSupported = NppDarkMode::isEnabled() && NppDarkMode::isExperimentalEnabled();
+							SetTextColor(nmcd->hdc, isDarkModeSupported ? NppDarkMode::getDarkerTextColor() : GetSysColor(COLOR_BTNTEXT));
+							return CDRF_DODEFAULT;
+						}
+						break;
+					}
+				}
+				break;
+			}
 		}
-		return TRUE;
+		break;
 	}
 	return ::CallWindowProc(_defaultProc, hwnd, Message, wParam, lParam);
 }
@@ -380,10 +384,9 @@ void VerticalFileSwitcherListView::insertColumn(const TCHAR *name, int width, in
 {
 	LVCOLUMN lvColumn;
  
-	lvColumn.mask = LVCF_TEXT | LVCF_WIDTH | LVCF_FMT;
+	lvColumn.mask = LVCF_TEXT | LVCF_WIDTH;
 	lvColumn.cx = width;
 	lvColumn.pszText = (TCHAR *)name;
-	lvColumn.fmt = HDF_OWNERDRAW;
 	ListView_InsertColumn(_hSelf, index, &lvColumn); // index is not 0 based but 1 based
 }
 

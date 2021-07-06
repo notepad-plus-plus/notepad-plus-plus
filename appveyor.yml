@@ -86,9 +86,10 @@ after_build:
 
             dir "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin\"
             
-            Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\Test\testFiles\regexGlobalTest.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
+            Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\Test\testFiles\userDefineLang.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
             
-            dir "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin\"
+            "           "
+            dir "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin\userDefineLangs"
             
          
 

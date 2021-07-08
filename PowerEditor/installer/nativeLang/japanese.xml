@@ -322,7 +322,7 @@
                     <Item id="47010" name="コマンドライン引数..."/>
                     <Item id="47001" name="Notepad++のサイト"/>
                     <Item id="47002" name="Notepad++のプロジェクトページ"/>
-                    <Item id="47003" name="オンラインドキュメント"/>
+                    <Item id="47003" name="Notepad++のオンラインマニュアル"/>
                     <Item id="47004" name="Notepad++のコミュニティ(フォーラム)"/>
                     <Item id="47012" name="デバッグ情報..."/>
                     <Item id="47005" name="プラグインを探す"/>
@@ -1089,6 +1089,7 @@
                     <Item id="6345" name="タブの近くに表示する"/>
                     <Item id="6346" name="文書マップに表示する"/>
                     <Item id="6360" name="音を鳴らさないようにする"/>
+                    <Item id="6361" name="「すべて保存」時に確認ダイアログを表示する"/>
                 </MISC>
             </Preference>
             <MultiMacro title="指定マクロを複数回実行">
@@ -1237,6 +1238,10 @@ Notepad++ を管理者権限で立ち上げますか？"/>
 すべての作業が完了すると Notepad++ は再起動します。
 処理を続けますか？"/>
             <NeedToRestartToLoadPlugins title="Notepad++ を再起動してください" message="インストールしたプラグインを読み込むには、Notepad++ を再起動してください。"/>
+            <SaveAllConfirm title="すべて保存 の確認" message="すべてのファイルを保存しようとしています。よろしいですか？
+
+「キャンセル」を押すと、今後、この確認画面が表示されなくなります。
+環境設定から、再度、この画面を表示するよう変更できます。" /> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="クリップボード履歴"/>
@@ -1347,6 +1352,7 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <cloud-select-folder value="Notepad++ が設定を読み書きするフォルダーを選択してください。"/>
             <shift-change-direction-tip value="Shift+Enter で逆方向に検索します"/>
             <two-find-buttons-tip value="検索ボタンを2個に分ける"/>
+            <file-rename-title value="名前の変更"/>
             <find-in-files-filter-tip value="例）cpp, cxx, h, hxx, hpp のファイルで検索する場合：
 *.cpp *.cxx *.h *.hxx *.hpp
 

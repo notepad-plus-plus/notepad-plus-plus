@@ -174,8 +174,8 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			NppDarkMode::setDarkTooltips(_hToolbarMenu, NppDarkMode::ToolTipsType::toolbar);
 			NppDarkMode::setDarkLineAbovePanelToolbar(_hToolbarMenu);
 
-			NppDarkMode::setExplorerTheme(_treeView.getHSelf(), true, true);
 			NppDarkMode::setDarkTooltips(_treeView.getHSelf(), NppDarkMode::ToolTipsType::treeview);
+			NppDarkMode::redrawTreeViewScrollBar(_treeView.getHSelf());
 			return TRUE;
 		}
 
@@ -197,10 +197,10 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 		}
 		return TRUE;
 
-        case WM_SIZE:
-        {
-            int width = LOWORD(lParam);
-            int height = HIWORD(lParam);
+		case WM_SIZE:
+		{
+			int width = LOWORD(lParam);
+			int height = HIWORD(lParam);
 			int extraValue = NppParameters::getInstance()._dpiManager.scaleX(4);
 
 			RECT toolbarMenuRect;
@@ -211,13 +211,13 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			HWND hwnd = _treeView.getHSelf();
 			if (hwnd)
 				::MoveWindow(hwnd, 0, toolbarMenuRect.bottom + extraValue, width, height - toolbarMenuRect.bottom - extraValue, TRUE);
-            break;
-        }
+			break;
+		}
 
-        case WM_CONTEXTMENU:
+		case WM_CONTEXTMENU:
 			if (!_treeView.isDragging())
 				showContextMenu(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
-        return TRUE;
+		return TRUE;
 
 		case WM_COMMAND:
 		{
@@ -248,12 +248,12 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 		}
 
 		case WM_DESTROY:
-        {
+		{
 			::DestroyWindow(_hToolbarMenu);
 			_treeView.destroy();
 			destroyMenus();
-            break;
-        }
+			break;
+		}
 
 		case FB_ADDFILE:
 		{
@@ -312,9 +312,9 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			break;
 		}
 
-        default :
-            return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
-    }
+		default :
+			return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
+	}
 	return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
 }
 
@@ -718,18 +718,10 @@ void FileBrowser::notified(LPNMHDR notification)
 	}
 	else if (notification->code == NM_CUSTOMDRAW && (notification->hwndFrom == _hToolbarMenu))
 	{
-		NMTBCUSTOMDRAW* nmtbcd = reinterpret_cast<NMTBCUSTOMDRAW*>(notification);
-		if (nmtbcd->nmcd.dwDrawStage == CDDS_PREERASE)
+		if (NppDarkMode::isEnabled())
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getBackgroundBrush());
-				SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_SKIPDEFAULT);
-			}
-			else
-			{
-				SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_DODEFAULT);
-			}
+			auto nmtbcd = reinterpret_cast<LPNMTBCUSTOMDRAW>(notification);
+			FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getBackgroundBrush());
 		}
 	}
 }
@@ -1060,7 +1052,7 @@ void FileBrowser::addRootFolder(generic_string rootFolderPath)
 	}
 
 	std::vector<generic_string> patterns2Match;
- 	patterns2Match.push_back(TEXT("*.*"));
+	patterns2Match.push_back(TEXT("*.*"));
 
 	TCHAR *label = ::PathFindFileName(rootFolderPath.c_str());
 	TCHAR rootLabel[MAX_PATH];

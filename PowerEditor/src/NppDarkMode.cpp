@@ -97,10 +97,8 @@ namespace NppDarkMode
 	{
 		_options = configuredOptions();
 
-		if (_options.enableExperimental)
-		{
-			initExperimentalDarkMode(_options.enableScrollbarHack, _options.enable);
-		}
+		initExperimentalDarkMode();
+		setDarkMode(_options.enable, _options.enableScrollbarHack);
 	}
 
 	// attempts to apply new options from NppParameters, sends NPPM_INTERNAL_REFRESHDARKMODE to hwnd's top level parent
@@ -114,6 +112,7 @@ namespace NppDarkMode
 		{
 			supportedChanged = true;
 			_options.enable = config.enable;
+			setDarkMode(_options.enable, _options.enable);
 		}
 
 		if (_options.enableMenubar != config.enableMenubar)
@@ -142,11 +141,6 @@ namespace NppDarkMode
 	bool isDarkMenuEnabled()
 	{
 		return _options.enableMenubar;
-	}
-
-	bool isExperimentalEnabled()
-	{
-		return _options.enableExperimental;
 	}
 
 	bool isScrollbarHackEnabled()
@@ -215,7 +209,7 @@ namespace NppDarkMode
 	{
 		UNREFERENCED_PARAMETER(hwnd);
 
-		if (!isExperimentalEnabled())
+		if (!isExperimentalSupported())
 		{
 			return;
 		}
@@ -386,9 +380,14 @@ namespace NppDarkMode
 
 	// from DarkMode.h
 
-	void initExperimentalDarkMode(bool fixDarkScrollbar, bool dark)
+	void initExperimentalDarkMode()
 	{
-		::InitDarkMode(fixDarkScrollbar, dark);
+		::InitDarkMode();
+	}
+
+	void setDarkMode(bool useDark, bool fixDarkScrollbar)
+	{
+		::SetDarkMode(useDark, fixDarkScrollbar);
 	}
 
 	void allowDarkModeForApp(bool allow)
@@ -401,9 +400,9 @@ namespace NppDarkMode
 		return ::AllowDarkModeForWindow(hWnd, allow);
 	}
 
-	void setTitleBarThemeColor(HWND hWnd, bool dark)
+	void setTitleBarThemeColor(HWND hWnd)
 	{
-		::SetTitleBarThemeColor(hWnd, dark);
+		::RefreshTitleBarThemeColor(hWnd);
 	}
 
 	void enableDarkScrollBarForWindowAndChildren(HWND hwnd)
@@ -1044,12 +1043,8 @@ namespace NppDarkMode
 
 	void setDarkTitleBar(HWND hwnd)
 	{
-		bool useDark = NppDarkMode::isExperimentalEnabled() && NppDarkMode::isEnabled();
-
-		NppDarkMode::allowDarkModeForWindow(hwnd, useDark);
-		SetWindowTheme(hwnd, useDark ? L"Explorer" : nullptr, nullptr);
-
-		NppDarkMode::setTitleBarThemeColor(hwnd, useDark);
+		NppDarkMode::allowDarkModeForWindow(hwnd, NppDarkMode::isEnabled());
+		NppDarkMode::setTitleBarThemeColor(hwnd);
 	}
 
 	void setDarkExplorerTheme(HWND hwnd)
@@ -1119,7 +1114,7 @@ namespace NppDarkMode
 
 	void setDarkListView(HWND hwnd)
 	{
-		bool useDark = NppDarkMode::isEnabled() && NppDarkMode::isExperimentalEnabled();
+		bool useDark = NppDarkMode::isEnabled();
 
 		HWND hHeader = ListView_GetHeader(hwnd);
 		NppDarkMode::allowDarkModeForWindow(hHeader, useDark);
@@ -1129,20 +1124,20 @@ namespace NppDarkMode
 		SetWindowTheme(hwnd, L"Explorer", nullptr);
 	}
 
-	void setExplorerTheme(HWND hwnd, bool doEnable, bool isTreeView)
+	void disableVisualStyle(HWND hwnd, bool doDisable)
 	{
-		if (isTreeView)
-		{
-			SetWindowTheme(hwnd, nullptr, nullptr);
-		}
-		else if (doEnable)
-		{
-			NppDarkMode::allowDarkModeForWindow(hwnd, NppDarkMode::isEnabled() && NppDarkMode::isExperimentalEnabled());
-			SetWindowTheme(hwnd, L"Explorer", nullptr);
-		}
-		else
+		if (doDisable)
 		{
 			SetWindowTheme(hwnd, L"", L"");
 		}
+		else
+		{
+			SetWindowTheme(hwnd, nullptr, nullptr);
+		}
+	}
+
+	void redrawTreeViewScrollBar(HWND hwnd)
+	{
+		SetWindowTheme(hwnd, nullptr, nullptr); //hack to redraw treeview scrollbar
 	}
 }

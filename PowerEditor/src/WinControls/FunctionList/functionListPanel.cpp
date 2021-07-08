@@ -597,32 +597,10 @@ void FunctionListPanel::notified(LPNMHDR notification)
 	}
 	else if (notification->code == NM_CUSTOMDRAW && (notification->hwndFrom == _hToolbarMenu))
 	{
-		static bool becomeDarkMode = false;
-		static bool becomeLightMode = false;
 		if (NppDarkMode::isEnabled())
 		{
-			if (!becomeDarkMode)
-			{
-				NppDarkMode::setExplorerTheme(_hToolbarMenu, false);
-				becomeDarkMode = true;
-			}
-			becomeLightMode = false;
-
 			auto nmtbcd = reinterpret_cast<LPNMTBCUSTOMDRAW>(notification);
 			FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getBackgroundBrush());
-			nmtbcd->clrText = NppDarkMode::getTextColor();
-			nmtbcd->clrHighlightHotTrack = NppDarkMode::getHighlightHotTrackColor();
-			SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_NOTIFYSUBITEMDRAW | TBCDRF_HILITEHOTTRACK);
-		}
-		else
-		{
-			if (!becomeLightMode)
-			{
-				NppDarkMode::setExplorerTheme(_hToolbarMenu, true);
-				becomeLightMode = true;
-			}
-			becomeDarkMode = false;
-			SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_DODEFAULT);
 		}
 	}
 }
@@ -709,7 +687,7 @@ static WNDPROC oldFunclstToolbarProc = NULL;
 static LRESULT CALLBACK funclstToolbarProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
-    {
+	{
 		case WM_CTLCOLOREDIT :
 		{
 			return ::SendMessage(::GetParent(hwnd), WM_CTLCOLOREDIT, wParam, lParam);
@@ -762,8 +740,8 @@ void FunctionListPanel::setSort(bool isEnabled)
 
 INT_PTR CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
-    switch (message)
-    {
+	switch (message)
+	{
 		// Make edit field red if not found
 		case WM_CTLCOLOREDIT :
 		{
@@ -811,8 +789,8 @@ INT_PTR CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPA
 			return (LRESULT)hBrushBackground;
 		}
 
-        case WM_INITDIALOG :
-        {
+		case WM_INITDIALOG :
+		{
 			int editWidth = NppParameters::getInstance()._dpiManager.scaleX(100);
 			int editWidthSep = NppParameters::getInstance()._dpiManager.scaleX(105); //editWidth + 5
 			int editHeight = NppParameters::getInstance()._dpiManager.scaleY(20);
@@ -891,8 +869,8 @@ INT_PTR CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPA
 			NppDarkMode::setDarkTooltips(_hToolbarMenu, NppDarkMode::ToolTipsType::toolbar);
 			NppDarkMode::setDarkLineAbovePanelToolbar(_hToolbarMenu);
 
-			NppDarkMode::setExplorerTheme(_treeView.getHSelf(), true, true);
 			NppDarkMode::setDarkTooltips(_treeView.getHSelf(), NppDarkMode::ToolTipsType::treeview);
+			NppDarkMode::redrawTreeViewScrollBar(_treeView.getHSelf());
 			return TRUE;
 		}
 

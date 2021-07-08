@@ -16,7 +16,6 @@ namespace NppDarkMode
 	struct Options
 	{
 		bool enable = false;
-		bool enableExperimental = false;
 		bool enableMenubar = false;
 		bool enableScrollbarHack = false;
 	};
@@ -35,8 +34,8 @@ namespace NppDarkMode
 
 	bool isEnabled();
 	bool isDarkMenuEnabled();
-	bool isExperimentalEnabled();
 	bool isScrollbarHackEnabled();
+	bool isExperimentalSupported();
 
 	COLORREF invertLightness(COLORREF c);
 	COLORREF invertLightnessSofter(COLORREF c);
@@ -68,10 +67,11 @@ namespace NppDarkMode
 	void drawUAHMenuNCBottomLine(HWND hWnd);
 
 	// from DarkMode.h
-	void initExperimentalDarkMode(bool fixDarkScrollbar, bool dark);
+	void initExperimentalDarkMode();
+	void setDarkMode(bool useDark, bool fixDarkScrollbar);
 	void allowDarkModeForApp(bool allow);
 	bool allowDarkModeForWindow(HWND hWnd, bool allow);
-	void setTitleBarThemeColor(HWND hWnd, bool dark);
+	void setTitleBarThemeColor(HWND hWnd);
 
 	// enhancements to DarkMode.h
 	void enableDarkScrollBarForWindowAndChildren(HWND hwnd);
@@ -91,5 +91,6 @@ namespace NppDarkMode
 	void setDarkLineAbovePanelToolbar(HWND hwnd);
 	void setDarkListView(HWND hwnd);
 
-	void setExplorerTheme(HWND hwnd, bool doEnable, bool isTreeView = false);
+	void disableVisualStyle(HWND hwnd, bool doDisable);
+	void redrawTreeViewScrollBar(HWND hwnd);
 }

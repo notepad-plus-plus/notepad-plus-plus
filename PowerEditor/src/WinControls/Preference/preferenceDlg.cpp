@@ -831,7 +831,6 @@ INT_PTR CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				case IDC_CHECK_DARKMODE_ENABLE:
 					bool enableDarkMode = isCheckedOrNot(static_cast<int>(wParam));
 					nppGUI._darkmode.enable = enableDarkMode;
-					nppGUI._darkmode.enableExperimental = enableDarkMode;
 					nppGUI._darkmode.enableMenubar = enableDarkMode;
 					nppGUI._darkmode.enableScrollbarHack = enableDarkMode;
 

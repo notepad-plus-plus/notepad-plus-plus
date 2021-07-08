@@ -7515,7 +7515,7 @@ void Notepad_plus::restoreMinimizeDialogs()
 void Notepad_plus::refreshDarkMode()
 {
 	SendMessage(_pPublicInterface->getHSelf(), NPPM_SETEDITORBORDEREDGE, 0, NppParameters::getInstance().getSVP()._showBorderEdge);
-	if (NppDarkMode::isExperimentalEnabled())
+	if (NppDarkMode::isExperimentalSupported())
 	{
 		NppDarkMode::allowDarkModeForApp(NppDarkMode::isEnabled());
 	}
@@ -7640,7 +7640,7 @@ void Notepad_plus::refreshDarkMode()
 		}
 	}
 
-	if (NppDarkMode::isExperimentalEnabled())
+	if (NppDarkMode::isExperimentalSupported())
 	{
 		RECT rcClient;
 		

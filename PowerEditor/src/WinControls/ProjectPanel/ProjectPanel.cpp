@@ -56,6 +56,7 @@ INT_PTR CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 								   0,0,0,0,_hSelf, nullptr, _hInst, nullptr);
 
 			NppDarkMode::setDarkLineAbovePanelToolbar(_hToolbarMenu);
+			NppDarkMode::disableVisualStyle(_hToolbarMenu, NppDarkMode::isEnabled());
 
 			TBBUTTON tbButtons[2];
 
@@ -100,9 +101,10 @@ INT_PTR CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 		case NPPM_INTERNAL_REFRESHDARKMODE:
 		{
 			NppDarkMode::setDarkLineAbovePanelToolbar(_hToolbarMenu);
-			
-			NppDarkMode::setExplorerTheme(_treeView.getHSelf(), true, true);
+			NppDarkMode::disableVisualStyle(_hToolbarMenu, NppDarkMode::isEnabled());
+
 			NppDarkMode::setDarkTooltips(_treeView.getHSelf(), NppDarkMode::ToolTipsType::treeview);
+			NppDarkMode::redrawTreeViewScrollBar(_treeView.getHSelf());
 			return TRUE;
 		}
 
@@ -122,22 +124,22 @@ INT_PTR CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 		}
 		return TRUE;
 
-        case WM_SIZE:
-        {
-            int width = LOWORD(lParam);
-            int height = HIWORD(lParam);
-            RECT toolbarMenuRect;
-            ::GetClientRect(_hToolbarMenu, &toolbarMenuRect);
+		case WM_SIZE:
+		{
+			int width = LOWORD(lParam);
+			int height = HIWORD(lParam);
+			RECT toolbarMenuRect;
+			::GetClientRect(_hToolbarMenu, &toolbarMenuRect);
 
-            ::MoveWindow(_hToolbarMenu, 0, 0, width, toolbarMenuRect.bottom, TRUE);
+			::MoveWindow(_hToolbarMenu, 0, 0, width, toolbarMenuRect.bottom, TRUE);
 
 			HWND hwnd = _treeView.getHSelf();
 			if (hwnd)
 				::MoveWindow(hwnd, 0, toolbarMenuRect.bottom + 2, width, height - toolbarMenuRect.bottom - 2, TRUE);
-            break;
-        }
+			break;
+		}
 
-        case WM_CONTEXTMENU:
+		case WM_CONTEXTMENU:
 			if (!_treeView.isDragging())
 			{
 				int xPos = GET_X_LPARAM(lParam);
@@ -163,7 +165,7 @@ INT_PTR CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 					showContextMenu(xPos, yPos);
 				}
 			}
-        return TRUE;
+		return TRUE;
 
 		case WM_COMMAND:
 		{
@@ -172,16 +174,16 @@ INT_PTR CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 		}
 
 		case WM_DESTROY:
-        {
+		{
 			_treeView.destroy();
 			destroyMenus();
 			::DestroyWindow(_hToolbarMenu);
-            break;
-        }
+			break;
+		}
 
-        default :
-            return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
-    }
+		default :
+			return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
+	}
 	return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
 }
 
@@ -230,7 +232,7 @@ void ProjectPanel::initMenus()
 	generic_string saveas_workspace = pNativeSpeaker->getProjectPanelLangMenuStr("WorkspaceMenu", IDM_PROJECT_SAVEASWS, PM_SAVEASWORKSPACE);
 	generic_string saveacopyas_workspace = pNativeSpeaker->getProjectPanelLangMenuStr("WorkspaceMenu", IDM_PROJECT_SAVEACOPYASWS, PM_SAVEACOPYASWORKSPACE);
 	generic_string newproject_workspace = pNativeSpeaker->getProjectPanelLangMenuStr("WorkspaceMenu", IDM_PROJECT_NEWPROJECT, PM_NEWPROJECTWORKSPACE);
-    generic_string findinprojects_workspace = pNativeSpeaker->getProjectPanelLangMenuStr("WorkspaceMenu", IDM_PROJECT_FINDINPROJECTSWS, PM_FINDINFILESWORKSPACE);
+	generic_string findinprojects_workspace = pNativeSpeaker->getProjectPanelLangMenuStr("WorkspaceMenu", IDM_PROJECT_FINDINPROJECTSWS, PM_FINDINFILESWORKSPACE);
 
 	::InsertMenu(_hWorkSpaceMenu, 0, MF_BYCOMMAND, IDM_PROJECT_NEWWS, new_workspace.c_str());
 	::InsertMenu(_hWorkSpaceMenu, 0, MF_BYCOMMAND, IDM_PROJECT_OPENWS, open_workspace.c_str());
@@ -451,34 +453,34 @@ bool ProjectPanel::saveWorkSpace()
 
 bool ProjectPanel::writeWorkSpace(const TCHAR *projectFileName)
 {
-    //write <NotepadPlus>: use the default file name if new file name is not given
+	//write <NotepadPlus>: use the default file name if new file name is not given
 	const TCHAR * fn2write = projectFileName?projectFileName:_workSpaceFilePath.c_str();
 	TiXmlDocument projDoc(fn2write);
-    TiXmlNode *root = projDoc.InsertEndChild(TiXmlElement(TEXT("NotepadPlus")));
+	TiXmlNode *root = projDoc.InsertEndChild(TiXmlElement(TEXT("NotepadPlus")));
 
 	TCHAR textBuffer[MAX_PATH];
 	TVITEM tvItem;
-    tvItem.mask = TVIF_TEXT;
-    tvItem.pszText = textBuffer;
-    tvItem.cchTextMax = MAX_PATH;
+	tvItem.mask = TVIF_TEXT;
+	tvItem.pszText = textBuffer;
+	tvItem.cchTextMax = MAX_PATH;
 
-    //for each project, write <Project>
-    HTREEITEM tvRoot = _treeView.getRoot();
-    if (!tvRoot)
-      return false;
+	//for each project, write <Project>
+	HTREEITEM tvRoot = _treeView.getRoot();
+	if (!tvRoot)
+		return false;
 
-    for (HTREEITEM tvProj = _treeView.getChildFrom(tvRoot);
-        tvProj != NULL;
-        tvProj = _treeView.getNextSibling(tvProj))
-    {        
-        tvItem.hItem = tvProj;
+		for (HTREEITEM tvProj = _treeView.getChildFrom(tvRoot);
+		tvProj != NULL;
+		tvProj = _treeView.getNextSibling(tvProj))
+	{
+		tvItem.hItem = tvProj;
 		SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
-        //printStr(tvItem.pszText);
+		//printStr(tvItem.pszText);
 
 		TiXmlNode *projRoot = root->InsertEndChild(TiXmlElement(TEXT("Project")));
 		projRoot->ToElement()->SetAttribute(TEXT("name"), tvItem.pszText);
 		buildProjectXml(projRoot, tvProj, fn2write);
-    }
+	}
 
 	if (!projDoc.SaveFile())
 	{
@@ -506,7 +508,7 @@ void ProjectPanel::buildProjectXml(TiXmlNode *node, HTREEITEM hItem, const TCHAR
 	tvItem.pszText = textBuffer;
 	tvItem.cchTextMax = MAX_PATH;
 
-    for (HTREEITEM hItemNode = _treeView.getChildFrom(hItem);
+	for (HTREEITEM hItemNode = _treeView.getChildFrom(hItem);
 		hItemNode != NULL;
 		hItemNode = _treeView.getNextSibling(hItemNode))
 	{
@@ -817,27 +819,11 @@ void ProjectPanel::notified(LPNMHDR notification)
 	{
 		if (NppDarkMode::isEnabled())
 		{
-			if (!_becomeDarkMode)
-			{
-				NppDarkMode::setExplorerTheme(_hToolbarMenu, false);
-				_becomeDarkMode = true;
-			}
-			_becomeLightMode = false;
 			auto nmtbcd = reinterpret_cast<LPNMTBCUSTOMDRAW>(notification);
 			FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getBackgroundBrush());
 			nmtbcd->clrText = NppDarkMode::getTextColor();
 			nmtbcd->clrHighlightHotTrack = NppDarkMode::getHighlightHotTrackColor();
-			SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_NOTIFYSUBITEMDRAW | TBCDRF_HILITEHOTTRACK);
-		}
-		else
-		{
-			if (!_becomeLightMode)
-			{
-				NppDarkMode::setExplorerTheme(_hToolbarMenu, true);
-				_becomeLightMode = true;
-			}
-			_becomeDarkMode = false;
-			SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_DODEFAULT);
+			SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_NOTIFYITEMDRAW | TBCDRF_HILITEHOTTRACK);
 		}
 	}
 }

@@ -186,7 +186,7 @@ LRESULT ListView::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 
 						case CDDS_ITEMPREPAINT:
 						{
-							bool isDarkModeSupported = NppDarkMode::isEnabled() && NppDarkMode::isExperimentalEnabled();
+							bool isDarkModeSupported = NppDarkMode::isEnabled() && NppDarkMode::isExperimentalSupported();
 							SetTextColor(nmcd->hdc, isDarkModeSupported ? NppDarkMode::getDarkerTextColor() : GetSysColor(COLOR_BTNTEXT));
 							return CDRF_DODEFAULT;
 						}

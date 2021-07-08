@@ -5388,7 +5388,6 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			};
 
 			_nppGUI._darkmode.enable = parseYesNoBoolAttribute(TEXT("enable"));
-			_nppGUI._darkmode.enableExperimental = parseYesNoBoolAttribute(TEXT("enableExperimental"));
 			_nppGUI._darkmode.enableMenubar = parseYesNoBoolAttribute(TEXT("enableMenubar"));
 			_nppGUI._darkmode.enableScrollbarHack = parseYesNoBoolAttribute(TEXT("enableScrollbarHack"));
 		}
@@ -6414,7 +6413,6 @@ void NppParameters::createXmlTreeFromGUIParams()
 		};
 
 		setYesNoBoolAttribute(TEXT("enable"), _nppGUI._darkmode.enable);
-		setYesNoBoolAttribute(TEXT("enableExperimental"), _nppGUI._darkmode.enableExperimental);
 		setYesNoBoolAttribute(TEXT("enableMenubar"), _nppGUI._darkmode.enableMenubar);
 		setYesNoBoolAttribute(TEXT("enableScrollbarHack"), _nppGUI._darkmode.enableScrollbarHack);
 	}

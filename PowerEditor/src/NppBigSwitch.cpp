@@ -70,7 +70,7 @@ LRESULT CALLBACK Notepad_plus_Window::Notepad_plus_Proc(HWND hwnd, UINT message,
 			pM30ide->_hSelf = hwnd;
 			::SetWindowLongPtr(hwnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pM30ide));
 
-			if (NppDarkMode::isExperimentalEnabled() && NppDarkMode::isEnabled() && NppDarkMode::isScrollbarHackEnabled())
+			if (NppDarkMode::isExperimentalSupported())
 			{
 				NppDarkMode::enableDarkScrollBarForWindowAndChildren(hwnd);
 			}
@@ -99,7 +99,7 @@ LRESULT Notepad_plus_Window::runProc(HWND hwnd, UINT message, WPARAM wParam, LPA
 				_notepad_plus_plus_core._pPublicInterface = this;
 				LRESULT lRet = _notepad_plus_plus_core.init(hwnd);
 
-				if (NppDarkMode::isExperimentalEnabled() && NppDarkMode::isEnabled())
+				if (NppDarkMode::isEnabled() && NppDarkMode::isExperimentalSupported())
 				{
 					RECT rcClient;
 					GetWindowRect(hwnd, &rcClient);

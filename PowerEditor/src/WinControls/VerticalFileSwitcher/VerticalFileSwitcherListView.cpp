@@ -102,7 +102,7 @@ LRESULT VerticalFileSwitcherListView::runProc(HWND hwnd, UINT Message, WPARAM wP
 
 						case CDDS_ITEMPREPAINT:
 						{
-							bool isDarkModeSupported = NppDarkMode::isEnabled() && NppDarkMode::isExperimentalEnabled();
+							bool isDarkModeSupported = NppDarkMode::isEnabled() && NppDarkMode::isExperimentalSupported();
 							SetTextColor(nmcd->hdc, isDarkModeSupported ? NppDarkMode::getDarkerTextColor() : GetSysColor(COLOR_BTNTEXT));
 							return CDRF_DODEFAULT;
 						}

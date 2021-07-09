@@ -55,7 +55,7 @@ namespace NppDarkMode
 			::DeleteObject(errorBackground);	errorBackground = nullptr;
 		}
 	};
-	/*
+
 	static const Colors darkColors{
 		HEXRGB(0x202020),	// background
 		HEXRGB(0x404040),	// softerBackground
@@ -68,9 +68,9 @@ namespace NppDarkMode
 		HEXRGB(0x808080),	// edgeColor
 		HEXRGB(0x414141)	// highlightHotTrack
 	};
-	*/
 
-	static const Colors darkColors{
+	// blue
+	static const Colors darkBlueColors{
 		HEXRGB(0x202040),	// background
 		HEXRGB(0x404060),	// softerBackground
 		HEXRGB(0x404060),	// hotBackground
@@ -81,6 +81,34 @@ namespace NppDarkMode
 		HEXRGB(0x8080A0),	// disabledTextColor
 		HEXRGB(0x8080A0),	// edgeColor
 		HEXRGB(0x414161)	// highlightHotTrack
+	};
+
+	// red
+	static const Colors darkRedColors{
+		HEXRGB(0x402020),	// background
+		HEXRGB(0x604040),	// softerBackground
+		HEXRGB(0x604040),	// hotBackground
+		HEXRGB(0x402020),	// pureBackground
+		HEXRGB(0xD00000),	// errorBackground
+		HEXRGB(0xFFE0E0),	// textColor
+		HEXRGB(0xE0C0C0),	// darkerTextColor
+		HEXRGB(0xA08080),	// disabledTextColor
+		HEXRGB(0xA08080),	// edgeColor
+		HEXRGB(0x614141)	// highlightHotTrack
+	};
+
+	// green
+	static const Colors darkGreenColors{
+		HEXRGB(0x204020),	// background
+		HEXRGB(0x406040),	// softerBackground
+		HEXRGB(0x406040),	// hotBackground
+		HEXRGB(0x204020),	// pureBackground
+		HEXRGB(0xB02000),	// errorBackground
+		HEXRGB(0xE0FFE0),	// textColor
+		HEXRGB(0xC0E0C0),	// darkerTextColor
+		HEXRGB(0x80A080),	// disabledTextColor
+		HEXRGB(0x80A080),	// edgeColor
+		HEXRGB(0x416141)	// highlightHotTrack
 	};
 
 	struct Theme

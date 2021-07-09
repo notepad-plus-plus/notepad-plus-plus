@@ -56,6 +56,7 @@ namespace NppDarkMode
 		}
 	};
 
+	// black (default)
 	static const Colors darkColors{
 		HEXRGB(0x202020),	// background
 		HEXRGB(0x404040),	// softerBackground
@@ -69,6 +70,98 @@ namespace NppDarkMode
 		HEXRGB(0x414141)	// highlightHotTrack
 	};
 
+	// red tone
+	static const Colors darkRedColors{
+		HEXRGB(0x302020),	// background
+		HEXRGB(0x504040),	// softerBackground
+		HEXRGB(0x504040),	// hotBackground
+		HEXRGB(0x302020),	// pureBackground
+		HEXRGB(0xC00000),	// errorBackground
+		HEXRGB(0xE0E0E0),	// textColor
+		HEXRGB(0xC0C0C0),	// darkerTextColor
+		HEXRGB(0x808080),	// disabledTextColor
+		HEXRGB(0x908080),	// edgeColor
+		HEXRGB(0x514141)	// highlightHotTrack
+	};
+	
+	// green tone
+	static const Colors darkGreenColors{
+		HEXRGB(0x203020),	// background
+		HEXRGB(0x405040),	// softerBackground
+		HEXRGB(0x405040),	// hotBackground
+		HEXRGB(0x203020),	// pureBackground
+		HEXRGB(0xB01000),	// errorBackground
+		HEXRGB(0xE0E0E0),	// textColor
+		HEXRGB(0xC0C0C0),	// darkerTextColor
+		HEXRGB(0x808080),	// disabledTextColor
+		HEXRGB(0x809080),	// edgeColor
+		HEXRGB(0x415141)	// highlightHotTrack
+	};
+	
+
+	// blue tone
+	static const Colors darkBlueColors{
+		HEXRGB(0x202040),	// background
+		HEXRGB(0x404060),	// softerBackground
+		HEXRGB(0x404060),	// hotBackground
+		HEXRGB(0x202040),	// pureBackground
+		HEXRGB(0xB00020),	// errorBackground
+		HEXRGB(0xE0E0E0),	// textColor
+		HEXRGB(0xC0C0C0),	// darkerTextColor
+		HEXRGB(0x808080),	// disabledTextColor
+		HEXRGB(0x8080A0),	// edgeColor
+		HEXRGB(0x414161)	// highlightHotTrack
+	};
+	
+	// purple tone
+	static const Colors darkPurpleColors{
+		HEXRGB(0x302040),	// background
+		HEXRGB(0x504060),	// softerBackground
+		HEXRGB(0x504060),	// hotBackground
+		HEXRGB(0x302040),	// pureBackground
+		HEXRGB(0xC00020),	// errorBackground
+		HEXRGB(0xE0E0E0),	// textColor
+		HEXRGB(0xC0C0C0),	// darkerTextColor
+		HEXRGB(0x808080),	// disabledTextColor
+		HEXRGB(0x9080A0),	// edgeColor
+		HEXRGB(0x514161)	// highlightHotTrack
+	};
+
+	// cyan tone
+	static const Colors darkCyanColors{
+		HEXRGB(0x203040),	// background
+		HEXRGB(0x405060),	// softerBackground
+		HEXRGB(0x405060),	// hotBackground
+		HEXRGB(0x203040),	// pureBackground
+		HEXRGB(0xB01020),	// errorBackground
+		HEXRGB(0xE0E0E0),	// textColor
+		HEXRGB(0xC0C0C0),	// darkerTextColor
+		HEXRGB(0x808080),	// disabledTextColor
+		HEXRGB(0x8090A0),	// edgeColor
+		HEXRGB(0x415161)	// highlightHotTrack
+	};
+
+	// olive tone
+	static const Colors darkOliveColors{
+		HEXRGB(0x303020),	// background
+		HEXRGB(0x505040),	// softerBackground
+		HEXRGB(0x505040),	// hotBackground
+		HEXRGB(0x303020),	// pureBackground
+		HEXRGB(0xC01000),	// errorBackground
+		HEXRGB(0xE0E0E0),	// textColor
+		HEXRGB(0xC0C0C0),	// darkerTextColor
+		HEXRGB(0x808080),	// disabledTextColor
+		HEXRGB(0x909080),	// edgeColor
+		HEXRGB(0x515141)	// highlightHotTrack
+	};
+
+	ColorTone g_colorToneChoice = blackTone;
+
+	void setDarkTone(ColorTone colorToneChoice)
+	{
+		g_colorToneChoice = colorToneChoice;
+	}
+
 	struct Theme
 	{
 		Colors colors;
@@ -80,17 +173,55 @@ namespace NppDarkMode
 		{}
 	};
 
+	Theme t0(darkColors);
+	Theme t1(darkRedColors);
+	Theme t2(darkGreenColors);
+	Theme t3(darkBlueColors);
+	Theme t4(darkPurpleColors);
+	Theme t5(darkCyanColors);
+	Theme t6(darkOliveColors);
+	
+
 	Theme& getTheme()
 	{
-		static Theme g_theme(darkColors);
-		return g_theme;
+		switch (g_colorToneChoice)
+		{
+			case redTone:
+				return t1;
+
+			case greenTone:
+				return t2;
+
+			case blueTone:
+				return t3;
+
+			case purpleTone:
+				return t4;
+
+			case cyanTone:
+				return t5;
+
+			case oliveTone:
+				return t6;
+
+			default:
+				return t0;
+		}
 	}
 
 	static Options _options;			// actual runtime options
 
-	const Options& configuredOptions()
+	Options configuredOptions()
 	{
-		return NppParameters::getInstance().getNppGUI()._darkmode;
+		NppGUI nppGui = NppParameters::getInstance().getNppGUI();
+		Options opt;
+		opt.enable = nppGui._darkmode._isEnabled;
+		opt.enableMenubar = opt.enable;
+		opt.enableScrollbarHack = opt.enable;
+
+		g_colorToneChoice = nppGui._darkmode._colorTone;
+
+		return opt;
 	}
 
 	void initDarkMode()
@@ -106,7 +237,7 @@ namespace NppDarkMode
 	{
 		bool supportedChanged = false;
 
-		auto& config = configuredOptions();
+		auto config = configuredOptions();
 
 		if (_options.enable != config.enable)
 		{

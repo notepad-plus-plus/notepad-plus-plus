@@ -777,6 +777,11 @@ public:
 	bool _doDoubleQuotes = false;
 };
 
+struct DarkModeConf final
+{
+	bool _isEnabled = false;
+	NppDarkMode::ColorTone _colorTone = NppDarkMode::blackTone;
+};
 
 struct NppGUI final
 {
@@ -931,7 +936,7 @@ struct NppGUI final
 	bool _isDocPeekOnTab = false;
 	bool _isDocPeekOnMap = false;
 
-	NppDarkMode::Options _darkmode;
+	DarkModeConf _darkmode;
 };
 
 struct ScintillaViewParams

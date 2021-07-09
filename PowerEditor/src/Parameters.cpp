@@ -5387,9 +5387,12 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				return defaultValue;
 			};
 
-			_nppGUI._darkmode.enable = parseYesNoBoolAttribute(TEXT("enable"));
-			_nppGUI._darkmode.enableMenubar = parseYesNoBoolAttribute(TEXT("enableMenubar"));
-			_nppGUI._darkmode.enableScrollbarHack = parseYesNoBoolAttribute(TEXT("enableScrollbarHack"));
+			_nppGUI._darkmode._isEnabled = parseYesNoBoolAttribute(TEXT("enable"));
+
+			int i;
+			const TCHAR* val = element->Attribute(TEXT("colorTone"), &i);
+			if (val)
+				_nppGUI._darkmode._colorTone = static_cast<NppDarkMode::ColorTone>(i);
 		}
 	}
 }
@@ -6402,7 +6405,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->InsertEndChild(TiXmlText(_nppGUI._commandLineInterpreter.c_str()));
 	}
 
-	// <GUIConfig name="DarkMode" enable="no" enableExperimental="no" enableMenubar="no" enableScrollbarHack="no" />
+	// <GUIConfig name="DarkMode" enable="no" colorTone="0" />
 	{
 		TiXmlElement* GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("DarkMode"));
@@ -6412,9 +6415,8 @@ void NppParameters::createXmlTreeFromGUIParams()
 			GUIConfigElement->SetAttribute(name, pStr);
 		};
 
-		setYesNoBoolAttribute(TEXT("enable"), _nppGUI._darkmode.enable);
-		setYesNoBoolAttribute(TEXT("enableMenubar"), _nppGUI._darkmode.enableMenubar);
-		setYesNoBoolAttribute(TEXT("enableScrollbarHack"), _nppGUI._darkmode.enableScrollbarHack);
+		setYesNoBoolAttribute(TEXT("enable"), _nppGUI._darkmode._isEnabled);
+		GUIConfigElement->SetAttribute(TEXT("colorTone"), _nppGUI._darkmode._colorTone);
 	}
 
 	// <GUIConfig name="ScintillaPrimaryView" lineNumberMargin="show" bookMarkMargin="show" indentGuideLine="show" folderMarkStyle="box" lineWrapMethod="aligned" currentLineHilitingShow="show" scrollBeyondLastLine="no" rightClickKeepsSelection="no" disableAdvancedScrolling="no" wrapSymbolShow="hide" Wrap="no" borderEdge="yes" edge="no" edgeNbColumn="80" zoom="0" zoom2="0" whiteSpaceShow="hide" eolShow="hide" borderWidth="2" smoothFont="no" />

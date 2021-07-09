@@ -29,6 +29,16 @@ namespace NppDarkMode
 		tabbar
 	};
 
+	enum ColorTone {
+		blackTone  = 0,
+		redTone    = 1,
+		greenTone  = 2,
+		blueTone   = 3,
+		purpleTone = 4,
+		cyanTone   = 5,
+		oliveTone  = 6
+	};
+
 	void initDarkMode();				// pulls options from NppParameters
 	void refreshDarkMode(HWND hwnd, bool forceRefresh = false);	// attempts to apply new options from NppParameters, sends NPPM_INTERNAL_REFRESHDARKMODE to hwnd's top level parent
 
@@ -39,6 +49,8 @@ namespace NppDarkMode
 
 	COLORREF invertLightness(COLORREF c);
 	COLORREF invertLightnessSofter(COLORREF c);
+
+	void setDarkTone(ColorTone colorToneChoice);
 
 	COLORREF getBackgroundColor();
 	COLORREF getSofterBackgroundColor();

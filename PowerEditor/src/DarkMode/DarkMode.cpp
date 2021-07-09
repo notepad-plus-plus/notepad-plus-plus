@@ -246,7 +246,8 @@ constexpr bool CheckBuildNumber(DWORD buildNumber)
 		buildNumber == 18363 || // 1909
 		buildNumber == 19041 || // 2004
 		buildNumber == 19042 || // 20H2
-		buildNumber == 19043);  // 21H1
+		buildNumber == 19043 || // 21H1
+		buildNumber >= 22000);  // Windows 11 insider builds
 }
 
 void InitDarkMode()

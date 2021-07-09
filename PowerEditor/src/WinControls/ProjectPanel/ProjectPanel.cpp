@@ -469,7 +469,7 @@ bool ProjectPanel::writeWorkSpace(const TCHAR *projectFileName)
 	if (!tvRoot)
 		return false;
 
-		for (HTREEITEM tvProj = _treeView.getChildFrom(tvRoot);
+	for (HTREEITEM tvProj = _treeView.getChildFrom(tvRoot);
 		tvProj != NULL;
 		tvProj = _treeView.getNextSibling(tvProj))
 	{

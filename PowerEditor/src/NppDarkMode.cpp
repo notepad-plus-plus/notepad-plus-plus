@@ -55,7 +55,7 @@ namespace NppDarkMode
 			::DeleteObject(errorBackground);	errorBackground = nullptr;
 		}
 	};
-
+	/*
 	static const Colors darkColors{
 		HEXRGB(0x202020),	// background
 		HEXRGB(0x404040),	// softerBackground
@@ -67,6 +67,20 @@ namespace NppDarkMode
 		HEXRGB(0x808080),	// disabledTextColor
 		HEXRGB(0x808080),	// edgeColor
 		HEXRGB(0x414141)	// highlightHotTrack
+	};
+	*/
+
+	static const Colors darkColors{
+		HEXRGB(0x202040),	// background
+		HEXRGB(0x404060),	// softerBackground
+		HEXRGB(0x404060),	// hotBackground
+		HEXRGB(0x202040),	// pureBackground
+		HEXRGB(0xB00020),	// errorBackground
+		HEXRGB(0xE0E0FF),	// textColor
+		HEXRGB(0xC0C0E0),	// darkerTextColor
+		HEXRGB(0x8080A0),	// disabledTextColor
+		HEXRGB(0x8080A0),	// edgeColor
+		HEXRGB(0x414161)	// highlightHotTrack
 	};
 
 	struct Theme

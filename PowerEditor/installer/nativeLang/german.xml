@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2021-07-05 by schnurlos (schnurlos@gmail.com)
+	last modified: 2021-07-10 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.1.0">
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.1.1">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -1094,6 +1094,7 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Za
 					<Item id="6345" name="Momentaufnahme in Tab"/>
 					<Item id="6346" name="Momentaufnahme in Miniaturansicht"/>
 					<Item id="6360" name="Alle Klänge stummschalten"/>
+					<Item id="6361" name="Dialogfeld 'Alles Speichern' aktivieren"/>
 				</MISC>
 			</Preference>
 			<MultiMacro title="Makro mehrfach ausführen">
@@ -1242,6 +1243,10 @@ Soll dazu Notepad++ im Administrator-Modus gestartet werden?"/>
 Notepad++ wird neu gestartet.
 Fortsetzen?"/>
 			<NeedToRestartToLoadPlugins title="Notepad++ muss neu gestartet werden" message="Ein Neustart von Notepad++ zum Laden der Plugins ist erforderlich."/>
+			<SaveAllConfirm title="'Alles Speichern' Bestätigung" message="Sollen wirklich alle Dokumente gespeichert werden?
+
+&quot;Abbrechen&quot; wählen wenn die Antwort immer &quot;Ja&quot; lautet und die Frage nicht mehr gestellt werden soll.
+Diese Antwort kann in den Einstellungen jederzeit wieder geändert werden." /> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Zwischenablage"/>
@@ -1353,6 +1358,7 @@ Fortsetzen?"/>
 			<cloud-select-folder value="Verzeichnis wählen von wo/wohin Notepad++ seine Einstellungen liest bzw. schreibt"/>
 			<shift-change-direction-tip value="Shift+Enter verwenden um die Suchrichtung umzudrehen."/>
 			<two-find-buttons-tip value="Modus mit 2 Suchknöpfen"/>
+			<file-rename-title value="Umbenennen"/>
 			<find-in-files-filter-tip value="Finde in cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 

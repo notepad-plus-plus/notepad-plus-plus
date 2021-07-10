@@ -83,7 +83,7 @@ namespace NppDarkMode
 		HEXRGB(0x908080),	// edgeColor
 		HEXRGB(0x514141)	// highlightHotTrack
 	};
-
+	
 	// green tone
 	static const Colors darkGreenColors{
 		HEXRGB(0x203020),	// background
@@ -97,6 +97,7 @@ namespace NppDarkMode
 		HEXRGB(0x809080),	// edgeColor
 		HEXRGB(0x415141)	// highlightHotTrack
 	};
+	
 
 	// blue tone
 	static const Colors darkBlueColors{
@@ -111,7 +112,7 @@ namespace NppDarkMode
 		HEXRGB(0x8080A0),	// edgeColor
 		HEXRGB(0x414161)	// highlightHotTrack
 	};
-
+	
 	// purple tone
 	static const Colors darkPurpleColors{
 		HEXRGB(0x302040),	// background
@@ -124,6 +125,34 @@ namespace NppDarkMode
 		HEXRGB(0x808080),	// disabledTextColor
 		HEXRGB(0x9080A0),	// edgeColor
 		HEXRGB(0x514161)	// highlightHotTrack
+	};
+
+	// cyan tone
+	static const Colors darkCyanColors{
+		HEXRGB(0x203040),	// background
+		HEXRGB(0x405060),	// softerBackground
+		HEXRGB(0x405060),	// hotBackground
+		HEXRGB(0x203040),	// pureBackground
+		HEXRGB(0xB01020),	// errorBackground
+		HEXRGB(0xE0E0E0),	// textColor
+		HEXRGB(0xC0C0C0),	// darkerTextColor
+		HEXRGB(0x808080),	// disabledTextColor
+		HEXRGB(0x8090A0),	// edgeColor
+		HEXRGB(0x415161)	// highlightHotTrack
+	};
+
+	// olive tone
+	static const Colors darkOliveColors{
+		HEXRGB(0x303020),	// background
+		HEXRGB(0x505040),	// softerBackground
+		HEXRGB(0x505040),	// hotBackground
+		HEXRGB(0x303020),	// pureBackground
+		HEXRGB(0xC01000),	// errorBackground
+		HEXRGB(0xE0E0E0),	// textColor
+		HEXRGB(0xC0C0C0),	// darkerTextColor
+		HEXRGB(0x808080),	// disabledTextColor
+		HEXRGB(0x909080),	// edgeColor
+		HEXRGB(0x515141)	// highlightHotTrack
 	};
 
 	ColorTone g_colorToneChoice = blackTone;
@@ -149,6 +178,8 @@ namespace NppDarkMode
 	Theme t2(darkGreenColors);
 	Theme t3(darkBlueColors);
 	Theme t4(darkPurpleColors);
+	Theme t5(darkCyanColors);
+	Theme t6(darkOliveColors);
 	
 
 	Theme& getTheme()
@@ -166,6 +197,12 @@ namespace NppDarkMode
 
 			case purpleTone:
 				return t4;
+
+			case cyanTone:
+				return t5;
+
+			case oliveTone:
+				return t6;
 
 			default:
 				return t0;

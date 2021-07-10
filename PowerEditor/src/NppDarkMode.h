@@ -34,7 +34,9 @@ namespace NppDarkMode
 		redTone    = 1,
 		greenTone  = 2,
 		blueTone   = 3,
-		purpleTone = 4
+		purpleTone = 4,
+		cyanTone   = 5,
+		oliveTone  = 6
 	};
 
 	void initDarkMode();				// pulls options from NppParameters

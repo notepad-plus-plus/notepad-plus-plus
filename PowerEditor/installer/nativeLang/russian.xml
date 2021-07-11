@@ -385,7 +385,7 @@ Updated to v8.1.2:
 					<Item id="47010" name="Параметры командной строки"/>
 					<Item id="47001" name="Сайт проекта Notepad++"/>
 					<Item id="47002" name="Страница проекта Notepad++"/>
-					<Item id="47003" name="Руководство польз. онлайн"/>
+					<Item id="47003" name="Руководство онлайн"/>
 					<Item id="47004" name="Форум"/>
 					<Item id="47006" name="Обновить Notepad++"/>
 					<Item id="47009" name="Задать прокси обновления..."/>
@@ -890,6 +890,13 @@ Updated to v8.1.2:
 				<DarkMode title="Тёмный Режим">
 					<Item id="7101" name="Включить 'Тёмный Режим'"/>
 					<Item id="7106" name="* Для корректной работы, необходимо перезапустить Notepad++"/>
+					<Item id="7102" name="Чёрная тема"/>
+					<Item id="7103" name="Красная тема"/>
+					<Item id="7104" name="Зелёная тема"/>
+					<Item id="7105" name="Синяя тема"/>
+					<Item id="7107" name="Фиолетовая тема"/>
+					<Item id="7108" name="Голубая тема"/>
+					<Item id="7109" name="Оливковая тема"/>
 				</DarkMode>
 
 				<MarginsBorderEdge title="Блоки / Рамки / Поля">

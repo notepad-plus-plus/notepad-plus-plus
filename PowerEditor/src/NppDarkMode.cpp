@@ -237,7 +237,7 @@ namespace NppDarkMode
 		_options = configuredOptions();
 
 		initExperimentalDarkMode();
-		setDarkMode(_options.enable, _options.enableScrollbarHack);
+		setDarkMode(_options.enable, true);
 	}
 
 	// attempts to apply new options from NppParameters, sends NPPM_INTERNAL_REFRESHDARKMODE to hwnd's top level parent

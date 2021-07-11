@@ -898,6 +898,12 @@ INT_PTR CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						// For tabbar: uncheck Alternate icons checkbox
 						::SendMessage(_hParent, PREF_MSG_DISABLETABBARALTERNATEICONS, 0, 0);
 					}
+					// Reset treeview style to classic
+					nppGUI._darkmode._treeViewStyle = NppDarkMode::TreeViewStyle::classic;
+					::SendDlgItemMessage(_hSelf, IDC_RADIO_DARKMODE_TVLIGHT, BM_SETCHECK, FALSE, 0);
+					::SendDlgItemMessage(_hSelf, IDC_RADIO_DARKMODE_TVDARK, BM_SETCHECK, FALSE, 0);
+					::SendDlgItemMessage(_hSelf, IDC_RADIO_DARKMODE_TVCLASSIC, BM_SETCHECK, TRUE, 0);
+
 					changed = true;
 				}
 				break;

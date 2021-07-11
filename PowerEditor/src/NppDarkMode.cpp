@@ -162,13 +162,6 @@ namespace NppDarkMode
 		g_colorToneChoice = colorToneChoice;
 	}
 
-	TreeViewStyle g_treeViewStyleChoice = TreeViewStyle::classic;
-
-	void setTreeViewStyleChoice(TreeViewStyle treeViewStyleChoice)
-	{
-		g_treeViewStyleChoice = treeViewStyleChoice;
-	}
-
 	struct Theme
 	{
 		Colors colors;
@@ -224,10 +217,8 @@ namespace NppDarkMode
 		Options opt;
 		opt.enable = nppGui._darkmode._isEnabled;
 		opt.enableMenubar = opt.enable;
-		opt.enableScrollbarHack = opt.enable;
 
 		g_colorToneChoice = nppGui._darkmode._colorTone;
-		g_treeViewStyleChoice = nppGui._darkmode._treeViewStyle;
 
 		return opt;
 	}
@@ -280,11 +271,6 @@ namespace NppDarkMode
 	bool isDarkMenuEnabled()
 	{
 		return _options.enableMenubar;
-	}
-
-	bool isScrollbarHackEnabled()
-	{
-		return _options.enableScrollbarHack;
 	}
 
 	bool isExperimentalActive()
@@ -1276,41 +1262,8 @@ namespace NppDarkMode
 	}
 
 	// force scrollbar redraw
-	// disable hottracking for classic style
 	void setTreeViewStyle(HWND hwnd)
 	{
-		auto style = ::GetWindowLongPtr(hwnd, GWL_STYLE);
-		if (!(style & TVS_TRACKSELECT))
-		{
-			style |= TVS_TRACKSELECT;
-		}
-		switch (g_treeViewStyleChoice)
-		{
-			case NppDarkMode::TreeViewStyle::light:
-			{
-				::SetWindowLongPtr(hwnd, GWL_STYLE, style);
-				SetWindowTheme(hwnd, L"Explorer", nullptr);
-				break;
-			}
-			case NppDarkMode::TreeViewStyle::dark:
-			{
-				if (NppDarkMode::isExperimentalSupported())
-				{
-					::SetWindowLongPtr(hwnd, GWL_STYLE, style);
-					SetWindowTheme(hwnd, L"DarkMode_Explorer", nullptr);
-					break;
-				}
-			}
-			default:
-			{
-				if (style & TVS_TRACKSELECT)
-				{
-					style &= ~TVS_TRACKSELECT;
-				}
-				::SetWindowLongPtr(hwnd, GWL_STYLE, style);
-				SetWindowTheme(hwnd, nullptr, nullptr);
-				break;
-			}
-		}
+		SetWindowTheme(hwnd, nullptr, nullptr);
 	}
 }

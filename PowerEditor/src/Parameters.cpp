@@ -5393,11 +5393,6 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			const TCHAR* val = element->Attribute(TEXT("colorTone"), &i);
 			if (val)
 				_nppGUI._darkmode._colorTone = static_cast<NppDarkMode::ColorTone>(i);
-
-			int treeViewStyle;
-			const TCHAR* treeViewVal = element->Attribute(TEXT("treeViewStyle"), &treeViewStyle);
-			if (treeViewVal)
-				_nppGUI._darkmode._treeViewStyle = static_cast<NppDarkMode::TreeViewStyle>(treeViewStyle);
 		}
 	}
 }
@@ -6410,7 +6405,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->InsertEndChild(TiXmlText(_nppGUI._commandLineInterpreter.c_str()));
 	}
 
-	// <GUIConfig name="DarkMode" enable="no" colorTone="0" treeViewStyle="0" />
+	// <GUIConfig name="DarkMode" enable="no" colorTone="0" />
 	{
 		TiXmlElement* GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("DarkMode"));
@@ -6422,7 +6417,6 @@ void NppParameters::createXmlTreeFromGUIParams()
 
 		setYesNoBoolAttribute(TEXT("enable"), _nppGUI._darkmode._isEnabled);
 		GUIConfigElement->SetAttribute(TEXT("colorTone"), _nppGUI._darkmode._colorTone);
-		GUIConfigElement->SetAttribute(TEXT("treeViewStyle"), static_cast<int>(_nppGUI._darkmode._treeViewStyle));
 	}
 
 	// <GUIConfig name="ScintillaPrimaryView" lineNumberMargin="show" bookMarkMargin="show" indentGuideLine="show" folderMarkStyle="box" lineWrapMethod="aligned" currentLineHilitingShow="show" scrollBeyondLastLine="no" rightClickKeepsSelection="no" disableAdvancedScrolling="no" wrapSymbolShow="hide" Wrap="no" borderEdge="yes" edge="no" edgeNbColumn="80" zoom="0" zoom2="0" whiteSpaceShow="hide" eolShow="hide" borderWidth="2" smoothFont="no" />

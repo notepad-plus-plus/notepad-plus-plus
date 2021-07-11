@@ -17,7 +17,6 @@ namespace NppDarkMode
 	{
 		bool enable = false;
 		bool enableMenubar = false;
-		bool enableScrollbarHack = false;
 	};
 	
 	enum class ToolTipsType
@@ -39,26 +38,17 @@ namespace NppDarkMode
 		oliveTone  = 6
 	};
 
-	enum class TreeViewStyle
-	{
-		classic = 0,
-		light = 1,
-		dark = 2
-	};
-
 	void initDarkMode();				// pulls options from NppParameters
 	void refreshDarkMode(HWND hwnd, bool forceRefresh = false);	// attempts to apply new options from NppParameters, sends NPPM_INTERNAL_REFRESHDARKMODE to hwnd's top level parent
 
 	bool isEnabled();
 	bool isDarkMenuEnabled();
-	bool isScrollbarHackEnabled();
 	bool isExperimentalSupported();
 
 	COLORREF invertLightness(COLORREF c);
 	COLORREF invertLightnessSofter(COLORREF c);
 
 	void setDarkTone(ColorTone colorToneChoice);
-	void setTreeViewStyleChoice(TreeViewStyle treeViewStyleChoice);
 
 	COLORREF getBackgroundColor();
 	COLORREF getSofterBackgroundColor();

@@ -849,18 +849,6 @@ INT_PTR CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_DARKMODE_CYAN), nppGUI._darkmode._isEnabled);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_DARKMODE_OLIVE), nppGUI._darkmode._isEnabled);
 
-			int idTV = IDC_RADIO_DARKMODE_TVCLASSIC;
-			switch (nppGUI._darkmode._treeViewStyle)
-			{
-				case NppDarkMode::TreeViewStyle::light:
-					idTV = IDC_RADIO_DARKMODE_TVLIGHT;
-					break;
-				case NppDarkMode::TreeViewStyle::dark:
-					idTV = IDC_RADIO_DARKMODE_TVDARK;
-					break;
-			}
-			::SendDlgItemMessage(_hSelf, idTV, BM_SETCHECK, TRUE, 0);
-
 			ETDTProc enableDlgTheme = (ETDTProc)nppParam.getEnableThemeDlgTexture();
 			if (enableDlgTheme)
 				enableDlgTheme(_hSelf, ETDT_ENABLETAB);
@@ -898,11 +886,6 @@ INT_PTR CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						// For tabbar: uncheck Alternate icons checkbox
 						::SendMessage(_hParent, PREF_MSG_DISABLETABBARALTERNATEICONS, 0, 0);
 					}
-					// Reset treeview style to classic
-					nppGUI._darkmode._treeViewStyle = NppDarkMode::TreeViewStyle::classic;
-					::SendDlgItemMessage(_hSelf, IDC_RADIO_DARKMODE_TVLIGHT, BM_SETCHECK, FALSE, 0);
-					::SendDlgItemMessage(_hSelf, IDC_RADIO_DARKMODE_TVDARK, BM_SETCHECK, FALSE, 0);
-					::SendDlgItemMessage(_hSelf, IDC_RADIO_DARKMODE_TVCLASSIC, BM_SETCHECK, TRUE, 0);
 
 					changed = true;
 				}
@@ -964,35 +947,6 @@ INT_PTR CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					changed = true;
 					forceRefresh = true;
 					break;
-
-				case IDC_RADIO_DARKMODE_TVCLASSIC:
-				case IDC_RADIO_DARKMODE_TVLIGHT:
-				case IDC_RADIO_DARKMODE_TVDARK:
-				{
-					if (wParam == IDC_RADIO_DARKMODE_TVCLASSIC)
-					{
-						if (nppGUI._darkmode._treeViewStyle == NppDarkMode::TreeViewStyle::classic)
-							return TRUE;
-						nppGUI._darkmode._treeViewStyle = NppDarkMode::TreeViewStyle::classic;
-					}
-					else if (wParam == IDC_RADIO_DARKMODE_TVLIGHT)
-					{
-						if (nppGUI._darkmode._treeViewStyle == NppDarkMode::TreeViewStyle::light)
-							return TRUE;
-						nppGUI._darkmode._treeViewStyle = NppDarkMode::TreeViewStyle::light;
-					}
-					else if (wParam == IDC_RADIO_DARKMODE_TVDARK)
-					{
-						if (nppGUI._darkmode._treeViewStyle == NppDarkMode::TreeViewStyle::dark)
-							return TRUE;
-						nppGUI._darkmode._treeViewStyle = NppDarkMode::TreeViewStyle::dark;
-					}
-
-					NppDarkMode::setTreeViewStyleChoice(nppGUI._darkmode._treeViewStyle);
-					changed = true;
-					forceRefresh = true;
-				}
-				break;
 			}
 
 			if (changed)

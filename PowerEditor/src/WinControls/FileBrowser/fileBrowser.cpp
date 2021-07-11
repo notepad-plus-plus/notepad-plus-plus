@@ -175,7 +175,7 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			NppDarkMode::setDarkLineAbovePanelToolbar(_hToolbarMenu);
 
 			NppDarkMode::setDarkTooltips(_treeView.getHSelf(), NppDarkMode::ToolTipsType::treeview);
-			NppDarkMode::redrawTreeViewScrollBar(_treeView.getHSelf());
+			NppDarkMode::setTreeViewStyle(_treeView.getHSelf());
 			return TRUE;
 		}
 

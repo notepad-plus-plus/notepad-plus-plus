@@ -849,6 +849,18 @@ INT_PTR CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_DARKMODE_CYAN), nppGUI._darkmode._isEnabled);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_DARKMODE_OLIVE), nppGUI._darkmode._isEnabled);
 
+			int idTV = IDC_RADIO_DARKMODE_TVCLASSIC;
+			switch (nppGUI._darkmode._treeViewStyle)
+			{
+				case NppDarkMode::TreeViewStyle::light:
+					idTV = IDC_RADIO_DARKMODE_TVLIGHT;
+					break;
+				case NppDarkMode::TreeViewStyle::dark:
+					idTV = IDC_RADIO_DARKMODE_TVDARK;
+					break;
+			}
+			::SendDlgItemMessage(_hSelf, idTV, BM_SETCHECK, TRUE, 0);
+
 			ETDTProc enableDlgTheme = (ETDTProc)nppParam.getEnableThemeDlgTexture();
 			if (enableDlgTheme)
 				enableDlgTheme(_hSelf, ETDT_ENABLETAB);
@@ -858,6 +870,7 @@ INT_PTR CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 		case WM_COMMAND:
 		{
 			bool changed = false;
+			bool forceRefresh = false;
 			switch (wParam)
 			{
 				case IDC_CHECK_DARKMODE_ENABLE:
@@ -939,20 +952,46 @@ INT_PTR CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						nppGUI._darkmode._colorTone = NppDarkMode::oliveTone;
 					}
 
-					// switch to light mode firstly (to make color change completely)
-					nppGUI._darkmode._isEnabled = false;
-					NppDarkMode::refreshDarkMode(_hSelf);
-
 					// switch to chosen dark mode
 					nppGUI._darkmode._isEnabled = true;
 					NppDarkMode::setDarkTone(nppGUI._darkmode._colorTone);
 					changed = true;
+					forceRefresh = true;
 					break;
+
+				case IDC_RADIO_DARKMODE_TVCLASSIC:
+				case IDC_RADIO_DARKMODE_TVLIGHT:
+				case IDC_RADIO_DARKMODE_TVDARK:
+				{
+					if (wParam == IDC_RADIO_DARKMODE_TVCLASSIC)
+					{
+						if (nppGUI._darkmode._treeViewStyle == NppDarkMode::TreeViewStyle::classic)
+							return TRUE;
+						nppGUI._darkmode._treeViewStyle = NppDarkMode::TreeViewStyle::classic;
+					}
+					else if (wParam == IDC_RADIO_DARKMODE_TVLIGHT)
+					{
+						if (nppGUI._darkmode._treeViewStyle == NppDarkMode::TreeViewStyle::light)
+							return TRUE;
+						nppGUI._darkmode._treeViewStyle = NppDarkMode::TreeViewStyle::light;
+					}
+					else if (wParam == IDC_RADIO_DARKMODE_TVDARK)
+					{
+						if (nppGUI._darkmode._treeViewStyle == NppDarkMode::TreeViewStyle::dark)
+							return TRUE;
+						nppGUI._darkmode._treeViewStyle = NppDarkMode::TreeViewStyle::dark;
+					}
+
+					NppDarkMode::setTreeViewStyleChoice(nppGUI._darkmode._treeViewStyle);
+					changed = true;
+					forceRefresh = true;
+				}
+				break;
 			}
 
 			if (changed)
 			{
-				NppDarkMode::refreshDarkMode(_hSelf);
+				NppDarkMode::refreshDarkMode(_hSelf, forceRefresh);
 				getFocus(); // to make black mode title bar appear
 				return TRUE;
 			}

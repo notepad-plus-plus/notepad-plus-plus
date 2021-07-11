@@ -104,7 +104,7 @@ INT_PTR CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 			NppDarkMode::disableVisualStyle(_hToolbarMenu, NppDarkMode::isEnabled());
 
 			NppDarkMode::setDarkTooltips(_treeView.getHSelf(), NppDarkMode::ToolTipsType::treeview);
-			NppDarkMode::redrawTreeViewScrollBar(_treeView.getHSelf());
+			NppDarkMode::setTreeViewStyle(_treeView.getHSelf());
 			return TRUE;
 		}
 

@@ -39,6 +39,13 @@ namespace NppDarkMode
 		oliveTone  = 6
 	};
 
+	enum class TreeViewStyle
+	{
+		classic = 0,
+		light = 1,
+		dark = 2
+	};
+
 	void initDarkMode();				// pulls options from NppParameters
 	void refreshDarkMode(HWND hwnd, bool forceRefresh = false);	// attempts to apply new options from NppParameters, sends NPPM_INTERNAL_REFRESHDARKMODE to hwnd's top level parent
 
@@ -51,6 +58,7 @@ namespace NppDarkMode
 	COLORREF invertLightnessSofter(COLORREF c);
 
 	void setDarkTone(ColorTone colorToneChoice);
+	void setTreeViewStyleChoice(TreeViewStyle treeViewStyleChoice);
 
 	COLORREF getBackgroundColor();
 	COLORREF getSofterBackgroundColor();
@@ -104,5 +112,5 @@ namespace NppDarkMode
 	void setDarkListView(HWND hwnd);
 
 	void disableVisualStyle(HWND hwnd, bool doDisable);
-	void redrawTreeViewScrollBar(HWND hwnd);
+	void setTreeViewStyle(HWND hwnd);
 }

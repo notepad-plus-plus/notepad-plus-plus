@@ -546,40 +546,78 @@ void Finder::gotoFoundLine()
 
 void Finder::deleteResult()
 {
-	auto currentPos = _scintView.execute(SCI_GETCURRENTPOS); // yniq - add handling deletion of multiple lines?
+	auto currentPos = _scintView.execute(SCI_GETCURRENTPOS);
 
-	auto lno = _scintView.execute(SCI_LINEFROMPOSITION, currentPos);
-	auto start = _scintView.execute(SCI_POSITIONFROMLINE, lno);
-	auto end = _scintView.execute(SCI_GETLINEENDPOSITION, lno);
-	if (start + 2 >= end) return; // avoid empty lines
+	auto lineOfDelPress = _scintView.execute(SCI_LINEFROMPOSITION, currentPos);
+
+	auto start = _scintView.execute(SCI_POSITIONFROMLINE, lineOfDelPress);
+	auto end = _scintView.execute(SCI_GETLINEENDPOSITION, lineOfDelPress);
+	if (start + 2 >= end) return; // don't process a delete request on the trailing blank line
 
 	_scintView.setLexer(SCLEX_SEARCHRESULT, L_SEARCHRESULT, 0); // Restore searchResult lexer in case the lexer was changed to SCLEX_NULL in GotoFoundLine()
 
-	if (_scintView.execute(SCI_GETFOLDLEVEL, lno) & SC_FOLDLEVELHEADERFLAG)  // delete a folder
+	auto startLine = lineOfDelPress;
+	auto endLine = lineOfDelPress;
+
+	auto parentLine = _scintView.execute(SCI_GETFOLDPARENT, lineOfDelPress);
+
+	if (parentLine == -1)  // "search" line
 	{
-		auto endline = _scintView.execute(SCI_GETLASTCHILD, lno, -1) + 1;
-		assert((size_t) endline <= _pMainFoundInfos->size());
-
-		_pMainFoundInfos->erase(_pMainFoundInfos->begin() + lno, _pMainFoundInfos->begin() + endline); // remove found info
-		_pMainMarkings->erase(_pMainMarkings->begin() + lno, _pMainMarkings->begin() + endline);
-
-		auto end2 = _scintView.execute(SCI_POSITIONFROMLINE, endline);
-		_scintView.execute(SCI_SETSEL, start, end2);
-		setFinderReadOnly(false);
-		_scintView.execute(SCI_CLEAR);
-		setFinderReadOnly(true);
+		endLine = _scintView.execute(SCI_GETLASTCHILD, lineOfDelPress, -1);
 	}
-	else // delete one line
+	else
 	{
-		assert((size_t) lno < _pMainFoundInfos->size());
+		auto grandparentLine = _scintView.execute(SCI_GETFOLDPARENT, parentLine);
 
-		_pMainFoundInfos->erase(_pMainFoundInfos->begin() + lno); // remove found info
-		_pMainMarkings->erase(_pMainMarkings->begin() + lno);
+		auto parentFoldLevel = _scintView.execute(SCI_GETFOLDLEVEL, parentLine) & SC_FOLDLEVELNUMBERMASK;
+		auto parentLastChildLine = _scintView.execute(SCI_GETLASTCHILD, parentLine, parentFoldLevel);
 
-		setFinderReadOnly(false);
-		_scintView.execute(SCI_LINEDELETE);
-		setFinderReadOnly(true);
+		if (grandparentLine == -1)  // "file path" line
+		{
+			auto lineOfDelFoldLevel = _scintView.execute(SCI_GETFOLDLEVEL, lineOfDelPress) & SC_FOLDLEVELNUMBERMASK;
+			auto lineOfDelLastChildLine = _scintView.execute(SCI_GETLASTCHILD, lineOfDelPress, lineOfDelFoldLevel);
+
+			if (parentLine == lineOfDelPress - 1 && lineOfDelLastChildLine == parentLastChildLine)
+			{
+				startLine = parentLine;
+			}
+			endLine = _scintView.execute(SCI_GETLASTCHILD, lineOfDelPress, -1);
+		}
+		else  // "hit detail" line
+		{
+			if (parentLine == lineOfDelPress - 1 && lineOfDelPress == parentLastChildLine)
+			{
+				startLine = (grandparentLine == parentLine - 1) ? grandparentLine : parentLine;
+			}
+		}
 	}
+
+	++endLine;  // make endLine the line AFTER the last line to remove
+
+	assert((size_t)endLine <= _pMainFoundInfos->size());
+
+	_pMainFoundInfos->erase(_pMainFoundInfos->begin() + startLine, _pMainFoundInfos->begin() + endLine); // remove found info
+	_pMainMarkings->erase(_pMainMarkings->begin() + startLine, _pMainMarkings->begin() + endLine);
+
+	auto startPos = _scintView.execute(SCI_POSITIONFROMLINE, startLine);
+	auto endPos = _scintView.execute(SCI_POSITIONFROMLINE, endLine);
+	_scintView.execute(SCI_SETSEL, startPos, endPos);
+	setFinderReadOnly(false);
+	_scintView.execute(SCI_CLEAR);
+	setFinderReadOnly(true);
+
+	// after the removal of line(s), if the caret is on the trailing blank line, move it up one line
+	if (_scintView.execute(SCI_GETLINECOUNT) > 1)
+	{
+		auto currLine = _scintView.execute(SCI_LINEFROMPOSITION, currentPos);
+		start = _scintView.execute(SCI_POSITIONFROMLINE, currLine);
+		end = _scintView.execute(SCI_GETLINEENDPOSITION, currLine);
+		if (start + 2 >= end)
+		{
+			_scintView.execute(SCI_LINEUP);
+		}
+	}
+
 	_markingsStruct._length = static_cast<long>(_pMainMarkings->size());
 
 	assert(_pMainFoundInfos->size() == _pMainMarkings->size());

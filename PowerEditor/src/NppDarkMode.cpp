@@ -368,6 +368,76 @@ namespace NppDarkMode
 	HBRUSH getDarkerBackgroundBrush()     { return getTheme()._brushes.pureBackground; }
 	HBRUSH getErrorBackgroundBrush()      { return getTheme()._brushes.errorBackground; }
 
+	void setBackgroundColor(COLORREF c)
+	{ 
+		Colors clrs = getTheme()._colors;
+		clrs.background = c;
+		getTheme().change(clrs);
+	}
+
+	void setSofterBackgroundColor(COLORREF c)
+	{
+		Colors clrs = getTheme()._colors;
+		clrs.softerBackground = c;
+		getTheme().change(clrs);
+	}
+
+	void setHotBackgroundColor(COLORREF c)
+	{
+		Colors clrs = getTheme()._colors;
+		clrs.hotBackground = c;
+		getTheme().change(clrs);
+	}
+
+	void setDarkerBackgroundColor(COLORREF c)
+	{
+		Colors clrs = getTheme()._colors;
+		clrs.pureBackground = c;
+		getTheme().change(clrs);
+	}
+
+	void setErrorBackgroundColor(COLORREF c)
+	{
+		Colors clrs = getTheme()._colors;
+		clrs.errorBackground = c;
+		getTheme().change(clrs);
+	}
+
+	void setTextColor(COLORREF c)
+	{
+		Colors clrs = getTheme()._colors;
+		clrs.text = c;
+		getTheme().change(clrs);
+	}
+
+	void setDarkerTextColor(COLORREF c)
+	{
+		Colors clrs = getTheme()._colors;
+		clrs.darkerText = c;
+		getTheme().change(clrs);
+	}
+
+	void setDisabledTextColor(COLORREF c)
+	{
+		Colors clrs = getTheme()._colors;
+		clrs.disabledText = c;
+		getTheme().change(clrs);
+	}
+
+	void setEdgeColor(COLORREF c)
+	{
+		Colors clrs = getTheme()._colors;
+		clrs.edge = c;
+		getTheme().change(clrs);
+	}
+
+	void setHighlightHotTrackColor(COLORREF c)
+	{
+		Colors clrs = getTheme()._colors;
+		clrs.highlightHotTrack = c;
+		getTheme().change(clrs);
+	}
+
 	// handle events
 
 	void handleSettingChange(HWND hwnd, LPARAM lParam)

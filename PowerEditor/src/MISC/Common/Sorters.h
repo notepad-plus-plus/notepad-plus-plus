@@ -21,6 +21,7 @@
 #include <algorithm>
 #include <utility>
 #include <random>
+#include "Common.h"	// generic_string, etc
 
 // Base interface for line sorting.
 class ISorter

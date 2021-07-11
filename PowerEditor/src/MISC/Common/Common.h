@@ -23,6 +23,7 @@
 #include <unordered_set>
 #include <algorithm>
 
+#include "CommonUI.h"	// TODO: remove from here and add where it's needed
 
 const bool dirUp = true;
 const bool dirDown = false;
@@ -58,9 +59,6 @@ const bool dirDown = false;
 
 typedef std::basic_string<TCHAR> generic_string;
 typedef std::basic_stringstream<TCHAR> generic_stringstream;
-
-generic_string folderBrowser(HWND parent, const generic_string & title = TEXT(""), int outputCtrlID = 0, const TCHAR *defaultStr = NULL);
-generic_string getFolderName(HWND parent, const TCHAR *defaultDir = NULL);
 
 void printInt(int int2print);
 void printStr(const TCHAR *str2print);
@@ -185,9 +183,6 @@ generic_string GetLastErrorAsString(DWORD errorCode = 0);
 generic_string intToString(int val);
 generic_string uintToString(unsigned int val);
 
-HWND CreateToolTip(int toolID, HWND hDlg, HINSTANCE hInst, const PTSTR pszText);
-HWND CreateToolTipRect(int toolID, HWND hWnd, HINSTANCE hInst, const PTSTR pszText, const RECT rc);
-
 bool isCertificateValidated(const generic_string & fullFilePath, const generic_string & subjectName2check);
 bool isAssoCommandExisting(LPCTSTR FullPathName);
 
@@ -227,3 +222,5 @@ template<typename T> size_t vecRemoveDuplicates(std::vector<T>& vec, bool isSort
 void trim(generic_string& str);
 
 int nbDigitsFromNbLines(size_t nbLines);
+
+void expandEnv(generic_string& s);

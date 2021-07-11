@@ -15,28 +15,16 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-#include <shobjidl.h>
 #include <shlwapi.h>	// PathIsDirectory
 #ifdef __MINGW32__
 #include <cwchar>
 #endif
-#include <comdef.h>		// _com_error
-#include <comip.h>		// _com_ptr_t
 #include "CustomFileDialog.h"
 #include "Parameters.h"
+#include "FS.h"
+#include "StringUtils.h"
+#include "COM.h"
 
-// Workaround for MinGW because its implementation of __uuidof is different.
-template<class T>
-struct ComTraits
-{
-	static const GUID uid;
-};
-template<class T>
-const GUID ComTraits<T>::uid = __uuidof(T);
-
-// Smart pointer alias for COM objects that makes reference counting easier.
-template<class T, class InterfaceT = T>
-using com_ptr = _com_ptr_t<_com_IIID<T, &ComTraits<InterfaceT>::uid>>;
 
 namespace // anonymous
 {
@@ -50,92 +38,6 @@ namespace // anonymous
 
 	static const int IDC_FILE_CUSTOM_CHECKBOX = 4;
 	static const int IDC_FILE_TYPE_CHECKBOX = IDC_FILE_CUSTOM_CHECKBOX + 1;
-
-	// Returns a first extension from the extension specification string.
-	// Multiple extensions are separated with ';'.
-	// Example: input - ".c;.cpp;.h", output - ".c"
-	generic_string get1stExt(const generic_string& extSpec)
-	{
-		size_t pos = extSpec.find('.');
-		if (pos != generic_string::npos)
-		{
-			size_t posEnd = extSpec.find(';', pos + 1);
-			if (posEnd != generic_string::npos)
-			{
-				size_t extLen = posEnd - pos;
-				return extSpec.substr(pos, extLen);
-			}
-			return extSpec.substr(pos);
-		}
-		return {};
-	}
-
-	bool replaceExt(generic_string& name, const generic_string& ext)
-	{
-		if (!name.empty() && !ext.empty())
-		{
-			// Remove an existing extension from the name.
-			size_t posNameExt = name.find_last_of('.');
-			if (posNameExt != generic_string::npos)
-				name.erase(posNameExt);
-			// Append a new extension.
-			name += ext;
-			return true;
-		}
-		return false;
-	}
-
-	bool hasExt(const generic_string& name)
-	{
-		return name.find_last_of('.') != generic_string::npos;
-	}
-
-	bool endsWith(const generic_string& s, const generic_string& suffix)
-	{
-#if defined(_MSVC_LANG) && (_MSVC_LANG > 201402L)
-	#error Replace this function with basic_string::ends_with
-#endif
-		size_t pos = s.find(suffix);
-		return pos != s.npos && ((s.length() - pos) == suffix.length());
-	}
-
-	void expandEnv(generic_string& s)
-	{
-		TCHAR buffer[MAX_PATH] = { 0 };
-		// This returns the resulting string length or 0 in case of error.
-		DWORD ret = ExpandEnvironmentStrings(s.c_str(), buffer, static_cast<DWORD>(std::size(buffer)));
-		if (ret != 0)
-		{
-			if (ret == static_cast<DWORD>(lstrlen(buffer) + 1))
-			{
-				s = buffer;
-			}
-			else
-			{
-				// Buffer was too small, try with a bigger buffer of the required size.
-				std::vector<TCHAR> buffer2(ret, 0);
-				ret = ExpandEnvironmentStrings(s.c_str(), buffer2.data(), static_cast<DWORD>(buffer2.size()));
-				assert(ret == static_cast<DWORD>(lstrlen(buffer2.data()) + 1));
-				s = buffer2.data();
-			}
-		}
-	}
-
-	generic_string getFilename(IShellItem* psi)
-	{
-		generic_string result;
-		if (psi)
-		{
-			PWSTR pszFilePath = nullptr;
-			HRESULT hr = psi->GetDisplayName(SIGDN_FILESYSPATH, &pszFilePath);
-			if (SUCCEEDED(hr) && pszFilePath)
-			{
-				result = pszFilePath;
-				CoTaskMemFree(pszFilePath);
-			}
-		}
-		return result;
-	}
 
 	bool setDialogFolder(IFileDialog* dialog, const TCHAR* path)
 	{

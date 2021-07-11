@@ -5390,9 +5390,47 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			_nppGUI._darkmode._isEnabled = parseYesNoBoolAttribute(TEXT("enable"));
 
 			int i;
-			const TCHAR* val = element->Attribute(TEXT("colorTone"), &i);
+			const TCHAR* val;
+			val = element->Attribute(TEXT("colorTone"), &i);
 			if (val)
 				_nppGUI._darkmode._colorTone = static_cast<NppDarkMode::ColorTone>(i);
+
+
+			val = element->Attribute(TEXT("customColorTop"), &i);
+			if (val)
+				_nppGUI._darkmode._customColors.pureBackground = i;
+
+			val = element->Attribute(TEXT("customColorMenuHotTrack"), &i);
+			if (val)
+				_nppGUI._darkmode._customColors.hotBackground = i;
+
+			val = element->Attribute(TEXT("customColorActive"), &i);
+			if (val)
+				_nppGUI._darkmode._customColors.softerBackground = i;
+
+			val = element->Attribute(TEXT("customColorMain"), &i);
+			if (val)
+				_nppGUI._darkmode._customColors.background = i;
+
+			val = element->Attribute(TEXT("customColorError"), &i);
+			if (val)
+				_nppGUI._darkmode._customColors.errorBackground = i;
+
+			val = element->Attribute(TEXT("customColorText"), &i);
+			if (val)
+				_nppGUI._darkmode._customColors.text = i;
+
+			val = element->Attribute(TEXT("customColorDarkText"), &i);
+			if (val)
+				_nppGUI._darkmode._customColors.darkerText = i;
+
+			val = element->Attribute(TEXT("customColorDisabledText"), &i);
+			if (val)
+				_nppGUI._darkmode._customColors.disabledText = i;
+
+			val = element->Attribute(TEXT("customColorEdge"), &i);
+			if (val)
+				_nppGUI._darkmode._customColors.edge = i;
 		}
 	}
 }
@@ -6417,6 +6455,16 @@ void NppParameters::createXmlTreeFromGUIParams()
 
 		setYesNoBoolAttribute(TEXT("enable"), _nppGUI._darkmode._isEnabled);
 		GUIConfigElement->SetAttribute(TEXT("colorTone"), _nppGUI._darkmode._colorTone);
+
+		GUIConfigElement->SetAttribute(TEXT("customColorTop"), _nppGUI._darkmode._customColors.pureBackground);
+		GUIConfigElement->SetAttribute(TEXT("customColorMenuHotTrack"), _nppGUI._darkmode._customColors.hotBackground);
+		GUIConfigElement->SetAttribute(TEXT("customColorActive"), _nppGUI._darkmode._customColors.softerBackground);
+		GUIConfigElement->SetAttribute(TEXT("customColorMain"), _nppGUI._darkmode._customColors.background);
+		GUIConfigElement->SetAttribute(TEXT("customColorError"), _nppGUI._darkmode._customColors.errorBackground);
+		GUIConfigElement->SetAttribute(TEXT("customColorText"), _nppGUI._darkmode._customColors.text);
+		GUIConfigElement->SetAttribute(TEXT("customColorDarkText"), _nppGUI._darkmode._customColors.darkerText);
+		GUIConfigElement->SetAttribute(TEXT("customColorDisabledText"), _nppGUI._darkmode._customColors.disabledText);
+		GUIConfigElement->SetAttribute(TEXT("customColorEdge"), _nppGUI._darkmode._customColors.edge);
 	}
 
 	// <GUIConfig name="ScintillaPrimaryView" lineNumberMargin="show" bookMarkMargin="show" indentGuideLine="show" folderMarkStyle="box" lineWrapMethod="aligned" currentLineHilitingShow="show" scrollBeyondLastLine="no" rightClickKeepsSelection="no" disableAdvancedScrolling="no" wrapSymbolShow="hide" Wrap="no" borderEdge="yes" edge="no" edgeNbColumn="80" zoom="0" zoom2="0" whiteSpaceShow="hide" eolShow="hide" borderWidth="2" smoothFont="no" />

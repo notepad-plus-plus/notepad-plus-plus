@@ -15,21 +15,6 @@
 
 namespace NppDarkMode
 {
-	struct Colors
-	{
-		COLORREF background = 0;
-		COLORREF softerBackground = 0;
-		COLORREF hotBackground = 0;
-		COLORREF pureBackground = 0;
-		COLORREF errorBackground = 0;
-
-		COLORREF text = 0;
-		COLORREF darkerText = 0;
-		COLORREF disabledText = 0;
-		COLORREF edge = 0;
-		COLORREF highlightHotTrack = 0;
-	};
-
 	struct Brushes
 	{
 		HBRUSH background = nullptr;
@@ -54,6 +39,21 @@ namespace NppDarkMode
 			::DeleteObject(pureBackground);		pureBackground = nullptr;
 			::DeleteObject(errorBackground);	errorBackground = nullptr;
 		}
+
+		void change(const Colors& colors)
+		{
+			::DeleteObject(background);		
+			::DeleteObject(softerBackground);
+			::DeleteObject(hotBackground);	
+			::DeleteObject(pureBackground);	
+			::DeleteObject(errorBackground);
+
+			background = ::CreateSolidBrush(colors.background);
+			softerBackground = ::CreateSolidBrush(colors.softerBackground);
+			hotBackground = ::CreateSolidBrush(colors.hotBackground);
+			pureBackground = ::CreateSolidBrush(colors.pureBackground);
+			errorBackground = ::CreateSolidBrush(colors.errorBackground);
+		}
 	};
 
 	// black (default)
@@ -66,8 +66,7 @@ namespace NppDarkMode
 		HEXRGB(0xE0E0E0),	// textColor
 		HEXRGB(0xC0C0C0),	// darkerTextColor
 		HEXRGB(0x808080),	// disabledTextColor
-		HEXRGB(0x808080),	// edgeColor
-		HEXRGB(0x414141)	// highlightHotTrack
+		HEXRGB(0x808080)	// edgeColor
 	};
 
 	// red tone
@@ -80,8 +79,7 @@ namespace NppDarkMode
 		HEXRGB(0xE0E0E0),	// textColor
 		HEXRGB(0xC0C0C0),	// darkerTextColor
 		HEXRGB(0x808080),	// disabledTextColor
-		HEXRGB(0x908080),	// edgeColor
-		HEXRGB(0x514141)	// highlightHotTrack
+		HEXRGB(0x908080)	// edgeColor
 	};
 	
 	// green tone
@@ -94,8 +92,7 @@ namespace NppDarkMode
 		HEXRGB(0xE0E0E0),	// textColor
 		HEXRGB(0xC0C0C0),	// darkerTextColor
 		HEXRGB(0x808080),	// disabledTextColor
-		HEXRGB(0x809080),	// edgeColor
-		HEXRGB(0x415141)	// highlightHotTrack
+		HEXRGB(0x809080)	// edgeColor
 	};
 	
 
@@ -109,8 +106,7 @@ namespace NppDarkMode
 		HEXRGB(0xE0E0E0),	// textColor
 		HEXRGB(0xC0C0C0),	// darkerTextColor
 		HEXRGB(0x808080),	// disabledTextColor
-		HEXRGB(0x8080A0),	// edgeColor
-		HEXRGB(0x414161)	// highlightHotTrack
+		HEXRGB(0x8080A0)	// edgeColor
 	};
 	
 	// purple tone
@@ -123,8 +119,7 @@ namespace NppDarkMode
 		HEXRGB(0xE0E0E0),	// textColor
 		HEXRGB(0xC0C0C0),	// darkerTextColor
 		HEXRGB(0x808080),	// disabledTextColor
-		HEXRGB(0x9080A0),	// edgeColor
-		HEXRGB(0x514161)	// highlightHotTrack
+		HEXRGB(0x9080A0)	// edgeColor
 	};
 
 	// cyan tone
@@ -137,8 +132,7 @@ namespace NppDarkMode
 		HEXRGB(0xE0E0E0),	// textColor
 		HEXRGB(0xC0C0C0),	// darkerTextColor
 		HEXRGB(0x808080),	// disabledTextColor
-		HEXRGB(0x8090A0),	// edgeColor
-		HEXRGB(0x415161)	// highlightHotTrack
+		HEXRGB(0x8090A0)	// edgeColor
 	};
 
 	// olive tone
@@ -151,8 +145,20 @@ namespace NppDarkMode
 		HEXRGB(0xE0E0E0),	// textColor
 		HEXRGB(0xC0C0C0),	// darkerTextColor
 		HEXRGB(0x808080),	// disabledTextColor
-		HEXRGB(0x909080),	// edgeColor
-		HEXRGB(0x515141)	// highlightHotTrack
+		HEXRGB(0x909080)	// edgeColor
+	};
+
+	// customized
+	Colors darkCustomizedColors{
+		HEXRGB(0x202020),	// background
+		HEXRGB(0x404040),	// softerBackground
+		HEXRGB(0x404040),	// hotBackground
+		HEXRGB(0x202020),	// pureBackground
+		HEXRGB(0xB00000),	// errorBackground
+		HEXRGB(0xE0E0E0),	// textColor
+		HEXRGB(0xC0C0C0),	// darkerTextColor
+		HEXRGB(0x808080),	// disabledTextColor
+		HEXRGB(0x808080)	// edgeColor
 	};
 
 	ColorTone g_colorToneChoice = blackTone;
@@ -164,22 +170,30 @@ namespace NppDarkMode
 
 	struct Theme
 	{
-		Colors colors;
-		Brushes brushes;
+		Colors _colors;
+		Brushes _brushes;
 
 		Theme(const Colors& colors)
-			: colors(colors)
-			, brushes(colors)
+			: _colors(colors)
+			, _brushes(colors)
 		{}
+
+		void change(const Colors& colors)
+		{
+			_colors = colors;
+			_brushes.change(colors);
+		}
 	};
 
-	Theme t0(darkColors);
-	Theme t1(darkRedColors);
-	Theme t2(darkGreenColors);
-	Theme t3(darkBlueColors);
-	Theme t4(darkPurpleColors);
-	Theme t5(darkCyanColors);
-	Theme t6(darkOliveColors);
+	Theme tDefault(darkColors);
+	Theme tR(darkRedColors);
+	Theme tG(darkGreenColors);
+	Theme tB(darkBlueColors);
+	Theme tP(darkPurpleColors);
+	Theme tC(darkCyanColors);
+	Theme tO(darkOliveColors);
+
+	Theme tCustom(darkCustomizedColors);
 	
 
 	Theme& getTheme()
@@ -187,25 +201,28 @@ namespace NppDarkMode
 		switch (g_colorToneChoice)
 		{
 			case redTone:
-				return t1;
+				return tR;
 
 			case greenTone:
-				return t2;
+				return tG;
 
 			case blueTone:
-				return t3;
+				return tB;
 
 			case purpleTone:
-				return t4;
+				return tP;
 
 			case cyanTone:
-				return t5;
+				return tC;
 
 			case oliveTone:
-				return t6;
+				return tO;
+
+			case customizedTone:
+				return tCustom;
 
 			default:
-				return t0;
+				return tDefault;
 		}
 	}
 
@@ -219,6 +236,7 @@ namespace NppDarkMode
 		opt.enableMenubar = opt.enable;
 
 		g_colorToneChoice = nppGui._darkmode._colorTone;
+		tCustom.change(nppGui._darkmode._customColors);
 
 		return opt;
 	}
@@ -311,22 +329,94 @@ namespace NppDarkMode
 		return invert_c;
 	}
 
-	COLORREF getBackgroundColor()         { return getTheme().colors.background; }
-	COLORREF getSofterBackgroundColor()   { return getTheme().colors.softerBackground; }
-	COLORREF getHotBackgroundColor()      { return getTheme().colors.hotBackground; }
-	COLORREF getDarkerBackgroundColor()   { return getTheme().colors.pureBackground; }
-	COLORREF getErrorBackgroundColor()    { return getTheme().colors.errorBackground; }
-	COLORREF getTextColor()               { return getTheme().colors.text; }
-	COLORREF getDarkerTextColor()         { return getTheme().colors.darkerText; }
-	COLORREF getDisabledTextColor()       { return getTheme().colors.disabledText; }
-	COLORREF getEdgeColor()               { return getTheme().colors.edge; }
-	COLORREF getHighlightHotTrackColor()  { return getTheme().colors.highlightHotTrack; }
+	COLORREF getBackgroundColor()         { return getTheme()._colors.background; }
+	COLORREF getSofterBackgroundColor()   { return getTheme()._colors.softerBackground; }
+	COLORREF getHotBackgroundColor()      { return getTheme()._colors.hotBackground; }
+	COLORREF getDarkerBackgroundColor()   { return getTheme()._colors.pureBackground; }
+	COLORREF getErrorBackgroundColor()    { return getTheme()._colors.errorBackground; }
+	COLORREF getTextColor()               { return getTheme()._colors.text; }
+	COLORREF getDarkerTextColor()         { return getTheme()._colors.darkerText; }
+	COLORREF getDisabledTextColor()       { return getTheme()._colors.disabledText; }
+	COLORREF getEdgeColor()               { return getTheme()._colors.edge; }
 
-	HBRUSH getBackgroundBrush()           { return getTheme().brushes.background; }
-	HBRUSH getSofterBackgroundBrush()     { return getTheme().brushes.softerBackground; }
-	HBRUSH getHotBackgroundBrush()        { return getTheme().brushes.hotBackground; }
-	HBRUSH getDarkerBackgroundBrush()     { return getTheme().brushes.pureBackground; }
-	HBRUSH getErrorBackgroundBrush()      { return getTheme().brushes.errorBackground; }
+	HBRUSH getBackgroundBrush()           { return getTheme()._brushes.background; }
+	HBRUSH getSofterBackgroundBrush()     { return getTheme()._brushes.softerBackground; }
+	HBRUSH getHotBackgroundBrush()        { return getTheme()._brushes.hotBackground; }
+	HBRUSH getDarkerBackgroundBrush()     { return getTheme()._brushes.pureBackground; }
+	HBRUSH getErrorBackgroundBrush()      { return getTheme()._brushes.errorBackground; }
+
+	void setBackgroundColor(COLORREF c)
+	{ 
+		Colors clrs = getTheme()._colors;
+		clrs.background = c;
+		getTheme().change(clrs);
+	}
+
+	void setSofterBackgroundColor(COLORREF c)
+	{
+		Colors clrs = getTheme()._colors;
+		clrs.softerBackground = c;
+		getTheme().change(clrs);
+	}
+
+	void setHotBackgroundColor(COLORREF c)
+	{
+		Colors clrs = getTheme()._colors;
+		clrs.hotBackground = c;
+		getTheme().change(clrs);
+	}
+
+	void setDarkerBackgroundColor(COLORREF c)
+	{
+		Colors clrs = getTheme()._colors;
+		clrs.pureBackground = c;
+		getTheme().change(clrs);
+	}
+
+	void setErrorBackgroundColor(COLORREF c)
+	{
+		Colors clrs = getTheme()._colors;
+		clrs.errorBackground = c;
+		getTheme().change(clrs);
+	}
+
+	void setTextColor(COLORREF c)
+	{
+		Colors clrs = getTheme()._colors;
+		clrs.text = c;
+		getTheme().change(clrs);
+	}
+
+	void setDarkerTextColor(COLORREF c)
+	{
+		Colors clrs = getTheme()._colors;
+		clrs.darkerText = c;
+		getTheme().change(clrs);
+	}
+
+	void setDisabledTextColor(COLORREF c)
+	{
+		Colors clrs = getTheme()._colors;
+		clrs.disabledText = c;
+		getTheme().change(clrs);
+	}
+
+	void setEdgeColor(COLORREF c)
+	{
+		Colors clrs = getTheme()._colors;
+		clrs.edge = c;
+		getTheme().change(clrs);
+	}
+
+	Colors getDarkModeDefaultColors()
+	{
+		return darkColors;
+	}
+
+	void changeCustomTheme(const Colors& colors)
+	{
+		tCustom.change(colors);
+	}
 
 	// handle events
 

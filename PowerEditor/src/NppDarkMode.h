@@ -13,6 +13,19 @@ constexpr COLORREF HEXRGB(DWORD rrggbb) {
 
 namespace NppDarkMode
 {
+	struct Colors
+	{
+		COLORREF background = 0;
+		COLORREF softerBackground = 0;
+		COLORREF hotBackground = 0;
+		COLORREF pureBackground = 0;
+		COLORREF errorBackground = 0;
+		COLORREF text = 0;
+		COLORREF darkerText = 0;
+		COLORREF disabledText = 0;
+		COLORREF edge = 0;
+	};
+
 	struct Options
 	{
 		bool enable = false;
@@ -35,7 +48,8 @@ namespace NppDarkMode
 		blueTone   = 3,
 		purpleTone = 4,
 		cyanTone   = 5,
-		oliveTone  = 6
+		oliveTone  = 6,
+		customizedTone = 32
 	};
 
 	void initDarkMode();				// pulls options from NppParameters
@@ -60,13 +74,25 @@ namespace NppDarkMode
 	COLORREF getDarkerTextColor();
 	COLORREF getDisabledTextColor();
 	COLORREF getEdgeColor();
-	COLORREF getHighlightHotTrackColor();
 
 	HBRUSH getBackgroundBrush();
 	HBRUSH getDarkerBackgroundBrush();
 	HBRUSH getSofterBackgroundBrush();
 	HBRUSH getHotBackgroundBrush();
 	HBRUSH getErrorBackgroundBrush();
+
+	void setBackgroundColor(COLORREF c);
+	void setSofterBackgroundColor(COLORREF c);
+	void setHotBackgroundColor(COLORREF c);
+	void setDarkerBackgroundColor(COLORREF c);
+	void setErrorBackgroundColor(COLORREF c);
+	void setTextColor(COLORREF c);
+	void setDarkerTextColor(COLORREF c);
+	void setDisabledTextColor(COLORREF c);
+	void setEdgeColor(COLORREF c);
+
+	Colors getDarkModeDefaultColors();
+	void changeCustomTheme(const Colors& colors);
 
 	// handle events
 	void handleSettingChange(HWND hwnd, LPARAM lParam);

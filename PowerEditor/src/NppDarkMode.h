@@ -35,7 +35,8 @@ namespace NppDarkMode
 		blueTone   = 3,
 		purpleTone = 4,
 		cyanTone   = 5,
-		oliveTone  = 6
+		oliveTone  = 6,
+		customizedTone = 32
 	};
 
 	void initDarkMode();				// pulls options from NppParameters

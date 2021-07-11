@@ -54,6 +54,21 @@ namespace NppDarkMode
 			::DeleteObject(pureBackground);		pureBackground = nullptr;
 			::DeleteObject(errorBackground);	errorBackground = nullptr;
 		}
+
+		void change(const Colors& colors)
+		{
+			::DeleteObject(background);		
+			::DeleteObject(softerBackground);
+			::DeleteObject(hotBackground);	
+			::DeleteObject(pureBackground);	
+			::DeleteObject(errorBackground);
+
+			background = ::CreateSolidBrush(colors.background);
+			softerBackground = ::CreateSolidBrush(colors.softerBackground);
+			hotBackground = ::CreateSolidBrush(colors.hotBackground);
+			pureBackground = ::CreateSolidBrush(colors.pureBackground);
+			errorBackground = ::CreateSolidBrush(colors.errorBackground);
+		}
 	};
 
 	// black (default)
@@ -155,6 +170,20 @@ namespace NppDarkMode
 		HEXRGB(0x515141)	// highlightHotTrack
 	};
 
+	// customized
+	static const Colors darkCustomizedColors{
+		HEXRGB(0x202020),	// background
+		HEXRGB(0x404040),	// softerBackground
+		HEXRGB(0x404040),	// hotBackground
+		HEXRGB(0x202020),	// pureBackground
+		HEXRGB(0xB00000),	// errorBackground
+		HEXRGB(0xE0E0E0),	// textColor
+		HEXRGB(0xC0C0C0),	// darkerTextColor
+		HEXRGB(0x808080),	// disabledTextColor
+		HEXRGB(0x808080),	// edgeColor
+		HEXRGB(0x414141)	// highlightHotTrack
+	};
+
 	ColorTone g_colorToneChoice = blackTone;
 
 	void setDarkTone(ColorTone colorToneChoice)
@@ -164,13 +193,19 @@ namespace NppDarkMode
 
 	struct Theme
 	{
-		Colors colors;
-		Brushes brushes;
+		Colors _colors;
+		Brushes _brushes;
 
 		Theme(const Colors& colors)
-			: colors(colors)
-			, brushes(colors)
+			: _colors(colors)
+			, _brushes(colors)
 		{}
+
+		void change(const Colors& colors)
+		{
+			_colors = colors;
+			_brushes.change(colors);
+		}
 	};
 
 	Theme t0(darkColors);
@@ -180,6 +215,8 @@ namespace NppDarkMode
 	Theme t4(darkPurpleColors);
 	Theme t5(darkCyanColors);
 	Theme t6(darkOliveColors);
+
+	Theme t32(darkCustomizedColors);
 	
 
 	Theme& getTheme()
@@ -203,6 +240,9 @@ namespace NppDarkMode
 
 			case oliveTone:
 				return t6;
+
+			case customizedTone:
+				return t32;
 
 			default:
 				return t0;
@@ -311,22 +351,22 @@ namespace NppDarkMode
 		return invert_c;
 	}
 
-	COLORREF getBackgroundColor()         { return getTheme().colors.background; }
-	COLORREF getSofterBackgroundColor()   { return getTheme().colors.softerBackground; }
-	COLORREF getHotBackgroundColor()      { return getTheme().colors.hotBackground; }
-	COLORREF getDarkerBackgroundColor()   { return getTheme().colors.pureBackground; }
-	COLORREF getErrorBackgroundColor()    { return getTheme().colors.errorBackground; }
-	COLORREF getTextColor()               { return getTheme().colors.text; }
-	COLORREF getDarkerTextColor()         { return getTheme().colors.darkerText; }
-	COLORREF getDisabledTextColor()       { return getTheme().colors.disabledText; }
-	COLORREF getEdgeColor()               { return getTheme().colors.edge; }
-	COLORREF getHighlightHotTrackColor()  { return getTheme().colors.highlightHotTrack; }
+	COLORREF getBackgroundColor()         { return getTheme()._colors.background; }
+	COLORREF getSofterBackgroundColor()   { return getTheme()._colors.softerBackground; }
+	COLORREF getHotBackgroundColor()      { return getTheme()._colors.hotBackground; }
+	COLORREF getDarkerBackgroundColor()   { return getTheme()._colors.pureBackground; }
+	COLORREF getErrorBackgroundColor()    { return getTheme()._colors.errorBackground; }
+	COLORREF getTextColor()               { return getTheme()._colors.text; }
+	COLORREF getDarkerTextColor()         { return getTheme()._colors.darkerText; }
+	COLORREF getDisabledTextColor()       { return getTheme()._colors.disabledText; }
+	COLORREF getEdgeColor()               { return getTheme()._colors.edge; }
+	COLORREF getHighlightHotTrackColor()  { return getTheme()._colors.highlightHotTrack; }
 
-	HBRUSH getBackgroundBrush()           { return getTheme().brushes.background; }
-	HBRUSH getSofterBackgroundBrush()     { return getTheme().brushes.softerBackground; }
-	HBRUSH getHotBackgroundBrush()        { return getTheme().brushes.hotBackground; }
-	HBRUSH getDarkerBackgroundBrush()     { return getTheme().brushes.pureBackground; }
-	HBRUSH getErrorBackgroundBrush()      { return getTheme().brushes.errorBackground; }
+	HBRUSH getBackgroundBrush()           { return getTheme()._brushes.background; }
+	HBRUSH getSofterBackgroundBrush()     { return getTheme()._brushes.softerBackground; }
+	HBRUSH getHotBackgroundBrush()        { return getTheme()._brushes.hotBackground; }
+	HBRUSH getDarkerBackgroundBrush()     { return getTheme()._brushes.pureBackground; }
+	HBRUSH getErrorBackgroundBrush()      { return getTheme()._brushes.errorBackground; }
 
 	// handle events
 

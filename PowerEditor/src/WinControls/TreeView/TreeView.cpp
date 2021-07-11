@@ -28,7 +28,7 @@ void TreeView::init(HINSTANCE hInst, HWND parent, int treeViewID)
 
 	const auto treeViewStyles = WS_HSCROLL | WS_TABSTOP | TVS_LINESATROOT\
 						| TVS_HASLINES | TVS_HASBUTTONS | TVS_SHOWSELALWAYS\
-						| TVS_EDITLABELS | TVS_INFOTIP/* | TVS_TRACKSELECT*/;
+						| TVS_EDITLABELS | TVS_INFOTIP;
 
 	_hSelf = CreateWindowEx(0,
 							WC_TREEVIEW,
@@ -44,7 +44,6 @@ void TreeView::init(HINSTANCE hInst, HWND parent, int treeViewID)
 							nullptr);
 
 	NppDarkMode::setDarkTooltips(_hSelf, NppDarkMode::ToolTipsType::treeview);
-	//NppDarkMode::setTreeViewStyle(_hSelf);
 
 	int itemHeight = NppParameters::getInstance()._dpiManager.scaleY(CY_ITEMHEIGHT);
 	TreeView_SetItemHeight(_hSelf, itemHeight);

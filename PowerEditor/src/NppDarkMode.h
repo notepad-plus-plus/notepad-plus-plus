@@ -17,7 +17,6 @@ namespace NppDarkMode
 	{
 		bool enable = false;
 		bool enableMenubar = false;
-		bool enableScrollbarHack = false;
 	};
 	
 	enum class ToolTipsType
@@ -44,7 +43,6 @@ namespace NppDarkMode
 
 	bool isEnabled();
 	bool isDarkMenuEnabled();
-	bool isScrollbarHackEnabled();
 	bool isExperimentalSupported();
 
 	COLORREF invertLightness(COLORREF c);
@@ -104,5 +102,5 @@ namespace NppDarkMode
 	void setDarkListView(HWND hwnd);
 
 	void disableVisualStyle(HWND hwnd, bool doDisable);
-	void redrawTreeViewScrollBar(HWND hwnd);
+	void setTreeViewStyle(HWND hwnd);
 }

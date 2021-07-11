@@ -870,7 +870,7 @@ INT_PTR CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPA
 			NppDarkMode::setDarkLineAbovePanelToolbar(_hToolbarMenu);
 
 			NppDarkMode::setDarkTooltips(_treeView.getHSelf(), NppDarkMode::ToolTipsType::treeview);
-			NppDarkMode::redrawTreeViewScrollBar(_treeView.getHSelf());
+			NppDarkMode::setTreeViewStyle(_treeView.getHSelf());
 			return TRUE;
 		}
 

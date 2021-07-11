@@ -217,7 +217,6 @@ namespace NppDarkMode
 		Options opt;
 		opt.enable = nppGui._darkmode._isEnabled;
 		opt.enableMenubar = opt.enable;
-		opt.enableScrollbarHack = opt.enable;
 
 		g_colorToneChoice = nppGui._darkmode._colorTone;
 
@@ -229,7 +228,7 @@ namespace NppDarkMode
 		_options = configuredOptions();
 
 		initExperimentalDarkMode();
-		setDarkMode(_options.enable, _options.enableScrollbarHack);
+		setDarkMode(_options.enable, true);
 	}
 
 	// attempts to apply new options from NppParameters, sends NPPM_INTERNAL_REFRESHDARKMODE to hwnd's top level parent
@@ -272,11 +271,6 @@ namespace NppDarkMode
 	bool isDarkMenuEnabled()
 	{
 		return _options.enableMenubar;
-	}
-
-	bool isScrollbarHackEnabled()
-	{
-		return _options.enableScrollbarHack;
 	}
 
 	bool isExperimentalActive()
@@ -1267,8 +1261,9 @@ namespace NppDarkMode
 		}
 	}
 
-	void redrawTreeViewScrollBar(HWND hwnd)
+	// force scrollbar redraw
+	void setTreeViewStyle(HWND hwnd)
 	{
-		SetWindowTheme(hwnd, nullptr, nullptr); //hack to redraw treeview scrollbar
+		SetWindowTheme(hwnd, nullptr, nullptr);
 	}
 }

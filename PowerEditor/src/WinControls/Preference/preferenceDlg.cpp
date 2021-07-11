@@ -858,6 +858,7 @@ INT_PTR CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 		case WM_COMMAND:
 		{
 			bool changed = false;
+			bool forceRefresh = false;
 			switch (wParam)
 			{
 				case IDC_CHECK_DARKMODE_ENABLE:
@@ -885,6 +886,7 @@ INT_PTR CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						// For tabbar: uncheck Alternate icons checkbox
 						::SendMessage(_hParent, PREF_MSG_DISABLETABBARALTERNATEICONS, 0, 0);
 					}
+
 					changed = true;
 				}
 				break;
@@ -939,20 +941,17 @@ INT_PTR CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						nppGUI._darkmode._colorTone = NppDarkMode::oliveTone;
 					}
 
-					// switch to light mode firstly (to make color change completely)
-					nppGUI._darkmode._isEnabled = false;
-					NppDarkMode::refreshDarkMode(_hSelf);
-
 					// switch to chosen dark mode
 					nppGUI._darkmode._isEnabled = true;
 					NppDarkMode::setDarkTone(nppGUI._darkmode._colorTone);
 					changed = true;
+					forceRefresh = true;
 					break;
 			}
 
 			if (changed)
 			{
-				NppDarkMode::refreshDarkMode(_hSelf);
+				NppDarkMode::refreshDarkMode(_hSelf, forceRefresh);
 				getFocus(); // to make black mode title bar appear
 				return TRUE;
 			}

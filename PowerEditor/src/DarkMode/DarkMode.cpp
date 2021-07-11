@@ -302,7 +302,7 @@ void SetDarkMode(bool useDark, bool fixDarkScrollbar)
 		AllowDarkModeForApp(useDark);
 		//_RefreshImmersiveColorPolicyState();
 		FlushMenuThemes();
-		if (useDark && fixDarkScrollbar)
+		if (fixDarkScrollbar)
 		{
 			FixDarkScrollBar();
 		}

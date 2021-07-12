@@ -807,10 +807,10 @@ Last modified on 2021-06-03 by Thomas De Rocker (RockyTDR).
                 <Global title="Algemeen">
                     <Item id="6101" name="Werkbalk"/>
                     <Item id="6102" name="Verbergen"/>
-                    <Item id="6103" name="Vloeiende UI: klein"/>
-                    <Item id="6104" name="Vloeiende UI: groot"/>
-                    <Item id="6129" name="Gevulde vloeiende UI: klein"/>
-                    <Item id="6130" name="Gevulde vloeiende UI: groot"/>
+                    <Item id="6103" name="Fluent UI: klein"/>
+                    <Item id="6104" name="Fluent UI: groot"/>
+                    <Item id="6129" name="Gevulde Fluent UI: klein"/>
+                    <Item id="6130" name="Gevulde Fluent UI: groot"/>
                     <Item id="6105" name="Standaardpictogrammen: klein"/>
 
                     <Item id="6106" name="Tabblad-balk"/>

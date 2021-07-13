@@ -3,6 +3,9 @@
 	<AutoComplete>
 		<KeyWord name="above" />
 		<KeyWord name="abs" />
+		<KeyWord name="AbortController" />
+		<KeyWord name="AbortSignal" />
+		<KeyWord name="AbstractRange" />
 		<KeyWord name="acos" />
 		<KeyWord name="action" />
 		<KeyWord name="addEventListener" />
@@ -41,6 +44,7 @@
 		<KeyWord name="atob" />
 		<KeyWord name="Atomics" />
 		<KeyWord name="attachEvent" />
+		<KeyWord name="Attr" />
 		<KeyWord name="attributes" />
 		<KeyWord name="availHeight" />
 		<KeyWord name="availLeft" />
@@ -83,8 +87,10 @@
 		<KeyWord name="case" />
 		<KeyWord name="catch" />
 		<KeyWord name="cbrt" />
+		<KeyWord name="CDATASection" />
 		<KeyWord name="ceil" />
 		<KeyWord name="char" />
+		<KeyWord name="CharacterData" />
 		<KeyWord name="characterSet" />
 		<KeyWord name="charAt" />
 		<KeyWord name="charCodeAt" />
@@ -108,6 +114,7 @@
 		<KeyWord name="closed" />
 		<KeyWord name="codePointAt" />
 		<KeyWord name="colorDepth" />
+		<KeyWord name="Comment" />
 		<KeyWord name="compile" />
 		<KeyWord name="complete" />
 		<KeyWord name="components" />
@@ -135,6 +142,7 @@
 		<KeyWord name="credentials" />
 		<KeyWord name="crypto" />
 		<KeyWord name="current" />
+		<KeyWord name="CustomEvent" />
 		<KeyWord name="data" />
 		<KeyWord name="dataset" />
 		<KeyWord name="Date" />
@@ -166,15 +174,21 @@
 		<KeyWord name="do" />
 		<KeyWord name="doctype" />
 		<KeyWord name="document" />
+		<KeyWord name="Document" />
 		<KeyWord name="documentElement" />
+		<KeyWord name="DocumentFragment" />
+		<KeyWord name="DocumentType" />
 		<KeyWord name="domain" />
 		<KeyWord name="DOMContentLoaded" />
+		<KeyWord name="DOMImplementation" />
 		<KeyWord name="DOMParser" />
+		<KeyWord name="DOMTokenList" />
 		<KeyWord name="double" />
 		<KeyWord name="dump" />
 		<KeyWord name="E" />
 		<KeyWord name="EPSILON" />
 		<KeyWord name="elementFromPoint" />
+		<KeyWord name="Element" />
 		<KeyWord name="elements" />
 		<KeyWord name="else" />
 		<KeyWord name="embeds" />
@@ -189,6 +203,8 @@
 		<KeyWord name="escape" />
 		<KeyWord name="eval" />
 		<KeyWord name="event" />
+		<KeyWord name="Event" />
+		<KeyWord name="EventTarget" />
 		<KeyWord name="every" />
 		<KeyWord name="exec" />
 		<KeyWord name="execCommand" />
@@ -302,6 +318,7 @@
 		<KeyWord name="hostname" />
 		<KeyWord name="href" />
 		<KeyWord name="hspace" />
+		<KeyWord name="HTMLCollection" />
 		<KeyWord name="ids" />
 		<KeyWord name="if" />
 		<KeyWord name="ignoreCase" />
@@ -414,7 +431,10 @@
 		<KeyWord name="moveTo" />
 		<KeyWord name="moveToAbsolute" />
 		<KeyWord name="multiline" />
+		<KeyWord name="MutationObserver" />
+		<KeyWord name="MutationRecord" />
 		<KeyWord name="name" />
+		<KeyWord name="NamedNodeMap" />
 		<KeyWord name="nameProp" />
 		<KeyWord name="namespaces" />
 		<KeyWord name="namespaceURI" />
@@ -427,6 +447,10 @@
 		<KeyWord name="new" />
 		<KeyWord name="next" />
 		<KeyWord name="nextSibling" />
+		<KeyWord name="Node" />
+		<KeyWord name="NodeFilter" />
+		<KeyWord name="NodeIterator" />
+		<KeyWord name="NodeList" />
 		<KeyWord name="nodeName" />
 		<KeyWord name="nodeType" />
 		<KeyWord name="nodeValue" />
@@ -563,6 +587,7 @@
 		<KeyWord name="previousSibling" />
 		<KeyWord name="print" />
 		<KeyWord name="private" />
+		<KeyWord name="ProcessingInstruction" />
 		<KeyWord name="product" />
 		<KeyWord name="productSub" />
 		<KeyWord name="Promise" />
@@ -582,6 +607,7 @@
 		<KeyWord name="race" />
 		<KeyWord name="Radio" />
 		<KeyWord name="random" />
+		<KeyWord name="Range" />
 		<KeyWord name="readyState" />
 		<KeyWord name="recalc" />
 		<KeyWord name="reduce" />
@@ -681,6 +707,7 @@
 		<KeyWord name="setUTCSeconds" />
 		<KeyWord name="setYear" />
 		<KeyWord name="setZOptions" />
+		<KeyWord name="ShadowRoot" />
 		<KeyWord name="shift" />
 		<KeyWord name="short" />
 		<KeyWord name="showHelp" />
@@ -706,6 +733,7 @@
 		<KeyWord name="SQRT2" />
 		<KeyWord name="src" />
 		<KeyWord name="static" />
+		<KeyWord name="StaticRange" />
 		<KeyWord name="status" />
 		<KeyWord name="statusbar" />
 		<KeyWord name="stop" />
@@ -761,6 +789,7 @@
 		<KeyWord name="toUpperCase" />
 		<KeyWord name="toUTCString" />
 		<KeyWord name="transient" />
+		<KeyWord name="TreeWalker" />
 		<KeyWord name="trim" />
 		<KeyWord name="trimEnd" />
 		<KeyWord name="trimStart" />
@@ -806,6 +835,7 @@
 		<KeyWord name="whiteSpace" />
 		<KeyWord name="width" />
 		<KeyWord name="window" />
+		<KeyWord name="Window" />
 		<KeyWord name="with" />
 		<KeyWord name="writable" />
 		<KeyWord name="write" />
@@ -813,7 +843,11 @@
 		<KeyWord name="x" />
 		<KeyWord name="XMLDocument" />
 		<KeyWord name="XMLHttpRequest" />
+		<KeyWord name="XPathEvaluator" />
+		<KeyWord name="XPathExpression" />
+		<KeyWord name="XPathResult" />
 		<KeyWord name="XSLDocument" />
+		<KeyWord name="XSLTProcessor" />
 		<KeyWord name="y" />
 		<KeyWord name="zIndex" />
 		<KeyWord name="_content" />

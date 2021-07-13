@@ -22,12 +22,10 @@ namespace NppDarkMode
 		COLORREF hotBackground = 0;
 		COLORREF pureBackground = 0;
 		COLORREF errorBackground = 0;
-
 		COLORREF text = 0;
 		COLORREF darkerText = 0;
 		COLORREF disabledText = 0;
 		COLORREF edge = 0;
-		COLORREF highlightHotTrack = 0;
 	};
 
 	struct Brushes
@@ -81,8 +79,7 @@ namespace NppDarkMode
 		HEXRGB(0xE0E0E0),	// textColor
 		HEXRGB(0xC0C0C0),	// darkerTextColor
 		HEXRGB(0x808080),	// disabledTextColor
-		HEXRGB(0x808080),	// edgeColor
-		HEXRGB(0x414141)	// highlightHotTrack
+		HEXRGB(0x808080)	// edgeColor
 	};
 
 	// red tone
@@ -95,8 +92,7 @@ namespace NppDarkMode
 		HEXRGB(0xE0E0E0),	// textColor
 		HEXRGB(0xC0C0C0),	// darkerTextColor
 		HEXRGB(0x808080),	// disabledTextColor
-		HEXRGB(0x908080),	// edgeColor
-		HEXRGB(0x514141)	// highlightHotTrack
+		HEXRGB(0x908080)	// edgeColor
 	};
 	
 	// green tone
@@ -109,8 +105,7 @@ namespace NppDarkMode
 		HEXRGB(0xE0E0E0),	// textColor
 		HEXRGB(0xC0C0C0),	// darkerTextColor
 		HEXRGB(0x808080),	// disabledTextColor
-		HEXRGB(0x809080),	// edgeColor
-		HEXRGB(0x415141)	// highlightHotTrack
+		HEXRGB(0x809080)	// edgeColor
 	};
 	
 
@@ -124,8 +119,7 @@ namespace NppDarkMode
 		HEXRGB(0xE0E0E0),	// textColor
 		HEXRGB(0xC0C0C0),	// darkerTextColor
 		HEXRGB(0x808080),	// disabledTextColor
-		HEXRGB(0x8080A0),	// edgeColor
-		HEXRGB(0x414161)	// highlightHotTrack
+		HEXRGB(0x8080A0)	// edgeColor
 	};
 	
 	// purple tone
@@ -138,8 +132,7 @@ namespace NppDarkMode
 		HEXRGB(0xE0E0E0),	// textColor
 		HEXRGB(0xC0C0C0),	// darkerTextColor
 		HEXRGB(0x808080),	// disabledTextColor
-		HEXRGB(0x9080A0),	// edgeColor
-		HEXRGB(0x514161)	// highlightHotTrack
+		HEXRGB(0x9080A0)	// edgeColor
 	};
 
 	// cyan tone
@@ -152,8 +145,7 @@ namespace NppDarkMode
 		HEXRGB(0xE0E0E0),	// textColor
 		HEXRGB(0xC0C0C0),	// darkerTextColor
 		HEXRGB(0x808080),	// disabledTextColor
-		HEXRGB(0x8090A0),	// edgeColor
-		HEXRGB(0x415161)	// highlightHotTrack
+		HEXRGB(0x8090A0)	// edgeColor
 	};
 
 	// olive tone
@@ -166,8 +158,7 @@ namespace NppDarkMode
 		HEXRGB(0xE0E0E0),	// textColor
 		HEXRGB(0xC0C0C0),	// darkerTextColor
 		HEXRGB(0x808080),	// disabledTextColor
-		HEXRGB(0x909080),	// edgeColor
-		HEXRGB(0x515141)	// highlightHotTrack
+		HEXRGB(0x909080)	// edgeColor
 	};
 
 	// customized
@@ -180,8 +171,7 @@ namespace NppDarkMode
 		HEXRGB(0xE0E0E0),	// textColor
 		HEXRGB(0xC0C0C0),	// darkerTextColor
 		HEXRGB(0x808080),	// disabledTextColor
-		HEXRGB(0x808080),	// edgeColor
-		HEXRGB(0x414141)	// highlightHotTrack
+		HEXRGB(0x808080)	// edgeColor
 	};
 
 	ColorTone g_colorToneChoice = blackTone;
@@ -360,7 +350,6 @@ namespace NppDarkMode
 	COLORREF getDarkerTextColor()         { return getTheme()._colors.darkerText; }
 	COLORREF getDisabledTextColor()       { return getTheme()._colors.disabledText; }
 	COLORREF getEdgeColor()               { return getTheme()._colors.edge; }
-	COLORREF getHighlightHotTrackColor()  { return getTheme()._colors.highlightHotTrack; }
 
 	HBRUSH getBackgroundBrush()           { return getTheme()._brushes.background; }
 	HBRUSH getSofterBackgroundBrush()     { return getTheme()._brushes.softerBackground; }
@@ -428,13 +417,6 @@ namespace NppDarkMode
 	{
 		Colors clrs = getTheme()._colors;
 		clrs.edge = c;
-		getTheme().change(clrs);
-	}
-
-	void setHighlightHotTrackColor(COLORREF c)
-	{
-		Colors clrs = getTheme()._colors;
-		clrs.highlightHotTrack = c;
 		getTheme().change(clrs);
 	}
 

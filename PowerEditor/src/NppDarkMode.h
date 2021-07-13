@@ -61,13 +61,23 @@ namespace NppDarkMode
 	COLORREF getDarkerTextColor();
 	COLORREF getDisabledTextColor();
 	COLORREF getEdgeColor();
-	COLORREF getHighlightHotTrackColor();
 
 	HBRUSH getBackgroundBrush();
 	HBRUSH getDarkerBackgroundBrush();
 	HBRUSH getSofterBackgroundBrush();
 	HBRUSH getHotBackgroundBrush();
 	HBRUSH getErrorBackgroundBrush();
+
+	void setBackgroundColor(COLORREF c);
+	void setSofterBackgroundColor(COLORREF c);
+	void setHotBackgroundColor(COLORREF c);
+	void setDarkerBackgroundColor(COLORREF c);
+	void setErrorBackgroundColor(COLORREF c);
+	void setTextColor(COLORREF c);
+	void setDarkerTextColor(COLORREF c);
+	void setDisabledTextColor(COLORREF c);
+	void setEdgeColor(COLORREF c);
+
 
 	// handle events
 	void handleSettingChange(HWND hwnd, LPARAM lParam);

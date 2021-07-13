@@ -16,9 +16,7 @@ namespace NppDarkMode
 	struct Options
 	{
 		bool enable = false;
-		bool enableExperimental = false;
 		bool enableMenubar = false;
-		bool enableScrollbarHack = false;
 	};
 	
 	enum class ToolTipsType
@@ -30,16 +28,27 @@ namespace NppDarkMode
 		tabbar
 	};
 
+	enum ColorTone {
+		blackTone  = 0,
+		redTone    = 1,
+		greenTone  = 2,
+		blueTone   = 3,
+		purpleTone = 4,
+		cyanTone   = 5,
+		oliveTone  = 6
+	};
+
 	void initDarkMode();				// pulls options from NppParameters
 	void refreshDarkMode(HWND hwnd, bool forceRefresh = false);	// attempts to apply new options from NppParameters, sends NPPM_INTERNAL_REFRESHDARKMODE to hwnd's top level parent
 
 	bool isEnabled();
 	bool isDarkMenuEnabled();
-	bool isExperimentalEnabled();
-	bool isScrollbarHackEnabled();
+	bool isExperimentalSupported();
 
 	COLORREF invertLightness(COLORREF c);
 	COLORREF invertLightnessSofter(COLORREF c);
+
+	void setDarkTone(ColorTone colorToneChoice);
 
 	COLORREF getBackgroundColor();
 	COLORREF getSofterBackgroundColor();
@@ -51,6 +60,7 @@ namespace NppDarkMode
 	COLORREF getDarkerTextColor();
 	COLORREF getDisabledTextColor();
 	COLORREF getEdgeColor();
+	COLORREF getHighlightHotTrackColor();
 
 	HBRUSH getBackgroundBrush();
 	HBRUSH getDarkerBackgroundBrush();
@@ -67,10 +77,11 @@ namespace NppDarkMode
 	void drawUAHMenuNCBottomLine(HWND hWnd);
 
 	// from DarkMode.h
-	void initExperimentalDarkMode(bool fixDarkScrollbar, bool dark);
+	void initExperimentalDarkMode();
+	void setDarkMode(bool useDark, bool fixDarkScrollbar);
 	void allowDarkModeForApp(bool allow);
 	bool allowDarkModeForWindow(HWND hWnd, bool allow);
-	void setTitleBarThemeColor(HWND hWnd, bool dark);
+	void setTitleBarThemeColor(HWND hWnd);
 
 	// enhancements to DarkMode.h
 	void enableDarkScrollBarForWindowAndChildren(HWND hwnd);
@@ -84,8 +95,12 @@ namespace NppDarkMode
 	void autoThemeChildControls(HWND hwndParent);
 
 	void setDarkTitleBar(HWND hwnd);
+	void setDarkExplorerTheme(HWND hwnd);
+	void setDarkScrollBar(HWND hwnd);
 	void setDarkTooltips(HWND hwnd, ToolTipsType type);
 	void setDarkLineAbovePanelToolbar(HWND hwnd);
+	void setDarkListView(HWND hwnd);
 
-	void setExplorerTheme(HWND hwnd, bool doEnable);
+	void disableVisualStyle(HWND hwnd, bool doDisable);
+	void setTreeViewStyle(HWND hwnd);
 }

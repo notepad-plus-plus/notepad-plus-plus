@@ -310,6 +310,7 @@ const TCHAR FLAG_NOTEPAD_COMPATIBILITY[] = TEXT("-notepadStyleCmdline");
 const TCHAR FLAG_OPEN_FOLDERS_AS_WORKSPACE[] = TEXT("-openFoldersAsWorkspace");
 const TCHAR FLAG_SETTINGS_DIR[] = TEXT("-settingsDir=");
 const TCHAR FLAG_TITLEBAR_ADD[] = TEXT("-titleAdd=");
+const TCHAR FLAG_APPLY_UDL[] = TEXT("-udl=");
 
 void doException(Notepad_plus_Window & notepad_plus_plus)
 {
@@ -480,6 +481,19 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 			}
 		}
 		nppParameters.setTitleBarAdd(titleBarAdditional);
+	}
+
+	generic_string udlName;
+	if (getParamValFromString(FLAG_APPLY_UDL, params, udlName))
+	{
+		if (udlName.length() >= 2)
+		{
+			if (udlName.front() == '"' && udlName.back() == '"')
+			{
+				udlName = udlName.substr(1, udlName.length() - 2);
+			}
+		}
+		cmdLineParams._udlName = udlName;
 	}
 
 	if (showHelp)

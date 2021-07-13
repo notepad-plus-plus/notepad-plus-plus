@@ -73,14 +73,14 @@ INT_PTR CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, 
 
 		case NPPM_INTERNAL_REFRESHDARKMODE:
 		{
-			NppDarkMode::setExplorerTheme(_fileListView.getHSelf(), true);
+			NppDarkMode::setDarkListView(_fileListView.getHSelf());
 			NppDarkMode::setDarkTooltips(_fileListView.getHSelf(), NppDarkMode::ToolTipsType::listview);
 			return TRUE;
 		}
 
 		case WM_NOTIFY:
 		{
-			switch (((LPNMHDR)lParam)->code)
+			switch (reinterpret_cast<LPNMHDR>(lParam)->code)
 			{
 				case NM_DBLCLK:
 				{

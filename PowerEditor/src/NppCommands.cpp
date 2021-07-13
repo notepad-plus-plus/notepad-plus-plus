@@ -487,7 +487,8 @@ void Notepad_plus::command(int id)
 			if (nppGui._searchEngineChoice == nppGui.se_custom)
 			{
 				url = nppGui._searchEngineCustom;
-				remove_if(url.begin(), url.end(), _istspace);
+				url.erase(std::remove_if(url.begin(), url.end(), [](_TUCHAR x) {return _istspace(x); }),
+					url.end());
 
 				auto httpPos = url.find(TEXT("http://"));
 				auto httpsPos = url.find(TEXT("https://"));

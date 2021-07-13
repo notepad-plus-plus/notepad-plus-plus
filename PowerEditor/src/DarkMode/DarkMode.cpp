@@ -17,7 +17,7 @@ enum IMMERSIVE_HC_CACHE_MODE
 };
 
 // 1903 18362
-enum PreferredAppMode
+enum class PreferredAppMode
 {
 	Default,
 	AllowDark,
@@ -85,7 +85,7 @@ fnSetWindowCompositionAttribute _SetWindowCompositionAttribute = nullptr;
 fnShouldAppsUseDarkMode _ShouldAppsUseDarkMode = nullptr;
 fnAllowDarkModeForWindow _AllowDarkModeForWindow = nullptr;
 fnAllowDarkModeForApp _AllowDarkModeForApp = nullptr;
-//fnFlushMenuThemes _FlushMenuThemes = nullptr;
+fnFlushMenuThemes _FlushMenuThemes = nullptr;
 fnRefreshImmersiveColorPolicyState _RefreshImmersiveColorPolicyState = nullptr;
 fnIsDarkModeAllowedForWindow _IsDarkModeAllowedForWindow = nullptr;
 fnGetIsImmersiveColorUsingHighContrast _GetIsImmersiveColorUsingHighContrast = nullptr;
@@ -173,7 +173,15 @@ void AllowDarkModeForApp(bool allow)
 	if (_AllowDarkModeForApp)
 		_AllowDarkModeForApp(allow);
 	else if (_SetPreferredAppMode)
-		_SetPreferredAppMode(allow ? ForceDark : Default);
+		_SetPreferredAppMode(allow ? PreferredAppMode::ForceDark : PreferredAppMode::Default);
+}
+
+void FlushMenuThemes()
+{
+	if (_FlushMenuThemes)
+	{
+		_FlushMenuThemes();
+	}
 }
 
 // limit dark scroll bar to specific windows and their children
@@ -204,7 +212,7 @@ bool IsWindowOrParentUsingDarkScrollBar(HWND hwnd)
 
 void FixDarkScrollBar()
 {
-	HMODULE hComctl = LoadLibraryExW(L"comctl32.dll", nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32);
+	HMODULE hComctl = LoadLibraryEx(L"comctl32.dll", nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32);
 	if (hComctl)
 	{
 		auto addr = FindDelayLoadThunkInModule(hComctl, "uxtheme.dll", 49); // OpenNcThemeData
@@ -238,12 +246,13 @@ constexpr bool CheckBuildNumber(DWORD buildNumber)
 		buildNumber == 18363 || // 1909
 		buildNumber == 19041 || // 2004
 		buildNumber == 19042 || // 20H2
-		buildNumber == 19043);  // 21H1
+		buildNumber == 19043 || // 21H1
+		buildNumber >= 22000);  // Windows 11 insider builds
 }
 
-void InitDarkMode(bool fixDarkScrollbar, bool dark)
+void InitDarkMode()
 {
-	auto RtlGetNtVersionNumbers = reinterpret_cast<fnRtlGetNtVersionNumbers>(GetProcAddress(GetModuleHandleW(L"ntdll.dll"), "RtlGetNtVersionNumbers"));
+	auto RtlGetNtVersionNumbers = reinterpret_cast<fnRtlGetNtVersionNumbers>(GetProcAddress(GetModuleHandle(L"ntdll.dll"), "RtlGetNtVersionNumbers"));
 	if (RtlGetNtVersionNumbers)
 	{
 		DWORD major, minor;
@@ -251,7 +260,7 @@ void InitDarkMode(bool fixDarkScrollbar, bool dark)
 		g_buildNumber &= ~0xF0000000;
 		if (major == 10 && minor == 0 && CheckBuildNumber(g_buildNumber))
 		{
-			HMODULE hUxtheme = LoadLibraryExW(L"uxtheme.dll", nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32);
+			HMODULE hUxtheme = LoadLibraryEx(L"uxtheme.dll", nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32);
 			if (hUxtheme)
 			{
 				_OpenNcThemeData = reinterpret_cast<fnOpenNcThemeData>(GetProcAddress(hUxtheme, MAKEINTRESOURCEA(49)));
@@ -266,7 +275,7 @@ void InitDarkMode(bool fixDarkScrollbar, bool dark)
 				else
 					_SetPreferredAppMode = reinterpret_cast<fnSetPreferredAppMode>(ord135);
 
-				//_FlushMenuThemes = reinterpret_cast<fnFlushMenuThemes>(GetProcAddress(hUxtheme, MAKEINTRESOURCEA(136)));
+				_FlushMenuThemes = reinterpret_cast<fnFlushMenuThemes>(GetProcAddress(hUxtheme, MAKEINTRESOURCEA(136)));
 				_IsDarkModeAllowedForWindow = reinterpret_cast<fnIsDarkModeAllowedForWindow>(GetProcAddress(hUxtheme, MAKEINTRESOURCEA(137)));
 
 				_SetWindowCompositionAttribute = reinterpret_cast<fnSetWindowCompositionAttribute>(GetProcAddress(GetModuleHandleW(L"user32.dll"), "SetWindowCompositionAttribute"));
@@ -276,22 +285,27 @@ void InitDarkMode(bool fixDarkScrollbar, bool dark)
 					_ShouldAppsUseDarkMode &&
 					_AllowDarkModeForWindow &&
 					(_AllowDarkModeForApp || _SetPreferredAppMode) &&
-					//_FlushMenuThemes &&
+					_FlushMenuThemes &&
 					_IsDarkModeAllowedForWindow)
 				{
 					g_darkModeSupported = true;
-
-					AllowDarkModeForApp(dark);
-					_RefreshImmersiveColorPolicyState();
-
-					g_darkModeEnabled = _ShouldAppsUseDarkMode() && !IsHighContrast();
-
-					if (fixDarkScrollbar)
-					{
-						FixDarkScrollBar();
-					}
 				}
 			}
 		}
+	}
+}
+
+void SetDarkMode(bool useDark, bool fixDarkScrollbar)
+{
+	if (g_darkModeSupported)
+	{
+		AllowDarkModeForApp(useDark);
+		//_RefreshImmersiveColorPolicyState();
+		FlushMenuThemes();
+		if (fixDarkScrollbar)
+		{
+			FixDarkScrollBar();
+		}
+		g_darkModeEnabled = ShouldAppsUseDarkMode() && !IsHighContrast();
 	}
 }

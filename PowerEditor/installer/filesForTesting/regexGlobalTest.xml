@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ==========================================================================\
+|
+|   To learn how to make your own language parser, please check the following
+|   link:
+|       https://npp-user-manual.org/docs/function-list/
+|
+\=========================================================================== -->
+<NotepadPlus>
+	<functionList>
+		<!-- =========================================== [ regexGlobalTest ] -->
+		<!-- Regular Expression Global Test                                  -->
+
+		<parser
+			displayName="RegexGlobalTest"
+			id         ="regexGlobalTest"
+		>
+			<function
+				mainExpr="\((?>[^()]|(?R))*\)"
+			/>
+		</parser>
+	</functionList>
+</NotepadPlus>

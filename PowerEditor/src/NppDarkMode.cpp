@@ -27,6 +27,7 @@ namespace NppDarkMode
 		COLORREF darkerText = 0;
 		COLORREF disabledText = 0;
 		COLORREF edge = 0;
+		COLORREF highlightHotTrack = 0;
 	};
 
 	struct Brushes
@@ -55,6 +56,7 @@ namespace NppDarkMode
 		}
 	};
 
+	// black (default)
 	static const Colors darkColors{
 		HEXRGB(0x202020),	// background
 		HEXRGB(0x404040),	// softerBackground
@@ -64,8 +66,101 @@ namespace NppDarkMode
 		HEXRGB(0xE0E0E0),	// textColor
 		HEXRGB(0xC0C0C0),	// darkerTextColor
 		HEXRGB(0x808080),	// disabledTextColor
-		HEXRGB(0x808080)	// edgeColor
+		HEXRGB(0x808080),	// edgeColor
+		HEXRGB(0x414141)	// highlightHotTrack
 	};
+
+	// red tone
+	static const Colors darkRedColors{
+		HEXRGB(0x302020),	// background
+		HEXRGB(0x504040),	// softerBackground
+		HEXRGB(0x504040),	// hotBackground
+		HEXRGB(0x302020),	// pureBackground
+		HEXRGB(0xC00000),	// errorBackground
+		HEXRGB(0xE0E0E0),	// textColor
+		HEXRGB(0xC0C0C0),	// darkerTextColor
+		HEXRGB(0x808080),	// disabledTextColor
+		HEXRGB(0x908080),	// edgeColor
+		HEXRGB(0x514141)	// highlightHotTrack
+	};
+	
+	// green tone
+	static const Colors darkGreenColors{
+		HEXRGB(0x203020),	// background
+		HEXRGB(0x405040),	// softerBackground
+		HEXRGB(0x405040),	// hotBackground
+		HEXRGB(0x203020),	// pureBackground
+		HEXRGB(0xB01000),	// errorBackground
+		HEXRGB(0xE0E0E0),	// textColor
+		HEXRGB(0xC0C0C0),	// darkerTextColor
+		HEXRGB(0x808080),	// disabledTextColor
+		HEXRGB(0x809080),	// edgeColor
+		HEXRGB(0x415141)	// highlightHotTrack
+	};
+	
+
+	// blue tone
+	static const Colors darkBlueColors{
+		HEXRGB(0x202040),	// background
+		HEXRGB(0x404060),	// softerBackground
+		HEXRGB(0x404060),	// hotBackground
+		HEXRGB(0x202040),	// pureBackground
+		HEXRGB(0xB00020),	// errorBackground
+		HEXRGB(0xE0E0E0),	// textColor
+		HEXRGB(0xC0C0C0),	// darkerTextColor
+		HEXRGB(0x808080),	// disabledTextColor
+		HEXRGB(0x8080A0),	// edgeColor
+		HEXRGB(0x414161)	// highlightHotTrack
+	};
+	
+	// purple tone
+	static const Colors darkPurpleColors{
+		HEXRGB(0x302040),	// background
+		HEXRGB(0x504060),	// softerBackground
+		HEXRGB(0x504060),	// hotBackground
+		HEXRGB(0x302040),	// pureBackground
+		HEXRGB(0xC00020),	// errorBackground
+		HEXRGB(0xE0E0E0),	// textColor
+		HEXRGB(0xC0C0C0),	// darkerTextColor
+		HEXRGB(0x808080),	// disabledTextColor
+		HEXRGB(0x9080A0),	// edgeColor
+		HEXRGB(0x514161)	// highlightHotTrack
+	};
+
+	// cyan tone
+	static const Colors darkCyanColors{
+		HEXRGB(0x203040),	// background
+		HEXRGB(0x405060),	// softerBackground
+		HEXRGB(0x405060),	// hotBackground
+		HEXRGB(0x203040),	// pureBackground
+		HEXRGB(0xB01020),	// errorBackground
+		HEXRGB(0xE0E0E0),	// textColor
+		HEXRGB(0xC0C0C0),	// darkerTextColor
+		HEXRGB(0x808080),	// disabledTextColor
+		HEXRGB(0x8090A0),	// edgeColor
+		HEXRGB(0x415161)	// highlightHotTrack
+	};
+
+	// olive tone
+	static const Colors darkOliveColors{
+		HEXRGB(0x303020),	// background
+		HEXRGB(0x505040),	// softerBackground
+		HEXRGB(0x505040),	// hotBackground
+		HEXRGB(0x303020),	// pureBackground
+		HEXRGB(0xC01000),	// errorBackground
+		HEXRGB(0xE0E0E0),	// textColor
+		HEXRGB(0xC0C0C0),	// darkerTextColor
+		HEXRGB(0x808080),	// disabledTextColor
+		HEXRGB(0x909080),	// edgeColor
+		HEXRGB(0x515141)	// highlightHotTrack
+	};
+
+	ColorTone g_colorToneChoice = blackTone;
+
+	void setDarkTone(ColorTone colorToneChoice)
+	{
+		g_colorToneChoice = colorToneChoice;
+	}
 
 	struct Theme
 	{
@@ -78,27 +173,62 @@ namespace NppDarkMode
 		{}
 	};
 
+	Theme t0(darkColors);
+	Theme t1(darkRedColors);
+	Theme t2(darkGreenColors);
+	Theme t3(darkBlueColors);
+	Theme t4(darkPurpleColors);
+	Theme t5(darkCyanColors);
+	Theme t6(darkOliveColors);
+	
+
 	Theme& getTheme()
 	{
-		static Theme g_theme(darkColors);
-		return g_theme;
+		switch (g_colorToneChoice)
+		{
+			case redTone:
+				return t1;
+
+			case greenTone:
+				return t2;
+
+			case blueTone:
+				return t3;
+
+			case purpleTone:
+				return t4;
+
+			case cyanTone:
+				return t5;
+
+			case oliveTone:
+				return t6;
+
+			default:
+				return t0;
+		}
 	}
 
 	static Options _options;			// actual runtime options
 
-	const Options& configuredOptions()
+	Options configuredOptions()
 	{
-		return NppParameters::getInstance().getNppGUI()._darkmode;
+		NppGUI nppGui = NppParameters::getInstance().getNppGUI();
+		Options opt;
+		opt.enable = nppGui._darkmode._isEnabled;
+		opt.enableMenubar = opt.enable;
+
+		g_colorToneChoice = nppGui._darkmode._colorTone;
+
+		return opt;
 	}
 
 	void initDarkMode()
 	{
 		_options = configuredOptions();
 
-		if (_options.enableExperimental)
-		{
-			initExperimentalDarkMode(_options.enableScrollbarHack, _options.enable);
-		}
+		initExperimentalDarkMode();
+		setDarkMode(_options.enable, true);
 	}
 
 	// attempts to apply new options from NppParameters, sends NPPM_INTERNAL_REFRESHDARKMODE to hwnd's top level parent
@@ -106,12 +236,13 @@ namespace NppDarkMode
 	{
 		bool supportedChanged = false;
 
-		auto& config = configuredOptions();
+		auto config = configuredOptions();
 
 		if (_options.enable != config.enable)
 		{
 			supportedChanged = true;
 			_options.enable = config.enable;
+			setDarkMode(_options.enable, _options.enable);
 		}
 
 		if (_options.enableMenubar != config.enableMenubar)
@@ -140,16 +271,6 @@ namespace NppDarkMode
 	bool isDarkMenuEnabled()
 	{
 		return _options.enableMenubar;
-	}
-
-	bool isExperimentalEnabled()
-	{
-		return _options.enableExperimental;
-	}
-
-	bool isScrollbarHackEnabled()
-	{
-		return _options.enableScrollbarHack;
 	}
 
 	bool isExperimentalActive()
@@ -190,21 +311,22 @@ namespace NppDarkMode
 		return invert_c;
 	}
 
-	COLORREF getBackgroundColor()		{ return getTheme().colors.background;	}
-	COLORREF getSofterBackgroundColor() { return getTheme().colors.softerBackground; }
-	COLORREF getHotBackgroundColor()	{ return getTheme().colors.hotBackground; }
-	COLORREF getDarkerBackgroundColor()	{ return getTheme().colors.pureBackground; }
-	COLORREF getErrorBackgroundColor()	{ return getTheme().colors.errorBackground; }
-	COLORREF getTextColor()				{ return getTheme().colors.text; }
-	COLORREF getDarkerTextColor()		{ return getTheme().colors.darkerText; }
-	COLORREF getDisabledTextColor()		{ return getTheme().colors.disabledText; }
-	COLORREF getEdgeColor()				{ return getTheme().colors.edge; }
+	COLORREF getBackgroundColor()         { return getTheme().colors.background; }
+	COLORREF getSofterBackgroundColor()   { return getTheme().colors.softerBackground; }
+	COLORREF getHotBackgroundColor()      { return getTheme().colors.hotBackground; }
+	COLORREF getDarkerBackgroundColor()   { return getTheme().colors.pureBackground; }
+	COLORREF getErrorBackgroundColor()    { return getTheme().colors.errorBackground; }
+	COLORREF getTextColor()               { return getTheme().colors.text; }
+	COLORREF getDarkerTextColor()         { return getTheme().colors.darkerText; }
+	COLORREF getDisabledTextColor()       { return getTheme().colors.disabledText; }
+	COLORREF getEdgeColor()               { return getTheme().colors.edge; }
+	COLORREF getHighlightHotTrackColor()  { return getTheme().colors.highlightHotTrack; }
 
-	HBRUSH getBackgroundBrush()			{ return getTheme().brushes.background; }
-	HBRUSH getSofterBackgroundBrush()	{ return getTheme().brushes.softerBackground; }
-	HBRUSH getHotBackgroundBrush()		{ return getTheme().brushes.hotBackground; }
-	HBRUSH getDarkerBackgroundBrush()	{ return getTheme().brushes.pureBackground; }
-	HBRUSH getErrorBackgroundBrush()	{ return getTheme().brushes.errorBackground; }
+	HBRUSH getBackgroundBrush()           { return getTheme().brushes.background; }
+	HBRUSH getSofterBackgroundBrush()     { return getTheme().brushes.softerBackground; }
+	HBRUSH getHotBackgroundBrush()        { return getTheme().brushes.hotBackground; }
+	HBRUSH getDarkerBackgroundBrush()     { return getTheme().brushes.pureBackground; }
+	HBRUSH getErrorBackgroundBrush()      { return getTheme().brushes.errorBackground; }
 
 	// handle events
 
@@ -212,7 +334,7 @@ namespace NppDarkMode
 	{
 		UNREFERENCED_PARAMETER(hwnd);
 
-		if (!isExperimentalEnabled())
+		if (!isExperimentalSupported())
 		{
 			return;
 		}
@@ -383,9 +505,14 @@ namespace NppDarkMode
 
 	// from DarkMode.h
 
-	void initExperimentalDarkMode(bool fixDarkScrollbar, bool dark)
+	void initExperimentalDarkMode()
 	{
-		::InitDarkMode(fixDarkScrollbar, dark);
+		::InitDarkMode();
+	}
+
+	void setDarkMode(bool useDark, bool fixDarkScrollbar)
+	{
+		::SetDarkMode(useDark, fixDarkScrollbar);
 	}
 
 	void allowDarkModeForApp(bool allow)
@@ -398,9 +525,9 @@ namespace NppDarkMode
 		return ::AllowDarkModeForWindow(hWnd, allow);
 	}
 
-	void setTitleBarThemeColor(HWND hWnd, bool dark)
+	void setTitleBarThemeColor(HWND hWnd)
 	{
-		::SetTitleBarThemeColor(hWnd, dark);
+		::RefreshTitleBarThemeColor(hWnd);
 	}
 
 	void enableDarkScrollBarForWindowAndChildren(HWND hwnd)
@@ -1041,12 +1168,18 @@ namespace NppDarkMode
 
 	void setDarkTitleBar(HWND hwnd)
 	{
-		bool useDark = NppDarkMode::isExperimentalEnabled() && NppDarkMode::isEnabled();
+		NppDarkMode::allowDarkModeForWindow(hwnd, NppDarkMode::isEnabled());
+		NppDarkMode::setTitleBarThemeColor(hwnd);
+	}
 
-		NppDarkMode::allowDarkModeForWindow(hwnd, useDark);
-		SetWindowTheme(hwnd, useDark ? L"Explorer" : nullptr, nullptr);
+	void setDarkExplorerTheme(HWND hwnd)
+	{
+		SetWindowTheme(hwnd, NppDarkMode::isEnabled() ? L"DarkMode_Explorer" : nullptr, nullptr);
+	}
 
-		NppDarkMode::setTitleBarThemeColor(hwnd, useDark);
+	void setDarkScrollBar(HWND hwnd)
+	{
+		NppDarkMode::setDarkExplorerTheme(hwnd);
 	}
 
 	void setDarkTooltips(HWND hwnd, ToolTipsType type)
@@ -1073,14 +1206,14 @@ namespace NppDarkMode
 
 		if (msg == 0)
 		{
-			SetWindowTheme(hwnd, NppDarkMode::isEnabled() ? L"DarkMode_Explorer" : nullptr, nullptr);
+			NppDarkMode::setDarkExplorerTheme(hwnd);
 		}
 		else
 		{
 			auto hTips = reinterpret_cast<HWND>(::SendMessage(hwnd, msg, 0, 0));
 			if (hTips != nullptr)
 			{
-				SetWindowTheme(hTips, NppDarkMode::isEnabled() ? L"DarkMode_Explorer" : nullptr, nullptr);
+				NppDarkMode::setDarkExplorerTheme(hTips);
 			}
 		}
 	}
@@ -1104,16 +1237,33 @@ namespace NppDarkMode
 		::SendMessage(hwnd, TB_SETCOLORSCHEME, 0, reinterpret_cast<LPARAM>(&scheme));
 	}
 
-	void setExplorerTheme(HWND hwnd, bool doEnable)
+	void setDarkListView(HWND hwnd)
 	{
-		if (doEnable)
-		{
-			NppDarkMode::allowDarkModeForWindow(hwnd, NppDarkMode::isEnabled() && NppDarkMode::isExperimentalEnabled());
-			SetWindowTheme(hwnd, L"Explorer", nullptr);
-		}
-		else
+		bool useDark = NppDarkMode::isEnabled();
+
+		HWND hHeader = ListView_GetHeader(hwnd);
+		NppDarkMode::allowDarkModeForWindow(hHeader, useDark);
+		SetWindowTheme(hHeader, L"ItemsView", nullptr);
+
+		NppDarkMode::allowDarkModeForWindow(hwnd, useDark);
+		SetWindowTheme(hwnd, L"Explorer", nullptr);
+	}
+
+	void disableVisualStyle(HWND hwnd, bool doDisable)
+	{
+		if (doDisable)
 		{
 			SetWindowTheme(hwnd, L"", L"");
 		}
+		else
+		{
+			SetWindowTheme(hwnd, nullptr, nullptr);
+		}
+	}
+
+	// force scrollbar redraw
+	void setTreeViewStyle(HWND hwnd)
+	{
+		SetWindowTheme(hwnd, nullptr, nullptr);
 	}
 }

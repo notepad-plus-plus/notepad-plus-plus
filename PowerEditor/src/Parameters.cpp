@@ -4390,6 +4390,21 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				}
 			}
 		}
+		else if (!lstrcmp(nm, TEXT("SaveAllConfirm")))
+		{
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+			{
+				const TCHAR* val = n->Value();
+				if (val)
+				{
+					if (lstrcmp(val, TEXT("yes")) == 0)
+						_nppGUI._saveAllConfirm = true;
+					else
+						_nppGUI._saveAllConfirm = false;
+				}
+			}
+		}
 		else if (lstrcmp(nm, TEXT("MaitainIndent")) == 0)
 		{
 			TiXmlNode *n = childNode->FirstChild();
@@ -5372,10 +5387,12 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				return defaultValue;
 			};
 
-			_nppGUI._darkmode.enable = parseYesNoBoolAttribute(TEXT("enable"));
-			_nppGUI._darkmode.enableExperimental = parseYesNoBoolAttribute(TEXT("enableExperimental"));
-			_nppGUI._darkmode.enableMenubar = parseYesNoBoolAttribute(TEXT("enableMenubar"));
-			_nppGUI._darkmode.enableScrollbarHack = parseYesNoBoolAttribute(TEXT("enableScrollbarHack"));
+			_nppGUI._darkmode._isEnabled = parseYesNoBoolAttribute(TEXT("enable"));
+
+			int i;
+			const TCHAR* val = element->Attribute(TEXT("colorTone"), &i);
+			if (val)
+				_nppGUI._darkmode._colorTone = static_cast<NppDarkMode::ColorTone>(i);
 		}
 	}
 }
@@ -6122,6 +6139,11 @@ void NppParameters::createXmlTreeFromGUIParams()
 	{
 		insertGUIConfigBoolNode(newGUIRoot, TEXT("DetectEncoding"), _nppGUI._detectEncoding);
 	}
+	
+	// <GUIConfig name = "SaveAllConfirm">yes< / GUIConfig>
+	{
+		insertGUIConfigBoolNode(newGUIRoot, TEXT("SaveAllConfirm"), _nppGUI._saveAllConfirm);
+	}
 
 	// <GUIConfig name = "NewDocDefaultSettings" format = "0" encoding = "0" lang = "3" codepage = "-1" openAnsiAsUTF8 = "no" / >
 	{
@@ -6383,7 +6405,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->InsertEndChild(TiXmlText(_nppGUI._commandLineInterpreter.c_str()));
 	}
 
-	// <GUIConfig name="DarkMode" enable="no" enableExperimental="no" enableMenubar="no" enableScrollbarHack="no" />
+	// <GUIConfig name="DarkMode" enable="no" colorTone="0" />
 	{
 		TiXmlElement* GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("DarkMode"));
@@ -6393,10 +6415,8 @@ void NppParameters::createXmlTreeFromGUIParams()
 			GUIConfigElement->SetAttribute(name, pStr);
 		};
 
-		setYesNoBoolAttribute(TEXT("enable"), _nppGUI._darkmode.enable);
-		setYesNoBoolAttribute(TEXT("enableExperimental"), _nppGUI._darkmode.enableExperimental);
-		setYesNoBoolAttribute(TEXT("enableMenubar"), _nppGUI._darkmode.enableMenubar);
-		setYesNoBoolAttribute(TEXT("enableScrollbarHack"), _nppGUI._darkmode.enableScrollbarHack);
+		setYesNoBoolAttribute(TEXT("enable"), _nppGUI._darkmode._isEnabled);
+		GUIConfigElement->SetAttribute(TEXT("colorTone"), _nppGUI._darkmode._colorTone);
 	}
 
 	// <GUIConfig name="ScintillaPrimaryView" lineNumberMargin="show" bookMarkMargin="show" indentGuideLine="show" folderMarkStyle="box" lineWrapMethod="aligned" currentLineHilitingShow="show" scrollBeyondLastLine="no" rightClickKeepsSelection="no" disableAdvancedScrolling="no" wrapSymbolShow="hide" Wrap="no" borderEdge="yes" edge="no" edgeNbColumn="80" zoom="0" zoom2="0" whiteSpaceShow="hide" eolShow="hide" borderWidth="2" smoothFont="no" />
@@ -6929,7 +6949,7 @@ generic_string NppParameters::getWinVerBitStr() const
 	}
 }
 
-void NppParameters::writeStyles(LexerStylerArray & lexersStylers, StyleArray & globalStylers)
+generic_string NppParameters::writeStyles(LexerStylerArray & lexersStylers, StyleArray & globalStylers)
 {
 	TiXmlNode *lexersRoot = (_pXmlUserStylerDoc->FirstChild(TEXT("NotepadPlus")))->FirstChildElement(TEXT("LexerStyles"));
 	for (TiXmlNode *childNode = lexersRoot->FirstChildElement(TEXT("LexerType"));
@@ -7023,7 +7043,17 @@ void NppParameters::writeStyles(LexerStylerArray & lexersStylers, StyleArray & g
 		}
 	}
 
-	_pXmlUserStylerDoc->SaveFile();
+	bool isSaved = _pXmlUserStylerDoc->SaveFile();
+	if (!isSaved)
+	{
+		auto savePath = _themeSwitcher.getSavePathFrom(_pXmlUserStylerDoc->Value());
+		if (!savePath.empty())
+		{
+			_pXmlUserStylerDoc->SaveFile(savePath.c_str());
+			return savePath;
+		}
+	}
+	return TEXT("");
 }
 
 

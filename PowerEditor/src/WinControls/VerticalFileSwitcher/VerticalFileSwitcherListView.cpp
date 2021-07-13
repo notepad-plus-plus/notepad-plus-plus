@@ -28,14 +28,14 @@ void VerticalFileSwitcherListView::init(HINSTANCE hInst, HWND parent, HIMAGELIST
 {
 	Window::init(hInst, parent);
 	_hImaLst = hImaLst;
-    INITCOMMONCONTROLSEX icex;
-    
-    // Ensure that the common control DLL is loaded. 
-    icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
-    icex.dwICC  = ICC_LISTVIEW_CLASSES;
-    InitCommonControlsEx(&icex);
-    
-    // Create the list-view window in report view with label editing enabled.
+	INITCOMMONCONTROLSEX icex;
+
+	// Ensure that the common control DLL is loaded. 
+	icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
+	icex.dwICC  = ICC_LISTVIEW_CLASSES;
+	InitCommonControlsEx(&icex);
+
+	// Create the list-view window in report view with label editing enabled.
 	int listViewStyles = LVS_REPORT /*| LVS_SINGLESEL*/ | LVS_AUTOARRANGE\
 						| LVS_SHAREIMAGELISTS | LVS_SHOWSELALWAYS;
 
@@ -55,7 +55,7 @@ void VerticalFileSwitcherListView::init(HINSTANCE hInst, HWND parent, HIMAGELIST
 		throw std::runtime_error("VerticalFileSwitcherListView::init : CreateWindowEx() function return null");
 	}
 
-	NppDarkMode::setExplorerTheme(_hSelf, true);
+	NppDarkMode::setDarkListView(_hSelf);
 	NppDarkMode::setDarkTooltips(_hSelf, NppDarkMode::ToolTipsType::listview);
 
 	::SetWindowLongPtr(_hSelf, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
@@ -84,6 +84,36 @@ void VerticalFileSwitcherListView::destroy()
 
 LRESULT VerticalFileSwitcherListView::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 {
+	switch (Message)
+	{
+		case WM_NOTIFY:
+		{
+			switch (reinterpret_cast<LPNMHDR>(lParam)->code)
+			{
+				case NM_CUSTOMDRAW:
+				{
+					LPNMCUSTOMDRAW nmcd = reinterpret_cast<LPNMCUSTOMDRAW>(lParam);
+					switch (nmcd->dwDrawStage)
+					{
+						case CDDS_PREPAINT:
+						{
+							return CDRF_NOTIFYITEMDRAW;
+						}
+
+						case CDDS_ITEMPREPAINT:
+						{
+							bool isDarkModeSupported = NppDarkMode::isEnabled() && NppDarkMode::isExperimentalSupported();
+							SetTextColor(nmcd->hdc, isDarkModeSupported ? NppDarkMode::getDarkerTextColor() : GetSysColor(COLOR_BTNTEXT));
+							return CDRF_DODEFAULT;
+						}
+						break;
+					}
+				}
+				break;
+			}
+		}
+		break;
+	}
 	return ::CallWindowProc(_defaultProc, hwnd, Message, wParam, lParam);
 }
 
@@ -103,11 +133,12 @@ void VerticalFileSwitcherListView::initList()
 		RECT rc;
 		::GetClientRect(_hParent, &rc);
 		int totalWidth = rc.right - rc.left;
-		
+		const int extColWidth =80;
+
 		if (columnCount == 0)
 		{
 			generic_string nameStr = pNativeSpeaker->getAttrNameStr(TEXT("Name"), FS_ROOTNODE, FS_CLMNNAME);
-			insertColumn(nameStr.c_str(), (isExtColumn ? totalWidth - 50 : totalWidth), 0);
+			insertColumn(nameStr.c_str(), (isExtColumn ? totalWidth - extColWidth : totalWidth), 1);
 		}
 		
 		if (isExtColumn)
@@ -117,14 +148,14 @@ void VerticalFileSwitcherListView::initList()
 			lvc.mask = LVCF_WIDTH;
 			SendMessage(_hSelf, LVM_GETCOLUMN, 0, reinterpret_cast<LPARAM>(&lvc));
 			
-			if (lvc.cx + 50 > totalWidth)
+			if (lvc.cx + extColWidth > totalWidth)
 			{
-				lvc.cx = totalWidth - 50;
+				lvc.cx = totalWidth - extColWidth;
 				SendMessage(_hSelf, LVM_SETCOLUMN, 0, reinterpret_cast<LPARAM>(&lvc));
 			}
 			
 			generic_string extStr = pNativeSpeaker->getAttrNameStr(TEXT("Ext."), FS_ROOTNODE, FS_CLMNEXT);
-			insertColumn(extStr.c_str(), 50, 1);
+			insertColumn(extStr.c_str(), extColWidth, 2);
 		}
 	}
 	
@@ -356,7 +387,7 @@ void VerticalFileSwitcherListView::insertColumn(const TCHAR *name, int width, in
 	lvColumn.mask = LVCF_TEXT | LVCF_WIDTH;
 	lvColumn.cx = width;
 	lvColumn.pszText = (TCHAR *)name;
-	ListView_InsertColumn(_hSelf, index, &lvColumn);
+	ListView_InsertColumn(_hSelf, index, &lvColumn); // index is not 0 based but 1 based
 }
 
 void VerticalFileSwitcherListView::resizeColumns(int totalWidth)

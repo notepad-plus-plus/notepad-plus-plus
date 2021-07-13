@@ -815,7 +815,39 @@ INT_PTR CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 	{
 		case WM_INITDIALOG:
 		{
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_DARKMODE_ENABLE, BM_SETCHECK, nppGUI._darkmode.enable, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_DARKMODE_ENABLE, BM_SETCHECK, nppGUI._darkmode._isEnabled, 0);
+
+			int id = IDC_RADIO_DARKMODE_BLACK;
+			switch (nppGUI._darkmode._colorTone)
+			{
+				case NppDarkMode::redTone:
+					id = IDC_RADIO_DARKMODE_RED;
+					break;
+				case NppDarkMode::greenTone:
+					id = IDC_RADIO_DARKMODE_GREEN;
+					break;
+				case NppDarkMode::blueTone:
+					id = IDC_RADIO_DARKMODE_BLUE;
+					break;
+				case NppDarkMode::purpleTone:
+					id = IDC_RADIO_DARKMODE_PURPLE;
+					break;
+				case NppDarkMode::cyanTone:
+					id = IDC_RADIO_DARKMODE_CYAN;
+					break;
+				case NppDarkMode::oliveTone:
+					id = IDC_RADIO_DARKMODE_OLIVE;
+					break;
+			}
+			::SendDlgItemMessage(_hSelf, id, BM_SETCHECK, TRUE, 0);
+
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_DARKMODE_BLACK), nppGUI._darkmode._isEnabled);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_DARKMODE_RED), nppGUI._darkmode._isEnabled);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_DARKMODE_GREEN), nppGUI._darkmode._isEnabled);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_DARKMODE_BLUE), nppGUI._darkmode._isEnabled);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_DARKMODE_PURPLE), nppGUI._darkmode._isEnabled);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_DARKMODE_CYAN), nppGUI._darkmode._isEnabled);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_DARKMODE_OLIVE), nppGUI._darkmode._isEnabled);
 
 			ETDTProc enableDlgTheme = (ETDTProc)nppParam.getEnableThemeDlgTexture();
 			if (enableDlgTheme)
@@ -826,17 +858,24 @@ INT_PTR CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 		case WM_COMMAND:
 		{
 			bool changed = false;
+			bool forceRefresh = false;
 			switch (wParam)
 			{
 				case IDC_CHECK_DARKMODE_ENABLE:
+				{
 					bool enableDarkMode = isCheckedOrNot(static_cast<int>(wParam));
-					nppGUI._darkmode.enable = enableDarkMode;
-					nppGUI._darkmode.enableExperimental = enableDarkMode;
-					nppGUI._darkmode.enableMenubar = enableDarkMode;
-					nppGUI._darkmode.enableScrollbarHack = enableDarkMode;
+					nppGUI._darkmode._isEnabled = enableDarkMode;
+
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_DARKMODE_BLACK), enableDarkMode);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_DARKMODE_RED), enableDarkMode);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_DARKMODE_GREEN), enableDarkMode);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_DARKMODE_BLUE), enableDarkMode);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_DARKMODE_PURPLE), enableDarkMode);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_DARKMODE_CYAN), enableDarkMode);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_DARKMODE_OLIVE), enableDarkMode);
 
 					// Maintain the coherence in preferences
-					if (nppGUI._darkmode.enable)
+					if (nppGUI._darkmode._isEnabled)
 					{
 						// For toolbar: if dark mode enabled & TB_STANDARD is selected, switch to TB_SMALL
 						bool isStandardChecked = false;
@@ -847,13 +886,73 @@ INT_PTR CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						// For tabbar: uncheck Alternate icons checkbox
 						::SendMessage(_hParent, PREF_MSG_DISABLETABBARALTERNATEICONS, 0, 0);
 					}
+
 					changed = true;
+				}
+				break;
+
+				case IDC_RADIO_DARKMODE_BLACK:
+				case IDC_RADIO_DARKMODE_RED:
+				case IDC_RADIO_DARKMODE_GREEN:
+				case IDC_RADIO_DARKMODE_BLUE:
+				case IDC_RADIO_DARKMODE_PURPLE:
+				case IDC_RADIO_DARKMODE_CYAN:
+				case IDC_RADIO_DARKMODE_OLIVE:
+					if (wParam == IDC_RADIO_DARKMODE_BLACK)
+					{
+						if (nppGUI._darkmode._colorTone == NppDarkMode::blackTone)
+							return TRUE;
+						nppGUI._darkmode._colorTone = NppDarkMode::blackTone;
+					}
+					else if (wParam == IDC_RADIO_DARKMODE_RED)
+					{
+						if (nppGUI._darkmode._colorTone == NppDarkMode::redTone)
+							return TRUE;
+						nppGUI._darkmode._colorTone = NppDarkMode::redTone;
+					}
+					else if (wParam == IDC_RADIO_DARKMODE_GREEN)
+					{
+						if (nppGUI._darkmode._colorTone == NppDarkMode::greenTone)
+							return TRUE;
+						nppGUI._darkmode._colorTone = NppDarkMode::greenTone;
+					}
+					else if (wParam == IDC_RADIO_DARKMODE_BLUE)
+					{
+						if (nppGUI._darkmode._colorTone == NppDarkMode::blueTone)
+							return TRUE;
+						nppGUI._darkmode._colorTone = NppDarkMode::blueTone;
+					}
+					else if (wParam == IDC_RADIO_DARKMODE_PURPLE)
+					{
+						if (nppGUI._darkmode._colorTone == NppDarkMode::purpleTone)
+							return TRUE;
+						nppGUI._darkmode._colorTone = NppDarkMode::purpleTone;
+					}
+					else if (wParam == IDC_RADIO_DARKMODE_CYAN)
+					{
+						if (nppGUI._darkmode._colorTone == NppDarkMode::cyanTone)
+							return TRUE;
+						nppGUI._darkmode._colorTone = NppDarkMode::cyanTone;
+					}
+					else if (wParam == IDC_RADIO_DARKMODE_OLIVE)
+					{
+						if (nppGUI._darkmode._colorTone == NppDarkMode::oliveTone)
+							return TRUE;
+						nppGUI._darkmode._colorTone = NppDarkMode::oliveTone;
+					}
+
+					// switch to chosen dark mode
+					nppGUI._darkmode._isEnabled = true;
+					NppDarkMode::setDarkTone(nppGUI._darkmode._colorTone);
+					changed = true;
+					forceRefresh = true;
 					break;
 			}
 
 			if (changed)
 			{
-				NppDarkMode::refreshDarkMode(_hSelf);
+				NppDarkMode::refreshDarkMode(_hSelf, forceRefresh);
+				getFocus(); // to make black mode title bar appear
 				return TRUE;
 			}
 
@@ -1136,6 +1235,7 @@ INT_PTR CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_MIN2SYSTRAY, BM_SETCHECK, nppGUI._isMinimizedToTray, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_DETECTENCODING, BM_SETCHECK, nppGUI._detectEncoding, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_SAVEALLCONFIRM, BM_SETCHECK, nppGUI._saveAllConfirm, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_AUTOUPDATE, BM_SETCHECK, nppGUI._autoUpdateOpt._doAutoUpdate, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_DIRECTWRITE_ENABLE, BM_SETCHECK, nppGUI._writeTechnologyEngine == directWriteTechnology, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLEDOCPEEKER, BM_SETCHECK, nppGUI._isDocPeekOnTab ? BST_CHECKED : BST_UNCHECKED, 0);
@@ -1275,6 +1375,12 @@ INT_PTR CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 					return TRUE;
 				}
 				
+				case IDC_CHECK_SAVEALLCONFIRM:
+				{
+					nppGUI._saveAllConfirm = isCheckedOrNot(IDC_CHECK_SAVEALLCONFIRM);
+					return TRUE;
+				}
+
 				default:
 				{
 					if (HIWORD(wParam) == CBN_SELCHANGE)

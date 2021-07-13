@@ -101,16 +101,14 @@ STYLE DS_SETFONT | DS_FIXEDSYS | DS_CONTROL | WS_CHILD
 FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
     CONTROL         "Enable &dark mode",IDC_CHECK_DARKMODE_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,20,150,10
-	/*
-    CONTROL         "Override &menubar drawing", IDC_CHECK_DARKMODE_ENABLE_MENUBAR,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,66,289,10
-    CONTROL         "&Use system dark mode API* (dark title bar and menus)",IDC_CHECK_DARKMODE_ENABLE_EXPERIMENTAL,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,80,289,10
-    CONTROL         "Override &scrollbar themes*", IDC_CHECK_DARKMODE_ENABLE_SCROLLBAR_HACK,
-                    "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 20,94,289,10
-    GROUPBOX        "Experimental Dark Mode Options",IDC_GROUPBOX_DARKMODE,11,47,307,70,BS_CENTER
-	*/
-    LTEXT           "* Notepad++ must be restarted to take effect completely",IDC_STATIC_DARKMODE_WARNING,20,35,310,16
+    //LTEXT           "* Notepad++ must be restarted to take effect completely",IDC_STATIC_DARKMODE_WARNING,20,35,310,16
+    CONTROL         "Black tone",IDC_RADIO_DARKMODE_BLACK, "Button",BS_AUTORADIOBUTTON | WS_GROUP,35,40,150,10
+    CONTROL         "Red tone",IDC_RADIO_DARKMODE_RED,     "Button",BS_AUTORADIOBUTTON ,35,55,150,10
+    CONTROL         "Green tone",IDC_RADIO_DARKMODE_GREEN, "Button",BS_AUTORADIOBUTTON ,35,70,150,10
+    CONTROL         "Blue tone",IDC_RADIO_DARKMODE_BLUE,   "Button",BS_AUTORADIOBUTTON ,35,85,150,10
+    CONTROL         "Purple tone",IDC_RADIO_DARKMODE_PURPLE,   "Button",BS_AUTORADIOBUTTON ,35,100,150,10
+    CONTROL         "Cyan tone",IDC_RADIO_DARKMODE_CYAN,   "Button",BS_AUTORADIOBUTTON ,35,115,150,10
+    CONTROL         "Olive tone",IDC_RADIO_DARKMODE_OLIVE,   "Button",BS_AUTORADIOBUTTON ,35,130,150,10
 END
 
 IDD_PREFERENCE_SUB_MARGING_BORDER_EDGE DIALOGEX 0, 0, 455, 185
@@ -458,6 +456,7 @@ BEGIN
     CONTROL         "Minimize to system tray",IDC_CHECK_MIN2SYSTRAY,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,37,139,217,10
     CONTROL         "Show only filename in title bar",IDC_CHECK_SHORTTITLE,"Button",BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,37,154,217,10
     CONTROL         "Use DirectWrite (May improve rendering special characters, need to restart Notepad++)",IDC_CHECK_DIRECTWRITE_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,37,169,377,10
+    CONTROL         "Enable Save All confirm dialog", IDC_CHECK_SAVEALLCONFIRM, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 37, 184, 217, 10
     COMBOBOX        IDC_COMBO_FILEUPDATECHOICE,44,16,140,100,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     CONTROL         "Update silently",IDC_CHECK_UPDATESILENTLY,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,44,32,140,10
     CONTROL         "Scroll to the last line after update",IDC_CHECK_UPDATEGOTOEOF,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,44,44,140,10

@@ -6049,6 +6049,7 @@ std::vector<generic_string> Notepad_plus::loadCommandlineParams(const TCHAR * co
 	}
 
  	LangType lt = pCmdParams->_langType;
+	generic_string udl = pCmdParams->_udlName;
 	int lineNumber =  pCmdParams->_line2go;
 	int columnNumber = pCmdParams->_column2go;
 	int positionNumber = pCmdParams->_pos2go;
@@ -6074,10 +6075,14 @@ std::vector<generic_string> Notepad_plus::loadCommandlineParams(const TCHAR * co
 			continue;
 
 		lastOpened = bufID;
+		Buffer* pBuf = MainFileManager.getBufferByID(bufID);
 
-		if (lt != L_EXTERNAL && lt < nppParams.L_END)
+		if (!udl.empty())
 		{
-			Buffer * pBuf = MainFileManager.getBufferByID(bufID);
+			pBuf->setLangType(L_USER, udl.c_str());
+		}
+		else if (lt != L_EXTERNAL && lt < nppParams.L_END)
+		{
 			pBuf->setLangType(lt);
 		}
 
@@ -7085,6 +7090,7 @@ static const QuoteParams quotes[] =
 	{TEXT("Anonymous #168"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("Never let your computer know that you are in a hurry.\nComputers can smell fear.\nThey slow down if they know that you are running out of time.") },
 	{TEXT("Anonymous #169"), QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, TEXT("JavaScript is not a language.\nIt's a programming jokes generator.") },
 	{TEXT("Anonymous #170"), QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, TEXT("A journalist asked Linus Torvalds what makes code bad.\nHe replied : No comment.") },
+	{TEXT("xkcd"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("Never have I felt so close to another soul\nAnd yet so helplessly alone\nAs when I Google an error\nAnd there's one result\nA thread by someone with the same problem\nAnd no answer\nLast posted to in 2003\n\n\"Who were you, DenverCoder9?\"\n\"What did you see?!\"\n\n(ref: https://xkcd.com/979/)") },
 	{TEXT("A developer"), QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, TEXT("No hugs & kisses.\nOnly bugs & fixes.") },
 	{TEXT("Elon Musk"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("Don't set your password as your child's name.\nName your child after your password.") },
 	{TEXT("OOP"), QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, TEXT("If you want to treat women as objects,\ndo it with class.")},
@@ -7509,7 +7515,7 @@ void Notepad_plus::restoreMinimizeDialogs()
 void Notepad_plus::refreshDarkMode()
 {
 	SendMessage(_pPublicInterface->getHSelf(), NPPM_SETEDITORBORDEREDGE, 0, NppParameters::getInstance().getSVP()._showBorderEdge);
-	if (NppDarkMode::isExperimentalEnabled())
+	if (NppDarkMode::isExperimentalSupported())
 	{
 		NppDarkMode::allowDarkModeForApp(NppDarkMode::isEnabled());
 	}
@@ -7553,6 +7559,14 @@ void Notepad_plus::refreshDarkMode()
 	{
 		::SendMessage(_pFileSwitcherPanel->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
 	}
+
+	if (_pClipboardHistoryPanel)
+	{
+		::SendMessage(_pClipboardHistoryPanel->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+	}
+
+	::SendMessage(_subEditView.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+	::SendMessage(_mainEditView.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
 
 	::SendMessage(_mainDocTab.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
 	::SendMessage(_subDocTab.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
@@ -7626,7 +7640,7 @@ void Notepad_plus::refreshDarkMode()
 		}
 	}
 
-	if (NppDarkMode::isExperimentalEnabled())
+	if (NppDarkMode::isExperimentalSupported())
 	{
 		RECT rcClient;
 		

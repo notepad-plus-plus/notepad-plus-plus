@@ -917,10 +917,10 @@ INT_PTR CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			int cpDynamicalWidth = NppParameters::getInstance()._dpiManager.scaleX(25);
 			int cpDynamicalHeight = NppParameters::getInstance()._dpiManager.scaleY(25);
 
-			p1.x -= cpDynamicalWidth + 5; p1.y -= cpDynamicalHeight/6;
-			p2.x -= cpDynamicalWidth + 5; p2.y -= cpDynamicalHeight/6;
-			p3.x -= cpDynamicalWidth + 5; p3.y -= cpDynamicalHeight/6;
-			p4.x -= cpDynamicalWidth + 5; p4.y -= cpDynamicalHeight/6;
+			p1.x -= cpDynamicalWidth + 5; p1.y -= cpDynamicalHeight / 6;
+			p2.x -= cpDynamicalWidth + 5; p2.y -= cpDynamicalHeight / 6;
+			p3.x -= cpDynamicalWidth + 5; p3.y -= cpDynamicalHeight / 6;
+			p4.x -= cpDynamicalWidth + 5; p4.y -= cpDynamicalHeight / 6;
 			p5.x -= cpDynamicalWidth + 5; p5.y -= cpDynamicalHeight / 6;
 			p6.x -= cpDynamicalWidth + 5; p6.y -= cpDynamicalHeight / 6;
 			p7.x -= cpDynamicalWidth + 5; p7.y -= cpDynamicalHeight / 6;
@@ -1099,42 +1099,60 @@ INT_PTR CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					{
 						case CPN_COLOURPICKED:
 						{
-
+							COLORREF c;
 							if (reinterpret_cast<HWND>(lParam) == _pBackgroundColorPicker->getHSelf())
 							{
-								NppDarkMode::setBackgroundColor(_pBackgroundColorPicker->getColour());
+								c = _pBackgroundColorPicker->getColour();
+								NppDarkMode::setBackgroundColor(c);
+								nppGUI._darkmode._customColors.background = c;
 							}
 							else if (reinterpret_cast<HWND>(lParam) == _pSofterBackgroundColorPicker->getHSelf())
 							{
-								NppDarkMode::setSofterBackgroundColor(_pSofterBackgroundColorPicker->getColour());
+								c = _pSofterBackgroundColorPicker->getColour();
+								NppDarkMode::setSofterBackgroundColor(c);
+								nppGUI._darkmode._customColors.softerBackground = c;
 							}
 							else if (reinterpret_cast<HWND>(lParam) == _pHotBackgroundColorPicker->getHSelf())
 							{
-								NppDarkMode::setHotBackgroundColor(_pHotBackgroundColorPicker->getColour());
+								c = _pHotBackgroundColorPicker->getColour();
+								NppDarkMode::setHotBackgroundColor(c);
+								nppGUI._darkmode._customColors.softerBackground = c;
 							}
 							else if (reinterpret_cast<HWND>(lParam) == _pPureBackgroundColorPicker->getHSelf())
 							{
-								NppDarkMode::setDarkerBackgroundColor(_pPureBackgroundColorPicker->getColour());
+								c = _pPureBackgroundColorPicker->getColour();
+								NppDarkMode::setDarkerBackgroundColor(c);
+								nppGUI._darkmode._customColors.pureBackground = c;
 							}
 							if (reinterpret_cast<HWND>(lParam) == _pErrorBackgroundColorPicker->getHSelf())
 							{
-								NppDarkMode::setErrorBackgroundColor(_pErrorBackgroundColorPicker->getColour());
+								c = _pErrorBackgroundColorPicker->getColour();
+								NppDarkMode::setErrorBackgroundColor(c);
+								nppGUI._darkmode._customColors.errorBackground = c;
 							}
 							else if (reinterpret_cast<HWND>(lParam) == _pTextColorPicker->getHSelf())
 							{
-								NppDarkMode::setTextColor(_pTextColorPicker->getColour());
+								c = _pTextColorPicker->getColour();
+								NppDarkMode::setTextColor(c);
+								nppGUI._darkmode._customColors.text = c;
 							}
 							else if (reinterpret_cast<HWND>(lParam) == _pDarkerTextColorPicker->getHSelf())
 							{
-								NppDarkMode::setDarkerTextColor(_pDarkerTextColorPicker->getColour());
+								c = _pDarkerTextColorPicker->getColour();
+								NppDarkMode::setDarkerTextColor(c);
+								nppGUI._darkmode._customColors.darkerText = c;
 							}
 							else if (reinterpret_cast<HWND>(lParam) == _pDisabledTextColorPicker->getHSelf())
 							{
-								NppDarkMode::setDisabledTextColor(_pDisabledTextColorPicker->getColour());
+								c = _pDisabledTextColorPicker->getColour();
+								NppDarkMode::setDisabledTextColor(c);
+								nppGUI._darkmode._customColors.disabledText = c;
 							}
 							if (reinterpret_cast<HWND>(lParam) == _pEdgeColorPicker->getHSelf())
 							{
-								NppDarkMode::setEdgeColor(_pEdgeColorPicker->getColour());
+								c = _pEdgeColorPicker->getColour();
+								NppDarkMode::setEdgeColor(c);
+								nppGUI._darkmode._customColors.edge = c;
 							}
 							nppGUI._darkmode._isEnabled = true;
 							NppDarkMode::setDarkTone(nppGUI._darkmode._colorTone);

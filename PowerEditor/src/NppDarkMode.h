@@ -13,6 +13,19 @@ constexpr COLORREF HEXRGB(DWORD rrggbb) {
 
 namespace NppDarkMode
 {
+	struct Colors
+	{
+		COLORREF background = 0;
+		COLORREF softerBackground = 0;
+		COLORREF hotBackground = 0;
+		COLORREF pureBackground = 0;
+		COLORREF errorBackground = 0;
+		COLORREF text = 0;
+		COLORREF darkerText = 0;
+		COLORREF disabledText = 0;
+		COLORREF edge = 0;
+	};
+
 	struct Options
 	{
 		bool enable = false;
@@ -78,6 +91,7 @@ namespace NppDarkMode
 	void setDisabledTextColor(COLORREF c);
 	void setEdgeColor(COLORREF c);
 
+	Colors getDarkModeDefaultColors();
 
 	// handle events
 	void handleSettingChange(HWND hwnd, LPARAM lParam);

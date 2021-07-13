@@ -15,19 +15,6 @@
 
 namespace NppDarkMode
 {
-	struct Colors
-	{
-		COLORREF background = 0;
-		COLORREF softerBackground = 0;
-		COLORREF hotBackground = 0;
-		COLORREF pureBackground = 0;
-		COLORREF errorBackground = 0;
-		COLORREF text = 0;
-		COLORREF darkerText = 0;
-		COLORREF disabledText = 0;
-		COLORREF edge = 0;
-	};
-
 	struct Brushes
 	{
 		HBRUSH background = nullptr;
@@ -162,7 +149,7 @@ namespace NppDarkMode
 	};
 
 	// customized
-	static const Colors darkCustomizedColors{
+	Colors darkCustomizedColors{
 		HEXRGB(0x202020),	// background
 		HEXRGB(0x404040),	// softerBackground
 		HEXRGB(0x404040),	// hotBackground
@@ -198,15 +185,15 @@ namespace NppDarkMode
 		}
 	};
 
-	Theme t0(darkColors);
-	Theme t1(darkRedColors);
-	Theme t2(darkGreenColors);
-	Theme t3(darkBlueColors);
-	Theme t4(darkPurpleColors);
-	Theme t5(darkCyanColors);
-	Theme t6(darkOliveColors);
+	Theme tDefault(darkColors);
+	Theme tR(darkRedColors);
+	Theme tG(darkGreenColors);
+	Theme tB(darkBlueColors);
+	Theme tP(darkPurpleColors);
+	Theme tC(darkCyanColors);
+	Theme tO(darkOliveColors);
 
-	Theme t32(darkCustomizedColors);
+	Theme tCustom(darkCustomizedColors);
 	
 
 	Theme& getTheme()
@@ -214,28 +201,28 @@ namespace NppDarkMode
 		switch (g_colorToneChoice)
 		{
 			case redTone:
-				return t1;
+				return tR;
 
 			case greenTone:
-				return t2;
+				return tG;
 
 			case blueTone:
-				return t3;
+				return tB;
 
 			case purpleTone:
-				return t4;
+				return tP;
 
 			case cyanTone:
-				return t5;
+				return tC;
 
 			case oliveTone:
-				return t6;
+				return tO;
 
 			case customizedTone:
-				return t32;
+				return tCustom;
 
 			default:
-				return t0;
+				return tDefault;
 		}
 	}
 
@@ -249,6 +236,7 @@ namespace NppDarkMode
 		opt.enableMenubar = opt.enable;
 
 		g_colorToneChoice = nppGui._darkmode._colorTone;
+		tCustom.change(nppGui._darkmode._customColors);
 
 		return opt;
 	}
@@ -418,6 +406,11 @@ namespace NppDarkMode
 		Colors clrs = getTheme()._colors;
 		clrs.edge = c;
 		getTheme().change(clrs);
+	}
+
+	Colors getDarkModeDefaultColors()
+	{
+		return darkColors;
 	}
 
 	// handle events

@@ -353,8 +353,12 @@ protected :
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	static LONG_PTR originalFinderProc;
 	static LONG_PTR originalComboEditProc;
+	static LONG_PTR originalCheckOrRadioButtonProc;
+	static LONG_PTR originalPushButtonProc;
 
-	static LRESULT FAR PASCAL comboEditProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+	static LRESULT FAR PASCAL comboEditProc(HWND hwndEdit, UINT message, WPARAM wParam, LPARAM lParam);
+	static LRESULT FAR PASCAL checkOrRadioButtonProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+	static LRESULT FAR PASCAL pushButtonProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 	// Window procedure for the finder
 	static LRESULT FAR PASCAL finderProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
@@ -412,6 +416,8 @@ private :
 	void enableFindInProjectsFunc();
 	void enableMarkAllControls(bool isEnable);
 	void enableMarkFunc();
+
+	bool ctrlTabPressProcessed(MSG* pMsg);
 
 	void setDefaultButton(int nID) {
 		SendMessage(_hSelf, DM_SETDEFID, nID, 0L);

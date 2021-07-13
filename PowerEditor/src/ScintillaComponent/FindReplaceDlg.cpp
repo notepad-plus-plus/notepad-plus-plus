@@ -228,7 +228,11 @@ void Searching::displaySectionCentered(int posStart, int posEnd, ScintillaEditVi
 }
 
 LONG_PTR FindReplaceDlg::originalFinderProc = NULL;
+
 LONG_PTR FindReplaceDlg::originalComboEditProc = NULL;
+LONG_PTR FindReplaceDlg::originalCheckOrRadioButtonProc = NULL;
+LONG_PTR FindReplaceDlg::originalPushButtonProc = NULL;
+
 
 // important : to activate all styles
 const int STYLING_MASK = 255;
@@ -895,26 +899,43 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 		case WM_INITDIALOG :
 		{
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
-
-			HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
-			HWND hReplaceCombo = ::GetDlgItem(_hSelf, IDREPLACEWITH);
-			HWND hFiltersCombo = ::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_COMBO);
-			HWND hDirCombo = ::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_COMBO);
-
-			// Change handler of edit element in the comboboxes to support Ctrl+Backspace
-			COMBOBOXINFO cbinfo = { sizeof(COMBOBOXINFO) };
-			GetComboBoxInfo(hFindCombo, &cbinfo);
-			originalComboEditProc = SetWindowLongPtr(cbinfo.hwndItem, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(comboEditProc));
-			SetWindowLongPtr(cbinfo.hwndItem, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(cbinfo.hwndCombo));
-			GetComboBoxInfo(hReplaceCombo, &cbinfo);
-			SetWindowLongPtr(cbinfo.hwndItem, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(comboEditProc));
-			SetWindowLongPtr(cbinfo.hwndItem, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(cbinfo.hwndCombo));
-			GetComboBoxInfo(hFiltersCombo, &cbinfo);
-			SetWindowLongPtr(cbinfo.hwndItem, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(comboEditProc));
-			SetWindowLongPtr(cbinfo.hwndItem, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(cbinfo.hwndCombo));
-			GetComboBoxInfo(hDirCombo, &cbinfo);
-			SetWindowLongPtr(cbinfo.hwndItem, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(comboEditProc));
-			SetWindowLongPtr(cbinfo.hwndItem, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(cbinfo.hwndCombo));
+			
+			// hook into common control types so can add customized functionality
+			EnumChildWindows(_hSelf, [](HWND hwnd, LPARAM lParam) {
+				FindReplaceDlg* pThis = reinterpret_cast<FindReplaceDlg*>(lParam);
+				wchar_t className[32] = { 0 };
+				GetClassName(hwnd, className, 31);
+				if (wcscmp(className, L"Edit") == 0)
+				{
+					SetWindowLongPtr(hwnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pThis));
+					LONG_PTR temp = SetWindowLongPtr(hwnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(comboEditProc));
+					if (originalComboEditProc == NULL) originalComboEditProc = temp;
+				}
+				else if (wcscmp(className, L"Button") == 0)
+				{
+					DWORD nButtonStyle = (DWORD)GetWindowLong(hwnd, GWL_STYLE) & 0xF;
+					switch (nButtonStyle)
+					{
+						case BS_CHECKBOX:
+						case BS_AUTOCHECKBOX:
+						case BS_RADIOBUTTON:
+						case BS_AUTORADIOBUTTON:
+						{
+							SetWindowLongPtr(hwnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pThis));
+							LONG_PTR temp = SetWindowLongPtr(hwnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(checkOrRadioButtonProc));
+							if (originalCheckOrRadioButtonProc == NULL) originalCheckOrRadioButtonProc = temp;
+						}
+						case BS_DEFPUSHBUTTON:
+						case BS_PUSHBUTTON:
+						{
+							SetWindowLongPtr(hwnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pThis));
+							LONG_PTR temp = SetWindowLongPtr(hwnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(pushButtonProc));
+							if (originalPushButtonProc == NULL) originalPushButtonProc = temp;
+						}
+					}
+				}
+				return TRUE;
+			}, reinterpret_cast<LPARAM>(this));
 
 			if ((NppParameters::getInstance()).getNppGUI()._monospacedFontFindDlg)
 			{
@@ -930,11 +951,11 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				_hMonospaceFont = CreateFontIndirect(&logFont);
 
 				ReleaseDC(_hSelf, hdc);
-
-				SendMessage(hFindCombo, WM_SETFONT, (WPARAM)_hMonospaceFont, MAKELPARAM(true, 0));
-				SendMessage(hReplaceCombo, WM_SETFONT, (WPARAM)_hMonospaceFont, MAKELPARAM(true, 0));
-				SendMessage(hFiltersCombo, WM_SETFONT, (WPARAM)_hMonospaceFont, MAKELPARAM(true, 0));
-				SendMessage(hDirCombo, WM_SETFONT, (WPARAM)_hMonospaceFont, MAKELPARAM(true, 0));
+				
+				SendMessage(::GetDlgItem(_hSelf, IDFINDWHAT), WM_SETFONT, (WPARAM)_hMonospaceFont, MAKELPARAM(true, 0));
+				SendMessage(::GetDlgItem(_hSelf, IDREPLACEWITH), WM_SETFONT, (WPARAM)_hMonospaceFont, MAKELPARAM(true, 0));
+				SendMessage(::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_COMBO), WM_SETFONT, (WPARAM)_hMonospaceFont, MAKELPARAM(true, 0));
+				SendMessage(::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_COMBO), WM_SETFONT, (WPARAM)_hMonospaceFont, MAKELPARAM(true, 0));
 			}
 
 			RECT arc;
@@ -3508,38 +3529,187 @@ LRESULT FAR PASCAL FindReplaceDlg::finderProc(HWND hwnd, UINT message, WPARAM wP
 		return CallWindowProc((WNDPROC) originalFinderProc, hwnd, message, wParam, lParam);
 }
 
-LRESULT FAR PASCAL FindReplaceDlg::comboEditProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+LRESULT FAR PASCAL FindReplaceDlg::checkOrRadioButtonProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	HWND hwndCombo = reinterpret_cast<HWND>(GetWindowLongPtr(hwnd, GWLP_USERDATA));
+	FindReplaceDlg* pFindReplaceDlg = reinterpret_cast<FindReplaceDlg*>(::GetWindowLongPtr(hwnd, GWLP_USERDATA));
 
-	bool isDropped = ::SendMessage(hwndCombo, CB_GETDROPPEDSTATE, 0, 0) != 0;
-
-	if (isDropped && (message == WM_KEYDOWN) && (wParam == VK_DELETE))
+	if (message == WM_GETDLGCODE)
 	{
-		int curSel = static_cast<int>(::SendMessage(hwndCombo, CB_GETCURSEL, 0, 0));
-		if (curSel != CB_ERR)
+		if (pFindReplaceDlg->ctrlTabPressProcessed(reinterpret_cast<MSG*>(lParam)))
 		{
-			int itemsRemaining = static_cast<int>(::SendMessage(hwndCombo, CB_DELETESTRING, curSel, 0));
-			// if we close the dropdown and reopen it, it will be correctly-sized for remaining items
-			::SendMessage(hwndCombo, CB_SHOWDROPDOWN, FALSE, 0);
-			if (itemsRemaining > 0)
-			{
-				if (itemsRemaining == curSel)
-				{
-					--curSel;
-				}
-				::SendMessage(hwndCombo, CB_SETCURSEL, curSel, 0);
-				::SendMessage(hwndCombo, CB_SHOWDROPDOWN, TRUE, 0);
-			}
-			return 0;
+			return DLGC_WANTTAB;  // don't let standard dialog behavior for Tab run
+		}
+	}
+
+	return CallWindowProc(reinterpret_cast<WNDPROC>(originalCheckOrRadioButtonProc), hwnd, message, wParam, lParam);
+}
+
+LRESULT FAR PASCAL FindReplaceDlg::pushButtonProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	FindReplaceDlg* pFindReplaceDlg = reinterpret_cast<FindReplaceDlg*>(::GetWindowLongPtr(hwnd, GWLP_USERDATA));
+
+	if (message == WM_GETDLGCODE)
+	{
+		if (pFindReplaceDlg->ctrlTabPressProcessed(reinterpret_cast<MSG*>(lParam)))
+		{
+			return DLGC_WANTTAB;  // don't let standard dialog behavior for Tab run
+		}
+	}
+
+	return CallWindowProc(reinterpret_cast<WNDPROC>(originalPushButtonProc), hwnd, message, wParam, lParam);
+}
+
+LRESULT FAR PASCAL FindReplaceDlg::comboEditProc(HWND hwndEdit, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	FindReplaceDlg* pFindReplaceDlg = reinterpret_cast<FindReplaceDlg*>(::GetWindowLongPtr(hwndEdit, GWLP_USERDATA));
+	
+	if (message == WM_GETDLGCODE)
+	{
+		if (pFindReplaceDlg->ctrlTabPressProcessed(reinterpret_cast<MSG*>(lParam)))
+		{
+			return DLGC_WANTTAB;  // don't let standard dialog behavior for Tab run
 		}
 	}
 	else if (message == WM_CHAR && wParam == 0x7F) // ASCII "DEL" (Ctrl+Backspace)
 	{
-		delLeftWordInEdit(hwnd);
+		delLeftWordInEdit(hwndEdit);
 		return 0;
 	}
-	return CallWindowProc((WNDPROC)originalComboEditProc, hwnd, message, wParam, lParam);
+	else
+	{
+		// check for Delete key press in dropped combobox in order to remove an item
+
+
+
+
+		/*
+		HWND hCombo = 0;
+		EnumChildWindows(pFindReplaceDlg->_hSelf, [](HWND hwnd, LPARAM lParam) {
+			HWND hwndEdit = reinterpret_cast<HWND>(lParam);
+			wchar_t className[32] = { 0 };
+			GetClassName(hwnd, className, 31);
+			if (wcscmp(className, L"ComboBox") == 0)
+			{
+				COMBOBOXINFO cbinfo = { sizeof(COMBOBOXINFO) };
+				GetComboBoxInfo(hwnd, &cbinfo);
+				if (hwndEdit == cbinfo.hwndItem)
+				{
+					hCombo = hwnd;
+					return FALSE;
+				}
+			}
+			return TRUE;
+			}, reinterpret_cast<LPARAM>(hwndEdit));
+		*/
+
+
+
+
+
+
+
+
+
+
+		// find the associated combobox for the edit control that triggered this
+		HWND hFindCombo = ::GetDlgItem(pFindReplaceDlg->_hSelf, IDFINDWHAT);
+		HWND hReplaceCombo = ::GetDlgItem(pFindReplaceDlg->_hSelf, IDREPLACEWITH);
+		HWND hFiltersCombo = ::GetDlgItem(pFindReplaceDlg->_hSelf, IDD_FINDINFILES_FILTERS_COMBO);
+		HWND hDirCombo = ::GetDlgItem(pFindReplaceDlg->_hSelf, IDD_FINDINFILES_DIR_COMBO);
+		COMBOBOXINFO cbinfo = { sizeof(COMBOBOXINFO) };
+		HWND hwndCombo = hFindCombo;
+		GetComboBoxInfo(hwndCombo, &cbinfo);
+		if (hwndEdit != cbinfo.hwndItem)
+		{
+			hwndCombo = hReplaceCombo;
+			GetComboBoxInfo(hwndCombo, &cbinfo);
+			if (hwndEdit != cbinfo.hwndItem)
+			{
+				hwndCombo = hFiltersCombo;
+				GetComboBoxInfo(hwndCombo, &cbinfo);
+				if (hwndEdit != cbinfo.hwndItem)
+				{
+					hwndCombo = hDirCombo;
+					GetComboBoxInfo(hwndCombo, &cbinfo);
+					if (hwndEdit != cbinfo.hwndItem)
+					{
+						return CallWindowProc(reinterpret_cast<WNDPROC>(originalComboEditProc), hwndEdit, message, wParam, lParam);
+					}
+				}
+			}
+		}
+
+
+
+
+
+		bool isDropped = ::SendMessage(hwndCombo, CB_GETDROPPEDSTATE, 0, 0) != 0;
+		if (isDropped && (message == WM_KEYDOWN) && (wParam == VK_DELETE))
+		{
+			int curSel = static_cast<int>(::SendMessage(hwndCombo, CB_GETCURSEL, 0, 0));
+			if (curSel != CB_ERR)
+			{
+				int itemsRemaining = static_cast<int>(::SendMessage(hwndCombo, CB_DELETESTRING, curSel, 0));
+				// if we close the dropdown and reopen it, it will be correctly-sized for remaining items
+				::SendMessage(hwndCombo, CB_SHOWDROPDOWN, FALSE, 0);
+				if (itemsRemaining > 0)
+				{
+					if (itemsRemaining == curSel)
+					{
+						--curSel;
+					}
+					::SendMessage(hwndCombo, CB_SETCURSEL, curSel, 0);
+					::SendMessage(hwndCombo, CB_SHOWDROPDOWN, TRUE, 0);
+				}
+				return 0;
+			}
+		}
+	}
+
+	return CallWindowProc(reinterpret_cast<WNDPROC>(originalComboEditProc), hwndEdit, message, wParam, lParam);
+}
+
+bool FindReplaceDlg::ctrlTabPressProcessed(MSG *pMsg)
+{
+	// Ctrl+Tab (and Ctrl+Shift+Tab) is used to switch the active tab in the Find/Replace/FindinFiles/FindInProjects/Mark window
+
+	if ((pMsg != NULL) && (pMsg->message == WM_KEYDOWN) && (pMsg->wParam == VK_TAB) && (0x80 & GetKeyState(VK_CONTROL)))
+	{
+		HWND hwndCurrentTabFocusedCtrl = ::GetFocus();
+
+		bool isShifted = 0x80 & GetKeyState(VK_SHIFT);
+
+		if (_currentStatus == FIND_DLG)
+		{
+			isShifted ? enableMarkFunc() : enableReplaceFunc(true);
+		}
+		else if (_currentStatus == REPLACE_DLG)
+		{
+			isShifted ? enableReplaceFunc(false) : enableFindInFilesFunc();
+		}
+		else if (_currentStatus == FINDINFILES_DLG)
+		{
+			isShifted ? enableReplaceFunc(true) : enableFindInProjectsFunc();
+		}
+		else if (_currentStatus == FINDINPROJECTS_DLG)
+		{
+			isShifted ? enableFindInFilesFunc() : enableMarkFunc();
+		}
+		else //if (_currentStatus == MARK_DLG)
+		{
+			isShifted ? enableFindInProjectsFunc() : enableReplaceFunc(false);
+		}
+
+		// if control that was active isn't shown on the tab changed to, or it can't be focused, give input focus to find what
+		if (!::IsWindowVisible(hwndCurrentTabFocusedCtrl) || !::IsWindowEnabled(hwndCurrentTabFocusedCtrl))
+		{
+			::SetFocus(::GetDlgItem(_hSelf, IDFINDWHAT));
+		}
+
+		return true;
+	}
+
+	return false;
 }
 
 void FindReplaceDlg::enableFindInFilesFunc()

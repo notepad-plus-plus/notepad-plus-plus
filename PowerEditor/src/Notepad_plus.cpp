@@ -2620,15 +2620,19 @@ void Notepad_plus::setUniModeText()
 		int cmdID = em.getIndexFromEncoding(encoding);
 		if (cmdID == -1)
 		{
-			//printStr(TEXT("Encoding problem. Encoding is not added in encoding_table?"));
+			assert(!"Encoding problem. Encoding is not added in encoding_table?");
 			return;
 		}
 		cmdID += IDM_FORMAT_ENCODE;
 
 		const int itemSize = 64;
-		TCHAR uniModeText[itemSize];
+		TCHAR uniModeText[itemSize] = {};
 		::GetMenuString(_mainMenuHandle, cmdID, uniModeText, itemSize, MF_BYCOMMAND);
 		uniModeTextString = uniModeText;
+		// Remove the shortcut text from the menu text.
+		const size_t tabPos = uniModeTextString.find_last_of('\t');
+		if (tabPos != generic_string::npos)
+			uniModeTextString.resize(tabPos);
 	}
 	_statusBar.setText(uniModeTextString.c_str(), STATUSBAR_UNICODE_TYPE);
 }

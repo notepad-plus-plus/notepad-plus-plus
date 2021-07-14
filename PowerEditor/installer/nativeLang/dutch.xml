@@ -3,9 +3,9 @@
 Dutch localization for Notepad++
 Modifications until 2018-03-26 by Klaas Nekeman (knekeman(at)gmail.com).
 Modifications until 2020-05-26 by xylographe <wr86420@gmail.com>.
-Modifications from 2020-01-28 and onwards by Thomas De Rocker (RockyTDR)
+Modifications from 2021-01-28 and onwards by Thomas De Rocker (RockyTDR)
 
-Last modified on 2021-06-03 by Thomas De Rocker (RockyTDR).
+Last modified on 2021-06-14 by Thomas De Rocker (RockyTDR).
 -->
 <NotepadPlus>
     <Native-Langue name="Nederlands" filename="dutch.xml" version="7.9.5">
@@ -856,7 +856,24 @@ Last modified on 2021-06-03 by Thomas De Rocker (RockyTDR).
 
                 <DarkMode title="Donkere modus">
                     <Item id="7101" name="Donkere modus inschakelen"/>
-                    <Item id="7106" name="* Notepad++ moet opnieuw worden gestart om volledig van kracht te worden"/>
+                    <Item id="7102" name="Zwarte tint"/>
+                    <Item id="7103" name="Rode tint"/>
+                    <Item id="7104" name="Groene tint"/>
+                    <Item id="7105" name="Blauwe tint"/>
+                    <Item id="7107" name="Paarse tint"/>
+                    <Item id="7108" name="Cyaan tint"/>
+                    <Item id="7109" name="Olijf tint"/>
+                    <Item id="7115" name="Aangepaste tint"/>
+                    <Item id="7116" name="Bovenkant"/>
+                    <Item id="7117" name="Opgelicht menu (hot-track)"/>
+                    <Item id="7118" name="Actief"/>
+                    <Item id="7119" name="Hoofd"/>
+                    <Item id="7120" name="Fout"/>
+                    <Item id="7121" name="Tekst"/>
+                    <Item id="7122" name="Donkerdere tekst"/>
+                    <Item id="7123" name="Uitgeschakelde text"/>
+                    <Item id="7124" name="Tab-rand"/>
+                    <Item id="7130" name="Herstellen"/>
                 </DarkMode>
 
                 <MarginsBorderEdge title="Marges/grens/rand">

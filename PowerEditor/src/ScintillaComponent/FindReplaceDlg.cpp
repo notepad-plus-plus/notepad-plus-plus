@@ -3575,15 +3575,12 @@ LRESULT FAR PASCAL FindReplaceDlg::comboEditProc(HWND hwndEdit, UINT message, WP
 		delLeftWordInEdit(hwndEdit);
 		return 0;
 	}
-	else
+	else if (message == WM_KEYDOWN && wParam == VK_DELETE)
 	{
-		// check for Delete key press in dropped combobox in order to remove an item
+		// find the associated combobox for the edit control that triggered this
 
+		static HWND hwndCombo = 0;
 
-
-
-		/*
-		HWND hCombo = 0;
 		EnumChildWindows(pFindReplaceDlg->_hSelf, [](HWND hwnd, LPARAM lParam) {
 			HWND hwndEdit = reinterpret_cast<HWND>(lParam);
 			wchar_t className[32] = { 0 };
@@ -3594,74 +3591,37 @@ LRESULT FAR PASCAL FindReplaceDlg::comboEditProc(HWND hwndEdit, UINT message, WP
 				GetComboBoxInfo(hwnd, &cbinfo);
 				if (hwndEdit == cbinfo.hwndItem)
 				{
-					hCombo = hwnd;
+					hwndCombo = hwnd;
 					return FALSE;
 				}
 			}
 			return TRUE;
 			}, reinterpret_cast<LPARAM>(hwndEdit));
-		*/
 
-
-
-
-
-
-
-
-
-
-		// find the associated combobox for the edit control that triggered this
-		HWND hFindCombo = ::GetDlgItem(pFindReplaceDlg->_hSelf, IDFINDWHAT);
-		HWND hReplaceCombo = ::GetDlgItem(pFindReplaceDlg->_hSelf, IDREPLACEWITH);
-		HWND hFiltersCombo = ::GetDlgItem(pFindReplaceDlg->_hSelf, IDD_FINDINFILES_FILTERS_COMBO);
-		HWND hDirCombo = ::GetDlgItem(pFindReplaceDlg->_hSelf, IDD_FINDINFILES_DIR_COMBO);
-		COMBOBOXINFO cbinfo = { sizeof(COMBOBOXINFO) };
-		HWND hwndCombo = hFindCombo;
-		GetComboBoxInfo(hwndCombo, &cbinfo);
-		if (hwndEdit != cbinfo.hwndItem)
+		if (hwndCombo != 0)
 		{
-			hwndCombo = hReplaceCombo;
-			GetComboBoxInfo(hwndCombo, &cbinfo);
-			if (hwndEdit != cbinfo.hwndItem)
+			// check for Delete key press in dropped combobox in order to remove an item
+
+			bool isDropped = ::SendMessage(hwndCombo, CB_GETDROPPEDSTATE, 0, 0) != 0;
+			if (isDropped)
 			{
-				hwndCombo = hFiltersCombo;
-				GetComboBoxInfo(hwndCombo, &cbinfo);
-				if (hwndEdit != cbinfo.hwndItem)
+				int curSel = static_cast<int>(::SendMessage(hwndCombo, CB_GETCURSEL, 0, 0));
+				if (curSel != CB_ERR)
 				{
-					hwndCombo = hDirCombo;
-					GetComboBoxInfo(hwndCombo, &cbinfo);
-					if (hwndEdit != cbinfo.hwndItem)
+					int itemsRemaining = static_cast<int>(::SendMessage(hwndCombo, CB_DELETESTRING, curSel, 0));
+					// if we close the dropdown and reopen it, it will be correctly-sized for remaining items
+					::SendMessage(hwndCombo, CB_SHOWDROPDOWN, FALSE, 0);
+					if (itemsRemaining > 0)
 					{
-						return CallWindowProc(reinterpret_cast<WNDPROC>(originalComboEditProc), hwndEdit, message, wParam, lParam);
+						if (itemsRemaining == curSel)
+						{
+							--curSel;
+						}
+						::SendMessage(hwndCombo, CB_SETCURSEL, curSel, 0);
+						::SendMessage(hwndCombo, CB_SHOWDROPDOWN, TRUE, 0);
 					}
+					return 0;
 				}
-			}
-		}
-
-
-
-
-
-		bool isDropped = ::SendMessage(hwndCombo, CB_GETDROPPEDSTATE, 0, 0) != 0;
-		if (isDropped && (message == WM_KEYDOWN) && (wParam == VK_DELETE))
-		{
-			int curSel = static_cast<int>(::SendMessage(hwndCombo, CB_GETCURSEL, 0, 0));
-			if (curSel != CB_ERR)
-			{
-				int itemsRemaining = static_cast<int>(::SendMessage(hwndCombo, CB_DELETESTRING, curSel, 0));
-				// if we close the dropdown and reopen it, it will be correctly-sized for remaining items
-				::SendMessage(hwndCombo, CB_SHOWDROPDOWN, FALSE, 0);
-				if (itemsRemaining > 0)
-				{
-					if (itemsRemaining == curSel)
-					{
-						--curSel;
-					}
-					::SendMessage(hwndCombo, CB_SETCURSEL, curSel, 0);
-					::SendMessage(hwndCombo, CB_SHOWDROPDOWN, TRUE, 0);
-				}
-				return 0;
 			}
 		}
 	}

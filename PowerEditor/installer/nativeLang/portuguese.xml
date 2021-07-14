@@ -319,8 +319,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="47010" name="Argumentos da Linha de Comando..."/>
                     <Item id="47001" name="Página da Notepad++"/>
                     <Item id="47002" name="Página do Projeto Notepad++"/>
-                    <Item id="47003" name="Documentação na Internet"/>
-                    <Item id="47004" name="Fórum"/>
+                    <Item id="47003" name="Manual do Utilizador Online do Notepad++"/>
+                    <Item id="47004" name="Comunidade do Notepad++ (Fórum)"/>
                     <Item id="47012" name="Informações de Depuração..."/>
                     <Item id="47005" name="Obter Mais Plugins"/>
                     <Item id="47006" name="Atualizar o Notepad++"/>
@@ -851,7 +851,24 @@ The comments are here for explanation, it's not necessary to translate them.
 
                 <DarkMode title="Modo Escuro">
                     <Item id="7101" name="Ativar modo escuro"/>
-                    <Item id="7106" name="* O Notepad++ deve ser reiniciado para ter efeito completo"/>
+                    <Item id="7102" name="Tom preto"/>
+                    <Item id="7103" name="Tom vermelho"/>
+                    <Item id="7104" name="Tom verde"/>
+                    <Item id="7105" name="Tom azul"/>
+                    <Item id="7107" name="Tom roxo"/>
+                    <Item id="7108" name="Tom ciano"/>
+                    <Item id="7109" name="Tom azeitona"/>
+                    <Item id="7115" name="Tom personalizado"/>
+                    <Item id="7116" name="Topo"/>
+                    <Item id="7117" name="Menu faixa quente"/>
+                    <Item id="7118" name="Ativo"/>
+                    <Item id="7119" name="Principal"/>
+                    <Item id="7120" name="Erro"/>
+                    <Item id="7121" name="Texto"/>
+                    <Item id="7122" name="Texto mais escuro"/>
+                    <Item id="7123" name="Texto desativado"/>
+                    <Item id="7124" name="Margem do separador"/>
+                    <Item id="7130" name="Repor"/>
                 </DarkMode>
 
                 <MarginsBorderEdge title="Margens/Borda/Limite">
@@ -1466,7 +1483,7 @@ João Pereira <joaopereira@openmailbox.org>
 29/07/2015
 
 Hugo Carvalho <hugokarvalho@hotmail.com>
-12/07/2021 (versão 8.0, 8.1, 8.1.1)
+14/07/2021 (versão 8.0, 8.1, 8.1.1, 8.1.2)
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.	

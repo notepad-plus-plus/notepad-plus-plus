@@ -60,7 +60,18 @@ public:
 	DarkModeSubDlg() = default;
 
 private:
+	ColourPicker* _pBackgroundColorPicker = nullptr;
+	ColourPicker* _pSofterBackgroundColorPicker = nullptr;
+	ColourPicker* _pHotBackgroundColorPicker = nullptr;
+	ColourPicker* _pPureBackgroundColorPicker = nullptr;
+	ColourPicker* _pErrorBackgroundColorPicker = nullptr;
+	ColourPicker* _pTextColorPicker = nullptr;
+	ColourPicker* _pDarkerTextColorPicker = nullptr;
+	ColourPicker* _pDisabledTextColorPicker = nullptr;
+	ColourPicker* _pEdgeColorPicker = nullptr;
+
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	void enableCustomizedColorCtrls(bool doEnable);
 };
 
 class MarginsBorderEdgeSubDlg : public StaticDialog

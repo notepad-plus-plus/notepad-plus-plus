@@ -138,7 +138,7 @@ private :
 	GlobalOverride _gOverride2restored;
 	bool _restoreInvalid = false;
 
-	ColourStaticTextHooker colourHooker;
+	ColourStaticTextHooker _colourHooker;
 
 	bool _isDirty = false;
 	bool _isThemeDirty = false;

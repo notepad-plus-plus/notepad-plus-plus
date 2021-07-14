@@ -89,8 +89,8 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 			_hFontSizeStaticText = ::GetDlgItem(_hSelf, IDC_FONTSIZE_STATIC);
 			_hStyleInfoStaticText = ::GetDlgItem(_hSelf, IDC_STYLEDESCRIPTION_STATIC);
 
-			colourHooker.setColour(RGB(0xFF, 0x00, 0x00));
-			colourHooker.hookOn(_hStyleInfoStaticText);
+			_colourHooker.setColour(RGB(0xFF, 0x00, 0x00));
+			_colourHooker.hookOn(_hStyleInfoStaticText);
 
 			_currentThemeIndex = -1;
 			int defaultThemeIndex = 0;
@@ -137,8 +137,12 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 			p1.x = p2.x = ((p1.x > p2.x)?p1.x:p2.x) + 10;
 			p1.y -= 4; p2.y -= 4;
 
-			::MoveWindow(reinterpret_cast<HWND>(_pFgColour->getHSelf()), p1.x, p1.y, 25, 25, TRUE);
-			::MoveWindow(reinterpret_cast<HWND>(_pBgColour->getHSelf()), p2.x, p2.y, 25, 25, TRUE);
+			int cpDynamicalWidth = NppParameters::getInstance()._dpiManager.scaleX(25);
+			int cpDynamicalHeight = NppParameters::getInstance()._dpiManager.scaleY(25);
+
+			::MoveWindow(reinterpret_cast<HWND>(_pFgColour->getHSelf()), p1.x, p1.y, cpDynamicalWidth, cpDynamicalHeight, TRUE);
+			::MoveWindow(reinterpret_cast<HWND>(_pBgColour->getHSelf()), p2.x, p2.y, cpDynamicalWidth, cpDynamicalHeight, TRUE);
+
 			_pFgColour->display();
 			_pBgColour->display();
 
@@ -761,7 +765,7 @@ void WordStyleDlg::setVisualFromStyleList()
 
 	// PAD for fix a display glitch
 	wcscat_s(str, TEXT("          "));
-	colourHooker.setColour(c);
+	_colourHooker.setColour(c);
 	::SetWindowText(_hStyleInfoStaticText, str);
 
 	//-- 2 couleurs : fg et bg

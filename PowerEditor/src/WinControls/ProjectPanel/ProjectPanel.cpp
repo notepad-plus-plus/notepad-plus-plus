@@ -808,9 +808,7 @@ void ProjectPanel::notified(LPNMHDR notification)
 
 			case TVN_BEGINDRAG:
 			{
-				//printStr(TEXT("hello"));
 				_treeView.beginDrag((LPNMTREEVIEW)notification);
-				
 			}
 			break;
 		}
@@ -822,7 +820,7 @@ void ProjectPanel::notified(LPNMHDR notification)
 			auto nmtbcd = reinterpret_cast<LPNMTBCUSTOMDRAW>(notification);
 			FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getBackgroundBrush());
 			nmtbcd->clrText = NppDarkMode::getTextColor();
-			nmtbcd->clrHighlightHotTrack = NppDarkMode::getHighlightHotTrackColor();
+			nmtbcd->clrHighlightHotTrack = NppDarkMode::getHotBackgroundColor();
 			SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_NOTIFYITEMDRAW | TBCDRF_HILITEHOTTRACK);
 		}
 	}

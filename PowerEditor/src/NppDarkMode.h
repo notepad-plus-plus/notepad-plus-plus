@@ -92,6 +92,7 @@ namespace NppDarkMode
 	void setEdgeColor(COLORREF c);
 
 	Colors getDarkModeDefaultColors();
+	void changeCustomTheme(const Colors& colors);
 
 	// handle events
 	void handleSettingChange(HWND hwnd, LPARAM lParam);

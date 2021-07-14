@@ -827,6 +827,8 @@ void DarkModeSubDlg::enableCustomizedColorCtrls(bool doEnable)
 	::EnableWindow(::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR8_STATIC), doEnable);
 	::EnableWindow(::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR9_STATIC), doEnable);
 
+	::EnableWindow(::GetDlgItem(_hSelf, IDD_CUSTOMIZED_RESET_BUTTON), doEnable);
+
 	if (doEnable)
 	{
 		_pBackgroundColorPicker->setColour(NppDarkMode::getBackgroundColor());
@@ -1035,6 +1037,7 @@ INT_PTR CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				case IDC_RADIO_DARKMODE_CYAN:
 				case IDC_RADIO_DARKMODE_OLIVE:
 				case IDC_RADIO_DARKMODE_CUSTOMIZED:
+				case IDD_CUSTOMIZED_RESET_BUTTON:
 					if (wParam == IDC_RADIO_DARKMODE_BLACK)
 					{
 						if (nppGUI._darkmode._colorTone == NppDarkMode::blackTone)
@@ -1084,6 +1087,14 @@ INT_PTR CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						nppGUI._darkmode._colorTone = NppDarkMode::customizedTone;
 						doEnableCustomizedColorCtrls = true;
 					}
+					
+					else if (wParam == IDD_CUSTOMIZED_RESET_BUTTON)
+					{
+						nppGUI._darkmode._customColors = NppDarkMode::getDarkModeDefaultColors();
+						NppDarkMode::changeCustomTheme(nppGUI._darkmode._customColors);
+						doEnableCustomizedColorCtrls = true;
+					}
+
 
 					// switch to chosen dark mode
 					nppGUI._darkmode._isEnabled = true;
@@ -1116,7 +1127,7 @@ INT_PTR CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 							{
 								c = _pHotBackgroundColorPicker->getColour();
 								NppDarkMode::setHotBackgroundColor(c);
-								nppGUI._darkmode._customColors.softerBackground = c;
+								nppGUI._darkmode._customColors.hotBackground = c;
 							}
 							else if (reinterpret_cast<HWND>(lParam) == _pPureBackgroundColorPicker->getHSelf())
 							{
@@ -1124,7 +1135,7 @@ INT_PTR CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 								NppDarkMode::setDarkerBackgroundColor(c);
 								nppGUI._darkmode._customColors.pureBackground = c;
 							}
-							if (reinterpret_cast<HWND>(lParam) == _pErrorBackgroundColorPicker->getHSelf())
+							else if (reinterpret_cast<HWND>(lParam) == _pErrorBackgroundColorPicker->getHSelf())
 							{
 								c = _pErrorBackgroundColorPicker->getColour();
 								NppDarkMode::setErrorBackgroundColor(c);
@@ -1148,12 +1159,17 @@ INT_PTR CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 								NppDarkMode::setDisabledTextColor(c);
 								nppGUI._darkmode._customColors.disabledText = c;
 							}
-							if (reinterpret_cast<HWND>(lParam) == _pEdgeColorPicker->getHSelf())
+							else if (reinterpret_cast<HWND>(lParam) == _pEdgeColorPicker->getHSelf())
 							{
 								c = _pEdgeColorPicker->getColour();
 								NppDarkMode::setEdgeColor(c);
 								nppGUI._darkmode._customColors.edge = c;
 							}
+							else
+							{
+								return FALSE;
+							}
+
 							nppGUI._darkmode._isEnabled = true;
 							NppDarkMode::setDarkTone(nppGUI._darkmode._colorTone);
 							changed = true;

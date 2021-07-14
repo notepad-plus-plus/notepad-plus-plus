@@ -413,6 +413,11 @@ namespace NppDarkMode
 		return darkColors;
 	}
 
+	void changeCustomTheme(const Colors& colors)
+	{
+		tCustom.change(colors);
+	}
+
 	// handle events
 
 	void handleSettingChange(HWND hwnd, LPARAM lParam)

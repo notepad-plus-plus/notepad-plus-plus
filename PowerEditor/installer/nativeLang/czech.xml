@@ -1271,7 +1271,7 @@ Vaše pracovní plocha nebyla uložena."/> <!-- HowToReproduce: this message pre
 			<ViewInBrowser title = "Zobrazit aktuální soubor v prohlížeči" message="Není možno nalézt aplikaci ve Vašem systému."/>
 			<ExitToUpdatePlugins title = "Notepad++ má být ukončen" message = "Jestliže kliknete na ANO, ukončíte tím Notepad++ kvůli provedení naplánovaných operací. Notepad++ bude po dokončení všech operací restartován. Pokračovat?"/>
 			<NeedToRestartToLoadPlugins title = "Notepad++ potřebuje být znovu spuštěn" message = "Musíte restartovat Notepad++, aby mohly být zavedeny nainstalované zásuvné moduly."/>
-			<SaveAllConfirm title="Potvrzení pro 'Uložit všechny'" message = "Opravdu chcete uložit všechny dokumenty?
+			<SaveAllConfirm title = "Potvrzení pro 'Uložit všechny'" message = "Opravdu chcete uložit všechny dokumenty?
 
 Zvolte &quot;Storno&quot;, pokud bude vaše odpověď vždy &quot;Ano&quot; a nebudete již znovu dotázováni na tuto otázku.
 Toto dialogové okno můžete později znovu aktivovat v Nastavení." /> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
@@ -1393,7 +1393,7 @@ Toto dialogové okno můžete později znovu aktivovat v Nastavení." /> <!-- Ho
 			<cloud-restart-warning value = "Pro aktivaci změn prosím restartujte Notepad++."/>
 			<cloud-select-folder value = "Vyberte složku, ze/do které Notepad++ načítá/zapisuje svoje nastavení"/>
 			<shift-change-direction-tip value = "Pro změnu směru vyhledávání použijte Shift + Enter."/>
-			<two-find-buttons-tip value = "Mód s dvěma vyhledávacími tlačítky"/>
+			<two-find-buttons-tip value = "Mód se dvěma vyhledávacími tlačítky"/>
 			<file-rename-title value = "Přejmenovat"/>
 			<find-in-files-filter-tip value="Najít v cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp

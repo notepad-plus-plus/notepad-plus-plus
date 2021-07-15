@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2021-07-10 by schnurlos (schnurlos@gmail.com)
+	last modified: 2021-07-15 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.1.1">
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.1.2">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -861,7 +861,24 @@
 
 				<DarkMode title="Abgedunkelter Modus">
 					<Item id="7101" name="Abgedunkelten Modus aktivieren"/>
-					<Item id="7106" name="* Notepad++ muss dafür neu gestartet werden"/>
+					<Item id="7102" name="Schwarzer Ton"/>
+					<Item id="7103" name="Roter Ton"/>
+					<Item id="7104" name="Grüner Ton"/>
+					<Item id="7105" name="Blauer Ton"/>
+					<Item id="7107" name="Violetter Ton"/>
+					<Item id="7108" name="Cyan-Ton"/>
+					<Item id="7109" name="Oliv-Ton"/>
+					<Item id="7115" name="Benutzerdefinierter Ton"/>
+					<Item id="7116" name="Oben"/>
+					<Item id="7117" name="Menü Hot Track"/>
+					<Item id="7118" name="Aktiv"/>
+					<Item id="7119" name="Haupt"/>
+					<Item id="7120" name="Fehler"/>
+					<Item id="7121" name="Text"/>
+					<Item id="7122" name="Dunklerer Text"/>
+					<Item id="7123" name="Deaktivierter Text"/>
+					<Item id="7124" name="Registerkarte Rand"/>
+					<Item id="7130" name="Zurücksetzen"/>
 				</DarkMode>
 
 				<MarginsBorderEdge title="Faltung/Rahmen/Ränder">

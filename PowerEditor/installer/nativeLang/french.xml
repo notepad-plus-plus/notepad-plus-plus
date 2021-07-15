@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="français" filename="french.xml" version="7.9.4">
+    <Native-Langue name="français" filename="french.xml" version="8.1.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -852,7 +852,7 @@
                     <Item id="7121" name="Texte"/>
                     <Item id="7122" name="Texte plus sombre"/>
                     <Item id="7123" name="Texte désactivé"/>
-                    <Item id="7124" name="Bord d'onglet"/>
+                    <Item id="7124" name="Bord"/>
                     <Item id="7130" name="Réinitialiser"/>
                 </DarkMode>
 

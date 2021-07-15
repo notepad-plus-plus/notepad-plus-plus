@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="English" filename="english.xml" version="7.9.5">
+    <Native-Langue name="English" filename="english.xml" version="8.1.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -867,7 +867,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="7121" name="Text"/>
                     <Item id="7122" name="Darker text"/>
                     <Item id="7123" name="Disabled text"/>
-                    <Item id="7124" name="Tab edge"/>
+                    <Item id="7124" name="Edge"/>
                     <Item id="7130" name="Reset"/>
                 </DarkMode>
 

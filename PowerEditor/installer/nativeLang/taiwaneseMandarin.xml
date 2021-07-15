@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="7.9.5">
+    <Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.1.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -865,7 +865,7 @@
                     <Item id="7121" name="文字"/>
                     <Item id="7122" name="色調較暗文字"/>
                     <Item id="7123" name="暫停使用文字"/>
-                    <Item id="7124" name="頁籤邊線"/>
+                    <Item id="7124" name="邊線"/>
                     <Item id="7130" name="重設原始值"/>
                 </DarkMode>
 

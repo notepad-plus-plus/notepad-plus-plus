@@ -20,7 +20,6 @@
 #include "SplitterContainer.h"
 #include "ToolTip.h"
 #include "Parameters.h"
-#include "NppDarkMode.h"
 #include "localization.h"
 
 using namespace std;
@@ -138,7 +137,7 @@ tTbData* DockingCont::createToolbar(tTbData data)
 	}
 
 	// set attached child window
-    ::SetParent(pTbData->hClient, ::GetDlgItem(_hSelf, IDC_CLIENT_TAB));
+	::SetParent(pTbData->hClient, ::GetDlgItem(_hSelf, IDC_CLIENT_TAB));
 
 	// set names for captions and view toolbar
 	viewToolbar(pTbData);
@@ -345,21 +344,21 @@ LRESULT DockingCont::runProcCaption(HWND hwnd, UINT Message, WPARAM wParam, LPAR
 			{
 				if (_isMouseClose == FALSE)
 				{
-                    // keep sure that button is still down and within caption
-                    if ((wParam == MK_LBUTTON) && (isInRect(hwnd, pt.x, pt.y) == posCaption))
-                    {
-    					_dragFromTab = FALSE;
-    					NotifyParent(DMM_MOVE);
-    					_isMouseDown = FALSE;
-                    }
-                    else
-                    {
-                        _isMouseDown = FALSE;
-                    }
+					// keep sure that button is still down and within caption
+					if ((wParam == MK_LBUTTON) && (isInRect(hwnd, pt.x, pt.y) == posCaption))
+					{
+						_dragFromTab = FALSE;
+						NotifyParent(DMM_MOVE);
+						_isMouseDown = FALSE;
+					}
+					else
+					{
+						_isMouseDown = FALSE;
+					}
 				}
 				else
 				{
-					BOOL    isMouseOver	= _isMouseOver;
+					BOOL isMouseOver = _isMouseOver;
 					_isMouseOver = (isInRect(hwnd, pt.x, pt.y) == posClose ? TRUE : FALSE);
 
 					// if state is changed draw new
@@ -456,7 +455,9 @@ void DockingCont::drawCaptionItem(DRAWITEMSTRUCT *pDrawItemStruct)
 	// begin with paint
 	::SetBkMode(hDc, TRANSPARENT);
 
-	if (NppDarkMode::isEnabled()) 
+	auto holdPen = static_cast<HPEN>(::SelectObject(hDc, NppDarkMode::isEnabled() ? NppDarkMode::getEdgePen() : hPen));
+
+	if (NppDarkMode::isEnabled())
 	{
 		bgbrush = ::CreateSolidBrush(_isActive ? NppDarkMode::getSofterBackgroundColor() : NppDarkMode::getBackgroundColor());
 		SetTextColor(hDc, NppDarkMode::getTextColor());
@@ -566,6 +567,7 @@ void DockingCont::drawCaptionItem(DRAWITEMSTRUCT *pDrawItemStruct)
 		::SelectObject(hDc, hOldFont);
 		::DeleteObject(hFont);
 	}
+	::SelectObject(hDc, holdPen);
 	::DeleteObject(hPen);
 	::DeleteObject(bgbrush);
 
@@ -700,9 +702,7 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 
 			UINT id = ::GetDlgCtrlID(hwnd);
 
-			static HPEN g_hpen = CreatePen(PS_SOLID, 1, NppDarkMode::getEdgeColor());
-
-			HPEN holdPen = (HPEN)SelectObject(hdc, g_hpen);
+			auto holdPen = static_cast<HPEN>(::SelectObject(hdc, NppDarkMode::getEdgePen()));
 
 			HRGN holdClip = CreateRectRgn(0, 0, 0, 0);
 			if (1 != GetClipRgn(hdc, holdClip))

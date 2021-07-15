@@ -13,13 +13,12 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 #include <iostream>
 #include <stdexcept>
 #include "ColourPicker.h"
 #include "ColourPopup.h"
-
-
-
+#include "NppDarkMode.h"
 
 void ColourPicker::init(HINSTANCE hInst, HWND parent)
 {
@@ -60,7 +59,9 @@ void ColourPicker::drawBackground(HDC hDC)
 	getClientRect(rc);
 	hbrush = ::CreateSolidBrush(_currentColour);
 	HGDIOBJ oldObj = ::SelectObject(hDC, hbrush);
+	auto holdPen = static_cast<HPEN>(::SelectObject(hDC, NppDarkMode::getEdgePen()));
 	::Rectangle(hDC, 0, 0, rc.right, rc.bottom);
+	::SelectObject(hDC, holdPen);
 	::SelectObject(hDC, oldObj);
 	//FillRect(hDC, &rc, hbrush);
 	::DeleteObject(hbrush);

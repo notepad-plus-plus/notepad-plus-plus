@@ -42,9 +42,9 @@ namespace NppDarkMode
 
 		void change(const Colors& colors)
 		{
-			::DeleteObject(background);		
+			::DeleteObject(background);
 			::DeleteObject(softerBackground);
-			::DeleteObject(hotBackground);	
+			::DeleteObject(hotBackground);
 			::DeleteObject(pureBackground);	
 			::DeleteObject(errorBackground);
 
@@ -54,6 +54,28 @@ namespace NppDarkMode
 			pureBackground = ::CreateSolidBrush(colors.pureBackground);
 			errorBackground = ::CreateSolidBrush(colors.errorBackground);
 		}
+	};
+
+	struct Pens
+	{
+		HPEN edgePen = nullptr;
+
+		Pens(const Colors& colors)
+			: edgePen(::CreatePen(PS_SOLID, 1, colors.edge))
+		{}
+
+		~Pens()
+		{
+			::DeleteObject(edgePen);	edgePen = nullptr;
+		}
+
+		void change(const Colors& colors)
+		{
+			::DeleteObject(edgePen);
+
+			edgePen = ::CreatePen(PS_SOLID, 1, colors.edge);
+		}
+
 	};
 
 	// black (default)
@@ -172,16 +194,19 @@ namespace NppDarkMode
 	{
 		Colors _colors;
 		Brushes _brushes;
+		Pens _pens;
 
 		Theme(const Colors& colors)
 			: _colors(colors)
 			, _brushes(colors)
+			, _pens(colors)
 		{}
 
 		void change(const Colors& colors)
 		{
 			_colors = colors;
 			_brushes.change(colors);
+			_pens.change(colors);
 		}
 	};
 
@@ -344,6 +369,8 @@ namespace NppDarkMode
 	HBRUSH getHotBackgroundBrush()        { return getTheme()._brushes.hotBackground; }
 	HBRUSH getDarkerBackgroundBrush()     { return getTheme()._brushes.pureBackground; }
 	HBRUSH getErrorBackgroundBrush()      { return getTheme()._brushes.errorBackground; }
+
+	HPEN getEdgePen()                     { return getTheme()._pens.edgePen; }
 
 	void setBackgroundColor(COLORREF c)
 	{ 
@@ -1100,9 +1127,7 @@ namespace NppDarkMode
 			HDC hdc = BeginPaint(hWnd, &ps);
 			FillRect(hdc, &ps.rcPaint, NppDarkMode::getBackgroundBrush());
 
-			static HPEN g_hpen = CreatePen(PS_SOLID, 1, NppDarkMode::getEdgeColor());
-
-			HPEN holdPen = (HPEN)SelectObject(hdc, g_hpen);
+			auto holdPen = static_cast<HPEN>(::SelectObject(hdc, NppDarkMode::getEdgePen()));
 
 			HRGN holdClip = CreateRectRgn(0, 0, 0, 0);
 			if (1 != GetClipRgn(hdc, holdClip))

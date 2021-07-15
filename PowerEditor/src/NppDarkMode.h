@@ -81,6 +81,8 @@ namespace NppDarkMode
 	HBRUSH getHotBackgroundBrush();
 	HBRUSH getErrorBackgroundBrush();
 
+	HPEN getEdgePen();
+
 	void setBackgroundColor(COLORREF c);
 	void setSofterBackgroundColor(COLORREF c);
 	void setHotBackgroundColor(COLORREF c);

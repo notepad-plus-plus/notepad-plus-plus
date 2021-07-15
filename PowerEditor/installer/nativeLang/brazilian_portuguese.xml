@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Brazilian Portuguese by Hélio de Souza and Luxy -->
 <!-- Updated: Jul 2021 -->
-<!-- For Notepad++ 7.9.5 -->
+<!-- For Notepad++ 8.1.2 -->
 <NotepadPlus>
     <Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="7.9.5">
         <Menu>
@@ -851,7 +851,24 @@
 
                 <DarkMode title="Modo escuro">
                     <Item id="7101" name="Habilitar modo escuro"/>
-                    <Item id="7106" name="* O Notepad ++ deve ser reiniciado para ter efeito completo"/>
+                    <Item id="7102" name="Tom preto"/> 
+                    <Item id="7103" name="Tom vermelho"/> 
+                    <Item id="7104" name="Tom verde"/> 
+                    <Item id="7105" name="Tom azul"/> 
+                    <Item id="7107" name="Tom roxo"/> 
+                    <Item id="7108" name="Tom ciano"/> 
+                    <Item id="7109" name="Tom oliva"/> 
+                    <Item id="7115" name="Tom personalizado"/> 
+                    <Item id="7116" name="Topo"/> 
+                    <Item id="7117" name="Trilha do menu"/> 
+                    <Item id="7118" name="Ativo"/> 
+                    <Item id="7119" name="Principal"/> 
+                    <Item id="7120" name="Erro"/> 
+                    <Item id="7121" name="Texto"/> 
+                    <Item id="7122" name="Texto mais escuro"/> 
+                    <Item id="7123" name="Texto desabilitado"/> 
+                    <Item id="7124" name="Borda da aba"/> 
+                    <Item id="7130" name="Redefinir"/> 
                 </DarkMode>
 
                 <MarginsBorderEdge title="Margens e borda">
@@ -1084,6 +1101,7 @@ Você pode definir vários marcadores de coluna usando espaço em branco para se
                     <Item id="6345" name="Espiar na aba"/>
                     <Item id="6346" name="Espiar no mapa do documento"/>
                     <Item id="6360" name="Silenciar todos os sons"/>
+                    <Item id="6361" name="Habilitar caixa de diálogo de confirmação Salvar todos"/> 
                 </MISC>
             </Preference>
             <MultiMacro title="Executar macro múltiplas vezes">
@@ -1232,6 +1250,10 @@ Deseja iniciar o Notepad++ no modo Administrador?"/>
 O Notepad++ será reiniciado depois que todas as operações forem concluídas.
 Deseja continuar?"/>
             <NeedToRestartToLoadPlugins title="O Notepad++ precisa ser reiniciado" message="Reinicie o Notepad++ para carregar os plugins instalados."/>
+            <SaveAllConfirm title="Confirmação de Salvar todos" message="Tem certeza de que deseja salvar todos os documentos?
+
+Escolha &quot;Cancelar&quot; se sua resposta sempre for &quot;Sim&quot; e essa pergunta não será feita novamente.
+Você pode reabilitar esta caixa de diálogo na caixa de diálogo Preferências mais tarde." />
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Histórico da área de transferência"/>
@@ -1343,6 +1365,7 @@ Deseja continuar?"/>
             <cloud-select-folder value="Selecione uma pasta de/para onde o Notepad++ lê/grava suas configurações"/>
             <shift-change-direction-tip value="Usar Shift+Enter para pesquisar na direção oposta."/>
             <two-find-buttons-tip value="Modo 2 botões"/>
+            <file-rename-title value="Renomear"/> 
             <find-in-files-filter-tip value="Procurar em cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 

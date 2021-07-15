@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-    <Native-Langue name="Slovenčina" filename="slovak.xml" version="8.1.1">
+    <Native-Langue name="Slovenčina" filename="slovak.xml" version="8.1.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -849,8 +849,25 @@
                 </Scintillas>
 				
                     <DarkMode title="Tmavý režim">
-                    <Item id="7101" name="Povoliť tmavý režim"/>
-                    <Item id="7106" name="* Pre uplatnenie zmien musíte Notepad++ reštartovať"/>
+                        <Item id="7101" name="Povoliť tmavý režim"/>
+                        <Item id="7102" name="Čierny odtieň"/
+                        <Item id="7103" name="Červený odtieň"/
+                        <Item id="7104" name="Zelený odtieň"/>
+                        <Item id="7105" name="Modrý odtieň"/>
+                        <Item id="7107" name="Fialový odtieň"/>
+                        <Item id="7108" name="Azúrový odtieň"/>
+                        <Item id="7109" name="Olivový odtieň"/>
+                        <Item id="7115" name="Vlastný odtieň"/>
+                        <Item id="7116" name="Horný panel"/>
+                        <Item id="7117" name="Položka hlavného menu"/>
+                        <Item id="7118" name="Aktívna"/>
+                        <Item id="7119" name="Hlavné"/>
+                        <Item id="7120" name="Chyba"/>
+                        <Item id="7121" name="Text"/>
+                        <Item id="7122" name="Tmavší text"/>
+                        <Item id="7123" name="Neprístupný text"/>
+                        <Item id="7124" name="Okraj karty"/>
+                        <Item id="7130" name="Obnoviť"/
                 </DarkMode>
 
                 <MarginsBorderEdge title="Okraje a ohraničenia">
@@ -1345,7 +1362,7 @@ Toto dialógové okno môžete neskôr znovu aktivovať v dialógovom okne Prefe
             <cloud-select-folder value="Vyberte priečinok pre načítanie/uloženie nastavení programu Notepad++"/>
             <shift-change-direction-tip value="Pre vyhľadávanie v opačnom smere použite Shift+Enter"/>
             <two-find-buttons-tip value="Režim dvoch tlačidiel"/>
-			<file-rename-title value="Premenovať"/>
+            <file-rename-title value="Premenovať"/>
             <find-in-files-filter-tip value="Hľadať v cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 

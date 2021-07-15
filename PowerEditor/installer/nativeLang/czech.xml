@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.0.0  3/Jun/2021  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.1.2  14/Jul/2021  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="8.0.0">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="8.1.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -330,8 +330,8 @@
 					<Item id = "47000" name = "O Notepadu++ ..."/>
 					<Item id = "47001" name = "N++ - domovská stránka"/>
 					<Item id = "47002" name = "N++ - stránka projektu"/>
-					<Item id = "47003" name = "N++ Wiki - online nápověda"/>
-					<Item id = "47004" name = "N++ Community - Diskuzní fórum"/>
+					<Item id = "47003" name = "N++ - online příručka pro uživatele"/>
+					<Item id = "47004" name = "N++ - Community (diskuzní fórum)"/>
 					<Item id = "47005" name = "Získat další pluginy"/>
 					<Item id = "47006" name = "Aktualizovat Notepad++"/>
 					<Item id = "47007" name = "Wiki FAQ"/>
@@ -908,8 +908,25 @@
 					<Item id = "6239" name = "Ponechat výběr, když kliknete pravým tlačítkem mimo výběr"/>
 				</Scintillas>
 				<DarkMode title="Tmavý režim">
-					<Item id="7101" name="Povolit tmavý režim"/>
-					<Item id="7106" name="* Notepad++ musí být restartován, aby se efekt projevil kompletně"/>
+					<Item id = "7101" name = "Povolit tmavý režim"/>
+					<Item id = "7102" name = "Černý odstín"/>
+					<Item id = "7103" name = "Červený odstín"/>
+					<Item id = "7104" name = "Zelený odstín"/>
+					<Item id = "7105" name = "Modný odstín"/>
+					<Item id = "7107" name = "Fialový odstín"/>
+					<Item id = "7108" name = "Modrozelený odstín"/>
+					<Item id = "7109" name = "Olivový odstín"/>
+					<Item id = "7115" name = "Vlastní odstín"/>
+					<Item id = "7116" name = "Horní panel s menu"/>
+					<Item id = "7117" name = "Akuální (hot-track) položka menu"/>
+					<Item id = "7118" name = "Aktivní položky"/>
+					<Item id = "7119" name = "Hlavní položky"/>
+					<Item id = "7120" name = "Chyba"/>
+					<Item id = "7121" name = "Text"/>
+					<Item id = "7122" name = "Tmavší text"/>
+					<Item id = "7123" name = "Dezaktivovaný text"/>
+					<Item id = "7124" name = "Okraj karty (Tab)"/>
+					<Item id = "7130" name = "Obnovit nastavení"/>
 				</DarkMode>
 				<MarginsBorderEdge title="Okraje/Lem/Hrana">
 					<Item id = "6201" name = "Styl sbalovače na okraji"/>
@@ -1059,6 +1076,7 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id = "6346" name = "Na přehledné mapě dokumentu"/>
 					<Item id = "6349" name = "Používat DirectWrite (může zlepšit zobrazení speciálních znaků, vyžadován restart Notepadu++)"/>
 					<Item id = "6360" name = "Ztlumit všechny zvuky"/>
+					<Item id = "6361" name = "Povolit potvrzovací dialog 'Uložit všechny'"/>
 				</MISC>
 				<Backup title = "Zálohování">
 					<Item id = "6219" name = "Uživatelsky definovaný adresář pro zálohování"/>
@@ -1253,6 +1271,10 @@ Vaše pracovní plocha nebyla uložena."/> <!-- HowToReproduce: this message pre
 			<ViewInBrowser title = "Zobrazit aktuální soubor v prohlížeči" message="Není možno nalézt aplikaci ve Vašem systému."/>
 			<ExitToUpdatePlugins title = "Notepad++ má být ukončen" message = "Jestliže kliknete na ANO, ukončíte tím Notepad++ kvůli provedení naplánovaných operací. Notepad++ bude po dokončení všech operací restartován. Pokračovat?"/>
 			<NeedToRestartToLoadPlugins title = "Notepad++ potřebuje být znovu spuštěn" message = "Musíte restartovat Notepad++, aby mohly být zavedeny nainstalované zásuvné moduly."/>
+			<SaveAllConfirm title = "Potvrzení pro 'Uložit všechny'" message = "Opravdu chcete uložit všechny dokumenty?
+
+Zvolte &quot;Storno&quot;, pokud bude vaše odpověď vždy &quot;Ano&quot; a nebudete již znovu dotázováni na tuto otázku.
+Toto dialogové okno můžete později znovu aktivovat v Nastavení." /> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
 		</MessageBox>
 		
 		<ClipboardHistory>
@@ -1371,7 +1393,8 @@ Vaše pracovní plocha nebyla uložena."/> <!-- HowToReproduce: this message pre
 			<cloud-restart-warning value = "Pro aktivaci změn prosím restartujte Notepad++."/>
 			<cloud-select-folder value = "Vyberte složku, ze/do které Notepad++ načítá/zapisuje svoje nastavení"/>
 			<shift-change-direction-tip value = "Pro změnu směru vyhledávání použijte Shift + Enter."/>
-			<two-find-buttons-tip value = "Mód s dvěma vyhledávacími tlačítky"/>
+			<two-find-buttons-tip value = "Mód se dvěma vyhledávacími tlačítky"/>
+			<file-rename-title value = "Přejmenovat"/>
 			<find-in-files-filter-tip value="Najít v cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 Najít ve všech souborech mimo exe, obj &amp;&amp; log:

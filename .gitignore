@@ -15,6 +15,9 @@ x86/
 [Oo]bj/
 *.pdb
 
+# NuGet packages
+PowerEditor/visual.net/packages/
+
 #-- Visual C++ cache files
 .vs/
 ipch/

@@ -850,8 +850,8 @@
 				
                     <DarkMode title="Tmavý režim">
                         <Item id="7101" name="Povoliť tmavý režim"/>
-                        <Item id="7102" name="Čierny odtieň"/
-                        <Item id="7103" name="Červený odtieň"/
+                        <Item id="7102" name="Čierny odtieň"/>
+                        <Item id="7103" name="Červený odtieň"/>
                         <Item id="7104" name="Zelený odtieň"/>
                         <Item id="7105" name="Modrý odtieň"/>
                         <Item id="7107" name="Fialový odtieň"/>

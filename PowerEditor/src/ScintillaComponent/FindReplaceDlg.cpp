@@ -3579,7 +3579,9 @@ LRESULT FAR PASCAL FindReplaceDlg::comboEditProc(HWND hwndEdit, UINT message, WP
 	{
 		// find the associated combobox for the edit control that triggered this
 
-		static HWND hwndCombo = 0;
+		static HWND hwndCombo;
+
+		hwndCombo = 0;
 
 		EnumChildWindows(pFindReplaceDlg->_hSelf, [](HWND hwnd, LPARAM lParam) {
 			HWND hwndEdit = reinterpret_cast<HWND>(lParam);

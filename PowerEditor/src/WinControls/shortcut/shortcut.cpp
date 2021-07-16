@@ -588,7 +588,7 @@ void Accelerator::updateShortcuts()
 		ACCEL* tmpFindAccelArray = new ACCEL[nbFindReplaceAcc];
 		for (size_t i = 0; i < nbFindReplaceAcc; ++i)
 			tmpFindAccelArray[i] = findReplaceAcc[i];
-		_hFindAccTab = ::CreateAcceleratorTable(tmpFindAccelArray, nbFindReplaceAcc);
+		_hFindAccTab = ::CreateAcceleratorTable(tmpFindAccelArray, static_cast<int>(nbFindReplaceAcc));
 		delete[] tmpFindAccelArray;
 	}
 

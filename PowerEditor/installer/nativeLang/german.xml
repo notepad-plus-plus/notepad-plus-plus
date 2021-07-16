@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2021-07-15 by schnurlos (schnurlos@gmail.com)
+	last modified: 2021-07-16 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -877,7 +877,7 @@
 					<Item id="7121" name="Text"/>
 					<Item id="7122" name="Dunklerer Text"/>
 					<Item id="7123" name="Deaktivierter Text"/>
-					<Item id="7124" name="Registerkarte Rand"/>
+					<Item id="7124" name="Rand"/>
 					<Item id="7130" name="Zurücksetzen"/>
 				</DarkMode>
 

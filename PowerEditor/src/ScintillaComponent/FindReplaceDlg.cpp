@@ -1210,6 +1210,10 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					goToCenter();
 					return TRUE;
 
+				case IDM_SEARCH_REPLACE:
+					enableReplaceFunc(true);
+					return TRUE;
+
 				case IDREPLACE :
 				{
 					std::lock_guard<std::mutex> lock(findOps_mutex);

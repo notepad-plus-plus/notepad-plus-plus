@@ -3,7 +3,7 @@
 <!-- Updated: Jul 2021 -->
 <!-- For Notepad++ 8.1.2 -->
 <NotepadPlus>
-    <Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="7.9.5">
+    <Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.1.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -867,7 +867,7 @@
                     <Item id="7121" name="Texto"/> 
                     <Item id="7122" name="Texto mais escuro"/> 
                     <Item id="7123" name="Texto desabilitado"/> 
-                    <Item id="7124" name="Borda da aba"/> 
+                    <Item id="7124" name="Borda"/> 
                     <Item id="7130" name="Redefinir"/> 
                 </DarkMode>
 

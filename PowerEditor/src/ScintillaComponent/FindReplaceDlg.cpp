@@ -1207,7 +1207,19 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				return TRUE;
 
 				case IDM_SEARCH_FIND:
-					goToCenter();
+					enableReplaceFunc(false); // enable relace false so only find
+					return TRUE;
+
+				case IDM_SEARCH_REPLACE:
+					enableReplaceFunc(true);
+					return TRUE;
+
+				case IDM_SEARCH_FINDINFILES:
+					enableFindInFilesFunc();
+					return TRUE;
+
+				case IDM_SEARCH_MARK:
+					enableMarkFunc();
 					return TRUE;
 
 				case IDREPLACE :

@@ -250,7 +250,7 @@ bool FunctionListPanel::serialize(const generic_string & outputFilename)
 	{
 		const TCHAR *fullFilePath = currentBuf->getFullPathName();
 
-		// Export function list from an existing file 
+		// Export function list from an existing file
 		bool exportFuncntionList = (NppParameters::getInstance()).doFunctionListExport();
 		if (exportFuncntionList && ::PathFileExists(fullFilePath))
 		{
@@ -363,7 +363,7 @@ void FunctionListPanel::reload()
 	}
 
 	HTREEITEM root = _treeView.getRoot();
-	
+
 	if (root)
 	{
 		currentBuf = (*_ppEditView)->getCurrentBuffer();
@@ -465,7 +465,7 @@ void FunctionListPanel::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **pp
 {
 	DockingDlgInterface::init(hInst, hPere);
 	_ppEditView = ppEditView;
-	
+
 	generic_string funcListXmlPath = (NppParameters::getInstance()).getUserPath();
 	PathAppend(funcListXmlPath, TEXT("functionList"));
 
@@ -477,7 +477,7 @@ void FunctionListPanel::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **pp
 	if (!doLocalConf)
 	{
 		if (!PathFileExists(funcListXmlPath.c_str()))
-		{	
+		{
 			if (PathFileExists(funcListDefaultXmlPath.c_str()))
 			{
 				::CopyFile(funcListDefaultXmlPath.c_str(), funcListXmlPath.c_str(), TRUE);
@@ -769,24 +769,31 @@ INT_PTR CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPA
 				}
 			}
 
+			auto hdc = reinterpret_cast<HDC>(wParam);
+
+			if (NppDarkMode::isEnabled())
+			{
+				if (textFound)
+				{
+					return NppDarkMode::onCtlColorSofter(hdc);
+				}
+				else // text not found
+				{
+					return NppDarkMode::onCtlColorError(hdc);
+				}
+			}
+
 			if (textFound)
 			{
-				if (NppDarkMode::isEnabled())
-				{
-					SetTextColor((HDC)wParam, NppDarkMode::getTextColor());
-					SetBkColor((HDC)wParam, NppDarkMode::getBackgroundColor());
-					return (LRESULT)NppDarkMode::getBackgroundBrush();
-				}
-				else
-					return FALSE;
+				return FALSE;
 			}
 
 			// text not found
 			// if the text not found modify the background color of the editor
 			static HBRUSH hBrushBackground = CreateSolidBrush(BCKGRD_COLOR);
-			SetTextColor((HDC)wParam, TXT_COLOR);
-			SetBkColor((HDC)wParam, BCKGRD_COLOR);
-			return (LRESULT)hBrushBackground;
+			SetTextColor(hdc, TXT_COLOR);
+			SetBkColor(hdc, BCKGRD_COLOR);
+			return reinterpret_cast<LRESULT>(hBrushBackground);
 		}
 
 		case WM_INITDIALOG :
@@ -798,7 +805,7 @@ INT_PTR CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPA
 			// Create toolbar menu
 			int style = WS_CHILD | WS_VISIBLE | CCS_ADJUSTABLE | TBSTYLE_AUTOSIZE | TBSTYLE_FLAT | TBSTYLE_LIST | TBSTYLE_TRANSPARENT | BTNS_AUTOSIZE | BTNS_SEP | TBSTYLE_TOOLTIPS;
 			_hToolbarMenu = CreateWindowEx(0,TOOLBARCLASSNAME,NULL, style,
-								   0,0,0,0,_hSelf,nullptr, _hInst, NULL);
+								0,0,0,0,_hSelf,nullptr, _hInst, NULL);
 
 			NppDarkMode::setDarkTooltips(_hToolbarMenu, NppDarkMode::ToolTipsType::toolbar);
 			NppDarkMode::setDarkLineAbovePanelToolbar(_hToolbarMenu);
@@ -845,9 +852,9 @@ INT_PTR CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPA
 			_reloadTipStr = pNativeSpeaker->getAttrNameStr(_reloadTipStr.c_str(), FL_FUCTIONLISTROOTNODE, FL_RELOADLOCALNODENAME);
 
 			_hSearchEdit = CreateWindowEx(0, L"Edit", NULL,
-                                   WS_CHILD | WS_BORDER | WS_VISIBLE | ES_AUTOVSCROLL,
-                                   2, 2, editWidth, editHeight,
-                                   _hToolbarMenu, reinterpret_cast<HMENU>(IDC_SEARCHFIELD_FUNCLIST), _hInst, 0 );
+								WS_CHILD | WS_BORDER | WS_VISIBLE | ES_AUTOVSCROLL,
+								2, 2, editWidth, editHeight,
+								_hToolbarMenu, reinterpret_cast<HMENU>(IDC_SEARCHFIELD_FUNCLIST), _hInst, 0 );
 
 			oldFunclstSearchEditProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSearchEdit, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(funclstSearchEditProc)));
 

@@ -42,7 +42,7 @@ build_script:
     - if "%Platform%"=="mingw-w64_810_X64" mingw32-make %scintilla_debug% -j%NUMBER_OF_PROCESSORS%
     - cd "%APPVEYOR_BUILD_FOLDER%"\PowerEditor\visual.net\
     # Restore packages only once
-    - if not exist "packages/" msbuild /m notepadPlus.sln /p:configuration="%configuration%" /p:platform="%platform_input%" -t:restore -p:RestorePackagesConfig=true
+    - if %platform_input% NEQ "mingw" if not exist "packages/" msbuild /m notepadPlus.sln /p:configuration="%configuration%" /p:platform="%platform_input%" -t:restore -p:RestorePackagesConfig=true
     # Build
     - if "%archi%" NEQ "" msbuild /m notepadPlus.sln /p:configuration="%configuration%" /p:platform="%platform_input%" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
     - if "%Platform%"=="mingw-w64_810_X64" cd c:\projects\notepad-plus-plus\PowerEditor\gcc\ & mingw32-make %scintilla_debug% -j%NUMBER_OF_PROCESSORS%

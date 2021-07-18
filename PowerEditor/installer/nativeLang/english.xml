@@ -1269,6 +1269,8 @@ You can re-activate this dialog in Preferences dialog later." /> <!-- HowToRepro
             <ColumnType name="Type"/>
             <ColumnSize name="Size"/>
             <NbDocsTotal name="total documents:"/>
+            <MenuCopyName name="Copy Name(s)"/>
+            <MenuCopyPath name="Copy Pathname(s)"/>
         </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name="ASCII Codes Insertion Panel"/>

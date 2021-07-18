@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="8.1">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="8.1.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -871,7 +871,7 @@
                     <Item id="7121" name="文字"/>
                     <Item id="7122" name="濃い文字"/>
                     <Item id="7123" name="無効部分の文字"/>
-                    <Item id="7124" name="タブのフチ"/>
+                    <Item id="7124" name="フチ"/>
                     <Item id="7130" name="リセット"/>
                 </DarkMode>
 

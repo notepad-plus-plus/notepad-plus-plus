@@ -39,6 +39,8 @@ using namespace std;
 #define WD_CLMNTYPE					"ColumnType"
 #define WD_CLMNSIZE					"ColumnSize"
 #define WD_NBDOCSTOTAL				"NbDocsTotal"
+#define WD_MENUCOPYNAME				"MenuCopyName"
+#define WD_MENUCOPYPATH				"MenuCopyPath"
 
 static const TCHAR *readonlyString = TEXT(" [Read Only]");
 const UINT WDN_NOTIFY = RegisterWindowMessage(TEXT("WDN_NOTIFY"));
@@ -313,6 +315,22 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 					doColumnSort();
 					break;
 				}
+
+				default:
+					if (HIWORD(wParam) == 0)
+					{
+						// Menu
+						switch (LOWORD(wParam))
+						{
+						case IDM_WINDOW_COPY_NAME:
+							putItemsToClipboard(false);
+							break;
+						case IDM_WINDOW_COPY_PATH:
+							putItemsToClipboard(true);
+							break;
+						}
+					}
+					break;
 			}
 			break;
 		}
@@ -335,14 +353,9 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 					if (pLvdi->item.mask & LVIF_TEXT)
 					{
 						pLvdi->item.pszText[0] = 0;
-						size_t index = pLvdi->item.iItem;
-						if (index >= _pTab->nbItem() || index >= _idxMap.size())
+						Buffer* buf = getBuffer(pLvdi->item.iItem);
+						if (!buf)
 							return FALSE;
-						index = _idxMap[index];
-
-						//const Buffer& buffer = _pView->getBufferAt(index);
-						BufferID bufID = _pTab->getBufferByIndex(index);
-						Buffer * buf = MainFileManager.getBufferByID(bufID);
 						generic_string text;
 						if (pLvdi->item.iSubItem == 0) // file name
 						{
@@ -426,20 +439,49 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 				else if (pNMHDR->code == LVN_KEYDOWN)
 				{
 					NMLVKEYDOWN *lvkd = (NMLVKEYDOWN *)pNMHDR;
-					// Ctrl+A
 					short ctrl = GetKeyState(VK_CONTROL);
 					short alt = GetKeyState(VK_MENU);
 					short shift = GetKeyState(VK_SHIFT);
-					if (lvkd->wVKey == 0x41/*a*/ && ctrl<0 && alt>=0 && shift>=0)
+					if (lvkd->wVKey == 'A' && ctrl<0 && alt>=0 && shift>=0)
 					{
+						// Ctrl + A
 						for (int i=0, n=ListView_GetItemCount(_hList); i<n; ++i)
 							ListView_SetItemState(_hList, i, LVIS_SELECTED, LVIS_SELECTED);
+					}
+					else if (lvkd->wVKey == 'C' && ctrl & 0x80)
+					{
+						// Ctrl + C
+						if (ListView_GetSelectedCount(_hList) != 0)
+							putItemsToClipboard(true);
 					}
 					return TRUE;
 				}
 			}
 			break;
 		}
+
+		case WM_CONTEXTMENU:
+			{
+				if (!_listMenu.isCreated())
+				{
+					NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+					const std::vector<MenuItemUnit> itemUnitArray
+					{
+						{IDM_WINDOW_COPY_NAME, pNativeSpeaker->getAttrNameStr(TEXT("Copy Name(s)"), WD_ROOTNODE, WD_MENUCOPYNAME)},
+						{IDM_WINDOW_COPY_PATH, pNativeSpeaker->getAttrNameStr(TEXT("Copy Pathname(s)"), WD_ROOTNODE, WD_MENUCOPYPATH)}
+					};
+					_listMenu.create(_hSelf, itemUnitArray);
+				}
+
+				const bool enableMenu = ListView_GetSelectedCount(_hList) != 0;
+				_listMenu.enableItem(IDM_WINDOW_COPY_NAME, enableMenu);
+				_listMenu.enableItem(IDM_WINDOW_COPY_PATH, enableMenu);
+
+				POINT p = {};
+				::GetCursorPos(&p);
+				_listMenu.display(p);
+			}
+			return TRUE;
 	}
 	return MyBaseClass::run_dlgProc(message, wParam, lParam);
 }
@@ -893,6 +935,57 @@ void WindowsDlg::doSortToTabs()
 		doRefresh(true);
 	}
 	delete[] nmdlg.Items;
+}
+
+void WindowsDlg::putItemsToClipboard(bool isFullPath)
+{
+	constexpr int nameColumn = 0;
+	constexpr int pathColumn = 1;
+
+	TCHAR str[MAX_PATH] = {};
+
+	generic_string selection;
+	for (int i = -1, j = 0; ; ++j)
+	{
+		i = ListView_GetNextItem(_hList, i, LVNI_SELECTED);
+		if (i < 0)
+			break;
+		if (isFullPath)
+		{
+			// Get the directory path (2nd column).
+			ListView_GetItemText(_hList, i, pathColumn, str, sizeof(str));
+			if (str[0])
+				selection += str;
+		}
+
+		// Get the file name.
+		// Do not use ListView_GetItemText() because 1st column may contain "*" or "[Read Only]".
+		Buffer* buf = getBuffer(i);
+		if (buf)
+		{
+			const TCHAR* fileName = buf->getFileName();
+			if (fileName)
+				selection += fileName;
+		}
+
+		if (!selection.empty() && selection.back() != '\n')
+			selection += '\n';
+	}
+	if (!selection.empty())
+		str2Clipboard(selection, _hList);
+}
+
+Buffer* WindowsDlg::getBuffer(int index) const
+{
+	if (index < 0 || index >= _idxMap.size())
+		return nullptr;
+
+	index = _idxMap[index];
+	if (index < 0 || !_pTab || index >= _pTab->nbItem())
+		return nullptr;
+
+	BufferID bufID = _pTab->getBufferByIndex(index);
+	return MainFileManager.getBufferByID(bufID);
 }
 
 WindowsMenu::WindowsMenu()

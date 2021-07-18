@@ -315,6 +315,13 @@ bool FunctionListPanel::serialize(const generic_string & outputFilename)
 
 void FunctionListPanel::reload()
 {
+	bool isScrollBarOn = GetWindowLongPtr(_treeView.getHSelf(), GWL_STYLE) & WS_VSCROLL;
+	//get scroll position
+	if (isScrollBarOn)
+	{
+		GetScrollInfo(_treeView.getHSelf(), SB_VERT, &si);
+	}
+
 	// clean up
 	_findLine = -1;
 	_findEndLine = -1;
@@ -396,6 +403,12 @@ void FunctionListPanel::reload()
 
 	// invalidate the editor rect
 	::InvalidateRect(_hSearchEdit, NULL, TRUE);
+
+	//set scroll position
+	if (isScrollBarOn)
+	{
+		SetScrollInfo(_treeView.getHSelf(), SB_VERT, &si, TRUE);
+	}
 }
 
 void FunctionListPanel::markEntry()
@@ -498,6 +511,11 @@ void FunctionListPanel::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **pp
 			_funcParserMgr.init(funcListDefaultXmlPath, funcListDefaultXmlPath, ppEditView);
 		}
 	}
+
+	//init scrollinfo structure
+	ZeroMemory(&si, sizeof(si));
+	si.cbSize = sizeof(si);
+	si.fMask = SIF_POS;
 }
 
 bool FunctionListPanel::openSelection(const TreeView & treeView)

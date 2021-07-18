@@ -888,7 +888,7 @@ Updated to v8.1.2:
 				</Scintillas>
 
 				<DarkMode title="Тёмный Режим">
-					<Item id="7101" name="Включить 'Тёмный Режим'"/>
+					<Item id="7101" name="Включить Тёмный Режим"/>
 					<Item id="7102" name="Чёрная тема"/>
 					<Item id="7103" name="Красная тема"/>
 					<Item id="7104" name="Зелёная тема"/>
@@ -900,13 +900,13 @@ Updated to v8.1.2:
 					<Item id="7115" name="Настраиваемая тема"/>
 					<Item id="7116" name="Панель"/>
 					<Item id="7117" name="Текущий выбор"/>
-					<Item id="7118" name="Активная"/>
+					<Item id="7118" name="Вкладки"/>
 					<Item id="7119" name="Основа"/>
 					<Item id="7120" name="Ошибка"/>
 					<Item id="7121" name="Текст"/>
-					<Item id="7122" name="Темный текст"/>
-					<Item id="7123" name="Отключенный текст"/>
-					<Item id="7124" name="Край вкладки"/>  <!-- ??? -->
+					<Item id="7122" name="Текст 2"/>
+					<Item id="7123" name="Неактивное"/>
+					<Item id="7124" name="Разделитель"/>
 					<Item id="7130" name="Сбросить"/>
 				</DarkMode>
 

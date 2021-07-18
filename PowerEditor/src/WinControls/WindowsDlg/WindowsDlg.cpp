@@ -343,26 +343,17 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 						//const Buffer& buffer = _pView->getBufferAt(index);
 						BufferID bufID = _pTab->getBufferByIndex(index);
 						Buffer * buf = MainFileManager.getBufferByID(bufID);
+						generic_string text;
 						if (pLvdi->item.iSubItem == 0) // file name
 						{
-							int len = pLvdi->item.cchTextMax;
-							const TCHAR *fileName = buf->getFileName();
-							generic_strncpy(pLvdi->item.pszText, fileName, len-1);
-							pLvdi->item.pszText[len-1] = 0;
-							len = lstrlen(pLvdi->item.pszText);
+							text = buf->getFileName();
 							if (buf->isDirty())
 							{
-								if (len < pLvdi->item.cchTextMax)
-								{
-									pLvdi->item.pszText[len++] = '*';
-									pLvdi->item.pszText[len] = 0;
-								}
+								text += '*';
 							}
 							else if (buf->isReadOnly())
 							{
-								len += lstrlen(readonlyString);
-								if (len <= pLvdi->item.cchTextMax)
-									wcscat_s(pLvdi->item.pszText, pLvdi->item.cchTextMax, readonlyString);
+								text += readonlyString;
 							}
 						}
 						else if (pLvdi->item.iSubItem == 1) // directory
@@ -374,30 +365,27 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 								len = 1;
 								fullName = TEXT("");
 							}
-							if (pLvdi->item.cchTextMax < len)
-								len = pLvdi->item.cchTextMax;
-							generic_strncpy(pLvdi->item.pszText, fullName, len-1);
-							pLvdi->item.pszText[len-1] = 0;
+							text.assign(fullName, len);
 						}
 						else if (pLvdi->item.iSubItem == 2) // Type
 						{
-							int len = pLvdi->item.cchTextMax;
 							NppParameters& nppParameters = NppParameters::getInstance();
 							Lang *lang = nppParameters.getLangFromID(buf->getLangType());
 							if (NULL != lang)
 							{
-								generic_strncpy(pLvdi->item.pszText, lang->getLangName(), len-1);
+								text = lang->getLangName();
 							}
 						}
 						else if (pLvdi->item.iSubItem == 3) // size
 						{
 							int docSize = buf->docLength();
 							string docSizeText = to_string(docSize);
-							wstring wstr = wstring(docSizeText.begin(), docSizeText.end());
-							const wchar_t * wstrp = wstr.c_str();
-							int docSizeTextLen = lstrlen(wstrp);
-							generic_strncpy(pLvdi->item.pszText, wstrp, docSizeTextLen);
-							pLvdi->item.pszText[docSizeTextLen] = 0;
+							text = wstring(docSizeText.begin(), docSizeText.end());
+						}
+						if (text.length() < pLvdi->item.cchTextMax)
+						{
+							// Copy the resulting text to destination with a null terminator.
+							_tcscpy_s(pLvdi->item.pszText, text.length() + 1, text.c_str());
 						}
 					}
 					return TRUE;

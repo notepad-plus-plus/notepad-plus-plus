@@ -395,7 +395,7 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 							string docSizeText = to_string(docSize);
 							text = wstring(docSizeText.begin(), docSizeText.end());
 						}
-						if (text.length() < pLvdi->item.cchTextMax)
+						if (static_cast<int>(text.length()) < pLvdi->item.cchTextMax)
 						{
 							// Copy the resulting text to destination with a null terminator.
 							_tcscpy_s(pLvdi->item.pszText, text.length() + 1, text.c_str());
@@ -977,11 +977,11 @@ void WindowsDlg::putItemsToClipboard(bool isFullPath)
 
 Buffer* WindowsDlg::getBuffer(int index) const
 {
-	if (index < 0 || index >= _idxMap.size())
+	if (index < 0 || index >= static_cast<int>(_idxMap.size()))
 		return nullptr;
 
 	index = _idxMap[index];
-	if (index < 0 || !_pTab || index >= _pTab->nbItem())
+	if (index < 0 || !_pTab || index >= static_cast<int>(_pTab->nbItem()))
 		return nullptr;
 
 	BufferID bufID = _pTab->getBufferByIndex(index);

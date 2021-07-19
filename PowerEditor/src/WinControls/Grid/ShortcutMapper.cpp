@@ -141,18 +141,15 @@ generic_string ShortcutMapper::getTextFromCombo(HWND hCombo)
 
 bool ShortcutMapper::isFilterValid(Shortcut sc)
 {
-	bool match = false;
-	generic_string shortcut_name = stringToLower(generic_string(sc.getName()));
 	if (_shortcutFilter.empty())
-	{
 		return true;
-	}
-	// test the filter on the shortcut name
-	size_t match_pos = shortcut_name.find(_shortcutFilter);
-	if (match_pos != std::string::npos){
-		match = true;
-	}
-	return match;
+
+	generic_string shortcut_name = stringToLower(generic_string(sc.getName()));
+	generic_string shortcut_value = stringToLower(sc.toString());
+
+	// test the filter on the shortcut name and value
+	return (shortcut_name.find(_shortcutFilter) != std::string::npos) || 
+		(shortcut_value.find(_shortcutFilter) != std::string::npos);
 }
 
 bool ShortcutMapper::isFilterValid(PluginCmdShortcut sc)

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.1.2  14/Jul/2021  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.1.2  19/Jul/2021  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
@@ -917,16 +917,16 @@
 					<Item id = "7108" name = "Modrozelený odstín"/>
 					<Item id = "7109" name = "Olivový odstín"/>
 					<Item id = "7115" name = "Vlastní odstín"/>
-					<Item id = "7116" name = "Horní panel s menu"/>
-					<Item id = "7117" name = "Akuální (hot-track) položka menu"/>
+					<Item id = "7116" name = "Horní panel"/>
+					<Item id = "7117" name = "Aktuální (hot-track) pol."/>
 					<Item id = "7118" name = "Aktivní položky"/>
 					<Item id = "7119" name = "Hlavní položky"/>
-					<Item id = "7120" name = "Chyba"/>
+					<Item id = "7120" name = "Chyby"/>
 					<Item id = "7121" name = "Text"/>
 					<Item id = "7122" name = "Tmavší text"/>
 					<Item id = "7123" name = "Dezaktivovaný text"/>
-					<Item id = "7124" name = "Okraj karty (Tab)"/>
-					<Item id = "7130" name = "Obnovit nastavení"/>
+					<Item id = "7124" name = "Okraje"/>
+					<Item id = "7130" name = "Obnovit"/>
 				</DarkMode>
 				<MarginsBorderEdge title="Okraje/Lem/Hrana">
 					<Item id = "6201" name = "Styl sbalovače na okraji"/>

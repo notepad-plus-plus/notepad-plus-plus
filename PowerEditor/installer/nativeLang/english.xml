@@ -260,6 +260,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44031" name="Uncollapse Current Level"/>
                     <Item id="44049" name="Summary..."/>
                     <Item id="44080" name="Document Map"/>
+                    <Item id="44081" name="Document List Panel"/>
                     <Item id="44084" name="Function List"/>
                     <Item id="44085" name="Folder as Workspace"/>
                     <Item id="44086" name="1st Tab"/>
@@ -608,6 +609,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44083" name="Toggle Project Panel 3"/>
                     <Item id="44085" name="Toggle Folder as Workspace"/>
                     <Item id="44080" name="Toggle Document Map"/>
+                    <Item id="44081" name="Toggle Document List Panel"/>
                     <Item id="44084" name="Toggle Function List"/>
                     <Item id="50005" name="Toggle macro recording"/>
                     <Item id="44104" name="Switch to Project Panel 1"/>

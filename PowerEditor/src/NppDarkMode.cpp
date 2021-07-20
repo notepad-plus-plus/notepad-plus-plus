@@ -1,4 +1,4 @@
-﻿#include "nppDarkMode.h"
+﻿#include "NppDarkMode.h"
 
 #include "DarkMode/DarkMode.h"
 #include "DarkMode/UAHMenuBar.h"
@@ -58,21 +58,26 @@ namespace NppDarkMode
 
 	struct Pens
 	{
+		HPEN darkerTextPen = nullptr;
 		HPEN edgePen = nullptr;
 
 		Pens(const Colors& colors)
-			: edgePen(::CreatePen(PS_SOLID, 1, colors.edge))
+			: darkerTextPen(::CreatePen(PS_SOLID, 1, colors.darkerText))
+			, edgePen(::CreatePen(PS_SOLID, 1, colors.edge))
 		{}
 
 		~Pens()
 		{
-			::DeleteObject(edgePen);	edgePen = nullptr;
+			::DeleteObject(darkerTextPen);	darkerTextPen = nullptr;
+			::DeleteObject(edgePen);		edgePen = nullptr;
 		}
 
 		void change(const Colors& colors)
 		{
+			::DeleteObject(darkerTextPen);
 			::DeleteObject(edgePen);
 
+			darkerTextPen = ::CreatePen(PS_SOLID, 1, colors.darkerText);
 			edgePen = ::CreatePen(PS_SOLID, 1, colors.edge);
 		}
 
@@ -369,6 +374,7 @@ namespace NppDarkMode
 	HBRUSH getDarkerBackgroundBrush()     { return getTheme()._brushes.pureBackground; }
 	HBRUSH getErrorBackgroundBrush()      { return getTheme()._brushes.errorBackground; }
 
+	HPEN getDarkerTextPen()               { return getTheme()._pens.darkerTextPen; }
 	HPEN getEdgePen()                     { return getTheme()._pens.edgePen; }
 
 	void setBackgroundColor(COLORREF c)

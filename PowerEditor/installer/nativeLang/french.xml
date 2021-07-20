@@ -310,10 +310,10 @@
                     <Item id="45013" name="Convertir en UCS-2 LE BOM"/>
                     <Item id="45060" name="Big5 (traditionnel)"/>
                     <Item id="45061" name="GB2312 (simplifié)"/>
-                    <Item id="45054" name="OEM 861: islandais"/>
-                    <Item id="45057" name="OEM 865: danois &amp;&amp; norvégien"/>
-                    <Item id="45053" name="OEM 860: portugais"/>
-                    <Item id="45056" name="OEM 863: français"/>
+                    <Item id="45054" name="OEM 861 : islandais"/>
+                    <Item id="45057" name="OEM 865 : danois &amp;&amp; norvégien"/>
+                    <Item id="45053" name="OEM 860 : portugais"/>
+                    <Item id="45056" name="OEM 863 : français"/>
                     <Item id="46001" name="Configurateur de coloration syntaxique..."/>
                     <Item id="46250" name="Définir votre langage..."/>
                     <Item id="46300" name="Ouvrir le dossier des Langages utilisateur..."/>
@@ -923,6 +923,7 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                     <Item id="6351" name="Marquer tout"/>
                     <Item id="6352" name="Sensible à la casse"/>
                     <Item id="6353" name="Mot entier uniquement"/>
+                    <Item id="6354" name="Correspondance"/>
                     <Item id="6333" name="Sélectionner et montrer tout"/>
                     <Item id="6326" name="Activer le coloriage automatique"/>
                     <Item id="6332" name="Sensible à la casse"/>
@@ -969,6 +970,7 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                     <Item id="6902" name="Activer la police à espacement fixe dans la boîte de dialogue Rechercher (nécessité de redémarrage)"/>
                     <Item id="6903" name="La boîte de dialogue Rechercher reste ouverte après la recherche qui affiche la fenêtre de résultats"/>
                     <Item id="6904" name="Confirmer &quot;Remplacer dans tous les documents ouverts&quot;"/>
+                    <Item id="6905" name="Remplacer : ne pas passer à l'occurrence suivante "/>
                 </Searching>
 
                 <RecentFilesHistory title="Fichiers récents">
@@ -1069,18 +1071,19 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                     <Item id="6308" name="Réduire dans la barre de notifications"/>
                     <Item id="6312" name="Surveillance de l’état des fichiers"/>
                     <Item id="6313" name="Mise à jour sans alerte"/>
-                    <Item id="6322" name="Ext. fichier session :"/>
+                    <Item id="6322" name="Ext. fichier session"/>
                     <Item id="6323" name="Activer la mise à jour automatique"/>
                     <Item id="6324" name="Commutateur de documents (Ctrl+Tab)"/>
                     <Item id="6325" name="Aller à la dernière ligne après mise à jour"/>
                     <Item id="6331" name="Afficher seulement le nom du fichier dans la barre de titre"/>
                     <Item id="6334" name="Détecter l'encodage automatiquement"/>
                     <Item id="6349" name="Utiliser &quot;DirectWrite&quot; (il pourrait améliorer le rendu des caractères spéciaux. Nécessité de redémarrage)"/>
-                    <Item id="6337" name="Ext. fichier espace de travail :"/>
+                    <Item id="6337" name="Ext. fichier espace de travail"/>
                     <Item id="6344" name="Aperçu du document"/>
                     <Item id="6345" name="Aperçu à onglet"/>
                     <Item id="6346" name="Aperçu à commutateur de documents"/>
                     <Item id="6360" name="Chut !"/>
+                    <Item id="6361" name="Activer la boîte de dialogue de confirmation Enregistrer tout "/>
                 </MISC>
             </Preference>
             <MultiMacro title="Exécuter une macro en boucle">

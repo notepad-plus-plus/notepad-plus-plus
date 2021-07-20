@@ -20,7 +20,7 @@
 #include "Buffer.h"
 #include "localization.h"
 
-#define FS_ROOTNODE					"DocSwitcher"
+#define FS_ROOTNODE					"DocList"
 #define FS_CLMNNAME					"ColumnName"
 #define FS_CLMNEXT					"ColumnExt"
 

@@ -1361,7 +1361,7 @@ Rechercher dans tous les fichiers sauf exe, obj &amp;&amp; log:
             <find-status-replace-not-found value="Remplacer : aucune occurrence n'a été trouvée"/>
             <find-status-replace-readonly value="Remplacer : l'opération a échoué. Le fichier est en lecture seule"/>
             <find-status-cannot-find value="Rechercher : &quot;$STR_REPLACE$&quot; n'a pas été trouvé"/>
-            <find-status-scope-selection value="dans le texte selectionné"/>
+            <find-status-scope-selection value="dans le texte sélectionné"/>
             <find-status-scope-all value="dans le fichier"/>
             <find-status-scope-backward value="du début du fichier au curseur"/>
             <find-status-scope-forward value="du curseur à la fin du fichier"/>
@@ -1371,7 +1371,7 @@ Rechercher dans tous les fichiers sauf exe, obj &amp;&amp; log:
             <finder-close-this value="Fermer le dialogue des résultats"/>
             <finder-collapse-all value="Replier tout"/>
             <finder-uncollapse-all value="Déplier tout"/>
-            <finder-copy value="Copier la(les) ligne(s) selectionnée(s)"/>
+            <finder-copy value="Copier la(les) ligne(s) sélectionnée(s)"/>
             <finder-copy-verbatim value="Copier"/>
             <finder-select-all value="Sélectionner tout"/>
             <finder-clear-all value="Effacer tout"/>

@@ -23,7 +23,7 @@
                     <Item subMenuId="file-openFolder" name="Ouvrir le répertoire du fichier en cours"/>
                     <Item subMenuId="file-closeMore" name="Fermer +"/>
                     <Item subMenuId="file-recentFiles" name="Fichiers récents"/>
-                    <Item subMenuId="edit-copyToClipboard"  name="Copier dans le presse-papiers"/>
+                    <Item subMenuId="edit-copyToClipboard"  name="Copier dans le presse-papier"/>
                     <Item subMenuId="edit-indent" name="Indentation"/>
                     <Item subMenuId="edit-convertCaseTo" name="MAJUSCULE/minuscule"/>
                     <Item subMenuId="edit-lineOperations" name="Ligne"/>
@@ -34,7 +34,7 @@
                     <Item subMenuId="edit-pasteSpecial" name="Collage spécial"/>
                     <Item subMenuId="edit-onSelection" name="Pour la sélection"/>
                     <Item subMenuId="search-markAll" name="Marquer tout"/>
-                    <Item subMenuId="search-markOne" name="Marquer uniquement la séléction"/>
+                    <Item subMenuId="search-markOne" name="Marquer uniquement la sélection"/>
                     <Item subMenuId="search-unmarkAll" name="Enlever toutes les marques"/>
                     <Item subMenuId="search-jumpUp" name="Aller vers le haut"/>
                     <Item subMenuId="search-jumpDown" name="Aller vers le bas"/>
@@ -179,9 +179,9 @@
                     <Item id="42053" name="Transformer les espaces de début de ligne en tabulations"/>
                     <Item id="42038" name="Coller du contenu HTML"/>
                     <Item id="42039" name="Coller du contenu RTF"/>
-                    <Item id="42048" name="Copier du contenu Binaire"/>
-                    <Item id="42049" name="Couper du contenu Binaire"/>
-                    <Item id="42050" name="Coller du contenu Binaire"/>
+                    <Item id="42048" name="Copier du contenu binaire"/>
+                    <Item id="42049" name="Couper du contenu binaire"/>
+                    <Item id="42050" name="Coller du contenu binaire"/>
                     <Item id="42082" name="Copier le lien"/>
                     <Item id="42051" name="Panneau des caractères ASCII"/>
                     <Item id="42052" name="Panneau historique du presse-papiers"/>
@@ -259,8 +259,8 @@
                     <Item id="44019" name="Afficher tous les caractères"/>
                     <Item id="44020" name="Afficher le guide d'indentation"/>
                     <Item id="44022" name="Retour automatique à la ligne"/>
-                    <Item id="44023" name="Zoom &amp;avant   (Ctrl+Molette vers le haut)"/>
-                    <Item id="44024" name="Zoom a&amp;rrière  (Ctrl+Molette vers le bas)"/>
+                    <Item id="44023" name="Zoom &amp;avant  (Ctrl+Molette vers le haut)"/>
+                    <Item id="44024" name="Zoom a&amp;rrière (Ctrl+Molette vers le bas)"/>
                     <Item id="44025" name="Afficher les blancs et les tabulations"/>
                     <Item id="44026" name="Afficher les symboles de fin de ligne"/>
                     <Item id="44029" name="Déplier tous les blocs"/>
@@ -275,9 +275,9 @@
                     <Item id="44041" name="Afficher les marques de coupures de ligne"/>
                     <Item id="44042" name="Cacher les lignes"/>
                     <Item id="44072" name="Basculer vers l'autre vue"/>
-                    <Item id="44081" name="Panneau de Projet #1"/>
-                    <Item id="44082" name="Panneau de Projet #2"/>
-                    <Item id="44083" name="Panneau de Projet #3"/>
+                    <Item id="44081" name="Panneau de projet #1"/>
+                    <Item id="44082" name="Panneau de projet #2"/>
+                    <Item id="44083" name="Panneau de projet #3"/>
                     <Item id="44080" name="Plan du document"/>
                     <Item id="44084" name="Liste des fonctions"/>
                     <Item id="44085" name="Dossier en tant qu'espace de travail"/>
@@ -1344,7 +1344,7 @@ Rechercher dans tous les fichiers sauf exe, obj &amp;&amp; log:
             <find-status-replaceinopenedfiles-1-replaced value="Remplacer dans les fichiers ouverts : 1 occurrence a été remplacée"/>
             <find-status-replaceinopenedfiles-nb-replaced value="Remplacer dans les fichiers ouverts : $INT_REPLACE$ occurrences ont été remplacées"/>
             <find-status-mark-re-malformed value="Marquer : l'expression régulière est malformée"/>
-            <find-status-invalid-re value="Rechercher : Expression régulière invalide"/>
+            <find-status-invalid-re value="Rechercher : expression régulière invalide"/>
             <find-status-mark-1-match value="1 résultat"/>
             <find-status-mark-nb-matches value="$INT_REPLACE$ résultats"/>
             <find-status-count-re-malformed value="Compter : l'expression régulière est malformée"/>
@@ -1393,8 +1393,8 @@ Rechercher dans tous les fichiers sauf exe, obj &amp;&amp; log:
             <edit-verticaledge-nb-col value="Colonnes : "/>
             <summary value="Statistiques"/>
             <summary-filepath value="Chemin d'accès : "/>
-            <summary-filecreatetime value="Date de Création : "/>
-            <summary-filemodifytime value="Date de Modification : "/>
+            <summary-filecreatetime value="Date de création : "/>
+            <summary-filemodifytime value="Date de modification : "/>
             <summary-nbchar value="Caractères (sans fin de ligne) : "/>
             <summary-nbword value="Mots : "/>
             <summary-nbline value="Lignes : "/>

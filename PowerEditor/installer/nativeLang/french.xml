@@ -553,16 +553,16 @@
                     <Item id="43031" name="Dégager les marques du style 5"/>
                     <Item id="43032" name="Dégager tous les marques"/>
                     <Item id="43033" name="Marque précédente du 1er style"/>
-                    <Item id="43034" name="Marque précédente du 2ème style"/>
-                    <Item id="43035" name="Marque précédente du 3ème style"/>
-                    <Item id="43036" name="Marque précédente du 4ème style"/>
-                    <Item id="43037" name="Marque précédente du 5ème style"/>
+                    <Item id="43034" name="Marque précédente du 2e style"/>
+                    <Item id="43035" name="Marque précédente du 3e style"/>
+                    <Item id="43036" name="Marque précédente du 4e style"/>
+                    <Item id="43037" name="Marque précédente du 5e style"/>
                     <Item id="43038" name="Marque précédente du &quot;Marquer&quot;"/>
                     <Item id="43039" name="Marque suivantte du 1er style"/>
-                    <Item id="43040" name="Marque suivantte du 2ème style"/>
-                    <Item id="43041" name="Marque suivantte du 3ème style"/>
-                    <Item id="43042" name="Marque suivantte du 4ème style"/>
-                    <Item id="43043" name="Marque suivantte du 5ème style"/>
+                    <Item id="43040" name="Marque suivantte du 2e style"/>
+                    <Item id="43041" name="Marque suivantte du 3e style"/>
+                    <Item id="43042" name="Marque suivantte du 4e style"/>
+                    <Item id="43043" name="Marque suivantte du 5e style"/>
                     <Item id="43044" name="Marque suivantte du &quot;Marquer&quot;"/>
                     <Item id="43055" name="Copier le texte marqué du style 1"/>
                     <Item id="43056" name="Copier le texte marqué du style 2"/>
@@ -965,8 +965,8 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                 </Print>
 
                 <Searching title="Recherche">
-                    <Item id="6901" name="Ne pas remplir le champs de Recherche avec le mot séléctionné"/>
-                    <Item id="6902" name="Activer la police à espacement fixe dans la boîte de dialogue Rechercher (Nécessité de redémarrage)"/>
+                    <Item id="6901" name="Ne pas remplir le champs de recherche avec le mot sélectionné"/>
+                    <Item id="6902" name="Activer la police à espacement fixe dans la boîte de dialogue Rechercher (nécessité de redémarrage)"/>
                     <Item id="6903" name="La boîte de dialogue Rechercher reste ouverte après la recherche qui affiche la fenêtre de résultats"/>
                     <Item id="6904" name="Confirmer &quot;Remplacer dans tous les documents ouverts&quot;"/>
                 </Searching>
@@ -1004,7 +1004,7 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                     <Item id="6810" name="Complétion de mot"/>
                     <Item id="6816" name="Complétion de fonction et de mot"/>
                     <Item id="6811" name="À partir du"/>
-                    <Item id="6813" name="ème caractère"/>
+                    <Item id="6813" name="e caractère"/>
                     <Item id="6814" name="Valeur possible : de 1 à 9"/>
                     <Item id="6815" name="Paramètres affichés durant la saisie"/>
                     <Item id="6824" name="Ignorer les nombres"/>
@@ -1033,7 +1033,7 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                     <Item id="6161" name="Liste des caractères de mot"/>
                     <Item id="6162" name="Utiliser la liste d'origine des caractères de mot"/>
                     <Item id="6163" name="Ajouter ces caractères comme caractères de mot
-(Ne pas utiliser cette option si vous ne savez pas ce qu'elle fait)"/>
+(ne pas utiliser cette option si vous ne savez pas ce qu'elle fait)"/>
                 </Delimiter>
 
                 <Cloud title="Cloud &amp; Lien">
@@ -1044,11 +1044,11 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                     <Item id="6319" name="Activer"/>
                     <Item id="6320" name="Ne pas souligner"/>
                     <Item id="6350" name="Activer la mode d'arrière-plan"/>
-                    <Item id="6264" name="Schémas personnalisés d'URI:"/>
+                    <Item id="6264" name="Schémas personnalisés d'URI :"/>
                 </Cloud>
 
                 <SearchEngine title="Moteur de recherche">
-                    <Item id="6271" name="Moteur de recherche (Pour la commande &quot;Rechercher sur Internet&quot;)"/>
+                    <Item id="6271" name="Moteur de recherche (pour la commande &quot;Rechercher sur Internet&quot;)"/>
                     <Item id="6272" name="DuckDuckGo"/>
                     <Item id="6273" name="Google"/>
                     <Item id="6274" name="Bing"/>
@@ -1190,7 +1190,7 @@ Voulez-vous quand même enregistrer le fichier actuel ?"/>
             <LoadLangsFailed title="Configuration" message="Échec de chargement du fichier &quot;langs.xml&quot;.
 Voulez-vous récupérer &quot;langs.xml&quot; ?"/>
             <LoadLangsFailedFinal title="Configuration" message="Échec de chargement du fichier &quot;langs.xml&quot; !"/>
-            <FolderAsWorspaceSubfolderExists title="Dossier en tant qu'Espace de travail" message="Il existe un sous-dossier du dossier que vous souhaitez ajouter.
+            <FolderAsWorspaceSubfolderExists title="Dossier en tant qu'espace de travail" message="Il existe un sous-dossier du dossier que vous souhaitez ajouter.
 Veuillez supprimer le sous-dossier avant d'ajouter &quot;$STR_REPLACE$&quot;."/>
 
             <ProjectPanelChanged title="$STR_REPLACE$" message="L'espace de travail a été modifié. Voulez-vous l'enregistrer ?"/>
@@ -1222,7 +1222,7 @@ Voulez-vous les poursuivez ?"/>
             <NeedToRestartToLoadPlugins title="Vous devez redémarrer Notepad++" message="Vous devez redémarrer Notepad++ pour charger les modules d'extension installés."/>
         </MessageBox>
         <ClipboardHistory>
-            <PanelTitle name="Historique du presse-papiers"/>
+            <PanelTitle name="Historique du presse-papier"/>
         </ClipboardHistory>
         <DocSwitcher>
             <PanelTitle name="Commutateur de documents"/>
@@ -1245,22 +1245,22 @@ Voulez-vous les poursuivez ?"/>
             <ColumnHtmlName name="Code HTML"/>
         </AsciiInsertion>
         <DocumentMap>
-            <PanelTitle name="Plan du Document"/>
+            <PanelTitle name="Plan du document"/>
         </DocumentMap>
         <FunctionList>
-            <PanelTitle name="Liste des Fonctions"/>
+            <PanelTitle name="Liste des fonctions"/>
             <SortTip name="Trier"/>
             <ReloadTip name="Recharger"/>
         </FunctionList>
         <FolderAsWorkspace>
-            <PanelTitle name="Dossier en tant qu'Espace de travail"/>
-            <SelectFolderFromBrowserString name="Sélectionner un dossier pour ajouter dans Dossier en tant qu'Espace de travail"/>
+            <PanelTitle name="Dossier en tant qu'espace de travail"/>
+            <SelectFolderFromBrowserString name="Sélectionner un dossier pour ajouter dans Dossier en tant qu'espace de travail"/>
             <ExpandAllFoldersTip name="Déplier tous les dossiers"/>
             <CollapseAllFoldersTip name="Replier tous les dossiers"/>
             <LocateCurrentFileTip name="Localiser le fichier courant"/>
             <Menus>
                 <Item id="3511" name="Effacer"/>
-                <Item id="3512" name="Effacer Tout"/>
+                <Item id="3512" name="Effacer tout"/>
                 <Item id="3513" name="Ajouter"/>
                 <Item id="3514" name="Exécuter par le système"/>
                 <Item id="3515" name="Ouvrir"/>
@@ -1302,7 +1302,7 @@ Voulez-vous les poursuivez ?"/>
                 </ProjectMenu>
                 <FolderMenu>
                     <Item id="3111" name="Renommer"/>
-                    <Item id="3112" name="Nouveau Dossier"/>
+                    <Item id="3112" name="Nouveau dossier"/>
                     <Item id="3113" name="Ajouter un (des) fichier(s)..."/>
                     <Item id="3114" name="Effacer"/>
                     <Item id="3117" name="Ajouter les fichiers à partir d'un dossier..."/>
@@ -1336,8 +1336,8 @@ Voulez-vous les poursuivez ?"/>
 Rechercher dans tous les fichiers sauf exe, obj &amp;&amp; log:
 *.* !*.exe !*.obj !*.log"/>
             <cloud-select-folder value="Sélectionner un répertoire où Notepad++ lit ou écrit ses paramètres"/>
-            <find-status-top-reached value="Rechercher : La 1ère occurrence a été trouvée depuis le bas. Le début du document a été atteint"/>
-            <find-status-end-reached value="Rechercher : La 1ère occurrence a été trouvée depuis le haut. La fin du document a été atteinte"/>
+            <find-status-top-reached value="Rechercher : La 1re occurrence a été trouvée depuis le bas. Le début du document a été atteint"/>
+            <find-status-end-reached value="Rechercher : La 1re occurrence a été trouvée depuis le haut. La fin du document a été atteinte"/>
             <find-status-replaceinfiles-1-replaced value="Remplacer dans les fichiers : 1 occurrence a été remplacée"/>
             <find-status-replaceinfiles-nb-replaced value="Remplacer dans les fichiers : $INT_REPLACE$ occurrences ont été remplacées"/>
             <find-status-replaceinfiles-re-malformed value="Remplacer dans les fichiers ouverts : l'expression régulière est malformée"/>
@@ -1354,8 +1354,8 @@ Rechercher dans tous les fichiers sauf exe, obj &amp;&amp; log:
             <find-status-replaceall-1-replaced value="Remplacer tout : 1 occurrence a été remplacée"/>
             <find-status-replaceall-nb-replaced value="Remplacer tout : $INT_REPLACE$ occurrences ont été remplacées"/>
             <find-status-replaceall-readonly value="Remplacer tout : l'opération a échoué. Le fichier est en lecture seule"/>
-            <find-status-replace-end-reached value="Remplacer : La 1ère occurrence a été remplacée depuis le haut. La fin du document a été atteinte"/>
-            <find-status-replace-top-reached value="Remplacer : La 1ère occurrence a été remplacée depuis le bas. Le début du document a été atteint"/>
+            <find-status-replace-end-reached value="Remplacer : La 1re occurrence a été remplacée depuis le haut. La fin du document a été atteinte"/>
+            <find-status-replace-top-reached value="Remplacer : La 1re occurrence a été remplacée depuis le bas. Le début du document a été atteint"/>
             <find-status-replaced-next-found value="Remplacer : 1 occurrence a été remplacée. L'occurrence suivante a été trouvée"/>
             <find-status-replaced-next-not-found value="Remplacer : 1 occurrence a été remplacée. L'occurrence suivante n'a pas été trouvée"/>
             <find-status-replace-not-found value="Remplacer : aucune occurrence n'a été trouvée"/>

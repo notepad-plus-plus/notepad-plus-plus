@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="français" filename="french.xml" version="7.9.4">
+    <Native-Langue name="français" filename="french.xml" version="8.1.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -836,7 +836,24 @@
 
                 <DarkMode title="Mode Sombre">
                     <Item id="7101" name="Activer mode sombre"/>
-                    <Item id="7106" name="* Il faut redémarrer Notepad++ pour avoir l'effet complet."/>
+                    <Item id="7102" name="Ton noir"/>
+                    <Item id="7103" name="Ton rouge"/>
+                    <Item id="7104" name="Ton vert"/>
+                    <Item id="7105" name="Ton bleu"/>
+                    <Item id="7107" name="Ton violet"/>
+                    <Item id="7108" name="Ton cyan"/>
+                    <Item id="7109" name="Ton olive"/>
+                    <Item id="7115" name="Personnaliser"/>
+                    <Item id="7116" name="Haut"/>
+                    <Item id="7117" name="Surbrillance (menu)"/>
+                    <Item id="7118" name="Activé"/>
+                    <Item id="7119" name="Principale"/>
+                    <Item id="7120" name="Erreur"/>
+                    <Item id="7121" name="Texte"/>
+                    <Item id="7122" name="Texte plus sombre"/>
+                    <Item id="7123" name="Texte désactivé"/>
+                    <Item id="7124" name="Bord"/>
+                    <Item id="7130" name="Réinitialiser"/>
                 </DarkMode>
 
                 <MarginsBorderEdge title="Marges et Bordure">

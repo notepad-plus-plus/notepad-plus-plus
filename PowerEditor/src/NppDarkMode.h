@@ -13,12 +13,25 @@ constexpr COLORREF HEXRGB(DWORD rrggbb) {
 
 namespace NppDarkMode
 {
+	struct Colors
+	{
+		COLORREF background = 0;
+		COLORREF softerBackground = 0;
+		COLORREF hotBackground = 0;
+		COLORREF pureBackground = 0;
+		COLORREF errorBackground = 0;
+		COLORREF text = 0;
+		COLORREF darkerText = 0;
+		COLORREF disabledText = 0;
+		COLORREF edge = 0;
+	};
+
 	struct Options
 	{
 		bool enable = false;
 		bool enableMenubar = false;
 	};
-	
+
 	enum class ToolTipsType
 	{
 		tooltip,
@@ -35,7 +48,8 @@ namespace NppDarkMode
 		blueTone   = 3,
 		purpleTone = 4,
 		cyanTone   = 5,
-		oliveTone  = 6
+		oliveTone  = 6,
+		customizedTone = 32
 	};
 
 	void initDarkMode();				// pulls options from NppParameters
@@ -60,13 +74,28 @@ namespace NppDarkMode
 	COLORREF getDarkerTextColor();
 	COLORREF getDisabledTextColor();
 	COLORREF getEdgeColor();
-	COLORREF getHighlightHotTrackColor();
 
 	HBRUSH getBackgroundBrush();
 	HBRUSH getDarkerBackgroundBrush();
 	HBRUSH getSofterBackgroundBrush();
 	HBRUSH getHotBackgroundBrush();
 	HBRUSH getErrorBackgroundBrush();
+
+	HPEN getDarkerTextPen();
+	HPEN getEdgePen();
+
+	void setBackgroundColor(COLORREF c);
+	void setSofterBackgroundColor(COLORREF c);
+	void setHotBackgroundColor(COLORREF c);
+	void setDarkerBackgroundColor(COLORREF c);
+	void setErrorBackgroundColor(COLORREF c);
+	void setTextColor(COLORREF c);
+	void setDarkerTextColor(COLORREF c);
+	void setDisabledTextColor(COLORREF c);
+	void setEdgeColor(COLORREF c);
+
+	Colors getDarkModeDefaultColors();
+	void changeCustomTheme(const Colors& colors);
 
 	// handle events
 	void handleSettingChange(HWND hwnd, LPARAM lParam);
@@ -90,6 +119,7 @@ namespace NppDarkMode
 	void subclassGroupboxControl(HWND hwnd);
 	void subclassToolbarControl(HWND hwnd);
 	void subclassTabControl(HWND hwnd);
+	void subclassComboBoxControl(HWND hwnd);
 
 	void autoSubclassAndThemeChildControls(HWND hwndParent, bool subclass = true, bool theme = true);
 	void autoThemeChildControls(HWND hwndParent);
@@ -103,4 +133,8 @@ namespace NppDarkMode
 
 	void disableVisualStyle(HWND hwnd, bool doDisable);
 	void setTreeViewStyle(HWND hwnd);
+
+	LRESULT onCtlColor(HDC hdc);
+	LRESULT onCtlColorSofter(HDC hdc);
+	LRESULT onCtlColorError(HDC hdc);
 }

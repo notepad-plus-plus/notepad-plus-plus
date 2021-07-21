@@ -496,10 +496,9 @@ void Accelerator::updateShortcuts()
 	size_t nbPluginCmd = pluginCommands.size();
 
 	delete [] _pAccelArray;
-	_pAccelArray = new ACCEL[nbMenu+nbMacro+nbUserCmd+nbPluginCmd];
+	_pAccelArray = new ACCEL[nbMenu + nbMacro+nbUserCmd + nbPluginCmd];
 	vector<ACCEL> incrFindAcc;
-
-	ACCEL *pSearchFindAccel = nullptr;
+	vector<ACCEL> findReplaceAcc;
 	int offset = 0;
 	size_t i = 0;
 	//no validation performed, it might be that invalid shortcuts are being used by default. Allows user to 'hack', might be a good thing
@@ -515,8 +514,9 @@ void Accelerator::updateShortcuts()
 			if (std::find(incrFindAccIds.begin(), incrFindAccIds.end(), shortcuts[i].getID()) != incrFindAccIds.end())
 				incrFindAcc.push_back(_pAccelArray[offset]);
 
-			if (shortcuts[i].getID() == IDM_SEARCH_FIND)
-				pSearchFindAccel = &_pAccelArray[offset];
+			if (shortcuts[i].getID() == IDM_SEARCH_FIND || shortcuts[i].getID() == IDM_SEARCH_REPLACE ||
+				shortcuts[i].getID() == IDM_SEARCH_FINDINFILES || shortcuts[i].getID() == IDM_SEARCH_MARK)
+				findReplaceAcc.push_back(_pAccelArray[offset]);
 
 			++offset;
 		}
@@ -582,11 +582,13 @@ void Accelerator::updateShortcuts()
 
 	if (_hFindAccTab)
 		::DestroyAcceleratorTable(_hFindAccTab);
-	if (pSearchFindAccel != nullptr)
+	size_t nbFindReplaceAcc = findReplaceAcc.size();
+	if (nbFindReplaceAcc)
 	{
-		ACCEL *tmpFindAccelArray = new ACCEL[1];
-		tmpFindAccelArray[0] = *pSearchFindAccel;
-		_hFindAccTab = ::CreateAcceleratorTable(tmpFindAccelArray, 1);
+		ACCEL* tmpFindAccelArray = new ACCEL[nbFindReplaceAcc];
+		for (size_t i = 0; i < nbFindReplaceAcc; ++i)
+			tmpFindAccelArray[i] = findReplaceAcc[i];
+		_hFindAccTab = ::CreateAcceleratorTable(tmpFindAccelArray, static_cast<int>(nbFindReplaceAcc));
 		delete[] tmpFindAccelArray;
 	}
 

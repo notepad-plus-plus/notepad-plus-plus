@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="English" filename="english.xml" version="7.9.5">
+    <Native-Langue name="English" filename="english.xml" version="8.1.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -851,7 +851,24 @@ The comments are here for explanation, it's not necessary to translate them.
 
                 <DarkMode title="Dark Mode">
                     <Item id="7101" name="Enable dark mode"/>
-                    <Item id="7106" name="* Notepad++ must be restarted to take effect completely"/>
+                    <Item id="7102" name="Black tone"/>
+                    <Item id="7103" name="Red tone"/>
+                    <Item id="7104" name="Green tone"/>
+                    <Item id="7105" name="Blue tone"/>
+                    <Item id="7107" name="Purple tone"/>
+                    <Item id="7108" name="Cyan tone"/>
+                    <Item id="7109" name="Olive tone"/>
+                    <Item id="7115" name="Customized tone"/>
+                    <Item id="7116" name="Top"/>
+                    <Item id="7117" name="Menu hot track"/>
+                    <Item id="7118" name="Active"/>
+                    <Item id="7119" name="Main"/>
+                    <Item id="7120" name="Error"/>
+                    <Item id="7121" name="Text"/>
+                    <Item id="7122" name="Darker text"/>
+                    <Item id="7123" name="Disabled text"/>
+                    <Item id="7124" name="Edge"/>
+                    <Item id="7130" name="Reset"/>
                 </DarkMode>
 
                 <MarginsBorderEdge title="Margins/Border/Edge">
@@ -1252,6 +1269,8 @@ You can re-activate this dialog in Preferences dialog later." /> <!-- HowToRepro
             <ColumnType name="Type"/>
             <ColumnSize name="Size"/>
             <NbDocsTotal name="total documents:"/>
+            <MenuCopyName name="Copy Name(s)"/>
+            <MenuCopyPath name="Copy Pathname(s)"/>
         </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name="ASCII Codes Insertion Panel"/>

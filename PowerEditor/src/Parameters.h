@@ -781,6 +781,7 @@ struct DarkModeConf final
 {
 	bool _isEnabled = false;
 	NppDarkMode::ColorTone _colorTone = NppDarkMode::blackTone;
+	NppDarkMode::Colors _customColors = NppDarkMode::getDarkModeDefaultColors();
 };
 
 struct NppGUI final

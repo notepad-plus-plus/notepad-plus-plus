@@ -14,7 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-
 #include <stdexcept>
 #include <windows.h>
 #include <commctrl.h>
@@ -29,13 +28,10 @@
 //#define IDC_STATUSBAR 789
 
 
-
 enum
 {
 	defaultPartWidth = 5,
 };
-
-
 
 
 StatusBar::~StatusBar()
@@ -48,6 +44,7 @@ void StatusBar::init(HINSTANCE, HWND)
 {
 	assert(false and "should never be called");
 }
+
 
 struct StatusBarSubclassInfo
 {
@@ -77,7 +74,9 @@ struct StatusBarSubclassInfo
 	}
 };
 
+
 constexpr UINT_PTR g_statusBarSubclassID = 42;
+
 
 LRESULT CALLBACK StatusBarSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData)
 {
@@ -121,6 +120,8 @@ LRESULT CALLBACK StatusBarSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM l
 			PAINTSTRUCT ps;
 			HDC hdc = BeginPaint(hWnd, &ps);
 
+			auto holdPen = static_cast<HPEN>(::SelectObject(hdc, NppDarkMode::getEdgePen()));
+
 			HFONT holdFont = (HFONT)::SelectObject(hdc, NppParameters::getInstance().getDefaultUIFont());
 
 			RECT rcClient;
@@ -138,6 +139,15 @@ LRESULT CALLBACK StatusBarSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM l
 				if (!IntersectRect(&rcIntersect, &rcPart, &ps.rcPaint))
 				{
 					continue;
+				}
+
+				if (nParts > 2) //to not apply on status bar in find dialog
+				{
+					POINT edges[] = {
+						{rcPart.right - 2, rcPart.top + 1},
+						{rcPart.right - 2, rcPart.bottom - 3}
+					};
+					Polyline(hdc, edges, _countof(edges));
 				}
 
 				RECT rcDivider = { rcPart.right - borders.vertical, rcPart.top, rcPart.right, rcPart.bottom };
@@ -198,6 +208,7 @@ LRESULT CALLBACK StatusBarSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM l
 			}
 
 			::SelectObject(hdc, holdFont);
+			::SelectObject(hdc, holdPen);
 
 			EndPaint(hWnd, &ps);
 			return FALSE;
@@ -214,10 +225,11 @@ LRESULT CALLBACK StatusBarSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM l
 	return DefSubclassProc(hWnd, uMsg, wParam, lParam);
 }
 
+
 void StatusBar::init(HINSTANCE hInst, HWND hPere, int nbParts)
 {
 	Window::init(hInst, hPere);
-    InitCommonControls();
+	InitCommonControls();
 
 	// _hSelf = CreateStatusWindow(WS_CHILD | WS_CLIPSIBLINGS, NULL, _hParent, IDC_STATUSBAR);
 	_hSelf = ::CreateWindowEx(
@@ -240,7 +252,7 @@ void StatusBar::init(HINSTANCE hInst, HWND hPere, int nbParts)
 	if (nbParts > 0)
 		_partWidthArray.resize(nbParts, defaultPartWidth);
 
-    // Allocate an array for holding the right edge coordinates.
+	// Allocate an array for holding the right edge coordinates.
 	if (_partWidthArray.size())
 		_lpParts = new int[_partWidthArray.size()];
 
@@ -285,17 +297,17 @@ int StatusBar::getHeight() const
 
 void StatusBar::adjustParts(int clientWidth)
 {
-    // Calculate the right edge coordinate for each part, and
-    // copy the coordinates to the array.
-    int nWidth = std::max<int>(clientWidth - 20, 0);
+	// Calculate the right edge coordinate for each part, and
+	// copy the coordinates to the array.
+	int nWidth = std::max<int>(clientWidth - 20, 0);
 
 	for (int i = static_cast<int>(_partWidthArray.size()) - 1; i >= 0; i--)
-    {
+	{
 		_lpParts[i] = nWidth;
 		nWidth -= _partWidthArray[i];
 	}
 
-    // Tell the status bar to create the window parts.
+	// Tell the status bar to create the window parts.
 	::SendMessage(_hSelf, SB_SETPARTS, _partWidthArray.size(), reinterpret_cast<LPARAM>(_lpParts));
 }
 

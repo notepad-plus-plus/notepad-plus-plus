@@ -284,16 +284,8 @@ LRESULT Notepad_plus::init(HWND hwnd)
 		_subEditView.execute(SCI_SETFONTQUALITY, SC_EFF_QUALITY_LCD_OPTIMIZED);
 	}
 
-	if (NppDarkMode::isEnabled())
-	{
-		_mainEditView.setBorderEdge(false);
-		_subEditView.setBorderEdge(false);
-	}
-	else
-	{
-		_mainEditView.setBorderEdge(svp._showBorderEdge);
-		_subEditView.setBorderEdge(svp._showBorderEdge);
-	}
+	_mainEditView.setBorderEdge(svp._showBorderEdge);
+	_subEditView.setBorderEdge(svp._showBorderEdge);
 
 	_mainEditView.execute(SCI_SETCARETLINEVISIBLEALWAYS, true);
 	_subEditView.execute(SCI_SETCARETLINEVISIBLEALWAYS, true);

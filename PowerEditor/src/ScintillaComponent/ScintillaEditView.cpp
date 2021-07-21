@@ -3705,13 +3705,29 @@ generic_string ScintillaEditView::getEOLString()
 
 void ScintillaEditView::setBorderEdge(bool doWithBorderEdge)
 {
+	long style = static_cast<long>(::GetWindowLongPtr(_hSelf, GWL_STYLE));
 	long exStyle = static_cast<long>(::GetWindowLongPtr(_hSelf, GWL_EXSTYLE));
 
-	if (doWithBorderEdge)
-		exStyle |= WS_EX_CLIENTEDGE;
-	else
+	if (NppDarkMode::isEnabled())
+	{
 		exStyle &= ~WS_EX_CLIENTEDGE;
 
+		if (doWithBorderEdge)
+			style |= WS_BORDER;
+		else
+			style &= ~WS_BORDER;
+	}
+	else
+	{
+		style &= ~WS_BORDER;
+
+		if (doWithBorderEdge)
+			exStyle |= WS_EX_CLIENTEDGE;
+		else
+			exStyle &= ~WS_EX_CLIENTEDGE;
+	}
+
+	::SetWindowLongPtr(_hSelf, GWL_STYLE, style);
 	::SetWindowLongPtr(_hSelf, GWL_EXSTYLE, exStyle);
 	::SetWindowPos(_hSelf, NULL, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
 }

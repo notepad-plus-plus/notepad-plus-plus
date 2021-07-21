@@ -377,8 +377,9 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	//--Splitter Section--//
 	bool isVertical = (nppGUI._splitterPos == POS_VERTICAL);
 
+	int splitterSizeDyn = nppParam._dpiManager.scaleX(splitterSize);
 	_subSplitter.init(_pPublicInterface->getHinst(), hwnd);
-	_subSplitter.create(&_mainDocTab, &_subDocTab, 8, SplitterMode::DYNAMIC, 50, isVertical);
+	_subSplitter.create(&_mainDocTab, &_subDocTab, splitterSizeDyn, SplitterMode::DYNAMIC, 50, isVertical);
 
 	//--Status Bar Section--//
 	bool willBeShown = nppGUI._statusBarShow;
@@ -4165,8 +4166,8 @@ void Notepad_plus::dockUserDlg()
             pWindow = &_subSplitter;
         else
             pWindow = _pDocTab;
-
-        _pMainSplitter->create(pWindow, ScintillaEditView::getUserDefineDlg(), 8, SplitterMode::RIGHT_FIX, 45);
+		int splitterSizeDyn = NppParameters::getInstance()._dpiManager.scaleX(splitterSize);
+        _pMainSplitter->create(pWindow, ScintillaEditView::getUserDefineDlg(), splitterSizeDyn, SplitterMode::RIGHT_FIX, 45);
     }
 
     if (bothActive())

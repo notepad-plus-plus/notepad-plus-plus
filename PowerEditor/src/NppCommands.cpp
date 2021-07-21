@@ -1545,8 +1545,8 @@ void Notepad_plus::command(int id)
                             pWindow = &_subSplitter;
                         else
                             pWindow = _pDocTab;
-
-                        _pMainSplitter->create(pWindow, ScintillaEditView::getUserDefineDlg(), 8, SplitterMode::RIGHT_FIX, 45);
+						int splitterSizeDyn = NppParameters::getInstance()._dpiManager.scaleX(splitterSize);
+                        _pMainSplitter->create(pWindow, ScintillaEditView::getUserDefineDlg(), splitterSizeDyn, SplitterMode::RIGHT_FIX, 45);
                     }
 
 					_pMainWindow = _pMainSplitter;

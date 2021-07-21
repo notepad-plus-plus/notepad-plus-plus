@@ -858,13 +858,13 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			break;
 		}
 
+		case WM_CTLCOLORLISTBOX:
 		case WM_CTLCOLORDLG:
 		case WM_CTLCOLORSTATIC:
-		case WM_CTLCOLORLISTBOX:
 		{
 			if (NppDarkMode::isEnabled())
 			{
-				return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 			}
 			break;
 		}
@@ -884,7 +884,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			{
 				RECT rc = { 0 };
 				getClientRect(rc);
-				FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getBackgroundBrush());
+				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
 				return TRUE;
 			}
 			break;

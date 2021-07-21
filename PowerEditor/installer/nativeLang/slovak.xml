@@ -1267,6 +1267,8 @@ Toto dialógové okno môžete neskôr znovu aktivovať v dialógovom okne Prefe
             <ColumnType name="Typ"/>
             <ColumnSize name="Veľkosť"/>
             <NbDocsTotal name="Počet dokumentov:"/>
+            <MenuCopyName name="Kopírovať názov(y)"/>
+            <MenuCopyPath name="Kopírovať cestu(y)"/>
         </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name="Panel ASCII znakov"/>

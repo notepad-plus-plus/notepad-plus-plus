@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2021-07-16 by schnurlos (schnurlos@gmail.com)
+	last modified: 2021-07-22 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -1279,6 +1279,8 @@ Diese Antwort kann in den Einstellungen jederzeit wieder geändert werden." /> <
 			<ColumnType name="Typ"/>
 			<ColumnSize name="Größe"/>
 			<NbDocsTotal name="Gesamtzahl Dokumente:"/>
+			<MenuCopyName name="Kopiere Name(n)"/>
+			<MenuCopyPath name="Kopiere Pfadname(n)"/>
 		</WindowsDlg>
 		<AsciiInsertion>
 			<PanelTitle name="ASCII Zeichentabelle"/>
